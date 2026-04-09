@@ -56,10 +56,8 @@
  * ```
  * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/ns-shlobj_core-shchangedwordasidlist
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class SHChangeDWORDAsIDList extends Win32Struct
-{
+class SHChangeDWORDAsIDList extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4

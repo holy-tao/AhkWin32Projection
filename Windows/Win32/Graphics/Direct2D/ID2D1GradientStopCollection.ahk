@@ -12,9 +12,8 @@
  * A gradient stop collection is a device-dependent resource: your application should create gradient stop collections after it initializes the render target with which the gradient stop collection will be used, and recreate the gradient stop collection whenever the render target needs recreated. (For more information about resources, see <a href="https://docs.microsoft.com/windows/win32/Direct2D/resources-and-resource-domains">Resources Overview</a>.)
  * @see https://learn.microsoft.com/windows/win32/api/d2d1/nn-d2d1-id2d1gradientstopcollection
  * @namespace Windows.Win32.Graphics.Direct2D
- * @version v4.0.30319
  */
-class ID2D1GradientStopCollection extends ID2D1Resource{
+class ID2D1GradientStopCollection extends ID2D1Resource {
 
     static sizeof => A_PtrSize
     /**
@@ -66,7 +65,7 @@ class ID2D1GradientStopCollection extends ID2D1Resource{
 
     /**
      * Indicates the gamma space in which the gradient stops are interpolated.
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/d2d1/ne-d2d1-d2d1_gamma">D2D1_GAMMA</a></b>
+     * @returns {D2D1_GAMMA} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/d2d1/ne-d2d1-d2d1_gamma">D2D1_GAMMA</a></b>
      * 
      * The gamma space in which the gradient stops are interpolated.
      * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1gradientstopcollection-getcolorinterpolationgamma
@@ -78,7 +77,7 @@ class ID2D1GradientStopCollection extends ID2D1Resource{
 
     /**
      * Indicates the behavior of the gradient outside the normalized gradient range.
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/d2d1/ne-d2d1-d2d1_extend_mode">D2D1_EXTEND_MODE</a></b>
+     * @returns {D2D1_EXTEND_MODE} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/d2d1/ne-d2d1-d2d1_extend_mode">D2D1_EXTEND_MODE</a></b>
      * 
      * The behavior of the gradient outside the [0,1] normalized gradient range.
      * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1gradientstopcollection-getextendmode

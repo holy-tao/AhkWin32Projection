@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\System\Ole\IOleInPlaceSite.ahk
 #Include ..\..\System\Ole\IOleObject.ahk
 #Include .\ITravelLog.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
 #Include ..\..\Graphics\Gdi\HPALETTE.ahk
 
@@ -14,9 +14,8 @@
  * In a direct inheritance scheme, these methods would be protected members. For that reason, it is recommended that this interface not be used directly by implementers. If it is used directly, existing data could be at risk.
  * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nn-shdeprecated-ibrowserservice
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IBrowserService extends IUnknown{
+class IBrowserService extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -235,7 +234,9 @@ class IBrowserService extends IUnknown{
 
     /**
      * Deprecated. Sets the current navigation state. This method affects the cursor and animation.
-     * @param {Integer} _bnstate 
+     * @param {BNSTATE} _bnstate Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shdeprecated/ne-shdeprecated-bnstate">BNSTATE</a></b>
+     * 
+     * The value from the <a href="https://docs.microsoft.com/windows/desktop/api/shdeprecated/ne-shdeprecated-bnstate">BNSTATE</a> enumeration that indicates the navigation state.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
@@ -248,7 +249,7 @@ class IBrowserService extends IUnknown{
 
     /**
      * Deprecated. Retrieves the browser's current navigation state.
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shdeprecated/ne-shdeprecated-bnstate">BNSTATE</a>*</b>
+     * @returns {BNSTATE} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shdeprecated/ne-shdeprecated-bnstate">BNSTATE</a>*</b>
      * 
      * A pointer to a value from the <a href="https://docs.microsoft.com/windows/desktop/api/shdeprecated/ne-shdeprecated-bnstate">BNSTATE</a> enumeration indicating the current navigation state.
      * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice-getnavigatestate
@@ -517,7 +518,7 @@ class IBrowserService extends IUnknown{
      * @param {BOOL} fForceRegister Type: <b>BOOL</b>
      * 
      * A value of type <b>BOOL</b> that indicates whether to reregister the browser window if it was previously registered. If set to <b>TRUE</b> and the window was previously registered, this method will unregister and reregister the browser window.
-     * @param {Integer} swc Type: <b>int</b>
+     * @param {ShellWindowTypeConstants} swc Type: <b>int</b>
      * 
      * One of the <a href="https://docs.microsoft.com/windows/desktop/api/exdisp/ne-exdisp-shellwindowtypeconstants">ShellWindowTypeConstants</a> values to indicate the nature of the window. Note that these values are defined in Expdisp.h.
      * @returns {HRESULT} Type: <b>HRESULT</b>

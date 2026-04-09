@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.QoS
- * @version v4.0.30319
  */
-class SIPAEVENT_SI_POLICY_PAYLOAD extends Win32Struct
-{
+class SIPAEVENT_SI_POLICY_PAYLOAD extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -44,9 +42,9 @@ class SIPAEVENT_SI_POLICY_PAYLOAD extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    VarLengthData{
+    VarLengthData {
         get {
             if(!this.HasProp("__VarLengthDataProxyArray"))
                 this.__VarLengthDataProxyArray := Win32FixedArray(this.ptr + 16, 1, Primitive, "char")

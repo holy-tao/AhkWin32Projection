@@ -3,23 +3,19 @@
 
 /**
  * A union of scalar types.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/directml/ns-directml-dml_scalar_union
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
- * @version v4.0.30319
  */
-class DML_SCALAR_UNION extends Win32Struct
-{
+class DML_SCALAR_UNION extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8
 
     /**
      * An 8-byte array.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Bytes{
+    Bytes {
         get {
             if(!this.HasProp("__BytesProxyArray"))
                 this.__BytesProxyArray := Win32FixedArray(this.ptr + 0, 8, Primitive, "char")

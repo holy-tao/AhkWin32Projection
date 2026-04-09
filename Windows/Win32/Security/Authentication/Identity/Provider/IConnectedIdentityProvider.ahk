@@ -7,9 +7,8 @@
  * Provides methods of interaction with a connected identity provider.
  * @see https://learn.microsoft.com/windows/win32/api/identityprovider/nn-identityprovider-iconnectedidentityprovider
  * @namespace Windows.Win32.Security.Authentication.Identity.Provider
- * @version v4.0.30319
  */
-class IConnectedIdentityProvider extends IUnknown{
+class IConnectedIdentityProvider extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -151,8 +150,8 @@ class IConnectedIdentityProvider extends IUnknown{
 
     /**
      * Returns the URL string for the specified wizard or webpage.
-     * @param {Integer} Identifier Identifies the wizard or webpage that should be returned.
-     * @param {IBindCtx} _Context 
+     * @param {IDENTITY_URL} Identifier Identifies the wizard or webpage that should be returned.
+     * @param {IBindCtx} _Context Describes the context in which the URL will be displayed.
      * @param {Pointer<VARIANT>} PostData A <b>VARIANT</b> of type VT_ARRAY and VT_UI1 that will be posted to the provided URL. If the post data is not required, this parameter should be set to VT_EMPTY.
      * @param {Pointer<PWSTR>} Url Returns a URL for the specified identity wizard or webpage. The URL must begin with <b>https://</b>.
      * @returns {HRESULT} If the method succeeds, the method returns S_OK.
@@ -169,7 +168,7 @@ class IConnectedIdentityProvider extends IUnknown{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {ACCOUNT_STATE} 
      */
     GetAccountState() {
         result := ComCall(7, this, "int*", &pState := 0, "HRESULT")

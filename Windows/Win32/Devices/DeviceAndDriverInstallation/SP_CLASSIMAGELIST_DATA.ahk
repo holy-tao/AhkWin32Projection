@@ -6,10 +6,9 @@
  * An SP_CLASSIMAGELIST_DATA structure describes a class image list.
  * @see https://learn.microsoft.com/windows/win32/api/setupapi/ns-setupapi-sp_classimagelist_data
  * @namespace Windows.Win32.Devices.DeviceAndDriverInstallation
- * @version v4.0.30319
+ * @architecture X64, Arm64
  */
-class SP_CLASSIMAGELIST_DATA extends Win32Struct
-{
+class SP_CLASSIMAGELIST_DATA extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -27,7 +26,7 @@ class SP_CLASSIMAGELIST_DATA extends Win32Struct
      * A handle to the class image list.
      * @type {HIMAGELIST}
      */
-    ImageList{
+    ImageList {
         get {
             if(!this.HasProp("__ImageList"))
                 this.__ImageList := HIMAGELIST(8, this)

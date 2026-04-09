@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DDRAWI_DIRECTDRAW_LCL.ahk
 #Include .\DDPIXELFORMAT.ahk
+#Include .\DDMCCOMPBUFFERINFO.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw
- * @version v4.0.30319
  */
-class DDHAL_GETMOCOMPCOMPBUFFDATA extends Win32Struct
-{
+class DDHAL_GETMOCOMPCOMPBUFFDATA extends Win32Struct {
     static sizeof => 88
 
     static packingSize => 8
@@ -47,7 +47,7 @@ class DDHAL_GETMOCOMPCOMPBUFFDATA extends Win32Struct
     /**
      * @type {DDPIXELFORMAT}
      */
-    ddPixelFormat{
+    ddPixelFormat {
         get {
             if(!this.HasProp("__ddPixelFormat"))
                 this.__ddPixelFormat := DDPIXELFORMAT(24, this)

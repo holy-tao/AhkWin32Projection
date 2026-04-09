@@ -2,14 +2,14 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * This interface represents a remotely discovered host.
  * @see https://learn.microsoft.com/windows/win32/api/wsddisco/nn-wsddisco-iwsdiscoveredservice
  * @namespace Windows.Win32.Devices.WebServicesOnDevices
- * @version v4.0.30319
  */
-class IWSDiscoveredService extends IUnknown{
+class IWSDiscoveredService extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

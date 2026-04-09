@@ -1,12 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\KEY_INFORMATION_CLASS.ahk
 
 /**
  * @namespace Windows.Wdk.System.Registry
- * @version v4.0.30319
  */
-class REG_ENUMERATE_KEY_INFORMATION extends Win32Struct
-{
+class REG_ENUMERATE_KEY_INFORMATION extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 8
@@ -28,7 +27,7 @@ class REG_ENUMERATE_KEY_INFORMATION extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {KEY_INFORMATION_CLASS}
      */
     KeyInformationClass {
         get => NumGet(this, 12, "int")

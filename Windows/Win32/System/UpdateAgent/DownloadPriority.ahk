@@ -5,9 +5,8 @@
  * Defines the possible priorities for a download operation.
  * @see https://learn.microsoft.com/windows/win32/api/wuapi/ne-wuapi-downloadpriority
  * @namespace Windows.Win32.System.UpdateAgent
- * @version v4.0.30319
  */
-class DownloadPriority extends Win32Enum{
+class DownloadPriority extends Win32Enum {
 
     /**
      * Updates are downloaded as low priority.
@@ -28,7 +27,6 @@ class DownloadPriority extends Win32Enum{
     static dpHigh => 3
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static dpExtraHigh => 4

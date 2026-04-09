@@ -14,17 +14,15 @@
  * </div>
  * @see https://learn.microsoft.com/windows/win32/api/mfapi/ns-mfapi-mfcameraextrinsic_calibratedtransform
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class MFCameraExtrinsic_CalibratedTransform extends Win32Struct
-{
+class MFCameraExtrinsic_CalibratedTransform extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
 
     /**
      * A reference GUID identifying the calibration process for the data, allowing different consumers to identify calibration data from the same process.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     CalibrationId {
         get => NumGet(this, 0, "ptr")
@@ -35,7 +33,7 @@ class MFCameraExtrinsic_CalibratedTransform extends Win32Struct
      * The transform position.
      * @type {MF_FLOAT3}
      */
-    Position{
+    Position {
         get {
             if(!this.HasProp("__Position"))
                 this.__Position := MF_FLOAT3(8, this)
@@ -47,7 +45,7 @@ class MFCameraExtrinsic_CalibratedTransform extends Win32Struct
      * The transform rotation.
      * @type {MF_QUATERNION}
      */
-    Orientation{
+    Orientation {
         get {
             if(!this.HasProp("__Orientation"))
                 this.__Orientation := MF_QUATERNION(20, this)

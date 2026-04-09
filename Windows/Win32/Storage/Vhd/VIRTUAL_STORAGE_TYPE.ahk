@@ -5,10 +5,8 @@
  * Contains the type and provider (vendor) of the virtual storage device.
  * @see https://learn.microsoft.com/windows/win32/api/virtdisk/ns-virtdisk-virtual_storage_type
  * @namespace Windows.Win32.Storage.Vhd
- * @version v4.0.30319
  */
-class VIRTUAL_STORAGE_TYPE extends Win32Struct
-{
+class VIRTUAL_STORAGE_TYPE extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
@@ -79,7 +77,7 @@ class VIRTUAL_STORAGE_TYPE extends Win32Struct
 
     /**
      * Vendor-unique identifier.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     VendorId {
         get => NumGet(this, 8, "ptr")

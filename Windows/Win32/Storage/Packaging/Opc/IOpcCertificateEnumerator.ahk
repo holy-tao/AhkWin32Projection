@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\IOpcCertificateEnumerator.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
@@ -14,9 +13,8 @@
  * To get an <b>IOpcCertificateEnumerator</b> interface pointer, call the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nf-msopc-iopccertificateset-getenumerator">IOpcCertificateSet::GetEnumerator</a> or <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nf-msopc-iopcdigitalsignature-getcertificateenumerator">IOpcDigitalSignature::GetCertificateEnumerator</a> method.
  * @see https://learn.microsoft.com/windows/win32/api/msopc/nn-msopc-iopccertificateenumerator
  * @namespace Windows.Win32.Storage.Packaging.Opc
- * @version v4.0.30319
  */
-class IOpcCertificateEnumerator extends IUnknown{
+class IOpcCertificateEnumerator extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

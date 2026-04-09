@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.ClrHosting
- * @version v4.0.30319
  */
-class IActionOnCLREvent extends IUnknown{
+class IActionOnCLREvent extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -30,7 +29,7 @@ class IActionOnCLREvent extends IUnknown{
 
     /**
      * 
-     * @param {Integer} event 
+     * @param {EClrEvent} event 
      * @param {Pointer<Void>} data 
      * @returns {HRESULT} 
      */

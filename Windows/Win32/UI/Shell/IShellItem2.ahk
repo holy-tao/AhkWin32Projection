@@ -1,17 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\StructuredStorage\PROPVARIANT.ahk
-#Include ..\..\Foundation\FILETIME.ahk
 #Include .\IShellItem.ahk
+#Include ..\..\System\Com\StructuredStorage\PROPVARIANT.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\FILETIME.ahk
 
 /**
  * Extends IShellItem with methods that retrieve various property values of the item. IShellItem and IShellItem2 are the preferred representations of items in any new code.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-ishellitem2
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IShellItem2 extends IShellItem{
+class IShellItem2 extends IShellItem {
 
     static sizeof => A_PtrSize
     /**
@@ -37,7 +37,7 @@ class IShellItem2 extends IShellItem{
      * @remarks
      * <div class="alert"><b>Note</b>  When this method is called on a property store for a file, that file is held open for the lifetime of the <a href="https://docs.microsoft.com/windows/desktop/api/propsys/nn-propsys-ipropertystore">IPropertyStore</a> object.</div>
      * <div> </div>
-     * @param {Integer} flags Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/propsys/ne-propsys-getpropertystoreflags">GETPROPERTYSTOREFLAGS</a></b>
+     * @param {GETPROPERTYSTOREFLAGS} flags Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/propsys/ne-propsys-getpropertystoreflags">GETPROPERTYSTOREFLAGS</a></b>
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/api/propsys/ne-propsys-getpropertystoreflags">GETPROPERTYSTOREFLAGS</a> constants that modify the property store object.
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
@@ -58,7 +58,7 @@ class IShellItem2 extends IShellItem{
      * @remarks
      * <div class="alert"><b>Note</b>  When this method is called on a property store for a file, that file is held open for the lifetime of the <a href="https://docs.microsoft.com/windows/desktop/api/propsys/nn-propsys-ipropertystore">IPropertyStore</a> object.</div>
      * <div> </div>
-     * @param {Integer} flags Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/propsys/ne-propsys-getpropertystoreflags">GETPROPERTYSTOREFLAGS</a></b>
+     * @param {GETPROPERTYSTOREFLAGS} flags Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/propsys/ne-propsys-getpropertystoreflags">GETPROPERTYSTOREFLAGS</a></b>
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/api/propsys/ne-propsys-getpropertystoreflags">GETPROPERTYSTOREFLAGS</a> constants that modify the property store object.
      * @param {IUnknown} punkCreateObject Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>*</b>
@@ -95,7 +95,7 @@ class IShellItem2 extends IShellItem{
      * @param {Integer} cKeys Type: <b>UINT</b>
      * 
      * The number of <a href="https://docs.microsoft.com/windows/desktop/api/wtypes/ns-wtypes-propertykey">PROPERTYKEY</a> structures in the array pointed to by <i>rgKeys</i>.
-     * @param {Integer} flags Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/propsys/ne-propsys-getpropertystoreflags">GETPROPERTYSTOREFLAGS</a></b>
+     * @param {GETPROPERTYSTOREFLAGS} flags Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/propsys/ne-propsys-getpropertystoreflags">GETPROPERTYSTOREFLAGS</a></b>
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/api/propsys/ne-propsys-getpropertystoreflags">GETPROPERTYSTOREFLAGS</a> constants that modify the property store object.
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>

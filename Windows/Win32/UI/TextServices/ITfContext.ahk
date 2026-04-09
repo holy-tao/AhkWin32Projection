@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\ITfRange.ahk
 #Include .\ITfContextView.ahk
 #Include .\IEnumTfContextViews.ahk
@@ -10,7 +11,6 @@
 #Include .\IEnumTfProperties.ahk
 #Include .\ITfDocumentMgr.ahk
 #Include .\ITfRangeBackup.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * The ITfContext interface is implemented by the TSF manager and used by applications and text services to access an edit context.
@@ -18,9 +18,8 @@
  * An edit context object is created by calling <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nf-msctf-itfdocumentmgr-createcontext">ITfDocumentMgr::CreateContext</a>. Often, a text service uses the currently active edit context. The currently active edit context is the edit context at the top of the stack of the active document manager.
  * @see https://learn.microsoft.com/windows/win32/api/msctf/nn-msctf-itfcontext
  * @namespace Windows.Win32.UI.TextServices
- * @version v4.0.30319
  */
-class ITfContext extends IUnknown{
+class ITfContext extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -66,7 +65,7 @@ class ITfContext extends IUnknown{
      * </ul>
      * @param {Integer} tid Contains a <a href="https://docs.microsoft.com/windows/desktop/TSF/tfclientid">TfClientId</a> value that identifies the client to establish the edit session with.
      * @param {ITfEditSession} pes Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nn-msctf-itfeditsession">ITfEditSession</a> interface called to perform the edit session.
-     * @param {Integer} dwFlags 
+     * @param {TF_CONTEXT_EDIT_CONTEXT_FLAGS} dwFlags 
      * @returns {HRESULT} Address of an <b>HRESULT</b> value that receives the result of the edit session request. The value received depends upon the type of edit session requested.
      * 
      * <ul>

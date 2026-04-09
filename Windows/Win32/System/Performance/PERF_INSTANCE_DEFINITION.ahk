@@ -13,10 +13,8 @@
  * Providers must allocate enough space for the instance name to ensure that <b>ByteLength</b> is aligned to an 8-byte boundary.
  * @see https://learn.microsoft.com/windows/win32/api/winperf/ns-winperf-perf_instance_definition
  * @namespace Windows.Win32.System.Performance
- * @version v4.0.30319
  */
-class PERF_INSTANCE_DEFINITION extends Win32Struct
-{
+class PERF_INSTANCE_DEFINITION extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 4

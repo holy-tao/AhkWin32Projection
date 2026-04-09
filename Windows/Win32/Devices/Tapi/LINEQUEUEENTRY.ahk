@@ -5,10 +5,8 @@
  * The LINEQUEUEENTRY structure provides the information for a single queue entry. The LINEQUEUELIST structure can contain an array of LINEQUEUEENTRY structures. This structure requires TAPI 3.0 version negotiation.
  * @see https://learn.microsoft.com/windows/win32/api/tapi/ns-tapi-linequeueentry
  * @namespace Windows.Win32.Devices.Tapi
- * @version v4.0.30319
  */
-class LINEQUEUEENTRY extends Win32Struct
-{
+class LINEQUEUEENTRY extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4

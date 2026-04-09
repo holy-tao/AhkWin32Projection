@@ -3,14 +3,10 @@
 
 /**
  * Contains values that describe return parameters for the Identify Directive.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/nvme/ns-nvme-nvme_directive_identify_return_parameters_descriptor
  * @namespace Windows.Win32.Storage.Nvme
- * @version v4.0.30319
  */
-class NVME_DIRECTIVE_IDENTIFY_RETURN_PARAMETERS_DESCRIPTOR extends Win32Struct
-{
+class NVME_DIRECTIVE_IDENTIFY_RETURN_PARAMETERS_DESCRIPTOR extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 1
@@ -28,7 +24,6 @@ class NVME_DIRECTIVE_IDENTIFY_RETURN_PARAMETERS_DESCRIPTOR extends Win32Struct
     }
 
     /**
-     * The return parameter is an [NVME_DIRECTIVE_TYPE_IDENTIFY](ne-nvme-nvme_directive_types.md), a directive for an Identify operation.
      * @type {Integer}
      */
     Identify {
@@ -37,7 +32,6 @@ class NVME_DIRECTIVE_IDENTIFY_RETURN_PARAMETERS_DESCRIPTOR extends Win32Struct
     }
 
     /**
-     * The return parameter is an [NVME_DIRECTIVE_TYPE_STREAMS](ne-nvme-nvme_directive_types.md), a directive for a Streams operation.
      * @type {Integer}
      */
     Streams {
@@ -46,7 +40,6 @@ class NVME_DIRECTIVE_IDENTIFY_RETURN_PARAMETERS_DESCRIPTOR extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     Reserved0 {
@@ -55,10 +48,9 @@ class NVME_DIRECTIVE_IDENTIFY_RETURN_PARAMETERS_DESCRIPTOR extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Reserved1{
+    Reserved1 {
         get {
             if(!this.HasProp("__Reserved1ProxyArray"))
                 this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 1, 31, Primitive, "char")

@@ -1,20 +1,22 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\AUDIT_PARAM_TYPE.ahk
+#Include ..\SID.ahk
+#Include .\AUDIT_OBJECT_TYPES.ahk
+#Include .\AUDIT_IP_ADDRESS.ahk
 
 /**
  * Defines the type of audit parameters that are available.
  * @see https://learn.microsoft.com/windows/win32/api/adtgen/ne-adtgen-audit_param_type
  * @namespace Windows.Win32.Security.Authorization
- * @version v4.0.30319
  */
-class AUDIT_PARAM extends Win32Struct
-{
+class AUDIT_PARAM extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
 
     /**
-     * @type {Integer}
+     * @type {AUDIT_PARAM_TYPE}
      */
     Type {
         get => NumGet(this, 0, "int")

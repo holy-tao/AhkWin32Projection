@@ -11,10 +11,8 @@
  *       Therefore, the decoder should not make any assumption about the initial contents of the frame.
  * @see https://learn.microsoft.com/windows/win32/api/amva/ns-amva-amvabeginframeinfo
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class AMVABeginFrameInfo extends Win32Struct
-{
+class AMVABeginFrameInfo extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8

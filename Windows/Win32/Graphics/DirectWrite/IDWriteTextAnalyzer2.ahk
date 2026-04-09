@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\DWRITE_MATRIX.ahk
 #Include .\IDWriteTextAnalyzer1.ahk
+#Include .\DWRITE_MATRIX.ahk
 
 /**
  * Analyzes various text properties for complex script processing.
  * @see https://learn.microsoft.com/windows/win32/DirectWrite/idwritetextanalyzer2
  * @namespace Windows.Win32.Graphics.DirectWrite
- * @version v4.0.30319
  */
-class IDWriteTextAnalyzer2 extends IDWriteTextAnalyzer1{
+class IDWriteTextAnalyzer2 extends IDWriteTextAnalyzer1 {
 
     static sizeof => A_PtrSize
     /**
@@ -33,7 +32,7 @@ class IDWriteTextAnalyzer2 extends IDWriteTextAnalyzer1{
 
     /**
      * Returns 2x3 transform matrix for the respective angle to draw the glyph run. (IDWriteTextAnalyzer2.GetGlyphOrientationTransform)
-     * @param {Integer} glyphOrientationAngle Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite_1/ne-dwrite_1-dwrite_glyph_orientation_angle">DWRITE_GLYPH_ORIENTATION_ANGLE</a></b>
+     * @param {DWRITE_GLYPH_ORIENTATION_ANGLE} glyphOrientationAngle Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite_1/ne-dwrite_1-dwrite_glyph_orientation_angle">DWRITE_GLYPH_ORIENTATION_ANGLE</a></b>
      * 
      * A <a href="https://docs.microsoft.com/windows/win32/api/dwrite_1/ne-dwrite_1-dwrite_glyph_orientation_angle">DWRITE_GLYPH_ORIENTATION_ANGLE</a>-typed value that specifies the angle that was reported into
      *     <a href="https://docs.microsoft.com/windows/win32/api/dwrite_1/nf-dwrite_1-idwritetextanalysissink1-setglyphorientation">IDWriteTextAnalysisSink1::SetGlyphOrientation</a>.
@@ -74,7 +73,7 @@ class IDWriteTextAnalyzer2 extends IDWriteTextAnalyzer1{
      * @param {Pointer<Integer>} actualTagCount Type: <b>UINT32*</b>
      * 
      * The actual number of tags returned.
-     * @param {Pointer<Integer>} tags Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_font_feature_tag">DWRITE_FONT_FEATURE_TAG</a>*</b>
+     * @param {Pointer<DWRITE_FONT_FEATURE_TAG>} tags Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_font_feature_tag">DWRITE_FONT_FEATURE_TAG</a>*</b>
      * 
      * An array of OpenType font feature tags.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -97,7 +96,7 @@ class IDWriteTextAnalyzer2 extends IDWriteTextAnalyzer1{
      * @param {IDWriteFontFace} fontFace The font face to read glyph information from.
      * @param {DWRITE_SCRIPT_ANALYSIS} scriptAnalysis The script analysis for the script or font to check.
      * @param {PWSTR} localeName The locale name to check.
-     * @param {Integer} featureTag The font feature tag to check.
+     * @param {DWRITE_FONT_FEATURE_TAG} featureTag The font feature tag to check.
      * @param {Integer} glyphCount The number of glyphs to check.
      * @param {Pointer<Integer>} glyphIndices An array of glyph indices to check.
      * @returns {Integer} An array of integers that indicate whether or not the font feature applies to each glyph specified.

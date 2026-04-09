@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\Graphics\Direct3D12\ID3D12Resource.ahk
 
 /**
  * Specifies a resource binding described by a range of bytes in a Direct3D 12 buffer, represented by an offset and size into an ID3D12Resource.
  * @see https://learn.microsoft.com/windows/win32/api/directml/ns-directml-dml_buffer_binding
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
- * @version v4.0.30319
  */
-class DML_BUFFER_BINDING extends Win32Struct
-{
+class DML_BUFFER_BINDING extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

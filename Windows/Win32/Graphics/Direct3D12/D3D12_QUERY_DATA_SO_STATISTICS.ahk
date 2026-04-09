@@ -7,10 +7,8 @@
  * Use this structure with [D3D12_QUERY_HEAP_TYPE](/windows/win32/api/d3d12/ne-d3d12-d3d12_query_heap_type) and [CreateQueryHeap](/windows/win32/api/d3d12/nf-d3d12-id3d12device-createqueryheap).
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_query_data_so_statistics
  * @namespace Windows.Win32.Graphics.Direct3D12
- * @version v4.0.30319
  */
-class D3D12_QUERY_DATA_SO_STATISTICS extends Win32Struct
-{
+class D3D12_QUERY_DATA_SO_STATISTICS extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

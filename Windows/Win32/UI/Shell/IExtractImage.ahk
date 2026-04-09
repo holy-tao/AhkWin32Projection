@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Graphics\Gdi\HBITMAP.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Graphics\Gdi\HBITMAP.ahk
 
 /**
  * Exposes methods that request a thumbnail image from a Shell folder.
@@ -16,9 +16,8 @@
  * Use <b>IExtractImage</b> if you are implementing a view of namespace objects, and want to display thumbnail images. You can use a Shell folder's <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-ishellfolder-getuiobjectof">IShellFolder::GetUIObjectOf</a> method to bind to its <b>IExtractImage</b> interface.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-iextractimage
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IExtractImage extends IUnknown{
+class IExtractImage extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

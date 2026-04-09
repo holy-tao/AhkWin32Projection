@@ -19,9 +19,8 @@
  * Clients use status objects to perform configuration and to learn about the state of the session. They access a status object by calling the **OpenStatusEntry** method of a service provider logon object or the [IMAPISession::GetStatusTable](imapisession-getstatustable.md) method to retrieve the status object.
  * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/imapistatusimapiprop
  * @namespace Windows.Win32.System.AddressBook
- * @version v4.0.30319
  */
-class IMAPIStatus extends IMAPIProp{
+class IMAPIStatus extends IMAPIProp {
 
     static sizeof => A_PtrSize
 

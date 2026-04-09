@@ -8,9 +8,8 @@
  * whether the element is entering or leaving the live visual tree.
  * @see https://learn.microsoft.com/windows/win32/api/xamlom/ne-xamlom-visualmutationtype
  * @namespace Windows.Win32.UI.Xaml.Diagnostics
- * @version v4.0.30319
  */
-class VisualMutationType extends Win32Enum{
+class VisualMutationType extends Win32Enum {
 
     /**
      * The child element was added to the visual tree of the parent element.

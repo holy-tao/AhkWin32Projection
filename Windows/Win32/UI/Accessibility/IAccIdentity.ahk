@@ -7,9 +7,8 @@
  * Exposes a method that provides a unique identifier for an accessible element.
  * @see https://learn.microsoft.com/windows/win32/api/oleacc/nn-oleacc-iaccidentity
  * @namespace Windows.Win32.UI.Accessibility
- * @version v4.0.30319
  */
-class IAccIdentity extends IUnknown{
+class IAccIdentity extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

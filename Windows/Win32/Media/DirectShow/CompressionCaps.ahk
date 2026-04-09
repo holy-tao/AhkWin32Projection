@@ -5,9 +5,8 @@
  * Indicates video compression capabilities.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/ne-strmif-compressioncaps
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class CompressionCaps extends Win32Enum{
+class CompressionCaps extends Win32Enum {
 
     /**
      * Video compressor supports the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nf-strmif-iamvideocompression-put_quality">IAMVideoCompression::put_Quality</a> and <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nf-strmif-iamvideocompression-get_quality">IAMVideoCompression::get_Quality</a> methods.

@@ -7,9 +7,8 @@
  * Exposes methods to manage input/output (I/O) to an asynchronous stream.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nn-shobjidl-istreamasync
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IStreamAsync extends IStream{
+class IStreamAsync extends IStream {
 
     static sizeof => A_PtrSize
     /**
@@ -36,7 +35,7 @@ class IStreamAsync extends IStream{
      * <b>IStreamAsync::ReadAsync</b> should reset the event specified by the <b>hEvent</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl/ns-shobjidl-overlapped">OVERLAPPED</a> structure to a nonsignaled state when it begins the input/output (I/O) operation.
      * 
      * This method has been implemented in the Shell as a thin wrapper around the public <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-readfile">ReadFile</a> API.
-     * @param {Pointer} pv Type: <b>void*</b>
+     * @param {Integer} pv Type: <b>void*</b>
      * 
      * When this method returns successfully, returns a buffer that is <i>cb</i> bytes long and contains <i>pcbRead</i> bytes of information from the read operation.
      * @param {Integer} cb Type: <b>DWORD</b>
@@ -59,7 +58,7 @@ class IStreamAsync extends IStream{
      * Writes information to a stream asynchronously. For example, the Shell implements this method on file items when transferring them asynchronously.
      * @remarks
      * <b>WriteAsync</b> should reset the event specified by the <b>hEvent</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl/ns-shobjidl-overlapped">OVERLAPPED</a> structure to a nonsignaled state when it begins the input/output (I/O) operation.
-     * @param {Pointer} lpBuffer Type: <b>const void*</b>
+     * @param {Integer} lpBuffer Type: <b>const void*</b>
      * 
      * A pointer to a buffer of size <i>cb</i> bytes that contains the information to be written to the stream.
      * @param {Integer} cb Type: <b>DWORD</b>

@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\SID_NAME_USE.ahk
 
 /**
  * Used with the LsaLookupNames function to return information about the SID that identifies an account.
  * @see https://learn.microsoft.com/windows/win32/api/ntsecapi/ns-ntsecapi-lsa_translated_sid
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class LSA_TRANSLATED_SID extends Win32Struct
-{
+class LSA_TRANSLATED_SID extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4
@@ -16,7 +15,7 @@ class LSA_TRANSLATED_SID extends Win32Struct
     /**
      * A value from the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ne-winnt-sid_name_use">SID_NAME_USE</a> enumeration type that identifies the type of SID.
-     * @type {Integer}
+     * @type {SID_NAME_USE}
      */
     Use {
         get => NumGet(this, 0, "int")

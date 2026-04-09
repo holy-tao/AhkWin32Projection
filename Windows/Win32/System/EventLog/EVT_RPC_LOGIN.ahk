@@ -9,10 +9,8 @@
  * If you set <b>Password</b>, consider using the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa366877(v=vs.85)">SecureZeroMemory</a> function to clear the password after calling <a href="https://docs.microsoft.com/windows/desktop/api/winevt/nf-winevt-evtopensession">EvtOpenSession</a>.
  * @see https://learn.microsoft.com/windows/win32/api/winevt/ns-winevt-evt_rpc_login
  * @namespace Windows.Win32.System.EventLog
- * @version v4.0.30319
  */
-class EVT_RPC_LOGIN extends Win32Struct
-{
+class EVT_RPC_LOGIN extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8

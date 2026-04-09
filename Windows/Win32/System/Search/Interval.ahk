@@ -11,10 +11,8 @@
  * For script development, see [**TaskSettings.RestartInterval**](tasksettings-restartinterval.md).
  * @see https://learn.microsoft.com/windows/win32/TaskSchd/taskschedulerschema-interval-restarttype-element
  * @namespace Windows.Win32.System.Search
- * @version v4.0.30319
  */
-class Interval extends Win32Struct
-{
+class Interval extends Win32Struct {
     static sizeof => 0
 
     static packingSize => 1

@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\Com\IDispatch.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * Provides methods for obtaining information about the running package and establishing event sinks.
  * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nn-comsvcs-imtsevents
  * @namespace Windows.Win32.System.ComponentServices
- * @version v4.0.30319
  */
-class IMtsEvents extends IDispatch{
+class IMtsEvents extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

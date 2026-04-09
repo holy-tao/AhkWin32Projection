@@ -1,18 +1,19 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\Win32\NetworkManagement\Ndis\NET_IF_MEDIA_CONNECT_STATE.ahk
+#Include ..\..\..\Win32\NetworkManagement\Ndis\NET_IF_MEDIA_DUPLEX_STATE.ahk
+#Include .\NDIS_SUPPORTED_PAUSE_FUNCTIONS.ahk
 
 /**
  * @namespace Windows.Wdk.NetworkManagement.Ndis
- * @version v4.0.30319
  */
-class NDIS_LINK_STATE extends Win32Struct
-{
+class NDIS_LINK_STATE extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
 
     /**
-     * @type {Pointer<NDIS_OBJECT_HEADER>}
+     * @type {Pointer}
      */
     Header {
         get => NumGet(this, 0, "ptr")
@@ -20,7 +21,7 @@ class NDIS_LINK_STATE extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {NET_IF_MEDIA_CONNECT_STATE}
      */
     MediaConnectState {
         get => NumGet(this, 8, "int")
@@ -28,7 +29,7 @@ class NDIS_LINK_STATE extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {NET_IF_MEDIA_DUPLEX_STATE}
      */
     MediaDuplexState {
         get => NumGet(this, 12, "int")
@@ -52,7 +53,7 @@ class NDIS_LINK_STATE extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {NDIS_SUPPORTED_PAUSE_FUNCTIONS}
      */
     PauseFunctions {
         get => NumGet(this, 32, "int")

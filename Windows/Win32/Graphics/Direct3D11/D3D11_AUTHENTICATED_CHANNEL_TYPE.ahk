@@ -5,9 +5,8 @@
  * Specifies the type of Microsoft Direct3D authenticated channel.
  * @see https://learn.microsoft.com/windows/win32/api/d3d11/ne-d3d11-d3d11_authenticated_channel_type
  * @namespace Windows.Win32.Graphics.Direct3D11
- * @version v4.0.30319
  */
-class D3D11_AUTHENTICATED_CHANNEL_TYPE extends Win32Enum{
+class D3D11_AUTHENTICATED_CHANNEL_TYPE extends Win32Enum {
 
     /**
      * Direct3D 11 channel. This channel provides communication with the Direct3D runtime.

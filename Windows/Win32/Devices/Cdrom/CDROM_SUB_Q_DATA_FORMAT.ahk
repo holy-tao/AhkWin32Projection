@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.Cdrom
- * @version v4.0.30319
  */
-class CDROM_SUB_Q_DATA_FORMAT extends Win32Struct
-{
+class CDROM_SUB_Q_DATA_FORMAT extends Win32Struct {
     static sizeof => 2
 
     static packingSize => 1

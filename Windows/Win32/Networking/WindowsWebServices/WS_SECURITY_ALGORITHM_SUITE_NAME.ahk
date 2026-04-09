@@ -5,9 +5,8 @@
  * A suite of security algorithms used for tasks such as signing and encrypting. The values in this enumeration correspond to the suites defined in WS-SecurityPolicy 1.1section 7.1.
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ne-webservices-ws_security_algorithm_suite_name
  * @namespace Windows.Win32.Networking.WindowsWebServices
- * @version v4.0.30319
  */
-class WS_SECURITY_ALGORITHM_SUITE_NAME extends Win32Enum{
+class WS_SECURITY_ALGORITHM_SUITE_NAME extends Win32Enum {
 
     /**
      * Identifies the Basic256 algorithm suite. This suite uses the following algorithms:

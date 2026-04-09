@@ -7,9 +7,8 @@
  * You must know the frame rate to interpret the frame count as time.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/ne-strmif-dvd_framerate
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class DVD_FRAMERATE extends Win32Enum{
+class DVD_FRAMERATE extends Win32Enum {
 
     /**
      * Twenty-five frames per second.

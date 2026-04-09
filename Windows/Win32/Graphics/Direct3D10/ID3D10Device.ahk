@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\ID3D10Buffer.ahk
 #Include .\ID3D10Texture1D.ahk
 #Include .\ID3D10Texture2D.ahk
@@ -19,7 +20,6 @@
 #Include .\ID3D10Query.ahk
 #Include .\ID3D10Predicate.ahk
 #Include .\ID3D10Counter.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * The device interface represents a virtual adapter for Direct3D 10.0; it is used to perform rendering and create Direct3D resources.
@@ -27,9 +27,8 @@
  * A device is created using <a href="https://docs.microsoft.com/windows/desktop/api/d3d10misc/nf-d3d10misc-d3d10createdevice">D3D10CreateDevice</a>.
  * @see https://learn.microsoft.com/windows/win32/api/d3d10/nn-d3d10-id3d10device
  * @namespace Windows.Win32.Graphics.Direct3D10
- * @version v4.0.30319
  */
-class ID3D10Device extends IUnknown{
+class ID3D10Device extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -329,7 +328,7 @@ class ID3D10Device extends IUnknown{
      * @param {ID3D10Buffer} pIndexBuffer Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10buffer">ID3D10Buffer</a>*</b>
      * 
      * A pointer to a buffer (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10buffer">ID3D10Buffer</a>) that contains indices. The index buffer must have been created with the <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ne-d3d10-d3d10_bind_flag">D3D10_BIND_INDEX_BUFFER</a> flag.
-     * @param {Integer} Format Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dxgiformat/ne-dxgiformat-dxgi_format">DXGI_FORMAT</a></b>
+     * @param {DXGI_FORMAT} Format Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dxgiformat/ne-dxgiformat-dxgi_format">DXGI_FORMAT</a></b>
      * 
      * Specifies format of the data in the index buffer. The only formats allowed for index buffer data are 16-bit (<a href="https://docs.microsoft.com/windows/desktop/api/dxgiformat/ne-dxgiformat-dxgi_format">DXGI_FORMAT_R16_UINT</a>) and 32-bit (<b>DXGI_FORMAT_R32_UINT</b>) integers.
      * @param {Integer} Offset Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
@@ -433,7 +432,7 @@ class ID3D10Device extends IUnknown{
 
     /**
      * Bind information about the primitive type, and data order that describes input data for the input assembler stage. (ID3D10Device.IASetPrimitiveTopology)
-     * @param {Integer} Topology Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/bb205334(v=vs.85)">D3D10_PRIMITIVE_TOPOLOGY</a></b>
+     * @param {D3D_PRIMITIVE_TOPOLOGY} Topology Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/bb205334(v=vs.85)">D3D10_PRIMITIVE_TOPOLOGY</a></b>
      * 
      * The type of primitive and ordering of the primitive data (see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/bb205334(v=vs.85)">D3D10_PRIMITIVE_TOPOLOGY</a>).
      * @returns {String} Nothing - always returns an empty string
@@ -1297,7 +1296,7 @@ class ID3D10Device extends IUnknown{
      * @param {Integer} SrcSubresource Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * The source subresource of the source resource.
-     * @param {Integer} Format Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dxgiformat/ne-dxgiformat-dxgi_format">DXGI_FORMAT</a></b>
+     * @param {DXGI_FORMAT} Format Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dxgiformat/ne-dxgiformat-dxgi_format">DXGI_FORMAT</a></b>
      * 
      * 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dxgiformat/ne-dxgiformat-dxgi_format">DXGI_FORMAT</a> that indicates how the multisampled resource will be resolved to a single-sampled resource. See remarks.
@@ -1468,7 +1467,7 @@ class ID3D10Device extends IUnknown{
      * @param {Pointer<ID3D10Buffer>} pIndexBuffer Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10buffer">ID3D10Buffer</a>**</b>
      * 
      * A pointer to an index buffer returned by the method (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10buffer">ID3D10Buffer</a>).
-     * @param {Pointer<Integer>} Format Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dxgiformat/ne-dxgiformat-dxgi_format">DXGI_FORMAT</a>*</b>
+     * @param {Pointer<DXGI_FORMAT>} Format Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dxgiformat/ne-dxgiformat-dxgi_format">DXGI_FORMAT</a>*</b>
      * 
      * Specifies format of the data in the index buffer (see <a href="https://docs.microsoft.com/windows/desktop/api/dxgiformat/ne-dxgiformat-dxgi_format">DXGI_FORMAT</a>). These formats provide the size and type of the data in the buffer. The only formats allowed for index buffer data are 16-bit (DXGI_FORMAT_R16_UINT) and 32-bit (DXGI_FORMAT_R32_UINT) integers.
      * @param {Pointer<Integer>} Offset Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a>*</b>
@@ -1520,7 +1519,7 @@ class ID3D10Device extends IUnknown{
 
     /**
      * Get information about the primitive type, and data order that describes input data for the input assembler stage. (ID3D10Device.IAGetPrimitiveTopology)
-     * @param {Pointer<Integer>} pTopology Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/bb205334(v=vs.85)">D3D10_PRIMITIVE_TOPOLOGY</a>*</b>
+     * @param {Pointer<D3D_PRIMITIVE_TOPOLOGY>} pTopology Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/bb205334(v=vs.85)">D3D10_PRIMITIVE_TOPOLOGY</a>*</b>
      * 
      * A pointer to the type of primitive, and ordering of the primitive data (see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/bb205334(v=vs.85)">D3D10_PRIMITIVE_TOPOLOGY</a>).
      * @returns {String} Nothing - always returns an empty string
@@ -1834,7 +1833,7 @@ class ID3D10Device extends IUnknown{
      * @param {Pointer<Integer>} pDataSize Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a>*</b>
      * 
      * Size of the data.
-     * @param {Pointer} pData Type: <b>void*</b>
+     * @param {Integer} pData Type: <b>void*</b>
      * 
      * Pointer to the data stored with the device. If pData is <b>NULL</b>, DataSize must also be 0, and any data previously associated with the guid will be destroyed.
      * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
@@ -1861,7 +1860,7 @@ class ID3D10Device extends IUnknown{
      * @param {Integer} DataSize Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * Size of the data.
-     * @param {Pointer} pData Type: <b>const void*</b>
+     * @param {Integer} pData Type: <b>const void*</b>
      * 
      * Pointer to the data to be stored with this device. If pData is <b>NULL</b>, DataSize must also be 0, and any data previously associated with the guid will be destroyed.
      * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
@@ -2346,7 +2345,7 @@ class ID3D10Device extends IUnknown{
      * Most format support is based on the Direct3D feature level. Only a few specific use cases require checking for support. 
      *       See <a href="https://docs.microsoft.com/windows/desktop/direct3ddxgi/format-support-for-direct3d-feature-level-10-0-hardware">Hardware Support for Direct3D 10 Formats</a> 
      *       and <a href="https://docs.microsoft.com/windows/desktop/direct3ddxgi/format-support-for-direct3d-feature-level-10-1-hardware">Hardware Support for Direct3D 10.1 Formats</a> for additional information.
-     * @param {Integer} Format Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dxgiformat/ne-dxgiformat-dxgi_format">DXGI_FORMAT</a></b>
+     * @param {DXGI_FORMAT} Format Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dxgiformat/ne-dxgiformat-dxgi_format">DXGI_FORMAT</a></b>
      * 
      * A <a href="https://docs.microsoft.com/windows/desktop/api/dxgiformat/ne-dxgiformat-dxgi_format">DXGI_FORMAT</a> enumeration that describes a format for which to check for support.
      * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a>*</b>
@@ -2371,7 +2370,7 @@ class ID3D10Device extends IUnknown{
      *       this information.
      * 
      * Direct3D 10.1 devices are required to support 4x MSAA for all formats except R32G32B32A32 and R32G32B32 formats.
-     * @param {Integer} Format Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dxgiformat/ne-dxgiformat-dxgi_format">DXGI_FORMAT</a></b>
+     * @param {DXGI_FORMAT} Format Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dxgiformat/ne-dxgiformat-dxgi_format">DXGI_FORMAT</a></b>
      * 
      * The texture format. See <a href="https://docs.microsoft.com/windows/desktop/api/dxgiformat/ne-dxgiformat-dxgi_format">DXGI_FORMAT</a>.
      * @param {Integer} SampleCount Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
@@ -2406,7 +2405,7 @@ class ID3D10Device extends IUnknown{
      * @param {Pointer<D3D10_COUNTER_DESC>} pDesc Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ns-d3d10-d3d10_counter_desc">D3D10_COUNTER_DESC</a>*</b>
      * 
      * Pointer to a counter description (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ns-d3d10-d3d10_counter_desc">D3D10_COUNTER_DESC</a>). Specifies which counter information is to be retrieved about.
-     * @param {Pointer<Integer>} pType Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ne-d3d10-d3d10_counter_type">D3D10_COUNTER_TYPE</a>*</b>
+     * @param {Pointer<D3D10_COUNTER_TYPE>} pType Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ne-d3d10-d3d10_counter_type">D3D10_COUNTER_TYPE</a>*</b>
      * 
      * Pointer to the data type of a counter (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ne-d3d10-d3d10_counter_type">D3D10_COUNTER_TYPE</a>). Specifies the data type of the counter being retrieved.
      * @param {Pointer<Integer>} pActiveCounters Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a>*</b>
@@ -2519,7 +2518,9 @@ class ID3D10Device extends IUnknown{
      * <li>Only R10G10B10A2_UNORM, R16G16B16A16_FLOAT and R8G8B8A8_UNORM formats are allowed</li>
      * </ul>
      * If a shared texture is updated on one device <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nf-d3d10-id3d10device-flush">ID3D10Device::Flush</a> must be called on that device.
-     * @param {HANDLE} _hResource 
+     * @param {HANDLE} _hResource Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HANDLE</a></b>
+     * 
+     * A resource handle. See remarks.
      * @param {Pointer<Guid>} ReturnedInterface Type: <b>REFIID</b>
      * 
      * The globally unique identifier (GUID) for the resource interface. See remarks.

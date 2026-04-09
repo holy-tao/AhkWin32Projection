@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\WS_STRING.ahk
 
 /**
  * A list of Server Principal Names (SPNs) that are used to validate Extended Protection.
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_service_security_identities
  * @namespace Windows.Win32.Networking.WindowsWebServices
- * @version v4.0.30319
  */
-class WS_SERVICE_SECURITY_IDENTITIES extends Win32Struct
-{
+class WS_SERVICE_SECURITY_IDENTITIES extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

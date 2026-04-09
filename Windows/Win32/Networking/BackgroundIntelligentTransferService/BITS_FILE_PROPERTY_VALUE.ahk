@@ -5,10 +5,8 @@
  * Provides the property value of a BITS file.
  * @see https://learn.microsoft.com/windows/win32/api/bits5_0/ns-bits5_0-bits_file_property_value
  * @namespace Windows.Win32.Networking.BackgroundIntelligentTransferService
- * @version v4.0.30319
  */
-class BITS_FILE_PROPERTY_VALUE extends Win32Struct
-{
+class BITS_FILE_PROPERTY_VALUE extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 8

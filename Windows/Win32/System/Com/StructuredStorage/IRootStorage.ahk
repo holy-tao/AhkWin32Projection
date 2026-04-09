@@ -7,9 +7,8 @@
  * The IRootStorage interface contains a single method that switches a storage object to a different underlying file and saves the storage object to that file.
  * @see https://learn.microsoft.com/windows/win32/api/objidl/nn-objidl-irootstorage
  * @namespace Windows.Win32.System.Com.StructuredStorage
- * @version v4.0.30319
  */
-class IRootStorage extends IUnknown{
+class IRootStorage extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

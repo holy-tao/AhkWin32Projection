@@ -5,9 +5,8 @@
  * Used in the ISyncMgrSynchronize::SetItemStatus method to specify the updated status for the item.
  * @see https://learn.microsoft.com/windows/win32/api/mobsync/ne-mobsync-syncmgrstatus
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class SYNCMGRSTATUS extends Win32Enum{
+class SYNCMGRSTATUS extends Win32Enum {
 
     /**
      * Synchronization has been stopped.

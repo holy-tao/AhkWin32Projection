@@ -5,10 +5,8 @@
  * The FaceRectInfoBlobHeader structure describes the size and count information of the blob format for the MF_CAPTURE_METADATA_FACEROIS attribute.
  * @see https://learn.microsoft.com/windows/win32/api/mfapi/ns-mfapi-facerectinfoblobheader
  * @namespace Windows.Win32.Media.Streaming
- * @version v4.0.30319
  */
-class FaceRectInfoBlobHeader extends Win32Struct
-{
+class FaceRectInfoBlobHeader extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4

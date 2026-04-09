@@ -1,18 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Include ..\Com\IDispatch.ahk
 #Include .\IMSMQQueueInfo.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\Variant\VARIANT.ahk
 #Include .\IMSMQQueueInfo3.ahk
-#Include ..\Com\IDispatch.ahk
 #Include .\IMSMQQueueInfo2.ahk
 
 /**
  * @namespace Windows.Win32.System.MessageQueuing
- * @version v4.0.30319
  */
-class IMSMQMessage3 extends IDispatch{
+class IMSMQMessage3 extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -437,14 +436,14 @@ class IMSMQMessage3 extends IDispatch{
     }
 
     /**
-     * @type {HRESULT} 
+     * @type {BSTR} 
      */
     SoapHeader {
         set => this.put_SoapHeader(value)
     }
 
     /**
-     * @type {HRESULT} 
+     * @type {BSTR} 
      */
     SoapBody {
         set => this.put_SoapBody(value)

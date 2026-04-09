@@ -3,7 +3,6 @@
 
 /**
  * @namespace Windows.Win32.Storage.DistributedFileSystem
- * @version v4.0.30319
  */
 class DistributedFileSystem {
 
@@ -473,7 +472,8 @@ class DistributedFileSystem {
      *       If this parameter is <b>MAX_PREFERRED_LENGTH</b>, the function allocates the amount of memory required for the data. 
      *       For more information, see the following Remarks section. This parameter is ignored if you specify level 200 or 
      *       level 300.
-     * @param {Pointer<Pointer<Integer>>} _Buffer 
+     * @param {Pointer<Pointer<Integer>>} _Buffer Pointer to a buffer that receives the requested information structures. The format of this data depends on the value of the <i>Level</i> parameter. This buffer is allocated by the system and must be freed using the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/lmapibuf/nf-lmapibuf-netapibufferfree">NetApiBufferFree</a> function.
      * @param {Pointer<Integer>} EntriesRead Pointer to a value that receives the actual number of entries returned in the response.
      * @param {Pointer<Integer>} ResumeHandle Pointer to a value that contains a handle to be used for continuing an enumeration when more data is available than can be returned in a single call to this function. The handle should be zero on the first call and left unchanged for subsequent calls.  For more information, see the following Remarks section.
      * @returns {Integer} If the function succeeds, the return value is <b>NERR_Success</b>.
@@ -546,7 +546,14 @@ class DistributedFileSystem {
      * @param {PWSTR} ServerName This parameter is currently ignored and should be <b>NULL</b>.
      * @param {PWSTR} ShareName This parameter is currently ignored and should be <b>NULL</b>.
      * @param {Integer} Level 
-     * @param {Pointer<Pointer<Integer>>} _Buffer 
+     * @param {Pointer<Pointer<Integer>>} _Buffer Pointer to the address of a buffer that receives the requested information structures. The format of this 
+     *       data depends on the value of the <i>Level</i> parameter. This buffer is allocated by the 
+     *       system and must be freed using the 
+     *       <a href="https://docs.microsoft.com/windows/desktop/api/lmapibuf/nf-lmapibuf-netapibufferfree">NetApiBufferFree</a> function. For more information, 
+     *       see 
+     *       <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/network-management-function-buffers">Network Management Function Buffers</a> 
+     *       and 
+     *       <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/network-management-function-buffer-lengths">Network Management Function Buffer Lengths</a>.
      * @returns {Integer} If the function succeeds, the return value is <b>NERR_Success</b>.
      * 
      * If the function fails, the return value is a system error code. For a list of error codes, see 
@@ -622,7 +629,9 @@ class DistributedFileSystem {
      *       path relative to the share.  For example, "share1\mydir1\mydir2". This parameter is optional. For more 
      *       information, see the Remarks section.
      * @param {Integer} Level 
-     * @param {Pointer<Integer>} _Buffer 
+     * @param {Pointer<Integer>} _Buffer Pointer to a buffer that specifies the data. The format of this data depends on the value of the 
+     *       <i>Level</i> parameter. For more information, see 
+     *       <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/network-management-function-buffers">Network Management Function Buffers</a>.
      * @returns {Integer} If the function succeeds, the return value is NERR_Success.
      * 
      * If the function fails, the return value is a system error code. For a list of error codes, see 
@@ -674,7 +683,10 @@ class DistributedFileSystem {
      * @param {PWSTR} ServerName Pointer to a string that specifies the name of the DFS root target or link target server. This parameter is optional.
      * @param {PWSTR} ShareName Pointer to a string that specifies the name of the share corresponding to the DFS root target or link target. This parameter is optional.
      * @param {Integer} Level 
-     * @param {Pointer<Pointer<Integer>>} _Buffer 
+     * @param {Pointer<Pointer<Integer>>} _Buffer Pointer to the address of a buffer that receives the requested information. This buffer is allocated by the system and must be freed using the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/lmapibuf/nf-lmapibuf-netapibufferfree">NetApiBufferFree</a> function. For more information, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/network-management-function-buffers">Network Management Function Buffers</a> and 
+     * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/network-management-function-buffer-lengths">Network Management Function Buffer Lengths</a>.
      * @returns {Integer} If the function succeeds, the return value is <b>NERR_Success</b>.
      * 
      * If the function fails, the return value is a system error code. For a list of error codes, see 
@@ -731,7 +743,8 @@ class DistributedFileSystem {
      * @param {PWSTR} ServerName Pointer to a string that specifies the DFS link target server name. This parameter is optional. For more information, see the Remarks section.
      * @param {PWSTR} ShareName Pointer to a string that specifies the DFS link target share name. This parameter is optional. For additional information, see the following Remarks section.
      * @param {Integer} Level 
-     * @param {Pointer<Integer>} _Buffer 
+     * @param {Pointer<Integer>} _Buffer Pointer to a buffer that contains the information to be set. The format of this information depends on the value of the <i>Level</i> parameter. For more information, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/network-management-function-buffers">Network Management Function Buffers</a>.
      * @returns {Integer} If the function succeeds, the return value is <b>NERR_Success</b>.
      * 
      * If the function fails, the return value is a system error code. For a list of error codes, see 
@@ -1232,7 +1245,7 @@ class DistributedFileSystem {
      * <li>The version supported by the server that is to host the DFS root target.</li>
      * </ul>
      * Thus, the maximum DFS metadata version number that can be used for a new DFS namespace is the minimum of the version supported by the AD DS domain and the version supported by the server. This maximum can be determined by calling the <b>NetDfsGetSupportedNamespaceVersion</b> function with the <i>pName</i> parameter set to the name of the server that is to host the new DFS root target and the <i>Origin</i> parameter set to <b>DFS_NAMESPACE_VERSION_ORIGIN_COMBINED</b>.
-     * @param {Integer} Origin A <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/lmdfs/ne-lmdfs-dfs_namespace_version_origin">DFS_NAMESPACE_VERSION_ORIGIN</a> enumeration value that specifies the origin of the DFS namespace version.
+     * @param {DFS_NAMESPACE_VERSION_ORIGIN} Origin A <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/lmdfs/ne-lmdfs-dfs_namespace_version_origin">DFS_NAMESPACE_VERSION_ORIGIN</a> enumeration value that specifies the origin of the DFS namespace version.
      * @param {PWSTR} pName A string that specifies the server name or domain name. If the value of the <i>Origin</i> parameter is <b>DFS_NAMESPACE_VERSION_ORIGIN_DOMAIN</b>, this string must be an AD DS domain name. Otherwise, it must be a server name. This parameter is required and cannot be <b>NULL</b>.
      * @param {Pointer<Pointer<DFS_SUPPORTED_NAMESPACE_VERSION_INFO>>} ppVersionInfo A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/lmdfs/ns-lmdfs-dfs_supported_namespace_version_info">DFS_SUPPORTED_NAMESPACE_VERSION_INFO</a> structure that receives the DFS metadata version number.
      * @returns {Integer} If the function succeeds, the return value is <b>NERR_Success</b>.

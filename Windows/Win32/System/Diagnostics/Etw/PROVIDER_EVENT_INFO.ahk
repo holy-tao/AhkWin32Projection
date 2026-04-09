@@ -6,11 +6,9 @@
  * Defines an array of events in a provider manifest.
  * @see https://learn.microsoft.com/windows/win32/api/tdh/ns-tdh-provider_event_info
  * @namespace Windows.Win32.System.Diagnostics.Etw
- * @version v4.0.30319
  */
-class PROVIDER_EVENT_INFO extends Win32Struct
-{
-    static sizeof => 16
+class PROVIDER_EVENT_INFO extends Win32Struct {
+    static sizeof => 24
 
     static packingSize => 8
 
@@ -34,9 +32,9 @@ class PROVIDER_EVENT_INFO extends Win32Struct
 
     /**
      * An array of <a href="https://docs.microsoft.com/windows/desktop/api/evntprov/ns-evntprov-event_descriptor">EVENT_DESCRIPTOR</a> structures that contain information about each event.
-     * @type {Array<EVENT_DESCRIPTOR>}
+     * @type {EVENT_DESCRIPTOR}
      */
-    EventDescriptorsArray{
+    EventDescriptorsArray {
         get {
             if(!this.HasProp("__EventDescriptorsArrayProxyArray"))
                 this.__EventDescriptorsArrayProxyArray := Win32FixedArray(this.ptr + 8, 1, EVENT_DESCRIPTOR, "")

@@ -7,9 +7,8 @@
  * The IVdsMaintenance interface (vdshwprv.h) provides methods for performing maintenance operations on a subsystem, controller, LUN, or drive.
  * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nn-vdshwprv-ivdsmaintenance
  * @namespace Windows.Win32.Storage.VirtualDiskService
- * @version v4.0.30319
  */
-class IVdsMaintenance extends IUnknown{
+class IVdsMaintenance extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -38,7 +37,7 @@ class IVdsMaintenance extends IUnknown{
      * 
      * 
      * Calling <b>StartMaintenance</b> on a pulsing operation causes the operation to start and run until either <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/nf-vdshwprv-ivdsmaintenance-stopmaintenance">StopMaintenance</a> is called to stop it or <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/nf-vdshwprv-ivdsmaintenance-pulsemaintenance">PulseMaintenance</a> is called to set it pulsing it again.
-     * @param {Integer} operation A maintenance operation enumerated by <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ne-vdshwprv-vds_maintenance_operation">VDS_MAINTENANCE_OPERATION</a>.
+     * @param {VDS_MAINTENANCE_OPERATION} operation A maintenance operation enumerated by <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ne-vdshwprv-vds_maintenance_operation">VDS_MAINTENANCE_OPERATION</a>.
      * @returns {HRESULT} This method can return standard HRESULT values, such as E_INVALIDARG or E_OUTOFMEMORY, and <a href="https://docs.microsoft.com/windows/desktop/VDS/virtual-disk-service-common-return-codes">VDS-specific return values</a>. It can also return converted <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error codes</a>  using the <a href="https://docs.microsoft.com/windows/desktop/api/winerror/nf-winerror-hresult_from_win32">HRESULT_FROM_WIN32</a> macro. Errors can originate from VDS itself or from the underlying <a href="https://docs.microsoft.com/windows/desktop/VDS/about-vds">VDS provider</a> that is being used. Possible return values include the following.
      * 
      * <table>
@@ -117,7 +116,7 @@ class IVdsMaintenance extends IUnknown{
 
     /**
      * The IVdsMaintenance::StopMaintenance (vdshwprv.h) method stops a maintenance operation.
-     * @param {Integer} operation A maintenance operation enumerated by <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ne-vdshwprv-vds_maintenance_operation">VDS_MAINTENANCE_OPERATION</a>.
+     * @param {VDS_MAINTENANCE_OPERATION} operation A maintenance operation enumerated by <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ne-vdshwprv-vds_maintenance_operation">VDS_MAINTENANCE_OPERATION</a>.
      * @returns {HRESULT} This method can return standard HRESULT values, such as E_INVALIDARG or E_OUTOFMEMORY, and <a href="https://docs.microsoft.com/windows/desktop/VDS/virtual-disk-service-common-return-codes">VDS-specific return values</a>. It can also return converted <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error codes</a>  using the <a href="https://docs.microsoft.com/windows/desktop/api/winerror/nf-winerror-hresult_from_win32">HRESULT_FROM_WIN32</a> macro. Errors can originate from VDS itself or from the underlying <a href="https://docs.microsoft.com/windows/desktop/VDS/about-vds">VDS provider</a> that is being used. Possible return values include the following.
      * 
      * <table>
@@ -208,7 +207,7 @@ class IVdsMaintenance extends IUnknown{
      * The IVdsMaintenance::PulseMaintenance (vdshwprv.h) method performs the specified operation a specified number of times.
      * @remarks
      * If the operation is already running, this method causes it to pulse the specified number of times and then stop. The intervals at which the operation pulses is defined by the provider. This method cannot be used with the SpinDown or SpinUp operations.
-     * @param {Integer} operation A maintenance operation enumerated by <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ne-vdshwprv-vds_maintenance_operation">VDS_MAINTENANCE_OPERATION</a>.
+     * @param {VDS_MAINTENANCE_OPERATION} operation A maintenance operation enumerated by <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ne-vdshwprv-vds_maintenance_operation">VDS_MAINTENANCE_OPERATION</a>.
      * @param {Integer} ulCount The number of times to perform the operation.
      * @returns {HRESULT} This method can return standard HRESULT values, such as E_INVALIDARG or E_OUTOFMEMORY, and <a href="https://docs.microsoft.com/windows/desktop/VDS/virtual-disk-service-common-return-codes">VDS-specific return values</a>. It can also return converted <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error codes</a>  using the <a href="https://docs.microsoft.com/windows/desktop/api/winerror/nf-winerror-hresult_from_win32">HRESULT_FROM_WIN32</a> macro. Errors can originate from VDS itself or from the underlying <a href="https://docs.microsoft.com/windows/desktop/VDS/about-vds">VDS provider</a> that is being used. Possible return values include the following.
      * 

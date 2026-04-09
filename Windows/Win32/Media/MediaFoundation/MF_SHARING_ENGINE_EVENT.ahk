@@ -5,9 +5,8 @@
  * Defines events that are sent by the sharing engine.
  * @see https://learn.microsoft.com/windows/win32/api/mfsharingengine/ne-mfsharingengine-mf_sharing_engine_event
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class MF_SHARING_ENGINE_EVENT extends Win32Enum{
+class MF_SHARING_ENGINE_EVENT extends Win32Enum {
 
     /**
      * Reserved for internal use.
@@ -34,7 +33,6 @@ class MF_SHARING_ENGINE_EVENT extends Win32Enum{
     static MF_SHARING_ENGINE_EVENT_STOPPED => 2003
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static MF_SHARING_ENGINE_EVENT_ERROR => 2501

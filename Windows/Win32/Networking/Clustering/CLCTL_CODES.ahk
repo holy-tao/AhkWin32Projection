@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Networking.Clustering
- * @version v4.0.30319
  */
-class CLCTL_CODES extends Win32Enum{
+class CLCTL_CODES extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

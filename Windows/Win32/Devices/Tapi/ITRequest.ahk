@@ -1,16 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * The ITRequest interface allows an application to use Assisted Telephony. Assisted Telephony provides telephony-enabled applications with a simple mechanism for making phone calls without requiring the developer to become fully literate in telephony.
  * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nn-tapi3if-itrequest
  * @namespace Windows.Win32.Devices.Tapi
- * @version v4.0.30319
  */
-class ITRequest extends IDispatch{
+class ITRequest extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

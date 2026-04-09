@@ -1,16 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\EAP_TYPE.ahk
 #Include .\EAP_METHOD_TYPE.ahk
+#Include .\EAP_TYPE.ahk
 
 /**
  * Contains information about an error that occurred during an EAPHost operation.
  * @see https://learn.microsoft.com/windows/win32/api/eaptypes/ns-eaptypes-eap_error
  * @namespace Windows.Win32.Security.ExtensibleAuthenticationProtocol
- * @version v4.0.30319
  */
-class EAP_ERROR extends Win32Struct
-{
+class EAP_ERROR extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 8
@@ -28,7 +26,7 @@ class EAP_ERROR extends Win32Struct
      * An <a href="https://docs.microsoft.com/windows/desktop/api/eaptypes/ns-eaptypes-eap_method_type">EAP_METHOD_TYPE</a> structure that identifies the EAP method that raised the error.
      * @type {EAP_METHOD_TYPE}
      */
-    type{
+    type {
         get {
             if(!this.HasProp("__type"))
                 this.__type := EAP_METHOD_TYPE(4, this)
@@ -362,7 +360,7 @@ class EAP_ERROR extends Win32Struct
      * </td>
      * </tr>
      * </table>
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     rootCauseGuid {
         get => NumGet(this, 24, "ptr")
@@ -445,7 +443,7 @@ class EAP_ERROR extends Win32Struct
      * </td>
      * </tr>
      * </table>
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     repairGuid {
         get => NumGet(this, 32, "ptr")
@@ -523,7 +521,7 @@ class EAP_ERROR extends Win32Struct
      * </td>
      * </tr>
      * </table>
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     helpLinkGuid {
         get => NumGet(this, 40, "ptr")

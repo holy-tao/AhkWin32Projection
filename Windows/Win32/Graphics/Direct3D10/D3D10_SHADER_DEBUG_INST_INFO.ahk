@@ -1,7 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3D10_SHADER_DEBUG_OUTPUTVAR.ahk
 #Include .\D3D10_SHADER_DEBUG_OUTPUTREG_INFO.ahk
+#Include .\D3D10_SHADER_DEBUG_REGTYPE.ahk
+#Include .\D3D10_SHADER_DEBUG_OUTPUTVAR.ahk
 
 /**
  * Contains instruction data.
@@ -9,13 +10,11 @@
  * The <b>D3D10_SHADER_DEBUG_INST_INFO</b> structure is used with the <a href="https://docs.microsoft.com/windows/win32/api/d3d10_1shader/ns-d3d10_1shader-d3d10_shader_debug_info">D3D10_SHADER_DEBUG_INFO</a> structure.
  * @see https://learn.microsoft.com/windows/win32/api/d3d10_1shader/ns-d3d10_1shader-d3d10_shader_debug_inst_info
  * @namespace Windows.Win32.Graphics.Direct3D10
- * @version v4.0.30319
  */
-class D3D10_SHADER_DEBUG_INST_INFO extends Win32Struct
-{
-    static sizeof => 56
+class D3D10_SHADER_DEBUG_INST_INFO extends Win32Struct {
+    static sizeof => 396
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
@@ -54,12 +53,12 @@ class D3D10_SHADER_DEBUG_INST_INFO extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/win32/api/d3d10_1shader/ns-d3d10_1shader-d3d10_shader_debug_outputreg_info">D3D10_SHADER_DEBUG_OUTPUTREG_INFO</a></b>
      * 
      * Array containing the outputs of the instruction.
-     * @type {Array<D3D10_SHADER_DEBUG_OUTPUTREG_INFO>}
+     * @type {D3D10_SHADER_DEBUG_OUTPUTREG_INFO}
      */
-    pOutputs{
+    pOutputs {
         get {
             if(!this.HasProp("__pOutputsProxyArray"))
-                this.__pOutputsProxyArray := Win32FixedArray(this.ptr + 16, 2, D3D10_SHADER_DEBUG_OUTPUTREG_INFO, "")
+                this.__pOutputsProxyArray := Win32FixedArray(this.ptr + 12, 2, D3D10_SHADER_DEBUG_OUTPUTREG_INFO, "")
             return this.__pOutputsProxyArray
         }
     }
@@ -71,8 +70,8 @@ class D3D10_SHADER_DEBUG_INST_INFO extends Win32Struct
      * @type {Integer}
      */
     TokenId {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
+        get => NumGet(this, 372, "uint")
+        set => NumPut("uint", value, this, 372)
     }
 
     /**
@@ -82,8 +81,8 @@ class D3D10_SHADER_DEBUG_INST_INFO extends Win32Struct
      * @type {Integer}
      */
     NestingLevel {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
+        get => NumGet(this, 376, "uint")
+        set => NumPut("uint", value, this, 376)
     }
 
     /**
@@ -93,8 +92,8 @@ class D3D10_SHADER_DEBUG_INST_INFO extends Win32Struct
      * @type {Integer}
      */
     Scopes {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
+        get => NumGet(this, 380, "uint")
+        set => NumPut("uint", value, this, 380)
     }
 
     /**
@@ -104,25 +103,23 @@ class D3D10_SHADER_DEBUG_INST_INFO extends Win32Struct
      * @type {Integer}
      */
     ScopeInfo {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
+        get => NumGet(this, 384, "uint")
+        set => NumPut("uint", value, this, 384)
     }
 
     /**
-     * 
      * @type {Integer}
      */
     AccessedVars {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
+        get => NumGet(this, 388, "uint")
+        set => NumPut("uint", value, this, 388)
     }
 
     /**
-     * 
      * @type {Integer}
      */
     AccessedVarsInfo {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
+        get => NumGet(this, 392, "uint")
+        set => NumPut("uint", value, this, 392)
     }
 }

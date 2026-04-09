@@ -7,16 +7,13 @@
  * This structure corresponds closely to the <a href="https://docs.microsoft.com/windows-hardware/drivers/ddi/content/dxva/ns-dxva-_dxva_bufferdescription">DXVA_BufferDescription</a> structure in DXVA 1, but some of the fields are no longer used in DXVA 2.
  * @see https://learn.microsoft.com/windows/win32/api/dxva2api/ns-dxva2api-dxva2_decodebufferdesc
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class DXVA2_DecodeBufferDesc extends Win32Struct
-{
+class DXVA2_DecodeBufferDesc extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
 
     /**
-     * 
      * @type {Integer}
      */
     CompressedBufferType {

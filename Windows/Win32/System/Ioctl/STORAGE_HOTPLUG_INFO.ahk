@@ -27,10 +27,8 @@
  *     to <b>ExpectOrderlyRemoval</b>, and caching may be selectively enabled.
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-storage_hotplug_info
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class STORAGE_HOTPLUG_INFO extends Win32Struct
-{
+class STORAGE_HOTPLUG_INFO extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4

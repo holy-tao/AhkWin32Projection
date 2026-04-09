@@ -3,16 +3,14 @@
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem
- * @version v4.0.30319
  */
-class RTL_NLS_STATE extends Win32Struct
-{
+class RTL_NLS_STATE extends Win32Struct {
     static sizeof => 72
 
     static packingSize => 8
 
     /**
-     * @type {Pointer<CPTABLEINFO>}
+     * @type {Pointer}
      */
     DefaultAcpTableInfo {
         get => NumGet(this, 0, "ptr")
@@ -20,7 +18,7 @@ class RTL_NLS_STATE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<CPTABLEINFO>}
+     * @type {Pointer}
      */
     DefaultOemTableInfo {
         get => NumGet(this, 8, "ptr")

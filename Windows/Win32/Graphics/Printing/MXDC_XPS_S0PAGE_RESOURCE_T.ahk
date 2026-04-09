@@ -11,10 +11,8 @@
  * Streaming consumption is more efficient if you call [**ExtEscape**](/windows/desktop/api/Wingdi/nf-wingdi-extescape) with the **MXDCOP\_SET\_S0PAGE\_RESOURCE** **opCode** for each resource on the page before you call **ExtEscape** with the **MXDCOP\_SET\_S0PAGE** **opCode**.
  * @see https://learn.microsoft.com/windows/win32/printdocs/mxdcxpss0pageresource
  * @namespace Windows.Win32.Graphics.Printing
- * @version v4.0.30319
  */
-class MXDC_XPS_S0PAGE_RESOURCE_T extends Win32Struct
-{
+class MXDC_XPS_S0PAGE_RESOURCE_T extends Win32Struct {
     static sizeof => 276
 
     static packingSize => 4
@@ -39,9 +37,9 @@ class MXDC_XPS_S0PAGE_RESOURCE_T extends Win32Struct
 
     /**
      * The URI of the resource. This cannot be more than 260 bytes.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    szUri{
+    szUri {
         get {
             if(!this.HasProp("__szUriProxyArray"))
                 this.__szUriProxyArray := Win32FixedArray(this.ptr + 8, 260, Primitive, "char")
@@ -60,9 +58,9 @@ class MXDC_XPS_S0PAGE_RESOURCE_T extends Win32Struct
 
     /**
      * The data of the resource in an array of bytes with size 1 + the size of the resource.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    bData{
+    bData {
         get {
             if(!this.HasProp("__bDataProxyArray"))
                 this.__bDataProxyArray := Win32FixedArray(this.ptr + 272, 1, Primitive, "char")

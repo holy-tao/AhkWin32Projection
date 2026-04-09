@@ -7,9 +7,8 @@
  * The IWMPVideoRenderConfig interface provides a method that configures the enhanced video renderer (EVR) used by Windows Media Player.
  * @see https://learn.microsoft.com/windows/win32/api/wmprealestate/nn-wmprealestate-iwmpvideorenderconfig
  * @namespace Windows.Win32.Media.MediaPlayer
- * @version v4.0.30319
  */
-class IWMPVideoRenderConfig extends IUnknown{
+class IWMPVideoRenderConfig extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -31,7 +30,7 @@ class IWMPVideoRenderConfig extends IUnknown{
     static VTableNames => ["put_presenterActivate"]
 
     /**
-     * @type {HRESULT} 
+     * @type {IMFActivate} 
      */
     presenterActivate {
         set => this.put_presenterActivate(value)

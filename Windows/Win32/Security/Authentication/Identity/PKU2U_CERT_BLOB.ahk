@@ -5,10 +5,8 @@
  * Specifies PKU2U certificate data.
  * @see https://learn.microsoft.com/windows/win32/api/ntsecapi/ns-ntsecapi-pku2u_cert_blob
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class PKU2U_CERT_BLOB extends Win32Struct
-{
+class PKU2U_CERT_BLOB extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\LDAP_BERVAL.ahk
 
 /**
  * Holds data required to perform a modification operation. (ANSI)
@@ -21,11 +22,9 @@
  * > The winldap.h header defines LDAPMod as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
  * @see https://learn.microsoft.com/windows/win32/api/winldap/ns-winldap-ldapmoda
  * @namespace Windows.Win32.Networking.Ldap
- * @version v4.0.30319
  * @charset ANSI
  */
-class LDAPModA extends Win32Struct
-{
+class LDAPModA extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -41,7 +40,7 @@ class LDAPModA extends Win32Struct
             get => NumGet(this, 0, "ptr")
             set => NumPut("ptr", value, this, 0)
         }
-    
+
         /**
          * @type {Pointer<Pointer<LDAP_BERVAL>>}
          */
@@ -49,11 +48,9 @@ class LDAPModA extends Win32Struct
             get => NumGet(this, 0, "ptr")
             set => NumPut("ptr", value, this, 0)
         }
-    
     }
 
     /**
-     * 
      * @type {Integer}
      */
     mod_op {
@@ -75,10 +72,10 @@ class LDAPModA extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/win32/api/winldap/ns-winldap-ldap_berval">berval</a> pointers, which is useful for specifying binary values.
      * @type {_mod_vals_e__Union}
      */
-    mod_vals{
+    mod_vals {
         get {
             if(!this.HasProp("__mod_vals"))
-                this.__mod_vals := %this.__Class%._mod_vals_e__Union(16, this)
+                this.__mod_vals := LDAPModA._mod_vals_e__Union(16, this)
             return this.__mod_vals
         }
     }

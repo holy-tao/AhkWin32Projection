@@ -7,9 +7,8 @@
  * The ID3D10EffectVariable interface is the base class for all effect variables.
  * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nn-d3d10effect-id3d10effectvariable
  * @namespace Windows.Win32.Graphics.Direct3D10
- * @version v4.0.30319
  */
-class ID3D10EffectVariable extends Win32ComInterface{
+class ID3D10EffectVariable extends Win32ComInterface {
 
     static sizeof => A_PtrSize
     /**
@@ -403,7 +402,7 @@ class ID3D10EffectVariable extends Win32ComInterface{
      * Set data.
      * @remarks
      * This method does no conversion or type checking; it is therefore a very quick way to access array items.
-     * @param {Pointer} pData Type: <b>void*</b>
+     * @param {Integer} pData Type: <b>void*</b>
      * 
      * A pointer to the variable.
      * @param {Integer} Offset Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
@@ -426,7 +425,7 @@ class ID3D10EffectVariable extends Win32ComInterface{
      * Get data.
      * @remarks
      * This method does no conversion or type checking; it is therefore a very quick way to access array items.
-     * @param {Pointer} pData Type: <b>void*</b>
+     * @param {Integer} pData Type: <b>void*</b>
      * 
      * A pointer to the variable.
      * @param {Integer} Offset Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>

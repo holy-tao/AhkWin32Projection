@@ -5,9 +5,8 @@
  * A value that indicates the typographic feature of text supplied by the font.
  * @see https://learn.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_font_feature_tag
  * @namespace Windows.Win32.Graphics.DirectWrite
- * @version v4.0.30319
  */
-class DWRITE_FONT_FEATURE_TAG extends Win32Enum{
+class DWRITE_FONT_FEATURE_TAG extends Win32Enum {
 
     /**
      * Replaces figures separated by a slash with an alternative form.

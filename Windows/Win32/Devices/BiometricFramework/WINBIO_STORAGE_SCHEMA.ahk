@@ -5,10 +5,8 @@
  * Describes the capabilities of a biometric storage adapter.
  * @see https://learn.microsoft.com/windows/win32/SecBioMet/winbio-storage-schema
  * @namespace Windows.Win32.Devices.BiometricFramework
- * @version v4.0.30319
  */
-class WINBIO_STORAGE_SCHEMA extends Win32Struct
-{
+class WINBIO_STORAGE_SCHEMA extends Win32Struct {
     static sizeof => 1056
 
     static packingSize => 8
@@ -24,7 +22,7 @@ class WINBIO_STORAGE_SCHEMA extends Win32Struct
 
     /**
      * A GUID that identifies the database.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     DatabaseId {
         get => NumGet(this, 8, "ptr")
@@ -33,7 +31,7 @@ class WINBIO_STORAGE_SCHEMA extends Win32Struct
 
     /**
      * A GUID that identifies the format of the templates in the database.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     DataFormat {
         get => NumGet(this, 16, "ptr")
@@ -64,9 +62,9 @@ class WINBIO_STORAGE_SCHEMA extends Win32Struct
 
     /**
      * The path and file name of the database if it resides on the computer disk.
-     * @type {Array<UInt16>}
+     * @type {Array<Integer>}
      */
-    FilePath{
+    FilePath {
         get {
             if(!this.HasProp("__FilePathProxyArray"))
                 this.__FilePathProxyArray := Win32FixedArray(this.ptr + 28, 256, Primitive, "ushort")
@@ -76,9 +74,9 @@ class WINBIO_STORAGE_SCHEMA extends Win32Struct
 
     /**
      * A string value that can be sent to a database server to identify the database.
-     * @type {Array<UInt16>}
+     * @type {Array<Integer>}
      */
-    ConnectionString{
+    ConnectionString {
         get {
             if(!this.HasProp("__ConnectionStringProxyArray"))
                 this.__ConnectionStringProxyArray := Win32FixedArray(this.ptr + 540, 256, Primitive, "ushort")

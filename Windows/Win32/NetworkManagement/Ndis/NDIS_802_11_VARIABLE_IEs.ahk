@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Ndis
- * @version v4.0.30319
  */
-class NDIS_802_11_VARIABLE_IEs extends Win32Struct
-{
+class NDIS_802_11_VARIABLE_IEs extends Win32Struct {
     static sizeof => 3
 
     static packingSize => 1
@@ -28,9 +26,9 @@ class NDIS_802_11_VARIABLE_IEs extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    data{
+    data {
         get {
             if(!this.HasProp("__dataProxyArray"))
                 this.__dataProxyArray := Win32FixedArray(this.ptr + 2, 1, Primitive, "char")

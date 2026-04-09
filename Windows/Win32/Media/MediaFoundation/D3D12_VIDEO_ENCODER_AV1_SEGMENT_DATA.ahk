@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class D3D12_VIDEO_ENCODER_AV1_SEGMENT_DATA extends Win32Struct
-{
+class D3D12_VIDEO_ENCODER_AV1_SEGMENT_DATA extends Win32Struct {
     static sizeof => 72
 
     static packingSize => 8
@@ -20,9 +18,9 @@ class D3D12_VIDEO_ENCODER_AV1_SEGMENT_DATA extends Win32Struct
     }
 
     /**
-     * @type {Array<Int64>}
+     * @type {Array<Integer>}
      */
-    FeatureValue{
+    FeatureValue {
         get {
             if(!this.HasProp("__FeatureValueProxyArray"))
                 this.__FeatureValueProxyArray := Win32FixedArray(this.ptr + 8, 8, Primitive, "int64")

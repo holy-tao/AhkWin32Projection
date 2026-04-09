@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Graphics.Imaging
- * @version v4.0.30319
  */
-class IWICDisplayAdaptationControl extends IUnknown{
+class IWICDisplayAdaptationControl extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -3,13 +3,10 @@
 
 /**
  * Defines constants that specify protected resource session flags.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/ne-d3d12-d3d12_protected_resource_session_flags
  * @namespace Windows.Win32.Graphics.Direct3D12
- * @version v4.0.30319
  */
-class D3D12_PROTECTED_RESOURCE_SESSION_FLAGS extends Win32BitflagEnum{
+class D3D12_PROTECTED_RESOURCE_SESSION_FLAGS extends Win32BitflagEnum {
 
     /**
      * Specifies no flag.

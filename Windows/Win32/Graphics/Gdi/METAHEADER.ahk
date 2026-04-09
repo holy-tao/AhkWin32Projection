@@ -5,16 +5,13 @@
  * The METAHEADER structure contains information about a Windows-format metafile.
  * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-metaheader
  * @namespace Windows.Win32.Graphics.Gdi
- * @version v4.0.30319
  */
-class METAHEADER extends Win32Struct
-{
+class METAHEADER extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 4
 
     /**
-     * 
      * @type {Integer}
      */
     mtType {

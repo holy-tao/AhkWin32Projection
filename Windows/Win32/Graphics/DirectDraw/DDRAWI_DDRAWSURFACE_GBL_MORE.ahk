@@ -1,12 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DDCOLORCONTROL.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw
- * @version v4.0.30319
  */
-class DDRAWI_DDRAWSURFACE_GBL_MORE extends Win32Struct
-{
+class DDRAWI_DDRAWSURFACE_GBL_MORE extends Win32Struct {
     static sizeof => 144
 
     static packingSize => 8

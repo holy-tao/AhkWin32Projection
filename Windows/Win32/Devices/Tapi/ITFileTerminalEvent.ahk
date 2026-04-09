@@ -1,18 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include .\ITTerminal.ahk
 #Include .\ITFileTrack.ahk
 #Include .\ITCallInfo.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * The ITFileTerminalEvent interface contains methods that retrieve the description of file terminal events that have occurred.
  * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nn-tapi3if-itfileterminalevent
  * @namespace Windows.Win32.Devices.Tapi
- * @version v4.0.30319
  */
-class ITFileTerminalEvent extends IDispatch{
+class ITFileTerminalEvent extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -55,14 +54,14 @@ class ITFileTerminalEvent extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {TERMINAL_MEDIA_STATE} 
      */
     State {
         get => this.get_State()
     }
 
     /**
-     * @type {Integer} 
+     * @type {FT_STATE_EVENT_CAUSE} 
      */
     Cause {
         get => this.get_Cause()
@@ -112,7 +111,7 @@ class ITFileTerminalEvent extends IDispatch{
 
     /**
      * The get_State method gets information on the new file terminal state.
-     * @returns {Integer} <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/ne-tapi3if-terminal_media_state">TERMINAL_MEDIA_STATE</a> descriptor of the new terminal state.
+     * @returns {TERMINAL_MEDIA_STATE} <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/ne-tapi3if-terminal_media_state">TERMINAL_MEDIA_STATE</a> descriptor of the new terminal state.
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itfileterminalevent-get_state
      */
     get_State() {
@@ -122,7 +121,7 @@ class ITFileTerminalEvent extends IDispatch{
 
     /**
      * The get_Cause method gets the cause associated with this event. (ITFileTerminalEvent.get_Cause)
-     * @returns {Integer} <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/ne-tapi3if-ft_state_event_cause">FT_STATE_EVENT_CAUSE</a> descriptor of the cause of this event.
+     * @returns {FT_STATE_EVENT_CAUSE} <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/ne-tapi3if-ft_state_event_cause">FT_STATE_EVENT_CAUSE</a> descriptor of the cause of this event.
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itfileterminalevent-get_cause
      */
     get_Cause() {

@@ -33,10 +33,8 @@
  * </ul>
  * @see https://learn.microsoft.com/windows/win32/api/ntenclv/ns-ntenclv-vbs_enclave_report_pkg_header
  * @namespace Windows.Win32.System.Environment
- * @version v4.0.30319
  */
-class VBS_ENCLAVE_REPORT_PKG_HEADER extends Win32Struct
-{
+class VBS_ENCLAVE_REPORT_PKG_HEADER extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 4

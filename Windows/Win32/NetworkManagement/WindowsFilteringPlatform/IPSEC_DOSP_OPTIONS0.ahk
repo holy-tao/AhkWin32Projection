@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\IPSEC_DOSP_FLAGS.ahk
 #Include .\FWP_V6_ADDR_AND_MASK.ahk
 
 /**
@@ -8,10 +9,8 @@
  * <b>IPSEC_DOSP_OPTIONS0</b> is a specific implementation of IPSEC_DOSP_OPTIONS. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-version-independent-names-and-targeting-specific-versions-of-windows">WFP Version-Independent Names and Targeting Specific Versions of Windows</a>  for more information.
  * @see https://learn.microsoft.com/windows/win32/api/ipsectypes/ns-ipsectypes-ipsec_dosp_options0
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
- * @version v4.0.30319
  */
-class IPSEC_DOSP_OPTIONS0 extends Win32Struct
-{
+class IPSEC_DOSP_OPTIONS0 extends Win32Struct {
     static sizeof => 136
 
     static packingSize => 8
@@ -152,8 +151,7 @@ class IPSEC_DOSP_OPTIONS0 extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Integer}
+     * @type {IPSEC_DOSP_FLAGS}
      */
     flags {
         get => NumGet(this, 60, "uint")
@@ -200,7 +198,7 @@ class IPSEC_DOSP_OPTIONS0 extends Win32Struct
      * Optional public IPv6 address or subnet for this policy, as specified in [FWP_V6_ADDR_AND_MASK](/windows/desktop/api/fwptypes/ns-fwptypes-fwp_v6_addr_and_mask).
      * @type {FWP_V6_ADDR_AND_MASK}
      */
-    publicV6AddrMask{
+    publicV6AddrMask {
         get {
             if(!this.HasProp("__publicV6AddrMask"))
                 this.__publicV6AddrMask := FWP_V6_ADDR_AND_MASK(96, this)
@@ -212,7 +210,7 @@ class IPSEC_DOSP_OPTIONS0 extends Win32Struct
      * Optional internal IPv6 address or subnet for this policy, as specified in [FWP_V6_ADDR_AND_MASK](/windows/desktop/api/fwptypes/ns-fwptypes-fwp_v6_addr_and_mask).
      * @type {FWP_V6_ADDR_AND_MASK}
      */
-    internalV6AddrMask{
+    internalV6AddrMask {
         get {
             if(!this.HasProp("__internalV6AddrMask"))
                 this.__internalV6AddrMask := FWP_V6_ADDR_AND_MASK(113, this)

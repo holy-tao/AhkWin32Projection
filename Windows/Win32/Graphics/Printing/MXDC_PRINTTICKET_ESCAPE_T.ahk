@@ -31,10 +31,8 @@
  * If the **opCode** is set to **MXDCOP\_PRINTTICKET\_FIXED\_PAGE**, the call to [**ExtEscape**](/windows/desktop/api/Wingdi/nf-wingdi-extescape) must occur between a call to [**StartPage**](/windows/desktop/api/Wingdi/nf-wingdi-startpage) and a call to [**EndPage**](/windows/desktop/api/Wingdi/nf-wingdi-endpage). If the **opCode** set to either **MXDCOP\_PRINTTICKET\_FIXED\_DOC** or **MXDCOP\_PRINTTICKET\_FIXED\_DOC\_SEQ**, the call to **ExtEscape** must occur between a call to [**StartDoc**](/windows/desktop/api/Wingdi/nf-wingdi-startdoca) and a call to [**EndDoc**](/windows/desktop/api/Wingdi/nf-wingdi-enddoc).
  * @see https://learn.microsoft.com/windows/win32/printdocs/mxdcprintticketescape
  * @namespace Windows.Win32.Graphics.Printing
- * @version v4.0.30319
  */
-class MXDC_PRINTTICKET_ESCAPE_T extends Win32Struct
-{
+class MXDC_PRINTTICKET_ESCAPE_T extends Win32Struct {
     static sizeof => 20
 
     static packingSize => 4
@@ -43,7 +41,7 @@ class MXDC_PRINTTICKET_ESCAPE_T extends Win32Struct
      * A [**MXDC\_ESCAPE\_HEADER\_T**](mxdcescapeheader.md) structure with its **opCode** member set to MXDCOP\_PRINTTICKET\_FIXED\_PAGE, MXDCOP\_PRINTTICKET\_FIXED\_DOC, or MXDCOP\_PRINTTICKET\_FIXED\_DOC\_SEQ.
      * @type {MXDC_ESCAPE_HEADER_T}
      */
-    mxdcEscape{
+    mxdcEscape {
         get {
             if(!this.HasProp("__mxdcEscape"))
                 this.__mxdcEscape := MXDC_ESCAPE_HEADER_T(0, this)
@@ -55,7 +53,7 @@ class MXDC_PRINTTICKET_ESCAPE_T extends Win32Struct
      * A [**MXDC\_PRINTTICKET\_DATA\_T**](mxdcprintticketpassthrough.md) structure containing the print ticket.
      * @type {MXDC_PRINTTICKET_DATA_T}
      */
-    printTicketData{
+    printTicketData {
         get {
             if(!this.HasProp("__printTicketData"))
                 this.__printTicketData := MXDC_PRINTTICKET_DATA_T(12, this)

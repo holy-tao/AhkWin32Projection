@@ -9,9 +9,8 @@
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IBDA_DigitalDemodulator2)</c>.
  * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nn-bdaiface-ibda_digitaldemodulator2
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IBDA_DigitalDemodulator2 extends IBDA_DigitalDemodulator{
+class IBDA_DigitalDemodulator2 extends IBDA_DigitalDemodulator {
 
     static sizeof => A_PtrSize
     /**
@@ -33,6 +32,7 @@ class IBDA_DigitalDemodulator2 extends IBDA_DigitalDemodulator{
     static VTableNames => ["put_GuardInterval", "get_GuardInterval", "put_TransmissionMode", "get_TransmissionMode", "put_RollOff", "get_RollOff", "put_Pilot", "get_Pilot"]
 
     /**
+     * @type {GuardInterval} 
      */
     GuardInterval {
         get => this.get_GuardInterval()
@@ -40,6 +40,7 @@ class IBDA_DigitalDemodulator2 extends IBDA_DigitalDemodulator{
     }
 
     /**
+     * @type {TransmissionMode} 
      */
     TransmissionMode {
         get => this.get_TransmissionMode()
@@ -47,6 +48,7 @@ class IBDA_DigitalDemodulator2 extends IBDA_DigitalDemodulator{
     }
 
     /**
+     * @type {RollOff} 
      */
     RollOff {
         get => this.get_RollOff()
@@ -54,6 +56,7 @@ class IBDA_DigitalDemodulator2 extends IBDA_DigitalDemodulator{
     }
 
     /**
+     * @type {Pilot} 
      */
     Pilot {
         get => this.get_Pilot()
@@ -62,7 +65,7 @@ class IBDA_DigitalDemodulator2 extends IBDA_DigitalDemodulator{
 
     /**
      * Sets the demodulator's guard interval.
-     * @param {Pointer<Integer>} pGuardInterval Pointer to a variable that contains the guard interval, specified as a member of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mstv/guardinterval">GuardInterval</a> enumeration.
+     * @param {Pointer<GuardInterval>} pGuardInterval Pointer to a variable that contains the guard interval, specified as a member of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mstv/guardinterval">GuardInterval</a> enumeration.
      * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_digitaldemodulator2-put_guardinterval
      */
@@ -75,7 +78,7 @@ class IBDA_DigitalDemodulator2 extends IBDA_DigitalDemodulator{
 
     /**
      * Gets the demodulator's guard interval.
-     * @param {Pointer<Integer>} pGuardInterval Receives the guard interval, specified as a member of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mstv/guardinterval">GuardInterval</a> enumeration.
+     * @param {Pointer<GuardInterval>} pGuardInterval Receives the guard interval, specified as a member of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mstv/guardinterval">GuardInterval</a> enumeration.
      * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_digitaldemodulator2-get_guardinterval
      */
@@ -88,7 +91,7 @@ class IBDA_DigitalDemodulator2 extends IBDA_DigitalDemodulator{
 
     /**
      * Sets the demodulator's transmission mode.
-     * @param {Pointer<Integer>} pTransmissionMode Pointer to a variable that contains the transmission mode, specified as a member of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mstv/transmissionmode">TransmissionMode</a> enumeration.
+     * @param {Pointer<TransmissionMode>} pTransmissionMode Pointer to a variable that contains the transmission mode, specified as a member of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mstv/transmissionmode">TransmissionMode</a> enumeration.
      * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_digitaldemodulator2-put_transmissionmode
      */
@@ -101,7 +104,7 @@ class IBDA_DigitalDemodulator2 extends IBDA_DigitalDemodulator{
 
     /**
      * Gets the demodulator's transmission mode.
-     * @param {Pointer<Integer>} pTransmissionMode Receives the transmission mode, specified as a member of the <b>TransmissionMode</b> enumeration.
+     * @param {Pointer<TransmissionMode>} pTransmissionMode Receives the transmission mode, specified as a member of the <b>TransmissionMode</b> enumeration.
      * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_digitaldemodulator2-get_transmissionmode
      */
@@ -114,7 +117,7 @@ class IBDA_DigitalDemodulator2 extends IBDA_DigitalDemodulator{
 
     /**
      * Sets the demodulator's roll-off factor.
-     * @param {Pointer<Integer>} pRollOff Pointer to a variable that contains the roll-off factor, specified as a member of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mstv/rolloff">RollOff</a> enumeration.
+     * @param {Pointer<RollOff>} pRollOff Pointer to a variable that contains the roll-off factor, specified as a member of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mstv/rolloff">RollOff</a> enumeration.
      * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_digitaldemodulator2-put_rolloff
      */
@@ -127,7 +130,7 @@ class IBDA_DigitalDemodulator2 extends IBDA_DigitalDemodulator{
 
     /**
      * Gets the demodulator's roll-off factor.
-     * @param {Pointer<Integer>} pRollOff Receives the roll-off factor, specified as a member of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mstv/rolloff">RollOff</a> enumeration.
+     * @param {Pointer<RollOff>} pRollOff Receives the roll-off factor, specified as a member of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mstv/rolloff">RollOff</a> enumeration.
      * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_digitaldemodulator2-get_rolloff
      */
@@ -140,7 +143,7 @@ class IBDA_DigitalDemodulator2 extends IBDA_DigitalDemodulator{
 
     /**
      * Sets the current pilot mode for Digital Video Broadcasting-S2 (DVB-S2).
-     * @param {Pointer<Integer>} pPilot Pointer to a variable that contains the pilot mode, specified as a member of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mstv/pilot">Pilot</a> enumeration.
+     * @param {Pointer<Pilot>} pPilot Pointer to a variable that contains the pilot mode, specified as a member of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mstv/pilot">Pilot</a> enumeration.
      * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_digitaldemodulator2-put_pilot
      */
@@ -153,7 +156,7 @@ class IBDA_DigitalDemodulator2 extends IBDA_DigitalDemodulator{
 
     /**
      * Gets the current pilot mode for Digital Video Broadcasting-S2 (DVB-S2).
-     * @param {Pointer<Integer>} pPilot Receives the pilot mode, specified as a member of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mstv/pilot">Pilot</a> enumeration.
+     * @param {Pointer<Pilot>} pPilot Receives the pilot mode, specified as a member of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mstv/pilot">Pilot</a> enumeration.
      * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_digitaldemodulator2-get_pilot
      */

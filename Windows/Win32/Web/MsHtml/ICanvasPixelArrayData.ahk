@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
- * @version v4.0.30319
  */
-class ICanvasPixelArrayData extends IUnknown{
+class ICanvasPixelArrayData extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IDWriteFactory3.ahk
 #Include .\IDWriteColorGlyphRunEnumerator1.ahk
 #Include ..\Direct2D\Common\D2D_POINT_2F.ahk
-#Include .\IDWriteFactory3.ahk
 
 /**
  * The root factory interface for all DirectWrite objects. (IDWriteFactory4)
  * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nn-dwrite_3-idwritefactory4
  * @namespace Windows.Win32.Graphics.DirectWrite
- * @version v4.0.30319
  */
-class IDWriteFactory4 extends IDWriteFactory3{
+class IDWriteFactory4 extends IDWriteFactory3 {
 
     static sizeof => A_PtrSize
     /**
@@ -40,14 +39,16 @@ class IDWriteFactory4 extends IDWriteFactory3{
      * @param {D2D_POINT_2F} baselineOrigin Type: <b><a href="https://docs.microsoft.com/windows/win32/Direct2D/d2d1-point-2f">D2D1_POINT_2F</a></b>
      * 
      * Horizontal and vertical origin of the base glyph run in pre-transform coordinates.
-     * @param {Pointer<DWRITE_GLYPH_RUN>} _glyphRun 
+     * @param {Pointer<DWRITE_GLYPH_RUN>} _glyphRun Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ns-dwrite-dwrite_glyph_run">DWRITE_GLYPH_RUN</a></b>
+     * 
+     * Pointer to the original "base" glyph run.
      * @param {Pointer<DWRITE_GLYPH_RUN_DESCRIPTION>} glyphRunDescription Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ns-dwrite-dwrite_glyph_run_description">DWRITE_GLYPH_RUN_DESCRIPTION</a></b>
      * 
      * Optional glyph run description.
-     * @param {Integer} desiredGlyphImageFormats Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dcommon/ne-dcommon-dwrite_glyph_image_formats">DWRITE_GLYPH_IMAGE_FORMATS</a></b>
+     * @param {DWRITE_GLYPH_IMAGE_FORMATS} desiredGlyphImageFormats Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dcommon/ne-dcommon-dwrite_glyph_image_formats">DWRITE_GLYPH_IMAGE_FORMATS</a></b>
      * 
      * Which data formats the runs should be split into.
-     * @param {Integer} measuringMode Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dcommon/ne-dcommon-dwrite_measuring_mode">DWRITE_MEASURING_MODE</a></b>
+     * @param {DWRITE_MEASURING_MODE} measuringMode Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dcommon/ne-dcommon-dwrite_measuring_mode">DWRITE_MEASURING_MODE</a></b>
      * 
      * Measuring mode, needed to compute the origins of each glyph.
      * @param {Pointer<DWRITE_MATRIX>} worldAndDpiTransform Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ns-dwrite-dwrite_matrix">DWRITE_MATRIX</a></b>
@@ -73,7 +74,9 @@ class IDWriteFactory4 extends IDWriteFactory3{
      * Converts glyph run placements to glyph origins. (overload 1/2)
      * @remarks
      * The transform and DPI have no effect on the origin scaling. They are solely used to compute glyph advances when not supplied and align glyphs in pixel aligned measuring modes.
-     * @param {Pointer<DWRITE_GLYPH_RUN>} _glyphRun 
+     * @param {Pointer<DWRITE_GLYPH_RUN>} _glyphRun Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ns-dwrite-dwrite_glyph_run">DWRITE_GLYPH_RUN</a></b>
+     * 
+     * Structure containing the properties of the glyph run.
      * @param {D2D_POINT_2F} baselineOrigin Type: <b><a href="https://docs.microsoft.com/windows/win32/Direct2D/d2d1-point-2f">D2D1_POINT_2F</a></b>
      * 
      * The position of the baseline origin, in DIPs, relative to the upper-left corner of the DIB.
@@ -92,8 +95,10 @@ class IDWriteFactory4 extends IDWriteFactory3{
      * Converts glyph run placements to glyph origins. (overload 1/2)
      * @remarks
      * The transform and DPI have no effect on the origin scaling. They are solely used to compute glyph advances when not supplied and align glyphs in pixel aligned measuring modes.
-     * @param {Pointer<DWRITE_GLYPH_RUN>} _glyphRun 
-     * @param {Integer} measuringMode 
+     * @param {Pointer<DWRITE_GLYPH_RUN>} _glyphRun Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ns-dwrite-dwrite_glyph_run">DWRITE_GLYPH_RUN</a></b>
+     * 
+     * Structure containing the properties of the glyph run.
+     * @param {DWRITE_MEASURING_MODE} measuringMode 
      * @param {D2D_POINT_2F} baselineOrigin Type: <b><a href="https://docs.microsoft.com/windows/win32/Direct2D/d2d1-point-2f">D2D1_POINT_2F</a></b>
      * 
      * The position of the baseline origin, in DIPs, relative to the upper-left corner of the DIB.

@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Search
- * @version v4.0.30319
  */
-class DBTYPEENUM20 extends Win32Enum{
+class DBTYPEENUM20 extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

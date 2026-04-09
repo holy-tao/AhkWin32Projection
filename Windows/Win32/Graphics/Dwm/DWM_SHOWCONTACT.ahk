@@ -3,13 +3,10 @@
 
 /**
  * Specifies the input operations for which visual feedback should be provided.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/dwmapi/ne-dwmapi-dwm_showcontact
  * @namespace Windows.Win32.Graphics.Dwm
- * @version v4.0.30319
  */
-class DWM_SHOWCONTACT extends Win32BitflagEnum{
+class DWM_SHOWCONTACT extends Win32BitflagEnum {
 
     /**
      * Down.

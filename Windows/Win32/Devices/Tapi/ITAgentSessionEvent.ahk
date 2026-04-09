@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ITAgentSession.ahk
 #Include ..\..\System\Com\IDispatch.ahk
+#Include .\ITAgentSession.ahk
 
 /**
  * The ITAgentSessionEvent interface (tapi3cc.h) contains methods that retrieve the description of agent session events.
  * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/nn-tapi3cc-itagentsessionevent
  * @namespace Windows.Win32.Devices.Tapi
- * @version v4.0.30319
  */
-class ITAgentSessionEvent extends IDispatch{
+class ITAgentSessionEvent extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -39,7 +38,7 @@ class ITAgentSessionEvent extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {AGENT_SESSION_EVENT} 
      */
     Event {
         get => this.get_Event()
@@ -62,7 +61,7 @@ class ITAgentSessionEvent extends IDispatch{
 
     /**
      * The ITAgentSessionEvent::get_Event method (tapi3cc.h) gets an AGENT_SESSION_EVENT descriptor of the event that occurred.
-     * @returns {Integer} Pointer to the 
+     * @returns {AGENT_SESSION_EVENT} Pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3/ne-tapi3-agent_session_event">AGENT_SESSION_EVENT</a> descriptor of the event.
      * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/nf-tapi3cc-itagentsessionevent-get_event
      */

@@ -5,10 +5,8 @@
  * Represents a 3x3 matrix.
  * @see https://learn.microsoft.com/windows/win32/api/mileffects/ns-mileffects-milmatrix3x2d
  * @namespace Windows.Win32.Graphics.Dwm
- * @version v4.0.30319
  */
-class MilMatrix3x2D extends Win32Struct
-{
+class MilMatrix3x2D extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8

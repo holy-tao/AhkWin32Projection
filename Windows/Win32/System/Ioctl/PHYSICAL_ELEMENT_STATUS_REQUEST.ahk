@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class PHYSICAL_ELEMENT_STATUS_REQUEST extends Win32Struct
-{
+class PHYSICAL_ELEMENT_STATUS_REQUEST extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4
@@ -52,9 +50,9 @@ class PHYSICAL_ELEMENT_STATUS_REQUEST extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Reserved{
+    Reserved {
         get {
             if(!this.HasProp("__ReservedProxyArray"))
                 this.__ReservedProxyArray := Win32FixedArray(this.ptr + 14, 2, Primitive, "char")

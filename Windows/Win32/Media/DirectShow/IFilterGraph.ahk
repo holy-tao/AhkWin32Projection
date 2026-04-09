@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\IEnumFilters.ahk
 #Include .\IBaseFilter.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * The IFilterGraph interface provides methods for building a filter graph.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-ifiltergraph
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IFilterGraph extends IUnknown{
+class IFilterGraph extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

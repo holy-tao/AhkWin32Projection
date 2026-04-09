@@ -7,9 +7,8 @@
  * Callback interface implemented by components that need to perform special processing of window messages on an ASTA thread.
  * @see https://learn.microsoft.com/windows/win32/api/imessagedispatcher/nn-imessagedispatcher-imessagedispatcher
  * @namespace Windows.Win32.System.WinRT
- * @version v4.0.30319
  */
-class IMessageDispatcher extends IInspectable{
+class IMessageDispatcher extends IInspectable {
 
     static sizeof => A_PtrSize
     /**

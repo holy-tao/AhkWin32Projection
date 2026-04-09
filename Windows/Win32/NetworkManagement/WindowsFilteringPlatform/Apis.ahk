@@ -4,7 +4,6 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
- * @version v4.0.30319
  */
 class WindowsFilteringPlatform {
 
@@ -3146,7 +3145,7 @@ class WindowsFilteringPlatform {
      * @param {FWPM_ENGINE_HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
-     * @param {Integer} option Type: [FWPM_ENGINE_OPTION](/windows/desktop/api/fwpmtypes/ne-fwpmtypes-fwpm_engine_option)</b>
+     * @param {FWPM_ENGINE_OPTION} option Type: [FWPM_ENGINE_OPTION](/windows/desktop/api/fwpmtypes/ne-fwpmtypes-fwpm_engine_option)</b>
      * 
      * The option to be retrieved.
      * @param {Pointer<Pointer<FWP_VALUE0>>} value Type: [FWP_VALUE0](/windows/desktop/api/fwptypes/ns-fwptypes-fwp_value0)**</b>
@@ -3278,7 +3277,7 @@ class WindowsFilteringPlatform {
      * @param {FWPM_ENGINE_HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
-     * @param {Integer} option Type: [FWPM_ENGINE_OPTION](/windows/desktop/api/fwpmtypes/ne-fwpmtypes-fwpm_engine_option)</b>
+     * @param {FWPM_ENGINE_OPTION} option Type: [FWPM_ENGINE_OPTION](/windows/desktop/api/fwpmtypes/ne-fwpmtypes-fwpm_engine_option)</b>
      * 
      * The option to be set.
      * @param {Pointer<FWP_VALUE0>} newValue Type: [FWP_VALUE0](/windows/desktop/api/fwptypes/ns-fwptypes-fwp_value0)*</b>
@@ -3398,7 +3397,9 @@ class WindowsFilteringPlatform {
      * @param {Pointer<Pointer<ACL>>} sacl Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-acl">PACL</a>*</b>
      * 
      * The system access control list (SACL) in the returned security descriptor.
-     * @param {Pointer<PSECURITY_DESCRIPTOR>} _securityDescriptor 
+     * @param {Pointer<PSECURITY_DESCRIPTOR>} _securityDescriptor Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">PSECURITY_DESCRIPTOR</a>*</b>
+     * 
+     * The returned security descriptor.
      * @returns {Integer} Type: <b>DWORD</b>
      * 
      * <table>
@@ -4472,7 +4473,9 @@ class WindowsFilteringPlatform {
      * @param {Pointer<Pointer<ACL>>} sacl Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-acl">PACL</a>*</b>
      * 
      * The system access control list (SACL) in the returned security descriptor.
-     * @param {Pointer<PSECURITY_DESCRIPTOR>} _securityDescriptor 
+     * @param {Pointer<PSECURITY_DESCRIPTOR>} _securityDescriptor Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">PSECURITY_DESCRIPTOR</a>*</b>
+     * 
+     * The returned security descriptor.
      * @returns {Integer} Type: <b>DWORD</b>
      * 
      * <table>
@@ -4642,7 +4645,9 @@ class WindowsFilteringPlatform {
      * @param {Pointer<FWPM_PROVIDER_CHANGE_CALLBACK0>} callback Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nc-fwpmu-fwpm_provider_change_callback0">FWPM_PROVIDER_CHANGE_CALLBACK0</a></b>
      * 
      * Function pointer that will be invoked when a notification is ready for delivery.
-     * @param {Pointer<Void>} _context 
+     * @param {Pointer<Void>} _context Type: <b>void*</b>
+     * 
+     * Optional context pointer. This pointer is passed to the <i>callback</i> function along with details of the change.
      * @param {Pointer<HANDLE>} changeHandle Type: <b>HANDLE*</b>
      * 
      * Handle to the newly created subscription.
@@ -6185,7 +6190,9 @@ class WindowsFilteringPlatform {
      * @param {Pointer<Pointer<ACL>>} sacl Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-acl">PACL</a>*</b>
      * 
      * The system access control list (SACL) in the returned security descriptor.
-     * @param {Pointer<PSECURITY_DESCRIPTOR>} _securityDescriptor 
+     * @param {Pointer<PSECURITY_DESCRIPTOR>} _securityDescriptor Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">PSECURITY_DESCRIPTOR</a>*</b>
+     * 
+     * The returned security descriptor.
      * @returns {Integer} Type: <b>DWORD</b>
      * 
      * <table>
@@ -6355,7 +6362,9 @@ class WindowsFilteringPlatform {
      * @param {Pointer<FWPM_PROVIDER_CONTEXT_CHANGE_CALLBACK0>} callback Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nc-fwpmu-fwpm_provider_context_change_callback0">FWPM_PROVIDER_CONTEXT_CHANGE_CALLBACK0</a></b>
      * 
      * Function pointer that will be invoked when a notification is ready for delivery.
-     * @param {Pointer<Void>} _context 
+     * @param {Pointer<Void>} _context Type: <b>void*</b>
+     * 
+     * Optional context pointer. This pointer is passed to the <i>callback</i> function along with details of the change.
      * @param {Pointer<HANDLE>} changeHandle Type: <b>HANDLE*</b>
      * 
      * Handle to the newly created subscription.
@@ -7036,7 +7045,9 @@ class WindowsFilteringPlatform {
      * @param {Pointer<Pointer<ACL>>} sacl Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-acl">PACL</a>*</b>
      * 
      * The system access control list (SACL) in the returned security descriptor.
-     * @param {Pointer<PSECURITY_DESCRIPTOR>} _securityDescriptor 
+     * @param {Pointer<PSECURITY_DESCRIPTOR>} _securityDescriptor Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">PSECURITY_DESCRIPTOR</a>*</b>
+     * 
+     * The returned security descriptor.
      * @returns {Integer} Type: <b>DWORD</b>
      * 
      * <table>
@@ -7206,7 +7217,9 @@ class WindowsFilteringPlatform {
      * @param {Pointer<FWPM_SUBLAYER_CHANGE_CALLBACK0>} callback Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nc-fwpmu-fwpm_sublayer_change_callback0">FWPM_SUBLAYER_CHANGE_CALLBACK0</a></b>
      * 
      * Function pointer that will be invoked when a notification is ready for delivery.
-     * @param {Pointer<Void>} _context 
+     * @param {Pointer<Void>} _context Type: <b>void*</b>
+     * 
+     * Optional context pointer. This pointer is passed to the <i>callback</i> function along with details of the change.
      * @param {Pointer<HANDLE>} changeHandle Type: <b>HANDLE*</b>
      * 
      * Handle to the newly created subscription.
@@ -7812,7 +7825,9 @@ class WindowsFilteringPlatform {
      * @param {Pointer<Pointer<ACL>>} sacl Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-acl">PACL</a>*</b>
      * 
      * The system access control list (SACL) in the returned security descriptor.
-     * @param {Pointer<PSECURITY_DESCRIPTOR>} _securityDescriptor 
+     * @param {Pointer<PSECURITY_DESCRIPTOR>} _securityDescriptor Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">PSECURITY_DESCRIPTOR</a>*</b>
+     * 
+     * The returned security descriptor.
      * @returns {Integer} Type: <b>DWORD</b>
      * 
      * <table>
@@ -8611,7 +8626,9 @@ class WindowsFilteringPlatform {
      * @param {Pointer<Pointer<ACL>>} sacl Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-acl">PACL</a>*</b>
      * 
      * The system access control list (SACL) in the returned security descriptor.
-     * @param {Pointer<PSECURITY_DESCRIPTOR>} _securityDescriptor 
+     * @param {Pointer<PSECURITY_DESCRIPTOR>} _securityDescriptor Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">PSECURITY_DESCRIPTOR</a>*</b>
+     * 
+     * The returned security descriptor.
      * @returns {Integer} Type: <b>DWORD</b>
      * 
      * <table>
@@ -8781,7 +8798,9 @@ class WindowsFilteringPlatform {
      * @param {Pointer<FWPM_CALLOUT_CHANGE_CALLBACK0>} callback Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nc-fwpmu-fwpm_callout_change_callback0">FWPM_CALLOUT_CHANGE_CALLBACK0</a></b>
      * 
      * Function pointer that will be invoked when a notification is ready for delivery.
-     * @param {Pointer<Void>} _context 
+     * @param {Pointer<Void>} _context Type: <b>void*</b>
+     * 
+     * Optional context pointer. This pointer is passed to the <i>callback</i> function along with details of the change.
      * @param {Pointer<HANDLE>} changeHandle Type: <b>HANDLE*</b>
      * 
      * Handle to the newly created subscription.
@@ -9603,7 +9622,9 @@ class WindowsFilteringPlatform {
      * @param {Pointer<Pointer<ACL>>} sacl Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-acl">PACL</a>*</b>
      * 
      * The system access control list (SACL) in the returned security descriptor.
-     * @param {Pointer<PSECURITY_DESCRIPTOR>} _securityDescriptor 
+     * @param {Pointer<PSECURITY_DESCRIPTOR>} _securityDescriptor Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">PSECURITY_DESCRIPTOR</a>*</b>
+     * 
+     * The returned security descriptor.
      * @returns {Integer} Type: <b>DWORD</b>
      * 
      * <table>
@@ -9773,7 +9794,9 @@ class WindowsFilteringPlatform {
      * @param {Pointer<FWPM_FILTER_CHANGE_CALLBACK0>} callback Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nc-fwpmu-fwpm_filter_change_callback0">FWPM_FILTER_CHANGE_CALLBACK0</a></b>
      * 
      * The  function pointer that will be invoked when a notification is ready for delivery.
-     * @param {Pointer<Void>} _context 
+     * @param {Pointer<Void>} _context Type: <b>void*</b>
+     * 
+     * Optional context pointer. This pointer is passed to the <i>callback</i> function along with details of the change.
      * @param {Pointer<HANDLE>} changeHandle Type: <b>HANDLE*</b>
      * 
      * Handle to the newly created subscription.
@@ -12005,7 +12028,9 @@ class WindowsFilteringPlatform {
      * @param {Pointer<IPSEC_SA_CONTEXT_CALLBACK0>} callback Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nc-fwpmu-ipsec_sa_context_callback0">IPSEC_SA_CONTEXT_CALLBACK0</a></b>
      * 
      * Function pointer that will be invoked when a notification is ready for delivery.
-     * @param {Pointer<Void>} _context 
+     * @param {Pointer<Void>} _context Type: <b>void*</b>
+     * 
+     * Optional context pointer. This pointer is passed to the <i>callback</i> function along with details of the event.
      * @param {Pointer<HANDLE>} eventsHandle Type: <b>HANDLE*</b>
      * 
      * Handle to the newly created subscription.
@@ -12537,7 +12562,9 @@ class WindowsFilteringPlatform {
      * @param {Pointer<Pointer<ACL>>} sacl Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-acl">PACL</a>*</b>
      * 
      * The system access control list (SACL) in the returned security descriptor.
-     * @param {Pointer<PSECURITY_DESCRIPTOR>} _securityDescriptor 
+     * @param {Pointer<PSECURITY_DESCRIPTOR>} _securityDescriptor Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">PSECURITY_DESCRIPTOR</a>*</b>
+     * 
+     * The returned security descriptor.
      * @returns {Integer} Type: <b>DWORD</b>
      * 
      * <table>
@@ -12991,7 +13018,9 @@ class WindowsFilteringPlatform {
      * @param {Pointer<Pointer<ACL>>} sacl Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-acl">PACL</a>*</b>
      * 
      * The system access control list (SACL) in the returned security descriptor.
-     * @param {Pointer<PSECURITY_DESCRIPTOR>} _securityDescriptor 
+     * @param {Pointer<PSECURITY_DESCRIPTOR>} _securityDescriptor Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">PSECURITY_DESCRIPTOR</a>*</b>
+     * 
+     * The returned security descriptor.
      * @returns {Integer} Type: <b>DWORD</b>
      * 
      * <table>
@@ -13391,7 +13420,9 @@ class WindowsFilteringPlatform {
      * @param {Pointer<Pointer<ACL>>} sacl Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-acl">PACL</a>*</b>
      * 
      * The system access control list (SACL) in the returned security descriptor.
-     * @param {Pointer<PSECURITY_DESCRIPTOR>} _securityDescriptor 
+     * @param {Pointer<PSECURITY_DESCRIPTOR>} _securityDescriptor Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">PSECURITY_DESCRIPTOR</a>*</b>
+     * 
+     * The returned security descriptor.
      * @returns {Integer} Type: <b>DWORD</b>
      * 
      * <table>
@@ -14353,7 +14384,9 @@ class WindowsFilteringPlatform {
      * @param {Pointer<Pointer<ACL>>} sacl Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-acl">PACL</a>*</b>
      * 
      * The system access control list (SACL) in the returned security descriptor.
-     * @param {Pointer<PSECURITY_DESCRIPTOR>} _securityDescriptor 
+     * @param {Pointer<PSECURITY_DESCRIPTOR>} _securityDescriptor Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">PSECURITY_DESCRIPTOR</a>*</b>
+     * 
+     * The returned security descriptor.
      * @returns {Integer} Type: <b>DWORD</b>
      * 
      * <table>
@@ -15074,7 +15107,9 @@ class WindowsFilteringPlatform {
      * @param {Pointer<Pointer<ACL>>} sacl Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-acl">PACL</a>*</b>
      * 
      * The system access control list (SACL) in the returned security descriptor.
-     * @param {Pointer<PSECURITY_DESCRIPTOR>} _securityDescriptor 
+     * @param {Pointer<PSECURITY_DESCRIPTOR>} _securityDescriptor Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">PSECURITY_DESCRIPTOR</a>*</b>
+     * 
+     * The returned security descriptor.
      * @returns {Integer} Type: <b>DWORD</b>
      * 
      * <table>
@@ -15234,7 +15269,9 @@ class WindowsFilteringPlatform {
      * @param {Pointer<FWPM_NET_EVENT_CALLBACK0>} callback Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nc-fwpmu-fwpm_net_event_callback0">FWPM_NET_EVENT_CALLBACK0</a></b>
      * 
      * Function pointer that will be invoked when a notification is ready for delivery.
-     * @param {Pointer<Void>} _context 
+     * @param {Pointer<Void>} _context Type: <b>void*</b>
+     * 
+     * Optional context pointer. This pointer is passed to the <i>callback</i> function along with details of the event.
      * @param {Pointer<HANDLE>} eventsHandle Type: <b>HANDLE*</b>
      * 
      * Handle to the newly created subscription.
@@ -15456,7 +15493,9 @@ class WindowsFilteringPlatform {
      * @param {Pointer<FWPM_NET_EVENT_CALLBACK1>} callback Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nc-fwpmu-fwpm_net_event_callback1">FWPM_NET_EVENT_CALLBACK1</a></b>
      * 
      * Function pointer that will be invoked when a notification is ready for delivery.
-     * @param {Pointer<Void>} _context 
+     * @param {Pointer<Void>} _context Type: <b>void*</b>
+     * 
+     * Optional context pointer. This pointer is passed to the <i>callback</i> function along with details of the event.
      * @param {Pointer<HANDLE>} eventsHandle Type: <b>HANDLE*</b>
      * 
      * Handle to the newly created subscription.
@@ -15526,7 +15565,7 @@ class WindowsFilteringPlatform {
      * @param {FWPM_ENGINE_HANDLE} engineHandle Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
      * @param {Pointer<FWPM_NET_EVENT_SUBSCRIPTION0>} subscription An [FWPM_NET_EVENT_SUBSCRIPTION0](/windows/win32/api/fwpmtypes/ns-fwpmtypes-fwpm_net_event_subscription0) structure which describes which notifications will be delivered.
      * @param {Pointer<FWPM_NET_EVENT_CALLBACK2>} callback Pointer to a function of type [FWPM_NET_EVENT_CALLBACK2](/windows/win32/api/fwpmu/nc-fwpmu-fwpm_net_event_callback2) that will be invoked when a notification is ready for delivery.
-     * @param {Pointer<Void>} _context 
+     * @param {Pointer<Void>} _context Optional context pointer. This pointer is passed to the <i>callback</i> function along with details of the event.
      * @param {Pointer<HANDLE>} eventsHandle Handle to the newly created subscription. Call [FwpmNetEventUnsubscribe0](/windows/win32/api/fwpmu/nf-fwpmu-fwpmneteventunsubscribe0) to close this handle when the subscription is no longer needed.
      * @returns {Integer} <table>
      * <tr>
@@ -15642,7 +15681,9 @@ class WindowsFilteringPlatform {
      * @param {Pointer<FWPM_DYNAMIC_KEYWORD_CALLBACK0>} callback Type: \_In\_ **[FWPM_DYNAMIC_KEYWORD_CALLBACK0](nc-fwpmu-fwpm_dynamic_keyword_callback0.md)**
      * 
      * A pointer to a callback function that you implement, which will be invoked when a notification is ready for delivery.
-     * @param {Pointer<Void>} _context 
+     * @param {Pointer<Void>} _context Type: \_In\_opt\_ **void\***
+     * 
+     * An optional context pointer. This pointer is passed to the callback function.
      * @param {Pointer<HANDLE>} subscriptionHandle Type: \_Out\_ **[HANDLE](/windows/win32/winprog/windows-data-types)\***
      * 
      * The address of a handle, which is populated with a handle to the newly created subscription.
@@ -15762,7 +15803,9 @@ class WindowsFilteringPlatform {
      * @param {Pointer<FWPM_SYSTEM_PORTS_CALLBACK0>} callback Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nc-fwpmu-fwpm_system_ports_callback0">FWPM_SYSTEM_PORTS_CALLBACK0</a></b>
      * 
      * Function pointer that will be invoked when a notification is ready for delivery.
-     * @param {Pointer<Void>} _context 
+     * @param {Pointer<Void>} _context Type: <b>void*</b>
+     * 
+     * Optional context pointer. This pointer is passed to the <i>callback</i> function along with details of the system port.
      * @param {Pointer<HANDLE>} sysPortsHandle Type: <b>HANDLE*</b>
      * 
      * Handle to the newly created subscription.
@@ -15910,7 +15953,9 @@ class WindowsFilteringPlatform {
      * @param {Integer} id Type: <b>UINT64</b>
      * 
      * The run-time identifier for the connection.
-     * @param {Pointer<Pointer<FWPM_CONNECTION0>>} _connection 
+     * @param {Pointer<Pointer<FWPM_CONNECTION0>>} _connection Type: [FWPM_CONNECTION0](/windows/desktop/api/fwpmtypes/ns-fwpmtypes-fwpm_connection0)**</b>
+     * 
+     * The connection information.
      * @returns {Integer} Type: <b>DWORD</b>
      * 
      * <table>
@@ -16206,7 +16251,9 @@ class WindowsFilteringPlatform {
      * @param {Pointer<Pointer<ACL>>} sacl Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-acl">PACL</a>*</b>
      * 
      * The system access control list (SACL) in the returned security descriptor.
-     * @param {Pointer<PSECURITY_DESCRIPTOR>} _securityDescriptor 
+     * @param {Pointer<PSECURITY_DESCRIPTOR>} _securityDescriptor Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">PSECURITY_DESCRIPTOR</a>*</b>
+     * 
+     * The returned security descriptor.
      * @returns {Integer} Type: <b>DWORD</b>
      * 
      * <table>
@@ -16364,7 +16411,9 @@ class WindowsFilteringPlatform {
      * @param {Pointer<FWPM_CONNECTION_CALLBACK0>} callback Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nc-fwpmu-fwpm_connection_callback0">FWPM_CONNECTION_CALLBACK0</a></b>
      * 
      * Function pointer that will be invoked when a notification is ready for delivery.
-     * @param {Pointer<Void>} _context 
+     * @param {Pointer<Void>} _context Type: <b>void*</b>
+     * 
+     * Optional context pointer. This pointer is passed to the <i>callback</i> function along with details of the event.
      * @param {Pointer<HANDLE>} eventsHandle Type: <b>HANDLE*</b>
      * 
      * Handle to the newly created subscription.
@@ -16514,7 +16563,9 @@ class WindowsFilteringPlatform {
      * @param {Pointer<FWPM_VSWITCH_EVENT_CALLBACK0>} callback Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nc-fwpmu-fwpm_vswitch_event_callback0">FWPM_VSWITCH_EVENT_CALLBACK0</a></b>
      * 
      * Function pointer that will be invoked when a notification is ready for delivery.
-     * @param {Pointer<Void>} _context 
+     * @param {Pointer<Void>} _context Type: <b>void*</b>
+     * 
+     * Optional context pointer. This pointer is passed to the <i>callback</i> function along with details of the event.
      * @param {Pointer<HANDLE>} subscriptionHandle Type: <b>HANDLE*</b>
      * 
      * Handle to the newly created subscription.
@@ -16674,7 +16725,9 @@ class WindowsFilteringPlatform {
      * @param {Pointer<Pointer<ACL>>} sacl Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-acl">PACL</a>*</b>
      * 
      * The system access control list (SACL) in the returned security descriptor.
-     * @param {Pointer<PSECURITY_DESCRIPTOR>} _securityDescriptor 
+     * @param {Pointer<PSECURITY_DESCRIPTOR>} _securityDescriptor Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">PSECURITY_DESCRIPTOR</a>*</b>
+     * 
+     * The returned security descriptor.
      * @returns {Integer} Type: <b>DWORD</b>
      * 
      * <table>
@@ -16822,7 +16875,7 @@ class WindowsFilteringPlatform {
      * 
      * @param {FWPM_ENGINE_HANDLE} engineHandle 
      * @param {Pointer<FWPM_PROVIDER_CONTEXT3>} connectionPolicy 
-     * @param {Integer} ipVersion 
+     * @param {FWP_IP_VERSION} ipVersion 
      * @param {Integer} weight 
      * @param {Integer} numFilterConditions 
      * @param {Pointer<FWPM_FILTER_CONDITION0>} filterConditions 

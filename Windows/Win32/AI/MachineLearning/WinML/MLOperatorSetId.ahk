@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.AI.MachineLearning.WinML
- * @version v4.0.30319
  */
-class MLOperatorSetId extends Win32Struct
-{
+class MLOperatorSetId extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

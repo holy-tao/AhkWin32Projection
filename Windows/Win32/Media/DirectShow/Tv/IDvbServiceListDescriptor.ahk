@@ -7,9 +7,8 @@
  * Implements methods that get data from a Digital Video Broadcast (DVB) service list descriptor. A service list descriptor is part of the DVB network information table (NIT) or bouquet association table (BAT) that lists services by service ID and type.
  * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nn-dvbsiparser-idvbservicelistdescriptor
  * @namespace Windows.Win32.Media.DirectShow.Tv
- * @version v4.0.30319
  */
-class IDvbServiceListDescriptor extends IUnknown{
+class IDvbServiceListDescriptor extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -1,13 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IXpsOMPart.ahk
 #Include .\IXpsOMDocumentSequence.ahk
 #Include .\IXpsOMPageReferenceCollection.ahk
 #Include .\IXpsOMPrintTicketResource.ahk
 #Include .\IXpsOMDocumentStructureResource.ahk
 #Include .\IXpsOMSignatureBlockResourceCollection.ahk
-#Include .\IXpsOMDocument.ahk
-#Include .\IXpsOMPart.ahk
 
 /**
  * An ordered sequence of fixed pages and document-level resources that make up the document.
@@ -57,9 +56,8 @@
  * ```
  * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomdocument
  * @namespace Windows.Win32.Storage.Xps
- * @version v4.0.30319
  */
-class IXpsOMDocument extends IXpsOMPart{
+class IXpsOMDocument extends IXpsOMPart {
 
     static sizeof => A_PtrSize
     /**
@@ -232,7 +230,7 @@ class IXpsOMDocument extends IXpsOMPart{
      * Makes a deep copy of the interface. (IXpsOMDocument.Clone)
      * @remarks
      * This method does not update any of the resource pointers in the copy.
-     * @returns {IXpsOMDocument} 
+     * @returns {IXpsOMDocument} A pointer to the copy of the interface.
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomdocument-clone
      */
     Clone() {

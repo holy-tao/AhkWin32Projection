@@ -6,10 +6,8 @@
  * Contains identification information for a file. (FILE_ID_INFO)
  * @see https://learn.microsoft.com/windows/win32/api/winbase/ns-winbase-file_id_info
  * @namespace Windows.Win32.Storage.FileSystem
- * @version v4.0.30319
  */
-class FILE_ID_INFO extends Win32Struct
-{
+class FILE_ID_INFO extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -29,7 +27,7 @@ class FILE_ID_INFO extends Win32Struct
      *      identifier and the volume serial number for each file and compare them.
      * @type {FILE_ID_128}
      */
-    FileId{
+    FileId {
         get {
             if(!this.HasProp("__FileId"))
                 this.__FileId := FILE_ID_128(8, this)

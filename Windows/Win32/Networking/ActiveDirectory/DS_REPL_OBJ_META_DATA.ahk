@@ -1,17 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\FILETIME.ahk
 #Include .\DS_REPL_ATTR_META_DATA.ahk
+#Include ..\..\Foundation\FILETIME.ahk
 
 /**
  * The DS_REPL_OBJ_META_DATA structure contains an array of DS_REPL_ATTR_META_DATA structures. These structures contain replication state data for past and present attributes for a given object.
  * @see https://learn.microsoft.com/windows/win32/api/ntdsapi/ns-ntdsapi-ds_repl_obj_meta_data
  * @namespace Windows.Win32.Networking.ActiveDirectory
- * @version v4.0.30319
  */
-class DS_REPL_OBJ_META_DATA extends Win32Struct
-{
-    static sizeof => 16
+class DS_REPL_OBJ_META_DATA extends Win32Struct {
+    static sizeof => 56
 
     static packingSize => 8
 
@@ -35,9 +33,9 @@ class DS_REPL_OBJ_META_DATA extends Win32Struct
 
     /**
      * Contains an array of <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/ns-ntdsapi-ds_repl_attr_meta_data">DS_REPL_ATTR_META_DATA</a> structures. The <b>cNumEntries</b> member contains the number of elements in this array.
-     * @type {Array<DS_REPL_ATTR_META_DATA>}
+     * @type {DS_REPL_ATTR_META_DATA}
      */
-    rgMetaData{
+    rgMetaData {
         get {
             if(!this.HasProp("__rgMetaDataProxyArray"))
                 this.__rgMetaDataProxyArray := Win32FixedArray(this.ptr + 8, 1, DS_REPL_ATTR_META_DATA, "")

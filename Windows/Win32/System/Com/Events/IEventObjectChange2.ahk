@@ -7,9 +7,8 @@
  * Notifies subscribers of changes to the event store while including partition and application ID information.
  * @see https://learn.microsoft.com/windows/win32/api/eventsys/nn-eventsys-ieventobjectchange2
  * @namespace Windows.Win32.System.Com.Events
- * @version v4.0.30319
  */
-class IEventObjectChange2 extends IUnknown{
+class IEventObjectChange2 extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -7,9 +7,8 @@
  * This interface is not supported. Do not use.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nn-shobjidl-iusetobrowseitem
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IUseToBrowseItem extends IRelatedItem{
+class IUseToBrowseItem extends IRelatedItem {
 
     static sizeof => A_PtrSize
     /**

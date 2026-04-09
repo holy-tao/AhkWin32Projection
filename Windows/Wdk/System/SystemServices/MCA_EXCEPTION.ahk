@@ -1,12 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\MCA_EXCEPTION_TYPE.ahk
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class MCA_EXCEPTION extends Win32Struct
-{
+class MCA_EXCEPTION extends Win32Struct {
     static sizeof => 256
 
     static packingSize => 8
@@ -18,7 +17,7 @@ class MCA_EXCEPTION extends Win32Struct
         class _Mca extends Win32Struct {
             static sizeof => 32
             static packingSize => 8
-    
+
             /**
              * @type {Integer}
              */
@@ -26,34 +25,34 @@ class MCA_EXCEPTION extends Win32Struct
                 get => NumGet(this, 0, "char")
                 set => NumPut("char", value, this, 0)
             }
-        
+
             /**
-             * @type {Array<Byte>}
+             * @type {Array<Integer>}
              */
-            Reserved2{
+            Reserved2 {
                 get {
                     if(!this.HasProp("__Reserved2ProxyArray"))
                         this.__Reserved2ProxyArray := Win32FixedArray(this.ptr + 1, 7, Primitive, "char")
                     return this.__Reserved2ProxyArray
                 }
             }
-        
+
             /**
-             * @type {Pointer<MCI_STATS>}
+             * @type {Pointer}
              */
             Status {
                 get => NumGet(this, 8, "ptr")
                 set => NumPut("ptr", value, this, 8)
             }
-        
+
             /**
-             * @type {Pointer<MCI_ADDR>}
+             * @type {Pointer}
              */
             Address {
                 get => NumGet(this, 16, "ptr")
                 set => NumPut("ptr", value, this, 16)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -61,13 +60,12 @@ class MCA_EXCEPTION extends Win32Struct
                 get => NumGet(this, 24, "uint")
                 set => NumPut("uint", value, this, 24)
             }
-        
         }
-    
+
         class _Mce extends Win32Struct {
             static sizeof => 16
             static packingSize => 8
-    
+
             /**
              * @type {Integer}
              */
@@ -75,7 +73,7 @@ class MCA_EXCEPTION extends Win32Struct
                 get => NumGet(this, 0, "uint")
                 set => NumPut("uint", value, this, 0)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -83,31 +81,29 @@ class MCA_EXCEPTION extends Win32Struct
                 get => NumGet(this, 8, "uint")
                 set => NumPut("uint", value, this, 8)
             }
-        
         }
-    
+
         /**
          * @type {_Mca}
          */
-        Mca{
+        Mca {
             get {
                 if(!this.HasProp("__Mca"))
-                    this.__Mca := %this.__Class%._Mca(0, this)
+                    this.__Mca := MCA_EXCEPTION._u_e__Union._Mca(0, this)
                 return this.__Mca
             }
         }
-    
+
         /**
          * @type {_Mce}
          */
-        Mce{
+        Mce {
             get {
                 if(!this.HasProp("__Mce"))
-                    this.__Mce := %this.__Class%._Mce(0, this)
+                    this.__Mce := MCA_EXCEPTION._u_e__Union._Mce(0, this)
                 return this.__Mce
             }
         }
-    
     }
 
     /**
@@ -119,7 +115,7 @@ class MCA_EXCEPTION extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {MCA_EXCEPTION_TYPE}
      */
     ExceptionType {
         get => NumGet(this, 4, "int")
@@ -153,10 +149,10 @@ class MCA_EXCEPTION extends Win32Struct
     /**
      * @type {_u_e__Union}
      */
-    u{
+    u {
         get {
             if(!this.HasProp("__u"))
-                this.__u := %this.__Class%._u_e__Union(24, this)
+                this.__u := MCA_EXCEPTION._u_e__Union(24, this)
             return this.__u
         }
     }
@@ -178,9 +174,9 @@ class MCA_EXCEPTION extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt64>}
+     * @type {Array<Integer>}
      */
-    ExtReg{
+    ExtReg {
         get {
             if(!this.HasProp("__ExtRegProxyArray"))
                 this.__ExtRegProxyArray := Win32FixedArray(this.ptr + 64, 24, Primitive, "uint")

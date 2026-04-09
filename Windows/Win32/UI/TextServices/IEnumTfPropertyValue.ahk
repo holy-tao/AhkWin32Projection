@@ -1,16 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IEnumTfPropertyValue.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * The IEnumTfPropertyValue interface is implemented by the TSF manager to provide an enumeration of property values.
  * @see https://learn.microsoft.com/windows/win32/api/msctf/nn-msctf-ienumtfpropertyvalue
  * @namespace Windows.Win32.UI.TextServices
- * @version v4.0.30319
  */
-class IEnumTfPropertyValue extends IUnknown{
+class IEnumTfPropertyValue extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

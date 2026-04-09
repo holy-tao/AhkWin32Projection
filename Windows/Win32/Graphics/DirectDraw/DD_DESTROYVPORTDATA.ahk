@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DD_DIRECTDRAW_LOCAL.ahk
+#Include .\DD_VIDEOPORT_LOCAL.ahk
 
 /**
  * The DD_DESTROYVPORTDATA structure contains the information necessary for the driver to clean up.
  * @see https://learn.microsoft.com/windows/win32/api/ddrawint/ns-ddrawint-dd_destroyvportdata
  * @namespace Windows.Win32.Graphics.DirectDraw
- * @version v4.0.30319
  */
-class DD_DESTROYVPORTDATA extends Win32Struct
-{
+class DD_DESTROYVPORTDATA extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8

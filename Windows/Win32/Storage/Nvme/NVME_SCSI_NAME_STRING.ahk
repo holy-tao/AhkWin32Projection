@@ -3,15 +3,11 @@
 
 /**
  * Contains information that is used to construct the SCSI name string identifier.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/nvme/ns-nvme-nvme_scsi_name_string
  * @namespace Windows.Win32.Storage.Nvme
- * @version v4.0.30319
  */
-class NVME_SCSI_NAME_STRING extends Win32Struct
-{
-    static sizeof => 136
+class NVME_SCSI_NAME_STRING extends Win32Struct {
+    static sizeof => 68
 
     static packingSize => 2
 
@@ -22,8 +18,8 @@ class NVME_SCSI_NAME_STRING extends Win32Struct
      * @type {String}
      */
     PCIVendorID {
-        get => StrGet(this.ptr + 0, 3, "UTF-16")
-        set => StrPut(value, this.ptr + 0, 3, "UTF-16")
+        get => StrGet(this.ptr + 0, 3, "UTF-8")
+        set => StrPut(value, this.ptr + 0, 3, "UTF-8")
     }
 
     /**
@@ -33,8 +29,8 @@ class NVME_SCSI_NAME_STRING extends Win32Struct
      * @type {String}
      */
     ModelNumber {
-        get => StrGet(this.ptr + 8, 39, "UTF-16")
-        set => StrPut(value, this.ptr + 8, 39, "UTF-16")
+        get => StrGet(this.ptr + 4, 39, "UTF-8")
+        set => StrPut(value, this.ptr + 4, 39, "UTF-8")
     }
 
     /**
@@ -44,8 +40,8 @@ class NVME_SCSI_NAME_STRING extends Win32Struct
      * @type {String}
      */
     NamespaceID {
-        get => StrGet(this.ptr + 88, 3, "UTF-16")
-        set => StrPut(value, this.ptr + 88, 3, "UTF-16")
+        get => StrGet(this.ptr + 44, 3, "UTF-8")
+        set => StrPut(value, this.ptr + 44, 3, "UTF-8")
     }
 
     /**
@@ -55,7 +51,7 @@ class NVME_SCSI_NAME_STRING extends Win32Struct
      * @type {String}
      */
     SerialNumber {
-        get => StrGet(this.ptr + 96, 19, "UTF-16")
-        set => StrPut(value, this.ptr + 96, 19, "UTF-16")
+        get => StrGet(this.ptr + 48, 19, "UTF-8")
+        set => StrPut(value, this.ptr + 48, 19, "UTF-8")
     }
 }

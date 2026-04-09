@@ -7,9 +7,8 @@
  * The IMixerPinConfig interface is exposed on the input pins of the Overlay Mixer filter and contains methods that manipulate video streams in various ways.
  * @see https://learn.microsoft.com/windows/win32/api/mpconfig/nn-mpconfig-imixerpinconfig
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IMixerPinConfig extends IUnknown{
+class IMixerPinConfig extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -362,7 +361,7 @@ class IMixerPinConfig extends IUnknown{
      * The SetAspectRatioMode method sets the aspect ratio correction mode for window resizing.
      * @remarks
      * Currently this function is implemented only on the primary pin of the <a href="https://docs.microsoft.com/windows/desktop/DirectShow/overlay-mixer-filter">Overlay Mixer</a> filter. Calling it on a secondary pin will result in an error.
-     * @param {Integer} amAspectRatioMode Value specifying one of the <a href="https://docs.microsoft.com/windows/desktop/api/mpconfig/ne-mpconfig-am_aspect_ratio_mode">AM_ASPECT_RATIO_MODE</a> enumerated type members.
+     * @param {AM_ASPECT_RATIO_MODE} amAspectRatioMode Value specifying one of the <a href="https://docs.microsoft.com/windows/desktop/api/mpconfig/ne-mpconfig-am_aspect_ratio_mode">AM_ASPECT_RATIO_MODE</a> enumerated type members.
      * @returns {HRESULT} Returns an <b>HRESULT</b> value. Possible values include the following:
      * 
      * <table>
@@ -413,7 +412,7 @@ class IMixerPinConfig extends IUnknown{
 
     /**
      * The GetAspectRatioMode method retrieves the aspect ratio correction mode for window resizing.
-     * @param {Pointer<Integer>} pamAspectRatioMode Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/mpconfig/ne-mpconfig-am_aspect_ratio_mode">AM_ASPECT_RATIO_MODE</a> enumerated type member.
+     * @param {Pointer<AM_ASPECT_RATIO_MODE>} pamAspectRatioMode Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/mpconfig/ne-mpconfig-am_aspect_ratio_mode">AM_ASPECT_RATIO_MODE</a> enumerated type member.
      * @returns {HRESULT} Returns an <b>HRESULT</b> value. Possible values include the following:
      * 
      * <table>

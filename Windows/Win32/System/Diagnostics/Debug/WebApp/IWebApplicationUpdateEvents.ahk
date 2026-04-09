@@ -7,9 +7,8 @@
  * Enables an authoring app to receive notification of designer events and respond to those events.
  * @see https://learn.microsoft.com/windows/win32/api/webapplication/nn-webapplication-iwebapplicationupdateevents
  * @namespace Windows.Win32.System.Diagnostics.Debug.WebApp
- * @version v4.0.30319
  */
-class IWebApplicationUpdateEvents extends IUnknown{
+class IWebApplicationUpdateEvents extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Com\IDispatch.ahk
 #Include ..\Com\IUnknown.ahk
 #Include .\MenuItem.ahk
-#Include ..\Com\IDispatch.ahk
 
 /**
  * Represents a context menu control.
@@ -16,9 +16,8 @@
  * > A **ContextMenu** cannot host [Combo Box](windowsribbon-controls-combobox.md) or [Spinner](windowsribbon-controls-spinner.md) controls.
  * @see https://learn.microsoft.com/windows/win32/windowsribbon/windowsribbon-element-contextmenu
  * @namespace Windows.Win32.System.Mmc
- * @version v4.0.30319
  */
-class ContextMenu extends IDispatch{
+class ContextMenu extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

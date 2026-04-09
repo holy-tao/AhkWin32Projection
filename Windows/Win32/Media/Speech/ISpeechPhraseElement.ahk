@@ -1,15 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * @namespace Windows.Win32.Media.Speech
- * @version v4.0.30319
  */
-class ISpeechPhraseElement extends IDispatch{
+class ISpeechPhraseElement extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -94,21 +93,21 @@ class ISpeechPhraseElement extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {SpeechDisplayAttributes} 
      */
     DisplayAttributes {
         get => this.get_DisplayAttributes()
     }
 
     /**
-     * @type {Integer} 
+     * @type {SpeechEngineConfidence} 
      */
     RequiredConfidence {
         get => this.get_RequiredConfidence()
     }
 
     /**
-     * @type {Integer} 
+     * @type {SpeechEngineConfidence} 
      */
     ActualConfidence {
         get => this.get_ActualConfidence()
@@ -207,7 +206,7 @@ class ISpeechPhraseElement extends IDispatch{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {SpeechDisplayAttributes} 
      */
     get_DisplayAttributes() {
         result := ComCall(16, this, "int*", &DisplayAttributes := 0, "HRESULT")
@@ -216,7 +215,7 @@ class ISpeechPhraseElement extends IDispatch{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {SpeechEngineConfidence} 
      */
     get_RequiredConfidence() {
         result := ComCall(17, this, "int*", &RequiredConfidence := 0, "HRESULT")
@@ -225,7 +224,7 @@ class ISpeechPhraseElement extends IDispatch{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {SpeechEngineConfidence} 
      */
     get_ActualConfidence() {
         result := ComCall(18, this, "int*", &ActualConfidence := 0, "HRESULT")

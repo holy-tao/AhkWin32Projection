@@ -1,33 +1,27 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Win32\System\Kernel\LIST_ENTRY.ahk
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class WHEAP_DEFERRED_EVENT extends Win32Struct
-{
-    static sizeof => 24
+class WHEAP_DEFERRED_EVENT extends Win32Struct {
+    static sizeof => 16
 
     static packingSize => 8
 
     /**
-     * @type {LIST_ENTRY}
+     * @type {Pointer}
      */
-    ListEntry{
-        get {
-            if(!this.HasProp("__ListEntry"))
-                this.__ListEntry := LIST_ENTRY(0, this)
-            return this.__ListEntry
-        }
+    ListEntry {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
-     * @type {Pointer<WHEA_EVENT_LOG_ENTRY>}
+     * @type {Pointer}
      */
     WheaEventLogEntry {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 }

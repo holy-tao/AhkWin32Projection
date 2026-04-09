@@ -1,16 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IEnumAgentSession.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * The IEnumAgentSession interface (tapi3cc.h) provides COM-standard enumeration methods for the ITAgentSession interface.
  * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/nn-tapi3cc-ienumagentsession
  * @namespace Windows.Win32.Devices.Tapi
- * @version v4.0.30319
  */
-class IEnumAgentSession extends IUnknown{
+class IEnumAgentSession extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

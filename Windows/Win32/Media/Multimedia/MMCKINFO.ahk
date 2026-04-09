@@ -5,10 +5,8 @@
  * The MMCKINFO structure contains information about a chunk in a RIFF file.
  * @see https://learn.microsoft.com/windows/win32/api/mmiscapi/ns-mmiscapi-mmckinfo
  * @namespace Windows.Win32.Media.Multimedia
- * @version v4.0.30319
  */
-class MMCKINFO extends Win32Struct
-{
+class MMCKINFO extends Win32Struct {
     static sizeof => 20
 
     static packingSize => 4

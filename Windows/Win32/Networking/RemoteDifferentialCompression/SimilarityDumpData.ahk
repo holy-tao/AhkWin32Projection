@@ -6,10 +6,8 @@
  * Contains the similarity information that was returned for a file by the ISimilarityTableDumpState::GetNextData method.
  * @see https://learn.microsoft.com/windows/win32/api/msrdc/ns-msrdc-similaritydumpdata
  * @namespace Windows.Win32.Networking.RemoteDifferentialCompression
- * @version v4.0.30319
  */
-class SimilarityDumpData extends Win32Struct
-{
+class SimilarityDumpData extends Win32Struct {
     static sizeof => 20
 
     static packingSize => 4
@@ -27,7 +25,7 @@ class SimilarityDumpData extends Win32Struct
      * A <a href="https://docs.microsoft.com/windows/win32/api/msrdc/ns-msrdc-similaritydata">SimilarityData</a> structure that contains the similarity data for the file.
      * @type {SimilarityData}
      */
-    m_Data{
+    m_Data {
         get {
             if(!this.HasProp("__m_Data"))
                 this.__m_Data := SimilarityData(4, this)

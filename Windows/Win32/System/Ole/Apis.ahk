@@ -20,7 +20,6 @@
 
 /**
  * @namespace Windows.Win32.System.Ole
- * @version v4.0.30319
  */
 class Ole {
 
@@ -2425,7 +2424,7 @@ class Ole {
      * Creates a safe array descriptor for an array of any valid variant type, including VT_RECORD, without allocating the array data.
      * @remarks
      * Because <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-safearrayallocdescriptor">SafeArrayAllocDescriptor</a> does not take a VARTYPE, it is not possible to use it to create the safe array descriptor for an array of records. The <b>SafeArrayAllocDescriptorEx</b> is used to allocate a safe array descriptor for an array of records of the given dimensions.
-     * @param {Integer} vt The variant type.
+     * @param {VARENUM} vt The variant type.
      * @param {Integer} cDims The number of dimensions in the array.
      * @returns {Pointer<SAFEARRAY>} The safe array descriptor.
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-safearrayallocdescriptorex
@@ -2488,7 +2487,7 @@ class Ole {
 
     /**
      * Creates a new array descriptor, allocates and initializes the data for the array, and returns a pointer to the new array descriptor.
-     * @param {Integer} vt The base type of the array (the VARTYPE of each element of the array). The VARTYPE is restricted to a subset of the variant types. Neither the VT_ARRAY nor the VT_BYREF flag can be set. VT_EMPTY and VT_NULL are not valid base types for the array. All other types are legal.
+     * @param {VARENUM} vt The base type of the array (the VARTYPE of each element of the array). The VARTYPE is restricted to a subset of the variant types. Neither the VT_ARRAY nor the VT_BYREF flag can be set. VT_EMPTY and VT_NULL are not valid base types for the array. All other types are legal.
      * @param {Integer} cDims The number of dimensions in the array. The number cannot be changed after the array is created.
      * @param {Pointer<SAFEARRAYBOUND>} rgsabound A vector of bounds (one for each dimension) to allocate for the array.
      * @returns {Pointer<SAFEARRAY>} A safe array descriptor, or null if the array could not be created.
@@ -2503,7 +2502,7 @@ class Ole {
      * Creates and returns a safe array descriptor from the specified VARTYPE, number of dimensions and bounds.
      * @remarks
      * If the VARTYPE is VT_RECORD then <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-safearraysetrecordinfo">SafeArraySetRecordInfo</a> is called. If the VARTYPE is VT_DISPATCH or VT_UNKNOWN then the elements of the array must contain interfaces of the same type. Part of the process of marshaling this array to other processes does include generating the proxy/stub code of the IID pointed to by the <i>pvExtra</i> parameter. To actually pass heterogeneous interfaces one will need to specify either IID_IUnknown or IID_IDispatch in <i>pvExtra</i> and provide some other means for the caller to identify how to query for the actual interface.
-     * @param {Integer} vt The base type or the VARTYPE of each element of the array. The FADF_RECORD flag can be set for a variant type VT_RECORD, The FADF_HAVEIID flag can be set for VT_DISPATCH or VT_UNKNOWN, and FADF_HAVEVARTYPE can be set for all other VARTYPEs.
+     * @param {VARENUM} vt The base type or the VARTYPE of each element of the array. The FADF_RECORD flag can be set for a variant type VT_RECORD, The FADF_HAVEIID flag can be set for VT_DISPATCH or VT_UNKNOWN, and FADF_HAVEVARTYPE can be set for all other VARTYPEs.
      * @param {Integer} cDims The number of dimensions in the array.
      * @param {Pointer<SAFEARRAYBOUND>} rgsabound A vector of bounds (one for each dimension) to allocate for the array.
      * @param {Pointer<Void>} pvExtra the type information of the user-defined type, if you are creating a safe array of user-defined types. If the vt parameter is VT_RECORD, then <i>pvExtra</i> will be a pointer to an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nn-oaidl-irecordinfo">IRecordInfo</a> describing the record. If the <i>vt</i> parameter is VT_DISPATCH or VT_UNKNOWN, then <i>pvExtra</i> will contain a pointer to a GUID representing the type of interface being passed to the array.
@@ -3308,7 +3307,7 @@ class Ole {
      * 
      * <b>SafeArrayGetVartype</b> can fail to return VT_UNKNOWN for SAFEARRAY types that are based on <b>IUnknown</b>. Callers should additionally check whether the SAFEARRAY type's <b>fFeatures</b> field has the FADF_UNKNOWN flag set.
      * @param {Pointer<SAFEARRAY>} psa An array descriptor created by <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-safearraycreate">SafeArrayCreate</a>.
-     * @returns {Integer} The VARTYPE.
+     * @returns {VARENUM} The VARTYPE.
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-safearraygetvartype
      */
     static SafeArrayGetVartype(psa) {
@@ -3318,7 +3317,7 @@ class Ole {
 
     /**
      * Creates a one-dimensional array. A safe array created with SafeArrayCreateVector is a fixed size, so the constant FADF_FIXEDSIZE is always set.
-     * @param {Integer} vt The base type of the array (the VARTYPE of each element of the array). The VARTYPE is restricted to a subset of the variant types. Neither the VT_ARRAY nor the VT_BYREF flag can be set. VT_EMPTY and VT_NULL are not valid base types for the array. All other types are legal.
+     * @param {VARENUM} vt The base type of the array (the VARTYPE of each element of the array). The VARTYPE is restricted to a subset of the variant types. Neither the VT_ARRAY nor the VT_BYREF flag can be set. VT_EMPTY and VT_NULL are not valid base types for the array. All other types are legal.
      * @param {Integer} lLbound The lower bound for the array. This parameter can be negative.
      * @param {Integer} cElements The number of elements in the array.
      * @returns {Pointer<SAFEARRAY>} A safe array descriptor, or null if the array could not be created.
@@ -3331,7 +3330,7 @@ class Ole {
 
     /**
      * Creates and returns a one-dimensional safe array of the specified VARTYPE and bounds.
-     * @param {Integer} vt The base type of the array (the VARTYPE of each element of the array). The FADF_RECORD flag can be set for VT_RECORD. The FADF_HAVEIID can be set for VT_DISPATCH or VT_UNKNOWN and FADF_HAVEVARTYPE can be set for all other types.
+     * @param {VARENUM} vt The base type of the array (the VARTYPE of each element of the array). The FADF_RECORD flag can be set for VT_RECORD. The FADF_HAVEIID can be set for VT_DISPATCH or VT_UNKNOWN and FADF_HAVEVARTYPE can be set for all other types.
      * @param {Integer} lLbound The lower bound for the array. This parameter can be negative.
      * @param {Integer} cElements The number of elements in the array.
      * @param {Pointer<Void>} pvExtra The type information of the user-defined type, if you are creating a safe array of user-defined types. If the vt parameter is VT_RECORD, then <i>pvExtra</i> will be a pointer to an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nn-oaidl-irecordinfo">IRecordInfo</a> describing the record. If the <i>vt</i> parameter is VT_DISPATCH or VT_UNKNOWN, then <i>pvExtra</i> will contain a pointer to a GUID representing the type of interface being passed to the array.
@@ -3347,7 +3346,7 @@ class Ole {
 
     /**
      * Returns a vector, assigning each character in the BSTR to an element of the vector.
-     * @param {BSTR} _bstr 
+     * @param {BSTR} _bstr The BSTR to be converted to a vector.
      * @returns {Pointer<SAFEARRAY>} A one-dimensional safearray containing the characters in the BSTR.
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-vectorfrombstr
      */
@@ -11317,7 +11316,7 @@ class Ole {
      * </td>
      * </tr>
      * </table>
-     * @returns {Integer} This function can return one of these values.
+     * @returns {VARCMP} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -11497,7 +11496,7 @@ class Ole {
      * Compares two variants of type decimal.
      * @param {Pointer<DECIMAL>} pdecLeft The first variant.
      * @param {Pointer<DECIMAL>} pdecRight The second variant.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {VARCMP} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -11566,7 +11565,7 @@ class Ole {
      * Compares a variant of type decimal with the a value of type double.
      * @param {Pointer<DECIMAL>} pdecLeft The first variant.
      * @param {Float} dblRight The second variant.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {VARCMP} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -11763,7 +11762,7 @@ class Ole {
      * Compares two variants of type currency.
      * @param {CY} cyLeft The first variant.
      * @param {CY} cyRight The second variant.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {VARCMP} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -11832,7 +11831,7 @@ class Ole {
      * Compares a variant of type currency with a value of type double.
      * @param {CY} cyLeft The first variant.
      * @param {Float} dblRight The second variant.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {VARCMP} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -12064,7 +12063,7 @@ class Ole {
      * Compares two variants of types float and double.
      * @param {Float} fltLeft The first variant.
      * @param {Float} dblRight The second variant.
-     * @returns {Integer} The function returns the following as a SUCCESS HRESULT.
+     * @returns {VARCMP} The function returns the following as a SUCCESS HRESULT.
      * 
      * <table>
      * <tr>
@@ -12276,7 +12275,7 @@ class Ole {
      * This function uses the user's default locale while calling <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-vartokenizeformatstring">VarTokenizeFormatString</a> and <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-varformatfromtokens">VarFormatFromTokens</a>.
      * @param {Pointer<VARIANT>} pvarIn The variant.
      * @param {PWSTR} pstrFormat The format string. For example "mm-dd-yy".
-     * @param {Integer} iFirstDay First day of the week.
+     * @param {VARFORMAT_FIRST_DAY} iFirstDay First day of the week.
      * 
      * 
      * <table>
@@ -12373,7 +12372,7 @@ class Ole {
      * </td>
      * </tr>
      * </table>
-     * @param {Integer} iFirstWeek First week of the year.
+     * @param {VARFORMAT_FIRST_WEEK} iFirstWeek First week of the year.
      * 
      * <table>
      * <tr>
@@ -12443,7 +12442,7 @@ class Ole {
      * @remarks
      * This function uses the user's default locale while calling <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-vartokenizeformatstring">VarTokenizeFormatString</a> and <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-varformatfromtokens">VarFormatFromTokens</a>.
      * @param {Pointer<VARIANT>} pvarIn The variant containing the value to format.
-     * @param {Integer} iNamedFormat The named date formats are as follows.
+     * @param {VARFORMAT_NAMED_FORMAT} iNamedFormat The named date formats are as follows.
      * 
      * <table>
      * <tr>
@@ -12522,7 +12521,7 @@ class Ole {
      * This function uses the user's default locale while calling <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-vartokenizeformatstring">VarTokenizeFormatString</a> and <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-varformatfromtokens">VarFormatFromTokens</a>.
      * @param {Pointer<VARIANT>} pvarIn The variant containing the value to format.
      * @param {Integer} iNumDig The number of digits to pad to after the decimal point. Specify -1 to use the system default value.
-     * @param {Integer} iIncLead Specifies whether to include the leading digit on numbers.
+     * @param {VARFORMAT_LEADING_DIGIT} iIncLead Specifies whether to include the leading digit on numbers.
      * 
      * <table>
      * <tr>
@@ -12563,7 +12562,7 @@ class Ole {
      * </td>
      * </tr>
      * </table>
-     * @param {Integer} iUseParens Specifies whether negative numbers should use parentheses.
+     * @param {VARFORMAT_PARENTHESES} iUseParens Specifies whether negative numbers should use parentheses.
      * 
      * <table>
      * <tr>
@@ -12604,7 +12603,7 @@ class Ole {
      * </td>
      * </tr>
      * </table>
-     * @param {Integer} iGroup Specifies whether thousands should be grouped. For example 10,000 versus 10000. 
+     * @param {VARFORMAT_GROUP} iGroup Specifies whether thousands should be grouped. For example 10,000 versus 10000. 
      * 
      * <div class="alert"><b>Note</b>  Regular numbers and currencies have separate system defaults for all the above options.</div>
      * <div> </div>
@@ -12663,7 +12662,7 @@ class Ole {
      * This function uses the user's default locale while calling <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-vartokenizeformatstring">VarTokenizeFormatString</a> and <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-varformatfromtokens">VarFormatFromTokens</a>.
      * @param {Pointer<VARIANT>} pvarIn The variant containing the value to format.
      * @param {Integer} iNumDig The number of digits to pad to after the decimal point. Specify -1 to use the system default value.
-     * @param {Integer} iIncLead Specifies whether to include the leading digit on numbers.
+     * @param {VARFORMAT_LEADING_DIGIT} iIncLead Specifies whether to include the leading digit on numbers.
      * 
      * <table>
      * <tr>
@@ -12704,7 +12703,7 @@ class Ole {
      * </td>
      * </tr>
      * </table>
-     * @param {Integer} iUseParens Specifies whether negative numbers should use parentheses.
+     * @param {VARFORMAT_PARENTHESES} iUseParens Specifies whether negative numbers should use parentheses.
      * 
      * <table>
      * <tr>
@@ -12745,7 +12744,7 @@ class Ole {
      * </td>
      * </tr>
      * </table>
-     * @param {Integer} iGroup Specifies whether thousands should be grouped. For example 10,000 versus 10000. 
+     * @param {VARFORMAT_GROUP} iGroup Specifies whether thousands should be grouped. For example 10,000 versus 10000. 
      * 
      * <div class="alert"><b>Note</b>  Regular numbers and currencies have separate system defaults for all the above options.</div>
      * <div> </div>
@@ -13190,7 +13189,7 @@ class Ole {
      * @param {PWSTR} pstrFormat The format string. For example "mm-dd-yy".
      * @param {Pointer<Integer>} rgbTok The destination token buffer.
      * @param {Integer} cbTok The size of the destination token buffer.
-     * @param {Integer} iFirstDay First day of the week.
+     * @param {VARFORMAT_FIRST_DAY} iFirstDay First day of the week.
      * 
      * 
      * <table>
@@ -13287,7 +13286,7 @@ class Ole {
      * </td>
      * </tr>
      * </table>
-     * @param {Integer} iFirstWeek First week of the year.
+     * @param {VARFORMAT_FIRST_WEEK} iFirstWeek First week of the year.
      * 
      * <table>
      * <tr>
@@ -13398,7 +13397,7 @@ class Ole {
 
     /**
      * Computes a hash value for the specified name.
-     * @param {Integer} _syskind 
+     * @param {SYSKIND} _syskind The SYSKIND of the target operating system.
      * @param {Integer} lcid The LCID for the string.
      * @param {PSTR} szName The string whose hash value is to be computed.
      * @returns {Integer} A hash value that represents the specified name.
@@ -13413,7 +13412,7 @@ class Ole {
 
     /**
      * Computes a hash value for a name. (LHashValOfNameSys)
-     * @param {Integer} _syskind 
+     * @param {SYSKIND} _syskind The SYSKIND of the target operating system.
      * @param {Integer} lcid The LCID for the string.
      * @param {PWSTR} szName The string whose hash value is to be computed.
      * @returns {Integer} A hash value that represents the passed-in name.
@@ -13479,7 +13478,7 @@ class Ole {
      * @remarks
      * Enables programmers to specify whether or not the type library should be loaded.
      * @param {PWSTR} szFile The type library file.
-     * @param {Integer} _regkind 
+     * @param {REGKIND} _regkind Identifies the kind of registration to perform for the type library based on the following flags: DEFAULT, REGISTER and NONE. REGKIND_DEFAULT simply calls LoadTypeLib and registration occurs based on the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-loadtypelib">LoadTypeLib</a> registration rules. REGKIND_NONE calls <b>LoadTypeLib</b> without the registration process enabled. REGKIND_REGISTER calls <b>LoadTypeLib</b> followed by <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-registertypelib">RegisterTypeLib</a>, which registers the type library. To unregister the type library, use <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-unregistertypelib">UnRegisterTypeLib</a>.
      * @returns {ITypeLib} The type library.
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-loadtypelibex
      */
@@ -13661,7 +13660,7 @@ class Ole {
      * @param {Integer} wVerMajor The major version of the type library.
      * @param {Integer} wVerMinor The minor version of the type library.
      * @param {Integer} lcid The locale identifier.
-     * @param {Integer} _syskind 
+     * @param {SYSKIND} _syskind The target operating system.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -13860,7 +13859,7 @@ class Ole {
      * @param {Integer} wMajorVerNum The major version of the type library.
      * @param {Integer} wMinorVerNum The minor version of the type library.
      * @param {Integer} lcid The locale identifier.
-     * @param {Integer} _syskind 
+     * @param {SYSKIND} _syskind The target operating system.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -13955,7 +13954,7 @@ class Ole {
      * Provides access to a new object instance that supports the ICreateTypeLib interface.
      * @remarks
      * <b>CreateTypeLib</b> sets its output parameter (ppctlib) to point to a newly created object that supports the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nn-oaidl-icreatetypelib">ICreateTypeLib</a> interface.
-     * @param {Integer} _syskind 
+     * @param {SYSKIND} _syskind The target operating system for which to create a type library.
      * @param {PWSTR} szFile The name of the file to create.
      * @returns {ICreateTypeLib} The <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nn-oaidl-icreatetypelib">ICreateTypeLib</a> interface.
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-createtypelib
@@ -13969,7 +13968,7 @@ class Ole {
 
     /**
      * Creates a type library in the current file format.
-     * @param {Integer} _syskind 
+     * @param {SYSKIND} _syskind The target operating system for which to create a type library.
      * @param {PWSTR} szFile The name of the file to create.
      * @returns {ICreateTypeLib2} The <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nn-oaidl-icreatetypelib2">ICreateTypeLib2</a> interface.
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-createtypelib2
@@ -13997,7 +13996,7 @@ class Ole {
      * Named parameters cannot be accessed positionally, and vice versa.
      * @param {Pointer<DISPPARAMS>} pdispparams The parameters passed to <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nf-oaidl-idispatch-invoke">Invoke</a>.
      * @param {Integer} position The position of the parameter in the parameter list. <b>DispGetParam</b> starts at the end of the array, so if position is 0, the last parameter in the array is returned.
-     * @param {Integer} vtTarg The type the argument should be coerced to.
+     * @param {VARENUM} vtTarg The type the argument should be coerced to.
      * @param {Pointer<VARIANT>} pvarResult the variant to pass the parameter into.
      * @returns {Integer} On return, the index of the argument that caused a DISP_E_TYPEMISMATCH error. This pointer is returned to <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nf-oaidl-idispatch-invoke">Invoke</a> to indicate the position of the argument in DISPPARAMS that caused the error.
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-dispgetparam
@@ -14301,8 +14300,8 @@ class Ole {
      * Low-level helper for Invoke that provides machine independence for customized Invoke. (DispCallFunc)
      * @param {Pointer<Void>} pvInstance An instance of the interface described by this type description.
      * @param {Pointer} oVft For FUNC_VIRTUAL functions, specifies the offset in the VTBL.
-     * @param {Integer} cc The calling convention. One of the CALLCONV values, such as CC_STDCALL.
-     * @param {Integer} vtReturn The variant type of the function return value. Use VT_EMPTY to represent void.
+     * @param {CALLCONV} cc The calling convention. One of the CALLCONV values, such as CC_STDCALL.
+     * @param {VARENUM} vtReturn The variant type of the function return value. Use VT_EMPTY to represent void.
      * @param {Integer} cActuals The number of function parameters.
      * @param {Pointer<Integer>} prgvt An array of variant types of the function parameters.
      * @param {Pointer<Pointer<VARIANT>>} prgpvarg The function parameters.
@@ -14400,7 +14399,7 @@ class Ole {
      * </ol>
      * @param {IUnknown} punk The active object.
      * @param {Pointer<Guid>} rclsid The CLSID of the active object.
-     * @param {Integer} dwFlags Flags controlling registration of the object. Possible values are ACTIVEOBJECT_STRONG and ACTIVEOBJECT_WEAK.
+     * @param {ACTIVEOBJECT_FLAGS} dwFlags Flags controlling registration of the object. Possible values are ACTIVEOBJECT_STRONG and ACTIVEOBJECT_WEAK.
      * @param {Pointer<Integer>} pdwRegister Receives a handle. This handle must be passed to <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-revokeactiveobject">RevokeActiveObject</a> to end the object's active status.
      * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-registeractiveobject
@@ -14784,7 +14783,7 @@ class Ole {
      * These new functions are for OLE Compound Documents. Using these functions, applications can avoid the repeated launching and initialization steps required by the current functions. They are targeted at OLE Compound Document container applications that use default data- and presentation-caching, and also at applications that provide their own caching and data transfer from the underlying <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-idataobject-dadvise">IDataObject::DAdvise</a> support.
      * @param {Pointer<Guid>} rclsid Identifies the class of the object to create.
      * @param {Pointer<Guid>} riid Reference to the identifier of the interface of the object to return.
-     * @param {Integer} dwFlags This value can be 0 or OLECREATE_LEAVERUNNING    (0x00000001).
+     * @param {OLECREATE} dwFlags This value can be 0 or OLECREATE_LEAVERUNNING    (0x00000001).
      * @param {Integer} renderopt Value taken from the <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/ne-oleidl-olerender">OLERENDER</a> enumeration.
      * @param {Integer} cFormats When renderopt is OLERENDER_FORMAT, indicates the number of <a href="https://docs.microsoft.com/windows/desktop/api/objidl/ns-objidl-formatetc">FORMATETC</a> structures in the <i>rgFormatEtc</i> array, which must be at least one. In all other cases, this parameter must be zero.
      * @param {Pointer<Integer>} rgAdvf When renderopt is OLERENDER_FORMAT, points to an array of cFormats DWORD elements, each of which is a combination of values from the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/ne-objidl-advf">ADVF</a> enumeration. Each element of this array is passed in as the <i>advf</i> parameter to a call to either <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nf-oleidl-iolecache-cache">IOleCache::Cache</a> or <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-idataobject-dadvise">IDataObject::DAdvise</a>, depending on whether <i>pAdviseSink</i> is <b>NULL</b> or non-<b>NULL</b> (see below). In all other cases, this parameter must be <b>NULL</b>.
@@ -14941,7 +14940,7 @@ class Ole {
      * These new functions are for OLE Compound Documents. Using these functions, applications can avoid the repeated launching and initialization steps required by the current functions. They are targeted at OLE Compound Document container applications that use default data- and presentation-caching, and also at applications that provide their own caching and data transfer from the underlying <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-idataobject-dadvise">IDataObject::DAdvise</a> support.
      * @param {IDataObject} pSrcDataObj Pointer to the data transfer object holding the new data used to create the new object. (see <a href="https://docs.microsoft.com/windows/desktop/api/ole2/nf-ole2-olecreatefromdata">OleCreateFromData</a>).
      * @param {Pointer<Guid>} riid Reference to the identifier of the interface of the object to return.
-     * @param {Integer} dwFlags This parameter can be 0 or OLECREATE_LEAVERUNNING (0x00000001).
+     * @param {OLECREATE} dwFlags This parameter can be 0 or OLECREATE_LEAVERUNNING (0x00000001).
      * @param {Integer} renderopt Value taken from the <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/ne-oleidl-olerender">OLERENDER</a> enumeration.
      * @param {Integer} cFormats When <i>renderopt</i> is OLERENDER_FORMAT, indicates the number of <a href="https://docs.microsoft.com/windows/desktop/api/objidl/ns-objidl-formatetc">FORMATETC</a> structures in the <i>rgFormatEtc</i> array, which must be at least one. In all other cases, this parameter must be zero.
      * @param {Pointer<Integer>} rgAdvf When <i>renderopt</i> is OLERENDER_FORMAT, points to an array of <b>DWORD</b> elements, each of which is a combination of values from the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/ne-objidl-advf">ADVF</a> enumeration. Each element of this array is passed in as the advf parameter to a call to either <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nf-oleidl-iolecache-cache">IOleCache::Cache</a> or <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-idataobject-dadvise">IDataObject::DAdvise</a>, depending on whether <i>pAdviseSink</i> is <b>NULL</b> or non-<b>NULL</b> (see below). In all other cases, this parameter must be <b>NULL</b>.
@@ -15076,7 +15075,7 @@ class Ole {
      * These new functions are for OLE Compound Documents. Using these functions, applications can avoid the repeated launching and initialization steps required by the current functions. They are targeted at OLE Compound Document container applications that use default data- and presentation-caching, and also at applications that provide their own caching and data transfer from the underlying <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-idataobject-dadvise">IDataObject::DAdvise</a> support.
      * @param {IDataObject} pSrcDataObj Pointer to the data object to create a link object from.
      * @param {Pointer<Guid>} riid Reference to the identifier of the interface of the object to return.
-     * @param {Integer} dwFlags This parameter can be 0 or OLECREATE_LEAVERUNNING (0x00000001).
+     * @param {OLECREATE} dwFlags This parameter can be 0 or OLECREATE_LEAVERUNNING (0x00000001).
      * @param {Integer} renderopt Value taken from the <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/ne-oleidl-olerender">OLERENDER</a> enumeration.
      * @param {Integer} cFormats When <i>renderopt</i> is OLERENDER_FORMAT, indicates the number of <a href="https://docs.microsoft.com/windows/desktop/api/objidl/ns-objidl-formatetc">FORMATETC</a> structures in the <i>rgFormatEtc</i> array, which must be at least one. In all other cases, this parameter must be zero.
      * @param {Pointer<Integer>} rgAdvf When <i>renderopt</i> is OLERENDER_FORMAT, points to an array of <b>DWORD</b> elements, each of which is a combination of values from the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/ne-objidl-advf">ADVF</a> enumeration. Each element of this array is passed in as the <i>advf</i> parameter to a call to either <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nf-oleidl-iolecache-cache">IOleCache::Cache</a> or <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-idataobject-dadvise">IDataObject::DAdvise</a>, depending on whether <i>pAdviseSink</i> is <b>NULL</b> or non-<b>NULL</b> (see below). In all other cases, this parameter must be <b>NULL</b>.
@@ -15188,7 +15187,7 @@ class Ole {
      * These new functions are for OLE Compound Documents. Using these functions, applications can avoid the repeated launching and initialization steps required by the current functions. They are targeted at OLE Compound Document container applications that use default data- and presentation-caching, and also at applications that provide their own caching and data transfer from the underlying <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-idataobject-dadvise">IDataObject::DAdvise</a> support.
      * @param {IMoniker} pmkLinkSrc Pointer to a moniker to the object to create a link to.
      * @param {Pointer<Guid>} riid Reference to the identifier of the interface of the object to return.
-     * @param {Integer} dwFlags This parameter can be 0 or OLECREATE_LEAVERUNNING (0x00000001).
+     * @param {OLECREATE} dwFlags This parameter can be 0 or OLECREATE_LEAVERUNNING (0x00000001).
      * @param {Integer} renderopt Value taken from the <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/ne-oleidl-olerender">OLERENDER</a> enumeration.
      * @param {Integer} cFormats When <i>renderopt</i> is OLERENDER_FORMAT, indicates the number of <a href="https://docs.microsoft.com/windows/desktop/api/objidl/ns-objidl-formatetc">FORMATETC</a> structures in the <i>rgFormatEtc</i> array, which must be at least one. In all other cases, this parameter must be zero.
      * @param {Pointer<Integer>} rgAdvf When <i>renderopt</i> is OLERENDER_FORMAT, points to an array of <b>DWORD</b> elements, each of which is a combination of values from the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/ne-objidl-advf">ADVF</a> enumeration. Each element of this array is passed in as the <i>advf</i> parameter to a call to either <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nf-oleidl-iolecache-cache">IOleCache::Cache</a> or <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-idataobject-dadvise">IDataObject::DAdvise</a>, depending on whether <i>pAdviseSink</i> is <b>NULL</b> or non-<b>NULL</b> (see below). In all other cases, this parameter must be <b>NULL</b>.
@@ -15294,7 +15293,7 @@ class Ole {
      * These new functions are for OLE Compound Documents. Using these functions, applications can avoid the repeated launching and initialization steps required by the current functions. They are targeted at OLE Compound Document container applications that use default data- and presentation-caching, and also at applications that provide their own caching and data transfer from the underlying <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-idataobject-dadvise">IDataObject::DAdvise</a> support.
      * @param {PWSTR} lpszFileName Pointer to the name of the file to create a link to.
      * @param {Pointer<Guid>} riid Reference to the identifier of the interface of the object to return.
-     * @param {Integer} dwFlags This parameter can be 0 or OLECREATE_LEAVERUNNING (0x00000001).
+     * @param {OLECREATE} dwFlags This parameter can be 0 or OLECREATE_LEAVERUNNING (0x00000001).
      * @param {Integer} renderopt Value taken from the <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/ne-oleidl-olerender">OLERENDER</a> enumeration.
      * @param {Integer} cFormats When <i>renderopt</i> is OLERENDER_FORMAT, indicates the number of <a href="https://docs.microsoft.com/windows/desktop/api/objidl/ns-objidl-formatetc">FORMATETC</a> structures in the <i>rgFormatEtc</i> array, which must be at least one. In all other cases, this parameter must be zero.
      * @param {Pointer<Integer>} rgAdvf When <i>renderopt</i> is OLERENDER_FORMAT, points to an array of <b>DWORD</b> elements, each of which is a combination of values from the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/ne-objidl-advf">ADVF</a> enumeration. Each element of this array is passed in as the <i>advf</i> parameter to a call to either <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nf-oleidl-iolecache-cache">IOleCache::Cache</a> or <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-idataobject-dadvise">IDataObject::DAdvise</a>, depending on whether <i>pAdviseSink</i> is <b>NULL</b> or non-<b>NULL</b> (see below). In all other cases, this parameter must be <b>NULL</b>.
@@ -15404,7 +15403,7 @@ class Ole {
      * @param {Pointer<Guid>} rclsid This parameter is reserved and must be CLSID_NULL.
      * @param {PWSTR} lpszFileName Pointer to the name of the file from which the new object should be initialized.
      * @param {Pointer<Guid>} riid Reference to the identifier of the interface of the object to return.
-     * @param {Integer} dwFlags This parameter can be 0 or OLECREATE_LEAVERUNNING (0x00000001).
+     * @param {OLECREATE} dwFlags This parameter can be 0 or OLECREATE_LEAVERUNNING (0x00000001).
      * @param {Integer} renderopt Value taken from the <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/ne-oleidl-olerender">OLERENDER</a> enumeration.
      * @param {Integer} cFormats When <i>renderopt</i> is OLERENDER_FORMAT, indicates the number of <a href="https://docs.microsoft.com/windows/desktop/api/objidl/ns-objidl-formatetc">FORMATETC</a> structures in the <i>rgFormatEtc</i> array, which must be at least one. In all other cases, this parameter must be zero.
      * @param {Pointer<Integer>} rgAdvf When <i>renderopt</i> is OLERENDER_FORMAT, points to an array of <b>DWORD</b> elements, each of which is a combination of values from the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/ne-objidl-advf">ADVF</a> enumeration. Each element of this array is passed in as the <i>advf</i> parameter to a call to either <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nf-oleidl-iolecache-cache">IOleCache::Cache</a> or <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-idataobject-dadvise">IDataObject::DAdvise</a>, depending on whether <i>pAdviseSink</i> is <b>NULL</b> or non-<b>NULL</b> (see below). In all other cases, this parameter must be <b>NULL</b>.
@@ -15738,7 +15737,7 @@ class Ole {
      * As the mouse passes over unobscured portions of the target window during an OLE drag-and-drop operation, the <a href="https://docs.microsoft.com/windows/desktop/api/ole2/nf-ole2-dodragdrop">DoDragDrop</a> function calls the specified <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nf-oleidl-idroptarget-dragover">IDropTarget::DragOver</a> method for the current window. When a drop operation actually occurs in a given window, the <b>DoDragDrop</b> function calls <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nf-oleidl-idroptarget-drop">IDropTarget::Drop</a>.
      * 
      * The <b>RegisterDragDrop</b> function also calls the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-addref">IUnknown::AddRef</a> method on the <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nn-oleidl-idroptarget">IDropTarget</a> pointer.
-     * @param {HWND} _hwnd 
+     * @param {HWND} _hwnd Handle to a window that can be a target for an OLE drag-and-drop operation.
      * @param {IDropTarget} pDropTarget Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nn-oleidl-idroptarget">IDropTarget</a> interface on the object that is to be the target of a drag-and-drop operation in a specified window. This interface is used to communicate OLE drag-and-drop information for that window.
      * @returns {HRESULT} This function returns S_OK on success. Other possible values include the following.
      * 
@@ -15801,7 +15800,7 @@ class Ole {
      * When your application window is no longer available as a potential target for an OLE drag-and-drop operation, you must call <b>RevokeDragDrop</b>.
      * 
      * This function calls the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">IUnknown::Release</a> method for your drop target interface.
-     * @param {HWND} _hwnd 
+     * @param {HWND} _hwnd Handle to a window previously registered as a target for an OLE drag-and-drop operation.
      * @returns {HRESULT} This function returns S_OK on success. Other possible values include the following.
      * 
      * <table>
@@ -15926,8 +15925,8 @@ class Ole {
      * The application can identify synthesized messages by calling the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getmessageextrainfo">GetMessageExtraInfo</a> function. For more information about using <b>GetMessageExtraInfo</b> to distinguish between mouse input and Windows Touch input,  see <a href="https://docs.microsoft.com/windows/desktop/wintouch/troubleshooting-applications">Troubleshooting Applications</a>.
      * @param {IDataObject} pDataObj Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-idataobject">IDataObject</a> interface on a data object that contains the data being dragged.
      * @param {IDropSource} pDropSource Pointer to an implementation of the <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nn-oleidl-idropsource">IDropSource</a> interface, which is used to communicate with the source during the drag operation.
-     * @param {Integer} dwOKEffects Effects the source allows in the OLE drag-and-drop operation. Most significant is whether it permits a move. The <i>dwOKEffect</i> and <i>pdwEffect</i> parameters obtain values from the <a href="https://docs.microsoft.com/windows/desktop/com/dropeffect-constants">DROPEFFECT</a> enumeration. For a list of values, see <b>DROPEFFECT</b>.
-     * @returns {Integer} Pointer to a value that indicates how the OLE drag-and-drop operation affected the source data. The <i>pdwEffect</i> parameter is set only if the operation is not canceled.
+     * @param {DROPEFFECT} dwOKEffects Effects the source allows in the OLE drag-and-drop operation. Most significant is whether it permits a move. The <i>dwOKEffect</i> and <i>pdwEffect</i> parameters obtain values from the <a href="https://docs.microsoft.com/windows/desktop/com/dropeffect-constants">DROPEFFECT</a> enumeration. For a list of values, see <b>DROPEFFECT</b>.
+     * @returns {DROPEFFECT} Pointer to a value that indicates how the OLE drag-and-drop operation affected the source data. The <i>pdwEffect</i> parameter is set only if the operation is not canceled.
      * @see https://learn.microsoft.com/windows/win32/api/ole2/nf-ole2-dodragdrop
      * @since windows5.0
      */
@@ -16333,8 +16332,8 @@ class Ole {
      * @remarks
      * The CF_METAFILEPICT, CF_PALETTE, or CF_BITMAP formats receive special handling. They are GDI handles and a new GDI object must be created instead of just copying the bytes. All other formats are duplicated byte-wise.
      * @param {HANDLE} hSrc Handle of the source data.
-     * @param {Integer} cfFormat Clipboard format of the source data.
-     * @param {Integer} uiFlags Flags to be used to allocate global memory for the copied data. These flags are passed to GlobalAlloc. If the value of <i>uiFlags</i> is <b>NULL</b>, GMEM_MOVEABLE is used as a default flag.
+     * @param {CLIPBOARD_FORMAT} cfFormat Clipboard format of the source data.
+     * @param {GLOBAL_ALLOC_FLAGS} uiFlags Flags to be used to allocate global memory for the copied data. These flags are passed to GlobalAlloc. If the value of <i>uiFlags</i> is <b>NULL</b>, GMEM_MOVEABLE is used as a default flag.
      * @returns {HANDLE} On success the HANDLE to the source data is returned; on failure a  <b>NULL</b> value is returned.
      * @see https://learn.microsoft.com/windows/win32/api/ole2/nf-ole2-oleduplicatedata
      * @since windows5.0
@@ -16791,7 +16790,7 @@ class Ole {
      * </table>
      * @param {Pointer<Guid>} clsid CLSID of the class to be helped.
      * @param {IUnknown} pUnkOuter If the embedding helper is to be aggregated, pointer to the outer object's controlling <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface. If it is not to be aggregated, although this is rare, the value should be <b>NULL</b>.
-     * @param {Integer} flags DWORD containing flags that specify the role and creation context for the embedding helper. For legal values, see the following Remarks section.
+     * @param {EMBDHLP_FLAGS} flags DWORD containing flags that specify the role and creation context for the embedding helper. For legal values, see the following Remarks section.
      * @param {IClassFactory} pCF Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/unknwnbase/nn-unknwnbase-iclassfactory">IClassFactory</a> interface on the class object the function uses to create the secondary object. In some situations, this value may be <b>NULL</b>. For more information, see the following Remarks section.
      * @param {Pointer<Guid>} riid Reference to the identifier of the interface desired by the caller.
      * @returns {Pointer<Void>} Address of pointer variable that receives the interface pointer requested in riid. Upon successful return, *<i>ppvObj</i> contains the requested interface pointer on the newly created embedding helper.
@@ -16811,7 +16810,7 @@ class Ole {
      * If the keystroke is not one of the object's accelerators, then the object must call <a href="https://docs.microsoft.com/windows/desktop/api/ole2/nf-ole2-oletranslateaccelerator">OleTranslateAccelerator</a> to let the container try its accelerator translation.
      * 
      * The object's server can call <b>IsAccelerator</b> to determine if the accelerator message belongs to it. Some servers do accelerator translation on their own and do not call <a href="https://docs.microsoft.com/windows/desktop/DirectShow/cbasepropertypage-translateaccelerator">TranslateAccelerator</a>. Those applications will not call <b>IsAccelerator</b>, because they already have the information.
-     * @param {HACCEL} _hAccel 
+     * @param {HACCEL} _hAccel A handle to the accelerator table.
      * @param {Integer} cAccelEntries The number of entries in the accelerator table.
      * @param {Pointer<MSG>} lpMsg A pointer to the keystroke message to be translated.
      * @param {Pointer<Integer>} lpwCmd A pointer to a variable  to receive the corresponding command identifier if there is an accelerator for the keystroke. This parameter may be <b>NULL</b>.
@@ -16867,7 +16866,7 @@ class Ole {
      * This function is called by <a href="https://docs.microsoft.com/windows/desktop/api/ole2/nf-ole2-olegeticonoffile">OleGetIconOfFile</a> and <a href="https://docs.microsoft.com/windows/desktop/api/ole2/nf-ole2-olegeticonofclass">OleGetIconOfClass</a>.
      * 
      * If <i>lpszSourceFile</i> is not <b>NULL</b> and <i>iIconIndex</i> is not 0, the name of the source file passed in <i>lpszSourceFile</i> and the index passed by <i>iIconIndex</i> are added to the created metafile as a comment record.
-     * @param {HICON} _hIcon 
+     * @param {HICON} _hIcon Handle to the icon that is to be drawn into the metafile. This parameter can be <b>NULL</b>. If <i>hIcon</i> is <b>NULL</b>, this function returns <b>NULL</b> without creating a metafile.
      * @param {PWSTR} lpszLabel The icon label. This parameter can be <b>NULL</b>. If <i>lpszLabel</i> is <b>NULL</b>, the resulting metafile will not include a label.
      * @param {PWSTR} lpszSourceFile The path and file name of the icon file. This string can be obtained through the user interface or from the registration database. This parameter can be <b>NULL</b>.
      * @param {Integer} iIconIndex The location of the icon within the file named by <i>lpszSourceFile</i>, expressed as an offset in bytes from the beginning of file.
@@ -17617,7 +17616,7 @@ class Ole {
      * @param {Pointer<Guid>} riid Reference to the identifier of the interface describing the type of interface pointer to return in <i>ppvObj</i>.
      * @param {Integer} xSizeDesired Desired width of icon or cursor. Valid values are 16, 32, and 48. Pass LP_DEFAULT to both size parameters to use system default size.
      * @param {Integer} ySizeDesired Desired height of icon or cursor. Valid values are 16, 32, and 48. Pass LP_DEFAULT to both size parameters to use system default size.
-     * @param {Integer} dwFlags Desired color depth for icon or cursor. Values are LP_MONOCHROME (monochrome), LP_VGACOLOR (16 colors), LP_COLOR (256 colors), or LP_DEFAULT (selects best depth for current display).
+     * @param {LOAD_PICTURE_FLAGS} dwFlags Desired color depth for icon or cursor. Values are LP_MONOCHROME (monochrome), LP_VGACOLOR (16 colors), LP_COLOR (256 colors), or LP_DEFAULT (selects best depth for current display).
      * @returns {Pointer<Void>} Address of pointer variable that receives the interface pointer requested in riid. Upon successful return, *<i>ppvObj</i> contains the requested interface pointer on the storage of the object identified by the moniker. If *<i>ppvObj</i> is non-<b>NULL</b>, this function calls <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-addref">IUnknown::AddRef</a> on the interface; it is the caller's responsibility to call <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">IUnknown::Release</a>. If an error occurs, *<i>ppvObj</i> is set to <b>NULL</b>.
      * @see https://learn.microsoft.com/windows/win32/api/olectl/nf-olectl-oleloadpictureex
      * @since windows5.0
@@ -17668,7 +17667,7 @@ class Ole {
      * @param {VARIANT} varFileName The path and name of the picture file to load.
      * @param {Integer} xSizeDesired The desired length for the picture to be displayed.
      * @param {Integer} ySizeDesired The desired height for the picture to be displayed.
-     * @param {Integer} dwFlags The desired color depth for the icon or cursor. Together with the desired size it is used to select the best matching image.
+     * @param {LOAD_PICTURE_FLAGS} dwFlags The desired color depth for the icon or cursor. Together with the desired size it is used to select the best matching image.
      * 
      * <table>
      * <tr>
@@ -17791,7 +17790,7 @@ class Ole {
      * @remarks
      * This function calls the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-copycursor">CopyCursor</a> function.
      * @param {HINSTANCE} hinstExe This parameter is ignored.
-     * @param {HICON} _hIcon 
+     * @param {HICON} _hIcon A handle to the icon to be converted.
      * @returns {HCURSOR} The function returns a handle to the new cursor object. The caller is responsible for deleting this cursor with the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-destroycursor">DestroyCursor</a> function. If the conversion could not be completed, the return value is <b>NULL</b>.
      * @see https://learn.microsoft.com/windows/win32/api/olectl/nf-olectl-oleicontocursor
      * @since windows5.0
@@ -17818,7 +17817,7 @@ class Ole {
      * > The oledlg.h header defines OleUIAddVerbMenu as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {IOleObject} lpOleObj Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nn-oleidl-ioleobject">IOleObject</a> interface on the selected object. If this is <b>NULL</b>, then a default disabled menu item is created.
      * @param {PWSTR} lpszShortType Pointer to the short name defined in the registry (AuxName==2) for the object identified with <i>lpOleObj</i>. If the string is not known, then <b>NULL</b> may be passed. If <b>NULL</b> is passed, <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nf-oleidl-ioleobject-getusertype">IOleObject::GetUserType</a> is called to retrieve it. If the caller has easy access to the string, it is faster to pass it in.
-     * @param {HMENU} _hMenu 
+     * @param {HMENU} _hMenu Handle to the menu in which to make modifications.
      * @param {Integer} uPos Position of the menu item.
      * @param {Integer} uIDVerbMin The identifier value at which to start the verbs.
      * @param {Integer} uIDVerbMax The maximum identifier value to be used for object verbs. If <i>uIDVerbMax</i> is 0, then no maximum identifier value is used.
@@ -17850,7 +17849,7 @@ class Ole {
      * > The oledlg.h header defines OleUIAddVerbMenu as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {IOleObject} lpOleObj Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nn-oleidl-ioleobject">IOleObject</a> interface on the selected object. If this is <b>NULL</b>, then a default disabled menu item is created.
      * @param {PSTR} lpszShortType Pointer to the short name defined in the registry (AuxName==2) for the object identified with <i>lpOleObj</i>. If the string is not known, then <b>NULL</b> may be passed. If <b>NULL</b> is passed, <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nf-oleidl-ioleobject-getusertype">IOleObject::GetUserType</a> is called to retrieve it. If the caller has easy access to the string, it is faster to pass it in.
-     * @param {HMENU} _hMenu 
+     * @param {HMENU} _hMenu Handle to the menu in which to make modifications.
      * @param {Integer} uPos Position of the menu item.
      * @param {Integer} uIDVerbMin The identifier value at which to start the verbs.
      * @param {Integer} uIDVerbMax The maximum identifier value to be used for object verbs. If <i>uIDVerbMax</i> is 0, then no maximum identifier value is used.

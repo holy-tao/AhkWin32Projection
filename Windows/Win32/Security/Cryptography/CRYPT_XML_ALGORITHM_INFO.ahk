@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\CRYPT_XML_GROUP_ID.ahk
 
 /**
  * Contains algorithm information.
  * @see https://learn.microsoft.com/windows/win32/api/cryptxml/ns-cryptxml-crypt_xml_algorithm_info
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CRYPT_XML_ALGORITHM_INFO extends Win32Struct
-{
+class CRYPT_XML_ALGORITHM_INFO extends Win32Struct {
     static sizeof => 72
 
     static packingSize => 8
@@ -41,8 +40,7 @@ class CRYPT_XML_ALGORITHM_INFO extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Integer}
+     * @type {CRYPT_XML_GROUP_ID}
      */
     dwGroupId {
         get => NumGet(this, 24, "uint")

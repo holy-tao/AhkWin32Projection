@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\Win32\System\Kernel\LIST_ENTRY.ahk
+#Include .\CM_PARTIAL_RESOURCE_DESCRIPTOR.ahk
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class ARBITER_TEST_ALLOCATION_PARAMETERS extends Win32Struct
-{
+class ARBITER_TEST_ALLOCATION_PARAMETERS extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

@@ -4,7 +4,6 @@
 
 /**
  * @namespace Windows.Win32.Devices.Tapi
- * @version v4.0.30319
  */
 class Tapi {
 
@@ -9527,7 +9526,7 @@ class Tapi {
      * <b>lineInitialize</b> is equivalent to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/nf-tapi-lineinitializeexa">lineInitializeEx</a> using the LINEINITIALIZEEXOPTION_USEHIDDENWINDOW option.
      * @param {Pointer<Integer>} lphLineApp Pointer to a location that is filled with the application's usage handle for TAPI.
-     * @param {HINSTANCE} _hInstance 
+     * @param {HINSTANCE} _hInstance Instance handle of the client application or DLL.
      * @param {Pointer<LINECALLBACK>} lpfnCallback Address of a callback function that is invoked to determine status and events on the line device, addresses, or calls. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/nc-tapi-linecallback">lineCallbackFunc</a>.
      * @param {PSTR} lpszAppName Pointer to a <b>null</b>-terminated text string that contains only displayable characters. If this parameter is not <b>NULL</b>, it contains an application-supplied name for the application. This name is provided in the 
@@ -9607,7 +9606,7 @@ class Tapi {
      * > [!NOTE]
      * > The tapi.h header defines lineInitializeEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Integer>} lphLineApp Pointer to a location that is filled with the application's usage handle for TAPI.
-     * @param {HINSTANCE} _hInstance 
+     * @param {HINSTANCE} _hInstance Instance handle of the client application or DLL. The application or DLL can pass <b>NULL</b> for this parameter, in which case TAPI uses the module handle of the root executable of the process (for purposes of identifying call handoff targets and media mode priorities).
      * @param {Pointer<LINECALLBACK>} lpfnCallback Address of a callback function that is invoked to determine status and events on the line device, addresses, or calls, when the application is using the "hidden window" method of event notification (for more information see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/nc-tapi-linecallback">lineCallbackFunc</a>). This parameter is ignored and should be set to <b>NULL</b> when the application chooses to use the "event handle" or "completion port" event notification mechanisms.
      * @param {PSTR} lpszFriendlyAppName Pointer to a <b>null</b>-terminated text string that contains only displayable characters. If this parameter is not <b>NULL</b>, it contains an application-supplied name for the application. This name is provided in the 
@@ -9693,7 +9692,7 @@ class Tapi {
      * > [!NOTE]
      * > The tapi.h header defines lineInitializeEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Integer>} lphLineApp Pointer to a location that is filled with the application's usage handle for TAPI.
-     * @param {HINSTANCE} _hInstance 
+     * @param {HINSTANCE} _hInstance Instance handle of the client application or DLL. The application or DLL can pass <b>NULL</b> for this parameter, in which case TAPI uses the module handle of the root executable of the process (for purposes of identifying call handoff targets and media mode priorities).
      * @param {Pointer<LINECALLBACK>} lpfnCallback Address of a callback function that is invoked to determine status and events on the line device, addresses, or calls, when the application is using the "hidden window" method of event notification (for more information see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/nc-tapi-linecallback">lineCallbackFunc</a>). This parameter is ignored and should be set to <b>NULL</b> when the application chooses to use the "event handle" or "completion port" event notification mechanisms.
      * @param {PWSTR} lpszFriendlyAppName Pointer to a <b>null</b>-terminated text string that contains only displayable characters. If this parameter is not <b>NULL</b>, it contains an application-supplied name for the application. This name is provided in the 
@@ -13201,7 +13200,7 @@ class Tapi {
      * If any service provider fails to initialize properly, the 
      * <b>phoneInitialize</b> function fails and returns the error indicated by the service provider. If the PHONEERR_INVALPARAM error value is returned, the specified <i>hInstance</i> parameter is invalid.
      * @param {Pointer<Integer>} lphPhoneApp Pointer to a location that is filled with the application's usage handle for TAPI.
-     * @param {HINSTANCE} _hInstance 
+     * @param {HINSTANCE} _hInstance Instance handle of the client application or DLL.
      * @param {Pointer<PHONECALLBACK>} lpfnCallback Address of a callback function that is invoked to determine status and events on the phone device.
      * @param {PSTR} lpszAppName Pointer to a <b>null</b>-terminated string that contains displayable characters. If this parameter is non-<b>NULL</b>, it contains an application-supplied name of the application. This name is provided in the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/ns-tapi-phonestatus">PHONESTATUS</a> structure to indicate, in a user-friendly way, which application is the current owner of the phone device. This information can be useful for logging and status reporting purposes. If <i>lpszAppName</i> is <b>NULL</b>, the application's filename is used instead.
@@ -13278,7 +13277,7 @@ class Tapi {
      * > [!NOTE]
      * > The tapi.h header defines phoneInitializeEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Integer>} lphPhoneApp Pointer to a location that is filled with the application's usage handle for TAPI.
-     * @param {HINSTANCE} _hInstance 
+     * @param {HINSTANCE} _hInstance Instance handle of the client application or DLL. The application or DLL can pass <b>NULL</b> for this parameter, in which case TAPI uses the module handle of the root executable of the process.
      * @param {Pointer<PHONECALLBACK>} lpfnCallback Address of a callback function that is invoked to determine status and events on the line device, addresses, or calls, when the application is using the "hidden window" method of event notification (for more information see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/nc-tapi-phonecallback">phoneCallbackFunc</a>). This parameter is ignored and should be set to <b>NULL</b> when the application chooses to use the "event handle" or "completion port" event notification mechanisms.
      * @param {PSTR} lpszFriendlyAppName Pointer to a <b>null</b>-terminated string that contains only displayable characters. If this parameter is not <b>NULL</b>, it contains an application-supplied name for the application. This name is provided in the 
@@ -13362,7 +13361,7 @@ class Tapi {
      * > [!NOTE]
      * > The tapi.h header defines phoneInitializeEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Integer>} lphPhoneApp Pointer to a location that is filled with the application's usage handle for TAPI.
-     * @param {HINSTANCE} _hInstance 
+     * @param {HINSTANCE} _hInstance Instance handle of the client application or DLL. The application or DLL can pass <b>NULL</b> for this parameter, in which case TAPI uses the module handle of the root executable of the process.
      * @param {Pointer<PHONECALLBACK>} lpfnCallback Address of a callback function that is invoked to determine status and events on the line device, addresses, or calls, when the application is using the "hidden window" method of event notification (for more information see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/nc-tapi-phonecallback">phoneCallbackFunc</a>). This parameter is ignored and should be set to <b>NULL</b> when the application chooses to use the "event handle" or "completion port" event notification mechanisms.
      * @param {PWSTR} lpszFriendlyAppName Pointer to a <b>null</b>-terminated string that contains only displayable characters. If this parameter is not <b>NULL</b>, it contains an application-supplied name for the application. This name is provided in the 
@@ -13773,7 +13772,7 @@ class Tapi {
 
     /**
      * Closes a call request made by a previous call to tapiRequestMediaCall.
-     * @param {HWND} _hwnd 
+     * @param {HWND} _hwnd Handle to the Windows process that issued this request.
      * @param {WPARAM} wRequestID Pointer to a 32-bit integer value that contains the ID of the call request.
      * @returns {Integer} The function is obsolete and will always return an error code.
      * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-tapirequestdrop

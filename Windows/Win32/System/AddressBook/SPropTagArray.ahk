@@ -25,10 +25,8 @@
  * For a complete list of the single-valued and multi-valued property types, see the appendix, [Property Identifiers and Types](property-identifiers-and-types.md).
  * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/sproptagarray
  * @namespace Windows.Win32.System.AddressBook
- * @version v4.0.30319
  */
-class SPropTagArray extends Win32Struct
-{
+class SPropTagArray extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4
@@ -44,9 +42,9 @@ class SPropTagArray extends Win32Struct
 
     /**
      * > Array of property tags.
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    aulPropTag{
+    aulPropTag {
         get {
             if(!this.HasProp("__aulPropTagProxyArray"))
                 this.__aulPropTagProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "uint")

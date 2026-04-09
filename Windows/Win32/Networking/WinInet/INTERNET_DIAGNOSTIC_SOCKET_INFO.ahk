@@ -8,10 +8,8 @@
  * <div> </div>
  * @see https://learn.microsoft.com/windows/win32/api/wininet/ns-wininet-internet_diagnostic_socket_info
  * @namespace Windows.Win32.Networking.WinInet
- * @version v4.0.30319
  */
-class INTERNET_DIAGNOSTIC_SOCKET_INFO extends Win32Struct
-{
+class INTERNET_DIAGNOSTIC_SOCKET_INFO extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

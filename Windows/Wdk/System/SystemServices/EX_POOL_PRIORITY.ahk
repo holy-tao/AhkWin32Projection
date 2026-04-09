@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class EX_POOL_PRIORITY extends Win32Enum{
+class EX_POOL_PRIORITY extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

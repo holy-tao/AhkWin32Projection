@@ -7,9 +7,8 @@
  * This interface is derived from IAdviseSink to provide extensions for notifying the sink of changes in an object's view status.
  * @see https://learn.microsoft.com/windows/win32/api/ocidl/nn-ocidl-iadvisesinkex
  * @namespace Windows.Win32.System.Ole
- * @version v4.0.30319
  */
-class IAdviseSinkEx extends IAdviseSink{
+class IAdviseSinkEx extends IAdviseSink {
 
     static sizeof => A_PtrSize
     /**

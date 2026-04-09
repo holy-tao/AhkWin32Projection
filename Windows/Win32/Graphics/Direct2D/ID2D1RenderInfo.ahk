@@ -9,9 +9,8 @@
  * This interface is used by a transform implementation to first describe and then indicate changes to the rendering pass that corresponds to the transform.
  * @see https://learn.microsoft.com/windows/win32/api/d2d1effectauthor/nn-d2d1effectauthor-id2d1renderinfo
  * @namespace Windows.Win32.Graphics.Direct2D
- * @version v4.0.30319
  */
-class ID2D1RenderInfo extends IUnknown{
+class ID2D1RenderInfo extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -76,10 +75,10 @@ class ID2D1RenderInfo extends IUnknown{
      * The output channel depth will match the maximum of the input channel depths if the channel depth is <b>D2D1_CHANNEL_DEPTH_DEFAULT</b>.
      * 
      * There is no global output channel depth, this is always left to the control of the transforms.
-     * @param {Integer} bufferPrecision Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1_1/ne-d2d1_1-d2d1_buffer_precision">D2D1_BUFFER_PRECISION</a></b>
+     * @param {D2D1_BUFFER_PRECISION} bufferPrecision Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1_1/ne-d2d1_1-d2d1_buffer_precision">D2D1_BUFFER_PRECISION</a></b>
      * 
      * The type of buffer that should be used as an output from this transform.
-     * @param {Integer} channelDepth Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1effectauthor/ne-d2d1effectauthor-d2d1_channel_depth">D2D1_CHANNEL_DEPTH</a></b>
+     * @param {D2D1_CHANNEL_DEPTH} channelDepth Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1effectauthor/ne-d2d1effectauthor-d2d1_channel_depth">D2D1_CHANNEL_DEPTH</a></b>
      * 
      * The number of channels that will be used on the output buffer.
      * @returns {HRESULT} Type: <b>HRESULT</b>

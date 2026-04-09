@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
- * @version v4.0.30319
  */
-class D3DKMDT_VIDPN_TARGET_MODE extends Win32Struct
-{
+class D3DKMDT_VIDPN_TARGET_MODE extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -20,7 +18,7 @@ class D3DKMDT_VIDPN_TARGET_MODE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<D3DKMDT_VIDEO_SIGNAL_INFO>}
+     * @type {Pointer}
      */
     VideoSignalInfo {
         get => NumGet(this, 8, "ptr")
@@ -28,7 +26,7 @@ class D3DKMDT_VIDPN_TARGET_MODE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<D3DKMDT_WIRE_FORMAT_AND_PREFERENCE>}
+     * @type {Pointer}
      */
     WireFormatAndPreference {
         get => NumGet(this, 16, "ptr")
@@ -63,7 +61,7 @@ class D3DKMDT_VIDPN_TARGET_MODE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<D3DDDI_RATIONAL>}
+     * @type {Pointer}
      */
     MinimumVSyncFreq {
         get => NumGet(this, 32, "ptr")

@@ -5,10 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.WindowsProgramming
- * @version v4.0.30319
  */
-class DCIENUMINPUT extends Win32Struct
-{
+class DCIENUMINPUT extends Win32Struct {
     static sizeof => 72
 
     static packingSize => 8
@@ -16,7 +14,7 @@ class DCIENUMINPUT extends Win32Struct
     /**
      * @type {DCICMD}
      */
-    cmd{
+    cmd {
         get {
             if(!this.HasProp("__cmd"))
                 this.__cmd := DCICMD(0, this)
@@ -27,7 +25,7 @@ class DCIENUMINPUT extends Win32Struct
     /**
      * @type {RECT}
      */
-    rSrc{
+    rSrc {
         get {
             if(!this.HasProp("__rSrc"))
                 this.__rSrc := RECT(20, this)
@@ -38,7 +36,7 @@ class DCIENUMINPUT extends Win32Struct
     /**
      * @type {RECT}
      */
-    rDst{
+    rDst {
         get {
             if(!this.HasProp("__rDst"))
                 this.__rDst := RECT(36, this)

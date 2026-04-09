@@ -1,18 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
 #Include .\IEnumTerminal.ahk
 #Include .\ITTerminal.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * This ITMultiTrackTerminal interface is exposed on all multitrack terminals. The interface includes methods for enumerating, creating, and removing tracks. The ITMultiTrackTerminal interface is created by calling QueryInterface on ITTerminal.
  * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nn-tapi3if-itmultitrackterminal
  * @namespace Windows.Win32.Devices.Tapi
- * @version v4.0.30319
  */
-class ITMultiTrackTerminal extends IDispatch{
+class ITMultiTrackTerminal extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -48,7 +47,7 @@ class ITMultiTrackTerminal extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {TERMINAL_DIRECTION} 
      */
     DirectionsInUse {
         get => this.get_DirectionsInUse()
@@ -92,8 +91,9 @@ class ITMultiTrackTerminal extends IDispatch{
      * TAPI calls the <b>AddRef</b> method on the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itterminal">ITTerminal</a> interface returned by <b>ITMultiTrackTerminal::CreateTrackTerminal</b>. The application must call <b>Release</b> on the 
      * <b>ITTerminal</b> interface to free resources associated with it.
-     * @param {Integer} _MediaType 
-     * @param {Integer} TerminalDirection The 
+     * @param {Integer} _MediaType Bitwise ORed list of 
+     * <a href="https://docs.microsoft.com/windows/desktop/Tapi/tapimediatype--constants">media types</a> required for the terminal.
+     * @param {TERMINAL_DIRECTION} TerminalDirection The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/ne-tapi3if-terminal_direction">TERMINAL_DIRECTION</a> descriptor for the terminal.
      * @returns {ITTerminal} Pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itterminal">ITTerminal</a> interface.
@@ -117,7 +117,7 @@ class ITMultiTrackTerminal extends IDispatch{
 
     /**
      * The get_DirectionsInUse method returns the direction of all tracks managed currently by the multitrack terminal.
-     * @returns {Integer} Pointer to the 
+     * @returns {TERMINAL_DIRECTION} Pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/ne-tapi3if-terminal_direction">TERMINAL_DIRECTION</a> descriptor of the directions.
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itmultitrackterminal-get_directionsinuse
      */

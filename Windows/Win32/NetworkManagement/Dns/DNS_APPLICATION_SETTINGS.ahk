@@ -3,14 +3,10 @@
 
 /**
  * Represents per-application DNS settings.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/windns/ns-windns-dns_application_settings
  * @namespace Windows.Win32.NetworkManagement.Dns
- * @version v4.0.30319
  */
-class DNS_APPLICATION_SETTINGS extends Win32Struct
-{
+class DNS_APPLICATION_SETTINGS extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

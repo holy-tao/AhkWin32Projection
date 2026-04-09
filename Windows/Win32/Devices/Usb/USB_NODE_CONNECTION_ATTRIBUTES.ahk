@@ -1,12 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\USB_CONNECTION_STATUS.ahk
 
 /**
  * @namespace Windows.Win32.Devices.Usb
- * @version v4.0.30319
  */
-class USB_NODE_CONNECTION_ATTRIBUTES extends Win32Struct
-{
+class USB_NODE_CONNECTION_ATTRIBUTES extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4
@@ -20,7 +19,7 @@ class USB_NODE_CONNECTION_ATTRIBUTES extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {USB_CONNECTION_STATUS}
      */
     ConnectionStatus {
         get => NumGet(this, 4, "int")

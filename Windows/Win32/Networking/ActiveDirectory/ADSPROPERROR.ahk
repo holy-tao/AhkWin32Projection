@@ -6,10 +6,8 @@
  * The ADSPROPERROR structure is used to pass error data to the notification object with the ADsPropSendErrorMessage function or the WM_ADSPROP_NOTIFY_ERROR message.
  * @see https://learn.microsoft.com/windows/win32/api/adsprop/ns-adsprop-adsproperror
  * @namespace Windows.Win32.Networking.ActiveDirectory
- * @version v4.0.30319
  */
-class ADSPROPERROR extends Win32Struct
-{
+class ADSPROPERROR extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -18,7 +16,7 @@ class ADSPROPERROR extends Win32Struct
      * Contains the window handle of the property page that generated the error.
      * @type {HWND}
      */
-    hwndPage{
+    hwndPage {
         get {
             if(!this.HasProp("__hwndPage"))
                 this.__hwndPage := HWND(0, this)

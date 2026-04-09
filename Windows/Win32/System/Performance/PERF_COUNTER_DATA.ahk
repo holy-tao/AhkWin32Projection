@@ -7,10 +7,8 @@
  * The <a href="https://docs.microsoft.com/windows/desktop/api/perflib/nf-perflib-perfquerycounterdata">PerfQueryCounterData</a> function returns a <a href="https://docs.microsoft.com/windows/desktop/api/perflib/ns-perflib-perf_data_header">PERF_DATA_HEADER</a> block that may contain <b>PERF_COUNTER_DATA</b> blocks directly, or indirectly as part of a <a href="https://docs.microsoft.com/windows/desktop/api/perflib/ns-perflib-perf_multi_instances">PERF_MULTI_INSTANCES</a> block.
  * @see https://learn.microsoft.com/windows/win32/api/perflib/ns-perflib-perf_counter_data
  * @namespace Windows.Win32.System.Performance
- * @version v4.0.30319
  */
-class PERF_COUNTER_DATA extends Win32Struct
-{
+class PERF_COUNTER_DATA extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4

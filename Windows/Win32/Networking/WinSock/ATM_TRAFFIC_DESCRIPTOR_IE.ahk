@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Networking.WinSock
- * @version v4.0.30319
  */
-class ATM_TRAFFIC_DESCRIPTOR_IE extends Win32Struct
-{
+class ATM_TRAFFIC_DESCRIPTOR_IE extends Win32Struct {
     static sizeof => 60
 
     static packingSize => 4
@@ -15,7 +13,7 @@ class ATM_TRAFFIC_DESCRIPTOR_IE extends Win32Struct
     /**
      * @type {ATM_TD}
      */
-    Forward{
+    Forward {
         get {
             if(!this.HasProp("__Forward"))
                 this.__Forward := ATM_TD(0, this)
@@ -26,7 +24,7 @@ class ATM_TRAFFIC_DESCRIPTOR_IE extends Win32Struct
     /**
      * @type {ATM_TD}
      */
-    Backward{
+    Backward {
         get {
             if(!this.HasProp("__Backward"))
                 this.__Backward := ATM_TD(28, this)

@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\AMBISONICS_TYPE.ahk
+#Include .\AMBISONICS_CHANNEL_ORDERING.ahk
+#Include .\AMBISONICS_NORMALIZATION.ahk
 
 /**
  * @namespace Windows.Win32.Media.Audio
- * @version v4.0.30319
  */
-class AMBISONICS_PARAMS extends Win32Struct
-{
+class AMBISONICS_PARAMS extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -28,7 +29,7 @@ class AMBISONICS_PARAMS extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {AMBISONICS_TYPE}
      */
     u32Type {
         get => NumGet(this, 8, "int")
@@ -36,7 +37,7 @@ class AMBISONICS_PARAMS extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {AMBISONICS_CHANNEL_ORDERING}
      */
     u32ChannelOrdering {
         get => NumGet(this, 12, "int")
@@ -44,7 +45,7 @@ class AMBISONICS_PARAMS extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {AMBISONICS_NORMALIZATION}
      */
     u32Normalization {
         get => NumGet(this, 16, "int")

@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem
- * @version v4.0.30319
  */
-class OPLOCK_NOTIFY_REASON extends Win32Enum{
+class OPLOCK_NOTIFY_REASON extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

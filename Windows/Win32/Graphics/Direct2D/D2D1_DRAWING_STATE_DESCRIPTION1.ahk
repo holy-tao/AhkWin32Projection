@@ -1,15 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\D2D1_ANTIALIAS_MODE.ahk
+#Include .\D2D1_TEXT_ANTIALIAS_MODE.ahk
 #Include Common\D2D_MATRIX_3X2_F.ahk
+#Include .\D2D1_PRIMITIVE_BLEND.ahk
+#Include .\D2D1_UNIT_MODE.ahk
 
 /**
  * Describes the drawing state of a device context.
  * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/ns-d2d1_1-d2d1_drawing_state_description1
  * @namespace Windows.Win32.Graphics.Direct2D
- * @version v4.0.30319
  */
-class D2D1_DRAWING_STATE_DESCRIPTION1 extends Win32Struct
-{
+class D2D1_DRAWING_STATE_DESCRIPTION1 extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8
@@ -18,7 +20,7 @@ class D2D1_DRAWING_STATE_DESCRIPTION1 extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1/ne-d2d1-d2d1_antialias_mode">D2D1_ANTIALIAS_MODE</a></b>
      * 
      * The antialiasing mode for subsequent nontext drawing operations.
-     * @type {Integer}
+     * @type {D2D1_ANTIALIAS_MODE}
      */
     antialiasMode {
         get => NumGet(this, 0, "int")
@@ -29,7 +31,7 @@ class D2D1_DRAWING_STATE_DESCRIPTION1 extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1/ne-d2d1-d2d1_text_antialias_mode">D2D1_TEXT_ANTIALIAS_MODE</a></b>
      * 
      * The antialiasing mode for subsequent text and glyph drawing operations.
-     * @type {Integer}
+     * @type {D2D1_TEXT_ANTIALIAS_MODE}
      */
     textAntialiasMode {
         get => NumGet(this, 4, "int")
@@ -64,7 +66,7 @@ class D2D1_DRAWING_STATE_DESCRIPTION1 extends Win32Struct
      * The transformation to apply to subsequent drawing operations.
      * @type {D2D_MATRIX_3X2_F}
      */
-    transform{
+    transform {
         get {
             if(!this.HasProp("__transform"))
                 this.__transform := D2D_MATRIX_3X2_F(24, this)
@@ -76,7 +78,7 @@ class D2D1_DRAWING_STATE_DESCRIPTION1 extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1_1/ne-d2d1_1-d2d1_primitive_blend">D2D1_PRIMITIVE_BLEND</a></b>
      * 
      * The blend mode for the device context to apply to subsequent drawing operations.
-     * @type {Integer}
+     * @type {D2D1_PRIMITIVE_BLEND}
      */
     primitiveBlend {
         get => NumGet(this, 48, "int")
@@ -87,7 +89,7 @@ class D2D1_DRAWING_STATE_DESCRIPTION1 extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1_1/ne-d2d1_1-d2d1_unit_mode">D2D1_UNIT_MODE</a></b>
      * 
      * D2D1_UNIT_MODE
-     * @type {Integer}
+     * @type {D2D1_UNIT_MODE}
      */
     unitMode {
         get => NumGet(this, 52, "int")

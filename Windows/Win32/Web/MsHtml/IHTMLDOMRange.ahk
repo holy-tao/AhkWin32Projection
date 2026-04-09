@@ -1,18 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IHTMLDOMNode.ahk
 #Include ..\..\System\Com\IDispatch.ahk
-#Include .\IHTMLDOMRange.ahk
+#Include .\IHTMLDOMNode.ahk
 #Include ..\..\Foundation\BSTR.ahk
 #Include .\IHTMLRectCollection.ahk
 #Include .\IHTMLRect.ahk
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
- * @version v4.0.30319
  */
-class IHTMLDOMRange extends IDispatch{
+class IHTMLDOMRange extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

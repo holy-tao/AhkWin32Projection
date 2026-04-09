@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Security.Cryptography.Certificates
- * @version v4.0.30319
  */
-class CERTADMIN_GET_ROLES_FLAGS extends Win32BitflagEnum{
+class CERTADMIN_GET_ROLES_FLAGS extends Win32BitflagEnum {
 
     /**
      * @type {Integer (UInt32)}

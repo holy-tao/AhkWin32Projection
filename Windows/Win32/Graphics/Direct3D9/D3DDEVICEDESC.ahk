@@ -6,10 +6,8 @@
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D9
- * @version v4.0.30319
  */
-class D3DDEVICEDESC extends Win32Struct
-{
+class D3DDEVICEDESC extends Win32Struct {
     static sizeof => 252
 
     static packingSize => 4
@@ -49,7 +47,7 @@ class D3DDEVICEDESC extends Win32Struct
     /**
      * @type {D3DTRANSFORMCAPS}
      */
-    dtcTransformCaps{
+    dtcTransformCaps {
         get {
             if(!this.HasProp("__dtcTransformCaps"))
                 this.__dtcTransformCaps := D3DTRANSFORMCAPS(16, this)
@@ -68,7 +66,7 @@ class D3DDEVICEDESC extends Win32Struct
     /**
      * @type {D3DLIGHTINGCAPS}
      */
-    dlcLightingCaps{
+    dlcLightingCaps {
         get {
             if(!this.HasProp("__dlcLightingCaps"))
                 this.__dlcLightingCaps := D3DLIGHTINGCAPS(28, this)
@@ -79,7 +77,7 @@ class D3DDEVICEDESC extends Win32Struct
     /**
      * @type {D3DPRIMCAPS}
      */
-    dpcLineCaps{
+    dpcLineCaps {
         get {
             if(!this.HasProp("__dpcLineCaps"))
                 this.__dpcLineCaps := D3DPRIMCAPS(44, this)
@@ -90,7 +88,7 @@ class D3DDEVICEDESC extends Win32Struct
     /**
      * @type {D3DPRIMCAPS}
      */
-    dpcTriCaps{
+    dpcTriCaps {
         get {
             if(!this.HasProp("__dpcTriCaps"))
                 this.__dpcTriCaps := D3DPRIMCAPS(100, this)

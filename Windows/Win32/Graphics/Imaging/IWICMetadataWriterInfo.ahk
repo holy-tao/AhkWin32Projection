@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IWICMetadataWriter.ahk
 #Include .\IWICMetadataHandlerInfo.ahk
+#Include .\IWICMetadataWriter.ahk
 
 /**
  * Exposes methods that provide basic information about the registered metadata writer.
  * @see https://learn.microsoft.com/windows/win32/api/wincodecsdk/nn-wincodecsdk-iwicmetadatawriterinfo
  * @namespace Windows.Win32.Graphics.Imaging
- * @version v4.0.30319
  */
-class IWICMetadataWriterInfo extends IWICMetadataHandlerInfo{
+class IWICMetadataWriterInfo extends IWICMetadataHandlerInfo {
 
     static sizeof => A_PtrSize
     /**
@@ -39,7 +38,7 @@ class IWICMetadataWriterInfo extends IWICMetadataHandlerInfo{
      * @param {Integer} cbSize Type: <b>UINT</b>
      * 
      * The size of the <i>pHeader</i> buffer.
-     * @param {Pointer} pHeader Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodecsdk/ns-wincodecsdk-wicmetadataheader">WICMetadataHeader</a>*</b>
+     * @param {Integer} pHeader Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodecsdk/ns-wincodecsdk-wicmetadataheader">WICMetadataHeader</a>*</b>
      * 
      * Pointer that receives the <a href="https://docs.microsoft.com/windows/desktop/api/wincodecsdk/ns-wincodecsdk-wicmetadataheader">WICMetadataHeader</a>.
      * @returns {Integer} Type: <b>UINT*</b>

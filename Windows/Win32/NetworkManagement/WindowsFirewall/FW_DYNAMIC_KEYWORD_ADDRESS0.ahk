@@ -3,14 +3,10 @@
 
 /**
  * Allows the client to create a dynamic keyword address, which holds a list of IP addresses.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/netfw/ns-netfw-fw_dynamic_keyword_address0
  * @namespace Windows.Win32.NetworkManagement.WindowsFirewall
- * @version v4.0.30319
  */
-class FW_DYNAMIC_KEYWORD_ADDRESS0 extends Win32Struct
-{
+class FW_DYNAMIC_KEYWORD_ADDRESS0 extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -19,7 +15,7 @@ class FW_DYNAMIC_KEYWORD_ADDRESS0 extends Win32Struct
      * Type: **[GUID](/windows/win32/api/guiddef/ns-guiddef-guid)**
      * 
      * A unique **GUID** identifier for this object. It must be a non-empty **GUID**.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     id {
         get => NumGet(this, 0, "ptr")

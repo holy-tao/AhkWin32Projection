@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
 #Include .\IFsrmProperty.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * Contains the classification properties for a file.
@@ -24,9 +24,8 @@
  *     if a storage module is implemented.
  * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nn-fsrmpipeline-ifsrmpropertybag
  * @namespace Windows.Win32.Storage.FileServerResourceManager
- * @version v4.0.30319
  */
-class IFsrmPropertyBag extends IDispatch{
+class IFsrmPropertyBag extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -443,9 +442,9 @@ class IFsrmPropertyBag extends IDispatch{
      *     <b>FsrmFileStreamingMode_Write</b>, the caller must also be a storage module and have its 
      *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmpipeline/nf-fsrmpipeline-ifsrmstoragemoduledefinition-get_updatesfilecontent">IFsrmStorageModuleDefinition::UpdatesFileContent</a> 
      *     property set to <b>TRUE</b>.
-     * @param {Integer} accessMode One or more access modes. For possible values, see the 
+     * @param {FsrmFileStreamingMode} accessMode One or more access modes. For possible values, see the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/fsrmenums/ne-fsrmenums-fsrmfilestreamingmode">FsrmFileStreamingMode</a> enumeration.
-     * @param {Integer} interfaceType The type of streaming interface to use. For possible interface types, see the 
+     * @param {FsrmFileStreamingInterfaceType} interfaceType The type of streaming interface to use. For possible interface types, see the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/fsrmenums/ne-fsrmenums-fsrmfilestreaminginterfacetype">FsrmFileStreamingInterfaceType</a> 
      *       enumeration.
      * @returns {VARIANT} A <b>VARIANT</b> that contains the streaming interface that you can use to access the 

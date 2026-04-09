@@ -7,9 +7,8 @@
  * The IUPnPDescriptionDocumentCallback interface allows the UPnP framework to communicate the results of an asynchronous load operation to an application.
  * @see https://learn.microsoft.com/windows/win32/api/upnp/nn-upnp-iupnpdescriptiondocumentcallback
  * @namespace Windows.Win32.Devices.Enumeration.Pnp
- * @version v4.0.30319
  */
-class IUPnPDescriptionDocumentCallback extends IUnknown{
+class IUPnPDescriptionDocumentCallback extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

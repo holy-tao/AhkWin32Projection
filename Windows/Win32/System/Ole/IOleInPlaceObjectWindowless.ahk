@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IDropTarget.ahk
 #Include .\IOleInPlaceObject.ahk
+#Include .\IDropTarget.ahk
 
 /**
  * Enables a windowless object to process window messages and participate in drag and drop operations. It is derived from and extends the IOleInPlaceObject interface.
  * @see https://learn.microsoft.com/windows/win32/api/ocidl/nn-ocidl-ioleinplaceobjectwindowless
  * @namespace Windows.Win32.System.Ole
- * @version v4.0.30319
  */
-class IOleInPlaceObjectWindowless extends IOleInPlaceObject{
+class IOleInPlaceObjectWindowless extends IOleInPlaceObject {
 
     static sizeof => A_PtrSize
     /**
@@ -91,9 +90,9 @@ class IOleInPlaceObjectWindowless extends IOleInPlaceObject{
      * Objects can also use <a href="https://docs.microsoft.com/windows/desktop/api/ocidl/nf-ocidl-ioleinplacesitewindowless-ondefwindowmessage">IOleInPlaceSiteWindowless::OnDefWindowMessage</a> to explicitly invoke the default message processing from the container. In the case of the WM_SETCURSOR message, this allows an object to take action if the container does not set the cursor.
      * 
      * All coordinates passed to the object in <i>wParam</i> and <i>lParam</i> are specified as client coordinates of the containing window.
-     * @param {Integer} _msg 
-     * @param {WPARAM} _wParam 
-     * @param {LPARAM} _lParam 
+     * @param {Integer} _msg The identifier for the window message provided to the container by Windows.
+     * @param {WPARAM} _wParam A parameter for the window message provided to the container by Windows.
+     * @param {LPARAM} _lParam A parameter for the window message provided to the container by Windows.
      * @returns {LRESULT} A pointer to result code for the window message.
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ioleinplaceobjectwindowless-onwindowmessage
      */

@@ -5,9 +5,8 @@
  * The accounts operator privilege is enabled.
  * @see https://learn.microsoft.com/windows/win32/api/lmaccess/ns-lmaccess-user_info_1010
  * @namespace Windows.Win32.NetworkManagement.NetManagement
- * @version v4.0.30319
  */
-class AF_OP extends Win32BitflagEnum{
+class AF_OP extends Win32BitflagEnum {
 
     /**
      * @type {Integer (UInt32)}

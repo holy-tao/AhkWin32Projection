@@ -3,18 +3,16 @@
 
 /**
  * @namespace Windows.Win32.Networking.WinHttp
- * @version v4.0.30319
  */
-class WINHTTP_PROXY_NETWORKING_KEY extends Win32Struct
-{
+class WINHTTP_PROXY_NETWORKING_KEY extends Win32Struct {
     static sizeof => 128
 
     static packingSize => 1
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    pbBuffer{
+    pbBuffer {
         get {
             if(!this.HasProp("__pbBufferProxyArray"))
                 this.__pbBufferProxyArray := Win32FixedArray(this.ptr + 0, 128, Primitive, "char")

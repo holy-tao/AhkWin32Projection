@@ -7,9 +7,8 @@
  * Note  This interface is deprecated.
  * @see https://learn.microsoft.com/windows/win32/api/amstream/nn-amstream-iammediatypesample
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IAMMediaTypeSample extends IStreamSample{
+class IAMMediaTypeSample extends IStreamSample {
 
     static sizeof => A_PtrSize
     /**

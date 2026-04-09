@@ -1,10 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\SID_AND_ATTRIBUTES.ahk
 #Include ..\..\TOKEN_USER.ahk
+#Include ..\..\SID_AND_ATTRIBUTES.ahk
+#Include ..\..\TOKEN_GROUPS.ahk
 #Include ..\..\TOKEN_PRIMARY_GROUP.ahk
+#Include ..\..\TOKEN_PRIVILEGES.ahk
 #Include ..\..\TOKEN_OWNER.ahk
 #Include ..\..\TOKEN_DEFAULT_DACL.ahk
+#Include ..\..\ACL.ahk
 #Include ..\..\TOKEN_USER_CLAIMS.ahk
 #Include ..\..\TOKEN_DEVICE_CLAIMS.ahk
 
@@ -12,10 +15,8 @@
  * Adds claim support to the LSA token and contains information an authentication package can place in a Version 3 Windows token object and has superceded LSA_TOKEN_INFORMATION_V1.
  * @see https://learn.microsoft.com/windows/win32/api/ntsecpkg/ns-ntsecpkg-lsa_token_information_v3
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class LSA_TOKEN_INFORMATION_V3 extends Win32Struct
-{
+class LSA_TOKEN_INFORMATION_V3 extends Win32Struct {
     static sizeof => 88
 
     static packingSize => 8
@@ -33,7 +34,7 @@ class LSA_TOKEN_INFORMATION_V3 extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-token_user">TOKEN_USER</a> structure that contains the SID of the user logging on. The <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security identifier</a> SID value is in a separately allocated block of memory.
      * @type {TOKEN_USER}
      */
-    User{
+    User {
         get {
             if(!this.HasProp("__User"))
                 this.__User := TOKEN_USER(8, this)
@@ -66,7 +67,7 @@ class LSA_TOKEN_INFORMATION_V3 extends Win32Struct
      * This member is mandatory and must be filled in.
      * @type {TOKEN_PRIMARY_GROUP}
      */
-    PrimaryGroup{
+    PrimaryGroup {
         get {
             if(!this.HasProp("__PrimaryGroup"))
                 this.__PrimaryGroup := TOKEN_PRIMARY_GROUP(32, this)
@@ -99,7 +100,7 @@ class LSA_TOKEN_INFORMATION_V3 extends Win32Struct
      * The <b>Owner.Sid</b> member may be set to <b>NULL</b> to indicate there is no alternate default owner value.
      * @type {TOKEN_OWNER}
      */
-    Owner{
+    Owner {
         get {
             if(!this.HasProp("__Owner"))
                 this.__Owner := TOKEN_OWNER(48, this)
@@ -116,7 +117,7 @@ class LSA_TOKEN_INFORMATION_V3 extends Win32Struct
      * The <b>DefaultDacl.DefaultDacl</b> member may be set to <b>NULL</b> to indicate there is no default protection.
      * @type {TOKEN_DEFAULT_DACL}
      */
-    DefaultDacl{
+    DefaultDacl {
         get {
             if(!this.HasProp("__DefaultDacl"))
                 this.__DefaultDacl := TOKEN_DEFAULT_DACL(56, this)
@@ -128,7 +129,7 @@ class LSA_TOKEN_INFORMATION_V3 extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-token_user_claims">TOKEN_USER_CLAIMS</a> structure. This member stores the opaque user claims BLOB for the token. The <b>UserClaims</b> member may be set to <b>NULL</b> to indicate there are no additional user claims in the token. Claims are allow-only entities so omitting claims may restrict access.
      * @type {TOKEN_USER_CLAIMS}
      */
-    UserClaims{
+    UserClaims {
         get {
             if(!this.HasProp("__UserClaims"))
                 this.__UserClaims := TOKEN_USER_CLAIMS(64, this)
@@ -140,7 +141,7 @@ class LSA_TOKEN_INFORMATION_V3 extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-token_device_claims">TOKEN_DEVICE_CLAIMS</a> structure. This member stores the opaque device claims BLOB for the token. The <b>DeviceClaims</b> member may be set to <b>NULL</b> to indicate there are no additional device claims in the token. Claims are allow-only entities so omitting claims may restrict access.
      * @type {TOKEN_DEVICE_CLAIMS}
      */
-    DeviceClaims{
+    DeviceClaims {
         get {
             if(!this.HasProp("__DeviceClaims"))
                 this.__DeviceClaims := TOKEN_DEVICE_CLAIMS(72, this)

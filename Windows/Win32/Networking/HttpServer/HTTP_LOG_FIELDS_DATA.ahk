@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\HTTP_LOG_DATA.ahk
+#Include .\HTTP_LOG_DATA_TYPE.ahk
+#Include .\HTTP_VERB.ahk
 
 /**
  * Used to pass the fields that are logged for an HTTP response when WC3 logging is enabled.
@@ -12,10 +14,8 @@
  *  Applications must provide the <b>HTTP_LOG_FIELDS_DATA</b> structure with the last send call.  If a response is sent with a single call to <a href="https://docs.microsoft.com/windows/desktop/api/http/nf-http-httpsendhttpresponse">HttpSendHttpResponse</a>, the log data must be provided in this call. If the response is sent over multiple send calls, the data must be provided with the last call to <a href="https://docs.microsoft.com/windows/desktop/api/http/nf-http-httpsendresponseentitybody">HttpSendResponseEntityBody</a>.
  * @see https://learn.microsoft.com/windows/win32/api/http/ns-http-http_log_fields_data
  * @namespace Windows.Win32.Networking.HttpServer
- * @version v4.0.30319
  */
-class HTTP_LOG_FIELDS_DATA extends Win32Struct
-{
+class HTTP_LOG_FIELDS_DATA extends Win32Struct {
     static sizeof => 144
 
     static packingSize => 8
@@ -24,7 +24,7 @@ class HTTP_LOG_FIELDS_DATA extends Win32Struct
      * Initialize this member to the <b>HttpLogDataTypeFields</b> value of the <a href="https://docs.microsoft.com/windows/desktop/api/http/ne-http-http_log_data_type">HTTP_LOG_DATA_TYPE</a> enumeration.
      * @type {HTTP_LOG_DATA}
      */
-    Base{
+    Base {
         get {
             if(!this.HasProp("__Base"))
                 this.__Base := HTTP_LOG_DATA(0, this)
@@ -69,7 +69,6 @@ class HTTP_LOG_FIELDS_DATA extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     ServiceNameLength {
@@ -277,7 +276,7 @@ class HTTP_LOG_FIELDS_DATA extends Win32Struct
 
     /**
      * The method number.
-     * @type {Integer}
+     * @type {HTTP_VERB}
      */
     MethodNum {
         get => NumGet(this, 136, "int")

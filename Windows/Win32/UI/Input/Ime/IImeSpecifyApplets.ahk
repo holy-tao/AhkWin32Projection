@@ -7,9 +7,8 @@
  * The IImeSpecifyApplets interface specifies methods called from the IImePad interface object to emulate the IImePadApplet interface.
  * @see https://learn.microsoft.com/windows/win32/api/imepad/nn-imepad-iimespecifyapplets
  * @namespace Windows.Win32.UI.Input.Ime
- * @version v4.0.30319
  */
-class IImeSpecifyApplets extends IUnknown{
+class IImeSpecifyApplets extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

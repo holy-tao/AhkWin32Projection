@@ -5,9 +5,8 @@
  * Defines the default access permissions to apply to the channel.
  * @see https://learn.microsoft.com/windows/win32/api/winevt/ne-winevt-evt_channel_isolation_type
  * @namespace Windows.Win32.System.EventLog
- * @version v4.0.30319
  */
-class EVT_CHANNEL_ISOLATION_TYPE extends Win32Enum{
+class EVT_CHANNEL_ISOLATION_TYPE extends Win32Enum {
 
     /**
      * Provides open access to the channel.

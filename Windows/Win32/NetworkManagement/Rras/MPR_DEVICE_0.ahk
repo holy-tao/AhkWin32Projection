@@ -5,10 +5,8 @@
  * The MPR_DEVICE_0 structure stores information about a device used for a link in a multilinked demand dial interface.
  * @see https://learn.microsoft.com/windows/win32/api/mprapi/ns-mprapi-mpr_device_0
  * @namespace Windows.Win32.NetworkManagement.Rras
- * @version v4.0.30319
  */
-class MPR_DEVICE_0 extends Win32Struct
-{
+class MPR_DEVICE_0 extends Win32Struct {
     static sizeof => 292
 
     static packingSize => 2

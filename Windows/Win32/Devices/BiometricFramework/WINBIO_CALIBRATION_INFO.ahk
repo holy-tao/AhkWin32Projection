@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.BiometricFramework
- * @version v4.0.30319
  */
-class WINBIO_CALIBRATION_INFO extends Win32Struct
-{
+class WINBIO_CALIBRATION_INFO extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4
@@ -31,7 +29,7 @@ class WINBIO_CALIBRATION_INFO extends Win32Struct
     /**
      * @type {WINBIO_DATA}
      */
-    CalibrationData{
+    CalibrationData {
         get {
             if(!this.HasProp("__CalibrationData"))
                 this.__CalibrationData := WINBIO_DATA(8, this)

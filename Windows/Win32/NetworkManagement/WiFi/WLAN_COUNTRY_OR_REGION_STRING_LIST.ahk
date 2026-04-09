@@ -5,10 +5,8 @@
  * Contains a list of supported country or region strings.
  * @see https://learn.microsoft.com/windows/win32/api/wlanapi/ns-wlanapi-wlan_country_or_region_string_list
  * @namespace Windows.Win32.NetworkManagement.WiFi
- * @version v4.0.30319
  */
-class WLAN_COUNTRY_OR_REGION_STRING_LIST extends Win32Struct
-{
+class WLAN_COUNTRY_OR_REGION_STRING_LIST extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4
@@ -24,9 +22,9 @@ class WLAN_COUNTRY_OR_REGION_STRING_LIST extends Win32Struct
 
     /**
      * A list of supported country or region strings. In Windows, a <b>DOT11_COUNTRY_OR_REGION_STRING</b> is of type <b>char[3]</b>.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    pCountryOrRegionStringList{
+    pCountryOrRegionStringList {
         get {
             if(!this.HasProp("__pCountryOrRegionStringListProxyArray"))
                 this.__pCountryOrRegionStringListProxyArray := Win32FixedArray(this.ptr + 4, 3, Primitive, "char")

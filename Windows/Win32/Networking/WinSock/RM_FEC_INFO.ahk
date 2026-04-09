@@ -14,10 +14,8 @@
  * Since the use of this structure implies the need for forward error correction, either the <b>FECProActivePackets</b> or <b>fFECOnDemandParityEnabled</b> member must be nonzero, otherwise the function call fails.
  * @see https://learn.microsoft.com/windows/win32/api/wsrm/ns-wsrm-rm_fec_info
  * @namespace Windows.Win32.Networking.WinSock
- * @version v4.0.30319
  */
-class RM_FEC_INFO extends Win32Struct
-{
+class RM_FEC_INFO extends Win32Struct {
     static sizeof => 6
 
     static packingSize => 2

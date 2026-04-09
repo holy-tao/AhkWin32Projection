@@ -1,17 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include ..\Variant\VARIANT.ahk
 #Include ..\Com\IDispatch.ahk
+#Include ..\Variant\VARIANT.ahk
 
 /**
  * Use this interface to get or set session properties.
  * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nn-rdpencomapi-irdpsrapisessionproperties
  * @namespace Windows.Win32.System.DesktopSharing
- * @version v4.0.30319
  */
-class IRDPSRAPISessionProperties extends IDispatch{
+class IRDPSRAPISessionProperties extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

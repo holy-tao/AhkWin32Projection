@@ -3,16 +3,14 @@
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class WHEA_ARM_BUS_ERROR extends Win32Struct
-{
+class WHEA_ARM_BUS_ERROR extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
 
     /**
-     * @type {Pointer<WHEA_ARM_BUS_ERROR_VALID_BITS>}
+     * @type {Pointer}
      */
     ValidationBit {
         get => NumGet(this, 0, "ptr")

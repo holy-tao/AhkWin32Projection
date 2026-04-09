@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\Win32\System\Power\DEVICE_POWER_STATE.ahk
+#Include ..\..\..\Win32\System\Power\SYSTEM_POWER_STATE.ahk
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class DEVICE_CAPABILITIES extends Win32Struct
-{
+class DEVICE_CAPABILITIES extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 4
@@ -261,9 +261,9 @@ class DEVICE_CAPABILITIES extends Win32Struct
     }
 
     /**
-     * @type {Array<Int32>}
+     * @type {Array<DEVICE_POWER_STATE>}
      */
-    DeviceState{
+    DeviceState {
         get {
             if(!this.HasProp("__DeviceStateProxyArray"))
                 this.__DeviceStateProxyArray := Win32FixedArray(this.ptr + 16, 7, Primitive, "int")
@@ -272,7 +272,7 @@ class DEVICE_CAPABILITIES extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {SYSTEM_POWER_STATE}
      */
     SystemWake {
         get => NumGet(this, 44, "int")
@@ -280,7 +280,7 @@ class DEVICE_CAPABILITIES extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {DEVICE_POWER_STATE}
      */
     DeviceWake {
         get => NumGet(this, 48, "int")

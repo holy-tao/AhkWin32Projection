@@ -3,11 +3,9 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Rras
- * @version v4.0.30319
  * @charset Unicode
  */
-class RASEAPUSERIDENTITYW extends Win32Struct
-{
+class RASEAPUSERIDENTITYW extends Win32Struct {
     static sizeof => 524
 
     static packingSize => 4
@@ -29,9 +27,9 @@ class RASEAPUSERIDENTITYW extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    pbEapInfo{
+    pbEapInfo {
         get {
             if(!this.HasProp("__pbEapInfoProxyArray"))
                 this.__pbEapInfoProxyArray := Win32FixedArray(this.ptr + 520, 1, Primitive, "char")

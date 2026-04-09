@@ -5,9 +5,8 @@
  * The DMO_PROCESS_OUTPUT_FLAGS enumeration defines flags that specify output processing requests.
  * @see https://learn.microsoft.com/windows/win32/api/mediaobj/ne-mediaobj-_dmo_process_output_flags
  * @namespace Windows.Win32.Media.DxMediaObjects
- * @version v4.0.30319
  */
-class _DMO_PROCESS_OUTPUT_FLAGS extends Win32Enum{
+class _DMO_PROCESS_OUTPUT_FLAGS extends Win32Enum {
 
     /**
      * Discard the output when the pointer to the output buffer is <b>NULL</b>.

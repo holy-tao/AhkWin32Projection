@@ -5,10 +5,8 @@
  * Receives the volume information from a call to FSCTL_QUERY_ON_DISK_VOLUME_INFO.
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-file_query_on_disk_vol_info_buffer
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class FILE_QUERY_ON_DISK_VOL_INFO_BUFFER extends Win32Struct
-{
+class FILE_QUERY_ON_DISK_VOL_INFO_BUFFER extends Win32Struct {
     static sizeof => 336
 
     static packingSize => 8

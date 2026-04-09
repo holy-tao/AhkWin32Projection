@@ -7,9 +7,8 @@
  * The IAMVfwCompressDialogs interface displays a dialog box provided by a Video for Windows (VFW) codec.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-iamvfwcompressdialogs
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IAMVfwCompressDialogs extends IUnknown{
+class IAMVfwCompressDialogs extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -40,7 +39,7 @@ class IAMVfwCompressDialogs extends IUnknown{
      * 
      * The VfwCompressDialog_QueryConfig and VfwCompressDialog_QueryAbout members of the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/ne-strmif-vfwcompressdialogs">VfwCompressDialogs</a> enumeration tell you whether or not the configure dialog or about dialog is available. If passed one of these flags, the filter will return S_OK if the dialog exists, and S_FALSE if it does not. If a dialog is available, you call <c>ShowDialog</c> with the value VfwCompressDialog_Config or VfwCompressDialog_About to bring up the dialog.
      * @param {Integer} iDialog Dialog box to display. This is a member of the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/ne-strmif-vfwcompressdialogs">VfwCompressDialogs</a> enumeration.
-     * @param {HWND} _hwnd 
+     * @param {HWND} _hwnd Handle of the dialog box's parent window.
      * @returns {HRESULT} Returns an <b>HRESULT</b> value that depends on the implementation of the interface.
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamvfwcompressdialogs-showdialog
      */
@@ -55,7 +54,7 @@ class IAMVfwCompressDialogs extends IUnknown{
      * The GetState method retrieves the current configuration settings for the VCM codec currently being used.
      * @remarks
      * This method calls the  <a href="https://docs.microsoft.com/windows/desktop/api/vfw/nf-vfw-icgetstate">ICGetState</a> macro.
-     * @param {Pointer} pState State of the VCM codec.
+     * @param {Integer} pState State of the VCM codec.
      * @param {Pointer<Integer>} pcbState Pointer to the size of the state.
      * @returns {HRESULT} Return value varies depending on the implementation within each driver.
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamvfwcompressdialogs-getstate
@@ -71,7 +70,7 @@ class IAMVfwCompressDialogs extends IUnknown{
      * The SetState method sets configuration for the VCM codec.
      * @remarks
      * This method calls the <a href="https://docs.microsoft.com/windows/desktop/api/vfw/nf-vfw-icsetstate">ICSetState</a> macro, which notifies a video compression driver to set the state of the compressor.
-     * @param {Pointer} pState State of the VCM codec.
+     * @param {Integer} pState State of the VCM codec.
      * @param {Integer} cbState Size of the state.
      * @returns {HRESULT} Return value varies depending on the implementation within each driver.
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamvfwcompressdialogs-setstate

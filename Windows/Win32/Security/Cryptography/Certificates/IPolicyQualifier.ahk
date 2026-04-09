@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
-#Include .\IObjectId.ahk
 #Include ..\..\..\System\Com\IDispatch.ahk
+#Include .\IObjectId.ahk
+#Include ..\..\..\Foundation\BSTR.ahk
 
 /**
  * Represents a qualifier that can be associated with a certificate policy.
  * @see https://learn.microsoft.com/windows/win32/api/certenroll/nn-certenroll-ipolicyqualifier
  * @namespace Windows.Win32.Security.Cryptography.Certificates
- * @version v4.0.30319
  */
-class IPolicyQualifier extends IDispatch{
+class IPolicyQualifier extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -47,7 +46,7 @@ class IPolicyQualifier extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {PolicyQualifierType} 
      */
     Type {
         get => this.get_Type()
@@ -67,7 +66,7 @@ class IPolicyQualifier extends IDispatch{
      * <li>The <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ipolicyqualifier-get_type">Type</a> property retrieves a value of the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/ne-certenroll-policyqualifiertype">PolicyQualifierType</a> enumeration that specifies the qualifier type.</li>
      * </ul>
      * @param {BSTR} strQualifier A <b>BSTR</b> variable that contains the qualifier.
-     * @param {Integer} Type 
+     * @param {PolicyQualifierType} Type 
      * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>.
      * 
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
@@ -159,7 +158,7 @@ class IPolicyQualifier extends IDispatch{
      * <li>The <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ipolicyqualifier-get_qualifier">Qualifier</a> property retrieves the string specified for the <i>strQualifier</i> parameter of the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ipolicyqualifier-initializeencode">InitializeEncode</a> method.</li>
      * <li>The <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ipolicyqualifier-get_rawdata">RawData</a> property retrieves the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/d-gly">Distinguished Encoding Rules</a> (DER) encoded qualifier.</li>
      * </ul>
-     * @returns {Integer} 
+     * @returns {PolicyQualifierType} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ipolicyqualifier-get_type
      */
     get_Type() {
@@ -177,7 +176,7 @@ class IPolicyQualifier extends IDispatch{
      * <li>The <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ipolicyqualifier-get_qualifier">Qualifier</a> property retrieves the string specified for the <i>strQualifier</i> parameter of the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ipolicyqualifier-initializeencode">InitializeEncode</a> method.</li>
      * <li>The <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ipolicyqualifier-get_type">Type</a> property retrieves a value of the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/ne-certenroll-policyqualifiertype">PolicyQualifierType</a> enumeration that specifies the qualifier type.</li>
      * </ul>
-     * @param {Integer} Encoding 
+     * @param {EncodingType} Encoding 
      * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ipolicyqualifier-get_rawdata
      */

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\WINHTTP_INTERNET_SCHEME.ahk
 
 /**
  * The URL_COMPONENTS structure contains the constituent parts of a URL. This structure is used with the WinHttpCrackUrl and WinHttpCreateUrl functions.
@@ -16,11 +17,9 @@
  * <div> </div>
  * @see https://learn.microsoft.com/windows/win32/api/winhttp/ns-winhttp-url_components
  * @namespace Windows.Win32.Networking.WinHttp
- * @version v4.0.30319
  * @charset ANSI
  */
-class URL_COMPONENTS extends Win32Struct
-{
+class URL_COMPONENTS extends Win32Struct {
     static sizeof => 104
 
     static packingSize => 8
@@ -53,8 +52,7 @@ class URL_COMPONENTS extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Integer}
+     * @type {WINHTTP_INTERNET_SCHEME}
      */
     nScheme {
         get => NumGet(this, 20, "int")

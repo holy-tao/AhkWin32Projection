@@ -9,10 +9,8 @@
  * In log streams, LSNs increase  monotonically. You cannot compare  LSNs between  log streams.
  * @see https://learn.microsoft.com/windows/win32/api/clfs/ns-clfs-cls_lsn
  * @namespace Windows.Win32.Storage.FileSystem
- * @version v4.0.30319
  */
-class CLS_LSN extends Win32Struct
-{
+class CLS_LSN extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 8

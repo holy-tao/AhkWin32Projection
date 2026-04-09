@@ -5,9 +5,8 @@
  * The PHONE_BUTTON_STATE enum describes the state of a phone button.
  * @see https://learn.microsoft.com/windows/win32/api/tapi3if/ne-tapi3if-phone_button_state
  * @namespace Windows.Win32.Devices.Tapi
- * @version v4.0.30319
  */
-class PHONE_BUTTON_STATE extends Win32Enum{
+class PHONE_BUTTON_STATE extends Win32Enum {
 
     /**
      * State of the button is up.

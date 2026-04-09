@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.SideShow
- * @version v4.0.30319
  */
-class APPLICATION_EVENT_DATA extends Win32Struct
-{
+class APPLICATION_EVENT_DATA extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -20,7 +18,7 @@ class APPLICATION_EVENT_DATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     ApplicationId {
         get => NumGet(this, 8, "ptr")
@@ -28,7 +26,7 @@ class APPLICATION_EVENT_DATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     EndpointId {
         get => NumGet(this, 16, "ptr")
@@ -52,9 +50,9 @@ class APPLICATION_EVENT_DATA extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    bEventData{
+    bEventData {
         get {
             if(!this.HasProp("__bEventDataProxyArray"))
                 this.__bEventDataProxyArray := Win32FixedArray(this.ptr + 32, 1, Primitive, "char")

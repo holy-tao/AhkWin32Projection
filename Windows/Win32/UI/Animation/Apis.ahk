@@ -3,7 +3,6 @@
 
 /**
  * @namespace Windows.Win32.UI.Animation
- * @version v4.0.30319
  */
 class Animation {
 

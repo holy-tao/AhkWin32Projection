@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFMediaStream2 extends IMFMediaStream{
+class IMFMediaStream2 extends IMFMediaStream {
 
     static sizeof => A_PtrSize
     /**
@@ -30,7 +29,7 @@ class IMFMediaStream2 extends IMFMediaStream{
 
     /**
      * 
-     * @param {Integer} value 
+     * @param {MF_STREAM_STATE} value 
      * @returns {HRESULT} 
      */
     SetStreamState(value) {
@@ -40,7 +39,7 @@ class IMFMediaStream2 extends IMFMediaStream{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {MF_STREAM_STATE} 
      */
     GetStreamState() {
         result := ComCall(11, this, "int*", &value := 0, "HRESULT")

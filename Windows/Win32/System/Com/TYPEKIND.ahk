@@ -5,9 +5,8 @@
  * Specifies a type.
  * @see https://learn.microsoft.com/windows/win32/api/oaidl/ne-oaidl-typekind
  * @namespace Windows.Win32.System.Com
- * @version v4.0.30319
  */
-class TYPEKIND extends Win32Enum{
+class TYPEKIND extends Win32Enum {
 
     /**
      * A set of enumerators.

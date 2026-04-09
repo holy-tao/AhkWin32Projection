@@ -9,9 +9,8 @@
  * If a Get Features command is received with the Select field **SEL** set to saved and the controller does not support the feature specified by the Feature Identifier being saved or does not currently have any saved values, then the controller treats the Select field as though it was set to default.
  * @see https://learn.microsoft.com/windows/win32/api/nvme/ne-nvme-nvme_feature_value_codes
  * @namespace Windows.Win32.Storage.Nvme
- * @version v4.0.30319
  */
-class NVME_FEATURE_VALUE_CODES extends Win32Enum{
+class NVME_FEATURE_VALUE_CODES extends Win32Enum {
 
     /**
      * The current operating attribute value for the specified feature.

@@ -9,10 +9,8 @@
  * In Windows 8, this request completes successfully. However, the values retrieved from the underlying USB 3.0 driver stack do not reflect actual information about the allocated bandwidth. That is because the bandwidth information is not exposed by xHCI controllers.
  * @see https://learn.microsoft.com/windows/win32/api/usbuser/ns-usbuser-usb_bandwidth_info
  * @namespace Windows.Win32.Devices.Usb
- * @version v4.0.30319
  */
-class USB_BANDWIDTH_INFO extends Win32Struct
-{
+class USB_BANDWIDTH_INFO extends Win32Struct {
     static sizeof => 44
 
     static packingSize => 4

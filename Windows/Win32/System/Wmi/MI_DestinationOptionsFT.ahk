@@ -5,10 +5,8 @@
  * A support structure used in the MI_DestinationOptions structure. Use the functions with the name prefix &quot;MI_DestinationOptions_&quot; to manipulate these structures.
  * @see https://learn.microsoft.com/windows/win32/api/mi/ns-mi-mi_destinationoptionsft
  * @namespace Windows.Win32.System.Wmi
- * @version v4.0.30319
  */
-class MI_DestinationOptionsFT extends Win32Struct
-{
+class MI_DestinationOptionsFT extends Win32Struct {
     static sizeof => 120
 
     static packingSize => 8

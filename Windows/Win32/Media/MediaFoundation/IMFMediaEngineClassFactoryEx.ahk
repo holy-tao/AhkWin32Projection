@@ -1,10 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Include .\IMFMediaEngineClassFactory.ahk
 #Include .\IMFMediaSourceExtension.ahk
 #Include .\IMFMediaKeys.ahk
-#Include .\IMFMediaEngineClassFactory.ahk
 
 /**
  * Extension for the IMFMediaEngineClassFactory interface.
@@ -12,9 +11,8 @@
  * This class is implemented by the Media Engine (CLSID_MFMediaEngineClassFactory).
  * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nn-mfmediaengine-imfmediaengineclassfactoryex
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFMediaEngineClassFactoryEx extends IMFMediaEngineClassFactory{
+class IMFMediaEngineClassFactoryEx extends IMFMediaEngineClassFactory {
 
     static sizeof => A_PtrSize
     /**

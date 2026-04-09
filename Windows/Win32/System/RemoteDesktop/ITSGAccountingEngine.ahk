@@ -11,9 +11,8 @@
  * For a sample that uses the <b>ITSGAccountingEngine</b> interface, see the [Remote Desktop Gateway Pluggable Authentication and Authorization](https://github.com/microsoftarchive/msdn-code-gallery-community-m-r/tree/master/Remote%20Desktop%20Gateway%20Pluggable%20Authentication%20and%20Authorization%20Sample) sample.
  * @see https://learn.microsoft.com/windows/win32/api/tsgpolicyengine/nn-tsgpolicyengine-itsgaccountingengine
  * @namespace Windows.Win32.System.RemoteDesktop
- * @version v4.0.30319
  */
-class ITSGAccountingEngine extends IUnknown{
+class ITSGAccountingEngine extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -36,7 +35,7 @@ class ITSGAccountingEngine extends IUnknown{
 
     /**
      * Provides information about the creation or closing of sessions for a connection.
-     * @param {Integer} accountingDataType A value of the <a href="https://docs.microsoft.com/windows/win32/api/tsgpolicyengine/ns-tsgpolicyengine-aaaccountingdata">AAAccountingDataType</a> 
+     * @param {AAAccountingDataType} accountingDataType A value of the <a href="https://docs.microsoft.com/windows/win32/api/tsgpolicyengine/ns-tsgpolicyengine-aaaccountingdata">AAAccountingDataType</a> 
      *       enumeration type that specifies the type of event that occurred.
      * @param {AAAccountingData} accountingData An <a href="https://docs.microsoft.com/windows/win32/api/tsgpolicyengine/ns-tsgpolicyengine-aaaccountingdata">AAAccountingData</a> structure that contains 
      *        information about the event that occurred.

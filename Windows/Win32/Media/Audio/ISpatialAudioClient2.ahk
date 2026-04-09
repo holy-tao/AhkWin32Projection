@@ -39,9 +39,8 @@
  * For UWP apps that do not have access to **IMMDevice**, you should get an instance of **ISpatialAudioClient** by calling <a href="https://docs.microsoft.com/windows/desktop/api/mmdeviceapi/nf-mmdeviceapi-activateaudiointerfaceasync">ActivateAudioInterfaceAsync</a>. For an example, see the [WindowsAudioSession sample](https://github.com/microsoft/Windows-universal-samples/tree/b1cb20f191d3fd99ce89df50c5b7d1a6e2382c01/Samples/WindowsAudioSession).
  * @see https://learn.microsoft.com/windows/win32/api/spatialaudioclient/nn-spatialaudioclient-ispatialaudioclient2
  * @namespace Windows.Win32.Media.Audio
- * @version v4.0.30319
  */
-class ISpatialAudioClient2 extends ISpatialAudioClient{
+class ISpatialAudioClient2 extends ISpatialAudioClient {
 
     static sizeof => A_PtrSize
     /**
@@ -64,7 +63,7 @@ class ISpatialAudioClient2 extends ISpatialAudioClient{
 
     /**
      * Queries whether the audio rendering endpoint that the ISpatialAudioClient2 was created on supports hardware offloaded audio processing.
-     * @param {Integer} category A value from the [AUDIO_STREAM_CATEGORY](xref:NE:audiosessiontypes._AUDIO_STREAM_CATEGORY) enumeration specifying the category of audio for which offload support is queried.
+     * @param {AUDIO_STREAM_CATEGORY} category A value from the [AUDIO_STREAM_CATEGORY](xref:NE:audiosessiontypes._AUDIO_STREAM_CATEGORY) enumeration specifying the category of audio for which offload support is queried.
      * @returns {BOOL} Receives a boolean value indicating if offloaded audio processing is supported by the audio rendering endpoint.
      * @see https://learn.microsoft.com/windows/win32/api/spatialaudioclient/nf-spatialaudioclient-ispatialaudioclient2-isoffloadcapable
      */
@@ -77,7 +76,7 @@ class ISpatialAudioClient2 extends ISpatialAudioClient{
      * Gets the maximum supported frame count per processing pass.
      * @remarks
      * The value returned by this method can be used to allocate source buffer. This value will change if the endpoint cadence changes. The caller must specify same [AUDIO_STREAM_CATEGORY](xref:NE:audiosessiontypes._AUDIO_STREAM_CATEGORY) and [WAVEFORMATEX](xref:NS:mmeapi.tWAVEFORMATEX) values that will be used when creating the stream. The *offloadEnabled* parameter must be set to TRUE if the stream will be created with the [SPATIAL_AUDIO_STREAM_OPTIONS_OFFLOAD](xref:NE:spatialaudioclient.SPATIAL_AUDIO_STREAM_OPTIONS) flag.
-     * @param {Integer} category The <xref:NE:audiosessiontypes._AUDIO_STREAM_CATEGORY> of the audio stream for which support is queried.
+     * @param {AUDIO_STREAM_CATEGORY} category The <xref:NE:audiosessiontypes._AUDIO_STREAM_CATEGORY> of the audio stream for which support is queried.
      * @param {BOOL} offloadEnabled A boolean value specifying whether the returned frame count should be calculated with audio offload support considered. If this flag is set to true, the returned frame count is what it would be if the stream is activated for offload mode. However, if this flag is set to true but the audio endpoint does not support offload mode, then the flag has no effect. Use [ISpatialAudioClient2::IsOffloadCapable](nf-spatialaudioclient-ispatialaudioclient2-isoffloadcapable.md) to check if offload mode is supported.
      * @param {Pointer<WAVEFORMATEX>} objectFormat A pointer to a <xref:NS:mmeapi.tWAVEFORMATEX> structure specifying the format of the audio stream for which support is queried.
      * @returns {Integer} Receives a pointer to an **INT32** indicating the maximum supported frame count for the audio device and the specified input parameters.

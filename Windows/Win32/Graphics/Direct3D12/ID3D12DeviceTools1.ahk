@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Direct3D\ID3DBlob.ahk
 #Include .\ID3D12DeviceTools.ahk
+#Include ..\Direct3D\ID3DBlob.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D12
- * @version v4.0.30319
  */
-class ID3D12DeviceTools1 extends ID3D12DeviceTools{
+class ID3D12DeviceTools1 extends ID3D12DeviceTools {
 
     static sizeof => A_PtrSize
     /**
@@ -40,7 +39,7 @@ class ID3D12DeviceTools1 extends ID3D12DeviceTools{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {D3D12_APPLICATION_SPECIFIC_DRIVER_BLOB_STATUS} 
      */
     GetApplicationSpecificDriverBlobStatus() {
         result := ComCall(5, this, "int")

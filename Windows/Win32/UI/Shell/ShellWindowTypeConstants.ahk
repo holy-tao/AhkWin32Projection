@@ -5,9 +5,8 @@
  * Specifies types of Shell windows.
  * @see https://learn.microsoft.com/windows/win32/api/exdisp/ne-exdisp-shellwindowtypeconstants
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class ShellWindowTypeConstants extends Win32Enum{
+class ShellWindowTypeConstants extends Win32Enum {
 
     /**
      * An Windows Explorer (Explorer.exe) window.

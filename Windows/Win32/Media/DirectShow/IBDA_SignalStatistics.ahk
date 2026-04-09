@@ -9,9 +9,8 @@
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IBDA_SignalStatistics)</c>.
  * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nn-bdaiface-ibda_signalstatistics
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IBDA_SignalStatistics extends IUnknown{
+class IBDA_SignalStatistics extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -33,6 +32,7 @@ class IBDA_SignalStatistics extends IUnknown{
     static VTableNames => ["put_SignalStrength", "get_SignalStrength", "put_SignalQuality", "get_SignalQuality", "put_SignalPresent", "get_SignalPresent", "put_SignalLocked", "get_SignalLocked", "put_SampleTime", "get_SampleTime"]
 
     /**
+     * @type {Integer} 
      */
     SignalStrength {
         get => this.get_SignalStrength()
@@ -40,6 +40,7 @@ class IBDA_SignalStatistics extends IUnknown{
     }
 
     /**
+     * @type {Integer} 
      */
     SignalQuality {
         get => this.get_SignalQuality()
@@ -47,6 +48,7 @@ class IBDA_SignalStatistics extends IUnknown{
     }
 
     /**
+     * @type {BOOLEAN} 
      */
     SignalPresent {
         get => this.get_SignalPresent()
@@ -54,6 +56,7 @@ class IBDA_SignalStatistics extends IUnknown{
     }
 
     /**
+     * @type {BOOLEAN} 
      */
     SignalLocked {
         get => this.get_SignalLocked()
@@ -61,6 +64,7 @@ class IBDA_SignalStatistics extends IUnknown{
     }
 
     /**
+     * @type {Integer} 
      */
     SampleTime {
         get => this.get_SampleTime()

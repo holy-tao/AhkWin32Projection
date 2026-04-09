@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.Usb
- * @version v4.0.30319
  */
-class USBSCAN_GET_DESCRIPTOR extends Win32Struct
-{
+class USBSCAN_GET_DESCRIPTOR extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 2

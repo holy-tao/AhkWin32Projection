@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class SSL_HPKP_HEADER_EXTRA_CERT_CHAIN_POLICY_PARA extends Win32Struct
-{
+class SSL_HPKP_HEADER_EXTRA_CERT_CHAIN_POLICY_PARA extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -38,10 +36,10 @@ class SSL_HPKP_HEADER_EXTRA_CERT_CHAIN_POLICY_PARA extends Win32Struct
     /**
      * @type {Array<PSTR>}
      */
-    rgpszHpkpValue{
+    rgpszHpkpValue {
         get {
             if(!this.HasProp("__rgpszHpkpValueProxyArray"))
-                this.__rgpszHpkpValueProxyArray := Win32FixedArray(this.ptr + 16, 2, Primitive, "char*")
+                this.__rgpszHpkpValueProxyArray := Win32FixedArray(this.ptr + 16, 2, Primitive, "ptr")
             return this.__rgpszHpkpValueProxyArray
         }
     }

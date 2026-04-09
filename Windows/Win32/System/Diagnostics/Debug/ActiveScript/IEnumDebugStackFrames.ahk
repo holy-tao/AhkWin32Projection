@@ -1,14 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
-#Include .\IEnumDebugStackFrames.ahk
 #Include ..\..\..\Com\IUnknown.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.ActiveScript
- * @version v4.0.30319
  */
-class IEnumDebugStackFrames extends IUnknown{
+class IEnumDebugStackFrames extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

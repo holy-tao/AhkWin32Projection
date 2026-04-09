@@ -5,10 +5,8 @@
  * Contains the information for a particular DHCPv6 user class or vendor class.
  * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/ns-dhcpsapi-dhcp_class_info_v6
  * @namespace Windows.Win32.NetworkManagement.Dhcp
- * @version v4.0.30319
  */
-class DHCP_CLASS_INFO_V6 extends Win32Struct
-{
+class DHCP_CLASS_INFO_V6 extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8

@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\HTTP_SERVICE_BINDING_BASE.ahk
+#Include .\HTTP_SERVICE_BINDING_TYPE.ahk
 
 /**
  * HTTP_SERVICE_BINDING_W.
  * @see https://learn.microsoft.com/windows/win32/api/http/ns-http-http_service_binding_w
  * @namespace Windows.Win32.Networking.HttpServer
- * @version v4.0.30319
  * @charset Unicode
  */
-class HTTP_SERVICE_BINDING_W extends Win32Struct
-{
+class HTTP_SERVICE_BINDING_W extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -19,7 +18,7 @@ class HTTP_SERVICE_BINDING_W extends Win32Struct
      * An <a href="https://docs.microsoft.com/windows/desktop/api/http/ns-http-http_service_binding_base">HTTP_SERVICE_BINDING_BASE</a> value,  the <b>Type</b> member of which must be set to <b>HttpServiceBindingTypeW</b>.
      * @type {HTTP_SERVICE_BINDING_BASE}
      */
-    Base{
+    Base {
         get {
             if(!this.HasProp("__Base"))
                 this.__Base := HTTP_SERVICE_BINDING_BASE(0, this)

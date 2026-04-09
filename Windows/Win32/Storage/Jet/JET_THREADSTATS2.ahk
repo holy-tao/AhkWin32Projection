@@ -3,10 +3,9 @@
 
 /**
  * @namespace Windows.Win32.Storage.Jet
- * @version v4.0.30319
+ * @architecture X64, Arm64
  */
-class JET_THREADSTATS2 extends Win32Struct
-{
+class JET_THREADSTATS2 extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8

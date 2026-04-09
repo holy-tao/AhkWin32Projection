@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\Foundation\HWND.ahk
 #Include ..\Com\IUnknown.ahk
 #Include .\IUpdateCollection.ahk
 #Include .\IInstallationJob.ahk
 #Include .\IInstallationResult.ahk
-#Include ..\Com\IDispatch.ahk
 
 /**
  * Installs or uninstalls updates from or onto a computer.
@@ -15,9 +15,8 @@
  * This interface can be instantiated by using the UpdateInstaller coclass. Use the Microsoft.Update.Installer program identifier to create the object.
  * @see https://learn.microsoft.com/windows/win32/api/wuapi/nn-wuapi-iupdateinstaller
  * @namespace Windows.Win32.System.UpdateAgent
- * @version v4.0.30319
  */
-class IUpdateInstaller extends IDispatch{
+class IUpdateInstaller extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

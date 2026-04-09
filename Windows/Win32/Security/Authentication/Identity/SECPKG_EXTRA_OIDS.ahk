@@ -6,13 +6,11 @@
  * Contains the object identifiers (OIDs) for the extended security package.
  * @see https://learn.microsoft.com/windows/win32/api/ntsecpkg/ns-ntsecpkg-secpkg_extra_oids
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class SECPKG_EXTRA_OIDS extends Win32Struct
-{
-    static sizeof => 16
+class SECPKG_EXTRA_OIDS extends Win32Struct {
+    static sizeof => 44
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * The total number of OIDs in the security package.
@@ -25,12 +23,12 @@ class SECPKG_EXTRA_OIDS extends Win32Struct
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/ntsecpkg/ns-ntsecpkg-secpkg_serialized_oid">SECPKG_SERIALIZED_OID</a> structure containing the OID data.
-     * @type {Array<SECPKG_SERIALIZED_OID>}
+     * @type {SECPKG_SERIALIZED_OID}
      */
-    Oids{
+    Oids {
         get {
             if(!this.HasProp("__OidsProxyArray"))
-                this.__OidsProxyArray := Win32FixedArray(this.ptr + 8, 1, SECPKG_SERIALIZED_OID, "")
+                this.__OidsProxyArray := Win32FixedArray(this.ptr + 4, 1, SECPKG_SERIALIZED_OID, "")
             return this.__OidsProxyArray
         }
     }

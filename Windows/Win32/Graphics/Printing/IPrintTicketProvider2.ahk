@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Data\Xml\MsXml\IXMLDOMDocument2.ahk
 #Include .\IPrintTicketProvider.ahk
+#Include ..\..\Data\Xml\MsXml\IXMLDOMDocument2.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
- * @version v4.0.30319
  */
-class IPrintTicketProvider2 extends IPrintTicketProvider{
+class IPrintTicketProvider2 extends IPrintTicketProvider {
 
     static sizeof => A_PtrSize
     /**

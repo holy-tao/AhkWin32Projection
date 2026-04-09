@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Security.Tpm
- * @version v4.0.30319
  */
-class ITpmVirtualSmartCardManager2 extends ITpmVirtualSmartCardManager{
+class ITpmVirtualSmartCardManager2 extends ITpmVirtualSmartCardManager {
 
     static sizeof => A_PtrSize
     /**

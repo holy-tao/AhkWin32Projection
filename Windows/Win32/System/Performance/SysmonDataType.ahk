@@ -5,9 +5,8 @@
  * Determines the type of data to return from a given data point on the graph.
  * @see https://learn.microsoft.com/windows/win32/api/isysmon/ne-isysmon-sysmondatatype
  * @namespace Windows.Win32.System.Performance
- * @version v4.0.30319
  */
-class SysmonDataType extends Win32Enum{
+class SysmonDataType extends Win32Enum {
 
     /**
      * Average value of the counter.

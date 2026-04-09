@@ -6,11 +6,9 @@
  * Specifies information about source schema registration.
  * @see https://learn.microsoft.com/windows/win32/api/authz/ns-authz-authz_source_schema_registration
  * @namespace Windows.Win32.Security.Authorization
- * @version v4.0.30319
  */
-class AUTHZ_SOURCE_SCHEMA_REGISTRATION extends Win32Struct
-{
-    static sizeof => 72
+class AUTHZ_SOURCE_SCHEMA_REGISTRATION extends Win32Struct {
+    static sizeof => 80
 
     static packingSize => 8
 
@@ -124,9 +122,9 @@ class AUTHZ_SOURCE_SCHEMA_REGISTRATION extends Win32Struct
 
     /**
      * An array of <a href="https://docs.microsoft.com/windows/win32/api/authz/ns-authz-authz_registration_object_type_name_offset">AUTHZ_REGISTRATION_OBJECT_TYPE_NAME_OFFSET</a> structures that represents the object types for the events.
-     * @type {Array<AUTHZ_REGISTRATION_OBJECT_TYPE_NAME_OFFSET>}
+     * @type {AUTHZ_REGISTRATION_OBJECT_TYPE_NAME_OFFSET}
      */
-    ObjectTypeNames{
+    ObjectTypeNames {
         get {
             if(!this.HasProp("__ObjectTypeNamesProxyArray"))
                 this.__ObjectTypeNamesProxyArray := Win32FixedArray(this.ptr + 64, 1, AUTHZ_REGISTRATION_OBJECT_TYPE_NAME_OFFSET, "")

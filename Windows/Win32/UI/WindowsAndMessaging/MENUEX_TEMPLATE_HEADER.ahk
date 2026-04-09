@@ -7,10 +7,8 @@
  * An extended menu template consists of a **MENUEX\_TEMPLATE\_HEADER** structure followed by one or more contiguous [**MENUEX\_TEMPLATE\_ITEM**](menuex-template-item.md) structures. The **MENUEX\_TEMPLATE\_ITEM** structures, which are variable in length, are aligned on **DWORD** boundaries. To create a menu from an extended menu template in memory, use the [**LoadMenuIndirect**](/windows/desktop/api/Winuser/nf-winuser-loadmenuindirecta) function.
  * @see https://learn.microsoft.com/windows/win32/menurc/menuex-template-header
  * @namespace Windows.Win32.UI.WindowsAndMessaging
- * @version v4.0.30319
  */
-class MENUEX_TEMPLATE_HEADER extends Win32Struct
-{
+class MENUEX_TEMPLATE_HEADER extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4

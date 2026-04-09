@@ -5,10 +5,8 @@
  * Contains extended working set information for a page.
  * @see https://learn.microsoft.com/windows/win32/api/psapi/ns-psapi-psapi_working_set_ex_block
  * @namespace Windows.Win32.System.ProcessStatus
- * @version v4.0.30319
  */
-class PSAPI_WORKING_SET_EX_BLOCK extends Win32Struct
-{
+class PSAPI_WORKING_SET_EX_BLOCK extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
@@ -40,7 +38,7 @@ class PSAPI_WORKING_SET_EX_BLOCK extends Win32Struct
             get => NumGet(this, 0, "ptr")
             set => NumPut("ptr", value, this, 0)
         }
-    
+
         /**
          * @type {Pointer}
          */
@@ -48,7 +46,7 @@ class PSAPI_WORKING_SET_EX_BLOCK extends Win32Struct
             get => (this._bitfield >> 0) & 0x1
             set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
         }
-    
+
         /**
          * @type {Pointer}
          */
@@ -56,7 +54,7 @@ class PSAPI_WORKING_SET_EX_BLOCK extends Win32Struct
             get => (this._bitfield >> 1) & 0x3FFF
             set => this._bitfield := ((value & 0x3FFF) << 1) | (this._bitfield & ~(0x3FFF << 1))
         }
-    
+
         /**
          * @type {Pointer}
          */
@@ -64,7 +62,7 @@ class PSAPI_WORKING_SET_EX_BLOCK extends Win32Struct
             get => (this._bitfield >> 15) & 0x1
             set => this._bitfield := ((value & 0x1) << 15) | (this._bitfield & ~(0x1 << 15))
         }
-    
+
         /**
          * @type {Pointer}
          */
@@ -72,7 +70,7 @@ class PSAPI_WORKING_SET_EX_BLOCK extends Win32Struct
             get => (this._bitfield >> 16) & 0x7FFF
             set => this._bitfield := ((value & 0x7FFF) << 16) | (this._bitfield & ~(0x7FFF << 16))
         }
-    
+
         /**
          * @type {Pointer}
          */
@@ -80,7 +78,6 @@ class PSAPI_WORKING_SET_EX_BLOCK extends Win32Struct
             get => (this._bitfield >> 31) & 0x1
             set => this._bitfield := ((value & 0x1) << 31) | (this._bitfield & ~(0x1 << 31))
         }
-    
     }
 
     /**
@@ -168,10 +165,10 @@ class PSAPI_WORKING_SET_EX_BLOCK extends Win32Struct
     /**
      * @type {_Invalid}
      */
-    Invalid{
+    Invalid {
         get {
             if(!this.HasProp("__Invalid"))
-                this.__Invalid := %this.__Class%._Invalid(0, this)
+                this.__Invalid := PSAPI_WORKING_SET_EX_BLOCK._Invalid(0, this)
             return this.__Invalid
         }
     }

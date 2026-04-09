@@ -7,9 +7,8 @@
  * Enables the manipulation of columns and indicates the kind of information that is to be presented in the result view pane of the console.
  * @see https://learn.microsoft.com/windows/win32/api/mmc/nn-mmc-iheaderctrl
  * @namespace Windows.Win32.System.Mmc
- * @version v4.0.30319
  */
-class IHeaderCtrl extends IUnknown{
+class IHeaderCtrl extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -1,20 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
 #Include .\IEnumTerminal.ahk
 #Include .\IEnumTerminalClass.ahk
 #Include .\ITTerminal.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * The ITTerminalSupport interface is exposed on an Address object only if an MSP exists. The methods of this interface allow an application to discover available terminals and/or create one, and get pointers to required Terminal objects.
  * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nn-tapi3if-itterminalsupport
  * @namespace Windows.Win32.Devices.Tapi
- * @version v4.0.30319
  */
-class ITTerminalSupport extends IDispatch{
+class ITTerminalSupport extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -131,7 +129,7 @@ class ITTerminalSupport extends IDispatch{
      * <a href="https://docs.microsoft.com/windows/desktop/Tapi/terminal-class">terminal class</a> (GUID) for the new terminal object.
      * @param {Integer} lMediaType Pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/Tapi/tapimediatype--constants">media type</a> for the new terminal object.
-     * @param {Integer} _Direction 
+     * @param {TERMINAL_DIRECTION} _Direction <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/ne-tapi3if-terminal_direction">TERMINAL_DIRECTION</a> descriptor of the terminal direction.
      * @returns {ITTerminal} Pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itterminal">ITTerminal</a> object created.
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itterminalsupport-createterminal
@@ -156,7 +154,7 @@ class ITTerminalSupport extends IDispatch{
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itterminal">ITTerminal</a> interface returned by <b>ITTerminalSupport::GetDefaultStaticTerminal</b>. The application must call <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">Release</a> on the 
      * <b>ITTerminal</b> interface to free resources associated with it.
      * @param {Integer} lMediaType <a href="https://docs.microsoft.com/windows/desktop/Tapi/tapimediatype--constants">Media type</a> of the required terminal.
-     * @param {Integer} _Direction 
+     * @param {TERMINAL_DIRECTION} _Direction <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/ne-tapi3if-terminal_direction">TERMINAL_DIRECTION</a> descriptor of the terminal direction.
      * @returns {ITTerminal} Pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itterminal">ITTerminal</a> interface. <b>NULL</b> if no terminal is available.
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itterminalsupport-getdefaultstaticterminal

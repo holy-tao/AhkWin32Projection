@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\ADSTYPE.ahk
+#Include .\ADSVALUE.ahk
 
 /**
  * Used to contain one or more attribute values for use with the IDirectoryObject::CreateDSObject, IDirectoryObject::GetObjectAttributes, or IDirectoryObject::SetObjectAttributes method.
@@ -11,10 +13,8 @@
  * The value of the <b>dwControlCode</b> member is ignored when the structure is used as an OUT parameter.
  * @see https://learn.microsoft.com/windows/win32/api/iads/ns-iads-ads_attr_info
  * @namespace Windows.Win32.Networking.ActiveDirectory
- * @version v4.0.30319
  */
-class ADS_ATTR_INFO extends Win32Struct
-{
+class ADS_ATTR_INFO extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -39,7 +39,7 @@ class ADS_ATTR_INFO extends Win32Struct
 
     /**
      * A value from the  <a href="https://docs.microsoft.com/windows/win32/api/iads/ne-iads-adstypeenum">ADSTYPEENUM</a> enumeration that indicates the data type of the attribute.
-     * @type {Integer}
+     * @type {ADSTYPE}
      */
     dwADsType {
         get => NumGet(this, 12, "int")

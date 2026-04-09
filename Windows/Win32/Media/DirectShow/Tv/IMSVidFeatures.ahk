@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\System\Com\IDispatch.ahk
 #Include ..\..\..\System\Ole\IEnumVARIANT.ahk
 #Include .\IMSVidFeature.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
 
 /**
  * The IMSVidFeatures interface represents a collection of Video Control features.
@@ -11,9 +11,8 @@
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IMSVidFeatures)</c>.
  * @see https://learn.microsoft.com/windows/win32/api/segment/nn-segment-imsvidfeatures
  * @namespace Windows.Win32.Media.DirectShow.Tv
- * @version v4.0.30319
  */
-class IMSVidFeatures extends IDispatch{
+class IMSVidFeatures extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

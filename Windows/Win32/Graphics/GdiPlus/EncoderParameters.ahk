@@ -4,11 +4,9 @@
 
 /**
  * @namespace Windows.Win32.Graphics.GdiPlus
- * @version v4.0.30319
  */
-class EncoderParameters extends Win32Struct
-{
-    static sizeof => 16
+class EncoderParameters extends Win32Struct {
+    static sizeof => 32
 
     static packingSize => 8
 
@@ -21,9 +19,9 @@ class EncoderParameters extends Win32Struct
     }
 
     /**
-     * @type {Array<EncoderParameter>}
+     * @type {EncoderParameter}
      */
-    Parameter{
+    Parameter {
         get {
             if(!this.HasProp("__ParameterProxyArray"))
                 this.__ParameterProxyArray := Win32FixedArray(this.ptr + 8, 1, EncoderParameter, "")

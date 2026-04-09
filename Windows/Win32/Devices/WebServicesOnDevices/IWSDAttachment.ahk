@@ -9,9 +9,8 @@
  * This interface is used strictly as a common ancestor for the various attachment types and has no members of its own.
  * @see https://learn.microsoft.com/windows/win32/api/wsdattachment/nn-wsdattachment-iwsdattachment
  * @namespace Windows.Win32.Devices.WebServicesOnDevices
- * @version v4.0.30319
  */
-class IWSDAttachment extends IUnknown{
+class IWSDAttachment extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

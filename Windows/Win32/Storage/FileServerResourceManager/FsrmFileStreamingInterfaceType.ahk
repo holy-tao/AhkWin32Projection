@@ -5,9 +5,8 @@
  * Defines the possible streaming interface types.
  * @see https://learn.microsoft.com/windows/win32/api/fsrmenums/ne-fsrmenums-fsrmfilestreaminginterfacetype
  * @namespace Windows.Win32.Storage.FileServerResourceManager
- * @version v4.0.30319
  */
-class FsrmFileStreamingInterfaceType extends Win32Enum{
+class FsrmFileStreamingInterfaceType extends Win32Enum {
 
     /**
      * The streaming interface type is unknown; do not use this value.

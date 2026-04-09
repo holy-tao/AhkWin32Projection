@@ -7,9 +7,8 @@
  * Represents a clip object that is used to restrict the rendering of a visual subtree to a rectangular area.
  * @see https://learn.microsoft.com/windows/win32/api/dcomp/nn-dcomp-idcompositionclip
  * @namespace Windows.Win32.Graphics.DirectComposition
- * @version v4.0.30319
  */
-class IDCompositionClip extends IUnknown{
+class IDCompositionClip extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

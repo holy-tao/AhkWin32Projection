@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ISCPSecureQuery.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\ISCPSecureQuery.ahk
 
 /**
  * The ISCPSecureAuthenticate interface is the primary interface of the secure content provider, which Windows Media Device Manager queries to authenticate the secure content provider and to be authenticated by the secure content provider.
  * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nn-mswmdm-iscpsecureauthenticate
  * @namespace Windows.Win32.Media.DeviceManager
- * @version v4.0.30319
  */
-class ISCPSecureAuthenticate extends IUnknown{
+class ISCPSecureAuthenticate extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

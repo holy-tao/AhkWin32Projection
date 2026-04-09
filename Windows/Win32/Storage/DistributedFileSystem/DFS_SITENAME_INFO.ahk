@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Storage.DistributedFileSystem
- * @version v4.0.30319
  */
-class DFS_SITENAME_INFO extends Win32Struct
-{
+class DFS_SITENAME_INFO extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

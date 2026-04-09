@@ -1,18 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\IAppxBundleReader.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
+#Include .\IAppxBundleReader.ahk
 
 /**
  * Creates objects for reading and writing bundle packages, with the ability to specify the expected digest for the bundle file.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nn-appxpackaging-iappxbundlefactory2
  * @namespace Windows.Win32.Storage.Packaging.Appx
- * @version v4.0.30319
  */
-class IAppxBundleFactory2 extends IUnknown{
+class IAppxBundleFactory2 extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

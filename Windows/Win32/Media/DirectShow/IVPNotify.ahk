@@ -9,9 +9,8 @@
  * Include Vptype.h before Vpnotify.h.
  * @see https://learn.microsoft.com/windows/win32/api/vpnotify/nn-vpnotify-ivpnotify
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IVPNotify extends IVPBaseNotify{
+class IVPNotify extends IVPBaseNotify {
 
     static sizeof => A_PtrSize
     /**
@@ -36,7 +35,7 @@ class IVPNotify extends IVPBaseNotify{
      * Sets the mode (such as bob or weave).
      * @remarks
      * Include Vptype.h before Vpnotify.h.
-     * @param {Integer} _mode 
+     * @param {AMVP_MODE} _mode Specified mode. This value is a member of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/vptype/ne-vptype-amvp_mode">AMVP_MODE</a> enumerated data type.
      * @returns {HRESULT} Returns an <b>HRESULT</b> value.
      * @see https://learn.microsoft.com/windows/win32/api/vpnotify/nf-vpnotify-ivpnotify-setdeinterlacemode
      */
@@ -49,7 +48,7 @@ class IVPNotify extends IVPBaseNotify{
      * The GetDeinterlaceMode method retrieves the mode (such as bob or weave).
      * @remarks
      * Include Vptype.h before Vpnotify.h.
-     * @param {Pointer<Integer>} pMode Pointer to the retrieved mode. This value is a member of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/vptype/ne-vptype-amvp_mode">AMVP_MODE</a> enumerated data type.
+     * @param {Pointer<AMVP_MODE>} pMode Pointer to the retrieved mode. This value is a member of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/vptype/ne-vptype-amvp_mode">AMVP_MODE</a> enumerated data type.
      * @returns {HRESULT} Returns E_NOTIMPL.
      * @see https://learn.microsoft.com/windows/win32/api/vpnotify/nf-vpnotify-ivpnotify-getdeinterlacemode
      */

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IMFTopology.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\IMFTopology.ahk
 
 /**
  * Converts a partial topology into a full topology.
@@ -10,9 +10,8 @@
  * To create the topology loader, call the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-mfcreatetopoloader">MFCreateTopoLoader</a> function.
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imftopoloader
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFTopoLoader extends IUnknown{
+class IMFTopoLoader extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

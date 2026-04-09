@@ -5,9 +5,8 @@
  * Identifiers for properties of the Discrete transfer effect.
  * @see https://learn.microsoft.com/windows/win32/api/d2d1effects/ne-d2d1effects-d2d1_discretetransfer_prop
  * @namespace Windows.Win32.Graphics.Direct2D
- * @version v4.0.30319
  */
-class D2D1_DISCRETETRANSFER_PROP extends Win32Enum{
+class D2D1_DISCRETETRANSFER_PROP extends Win32Enum {
 
     /**
      * The list of values used to define the transfer function for the Red channel.

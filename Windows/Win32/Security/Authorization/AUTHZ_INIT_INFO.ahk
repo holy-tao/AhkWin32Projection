@@ -5,10 +5,8 @@
  * Defines the initialization information for the resource manager.
  * @see https://learn.microsoft.com/windows/win32/api/authz/ns-authz-authz_init_info
  * @namespace Windows.Win32.Security.Authorization
- * @version v4.0.30319
  */
-class AUTHZ_INIT_INFO extends Win32Struct
-{
+class AUTHZ_INIT_INFO extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8

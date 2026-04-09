@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\CLUSTER_SHARED_VOLUME_RENAME_INPUT_VOLUME.ahk
+#Include .\CLUSTER_SHARED_VOLUME_RENAME_INPUT_TYPE.ahk
 #Include .\CLUSTER_SHARED_VOLUME_RENAME_INPUT_GUID_NAME.ahk
 
 /**
  * @namespace Windows.Win32.Networking.Clustering
- * @version v4.0.30319
  */
-class CLUSTER_SHARED_VOLUME_RENAME_GUID_INPUT extends Win32Struct
-{
+class CLUSTER_SHARED_VOLUME_RENAME_GUID_INPUT extends Win32Struct {
     static sizeof => 1160
 
     static packingSize => 8
@@ -16,7 +15,7 @@ class CLUSTER_SHARED_VOLUME_RENAME_GUID_INPUT extends Win32Struct
     /**
      * @type {CLUSTER_SHARED_VOLUME_RENAME_INPUT_VOLUME}
      */
-    Base{
+    Base {
         get {
             if(!this.HasProp("__Base"))
                 this.__Base := CLUSTER_SHARED_VOLUME_RENAME_INPUT_VOLUME(0, this)
@@ -27,7 +26,7 @@ class CLUSTER_SHARED_VOLUME_RENAME_GUID_INPUT extends Win32Struct
     /**
      * @type {CLUSTER_SHARED_VOLUME_RENAME_INPUT_GUID_NAME}
      */
-    Base2{
+    Base2 {
         get {
             if(!this.HasProp("__Base2"))
                 this.__Base2 := CLUSTER_SHARED_VOLUME_RENAME_INPUT_GUID_NAME(536, this)

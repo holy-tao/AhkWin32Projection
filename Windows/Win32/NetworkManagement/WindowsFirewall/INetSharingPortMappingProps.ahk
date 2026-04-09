@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * The INetSharingPortMappingProps interface provides methods that retrieve and set the properties of a network connection port mapping.
  * @see https://learn.microsoft.com/windows/win32/api/netcon/nn-netcon-inetsharingportmappingprops
  * @namespace Windows.Win32.NetworkManagement.WindowsFirewall
- * @version v4.0.30319
  */
-class INetSharingPortMappingProps extends IDispatch{
+class INetSharingPortMappingProps extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

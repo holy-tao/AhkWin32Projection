@@ -7,9 +7,8 @@
  * Not implemented. (ISearchViewChangedSink)
  * @see https://learn.microsoft.com/windows/win32/api/searchapi/nn-searchapi-isearchviewchangedsink
  * @namespace Windows.Win32.System.Search
- * @version v4.0.30319
  */
-class ISearchViewChangedSink extends IUnknown{
+class ISearchViewChangedSink extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

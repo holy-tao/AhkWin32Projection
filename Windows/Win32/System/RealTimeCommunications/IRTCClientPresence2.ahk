@@ -1,19 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Include .\IRTCClientPresence.ahk
 #Include .\IRTCBuddyGroup.ahk
 #Include .\IRTCEnumGroups.ahk
 #Include .\IRTCCollection.ahk
 #Include .\IRTCWatcher2.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include .\IRTCBuddy2.ahk
-#Include .\IRTCClientPresence.ahk
 
 /**
  * @namespace Windows.Win32.System.RealTimeCommunications
- * @version v4.0.30319
  */
-class IRTCClientPresence2 extends IRTCClientPresence{
+class IRTCClientPresence2 extends IRTCClientPresence {
 
     static sizeof => A_PtrSize
     /**
@@ -123,9 +122,9 @@ class IRTCClientPresence2 extends IRTCClientPresence{
      * @param {BSTR} bstrPresentityURI 
      * @param {BSTR} bstrUserName 
      * @param {BSTR} bstrData 
-     * @param {Integer} enState 
+     * @param {RTC_WATCHER_STATE} enState 
      * @param {VARIANT_BOOL} fPersistent 
-     * @param {Integer} enScope 
+     * @param {RTC_ACE_SCOPE} enScope 
      * @param {IRTCProfile} pProfile 
      * @param {Integer} lFlags 
      * @returns {IRTCWatcher2} 
@@ -141,7 +140,7 @@ class IRTCClientPresence2 extends IRTCClientPresence{
 
     /**
      * 
-     * @param {Integer} enMode 
+     * @param {RTC_WATCHER_MATCH_MODE} enMode 
      * @param {BSTR} bstrPresentityURI 
      * @returns {IRTCWatcher2} 
      */
@@ -154,7 +153,7 @@ class IRTCClientPresence2 extends IRTCClientPresence{
 
     /**
      * 
-     * @param {Integer} enProperty 
+     * @param {RTC_PRESENCE_PROPERTY} enProperty 
      * @param {BSTR} bstrProperty 
      * @returns {HRESULT} 
      */
@@ -167,7 +166,7 @@ class IRTCClientPresence2 extends IRTCClientPresence{
 
     /**
      * 
-     * @param {Integer} enProperty 
+     * @param {RTC_PRESENCE_PROPERTY} enProperty 
      * @returns {BSTR} 
      */
     get_PresenceProperty(enProperty) {
@@ -203,7 +202,7 @@ class IRTCClientPresence2 extends IRTCClientPresence{
 
     /**
      * 
-     * @param {Pointer<Integer>} penStatus 
+     * @param {Pointer<RTC_PRESENCE_STATUS>} penStatus 
      * @param {Pointer<BSTR>} pbstrNotes 
      * @returns {HRESULT} 
      */
@@ -220,7 +219,7 @@ class IRTCClientPresence2 extends IRTCClientPresence{
      * @param {BSTR} bstrUserName 
      * @param {BSTR} bstrData 
      * @param {VARIANT_BOOL} fPersistent 
-     * @param {Integer} enSubscriptionType 
+     * @param {RTC_BUDDY_SUBSCRIPTION_TYPE} enSubscriptionType 
      * @param {IRTCProfile} pProfile 
      * @param {Integer} lFlags 
      * @returns {IRTCBuddy2} 

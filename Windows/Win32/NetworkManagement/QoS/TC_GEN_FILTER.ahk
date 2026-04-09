@@ -5,10 +5,8 @@
  * The TC_GEN_FILTER structure creates a filter that matches a certain set of packet attributes or criteria, which can subsequently be used to associate packets that meet the attribute criteria with a particular flow.
  * @see https://learn.microsoft.com/windows/win32/api/traffic/ns-traffic-tc_gen_filter
  * @namespace Windows.Win32.NetworkManagement.QoS
- * @version v4.0.30319
  */
-class TC_GEN_FILTER extends Win32Struct
-{
+class TC_GEN_FILTER extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

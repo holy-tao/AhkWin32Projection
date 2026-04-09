@@ -7,9 +7,8 @@
  * Provides methods to access and examine the contents of an assembly manifest.
  * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nn-rometadataapi-imetadataassemblyimport
  * @namespace Windows.Win32.System.WinRT.Metadata
- * @version v4.0.30319
  */
-class IMetaDataAssemblyImport extends IUnknown{
+class IMetaDataAssemblyImport extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

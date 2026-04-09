@@ -5,10 +5,8 @@
  * The NOTIFYINFO structure contains status information about a network connect or disconnect operation. It is used by the AddConnectNotify and CancelConnectNotify functions.
  * @see https://learn.microsoft.com/windows/win32/api/npapi/ns-npapi-notifyinfo
  * @namespace Windows.Win32.NetworkManagement.WNet
- * @version v4.0.30319
  */
-class NOTIFYINFO extends Win32Struct
-{
+class NOTIFYINFO extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

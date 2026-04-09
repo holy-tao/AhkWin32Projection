@@ -2,15 +2,15 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\..\Win32\Foundation\HWND.ahk
 #Include ..\..\..\Win32\Foundation\RECT.ahk
+#Include .\D3DDDI_FLIPINTERVAL_TYPE.ahk
 #Include ..\..\..\Win32\Foundation\HANDLE.ahk
+#Include .\D3DKMT_PRESENT_RGNS.ahk
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
- * @version v4.0.30319
  */
-class D3DKMT_PRESENT extends Win32Struct
-{
-    static sizeof => 432
+class D3DKMT_PRESENT extends Win32Struct {
+    static sizeof => 416
 
     static packingSize => 8
 
@@ -33,7 +33,7 @@ class D3DKMT_PRESENT extends Win32Struct
     /**
      * @type {HWND}
      */
-    hWindow{
+    hWindow {
         get {
             if(!this.HasProp("__hWindow"))
                 this.__hWindow := HWND(8, this)
@@ -74,39 +74,57 @@ class D3DKMT_PRESENT extends Win32Struct
     }
 
     /**
-     * @type {RECT}
+     * @type {Pointer}
      */
-    DstRect{
-        get {
-            if(!this.HasProp("__DstRect"))
-                this.__DstRect := RECT(32, this)
-            return this.__DstRect
-        }
+    DstRect {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
-     * @type {RECT}
+     * @type {Pointer}
      */
-    SrcRect{
-        get {
-            if(!this.HasProp("__SrcRect"))
-                this.__SrcRect := RECT(48, this)
-            return this.__SrcRect
-        }
+    SrcRect {
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 
     /**
      * @type {Integer}
      */
     SubRectCnt {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
+        get => NumGet(this, 48, "uint")
+        set => NumPut("uint", value, this, 48)
     }
 
     /**
      * @type {Pointer<RECT>}
      */
     pSrcSubRects {
+        get => NumGet(this, 56, "ptr")
+        set => NumPut("ptr", value, this, 56)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    PresentCount {
+        get => NumGet(this, 64, "uint")
+        set => NumPut("uint", value, this, 64)
+    }
+
+    /**
+     * @type {D3DDDI_FLIPINTERVAL_TYPE}
+     */
+    FlipInterval {
+        get => NumGet(this, 68, "int")
+        set => NumPut("int", value, this, 68)
+    }
+
+    /**
+     * @type {Pointer}
+     */
+    Flags {
         get => NumGet(this, 72, "ptr")
         set => NumPut("ptr", value, this, 72)
     }
@@ -114,42 +132,18 @@ class D3DKMT_PRESENT extends Win32Struct
     /**
      * @type {Integer}
      */
-    PresentCount {
+    BroadcastContextCount {
         get => NumGet(this, 80, "uint")
         set => NumPut("uint", value, this, 80)
     }
 
     /**
-     * @type {Integer}
+     * @type {Array<Integer>}
      */
-    FlipInterval {
-        get => NumGet(this, 84, "int")
-        set => NumPut("int", value, this, 84)
-    }
-
-    /**
-     * @type {Pointer<D3DKMT_PRESENTFLAGS>}
-     */
-    Flags {
-        get => NumGet(this, 88, "ptr")
-        set => NumPut("ptr", value, this, 88)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    BroadcastContextCount {
-        get => NumGet(this, 96, "uint")
-        set => NumPut("uint", value, this, 96)
-    }
-
-    /**
-     * @type {Array<UInt32>}
-     */
-    BroadcastContext{
+    BroadcastContext {
         get {
             if(!this.HasProp("__BroadcastContextProxyArray"))
-                this.__BroadcastContextProxyArray := Win32FixedArray(this.ptr + 100, 64, Primitive, "uint")
+                this.__BroadcastContextProxyArray := Win32FixedArray(this.ptr + 84, 64, Primitive, "uint")
             return this.__BroadcastContextProxyArray
         }
     }
@@ -157,91 +151,91 @@ class D3DKMT_PRESENT extends Win32Struct
     /**
      * @type {HANDLE}
      */
-    PresentLimitSemaphore{
+    PresentLimitSemaphore {
         get {
             if(!this.HasProp("__PresentLimitSemaphore"))
-                this.__PresentLimitSemaphore := HANDLE(360, this)
+                this.__PresentLimitSemaphore := HANDLE(344, this)
             return this.__PresentLimitSemaphore
         }
     }
 
     /**
-     * @type {Pointer<D3DKMT_PRESENTHISTORYTOKEN>}
+     * @type {Pointer}
      */
     PresentHistoryToken {
-        get => NumGet(this, 368, "ptr")
-        set => NumPut("ptr", value, this, 368)
+        get => NumGet(this, 352, "ptr")
+        set => NumPut("ptr", value, this, 352)
     }
 
     /**
      * @type {Pointer<D3DKMT_PRESENT_RGNS>}
      */
     pPresentRegions {
-        get => NumGet(this, 376, "ptr")
-        set => NumPut("ptr", value, this, 376)
+        get => NumGet(this, 360, "ptr")
+        set => NumPut("ptr", value, this, 360)
     }
 
     /**
      * @type {Integer}
      */
     hAdapter {
-        get => NumGet(this, 384, "uint")
-        set => NumPut("uint", value, this, 384)
+        get => NumGet(this, 368, "uint")
+        set => NumPut("uint", value, this, 368)
     }
 
     /**
      * @type {Integer}
      */
     hIndirectContext {
-        get => NumGet(this, 384, "uint")
-        set => NumPut("uint", value, this, 384)
+        get => NumGet(this, 368, "uint")
+        set => NumPut("uint", value, this, 368)
     }
 
     /**
      * @type {Integer}
      */
     Duration {
-        get => NumGet(this, 388, "uint")
-        set => NumPut("uint", value, this, 388)
+        get => NumGet(this, 372, "uint")
+        set => NumPut("uint", value, this, 372)
     }
 
     /**
      * @type {Pointer<Integer>}
      */
     BroadcastSrcAllocation {
-        get => NumGet(this, 392, "ptr")
-        set => NumPut("ptr", value, this, 392)
+        get => NumGet(this, 376, "ptr")
+        set => NumPut("ptr", value, this, 376)
     }
 
     /**
      * @type {Pointer<Integer>}
      */
     BroadcastDstAllocation {
-        get => NumGet(this, 400, "ptr")
-        set => NumPut("ptr", value, this, 400)
+        get => NumGet(this, 384, "ptr")
+        set => NumPut("ptr", value, this, 384)
     }
 
     /**
      * @type {Integer}
      */
     PrivateDriverDataSize {
-        get => NumGet(this, 408, "uint")
-        set => NumPut("uint", value, this, 408)
+        get => NumGet(this, 392, "uint")
+        set => NumPut("uint", value, this, 392)
     }
 
     /**
      * @type {Pointer<Void>}
      */
     pPrivateDriverData {
-        get => NumGet(this, 416, "ptr")
-        set => NumPut("ptr", value, this, 416)
+        get => NumGet(this, 400, "ptr")
+        set => NumPut("ptr", value, this, 400)
     }
 
     /**
      * @type {BOOLEAN}
      */
     bOptimizeForComposition {
-        get => NumGet(this, 424, "char")
-        set => NumPut("char", value, this, 424)
+        get => NumGet(this, 408, "char")
+        set => NumPut("char", value, this, 408)
     }
 }

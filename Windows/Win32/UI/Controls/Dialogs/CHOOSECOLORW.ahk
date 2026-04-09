@@ -1,18 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include ..\..\..\Foundation\HWND.ahk
+#Include .\CHOOSECOLOR_FLAGS.ahk
 
 /**
  * The CHOOSECOLORW (Unicode) structure (commdlg.h) contains information the ChooseColor function uses to initialize the Color dialog box.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/commdlg/ns-commdlg-choosecolorw
  * @namespace Windows.Win32.UI.Controls.Dialogs
- * @version v4.0.30319
  * @charset Unicode
+ * @architecture X64, Arm64
  */
-class CHOOSECOLORW extends Win32Struct
-{
+class CHOOSECOLORW extends Win32Struct {
     static sizeof => 72
 
     static packingSize => 8
@@ -34,7 +32,7 @@ class CHOOSECOLORW extends Win32Struct
      * A handle to the window that owns the dialog box. This member can be any valid window handle, or it can be <b>NULL</b> if the dialog box has no owner.
      * @type {HWND}
      */
-    hwndOwner{
+    hwndOwner {
         get {
             if(!this.HasProp("__hwndOwner"))
                 this.__hwndOwner := HWND(8, this)
@@ -48,7 +46,7 @@ class CHOOSECOLORW extends Win32Struct
      * If the <b>CC_ENABLETEMPLATEHANDLE</b> flag is set in the <b>Flags</b> member, <b>hInstance</b> is a handle to a memory object containing a dialog box template. If the <b>CC_ENABLETEMPLATE</b> flag is set, <b>hInstance</b> is a handle to a module that contains a dialog box template named by the <b>lpTemplateName</b> member. If neither <b>CC_ENABLETEMPLATEHANDLE</b> nor <b>CC_ENABLETEMPLATE</b> is set, this member is ignored.
      * @type {HWND}
      */
-    hInstance{
+    hInstance {
         get {
             if(!this.HasProp("__hInstance"))
                 this.__hInstance := HWND(16, this)
@@ -188,7 +186,7 @@ class CHOOSECOLORW extends Win32Struct
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
+     * @type {CHOOSECOLOR_FLAGS}
      */
     Flags {
         get => NumGet(this, 40, "uint")

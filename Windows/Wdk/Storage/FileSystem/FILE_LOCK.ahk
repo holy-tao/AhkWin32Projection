@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem
- * @version v4.0.30319
  */
-class FILE_LOCK extends Win32Struct
-{
+class FILE_LOCK extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8
@@ -38,7 +36,7 @@ class FILE_LOCK extends Win32Struct
     /**
      * @type {Array<BOOLEAN>}
      */
-    SpareC{
+    SpareC {
         get {
             if(!this.HasProp("__SpareCProxyArray"))
                 this.__SpareCProxyArray := Win32FixedArray(this.ptr + 17, 3, Primitive, "char")
@@ -55,7 +53,7 @@ class FILE_LOCK extends Win32Struct
     }
 
     /**
-     * @type {Pointer<FILE_LOCK_INFO>}
+     * @type {Pointer}
      */
     LastReturnedLockInfo {
         get => NumGet(this, 32, "ptr")

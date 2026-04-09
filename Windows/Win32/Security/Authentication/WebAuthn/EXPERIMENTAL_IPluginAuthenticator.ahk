@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Security.Authentication.WebAuthn
- * @version v4.0.30319
  */
-class EXPERIMENTAL_IPluginAuthenticator extends IUnknown{
+class EXPERIMENTAL_IPluginAuthenticator extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

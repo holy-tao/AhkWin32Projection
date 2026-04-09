@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\HWND.ahk
 #Include ..\..\Foundation\HINSTANCE.ahk
+#Include .\MESSAGEBOX_STYLE.ahk
 
 /**
  * Contains information used to display a message box. The MessageBoxIndirect function uses this structure. (ANSI)
@@ -10,11 +11,9 @@
  * > The winuser.h header defines **MSGBOXPARAMS** as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
  * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-msgboxparamsa
  * @namespace Windows.Win32.UI.WindowsAndMessaging
- * @version v4.0.30319
  * @charset ANSI
  */
-class MSGBOXPARAMSA extends Win32Struct
-{
+class MSGBOXPARAMSA extends Win32Struct {
     static sizeof => 80
 
     static packingSize => 8
@@ -36,7 +35,7 @@ class MSGBOXPARAMSA extends Win32Struct
      * A handle to the owner window. This member can be <b>NULL</b>.
      * @type {HWND}
      */
-    hwndOwner{
+    hwndOwner {
         get {
             if(!this.HasProp("__hwndOwner"))
                 this.__hwndOwner := HWND(8, this)
@@ -53,7 +52,7 @@ class MSGBOXPARAMSA extends Win32Struct
      * 					<b>lpszCaption</b> member.
      * @type {HINSTANCE}
      */
-    hInstance{
+    hInstance {
         get {
             if(!this.HasProp("__hInstance"))
                 this.__hInstance := HINSTANCE(16, this)
@@ -92,7 +91,7 @@ class MSGBOXPARAMSA extends Win32Struct
      * 
      * In addition, you can specify the <b>MB_USERICON</b> flag (0x00000080L) if you want the message box to display the icon specified by the 
      * 					<b>lpszIcon</b> member.
-     * @type {Integer}
+     * @type {MESSAGEBOX_STYLE}
      */
     dwStyle {
         get => NumGet(this, 40, "uint")

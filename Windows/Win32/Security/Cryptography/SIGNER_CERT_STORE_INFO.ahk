@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\CERT_CONTEXT.ahk
+#Include .\SIGNER_CERT_POLICY.ahk
 #Include .\HCERTSTORE.ahk
 
 /**
  * Specifies the certificate store used to sign a document.
  * @see https://learn.microsoft.com/windows/win32/SecCrypto/signer-cert-store-info
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class SIGNER_CERT_STORE_INFO extends Win32Struct
-{
+class SIGNER_CERT_STORE_INFO extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -42,7 +42,7 @@ class SIGNER_CERT_STORE_INFO extends Win32Struct
      * | <span id="SIGNER_CERT_POLICY_CHAIN"></span><span id="signer_cert_policy_chain"></span><dl> <dt>**SIGNER\_CERT\_POLICY\_CHAIN**</dt> <dt>2 (0x2)</dt> </dl>                           | Add only certificates in the certificate chain.<br/>                                                                                                                                |
      * | <span id="SIGNER_CERT_POLICY_CHAIN_NO_ROOT"></span><span id="signer_cert_policy_chain_no_root"></span><dl> <dt>**SIGNER\_CERT\_POLICY\_CHAIN\_NO\_ROOT**</dt> <dt>8 (0x8)</dt> </dl> | Add only certificates in the certificate chain, excluding the root certificate.<br/>                                                                                                |
      * | <span id="SIGNER_CERT_POLICY_STORE"></span><span id="signer_cert_policy_store"></span><dl> <dt>**SIGNER\_CERT\_POLICY\_STORE**</dt> <dt>1 (0x1)</dt> </dl>                           | Add all certificates in the store specified by the **hCertStore** member. This flag can be a bitwise-**OR** combination with any of the other possible values for this member.<br/> |
-     * @type {Integer}
+     * @type {SIGNER_CERT_POLICY}
      */
     dwCertPolicy {
         get => NumGet(this, 16, "uint")
@@ -53,7 +53,7 @@ class SIGNER_CERT_STORE_INFO extends Win32Struct
      * Optional. A handle to an additional certificate store.
      * @type {HCERTSTORE}
      */
-    hCertStore{
+    hCertStore {
         get {
             if(!this.HasProp("__hCertStore"))
                 this.__hCertStore := HCERTSTORE(24, this)

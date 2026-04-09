@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Storage.Nvme
- * @version v4.0.30319
  */
-class TCG_ASSIGN_METHOD_SPECIFIC extends Win32Struct
-{
+class TCG_ASSIGN_METHOD_SPECIFIC extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 4

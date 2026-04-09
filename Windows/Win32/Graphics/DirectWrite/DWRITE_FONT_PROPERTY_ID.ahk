@@ -5,9 +5,8 @@
  * Identifies a string in a font.
  * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/ne-dwrite_3-dwrite_font_property_id
  * @namespace Windows.Win32.Graphics.DirectWrite
- * @version v4.0.30319
  */
-class DWRITE_FONT_PROPERTY_ID extends Win32Enum{
+class DWRITE_FONT_PROPERTY_ID extends Win32Enum {
 
     /**
      * Unspecified font property identifier.
@@ -16,19 +15,16 @@ class DWRITE_FONT_PROPERTY_ID extends Win32Enum{
     static DWRITE_FONT_PROPERTY_ID_NONE => 0
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static DWRITE_FONT_PROPERTY_ID_WEIGHT_STRETCH_STYLE_FAMILY_NAME => 1
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static DWRITE_FONT_PROPERTY_ID_TYPOGRAPHIC_FAMILY_NAME => 2
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static DWRITE_FONT_PROPERTY_ID_WEIGHT_STRETCH_STYLE_FACE_NAME => 3
@@ -89,7 +85,6 @@ class DWRITE_FONT_PROPERTY_ID extends Win32Enum{
     static DWRITE_FONT_PROPERTY_ID_STYLE => 12
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static DWRITE_FONT_PROPERTY_ID_TYPOGRAPHIC_FACE_NAME => 13
@@ -101,7 +96,6 @@ class DWRITE_FONT_PROPERTY_ID extends Win32Enum{
     static DWRITE_FONT_PROPERTY_ID_TOTAL => 13
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static DWRITE_FONT_PROPERTY_ID_TOTAL_RS3 => 14

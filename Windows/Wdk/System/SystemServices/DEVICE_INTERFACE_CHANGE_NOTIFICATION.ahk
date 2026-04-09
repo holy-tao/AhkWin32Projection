@@ -1,12 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\Win32\Foundation\UNICODE_STRING.ahk
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class DEVICE_INTERFACE_CHANGE_NOTIFICATION extends Win32Struct
-{
+class DEVICE_INTERFACE_CHANGE_NOTIFICATION extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -28,7 +27,7 @@ class DEVICE_INTERFACE_CHANGE_NOTIFICATION extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     Event {
         get => NumGet(this, 8, "ptr")
@@ -36,7 +35,7 @@ class DEVICE_INTERFACE_CHANGE_NOTIFICATION extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     InterfaceClassGuid {
         get => NumGet(this, 16, "ptr")

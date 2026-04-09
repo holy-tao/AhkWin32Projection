@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\PREVIEWHANDLERFRAMEINFO.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\PREVIEWHANDLERFRAMEINFO.ahk
 
 /**
  * Enables preview handlers to pass keyboard shortcuts to the host. This interface retrieves a list of keyboard shortcuts and directs the host to handle a keyboard shortcut.
@@ -10,9 +10,8 @@
  * This is an interface that preview handlers use to communicate keyboard shortcuts to the host. Preview handlers obtain this interface by calling <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-queryinterface(q)">QueryInterface</a> on the pointer passed as a parameter to <a href="https://docs.microsoft.com/windows/desktop/api/ocidl/nf-ocidl-iobjectwithsite-setsite">SetSite</a>. Preview handlers do not need to implement this interface.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-ipreviewhandlerframe
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IPreviewHandlerFrame extends IUnknown{
+class IPreviewHandlerFrame extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

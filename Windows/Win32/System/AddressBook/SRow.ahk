@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\SPropValue.ahk
 
 /**
  * Describes a row from a table that contains selected properties for a specific object. When more than one row needs to be described, an SRowSet structure is used.
@@ -37,10 +38,8 @@
  * For information about how the memory for **SRow** structures should be allocated, see [Managing Memory for ADRLIST and SRowSet Structures](managing-memory-for-adrlist-and-srowset-structures.md).
  * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/srow
  * @namespace Windows.Win32.System.AddressBook
- * @version v4.0.30319
  */
-class SRow extends Win32Struct
-{
+class SRow extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

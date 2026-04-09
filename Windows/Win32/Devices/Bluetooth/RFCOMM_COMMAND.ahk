@@ -6,10 +6,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.Bluetooth
- * @version v4.0.30319
  */
-class RFCOMM_COMMAND extends Win32Struct
-{
+class RFCOMM_COMMAND extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4
@@ -21,36 +19,35 @@ class RFCOMM_COMMAND extends Win32Struct
         /**
          * @type {RFCOMM_MSC_DATA}
          */
-        MSC{
+        MSC {
             get {
                 if(!this.HasProp("__MSC"))
                     this.__MSC := RFCOMM_MSC_DATA(0, this)
                 return this.__MSC
             }
         }
-    
+
         /**
          * @type {RFCOMM_RLS_DATA}
          */
-        RLS{
+        RLS {
             get {
                 if(!this.HasProp("__RLS"))
                     this.__RLS := RFCOMM_RLS_DATA(0, this)
                 return this.__RLS
             }
         }
-    
+
         /**
          * @type {RFCOMM_RPN_DATA}
          */
-        RPN{
+        RPN {
             get {
                 if(!this.HasProp("__RPN"))
                     this.__RPN := RFCOMM_RPN_DATA(0, this)
                 return this.__RPN
             }
         }
-    
     }
 
     /**
@@ -64,10 +61,10 @@ class RFCOMM_COMMAND extends Win32Struct
     /**
      * @type {_Data_e__Union}
      */
-    Data{
+    Data {
         get {
             if(!this.HasProp("__Data"))
-                this.__Data := %this.__Class%._Data_e__Union(4, this)
+                this.__Data := RFCOMM_COMMAND._Data_e__Union(4, this)
             return this.__Data
         }
     }

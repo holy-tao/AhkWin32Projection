@@ -24,10 +24,9 @@
  * > The shlobj.h header defines ICopyHook as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
  * @see https://learn.microsoft.com/windows/win32/api/shlobj/nn-shlobj-icopyhooka
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  * @charset ANSI
  */
-class ICopyHookA extends IUnknown{
+class ICopyHookA extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -62,7 +61,7 @@ class ICopyHookA extends IUnknown{
      * **HKEY_CLASSES_ROOT/Printers/Shellex/CopyHookHandlers/your_copyhook/{copyhook CLSID value}**
      *                 
      * When this method is called, the Shell initializes the [ICopyHookA](nn-shlobj-icopyhooka.md) interface directly without using an [IShellExtInit](/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellextinit) interface first.
-     * @param {HWND} _hwnd 
+     * @param {HWND} _hwnd A handle to the window that the copy hook handler should use as the parent for any user interface elements the handler may need to display. If **FOF_SILENT** is specified in *wFunc*, the method should ignore this parameter.
      * @param {Integer} wFunc The operation to perform. This parameter can be one of the values listed under the **wFunc** member of the [SHFILEOPSTRUCT](/windows/desktop/api/shellapi/ns-shellapi-shfileopstructa) structure.
      * @param {Integer} wFlags The flags that control the operation. This parameter can be one or more of the values listed under the *fFlags* member of the [SHFILEOPSTRUCT](/windows/desktop/api/shellapi/ns-shellapi-shfileopstructa) structure.
      * @param {PSTR} pszSrcFile A pointer to a string that contains the name of the source folder.

@@ -7,9 +7,8 @@
  * Provides a method that retrieves system id data.
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imfsystemid
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFSystemId extends IUnknown{
+class IMFSystemId extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -32,7 +31,7 @@ class IMFSystemId extends IUnknown{
 
     /**
      * Retrieves system id data.
-     * @param {Pointer<Integer>} _size 
+     * @param {Pointer<Integer>} _size The size in bytes of the returned data.
      * @param {Pointer<Pointer<Integer>>} data Receives the returned data.  The caller must free this buffer by calling <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a>.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
@@ -67,7 +66,7 @@ class IMFSystemId extends IUnknown{
      * Sets up the IMFSystemId.
      * @param {Integer} stage Stage in the setup process. 0 or 1.
      * @param {Integer} cbIn Size of the input buffer.
-     * @param {Pointer} pbIn The input buffer.
+     * @param {Integer} pbIn The input buffer.
      * @param {Pointer<Integer>} pcbOut Size of output buffer.
      * @param {Pointer<Pointer<Integer>>} ppbOut The output buffer.
      * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.

@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
- * @version v4.0.30319
  */
-class D3DKMT_GET_DEVICE_VIDPN_OWNERSHIP_INFO extends Win32Struct
-{
+class D3DKMT_GET_DEVICE_VIDPN_OWNERSHIP_INFO extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4

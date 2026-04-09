@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IUIAutomationProxyFactoryEntry.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\IUIAutomationProxyFactoryEntry.ahk
 
 /**
  * Exposes properties and methods for a table of proxy factories. Each table entry is represented by an IUIAutomationProxyFactoryEntry interface. The entries are in the order in which the system will attempt to use the proxies.
  * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nn-uiautomationclient-iuiautomationproxyfactorymapping
  * @namespace Windows.Win32.UI.Accessibility
- * @version v4.0.30319
  */
-class IUIAutomationProxyFactoryMapping extends IUnknown{
+class IUIAutomationProxyFactoryMapping extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

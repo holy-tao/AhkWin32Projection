@@ -3,14 +3,10 @@
 
 /**
  * Contains parameters that are used in the Security Receive command.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/nvme/ns-nvme-nvme_cdw11_security_receive
  * @namespace Windows.Win32.Storage.Nvme
- * @version v4.0.30319
  */
-class NVME_CDW11_SECURITY_RECEIVE extends Win32Struct
-{
+class NVME_CDW11_SECURITY_RECEIVE extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 4

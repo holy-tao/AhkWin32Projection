@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw
- * @version v4.0.30319
  */
-class DDCAPS_DX1 extends Win32Struct
-{
+class DDCAPS_DX1 extends Win32Struct {
     static sizeof => 172
 
     static packingSize => 4
@@ -213,9 +211,9 @@ class DDCAPS_DX1 extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    dwRops{
+    dwRops {
         get {
             if(!this.HasProp("__dwRopsProxyArray"))
                 this.__dwRopsProxyArray := Win32FixedArray(this.ptr + 100, 8, Primitive, "uint")
@@ -226,7 +224,7 @@ class DDCAPS_DX1 extends Win32Struct
     /**
      * @type {DDSCAPS}
      */
-    ddsCaps{
+    ddsCaps {
         get {
             if(!this.HasProp("__ddsCaps"))
                 this.__ddsCaps := DDSCAPS(132, this)

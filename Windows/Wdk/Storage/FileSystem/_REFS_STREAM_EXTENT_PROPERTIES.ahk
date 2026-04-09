@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem
- * @version v4.0.30319
  */
-class _REFS_STREAM_EXTENT_PROPERTIES extends Win32Enum{
+class _REFS_STREAM_EXTENT_PROPERTIES extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

@@ -7,9 +7,8 @@
  * Interface that defines callbacks for Microsoft Media Foundation Timed Text notifications.
  * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nn-mfmediaengine-imftimedtextnotify
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFTimedTextNotify extends IUnknown{
+class IMFTimedTextNotify extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -80,7 +79,7 @@ class IMFTimedTextNotify extends IUnknown{
 
     /**
      * Called when an error occurs in a text track.
-     * @param {Integer} errorCode Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/ne-mfmediaengine-mf_timed_text_error_code">MF_TIMED_TEXT_ERROR_CODE</a></b>
+     * @param {MF_TIMED_TEXT_ERROR_CODE} errorCode Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/ne-mfmediaengine-mf_timed_text_error_code">MF_TIMED_TEXT_ERROR_CODE</a></b>
      * 
      * An MF_TIMED_TEXT_ERROR_CODE representing the last error.
      * @param {HRESULT} extendedErrorCode Type: <b>extendedErrorCode</b>
@@ -98,7 +97,7 @@ class IMFTimedTextNotify extends IUnknown{
 
     /**
      * Called when a cue event occurs in a text track.
-     * @param {Integer} cueEvent Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/ne-mfmediaengine-mf_timed_text_cue_event">MF_TIMED_TEXT_CUE_EVENT</a></b>
+     * @param {MF_TIMED_TEXT_CUE_EVENT} cueEvent Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/ne-mfmediaengine-mf_timed_text_cue_event">MF_TIMED_TEXT_CUE_EVENT</a></b>
      * 
      * A value specifying the type of event that has occurred.
      * @param {Float} currentTime Type: <b>double</b>

@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.PortableDevices
- * @version v4.0.30319
  */
-class IPortableDeviceServiceActivation extends IUnknown{
+class IPortableDeviceServiceActivation extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

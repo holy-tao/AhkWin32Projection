@@ -6,10 +6,8 @@
  * The PXE_DHCP_MESSAGE structure can be used with the Windows Deployment Services PXE Server API.
  * @see https://learn.microsoft.com/windows/win32/api/wdspxe/ns-wdspxe-pxe_dhcp_message
  * @namespace Windows.Win32.System.DeploymentServices
- * @version v4.0.30319
  */
-class PXE_DHCP_MESSAGE extends Win32Struct
-{
+class PXE_DHCP_MESSAGE extends Win32Struct {
     static sizeof => 244
 
     static packingSize => 4
@@ -42,7 +40,6 @@ class PXE_DHCP_MESSAGE extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     HopCount {
@@ -51,7 +48,6 @@ class PXE_DHCP_MESSAGE extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     TransactionID {
@@ -87,7 +83,6 @@ class PXE_DHCP_MESSAGE extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     YourIpAddress {
@@ -96,7 +91,6 @@ class PXE_DHCP_MESSAGE extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     BootstrapServerAddress {
@@ -105,7 +99,6 @@ class PXE_DHCP_MESSAGE extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     RelayAgentIpAddress {
@@ -114,10 +107,9 @@ class PXE_DHCP_MESSAGE extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    HardwareAddress{
+    HardwareAddress {
         get {
             if(!this.HasProp("__HardwareAddressProxyArray"))
                 this.__HardwareAddressProxyArray := Win32FixedArray(this.ptr + 28, 16, Primitive, "char")
@@ -126,10 +118,9 @@ class PXE_DHCP_MESSAGE extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    HostName{
+    HostName {
         get {
             if(!this.HasProp("__HostNameProxyArray"))
                 this.__HostNameProxyArray := Win32FixedArray(this.ptr + 44, 64, Primitive, "char")
@@ -138,10 +129,9 @@ class PXE_DHCP_MESSAGE extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    BootFileName{
+    BootFileName {
         get {
             if(!this.HasProp("__BootFileNameProxyArray"))
                 this.__BootFileNameProxyArray := Win32FixedArray(this.ptr + 108, 128, Primitive, "char")
@@ -150,9 +140,9 @@ class PXE_DHCP_MESSAGE extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    bMagicCookie{
+    bMagicCookie {
         get {
             if(!this.HasProp("__bMagicCookieProxyArray"))
                 this.__bMagicCookieProxyArray := Win32FixedArray(this.ptr + 236, 4, Primitive, "char")
@@ -169,10 +159,9 @@ class PXE_DHCP_MESSAGE extends Win32Struct
     }
 
     /**
-     * 
      * @type {PXE_DHCP_OPTION}
      */
-    Option{
+    Option {
         get {
             if(!this.HasProp("__Option"))
                 this.__Option := PXE_DHCP_OPTION(240, this)

@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Storage.DataDeduplication
- * @version v4.0.30319
  */
-class DedupDataPortVolumeStatus extends Win32Enum{
+class DedupDataPortVolumeStatus extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

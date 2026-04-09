@@ -8,10 +8,8 @@
  * The <b>pszTitle</b>, <b>pszDocString</b>, and the <b>pszHelpFile</b> members specified in this structure should contain text sensitive to the locale obtained through <a href="https://docs.microsoft.com/windows/desktop/api/ocidl/nf-ocidl-ipropertypagesite-getlocaleid">IPropertyPageSite::GetLocaleID</a>.
  * @see https://learn.microsoft.com/windows/win32/api/ocidl/ns-ocidl-proppageinfo
  * @namespace Windows.Win32.System.Ole
- * @version v4.0.30319
  */
-class PROPPAGEINFO extends Win32Struct
-{
+class PROPPAGEINFO extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -38,7 +36,7 @@ class PROPPAGEINFO extends Win32Struct
      * Required dimensions of the page's dialog box, in pixels.
      * @type {SIZE}
      */
-    size{
+    size {
         get {
             if(!this.HasProp("__size"))
                 this.__size := SIZE(16, this)

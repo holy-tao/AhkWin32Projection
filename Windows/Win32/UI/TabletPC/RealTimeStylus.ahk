@@ -5,10 +5,8 @@
  * Implements the IRealTimeStylus COM interface.
  * @see https://learn.microsoft.com/windows/win32/tablet/realtimestylus-class
  * @namespace Windows.Win32.UI.TabletPC
- * @version v4.0.30319
  */
-class RealTimeStylus extends Win32Struct
-{
+class RealTimeStylus extends Win32Struct {
     static sizeof => 0
 
     static packingSize => 1

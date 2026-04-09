@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\PXE_DHCPV6_RELAY_MESSAGE.ahk
 
 /**
  * Describes packets nested in OPTION_RELAY_MSG message.
  * @see https://learn.microsoft.com/windows/win32/api/wdspxe/ns-wdspxe-pxe_dhcpv6_nested_relay_message
  * @namespace Windows.Win32.System.DeploymentServices
- * @version v4.0.30319
  */
-class PXE_DHCPV6_NESTED_RELAY_MESSAGE extends Win32Struct
-{
+class PXE_DHCPV6_NESTED_RELAY_MESSAGE extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8

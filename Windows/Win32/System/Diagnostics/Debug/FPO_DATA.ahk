@@ -5,10 +5,8 @@
  * Represents the stack frame layout for a function on an x86 computer when frame pointer omission (FPO) optimization is used. The structure is used to locate the base of the call frame.
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-fpo_data
  * @namespace Windows.Win32.System.Diagnostics.Debug
- * @version v4.0.30319
  */
-class FPO_DATA extends Win32Struct
-{
+class FPO_DATA extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4
@@ -65,7 +63,6 @@ class FPO_DATA extends Win32Struct
     }
 
     /**
-     * The number of bytes in the function prolog code.
      * @type {Integer}
      */
     cbProlog {
@@ -74,7 +71,6 @@ class FPO_DATA extends Win32Struct
     }
 
     /**
-     * The number of registers saved.
      * @type {Integer}
      */
     cbRegs {
@@ -83,7 +79,6 @@ class FPO_DATA extends Win32Struct
     }
 
     /**
-     * A variable that indicates whether the function uses structured exception handling.
      * @type {Integer}
      */
     fHasSEH {
@@ -92,7 +87,6 @@ class FPO_DATA extends Win32Struct
     }
 
     /**
-     * A variable that indicates whether the EBP register has been allocated.
      * @type {Integer}
      */
     fUseBP {
@@ -101,7 +95,6 @@ class FPO_DATA extends Win32Struct
     }
 
     /**
-     * Reserved for future use.
      * @type {Integer}
      */
     reserved {
@@ -110,58 +103,6 @@ class FPO_DATA extends Win32Struct
     }
 
     /**
-     * A variable that indicates the frame type.
-     * 
-     * <table>
-     * <tr>
-     * <th>Type</th>
-     * <th>Meaning</th>
-     * </tr>
-     * <tr>
-     * <td width="40%"><a id="FRAME_FPO"></a><a id="frame_fpo"></a><dl>
-     * <dt><b>FRAME_FPO</b></dt>
-     * <dt>0</dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * FPO frame
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%"><a id="FRAME_NONFPO"></a><a id="frame_nonfpo"></a><dl>
-     * <dt><b>FRAME_NONFPO</b></dt>
-     * <dt>3</dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Non-FPO frame
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%"><a id="FRAME_TRAP"></a><a id="frame_trap"></a><dl>
-     * <dt><b>FRAME_TRAP</b></dt>
-     * <dt>1</dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Trap frame
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%"><a id="FRAME_TSS"></a><a id="frame_tss"></a><dl>
-     * <dt><b>FRAME_TSS</b></dt>
-     * <dt>2</dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * TSS frame
-     * 
-     * </td>
-     * </tr>
-     * </table>
      * @type {Integer}
      */
     cbFrame {

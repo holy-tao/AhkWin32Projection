@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Media.DirectShow.Tv
- * @version v4.0.30319
  */
-class UDCR_TAG extends Win32Struct
-{
+class UDCR_TAG extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 8
@@ -20,9 +18,9 @@ class UDCR_TAG extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    KID{
+    KID {
         get {
             if(!this.HasProp("__KIDProxyArray"))
                 this.__KIDProxyArray := Win32FixedArray(this.ptr + 1, 25, Primitive, "char")

@@ -24,10 +24,8 @@
  * ```
  * @see https://learn.microsoft.com/windows/win32/api/lmdfs/ns-lmdfs-dfs_info_2
  * @namespace Windows.Win32.Storage.DistributedFileSystem
- * @version v4.0.30319
  */
-class DFS_INFO_2 extends Win32Struct
-{
+class DFS_INFO_2 extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

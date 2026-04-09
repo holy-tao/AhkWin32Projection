@@ -9,9 +9,8 @@
  * A dependency package is a package that the current package depends on, as specified in the package manifest using the <a href="https://docs.microsoft.com/uwp/schemas/appxpackage/appxmanifestschema/element-packagedependency">PackageDependency</a> element.
  * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nn-appxpackaging-iappxmanifestpackagedependency
  * @namespace Windows.Win32.Storage.Packaging.Appx
- * @version v4.0.30319
  */
-class IAppxManifestPackageDependency extends IUnknown{
+class IAppxManifestPackageDependency extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

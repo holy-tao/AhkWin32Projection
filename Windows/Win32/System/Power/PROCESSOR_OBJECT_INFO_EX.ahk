@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Power
- * @version v4.0.30319
  */
-class PROCESSOR_OBJECT_INFO_EX extends Win32Struct
-{
+class PROCESSOR_OBJECT_INFO_EX extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4

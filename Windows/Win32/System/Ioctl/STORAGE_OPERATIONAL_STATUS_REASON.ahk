@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class STORAGE_OPERATIONAL_STATUS_REASON extends Win32Enum{
+class STORAGE_OPERATIONAL_STATUS_REASON extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

@@ -7,9 +7,8 @@
  * Provides methods that can be called whenever Dllhost.exe starts up or shuts down.
  * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nn-comsvcs-iprocessinitializer
  * @namespace Windows.Win32.System.ComponentServices
- * @version v4.0.30319
  */
-class IProcessInitializer extends IUnknown{
+class IProcessInitializer extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

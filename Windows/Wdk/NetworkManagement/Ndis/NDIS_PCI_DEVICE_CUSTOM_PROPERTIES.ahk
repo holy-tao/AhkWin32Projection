@@ -3,16 +3,14 @@
 
 /**
  * @namespace Windows.Wdk.NetworkManagement.Ndis
- * @version v4.0.30319
  */
-class NDIS_PCI_DEVICE_CUSTOM_PROPERTIES extends Win32Struct
-{
+class NDIS_PCI_DEVICE_CUSTOM_PROPERTIES extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8
 
     /**
-     * @type {Pointer<NDIS_OBJECT_HEADER>}
+     * @type {Pointer}
      */
     Header {
         get => NumGet(this, 0, "ptr")

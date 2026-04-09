@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\WRDS_LISTENER_SETTINGS.ahk
 #Include ..\Com\IUnknown.ahk
+#Include .\WRDS_LISTENER_SETTINGS.ahk
 
 /**
  * Exposes methods that request that the protocol start and stop listening for client connection requests.
@@ -10,9 +10,8 @@
  * To avoid a possible deadlock when calling any of the methods on this interface, you should not make any function or method calls that will directly or indirectly result in a Remote Desktop Services API being called. If you need to make any outbound call, you should start a new thread and make the outbound call from the new thread.
  * @see https://learn.microsoft.com/windows/win32/api/wtsprotocol/nn-wtsprotocol-iwrdsprotocollistener
  * @namespace Windows.Win32.System.RemoteDesktop
- * @version v4.0.30319
  */
-class IWRdsProtocolListener extends IUnknown{
+class IWRdsProtocolListener extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -35,7 +34,7 @@ class IWRdsProtocolListener extends IUnknown{
 
     /**
      * Gets the listener setting information for client connection requests.
-     * @param {Integer} WRdsListenerSettingLevel The listener setting level to use.
+     * @param {WRDS_LISTENER_SETTING_LEVEL} WRdsListenerSettingLevel The listener setting level to use.
      * @returns {WRDS_LISTENER_SETTINGS} A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wtsdefs/ns-wtsdefs-wrds_listener_settings">WRDS_LISTENER_SETTINGS</a> structure that contains the returned listener settings.
      * @see https://learn.microsoft.com/windows/win32/api/wtsprotocol/nf-wtsprotocol-iwrdsprotocollistener-getsettings
      */

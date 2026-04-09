@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\IP_ADDR_STRING.ahk
 #Include .\IP_ADDRESS_STRING.ahk
 
 /**
  * Represents a node in a linked-list of IPv4 addresses.
  * @see https://learn.microsoft.com/windows/win32/api/iptypes/ns-iptypes-ip_addr_string
  * @namespace Windows.Win32.NetworkManagement.IpHelper
- * @version v4.0.30319
  */
-class IP_ADDR_STRING extends Win32Struct
-{
-    static sizeof => 80
+class IP_ADDR_STRING extends Win32Struct {
+    static sizeof => 48
 
     static packingSize => 8
 
@@ -28,7 +27,7 @@ class IP_ADDR_STRING extends Win32Struct
      * A value that specifies a structure type with a single member, <b>String</b>. The <b>String</b> member is a <b>char</b> array of size 16. This array holds an IPv4 address in dotted decimal notation.
      * @type {IP_ADDRESS_STRING}
      */
-    IpAddress{
+    IpAddress {
         get {
             if(!this.HasProp("__IpAddress"))
                 this.__IpAddress := IP_ADDRESS_STRING(8, this)
@@ -40,10 +39,10 @@ class IP_ADDR_STRING extends Win32Struct
      * A value that specifies a structure type with a single member, <b>String</b>. The <b>String</b> member is a <b>char</b> array of size 16. This array holds the IPv4 subnet mask in dotted decimal notation.
      * @type {IP_ADDRESS_STRING}
      */
-    IpMask{
+    IpMask {
         get {
             if(!this.HasProp("__IpMask"))
-                this.__IpMask := IP_ADDRESS_STRING(40, this)
+                this.__IpMask := IP_ADDRESS_STRING(24, this)
             return this.__IpMask
         }
     }
@@ -55,7 +54,7 @@ class IP_ADDR_STRING extends Win32Struct
      * @type {Integer}
      */
     Context {
-        get => NumGet(this, 72, "uint")
-        set => NumPut("uint", value, this, 72)
+        get => NumGet(this, 40, "uint")
+        set => NumPut("uint", value, this, 40)
     }
 }

@@ -33,16 +33,13 @@
  * You can set plug-ins to either support or ignore the <b>BlackInformation</b>.
  * @see https://learn.microsoft.com/windows/win32/api/wcsplugin/ns-wcsplugin-blackinformation
  * @namespace Windows.Win32.UI.ColorSystem
- * @version v4.0.30319
  */
-class BlackInformation extends Win32Struct
-{
+class BlackInformation extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4
 
     /**
-     * 
      * @type {BOOL}
      */
     fBlackOnly {

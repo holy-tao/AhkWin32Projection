@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\EXPAND_VIRTUAL_DISK_VERSION.ahk
 
 /**
  * Contains virtual disk expansion request parameters.
  * @see https://learn.microsoft.com/windows/win32/api/virtdisk/ns-virtdisk-expand_virtual_disk_parameters
  * @namespace Windows.Win32.Storage.Vhd
- * @version v4.0.30319
  */
-class EXPAND_VIRTUAL_DISK_PARAMETERS extends Win32Struct
-{
+class EXPAND_VIRTUAL_DISK_PARAMETERS extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
@@ -18,7 +17,7 @@ class EXPAND_VIRTUAL_DISK_PARAMETERS extends Win32Struct
      *       enumeration value that specifies the version of the 
      *       <b>EXPAND_VIRTUAL_DISK_PARAMETERS</b> structure 
      *       being passed to or from the virtual disk functions.
-     * @type {Integer}
+     * @type {EXPAND_VIRTUAL_DISK_VERSION}
      */
     Version {
         get => NumGet(this, 0, "int")
@@ -36,16 +35,15 @@ class EXPAND_VIRTUAL_DISK_PARAMETERS extends Win32Struct
             get => NumGet(this, 0, "uint")
             set => NumPut("uint", value, this, 0)
         }
-    
     }
 
     /**
      * @type {_Version1}
      */
-    Version1{
+    Version1 {
         get {
             if(!this.HasProp("__Version1"))
-                this.__Version1 := %this.__Class%._Version1(8, this)
+                this.__Version1 := EXPAND_VIRTUAL_DISK_PARAMETERS._Version1(8, this)
             return this.__Version1
         }
     }

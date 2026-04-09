@@ -7,9 +7,8 @@
  * Defines methods for handling manipulation update events.
  * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nn-directmanipulation-idirectmanipulationupdatehandler
  * @namespace Windows.Win32.Graphics.DirectManipulation
- * @version v4.0.30319
  */
-class IDirectManipulationUpdateHandler extends IUnknown{
+class IDirectManipulationUpdateHandler extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -1,18 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\SECURE_ELEMENT_POWER_MODE.ahk
 
 /**
  * @namespace Windows.Win32.Devices.Nfc
- * @version v4.0.30319
  */
-class SECURE_ELEMENT_SET_POWER_MODE_INFO extends Win32Struct
-{
+class SECURE_ELEMENT_SET_POWER_MODE_INFO extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     guidSecureElementId {
         get => NumGet(this, 0, "ptr")
@@ -20,7 +19,7 @@ class SECURE_ELEMENT_SET_POWER_MODE_INFO extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {SECURE_ELEMENT_POWER_MODE}
      */
     powerMode {
         get => NumGet(this, 8, "int")

@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Graphics.DXCore
- * @version v4.0.30319
  */
-class DXCoreAdapterProcessSetQueryOutput extends Win32Struct
-{
+class DXCoreAdapterProcessSetQueryOutput extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4

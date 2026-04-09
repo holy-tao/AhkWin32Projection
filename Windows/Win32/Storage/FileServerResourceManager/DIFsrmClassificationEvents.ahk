@@ -7,9 +7,8 @@
  * Handles events that are received while processing a ClassifyFiles call.
  * @see https://learn.microsoft.com/windows/win32/api/fsrmtlb/nn-fsrmtlb-difsrmclassificationevents
  * @namespace Windows.Win32.Storage.FileServerResourceManager
- * @version v4.0.30319
  */
-class DIFsrmClassificationEvents extends IDispatch{
+class DIFsrmClassificationEvents extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

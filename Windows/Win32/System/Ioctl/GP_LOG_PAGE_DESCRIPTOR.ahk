@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class GP_LOG_PAGE_DESCRIPTOR extends Win32Struct
-{
+class GP_LOG_PAGE_DESCRIPTOR extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 2

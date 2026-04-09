@@ -1,18 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\SOC_SUBSYSTEM_TYPE.ahk
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class SOC_SUBSYSTEM_FAILURE_DETAILS extends Win32Struct
-{
+class SOC_SUBSYSTEM_FAILURE_DETAILS extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
 
     /**
-     * @type {Integer}
+     * @type {SOC_SUBSYSTEM_TYPE}
      */
     SubsysType {
         get => NumGet(this, 0, "int")
@@ -47,7 +46,7 @@ class SOC_SUBSYSTEM_FAILURE_DETAILS extends Win32Struct
      * @type {String}
      */
     UnifiedFailureRegion {
-        get => StrGet(this.ptr + 28, 0, "UTF-16")
-        set => StrPut(value, this.ptr + 28, 0, "UTF-16")
+        get => StrGet(this.ptr + 28, 0, "UTF-8")
+        set => StrPut(value, this.ptr + 28, 0, "UTF-8")
     }
 }

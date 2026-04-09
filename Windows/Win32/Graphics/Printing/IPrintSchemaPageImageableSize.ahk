@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
- * @version v4.0.30319
  */
-class IPrintSchemaPageImageableSize extends IPrintSchemaElement{
+class IPrintSchemaPageImageableSize extends IPrintSchemaElement {
 
     static sizeof => A_PtrSize
     /**

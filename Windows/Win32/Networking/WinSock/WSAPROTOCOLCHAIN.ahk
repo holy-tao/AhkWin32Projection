@@ -7,10 +7,8 @@
  * If the length of the chain is larger than 1, this structure represents a protocol chain which consists of one or more layered protocols on top of a base protocol. The corresponding Catalog Entry IDs are in the ProtocolChain.ChainEntries array starting with the layered protocol at the top (the zeroth element in the ProtocolChain.ChainEntries array) and ending with the base protocol. Refer to Windows Sockets 2 Service Provider Interface for more information on protocol chains.
  * @see https://learn.microsoft.com/windows/win32/api/winsock2/ns-winsock2-wsaprotocolchain
  * @namespace Windows.Win32.Networking.WinSock
- * @version v4.0.30319
  */
-class WSAPROTOCOLCHAIN extends Win32Struct
-{
+class WSAPROTOCOLCHAIN extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 4
@@ -35,9 +33,9 @@ class WSAPROTOCOLCHAIN extends Win32Struct
 
     /**
      * Array of protocol chain entries.
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    ChainEntries{
+    ChainEntries {
         get {
             if(!this.HasProp("__ChainEntriesProxyArray"))
                 this.__ChainEntriesProxyArray := Win32FixedArray(this.ptr + 4, 7, Primitive, "uint")

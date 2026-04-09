@@ -1,24 +1,24 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\VIRTUAL_STORAGE_TYPE.ahk
+#Include .\STORAGE_DEPENDENCY_INFO_VERSION.ahk
 #Include .\STORAGE_DEPENDENCY_INFO_TYPE_1.ahk
+#Include .\DEPENDENT_DISK_FLAG.ahk
+#Include .\VIRTUAL_STORAGE_TYPE.ahk
 #Include .\STORAGE_DEPENDENCY_INFO_TYPE_2.ahk
 
 /**
  * Contains virtual hard disk (VHD) storage dependency information.
  * @see https://learn.microsoft.com/windows/win32/api/virtdisk/ns-virtdisk-storage_dependency_info
  * @namespace Windows.Win32.Storage.Vhd
- * @version v4.0.30319
  */
-class STORAGE_DEPENDENCY_INFO extends Win32Struct
-{
-    static sizeof => 16
+class STORAGE_DEPENDENCY_INFO extends Win32Struct {
+    static sizeof => 72
 
     static packingSize => 8
 
     /**
      * A [STORAGE_DEPENDENCY_INFO_TYPE_1](./ns-virtdisk-storage_dependency_info_type_1.md) or [STORAGE_DEPENDENCY_INFO_TYPE_2](./ns-virtdisk-storage_dependency_info_type_2.md).
-     * @type {Integer}
+     * @type {STORAGE_DEPENDENCY_INFO_VERSION}
      */
     Version {
         get => NumGet(this, 0, "int")
@@ -35,9 +35,9 @@ class STORAGE_DEPENDENCY_INFO extends Win32Struct
     }
 
     /**
-     * @type {Array<STORAGE_DEPENDENCY_INFO_TYPE_1>}
+     * @type {STORAGE_DEPENDENCY_INFO_TYPE_1}
      */
-    Version1Entries{
+    Version1Entries {
         get {
             if(!this.HasProp("__Version1EntriesProxyArray"))
                 this.__Version1EntriesProxyArray := Win32FixedArray(this.ptr + 8, 1, STORAGE_DEPENDENCY_INFO_TYPE_1, "")
@@ -46,9 +46,9 @@ class STORAGE_DEPENDENCY_INFO extends Win32Struct
     }
 
     /**
-     * @type {Array<STORAGE_DEPENDENCY_INFO_TYPE_2>}
+     * @type {STORAGE_DEPENDENCY_INFO_TYPE_2}
      */
-    Version2Entries{
+    Version2Entries {
         get {
             if(!this.HasProp("__Version2EntriesProxyArray"))
                 this.__Version2EntriesProxyArray := Win32FixedArray(this.ptr + 8, 1, STORAGE_DEPENDENCY_INFO_TYPE_2, "")

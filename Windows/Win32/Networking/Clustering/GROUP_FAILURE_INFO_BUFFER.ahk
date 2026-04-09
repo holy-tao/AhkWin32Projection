@@ -6,10 +6,8 @@
  * The GROUP_FAILURE_INFO_BUFFER structure represents a buffer for a GROUP_FAILURE_INFO structure. (GROUP_FAILURE_INFO_BUFFER)
  * @see https://learn.microsoft.com/windows/win32/api/msclus/ns-msclus-group_failure_info_buffer
  * @namespace Windows.Win32.Networking.Clustering
- * @version v4.0.30319
  */
-class GROUP_FAILURE_INFO_BUFFER extends Win32Struct
-{
+class GROUP_FAILURE_INFO_BUFFER extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4
@@ -27,7 +25,7 @@ class GROUP_FAILURE_INFO_BUFFER extends Win32Struct
      * The <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/ns-clusapi-group_failure_info">GROUP_FAILURE_INFO</a> structure that contains information about the failover attempts for the group failure.
      * @type {GROUP_FAILURE_INFO}
      */
-    Info{
+    Info {
         get {
             if(!this.HasProp("__Info"))
                 this.__Info := GROUP_FAILURE_INFO(4, this)

@@ -8,7 +8,6 @@
 
 /**
  * @namespace Windows.Win32.System.WindowsProgramming
- * @version v4.0.30319
  */
 class WindowsProgramming {
 
@@ -2976,7 +2975,7 @@ class WindowsProgramming {
      * Retrieves the number of characters in a null-terminated Unicode string.
      * @remarks
      * This function is available only on 64-bit Windows.
-     * @param {Pointer<Integer>} _String 
+     * @param {Pointer<Integer>} _String A pointer to a null-terminated Unicode string.
      * @returns {Pointer} The return value is the number of characters in <i>String</i>, not including the terminating null character.
      * @see https://learn.microsoft.com/windows/win32/api/stralign/nf-stralign-uaw_wcslen
      */
@@ -3130,7 +3129,7 @@ class WindowsProgramming {
      * @param {Pointer<Integer>} BufferLength On input, specifies the size of the <i>ProcessorIdleCycleTime</i> buffer, in bytes. This buffer is expected to be 8 times the number of processors in the group.
      * 
      * On output, specifies the number of elements written to the buffer. If the buffer size is not sufficient, the function fails and this parameter receives the required length of the buffer.
-     * @param {Pointer} ProcessorIdleCycleTime The number of CPU clock cycles used by each idle thread. This buffer must be 8  times the number of processors in the system in size.
+     * @param {Integer} ProcessorIdleCycleTime The number of CPU clock cycles used by each idle thread. This buffer must be 8  times the number of processors in the system in size.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -3159,7 +3158,7 @@ class WindowsProgramming {
      * @param {Pointer<Integer>} BufferLength On input, specifies the size of the <i>ProcessorIdleCycleTime</i> buffer, in bytes. This buffer is expected to be 8 times the number of processors in the group. 
      * 
      * On output, specifies the number of elements written to the buffer. If the buffer size is not sufficient, the function fails and this parameter receives the required length of the buffer.
-     * @param {Pointer} ProcessorIdleCycleTime The number of CPU clock cycles used by each idle thread. If this parameter is NULL, the function updates the <i>BufferLength</i> parameter with the required length.
+     * @param {Integer} ProcessorIdleCycleTime The number of CPU clock cycles used by each idle thread. If this parameter is NULL, the function updates the <i>BufferLength</i> parameter with the required length.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, use <a href="https://docs.microsoft.com/windows/desktop/api/adshlp/nf-adshlp-adsgetlasterror">GetLastError</a>.
@@ -3775,7 +3774,7 @@ class WindowsProgramming {
     /**
      * The _lread function reads data from the specified file. This function is provided for compatibility with 16-bit versions of Windows. Win32-based applications should use the ReadFile function.
      * @param {Integer} hFile Identifies the specified file.
-     * @param {Pointer} lpBuffer Pointer to a buffer that contains the data read from the file.
+     * @param {Integer} lpBuffer Pointer to a buffer that contains the data read from the file.
      * @param {Integer} uBytes Specifies the number of bytes to be read from the file.
      * @returns {Integer} The return value indicates the number of bytes actually read from the file. If the number of bytes read is less than uBytes, the function has reached the end of file (EOF) before reading the specified number of bytes.
      * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-_lread
@@ -3788,7 +3787,7 @@ class WindowsProgramming {
     /**
      * Writes data to the specified file.
      * @param {Integer} hFile A handle to the file that receives the data. This handle is created by <a href="https://docs.microsoft.com/windows/win32/api/winbase/nf-winbase-_lcreat">_lcreat</a>.
-     * @param {Pointer} lpBuffer The buffer that contains the data to be added.
+     * @param {Integer} lpBuffer The buffer that contains the data to be added.
      * @param {Integer} uBytes The number of bytes to write to the file.
      * @returns {Integer} If the function succeeds, the return value is the number of bytes written to the file. Otherwise, the return value is HFILE_ERROR. To get extended error information, use the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
      * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-_lwrite
@@ -3807,7 +3806,7 @@ class WindowsProgramming {
     /**
      * 
      * @param {Integer} hFile 
-     * @param {Pointer} lpBuffer 
+     * @param {Integer} lpBuffer 
      * @param {Integer} lBytes 
      * @returns {Integer} 
      */
@@ -3819,7 +3818,7 @@ class WindowsProgramming {
     /**
      * 
      * @param {Integer} hFile 
-     * @param {Pointer} lpBuffer 
+     * @param {Integer} lpBuffer 
      * @param {Integer} lBytes 
      * @returns {Integer} 
      */
@@ -3964,7 +3963,7 @@ class WindowsProgramming {
      * > The winbase.h header defines GetFirmwareEnvironmentVariable as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PSTR} lpName The name of the firmware environment variable. The pointer must not be <b>NULL</b>.
      * @param {PSTR} lpGuid The GUID that represents the namespace of the firmware environment variable. The GUID must be  a string in the format  "{<i>xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx</i>}" where 'x' represents a hexadecimal value.
-     * @param {Pointer} pBuffer A pointer to a buffer that receives the value of the specified firmware environment variable.
+     * @param {Integer} pBuffer A pointer to a buffer that receives the value of the specified firmware environment variable.
      * @param {Integer} nSize The size of the <i>pBuffer</i> buffer, in bytes.
      * @returns {Integer} If the function succeeds, the return value is the number of bytes stored in the <i>pBuffer</i> buffer.
      * 
@@ -4013,7 +4012,7 @@ class WindowsProgramming {
      * > The winbase.h header defines GetFirmwareEnvironmentVariable as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PWSTR} lpName The name of the firmware environment variable. The pointer must not be <b>NULL</b>.
      * @param {PWSTR} lpGuid The GUID that represents the namespace of the firmware environment variable. The GUID must be  a string in the format  "{<i>xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx</i>}" where 'x' represents a hexadecimal value.
-     * @param {Pointer} pBuffer A pointer to a buffer that receives the value of the specified firmware environment variable.
+     * @param {Integer} pBuffer A pointer to a buffer that receives the value of the specified firmware environment variable.
      * @param {Integer} nSize The size of the <i>pBuffer</i> buffer, in bytes.
      * @returns {Integer} If the function succeeds, the return value is the number of bytes stored in the <i>pBuffer</i> buffer.
      * 
@@ -4060,7 +4059,7 @@ class WindowsProgramming {
      * > The winbase.h header defines GetFirmwareEnvironmentVariableEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PSTR} lpName The name of the firmware environment variable. The pointer must not be <b>NULL</b>.
      * @param {PSTR} lpGuid The GUID that represents the namespace of the firmware environment variable. The GUID must be  a string in the format  "{<i>xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx</i>}" where 'x' represents a hexadecimal value. The pointer must not be <b>NULL</b>.
-     * @param {Pointer} pBuffer A pointer to a buffer that receives the value of the specified firmware environment variable.
+     * @param {Integer} pBuffer A pointer to a buffer that receives the value of the specified firmware environment variable.
      * @param {Integer} nSize The size of the <i>pValue</i> buffer, in bytes.
      * @param {Pointer<Integer>} pdwAttribubutes Bitmask identifying UEFI variable attributes associated with the variable. See <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-setfirmwareenvironmentvariableexa">SetFirmwareEnvironmentVariableEx</a> for the bitmask definition.
      * @returns {Integer} If the function succeeds, the return value is the number of bytes stored in the <i>pValue</i> buffer.
@@ -4110,7 +4109,7 @@ class WindowsProgramming {
      * > The winbase.h header defines GetFirmwareEnvironmentVariableEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PWSTR} lpName The name of the firmware environment variable. The pointer must not be <b>NULL</b>.
      * @param {PWSTR} lpGuid The GUID that represents the namespace of the firmware environment variable. The GUID must be  a string in the format  "{<i>xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx</i>}" where 'x' represents a hexadecimal value. The pointer must not be <b>NULL</b>.
-     * @param {Pointer} pBuffer A pointer to a buffer that receives the value of the specified firmware environment variable.
+     * @param {Integer} pBuffer A pointer to a buffer that receives the value of the specified firmware environment variable.
      * @param {Integer} nSize The size of the <i>pValue</i> buffer, in bytes.
      * @param {Pointer<Integer>} pdwAttribubutes Bitmask identifying UEFI variable attributes associated with the variable. See <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-setfirmwareenvironmentvariableexa">SetFirmwareEnvironmentVariableEx</a> for the bitmask definition.
      * @returns {Integer} If the function succeeds, the return value is the number of bytes stored in the <i>pValue</i> buffer.
@@ -4159,7 +4158,7 @@ class WindowsProgramming {
      * > The winbase.h header defines SetFirmwareEnvironmentVariable as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PSTR} lpName The name of the firmware environment variable. The pointer must not be <b>NULL</b>.
      * @param {PSTR} lpGuid The GUID that represents the namespace of the firmware environment variable. The GUID must be a string in the format  "{<i>xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx</i>}". If the system does not support GUID-based namespaces, this parameter is ignored.
-     * @param {Pointer} pValue A pointer to the new value for the  firmware environment variable.
+     * @param {Integer} pValue A pointer to the new value for the  firmware environment variable.
      * @param {Integer} nSize The size of the <i>pBuffer</i> buffer, in bytes. If this parameter is zero, the firmware environment variable is deleted.
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
@@ -4205,7 +4204,7 @@ class WindowsProgramming {
      * > The winbase.h header defines SetFirmwareEnvironmentVariable as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PWSTR} lpName The name of the firmware environment variable. The pointer must not be <b>NULL</b>.
      * @param {PWSTR} lpGuid The GUID that represents the namespace of the firmware environment variable. The GUID must be a string in the format  "{<i>xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx</i>}". If the system does not support GUID-based namespaces, this parameter is ignored.
-     * @param {Pointer} pValue A pointer to the new value for the  firmware environment variable.
+     * @param {Integer} pValue A pointer to the new value for the  firmware environment variable.
      * @param {Integer} nSize The size of the <i>pBuffer</i> buffer, in bytes. If this parameter is zero, the firmware environment variable is deleted.
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
@@ -4252,7 +4251,7 @@ class WindowsProgramming {
      * > The winbase.h header defines SetFirmwareEnvironmentVariableEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PSTR} lpName The name of the firmware environment variable. The pointer must not be <b>NULL</b>.
      * @param {PSTR} lpGuid The GUID that represents the namespace of the firmware environment variable. The GUID must be a string in the format  "{<i>xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx</i>}". If the system does not support GUID-based namespaces, this parameter is ignored. The pointer must not be <b>NULL</b>.
-     * @param {Pointer} pValue A pointer to the new value for the  firmware environment variable.
+     * @param {Integer} pValue A pointer to the new value for the  firmware environment variable.
      * @param {Integer} nSize The size of the <i>pValue</i> buffer, in bytes. Unless the VARIABLE_ATTRIBUTE_APPEND_WRITE,
      * VARIABLE_ATTRIBUTE_AUTHENTICATED_WRITE_ACCESS, or
      * VARIABLE_ATTRIBUTE_TIME_BASED_AUTHENTICATED_WRITE_ACCESS variable attribute is set via <i>dwAttributes</i>,
@@ -4392,7 +4391,7 @@ class WindowsProgramming {
      * > The winbase.h header defines SetFirmwareEnvironmentVariableEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PWSTR} lpName The name of the firmware environment variable. The pointer must not be <b>NULL</b>.
      * @param {PWSTR} lpGuid The GUID that represents the namespace of the firmware environment variable. The GUID must be a string in the format  "{<i>xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx</i>}". If the system does not support GUID-based namespaces, this parameter is ignored. The pointer must not be <b>NULL</b>.
-     * @param {Pointer} pValue A pointer to the new value for the  firmware environment variable.
+     * @param {Integer} pValue A pointer to the new value for the  firmware environment variable.
      * @param {Integer} nSize The size of the <i>pValue</i> buffer, in bytes. Unless the VARIABLE_ATTRIBUTE_APPEND_WRITE,
      * VARIABLE_ATTRIBUTE_AUTHENTICATED_WRITE_ACCESS, or
      * VARIABLE_ATTRIBUTE_TIME_BASED_AUTHENTICATED_WRITE_ACCESS variable attribute is set via <i>dwAttributes</i>,
@@ -6211,7 +6210,7 @@ class WindowsProgramming {
      * > The winbase.h header defines GetPrivateProfileStruct as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PSTR} lpszSection The name of the section in the initialization file.
      * @param {PSTR} lpszKey The name of the key whose data is to be retrieved.
-     * @param {Pointer} lpStruct A pointer to the buffer that receives the data associated with the file, section, and key names.
+     * @param {Integer} lpStruct A pointer to the buffer that receives the data associated with the file, section, and key names.
      * @param {Integer} uSizeStruct The size of the buffer pointed to by the <i>lpStruct</i> parameter, in bytes.
      * @param {PSTR} szFile The name of the initialization file. If this parameter does not contain a full path to the file, the system searches for the file in the Windows directory.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
@@ -6279,7 +6278,7 @@ class WindowsProgramming {
      * > The winbase.h header defines GetPrivateProfileStruct as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PWSTR} lpszSection The name of the section in the initialization file.
      * @param {PWSTR} lpszKey The name of the key whose data is to be retrieved.
-     * @param {Pointer} lpStruct A pointer to the buffer that receives the data associated with the file, section, and key names.
+     * @param {Integer} lpStruct A pointer to the buffer that receives the data associated with the file, section, and key names.
      * @param {Integer} uSizeStruct The size of the buffer pointed to by the <i>lpStruct</i> parameter, in bytes.
      * @param {PWSTR} szFile The name of the initialization file. If this parameter does not contain a full path to the file, the system searches for the file in the Windows directory.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
@@ -6360,7 +6359,7 @@ class WindowsProgramming {
      * > The winbase.h header defines WritePrivateProfileStruct as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PSTR} lpszSection The name of the section to which the string will be copied. If the section does not exist, it is created. The name of the section is case independent, the string can be any combination of uppercase and lowercase letters.
      * @param {PSTR} lpszKey The name of the key to be associated with a string. If the key does not exist in the specified section, it is created. If this parameter is <b>NULL</b>, the entire section, including all keys and entries within the section, is deleted.
-     * @param {Pointer} lpStruct The data to be copied. If this parameter is <b>NULL</b>, the key is deleted.
+     * @param {Integer} lpStruct The data to be copied. If this parameter is <b>NULL</b>, the key is deleted.
      * @param {Integer} uSizeStruct The size of the buffer pointed to by the <i>lpStruct</i> parameter, in bytes.
      * @param {PSTR} szFile The  name of the initialization file. If this parameter is <b>NULL</b>, the information is copied into the Win.ini file.
      * 
@@ -6452,7 +6451,7 @@ class WindowsProgramming {
      * > The winbase.h header defines WritePrivateProfileStruct as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PWSTR} lpszSection The name of the section to which the struct data will be copied. If the section does not exist, it is created. The name of the section is case independent.
      * @param {PWSTR} lpszKey The name of the key to be associated with a struct. If the key does not exist in the specified section, it is created. If this parameter is <b>NULL</b>, the entire section, including all keys and entries within the section, is deleted.
-     * @param {Pointer} lpStruct The data to be copied. If this parameter is <b>NULL</b>, the key is deleted.
+     * @param {Integer} lpStruct The data to be copied. If this parameter is <b>NULL</b>, the key is deleted.
      * @param {Integer} uSizeStruct The size of the buffer pointed to by the <i>lpStruct</i> parameter, in bytes.
      * @param {PWSTR} szFile The  name of the initialization file. If this parameter is <b>NULL</b>, the information is copied into the Win.ini file.
      * 
@@ -6949,7 +6948,7 @@ class WindowsProgramming {
      * @remarks
      * This function has no associated import library. You must use the <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadlibrarya">LoadLibrary</a> and <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-getprocaddress">GetProcAddress</a> functions to dynamically link to Ntdll.dll.
      * @param {Pointer<Integer>} LocalTime A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/winnt/ns-winnt-large_integer-r1">LARGE_INTEGER</a> structure that specifies the local time.
-     * @param {Pointer<Integer>} _SystemTime 
+     * @param {Pointer<Integer>} _SystemTime A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/winnt/ns-winnt-large_integer-r1">LARGE_INTEGER</a> structure that receives the returned system time.
      * @returns {NTSTATUS} If the function succeeds, it returns STATUS_SUCCESS.  If it fails, it will return the appropriate status code.
      * @see https://learn.microsoft.com/windows/win32/api/winternl/nf-winternl-rtllocaltimetosystemtime
      */
@@ -7238,7 +7237,7 @@ class WindowsProgramming {
      * @remarks
      * It is recommended that you use <a href="https://docs.microsoft.com/windows/desktop/api/stringapiset/nf-stringapiset-widechartomultibyte">WideCharToMultiByte</a> instead of <b>RtlUnicodeToMultiByteSize</b>. When its <i>cbMultiByte</i> parameter is set to zero, the <b>WideCharToMultiByte</b> function returns the number of bytes required for the buffer.
      * @param {Pointer<Integer>} BytesInMultiByteString Returns the number of bytes for the ANSI equivalent of the Unicode string pointed to by <i>UnicodeString</i>. This number does not include the terminating <b>NULL</b> character.
-     * @param {Pointer} UnicodeString The Unicode source string for which the ANSI length is calculated.
+     * @param {Integer} UnicodeString The Unicode source string for which the ANSI length is calculated.
      * @param {Integer} BytesInUnicodeString The number of bytes in the string pointed to by
      *         <i>UnicodeString</i>.
      * @returns {NTSTATUS} <table>
@@ -7275,7 +7274,9 @@ class WindowsProgramming {
      * When converting strings to integers the preferred function to use is <a href="https://docs.microsoft.com/previous-versions/visualstudio/visual-studio-2010/w4z2wdyc(v=vs.100)">strtol, wcstol</a>.
      * 
      * There is no import library for this function. Use <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-getprocaddress">GetProcAddress</a> rather than linking to the function directly.
-     * @param {Pointer<Integer>} _String 
+     * @param {Pointer<Integer>} _String A pointer to the string to convert. The format of the string is as follows: 
+     * 
+     * [whitespace] [{+ | -}] [0 [{x | o | b}]] [digits]
      * @param {Integer} Base <b>ULONG</b> that contains the number base to use for the conversion, such as base 10. Only base 2, 8, 10, and 16 are supported.
      * @param {Pointer<Integer>} Value A pointer to a <b>ULONG</b> that receives the integer that resulted from the conversion.
      * @returns {NTSTATUS} If the function succeeds, the function returns <b>STATUS_SUCCESS</b>.
@@ -7309,8 +7310,8 @@ class WindowsProgramming {
     /**
      * This function is intended for infrastructure use only. (GetFeatureEnabledState)
      * @param {Integer} featureId Infrastructure use only.
-     * @param {Integer} changeTime Infrastructure use only.
-     * @returns {Integer} Infrastructure use only.
+     * @param {FEATURE_CHANGE_TIME} changeTime Infrastructure use only.
+     * @returns {FEATURE_ENABLED_STATE} Infrastructure use only.
      * @see https://learn.microsoft.com/windows/win32/api/featurestagingapi/nf-featurestagingapi-getfeatureenabledstate
      */
     static GetFeatureEnabledState(featureId, changeTime) {
@@ -7336,19 +7337,19 @@ class WindowsProgramming {
     /**
      * This function is intended for infrastructure use only. (RecordFeatureError)
      * @param {Integer} featureId Infrastructure use only.
-     * @param {Pointer<FEATURE_ERROR>} error Infrastructure use only.
+     * @param {Pointer<FEATURE_ERROR>} _error Infrastructure use only.
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/featurestagingapi/nf-featurestagingapi-recordfeatureerror
      */
-    static RecordFeatureError(featureId, error) {
-        DllCall("api-ms-win-core-featurestaging-l1-1-0.dll\RecordFeatureError", "uint", featureId, "ptr", error)
+    static RecordFeatureError(featureId, _error) {
+        DllCall("api-ms-win-core-featurestaging-l1-1-0.dll\RecordFeatureError", "uint", featureId, "ptr", _error)
     }
 
     /**
      * This function is intended for infrastructure use only. (SubscribeFeatureStateChangeNotification)
      * @param {Pointer<FEATURE_STATE_CHANGE_SUBSCRIPTION>} subscription Infrastructure use only.
      * @param {Pointer<PFEATURE_STATE_CHANGE_CALLBACK>} callback Infrastructure use only.
-     * @param {Pointer<Void>} _context 
+     * @param {Pointer<Void>} _context Infrastructure use only.
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/featurestagingapi/nf-featurestagingapi-subscribefeaturestatechangenotification
      */
@@ -7373,7 +7374,7 @@ class WindowsProgramming {
     /**
      * This function is intended for infrastructure use only. (GetFeatureVariant)
      * @param {Integer} featureId Infrastructure use only.
-     * @param {Integer} changeTime Infrastructure use only.
+     * @param {FEATURE_CHANGE_TIME} changeTime Infrastructure use only.
      * @param {Pointer<Integer>} payloadId Infrastructure use only.
      * @param {Pointer<BOOL>} hasNotification Infrastructure use only.
      * @returns {Integer} Infrastructure use only.
@@ -7401,7 +7402,7 @@ class WindowsProgramming {
 
     /**
      * Closes a device context of a display.
-     * @param {HDC} _hdc 
+     * @param {HDC} _hdc The device context handle to be closed.  The handle was created with <a href="https://docs.microsoft.com/windows/desktop/api/dciman/nf-dciman-dciopenprovider">DCIOpenProvider</a>.
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/dciman/nf-dciman-dcicloseprovider
      * @since windows5.0
@@ -7414,7 +7415,7 @@ class WindowsProgramming {
 
     /**
      * Creates a primary surface and obtains surface information.
-     * @param {HDC} _hdc 
+     * @param {HDC} _hdc The device context handle of the device for the primary surface to be created.
      * @param {Pointer<Pointer<DCISURFACEINFO>>} lplpSurface A pointer to a <b>DCISURFACEINFO</b> structure.
      * @returns {Integer} If the function succeeds, DCI_OK is returned.  Otherwise, it returns one of the DCI errors.
      * @see https://learn.microsoft.com/windows/win32/api/dciman/nf-dciman-dcicreateprimary
@@ -9049,9 +9050,9 @@ class WindowsProgramming {
      * @param {Pointer<UNICODE_STRING>} providerName 
      * @param {Pointer<UNICODE_STRING>} keyName 
      * @param {Pointer<UNICODE_STRING>} _valueName 
-     * @param {Pointer} valueAddress 
+     * @param {Integer} valueAddress 
      * @param {Pointer<Integer>} valueSize 
-     * @returns {Integer} 
+     * @returns {WLDP_SECURE_SETTING_VALUE_TYPE} 
      */
     static WldpQuerySecurityPolicy(providerName, keyName, _valueName, valueAddress, valueSize) {
         valueSizeMarshal := valueSize is VarRef ? "uint*" : "ptr"
@@ -9088,7 +9089,7 @@ class WindowsProgramming {
     /**
      * Retrieves a value that determines if the specified in-memory or on-disk .NET CRL dynamic code is trusted by Device Guard policy.
      * @param {HANDLE} fileHandle Handle to the on-disk dynamic code file to check. If *fileHandle* is non-**NULL**, *baseImage* should be **NULL**.
-     * @param {Pointer} baseImage Pointer to the in-memory PE file to check. If *baseImage* is non-**NULL**, *FileHandle* should be **NULL**.
+     * @param {Integer} baseImage Pointer to the in-memory PE file to check. If *baseImage* is non-**NULL**, *FileHandle* should be **NULL**.
      * @param {Integer} imageSize When *baseImage* is non-**NULL**, indicates the buffer size that *baseImage* points to.
      * @returns {HRESULT} This method returns **S\_OK** if successful or a failure code otherwise.
      * @see https://learn.microsoft.com/windows/win32/api/wldp/nf-wldp-wldpquerydynamiccodetrust
@@ -9102,7 +9103,7 @@ class WindowsProgramming {
 
     /**
      * Retrieves the current Windows secure mode. Windows can be in locked mode, unlocked normal mode, or trial mode.
-     * @returns {Integer} On success, returns a [**PWLDP\_WINDOWS\_LOCKDOWN\_MODE**](ne-wldp-wldp_windows_lockdown_mode.md) that indicates the secure mode for the current Windows 10 device.
+     * @returns {WLDP_WINDOWS_LOCKDOWN_MODE} On success, returns a [**PWLDP\_WINDOWS\_LOCKDOWN\_MODE**](ne-wldp-wldp_windows_lockdown_mode.md) that indicates the secure mode for the current Windows 10 device.
      * @see https://learn.microsoft.com/windows/win32/api/wldp/nf-wldp-wldpquerywindowslockdownmode
      */
     static WldpQueryWindowsLockdownMode() {
@@ -9123,7 +9124,7 @@ class WindowsProgramming {
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {WLDP_WINDOWS_LOCKDOWN_RESTRICTION} 
      */
     static WldpQueryWindowsLockdownRestriction() {
         result := DllCall("Wldp.dll\WldpQueryWindowsLockdownRestriction", "int*", &LockdownRestriction := 0, "HRESULT")
@@ -9132,7 +9133,7 @@ class WindowsProgramming {
 
     /**
      * 
-     * @param {Integer} LockdownRestriction 
+     * @param {WLDP_WINDOWS_LOCKDOWN_RESTRICTION} LockdownRestriction 
      * @returns {HRESULT} 
      */
     static WldpSetWindowsLockdownRestriction(LockdownRestriction) {
@@ -9155,7 +9156,7 @@ class WindowsProgramming {
 
     /**
      * 
-     * @param {Integer} Setting 
+     * @param {WLDP_POLICY_SETTING} Setting 
      * @returns {BOOL} 
      */
     static WldpQueryPolicySettingEnabled(Setting) {
@@ -9222,13 +9223,13 @@ class WindowsProgramming {
      * - Simplifies the calling pattern. 
      * - Supports fine grained execution policies like for example interactive mode in cmd or powershell
      * @param {Pointer<Guid>} host A GUID specifying the calling program. For the list of pre-defined GUIDs that can be used for this parameter, see [WLDP Host GUIDs](/windows/win32/devnotes/wldp-host-guids). For hosts for which a specific value is not defined, use GUID WLDP_HOST_GUID_OTHER.
-     * @param {Integer} options A value from the [WLDP_EXECUTION_EVALUATION_OPTIONS](ne-wldp-wldp_execution_evaluation_options.md) specifying options for the execution authorization request.
+     * @param {WLDP_EXECUTION_EVALUATION_OPTIONS} options A value from the [WLDP_EXECUTION_EVALUATION_OPTIONS](ne-wldp-wldp_execution_evaluation_options.md) specifying options for the execution authorization request.
      * @param {HANDLE} fileHandle The handle to the file being validated for execution approval. 
      * 
      * > [!IMPORTANT]
      * > Callers should only pass open file handles to **WldpCanExecuteFile** and should not cache the security authorization on a specific file. It should be assumed that authorization to run a particular file is revoked when its file handle is closed. These measures are necessary to prevent [TOC/TOU vulnerabilities](https://en.wikipedia.org/wiki/Time-of-check_to_time-of-use) that could subvert script enforcement policy.
      * @param {PWSTR} auditInfo A string that should include relevant contextual information for the caller to use in debugging. If an authorization request fails this string will be recorded in the event log, under “Applocker/MSI and Scripts/Operational”. Callers should note that, while the *AuditInfo* is not size limited, the string should be less than 4K bytes in size because it will be placed in the event log.
-     * @returns {Integer} Receives a pointer to a value from the [WLDP_EXECUTION_POLICY](ne-wldp-wldp_execution_policy.md) enumeration, indicating the execution policy result of the query.
+     * @returns {WLDP_EXECUTION_POLICY} Receives a pointer to a value from the [WLDP_EXECUTION_POLICY](ne-wldp-wldp_execution_policy.md) enumeration, indicating the execution policy result of the query.
      * @see https://learn.microsoft.com/windows/win32/api/wldp/nf-wldp-wldpcanexecutefile
      */
     static WldpCanExecuteFile(host, options, fileHandle, auditInfo) {
@@ -9250,11 +9251,14 @@ class WindowsProgramming {
      * - Simplifies the calling pattern. 
      * - Supports fine grained execution policies like for example interactive mode in cmd or powershell
      * @param {Pointer<Guid>} host A GUID specifying the calling program. For the list of pre-defined GUIDs that can be used for this parameter, see [WLDP Host GUIDs](/windows/win32/devnotes/wldp-host-guids). For hosts for which a specific value is not defined, use GUID WLDP_HOST_GUID_OTHER.
-     * @param {Integer} options A value from the [WLDP_EXECUTION_EVALUATION_OPTIONS](ne-wldp-wldp_execution_evaluation_options.md) specifying options for the execution authorization request.
-     * @param {Pointer<Integer>} _buffer 
+     * @param {WLDP_EXECUTION_EVALUATION_OPTIONS} options A value from the [WLDP_EXECUTION_EVALUATION_OPTIONS](ne-wldp-wldp_execution_evaluation_options.md) specifying options for the execution authorization request.
+     * @param {Pointer<Integer>} _buffer The buffer containing script code to be validated. 
+     * 
+     * > [!IMPORTANT]
+     * > Buffers passed to **WldpCanExecuteBuffer** should be read-only and the caller should not cache the security authorization on a specific buffer. These measures are necessary to prevent [TOC/TOU vulnerabilities](https://en.wikipedia.org/wiki/Time-of-check_to_time-of-use) that could subvert script enforcement policy.
      * @param {Integer} bufferSize The size of *buffer*, in bytes.
      * @param {PWSTR} auditInfo A string that should include relevant contextual information for the caller to use in debugging. If an authorization request fails this string will be recorded in the event log, under “Applocker/MSI and Scripts/Operational”. Callers should note that, while the *AuditInfo* is not size limited, the string should be less than 4K bytes in size because it will be placed in the event log.
-     * @returns {Integer} Receives a pointer to a value from the [WLDP_EXECUTION_POLICY](ne-wldp-wldp_execution_policy.md) enumeration, indicating the execution policy result of the query.
+     * @returns {WLDP_EXECUTION_POLICY} Receives a pointer to a value from the [WLDP_EXECUTION_POLICY](ne-wldp-wldp_execution_policy.md) enumeration, indicating the execution policy result of the query.
      * @see https://learn.microsoft.com/windows/win32/api/wldp/nf-wldp-wldpcanexecutebuffer
      */
     static WldpCanExecuteBuffer(host, options, _buffer, bufferSize, auditInfo) {
@@ -9277,10 +9281,10 @@ class WindowsProgramming {
      * - Simplifies the calling pattern. 
      * - Supports fine grained execution policies like for example interactive mode in cmd or powershell
      * @param {Pointer<Guid>} host A GUID specifying the calling program. For the list of pre-defined GUIDs that can be used for this parameter, see [WLDP Host GUIDs](/windows/win32/devnotes/wldp-host-guids). For hosts for which a specific value is not defined, use GUID WLDP_HOST_GUID_OTHER.
-     * @param {Integer} options A value from the [WLDP_EXECUTION_EVALUATION_OPTIONS](ne-wldp-wldp_execution_evaluation_options.md) specifying options for the execution authorization request.
+     * @param {WLDP_EXECUTION_EVALUATION_OPTIONS} options A value from the [WLDP_EXECUTION_EVALUATION_OPTIONS](ne-wldp-wldp_execution_evaluation_options.md) specifying options for the execution authorization request.
      * @param {IStream} stream 
      * @param {PWSTR} auditInfo A string that should include relevant contextual information for the caller to use in debugging. If an authorization request fails this string will be recorded in the event log, under “Applocker/MSI and Scripts/Operational”. Callers should note that, while the *AuditInfo* is not size limited, the string should be less than 4K bytes in size because it will be placed in the event log.
-     * @returns {Integer} Receives a pointer to a value from the [WLDP_EXECUTION_POLICY](ne-wldp-wldp_execution_policy.md) enumeration, indicating the execution policy result of the query.
+     * @returns {WLDP_EXECUTION_POLICY} Receives a pointer to a value from the [WLDP_EXECUTION_POLICY](ne-wldp-wldp_execution_policy.md) enumeration, indicating the execution policy result of the query.
      * @see https://learn.microsoft.com/windows/win32/api/wldp/nf-wldp-wldpcanexecutestream
      */
     static WldpCanExecuteStream(host, options, stream, auditInfo) {
@@ -9293,11 +9297,11 @@ class WindowsProgramming {
     /**
      * 
      * @param {Pointer<Guid>} host 
-     * @param {Integer} options 
+     * @param {WLDP_EXECUTION_EVALUATION_OPTIONS} options 
      * @param {HANDLE} contentFileHandle 
      * @param {HANDLE} signatureFileHandle 
      * @param {PWSTR} auditInfo 
-     * @returns {Integer} 
+     * @returns {WLDP_EXECUTION_POLICY} 
      */
     static WldpCanExecuteFileFromDetachedSignature(host, options, contentFileHandle, signatureFileHandle, auditInfo) {
         contentFileHandle := contentFileHandle is Win32Handle ? NumGet(contentFileHandle, "ptr") : contentFileHandle

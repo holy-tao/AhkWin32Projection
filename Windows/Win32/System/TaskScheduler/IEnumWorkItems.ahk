@@ -1,16 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IEnumWorkItems.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
  * Provides the methods for enumerating the tasks in the Scheduled Tasks folder.
  * @see https://learn.microsoft.com/windows/win32/api/mstask/nn-mstask-ienumworkitems
  * @namespace Windows.Win32.System.TaskScheduler
- * @version v4.0.30319
  */
-class IEnumWorkItems extends IUnknown{
+class IEnumWorkItems extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

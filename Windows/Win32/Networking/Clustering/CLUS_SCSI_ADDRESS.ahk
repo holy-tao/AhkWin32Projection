@@ -14,10 +14,8 @@
  *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/clusctl-resource-type-storage-get-available-disks">CLUSCTL_RESOURCE_TYPE_STORAGE_GET_AVAILABLE_DISKS</a>.
  * @see https://learn.microsoft.com/windows/win32/api/clusapi/ns-clusapi-clus_scsi_address
  * @namespace Windows.Win32.Networking.Clustering
- * @version v4.0.30319
  */
-class CLUS_SCSI_ADDRESS extends Win32Struct
-{
+class CLUS_SCSI_ADDRESS extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 4

@@ -11,9 +11,8 @@
  * The TSF manager obtains the help menu text by calling the text service's <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nf-msctf-itffunction-getdisplayname">ITfFunction::GetDisplayName</a>.
  * @see https://learn.microsoft.com/windows/win32/api/ctffunc/nn-ctffunc-itffnshowhelp
  * @namespace Windows.Win32.UI.TextServices
- * @version v4.0.30319
  */
-class ITfFnShowHelp extends ITfFunction{
+class ITfFnShowHelp extends ITfFunction {
 
     static sizeof => A_PtrSize
     /**

@@ -6,10 +6,8 @@
  * Provides information about a published application from an application publisher to Add/Remove Programs in Control Panel.
  * @see https://learn.microsoft.com/windows/win32/api/shappmgr/ns-shappmgr-pubappinfo
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class PUBAPPINFO extends Win32Struct
-{
+class PUBAPPINFO extends Win32Struct {
     static sizeof => 80
 
     static packingSize => 8
@@ -53,7 +51,7 @@ class PUBAPPINFO extends Win32Struct
      * The time when an application manager schedules the application installation.  <b>Add/Remove Programs</b> does not allow the user to schedule an installation time later than the value in this member. This member is ignored if it describes a time prior to the current time.
      * @type {SYSTEMTIME}
      */
-    stAssigned{
+    stAssigned {
         get {
             if(!this.HasProp("__stAssigned"))
                 this.__stAssigned := SYSTEMTIME(16, this)
@@ -65,7 +63,7 @@ class PUBAPPINFO extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-systemtime">SYSTEMTIME</a></b>
      * @type {SYSTEMTIME}
      */
-    stPublished{
+    stPublished {
         get {
             if(!this.HasProp("__stPublished"))
                 this.__stPublished := SYSTEMTIME(32, this)
@@ -79,7 +77,7 @@ class PUBAPPINFO extends Win32Struct
      * The installation time that the user sets by clicking <b>Add Later</b>. <b>Add/Remove Programs</b> calls the <a href="https://docs.microsoft.com/windows/desktop/api/shappmgr/nf-shappmgr-ipublishedapp-install">IPublishedApp::Install</a> method with the <i>pInstallTime</i> parameter pointing to a <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-systemtime">SYSTEMTIME</a> structure that contains the time the user entered. The application publisher maintains this value for installation scheduling. <a href="https://docs.microsoft.com/windows/desktop/api/shappmgr/nf-shappmgr-ipublishedapp-getpublishedappinfo">IPublishedApp::GetPublishedAppInfo</a> returns the scheduled installation time in this member if the scheduled time has not been canceled using <a href="https://docs.microsoft.com/windows/desktop/api/shappmgr/nf-shappmgr-ipublishedapp-unschedule">IPublishedApp::Unschedule</a>.
      * @type {SYSTEMTIME}
      */
-    stScheduled{
+    stScheduled {
         get {
             if(!this.HasProp("__stScheduled"))
                 this.__stScheduled := SYSTEMTIME(48, this)
@@ -93,7 +91,7 @@ class PUBAPPINFO extends Win32Struct
      * The time after which you cannot install the published application using <b>Add/Remove Programs</b>.
      * @type {SYSTEMTIME}
      */
-    stExpire{
+    stExpire {
         get {
             if(!this.HasProp("__stExpire"))
                 this.__stExpire := SYSTEMTIME(64, this)

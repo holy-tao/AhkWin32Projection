@@ -1,15 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\USB_HUB_DESCRIPTOR.ahk
+#Include .\USB_HUB_NODE.ahk
 #Include .\USB_HUB_INFORMATION.ahk
+#Include .\USB_HUB_DESCRIPTOR.ahk
 #Include .\USB_MI_PARENT_INFORMATION.ahk
 
 /**
  * @namespace Windows.Win32.Devices.Usb
- * @version v4.0.30319
  */
-class USB_NODE_INFORMATION extends Win32Struct
-{
+class USB_NODE_INFORMATION extends Win32Struct {
     static sizeof => 80
 
     static packingSize => 4
@@ -21,29 +20,28 @@ class USB_NODE_INFORMATION extends Win32Struct
         /**
          * @type {USB_HUB_INFORMATION}
          */
-        HubInformation{
+        HubInformation {
             get {
                 if(!this.HasProp("__HubInformation"))
                     this.__HubInformation := USB_HUB_INFORMATION(0, this)
                 return this.__HubInformation
             }
         }
-    
+
         /**
          * @type {USB_MI_PARENT_INFORMATION}
          */
-        MiParentInformation{
+        MiParentInformation {
             get {
                 if(!this.HasProp("__MiParentInformation"))
                     this.__MiParentInformation := USB_MI_PARENT_INFORMATION(0, this)
                 return this.__MiParentInformation
             }
         }
-    
     }
 
     /**
-     * @type {Integer}
+     * @type {USB_HUB_NODE}
      */
     NodeType {
         get => NumGet(this, 0, "int")
@@ -53,10 +51,10 @@ class USB_NODE_INFORMATION extends Win32Struct
     /**
      * @type {_u_e__Union}
      */
-    u{
+    u {
         get {
             if(!this.HasProp("__u"))
-                this.__u := %this.__Class%._u_e__Union(4, this)
+                this.__u := USB_NODE_INFORMATION._u_e__Union(4, this)
             return this.__u
         }
     }

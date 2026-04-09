@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class SECPKG_EVENT_ROLE_CHANGE extends Win32Struct
-{
+class SECPKG_EVENT_ROLE_CHANGE extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4

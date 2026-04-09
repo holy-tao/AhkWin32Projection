@@ -8,9 +8,8 @@
  *       identify the type of DXGI adapter.
  * @see https://learn.microsoft.com/windows/win32/api/dxgi/ne-dxgi-dxgi_adapter_flag
  * @namespace Windows.Win32.Graphics.Dxgi
- * @version v4.0.30319
  */
-class DXGI_ADAPTER_FLAG extends Win32BitflagEnum{
+class DXGI_ADAPTER_FLAG extends Win32BitflagEnum {
 
     /**
      * Specifies no flags.

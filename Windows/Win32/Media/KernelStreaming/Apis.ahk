@@ -1,12 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\HANDLE.ahk
 #Include ..\..\Foundation\DEVPROPKEY.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
- * @version v4.0.30319
  */
 class KernelStreaming {
 
@@ -3411,9 +3410,9 @@ class KernelStreaming {
      * 
      * @param {HANDLE} _Handle 
      * @param {Integer} IoControl 
-     * @param {Pointer} InBuffer 
+     * @param {Integer} InBuffer 
      * @param {Integer} InLength 
-     * @param {Pointer} OutBuffer 
+     * @param {Integer} OutBuffer 
      * @param {Integer} OutLength 
      * @param {Pointer<Integer>} BytesReturned 
      * @returns {HRESULT} 

@@ -7,10 +7,8 @@
  * When using this structure, all members are output values. The <b>cbStruct</b> member is both an input value and an output value.
  * @see https://learn.microsoft.com/windows/win32/api/ntquery/ns-ntquery-ci_state
  * @namespace Windows.Win32.Storage.IndexServer
- * @version v4.0.30319
  */
-class CI_STATE extends Win32Struct
-{
+class CI_STATE extends Win32Struct {
     static sizeof => 60
 
     static packingSize => 4

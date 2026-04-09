@@ -5,9 +5,8 @@
  * Specifies the type of a state object. Use with D3D12_STATE_OBJECT_DESC.
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/ne-d3d12-d3d12_state_object_type
  * @namespace Windows.Win32.Graphics.Direct3D12
- * @version v4.0.30319
  */
-class D3D12_STATE_OBJECT_TYPE extends Win32Enum{
+class D3D12_STATE_OBJECT_TYPE extends Win32Enum {
 
     /**
      * Collection state object.

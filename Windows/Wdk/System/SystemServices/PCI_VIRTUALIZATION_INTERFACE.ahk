@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class PCI_VIRTUALIZATION_INTERFACE extends Win32Struct
-{
+class PCI_VIRTUALIZATION_INTERFACE extends Win32Struct {
     static sizeof => 80
 
     static packingSize => 8

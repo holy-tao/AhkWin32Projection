@@ -7,9 +7,8 @@
  * An IInkPresenterDesktop object represents an InkPresenter that can be configured and inserted into the DirectComposition visual tree of the Classic Windows app.
  * @see https://learn.microsoft.com/windows/win32/api/inkpresenterdesktop/nn-inkpresenterdesktop-iinkpresenterdesktop
  * @namespace Windows.Win32.UI.Input.Ink
- * @version v4.0.30319
  */
-class IInkPresenterDesktop extends IUnknown{
+class IInkPresenterDesktop extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

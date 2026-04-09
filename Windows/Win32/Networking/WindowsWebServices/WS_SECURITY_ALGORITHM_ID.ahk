@@ -5,9 +5,8 @@
  * Defines the security algorithms to be used with WS-Security. These values are relevant to message security bindings and mixed-mode security bindings.
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ne-webservices-ws_security_algorithm_id
  * @namespace Windows.Win32.Networking.WindowsWebServices
- * @version v4.0.30319
  */
-class WS_SECURITY_ALGORITHM_ID extends Win32Enum{
+class WS_SECURITY_ALGORITHM_ID extends Win32Enum {
 
     /**
      * Default security algorithm for the particular algorithm type. See 

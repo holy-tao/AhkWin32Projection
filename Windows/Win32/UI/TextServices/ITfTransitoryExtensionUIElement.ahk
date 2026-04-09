@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ITfDocumentMgr.ahk
 #Include .\ITfUIElement.ahk
+#Include .\ITfDocumentMgr.ahk
 
 /**
  * The ITfTransitoryExtensionUIElement interface is implemented by TSF manager which provides the UI of transitory extension.
  * @see https://learn.microsoft.com/windows/win32/api/msctf/nn-msctf-itftransitoryextensionuielement
  * @namespace Windows.Win32.UI.TextServices
- * @version v4.0.30319
  */
-class ITfTransitoryExtensionUIElement extends ITfUIElement{
+class ITfTransitoryExtensionUIElement extends ITfUIElement {
 
     static sizeof => A_PtrSize
     /**

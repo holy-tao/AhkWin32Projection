@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.FunctionDiscovery
- * @version v4.0.30319
  */
-class FunctionDiscovery extends Win32Struct
-{
+class FunctionDiscovery extends Win32Struct {
     static sizeof => 0
 
     static packingSize => 1

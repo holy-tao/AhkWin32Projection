@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.SystemServices
- * @version v4.0.30319
  */
-class FILE_STAT_LX_INFORMATION extends Win32Struct
-{
+class FILE_STAT_LX_INFORMATION extends Win32Struct {
     static sizeof => 96
 
     static packingSize => 8

@@ -3,18 +3,16 @@
 
 /**
  * @namespace Windows.Win32.Devices.Dvd
- * @version v4.0.30319
  */
-class DVD_LIST_OF_RECOGNIZED_FORMAT_LAYERS extends Win32Struct
-{
+class DVD_LIST_OF_RECOGNIZED_FORMAT_LAYERS extends Win32Struct {
     static sizeof => 2
 
     static packingSize => 1
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    TypeCodeOfFormatLayer{
+    TypeCodeOfFormatLayer {
         get {
             if(!this.HasProp("__TypeCodeOfFormatLayerProxyArray"))
                 this.__TypeCodeOfFormatLayerProxyArray := Win32FixedArray(this.ptr + 0, 2, Primitive, "char")

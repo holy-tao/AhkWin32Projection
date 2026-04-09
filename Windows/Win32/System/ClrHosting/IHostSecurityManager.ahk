@@ -1,15 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Com\IUnknown.ahk
 #Include ..\..\Foundation\HANDLE.ahk
 #Include .\IHostSecurityContext.ahk
-#Include ..\Com\IUnknown.ahk
 
 /**
  * @namespace Windows.Win32.System.ClrHosting
- * @version v4.0.30319
  */
-class IHostSecurityManager extends IUnknown{
+class IHostSecurityManager extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -135,7 +134,7 @@ class IHostSecurityManager extends IUnknown{
 
     /**
      * 
-     * @param {Integer} _eContextType 
+     * @param {EContextType} _eContextType 
      * @returns {IHostSecurityContext} 
      */
     GetSecurityContext(_eContextType) {
@@ -145,7 +144,7 @@ class IHostSecurityManager extends IUnknown{
 
     /**
      * 
-     * @param {Integer} _eContextType 
+     * @param {EContextType} _eContextType 
      * @param {IHostSecurityContext} pSecurityContext 
      * @returns {HRESULT} 
      */

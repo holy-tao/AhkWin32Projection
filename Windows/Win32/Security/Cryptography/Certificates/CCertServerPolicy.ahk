@@ -11,10 +11,8 @@
  * the <a href="https://docs.microsoft.com/windows/desktop/api/certif/nf-certif-icertserverpolicy-enumerateattributesclose">EnumerateAttributesClose</a> method to free resources used by the enumeration calls.
  * @see https://learn.microsoft.com/windows/win32/api/certif/nf-certif-icertserverpolicy-enumerateattributes
  * @namespace Windows.Win32.Security.Cryptography.Certificates
- * @version v4.0.30319
  */
-class CCertServerPolicy extends Win32Struct
-{
+class CCertServerPolicy extends Win32Struct {
     static sizeof => 0
 
     static packingSize => 1

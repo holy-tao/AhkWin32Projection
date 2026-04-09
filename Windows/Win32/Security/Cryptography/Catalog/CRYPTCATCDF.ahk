@@ -8,10 +8,8 @@
  * A parser can update <i>dwCurFilePos</i> and <i>dwLastMemberOffset</i> as it reads the CDF. A user-defined callback function can use this information for recoverable parse errors in the CDF.
  * @see https://learn.microsoft.com/windows/win32/api/mscat/ns-mscat-cryptcatcdf
  * @namespace Windows.Win32.Security.Cryptography.Catalog
- * @version v4.0.30319
  */
-class CRYPTCATCDF extends Win32Struct
-{
+class CRYPTCATCDF extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -29,7 +27,7 @@ class CRYPTCATCDF extends Win32Struct
      * A handle to the catalog definition file (.cdf).
      * @type {HANDLE}
      */
-    hFile{
+    hFile {
         get {
             if(!this.HasProp("__hFile"))
                 this.__hFile := HANDLE(8, this)
@@ -77,7 +75,7 @@ class CRYPTCATCDF extends Win32Struct
      * A handle to the catalog file (.cat).
      * @type {HANDLE}
      */
-    hCATStore{
+    hCATStore {
         get {
             if(!this.HasProp("__hCATStore"))
                 this.__hCATStore := HANDLE(40, this)

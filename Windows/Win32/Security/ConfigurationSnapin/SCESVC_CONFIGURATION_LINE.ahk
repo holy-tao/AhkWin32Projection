@@ -5,10 +5,8 @@
  * The SCESVC_CONFIGURATION_LINE structure contains information about a line of configuration data. It is used by the SCESVC_CONFIGURATION_INFO structure.
  * @see https://learn.microsoft.com/windows/win32/api/scesvc/ns-scesvc-scesvc_configuration_line
  * @namespace Windows.Win32.Security.ConfigurationSnapin
- * @version v4.0.30319
  */
-class SCESVC_CONFIGURATION_LINE extends Win32Struct
-{
+class SCESVC_CONFIGURATION_LINE extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

@@ -9,9 +9,8 @@
  * For more information on the Windows 11 APIs for the Audio Processing Objects (APOs) that can ship with audio drivers, see [Windows 11 APIs for Audio Processing Objects](/windows-hardware/drivers/audio/windows-11-apis-for-audio-processing-objects).
  * @see https://learn.microsoft.com/windows/win32/api/audioengineextensionapo/nn-audioengineextensionapo-iaudiosystemeffects3
  * @namespace Windows.Win32.Media.Audio.Apo
- * @version v4.0.30319
  */
-class IAudioSystemEffects3 extends IAudioSystemEffects2{
+class IAudioSystemEffects3 extends IAudioSystemEffects2 {
 
     static sizeof => A_PtrSize
     /**
@@ -57,7 +56,7 @@ class IAudioSystemEffects3 extends IAudioSystemEffects2{
      * @remarks
      * For more information on the Windows 11 APIs for the Audio Processing Objects (APOs) that can ship with audio drivers, see [Windows 11 APIs for Audio Processing Objects](/windows-hardware/drivers/audio/windows-11-apis-for-audio-processing-objects).
      * @param {Guid} effectId The GUID identifier for an audio effect. Audio effect GUIDs are defined in [ksmedia.h](/windows-hardware/drivers/audio/ksmedia-h).
-     * @param {Integer} state A value from the [AUDIO_SYSTEMEFFECT_STATE](ne-audioengineextensionapo-audio_systemeffect_state.md) enumerating specifying the state to set.
+     * @param {AUDIO_SYSTEMEFFECT_STATE} state A value from the [AUDIO_SYSTEMEFFECT_STATE](ne-audioengineextensionapo-audio_systemeffect_state.md) enumerating specifying the state to set.
      * @returns {HRESULT} An HRESULT.
      * @see https://learn.microsoft.com/windows/win32/api/audioengineextensionapo/nf-audioengineextensionapo-iaudiosystemeffects3-setaudiosystemeffectstate
      */

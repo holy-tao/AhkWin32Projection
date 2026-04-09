@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem
- * @version v4.0.30319
  */
-class RTL_SEGMENT_HEAP_VA_CALLBACKS extends Win32Struct
-{
+class RTL_SEGMENT_HEAP_VA_CALLBACKS extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -15,7 +13,7 @@ class RTL_SEGMENT_HEAP_VA_CALLBACKS extends Win32Struct
     /**
      * @type {HANDLE}
      */
-    CallbackContext{
+    CallbackContext {
         get {
             if(!this.HasProp("__CallbackContext"))
                 this.__CallbackContext := HANDLE(0, this)

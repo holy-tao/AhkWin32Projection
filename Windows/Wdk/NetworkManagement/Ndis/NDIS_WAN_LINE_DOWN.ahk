@@ -3,18 +3,16 @@
 
 /**
  * @namespace Windows.Wdk.NetworkManagement.Ndis
- * @version v4.0.30319
  */
-class NDIS_WAN_LINE_DOWN extends Win32Struct
-{
+class NDIS_WAN_LINE_DOWN extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 1
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    RemoteAddress{
+    RemoteAddress {
         get {
             if(!this.HasProp("__RemoteAddressProxyArray"))
                 this.__RemoteAddressProxyArray := Win32FixedArray(this.ptr + 0, 6, Primitive, "char")
@@ -23,9 +21,9 @@ class NDIS_WAN_LINE_DOWN extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    LocalAddress{
+    LocalAddress {
         get {
             if(!this.HasProp("__LocalAddressProxyArray"))
                 this.__LocalAddressProxyArray := Win32FixedArray(this.ptr + 6, 6, Primitive, "char")

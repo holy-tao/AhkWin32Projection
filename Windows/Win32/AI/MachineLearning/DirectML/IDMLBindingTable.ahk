@@ -7,9 +7,8 @@
  * Wraps a range of an application-managed descriptor heap, and is used by DirectML to create bindings for resources. To create this object, call IDMLDevice::CreateBindingTable.
  * @see https://learn.microsoft.com/windows/win32/api/directml/nn-directml-idmlbindingtable
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
- * @version v4.0.30319
  */
-class IDMLBindingTable extends IDMLDeviceChild{
+class IDMLBindingTable extends IDMLDeviceChild {
 
     static sizeof => A_PtrSize
     /**

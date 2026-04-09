@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\MPEG1WAVEFORMAT.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\MPEG1WAVEFORMAT.ahk
 
 /**
  * The IMpegAudioDecoder interface is exposed on the MPEG-1 Audio Decoder filter and it enables applications to control decoding parameters.
  * @see https://learn.microsoft.com/windows/win32/api/mpegtype/nn-mpegtype-impegaudiodecoder
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IMpegAudioDecoder extends IUnknown{
+class IMpegAudioDecoder extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -72,6 +71,7 @@ class IMpegAudioDecoder extends IUnknown{
     }
 
     /**
+     * @type {Integer} 
      */
     DualMode {
         get => this.get_DualMode()

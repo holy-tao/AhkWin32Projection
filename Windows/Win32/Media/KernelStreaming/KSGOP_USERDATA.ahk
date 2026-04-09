@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
- * @version v4.0.30319
  */
-class KSGOP_USERDATA extends Win32Struct
-{
+class KSGOP_USERDATA extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4
@@ -39,7 +37,7 @@ class KSGOP_USERDATA extends Win32Struct
      * @type {String}
      */
     l21Data {
-        get => StrGet(this.ptr + 10, 2, "UTF-16")
-        set => StrPut(value, this.ptr + 10, 2, "UTF-16")
+        get => StrGet(this.ptr + 10, 2, "UTF-8")
+        set => StrPut(value, this.ptr + 10, 2, "UTF-8")
     }
 }

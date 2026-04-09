@@ -21,9 +21,8 @@
  * For more information, see <a href="https://docs.microsoft.com/windows/desktop/CoreAudio/handling-audio-ducking-events-from-communication-devices">Implementation Considerations for Ducking Notifications</a>.
  * @see https://learn.microsoft.com/windows/win32/api/audiopolicy/nn-audiopolicy-iaudiovolumeducknotification
  * @namespace Windows.Win32.Media.Audio
- * @version v4.0.30319
  */
-class IAudioVolumeDuckNotification extends IUnknown{
+class IAudioVolumeDuckNotification extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

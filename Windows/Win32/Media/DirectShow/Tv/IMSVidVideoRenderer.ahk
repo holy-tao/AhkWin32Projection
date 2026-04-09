@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\IMSVidOutputDevice.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include ..\..\..\..\..\Guid.ahk
 #Include ..\IVMRImageCompositor.ahk
 #Include ..\..\..\System\Ole\IPictureDisp.ahk
 #Include ..\IVMRMixerBitmap.ahk
 #Include .\IMSVidRect.ahk
-#Include .\IMSVidOutputDevice.ahk
 
 /**
  * The IMSVidVideoRenderer interface represents a video renderer device. The MSVidVideoRenderer object exposes this interface.This interface provides access to the Video Mixing Renderer (VMR) filter.
@@ -14,9 +15,8 @@
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IMSVidVideoRenderer)</c>.
  * @see https://learn.microsoft.com/windows/win32/api/segment/nn-segment-imsvidvideorenderer
  * @namespace Windows.Win32.Media.DirectShow.Tv
- * @version v4.0.30319
  */
-class IMSVidVideoRenderer extends IMSVidOutputDevice{
+class IMSVidVideoRenderer extends IMSVidOutputDevice {
 
     static sizeof => A_PtrSize
     /**
@@ -100,7 +100,7 @@ class IMSVidVideoRenderer extends IMSVidOutputDevice{
     }
 
     /**
-     * @type {Integer} 
+     * @type {SourceSizeList} 
      */
     SourceSize {
         get => this.get_SourceSize()
@@ -365,7 +365,7 @@ class IMSVidVideoRenderer extends IMSVidOutputDevice{
 
     /**
      * The get_SourceSize method retrieves the type of clipping to apply to the video rectangle, if any.
-     * @returns {Integer} Receives a member of the <a href="https://docs.microsoft.com/windows/desktop/api/segment/ne-segment-sourcesizelist">SourceSizeList</a> enumeration.
+     * @returns {SourceSizeList} Receives a member of the <a href="https://docs.microsoft.com/windows/desktop/api/segment/ne-segment-sourcesizelist">SourceSizeList</a> enumeration.
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidvideorenderer-get_sourcesize
      */
     get_SourceSize() {
@@ -375,7 +375,7 @@ class IMSVidVideoRenderer extends IMSVidOutputDevice{
 
     /**
      * The put_SourceSize method specifies the type of clipping to apply to the video rectangle, if any.
-     * @param {Integer} NewSize Specifies a member of the <a href="https://docs.microsoft.com/windows/desktop/api/segment/ne-segment-sourcesizelist">SourceSizeList</a> enumeration.
+     * @param {SourceSizeList} NewSize Specifies a member of the <a href="https://docs.microsoft.com/windows/desktop/api/segment/ne-segment-sourcesizelist">SourceSizeList</a> enumeration.
      * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an error code.
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidvideorenderer-put_sourcesize
      */

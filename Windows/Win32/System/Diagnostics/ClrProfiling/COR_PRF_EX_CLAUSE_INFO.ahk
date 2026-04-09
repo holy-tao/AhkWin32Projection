@@ -1,18 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\COR_PRF_CLAUSE_TYPE.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.ClrProfiling
- * @version v4.0.30319
  */
-class COR_PRF_EX_CLAUSE_INFO extends Win32Struct
-{
+class COR_PRF_EX_CLAUSE_INFO extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
 
     /**
-     * @type {Integer}
+     * @type {COR_PRF_CLAUSE_TYPE}
      */
     clauseType {
         get => NumGet(this, 0, "int")

@@ -1,17 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\VIDEOINFOHEADER.ahk
 #Include ..\..\Foundation\RECT.ahk
 #Include ..\..\Graphics\Gdi\BITMAPINFOHEADER.ahk
-#Include .\VIDEOINFOHEADER.ahk
 
 /**
  * The MPEG1VIDEOINFO structure describes an MPEG-1 video stream.
  * @see https://learn.microsoft.com/windows/win32/api/amvideo/ns-amvideo-mpeg1videoinfo
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class MPEG1VIDEOINFO extends Win32Struct
-{
+class MPEG1VIDEOINFO extends Win32Struct {
     static sizeof => 104
 
     static packingSize => 8
@@ -20,7 +18,7 @@ class MPEG1VIDEOINFO extends Win32Struct
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/amvideo/ns-amvideo-videoinfoheader">VIDEOINFOHEADER</a> structure.
      * @type {VIDEOINFOHEADER}
      */
-    hdr{
+    hdr {
         get {
             if(!this.HasProp("__hdr"))
                 this.__hdr := VIDEOINFOHEADER(0, this)
@@ -48,9 +46,9 @@ class MPEG1VIDEOINFO extends Win32Struct
 
     /**
      * Start of an array that contains the sequence header, including quantization matrices, if any. The size of the array is given in the <b>cbSequenceHeader</b> member.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    bSequenceHeader{
+    bSequenceHeader {
         get {
             if(!this.HasProp("__bSequenceHeaderProxyArray"))
                 this.__bSequenceHeaderProxyArray := Win32FixedArray(this.ptr + 96, 1, Primitive, "char")

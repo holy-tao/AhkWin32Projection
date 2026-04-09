@@ -1,14 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\..\Win32\Foundation\UNICODE_STRING.ahk
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem.Minifilters
- * @version v4.0.30319
  */
-class FLT_VOLUME_PROPERTIES extends Win32Struct
-{
-    static sizeof => 72
+class FLT_VOLUME_PROPERTIES extends Win32Struct {
+    static sizeof => 48
 
     static packingSize => 8
 
@@ -61,35 +58,26 @@ class FLT_VOLUME_PROPERTIES extends Win32Struct
     }
 
     /**
-     * @type {UNICODE_STRING}
+     * @type {Pointer}
      */
-    FileSystemDriverName{
-        get {
-            if(!this.HasProp("__FileSystemDriverName"))
-                this.__FileSystemDriverName := UNICODE_STRING(24, this)
-            return this.__FileSystemDriverName
-        }
+    FileSystemDriverName {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
-     * @type {UNICODE_STRING}
+     * @type {Pointer}
      */
-    FileSystemDeviceName{
-        get {
-            if(!this.HasProp("__FileSystemDeviceName"))
-                this.__FileSystemDeviceName := UNICODE_STRING(40, this)
-            return this.__FileSystemDeviceName
-        }
+    FileSystemDeviceName {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
-     * @type {UNICODE_STRING}
+     * @type {Pointer}
      */
-    RealDeviceName{
-        get {
-            if(!this.HasProp("__RealDeviceName"))
-                this.__RealDeviceName := UNICODE_STRING(56, this)
-            return this.__RealDeviceName
-        }
+    RealDeviceName {
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 }

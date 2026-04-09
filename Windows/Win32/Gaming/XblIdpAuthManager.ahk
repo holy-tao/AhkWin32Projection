@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Gaming
- * @version v4.0.30319
  */
-class XblIdpAuthManager extends Win32Struct
-{
+class XblIdpAuthManager extends Win32Struct {
     static sizeof => 0
 
     static packingSize => 1

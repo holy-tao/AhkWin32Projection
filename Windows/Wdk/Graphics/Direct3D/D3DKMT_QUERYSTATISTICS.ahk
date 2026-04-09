@@ -1,20 +1,19 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Win32\Foundation\LUID.ahk
+#Include .\D3DKMT_QUERYSTATISTICS_TYPE.ahk
 #Include ..\..\..\Win32\Foundation\HANDLE.ahk
+#Include .\D3DKMT_MEMORY_SEGMENT_GROUP.ahk
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
- * @version v4.0.30319
  */
-class D3DKMT_QUERYSTATISTICS extends Win32Struct
-{
+class D3DKMT_QUERYSTATISTICS extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
 
     /**
-     * @type {Integer}
+     * @type {D3DKMT_QUERYSTATISTICS_TYPE}
      */
     Type {
         get => NumGet(this, 0, "int")
@@ -22,20 +21,17 @@ class D3DKMT_QUERYSTATISTICS extends Win32Struct
     }
 
     /**
-     * @type {LUID}
+     * @type {Pointer}
      */
-    AdapterLuid{
-        get {
-            if(!this.HasProp("__AdapterLuid"))
-                this.__AdapterLuid := LUID(4, this)
-            return this.__AdapterLuid
-        }
+    AdapterLuid {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * @type {HANDLE}
      */
-    hProcess{
+    hProcess {
         get {
             if(!this.HasProp("__hProcess"))
                 this.__hProcess := HANDLE(16, this)
@@ -44,7 +40,7 @@ class D3DKMT_QUERYSTATISTICS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<D3DKMT_QUERYSTATISTICS_RESULT>}
+     * @type {Pointer}
      */
     QueryResult {
         get => NumGet(this, 24, "ptr")
@@ -52,7 +48,7 @@ class D3DKMT_QUERYSTATISTICS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<D3DKMT_QUERYSTATISTICS_QUERY_SEGMENT>}
+     * @type {Pointer}
      */
     QuerySegment {
         get => NumGet(this, 32, "ptr")
@@ -60,7 +56,7 @@ class D3DKMT_QUERYSTATISTICS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<D3DKMT_QUERYSTATISTICS_QUERY_SEGMENT>}
+     * @type {Pointer}
      */
     QueryProcessSegment {
         get => NumGet(this, 32, "ptr")
@@ -68,7 +64,7 @@ class D3DKMT_QUERYSTATISTICS extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {D3DKMT_MEMORY_SEGMENT_GROUP}
      */
     QueryProcessSegmentGroup {
         get => NumGet(this, 32, "int")
@@ -76,7 +72,7 @@ class D3DKMT_QUERYSTATISTICS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<D3DKMT_QUERYSTATISTICS_QUERY_NODE>}
+     * @type {Pointer}
      */
     QueryNode {
         get => NumGet(this, 32, "ptr")
@@ -84,7 +80,7 @@ class D3DKMT_QUERYSTATISTICS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<D3DKMT_QUERYSTATISTICS_QUERY_NODE>}
+     * @type {Pointer}
      */
     QueryProcessNode {
         get => NumGet(this, 32, "ptr")
@@ -92,7 +88,7 @@ class D3DKMT_QUERYSTATISTICS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<D3DKMT_QUERYSTATISTICS_QUERY_VIDPNSOURCE>}
+     * @type {Pointer}
      */
     QueryVidPnSource {
         get => NumGet(this, 32, "ptr")
@@ -100,7 +96,7 @@ class D3DKMT_QUERYSTATISTICS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<D3DKMT_QUERYSTATISTICS_QUERY_VIDPNSOURCE>}
+     * @type {Pointer}
      */
     QueryProcessVidPnSource {
         get => NumGet(this, 32, "ptr")
@@ -108,7 +104,7 @@ class D3DKMT_QUERYSTATISTICS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<D3DKMT_QUERYSTATISTICS_QUERY_PHYSICAL_ADAPTER>}
+     * @type {Pointer}
      */
     QueryPhysAdapter {
         get => NumGet(this, 32, "ptr")
@@ -116,7 +112,7 @@ class D3DKMT_QUERYSTATISTICS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<D3DKMT_QUERYSTATISTICS_QUERY_ADAPTER2>}
+     * @type {Pointer}
      */
     QueryAdapter2 {
         get => NumGet(this, 32, "ptr")
@@ -124,7 +120,7 @@ class D3DKMT_QUERYSTATISTICS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<D3DKMT_QUERYSTATISTICS_QUERY_SEGMENT2>}
+     * @type {Pointer}
      */
     QuerySegment2 {
         get => NumGet(this, 32, "ptr")
@@ -132,7 +128,7 @@ class D3DKMT_QUERYSTATISTICS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<D3DKMT_QUERYSTATISTICS_QUERY_ADAPTER2>}
+     * @type {Pointer}
      */
     QueryProcessAdapter2 {
         get => NumGet(this, 32, "ptr")
@@ -140,7 +136,7 @@ class D3DKMT_QUERYSTATISTICS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<D3DKMT_QUERYSTATISTICS_QUERY_SEGMENT2>}
+     * @type {Pointer}
      */
     QueryProcessSegment2 {
         get => NumGet(this, 32, "ptr")
@@ -148,7 +144,7 @@ class D3DKMT_QUERYSTATISTICS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<D3DKMT_QUERYSTATISTICS_QUERY_PROCESS_SEGMENT_GROUP2>}
+     * @type {Pointer}
      */
     QueryProcessSegmentGroup2 {
         get => NumGet(this, 32, "ptr")
@@ -156,7 +152,7 @@ class D3DKMT_QUERYSTATISTICS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<D3DKMT_QUERYSTATISTICS_QUERY_SEGMENT_USAGE>}
+     * @type {Pointer}
      */
     QuerySegmentUsage {
         get => NumGet(this, 32, "ptr")
@@ -164,7 +160,7 @@ class D3DKMT_QUERYSTATISTICS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<D3DKMT_QUERYSTATISTICS_QUERY_SEGMENT_GROUP_USAGE>}
+     * @type {Pointer}
      */
     QuerySegmentGroupUsage {
         get => NumGet(this, 32, "ptr")
@@ -172,7 +168,7 @@ class D3DKMT_QUERYSTATISTICS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<D3DKMT_QUERYSTATISTICS_QUERY_NODE2>}
+     * @type {Pointer}
      */
     QueryNode2 {
         get => NumGet(this, 32, "ptr")
@@ -180,7 +176,7 @@ class D3DKMT_QUERYSTATISTICS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<D3DKMT_QUERYSTATISTICS_QUERY_NODE2>}
+     * @type {Pointer}
      */
     QueryProcessNode2 {
         get => NumGet(this, 32, "ptr")

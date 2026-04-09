@@ -7,9 +7,8 @@
  * Used to enable the client to notify the Content Decryption Module (CDM) when global resources should be brought into a consistent state prior to suspending.
  * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nn-mfmediaengine-imfcdmsuspendnotify
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFCdmSuspendNotify extends IUnknown{
+class IMFCdmSuspendNotify extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

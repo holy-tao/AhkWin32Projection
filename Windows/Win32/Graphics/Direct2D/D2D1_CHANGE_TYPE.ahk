@@ -5,9 +5,8 @@
  * Describes flags that influence how the renderer interacts with a custom vertex shader. (D2D1_CHANGE_TYPE)
  * @see https://learn.microsoft.com/windows/win32/api/d2d1effectauthor/ne-d2d1effectauthor-d2d1_change_type
  * @namespace Windows.Win32.Graphics.Direct2D
- * @version v4.0.30319
  */
-class D2D1_CHANGE_TYPE extends Win32BitflagEnum{
+class D2D1_CHANGE_TYPE extends Win32BitflagEnum {
 
     /**
      * There were no changes.

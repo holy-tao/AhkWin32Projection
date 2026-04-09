@@ -23,9 +23,8 @@
  * Other objects that need to be notified can implement this interface.
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imfclockstatesink
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFClockStateSink extends IUnknown{
+class IMFClockStateSink extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

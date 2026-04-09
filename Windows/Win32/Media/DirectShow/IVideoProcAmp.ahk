@@ -7,9 +7,8 @@
  * The IVideoProcAmp interface controls the image adjustment (ProcAmp) settings on a capture device.This interface may be exposed by one or more nodes in a capture filter.
  * @see https://learn.microsoft.com/windows/win32/api/vidcap/nn-vidcap-ivideoprocamp
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IVideoProcAmp extends IUnknown{
+class IVideoProcAmp extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

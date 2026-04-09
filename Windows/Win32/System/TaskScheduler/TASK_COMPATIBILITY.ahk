@@ -9,9 +9,8 @@
  * Once the task <a href="https://docs.microsoft.com/windows/desktop/api/taskschd/nf-taskschd-itasksettings-get_compatibility">Compatibility</a> property is set to TASK_COMPATIBILITY_V2 and the task is registered, then the task <b>Compatibility</b> property cannot be changed to TASK_COMPATIBILITY_V1.
  * @see https://learn.microsoft.com/windows/win32/api/taskschd/ne-taskschd-task_compatibility
  * @namespace Windows.Win32.System.TaskScheduler
- * @version v4.0.30319
  */
-class TASK_COMPATIBILITY extends Win32Enum{
+class TASK_COMPATIBILITY extends Win32Enum {
 
     /**
      * The task is compatible with the AT command.
@@ -32,25 +31,21 @@ class TASK_COMPATIBILITY extends Win32Enum{
     static TASK_COMPATIBILITY_V2 => 2
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static TASK_COMPATIBILITY_V2_1 => 3
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static TASK_COMPATIBILITY_V2_2 => 4
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static TASK_COMPATIBILITY_V2_3 => 5
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static TASK_COMPATIBILITY_V2_4 => 6

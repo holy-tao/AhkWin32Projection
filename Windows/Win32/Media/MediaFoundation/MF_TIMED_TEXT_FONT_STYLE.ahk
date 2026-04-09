@@ -5,9 +5,8 @@
  * Specifies the font style of the timed text.
  * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/ne-mfmediaengine-mf_timed_text_font_style
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class MF_TIMED_TEXT_FONT_STYLE extends Win32Enum{
+class MF_TIMED_TEXT_FONT_STYLE extends Win32Enum {
 
     /**
      * The font style is normal, sometimes referred to as roman.

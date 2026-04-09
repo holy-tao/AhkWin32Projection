@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * The ITDirectoryObjectConference interface provides methods that allow an application to set and get conference details. The ITDirectoryObjectConference interface is created by calling QueryInterface on ITDirectoryObject.
  * @see https://learn.microsoft.com/windows/win32/api/rend/nn-rend-itdirectoryobjectconference
  * @namespace Windows.Win32.Devices.Tapi
- * @version v4.0.30319
  */
-class ITDirectoryObjectConference extends IDispatch{
+class ITDirectoryObjectConference extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -47,7 +46,7 @@ class ITDirectoryObjectConference extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {RND_ADVERTISING_SCOPE} 
      */
     AdvertisingScope {
         get => this.get_AdvertisingScope()
@@ -209,7 +208,7 @@ class ITDirectoryObjectConference extends IDispatch{
 
     /**
      * The get_AdvertisingScope method gets the advertising scope.
-     * @returns {Integer} Pointer to 
+     * @returns {RND_ADVERTISING_SCOPE} Pointer to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rend/ne-rend-rnd_advertising_scope">RND_ADVERTISING_SCOPE</a> enumeration.
      * @see https://learn.microsoft.com/windows/win32/api/rend/nf-rend-itdirectoryobjectconference-get_advertisingscope
      */
@@ -222,7 +221,7 @@ class ITDirectoryObjectConference extends IDispatch{
      * The put_AdvertisingScope method sets the advertising scope.
      * @remarks
      * This function may send data over the wire in unencrypted form; therefore, someone eavesdropping on the network may be able to read the data. The security risk of sending the data in clear text should be considered before using this method.
-     * @param {Integer} AdvertisingScope Pointer to 
+     * @param {RND_ADVERTISING_SCOPE} AdvertisingScope Pointer to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rend/ne-rend-rnd_advertising_scope">RND_ADVERTISING_SCOPE</a> enumeration.
      * @returns {HRESULT} This method can return one of these values.
      * 

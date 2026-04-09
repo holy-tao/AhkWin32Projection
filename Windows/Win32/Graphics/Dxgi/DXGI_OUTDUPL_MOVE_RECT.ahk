@@ -9,10 +9,8 @@
  * This structure is used by <a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_2/nf-dxgi1_2-idxgioutputduplication-getframemoverects">GetFrameMoveRects</a>.
  * @see https://learn.microsoft.com/windows/win32/api/dxgi1_2/ns-dxgi1_2-dxgi_outdupl_move_rect
  * @namespace Windows.Win32.Graphics.Dxgi
- * @version v4.0.30319
  */
-class DXGI_OUTDUPL_MOVE_RECT extends Win32Struct
-{
+class DXGI_OUTDUPL_MOVE_RECT extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 4
@@ -21,7 +19,7 @@ class DXGI_OUTDUPL_MOVE_RECT extends Win32Struct
      * The starting position of a rectangle.
      * @type {POINT}
      */
-    SourcePoint{
+    SourcePoint {
         get {
             if(!this.HasProp("__SourcePoint"))
                 this.__SourcePoint := POINT(0, this)
@@ -33,7 +31,7 @@ class DXGI_OUTDUPL_MOVE_RECT extends Win32Struct
      * The target region to which to move a rectangle.
      * @type {RECT}
      */
-    DestinationRect{
+    DestinationRect {
         get {
             if(!this.HasProp("__DestinationRect"))
                 this.__DestinationRect := RECT(8, this)

@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.ClrHosting
- * @version v4.0.30319
  */
-class ICLRStrongName extends IUnknown{
+class ICLRStrongName extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

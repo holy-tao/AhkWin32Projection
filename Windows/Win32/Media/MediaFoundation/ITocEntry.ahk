@@ -7,9 +7,8 @@
  * The ITocEntry interface represents an individual entry in a table of contents. It provides methods for setting and retrieving descriptive information for the entry.
  * @see https://learn.microsoft.com/windows/win32/api/wmcodecdsp/nn-wmcodecdsp-itocentry
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class ITocEntry extends IUnknown{
+class ITocEntry extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

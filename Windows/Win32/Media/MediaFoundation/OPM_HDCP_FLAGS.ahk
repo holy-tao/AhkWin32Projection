@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class OPM_HDCP_FLAGS extends Win32BitflagEnum{
+class OPM_HDCP_FLAGS extends Win32BitflagEnum {
 
     /**
      * @type {Integer (Int32)}

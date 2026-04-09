@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\VDS_DRIVE_PROP.ahk
 #Include .\IVdsSubSystem.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * The IVdsDrive (vdshwprv.h) interface provides methods for performing query and configuration operations on a drive.
  * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nn-vdshwprv-ivdsdrive
  * @namespace Windows.Win32.Storage.VirtualDiskService
- * @version v4.0.30319
  */
-class IVdsDrive extends IUnknown{
+class IVdsDrive extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -336,7 +335,9 @@ class IVdsDrive extends IUnknown{
      * Implementers are responsible for performing any necessary operations to get the status to the specified state. 
      *     For example, if the caller passes in <b>VDS_DRS_OFFLINE</b> as the drive status, you might 
      *     need to first clear the cache.
-     * @param {Integer} _status 
+     * @param {VDS_DRIVE_STATUS} _status Values enumerated by <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ne-vdshwprv-vds_drive_status">VDS_DRIVE_STATUS</a>. Callers can 
+     *       pass in a subset of the possible enumeration values. Passing in <b>VDS_DRS_UNKNOWN</b> 
+     *       returns <b>E_INVALIDARG</b>.
      * @returns {HRESULT} This method can return standard HRESULT values, such as E_INVALIDARG or E_OUTOFMEMORY, and <a href="https://docs.microsoft.com/windows/desktop/VDS/virtual-disk-service-common-return-codes">VDS-specific return values</a>. It can also return converted <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error codes</a>  using the <a href="https://docs.microsoft.com/windows/desktop/api/winerror/nf-winerror-hresult_from_win32">HRESULT_FROM_WIN32</a> macro. Errors can originate from VDS itself or from the underlying <a href="https://docs.microsoft.com/windows/desktop/VDS/about-vds">VDS provider</a> that is being used. Possible return values include the following.
      * 
      * <table>

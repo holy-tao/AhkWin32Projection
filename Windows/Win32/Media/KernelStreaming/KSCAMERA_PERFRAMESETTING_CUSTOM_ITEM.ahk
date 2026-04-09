@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
- * @version v4.0.30319
  */
-class KSCAMERA_PERFRAMESETTING_CUSTOM_ITEM extends Win32Struct
-{
+class KSCAMERA_PERFRAMESETTING_CUSTOM_ITEM extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
@@ -28,7 +26,7 @@ class KSCAMERA_PERFRAMESETTING_CUSTOM_ITEM extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     Id {
         get => NumGet(this, 8, "ptr")

@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IMSMQQueueInfo2.ahk
 #Include ..\Com\IDispatch.ahk
+#Include .\IMSMQQueueInfo2.ahk
 
 /**
  * @namespace Windows.Win32.System.MessageQueuing
- * @version v4.0.30319
  */
-class IMSMQQueueInfos2 extends IDispatch{
+class IMSMQQueueInfos2 extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

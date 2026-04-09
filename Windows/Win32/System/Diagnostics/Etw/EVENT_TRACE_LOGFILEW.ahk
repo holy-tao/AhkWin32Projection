@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\EVENT_TRACE.ahk
 #Include .\EVENT_TRACE_HEADER.ahk
 #Include .\ETW_BUFFER_CONTEXT.ahk
-#Include .\EVENT_TRACE.ahk
-#Include ..\..\..\Foundation\SYSTEMTIME.ahk
-#Include ..\..\Time\TIME_ZONE_INFORMATION.ahk
 #Include .\TRACE_LOGFILE_HEADER.ahk
+#Include ..\..\Time\TIME_ZONE_INFORMATION.ahk
+#Include ..\..\..\Foundation\SYSTEMTIME.ahk
 
 /**
  * The EVENT_TRACE_LOGFILEW (Unicode) structure (evntrace.h) stores information about a trace data source.
@@ -52,11 +52,9 @@
  * > [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
  * @see https://learn.microsoft.com/windows/win32/api/evntrace/ns-evntrace-event_trace_logfilew
  * @namespace Windows.Win32.System.Diagnostics.Etw
- * @version v4.0.30319
  * @charset Unicode
  */
-class EVENT_TRACE_LOGFILEW extends Win32Struct
-{
+class EVENT_TRACE_LOGFILEW extends Win32Struct {
     static sizeof => 432
 
     static packingSize => 8
@@ -158,7 +156,7 @@ class EVENT_TRACE_LOGFILEW extends Win32Struct
      * structure that contains the last event processed.
      * @type {EVENT_TRACE}
      */
-    CurrentEvent{
+    CurrentEvent {
         get {
             if(!this.HasProp("__CurrentEvent"))
                 this.__CurrentEvent := EVENT_TRACE(32, this)
@@ -173,7 +171,7 @@ class EVENT_TRACE_LOGFILEW extends Win32Struct
      * on which the session ran.
      * @type {TRACE_LOGFILE_HEADER}
      */
-    LogfileHeader{
+    LogfileHeader {
         get {
             if(!this.HasProp("__LogfileHeader"))
                 this.__LogfileHeader := TRACE_LOGFILE_HEADER(104, this)

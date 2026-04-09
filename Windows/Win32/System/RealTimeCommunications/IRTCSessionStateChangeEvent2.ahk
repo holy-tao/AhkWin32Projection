@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.RealTimeCommunications
- * @version v4.0.30319
  */
-class IRTCSessionStateChangeEvent2 extends IRTCSessionStateChangeEvent{
+class IRTCSessionStateChangeEvent2 extends IRTCSessionStateChangeEvent {
 
     static sizeof => A_PtrSize
     /**
@@ -53,8 +52,8 @@ class IRTCSessionStateChangeEvent2 extends IRTCSessionStateChangeEvent{
 
     /**
      * 
-     * @param {Integer} enSecurityType 
-     * @returns {Integer} 
+     * @param {RTC_SECURITY_TYPE} enSecurityType 
+     * @returns {RTC_SECURITY_LEVEL} 
      */
     get_RemotePreferredSecurityLevel(enSecurityType) {
         result := ComCall(12, this, "int", enSecurityType, "int*", &penSecurityLevel := 0, "HRESULT")

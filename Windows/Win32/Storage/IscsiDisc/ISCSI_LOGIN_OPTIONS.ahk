@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\ISCSI_AUTH_TYPES.ahk
+#Include .\ISCSI_DIGEST_TYPES.ahk
 
 /**
  * ISCSI_LOGIN_OPTIONS structure is used by initiators to specify the characteristics of a login session.
@@ -11,10 +13,8 @@
  * If the authentication protocol requires that these two values be strings, they must be ANSI strings.
  * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/ns-iscsidsc-iscsi_login_options
  * @namespace Windows.Win32.Storage.IscsiDisc
- * @version v4.0.30319
  */
-class ISCSI_LOGIN_OPTIONS extends Win32Struct
-{
+class ISCSI_LOGIN_OPTIONS extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 8
@@ -182,7 +182,7 @@ class ISCSI_LOGIN_OPTIONS extends Win32Struct
 
     /**
      * An enumerator value of type <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/iscsidsc/ne-iscsidsc-iscsi_auth_types">ISCSI_AUTH_TYPES</a> that indicates the authentication type.
-     * @type {Integer}
+     * @type {ISCSI_AUTH_TYPES}
      */
     AuthType {
         get => NumGet(this, 12, "int")
@@ -191,7 +191,7 @@ class ISCSI_LOGIN_OPTIONS extends Win32Struct
 
     /**
      * An enumerator value of type <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/iscsidsc/ne-iscsidsc-iscsi_digest_types">ISCSI_DIGEST_TYPES</a> that indicates the type of digest for guaranteeing the integrity of header data.
-     * @type {Integer}
+     * @type {ISCSI_DIGEST_TYPES}
      */
     HeaderDigest {
         get => NumGet(this, 16, "int")
@@ -200,7 +200,7 @@ class ISCSI_LOGIN_OPTIONS extends Win32Struct
 
     /**
      * An enumerator value of type <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/iscsidsc/ne-iscsidsc-iscsi_digest_types">ISCSI_DIGEST_TYPES</a> that indicates the type of digest for guaranteeing the integrity of non-header data.
-     * @type {Integer}
+     * @type {ISCSI_DIGEST_TYPES}
      */
     DataDigest {
         get => NumGet(this, 20, "int")

@@ -7,10 +7,8 @@
  * This structure is used with <a href="https://docs.microsoft.com/windows/desktop/api/ntddkbd/ni-ntddkbd-ioctl_keyboard_query_typematic">IOCTL_KEYBOARD_QUERY_TYPEMATIC</a> and <a href="https://docs.microsoft.com/windows/desktop/api/ntddkbd/ni-ntddkbd-ioctl_keyboard_set_typematic">IOCTL_KEYBOARD_SET_TYPEMATIC</a> requests to query and set a keyboard's typematic settings.
  * @see https://learn.microsoft.com/windows/win32/api/ntddkbd/ns-ntddkbd-keyboard_typematic_parameters
  * @namespace Windows.Win32.Devices.HumanInterfaceDevice
- * @version v4.0.30319
  */
-class KEYBOARD_TYPEMATIC_PARAMETERS extends Win32Struct
-{
+class KEYBOARD_TYPEMATIC_PARAMETERS extends Win32Struct {
     static sizeof => 6
 
     static packingSize => 2

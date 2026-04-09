@@ -7,10 +7,8 @@
  * Preference is more important than metric. The metric is only  checked if the preferences are equal.
  * @see https://learn.microsoft.com/windows/win32/api/rtmv2/ns-rtmv2-rtm_pref_info
  * @namespace Windows.Win32.NetworkManagement.Rras
- * @version v4.0.30319
  */
-class RTM_PREF_INFO extends Win32Struct
-{
+class RTM_PREF_INFO extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4

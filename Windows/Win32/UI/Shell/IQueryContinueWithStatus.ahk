@@ -9,9 +9,8 @@
  * This interface also provides the methods of the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-iquerycontinue">IQueryContinue</a> interface, from which it inherits.
  * @see https://learn.microsoft.com/windows/win32/api/credentialprovider/nn-credentialprovider-iquerycontinuewithstatus
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IQueryContinueWithStatus extends IQueryContinue{
+class IQueryContinueWithStatus extends IQueryContinue {
 
     static sizeof => A_PtrSize
     /**

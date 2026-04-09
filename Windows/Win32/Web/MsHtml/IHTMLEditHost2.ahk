@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
- * @version v4.0.30319
  */
-class IHTMLEditHost2 extends IHTMLEditHost{
+class IHTMLEditHost2 extends IHTMLEditHost {
 
     static sizeof => A_PtrSize
     /**

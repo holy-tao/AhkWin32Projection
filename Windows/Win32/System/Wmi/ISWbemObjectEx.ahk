@@ -1,15 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\ISWbemPropertySet.ahk
 #Include .\ISWbemObject.ahk
+#Include .\ISWbemPropertySet.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * @namespace Windows.Win32.System.Wmi
- * @version v4.0.30319
  */
-class ISWbemObjectEx extends ISWbemObject{
+class ISWbemObjectEx extends ISWbemObject {
 
     static sizeof => A_PtrSize
     /**
@@ -65,7 +64,7 @@ class ISWbemObjectEx extends ISWbemObject{
 
     /**
      * 
-     * @param {Integer} iObjectTextFormat 
+     * @param {WbemObjectTextFormatEnum} iObjectTextFormat 
      * @param {Integer} iFlags 
      * @param {IDispatch} objWbemNamedValueSet 
      * @returns {BSTR} 
@@ -79,7 +78,7 @@ class ISWbemObjectEx extends ISWbemObject{
     /**
      * 
      * @param {BSTR} bsText 
-     * @param {Integer} iObjectTextFormat 
+     * @param {WbemObjectTextFormatEnum} iObjectTextFormat 
      * @param {Integer} iFlags 
      * @param {IDispatch} objWbemNamedValueSet 
      * @returns {HRESULT} 

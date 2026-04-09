@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
- * @version v4.0.30319
  */
-class D3DKMT_ADAPTER_VERIFIER_VIDMM_TRIM_INTERVAL extends Win32Struct
-{
+class D3DKMT_ADAPTER_VERIFIER_VIDMM_TRIM_INTERVAL extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

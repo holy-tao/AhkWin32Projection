@@ -7,9 +7,8 @@
  * The IVdsLunNaming interface (vdshwprv.h) provides a method to name LUNs for a class implementing the IVdsLun interface.
  * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nn-vdshwprv-ivdslunnaming
  * @namespace Windows.Win32.Storage.VirtualDiskService
- * @version v4.0.30319
  */
-class IVdsLunNaming extends IUnknown{
+class IVdsLunNaming extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

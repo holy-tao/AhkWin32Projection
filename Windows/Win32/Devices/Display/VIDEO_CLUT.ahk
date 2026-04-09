@@ -4,13 +4,11 @@
 
 /**
  * @namespace Windows.Win32.Devices.Display
- * @version v4.0.30319
  */
-class VIDEO_CLUT extends Win32Struct
-{
-    static sizeof => 16
+class VIDEO_CLUT extends Win32Struct {
+    static sizeof => 8
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}
@@ -31,10 +29,10 @@ class VIDEO_CLUT extends Win32Struct
     /**
      * @type {VIDEO_CLUTDATA}
      */
-    RgbArray{
+    RgbArray {
         get {
             if(!this.HasProp("__RgbArray"))
-                this.__RgbArray := VIDEO_CLUTDATA(8, this)
+                this.__RgbArray := VIDEO_CLUTDATA(4, this)
             return this.__RgbArray
         }
     }
@@ -43,7 +41,7 @@ class VIDEO_CLUT extends Win32Struct
      * @type {Integer}
      */
     RgbLong {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
+        get => NumGet(this, 4, "uint")
+        set => NumPut("uint", value, this, 4)
     }
 }

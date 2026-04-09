@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Rras
- * @version v4.0.30319
  */
-class RASIPADDR extends Win32Struct
-{
+class RASIPADDR extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 1

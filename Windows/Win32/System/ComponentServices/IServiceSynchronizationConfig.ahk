@@ -7,9 +7,8 @@
  * Configures the synchronization for the work that is done when calling either CoCreateActivity or CoEnterServiceDomain.
  * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nn-comsvcs-iservicesynchronizationconfig
  * @namespace Windows.Win32.System.ComponentServices
- * @version v4.0.30319
  */
-class IServiceSynchronizationConfig extends IUnknown{
+class IServiceSynchronizationConfig extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -32,7 +31,7 @@ class IServiceSynchronizationConfig extends IUnknown{
 
     /**
      * Configures the synchronization for the enclosed work.
-     * @param {Integer} synchConfig A value from the <a href="https://docs.microsoft.com/windows/desktop/api/comsvcs/ne-comsvcs-csc_synchronizationconfig">CSC_SynchronizationConfig</a> enumeration.
+     * @param {CSC_SynchronizationConfig} synchConfig A value from the <a href="https://docs.microsoft.com/windows/desktop/api/comsvcs/ne-comsvcs-csc_synchronizationconfig">CSC_SynchronizationConfig</a> enumeration.
      * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_FAIL, and S_OK.
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-iservicesynchronizationconfig-configuresynchronization
      */

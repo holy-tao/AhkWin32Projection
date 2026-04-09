@@ -7,9 +7,8 @@
  * The <b>WLAN_INTF_OPCODE</b> enumerated type defines the possible opcodes that can be passed in the <i>OpCode</i> parameter to the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlanqueryinterface">WlanQueryInterface</a> and <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlansetinterface">WlanSetInterface</a> functions to query or set parameters on a wireless interface.
  * @see https://learn.microsoft.com/windows/win32/api/wlanapi/ne-wlanapi-wlan_intf_opcode~r1
  * @namespace Windows.Win32.NetworkManagement.WiFi
- * @version v4.0.30319
  */
-class WLAN_INTF_OPCODE extends Win32Enum{
+class WLAN_INTF_OPCODE extends Win32Enum {
 
     /**
      * Not used.
@@ -197,7 +196,6 @@ class WLAN_INTF_OPCODE extends Win32Enum{
     static wlan_intf_opcode_ihv_start => 805306368
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static wlan_intf_opcode_ihv_end => 1073741823

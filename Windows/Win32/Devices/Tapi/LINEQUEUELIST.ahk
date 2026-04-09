@@ -5,10 +5,8 @@
  * The LINEQUEUELIST structure describes a list of queues. This structure can contain an array of LINEQUEUEENTRY structures. The lineGetQueueList function returns the LINEQUEUELIST structure. LINEQUEUELIST requires TAPI 3.0 version negotiation.
  * @see https://learn.microsoft.com/windows/win32/api/tapi/ns-tapi-linequeuelist
  * @namespace Windows.Win32.Devices.Tapi
- * @version v4.0.30319
  */
-class LINEQUEUELIST extends Win32Struct
-{
+class LINEQUEUELIST extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 4

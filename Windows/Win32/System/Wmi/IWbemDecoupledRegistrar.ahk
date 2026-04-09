@@ -7,9 +7,8 @@
  * The IWbemDecoupledRegistrar interface associates decoupled providers with WMI. This interface allows a process-hosted provider to define the interoperability lifetime of the interface and to coexist with other providers.
  * @see https://learn.microsoft.com/windows/win32/api/wbemprov/nn-wbemprov-iwbemdecoupledregistrar
  * @namespace Windows.Win32.System.Wmi
- * @version v4.0.30319
  */
-class IWbemDecoupledRegistrar extends IUnknown{
+class IWbemDecoupledRegistrar extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

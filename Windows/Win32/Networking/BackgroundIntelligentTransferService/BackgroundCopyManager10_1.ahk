@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Networking.BackgroundIntelligentTransferService
- * @version v4.0.30319
  */
-class BackgroundCopyManager10_1 extends Win32Struct
-{
+class BackgroundCopyManager10_1 extends Win32Struct {
     static sizeof => 0
 
     static packingSize => 1

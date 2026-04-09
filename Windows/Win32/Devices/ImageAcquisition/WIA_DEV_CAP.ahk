@@ -6,10 +6,8 @@
  * Applications use the WIA_DEV_CAP structure to enumerate device capabilities. A device capability is defined by an event or command that the device supports. For more information, see IEnumWIA_DEV_CAPS.
  * @see https://learn.microsoft.com/windows/win32/api/wia_xp/ns-wia_xp-wia_dev_cap
  * @namespace Windows.Win32.Devices.ImageAcquisition
- * @version v4.0.30319
  */
-class WIA_DEV_CAP extends Win32Struct
-{
+class WIA_DEV_CAP extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -18,7 +16,7 @@ class WIA_DEV_CAP extends Win32Struct
      * Type: <b>GUID</b>
      * 
      * Specifies a GUID that identifies the device capability. This member can be set to any of the values specified in <a href="https://docs.microsoft.com/windows/desktop/wia/-wia-wia-device-commands">WIA Device Commands</a> or <a href="https://docs.microsoft.com/windows/desktop/wia/-wia-wia-event-identifiers">WIA Event Identifiers</a>.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     guid {
         get => NumGet(this, 0, "ptr")
@@ -62,7 +60,7 @@ class WIA_DEV_CAP extends Win32Struct
      * Specifies a string that contains a short version of the capability name.
      * @type {BSTR}
      */
-    bstrName{
+    bstrName {
         get {
             if(!this.HasProp("__bstrName"))
                 this.__bstrName := BSTR(16, this)
@@ -76,7 +74,7 @@ class WIA_DEV_CAP extends Win32Struct
      * Specifies a string that contains a description of the capability that is displayed to the user.
      * @type {BSTR}
      */
-    bstrDescription{
+    bstrDescription {
         get {
             if(!this.HasProp("__bstrDescription"))
                 this.__bstrDescription := BSTR(24, this)
@@ -90,7 +88,7 @@ class WIA_DEV_CAP extends Win32Struct
      * Specifies a string that represents the location and resource ID of the icon that represents this capability or handler. The string must be of the following form: <i>drive</i><b>:\\</b><i>path</i><b>\\</b><i>module</i><b>,</b><i>n</i>, where <i>n</i> is the icon's negated resource ID (that is, if the resource ID of the icon is 100, then <i>n</i> is -100).
      * @type {BSTR}
      */
-    bstrIcon{
+    bstrIcon {
         get {
             if(!this.HasProp("__bstrIcon"))
                 this.__bstrIcon := BSTR(32, this)
@@ -104,7 +102,7 @@ class WIA_DEV_CAP extends Win32Struct
      * Specifies a string that represents command line arguments.
      * @type {BSTR}
      */
-    bstrCommandline{
+    bstrCommandline {
         get {
             if(!this.HasProp("__bstrCommandline"))
                 this.__bstrCommandline := BSTR(40, this)

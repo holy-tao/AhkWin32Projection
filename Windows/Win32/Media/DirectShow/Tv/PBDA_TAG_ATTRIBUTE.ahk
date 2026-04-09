@@ -3,16 +3,14 @@
 
 /**
  * @namespace Windows.Win32.Media.DirectShow.Tv
- * @version v4.0.30319
  */
-class PBDA_TAG_ATTRIBUTE extends Win32Struct
-{
+class PBDA_TAG_ATTRIBUTE extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     TableUUId {
         get => NumGet(this, 0, "ptr")
@@ -44,9 +42,9 @@ class PBDA_TAG_ATTRIBUTE extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    TableData{
+    TableData {
         get {
             if(!this.HasProp("__TableDataProxyArray"))
                 this.__TableDataProxyArray := Win32FixedArray(this.ptr + 16, 1, Primitive, "char")

@@ -1,18 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\System\Ole\IEnumVARIANT.ahk
 #Include .\INetworkConnection.ahk
-#Include .\IEnumNetworkConnections.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * The IEnumNetworkConnections interface provides a standard enumerator for network connections. It enumerates active, disconnected, or all network connections within a network. This interface can be obtained from the INetwork interface.
  * @see https://learn.microsoft.com/windows/win32/api/netlistmgr/nn-netlistmgr-ienumnetworkconnections
  * @namespace Windows.Win32.Networking.NetworkListManager
- * @version v4.0.30319
  */
-class IEnumNetworkConnections extends IDispatch{
+class IEnumNetworkConnections extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

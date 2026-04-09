@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include .\ITAddress.ahk
 #Include .\ITTerminal.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * The ITAddressEvent interface contains methods that retrieve the description of address events.
@@ -13,9 +13,8 @@
  * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nf-tapi3if-itterminalsupport-get_staticterminals">ITTerminalSupport::get_StaticTerminals</a>.
  * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nn-tapi3if-itaddressevent
  * @namespace Windows.Win32.Devices.Tapi
- * @version v4.0.30319
  */
-class ITAddressEvent extends IDispatch{
+class ITAddressEvent extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -44,7 +43,7 @@ class ITAddressEvent extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {ADDRESS_EVENT} 
      */
     Event {
         get => this.get_Event()
@@ -78,7 +77,7 @@ class ITAddressEvent extends IDispatch{
      * Certain events on PnP devices, such as AE_NEWTERMINAL and AE_REMOVETERMINAL, will not be received until after the first time static terminals are enumerated using 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nf-tapi3if-itterminalsupport-enumeratestaticterminals">ITTerminalSupport::EnumerateStaticTerminals</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nf-tapi3if-itterminalsupport-get_staticterminals">ITTerminalSupport::get_StaticTerminals</a>.
-     * @returns {Integer} Pointer to the 
+     * @returns {ADDRESS_EVENT} Pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/ne-tapi3if-address_event">ADDRESS_EVENT</a> descriptor of an event.
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itaddressevent-get_event
      */

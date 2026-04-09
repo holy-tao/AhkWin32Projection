@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class PCI_PMC extends Win32Struct
-{
+class PCI_PMC extends Win32Struct {
     static sizeof => 2
 
     static packingSize => 1
@@ -31,7 +29,7 @@ class PCI_PMC extends Win32Struct
             get => NumGet(this, 0, "char")
             set => NumPut("char", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -39,7 +37,7 @@ class PCI_PMC extends Win32Struct
             get => (this._bitfield >> 0) & 0x1
             set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -47,7 +45,7 @@ class PCI_PMC extends Win32Struct
             get => (this._bitfield >> 1) & 0x1
             set => this._bitfield := ((value & 0x1) << 1) | (this._bitfield & ~(0x1 << 1))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -55,7 +53,7 @@ class PCI_PMC extends Win32Struct
             get => (this._bitfield >> 2) & 0x1
             set => this._bitfield := ((value & 0x1) << 2) | (this._bitfield & ~(0x1 << 2))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -63,7 +61,7 @@ class PCI_PMC extends Win32Struct
             get => (this._bitfield >> 3) & 0x1
             set => this._bitfield := ((value & 0x1) << 3) | (this._bitfield & ~(0x1 << 3))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -71,7 +69,7 @@ class PCI_PMC extends Win32Struct
             get => (this._bitfield >> 4) & 0x1
             set => this._bitfield := ((value & 0x1) << 4) | (this._bitfield & ~(0x1 << 4))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -79,7 +77,7 @@ class PCI_PMC extends Win32Struct
             get => (this._bitfield >> 5) & 0x1
             set => this._bitfield := ((value & 0x1) << 5) | (this._bitfield & ~(0x1 << 5))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -87,7 +85,7 @@ class PCI_PMC extends Win32Struct
             get => (this._bitfield >> 6) & 0x1
             set => this._bitfield := ((value & 0x1) << 6) | (this._bitfield & ~(0x1 << 6))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -95,7 +93,6 @@ class PCI_PMC extends Win32Struct
             get => (this._bitfield >> 7) & 0x1
             set => this._bitfield := ((value & 0x1) << 7) | (this._bitfield & ~(0x1 << 7))
         }
-    
     }
 
     /**
@@ -155,10 +152,10 @@ class PCI_PMC extends Win32Struct
     /**
      * @type {_PM_SUPPORT}
      */
-    Support{
+    Support {
         get {
             if(!this.HasProp("__Support"))
-                this.__Support := %this.__Class%._PM_SUPPORT(1, this)
+                this.__Support := PCI_PMC._PM_SUPPORT(1, this)
             return this.__Support
         }
     }

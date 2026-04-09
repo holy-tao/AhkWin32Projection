@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Media.DirectShow.Tv
- * @version v4.0.30319
  */
-class KSM_BDA_SCAN_FILTER extends Win32Struct
-{
+class KSM_BDA_SCAN_FILTER extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -15,7 +13,7 @@ class KSM_BDA_SCAN_FILTER extends Win32Struct
     /**
      * @type {KSIDENTIFIER}
      */
-    Method{
+    Method {
         get {
             if(!this.HasProp("__Method"))
                 this.__Method := KSIDENTIFIER(0, this)
@@ -40,9 +38,9 @@ class KSM_BDA_SCAN_FILTER extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    argbScanModulationTypes{
+    argbScanModulationTypes {
         get {
             if(!this.HasProp("__argbScanModulationTypesProxyArray"))
                 this.__argbScanModulationTypesProxyArray := Win32FixedArray(this.ptr + 32, 1, Primitive, "char")

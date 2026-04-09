@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\TOKEN_GROUPS.ahk
 
 /**
  * Used in cases where a non-authenticated system access is needed.
  * @see https://learn.microsoft.com/windows/win32/api/ntsecpkg/ns-ntsecpkg-lsa_token_information_null
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class LSA_TOKEN_INFORMATION_NULL extends Win32Struct
-{
+class LSA_TOKEN_INFORMATION_NULL extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include .\ITrigger.ahk
 
 /**
@@ -14,9 +13,8 @@
  * When creating your own XML for a task, a boot trigger is specified using the <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/taskschedulerschema-boottrigger-triggergroup-element">BootTrigger</a> element of the Task Scheduler schema.
  * @see https://learn.microsoft.com/windows/win32/api/taskschd/nn-taskschd-iboottrigger
  * @namespace Windows.Win32.System.TaskScheduler
- * @version v4.0.30319
  */
-class IBootTrigger extends ITrigger{
+class IBootTrigger extends ITrigger {
 
     static sizeof => A_PtrSize
     /**
@@ -38,6 +36,7 @@ class IBootTrigger extends ITrigger{
     static VTableNames => ["get_Delay", "put_Delay"]
 
     /**
+     * @type {BSTR} 
      */
     Delay {
         get => this.get_Delay()

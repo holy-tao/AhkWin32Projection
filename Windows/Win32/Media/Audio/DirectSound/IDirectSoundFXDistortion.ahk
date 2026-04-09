@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\DSFXDistortion.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
+#Include .\DSFXDistortion.ahk
 
 /**
  * @namespace Windows.Win32.Media.Audio.DirectSound
- * @version v4.0.30319
  */
-class IDirectSoundFXDistortion extends IUnknown{
+class IDirectSoundFXDistortion extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

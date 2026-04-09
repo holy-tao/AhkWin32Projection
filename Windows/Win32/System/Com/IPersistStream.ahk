@@ -16,9 +16,8 @@
  * <b>IPersistStream</b>, in addition to inheriting its definition from <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>, also inherits the single method of <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-ipersist">IPersist</a>, <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-ipersist-getclassid">GetClassID</a>.
  * @see https://learn.microsoft.com/windows/win32/api/objidl/nn-objidl-ipersiststream
  * @namespace Windows.Win32.System.Com
- * @version v4.0.30319
  */
-class IPersistStream extends IPersist{
+class IPersistStream extends IPersist {
 
     static sizeof => A_PtrSize
     /**

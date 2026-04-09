@@ -4,13 +4,11 @@
 
 /**
  * @namespace Windows.Win32.System.ErrorReporting
- * @version v4.0.30319
  */
-class WER_REPORT_SIGNATURE extends Win32Struct
-{
-    static sizeof => 216
+class WER_REPORT_SIGNATURE extends Win32Struct {
+    static sizeof => 7910
 
-    static packingSize => 8
+    static packingSize => 2
 
     /**
      * @type {String}
@@ -21,12 +19,12 @@ class WER_REPORT_SIGNATURE extends Win32Struct
     }
 
     /**
-     * @type {Array<WER_REPORT_PARAMETER>}
+     * @type {WER_REPORT_PARAMETER}
      */
-    Parameters{
+    Parameters {
         get {
             if(!this.HasProp("__ParametersProxyArray"))
-                this.__ParametersProxyArray := Win32FixedArray(this.ptr + 136, 10, WER_REPORT_PARAMETER, "")
+                this.__ParametersProxyArray := Win32FixedArray(this.ptr + 130, 10, WER_REPORT_PARAMETER, "")
             return this.__ParametersProxyArray
         }
     }

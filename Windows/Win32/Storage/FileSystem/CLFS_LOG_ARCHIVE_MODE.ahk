@@ -5,9 +5,8 @@
  * Specifies whether a log is ephemeral.
  * @see https://learn.microsoft.com/windows/win32/api/clfs/ne-clfs-clfs_log_archive_mode
  * @namespace Windows.Win32.Storage.FileSystem
- * @version v4.0.30319
  */
-class CLFS_LOG_ARCHIVE_MODE extends Win32Enum{
+class CLFS_LOG_ARCHIVE_MODE extends Win32Enum {
 
     /**
      * Enables log archive (ephemeral logs) support.

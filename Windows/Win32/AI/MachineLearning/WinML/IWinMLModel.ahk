@@ -7,9 +7,8 @@
  * Represents a Windows Machine Learning model with corresponding metadata; includes model descriptions (name, author, versioning, etc.), as well as expected inputs and outputs.
  * @see https://learn.microsoft.com/windows/win32/api/winml/nn-winml-iwinmlmodel
  * @namespace Windows.Win32.AI.MachineLearning.WinML
- * @version v4.0.30319
  */
-class IWinMLModel extends IUnknown{
+class IWinMLModel extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

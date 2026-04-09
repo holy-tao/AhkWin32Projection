@@ -7,9 +7,8 @@
  * ILatLongReport represents a location report that contains information in the form of latitude and longitude.
  * @see https://learn.microsoft.com/windows/win32/api/locationapi/nn-locationapi-ilatlongreport
  * @namespace Windows.Win32.Devices.Geolocation
- * @version v4.0.30319
  */
-class ILatLongReport extends ILocationReport{
+class ILatLongReport extends ILocationReport {
 
     static sizeof => A_PtrSize
     /**

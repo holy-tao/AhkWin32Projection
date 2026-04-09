@@ -5,10 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
- * @version v4.0.30319
  */
-class KSPROPERTY_EXTDEVICE_S extends Win32Struct
-{
+class KSPROPERTY_EXTDEVICE_S extends Win32Struct {
     static sizeof => 536
 
     static packingSize => 8
@@ -20,14 +18,14 @@ class KSPROPERTY_EXTDEVICE_S extends Win32Struct
         /**
          * @type {DEVCAPS}
          */
-        Capabilities{
+        Capabilities {
             get {
                 if(!this.HasProp("__Capabilities"))
                     this.__Capabilities := DEVCAPS(0, this)
                 return this.__Capabilities
             }
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -35,7 +33,7 @@ class KSPROPERTY_EXTDEVICE_S extends Win32Struct
             get => NumGet(this, 0, "uint")
             set => NumPut("uint", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -43,7 +41,7 @@ class KSPROPERTY_EXTDEVICE_S extends Win32Struct
             get => NumGet(this, 0, "uint")
             set => NumPut("uint", value, this, 0)
         }
-    
+
         /**
          * @type {String}
          */
@@ -51,24 +49,23 @@ class KSPROPERTY_EXTDEVICE_S extends Win32Struct
             get => StrGet(this.ptr + 0, 259, "UTF-16")
             set => StrPut(value, this.ptr + 0, 259, "UTF-16")
         }
-    
+
         /**
-         * @type {Array<UInt32>}
+         * @type {Array<Integer>}
          */
-        NodeUniqueID{
+        NodeUniqueID {
             get {
                 if(!this.HasProp("__NodeUniqueIDProxyArray"))
                     this.__NodeUniqueIDProxyArray := Win32FixedArray(this.ptr + 0, 2, Primitive, "uint")
                 return this.__NodeUniqueIDProxyArray
             }
         }
-    
     }
 
     /**
      * @type {KSIDENTIFIER}
      */
-    Property{
+    Property {
         get {
             if(!this.HasProp("__Property"))
                 this.__Property := KSIDENTIFIER(0, this)
@@ -79,10 +76,10 @@ class KSPROPERTY_EXTDEVICE_S extends Win32Struct
     /**
      * @type {_u_e__Union}
      */
-    u{
+    u {
         get {
             if(!this.HasProp("__u"))
-                this.__u := %this.__Class%._u_e__Union(16, this)
+                this.__u := KSPROPERTY_EXTDEVICE_S._u_e__Union(16, this)
             return this.__u
         }
     }

@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Security.Authentication.WebAuthn
- * @version v4.0.30319
  */
-class WEBAUTHN_PLUGIN_REQUEST_TYPE extends Win32Enum{
+class WEBAUTHN_PLUGIN_REQUEST_TYPE extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

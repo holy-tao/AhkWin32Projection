@@ -9,9 +9,8 @@
  * This interface extends the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imf2dbuffer">IMF2DBuffer</a> interface and adds a safer version of the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nf-mfobjects-imf2dbuffer-lock2d">IMF2DBuffer::Lock2D</a> method.
  * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nn-mfobjects-imf2dbuffer2
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMF2DBuffer2 extends IMF2DBuffer{
+class IMF2DBuffer2 extends IMF2DBuffer {
 
     static sizeof => A_PtrSize
     /**
@@ -58,7 +57,7 @@ class IMF2DBuffer2 extends IMF2DBuffer{
      * <li>If the buffer is already locked for read/write access, it can be locked for read or write access.</li>
      * </ul>
      * When possible, use a read-only or write-only lock, and avoid locking the buffer for read/write access. If the buffer represents a DirectX Graphics Infrastructure (DXGI) surface, a read/write lock can cause an extra copy between CPU memory and GPU memory.
-     * @param {Integer} lockFlags A member of the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/ne-mfobjects-mf2dbuffer_lockflags">MF2DBuffer_LockFlags</a> enumeration that specifies whether to lock the buffer for reading, writing, or both.
+     * @param {MF2DBuffer_LockFlags} lockFlags A member of the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/ne-mfobjects-mf2dbuffer_lockflags">MF2DBuffer_LockFlags</a> enumeration that specifies whether to lock the buffer for reading, writing, or both.
      * @param {Pointer<Pointer<Integer>>} ppbScanline0 Receives a pointer to the first byte of the top row of pixels in the image. The top row is defined as the top row when the image is presented to the viewer, and might not be the first row in memory.
      * @param {Pointer<Integer>} plPitch Receives the surface stride, in bytes. The stride might be negative, indicating that the image is oriented from the bottom up in memory.
      * @param {Pointer<Pointer<Integer>>} ppbBufferStart Receives a pointer to the start of the accessible buffer in memory.

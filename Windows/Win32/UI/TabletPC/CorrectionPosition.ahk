@@ -5,9 +5,8 @@
  * Specifies the direction, relative to Input Panel, that the post insertion correction comb displays.
  * @see https://learn.microsoft.com/windows/win32/api/peninputpanel/ne-peninputpanel-correctionposition
  * @namespace Windows.Win32.UI.TabletPC
- * @version v4.0.30319
  */
-class CorrectionPosition extends Win32Enum{
+class CorrectionPosition extends Win32Enum {
 
     /**
      * The system decides on the position of the correction comb.

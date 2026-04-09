@@ -7,9 +7,8 @@
  * Enables access to ContactManager methods in an app that manages multiple windows.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-icontactmanagerinterop
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IContactManagerInterop extends IUnknown{
+class IContactManagerInterop extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -35,11 +34,13 @@ class IContactManagerInterop extends IUnknown{
      * @param {HWND} appWindow Type: <b>HWND</b>
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a> of the foreground window of the app from which the contact card is launched and where focus is returned when the contact card is dismissed.
-     * @param {IUnknown} _contact 
+     * @param {IUnknown} _contact Type: <b>IUnknown*</b>
+     * 
+     * A pointer to the contact object. Use a <a href="https://docs.microsoft.com/uwp/api/windows.applicationmodel.contacts.contact">Windows.ApplicationModel.Contacts.Contact</a> object but cast to <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> here because classic COM IDL can't use Windows Runtime types.
      * @param {Pointer<RECT>} selection Type: <b>RECT const*</b>
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/api/gdiplustypes/nl-gdiplustypes-rect">Rect</a> is the rectangular area of user selection (for example, pressing a button), around which the operating system displays the contact card, not within that rectangular area. For example, if an app uses a button to show the contact card, pass the <b>Rect</b> of the button so the contact card displays around the button, not overlapping it.
-     * @param {Integer} preferredPlacement Type: <b>FLYOUT_PLACEMENT</b>
+     * @param {FLYOUT_PLACEMENT} preferredPlacement Type: <b>FLYOUT_PLACEMENT</b>
      * 
      * A <b>FLYOUT_PLACEMENT</b>-typed value that describes the preferred placement of the contact card.
      * 

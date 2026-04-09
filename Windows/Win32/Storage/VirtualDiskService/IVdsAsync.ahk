@@ -7,9 +7,8 @@
  * The IVdsAsync (vdshwprv.h) interface manages asynchronous operations. Methods that initiate asynchronous operations return a pointer to an IVdsAsync interface.
  * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nn-vdshwprv-ivdsasync
  * @namespace Windows.Win32.Storage.VirtualDiskService
- * @version v4.0.30319
  */
-class IVdsAsync extends IUnknown{
+class IVdsAsync extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

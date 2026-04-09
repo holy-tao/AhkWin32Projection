@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include .\ITAddress.ahk
 #Include .\ITCallInfo.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * The ITAddressDeviceSpecificEvent exposes methods that allow an application to retrieve information about a device-specific event.
  * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nn-tapi3if-itaddressdevicespecificevent
  * @namespace Windows.Win32.Devices.Tapi
- * @version v4.0.30319
  */
-class ITAddressDeviceSpecificEvent extends IDispatch{
+class ITAddressDeviceSpecificEvent extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

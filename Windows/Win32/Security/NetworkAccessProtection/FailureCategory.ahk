@@ -5,9 +5,8 @@
  * Indicates the source of a failure.
  * @see https://learn.microsoft.com/windows/win32/api/naptypes/ne-naptypes-failurecategory
  * @namespace Windows.Win32.Security.NetworkAccessProtection
- * @version v4.0.30319
  */
-class FailureCategory extends Win32Enum{
+class FailureCategory extends Win32Enum {
 
     /**
      * No failure.

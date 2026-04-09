@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Console
- * @version v4.0.30319
  */
-class CONSOLE_MODE extends Win32BitflagEnum{
+class CONSOLE_MODE extends Win32BitflagEnum {
 
     /**
      * @type {Integer (UInt32)}

@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\IEnumBitsPeerCacheRecords.ahk
 #Include .\IBitsPeerCacheRecord.ahk
 #Include .\IEnumBitsPeers.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Use IBitsPeerCacheAdministration to manage the pool of peers from which you can download content.
@@ -14,9 +14,8 @@
  * You must have administrator privileges to modify the cache.
  * @see https://learn.microsoft.com/windows/win32/api/bits3_0/nn-bits3_0-ibitspeercacheadministration
  * @namespace Windows.Win32.Networking.BackgroundIntelligentTransferService
- * @version v4.0.30319
  */
-class IBitsPeerCacheAdministration extends IUnknown{
+class IBitsPeerCacheAdministration extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

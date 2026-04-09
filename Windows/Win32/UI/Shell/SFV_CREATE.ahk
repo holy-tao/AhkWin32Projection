@@ -1,14 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\IShellFolder.ahk
+#Include .\IShellView.ahk
+#Include .\IShellFolderViewCB.ahk
 
 /**
  * This structure is used with the SHCreateShellFolderView function.
  * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/ns-shlobj_core-sfv_create
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class SFV_CREATE extends Win32Struct
-{
+class SFV_CREATE extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8

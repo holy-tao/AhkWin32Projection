@@ -5,10 +5,8 @@
  * Describes the default, maximum, and minimum values allowed for an unsigned large integer.
  * @see https://learn.microsoft.com/windows/win32/api/resapi/ns-resapi-resutil_ulargeint_data
  * @namespace Windows.Win32.Networking.Clustering
- * @version v4.0.30319
  */
-class RESUTIL_ULARGEINT_DATA extends Win32Struct
-{
+class RESUTIL_ULARGEINT_DATA extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

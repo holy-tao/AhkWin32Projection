@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\Com\IDispatch.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * Supports the methods to retrieve the TCP connection information on the viewer and on the sharer side.
  * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nn-rdpencomapi-irdpsrapitcpconnectioninfo
  * @namespace Windows.Win32.System.DesktopSharing
- * @version v4.0.30319
  */
-class IRDPSRAPITcpConnectionInfo extends IDispatch{
+class IRDPSRAPITcpConnectionInfo extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

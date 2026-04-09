@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\DML_BINDING_TYPE.ahk
 
 /**
  * Contains the description of a binding so that you can add it to the binding table via a call to one of the IDMLBindingTable methods.
  * @see https://learn.microsoft.com/windows/win32/api/directml/ns-directml-dml_binding_desc
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
- * @version v4.0.30319
  */
-class DML_BINDING_DESC extends Win32Struct
-{
+class DML_BINDING_DESC extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
@@ -17,7 +16,7 @@ class DML_BINDING_DESC extends Win32Struct
      * Type: [**DML_BINDING_TYPE**](/windows/win32/api/directml/ne-directml-dml_binding_type)
      * 
      * A [DML_BINDING_TYPE](/windows/win32/api/directml/ne-directml-dml_binding_type) specifying the type of the binding; whether it refers to a single buffer, or to an array of buffers.
-     * @type {Integer}
+     * @type {DML_BINDING_TYPE}
      */
     Type {
         get => NumGet(this, 0, "int")

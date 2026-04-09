@@ -5,9 +5,8 @@
  * Indicates the frame rate at which a DVD has been authored to play.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/ne-strmif-dvd_timecode_flags
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class DVD_TIMECODE_FLAGS extends Win32Enum{
+class DVD_TIMECODE_FLAGS extends Win32Enum {
 
     /**
      * Disc is authored to play at 25 frames per second.

@@ -1,15 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\MBN_CONTEXT_TYPE.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\MBN_COMPRESSION.ahk
+#Include .\MBN_AUTH_PROTOCOL.ahk
 
 /**
  * The MBN_CONTEXT structure stores information about the connection context.
  * @see https://learn.microsoft.com/windows/win32/api/mbnapi/ns-mbnapi-mbn_context
  * @namespace Windows.Win32.NetworkManagement.MobileBroadband
- * @version v4.0.30319
  */
-class MBN_CONTEXT extends Win32Struct
-{
+class MBN_CONTEXT extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -25,7 +26,7 @@ class MBN_CONTEXT extends Win32Struct
 
     /**
      * An <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/ne-mbnapi-mbn_context_type">MBN_CONTEXT_TYPE</a> value that specifies the context type.  An application can use this member to modify the context stored at a particular index using the <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nf-mbnapi-imbnconnectioncontext-setprovisionedcontext">SetProvisionedContext</a> method of <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nn-mbnapi-imbnconnectioncontext">IMbnConnectionContext</a>.
-     * @type {Integer}
+     * @type {MBN_CONTEXT_TYPE}
      */
     contextType {
         get => NumGet(this, 4, "int")
@@ -38,7 +39,7 @@ class MBN_CONTEXT extends Win32Struct
      * This string must not exceed <b>MBN_ACCESSSTRING_LEN</b> characters. For the definition of <b>MBN_ACCESSTRING_LEN</b>, see <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/ne-mbnapi-mbn_context_constants">MBN_CONTEXT_CONSTANTS</a>. This string can be empty.  The calling application must free this string by calling <a href="https://docs.microsoft.com/windows/win32/api/oleauto/nf-oleauto-sysfreestring">SysFreeString</a>.
      * @type {BSTR}
      */
-    accessString{
+    accessString {
         get {
             if(!this.HasProp("__accessString"))
                 this.__accessString := BSTR(8, this)
@@ -52,7 +53,7 @@ class MBN_CONTEXT extends Win32Struct
      * The string must not exceed <b>MBN_USERNAME_LEN</b> characters.  The calling application must free this string by calling <a href="https://docs.microsoft.com/windows/win32/api/oleauto/nf-oleauto-sysfreestring">SysFreeString</a>. For the definition of <b>MBN_USERNAME_LEN</b>, see <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/ne-mbnapi-mbn_context_constants">MBN_CONTEXT_CONSTANTS</a>. The calling application must free this string by calling <a href="https://docs.microsoft.com/windows/win32/api/oleauto/nf-oleauto-sysfreestring">SysFreeString</a>.
      * @type {BSTR}
      */
-    userName{
+    userName {
         get {
             if(!this.HasProp("__userName"))
                 this.__userName := BSTR(16, this)
@@ -66,7 +67,7 @@ class MBN_CONTEXT extends Win32Struct
      * The string must not exceed <b>MBN_PASSWORD_LEN</b> characters. This string can be empty.  For the definition of <b>MBN_PASSWORD_LEN</b>, see <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/ne-mbnapi-mbn_context_constants">MBN_CONTEXT_CONSTANTS</a>. The calling application must free this string by calling <a href="https://docs.microsoft.com/windows/win32/api/oleauto/nf-oleauto-sysfreestring">SysFreeString</a>.
      * @type {BSTR}
      */
-    password{
+    password {
         get {
             if(!this.HasProp("__password"))
                 this.__password := BSTR(24, this)
@@ -78,7 +79,7 @@ class MBN_CONTEXT extends Win32Struct
      * An <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/ne-mbnapi-mbn_compression">MBN_COMPRESSION</a> value that specifies whether compression is used in the data link for header and data.
      * 
      * This member is applicable only for GSM devices.
-     * @type {Integer}
+     * @type {MBN_COMPRESSION}
      */
     compression {
         get => NumGet(this, 32, "int")
@@ -89,7 +90,7 @@ class MBN_CONTEXT extends Win32Struct
      * An <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/ne-mbnapi-mbn_auth_protocol">MBN_AUTH_PROTOCOL</a> value that indicates the type of compression used for PDP (Packet Data Protocol) activation.
      * 
      * This member is applicable only for GSM devices.  For CDMA devices, it is set to <b>MBN_AUTH_PROTOCOL_NONE</b>.
-     * @type {Integer}
+     * @type {MBN_AUTH_PROTOCOL}
      */
     authType {
         get => NumGet(this, 36, "int")

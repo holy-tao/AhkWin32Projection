@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DDSURFACEDATA.ahk
 
 /**
  * The DDLOCKININFO structure contains the surface information.
  * @see https://learn.microsoft.com/windows/win32/api/dxmini/ns-dxmini-ddlockininfo
  * @namespace Windows.Win32.Graphics.DirectDraw
- * @version v4.0.30319
  */
-class DDLOCKININFO extends Win32Struct
-{
+class DDLOCKININFO extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 8

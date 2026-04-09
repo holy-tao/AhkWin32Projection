@@ -5,10 +5,8 @@
  * Contains the storage tier regions from the storage stack for a particular volume.
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-fsctl_query_region_info_input
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class FSCTL_QUERY_REGION_INFO_INPUT extends Win32Struct
-{
+class FSCTL_QUERY_REGION_INFO_INPUT extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -51,9 +49,9 @@ class FSCTL_QUERY_REGION_INFO_INPUT extends Win32Struct
 
     /**
      * Array of storage tiers (represented by GUID values) for which to return information.
-     * @type {Array<Guid>}
+     * @type {Array<Pointer>}
      */
-    TierIds{
+    TierIds {
         get {
             if(!this.HasProp("__TierIdsProxyArray"))
                 this.__TierIdsProxyArray := Win32FixedArray(this.ptr + 16, 1, Primitive, "ptr")

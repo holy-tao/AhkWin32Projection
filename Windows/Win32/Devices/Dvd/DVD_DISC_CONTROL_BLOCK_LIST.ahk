@@ -5,18 +5,16 @@
 
 /**
  * @namespace Windows.Win32.Devices.Dvd
- * @version v4.0.30319
  */
-class DVD_DISC_CONTROL_BLOCK_LIST extends Win32Struct
-{
-    static sizeof => 56
+class DVD_DISC_CONTROL_BLOCK_LIST extends Win32Struct {
+    static sizeof => 48
 
-    static packingSize => 8
+    static packingSize => 1
 
     /**
      * @type {DVD_DISC_CONTROL_BLOCK_HEADER}
      */
-    header{
+    header {
         get {
             if(!this.HasProp("__header"))
                 this.__header := DVD_DISC_CONTROL_BLOCK_HEADER(0, this)
@@ -57,12 +55,12 @@ class DVD_DISC_CONTROL_BLOCK_LIST extends Win32Struct
     }
 
     /**
-     * @type {Array<DVD_DISC_CONTROL_BLOCK_LIST_DCB>}
+     * @type {DVD_DISC_CONTROL_BLOCK_LIST_DCB}
      */
-    Dcbs{
+    Dcbs {
         get {
             if(!this.HasProp("__DcbsProxyArray"))
-                this.__DcbsProxyArray := Win32FixedArray(this.ptr + 48, 1, DVD_DISC_CONTROL_BLOCK_LIST_DCB, "")
+                this.__DcbsProxyArray := Win32FixedArray(this.ptr + 44, 1, DVD_DISC_CONTROL_BLOCK_LIST_DCB, "")
             return this.__DcbsProxyArray
         }
     }

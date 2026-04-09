@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Media.Speech
- * @version v4.0.30319
  */
-class ISpRecoContext2 extends IUnknown{
+class ISpRecoContext2 extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -56,7 +55,7 @@ class ISpRecoContext2 extends IUnknown{
      * @param {Integer} cch 
      * @param {PWSTR} pTopicName 
      * @param {Integer} eAdaptationSettings 
-     * @param {Integer} eRelevance 
+     * @param {SPADAPTATIONRELEVANCE} eRelevance 
      * @returns {HRESULT} 
      */
     SetAdaptationData2(pAdaptationData, cch, pTopicName, eAdaptationSettings, eRelevance) {

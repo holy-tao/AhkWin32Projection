@@ -1,16 +1,20 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\DDPIXELFORMAT.ahk
+#Include .\DDHAL_DDCALLBACKS.ahk
+#Include .\DDHAL_DDSURFACECALLBACKS.ahk
+#Include .\DDHAL_DDPALETTECALLBACKS.ahk
 #Include .\VIDMEMINFO.ahk
-#Include .\DDSCAPS.ahk
+#Include .\DDPIXELFORMAT.ahk
+#Include .\VIDMEM.ahk
 #Include .\DDCORECAPS.ahk
+#Include .\DDSCAPS.ahk
+#Include .\DDHALMODEINFO.ahk
+#Include .\DDHAL_DDEXEBUFCALLBACKS.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw
- * @version v4.0.30319
  */
-class DDHALINFO extends Win32Struct
-{
+class DDHALINFO extends Win32Struct {
     static sizeof => 528
 
     static packingSize => 8
@@ -50,7 +54,7 @@ class DDHALINFO extends Win32Struct
     /**
      * @type {VIDMEMINFO}
      */
-    vmiData{
+    vmiData {
         get {
             if(!this.HasProp("__vmiData"))
                 this.__vmiData := VIDMEMINFO(32, this)
@@ -61,7 +65,7 @@ class DDHALINFO extends Win32Struct
     /**
      * @type {DDCORECAPS}
      */
-    ddCaps{
+    ddCaps {
         get {
             if(!this.HasProp("__ddCaps"))
                 this.__ddCaps := DDCORECAPS(120, this)

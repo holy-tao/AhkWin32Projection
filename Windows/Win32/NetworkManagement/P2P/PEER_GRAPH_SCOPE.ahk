@@ -5,9 +5,8 @@
  * The PEER_GRAPH_SCOPE enumeration specifies the network scope of a peer graph.
  * @see https://learn.microsoft.com/windows/win32/api/p2p/ne-p2p-peer_graph_scope
  * @namespace Windows.Win32.NetworkManagement.P2P
- * @version v4.0.30319
  */
-class PEER_GRAPH_SCOPE extends Win32Enum{
+class PEER_GRAPH_SCOPE extends Win32Enum {
 
     /**
      * The peer graph's network scope can contain any IP address, valid or otherwise.

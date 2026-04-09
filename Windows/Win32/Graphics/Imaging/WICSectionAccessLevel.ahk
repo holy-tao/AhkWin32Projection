@@ -5,9 +5,8 @@
  * Specifies the access level of a Windows Graphics Device Interface (GDI) section.
  * @see https://learn.microsoft.com/windows/win32/api/wincodec/ne-wincodec-wicsectionaccesslevel
  * @namespace Windows.Win32.Graphics.Imaging
- * @version v4.0.30319
  */
-class WICSectionAccessLevel extends Win32Enum{
+class WICSectionAccessLevel extends Win32Enum {
 
     /**
      * Indicates a read only access level.

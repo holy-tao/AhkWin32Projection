@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Media.Audio.Apo
- * @version v4.0.30319
  */
-class AUDIO_FLOW_TYPE extends Win32Enum{
+class AUDIO_FLOW_TYPE extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\AUDIO_EFFECT_STATE.ahk
 
 /**
  * Represents an audio effect.
@@ -7,17 +8,15 @@
  * Get a list of **AUDIO_EFFECT** structures by calling [IAudioEffectsManager::GetAudioEffects](nf-audioclient-iaudioeffectsmanager-getaudioeffects.md).
  * @see https://learn.microsoft.com/windows/win32/api/audioclient/ns-audioclient-audio_effect
  * @namespace Windows.Win32.Media.Audio
- * @version v4.0.30319
  */
-class AUDIO_EFFECT extends Win32Struct
-{
+class AUDIO_EFFECT extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
 
     /**
      * The GUID identifier for an audio effect. Audio effect GUIDs are defined in [ksmedia.h](/windows-hardware/drivers/audio/ksmedia-h).
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     id {
         get => NumGet(this, 0, "ptr")
@@ -35,7 +34,7 @@ class AUDIO_EFFECT extends Win32Struct
 
     /**
      * A member of the [AUDIO_EFFECT_STATE](ne-audioclient-audio_effect_state.md) enumeration specifying the state of the audio effect.
-     * @type {Integer}
+     * @type {AUDIO_EFFECT_STATE}
      */
     state {
         get => NumGet(this, 12, "int")

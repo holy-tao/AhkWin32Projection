@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Media.Speech
- * @version v4.0.30319
  */
-class SPSERIALIZEDPHRASE extends Win32Struct
-{
+class SPSERIALIZEDPHRASE extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 4

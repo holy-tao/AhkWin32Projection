@@ -1,16 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IMFNetProxyLocator.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Determines the proxy to use when connecting to a server.
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imfnetproxylocator
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFNetProxyLocator extends IUnknown{
+class IMFNetProxyLocator extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

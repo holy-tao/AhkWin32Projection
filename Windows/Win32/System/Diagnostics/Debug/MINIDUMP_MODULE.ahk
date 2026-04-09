@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include ..\..\..\Storage\FileSystem\VS_FIXEDFILEINFO.ahk
+#Include ..\..\..\Storage\FileSystem\VS_FIXEDFILEINFO_FILE_FLAGS.ahk
+#Include ..\..\..\Storage\FileSystem\VS_FIXEDFILEINFO_FILE_OS.ahk
 #Include .\MINIDUMP_LOCATION_DESCRIPTOR.ahk
 
 /**
  * Contains information for a specific module.
  * @see https://learn.microsoft.com/windows/win32/api/minidumpapiset/ns-minidumpapiset-minidump_module
  * @namespace Windows.Win32.System.Diagnostics.Debug
- * @version v4.0.30319
  */
-class MINIDUMP_MODULE extends Win32Struct
-{
+class MINIDUMP_MODULE extends Win32Struct {
     static sizeof => 112
 
     static packingSize => 8
@@ -66,7 +66,7 @@ class MINIDUMP_MODULE extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/verrsrc/ns-verrsrc-vs_fixedfileinfo">VS_FIXEDFILEINFO</a> structure that specifies the version of the module.
      * @type {VS_FIXEDFILEINFO}
      */
-    VersionInfo{
+    VersionInfo {
         get {
             if(!this.HasProp("__VersionInfo"))
                 this.__VersionInfo := VS_FIXEDFILEINFO(24, this)
@@ -78,7 +78,7 @@ class MINIDUMP_MODULE extends Win32Struct
      * A <a href="https://docs.microsoft.com/windows/win32/api/minidumpapiset/ns-minidumpapiset-minidump_location_descriptor">MINIDUMP_LOCATION_DESCRIPTOR</a> structure that specifies the CodeView record of the module.
      * @type {MINIDUMP_LOCATION_DESCRIPTOR}
      */
-    CvRecord{
+    CvRecord {
         get {
             if(!this.HasProp("__CvRecord"))
                 this.__CvRecord := MINIDUMP_LOCATION_DESCRIPTOR(76, this)
@@ -90,7 +90,7 @@ class MINIDUMP_MODULE extends Win32Struct
      * A <a href="https://docs.microsoft.com/windows/win32/api/minidumpapiset/ns-minidumpapiset-minidump_location_descriptor">MINIDUMP_LOCATION_DESCRIPTOR</a> structure that specifies the miscellaneous record of the module.
      * @type {MINIDUMP_LOCATION_DESCRIPTOR}
      */
-    MiscRecord{
+    MiscRecord {
         get {
             if(!this.HasProp("__MiscRecord"))
                 this.__MiscRecord := MINIDUMP_LOCATION_DESCRIPTOR(84, this)

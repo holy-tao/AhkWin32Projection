@@ -7,9 +7,8 @@
  * A consequence is that whichever of these <b>CALLFRAME_COPY</b> flags are passed to <a href="https://docs.microsoft.com/windows/desktop/api/callobj/nf-callobj-icallframe-copy">ICallFrame::Copy</a>, the interface pointers can be modified without consequence of disturbing the interface pointers residing in the parent frame.
  * @see https://learn.microsoft.com/windows/win32/api/callobj/ne-callobj-callframe_copy
  * @namespace Windows.Win32.System.Com.CallObj
- * @version v4.0.30319
  */
-class CALLFRAME_COPY extends Win32Enum{
+class CALLFRAME_COPY extends Win32Enum {
 
     /**
      * The client will be responsible for using the copied call frame in a manner that its lifetime is nested in the lifetime of its parent frame making the data sharable. When this flag is used, very significant optimizations can be made and memory allocations avoided by cleverly sharing actual parameter data.

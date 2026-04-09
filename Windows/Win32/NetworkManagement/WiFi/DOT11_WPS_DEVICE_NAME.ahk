@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
- * @version v4.0.30319
  */
-class DOT11_WPS_DEVICE_NAME extends Win32Struct
-{
+class DOT11_WPS_DEVICE_NAME extends Win32Struct {
     static sizeof => 36
 
     static packingSize => 4
@@ -20,9 +18,9 @@ class DOT11_WPS_DEVICE_NAME extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    ucDeviceName{
+    ucDeviceName {
         get {
             if(!this.HasProp("__ucDeviceNameProxyArray"))
                 this.__ucDeviceNameProxyArray := Win32FixedArray(this.ptr + 4, 32, Primitive, "char")

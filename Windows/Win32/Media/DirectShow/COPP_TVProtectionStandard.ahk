@@ -5,9 +5,8 @@
  * Defines a list of TV protection standards for Certified Output Protection Protocol (COPP).
  * @see https://learn.microsoft.com/windows/win32/api/dxva9typ/ne-dxva9typ-copp_tvprotectionstandard
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class COPP_TVProtectionStandard extends Win32Enum{
+class COPP_TVProtectionStandard extends Win32Enum {
 
     /**
      * None.

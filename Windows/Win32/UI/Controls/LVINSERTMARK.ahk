@@ -5,10 +5,8 @@
  * Used to describe insertion points.
  * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-lvinsertmark
  * @namespace Windows.Win32.UI.Controls
- * @version v4.0.30319
  */
-class LVINSERTMARK extends Win32Struct
-{
+class LVINSERTMARK extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4

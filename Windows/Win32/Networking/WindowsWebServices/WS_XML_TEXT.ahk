@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\WS_XML_TEXT_TYPE.ahk
 
 /**
  * Represents a node of text content in xml.
@@ -12,17 +13,14 @@
  *         that comprise that value.
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_xml_text
  * @namespace Windows.Win32.Networking.WindowsWebServices
- * @version v4.0.30319
  */
-class WS_XML_TEXT extends Win32Struct
-{
+class WS_XML_TEXT extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 4
 
     /**
-     * 
-     * @type {Integer}
+     * @type {WS_XML_TEXT_TYPE}
      */
     textType {
         get => NumGet(this, 0, "int")

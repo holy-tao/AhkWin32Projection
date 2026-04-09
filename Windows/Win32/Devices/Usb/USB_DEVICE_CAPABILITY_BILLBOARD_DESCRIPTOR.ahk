@@ -3,13 +3,11 @@
 
 /**
  * @namespace Windows.Win32.Devices.Usb
- * @version v4.0.30319
  */
-class USB_DEVICE_CAPABILITY_BILLBOARD_DESCRIPTOR extends Win32Struct
-{
-    static sizeof => 56
+class USB_DEVICE_CAPABILITY_BILLBOARD_DESCRIPTOR extends Win32Struct {
+    static sizeof => 48
 
-    static packingSize => 8
+    static packingSize => 4
 
     class _VconnPower_e__Union extends Win32Struct {
         static sizeof => 2
@@ -22,7 +20,7 @@ class USB_DEVICE_CAPABILITY_BILLBOARD_DESCRIPTOR extends Win32Struct
             get => NumGet(this, 0, "ushort")
             set => NumPut("ushort", value, this, 0)
         }
-    
+
         /**
          * This bitfield backs the following members:
          * - VConnPowerNeededForFullFunctionality
@@ -34,7 +32,7 @@ class USB_DEVICE_CAPABILITY_BILLBOARD_DESCRIPTOR extends Win32Struct
             get => NumGet(this, 0, "ushort")
             set => NumPut("ushort", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -42,7 +40,7 @@ class USB_DEVICE_CAPABILITY_BILLBOARD_DESCRIPTOR extends Win32Struct
             get => (this._bitfield >> 0) & 0x7
             set => this._bitfield := ((value & 0x7) << 0) | (this._bitfield & ~(0x7 << 0))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -50,7 +48,6 @@ class USB_DEVICE_CAPABILITY_BILLBOARD_DESCRIPTOR extends Win32Struct
             get => (this._bitfield >> 15) & 0x1
             set => this._bitfield := ((value & 0x1) << 15) | (this._bitfield & ~(0x1 << 15))
         }
-    
     }
 
     /**
@@ -104,18 +101,18 @@ class USB_DEVICE_CAPABILITY_BILLBOARD_DESCRIPTOR extends Win32Struct
     /**
      * @type {_VconnPower_e__Union}
      */
-    VconnPower{
+    VconnPower {
         get {
             if(!this.HasProp("__VconnPower"))
-                this.__VconnPower := %this.__Class%._VconnPower_e__Union(6, this)
+                this.__VconnPower := USB_DEVICE_CAPABILITY_BILLBOARD_DESCRIPTOR._VconnPower_e__Union(6, this)
             return this.__VconnPower
         }
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    bmConfigured{
+    bmConfigured {
         get {
             if(!this.HasProp("__bmConfiguredProxyArray"))
                 this.__bmConfiguredProxyArray := Win32FixedArray(this.ptr + 8, 32, Primitive, "char")
@@ -135,23 +132,23 @@ class USB_DEVICE_CAPABILITY_BILLBOARD_DESCRIPTOR extends Win32Struct
      * @type {Integer}
      */
     wSVID {
-        get => NumGet(this, 48, "ushort")
-        set => NumPut("ushort", value, this, 48)
+        get => NumGet(this, 44, "ushort")
+        set => NumPut("ushort", value, this, 44)
     }
 
     /**
      * @type {Integer}
      */
     bAlternateMode {
-        get => NumGet(this, 50, "char")
-        set => NumPut("char", value, this, 50)
+        get => NumGet(this, 46, "char")
+        set => NumPut("char", value, this, 46)
     }
 
     /**
      * @type {Integer}
      */
     iAlternateModeSetting {
-        get => NumGet(this, 51, "char")
-        set => NumPut("char", value, this, 51)
+        get => NumGet(this, 47, "char")
+        set => NumPut("char", value, this, 47)
     }
 }

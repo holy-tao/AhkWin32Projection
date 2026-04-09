@@ -7,9 +7,8 @@
  * Notifies the subscriber if a Microsoft Distributed Transaction Coordinator (DTC) transaction starts, commits, or aborts. The subscriber is also notified when the transaction is in the prepare phase of the two-phase commit protocol.
  * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nn-comsvcs-icomtransaction2events
  * @namespace Windows.Win32.System.ComponentServices
- * @version v4.0.30319
  */
-class IComTransaction2Events extends IUnknown{
+class IComTransaction2Events extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

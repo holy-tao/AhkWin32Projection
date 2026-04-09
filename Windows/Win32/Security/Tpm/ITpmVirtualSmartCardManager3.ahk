@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Security.Tpm
- * @version v4.0.30319
  */
-class ITpmVirtualSmartCardManager3 extends ITpmVirtualSmartCardManager2{
+class ITpmVirtualSmartCardManager3 extends ITpmVirtualSmartCardManager2 {
 
     static sizeof => A_PtrSize
     /**
@@ -42,7 +41,7 @@ class ITpmVirtualSmartCardManager3 extends ITpmVirtualSmartCardManager2{
      * @param {Integer} cbPin 
      * @param {Pointer<Integer>} pbPinPolicy 
      * @param {Integer} cbPinPolicy 
-     * @param {Integer} attestationType 
+     * @param {TPMVSC_ATTESTATION_TYPE} attestationType 
      * @param {BOOL} fGenerate 
      * @param {ITpmVirtualSmartCardManagerStatusCallback} pStatusCallback 
      * @returns {PWSTR} 

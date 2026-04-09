@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.Dvd
- * @version v4.0.30319
  */
-class DVD_DESCRIPTOR_HEADER extends Win32Struct
-{
+class DVD_DESCRIPTOR_HEADER extends Win32Struct {
     static sizeof => 6
 
     static packingSize => 2
@@ -20,9 +18,9 @@ class DVD_DESCRIPTOR_HEADER extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Reserved{
+    Reserved {
         get {
             if(!this.HasProp("__ReservedProxyArray"))
                 this.__ReservedProxyArray := Win32FixedArray(this.ptr + 2, 2, Primitive, "char")
@@ -31,9 +29,9 @@ class DVD_DESCRIPTOR_HEADER extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Data{
+    Data {
         get {
             if(!this.HasProp("__DataProxyArray"))
                 this.__DataProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "char")

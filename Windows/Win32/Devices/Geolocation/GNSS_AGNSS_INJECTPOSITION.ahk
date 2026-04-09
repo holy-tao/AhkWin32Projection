@@ -5,10 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.Geolocation
- * @version v4.0.30319
  */
-class GNSS_AGNSS_INJECTPOSITION extends Win32Struct
-{
+class GNSS_AGNSS_INJECTPOSITION extends Win32Struct {
     static sizeof => 128
 
     static packingSize => 8
@@ -40,7 +38,7 @@ class GNSS_AGNSS_INJECTPOSITION extends Win32Struct
     /**
      * @type {GNSS_FIXDATA_BASIC}
      */
-    BasicData{
+    BasicData {
         get {
             if(!this.HasProp("__BasicData"))
                 this.__BasicData := GNSS_FIXDATA_BASIC(16, this)
@@ -51,7 +49,7 @@ class GNSS_AGNSS_INJECTPOSITION extends Win32Struct
     /**
      * @type {GNSS_FIXDATA_ACCURACY}
      */
-    AccuracyData{
+    AccuracyData {
         get {
             if(!this.HasProp("__AccuracyData"))
                 this.__AccuracyData := GNSS_FIXDATA_ACCURACY(64, this)

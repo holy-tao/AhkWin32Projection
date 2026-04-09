@@ -16,18 +16,16 @@
  * > The ntmsapi.h header defines NTMS_PMIDINFORMATION as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
  * @see https://learn.microsoft.com/windows/win32/api/ntmsapi/ns-ntmsapi-ntms_pmidinformationw
  * @namespace Windows.Win32.Storage.FileSystem
- * @version v4.0.30319
  * @charset Unicode
  */
-class NTMS_PMIDINFORMATIONW extends Win32Struct
-{
+class NTMS_PMIDINFORMATIONW extends Win32Struct {
     static sizeof => 272
 
     static packingSize => 8
 
     /**
      * Unique ID of the library in which the media is contained.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     CurrentLibrary {
         get => NumGet(this, 0, "ptr")
@@ -36,7 +34,7 @@ class NTMS_PMIDINFORMATIONW extends Win32Struct
 
     /**
      * Unique ID of the media pool to which the media is assigned.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     MediaPool {
         get => NumGet(this, 8, "ptr")
@@ -45,7 +43,7 @@ class NTMS_PMIDINFORMATIONW extends Win32Struct
 
     /**
      * Unique ID of the physical location object for the media.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     Location {
         get => NumGet(this, 16, "ptr")
@@ -63,7 +61,7 @@ class NTMS_PMIDINFORMATIONW extends Win32Struct
 
     /**
      * Unique ID of a media type object.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     MediaType {
         get => NumGet(this, 32, "ptr")
@@ -72,7 +70,7 @@ class NTMS_PMIDINFORMATIONW extends Win32Struct
 
     /**
      * Unique ID of the library storage slot in which media is stored.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     HomeSlot {
         get => NumGet(this, 40, "ptr")
@@ -89,7 +87,6 @@ class NTMS_PMIDINFORMATIONW extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     BarCodeState {
@@ -107,7 +104,6 @@ class NTMS_PMIDINFORMATIONW extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     MediaState {
@@ -144,7 +140,7 @@ class NTMS_PMIDINFORMATIONW extends Win32Struct
 
     /**
      * Globally unique ID of the side of the media that is currently mounted.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     MountedPartition {
         get => NumGet(this, 264, "ptr")

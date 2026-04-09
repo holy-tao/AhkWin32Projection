@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.ActiveScript
- * @version v4.0.30319
  */
-class IDebugDocumentTextAuthor extends IDebugDocumentText{
+class IDebugDocumentTextAuthor extends IDebugDocumentText {
 
     static sizeof => A_PtrSize
     /**

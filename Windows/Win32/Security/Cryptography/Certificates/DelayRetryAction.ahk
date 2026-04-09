@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Security.Cryptography.Certificates
- * @version v4.0.30319
  */
-class DelayRetryAction extends Win32Enum{
+class DelayRetryAction extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

@@ -1,16 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include .\XPF_MCE_FLAGS.ahk
-#Include .\XPF_MC_BANK_FLAGS.ahk
 #Include .\WHEA_XPF_MC_BANK_DESCRIPTOR.ahk
+#Include .\XPF_MC_BANK_FLAGS.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug
- * @version v4.0.30319
  */
-class WHEA_XPF_MCE_DESCRIPTOR extends Win32Struct
-{
-    static sizeof => 288
+class WHEA_XPF_MCE_DESCRIPTOR extends Win32Struct {
+    static sizeof => 1056
 
     static packingSize => 8
 
@@ -41,7 +39,7 @@ class WHEA_XPF_MCE_DESCRIPTOR extends Win32Struct
     /**
      * @type {XPF_MCE_FLAGS}
      */
-    Flags{
+    Flags {
         get {
             if(!this.HasProp("__Flags"))
                 this.__Flags := XPF_MCE_FLAGS(4, this)
@@ -66,9 +64,9 @@ class WHEA_XPF_MCE_DESCRIPTOR extends Win32Struct
     }
 
     /**
-     * @type {Array<WHEA_XPF_MC_BANK_DESCRIPTOR>}
+     * @type {WHEA_XPF_MC_BANK_DESCRIPTOR}
      */
-    Banks{
+    Banks {
         get {
             if(!this.HasProp("__BanksProxyArray"))
                 this.__BanksProxyArray := Win32FixedArray(this.ptr + 32, 32, WHEA_XPF_MC_BANK_DESCRIPTOR, "")

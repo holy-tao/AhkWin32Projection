@@ -1,14 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\WRITE_CACHE_TYPE.ahk
+#Include .\WRITE_CACHE_ENABLE.ahk
+#Include .\WRITE_CACHE_CHANGE.ahk
+#Include .\WRITE_THROUGH.ahk
 
 /**
  * Used with the IOCTL_STORAGE_QUERY_PROPERTY control code to retrieve information about a device's write cache property.
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-storage_write_cache_property
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class STORAGE_WRITE_CACHE_PROPERTY extends Win32Struct
-{
+class STORAGE_WRITE_CACHE_PROPERTY extends Win32Struct {
     static sizeof => 28
 
     static packingSize => 4
@@ -87,7 +89,7 @@ class STORAGE_WRITE_CACHE_PROPERTY extends Win32Struct
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
+     * @type {WRITE_CACHE_TYPE}
      */
     WriteCacheType {
         get => NumGet(this, 8, "int")
@@ -137,7 +139,7 @@ class STORAGE_WRITE_CACHE_PROPERTY extends Win32Struct
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
+     * @type {WRITE_CACHE_ENABLE}
      */
     WriteCacheEnabled {
         get => NumGet(this, 12, "int")
@@ -187,7 +189,7 @@ class STORAGE_WRITE_CACHE_PROPERTY extends Win32Struct
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
+     * @type {WRITE_CACHE_CHANGE}
      */
     WriteCacheChangeable {
         get => NumGet(this, 16, "int")
@@ -236,7 +238,7 @@ class STORAGE_WRITE_CACHE_PROPERTY extends Win32Struct
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
+     * @type {WRITE_THROUGH}
      */
     WriteThroughSupported {
         get => NumGet(this, 20, "int")

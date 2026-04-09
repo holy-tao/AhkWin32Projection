@@ -16,9 +16,8 @@
  *          a library of standard transitions.
  * @see https://learn.microsoft.com/windows/win32/api/uianimation/nn-uianimation-iuianimationtransition
  * @namespace Windows.Win32.UI.Animation
- * @version v4.0.30319
  */
-class IUIAnimationTransition extends IUnknown{
+class IUIAnimationTransition extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

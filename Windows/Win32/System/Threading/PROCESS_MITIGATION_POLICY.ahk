@@ -3,13 +3,10 @@
 
 /**
  * Represents the different process mitigation policies.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ne-winnt-process_mitigation_policy
  * @namespace Windows.Win32.System.Threading
- * @version v4.0.30319
  */
-class PROCESS_MITIGATION_POLICY extends Win32Enum{
+class PROCESS_MITIGATION_POLICY extends Win32Enum {
 
     /**
      * The data execution prevention (DEP) policy of the process.

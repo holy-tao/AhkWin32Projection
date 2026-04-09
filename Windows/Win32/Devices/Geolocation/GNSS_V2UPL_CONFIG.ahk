@@ -3,11 +3,9 @@
 
 /**
  * @namespace Windows.Win32.Devices.Geolocation
- * @version v4.0.30319
  */
-class GNSS_V2UPL_CONFIG extends Win32Struct
-{
-    static sizeof => 1564
+class GNSS_V2UPL_CONFIG extends Win32Struct {
+    static sizeof => 1044
 
     static packingSize => 4
 
@@ -31,33 +29,33 @@ class GNSS_V2UPL_CONFIG extends Win32Struct
      * @type {String}
      */
     MPC {
-        get => StrGet(this.ptr + 8, 259, "UTF-16")
-        set => StrPut(value, this.ptr + 8, 259, "UTF-16")
+        get => StrGet(this.ptr + 8, 259, "UTF-8")
+        set => StrPut(value, this.ptr + 8, 259, "UTF-8")
     }
 
     /**
      * @type {String}
      */
     PDE {
-        get => StrGet(this.ptr + 528, 259, "UTF-16")
-        set => StrPut(value, this.ptr + 528, 259, "UTF-16")
+        get => StrGet(this.ptr + 268, 259, "UTF-8")
+        set => StrPut(value, this.ptr + 268, 259, "UTF-8")
     }
 
     /**
      * @type {Integer}
      */
     ApplicationTypeIndicator_MR {
-        get => NumGet(this, 1048, "char")
-        set => NumPut("char", value, this, 1048)
+        get => NumGet(this, 528, "char")
+        set => NumPut("char", value, this, 528)
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Unused{
+    Unused {
         get {
             if(!this.HasProp("__UnusedProxyArray"))
-                this.__UnusedProxyArray := Win32FixedArray(this.ptr + 1049, 512, Primitive, "char")
+                this.__UnusedProxyArray := Win32FixedArray(this.ptr + 529, 512, Primitive, "char")
             return this.__UnusedProxyArray
         }
     }

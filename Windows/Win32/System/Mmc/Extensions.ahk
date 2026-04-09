@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Com\IDispatch.ahk
 #Include ..\Com\IUnknown.ahk
 #Include .\Extension.ahk
-#Include ..\Com\IDispatch.ahk
 
 /**
  * The X.509 version 3 certificate format identifies multiple extensions that can be added to a certificate.
  * @see https://learn.microsoft.com/windows/win32/SecCertEnroll/extensions
  * @namespace Windows.Win32.System.Mmc
- * @version v4.0.30319
  */
-class Extensions extends IDispatch{
+class Extensions extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

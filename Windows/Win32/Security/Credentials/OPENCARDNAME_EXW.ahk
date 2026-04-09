@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\HWND.ahk
 #Include ..\..\UI\WindowsAndMessaging\HICON.ahk
+#Include .\OPENCARD_SEARCH_CRITERIAW.ahk
 
 /**
  * The OPENCARDNAME_EX structure contains the information that the SCardUIDlgSelectCard function uses to initialize a smart card Select Card dialog box. (Unicode)
@@ -10,11 +11,9 @@
  * > The winscard.h header defines OPENCARDNAME_EX as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
  * @see https://learn.microsoft.com/windows/win32/api/winscard/ns-winscard-opencardname_exw
  * @namespace Windows.Win32.Security.Credentials
- * @version v4.0.30319
  * @charset Unicode
  */
-class OPENCARDNAME_EXW extends Win32Struct
-{
+class OPENCARDNAME_EXW extends Win32Struct {
     static sizeof => 128
 
     static packingSize => 8
@@ -43,7 +42,7 @@ class OPENCARDNAME_EXW extends Win32Struct
      * The window that owns the dialog box. This member can be any valid window handle, or it can be <b>NULL</b> for the desktop default.
      * @type {HWND}
      */
-    hwndOwner{
+    hwndOwner {
         get {
             if(!this.HasProp("__hwndOwner"))
                 this.__hwndOwner := HWND(16, this)
@@ -119,7 +118,7 @@ class OPENCARDNAME_EXW extends Win32Struct
      * A handle to an icon (32 x 32 pixels). You can specify a vendor-specific icon to display in the dialog box. If this value is <b>NULL</b>, a generic, smart card reader–loaded icon is displayed.
      * @type {HICON}
      */
-    hIcon{
+    hIcon {
         get {
             if(!this.HasProp("__hIcon"))
                 this.__hIcon := HICON(48, this)

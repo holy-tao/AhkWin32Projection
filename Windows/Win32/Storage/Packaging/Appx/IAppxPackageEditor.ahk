@@ -7,9 +7,8 @@
  * Provides functionality to edit app packages.
  * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nn-appxpackaging-iappxpackageeditor
  * @namespace Windows.Win32.Storage.Packaging.Appx
- * @version v4.0.30319
  */
-class IAppxPackageEditor extends IUnknown{
+class IAppxPackageEditor extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -81,7 +80,7 @@ class IAppxPackageEditor extends IUnknown{
      * Updates an app package.
      * @param {IStream} baselinePackageStream An <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a> that provides the contents of the baseline app package.
      * @param {IStream} deltaPackageStream An <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a> that provides the contents of the delta (difference) app package.
-     * @param {Integer} updateOption The update options.
+     * @param {APPX_PACKAGE_EDITOR_UPDATE_PACKAGE_OPTION} updateOption The update options.
      * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxpackageeditor-updatepackage
      */
@@ -94,7 +93,7 @@ class IAppxPackageEditor extends IUnknown{
      * Updates an encrypted app package.
      * @param {IStream} baselineEncryptedPackageStream An <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a> that provides the contents of the baseline encrypted app package.
      * @param {IStream} deltaPackageStream An <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a> that provides the contents of the delta (difference) app package.
-     * @param {Integer} updateOption The update options.
+     * @param {APPX_PACKAGE_EDITOR_UPDATE_PACKAGE_OPTION} updateOption The update options.
      * @param {Pointer<APPX_ENCRYPTED_PACKAGE_SETTINGS2>} settings The encrypted app package settings.
      * @param {Pointer<APPX_KEY_INFO>} keyInfo App package key information.
      * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
@@ -110,7 +109,7 @@ class IAppxPackageEditor extends IUnknown{
      * @param {IStream} packageStream An <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a> that provides the contents of the app package associated with the manifest to be updated.
      * @param {IStream} updatedManifestStream An <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a> that provides the contents of the updated app package manifest.
      * @param {BOOL} isPackageEncrypted Flag to specify whether the package is encrypted.
-     * @param {Integer} options Options for app package manifest validation.
+     * @param {APPX_PACKAGE_EDITOR_UPDATE_PACKAGE_MANIFEST_OPTIONS} options Options for app package manifest validation.
      * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxpackageeditor-updatepackagemanifest
      */

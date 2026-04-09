@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\Com\IClassFactory.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * Enables a class factory object, in any sort of object server, to control object creation through licensing.
  * @see https://learn.microsoft.com/windows/win32/api/ocidl/nn-ocidl-iclassfactory2
  * @namespace Windows.Win32.System.Ole
- * @version v4.0.30319
  */
-class IClassFactory2 extends IClassFactory{
+class IClassFactory2 extends IClassFactory {
 
     static sizeof => A_PtrSize
     /**

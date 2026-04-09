@@ -5,9 +5,8 @@
  * Specifies the type of footprint file in a package.
  * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/ne-appxpackaging-appx_footprint_file_type
  * @namespace Windows.Win32.Storage.Packaging.Appx
- * @version v4.0.30319
  */
-class APPX_FOOTPRINT_FILE_TYPE extends Win32Enum{
+class APPX_FOOTPRINT_FILE_TYPE extends Win32Enum {
 
     /**
      * The package manifest.

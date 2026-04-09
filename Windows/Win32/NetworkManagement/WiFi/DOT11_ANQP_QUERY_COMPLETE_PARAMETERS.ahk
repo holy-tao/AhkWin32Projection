@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\Ndis\NDIS_OBJECT_HEADER.ahk
+#Include .\DOT11_ANQP_QUERY_RESULT.ahk
 #Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
- * @version v4.0.30319
  */
-class DOT11_ANQP_QUERY_COMPLETE_PARAMETERS extends Win32Struct
-{
+class DOT11_ANQP_QUERY_COMPLETE_PARAMETERS extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -16,7 +15,7 @@ class DOT11_ANQP_QUERY_COMPLETE_PARAMETERS extends Win32Struct
     /**
      * @type {NDIS_OBJECT_HEADER}
      */
-    Header{
+    Header {
         get {
             if(!this.HasProp("__Header"))
                 this.__Header := NDIS_OBJECT_HEADER(0, this)
@@ -25,7 +24,7 @@ class DOT11_ANQP_QUERY_COMPLETE_PARAMETERS extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {DOT11_ANQP_QUERY_RESULT}
      */
     Status {
         get => NumGet(this, 4, "int")
@@ -35,7 +34,7 @@ class DOT11_ANQP_QUERY_COMPLETE_PARAMETERS extends Win32Struct
     /**
      * @type {HANDLE}
      */
-    hContext{
+    hContext {
         get {
             if(!this.HasProp("__hContext"))
                 this.__hContext := HANDLE(8, this)

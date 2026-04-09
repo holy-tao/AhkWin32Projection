@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ID3D11DeviceContext2.ahk
 #Include .\ID3D11Device1.ahk
+#Include .\ID3D11DeviceContext2.ahk
 
 /**
  * The device interface represents a virtual adapter; it is used to create resources. ID3D11Device2 adds new methods to those in ID3D11Device1.
  * @see https://learn.microsoft.com/windows/win32/api/d3d11_2/nn-d3d11_2-id3d11device2
  * @namespace Windows.Win32.Graphics.Direct3D11
- * @version v4.0.30319
  */
-class ID3D11Device2 extends ID3D11Device1{
+class ID3D11Device2 extends ID3D11Device1 {
 
     static sizeof => A_PtrSize
     /**
@@ -133,7 +132,7 @@ class ID3D11Device2 extends ID3D11Device1{
      * Note that FEATURE_LEVEL_10_1 devices are required to support 4x MSAA for all render targets except R32G32B32A32 and R32G32B32.
      *       FEATURE_LEVEL_11_0 devices are required to support 4x MSAA for all render target formats, and 8x MSAA for all render target formats 
      *       except R32G32B32A32 formats.
-     * @param {Integer} Format Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dxgiformat/ne-dxgiformat-dxgi_format">DXGI_FORMAT</a></b>
+     * @param {DXGI_FORMAT} Format Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dxgiformat/ne-dxgiformat-dxgi_format">DXGI_FORMAT</a></b>
      * 
      * The texture format during multisampling.
      * @param {Integer} SampleCount Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>

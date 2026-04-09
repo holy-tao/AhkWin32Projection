@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\INTERFACE_TYPE.ahk
+#Include .\DMA_WIDTH.ahk
+#Include .\DMA_SPEED.ahk
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class DEVICE_DESCRIPTION extends Win32Struct
-{
+class DEVICE_DESCRIPTION extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 8
@@ -100,7 +101,7 @@ class DEVICE_DESCRIPTION extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {INTERFACE_TYPE}
      */
     InterfaceType {
         get => NumGet(this, 20, "int")
@@ -108,7 +109,7 @@ class DEVICE_DESCRIPTION extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {DMA_WIDTH}
      */
     DmaWidth {
         get => NumGet(this, 24, "int")
@@ -116,7 +117,7 @@ class DEVICE_DESCRIPTION extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {DMA_SPEED}
      */
     DmaSpeed {
         get => NumGet(this, 28, "int")

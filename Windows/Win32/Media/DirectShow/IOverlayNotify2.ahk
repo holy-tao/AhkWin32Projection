@@ -7,9 +7,8 @@
  * The IOverlayNotify2 interface derives from the IOverlayNotify interface.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-ioverlaynotify2
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IOverlayNotify2 extends IOverlayNotify{
+class IOverlayNotify2 extends IOverlayNotify {
 
     static sizeof => A_PtrSize
     /**
@@ -32,7 +31,7 @@ class IOverlayNotify2 extends IOverlayNotify{
 
     /**
      * The OnDisplayChange method provides notification that the exposed window area has changed.
-     * @param {HMONITOR} _hMonitor 
+     * @param {HMONITOR} _hMonitor Handle to the monitor used for displaying the overlay.
      * @returns {HRESULT} Returns S_OK if successful. If the method fails, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ioverlaynotify2-ondisplaychange
      */

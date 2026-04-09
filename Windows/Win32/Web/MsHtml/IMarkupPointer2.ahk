@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
- * @version v4.0.30319
  */
-class IMarkupPointer2 extends IMarkupPointer{
+class IMarkupPointer2 extends IMarkupPointer {
 
     static sizeof => A_PtrSize
     /**
@@ -59,7 +58,7 @@ class IMarkupPointer2 extends IMarkupPointer{
 
     /**
      * 
-     * @param {Integer} muAction 
+     * @param {MOVEUNIT_ACTION} muAction 
      * @param {IMarkupPointer} pIBoundary 
      * @returns {HRESULT} 
      */

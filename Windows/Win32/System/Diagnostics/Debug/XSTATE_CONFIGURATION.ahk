@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug
- * @version v4.0.30319
  */
-class XSTATE_CONFIGURATION extends Win32Struct
-{
+class XSTATE_CONFIGURATION extends Win32Struct {
     static sizeof => 840
 
     static packingSize => 8
@@ -81,9 +79,9 @@ class XSTATE_CONFIGURATION extends Win32Struct
     }
 
     /**
-     * @type {Array<XSTATE_FEATURE>}
+     * @type {XSTATE_FEATURE}
      */
-    Features{
+    Features {
         get {
             if(!this.HasProp("__FeaturesProxyArray"))
                 this.__FeaturesProxyArray := Win32FixedArray(this.ptr + 24, 64, XSTATE_FEATURE, "")
@@ -116,9 +114,9 @@ class XSTATE_CONFIGURATION extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    AllFeatures{
+    AllFeatures {
         get {
             if(!this.HasProp("__AllFeaturesProxyArray"))
                 this.__AllFeaturesProxyArray := Win32FixedArray(this.ptr + 556, 64, Primitive, "uint")

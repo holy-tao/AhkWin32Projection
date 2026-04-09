@@ -5,9 +5,8 @@
  * Represents the type of processor cache identified in the corresponding CACHE_DESCRIPTOR structure.
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ne-winnt-processor_cache_type
  * @namespace Windows.Win32.System.SystemInformation
- * @version v4.0.30319
  */
-class PROCESSOR_CACHE_TYPE extends Win32Enum{
+class PROCESSOR_CACHE_TYPE extends Win32Enum {
 
     /**
      * The cache is unified.

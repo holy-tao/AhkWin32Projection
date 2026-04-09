@@ -11,10 +11,8 @@
  * <img alt="Illustration of a triangle that fills from orange at the top point to magenta on the bottom line " border="0" src="images/GradientFillTriangle.png"/>
  * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-gradient_triangle
  * @namespace Windows.Win32.Graphics.Gdi
- * @version v4.0.30319
  */
-class GRADIENT_TRIANGLE extends Win32Struct
-{
+class GRADIENT_TRIANGLE extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4

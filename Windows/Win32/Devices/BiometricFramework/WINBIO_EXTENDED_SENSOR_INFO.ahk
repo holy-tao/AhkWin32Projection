@@ -7,10 +7,8 @@
  * Contains information about the capabilities and enrollment requirements of the sensor adapter for a biometric unit.
  * @see https://learn.microsoft.com/windows/win32/SecBioMet/winbio-extended-sensor-info
  * @namespace Windows.Win32.Devices.BiometricFramework
- * @version v4.0.30319
  */
-class WINBIO_EXTENDED_SENSOR_INFO extends Win32Struct
-{
+class WINBIO_EXTENDED_SENSOR_INFO extends Win32Struct {
     static sizeof => 1080
 
     static packingSize => 4
@@ -22,11 +20,11 @@ class WINBIO_EXTENDED_SENSOR_INFO extends Win32Struct
         class _FacialFeatures extends Win32Struct {
             static sizeof => 1072
             static packingSize => 4
-    
+
             class _HardwareInfo extends Win32Struct {
                 static sizeof => 1044
                 static packingSize => 4
-        
+
                 /**
                  * @type {String}
                  */
@@ -34,7 +32,7 @@ class WINBIO_EXTENDED_SENSOR_INFO extends Win32Struct
                     get => StrGet(this.ptr + 0, 259, "UTF-16")
                     set => StrPut(value, this.ptr + 0, 259, "UTF-16")
                 }
-            
+
                 /**
                  * @type {String}
                  */
@@ -42,7 +40,7 @@ class WINBIO_EXTENDED_SENSOR_INFO extends Win32Struct
                     get => StrGet(this.ptr + 520, 259, "UTF-16")
                     set => StrPut(value, this.ptr + 520, 259, "UTF-16")
                 }
-            
+
                 /**
                  * @type {Integer}
                  */
@@ -50,31 +48,30 @@ class WINBIO_EXTENDED_SENSOR_INFO extends Win32Struct
                     get => NumGet(this, 1040, "uint")
                     set => NumPut("uint", value, this, 1040)
                 }
-            
             }
-        
+
             /**
              * @type {RECT}
              */
-            FrameSize{
+            FrameSize {
                 get {
                     if(!this.HasProp("__FrameSize"))
                         this.__FrameSize := RECT(0, this)
                     return this.__FrameSize
                 }
             }
-        
+
             /**
              * @type {POINT}
              */
-            FrameOffset{
+            FrameOffset {
                 get {
                     if(!this.HasProp("__FrameOffset"))
                         this.__FrameOffset := POINT(16, this)
                     return this.__FrameOffset
                 }
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -82,24 +79,23 @@ class WINBIO_EXTENDED_SENSOR_INFO extends Win32Struct
                 get => NumGet(this, 24, "uint")
                 set => NumPut("uint", value, this, 24)
             }
-        
+
             /**
              * @type {_HardwareInfo}
              */
-            HardwareInfo{
+            HardwareInfo {
                 get {
                     if(!this.HasProp("__HardwareInfo"))
-                        this.__HardwareInfo := %this.__Class%._HardwareInfo(28, this)
+                        this.__HardwareInfo := WINBIO_EXTENDED_SENSOR_INFO._Specific_e__Union._FacialFeatures._HardwareInfo(28, this)
                     return this.__HardwareInfo
                 }
             }
-        
         }
-    
+
         class _Fingerprint extends Win32Struct {
             static sizeof => 4
             static packingSize => 4
-    
+
             /**
              * @type {Integer}
              */
@@ -107,35 +103,34 @@ class WINBIO_EXTENDED_SENSOR_INFO extends Win32Struct
                 get => NumGet(this, 0, "uint")
                 set => NumPut("uint", value, this, 0)
             }
-        
         }
-    
+
         class _Iris extends Win32Struct {
             static sizeof => 28
             static packingSize => 4
-    
+
             /**
              * @type {RECT}
              */
-            FrameSize{
+            FrameSize {
                 get {
                     if(!this.HasProp("__FrameSize"))
                         this.__FrameSize := RECT(0, this)
                     return this.__FrameSize
                 }
             }
-        
+
             /**
              * @type {POINT}
              */
-            FrameOffset{
+            FrameOffset {
                 get {
                     if(!this.HasProp("__FrameOffset"))
                         this.__FrameOffset := POINT(16, this)
                     return this.__FrameOffset
                 }
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -143,13 +138,12 @@ class WINBIO_EXTENDED_SENSOR_INFO extends Win32Struct
                 get => NumGet(this, 24, "uint")
                 set => NumPut("uint", value, this, 24)
             }
-        
         }
-    
+
         class _Voice extends Win32Struct {
             static sizeof => 4
             static packingSize => 4
-    
+
             /**
              * @type {Integer}
              */
@@ -157,9 +151,8 @@ class WINBIO_EXTENDED_SENSOR_INFO extends Win32Struct
                 get => NumGet(this, 0, "uint")
                 set => NumPut("uint", value, this, 0)
             }
-        
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -167,51 +160,50 @@ class WINBIO_EXTENDED_SENSOR_INFO extends Win32Struct
             get => NumGet(this, 0, "uint")
             set => NumPut("uint", value, this, 0)
         }
-    
+
         /**
          * @type {_FacialFeatures}
          */
-        FacialFeatures{
+        FacialFeatures {
             get {
                 if(!this.HasProp("__FacialFeatures"))
-                    this.__FacialFeatures := %this.__Class%._FacialFeatures(0, this)
+                    this.__FacialFeatures := WINBIO_EXTENDED_SENSOR_INFO._Specific_e__Union._FacialFeatures(0, this)
                 return this.__FacialFeatures
             }
         }
-    
+
         /**
          * @type {_Fingerprint}
          */
-        Fingerprint{
+        Fingerprint {
             get {
                 if(!this.HasProp("__Fingerprint"))
-                    this.__Fingerprint := %this.__Class%._Fingerprint(0, this)
+                    this.__Fingerprint := WINBIO_EXTENDED_SENSOR_INFO._Specific_e__Union._Fingerprint(0, this)
                 return this.__Fingerprint
             }
         }
-    
+
         /**
          * @type {_Iris}
          */
-        Iris{
+        Iris {
             get {
                 if(!this.HasProp("__Iris"))
-                    this.__Iris := %this.__Class%._Iris(0, this)
+                    this.__Iris := WINBIO_EXTENDED_SENSOR_INFO._Specific_e__Union._Iris(0, this)
                 return this.__Iris
             }
         }
-    
+
         /**
          * @type {_Voice}
          */
-        Voice{
+        Voice {
             get {
                 if(!this.HasProp("__Voice"))
-                    this.__Voice := %this.__Class%._Voice(0, this)
+                    this.__Voice := WINBIO_EXTENDED_SENSOR_INFO._Specific_e__Union._Voice(0, this)
                 return this.__Voice
             }
         }
-    
     }
 
     /**
@@ -236,10 +228,10 @@ class WINBIO_EXTENDED_SENSOR_INFO extends Win32Struct
      * Information about the capabilities and enrollment requirements of the sensor adapter for a biometric unit related to a specific biometric factor.
      * @type {_Specific_e__Union}
      */
-    Specific{
+    Specific {
         get {
             if(!this.HasProp("__Specific"))
-                this.__Specific := %this.__Class%._Specific_e__Union(8, this)
+                this.__Specific := WINBIO_EXTENDED_SENSOR_INFO._Specific_e__Union(8, this)
             return this.__Specific
         }
     }

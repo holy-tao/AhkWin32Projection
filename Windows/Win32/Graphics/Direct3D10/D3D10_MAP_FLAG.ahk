@@ -11,9 +11,8 @@
  * For more information about potential conflicts between the GPU and CPU during resource mapping, see <a href="https://docs.microsoft.com/windows/desktop/direct3d10/d3d10-graphics-programming-guide-resources-mapping">Copying and Accessing Resource Data (Direct3D 10)</a>.
  * @see https://learn.microsoft.com/windows/win32/api/d3d10/ne-d3d10-d3d10_map_flag
  * @namespace Windows.Win32.Graphics.Direct3D10
- * @version v4.0.30319
  */
-class D3D10_MAP_FLAG extends Win32Enum{
+class D3D10_MAP_FLAG extends Win32Enum {
 
     /**
      * Specifies that Map should return <b>DXGI_ERROR_WAS_STILL_DRAWING</b> when the GPU blocks the CPU from accessing a resource.

@@ -5,9 +5,8 @@
  * Identifies the character set of a document.
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ne-webservices-ws_charset
  * @namespace Windows.Win32.Networking.WindowsWebServices
- * @version v4.0.30319
  */
-class WS_CHARSET extends Win32Enum{
+class WS_CHARSET extends Win32Enum {
 
     /**
      * Specifies that the charset of a document should be determined automatically by inspecting

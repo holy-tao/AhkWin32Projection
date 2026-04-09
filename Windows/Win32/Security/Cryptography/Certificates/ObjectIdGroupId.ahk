@@ -5,9 +5,8 @@
  * Specifies the category or group to which an object identifier (OID) belongs.
  * @see https://learn.microsoft.com/windows/win32/api/certenroll/ne-certenroll-objectidgroupid
  * @namespace Windows.Win32.Security.Cryptography.Certificates
- * @version v4.0.30319
  */
-class ObjectIdGroupId extends Win32Enum{
+class ObjectIdGroupId extends Win32Enum {
 
     /**
      * The group OID is not identified. All OID groups will be included when searching.
@@ -284,7 +283,6 @@ class ObjectIdGroupId extends Win32Enum{
     static XCN_CRYPT_TEMPLATE_OID_GROUP_ID => 9
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static XCN_CRYPT_KDF_OID_GROUP_ID => 10
@@ -308,13 +306,11 @@ class ObjectIdGroupId extends Win32Enum{
     static XCN_CRYPT_LAST_ALG_OID_GROUP_ID => 4
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static XCN_CRYPT_GROUP_ID_MASK => 65535
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static XCN_CRYPT_OID_PREFER_CNG_ALGID_FLAG => 1073741824
@@ -326,13 +322,11 @@ class ObjectIdGroupId extends Win32Enum{
     static XCN_CRYPT_OID_DISABLE_SEARCH_DS_FLAG => -2147483648
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static XCN_CRYPT_OID_INFO_OID_GROUP_BIT_LEN_MASK => 268369920
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static XCN_CRYPT_OID_INFO_OID_GROUP_BIT_LEN_SHIFT => 16

@@ -7,9 +7,8 @@
  * The IDiscMasterProgressEvents interface provides a single interface for all callbacks that can be made from IMAPI to an application.
  * @see https://learn.microsoft.com/windows/win32/api/imapi/nn-imapi-idiscmasterprogressevents
  * @namespace Windows.Win32.Storage.Imapi
- * @version v4.0.30319
  */
-class IDiscMasterProgressEvents extends IUnknown{
+class IDiscMasterProgressEvents extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -115,7 +114,8 @@ class IDiscMasterProgressEvents extends IUnknown{
 
     /**
      * Notifies an application that a call to IDiscMaster::RecordDisc has finished.
-     * @param {HRESULT} _status 
+     * @param {HRESULT} _status Status code to be returned from 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/imapi/nf-imapi-idiscmaster-recorddisc">IDiscMaster::RecordDisc</a>.
      * @returns {HRESULT} S_OK is returned on success, but other success codes may be returned as a result of implementation. The following error codes are commonly returned on operation failure, but do not represent the only possible error values:
      * @see https://learn.microsoft.com/windows/win32/api/imapi/nf-imapi-idiscmasterprogressevents-notifyburncomplete
      */
@@ -126,7 +126,8 @@ class IDiscMasterProgressEvents extends IUnknown{
 
     /**
      * Notifies an application that a call to IDiscRecorder::Erase has finished.
-     * @param {HRESULT} _status 
+     * @param {HRESULT} _status Status code to be returned from 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/imapi/nf-imapi-idiscrecorder-erase">IDiscRecorder::Erase</a>.
      * @returns {HRESULT} S_OK is returned on success, but other success codes may be returned as a result of implementation. The following error codes are commonly returned on operation failure, but do not represent the only possible error values:
      * @see https://learn.microsoft.com/windows/win32/api/imapi/nf-imapi-idiscmasterprogressevents-notifyerasecomplete
      */

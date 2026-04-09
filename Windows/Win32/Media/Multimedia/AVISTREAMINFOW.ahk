@@ -9,11 +9,9 @@
  * > The vfw.h header defines AVISTREAMINFO as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
  * @see https://learn.microsoft.com/windows/win32/api/vfw/ns-vfw-avistreaminfow
  * @namespace Windows.Win32.Media.Multimedia
- * @version v4.0.30319
  * @charset Unicode
  */
-class AVISTREAMINFOW extends Win32Struct
-{
+class AVISTREAMINFOW extends Win32Struct {
     static sizeof => 204
 
     static packingSize => 4
@@ -228,7 +226,7 @@ class AVISTREAMINFOW extends Win32Struct
      * Dimensions of the video destination rectangle. The values represent the coordinates of upper left corner, the height, and the width of the rectangle.
      * @type {RECT}
      */
-    rcFrame{
+    rcFrame {
         get {
             if(!this.HasProp("__rcFrame"))
                 this.__rcFrame := RECT(52, this)

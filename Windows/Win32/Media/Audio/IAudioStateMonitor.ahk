@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Media.Audio
- * @version v4.0.30319
  */
-class IAudioStateMonitor extends IUnknown{
+class IAudioStateMonitor extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -52,7 +51,7 @@ class IAudioStateMonitor extends IUnknown{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {AudioStateMonitorSoundLevel} 
      */
     GetSoundLevel() {
         result := ComCall(5, this, "int")

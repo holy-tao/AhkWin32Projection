@@ -9,9 +9,8 @@
  * A control should support this interface if it initiates or performs a single, unambiguous action and does not maintain state when activated.
  * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nn-uiautomationclient-iuiautomationinvokepattern
  * @namespace Windows.Win32.UI.Accessibility
- * @version v4.0.30319
  */
-class IUIAutomationInvokePattern extends IUnknown{
+class IUIAutomationInvokePattern extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

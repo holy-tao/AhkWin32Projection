@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\DML_GRAPH_NODE_DESC.ahk
+#Include .\DML_GRAPH_EDGE_DESC.ahk
 
 /**
  * Describes a graph of DirectML operators used to compile a combined, optimized operator.
@@ -11,10 +13,8 @@
  * It is legal to connect operators whose connected inputs and outputs use different dimension counts, sizes, and data types. This implies that the tensor data blob is interpreted differently by each operator. The *TotalTensorSizeInBytes* field of connected tensor inputs and outputs must be identical, though. Operators should only read regions of tensors written by earlier operators. Any padding regions in the output of an operation (resulting from the use of strides) are not guaranteed to be read as zero by down-stream operators.
  * @see https://learn.microsoft.com/windows/win32/api/directml/ns-directml-dml_graph_desc
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
- * @version v4.0.30319
  */
-class DML_GRAPH_DESC extends Win32Struct
-{
+class DML_GRAPH_DESC extends Win32Struct {
     static sizeof => 72
 
     static packingSize => 8

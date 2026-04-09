@@ -6,10 +6,8 @@
  * Contains information about a certificate manager dialog box.
  * @see https://learn.microsoft.com/windows/win32/api/cryptuiapi/ns-cryptuiapi-cryptui_cert_mgr_struct
  * @namespace Windows.Win32.Security.Cryptography.UI
- * @version v4.0.30319
  */
-class CRYPTUI_CERT_MGR_STRUCT extends Win32Struct
-{
+class CRYPTUI_CERT_MGR_STRUCT extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -27,7 +25,7 @@ class CRYPTUI_CERT_MGR_STRUCT extends Win32Struct
      * Handle of the parent window of the dialog box.
      * @type {HWND}
      */
-    hwndParent{
+    hwndParent {
         get {
             if(!this.HasProp("__hwndParent"))
                 this.__hwndParent := HWND(8, this)

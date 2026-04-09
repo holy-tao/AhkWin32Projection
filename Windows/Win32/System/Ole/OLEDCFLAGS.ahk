@@ -5,9 +5,8 @@
  * Specifies additional information to the container about the device context that the object has requested.
  * @see https://learn.microsoft.com/windows/win32/api/ocidl/ne-ocidl-oledcflags
  * @namespace Windows.Win32.System.Ole
- * @version v4.0.30319
  */
-class OLEDCFLAGS extends Win32Enum{
+class OLEDCFLAGS extends Win32Enum {
 
     /**
      * Indicates that the object will not use the returned <b>HDC</b> for drawing but merely to get information about the display device. In this case, the container can simply pass the window's device context without further processing.

@@ -7,9 +7,8 @@
  * The IWMWriterPushSink interface enables the application to send ASF files to a publishing point on a Windows Media server.
  * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nn-wmsdkidl-iwmwriterpushsink
  * @namespace Windows.Win32.Media.WindowsMediaFormat
- * @version v4.0.30319
  */
-class IWMWriterPushSink extends IWMWriterSink{
+class IWMWriterPushSink extends IWMWriterSink {
 
     static sizeof => A_PtrSize
     /**

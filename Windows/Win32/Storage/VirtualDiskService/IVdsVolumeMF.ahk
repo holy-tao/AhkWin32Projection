@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\VDS_FILE_SYSTEM_PROP.ahk
 #Include .\IVdsAsync.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Provides methods to perform access-path and file-system activities on the volume object.
  * @see https://learn.microsoft.com/windows/win32/api/vds/nn-vds-ivdsvolumemf
  * @namespace Windows.Win32.Storage.VirtualDiskService
- * @version v4.0.30319
  */
-class IVdsVolumeMF extends IUnknown{
+class IVdsVolumeMF extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -58,7 +57,7 @@ class IVdsVolumeMF extends IUnknown{
      * If this method is called for a volume that is protected by BitLocker full-volume encryption, BitLocker encryption is disabled for the volume until the user re-enables it.
      * 
      * For more information about file system limits such as minimum and maximum allocation unit size (also called cluster size), see <a href="https://docs.microsoft.com/previous-versions/windows/it-pro/windows-server-2003/cc758691(v=ws.10)">NTFS Technical Reference</a> and <a href="https://docs.microsoft.com/previous-versions/windows/it-pro/windows-server-2003/cc758586(v=ws.10)">FAT Technical Reference</a>.
-     * @param {Integer} type A <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ne-vdshwprv-vds_file_system_type">VDS_FILE_SYSTEM_TYPE</a> enumeration value that specifies the file system to be used. Must be one of the following: VDS_FST_NTFS, VDS_FST_FAT, VDS_FST_FAT32, or VDS_FST_UDF.
+     * @param {VDS_FILE_SYSTEM_TYPE} type A <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ne-vdshwprv-vds_file_system_type">VDS_FILE_SYSTEM_TYPE</a> enumeration value that specifies the file system to be used. Must be one of the following: VDS_FST_NTFS, VDS_FST_FAT, VDS_FST_FAT32, or VDS_FST_UDF.
      * @param {PWSTR} pwszLabel A string representing the file system label.
      * @param {Integer} dwUnitAllocationSize The size of the allocation unit for the file system in bytes, which is usually between 512 and 
      *       65536.

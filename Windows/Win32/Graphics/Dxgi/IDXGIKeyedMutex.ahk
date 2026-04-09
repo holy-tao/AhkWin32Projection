@@ -13,9 +13,8 @@
  * For information about creating a keyed mutex, see the <a href="https://docs.microsoft.com/windows/desktop/api/dxgi/nf-dxgi-idxgikeyedmutex-acquiresync">IDXGIKeyedMutex::AcquireSync</a> method.
  * @see https://learn.microsoft.com/windows/win32/api/dxgi/nn-dxgi-idxgikeyedmutex
  * @namespace Windows.Win32.Graphics.Dxgi
- * @version v4.0.30319
  */
-class IDXGIKeyedMutex extends IDXGIDeviceSubObject{
+class IDXGIKeyedMutex extends IDXGIDeviceSubObject {
 
     static sizeof => A_PtrSize
     /**

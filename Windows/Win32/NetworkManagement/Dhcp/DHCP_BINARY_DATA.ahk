@@ -5,10 +5,8 @@
  * The DHCP_BINARY_DATA structure defines an opaque blob of binary data.
  * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/ns-dhcpsapi-dhcp_binary_data
  * @namespace Windows.Win32.NetworkManagement.Dhcp
- * @version v4.0.30319
  */
-class DHCP_BINARY_DATA extends Win32Struct
-{
+class DHCP_BINARY_DATA extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

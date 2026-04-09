@@ -7,9 +7,8 @@
  * Enables you to run a set of code in the scope of an existing transaction that you specify with a transaction proxy.
  * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nn-comsvcs-iservicesystxnconfig
  * @namespace Windows.Win32.System.ComponentServices
- * @version v4.0.30319
  */
-class IServiceSysTxnConfig extends IServiceTransactionConfig{
+class IServiceSysTxnConfig extends IServiceTransactionConfig {
 
     static sizeof => A_PtrSize
     /**

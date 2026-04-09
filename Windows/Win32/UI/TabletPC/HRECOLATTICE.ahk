@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.UI.TabletPC
- * @version v4.0.30319
  */
-class HRECOLATTICE extends Win32Handle
-{
+class HRECOLATTICE extends Win32Handle {
     static sizeof => 8
 
     static packingSize => 8

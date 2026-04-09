@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\THUMBBUTTONMASK.ahk
 #Include ..\WindowsAndMessaging\HICON.ahk
+#Include .\THUMBBUTTONFLAGS.ahk
 
 /**
  * Used by methods of the ITaskbarList3 interface to define buttons used in a toolbar embedded in a window's thumbnail representation.
@@ -25,10 +27,8 @@
  * Images must be 32-bit and of dimensions <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getsystemmetrics">GetSystemMetrics</a>(SM_CXICON) x <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getsystemmetrics">GetSystemMetrics</a>(SM_CYICON). The toolbar itself provides visuals for a button's clicked, disabled, and hover states.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/ns-shobjidl_core-thumbbutton
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class THUMBBUTTON extends Win32Struct
-{
+class THUMBBUTTON extends Win32Struct {
     static sizeof => 552
 
     static packingSize => 8
@@ -37,7 +37,7 @@ class THUMBBUTTON extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-thumbbuttonmask">THUMBBUTTONMASK</a></b>
      * 
      * A combination of <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-thumbbuttonmask">THUMBBUTTONMASK</a> values that specify which members of this structure contain valid data; other members are ignored, with the exception of <b>iId</b>, which is always required.
-     * @type {Integer}
+     * @type {THUMBBUTTONMASK}
      */
     dwMask {
         get => NumGet(this, 0, "int")
@@ -72,7 +72,7 @@ class THUMBBUTTON extends Win32Struct
      * The handle of an icon to use as the button image.
      * @type {HICON}
      */
-    hIcon{
+    hIcon {
         get {
             if(!this.HasProp("__hIcon"))
                 this.__hIcon := HICON(16, this)
@@ -95,7 +95,7 @@ class THUMBBUTTON extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-thumbbuttonflags">THUMBBUTTONFLAGS</a></b>
      * 
      * A combination of <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-thumbbuttonflags">THUMBBUTTONFLAGS</a> values that control specific states and behaviors of the button.
-     * @type {Integer}
+     * @type {THUMBBUTTONFLAGS}
      */
     dwFlags {
         get => NumGet(this, 544, "int")

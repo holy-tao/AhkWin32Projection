@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\Com\IDispatch.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * Supplies the path to a resource. You can use an IWSManResourceLocator object instead of a resource URI in IWSManSession object operations such as IWSManSession.Get, IWSManSession.Put, or IWSManSession.Enumerate.
@@ -10,9 +10,8 @@
  * The corresponding scripting object is <a href="https://docs.microsoft.com/windows/desktop/WinRM/resourcelocator">ResourceLocator</a>.
  * @see https://learn.microsoft.com/windows/win32/api/wsmandisp/nn-wsmandisp-iwsmanresourcelocator
  * @namespace Windows.Win32.System.RemoteManagement
- * @version v4.0.30319
  */
-class IWSManResourceLocator extends IDispatch{
+class IWSManResourceLocator extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

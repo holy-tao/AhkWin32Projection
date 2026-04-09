@@ -7,9 +7,8 @@
  * Contains the methods used by VSS to map volumes to LUNs, discover LUNs created during the shadow copy process, and transport LUNs on a SAN.
  * @see https://learn.microsoft.com/windows/win32/api/vsprov/nn-vsprov-ivsshardwaresnapshotprovider
  * @namespace Windows.Win32.Storage.Vss
- * @version v4.0.30319
  */
-class IVssHardwareSnapshotProvider extends IUnknown{
+class IVssHardwareSnapshotProvider extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

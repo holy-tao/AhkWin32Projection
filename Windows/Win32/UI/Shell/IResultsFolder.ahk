@@ -7,9 +7,8 @@
  * Exposes methods that hold items from a data object.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nn-shobjidl-iresultsfolder
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IResultsFolder extends IUnknown{
+class IResultsFolder extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

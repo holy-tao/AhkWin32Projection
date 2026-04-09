@@ -7,9 +7,8 @@
  * Enables participation in the abnormal handling of server-side playback errors and client-side failures of the Message Queuing delivery mechanism.
  * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nn-comsvcs-iplaybackcontrol
  * @namespace Windows.Win32.System.ComponentServices
- * @version v4.0.30319
  */
-class IPlaybackControl extends IUnknown{
+class IPlaybackControl extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

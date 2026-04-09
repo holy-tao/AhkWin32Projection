@@ -1,7 +1,20 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\IP_ADAPTER_ADDRESSES_LH.ahk
+#Include .\IP_ADAPTER_UNICAST_ADDRESS_LH.ahk
+#Include .\IP_ADAPTER_ANYCAST_ADDRESS_XP.ahk
+#Include .\IP_ADAPTER_MULTICAST_ADDRESS_XP.ahk
+#Include .\IP_ADAPTER_DNS_SERVER_ADDRESS_XP.ahk
+#Include ..\Ndis\IF_OPER_STATUS.ahk
+#Include .\IP_ADAPTER_PREFIX_XP.ahk
+#Include .\IP_ADAPTER_WINS_SERVER_ADDRESS_LH.ahk
+#Include .\IP_ADAPTER_GATEWAY_ADDRESS_LH.ahk
 #Include ..\Ndis\NET_LUID_LH.ahk
 #Include ..\..\Networking\WinSock\SOCKET_ADDRESS.ahk
+#Include ..\..\Networking\WinSock\SOCKADDR.ahk
+#Include ..\Ndis\NET_IF_CONNECTION_TYPE.ahk
+#Include ..\Ndis\TUNNEL_TYPE.ahk
+#Include .\IP_ADAPTER_DNS_SUFFIX.ahk
 
 /**
  * The IP_ADAPTER_ADDRESSES_LH structure (iptypes.h) is the header node for a linked list of addresses for a particular adapter.
@@ -96,10 +109,8 @@
  *      <i>Iphlpapi.h</i> header file.
  * @see https://learn.microsoft.com/windows/win32/api/iptypes/ns-iptypes-ip_adapter_addresses_lh
  * @namespace Windows.Win32.NetworkManagement.IpHelper
- * @version v4.0.30319
  */
-class IP_ADAPTER_ADDRESSES_LH extends Win32Struct
-{
+class IP_ADAPTER_ADDRESSES_LH extends Win32Struct {
     static sizeof => 448
 
     static packingSize => 8
@@ -250,9 +261,9 @@ class IP_ADAPTER_ADDRESSES_LH extends Win32Struct
      * 
      * The Media Access Control (MAC) address for the adapter. For example, on an Ethernet network this member 
      *       would specify the Ethernet hardware address.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    PhysicalAddress{
+    PhysicalAddress {
         get {
             if(!this.HasProp("__PhysicalAddressProxyArray"))
                 this.__PhysicalAddressProxyArray := Win32FixedArray(this.ptr + 80, 8, Primitive, "char")
@@ -623,7 +634,7 @@ class IP_ADAPTER_ADDRESSES_LH extends Win32Struct
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
+     * @type {IF_OPER_STATUS}
      */
     OperStatus {
         get => NumGet(this, 104, "int")
@@ -656,9 +667,9 @@ class IP_ADAPTER_ADDRESSES_LH extends Win32Struct
      * 
      * <div class="alert"><b>Note</b>  This structure member is only available on Windows XP with SP1 and later.</div>
      * <div> </div>
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    ZoneIndices{
+    ZoneIndices {
         get {
             if(!this.HasProp("__ZoneIndicesProxyArray"))
                 this.__ZoneIndicesProxyArray := Win32FixedArray(this.ptr + 112, 16, Primitive, "uint")
@@ -796,7 +807,7 @@ class IP_ADAPTER_ADDRESSES_LH extends Win32Struct
      * <div> </div>
      * @type {NET_LUID_LH}
      */
-    Luid{
+    Luid {
         get {
             if(!this.HasProp("__Luid"))
                 this.__Luid := NET_LUID_LH(224, this)
@@ -815,7 +826,7 @@ class IP_ADAPTER_ADDRESSES_LH extends Win32Struct
      * <div> </div>
      * @type {SOCKET_ADDRESS}
      */
-    Dhcpv4Server{
+    Dhcpv4Server {
         get {
             if(!this.HasProp("__Dhcpv4Server"))
                 this.__Dhcpv4Server := SOCKET_ADDRESS(240, this)
@@ -850,7 +861,7 @@ class IP_ADAPTER_ADDRESSES_LH extends Win32Struct
      * 
      * <div class="alert"><b>Note</b>  This structure member is only available on Windows Vista and later.</div>
      * <div> </div>
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     NetworkGuid {
         get => NumGet(this, 264, "ptr")
@@ -924,7 +935,7 @@ class IP_ADAPTER_ADDRESSES_LH extends Win32Struct
      * 
      * <div class="alert"><b>Note</b>  This structure member is only available on Windows Vista and later.</div>
      * <div> </div>
-     * @type {Integer}
+     * @type {NET_IF_CONNECTION_TYPE}
      */
     ConnectionType {
         get => NumGet(this, 272, "int")
@@ -1032,7 +1043,7 @@ class IP_ADAPTER_ADDRESSES_LH extends Win32Struct
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
+     * @type {TUNNEL_TYPE}
      */
     TunnelType {
         get => NumGet(this, 276, "int")
@@ -1049,7 +1060,7 @@ class IP_ADAPTER_ADDRESSES_LH extends Win32Struct
      * <div> </div>
      * @type {SOCKET_ADDRESS}
      */
-    Dhcpv6Server{
+    Dhcpv6Server {
         get {
             if(!this.HasProp("__Dhcpv6Server"))
                 this.__Dhcpv6Server := SOCKET_ADDRESS(280, this)
@@ -1066,9 +1077,9 @@ class IP_ADAPTER_ADDRESSES_LH extends Win32Struct
      * 
      * <div class="alert"><b>Note</b>  This structure member is only available on Windows Vista and later.</div>
      * <div> </div>
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Dhcpv6ClientDuid{
+    Dhcpv6ClientDuid {
         get {
             if(!this.HasProp("__Dhcpv6ClientDuidProxyArray"))
                 this.__Dhcpv6ClientDuidProxyArray := Win32FixedArray(this.ptr + 296, 130, Primitive, "char")

@@ -175,9 +175,8 @@
  * <div> </div>
  * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/ne-vdshwprv-vds_health
  * @namespace Windows.Win32.Storage.VirtualDiskService
- * @version v4.0.30319
  */
-class VDS_HEALTH extends Win32Enum{
+class VDS_HEALTH extends Win32Enum {
 
     /**
      * The health of the object cannot be determined.

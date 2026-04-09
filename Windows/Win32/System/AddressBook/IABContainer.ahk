@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IMAPIContainer.ahk
 #Include .\IMAPIProp.ahk
 #Include .\FlagList.ahk
-#Include .\IMAPIContainer.ahk
 
 /**
  * Do not use. This interface provides access to address book containers. Applications call the methods of the interface to perform name resolution and to create, copy, and delete recipients.
  * @see https://learn.microsoft.com/windows/win32/api/wabdefs/nn-wabdefs-iabcontainer
  * @namespace Windows.Win32.System.AddressBook
- * @version v4.0.30319
  */
-class IABContainer extends IMAPIContainer{
+class IABContainer extends IMAPIContainer {
 
     static sizeof => A_PtrSize
 
@@ -32,7 +31,7 @@ class IABContainer extends IMAPIContainer{
      * @remarks
      * The **IABContainer::CreateEntry** method creates a new entry of a particular type in the specified container, returning a pointer to an interface implementation for further access to the entry. The new entry is created by using a template that has been selected from the container's list of available templates published in its one-off table. Callers access a container's one-off table by calling its [IMAPIProp::OpenProperty](imapiprop-openproperty.md) method and requesting the **PR_CREATE_TEMPLATES** ([PidTagCreateTemplates](pidtagcreatetemplates-canonical-property.md)) property.
      * @param {Integer} cbEntryID > [in] The count of the bytes in the entry identifier pointed to by the  _lpEntryID_ parameter.
-     * @param {Pointer} lpEntryID > [in] A pointer to the entry identifier of a template for creating new entries of a particular type.
+     * @param {Integer} lpEntryID > [in] A pointer to the entry identifier of a template for creating new entries of a particular type.
      * @param {Integer} ulCreateFlags > [in] A bitmask of flags that controls how entry creation is performed. The following flags can be set:
      *     
      * CREATE_CHECK_DUP_LOOSE 

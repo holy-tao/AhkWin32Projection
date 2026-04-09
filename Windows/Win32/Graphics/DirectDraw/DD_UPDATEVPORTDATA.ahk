@@ -1,14 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DD_DIRECTDRAW_LOCAL.ahk
+#Include .\DD_VIDEOPORT_LOCAL.ahk
+#Include .\DD_SURFACE_INT.ahk
+#Include .\DDVIDEOPORTINFO.ahk
 
 /**
  * The DD_UPDATEVPORTDATA structure contains the information required to start, stop, and change the video port extensions (VPE) object.
  * @see https://learn.microsoft.com/windows/win32/api/ddrawint/ns-ddrawint-dd_updatevportdata
  * @namespace Windows.Win32.Graphics.DirectDraw
- * @version v4.0.30319
  */
-class DD_UPDATEVPORTDATA extends Win32Struct
-{
+class DD_UPDATEVPORTDATA extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 8
@@ -59,7 +61,6 @@ class DD_UPDATEVPORTDATA extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     dwFlags {

@@ -6,19 +6,16 @@
  * Describes the default, maximum, and minimum values allowed for a FILETIME.
  * @see https://learn.microsoft.com/windows/win32/api/resapi/ns-resapi-resutil_filetime_data
  * @namespace Windows.Win32.Networking.Clustering
- * @version v4.0.30319
  */
-class RESUTIL_FILETIME_DATA extends Win32Struct
-{
+class RESUTIL_FILETIME_DATA extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 4
 
     /**
-     * 
      * @type {FILETIME}
      */
-    Default{
+    Default {
         get {
             if(!this.HasProp("__Default"))
                 this.__Default := FILETIME(0, this)
@@ -27,10 +24,9 @@ class RESUTIL_FILETIME_DATA extends Win32Struct
     }
 
     /**
-     * 
      * @type {FILETIME}
      */
-    Minimum{
+    Minimum {
         get {
             if(!this.HasProp("__Minimum"))
                 this.__Minimum := FILETIME(8, this)
@@ -39,10 +35,9 @@ class RESUTIL_FILETIME_DATA extends Win32Struct
     }
 
     /**
-     * 
      * @type {FILETIME}
      */
-    Maximum{
+    Maximum {
         get {
             if(!this.HasProp("__Maximum"))
                 this.__Maximum := FILETIME(16, this)

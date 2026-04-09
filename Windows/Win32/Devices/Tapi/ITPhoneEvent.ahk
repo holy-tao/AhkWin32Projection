@@ -1,18 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include .\ITPhone.ahk
 #Include ..\..\Foundation\BSTR.ahk
 #Include .\ITCallInfo.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * The ITPhoneEvent interface contains methods that retrieve the description of phone events that have occurred.
  * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nn-tapi3if-itphoneevent
  * @namespace Windows.Win32.Devices.Tapi
- * @version v4.0.30319
  */
-class ITPhoneEvent extends IDispatch{
+class ITPhoneEvent extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -41,28 +40,28 @@ class ITPhoneEvent extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {PHONE_EVENT} 
      */
     Event {
         get => this.get_Event()
     }
 
     /**
-     * @type {Integer} 
+     * @type {PHONE_BUTTON_STATE} 
      */
     ButtonState {
         get => this.get_ButtonState()
     }
 
     /**
-     * @type {Integer} 
+     * @type {PHONE_HOOK_SWITCH_STATE} 
      */
     HookSwitchState {
         get => this.get_HookSwitchState()
     }
 
     /**
-     * @type {Integer} 
+     * @type {PHONE_HOOK_SWITCH_DEVICE} 
      */
     HookSwitchDevice {
         get => this.get_HookSwitchDevice()
@@ -113,7 +112,7 @@ class ITPhoneEvent extends IDispatch{
 
     /**
      * The get_Event method returns a PHONE_EVENT value specifying the type of phone event that occurred.
-     * @returns {Integer} The 
+     * @returns {PHONE_EVENT} The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/ne-tapi3if-phone_event">PHONE_EVENT</a> descriptor of the event.
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itphoneevent-get_event
      */
@@ -127,7 +126,7 @@ class ITPhoneEvent extends IDispatch{
      * @remarks
      * This method is available because some buttons do not support the PBS_DOWN button state, but instead momentarily report PBS_PRESSED. Additionally, the application can miss the button press on phones that do support PBS_DOWN if the button is pressed only for a short time and the call to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nf-tapi3if-itphone-get_buttonstate">ITPhone::get_ButtonState</a> method does not execute quickly enough.
-     * @returns {Integer} Pointer to the 
+     * @returns {PHONE_BUTTON_STATE} Pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/ne-tapi3if-phone_button_state">PHONE_BUTTON_STATE</a> descriptor of the button's current state.
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itphoneevent-get_buttonstate
      */
@@ -138,7 +137,7 @@ class ITPhoneEvent extends IDispatch{
 
     /**
      * The get_HookSwitchState method returns a PHONE_HOOK_SWITCH_STATE value specifying the state to which the hookswitch has transitioned. This information is available only when the ITPhoneEvent::get_Event method returns PE_HOOKSWITCH.
-     * @returns {Integer} Pointer to the 
+     * @returns {PHONE_HOOK_SWITCH_STATE} Pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/ne-tapi3if-phone_hook_switch_state">PHONE_HOOK_SWITCH_STATE</a> descriptor of the current hookswitch state.
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itphoneevent-get_hookswitchstate
      */
@@ -149,7 +148,7 @@ class ITPhoneEvent extends IDispatch{
 
     /**
      * The get_HookSwitchDevice method returns a PHONE_HOOK_SWITCH_DEVICE value specifying the hookswitch device that changed state. This information is available only when the ITPhoneEvent::get_Event method returns PE_HOOKSWITCH.
-     * @returns {Integer} Pointer to the 
+     * @returns {PHONE_HOOK_SWITCH_DEVICE} Pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/ne-tapi3if-phone_hook_switch_device">PHONE_HOOK_SWITCH_DEVICE</a> descriptor of the type of device that has changed hookswitch state.
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itphoneevent-get_hookswitchdevice
      */

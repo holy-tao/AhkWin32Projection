@@ -1,12 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\alljoyn_messagetype.ahk
 
 /**
  * @namespace Windows.Win32.Devices.AllJoyn
- * @version v4.0.30319
  */
-class alljoyn_interfacedescription_member extends Win32Struct
-{
+class alljoyn_interfacedescription_member extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8
@@ -20,7 +19,7 @@ class alljoyn_interfacedescription_member extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {alljoyn_messagetype}
      */
     memberType {
         get => NumGet(this, 8, "int")

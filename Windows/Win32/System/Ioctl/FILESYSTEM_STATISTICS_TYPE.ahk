@@ -10,9 +10,8 @@
   * <b>Windows Vista, Windows Server 2003 and Windows XP:  </b>This value is not supported until Windows Vista with SP1.
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-filesystem_statistics
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class FILESYSTEM_STATISTICS_TYPE extends Win32Enum{
+class FILESYSTEM_STATISTICS_TYPE extends Win32Enum {
 
     /**
      * @type {Integer (UInt16)}

@@ -3,11 +3,9 @@
 
 /**
  * @namespace Windows.Win32.Networking.WinSock
- * @version v4.0.30319
  */
-class WINDOWS_IAS_QUERY extends Win32Struct
-{
-    static sizeof => 1676
+class WINDOWS_IAS_QUERY extends Win32Struct {
+    static sizeof => 1356
 
     static packingSize => 4
 
@@ -18,7 +16,7 @@ class WINDOWS_IAS_QUERY extends Win32Struct
         class _irdaAttribOctetSeq extends Win32Struct {
             static sizeof => 1028
             static packingSize => 4
-    
+
             /**
              * @type {Integer}
              */
@@ -26,24 +24,23 @@ class WINDOWS_IAS_QUERY extends Win32Struct
                 get => NumGet(this, 0, "uint")
                 set => NumPut("uint", value, this, 0)
             }
-        
+
             /**
-             * @type {Array<Byte>}
+             * @type {Array<Integer>}
              */
-            OctetSeq{
+            OctetSeq {
                 get {
                     if(!this.HasProp("__OctetSeqProxyArray"))
                         this.__OctetSeqProxyArray := Win32FixedArray(this.ptr + 4, 1024, Primitive, "char")
                     return this.__OctetSeqProxyArray
                 }
             }
-        
         }
-    
+
         class _irdaAttribUsrStr extends Win32Struct {
             static sizeof => 264
             static packingSize => 4
-    
+
             /**
              * @type {Integer}
              */
@@ -51,7 +48,7 @@ class WINDOWS_IAS_QUERY extends Win32Struct
                 get => NumGet(this, 0, "uint")
                 set => NumPut("uint", value, this, 0)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -59,20 +56,19 @@ class WINDOWS_IAS_QUERY extends Win32Struct
                 get => NumGet(this, 4, "uint")
                 set => NumPut("uint", value, this, 4)
             }
-        
+
             /**
-             * @type {Array<Byte>}
+             * @type {Array<Integer>}
              */
-            UsrStr{
+            UsrStr {
                 get {
                     if(!this.HasProp("__UsrStrProxyArray"))
                         this.__UsrStrProxyArray := Win32FixedArray(this.ptr + 8, 256, Primitive, "char")
                     return this.__UsrStrProxyArray
                 }
             }
-        
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -80,35 +76,34 @@ class WINDOWS_IAS_QUERY extends Win32Struct
             get => NumGet(this, 0, "int")
             set => NumPut("int", value, this, 0)
         }
-    
+
         /**
          * @type {_irdaAttribOctetSeq}
          */
-        irdaAttribOctetSeq{
+        irdaAttribOctetSeq {
             get {
                 if(!this.HasProp("__irdaAttribOctetSeq"))
-                    this.__irdaAttribOctetSeq := %this.__Class%._irdaAttribOctetSeq(0, this)
+                    this.__irdaAttribOctetSeq := WINDOWS_IAS_QUERY._irdaAttribute_e__Union._irdaAttribOctetSeq(0, this)
                 return this.__irdaAttribOctetSeq
             }
         }
-    
+
         /**
          * @type {_irdaAttribUsrStr}
          */
-        irdaAttribUsrStr{
+        irdaAttribUsrStr {
             get {
                 if(!this.HasProp("__irdaAttribUsrStr"))
-                    this.__irdaAttribUsrStr := %this.__Class%._irdaAttribUsrStr(0, this)
+                    this.__irdaAttribUsrStr := WINDOWS_IAS_QUERY._irdaAttribute_e__Union._irdaAttribUsrStr(0, this)
                 return this.__irdaAttribUsrStr
             }
         }
-    
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    irdaDeviceID{
+    irdaDeviceID {
         get {
             if(!this.HasProp("__irdaDeviceIDProxyArray"))
                 this.__irdaDeviceIDProxyArray := Win32FixedArray(this.ptr + 0, 4, Primitive, "char")
@@ -120,33 +115,33 @@ class WINDOWS_IAS_QUERY extends Win32Struct
      * @type {String}
      */
     irdaClassName {
-        get => StrGet(this.ptr + 4, 63, "UTF-16")
-        set => StrPut(value, this.ptr + 4, 63, "UTF-16")
+        get => StrGet(this.ptr + 4, 63, "UTF-8")
+        set => StrPut(value, this.ptr + 4, 63, "UTF-8")
     }
 
     /**
      * @type {String}
      */
     irdaAttribName {
-        get => StrGet(this.ptr + 132, 255, "UTF-16")
-        set => StrPut(value, this.ptr + 132, 255, "UTF-16")
+        get => StrGet(this.ptr + 68, 255, "UTF-8")
+        set => StrPut(value, this.ptr + 68, 255, "UTF-8")
     }
 
     /**
      * @type {Integer}
      */
     irdaAttribType {
-        get => NumGet(this, 644, "uint")
-        set => NumPut("uint", value, this, 644)
+        get => NumGet(this, 324, "uint")
+        set => NumPut("uint", value, this, 324)
     }
 
     /**
      * @type {_irdaAttribute_e__Union}
      */
-    irdaAttribute{
+    irdaAttribute {
         get {
             if(!this.HasProp("__irdaAttribute"))
-                this.__irdaAttribute := %this.__Class%._irdaAttribute_e__Union(648, this)
+                this.__irdaAttribute := WINDOWS_IAS_QUERY._irdaAttribute_e__Union(328, this)
             return this.__irdaAttribute
         }
     }

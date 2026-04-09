@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\VDS_FILE_SYSTEM_TYPE.ahk
 
 /**
  * Defines the properties of a file system.
@@ -7,17 +8,15 @@
  * The <a href="https://docs.microsoft.com/windows/desktop/api/vds/nf-vds-ivdsvolumemf-getfilesystemproperties">IVdsVolumeMF::GetFileSystemProperties</a> method returns this structure to report the property details of a file system.
  * @see https://learn.microsoft.com/windows/win32/api/vds/ns-vds-vds_file_system_prop
  * @namespace Windows.Win32.Storage.VirtualDiskService
- * @version v4.0.30319
  */
-class VDS_FILE_SYSTEM_PROP extends Win32Struct
-{
+class VDS_FILE_SYSTEM_PROP extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8
 
     /**
      * The file-system type enumerated by  <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ne-vdshwprv-vds_file_system_type">VDS_FILE_SYSTEM_TYPE</a>.
-     * @type {Integer}
+     * @type {VDS_FILE_SYSTEM_TYPE}
      */
     type {
         get => NumGet(this, 0, "int")
@@ -26,7 +25,7 @@ class VDS_FILE_SYSTEM_PROP extends Win32Struct
 
     /**
      * The GUID of the volume object containing the file system.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     volumeId {
         get => NumGet(this, 8, "ptr")

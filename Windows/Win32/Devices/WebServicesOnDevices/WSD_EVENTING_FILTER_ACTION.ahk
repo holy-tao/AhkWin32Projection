@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\WSD_URI_LIST.ahk
 
 /**
  * Represents a boolean expression used for filtering events.
@@ -7,10 +8,8 @@
  * For more information about the evaluation of action filters, see Section 6.1.1, Filtering, in the <a href="https://specs.xmlsoap.org/ws/2006/02/devprof/devicesprofile.pdf">Device Profile for Web Services</a> specification.
  * @see https://learn.microsoft.com/windows/win32/api/wsdtypes/ns-wsdtypes-wsd_eventing_filter_action
  * @namespace Windows.Win32.Devices.WebServicesOnDevices
- * @version v4.0.30319
  */
-class WSD_EVENTING_FILTER_ACTION extends Win32Struct
-{
+class WSD_EVENTING_FILTER_ACTION extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 8

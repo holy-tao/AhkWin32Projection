@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IStream.ahk
 #Include .\IFsiItem.ahk
+#Include ..\..\System\Com\IStream.ahk
 
 /**
  * Use this interface to identify the file size and data stream of the file contents.
@@ -12,9 +12,8 @@
  * This is an <b>FsiFileItem</b> object in script.
  * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nn-imapi2fs-ifsifileitem
  * @namespace Windows.Win32.Storage.Imapi
- * @version v4.0.30319
  */
-class IFsiFileItem extends IFsiItem{
+class IFsiFileItem extends IFsiItem {
 
     static sizeof => A_PtrSize
     /**

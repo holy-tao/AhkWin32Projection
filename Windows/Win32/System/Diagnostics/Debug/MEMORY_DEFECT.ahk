@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\DIMM_INFO.ahk
 #Include .\DIMM_ADDRESS.ahk
+#Include .\DIMM_ADDR_VALID_BITS.ahk
 #Include .\DIMM_ADDR_VALID_BITS_DDR4.ahk
 #Include .\DIMM_ADDR_VALID_BITS_DDR5.ahk
-#Include .\DIMM_ADDR_VALID_BITS.ahk
-#Include .\DIMM_INFO.ahk
+#Include .\PAGE_OFFLINE_ERROR_TYPES.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug
- * @version v4.0.30319
  */
-class MEMORY_DEFECT extends Win32Struct
-{
+class MEMORY_DEFECT extends Win32Struct {
     static sizeof => 80
 
     static packingSize => 8
@@ -27,7 +26,7 @@ class MEMORY_DEFECT extends Win32Struct
     /**
      * @type {DIMM_INFO}
      */
-    DimmInfo{
+    DimmInfo {
         get {
             if(!this.HasProp("__DimmInfo"))
                 this.__DimmInfo := DIMM_INFO(8, this)
@@ -36,7 +35,7 @@ class MEMORY_DEFECT extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {PAGE_OFFLINE_ERROR_TYPES}
      */
     ErrType {
         get => NumGet(this, 72, "int")

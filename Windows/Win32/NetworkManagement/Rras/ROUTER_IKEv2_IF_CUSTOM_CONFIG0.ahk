@@ -1,15 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Security\Cryptography\CRYPT_INTEGER_BLOB.ahk
+#Include .\ROUTER_CUSTOM_IKEv2_POLICY0.ahk
 
 /**
  * Gets or sets IKEv2 tunnel configuration parameter for IKEv2 tunnel based demand dial interfaces.
  * @see https://learn.microsoft.com/windows/win32/api/mprapi/ns-mprapi-router_ikev2_if_custom_config0
  * @namespace Windows.Win32.NetworkManagement.Rras
- * @version v4.0.30319
  */
-class ROUTER_IKEv2_IF_CUSTOM_CONFIG0 extends Win32Struct
-{
+class ROUTER_IKEv2_IF_CUSTOM_CONFIG0 extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -36,7 +35,7 @@ class ROUTER_IKEv2_IF_CUSTOM_CONFIG0 extends Win32Struct
      * A value that specifies the configured certificate that will be sent to the peer for authentication during the main mode SA negotiation for the IKE2 tunnel based VPN connections.
      * @type {CRYPT_INTEGER_BLOB}
      */
-    certificateName{
+    certificateName {
         get {
             if(!this.HasProp("__certificateName"))
                 this.__certificateName := CRYPT_INTEGER_BLOB(8, this)

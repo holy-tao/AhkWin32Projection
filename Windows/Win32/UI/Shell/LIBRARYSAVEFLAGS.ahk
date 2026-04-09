@@ -18,9 +18,8 @@
  * </ul>
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/ne-shobjidl_core-librarysaveflags
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class LIBRARYSAVEFLAGS extends Win32BitflagEnum{
+class LIBRARYSAVEFLAGS extends Win32BitflagEnum {
 
     /**
      * If a library with the same name already exists, the save operation fails.

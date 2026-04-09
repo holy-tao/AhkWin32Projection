@@ -3,15 +3,11 @@
 
 /**
  * Represents a DNS custom server. A **DNS_CUSTOM_SERVER** object is passed to [DnsQueryEx](/windows/win32/api/windns/nf-windns-dnsqueryex) via the [DNS_QUERY_REQUEST3](/windows/win32/api/windns/ns-windns-dns_query_request3) structure.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/windns/ns-windns-dns_custom_server
  * @namespace Windows.Win32.NetworkManagement.Dns
- * @version v4.0.30319
  */
-class DNS_CUSTOM_SERVER extends Win32Struct
-{
-    static sizeof => 88
+class DNS_CUSTOM_SERVER extends Win32Struct {
+    static sizeof => 56
 
     static packingSize => 8
 
@@ -66,7 +62,7 @@ class DNS_CUSTOM_SERVER extends Win32Struct
      * @type {String}
      */
     MaxSa {
-        get => StrGet(this.ptr + 24, 31, "UTF-16")
-        set => StrPut(value, this.ptr + 24, 31, "UTF-16")
+        get => StrGet(this.ptr + 24, 31, "UTF-8")
+        set => StrPut(value, this.ptr + 24, 31, "UTF-8")
     }
 }

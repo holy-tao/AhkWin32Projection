@@ -1,10 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include .\IFaxAccounts.ahk
 #Include .\IFaxAccount.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * Provides methods for fax account management, including adding, removing, and retrieving fax accounts.
@@ -12,9 +11,8 @@
  * A default implementation of <b>IFaxAccountSet</b> is provided as the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxaccountset">FaxAccountSet</a> object. The interface and the object are supported only on Windows Vista or later.
  * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nn-faxcomex-ifaxaccountset
  * @namespace Windows.Win32.Devices.Fax
- * @version v4.0.30319
  */
-class IFaxAccountSet extends IDispatch{
+class IFaxAccountSet extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

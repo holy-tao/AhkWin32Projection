@@ -9,9 +9,8 @@
  * <img alt="A diagram that shows examples of the different XPS_LINE_CAP styles" src="./images/XPS_LINE_CAP.png"/>
  * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/ne-xpsobjectmodel-xps_line_cap
  * @namespace Windows.Win32.Storage.Xps
- * @version v4.0.30319
  */
-class XPS_LINE_CAP extends Win32Enum{
+class XPS_LINE_CAP extends Win32Enum {
 
     /**
      * Flat line cap.

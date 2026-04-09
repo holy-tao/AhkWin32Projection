@@ -10,9 +10,8 @@
  * <div> </div>
  * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/ne-vdshwprv-vds_maintenance_operation
  * @namespace Windows.Win32.Storage.VirtualDiskService
- * @version v4.0.30319
  */
-class VDS_MAINTENANCE_OPERATION extends Win32Enum{
+class VDS_MAINTENANCE_OPERATION extends Win32Enum {
 
     /**
      * Blinks a light on a drive.

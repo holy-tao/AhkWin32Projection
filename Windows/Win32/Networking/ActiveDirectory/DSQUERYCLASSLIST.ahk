@@ -7,10 +7,8 @@
  * The class list is retrieved by the form pages upon receiving a DSQPM_GETCLASSLIST page message.
  * @see https://learn.microsoft.com/windows/win32/api/dsquery/ns-dsquery-dsqueryclasslist
  * @namespace Windows.Win32.Networking.ActiveDirectory
- * @version v4.0.30319
  */
-class DSQUERYCLASSLIST extends Win32Struct
-{
+class DSQUERYCLASSLIST extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4
@@ -35,9 +33,9 @@ class DSQUERYCLASSLIST extends Win32Struct
 
     /**
      * Offset to the class names of Unicode strings.
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    offsetClass{
+    offsetClass {
         get {
             if(!this.HasProp("__offsetClassProxyArray"))
                 this.__offsetClassProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "uint")

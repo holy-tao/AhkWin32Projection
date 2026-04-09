@@ -45,9 +45,8 @@
  * <div> </div>
  * @see https://learn.microsoft.com/windows/win32/api/vds/ne-vds-vds_volume_flag
  * @namespace Windows.Win32.Storage.VirtualDiskService
- * @version v4.0.30319
  */
-class VDS_VOLUME_FLAG extends Win32Enum{
+class VDS_VOLUME_FLAG extends Win32Enum {
 
     /**
      * The volume is a system volume.
@@ -218,19 +217,16 @@ class VDS_VOLUME_FLAG extends Win32Enum{
     static VDS_VF_DIRTY => 4194304
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static VDS_VF_REFS_NOT_SUPPORTED => 8388608
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static VDS_VF_BACKS_BOOT_VOLUME => 16777216
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static VDS_VF_BACKED_BY_WIM_IMAGE => 33554432

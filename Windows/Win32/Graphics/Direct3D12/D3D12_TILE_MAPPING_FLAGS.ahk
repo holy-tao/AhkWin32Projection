@@ -16,9 +16,8 @@
  * </ul>
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/ne-d3d12-d3d12_tile_mapping_flags
  * @namespace Windows.Win32.Graphics.Direct3D12
- * @version v4.0.30319
  */
-class D3D12_TILE_MAPPING_FLAGS extends Win32BitflagEnum{
+class D3D12_TILE_MAPPING_FLAGS extends Win32BitflagEnum {
 
     /**
      * No tile-mapping flags are specified.

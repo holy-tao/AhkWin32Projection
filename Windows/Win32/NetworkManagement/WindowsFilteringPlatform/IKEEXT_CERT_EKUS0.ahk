@@ -5,10 +5,8 @@
  * Contains information about the extended key usage (EKU) properties of a certificate.
  * @see https://learn.microsoft.com/windows/win32/api/iketypes/ns-iketypes-ikeext_cert_ekus0
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
- * @version v4.0.30319
  */
-class IKEEXT_CERT_EKUS0 extends Win32Struct
-{
+class IKEEXT_CERT_EKUS0 extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

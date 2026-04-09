@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.BiometricFramework
- * @version v4.0.30319
  */
-class WINBIO_EXTENDED_UNIT_STATUS extends Win32Struct
-{
+class WINBIO_EXTENDED_UNIT_STATUS extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4

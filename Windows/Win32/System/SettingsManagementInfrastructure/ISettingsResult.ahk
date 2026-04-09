@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\Com\IUnknown.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * Retrieves the code and description for errors and warnings returned by various operations.
  * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nn-wcmconfig-isettingsresult
  * @namespace Windows.Win32.System.SettingsManagementInfrastructure
- * @version v4.0.30319
  */
-class ISettingsResult extends IUnknown{
+class ISettingsResult extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -85,7 +84,7 @@ class ISettingsResult extends IUnknown{
 
     /**
      * Returns the file or path where the error has occurred.
-     * @returns {BSTR} 
+     * @returns {BSTR} The file or path where the error has occurred.
      * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-isettingsresult-getsource
      */
     GetSource() {

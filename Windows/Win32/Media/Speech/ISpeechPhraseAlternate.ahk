@@ -1,15 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include .\ISpeechRecoResult.ahk
 #Include .\ISpeechPhraseInfo.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * @namespace Windows.Win32.Media.Speech
- * @version v4.0.30319
  */
-class ISpeechPhraseAlternate extends IDispatch{
+class ISpeechPhraseAlternate extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ISyncKnowledge.ahk
 #Include .\ISyncChangeBatchBase.ahk
+#Include .\ISyncKnowledge.ahk
 
 /**
  * Represents the metadata for a set of changes that is created as part of a recovery synchronization.
  * @see https://learn.microsoft.com/windows/win32/api/winsync/nn-winsync-isyncfullenumerationchangebatch
  * @namespace Windows.Win32.System.WindowsSync
- * @version v4.0.30319
  */
-class ISyncFullEnumerationChangeBatch extends ISyncChangeBatchBase{
+class ISyncFullEnumerationChangeBatch extends ISyncChangeBatchBase {
 
     static sizeof => A_PtrSize
     /**

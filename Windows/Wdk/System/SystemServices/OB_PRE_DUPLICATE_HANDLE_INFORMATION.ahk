@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class OB_PRE_DUPLICATE_HANDLE_INFORMATION extends Win32Struct
-{
+class OB_PRE_DUPLICATE_HANDLE_INFORMATION extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

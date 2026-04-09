@@ -5,10 +5,8 @@
  * The WKSTA_INFO_502 structure is obsolete. The structure contains information about a workstation environment.
  * @see https://learn.microsoft.com/windows/win32/api/lmwksta/ns-lmwksta-wksta_info_502
  * @namespace Windows.Win32.NetworkManagement.NetManagement
- * @version v4.0.30319
  */
-class WKSTA_INFO_502 extends Win32Struct
-{
+class WKSTA_INFO_502 extends Win32Struct {
     static sizeof => 140
 
     static packingSize => 4

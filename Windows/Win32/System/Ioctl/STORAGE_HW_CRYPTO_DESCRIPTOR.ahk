@@ -1,15 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\STORAGE_DESCRIPTOR_HEADER.ahk
+#Include .\STORAGE_ICE_TYPE.ahk
 #Include .\STORAGE_SECURITY_COMPLIANCE_BITMASK.ahk
 #Include .\STORAGE_CRYPTO_KEY_TYPE.ahk
 
 /**
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class STORAGE_HW_CRYPTO_DESCRIPTOR extends Win32Struct
-{
+class STORAGE_HW_CRYPTO_DESCRIPTOR extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 4
@@ -17,7 +16,7 @@ class STORAGE_HW_CRYPTO_DESCRIPTOR extends Win32Struct
     /**
      * @type {STORAGE_DESCRIPTOR_HEADER}
      */
-    Header{
+    Header {
         get {
             if(!this.HasProp("__Header"))
                 this.__Header := STORAGE_DESCRIPTOR_HEADER(0, this)
@@ -58,7 +57,7 @@ class STORAGE_HW_CRYPTO_DESCRIPTOR extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {STORAGE_ICE_TYPE}
      */
     IceType {
         get => NumGet(this, 24, "int")
@@ -68,7 +67,7 @@ class STORAGE_HW_CRYPTO_DESCRIPTOR extends Win32Struct
     /**
      * @type {STORAGE_SECURITY_COMPLIANCE_BITMASK}
      */
-    SecurityComplianceBitmask{
+    SecurityComplianceBitmask {
         get {
             if(!this.HasProp("__SecurityComplianceBitmask"))
                 this.__SecurityComplianceBitmask := STORAGE_SECURITY_COMPLIANCE_BITMASK(28, this)
@@ -79,7 +78,7 @@ class STORAGE_HW_CRYPTO_DESCRIPTOR extends Win32Struct
     /**
      * @type {STORAGE_CRYPTO_KEY_TYPE}
      */
-    KeyTypeBitmask{
+    KeyTypeBitmask {
         get {
             if(!this.HasProp("__KeyTypeBitmask"))
                 this.__KeyTypeBitmask := STORAGE_CRYPTO_KEY_TYPE(30, this)

@@ -5,10 +5,8 @@
  * The DRAWTEXTPARAMS structure contains extended formatting options for the DrawTextEx function.
  * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-drawtextparams
  * @namespace Windows.Win32.Graphics.Gdi
- * @version v4.0.30319
  */
-class DRAWTEXTPARAMS extends Win32Struct
-{
+class DRAWTEXTPARAMS extends Win32Struct {
     static sizeof => 20
 
     static packingSize => 4

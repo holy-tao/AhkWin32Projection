@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\WCM_MEDIA_TYPE.ahk
 
 /**
  * Contains information about a specific profile.
  * @see https://learn.microsoft.com/windows/win32/api/wcmapi/ns-wcmapi-wcm_profile_info
  * @namespace Windows.Win32.NetworkManagement.WindowsConnectionManager
- * @version v4.0.30319
  */
-class WCM_PROFILE_INFO extends Win32Struct
-{
+class WCM_PROFILE_INFO extends Win32Struct {
     static sizeof => 528
 
     static packingSize => 8
@@ -28,7 +27,7 @@ class WCM_PROFILE_INFO extends Win32Struct
      * Type: <b>GUID</b>
      * 
      * The GUID of the adapter.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     AdapterGUID {
         get => NumGet(this, 512, "ptr")
@@ -39,7 +38,7 @@ class WCM_PROFILE_INFO extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wcmapi/ne-wcmapi-wcm_media_type">WCM_MEDIA_TYPE</a></b>
      * 
      * The media type for the profile.
-     * @type {Integer}
+     * @type {WCM_MEDIA_TYPE}
      */
     Media {
         get => NumGet(this, 520, "int")

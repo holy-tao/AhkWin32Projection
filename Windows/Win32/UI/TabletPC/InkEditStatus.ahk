@@ -5,9 +5,8 @@
  * Specifies whether the InkEdit control is idle, collecting ink, or recognizing ink.
  * @see https://learn.microsoft.com/windows/win32/api/inked/ne-inked-inkeditstatus
  * @namespace Windows.Win32.UI.TabletPC
- * @version v4.0.30319
  */
-class InkEditStatus extends Win32Enum{
+class InkEditStatus extends Win32Enum {
 
     /**
      * The <a href="https://docs.microsoft.com/windows/desktop/tablet/inkedit-control-reference">InkEdit</a> control is neither collecting nor recognizing ink.

@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Storage.FileSystem
- * @version v4.0.30319
  */
-class VER_FIND_FILE_STATUS extends Win32BitflagEnum{
+class VER_FIND_FILE_STATUS extends Win32BitflagEnum {
 
     /**
      * @type {Integer (UInt32)}

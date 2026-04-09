@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\RECT.ahk
 #Include .\HistogramGrid.ahk
+#Include ..\..\Foundation\RECT.ahk
 
 /**
  * The HistogramHeader structure describes the blob format for MF_CAPTURE_METADATA_HISTOGRAM.
@@ -14,10 +14,8 @@
  * ```
  * @see https://learn.microsoft.com/windows/win32/api/mfapi/ns-mfapi-histogramheader
  * @namespace Windows.Win32.Media.Streaming
- * @version v4.0.30319
  */
-class HistogramHeader extends Win32Struct
-{
+class HistogramHeader extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 4
@@ -62,7 +60,7 @@ class HistogramHeader extends Win32Struct
      * Grid that the histogram is collected from.
      * @type {HistogramGrid}
      */
-    Grid{
+    Grid {
         get {
             if(!this.HasProp("__Grid"))
                 this.__Grid := HistogramGrid(16, this)

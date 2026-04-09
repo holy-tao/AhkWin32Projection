@@ -7,9 +7,8 @@
  * Represents text rendering settings for glyph rasterization and filtering. (IDWriteRenderingParams1)
  * @see https://learn.microsoft.com/windows/win32/api/dwrite_1/nn-dwrite_1-idwriterenderingparams1
  * @namespace Windows.Win32.Graphics.DirectWrite
- * @version v4.0.30319
  */
-class IDWriteRenderingParams1 extends IDWriteRenderingParams{
+class IDWriteRenderingParams1 extends IDWriteRenderingParams {
 
     static sizeof => A_PtrSize
     /**

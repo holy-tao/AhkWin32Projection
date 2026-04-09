@@ -1,21 +1,20 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\BCRYPT_INTERFACE.ahk
+#Include .\BCRYPT_TABLE.ahk
 
 /**
  * Used to contain information about the type of interface supported by a CNG provider.
  * @see https://learn.microsoft.com/windows/win32/api/bcrypt/ns-bcrypt-crypt_interface_reg
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CRYPT_INTERFACE_REG extends Win32Struct
-{
+class CRYPT_INTERFACE_REG extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
 
     /**
-     * 
-     * @type {Integer}
+     * @type {BCRYPT_INTERFACE}
      */
     dwInterface {
         get => NumGet(this, 0, "uint")
@@ -23,8 +22,7 @@ class CRYPT_INTERFACE_REG extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Integer}
+     * @type {BCRYPT_TABLE}
      */
     dwFlags {
         get => NumGet(this, 4, "uint")

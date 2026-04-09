@@ -1,13 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\Win32Struct.ahk
 #Include ..\..\Win32\Foundation\HANDLE.ahk
+#Include ..\..\Win32\Foundation\UNICODE_STRING.ahk
+#Include ..\..\Win32\Foundation\OBJECT_ATTRIBUTE_FLAGS.ahk
+#Include ..\..\Win32\Security\SECURITY_DESCRIPTOR.ahk
+#Include ..\..\Win32\Security\SECURITY_QUALITY_OF_SERVICE.ahk
 
 /**
  * @namespace Windows.Wdk.Foundation
- * @version v4.0.30319
  */
-class OBJECT_ATTRIBUTES extends Win32Struct
-{
+class OBJECT_ATTRIBUTES extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -23,7 +25,7 @@ class OBJECT_ATTRIBUTES extends Win32Struct
     /**
      * @type {HANDLE}
      */
-    RootDirectory{
+    RootDirectory {
         get {
             if(!this.HasProp("__RootDirectory"))
                 this.__RootDirectory := HANDLE(8, this)
@@ -40,7 +42,7 @@ class OBJECT_ATTRIBUTES extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {OBJECT_ATTRIBUTE_FLAGS}
      */
     Attributes {
         get => NumGet(this, 24, "uint")

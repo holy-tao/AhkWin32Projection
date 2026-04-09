@@ -1,18 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DOT11_PHY_TYPE.ahk
+#Include .\CH_DESCRIPTION_TYPE.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
- * @version v4.0.30319
  */
-class DOT11_PHY_TYPE_INFO extends Win32Struct
-{
+class DOT11_PHY_TYPE_INFO extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 4
 
     /**
-     * @type {Integer}
+     * @type {DOT11_PHY_TYPE}
      */
     dot11PhyType {
         get => NumGet(this, 0, "int")
@@ -52,7 +52,7 @@ class DOT11_PHY_TYPE_INFO extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {CH_DESCRIPTION_TYPE}
      */
     ChDescriptionType {
         get => NumGet(this, 20, "int")
@@ -68,9 +68,9 @@ class DOT11_PHY_TYPE_INFO extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    ucChannelListBuffer{
+    ucChannelListBuffer {
         get {
             if(!this.HasProp("__ucChannelListBufferProxyArray"))
                 this.__ucChannelListBufferProxyArray := Win32FixedArray(this.ptr + 28, 1, Primitive, "char")

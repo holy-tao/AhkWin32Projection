@@ -9,9 +9,8 @@
  * Get an instance of this interface by calling [IMFVirtualCamera::CreateSyncEvent](nf-mfvirtualcamera-imfvirtualcamera-createsyncevent.md) or [IMFVirtualCamera::CreateSyncSemaphore](nf-mfvirtualcamera-imfvirtualcamera-createsyncsemaphore.md).
  * @see https://learn.microsoft.com/windows/win32/api/mfvirtualcamera/nn-mfvirtualcamera-imfcamerasyncobject
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFCameraSyncObject extends IUnknown{
+class IMFCameraSyncObject extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

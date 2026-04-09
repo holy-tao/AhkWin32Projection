@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Rpc
- * @version v4.0.30319
  */
-class MIDL_ES_CODE extends Win32Enum{
+class MIDL_ES_CODE extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

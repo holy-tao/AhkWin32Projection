@@ -7,9 +7,8 @@
  * This enumeration is used to specify values in the **AccessLatency** field of the [NVME_CDW13_READ_WRITE](ns-nvme-nvme_cdw13_read_write.md) structure and in the **AccessLatency** field of the [NVME_CONTEXT_ATTRIBUTES](ns-nvme-nvme_context_attributes.md) structure.
  * @see https://learn.microsoft.com/windows/win32/api/nvme/ne-nvme-nvme_access_latencies
  * @namespace Windows.Win32.Storage.Nvme
- * @version v4.0.30319
  */
-class NVME_ACCESS_LATENCIES extends Win32Enum{
+class NVME_ACCESS_LATENCIES extends Win32Enum {
 
     /**
      * None. No latency information provided.

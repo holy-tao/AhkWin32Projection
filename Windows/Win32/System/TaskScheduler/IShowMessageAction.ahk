@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include .\IAction.ahk
 
 /**
@@ -12,9 +11,8 @@
  * When reading or writing your own XML for a task, a message box action is specified using the <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/taskschedulerschema-showmessage-actiongroup-element">ShowMessage</a> element of the Task Scheduler schema.
  * @see https://learn.microsoft.com/windows/win32/api/taskschd/nn-taskschd-ishowmessageaction
  * @namespace Windows.Win32.System.TaskScheduler
- * @version v4.0.30319
  */
-class IShowMessageAction extends IAction{
+class IShowMessageAction extends IAction {
 
     static sizeof => A_PtrSize
     /**
@@ -36,6 +34,7 @@ class IShowMessageAction extends IAction{
     static VTableNames => ["get_Title", "put_Title", "get_MessageBody", "put_MessageBody"]
 
     /**
+     * @type {BSTR} 
      */
     Title {
         get => this.get_Title()
@@ -43,6 +42,7 @@ class IShowMessageAction extends IAction{
     }
 
     /**
+     * @type {BSTR} 
      */
     MessageBody {
         get => this.get_MessageBody()

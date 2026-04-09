@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.Nfc
- * @version v4.0.30319
  */
-class NFC_REMOTE_DEV_SEND_INFO extends Win32Struct
-{
+class NFC_REMOTE_DEV_SEND_INFO extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
@@ -31,7 +29,7 @@ class NFC_REMOTE_DEV_SEND_INFO extends Win32Struct
     /**
      * @type {NFC_DATA_BUFFER}
      */
-    sSendBuffer{
+    sSendBuffer {
         get {
             if(!this.HasProp("__sSendBuffer"))
                 this.__sSendBuffer := NFC_DATA_BUFFER(10, this)

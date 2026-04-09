@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.ClrHosting
- * @version v4.0.30319
  */
-class ICLRTask2 extends ICLRTask{
+class ICLRTask2 extends ICLRTask {
 
     static sizeof => A_PtrSize
     /**

@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\IGraphBuilder.ahk
 #Include .\IPin.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * The ICaptureGraphBuilder2 interface builds capture graphs and other custom filter graphs.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-icapturegraphbuilder2
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class ICaptureGraphBuilder2 extends IUnknown{
+class ICaptureGraphBuilder2 extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -638,7 +637,7 @@ class ICaptureGraphBuilder2 extends IUnknown{
      * 
      * Typically, an application will not need to use this method. It is provided for unusually complex tasks, when the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nf-strmif-icapturegraphbuilder2-renderstream">ICaptureGraphBuilder2::RenderStream</a> method cannot build the filter graph. Use this method to retrieve a desired pin from a capture filter, and then build the rest of the graph manually.
      * @param {IUnknown} pSource Pointer to an interface on a filter, or to an interface on a pin.
-     * @param {Integer} pindir Member of the [PIN_DIRECTION](/windows/desktop/api/strmif/ne-strmif-pin_direction) enumeration that specifies the pin direction (input or output).
+     * @param {PIN_DIRECTION} pindir Member of the [PIN_DIRECTION](/windows/desktop/api/strmif/ne-strmif-pin_direction) enumeration that specifies the pin direction (input or output).
      * @param {Pointer<Guid>} pCategory A pointer to a GUID that specifies one of the pin categories listed in <a href="https://docs.microsoft.com/windows/desktop/DirectShow/pin-property-set">Pin Property Set</a>. To match any pin, regardless of category, set this parameter to <b>NULL</b>.
      * @param {Pointer<Guid>} pType Pointer to a major type GUID that specifies the media type. Use <b>NULL</b> to match any media type.
      * @param {BOOL} fUnconnected Boolean value that specifies whether the pin must be unconnected. If <b>TRUE</b>, the pin must be unconnected. If <b>FALSE</b>, the pin can be connected or unconnected.

@@ -1,20 +1,19 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\ITfDocumentMgr.ahk
 #Include .\IEnumTfDocumentMgrs.ahk
 #Include .\ITfFunctionProvider.ahk
 #Include .\IEnumTfFunctionProviders.ahk
 #Include .\ITfCompartmentMgr.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * The ITfThreadMgr2 defines the primary object implemented by the TSF manager. ITfThreadMgr2 is used by applications and text services to activate and deactivate text services, create document managers, and maintain the document context focus.
  * @see https://learn.microsoft.com/windows/win32/api/msctf/nn-msctf-itfthreadmgr2
  * @namespace Windows.Win32.UI.TextServices
- * @version v4.0.30319
  */
-class ITfThreadMgr2 extends IUnknown{
+class ITfThreadMgr2 extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

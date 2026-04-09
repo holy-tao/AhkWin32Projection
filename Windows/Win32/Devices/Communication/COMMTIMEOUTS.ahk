@@ -21,10 +21,8 @@
  * </ul>
  * @see https://learn.microsoft.com/windows/win32/api/winbase/ns-winbase-commtimeouts
  * @namespace Windows.Win32.Devices.Communication
- * @version v4.0.30319
  */
-class COMMTIMEOUTS extends Win32Struct
-{
+class COMMTIMEOUTS extends Win32Struct {
     static sizeof => 20
 
     static packingSize => 4

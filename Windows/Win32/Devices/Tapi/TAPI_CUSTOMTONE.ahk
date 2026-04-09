@@ -5,10 +5,8 @@
  * The TAPI_CUSTOMTONE structure contains the parameters that define a custom tone.
  * @see https://learn.microsoft.com/windows/win32/api/tapi3if/ns-tapi3if-tapi_customtone
  * @namespace Windows.Win32.Devices.Tapi
- * @version v4.0.30319
  */
-class TAPI_CUSTOMTONE extends Win32Struct
-{
+class TAPI_CUSTOMTONE extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4

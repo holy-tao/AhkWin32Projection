@@ -7,10 +7,8 @@
  * When constructing a DNS message, the <b>DNS_WIRE_RECORD</b> structure is immediately followed by the record data and is preceded by the DNS RR's domain name.
  * @see https://learn.microsoft.com/windows/win32/api/windns/ns-windns-dns_wire_record
  * @namespace Windows.Win32.NetworkManagement.Dns
- * @version v4.0.30319
  */
-class DNS_WIRE_RECORD extends Win32Struct
-{
+class DNS_WIRE_RECORD extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4

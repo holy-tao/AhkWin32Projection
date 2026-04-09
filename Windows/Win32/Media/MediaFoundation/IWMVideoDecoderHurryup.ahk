@@ -7,9 +7,8 @@
  * Controls the speed of the video decoder.
  * @see https://learn.microsoft.com/windows/win32/api/wmcodecdsp/nn-wmcodecdsp-iwmvideodecoderhurryup
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IWMVideoDecoderHurryup extends IUnknown{
+class IWMVideoDecoderHurryup extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

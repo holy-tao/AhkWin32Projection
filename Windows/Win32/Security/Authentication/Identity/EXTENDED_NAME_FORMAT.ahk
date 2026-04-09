@@ -5,9 +5,8 @@
  * Specifies a format for a directory service object name.
  * @see https://learn.microsoft.com/windows/win32/api/secext/ne-secext-extended_name_format
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class EXTENDED_NAME_FORMAT extends Win32Enum{
+class EXTENDED_NAME_FORMAT extends Win32Enum {
 
     /**
      * An unknown name type.

@@ -5,10 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.Fax
- * @version v4.0.30319
  */
-class STISUBSCRIBE extends Win32Struct
-{
+class STISUBSCRIBE extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -40,7 +38,7 @@ class STISUBSCRIBE extends Win32Struct
     /**
      * @type {HWND}
      */
-    hWndNotify{
+    hWndNotify {
         get {
             if(!this.HasProp("__hWndNotify"))
                 this.__hWndNotify := HWND(16, this)
@@ -51,7 +49,7 @@ class STISUBSCRIBE extends Win32Struct
     /**
      * @type {HANDLE}
      */
-    hEvent{
+    hEvent {
         get {
             if(!this.HasProp("__hEvent"))
                 this.__hEvent := HANDLE(24, this)

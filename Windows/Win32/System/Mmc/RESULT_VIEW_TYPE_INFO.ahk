@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\MMC_VIEW_TYPE.ahk
+#Include ..\Com\IUnknown.ahk
 
 /**
  * The RESULT_VIEW_TYPE_INFO structure is introduced in MMC 2.0.
  * @see https://learn.microsoft.com/windows/win32/api/mmc/ns-mmc-result_view_type_info
  * @namespace Windows.Win32.System.Mmc
- * @version v4.0.30319
  */
-class RESULT_VIEW_TYPE_INFO extends Win32Struct
-{
+class RESULT_VIEW_TYPE_INFO extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -23,8 +23,7 @@ class RESULT_VIEW_TYPE_INFO extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Integer}
+     * @type {MMC_VIEW_TYPE}
      */
     eViewType {
         get => NumGet(this, 8, "int")

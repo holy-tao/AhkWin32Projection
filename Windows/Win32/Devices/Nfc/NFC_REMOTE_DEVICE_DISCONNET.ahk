@@ -1,12 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\NFC_RELEASE_TYPE.ahk
 
 /**
  * @namespace Windows.Win32.Devices.Nfc
- * @version v4.0.30319
  */
-class NFC_REMOTE_DEVICE_DISCONNET extends Win32Struct
-{
+class NFC_REMOTE_DEVICE_DISCONNET extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
@@ -20,7 +19,7 @@ class NFC_REMOTE_DEVICE_DISCONNET extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {NFC_RELEASE_TYPE}
      */
     eReleaseType {
         get => NumGet(this, 8, "int")

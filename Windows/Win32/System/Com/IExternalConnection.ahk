@@ -17,9 +17,8 @@
  * An object that implements <b>IExternalConnection</b> should explicitly call <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-codisconnectobject">CoDisconnectObject</a> on itself when its external reference count drops to 0. This call will cause the stub manager to call <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">Release</a> on the object so that the object can destroy itself.
  * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nn-objidlbase-iexternalconnection
  * @namespace Windows.Win32.System.Com
- * @version v4.0.30319
  */
-class IExternalConnection extends IUnknown{
+class IExternalConnection extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -57,7 +56,7 @@ class IExternalConnection extends IUnknown{
      * }
      * 
      * ```
-     * @param {Integer} _extconn 
+     * @param {Integer} _extconn The type of external connection to the object. The only type of external connection currently supported by this interface is strong, which means that the object must remain alive as long as this external connection exists. Strong external connections are represented by the value EXTCONN_STRONG, which is defined in the enumeration <a href="https://docs.microsoft.com/windows/desktop/api/objidl/ne-objidl-extconn">EXTCONN</a>.
      * @param {Integer} reserved Information about the connection. This parameter is reserved for use by OLE. Its value can be zero, but not necessarily. Therefore, implementations of <b>AddConnection</b> should not contain blocks of code whose execution depends on whether a zero value is returned.
      * @returns {Integer} The method returns the count of connections. This value is intended to be used only for debugging purposes.
      * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nf-objidlbase-iexternalconnection-addconnection
@@ -71,7 +70,7 @@ class IExternalConnection extends IUnknown{
      * The IExternalConnection::ReleaseConnection (objidlbase.h) method decrements the count of an object's strong external connections.
      * @remarks
      * If <i>fLastReleaseCloses</i> equals <b>TRUE</b>, calling <b>ReleaseConnection</b> causes the object to shut itself down. Calling this method is the only way in which a DLL object, running in the same process space as the container application, will know when to close following a silent update.
-     * @param {Integer} _extconn 
+     * @param {Integer} _extconn The type of external connection to the object. The only type of external connection currently supported by this interface is strong, which means that the object must remain alive as long as this external connection exists. Strong external connections are represented by the value EXTCONN_STRONG, which is defined in the enumeration <a href="https://docs.microsoft.com/windows/desktop/api/objidl/ne-objidl-extconn">EXTCONN</a>.
      * @param {Integer} reserved Information about the connection. This parameter is reserved for use by OLE. Its value can be zero, but not necessarily. Therefore, implementations of <b>ReleaseConnection</b> should not contain blocks of code whose execution depends on whether a zero value is returned.
      * @param {BOOL} fLastReleaseCloses This parameter is <b>TRUE</b> if the connection being released is the last external lock on the object, and therefore the object should close. Otherwise, the object should remain open until closed by the user or another process.
      * @returns {Integer} The method returns the count of connections. This value is intended to be used only for debugging purposes.

@@ -6,10 +6,8 @@
  * Represents an element in a collection.
  * @see https://learn.microsoft.com/windows/win32/api/xamlom/ns-xamlom-collectionelementvalue
  * @namespace Windows.Win32.UI.Xaml.Diagnostics
- * @version v4.0.30319
  */
-class CollectionElementValue extends Win32Struct
-{
+class CollectionElementValue extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -27,7 +25,7 @@ class CollectionElementValue extends Win32Struct
      * The type of the element object.
      * @type {BSTR}
      */
-    ValueType{
+    ValueType {
         get {
             if(!this.HasProp("__ValueType"))
                 this.__ValueType := BSTR(8, this)
@@ -39,7 +37,7 @@ class CollectionElementValue extends Win32Struct
      * The value of the element.
      * @type {BSTR}
      */
-    Value{
+    Value {
         get {
             if(!this.HasProp("__Value"))
                 this.__Value := BSTR(16, this)

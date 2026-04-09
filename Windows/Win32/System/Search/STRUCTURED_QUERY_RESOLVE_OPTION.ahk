@@ -14,9 +14,8 @@
  * ```
  * @see https://learn.microsoft.com/windows/win32/api/structuredquery/ne-structuredquery-structured_query_resolve_option
  * @namespace Windows.Win32.System.Search
- * @version v4.0.30319
  */
-class STRUCTURED_QUERY_RESOLVE_OPTION extends Win32BitflagEnum{
+class STRUCTURED_QUERY_RESOLVE_OPTION extends Win32BitflagEnum {
 
     /**
      * <b>Windows 7 and later.</b> The default flag.
@@ -73,7 +72,6 @@ class STRUCTURED_QUERY_RESOLVE_OPTION extends Win32BitflagEnum{
     static SQRO_IGNORE_PHRASE_ORDER => 128
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static SQRO_ADD_VALUE_TYPE_FOR_PLAIN_VALUES => 256

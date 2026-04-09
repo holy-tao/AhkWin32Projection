@@ -1,12 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\RESTRICTION.ahk
 
 /**
  * @namespace Windows.Win32.System.Search
- * @version v4.0.30319
  */
-class NODERESTRICTION extends Win32Struct
-{
+class NODERESTRICTION extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

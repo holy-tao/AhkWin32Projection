@@ -7,10 +7,8 @@
  * If the partition is on a disk formatted as type master boot record (MBR), partition size totals are limited. For more information, see the Remarks section of <a href="https://docs.microsoft.com/windows/desktop/api/winioctl/ni-winioctl-ioctl_disk_set_drive_layout">IOCTL_DISK_SET_DRIVE_LAYOUT</a>.
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-partition_information
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class PARTITION_INFORMATION extends Win32Struct
-{
+class PARTITION_INFORMATION extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8

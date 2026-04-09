@@ -7,10 +7,8 @@
  * A raytracing pipeline needs one raytracing shader configuration.  If multiple shader configurations are present, such as one in each collection to enable independent driver compilation for each one, they must all match when combined into a raytracing pipeline.
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_raytracing_shader_config
  * @namespace Windows.Win32.Graphics.Direct3D12
- * @version v4.0.30319
  */
-class D3D12_RAYTRACING_SHADER_CONFIG extends Win32Struct
-{
+class D3D12_RAYTRACING_SHADER_CONFIG extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4

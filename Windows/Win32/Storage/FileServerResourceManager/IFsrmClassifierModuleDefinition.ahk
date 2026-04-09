@@ -7,9 +7,8 @@
  * Defines a classifier module.
  * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nn-fsrmpipeline-ifsrmclassifiermoduledefinition
  * @namespace Windows.Win32.Storage.FileServerResourceManager
- * @version v4.0.30319
  */
-class IFsrmClassifierModuleDefinition extends IFsrmPipelineModuleDefinition{
+class IFsrmClassifierModuleDefinition extends IFsrmPipelineModuleDefinition {
 
     static sizeof => A_PtrSize
     /**

@@ -6,10 +6,8 @@
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
- * @version v4.0.30319
  */
-class KSPIN_CONNECT extends Win32Struct
-{
+class KSPIN_CONNECT extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8
@@ -17,7 +15,7 @@ class KSPIN_CONNECT extends Win32Struct
     /**
      * @type {KSIDENTIFIER}
      */
-    Interface{
+    Interface {
         get {
             if(!this.HasProp("__Interface"))
                 this.__Interface := KSIDENTIFIER(0, this)
@@ -28,7 +26,7 @@ class KSPIN_CONNECT extends Win32Struct
     /**
      * @type {KSIDENTIFIER}
      */
-    Medium{
+    Medium {
         get {
             if(!this.HasProp("__Medium"))
                 this.__Medium := KSIDENTIFIER(16, this)
@@ -47,7 +45,7 @@ class KSPIN_CONNECT extends Win32Struct
     /**
      * @type {HANDLE}
      */
-    PinToHandle{
+    PinToHandle {
         get {
             if(!this.HasProp("__PinToHandle"))
                 this.__PinToHandle := HANDLE(40, this)
@@ -58,7 +56,7 @@ class KSPIN_CONNECT extends Win32Struct
     /**
      * @type {KSPRIORITY}
      */
-    Priority{
+    Priority {
         get {
             if(!this.HasProp("__Priority"))
                 this.__Priority := KSPRIORITY(48, this)

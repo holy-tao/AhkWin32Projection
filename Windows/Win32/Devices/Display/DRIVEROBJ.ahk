@@ -13,10 +13,8 @@
  * This structure provides a locking mechanism for exclusive access to the associated resource.
  * @see https://learn.microsoft.com/windows/win32/api/winddi/ns-winddi-driverobj
  * @namespace Windows.Win32.Devices.Display
- * @version v4.0.30319
  */
-class DRIVEROBJ extends Win32Struct
-{
+class DRIVEROBJ extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -51,7 +49,7 @@ class DRIVEROBJ extends Win32Struct
      * GDI handle to the physical device associated with the object.
      * @type {HDEV}
      */
-    hdev{
+    hdev {
         get {
             if(!this.HasProp("__hdev"))
                 this.__hdev := HDEV(16, this)
@@ -63,7 +61,7 @@ class DRIVEROBJ extends Win32Struct
      * Pointer to the driver's private instance data; that is, this member identifies the driver's <a href="https://docs.microsoft.com/windows-hardware/drivers/">PDEV</a>.
      * @type {DHPDEV}
      */
-    dhpdev{
+    dhpdev {
         get {
             if(!this.HasProp("__dhpdev"))
                 this.__dhpdev := DHPDEV(24, this)

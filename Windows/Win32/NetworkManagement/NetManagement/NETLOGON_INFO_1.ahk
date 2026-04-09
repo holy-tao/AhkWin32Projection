@@ -5,10 +5,8 @@
  * Defines a level-1 control query response from a domain controller.
  * @see https://learn.microsoft.com/windows/win32/api/lmaccess/ns-lmaccess-netlogon_info_1
  * @namespace Windows.Win32.NetworkManagement.NetManagement
- * @version v4.0.30319
  */
-class NETLOGON_INFO_1 extends Win32Struct
-{
+class NETLOGON_INFO_1 extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4

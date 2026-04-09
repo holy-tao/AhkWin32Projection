@@ -5,9 +5,8 @@
  * The FAX_LOG_LEVEL_ENUM enumeration defines the event logging levels for a logging category.
  * @see https://learn.microsoft.com/windows/win32/api/faxcomex/ne-faxcomex-fax_log_level_enum
  * @namespace Windows.Win32.Devices.Fax
- * @version v4.0.30319
  */
-class FAX_LOG_LEVEL_ENUM extends Win32Enum{
+class FAX_LOG_LEVEL_ENUM extends Win32Enum {
 
     /**
      * The fax server does not log events.

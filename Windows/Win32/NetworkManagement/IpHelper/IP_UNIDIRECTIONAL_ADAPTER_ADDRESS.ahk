@@ -8,10 +8,8 @@
  *     IPv4 datagrams, but can't transmit them.
  * @see https://learn.microsoft.com/windows/win32/api/ipexport/ns-ipexport-ip_unidirectional_adapter_address
  * @namespace Windows.Win32.NetworkManagement.IpHelper
- * @version v4.0.30319
  */
-class IP_UNIDIRECTIONAL_ADAPTER_ADDRESS extends Win32Struct
-{
+class IP_UNIDIRECTIONAL_ADAPTER_ADDRESS extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4
@@ -27,9 +25,9 @@ class IP_UNIDIRECTIONAL_ADAPTER_ADDRESS extends Win32Struct
 
     /**
      * An array of variables of type <a href="https://docs.microsoft.com/windows/desktop/api/inaddr/ns-inaddr-in_addr">IPAddr</a>. Each element of the array specifies an IPv4 address associated with this unidirectional adapter.
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    Address{
+    Address {
         get {
             if(!this.HasProp("__AddressProxyArray"))
                 this.__AddressProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "uint")

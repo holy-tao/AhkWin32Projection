@@ -3,11 +3,9 @@
 
 /**
  * @namespace Windows.Win32.System.SystemServices
- * @version v4.0.30319
  * @deprecated struct PACKEDEVENTINFO is deprecated and might not work on all platforms. For more info, see MSDN.
  */
-class PACKEDEVENTINFO extends Win32Struct
-{
+class PACKEDEVENTINFO extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4
@@ -29,9 +27,9 @@ class PACKEDEVENTINFO extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    ulOffsets{
+    ulOffsets {
         get {
             if(!this.HasProp("__ulOffsetsProxyArray"))
                 this.__ulOffsetsProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "uint")

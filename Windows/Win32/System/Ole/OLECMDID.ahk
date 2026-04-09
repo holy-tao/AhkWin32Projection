@@ -78,9 +78,8 @@
  * ```
  * @see https://learn.microsoft.com/windows/win32/api/docobj/ne-docobj-olecmdid
  * @namespace Windows.Win32.System.Ole
- * @version v4.0.30319
  */
-class OLECMDID extends Win32Enum{
+class OLECMDID extends Win32Enum {
 
     /**
      * <b>File</b> menu, <b>Open</b> command
@@ -263,7 +262,6 @@ class OLECMDID extends Win32Enum{
     static OLECMDID_STOPDOWNLOAD => 30
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static OLECMDID_ONTOOLBARACTIVATED => 31
@@ -473,109 +471,91 @@ class OLECMDID extends Win32Enum{
     static OLECMDID_UPDATETRAVELENTRY_DATARECOVERY => 67
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static OLECMDID_SHOWTASKDLG => 68
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static OLECMDID_POPSTATEEVENT => 69
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static OLECMDID_VIEWPORT_MODE => 70
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static OLECMDID_LAYOUT_VIEWPORT_WIDTH => 71
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static OLECMDID_VISUAL_VIEWPORT_EXCLUDE_BOTTOM => 72
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static OLECMDID_USER_OPTICAL_ZOOM => 73
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static OLECMDID_PAGEAVAILABLE => 74
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static OLECMDID_GETUSERSCALABLE => 75
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static OLECMDID_UPDATE_CARET => 76
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static OLECMDID_ENABLE_VISIBILITY => 77
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static OLECMDID_MEDIA_PLAYBACK => 78
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static OLECMDID_SETFAVICON => 79
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static OLECMDID_SET_HOST_FULLSCREENMODE => 80
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static OLECMDID_EXITFULLSCREEN => 81
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static OLECMDID_SCROLLCOMPLETE => 82
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static OLECMDID_ONBEFOREUNLOAD => 83
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static OLECMDID_SHOWMESSAGE_BLOCKABLE => 84
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static OLECMDID_SHOWTASKDLG_BLOCKABLE => 85

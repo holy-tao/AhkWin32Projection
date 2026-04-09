@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.UI.Controls.RichEdit
- * @version v4.0.30319
  */
-class PARAFORMAT_NUMBERING extends Win32BitflagEnum{
+class PARAFORMAT_NUMBERING extends Win32BitflagEnum {
 
     /**
      * @type {Integer (UInt16)}

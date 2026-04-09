@@ -7,10 +7,8 @@
 
 /**
  * @namespace Windows.Win32.Media.Audio.DirectMusic
- * @version v4.0.30319
  */
-class DMUS_ARTICPARAMS extends Win32Struct
-{
+class DMUS_ARTICPARAMS extends Win32Struct {
     static sizeof => 80
 
     static packingSize => 4
@@ -18,7 +16,7 @@ class DMUS_ARTICPARAMS extends Win32Struct
     /**
      * @type {DMUS_LFOPARAMS}
      */
-    LFO{
+    LFO {
         get {
             if(!this.HasProp("__LFO"))
                 this.__LFO := DMUS_LFOPARAMS(0, this)
@@ -29,7 +27,7 @@ class DMUS_ARTICPARAMS extends Win32Struct
     /**
      * @type {DMUS_VEGPARAMS}
      */
-    VolEG{
+    VolEG {
         get {
             if(!this.HasProp("__VolEG"))
                 this.__VolEG := DMUS_VEGPARAMS(24, this)
@@ -40,7 +38,7 @@ class DMUS_ARTICPARAMS extends Win32Struct
     /**
      * @type {DMUS_PEGPARAMS}
      */
-    PitchEG{
+    PitchEG {
         get {
             if(!this.HasProp("__PitchEG"))
                 this.__PitchEG := DMUS_PEGPARAMS(48, this)
@@ -51,7 +49,7 @@ class DMUS_ARTICPARAMS extends Win32Struct
     /**
      * @type {DMUS_MSCPARAMS}
      */
-    Misc{
+    Misc {
         get {
             if(!this.HasProp("__Misc"))
                 this.__Misc := DMUS_MSCPARAMS(76, this)

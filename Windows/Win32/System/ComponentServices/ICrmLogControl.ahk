@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\Com\IUnknown.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * Is the means by which the CRM Worker and CRM Compensator write records to the log and make them durable.
@@ -12,9 +12,8 @@
  * In addition to the return values listed for each method, the methods can also return error codes from the Distributed Transaction Coordinator (DTC) or other standard COM error codes.
  * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nn-comsvcs-icrmlogcontrol
  * @namespace Windows.Win32.System.ComponentServices
- * @version v4.0.30319
  */
-class ICrmLogControl extends IUnknown{
+class ICrmLogControl extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

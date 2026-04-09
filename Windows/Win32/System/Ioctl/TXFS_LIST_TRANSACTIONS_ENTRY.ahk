@@ -5,17 +5,15 @@
  * Contains information about a transaction.
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-txfs_list_transactions_entry
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class TXFS_LIST_TRANSACTIONS_ENTRY extends Win32Struct
-{
+class TXFS_LIST_TRANSACTIONS_ENTRY extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
 
     /**
      * The GUID of the transaction.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     TransactionId {
         get => NumGet(this, 0, "ptr")

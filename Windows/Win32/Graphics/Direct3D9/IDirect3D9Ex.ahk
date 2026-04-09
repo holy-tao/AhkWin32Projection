@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IDirect3DDevice9Ex.ahk
 #Include .\IDirect3D9.ahk
+#Include .\IDirect3DDevice9Ex.ahk
 
 /**
  * Applications use the methods of the IDirect3D9Ex interface (which inherits from IDirect3D9) to create Microsoft Direct3D 9Ex objects and set up the environment.
@@ -20,9 +20,8 @@
  * ```
  * @see https://learn.microsoft.com/windows/win32/api/d3d9/nn-d3d9-idirect3d9ex
  * @namespace Windows.Win32.Graphics.Direct3D9
- * @version v4.0.30319
  */
-class IDirect3D9Ex extends IDirect3D9{
+class IDirect3D9Ex extends IDirect3D9 {
 
     static sizeof => A_PtrSize
     /**
@@ -51,7 +50,9 @@ class IDirect3D9Ex extends IDirect3D9{
      * To fullscreen applications, S_PRESENT_MODE_CHANGED returned from <a href="https://docs.microsoft.com/windows/desktop/api/d3d9/nf-d3d9-idirect3ddevice9ex-presentex">PresentEx</a> or <a href="https://docs.microsoft.com/windows/desktop/api/d3d9/nf-d3d9-idirect3ddevice9ex-checkdevicestate">CheckDeviceState</a> is the indication of display mode setting failure due to those events.
      * 
      * To increase the chance of setting a currently available display mode successfully, fullscreen applications should try to requery the available display mode list upon receiving S_PRESENT_MODE_CHANGED.
-     * @param {Integer} _Adapter 
+     * @param {Integer} _Adapter Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
+     * 
+     * Ordinal number denoting the display adapter from which to retrieve the display mode count.
      * @param {Pointer<D3DDISPLAYMODEFILTER>} pFilter Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3ddisplaymodefilter">D3DDISPLAYMODEFILTER</a>*</b>
      * 
      * Specifies the characteristics of the desired display mode. See <a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3ddisplaymodefilter">D3DDISPLAYMODEFILTER</a>.
@@ -67,11 +68,15 @@ class IDirect3D9Ex extends IDirect3D9{
 
     /**
      * This method returns the actual display mode info based on the given mode index.
-     * @param {Integer} _Adapter 
+     * @param {Integer} _Adapter Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
+     * 
+     * Ordinal number denoting the display adapter to enumerate. D3DADAPTER_DEFAULT is always the primary display adapter. This method returns D3DERR_INVALIDCALL when this value equals or exceeds the number of display adapters in the system.
      * @param {Pointer<D3DDISPLAYMODEFILTER>} pFilter Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3ddisplaymodefilter">D3DDISPLAYMODEFILTER</a>*</b>
      * 
      * See <a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3ddisplaymodefilter">D3DDISPLAYMODEFILTER</a>.
-     * @param {Integer} _Mode 
+     * @param {Integer} _Mode Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
+     * 
+     * Represents the display-mode index which is an unsigned integer between zero and the value returned by GetAdapterModeCount minus one.
      * @param {Pointer<D3DDISPLAYMODEEX>} pMode Type: <b><a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3ddisplaymodeex">D3DDISPLAYMODEEX</a>*</b>
      * 
      * A pointer to the available display mode of type <a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3ddisplaymodeex">D3DDISPLAYMODEEX</a>.
@@ -94,11 +99,13 @@ class IDirect3D9Ex extends IDirect3D9{
      * <b>GetAdapterDisplayModeEx</b> does not return the correct format when the display is in an extended format, such as 2:10:10:10. Instead, it returns the format X8R8G8B8.
      * 
      * To windowed applications, a value of S_PRESENT_MODE_CHANGED returned from <a href="https://docs.microsoft.com/windows/desktop/api/d3d9/nf-d3d9-idirect3ddevice9ex-presentex">PresentEx</a> or <a href="https://docs.microsoft.com/windows/desktop/api/d3d9/nf-d3d9-idirect3ddevice9ex-checkdevicestate">CheckDeviceState</a> indicates that the display mode changed and that the current display mode might have a different format. To avoid a color-converting Present blt, windowed applications can optionally get new display mode information by using this method and adjusting its swap chain format accordingly. This method returns D3DERR_NOTAVAILABLE if this head is no longer part of the desktop or if the monitor is disconnected.
-     * @param {Integer} _Adapter 
+     * @param {Integer} _Adapter Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
+     * 
+     * Ordinal number that denotes the display adapter to query. D3DADAPTER_DEFAULT is always the primary display adapter.
      * @param {Pointer<D3DDISPLAYMODEEX>} pMode Type: <b><a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3ddisplaymodeex">D3DDISPLAYMODEEX</a>*</b>
      * 
      * Pointer to a <a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3ddisplaymodeex">D3DDISPLAYMODEEX</a> structure containing data about the display mode of the adapter. As opposed to the display mode of the device, which may not be active if the device does not own full-screen mode. Can be set to <b>NULL</b>.
-     * @param {Pointer<Integer>} pRotation Type: <b><a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3ddisplayrotation">D3DDISPLAYROTATION</a>*</b>
+     * @param {Pointer<D3DDISPLAYROTATION>} pRotation Type: <b><a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3ddisplayrotation">D3DDISPLAYROTATION</a>*</b>
      * 
      * Pointer to a <a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3ddisplayrotation">D3DDISPLAYROTATION</a> structure indicating the type of screen rotation the application will do. The value returned through this pointer is important when the <a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3dpresentflag">D3DPRESENTFLAG_NOAUTOROTATE</a> flag is used; otherwise, it can be set to <b>NULL</b>.
      * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
@@ -119,8 +126,10 @@ class IDirect3D9Ex extends IDirect3D9{
 
     /**
      * Creates a device to represent the display adapter. (IDirect3D9Ex.CreateDeviceEx)
-     * @param {Integer} _Adapter 
-     * @param {Integer} DeviceType Type: <b><a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3ddevtype">D3DDEVTYPE</a></b>
+     * @param {Integer} _Adapter Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
+     * 
+     * Ordinal number that denotes the display adapter. <a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3dadapter-default">D3DADAPTER_DEFAULT</a> is always the primary display adapter.
+     * @param {D3DDEVTYPE} DeviceType Type: <b><a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3ddevtype">D3DDEVTYPE</a></b>
      * 
      * Specifies the type of device. See <a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3ddevtype">D3DDEVTYPE</a>. If the desired device type is not available, the method will fail.
      * @param {HWND} hFocusWindow Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
@@ -156,7 +165,9 @@ class IDirect3D9Ex extends IDirect3D9{
 
     /**
      * This method returns a unique identifier for the adapter that is specific to the adapter hardware. Applications can use this identifier to define robust mappings across various APIs (Direct3D 9, DXGI).
-     * @param {Integer} _Adapter 
+     * @param {Integer} _Adapter Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
+     * 
+     * Ordinal number denoting the display adapter from which to retrieve the LUID.
      * @param {Pointer<LUID>} pLUID Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/hardware/drivers/ff549708(v=vs.85)">LUID</a>*</b>
      * 
      * A unique identifier for the given adapter.

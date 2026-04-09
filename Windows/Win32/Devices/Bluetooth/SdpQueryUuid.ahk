@@ -6,10 +6,8 @@
  * The SdpQueryUuid structure facilitates searching for UUIDs.
  * @see https://learn.microsoft.com/windows/win32/api/bthsdpdef/ns-bthsdpdef-sdpqueryuuid
  * @namespace Windows.Win32.Devices.Bluetooth
- * @version v4.0.30319
  */
-class SdpQueryUuid extends Win32Struct
-{
+class SdpQueryUuid extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -18,7 +16,7 @@ class SdpQueryUuid extends Win32Struct
      * Union containing the UUID on which to search.
      * @type {SdpQueryUuidUnion}
      */
-    u{
+    u {
         get {
             if(!this.HasProp("__u"))
                 this.__u := SdpQueryUuidUnion(0, this)

@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
- * @version v4.0.30319
  */
-class IPrintReadStream extends IUnknown{
+class IPrintReadStream extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -48,7 +47,7 @@ class IPrintReadStream extends IUnknown{
 
     /**
      * 
-     * @param {Pointer} pvBuffer 
+     * @param {Integer} pvBuffer 
      * @param {Integer} cbRequested 
      * @param {Pointer<Integer>} pcbRead 
      * @param {Pointer<BOOL>} pbEndOfFile 

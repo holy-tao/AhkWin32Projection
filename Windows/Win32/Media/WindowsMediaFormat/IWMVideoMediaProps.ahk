@@ -7,9 +7,8 @@
  * With this interface, the application can specify additional video-specific parameters not available on the IWMMediaProps interface.To get access to the methods of this interface, call QueryInterface on a stream configuration object.
  * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nn-wmsdkidl-iwmvideomediaprops
  * @namespace Windows.Win32.Media.WindowsMediaFormat
- * @version v4.0.30319
  */
-class IWMVideoMediaProps extends IWMMediaProps{
+class IWMVideoMediaProps extends IWMMediaProps {
 
     static sizeof => A_PtrSize
     /**

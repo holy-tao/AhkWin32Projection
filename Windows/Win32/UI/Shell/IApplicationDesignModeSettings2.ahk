@@ -9,9 +9,8 @@
  * This interface is acquired by cocreating CLSID_ApplicationDesignModeSettings. It is an extension of the original <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-iapplicationdesignmodesettings">IApplicationDesignModeSettings</a> interface.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-iapplicationdesignmodesettings2
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IApplicationDesignModeSettings2 extends IApplicationDesignModeSettings{
+class IApplicationDesignModeSettings2 extends IApplicationDesignModeSettings {
 
     static sizeof => A_PtrSize
     /**
@@ -34,7 +33,7 @@ class IApplicationDesignModeSettings2 extends IApplicationDesignModeSettings{
 
     /**
      * Sets the orientation of the emulated display for the design mode window.
-     * @param {Integer} nativeDisplayOrientation Type: <b>NATIVE_DISPLAY_ORIENTATION</b>
+     * @param {NATIVE_DISPLAY_ORIENTATION} nativeDisplayOrientation Type: <b>NATIVE_DISPLAY_ORIENTATION</b>
      * 
      * The native orientation of the display to emulate.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -49,7 +48,7 @@ class IApplicationDesignModeSettings2 extends IApplicationDesignModeSettings{
 
     /**
      * Sets the window orientation used for the design mode window.
-     * @param {Integer} viewOrientation Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-application_view_orientation">APPLICATION_VIEW_ORIENTATION</a></b>
+     * @param {APPLICATION_VIEW_ORIENTATION} viewOrientation Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-application_view_orientation">APPLICATION_VIEW_ORIENTATION</a></b>
      * 
      * The orientation of the design mode window to use. Either <b>AVO_LANDSCAPE</b> or <b>AVO_PORTRAIT</b>.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -64,7 +63,7 @@ class IApplicationDesignModeSettings2 extends IApplicationDesignModeSettings{
 
     /**
      * Sets whether the application window will be adjacent to the edge of the emulated display.
-     * @param {Integer} adjacentDisplayEdges Type: <b>ADJACENT_DISPLAY_EDGES</b>
+     * @param {ADJACENT_DISPLAY_EDGES} adjacentDisplayEdges Type: <b>ADJACENT_DISPLAY_EDGES</b>
      * 
      * The edge which should be adjacent.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -94,7 +93,7 @@ class IApplicationDesignModeSettings2 extends IApplicationDesignModeSettings{
 
     /**
      * Sets the desired minimum width of the application design mode window.
-     * @param {Integer} viewMinWidth Type: <b>APPLICATION_VIEW_MIN_WIDTH</b>
+     * @param {APPLICATION_VIEW_MIN_WIDTH} viewMinWidth Type: <b>APPLICATION_VIEW_MIN_WIDTH</b>
      * 
      * The minimum width value.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -130,7 +129,7 @@ class IApplicationDesignModeSettings2 extends IApplicationDesignModeSettings{
      * @param {SIZE} applicationSizePixels Type: <b>SIZE</b>
      * 
      * The application window size.
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-application_view_orientation">APPLICATION_VIEW_ORIENTATION</a>*</b>
+     * @returns {APPLICATION_VIEW_ORIENTATION} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-application_view_orientation">APPLICATION_VIEW_ORIENTATION</a>*</b>
      * 
      * When this method returns successfully, receives a pointer to an  <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-application_view_orientation">APPLICATION_VIEW_ORIENTATION</a> structure.
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iapplicationdesignmodesettings2-getapplicationvieworientation

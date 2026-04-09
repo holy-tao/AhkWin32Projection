@@ -11,10 +11,8 @@
  * For a code example that uses the <b>DIRECTX_AUDIO_ACTIVATION_PARAMS</b> structure, see <a href="https://docs.microsoft.com/windows/desktop/CoreAudio/device-roles-for-directshow-applications">Device Roles for DirectShow Applications</a>.
  * @see https://learn.microsoft.com/windows/win32/api/mmdeviceapi/ns-mmdeviceapi-directx_audio_activation_params
  * @namespace Windows.Win32.Media.Audio
- * @version v4.0.30319
  */
-class DIRECTX_AUDIO_ACTIVATION_PARAMS extends Win32Struct
-{
+class DIRECTX_AUDIO_ACTIVATION_PARAMS extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -30,7 +28,7 @@ class DIRECTX_AUDIO_ACTIVATION_PARAMS extends Win32Struct
 
     /**
      * Session GUID. This member is a GUID value that identifies the audio session that the stream belongs to. If the GUID identifies a session that has been previously opened, the method adds the stream to that session. If the GUID does not identify an existing session, the method opens a new session and adds the stream to that session. The stream remains a member of the same session for its lifetime.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     guidAudioSession {
         get => NumGet(this, 8, "ptr")

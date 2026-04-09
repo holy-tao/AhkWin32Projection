@@ -4,18 +4,16 @@
 
 /**
  * @namespace Windows.Win32.Storage.Nvme
- * @version v4.0.30319
  */
-class NVME_FEATURE_IDENTIFIERS_EFFECTS_LOG extends Win32Struct
-{
-    static sizeof => 2048
+class NVME_FEATURE_IDENTIFIERS_EFFECTS_LOG extends Win32Struct {
+    static sizeof => 1024
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
-     * @type {Array<NVME_FID_SUPPORTED_AND_EFFECTS>}
+     * @type {NVME_FID_SUPPORTED_AND_EFFECTS}
      */
-    FeatureIdentifierSupported{
+    FeatureIdentifierSupported {
         get {
             if(!this.HasProp("__FeatureIdentifierSupportedProxyArray"))
                 this.__FeatureIdentifierSupportedProxyArray := Win32FixedArray(this.ptr + 0, 256, NVME_FID_SUPPORTED_AND_EFFECTS, "")

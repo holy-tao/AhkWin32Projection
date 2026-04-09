@@ -7,9 +7,8 @@
  * Enables snap-ins to enumerate dynamic subcontainers in the scope pane. The particular snap-in determines what qualifies as a subcontainer.
  * @see https://learn.microsoft.com/windows/win32/api/mmc/nn-mmc-iconsolenamespace
  * @namespace Windows.Win32.System.Mmc
- * @version v4.0.30319
  */
-class IConsoleNameSpace extends IUnknown{
+class IConsoleNameSpace extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

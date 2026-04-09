@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\COMPRESSION_FORMAT.ahk
 
 /**
  * Receives file compression information.
  * @see https://learn.microsoft.com/windows/win32/api/winbase/ns-winbase-file_compression_info
  * @namespace Windows.Win32.Storage.FileSystem
- * @version v4.0.30319
  */
-class FILE_COMPRESSION_INFO extends Win32Struct
-{
+class FILE_COMPRESSION_INFO extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
@@ -24,7 +23,7 @@ class FILE_COMPRESSION_INFO extends Win32Struct
 
     /**
      * The compression format that is used to compress the file.
-     * @type {Integer}
+     * @type {COMPRESSION_FORMAT}
      */
     CompressionFormat {
         get => NumGet(this, 8, "ushort")
@@ -60,9 +59,9 @@ class FILE_COMPRESSION_INFO extends Win32Struct
 
     /**
      * Reserved.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Reserved{
+    Reserved {
         get {
             if(!this.HasProp("__ReservedProxyArray"))
                 this.__ReservedProxyArray := Win32FixedArray(this.ptr + 13, 3, Primitive, "char")

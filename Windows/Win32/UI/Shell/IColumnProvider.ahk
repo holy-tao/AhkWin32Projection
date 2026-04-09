@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\SHCOLUMNINFO.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Exposes methods that enable the addition of custom columns in the Windows Explorer Details view.
@@ -36,9 +36,8 @@
  * This interface is called by Windows Explorer. It is not typically used by applications.
  * @see https://learn.microsoft.com/windows/win32/api/shlobj/nn-shlobj-icolumnprovider
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IColumnProvider extends IUnknown{
+class IColumnProvider extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

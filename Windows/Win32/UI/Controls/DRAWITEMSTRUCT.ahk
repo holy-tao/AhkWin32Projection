@@ -1,5 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DRAWITEMSTRUCT_CTL_TYPE.ahk
+#Include .\ODA_FLAGS.ahk
+#Include .\ODS_FLAGS.ahk
 #Include ..\..\Foundation\HWND.ahk
 #Include ..\..\Graphics\Gdi\HDC.ahk
 #Include ..\..\Foundation\RECT.ahk
@@ -10,17 +13,15 @@
  * Some control types, such as status bars, do not set the value of <b>CtlType</b>.
  * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-drawitemstruct
  * @namespace Windows.Win32.UI.Controls
- * @version v4.0.30319
  */
-class DRAWITEMSTRUCT extends Win32Struct
-{
+class DRAWITEMSTRUCT extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 8
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
-     * @type {Integer}
+     * @type {DRAWITEMSTRUCT_CTL_TYPE}
      */
     CtlType {
         get => NumGet(this, 0, "uint")
@@ -90,7 +91,7 @@ class DRAWITEMSTRUCT extends Win32Struct
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
+     * @type {ODA_FLAGS}
      */
     itemAction {
         get => NumGet(this, 12, "uint")
@@ -218,7 +219,7 @@ class DRAWITEMSTRUCT extends Win32Struct
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
+     * @type {ODS_FLAGS}
      */
     itemState {
         get => NumGet(this, 16, "uint")
@@ -231,7 +232,7 @@ class DRAWITEMSTRUCT extends Win32Struct
      * A handle to the control for combo boxes, list boxes, buttons, and static controls. For menus, this member is a handle to the menu that contains the item.
      * @type {HWND}
      */
-    hwndItem{
+    hwndItem {
         get {
             if(!this.HasProp("__hwndItem"))
                 this.__hwndItem := HWND(24, this)
@@ -245,7 +246,7 @@ class DRAWITEMSTRUCT extends Win32Struct
      * A handle to a device context; this device context must be used when performing drawing operations on the control.
      * @type {HDC}
      */
-    hDC{
+    hDC {
         get {
             if(!this.HasProp("__hDC"))
                 this.__hDC := HDC(32, this)
@@ -259,7 +260,7 @@ class DRAWITEMSTRUCT extends Win32Struct
      * A rectangle that defines the boundaries of the control to be drawn. This rectangle is in the device context specified by the <b>hDC</b> member. The system automatically clips anything that the owner window draws in the device context for combo boxes, list boxes, and buttons, but does not clip menu items. When drawing menu items, the owner window must not draw outside the boundaries of the rectangle defined by the <b>rcItem</b> member.
      * @type {RECT}
      */
-    rcItem{
+    rcItem {
         get {
             if(!this.HasProp("__rcItem"))
                 this.__rcItem := RECT(40, this)

@@ -5,10 +5,8 @@
  * Represents post-upgrade state information for the cluster service.
  * @see https://learn.microsoft.com/windows/win32/api/resapi/ns-resapi-post_upgrade_version_info
  * @namespace Windows.Win32.Networking.Clustering
- * @version v4.0.30319
  */
-class POST_UPGRADE_VERSION_INFO extends Win32Struct
-{
+class POST_UPGRADE_VERSION_INFO extends Win32Struct {
     static sizeof => 20
 
     static packingSize => 4

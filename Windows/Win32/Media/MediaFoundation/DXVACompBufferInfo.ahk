@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Graphics\Direct3D9\D3DPOOL.ahk
+#Include ..\..\Graphics\Direct3D9\D3DFORMAT.ahk
 
 /**
  * Specifies the requirements for compressed surfaces for DirectX Video Acceleration (DXVA).
@@ -7,10 +9,8 @@
  * To create the compressed surfaces, call <a href="https://docs.microsoft.com/windows/desktop/medfound/idirect3dvideodevice9-createsurface">IDirect3DVideoDevice9::CreateSurface</a>.
  * @see https://learn.microsoft.com/windows/win32/api/dxva9typ/ns-dxva9typ-dxvacompbufferinfo
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class DXVACompBufferInfo extends Win32Struct
-{
+class DXVACompBufferInfo extends Win32Struct {
     static sizeof => 28
 
     static packingSize => 4
@@ -62,7 +62,7 @@ class DXVACompBufferInfo extends Win32Struct
 
     /**
      * The memory pool in which to create the surface, specified as a <b>D3DPOOL</b> value.
-     * @type {Integer}
+     * @type {D3DPOOL}
      */
     Pool {
         get => NumGet(this, 20, "int")
@@ -71,7 +71,7 @@ class DXVACompBufferInfo extends Win32Struct
 
     /**
      * The pixel format, specified as a <b>D3DFORMAT</b> value.
-     * @type {Integer}
+     * @type {D3DFORMAT}
      */
     Format {
         get => NumGet(this, 24, "uint")

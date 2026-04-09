@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Storage.Nvme
- * @version v4.0.30319
  */
-class NVME_PERSISTENT_EVENT_LOG_EVENT_HEADER extends Win32Struct
-{
+class NVME_PERSISTENT_EVENT_LOG_EVENT_HEADER extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -60,9 +58,9 @@ class NVME_PERSISTENT_EVENT_LOG_EVENT_HEADER extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Reserved1{
+    Reserved1 {
         get {
             if(!this.HasProp("__Reserved1ProxyArray"))
                 this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 16, 6, Primitive, "char")

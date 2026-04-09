@@ -5,10 +5,8 @@
  * Represents a name cache.
  * @see https://learn.microsoft.com/windows/win32/api/filehc/ns-filehc-name_cache_context
  * @namespace Windows.Win32.Storage.FileSystem
- * @version v4.0.30319
  */
-class NAME_CACHE_CONTEXT extends Win32Struct
-{
+class NAME_CACHE_CONTEXT extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 4

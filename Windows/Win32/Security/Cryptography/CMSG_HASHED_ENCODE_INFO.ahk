@@ -1,17 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\HCRYPTPROV_LEGACY.ahk
-#Include .\CRYPT_INTEGER_BLOB.ahk
 #Include .\CRYPT_ALGORITHM_IDENTIFIER.ahk
+#Include .\CRYPT_INTEGER_BLOB.ahk
 
 /**
  * Used with hashed messages. It is passed to the CryptMsgOpenToEncode function if the CryptMsgOpenToEncode function's dwMsgType parameter is CMSG_ENVELOPED.
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cmsg_hashed_encode_info
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CMSG_HASHED_ENCODE_INFO extends Win32Struct
-{
+class CMSG_HASHED_ENCODE_INFO extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -36,7 +34,7 @@ class CMSG_HASHED_ENCODE_INFO extends Win32Struct
      * Unless there is a strong reason for passing in a specific cryptographic provider in <i>hCryptProv</i>, pass zero to use the default RSA or DSS provider to be acquired before doing hash, signature verification, or recipient encryption operations.
      * @type {HCRYPTPROV_LEGACY}
      */
-    hCryptProv{
+    hCryptProv {
         get {
             if(!this.HasProp("__hCryptProv"))
                 this.__hCryptProv := HCRYPTPROV_LEGACY(8, this)
@@ -48,7 +46,7 @@ class CMSG_HASHED_ENCODE_INFO extends Win32Struct
      * A <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-crypt_algorithm_identifier">CRYPT_ALGORITHM_IDENTIFIER</a> structure that contains the hash algorithm type and any associated additional parameters.
      * @type {CRYPT_ALGORITHM_IDENTIFIER}
      */
-    HashAlgorithm{
+    HashAlgorithm {
         get {
             if(!this.HasProp("__HashAlgorithm"))
                 this.__HashAlgorithm := CRYPT_ALGORITHM_IDENTIFIER(16, this)

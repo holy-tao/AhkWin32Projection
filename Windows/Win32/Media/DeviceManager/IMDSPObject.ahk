@@ -7,9 +7,8 @@
  * The IMDSPObject interface manages the transfer of data to and from storage media.The Open, Read, Write, and Close methods are valid only if the storage object is a file.
  * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nn-mswmdm-imdspobject
  * @namespace Windows.Win32.Media.DeviceManager
- * @version v4.0.30319
  */
-class IMDSPObject extends IUnknown{
+class IMDSPObject extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

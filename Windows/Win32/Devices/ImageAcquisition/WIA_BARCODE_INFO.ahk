@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.ImageAcquisition
- * @version v4.0.30319
  */
-class WIA_BARCODE_INFO extends Win32Struct
-{
+class WIA_BARCODE_INFO extends Win32Struct {
     static sizeof => 36
 
     static packingSize => 4

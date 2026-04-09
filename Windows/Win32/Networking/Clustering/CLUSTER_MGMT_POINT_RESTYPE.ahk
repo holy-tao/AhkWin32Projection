@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Networking.Clustering
- * @version v4.0.30319
  */
-class CLUSTER_MGMT_POINT_RESTYPE extends Win32Enum{
+class CLUSTER_MGMT_POINT_RESTYPE extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

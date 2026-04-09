@@ -9,9 +9,8 @@
  * For the WinNT provider supplied by Microsoft, this interface is implemented on the <b>WinNTDomain</b> object.
  * @see https://learn.microsoft.com/windows/win32/api/iads/nn-iads-iadsdomain
  * @namespace Windows.Win32.Networking.ActiveDirectory
- * @version v4.0.30319
  */
-class IADsDomain extends IADs{
+class IADsDomain extends IADs {
 
     static sizeof => A_PtrSize
     /**

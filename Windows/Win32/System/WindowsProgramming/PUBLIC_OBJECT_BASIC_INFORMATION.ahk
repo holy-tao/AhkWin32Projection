@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.WindowsProgramming
- * @version v4.0.30319
  */
-class PUBLIC_OBJECT_BASIC_INFORMATION extends Win32Struct
-{
+class PUBLIC_OBJECT_BASIC_INFORMATION extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 4
@@ -44,9 +42,9 @@ class PUBLIC_OBJECT_BASIC_INFORMATION extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    Reserved{
+    Reserved {
         get {
             if(!this.HasProp("__ReservedProxyArray"))
                 this.__ReservedProxyArray := Win32FixedArray(this.ptr + 16, 10, Primitive, "uint")

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\RDITEMHDR.ahk
 
 /**
  * The RDCOMPARE structure is introduced in MMC 1.2.
@@ -9,10 +10,8 @@
  * <a href="https://docs.microsoft.com/windows/desktop/api/mmc/nf-mmc-iresultdatacompareex-compare">IResultDataCompareEx::Compare</a> snap-in's method and then calls the method. MMC releases the parameters after the method returns.
  * @see https://learn.microsoft.com/windows/win32/api/mmc/ns-mmc-rdcompare
  * @namespace Windows.Win32.System.Mmc
- * @version v4.0.30319
  */
-class RDCOMPARE extends Win32Struct
-{
+class RDCOMPARE extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8

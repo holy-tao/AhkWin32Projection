@@ -5,10 +5,8 @@
  * Specifies the pixel format, buffer, stride and size of a component plane for a planar pixel format.
  * @see https://learn.microsoft.com/windows/win32/api/wincodec/ns-wincodec-wicbitmapplane
  * @namespace Windows.Win32.Graphics.Imaging
- * @version v4.0.30319
  */
-class WICBitmapPlane extends Win32Struct
-{
+class WICBitmapPlane extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -17,7 +15,7 @@ class WICBitmapPlane extends Win32Struct
      * Type: <b>WICPixelFormatGUID</b>
      * 
      * Describes the pixel format of the plane.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     Format {
         get => NumGet(this, 0, "ptr")

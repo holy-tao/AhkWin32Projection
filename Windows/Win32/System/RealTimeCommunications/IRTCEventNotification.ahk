@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.RealTimeCommunications
- * @version v4.0.30319
  */
-class IRTCEventNotification extends IUnknown{
+class IRTCEventNotification extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -32,7 +31,7 @@ class IRTCEventNotification extends IUnknown{
      * The Event attribute is a string that specifies the event (or album) associated with a given photo.
      * @remarks
      * To determine whether you can change the value of this attribute, use the [Media.isReadOnlyItem](media-isreadonlyitem.md) method.
-     * @param {Integer} RTCEvent 
+     * @param {RTC_EVENT} RTCEvent 
      * @param {IDispatch} pEvent 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/WMP/event-attribute

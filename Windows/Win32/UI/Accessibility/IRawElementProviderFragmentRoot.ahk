@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IRawElementProviderFragment.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\IRawElementProviderFragment.ahk
 
 /**
  * Exposes methods and properties on the root element in a fragment.
@@ -11,9 +11,8 @@
  * 			Other elements in the same fragment, such as list items, implement the <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nn-uiautomationcore-irawelementproviderfragment">IRawElementProviderFragment</a> interface.
  * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nn-uiautomationcore-irawelementproviderfragmentroot
  * @namespace Windows.Win32.UI.Accessibility
- * @version v4.0.30319
  */
-class IRawElementProviderFragmentRoot extends IUnknown{
+class IRawElementProviderFragmentRoot extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

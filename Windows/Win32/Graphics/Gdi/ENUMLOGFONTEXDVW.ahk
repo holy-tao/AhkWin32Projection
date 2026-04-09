@@ -1,7 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\LOGFONTW.ahk
 #Include .\ENUMLOGFONTEXW.ahk
+#Include .\LOGFONTW.ahk
+#Include .\FONT_CHARSET.ahk
+#Include .\FONT_OUTPUT_PRECISION.ahk
+#Include .\FONT_CLIP_PRECISION.ahk
+#Include .\FONT_QUALITY.ahk
 #Include .\DESIGNVECTOR.ahk
 
 /**
@@ -19,11 +23,9 @@
  * > The wingdi.h header defines ENUMLOGFONTEXDV as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
  * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-enumlogfontexdvw
  * @namespace Windows.Win32.Graphics.Gdi
- * @version v4.0.30319
  * @charset Unicode
  */
-class ENUMLOGFONTEXDVW extends Win32Struct
-{
+class ENUMLOGFONTEXDVW extends Win32Struct {
     static sizeof => 420
 
     static packingSize => 4
@@ -32,7 +34,7 @@ class ENUMLOGFONTEXDVW extends Win32Struct
      * An <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-enumlogfontexa">ENUMLOGFONTEX</a> structure that contains information about the logical attributes of the font.
      * @type {ENUMLOGFONTEXW}
      */
-    elfEnumLogfontEx{
+    elfEnumLogfontEx {
         get {
             if(!this.HasProp("__elfEnumLogfontEx"))
                 this.__elfEnumLogfontEx := ENUMLOGFONTEXW(0, this)
@@ -44,7 +46,7 @@ class ENUMLOGFONTEXDVW extends Win32Struct
      * A <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-designvector">DESIGNVECTOR</a> structure. This is zero-filled unless the font described is a multiple master OpenType font.
      * @type {DESIGNVECTOR}
      */
-    elfDesignVector{
+    elfDesignVector {
         get {
             if(!this.HasProp("__elfDesignVector"))
                 this.__elfDesignVector := DESIGNVECTOR(348, this)

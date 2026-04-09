@@ -3,16 +3,14 @@
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class IO_REMOVE_LOCK extends Win32Struct
-{
+class IO_REMOVE_LOCK extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 8
 
     /**
-     * @type {Pointer<IO_REMOVE_LOCK_COMMON_BLOCK>}
+     * @type {Pointer}
      */
     Common {
         get => NumGet(this, 0, "ptr")

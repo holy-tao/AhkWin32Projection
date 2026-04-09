@@ -11,9 +11,8 @@
  * The command allocator object corresponds to the underlying allocations in which GPU commands are stored.  The command allocator object applies to both direct command lists and bundles.  You must use a command allocator object in a DirectX 12 app.
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/nn-d3d12-id3d12commandallocator
  * @namespace Windows.Win32.Graphics.Direct3D12
- * @version v4.0.30319
  */
-class ID3D12CommandAllocator extends ID3D12Pageable{
+class ID3D12CommandAllocator extends ID3D12Pageable {
 
     static sizeof => A_PtrSize
     /**

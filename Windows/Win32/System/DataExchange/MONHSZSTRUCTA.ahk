@@ -10,11 +10,9 @@
  * > The ddeml.h header defines MONHSZSTRUCT as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
  * @see https://learn.microsoft.com/windows/win32/api/ddeml/ns-ddeml-monhszstructa
  * @namespace Windows.Win32.System.DataExchange
- * @version v4.0.30319
  * @charset ANSI
  */
-class MONHSZSTRUCTA extends Win32Struct
-{
+class MONHSZSTRUCTA extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -109,7 +107,7 @@ class MONHSZSTRUCTA extends Win32Struct
      * A handle to the string. Because string handles are local to the process, this member is a global atom.
      * @type {HSZ}
      */
-    hsz{
+    hsz {
         get {
             if(!this.HasProp("__hsz"))
                 this.__hsz := HSZ(16, this)
@@ -123,7 +121,7 @@ class MONHSZSTRUCTA extends Win32Struct
      * A handle to the task (application instance) performing the action on the string handle.
      * @type {HANDLE}
      */
-    hTask{
+    hTask {
         get {
             if(!this.HasProp("__hTask"))
                 this.__hTask := HANDLE(24, this)

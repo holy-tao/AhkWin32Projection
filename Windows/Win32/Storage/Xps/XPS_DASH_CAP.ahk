@@ -30,9 +30,8 @@
  * </table>
  * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/ne-xpsobjectmodel-xps_dash_cap
  * @namespace Windows.Win32.Storage.Xps
- * @version v4.0.30319
  */
-class XPS_DASH_CAP extends Win32Enum{
+class XPS_DASH_CAP extends Win32Enum {
 
     /**
      * Flat-line cap.

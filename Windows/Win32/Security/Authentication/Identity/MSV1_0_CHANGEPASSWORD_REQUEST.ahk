@@ -1,19 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\MSV1_0_PROTOCOL_MESSAGE_TYPE.ahk
 #Include .\LSA_UNICODE_STRING.ahk
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class MSV1_0_CHANGEPASSWORD_REQUEST extends Win32Struct
-{
+class MSV1_0_CHANGEPASSWORD_REQUEST extends Win32Struct {
     static sizeof => 80
 
     static packingSize => 8
 
     /**
-     * @type {Integer}
+     * @type {MSV1_0_PROTOCOL_MESSAGE_TYPE}
      */
     MessageType {
         get => NumGet(this, 0, "int")
@@ -23,7 +22,7 @@ class MSV1_0_CHANGEPASSWORD_REQUEST extends Win32Struct
     /**
      * @type {LSA_UNICODE_STRING}
      */
-    DomainName{
+    DomainName {
         get {
             if(!this.HasProp("__DomainName"))
                 this.__DomainName := LSA_UNICODE_STRING(8, this)
@@ -34,7 +33,7 @@ class MSV1_0_CHANGEPASSWORD_REQUEST extends Win32Struct
     /**
      * @type {LSA_UNICODE_STRING}
      */
-    AccountName{
+    AccountName {
         get {
             if(!this.HasProp("__AccountName"))
                 this.__AccountName := LSA_UNICODE_STRING(24, this)
@@ -45,7 +44,7 @@ class MSV1_0_CHANGEPASSWORD_REQUEST extends Win32Struct
     /**
      * @type {LSA_UNICODE_STRING}
      */
-    OldPassword{
+    OldPassword {
         get {
             if(!this.HasProp("__OldPassword"))
                 this.__OldPassword := LSA_UNICODE_STRING(40, this)
@@ -56,7 +55,7 @@ class MSV1_0_CHANGEPASSWORD_REQUEST extends Win32Struct
     /**
      * @type {LSA_UNICODE_STRING}
      */
-    NewPassword{
+    NewPassword {
         get {
             if(!this.HasProp("__NewPassword"))
                 this.__NewPassword := LSA_UNICODE_STRING(56, this)

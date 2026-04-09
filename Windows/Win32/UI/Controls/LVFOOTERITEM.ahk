@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\LVFOOTERITEM_MASK.ahk
 
 /**
  * Contains information on a footer item.
@@ -7,17 +8,15 @@
  * This structure is used with the <a href="https://docs.microsoft.com/windows/desktop/api/commctrl/nf-commctrl-listview_getfooteritem">ListView_GetFooterItem</a> macro and the <a href="https://docs.microsoft.com/windows/desktop/Controls/lvm-getfooteritem">LVM_GETFOOTERITEM</a> message.
  * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-lvfooteritem
  * @namespace Windows.Win32.UI.Controls
- * @version v4.0.30319
  */
-class LVFOOTERITEM extends Win32Struct
-{
+class LVFOOTERITEM extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
-     * @type {Integer}
+     * @type {LVFOOTERITEM_MASK}
      */
     mask {
         get => NumGet(this, 0, "uint")

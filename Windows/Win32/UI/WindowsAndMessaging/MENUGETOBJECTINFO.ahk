@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\MENUGETOBJECTINFO_FLAGS.ahk
 #Include .\HMENU.ahk
 
 /**
@@ -12,10 +13,8 @@
  * To create a drag-and-drop menu, call <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-setmenuinfo">SetMenuInfo</a> with <b>MNS_DRAGDROP</b> set.
  * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-menugetobjectinfo
  * @namespace Windows.Win32.UI.WindowsAndMessaging
- * @version v4.0.30319
  */
-class MENUGETOBJECTINFO extends Win32Struct
-{
+class MENUGETOBJECTINFO extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -24,7 +23,7 @@ class MENUGETOBJECTINFO extends Win32Struct
      * Type: <b>DWORD</b>
      * 
      * The position of the mouse cursor with respect to the item indicated by
-     * @type {Integer}
+     * @type {MENUGETOBJECTINFO_FLAGS}
      */
     dwFlags {
         get => NumGet(this, 0, "uint")
@@ -48,7 +47,7 @@ class MENUGETOBJECTINFO extends Win32Struct
      * A handle to the menu the mouse cursor is on.
      * @type {HMENU}
      */
-    hmenu{
+    hmenu {
         get {
             if(!this.HasProp("__hmenu"))
                 this.__hmenu := HMENU(8, this)

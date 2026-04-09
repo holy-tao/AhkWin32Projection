@@ -11,17 +11,15 @@
  * For information about partition types and attributes, see <a href="https://docs.microsoft.com/windows/desktop/api/vds/ns-vds-create_partition_parameters">CREATE_PARTITION_PARAMETERS</a>.
  * @see https://learn.microsoft.com/windows/win32/api/vds/ns-vds-vds_partition_info_gpt
  * @namespace Windows.Win32.Storage.VirtualDiskService
- * @version v4.0.30319
  */
-class VDS_PARTITION_INFO_GPT extends Win32Struct
-{
+class VDS_PARTITION_INFO_GPT extends Win32Struct {
     static sizeof => 96
 
     static packingSize => 8
 
     /**
      * GUID for the partition type.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     partitionType {
         get => NumGet(this, 0, "ptr")
@@ -30,7 +28,7 @@ class VDS_PARTITION_INFO_GPT extends Win32Struct
 
     /**
      * GUID for the partition.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     partitionId {
         get => NumGet(this, 8, "ptr")

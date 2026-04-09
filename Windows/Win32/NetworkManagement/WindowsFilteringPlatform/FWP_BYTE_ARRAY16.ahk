@@ -7,19 +7,17 @@
  * This data type  is useful for IPv6 addresses.
  * @see https://learn.microsoft.com/windows/win32/api/fwptypes/ns-fwptypes-fwp_byte_array16
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
- * @version v4.0.30319
  */
-class FWP_BYTE_ARRAY16 extends Win32Struct
-{
+class FWP_BYTE_ARRAY16 extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 1
 
     /**
      * Array of 16 bytes.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    byteArray16{
+    byteArray16 {
         get {
             if(!this.HasProp("__byteArray16ProxyArray"))
                 this.__byteArray16ProxyArray := Win32FixedArray(this.ptr + 0, 16, Primitive, "char")

@@ -5,10 +5,8 @@
  * The RGBTRIPLE structure describes a color consisting of relative intensities of red, green, and blue. The bmciColors member of the BITMAPCOREINFO structure consists of an array of RGBTRIPLE structures.
  * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-rgbtriple
  * @namespace Windows.Win32.Graphics.Gdi
- * @version v4.0.30319
  */
-class RGBTRIPLE extends Win32Struct
-{
+class RGBTRIPLE extends Win32Struct {
     static sizeof => 3
 
     static packingSize => 1

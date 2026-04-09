@@ -26,10 +26,8 @@
  * </ul>
  * @see https://learn.microsoft.com/windows/win32/api/htmlhelp/ns-htmlhelp-hh_aklink
  * @namespace Windows.Win32.Data.HtmlHelp
- * @version v4.0.30319
  */
-class HH_AKLINK extends Win32Struct
-{
+class HH_AKLINK extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8

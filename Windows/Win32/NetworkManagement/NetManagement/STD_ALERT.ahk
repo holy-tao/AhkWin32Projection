@@ -17,10 +17,8 @@
  * <a href="https://docs.microsoft.com/windows/desktop/api/lmalert/ns-lmalert-admin_other_info">ADMIN_OTHER_INFO</a> structure.
  * @see https://learn.microsoft.com/windows/win32/api/lmalert/ns-lmalert-std_alert
  * @namespace Windows.Win32.NetworkManagement.NetManagement
- * @version v4.0.30319
  */
-class STD_ALERT extends Win32Struct
-{
+class STD_ALERT extends Win32Struct {
     static sizeof => 200
 
     static packingSize => 4

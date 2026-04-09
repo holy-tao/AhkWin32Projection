@@ -1,24 +1,23 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\D3D10_SHADER_DEBUG_REGTYPE.ahk
 #Include .\D3D10_SHADER_DEBUG_OUTPUTVAR.ahk
 
 /**
  * Describes a shader output register.
  * @see https://learn.microsoft.com/windows/win32/api/d3d10_1shader/ns-d3d10_1shader-d3d10_shader_debug_outputreg_info
  * @namespace Windows.Win32.Graphics.Direct3D10
- * @version v4.0.30319
  */
-class D3D10_SHADER_DEBUG_OUTPUTREG_INFO extends Win32Struct
-{
-    static sizeof => 72
+class D3D10_SHADER_DEBUG_OUTPUTREG_INFO extends Win32Struct {
+    static sizeof => 180
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/win32/api/d3d10_1shader/ne-d3d10_1shader-d3d10_shader_debug_regtype">D3D10_SHADER_DEBUG_REGTYPE</a></b>
      * 
      * Must be D3D10_SHADER_DEBUG_REG_TEMP, D3D10_SHADER_DEBUG_REG_TEMPARRAY or D3D10_SHADER_DEBUG_REG_OUTPUT.
-     * @type {Integer}
+     * @type {D3D10_SHADER_DEBUG_REGTYPE}
      */
     OutputRegisterSet {
         get => NumGet(this, 0, "int")
@@ -51,9 +50,9 @@ class D3D10_SHADER_DEBUG_OUTPUTREG_INFO extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * A value of -1 means the component is masked out.
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    OutputComponents{
+    OutputComponents {
         get {
             if(!this.HasProp("__OutputComponentsProxyArray"))
                 this.__OutputComponentsProxyArray := Win32FixedArray(this.ptr + 12, 4, Primitive, "uint")
@@ -65,12 +64,12 @@ class D3D10_SHADER_DEBUG_OUTPUTREG_INFO extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/win32/api/d3d10_1shader/ns-d3d10_1shader-d3d10_shader_debug_outputvar">D3D10_SHADER_DEBUG_OUTPUTVAR</a></b>
      * 
      * Indicates which variable the instruction is writing per-component.
-     * @type {Array<D3D10_SHADER_DEBUG_OUTPUTVAR>}
+     * @type {D3D10_SHADER_DEBUG_OUTPUTVAR}
      */
-    OutputVars{
+    OutputVars {
         get {
             if(!this.HasProp("__OutputVarsProxyArray"))
-                this.__OutputVarsProxyArray := Win32FixedArray(this.ptr + 32, 4, D3D10_SHADER_DEBUG_OUTPUTVAR, "")
+                this.__OutputVarsProxyArray := Win32FixedArray(this.ptr + 28, 4, D3D10_SHADER_DEBUG_OUTPUTVAR, "")
             return this.__OutputVarsProxyArray
         }
     }
@@ -82,8 +81,8 @@ class D3D10_SHADER_DEBUG_OUTPUTREG_INFO extends Win32Struct
      * @type {Integer}
      */
     IndexReg {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
+        get => NumGet(this, 172, "uint")
+        set => NumPut("uint", value, this, 172)
     }
 
     /**
@@ -93,7 +92,7 @@ class D3D10_SHADER_DEBUG_OUTPUTREG_INFO extends Win32Struct
      * @type {Integer}
      */
     IndexComp {
-        get => NumGet(this, 68, "uint")
-        set => NumPut("uint", value, this, 68)
+        get => NumGet(this, 176, "uint")
+        set => NumPut("uint", value, this, 176)
     }
 }

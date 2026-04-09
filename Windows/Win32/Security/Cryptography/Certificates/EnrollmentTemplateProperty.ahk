@@ -5,9 +5,8 @@
  * Contains property values for a given template.
  * @see https://learn.microsoft.com/windows/win32/api/certenroll/ne-certenroll-enrollmenttemplateproperty
  * @namespace Windows.Win32.Security.Cryptography.Certificates
- * @version v4.0.30319
  */
-class EnrollmentTemplateProperty extends Win32Enum{
+class EnrollmentTemplateProperty extends Win32Enum {
 
     /**
      * A <b>VT_BSTR</b> value that contains the common name of the template in Active Directory.
@@ -142,7 +141,6 @@ class EnrollmentTemplateProperty extends Win32Enum{
     static TemplatePropHashAlgorithm => 22
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static TemplatePropKeyUsage => 23

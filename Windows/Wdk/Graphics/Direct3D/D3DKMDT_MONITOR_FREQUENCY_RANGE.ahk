@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\D3DKMDT_MONITOR_CAPABILITIES_ORIGIN.ahk
+#Include .\D3DKMDT_MONITOR_FREQUENCY_RANGE_CONSTRAINT.ahk
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
- * @version v4.0.30319
  */
-class D3DKMDT_MONITOR_FREQUENCY_RANGE extends Win32Struct
-{
+class D3DKMDT_MONITOR_FREQUENCY_RANGE extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -16,13 +16,13 @@ class D3DKMDT_MONITOR_FREQUENCY_RANGE extends Win32Struct
         static packingSize => 8
 
         /**
-         * @type {Pointer<D3DKMDT_2DREGION>}
+         * @type {Pointer}
          */
         ActiveSize {
             get => NumGet(this, 0, "ptr")
             set => NumPut("ptr", value, this, 0)
         }
-    
+
         /**
          * @type {Pointer}
          */
@@ -30,11 +30,10 @@ class D3DKMDT_MONITOR_FREQUENCY_RANGE extends Win32Struct
             get => NumGet(this, 0, "ptr")
             set => NumPut("ptr", value, this, 0)
         }
-    
     }
 
     /**
-     * @type {Integer}
+     * @type {D3DKMDT_MONITOR_CAPABILITIES_ORIGIN}
      */
     Origin {
         get => NumGet(this, 0, "int")
@@ -42,7 +41,7 @@ class D3DKMDT_MONITOR_FREQUENCY_RANGE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<D3DKMDT_FREQUENCY_RANGE>}
+     * @type {Pointer}
      */
     RangeLimits {
         get => NumGet(this, 8, "ptr")
@@ -50,7 +49,7 @@ class D3DKMDT_MONITOR_FREQUENCY_RANGE extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {D3DKMDT_MONITOR_FREQUENCY_RANGE_CONSTRAINT}
      */
     ConstraintType {
         get => NumGet(this, 16, "int")
@@ -60,10 +59,10 @@ class D3DKMDT_MONITOR_FREQUENCY_RANGE extends Win32Struct
     /**
      * @type {_Constraint_e__Union}
      */
-    Constraint{
+    Constraint {
         get {
             if(!this.HasProp("__Constraint"))
-                this.__Constraint := %this.__Class%._Constraint_e__Union(24, this)
+                this.__Constraint := D3DKMDT_MONITOR_FREQUENCY_RANGE._Constraint_e__Union(24, this)
             return this.__Constraint
         }
     }

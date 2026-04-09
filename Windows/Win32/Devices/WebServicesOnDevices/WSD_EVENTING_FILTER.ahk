@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\WSD_EVENTING_FILTER_ACTION.ahk
 
 /**
  * Represents an event filter used in WS-Eventing Subscribe messages.
  * @see https://learn.microsoft.com/windows/win32/api/wsdtypes/ns-wsdtypes-wsd_eventing_filter
  * @namespace Windows.Win32.Devices.WebServicesOnDevices
- * @version v4.0.30319
  */
-class WSD_EVENTING_FILTER extends Win32Struct
-{
+class WSD_EVENTING_FILTER extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -40,7 +39,6 @@ class WSD_EVENTING_FILTER extends Win32Struct
     }
 
     /**
-     * 
      * @type {Pointer<WSD_EVENTING_FILTER_ACTION>}
      */
     FilterAction {

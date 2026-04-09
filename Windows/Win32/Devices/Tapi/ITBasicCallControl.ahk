@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * The ITBasicCallControl interface is used by the application to connect, answer, and perform basic telephony operations on a call object.
  * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nn-tapi3if-itbasiccallcontrol
  * @namespace Windows.Win32.Devices.Tapi
- * @version v4.0.30319
  */
-class ITBasicCallControl extends IDispatch{
+class ITBasicCallControl extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -164,7 +163,7 @@ class ITBasicCallControl extends IDispatch{
 
     /**
      * The Disconnect method disconnects the call. The call state will transition to CS_DISCONNECTED after the method completes successfully.
-     * @param {Integer} code <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/ne-tapi3if-disconnect_code">DISCONNECT_CODE</a> indicating reason for call disconnection.
+     * @param {DISCONNECT_CODE} code <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/ne-tapi3if-disconnect_code">DISCONNECT_CODE</a> indicating reason for call disconnection.
      * @returns {HRESULT} This method can return one of these values.
      * 
      * <table>
@@ -1000,7 +999,7 @@ class ITBasicCallControl extends IDispatch{
     /**
      * The SetQOS method sets the quality of service level for the call.
      * @param {Integer} lMediaType <a href="https://docs.microsoft.com/windows/desktop/Tapi/tapimediatype--constants">Media type</a> of call.
-     * @param {Integer} ServiceLevel <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/ne-tapi3if-qos_service_level">QOS_SERVICE_LEVEL</a> indicator of desired QOS level for call.
+     * @param {QOS_SERVICE_LEVEL} ServiceLevel <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/ne-tapi3if-qos_service_level">QOS_SERVICE_LEVEL</a> indicator of desired QOS level for call.
      * @returns {HRESULT} This method can return one of these values.
      * 
      * <table>
@@ -1213,7 +1212,7 @@ class ITBasicCallControl extends IDispatch{
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nf-tapi3if-itsubstream-stopsubstream">ITSubStream::StopSubStream</a> prior to the operation and 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nf-tapi3if-itstream-startstream">ITStream::StartStream</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nf-tapi3if-itsubstream-startsubstream">ITSubStream::StartSubStream</a> following completion of the operation.
-     * @param {Integer} finishMode A 
+     * @param {FINISH_MODE} finishMode A 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/ne-tapi3if-finish_mode">FINISH_MODE</a> indicator of the type of call being finished, such as FM_ASCONFERENCE.
      * @returns {HRESULT} This method can return one of these values.
      * 

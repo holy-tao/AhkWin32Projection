@@ -1,14 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include .\IShellUIHelper6.ahk
 
 /**
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IShellUIHelper7 extends IShellUIHelper6{
+class IShellUIHelper7 extends IShellUIHelper6 {
 
     static sizeof => A_PtrSize
     /**

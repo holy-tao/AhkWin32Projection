@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Networking.Clustering
- * @version v4.0.30319
  */
-class CLUSTER_NODE_FAILBACK_STATUS extends Win32Enum{
+class CLUSTER_NODE_FAILBACK_STATUS extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

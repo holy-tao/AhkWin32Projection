@@ -10,9 +10,8 @@
  * <a href="https://docs.microsoft.com/windows/desktop/CoreAudio/pkey-audioengine-deviceformat">PKEY_AudioEngine_DeviceFormat</a>.
  * @see https://learn.microsoft.com/windows/win32/api/audioendpoints/nn-audioendpoints-iaudioendpointformatcontrol
  * @namespace Windows.Win32.Media.Audio.Endpoints
- * @version v4.0.30319
  */
-class IAudioEndpointFormatControl extends IUnknown{
+class IAudioEndpointFormatControl extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

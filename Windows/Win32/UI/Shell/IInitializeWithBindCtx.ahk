@@ -7,9 +7,8 @@
  * Exposes a method that initializes a handler, such as a property handler, thumbnail handler, or preview handler, with a bind context.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-iinitializewithbindctx
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IInitializeWithBindCtx extends IUnknown{
+class IInitializeWithBindCtx extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

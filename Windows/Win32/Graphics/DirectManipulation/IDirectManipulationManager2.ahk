@@ -7,9 +7,8 @@
  * Extends the IDirectManipulationManager interface that provides access to all the Direct Manipulation features and APIs available to the client application.
  * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nn-directmanipulation-idirectmanipulationmanager2
  * @namespace Windows.Win32.Graphics.DirectManipulation
- * @version v4.0.30319
  */
-class IDirectManipulationManager2 extends IDirectManipulationManager{
+class IDirectManipulationManager2 extends IDirectManipulationManager {
 
     static sizeof => A_PtrSize
     /**
@@ -34,7 +33,7 @@ class IDirectManipulationManager2 extends IDirectManipulationManager{
      * Factory method to create a behavior.
      * @param {Pointer<Guid>} clsid CLSID of the behavior. The CLSID specifies the type of behavior.
      * @param {Pointer<Guid>} riid The IID of the behavior interface to create.
-     * @returns {Pointer<Void>} 
+     * @returns {Pointer<Void>} The new behavior object that implements the specified interface.
      * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nf-directmanipulation-idirectmanipulationmanager2-createbehavior
      */
     CreateBehavior(clsid, riid) {

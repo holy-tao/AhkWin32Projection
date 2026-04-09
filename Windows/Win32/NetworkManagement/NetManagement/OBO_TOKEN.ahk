@@ -1,18 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\OBO_TOKEN_TYPE.ahk
+#Include .\INetCfgComponent.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.NetManagement
- * @version v4.0.30319
  */
-class OBO_TOKEN extends Win32Struct
-{
+class OBO_TOKEN extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
 
     /**
-     * @type {Integer}
+     * @type {OBO_TOKEN_TYPE}
      */
     Type {
         get => NumGet(this, 0, "int")

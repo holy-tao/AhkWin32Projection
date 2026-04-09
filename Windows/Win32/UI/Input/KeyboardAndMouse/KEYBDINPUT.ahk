@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\VIRTUAL_KEY.ahk
+#Include .\KEYBD_EVENT_FLAGS.ahk
 
 /**
  * Contains information about a simulated keyboard event.
@@ -10,10 +12,8 @@
  * Set the <b>KEYEVENTF_SCANCODE</b> flag to define keyboard input in terms of the scan code. This is useful for simulating a physical keystroke regardless of which keyboard is currently being used. You can also pass the <b>KEYEVENTF_EXTENDEDKEY</b> flag if the scan code is an extended key. The virtual key value of a key can change depending on the current keyboard layout or what other keys were pressed, but the scan code will always be the same.
  * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-keybdinput
  * @namespace Windows.Win32.UI.Input.KeyboardAndMouse
- * @version v4.0.30319
  */
-class KEYBDINPUT extends Win32Struct
-{
+class KEYBDINPUT extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -22,7 +22,7 @@ class KEYBDINPUT extends Win32Struct
      * Type: <b>WORD</b>
      * 
      * A <a href="https://docs.microsoft.com/windows/desktop/inputdev/virtual-key-codes">virtual-key code</a>. The code must be a value in the range 1 to 254. If the <b>dwFlags</b> member specifies <b>KEYEVENTF_UNICODE</b>, <b>wVk</b> must be 0.
-     * @type {Integer}
+     * @type {VIRTUAL_KEY}
      */
     wVk {
         get => NumGet(this, 0, "ushort")
@@ -42,7 +42,7 @@ class KEYBDINPUT extends Win32Struct
 
     /**
      * Type: <b>DWORD</b>
-     * @type {Integer}
+     * @type {KEYBD_EVENT_FLAGS}
      */
     dwFlags {
         get => NumGet(this, 4, "uint")

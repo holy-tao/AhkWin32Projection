@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WNet
- * @version v4.0.30319
  */
-class UNC_INFO_LEVEL extends Win32Enum{
+class UNC_INFO_LEVEL extends Win32Enum {
 
     /**
      * @type {Integer (UInt32)}

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DXVAHD_OUTPUT_RATE.ahk
 #Include .\DXVAHD_RATIONAL.ahk
 
 /**
@@ -8,10 +9,8 @@
  * The output rate might require the device to convert the frame rate of the input stream. If so, the value of <b>RepeatFrame</b> controls whether the device creates interpolated frames or simply repeats input frames.
  * @see https://learn.microsoft.com/windows/win32/api/dxvahd/ns-dxvahd-dxvahd_stream_state_output_rate_data
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class DXVAHD_STREAM_STATE_OUTPUT_RATE_DATA extends Win32Struct
-{
+class DXVAHD_STREAM_STATE_OUTPUT_RATE_DATA extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4
@@ -54,7 +53,7 @@ class DXVAHD_STREAM_STATE_OUTPUT_RATE_DATA extends Win32Struct
 
     /**
      * Specifies the output rate, as a member of the <a href="https://docs.microsoft.com/windows/desktop/api/dxvahd/ne-dxvahd-dxvahd_output_rate">DXVAHD_OUTPUT_RATE</a> enumeration.
-     * @type {Integer}
+     * @type {DXVAHD_OUTPUT_RATE}
      */
     OutputRate {
         get => NumGet(this, 4, "int")
@@ -67,7 +66,7 @@ class DXVAHD_STREAM_STATE_OUTPUT_RATE_DATA extends Win32Struct
      * To get the list of custom rates supported by the video processor, call <a href="https://docs.microsoft.com/windows/desktop/api/dxvahd/nf-dxvahd-idxvahd_device-getvideoprocessorcustomrates">IDXVAHD_Device::GetVideoProcessorCustomRates</a>. If a custom rate is used, it must be taken from this list.
      * @type {DXVAHD_RATIONAL}
      */
-    CustomRate{
+    CustomRate {
         get {
             if(!this.HasProp("__CustomRate"))
                 this.__CustomRate := DXVAHD_RATIONAL(8, this)

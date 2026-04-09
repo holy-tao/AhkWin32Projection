@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IBDA_DigitalDemodulator3 extends IBDA_DigitalDemodulator2{
+class IBDA_DigitalDemodulator3 extends IBDA_DigitalDemodulator2 {
 
     static sizeof => A_PtrSize
     /**
@@ -29,6 +28,7 @@ class IBDA_DigitalDemodulator3 extends IBDA_DigitalDemodulator2{
     static VTableNames => ["put_SignalTimeouts", "get_SignalTimeouts", "put_PLPNumber", "get_PLPNumber"]
 
     /**
+     * @type {BDA_SIGNAL_TIMEOUTS} 
      */
     SignalTimeouts {
         get => this.get_SignalTimeouts()
@@ -36,6 +36,7 @@ class IBDA_DigitalDemodulator3 extends IBDA_DigitalDemodulator2{
     }
 
     /**
+     * @type {Integer} 
      */
     PLPNumber {
         get => this.get_PLPNumber()

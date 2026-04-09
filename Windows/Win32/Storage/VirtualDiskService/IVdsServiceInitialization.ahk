@@ -7,9 +7,8 @@
  * This interface is reserved for system use.
  * @see https://learn.microsoft.com/windows/win32/api/vds/nn-vds-ivdsserviceinitialization
  * @namespace Windows.Win32.Storage.VirtualDiskService
- * @version v4.0.30319
  */
-class IVdsServiceInitialization extends IUnknown{
+class IVdsServiceInitialization extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

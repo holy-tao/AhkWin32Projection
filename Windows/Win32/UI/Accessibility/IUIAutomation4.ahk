@@ -7,9 +7,8 @@
  * Extends the IUIAutomation3 interface to expose additional methods for controlling Microsoft UI Automation functionality.
  * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nn-uiautomationclient-iuiautomation4
  * @namespace Windows.Win32.UI.Accessibility
- * @version v4.0.30319
  */
-class IUIAutomation4 extends IUIAutomation3{
+class IUIAutomation4 extends IUIAutomation3 {
 
     static sizeof => A_PtrSize
     /**
@@ -37,7 +36,7 @@ class IUIAutomation4 extends IUIAutomation3{
      * @param {IUIAutomationElement} element Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationelement">IUIAutomationElement</a>*</b>
      * 
      * A pointer to the UI Automation element associated with the event handler.
-     * @param {Integer} scope 
+     * @param {TreeScope} scope 
      * @param {Pointer<Integer>} changeTypes Type: <b>int*</b>
      * 
      * A pointer to a list of integers that indicate the change types the event represents.

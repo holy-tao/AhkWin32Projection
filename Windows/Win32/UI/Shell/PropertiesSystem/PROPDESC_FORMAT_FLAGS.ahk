@@ -9,9 +9,8 @@
  * Typically use one, or a bitwise combination of these flags to specify format. Some flags are mutually exclusive, for example PDFF_SHORTTIME  | PDFF_LONGTIME | PDFF_HIDETIME, is not allowed.
  * @see https://learn.microsoft.com/windows/win32/api/propsys/ne-propsys-propdesc_format_flags
  * @namespace Windows.Win32.UI.Shell.PropertiesSystem
- * @version v4.0.30319
  */
-class PROPDESC_FORMAT_FLAGS extends Win32BitflagEnum{
+class PROPDESC_FORMAT_FLAGS extends Win32BitflagEnum {
 
     /**
      * Use the format settings specified in the property's .propdesc file.

@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include ..\..\..\Foundation\HANDLE.ahk
+#Include .\PSS_HANDLE_FLAGS.ahk
+#Include .\PSS_OBJECT_TYPE.ahk
 #Include ..\..\..\Foundation\FILETIME.ahk
 
 /**
@@ -9,10 +11,8 @@
  * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/processsnapshot/nf-processsnapshot-psswalksnapshot">PssWalkSnapshot</a> returns a <b>PSS_HANDLE_ENTRY</b> structure when the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/processsnapshot/ne-processsnapshot-pss_walk_information_class">PSS_WALK_INFORMATION_CLASS</a> member that the caller provides it is <b>PSS_WALK_HANDLES</b>.
  * @see https://learn.microsoft.com/windows/win32/api/processsnapshot/ns-processsnapshot-pss_handle_entry
  * @namespace Windows.Win32.System.Diagnostics.ProcessSnapshotting
- * @version v4.0.30319
  */
-class PSS_HANDLE_ENTRY extends Win32Struct
-{
+class PSS_HANDLE_ENTRY extends Win32Struct {
     static sizeof => 136
 
     static packingSize => 8
@@ -24,7 +24,7 @@ class PSS_HANDLE_ENTRY extends Win32Struct
         class _Process extends Win32Struct {
             static sizeof => 40
             static packingSize => 8
-    
+
             /**
              * @type {Integer}
              */
@@ -32,7 +32,7 @@ class PSS_HANDLE_ENTRY extends Win32Struct
                 get => NumGet(this, 0, "uint")
                 set => NumPut("uint", value, this, 0)
             }
-        
+
             /**
              * @type {Pointer<Void>}
              */
@@ -40,7 +40,7 @@ class PSS_HANDLE_ENTRY extends Win32Struct
                 get => NumGet(this, 8, "ptr")
                 set => NumPut("ptr", value, this, 8)
             }
-        
+
             /**
              * @type {Pointer}
              */
@@ -48,7 +48,7 @@ class PSS_HANDLE_ENTRY extends Win32Struct
                 get => NumGet(this, 16, "ptr")
                 set => NumPut("ptr", value, this, 16)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -56,7 +56,7 @@ class PSS_HANDLE_ENTRY extends Win32Struct
                 get => NumGet(this, 24, "int")
                 set => NumPut("int", value, this, 24)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -64,7 +64,7 @@ class PSS_HANDLE_ENTRY extends Win32Struct
                 get => NumGet(this, 28, "uint")
                 set => NumPut("uint", value, this, 28)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -72,7 +72,7 @@ class PSS_HANDLE_ENTRY extends Win32Struct
                 get => NumGet(this, 32, "uint")
                 set => NumPut("uint", value, this, 32)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -80,13 +80,12 @@ class PSS_HANDLE_ENTRY extends Win32Struct
                 get => NumGet(this, 36, "uint")
                 set => NumPut("uint", value, this, 36)
             }
-        
         }
-    
+
         class _Thread extends Win32Struct {
             static sizeof => 48
             static packingSize => 8
-    
+
             /**
              * @type {Integer}
              */
@@ -94,7 +93,7 @@ class PSS_HANDLE_ENTRY extends Win32Struct
                 get => NumGet(this, 0, "uint")
                 set => NumPut("uint", value, this, 0)
             }
-        
+
             /**
              * @type {Pointer<Void>}
              */
@@ -102,7 +101,7 @@ class PSS_HANDLE_ENTRY extends Win32Struct
                 get => NumGet(this, 8, "ptr")
                 set => NumPut("ptr", value, this, 8)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -110,7 +109,7 @@ class PSS_HANDLE_ENTRY extends Win32Struct
                 get => NumGet(this, 16, "uint")
                 set => NumPut("uint", value, this, 16)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -118,7 +117,7 @@ class PSS_HANDLE_ENTRY extends Win32Struct
                 get => NumGet(this, 20, "uint")
                 set => NumPut("uint", value, this, 20)
             }
-        
+
             /**
              * @type {Pointer}
              */
@@ -126,7 +125,7 @@ class PSS_HANDLE_ENTRY extends Win32Struct
                 get => NumGet(this, 24, "ptr")
                 set => NumPut("ptr", value, this, 24)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -134,7 +133,7 @@ class PSS_HANDLE_ENTRY extends Win32Struct
                 get => NumGet(this, 32, "int")
                 set => NumPut("int", value, this, 32)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -142,7 +141,7 @@ class PSS_HANDLE_ENTRY extends Win32Struct
                 get => NumGet(this, 36, "int")
                 set => NumPut("int", value, this, 36)
             }
-        
+
             /**
              * @type {Pointer<Void>}
              */
@@ -150,13 +149,12 @@ class PSS_HANDLE_ENTRY extends Win32Struct
                 get => NumGet(this, 40, "ptr")
                 set => NumPut("ptr", value, this, 40)
             }
-        
         }
-    
+
         class _Mutant extends Win32Struct {
             static sizeof => 16
             static packingSize => 4
-    
+
             /**
              * @type {Integer}
              */
@@ -164,7 +162,7 @@ class PSS_HANDLE_ENTRY extends Win32Struct
                 get => NumGet(this, 0, "int")
                 set => NumPut("int", value, this, 0)
             }
-        
+
             /**
              * @type {BOOL}
              */
@@ -172,7 +170,7 @@ class PSS_HANDLE_ENTRY extends Win32Struct
                 get => NumGet(this, 4, "int")
                 set => NumPut("int", value, this, 4)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -180,7 +178,7 @@ class PSS_HANDLE_ENTRY extends Win32Struct
                 get => NumGet(this, 8, "uint")
                 set => NumPut("uint", value, this, 8)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -188,13 +186,12 @@ class PSS_HANDLE_ENTRY extends Win32Struct
                 get => NumGet(this, 12, "uint")
                 set => NumPut("uint", value, this, 12)
             }
-        
         }
-    
+
         class _Event extends Win32Struct {
             static sizeof => 8
             static packingSize => 4
-    
+
             /**
              * @type {BOOL}
              */
@@ -202,7 +199,7 @@ class PSS_HANDLE_ENTRY extends Win32Struct
                 get => NumGet(this, 0, "int")
                 set => NumPut("int", value, this, 0)
             }
-        
+
             /**
              * @type {BOOL}
              */
@@ -210,13 +207,12 @@ class PSS_HANDLE_ENTRY extends Win32Struct
                 get => NumGet(this, 4, "int")
                 set => NumPut("int", value, this, 4)
             }
-        
         }
-    
+
         class _Section extends Win32Struct {
             static sizeof => 24
             static packingSize => 8
-    
+
             /**
              * @type {Pointer<Void>}
              */
@@ -224,7 +220,7 @@ class PSS_HANDLE_ENTRY extends Win32Struct
                 get => NumGet(this, 0, "ptr")
                 set => NumPut("ptr", value, this, 0)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -232,7 +228,7 @@ class PSS_HANDLE_ENTRY extends Win32Struct
                 get => NumGet(this, 8, "uint")
                 set => NumPut("uint", value, this, 8)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -240,13 +236,12 @@ class PSS_HANDLE_ENTRY extends Win32Struct
                 get => NumGet(this, 16, "int64")
                 set => NumPut("int64", value, this, 16)
             }
-        
         }
-    
+
         class _Semaphore extends Win32Struct {
             static sizeof => 8
             static packingSize => 4
-    
+
             /**
              * @type {Integer}
              */
@@ -254,7 +249,7 @@ class PSS_HANDLE_ENTRY extends Win32Struct
                 get => NumGet(this, 0, "int")
                 set => NumPut("int", value, this, 0)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -262,82 +257,80 @@ class PSS_HANDLE_ENTRY extends Win32Struct
                 get => NumGet(this, 4, "int")
                 set => NumPut("int", value, this, 4)
             }
-        
         }
-    
+
         /**
          * @type {_Process}
          */
-        Process{
+        Process {
             get {
                 if(!this.HasProp("__Process"))
-                    this.__Process := %this.__Class%._Process(0, this)
+                    this.__Process := PSS_HANDLE_ENTRY._TypeSpecificInformation_e__Union._Process(0, this)
                 return this.__Process
             }
         }
-    
+
         /**
          * @type {_Thread}
          */
-        Thread{
+        Thread {
             get {
                 if(!this.HasProp("__Thread"))
-                    this.__Thread := %this.__Class%._Thread(0, this)
+                    this.__Thread := PSS_HANDLE_ENTRY._TypeSpecificInformation_e__Union._Thread(0, this)
                 return this.__Thread
             }
         }
-    
+
         /**
          * @type {_Mutant}
          */
-        Mutant{
+        Mutant {
             get {
                 if(!this.HasProp("__Mutant"))
-                    this.__Mutant := %this.__Class%._Mutant(0, this)
+                    this.__Mutant := PSS_HANDLE_ENTRY._TypeSpecificInformation_e__Union._Mutant(0, this)
                 return this.__Mutant
             }
         }
-    
+
         /**
          * @type {_Event}
          */
-        Event{
+        Event {
             get {
                 if(!this.HasProp("__Event"))
-                    this.__Event := %this.__Class%._Event(0, this)
+                    this.__Event := PSS_HANDLE_ENTRY._TypeSpecificInformation_e__Union._Event(0, this)
                 return this.__Event
             }
         }
-    
+
         /**
          * @type {_Section}
          */
-        Section{
+        Section {
             get {
                 if(!this.HasProp("__Section"))
-                    this.__Section := %this.__Class%._Section(0, this)
+                    this.__Section := PSS_HANDLE_ENTRY._TypeSpecificInformation_e__Union._Section(0, this)
                 return this.__Section
             }
         }
-    
+
         /**
          * @type {_Semaphore}
          */
-        Semaphore{
+        Semaphore {
             get {
                 if(!this.HasProp("__Semaphore"))
-                    this.__Semaphore := %this.__Class%._Semaphore(0, this)
+                    this.__Semaphore := PSS_HANDLE_ENTRY._TypeSpecificInformation_e__Union._Semaphore(0, this)
                 return this.__Semaphore
             }
         }
-    
     }
 
     /**
      * The handle value.
      * @type {HANDLE}
      */
-    Handle{
+    Handle {
         get {
             if(!this.HasProp("__Handle"))
                 this.__Handle := HANDLE(0, this)
@@ -347,7 +340,7 @@ class PSS_HANDLE_ENTRY extends Win32Struct
 
     /**
      * Flags that indicate what parts of this structure are valid. For more information, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/processsnapshot/ne-processsnapshot-pss_handle_flags">PSS_HANDLE_FLAGS</a>.
-     * @type {Integer}
+     * @type {PSS_HANDLE_FLAGS}
      */
     Flags {
         get => NumGet(this, 8, "int")
@@ -356,7 +349,7 @@ class PSS_HANDLE_ENTRY extends Win32Struct
 
     /**
      * The type of the object that the handle references. For more information, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/processsnapshot/ne-processsnapshot-pss_object_type">PSS_OBJECT_TYPE</a>.
-     * @type {Integer}
+     * @type {PSS_OBJECT_TYPE}
      */
     ObjectType {
         get => NumGet(this, 12, "int")
@@ -367,7 +360,7 @@ class PSS_HANDLE_ENTRY extends Win32Struct
      * The capture time of this information. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a>.
      * @type {FILETIME}
      */
-    CaptureTime{
+    CaptureTime {
         get {
             if(!this.HasProp("__CaptureTime"))
                 this.__CaptureTime := FILETIME(16, this)
@@ -433,7 +426,7 @@ class PSS_HANDLE_ENTRY extends Win32Struct
      * Reserved for use by the operating system.
      * @type {FILETIME}
      */
-    CreationTime{
+    CreationTime {
         get {
             if(!this.HasProp("__CreationTime"))
                 this.__CreationTime := FILETIME(48, this)
@@ -481,10 +474,10 @@ class PSS_HANDLE_ENTRY extends Win32Struct
      * Type-specific information.
      * @type {_TypeSpecificInformation_e__Union}
      */
-    TypeSpecificInformation{
+    TypeSpecificInformation {
         get {
             if(!this.HasProp("__TypeSpecificInformation"))
-                this.__TypeSpecificInformation := %this.__Class%._TypeSpecificInformation_e__Union(88, this)
+                this.__TypeSpecificInformation := PSS_HANDLE_ENTRY._TypeSpecificInformation_e__Union(88, this)
             return this.__TypeSpecificInformation
         }
     }

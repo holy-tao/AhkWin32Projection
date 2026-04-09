@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Graphics\DirectDraw\IDirectDrawSurface7.ahk
 #Include ..\..\Graphics\DirectDraw\DDCOLORKEY.ahk
 #Include .\NORMALIZEDRECT.ahk
 
@@ -7,10 +8,8 @@
  * This topic applies to Windows XP or later. The VMRVIDEOSTREAMINFO structure is used in the VMR-7 filter's call to IVMRImageCompositor::CompositeImage on the image compositor.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/ns-strmif-vmrvideostreaminfo
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class VMRVIDEOSTREAMINFO extends Win32Struct
-{
+class VMRVIDEOSTREAMINFO extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -64,7 +63,7 @@ class VMRVIDEOSTREAMINFO extends Win32Struct
      * Specifies the source color key value or -1 if color keying is not to be used for this stream.
      * @type {DDCOLORKEY}
      */
-    ddClrKey{
+    ddClrKey {
         get {
             if(!this.HasProp("__ddClrKey"))
                 this.__ddClrKey := DDCOLORKEY(24, this)
@@ -76,7 +75,7 @@ class VMRVIDEOSTREAMINFO extends Win32Struct
      * Specifies the position of the image in composition space.
      * @type {NORMALIZEDRECT}
      */
-    rNormal{
+    rNormal {
         get {
             if(!this.HasProp("__rNormal"))
                 this.__rNormal := NORMALIZEDRECT(32, this)

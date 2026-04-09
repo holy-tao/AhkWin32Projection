@@ -13,10 +13,8 @@
  * For a description of the FLONG data type, see <a href="https://docs.microsoft.com/windows-hardware/drivers/display/gdi-data-types">GDI Data Types</a>.
  * @see https://learn.microsoft.com/windows/win32/api/winddi/ns-winddi-brushobj
  * @namespace Windows.Win32.Devices.Display
- * @version v4.0.30319
  */
-class BRUSHOBJ extends Win32Struct
-{
+class BRUSHOBJ extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -40,7 +38,6 @@ class BRUSHOBJ extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     flColorType {

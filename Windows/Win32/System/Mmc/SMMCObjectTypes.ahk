@@ -18,10 +18,8 @@
  * <b>SMMCDynamicExtensions</b> structure, MMC attempts to add the specified extensions to the extensible feature. If an extension is unavailable or unregistered, MMC skips that extension and continues to the next CLSID passed in the structure.
  * @see https://learn.microsoft.com/windows/win32/api/mmc/ns-mmc-smmcobjecttypes
  * @namespace Windows.Win32.System.Mmc
- * @version v4.0.30319
  */
-class SMMCObjectTypes extends Win32Struct
-{
+class SMMCObjectTypes extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
@@ -37,9 +35,9 @@ class SMMCObjectTypes extends Win32Struct
 
     /**
      * An array of GUIDs that represent the CLSIDs of the snap-ins that you want to extend the item represented by an <b>IDataObject</b> object.
-     * @type {Array<Guid>}
+     * @type {Array<Pointer>}
      */
-    guid{
+    guid {
         get {
             if(!this.HasProp("__guidProxyArray"))
                 this.__guidProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "ptr")

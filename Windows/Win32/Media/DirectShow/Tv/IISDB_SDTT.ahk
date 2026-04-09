@@ -1,18 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
 #Include .\MPEG_DATE_AND_TIME.ahk
 #Include .\MPEG_TIME.ahk
 #Include .\IGenericDescriptor.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
  * Implements methods that get data from an Integrated Services Digital Broadcasting (ISDB) software download trigger table (SDTT). An SDTT contains download information such as service ID, schedule, and receiver types for revision.
  * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nn-dvbsiparser-iisdb_sdtt
  * @namespace Windows.Win32.Media.DirectShow.Tv
- * @version v4.0.30319
  */
-class IISDB_SDTT extends IUnknown{
+class IISDB_SDTT extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

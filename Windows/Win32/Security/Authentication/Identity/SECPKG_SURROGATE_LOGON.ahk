@@ -1,13 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include ..\..\..\Foundation\LUID.ahk
+#Include .\SECPKG_SURROGATE_LOGON_ENTRY.ahk
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class SECPKG_SURROGATE_LOGON extends Win32Struct
-{
+class SECPKG_SURROGATE_LOGON extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -23,7 +22,7 @@ class SECPKG_SURROGATE_LOGON extends Win32Struct
     /**
      * @type {LUID}
      */
-    SurrogateLogonID{
+    SurrogateLogonID {
         get {
             if(!this.HasProp("__SurrogateLogonID"))
                 this.__SurrogateLogonID := LUID(4, this)

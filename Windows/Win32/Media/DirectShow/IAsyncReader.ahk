@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IMemAllocator.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\IMemAllocator.ahk
 
 /**
  * The IAsyncReader interface performs an asynchronous data request on a filter.This interface is exposed by output pins that perform asynchronous read operations.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-iasyncreader
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IAsyncReader extends IUnknown{
+class IAsyncReader extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -288,7 +287,7 @@ class IAsyncReader extends IUnknown{
      * This method works even if the filter is stopped.
      * @param {Integer} llPosition Specifies the byte offset at which to begin reading. The method fails if this value is beyond the end of the file.
      * @param {Integer} lLength Specifies the number of bytes to read.
-     * @param {Pointer} pBuffer Pointer to a buffer that receives the data.
+     * @param {Integer} pBuffer Pointer to a buffer that receives the data.
      * @returns {HRESULT} Returns an <b>HRESULT</b> value. Possible values include the following.
      * 
      * <table>

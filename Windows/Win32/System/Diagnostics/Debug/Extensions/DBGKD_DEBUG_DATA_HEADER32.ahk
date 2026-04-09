@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
- * @version v4.0.30319
  */
-class DBGKD_DEBUG_DATA_HEADER32 extends Win32Struct
-{
+class DBGKD_DEBUG_DATA_HEADER32 extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4
@@ -15,7 +13,7 @@ class DBGKD_DEBUG_DATA_HEADER32 extends Win32Struct
     /**
      * @type {LIST_ENTRY32}
      */
-    List{
+    List {
         get {
             if(!this.HasProp("__List"))
                 this.__List := LIST_ENTRY32(0, this)

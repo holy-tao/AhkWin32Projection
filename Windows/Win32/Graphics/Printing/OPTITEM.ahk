@@ -1,12 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\EXTCHKBOX.ahk
+#Include .\EXTPUSH.ahk
+#Include .\OPTTYPE.ahk
+#Include .\OIEXT.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
- * @version v4.0.30319
  */
-class OPTITEM extends Win32Struct
-{
+class OPTITEM extends Win32Struct {
     static sizeof => 88
 
     static packingSize => 8
@@ -140,9 +142,9 @@ class OPTITEM extends Win32Struct
     }
 
     /**
-     * @type {Array<UIntPtr>}
+     * @type {Array<Pointer>}
      */
-    dwReserved{
+    dwReserved {
         get {
             if(!this.HasProp("__dwReservedProxyArray"))
                 this.__dwReservedProxyArray := Win32FixedArray(this.ptr + 64, 3, Primitive, "ptr")

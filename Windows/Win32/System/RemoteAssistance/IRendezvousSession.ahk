@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\Com\IUnknown.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * Exposes methods that send data about the session and that can terminate it.
@@ -14,9 +14,8 @@
  * The Windows Remote Assistance application calls <b>IRendezvousSession</b>-&gt;<a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">Release</a> when the session is complete.
  * @see https://learn.microsoft.com/windows/win32/api/rendezvoussession/nn-rendezvoussession-irendezvoussession
  * @namespace Windows.Win32.System.RemoteAssistance
- * @version v4.0.30319
  */
-class IRendezvousSession extends IUnknown{
+class IRendezvousSession extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -38,7 +37,7 @@ class IRendezvousSession extends IUnknown{
     static VTableNames => ["get_State", "get_RemoteUser", "get_Flags", "SendContextData", "Terminate"]
 
     /**
-     * @type {Integer} 
+     * @type {RENDEZVOUS_SESSION_STATE} 
      */
     State {
         get => this.get_State()
@@ -60,7 +59,7 @@ class IRendezvousSession extends IUnknown{
 
     /**
      * Retrieves a value that indicates the session state.
-     * @returns {Integer} 
+     * @returns {RENDEZVOUS_SESSION_STATE} 
      * @see https://learn.microsoft.com/windows/win32/api/rendezvoussession/nf-rendezvoussession-irendezvoussession-get_state
      */
     get_State() {

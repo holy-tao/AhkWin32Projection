@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Hypervisor
- * @version v4.0.30319
  */
-class WHV_INTERNAL_ACTIVITY_REGISTER extends Win32Struct
-{
+class WHV_INTERNAL_ACTIVITY_REGISTER extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

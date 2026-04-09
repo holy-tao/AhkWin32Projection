@@ -7,9 +7,8 @@
  * Application-defined callback interface that receives notifications from the font download queue (IDWriteFontDownloadQueue interface).
  * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nn-dwrite_3-idwritefontdownloadlistener
  * @namespace Windows.Win32.Graphics.DirectWrite
- * @version v4.0.30319
  */
-class IDWriteFontDownloadListener extends IUnknown{
+class IDWriteFontDownloadListener extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -36,7 +35,11 @@ class IDWriteFontDownloadListener extends IUnknown{
      * 
      * Pointer to the download queue interface on which     
      *           the BeginDownload method was called.
-     * @param {IUnknown} _context 
+     * @param {IUnknown} _context Type: <b>IUnknown*</b>
+     * 
+     * Optional context object that was passed to BeginDownload.    
+     *           AddRef is called on the context object by BeginDownload and Release is called  
+     *           after the DownloadCompleted method returns.
      * @param {HRESULT} downloadResult Type: <b>HRESULT</b>
      * 
      * Result of the download operation.

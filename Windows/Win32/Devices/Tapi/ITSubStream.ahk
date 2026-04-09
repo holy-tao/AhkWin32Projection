@@ -1,18 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include .\IEnumTerminal.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
 #Include .\ITStream.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * An ITSubStream is a component of an ITStream, and gives an application finer control over the media streaming.
  * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nn-tapi3if-itsubstream
  * @namespace Windows.Win32.Devices.Tapi
- * @version v4.0.30319
  */
-class ITSubStream extends IDispatch{
+class ITSubStream extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

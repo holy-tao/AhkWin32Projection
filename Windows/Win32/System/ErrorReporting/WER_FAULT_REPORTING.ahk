@@ -5,9 +5,8 @@
  * Always show error reporting UI for this process. This is applicable for interactive applications only.
  * @see https://learn.microsoft.com/windows/win32/api/werapi/nf-werapi-wergetflags
  * @namespace Windows.Win32.System.ErrorReporting
- * @version v4.0.30319
  */
-class WER_FAULT_REPORTING extends Win32BitflagEnum{
+class WER_FAULT_REPORTING extends Win32BitflagEnum {
 
     /**
      * @type {Integer (UInt32)}

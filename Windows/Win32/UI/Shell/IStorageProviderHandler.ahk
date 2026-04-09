@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IStorageProviderPropertyHandler.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\IStorageProviderPropertyHandler.ahk
 
 /**
  * Retrieves the IStorageProviderPropertyHandler associated with a specific file or folder.
@@ -13,9 +13,8 @@
  * <div> </div>
  * @see https://learn.microsoft.com/windows/win32/api/storageprovider/nn-storageprovider-istorageproviderhandler
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IStorageProviderHandler extends IUnknown{
+class IStorageProviderHandler extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -38,7 +37,7 @@ class IStorageProviderHandler extends IUnknown{
 
     /**
      * Gets an instance of IStorageProviderPropertyHandler associated with the provided path.
-     * @param {PWSTR} _path 
+     * @param {PWSTR} _path The path for the relevant file.
      * @returns {IStorageProviderPropertyHandler} An <a href="https://docs.microsoft.com/windows/desktop/api/storageprovider/nn-storageprovider-istorageproviderpropertyhandler">IStorageProviderPropertyHandler</a> instance associated with the file specified by <i>path</i>.
      * @see https://learn.microsoft.com/windows/win32/api/storageprovider/nf-storageprovider-istorageproviderhandler-getpropertyhandlerfrompath
      */

@@ -1,19 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IDWriteFontSet1.ahk
+#Include .\IDWriteFontSet.ahk
 #Include .\IDWriteFontFaceReference1.ahk
 #Include .\IDWriteFontResource.ahk
 #Include .\IDWriteFontFace5.ahk
-#Include .\IDWriteFontSet.ahk
 
 /**
  * Represents a font set. (IDWriteFontSet1)
  * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nn-dwrite_3-idwritefontset1
  * @namespace Windows.Win32.Graphics.DirectWrite
- * @version v4.0.30319
  */
-class IDWriteFontSet1 extends IDWriteFontSet{
+class IDWriteFontSet1 extends IDWriteFontSet {
 
     static sizeof => A_PtrSize
     /**
@@ -158,7 +156,9 @@ class IDWriteFontSet1 extends IDWriteFontSet{
 
     /**
      * Retrieves all the item indices, filtered by the given properties.
-     * @param {Pointer<DWRITE_FONT_PROPERTY>} _properties 
+     * @param {Pointer<DWRITE_FONT_PROPERTY>} _properties Type: **[DWRITE_FONT_PROPERTY](./ns-dwrite_3-dwrite_font_property.md) const \***
+     * 
+     * List of properties to filter by.
      * @param {Integer} propertyCount Type: **[UINT32](/windows/win32/winprog/windows-data-types)**
      * 
      * The number of properties to filter.
@@ -298,7 +298,7 @@ class IDWriteFontSet1 extends IDWriteFontSet{
      * @param {Integer} listIndex Type: **[UINT32](/windows/win32/winprog/windows-data-types)**
      * 
      * Zero-based index of the font item in the set.
-     * @returns {Integer} Type: **[DWRITE_LOCALITY](./ne-dwrite_3-dwrite_locality.md)**
+     * @returns {DWRITE_LOCALITY} Type: **[DWRITE_LOCALITY](./ne-dwrite_3-dwrite_locality.md)**
      * 
      * A value indicating the locality.
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontset1-getfontlocality

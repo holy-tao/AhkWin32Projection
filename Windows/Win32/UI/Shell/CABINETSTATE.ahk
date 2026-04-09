@@ -5,10 +5,8 @@
  * CABINETSTATE may be altered or unavailable.
  * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/ns-shlobj_core-cabinetstate
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class CABINETSTATE extends Win32Struct
-{
+class CABINETSTATE extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4
@@ -53,7 +51,6 @@ class CABINETSTATE extends Win32Struct
     }
 
     /**
-     * Type: <b>BOOL</b>
      * @type {Integer}
      */
     fFullPathTitle {
@@ -62,7 +59,6 @@ class CABINETSTATE extends Win32Struct
     }
 
     /**
-     * Type: <b>BOOL</b>
      * @type {Integer}
      */
     fSaveLocalView {
@@ -71,9 +67,6 @@ class CABINETSTATE extends Win32Struct
     }
 
     /**
-     * Type: <b>BOOL</b>
-     * 
-     * Not used.
      * @type {Integer}
      */
     fNotShell {
@@ -82,9 +75,6 @@ class CABINETSTATE extends Win32Struct
     }
 
     /**
-     * Type: <b>BOOL</b>
-     * 
-     * Not used.
      * @type {Integer}
      */
     fSimpleDefault {
@@ -93,9 +83,6 @@ class CABINETSTATE extends Win32Struct
     }
 
     /**
-     * Type: <b>BOOL</b>
-     * 
-     * Not used.
      * @type {Integer}
      */
     fDontShowDescBar {
@@ -104,7 +91,6 @@ class CABINETSTATE extends Win32Struct
     }
 
     /**
-     * Type: <b>BOOL</b>
      * @type {Integer}
      */
     fNewWindowMode {
@@ -113,7 +99,6 @@ class CABINETSTATE extends Win32Struct
     }
 
     /**
-     * Type: <b>BOOL</b>
      * @type {Integer}
      */
     fShowCompColor {
@@ -122,9 +107,6 @@ class CABINETSTATE extends Win32Struct
     }
 
     /**
-     * Type: <b>BOOL</b>
-     * 
-     * Not used.
      * @type {Integer}
      */
     fDontPrettyNames {
@@ -133,9 +115,6 @@ class CABINETSTATE extends Win32Struct
     }
 
     /**
-     * Type: <b>BOOL</b>
-     * 
-     * Used when an administrator installs an application that places an icon in the <b>Start</b> menu.
      * @type {Integer}
      */
     fAdminsCreateCommonGroups {
@@ -144,9 +123,6 @@ class CABINETSTATE extends Win32Struct
     }
 
     /**
-     * Type: <b>UINT</b>
-     * 
-     * Not used.
      * @type {Integer}
      */
     fUnusedFlags {

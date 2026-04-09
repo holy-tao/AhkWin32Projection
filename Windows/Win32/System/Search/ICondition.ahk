@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ICondition.ahk
 #Include ..\Com\IPersistStream.ahk
 
 /**
@@ -12,9 +11,8 @@
  * The <a href="https://github.com/microsoft/Windows-classic-samples/tree/master/Samples/Win7Samples/winui/WindowsSearch/StructuredQuerySample">StructuredQuerySample</a> demonstrates how to read lines from the console, parse them using the system schema, and display the resulting condition trees.
  * @see https://learn.microsoft.com/windows/win32/api/structuredquerycondition/nn-structuredquerycondition-icondition
  * @namespace Windows.Win32.System.Search
- * @version v4.0.30319
  */
-class ICondition extends IPersistStream{
+class ICondition extends IPersistStream {
 
     static sizeof => A_PtrSize
     /**
@@ -39,7 +37,7 @@ class ICondition extends IPersistStream{
      * Retrieves the condition type for this search condition node, identifying it as a logical AND, OR, or NOT, or as a leaf node.
      * @remarks
      * The <a href="https://github.com/microsoft/Windows-classic-samples/tree/master/Samples/Win7Samples/winui/WindowsSearch/StructuredQuerySample">StructuredQuerySample</a> demonstrates how to read lines from the console, parse them using the system schema, and display the resulting condition trees.
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/structuredquerycondition/ne-structuredquerycondition-condition_type">CONDITION_TYPE</a>*</b>
+     * @returns {CONDITION_TYPE} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/structuredquerycondition/ne-structuredquerycondition-condition_type">CONDITION_TYPE</a>*</b>
      * 
      * Receives the <a href="https://docs.microsoft.com/windows/win32/api/structuredquerycondition/ne-structuredquerycondition-condition_type">CONDITION_TYPE</a> enumeration for this node.
      * @see https://learn.microsoft.com/windows/win32/api/structuredquerycondition/nf-structuredquerycondition-icondition-getconditiontype
@@ -77,7 +75,7 @@ class ICondition extends IPersistStream{
      * @param {Pointer<PWSTR>} ppszPropertyName Type: <b>LPWSTR*</b>
      * 
      * Receives the name of the property of the leaf condition as a Unicode string.
-     * @param {Pointer<Integer>} pcop Type: <b><a href="https://docs.microsoft.com/windows/win32/api/structuredquerycondition/ne-structuredquerycondition-condition_operation">CONDITION_OPERATION</a>*</b>
+     * @param {Pointer<CONDITION_OPERATION>} pcop Type: <b><a href="https://docs.microsoft.com/windows/win32/api/structuredquerycondition/ne-structuredquerycondition-condition_operation">CONDITION_OPERATION</a>*</b>
      * 
      * Receives the operation of the leaf condition as a <a href="https://docs.microsoft.com/windows/win32/api/structuredquerycondition/ne-structuredquerycondition-condition_operation">CONDITION_OPERATION</a> enumeration.
      * @param {Pointer<PROPVARIANT>} ppropvar Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/propidl/ns-propidl-propvariant">PROPVARIANT</a>*</b>

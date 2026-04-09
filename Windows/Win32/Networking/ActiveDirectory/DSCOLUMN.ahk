@@ -5,10 +5,8 @@
  * The DSCOLUMN structure represents a column in the directory services query dialog box. An array of this structure is contained in the DSQUERYPARAMS structure.
  * @see https://learn.microsoft.com/windows/win32/api/dsquery/ns-dsquery-dscolumn
  * @namespace Windows.Win32.Networking.ActiveDirectory
- * @version v4.0.30319
  */
-class DSCOLUMN extends Win32Struct
-{
+class DSCOLUMN extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 4
@@ -50,7 +48,6 @@ class DSCOLUMN extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     offsetProperty {

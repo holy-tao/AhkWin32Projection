@@ -5,10 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Media.Multimedia
- * @version v4.0.30319
  */
-class MMIOINFO extends Win32Struct
-{
+class MMIOINFO extends Win32Struct {
     static sizeof => 112
 
     static packingSize => 8
@@ -48,7 +46,7 @@ class MMIOINFO extends Win32Struct
     /**
      * @type {HTASK}
      */
-    htask{
+    htask {
         get {
             if(!this.HasProp("__htask"))
                 this.__htask := HTASK(24, this)
@@ -113,9 +111,9 @@ class MMIOINFO extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    adwInfo{
+    adwInfo {
         get {
             if(!this.HasProp("__adwInfoProxyArray"))
                 this.__adwInfoProxyArray := Win32FixedArray(this.ptr + 80, 3, Primitive, "uint")
@@ -142,7 +140,7 @@ class MMIOINFO extends Win32Struct
     /**
      * @type {HMMIO}
      */
-    hmmio{
+    hmmio {
         get {
             if(!this.HasProp("__hmmio"))
                 this.__hmmio := HMMIO(104, this)

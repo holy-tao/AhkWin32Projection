@@ -26,10 +26,8 @@
  *     <a href="https://docs.microsoft.com/windows/desktop/WinProg/using-the-windows-headers">Using the Windows Headers</a>.
  * @see https://learn.microsoft.com/windows/win32/api/winbase/ns-winbase-file_full_dir_info
  * @namespace Windows.Win32.Storage.FileSystem
- * @version v4.0.30319
  */
-class FILE_FULL_DIR_INFO extends Win32Struct
-{
+class FILE_FULL_DIR_INFO extends Win32Struct {
     static sizeof => 72
 
     static packingSize => 8

@@ -5,10 +5,8 @@
  * Received as output from the FSCTL_LOOKUP_STREAM_FROM_CLUSTER control code.
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-lookup_stream_from_cluster_output
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class LOOKUP_STREAM_FROM_CLUSTER_OUTPUT extends Win32Struct
-{
+class LOOKUP_STREAM_FROM_CLUSTER_OUTPUT extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4

@@ -3,11 +3,9 @@
 
 /**
  * @namespace Windows.Win32.System.Rpc
- * @version v4.0.30319
  * @charset Unicode
  */
-class RPC_PROTSEQ_VECTORW extends Win32Struct
-{
+class RPC_PROTSEQ_VECTORW extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
@@ -21,9 +19,9 @@ class RPC_PROTSEQ_VECTORW extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt16>}
+     * @type {Array<Pointer<Integer>>}
      */
-    Protseq{
+    Protseq {
         get {
             if(!this.HasProp("__ProtseqProxyArray"))
                 this.__ProtseqProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "ptr")

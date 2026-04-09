@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\DXGI_ADAPTER_DESC3.ahk
 #Include .\IDXGIAdapter3.ahk
+#Include .\DXGI_ADAPTER_DESC3.ahk
 
 /**
  * This interface represents a display subsystem, and extends this family of interfaces to expose a method to check for an adapter's compatibility with Arbitrary Code Guard (ACG).
@@ -10,9 +10,8 @@
  * For more details, refer to the <a href="https://docs.microsoft.com/windows/desktop/direct3d12/residency">Residency</a> section of the D3D12 documentation.
  * @see https://learn.microsoft.com/windows/win32/api/dxgi1_6/nn-dxgi1_6-idxgiadapter4
  * @namespace Windows.Win32.Graphics.Dxgi
- * @version v4.0.30319
  */
-class IDXGIAdapter4 extends IDXGIAdapter3{
+class IDXGIAdapter4 extends IDXGIAdapter3 {
 
     static sizeof => A_PtrSize
     /**

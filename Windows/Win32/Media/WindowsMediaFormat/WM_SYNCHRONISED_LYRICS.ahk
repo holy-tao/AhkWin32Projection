@@ -7,16 +7,13 @@
  * The objects of the Windows Media Format SDK do not validate the values of time stamps for synchronized lyrics. However, the data is checked to ensure that there is a time stamp for every string, and that the data alternates between strings and integers.
  * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/ns-wmsdkidl-wm_synchronised_lyrics
  * @namespace Windows.Win32.Media.WindowsMediaFormat
- * @version v4.0.30319
  */
-class WM_SYNCHRONISED_LYRICS extends Win32Struct
-{
+class WM_SYNCHRONISED_LYRICS extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
 
     /**
-     * 
      * @type {Integer}
      */
     bTimeStampFormat {
@@ -25,7 +22,6 @@ class WM_SYNCHRONISED_LYRICS extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     bContentType {

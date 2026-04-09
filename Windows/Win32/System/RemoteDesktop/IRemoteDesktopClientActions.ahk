@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\Com\IDispatch.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * Provides the methods used to interact with the Remote Desktop Protocol (RDP) app container client control.
  * @see https://learn.microsoft.com/windows/win32/api/rdpappcontainerclient/nn-rdpappcontainerclient-iremotedesktopclientactions
  * @namespace Windows.Win32.System.RemoteDesktop
- * @version v4.0.30319
  */
-class IRemoteDesktopClientActions extends IDispatch{
+class IRemoteDesktopClientActions extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -53,7 +52,7 @@ class IRemoteDesktopClientActions extends IDispatch{
 
     /**
      * Causes an action to be performed in the remote session.
-     * @param {Integer} remoteAction 
+     * @param {RemoteActionType} remoteAction 
      * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/rdpappcontainerclient/nf-rdpappcontainerclient-iremotedesktopclientactions-executeremoteaction
      */
@@ -64,8 +63,8 @@ class IRemoteDesktopClientActions extends IDispatch{
 
     /**
      * Causes a snapshot of the Remote Desktop Protocol (RDP) app container client's in-session desktop to be taken.
-     * @param {Integer} snapshotEncoding Specifies the encoding type for the snapshot.
-     * @param {Integer} snapshotFormat Specifies the data format type for the snapshot
+     * @param {SnapshotEncodingType} snapshotEncoding Specifies the encoding type for the snapshot.
+     * @param {SnapshotFormatType} snapshotFormat Specifies the data format type for the snapshot
      * @param {Integer} snapshotWidth The width, in pixels, of the snapshot.
      * @param {Integer} snapshotHeight The height, in pixels, of the snapshot.
      * @returns {BSTR} On return points to the snapshot.

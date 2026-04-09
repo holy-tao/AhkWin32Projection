@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.NetworkManagement.Ndis
- * @version v4.0.30319
  */
-class OFFLOAD_ALGO_INFO extends Win32Struct
-{
+class OFFLOAD_ALGO_INFO extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4

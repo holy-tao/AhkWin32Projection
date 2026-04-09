@@ -1,29 +1,30 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\PEER_DATA.ahk
+#Include .\PEER_GROUP_EVENT_TYPE.ahk
+#Include .\PEER_GROUP_STATUS.ahk
 #Include .\PEER_EVENT_INCOMING_DATA.ahk
+#Include .\PEER_DATA.ahk
 #Include .\PEER_EVENT_RECORD_CHANGE_DATA.ahk
+#Include .\PEER_RECORD_CHANGE_TYPE.ahk
 #Include .\PEER_EVENT_CONNECTION_CHANGE_DATA.ahk
+#Include .\PEER_CONNECTION_STATUS.ahk
 #Include .\PEER_EVENT_MEMBER_CHANGE_DATA.ahk
+#Include .\PEER_MEMBER_CHANGE_TYPE.ahk
 
 /**
  * The PEER_GROUP_EVENT_DATA structure (p2p.h) contains information about a specific peer group event that has occurred.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/p2p/ns-p2p-peer_group_event_data~r1
  * @namespace Windows.Win32.NetworkManagement.P2P
- * @version v4.0.30319
  */
-class PEER_GROUP_EVENT_DATA extends Win32Struct
-{
+class PEER_GROUP_EVENT_DATA extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/api/p2p/ne-p2p-peer_group_event_type">PEER_GROUP_EVENT_TYPE</a> enumeration value that specifies  the type of peer group event that occurred. The type of event dictates the subsequent structure chosen from the union; for example, if this value is set to PEER_GROUP_EVENT_INCOMING_DATA, the populated union member is  <b>incomingData</b>.
-     * @deprecated 
-     * @type {Integer}
+     * @deprecated
+     * @type {PEER_GROUP_EVENT_TYPE}
      */
     eventType {
         get => NumGet(this, 0, "int")
@@ -31,8 +32,8 @@ class PEER_GROUP_EVENT_DATA extends Win32Struct
     }
 
     /**
-     * @deprecated 
-     * @type {Integer}
+     * @deprecated
+     * @type {PEER_GROUP_STATUS}
      */
     dwStatus {
         get => NumGet(this, 8, "int")
@@ -40,10 +41,10 @@ class PEER_GROUP_EVENT_DATA extends Win32Struct
     }
 
     /**
-     * @deprecated 
+     * @deprecated
      * @type {PEER_EVENT_INCOMING_DATA}
      */
-    incomingData{
+    incomingData {
         get {
             if(!this.HasProp("__incomingData"))
                 this.__incomingData := PEER_EVENT_INCOMING_DATA(8, this)
@@ -52,10 +53,10 @@ class PEER_GROUP_EVENT_DATA extends Win32Struct
     }
 
     /**
-     * @deprecated 
+     * @deprecated
      * @type {PEER_EVENT_RECORD_CHANGE_DATA}
      */
-    recordChangeData{
+    recordChangeData {
         get {
             if(!this.HasProp("__recordChangeData"))
                 this.__recordChangeData := PEER_EVENT_RECORD_CHANGE_DATA(8, this)
@@ -64,10 +65,10 @@ class PEER_GROUP_EVENT_DATA extends Win32Struct
     }
 
     /**
-     * @deprecated 
+     * @deprecated
      * @type {PEER_EVENT_CONNECTION_CHANGE_DATA}
      */
-    connectionChangeData{
+    connectionChangeData {
         get {
             if(!this.HasProp("__connectionChangeData"))
                 this.__connectionChangeData := PEER_EVENT_CONNECTION_CHANGE_DATA(8, this)
@@ -76,10 +77,10 @@ class PEER_GROUP_EVENT_DATA extends Win32Struct
     }
 
     /**
-     * @deprecated 
+     * @deprecated
      * @type {PEER_EVENT_MEMBER_CHANGE_DATA}
      */
-    memberChangeData{
+    memberChangeData {
         get {
             if(!this.HasProp("__memberChangeData"))
                 this.__memberChangeData := PEER_EVENT_MEMBER_CHANGE_DATA(8, this)

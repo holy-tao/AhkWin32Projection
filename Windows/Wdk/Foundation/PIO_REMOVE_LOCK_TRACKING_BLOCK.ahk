@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.Foundation
- * @version v4.0.30319
  */
-class PIO_REMOVE_LOCK_TRACKING_BLOCK extends Win32Struct
-{
+class PIO_REMOVE_LOCK_TRACKING_BLOCK extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 8

@@ -5,10 +5,8 @@
  * Provides information about the parameter on the stack.
  * @see https://learn.microsoft.com/windows/win32/api/callobj/ns-callobj-callframeparaminfo
  * @namespace Windows.Win32.System.Com.CallObj
- * @version v4.0.30319
  */
-class CALLFRAMEPARAMINFO extends Win32Struct
-{
+class CALLFRAMEPARAMINFO extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4

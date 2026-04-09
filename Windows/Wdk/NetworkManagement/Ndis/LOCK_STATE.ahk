@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.NetworkManagement.Ndis
- * @version v4.0.30319
  */
-class LOCK_STATE extends Win32Struct
-{
+class LOCK_STATE extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 2

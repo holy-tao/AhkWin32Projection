@@ -1,19 +1,20 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\HCS_CREATE_OPTIONS.ahk
 #Include ..\..\Foundation\HANDLE.ahk
+#Include ..\..\Security\SECURITY_DESCRIPTOR.ahk
+#Include .\HCS_EVENT_OPTIONS.ahk
 
 /**
  * @namespace Windows.Win32.System.HostComputeSystem
- * @version v4.0.30319
  */
-class HCS_CREATE_OPTIONS_1 extends Win32Struct
-{
+class HCS_CREATE_OPTIONS_1 extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
 
     /**
-     * @type {Integer}
+     * @type {HCS_CREATE_OPTIONS}
      */
     Version {
         get => NumGet(this, 0, "int")
@@ -23,7 +24,7 @@ class HCS_CREATE_OPTIONS_1 extends Win32Struct
     /**
      * @type {HANDLE}
      */
-    UserToken{
+    UserToken {
         get {
             if(!this.HasProp("__UserToken"))
                 this.__UserToken := HANDLE(8, this)
@@ -40,7 +41,7 @@ class HCS_CREATE_OPTIONS_1 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {HCS_EVENT_OPTIONS}
      */
     CallbackOptions {
         get => NumGet(this, 24, "int")

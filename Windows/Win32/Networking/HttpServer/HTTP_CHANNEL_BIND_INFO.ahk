@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\HTTP_AUTHENTICATION_HARDENING_LEVELS.ahk
+#Include .\HTTP_SERVICE_BINDING_BASE.ahk
 
 /**
  * HTTP_CHANNEL_BIND_INFO.
@@ -12,17 +14,15 @@
  * <div> </div>
  * @see https://learn.microsoft.com/windows/win32/api/http/ns-http-http_channel_bind_info
  * @namespace Windows.Win32.Networking.HttpServer
- * @version v4.0.30319
  */
-class HTTP_CHANNEL_BIND_INFO extends Win32Struct
-{
+class HTTP_CHANNEL_BIND_INFO extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
 
     /**
      * An <a href="https://docs.microsoft.com/windows/desktop/api/http/ne-http-http_authentication_hardening_levels">HTTP_AUTHENTICATION_HARDENING_LEVELS</a> value indicating the hardening level  levels to be set or queried per server session or URL group.
-     * @type {Integer}
+     * @type {HTTP_AUTHENTICATION_HARDENING_LEVELS}
      */
     Hardening {
         get => NumGet(this, 0, "int")

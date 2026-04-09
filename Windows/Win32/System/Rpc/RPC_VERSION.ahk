@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Rpc
- * @version v4.0.30319
  */
-class RPC_VERSION extends Win32Struct
-{
+class RPC_VERSION extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 2

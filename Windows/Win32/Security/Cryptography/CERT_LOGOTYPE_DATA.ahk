@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\CERT_LOGOTYPE_IMAGE.ahk
+#Include .\CERT_LOGOTYPE_AUDIO.ahk
 
 /**
  * Contains logotype data.
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cert_logotype_data
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CERT_LOGOTYPE_DATA extends Win32Struct
-{
+class CERT_LOGOTYPE_DATA extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8

@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.UI.Controls.RichEdit
- * @version v4.0.30319
  */
-class IMECOMPTEXT_FLAGS extends Win32Enum{
+class IMECOMPTEXT_FLAGS extends Win32Enum {
 
     /**
      * @type {Integer (UInt32)}

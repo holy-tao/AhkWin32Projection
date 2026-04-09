@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\HWND.ahk
 #Include ..\Com\IUnknown.ahk
+#Include ..\..\Foundation\HWND.ahk
 
 /**
  * The IOleWindow interface provides methods that allow an application to obtain the handle to the various windows that participate in in-place activation, and also to enter and exit context-sensitive help mode.
@@ -99,9 +99,8 @@
  * These interfaces can be arranged in three hierarchical levels with various interfaces implemented at each level. Calls that install user-interface menus commands and frame adornments, activate and switch between windows, and dispatch menu and keystrokes take place between the top-level container and the active object. Calls that support activating, deactivating, scrolling, or clipping span the containment hierarchy, with each level performing the correct actions.
  * @see https://learn.microsoft.com/windows/win32/api/oleidl/nn-oleidl-iolewindow
  * @namespace Windows.Win32.System.Ole
- * @version v4.0.30319
  */
-class IOleWindow extends IUnknown{
+class IOleWindow extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

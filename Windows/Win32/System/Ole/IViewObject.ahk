@@ -7,9 +7,8 @@
  * Enables an object to display itself directly without passing a data object to the caller. In addition, this interface can create and manage a connection with an advise sink so the caller can be notified of changes in the view object.
  * @see https://learn.microsoft.com/windows/win32/api/oleidl/nn-oleidl-iviewobject
  * @namespace Windows.Win32.System.Ole
- * @version v4.0.30319
  */
-class IViewObject extends IUnknown{
+class IViewObject extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -49,7 +48,7 @@ class IViewObject extends IUnknown{
      * To maintain compatibility with older objects and containers that do not support drawing optimizations, all objects, rectangular or not, are required to maintain an origin and a rectangular extent. This allows the container to still consider all its embedded objects as rectangles and to pass them appropriate rendering rectangles in <b>Draw</b>.
      * 
      * An object's extent depends on the drawing aspect. For non-rectangular objects, the extent should be the size of a rectangle covering the entire aspect. By convention, the origin of an object is the top-left corner of the rectangle of the <a href="https://docs.microsoft.com/windows/desktop/api/wtypes/ne-wtypes-dvaspect">DVASPECT</a>_CONTENT aspect. In other words, the origin always coincides with the top-left corner of the rectangle maintained by the object's site, even for a non-rectangular object.
-     * @param {Integer} dwDrawAspect Specifies the aspect to be drawn, that is, how the object is to be represented. Representations include content, an icon, a thumbnail, or a printed document. Valid values are taken from the enumerations <a href="https://docs.microsoft.com/windows/desktop/api/wtypes/ne-wtypes-dvaspect">DVASPECT</a> and <a href="https://docs.microsoft.com/windows/desktop/api/ocidl/ne-ocidl-dvaspect2">DVASPECT2</a>. Note that newer objects and containers that support optimized drawing interfaces support the <b>DVASPECT2</b> enumeration values. Older objects and containers that do not support optimized drawing interfaces may not support <b>DVASPECT2</b>. Windowless objects allow only <b>DVASPECT</b>_CONTENT, <b>DVASPECT</b>_OPAQUE, and <b>DVASPECT</b>_TRANSPARENT.
+     * @param {DVASPECT} dwDrawAspect Specifies the aspect to be drawn, that is, how the object is to be represented. Representations include content, an icon, a thumbnail, or a printed document. Valid values are taken from the enumerations <a href="https://docs.microsoft.com/windows/desktop/api/wtypes/ne-wtypes-dvaspect">DVASPECT</a> and <a href="https://docs.microsoft.com/windows/desktop/api/ocidl/ne-ocidl-dvaspect2">DVASPECT2</a>. Note that newer objects and containers that support optimized drawing interfaces support the <b>DVASPECT2</b> enumeration values. Older objects and containers that do not support optimized drawing interfaces may not support <b>DVASPECT2</b>. Windowless objects allow only <b>DVASPECT</b>_CONTENT, <b>DVASPECT</b>_OPAQUE, and <b>DVASPECT</b>_TRANSPARENT.
      * @param {Integer} lindex Portion of the object that is of interest for the draw operation. Its interpretation varies depending on the value in the dwAspect parameter. See the <a href="https://docs.microsoft.com/windows/desktop/api/wtypes/ne-wtypes-dvaspect">DVASPECT</a> enumeration for more information.
      * @param {Pointer<Void>} pvAspect Pointer to additional information in a <a href="https://docs.microsoft.com/windows/win32/api/ocidl/ns-ocidl-dvaspectinfo">DVASPECTINFO</a> structure that enables drawing optimizations depending on the aspect specified. Note that newer objects and containers that support optimized drawing interfaces support this parameter as well. Older objects and containers that do not support optimized drawing interfaces always specify <b>NULL</b> for this parameter.
      * @param {Pointer<DVTARGETDEVICE>} ptd Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/ns-objidl-dvtargetdevice">DVTARGETDEVICE</a> structure that describes the device for which the object is to be rendered. If <b>NULL</b>, the view should be rendered for the default target device (typically the display). A value other than <b>NULL</b> is interpreted in conjunction with <i>hdcTargetDev</i> and <i>hdcDraw</i>. For example, if <i>hdcDraw</i> specifies a printer as the device context, the <i>ptd</i> parameter points to a structure describing that printer device. The data may actually be printed if <i>hdcTargetDev</i> is a valid value or it may be displayed in print preview mode if <i>hdcTargetDev</i> is <b>NULL</b>.
@@ -153,7 +152,7 @@ class IViewObject extends IUnknown{
      * The <b>IViewObject::GetColorSet</b> method recursively queries any nested objects and returns a color set that represents the union of all colors requested. The color set eventually percolates to the top-level container that owns the window frame. This container can call <b>IViewObject::GetColorSet</b> on each of its embedded objects to obtain all the colors needed to draw the embedded objects. The container can use the color sets obtained in conjunction with other colors it needs for itself to set the overall color palette.
      * 
      * The OLE-provided implementation of <b>IViewObject::GetColorSet</b> looks at the data it has on hand to draw the picture. If CF_DIB is the drawing format, the palette found in the bitmap is used. For a regular bitmap, no color information is returned. If the drawing format is a metafile, the object handler enumerates the metafile looking for a CreatePalette metafile record. If one is found, the handler uses it as the color set.
-     * @param {Integer} dwDrawAspect Specifies how the object is to be represented. Representations include content, an icon, a thumbnail, or a printed document. Valid values are taken from the enumeration <a href="https://docs.microsoft.com/windows/desktop/api/wtypes/ne-wtypes-dvaspect">DVASPECT</a>. See the <b>DVASPECT</b> enumeration for more information.
+     * @param {DVASPECT} dwDrawAspect Specifies how the object is to be represented. Representations include content, an icon, a thumbnail, or a printed document. Valid values are taken from the enumeration <a href="https://docs.microsoft.com/windows/desktop/api/wtypes/ne-wtypes-dvaspect">DVASPECT</a>. See the <b>DVASPECT</b> enumeration for more information.
      * @param {Integer} lindex Portion of the object that is of interest for the draw operation. Its interpretation varies with <i>dwDrawAspect</i>. See the <a href="https://docs.microsoft.com/windows/desktop/api/wtypes/ne-wtypes-dvaspect">DVASPECT</a> enumeration for more information.
      * @param {Pointer<Void>} pvAspect Pointer to additional information about the view of the object specified in <i>dwDrawAspect</i>. Since none of the current aspects support additional information, <i>pvAspect</i> must always be <b>NULL</b>.
      * @param {Pointer<DVTARGETDEVICE>} ptd Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/ns-objidl-dvtargetdevice">DVTARGETDEVICE</a> structure that describes the device for which the object is to be rendered. If <b>NULL</b>, the view should be rendered for the default target device (typically the display). A value other than <b>NULL</b> is interpreted in conjunction with <i>hicTargetDev</i> and <i>hdcDraw</i>. For example, if <i>hdcDraw</i> specifies a printer as the device context, ptd points to a structure describing that printer device. The data may actually be printed if <i>hicTargetDev</i> is a valid value or it may be displayed in print preview mode if <i>hicTargetDev</i> is <b>NULL</b>.
@@ -180,7 +179,7 @@ class IViewObject extends IUnknown{
      * The most common use of this method is for banded printing.
      * 
      * While in a frozen state, view notifications are not sent. Pending view notifications are deferred to the subsequent call to <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nf-oleidl-iviewobject-unfreeze">IViewObject::Unfreeze</a>.
-     * @param {Integer} dwDrawAspect Specifies how the object is to be represented. Representations include content, an icon, a thumbnail, or a printed document. Valid values are taken from the enumeration <a href="https://docs.microsoft.com/windows/desktop/api/wtypes/ne-wtypes-dvaspect">DVASPECT</a>. See the <b>DVASPECT</b> enumeration for more information.
+     * @param {DVASPECT} dwDrawAspect Specifies how the object is to be represented. Representations include content, an icon, a thumbnail, or a printed document. Valid values are taken from the enumeration <a href="https://docs.microsoft.com/windows/desktop/api/wtypes/ne-wtypes-dvaspect">DVASPECT</a>. See the <b>DVASPECT</b> enumeration for more information.
      * @param {Integer} lindex Portion of the object that is of interest for the draw operation. Its interpretation varies with dwAspect. See the <a href="https://docs.microsoft.com/windows/desktop/api/wtypes/ne-wtypes-dvaspect">DVASPECT</a> enumeration for more information.
      * @param {Pointer<Void>} pvAspect Pointer to additional information about the view of the object specified in <i>dwAspect</i>. Since none of the current aspects support additional information, <i>pvAspect</i> must always be <b>NULL</b>.
      * @returns {Integer} Pointer to where an identifying DWORD key is returned. This unique key is later used to cancel the freeze by calling <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nf-oleidl-iviewobject-unfreeze">IViewObject::Unfreeze</a>. This key is an index that the default cache uses to keep track of which object is frozen.
@@ -232,8 +231,39 @@ class IViewObject extends IUnknown{
      * If the view object changes, a call is made to the appropriate advise sink through its <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-iadvisesink-onviewchange">IAdviseSink::OnViewChange</a> method.
      * 
      * At any time, a given view object can support only one advisory connection. Therefore, when <b>IViewObject::SetAdvise</b> is called and the view object is already holding on to an advise sink pointer, OLE releases the existing pointer before the new one is registered.
-     * @param {Integer} aspects View for which the advisory connection is being set up. Valid values are taken from the enumeration <a href="https://docs.microsoft.com/windows/desktop/api/wtypes/ne-wtypes-dvaspect">DVASPECT</a>. See the <b>DVASPECT</b> enumeration for more information.
-     * @param {Integer} _advf 
+     * @param {DVASPECT} aspects View for which the advisory connection is being set up. Valid values are taken from the enumeration <a href="https://docs.microsoft.com/windows/desktop/api/wtypes/ne-wtypes-dvaspect">DVASPECT</a>. See the <b>DVASPECT</b> enumeration for more information.
+     * @param {Integer} _advf Contains a group of flags for controlling the advisory connection. Valid values are from the enumeration <a href="https://docs.microsoft.com/windows/desktop/api/objidl/ne-objidl-advf">ADVF</a>. However, only some of the possible <b>ADVF</b> values are relevant for this method. The following table briefly describes the relevant values. See the <b>ADVF</b> enumeration for a more detailed description.
+     * 
+     * <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="ADVF_ONLYONCE"></a><a id="advf_onlyonce"></a><dl>
+     * <dt><b>ADVF_ONLYONCE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Causes the advisory connection to be destroyed after the first notification is sent.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="ADVF_PRIMEFIRST"></a><a id="advf_primefirst"></a><dl>
+     * <dt><b>ADVF_PRIMEFIRST</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Causes an initial notification to be sent regardless of whether data has changed from its current state.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * <div class="alert"><b>Note</b>  The ADVF_ONLYONCE and ADVF_PRIMEFIRST can be combined to provide an asynchronous call to <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-idataobject-getdata">IDataObject::GetData</a>. </div>
+     * <div> </div>
      * @param {IAdviseSink} pAdvSink Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-iadvisesink">IAdviseSink</a> interface on the advisory sink that is to be informed of changes. A <b>NULL</b> value deletes any existing advisory connection.
      * @returns {HRESULT} This method returns S_OK on success. Other possible return values include the following.
      * 

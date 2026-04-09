@@ -5,10 +5,8 @@
 
 /**
  * @namespace Windows.Win32.UI.InteractionContext
- * @version v4.0.30319
  */
-class HINTERACTIONCONTEXT extends Win32Handle
-{
+class HINTERACTIONCONTEXT extends Win32Handle {
     static sizeof => 8
 
     static packingSize => 8

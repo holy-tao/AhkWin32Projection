@@ -7,9 +7,8 @@
  * Represents an object model of the package manifest that provides methods to access manifest elements and attributes. (IAppxManifestReader6)
  * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nn-appxpackaging-iappxmanifestreader6
  * @namespace Windows.Win32.Storage.Packaging.Appx
- * @version v4.0.30319
  */
-class IAppxManifestReader6 extends IUnknown{
+class IAppxManifestReader6 extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

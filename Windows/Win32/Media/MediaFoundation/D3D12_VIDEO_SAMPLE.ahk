@@ -1,17 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\D3D12_VIDEO_FORMAT.ahk
+#Include ..\..\Graphics\Dxgi\Common\DXGI_FORMAT.ahk
+#Include ..\..\Graphics\Dxgi\Common\DXGI_COLOR_SPACE_TYPE.ahk
 
 /**
  * Describes the width, height, format, and color space of a picture buffer.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/d3d12video/ns-d3d12video-d3d12_video_sample
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class D3D12_VIDEO_SAMPLE extends Win32Struct
-{
+class D3D12_VIDEO_SAMPLE extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4
@@ -38,7 +36,7 @@ class D3D12_VIDEO_SAMPLE extends Win32Struct
      * A [D3D12_VIDEO_FORMAT](ns-d3d12video-d3d12_video_format.md) structure describing the format and colorspace of the sample.
      * @type {D3D12_VIDEO_FORMAT}
      */
-    Format{
+    Format {
         get {
             if(!this.HasProp("__Format"))
                 this.__Format := D3D12_VIDEO_FORMAT(8, this)

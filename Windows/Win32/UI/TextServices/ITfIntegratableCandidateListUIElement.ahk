@@ -15,9 +15,8 @@
  * Implement the <b>ITfIntegratableCandidateListUIElement</b> interface in the same class that implements the <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nn-msctf-itfuielement">ITfUIElement</a>, <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nn-msctf-itfcandidatelistuielement">ITfCandidateListUIElement</a>, and <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nn-msctf-itfcandidatelistuielementbehavior">ITfCandidateListUIElementBehavior</a> interfaces.  These interfaces work together to create a fully integrated experience in which the app renders candidate list UI for the text service or IME and can also have some IME-specific UI customization and keyboard interaction behavior.
  * @see https://learn.microsoft.com/windows/win32/api/ctffunc/nn-ctffunc-itfintegratablecandidatelistuielement
  * @namespace Windows.Win32.UI.TextServices
- * @version v4.0.30319
  */
-class ITfIntegratableCandidateListUIElement extends IUnknown{
+class ITfIntegratableCandidateListUIElement extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -88,7 +87,7 @@ class ITfIntegratableCandidateListUIElement extends IUnknown{
      * @remarks
      * The active selection style usually indicates that the selection can be changed with the arrow keys. The implied selection style indicates the default selection key chooses it.
      *          If the app supports changing selection styles, this method should be called when the <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nf-msctf-itfuielementmgr-updateuielement">UpdateUIElement</a> method is called.
-     * @returns {Integer} A value that specifies the selection style.
+     * @returns {TfIntegratableCandidateListSelectionStyle} A value that specifies the selection style.
      * @see https://learn.microsoft.com/windows/win32/api/ctffunc/nf-ctffunc-itfintegratablecandidatelistuielement-getselectionstyle
      */
     GetSelectionStyle() {
@@ -104,8 +103,8 @@ class ITfIntegratableCandidateListUIElement extends IUnknown{
      * 
      * <b>GUID_INTEGRATIONSTYLE_SEARCHBOX</b> ({E6D1BD11-82F7-4903-AE21-1A6397CDE2EB}) enables an implementation of a keyboarding experience in which the user can move perceived keyboard focus 
      *     from the search box to the candidate list to search suggestions. The text service can process keys     like <b>VK_UP</b> and <b>VK_DOWN</b> before Search handles them to change its internal state.
-     * @param {WPARAM} _wParam 
-     * @param {LPARAM} _lParam 
+     * @param {WPARAM} _wParam Specifies the virtual-key code of the key. For more information about this parameter, see the <i>wParam</i> parameter in <a href="https://docs.microsoft.com/windows/desktop/inputdev/wm-keydown">WM_KEYDOWN</a>.
+     * @param {LPARAM} _lParam Specifies the repeat count, scan code, extended-key flag, context code, previous key-state flag, and transition-state flag of the key. For more information about this parameter, see the <i>lParam</i> parameter in <a href="https://docs.microsoft.com/windows/desktop/inputdev/wm-keydown">WM_KEYDOWN</a>.
      * @returns {BOOL} <b>TRUE</b> if the key event was handled; otherwise, <b>FALSE</b>.
      * @see https://learn.microsoft.com/windows/win32/api/ctffunc/nf-ctffunc-itfintegratablecandidatelistuielement-onkeydown
      */

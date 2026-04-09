@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Networking.Clustering
- * @version v4.0.30319
  */
-class CLUS_CREATE_INFRASTRUCTURE_FILESERVER_INPUT extends Win32Struct
-{
+class CLUS_CREATE_INFRASTRUCTURE_FILESERVER_INPUT extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 2

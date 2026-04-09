@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IMFPMediaPlayer.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\IMFPMediaPlayer.ahk
 #Include ..\..\System\Com\StructuredStorage\PROPVARIANT.ahk
 #Include ..\..\UI\Shell\PropertiesSystem\IPropertyStore.ahk
 
@@ -10,9 +10,8 @@
  * Represents a media item. (Deprecated.).
  * @see https://learn.microsoft.com/windows/win32/api/mfplay/nn-mfplay-imfpmediaitem
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFPMediaItem extends IUnknown{
+class IMFPMediaItem extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

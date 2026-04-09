@@ -7,10 +7,8 @@
  * The driver is responsible for allocating the ENG_TIME_FIELDS structure and passing its pointer to <b>EngQueryLocalTime</b>.
  * @see https://learn.microsoft.com/windows/win32/api/winddi/ns-winddi-eng_time_fields
  * @namespace Windows.Win32.Devices.Display
- * @version v4.0.30319
  */
-class ENG_TIME_FIELDS extends Win32Struct
-{
+class ENG_TIME_FIELDS extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 2

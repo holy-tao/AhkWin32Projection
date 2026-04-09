@@ -3,18 +3,16 @@
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class SIGNAL_REG_VALUE extends Win32Struct
-{
+class SIGNAL_REG_VALUE extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    RegName{
+    RegName {
         get {
             if(!this.HasProp("__RegNameProxyArray"))
                 this.__RegNameProxyArray := Win32FixedArray(this.ptr + 0, 32, Primitive, "char")

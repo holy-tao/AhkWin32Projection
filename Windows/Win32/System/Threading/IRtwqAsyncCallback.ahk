@@ -7,9 +7,8 @@
  * Callback interface to notify the application when an asynchronous method completes. (IRtwqAsyncCallback)
  * @see https://learn.microsoft.com/windows/win32/api/rtworkq/nn-rtworkq-irtwqasynccallback
  * @namespace Windows.Win32.System.Threading
- * @version v4.0.30319
  */
-class IRtwqAsyncCallback extends IUnknown{
+class IRtwqAsyncCallback extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

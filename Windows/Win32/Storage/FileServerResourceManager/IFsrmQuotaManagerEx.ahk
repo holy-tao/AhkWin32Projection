@@ -1,16 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include .\IFsrmQuotaManager.ahk
 
 /**
  * Used to manage quotas, extended version.
  * @see https://learn.microsoft.com/windows/win32/api/fsrmquota/nn-fsrmquota-ifsrmquotamanagerex
  * @namespace Windows.Win32.Storage.FileServerResourceManager
- * @version v4.0.30319
  */
-class IFsrmQuotaManagerEx extends IFsrmQuotaManager{
+class IFsrmQuotaManagerEx extends IFsrmQuotaManager {
 
     static sizeof => A_PtrSize
     /**
@@ -33,8 +31,8 @@ class IFsrmQuotaManagerEx extends IFsrmQuotaManager{
 
     /**
      * Retrieves a value that determines whether a specified path is subject to a quota.
-     * @param {BSTR} _path 
-     * @param {Integer} options The options to use when checking for a quota. For possible values, see the 
+     * @param {BSTR} _path The local directory path to determine whether a quota applies.
+     * @param {FsrmEnumOptions} options The options to use when checking for a quota. For possible values, see the 
      *      <a href="https://docs.microsoft.com/windows/desktop/api/fsrmenums/ne-fsrmenums-fsrmenumoptions">FsrmEnumOptions</a> enumeration.
      * @returns {VARIANT_BOOL} Is <b>VARIANT_TRUE</b> if the path referred to by the 
      *      <i>path</i> parameter is subject to a quota, otherwise it is 

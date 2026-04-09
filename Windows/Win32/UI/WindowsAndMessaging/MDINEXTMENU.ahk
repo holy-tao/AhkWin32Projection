@@ -7,10 +7,8 @@
  * Contains information about the menu to be activated.
  * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-mdinextmenu
  * @namespace Windows.Win32.UI.WindowsAndMessaging
- * @version v4.0.30319
  */
-class MDINEXTMENU extends Win32Struct
-{
+class MDINEXTMENU extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -21,7 +19,7 @@ class MDINEXTMENU extends Win32Struct
      * A handle to the current menu.
      * @type {HMENU}
      */
-    hmenuIn{
+    hmenuIn {
         get {
             if(!this.HasProp("__hmenuIn"))
                 this.__hmenuIn := HMENU(0, this)
@@ -35,7 +33,7 @@ class MDINEXTMENU extends Win32Struct
      * A handle to the menu to be activated.
      * @type {HMENU}
      */
-    hmenuNext{
+    hmenuNext {
         get {
             if(!this.HasProp("__hmenuNext"))
                 this.__hmenuNext := HMENU(8, this)
@@ -49,7 +47,7 @@ class MDINEXTMENU extends Win32Struct
      * A handle to the window to receive the menu notification messages.
      * @type {HWND}
      */
-    hwndNext{
+    hwndNext {
         get {
             if(!this.HasProp("__hwndNext"))
                 this.__hwndNext := HWND(16, this)

@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Iis
- * @version v4.0.30319
  */
-class SF_STATUS_TYPE extends Win32Enum{
+class SF_STATUS_TYPE extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

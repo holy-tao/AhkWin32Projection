@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\PRJ_COMPLETE_COMMAND_TYPE.ahk
+#Include .\PRJ_NOTIFY_TYPES.ahk
 #Include .\PRJ_DIR_ENTRY_BUFFER_HANDLE.ahk
 
 /**
@@ -10,17 +12,15 @@
  * If the provider calls this function for the commandId passed by the <a href="https://docs.microsoft.com/windows/desktop/api/projectedfslib/nc-projectedfslib-prj_cancel_command_cb">PRJ_CANCEL_COMMAND_CB</a> callback it is not an error, however it is a no-op because the I/O that caused the callback invocation identified by commandId has already ended.
  * @see https://learn.microsoft.com/windows/win32/api/projectedfslib/ns-projectedfslib-prj_complete_command_extended_parameters
  * @namespace Windows.Win32.Storage.ProjectedFileSystem
- * @version v4.0.30319
  */
-class PRJ_COMPLETE_COMMAND_EXTENDED_PARAMETERS extends Win32Struct
-{
+class PRJ_COMPLETE_COMMAND_EXTENDED_PARAMETERS extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
 
     /**
      * The type of command.
-     * @type {Integer}
+     * @type {PRJ_COMPLETE_COMMAND_TYPE}
      */
     CommandType {
         get => NumGet(this, 0, "int")
@@ -32,13 +32,12 @@ class PRJ_COMPLETE_COMMAND_EXTENDED_PARAMETERS extends Win32Struct
         static packingSize => 4
 
         /**
-         * @type {Integer}
+         * @type {PRJ_NOTIFY_TYPES}
          */
         NotificationMask {
             get => NumGet(this, 0, "uint")
             set => NumPut("uint", value, this, 0)
         }
-    
     }
 
     class _Enumeration extends Win32Struct {
@@ -48,23 +47,22 @@ class PRJ_COMPLETE_COMMAND_EXTENDED_PARAMETERS extends Win32Struct
         /**
          * @type {PRJ_DIR_ENTRY_BUFFER_HANDLE}
          */
-        DirEntryBufferHandle{
+        DirEntryBufferHandle {
             get {
                 if(!this.HasProp("__DirEntryBufferHandle"))
                     this.__DirEntryBufferHandle := PRJ_DIR_ENTRY_BUFFER_HANDLE(0, this)
                 return this.__DirEntryBufferHandle
             }
         }
-    
     }
 
     /**
      * @type {_Notification}
      */
-    Notification{
+    Notification {
         get {
             if(!this.HasProp("__Notification"))
-                this.__Notification := %this.__Class%._Notification(8, this)
+                this.__Notification := PRJ_COMPLETE_COMMAND_EXTENDED_PARAMETERS._Notification(8, this)
             return this.__Notification
         }
     }
@@ -72,10 +70,10 @@ class PRJ_COMPLETE_COMMAND_EXTENDED_PARAMETERS extends Win32Struct
     /**
      * @type {_Enumeration}
      */
-    Enumeration{
+    Enumeration {
         get {
             if(!this.HasProp("__Enumeration"))
-                this.__Enumeration := %this.__Class%._Enumeration(8, this)
+                this.__Enumeration := PRJ_COMPLETE_COMMAND_EXTENDED_PARAMETERS._Enumeration(8, this)
             return this.__Enumeration
         }
     }

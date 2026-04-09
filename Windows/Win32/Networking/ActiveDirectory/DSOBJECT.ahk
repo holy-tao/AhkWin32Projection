@@ -5,16 +5,13 @@
  * Contains directory object data.
  * @see https://learn.microsoft.com/windows/win32/api/dsclient/ns-dsclient-dsobject
  * @namespace Windows.Win32.Networking.ActiveDirectory
- * @version v4.0.30319
  */
-class DSOBJECT extends Win32Struct
-{
+class DSOBJECT extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4
 
     /**
-     * 
      * @type {Integer}
      */
     dwFlags {
@@ -23,7 +20,6 @@ class DSOBJECT extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     dwProviderFlags {

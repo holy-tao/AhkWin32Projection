@@ -1,15 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\Direct2D\Common\D2D1_GRADIENT_STOP.ahk
 #Include .\DWRITE_PAINT_COLOR.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.DirectWrite
- * @version v4.0.30319
  */
-class IDWritePaintReader extends IUnknown{
+class IDWritePaintReader extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -33,10 +32,10 @@ class IDWritePaintReader extends IUnknown{
     /**
      * 
      * @param {Integer} glyphIndex 
-     * @param {Pointer} paintElement 
+     * @param {Integer} paintElement 
      * @param {Integer} structSize 
      * @param {Pointer<D2D_RECT_F>} clipBox 
-     * @param {Pointer<Integer>} glyphAttributes 
+     * @param {Pointer<DWRITE_PAINT_ATTRIBUTES>} glyphAttributes 
      * @returns {HRESULT} 
      */
     SetCurrentGlyph(glyphIndex, paintElement, structSize, clipBox, glyphAttributes) {
@@ -84,7 +83,7 @@ class IDWritePaintReader extends IUnknown{
 
     /**
      * 
-     * @param {Pointer} paintElement 
+     * @param {Integer} paintElement 
      * @param {Integer} structSize 
      * @returns {HRESULT} 
      */
@@ -95,7 +94,7 @@ class IDWritePaintReader extends IUnknown{
 
     /**
      * 
-     * @param {Pointer} paintElement 
+     * @param {Integer} paintElement 
      * @param {Integer} structSize 
      * @returns {HRESULT} 
      */

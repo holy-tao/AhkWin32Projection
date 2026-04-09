@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem
- * @version v4.0.30319
  */
-class REPARSE_DATA_BUFFER extends Win32Struct
-{
+class REPARSE_DATA_BUFFER extends Win32Struct {
     static sizeof => 28
 
     static packingSize => 4
@@ -46,7 +44,7 @@ class REPARSE_DATA_BUFFER extends Win32Struct
             get => NumGet(this, 0, "ushort")
             set => NumPut("ushort", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -54,7 +52,7 @@ class REPARSE_DATA_BUFFER extends Win32Struct
             get => NumGet(this, 2, "ushort")
             set => NumPut("ushort", value, this, 2)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -62,7 +60,7 @@ class REPARSE_DATA_BUFFER extends Win32Struct
             get => NumGet(this, 4, "ushort")
             set => NumPut("ushort", value, this, 4)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -70,7 +68,7 @@ class REPARSE_DATA_BUFFER extends Win32Struct
             get => NumGet(this, 6, "ushort")
             set => NumPut("ushort", value, this, 6)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -78,7 +76,7 @@ class REPARSE_DATA_BUFFER extends Win32Struct
             get => NumGet(this, 8, "uint")
             set => NumPut("uint", value, this, 8)
         }
-    
+
         /**
          * @type {String}
          */
@@ -86,7 +84,6 @@ class REPARSE_DATA_BUFFER extends Win32Struct
             get => StrGet(this.ptr + 12, 0, "UTF-16")
             set => StrPut(value, this.ptr + 12, 0, "UTF-16")
         }
-    
     }
 
     class _MountPointReparseBuffer extends Win32Struct {
@@ -100,7 +97,7 @@ class REPARSE_DATA_BUFFER extends Win32Struct
             get => NumGet(this, 0, "ushort")
             set => NumPut("ushort", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -108,7 +105,7 @@ class REPARSE_DATA_BUFFER extends Win32Struct
             get => NumGet(this, 2, "ushort")
             set => NumPut("ushort", value, this, 2)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -116,7 +113,7 @@ class REPARSE_DATA_BUFFER extends Win32Struct
             get => NumGet(this, 4, "ushort")
             set => NumPut("ushort", value, this, 4)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -124,7 +121,7 @@ class REPARSE_DATA_BUFFER extends Win32Struct
             get => NumGet(this, 6, "ushort")
             set => NumPut("ushort", value, this, 6)
         }
-    
+
         /**
          * @type {String}
          */
@@ -132,7 +129,6 @@ class REPARSE_DATA_BUFFER extends Win32Struct
             get => StrGet(this.ptr + 8, 0, "UTF-16")
             set => StrPut(value, this.ptr + 8, 0, "UTF-16")
         }
-    
     }
 
     class _GenericReparseBuffer extends Win32Struct {
@@ -140,25 +136,24 @@ class REPARSE_DATA_BUFFER extends Win32Struct
         static packingSize => 1
 
         /**
-         * @type {Array<Byte>}
+         * @type {Array<Integer>}
          */
-        DataBuffer{
+        DataBuffer {
             get {
                 if(!this.HasProp("__DataBufferProxyArray"))
                     this.__DataBufferProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "char")
                 return this.__DataBufferProxyArray
             }
         }
-    
     }
 
     /**
      * @type {_SymbolicLinkReparseBuffer}
      */
-    SymbolicLinkReparseBuffer{
+    SymbolicLinkReparseBuffer {
         get {
             if(!this.HasProp("__SymbolicLinkReparseBuffer"))
-                this.__SymbolicLinkReparseBuffer := %this.__Class%._SymbolicLinkReparseBuffer(8, this)
+                this.__SymbolicLinkReparseBuffer := REPARSE_DATA_BUFFER._SymbolicLinkReparseBuffer(8, this)
             return this.__SymbolicLinkReparseBuffer
         }
     }
@@ -166,10 +161,10 @@ class REPARSE_DATA_BUFFER extends Win32Struct
     /**
      * @type {_MountPointReparseBuffer}
      */
-    MountPointReparseBuffer{
+    MountPointReparseBuffer {
         get {
             if(!this.HasProp("__MountPointReparseBuffer"))
-                this.__MountPointReparseBuffer := %this.__Class%._MountPointReparseBuffer(8, this)
+                this.__MountPointReparseBuffer := REPARSE_DATA_BUFFER._MountPointReparseBuffer(8, this)
             return this.__MountPointReparseBuffer
         }
     }
@@ -177,10 +172,10 @@ class REPARSE_DATA_BUFFER extends Win32Struct
     /**
      * @type {_GenericReparseBuffer}
      */
-    GenericReparseBuffer{
+    GenericReparseBuffer {
         get {
             if(!this.HasProp("__GenericReparseBuffer"))
-                this.__GenericReparseBuffer := %this.__Class%._GenericReparseBuffer(8, this)
+                this.__GenericReparseBuffer := REPARSE_DATA_BUFFER._GenericReparseBuffer(8, this)
             return this.__GenericReparseBuffer
         }
     }

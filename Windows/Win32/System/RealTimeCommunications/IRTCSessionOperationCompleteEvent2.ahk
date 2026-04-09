@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IRTCParticipant.ahk
 #Include .\IRTCSessionOperationCompleteEvent.ahk
+#Include .\IRTCParticipant.ahk
 
 /**
  * @namespace Windows.Win32.System.RealTimeCommunications
- * @version v4.0.30319
  */
-class IRTCSessionOperationCompleteEvent2 extends IRTCSessionOperationCompleteEvent{
+class IRTCSessionOperationCompleteEvent2 extends IRTCSessionOperationCompleteEvent {
 
     static sizeof => A_PtrSize
     /**

@@ -1,15 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include ..\..\..\Foundation\HANDLE.ahk
+#Include .\HEAPENTRY32_FLAGS.ahk
 
 /**
  * Describes one entry (block) of a heap that is being examined.
  * @see https://learn.microsoft.com/windows/win32/api/tlhelp32/ns-tlhelp32-heapentry32
  * @namespace Windows.Win32.System.Diagnostics.ToolHelp
- * @version v4.0.30319
  */
-class HEAPENTRY32 extends Win32Struct
-{
+class HEAPENTRY32 extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8
@@ -29,7 +28,7 @@ class HEAPENTRY32 extends Win32Struct
      * A handle to the heap block.
      * @type {HANDLE}
      */
-    hHandle{
+    hHandle {
         get {
             if(!this.HasProp("__hHandle"))
                 this.__hHandle := HANDLE(8, this)
@@ -56,8 +55,7 @@ class HEAPENTRY32 extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Integer}
+     * @type {HEAPENTRY32_FLAGS}
      */
     dwFlags {
         get => NumGet(this, 32, "uint")

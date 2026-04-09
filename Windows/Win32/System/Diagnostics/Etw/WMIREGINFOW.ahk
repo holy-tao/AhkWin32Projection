@@ -4,11 +4,9 @@
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Etw
- * @version v4.0.30319
  */
-class WMIREGINFOW extends Win32Struct
-{
-    static sizeof => 32
+class WMIREGINFOW extends Win32Struct {
+    static sizeof => 48
 
     static packingSize => 8
 
@@ -53,9 +51,9 @@ class WMIREGINFOW extends Win32Struct
     }
 
     /**
-     * @type {Array<WMIREGGUIDW>}
+     * @type {WMIREGGUIDW}
      */
-    WmiRegGuid{
+    WmiRegGuid {
         get {
             if(!this.HasProp("__WmiRegGuidProxyArray"))
                 this.__WmiRegGuidProxyArray := Win32FixedArray(this.ptr + 24, 1, WMIREGGUIDW, "")

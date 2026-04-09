@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
- * @version v4.0.30319
  */
-class D3DKMT_QUERYSTATISTICS_PROCESS_SEGMENT_GROUP_INFORMATION extends Win32Struct
-{
+class D3DKMT_QUERYSTATISTICS_PROCESS_SEGMENT_GROUP_INFORMATION extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 8
@@ -36,9 +34,9 @@ class D3DKMT_QUERYSTATISTICS_PROCESS_SEGMENT_GROUP_INFORMATION extends Win32Stru
     }
 
     /**
-     * @type {Array<UInt64>}
+     * @type {Array<Integer>}
      */
-    Demoted{
+    Demoted {
         get {
             if(!this.HasProp("__DemotedProxyArray"))
                 this.__DemotedProxyArray := Win32FixedArray(this.ptr + 24, 5, Primitive, "uint")

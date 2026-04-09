@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IRpcStubBuffer.ahk
 #Include .\IUnknown.ahk
+#Include .\IRpcStubBuffer.ahk
 
 /**
  * The IPSFactoryBuffer (objidlbase.h) interface provides custom methods for the creation of COM object proxies and stubs. This interface is not marshalable.
  * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nn-objidlbase-ipsfactorybuffer
  * @namespace Windows.Win32.System.Com
- * @version v4.0.30319
  */
-class IPSFactoryBuffer extends IUnknown{
+class IPSFactoryBuffer extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -5,10 +5,8 @@
  * The DHCP_FAILOVER_STATISTICS structure defines DHCP server scope statistics that are part of a failover relationship.
  * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/ns-dhcpsapi-dhcp_failover_statistics
  * @namespace Windows.Win32.NetworkManagement.Dhcp
- * @version v4.0.30319
  */
-class DHCP_FAILOVER_STATISTICS extends Win32Struct
-{
+class DHCP_FAILOVER_STATISTICS extends Win32Struct {
     static sizeof => 28
 
     static packingSize => 4

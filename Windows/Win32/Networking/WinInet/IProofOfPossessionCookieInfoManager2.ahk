@@ -5,13 +5,10 @@
 
 /**
  * Supports the creation of proof-of-possession cookies, for a WebAccount.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/proofofpossessioncookieinfo/nn-proofofpossessioncookieinfo-iproofofpossessioncookieinfomanager2
  * @namespace Windows.Win32.Networking.WinInet
- * @version v4.0.30319
  */
-class IProofOfPossessionCookieInfoManager2 extends IUnknown{
+class IProofOfPossessionCookieInfoManager2 extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

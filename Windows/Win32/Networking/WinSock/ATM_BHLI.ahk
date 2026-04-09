@@ -11,10 +11,8 @@
  * ```cpp
  * @see https://learn.microsoft.com/windows/win32/api/ws2atm/ns-ws2atm-atm_bhli
  * @namespace Windows.Win32.Networking.WinSock
- * @version v4.0.30319
  */
-class ATM_BHLI extends Win32Struct
-{
+class ATM_BHLI extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4
@@ -39,9 +37,9 @@ class ATM_BHLI extends Win32Struct
 
     /**
      * Identifies the <b>high layer information</b> field in the B-LLI information element. In the case of <b>HighLayerInfoType</b> being BHLI_VendorSpecificAppId, the first 3 bytes consist of a globally-administered organizationally unique identifier (OUI), (according to IEEE standard 802-1990), followed by a 4-byte application identifier, which is administered by the vendor identified by the OUI. Value for the case of BHLI_UserSpecific is user defined and requires bilateral agreement between two end users.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    HighLayerInfo{
+    HighLayerInfo {
         get {
             if(!this.HasProp("__HighLayerInfoProxyArray"))
                 this.__HighLayerInfoProxyArray := Win32FixedArray(this.ptr + 8, 8, Primitive, "char")

@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ITfCandidateList.ahk
 #Include .\ITfFunction.ahk
+#Include .\ITfCandidateList.ahk
 
 /**
  * The ITfFnLMProcessor interface is implemented by the language model text service and is used by an application or text service to enable alternate language model processing.
  * @see https://learn.microsoft.com/windows/win32/api/ctffunc/nn-ctffunc-itffnlmprocessor
  * @namespace Windows.Win32.UI.TextServices
- * @version v4.0.30319
  */
-class ITfFnLMProcessor extends ITfFunction{
+class ITfFnLMProcessor extends ITfFunction {
 
     static sizeof => A_PtrSize
     /**

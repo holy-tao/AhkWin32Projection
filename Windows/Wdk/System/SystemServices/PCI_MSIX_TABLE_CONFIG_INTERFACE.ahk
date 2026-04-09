@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class PCI_MSIX_TABLE_CONFIG_INTERFACE extends Win32Struct
-{
+class PCI_MSIX_TABLE_CONFIG_INTERFACE extends Win32Struct {
     static sizeof => 72
 
     static packingSize => 8

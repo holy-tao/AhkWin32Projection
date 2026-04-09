@@ -3,18 +3,16 @@
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug
- * @version v4.0.30319
  */
-class DISCRIMINATEDUNION_TAG_VALUE extends Win32Struct
-{
+class DISCRIMINATEDUNION_TAG_VALUE extends Win32Struct {
     static sizeof => 17
 
     static packingSize => 1
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    value{
+    value {
         get {
             if(!this.HasProp("__valueProxyArray"))
                 this.__valueProxyArray := Win32FixedArray(this.ptr + 0, 16, Primitive, "char")

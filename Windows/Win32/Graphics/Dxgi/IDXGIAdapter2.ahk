@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\DXGI_ADAPTER_DESC2.ahk
 #Include .\IDXGIAdapter1.ahk
+#Include .\DXGI_ADAPTER_DESC2.ahk
 
 /**
  * The IDXGIAdapter2 interface represents a display subsystem, which includes one or more GPUs, DACs, and video memory.
@@ -19,9 +19,8 @@
  * To create a software adapter, use <a href="https://docs.microsoft.com/windows/desktop/api/dxgi/nf-dxgi-idxgifactory-createsoftwareadapter">IDXGIFactory::CreateSoftwareAdapter</a>.
  * @see https://learn.microsoft.com/windows/win32/api/dxgi1_2/nn-dxgi1_2-idxgiadapter2
  * @namespace Windows.Win32.Graphics.Dxgi
- * @version v4.0.30319
  */
-class IDXGIAdapter2 extends IDXGIAdapter1{
+class IDXGIAdapter2 extends IDXGIAdapter1 {
 
     static sizeof => A_PtrSize
     /**

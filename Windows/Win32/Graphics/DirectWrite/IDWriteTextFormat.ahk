@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IDWriteFontCollection.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\IDWriteInlineObject.ahk
+#Include .\IDWriteFontCollection.ahk
 
 /**
  * The IDWriteTextFormat interface describes the font and paragraph properties used to format text, and it describes locale information.
@@ -46,9 +47,8 @@
  * To draw simple text with a single format, <a href="https://docs.microsoft.com/windows/win32/Direct2D/direct2d-portal">Direct2D</a> provides the  <a href="https://docs.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1rendertarget-drawtext(constwchar_uint32_idwritetextformat_constd2d1_rect_f__id2d1brush_d2d1_draw_text_options_dwrite_measuring_mode)">ID2D1RenderTarget::DrawText</a> method, which draws a string using the format information provided by an <b>IDWriteTextFormat</b> object.
  * @see https://learn.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritetextformat
  * @namespace Windows.Win32.Graphics.DirectWrite
- * @version v4.0.30319
  */
-class IDWriteTextFormat extends IUnknown{
+class IDWriteTextFormat extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -79,7 +79,7 @@ class IDWriteTextFormat extends IUnknown{
      * <div class="alert"><b>Note</b>  The alignment is dependent on reading direction, the above is for left-to-right reading direction.  For right-to-left reading direction it would be the opposite.</div>
      * <div> </div>
      * See <a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_text_alignment">DWRITE_TEXT_ALIGNMENT</a> for more information.
-     * @param {Integer} textAlignment Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_text_alignment">DWRITE_TEXT_ALIGNMENT</a></b>
+     * @param {DWRITE_TEXT_ALIGNMENT} textAlignment Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_text_alignment">DWRITE_TEXT_ALIGNMENT</a></b>
      * 
      * The text alignment option being set for the paragraph of type DWRITE_TEXT_ALIGNMENT.  For more information, see Remarks.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -123,7 +123,7 @@ class IDWriteTextFormat extends IUnknown{
 
     /**
      * Sets the alignment option of a paragraph relative to the layout box's top and bottom edge.
-     * @param {Integer} paragraphAlignment Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_paragraph_alignment">DWRITE_PARAGRAPH_ALIGNMENT</a></b>
+     * @param {DWRITE_PARAGRAPH_ALIGNMENT} paragraphAlignment Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_paragraph_alignment">DWRITE_PARAGRAPH_ALIGNMENT</a></b>
      * 
      * The paragraph alignment option being set for a paragraph; see <a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_paragraph_alignment">DWRITE_PARAGRAPH_ALIGNMENT</a> for more information.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -138,7 +138,7 @@ class IDWriteTextFormat extends IUnknown{
 
     /**
      * Sets the word wrapping option.
-     * @param {Integer} wordWrapping Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_word_wrapping">DWRITE_WORD_WRAPPING</a></b>
+     * @param {DWRITE_WORD_WRAPPING} wordWrapping Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_word_wrapping">DWRITE_WORD_WRAPPING</a></b>
      * 
      * The word wrapping option being set for a paragraph; see <a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_word_wrapping">DWRITE_WORD_WRAPPING</a> for more information.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -157,7 +157,7 @@ class IDWriteTextFormat extends IUnknown{
      * The reading direction and flow direction must always be set 90 degrees orthogonal to each other, or else you will get the error DWRITE_E_FLOWDIRECTIONCONFLICTS when you 
      *         use layout functions like Draw or GetMetrics. So if you set a vertical reading direction (for example, to DWRITE_READING_DIRECTION_TOP_TO_BOTTOM), then you must also 
      *         use SetFlowDirection to set the flow direction appropriately (for example, to DWRITE_FLOW_DIRECTION_RIGHT_TO_LEFT).
-     * @param {Integer} readingDirection Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_reading_direction">DWRITE_READING_DIRECTION</a></b>
+     * @param {DWRITE_READING_DIRECTION} readingDirection Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_reading_direction">DWRITE_READING_DIRECTION</a></b>
      * 
      * The text reading direction (for example, <a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_reading_direction">DWRITE_READING_DIRECTION_RIGHT_TO_LEFT</a> for languages, such as 
      *             Arabic, that read from right to left) for a paragraph.
@@ -173,7 +173,7 @@ class IDWriteTextFormat extends IUnknown{
 
     /**
      * Sets the paragraph flow direction.
-     * @param {Integer} flowDirection Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_flow_direction">DWRITE_FLOW_DIRECTION</a></b>
+     * @param {DWRITE_FLOW_DIRECTION} flowDirection Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_flow_direction">DWRITE_FLOW_DIRECTION</a></b>
      * 
      * The paragraph flow direction; see <a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_flow_direction">DWRITE_FLOW_DIRECTION</a> for more information.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -224,7 +224,7 @@ class IDWriteTextFormat extends IUnknown{
      * @remarks
      * For the default method, spacing depends solely on the content.
      *      For uniform spacing, the specified line height overrides the content.
-     * @param {Integer} lineSpacingMethod Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_line_spacing_method">DWRITE_LINE_SPACING_METHOD</a></b>
+     * @param {DWRITE_LINE_SPACING_METHOD} lineSpacingMethod Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_line_spacing_method">DWRITE_LINE_SPACING_METHOD</a></b>
      * 
      * Specifies how line height is being determined; see <a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_line_spacing_method">DWRITE_LINE_SPACING_METHOD</a> for more information.
      * @param {Float} lineSpacing Type: <b>FLOAT</b>
@@ -245,7 +245,7 @@ class IDWriteTextFormat extends IUnknown{
 
     /**
      * Gets the alignment option of text relative to the layout box's leading and trailing edge.
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_text_alignment">DWRITE_TEXT_ALIGNMENT</a></b>
+     * @returns {DWRITE_TEXT_ALIGNMENT} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_text_alignment">DWRITE_TEXT_ALIGNMENT</a></b>
      * 
      * Returns the text alignment option of the current paragraph.
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextformat-gettextalignment
@@ -257,7 +257,7 @@ class IDWriteTextFormat extends IUnknown{
 
     /**
      * Gets the alignment option of a paragraph which is relative to the top and bottom edges of a layout box.
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_paragraph_alignment">DWRITE_PARAGRAPH_ALIGNMENT</a></b>
+     * @returns {DWRITE_PARAGRAPH_ALIGNMENT} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_paragraph_alignment">DWRITE_PARAGRAPH_ALIGNMENT</a></b>
      * 
      * A value that indicates the current paragraph alignment option.
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextformat-getparagraphalignment
@@ -269,7 +269,7 @@ class IDWriteTextFormat extends IUnknown{
 
     /**
      * Gets the word wrapping option.
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_word_wrapping">DWRITE_WORD_WRAPPING</a></b>
+     * @returns {DWRITE_WORD_WRAPPING} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_word_wrapping">DWRITE_WORD_WRAPPING</a></b>
      * 
      * Returns the word wrapping option; see <a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_word_wrapping">DWRITE_WORD_WRAPPING</a> for more information.
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextformat-getwordwrapping
@@ -281,7 +281,7 @@ class IDWriteTextFormat extends IUnknown{
 
     /**
      * Gets the current reading direction for text in a paragraph.
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_reading_direction">DWRITE_READING_DIRECTION</a></b>
+     * @returns {DWRITE_READING_DIRECTION} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_reading_direction">DWRITE_READING_DIRECTION</a></b>
      * 
      * A value that indicates the current reading direction for text in a  paragraph.
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextformat-getreadingdirection
@@ -293,7 +293,7 @@ class IDWriteTextFormat extends IUnknown{
 
     /**
      * Gets the direction that text lines flow.
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_flow_direction">DWRITE_FLOW_DIRECTION</a></b>
+     * @returns {DWRITE_FLOW_DIRECTION} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_flow_direction">DWRITE_FLOW_DIRECTION</a></b>
      * 
      * The direction that text lines flow within their parent container.  For example, <a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_flow_direction">DWRITE_FLOW_DIRECTION_TOP_TO_BOTTOM</a> indicates that text lines are placed from top to bottom.
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextformat-getflowdirection
@@ -335,7 +335,7 @@ class IDWriteTextFormat extends IUnknown{
 
     /**
      * Gets the line spacing adjustment set for a multiline text paragraph. (IDWriteTextFormat.GetLineSpacing)
-     * @param {Pointer<Integer>} lineSpacingMethod Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_line_spacing_method">DWRITE_LINE_SPACING_METHOD</a>*</b>
+     * @param {Pointer<DWRITE_LINE_SPACING_METHOD>} lineSpacingMethod Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_line_spacing_method">DWRITE_LINE_SPACING_METHOD</a>*</b>
      * 
      * A value that indicates how line height is determined.
      * @param {Pointer<Float>} lineSpacing Type: <b>FLOAT*</b>
@@ -360,7 +360,9 @@ class IDWriteTextFormat extends IUnknown{
 
     /**
      * Gets the current font collection.
-     * @returns {IDWriteFontCollection} 
+     * @returns {IDWriteFontCollection} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritefontcollection">IDWriteFontCollection</a>**</b>
+     * 
+     * When this method returns, contains an address of a pointer to the font collection being used for the current text.
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextformat-getfontcollection
      */
     GetFontCollection() {
@@ -402,7 +404,7 @@ class IDWriteTextFormat extends IUnknown{
 
     /**
      * Gets the font weight of the text.
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_font_weight">DWRITE_FONT_WEIGHT</a></b>
+     * @returns {DWRITE_FONT_WEIGHT} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_font_weight">DWRITE_FONT_WEIGHT</a></b>
      * 
      * A value that indicates the type of weight (such as normal, bold, or black).
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextformat-getfontweight
@@ -414,7 +416,7 @@ class IDWriteTextFormat extends IUnknown{
 
     /**
      * Gets the font style of the text.
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_font_style">DWRITE_FONT_STYLE</a></b>
+     * @returns {DWRITE_FONT_STYLE} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_font_style">DWRITE_FONT_STYLE</a></b>
      * 
      * A value which indicates the type of font style (such as  slope or incline).
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextformat-getfontstyle
@@ -426,7 +428,7 @@ class IDWriteTextFormat extends IUnknown{
 
     /**
      * Gets the font stretch of the text.
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_font_stretch">DWRITE_FONT_STRETCH</a></b>
+     * @returns {DWRITE_FONT_STRETCH} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_font_stretch">DWRITE_FONT_STRETCH</a></b>
      * 
      * A value which indicates the type of font stretch (such as  normal or condensed).
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextformat-getfontstretch

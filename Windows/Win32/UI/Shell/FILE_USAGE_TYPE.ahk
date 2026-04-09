@@ -7,9 +7,8 @@
  * The interpretation of "playing" or "editing" is left to the application's implementation of <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ifileisinuse">IFileIsInUse</a>. Generally, "playing" would refer to a media file while "editing" can refer to any file being altered in an application. However, the application itself best knows how to map these terms to its actions.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/ne-shobjidl_core-file_usage_type
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class FILE_USAGE_TYPE extends Win32Enum{
+class FILE_USAGE_TYPE extends Win32Enum {
 
     /**
      * The file is being played by the process that has it open.

@@ -7,9 +7,8 @@
  * Retrieves names and descriptive strings for codecs and formats.
  * @see https://learn.microsoft.com/windows/win32/api/wmcodecdsp/nn-wmcodecdsp-iwmcodecstrings
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IWMCodecStrings extends IUnknown{
+class IWMCodecStrings extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

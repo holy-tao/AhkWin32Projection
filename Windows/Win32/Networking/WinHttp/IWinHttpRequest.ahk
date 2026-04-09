@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * The IWinHttpRequest interface provides all of the nonevent methods for Microsoft Windows HTTP Services (WinHTTP).
@@ -20,9 +20,8 @@
  * > For Windows XP and Windows 2000, see the [Run-Time Requirements](winhttp-start-page.md) section of the WinHttp start page.
  * @see https://learn.microsoft.com/windows/win32/WinHttp/iwinhttprequest-interface
  * @namespace Windows.Win32.Networking.WinHttp
- * @version v4.0.30319
  */
-class IWinHttpRequest extends IDispatch{
+class IWinHttpRequest extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -334,7 +333,7 @@ class IWinHttpRequest extends IDispatch{
      * @remarks
      * > [!Note]  
      * > For Windows XP and Windows 2000, see the [Run-Time Requirements](winhttp-start-page.md) section of the WinHTTP Start Page.
-     * @param {Integer} Option 
+     * @param {WinHttpRequestOption} Option 
      * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/WinHttp/iwinhttprequest-option
      */
@@ -349,7 +348,7 @@ class IWinHttpRequest extends IDispatch{
      * @remarks
      * > [!Note]  
      * > For Windows XP and Windows 2000, see the [Run-Time Requirements](winhttp-start-page.md) section of the WinHTTP Start Page.
-     * @param {Integer} Option 
+     * @param {WinHttpRequestOption} Option 
      * @param {VARIANT} Value 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/WinHttp/iwinhttprequest-option
@@ -456,7 +455,7 @@ class IWinHttpRequest extends IDispatch{
      * 
      * > [!Note]  
      * > For Windows XP and Windows 2000, see the [Run-Time Requirements](winhttp-start-page.md) section of the WinHTTP Start Page.
-     * @param {Integer} AutoLogonPolicy Specifies the current automatic logon policy.
+     * @param {WinHttpRequestAutoLogonPolicy} AutoLogonPolicy Specifies the current automatic logon policy.
      * @returns {HRESULT} The return value is **S\_OK** on success or an error value otherwise.
      * @see https://learn.microsoft.com/windows/win32/WinHttp/iwinhttprequest-setautologonpolicy
      */

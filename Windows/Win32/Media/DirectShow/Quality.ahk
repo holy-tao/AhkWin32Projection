@@ -1,21 +1,20 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\QualityMessageType.ahk
 
 /**
  * The Quality structure describes a quality message by indicating Flood or Famine in the renderer and specifying the percentage of frames to drop or add to optimize the renderer's performance.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/ns-strmif-quality
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class Quality extends Win32Struct
-{
+class Quality extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
 
     /**
      * Value from the [QualityMessageType](/windows/desktop/api/strmif/ne-strmif-qualitymessagetype) enumeration, indicating whether the downstream filter needs more or less data.
-     * @type {Integer}
+     * @type {QualityMessageType}
      */
     Type {
         get => NumGet(this, 0, "int")

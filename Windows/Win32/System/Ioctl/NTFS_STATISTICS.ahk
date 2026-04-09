@@ -12,10 +12,8 @@
  * For additional statistics that are only available with Windows 10, use <a href="https://docs.microsoft.com/windows/desktop/api/winioctl/ns-winioctl-ntfs_statistics_ex">NTFS_STATISTICS_EX</a>.
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-ntfs_statistics
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class NTFS_STATISTICS extends Win32Struct
-{
+class NTFS_STATISTICS extends Win32Struct {
     static sizeof => 216
 
     static packingSize => 4
@@ -31,7 +29,7 @@ class NTFS_STATISTICS extends Win32Struct
             get => NumGet(this, 0, "ushort")
             set => NumPut("ushort", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -39,7 +37,7 @@ class NTFS_STATISTICS extends Win32Struct
             get => NumGet(this, 2, "ushort")
             set => NumPut("ushort", value, this, 2)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -47,7 +45,7 @@ class NTFS_STATISTICS extends Win32Struct
             get => NumGet(this, 4, "ushort")
             set => NumPut("ushort", value, this, 4)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -55,7 +53,6 @@ class NTFS_STATISTICS extends Win32Struct
             get => NumGet(this, 6, "ushort")
             set => NumPut("ushort", value, this, 6)
         }
-    
     }
 
     class _Mft2WritesUserLevel extends Win32Struct {
@@ -69,7 +66,7 @@ class NTFS_STATISTICS extends Win32Struct
             get => NumGet(this, 0, "ushort")
             set => NumPut("ushort", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -77,7 +74,7 @@ class NTFS_STATISTICS extends Win32Struct
             get => NumGet(this, 2, "ushort")
             set => NumPut("ushort", value, this, 2)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -85,7 +82,7 @@ class NTFS_STATISTICS extends Win32Struct
             get => NumGet(this, 4, "ushort")
             set => NumPut("ushort", value, this, 4)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -93,7 +90,6 @@ class NTFS_STATISTICS extends Win32Struct
             get => NumGet(this, 6, "ushort")
             set => NumPut("ushort", value, this, 6)
         }
-    
     }
 
     class _BitmapWritesUserLevel extends Win32Struct {
@@ -107,7 +103,7 @@ class NTFS_STATISTICS extends Win32Struct
             get => NumGet(this, 0, "ushort")
             set => NumPut("ushort", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -115,7 +111,7 @@ class NTFS_STATISTICS extends Win32Struct
             get => NumGet(this, 2, "ushort")
             set => NumPut("ushort", value, this, 2)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -123,7 +119,6 @@ class NTFS_STATISTICS extends Win32Struct
             get => NumGet(this, 4, "ushort")
             set => NumPut("ushort", value, this, 4)
         }
-    
     }
 
     class _MftBitmapWritesUserLevel extends Win32Struct {
@@ -137,7 +132,7 @@ class NTFS_STATISTICS extends Win32Struct
             get => NumGet(this, 0, "ushort")
             set => NumPut("ushort", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -145,7 +140,7 @@ class NTFS_STATISTICS extends Win32Struct
             get => NumGet(this, 2, "ushort")
             set => NumPut("ushort", value, this, 2)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -153,7 +148,7 @@ class NTFS_STATISTICS extends Win32Struct
             get => NumGet(this, 4, "ushort")
             set => NumPut("ushort", value, this, 4)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -161,7 +156,6 @@ class NTFS_STATISTICS extends Win32Struct
             get => NumGet(this, 6, "ushort")
             set => NumPut("ushort", value, this, 6)
         }
-    
     }
 
     class _Allocate extends Win32Struct {
@@ -175,7 +169,7 @@ class NTFS_STATISTICS extends Win32Struct
             get => NumGet(this, 0, "uint")
             set => NumPut("uint", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -183,7 +177,7 @@ class NTFS_STATISTICS extends Win32Struct
             get => NumGet(this, 4, "uint")
             set => NumPut("uint", value, this, 4)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -191,7 +185,7 @@ class NTFS_STATISTICS extends Win32Struct
             get => NumGet(this, 8, "uint")
             set => NumPut("uint", value, this, 8)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -199,7 +193,7 @@ class NTFS_STATISTICS extends Win32Struct
             get => NumGet(this, 12, "uint")
             set => NumPut("uint", value, this, 12)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -207,7 +201,7 @@ class NTFS_STATISTICS extends Win32Struct
             get => NumGet(this, 16, "uint")
             set => NumPut("uint", value, this, 16)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -215,7 +209,7 @@ class NTFS_STATISTICS extends Win32Struct
             get => NumGet(this, 20, "uint")
             set => NumPut("uint", value, this, 20)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -223,7 +217,7 @@ class NTFS_STATISTICS extends Win32Struct
             get => NumGet(this, 24, "uint")
             set => NumPut("uint", value, this, 24)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -231,7 +225,7 @@ class NTFS_STATISTICS extends Win32Struct
             get => NumGet(this, 28, "uint")
             set => NumPut("uint", value, this, 28)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -239,7 +233,7 @@ class NTFS_STATISTICS extends Win32Struct
             get => NumGet(this, 32, "uint")
             set => NumPut("uint", value, this, 32)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -247,7 +241,6 @@ class NTFS_STATISTICS extends Win32Struct
             get => NumGet(this, 36, "uint")
             set => NumPut("uint", value, this, 36)
         }
-    
     }
 
     /**
@@ -305,13 +298,12 @@ class NTFS_STATISTICS extends Win32Struct
     }
 
     /**
-     * 
      * @type {_MftWritesUserLevel}
      */
-    MftWritesUserLevel{
+    MftWritesUserLevel {
         get {
             if(!this.HasProp("__MftWritesUserLevel"))
-                this.__MftWritesUserLevel := %this.__Class%._MftWritesUserLevel(24, this)
+                this.__MftWritesUserLevel := NTFS_STATISTICS._MftWritesUserLevel(24, this)
             return this.__MftWritesUserLevel
         }
     }
@@ -362,13 +354,12 @@ class NTFS_STATISTICS extends Win32Struct
     }
 
     /**
-     * 
      * @type {_Mft2WritesUserLevel}
      */
-    Mft2WritesUserLevel{
+    Mft2WritesUserLevel {
         get {
             if(!this.HasProp("__Mft2WritesUserLevel"))
-                this.__Mft2WritesUserLevel := %this.__Class%._Mft2WritesUserLevel(48, this)
+                this.__Mft2WritesUserLevel := NTFS_STATISTICS._Mft2WritesUserLevel(48, this)
             return this.__Mft2WritesUserLevel
         }
     }
@@ -500,13 +491,12 @@ class NTFS_STATISTICS extends Win32Struct
     }
 
     /**
-     * 
      * @type {_BitmapWritesUserLevel}
      */
-    BitmapWritesUserLevel{
+    BitmapWritesUserLevel {
         get {
             if(!this.HasProp("__BitmapWritesUserLevel"))
-                this.__BitmapWritesUserLevel := %this.__Class%._BitmapWritesUserLevel(102, this)
+                this.__BitmapWritesUserLevel := NTFS_STATISTICS._BitmapWritesUserLevel(102, this)
             return this.__BitmapWritesUserLevel
         }
     }
@@ -575,13 +565,12 @@ class NTFS_STATISTICS extends Win32Struct
     }
 
     /**
-     * 
      * @type {_MftBitmapWritesUserLevel}
      */
-    MftBitmapWritesUserLevel{
+    MftBitmapWritesUserLevel {
         get {
             if(!this.HasProp("__MftBitmapWritesUserLevel"))
-                this.__MftBitmapWritesUserLevel := %this.__Class%._MftBitmapWritesUserLevel(130, this)
+                this.__MftBitmapWritesUserLevel := NTFS_STATISTICS._MftBitmapWritesUserLevel(130, this)
             return this.__MftBitmapWritesUserLevel
         }
     }
@@ -659,13 +648,12 @@ class NTFS_STATISTICS extends Win32Struct
     }
 
     /**
-     * 
      * @type {_Allocate}
      */
-    Allocate{
+    Allocate {
         get {
             if(!this.HasProp("__Allocate"))
-                this.__Allocate := %this.__Class%._Allocate(172, this)
+                this.__Allocate := NTFS_STATISTICS._Allocate(172, this)
             return this.__Allocate
         }
     }

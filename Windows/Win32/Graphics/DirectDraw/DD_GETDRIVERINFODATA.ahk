@@ -7,10 +7,8 @@
  * The data structure passed to the driver for a <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/nc-ddrawint-pdd_getdriverinfo">DdGetDriverInfo</a> call has minor differences between Windows 98/Me and Windows 2000 and later. On Windows 2000 and later the data structure is called DD_GETDRIVERINFODATA and on Windows 98/Me the data structure is called DDHAL_GETDRIVERINFODATA. Both data structures include a field for driver specific context information. On Windows 2000 and later, DD_GETDRIVERINFODATA includes a field <b>dhpdev</b> that stores the DHPDEV of the driver being called. Only on Windows 98/Me, DDHAL_GETDRIVERINFODATA includes a field <b>dwContext</b> that is copied for the driver reserved <b>dwReserved3</b> field of the DirectDraw global object.
  * @see https://learn.microsoft.com/windows/win32/api/ddrawint/ns-ddrawint-dd_getdriverinfodata
  * @namespace Windows.Win32.Graphics.DirectDraw
- * @version v4.0.30319
  */
-class DD_GETDRIVERINFODATA extends Win32Struct
-{
+class DD_GETDRIVERINFODATA extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -43,8 +41,7 @@ class DD_GETDRIVERINFODATA extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     guidInfo {
         get => NumGet(this, 16, "ptr")

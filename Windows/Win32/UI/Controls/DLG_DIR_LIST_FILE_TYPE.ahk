@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.UI.Controls
- * @version v4.0.30319
  */
-class DLG_DIR_LIST_FILE_TYPE extends Win32BitflagEnum{
+class DLG_DIR_LIST_FILE_TYPE extends Win32BitflagEnum {
 
     /**
      * @type {Integer (UInt32)}

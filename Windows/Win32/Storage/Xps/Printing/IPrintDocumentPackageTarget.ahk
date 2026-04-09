@@ -7,9 +7,8 @@
  * Allows users to enumerate the supported package target types and to create one with a given type ID. IPrintDocumentPackageTarget also supports the tracking of the package printing progress and cancelling.
  * @see https://learn.microsoft.com/windows/win32/api/documenttarget/nn-documenttarget-iprintdocumentpackagetarget
  * @namespace Windows.Win32.Storage.Xps.Printing
- * @version v4.0.30319
  */
-class IPrintDocumentPackageTarget extends IUnknown{
+class IPrintDocumentPackageTarget extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

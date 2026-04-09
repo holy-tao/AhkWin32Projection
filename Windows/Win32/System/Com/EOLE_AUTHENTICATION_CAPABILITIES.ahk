@@ -11,9 +11,8 @@
  * The <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-iclientsecurity-setblanket">IClientSecurity::SetBlanket</a> method and <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cosetproxyblanket">CoSetProxyBlanket</a> function return an error if any of the following flags are set in the capabilities parameter: EOAC_SECURE_REFS, EOAC_ACCESS_CONTROL, EOAC_APPID, EOAC_DYNAMIC, EOAC_REQUIRE_FULLSIC, EOAC_DISABLE_AAA, or EOAC_NO_CUSTOM_MARSHAL.
  * @see https://learn.microsoft.com/windows/win32/api/objidlbase/ne-objidlbase-eole_authentication_capabilities
  * @namespace Windows.Win32.System.Com
- * @version v4.0.30319
  */
-class EOLE_AUTHENTICATION_CAPABILITIES extends Win32Enum{
+class EOLE_AUTHENTICATION_CAPABILITIES extends Win32Enum {
 
     /**
      * Indicates that no capability flags are set.
@@ -122,7 +121,6 @@ class EOLE_AUTHENTICATION_CAPABILITIES extends Win32Enum{
     static EOAC_NO_CUSTOM_MARSHAL => 8192
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static EOAC_RESERVED1 => 16384

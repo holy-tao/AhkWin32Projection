@@ -1,18 +1,25 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\FWPM_NET_EVENT_HEADER0.ahk
 #Include ..\..\Foundation\FILETIME.ahk
+#Include .\FWP_IP_VERSION.ahk
 #Include .\FWP_BYTE_ARRAY16.ahk
 #Include .\FWP_BYTE_BLOB.ahk
-#Include .\FWPM_NET_EVENT_HEADER0.ahk
+#Include ..\..\Security\SID.ahk
+#Include .\FWPM_NET_EVENT_TYPE.ahk
+#Include .\FWPM_NET_EVENT_IKEEXT_MM_FAILURE0.ahk
+#Include .\FWPM_NET_EVENT_IKEEXT_QM_FAILURE0.ahk
+#Include .\FWPM_NET_EVENT_IKEEXT_EM_FAILURE0.ahk
+#Include .\FWPM_NET_EVENT_CLASSIFY_DROP0.ahk
+#Include .\FWPM_NET_EVENT_IPSEC_KERNEL_DROP0.ahk
+#Include .\FWPM_NET_EVENT_IPSEC_DOSP_DROP0.ahk
 
 /**
  * Contains information about all event types. (FWPM_NET_EVENT0)
  * @see https://learn.microsoft.com/windows/win32/api/fwpmtypes/ns-fwpmtypes-fwpm_net_event0
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
- * @version v4.0.30319
  */
-class FWPM_NET_EVENT0 extends Win32Struct
-{
+class FWPM_NET_EVENT0 extends Win32Struct {
     static sizeof => 104
 
     static packingSize => 8
@@ -21,7 +28,7 @@ class FWPM_NET_EVENT0 extends Win32Struct
      * A [FWPM_NET_EVENT_HEADER0](ns-fwpmtypes-fwpm_net_event_header0.md) structure that contains information common to all events.
      * @type {FWPM_NET_EVENT_HEADER0}
      */
-    header{
+    header {
         get {
             if(!this.HasProp("__header"))
                 this.__header := FWPM_NET_EVENT_HEADER0(0, this)
@@ -31,7 +38,7 @@ class FWPM_NET_EVENT0 extends Win32Struct
 
     /**
      * A [FWPM_NET_EVENT_TYPE](ne-fwpmtypes-fwpm_net_event_type.md) value that specifies the type of event.
-     * @type {Integer}
+     * @type {FWPM_NET_EVENT_TYPE}
      */
     type {
         get => NumGet(this, 88, "int")

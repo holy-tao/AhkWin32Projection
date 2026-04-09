@@ -5,10 +5,8 @@
  * Specifies which bytes in a video surface are encrypted.
  * @see https://learn.microsoft.com/windows/win32/api/d3d11/ns-d3d11-d3d11_encrypted_block_info
  * @namespace Windows.Win32.Graphics.Direct3D11
- * @version v4.0.30319
  */
-class D3D11_ENCRYPTED_BLOCK_INFO extends Win32Struct
-{
+class D3D11_ENCRYPTED_BLOCK_INFO extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4

@@ -1,13 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DVD_KEY_TYPE.ahk
 #Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * @namespace Windows.Win32.Devices.Dvd
- * @version v4.0.30319
  */
-class DVD_COPY_PROTECT_KEY extends Win32Struct
-{
+class DVD_COPY_PROTECT_KEY extends Win32Struct {
     static sizeof => 28
 
     static packingSize => 4
@@ -19,14 +18,14 @@ class DVD_COPY_PROTECT_KEY extends Win32Struct
         /**
          * @type {HANDLE}
          */
-        FileHandle{
+        FileHandle {
             get {
                 if(!this.HasProp("__FileHandle"))
                     this.__FileHandle := HANDLE(0, this)
                 return this.__FileHandle
             }
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -34,7 +33,6 @@ class DVD_COPY_PROTECT_KEY extends Win32Struct
             get => NumGet(this, 0, "int64")
             set => NumPut("int64", value, this, 0)
         }
-    
     }
 
     /**
@@ -54,7 +52,7 @@ class DVD_COPY_PROTECT_KEY extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {DVD_KEY_TYPE}
      */
     KeyType {
         get => NumGet(this, 8, "int")
@@ -72,18 +70,18 @@ class DVD_COPY_PROTECT_KEY extends Win32Struct
     /**
      * @type {_Parameters_e__Union}
      */
-    Parameters{
+    Parameters {
         get {
             if(!this.HasProp("__Parameters"))
-                this.__Parameters := %this.__Class%._Parameters_e__Union(16, this)
+                this.__Parameters := DVD_COPY_PROTECT_KEY._Parameters_e__Union(16, this)
             return this.__Parameters
         }
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    KeyData{
+    KeyData {
         get {
             if(!this.HasProp("__KeyDataProxyArray"))
                 this.__KeyDataProxyArray := Win32FixedArray(this.ptr + 24, 1, Primitive, "char")

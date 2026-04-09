@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\Com\IDispatch.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * @namespace Windows.Win32.System.RealTimeCommunications
- * @version v4.0.30319
  */
-class IRTCPresenceStatusEvent extends IDispatch{
+class IRTCPresenceStatusEvent extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -64,7 +63,7 @@ class IRTCPresenceStatusEvent extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} penStatus 
+     * @param {Pointer<RTC_PRESENCE_STATUS>} penStatus 
      * @param {Pointer<BSTR>} pbstrNotes 
      * @returns {HRESULT} 
      */

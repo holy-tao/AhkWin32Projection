@@ -7,9 +7,8 @@
  * The IDecimateVideoImage interface specifies decimation on a decoder filter.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-idecimatevideoimage
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IDecimateVideoImage extends IUnknown{
+class IDecimateVideoImage extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

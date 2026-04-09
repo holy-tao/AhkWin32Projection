@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Globalization
- * @version v4.0.30319
  */
-class IMLangCodePages extends IUnknown{
+class IMLangCodePages extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

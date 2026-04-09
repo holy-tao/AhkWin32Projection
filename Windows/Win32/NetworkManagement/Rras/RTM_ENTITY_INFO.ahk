@@ -6,10 +6,8 @@
  * The RTM_ENTITY_INFO structure is used to exchange client information with the routing table manager.
  * @see https://learn.microsoft.com/windows/win32/api/rtmv2/ns-rtmv2-rtm_entity_info
  * @namespace Windows.Win32.NetworkManagement.Rras
- * @version v4.0.30319
  */
-class RTM_ENTITY_INFO extends Win32Struct
-{
+class RTM_ENTITY_INFO extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
@@ -36,7 +34,7 @@ class RTM_ENTITY_INFO extends Win32Struct
      * Specifies the identifier that uniquely identifies a client.
      * @type {RTM_ENTITY_ID}
      */
-    EntityId{
+    EntityId {
         get {
             if(!this.HasProp("__EntityId"))
                 this.__EntityId := RTM_ENTITY_ID(8, this)

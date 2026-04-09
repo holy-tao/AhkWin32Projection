@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class OBJECT_HANDLE_INFORMATION extends Win32Struct
-{
+class OBJECT_HANDLE_INFORMATION extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4

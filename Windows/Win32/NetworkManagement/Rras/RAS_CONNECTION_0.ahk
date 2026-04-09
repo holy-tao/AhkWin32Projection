@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\HANDLE.ahk
+#Include .\ROUTER_INTERFACE_TYPE.ahk
+#Include .\RAS_FLAGS.ahk
 
 /**
  * The RAS_CONNECTION_0 structure contains general information regarding a specific connection, such as user name or domain. For more detailed information about a specific connection, such as bytes sent or received, see RAS_CONNECTION_1.
  * @see https://learn.microsoft.com/windows/win32/api/mprapi/ns-mprapi-ras_connection_0
  * @namespace Windows.Win32.NetworkManagement.Rras
- * @version v4.0.30319
  */
-class RAS_CONNECTION_0 extends Win32Struct
-{
+class RAS_CONNECTION_0 extends Win32Struct {
     static sizeof => 1128
 
     static packingSize => 8
@@ -18,7 +18,7 @@ class RAS_CONNECTION_0 extends Win32Struct
      * A handle to the connection.
      * @type {HANDLE}
      */
-    hConnection{
+    hConnection {
         get {
             if(!this.HasProp("__hConnection"))
                 this.__hConnection := HANDLE(0, this)
@@ -30,7 +30,7 @@ class RAS_CONNECTION_0 extends Win32Struct
      * A handle to the interface.
      * @type {HANDLE}
      */
-    hInterface{
+    hInterface {
         get {
             if(!this.HasProp("__hInterface"))
                 this.__hInterface := HANDLE(8, this)
@@ -49,7 +49,7 @@ class RAS_CONNECTION_0 extends Win32Struct
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ne-mprapi-router_interface_type">ROUTER_INTERFACE_TYPE</a> enumeration that identifies the type of connection interface.
-     * @type {Integer}
+     * @type {ROUTER_INTERFACE_TYPE}
      */
     dwInterfaceType {
         get => NumGet(this, 20, "int")
@@ -57,8 +57,7 @@ class RAS_CONNECTION_0 extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Integer}
+     * @type {RAS_FLAGS}
      */
     dwConnectionFlags {
         get => NumGet(this, 24, "uint")

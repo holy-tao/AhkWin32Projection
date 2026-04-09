@@ -11,9 +11,8 @@
  * The class identifier (CLSID) for the default implementation of <b>INamespaceWalk</b> is CLSID_NamespaceWalker. You can obtain an <b>INamespaceWalk</b> object by creating a single uninitialized object of the class associated with CLSID_NamespaceWalker using <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cocreateinstance">CoCreateInstance</a>. This interface's IID is IID_INamespaceWalk.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-inamespacewalk
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class INamespaceWalk extends IUnknown{
+class INamespaceWalk extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

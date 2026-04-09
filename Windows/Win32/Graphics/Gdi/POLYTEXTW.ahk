@@ -9,11 +9,9 @@
  * > The wingdi.h header defines POLYTEXT as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
  * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-polytextw
  * @namespace Windows.Win32.Graphics.Gdi
- * @version v4.0.30319
  * @charset Unicode
  */
-class POLYTEXTW extends Win32Struct
-{
+class POLYTEXTW extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8
@@ -55,7 +53,6 @@ class POLYTEXTW extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     uiFlags {
@@ -67,7 +64,7 @@ class POLYTEXTW extends Win32Struct
      * A rectangle structure that contains the dimensions of the opaquing or clipping rectangle. This member is ignored if neither of the ETO_OPAQUE nor the ETO_CLIPPED value is specified for the <b>uiFlags</b> member.
      * @type {RECT}
      */
-    rcl{
+    rcl {
         get {
             if(!this.HasProp("__rcl"))
                 this.__rcl := RECT(28, this)

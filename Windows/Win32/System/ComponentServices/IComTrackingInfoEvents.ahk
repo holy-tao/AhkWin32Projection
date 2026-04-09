@@ -7,9 +7,8 @@
  * Notifies the subscriber when the tracking information for a collection changes.
  * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nn-comsvcs-icomtrackinginfoevents
  * @namespace Windows.Win32.System.ComponentServices
- * @version v4.0.30319
  */
-class IComTrackingInfoEvents extends IUnknown{
+class IComTrackingInfoEvents extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

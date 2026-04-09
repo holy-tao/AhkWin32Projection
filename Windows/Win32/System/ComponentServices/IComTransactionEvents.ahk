@@ -7,9 +7,8 @@
  * Notifies the subscriber if the Microsoft Distributed Transaction Coordinator (DTC) transaction starts, commits, or aborts.
  * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nn-comsvcs-icomtransactionevents
  * @namespace Windows.Win32.System.ComponentServices
- * @version v4.0.30319
  */
-class IComTransactionEvents extends IUnknown{
+class IComTransactionEvents extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

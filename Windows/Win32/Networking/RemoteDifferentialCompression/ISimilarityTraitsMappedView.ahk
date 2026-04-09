@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\SimilarityMappedViewInfo.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\SimilarityMappedViewInfo.ahk
 
 /**
  * Provides methods that an RDC application can implement for manipulating a mapped view of a similarity traits table file.
  * @see https://learn.microsoft.com/windows/win32/api/msrdc/nn-msrdc-isimilaritytraitsmappedview
  * @namespace Windows.Win32.Networking.RemoteDifferentialCompression
- * @version v4.0.30319
  */
-class ISimilarityTraitsMappedView extends IUnknown{
+class ISimilarityTraitsMappedView extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

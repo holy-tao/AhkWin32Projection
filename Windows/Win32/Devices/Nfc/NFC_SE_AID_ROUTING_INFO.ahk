@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.Nfc
- * @version v4.0.30319
  */
-class NFC_SE_AID_ROUTING_INFO extends Win32Struct
-{
+class NFC_SE_AID_ROUTING_INFO extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -36,9 +34,9 @@ class NFC_SE_AID_ROUTING_INFO extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    pbAid{
+    pbAid {
         get {
             if(!this.HasProp("__pbAidProxyArray"))
                 this.__pbAidProxyArray := Win32FixedArray(this.ptr + 16, 16, Primitive, "char")

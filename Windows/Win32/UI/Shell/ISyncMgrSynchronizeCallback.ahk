@@ -13,9 +13,8 @@
  * Applications should call the methods of this interface as often as possible and must call it before starting each new ItemID to check whether the user has canceled an individual item.
  * @see https://learn.microsoft.com/windows/win32/api/mobsync/nn-mobsync-isyncmgrsynchronizecallback
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class ISyncMgrSynchronizeCallback extends IUnknown{
+class ISyncMgrSynchronizeCallback extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

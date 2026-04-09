@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class MEDIA_EVENT_GENERATOR_GET_EVENT_FLAGS extends Win32Enum{
+class MEDIA_EVENT_GENERATOR_GET_EVENT_FLAGS extends Win32Enum {
 
     /**
      * @type {Integer (UInt32)}

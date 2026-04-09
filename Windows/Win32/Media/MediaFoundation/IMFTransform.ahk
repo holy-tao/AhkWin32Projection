@@ -1,19 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\MFT_INPUT_STREAM_INFO.ahk
 #Include .\MFT_OUTPUT_STREAM_INFO.ahk
 #Include .\IMFAttributes.ahk
 #Include .\IMFMediaType.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Implemented by all Media Foundation Transforms (MFTs).
  * @see https://learn.microsoft.com/windows/win32/api/mftransform/nn-mftransform-imftransform
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFTransform extends IUnknown{
+class IMFTransform extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -1012,7 +1011,7 @@ class IMFTransform extends IUnknown{
      *       
      * 
      * If <b>MFT_UNIQUE_METHOD_NAMES</b> is defined before including mftransform.h, this method is renamed <b>MFTProcessMessage</b>. See <a href="https://docs.microsoft.com/windows/desktop/medfound/comparison-of-mfts-and-dmos">Creating Hybrid DMO/MFT Objects</a>.
-     * @param {Integer} eMessage The message to send, specified as a member of the <a href="https://docs.microsoft.com/windows/desktop/api/mftransform/ne-mftransform-mft_message_type">MFT_MESSAGE_TYPE</a> enumeration.
+     * @param {MFT_MESSAGE_TYPE} eMessage The message to send, specified as a member of the <a href="https://docs.microsoft.com/windows/desktop/api/mftransform/ne-mftransform-mft_message_type">MFT_MESSAGE_TYPE</a> enumeration.
      * @param {Pointer} ulParam Message parameter. The meaning of this parameter depends on the message type.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      *           

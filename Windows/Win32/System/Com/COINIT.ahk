@@ -17,9 +17,8 @@
  * <div> </div>
  * @see https://learn.microsoft.com/windows/win32/api/objbase/ne-objbase-coinit
  * @namespace Windows.Win32.System.Com
- * @version v4.0.30319
  */
-class COINIT extends Win32BitflagEnum{
+class COINIT extends Win32BitflagEnum {
 
     /**
      * Initializes the thread for apartment-threaded object concurrency (see Remarks).

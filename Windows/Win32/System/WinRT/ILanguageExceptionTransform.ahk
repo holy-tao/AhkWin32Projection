@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IRestrictedErrorInfo.ahk
 #Include ..\Com\IUnknown.ahk
+#Include .\IRestrictedErrorInfo.ahk
 
 /**
  * Allows language projections to make available to the system any and all context from an exception that gets thrown from the context of a catch handler that catches a different exception.
  * @see https://learn.microsoft.com/windows/win32/api/restrictederrorinfo/nn-restrictederrorinfo-ilanguageexceptiontransform
  * @namespace Windows.Win32.System.WinRT
- * @version v4.0.30319
  */
-class ILanguageExceptionTransform extends IUnknown{
+class ILanguageExceptionTransform extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -1,10 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IRawElementProviderFragment.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\UiaRect.ahk
 #Include .\IRawElementProviderFragmentRoot.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Exposes methods and properties on UI elements that are part of a structure more than one level deep, such as a list box or list item. Implemented by Microsoft UI Automation provider.
@@ -12,9 +11,8 @@
  * The root node of the fragment must also support the <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nn-uiautomationcore-irawelementproviderfragmentroot">IRawElementProviderFragmentRoot</a> interface.
  * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nn-uiautomationcore-irawelementproviderfragment
  * @namespace Windows.Win32.UI.Accessibility
- * @version v4.0.30319
  */
-class IRawElementProviderFragment extends IUnknown{
+class IRawElementProviderFragment extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -61,7 +59,7 @@ class IRawElementProviderFragment extends IUnknown{
      * Relationships among siblings must be identical in both directions: if A is B's previous sibling (<b>NavigateDirection_PreviousSibling</b>), then B is A's next sibling (<b>NavigateDirection_NextSibling</b>). A first child (<b>NavigateDirection_FirstChild</b>) has no previous sibling, and a last child  (<b>NavigateDirection_LastChild</b>) has no next sibling. 
      * 
      * Fragment roots do not enable navigation to a parent or siblings; navigation among fragment roots is handled by the default window providers. Elements in fragments must navigate only to other elements within that fragment.
-     * @param {Integer} _direction 
+     * @param {NavigateDirection} _direction 
      * @returns {IRawElementProviderFragment} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nn-uiautomationcore-irawelementproviderfragment">IRawElementProviderFragment</a>**</b>
      * 
      * Receives a pointer to the provider of the 

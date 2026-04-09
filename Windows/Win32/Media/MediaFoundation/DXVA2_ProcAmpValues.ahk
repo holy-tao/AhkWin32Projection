@@ -6,10 +6,8 @@
  * Contains values for DirectX Video Acceleration (DXVA) video processing operations.
  * @see https://learn.microsoft.com/windows/win32/api/dxva2api/ns-dxva2api-dxva2_procampvalues
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class DXVA2_ProcAmpValues extends Win32Struct
-{
+class DXVA2_ProcAmpValues extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4
@@ -18,7 +16,7 @@ class DXVA2_ProcAmpValues extends Win32Struct
      * Brightness value.
      * @type {DXVA2_Fixed32}
      */
-    Brightness{
+    Brightness {
         get {
             if(!this.HasProp("__Brightness"))
                 this.__Brightness := DXVA2_Fixed32(0, this)
@@ -30,7 +28,7 @@ class DXVA2_ProcAmpValues extends Win32Struct
      * Contrast value.
      * @type {DXVA2_Fixed32}
      */
-    Contrast{
+    Contrast {
         get {
             if(!this.HasProp("__Contrast"))
                 this.__Contrast := DXVA2_Fixed32(4, this)
@@ -42,7 +40,7 @@ class DXVA2_ProcAmpValues extends Win32Struct
      * Hue value.
      * @type {DXVA2_Fixed32}
      */
-    Hue{
+    Hue {
         get {
             if(!this.HasProp("__Hue"))
                 this.__Hue := DXVA2_Fixed32(8, this)
@@ -54,7 +52,7 @@ class DXVA2_ProcAmpValues extends Win32Struct
      * Saturation value.
      * @type {DXVA2_Fixed32}
      */
-    Saturation{
+    Saturation {
         get {
             if(!this.HasProp("__Saturation"))
                 this.__Saturation := DXVA2_Fixed32(12, this)

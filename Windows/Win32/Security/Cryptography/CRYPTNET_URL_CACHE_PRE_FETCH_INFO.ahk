@@ -6,10 +6,8 @@
  * Contains update information used by the Cryptnet URL Cache (CUC) service to maintain a URL cache entry.
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cryptnet_url_cache_pre_fetch_info
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CRYPTNET_URL_CACHE_PRE_FETCH_INFO extends Win32Struct
-{
+class CRYPTNET_URL_CACHE_PRE_FETCH_INFO extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 4
@@ -177,7 +175,7 @@ class CRYPTNET_URL_CACHE_PRE_FETCH_INFO extends Win32Struct
      * A <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> structure that contains a date and time whose meaning depends on <b>dwObjectType</b>. For a CRL, this indicates when the CRL was published. For an OCSP response, this indicates when the indicated status is known to be correct.
      * @type {FILETIME}
      */
-    ThisUpdateTime{
+    ThisUpdateTime {
         get {
             if(!this.HasProp("__ThisUpdateTime"))
                 this.__ThisUpdateTime := FILETIME(16, this)
@@ -191,7 +189,7 @@ class CRYPTNET_URL_CACHE_PRE_FETCH_INFO extends Win32Struct
      * This is effectively an expiry date for the object. A value of zero indicates that the information has no expiration date.
      * @type {FILETIME}
      */
-    NextUpdateTime{
+    NextUpdateTime {
         get {
             if(!this.HasProp("__NextUpdateTime"))
                 this.__NextUpdateTime := FILETIME(24, this)
@@ -223,7 +221,7 @@ class CRYPTNET_URL_CACHE_PRE_FETCH_INFO extends Win32Struct
      * </table>
      * @type {FILETIME}
      */
-    PublishTime{
+    PublishTime {
         get {
             if(!this.HasProp("__PublishTime"))
                 this.__PublishTime := FILETIME(32, this)

@@ -1,14 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\System\Console\COORD.ahk
 #Include .\FSCNTL_SCREEN_INFO.ahk
+#Include ..\..\System\Console\COORD.ahk
 
 /**
  * @namespace Windows.Win32.Devices.Display
- * @version v4.0.30319
  */
-class FSVIDEO_COPY_FRAME_BUFFER extends Win32Struct
-{
+class FSVIDEO_COPY_FRAME_BUFFER extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 4
@@ -16,7 +14,7 @@ class FSVIDEO_COPY_FRAME_BUFFER extends Win32Struct
     /**
      * @type {FSCNTL_SCREEN_INFO}
      */
-    SrcScreen{
+    SrcScreen {
         get {
             if(!this.HasProp("__SrcScreen"))
                 this.__SrcScreen := FSCNTL_SCREEN_INFO(0, this)
@@ -27,7 +25,7 @@ class FSVIDEO_COPY_FRAME_BUFFER extends Win32Struct
     /**
      * @type {FSCNTL_SCREEN_INFO}
      */
-    DestScreen{
+    DestScreen {
         get {
             if(!this.HasProp("__DestScreen"))
                 this.__DestScreen := FSCNTL_SCREEN_INFO(12, this)

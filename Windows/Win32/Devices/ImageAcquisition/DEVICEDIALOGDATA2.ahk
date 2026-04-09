@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\IWiaItem2.ahk
 #Include ..\..\Foundation\HWND.ahk
 #Include ..\..\Foundation\BSTR.ahk
 
@@ -7,10 +8,8 @@
  * DEVICEDIALOGDATA2 structure - Defines the data needed to call a device dialog.
  * @see https://learn.microsoft.com/windows/win32/wia/-wia-devicedialogdata2
  * @namespace Windows.Win32.Devices.ImageAcquisition
- * @version v4.0.30319
  */
-class DEVICEDIALOGDATA2 extends Win32Struct
-{
+class DEVICEDIALOGDATA2 extends Win32Struct {
     static sizeof => 72
 
     static packingSize => 8
@@ -66,7 +65,7 @@ class DEVICEDIALOGDATA2 extends Win32Struct
      * Specifies the handle to the parent window of the dialog.
      * @type {HWND}
      */
-    hwndParent{
+    hwndParent {
         get {
             if(!this.HasProp("__hwndParent"))
                 this.__hwndParent := HWND(24, this)
@@ -81,7 +80,7 @@ class DEVICEDIALOGDATA2 extends Win32Struct
      * Specifies the folder name where the files are transferred.
      * @type {BSTR}
      */
-    bstrFolderName{
+    bstrFolderName {
         get {
             if(!this.HasProp("__bstrFolderName"))
                 this.__bstrFolderName := BSTR(32, this)
@@ -96,7 +95,7 @@ class DEVICEDIALOGDATA2 extends Win32Struct
      * Specifies the filename template to be used for files transferred from WIA items to the destination folder designated by **bstrFolderName**. An arbitrary number of unique file names can be created by appending additional characters to the file name template.
      * @type {BSTR}
      */
-    bstrFilename{
+    bstrFilename {
         get {
             if(!this.HasProp("__bstrFilename"))
                 this.__bstrFilename := BSTR(40, this)

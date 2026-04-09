@@ -5,9 +5,8 @@
  * Lists qualifier flavors.
  * @see https://learn.microsoft.com/windows/win32/api/wbemcli/ne-wbemcli-wbem_flavor_type
  * @namespace Windows.Win32.System.Wmi
- * @version v4.0.30319
  */
-class WBEM_FLAVOR_TYPE extends Win32Enum{
+class WBEM_FLAVOR_TYPE extends Win32Enum {
 
     /**
      * The qualifier is not propagated to instances or derived classes.
@@ -28,7 +27,6 @@ class WBEM_FLAVOR_TYPE extends Win32Enum{
     static WBEM_FLAVOR_FLAG_PROPAGATE_TO_DERIVED_CLASS => 2
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static WBEM_FLAVOR_MASK_PROPAGATION => 15
@@ -46,7 +44,6 @@ class WBEM_FLAVOR_TYPE extends Win32Enum{
     static WBEM_FLAVOR_NOT_OVERRIDABLE => 16
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static WBEM_FLAVOR_MASK_PERMISSIONS => 16
@@ -74,13 +71,11 @@ class WBEM_FLAVOR_TYPE extends Win32Enum{
     static WBEM_FLAVOR_ORIGIN_SYSTEM => 64
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static WBEM_FLAVOR_MASK_ORIGIN => 96
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static WBEM_FLAVOR_NOT_AMENDED => 0
@@ -92,7 +87,6 @@ class WBEM_FLAVOR_TYPE extends Win32Enum{
     static WBEM_FLAVOR_AMENDED => 128
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static WBEM_FLAVOR_MASK_AMENDED => 128

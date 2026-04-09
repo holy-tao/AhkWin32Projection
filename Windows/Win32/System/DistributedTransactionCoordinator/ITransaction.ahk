@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\XACTTRANSINFO.ahk
 #Include ..\Com\IUnknown.ahk
+#Include .\XACTTRANSINFO.ahk
 
 /**
  * Enables you to compose the work of multiple COM+ objects in a single transaction and explicitly commit or abort the transaction.
@@ -23,9 +23,8 @@
  * ```
  * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nn-comsvcs-itransactioncontext
  * @namespace Windows.Win32.System.DistributedTransactionCoordinator
- * @version v4.0.30319
  */
-class ITransaction extends IUnknown{
+class ITransaction extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -5,10 +5,8 @@
  * Contains information from a monitor's timing report.
  * @see https://learn.microsoft.com/windows/win32/api/lowlevelmonitorconfigurationapi/ns-lowlevelmonitorconfigurationapi-mc_timing_report
  * @namespace Windows.Win32.Devices.Display
- * @version v4.0.30319
  */
-class MC_TIMING_REPORT extends Win32Struct
-{
+class MC_TIMING_REPORT extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4

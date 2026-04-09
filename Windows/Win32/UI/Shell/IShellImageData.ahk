@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\System\Com\StructuredStorage\IPropertySetStorage.ahk
 #Include .\IShellImageDataAbort.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Exposes methods and properties that display, manipulate, and describe image data.
@@ -11,9 +11,8 @@
  * This interface was not included in a public header file prior to Windows Vista.
  * @see https://learn.microsoft.com/windows/win32/api/shimgdata/nn-shimgdata-ishellimagedata
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IShellImageData extends IUnknown{
+class IShellImageData extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -114,7 +113,9 @@ class IShellImageData extends IUnknown{
      * Draws a decoded image.
      * @remarks
      * If <i>prcSrc</i> is <b>NULL</b>, nothing is drawn and the method returns S_OK.
-     * @param {HDC} _hdc 
+     * @param {HDC} _hdc Type: <b>HDC</b>
+     * 
+     * The handle of the image.
      * @param {Pointer<RECT>} prcDest Type: <b>LPRECT</b>
      * 
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a>, measured in pixels, that specifies the bounds of the rendered image. The portion of the image specified by <i>prcSrc</i> is scaled to fill the rectangle specified by <i>prcDest</i>.
@@ -960,8 +961,10 @@ class IShellImageData extends IUnknown{
      * @param {Integer} cx Type: <b>ULONG</b>
      * 
      * The horizontal (x) dimension. If this value is 0, the x dimension is set to a scaled value based on the point specified in <i>cy</i>.
-     * @param {Integer} _cy 
-     * @param {Integer} hints Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/gdiplusenums/ne-gdiplusenums-interpolationmode">InterpolationMode</a></b>
+     * @param {Integer} _cy Type: <b>ULONG</b>
+     * 
+     * The vertical (y) dimension. If this value is 0, the y dimension is set to a scaled value based on the point specified in <i>cx</i>.
+     * @param {InterpolationMode} hints Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/gdiplusenums/ne-gdiplusenums-interpolationmode">InterpolationMode</a></b>
      * 
      * A member of the <a href="https://docs.microsoft.com/windows/desktop/api/gdiplusenums/ne-gdiplusenums-interpolationmode">InterpolationMode</a> enumeration, specifying the algorithm that is used when the image is scaled.
      * @returns {HRESULT} Type: <b>HRESULT</b>

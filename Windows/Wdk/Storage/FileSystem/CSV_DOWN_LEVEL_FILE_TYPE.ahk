@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem
- * @version v4.0.30319
  */
-class CSV_DOWN_LEVEL_FILE_TYPE extends Win32Enum{
+class CSV_DOWN_LEVEL_FILE_TYPE extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

@@ -1,18 +1,22 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\Variant\VARIANT.ahk
+#Include ..\Variant\VARENUM.ahk
 #Include ..\Com\CY.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\Com\IUnknown.ahk
+#Include ..\Com\IDispatch.ahk
+#Include ..\Com\SAFEARRAY.ahk
 #Include ..\..\Foundation\DECIMAL.ahk
-#Include ..\Variant\VARIANT.ahk
+#Include ..\Ole\IRecordInfo.ahk
+#Include .\MMC_PROPERTY_ACTION.ahk
 
 /**
  * The MMC_SNAPIN_PROPERTY structure is introduced in MMC 2.0.
  * @see https://learn.microsoft.com/windows/win32/api/mmcobj/ns-mmcobj-mmc_snapin_property
  * @namespace Windows.Win32.System.Mmc
- * @version v4.0.30319
  */
-class MMC_SNAPIN_PROPERTY extends Win32Struct
-{
+class MMC_SNAPIN_PROPERTY extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -30,7 +34,7 @@ class MMC_SNAPIN_PROPERTY extends Win32Struct
      * The property's value; if the property is being changed, this is the new value.
      * @type {VARIANT}
      */
-    varValue{
+    varValue {
         get {
             if(!this.HasProp("__varValue"))
                 this.__varValue := VARIANT(8, this)
@@ -41,7 +45,7 @@ class MMC_SNAPIN_PROPERTY extends Win32Struct
     /**
      * The action taking place on the property, as defined in 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mmcobj/ne-mmcobj-mmc_property_action">MMC_PROPERTY_ACTION</a>.
-     * @type {Integer}
+     * @type {MMC_PROPERTY_ACTION}
      */
     eAction {
         get => NumGet(this, 32, "int")

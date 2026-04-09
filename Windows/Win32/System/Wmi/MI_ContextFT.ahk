@@ -5,10 +5,8 @@
  * A support structure used in the MI_Context structure. Use the functions with the name prefix &quot;MI_Context_&quot; to manipulate these structures.
  * @see https://learn.microsoft.com/windows/win32/api/mi/ns-mi-mi_contextft
  * @namespace Windows.Win32.System.Wmi
- * @version v4.0.30319
  */
-class MI_ContextFT extends Win32Struct
-{
+class MI_ContextFT extends Win32Struct {
     static sizeof => 240
 
     static packingSize => 8

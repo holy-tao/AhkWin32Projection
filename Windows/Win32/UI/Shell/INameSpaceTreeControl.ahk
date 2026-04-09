@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\IShellItemArray.ahk
 #Include .\IShellItem.ahk
 #Include ..\..\Foundation\RECT.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Exposes methods used to view and manipulate nodes in a tree of Shell items.
@@ -12,9 +12,8 @@
  * To implement this interface use class ID CLSID_NameSpaceTreeControl.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-inamespacetreecontrol
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class INameSpaceTreeControl extends IUnknown{
+class INameSpaceTreeControl extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -304,7 +303,7 @@ class INameSpaceTreeControl extends IUnknown{
      * @param {IShellItem} psi Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a>*</b>
      * 
      * The Shell item for which the next item is being retrieved. This value can be <b>NULL</b>.
-     * @param {Integer} nstcgi Type: <b>NSTCGNI</b>
+     * @param {NSTCGNI} nstcgi Type: <b>NSTCGNI</b>
      * 
      * The type of the next item. This value can be one of the following flags:
      * @returns {IShellItem} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a>**</b>

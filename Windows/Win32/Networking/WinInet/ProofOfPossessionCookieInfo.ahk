@@ -2,21 +2,15 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * 
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/proofofpossessioncookieinfo/ns-proofofpossessioncookieinfo-proofofpossessioncookieinfo
  * @namespace Windows.Win32.Networking.WinInet
- * @version v4.0.30319
  */
-class ProofOfPossessionCookieInfo extends Win32Struct
-{
+class ProofOfPossessionCookieInfo extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
 
     /**
-     * 
      * @type {PWSTR}
      */
     name {
@@ -25,7 +19,6 @@ class ProofOfPossessionCookieInfo extends Win32Struct
     }
 
     /**
-     * 
      * @type {PWSTR}
      */
     data {
@@ -43,7 +36,6 @@ class ProofOfPossessionCookieInfo extends Win32Struct
     }
 
     /**
-     * 
      * @type {PWSTR}
      */
     p3pHeader {

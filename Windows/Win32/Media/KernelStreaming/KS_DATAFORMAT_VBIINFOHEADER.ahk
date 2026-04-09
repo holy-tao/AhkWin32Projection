@@ -5,10 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
- * @version v4.0.30319
  */
-class KS_DATAFORMAT_VBIINFOHEADER extends Win32Struct
-{
+class KS_DATAFORMAT_VBIINFOHEADER extends Win32Struct {
     static sizeof => 96
 
     static packingSize => 8
@@ -16,7 +14,7 @@ class KS_DATAFORMAT_VBIINFOHEADER extends Win32Struct
     /**
      * @type {KSDATAFORMAT}
      */
-    DataFormat{
+    DataFormat {
         get {
             if(!this.HasProp("__DataFormat"))
                 this.__DataFormat := KSDATAFORMAT(0, this)
@@ -27,7 +25,7 @@ class KS_DATAFORMAT_VBIINFOHEADER extends Win32Struct
     /**
      * @type {KS_VBIINFOHEADER}
      */
-    VBIInfoHeader{
+    VBIInfoHeader {
         get {
             if(!this.HasProp("__VBIInfoHeader"))
                 this.__VBIInfoHeader := KS_VBIINFOHEADER(48, this)

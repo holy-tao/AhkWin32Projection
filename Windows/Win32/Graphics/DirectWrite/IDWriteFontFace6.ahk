@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IDWriteLocalizedStrings.ahk
 #Include .\IDWriteFontFace5.ahk
+#Include .\IDWriteLocalizedStrings.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.DirectWrite
- * @version v4.0.30319
  */
-class IDWriteFontFace6 extends IDWriteFontFace5{
+class IDWriteFontFace6 extends IDWriteFontFace5 {
 
     static sizeof => A_PtrSize
     /**
@@ -31,7 +30,7 @@ class IDWriteFontFace6 extends IDWriteFontFace5{
 
     /**
      * 
-     * @param {Integer} fontFamilyModel 
+     * @param {DWRITE_FONT_FAMILY_MODEL} fontFamilyModel 
      * @returns {IDWriteLocalizedStrings} 
      */
     GetFamilyNames(fontFamilyModel) {
@@ -41,7 +40,7 @@ class IDWriteFontFace6 extends IDWriteFontFace5{
 
     /**
      * 
-     * @param {Integer} fontFamilyModel 
+     * @param {DWRITE_FONT_FAMILY_MODEL} fontFamilyModel 
      * @returns {IDWriteLocalizedStrings} 
      */
     GetFaceNames(fontFamilyModel) {

@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Com\StructuredStorage\IPropertyBag.ahk
 #Include ..\Com\IUnknown.ahk
+#Include ..\Com\StructuredStorage\IPropertyBag.ahk
 
 /**
  * Manages configuration settings for each listener for the dynamic virtual channel (DVC) connection.
  * @see https://learn.microsoft.com/windows/win32/api/tsvirtualchannels/nn-tsvirtualchannels-iwtslistener
  * @namespace Windows.Win32.System.RemoteDesktop
- * @version v4.0.30319
  */
-class IWTSListener extends IUnknown{
+class IWTSListener extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\STORAGE_CRYPTO_ALGORITHM_ID.ahk
+#Include .\STORAGE_CRYPTO_KEY_SIZE.ahk
 #Include .\STORAGE_SECURITY_COMPLIANCE_BITMASK.ahk
 
 /**
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class STORAGE_CRYPTO_CAPABILITY_V2 extends Win32Struct
-{
+class STORAGE_CRYPTO_CAPABILITY_V2 extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 4
@@ -37,7 +37,7 @@ class STORAGE_CRYPTO_CAPABILITY_V2 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {STORAGE_CRYPTO_ALGORITHM_ID}
      */
     AlgorithmId {
         get => NumGet(this, 12, "int")
@@ -45,7 +45,7 @@ class STORAGE_CRYPTO_CAPABILITY_V2 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {STORAGE_CRYPTO_KEY_SIZE}
      */
     KeySize {
         get => NumGet(this, 16, "int")
@@ -79,7 +79,7 @@ class STORAGE_CRYPTO_CAPABILITY_V2 extends Win32Struct
     /**
      * @type {STORAGE_SECURITY_COMPLIANCE_BITMASK}
      */
-    SecurityComplianceBitmask{
+    SecurityComplianceBitmask {
         get {
             if(!this.HasProp("__SecurityComplianceBitmask"))
                 this.__SecurityComplianceBitmask := STORAGE_SECURITY_COMPLIANCE_BITMASK(28, this)

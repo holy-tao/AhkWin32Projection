@@ -15,9 +15,8 @@
  * The global interface table is not portable across process or machine boundaries, so it cannot be used in place of the normal parameter-passing mechanism.
  * @see https://learn.microsoft.com/windows/win32/api/objidl/nn-objidl-iglobalinterfacetable
  * @namespace Windows.Win32.System.Com
- * @version v4.0.30319
  */
-class IGlobalInterfaceTable extends IUnknown{
+class IGlobalInterfaceTable extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -7,9 +7,8 @@
  * The ITextServices2 interface extends the ITextServices interface.
  * @see https://learn.microsoft.com/windows/win32/api/textserv/nl-textserv-itextservices2
  * @namespace Windows.Win32.UI.Controls.RichEdit
- * @version v4.0.30319
  */
-class ITextServices2 extends ITextServices{
+class ITextServices2 extends ITextServices {
 
     static sizeof => A_PtrSize
 

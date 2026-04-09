@@ -3,7 +3,6 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Rras
- * @version v4.0.30319
  */
 class Rras {
 
@@ -3803,7 +3802,7 @@ class Rras {
      * 
      * 
      * ```cpp
-     * @param {Pointer} param0 
+     * @param {Integer} param0 
      * @param {Pointer<Integer>} param1 
      * @param {Pointer<Integer>} param2 
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
@@ -3847,7 +3846,7 @@ class Rras {
      * 
      * 
      * ```cpp
-     * @param {Pointer} param0 
+     * @param {Integer} param0 
      * @param {Pointer<Integer>} param1 
      * @param {Pointer<Integer>} param2 
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
@@ -4355,7 +4354,7 @@ class Rras {
      * > [!NOTE]
      * > The ras.h header defines RasGetProjectionInfo as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HRASCONN} param0 
-     * @param {Integer} param1 
+     * @param {RASPROJECTION} param1 
      * @param {Pointer<Void>} param2 
      * @param {Pointer<Integer>} param3 
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
@@ -4455,7 +4454,7 @@ class Rras {
      * > [!NOTE]
      * > The ras.h header defines RasGetProjectionInfo as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HRASCONN} param0 
-     * @param {Integer} param1 
+     * @param {RASPROJECTION} param1 
      * @param {Pointer<Void>} param2 
      * @param {Pointer<Integer>} param3 
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
@@ -7605,7 +7604,7 @@ class Rras {
      * 
      * 
      * ```cpp
-     * @param {Pointer} lppRasAutodialAddresses Pointer to an array of string pointers, with additional space for the storage of the strings themselves at the end of the buffer. 
+     * @param {Integer} lppRasAutodialAddresses Pointer to an array of string pointers, with additional space for the storage of the strings themselves at the end of the buffer. 
      * 
      * 
      * 
@@ -7675,7 +7674,7 @@ class Rras {
      * 
      * 
      * ```cpp
-     * @param {Pointer} lppRasAutodialAddresses Pointer to an array of string pointers, with additional space for the storage of the strings themselves at the end of the buffer. 
+     * @param {Integer} lppRasAutodialAddresses Pointer to an array of string pointers, with additional space for the storage of the strings themselves at the end of the buffer. 
      * 
      * 
      * 
@@ -8092,7 +8091,9 @@ class Rras {
 
     /**
      * The RasGetLinkStatistics function retrieves accumulated statistics for the specified link in a RAS multilink connection.
-     * @param {HRASCONN} _hRasConn 
+     * @param {HRASCONN} _hRasConn Handle to the connection. Use 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasdiala">RasDial</a> or 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasenumconnectionsa">RasEnumConnections</a> to obtain this handle.
      * @param {Integer} dwSubEntry Specifies the subentry that corresponds to the link for which to retrieve statistics.
      * @param {Pointer<RAS_STATS>} lpStatistics Pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ras/ns-ras-ras_stats">RAS_STATS</a> structure that, on output, receives the statistics. 
@@ -8161,7 +8162,7 @@ class Rras {
 
     /**
      * The RasGetConnectionStatistics function retrieves accumulated connection statistics for the specified connection.
-     * @param {HRASCONN} _hRasConn 
+     * @param {HRASCONN} _hRasConn Handle to the connection. Use <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasdiala">RasDial</a> or <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasenumconnectionsa">RasEnumConnections</a> to obtain this handle.
      * @param {Pointer<RAS_STATS>} lpStatistics Pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ras/ns-ras-ras_stats">RAS_STATS</a> structure that, on output, receives the statistics. 
      * 
@@ -8228,7 +8229,9 @@ class Rras {
 
     /**
      * The RasClearLinkStatistics functions clears any accumulated statistics for the specified link in a RAS multilink connection.
-     * @param {HRASCONN} _hRasConn 
+     * @param {HRASCONN} _hRasConn Handle to the connection. Use 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasdiala">RasDial</a> or 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasenumconnectionsa">RasEnumConnections</a> to obtain this handle.
      * @param {Integer} dwSubEntry Specifies the subentry that corresponds to the link for which to clear statistics.
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
@@ -8308,7 +8311,9 @@ class Rras {
 
     /**
      * The RasClearConnectionStatistics functions clears any accumulated statistics for the specified RAS connection.
-     * @param {HRASCONN} _hRasConn 
+     * @param {HRASCONN} _hRasConn Handle to the connection. Use 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasdiala">RasDial</a> or 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasenumconnectionsa">RasEnumConnections</a> to obtain this handle.
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
      * If the function fails, the return value is one of the following error codes or a value from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
@@ -8726,7 +8731,7 @@ class Rras {
      * > The ras.h header defines RasGetCustomAuthData as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PSTR} pszPhonebook Pointer to a <b>null</b>-terminated string that specifies the full path of the phone-book (PBK) file. If this parameter is <b>NULL</b>, the function  uses the system phone book.
      * @param {PSTR} pszEntry Pointer to a <b>null</b>-terminated string that specifies an existing entry name.
-     * @param {Pointer} pbCustomAuthData Pointer to a buffer that receives the authentication data. The caller should allocate the memory for this buffer. If the buffer is not large enough, 
+     * @param {Integer} pbCustomAuthData Pointer to a buffer that receives the authentication data. The caller should allocate the memory for this buffer. If the buffer is not large enough, 
      * <b>RasGetCustomAuthData</b>  returns ERROR_BUFFER_TOO_SMALL, and the <i>pdwSizeofEapData</i> parameter  contains the required size.
      * @param {Pointer<Integer>} pdwSizeofCustomAuthData Pointer to a <b>DWORD</b> variable that, on input, specifies the size of the buffer pointed to by the <i>pbCustomAuthData</i> parameter. 
      * 
@@ -8822,7 +8827,7 @@ class Rras {
      * > The ras.h header defines RasGetCustomAuthData as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PWSTR} pszPhonebook Pointer to a <b>null</b>-terminated string that specifies the full path of the phone-book (PBK) file. If this parameter is <b>NULL</b>, the function  uses the system phone book.
      * @param {PWSTR} pszEntry Pointer to a <b>null</b>-terminated string that specifies an existing entry name.
-     * @param {Pointer} pbCustomAuthData Pointer to a buffer that receives the authentication data. The caller should allocate the memory for this buffer. If the buffer is not large enough, 
+     * @param {Integer} pbCustomAuthData Pointer to a buffer that receives the authentication data. The caller should allocate the memory for this buffer. If the buffer is not large enough, 
      * <b>RasGetCustomAuthData</b>  returns ERROR_BUFFER_TOO_SMALL, and the <i>pdwSizeofEapData</i> parameter  contains the required size.
      * @param {Pointer<Integer>} pdwSizeofCustomAuthData Pointer to a <b>DWORD</b> variable that, on input, specifies the size of the buffer pointed to by the <i>pbCustomAuthData</i> parameter. 
      * 
@@ -8918,7 +8923,7 @@ class Rras {
      * > The ras.h header defines RasSetCustomAuthData as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PSTR} pszPhonebook Pointer to a <b>null</b>-terminated string that specifies the full path of the phone-book (PBK) file. If this parameter is <b>NULL</b>, the function  uses the system phone book.
      * @param {PSTR} pszEntry Pointer to a <b>null</b>-terminated string that specifies an existing entry name.
-     * @param {Pointer} pbCustomAuthData Pointer to a buffer that specifies the new authentication data.
+     * @param {Integer} pbCustomAuthData Pointer to a buffer that specifies the new authentication data.
      * @param {Integer} dwSizeofCustomAuthData Specifies the size of the data pointed to by the <i>pbCustomAuthData</i> parameter.
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
@@ -8995,7 +9000,7 @@ class Rras {
      * > The ras.h header defines RasSetCustomAuthData as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PWSTR} pszPhonebook Pointer to a <b>null</b>-terminated string that specifies the full path of the phone-book (PBK) file. If this parameter is <b>NULL</b>, the function  uses the system phone book.
      * @param {PWSTR} pszEntry Pointer to a <b>null</b>-terminated string that specifies an existing entry name.
-     * @param {Pointer} pbCustomAuthData Pointer to a buffer that specifies the new authentication data.
+     * @param {Integer} pbCustomAuthData Pointer to a buffer that specifies the new authentication data.
      * @param {Integer} dwSizeofCustomAuthData Specifies the size of the data pointed to by the <i>pbCustomAuthData</i> parameter.
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
@@ -9127,7 +9132,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @param {HWND} _hwnd 
+     * @param {HWND} _hwnd Handle to the parent window for the UI dialog. If the <i>fInvokeUI</i> parameter is <b>FALSE</b>, then <i>hwnd</i> should be <b>NULL</b>.
      * @param {Pointer<Pointer<RASEAPUSERIDENTITYW>>} ppRasEapUserIdentity Pointer to a pointer that, on successful return, receives the address of the 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377247(v=vs.85)">RASEAPUSERIDENTITY</a> structure that contains EAP user identity information. 
      * <b>RasGetEapUserIdentity</b> allocates the memory buffer for the 
@@ -9276,7 +9281,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @param {HWND} _hwnd 
+     * @param {HWND} _hwnd Handle to the parent window for the UI dialog. If the <i>fInvokeUI</i> parameter is <b>FALSE</b>, then <i>hwnd</i> should be <b>NULL</b>.
      * @param {Pointer<Pointer<RASEAPUSERIDENTITYA>>} ppRasEapUserIdentity Pointer to a pointer that, on successful return, receives the address of the 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377247(v=vs.85)">RASEAPUSERIDENTITY</a> structure that contains EAP user identity information. 
      * <b>RasGetEapUserIdentity</b> allocates the memory buffer for the 
@@ -9457,7 +9462,9 @@ class Rras {
      * The RasUpdateConnection function updates the tunnel endpoints of an Internet Key Exchange version 2 (IKEv2) connection.
      * @remarks
      * Note that 32-bit applications that call <b>RasUpdateConnection</b> will fail when run on a 64-bit machine. The workaround is to write a 64-bit version of the application for 64-bit machines.
-     * @param {HRASCONN} _hrasconn 
+     * @param {HRASCONN} _hrasconn A handle to the IKEv2 RAS connection for which the tunnel endpoints are to be changed. This can be a handle returned by the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasdiala">RasDial</a> or 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasenumconnectionsa">RasEnumConnections</a> function.
      * @param {Pointer<RASUPDATECONN>} lprasupdateconn A pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/dd408110(v=vs.85)">RASUPDATECONN</a> structure that contains the new tunnel endpoints  for the RAS connection specified by <i>hrasconn</i>.
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
@@ -9479,7 +9486,9 @@ class Rras {
      * 
      * Remote access projection information is not available until the operating system has executed the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa376727(v=vs.85)">RASCS_Projected</a> state on the remote access connection. If 
      * <b>RasGetProjectionInfoEx</b> is called prior to the <b>RASCS_Projected</b> state, it returns <b>ERROR_PROJECTION_NOT_COMPLETE</b>.
-     * @param {HRASCONN} _hrasconn 
+     * @param {HRASCONN} _hrasconn A handle to the RAS connection for which the tunnel endpoints are to be changed. This can be a handle returned by the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasdiala">RasDial</a> or 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasenumconnectionsa">RasEnumConnections</a> function.
      * @param {Pointer<RAS_PROJECTION_INFO>} pRasProjection A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/ras/ns-ras-ras_projection_info">RAS_PROJECTION_INFO</a> structure that receives the projection information for the RAS connections.
      * @param {Pointer<Integer>} lpdwSize A pointer, in input, that specifies the size, in bytes, of the buffer pointed to by pRasProjection. On output, this variable receives the size, in bytes, of the buffer needed to store the number of <a href="https://docs.microsoft.com/windows/desktop/api/ras/ns-ras-ras_projection_info">RAS_PROJECTION_INFO</a> structures pointed to by 
      * 					<i>pRasProjection</i>.
@@ -16495,10 +16504,10 @@ class Rras {
      * </tr>
      * </table>
      * @param {PWSTR} lpwsTransportName Pointer to a <b>null</b>-terminated Unicode string that specifies the name of the transport being added. If this parameter is not specified, the <i>dwTransportId</i> parameter is converted into a string and used as the transport name.
-     * @param {Pointer} pGlobalInfo Pointer to an information header that specifies global information for the transport. The router manager for the transport interprets this information. Use the 
+     * @param {Integer} pGlobalInfo Pointer to an information header that specifies global information for the transport. The router manager for the transport interprets this information. Use the 
      * <a href="https://docs.microsoft.com/windows/desktop/RRAS/router-information-functions">Information Header Functions</a> to manipulate information headers.
      * @param {Integer} dwGlobalInfoSize Specifies the size, in bytes, of the data pointed to by the <i>pGlobalInfo</i> parameter.
-     * @param {Pointer} pClientInterfaceInfo Pointer to an information header that specifies default interface information for client routers. This information is used to configure dynamic interfaces for client routers for this transport. Use the 
+     * @param {Integer} pClientInterfaceInfo Pointer to an information header that specifies default interface information for client routers. This information is used to configure dynamic interfaces for client routers for this transport. Use the 
      * <a href="https://docs.microsoft.com/windows/desktop/RRAS/router-information-functions">Information Header Functions</a> to manipulate information headers. 
      * 
      * 
@@ -16758,7 +16767,7 @@ class Rras {
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mprconfigtransportcreate">MprConfigTransportCreate</a>, 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mprconfigtransportgethandle">MprConfigTransportGetHandle</a>, or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mprconfigtransportenum">MprConfigTransportEnum</a>. Supported transport protocol types are listed on <a href="https://docs.microsoft.com/windows/desktop/RRAS/transport-identifiers">Transport Identifiers</a>.
-     * @param {Pointer} pGlobalInfo Pointer to an information header that specifies global information for the transport protocol. The router manager for the transport interprets this information. Use the 
+     * @param {Integer} pGlobalInfo Pointer to an information header that specifies global information for the transport protocol. The router manager for the transport interprets this information. Use the 
      * <a href="https://docs.microsoft.com/windows/desktop/RRAS/router-information-functions">Information Header Functions</a> to manipulate information headers. 
      * 
      * 
@@ -16766,7 +16775,7 @@ class Rras {
      * 
      * This parameter is optional; the calling application may specify <b>NULL</b> for this parameter.
      * @param {Integer} dwGlobalInfoSize Specifies the size, in bytes, of the data pointed to by <i>pGlobalInfo</i>. If the calling application specifies <b>NULL</b> for <i>pGlobalInfo</i>, the calling application should specify zero for this parameter.
-     * @param {Pointer} pClientInterfaceInfo Pointer to an information header that specifies default interface information for client routers. The information is used to configure dynamic interfaces for client routers for this transport. Use the 
+     * @param {Integer} pClientInterfaceInfo Pointer to an information header that specifies default interface information for client routers. The information is used to configure dynamic interfaces for client routers for this transport. Use the 
      * <a href="https://docs.microsoft.com/windows/desktop/RRAS/router-information-functions">Information Header Functions</a> to manipulate information headers. 
      * 
      * 
@@ -17727,7 +17736,7 @@ class Rras {
      * @param {PWSTR} lpwsTransportName Pointer to a <b>null</b>-terminated Unicode string that specifies the name for the transport being added. If this parameter is not specified and the transport is IP or IPX, 
      * <b>MprConfigInterfaceTransportAdd</b> uses IP or IPX. If this parameter is not specified and the transport is other than IP or IPX, 
      * <b>MprConfigInterfaceTransportAdd</b> converts the <i>dwTransportId</i> parameter into a string and uses that as the transport name.
-     * @param {Pointer} pInterfaceInfo Pointer to an information header that contains information for the specified interface and transport. The router manager for the specified transport interprets this information. Use the 
+     * @param {Integer} pInterfaceInfo Pointer to an information header that contains information for the specified interface and transport. The router manager for the specified transport interprets this information. Use the 
      * <a href="https://docs.microsoft.com/windows/desktop/RRAS/router-information-functions">Information Header Functions</a> to manipulate information headers.
      * @param {Integer} dwInterfaceInfoSize Specifies the size, in bytes, of the data pointed to by <i>pInterfaceInfo</i>.
      * @param {Pointer<HANDLE>} phRouterIfTransport A pointer to a  
@@ -18105,7 +18114,7 @@ class Rras {
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mprconfiginterfacetransportadd">MprConfigInterfaceTransportAdd</a>, 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mprconfiginterfacetransportgethandle">MprConfigInterfaceTransportGetHandle</a>, or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mprconfiginterfacetransportenum">MprConfigInterfaceTransportEnum</a>. Supported transport protocol types are listed on <a href="https://docs.microsoft.com/windows/desktop/RRAS/transport-identifiers">Transport Identifiers</a>.
-     * @param {Pointer} pInterfaceInfo Pointer to an information header that contains configuration information for the client on the specified interface and transport. The router manager for the specified transport interprets this information. Use the 
+     * @param {Integer} pInterfaceInfo Pointer to an information header that contains configuration information for the client on the specified interface and transport. The router manager for the specified transport interprets this information. Use the 
      * <a href="https://docs.microsoft.com/windows/desktop/RRAS/router-information-functions">Information Header Functions</a> to manipulate information headers. 
      * 
      * 
@@ -18304,7 +18313,7 @@ class Rras {
      * @param {HANDLE} hMprConfig Handle to the router configuration. Obtain this handle by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mprconfigserverconnect">MprConfigServerConnect</a>.
      * @param {PWSTR} pszGuidName Pointer to a <b>null</b>-terminated Unicode string that specifies the GUID name for the interface.
-     * @param {Pointer} pszBuffer Pointer to a buffer that receives the friendly name for the interface.
+     * @param {Integer} pszBuffer Pointer to a buffer that receives the friendly name for the interface.
      * @param {Integer} dwBufferSize Specifies the size, in bytes, of the buffer pointed to by <i>pszBuffer</i>.
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
      * 
@@ -18369,7 +18378,7 @@ class Rras {
      * @param {HANDLE} hMprConfig Handle to the router configuration. Obtain this handle by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mprconfigserverconnect">MprConfigServerConnect</a>.
      * @param {PWSTR} pszFriendlyName Pointer to a Unicode string that specifies the friendly name for the interface.
-     * @param {Pointer} pszBuffer Pointer to a buffer that receives the GUID name for the interface.
+     * @param {Integer} pszBuffer Pointer to a buffer that receives the GUID name for the interface.
      * @param {Integer} dwBufferSize Specifies the size, in bytes, of the buffer pointed to by <i>pszBuffer</i>.
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
      * 
@@ -20293,7 +20302,7 @@ class Rras {
      * The MgmGroupEnumerationStart function obtains an enumeration handle that is later used to obtain the list of groups that have been joined. After the client obtains the handle, it should use the MgmGroupEnumerationGetNext function to enumerate the groups.
      * @param {HANDLE} hProtocol Handle to the protocol obtained from a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mgm/nf-mgm-mgmregistermprotocol">MgmRegisterMProtocol</a>.
-     * @param {Integer} metEnumType Specifies the type of enumeration. The following enumerations are available. 
+     * @param {MGM_ENUM_TYPES} metEnumType Specifies the type of enumeration. The following enumerations are available. 
      * 
      * 
      * 
@@ -21027,7 +21036,8 @@ class Rras {
      * @param {Pointer} RtmRegHandle Handle to the client obtained from a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rtmv2/nf-rtmv2-rtmregisterentity">RtmRegisterEntity</a>.
      * @param {Pointer} EntityHandle Handle to the client whose methods are being invoked.
-     * @param {Pointer<RTM_ENTITY_METHOD_INPUT>} _Input 
+     * @param {Pointer<RTM_ENTITY_METHOD_INPUT>} _Input Pointer to an 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/rtmv2/ns-rtmv2-rtm_entity_method_input">RTM_ENTITY_METHOD_INPUT</a> structure that contains the method to be invoked and a common input buffer.
      * @param {Pointer<Integer>} OutputSize On input, <i>OutputSize</i> is a pointer to a <b>UINT</b> value that specifies the size, in bytes, of <i>Output</i>. 
      * 
      * 
@@ -22851,7 +22861,8 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<RTM_NET_ADDRESS>} _NetAddress 
+     * @param {Pointer<RTM_NET_ADDRESS>} _NetAddress Pointer to an 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/rtmv2/ns-rtmv2-rtm_net_address">RTM_NET_ADDRESS</a> structure that contains the starting address of the enumeration. Specify <b>NULL</b> if <i>EnumFlags</i> contains RTM_ENUM_START.
      * @param {Integer} ProtocolId Specifies the protocol identifier used to determine the best route information returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rtmv2/nf-rtmv2-rtmgetenumdests">RtmGetEnumDests</a> function. The <i>ProtocolID</i> is not part of the search criteria. The routing table manager uses this identifier to determine which route information to return (for example, if a client specifies the RIP protocol identifier, the best RIP route is returned, even if a non-RIP route is the best route to the destination). 
      * 
@@ -23485,7 +23496,8 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<RTM_NET_ADDRESS>} _NetAddress 
+     * @param {Pointer<RTM_NET_ADDRESS>} _NetAddress Pointer to an 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/rtmv2/ns-rtmv2-rtm_net_address">RTM_NET_ADDRESS</a> structure that contains the starting address of the enumeration. Specify <b>NULL</b> if <i>EnumFlags</i> contains RTM_ENUM_START.
      * @param {Pointer<Pointer>} RtmEnumHandle On input, <i>RtmEnumHandle</i> is a pointer to <b>NULL</b>. 
      * 
      * 

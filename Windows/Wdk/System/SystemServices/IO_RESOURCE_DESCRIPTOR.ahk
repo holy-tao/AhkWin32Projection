@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\IRQ_DEVICE_POLICY.ahk
+#Include .\IRQ_PRIORITY.ahk
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class IO_RESOURCE_DESCRIPTOR extends Win32Struct
-{
+class IO_RESOURCE_DESCRIPTOR extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -18,7 +18,7 @@ class IO_RESOURCE_DESCRIPTOR extends Win32Struct
         class _Port extends Win32Struct {
             static sizeof => 24
             static packingSize => 8
-    
+
             /**
              * @type {Integer}
              */
@@ -26,7 +26,7 @@ class IO_RESOURCE_DESCRIPTOR extends Win32Struct
                 get => NumGet(this, 0, "uint")
                 set => NumPut("uint", value, this, 0)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -34,7 +34,7 @@ class IO_RESOURCE_DESCRIPTOR extends Win32Struct
                 get => NumGet(this, 4, "uint")
                 set => NumPut("uint", value, this, 4)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -42,7 +42,7 @@ class IO_RESOURCE_DESCRIPTOR extends Win32Struct
                 get => NumGet(this, 8, "int64")
                 set => NumPut("int64", value, this, 8)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -50,13 +50,12 @@ class IO_RESOURCE_DESCRIPTOR extends Win32Struct
                 get => NumGet(this, 16, "int64")
                 set => NumPut("int64", value, this, 16)
             }
-        
         }
-    
+
         class _Memory extends Win32Struct {
             static sizeof => 24
             static packingSize => 8
-    
+
             /**
              * @type {Integer}
              */
@@ -64,7 +63,7 @@ class IO_RESOURCE_DESCRIPTOR extends Win32Struct
                 get => NumGet(this, 0, "uint")
                 set => NumPut("uint", value, this, 0)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -72,7 +71,7 @@ class IO_RESOURCE_DESCRIPTOR extends Win32Struct
                 get => NumGet(this, 4, "uint")
                 set => NumPut("uint", value, this, 4)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -80,7 +79,7 @@ class IO_RESOURCE_DESCRIPTOR extends Win32Struct
                 get => NumGet(this, 8, "int64")
                 set => NumPut("int64", value, this, 8)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -88,13 +87,12 @@ class IO_RESOURCE_DESCRIPTOR extends Win32Struct
                 get => NumGet(this, 16, "int64")
                 set => NumPut("int64", value, this, 16)
             }
-        
         }
-    
+
         class _Interrupt extends Win32Struct {
             static sizeof => 24
             static packingSize => 8
-    
+
             /**
              * @type {Integer}
              */
@@ -102,7 +100,7 @@ class IO_RESOURCE_DESCRIPTOR extends Win32Struct
                 get => NumGet(this, 0, "uint")
                 set => NumPut("uint", value, this, 0)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -110,23 +108,23 @@ class IO_RESOURCE_DESCRIPTOR extends Win32Struct
                 get => NumGet(this, 4, "uint")
                 set => NumPut("uint", value, this, 4)
             }
-        
+
             /**
-             * @type {Integer}
+             * @type {IRQ_DEVICE_POLICY}
              */
             AffinityPolicy {
                 get => NumGet(this, 8, "int")
                 set => NumPut("int", value, this, 8)
             }
-        
+
             /**
-             * @type {Integer}
+             * @type {IRQ_PRIORITY}
              */
             PriorityPolicy {
                 get => NumGet(this, 12, "int")
                 set => NumPut("int", value, this, 12)
             }
-        
+
             /**
              * @type {Pointer}
              */
@@ -134,13 +132,12 @@ class IO_RESOURCE_DESCRIPTOR extends Win32Struct
                 get => NumGet(this, 16, "ptr")
                 set => NumPut("ptr", value, this, 16)
             }
-        
         }
-    
+
         class _Dma extends Win32Struct {
             static sizeof => 8
             static packingSize => 4
-    
+
             /**
              * @type {Integer}
              */
@@ -148,7 +145,7 @@ class IO_RESOURCE_DESCRIPTOR extends Win32Struct
                 get => NumGet(this, 0, "uint")
                 set => NumPut("uint", value, this, 0)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -156,13 +153,12 @@ class IO_RESOURCE_DESCRIPTOR extends Win32Struct
                 get => NumGet(this, 4, "uint")
                 set => NumPut("uint", value, this, 4)
             }
-        
         }
-    
+
         class _DmaV3 extends Win32Struct {
             static sizeof => 16
             static packingSize => 4
-    
+
             /**
              * @type {Integer}
              */
@@ -170,7 +166,7 @@ class IO_RESOURCE_DESCRIPTOR extends Win32Struct
                 get => NumGet(this, 0, "uint")
                 set => NumPut("uint", value, this, 0)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -178,7 +174,7 @@ class IO_RESOURCE_DESCRIPTOR extends Win32Struct
                 get => NumGet(this, 4, "uint")
                 set => NumPut("uint", value, this, 4)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -186,7 +182,7 @@ class IO_RESOURCE_DESCRIPTOR extends Win32Struct
                 get => NumGet(this, 8, "uint")
                 set => NumPut("uint", value, this, 8)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -194,13 +190,12 @@ class IO_RESOURCE_DESCRIPTOR extends Win32Struct
                 get => NumGet(this, 12, "uint")
                 set => NumPut("uint", value, this, 12)
             }
-        
         }
-    
+
         class _Generic extends Win32Struct {
             static sizeof => 24
             static packingSize => 8
-    
+
             /**
              * @type {Integer}
              */
@@ -208,7 +203,7 @@ class IO_RESOURCE_DESCRIPTOR extends Win32Struct
                 get => NumGet(this, 0, "uint")
                 set => NumPut("uint", value, this, 0)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -216,7 +211,7 @@ class IO_RESOURCE_DESCRIPTOR extends Win32Struct
                 get => NumGet(this, 4, "uint")
                 set => NumPut("uint", value, this, 4)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -224,7 +219,7 @@ class IO_RESOURCE_DESCRIPTOR extends Win32Struct
                 get => NumGet(this, 8, "int64")
                 set => NumPut("int64", value, this, 8)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -232,30 +227,28 @@ class IO_RESOURCE_DESCRIPTOR extends Win32Struct
                 get => NumGet(this, 16, "int64")
                 set => NumPut("int64", value, this, 16)
             }
-        
         }
-    
+
         class _DevicePrivate extends Win32Struct {
             static sizeof => 12
             static packingSize => 4
-    
+
             /**
-             * @type {Array<UInt32>}
+             * @type {Array<Integer>}
              */
-            Data{
+            Data {
                 get {
                     if(!this.HasProp("__DataProxyArray"))
                         this.__DataProxyArray := Win32FixedArray(this.ptr + 0, 3, Primitive, "uint")
                     return this.__DataProxyArray
                 }
             }
-        
         }
-    
+
         class _BusNumber extends Win32Struct {
             static sizeof => 16
             static packingSize => 4
-    
+
             /**
              * @type {Integer}
              */
@@ -263,7 +256,7 @@ class IO_RESOURCE_DESCRIPTOR extends Win32Struct
                 get => NumGet(this, 0, "uint")
                 set => NumPut("uint", value, this, 0)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -271,7 +264,7 @@ class IO_RESOURCE_DESCRIPTOR extends Win32Struct
                 get => NumGet(this, 4, "uint")
                 set => NumPut("uint", value, this, 4)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -279,7 +272,7 @@ class IO_RESOURCE_DESCRIPTOR extends Win32Struct
                 get => NumGet(this, 8, "uint")
                 set => NumPut("uint", value, this, 8)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -287,13 +280,12 @@ class IO_RESOURCE_DESCRIPTOR extends Win32Struct
                 get => NumGet(this, 12, "uint")
                 set => NumPut("uint", value, this, 12)
             }
-        
         }
-    
+
         class _ConfigData extends Win32Struct {
             static sizeof => 12
             static packingSize => 4
-    
+
             /**
              * @type {Integer}
              */
@@ -301,7 +293,7 @@ class IO_RESOURCE_DESCRIPTOR extends Win32Struct
                 get => NumGet(this, 0, "uint")
                 set => NumPut("uint", value, this, 0)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -309,7 +301,7 @@ class IO_RESOURCE_DESCRIPTOR extends Win32Struct
                 get => NumGet(this, 4, "uint")
                 set => NumPut("uint", value, this, 4)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -317,13 +309,12 @@ class IO_RESOURCE_DESCRIPTOR extends Win32Struct
                 get => NumGet(this, 8, "uint")
                 set => NumPut("uint", value, this, 8)
             }
-        
         }
-    
+
         class _Memory40 extends Win32Struct {
             static sizeof => 24
             static packingSize => 8
-    
+
             /**
              * @type {Integer}
              */
@@ -331,7 +322,7 @@ class IO_RESOURCE_DESCRIPTOR extends Win32Struct
                 get => NumGet(this, 0, "uint")
                 set => NumPut("uint", value, this, 0)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -339,7 +330,7 @@ class IO_RESOURCE_DESCRIPTOR extends Win32Struct
                 get => NumGet(this, 4, "uint")
                 set => NumPut("uint", value, this, 4)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -347,7 +338,7 @@ class IO_RESOURCE_DESCRIPTOR extends Win32Struct
                 get => NumGet(this, 8, "int64")
                 set => NumPut("int64", value, this, 8)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -355,13 +346,12 @@ class IO_RESOURCE_DESCRIPTOR extends Win32Struct
                 get => NumGet(this, 16, "int64")
                 set => NumPut("int64", value, this, 16)
             }
-        
         }
-    
+
         class _Memory48 extends Win32Struct {
             static sizeof => 24
             static packingSize => 8
-    
+
             /**
              * @type {Integer}
              */
@@ -369,7 +359,7 @@ class IO_RESOURCE_DESCRIPTOR extends Win32Struct
                 get => NumGet(this, 0, "uint")
                 set => NumPut("uint", value, this, 0)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -377,7 +367,7 @@ class IO_RESOURCE_DESCRIPTOR extends Win32Struct
                 get => NumGet(this, 4, "uint")
                 set => NumPut("uint", value, this, 4)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -385,7 +375,7 @@ class IO_RESOURCE_DESCRIPTOR extends Win32Struct
                 get => NumGet(this, 8, "int64")
                 set => NumPut("int64", value, this, 8)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -393,13 +383,12 @@ class IO_RESOURCE_DESCRIPTOR extends Win32Struct
                 get => NumGet(this, 16, "int64")
                 set => NumPut("int64", value, this, 16)
             }
-        
         }
-    
+
         class _Memory64 extends Win32Struct {
             static sizeof => 24
             static packingSize => 8
-    
+
             /**
              * @type {Integer}
              */
@@ -407,7 +396,7 @@ class IO_RESOURCE_DESCRIPTOR extends Win32Struct
                 get => NumGet(this, 0, "uint")
                 set => NumPut("uint", value, this, 0)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -415,7 +404,7 @@ class IO_RESOURCE_DESCRIPTOR extends Win32Struct
                 get => NumGet(this, 4, "uint")
                 set => NumPut("uint", value, this, 4)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -423,7 +412,7 @@ class IO_RESOURCE_DESCRIPTOR extends Win32Struct
                 get => NumGet(this, 8, "int64")
                 set => NumPut("int64", value, this, 8)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -431,13 +420,12 @@ class IO_RESOURCE_DESCRIPTOR extends Win32Struct
                 get => NumGet(this, 16, "int64")
                 set => NumPut("int64", value, this, 16)
             }
-        
         }
-    
+
         class _Connection extends Win32Struct {
             static sizeof => 12
             static packingSize => 4
-    
+
             /**
              * @type {Integer}
              */
@@ -445,7 +433,7 @@ class IO_RESOURCE_DESCRIPTOR extends Win32Struct
                 get => NumGet(this, 0, "char")
                 set => NumPut("char", value, this, 0)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -453,7 +441,7 @@ class IO_RESOURCE_DESCRIPTOR extends Win32Struct
                 get => NumGet(this, 1, "char")
                 set => NumPut("char", value, this, 1)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -461,7 +449,7 @@ class IO_RESOURCE_DESCRIPTOR extends Win32Struct
                 get => NumGet(this, 2, "char")
                 set => NumPut("char", value, this, 2)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -469,7 +457,7 @@ class IO_RESOURCE_DESCRIPTOR extends Win32Struct
                 get => NumGet(this, 3, "char")
                 set => NumPut("char", value, this, 3)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -477,7 +465,7 @@ class IO_RESOURCE_DESCRIPTOR extends Win32Struct
                 get => NumGet(this, 4, "uint")
                 set => NumPut("uint", value, this, 4)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -485,152 +473,150 @@ class IO_RESOURCE_DESCRIPTOR extends Win32Struct
                 get => NumGet(this, 8, "uint")
                 set => NumPut("uint", value, this, 8)
             }
-        
         }
-    
+
         /**
          * @type {_Port}
          */
-        Port{
+        Port {
             get {
                 if(!this.HasProp("__Port"))
-                    this.__Port := %this.__Class%._Port(0, this)
+                    this.__Port := IO_RESOURCE_DESCRIPTOR._u_e__Union._Port(0, this)
                 return this.__Port
             }
         }
-    
+
         /**
          * @type {_Memory}
          */
-        Memory{
+        Memory {
             get {
                 if(!this.HasProp("__Memory"))
-                    this.__Memory := %this.__Class%._Memory(0, this)
+                    this.__Memory := IO_RESOURCE_DESCRIPTOR._u_e__Union._Memory(0, this)
                 return this.__Memory
             }
         }
-    
+
         /**
          * @type {_Interrupt}
          */
-        Interrupt{
+        Interrupt {
             get {
                 if(!this.HasProp("__Interrupt"))
-                    this.__Interrupt := %this.__Class%._Interrupt(0, this)
+                    this.__Interrupt := IO_RESOURCE_DESCRIPTOR._u_e__Union._Interrupt(0, this)
                 return this.__Interrupt
             }
         }
-    
+
         /**
          * @type {_Dma}
          */
-        Dma{
+        Dma {
             get {
                 if(!this.HasProp("__Dma"))
-                    this.__Dma := %this.__Class%._Dma(0, this)
+                    this.__Dma := IO_RESOURCE_DESCRIPTOR._u_e__Union._Dma(0, this)
                 return this.__Dma
             }
         }
-    
+
         /**
          * @type {_DmaV3}
          */
-        DmaV3{
+        DmaV3 {
             get {
                 if(!this.HasProp("__DmaV3"))
-                    this.__DmaV3 := %this.__Class%._DmaV3(0, this)
+                    this.__DmaV3 := IO_RESOURCE_DESCRIPTOR._u_e__Union._DmaV3(0, this)
                 return this.__DmaV3
             }
         }
-    
+
         /**
          * @type {_Generic}
          */
-        Generic{
+        Generic {
             get {
                 if(!this.HasProp("__Generic"))
-                    this.__Generic := %this.__Class%._Generic(0, this)
+                    this.__Generic := IO_RESOURCE_DESCRIPTOR._u_e__Union._Generic(0, this)
                 return this.__Generic
             }
         }
-    
+
         /**
          * @type {_DevicePrivate}
          */
-        DevicePrivate{
+        DevicePrivate {
             get {
                 if(!this.HasProp("__DevicePrivate"))
-                    this.__DevicePrivate := %this.__Class%._DevicePrivate(0, this)
+                    this.__DevicePrivate := IO_RESOURCE_DESCRIPTOR._u_e__Union._DevicePrivate(0, this)
                 return this.__DevicePrivate
             }
         }
-    
+
         /**
          * @type {_BusNumber}
          */
-        BusNumber{
+        BusNumber {
             get {
                 if(!this.HasProp("__BusNumber"))
-                    this.__BusNumber := %this.__Class%._BusNumber(0, this)
+                    this.__BusNumber := IO_RESOURCE_DESCRIPTOR._u_e__Union._BusNumber(0, this)
                 return this.__BusNumber
             }
         }
-    
+
         /**
          * @type {_ConfigData}
          */
-        ConfigData{
+        ConfigData {
             get {
                 if(!this.HasProp("__ConfigData"))
-                    this.__ConfigData := %this.__Class%._ConfigData(0, this)
+                    this.__ConfigData := IO_RESOURCE_DESCRIPTOR._u_e__Union._ConfigData(0, this)
                 return this.__ConfigData
             }
         }
-    
+
         /**
          * @type {_Memory40}
          */
-        Memory40{
+        Memory40 {
             get {
                 if(!this.HasProp("__Memory40"))
-                    this.__Memory40 := %this.__Class%._Memory40(0, this)
+                    this.__Memory40 := IO_RESOURCE_DESCRIPTOR._u_e__Union._Memory40(0, this)
                 return this.__Memory40
             }
         }
-    
+
         /**
          * @type {_Memory48}
          */
-        Memory48{
+        Memory48 {
             get {
                 if(!this.HasProp("__Memory48"))
-                    this.__Memory48 := %this.__Class%._Memory48(0, this)
+                    this.__Memory48 := IO_RESOURCE_DESCRIPTOR._u_e__Union._Memory48(0, this)
                 return this.__Memory48
             }
         }
-    
+
         /**
          * @type {_Memory64}
          */
-        Memory64{
+        Memory64 {
             get {
                 if(!this.HasProp("__Memory64"))
-                    this.__Memory64 := %this.__Class%._Memory64(0, this)
+                    this.__Memory64 := IO_RESOURCE_DESCRIPTOR._u_e__Union._Memory64(0, this)
                 return this.__Memory64
             }
         }
-    
+
         /**
          * @type {_Connection}
          */
-        Connection{
+        Connection {
             get {
                 if(!this.HasProp("__Connection"))
-                    this.__Connection := %this.__Class%._Connection(0, this)
+                    this.__Connection := IO_RESOURCE_DESCRIPTOR._u_e__Union._Connection(0, this)
                 return this.__Connection
             }
         }
-    
     }
 
     /**
@@ -684,10 +670,10 @@ class IO_RESOURCE_DESCRIPTOR extends Win32Struct
     /**
      * @type {_u_e__Union}
      */
-    u{
+    u {
         get {
             if(!this.HasProp("__u"))
-                this.__u := %this.__Class%._u_e__Union(8, this)
+                this.__u := IO_RESOURCE_DESCRIPTOR._u_e__Union(8, this)
             return this.__u
         }
     }

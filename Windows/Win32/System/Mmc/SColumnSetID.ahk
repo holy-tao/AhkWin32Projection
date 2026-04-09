@@ -9,10 +9,8 @@
  * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mmc/ccf-column-set-id">CCF_COLUMN_SET_ID</a>.
  * @see https://learn.microsoft.com/windows/win32/api/mmc/ns-mmc-scolumnsetid
  * @namespace Windows.Win32.System.Mmc
- * @version v4.0.30319
  */
-class SColumnSetID extends Win32Struct
-{
+class SColumnSetID extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4
@@ -37,9 +35,9 @@ class SColumnSetID extends Win32Struct
 
     /**
      * The bytes that contains the column set ID.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    id{
+    id {
         get {
             if(!this.HasProp("__idProxyArray"))
                 this.__idProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "char")

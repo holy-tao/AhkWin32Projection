@@ -9,10 +9,8 @@
  * The <b>ADDRESS_FAMILY</b> value is always specified separately in the structures that contain this IP address object.
  * @see https://learn.microsoft.com/windows/win32/api/wnvapi/ns-wnvapi-wnv_ip_address
  * @namespace Windows.Win32.NetworkManagement.WindowsNetworkVirtualization
- * @version v4.0.30319
  */
-class WNV_IP_ADDRESS extends Win32Struct
-{
+class WNV_IP_ADDRESS extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4
@@ -24,46 +22,45 @@ class WNV_IP_ADDRESS extends Win32Struct
         /**
          * @type {IN_ADDR}
          */
-        v4{
+        v4 {
             get {
                 if(!this.HasProp("__v4"))
                     this.__v4 := IN_ADDR(0, this)
                 return this.__v4
             }
         }
-    
+
         /**
          * @type {IN6_ADDR}
          */
-        v6{
+        v6 {
             get {
                 if(!this.HasProp("__v6"))
                     this.__v6 := IN6_ADDR(0, this)
                 return this.__v6
             }
         }
-    
+
         /**
-         * @type {Array<Byte>}
+         * @type {Array<Integer>}
          */
-        Addr{
+        Addr {
             get {
                 if(!this.HasProp("__AddrProxyArray"))
                     this.__AddrProxyArray := Win32FixedArray(this.ptr + 0, 16, Primitive, "char")
                 return this.__AddrProxyArray
             }
         }
-    
     }
 
     /**
      * An IP version 4 (IPv4) or IP version 6 (IPv6) address object.
      * @type {_IP_e__Union}
      */
-    IP{
+    IP {
         get {
             if(!this.HasProp("__IP"))
-                this.__IP := %this.__Class%._IP_e__Union(0, this)
+                this.__IP := WNV_IP_ADDRESS._IP_e__Union(0, this)
             return this.__IP
         }
     }

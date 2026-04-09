@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\CMC_TAGGED_CERT_REQUEST.ahk
 
 /**
  * Used in the CMC_DATA_INFO structures to request a certificate.
@@ -7,10 +8,8 @@
  * Additional members of the union may be defined in future versions.
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cmc_tagged_request
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CMC_TAGGED_REQUEST extends Win32Struct
-{
+class CMC_TAGGED_REQUEST extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

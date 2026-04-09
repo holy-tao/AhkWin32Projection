@@ -5,9 +5,8 @@
  * A policy allowing a sync provider to control when the platform should clear the in-sync state on a placeholder file or directory.
  * @see https://learn.microsoft.com/windows/win32/api/cfapi/ne-cfapi-cf_insync_policy
  * @namespace Windows.Win32.Storage.CloudFilters
- * @version v4.0.30319
  */
-class CF_INSYNC_POLICY extends Win32BitflagEnum{
+class CF_INSYNC_POLICY extends Win32BitflagEnum {
 
     /**
      * The default in-sync policy.

@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include .\ITTerminal.ahk
 #Include .\ITCallInfo.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * The ITToneTerminalEvent interface contains methods that retrieve the description of tone terminal events that have occurred.
  * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nn-tapi3if-ittoneterminalevent
  * @namespace Windows.Win32.Devices.Tapi
- * @version v4.0.30319
  */
-class ITToneTerminalEvent extends IDispatch{
+class ITToneTerminalEvent extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

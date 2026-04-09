@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.ActiveScript
- * @version v4.0.30319
  */
-class IRemoteDebugInfoEvent110 extends IUnknown{
+class IRemoteDebugInfoEvent110 extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -30,7 +29,7 @@ class IRemoteDebugInfoEvent110 extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pMessageType 
+     * @param {Pointer<DEBUG_EVENT_INFO_TYPE>} pMessageType 
      * @param {Pointer<BSTR>} pbstrMessage 
      * @param {Pointer<BSTR>} pbstrUrl 
      * @param {Pointer<IDebugDocumentContext>} ppLocation 

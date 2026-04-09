@@ -1,22 +1,20 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\HTTP_SERVICE_CONFIG_QUERY_TYPE.ahk
 #Include .\HTTP_SERVICE_CONFIG_URLACL_KEY.ahk
 
 /**
  * Used to specify a particular reservation record to query in the URL namespace reservation store.
  * @see https://learn.microsoft.com/windows/win32/api/http/ns-http-http_service_config_urlacl_query
  * @namespace Windows.Win32.Networking.HttpServer
- * @version v4.0.30319
  */
-class HTTP_SERVICE_CONFIG_URLACL_QUERY extends Win32Struct
-{
+class HTTP_SERVICE_CONFIG_URLACL_QUERY extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
 
     /**
-     * 
-     * @type {Integer}
+     * @type {HTTP_SERVICE_CONFIG_QUERY_TYPE}
      */
     QueryDesc {
         get => NumGet(this, 0, "int")
@@ -33,7 +31,7 @@ class HTTP_SERVICE_CONFIG_URLACL_QUERY extends Win32Struct
      * If the <i>QueryDesc</i> parameter is equal to <b>HttpServiceConfigQueryNext</b>, <i>KeyDesc</i> is ignored.
      * @type {HTTP_SERVICE_CONFIG_URLACL_KEY}
      */
-    KeyDesc{
+    KeyDesc {
         get {
             if(!this.HasProp("__KeyDesc"))
                 this.__KeyDesc := HTTP_SERVICE_CONFIG_URLACL_KEY(8, this)

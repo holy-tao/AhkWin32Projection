@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Hypervisor
- * @version v4.0.30319
  */
-class PAGING_MODE extends Win32Enum{
+class PAGING_MODE extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

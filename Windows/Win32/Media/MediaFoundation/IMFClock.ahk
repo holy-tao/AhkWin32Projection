@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\MFCLOCK_PROPERTIES.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\MFCLOCK_PROPERTIES.ahk
 
 /**
  * Provides timing information from a clock in Microsoft Media Foundation.
@@ -10,9 +10,8 @@
  * The <b>IMFClock</b> interface applies to any kind of clock. The presentation clock exposes the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imfpresentationclock">IMFPresentationClock</a> interface in addition to <b>IMFClock</b>.
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imfclock
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFClock extends IUnknown{
+class IMFClock extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -127,7 +126,7 @@ class IMFClock extends IUnknown{
     /**
      * Retrieves the current state of the clock.
      * @param {Integer} dwReserved Reserved, must be zero.
-     * @returns {Integer} Receives the clock state, as a member of the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/ne-mfidl-mfclock_state">MFCLOCK_STATE</a> enumeration.
+     * @returns {MFCLOCK_STATE} Receives the clock state, as a member of the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/ne-mfidl-mfclock_state">MFCLOCK_STATE</a> enumeration.
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfclock-getstate
      */
     GetState(dwReserved) {

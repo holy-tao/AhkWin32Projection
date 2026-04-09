@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Power
- * @version v4.0.30319
  */
-class POWER_ACTION_POLICY_EVENT_CODE extends Win32BitflagEnum{
+class POWER_ACTION_POLICY_EVENT_CODE extends Win32BitflagEnum {
 
     /**
      * @type {Integer (UInt32)}

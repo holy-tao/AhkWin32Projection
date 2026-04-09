@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug
- * @version v4.0.30319
  */
-class IMAGE_ROM_OPTIONAL_HEADER extends Win32Struct
-{
+class IMAGE_ROM_OPTIONAL_HEADER extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 4
@@ -100,9 +98,9 @@ class IMAGE_ROM_OPTIONAL_HEADER extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    CprMask{
+    CprMask {
         get {
             if(!this.HasProp("__CprMaskProxyArray"))
                 this.__CprMaskProxyArray := Win32FixedArray(this.ptr + 36, 4, Primitive, "uint")

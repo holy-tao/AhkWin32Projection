@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.Fax
- * @version v4.0.30319
  */
-class FaxOutboundRoutingGroups extends Win32Struct
-{
+class FaxOutboundRoutingGroups extends Win32Struct {
     static sizeof => 0
 
     static packingSize => 1

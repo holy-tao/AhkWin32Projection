@@ -9,10 +9,8 @@
  * The RECTL structure is identical to the <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure.
  * @see https://learn.microsoft.com/windows/win32/api/windef/ns-windef-rectl
  * @namespace Windows.Win32.Foundation
- * @version v4.0.30319
  */
-class RECTL extends Win32Struct
-{
+class RECTL extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4
@@ -52,7 +50,6 @@ class RECTL extends Win32Struct
         get => NumGet(this, 12, "int")
         set => NumPut("int", value, this, 12)
     }
-
     height => this.bottom - this.top
     
     width => this.right - this.left

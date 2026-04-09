@@ -7,9 +7,8 @@
  * Retrieves properties describing the Transaction Internet Protocol (TIP) transaction context.
  * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nn-comsvcs-iobjectcontexttip
  * @namespace Windows.Win32.System.ComponentServices
- * @version v4.0.30319
  */
-class IObjectContextTip extends IUnknown{
+class IObjectContextTip extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

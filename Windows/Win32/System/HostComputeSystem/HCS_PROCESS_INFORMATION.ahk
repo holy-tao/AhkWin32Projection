@@ -6,10 +6,8 @@
  * HCS_PROCESS_INFORMATION
  * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/HCS_PROCESS_INFORMATION
  * @namespace Windows.Win32.System.HostComputeSystem
- * @version v4.0.30319
  */
-class HCS_PROCESS_INFORMATION extends Win32Struct
-{
+class HCS_PROCESS_INFORMATION extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -24,7 +22,6 @@ class HCS_PROCESS_INFORMATION extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     Reserved {
@@ -36,7 +33,7 @@ class HCS_PROCESS_INFORMATION extends Win32Struct
      * If created, standard input handle of the process.
      * @type {HANDLE}
      */
-    StdInput{
+    StdInput {
         get {
             if(!this.HasProp("__StdInput"))
                 this.__StdInput := HANDLE(8, this)
@@ -48,7 +45,7 @@ class HCS_PROCESS_INFORMATION extends Win32Struct
      * If created, standard output handle of the process.
      * @type {HANDLE}
      */
-    StdOutput{
+    StdOutput {
         get {
             if(!this.HasProp("__StdOutput"))
                 this.__StdOutput := HANDLE(16, this)
@@ -60,7 +57,7 @@ class HCS_PROCESS_INFORMATION extends Win32Struct
      * If created, standard error handle of the process.
      * @type {HANDLE}
      */
-    StdError{
+    StdError {
         get {
             if(!this.HasProp("__StdError"))
                 this.__StdError := HANDLE(24, this)

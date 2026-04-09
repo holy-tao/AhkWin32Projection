@@ -7,10 +7,8 @@
  * *SyncRootIdentity* and *SyncRootIdentityLength* are optional members. If not used, set *SyncRootIdentity* to `nullptr` and *SyncRootIdentityLength* to `0`. *FileIdentity* and *FileIdentityLength* are also optional and if not used should be set to `nullptr` and `0`, respectively.
  * @see https://learn.microsoft.com/windows/win32/api/cfapi/ns-cfapi-cf_sync_registration
  * @namespace Windows.Win32.Storage.CloudFilters
- * @version v4.0.30319
  */
-class CF_SYNC_REGISTRATION extends Win32Struct
-{
+class CF_SYNC_REGISTRATION extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 8
@@ -80,7 +78,7 @@ class CF_SYNC_REGISTRATION extends Win32Struct
 
     /**
      * This is a GUID that is meant to identify a specific sync provider. It is optional. If not provided, the platform generates a GUID using the MD5 hash of the *ProviderName* string. The information is used for telemetry only such that the platform can better correlate activities from the same sync provider more efficiently and more accurately even if the sync provider registers sync roots with different *ProviderName* strings. It is recommended that a sync provider always supply the same GUID for all versions of its sync product(s). On the other hand, sync providers are free to choose different *ProviderName* strings for the sake of the best user experience.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     ProviderId {
         get => NumGet(this, 56, "ptr")

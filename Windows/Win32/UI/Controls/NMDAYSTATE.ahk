@@ -1,17 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HWND.ahk
 #Include .\NMHDR.ahk
+#Include ..\..\Foundation\HWND.ahk
 #Include ..\..\Foundation\SYSTEMTIME.ahk
 
 /**
  * Carries information required to process the MCN_GETDAYSTATE notification code. All members of this structure are for input, except prgDayState, which the receiving application must set when processing MCN_GETDAYSTATE.
  * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-nmdaystate
  * @namespace Windows.Win32.UI.Controls
- * @version v4.0.30319
  */
-class NMDAYSTATE extends Win32Struct
-{
+class NMDAYSTATE extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8
@@ -23,7 +21,7 @@ class NMDAYSTATE extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/richedit/ns-richedit-nmhdr">NMHDR</a> structure that contains information about this notification code.
      * @type {NMHDR}
      */
-    nmhdr{
+    nmhdr {
         get {
             if(!this.HasProp("__nmhdr"))
                 this.__nmhdr := NMHDR(0, this)
@@ -38,7 +36,7 @@ class NMDAYSTATE extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-systemtime">SYSTEMTIME</a> structure that contains the starting date.
      * @type {SYSTEMTIME}
      */
-    stStart{
+    stStart {
         get {
             if(!this.HasProp("__stStart"))
                 this.__stStart := SYSTEMTIME(24, this)

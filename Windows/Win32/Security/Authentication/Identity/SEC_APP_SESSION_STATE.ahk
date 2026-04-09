@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class SEC_APP_SESSION_STATE extends Win32Struct
-{
+class SEC_APP_SESSION_STATE extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 2
@@ -20,9 +18,9 @@ class SEC_APP_SESSION_STATE extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    AppSessionState{
+    AppSessionState {
         get {
             if(!this.HasProp("__AppSessionStateProxyArray"))
                 this.__AppSessionStateProxyArray := Win32FixedArray(this.ptr + 2, 1, Primitive, "char")

@@ -19,10 +19,8 @@
  * A <b>Fieldname</b> member that contains a <b>GUID</b> can only be compared when the <b>CompareOp</b> member contains either the  <b>PAYLOADFIELD_IS</b> or <b>PAYLOADFIELD_ISNOT</b> for the payload operator. The string that represents a <b>GUID</b> in the <b>Value</b> member must contain the curly brackets ({00000000-0000-0000-0000-000000000000}, for example).
  * @see https://learn.microsoft.com/windows/win32/api/tdh/ns-tdh-payload_filter_predicate
  * @namespace Windows.Win32.System.Diagnostics.Etw
- * @version v4.0.30319
  */
-class PAYLOAD_FILTER_PREDICATE extends Win32Struct
-{
+class PAYLOAD_FILTER_PREDICATE extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

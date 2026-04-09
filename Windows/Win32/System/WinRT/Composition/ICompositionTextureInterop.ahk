@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.WinRT.Composition
- * @version v4.0.30319
  */
-class ICompositionTextureInterop extends IUnknown{
+class ICompositionTextureInterop extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

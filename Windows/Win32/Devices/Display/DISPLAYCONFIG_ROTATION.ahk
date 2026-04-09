@@ -5,9 +5,8 @@
  * The DISPLAYCONFIG_ROTATION enumeration specifies the clockwise rotation of the display.
  * @see https://learn.microsoft.com/windows/win32/api/wingdi/ne-wingdi-displayconfig_rotation
  * @namespace Windows.Win32.Devices.Display
- * @version v4.0.30319
  */
-class DISPLAYCONFIG_ROTATION extends Win32Enum{
+class DISPLAYCONFIG_ROTATION extends Win32Enum {
 
     /**
      * Indicates that rotation is 0 degrees—landscape mode.

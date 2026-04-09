@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\XSAVE_AREA.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug
- * @version v4.0.30319
+ * @architecture X64, Arm64
  */
-class XSTATE_CONTEXT extends Win32Struct
-{
+class XSTATE_CONTEXT extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -36,9 +36,9 @@ class XSTATE_CONTEXT extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Reserved0{
+    Reserved0 {
         get {
             if(!this.HasProp("__Reserved0ProxyArray"))
                 this.__Reserved0ProxyArray := Win32FixedArray(this.ptr + 13, 3, Primitive, "char")

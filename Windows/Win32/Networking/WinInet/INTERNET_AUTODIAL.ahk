@@ -8,9 +8,8 @@
   * <b>Windows Server 2008 and Windows Vista:  </b>This flag is  obsolete.
  * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetautodial
  * @namespace Windows.Win32.Networking.WinInet
- * @version v4.0.30319
  */
-class INTERNET_AUTODIAL extends Win32Enum{
+class INTERNET_AUTODIAL extends Win32Enum {
 
     /**
      * @type {Integer (UInt32)}

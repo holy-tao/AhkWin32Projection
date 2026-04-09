@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ID3D10DepthStencilView.ahk
 #Include .\ID3D10EffectVariable.ahk
+#Include .\ID3D10DepthStencilView.ahk
 
 /**
  * A depth-stencil-view-variable interface accesses a depth-stencil view.
  * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nn-d3d10effect-id3d10effectdepthstencilviewvariable
  * @namespace Windows.Win32.Graphics.Direct3D10
- * @version v4.0.30319
  */
-class ID3D10EffectDepthStencilViewVariable extends ID3D10EffectVariable{
+class ID3D10EffectDepthStencilViewVariable extends ID3D10EffectVariable {
 
     static sizeof => A_PtrSize
     /**

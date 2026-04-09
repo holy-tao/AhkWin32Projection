@@ -15,10 +15,8 @@
  * </ol>
  * @see https://learn.microsoft.com/windows/win32/api/dbghelp/ns-dbghelp-omap
  * @namespace Windows.Win32.System.Diagnostics.Debug
- * @version v4.0.30319
  */
-class OMAP extends Win32Struct
-{
+class OMAP extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4

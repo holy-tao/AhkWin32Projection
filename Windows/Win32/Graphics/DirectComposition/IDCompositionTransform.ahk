@@ -11,9 +11,8 @@
  * Transforms operate by modifying the coordinate system for all rendering operations on a visual. For example, ordinarily a bitmap that is associated with a visual draws at position (0,0) and extends the full width and height of the bitmap. If a translation transform is applied, the bitmap draws at a position that is offset by that transform. If a scale transform is applied, the extent covered by the bitmap is affected by the scale transform. More than one transform can be simultaneously applied to a visual by using the <a href="https://docs.microsoft.com/windows/desktop/api/dcomp/nf-dcomp-idcompositiondevice-createtransformgroup">IDCompositionDevice::CreateTransformGroup</a> interface.
  * @see https://learn.microsoft.com/windows/win32/api/dcomp/nn-dcomp-idcompositiontransform
  * @namespace Windows.Win32.Graphics.DirectComposition
- * @version v4.0.30319
  */
-class IDCompositionTransform extends IDCompositionTransform3D{
+class IDCompositionTransform extends IDCompositionTransform3D {
 
     static sizeof => A_PtrSize
     /**

@@ -16,11 +16,9 @@
  * > The windns.h header defines DNS_NSEC_DATA as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
  * @see https://learn.microsoft.com/windows/win32/api/windns/ns-windns-dns_nsec_dataw
  * @namespace Windows.Win32.NetworkManagement.Dns
- * @version v4.0.30319
  * @charset Unicode
  */
-class DNS_NSEC_DATAW extends Win32Struct
-{
+class DNS_NSEC_DATAW extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
@@ -54,9 +52,9 @@ class DNS_NSEC_DATAW extends Win32Struct
 
     /**
      * A <b>BYTE</b> array that contains a bitmap that specifies which RR types are supported by the NSEC RR owner. Each bit in the array corresponds to a <a href="https://docs.microsoft.com/windows/desktop/DNS/dns-constants">DNS Record Type</a> as defined in section in section 4.1.2 of <a href="https://www.ietf.org/rfc/rfc4034.txt">RFC 4034</a>.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    TypeBitMaps{
+    TypeBitMaps {
         get {
             if(!this.HasProp("__TypeBitMapsProxyArray"))
                 this.__TypeBitMapsProxyArray := Win32FixedArray(this.ptr + 12, 1, Primitive, "char")

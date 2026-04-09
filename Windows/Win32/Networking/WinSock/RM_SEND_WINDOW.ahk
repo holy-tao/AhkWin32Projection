@@ -9,10 +9,8 @@
  * The combination of these members can affect the resources used on a PGM sender's computer. For example, a large transmission rate value combined with a large window size results in more required buffer space.
  * @see https://learn.microsoft.com/windows/win32/api/wsrm/ns-wsrm-rm_send_window
  * @namespace Windows.Win32.Networking.WinSock
- * @version v4.0.30319
  */
-class RM_SEND_WINDOW extends Win32Struct
-{
+class RM_SEND_WINDOW extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4

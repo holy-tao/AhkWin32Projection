@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Com\IDispatch.ahk
 #Include .\IRDPSRAPIApplication.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include ..\Com\IDispatch.ahk
 
 /**
  * Represents a one-to-one mapping to a sharable window.
  * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nn-rdpencomapi-irdpsrapiwindow
  * @namespace Windows.Win32.System.DesktopSharing
- * @version v4.0.30319
  */
-class IRDPSRAPIWindow extends IDispatch{
+class IRDPSRAPIWindow extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

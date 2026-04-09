@@ -1,19 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Win32\Foundation\LUID.ahk
+#Include ..\..\..\Win32\Security\Authentication\Identity\MSV1_0_PROTOCOL_MESSAGE_TYPE.ahk
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem
- * @version v4.0.30319
  */
-class MSV1_0_GETUSERINFO_REQUEST extends Win32Struct
-{
-    static sizeof => 12
+class MSV1_0_GETUSERINFO_REQUEST extends Win32Struct {
+    static sizeof => 16
 
-    static packingSize => 4
+    static packingSize => 8
 
     /**
-     * @type {Integer}
+     * @type {MSV1_0_PROTOCOL_MESSAGE_TYPE}
      */
     MessageType {
         get => NumGet(this, 0, "int")
@@ -21,13 +19,10 @@ class MSV1_0_GETUSERINFO_REQUEST extends Win32Struct
     }
 
     /**
-     * @type {LUID}
+     * @type {Pointer}
      */
-    LogonId{
-        get {
-            if(!this.HasProp("__LogonId"))
-                this.__LogonId := LUID(4, this)
-            return this.__LogonId
-        }
+    LogonId {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 }

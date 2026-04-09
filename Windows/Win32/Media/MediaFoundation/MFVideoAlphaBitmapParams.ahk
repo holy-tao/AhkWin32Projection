@@ -7,10 +7,8 @@
  * Specifies how the enhanced video renderer (EVR) alpha-blends a bitmap with the video.
  * @see https://learn.microsoft.com/windows/win32/api/evr9/ns-evr9-mfvideoalphabitmapparams
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class MFVideoAlphaBitmapParams extends Win32Struct
-{
+class MFVideoAlphaBitmapParams extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 4
@@ -47,7 +45,7 @@ class MFVideoAlphaBitmapParams extends Win32Struct
      * The source rectangle cannot be an empty rectangle, and cannot exceed the bounds of the bitmap.
      * @type {RECT}
      */
-    rcSrc{
+    rcSrc {
         get {
             if(!this.HasProp("__rcSrc"))
                 this.__rcSrc := RECT(8, this)
@@ -61,7 +59,7 @@ class MFVideoAlphaBitmapParams extends Win32Struct
      * This member is used if the <b>dwFlags</b> member contains the MFVideoAlphaBitmap_DestRect flag. Otherwise, the default destination rectangle is {0, 0, 1, 1}.
      * @type {MFVideoNormalizedRect}
      */
-    nrcDest{
+    nrcDest {
         get {
             if(!this.HasProp("__nrcDest"))
                 this.__nrcDest := MFVideoNormalizedRect(24, this)

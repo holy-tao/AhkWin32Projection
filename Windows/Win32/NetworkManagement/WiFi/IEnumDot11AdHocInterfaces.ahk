@@ -1,16 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IEnumDot11AdHocInterfaces.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Represents the collection of currently visible 802.11 ad hoc network interfaces.
  * @see https://learn.microsoft.com/windows/win32/api/adhoc/nn-adhoc-ienumdot11adhocinterfaces
  * @namespace Windows.Win32.NetworkManagement.WiFi
- * @version v4.0.30319
  */
-class IEnumDot11AdHocInterfaces extends IUnknown{
+class IEnumDot11AdHocInterfaces extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

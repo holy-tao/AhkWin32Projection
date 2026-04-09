@@ -1,15 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\TIMECODE.ahk
 #Include .\TIMECODEDATA.ahk
+#Include ..\TIMECODE.ahk
 
 /**
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class AVITIMECODEINDEX extends Win32Struct
-{
-    static sizeof => 8208
+class AVITIMECODEINDEX extends Win32Struct {
+    static sizeof => 24560
 
     static packingSize => 8
 
@@ -70,9 +68,9 @@ class AVITIMECODEINDEX extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    dwReserved{
+    dwReserved {
         get {
             if(!this.HasProp("__dwReservedProxyArray"))
                 this.__dwReservedProxyArray := Win32FixedArray(this.ptr + 20, 3, Primitive, "uint")
@@ -81,9 +79,9 @@ class AVITIMECODEINDEX extends Win32Struct
     }
 
     /**
-     * @type {Array<TIMECODEDATA>}
+     * @type {TIMECODEDATA}
      */
-    aIndex{
+    aIndex {
         get {
             if(!this.HasProp("__aIndexProxyArray"))
                 this.__aIndexProxyArray := Win32FixedArray(this.ptr + 32, 1022, TIMECODEDATA, "")

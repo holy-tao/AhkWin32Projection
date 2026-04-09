@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.Search
- * @version v4.0.30319
  */
-class ICommandText extends ICommand{
+class ICommandText extends ICommand {
 
     static sizeof => A_PtrSize
     /**

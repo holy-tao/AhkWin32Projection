@@ -29,9 +29,8 @@
  * <div></div>
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-icontextmenu
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IContextMenu extends IUnknown{
+class IContextMenu extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -62,7 +61,9 @@ class IContextMenu extends IUnknown{
      * If the Shell subsequently calls another shortcut menu handler, it will use the code value of the returned <b>HRESULT</b> to set <i>idCmdFirst</i> when it calls that handler's <b>QueryContextMenu</b> method.
      * 
      * When a context menu handler adds a pop-up menu item, it must use <b>IContextMenu::QueryContextMenu</b> to add at least one item to that menu for the WM_INITMENUPOPUP message to be forwarded.
-     * @param {HMENU} _hmenu 
+     * @param {HMENU} _hmenu Type: <b>HMENU</b>
+     * 
+     * A handle to the shortcut menu. The handler should specify this handle when adding menu items.
      * @param {Integer} indexMenu Type: <b>UINT</b>
      * 
      * The zero-based position at which to insert the first new menu item.

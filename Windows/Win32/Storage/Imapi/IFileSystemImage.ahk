@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include .\IFsiDirectoryItem.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include .\IBootOptions.ahk
 #Include .\IFileSystemImageResult.ahk
 #Include .\IFsiFileItem.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * Use this interface to build a file system image, set session parameter, and import or export an image.
@@ -14,9 +14,8 @@
  * To create the <b>CFileSystemImage</b> object in a script, use IMAPI2.MsftFileSystemImage as the program identifier when calling <b>CreateObject</b>.
  * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nn-imapi2fs-ifilesystemimage
  * @namespace Windows.Win32.Storage.Imapi
- * @version v4.0.30319
  */
-class IFileSystemImage extends IDispatch{
+class IFileSystemImage extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -136,7 +135,7 @@ class IFileSystemImage extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {FsiFileSystems} 
      */
     FileSystemsToCreate {
         get => this.get_FileSystemsToCreate()
@@ -144,7 +143,7 @@ class IFileSystemImage extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {FsiFileSystems} 
      */
     FileSystemsSupported {
         get => this.get_FileSystemsSupported()
@@ -657,7 +656,7 @@ class IFileSystemImage extends IDispatch{
      * To specify the file system types, call the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2fs/nf-imapi2fs-ifilesystemimage-put_filesystemstocreate">IFileSystemImage::put_FileSystemsToCreate</a> method. You could also call either <a href="https://docs.microsoft.com/windows/desktop/api/imapi2fs/nf-imapi2fs-ifilesystemimage-chooseimagedefaults">IFilesystemImage::ChooseImageDefaults</a> or <a href="https://docs.microsoft.com/windows/desktop/api/imapi2fs/nf-imapi2fs-ifilesystemimage-chooseimagedefaultsformediatype">IFilesystemImage::ChooseImageDefaultsForMediaType</a> to have IMAPI choose the file system for you.
      * 
      * To retrieve a list of supported file system types, call the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2fs/nf-imapi2fs-ifilesystemimage-get_filesystemssupported">IFileSystemImage::get_FileSystemsSupported</a> method.
-     * @returns {Integer} One or more file system types to create when generating the result stream. For possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2fs/ne-imapi2fs-fsifilesystems">FsiFileSystems</a> enumeration type.
+     * @returns {FsiFileSystems} One or more file system types to create when generating the result stream. For possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2fs/ne-imapi2fs-fsifilesystems">FsiFileSystems</a> enumeration type.
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifilesystemimage-get_filesystemstocreate
      */
     get_FileSystemsToCreate() {
@@ -671,7 +670,7 @@ class IFileSystemImage extends IDispatch{
      * This method returns <b>IMAPI_E_INCOMPATIBLE_PREVIOUS_SESSION</b> if the previous session was imported  using <a href="https://docs.microsoft.com/windows/desktop/api/imapi2fs/nf-imapi2fs-ifilesystemimage-importfilesystem">IFileSystemImage::ImportFileSystem</a> or <a href="https://docs.microsoft.com/windows/desktop/api/imapi2fs/nf-imapi2fs-ifilesystemimage-importspecificfilesystem">IFileSystemImage::ImportSpecificFileSystem</a> and the layout of that session is incompatible with the layout used by IMAPI for the file systems identified by the specified <i>newVal</i> in <b>IFileSystemImage::put_FileSystemToCreate</b>.
      * 
      * You can change the file system only when the result stream is not active.
-     * @param {Integer} newVal One or more file systems to create when generating the result stream. For possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2fs/ne-imapi2fs-fsifilesystems">FsiFileSystems</a> enumeration type.
+     * @param {FsiFileSystems} newVal One or more file systems to create when generating the result stream. For possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2fs/ne-imapi2fs-fsifilesystems">FsiFileSystems</a> enumeration type.
      * @returns {HRESULT} S_OK is returned on success, but other success codes may be returned as a result of implementation. The following error codes are commonly returned on operation failure, but do not represent the only possible error values:
      * 
      * <table>
@@ -767,7 +766,7 @@ class IFileSystemImage extends IDispatch{
 
     /**
      * Retrieves the list of file system types that a client can use to build a file system image.
-     * @returns {Integer} One or more file system types that a client can use to build a file system image. For possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2fs/ne-imapi2fs-fsifilesystems">FsiFileSystems</a> enumeration type.
+     * @returns {FsiFileSystems} One or more file system types that a client can use to build a file system image. For possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2fs/ne-imapi2fs-fsifilesystems">FsiFileSystems</a> enumeration type.
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifilesystemimage-get_filesystemssupported
      */
     get_FileSystemsSupported() {
@@ -908,7 +907,7 @@ class IFileSystemImage extends IDispatch{
 
     /**
      * Sets the default file system types and the image size based on the specified media type.
-     * @param {Integer} value Identifies the physical media type that will receive the burn image. For possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/ne-imapi2-imapi_media_physical_type">IMAPI_MEDIA_PHYSICAL_TYPE</a> enumeration type.
+     * @param {IMAPI_MEDIA_PHYSICAL_TYPE} value Identifies the physical media type that will receive the burn image. For possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/ne-imapi2-imapi_media_physical_type">IMAPI_MEDIA_PHYSICAL_TYPE</a> enumeration type.
      * @returns {HRESULT} S_OK is returned on success, but other success codes may be returned as a result of implementation. The following error codes are commonly returned on operation failure, but do not represent the only possible error values:
      * 
      * <table>
@@ -1026,7 +1025,7 @@ class IFileSystemImage extends IDispatch{
     /**
      * Checks for the existence of a given file or directory.
      * @param {BSTR} fullPath String that contains the fully qualified path of the directory or file to check.
-     * @returns {Integer} Indicates if the item is a file, a directory, or does not exist. For possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2fs/ne-imapi2fs-fsiitemtype">FsiItemType</a> enumeration type.
+     * @returns {FsiItemType} Indicates if the item is a file, a directory, or does not exist. For possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2fs/ne-imapi2fs-fsiitemtype">FsiItemType</a> enumeration type.
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifilesystemimage-exists
      */
     Exists(fullPath) {
@@ -1056,7 +1055,7 @@ class IFileSystemImage extends IDispatch{
      * @remarks
      * Client applications can call <a href="https://docs.microsoft.com/windows/desktop/api/imapi2fs/nf-imapi2fs-ifilesystemimage-getdefaultfilesystemforimport">IFileSystemImage::GetDefaultFileSystemForImport</a> with the value returned by this method to determine the type of file system to import.
      * @param {IDiscRecorder2} discRecorder An <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/nn-imapi2-idiscrecorder2">IDiscRecorder2</a> interface that identifies the recording device that contains the media. If this parameter is <b>NULL</b>, the <i>discRecorder</i>  specified in <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/nn-imapi2-imultisession">IMultisession</a> will be used.
-     * @returns {Integer} One or more files systems on the disc. For possible values, see <a href="https://docs.microsoft.com/windows/desktop/api/imapi2fs/ne-imapi2fs-fsifilesystems">FsiFileSystems</a> enumeration type.
+     * @returns {FsiFileSystems} One or more files systems on the disc. For possible values, see <a href="https://docs.microsoft.com/windows/desktop/api/imapi2fs/ne-imapi2fs-fsifilesystems">FsiFileSystems</a> enumeration type.
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifilesystemimage-identifyfilesystemsondisc
      */
     IdentifyFileSystemsOnDisc(discRecorder) {
@@ -1070,8 +1069,8 @@ class IFileSystemImage extends IDispatch{
      * Use this method to identify the default file system to use with <a href="https://docs.microsoft.com/windows/desktop/api/imapi2fs/nf-imapi2fs-ifilesystemimage-importfilesystem">IFileSystemImage::ImportFileSystem</a>.
      * 
      * To identify the supported file systems, call the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2fs/nf-imapi2fs-ifilesystemimage-get_filesystemssupported">IFileSystemImage::get_FileSystemsSupported</a> method.
-     * @param {Integer} fileSystems One or more file system values. For possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2fs/ne-imapi2fs-fsifilesystems">FsiFileSystems</a> enumeration type.
-     * @returns {Integer} A single file system value that identifies the default file system.  The value is one of the file systems specified in <i>fileSystems</i>
+     * @param {FsiFileSystems} fileSystems One or more file system values. For possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2fs/ne-imapi2fs-fsifilesystems">FsiFileSystems</a> enumeration type.
+     * @returns {FsiFileSystems} A single file system value that identifies the default file system.  The value is one of the file systems specified in <i>fileSystems</i>
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifilesystemimage-getdefaultfilesystemforimport
      */
     GetDefaultFileSystemForImport(fileSystems) {
@@ -1093,7 +1092,7 @@ class IFileSystemImage extends IDispatch{
      * This method only reads the file information. If the item is a file, the file data is copied when calling <a href="https://docs.microsoft.com/windows/desktop/api/imapi2fs/nf-imapi2fs-ifsidirectoryitem-addfile">IFsiDirectoryItem::AddFile</a>, <a href="https://docs.microsoft.com/windows/desktop/api/imapi2fs/nf-imapi2fs-ifsidirectoryitem-addtree">IFsiDirectoryItem::AddTree</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/imapi2fs/nf-imapi2fs-ifsidirectoryitem-add">IFsiDirectoryItem::Add</a> method. 
      * 
      * This method returns <b>IMAPI_E_NO_SUPPORTED_FILE_SYSTEM</b> if a supported file system is not found in the last session.  Additionally, this method returns <b>IMAPI_E_INCOMPATIBLE_PREVIOUS_SESSION</b> if the layout of the file system  in the last session is incompatible with the layout used by IMAPI for the creation of requested file systems for the result image. For more details see the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2fs/nf-imapi2fs-ifilesystemimage-put_filesystemstocreate">IFileSystemImage::put_FileSystemsToCreate</a> method documentation.
-     * @returns {Integer} Identifies the imported file system. For possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2fs/ne-imapi2fs-fsifilesystems">FsiFileSystems</a> enumeration type.
+     * @returns {FsiFileSystems} Identifies the imported file system. For possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2fs/ne-imapi2fs-fsifilesystems">FsiFileSystems</a> enumeration type.
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifilesystemimage-importfilesystem
      */
     ImportFileSystem() {
@@ -1114,7 +1113,7 @@ class IFileSystemImage extends IDispatch{
      * 
      * this method returns <b>IMAPI_E_INCOMPATIBLE_PREVIOUS_SESSION</b> if the layout of the file system  in the last session is incompatible with the layout used by IMAPI for the creation of requested file systems for the result image. For more details see the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2fs/nf-imapi2fs-ifilesystemimage-put_filesystemstocreate">IFileSystemImage::put_FileSystemsToCreate</a> method documentation.
      * If the file system specified by <i>fileSystemToUse</i> has not been found, this method returns <b>IMAPI_E_FILE_SYSTEM_NOT_FOUND</b>.
-     * @param {Integer} fileSystemToUse Identifies the file system to import. For possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2fs/ne-imapi2fs-fsifilesystems">FsiFileSystems</a> enumeration type.
+     * @param {FsiFileSystems} fileSystemToUse Identifies the file system to import. For possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2fs/ne-imapi2fs-fsifilesystems">FsiFileSystems</a> enumeration type.
      * @returns {HRESULT} S_OK is returned on success, but other success codes may be returned as a result of implementation. The following error codes are commonly returned on operation failure, but do not represent the only possible error values:
      * 
      * <table>

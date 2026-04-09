@@ -7,9 +7,8 @@
  * Note  This interface has been deprecated. (IAMPhysicalPinInfo)
  * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-iamphysicalpininfo
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IAMPhysicalPinInfo extends IUnknown{
+class IAMPhysicalPinInfo extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

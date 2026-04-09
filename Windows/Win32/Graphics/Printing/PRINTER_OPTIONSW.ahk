@@ -3,11 +3,9 @@
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
- * @version v4.0.30319
  * @charset Unicode
  */
-class PRINTER_OPTIONSW extends Win32Struct
-{
+class PRINTER_OPTIONSW extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4

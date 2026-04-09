@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.WinRT.Metadata
- * @version v4.0.30319
  */
-class IMetaDataEmit extends IUnknown{
+class IMetaDataEmit extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -69,7 +68,7 @@ class IMetaDataEmit extends IUnknown{
 
     /**
      * 
-     * @param {Integer} fSave 
+     * @param {CorSaveSize} fSave 
      * @param {Pointer<Integer>} pdwSaveSize 
      * @returns {HRESULT} 
      */

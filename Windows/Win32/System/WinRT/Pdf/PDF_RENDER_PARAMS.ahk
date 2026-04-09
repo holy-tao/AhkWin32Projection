@@ -9,19 +9,16 @@
  * This structure is used by the <a href="https://docs.microsoft.com/windows/desktop/api/windows.data.pdf.interop/nf-windows-data-pdf-interop-ipdfrenderernative-renderpagetodevicecontext">RenderPageToDeviceContext</a> and <a href="https://docs.microsoft.com/windows/desktop/api/windows.data.pdf.interop/nf-windows-data-pdf-interop-ipdfrenderernative-renderpagetosurface">RenderPageToSurface</a> methods.
  * @see https://learn.microsoft.com/windows/win32/api/windows.data.pdf.interop/ns-windows-data-pdf-interop-pdf_render_params
  * @namespace Windows.Win32.System.WinRT.Pdf
- * @version v4.0.30319
  */
-class PDF_RENDER_PARAMS extends Win32Struct
-{
+class PDF_RENDER_PARAMS extends Win32Struct {
     static sizeof => 44
 
     static packingSize => 4
 
     /**
-     * 
      * @type {D2D_RECT_F}
      */
-    SourceRect{
+    SourceRect {
         get {
             if(!this.HasProp("__SourceRect"))
                 this.__SourceRect := D2D_RECT_F(0, this)
@@ -30,7 +27,6 @@ class PDF_RENDER_PARAMS extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     DestinationWidth {
@@ -39,7 +35,6 @@ class PDF_RENDER_PARAMS extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     DestinationHeight {
@@ -48,10 +43,9 @@ class PDF_RENDER_PARAMS extends Win32Struct
     }
 
     /**
-     * 
      * @type {D2D_COLOR_F}
      */
-    BackgroundColor{
+    BackgroundColor {
         get {
             if(!this.HasProp("__BackgroundColor"))
                 this.__BackgroundColor := D2D_COLOR_F(24, this)
@@ -60,7 +54,6 @@ class PDF_RENDER_PARAMS extends Win32Struct
     }
 
     /**
-     * 
      * @type {BOOLEAN}
      */
     IgnoreHighContrast {

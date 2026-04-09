@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * The ITfCandidateString interface is implemented by a text service and is used by the TSF manager or a client to obtain information about a candidate string object.
  * @see https://learn.microsoft.com/windows/win32/api/ctffunc/nn-ctffunc-itfcandidatestring
  * @namespace Windows.Win32.UI.TextServices
- * @version v4.0.30319
  */
-class ITfCandidateString extends IUnknown{
+class ITfCandidateString extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

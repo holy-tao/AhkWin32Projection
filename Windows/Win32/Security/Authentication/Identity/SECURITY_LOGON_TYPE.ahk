@@ -5,12 +5,10 @@
  * Indicates the type of logon requested by a logon process.
  * @see https://learn.microsoft.com/windows/win32/api/ntsecapi/ne-ntsecapi-security_logon_type
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class SECURITY_LOGON_TYPE extends Win32Enum{
+class SECURITY_LOGON_TYPE extends Win32Enum {
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static UndefinedLogonType => 0

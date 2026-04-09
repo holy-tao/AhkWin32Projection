@@ -9,9 +9,8 @@
  * <b>Windows Server 2008 R2 and Windows 7:  </b> The managed service account (MSA) is limited to being deployed to a single computer.
  * @see https://learn.microsoft.com/windows/win32/api/lmaccess/ne-lmaccess-msa_info_state
  * @namespace Windows.Win32.NetworkManagement.NetManagement
- * @version v4.0.30319
  */
-class MSA_INFO_STATE extends Win32Enum{
+class MSA_INFO_STATE extends Win32Enum {
 
     /**
      * The account does not exist.

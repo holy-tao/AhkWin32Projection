@@ -1,16 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\DWRITE_COLOR_F.ahk
+#Include .\DWRITE_PAINT_TYPE.ahk
 #Include .\DWRITE_PAINT_COLOR.ahk
+#Include .\DWRITE_COLOR_F.ahk
+#Include .\DWRITE_PAINT_ATTRIBUTES.ahk
 #Include ..\Direct2D\Common\D2D_RECT_F.ahk
 #Include .\DWRITE_MATRIX.ahk
+#Include .\DWRITE_COLOR_COMPOSITE_MODE.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.DirectWrite
- * @version v4.0.30319
  */
-class DWRITE_PAINT_ELEMENT extends Win32Struct
-{
+class DWRITE_PAINT_ELEMENT extends Win32Struct {
     static sizeof => 208
 
     static packingSize => 4
@@ -22,7 +23,7 @@ class DWRITE_PAINT_ELEMENT extends Win32Struct
         class PAINT_LAYERS extends Win32Struct {
             static sizeof => 4
             static packingSize => 4
-    
+
             /**
              * @type {Integer}
              */
@@ -30,13 +31,12 @@ class DWRITE_PAINT_ELEMENT extends Win32Struct
                 get => NumGet(this, 0, "uint")
                 set => NumPut("uint", value, this, 0)
             }
-        
         }
-    
+
         class PAINT_SOLID_GLYPH extends Win32Struct {
             static sizeof => 32
             static packingSize => 4
-    
+
             /**
              * @type {Integer}
              */
@@ -44,24 +44,23 @@ class DWRITE_PAINT_ELEMENT extends Win32Struct
                 get => NumGet(this, 0, "uint")
                 set => NumPut("uint", value, this, 0)
             }
-        
+
             /**
              * @type {DWRITE_PAINT_COLOR}
              */
-            color{
+            color {
                 get {
                     if(!this.HasProp("__color"))
                         this.__color := DWRITE_PAINT_COLOR(4, this)
                     return this.__color
                 }
             }
-        
         }
-    
+
         class PAINT_LINEAR_GRADIENT extends Win32Struct {
             static sizeof => 32
             static packingSize => 4
-    
+
             /**
              * @type {Integer}
              */
@@ -69,7 +68,7 @@ class DWRITE_PAINT_ELEMENT extends Win32Struct
                 get => NumGet(this, 0, "uint")
                 set => NumPut("uint", value, this, 0)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -77,7 +76,7 @@ class DWRITE_PAINT_ELEMENT extends Win32Struct
                 get => NumGet(this, 4, "uint")
                 set => NumPut("uint", value, this, 4)
             }
-        
+
             /**
              * @type {Float}
              */
@@ -85,7 +84,7 @@ class DWRITE_PAINT_ELEMENT extends Win32Struct
                 get => NumGet(this, 8, "float")
                 set => NumPut("float", value, this, 8)
             }
-        
+
             /**
              * @type {Float}
              */
@@ -93,7 +92,7 @@ class DWRITE_PAINT_ELEMENT extends Win32Struct
                 get => NumGet(this, 12, "float")
                 set => NumPut("float", value, this, 12)
             }
-        
+
             /**
              * @type {Float}
              */
@@ -101,7 +100,7 @@ class DWRITE_PAINT_ELEMENT extends Win32Struct
                 get => NumGet(this, 16, "float")
                 set => NumPut("float", value, this, 16)
             }
-        
+
             /**
              * @type {Float}
              */
@@ -109,7 +108,7 @@ class DWRITE_PAINT_ELEMENT extends Win32Struct
                 get => NumGet(this, 20, "float")
                 set => NumPut("float", value, this, 20)
             }
-        
+
             /**
              * @type {Float}
              */
@@ -117,7 +116,7 @@ class DWRITE_PAINT_ELEMENT extends Win32Struct
                 get => NumGet(this, 24, "float")
                 set => NumPut("float", value, this, 24)
             }
-        
+
             /**
              * @type {Float}
              */
@@ -125,13 +124,12 @@ class DWRITE_PAINT_ELEMENT extends Win32Struct
                 get => NumGet(this, 28, "float")
                 set => NumPut("float", value, this, 28)
             }
-        
         }
-    
+
         class PAINT_RADIAL_GRADIENT extends Win32Struct {
             static sizeof => 32
             static packingSize => 4
-    
+
             /**
              * @type {Integer}
              */
@@ -139,7 +137,7 @@ class DWRITE_PAINT_ELEMENT extends Win32Struct
                 get => NumGet(this, 0, "uint")
                 set => NumPut("uint", value, this, 0)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -147,7 +145,7 @@ class DWRITE_PAINT_ELEMENT extends Win32Struct
                 get => NumGet(this, 4, "uint")
                 set => NumPut("uint", value, this, 4)
             }
-        
+
             /**
              * @type {Float}
              */
@@ -155,7 +153,7 @@ class DWRITE_PAINT_ELEMENT extends Win32Struct
                 get => NumGet(this, 8, "float")
                 set => NumPut("float", value, this, 8)
             }
-        
+
             /**
              * @type {Float}
              */
@@ -163,7 +161,7 @@ class DWRITE_PAINT_ELEMENT extends Win32Struct
                 get => NumGet(this, 12, "float")
                 set => NumPut("float", value, this, 12)
             }
-        
+
             /**
              * @type {Float}
              */
@@ -171,7 +169,7 @@ class DWRITE_PAINT_ELEMENT extends Win32Struct
                 get => NumGet(this, 16, "float")
                 set => NumPut("float", value, this, 16)
             }
-        
+
             /**
              * @type {Float}
              */
@@ -179,7 +177,7 @@ class DWRITE_PAINT_ELEMENT extends Win32Struct
                 get => NumGet(this, 20, "float")
                 set => NumPut("float", value, this, 20)
             }
-        
+
             /**
              * @type {Float}
              */
@@ -187,7 +185,7 @@ class DWRITE_PAINT_ELEMENT extends Win32Struct
                 get => NumGet(this, 24, "float")
                 set => NumPut("float", value, this, 24)
             }
-        
+
             /**
              * @type {Float}
              */
@@ -195,13 +193,12 @@ class DWRITE_PAINT_ELEMENT extends Win32Struct
                 get => NumGet(this, 28, "float")
                 set => NumPut("float", value, this, 28)
             }
-        
         }
-    
+
         class PAINT_SWEEP_GRADIENT extends Win32Struct {
             static sizeof => 24
             static packingSize => 4
-    
+
             /**
              * @type {Integer}
              */
@@ -209,7 +206,7 @@ class DWRITE_PAINT_ELEMENT extends Win32Struct
                 get => NumGet(this, 0, "uint")
                 set => NumPut("uint", value, this, 0)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -217,7 +214,7 @@ class DWRITE_PAINT_ELEMENT extends Win32Struct
                 get => NumGet(this, 4, "uint")
                 set => NumPut("uint", value, this, 4)
             }
-        
+
             /**
              * @type {Float}
              */
@@ -225,7 +222,7 @@ class DWRITE_PAINT_ELEMENT extends Win32Struct
                 get => NumGet(this, 8, "float")
                 set => NumPut("float", value, this, 8)
             }
-        
+
             /**
              * @type {Float}
              */
@@ -233,7 +230,7 @@ class DWRITE_PAINT_ELEMENT extends Win32Struct
                 get => NumGet(this, 12, "float")
                 set => NumPut("float", value, this, 12)
             }
-        
+
             /**
              * @type {Float}
              */
@@ -241,7 +238,7 @@ class DWRITE_PAINT_ELEMENT extends Win32Struct
                 get => NumGet(this, 16, "float")
                 set => NumPut("float", value, this, 16)
             }
-        
+
             /**
              * @type {Float}
              */
@@ -249,13 +246,12 @@ class DWRITE_PAINT_ELEMENT extends Win32Struct
                 get => NumGet(this, 20, "float")
                 set => NumPut("float", value, this, 20)
             }
-        
         }
-    
+
         class PAINT_GLYPH extends Win32Struct {
             static sizeof => 4
             static packingSize => 4
-    
+
             /**
              * @type {Integer}
              */
@@ -263,13 +259,12 @@ class DWRITE_PAINT_ELEMENT extends Win32Struct
                 get => NumGet(this, 0, "uint")
                 set => NumPut("uint", value, this, 0)
             }
-        
         }
-    
+
         class PAINT_COLOR_GLYPH extends Win32Struct {
             static sizeof => 20
             static packingSize => 4
-    
+
             /**
              * @type {Integer}
              */
@@ -277,148 +272,145 @@ class DWRITE_PAINT_ELEMENT extends Win32Struct
                 get => NumGet(this, 0, "uint")
                 set => NumPut("uint", value, this, 0)
             }
-        
+
             /**
              * @type {D2D_RECT_F}
              */
-            clipBox{
+            clipBox {
                 get {
                     if(!this.HasProp("__clipBox"))
                         this.__clipBox := D2D_RECT_F(4, this)
                     return this.__clipBox
                 }
             }
-        
         }
-    
+
         class PAINT_COMPOSITE extends Win32Struct {
             static sizeof => 4
             static packingSize => 4
-    
+
             /**
-             * @type {Integer}
+             * @type {DWRITE_COLOR_COMPOSITE_MODE}
              */
             mode {
                 get => NumGet(this, 0, "int")
                 set => NumPut("int", value, this, 0)
             }
-        
         }
-    
+
         /**
          * @type {PAINT_LAYERS}
          */
-        layers{
+        layers {
             get {
                 if(!this.HasProp("__layers"))
-                    this.__layers := %this.__Class%.PAINT_LAYERS(0, this)
+                    this.__layers := DWRITE_PAINT_ELEMENT.PAINT_UNION.PAINT_LAYERS(0, this)
                 return this.__layers
             }
         }
-    
+
         /**
          * @type {PAINT_SOLID_GLYPH}
          */
-        solidGlyph{
+        solidGlyph {
             get {
                 if(!this.HasProp("__solidGlyph"))
-                    this.__solidGlyph := %this.__Class%.PAINT_SOLID_GLYPH(0, this)
+                    this.__solidGlyph := DWRITE_PAINT_ELEMENT.PAINT_UNION.PAINT_SOLID_GLYPH(0, this)
                 return this.__solidGlyph
             }
         }
-    
+
         /**
          * @type {DWRITE_PAINT_COLOR}
          */
-        solid{
+        solid {
             get {
                 if(!this.HasProp("__solid"))
                     this.__solid := DWRITE_PAINT_COLOR(0, this)
                 return this.__solid
             }
         }
-    
+
         /**
          * @type {PAINT_LINEAR_GRADIENT}
          */
-        linearGradient{
+        linearGradient {
             get {
                 if(!this.HasProp("__linearGradient"))
-                    this.__linearGradient := %this.__Class%.PAINT_LINEAR_GRADIENT(0, this)
+                    this.__linearGradient := DWRITE_PAINT_ELEMENT.PAINT_UNION.PAINT_LINEAR_GRADIENT(0, this)
                 return this.__linearGradient
             }
         }
-    
+
         /**
          * @type {PAINT_RADIAL_GRADIENT}
          */
-        radialGradient{
+        radialGradient {
             get {
                 if(!this.HasProp("__radialGradient"))
-                    this.__radialGradient := %this.__Class%.PAINT_RADIAL_GRADIENT(0, this)
+                    this.__radialGradient := DWRITE_PAINT_ELEMENT.PAINT_UNION.PAINT_RADIAL_GRADIENT(0, this)
                 return this.__radialGradient
             }
         }
-    
+
         /**
          * @type {PAINT_SWEEP_GRADIENT}
          */
-        sweepGradient{
+        sweepGradient {
             get {
                 if(!this.HasProp("__sweepGradient"))
-                    this.__sweepGradient := %this.__Class%.PAINT_SWEEP_GRADIENT(0, this)
+                    this.__sweepGradient := DWRITE_PAINT_ELEMENT.PAINT_UNION.PAINT_SWEEP_GRADIENT(0, this)
                 return this.__sweepGradient
             }
         }
-    
+
         /**
          * @type {PAINT_GLYPH}
          */
-        glyph{
+        glyph {
             get {
                 if(!this.HasProp("__glyph"))
-                    this.__glyph := %this.__Class%.PAINT_GLYPH(0, this)
+                    this.__glyph := DWRITE_PAINT_ELEMENT.PAINT_UNION.PAINT_GLYPH(0, this)
                 return this.__glyph
             }
         }
-    
+
         /**
          * @type {PAINT_COLOR_GLYPH}
          */
-        colorGlyph{
+        colorGlyph {
             get {
                 if(!this.HasProp("__colorGlyph"))
-                    this.__colorGlyph := %this.__Class%.PAINT_COLOR_GLYPH(0, this)
+                    this.__colorGlyph := DWRITE_PAINT_ELEMENT.PAINT_UNION.PAINT_COLOR_GLYPH(0, this)
                 return this.__colorGlyph
             }
         }
-    
+
         /**
          * @type {DWRITE_MATRIX}
          */
-        transform{
+        transform {
             get {
                 if(!this.HasProp("__transform"))
                     this.__transform := DWRITE_MATRIX(0, this)
                 return this.__transform
             }
         }
-    
+
         /**
          * @type {PAINT_COMPOSITE}
          */
-        composite{
+        composite {
             get {
                 if(!this.HasProp("__composite"))
-                    this.__composite := %this.__Class%.PAINT_COMPOSITE(0, this)
+                    this.__composite := DWRITE_PAINT_ELEMENT.PAINT_UNION.PAINT_COMPOSITE(0, this)
                 return this.__composite
             }
         }
-    
     }
 
     /**
-     * @type {Integer}
+     * @type {DWRITE_PAINT_TYPE}
      */
     paintType {
         get => NumGet(this, 0, "int")
@@ -428,10 +420,10 @@ class DWRITE_PAINT_ELEMENT extends Win32Struct
     /**
      * @type {PAINT_UNION}
      */
-    paint{
+    paint {
         get {
             if(!this.HasProp("__paint"))
-                this.__paint := %this.__Class%.PAINT_UNION(4, this)
+                this.__paint := DWRITE_PAINT_ELEMENT.PAINT_UNION(4, this)
             return this.__paint
         }
     }

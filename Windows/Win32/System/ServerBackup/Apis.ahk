@@ -3,7 +3,6 @@
 
 /**
  * @namespace Windows.Win32.System.ServerBackup
- * @version v4.0.30319
  */
 class ServerBackup {
 

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\IXpsOMDocument.ahk
 #Include .\IXpsOMPage.ahk
 #Include .\XPS_SIZE.ahk
@@ -9,8 +10,6 @@
 #Include .\IXpsOMImageResource.ahk
 #Include .\IXpsOMNameCollection.ahk
 #Include .\IXpsOMPartResources.ahk
-#Include .\IXpsOMPageReference.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Enables virtualization of pages in an XPS document.
@@ -61,9 +60,8 @@
  * For information about using this interface in a program, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dd316970(v=vs.85)">Create a Blank XPS OM</a> and <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dd372917(v=vs.85)">Navigate the XPS OM</a>.
  * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsompagereference
  * @namespace Windows.Win32.Storage.Xps
- * @version v4.0.30319
  */
-class IXpsOMPageReference extends IUnknown{
+class IXpsOMPageReference extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -86,7 +84,7 @@ class IXpsOMPageReference extends IUnknown{
 
     /**
      * Gets a pointer to the IXpsOMDocument interface that contains the page reference.
-     * @returns {IXpsOMDocument} 
+     * @returns {IXpsOMDocument} A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomdocument">IXpsOMDocument</a> interface that contains the page reference. If the page reference does not have an owner, a <b>NULL</b> pointer is returned.
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompagereference-getowner
      */
     GetOwner() {

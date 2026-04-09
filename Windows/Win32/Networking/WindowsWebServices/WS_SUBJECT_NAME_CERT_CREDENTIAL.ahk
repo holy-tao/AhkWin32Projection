@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\WS_CERT_CREDENTIAL.ahk
+#Include .\WS_CERT_CREDENTIAL_TYPE.ahk
 #Include .\WS_STRING.ahk
 
 /**
  * The type for specifying a certificate credential using the certificate's subject name, store location and store name. The specified credential is loaded when the containing channel or listener is opened.
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_subject_name_cert_credential
  * @namespace Windows.Win32.Networking.WindowsWebServices
- * @version v4.0.30319
  */
-class WS_SUBJECT_NAME_CERT_CREDENTIAL extends Win32Struct
-{
+class WS_SUBJECT_NAME_CERT_CREDENTIAL extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -19,7 +18,7 @@ class WS_SUBJECT_NAME_CERT_CREDENTIAL extends Win32Struct
      * The base type from which this type and all other certificate credential types derive.
      * @type {WS_CERT_CREDENTIAL}
      */
-    credential{
+    credential {
         get {
             if(!this.HasProp("__credential"))
                 this.__credential := WS_CERT_CREDENTIAL(0, this)
@@ -43,7 +42,7 @@ class WS_SUBJECT_NAME_CERT_CREDENTIAL extends Win32Struct
      * certificate.
      * @type {WS_STRING}
      */
-    storeName{
+    storeName {
         get {
             if(!this.HasProp("__storeName"))
                 this.__storeName := WS_STRING(8, this)
@@ -59,7 +58,7 @@ class WS_SUBJECT_NAME_CERT_CREDENTIAL extends Win32Struct
      *                 (See <a href="https://docs.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-certfindcertificateinstore">CertFindCertificateInStore</a>.)
      * @type {WS_STRING}
      */
-    subjectName{
+    subjectName {
         get {
             if(!this.HasProp("__subjectName"))
                 this.__subjectName := WS_STRING(24, this)

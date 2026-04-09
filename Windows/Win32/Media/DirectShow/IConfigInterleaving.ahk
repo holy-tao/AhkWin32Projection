@@ -7,9 +7,8 @@
  * The IConfigInterleaving interface controls how the AVI Mux filter interleaves audio and video samples.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-iconfiginterleaving
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IConfigInterleaving extends IUnknown{
+class IConfigInterleaving extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -31,7 +30,7 @@ class IConfigInterleaving extends IUnknown{
     static VTableNames => ["put_Mode", "get_Mode", "put_Interleaving", "get_Interleaving"]
 
     /**
-     * @type {Integer} 
+     * @type {InterleavingMode} 
      */
     Mode {
         get => this.get_Mode()
@@ -40,7 +39,7 @@ class IConfigInterleaving extends IUnknown{
 
     /**
      * The put_Mode method sets how audio samples and video frames are to be written to disk, by specifying quality of interleaving.
-     * @param {Integer} _mode 
+     * @param {InterleavingMode} _mode Interleaving quality setting specified in the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/ne-strmif-interleavingmode">InterleavingMode</a> enumeration.
      * @returns {HRESULT} Returns an <b>HRESULT</b> value that depends on the implementation of the interface.
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iconfiginterleaving-put_mode
      */
@@ -51,7 +50,7 @@ class IConfigInterleaving extends IUnknown{
 
     /**
      * The get_Mode method retrieves the interleaving quality setting.
-     * @returns {Integer} Receives the interleaving quality, specified as a member of the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/ne-strmif-interleavingmode">InterleavingMode</a> enumeration.
+     * @returns {InterleavingMode} Receives the interleaving quality, specified as a member of the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/ne-strmif-interleavingmode">InterleavingMode</a> enumeration.
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iconfiginterleaving-get_mode
      */
     get_Mode() {

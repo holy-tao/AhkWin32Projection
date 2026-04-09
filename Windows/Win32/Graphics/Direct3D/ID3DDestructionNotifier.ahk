@@ -9,9 +9,8 @@
  * The <b>ID3DDestructionNotifier</b> can be used to track resources which are being unexpectedly released early, or providing a log of object disposal.
  * @see https://learn.microsoft.com/windows/win32/api/d3dcommon/nn-d3dcommon-id3ddestructionotifier
  * @namespace Windows.Win32.Graphics.Direct3D
- * @version v4.0.30319
  */
-class ID3DDestructionNotifier extends IUnknown{
+class ID3DDestructionNotifier extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

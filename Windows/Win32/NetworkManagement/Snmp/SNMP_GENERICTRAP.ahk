@@ -3,11 +3,9 @@
 
 /**
  * Documentation varies per use. Refer to each: <see href="https://learn.microsoft.com/windows/win32/api/snmp/nf-snmp-snmpextensiontrap">SnmpExtensionTrap</see>, <see href="https://learn.microsoft.com/windows/win32/api/mgmtapi/nf-mgmtapi-snmpmgrgettrap">SnmpMgrGetTrap</see>, <see href="https://learn.microsoft.com/windows/win32/api/mgmtapi/nf-mgmtapi-snmpmgrgettrapex">SnmpMgrGetTrapEx</see>.
- * @see 
  * @namespace Windows.Win32.NetworkManagement.Snmp
- * @version v4.0.30319
  */
-class SNMP_GENERICTRAP extends Win32Enum{
+class SNMP_GENERICTRAP extends Win32Enum {
 
     /**
      * @type {Integer (UInt32)}

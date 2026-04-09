@@ -7,9 +7,8 @@
  * Enables the PlayToConnection object to connect to a media element.
  * @see https://learn.microsoft.com/windows/win32/api/mfsharingengine/nn-mfsharingengine-iplaytocontrol
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IPlayToControl extends IUnknown{
+class IPlayToControl extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

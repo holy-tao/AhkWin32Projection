@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\SIZE.ahk
 #Include .\ITfLangBarItem.ahk
+#Include ..\..\Foundation\SIZE.ahk
 
 /**
  * The ITfLangBarItemBitmap interface is implemented by an application or text service and used by the language bar manager to obtain information specific to a bitmap item on the language bar.
@@ -10,9 +10,8 @@
  * A language bar bitmap functions as a static item on the language bar that displays a bitmap.
  * @see https://learn.microsoft.com/windows/win32/api/ctfutb/nn-ctfutb-itflangbaritembitmap
  * @namespace Windows.Win32.UI.TextServices
- * @version v4.0.30319
  */
-class ITfLangBarItemBitmap extends ITfLangBarItem{
+class ITfLangBarItemBitmap extends ITfLangBarItem {
 
     static sizeof => A_PtrSize
     /**
@@ -35,7 +34,7 @@ class ITfLangBarItemBitmap extends ITfLangBarItem{
 
     /**
      * ITfLangBarItemBitmap::OnClick method
-     * @param {Integer} click Contains one of the <a href="https://docs.microsoft.com/windows/win32/api/ctfutb/ne-ctfutb-tflbiclick">TfLBIClick</a> values that indicate which mouse button was used to click the bitmap.
+     * @param {TfLBIClick} click Contains one of the <a href="https://docs.microsoft.com/windows/win32/api/ctfutb/ne-ctfutb-tflbiclick">TfLBIClick</a> values that indicate which mouse button was used to click the bitmap.
      * @param {POINT} pt Pointer to a <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a> structure that contains the position of the mouse cursor, in screen coordinates, at the time of the click event.
      * @param {Pointer<RECT>} prcArea Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure that contains the bounding rectangle, in screen coordinates, of the bitmap.
      * @returns {HRESULT} This method can return one of these values.

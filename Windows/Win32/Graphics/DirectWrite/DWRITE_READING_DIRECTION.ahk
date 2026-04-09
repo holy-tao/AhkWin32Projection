@@ -5,9 +5,8 @@
  * Specifies the direction in which reading progresses.
  * @see https://learn.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_reading_direction
  * @namespace Windows.Win32.Graphics.DirectWrite
- * @version v4.0.30319
  */
-class DWRITE_READING_DIRECTION extends Win32Enum{
+class DWRITE_READING_DIRECTION extends Win32Enum {
 
     /**
      * Indicates that reading progresses from left to right.

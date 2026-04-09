@@ -3,18 +3,16 @@
 
 /**
  * @namespace Windows.Wdk.NetworkManagement.Ndis
- * @version v4.0.30319
  */
-class NDIS_WAN_GET_STATS extends Win32Struct
-{
+class NDIS_WAN_GET_STATS extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 4
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    LocalAddress{
+    LocalAddress {
         get {
             if(!this.HasProp("__LocalAddressProxyArray"))
                 this.__LocalAddressProxyArray := Win32FixedArray(this.ptr + 0, 6, Primitive, "char")

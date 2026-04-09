@@ -7,9 +7,8 @@
  * Provides access to planar Y’CbCr pixel formats where pixel components are stored in separate component planes.
  * @see https://learn.microsoft.com/windows/win32/api/wincodec/nn-wincodec-iwicplanarbitmapsourcetransform
  * @namespace Windows.Win32.Graphics.Imaging
- * @version v4.0.30319
  */
-class IWICPlanarBitmapSourceTransform extends IUnknown{
+class IWICPlanarBitmapSourceTransform extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -38,10 +37,10 @@ class IWICPlanarBitmapSourceTransform extends IUnknown{
      * @param {Pointer<Integer>} puiHeight Type: <b>UINT*</b>
      * 
      * On input, the desired height.  On output, the closest supported height to the desired height; this is the same size or larger than the desired width.
-     * @param {Integer} dstTransform Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ne-wincodec-wicbitmaptransformoptions">WICBitmapTransformOptions</a></b>
+     * @param {WICBitmapTransformOptions} dstTransform Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ne-wincodec-wicbitmaptransformoptions">WICBitmapTransformOptions</a></b>
      * 
      * The desired rotation or flip operation.  Multiple  <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ne-wincodec-wicbitmaptransformoptions">WICBitmapTransformOptions</a> can be combined in this flag parameter, see <b>WICBitmapTransformOptions</b>.
-     * @param {Integer} dstPlanarOptions Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ne-wincodec-wicplanaroptions">WICPlanarOptions</a></b>
+     * @param {WICPlanarOptions} dstPlanarOptions Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ne-wincodec-wicplanaroptions">WICPlanarOptions</a></b>
      * 
      * Used to specify additional configuration options for the transform.  See <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ne-wincodec-wicplanaroptions">WICPlanarOptions</a> for more detail.
      * 
@@ -159,10 +158,10 @@ class IWICPlanarBitmapSourceTransform extends IUnknown{
      * @param {Integer} uiHeight Type: <b>UINT</b>
      * 
      * The height to scale the source bitmap.  This parameter must be equal to a value obtainable through <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nf-wincodec-iwicplanarbitmapsourcetransform-doessupporttransform">IWICPlanarBitmapSourceTransform:: DoesSupportTransform</a>.
-     * @param {Integer} dstTransform Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ne-wincodec-wicbitmaptransformoptions">WICBitmapTransformOptions</a></b>
+     * @param {WICBitmapTransformOptions} dstTransform Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ne-wincodec-wicbitmaptransformoptions">WICBitmapTransformOptions</a></b>
      * 
      * The desired rotation or flip to perform prior to the pixel copy.  A rotate can be combined with a flip horizontal or a flip vertical, see <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ne-wincodec-wicbitmaptransformoptions">WICBitmapTransformOptions</a>.
-     * @param {Integer} dstPlanarOptions Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ne-wincodec-wicplanaroptions">WICPlanarOptions</a></b>
+     * @param {WICPlanarOptions} dstPlanarOptions Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ne-wincodec-wicplanaroptions">WICPlanarOptions</a></b>
      * 
      * Used to specify additional configuration options for the transform.  See <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ne-wincodec-wicplanaroptions">WICPlanarOptions</a> for more detail.
      * 

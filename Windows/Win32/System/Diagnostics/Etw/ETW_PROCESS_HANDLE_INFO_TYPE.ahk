@@ -5,9 +5,8 @@
  * Specifies the operation that will be performed on a trace processing session.
  * @see https://learn.microsoft.com/windows/win32/api/evntrace/ne-evntrace-etw_process_handle_info_type
  * @namespace Windows.Win32.System.Diagnostics.Etw
- * @version v4.0.30319
  */
-class ETW_PROCESS_HANDLE_INFO_TYPE extends Win32Enum{
+class ETW_PROCESS_HANDLE_INFO_TYPE extends Win32Enum {
 
     /**
      * Used to query partition identifying information. _InBuffer_ should be Null.

@@ -6,10 +6,8 @@
  * Contains a list of attributes used to look up a class implementation.
  * @see https://learn.microsoft.com/windows/win32/api/wtypes/ns-wtypes-querycontext
  * @namespace Windows.Win32.System.Com
- * @version v4.0.30319
  */
-class QUERYCONTEXT extends Win32Struct
-{
+class QUERYCONTEXT extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 4
@@ -27,7 +25,7 @@ class QUERYCONTEXT extends Win32Struct
      * The operating system platform and processor architecture. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/wtypes/ns-wtypes-csplatform">CSPLATFORM</a>.
      * @type {CSPLATFORM}
      */
-    Platform{
+    Platform {
         get {
             if(!this.HasProp("__Platform"))
                 this.__Platform := CSPLATFORM(4, this)

@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.UI.Controls
- * @version v4.0.30319
  */
-class LIST_VIEW_ITEM_COLUMN_FORMAT_FLAGS extends Win32BitflagEnum{
+class LIST_VIEW_ITEM_COLUMN_FORMAT_FLAGS extends Win32BitflagEnum {
 
     /**
      * @type {Integer (Int32)}

@@ -7,9 +7,8 @@
  * The INATEventManager interface provides methods for NAT applications with UPnP technology to register callback interfaces with the NAT. The system calls the methods in these interfaces when the configuration of the NAT changes.
  * @see https://learn.microsoft.com/windows/win32/api/natupnp/nn-natupnp-inateventmanager
  * @namespace Windows.Win32.NetworkManagement.WindowsFirewall
- * @version v4.0.30319
  */
-class INATEventManager extends IDispatch{
+class INATEventManager extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -31,14 +30,14 @@ class INATEventManager extends IDispatch{
     static VTableNames => ["put_ExternalIPAddressCallback", "put_NumberOfEntriesCallback"]
 
     /**
-     * @type {HRESULT} 
+     * @type {IUnknown} 
      */
     ExternalIPAddressCallback {
         set => this.put_ExternalIPAddressCallback(value)
     }
 
     /**
-     * @type {HRESULT} 
+     * @type {IUnknown} 
      */
     NumberOfEntriesCallback {
         set => this.put_NumberOfEntriesCallback(value)

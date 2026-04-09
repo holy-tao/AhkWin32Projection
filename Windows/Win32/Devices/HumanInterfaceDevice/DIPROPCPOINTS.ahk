@@ -5,18 +5,16 @@
 
 /**
  * @namespace Windows.Win32.Devices.HumanInterfaceDevice
- * @version v4.0.30319
  */
-class DIPROPCPOINTS extends Win32Struct
-{
-    static sizeof => 88
+class DIPROPCPOINTS extends Win32Struct {
+    static sizeof => 84
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {DIPROPHEADER}
      */
-    diph{
+    diph {
         get {
             if(!this.HasProp("__diph"))
                 this.__diph := DIPROPHEADER(0, this)
@@ -33,12 +31,12 @@ class DIPROPCPOINTS extends Win32Struct
     }
 
     /**
-     * @type {Array<CPOINT>}
+     * @type {CPOINT}
      */
-    cp{
+    cp {
         get {
             if(!this.HasProp("__cpProxyArray"))
-                this.__cpProxyArray := Win32FixedArray(this.ptr + 24, 8, CPOINT, "")
+                this.__cpProxyArray := Win32FixedArray(this.ptr + 20, 8, CPOINT, "")
             return this.__cpProxyArray
         }
     }

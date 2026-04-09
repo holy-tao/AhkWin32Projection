@@ -1,17 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\CRYPT_INTEGER_BLOB.ahk
 #Include .\CRYPT_ALGORITHM_IDENTIFIER.ahk
+#Include .\CRYPT_INTEGER_BLOB.ahk
 #Include ..\..\Foundation\FILETIME.ahk
+#Include .\CRL_ENTRY.ahk
+#Include .\CERT_EXTENSION.ahk
 
 /**
  * Contains the information of a certificate revocation list (CRL).
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-crl_info
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CRL_INFO extends Win32Struct
-{
+class CRL_INFO extends Win32Struct {
     static sizeof => 96
 
     static packingSize => 8
@@ -61,7 +61,7 @@ class CRL_INFO extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-crypt_algorithm_identifier">CRYPT_ALGORITHM_IDENTIFIER</a> structure that contains the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/o-gly">object identifier</a> (OID) of a signature algorithm and any associated additional parameters.
      * @type {CRYPT_ALGORITHM_IDENTIFIER}
      */
-    SignatureAlgorithm{
+    SignatureAlgorithm {
         get {
             if(!this.HasProp("__SignatureAlgorithm"))
                 this.__SignatureAlgorithm := CRYPT_ALGORITHM_IDENTIFIER(8, this)
@@ -73,7 +73,7 @@ class CRL_INFO extends Win32Struct
      * A <a href="https://docs.microsoft.com/windows/desktop/SecGloss/b-gly">BLOB</a> structure that contains an encoded certificate issuer's name.
      * @type {CRYPT_INTEGER_BLOB}
      */
-    Issuer{
+    Issuer {
         get {
             if(!this.HasProp("__Issuer"))
                 this.__Issuer := CRYPT_INTEGER_BLOB(32, this)
@@ -85,7 +85,7 @@ class CRL_INFO extends Win32Struct
      * Indication of the date and time of the CRL's published. If the time is after 1950 and before 2050, it is UTC-time encoded as an 8-byte date/time precise to seconds with a 2-digit year (that is, YYMMDDHHMMSS plus 2 bytes). Otherwise, it is generalized-time encoded as an 8-byte year precise to milliseconds with a 4-byte year.
      * @type {FILETIME}
      */
-    ThisUpdate{
+    ThisUpdate {
         get {
             if(!this.HasProp("__ThisUpdate"))
                 this.__ThisUpdate := FILETIME(48, this)
@@ -97,7 +97,7 @@ class CRL_INFO extends Win32Struct
      * Indication of the date and time for the CRL's next available scheduled update. If the time is after 1950 and before 2050, it is UTC-time encoded as an 8-byte date/time precise to seconds with a 2-digit year (that is, YYMMDDHHMMSS plus 2 bytes). Otherwise, it is generalized-time encoded as an 8-byte date time precise to milliseconds with a 4-byte year.
      * @type {FILETIME}
      */
-    NextUpdate{
+    NextUpdate {
         get {
             if(!this.HasProp("__NextUpdate"))
                 this.__NextUpdate := FILETIME(56, this)

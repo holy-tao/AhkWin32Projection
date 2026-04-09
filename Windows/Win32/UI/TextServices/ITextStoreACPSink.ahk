@@ -7,9 +7,8 @@
  * The ITextStoreACPSink interface is implemented by the TSF manager and is used by an ACP-based application to notify the manager when certain events occur. The manager installs this advise sink by calling ITextStoreACP::AdviseSink.
  * @see https://learn.microsoft.com/windows/win32/api/textstor/nn-textstor-itextstoreacpsink
  * @namespace Windows.Win32.UI.TextServices
- * @version v4.0.30319
  */
-class ITextStoreACPSink extends IUnknown{
+class ITextStoreACPSink extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -36,7 +35,7 @@ class ITextStoreACPSink extends IUnknown{
      * <b>ITextStoreACPSink::OnTextChange</b> is never called when the text is modified by one of the <b>ITextStoreACP</b> interface methods, such as <b>ITextStoreACP::SetText</b> or <a href="https://docs.microsoft.com/windows/desktop/api/textstor/nf-textstor-itextstoreacp-inserttextatselection">ITextStoreACP::InsertTextAtSelection</a>.
      * 
      * When calling this method, the application must be able to grant a <a href="https://docs.microsoft.com/windows/desktop/TSF/document-locks">document lock</a>.
-     * @param {Integer} dwFlags 
+     * @param {TEXT_STORE_TEXT_CHANGE_FLAGS} dwFlags 
      * @param {Pointer<TS_TEXTCHANGE>} pChange Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/textstor/ns-textstor-ts_textchange">TS_TEXTCHANGE</a> structure that contains text change data.
      * @returns {HRESULT} This method can return one of these values.
      * 
@@ -146,7 +145,7 @@ class ITextStoreACPSink extends IUnknown{
      * A layout change can be in response to a change to the text, font size, window movement, window resizing, or other change that affects the displayed text.
      * 
      * If a call to <a href="https://docs.microsoft.com/windows/desktop/api/textstor/nf-textstor-itextstoreacp-gettextext">ITextStoreACP::GetTextExt</a> or <a href="https://docs.microsoft.com/windows/desktop/api/textstor/nf-textstor-itextstoreacp-getacpfrompoint">ITextStoreACP::GetACPFromPoint</a> returns TS_E_NOLAYOUT because the application has not calculated the layout, the application must call <b>ITextStoreACPSink::OnLayoutChange</b> when the layout is available.
-     * @param {Integer} lcode Contains a <a href="https://docs.microsoft.com/windows/win32/api/textstor/ne-textstor-tslayoutcode">TsLayoutCode</a> value that defines the type of change.
+     * @param {TsLayoutCode} lcode Contains a <a href="https://docs.microsoft.com/windows/win32/api/textstor/ne-textstor-tslayoutcode">TsLayoutCode</a> value that defines the type of change.
      * @param {Integer} vcView Contains an application-defined cookie that identifies the document. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/textstor/nf-textstor-itextstoreacp-getactiveview">ITextStoreACP::GetActiveView</a>.
      * @returns {HRESULT} This method can return one of these values.
      * 
@@ -265,7 +264,7 @@ class ITextStoreACPSink extends IUnknown{
      * The lock type, specified in <i>dwLockFlags</i>, must match the requested lock type in the corresponding call to <b>ITextStoreACP::RequestLock</b>.
      * 
      * If a synchronous lock request is made from within <b>ITextStoreACP::RequestLock</b>, then the caller must also provide the return value from <b>ITextStoreACP::RequestLock</b>.
-     * @param {Integer} dwLockFlags 
+     * @param {TEXT_STORE_LOCK_FLAGS} dwLockFlags 
      * @returns {HRESULT} This method can return one of these values.
      * 
      * <table>

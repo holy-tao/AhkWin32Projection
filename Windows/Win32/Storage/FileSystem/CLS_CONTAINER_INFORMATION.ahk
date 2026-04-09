@@ -5,10 +5,8 @@
  * Describes general information about a container.
  * @see https://learn.microsoft.com/windows/win32/api/clfs/ns-clfs-cls_container_information
  * @namespace Windows.Win32.Storage.FileSystem
- * @version v4.0.30319
  */
-class CLS_CONTAINER_INFORMATION extends Win32Struct
-{
+class CLS_CONTAINER_INFORMATION extends Win32Struct {
     static sizeof => 576
 
     static packingSize => 8

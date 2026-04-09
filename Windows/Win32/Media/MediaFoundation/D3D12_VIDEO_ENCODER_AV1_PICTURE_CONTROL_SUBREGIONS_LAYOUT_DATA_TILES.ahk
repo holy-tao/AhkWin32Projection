@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class D3D12_VIDEO_ENCODER_AV1_PICTURE_CONTROL_SUBREGIONS_LAYOUT_DATA_TILES extends Win32Struct
-{
+class D3D12_VIDEO_ENCODER_AV1_PICTURE_CONTROL_SUBREGIONS_LAYOUT_DATA_TILES extends Win32Struct {
     static sizeof => 1048
 
     static packingSize => 8
@@ -28,9 +26,9 @@ class D3D12_VIDEO_ENCODER_AV1_PICTURE_CONTROL_SUBREGIONS_LAYOUT_DATA_TILES exten
     }
 
     /**
-     * @type {Array<UInt64>}
+     * @type {Array<Integer>}
      */
-    RowHeights{
+    RowHeights {
         get {
             if(!this.HasProp("__RowHeightsProxyArray"))
                 this.__RowHeightsProxyArray := Win32FixedArray(this.ptr + 16, 64, Primitive, "uint")
@@ -39,9 +37,9 @@ class D3D12_VIDEO_ENCODER_AV1_PICTURE_CONTROL_SUBREGIONS_LAYOUT_DATA_TILES exten
     }
 
     /**
-     * @type {Array<UInt64>}
+     * @type {Array<Integer>}
      */
-    ColWidths{
+    ColWidths {
         get {
             if(!this.HasProp("__ColWidthsProxyArray"))
                 this.__ColWidthsProxyArray := Win32FixedArray(this.ptr + 528, 64, Primitive, "uint")

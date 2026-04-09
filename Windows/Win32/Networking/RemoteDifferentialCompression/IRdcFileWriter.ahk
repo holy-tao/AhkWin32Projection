@@ -7,9 +7,8 @@
  * Abstract interface to read from and write to a file.
  * @see https://learn.microsoft.com/windows/win32/api/msrdc/nn-msrdc-irdcfilewriter
  * @namespace Windows.Win32.Networking.RemoteDifferentialCompression
- * @version v4.0.30319
  */
-class IRdcFileWriter extends IRdcFileReader{
+class IRdcFileWriter extends IRdcFileReader {
 
     static sizeof => A_PtrSize
     /**
@@ -34,7 +33,7 @@ class IRdcFileWriter extends IRdcFileReader{
      * Write bytes to a file starting at a given offset.
      * @param {Integer} offsetFileStart Starting offset.
      * @param {Integer} bytesToWrite Number of bytes to be written to the file.
-     * @returns {Integer} 
+     * @returns {Integer} The data to be written to the file.
      * @see https://learn.microsoft.com/windows/win32/api/msrdc/nf-msrdc-irdcfilewriter-write
      */
     Write(offsetFileStart, bytesToWrite) {

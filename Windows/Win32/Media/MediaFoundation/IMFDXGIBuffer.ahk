@@ -9,9 +9,8 @@
  * To create a DXGImedia buffer, first create the DXGIsurface. Then call <a href="https://docs.microsoft.com/windows/desktop/api/mfapi/nf-mfapi-mfcreatedxgisurfacebuffer">MFCreateDXGISurfaceBuffer</a>.
  * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nn-mfobjects-imfdxgibuffer
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFDXGIBuffer extends IUnknown{
+class IMFDXGIBuffer extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

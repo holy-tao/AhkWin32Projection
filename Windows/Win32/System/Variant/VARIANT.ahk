@@ -1,23 +1,27 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\VARENUM.ahk
 #Include ..\Com\CY.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\Com\IUnknown.ahk
+#Include ..\Com\IDispatch.ahk
+#Include ..\Com\SAFEARRAY.ahk
+#Include .\VARIANT.ahk
 #Include ..\..\Foundation\DECIMAL.ahk
+#Include ..\Ole\IRecordInfo.ahk
 
 /**
  * VARIANTARG describes arguments passed within DISPPARAMS, and VARIANT to specify variant data that cannot be passed by reference.
  * @see https://learn.microsoft.com/windows/win32/api/oaidl/ns-oaidl-variant
  * @namespace Windows.Win32.System.Variant
- * @version v4.0.30319
  */
-class VARIANT extends Win32Struct
-{
+class VARIANT extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
 
     /**
-     * @type {Integer}
+     * @type {VARENUM}
      */
     vt {
         get => NumGet(this, 0, "ushort")
@@ -123,7 +127,7 @@ class VARIANT extends Win32Struct
     /**
      * @type {CY}
      */
-    cyVal{
+    cyVal {
         get {
             if(!this.HasProp("__cyVal"))
                 this.__cyVal := CY(8, this)
@@ -142,7 +146,7 @@ class VARIANT extends Win32Struct
     /**
      * @type {BSTR}
      */
-    bstrVal{
+    bstrVal {
         get {
             if(!this.HasProp("__bstrVal"))
                 this.__bstrVal := BSTR(8, this)
@@ -433,7 +437,7 @@ class VARIANT extends Win32Struct
     /**
      * @type {DECIMAL}
      */
-    decVal{
+    decVal {
         get {
             if(!this.HasProp("__decVal"))
                 this.__decVal := DECIMAL(0, this)

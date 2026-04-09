@@ -11,9 +11,8 @@
  *          <a href="https://docs.microsoft.com/windows/desktop/api/uianimation/nn-uianimation-iuianimationtimer">IUIAnimationTimer</a>.
  * @see https://learn.microsoft.com/windows/win32/api/uianimation/nn-uianimation-iuianimationtimereventhandler
  * @namespace Windows.Win32.UI.Animation
- * @version v4.0.30319
  */
-class IUIAnimationTimerEventHandler extends IUnknown{
+class IUIAnimationTimerEventHandler extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

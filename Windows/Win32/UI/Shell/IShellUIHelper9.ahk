@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IShellUIHelper9 extends IShellUIHelper8{
+class IShellUIHelper9 extends IShellUIHelper8 {
 
     static sizeof => A_PtrSize
     /**

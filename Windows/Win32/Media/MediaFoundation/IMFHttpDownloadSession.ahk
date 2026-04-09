@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IMFHttpDownloadRequest.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\IMFHttpDownloadRequest.ahk
 
 /**
  * Applications implement this interface to override the default implementation of the HTTP and HTTPS protocols used by Microsoft Media Foundation. (IMFHttpDownloadSession)
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imfhttpdownloadsession
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFHttpDownloadSession extends IUnknown{
+class IMFHttpDownloadSession extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

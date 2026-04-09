@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IUIAutomationElementArray.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\IUIAutomationElementArray.ahk
 
 /**
  * Provides access to a child element in a container that supports IUIAutomationTablePattern.
@@ -10,9 +10,8 @@
  * Elements that support this interface must also support <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationgriditempattern">IUIAutomationGridItemPattern</a>, to provide properties that are not specific to tables.
  * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nn-uiautomationclient-iuiautomationtableitempattern
  * @namespace Windows.Win32.UI.Accessibility
- * @version v4.0.30319
  */
-class IUIAutomationTableItemPattern extends IUnknown{
+class IUIAutomationTableItemPattern extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

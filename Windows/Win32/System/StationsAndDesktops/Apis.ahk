@@ -5,7 +5,6 @@
 
 /**
  * @namespace Windows.Win32.System.StationsAndDesktops
- * @version v4.0.30319
  */
 class StationsAndDesktops {
 
@@ -43,7 +42,7 @@ class StationsAndDesktops {
      * > [!NOTE]
      * > The winuser.h header defines CreateDesktop as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PSTR} lpszDesktop The name of the desktop to be created. Desktop names are case-insensitive and may not contain backslash characters (\\).
-     * @param {Integer} dwFlags This parameter can be zero or the following value.
+     * @param {DESKTOP_CONTROL_FLAGS} dwFlags This parameter can be zero or the following value.
      * 
      * <table>
      * <tr>
@@ -125,7 +124,7 @@ class StationsAndDesktops {
      * > [!NOTE]
      * > The winuser.h header defines CreateDesktop as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PWSTR} lpszDesktop The name of the desktop to be created. Desktop names are case-insensitive and may not contain backslash characters (\\).
-     * @param {Integer} dwFlags This parameter can be zero or the following value.
+     * @param {DESKTOP_CONTROL_FLAGS} dwFlags This parameter can be zero or the following value.
      * 
      * <table>
      * <tr>
@@ -209,7 +208,7 @@ class StationsAndDesktops {
      * > [!NOTE]
      * > The winuser.h header defines CreateDesktopEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PSTR} lpszDesktop The name of the desktop to be created. Desktop names are case-insensitive and may not contain backslash characters (\\).
-     * @param {Integer} dwFlags This parameter can be zero or the following value.
+     * @param {DESKTOP_CONTROL_FLAGS} dwFlags This parameter can be zero or the following value.
      * 
      * <table>
      * <tr>
@@ -300,7 +299,7 @@ class StationsAndDesktops {
      * > [!NOTE]
      * > The winuser.h header defines CreateDesktopEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PWSTR} lpszDesktop The name of the desktop to be created. Desktop names are case-insensitive and may not contain backslash characters (\\).
-     * @param {Integer} dwFlags This parameter can be zero or the following value.
+     * @param {DESKTOP_CONTROL_FLAGS} dwFlags This parameter can be zero or the following value.
      * 
      * <table>
      * <tr>
@@ -376,7 +375,7 @@ class StationsAndDesktops {
      * @param {PSTR} lpszDesktop The name of the desktop to be opened. Desktop names are case-insensitive.
      * 
      * This desktop must belong to the current window station.
-     * @param {Integer} dwFlags This parameter can be zero or the following value.
+     * @param {DESKTOP_CONTROL_FLAGS} dwFlags This parameter can be zero or the following value.
      * 
      * <table>
      * <tr>
@@ -437,7 +436,7 @@ class StationsAndDesktops {
      * @param {PWSTR} lpszDesktop The name of the desktop to be opened. Desktop names are case-insensitive.
      * 
      * This desktop must belong to the current window station.
-     * @param {Integer} dwFlags This parameter can be zero or the following value.
+     * @param {DESKTOP_CONTROL_FLAGS} dwFlags This parameter can be zero or the following value.
      * 
      * <table>
      * <tr>
@@ -493,7 +492,7 @@ class StationsAndDesktops {
      * <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-switchdesktop">SwitchDesktop</a> function to change the input desktop.
      * 
      * If the <i>dwDesiredAccess</i> parameter specifies the <b>READ_CONTROL</b>, <b>WRITE_DAC</b>, or <b>WRITE_OWNER</b> standard access rights, you must also request the <b>DESKTOP_READOBJECTS</b> and <b>DESKTOP_WRITEOBJECTS</b> access rights.
-     * @param {Integer} dwFlags This parameter can be zero or the following value.
+     * @param {DESKTOP_CONTROL_FLAGS} dwFlags This parameter can be zero or the following value.
      * 
      * <table>
      * <tr>
@@ -513,7 +512,7 @@ class StationsAndDesktops {
      * </tr>
      * </table>
      * @param {BOOL} fInherit If this value is <b>TRUE</b>, processes created by this process will inherit the handle. Otherwise, the processes do not inherit this handle.
-     * @param {Integer} dwDesiredAccess The access to the desktop. For a list of access rights, see 
+     * @param {DESKTOP_ACCESS_FLAGS} dwDesiredAccess The access to the desktop. For a list of access rights, see 
      * <a href="https://docs.microsoft.com/windows/desktop/winstation/desktop-security-and-access-rights">Desktop Security and Access Rights</a>.
      * @returns {HDESK} If the function succeeds, the return value is a handle to the desktop that receives user input. When you are finished using the handle, call the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-closedesktop">CloseDesktop</a> function to close it.
@@ -551,10 +550,16 @@ class StationsAndDesktops {
      * 
      * > [!NOTE]
      * > The winuser.h header defines EnumDesktops as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HWINSTA} _hwinsta 
+     * @param {HWINSTA} _hwinsta A handle to the window station whose desktops are to be enumerated. This handle is returned by the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-createwindowstationa">CreateWindowStation</a>, 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getprocesswindowstation">GetProcessWindowStation</a>, or 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-openwindowstationa">OpenWindowStation</a> function, and must have the WINSTA_ENUMDESKTOPS access right. For more information, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/winstation/window-station-security-and-access-rights">Window Station Security and Access Rights</a>.
+     * 
+     * If this parameter is NULL, the current window station is used.
      * @param {Pointer<DESKTOPENUMPROCA>} lpEnumFunc A pointer to an application-defined 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms682612(v=vs.85)">EnumDesktopProc</a> callback function.
-     * @param {LPARAM} _lParam 
+     * @param {LPARAM} _lParam An application-defined value to be passed to the callback function.
      * @returns {BOOL} If the function succeeds, it returns the  nonzero value returned by the callback function that was pointed to by <i>lpEnumFunc</i>.
      * 
      * If the function is unable to perform the enumeration, the return value is zero. Call 
@@ -593,10 +598,16 @@ class StationsAndDesktops {
      * 
      * > [!NOTE]
      * > The winuser.h header defines EnumDesktops as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HWINSTA} _hwinsta 
+     * @param {HWINSTA} _hwinsta A handle to the window station whose desktops are to be enumerated. This handle is returned by the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-createwindowstationa">CreateWindowStation</a>, 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getprocesswindowstation">GetProcessWindowStation</a>, or 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-openwindowstationa">OpenWindowStation</a> function, and must have the WINSTA_ENUMDESKTOPS access right. For more information, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/winstation/window-station-security-and-access-rights">Window Station Security and Access Rights</a>.
+     * 
+     * If this parameter is NULL, the current window station is used.
      * @param {Pointer<DESKTOPENUMPROCW>} lpEnumFunc A pointer to an application-defined 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms682612(v=vs.85)">EnumDesktopProc</a> callback function.
-     * @param {LPARAM} _lParam 
+     * @param {LPARAM} _lParam An application-defined value to be passed to the callback function.
      * @returns {BOOL} If the function succeeds, it returns the  nonzero value returned by the callback function that was pointed to by <i>lpEnumFunc</i>.
      * 
      * If the function is unable to perform the enumeration, the return value is zero. Call 
@@ -633,7 +644,7 @@ class StationsAndDesktops {
      * If this parameter is NULL, the current desktop is used.
      * @param {Pointer<WNDENUMPROC>} lpfn A pointer to an application-defined 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms633498(v=vs.85)">EnumWindowsProc</a> callback function.
-     * @param {LPARAM} _lParam 
+     * @param {LPARAM} _lParam An application-defined value to be passed to the callback function.
      * @returns {BOOL} If the function fails or is unable to perform the enumeration, the return value is zero.
      * 
      * To get extended error information, call 
@@ -973,7 +984,7 @@ class StationsAndDesktops {
      * > The winuser.h header defines EnumWindowStations as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<WINSTAENUMPROCA>} lpEnumFunc A pointer to an application-defined 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms682643(v=vs.85)">EnumWindowStationProc</a> callback function.
-     * @param {LPARAM} _lParam 
+     * @param {LPARAM} _lParam An application-defined value to be passed to the callback function.
      * @returns {BOOL} If the function succeeds, it returns the  nonzero value returned by the callback function that was pointed to by <i>lpEnumFunc</i>.
      * 
      * If the function is unable to perform the enumeration, the return value is zero. Call 
@@ -1011,7 +1022,7 @@ class StationsAndDesktops {
      * > The winuser.h header defines EnumWindowStations as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<WINSTAENUMPROCW>} lpEnumFunc A pointer to an application-defined 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms682643(v=vs.85)">EnumWindowStationProc</a> callback function.
-     * @param {LPARAM} _lParam 
+     * @param {LPARAM} _lParam An application-defined value to be passed to the callback function.
      * @returns {BOOL} If the function succeeds, it returns the  nonzero value returned by the callback function that was pointed to by <i>lpEnumFunc</i>.
      * 
      * If the function is unable to perform the enumeration, the return value is zero. Call 
@@ -1037,7 +1048,9 @@ class StationsAndDesktops {
      * @remarks
      * The 
      * <b>CloseWindowStation</b> function will fail if the handle being closed is for the window station assigned to the calling process.
-     * @param {HWINSTA} _hWinSta 
+     * @param {HWINSTA} _hWinSta A handle to the window station to be closed. This handle is returned by the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-createwindowstationa">CreateWindowStation</a> or 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-openwindowstationa">OpenWindowStation</a> function. Do not specify the handle returned by the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getprocesswindowstation">GetProcessWindowStation</a> function.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -1062,7 +1075,12 @@ class StationsAndDesktops {
 
     /**
      * Assigns the specified window station to the calling process.
-     * @param {HWINSTA} _hWinSta 
+     * @param {HWINSTA} _hWinSta A handle to the window station. This can be a handle returned by the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-createwindowstationa">CreateWindowStation</a>, 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-openwindowstationa">OpenWindowStation</a>, or 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getprocesswindowstation">GetProcessWindowStation</a> function.
+     * 
+     * This window station must be associated with the current session.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -1125,8 +1143,8 @@ class StationsAndDesktops {
      * <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-openwindowstationa">OpenWindowStation</a>, 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-createdesktopa">CreateDesktop</a>, or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-opendesktopa">OpenDesktop</a> function.
-     * @param {Integer} nIndex 
-     * @param {Pointer} pvInfo A pointer to a buffer to receive the object information.
+     * @param {USER_OBJECT_INFORMATION_INDEX} nIndex 
+     * @param {Integer} pvInfo A pointer to a buffer to receive the object information.
      * @param {Integer} nLength The size of the buffer pointed to by the <i>pvInfo</i> parameter, in bytes.
      * @param {Pointer<Integer>} lpnLengthNeeded A pointer to a variable receiving the number of bytes required to store the requested information. If this variable's value is greater than the value of the <i>nLength</i> parameter when the function returns, the function returns FALSE, and none of the information is copied to the <i>pvInfo</i> buffer. If the value of the variable pointed to by <i>lpnLengthNeeded</i> is less than or equal to the value of <i>nLength</i>, the entire information block is copied.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
@@ -1161,8 +1179,8 @@ class StationsAndDesktops {
      * <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-openwindowstationa">OpenWindowStation</a>, 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-createdesktopa">CreateDesktop</a>, or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-opendesktopa">OpenDesktop</a> function.
-     * @param {Integer} nIndex 
-     * @param {Pointer} pvInfo A pointer to a buffer to receive the object information.
+     * @param {USER_OBJECT_INFORMATION_INDEX} nIndex 
+     * @param {Integer} pvInfo A pointer to a buffer to receive the object information.
      * @param {Integer} nLength The size of the buffer pointed to by the <i>pvInfo</i> parameter, in bytes.
      * @param {Pointer<Integer>} lpnLengthNeeded A pointer to a variable receiving the number of bytes required to store the requested information. If this variable's value is greater than the value of the <i>nLength</i> parameter when the function returns, the function returns FALSE, and none of the information is copied to the <i>pvInfo</i> buffer. If the value of the variable pointed to by <i>lpnLengthNeeded</i> is less than or equal to the value of <i>nLength</i>, the entire information block is copied.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
@@ -1232,7 +1250,7 @@ class StationsAndDesktops {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer} pvInfo A pointer to a buffer containing the object information, or a BOOL.
+     * @param {Integer} pvInfo A pointer to a buffer containing the object information, or a BOOL.
      * @param {Integer} nLength The size of the information contained in the buffer pointed to by <i>pvInfo</i>, in bytes.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
@@ -1299,7 +1317,7 @@ class StationsAndDesktops {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer} pvInfo A pointer to a buffer containing the object information, or a BOOL.
+     * @param {Integer} pvInfo A pointer to a buffer containing the object information, or a BOOL.
      * @param {Integer} nLength The size of the information contained in the buffer pointed to by <i>pvInfo</i>, in bytes.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
@@ -1336,8 +1354,8 @@ class StationsAndDesktops {
      * 
      * > [!NOTE]
      * > The winuser.h header defines BroadcastSystemMessageEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Integer} flags Type: <b>DWORD</b>
-     * @param {Pointer<Integer>} lpInfo Type: <b>LPDWORD</b>
+     * @param {BROADCAST_SYSTEM_MESSAGE_FLAGS} flags Type: <b>DWORD</b>
+     * @param {Pointer<BROADCAST_SYSTEM_MESSAGE_INFO>} lpInfo Type: <b>LPDWORD</b>
      * 
      * A pointer to a variable that contains and receives information about the recipients of the message.  
      * 					
@@ -1345,9 +1363,17 @@ class StationsAndDesktops {
      * When the function returns, this variable receives a combination of these values identifying which recipients actually received the message.
      * 
      * If this parameter is <b>NULL</b>, the function broadcasts to all components.
-     * @param {Integer} _Msg 
-     * @param {WPARAM} _wParam 
-     * @param {LPARAM} _lParam 
+     * @param {Integer} _Msg Type: <b>UINT</b>
+     * 
+     * The message to be sent. 
+     * 
+     * For lists of the system-provided messages, see <a href="https://docs.microsoft.com/windows/desktop/winmsg/about-messages-and-message-queues">System-Defined Messages</a>.
+     * @param {WPARAM} _wParam Type: <b>WPARAM</b>
+     * 
+     * Additional message-specific information.
+     * @param {LPARAM} _lParam Type: <b>LPARAM</b>
+     * 
+     * Additional message-specific information.
      * @param {Pointer<BSMINFO>} pbsmInfo Type: <b>PBSMINFO</b>
      * 
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-bsminfo">BSMINFO</a> structure that contains additional information if the request is denied and <i>dwFlags</i> is set to <b>BSF_QUERY</b>.
@@ -1389,8 +1415,8 @@ class StationsAndDesktops {
      * 
      * > [!NOTE]
      * > The winuser.h header defines BroadcastSystemMessageEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Integer} flags Type: <b>DWORD</b>
-     * @param {Pointer<Integer>} lpInfo Type: <b>LPDWORD</b>
+     * @param {BROADCAST_SYSTEM_MESSAGE_FLAGS} flags Type: <b>DWORD</b>
+     * @param {Pointer<BROADCAST_SYSTEM_MESSAGE_INFO>} lpInfo Type: <b>LPDWORD</b>
      * 
      * A pointer to a variable that contains and receives information about the recipients of the message.  
      * 					
@@ -1398,9 +1424,17 @@ class StationsAndDesktops {
      * When the function returns, this variable receives a combination of these values identifying which recipients actually received the message.
      * 
      * If this parameter is <b>NULL</b>, the function broadcasts to all components.
-     * @param {Integer} _Msg 
-     * @param {WPARAM} _wParam 
-     * @param {LPARAM} _lParam 
+     * @param {Integer} _Msg Type: <b>UINT</b>
+     * 
+     * The message to be sent. 
+     * 
+     * For lists of the system-provided messages, see <a href="https://docs.microsoft.com/windows/desktop/winmsg/about-messages-and-message-queues">System-Defined Messages</a>.
+     * @param {WPARAM} _wParam Type: <b>WPARAM</b>
+     * 
+     * Additional message-specific information.
+     * @param {LPARAM} _lParam Type: <b>LPARAM</b>
+     * 
+     * Additional message-specific information.
      * @param {Pointer<BSMINFO>} pbsmInfo Type: <b>PBSMINFO</b>
      * 
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-bsminfo">BSMINFO</a> structure that contains additional information if the request is denied and <i>dwFlags</i> is set to <b>BSF_QUERY</b>.
@@ -1446,9 +1480,17 @@ class StationsAndDesktops {
      * When the function returns, this variable receives a combination of these values identifying which recipients actually received the message.
      * 
      * If this parameter is <b>NULL</b>, the function broadcasts to all components.
-     * @param {Integer} _Msg 
-     * @param {WPARAM} _wParam 
-     * @param {LPARAM} _lParam 
+     * @param {Integer} _Msg Type: <b>UINT</b>
+     * 
+     * The message to be sent.
+     * 
+     * For lists of the system-provided messages, see <a href="https://docs.microsoft.com/windows/desktop/winmsg/about-messages-and-message-queues">System-Defined Messages</a>.
+     * @param {WPARAM} _wParam Type: <b>WPARAM</b>
+     * 
+     * Additional message-specific information.
+     * @param {LPARAM} _lParam Type: <b>LPARAM</b>
+     * 
+     * Additional message-specific information.
      * @returns {Integer} Type: <b>long</b>
      * 
      * If the function succeeds, the return value is a positive value.
@@ -1471,8 +1513,8 @@ class StationsAndDesktops {
      * If <b>BSF_QUERY</b> is not specified, the function sends the specified message to all requested recipients, ignoring values returned by those recipients.
      * 
      * The system only does marshalling for system messages (those in the range 0 to (<a href="https://docs.microsoft.com/windows/desktop/winmsg/wm-user">WM_USER</a>-1)). To send other messages (those &gt;= <b>WM_USER</b>) to another process, you must do custom marshalling.
-     * @param {Integer} flags Type: <b>DWORD</b>
-     * @param {Pointer<Integer>} lpInfo Type: <b>LPDWORD</b>
+     * @param {BROADCAST_SYSTEM_MESSAGE_FLAGS} flags Type: <b>DWORD</b>
+     * @param {Pointer<BROADCAST_SYSTEM_MESSAGE_INFO>} lpInfo Type: <b>LPDWORD</b>
      * 
      * A pointer to a variable that contains and receives information about the recipients of the message. 
      *                     
@@ -1480,9 +1522,17 @@ class StationsAndDesktops {
      * When the function returns, this variable receives a combination of these values identifying which recipients actually received the message. 
      * 
      * If this parameter is <b>NULL</b>, the function broadcasts to all components.
-     * @param {Integer} _Msg 
-     * @param {WPARAM} _wParam 
-     * @param {LPARAM} _lParam 
+     * @param {Integer} _Msg Type: <b>UINT</b>
+     * 
+     * The message to be sent. 
+     * 
+     * For lists of the system-provided messages, see <a href="https://docs.microsoft.com/windows/desktop/winmsg/about-messages-and-message-queues">System-Defined Messages</a>.
+     * @param {WPARAM} _wParam Type: <b>WPARAM</b>
+     * 
+     * Additional message-specific information.
+     * @param {LPARAM} _lParam Type: <b>LPARAM</b>
+     * 
+     * Additional message-specific information.
      * @returns {Integer} Type: <b>long</b>
      * 
      * If the function succeeds, the return value is a positive value.

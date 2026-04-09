@@ -7,9 +7,8 @@
  * IDirectMusicSynth8is unsupported and may be altered or unavailable in the future.
  * @see https://learn.microsoft.com/windows/win32/api/dmusics/nn-dmusics-idirectmusicsynth8
  * @namespace Windows.Win32.Media.Audio.DirectMusic
- * @version v4.0.30319
  */
-class IDirectMusicSynth8 extends IDirectMusicSynth{
+class IDirectMusicSynth8 extends IDirectMusicSynth {
 
     static sizeof => A_PtrSize
     /**

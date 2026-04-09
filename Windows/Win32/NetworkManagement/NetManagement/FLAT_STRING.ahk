@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.NetManagement
- * @version v4.0.30319
  */
-class FLAT_STRING extends Win32Struct
-{
+class FLAT_STRING extends Win32Struct {
     static sizeof => 6
 
     static packingSize => 2
@@ -31,7 +29,7 @@ class FLAT_STRING extends Win32Struct
      * @type {String}
      */
     Buffer {
-        get => StrGet(this.ptr + 4, 0, "UTF-16")
-        set => StrPut(value, this.ptr + 4, 0, "UTF-16")
+        get => StrGet(this.ptr + 4, 0, "UTF-8")
+        set => StrPut(value, this.ptr + 4, 0, "UTF-8")
     }
 }

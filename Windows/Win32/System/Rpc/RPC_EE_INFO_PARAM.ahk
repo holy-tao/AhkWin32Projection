@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\ExtendedErrorParamTypes.ahk
 #Include .\BinaryParam.ahk
 
 /**
@@ -9,10 +10,8 @@
  * <b>RPC_EE_INFO_PARAM</b> structure is used in conjunction with the <b>RpcError</b>* functions to investigate and create extended RPC error information.
  * @see https://learn.microsoft.com/windows/win32/api/rpcasync/ns-rpcasync-rpc_ee_info_param
  * @namespace Windows.Win32.System.Rpc
- * @version v4.0.30319
  */
-class RPC_EE_INFO_PARAM extends Win32Struct
-{
+class RPC_EE_INFO_PARAM extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -28,7 +27,7 @@ class RPC_EE_INFO_PARAM extends Win32Struct
             get => NumGet(this, 0, "ptr")
             set => NumPut("ptr", value, this, 0)
         }
-    
+
         /**
          * @type {PWSTR}
          */
@@ -36,7 +35,7 @@ class RPC_EE_INFO_PARAM extends Win32Struct
             get => NumGet(this, 0, "ptr")
             set => NumPut("ptr", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -44,7 +43,7 @@ class RPC_EE_INFO_PARAM extends Win32Struct
             get => NumGet(this, 0, "int")
             set => NumPut("int", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -52,7 +51,7 @@ class RPC_EE_INFO_PARAM extends Win32Struct
             get => NumGet(this, 0, "short")
             set => NumPut("short", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -60,18 +59,17 @@ class RPC_EE_INFO_PARAM extends Win32Struct
             get => NumGet(this, 0, "uint")
             set => NumPut("uint", value, this, 0)
         }
-    
+
         /**
          * @type {BinaryParam}
          */
-        BVal{
+        BVal {
             get {
                 if(!this.HasProp("__BVal"))
                     this.__BVal := BinaryParam(0, this)
                 return this.__BVal
             }
         }
-    
     }
 
     /**
@@ -89,7 +87,7 @@ class RPC_EE_INFO_PARAM extends Win32Struct
      * <li><b>eeptBinary</b> is used by the RPC Runtime and should not be used or specified by applications.</li>
      * <li><b>eeptNone</b> indicates the parameter contained either a Unicode or ANSI string, but was truncated due to lack of memory or network fragment length limitations.</li>
      * </ul>
-     * @type {Integer}
+     * @type {ExtendedErrorParamTypes}
      */
     ParameterType {
         get => NumGet(this, 0, "int")
@@ -97,13 +95,12 @@ class RPC_EE_INFO_PARAM extends Win32Struct
     }
 
     /**
-     * 
      * @type {_u_e__Union}
      */
-    u{
+    u {
         get {
             if(!this.HasProp("__u"))
-                this.__u := %this.__Class%._u_e__Union(8, this)
+                this.__u := RPC_EE_INFO_PARAM._u_e__Union(8, this)
             return this.__u
         }
     }

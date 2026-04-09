@@ -5,10 +5,8 @@
  * The CONTEXTMENUITEM structure is passed to the IContextMenuCallback::AddItem method or the IContextMenuProvider::AddItem method (inherited from IContextMenuCallback) to define a new menu item, submenu, or insertion point.
  * @see https://learn.microsoft.com/windows/win32/api/mmc/ns-mmc-contextmenuitem
  * @namespace Windows.Win32.System.Mmc
- * @version v4.0.30319
  */
-class CONTEXTMENUITEM extends Win32Struct
-{
+class CONTEXTMENUITEM extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8

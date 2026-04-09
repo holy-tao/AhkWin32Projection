@@ -1,15 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\DOT11_SSID.ahk
+#Include .\DOT11_BSS_TYPE.ahk
+#Include .\DOT11_PHY_TYPE.ahk
+#Include .\DOT11_AUTH_ALGORITHM.ahk
+#Include .\DOT11_CIPHER_ALGORITHM.ahk
 
 /**
  * Contains information about an available wireless network. (WLAN_AVAILABLE_NETWORK)
  * @see https://learn.microsoft.com/windows/win32/api/wlanapi/ns-wlanapi-wlan_available_network
  * @namespace Windows.Win32.NetworkManagement.WiFi
- * @version v4.0.30319
  */
-class WLAN_AVAILABLE_NETWORK extends Win32Struct
-{
+class WLAN_AVAILABLE_NETWORK extends Win32Struct {
     static sizeof => 628
 
     static packingSize => 4
@@ -27,7 +29,7 @@ class WLAN_AVAILABLE_NETWORK extends Win32Struct
      * A <a href="https://docs.microsoft.com/windows/desktop/NativeWiFi/dot11-ssid">DOT11_SSID</a> structure that contains the SSID of the visible wireless network.
      * @type {DOT11_SSID}
      */
-    dot11Ssid{
+    dot11Ssid {
         get {
             if(!this.HasProp("__dot11Ssid"))
                 this.__dot11Ssid := DOT11_SSID(512, this)
@@ -37,7 +39,7 @@ class WLAN_AVAILABLE_NETWORK extends Win32Struct
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/NativeWiFi/dot11-bss-type">DOT11_BSS_TYPE</a> value that specifies whether the network is infrastructure or ad hoc.
-     * @type {Integer}
+     * @type {DOT11_BSS_TYPE}
      */
     dot11BssType {
         get => NumGet(this, 548, "int")
@@ -215,9 +217,9 @@ class WLAN_AVAILABLE_NETWORK extends Win32Struct
      * </td>
      * </tr>
      * </table>
-     * @type {Array<Int32>}
+     * @type {Array<DOT11_PHY_TYPE>}
      */
-    dot11PhyTypes{
+    dot11PhyTypes {
         get {
             if(!this.HasProp("__dot11PhyTypesProxyArray"))
                 this.__dot11PhyTypesProxyArray := Win32FixedArray(this.ptr + 568, 8, Primitive, "int")
@@ -256,7 +258,7 @@ class WLAN_AVAILABLE_NETWORK extends Win32Struct
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/NativeWiFi/dot11-auth-algorithm">DOT11_AUTH_ALGORITHM</a> value that indicates the default authentication algorithm used to join this network for the first time.
-     * @type {Integer}
+     * @type {DOT11_AUTH_ALGORITHM}
      */
     dot11DefaultAuthAlgorithm {
         get => NumGet(this, 612, "int")
@@ -265,7 +267,7 @@ class WLAN_AVAILABLE_NETWORK extends Win32Struct
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/NativeWiFi/dot11-cipher-algorithm">DOT11_CIPHER_ALGORITHM</a> value that indicates the default cipher algorithm to be used when joining this network.
-     * @type {Integer}
+     * @type {DOT11_CIPHER_ALGORITHM}
      */
     dot11DefaultCipherAlgorithm {
         get => NumGet(this, 616, "int")

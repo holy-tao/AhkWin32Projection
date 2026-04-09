@@ -4,18 +4,16 @@
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class USER_SESSION_KEY extends Win32Struct
-{
+class USER_SESSION_KEY extends Win32Struct {
     static sizeof => 16
 
-    static packingSize => 8
+    static packingSize => 2
 
     /**
-     * @type {Array<CYPHER_BLOCK>}
+     * @type {CYPHER_BLOCK}
      */
-    data{
+    data {
         get {
             if(!this.HasProp("__dataProxyArray"))
                 this.__dataProxyArray := Win32FixedArray(this.ptr + 0, 2, CYPHER_BLOCK, "")

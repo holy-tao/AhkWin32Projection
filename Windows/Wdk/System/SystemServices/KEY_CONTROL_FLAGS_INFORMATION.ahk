@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class KEY_CONTROL_FLAGS_INFORMATION extends Win32Struct
-{
+class KEY_CONTROL_FLAGS_INFORMATION extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 4

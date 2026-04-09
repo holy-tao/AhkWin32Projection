@@ -5,10 +5,8 @@
  * The IDPE_ATTR structure contains identity policy element attribute information.
  * @see https://learn.microsoft.com/windows/win32/api/qospol/ns-qospol-idpe_attr
  * @namespace Windows.Win32.NetworkManagement.QoS
- * @version v4.0.30319
  */
-class IDPE_ATTR extends Win32Struct
-{
+class IDPE_ATTR extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 2
@@ -106,9 +104,9 @@ class IDPE_ATTR extends Win32Struct
 
     /**
      * Policy element value.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    PeAttribValue{
+    PeAttribValue {
         get {
             if(!this.HasProp("__PeAttribValueProxyArray"))
                 this.__PeAttribValueProxyArray := Win32FixedArray(this.ptr + 4, 4, Primitive, "char")

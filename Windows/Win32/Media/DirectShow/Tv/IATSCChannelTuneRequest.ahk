@@ -31,9 +31,8 @@
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IATSCChannelTuneRequest)</c>.
  * @see https://learn.microsoft.com/windows/win32/api/tuner/nn-tuner-iatscchanneltunerequest
  * @namespace Windows.Win32.Media.DirectShow.Tv
- * @version v4.0.30319
  */
-class IATSCChannelTuneRequest extends IChannelTuneRequest{
+class IATSCChannelTuneRequest extends IChannelTuneRequest {
 
     static sizeof => A_PtrSize
     /**

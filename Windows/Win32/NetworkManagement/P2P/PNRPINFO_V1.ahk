@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\PNRP_RESOLVE_CRITERIA.ahk
 #Include ..\..\Networking\WinSock\SOCKET_ADDRESS.ahk
+#Include ..\..\Networking\WinSock\SOCKADDR.ahk
+#Include .\PNRP_REGISTERED_ID_STATE.ahk
 
 /**
  * The PNRPINFO_V1 structure is pointed to by the lpBlob member of the WSAQUERYSET structure. (PNRPINFO_V1)
@@ -8,10 +11,8 @@
  * Starting with Windows Vista, please use the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa371671(v=vs.85)">PNRPINFO_V2</a> structure.
  * @see https://learn.microsoft.com/windows/win32/api/pnrpns/ns-pnrpns-pnrpinfo_v1
  * @namespace Windows.Win32.NetworkManagement.P2P
- * @version v4.0.30319
  */
-class PNRPINFO_V1 extends Win32Struct
-{
+class PNRPINFO_V1 extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 8
@@ -63,7 +64,7 @@ class PNRPINFO_V1 extends Win32Struct
 
     /**
      * Specifies the criteria used to resolve matches.  PNRP can look for the first matching name, or attempt to find a name that is numerically close to the service location. Valid values are specified by <a href="https://docs.microsoft.com/windows/desktop/api/pnrpdef/ne-pnrpdef-pnrp_resolve_criteria">PNRP_RESOLVE_CRITERIA</a>.
-     * @type {Integer}
+     * @type {PNRP_RESOLVE_CRITERIA}
      */
     enResolveCriteria {
         get => NumGet(this, 28, "int")
@@ -94,7 +95,7 @@ class PNRPINFO_V1 extends Win32Struct
      * Specifies the IPv6 address to  use for the location. The  <b>dwFlags</b> member must be PNRPINFO_HINT.
      * @type {SOCKET_ADDRESS}
      */
-    saHint{
+    saHint {
         get {
             if(!this.HasProp("__saHint"))
                 this.__saHint := SOCKET_ADDRESS(40, this)
@@ -104,7 +105,7 @@ class PNRPINFO_V1 extends Win32Struct
 
     /**
      * Specifies the state of the registered ID.  This value is reserved and must be set to zero (0).
-     * @type {Integer}
+     * @type {PNRP_REGISTERED_ID_STATE}
      */
     enNameState {
         get => NumGet(this, 56, "int")

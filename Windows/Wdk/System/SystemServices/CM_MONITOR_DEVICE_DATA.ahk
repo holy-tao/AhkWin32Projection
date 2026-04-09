@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class CM_MONITOR_DEVICE_DATA extends Win32Struct
-{
+class CM_MONITOR_DEVICE_DATA extends Win32Struct {
     static sizeof => 54
 
     static packingSize => 2

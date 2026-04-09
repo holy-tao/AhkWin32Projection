@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CERT_CREATE_SELFSIGN_FLAGS extends Win32BitflagEnum{
+class CERT_CREATE_SELFSIGN_FLAGS extends Win32BitflagEnum {
 
     /**
      * @type {Integer (UInt32)}

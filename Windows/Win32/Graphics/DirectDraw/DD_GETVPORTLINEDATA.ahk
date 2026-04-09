@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DD_DIRECTDRAW_LOCAL.ahk
+#Include .\DD_VIDEOPORT_LOCAL.ahk
 
 /**
  * The DD_GETVPORTLINEDATA structure contains the current line number of the hardware video port.
  * @see https://learn.microsoft.com/windows/win32/api/ddrawint/ns-ddrawint-dd_getvportlinedata
  * @namespace Windows.Win32.Graphics.DirectDraw
- * @version v4.0.30319
  */
-class DD_GETVPORTLINEDATA extends Win32Struct
-{
+class DD_GETVPORTLINEDATA extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8

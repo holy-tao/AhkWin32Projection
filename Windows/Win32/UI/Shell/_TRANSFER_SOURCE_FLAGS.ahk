@@ -5,9 +5,8 @@
  * Used by methods of the ITransferSource and ITransferDestination interfaces to control their file operations.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/ne-shobjidl_core-_transfer_source_flags
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class _TRANSFER_SOURCE_FLAGS extends Win32Enum{
+class _TRANSFER_SOURCE_FLAGS extends Win32Enum {
 
     /**
      * Fail if the destination already exists, unless TSF_OVERWRITE_EXIST is specified. This is a default behavior.

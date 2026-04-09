@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Hypervisor
- * @version v4.0.30319
  */
-class REGISTER_ID extends Win32Enum{
+class REGISTER_ID extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

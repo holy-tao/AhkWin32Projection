@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\DOT11_SSID.ahk
+#Include .\DOT11_AUTH_ALGORITHM.ahk
+#Include .\DOT11_CIPHER_ALGORITHM.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
- * @version v4.0.30319
  */
-class DOT11EXT_VIRTUAL_STATION_AP_PROPERTY extends Win32Struct
-{
+class DOT11EXT_VIRTUAL_STATION_AP_PROPERTY extends Win32Struct {
     static sizeof => 116
 
     static packingSize => 4
@@ -15,7 +15,7 @@ class DOT11EXT_VIRTUAL_STATION_AP_PROPERTY extends Win32Struct
     /**
      * @type {DOT11_SSID}
      */
-    dot11SSID{
+    dot11SSID {
         get {
             if(!this.HasProp("__dot11SSID"))
                 this.__dot11SSID := DOT11_SSID(0, this)
@@ -24,7 +24,7 @@ class DOT11EXT_VIRTUAL_STATION_AP_PROPERTY extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {DOT11_AUTH_ALGORITHM}
      */
     dot11AuthAlgo {
         get => NumGet(this, 36, "int")
@@ -32,7 +32,7 @@ class DOT11EXT_VIRTUAL_STATION_AP_PROPERTY extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {DOT11_CIPHER_ALGORITHM}
      */
     dot11CipherAlgo {
         get => NumGet(this, 40, "int")
@@ -56,9 +56,9 @@ class DOT11EXT_VIRTUAL_STATION_AP_PROPERTY extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    ucKeyData{
+    ucKeyData {
         get {
             if(!this.HasProp("__ucKeyDataProxyArray"))
                 this.__ucKeyDataProxyArray := Win32FixedArray(this.ptr + 52, 64, Primitive, "char")

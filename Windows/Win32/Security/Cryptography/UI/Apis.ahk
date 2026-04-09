@@ -4,7 +4,6 @@
 
 /**
  * @namespace Windows.Win32.Security.Cryptography.UI
- * @version v4.0.30319
  */
 class UI {
 
@@ -458,7 +457,7 @@ class UI {
      * </tr>
      * </table>
      * @param {Pointer<Void>} pvContext A pointer to a certificate, CRL, or CTL context to be displayed.
-     * @param {HWND} _hwnd 
+     * @param {HWND} _hwnd Handle of the window for the display. If <b>NULL</b>, the display defaults to the desktop window.
      * @param {PWSTR} pwszTitle Display title string. If <b>NULL</b>, the default context type is used as the title.
      * @param {Integer} dwFlags Currently not used and should be set to 0.
      * @param {Pointer<Void>} pvReserved Reserved for future use.
@@ -479,8 +478,8 @@ class UI {
 
     /**
      * Displays a dialog box that allows the selection of a certificate from a specified store.
-     * @param {HCERTSTORE} _hCertStore 
-     * @param {HWND} _hwnd 
+     * @param {HCERTSTORE} _hCertStore Handle of the certificate store to be searched.
+     * @param {HWND} _hwnd Handle of the window for the display. If <b>NULL</b>, defaults to the desktop window.
      * @param {PWSTR} pwszTitle String used as the title of the dialog box. If <b>NULL</b>, the default title, "Select Certificate," is used.
      * @param {PWSTR} pwszDisplayString Text statement in the selection dialog box. If <b>NULL</b>, the default phrase, "Select a certificate you want to use," is used.
      * @param {Integer} dwDontUseColumn Flags that can be combined to exclude columns of the display. 
@@ -783,7 +782,7 @@ class UI {
 
     /**
      * Exports a certificate, a certificate trust list (CTL), a certificate revocation list (CRL), or a certificate store to a file.
-     * @param {Integer} dwFlags 
+     * @param {CRYPTUI_WIZ_FLAGS} dwFlags 
      * @param {HWND} hwndParent The handle of the window to use as the parent of the dialog box that this function creates. This parameter is ignored if the <b>CRYPT_WIZ_NO_UI</b> flag is set in <i>dwFlags</i>.
      * @param {PWSTR} pwszWizardTitle A pointer to a null-terminated Unicode string that contains the title to use in the dialog box that this function creates. This parameter is ignored if the <b>CRYPT_WIZ_NO_UI</b> flag is set in <i>dwFlags</i>.
      * @param {Pointer<CRYPTUI_WIZ_EXPORT_INFO>} pExportInfo A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/cryptuiapi/ns-cryptuiapi-cryptui_wiz_export_info">CRYPTUI_WIZ_EXPORT_INFO</a> structure that contains information about producing the export wizard.
@@ -831,7 +830,7 @@ class UI {
      * <li>And if <b>CRYPTUI_WIZ_NO_UI</b> is not set, the wizard prompts the user to select a certificate 
      * store from among the current user certificate stores.</li>
      * </ul>
-     * @param {Integer} dwFlags 
+     * @param {CRYPTUI_WIZ_FLAGS} dwFlags 
      * @param {HWND} hwndParent The handle of the window to use as the parent of the dialog box that  this function creates. This parameter is ignored if the <b>CRYPTUI_WIZ_NO_UI</b> flag is set in <i>dwFlags</i>.
      * @param {PWSTR} pwszWizardTitle A pointer to a null-terminated Unicode string that contains the title to use in the dialog box that this function creates. This parameter is ignored if the <b>CRYPTUI_WIZ_NO_UI</b> flag is set in <i>dwFlags</i>.
      * @param {Pointer<CRYPTUI_WIZ_IMPORT_SRC_INFO>} pImportSrc A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/cryptuiapi/ns-cryptuiapi-cryptui_wiz_import_src_info">CRYPTUI_WIZ_IMPORT_SRC_INFO</a> structure that contains information about the object to import. This parameter is required if <b>CRYPTUI_WIZ_NO_UI</b> is set in <i>dwFlags</i> and is optional otherwise.

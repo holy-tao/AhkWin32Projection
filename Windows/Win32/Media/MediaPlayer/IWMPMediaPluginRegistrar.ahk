@@ -7,9 +7,8 @@
  * The IWMPMediaPluginRegistrar interface manages plug-in registration.
  * @see https://learn.microsoft.com/windows/win32/api/wmpservices/nn-wmpservices-iwmpmediapluginregistrar
  * @namespace Windows.Win32.Media.MediaPlayer
- * @version v4.0.30319
  */
-class IWMPMediaPluginRegistrar extends IUnknown{
+class IWMPMediaPluginRegistrar extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

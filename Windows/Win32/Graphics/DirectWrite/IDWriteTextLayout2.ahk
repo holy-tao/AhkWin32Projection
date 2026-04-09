@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IDWriteTextLayout1.ahk
 #Include .\DWRITE_TEXT_METRICS1.ahk
 #Include .\IDWriteFontFallback.ahk
-#Include .\IDWriteTextLayout1.ahk
 
 /**
  * Represents a block of text after it has been fully analyzed and formatted. | IDWriteTextLayout2 interface
  * @see https://learn.microsoft.com/windows/win32/DirectWrite/idwritetextlayout2
  * @namespace Windows.Win32.Graphics.DirectWrite
- * @version v4.0.30319
  */
-class IDWriteTextLayout2 extends IDWriteTextLayout1{
+class IDWriteTextLayout2 extends IDWriteTextLayout1 {
 
     static sizeof => A_PtrSize
     /**
@@ -47,7 +46,7 @@ class IDWriteTextLayout2 extends IDWriteTextLayout1{
 
     /**
      * Set the preferred orientation of glyphs when using a vertical reading direction.
-     * @param {Integer} glyphOrientation Preferred glyph orientation.
+     * @param {DWRITE_VERTICAL_GLYPH_ORIENTATION} glyphOrientation Preferred glyph orientation.
      * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_2/nf-dwrite_2-idwritetextlayout2-setverticalglyphorientation
      */
@@ -58,7 +57,7 @@ class IDWriteTextLayout2 extends IDWriteTextLayout1{
 
     /**
      * Get the preferred orientation of glyphs when using a vertical reading direction. (IDWriteTextLayout2.GetVerticalGlyphOrientation)
-     * @returns {Integer} 
+     * @returns {DWRITE_VERTICAL_GLYPH_ORIENTATION} 
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_2/nf-dwrite_2-idwritetextlayout2-getverticalglyphorientation
      */
     GetVerticalGlyphOrientation() {
@@ -89,7 +88,7 @@ class IDWriteTextLayout2 extends IDWriteTextLayout1{
 
     /**
      * Set how the glyphs align to the edges the margin.
-     * @param {Integer} opticalAlignment Optical alignment option.
+     * @param {DWRITE_OPTICAL_ALIGNMENT} opticalAlignment Optical alignment option.
      * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_2/nf-dwrite_2-idwritetextlayout2-setopticalalignment
      */
@@ -100,7 +99,7 @@ class IDWriteTextLayout2 extends IDWriteTextLayout1{
 
     /**
      * Get how the glyphs align to the edges the margin.
-     * @returns {Integer} 
+     * @returns {DWRITE_OPTICAL_ALIGNMENT} 
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_2/nf-dwrite_2-idwritetextlayout2-getopticalalignment
      */
     GetOpticalAlignment() {

@@ -1,13 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Win32\Foundation\RECT.ahk
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
- * @version v4.0.30319
  */
-class D3DKMT_DIRTYREGIONS extends Win32Struct
-{
+class D3DKMT_DIRTYREGIONS extends Win32Struct {
     static sizeof => 136
 
     static packingSize => 8
@@ -21,12 +18,12 @@ class D3DKMT_DIRTYREGIONS extends Win32Struct
     }
 
     /**
-     * @type {Array<RECT>}
+     * @type {Array<Pointer>}
      */
-    Rects{
+    Rects {
         get {
             if(!this.HasProp("__RectsProxyArray"))
-                this.__RectsProxyArray := Win32FixedArray(this.ptr + 8, 16, RECT, "")
+                this.__RectsProxyArray := Win32FixedArray(this.ptr + 8, 16, Primitive, "ptr")
             return this.__RectsProxyArray
         }
     }

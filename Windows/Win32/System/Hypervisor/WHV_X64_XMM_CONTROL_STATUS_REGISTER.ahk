@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.System.Hypervisor
- * @version v4.0.30319
  */
-class WHV_X64_XMM_CONTROL_STATUS_REGISTER extends Win32Struct
-{
+class WHV_X64_XMM_CONTROL_STATUS_REGISTER extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -63,7 +61,7 @@ class WHV_X64_XMM_CONTROL_STATUS_REGISTER extends Win32Struct
     /**
      * @type {WHV_UINT128}
      */
-    AsUINT128{
+    AsUINT128 {
         get {
             if(!this.HasProp("__AsUINT128"))
                 this.__AsUINT128 := WHV_UINT128(0, this)

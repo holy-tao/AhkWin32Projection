@@ -1,17 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Win32\Foundation\POINT.ahk
-#Include ..\..\..\Win32\Foundation\RECTL.ahk
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
- * @version v4.0.30319
  */
-class D3DNTHAL_DP2TEXBLT extends Win32Struct
-{
-    static sizeof => 36
+class D3DNTHAL_DP2TEXBLT extends Win32Struct {
+    static sizeof => 32
 
-    static packingSize => 4
+    static packingSize => 8
 
     /**
      * @type {Integer}
@@ -30,32 +26,26 @@ class D3DNTHAL_DP2TEXBLT extends Win32Struct
     }
 
     /**
-     * @type {POINT}
+     * @type {Pointer}
      */
-    pDest{
-        get {
-            if(!this.HasProp("__pDest"))
-                this.__pDest := POINT(8, this)
-            return this.__pDest
-        }
+    pDest {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
-     * @type {RECTL}
+     * @type {Pointer}
      */
-    rSrc{
-        get {
-            if(!this.HasProp("__rSrc"))
-                this.__rSrc := RECTL(16, this)
-            return this.__rSrc
-        }
+    rSrc {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
      * @type {Integer}
      */
     dwFlags {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
+        get => NumGet(this, 24, "uint")
+        set => NumPut("uint", value, this, 24)
     }
 }

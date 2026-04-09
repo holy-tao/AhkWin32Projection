@@ -5,10 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
- * @version v4.0.30319
  */
-class KSPROPERTY_CAMERACONTROL_S_EX extends Win32Struct
-{
+class KSPROPERTY_CAMERACONTROL_S_EX extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -16,7 +14,7 @@ class KSPROPERTY_CAMERACONTROL_S_EX extends Win32Struct
     /**
      * @type {KSIDENTIFIER}
      */
-    Property{
+    Property {
         get {
             if(!this.HasProp("__Property"))
                 this.__Property := KSIDENTIFIER(0, this)
@@ -51,7 +49,7 @@ class KSPROPERTY_CAMERACONTROL_S_EX extends Win32Struct
     /**
      * @type {RECT}
      */
-    FocusRect{
+    FocusRect {
         get {
             if(!this.HasProp("__FocusRect"))
                 this.__FocusRect := RECT(28, this)

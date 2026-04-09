@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Data.Xml.XmlLite
- * @version v4.0.30319
  */
-class IXmlWriter extends IUnknown{
+class IXmlWriter extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -319,7 +318,7 @@ class IXmlWriter extends IUnknown{
 
     /**
      * 
-     * @param {Integer} standalone 
+     * @param {XmlStandalone} standalone 
      * @returns {HRESULT} 
      */
     WriteStartDocument(standalone) {

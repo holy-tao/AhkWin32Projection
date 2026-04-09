@@ -5,10 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.WinRT.Metadata
- * @version v4.0.30319
  */
-class ROPARAMIIDHANDLE extends Win32Handle
-{
+class ROPARAMIIDHANDLE extends Win32Handle {
     static sizeof => 8
 
     static packingSize => 8

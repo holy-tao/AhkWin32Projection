@@ -3,18 +3,16 @@
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class MSV1_0_CREDENTIAL_KEY extends Win32Struct
-{
+class MSV1_0_CREDENTIAL_KEY extends Win32Struct {
     static sizeof => 20
 
     static packingSize => 1
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Data{
+    Data {
         get {
             if(!this.HasProp("__DataProxyArray"))
                 this.__DataProxyArray := Win32FixedArray(this.ptr + 0, 20, Primitive, "char")

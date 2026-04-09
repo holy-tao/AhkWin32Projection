@@ -11,9 +11,8 @@
  * This object can be retrieved using the <a href="https://docs.microsoft.com/windows/desktop/api/appxpackaging/nf-appxpackaging-iappxmanifestreader-getproperties">IAppxManifestReader::GetProperties</a> method.
  * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nn-appxpackaging-iappxmanifestproperties
  * @namespace Windows.Win32.Storage.Packaging.Appx
- * @version v4.0.30319
  */
-class IAppxManifestProperties extends IUnknown{
+class IAppxManifestProperties extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

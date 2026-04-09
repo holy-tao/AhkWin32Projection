@@ -43,9 +43,8 @@
  * For dynamic textures, it is sometimes desirable to use a pair of video memory and system memory textures, allocating the video memory using D3DPOOL\_DEFAULT and the system memory using D3DPOOL\_SYSTEMMEM. You can lock and modify the bits of the system memory texture using a locking method. Then you can update the video memory texture using [**IDirect3DDevice9::UpdateTexture**](/windows/win32/api/d3d9helper/nf-d3d9helper-idirect3ddevice9-updatetexture).
  * @see https://learn.microsoft.com/windows/win32/direct3d9/d3dpool
  * @namespace Windows.Win32.Graphics.Direct3D9
- * @version v4.0.30319
  */
-class D3DPOOL extends Win32Enum{
+class D3DPOOL extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

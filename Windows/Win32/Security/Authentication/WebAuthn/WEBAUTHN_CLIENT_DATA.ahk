@@ -3,14 +3,10 @@
 
 /**
  * A structure containing the client data that is sent to the authenticator.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/webauthn/ns-webauthn-webauthn_client_data
  * @namespace Windows.Win32.Security.Authentication.WebAuthn
- * @version v4.0.30319
  */
-class WEBAUTHN_CLIENT_DATA extends Win32Struct
-{
+class WEBAUTHN_CLIENT_DATA extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

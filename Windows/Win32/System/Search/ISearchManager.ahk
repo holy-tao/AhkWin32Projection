@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ISearchCatalogManager.ahk
 #Include ..\Com\IUnknown.ahk
+#Include .\ISearchCatalogManager.ahk
 
 /**
  * Provides methods for controlling the Search service. This interface manages settings and objects that affect the search engine across catalogs.
@@ -10,9 +10,8 @@
  * For a sample that demonstrates ways to specify which files to re-index and how, see the [ReindexMatchingUrls](https://github.com/microsoft/Windows-classic-samples/tree/master/Samples/Win7Samples/winui/WindowsSearch/ReindexMatchingUrls) sample.
  * @see https://learn.microsoft.com/windows/win32/api/searchapi/nn-searchapi-isearchmanager
  * @namespace Windows.Win32.System.Search
- * @version v4.0.30319
  */
-class ISearchManager extends IUnknown{
+class ISearchManager extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -56,7 +55,7 @@ class ISearchManager extends IUnknown{
     }
 
     /**
-     * @type {Integer} 
+     * @type {PROXY_ACCESS} 
      */
     UseProxy {
         get => this.get_UseProxy()
@@ -186,7 +185,7 @@ class ISearchManager extends IUnknown{
      * Stores information in the indexer that determines how the indexer will work and communicate with a proxy server.
      * @remarks
      * Check out the <a href="https://docs.microsoft.com/windows/win32/search/-search-sample-reindexmatchingurls">ReindexMatchingUrls code sample</a> to see ways to specify which files to re-index and how set it up.
-     * @param {Integer} sUseProxy Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/searchapi/ne-searchapi-proxy_access">PROXY_ACCESS</a></b>
+     * @param {PROXY_ACCESS} sUseProxy Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/searchapi/ne-searchapi-proxy_access">PROXY_ACCESS</a></b>
      * 
      * Sets whether and how to use a proxy, using one of the values enumerated in <a href="https://docs.microsoft.com/windows/desktop/api/searchapi/ne-searchapi-proxy_access">PROXY_ACCESS</a>.
      * @param {BOOL} fLocalByPassProxy Type: <b>BOOL</b>
@@ -276,7 +275,7 @@ class ISearchManager extends IUnknown{
      * Retrieves the proxy server to be used.
      * @remarks
      * Check out the <a href="https://docs.microsoft.com/windows/win32/search/-search-sample-reindexmatchingurls">ReindexMatchingUrls code sample</a> to see ways to specify which files to re-index and how set it up.
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/searchapi/ne-searchapi-proxy_access">PROXY_ACCESS</a>*</b>
+     * @returns {PROXY_ACCESS} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/searchapi/ne-searchapi-proxy_access">PROXY_ACCESS</a>*</b>
      * 
      * Receives a pointer to the proxy server to be used.
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchmanager-get_useproxy

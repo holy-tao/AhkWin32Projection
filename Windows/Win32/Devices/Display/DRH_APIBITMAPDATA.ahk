@@ -1,12 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\SURFOBJ.ahk
 
 /**
  * @namespace Windows.Win32.Devices.Display
- * @version v4.0.30319
  */
-class DRH_APIBITMAPDATA extends Win32Struct
-{
+class DRH_APIBITMAPDATA extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

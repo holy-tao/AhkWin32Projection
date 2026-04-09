@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IUICommandHandler.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\IUICommandHandler.ahk
 
 /**
  * The IUIApplication interface is implemented by the application and defines the callback entry-point methods for the Windows Ribbon framework.
  * @see https://learn.microsoft.com/windows/win32/api/uiribbon/nn-uiribbon-iuiapplication
  * @namespace Windows.Win32.UI.Ribbon
- * @version v4.0.30319
  */
-class IUIApplication extends IUnknown{
+class IUIApplication extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -44,11 +43,13 @@ class IUIApplication extends IUnknown{
      * 
      * The ID for the View. 
      * 				Only a value of 0 is valid.
-     * @param {Integer} typeID Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiribbon/ne-uiribbon-ui_viewtype">UI_VIEWTYPE</a></b>
+     * @param {UI_VIEWTYPE} typeID Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiribbon/ne-uiribbon-ui_viewtype">UI_VIEWTYPE</a></b>
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/api/uiribbon/ne-uiribbon-ui_viewtype">UI_VIEWTYPE</a> hosted by the application.
-     * @param {IUnknown} _view 
-     * @param {Integer} verb Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiribbon/ne-uiribbon-ui_viewverb">UI_VIEWVERB</a></b>
+     * @param {IUnknown} _view Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>*</b>
+     * 
+     * A pointer to the View interface.
+     * @param {UI_VIEWVERB} verb Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiribbon/ne-uiribbon-ui_viewverb">UI_VIEWVERB</a></b>
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/api/uiribbon/ne-uiribbon-ui_viewverb">UI_VIEWVERB</a> (or action) performed by the View.
      * @param {Integer} uReasonCode Type: <b>INT32</b>
@@ -75,7 +76,7 @@ class IUIApplication extends IUnknown{
      * @param {Integer} commandId Type: <b>UINT32</b>
      * 
      * The ID for the Command, which is specified in the markup resource file.
-     * @param {Integer} typeID Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiribbon/ne-uiribbon-ui_commandtype">UI_COMMANDTYPE</a></b>
+     * @param {UI_COMMANDTYPE} typeID Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiribbon/ne-uiribbon-ui_commandtype">UI_COMMANDTYPE</a></b>
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/api/uiribbon/ne-uiribbon-ui_commandtype">Command type</a> that is associated with a specific control.
      * @returns {IUICommandHandler} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiribbon/nn-uiribbon-iuicommandhandler">IUICommandHandler</a>**</b>
@@ -100,7 +101,7 @@ class IUIApplication extends IUnknown{
      * @param {Integer} commandId Type: <b>UINT32</b>
      * 
      * The ID for the Command,  which is specified in the markup resource file.
-     * @param {Integer} typeID Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiribbon/ne-uiribbon-ui_commandtype">UI_COMMANDTYPE</a></b>
+     * @param {UI_COMMANDTYPE} typeID Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiribbon/ne-uiribbon-ui_commandtype">UI_COMMANDTYPE</a></b>
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/api/uiribbon/ne-uiribbon-ui_commandtype">Command type</a> that is associated with a specific control.
      * @param {IUICommandHandler} commandHandler Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiribbon/nn-uiribbon-iuicommandhandler">IUICommandHandler</a>*</b>

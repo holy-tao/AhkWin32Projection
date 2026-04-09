@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.UI.Accessibility
- * @version v4.0.30319
  */
-class IUIAutomationClientInfoSource extends IUnknown{
+class IUIAutomationClientInfoSource extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

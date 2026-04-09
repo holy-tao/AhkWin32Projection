@@ -11,10 +11,8 @@
  * For more information, see <a href="https://docs.microsoft.com/windows/desktop/DirectShow/how-to-register-directshow-filters">How to Register DirectShow Filters</a>.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/ns-strmif-regpintypes
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class REGPINTYPES extends Win32Struct
-{
+class REGPINTYPES extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

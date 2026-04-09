@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\WSAMSG.ahk
+#Include ..\..\System\IO\OVERLAPPED.ahk
 
 /**
  * @namespace Windows.Win32.Networking.WinSock
- * @version v4.0.30319
  */
-class WSASENDMSG extends Win32Struct
-{
+class WSASENDMSG extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8

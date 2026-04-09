@@ -5,10 +5,8 @@
  * Line breakpoint characteristics of a character.
  * @see https://learn.microsoft.com/windows/win32/api/dwrite/ns-dwrite-dwrite_line_breakpoint
  * @namespace Windows.Win32.Graphics.DirectWrite
- * @version v4.0.30319
  */
-class DWRITE_LINE_BREAKPOINT extends Win32Struct
-{
+class DWRITE_LINE_BREAKPOINT extends Win32Struct {
     static sizeof => 1
 
     static packingSize => 1
@@ -28,9 +26,6 @@ class DWRITE_LINE_BREAKPOINT extends Win32Struct
     }
 
     /**
-     * Type: <b>UINT8</b>
-     * 
-     * Indicates a breaking condition before the character.
      * @type {Integer}
      */
     breakConditionBefore {
@@ -39,9 +34,6 @@ class DWRITE_LINE_BREAKPOINT extends Win32Struct
     }
 
     /**
-     * Type: <b>UINT8</b>
-     * 
-     * Indicates a breaking condition after the character.
      * @type {Integer}
      */
     breakConditionAfter {
@@ -50,9 +42,6 @@ class DWRITE_LINE_BREAKPOINT extends Win32Struct
     }
 
     /**
-     * Type: <b>UINT8</b>
-     * 
-     * Indicates that the character is some form of whitespace, which may be meaningful for justification.
      * @type {Integer}
      */
     isWhitespace {
@@ -61,9 +50,6 @@ class DWRITE_LINE_BREAKPOINT extends Win32Struct
     }
 
     /**
-     * Type: <b>UINT8</b>
-     * 
-     * Indicates that the character is a soft hyphen, often used to indicate hyphenation points inside words.
      * @type {Integer}
      */
     isSoftHyphen {
@@ -72,9 +58,6 @@ class DWRITE_LINE_BREAKPOINT extends Win32Struct
     }
 
     /**
-     * Type: <b>UINT8</b>
-     * 
-     * Reserved for future use.
      * @type {Integer}
      */
     padding {

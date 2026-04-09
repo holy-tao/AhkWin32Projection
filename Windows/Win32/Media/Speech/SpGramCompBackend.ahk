@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Media.Speech
- * @version v4.0.30319
  */
-class SpGramCompBackend extends Win32Struct
-{
+class SpGramCompBackend extends Win32Struct {
     static sizeof => 0
 
     static packingSize => 1

@@ -1,16 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Graphics\Direct3D12\ID3D12Resource.ahk
+#Include .\ID3D12VideoMotionVectorHeap.ahk
 
 /**
  * Specifies the input parameters for calls to ID3D12VideoEncodeCommandList::EstimateMotion.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/d3d12video/ns-d3d12video-d3d12_video_motion_estimator_input
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class D3D12_VIDEO_MOTION_ESTIMATOR_INPUT extends Win32Struct
-{
+class D3D12_VIDEO_MOTION_ESTIMATOR_INPUT extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8

@@ -7,9 +7,8 @@
  * Represents a clock vector element that contains FeedSync information.
  * @see https://learn.microsoft.com/windows/win32/api/winsync/nn-winsync-ifeedclockvectorelement
  * @namespace Windows.Win32.System.WindowsSync
- * @version v4.0.30319
  */
-class IFeedClockVectorElement extends IClockVectorElement{
+class IFeedClockVectorElement extends IClockVectorElement {
 
     static sizeof => A_PtrSize
     /**

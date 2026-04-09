@@ -7,10 +7,8 @@
  * The header file Ntddstor.h is available in the Windows Driver Kit (WDK).
  * @see https://learn.microsoft.com/windows/win32/DevIO/storage-read-capacity
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class STORAGE_READ_CAPACITY extends Win32Struct
-{
+class STORAGE_READ_CAPACITY extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8

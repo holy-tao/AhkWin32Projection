@@ -7,10 +7,8 @@
  * By convention, the length of passwords is limited to LM20_PWLEN characters.
  * @see https://learn.microsoft.com/windows/win32/api/lmaccess/ns-lmaccess-user_info_1003
  * @namespace Windows.Win32.NetworkManagement.NetManagement
- * @version v4.0.30319
  */
-class USER_INFO_1003 extends Win32Struct
-{
+class USER_INFO_1003 extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 8

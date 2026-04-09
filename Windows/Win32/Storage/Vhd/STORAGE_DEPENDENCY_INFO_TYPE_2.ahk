@@ -1,22 +1,21 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DEPENDENT_DISK_FLAG.ahk
 #Include .\VIRTUAL_STORAGE_TYPE.ahk
 
 /**
  * Contains VHD or ISO storage dependency information for type 2.
  * @see https://learn.microsoft.com/windows/win32/api/virtdisk/ns-virtdisk-storage_dependency_info_type_2
  * @namespace Windows.Win32.Storage.Vhd
- * @version v4.0.30319
  */
-class STORAGE_DEPENDENCY_INFO_TYPE_2 extends Win32Struct
-{
+class STORAGE_DEPENDENCY_INFO_TYPE_2 extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 8
 
     /**
      * A <a href="https://docs.microsoft.com/windows/win32/api/virtdisk/ne-virtdisk-dependent_disk_flag">DEPENDENT_DISK_FLAG</a> enumeration.
-     * @type {Integer}
+     * @type {DEPENDENT_DISK_FLAG}
      */
     DependencyTypeFlags {
         get => NumGet(this, 0, "int")
@@ -36,7 +35,7 @@ class STORAGE_DEPENDENCY_INFO_TYPE_2 extends Win32Struct
      * A <a href="https://docs.microsoft.com/windows/win32/api/virtdisk/ns-virtdisk-virtual_storage_type">VIRTUAL_STORAGE_TYPE</a> structure.
      * @type {VIRTUAL_STORAGE_TYPE}
      */
-    VirtualStorageType{
+    VirtualStorageType {
         get {
             if(!this.HasProp("__VirtualStorageType"))
                 this.__VirtualStorageType := VIRTUAL_STORAGE_TYPE(8, this)

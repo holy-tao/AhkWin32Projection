@@ -1,19 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3D12_VIDEO_DECODE_CONFIGURATION.ahk
-#Include ..\..\Graphics\Dxgi\Common\DXGI_RATIONAL.ahk
 #Include .\D3D12_VIDEO_DECODER_HEAP_DESC.ahk
+#Include .\D3D12_VIDEO_DECODE_CONFIGURATION.ahk
+#Include .\D3D12_BITSTREAM_ENCRYPTION_TYPE.ahk
+#Include .\D3D12_VIDEO_FRAME_CODED_INTERLACE_TYPE.ahk
+#Include ..\..\Graphics\Dxgi\Common\DXGI_FORMAT.ahk
+#Include ..\..\Graphics\Dxgi\Common\DXGI_RATIONAL.ahk
 
 /**
  * Describes the allocation size of a video decoder heap. (D3D12_FEATURE_DATA_VIDEO_DECODER_HEAP_SIZE)
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/d3d12video/ns-d3d12video-d3d12_feature_data_video_decoder_heap_size
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class D3D12_FEATURE_DATA_VIDEO_DECODER_HEAP_SIZE extends Win32Struct
-{
+class D3D12_FEATURE_DATA_VIDEO_DECODER_HEAP_SIZE extends Win32Struct {
     static sizeof => 72
 
     static packingSize => 8
@@ -22,7 +21,7 @@ class D3D12_FEATURE_DATA_VIDEO_DECODER_HEAP_SIZE extends Win32Struct
      * A [D3D12_VIDEO_DECODER_HEAP_DESC](ns-d3d12video-d3d12_video_decoder_heap_desc.md) describing a [ID3D12VideoDecoderHeap](nn-d3d12video-id3d12videodecoderheap.md).
      * @type {D3D12_VIDEO_DECODER_HEAP_DESC}
      */
-    VideoDecoderHeapDesc{
+    VideoDecoderHeapDesc {
         get {
             if(!this.HasProp("__VideoDecoderHeapDesc"))
                 this.__VideoDecoderHeapDesc := D3D12_VIDEO_DECODER_HEAP_DESC(0, this)

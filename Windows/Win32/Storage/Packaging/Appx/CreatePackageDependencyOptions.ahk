@@ -3,13 +3,10 @@
 
 /**
  * Defines options that can be applied when creating a package dependency by using the TryCreatePackageDependency function.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/appmodel/ne-appmodel-createpackagedependencyoptions
  * @namespace Windows.Win32.Storage.Packaging.Appx
- * @version v4.0.30319
  */
-class CreatePackageDependencyOptions extends Win32BitflagEnum{
+class CreatePackageDependencyOptions extends Win32BitflagEnum {
 
     /**
      * No options are applied.

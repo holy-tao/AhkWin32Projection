@@ -1,13 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\RECT.ahk
 #Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * @namespace Windows.Win32.Devices.Display
- * @version v4.0.30319
  */
-class CDDDXGK_REDIRBITMAPPRESENTINFO extends Win32Struct
-{
+class CDDDXGK_REDIRBITMAPPRESENTINFO extends Win32Struct {
     static sizeof => 552
 
     static packingSize => 8
@@ -39,10 +38,10 @@ class CDDDXGK_REDIRBITMAPPRESENTINFO extends Win32Struct
     /**
      * @type {Array<HANDLE>}
      */
-    hContext{
+    hContext {
         get {
             if(!this.HasProp("__hContextProxyArray"))
-                this.__hContextProxyArray := Win32FixedArray(this.ptr + 24, 65, HANDLE, "")
+                this.__hContextProxyArray := Win32FixedArray(this.ptr + 24, 65, Primitive, "ptr")
             return this.__hContextProxyArray
         }
     }

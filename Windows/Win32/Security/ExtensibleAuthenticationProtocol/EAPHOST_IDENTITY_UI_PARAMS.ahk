@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\EAP_TYPE.ahk
 #Include .\EAP_METHOD_TYPE.ahk
+#Include .\EAP_TYPE.ahk
+#Include .\EAP_ERROR.ahk
 
 /**
  * @namespace Windows.Win32.Security.ExtensibleAuthenticationProtocol
- * @version v4.0.30319
  */
-class EAPHOST_IDENTITY_UI_PARAMS extends Win32Struct
-{
+class EAPHOST_IDENTITY_UI_PARAMS extends Win32Struct {
     static sizeof => 88
 
     static packingSize => 8
@@ -16,7 +15,7 @@ class EAPHOST_IDENTITY_UI_PARAMS extends Win32Struct
     /**
      * @type {EAP_METHOD_TYPE}
      */
-    eapMethodType{
+    eapMethodType {
         get {
             if(!this.HasProp("__eapMethodType"))
                 this.__eapMethodType := EAP_METHOD_TYPE(0, this)

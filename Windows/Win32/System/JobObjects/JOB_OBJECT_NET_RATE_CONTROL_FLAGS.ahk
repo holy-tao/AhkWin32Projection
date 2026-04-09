@@ -5,9 +5,8 @@
  * Specifies types of scheduling policies for network rate control.
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ne-winnt-job_object_net_rate_control_flags
  * @namespace Windows.Win32.System.JobObjects
- * @version v4.0.30319
  */
-class JOB_OBJECT_NET_RATE_CONTROL_FLAGS extends Win32BitflagEnum{
+class JOB_OBJECT_NET_RATE_CONTROL_FLAGS extends Win32BitflagEnum {
 
     /**
      * Turns on the control of the network traffic. You must set this value if you also set either <b>JOB_OBJECT_NET_RATE_CONTROL_MAX_BANDWIDTH</b> or <b>JOB_OBJECT_NET_RATE_CONTROL_DSCP_TAG</b>.
@@ -16,7 +15,6 @@ class JOB_OBJECT_NET_RATE_CONTROL_FLAGS extends Win32BitflagEnum{
     static JOB_OBJECT_NET_RATE_CONTROL_ENABLE => 1
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static JOB_OBJECT_NET_RATE_CONTROL_MAX_BANDWIDTH => 2

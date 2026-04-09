@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\pluginResource.ahk
+#Include .\pluginResource2FileAssociation.ahk
 
 /**
  * Contains additional information about a resource that can be assigned to users in RemoteApp and Desktop Connection.
@@ -10,10 +11,8 @@
  * <c>typedef [string] WCHAR* pluginFolderName;</c>
  * @see https://learn.microsoft.com/windows/win32/api/tspubplugin2com/ns-tspubplugin2com-pluginresource2
  * @namespace Windows.Win32.System.RemoteDesktop
- * @version v4.0.30319
  */
-class pluginResource2 extends Win32Struct
-{
+class pluginResource2 extends Win32Struct {
     static sizeof => 2136
 
     static packingSize => 8
@@ -22,7 +21,7 @@ class pluginResource2 extends Win32Struct
      * A <a href="https://docs.microsoft.com/windows/win32/api/tspubplugincom/ns-tspubplugincom-pluginresource">pluginResource</a> structure that contains the basic information about the resource.
      * @type {pluginResource}
      */
-    resourceV1{
+    resourceV1 {
         get {
             if(!this.HasProp("__resourceV1"))
                 this.__resourceV1 := pluginResource(0, this)

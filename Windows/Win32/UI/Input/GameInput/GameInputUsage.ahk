@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.UI.Input.GameInput
- * @version v4.0.30319
  */
-class GameInputUsage extends Win32Struct
-{
+class GameInputUsage extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 2

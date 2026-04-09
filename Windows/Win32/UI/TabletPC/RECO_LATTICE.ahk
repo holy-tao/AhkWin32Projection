@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\RECO_LATTICE_COLUMN.ahk
 
 /**
  * Serves as the entry point into a lattice.
@@ -7,10 +8,8 @@
  * The <i>ulBestResultColumnCount</i>, <i>pulBestResultColumns</i>, and <i>pulBestResultIndexes</i> members are used together to hold information about the top alternates among all columns. These values should be filled in by the recognizer, even in the simplest case where there is no segmentation and there is only one column. Using the "together" <a href="https://docs.microsoft.com/windows/desktop/tablet/recognizer-lattice-structure">example</a>, if the recognizer determines that the best result is "to gather", <i>ulBestResultColumnCount</i> would be 3, the <i>pulBestResultColumns</i> array would contain [0,1,2] and the <i>pulBestResultIndexes</i>  array would contain [1,0,2].
  * @see https://learn.microsoft.com/windows/win32/api/rectypes/ns-rectypes-reco_lattice
  * @namespace Windows.Win32.UI.TabletPC
- * @version v4.0.30319
  */
-class RECO_LATTICE extends Win32Struct
-{
+class RECO_LATTICE extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8

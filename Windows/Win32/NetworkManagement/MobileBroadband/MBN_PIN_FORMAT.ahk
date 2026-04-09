@@ -5,9 +5,8 @@
  * The MBN_PIN_FORMAT enumerated type indicates whether a PIN is numeric or alphanumeric.
  * @see https://learn.microsoft.com/windows/win32/api/mbnapi/ne-mbnapi-mbn_pin_format
  * @namespace Windows.Win32.NetworkManagement.MobileBroadband
- * @version v4.0.30319
  */
-class MBN_PIN_FORMAT extends Win32Enum{
+class MBN_PIN_FORMAT extends Win32Enum {
 
     /**
      * Indicates that the PIN format is not known.

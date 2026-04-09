@@ -1,22 +1,21 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\KERB_LOGON_SUBMIT_TYPE.ahk
 #Include .\LSA_UNICODE_STRING.ahk
 
 /**
  * Contains information about a service for user (S4U) logon.
  * @see https://learn.microsoft.com/windows/win32/api/ntsecapi/ns-ntsecapi-kerb_s4u_logon
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class KERB_S4U_LOGON extends Win32Struct
-{
+class KERB_S4U_LOGON extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
 
     /**
      * A value of the <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/ne-ntsecapi-kerb_logon_submit_type">KERB_LOGON_SUBMIT_TYPE</a> enumeration that identifies the type of logon being requested. This member must be set to <b>KerbS4ULogon</b>.
-     * @type {Integer}
+     * @type {KERB_LOGON_SUBMIT_TYPE}
      */
     MessageType {
         get => NumGet(this, 0, "int")
@@ -67,7 +66,7 @@ class KERB_S4U_LOGON extends Win32Struct
      * The <b>Buffer</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/subauth/ns-subauth-unicode_string">UNICODE_STRING</a> structure must point to memory that is contiguous to the <b>KERB_S4U_LOGON</b> structure.
      * @type {LSA_UNICODE_STRING}
      */
-    ClientUpn{
+    ClientUpn {
         get {
             if(!this.HasProp("__ClientUpn"))
                 this.__ClientUpn := LSA_UNICODE_STRING(8, this)
@@ -81,7 +80,7 @@ class KERB_S4U_LOGON extends Win32Struct
      * The <b>Buffer</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/subauth/ns-subauth-unicode_string">UNICODE_STRING</a> structure must point to memory that is contiguous to the <b>KERB_S4U_LOGON</b> structure.
      * @type {LSA_UNICODE_STRING}
      */
-    ClientRealm{
+    ClientRealm {
         get {
             if(!this.HasProp("__ClientRealm"))
                 this.__ClientRealm := LSA_UNICODE_STRING(24, this)

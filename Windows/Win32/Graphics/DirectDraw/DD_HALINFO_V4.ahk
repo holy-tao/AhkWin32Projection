@@ -1,16 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\DDPIXELFORMAT.ahk
 #Include .\VIDEOMEMORYINFO.ahk
-#Include .\DDSCAPS.ahk
+#Include .\DDPIXELFORMAT.ahk
 #Include .\DDNTCORECAPS.ahk
+#Include .\DDSCAPS.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw
- * @version v4.0.30319
  */
-class DD_HALINFO_V4 extends Win32Struct
-{
+class DD_HALINFO_V4 extends Win32Struct {
     static sizeof => 432
 
     static packingSize => 8
@@ -26,7 +24,7 @@ class DD_HALINFO_V4 extends Win32Struct
     /**
      * @type {VIDEOMEMORYINFO}
      */
-    vmiData{
+    vmiData {
         get {
             if(!this.HasProp("__vmiData"))
                 this.__vmiData := VIDEOMEMORYINFO(8, this)
@@ -37,7 +35,7 @@ class DD_HALINFO_V4 extends Win32Struct
     /**
      * @type {DDNTCORECAPS}
      */
-    ddCaps{
+    ddCaps {
         get {
             if(!this.HasProp("__ddCaps"))
                 this.__ddCaps := DDNTCORECAPS(96, this)

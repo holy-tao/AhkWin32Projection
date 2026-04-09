@@ -1,16 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\KERB_EXTERNAL_NAME.ahk
 #Include .\LSA_UNICODE_STRING.ahk
 #Include .\KERB_CRYPTO_KEY.ahk
+#Include .\KERB_CRYPTO_KEY_TYPE.ahk
+#Include .\KERB_TICKET_FLAGS.ahk
 
 /**
  * Contains information about an external ticket.
  * @see https://learn.microsoft.com/windows/win32/api/ntsecapi/ns-ntsecapi-kerb_external_ticket
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class KERB_EXTERNAL_TICKET extends Win32Struct
-{
+class KERB_EXTERNAL_TICKET extends Win32Struct {
     static sizeof => 152
 
     static packingSize => 8
@@ -47,7 +48,7 @@ class KERB_EXTERNAL_TICKET extends Win32Struct
      * 						<a href="https://docs.microsoft.com/windows/desktop/api/subauth/ns-subauth-unicode_string">UNICODE_STRING</a> that contains the name of the domain that corresponds to the <b>ServiceName</b> member. This is the domain that issued the ticket.
      * @type {LSA_UNICODE_STRING}
      */
-    DomainName{
+    DomainName {
         get {
             if(!this.HasProp("__DomainName"))
                 this.__DomainName := LSA_UNICODE_STRING(24, this)
@@ -59,7 +60,7 @@ class KERB_EXTERNAL_TICKET extends Win32Struct
      * A <a href="https://docs.microsoft.com/windows/desktop/api/subauth/ns-subauth-unicode_string">UNICODE_STRING</a> that contains the name of the domain in which the ticket is valid. For an interdomain ticket, this is the destination domain.
      * @type {LSA_UNICODE_STRING}
      */
-    TargetDomainName{
+    TargetDomainName {
         get {
             if(!this.HasProp("__TargetDomainName"))
                 this.__TargetDomainName := LSA_UNICODE_STRING(40, this)
@@ -71,7 +72,7 @@ class KERB_EXTERNAL_TICKET extends Win32Struct
      * A <a href="https://docs.microsoft.com/windows/desktop/api/subauth/ns-subauth-unicode_string">UNICODE_STRING</a> that contains a synonym for the destination domain. Every domain has two names: a DNS name and a NetBIOS name. If the name returned in the ticket is different from the name used to request the ticket (the Kerberos <a href="https://docs.microsoft.com/windows/desktop/SecGloss/k-gly">Key Distribution Center</a> (KDC) may do name mapping), this string contains the original name.
      * @type {LSA_UNICODE_STRING}
      */
-    AltTargetDomainName{
+    AltTargetDomainName {
         get {
             if(!this.HasProp("__AltTargetDomainName"))
                 this.__AltTargetDomainName := LSA_UNICODE_STRING(56, this)
@@ -83,7 +84,7 @@ class KERB_EXTERNAL_TICKET extends Win32Struct
      * A <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/ns-ntsecapi-kerb_crypto_key">KERB_CRYPTO_KEY</a> structure that contains the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">session key</a> for the ticket.
      * @type {KERB_CRYPTO_KEY}
      */
-    SessionKey{
+    SessionKey {
         get {
             if(!this.HasProp("__SessionKey"))
                 this.__SessionKey := KERB_CRYPTO_KEY(72, this)
@@ -92,8 +93,7 @@ class KERB_EXTERNAL_TICKET extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Integer}
+     * @type {KERB_TICKET_FLAGS}
      */
     TicketFlags {
         get => NumGet(this, 88, "uint")

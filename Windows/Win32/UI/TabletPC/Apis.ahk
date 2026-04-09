@@ -4,7 +4,6 @@
 
 /**
  * @namespace Windows.Win32.UI.TabletPC
- * @version v4.0.30319
  */
 class TabletPC {
 

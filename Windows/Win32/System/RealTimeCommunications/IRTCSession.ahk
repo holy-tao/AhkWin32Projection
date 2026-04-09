@@ -1,19 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Include ..\Com\IUnknown.ahk
 #Include .\IRTCClient.ahk
 #Include .\IRTCProfile.ahk
 #Include .\IRTCCollection.ahk
 #Include .\IRTCParticipant.ahk
 #Include .\IRTCEnumParticipants.ahk
-#Include ..\Com\IUnknown.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * @namespace Windows.Win32.System.RealTimeCommunications
- * @version v4.0.30319
  */
-class IRTCSession extends IUnknown{
+class IRTCSession extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -42,14 +41,14 @@ class IRTCSession extends IUnknown{
     }
 
     /**
-     * @type {Integer} 
+     * @type {RTC_SESSION_STATE} 
      */
     State {
         get => this.get_State()
     }
 
     /**
-     * @type {Integer} 
+     * @type {RTC_SESSION_TYPE} 
      */
     Type {
         get => this.get_Type()
@@ -101,7 +100,7 @@ class IRTCSession extends IUnknown{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {RTC_SESSION_STATE} 
      */
     get_State() {
         result := ComCall(4, this, "int*", &penState := 0, "HRESULT")
@@ -110,7 +109,7 @@ class IRTCSession extends IUnknown{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {RTC_SESSION_TYPE} 
      */
     get_Type() {
         result := ComCall(5, this, "int*", &_penType := 0, "HRESULT")
@@ -146,7 +145,7 @@ class IRTCSession extends IUnknown{
 
     /**
      * Eliminates the cache and ends asynchronous I/O with the DLL.
-     * @param {Integer} enReason 
+     * @param {RTC_TERMINATE_REASON} enReason 
      * @returns {HRESULT} Returns <b>TRUE</b> if the function succeeds; otherwise, it returns <b>FALSE</b>.
      * @see https://learn.microsoft.com/windows/win32/api/filehc/nf-filehc-terminatecache
      */
@@ -157,7 +156,7 @@ class IRTCSession extends IUnknown{
 
     /**
      * The installer sets the RedirectedDLLSupport property if the system platform performing the installation supports Isolated Components.
-     * @param {Integer} enType 
+     * @param {RTC_SESSION_TYPE} enType 
      * @param {BSTR} bstrLocalPhoneURI 
      * @param {IRTCProfile} pProfile 
      * @param {Integer} lFlags 
@@ -272,7 +271,7 @@ class IRTCSession extends IUnknown{
 
     /**
      * 
-     * @param {Integer} enUserStatus 
+     * @param {RTC_MESSAGING_USER_STATUS} enUserStatus 
      * @param {Pointer} lCookie 
      * @returns {HRESULT} 
      */

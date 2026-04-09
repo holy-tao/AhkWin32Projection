@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class FILE_LAYOUT_NAME_ENTRY extends Win32Struct
-{
+class FILE_LAYOUT_NAME_ENTRY extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8

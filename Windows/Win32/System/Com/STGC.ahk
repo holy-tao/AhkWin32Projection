@@ -9,9 +9,8 @@
  * Typically, use <b>STGC_ONLYIFCURRENT</b> to protect the storage object in cases where more than one user can edit the object simultaneously.
  * @see https://learn.microsoft.com/windows/win32/api/wtypes/ne-wtypes-stgc
  * @namespace Windows.Win32.System.Com
- * @version v4.0.30319
  */
-class STGC extends Win32BitflagEnum{
+class STGC extends Win32BitflagEnum {
 
     /**
      * You can specify this condition with <b>STGC_CONSOLIDATE</b>, or some combination of the other three flags in this list of elements. Use this value to increase the readability of code.

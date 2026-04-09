@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Storage.Packaging.Appx
- * @version v4.0.30319
  */
-class IAppxBundleManifestPackageInfo4 extends IUnknown{
+class IAppxBundleManifestPackageInfo4 extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

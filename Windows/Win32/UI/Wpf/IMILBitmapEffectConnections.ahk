@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\IMILBitmapEffectInputConnector.ahk
 #Include .\IMILBitmapEffectOutputConnector.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Exposes methods used to retrieve input and output connectors exposed by the bitmap effect.
  * @see https://learn.microsoft.com/windows/win32/api/mileffects/nn-mileffects-imilbitmapeffectconnections
  * @namespace Windows.Win32.UI.Wpf
- * @version v4.0.30319
  */
-class IMILBitmapEffectConnections extends IUnknown{
+class IMILBitmapEffectConnections extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

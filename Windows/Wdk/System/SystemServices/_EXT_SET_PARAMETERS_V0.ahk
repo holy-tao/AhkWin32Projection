@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class _EXT_SET_PARAMETERS_V0 extends Win32Struct
-{
+class _EXT_SET_PARAMETERS_V0 extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

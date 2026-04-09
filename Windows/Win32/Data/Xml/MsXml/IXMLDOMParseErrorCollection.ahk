@@ -1,15 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\System\Com\IDispatch.ahk
 #Include .\IXMLDOMParseError2.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
 
 /**
  * @namespace Windows.Win32.Data.Xml.MsXml
- * @version v4.0.30319
  */
-class IXMLDOMParseErrorCollection extends IDispatch{
+class IXMLDOMParseErrorCollection extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -57,8 +56,8 @@ class IXMLDOMParseErrorCollection extends IDispatch{
      * @returns {IXMLDOMParseError2} 
      */
     get_item(index) {
-        result := ComCall(7, this, "int", index, "ptr*", &error := 0, "HRESULT")
-        return IXMLDOMParseError2(error)
+        result := ComCall(7, this, "int", index, "ptr*", &_error := 0, "HRESULT")
+        return IXMLDOMParseError2(_error)
     }
 
     /**
@@ -75,8 +74,8 @@ class IXMLDOMParseErrorCollection extends IDispatch{
      * @returns {IXMLDOMParseError2} 
      */
     get_next() {
-        result := ComCall(9, this, "ptr*", &error := 0, "HRESULT")
-        return IXMLDOMParseError2(error)
+        result := ComCall(9, this, "ptr*", &_error := 0, "HRESULT")
+        return IXMLDOMParseError2(_error)
     }
 
     /**

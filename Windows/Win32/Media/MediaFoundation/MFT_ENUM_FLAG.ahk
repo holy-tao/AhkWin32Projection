@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class MFT_ENUM_FLAG extends Win32BitflagEnum{
+class MFT_ENUM_FLAG extends Win32BitflagEnum {
 
     /**
      * @type {Integer (Int32)}

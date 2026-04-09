@@ -1,19 +1,19 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Graphics\Gdi\EMR.ahk
-#Include ..\..\Graphics\Gdi\CIEXYZ.ahk
-#Include ..\..\Graphics\Gdi\CIEXYZTRIPLE.ahk
+#Include ..\..\Graphics\Gdi\ENHANCED_METAFILE_RECORD_TYPE.ahk
 #Include .\LOGCOLORSPACEA.ahk
+#Include .\LCSCSTYPE.ahk
+#Include ..\..\Graphics\Gdi\CIEXYZTRIPLE.ahk
+#Include ..\..\Graphics\Gdi\CIEXYZ.ahk
 
 /**
  * The EMRCREATECOLORSPACE structure contains members for the CreateColorSpace enhanced metafile record.
  * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-emrcreatecolorspace
  * @namespace Windows.Win32.UI.ColorSystem
- * @version v4.0.30319
  * @charset ANSI
  */
-class EMRCREATECOLORSPACE extends Win32Struct
-{
+class EMRCREATECOLORSPACE extends Win32Struct {
     static sizeof => 340
 
     static packingSize => 4
@@ -22,7 +22,7 @@ class EMRCREATECOLORSPACE extends Win32Struct
      * The base structure for all record types.
      * @type {EMR}
      */
-    emr{
+    emr {
         get {
             if(!this.HasProp("__emr"))
                 this.__emr := EMR(0, this)
@@ -43,7 +43,7 @@ class EMRCREATECOLORSPACE extends Win32Struct
      * The logical color space.
      * @type {LOGCOLORSPACEA}
      */
-    lcs{
+    lcs {
         get {
             if(!this.HasProp("__lcs"))
                 this.__lcs := LOGCOLORSPACEA(12, this)

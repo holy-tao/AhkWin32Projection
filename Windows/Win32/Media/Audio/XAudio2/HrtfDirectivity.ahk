@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\HrtfDirectivityType.ahk
 
 /**
  * Base directivity pattern descriptor. Describes the type of directivity applied to a sound.
@@ -9,17 +10,15 @@
  * For fully directional sources, while direct path signal outside the directivity pattern will be fully attenuated, any environmental reflections will still be audible.
  * @see https://learn.microsoft.com/windows/win32/api/hrtfapoapi/ns-hrtfapoapi-hrtfdirectivity
  * @namespace Windows.Win32.Media.Audio.XAudio2
- * @version v4.0.30319
  */
-class HrtfDirectivity extends Win32Struct
-{
+class HrtfDirectivity extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4
 
     /**
      * Indicates the type of directivity.
-     * @type {Integer}
+     * @type {HrtfDirectivityType}
      */
     type {
         get => NumGet(this, 0, "int")

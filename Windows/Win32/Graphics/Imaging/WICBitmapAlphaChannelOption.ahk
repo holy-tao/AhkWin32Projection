@@ -5,9 +5,8 @@
  * Specifies the desired alpha channel usage.
  * @see https://learn.microsoft.com/windows/win32/api/wincodec/ne-wincodec-wicbitmapalphachanneloption
  * @namespace Windows.Win32.Graphics.Imaging
- * @version v4.0.30319
  */
-class WICBitmapAlphaChannelOption extends Win32Enum{
+class WICBitmapAlphaChannelOption extends Win32Enum {
 
     /**
      * Use alpha channel.

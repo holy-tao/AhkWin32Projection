@@ -5,10 +5,8 @@
  * Describes device temperature data. Returned as part of STORAGE_TEMPERATURE_DATA_DESCRIPTOR when querying for temperature data with an IOCTL_STORAGE_QUERY_PROPERTY request.
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-storage_temperature_info
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class STORAGE_TEMPERATURE_INFO extends Win32Struct
-{
+class STORAGE_TEMPERATURE_INFO extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4

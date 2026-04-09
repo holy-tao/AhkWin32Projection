@@ -8,9 +8,8 @@
  * The INSNetSourceCreator interface creates an administrative network source plug-in.
  * @see https://learn.microsoft.com/windows/win32/api/wmnetsourcecreator/nn-wmnetsourcecreator-insnetsourcecreator
  * @namespace Windows.Win32.Media.WindowsMediaFormat
- * @version v4.0.30319
  */
-class INSNetSourceCreator extends IUnknown{
+class INSNetSourceCreator extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

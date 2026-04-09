@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DDRAWI_DIRECTDRAW_GBL.ahk
+#Include .\DDRAWI_DDRAWSURFACE_LCL.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw
- * @version v4.0.30319
  */
-class DDHAL_FLIPDATA extends Win32Struct
-{
+class DDHAL_FLIPDATA extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8

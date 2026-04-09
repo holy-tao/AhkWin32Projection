@@ -5,9 +5,8 @@
  * The MBN_MSG_STATUS enumerated type defines the type of message being handled.
  * @see https://learn.microsoft.com/windows/win32/api/mbnapi/ne-mbnapi-mbn_msg_status
  * @namespace Windows.Win32.NetworkManagement.MobileBroadband
- * @version v4.0.30319
  */
-class MBN_MSG_STATUS extends Win32Enum{
+class MBN_MSG_STATUS extends Win32Enum {
 
     /**
      * The received message is newly arrived or unread.

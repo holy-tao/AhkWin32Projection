@@ -7,9 +7,8 @@
  * Enables a filter to receive a callback notification from an allocator whenever a sample is returned to the allocator's free list.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-imemallocatornotifycallbacktemp
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IMemAllocatorNotifyCallbackTemp extends IUnknown{
+class IMemAllocatorNotifyCallbackTemp extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

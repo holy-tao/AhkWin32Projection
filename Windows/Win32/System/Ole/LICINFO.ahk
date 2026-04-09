@@ -5,10 +5,8 @@
  * Contains parameters that describe the licensing behavior of a class factory that supports licensing. The structure is filled by calling the IClassFactory2::GetLicInfo method.
  * @see https://learn.microsoft.com/windows/win32/api/ocidl/ns-ocidl-licinfo
  * @namespace Windows.Win32.System.Ole
- * @version v4.0.30319
  */
-class LICINFO extends Win32Struct
-{
+class LICINFO extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
 #Include .\IAppxManifestPackageId.ahk
 #Include .\IAppxManifestProperties.ahk
 #Include .\IAppxManifestPackageDependenciesEnumerator.ahk
@@ -8,7 +9,6 @@
 #Include .\IAppxManifestDeviceCapabilitiesEnumerator.ahk
 #Include .\IAppxManifestApplicationsEnumerator.ahk
 #Include ..\..\..\System\Com\IStream.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
  * Represents an object model of the package manifest that provides methods to access manifest elements and attributes. (IAppxManifestReader)
@@ -22,9 +22,8 @@
  * This object can be retrieved using the <a href="https://docs.microsoft.com/windows/desktop/api/appxpackaging/nf-appxpackaging-iappxfactory-createmanifestreader">CreateManifestReader</a> method of the <a href="https://docs.microsoft.com/windows/desktop/api/appxpackaging/nn-appxpackaging-iappxfactory">IAppxFactory</a> interface or the <a href="https://docs.microsoft.com/windows/desktop/api/appxpackaging/nf-appxpackaging-iappxpackagereader-getmanifest">GetManifest</a> method of the <a href="https://docs.microsoft.com/windows/desktop/api/appxpackaging/nn-appxpackaging-iappxpackagereader">IAppxPackageReader</a> interface. In either case, the manifest is validated before returning the <b>IAppxManifestReader</b> object. If the XML is not syntactically valid, then the above mentioned methods fail, and the <b>IAppxManifestReader</b> object is not returned.
  * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nn-appxpackaging-iappxmanifestreader
  * @namespace Windows.Win32.Storage.Packaging.Appx
- * @version v4.0.30319
  */
-class IAppxManifestReader extends IUnknown{
+class IAppxManifestReader extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -95,7 +94,7 @@ class IAppxManifestReader extends IUnknown{
      * Capabilities are specified using the <a href="https://docs.microsoft.com/uwp/schemas/appxpackage/appxmanifestschema/element-capability">Capability</a> element in the package manifest.
      * 
      * If no package capabilities are defined in the manifest, this method returns <b>S_OK</b> with a zero value.
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/appxpackaging/ne-appxpackaging-appx_capabilities">APPX_CAPABILITIES</a>*</b>
+     * @returns {APPX_CAPABILITIES} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/appxpackaging/ne-appxpackaging-appx_capabilities">APPX_CAPABILITIES</a>*</b>
      * 
      * The list of capabilities requested by the package. This is a bitwise combination of  the values of the enumeration.
      * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxmanifestreader-getcapabilities

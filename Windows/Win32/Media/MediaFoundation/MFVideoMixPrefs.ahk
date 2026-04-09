@@ -40,9 +40,8 @@
  * </table>
  * @see https://learn.microsoft.com/windows/win32/api/evr/ne-evr-mfvideomixprefs
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class MFVideoMixPrefs extends Win32Enum{
+class MFVideoMixPrefs extends Win32Enum {
 
     /**
      * Force the EVR  to skip the second field (in temporal order) of every interlaced frame.
@@ -69,7 +68,6 @@ class MFVideoMixPrefs extends Win32Enum{
     static MFVideoMixPrefs_ForceBob => 8
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static MFVideoMixPrefs_EnableRotation => 16

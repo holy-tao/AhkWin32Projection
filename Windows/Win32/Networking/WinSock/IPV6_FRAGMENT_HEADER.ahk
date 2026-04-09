@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Networking.WinSock
- * @version v4.0.30319
  */
-class IPV6_FRAGMENT_HEADER extends Win32Struct
-{
+class IPV6_FRAGMENT_HEADER extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4

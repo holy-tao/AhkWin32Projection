@@ -3,7 +3,6 @@
 
 /**
  * @namespace Windows.Win32.Storage.Packaging.Appx
- * @version v4.0.30319
  */
 class Appx {
 
@@ -266,8 +265,10 @@ class Appx {
      * @param {Pointer<Integer>} bufferLength Type: <b>UINT32*</b>
      * 
      * On input, the size of <i>buffer</i>, in bytes. On output, the size of the structure returned, in bytes.
-     * @param {Pointer} _buffer 
-     * @returns {Integer} Type: <b>LONG</b>
+     * @param {Integer} _buffer Type: <b>BYTE*</b>
+     * 
+     * The package ID, represented as a <a href="https://docs.microsoft.com/windows/desktop/api/appmodel/ns-appmodel-package_id">PACKAGE_ID</a> structure.
+     * @returns {WIN32_ERROR} Type: <b>LONG</b>
      * 
      * If the function succeeds it returns <b>ERROR_SUCCESS</b>. Otherwise, the function returns an error code. The possible error codes include the following.
      * 
@@ -319,7 +320,7 @@ class Appx {
      * @param {PWSTR} packageFullName Type: <b>PWSTR</b>
      * 
      * The package full name.
-     * @returns {Integer} Type: <b>LONG</b>
+     * @returns {WIN32_ERROR} Type: <b>LONG</b>
      * 
      * If the function succeeds it returns <b>ERROR_SUCCESS</b>. Otherwise, the function returns an error code. The possible error codes include the following.
      * 
@@ -373,7 +374,7 @@ class Appx {
      * @param {PWSTR} packageFamilyName Type: <b>PWSTR</b>
      * 
      * The package family name.
-     * @returns {Integer} Type: <b>LONG</b>
+     * @returns {WIN32_ERROR} Type: <b>LONG</b>
      * 
      * If the function succeeds it returns <b>ERROR_SUCCESS</b>. Otherwise, the function returns an error code. The possible error codes include the following.
      * 
@@ -422,8 +423,10 @@ class Appx {
      * @param {Pointer<Integer>} pathLength Type: <b>UINT32*</b>
      * 
      * On input, the size of the <i>path</i> buffer, in characters. On output, the size of the package path returned, in characters, including the null terminator.
-     * @param {PWSTR} _path 
-     * @returns {Integer} Type: <b>LONG</b>
+     * @param {PWSTR} _path Type: <b>PWSTR</b>
+     * 
+     * The package path.
+     * @returns {WIN32_ERROR} Type: <b>LONG</b>
      * 
      * If the function succeeds it returns <b>ERROR_SUCCESS</b>. Otherwise, the function returns an error code. The possible error codes include the following.
      * 
@@ -475,8 +478,10 @@ class Appx {
      * @param {Pointer<Integer>} bufferLength Type: <b>UINT32*</b>
      * 
      * On input, the size of <i>buffer</i>, in bytes. On output, the size of the structure returned, in bytes.
-     * @param {Pointer} _buffer 
-     * @returns {Integer} Type: <b>LONG</b>
+     * @param {Integer} _buffer Type: <b>BYTE*</b>
+     * 
+     * The package ID, represented as a <a href="https://docs.microsoft.com/windows/desktop/api/appmodel/ns-appmodel-package_id">PACKAGE_ID</a> structure.
+     * @returns {WIN32_ERROR} Type: <b>LONG</b>
      * 
      * If the function succeeds it returns <b>ERROR_SUCCESS</b>. Otherwise, the function returns an error code. The possible error codes include the following.
      * 
@@ -533,7 +538,7 @@ class Appx {
      * @param {PWSTR} packageFullName Type: <b>PWSTR</b>
      * 
      * The package full name.
-     * @returns {Integer} Type: <b>LONG</b>
+     * @returns {WIN32_ERROR} Type: <b>LONG</b>
      * 
      * If the function succeeds it returns <b>ERROR_SUCCESS</b>. Otherwise, the function returns an error code. The possible error codes include the following.
      * 
@@ -587,7 +592,7 @@ class Appx {
      * @param {Pointer<Integer>} packageFullNameLength On input, the size of the <i>packageFullName</i> buffer, in characters. On output, the 
      *       size of the package full name returned, in characters, including the null terminator.
      * @param {PWSTR} packageFullName The package full name.
-     * @returns {Integer} If the function succeeds it returns <b>ERROR_SUCCESS</b>. Otherwise, the function 
+     * @returns {WIN32_ERROR} If the function succeeds it returns <b>ERROR_SUCCESS</b>. Otherwise, the function 
      *       returns an error code. The possible error codes include the following.
      * 
      * <table>
@@ -645,7 +650,7 @@ class Appx {
      * @param {PWSTR} packageFamilyName Type: <b>PWSTR</b>
      * 
      * The package family name.
-     * @returns {Integer} Type: <b>LONG</b>
+     * @returns {WIN32_ERROR} Type: <b>LONG</b>
      * 
      * If the function succeeds it returns <b>ERROR_SUCCESS</b>. Otherwise, the function returns an error code. The possible error codes include the following.
      * 
@@ -703,7 +708,7 @@ class Appx {
      * @param {PWSTR} packageFamilyName Type: <b>PWSTR</b>
      * 
      * The package family name.
-     * @returns {Integer} Type: <b>LONG</b>
+     * @returns {WIN32_ERROR} Type: <b>LONG</b>
      * 
      * If the function succeeds it returns <b>ERROR_SUCCESS</b>. Otherwise, the function returns an error code. The possible error codes include the following.
      * 
@@ -756,8 +761,10 @@ class Appx {
      * @param {Pointer<Integer>} pathLength Type: <b>UINT32*</b>
      * 
      * On input, the size of the <i>path</i> buffer, in characters. On output, the size of the package path returned, in characters, including the null-terminator.
-     * @param {PWSTR} _path 
-     * @returns {Integer} Type: <b>LONG</b>
+     * @param {PWSTR} _path Type: <b>PWSTR</b>
+     * 
+     * The package path.
+     * @returns {WIN32_ERROR} Type: <b>LONG</b>
      * 
      * If the function succeeds it returns <b>ERROR_SUCCESS</b>. Otherwise, the function returns an error code. The possible error codes include the following.
      * 
@@ -802,8 +809,10 @@ class Appx {
      * A pointer to a variable that holds the number of characters (<b>WCHAR</b>s) in the package path string, which includes the null-terminator. 
      * 
      * First you pass <b>NULL</b> to <i>path</i> to get the number of characters. You use this number to allocate memory space for <i>path</i>. Then you pass the address of this memory space to fill <i>path</i>.
-     * @param {PWSTR} _path 
-     * @returns {Integer} Type: <b>LONG</b>
+     * @param {PWSTR} _path Type: <b>PWSTR</b>
+     * 
+     * A pointer to memory space that receives  the package path string, which includes the null-terminator.
+     * @returns {WIN32_ERROR} Type: <b>LONG</b>
      * 
      * If the function succeeds it returns <b>ERROR_SUCCESS</b>. Otherwise, the function returns an error code. The possible error codes include the following.
      * 
@@ -849,8 +858,10 @@ class Appx {
      * A pointer to a variable that holds the number of characters (<b>WCHAR</b>s) in the package path string, which includes the null-terminator. 
      * 
      * First you pass <b>NULL</b> to <i>path</i> to get the number of characters. You use this number to allocate memory space for <i>path</i>. Then you pass the address of this memory space to fill <i>path</i>.
-     * @param {PWSTR} _path 
-     * @returns {Integer} Type: <b>LONG</b>
+     * @param {PWSTR} _path Type: <b>PWSTR</b>
+     * 
+     * A pointer to memory space that receives  the package path string, which includes the null-terminator.
+     * @returns {WIN32_ERROR} Type: <b>LONG</b>
      * 
      * If the function succeeds it returns <b>ERROR_SUCCESS</b>. Otherwise, the function returns an error code. The possible error codes include the following.
      * 
@@ -891,14 +902,18 @@ class Appx {
      * @param {PWSTR} packageFullName Type: <b>PCWSTR</b>
      * 
      * The full name of the package.
-     * @param {Integer} _packagePathType 
+     * @param {PackagePathType} _packagePathType Type: [**PackagePathType**](ne-appmodel-packagepathtype.md)
+     * 
+     * Indicates the type of folder path to retrieve for the package (the original install folder or the mutable folder).
      * @param {Pointer<Integer>} pathLength Type: <b>UINT32*</b>
      * 
      * A pointer to a variable that holds the number of characters (<b>WCHAR</b>s) in the package path string, which includes the null-terminator. 
      * 
      * First you pass <b>NULL</b> to <i>path</i> to get the number of characters. You use this number to allocate memory space for <i>path</i>. Then you pass the address of this memory space to fill <i>path</i>.
-     * @param {PWSTR} _path 
-     * @returns {Integer} Type: <b>LONG</b>
+     * @param {PWSTR} _path Type: <b>PWSTR</b>
+     * 
+     * A pointer to memory space that receives  the package path string, which includes the null-terminator.
+     * @returns {WIN32_ERROR} Type: <b>LONG</b>
      * 
      * If the function succeeds it returns <b>ERROR_SUCCESS</b>. Otherwise, the function returns an error code. The possible error codes include the following.
      * 
@@ -939,14 +954,18 @@ class Appx {
      * @param {PWSTR} packageFullName Type: <b>PCWSTR</b>
      * 
      * The full name of the staged package.
-     * @param {Integer} _packagePathType 
+     * @param {PackagePathType} _packagePathType Type: [**PackagePathType**](ne-appmodel-packagepathtype.md)
+     * 
+     * Indicates the type of folder path to retrieve for the package (the original install folder or the mutable folder).
      * @param {Pointer<Integer>} pathLength Type: <b>UINT32*</b>
      * 
      * A pointer to a variable that holds the number of characters (<b>WCHAR</b>s) in the package path string, which includes the null-terminator. 
      * 
      * First you pass <b>NULL</b> to <i>path</i> to get the number of characters. You use this number to allocate memory space for <i>path</i>. Then you pass the address of this memory space to fill <i>path</i>.
-     * @param {PWSTR} _path 
-     * @returns {Integer} Type: <b>LONG</b>
+     * @param {PWSTR} _path Type: <b>PWSTR</b>
+     * 
+     * A pointer to memory space that receives  the package path string, which includes the null-terminator.
+     * @returns {WIN32_ERROR} Type: <b>LONG</b>
      * 
      * If the function succeeds it returns <b>ERROR_SUCCESS</b>. Otherwise, the function returns an error code. The possible error codes include the following.
      * 
@@ -987,15 +1006,19 @@ class Appx {
      * @param {Integer} flags Type: <b>const UINT32</b>
      * 
      * The [package constants](/windows/desktop/appxpkg/package-constants) that specify how package information is retrieved. The <b>PACKAGE_FILTER_*</b> flags are supported.
-     * @param {Integer} _packagePathType 
+     * @param {PackagePathType} _packagePathType Type: [**PackagePathType**](ne-appmodel-packagepathtype.md)
+     * 
+     * Indicates the type of folder path to retrieve for the package (the original install folder or the mutable folder).
      * @param {Pointer<Integer>} bufferLength Type: <b>UINT32*</b>
      * 
      * On input, the size of <i>buffer</i>, in bytes. On output, the size of the array of structures returned, in bytes.
-     * @param {Pointer} _buffer 
+     * @param {Integer} _buffer Type: <b>BYTE*</b>
+     * 
+     * The package information, represented as an array of <a href="https://docs.microsoft.com/windows/desktop/api/appmodel/ns-appmodel-package_info">PACKAGE_INFO</a> structures.
      * @param {Pointer<Integer>} count Type: <b>UINT32*</b>
      * 
      * The number of structures in the buffer.
-     * @returns {Integer} Type: <b>LONG</b>
+     * @returns {WIN32_ERROR} Type: <b>LONG</b>
      * 
      * If the function succeeds it returns <b>ERROR_SUCCESS</b>. Otherwise, the function returns an error code. The possible error codes include the following.
      * 
@@ -1042,12 +1065,16 @@ class Appx {
      * Gets the package path for the calling process. (GetCurrentPackagePath2)
      * @remarks
      * The *packagePathType* parameter is useful for applications that use the [windows.mutablePackageDirectories extension](/uwp/schemas/appxpackage/uapmanifestschema/element-desktop6-package-extension) in their package manifest. This extension specifies a folder under the %ProgramFiles%\ModifiableWindowsApps path where the contents of the application's install folder are projected so that users can modify the installation files. This feature is currently available only for certain types of desktop PC games that are published by Microsoft and our partners, and it enables these types of games to support mods.
-     * @param {Integer} _packagePathType 
+     * @param {PackagePathType} _packagePathType Type: [**PackagePathType**](ne-appmodel-packagepathtype.md)
+     * 
+     * Indicates the type of folder path to retrieve for the package (the original install folder or the mutable folder).
      * @param {Pointer<Integer>} pathLength Type: <b>UINT32*</b>
      * 
      * On input, the size of the <i>path</i> buffer, in characters. On output, the size of the package path returned, in characters, including the null terminator.
-     * @param {PWSTR} _path 
-     * @returns {Integer} Type: <b>LONG</b>
+     * @param {PWSTR} _path Type: <b>PWSTR</b>
+     * 
+     * The package path.
+     * @returns {WIN32_ERROR} Type: <b>LONG</b>
      * 
      * If the function succeeds it returns <b>ERROR_SUCCESS</b>. Otherwise, the function returns an error code. The possible error codes include the following.
      * 
@@ -1097,7 +1124,7 @@ class Appx {
      * For info about string size limits, see <a href="https://docs.microsoft.com/windows/desktop/appxpkg/identity-constants">Identity constants</a>.
      * @param {Pointer<Integer>} applicationUserModelIdLength On input, the size of the  <i>applicationUserModelId</i> buffer, in wide characters. On success, the size of the buffer used, including the null terminator.
      * @param {PWSTR} applicationUserModelId A pointer to a buffer that receives the application user model ID.
-     * @returns {Integer} If the function succeeds it returns <b>ERROR_SUCCESS</b>. Otherwise, the function returns an error code. The possible error codes include the following.
+     * @returns {WIN32_ERROR} If the function succeeds it returns <b>ERROR_SUCCESS</b>. Otherwise, the function returns an error code. The possible error codes include the following.
      * 
      * <table>
      * <tr>
@@ -1145,7 +1172,7 @@ class Appx {
      * @param {HANDLE} hProcess A handle to the process. This handle must have the <b>PROCESS_QUERY_LIMITED_INFORMATION</b> access right. For more info, see <a href="https://docs.microsoft.com/windows/desktop/ProcThread/process-security-and-access-rights">Process Security and Access Rights</a>.
      * @param {Pointer<Integer>} applicationUserModelIdLength On input, the size of the  <i>applicationUserModelId</i> buffer, in wide characters. On success, the size of the buffer used, including the null terminator.
      * @param {PWSTR} applicationUserModelId A pointer to a buffer that receives the application user model ID.
-     * @returns {Integer} If the function succeeds it returns <b>ERROR_SUCCESS</b>. Otherwise, the function returns an error code. The possible error codes include the following.
+     * @returns {WIN32_ERROR} If the function succeeds it returns <b>ERROR_SUCCESS</b>. Otherwise, the function returns an error code. The possible error codes include the following.
      * 
      * <table>
      * <tr>
@@ -1194,7 +1221,7 @@ class Appx {
      * @param {HANDLE} token A token that contains the application identity. This handle must have the <b>PROCESS_QUERY_LIMITED_INFORMATION</b> access right. For more info, see <a href="https://docs.microsoft.com/windows/desktop/ProcThread/process-security-and-access-rights">Process Security and Access Rights</a>.
      * @param {Pointer<Integer>} applicationUserModelIdLength On input, the size of the  <i>applicationUserModelId</i> buffer, in wide characters. On success, the size of the buffer used, including the null terminator.
      * @param {PWSTR} applicationUserModelId A pointer to a buffer that receives the application user model ID.
-     * @returns {Integer} If the function succeeds it returns <b>ERROR_SUCCESS</b>. Otherwise, the function returns an error code. The possible error codes include the following.
+     * @returns {WIN32_ERROR} If the function succeeds it returns <b>ERROR_SUCCESS</b>. Otherwise, the function returns an error code. The possible error codes include the following.
      * 
      * <table>
      * <tr>
@@ -1239,7 +1266,7 @@ class Appx {
     /**
      * 
      * @param {PWSTR} packageFullName 
-     * @returns {Integer} 
+     * @returns {WIN32_ERROR} 
      */
     static VerifyPackageFullName(packageFullName) {
         packageFullName := packageFullName is String ? StrPtr(packageFullName) : packageFullName
@@ -1251,7 +1278,7 @@ class Appx {
     /**
      * 
      * @param {PWSTR} packageFamilyName 
-     * @returns {Integer} 
+     * @returns {WIN32_ERROR} 
      */
     static VerifyPackageFamilyName(packageFamilyName) {
         packageFamilyName := packageFamilyName is String ? StrPtr(packageFamilyName) : packageFamilyName
@@ -1263,7 +1290,7 @@ class Appx {
     /**
      * 
      * @param {Pointer<PACKAGE_ID>} packageId 
-     * @returns {Integer} 
+     * @returns {WIN32_ERROR} 
      */
     static VerifyPackageId(packageId) {
         result := DllCall("api-ms-win-appmodel-runtime-l1-1-1.dll\VerifyPackageId", "ptr", packageId, "uint")
@@ -1273,7 +1300,7 @@ class Appx {
     /**
      * 
      * @param {PWSTR} applicationUserModelId 
-     * @returns {Integer} 
+     * @returns {WIN32_ERROR} 
      */
     static VerifyApplicationUserModelId(applicationUserModelId) {
         applicationUserModelId := applicationUserModelId is String ? StrPtr(applicationUserModelId) : applicationUserModelId
@@ -1285,7 +1312,7 @@ class Appx {
     /**
      * 
      * @param {PWSTR} packageRelativeApplicationId 
-     * @returns {Integer} 
+     * @returns {WIN32_ERROR} 
      */
     static VerifyPackageRelativeApplicationId(packageRelativeApplicationId) {
         packageRelativeApplicationId := packageRelativeApplicationId is String ? StrPtr(packageRelativeApplicationId) : packageRelativeApplicationId
@@ -1328,8 +1355,10 @@ class Appx {
      * @param {Pointer<Integer>} bufferLength Type: <b>UINT32*</b>
      * 
      * On input, the size of <i>buffer</i>, in bytes. On output, the size of the data returned, in bytes.
-     * @param {Pointer} _buffer 
-     * @returns {Integer} Type: <b>LONG</b>
+     * @param {Integer} _buffer Type: <b>BYTE*</b>
+     * 
+     * The package ID, represented as a <a href="https://docs.microsoft.com/windows/desktop/api/appmodel/ns-appmodel-package_id">PACKAGE_ID</a> structure.
+     * @returns {WIN32_ERROR} Type: <b>LONG</b>
      * 
      * If the function succeeds it returns <b>ERROR_SUCCESS</b>. Otherwise, the function returns an error code. The possible error codes include the following.
      * 
@@ -1386,7 +1415,7 @@ class Appx {
      * @param {PWSTR} packageFullName Type: <b>PWSTR</b>
      * 
      * The package full name.
-     * @returns {Integer} Type: <b>LONG</b>
+     * @returns {WIN32_ERROR} Type: <b>LONG</b>
      * 
      * If the function succeeds it returns <b>ERROR_SUCCESS</b>. Otherwise, the function returns an error code. The possible error codes include the following.
      * 
@@ -1432,7 +1461,7 @@ class Appx {
      * @param {PWSTR} packageFamilyName Type: <b>PWSTR</b>
      * 
      * The package family name.
-     * @returns {Integer} Type: <b>LONG</b>
+     * @returns {WIN32_ERROR} Type: <b>LONG</b>
      * 
      * If the function succeeds it returns <b>ERROR_SUCCESS</b>. Otherwise, the function returns an error code. The possible error codes include the following.
      * 
@@ -1478,7 +1507,7 @@ class Appx {
      * @param {PWSTR} packageFamilyName Type: <b>PWSTR</b>
      * 
      * The package family name.
-     * @returns {Integer} Type: <b>LONG</b>
+     * @returns {WIN32_ERROR} Type: <b>LONG</b>
      * 
      * If the function succeeds it returns <b>ERROR_SUCCESS</b>. Otherwise, the function returns an error code. The possible error codes include the following.
      * 
@@ -1531,7 +1560,7 @@ class Appx {
      * @param {PWSTR} packagePublisherId Type: <b>PWSTR</b>
      * 
      * The package publisher ID.
-     * @returns {Integer} Type: <b>LONG</b>
+     * @returns {WIN32_ERROR} Type: <b>LONG</b>
      * 
      * If the function succeeds it returns <b>ERROR_SUCCESS</b>. Otherwise, the function returns an error code. The possible error codes include the following.
      * 
@@ -1583,7 +1612,7 @@ class Appx {
      * @param {PWSTR} applicationUserModelId Type: <b>PWSTR</b>
      * 
      * A pointer to memory space that receives  the app user model ID string, which includes the null-terminator.
-     * @returns {Integer} Type: <b>LONG</b>
+     * @returns {WIN32_ERROR} Type: <b>LONG</b>
      * 
      * If the function succeeds it returns <b>ERROR_SUCCESS</b>. Otherwise, the function returns an error code. The possible error codes include the following.
      * 
@@ -1650,7 +1679,7 @@ class Appx {
      * @param {PWSTR} packageRelativeApplicationId Type: <b>PWSTR</b>
      * 
      * A pointer to memory space that receives  the package-relative app ID (PRAID) string, which includes the null-terminator.
-     * @returns {Integer} Type: <b>LONG</b>
+     * @returns {WIN32_ERROR} Type: <b>LONG</b>
      * 
      * If the function succeeds it returns <b>ERROR_SUCCESS</b>. Otherwise, the function returns an error code. The possible error codes include the following.
      * 
@@ -1715,8 +1744,10 @@ class Appx {
      * A pointer to a variable that holds the number of characters in the string of package full names. 
      * 
      * First you pass <b>NULL</b> to <i>buffer</i> to get the number of characters. You use this number to allocate memory space for <i>buffer</i>. Then you pass the address of this number to fill <i>buffer</i>.
-     * @param {PWSTR} _buffer 
-     * @returns {Integer} Type: <b>LONG</b>
+     * @param {PWSTR} _buffer Type: <b>WCHAR*</b>
+     * 
+     * The string of characters for all of the package full names.
+     * @returns {WIN32_ERROR} Type: <b>LONG</b>
      * 
      * If the function succeeds it returns <b>ERROR_SUCCESS</b>. Otherwise, the function returns an error code. The possible error codes include the following.
      * 
@@ -1773,11 +1804,13 @@ class Appx {
      * A pointer to a variable that holds the number of characters in the string of package full names. 
      * 
      * First you pass <b>NULL</b> to <i>buffer</i> to get the number of characters. You use this number to allocate memory space for <i>buffer</i>. Then you pass the address of this memory space to fill <i>buffer</i>.
-     * @param {PWSTR} _buffer 
+     * @param {PWSTR} _buffer Type: <b>WCHAR*</b>
+     * 
+     * A pointer to memory space that receives  the string of characters for all of the package full names.
      * @param {Pointer<Integer>} packageProperties Type: <b>UINT32*</b>
      * 
      * A pointer to memory space that receives  the <a href="https://docs.microsoft.com/windows/desktop/appxpkg/package-constants">package properties</a> for all of the packages that were found.
-     * @returns {Integer} Type: <b>LONG</b>
+     * @returns {WIN32_ERROR} Type: <b>LONG</b>
      * 
      * If the function succeeds it returns <b>ERROR_SUCCESS</b>. Otherwise, the function returns an error code. The possible error codes include the following.
      * 
@@ -1819,10 +1852,10 @@ class Appx {
      * @param {PWSTR} packageFullName Type: <b>PCWSTR</b>
      * 
      * The full name of the package.
-     * @param {Pointer<Integer>} origin Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/appmodel/ne-appmodel-packageorigin">PackageOrigin</a>*</b>
+     * @param {Pointer<PackageOrigin>} origin Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/appmodel/ne-appmodel-packageorigin">PackageOrigin</a>*</b>
      * 
      * A pointer to a variable that receives a <a href="https://docs.microsoft.com/windows/desktop/api/appmodel/ne-appmodel-packageorigin">PackageOrigin</a>-typed value that indicates the origin of the package specified by <i>packageFullName</i>.
-     * @returns {Integer} Type: <b>LONG</b>
+     * @returns {WIN32_ERROR} Type: <b>LONG</b>
      * 
      * If the function succeeds it returns <b>ERROR_SUCCESS</b>. Otherwise, the function returns an error code. The possible error codes include the following.
      * 
@@ -1863,11 +1896,13 @@ class Appx {
      * @param {Pointer<Integer>} bufferLength Type: <b>UINT32*</b>
      * 
      * On input, the size of <i>buffer</i>, in bytes. On output, the size of the array of structures returned, in bytes.
-     * @param {Pointer} _buffer 
+     * @param {Integer} _buffer Type: <b>BYTE*</b>
+     * 
+     * The package information, represented as an array of <a href="https://docs.microsoft.com/windows/desktop/api/appmodel/ns-appmodel-package_info">PACKAGE_INFO</a> structures.
      * @param {Pointer<Integer>} count Type: <b>UINT32*</b>
      * 
      * The number of structures in the buffer.
-     * @returns {Integer} Type: <b>LONG</b>
+     * @returns {WIN32_ERROR} Type: <b>LONG</b>
      * 
      * If the function succeeds it returns <b>ERROR_SUCCESS</b>. Otherwise, the function returns an error code. The possible error codes include the following.
      * 
@@ -1918,7 +1953,7 @@ class Appx {
      * @param {Pointer<Pointer<_PACKAGE_INFO_REFERENCE>>} packageInfoReference Type: <b>PACKAGE_INFO_REFERENCE*</b>
      * 
      * A reference to package information.
-     * @returns {Integer} Type: <b>LONG</b>
+     * @returns {WIN32_ERROR} Type: <b>LONG</b>
      * 
      * If the function succeeds it returns <b>ERROR_SUCCESS</b>. Otherwise, the function returns an error code. The possible error codes include the following.
      * 
@@ -1958,7 +1993,7 @@ class Appx {
      * @param {PSID} userSid 
      * @param {PWSTR} packageFullName 
      * @param {Pointer<Pointer<_PACKAGE_INFO_REFERENCE>>} packageInfoReference 
-     * @returns {Integer} 
+     * @returns {WIN32_ERROR} 
      */
     static OpenPackageInfoByFullNameForUser(userSid, packageFullName, packageInfoReference) {
         static reserved := 0 ;Reserved parameters must always be NULL
@@ -1976,7 +2011,7 @@ class Appx {
      * @param {Pointer<_PACKAGE_INFO_REFERENCE>} packageInfoReference Type: <b>PACKAGE_INFO_REFERENCE</b>
      * 
      * A reference to package information.
-     * @returns {Integer} Type: <b>LONG</b>
+     * @returns {WIN32_ERROR} Type: <b>LONG</b>
      * 
      * If the function succeeds it returns <b>ERROR_SUCCESS</b>. Otherwise, the function returns an error code.
      * @see https://learn.microsoft.com/windows/win32/api/appmodel/nf-appmodel-closepackageinfo
@@ -1998,11 +2033,13 @@ class Appx {
      * @param {Pointer<Integer>} bufferLength Type: <b>UINT32*</b>
      * 
      * On input, the size of <i>buffer</i>, in bytes. On output, the size of the package information returned, in bytes.
-     * @param {Pointer} _buffer 
+     * @param {Integer} _buffer Type: <b>BYTE*</b>
+     * 
+     * The package information, represented as an array of <a href="https://docs.microsoft.com/windows/desktop/api/appmodel/ns-appmodel-package_info">PACKAGE_INFO</a> structures.
      * @param {Pointer<Integer>} count Type: <b>UINT32*</b>
      * 
      * The number of packages in the buffer.
-     * @returns {Integer} Type: <b>LONG</b>
+     * @returns {WIN32_ERROR} Type: <b>LONG</b>
      * 
      * If the function succeeds it returns <b>ERROR_SUCCESS</b>. Otherwise, the function returns an error code. The possible error codes include the following.
      * 
@@ -2044,11 +2081,13 @@ class Appx {
      * A pointer to a variable that holds the size of <i>buffer</i>, in bytes. 
      * 
      * First you pass <b>NULL</b> to <i>buffer</i> to get the required size of <i>buffer</i>. You use this number to allocate memory space for <i>buffer</i>. Then you pass the address of this memory space to fill <i>buffer</i>.
-     * @param {Pointer} _buffer 
+     * @param {Integer} _buffer Type: <b>BYTE*</b>
+     * 
+     * A pointer to memory space that receives  the app IDs.
      * @param {Pointer<Integer>} count Type: <b>UINT32*</b>
      * 
      * A pointer to a variable that receives the number of app IDs in <i>buffer</i>.
-     * @returns {Integer} Type: <b>LONG</b>
+     * @returns {WIN32_ERROR} Type: <b>LONG</b>
      * 
      * If the function succeeds it returns <b>ERROR_SUCCESS</b>. Otherwise, the function returns an error code. The possible error codes include the following.
      * 
@@ -2090,15 +2129,19 @@ class Appx {
      * @param {Integer} flags Type: <b>const UINT32</b>
      * 
      * The [package constants](/windows/desktop/appxpkg/package-constants) that specify how package information is retrieved.
-     * @param {Integer} _packagePathType 
+     * @param {PackagePathType} _packagePathType Type: [**PackagePathType**](ne-appmodel-packagepathtype.md)
+     * 
+     * Indicates the type of folder path to retrieve for the package (the original install folder or the mutable folder).
      * @param {Pointer<Integer>} bufferLength Type: <b>UINT32*</b>
      * 
      * On input, the size of <i>buffer</i>, in bytes. On output, the size of the package information returned, in bytes.
-     * @param {Pointer} _buffer 
+     * @param {Integer} _buffer Type: <b>BYTE*</b>
+     * 
+     * The package information, represented as an array of [PACKAGE_INFO](./ns-appmodel-package_info.md) structures.
      * @param {Pointer<Integer>} count Type: <b>UINT32*</b>
      * 
      * The number of packages in the buffer.
-     * @returns {Integer} Type: <b>LONG</b>
+     * @returns {WIN32_ERROR} Type: <b>LONG</b>
      * 
      * If the function succeeds it returns <b>ERROR_SUCCESS</b>. Otherwise, the function returns an error code. The possible error codes include the following.
      * 
@@ -2157,14 +2200,16 @@ class Appx {
      * @param {PACKAGE_VERSION} minVersion Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/appmodel/ns-appmodel-package_version">PACKAGE_VERSION</a></b>
      * 
      * The minimum version of the framework package on which to take dependency.
-     * @param {Integer} _packageDependencyProcessorArchitectures 
-     * @param {Integer} lifetimeKind Type: <b><a href="ne-appmodel-packagedependencylifetimekind.md">PackageDependencyLifetimeKind</a></b>
+     * @param {PackageDependencyProcessorArchitectures} _packageDependencyProcessorArchitectures Type: <b><a href="ne-appmodel-packagedependencyprocessorarchitectures.md">PackageDependencyProcessorArchitectures</a></b>
+     * 
+     * The processor architectures of the package dependency.
+     * @param {PackageDependencyLifetimeKind} lifetimeKind Type: <b><a href="ne-appmodel-packagedependencylifetimekind.md">PackageDependencyLifetimeKind</a></b>
      * 
      * The type of artifact to use to define the lifetime of the package dependency. For more information, see the remarks.
      * @param {PWSTR} lifetimeArtifact Type: <b>PCWSTR</b>
      * 
      * The name of the artifact used to define the lifetime of the package dependency. Must be NULL if the *lifetimeKind* parameter is [PackageDependencyLifetimeKind_Process](ne-appmodel-packagedependencylifetimekind.md). For more information, see the remarks.
-     * @param {Integer} options Type: <b><a href="ne-appmodel-createpackagedependencyoptions.md">CreatePackageDependencyOptions</a></b>
+     * @param {CreatePackageDependencyOptions} options Type: <b><a href="ne-appmodel-createpackagedependencyoptions.md">CreatePackageDependencyOptions</a></b>
      * 
      * The options to apply when creating the package dependency.
      * @returns {PWSTR} Type: <b>PWSTR*</b>
@@ -2185,10 +2230,10 @@ class Appx {
      * @param {PSID} user 
      * @param {PWSTR} packageFamilyName 
      * @param {PACKAGE_VERSION} minVersion 
-     * @param {Integer} _packageDependencyProcessorArchitectures 
-     * @param {Integer} lifetimeKind 
+     * @param {PackageDependencyProcessorArchitectures} _packageDependencyProcessorArchitectures 
+     * @param {PackageDependencyLifetimeKind} lifetimeKind 
      * @param {PWSTR} lifetimeArtifact 
-     * @param {Integer} options 
+     * @param {CreatePackageDependencyOptions} options 
      * @param {Pointer<FILETIME>} lifetimeExpiration 
      * @returns {PWSTR} 
      */
@@ -2239,7 +2284,7 @@ class Appx {
      * @param {Integer} rank Type: <b>INT32</b>
      * 
      * The rank to use to add the resolved package to the caller's package graph. For more information, see the remarks.
-     * @param {Integer} options Type: <b><a href="ne-appmodel-addpackagedependencyoptions.md">AddPackageDependencyOptions</a></b>
+     * @param {AddPackageDependencyOptions} options Type: <b><a href="ne-appmodel-addpackagedependencyoptions.md">AddPackageDependencyOptions</a></b>
      * 
      * The options to apply when adding the package dependency.
      * @param {Pointer<PACKAGEDEPENDENCY_CONTEXT>} packageDependencyContext Type: <b>PACKAGEDEPENDENCY_CONTEXT*</b>
@@ -2271,7 +2316,7 @@ class Appx {
      * 
      * @param {PWSTR} packageDependencyId 
      * @param {Integer} rank 
-     * @param {Integer} options 
+     * @param {AddPackageDependencyOptions2} options 
      * @param {Pointer<PACKAGEDEPENDENCY_CONTEXT>} packageDependencyContext 
      * @param {Pointer<PWSTR>} packageFullName 
      * @returns {HRESULT} 
@@ -2384,10 +2429,10 @@ class Appx {
      * @param {Pointer<PSID>} user 
      * @param {Pointer<PWSTR>} packageFamilyName 
      * @param {Pointer<PACKAGE_VERSION>} minVersion 
-     * @param {Pointer<Integer>} _packageDependencyProcessorArchitectures 
-     * @param {Pointer<Integer>} lifetimeKind 
+     * @param {Pointer<PackageDependencyProcessorArchitectures>} _packageDependencyProcessorArchitectures 
+     * @param {Pointer<PackageDependencyLifetimeKind>} lifetimeKind 
      * @param {Pointer<PWSTR>} lifetimeArtifact 
-     * @param {Pointer<Integer>} options 
+     * @param {Pointer<CreatePackageDependencyOptions>} options 
      * @param {Pointer<FILETIME>} lifetimeExpiration 
      * @returns {HRESULT} 
      */
@@ -2427,8 +2472,8 @@ class Appx {
     /**
      * Retrieves a value indicating whether a process can be suspended/resumed by the Process Lifecycle Manager (PLM).
      * @param {HANDLE} processToken A handle that identifies the access token for a process.
-     * @param {Pointer<Integer>} policy A pointer to a variable of the <a href="../appmodel/ne-appmodel-apppolicylifecyclemanagement.md">AppPolicyLifecycleManagement</a> enumerated type. When the function returns successfully, the variable contains an enumerated constant value indicating whether the identified process is lifecycle-managed or not.
-     * @returns {Integer} If the function succeeds, the function returns ERROR_SUCCESS.
+     * @param {Pointer<AppPolicyLifecycleManagement>} policy A pointer to a variable of the <a href="../appmodel/ne-appmodel-apppolicylifecyclemanagement.md">AppPolicyLifecycleManagement</a> enumerated type. When the function returns successfully, the variable contains an enumerated constant value indicating whether the identified process is lifecycle-managed or not.
+     * @returns {WIN32_ERROR} If the function succeeds, the function returns ERROR_SUCCESS.
      * 
      * If no known lifecycle management policy was found for the process token, the function raises a STATUS_ASSERTION_FAILURE exception and returns ERROR_NOT_FOUND.
      * 
@@ -2447,8 +2492,8 @@ class Appx {
     /**
      * Retrieves a value indicating whether a process uses a CoreWindow-based, or a HWND-based, windowing model. You can use the value to decide how to register for window state change notifications (size changed, visibility changed, etc.).
      * @param {HANDLE} processToken A handle that identifies the access token for a process.
-     * @param {Pointer<Integer>} policy A pointer to a variable of the <a href="https://docs.microsoft.com/windows/win32/api/appmodel/ne-appmodel-apppolicywindowingmodel">AppPolicyWindowingModel</a> enumerated type. When the function returns successfully, the variable contains an enumerated constant value indicating the windowing model of the identified process.
-     * @returns {Integer} If the function succeeds, the function returns ERROR_SUCCESS.
+     * @param {Pointer<AppPolicyWindowingModel>} policy A pointer to a variable of the <a href="https://docs.microsoft.com/windows/win32/api/appmodel/ne-appmodel-apppolicywindowingmodel">AppPolicyWindowingModel</a> enumerated type. When the function returns successfully, the variable contains an enumerated constant value indicating the windowing model of the identified process.
+     * @returns {WIN32_ERROR} If the function succeeds, the function returns ERROR_SUCCESS.
      * 
      * If no known windowing model policy was found for the process token, the function raises a STATUS_ASSERTION_FAILURE exception and returns ERROR_NOT_FOUND.
      * 
@@ -2467,8 +2512,8 @@ class Appx {
     /**
      * Retrieves a value indicating whether a process’s policy allows it to load non-Windows (third-party) plugins. You can use the value to decide whether or not to allow non-Windows (third-party) plugins.
      * @param {HANDLE} processToken A handle that identifies the access token for a process.
-     * @param {Pointer<Integer>} policy A pointer to a variable of the <a href="../appmodel/ne-appmodel-apppolicymediafoundationcodecloading.md">AppPolicyMediaFoundationCodecLoading</a> enumerated type. When the function returns successfully, the variable contains an enumerated constant value indicating the codec-loading policy of the identified process.
-     * @returns {Integer} If the function succeeds, the function returns ERROR_SUCCESS.
+     * @param {Pointer<AppPolicyMediaFoundationCodecLoading>} policy A pointer to a variable of the <a href="../appmodel/ne-appmodel-apppolicymediafoundationcodecloading.md">AppPolicyMediaFoundationCodecLoading</a> enumerated type. When the function returns successfully, the variable contains an enumerated constant value indicating the codec-loading policy of the identified process.
+     * @returns {WIN32_ERROR} If the function succeeds, the function returns ERROR_SUCCESS.
      * 
      * If no known codec-loading policy was found for the process token, the function raises a STATUS_ASSERTION_FAILURE exception and returns ERROR_NOT_FOUND.
      * 
@@ -2487,8 +2532,8 @@ class Appx {
     /**
      * Retrieves a value indicating the application type of a process so that you can determine whether to enable private reflection and/or make managed objects agile.
      * @param {HANDLE} processToken A handle that identifies the access token for a process.
-     * @param {Pointer<Integer>} policy A pointer to a variable of the <a href="../appmodel/ne-appmodel-apppolicyclrcompat.md">AppPolicyClrCompat</a> enumerated type. When the function returns successfully, the variable contains an enumerated constant value indicating the application type of the identified process.
-     * @returns {Integer} If the function succeeds, the function returns ERROR_SUCCESS.
+     * @param {Pointer<AppPolicyClrCompat>} policy A pointer to a variable of the <a href="../appmodel/ne-appmodel-apppolicyclrcompat.md">AppPolicyClrCompat</a> enumerated type. When the function returns successfully, the variable contains an enumerated constant value indicating the application type of the identified process.
+     * @returns {WIN32_ERROR} If the function succeeds, the function returns ERROR_SUCCESS.
      * 
      * If no known application type was found for the process token, the function raises a STATUS_ASSERTION_FAILURE exception and returns ERROR_NOT_FOUND.
      * 
@@ -2507,8 +2552,8 @@ class Appx {
     /**
      * Retrieves the kind of initialization that should be automatically performed for a process when beginthread[ex] creates a thread.
      * @param {HANDLE} processToken A handle that identifies the access token for a process.
-     * @param {Pointer<Integer>} policy A pointer to a variable of the <a href="https://docs.microsoft.com/windows/desktop/api/appmodel/ne-appmodel-apppolicythreadinitializationtype">AppPolicyThreadInitializationType</a> enumerated type. When the function returns successfully, the variable contains a value indicating the kind of initialization that should be automatically performed for the process when beginthread[ex] creates a thread.
-     * @returns {Integer} If the function succeeds, the function returns ERROR_SUCCESS.
+     * @param {Pointer<AppPolicyThreadInitializationType>} policy A pointer to a variable of the <a href="https://docs.microsoft.com/windows/desktop/api/appmodel/ne-appmodel-apppolicythreadinitializationtype">AppPolicyThreadInitializationType</a> enumerated type. When the function returns successfully, the variable contains a value indicating the kind of initialization that should be automatically performed for the process when beginthread[ex] creates a thread.
+     * @returns {WIN32_ERROR} If the function succeeds, the function returns ERROR_SUCCESS.
      * 
      * If no known thread initialization policy was found for the process token, the function raises a STATUS_ASSERTION_FAILURE exception and returns ERROR_NOT_FOUND.
      * 
@@ -2527,8 +2572,8 @@ class Appx {
     /**
      * Retrieves the method used for a process to surface developer information, such as asserts, to the user.
      * @param {HANDLE} processToken A handle that identifies the access token for a process.
-     * @param {Pointer<Integer>} policy A pointer to a variable of the <a href="https://docs.microsoft.com/windows/desktop/api/appmodel/ne-appmodel-apppolicyshowdeveloperdiagnostic">AppPolicyShowDeveloperDiagnostic</a> enumerated type. When the function returns successfully, the variable contains a value indicating the method used for the process to surface developer information, such as asserts, to the user.
-     * @returns {Integer} If the function succeeds, the function returns ERROR_SUCCESS.
+     * @param {Pointer<AppPolicyShowDeveloperDiagnostic>} policy A pointer to a variable of the <a href="https://docs.microsoft.com/windows/desktop/api/appmodel/ne-appmodel-apppolicyshowdeveloperdiagnostic">AppPolicyShowDeveloperDiagnostic</a> enumerated type. When the function returns successfully, the variable contains a value indicating the method used for the process to surface developer information, such as asserts, to the user.
+     * @returns {WIN32_ERROR} If the function succeeds, the function returns ERROR_SUCCESS.
      * 
      * If no known developer information  policy was found for the process token, the function raises a STATUS_ASSERTION_FAILURE exception and returns ERROR_NOT_FOUND.
      * 
@@ -2547,8 +2592,8 @@ class Appx {
     /**
      * Retrieves the method used to end a process.
      * @param {HANDLE} processToken A handle that identifies the access token for a process.
-     * @param {Pointer<Integer>} policy A pointer to a variable of the <a href="https://docs.microsoft.com/windows/desktop/api/appmodel/ne-appmodel-apppolicyprocessterminationmethod">AppPolicyProcessTerminationMethod</a> enumerated type. When the function returns successfully, the variable contains a value indicating the method used to end the process.
-     * @returns {Integer} If the function succeeds, the function returns ERROR_SUCCESS.
+     * @param {Pointer<AppPolicyProcessTerminationMethod>} policy A pointer to a variable of the <a href="https://docs.microsoft.com/windows/desktop/api/appmodel/ne-appmodel-apppolicyprocessterminationmethod">AppPolicyProcessTerminationMethod</a> enumerated type. When the function returns successfully, the variable contains a value indicating the method used to end the process.
+     * @returns {WIN32_ERROR} If the function succeeds, the function returns ERROR_SUCCESS.
      * 
      * If no known process termination policy was found for the process token, the function raises a STATUS_ASSERTION_FAILURE exception and returns ERROR_NOT_FOUND.
      * 
@@ -2567,8 +2612,8 @@ class Appx {
     /**
      * Retrieves a value indicating whether a process has full or restricted access to the IO devices (file, file stream, directory, physical disk, volume, console buffer, tape drive, communications resource, mailslot, and pipe).
      * @param {HANDLE} processToken A handle that identifies the access token for a process.
-     * @param {Pointer<Integer>} policy A pointer to a variable of the <a href="https://docs.microsoft.com/windows/desktop/api/appmodel/ne-appmodel-apppolicycreatefileaccess">AppPolicyCreateFileAccess</a> enumerated type. When the function returns successfully, the variable contains an enumerated constant value indicating whether the process has full or restricted access to the IO devices.
-     * @returns {Integer} If the function succeeds, the function returns ERROR_SUCCESS.
+     * @param {Pointer<AppPolicyCreateFileAccess>} policy A pointer to a variable of the <a href="https://docs.microsoft.com/windows/desktop/api/appmodel/ne-appmodel-apppolicycreatefileaccess">AppPolicyCreateFileAccess</a> enumerated type. When the function returns successfully, the variable contains an enumerated constant value indicating whether the process has full or restricted access to the IO devices.
+     * @returns {WIN32_ERROR} If the function succeeds, the function returns ERROR_SUCCESS.
      * 
      * If no known create file access policy was found for the process token, the function raises a STATUS_ASSERTION_FAILURE exception and returns ERROR_NOT_FOUND.
      * 
@@ -2667,7 +2712,7 @@ class Appx {
      * @param {Integer} flags Type: **const UINT32**
      * 
      * The [package constants](/windows/desktop/appxpkg/package-constants) that specify how package information is retrieved. The **PACKAGE_FILTER_\*** flags are supported.
-     * @param {Integer} packageInfoType Type: **PackageInfo3Type**
+     * @param {PackageInfo3Type} packageInfoType Type: **PackageInfo3Type**
      * 
      * ```cpp
      * enum PackageInfo3Type
@@ -2680,7 +2725,9 @@ class Appx {
      * @param {Pointer<Integer>} bufferLength Type: **UINT32\***
      * 
      * On input, the size of <i>buffer</i>, in bytes. On output, the size of the array of structures returned, in bytes.
-     * @param {Pointer} _buffer 
+     * @param {Integer} _buffer Type: **BYTE\***
+     * 
+     * The package graph's current generation ID, represented as an array of <a href="https://docs.microsoft.com/windows/win32/api/appmodel/ns-appmodel-package_info">PACKAGE_INFO</a> structures.
      * @returns {Integer} Type: **UINT32\***
      * 
      * The number of structures in the buffer.

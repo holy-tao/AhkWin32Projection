@@ -3,11 +3,9 @@
 
 /**
  * Documentation varies per use. Refer to each: <see href="https://learn.microsoft.com/windows/win32/api/http/nf-http-httpinitialize">HttpInitialize</see>, <see href="https://learn.microsoft.com/windows/win32/api/http/nf-http-httpterminate">HttpTerminate</see>.
- * @see 
  * @namespace Windows.Win32.Networking.HttpServer
- * @version v4.0.30319
  */
-class HTTP_INITIALIZE extends Win32BitflagEnum{
+class HTTP_INITIALIZE extends Win32BitflagEnum {
 
     /**
      * @type {Integer (UInt32)}

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ISyncMgrSyncItemInfo.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\ISyncMgrSyncItemInfo.ahk
 
 /**
  * Exposes methods that act on and retrieve information from a single sync item, allowing handlers to manage sync items as independent objects.
@@ -12,9 +12,8 @@
  * Representing a sync item as <b>ISyncMgrSyncItem</b> also allows support for a sync item that contains other sync items.
  * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nn-syncmgr-isyncmgrsyncitem
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class ISyncMgrSyncItem extends IUnknown{
+class ISyncMgrSyncItem extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -115,7 +114,7 @@ class ISyncMgrSyncItem extends IUnknown{
      * Gets a set of flags describing the item's defined capabilities.
      * @remarks
      * This method is called by Sync Center in response to a call to <a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/nf-syncmgr-isyncmgrcontrol-updateitem">UpdateItem</a>.
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/ne-syncmgr-syncmgr_item_capabilities">SYNCMGR_ITEM_CAPABILITIES</a>*</b>
+     * @returns {SYNCMGR_ITEM_CAPABILITIES} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/ne-syncmgr-syncmgr_item_capabilities">SYNCMGR_ITEM_CAPABILITIES</a>*</b>
      * 
      * When this method returns, contains a pointer to a bitwise combination of values from the <a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/ne-syncmgr-syncmgr_item_capabilities">SYNCMGR_ITEM_CAPABILITIES</a> enumeration that defines the capabilities of the item.
      * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nf-syncmgr-isyncmgrsyncitem-getcapabilities
@@ -131,7 +130,7 @@ class ISyncMgrSyncItem extends IUnknown{
      * A policy is an action that is typically supported but can be disabled by a group policy.
      * 
      * This method is called by Sync Center in response to a call to <a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/nf-syncmgr-isyncmgrcontrol-updateitem">UpdateItem</a>.
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/ne-syncmgr-syncmgr_item_policies">SYNCMGR_ITEM_POLICIES</a>*</b>
+     * @returns {SYNCMGR_ITEM_POLICIES} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/ne-syncmgr-syncmgr_item_policies">SYNCMGR_ITEM_POLICIES</a>*</b>
      * 
      * When this method returns, contains a pointer to a bitwise combination of values from the <a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/ne-syncmgr-syncmgr_item_policies">SYNCMGR_ITEM_POLICIES</a> enumeration that defines the item's policies.
      * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nf-syncmgr-isyncmgrsyncitem-getpolicies

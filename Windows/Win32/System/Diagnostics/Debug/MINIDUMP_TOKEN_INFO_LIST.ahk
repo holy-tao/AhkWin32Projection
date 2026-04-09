@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug
- * @version v4.0.30319
  */
-class MINIDUMP_TOKEN_INFO_LIST extends Win32Struct
-{
+class MINIDUMP_TOKEN_INFO_LIST extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4

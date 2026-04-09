@@ -15,9 +15,8 @@
  * Items with different enumeration modes compare canonically different (SHCIDS_CANONICALONLY) because they enumerate different sets of items.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-iobjectwithfolderenummode
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IObjectWithFolderEnumMode extends IUnknown{
+class IObjectWithFolderEnumMode extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -40,7 +39,7 @@ class IObjectWithFolderEnumMode extends IUnknown{
 
     /**
      * Sets the enumeration mode of the parsed item.
-     * @param {Integer} feMode Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-folder_enum_mode">FOLDER_ENUM_MODE</a></b>
+     * @param {FOLDER_ENUM_MODE} feMode Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-folder_enum_mode">FOLDER_ENUM_MODE</a></b>
      * 
      * One of the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-folder_enum_mode">FOLDER_ENUM_MODE</a> values that specify the enumeration mode.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -55,7 +54,7 @@ class IObjectWithFolderEnumMode extends IUnknown{
 
     /**
      * Retrieves the enumeration mode of the parsed item.
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-folder_enum_mode">FOLDER_ENUM_MODE</a>*</b>
+     * @returns {FOLDER_ENUM_MODE} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-folder_enum_mode">FOLDER_ENUM_MODE</a>*</b>
      * 
      * Pointer to a value that, when this method returns successfully, receives one of the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-folder_enum_mode">FOLDER_ENUM_MODE</a> values specifying the enumeration mode.
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iobjectwithfolderenummode-getmode

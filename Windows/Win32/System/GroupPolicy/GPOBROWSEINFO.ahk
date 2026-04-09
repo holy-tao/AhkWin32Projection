@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\HWND.ahk
+#Include .\GROUP_POLICY_OBJECT_TYPE.ahk
+#Include .\GROUP_POLICY_HINT_TYPE.ahk
 
 /**
  * The GPOBROWSEINFO structure contains information that the BrowseForGPO function uses to initialize a GPO browser dialog box. After the user closes the dialog box, the system returns information about the user's actions in this structure.
  * @see https://learn.microsoft.com/windows/win32/api/gpedit/ns-gpedit-gpobrowseinfo
  * @namespace Windows.Win32.System.GroupPolicy
- * @version v4.0.30319
  */
-class GPOBROWSEINFO extends Win32Struct
-{
+class GPOBROWSEINFO extends Win32Struct {
     static sizeof => 72
 
     static packingSize => 8
@@ -24,7 +24,6 @@ class GPOBROWSEINFO extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     dwFlags {
@@ -36,7 +35,7 @@ class GPOBROWSEINFO extends Win32Struct
      * Specifies the handle to the parent window. If this member is <b>NULL</b>, the dialog box has no owner.
      * @type {HWND}
      */
-    hwndOwner{
+    hwndOwner {
         get {
             if(!this.HasProp("__hwndOwner"))
                 this.__hwndOwner := HWND(8, this)
@@ -101,8 +100,7 @@ class GPOBROWSEINFO extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Integer}
+     * @type {GROUP_POLICY_OBJECT_TYPE}
      */
     gpoType {
         get => NumGet(this, 60, "int")
@@ -110,8 +108,7 @@ class GPOBROWSEINFO extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Integer}
+     * @type {GROUP_POLICY_HINT_TYPE}
      */
     gpoHint {
         get => NumGet(this, 64, "int")

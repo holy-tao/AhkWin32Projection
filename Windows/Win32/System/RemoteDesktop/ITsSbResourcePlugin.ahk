@@ -7,9 +7,8 @@
  * Exposes methods that extend the capabilities of Remote Desktop Connection Broker (RD Connection Broker).
  * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nn-sbtsv-itssbresourceplugin
  * @namespace Windows.Win32.System.RemoteDesktop
- * @version v4.0.30319
  */
-class ITsSbResourcePlugin extends ITsSbPlugin{
+class ITsSbResourcePlugin extends ITsSbPlugin {
 
     static sizeof => A_PtrSize
     /**

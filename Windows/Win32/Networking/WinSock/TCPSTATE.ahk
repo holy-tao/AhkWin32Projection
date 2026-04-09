@@ -12,9 +12,8 @@
  * For more information about TCP connection states, see <a href="https://tools.ietf.org/html/rfc793">RFC 793</a>.
  * @see https://learn.microsoft.com/windows/win32/api/mstcpip/ne-mstcpip-tcpstate
  * @namespace Windows.Win32.Networking.WinSock
- * @version v4.0.30319
  */
-class TCPSTATE extends Win32Enum{
+class TCPSTATE extends Win32Enum {
 
     /**
      * The TCP connection has no connection state at all. This state represents the state when there is no Transmission Control Block (TCB), and therefore,

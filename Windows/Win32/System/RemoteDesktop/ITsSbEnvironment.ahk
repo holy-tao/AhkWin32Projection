@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Com\IUnknown.ahk
 #Include ..\..\Foundation\BSTR.ahk
 #Include .\ITsSbEnvironmentPropertySet.ahk
-#Include ..\Com\IUnknown.ahk
 
 /**
  * Exposes methods and properties that contain information about the environment that hosts the target computer. This interface can be used to store information about a physical server that hosts virtual machines.
  * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nn-sbtsv-itssbenvironment
  * @namespace Windows.Win32.System.RemoteDesktop
- * @version v4.0.30319
  */
-class ITsSbEnvironment extends IUnknown{
+class ITsSbEnvironment extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

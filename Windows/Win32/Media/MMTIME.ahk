@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Media
- * @version v4.0.30319
  */
-class MMTIME extends Win32Struct
-{
+class MMTIME extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4
@@ -18,7 +16,7 @@ class MMTIME extends Win32Struct
         class _smpte extends Win32Struct {
             static sizeof => 8
             static packingSize => 1
-    
+
             /**
              * @type {Integer}
              */
@@ -26,7 +24,7 @@ class MMTIME extends Win32Struct
                 get => NumGet(this, 0, "char")
                 set => NumPut("char", value, this, 0)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -34,7 +32,7 @@ class MMTIME extends Win32Struct
                 get => NumGet(this, 1, "char")
                 set => NumPut("char", value, this, 1)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -42,7 +40,7 @@ class MMTIME extends Win32Struct
                 get => NumGet(this, 2, "char")
                 set => NumPut("char", value, this, 2)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -50,7 +48,7 @@ class MMTIME extends Win32Struct
                 get => NumGet(this, 3, "char")
                 set => NumPut("char", value, this, 3)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -58,7 +56,7 @@ class MMTIME extends Win32Struct
                 get => NumGet(this, 4, "char")
                 set => NumPut("char", value, this, 4)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -66,24 +64,23 @@ class MMTIME extends Win32Struct
                 get => NumGet(this, 5, "char")
                 set => NumPut("char", value, this, 5)
             }
-        
+
             /**
-             * @type {Array<Byte>}
+             * @type {Array<Integer>}
              */
-            pad{
+            pad {
                 get {
                     if(!this.HasProp("__padProxyArray"))
                         this.__padProxyArray := Win32FixedArray(this.ptr + 6, 2, Primitive, "char")
                     return this.__padProxyArray
                 }
             }
-        
         }
-    
+
         class _midi extends Win32Struct {
             static sizeof => 4
             static packingSize => 4
-    
+
             /**
              * @type {Integer}
              */
@@ -91,9 +88,8 @@ class MMTIME extends Win32Struct
                 get => NumGet(this, 0, "uint")
                 set => NumPut("uint", value, this, 0)
             }
-        
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -101,7 +97,7 @@ class MMTIME extends Win32Struct
             get => NumGet(this, 0, "uint")
             set => NumPut("uint", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -109,7 +105,7 @@ class MMTIME extends Win32Struct
             get => NumGet(this, 0, "uint")
             set => NumPut("uint", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -117,7 +113,7 @@ class MMTIME extends Win32Struct
             get => NumGet(this, 0, "uint")
             set => NumPut("uint", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -125,29 +121,28 @@ class MMTIME extends Win32Struct
             get => NumGet(this, 0, "uint")
             set => NumPut("uint", value, this, 0)
         }
-    
+
         /**
          * @type {_smpte}
          */
-        smpte{
+        smpte {
             get {
                 if(!this.HasProp("__smpte"))
-                    this.__smpte := %this.__Class%._smpte(0, this)
+                    this.__smpte := MMTIME._u_e__Union._smpte(0, this)
                 return this.__smpte
             }
         }
-    
+
         /**
          * @type {_midi}
          */
-        midi{
+        midi {
             get {
                 if(!this.HasProp("__midi"))
-                    this.__midi := %this.__Class%._midi(0, this)
+                    this.__midi := MMTIME._u_e__Union._midi(0, this)
                 return this.__midi
             }
         }
-    
     }
 
     /**
@@ -161,10 +156,10 @@ class MMTIME extends Win32Struct
     /**
      * @type {_u_e__Union}
      */
-    u{
+    u {
         get {
             if(!this.HasProp("__u"))
-                this.__u := %this.__Class%._u_e__Union(4, this)
+                this.__u := MMTIME._u_e__Union(4, this)
             return this.__u
         }
     }

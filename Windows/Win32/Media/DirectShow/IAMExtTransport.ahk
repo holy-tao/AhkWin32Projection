@@ -17,9 +17,8 @@
  * Implement this interface if you are writing a filter that controls an external device with a transport, such as a VTR. If you implement this interface, you should implement the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nn-strmif-iamextdevice">IAMExtDevice</a> interface as well.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-iamexttransport
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IAMExtTransport extends IUnknown{
+class IAMExtTransport extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

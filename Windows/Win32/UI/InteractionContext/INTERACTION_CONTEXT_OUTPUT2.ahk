@@ -1,17 +1,20 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\INTERACTION_ID.ahk
+#Include .\INTERACTION_FLAGS.ahk
+#Include ..\WindowsAndMessaging\POINTER_INPUT_TYPE.ahk
+#Include .\INTERACTION_ARGUMENTS_MANIPULATION.ahk
 #Include .\MANIPULATION_TRANSFORM.ahk
 #Include .\MANIPULATION_VELOCITY.ahk
-#Include .\INTERACTION_ARGUMENTS_MANIPULATION.ahk
+#Include .\MANIPULATION_RAILS_STATE.ahk
 #Include .\INTERACTION_ARGUMENTS_TAP.ahk
 #Include .\INTERACTION_ARGUMENTS_CROSS_SLIDE.ahk
+#Include .\CROSS_SLIDE_FLAGS.ahk
 
 /**
  * @namespace Windows.Win32.UI.InteractionContext
- * @version v4.0.30319
  */
-class INTERACTION_CONTEXT_OUTPUT2 extends Win32Struct
-{
+class INTERACTION_CONTEXT_OUTPUT2 extends Win32Struct {
     static sizeof => 88
 
     static packingSize => 4
@@ -23,40 +26,39 @@ class INTERACTION_CONTEXT_OUTPUT2 extends Win32Struct
         /**
          * @type {INTERACTION_ARGUMENTS_MANIPULATION}
          */
-        manipulation{
+        manipulation {
             get {
                 if(!this.HasProp("__manipulation"))
                     this.__manipulation := INTERACTION_ARGUMENTS_MANIPULATION(0, this)
                 return this.__manipulation
             }
         }
-    
+
         /**
          * @type {INTERACTION_ARGUMENTS_TAP}
          */
-        tap{
+        tap {
             get {
                 if(!this.HasProp("__tap"))
                     this.__tap := INTERACTION_ARGUMENTS_TAP(0, this)
                 return this.__tap
             }
         }
-    
+
         /**
          * @type {INTERACTION_ARGUMENTS_CROSS_SLIDE}
          */
-        crossSlide{
+        crossSlide {
             get {
                 if(!this.HasProp("__crossSlide"))
                     this.__crossSlide := INTERACTION_ARGUMENTS_CROSS_SLIDE(0, this)
                 return this.__crossSlide
             }
         }
-    
     }
 
     /**
-     * @type {Integer}
+     * @type {INTERACTION_ID}
      */
     interactionId {
         get => NumGet(this, 0, "int")
@@ -64,7 +66,7 @@ class INTERACTION_CONTEXT_OUTPUT2 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {INTERACTION_FLAGS}
      */
     interactionFlags {
         get => NumGet(this, 4, "uint")
@@ -72,7 +74,7 @@ class INTERACTION_CONTEXT_OUTPUT2 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {POINTER_INPUT_TYPE}
      */
     inputType {
         get => NumGet(this, 8, "int")
@@ -114,10 +116,10 @@ class INTERACTION_CONTEXT_OUTPUT2 extends Win32Struct
     /**
      * @type {_arguments_e__Union}
      */
-    arguments{
+    arguments {
         get {
             if(!this.HasProp("__arguments"))
-                this.__arguments := %this.__Class%._arguments_e__Union(28, this)
+                this.__arguments := INTERACTION_CONTEXT_OUTPUT2._arguments_e__Union(28, this)
             return this.__arguments
         }
     }

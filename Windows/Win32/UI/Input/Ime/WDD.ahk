@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.UI.Input.Ime
- * @version v4.0.30319
  */
-class WDD extends Win32Struct
-{
+class WDD extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

@@ -7,9 +7,8 @@
  * The IAudioEndpointVolumeEx interface provides volume controls on the audio stream to or from a device endpoint.
  * @see https://learn.microsoft.com/windows/win32/api/endpointvolume/nn-endpointvolume-iaudioendpointvolumeex
  * @namespace Windows.Win32.Media.Audio.Endpoints
- * @version v4.0.30319
  */
-class IAudioEndpointVolumeEx extends IAudioEndpointVolume{
+class IAudioEndpointVolumeEx extends IAudioEndpointVolume {
 
     static sizeof => A_PtrSize
     /**

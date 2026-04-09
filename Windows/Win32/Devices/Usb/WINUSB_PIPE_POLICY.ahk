@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.Usb
- * @version v4.0.30319
  */
-class WINUSB_PIPE_POLICY extends Win32Enum{
+class WINUSB_PIPE_POLICY extends Win32Enum {
 
     /**
      * @type {Integer (UInt32)}

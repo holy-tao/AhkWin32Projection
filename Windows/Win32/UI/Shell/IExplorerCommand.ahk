@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IEnumExplorerCommand.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include .\IEnumExplorerCommand.ahk
 
 /**
  * Exposes methods that get the command appearance, enumerate subcommands, or invoke the command.
@@ -12,9 +13,8 @@
  * Note: Windows 11 refines the behavior of the contextual file operations in the right-click context menu of File Explorer and the Share dialog. Please see  <a href="https://docs.microsoft.com/windows/apps/get-started/make-apps-great-for-windows">Top 11 things you can do to make your app great on Windows 11 </a>
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-iexplorercommand
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IExplorerCommand extends IUnknown{
+class IExplorerCommand extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

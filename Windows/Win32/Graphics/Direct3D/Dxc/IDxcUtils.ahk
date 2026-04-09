@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
 #Include .\IDxcBlob.ahk
 #Include .\IDxcBlobEncoding.ahk
 #Include ..\..\..\System\Com\IStream.ahk
@@ -8,13 +9,11 @@
 #Include .\IDxcBlobUtf8.ahk
 #Include .\IDxcBlobUtf16.ahk
 #Include .\IDxcCompilerArgs.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D.Dxc
- * @version v4.0.30319
  */
-class IDxcUtils extends IUnknown{
+class IDxcUtils extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -49,9 +48,9 @@ class IDxcUtils extends IUnknown{
 
     /**
      * 
-     * @param {Pointer} pData 
+     * @param {Integer} pData 
      * @param {Integer} _size 
-     * @param {Integer} codePage 
+     * @param {DXC_CP} codePage 
      * @returns {IDxcBlobEncoding} 
      */
     CreateBlobFromPinned(pData, _size, codePage) {
@@ -61,10 +60,10 @@ class IDxcUtils extends IUnknown{
 
     /**
      * 
-     * @param {Pointer} pData 
+     * @param {Integer} pData 
      * @param {IMalloc} pIMalloc 
      * @param {Integer} _size 
-     * @param {Integer} codePage 
+     * @param {DXC_CP} codePage 
      * @returns {IDxcBlobEncoding} 
      */
     MoveToBlob(pData, pIMalloc, _size, codePage) {
@@ -74,9 +73,9 @@ class IDxcUtils extends IUnknown{
 
     /**
      * The CreateBlob function creates an empty BLOB.
-     * @param {Pointer} pData 
+     * @param {Integer} pData 
      * @param {Integer} _size 
-     * @param {Integer} codePage 
+     * @param {DXC_CP} codePage 
      * @returns {IDxcBlobEncoding} 
      * @see https://learn.microsoft.com/windows/win32/NetMon2/createblob
      */
@@ -88,7 +87,7 @@ class IDxcUtils extends IUnknown{
     /**
      * 
      * @param {PWSTR} pFileName 
-     * @param {Pointer<Integer>} pCodePage 
+     * @param {Pointer<DXC_CP>} pCodePage 
      * @returns {IDxcBlobEncoding} 
      */
     LoadFile(pFileName, pCodePage) {

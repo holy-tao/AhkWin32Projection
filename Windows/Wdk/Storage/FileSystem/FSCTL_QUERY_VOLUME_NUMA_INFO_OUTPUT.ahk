@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem
- * @version v4.0.30319
  */
-class FSCTL_QUERY_VOLUME_NUMA_INFO_OUTPUT extends Win32Struct
-{
+class FSCTL_QUERY_VOLUME_NUMA_INFO_OUTPUT extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 4

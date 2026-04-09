@@ -13,10 +13,8 @@
  * If no **Image** element is declared with a *MinDPI* value that matches the current screen dpi setting, the framework picks the **Image** that has the nearest *MinDPI* value less than the current screen dpi setting and scales the image resource up. Otherwise, if no **Image** element is declared with a *MinDPI* attribute value less than the current screen dpi setting, the framework picks the nearest *MinDPI* value greater than the current screen dpi setting and scales the image resource down.
  * @see https://learn.microsoft.com/windows/win32/windowsribbon/windowsribbon-element-image
  * @namespace Windows.Win32.Graphics.GdiPlus
- * @version v4.0.30319
  */
-class Image extends Win32Struct
-{
+class Image extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 8

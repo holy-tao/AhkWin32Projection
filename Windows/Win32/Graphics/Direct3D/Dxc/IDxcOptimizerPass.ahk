@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D.Dxc
- * @version v4.0.30319
  */
-class IDxcOptimizerPass extends IUnknown{
+class IDxcOptimizerPass extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

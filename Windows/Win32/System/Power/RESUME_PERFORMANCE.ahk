@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Power
- * @version v4.0.30319
  */
-class RESUME_PERFORMANCE extends Win32Struct
-{
+class RESUME_PERFORMANCE extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

@@ -5,9 +5,8 @@
  * Defines the identifiers that identify the query information that you can retrieve.
  * @see https://learn.microsoft.com/windows/win32/api/winevt/ne-winevt-evt_query_property_id
  * @namespace Windows.Win32.System.EventLog
- * @version v4.0.30319
  */
-class EVT_QUERY_PROPERTY_ID extends Win32Enum{
+class EVT_QUERY_PROPERTY_ID extends Win32Enum {
 
     /**
      * Identifies the property that contains the list of channel or log file names that are specified in the query. The variant type for this property is <b>EvtVarTypeString \| EVT_VARIANT_TYPE_ARRAY</b>.

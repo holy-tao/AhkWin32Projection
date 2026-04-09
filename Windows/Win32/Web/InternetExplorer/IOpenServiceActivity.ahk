@@ -1,15 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IOpenService.ahk
 #Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\UI\WindowsAndMessaging\HICON.ahk
-#Include .\IOpenService.ahk
 
 /**
  * @namespace Windows.Win32.Web.InternetExplorer
- * @version v4.0.30319
  */
-class IOpenServiceActivity extends IOpenService{
+class IOpenServiceActivity extends IOpenService {
 
     static sizeof => A_PtrSize
     /**
@@ -55,7 +54,7 @@ class IOpenServiceActivity extends IOpenService{
 
     /**
      * 
-     * @param {Integer} type 
+     * @param {OpenServiceActivityContentType} type 
      * @returns {BOOL} 
      */
     CanExecuteType(type) {
@@ -88,7 +87,7 @@ class IOpenServiceActivity extends IOpenService{
 
     /**
      * 
-     * @param {Integer} type 
+     * @param {OpenServiceActivityContentType} type 
      * @returns {BOOL} 
      */
     CanPreviewType(type) {

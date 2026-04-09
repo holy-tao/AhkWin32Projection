@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Storage.FileServerResourceManager
- * @version v4.0.30319
  */
-class FsrmAccessDeniedRemediationClient extends Win32Struct
-{
+class FsrmAccessDeniedRemediationClient extends Win32Struct {
     static sizeof => 0
 
     static packingSize => 1

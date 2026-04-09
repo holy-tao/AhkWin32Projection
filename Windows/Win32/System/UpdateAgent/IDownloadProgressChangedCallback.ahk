@@ -7,9 +7,8 @@
  * Handles the notification that indicates a change in the progress of an asynchronous download operation.
  * @see https://learn.microsoft.com/windows/win32/api/wuapi/nn-wuapi-idownloadprogresschangedcallback
  * @namespace Windows.Win32.System.UpdateAgent
- * @version v4.0.30319
  */
-class IDownloadProgressChangedCallback extends IUnknown{
+class IDownloadProgressChangedCallback extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

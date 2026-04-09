@@ -16,10 +16,8 @@
  * Note that while the variant type of the CODECAPI_AVEncAACEnableVBR property is VT_BOOL, [IMFAttributes](/windows/win32/api/mfobjects/nn-mfobjects-imfattributes) does not support Boolean attributes. Therefore, you should use [SetUINT32](/windows/win32/api/mfobjects/nf-mfobjects-imfattributes-setuint32) instead. The attribute value will be automatically converted to a VT_BOOL property value when it is transferred to the encoder MFT.
  * @see https://learn.microsoft.com/windows/win32/medfound/codecapi-avencaacenablevbr
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class CODECAPI_AVEncAACEnableVBR extends Win32Struct
-{
+class CODECAPI_AVEncAACEnableVBR extends Win32Struct {
     static sizeof => 0
 
     static packingSize => 1

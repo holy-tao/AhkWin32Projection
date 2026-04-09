@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\BLUETOOTH_COD_PAIRS.ahk
 #Include ..\..\Foundation\HWND.ahk
+#Include .\BLUETOOTH_DEVICE_INFO.ahk
 
 /**
  * Facilitates and manages the visibility, authentication, and selection of Bluetooth devices and services.
@@ -10,10 +12,8 @@
  * <a href="https://docs.microsoft.com/windows/desktop/api/bluetoothapis/nf-bluetoothapis-bluetoothselectdevicesfree">BluetoothSelectDevicesFree</a> function.
  * @see https://learn.microsoft.com/windows/win32/api/bluetoothapis/ns-bluetoothapis-bluetooth_select_device_params
  * @namespace Windows.Win32.Devices.Bluetooth
- * @version v4.0.30319
  */
-class BLUETOOTH_SELECT_DEVICE_PARAMS extends Win32Struct
-{
+class BLUETOOTH_SELECT_DEVICE_PARAMS extends Win32Struct {
     static sizeof => 88
 
     static packingSize => 8
@@ -59,7 +59,7 @@ class BLUETOOTH_SELECT_DEVICE_PARAMS extends Win32Struct
      * Handle to the parent window. Set to <b>NULL</b> for no parent.
      * @type {HWND}
      */
-    hwndParent{
+    hwndParent {
         get {
             if(!this.HasProp("__hwndParent"))
                 this.__hwndParent := HWND(24, this)

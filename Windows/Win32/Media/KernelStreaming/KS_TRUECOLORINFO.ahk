@@ -4,18 +4,16 @@
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
- * @version v4.0.30319
  */
-class KS_TRUECOLORINFO extends Win32Struct
-{
-    static sizeof => 2064
+class KS_TRUECOLORINFO extends Win32Struct {
+    static sizeof => 1036
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    dwBitMasks{
+    dwBitMasks {
         get {
             if(!this.HasProp("__dwBitMasksProxyArray"))
                 this.__dwBitMasksProxyArray := Win32FixedArray(this.ptr + 0, 3, Primitive, "uint")
@@ -24,12 +22,12 @@ class KS_TRUECOLORINFO extends Win32Struct
     }
 
     /**
-     * @type {Array<KS_RGBQUAD>}
+     * @type {KS_RGBQUAD}
      */
-    bmiColors{
+    bmiColors {
         get {
             if(!this.HasProp("__bmiColorsProxyArray"))
-                this.__bmiColorsProxyArray := Win32FixedArray(this.ptr + 16, 256, KS_RGBQUAD, "")
+                this.__bmiColorsProxyArray := Win32FixedArray(this.ptr + 12, 256, KS_RGBQUAD, "")
             return this.__bmiColorsProxyArray
         }
     }

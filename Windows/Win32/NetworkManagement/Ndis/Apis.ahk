@@ -4,7 +4,6 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Ndis
- * @version v4.0.30319
  */
 class Ndis {
 

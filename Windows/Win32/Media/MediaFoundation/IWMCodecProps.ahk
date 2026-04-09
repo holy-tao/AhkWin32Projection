@@ -7,9 +7,8 @@
  * Provides methods that retrieve format-specific codec properties.
  * @see https://learn.microsoft.com/windows/win32/api/wmcodecdsp/nn-wmcodecdsp-iwmcodecprops
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IWMCodecProps extends IUnknown{
+class IWMCodecProps extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -63,7 +62,7 @@ class IWMCodecProps extends IUnknown{
      * <a href="https://docs.microsoft.com/windows/desktop/medfound/mfpkey-vbrqualityproperty">MFPKEY_VBRQUALITY</a>
      * </li>
      * </ul>
-     * @param {Pointer<Integer>} pType Address of a variable that receives the data type of the property value.
+     * @param {Pointer<WMT_PROP_DATATYPE>} pType Address of a variable that receives the data type of the property value.
      * @param {Pointer<Integer>} pValue Address of the byte buffer that receives the property value.
      * @param {Pointer<Integer>} pdwSize Pointer to the size of the value buffer, in bytes. If pValue is <b>NULL</b>, the method will set this value to the size required.
      * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
@@ -118,7 +117,7 @@ class IWMCodecProps extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Integer>} pType Address of a variable that receives the data type of the property value.
+     * @param {Pointer<WMT_PROP_DATATYPE>} pType Address of a variable that receives the data type of the property value.
      * @param {Pointer<Integer>} pValue Address of the byte buffer that receives the property value.
      * @param {Pointer<Integer>} pdwSize Pointer to the size of the value buffer, in bytes. If pValue is <b>NULL</b>, the method will set this value to the size required.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.

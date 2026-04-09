@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Storage.Nvme
- * @version v4.0.30319
  */
-class NVME_DISCOVERY_ENTRY extends Win32Struct
-{
+class NVME_DISCOVERY_ENTRY extends Win32Struct {
     static sizeof => 1024
 
     static packingSize => 2
@@ -28,7 +26,7 @@ class NVME_DISCOVERY_ENTRY extends Win32Struct
             get => NumGet(this, 0, "char")
             set => NumPut("char", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -36,7 +34,7 @@ class NVME_DISCOVERY_ENTRY extends Win32Struct
             get => (this._bitfield >> 0) & 0x3
             set => this._bitfield := ((value & 0x3) << 0) | (this._bitfield & ~(0x3 << 0))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -44,7 +42,7 @@ class NVME_DISCOVERY_ENTRY extends Win32Struct
             get => (this._bitfield >> 2) & 0x1
             set => this._bitfield := ((value & 0x1) << 2) | (this._bitfield & ~(0x1 << 2))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -52,7 +50,7 @@ class NVME_DISCOVERY_ENTRY extends Win32Struct
             get => (this._bitfield >> 3) & 0x1
             set => this._bitfield := ((value & 0x1) << 3) | (this._bitfield & ~(0x1 << 3))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -60,7 +58,7 @@ class NVME_DISCOVERY_ENTRY extends Win32Struct
             get => (this._bitfield >> 4) & 0x3
             set => this._bitfield := ((value & 0x3) << 4) | (this._bitfield & ~(0x3 << 4))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -68,7 +66,6 @@ class NVME_DISCOVERY_ENTRY extends Win32Struct
             get => NumGet(this, 0, "char")
             set => NumPut("char", value, this, 0)
         }
-    
     }
 
     class _EFLAGS_e__Union extends Win32Struct {
@@ -87,7 +84,7 @@ class NVME_DISCOVERY_ENTRY extends Win32Struct
             get => NumGet(this, 0, "ushort")
             set => NumPut("ushort", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -95,7 +92,7 @@ class NVME_DISCOVERY_ENTRY extends Win32Struct
             get => (this._bitfield >> 0) & 0x1
             set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -103,7 +100,7 @@ class NVME_DISCOVERY_ENTRY extends Win32Struct
             get => (this._bitfield >> 1) & 0x1
             set => this._bitfield := ((value & 0x1) << 1) | (this._bitfield & ~(0x1 << 1))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -111,7 +108,7 @@ class NVME_DISCOVERY_ENTRY extends Win32Struct
             get => (this._bitfield >> 2) & 0x1
             set => this._bitfield := ((value & 0x1) << 2) | (this._bitfield & ~(0x1 << 2))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -119,7 +116,6 @@ class NVME_DISCOVERY_ENTRY extends Win32Struct
             get => NumGet(this, 0, "ushort")
             set => NumPut("ushort", value, this, 0)
         }
-    
     }
 
     /**
@@ -149,10 +145,10 @@ class NVME_DISCOVERY_ENTRY extends Win32Struct
     /**
      * @type {_TREQ_e__Union}
      */
-    TREQ{
+    TREQ {
         get {
             if(!this.HasProp("__TREQ"))
-                this.__TREQ := %this.__Class%._TREQ_e__Union(3, this)
+                this.__TREQ := NVME_DISCOVERY_ENTRY._TREQ_e__Union(3, this)
             return this.__TREQ
         }
     }
@@ -184,18 +180,18 @@ class NVME_DISCOVERY_ENTRY extends Win32Struct
     /**
      * @type {_EFLAGS_e__Union}
      */
-    EFLAGS{
+    EFLAGS {
         get {
             if(!this.HasProp("__EFLAGS"))
-                this.__EFLAGS := %this.__Class%._EFLAGS_e__Union(10, this)
+                this.__EFLAGS := NVME_DISCOVERY_ENTRY._EFLAGS_e__Union(10, this)
             return this.__EFLAGS
         }
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Reserved0{
+    Reserved0 {
         get {
             if(!this.HasProp("__Reserved0ProxyArray"))
                 this.__Reserved0ProxyArray := Win32FixedArray(this.ptr + 12, 20, Primitive, "char")
@@ -204,9 +200,9 @@ class NVME_DISCOVERY_ENTRY extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    TRSVCID{
+    TRSVCID {
         get {
             if(!this.HasProp("__TRSVCIDProxyArray"))
                 this.__TRSVCIDProxyArray := Win32FixedArray(this.ptr + 32, 32, Primitive, "char")
@@ -215,9 +211,9 @@ class NVME_DISCOVERY_ENTRY extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Reserved1{
+    Reserved1 {
         get {
             if(!this.HasProp("__Reserved1ProxyArray"))
                 this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 64, 192, Primitive, "char")
@@ -226,9 +222,9 @@ class NVME_DISCOVERY_ENTRY extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    NQN{
+    NQN {
         get {
             if(!this.HasProp("__NQNProxyArray"))
                 this.__NQNProxyArray := Win32FixedArray(this.ptr + 256, 256, Primitive, "char")
@@ -237,9 +233,9 @@ class NVME_DISCOVERY_ENTRY extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    TRADDR{
+    TRADDR {
         get {
             if(!this.HasProp("__TRADDRProxyArray"))
                 this.__TRADDRProxyArray := Win32FixedArray(this.ptr + 512, 256, Primitive, "char")
@@ -248,9 +244,9 @@ class NVME_DISCOVERY_ENTRY extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    TSAS{
+    TSAS {
         get {
             if(!this.HasProp("__TSASProxyArray"))
                 this.__TSASProxyArray := Win32FixedArray(this.ptr + 768, 256, Primitive, "char")

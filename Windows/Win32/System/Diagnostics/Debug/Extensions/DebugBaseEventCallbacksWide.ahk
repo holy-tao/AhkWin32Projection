@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
- * @version v4.0.30319
  */
-class DebugBaseEventCallbacksWide extends IDebugEventCallbacksWide{
+class DebugBaseEventCallbacksWide extends IDebugEventCallbacksWide {
 
     static sizeof => A_PtrSize
 

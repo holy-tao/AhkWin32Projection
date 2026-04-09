@@ -7,9 +7,8 @@
  * This interface to notify an application of cost and data plan status change events for a connection.
  * @see https://learn.microsoft.com/windows/win32/api/netlistmgr/nn-netlistmgr-inetworkconnectioncostevents
  * @namespace Windows.Win32.Networking.NetworkListManager
- * @version v4.0.30319
  */
-class INetworkConnectionCostEvents extends IUnknown{
+class INetworkConnectionCostEvents extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

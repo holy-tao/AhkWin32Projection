@@ -5,10 +5,8 @@
  * Defines the running status of the data collector set.
  * @see https://learn.microsoft.com/windows/win32/api/pla/ne-pla-datacollectorsetstatus
  * @namespace Windows.Win32.System.Performance
- * @version v4.0.30319
  */
-class DataCollectorSet extends Win32Struct
-{
+class DataCollectorSet extends Win32Struct {
     static sizeof => 0
 
     static packingSize => 1

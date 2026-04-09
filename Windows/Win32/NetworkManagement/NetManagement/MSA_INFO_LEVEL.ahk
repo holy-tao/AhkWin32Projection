@@ -5,9 +5,8 @@
  * Indicates the level of a managed service account.
  * @see https://learn.microsoft.com/windows/win32/api/lmaccess/ne-lmaccess-msa_info_level
  * @namespace Windows.Win32.NetworkManagement.NetManagement
- * @version v4.0.30319
  */
-class MSA_INFO_LEVEL extends Win32Enum{
+class MSA_INFO_LEVEL extends Win32Enum {
 
     /**
      * The default level.

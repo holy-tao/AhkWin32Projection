@@ -3,13 +3,10 @@
 
 /**
  * Specifies various ink editor states.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/inked/ne-inked-dispid_inkedit
  * @namespace Windows.Win32.UI.TabletPC
- * @version v4.0.30319
  */
-class DISPID_InkEdit extends Win32Enum{
+class DISPID_InkEdit extends Win32Enum {
 
     /**
      * Text.

@@ -1,16 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include .\ITfFunction.ahk
 
 /**
  * The ITfFnConfigureRegisterEudc interface is implemented by a text service to provide the UI to register the key sequence for the given EUDC.
  * @see https://learn.microsoft.com/windows/win32/api/ctffunc/nn-ctffunc-itffnconfigureregistereudc
  * @namespace Windows.Win32.UI.TextServices
- * @version v4.0.30319
  */
-class ITfFnConfigureRegisterEudc extends ITfFunction{
+class ITfFnConfigureRegisterEudc extends ITfFunction {
 
     static sizeof => A_PtrSize
     /**

@@ -5,10 +5,8 @@
  * Contains a set of cryptographic function providers for a CNG configuration context.
  * @see https://learn.microsoft.com/windows/win32/api/bcrypt/ns-bcrypt-crypt_context_function_providers
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CRYPT_CONTEXT_FUNCTION_PROVIDERS extends Win32Struct
-{
+class CRYPT_CONTEXT_FUNCTION_PROVIDERS extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

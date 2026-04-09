@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
 #Include .\IComponent.ahk
+#Include ..\Com\IDispatch.ahk
 
 /**
  * The IComponent2 interface, implemented by snap-ins, is introduced in MMC 2.0 and supersedes the IComponent interface.
  * @see https://learn.microsoft.com/windows/win32/api/mmc/nn-mmc-icomponent2
  * @namespace Windows.Win32.System.Mmc
- * @version v4.0.30319
  */
-class IComponent2 extends IComponent{
+class IComponent2 extends IComponent {
 
     static sizeof => A_PtrSize
     /**
@@ -34,7 +33,7 @@ class IComponent2 extends IComponent{
     /**
      * The QueryDispatch method returns the snap-in IDispatch interface for a specified item.
      * @param {Pointer} cookie A value that specifies the context item (or items) for which the IDispatch interface is requested. The cookie value is previously provided by the snap-in, and MMC uses it in this method call.
-     * @param {Integer} type A value that specifies the data object as one of the following constant values, which, are members of the 
+     * @param {DATA_OBJECT_TYPES} type A value that specifies the data object as one of the following constant values, which, are members of the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mmc/ne-mmc-data_object_types">DATA_OBJECT_TYPES</a> enumeration.
      * @returns {IDispatch} A dispatch interface pointer. The snap-in sets *ppDispatch to the IDispatch interface that corresponds  to the cookie value.
      * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-icomponent2-querydispatch

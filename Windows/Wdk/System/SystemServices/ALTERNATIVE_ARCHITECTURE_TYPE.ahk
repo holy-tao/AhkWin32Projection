@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class ALTERNATIVE_ARCHITECTURE_TYPE extends Win32Enum{
+class ALTERNATIVE_ARCHITECTURE_TYPE extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

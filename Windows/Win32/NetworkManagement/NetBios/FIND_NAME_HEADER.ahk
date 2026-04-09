@@ -7,10 +7,8 @@
  * The <b>FIND_NAME_HEADER</b> structure is pointed to by the <b>ncb_buffer</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/nb30/ns-nb30-ncb">NCB</a> structure when an application issues an <b>NCBFINDNAME</b> command.
  * @see https://learn.microsoft.com/windows/win32/api/nb30/ns-nb30-find_name_header
  * @namespace Windows.Win32.NetworkManagement.NetBios
- * @version v4.0.30319
  */
-class FIND_NAME_HEADER extends Win32Struct
-{
+class FIND_NAME_HEADER extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 2

@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Media.DirectShow.Tv
- * @version v4.0.30319
  */
-class PIDListSpanningEvent extends Win32Struct
-{
+class PIDListSpanningEvent extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4
@@ -20,9 +18,9 @@ class PIDListSpanningEvent extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    pulPIDs{
+    pulPIDs {
         get {
             if(!this.HasProp("__pulPIDsProxyArray"))
                 this.__pulPIDsProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "uint")

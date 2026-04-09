@@ -5,9 +5,8 @@
  * Type of locale is needed when setting and getting locales.
  * @see https://learn.microsoft.com/windows/win32/api/mi/ne-mi-mi_localetype
  * @namespace Windows.Win32.System.Wmi
- * @version v4.0.30319
  */
-class MI_LocaleType extends Win32Enum{
+class MI_LocaleType extends Win32Enum {
 
     /**
      * The preferred language of error messages and dialog boxes.

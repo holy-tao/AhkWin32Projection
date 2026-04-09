@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\MP_CURVE_TYPE.ahk
 
 /**
  * The MP_ENVELOPE_SEGMENT structure defines an envelope segment used by an envelope-following parameter.
  * @see https://learn.microsoft.com/windows/win32/api/medparam/ns-medparam-mp_envelope_segment
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class MP_ENVELOPE_SEGMENT extends Win32Struct
-{
+class MP_ENVELOPE_SEGMENT extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -51,7 +50,7 @@ class MP_ENVELOPE_SEGMENT extends Win32Struct
 
     /**
      * Member of the <b>MP_CURVE_TYPE</b> enumerated type that specifies the curve followed by the parameter.
-     * @type {Integer}
+     * @type {MP_CURVE_TYPE}
      */
     iCurve {
         get => NumGet(this, 24, "int")

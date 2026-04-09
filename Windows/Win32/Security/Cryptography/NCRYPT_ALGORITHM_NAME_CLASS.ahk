@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class NCRYPT_ALGORITHM_NAME_CLASS extends Win32Enum{
+class NCRYPT_ALGORITHM_NAME_CLASS extends Win32Enum {
 
     /**
      * @type {Integer (UInt32)}

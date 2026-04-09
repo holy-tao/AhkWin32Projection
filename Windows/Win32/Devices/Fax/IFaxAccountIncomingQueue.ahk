@@ -1,18 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include .\IFaxIncomingJobs.ahk
 #Include .\IFaxIncomingJob.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * Used by a fax client application to retrieve the inbound fax jobs (FaxIncomingJobs object) in the job queue for a particular fax account.
  * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nn-faxcomex-ifaxaccountincomingqueue
  * @namespace Windows.Win32.Devices.Fax
- * @version v4.0.30319
  */
-class IFaxAccountIncomingQueue extends IDispatch{
+class IFaxAccountIncomingQueue extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

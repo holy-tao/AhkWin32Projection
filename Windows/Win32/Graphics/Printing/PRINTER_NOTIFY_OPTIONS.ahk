@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\PRINTER_NOTIFY_OPTIONS_TYPE.ahk
 
 /**
  * The PRINTER\_NOTIFY\_OPTIONS structure specifies options for a change notification object that monitors a printer or print server.
@@ -9,10 +10,8 @@
  * Use this structure with the [**FindNextPrinterChangeNotification**](findnextprinterchangenotification.md) function to request the current data for all monitored printer and job information fields. In this case, the **Flags** member specifies the PRINTER\_NOTIFY\_OPTIONS\_REFRESH flag, and the function ignores the other structure members.
  * @see https://learn.microsoft.com/windows/win32/printdocs/printer-notify-options
  * @namespace Windows.Win32.Graphics.Printing
- * @version v4.0.30319
  */
-class PRINTER_NOTIFY_OPTIONS extends Win32Struct
-{
+class PRINTER_NOTIFY_OPTIONS extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

@@ -7,9 +7,8 @@
  * Enables the media source to be transferred between the media engine and the sharing engine for Play To.
  * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nn-mfmediaengine-imfmediaenginesupportssourcetransfer
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFMediaEngineSupportsSourceTransfer extends IUnknown{
+class IMFMediaEngineSupportsSourceTransfer extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

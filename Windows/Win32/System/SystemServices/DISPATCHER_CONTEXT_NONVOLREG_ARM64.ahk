@@ -3,18 +3,16 @@
 
 /**
  * @namespace Windows.Win32.System.SystemServices
- * @version v4.0.30319
  */
-class DISPATCHER_CONTEXT_NONVOLREG_ARM64 extends Win32Struct
-{
+class DISPATCHER_CONTEXT_NONVOLREG_ARM64 extends Win32Struct {
     static sizeof => 304
 
     static packingSize => 8
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Buffer{
+    Buffer {
         get {
             if(!this.HasProp("__BufferProxyArray"))
                 this.__BufferProxyArray := Win32FixedArray(this.ptr + 0, 152, Primitive, "char")
@@ -23,9 +21,9 @@ class DISPATCHER_CONTEXT_NONVOLREG_ARM64 extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt64>}
+     * @type {Array<Integer>}
      */
-    GpNvRegs{
+    GpNvRegs {
         get {
             if(!this.HasProp("__GpNvRegsProxyArray"))
                 this.__GpNvRegsProxyArray := Win32FixedArray(this.ptr + 0, 11, Primitive, "uint")
@@ -34,9 +32,9 @@ class DISPATCHER_CONTEXT_NONVOLREG_ARM64 extends Win32Struct
     }
 
     /**
-     * @type {Array<Double>}
+     * @type {Array<Float>}
      */
-    FpNvRegs{
+    FpNvRegs {
         get {
             if(!this.HasProp("__FpNvRegsProxyArray"))
                 this.__FpNvRegsProxyArray := Win32FixedArray(this.ptr + 88, 8, Primitive, "double")

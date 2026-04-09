@@ -6,10 +6,8 @@
  * Contains the security descriptor associated with the specified share. For more information, see Security Descriptors.
  * @see https://learn.microsoft.com/windows/win32/api/lmshare/ns-lmshare-share_info_1501
  * @namespace Windows.Win32.Storage.FileSystem
- * @version v4.0.30319
  */
-class SHARE_INFO_1501 extends Win32Struct
-{
+class SHARE_INFO_1501 extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
@@ -28,7 +26,7 @@ class SHARE_INFO_1501 extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> associated with the share.
      * @type {PSECURITY_DESCRIPTOR}
      */
-    shi1501_security_descriptor{
+    shi1501_security_descriptor {
         get {
             if(!this.HasProp("__shi1501_security_descriptor"))
                 this.__shi1501_security_descriptor := PSECURITY_DESCRIPTOR(8, this)

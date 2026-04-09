@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
+#Include ..\..\..\Foundation\BSTR.ahk
 
 /**
  * Implements methods that get data from an Integrated Services Digital Broadcasting (ISDB) component group descriptor.
  * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nn-dvbsiparser-iisdbcomponentgroupdescriptor
  * @namespace Windows.Win32.Media.DirectShow.Tv
- * @version v4.0.30319
  */
-class IIsdbComponentGroupDescriptor extends IUnknown{
+class IIsdbComponentGroupDescriptor extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -155,7 +154,7 @@ class IIsdbComponentGroupDescriptor extends IUnknown{
      * Gets the text that describes a component group from an Integrated Services Digital Broadcasting (ISDB) component group descriptor.
      * @param {Integer} bRecordIndex Specifies the component group record number,
      *   indexed from zero. Call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/dvbsiparser/nf-dvbsiparser-iisdbcomponentgroupdescriptor-getcountofrecords">IIsdbComponentGroupDescriptor::GetCountOfRecords</a> method to get the number of records in the extended event descriptor.
-     * @param {Integer} convMode 
+     * @param {DVB_STRCONV_MODE} convMode 
      * @returns {BSTR} Receives the text that describes the component group, as a <b>BSTR</b>. The caller must free the <b>BSTR</b> by calling <b>SysFreeString</b>.
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbcomponentgroupdescriptor-getrecordtextw
      */

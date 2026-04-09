@@ -1,11 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\System\Ole\IEnumVARIANT.ahk
 #Include .\IProgressItem.ahk
 #Include .\IEnumProgressItems.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * Use this interface to enumerate the progress items in a result image.
@@ -13,9 +12,8 @@
  * This is a <b>ProgressItems</b> object in script.
  * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nn-imapi2fs-iprogressitems
  * @namespace Windows.Win32.Storage.Imapi
- * @version v4.0.30319
  */
-class IProgressItems extends IDispatch{
+class IProgressItems extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

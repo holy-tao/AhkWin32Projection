@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
 #Include .\IWindowsMediaLibrarySharingDevices.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * The IWindowsMediaLibrarySharingServices interface defines methods that configure the sharing of media libraries among users on the local computer, users on the home network, and users on the Internet.
@@ -11,9 +11,8 @@
  * To obtain an <b>IWindowsMediaLibrarySharingServices</b> interface, call <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cocreateinstance">CoCreateInstance</a> to create a <b>WindowsMediaLibrarySharingServices</b> object.
  * @see https://learn.microsoft.com/windows/win32/api/wmlss/nn-wmlss-iwindowsmedialibrarysharingservices
  * @namespace Windows.Win32.Media.LibrarySharingServices
- * @version v4.0.30319
  */
-class IWindowsMediaLibrarySharingServices extends IDispatch{
+class IWindowsMediaLibrarySharingServices extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

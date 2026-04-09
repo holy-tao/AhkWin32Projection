@@ -7,9 +7,8 @@
  * The IWMPUserEventSink interface receives event notifications from a custom video presenter.
  * @see https://learn.microsoft.com/windows/win32/api/wmpservices/nn-wmpservices-iwmpusereventsink
  * @namespace Windows.Win32.Media.MediaPlayer
- * @version v4.0.30319
  */
-class IWMPUserEventSink extends IUnknown{
+class IWMPUserEventSink extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

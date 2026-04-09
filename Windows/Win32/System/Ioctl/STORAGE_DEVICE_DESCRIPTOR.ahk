@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Storage\FileSystem\STORAGE_BUS_TYPE.ahk
 
 /**
  * Used in conjunction with the IOCTL_STORAGE_QUERY_PROPERTY control code to retrieve the storage device descriptor data for a device.
@@ -12,10 +13,8 @@
  *     a buffer of the proper size.
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-storage_device_descriptor
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class STORAGE_DEVICE_DESCRIPTOR extends Win32Struct
-{
+class STORAGE_DEVICE_DESCRIPTOR extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 4
@@ -127,7 +126,7 @@ class STORAGE_DEVICE_DESCRIPTOR extends Win32Struct
      *       <a href="https://docs.microsoft.com/windows/desktop/api/winioctl/ne-winioctl-storage_bus_type">STORAGE_BUS_TYPE</a> that indicates the type of bus to 
      *       which the device is connected. This should be used to interpret the raw device properties at the end of this 
      *       structure (if any).
-     * @type {Integer}
+     * @type {STORAGE_BUS_TYPE}
      */
     BusType {
         get => NumGet(this, 28, "int")
@@ -146,9 +145,9 @@ class STORAGE_DEVICE_DESCRIPTOR extends Win32Struct
     /**
      * Contains an array of length one that serves as a place holder for the first byte of the bus specific 
      *       property data.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    RawDeviceProperties{
+    RawDeviceProperties {
         get {
             if(!this.HasProp("__RawDevicePropertiesProxyArray"))
                 this.__RawDevicePropertiesProxyArray := Win32FixedArray(this.ptr + 36, 1, Primitive, "char")

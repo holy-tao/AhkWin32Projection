@@ -1,17 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\System\Ole\IPictureDisp.ahk
 #Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\System\Ole\IPictureDisp.ahk
 
 /**
  * Exposes methods that turn ink input into interpreted math output.
  * @see https://learn.microsoft.com/windows/win32/api/micaut/nn-micaut-imathinputcontrol
  * @namespace Windows.Win32.UI.TabletPC
- * @version v4.0.30319
  */
-class IMathInputControl extends IDispatch{
+class IMathInputControl extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -198,7 +196,7 @@ class IMathInputControl extends IDispatch{
      * @remarks
      * This method will only work when the control is visible.
      * When that ink exceeds the control's current size, and automatic growth is enabled, the control tries to accommodate the input. If the control cannot supply enough space, ink is proportionally shrunk to fit the maximum available size.
-     * @param {IInkDisp} _Ink 
+     * @param {IInkDisp} _Ink The ink object.
      * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/micaut/nf-micaut-imathinputcontrol-loadink
      */

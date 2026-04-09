@@ -1,19 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Include .\ITLegacyCallMediaControl.ahk
 #Include .\ITDetectTone.ahk
 #Include .\ITCustomTone.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
-#Include .\ITLegacyCallMediaControl.ahk
 
 /**
  * The ITLegacyCallMediaControl2 interface is an extension of the ITLegacyCallMediaControl interface. ITLegacyCallMediaControl2 provides additional methods, primarily for tone detection and generation.
  * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nn-tapi3if-itlegacycallmediacontrol2
  * @namespace Windows.Win32.Devices.Tapi
- * @version v4.0.30319
  */
-class ITLegacyCallMediaControl2 extends ITLegacyCallMediaControl{
+class ITLegacyCallMediaControl2 extends ITLegacyCallMediaControl {
 
     static sizeof => A_PtrSize
     /**
@@ -313,7 +311,7 @@ class ITLegacyCallMediaControl2 extends ITLegacyCallMediaControl{
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/nf-tapi-linegeneratetone">lineGenerateTone</a> function.
      * 
      * When tone generation finishes, an event of type TE_GENERATEEVENT is generated.
-     * @param {Integer} ToneMode Indicates the tone mode. The values used are those from the 
+     * @param {TAPI_TONEMODE} ToneMode Indicates the tone mode. The values used are those from the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/ne-tapi3if-tapi_tonemode">TAPI_TONEMODE</a> enumeration.
      * @param {Integer} lDuration Both the duration, in milliseconds, of DTMF digits and pulse, and DTMF interdigit spacing.
      * @returns {HRESULT} This method can return one of these values.

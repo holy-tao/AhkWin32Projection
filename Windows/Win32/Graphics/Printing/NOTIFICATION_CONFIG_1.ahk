@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
- * @version v4.0.30319
  */
-class NOTIFICATION_CONFIG_1 extends Win32Struct
-{
+class NOTIFICATION_CONFIG_1 extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

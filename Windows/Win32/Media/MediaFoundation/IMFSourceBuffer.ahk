@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IMFMediaTimeRange.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\IMFMediaTimeRange.ahk
 
 /**
  * Represents a buffer which contains media data for a IMFMediaSourceExtension.
@@ -10,9 +10,8 @@
  * <b>IMFSourceBuffer</b> is used in conjunction with the <a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/nn-mfmediaengine-imfmediasourceextension">IMFMediaSourceExtension</a>.
  * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nn-mfmediaengine-imfsourcebuffer
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFSourceBuffer extends IUnknown{
+class IMFSourceBuffer extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -118,7 +117,7 @@ class IMFSourceBuffer extends IUnknown{
 
     /**
      * Appends the specified media segment to the IMFSourceBuffer.
-     * @param {Pointer} pData The media data to append.
+     * @param {Integer} pData The media data to append.
      * @param {Integer} len The length of the media data stored in <i>pData</i>.
      * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfsourcebuffer-append

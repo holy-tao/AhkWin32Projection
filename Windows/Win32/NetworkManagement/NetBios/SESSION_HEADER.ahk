@@ -5,10 +5,8 @@
  * The SESSION_HEADER structure contains information about a network session.
  * @see https://learn.microsoft.com/windows/win32/api/nb30/ns-nb30-session_header
  * @namespace Windows.Win32.NetworkManagement.NetBios
- * @version v4.0.30319
  */
-class SESSION_HEADER extends Win32Struct
-{
+class SESSION_HEADER extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 1

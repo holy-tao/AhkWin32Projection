@@ -5,10 +5,8 @@
  * Contains a signed BLOB.
  * @see https://learn.microsoft.com/windows/win32/SecCrypto/signer-context
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class SIGNER_CONTEXT extends Win32Struct
-{
+class SIGNER_CONTEXT extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

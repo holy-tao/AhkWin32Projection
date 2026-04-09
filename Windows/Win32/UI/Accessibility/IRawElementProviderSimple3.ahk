@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
 #Include .\IRawElementProviderSimple2.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 
 /**
  * Extends the IRawElementProviderSimple2 interface to enable retrieving metadata about how accessible technology should say the preferred content type.
@@ -28,9 +28,8 @@
  * </ul>
  * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nn-uiautomationcore-irawelementprovidersimple3
  * @namespace Windows.Win32.UI.Accessibility
- * @version v4.0.30319
  */
-class IRawElementProviderSimple3 extends IRawElementProviderSimple2{
+class IRawElementProviderSimple3 extends IRawElementProviderSimple2 {
 
     static sizeof => A_PtrSize
     /**
@@ -54,7 +53,7 @@ class IRawElementProviderSimple3 extends IRawElementProviderSimple2{
     /**
      * Gets metadata from the UI Automation element that indicates how the information should be interpreted. (IRawElementProviderSimple3.GetMetadataValue)
      * @param {Integer} targetId The ID of the property to retrieve.
-     * @param {Integer} metadataId Specifies the type of metadata to retrieve.
+     * @param {UIA_METADATA_ID} metadataId Specifies the type of metadata to retrieve.
      * @returns {VARIANT} The metadata.
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-irawelementprovidersimple3-getmetadatavalue
      */

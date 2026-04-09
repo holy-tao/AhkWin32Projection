@@ -5,10 +5,8 @@
  * Basic information about a profile.
  * @see https://learn.microsoft.com/windows/win32/api/wlanapi/ns-wlanapi-wlan_profile_info
  * @namespace Windows.Win32.NetworkManagement.WiFi
- * @version v4.0.30319
  */
-class WLAN_PROFILE_INFO extends Win32Struct
-{
+class WLAN_PROFILE_INFO extends Win32Struct {
     static sizeof => 516
 
     static packingSize => 4

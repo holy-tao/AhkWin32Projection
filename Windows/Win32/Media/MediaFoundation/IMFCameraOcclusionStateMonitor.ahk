@@ -11,9 +11,8 @@
  * Create an instance of this interface by calling [MFCreateCameraOcclusionStateMonitor](nf-mfidl-mfcreatecameraocclusionstatemonitor.md), passing in an implementation of [IMFCameraOcclusionStateReportCallback](nn-mfidl-imfcameraocclusionstatereportcallback.md). After the monitor is started, the [IMFCameraOcclusionStateReportCallback::OnOcclusionStateReport](nf-mfidl-imfcameraocclusionstatereportcallback-onocclusionstatereport.md) callback is passed an instance of [IMFCameraOcclusionStateReport](nn-mfidl-imfcameraocclusionstatereport.md) on which you can call [GetOcclusionState](nf-mfidl-imfcameraocclusionstatereport-getocclusionstate.md) to get the new camera occlusion state.
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imfcameraocclusionstatemonitor
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFCameraOcclusionStateMonitor extends IUnknown{
+class IMFCameraOcclusionStateMonitor extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

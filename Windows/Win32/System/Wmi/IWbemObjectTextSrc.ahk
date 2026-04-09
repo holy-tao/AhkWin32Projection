@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Com\IUnknown.ahk
 #Include ..\..\Foundation\BSTR.ahk
 #Include .\IWbemClassObject.ahk
-#Include ..\Com\IUnknown.ahk
 
 /**
  * The IWbemObjectTextSrc interface is used to translate IWbemClassObject instances to and from differing text formats.
  * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nn-wbemcli-iwbemobjecttextsrc
  * @namespace Windows.Win32.System.Wmi
- * @version v4.0.30319
  */
-class IWbemObjectTextSrc extends IUnknown{
+class IWbemObjectTextSrc extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

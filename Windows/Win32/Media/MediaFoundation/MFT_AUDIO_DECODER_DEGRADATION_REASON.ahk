@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class MFT_AUDIO_DECODER_DEGRADATION_REASON extends Win32Enum{
+class MFT_AUDIO_DECODER_DEGRADATION_REASON extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

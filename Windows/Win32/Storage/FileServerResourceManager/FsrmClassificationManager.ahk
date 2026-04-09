@@ -11,10 +11,8 @@
  *     on running classification on a schedule).
  * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmclassificationmanager-cancelclassification
  * @namespace Windows.Win32.Storage.FileServerResourceManager
- * @version v4.0.30319
  */
-class FsrmClassificationManager extends Win32Struct
-{
+class FsrmClassificationManager extends Win32Struct {
     static sizeof => 0
 
     static packingSize => 1

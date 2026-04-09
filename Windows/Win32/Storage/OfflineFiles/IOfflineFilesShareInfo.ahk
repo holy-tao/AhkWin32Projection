@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IOfflineFilesShareItem.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\IOfflineFilesShareItem.ahk
 
 /**
  * Presents share-specific information about cached items.
  * @see https://learn.microsoft.com/windows/win32/api/cscobj/nn-cscobj-iofflinefilesshareinfo
  * @namespace Windows.Win32.Storage.OfflineFiles
- * @version v4.0.30319
  */
-class IOfflineFilesShareInfo extends IUnknown{
+class IOfflineFilesShareInfo extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -45,7 +44,7 @@ class IOfflineFilesShareInfo extends IUnknown{
      * Retrieves the caching mode configuration of the closest ancestor share to the item.
      * @remarks
      * This method is equivalent to locating the nearest share item, obtaining its fully qualified UNC path and calling <a href="https://docs.microsoft.com/windows/desktop/api/lmshare/nf-lmshare-netsharegetinfo">NetShareGetInfo</a> for <a href="https://docs.microsoft.com/windows/desktop/api/lmshare/ns-lmshare-share_info_1005">SHARE_INFO_1005</a> information.
-     * @returns {Integer} Receives a value from the <a href="https://docs.microsoft.com/windows/desktop/api/cscobj/ne-cscobj-offlinefiles_caching_mode">OFFLINEFILES_CACHING_MODE</a> enumeration that indicates the caching mode.
+     * @returns {OFFLINEFILES_CACHING_MODE} Receives a value from the <a href="https://docs.microsoft.com/windows/desktop/api/cscobj/ne-cscobj-offlinefiles_caching_mode">OFFLINEFILES_CACHING_MODE</a> enumeration that indicates the caching mode.
      * 
      * The following values can be returned:
      * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilesshareinfo-getsharecachingmode

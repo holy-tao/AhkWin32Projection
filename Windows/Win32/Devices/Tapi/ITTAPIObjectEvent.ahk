@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include .\ITTAPI.ahk
 #Include .\ITAddress.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * The ITTAPIObjectEvent interface contains methods that retrieve the description of TAPI object events.
  * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nn-tapi3if-ittapiobjectevent
  * @namespace Windows.Win32.Devices.Tapi
- * @version v4.0.30319
  */
-class ITTAPIObjectEvent extends IDispatch{
+class ITTAPIObjectEvent extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -40,7 +39,7 @@ class ITTAPIObjectEvent extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {TAPIOBJECT_EVENT} 
      */
     Event {
         get => this.get_Event()
@@ -77,7 +76,7 @@ class ITTAPIObjectEvent extends IDispatch{
 
     /**
      * The get_Event method gets information concerning an asynchronous event notification. The application uses TAPIOBJECT_EVENT to determine what type of event is being signaled.
-     * @returns {Integer} <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/ne-tapi3if-tapiobject_event">TAPIOBJECT_EVENT</a> indicator of the event.
+     * @returns {TAPIOBJECT_EVENT} <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/ne-tapi3if-tapiobject_event">TAPIOBJECT_EVENT</a> indicator of the event.
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-ittapiobjectevent-get_event
      */
     get_Event() {

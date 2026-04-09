@@ -8,10 +8,8 @@
  * Defines a client information record used by the DHCP server, extending the definition provided in DHCP_CLIENT_INFO by including client type information.
  * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/ns-dhcpsapi-dhcp_client_info_v4
  * @namespace Windows.Win32.NetworkManagement.Dhcp
- * @version v4.0.30319
  */
-class DHCP_CLIENT_INFO_V4 extends Win32Struct
-{
+class DHCP_CLIENT_INFO_V4 extends Win32Struct {
     static sizeof => 80
 
     static packingSize => 8
@@ -38,7 +36,7 @@ class DHCP_CLIENT_INFO_V4 extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-dhcp_binary_data">DHCP_CLIENT_UID</a> structure containing the MAC address of the client's network interface device.
      * @type {DHCP_BINARY_DATA}
      */
-    ClientHardwareAddress{
+    ClientHardwareAddress {
         get {
             if(!this.HasProp("__ClientHardwareAddress"))
                 this.__ClientHardwareAddress := DHCP_BINARY_DATA(8, this)
@@ -68,7 +66,7 @@ class DHCP_CLIENT_INFO_V4 extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-date_time">DATE_TIME</a> structure that contains the date and time the DHCP client lease will expire, in UTC time.
      * @type {DATE_TIME}
      */
-    ClientLeaseExpires{
+    ClientLeaseExpires {
         get {
             if(!this.HasProp("__ClientLeaseExpires"))
                 this.__ClientLeaseExpires := DATE_TIME(40, this)
@@ -80,7 +78,7 @@ class DHCP_CLIENT_INFO_V4 extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-dhcp_host_info">DHCP_HOST_INFO</a> structure that contains information on the DHCP server that assigned the IP address to the  client.
      * @type {DHCP_HOST_INFO}
      */
-    OwnerHost{
+    OwnerHost {
         get {
             if(!this.HasProp("__OwnerHost"))
                 this.__OwnerHost := DHCP_HOST_INFO(48, this)

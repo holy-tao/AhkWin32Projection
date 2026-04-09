@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\DISK_GEOMETRY.ahk
+#Include .\MEDIA_TYPE.ahk
 
 /**
  * Describes the extended geometry of disk devices and media.
@@ -24,10 +25,8 @@
  * The information returned does not include the number of partitions nor the partition information contained in the [**DISK_PARTITION_INFO**](ns-winioctl-disk_partition_info.md) structure. To obtain this information, use the [**IOCTL_DISK_GET_DRIVE_LAYOUT_EX**](ni-winioctl-ioctl_disk_get_drive_layout_ex.md) control code.
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-disk_geometry_ex
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class DISK_GEOMETRY_EX extends Win32Struct
-{
+class DISK_GEOMETRY_EX extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -36,7 +35,7 @@ class DISK_GEOMETRY_EX extends Win32Struct
      * A [**DISK_GEOMETRY**](ns-winioctl-disk_geometry.md) structure.
      * @type {DISK_GEOMETRY}
      */
-    Geometry{
+    Geometry {
         get {
             if(!this.HasProp("__Geometry"))
                 this.__Geometry := DISK_GEOMETRY(0, this)
@@ -55,9 +54,9 @@ class DISK_GEOMETRY_EX extends Win32Struct
 
     /**
      * Any additional data. For more information, see Remarks.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Data{
+    Data {
         get {
             if(!this.HasProp("__DataProxyArray"))
                 this.__DataProxyArray := Win32FixedArray(this.ptr + 32, 1, Primitive, "char")

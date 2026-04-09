@@ -1,18 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\KD_NAMESPACE_ENUM.ahk
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class DEBUGGING_DEVICE_IN_USE extends Win32Struct
-{
+class DEBUGGING_DEVICE_IN_USE extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
 
     /**
-     * @type {Integer}
+     * @type {KD_NAMESPACE_ENUM}
      */
     NameSpace {
         get => NumGet(this, 0, "int")
@@ -28,7 +27,7 @@ class DEBUGGING_DEVICE_IN_USE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<ACPI_DEBUGGING_DEVICE_IN_USE>}
+     * @type {Pointer}
      */
     AcpiDevice {
         get => NumGet(this, 8, "ptr")
@@ -36,7 +35,7 @@ class DEBUGGING_DEVICE_IN_USE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PCI_DEBUGGING_DEVICE_IN_USE>}
+     * @type {Pointer}
      */
     PciDevice {
         get => NumGet(this, 8, "ptr")

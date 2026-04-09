@@ -5,10 +5,8 @@
  * Contains the information regarding the link-layer address/pattern.
  * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/ns-dhcpsapi-dhcp_addr_pattern
  * @namespace Windows.Win32.NetworkManagement.Dhcp
- * @version v4.0.30319
  */
-class DHCP_ADDR_PATTERN extends Win32Struct
-{
+class DHCP_ADDR_PATTERN extends Win32Struct {
     static sizeof => 268
 
     static packingSize => 4
@@ -51,9 +49,9 @@ class DHCP_ADDR_PATTERN extends Win32Struct
 
     /**
      * Array of BYTE values that contain the pattern or hardware address.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Pattern{
+    Pattern {
         get {
             if(!this.HasProp("__PatternProxyArray"))
                 this.__PatternProxyArray := Win32FixedArray(this.ptr + 13, 255, Primitive, "char")

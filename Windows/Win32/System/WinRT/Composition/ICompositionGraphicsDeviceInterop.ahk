@@ -9,9 +9,8 @@
  * See <a href="https://docs.microsoft.com/windows/desktop/api/windows.ui.composition.interop/nn-windows-ui-composition-interop-icompositiondrawingsurfaceinterop">ICompositionDrawingSurfaceInterop</a> for usage examples.
  * @see https://learn.microsoft.com/windows/win32/api/windows.ui.composition.interop/nn-windows-ui-composition-interop-icompositiongraphicsdeviceinterop
  * @namespace Windows.Win32.System.WinRT.Composition
- * @version v4.0.30319
  */
-class ICompositionGraphicsDeviceInterop extends IUnknown{
+class ICompositionGraphicsDeviceInterop extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

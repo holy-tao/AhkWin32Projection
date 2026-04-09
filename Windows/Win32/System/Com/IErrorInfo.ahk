@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include .\IUnknown.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * Provides detailed contextual error information.
  * @see https://learn.microsoft.com/windows/win32/api/oaidl/nn-oaidl-ierrorinfo
  * @namespace Windows.Win32.System.Com
- * @version v4.0.30319
  */
-class IErrorInfo extends IUnknown{
+class IErrorInfo extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

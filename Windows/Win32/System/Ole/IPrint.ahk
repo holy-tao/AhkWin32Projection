@@ -19,9 +19,8 @@
  * Callers determine whether a particular object class supports programmatic printing of its persistent state by looking in the registry for this key.
  * @see https://learn.microsoft.com/windows/win32/api/docobj/nn-docobj-iprint
  * @namespace Windows.Win32.System.Ole
- * @version v4.0.30319
  */
-class IPrint extends IUnknown{
+class IPrint extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

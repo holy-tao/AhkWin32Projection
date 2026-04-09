@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\HWND.ahk
+#Include .\DISCDLGSTRUCT_FLAGS.ahk
 
 /**
  * Used in the WNetDisconnectDialog1 function. The structure contains required information for the disconnect attempt. (Unicode)
@@ -9,11 +10,9 @@
  * > The winnetwk.h header defines DISCDLGSTRUCT as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
  * @see https://learn.microsoft.com/windows/win32/api/winnetwk/ns-winnetwk-discdlgstructw
  * @namespace Windows.Win32.NetworkManagement.WNet
- * @version v4.0.30319
  * @charset Unicode
  */
-class DISCDLGSTRUCTW extends Win32Struct
-{
+class DISCDLGSTRUCTW extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -36,7 +35,7 @@ class DISCDLGSTRUCTW extends Win32Struct
      * A handle to the owner window of the dialog box.
      * @type {HWND}
      */
-    hwndOwner{
+    hwndOwner {
         get {
             if(!this.HasProp("__hwndOwner"))
                 this.__hwndOwner := HWND(8, this)
@@ -68,7 +67,7 @@ class DISCDLGSTRUCTW extends Win32Struct
 
     /**
      * Type: <b>DWORD</b>
-     * @type {Integer}
+     * @type {DISCDLGSTRUCT_FLAGS}
      */
     dwFlags {
         get => NumGet(this, 32, "uint")

@@ -7,9 +7,8 @@
  * Contains font face type, appropriate file references, and face identification data. (IDWriteFontFace4)
  * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nn-dwrite_3-idwritefontface4
  * @namespace Windows.Win32.Graphics.DirectWrite
- * @version v4.0.30319
  */
-class IDWriteFontFace4 extends IDWriteFontFace3{
+class IDWriteFontFace4 extends IDWriteFontFace3 {
 
     static sizeof => A_PtrSize
     /**
@@ -35,7 +34,7 @@ class IDWriteFontFace4 extends IDWriteFontFace3{
      * @param {Integer} glyphId 
      * @param {Integer} pixelsPerEmFirst 
      * @param {Integer} pixelsPerEmLast 
-     * @returns {Integer} 
+     * @returns {DWRITE_GLYPH_IMAGE_FORMATS} 
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontface4-getglyphimageformats
      */
     GetGlyphImageFormats(glyphId, pixelsPerEmFirst, pixelsPerEmLast) {
@@ -45,7 +44,7 @@ class IDWriteFontFace4 extends IDWriteFontFace3{
 
     /**
      * Gets all the glyph image formats supported by the entire font. (IDWriteFontFace4.GetGlyphImageFormats)
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dcommon/ne-dcommon-dwrite_glyph_image_formats">DWRITE_GLYPH_IMAGE_FORMATS</a></b>
+     * @returns {DWRITE_GLYPH_IMAGE_FORMATS} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dcommon/ne-dcommon-dwrite_glyph_image_formats">DWRITE_GLYPH_IMAGE_FORMATS</a></b>
      * 
      * Returns all the glyph image formats supported by the entire font.
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontface4-getglyphimageformats
@@ -80,10 +79,12 @@ class IDWriteFontFace4 extends IDWriteFontFace3{
      * @param {Integer} pixelsPerEm Type: <b>UINT32</b>
      * 
      * Requested pixels per em.
-     * @param {Integer} glyphImageFormat Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dcommon/ne-dcommon-dwrite_glyph_image_formats">DWRITE_GLYPH_IMAGE_FORMATS</a></b>
+     * @param {DWRITE_GLYPH_IMAGE_FORMATS} glyphImageFormat Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dcommon/ne-dcommon-dwrite_glyph_image_formats">DWRITE_GLYPH_IMAGE_FORMATS</a></b>
      * 
      * Specifies which formats are supported in the font.
-     * @param {Pointer<DWRITE_GLYPH_IMAGE_DATA>} _glyphData 
+     * @param {Pointer<DWRITE_GLYPH_IMAGE_DATA>} _glyphData Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite_3/ns-dwrite_3-dwrite_glyph_image_data">DWRITE_GLYPH_IMAGE_DATA</a>*</b>
+     * 
+     * On return contains data for a glyph.
      * @param {Pointer<Pointer<Void>>} glyphDataContext Type: <b>void**</b>
      * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 

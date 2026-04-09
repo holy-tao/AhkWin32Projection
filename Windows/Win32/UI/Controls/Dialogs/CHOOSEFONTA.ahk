@@ -2,7 +2,10 @@
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include ..\..\..\Foundation\HWND.ahk
 #Include ..\..\..\Graphics\Gdi\HDC.ahk
+#Include ..\..\..\Graphics\Gdi\LOGFONTA.ahk
+#Include .\CHOOSEFONT_FLAGS.ahk
 #Include ..\..\..\Foundation\HINSTANCE.ahk
+#Include .\CHOOSEFONT_FONT_TYPE.ahk
 
 /**
  * Contains information that the ChooseFont function uses to initialize the Font dialog box. After the user closes the dialog box, the system returns information about the user's selection in this structure. (ANSI)
@@ -11,11 +14,10 @@
  * > The commdlg.h header defines CHOOSEFONT as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
  * @see https://learn.microsoft.com/windows/win32/api/commdlg/ns-commdlg-choosefonta
  * @namespace Windows.Win32.UI.Controls.Dialogs
- * @version v4.0.30319
  * @charset ANSI
+ * @architecture X64, Arm64
  */
-class CHOOSEFONTA extends Win32Struct
-{
+class CHOOSEFONTA extends Win32Struct {
     static sizeof => 104
 
     static packingSize => 8
@@ -37,7 +39,7 @@ class CHOOSEFONTA extends Win32Struct
      * A handle to the window that owns the dialog box. This member can be any valid window handle, or it can be <b>NULL</b> if the dialog box has no owner.
      * @type {HWND}
      */
-    hwndOwner{
+    hwndOwner {
         get {
             if(!this.HasProp("__hwndOwner"))
                 this.__hwndOwner := HWND(8, this)
@@ -53,7 +55,7 @@ class CHOOSEFONTA extends Win32Struct
      * <b>Windows Vista and Windows XP/2000:  </b>A handle to the device context or information context of the printer whose fonts will be listed in the dialog box. This member is used only if the <b>Flags</b> member specifies the <b>CF_PRINTERFONTS</b> or <b>CF_BOTH</b> flag; otherwise, this member is ignored.
      * @type {HDC}
      */
-    hDC{
+    hDC {
         get {
             if(!this.HasProp("__hDC"))
                 this.__hDC := HDC(16, this)
@@ -85,7 +87,7 @@ class CHOOSEFONTA extends Win32Struct
 
     /**
      * Type: <b>DWORD</b>
-     * @type {Integer}
+     * @type {CHOOSEFONT_FLAGS}
      */
     Flags {
         get => NumGet(this, 36, "uint")
@@ -142,7 +144,7 @@ class CHOOSEFONTA extends Win32Struct
      * If the <b>CF_ENABLETEMPLATEHANDLE</b> flag is set in the <b>Flags</b> member, <b>hInstance</b> is a handle to a memory object containing a dialog box template. If the <b>CF_ENABLETEMPLATE</b> flag is set, <b>hInstance</b> is a handle to a module that contains a dialog box template named by the <b>lpTemplateName</b> member. If neither <b>CF_ENABLETEMPLATEHANDLE</b> nor <b>CF_ENABLETEMPLATE</b> is set, this member is ignored.
      * @type {HINSTANCE}
      */
-    hInstance{
+    hInstance {
         get {
             if(!this.HasProp("__hInstance"))
                 this.__hInstance := HINSTANCE(72, this)
@@ -163,7 +165,7 @@ class CHOOSEFONTA extends Win32Struct
 
     /**
      * Type: <b>WORD</b>
-     * @type {Integer}
+     * @type {CHOOSEFONT_FONT_TYPE}
      */
     nFontType {
         get => NumGet(this, 88, "ushort")

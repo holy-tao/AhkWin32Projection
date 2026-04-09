@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\CHANGER_ELEMENT.ahk
 #Include .\CHANGER_ELEMENT_LIST.ahk
+#Include .\CHANGER_ELEMENT.ahk
+#Include .\ELEMENT_TYPE.ahk
 
 /**
  * Represents the status of all media changer elements or the specified elements of a particular type.
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-changer_initialize_element_status
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class CHANGER_INITIALIZE_ELEMENT_STATUS extends Win32Struct
-{
+class CHANGER_INITIALIZE_ELEMENT_STATUS extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4
@@ -26,7 +25,7 @@ class CHANGER_INITIALIZE_ELEMENT_STATUS extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/winioctl/ns-winioctl-get_changer_parameters">GET_CHANGER_PARAMETERS</a>, the changer supports initializing a range of elements. In this case, the <b>ElementType</b> member can be one of the following: ChangerTransport, ChangerSlot, ChangerDrive, or ChangerIEPort. Otherwise, the element type must be AllElements and the <b>NumberOfElements</b> member is ignored.
      * @type {CHANGER_ELEMENT_LIST}
      */
-    ElementList{
+    ElementList {
         get {
             if(!this.HasProp("__ElementList"))
                 this.__ElementList := CHANGER_ELEMENT_LIST(0, this)

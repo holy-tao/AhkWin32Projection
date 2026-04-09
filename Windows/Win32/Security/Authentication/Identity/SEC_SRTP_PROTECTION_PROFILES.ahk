@@ -3,14 +3,10 @@
 
 /**
  * Stores the SRTP protection profiles.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/sspi/ns-sspi-sec_srtp_protection_profiles
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class SEC_SRTP_PROTECTION_PROFILES extends Win32Struct
-{
+class SEC_SRTP_PROTECTION_PROFILES extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 2
@@ -26,9 +22,9 @@ class SEC_SRTP_PROTECTION_PROFILES extends Win32Struct
 
     /**
      * An array of SRTP protection profiles.
-     * @type {Array<UInt16>}
+     * @type {Array<Integer>}
      */
-    ProfilesList{
+    ProfilesList {
         get {
             if(!this.HasProp("__ProfilesListProxyArray"))
                 this.__ProfilesListProxyArray := Win32FixedArray(this.ptr + 2, 1, Primitive, "ushort")

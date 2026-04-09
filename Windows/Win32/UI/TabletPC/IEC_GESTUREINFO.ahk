@@ -1,20 +1,25 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HWND.ahk
 #Include ..\Controls\NMHDR.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include .\IInkCursor.ahk
+#Include .\IInkStrokes.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
+#Include ..\..\System\Variant\VARENUM.ahk
 #Include ..\..\System\Com\CY.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\System\Com\SAFEARRAY.ahk
 #Include ..\..\Foundation\DECIMAL.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
+#Include ..\..\System\Ole\IRecordInfo.ahk
 
 /**
  * Contains information about a specific gesture.
  * @see https://learn.microsoft.com/windows/win32/api/inked/ns-inked-iec_gestureinfo
  * @namespace Windows.Win32.UI.TabletPC
- * @version v4.0.30319
  */
-class IEC_GESTUREINFO extends Win32Struct
-{
+class IEC_GESTUREINFO extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 8
@@ -32,7 +37,7 @@ class IEC_GESTUREINFO extends Win32Struct
      * ```
      * @type {NMHDR}
      */
-    nmhdr{
+    nmhdr {
         get {
             if(!this.HasProp("__nmhdr"))
                 this.__nmhdr := NMHDR(0, this)
@@ -64,7 +69,7 @@ class IEC_GESTUREINFO extends Win32Struct
      * For more information about the VARIANT structure, see <a href="https://docs.microsoft.com/windows/desktop/tablet/using-the-com-library">Using the COM Library</a>.
      * @type {VARIANT}
      */
-    Gestures{
+    Gestures {
         get {
             if(!this.HasProp("__Gestures"))
                 this.__Gestures := VARIANT(40, this)

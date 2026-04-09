@@ -5,12 +5,10 @@
  * Describes the resulting disposition of a request to process a response message.
  * @see https://learn.microsoft.com/windows/win32/api/certpol/ne-certpol-x509scepdisposition
  * @namespace Windows.Win32.Security.Cryptography.Certificates
- * @version v4.0.30319
  */
-class X509SCEPDisposition extends Win32Enum{
+class X509SCEPDisposition extends Win32Enum {
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static SCEPDispositionUnknown => -1
@@ -34,7 +32,6 @@ class X509SCEPDisposition extends Win32Enum{
     static SCEPDispositionPending => 3
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static SCEPDispositionPendingChallenge => 11

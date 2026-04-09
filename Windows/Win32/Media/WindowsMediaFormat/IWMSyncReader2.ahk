@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IWMReaderAllocatorEx.ahk
 #Include .\IWMSyncReader.ahk
+#Include .\IWMReaderAllocatorEx.ahk
 
 /**
  * The IWMSyncReader2 interface provides advanced features for the synchronous reader.
  * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nn-wmsdkidl-iwmsyncreader2
  * @namespace Windows.Win32.Media.WindowsMediaFormat
- * @version v4.0.30319
  */
-class IWMSyncReader2 extends IWMSyncReader{
+class IWMSyncReader2 extends IWMSyncReader {
 
     static sizeof => A_PtrSize
     /**

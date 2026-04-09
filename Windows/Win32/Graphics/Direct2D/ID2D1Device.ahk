@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ID2D1Resource.ahk
 #Include .\ID2D1DeviceContext.ahk
 #Include .\ID2D1PrintControl.ahk
-#Include .\ID2D1Resource.ahk
 
 /**
  * Represents a resource domain whose objects and device contexts can be used together. (ID2D1Device)
  * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nn-d2d1_1-id2d1device
  * @namespace Windows.Win32.Graphics.Direct2D
- * @version v4.0.30319
  */
-class ID2D1Device extends ID2D1Resource{
+class ID2D1Device extends ID2D1Resource {
 
     static sizeof => A_PtrSize
     /**
@@ -36,7 +35,7 @@ class ID2D1Device extends ID2D1Resource{
      * Creates a new device context from a Direct2D device.
      * @remarks
      * The new device context will not have a  selected target bitmap. The caller must create and select a bitmap as the target surface of the context.
-     * @param {Integer} options Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1_1/ne-d2d1_1-d2d1_device_context_options">D2D1_DEVICE_CONTEXT_OPTIONS</a></b>
+     * @param {D2D1_DEVICE_CONTEXT_OPTIONS} options Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1_1/ne-d2d1_1-d2d1_device_context_options">D2D1_DEVICE_CONTEXT_OPTIONS</a></b>
      * 
      * The options to be applied to the created device context.
      * @returns {ID2D1DeviceContext} Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/d2d1_1/nn-d2d1_1-id2d1devicecontext">ID2D1DeviceContext</a>**</b>

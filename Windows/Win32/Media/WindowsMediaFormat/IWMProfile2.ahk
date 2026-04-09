@@ -2,14 +2,14 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\IWMProfile.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * The IWMProfile2 interface exposes the globally unique identifier for a system profile.
  * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nn-wmsdkidl-iwmprofile2
  * @namespace Windows.Win32.Media.WindowsMediaFormat
- * @version v4.0.30319
  */
-class IWMProfile2 extends IWMProfile{
+class IWMProfile2 extends IWMProfile {
 
     static sizeof => A_PtrSize
     /**

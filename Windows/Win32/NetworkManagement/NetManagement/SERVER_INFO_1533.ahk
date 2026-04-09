@@ -5,10 +5,8 @@
  * The SERVER_INFO_1533 structure specifies the maximum number of outstanding requests a client can send to the server.
  * @see https://learn.microsoft.com/windows/win32/api/lmserver/ns-lmserver-server_info_1533
  * @namespace Windows.Win32.NetworkManagement.NetManagement
- * @version v4.0.30319
  */
-class SERVER_INFO_1533 extends Win32Struct
-{
+class SERVER_INFO_1533 extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 4

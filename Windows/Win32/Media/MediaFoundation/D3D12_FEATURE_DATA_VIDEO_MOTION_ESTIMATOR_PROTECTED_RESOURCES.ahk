@@ -1,16 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\D3D12_VIDEO_PROTECTED_RESOURCE_SUPPORT_FLAGS.ahk
 
 /**
  * Provides data for calls to ID3D12VideoDevice::CheckFeatureSupport when the feature specified is D3D12_FEATURE_VIDEO_MOTION_ESTIMATOR_PROTECTED_RESOURCES. Retrieves the protected resources support for video motion estimation.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/d3d12video/ns-d3d12video-d3d12_feature_data_video_motion_estimator_protected_resources
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class D3D12_FEATURE_DATA_VIDEO_MOTION_ESTIMATOR_PROTECTED_RESOURCES extends Win32Struct
-{
+class D3D12_FEATURE_DATA_VIDEO_MOTION_ESTIMATOR_PROTECTED_RESOURCES extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4
@@ -26,7 +23,7 @@ class D3D12_FEATURE_DATA_VIDEO_MOTION_ESTIMATOR_PROTECTED_RESOURCES extends Win3
 
     /**
      * A member of the [D3D12_VIDEO_PROTECTED_RESOURCE_SUPPORT_FLAGS](ne-d3d12video-d3d12_video_protected_resource_support_flags.md) enumeration specifying support for protected resources.
-     * @type {Integer}
+     * @type {D3D12_VIDEO_PROTECTED_RESOURCE_SUPPORT_FLAGS}
      */
     SupportFlags {
         get => NumGet(this, 4, "int")

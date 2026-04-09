@@ -7,10 +7,8 @@
  * If a null pointer is set in the *SyncStatus* field of a [CF_OPERATION_INFO](ns-cfapi-cf_operation_info.md) structure, the platform will clear the previously set sync status, if there is one.
  * @see https://learn.microsoft.com/windows/win32/api/cfapi/ns-cfapi-cf_sync_status
  * @namespace Windows.Win32.Storage.CloudFilters
- * @version v4.0.30319
  */
-class CF_SYNC_STATUS extends Win32Struct
-{
+class CF_SYNC_STATUS extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 4

@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.Display
- * @version v4.0.30319
  */
-class INDIRECT_DISPLAY_INFO extends Win32Struct
-{
+class INDIRECT_DISPLAY_INFO extends Win32Struct {
     static sizeof => 28
 
     static packingSize => 4
@@ -15,7 +13,7 @@ class INDIRECT_DISPLAY_INFO extends Win32Struct
     /**
      * @type {LUID}
      */
-    DisplayAdapterLuid{
+    DisplayAdapterLuid {
         get {
             if(!this.HasProp("__DisplayAdapterLuid"))
                 this.__DisplayAdapterLuid := LUID(0, this)

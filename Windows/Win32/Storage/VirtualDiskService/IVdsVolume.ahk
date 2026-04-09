@@ -1,19 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\VDS_VOLUME_PROP.ahk
 #Include .\IVdsPack.ahk
 #Include .\IEnumVdsObject.ahk
 #Include .\IVdsAsync.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Provides methods to manage volumes.
  * @see https://learn.microsoft.com/windows/win32/api/vds/nn-vds-ivdsvolume
  * @namespace Windows.Win32.Storage.VirtualDiskService
- * @version v4.0.30319
  */
-class IVdsVolume extends IUnknown{
+class IVdsVolume extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

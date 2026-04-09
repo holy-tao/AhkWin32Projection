@@ -1,16 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * This interface is not supported. (IWiaLogEx)
  * @see https://learn.microsoft.com/windows/win32/api/wia_xp/nn-wia_xp-iwialogex
  * @namespace Windows.Win32.Devices.ImageAcquisition
- * @version v4.0.30319
  */
-class IWiaLogEx extends IUnknown{
+class IWiaLogEx extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -33,7 +31,7 @@ class IWiaLogEx extends IUnknown{
 
     /**
      * This method is not supported. (IWiaLogEx.InitializeLogEx)
-     * @param {Pointer<Integer>} _hInstance 
+     * @param {Pointer<Integer>} _hInstance Type: <b>BYTE*</b>
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
@@ -48,7 +46,7 @@ class IWiaLogEx extends IUnknown{
 
     /**
      * This method is not supported. (IWiaLogEx.hResult)
-     * @param {HRESULT} _hResult 
+     * @param {HRESULT} _hResult Type: <b>HRESULT</b>
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
@@ -80,7 +78,7 @@ class IWiaLogEx extends IUnknown{
     /**
      * This method is not supported. (IWiaLogEx.hResultEx)
      * @param {Integer} lMethodId Type: <b>LONG</b>
-     * @param {HRESULT} _hResult 
+     * @param {HRESULT} _hResult Type: <b>HRESULT</b>
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.

@@ -1,15 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\LVGROUP.ahk
+#Include .\LVGROUP_MASK.ahk
+#Include .\LIST_VIEW_GROUP_STATE_FLAGS.ahk
+#Include .\LIST_VIEW_GROUP_ALIGN_FLAGS.ahk
 
 /**
  * Used to sort groups. It is used with LVM_INSERTGROUPSORTED.
  * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-lvinsertgroupsorted
  * @namespace Windows.Win32.UI.Controls
- * @version v4.0.30319
  */
-class LVINSERTGROUPSORTED extends Win32Struct
-{
+class LVINSERTGROUPSORTED extends Win32Struct {
     static sizeof => 168
 
     static packingSize => 8
@@ -42,7 +43,7 @@ class LVINSERTGROUPSORTED extends Win32Struct
      * Group to sort; this is application-defined.
      * @type {LVGROUP}
      */
-    lvGroup{
+    lvGroup {
         get {
             if(!this.HasProp("__lvGroup"))
                 this.__lvGroup := LVGROUP(16, this)

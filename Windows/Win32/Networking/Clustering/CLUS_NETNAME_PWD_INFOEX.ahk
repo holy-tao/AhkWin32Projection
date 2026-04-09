@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Networking.Clustering
- * @version v4.0.30319
  */
-class CLUS_NETNAME_PWD_INFOEX extends Win32Struct
-{
+class CLUS_NETNAME_PWD_INFOEX extends Win32Struct {
     static sizeof => 904
 
     static packingSize => 4

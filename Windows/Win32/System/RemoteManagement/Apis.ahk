@@ -3,7 +3,6 @@
 
 /**
  * @namespace Windows.Win32.System.RemoteManagement
- * @version v4.0.30319
  */
 class RemoteManagement {
 
@@ -2803,7 +2802,58 @@ class RemoteManagement {
     /**
      * Creates a session object.
      * @param {WSMAN_API_HANDLE} apiHandle Specifies the API handle returned by the <a href="https://docs.microsoft.com/windows/desktop/api/wsman/nf-wsman-wsmaninitialize">WSManInitialize</a> call. This parameter cannot be <b>NULL</b>.
-     * @param {PWSTR} _connection 
+     * @param {PWSTR} _connection Indicates to which protocol and agent to connect. If this parameter is <b>NULL</b>, the 
+     *        connection will default to localhost (127.0.0.1). This parameter can be a simple host name or a complete URL. 
+     *        The format is the following:
+     * 
+     * [transport://]host[:port][/prefix] where:
+     * 
+     * <table>
+     * <tr>
+     * <th>Element</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td>
+     * transport
+     * 
+     * </td>
+     * <td>
+     * Either HTTP or HTTPS. Default is HTTP.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td>
+     * host
+     * 
+     * </td>
+     * <td>
+     * Can be in a DNS name, NetBIOS name, or IP address.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td>
+     * port
+     * 
+     * </td>
+     * <td>
+     * Defaults to 80 for HTTP and to 443 for HTTPS. The defaults can be changed in the local configuration.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td>
+     * prefix
+     * 
+     * </td>
+     * <td>
+     * Any string. Default is "wsman". The default can be changed in the local configuration.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @param {Integer} flags Reserved for future use. Must be zero.
      * @param {Pointer<WSMAN_AUTHENTICATION_CREDENTIALS>} serverAuthenticationCredentials Defines the authentication method such as Negotiate, Kerberos, Digest, Basic, or client certificate. If the authentication mechanism is Negotiate, Kerberos, Digest, or Basic, the structure can also contain the credentials used for authentication. If  client certificate authentication is used, the certificate thumbprint must be specified.
      * 
@@ -2851,7 +2901,7 @@ class RemoteManagement {
      * </ul>
      * The first method call sets the transport to HTTP because the <i>option</i> parameter is set to <b>WSMAN_OPTION_UNENCRYPTED_MESSAGES</b>.  The second call fails because the option that was passed is applicable for HTTPS and the transport was set to HTTP by the first message.
      * @param {WSMAN_SESSION_HANDLE} session Specifies the session handle returned by a <a href="https://docs.microsoft.com/windows/desktop/api/wsman/nf-wsman-wsmancreatesession">WSManCreateSession</a> call.  This parameter cannot be <b>NULL</b>.
-     * @param {Integer} option Specifies the option to be set. This parameter must be set to one of the values in the <a href="https://docs.microsoft.com/windows/desktop/api/wsman/ne-wsman-wsmansessionoption">WSManSessionOption</a> enumeration.
+     * @param {WSManSessionOption} option Specifies the option to be set. This parameter must be set to one of the values in the <a href="https://docs.microsoft.com/windows/desktop/api/wsman/ne-wsman-wsmansessionoption">WSManSessionOption</a> enumeration.
      * @param {Pointer<WSMAN_DATA>} data A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wsman/ns-wsman-wsman_data">WSMAN_DATA</a> structure that defines the option value.
      * @returns {Integer} This method returns zero on success. Otherwise, this method returns an error code.
      * @see https://learn.microsoft.com/windows/win32/api/wsman/nf-wsman-wsmansetsessionoption
@@ -2865,7 +2915,7 @@ class RemoteManagement {
     /**
      * Gets the value of a session option. (WSManGetSessionOptionAsDword)
      * @param {WSMAN_SESSION_HANDLE} session Specifies the handle returned by a <a href="https://docs.microsoft.com/windows/desktop/api/wsman/nf-wsman-wsmancreatesession">WSManCreateSession</a> call.  This parameter cannot be <b>NULL</b>.
-     * @param {Integer} option Specifies the option to get. Not all session options can be retrieved. The options are defined in the <a href="https://docs.microsoft.com/windows/desktop/api/wsman/ne-wsman-wsmansessionoption">WSManSessionOption</a> enumeration.
+     * @param {WSManSessionOption} option Specifies the option to get. Not all session options can be retrieved. The options are defined in the <a href="https://docs.microsoft.com/windows/desktop/api/wsman/ne-wsman-wsmansessionoption">WSManSessionOption</a> enumeration.
      * @param {Pointer<Integer>} value Specifies the value of specified session option.
      * @returns {Integer} This method returns zero on success. Otherwise, this method returns an error code.
      * @see https://learn.microsoft.com/windows/win32/api/wsman/nf-wsman-wsmangetsessionoptionasdword
@@ -2881,9 +2931,9 @@ class RemoteManagement {
     /**
      * Gets the value of a session option. (WSManGetSessionOptionAsString)
      * @param {WSMAN_SESSION_HANDLE} session Specifies the session handle returned by a  <a href="https://docs.microsoft.com/windows/desktop/api/wsman/nf-wsman-wsmancreatesession">WSManCreateSession</a> call.  This parameter cannot be <b>NULL</b>.
-     * @param {Integer} option Specifies the option to get. Not all session options can be retrieved. The values for the options are defined in the <a href="https://docs.microsoft.com/windows/desktop/api/wsman/ne-wsman-wsmansessionoption">WSManSessionOption</a> enumeration.
+     * @param {WSManSessionOption} option Specifies the option to get. Not all session options can be retrieved. The values for the options are defined in the <a href="https://docs.microsoft.com/windows/desktop/api/wsman/ne-wsman-wsmansessionoption">WSManSessionOption</a> enumeration.
      * @param {Integer} stringLength Specifies the length of the storage location for <i>string</i> parameter.
-     * @param {PWSTR} _string 
+     * @param {PWSTR} _string A pointer to the storage location for the value of the specified session option.
      * @param {Pointer<Integer>} stringLengthUsed Specifies the length of the string returned in the <i>string</i> parameter.
      * @returns {Integer} This method returns zero on success. Otherwise, this method returns an error code.
      * @see https://learn.microsoft.com/windows/win32/api/wsman/nf-wsman-wsmangetsessionoptionasstring
@@ -2924,7 +2974,7 @@ class RemoteManagement {
      * @param {Pointer<WSMAN_OPTION_SET>} options A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wsman/ns-wsman-wsman_option_set">WSMAN_OPTION_SET</a> structure that specifies a set of options for the shell.
      * @param {Pointer<WSMAN_DATA>} createXml A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wsman/ns-wsman-wsman_data">WSMAN_DATA</a> structure that defines an open context for the shell. The content should be a valid XML string. This parameter can be <b>NULL</b>.
      * @param {Pointer<WSMAN_SHELL_ASYNC>} async Defines an asynchronous structure. The asynchronous structure contains an optional user context and a mandatory callback function. See the <a href="https://docs.microsoft.com/windows/desktop/api/wsman/ns-wsman-wsman_shell_async">WSMAN_SHELL_ASYNC</a> structure for more information.  This parameter cannot be <b>NULL</b> and should be closed by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wsman/nf-wsman-wsmancloseshell">WSManCloseShell</a> method.
-     * @param {Pointer<WSMAN_SHELL_HANDLE>} _shell 
+     * @param {Pointer<WSMAN_SHELL_HANDLE>} _shell Defines a shell handle that uniquely identifies the shell object. The resource handle is used to track the client endpoint for the shell and is used by other WinRM methods to interact with the shell object. The shell object should be deleted by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wsman/nf-wsman-wsmancloseshell">WSManCloseShell</a> method. This parameter cannot be <b>NULL</b>.
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/wsman/nf-wsman-wsmancreateshell
      * @since windows6.1
@@ -2939,7 +2989,7 @@ class RemoteManagement {
 
     /**
      * Starts the execution of a command within an existing shell and does not wait for the completion of the command.
-     * @param {WSMAN_SHELL_HANDLE} _shell 
+     * @param {WSMAN_SHELL_HANDLE} _shell Specifies the shell handle returned by the <a href="https://docs.microsoft.com/windows/desktop/api/wsman/nf-wsman-wsmancreateshell">WSManCreateShell</a> call.  This parameter cannot be <b>NULL</b>.
      * @param {Integer} flags Reserved for future use. Must be zero.
      * @param {PWSTR} commandLine Defines a required <b>null</b>-terminated string that represents the command to be executed. Typically, the command is specified without any arguments, which are specified separately. However, a user can specify the command line and all of the arguments by using this parameter. If arguments are specified for the <i>commandLine</i> parameter, the <i>args</i> parameter should be <b>NULL</b>.
      * @param {Pointer<WSMAN_COMMAND_ARG_SET>} args A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wsman/ns-wsman-wsman_command_arg_set">WSMAN_COMMAND_ARG_SET</a> structure that defines an array of argument values, which are passed to the command on creation. If no arguments are required, this parameter should be <b>NULL</b>.
@@ -2960,7 +3010,7 @@ class RemoteManagement {
 
     /**
      * Sends a control code to an existing command or to the shell itself.
-     * @param {WSMAN_SHELL_HANDLE} _shell 
+     * @param {WSMAN_SHELL_HANDLE} _shell Specifies the handle returned by a <a href="https://docs.microsoft.com/windows/desktop/api/wsman/nf-wsman-wsmancreateshell">WSManCreateShell</a> call.  This parameter cannot be <b>NULL</b>.
      * @param {WSMAN_COMMAND_HANDLE} command Specifies the command handle returned by a <a href="https://docs.microsoft.com/windows/desktop/api/wsman/nf-wsman-wsmanrunshellcommand">WSManRunShellCommand</a> call. If this value is <b>NULL</b>, the signal code is sent to the shell.
      * @param {Integer} flags Reserved for future use. Must be set to zero.
      * @param {PWSTR} code Specifies the signal code to send to the command or shell.
@@ -2981,7 +3031,7 @@ class RemoteManagement {
 
     /**
      * Retrieves output from a running command or from the shell.
-     * @param {WSMAN_SHELL_HANDLE} _shell 
+     * @param {WSMAN_SHELL_HANDLE} _shell Specifies the shell handle returned by a <a href="https://docs.microsoft.com/windows/desktop/api/wsman/nf-wsman-wsmancreateshell">WSManCreateShell</a> call.  This parameter cannot be <b>NULL</b>.
      * @param {WSMAN_COMMAND_HANDLE} command Specifies the command handle returned by a <a href="https://docs.microsoft.com/windows/desktop/api/wsman/nf-wsman-wsmanrunshellcommand">WSManRunShellCommand</a> call.
      * @param {Integer} flags Reserved for future use. Must be set to zero.
      * @param {Pointer<WSMAN_STREAM_ID_SET>} desiredStreamSet Specifies the requested output from a particular stream or a list of streams.
@@ -2999,7 +3049,7 @@ class RemoteManagement {
 
     /**
      * Ipes the input stream to a running command or to the shell.
-     * @param {WSMAN_SHELL_HANDLE} _shell 
+     * @param {WSMAN_SHELL_HANDLE} _shell Specifies the shell handle returned by a  <a href="https://docs.microsoft.com/windows/desktop/api/wsman/nf-wsman-wsmancreateshell">WSManCreateShell</a> call.  This parameter cannot be <b>NULL</b>.
      * @param {WSMAN_COMMAND_HANDLE} command Specifies the command handle returned by a <a href="https://docs.microsoft.com/windows/desktop/api/wsman/nf-wsman-wsmanrunshellcommand">WSManRunShellCommand</a> call.  This handle  should be closed by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wsman/nf-wsman-wsmanclosecommand">WSManCloseCommand</a> method.
      * @param {Integer} flags Reserved for future use. Must be set to zero.
      * @param {PWSTR} streamId Specifies the input stream ID. This parameter cannot be <b>NULL</b>.
@@ -3056,7 +3106,7 @@ class RemoteManagement {
      * @param {Pointer<WSMAN_OPTION_SET>} options A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wsman/ns-wsman-wsman_option_set">WSMAN_OPTION_SET</a> structure that specifies a set of options for the shell.
      * @param {Pointer<WSMAN_DATA>} createXml A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wsman/ns-wsman-wsman_data">WSMAN_DATA</a> structure that defines an open context for the shell. The content should be a valid XML string. This parameter can be <b>NULL</b>.
      * @param {Pointer<WSMAN_SHELL_ASYNC>} async Defines an asynchronous structure. The asynchronous structure contains an optional user context and a mandatory callback function. See the <a href="https://docs.microsoft.com/windows/desktop/api/wsman/ns-wsman-wsman_shell_async">WSMAN_SHELL_ASYNC</a> structure for more information. This parameter cannot be <b>NULL</b> and should be closed by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wsman/nf-wsman-wsmancloseshell">WSManCloseShell</a> method.
-     * @param {Pointer<WSMAN_SHELL_HANDLE>} _shell 
+     * @param {Pointer<WSMAN_SHELL_HANDLE>} _shell Defines a shell handle that uniquely identifies the shell object. The resource handle is used to track the client endpoint for the shell and is used by other WinRM methods to interact with the shell object. The shell object should be deleted by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wsman/nf-wsman-wsmancloseshell">WSManCloseShell</a> method. This parameter cannot be <b>NULL</b>.
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/wsman/nf-wsman-wsmancreateshellex
      * @since windows8.0
@@ -3072,7 +3122,7 @@ class RemoteManagement {
 
     /**
      * Provides the same functionality as the WSManRunShellCommand function, with the addition of a command ID option.
-     * @param {WSMAN_SHELL_HANDLE} _shell 
+     * @param {WSMAN_SHELL_HANDLE} _shell Specifies the shell handle returned by the <a href="https://docs.microsoft.com/windows/desktop/api/wsman/nf-wsman-wsmancreateshell">WSManCreateShell</a> call. This parameter cannot be <b>NULL</b>.
      * @param {Integer} flags Reserved for future use. Must be 0.
      * @param {PWSTR} commandId The client specified command Id.
      * @param {PWSTR} commandLine Defines a required null-terminated string that represents the command to be executed. Typically, the command is specified without any arguments, which are specified separately. However, a user can specify the command line and all of the arguments by using this parameter. If arguments are specified for the commandLine parameter, the args parameter should be <b>NULL</b>.
@@ -3125,7 +3175,9 @@ class RemoteManagement {
      * 
      * </li>
      * </ul>
-     * @param {WSMAN_SHELL_HANDLE} _shell 
+     * @param {WSMAN_SHELL_HANDLE} _shell Specifies the handle returned by a call to the 
+     *       <a href="https://docs.microsoft.com/windows/desktop/api/wsman/nf-wsman-wsmancreateshell">WSManCreateShell</a> function. This parameter cannot 
+     *       be <b>NULL</b>.
      * @param {Integer} flags Can be a <b>WSMAN_FLAG_SERVER_BUFFERING_MODE_DROP</b> flag or a 
      *       <b>WSMAN_FLAG_SERVER_BUFFERING_MODE_BLOCK</b> flag.
      * @param {Pointer<WSMAN_SHELL_DISCONNECT_INFO>} disconnectInfo A pointer to a 
@@ -3145,7 +3197,7 @@ class RemoteManagement {
 
     /**
      * Reconnects a previously disconnected shell session. To reconnect the shell session's associated commands, use WSManReconnectShellCommand.
-     * @param {WSMAN_SHELL_HANDLE} _shell 
+     * @param {WSMAN_SHELL_HANDLE} _shell Specifies the handle returned by a call to the <a href="https://docs.microsoft.com/windows/desktop/api/wsman/nf-wsman-wsmancreateshell">WSManCreateShell</a> function. This parameter cannot be <b>NULL</b>.
      * @param {Integer} flags This parameter is reserved for future use and must be set to zero.
      * @param {Pointer<WSMAN_SHELL_ASYNC>} async Defines an asynchronous structure to contain an optional user context and a mandatory callback function. For more information, see  <a href="https://docs.microsoft.com/windows/desktop/api/wsman/ns-wsman-wsman_shell_async">WSMAN_SHELL_ASYNC</a>. This parameter cannot be <b>NULL</b>.
      * @returns {String} Nothing - always returns an empty string
@@ -3181,7 +3233,7 @@ class RemoteManagement {
      * @param {Pointer<WSMAN_OPTION_SET>} options A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wsman/ns-wsman-wsman_option_set">WSMAN_OPTION_SET</a> structure that specifies a set of options for the shell. This parameter is optional.
      * @param {Pointer<WSMAN_DATA>} connectXml A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wsman/ns-wsman-wsman_data">WSMAN_DATA</a> structure that defines an open context for the connect shell operation. The content should be a valid XML string. This parameter can be NULL.
      * @param {Pointer<WSMAN_SHELL_ASYNC>} async Defines an asynchronous structure that contains an optional user context and a mandatory callback function. See the <a href="https://docs.microsoft.com/windows/desktop/api/wsman/ns-wsman-wsman_shell_async">WSMAN_SHELL_ASYNC</a> structure for more information. This parameter cannot be NULL.
-     * @param {Pointer<WSMAN_SHELL_HANDLE>} _shell 
+     * @param {Pointer<WSMAN_SHELL_HANDLE>} _shell Specifies a shell handle that uniquely identifies the shell object that was returned by <i>resourceURI</i>. The resource handle tracks the client endpoint for the shell and is used by other WinRM methods to interact with the shell object. The shell object should be deleted by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wsman/nf-wsman-wsmancloseshell">WSManCloseShell</a> method. This parameter cannot be NULL.
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/wsman/nf-wsman-wsmanconnectshell
      * @since windows8.0
@@ -3197,7 +3249,7 @@ class RemoteManagement {
 
     /**
      * Connects to an existing command running in a shell.
-     * @param {WSMAN_SHELL_HANDLE} _shell 
+     * @param {WSMAN_SHELL_HANDLE} _shell Specifies the shell handle returned by the <a href="https://docs.microsoft.com/windows/desktop/api/wsman/nf-wsman-wsmancreateshell">WSManCreateShell</a> call. This parameter cannot be <b>NULL</b>.
      * @param {Integer} flags Reserved for future use. Must be zero.
      * @param {PWSTR} commandID A null-terminated string that identifies a specific command, currently running in the server session, that the client intends to connect to.
      * @param {Pointer<WSMAN_OPTION_SET>} options Defines a set of options for the command. These options are passed to the service to modify or refine the command execution. This parameter can be <b>NULL</b>. For more information about the options, see <a href="https://docs.microsoft.com/windows/desktop/api/wsman/ns-wsman-wsman_option_set">WSMAN_OPTION_SET</a>.
@@ -3220,7 +3272,7 @@ class RemoteManagement {
      * Reports shell and command context back to the Windows Remote Management (WinRM) infrastructure so that further operations can be performed against the shell and/or command.
      * @param {Pointer<WSMAN_PLUGIN_REQUEST>} requestDetails A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wsman/ns-wsman-wsman_plugin_request">WSMAN_PLUGIN_REQUEST</a> structure that specifies the resource URI, options, locale, shutdown flag, and handle for the request.
      * @param {Integer} flags Reserved for future use. Must be set to zero.
-     * @param {Pointer<Void>} _context 
+     * @param {Pointer<Void>} _context Defines the value to pass into all future shell and command operations. Represents either the shell or the command. This value should be unique for all shells, and it should also be unique for all commands associated with a shell.
      * @returns {Integer} The method returns <b>NO_ERROR</b> if it succeeded; otherwise,  it returns an error code.  If this method returns an error, the plug-in should shut down the current operation and call the <a href="https://docs.microsoft.com/windows/desktop/api/wsman/nf-wsman-wsmanpluginoperationcomplete">WSManPluginOperationComplete</a> method.
      * @see https://learn.microsoft.com/windows/win32/api/wsman/nf-wsman-wsmanpluginreportcontext
      * @since windows6.1

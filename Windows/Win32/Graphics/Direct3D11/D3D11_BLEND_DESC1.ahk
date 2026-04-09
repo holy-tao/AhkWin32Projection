@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\D3D11_RENDER_TARGET_BLEND_DESC1.ahk
+#Include .\D3D11_BLEND.ahk
+#Include .\D3D11_BLEND_OP.ahk
+#Include .\D3D11_LOGIC_OP.ahk
 
 /**
  * Describes the blend state that you use in a call to ID3D11Device1::CreateBlendState1 to create a blend-state object. (D3D11_BLEND_DESC1)
@@ -67,13 +70,11 @@
  * When you set the <b>LogicOpEnable</b> member of the first element of the <b>RenderTarget</b> array (<b>RenderTarget</b>[0]) to <b>TRUE</b>, you must also set the <b>BlendEnable</b> member of <b>RenderTarget</b>[0] to <b>FALSE</b>, and the <b>IndependentBlendEnable</b> member of this <b>D3D11_BLEND_DESC1</b> to <b>FALSE</b>. This reflects the limitation in hardware that you can't mix logic operations with blending across multiple render targets, and that when you use a logic operation, you must apply the same logic operation to all render targets.
  * @see https://learn.microsoft.com/windows/win32/api/d3d11_1/ns-d3d11_1-d3d11_blend_desc1
  * @namespace Windows.Win32.Graphics.Direct3D11
- * @version v4.0.30319
  */
-class D3D11_BLEND_DESC1 extends Win32Struct
-{
-    static sizeof => 72
+class D3D11_BLEND_DESC1 extends Win32Struct {
+    static sizeof => 328
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
@@ -103,9 +104,9 @@ class D3D11_BLEND_DESC1 extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d11_1/ns-d3d11_1-d3d11_render_target_blend_desc1">D3D11_RENDER_TARGET_BLEND_DESC1</a>[8]</b>
      * 
      * An array of <a href="https://docs.microsoft.com/windows/desktop/api/d3d11_1/ns-d3d11_1-d3d11_render_target_blend_desc1">D3D11_RENDER_TARGET_BLEND_DESC1</a> structures that describe the blend states for render targets; these correspond to the eight render targets that can be bound to the <a href="https://docs.microsoft.com/windows/desktop/direct3d11/d3d10-graphics-programming-guide-output-merger-stage">output-merger stage</a> at one time.
-     * @type {Array<D3D11_RENDER_TARGET_BLEND_DESC1>}
+     * @type {D3D11_RENDER_TARGET_BLEND_DESC1}
      */
-    RenderTarget{
+    RenderTarget {
         get {
             if(!this.HasProp("__RenderTargetProxyArray"))
                 this.__RenderTargetProxyArray := Win32FixedArray(this.ptr + 8, 8, D3D11_RENDER_TARGET_BLEND_DESC1, "")

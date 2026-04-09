@@ -1,12 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\SPDISPLAYTOKEN.ahk
 
 /**
  * @namespace Windows.Win32.Media.Speech
- * @version v4.0.30319
  */
-class SPDISPLAYPHRASE extends Win32Struct
-{
+class SPDISPLAYPHRASE extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

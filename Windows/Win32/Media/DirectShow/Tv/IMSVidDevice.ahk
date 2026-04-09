@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
 #Include ..\..\..\System\Com\IDispatch.ahk
+#Include ..\..\..\Foundation\BSTR.ahk
+#Include ..\..\..\..\..\Guid.ahk
 
 /**
  * The IMSVidDevice interface is the base interface for all the devices and features that the Video Control supports.
@@ -10,9 +11,8 @@
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IMSVidDevice)</c>.
  * @see https://learn.microsoft.com/windows/win32/api/segment/nn-segment-imsviddevice
  * @namespace Windows.Win32.Media.DirectShow.Tv
- * @version v4.0.30319
  */
-class IMSVidDevice extends IDispatch{
+class IMSVidDevice extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -106,7 +106,7 @@ class IMSVidDevice extends IDispatch{
      * The get_Status method retrieves status information about the device.
      * @remarks
      * Not all device types implement this method.
-     * @returns {Integer} 
+     * @returns {Integer} Pointer to a variable of that receives the current status.
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsviddevice-get_status
      */
     get_Status() {

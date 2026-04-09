@@ -7,9 +7,8 @@
  * Contains the properties that indicate the status of a download operation for an update.
  * @see https://learn.microsoft.com/windows/win32/api/wuapi/nn-wuapi-iupdatedownloadresult
  * @namespace Windows.Win32.System.UpdateAgent
- * @version v4.0.30319
  */
-class IUpdateDownloadResult extends IDispatch{
+class IUpdateDownloadResult extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -38,7 +37,7 @@ class IUpdateDownloadResult extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {OperationResultCode} 
      */
     ResultCode {
         get => this.get_ResultCode()
@@ -56,7 +55,7 @@ class IUpdateDownloadResult extends IDispatch{
 
     /**
      * Gets an OperationResultCode enumeration value that specifies the result of an operation on the update.
-     * @returns {Integer} 
+     * @returns {OperationResultCode} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatedownloadresult-get_resultcode
      */
     get_ResultCode() {

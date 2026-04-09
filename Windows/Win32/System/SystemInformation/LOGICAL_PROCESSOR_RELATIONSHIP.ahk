@@ -7,9 +7,8 @@
  * The value specified by this enumeration indicates the relationship represented in the corresponding [SYSTEM_LOGICAL_PROCESSOR_INFORMATION_EX](./ns-winnt-system_logical_processor_information_ex.md)  structure.
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ne-winnt-logical_processor_relationship
  * @namespace Windows.Win32.System.SystemInformation
- * @version v4.0.30319
  */
-class LOGICAL_PROCESSOR_RELATIONSHIP extends Win32Enum{
+class LOGICAL_PROCESSOR_RELATIONSHIP extends Win32Enum {
 
     /**
      * The specified logical processors share a single processor core.

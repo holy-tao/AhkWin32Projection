@@ -5,10 +5,8 @@
  * Specifies the versions of the update sequence number (USN) change journal supported by the application.
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-read_file_usn_data
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class READ_FILE_USN_DATA extends Win32Struct
-{
+class READ_FILE_USN_DATA extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 2

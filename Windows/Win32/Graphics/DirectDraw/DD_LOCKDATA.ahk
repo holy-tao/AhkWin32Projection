@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DD_DIRECTDRAW_GLOBAL.ahk
+#Include .\DD_SURFACE_LOCAL.ahk
 #Include ..\..\Foundation\RECTL.ahk
 
 /**
  * The DD_LOCKDATA structure contains information necessary to do a lock as defined by the Microsoft DirectDraw parameter structures.
  * @see https://learn.microsoft.com/windows/win32/api/ddrawint/ns-ddrawint-dd_lockdata
  * @namespace Windows.Win32.Graphics.DirectDraw
- * @version v4.0.30319
  */
-class DD_LOCKDATA extends Win32Struct
-{
+class DD_LOCKDATA extends Win32Struct {
     static sizeof => 80
 
     static packingSize => 8
@@ -45,7 +45,7 @@ class DD_LOCKDATA extends Win32Struct
      * Specifies a <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rectl">RECTL</a> structure that defines the area on the surface to lock down.
      * @type {RECTL}
      */
-    rArea{
+    rArea {
         get {
             if(!this.HasProp("__rArea"))
                 this.__rArea := RECTL(20, this)
@@ -81,7 +81,6 @@ class DD_LOCKDATA extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     dwFlags {

@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.ClrProfiling
- * @version v4.0.30319
  */
-class COR_PRF_NONGC_HEAP_RANGE extends Win32Struct
-{
+class COR_PRF_NONGC_HEAP_RANGE extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

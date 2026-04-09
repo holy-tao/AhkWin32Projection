@@ -1,12 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\NDIS_CLASS_ID.ahk
 
 /**
  * @namespace Windows.Wdk.NetworkManagement.Ndis
- * @version v4.0.30319
  */
-class MEDIA_SPECIFIC_INFORMATION extends Win32Struct
-{
+class MEDIA_SPECIFIC_INFORMATION extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4
@@ -20,7 +19,7 @@ class MEDIA_SPECIFIC_INFORMATION extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {NDIS_CLASS_ID}
      */
     ClassId {
         get => NumGet(this, 4, "int")
@@ -36,9 +35,9 @@ class MEDIA_SPECIFIC_INFORMATION extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    ClassInformation{
+    ClassInformation {
         get {
             if(!this.HasProp("__ClassInformationProxyArray"))
                 this.__ClassInformationProxyArray := Win32FixedArray(this.ptr + 12, 1, Primitive, "char")

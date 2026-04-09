@@ -1,16 +1,19 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\WSD_HEADER_RELATESTO.ahk
 #Include .\WSD_SOAP_HEADER.ahk
+#Include .\WSD_HEADER_RELATESTO.ahk
+#Include .\WSDXML_NAME.ahk
+#Include .\WSD_ENDPOINT_REFERENCE.ahk
+#Include .\WSD_APP_SEQUENCE.ahk
+#Include .\WSDXML_ELEMENT.ahk
+#Include .\WSDXML_TYPE.ahk
 
 /**
  * The contents of a WSD SOAP message.
  * @see https://learn.microsoft.com/windows/win32/api/wsdtypes/ns-wsdtypes-wsd_soap_message
  * @namespace Windows.Win32.Devices.WebServicesOnDevices
- * @version v4.0.30319
  */
-class WSD_SOAP_MESSAGE extends Win32Struct
-{
+class WSD_SOAP_MESSAGE extends Win32Struct {
     static sizeof => 96
 
     static packingSize => 8
@@ -19,7 +22,7 @@ class WSD_SOAP_MESSAGE extends Win32Struct
      * A <a href="https://docs.microsoft.com/windows/desktop/api/wsdtypes/ns-wsdtypes-wsd_soap_header">WSD_SOAP_HEADER</a> structure that specifies the header of the SOAP message.
      * @type {WSD_SOAP_HEADER}
      */
-    Header{
+    Header {
         get {
             if(!this.HasProp("__Header"))
                 this.__Header := WSD_SOAP_HEADER(0, this)

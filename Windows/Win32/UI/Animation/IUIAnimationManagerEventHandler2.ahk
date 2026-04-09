@@ -7,9 +7,8 @@
  * Defines a method for handling updates to an animation manager.
  * @see https://learn.microsoft.com/windows/win32/api/uianimation/nn-uianimation-iuianimationmanagereventhandler2
  * @namespace Windows.Win32.UI.Animation
- * @version v4.0.30319
  */
-class IUIAnimationManagerEventHandler2 extends IUnknown{
+class IUIAnimationManagerEventHandler2 extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -34,8 +33,8 @@ class IUIAnimationManagerEventHandler2 extends IUnknown{
      * Handles status changes to an animation manager. (IUIAnimationManagerEventHandler2.OnManagerStatusChanged)
      * @remarks
      * Calls made to other Windows Animation methods from <b>IUIAnimationManager2::OnManagerStatusChanged</b> fail and return <b>UI_E_ILLEGAL_REENTRANCY</b>.
-     * @param {Integer} newStatus The new status of the animation manager.
-     * @param {Integer} previousStatus The previous status of the animation manager.
+     * @param {UI_ANIMATION_MANAGER_STATUS} newStatus The new status of the animation manager.
+     * @param {UI_ANIMATION_MANAGER_STATUS} previousStatus The previous status of the animation manager.
      * @returns {HRESULT} If the method succeeds, it returns S_OK. Otherwise, it returns an <b>HRESULT</b> error code. See <a href="https://docs.microsoft.com/windows/desktop/UIAnimation/uianimation-error-codes">Windows Animation Error Codes</a> for a list of error codes.
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationmanagereventhandler2-onmanagerstatuschanged
      */

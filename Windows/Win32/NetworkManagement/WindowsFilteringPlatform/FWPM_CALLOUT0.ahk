@@ -13,10 +13,8 @@
  * <b>FWPM_CALLOUT0</b> is a specific implementation of FWPM_CALLOUT. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-version-independent-names-and-targeting-specific-versions-of-windows">WFP Version-Independent Names and Targeting Specific Versions of Windows</a>  for more information.
  * @see https://learn.microsoft.com/windows/win32/api/fwpmtypes/ns-fwpmtypes-fwpm_callout0
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
- * @version v4.0.30319
  */
-class FWPM_CALLOUT0 extends Win32Struct
-{
+class FWPM_CALLOUT0 extends Win32Struct {
     static sizeof => 72
 
     static packingSize => 8
@@ -26,7 +24,7 @@ class FWPM_CALLOUT0 extends Win32Struct
      * 
      * If the GUID is initialized to zero in the
      *    call to <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmcalloutadd0">FwpmCalloutAdd0</a>, the base filtering engine (BFE) will generate one.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     calloutKey {
         get => NumGet(this, 0, "ptr")
@@ -37,7 +35,7 @@ class FWPM_CALLOUT0 extends Win32Struct
      * A [FWPM_DISPLAY_DATA0](/windows/desktop/api/fwptypes/ns-fwptypes-fwpm_display_data0) structure that contains human-readable annotations associated with the callout.  The <b>name</b> member of the <b>FWPM_DISPLAY_DATA0</b> structure is required.
      * @type {FWPM_DISPLAY_DATA0}
      */
-    displayData{
+    displayData {
         get {
             if(!this.HasProp("__displayData"))
                 this.__displayData := FWPM_DISPLAY_DATA0(8, this)
@@ -103,7 +101,7 @@ class FWPM_CALLOUT0 extends Win32Struct
      * A [FWP_BYTE_BLOB](/windows/desktop/api/fwptypes/ns-fwptypes-fwp_byte_blob) structure that contains optional provider-specific data that allows providers to store additional context information with the object.
      * @type {FWP_BYTE_BLOB}
      */
-    providerData{
+    providerData {
         get {
             if(!this.HasProp("__providerData"))
                 this.__providerData := FWP_BYTE_BLOB(40, this)
@@ -113,7 +111,7 @@ class FWPM_CALLOUT0 extends Win32Struct
 
     /**
      * Specifies the layer in which the callout can be used. Only filters in this layer can invoke the callout. For more information, see <a href="https://docs.microsoft.com/windows/desktop/FWP/management-filtering-layer-identifiers-">Filtering Layer Identifiers</a>.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     applicableLayer {
         get => NumGet(this, 56, "ptr")

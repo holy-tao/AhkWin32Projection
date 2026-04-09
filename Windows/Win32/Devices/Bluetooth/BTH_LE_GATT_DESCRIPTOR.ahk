@@ -1,15 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\BTH_LE_GATT_DESCRIPTOR_TYPE.ahk
 #Include .\BTH_LE_UUID.ahk
 
 /**
  * The BTH_LE_GATT_DESCRIPTOR structure describes a Bluetooth Low Energy (LE) generic attribute (GATT) profile descriptor.
  * @see https://learn.microsoft.com/windows/win32/api/bthledef/ns-bthledef-bth_le_gatt_descriptor
  * @namespace Windows.Win32.Devices.Bluetooth
- * @version v4.0.30319
  */
-class BTH_LE_GATT_DESCRIPTOR extends Win32Struct
-{
+class BTH_LE_GATT_DESCRIPTOR extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -34,7 +33,7 @@ class BTH_LE_GATT_DESCRIPTOR extends Win32Struct
 
     /**
      * The type of the Bluetooth LE GATT descriptor.
-     * @type {Integer}
+     * @type {BTH_LE_GATT_DESCRIPTOR_TYPE}
      */
     DescriptorType {
         get => NumGet(this, 4, "int")
@@ -45,7 +44,7 @@ class BTH_LE_GATT_DESCRIPTOR extends Win32Struct
      * The Universally Unique ID (UUID) of the Bluetooth LE GATT descriptor.
      * @type {BTH_LE_UUID}
      */
-    DescriptorUuid{
+    DescriptorUuid {
         get {
             if(!this.HasProp("__DescriptorUuid"))
                 this.__DescriptorUuid := BTH_LE_UUID(8, this)

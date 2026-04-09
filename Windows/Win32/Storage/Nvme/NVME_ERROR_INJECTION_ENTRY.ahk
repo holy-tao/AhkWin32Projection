@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Storage.Nvme
- * @version v4.0.30319
  */
-class NVME_ERROR_INJECTION_ENTRY extends Win32Struct
-{
+class NVME_ERROR_INJECTION_ENTRY extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 2
@@ -26,7 +24,7 @@ class NVME_ERROR_INJECTION_ENTRY extends Win32Struct
             get => NumGet(this, 0, "char")
             set => NumPut("char", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -34,7 +32,7 @@ class NVME_ERROR_INJECTION_ENTRY extends Win32Struct
             get => (this._bitfield >> 0) & 0x1
             set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -42,7 +40,7 @@ class NVME_ERROR_INJECTION_ENTRY extends Win32Struct
             get => (this._bitfield >> 1) & 0x1
             set => this._bitfield := ((value & 0x1) << 1) | (this._bitfield & ~(0x1 << 1))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -50,7 +48,7 @@ class NVME_ERROR_INJECTION_ENTRY extends Win32Struct
             get => (this._bitfield >> 2) & 0x3F
             set => this._bitfield := ((value & 0x3F) << 2) | (this._bitfield & ~(0x3F << 2))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -58,16 +56,15 @@ class NVME_ERROR_INJECTION_ENTRY extends Win32Struct
             get => NumGet(this, 0, "char")
             set => NumPut("char", value, this, 0)
         }
-    
     }
 
     /**
      * @type {_Flags_e__Union}
      */
-    Flags{
+    Flags {
         get {
             if(!this.HasProp("__Flags"))
-                this.__Flags := %this.__Class%._Flags_e__Union(0, this)
+                this.__Flags := NVME_ERROR_INJECTION_ENTRY._Flags_e__Union(0, this)
             return this.__Flags
         }
     }
@@ -89,9 +86,9 @@ class NVME_ERROR_INJECTION_ENTRY extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    ErrorInjectionTypeSpecific{
+    ErrorInjectionTypeSpecific {
         get {
             if(!this.HasProp("__ErrorInjectionTypeSpecificProxyArray"))
                 this.__ErrorInjectionTypeSpecificProxyArray := Win32FixedArray(this.ptr + 4, 28, Primitive, "char")

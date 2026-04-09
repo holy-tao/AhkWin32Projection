@@ -1,15 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
 #Include .\ISClusPropertyValueData.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * @namespace Windows.Win32.Networking.Clustering
- * @version v4.0.30319
  */
-class ISClusPropertyValue extends IDispatch{
+class ISClusPropertyValue extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -39,7 +38,7 @@ class ISClusPropertyValue extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {CLUSTER_PROPERTY_TYPE} 
      */
     Type {
         get => this.get_Type()
@@ -47,7 +46,7 @@ class ISClusPropertyValue extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {CLUSTER_PROPERTY_FORMAT} 
      */
     Format {
         get => this.get_Format()
@@ -97,7 +96,7 @@ class ISClusPropertyValue extends IDispatch{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {CLUSTER_PROPERTY_TYPE} 
      */
     get_Type() {
         result := ComCall(9, this, "int*", &pType := 0, "HRESULT")
@@ -106,7 +105,7 @@ class ISClusPropertyValue extends IDispatch{
 
     /**
      * 
-     * @param {Integer} Type 
+     * @param {CLUSTER_PROPERTY_TYPE} Type 
      * @returns {HRESULT} 
      */
     put_Type(Type) {
@@ -116,7 +115,7 @@ class ISClusPropertyValue extends IDispatch{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {CLUSTER_PROPERTY_FORMAT} 
      */
     get_Format() {
         result := ComCall(11, this, "int*", &pFormat := 0, "HRESULT")
@@ -125,7 +124,7 @@ class ISClusPropertyValue extends IDispatch{
 
     /**
      * 
-     * @param {Integer} Format 
+     * @param {CLUSTER_PROPERTY_FORMAT} Format 
      * @returns {HRESULT} 
      */
     put_Format(Format) {

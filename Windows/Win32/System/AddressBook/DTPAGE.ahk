@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DTCTL.ahk
 
 /**
  * DTPAGE describes the dialog box that is built from a display table by the BuildDisplayTable function.
@@ -13,10 +14,8 @@
  * For an overview of display tables, see [Display Tables](display-tables.md). For information about how to implement a display table, see [Implementing a Display Table](display-table-implementation.md).
  * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/dtpage
  * @namespace Windows.Win32.System.AddressBook
- * @version v4.0.30319
  */
-class DTPAGE extends Win32Struct
-{
+class DTPAGE extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8

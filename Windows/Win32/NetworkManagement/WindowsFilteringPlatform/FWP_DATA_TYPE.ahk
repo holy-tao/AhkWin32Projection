@@ -8,9 +8,8 @@
  * in each structure to determine which are allowed.
  * @see https://learn.microsoft.com/windows/win32/api/fwptypes/ne-fwptypes-fwp_data_type
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
- * @version v4.0.30319
  */
-class FWP_DATA_TYPE extends Win32Enum{
+class FWP_DATA_TYPE extends Win32Enum {
 
     /**
      * Indicates no data.

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DI_FUNCTION.ahk
 
 /**
  * An SP_CLASSINSTALL_HEADER is the first member of any class install parameters structure. It contains the device installation request code that defines the format of the rest of the install parameters structure.
@@ -19,10 +20,9 @@
  * However, a component does not have to set this field when passing class install parameters to <a href="https://docs.microsoft.com/windows/desktop/api/setupapi/nf-setupapi-setupdigetclassinstallparamsa">SetupDiGetClassInstallParams</a>. This function sets the <b>InstallFunction</b> member in the structure it passes back to the caller. It sets <b>InstallFunction</b> to the DIF_<i>XXX</i> code for the currently active device installation request.
  * @see https://learn.microsoft.com/windows/win32/api/setupapi/ns-setupapi-sp_classinstall_header
  * @namespace Windows.Win32.Devices.DeviceAndDriverInstallation
- * @version v4.0.30319
+ * @architecture X64, Arm64
  */
-class SP_CLASSINSTALL_HEADER extends Win32Struct
-{
+class SP_CLASSINSTALL_HEADER extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4
@@ -40,7 +40,7 @@ class SP_CLASSINSTALL_HEADER extends Win32Struct
      * The device installation request (DIF code) for the class install parameters structure. 
      * 
      * DIF codes have the format DIF_<i>XXX</i> and are defined in <i>Setupapi.h</i>. See <a href="https://docs.microsoft.com/windows-hardware/drivers/install/handling-dif-codes">Device Installation Function Codes</a> for a complete description of DIF codes.
-     * @type {Integer}
+     * @type {DI_FUNCTION}
      */
     InstallFunction {
         get => NumGet(this, 4, "uint")

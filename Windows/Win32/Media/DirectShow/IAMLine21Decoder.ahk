@@ -7,9 +7,8 @@
  * The IAMLine21Decoder interface sets and retrieves information about closed captions.The Line 21 Decoder filter exposes this interface.
  * @see https://learn.microsoft.com/windows/win32/api/il21dec/nn-il21dec-iamline21decoder
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IAMLine21Decoder extends IUnknown{
+class IAMLine21Decoder extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -34,7 +33,7 @@ class IAMLine21Decoder extends IUnknown{
      * The GetDecoderLevel method retrieves the closed-captioned decoder level.
      * @remarks
      * TeleCaption I and TeleCaption II are standards for closed caption decoders. The <a href="https://docs.microsoft.com/windows/desktop/DirectShow/line-21-decoder-filter">Line 21 Decoder</a> filter supports TeleCaption II, which is backward compatible with TeleCaption I.
-     * @param {Pointer<Integer>} lpLevel Pointer to a variable that receives a member of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/il21dec/ne-il21dec-am_line21_cclevel">AM_LINE21_CCLEVEL</a> enumeration. The returned value is always <b>AM_L21_CCLEVEL_TC2</b> (TeleCaption II).
+     * @param {Pointer<AM_LINE21_CCLEVEL>} lpLevel Pointer to a variable that receives a member of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/il21dec/ne-il21dec-am_line21_cclevel">AM_LINE21_CCLEVEL</a> enumeration. The returned value is always <b>AM_L21_CCLEVEL_TC2</b> (TeleCaption II).
      * @returns {HRESULT} Returns an <b>HRESULT</b> value. Possible values include the following.
      * 
      * <table>
@@ -76,7 +75,7 @@ class IAMLine21Decoder extends IUnknown{
 
     /**
      * The GetCurrentService method retrieves the current closed captioning service.
-     * @param {Pointer<Integer>} lpService Pointer to a variable that receives a member of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/il21dec/ne-il21dec-am_line21_ccservice">AM_LINE21_CCSERVICE</a> enumeration. The default service is CC1.
+     * @param {Pointer<AM_LINE21_CCSERVICE>} lpService Pointer to a variable that receives a member of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/il21dec/ne-il21dec-am_line21_ccservice">AM_LINE21_CCSERVICE</a> enumeration. The default service is CC1.
      * @returns {HRESULT} Returns an <b>HRESULT</b> value. Possible values include the following.
      * 
      * <table>
@@ -118,7 +117,7 @@ class IAMLine21Decoder extends IUnknown{
 
     /**
      * The SetCurrentService method sets the closed captioning service.
-     * @param {Integer} Service Member of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/il21dec/ne-il21dec-am_line21_ccservice">AM_LINE21_CCSERVICE</a> enumeration that specifies the closed captioning service. The default service is CC1.
+     * @param {AM_LINE21_CCSERVICE} Service Member of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/il21dec/ne-il21dec-am_line21_ccservice">AM_LINE21_CCSERVICE</a> enumeration that specifies the closed captioning service. The default service is CC1.
      * @returns {HRESULT} <table>
      * <tr>
      * <th>Value
@@ -150,7 +149,7 @@ class IAMLine21Decoder extends IUnknown{
      * The GetServiceState method indicates whether closed captioning is on or off.
      * @remarks
      * By default, the <a href="https://docs.microsoft.com/windows/desktop/DirectShow/line-21-decoder-filter">Line 21 Decoder</a> enables closed captioning.
-     * @param {Pointer<Integer>} lpState Pointer to a variable that receives a member of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/il21dec/ne-il21dec-am_line21_ccstate">AM_LINE21_CCSTATE</a> enumeration.
+     * @param {Pointer<AM_LINE21_CCSTATE>} lpState Pointer to a variable that receives a member of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/il21dec/ne-il21dec-am_line21_ccstate">AM_LINE21_CCSTATE</a> enumeration.
      * @returns {HRESULT} Returns an <b>HRESULT</b> value. Possible values include the following.
      * 
      * <table>
@@ -192,7 +191,7 @@ class IAMLine21Decoder extends IUnknown{
 
     /**
      * The SetServiceState method enables or disables closed captions.
-     * @param {Integer} State Member of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/il21dec/ne-il21dec-am_line21_ccstate">AM_LINE21_CCSTATE</a> enumeration, specify whether to enable or disable closed captions.
+     * @param {AM_LINE21_CCSTATE} State Member of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/il21dec/ne-il21dec-am_line21_ccstate">AM_LINE21_CCSTATE</a> enumeration, specify whether to enable or disable closed captions.
      * @returns {HRESULT} Returns an <b>HRESULT</b> value. Possible values include the following.
      * 
      * <table>
@@ -402,7 +401,7 @@ class IAMLine21Decoder extends IUnknown{
 
     /**
      * The GetDrawBackgroundMode method indicates whether the Line 21 Decoder filter draws the captions on a transparent background or an opaque background. By default, the caption background is opaque.
-     * @param {Pointer<Integer>} lpMode Pointer a variable that receives a member of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/il21dec/ne-il21dec-am_line21_drawbgmode">AM_LINE21_DRAWBGMODE</a> enumeration.
+     * @param {Pointer<AM_LINE21_DRAWBGMODE>} lpMode Pointer a variable that receives a member of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/il21dec/ne-il21dec-am_line21_drawbgmode">AM_LINE21_DRAWBGMODE</a> enumeration.
      * @returns {HRESULT} Returns an <b>HRESULT</b> value. Possible values include the following.
      * 
      * <table>
@@ -444,7 +443,7 @@ class IAMLine21Decoder extends IUnknown{
 
     /**
      * The SetDrawBackgroundMode method specifies whether the Line 21 Decoder filter draws the captions on a transparent background or an opaque background. By default, the caption background is opaque.
-     * @param {Integer} _Mode 
+     * @param {AM_LINE21_DRAWBGMODE} _Mode Specifies a member of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/il21dec/ne-il21dec-am_line21_drawbgmode">AM_LINE21_DRAWBGMODE</a> enumeration.
      * @returns {HRESULT} Returns an <b>HRESULT</b> value. Possible values include the following.
      * 
      * <table>

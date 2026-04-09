@@ -4,14 +4,10 @@
 
 /**
  * Represents data for a video decode statistics query invoked by calling ID3D12VideoDecodeCommandList::EndQuery.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/d3d12video/ns-d3d12video-d3d12_query_data_video_decode_statistics
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class D3D12_QUERY_DATA_VIDEO_DECODE_STATISTICS extends Win32Struct
-{
+class D3D12_QUERY_DATA_VIDEO_DECODE_STATISTICS extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -38,7 +34,7 @@ class D3D12_QUERY_DATA_VIDEO_DECODE_STATISTICS extends Win32Struct
      * The decode frame rate.
      * @type {DXGI_RATIONAL}
      */
-    FrameRate{
+    FrameRate {
         get {
             if(!this.HasProp("__FrameRate"))
                 this.__FrameRate := DXGI_RATIONAL(16, this)

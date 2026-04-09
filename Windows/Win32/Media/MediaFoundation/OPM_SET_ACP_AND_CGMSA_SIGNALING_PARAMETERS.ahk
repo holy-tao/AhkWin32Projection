@@ -7,10 +7,8 @@
  * The layout of this structure is identical to the <a href="https://docs.microsoft.com/windows/desktop/api/dxva9typ/ns-dxva9typ-dxva_coppsetsignalingcmddata">DXVA_COPPSetSignalingCmdData</a> structure used in Certified Output Protection Manager (COPP).
  * @see https://learn.microsoft.com/windows/win32/api/opmapi/ns-opmapi-opm_set_acp_and_cgmsa_signaling_parameters
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class OPM_SET_ACP_AND_CGMSA_SIGNALING_PARAMETERS extends Win32Struct
-{
+class OPM_SET_ACP_AND_CGMSA_SIGNALING_PARAMETERS extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 4
@@ -80,9 +78,9 @@ class OPM_SET_ACP_AND_CGMSA_SIGNALING_PARAMETERS extends Win32Struct
 
     /**
      * Reserved for future use. Set the entire array to zero.
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    ulReserved{
+    ulReserved {
         get {
             if(!this.HasProp("__ulReservedProxyArray"))
                 this.__ulReservedProxyArray := Win32FixedArray(this.ptr + 28, 4, Primitive, "uint")
@@ -92,9 +90,9 @@ class OPM_SET_ACP_AND_CGMSA_SIGNALING_PARAMETERS extends Win32Struct
 
     /**
      * Reserved for future use. Set the entire array to zero.
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    ulReserved2{
+    ulReserved2 {
         get {
             if(!this.HasProp("__ulReserved2ProxyArray"))
                 this.__ulReserved2ProxyArray := Win32FixedArray(this.ptr + 44, 4, Primitive, "uint")

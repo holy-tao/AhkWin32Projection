@@ -9,9 +9,8 @@
  * This interface is currently in Preview mode.
  * @see https://learn.microsoft.com/windows/win32/api/d3d12sdklayers/nn-d3d12sdklayers-id3d12debugdevice1
  * @namespace Windows.Win32.Graphics.Direct3D12
- * @version v4.0.30319
  */
-class ID3D12DebugDevice1 extends IUnknown{
+class ID3D12DebugDevice1 extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -34,10 +33,10 @@ class ID3D12DebugDevice1 extends IUnknown{
 
     /**
      * Modifies the D3D12 optional device-wide Debug Layer settings.
-     * @param {Integer} Type Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d12sdklayers/ne-d3d12sdklayers-d3d12_debug_device_parameter_type">D3D12_DEBUG_DEVICE_PARAMETER_TYPE</a></b>
+     * @param {D3D12_DEBUG_DEVICE_PARAMETER_TYPE} Type Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d12sdklayers/ne-d3d12sdklayers-d3d12_debug_device_parameter_type">D3D12_DEBUG_DEVICE_PARAMETER_TYPE</a></b>
      * 
      * Specifies a <a href="https://docs.microsoft.com/windows/desktop/api/d3d12sdklayers/ne-d3d12sdklayers-d3d12_debug_device_parameter_type">D3D12_DEBUG_DEVICE_PARAMETER_TYPE</a> value that indicates which debug parameter data to get.
-     * @param {Pointer} pData Type: <b>const void*</b>
+     * @param {Integer} pData Type: <b>const void*</b>
      * 
      * Debug parameter data to set.
      * @param {Integer} DataSize Type: <b>UINT</b>
@@ -55,10 +54,10 @@ class ID3D12DebugDevice1 extends IUnknown{
 
     /**
      * Gets optional device-wide Debug Layer settings.
-     * @param {Integer} Type Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d12sdklayers/ne-d3d12sdklayers-d3d12_debug_device_parameter_type">D3D12_DEBUG_DEVICE_PARAMETER_TYPE</a></b>
+     * @param {D3D12_DEBUG_DEVICE_PARAMETER_TYPE} Type Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d12sdklayers/ne-d3d12sdklayers-d3d12_debug_device_parameter_type">D3D12_DEBUG_DEVICE_PARAMETER_TYPE</a></b>
      * 
      * Specifies a <a href="https://docs.microsoft.com/windows/desktop/api/d3d12sdklayers/ne-d3d12sdklayers-d3d12_debug_device_parameter_type">D3D12_DEBUG_DEVICE_PARAMETER_TYPE</a> value that indicates which debug parameter data to set.
-     * @param {Pointer} pData Type: <b>void*</b>
+     * @param {Integer} pData Type: <b>void*</b>
      * 
      * Points to the memory that will be filled with a copy of the debug parameter data. The interpretation of this data depends on the <a href="https://docs.microsoft.com/windows/desktop/api/d3d12sdklayers/ne-d3d12sdklayers-d3d12_debug_device_parameter_type">D3D12_DEBUG_DEVICE_PARAMETER_TYPE</a> given in the <i>Type</i> parameter.
      * @param {Integer} DataSize Type: <b>UINT</b>
@@ -76,7 +75,7 @@ class ID3D12DebugDevice1 extends IUnknown{
 
     /**
      * Specifies the amount of information to report on a device object's lifetime.
-     * @param {Integer} Flags Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d12sdklayers/ne-d3d12sdklayers-d3d12_rldo_flags">D3D12_RLDO_FLAGS</a></b>
+     * @param {D3D12_RLDO_FLAGS} Flags Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d12sdklayers/ne-d3d12sdklayers-d3d12_rldo_flags">D3D12_RLDO_FLAGS</a></b>
      * 
      * A value from the <a href="https://docs.microsoft.com/windows/desktop/api/d3d12sdklayers/ne-d3d12sdklayers-d3d12_rldo_flags">D3D12_RLDO_FLAGS</a> enumeration. This method uses the value in <i>Flags</i> to determine the amount of information to report about a device object's lifetime.
      * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>

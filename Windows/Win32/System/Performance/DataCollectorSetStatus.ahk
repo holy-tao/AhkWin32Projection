@@ -5,9 +5,8 @@
  * Defines the running status of the data collector set.
  * @see https://learn.microsoft.com/windows/win32/api/pla/ne-pla-datacollectorsetstatus
  * @namespace Windows.Win32.System.Performance
- * @version v4.0.30319
  */
-class DataCollectorSetStatus extends Win32Enum{
+class DataCollectorSetStatus extends Win32Enum {
 
     /**
      * The data collector set is not running.

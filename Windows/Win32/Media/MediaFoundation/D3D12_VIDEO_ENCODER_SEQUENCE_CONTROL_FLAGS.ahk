@@ -7,9 +7,8 @@
  * Note that depending on the codec, a request for reconfiguration might need to insert an IDR in the bitstream and new SPS headers.
  * @see https://learn.microsoft.com/windows/win32/api/d3d12video/ne-d3d12video-d3d12_video_encoder_sequence_control_flags
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class D3D12_VIDEO_ENCODER_SEQUENCE_CONTROL_FLAGS extends Win32BitflagEnum{
+class D3D12_VIDEO_ENCODER_SEQUENCE_CONTROL_FLAGS extends Win32BitflagEnum {
 
     /**
      * None.

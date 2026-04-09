@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
- * @version v4.0.30319
  */
-class WINDBG_OLDKD_EXTENSION_APIS extends Win32Struct
-{
+class WINDBG_OLDKD_EXTENSION_APIS extends Win32Struct {
     static sizeof => 80
 
     static packingSize => 8

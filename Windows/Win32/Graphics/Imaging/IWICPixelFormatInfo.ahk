@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IWICColorContext.ahk
 #Include .\IWICComponentInfo.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include .\IWICColorContext.ahk
 
 /**
  * Exposes methods that provide information about a pixel format.
  * @see https://learn.microsoft.com/windows/win32/api/wincodec/nn-wincodec-iwicpixelformatinfo
  * @namespace Windows.Win32.Graphics.Imaging
- * @version v4.0.30319
  */
-class IWICPixelFormatInfo extends IWICComponentInfo{
+class IWICPixelFormatInfo extends IWICComponentInfo {
 
     static sizeof => A_PtrSize
     /**

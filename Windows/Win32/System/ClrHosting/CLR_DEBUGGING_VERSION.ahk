@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.ClrHosting
- * @version v4.0.30319
  */
-class CLR_DEBUGGING_VERSION extends Win32Struct
-{
+class CLR_DEBUGGING_VERSION extends Win32Struct {
     static sizeof => 10
 
     static packingSize => 2

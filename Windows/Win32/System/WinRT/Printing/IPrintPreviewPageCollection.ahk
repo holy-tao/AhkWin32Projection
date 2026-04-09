@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.WinRT.Printing
- * @version v4.0.30319
  */
-class IPrintPreviewPageCollection extends IUnknown{
+class IPrintPreviewPageCollection extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

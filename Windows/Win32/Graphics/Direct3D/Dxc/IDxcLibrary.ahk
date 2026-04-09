@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
 #Include .\IDxcBlob.ahk
 #Include .\IDxcBlobEncoding.ahk
 #Include .\IDxcIncludeHandler.ahk
 #Include ..\..\..\System\Com\IStream.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D.Dxc
- * @version v4.0.30319
  */
-class IDxcLibrary extends IUnknown{
+class IDxcLibrary extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -57,7 +56,7 @@ class IDxcLibrary extends IUnknown{
     /**
      * 
      * @param {PWSTR} pFileName 
-     * @param {Pointer<Integer>} codePage 
+     * @param {Pointer<DXC_CP>} codePage 
      * @returns {IDxcBlobEncoding} 
      */
     CreateBlobFromFile(pFileName, codePage) {
@@ -71,9 +70,9 @@ class IDxcLibrary extends IUnknown{
 
     /**
      * 
-     * @param {Pointer} pText 
+     * @param {Integer} pText 
      * @param {Integer} _size 
-     * @param {Integer} codePage 
+     * @param {DXC_CP} codePage 
      * @returns {IDxcBlobEncoding} 
      */
     CreateBlobWithEncodingFromPinned(pText, _size, codePage) {
@@ -83,9 +82,9 @@ class IDxcLibrary extends IUnknown{
 
     /**
      * 
-     * @param {Pointer} pText 
+     * @param {Integer} pText 
      * @param {Integer} _size 
-     * @param {Integer} codePage 
+     * @param {DXC_CP} codePage 
      * @returns {IDxcBlobEncoding} 
      */
     CreateBlobWithEncodingOnHeapCopy(pText, _size, codePage) {
@@ -95,10 +94,10 @@ class IDxcLibrary extends IUnknown{
 
     /**
      * 
-     * @param {Pointer} pText 
+     * @param {Integer} pText 
      * @param {IMalloc} pIMalloc 
      * @param {Integer} _size 
-     * @param {Integer} codePage 
+     * @param {DXC_CP} codePage 
      * @returns {IDxcBlobEncoding} 
      */
     CreateBlobWithEncodingOnMalloc(pText, pIMalloc, _size, codePage) {

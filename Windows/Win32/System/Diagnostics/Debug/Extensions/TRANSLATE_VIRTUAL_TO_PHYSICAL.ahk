@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
- * @version v4.0.30319
  */
-class TRANSLATE_VIRTUAL_TO_PHYSICAL extends Win32Struct
-{
+class TRANSLATE_VIRTUAL_TO_PHYSICAL extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

@@ -1,41 +1,39 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\Win32Struct.ahk
-#Include ..\..\Win32\System\Kernel\LIST_ENTRY.ahk
+#Include .\DRIVER_OBJECT.ahk
+#Include .\DEVICE_OBJECT.ahk
+#Include .\IRP.ahk
+#Include .\VPB.ahk
 #Include ..\..\Win32\Security\PSECURITY_DESCRIPTOR.ahk
+#Include .\DEVOBJ_EXTENSION.ahk
 
 /**
  * @namespace Windows.Wdk.Foundation
- * @version v4.0.30319
  */
-class DEVICE_OBJECT extends Win32Struct
-{
-    static sizeof => 168
+class DEVICE_OBJECT extends Win32Struct {
+    static sizeof => 160
 
     static packingSize => 8
 
     class _Queue_e__Union extends Win32Struct {
-        static sizeof => 16
+        static sizeof => 8
         static packingSize => 8
 
         /**
-         * @type {LIST_ENTRY}
+         * @type {Pointer}
          */
-        ListEntry{
-            get {
-                if(!this.HasProp("__ListEntry"))
-                    this.__ListEntry := LIST_ENTRY(0, this)
-                return this.__ListEntry
-            }
+        ListEntry {
+            get => NumGet(this, 0, "ptr")
+            set => NumPut("ptr", value, this, 0)
         }
-    
+
         /**
-         * @type {Pointer<WAIT_CONTEXT_BLOCK>}
+         * @type {Pointer}
          */
         Wcb {
             get => NumGet(this, 0, "ptr")
             set => NumPut("ptr", value, this, 0)
         }
-    
     }
 
     /**
@@ -153,10 +151,10 @@ class DEVICE_OBJECT extends Win32Struct
     /**
      * @type {_Queue_e__Union}
      */
-    Queue{
+    Queue {
         get {
             if(!this.HasProp("__Queue"))
-                this.__Queue := %this.__Class%._Queue_e__Union(80, this)
+                this.__Queue := DEVICE_OBJECT._Queue_e__Union(80, this)
             return this.__Queue
         }
     }
@@ -165,82 +163,82 @@ class DEVICE_OBJECT extends Win32Struct
      * @type {Integer}
      */
     AlignmentRequirement {
-        get => NumGet(this, 96, "uint")
-        set => NumPut("uint", value, this, 96)
+        get => NumGet(this, 88, "uint")
+        set => NumPut("uint", value, this, 88)
     }
 
     /**
-     * @type {Pointer<KDEVICE_QUEUE>}
+     * @type {Pointer}
      */
     DeviceQueue {
-        get => NumGet(this, 104, "ptr")
-        set => NumPut("ptr", value, this, 104)
+        get => NumGet(this, 96, "ptr")
+        set => NumPut("ptr", value, this, 96)
     }
 
     /**
-     * @type {Pointer<KDPC>}
+     * @type {Pointer}
      */
     Dpc {
-        get => NumGet(this, 112, "ptr")
-        set => NumPut("ptr", value, this, 112)
+        get => NumGet(this, 104, "ptr")
+        set => NumPut("ptr", value, this, 104)
     }
 
     /**
      * @type {Integer}
      */
     ActiveThreadCount {
-        get => NumGet(this, 120, "uint")
-        set => NumPut("uint", value, this, 120)
+        get => NumGet(this, 112, "uint")
+        set => NumPut("uint", value, this, 112)
     }
 
     /**
      * @type {PSECURITY_DESCRIPTOR}
      */
-    SecurityDescriptor{
+    SecurityDescriptor {
         get {
             if(!this.HasProp("__SecurityDescriptor"))
-                this.__SecurityDescriptor := PSECURITY_DESCRIPTOR(128, this)
+                this.__SecurityDescriptor := PSECURITY_DESCRIPTOR(120, this)
             return this.__SecurityDescriptor
         }
     }
 
     /**
-     * @type {Pointer<KEVENT>}
+     * @type {Pointer}
      */
     DeviceLock {
-        get => NumGet(this, 136, "ptr")
-        set => NumPut("ptr", value, this, 136)
+        get => NumGet(this, 128, "ptr")
+        set => NumPut("ptr", value, this, 128)
     }
 
     /**
      * @type {Integer}
      */
     SectorSize {
-        get => NumGet(this, 144, "ushort")
-        set => NumPut("ushort", value, this, 144)
+        get => NumGet(this, 136, "ushort")
+        set => NumPut("ushort", value, this, 136)
     }
 
     /**
      * @type {Integer}
      */
     Spare1 {
-        get => NumGet(this, 146, "ushort")
-        set => NumPut("ushort", value, this, 146)
+        get => NumGet(this, 138, "ushort")
+        set => NumPut("ushort", value, this, 138)
     }
 
     /**
      * @type {Pointer<DEVOBJ_EXTENSION>}
      */
     DeviceObjectExtension {
-        get => NumGet(this, 152, "ptr")
-        set => NumPut("ptr", value, this, 152)
+        get => NumGet(this, 144, "ptr")
+        set => NumPut("ptr", value, this, 144)
     }
 
     /**
      * @type {Pointer<Void>}
      */
     Reserved {
-        get => NumGet(this, 160, "ptr")
-        set => NumPut("ptr", value, this, 160)
+        get => NumGet(this, 152, "ptr")
+        set => NumPut("ptr", value, this, 152)
     }
 }

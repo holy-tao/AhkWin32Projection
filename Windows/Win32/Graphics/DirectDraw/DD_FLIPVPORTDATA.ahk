@@ -1,14 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DD_DIRECTDRAW_LOCAL.ahk
+#Include .\DD_VIDEOPORT_LOCAL.ahk
+#Include .\DD_SURFACE_LOCAL.ahk
 
 /**
  * The DD_FLIPVPORTDATA structure contains the information necessary for the video port extensions (VPE) object to perform a flip.
  * @see https://learn.microsoft.com/windows/win32/api/ddrawint/ns-ddrawint-dd_flipvportdata
  * @namespace Windows.Win32.Graphics.DirectDraw
- * @version v4.0.30319
  */
-class DD_FLIPVPORTDATA extends Win32Struct
-{
+class DD_FLIPVPORTDATA extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8

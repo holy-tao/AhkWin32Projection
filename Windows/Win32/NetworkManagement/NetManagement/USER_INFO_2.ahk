@@ -1,5 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\USER_PRIV.ahk
+#Include .\USER_ACCOUNT_FLAGS.ahk
+#Include .\AF_OP.ahk
 
 /**
  * The USER_INFO_2 structure contains information about a user account, including the account name, password data, privilege level, the path to the user's home directory, and other user-related network statistics.
@@ -10,10 +13,8 @@
  * User account names are limited to 20 characters and group names are limited to 256 characters. In addition, account names cannot be terminated by a period and they cannot include commas or any of the following printable characters: ", /, \, [, ], :, |, &lt;, &gt;, +, =, ;, ?, *. Names also cannot include characters in the range 1-31, which are nonprintable.
  * @see https://learn.microsoft.com/windows/win32/api/lmaccess/ns-lmaccess-user_info_2
  * @namespace Windows.Win32.NetworkManagement.NetManagement
- * @version v4.0.30319
  */
-class USER_INFO_2 extends Win32Struct
-{
+class USER_INFO_2 extends Win32Struct {
     static sizeof => 152
 
     static packingSize => 8
@@ -68,7 +69,7 @@ class USER_INFO_2 extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/nf-lmaccess-netuseradd">NetUserAdd</a> function, this member must be USER_PRIV_USER. For the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/nf-lmaccess-netusersetinfo">NetUserSetInfo</a> function, this member must be the value returned by the 
      * <b>NetUserGetInfo</b> function or the
-     * @type {Integer}
+     * @type {USER_PRIV}
      */
     usri2_priv {
         get => NumGet(this, 20, "uint")
@@ -99,7 +100,7 @@ class USER_INFO_2 extends Win32Struct
 
     /**
      * Type: <b>DWORD</b>
-     * @type {Integer}
+     * @type {USER_ACCOUNT_FLAGS}
      */
     usri2_flags {
         get => NumGet(this, 40, "uint")
@@ -140,7 +141,7 @@ class USER_INFO_2 extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/nf-lmaccess-netusergetinfo">NetUserGetInfo</a> or to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/nf-lmaccess-netuserenum">NetUserEnum</a>.</li>
      * </ul>
-     * @type {Integer}
+     * @type {AF_OP}
      */
     usri2_auth_flags {
         get => NumGet(this, 56, "uint")

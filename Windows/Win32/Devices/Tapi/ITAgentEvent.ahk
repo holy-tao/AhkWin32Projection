@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ITAgent.ahk
 #Include ..\..\System\Com\IDispatch.ahk
+#Include .\ITAgent.ahk
 
 /**
  * The ITAgentEvent interface (tapi3cc.h) contains methods that retrieve the description of agent events.
  * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/nn-tapi3cc-itagentevent
  * @namespace Windows.Win32.Devices.Tapi
- * @version v4.0.30319
  */
-class ITAgentEvent extends IDispatch{
+class ITAgentEvent extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -39,7 +38,7 @@ class ITAgentEvent extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {AGENT_EVENT} 
      */
     Event {
         get => this.get_Event()
@@ -62,7 +61,7 @@ class ITAgentEvent extends IDispatch{
 
     /**
      * The ITAgentEvent::get_Event method (tapi3cc.h) gets an AGENT_EVENT descriptor of the event that occurred.
-     * @returns {Integer} Pointer to 
+     * @returns {AGENT_EVENT} Pointer to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3/ne-tapi3-agent_event">AGENT_EVENT</a> descriptor of event.
      * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/nf-tapi3cc-itagentevent-get_event
      */

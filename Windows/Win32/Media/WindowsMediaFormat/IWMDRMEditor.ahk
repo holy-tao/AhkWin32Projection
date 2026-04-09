@@ -7,9 +7,8 @@
  * The IWMDRMEditor interface is exposed on the metadata editor object.
  * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nn-wmsdkidl-iwmdrmeditor
  * @namespace Windows.Win32.Media.WindowsMediaFormat
- * @version v4.0.30319
  */
-class IWMDRMEditor extends IUnknown{
+class IWMDRMEditor extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -102,7 +101,7 @@ class IWMDRMEditor extends IUnknown{
      * </li>
      * </ul>
      * @param {PWSTR} pwstrName Specifies the DRM file attribute to retrieve.
-     * @param {Pointer<Integer>} pdwType Pointer that receives the data type of the returned value.
+     * @param {Pointer<WMT_ATTR_DATATYPE>} pdwType Pointer that receives the data type of the returned value.
      * @param {Pointer<Integer>} pValue Pointer to the value requested in <i>pwstrName</i>.
      * @param {Pointer<Integer>} pcbLength Length of <i>pValue</i> in bytes.
      * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an <b>HRESULT</b> error code.

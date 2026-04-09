@@ -1,15 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Security\Cryptography\CERT_CONTEXT.ahk
+#Include ..\..\Security\Cryptography\CERT_CHAIN_CONTEXT.ahk
 #Include ..\..\Security\Authentication\Identity\SecPkgContext_ConnectionInfo.ahk
+#Include ..\..\Security\Cryptography\ALG_ID.ahk
 #Include ..\..\Security\Authentication\Identity\SecPkgContext_CipherInfo.ahk
 #Include ..\..\Security\Authentication\Identity\SecPkgContext_Bindings.ahk
+#Include ..\..\Security\Authentication\Identity\SEC_CHANNEL_BINDINGS.ahk
 
 /**
  * @namespace Windows.Win32.Networking.WinInet
- * @version v4.0.30319
  */
-class INTERNET_SECURITY_INFO extends Win32Struct
-{
+class INTERNET_SECURITY_INFO extends Win32Struct {
     static sizeof => 760
 
     static packingSize => 8
@@ -41,7 +43,7 @@ class INTERNET_SECURITY_INFO extends Win32Struct
     /**
      * @type {SecPkgContext_ConnectionInfo}
      */
-    connectionInfo{
+    connectionInfo {
         get {
             if(!this.HasProp("__connectionInfo"))
                 this.__connectionInfo := SecPkgContext_ConnectionInfo(24, this)
@@ -52,7 +54,7 @@ class INTERNET_SECURITY_INFO extends Win32Struct
     /**
      * @type {SecPkgContext_CipherInfo}
      */
-    cipherInfo{
+    cipherInfo {
         get {
             if(!this.HasProp("__cipherInfo"))
                 this.__cipherInfo := SecPkgContext_CipherInfo(52, this)
@@ -71,7 +73,7 @@ class INTERNET_SECURITY_INFO extends Win32Struct
     /**
      * @type {SecPkgContext_Bindings}
      */
-    channelBindingToken{
+    channelBindingToken {
         get {
             if(!this.HasProp("__channelBindingToken"))
                 this.__channelBindingToken := SecPkgContext_Bindings(744, this)

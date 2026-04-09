@@ -4,10 +4,9 @@
 
 /**
  * @namespace Windows.Win32.System.Search
- * @version v4.0.30319
+ * @architecture X64, Arm64
  */
-class DBCOLUMNACCESS extends Win32Struct
-{
+class DBCOLUMNACCESS extends Win32Struct {
     static sizeof => 80
 
     static packingSize => 8
@@ -23,7 +22,7 @@ class DBCOLUMNACCESS extends Win32Struct
     /**
      * @type {DBID}
      */
-    columnid{
+    columnid {
         get {
             if(!this.HasProp("__columnid"))
                 this.__columnid := DBID(8, this)

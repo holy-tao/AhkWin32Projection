@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\Guid.ahk
-#Include .\ISpellingError.ahk
 #Include ..\System\Com\IUnknown.ahk
+#Include .\ISpellingError.ahk
 
 /**
  * An enumeration of the spelling errors.
  * @see https://learn.microsoft.com/windows/win32/api/spellcheck/nn-spellcheck-ienumspellingerror
  * @namespace Windows.Win32.Globalization
- * @version v4.0.30319
  */
-class IEnumSpellingError extends IUnknown{
+class IEnumSpellingError extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

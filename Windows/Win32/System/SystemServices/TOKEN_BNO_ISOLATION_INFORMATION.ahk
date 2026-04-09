@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.SystemServices
- * @version v4.0.30319
  */
-class TOKEN_BNO_ISOLATION_INFORMATION extends Win32Struct
-{
+class TOKEN_BNO_ISOLATION_INFORMATION extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

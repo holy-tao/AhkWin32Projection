@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\SL_ACTIVATION_TYPE.ahk
 
 /**
  * Specifies the product activation information.
  * @see https://learn.microsoft.com/windows/win32/api/slpublic/ns-slpublic-sl_activation_info_header
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class SL_ACTIVATION_INFO_HEADER extends Win32Struct
-{
+class SL_ACTIVATION_INFO_HEADER extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4
@@ -28,7 +27,7 @@ class SL_ACTIVATION_INFO_HEADER extends Win32Struct
      * Type: <b>SL_ACTIVATION_TYPE</b>
      * 
      * The activation type.
-     * @type {Integer}
+     * @type {SL_ACTIVATION_TYPE}
      */
     type {
         get => NumGet(this, 4, "int")

@@ -5,10 +5,8 @@
  * Returns information about the credential used for the security context.
  * @see https://learn.microsoft.com/windows/win32/api/sspi/ns-sspi-secpkgcontext_targetinformation
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class SecPkgContext_TargetInformation extends Win32Struct
-{
+class SecPkgContext_TargetInformation extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

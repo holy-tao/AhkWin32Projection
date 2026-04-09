@@ -13,9 +13,8 @@
  * Enabling mixed hosting behavior will not automatically adjust the thread's <b>DPI_AWARENESS_CONTEXT</b> to be compatible with legacy content. The thread's awareness context must still be manually changed before new windows are created to host such content.
  * @see https://learn.microsoft.com/windows/win32/api/windef/ne-windef-dpi_hosting_behavior
  * @namespace Windows.Win32.UI.HiDpi
- * @version v4.0.30319
  */
-class DPI_HOSTING_BEHAVIOR extends Win32Enum{
+class DPI_HOSTING_BEHAVIOR extends Win32Enum {
 
     /**
      * Invalid DPI hosting behavior. This usually occurs if the previous <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-setthreaddpihostingbehavior">SetThreadDpiHostingBehavior</a> call used an invalid parameter.

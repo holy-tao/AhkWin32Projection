@@ -1,7 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\IP_ADDRESS_STRING.ahk
+#Include .\IP_ADAPTER_INFO.ahk
 #Include .\IP_ADDR_STRING.ahk
+#Include .\IP_ADDRESS_STRING.ahk
 
 /**
  * Contains information about a particular network adapter on the local computer.
@@ -15,11 +16,9 @@
  * For use on Windows XP and later, the <a href="https://docs.microsoft.com/windows/desktop/api/iptypes/ns-iptypes-ip_adapter_addresses_lh">IP_ADAPTER_ADDRESSES</a> structure contains both IPv4 and IPv6 information. The <a href="https://docs.microsoft.com/windows/desktop/api/iphlpapi/nf-iphlpapi-getadaptersaddresses">GetAdaptersAddresses</a> function retrieves IPv4 and IPv6 adapter information.
  * @see https://learn.microsoft.com/windows/win32/api/iptypes/ns-iptypes-ip_adapter_info
  * @namespace Windows.Win32.NetworkManagement.IpHelper
- * @version v4.0.30319
  */
-class IP_ADAPTER_INFO extends Win32Struct
-{
-    static sizeof => 1256
+class IP_ADAPTER_INFO extends Win32Struct {
+    static sizeof => 704
 
     static packingSize => 8
 
@@ -52,8 +51,8 @@ class IP_ADAPTER_INFO extends Win32Struct
      * @type {String}
      */
     AdapterName {
-        get => StrGet(this.ptr + 12, 259, "UTF-16")
-        set => StrPut(value, this.ptr + 12, 259, "UTF-16")
+        get => StrGet(this.ptr + 12, 259, "UTF-8")
+        set => StrPut(value, this.ptr + 12, 259, "UTF-8")
     }
 
     /**
@@ -63,8 +62,8 @@ class IP_ADAPTER_INFO extends Win32Struct
      * @type {String}
      */
     Description {
-        get => StrGet(this.ptr + 532, 131, "UTF-16")
-        set => StrPut(value, this.ptr + 532, 131, "UTF-16")
+        get => StrGet(this.ptr + 272, 131, "UTF-8")
+        set => StrPut(value, this.ptr + 272, 131, "UTF-8")
     }
 
     /**
@@ -74,20 +73,20 @@ class IP_ADAPTER_INFO extends Win32Struct
      * @type {Integer}
      */
     AddressLength {
-        get => NumGet(this, 796, "uint")
-        set => NumPut("uint", value, this, 796)
+        get => NumGet(this, 404, "uint")
+        set => NumPut("uint", value, this, 404)
     }
 
     /**
      * Type: <b>BYTE[MAX_ADAPTER_ADDRESS_LENGTH]</b>
      * 
      * The hardware address for the adapter represented as a <b>BYTE</b> array.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Address{
+    Address {
         get {
             if(!this.HasProp("__AddressProxyArray"))
-                this.__AddressProxyArray := Win32FixedArray(this.ptr + 800, 8, Primitive, "char")
+                this.__AddressProxyArray := Win32FixedArray(this.ptr + 408, 8, Primitive, "char")
             return this.__AddressProxyArray
         }
     }
@@ -101,8 +100,8 @@ class IP_ADAPTER_INFO extends Win32Struct
      * @type {Integer}
      */
     Index {
-        get => NumGet(this, 808, "uint")
-        set => NumPut("uint", value, this, 808)
+        get => NumGet(this, 416, "uint")
+        set => NumPut("uint", value, this, 416)
     }
 
     /**
@@ -201,8 +200,8 @@ class IP_ADAPTER_INFO extends Win32Struct
      * @type {Integer}
      */
     Type {
-        get => NumGet(this, 812, "uint")
-        set => NumPut("uint", value, this, 812)
+        get => NumGet(this, 420, "uint")
+        set => NumPut("uint", value, this, 420)
     }
 
     /**
@@ -212,8 +211,8 @@ class IP_ADAPTER_INFO extends Win32Struct
      * @type {Integer}
      */
     DhcpEnabled {
-        get => NumGet(this, 816, "uint")
-        set => NumPut("uint", value, this, 816)
+        get => NumGet(this, 424, "uint")
+        set => NumPut("uint", value, this, 424)
     }
 
     /**
@@ -223,8 +222,8 @@ class IP_ADAPTER_INFO extends Win32Struct
      * @type {Pointer<IP_ADDR_STRING>}
      */
     CurrentIpAddress {
-        get => NumGet(this, 824, "ptr")
-        set => NumPut("ptr", value, this, 824)
+        get => NumGet(this, 432, "ptr")
+        set => NumPut("ptr", value, this, 432)
     }
 
     /**
@@ -233,10 +232,10 @@ class IP_ADAPTER_INFO extends Win32Struct
      * The list of IPv4 addresses associated with this adapter represented as  a linked list of <b>IP_ADDR_STRING</b> structures. An adapter can have multiple IPv4 addresses assigned to it.
      * @type {IP_ADDR_STRING}
      */
-    IpAddressList{
+    IpAddressList {
         get {
             if(!this.HasProp("__IpAddressList"))
-                this.__IpAddressList := IP_ADDR_STRING(832, this)
+                this.__IpAddressList := IP_ADDR_STRING(440, this)
             return this.__IpAddressList
         }
     }
@@ -247,10 +246,10 @@ class IP_ADAPTER_INFO extends Win32Struct
      * The IPv4 address of the gateway for this adapter represented as  a linked list of <b>IP_ADDR_STRING</b> structures. An adapter can have multiple IPv4 gateway addresses assigned to it. This list usually contains a single entry for IPv4 address of the default gateway for this adapter.
      * @type {IP_ADDR_STRING}
      */
-    GatewayList{
+    GatewayList {
         get {
             if(!this.HasProp("__GatewayList"))
-                this.__GatewayList := IP_ADDR_STRING(912, this)
+                this.__GatewayList := IP_ADDR_STRING(488, this)
             return this.__GatewayList
         }
     }
@@ -263,10 +262,10 @@ class IP_ADAPTER_INFO extends Win32Struct
      * This member is only valid when the <b>DhcpEnabled</b> member is nonzero.
      * @type {IP_ADDR_STRING}
      */
-    DhcpServer{
+    DhcpServer {
         get {
             if(!this.HasProp("__DhcpServer"))
-                this.__DhcpServer := IP_ADDR_STRING(992, this)
+                this.__DhcpServer := IP_ADDR_STRING(536, this)
             return this.__DhcpServer
         }
     }
@@ -278,8 +277,8 @@ class IP_ADAPTER_INFO extends Win32Struct
      * @type {BOOL}
      */
     HaveWins {
-        get => NumGet(this, 1072, "int")
-        set => NumPut("int", value, this, 1072)
+        get => NumGet(this, 584, "int")
+        set => NumPut("int", value, this, 584)
     }
 
     /**
@@ -290,10 +289,10 @@ class IP_ADAPTER_INFO extends Win32Struct
      * This member is only valid when the <b>HaveWins</b> member is <b>TRUE</b>.
      * @type {IP_ADDR_STRING}
      */
-    PrimaryWinsServer{
+    PrimaryWinsServer {
         get {
             if(!this.HasProp("__PrimaryWinsServer"))
-                this.__PrimaryWinsServer := IP_ADDR_STRING(1080, this)
+                this.__PrimaryWinsServer := IP_ADDR_STRING(592, this)
             return this.__PrimaryWinsServer
         }
     }
@@ -306,10 +305,10 @@ class IP_ADAPTER_INFO extends Win32Struct
      * This member is only valid when the <b>HaveWins</b> member is <b>TRUE</b>.
      * @type {IP_ADDR_STRING}
      */
-    SecondaryWinsServer{
+    SecondaryWinsServer {
         get {
             if(!this.HasProp("__SecondaryWinsServer"))
-                this.__SecondaryWinsServer := IP_ADDR_STRING(1160, this)
+                this.__SecondaryWinsServer := IP_ADDR_STRING(640, this)
             return this.__SecondaryWinsServer
         }
     }
@@ -323,8 +322,8 @@ class IP_ADAPTER_INFO extends Win32Struct
      * @type {Integer}
      */
     LeaseObtained {
-        get => NumGet(this, 1240, "int64")
-        set => NumPut("int64", value, this, 1240)
+        get => NumGet(this, 688, "int64")
+        set => NumPut("int64", value, this, 688)
     }
 
     /**
@@ -336,7 +335,7 @@ class IP_ADAPTER_INFO extends Win32Struct
      * @type {Integer}
      */
     LeaseExpires {
-        get => NumGet(this, 1248, "int64")
-        set => NumPut("int64", value, this, 1248)
+        get => NumGet(this, 696, "int64")
+        set => NumPut("int64", value, this, 696)
     }
 }

@@ -7,9 +7,8 @@
  * Defines a method that allows a custom interpolator to provide transition information, in the form of a cubic polynomial curve, to the animation manager.
  * @see https://learn.microsoft.com/windows/win32/api/uianimation/nn-uianimation-iuianimationprimitiveinterpolation
  * @namespace Windows.Win32.UI.Animation
- * @version v4.0.30319
  */
-class IUIAnimationPrimitiveInterpolation extends IUnknown{
+class IUIAnimationPrimitiveInterpolation extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

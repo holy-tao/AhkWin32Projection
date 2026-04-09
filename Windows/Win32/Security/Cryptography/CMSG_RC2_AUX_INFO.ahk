@@ -5,10 +5,8 @@
  * Contains the bit length of the key for RC2 encryption algorithms.
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cmsg_rc2_aux_info
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CMSG_RC2_AUX_INFO extends Win32Struct
-{
+class CMSG_RC2_AUX_INFO extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4

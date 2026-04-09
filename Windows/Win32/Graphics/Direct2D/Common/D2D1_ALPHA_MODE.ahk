@@ -29,9 +29,8 @@
  * </ul>
  * @see https://learn.microsoft.com/windows/win32/api/dcommon/ne-dcommon-d2d1_alpha_mode
  * @namespace Windows.Win32.Graphics.Direct2D.Common
- * @version v4.0.30319
  */
-class D2D1_ALPHA_MODE extends Win32Enum{
+class D2D1_ALPHA_MODE extends Win32Enum {
 
     /**
      * The alpha value might not be meaningful.

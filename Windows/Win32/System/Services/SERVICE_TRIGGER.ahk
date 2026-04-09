@@ -1,5 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\SERVICE_TRIGGER_TYPE.ahk
+#Include .\SERVICE_TRIGGER_ACTION.ahk
+#Include .\SERVICE_TRIGGER_SPECIFIC_DATA_ITEM.ahk
 
 /**
  * Represents a service trigger event. This structure is used by the SERVICE_TRIGGER_INFO structure.
@@ -11,17 +14,14 @@
  * If it is not possible to disable the services, it may be necessary to restart the system after installing the service that is registering the event. In this case, do not disable the BFE service and its dependent services before restarting the system, because the system may not work correctly if these services remain disabled.
  * @see https://learn.microsoft.com/windows/win32/api/winsvc/ns-winsvc-service_trigger
  * @namespace Windows.Win32.System.Services
- * @version v4.0.30319
  */
-class SERVICE_TRIGGER extends Win32Struct
-{
+class SERVICE_TRIGGER extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
 
     /**
-     * 
-     * @type {Integer}
+     * @type {SERVICE_TRIGGER_TYPE}
      */
     dwTriggerType {
         get => NumGet(this, 0, "uint")
@@ -29,8 +29,7 @@ class SERVICE_TRIGGER extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Integer}
+     * @type {SERVICE_TRIGGER_ACTION}
      */
     dwAction {
         get => NumGet(this, 4, "uint")

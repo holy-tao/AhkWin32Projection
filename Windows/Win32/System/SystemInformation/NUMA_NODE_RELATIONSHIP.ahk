@@ -6,10 +6,8 @@
  * Represents information about a NUMA node in a processor group. This structure is used with the GetLogicalProcessorInformationEx function.
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-numa_node_relationship
  * @namespace Windows.Win32.System.SystemInformation
- * @version v4.0.30319
  */
-class NUMA_NODE_RELATIONSHIP extends Win32Struct
-{
+class NUMA_NODE_RELATIONSHIP extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -25,9 +23,9 @@ class NUMA_NODE_RELATIONSHIP extends Win32Struct
 
     /**
      * This member is reserved.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Reserved{
+    Reserved {
         get {
             if(!this.HasProp("__ReservedProxyArray"))
                 this.__ReservedProxyArray := Win32FixedArray(this.ptr + 4, 18, Primitive, "char")
@@ -47,7 +45,7 @@ class NUMA_NODE_RELATIONSHIP extends Win32Struct
     /**
      * @type {GROUP_AFFINITY}
      */
-    GroupMask{
+    GroupMask {
         get {
             if(!this.HasProp("__GroupMask"))
                 this.__GroupMask := GROUP_AFFINITY(24, this)
@@ -56,9 +54,9 @@ class NUMA_NODE_RELATIONSHIP extends Win32Struct
     }
 
     /**
-     * @type {Array<GROUP_AFFINITY>}
+     * @type {GROUP_AFFINITY}
      */
-    GroupMasks{
+    GroupMasks {
         get {
             if(!this.HasProp("__GroupMasksProxyArray"))
                 this.__GroupMasksProxyArray := Win32FixedArray(this.ptr + 24, 1, GROUP_AFFINITY, "")

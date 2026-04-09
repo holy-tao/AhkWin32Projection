@@ -7,9 +7,8 @@
  * Enables an object to be notified before it is released from a COM+ object pool.
  * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nn-comsvcs-imanagedpoolaction
  * @namespace Windows.Win32.System.ComponentServices
- * @version v4.0.30319
  */
-class IManagedPoolAction extends IUnknown{
+class IManagedPoolAction extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

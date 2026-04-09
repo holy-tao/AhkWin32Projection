@@ -7,10 +7,8 @@
  * This structure is used in calls to [**ComposeRects**](/windows/desktop/api/d3d9/nf-d3d9-idirect3ddevice9ex-composerects) to indicate the location glyphs should be copied to and which particular glyph should be copied. A vertex buffer (see [**IDirect3DVertexBuffer9**](/windows/win32/api/d3d9helper/nn-d3d9helper-idirect3dvertexbuffer9)) filled with these structures are created to contain the glyph locations. USHORT members are used to reduce the memory footprint as much as possible.
  * @see https://learn.microsoft.com/windows/win32/direct3d9/d3dcomposerectdestination
  * @namespace Windows.Win32.Graphics.Direct3D9
- * @version v4.0.30319
  */
-class D3DCOMPOSERECTDESTINATION extends Win32Struct
-{
+class D3DCOMPOSERECTDESTINATION extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 2

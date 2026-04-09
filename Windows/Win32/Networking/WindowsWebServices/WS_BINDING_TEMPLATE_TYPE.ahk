@@ -5,9 +5,8 @@
  * An enumeration of the different security binding combinations that are supported.
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ne-webservices-ws_binding_template_type
  * @namespace Windows.Win32.Networking.WindowsWebServices
- * @version v4.0.30319
  */
-class WS_BINDING_TEMPLATE_TYPE extends Win32Enum{
+class WS_BINDING_TEMPLATE_TYPE extends Win32Enum {
 
     /**
      * The policy specifies HTTP channel binding.

@@ -7,9 +7,8 @@
  * Created and used by the IRDPSRAPITransportStream interface for sending and receiving data.
  * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nn-rdpencomapi-irdpsrapitransportstreambuffer
  * @namespace Windows.Win32.System.DesktopSharing
- * @version v4.0.30319
  */
-class IRDPSRAPITransportStreamBuffer extends IUnknown{
+class IRDPSRAPITransportStreamBuffer extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

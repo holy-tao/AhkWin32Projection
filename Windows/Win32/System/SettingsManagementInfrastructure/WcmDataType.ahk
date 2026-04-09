@@ -5,9 +5,8 @@
  * Enumerates the data types returned from the ISettingsItem::GetDataType method.
  * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/ne-wcmconfig-wcmdatatype
  * @namespace Windows.Win32.System.SettingsManagementInfrastructure
- * @version v4.0.30319
  */
-class WcmDataType extends Win32Enum{
+class WcmDataType extends Win32Enum {
 
     /**
      * Corresponds to a byte.

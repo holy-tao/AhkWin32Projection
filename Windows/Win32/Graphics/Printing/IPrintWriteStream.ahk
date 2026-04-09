@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
- * @version v4.0.30319
  */
-class IPrintWriteStream extends IUnknown{
+class IPrintWriteStream extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -30,7 +29,7 @@ class IPrintWriteStream extends IUnknown{
 
     /**
      * 
-     * @param {Pointer} pvBuffer 
+     * @param {Integer} pvBuffer 
      * @param {Integer} cbBuffer 
      * @returns {Integer} 
      */

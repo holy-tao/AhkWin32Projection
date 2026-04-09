@@ -8,11 +8,9 @@
  * For more information about how to access and use the data in this structure, see <a href="https://docs.microsoft.com/windows/desktop/AD/domain-browser">Domain Browser</a>.
  * @see https://learn.microsoft.com/windows/win32/api/dsclient/ns-dsclient-domain_tree
  * @namespace Windows.Win32.Networking.ActiveDirectory
- * @version v4.0.30319
  */
-class DOMAIN_TREE extends Win32Struct
-{
-    static sizeof => 16
+class DOMAIN_TREE extends Win32Struct {
+    static sizeof => 72
 
     static packingSize => 8
 
@@ -36,9 +34,9 @@ class DOMAIN_TREE extends Win32Struct
 
     /**
      * Contains an array of <a href="https://docs.microsoft.com/windows/desktop/api/dsclient/ns-dsclient-domaindesc">DOMAINDESC</a> structures that represent the domains. The array does not contain any child or sibling relational data. The relational data is contained within the <b>DOMAINDESC</b> structures.
-     * @type {Array<DOMAINDESC>}
+     * @type {DOMAINDESC}
      */
-    aDomains{
+    aDomains {
         get {
             if(!this.HasProp("__aDomainsProxyArray"))
                 this.__aDomainsProxyArray := Win32FixedArray(this.ptr + 8, 1, DOMAINDESC, "")

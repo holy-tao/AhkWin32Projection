@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Threading
- * @version v4.0.30319
  */
-class SYNCHRONIZATION_ACCESS_RIGHTS extends Win32BitflagEnum{
+class SYNCHRONIZATION_ACCESS_RIGHTS extends Win32BitflagEnum {
 
     /**
      * @type {Integer (UInt32)}

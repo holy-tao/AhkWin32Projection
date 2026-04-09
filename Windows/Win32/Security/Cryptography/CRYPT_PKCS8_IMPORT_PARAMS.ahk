@@ -6,10 +6,8 @@
  * Contains a PKCS
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-crypt_pkcs8_import_params
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CRYPT_PKCS8_IMPORT_PARAMS extends Win32Struct
-{
+class CRYPT_PKCS8_IMPORT_PARAMS extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -18,7 +16,7 @@ class CRYPT_PKCS8_IMPORT_PARAMS extends Win32Struct
      * A <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa381414(v=vs.85)">CRYPT_DIGEST_BLOB</a> structure that contains the PKCS #8 data.
      * @type {CRYPT_INTEGER_BLOB}
      */
-    PrivateKey{
+    PrivateKey {
         get {
             if(!this.HasProp("__PrivateKey"))
                 this.__PrivateKey := CRYPT_INTEGER_BLOB(0, this)

@@ -5,9 +5,8 @@
  * Enumerates the various target modes.
  * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/ne-wcmconfig-wcmtargetmode
  * @namespace Windows.Win32.System.SettingsManagementInfrastructure
- * @version v4.0.30319
  */
-class WcmTargetMode extends Win32Enum{
+class WcmTargetMode extends Win32Enum {
 
     /**
      * This value indicates that the only expansions that will be performed on environment variables are those defined in the target.

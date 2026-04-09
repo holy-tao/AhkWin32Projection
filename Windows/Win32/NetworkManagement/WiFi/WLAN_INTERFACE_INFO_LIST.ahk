@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\WLAN_INTERFACE_INFO.ahk
+#Include .\WLAN_INTERFACE_STATE.ahk
 
 /**
  * Array of NIC interface information.
  * @see https://learn.microsoft.com/windows/win32/api/wlanapi/ns-wlanapi-wlan_interface_info_list
  * @namespace Windows.Win32.NetworkManagement.WiFi
- * @version v4.0.30319
  */
-class WLAN_INTERFACE_INFO_LIST extends Win32Struct
-{
-    static sizeof => 16
+class WLAN_INTERFACE_INFO_LIST extends Win32Struct {
+    static sizeof => 536
 
     static packingSize => 8
 
@@ -38,9 +37,9 @@ class WLAN_INTERFACE_INFO_LIST extends Win32Struct
 
     /**
      * An array of <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/ns-wlanapi-wlan_interface_info">WLAN_INTERFACE_INFO</a> structures containing interface information.
-     * @type {Array<WLAN_INTERFACE_INFO>}
+     * @type {WLAN_INTERFACE_INFO}
      */
-    InterfaceInfo{
+    InterfaceInfo {
         get {
             if(!this.HasProp("__InterfaceInfoProxyArray"))
                 this.__InterfaceInfoProxyArray := Win32FixedArray(this.ptr + 8, 1, WLAN_INTERFACE_INFO, "")

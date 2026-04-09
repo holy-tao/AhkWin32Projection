@@ -4,11 +4,9 @@
 
 /**
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class SCM_LOGICAL_DEVICES extends Win32Struct
-{
-    static sizeof => 24
+class SCM_LOGICAL_DEVICES extends Win32Struct {
+    static sizeof => 544
 
     static packingSize => 8
 
@@ -37,9 +35,9 @@ class SCM_LOGICAL_DEVICES extends Win32Struct
     }
 
     /**
-     * @type {Array<SCM_LOGICAL_DEVICE_INSTANCE>}
+     * @type {SCM_LOGICAL_DEVICE_INSTANCE}
      */
-    Devices{
+    Devices {
         get {
             if(!this.HasProp("__DevicesProxyArray"))
                 this.__DevicesProxyArray := Win32FixedArray(this.ptr + 16, 1, SCM_LOGICAL_DEVICE_INSTANCE, "")

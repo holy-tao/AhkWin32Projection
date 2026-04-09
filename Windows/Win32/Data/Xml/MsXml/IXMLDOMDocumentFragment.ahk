@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Data.Xml.MsXml
- * @version v4.0.30319
  */
-class IXMLDOMDocumentFragment extends IXMLDOMNode{
+class IXMLDOMDocumentFragment extends IXMLDOMNode {
 
     static sizeof => A_PtrSize
     /**

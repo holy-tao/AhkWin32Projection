@@ -3,7 +3,6 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.MobileBroadband
- * @version v4.0.30319
  */
 class MobileBroadband {
 

@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\IDiscRecorder2.ahk
 #Include .\IDiscFormat2.ahk
+#Include .\IDiscRecorder2.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * Use this interface to write raw images to a disc device using Disc At Once (DAO) mode (also known as uninterrupted recording).
@@ -13,9 +13,8 @@
  * It is possible for a power state transition to take place during a burn operation (i.e. user log-off or system suspend) which leads to the  interruption of the burn process and  possible data loss. For programming considerations, see <a href="https://docs.microsoft.com/windows/desktop/imapi/preventing-logoff-or-suspend-during-a-burn">Preventing Logoff or Suspend During a Burn</a>.
  * @see https://learn.microsoft.com/windows/win32/api/imapi2/nn-imapi2-idiscformat2rawcd
  * @namespace Windows.Win32.Storage.Imapi
- * @version v4.0.30319
  */
-class IDiscFormat2RawCD extends IDiscFormat2{
+class IDiscFormat2RawCD extends IDiscFormat2 {
 
     static sizeof => A_PtrSize
     /**
@@ -67,7 +66,7 @@ class IDiscFormat2RawCD extends IDiscFormat2{
     }
 
     /**
-     * @type {Integer} 
+     * @type {IMAPI_MEDIA_PHYSICAL_TYPE} 
      */
     CurrentPhysicalMediaType {
         get => this.get_CurrentPhysicalMediaType()
@@ -81,7 +80,7 @@ class IDiscFormat2RawCD extends IDiscFormat2{
     }
 
     /**
-     * @type {Integer} 
+     * @type {IMAPI_FORMAT2_RAW_CD_DATA_SECTOR_TYPE} 
      */
     RequestedSectorType {
         get => this.get_RequestedSectorType()
@@ -1968,7 +1967,7 @@ class IDiscFormat2RawCD extends IDiscFormat2{
 
     /**
      * Retrieves the type of media in the disc device. (IDiscFormat2RawCD.get_CurrentPhysicalMediaType)
-     * @returns {Integer} Type of media in the disc device. For possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/ne-imapi2-imapi_media_physical_type">IMAPI_MEDIA_PHYSICAL_TYPE</a> enumeration type.
+     * @returns {IMAPI_MEDIA_PHYSICAL_TYPE} Type of media in the disc device. For possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/ne-imapi2-imapi_media_physical_type">IMAPI_MEDIA_PHYSICAL_TYPE</a> enumeration type.
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscformat2rawcd-get_currentphysicalmediatype
      */
     get_CurrentPhysicalMediaType() {
@@ -1992,7 +1991,7 @@ class IDiscFormat2RawCD extends IDiscFormat2{
      * Sets the requested data sector to use for writing the stream.
      * @remarks
      * For a list of supported data sector types, call the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/nf-imapi2-idiscformat2rawcd-get_supportedsectortypes">IDiscFormat2RawCD::get_SupportedSectorTypes</a> method.
-     * @param {Integer} value Data sector to use for writing the stream. For possible values, see the <a href="https://docs.microsoft.com/windows/win32/api/imapi2/ne-imapi2-imapi_format2_raw_cd_data_sector_type">IMAPI_FORMAT2_RAW_CD_DATA_SECTOR_TYPE</a> enumeration type. The default is <b>IMAPI_FORMAT2_RAW_CD_SUBCODE_IS_COOKED</b>.
+     * @param {IMAPI_FORMAT2_RAW_CD_DATA_SECTOR_TYPE} value Data sector to use for writing the stream. For possible values, see the <a href="https://docs.microsoft.com/windows/win32/api/imapi2/ne-imapi2-imapi_format2_raw_cd_data_sector_type">IMAPI_FORMAT2_RAW_CD_DATA_SECTOR_TYPE</a> enumeration type. The default is <b>IMAPI_FORMAT2_RAW_CD_SUBCODE_IS_COOKED</b>.
      * @returns {HRESULT} S_OK is returned on success, but other success codes may be returned as a result of implementation. The following error codes are commonly returned on operation failure, but do not represent the only possible error values:
      * 
      * <table>
@@ -2049,7 +2048,7 @@ class IDiscFormat2RawCD extends IDiscFormat2{
 
     /**
      * Retrieves the requested data sector to use during write of the stream.
-     * @returns {Integer} Requested data sector type. For possible values, see <a href="https://docs.microsoft.com/windows/win32/api/imapi2/ne-imapi2-imapi_format2_raw_cd_data_sector_type">IMAPI_FORMAT2_RAW_CD_DATA_SECTOR_TYPE</a>.
+     * @returns {IMAPI_FORMAT2_RAW_CD_DATA_SECTOR_TYPE} Requested data sector type. For possible values, see <a href="https://docs.microsoft.com/windows/win32/api/imapi2/ne-imapi2-imapi_format2_raw_cd_data_sector_type">IMAPI_FORMAT2_RAW_CD_DATA_SECTOR_TYPE</a>.
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscformat2rawcd-get_requestedsectortype
      */
     get_RequestedSectorType() {

@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IMFDXGIDeviceManager.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\IMFDXGIDeviceManager.ahk
 
 /**
  * Provides settings for advanced media capture.
  * @see https://learn.microsoft.com/windows/win32/api/mfmediacapture/nn-mfmediacapture-iadvancedmediacapturesettings
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IAdvancedMediaCaptureSettings extends IUnknown{
+class IAdvancedMediaCaptureSettings extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

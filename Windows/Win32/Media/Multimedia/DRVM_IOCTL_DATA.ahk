@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Media.Multimedia
- * @version v4.0.30319
  */
-class DRVM_IOCTL_DATA extends Win32Struct
-{
+class DRVM_IOCTL_DATA extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4

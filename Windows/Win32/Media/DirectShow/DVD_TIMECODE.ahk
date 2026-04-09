@@ -18,10 +18,8 @@
  * </ul>
  * @see https://learn.microsoft.com/windows/win32/api/strmif/ns-strmif-dvd_timecode
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class DVD_TIMECODE extends Win32Struct
-{
+class DVD_TIMECODE extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 4
@@ -45,7 +43,6 @@ class DVD_TIMECODE extends Win32Struct
     }
 
     /**
-     * Hours.
      * @type {Integer}
      */
     Hours1 {
@@ -54,7 +51,6 @@ class DVD_TIMECODE extends Win32Struct
     }
 
     /**
-     * Tens of hours.
      * @type {Integer}
      */
     Hours10 {
@@ -63,7 +59,6 @@ class DVD_TIMECODE extends Win32Struct
     }
 
     /**
-     * Minutes.
      * @type {Integer}
      */
     Minutes1 {
@@ -72,7 +67,6 @@ class DVD_TIMECODE extends Win32Struct
     }
 
     /**
-     * Tens of minutes.
      * @type {Integer}
      */
     Minutes10 {
@@ -81,7 +75,6 @@ class DVD_TIMECODE extends Win32Struct
     }
 
     /**
-     * Seconds.
      * @type {Integer}
      */
     Seconds1 {
@@ -90,7 +83,6 @@ class DVD_TIMECODE extends Win32Struct
     }
 
     /**
-     * Tens of seconds.
      * @type {Integer}
      */
     Seconds10 {
@@ -99,7 +91,6 @@ class DVD_TIMECODE extends Win32Struct
     }
 
     /**
-     * Frames.
      * @type {Integer}
      */
     Frames1 {
@@ -108,7 +99,6 @@ class DVD_TIMECODE extends Win32Struct
     }
 
     /**
-     * Tens of frames.
      * @type {Integer}
      */
     Frames10 {
@@ -117,7 +107,6 @@ class DVD_TIMECODE extends Win32Struct
     }
 
     /**
-     * Frames per second dropped and not dropped as indicated by [DVD_FRAMERATE](/windows/desktop/api/strmif/ne-strmif-dvd_framerate).
      * @type {Integer}
      */
     FrameRateCode {

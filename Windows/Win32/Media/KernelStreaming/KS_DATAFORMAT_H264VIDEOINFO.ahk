@@ -5,10 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
- * @version v4.0.30319
  */
-class KS_DATAFORMAT_H264VIDEOINFO extends Win32Struct
-{
+class KS_DATAFORMAT_H264VIDEOINFO extends Win32Struct {
     static sizeof => 136
 
     static packingSize => 8
@@ -16,7 +14,7 @@ class KS_DATAFORMAT_H264VIDEOINFO extends Win32Struct
     /**
      * @type {KSDATAFORMAT}
      */
-    DataFormat{
+    DataFormat {
         get {
             if(!this.HasProp("__DataFormat"))
                 this.__DataFormat := KSDATAFORMAT(0, this)
@@ -27,7 +25,7 @@ class KS_DATAFORMAT_H264VIDEOINFO extends Win32Struct
     /**
      * @type {KS_H264VIDEOINFO}
      */
-    H264VideoInfoHeader{
+    H264VideoInfoHeader {
         get {
             if(!this.HasProp("__H264VideoInfoHeader"))
                 this.__H264VideoInfoHeader := KS_H264VIDEOINFO(48, this)

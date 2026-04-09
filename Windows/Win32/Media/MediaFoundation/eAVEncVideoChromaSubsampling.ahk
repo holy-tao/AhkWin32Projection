@@ -5,9 +5,8 @@
  * Specifies chroma siting. Chroma siting defines the positions of the chroma samples relative to the luma samples. This enumeration is used with the AVEncVideoInputChromaSubsampling and AVEncVideoOutputChromaSubsampling properties.
  * @see https://learn.microsoft.com/windows/win32/api/codecapi/ne-codecapi-eavencvideochromasubsampling
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class eAVEncVideoChromaSubsampling extends Win32Enum{
+class eAVEncVideoChromaSubsampling extends Win32Enum {
 
     /**
      * Use the same chroma siting as the input video. This flag applies to the <b>AVEncVideoOutputChromaResolution</b> property only. This flag may not be combined with other flags.

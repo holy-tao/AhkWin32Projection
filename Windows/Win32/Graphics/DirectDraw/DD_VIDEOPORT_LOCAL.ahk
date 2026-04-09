@@ -1,9 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\DDVIDEOPORTCONNECT.ahk
+#Include .\DD_DIRECTDRAW_LOCAL.ahk
 #Include .\DDVIDEOPORTDESC.ahk
-#Include ..\..\Foundation\RECT.ahk
+#Include .\DDVIDEOPORTCONNECT.ahk
 #Include .\DDVIDEOPORTINFO.ahk
+#Include ..\..\Foundation\RECT.ahk
+#Include .\DDPIXELFORMAT.ahk
+#Include .\DD_SURFACE_INT.ahk
 
 /**
  * The DD_VIDEOPORT_LOCAL structure contains video port extensions (VPE)-related data that is unique to an individual Microsoft DirectDraw VPE object.
@@ -11,10 +14,8 @@
  * This structure is initialized and filled in by DirectDraw. Except for the <b>dwReserved1</b>, <b>dwReserved2</b>, and <b>dwReserved3</b> members, the driver must not modify any other members of the DD_VIDEOPORT_LOCAL structure.
  * @see https://learn.microsoft.com/windows/win32/api/ddrawint/ns-ddrawint-dd_videoport_local
  * @namespace Windows.Win32.Graphics.DirectDraw
- * @version v4.0.30319
  */
-class DD_VIDEOPORT_LOCAL extends Win32Struct
-{
+class DD_VIDEOPORT_LOCAL extends Win32Struct {
     static sizeof => 224
 
     static packingSize => 8
@@ -32,7 +33,7 @@ class DD_VIDEOPORT_LOCAL extends Win32Struct
      * Specifies a <a href="https://docs.microsoft.com/windows/desktop/api/dvp/ns-dvp-ddvideoportdesc">DDVIDEOPORTDESC</a> structure that describes the VPE object.
      * @type {DDVIDEOPORTDESC}
      */
-    ddvpDesc{
+    ddvpDesc {
         get {
             if(!this.HasProp("__ddvpDesc"))
                 this.__ddvpDesc := DDVIDEOPORTDESC(8, this)
@@ -44,7 +45,7 @@ class DD_VIDEOPORT_LOCAL extends Win32Struct
      * Specifies a <a href="https://docs.microsoft.com/windows/desktop/api/dvp/ns-dvp-ddvideoportinfo">DDVIDEOPORTINFO</a> structure that describes the transfer of video data to a surface.
      * @type {DDVIDEOPORTINFO}
      */
-    ddvpInfo{
+    ddvpInfo {
         get {
             if(!this.HasProp("__ddvpInfo"))
                 this.__ddvpInfo := DDVIDEOPORTINFO(88, this)

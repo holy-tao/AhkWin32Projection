@@ -1,21 +1,20 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DSROLE_MACHINE_ROLE.ahk
 
 /**
  * Used with the DsRoleGetPrimaryDomainInformation function to contain domain data.
  * @see https://learn.microsoft.com/windows/win32/api/dsrole/ns-dsrole-dsrole_primary_domain_info_basic
  * @namespace Windows.Win32.Networking.ActiveDirectory
- * @version v4.0.30319
  */
-class DSROLE_PRIMARY_DOMAIN_INFO_BASIC extends Win32Struct
-{
+class DSROLE_PRIMARY_DOMAIN_INFO_BASIC extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
 
     /**
      * Contains one of the <a href="https://docs.microsoft.com/windows/desktop/api/dsrole/ne-dsrole-dsrole_machine_role">DSROLE_MACHINE_ROLE</a> values that specifies the role of the computer.
-     * @type {Integer}
+     * @type {DSROLE_MACHINE_ROLE}
      */
     MachineRole {
         get => NumGet(this, 0, "int")
@@ -23,7 +22,6 @@ class DSROLE_PRIMARY_DOMAIN_INFO_BASIC extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     Flags {
@@ -60,7 +58,7 @@ class DSROLE_PRIMARY_DOMAIN_INFO_BASIC extends Win32Struct
 
     /**
      * Contains the domain identifier. This member is valid only if the <b>Flags</b> member contains the <b>DSROLE_PRIMARY_DOMAIN_GUID_PRESENT</b> flag.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     DomainGuid {
         get => NumGet(this, 32, "ptr")

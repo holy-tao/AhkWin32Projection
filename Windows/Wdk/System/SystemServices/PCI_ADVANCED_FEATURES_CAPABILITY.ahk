@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class PCI_ADVANCED_FEATURES_CAPABILITY extends Win32Struct
-{
+class PCI_ADVANCED_FEATURES_CAPABILITY extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
@@ -26,7 +24,7 @@ class PCI_ADVANCED_FEATURES_CAPABILITY extends Win32Struct
             get => NumGet(this, 0, "char")
             set => NumPut("char", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -34,7 +32,7 @@ class PCI_ADVANCED_FEATURES_CAPABILITY extends Win32Struct
             get => (this._bitfield >> 0) & 0x1
             set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -42,7 +40,7 @@ class PCI_ADVANCED_FEATURES_CAPABILITY extends Win32Struct
             get => (this._bitfield >> 1) & 0x1
             set => this._bitfield := ((value & 0x1) << 1) | (this._bitfield & ~(0x1 << 1))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -50,7 +48,7 @@ class PCI_ADVANCED_FEATURES_CAPABILITY extends Win32Struct
             get => (this._bitfield >> 2) & 0x3F
             set => this._bitfield := ((value & 0x3F) << 2) | (this._bitfield & ~(0x3F << 2))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -58,7 +56,6 @@ class PCI_ADVANCED_FEATURES_CAPABILITY extends Win32Struct
             get => NumGet(this, 0, "char")
             set => NumPut("char", value, this, 0)
         }
-    
     }
 
     class _Control_e__Union extends Win32Struct {
@@ -75,7 +72,7 @@ class PCI_ADVANCED_FEATURES_CAPABILITY extends Win32Struct
             get => NumGet(this, 0, "char")
             set => NumPut("char", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -83,7 +80,7 @@ class PCI_ADVANCED_FEATURES_CAPABILITY extends Win32Struct
             get => (this._bitfield >> 0) & 0x1
             set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -91,7 +88,7 @@ class PCI_ADVANCED_FEATURES_CAPABILITY extends Win32Struct
             get => (this._bitfield >> 1) & 0x7F
             set => this._bitfield := ((value & 0x7F) << 1) | (this._bitfield & ~(0x7F << 1))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -99,7 +96,6 @@ class PCI_ADVANCED_FEATURES_CAPABILITY extends Win32Struct
             get => NumGet(this, 0, "char")
             set => NumPut("char", value, this, 0)
         }
-    
     }
 
     class _Status_e__Union extends Win32Struct {
@@ -116,7 +112,7 @@ class PCI_ADVANCED_FEATURES_CAPABILITY extends Win32Struct
             get => NumGet(this, 0, "char")
             set => NumPut("char", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -124,7 +120,7 @@ class PCI_ADVANCED_FEATURES_CAPABILITY extends Win32Struct
             get => (this._bitfield >> 0) & 0x1
             set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -132,7 +128,7 @@ class PCI_ADVANCED_FEATURES_CAPABILITY extends Win32Struct
             get => (this._bitfield >> 1) & 0x7F
             set => this._bitfield := ((value & 0x7F) << 1) | (this._bitfield & ~(0x7F << 1))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -140,11 +136,10 @@ class PCI_ADVANCED_FEATURES_CAPABILITY extends Win32Struct
             get => NumGet(this, 0, "char")
             set => NumPut("char", value, this, 0)
         }
-    
     }
 
     /**
-     * @type {Pointer<PCI_CAPABILITIES_HEADER>}
+     * @type {Pointer}
      */
     Header {
         get => NumGet(this, 0, "ptr")
@@ -162,10 +157,10 @@ class PCI_ADVANCED_FEATURES_CAPABILITY extends Win32Struct
     /**
      * @type {_Capabilities_e__Union}
      */
-    Capabilities{
+    Capabilities {
         get {
             if(!this.HasProp("__Capabilities"))
-                this.__Capabilities := %this.__Class%._Capabilities_e__Union(9, this)
+                this.__Capabilities := PCI_ADVANCED_FEATURES_CAPABILITY._Capabilities_e__Union(9, this)
             return this.__Capabilities
         }
     }
@@ -173,10 +168,10 @@ class PCI_ADVANCED_FEATURES_CAPABILITY extends Win32Struct
     /**
      * @type {_Control_e__Union}
      */
-    Control{
+    Control {
         get {
             if(!this.HasProp("__Control"))
-                this.__Control := %this.__Class%._Control_e__Union(10, this)
+                this.__Control := PCI_ADVANCED_FEATURES_CAPABILITY._Control_e__Union(10, this)
             return this.__Control
         }
     }
@@ -184,10 +179,10 @@ class PCI_ADVANCED_FEATURES_CAPABILITY extends Win32Struct
     /**
      * @type {_Status_e__Union}
      */
-    Status{
+    Status {
         get {
             if(!this.HasProp("__Status"))
-                this.__Status := %this.__Class%._Status_e__Union(11, this)
+                this.__Status := PCI_ADVANCED_FEATURES_CAPABILITY._Status_e__Union(11, this)
             return this.__Status
         }
     }

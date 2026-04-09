@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * The INetFwOpenPort interface provides access to the properties of a port that has been opened in the firewall.
@@ -18,9 +18,8 @@
  * All configuration changes take effect immediately.
  * @see https://learn.microsoft.com/windows/win32/api/netfw/nn-netfw-inetfwopenport
  * @namespace Windows.Win32.NetworkManagement.WindowsFirewall
- * @version v4.0.30319
  */
-class INetFwOpenPort extends IDispatch{
+class INetFwOpenPort extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -56,7 +55,7 @@ class INetFwOpenPort extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {NET_FW_IP_VERSION} 
      */
     IpVersion {
         get => this.get_IpVersion()
@@ -64,7 +63,7 @@ class INetFwOpenPort extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {NET_FW_IP_PROTOCOL} 
      */
     Protocol {
         get => this.get_Protocol()
@@ -80,7 +79,7 @@ class INetFwOpenPort extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {NET_FW_SCOPE} 
      */
     Scope {
         get => this.get_Scope()
@@ -142,7 +141,7 @@ class INetFwOpenPort extends IDispatch{
      * Specifies the IP version setting for this port. (Get)
      * @remarks
      * Only <b>NET_FW_IP_VERSION_ANY</b> is supported and this is the default for new ports.
-     * @returns {Integer} 
+     * @returns {NET_FW_IP_VERSION} 
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwopenport-get_ipversion
      */
     get_IpVersion() {
@@ -154,7 +153,7 @@ class INetFwOpenPort extends IDispatch{
      * Specifies the IP version setting for this port. (Put)
      * @remarks
      * Only <b>NET_FW_IP_VERSION_ANY</b> is supported and this is the default for new ports.
-     * @param {Integer} ipVersion 
+     * @param {NET_FW_IP_VERSION} ipVersion 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwopenport-put_ipversion
      */
@@ -167,7 +166,7 @@ class INetFwOpenPort extends IDispatch{
      * Specifies the protocol type setting for this port. (Get)
      * @remarks
      * The default protocol type is TCP for new ports.
-     * @returns {Integer} 
+     * @returns {NET_FW_IP_PROTOCOL} 
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwopenport-get_protocol
      */
     get_Protocol() {
@@ -179,7 +178,7 @@ class INetFwOpenPort extends IDispatch{
      * Specifies the protocol type setting for this port. (Put)
      * @remarks
      * The default protocol type is TCP for new ports.
-     * @param {Integer} ipProtocol 
+     * @param {NET_FW_IP_PROTOCOL} ipProtocol 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwopenport-put_protocol
      */
@@ -219,7 +218,7 @@ class INetFwOpenPort extends IDispatch{
      *    <b>NET_FW_SCOPE_ALL</b> for new ports.
      * 
      * To create a custom scope, use the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/netfw/nf-netfw-inetfwopenport-get_remoteaddresses">RemoteAddresses</a> property.
-     * @returns {Integer} 
+     * @returns {NET_FW_SCOPE} 
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwopenport-get_scope
      */
     get_Scope() {
@@ -237,7 +236,7 @@ class INetFwOpenPort extends IDispatch{
      *    <b>NET_FW_SCOPE_ALL</b> for new ports.
      * 
      * To create a custom scope, use the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/netfw/nf-netfw-inetfwopenport-get_remoteaddresses">RemoteAddresses</a> property.
-     * @param {Integer} scope 
+     * @param {NET_FW_SCOPE} scope 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwopenport-put_scope
      */

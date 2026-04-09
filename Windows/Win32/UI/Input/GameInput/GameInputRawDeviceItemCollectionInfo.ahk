@@ -1,18 +1,19 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\GameInputRawDeviceItemCollectionKind.ahk
+#Include .\GameInputUsage.ahk
+#Include .\GameInputRawDeviceItemCollectionInfo.ahk
 
 /**
  * @namespace Windows.Win32.UI.Input.GameInput
- * @version v4.0.30319
  */
-class GameInputRawDeviceItemCollectionInfo extends Win32Struct
-{
+class GameInputRawDeviceItemCollectionInfo extends Win32Struct {
     static sizeof => 80
 
     static packingSize => 8
 
     /**
-     * @type {Integer}
+     * @type {GameInputRawDeviceItemCollectionKind}
      */
     kind {
         get => NumGet(this, 0, "int")

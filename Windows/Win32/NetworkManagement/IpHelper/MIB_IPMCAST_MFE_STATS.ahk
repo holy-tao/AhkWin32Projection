@@ -13,13 +13,11 @@
  * On the Microsoft Windows Software Development Kit (SDK) released for Windows Vista and later, the organization of header files has changed. This  structure is defined in the <i>Ipmib.h</i> header file, not in the <i>Iprtrmib.h</i> header file. Note that the <i>Ipmib.h</i> header file is automatically included in <i>Iprtrmib.h</i>, which is automatically included in the <i>Iphlpapi.h</i> header file. The  <i>Ipmib.h</i> and <i>Iprtrmib.h</i> header files should never be used directly.
  * @see https://learn.microsoft.com/windows/win32/api/ipmib/ns-ipmib-mib_ipmcast_mfe_stats
  * @namespace Windows.Win32.NetworkManagement.IpHelper
- * @version v4.0.30319
  */
-class MIB_IPMCAST_MFE_STATS extends Win32Struct
-{
-    static sizeof => 72
+class MIB_IPMCAST_MFE_STATS extends Win32Struct {
+    static sizeof => 92
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Type: <b>DWORD</b>
@@ -202,9 +200,9 @@ class MIB_IPMCAST_MFE_STATS extends Win32Struct
      * 
      * A pointer to a table of outgoing interface statistics that are implemented as an array of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ipmib/ns-ipmib-mib_ipmcast_oif_stats_lh">MIB_IPMCAST_OIF_STATS</a> structures. The number of entries in the table is specified by the value of the <b>ulNumOutIf</b> member.
-     * @type {Array<MIB_IPMCAST_OIF_STATS_LH>}
+     * @type {MIB_IPMCAST_OIF_STATS_LH}
      */
-    rgmiosOutStats{
+    rgmiosOutStats {
         get {
             if(!this.HasProp("__rgmiosOutStatsProxyArray"))
                 this.__rgmiosOutStatsProxyArray := Win32FixedArray(this.ptr + 64, 1, MIB_IPMCAST_OIF_STATS_LH, "")

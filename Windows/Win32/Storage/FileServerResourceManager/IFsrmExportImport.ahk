@@ -1,9 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\IFsrmCommittableCollection.ahk
 #Include ..\..\System\Com\IDispatch.ahk
+#Include .\IFsrmCommittableCollection.ahk
 
 /**
  * Used to export and import FSRM objects.
@@ -19,9 +18,8 @@
  *     program identifier.
  * @see https://learn.microsoft.com/windows/win32/api/fsrm/nn-fsrm-ifsrmexportimport
  * @namespace Windows.Win32.Storage.FileServerResourceManager
- * @version v4.0.30319
  */
-class IFsrmExportImport extends IDispatch{
+class IFsrmExportImport extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

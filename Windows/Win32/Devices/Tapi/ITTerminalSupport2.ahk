@@ -1,19 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Include .\ITTerminalSupport.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
 #Include .\IEnumPluggableSuperclassInfo.ahk
 #Include .\IEnumPluggableTerminalClassInfo.ahk
-#Include .\ITTerminalSupport.ahk
 
 /**
  * The ITTerminalSupport2 interface is derived from the ITTerminalSupport interface. ITTerminalSupport2 supports the retrieval of information about pluggable terminal classes and superclasses by C, C++, and scripting applications.
  * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nn-tapi3if-itterminalsupport2
  * @namespace Windows.Win32.Devices.Tapi
- * @version v4.0.30319
  */
-class ITTerminalSupport2 extends ITTerminalSupport{
+class ITTerminalSupport2 extends ITTerminalSupport {
 
     static sizeof => A_PtrSize
     /**

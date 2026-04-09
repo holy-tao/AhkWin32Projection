@@ -5,10 +5,8 @@
  * The SESSION_BUFFER structure contains information about a local network session. One or more SESSION_BUFFER structures follows a SESSION_HEADER structure when an application specifies the NCBSSTAT command in the ncb_command member of the NCB structure.
  * @see https://learn.microsoft.com/windows/win32/api/nb30/ns-nb30-session_buffer
  * @namespace Windows.Win32.NetworkManagement.NetBios
- * @version v4.0.30319
  */
-class SESSION_BUFFER extends Win32Struct
-{
+class SESSION_BUFFER extends Win32Struct {
     static sizeof => 36
 
     static packingSize => 1
@@ -23,7 +21,6 @@ class SESSION_BUFFER extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     state {
@@ -33,9 +30,9 @@ class SESSION_BUFFER extends Win32Struct
 
     /**
      * Specifies the 16-byte NetBIOS name on the local computer used for this session.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    local_name{
+    local_name {
         get {
             if(!this.HasProp("__local_nameProxyArray"))
                 this.__local_nameProxyArray := Win32FixedArray(this.ptr + 2, 16, Primitive, "char")
@@ -45,9 +42,9 @@ class SESSION_BUFFER extends Win32Struct
 
     /**
      * Specifies the 16-byte NetBIOS name on the remote computer used for this session.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    remote_name{
+    remote_name {
         get {
             if(!this.HasProp("__remote_nameProxyArray"))
                 this.__remote_nameProxyArray := Win32FixedArray(this.ptr + 18, 16, Primitive, "char")

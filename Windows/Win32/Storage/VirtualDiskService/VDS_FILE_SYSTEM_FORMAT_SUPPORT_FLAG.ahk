@@ -8,9 +8,8 @@
  * <div> </div>
  * @see https://learn.microsoft.com/windows/win32/api/vds/ne-vds-vds_file_system_format_support_flag
  * @namespace Windows.Win32.Storage.VirtualDiskService
- * @version v4.0.30319
  */
-class VDS_FILE_SYSTEM_FORMAT_SUPPORT_FLAG extends Win32Enum{
+class VDS_FILE_SYSTEM_FORMAT_SUPPORT_FLAG extends Win32Enum {
 
     /**
      * The file system is the default file system to be used for formatting the volume.

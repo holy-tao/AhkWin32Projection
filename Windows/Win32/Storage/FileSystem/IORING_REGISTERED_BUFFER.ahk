@@ -7,10 +7,8 @@
  * By using both a buffer index within the submission queue and an offset within the buffer, you can use large buffers and schedule multiple I/O ring operations within the same buffer to be performed asynchronously.
  * @see https://learn.microsoft.com/windows/win32/api/ntioring_x/ns-ntioring_x-ioring_registered_buffer
  * @namespace Windows.Win32.Storage.FileSystem
- * @version v4.0.30319
  */
-class IORING_REGISTERED_BUFFER extends Win32Struct
-{
+class IORING_REGISTERED_BUFFER extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4

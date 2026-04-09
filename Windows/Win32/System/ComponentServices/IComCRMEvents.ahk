@@ -7,9 +7,8 @@
  * Notifies the subscriber about activities of the Compensating Resource Manager (CRM) feature of Component Services.
  * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nn-comsvcs-icomcrmevents
  * @namespace Windows.Win32.System.ComponentServices
- * @version v4.0.30319
  */
-class IComCRMEvents extends IUnknown{
+class IComCRMEvents extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

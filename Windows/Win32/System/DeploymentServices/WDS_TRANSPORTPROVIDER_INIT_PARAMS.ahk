@@ -7,10 +7,8 @@
  * This structure is used by the WdsTransportProviderInitialize callback function. (WDS_TRANSPORTPROVIDER_INIT_PARAMS)
  * @see https://learn.microsoft.com/windows/win32/api/wdstpdi/ns-wdstpdi-wds_transportprovider_init_params
  * @namespace Windows.Win32.System.DeploymentServices
- * @version v4.0.30319
  */
-class WDS_TRANSPORTPROVIDER_INIT_PARAMS extends Win32Struct
-{
+class WDS_TRANSPORTPROVIDER_INIT_PARAMS extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -38,7 +36,7 @@ class WDS_TRANSPORTPROVIDER_INIT_PARAMS extends Win32Struct
      *      store and retrieve its settings.
      * @type {HKEY}
      */
-    hRegistryKey{
+    hRegistryKey {
         get {
             if(!this.HasProp("__hRegistryKey"))
                 this.__hRegistryKey := HKEY(8, this)
@@ -50,7 +48,7 @@ class WDS_TRANSPORTPROVIDER_INIT_PARAMS extends Win32Struct
      * A handle that the provider can use to uniquely identify itself in calls to the multicast server.
      * @type {HANDLE}
      */
-    hProvider{
+    hProvider {
         get {
             if(!this.HasProp("__hProvider"))
                 this.__hProvider := HANDLE(16, this)

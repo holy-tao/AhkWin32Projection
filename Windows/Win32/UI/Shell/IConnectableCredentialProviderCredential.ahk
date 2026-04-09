@@ -13,9 +13,8 @@
  * All tasks that might take an extended period of time, such as connecting to a network, should be handled with the <a href="https://docs.microsoft.com/windows/desktop/api/credentialprovider/nf-credentialprovider-iconnectablecredentialprovidercredential-connect">Connect</a> method.
  * @see https://learn.microsoft.com/windows/win32/api/credentialprovider/nn-credentialprovider-iconnectablecredentialprovidercredential
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IConnectableCredentialProviderCredential extends ICredentialProviderCredential{
+class IConnectableCredentialProviderCredential extends ICredentialProviderCredential {
 
     static sizeof => A_PtrSize
     /**

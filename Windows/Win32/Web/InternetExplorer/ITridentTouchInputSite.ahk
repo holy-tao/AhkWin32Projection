@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Web.InternetExplorer
- * @version v4.0.30319
  */
-class ITridentTouchInputSite extends IUnknown{
+class ITridentTouchInputSite extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -30,7 +29,7 @@ class ITridentTouchInputSite extends IUnknown{
 
     /**
      * 
-     * @param {Integer} msTouchAction 
+     * @param {styleMsTouchAction} msTouchAction 
      * @returns {HRESULT} 
      */
     SetManipulationMode(msTouchAction) {

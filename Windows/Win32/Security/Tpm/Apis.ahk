@@ -3,7 +3,6 @@
 
 /**
  * @namespace Windows.Win32.Security.Tpm
- * @version v4.0.30319
  */
 class Tpm {
 

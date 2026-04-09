@@ -5,10 +5,9 @@
 
 /**
  * @namespace Windows.Win32.Globalization
- * @version v4.0.30319
  * @charset ANSI
  */
-class IMLangStringBufA extends IUnknown{
+class IMLangStringBufA extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

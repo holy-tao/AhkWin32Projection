@@ -1,16 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IEnumString.ahk
 #Include .\IUnknown.ahk
 
 /**
  * The IEnumString (objidlbase.h) interface enumerates strings. LPWSTR is the type that indicates a pointer to a zero-terminated string of wide, or Unicode, characters.
  * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nn-objidlbase-ienumstring
  * @namespace Windows.Win32.System.Com
- * @version v4.0.30319
  */
-class IEnumString extends IUnknown{
+class IEnumString extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

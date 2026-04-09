@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IWICBitmapFrameEncode.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\IWICBitmapFrameEncode.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Imaging
- * @version v4.0.30319
  */
-class IWICBitmapFrameChainWriter extends IUnknown{
+class IWICBitmapFrameChainWriter extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -31,7 +30,7 @@ class IWICBitmapFrameChainWriter extends IUnknown{
 
     /**
      * 
-     * @param {Integer} chainType 
+     * @param {WICBitmapChainType} chainType 
      * @param {Pointer<IPropertyBag2>} ppIEncoderOptions 
      * @returns {IWICBitmapFrameEncode} 
      */
@@ -42,7 +41,7 @@ class IWICBitmapFrameChainWriter extends IUnknown{
 
     /**
      * 
-     * @param {Integer} chainType 
+     * @param {WICBitmapChainType} chainType 
      * @returns {BOOL} 
      */
     DoesSupportChainType(chainType) {

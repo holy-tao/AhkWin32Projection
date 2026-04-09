@@ -6,13 +6,11 @@
  * Identifies one or more page-ranges to be printed and, optionally, identifies only the even or odd pages as part of a pageset.
  * @see https://learn.microsoft.com/windows/win32/api/docobj/ns-docobj-pageset
  * @namespace Windows.Win32.System.Ole
- * @version v4.0.30319
  */
-class PAGESET extends Win32Struct
-{
+class PAGESET extends Win32Struct {
     static sizeof => 24
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * The number of bytes in this instance of the <b>PAGESET</b> structure. This member must be a multiple of 4.
@@ -52,9 +50,9 @@ class PAGESET extends Win32Struct
 
     /**
      * Pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/docobj/ns-docobj-pagerange">PAGERANGE</a> structures specifying the pages to be printed. One or more page ranges can be specified, so long as the number of page ranges is the value of <b>cPageRange</b>. The page ranges must be sorted in ascending order and must be non-overlapping.
-     * @type {Array<PAGERANGE>}
+     * @type {PAGERANGE}
      */
-    rgPages{
+    rgPages {
         get {
             if(!this.HasProp("__rgPagesProxyArray"))
                 this.__rgPagesProxyArray := Win32FixedArray(this.ptr + 16, 1, PAGERANGE, "")

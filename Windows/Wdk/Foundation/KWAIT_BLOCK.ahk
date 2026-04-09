@@ -1,72 +1,76 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\Win32Struct.ahk
-#Include ..\..\Win32\System\Kernel\LIST_ENTRY.ahk
+#Include .\KQUEUE.ahk
+#Include .\KDPC.ahk
 
 /**
  * @namespace Windows.Wdk.Foundation
- * @version v4.0.30319
  */
-class KWAIT_BLOCK extends Win32Struct
-{
-    static sizeof => 48
+class KWAIT_BLOCK extends Win32Struct {
+    static sizeof => 40
 
     static packingSize => 8
 
     /**
-     * @type {LIST_ENTRY}
+     * @type {Pointer}
      */
-    WaitListEntry{
-        get {
-            if(!this.HasProp("__WaitListEntry"))
-                this.__WaitListEntry := LIST_ENTRY(0, this)
-            return this.__WaitListEntry
-        }
+    WaitListEntry {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
      * @type {Integer}
      */
     WaitType {
-        get => NumGet(this, 16, "char")
-        set => NumPut("char", value, this, 16)
+        get => NumGet(this, 8, "char")
+        set => NumPut("char", value, this, 8)
     }
 
     /**
      * @type {Integer}
      */
     BlockState {
-        get => NumGet(this, 17, "char")
-        set => NumPut("char", value, this, 17)
+        get => NumGet(this, 9, "char")
+        set => NumPut("char", value, this, 9)
     }
 
     /**
      * @type {Integer}
      */
     WaitKey {
-        get => NumGet(this, 18, "ushort")
-        set => NumPut("ushort", value, this, 18)
+        get => NumGet(this, 10, "ushort")
+        set => NumPut("ushort", value, this, 10)
     }
 
     /**
      * @type {Pointer<Pointer>}
      */
     Thread {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
      * @type {Pointer<KQUEUE>}
      */
     NotificationQueue {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
      * @type {Pointer<KDPC>}
      */
     Dpc {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
+    }
+
+    /**
+     * @type {Pointer<Void>}
+     */
+    Object {
         get => NumGet(this, 24, "ptr")
         set => NumPut("ptr", value, this, 24)
     }
@@ -74,16 +78,8 @@ class KWAIT_BLOCK extends Win32Struct
     /**
      * @type {Pointer<Void>}
      */
-    Object {
+    SparePtr {
         get => NumGet(this, 32, "ptr")
         set => NumPut("ptr", value, this, 32)
-    }
-
-    /**
-     * @type {Pointer<Void>}
-     */
-    SparePtr {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
     }
 }

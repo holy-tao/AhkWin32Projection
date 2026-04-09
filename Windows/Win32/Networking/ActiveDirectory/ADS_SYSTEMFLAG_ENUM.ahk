@@ -10,9 +10,8 @@
  * <div> </div>
  * @see https://learn.microsoft.com/windows/win32/api/iads/ne-iads-ads_systemflag_enum
  * @namespace Windows.Win32.Networking.ActiveDirectory
- * @version v4.0.30319
  */
-class ADS_SYSTEMFLAG_ENUM extends Win32Enum{
+class ADS_SYSTEMFLAG_ENUM extends Win32Enum {
 
     /**
      * Identifies an object that cannot be deleted.

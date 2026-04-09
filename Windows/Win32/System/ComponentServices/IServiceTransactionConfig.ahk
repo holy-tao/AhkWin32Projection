@@ -7,9 +7,8 @@
  * Configures the transaction services for the work that is done when calling either CoCreateActivity or CoEnterServiceDomain. (IServiceTransactionConfig)
  * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nn-comsvcs-iservicetransactionconfig
  * @namespace Windows.Win32.System.ComponentServices
- * @version v4.0.30319
  */
-class IServiceTransactionConfig extends IServiceTransactionConfigBase{
+class IServiceTransactionConfig extends IServiceTransactionConfigBase {
 
     static sizeof => A_PtrSize
     /**

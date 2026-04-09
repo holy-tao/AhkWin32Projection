@@ -1,10 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include .\INetFwAuthorizedApplication.ahk
 #Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * The INetFwAuthorizedApplications interface provides access to a collection of applications authorized open ports in the firewall.
@@ -16,9 +15,8 @@
  * configuration changes take effect immediately.
  * @see https://learn.microsoft.com/windows/win32/api/netfw/nn-netfw-inetfwauthorizedapplications
  * @namespace Windows.Win32.NetworkManagement.WindowsFirewall
- * @version v4.0.30319
  */
-class INetFwAuthorizedApplications extends IDispatch{
+class INetFwAuthorizedApplications extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

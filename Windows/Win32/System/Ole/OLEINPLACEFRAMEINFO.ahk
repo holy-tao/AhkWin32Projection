@@ -9,10 +9,8 @@
  * When an object is being in-place activated, its server calls the container's <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nf-oleidl-ioleinplacesite-getwindowcontext">IOleInPlaceSite::GetWindowContext</a> method, which fills in an <b>OLEINPLACEFRAMEINFO</b> structure. During an in-place session, the message loop of an EXE server passes a pointer to the <b>OLEINPLACEFRAMEINFO</b> structure to <a href="https://docs.microsoft.com/windows/desktop/api/ole2/nf-ole2-oletranslateaccelerator">OleTranslateAccelerator</a>. OLE uses the information in this structure to determine whether a message maps to one of the container's accelerators.
  * @see https://learn.microsoft.com/windows/win32/api/oleidl/ns-oleidl-oleinplaceframeinfo
  * @namespace Windows.Win32.System.Ole
- * @version v4.0.30319
  */
-class OLEINPLACEFRAMEINFO extends Win32Struct
-{
+class OLEINPLACEFRAMEINFO extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -39,7 +37,7 @@ class OLEINPLACEFRAMEINFO extends Win32Struct
      * A handle to the container's top-level frame window.
      * @type {HWND}
      */
-    hwndFrame{
+    hwndFrame {
         get {
             if(!this.HasProp("__hwndFrame"))
                 this.__hwndFrame := HWND(8, this)
@@ -51,7 +49,7 @@ class OLEINPLACEFRAMEINFO extends Win32Struct
      * A handle to the accelerator table that the container wants to use during an in-place editing session.
      * @type {HACCEL}
      */
-    haccel{
+    haccel {
         get {
             if(!this.HasProp("__haccel"))
                 this.__haccel := HACCEL(16, this)

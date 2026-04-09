@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\IMFCaptureSink.ahk
 #Include .\IMFCaptureSource.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Controls one or more capture devices.
@@ -11,9 +11,8 @@
  * <b>IMFCaptureEngine</b> only supports one pass CBR encoding.
  * @see https://learn.microsoft.com/windows/win32/api/mfcaptureengine/nn-mfcaptureengine-imfcaptureengine
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFCaptureEngine extends IUnknown{
+class IMFCaptureEngine extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -320,7 +319,7 @@ class IMFCaptureEngine extends IUnknown{
 
     /**
      * Gets a pointer to one of the capture sink objects.
-     * @param {Integer} mfCaptureEngineSinkType An <a href="https://docs.microsoft.com/windows/desktop/api/mfcaptureengine/ne-mfcaptureengine-mf_capture_engine_sink_type">MF_CAPTURE_ENGINE_SINK_TYPE</a> value that specifies the capture sink to retrieve.
+     * @param {MF_CAPTURE_ENGINE_SINK_TYPE} mfCaptureEngineSinkType An <a href="https://docs.microsoft.com/windows/desktop/api/mfcaptureengine/ne-mfcaptureengine-mf_capture_engine_sink_type">MF_CAPTURE_ENGINE_SINK_TYPE</a> value that specifies the capture sink to retrieve.
      * @returns {IMFCaptureSink} Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfcaptureengine/nn-mfcaptureengine-imfcapturesink">IMFCaptureSink</a> interface. The caller must release the interface.
      * @see https://learn.microsoft.com/windows/win32/api/mfcaptureengine/nf-mfcaptureengine-imfcaptureengine-getsink
      */

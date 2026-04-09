@@ -5,9 +5,8 @@
  * Specifies the automatic image processing capabilities of the video processor.
  * @see https://learn.microsoft.com/windows/win32/api/d3d11/ne-d3d11-d3d11_video_processor_auto_stream_caps
  * @namespace Windows.Win32.Graphics.Direct3D11
- * @version v4.0.30319
  */
-class D3D11_VIDEO_PROCESSOR_AUTO_STREAM_CAPS extends Win32Enum{
+class D3D11_VIDEO_PROCESSOR_AUTO_STREAM_CAPS extends Win32Enum {
 
     /**
      * Denoise.

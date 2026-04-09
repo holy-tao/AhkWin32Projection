@@ -9,10 +9,8 @@
  * To use this class from Microsoft Visual Basic, add a reference to the COM+ Services Type Library. A SecurityCallContext object can be declared using "COMSVCSLib.SecurityCallContext" as the class name; it is created by calling [**GetSecurityCallContext**](/windows/desktop/api/ComSvcs/nf-comsvcs-igetsecuritycallcontext-getsecuritycallcontext).
  * @see https://learn.microsoft.com/windows/win32/cossdk/securitycallcontext
  * @namespace Windows.Win32.System.ComponentServices
- * @version v4.0.30319
  */
-class SecurityCallContext extends Win32Struct
-{
+class SecurityCallContext extends Win32Struct {
     static sizeof => 0
 
     static packingSize => 1

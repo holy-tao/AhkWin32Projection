@@ -9,9 +9,8 @@
  * For Windows Driver Model (WDM) devices, the <a href="https://docs.microsoft.com/windows/desktop/DirectShow/wdm-video-capture-filter">WDM Video Capture Filter</a> automatically exposes this interface if the WDM driver supports the <a href="https://docs.microsoft.com/windows-hardware/drivers/stream/propsetid-vidcap-cameracontrol">PROPSETID_VIDCAP_CAMERACONTROL</a> property set. For more information, see the <a href="https://docs.microsoft.com/windows-hardware/drivers/gettingstarted/">Windows Driver Kit (WDK)</a> documentation.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-iamcameracontrol
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IAMCameraControl extends IUnknown{
+class IAMCameraControl extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -34,7 +33,7 @@ class IAMCameraControl extends IUnknown{
 
     /**
      * The GetRange method gets the range and default value of a specified camera property.
-     * @param {Integer} _Property 
+     * @param {Integer} _Property Specifies the property to query, as a value from the [CameraControlProperty](/windows/desktop/api/strmif/ne-strmif-cameracontrolproperty) enumeration.
      * @param {Pointer<Integer>} pMin Receives the minimum value of the property.
      * @param {Pointer<Integer>} pMax Receives the maximum value of the property.
      * @param {Pointer<Integer>} pSteppingDelta Receives the step size for the property. The step size is the smallest increment by which the property can change.
@@ -58,7 +57,7 @@ class IAMCameraControl extends IUnknown{
      * The Set method sets a specified property on the camera.
      * @remarks
      * If the <i>Flags</i> parameter is <b>CameraControl_Flags_Auto</b>, the method ignores the <i>lValue</i> parameter.
-     * @param {Integer} _Property 
+     * @param {Integer} _Property Specifies the property to set, as a value from the [CameraControlProperty](/windows/desktop/api/strmif/ne-strmif-cameracontrolproperty) enumeration.
      * @param {Integer} lValue Specifies the new value of the property.
      * @param {Integer} Flags Specifies the desired control setting, as a member of the [CameraControlFlags](/windows/desktop/api/strmif/ne-strmif-cameracontrolflags) enumeration.
      * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
@@ -71,7 +70,7 @@ class IAMCameraControl extends IUnknown{
 
     /**
      * The Get method gets the current setting of a camera property.
-     * @param {Integer} _Property 
+     * @param {Integer} _Property Specifies the property to retrieve, as a value from the [CameraControlProperty](/windows/desktop/api/strmif/ne-strmif-cameracontrolproperty) enumeration.
      * @param {Pointer<Integer>} lValue Receives the value of the property.
      * @param {Pointer<Integer>} Flags Receives a member of the [CameraControlFlags](/windows/desktop/api/strmif/ne-strmif-cameracontrolflags) enumeration. The returned value indicates whether the setting is controlled manually or automatically.
      * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.

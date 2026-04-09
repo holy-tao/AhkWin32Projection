@@ -7,10 +7,8 @@
  * This structure corresponds to parameters of the <b>IAMVideoAccelerator::Execute</b> method in DirectX Video Acceleration (DXVA) version 1.
  * @see https://learn.microsoft.com/windows/win32/api/dxva2api/ns-dxva2api-dxva2_decodeextensiondata
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class DXVA2_DecodeExtensionData extends Win32Struct
-{
+class DXVA2_DecodeExtensionData extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8

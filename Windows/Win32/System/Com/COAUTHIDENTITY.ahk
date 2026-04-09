@@ -10,10 +10,8 @@
  * This structure is equivalent to the <a href="https://docs.microsoft.com/windows/desktop/api/sspi/ns-sspi-sec_winnt_auth_identity_a">SEC_WINNT_AUTH_IDENTITY</a> structure.
  * @see https://learn.microsoft.com/windows/win32/api/wtypesbase/ns-wtypesbase-coauthidentity
  * @namespace Windows.Win32.System.Com
- * @version v4.0.30319
  */
-class COAUTHIDENTITY extends Win32Struct
-{
+class COAUTHIDENTITY extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8

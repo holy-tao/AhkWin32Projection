@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HWND.ahk
 #Include .\NMHDR.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include .\NMLVEMPTYMARKUP_FLAGS.ahk
 
 /**
  * Contains information used with the LVN_GETEMPTYMARKUP notification code.
  * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-nmlvemptymarkup
  * @namespace Windows.Win32.UI.Controls
- * @version v4.0.30319
  */
-class NMLVEMPTYMARKUP extends Win32Struct
-{
+class NMLVEMPTYMARKUP extends Win32Struct {
     static sizeof => 4200
 
     static packingSize => 8
@@ -21,7 +20,7 @@ class NMLVEMPTYMARKUP extends Win32Struct
      * Info on the notification message.
      * @type {NMHDR}
      */
-    hdr{
+    hdr {
         get {
             if(!this.HasProp("__hdr"))
                 this.__hdr := NMHDR(0, this)
@@ -31,7 +30,7 @@ class NMLVEMPTYMARKUP extends Win32Struct
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
-     * @type {Integer}
+     * @type {NMLVEMPTYMARKUP_FLAGS}
      */
     dwFlags {
         get => NumGet(this, 24, "uint")

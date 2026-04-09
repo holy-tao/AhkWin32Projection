@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.HumanInterfaceDevice
- * @version v4.0.30319
  */
-class DIOBJECTDATAFORMAT extends Win32Struct
-{
+class DIOBJECTDATAFORMAT extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

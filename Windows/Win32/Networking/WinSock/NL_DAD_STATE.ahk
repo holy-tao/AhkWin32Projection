@@ -9,36 +9,30 @@
  * On the Microsoft Windows Software Development Kit (SDK) released for Windows Vista and later, the organization of header files has changed and the <b>IP_DAD_STATE</b> enumeration is defined in the <i>Nldef.h</i> header file which is automatically included by the <i>Iptypes.h</i> header file. The  <i>Nldef.h</i> and <i>Iptypes.h</i> header files should never be used directly.
  * @see https://learn.microsoft.com/windows/win32/api/nldef/ne-nldef-nl_dad_state
  * @namespace Windows.Win32.Networking.WinSock
- * @version v4.0.30319
  */
-class NL_DAD_STATE extends Win32Enum{
+class NL_DAD_STATE extends Win32Enum {
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static NldsInvalid => 0
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static NldsTentative => 1
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static NldsDuplicate => 2
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static NldsDeprecated => 3
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static NldsPreferred => 4

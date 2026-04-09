@@ -1,17 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\IGenericDescriptor.ahk
-#Include .\IDVB_SDT.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
+#Include .\IGenericDescriptor.ahk
 
 /**
  * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005 and later.
  * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nn-dvbsiparser-idvb_sdt
  * @namespace Windows.Win32.Media.DirectShow.Tv
- * @version v4.0.30319
  */
-class IDVB_SDT extends IUnknown{
+class IDVB_SDT extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

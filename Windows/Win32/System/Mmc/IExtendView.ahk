@@ -7,9 +7,8 @@
  * The IExtendView interface provides information about the extended view.
  * @see https://learn.microsoft.com/windows/win32/api/mmc/nn-mmc-iextendview
  * @namespace Windows.Win32.System.Mmc
- * @version v4.0.30319
  */
-class IExtendView extends IUnknown{
+class IExtendView extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

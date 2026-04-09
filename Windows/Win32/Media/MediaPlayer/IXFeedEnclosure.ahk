@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Media.MediaPlayer
- * @version v4.0.30319
  */
-class IXFeedEnclosure extends IUnknown{
+class IXFeedEnclosure extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -88,7 +87,7 @@ class IXFeedEnclosure extends IUnknown{
      * Note This section describes functionality designed for use by online stores. | DownloadStatus Element (Msfeeds.h)
      * @remarks
      * Windows Media Player displays a message to users when a download is in progress. If the current active services defines a download status URL, the user can click the message text. When the user clicks the message, the Player navigates to the URL specified by the **DownloadStatus** element so the current active store can provide details about downloads in progress.
-     * @returns {Integer} 
+     * @returns {FEEDS_DOWNLOAD_STATUS} 
      * @see https://learn.microsoft.com/windows/win32/WMP/downloadstatus-element
      */
     DownloadStatus() {
@@ -98,7 +97,7 @@ class IXFeedEnclosure extends IUnknown{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {FEEDS_DOWNLOAD_ERROR} 
      */
     LastDownloadError() {
         result := ComCall(9, this, "int*", &pfde := 0, "HRESULT")

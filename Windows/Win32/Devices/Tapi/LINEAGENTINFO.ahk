@@ -6,10 +6,8 @@
  * The LINEAGENTINFO structure contains information about an ACD agent. The lineGetAgentInfo function returns the LINEAGENTINFO structure.
  * @see https://learn.microsoft.com/windows/win32/api/tapi/ns-tapi-lineagentinfo
  * @namespace Windows.Win32.Devices.Tapi
- * @version v4.0.30319
  */
-class LINEAGENTINFO extends Win32Struct
-{
+class LINEAGENTINFO extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 8
@@ -74,7 +72,7 @@ class LINEAGENTINFO extends Win32Struct
      * Agent's call rate (calls per agent hour — where agent hour represents the time that an agent was active in one or more agent sessions) across all agent sessions. This is a fixed-point decimal number.
      * @type {CY}
      */
-    cyOverallCallRate{
+    cyOverallCallRate {
         get {
             if(!this.HasProp("__cyOverallCallRate"))
                 this.__cyOverallCallRate := CY(24, this)

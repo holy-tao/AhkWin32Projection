@@ -5,9 +5,8 @@
  * The TAPI_TONEMODE enum is used to describe the different selections that are used when generating line tones.
  * @see https://learn.microsoft.com/windows/win32/api/tapi3if/ne-tapi3if-tapi_tonemode
  * @namespace Windows.Win32.Devices.Tapi
- * @version v4.0.30319
  */
-class TAPI_TONEMODE extends Win32Enum{
+class TAPI_TONEMODE extends Win32Enum {
 
     /**
      * The tone is a ringback tone. Exact definition is service-provider defined.

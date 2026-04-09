@@ -1,13 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\KSIDENTIFIER.ahk
+#Include .\KSEVENTDATA.ahk
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
- * @version v4.0.30319
  */
-class KSQUERYBUFFER extends Win32Struct
-{
+class KSQUERYBUFFER extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -15,7 +14,7 @@ class KSQUERYBUFFER extends Win32Struct
     /**
      * @type {KSIDENTIFIER}
      */
-    Event{
+    Event {
         get {
             if(!this.HasProp("__Event"))
                 this.__Event := KSIDENTIFIER(0, this)

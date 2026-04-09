@@ -1,9 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\ITaskNamedValueCollection.ahk
 #Include .\IAction.ahk
+#Include .\ITaskNamedValueCollection.ahk
 
 /**
  * Represents an action that sends an email message.
@@ -15,9 +14,8 @@
  * <b>Windows 8 and Windows Server 2012:  </b>This interface has been removed. Please use IExecAction with the  powershell <a href="https://docs.microsoft.com/powershell/module/microsoft.powershell.utility/send-mailmessage">Send-MailMessage</a> cmdlet as a workaround.
  * @see https://learn.microsoft.com/windows/win32/api/taskschd/nn-taskschd-iemailaction
  * @namespace Windows.Win32.System.TaskScheduler
- * @version v4.0.30319
  */
-class IEmailAction extends IAction{
+class IEmailAction extends IAction {
 
     static sizeof => A_PtrSize
     /**
@@ -39,6 +37,7 @@ class IEmailAction extends IAction{
     static VTableNames => ["get_Server", "put_Server", "get_Subject", "put_Subject", "get_To", "put_To", "get_Cc", "put_Cc", "get_Bcc", "put_Bcc", "get_ReplyTo", "put_ReplyTo", "get_From", "put_From", "get_HeaderFields", "put_HeaderFields", "get_Body", "put_Body", "get_Attachments", "put_Attachments"]
 
     /**
+     * @type {BSTR} 
      */
     Server {
         get => this.get_Server()
@@ -46,6 +45,7 @@ class IEmailAction extends IAction{
     }
 
     /**
+     * @type {BSTR} 
      */
     Subject {
         get => this.get_Subject()
@@ -53,6 +53,7 @@ class IEmailAction extends IAction{
     }
 
     /**
+     * @type {BSTR} 
      */
     To {
         get => this.get_To()
@@ -60,6 +61,7 @@ class IEmailAction extends IAction{
     }
 
     /**
+     * @type {BSTR} 
      */
     Cc {
         get => this.get_Cc()
@@ -67,6 +69,7 @@ class IEmailAction extends IAction{
     }
 
     /**
+     * @type {BSTR} 
      */
     Bcc {
         get => this.get_Bcc()
@@ -74,6 +77,7 @@ class IEmailAction extends IAction{
     }
 
     /**
+     * @type {BSTR} 
      */
     ReplyTo {
         get => this.get_ReplyTo()
@@ -81,6 +85,7 @@ class IEmailAction extends IAction{
     }
 
     /**
+     * @type {BSTR} 
      */
     From {
         get => this.get_From()
@@ -96,6 +101,7 @@ class IEmailAction extends IAction{
     }
 
     /**
+     * @type {BSTR} 
      */
     Body {
         get => this.get_Body()
@@ -103,6 +109,7 @@ class IEmailAction extends IAction{
     }
 
     /**
+     * @type {SAFEARRAY} 
      */
     Attachments {
         get => this.get_Attachments()

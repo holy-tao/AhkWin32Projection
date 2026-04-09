@@ -8,16 +8,13 @@
  * The FD_DEVICEMETRICS structure is used to provide device-specific font information to GDI if the iMode parameter of the driver-supplied DrvQueryFontData function is QFD_MAXEXTENTS.
  * @see https://learn.microsoft.com/windows/win32/api/winddi/ns-winddi-fd_devicemetrics
  * @namespace Windows.Win32.Devices.Display
- * @version v4.0.30319
  */
-class FD_DEVICEMETRICS extends Win32Struct
-{
+class FD_DEVICEMETRICS extends Win32Struct {
     static sizeof => 124
 
     static packingSize => 4
 
     /**
-     * 
      * @type {Integer}
      */
     flRealizedType {
@@ -29,7 +26,7 @@ class FD_DEVICEMETRICS extends Win32Struct
      * Specifies a POINTE structure that contains the notional space unit vector along the font's baseline, transformed to device space and then normalized. For more information, see POINTE in <a href="https://docs.microsoft.com/windows-hardware/drivers/display/gdi-data-types">GDI Data Types</a>.
      * @type {POINTE}
      */
-    pteBase{
+    pteBase {
         get {
             if(!this.HasProp("__pteBase"))
                 this.__pteBase := POINTE(4, this)
@@ -41,7 +38,7 @@ class FD_DEVICEMETRICS extends Win32Struct
      * Specifies POINTE structure that contains a notional space unit vector perpendicular to the font's baseline in the direction of the ascender, transformed to device space and then normalized. In notional space, baseline and ascender directions must be orthogonal, but in device space, <b>pteBase</b> and <b>pteSide</b> do not have to be orthogonal, depending on the Notional to Device space transform.
      * @type {POINTE}
      */
-    pteSide{
+    pteSide {
         get {
             if(!this.HasProp("__pteSide"))
                 this.__pteSide := POINTE(12, this)
@@ -80,7 +77,7 @@ class FD_DEVICEMETRICS extends Win32Struct
      * Specifies a <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-pointl">POINTL</a> structure that contains the hinted underline position for this font instance, relative to the glyph's character origin.
      * @type {POINTL}
      */
-    ptlUnderline1{
+    ptlUnderline1 {
         get {
             if(!this.HasProp("__ptlUnderline1"))
                 this.__ptlUnderline1 := POINTL(32, this)
@@ -92,7 +89,7 @@ class FD_DEVICEMETRICS extends Win32Struct
      * Specifies a POINTL structure that contains the hinted strikeout position for this font instance, relative to the glyph's character origin.
      * @type {POINTL}
      */
-    ptlStrikeOut{
+    ptlStrikeOut {
         get {
             if(!this.HasProp("__ptlStrikeOut"))
                 this.__ptlStrikeOut := POINTL(40, this)
@@ -104,7 +101,7 @@ class FD_DEVICEMETRICS extends Win32Struct
      * Specifies a POINTL structure that contains the hinted underline thickness for this font instance. This vector defines the side of the rectangle used to draw the underline. The base is implicitly defined by the baseline.
      * @type {POINTL}
      */
-    ptlULThickness{
+    ptlULThickness {
         get {
             if(!this.HasProp("__ptlULThickness"))
                 this.__ptlULThickness := POINTL(48, this)
@@ -116,7 +113,7 @@ class FD_DEVICEMETRICS extends Win32Struct
      * Specifies a POINTL structure that contains the hinted strikeout thickness for this font instance. This vector defines the side of the rectangle used to draw the strikeout. The base is implicitly defined by the baseline.
      * @type {POINTL}
      */
-    ptlSOThickness{
+    ptlSOThickness {
         get {
             if(!this.HasProp("__ptlSOThickness"))
                 this.__ptlSOThickness := POINTL(56, this)
@@ -155,7 +152,7 @@ class FD_DEVICEMETRICS extends Win32Struct
      * Specifies an <a href="https://docs.microsoft.com/windows/desktop/api/winddi/ns-winddi-fd_xform">FD_XFORM</a> structure. The font driver fills in the font transformation that is actually used in the realization of the font. This may differ from the transformation requested by GDI as defined by <a href="https://docs.microsoft.com/windows/desktop/api/winddi/nf-winddi-fontobj_pxogetxform">FONTOBJ_pxoGetXform</a>.
      * @type {FD_XFORM}
      */
-    fdxQuantized{
+    fdxQuantized {
         get {
             if(!this.HasProp("__fdxQuantized"))
                 this.__fdxQuantized := FD_XFORM(76, this)
@@ -228,9 +225,9 @@ class FD_DEVICEMETRICS extends Win32Struct
 
     /**
      * Is reserved and should be ignored by the font provider.
-     * @type {Array<Int32>}
+     * @type {Array<Integer>}
      */
-    alReserved{
+    alReserved {
         get {
             if(!this.HasProp("__alReservedProxyArray"))
                 this.__alReservedProxyArray := Win32FixedArray(this.ptr + 120, 1, Primitive, "int")

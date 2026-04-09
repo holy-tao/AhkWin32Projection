@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.Iis
- * @version v4.0.30319
  */
-class AsyncIFtpAuthenticationProvider extends IUnknown{
+class AsyncIFtpAuthenticationProvider extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

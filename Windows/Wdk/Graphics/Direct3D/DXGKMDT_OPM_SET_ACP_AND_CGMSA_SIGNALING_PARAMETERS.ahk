@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
- * @version v4.0.30319
  */
-class DXGKMDT_OPM_SET_ACP_AND_CGMSA_SIGNALING_PARAMETERS extends Win32Struct
-{
+class DXGKMDT_OPM_SET_ACP_AND_CGMSA_SIGNALING_PARAMETERS extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 4
@@ -68,9 +66,9 @@ class DXGKMDT_OPM_SET_ACP_AND_CGMSA_SIGNALING_PARAMETERS extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    ulReserved{
+    ulReserved {
         get {
             if(!this.HasProp("__ulReservedProxyArray"))
                 this.__ulReservedProxyArray := Win32FixedArray(this.ptr + 28, 4, Primitive, "uint")
@@ -79,9 +77,9 @@ class DXGKMDT_OPM_SET_ACP_AND_CGMSA_SIGNALING_PARAMETERS extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    ulReserved2{
+    ulReserved2 {
         get {
             if(!this.HasProp("__ulReserved2ProxyArray"))
                 this.__ulReserved2ProxyArray := Win32FixedArray(this.ptr + 44, 4, Primitive, "uint")

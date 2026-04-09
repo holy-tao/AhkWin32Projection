@@ -5,10 +5,8 @@
  * Defines the field information.
  * @see https://learn.microsoft.com/windows/win32/api/tdh/ns-tdh-provider_field_info
  * @namespace Windows.Win32.System.Diagnostics.Etw
- * @version v4.0.30319
  */
-class PROVIDER_FIELD_INFO extends Win32Struct
-{
+class PROVIDER_FIELD_INFO extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

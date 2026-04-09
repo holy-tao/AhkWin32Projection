@@ -5,9 +5,8 @@
  * Specifies the kind of timed text track.
  * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/ne-mfmediaengine-mf_timed_text_track_kind
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class MF_TIMED_TEXT_TRACK_KIND extends Win32Enum{
+class MF_TIMED_TEXT_TRACK_KIND extends Win32Enum {
 
     /**
      * The kind of timed text track is unknown.

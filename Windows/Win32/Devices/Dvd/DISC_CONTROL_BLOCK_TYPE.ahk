@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.Dvd
- * @version v4.0.30319
  */
-class DISC_CONTROL_BLOCK_TYPE extends Win32Enum{
+class DISC_CONTROL_BLOCK_TYPE extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

@@ -5,9 +5,8 @@
  * Specifies the frequency of a TV tuner (cable or antenna). (AMTunerModeType)
  * @see https://learn.microsoft.com/windows/win32/api/strmif/ne-strmif-amtunermodetype
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class AMTunerModeType extends Win32Enum{
+class AMTunerModeType extends Win32Enum {
 
     /**
      * Indicates default tuner mode.

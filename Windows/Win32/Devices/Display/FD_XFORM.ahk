@@ -7,16 +7,14 @@
  * This structure is used typically to hold notional-to-device-space font transformations.
  * @see https://learn.microsoft.com/windows/win32/api/winddi/ns-winddi-fd_xform
  * @namespace Windows.Win32.Devices.Display
- * @version v4.0.30319
+ * @architecture X64, Arm64
  */
-class FD_XFORM extends Win32Struct
-{
+class FD_XFORM extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4
 
     /**
-     * 
      * @type {Float}
      */
     eXX {
@@ -25,7 +23,6 @@ class FD_XFORM extends Win32Struct
     }
 
     /**
-     * 
      * @type {Float}
      */
     eXY {
@@ -34,7 +31,6 @@ class FD_XFORM extends Win32Struct
     }
 
     /**
-     * 
      * @type {Float}
      */
     eYX {

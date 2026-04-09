@@ -7,9 +7,8 @@
  * Provides methods necessary for displaying an elevated access control editor when a user clicks the Edit button on an access control editor page that displays an image of a shield on that Edit button.
  * @see https://learn.microsoft.com/windows/win32/api/aclui/nn-aclui-isecurityinformation3
  * @namespace Windows.Win32.Security.Authorization.UI
- * @version v4.0.30319
  */
-class ISecurityInformation3 extends IUnknown{
+class ISecurityInformation3 extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -42,8 +41,8 @@ class ISecurityInformation3 extends IUnknown{
 
     /**
      * Opens an access control editor when a user clicks the Edit button on an access control editor page that displays an image of a shield on that Edit button.
-     * @param {HWND} _hWnd 
-     * @param {Integer} uPage A value of the <a href="https://docs.microsoft.com/windows/desktop/api/aclui/ne-aclui-si_page_type">SI_PAGE_TYPE</a> enumeration that indicates the page type on which to display the elevated access control editor.
+     * @param {HWND} _hWnd The parent window of the access control editor.
+     * @param {SI_PAGE_TYPE} uPage A value of the <a href="https://docs.microsoft.com/windows/desktop/api/aclui/ne-aclui-si_page_type">SI_PAGE_TYPE</a> enumeration that indicates the page type on which to display the elevated access control editor.
      * @returns {HRESULT} If the method succeeds, it returns <b>S_OK</b>.
      * 
      * If the method fails, it returns an error code. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.

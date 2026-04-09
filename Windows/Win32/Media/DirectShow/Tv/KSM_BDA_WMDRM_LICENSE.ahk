@@ -1,14 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\KernelStreaming\KSIDENTIFIER.ahk
 #Include ..\..\KernelStreaming\KSM_NODE.ahk
+#Include ..\..\KernelStreaming\KSIDENTIFIER.ahk
 
 /**
  * @namespace Windows.Win32.Media.DirectShow.Tv
- * @version v4.0.30319
  */
-class KSM_BDA_WMDRM_LICENSE extends Win32Struct
-{
+class KSM_BDA_WMDRM_LICENSE extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -16,7 +14,7 @@ class KSM_BDA_WMDRM_LICENSE extends Win32Struct
     /**
      * @type {KSM_NODE}
      */
-    NodeMethod{
+    NodeMethod {
         get {
             if(!this.HasProp("__NodeMethod"))
                 this.__NodeMethod := KSM_NODE(0, this)
@@ -25,7 +23,7 @@ class KSM_BDA_WMDRM_LICENSE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     uuidKeyID {
         get => NumGet(this, 24, "ptr")

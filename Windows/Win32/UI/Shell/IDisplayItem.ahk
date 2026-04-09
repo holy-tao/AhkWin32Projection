@@ -9,9 +9,8 @@
  * This interface provides only the methods of the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-irelateditem">IRelatedItem</a> interface, from which it inherits.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-idisplayitem
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IDisplayItem extends IRelatedItem{
+class IDisplayItem extends IRelatedItem {
 
     static sizeof => A_PtrSize
     /**

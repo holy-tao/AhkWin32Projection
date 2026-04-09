@@ -1,16 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Include ..\Com\IDispatch.ahk
 #Include ..\Com\IUnknown.ahk
 #Include .\ISWbemPrivilege.ahk
-#Include ..\Com\IDispatch.ahk
 
 /**
  * @namespace Windows.Win32.System.Wmi
- * @version v4.0.30319
  */
-class ISWbemPrivilegeSet extends IDispatch{
+class ISWbemPrivilegeSet extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -67,7 +65,7 @@ class ISWbemPrivilegeSet extends IDispatch{
      * 
      * -   [Methods](#methods)
      * -   [Properties](#properties)
-     * @param {Integer} iPrivilege 
+     * @param {WbemPrivilegeEnum} iPrivilege 
      * @returns {ISWbemPrivilege} 
      * @see https://learn.microsoft.com/windows/win32/wia/-wia-item
      */
@@ -94,7 +92,7 @@ class ISWbemPrivilegeSet extends IDispatch{
      * 
      * The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-ace_header">ACE_HEADER</a> structure placed in the ACE by the <b>AddAccessAllowedAce</b> function specifies a type and size, but provides no inheritance and no ACE flags.
-     * @param {Integer} iPrivilege 
+     * @param {WbemPrivilegeEnum} iPrivilege 
      * @param {VARIANT_BOOL} bIsEnabled 
      * @returns {ISWbemPrivilege} 
      * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-addaccessallowedace
@@ -108,7 +106,7 @@ class ISWbemPrivilegeSet extends IDispatch{
      * Removes a TPM command from the local list of commands blocked from running on the computer.
      * @remarks
      * Managed Object Format (MOF) files contain the definitions for Windows Management Instrumentation (WMI) classes. MOF files are not installed as part of the Windows SDK. They are installed on the server when you add the associated role by using the Server Manager. For more information about MOF files, see [Managed Object Format (MOF)](../wmisdk/managed-object-format--mof-.md).
-     * @param {Integer} iPrivilege 
+     * @param {WbemPrivilegeEnum} iPrivilege 
      * @returns {HRESULT} Type: **uint32**
      * 
      * All TPM errors as well as errors specific to TPM Base Services can be returned.

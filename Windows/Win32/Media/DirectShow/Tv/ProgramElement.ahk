@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Media.DirectShow.Tv
- * @version v4.0.30319
  */
-class ProgramElement extends Win32Struct
-{
+class ProgramElement extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 2

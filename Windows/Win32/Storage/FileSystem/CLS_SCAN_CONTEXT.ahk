@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\CLFS_NODE_ID.ahk
 #Include ..\..\Foundation\HANDLE.ahk
+#Include .\CLS_CONTAINER_INFORMATION.ahk
 
 /**
  * The CLS_SCAN_CONTEXT structure contains information about the containers that are being scanned by ScanLogContainers.
@@ -9,10 +10,8 @@
  * This structure is allocated by the client, initialized using <a href="https://docs.microsoft.com/windows/desktop/api/clfsw32/nf-clfsw32-createlogcontainerscancontext">CreateLogContainerScanContext</a>, and then passed to <a href="https://docs.microsoft.com/windows/desktop/api/clfsw32/nf-clfsw32-scanlogcontainers">ScanLogContainers</a> in repeated calls.
  * @see https://learn.microsoft.com/windows/win32/api/clfs/ns-clfs-cls_scan_context~r1
  * @namespace Windows.Win32.Storage.FileSystem
- * @version v4.0.30319
  */
-class CLS_SCAN_CONTEXT extends Win32Struct
-{
+class CLS_SCAN_CONTEXT extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -21,7 +20,7 @@ class CLS_SCAN_CONTEXT extends Win32Struct
      * The ID of the current node. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/clfs/ns-clfs-clfs_node_id">CLFS_NODE_ID</a>.
      * @type {CLFS_NODE_ID}
      */
-    cidNode{
+    cidNode {
         get {
             if(!this.HasProp("__cidNode"))
                 this.__cidNode := CLFS_NODE_ID(0, this)
@@ -33,7 +32,7 @@ class CLS_SCAN_CONTEXT extends Win32Struct
      * A handle to the log being scanned that is obtained from <a href="https://docs.microsoft.com/windows/desktop/api/clfsw32/nf-clfsw32-createlogfile">CreateLogFile</a> with permissions  to scan the log containers.
      * @type {HANDLE}
      */
-    hLog{
+    hLog {
         get {
             if(!this.HasProp("__hLog"))
                 this.__hLog := HANDLE(8, this)

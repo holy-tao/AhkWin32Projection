@@ -7,9 +7,8 @@
  * The IVssProviderCreateSnapshotSet interface contains the methods used during shadow copy creation.
  * @see https://learn.microsoft.com/windows/win32/api/vsprov/nn-vsprov-ivssprovidercreatesnapshotset
  * @namespace Windows.Win32.Storage.Vss
- * @version v4.0.30319
  */
-class IVssProviderCreateSnapshotSet extends IUnknown{
+class IVssProviderCreateSnapshotSet extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

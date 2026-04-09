@@ -5,10 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.Usb
- * @version v4.0.30319
  */
-class USB_PORT_STATUS extends Win32Struct
-{
+class USB_PORT_STATUS extends Win32Struct {
     static sizeof => 10
 
     static packingSize => 1
@@ -24,7 +22,7 @@ class USB_PORT_STATUS extends Win32Struct
     /**
      * @type {USB_20_PORT_STATUS}
      */
-    Usb20PortStatus{
+    Usb20PortStatus {
         get {
             if(!this.HasProp("__Usb20PortStatus"))
                 this.__Usb20PortStatus := USB_20_PORT_STATUS(0, this)
@@ -35,7 +33,7 @@ class USB_PORT_STATUS extends Win32Struct
     /**
      * @type {USB_30_PORT_STATUS}
      */
-    Usb30PortStatus{
+    Usb30PortStatus {
         get {
             if(!this.HasProp("__Usb30PortStatus"))
                 this.__Usb30PortStatus := USB_30_PORT_STATUS(0, this)

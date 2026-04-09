@@ -12,10 +12,8 @@
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw
- * @version v4.0.30319
  */
-class DDHAL_CALLBACKS extends Win32Struct
-{
+class DDHAL_CALLBACKS extends Win32Struct {
     static sizeof => 1448
 
     static packingSize => 8
@@ -23,7 +21,7 @@ class DDHAL_CALLBACKS extends Win32Struct
     /**
      * @type {DDHAL_DDCALLBACKS}
      */
-    cbDDCallbacks{
+    cbDDCallbacks {
         get {
             if(!this.HasProp("__cbDDCallbacks"))
                 this.__cbDDCallbacks := DDHAL_DDCALLBACKS(0, this)
@@ -34,7 +32,7 @@ class DDHAL_CALLBACKS extends Win32Struct
     /**
      * @type {DDHAL_DDSURFACECALLBACKS}
      */
-    cbDDSurfaceCallbacks{
+    cbDDSurfaceCallbacks {
         get {
             if(!this.HasProp("__cbDDSurfaceCallbacks"))
                 this.__cbDDSurfaceCallbacks := DDHAL_DDSURFACECALLBACKS(88, this)
@@ -45,7 +43,7 @@ class DDHAL_CALLBACKS extends Win32Struct
     /**
      * @type {DDHAL_DDPALETTECALLBACKS}
      */
-    cbDDPaletteCallbacks{
+    cbDDPaletteCallbacks {
         get {
             if(!this.HasProp("__cbDDPaletteCallbacks"))
                 this.__cbDDPaletteCallbacks := DDHAL_DDPALETTECALLBACKS(208, this)
@@ -56,7 +54,7 @@ class DDHAL_CALLBACKS extends Win32Struct
     /**
      * @type {DDHAL_DDCALLBACKS}
      */
-    HALDD{
+    HALDD {
         get {
             if(!this.HasProp("__HALDD"))
                 this.__HALDD := DDHAL_DDCALLBACKS(232, this)
@@ -67,7 +65,7 @@ class DDHAL_CALLBACKS extends Win32Struct
     /**
      * @type {DDHAL_DDSURFACECALLBACKS}
      */
-    HALDDSurface{
+    HALDDSurface {
         get {
             if(!this.HasProp("__HALDDSurface"))
                 this.__HALDDSurface := DDHAL_DDSURFACECALLBACKS(320, this)
@@ -78,7 +76,7 @@ class DDHAL_CALLBACKS extends Win32Struct
     /**
      * @type {DDHAL_DDPALETTECALLBACKS}
      */
-    HALDDPalette{
+    HALDDPalette {
         get {
             if(!this.HasProp("__HALDDPalette"))
                 this.__HALDDPalette := DDHAL_DDPALETTECALLBACKS(440, this)
@@ -89,7 +87,7 @@ class DDHAL_CALLBACKS extends Win32Struct
     /**
      * @type {DDHAL_DDCALLBACKS}
      */
-    HELDD{
+    HELDD {
         get {
             if(!this.HasProp("__HELDD"))
                 this.__HELDD := DDHAL_DDCALLBACKS(464, this)
@@ -100,7 +98,7 @@ class DDHAL_CALLBACKS extends Win32Struct
     /**
      * @type {DDHAL_DDSURFACECALLBACKS}
      */
-    HELDDSurface{
+    HELDDSurface {
         get {
             if(!this.HasProp("__HELDDSurface"))
                 this.__HELDDSurface := DDHAL_DDSURFACECALLBACKS(552, this)
@@ -111,7 +109,7 @@ class DDHAL_CALLBACKS extends Win32Struct
     /**
      * @type {DDHAL_DDPALETTECALLBACKS}
      */
-    HELDDPalette{
+    HELDDPalette {
         get {
             if(!this.HasProp("__HELDDPalette"))
                 this.__HELDDPalette := DDHAL_DDPALETTECALLBACKS(672, this)
@@ -122,7 +120,7 @@ class DDHAL_CALLBACKS extends Win32Struct
     /**
      * @type {DDHAL_DDEXEBUFCALLBACKS}
      */
-    cbDDExeBufCallbacks{
+    cbDDExeBufCallbacks {
         get {
             if(!this.HasProp("__cbDDExeBufCallbacks"))
                 this.__cbDDExeBufCallbacks := DDHAL_DDEXEBUFCALLBACKS(696, this)
@@ -133,7 +131,7 @@ class DDHAL_CALLBACKS extends Win32Struct
     /**
      * @type {DDHAL_DDEXEBUFCALLBACKS}
      */
-    HALDDExeBuf{
+    HALDDExeBuf {
         get {
             if(!this.HasProp("__HALDDExeBuf"))
                 this.__HALDDExeBuf := DDHAL_DDEXEBUFCALLBACKS(744, this)
@@ -144,7 +142,7 @@ class DDHAL_CALLBACKS extends Win32Struct
     /**
      * @type {DDHAL_DDEXEBUFCALLBACKS}
      */
-    HELDDExeBuf{
+    HELDDExeBuf {
         get {
             if(!this.HasProp("__HELDDExeBuf"))
                 this.__HELDDExeBuf := DDHAL_DDEXEBUFCALLBACKS(792, this)
@@ -155,7 +153,7 @@ class DDHAL_CALLBACKS extends Win32Struct
     /**
      * @type {DDHAL_DDVIDEOPORTCALLBACKS}
      */
-    cbDDVideoPortCallbacks{
+    cbDDVideoPortCallbacks {
         get {
             if(!this.HasProp("__cbDDVideoPortCallbacks"))
                 this.__cbDDVideoPortCallbacks := DDHAL_DDVIDEOPORTCALLBACKS(840, this)
@@ -166,7 +164,7 @@ class DDHAL_CALLBACKS extends Win32Struct
     /**
      * @type {DDHAL_DDVIDEOPORTCALLBACKS}
      */
-    HALDDVideoPort{
+    HALDDVideoPort {
         get {
             if(!this.HasProp("__HALDDVideoPort"))
                 this.__HALDDVideoPort := DDHAL_DDVIDEOPORTCALLBACKS(976, this)
@@ -177,7 +175,7 @@ class DDHAL_CALLBACKS extends Win32Struct
     /**
      * @type {DDHAL_DDCOLORCONTROLCALLBACKS}
      */
-    cbDDColorControlCallbacks{
+    cbDDColorControlCallbacks {
         get {
             if(!this.HasProp("__cbDDColorControlCallbacks"))
                 this.__cbDDColorControlCallbacks := DDHAL_DDCOLORCONTROLCALLBACKS(1112, this)
@@ -188,7 +186,7 @@ class DDHAL_CALLBACKS extends Win32Struct
     /**
      * @type {DDHAL_DDCOLORCONTROLCALLBACKS}
      */
-    HALDDColorControl{
+    HALDDColorControl {
         get {
             if(!this.HasProp("__HALDDColorControl"))
                 this.__HALDDColorControl := DDHAL_DDCOLORCONTROLCALLBACKS(1128, this)
@@ -199,7 +197,7 @@ class DDHAL_CALLBACKS extends Win32Struct
     /**
      * @type {DDHAL_DDMISCELLANEOUSCALLBACKS}
      */
-    cbDDMiscellaneousCallbacks{
+    cbDDMiscellaneousCallbacks {
         get {
             if(!this.HasProp("__cbDDMiscellaneousCallbacks"))
                 this.__cbDDMiscellaneousCallbacks := DDHAL_DDMISCELLANEOUSCALLBACKS(1144, this)
@@ -210,7 +208,7 @@ class DDHAL_CALLBACKS extends Win32Struct
     /**
      * @type {DDHAL_DDMISCELLANEOUSCALLBACKS}
      */
-    HALDDMiscellaneous{
+    HALDDMiscellaneous {
         get {
             if(!this.HasProp("__HALDDMiscellaneous"))
                 this.__HALDDMiscellaneous := DDHAL_DDMISCELLANEOUSCALLBACKS(1184, this)
@@ -221,7 +219,7 @@ class DDHAL_CALLBACKS extends Win32Struct
     /**
      * @type {DDHAL_DDKERNELCALLBACKS}
      */
-    cbDDKernelCallbacks{
+    cbDDKernelCallbacks {
         get {
             if(!this.HasProp("__cbDDKernelCallbacks"))
                 this.__cbDDKernelCallbacks := DDHAL_DDKERNELCALLBACKS(1224, this)
@@ -232,7 +230,7 @@ class DDHAL_CALLBACKS extends Win32Struct
     /**
      * @type {DDHAL_DDKERNELCALLBACKS}
      */
-    HALDDKernel{
+    HALDDKernel {
         get {
             if(!this.HasProp("__HALDDKernel"))
                 this.__HALDDKernel := DDHAL_DDKERNELCALLBACKS(1248, this)
@@ -243,7 +241,7 @@ class DDHAL_CALLBACKS extends Win32Struct
     /**
      * @type {DDHAL_DDMOTIONCOMPCALLBACKS}
      */
-    cbDDMotionCompCallbacks{
+    cbDDMotionCompCallbacks {
         get {
             if(!this.HasProp("__cbDDMotionCompCallbacks"))
                 this.__cbDDMotionCompCallbacks := DDHAL_DDMOTIONCOMPCALLBACKS(1272, this)
@@ -254,7 +252,7 @@ class DDHAL_CALLBACKS extends Win32Struct
     /**
      * @type {DDHAL_DDMOTIONCOMPCALLBACKS}
      */
-    HALDDMotionComp{
+    HALDDMotionComp {
         get {
             if(!this.HasProp("__HALDDMotionComp"))
                 this.__HALDDMotionComp := DDHAL_DDMOTIONCOMPCALLBACKS(1360, this)

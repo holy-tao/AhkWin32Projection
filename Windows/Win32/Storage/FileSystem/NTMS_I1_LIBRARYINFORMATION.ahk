@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Storage.FileSystem
- * @version v4.0.30319
  */
-class NTMS_I1_LIBRARYINFORMATION extends Win32Struct
-{
+class NTMS_I1_LIBRARYINFORMATION extends Win32Struct {
     static sizeof => 104
 
     static packingSize => 8
@@ -20,7 +18,7 @@ class NTMS_I1_LIBRARYINFORMATION extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     CleanerSlot {
         get => NumGet(this, 8, "ptr")
@@ -28,7 +26,7 @@ class NTMS_I1_LIBRARYINFORMATION extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     CleanerSlotDefault {
         get => NumGet(this, 16, "ptr")
@@ -172,7 +170,7 @@ class NTMS_I1_LIBRARYINFORMATION extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     Reserved {
         get => NumGet(this, 96, "ptr")

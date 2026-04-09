@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.SecurityCenter
- * @version v4.0.30319
  */
-class IWscProduct3 extends IWscProduct2{
+class IWscProduct3 extends IWscProduct2 {
 
     static sizeof => A_PtrSize
     /**

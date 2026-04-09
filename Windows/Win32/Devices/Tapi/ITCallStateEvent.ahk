@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ITCallInfo.ahk
 #Include ..\..\System\Com\IDispatch.ahk
+#Include .\ITCallInfo.ahk
 
 /**
  * The ITCallStateEvent interface contains methods that retrieve the description of call state events.
  * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nn-tapi3if-itcallstateevent
  * @namespace Windows.Win32.Devices.Tapi
- * @version v4.0.30319
  */
-class ITCallStateEvent extends IDispatch{
+class ITCallStateEvent extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -39,14 +38,14 @@ class ITCallStateEvent extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {CALL_STATE} 
      */
     State {
         get => this.get_State()
     }
 
     /**
-     * @type {Integer} 
+     * @type {CALL_STATE_EVENT_CAUSE} 
      */
     Cause {
         get => this.get_Cause()
@@ -72,7 +71,7 @@ class ITCallStateEvent extends IDispatch{
 
     /**
      * The get_State method gets information on the new call state.
-     * @returns {Integer} Pointer to 
+     * @returns {CALL_STATE} Pointer to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/ne-tapi3if-call_state">CALL_STATE</a> constant.
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itcallstateevent-get_state
      */
@@ -83,7 +82,7 @@ class ITCallStateEvent extends IDispatch{
 
     /**
      * The get_Cause method gets the cause associated with this event. (ITCallStateEvent.get_Cause)
-     * @returns {Integer} Pointer to 
+     * @returns {CALL_STATE_EVENT_CAUSE} Pointer to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/ne-tapi3if-call_state_event_cause">CALL_STATE_EVENT_CAUSE</a> indicator.
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itcallstateevent-get_cause
      */

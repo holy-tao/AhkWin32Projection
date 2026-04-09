@@ -15,10 +15,8 @@
  *       The value for <b>SysMemSlicePitch</b> will reflect any padding included in <b>SysMemPitch</b>.
  * @see https://learn.microsoft.com/windows/win32/api/d3d10/ns-d3d10-d3d10_subresource_data
  * @namespace Windows.Win32.Graphics.Direct3D10
- * @version v4.0.30319
  */
-class D3D10_SUBRESOURCE_DATA extends Win32Struct
-{
+class D3D10_SUBRESOURCE_DATA extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

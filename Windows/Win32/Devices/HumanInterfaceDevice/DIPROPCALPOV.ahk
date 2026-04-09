@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.HumanInterfaceDevice
- * @version v4.0.30319
  */
-class DIPROPCALPOV extends Win32Struct
-{
+class DIPROPCALPOV extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 4
@@ -15,7 +13,7 @@ class DIPROPCALPOV extends Win32Struct
     /**
      * @type {DIPROPHEADER}
      */
-    diph{
+    diph {
         get {
             if(!this.HasProp("__diph"))
                 this.__diph := DIPROPHEADER(0, this)
@@ -24,9 +22,9 @@ class DIPROPCALPOV extends Win32Struct
     }
 
     /**
-     * @type {Array<Int32>}
+     * @type {Array<Integer>}
      */
-    lMin{
+    lMin {
         get {
             if(!this.HasProp("__lMinProxyArray"))
                 this.__lMinProxyArray := Win32FixedArray(this.ptr + 16, 5, Primitive, "int")
@@ -35,9 +33,9 @@ class DIPROPCALPOV extends Win32Struct
     }
 
     /**
-     * @type {Array<Int32>}
+     * @type {Array<Integer>}
      */
-    lMax{
+    lMax {
         get {
             if(!this.HasProp("__lMaxProxyArray"))
                 this.__lMaxProxyArray := Win32FixedArray(this.ptr + 36, 5, Primitive, "int")

@@ -5,13 +5,10 @@
 
 /**
  * Use this interface to set HTTP customer headers to write-only, or to set a server certificate validation callback method that you've implemented.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/bits10_3/nn-bits10_3-ibackgroundcopyjobhttpoptions3
  * @namespace Windows.Win32.Networking.BackgroundIntelligentTransferService
- * @version v4.0.30319
  */
-class IBackgroundCopyJobHttpOptions3 extends IBackgroundCopyJobHttpOptions2{
+class IBackgroundCopyJobHttpOptions3 extends IBackgroundCopyJobHttpOptions2 {
 
     static sizeof => A_PtrSize
     /**

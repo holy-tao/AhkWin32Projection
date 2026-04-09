@@ -5,9 +5,8 @@
  * Describes ways to compress part content.
  * @see https://learn.microsoft.com/windows/win32/api/msopc/ne-msopc-opc_compression_options
  * @namespace Windows.Win32.Storage.Packaging.Opc
- * @version v4.0.30319
  */
-class OPC_COMPRESSION_OPTIONS extends Win32Enum{
+class OPC_COMPRESSION_OPTIONS extends Win32Enum {
 
     /**
      * Compression is turned off.

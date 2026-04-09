@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IRdcGeneratorParameters.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\IRdcGeneratorParameters.ahk
 
 /**
  * Used to process the input data and read the parameters used by the generator.
  * @see https://learn.microsoft.com/windows/win32/api/msrdc/nn-msrdc-irdcgenerator
  * @namespace Windows.Win32.Networking.RemoteDifferentialCompression
- * @version v4.0.30319
  */
-class IRdcGenerator extends IUnknown{
+class IRdcGenerator extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -64,7 +63,12 @@ class IRdcGenerator extends IUnknown{
      *       generator was created.
      * @param {Pointer<Pointer<RdcBufferPointer>>} outputBuffers The address of an array of <a href="https://docs.microsoft.com/windows/win32/api/msrdc/ns-msrdc-rdcbufferpointer">RdcBufferPointer</a> structures that 
      *       will receive the output buffers. The <b>m_Used</b> member of these structures will be filled with the number of bytes returned in the buffer.
-     * @param {Pointer<Integer>} _rdc_ErrorCode 
+     * @param {Pointer<RDC_ErrorCode>} _rdc_ErrorCode The address of an <a href="https://docs.microsoft.com/windows/win32/api/msrdc/ne-msrdc-rdc_errorcode">RDC_ErrorCode</a> enumeration that is 
+     *       filled with an RDC specific error code if the return value from the 
+     *       <b>Process</b> method is 
+     *       <b>E_FAIL</b>. If this value is <b>RDC_Win32ErrorCode</b>, then the 
+     *       return value of the <b>Process</b> method contains the 
+     *       specific error code.
      * @returns {HRESULT} This method can return one of these values.
      * @see https://learn.microsoft.com/windows/win32/api/msrdc/nf-msrdc-irdcgenerator-process
      */

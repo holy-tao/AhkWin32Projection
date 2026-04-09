@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\Dxgi\Common\DXGI_FORMAT.ahk
+#Include .\D3D10_USAGE.ahk
 
 /**
  * Describes a 1D texture. (D3D10_TEXTURE1D_DESC)
@@ -7,10 +9,8 @@
  * This structure is used in a call to <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nf-d3d10-id3d10device-createtexture1d">ID3D10Device::CreateTexture1D</a>. A helpful derived structure CD3D10_TEXTURE1D_DESC is declared in D3D10.h, to help create a texture description.
  * @see https://learn.microsoft.com/windows/win32/api/d3d10/ns-d3d10-d3d10_texture1d_desc
  * @namespace Windows.Win32.Graphics.Direct3D10
- * @version v4.0.30319
  */
-class D3D10_TEXTURE1D_DESC extends Win32Struct
-{
+class D3D10_TEXTURE1D_DESC extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 4
@@ -52,7 +52,7 @@ class D3D10_TEXTURE1D_DESC extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dxgiformat/ne-dxgiformat-dxgi_format">DXGI_FORMAT</a></b>
      * 
      * Texture format (see <a href="https://docs.microsoft.com/windows/desktop/api/dxgiformat/ne-dxgiformat-dxgi_format">DXGI_FORMAT</a>).
-     * @type {Integer}
+     * @type {DXGI_FORMAT}
      */
     Format {
         get => NumGet(this, 12, "int")
@@ -63,7 +63,7 @@ class D3D10_TEXTURE1D_DESC extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ne-d3d10-d3d10_usage">D3D10_USAGE</a></b>
      * 
      * Value that identifies how the texture is to be read from and written to. The most common value is D3D10_USAGE-DEFAULT; see <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ne-d3d10-d3d10_usage">D3D10_USAGE</a> for all possible values.
-     * @type {Integer}
+     * @type {D3D10_USAGE}
      */
     Usage {
         get => NumGet(this, 16, "int")

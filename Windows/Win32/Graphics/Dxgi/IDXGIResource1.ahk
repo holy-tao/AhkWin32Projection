@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IDXGIResource.ahk
 #Include .\IDXGISurface2.ahk
 #Include ..\..\Foundation\HANDLE.ahk
-#Include .\IDXGIResource.ahk
 
 /**
  * An IDXGIResource1 interface extends the IDXGIResource interface by adding support for creating a subresource surface object and for creating a handle to a shared resource.
@@ -27,9 +27,8 @@
  *         </b> This API is supported.
  * @see https://learn.microsoft.com/windows/win32/api/dxgi1_2/nn-dxgi1_2-idxgiresource1
  * @namespace Windows.Win32.Graphics.Dxgi
- * @version v4.0.30319
  */
-class IDXGIResource1 extends IDXGIResource{
+class IDXGIResource1 extends IDXGIResource {
 
     static sizeof => A_PtrSize
     /**

@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\D3D12_DRED_PAGE_FAULT_OUTPUT2.ahk
 #Include .\ID3D12DeviceRemovedExtendedData1.ahk
+#Include .\D3D12_DRED_PAGE_FAULT_OUTPUT2.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D12
- * @version v4.0.30319
  */
-class ID3D12DeviceRemovedExtendedData2 extends ID3D12DeviceRemovedExtendedData1{
+class ID3D12DeviceRemovedExtendedData2 extends ID3D12DeviceRemovedExtendedData1 {
 
     static sizeof => A_PtrSize
     /**
@@ -41,7 +40,7 @@ class ID3D12DeviceRemovedExtendedData2 extends ID3D12DeviceRemovedExtendedData1{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {D3D12_DRED_DEVICE_STATE} 
      */
     GetDeviceState() {
         result := ComCall(8, this, "int")

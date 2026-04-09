@@ -7,9 +7,8 @@
  * Enables a debugging or authoring app to receive notification of scripting engine events.
  * @see https://learn.microsoft.com/windows/win32/api/webapplication/nn-webapplication-iwebapplicationscriptevents
  * @namespace Windows.Win32.System.Diagnostics.Debug.WebApp
- * @version v4.0.30319
  */
-class IWebApplicationScriptEvents extends IUnknown{
+class IWebApplicationScriptEvents extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

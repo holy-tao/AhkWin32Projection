@@ -5,9 +5,8 @@
  * Callback flags for fetching data for a placeholder file or folder.
  * @see https://learn.microsoft.com/windows/win32/api/cfapi/ne-cfapi-cf_callback_fetch_data_flags
  * @namespace Windows.Win32.Storage.CloudFilters
- * @version v4.0.30319
  */
-class CF_CALLBACK_FETCH_DATA_FLAGS extends Win32BitflagEnum{
+class CF_CALLBACK_FETCH_DATA_FLAGS extends Win32BitflagEnum {
 
     /**
      * No data fetch flag.

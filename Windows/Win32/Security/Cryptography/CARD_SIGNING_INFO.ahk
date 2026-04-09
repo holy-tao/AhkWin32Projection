@@ -1,12 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\ALG_ID.ahk
 
 /**
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CARD_SIGNING_INFO extends Win32Struct
-{
+class CARD_SIGNING_INFO extends Win32Struct {
     static sizeof => 72
 
     static packingSize => 8
@@ -44,7 +43,7 @@ class CARD_SIGNING_INFO extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {ALG_ID}
      */
     aiHashAlg {
         get => NumGet(this, 16, "uint")

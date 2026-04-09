@@ -1,5 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\D3D12_VIDEO_ENCODER_PICTURE_CONTROL_CODEC_DATA_H264_FLAGS.ahk
+#Include .\D3D12_VIDEO_ENCODER_FRAME_TYPE_H264.ahk
+#Include .\D3D12_VIDEO_ENCODER_REFERENCE_PICTURE_DESCRIPTOR_H264.ahk
+#Include .\D3D12_VIDEO_ENCODER_PICTURE_CONTROL_CODEC_DATA_H264_REFERENCE_PICTURE_MARKING_OPERATION.ahk
+#Include .\D3D12_VIDEO_ENCODER_PICTURE_CONTROL_CODEC_DATA_H264_REFERENCE_PICTURE_LIST_MODIFICATION_OPERATION.ahk
 
 /**
  * Represents the picture level control elements for the associated EncodeFrame command for H.264 encoding.
@@ -10,17 +15,15 @@
  * The following tables list the expected SPS and PPS Values for H264 encoding.
  * @see https://learn.microsoft.com/windows/win32/api/d3d12video/ns-d3d12video-d3d12_video_encoder_picture_control_codec_data_h264
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class D3D12_VIDEO_ENCODER_PICTURE_CONTROL_CODEC_DATA_H264 extends Win32Struct
-{
+class D3D12_VIDEO_ENCODER_PICTURE_CONTROL_CODEC_DATA_H264 extends Win32Struct {
     static sizeof => 136
 
     static packingSize => 8
 
     /**
      * A bitwise OR combination of values from the [D3D12_VIDEO_ENCODER_PICTURE_CONTROL_CODEC_DATA_H264_FLAGS](ne-d3d12video-d3d12_video_encoder_picture_control_codec_data_h264_flags.md) enumeration specifying configuration flags for the frame being encoded.
-     * @type {Integer}
+     * @type {D3D12_VIDEO_ENCODER_PICTURE_CONTROL_CODEC_DATA_H264_FLAGS}
      */
     Flags {
         get => NumGet(this, 0, "int")
@@ -29,7 +32,7 @@ class D3D12_VIDEO_ENCODER_PICTURE_CONTROL_CODEC_DATA_H264 extends Win32Struct
 
     /**
      * A value from the [D3D12_VIDEO_ENCODER_FRAME_TYPE_H264](ne-d3d12video-d3d12_video_encoder_frame_type_h264.md) enumeration specifying the picture type. Make sure that the codec-specific flags support the specified type. This selection must be kept in sync with the GOP structure configuration set by the host. Note that the GOP is defined in display order and this pic type selection must follow the GOP, but in encode order.
-     * @type {Integer}
+     * @type {D3D12_VIDEO_ENCODER_FRAME_TYPE_H264}
      */
     FrameType {
         get => NumGet(this, 4, "int")

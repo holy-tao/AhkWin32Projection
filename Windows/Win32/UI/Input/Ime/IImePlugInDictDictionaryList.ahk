@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
@@ -10,9 +9,8 @@
  * This interface is implemented in classes of ProgID="ImePlugInDictDictionaryList1041" for Microsoft Japanese IME and ProgID="ImePlugInDictDictionaryList2052" for Microsoft Simplified Chinese IME.
  * @see https://learn.microsoft.com/windows/win32/api/msimeapi/nn-msimeapi-iimeplugindictdictionarylist
  * @namespace Windows.Win32.UI.Input.Ime
- * @version v4.0.30319
  */
-class IImePlugInDictDictionaryList extends IUnknown{
+class IImePlugInDictDictionaryList extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

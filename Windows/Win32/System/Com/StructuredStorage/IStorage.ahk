@@ -1,19 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\IUnknown.ahk
 #Include ..\IStream.ahk
-#Include .\IStorage.ahk
 #Include .\IEnumSTATSTG.ahk
 #Include ..\STATSTG.ahk
-#Include ..\IUnknown.ahk
 
 /**
  * The IStorage interface supports the creation and management of structured storage objects.
  * @see https://learn.microsoft.com/windows/win32/api/objidl/nn-objidl-istorage
  * @namespace Windows.Win32.System.Com.StructuredStorage
- * @version v4.0.30319
  */
-class IStorage extends IUnknown{
+class IStorage extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -48,7 +46,7 @@ class IStorage extends IUnknown{
      * </ul>
      * If the stream already exists and <i>grfMode</i> is set to STGM_FAILIFTHERE, this method fails with the return value STG_E_FILEALREADYEXISTS.
      * @param {PWSTR} pwcsName A pointer to a wide character null-terminated Unicode string that contains the name of the newly created stream. The name can be used later to open or reopen the stream. The name must not exceed 31 characters in length, not including the string terminator. The 000 through 01f characters, serving as the first character of the stream/storage name, are reserved for use by OLE. This is a compound file restriction, not a structured storage restriction.
-     * @param {Integer} grfMode Specifies the access mode to use when opening the newly created stream. For more information and descriptions of the possible values, see <a href="https://docs.microsoft.com/windows/desktop/Stg/stgm-constants">STGM Constants</a>.
+     * @param {STGM} grfMode Specifies the access mode to use when opening the newly created stream. For more information and descriptions of the possible values, see <a href="https://docs.microsoft.com/windows/desktop/Stg/stgm-constants">STGM Constants</a>.
      * @param {Integer} reserved1 Reserved for future use; must be zero.
      * @param {Integer} reserved2 Reserved for future use; must be zero.
      * @returns {IStream} On return, pointer to the location of the new 
@@ -67,7 +65,7 @@ class IStorage extends IUnknown{
      * @remarks
      * <b>IStorage::OpenStream</b> opens an existing stream object within this storage object in the access mode specified in <i>grfMode</i>. There are restrictions on the permissions that can be given in <i>grfMode</i>. For example, the permissions on this storage object restrict the permissions on its streams. In general, access restrictions on streams need to be stricter than those on their parent storages. Compound-file streams must be opened with STGM_SHARE_EXCLUSIVE.
      * @param {PWSTR} pwcsName A pointer to a wide character null-terminated Unicode string that contains the name of the stream to open. The 000 through 01f characters, serving as the first character of the stream/storage name, are reserved for use by OLE. This is a compound file restriction, not a structured storage restriction.
-     * @param {Integer} grfMode Specifies the access mode to be assigned to the open stream. For more information and descriptions of possible values, see <a href="https://docs.microsoft.com/windows/desktop/Stg/stgm-constants">STGM Constants</a>.  Other modes you choose must at least specify STGM_SHARE_EXCLUSIVE when calling this method in the compound file implementation.
+     * @param {STGM} grfMode Specifies the access mode to be assigned to the open stream. For more information and descriptions of possible values, see <a href="https://docs.microsoft.com/windows/desktop/Stg/stgm-constants">STGM Constants</a>.  Other modes you choose must at least specify STGM_SHARE_EXCLUSIVE when calling this method in the compound file implementation.
      * @param {Integer} reserved2 Reserved for future use; must be zero.
      * @returns {IStream} A pointer to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a> pointer variable that receives the interface pointer to the newly opened stream object. If an error occurs, *<i>ppstm</i> must be set to <b>NULL</b>.
@@ -96,7 +94,7 @@ class IStorage extends IUnknown{
      * </ul>
      * If a storage object with the same name already exists and <i>grfMode</i> is set to STGM_FAILIFTHERE, this method fails with the return value STG_E_FILEALREADYEXISTS.
      * @param {PWSTR} pwcsName A pointer to a wide character null-terminated Unicode string that contains the name of the newly created storage object. The name can be used later to reopen the storage object. The name must not exceed 31 characters in length, not including the string terminator. The 000 through 01f characters, serving as the first character of the stream/storage name, are reserved for use by OLE. This is a compound file restriction, not a structured storage restriction.
-     * @param {Integer} grfMode A value that specifies the access mode to use when opening the newly created storage object. For more information and a description of possible values, see <a href="https://docs.microsoft.com/windows/desktop/Stg/stgm-constants">STGM Constants</a>.
+     * @param {STGM} grfMode A value that specifies the access mode to use when opening the newly created storage object. For more information and a description of possible values, see <a href="https://docs.microsoft.com/windows/desktop/Stg/stgm-constants">STGM Constants</a>.
      * @param {Integer} reserved1 Reserved for future use; must be zero.
      * @param {Integer} reserved2 Reserved for future use; must be zero.
      * @returns {IStorage} A pointer, when successful, to the location of the 
@@ -119,7 +117,7 @@ class IStorage extends IUnknown{
      * Storage objects can be opened with STGM_DELETEONRELEASE, in which case the object is destroyed when it receives its final release. This is useful for creating temporary storage objects.
      * @param {PWSTR} pwcsName A pointer to a wide character null-terminated Unicode string that contains the name of the storage object to open. The 000 through 01f characters, serving as the first character of the stream/storage name, are reserved for use by OLE. This is a compound file restriction, not a structured storage restriction. It is ignored if <i>pstgPriority</i> is non-<b>NULL</b>.
      * @param {IStorage} pstgPriority Must be <b>NULL</b>. A non-<b>NULL</b> value will return STG_E_INVALIDPARAMETER.
-     * @param {Integer} grfMode Specifies the access mode to use when opening the storage object. For descriptions of the possible values, see <a href="https://docs.microsoft.com/windows/desktop/Stg/stgm-constants">STGM Constants</a>. Other modes you choose must at least specify STGM_SHARE_EXCLUSIVE when calling this method.
+     * @param {STGM} grfMode Specifies the access mode to use when opening the storage object. For descriptions of the possible values, see <a href="https://docs.microsoft.com/windows/desktop/Stg/stgm-constants">STGM Constants</a>. Other modes you choose must at least specify STGM_SHARE_EXCLUSIVE when calling this method.
      * @param {Pointer<Pointer<Integer>>} snbExclude Must be <b>NULL</b>. A non-<b>NULL</b> value will return STG_E_INVALIDPARAMETER.
      * @param {Integer} reserved Reserved for future use; must be zero.
      * @returns {IStorage} When successful, pointer to the location of an 

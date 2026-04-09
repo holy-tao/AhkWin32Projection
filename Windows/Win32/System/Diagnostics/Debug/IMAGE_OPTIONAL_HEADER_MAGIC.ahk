@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug
- * @version v4.0.30319
  */
-class IMAGE_OPTIONAL_HEADER_MAGIC extends Win32Enum{
+class IMAGE_OPTIONAL_HEADER_MAGIC extends Win32Enum {
 
     /**
      * @type {Integer (UInt16)}

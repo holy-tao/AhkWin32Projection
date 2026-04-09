@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.SystemServices
- * @version v4.0.30319
  */
-class IMAGE_IMPORT_CONTROL_TRANSFER_DYNAMIC_RELOCATION extends Win32Struct
-{
+class IMAGE_IMPORT_CONTROL_TRANSFER_DYNAMIC_RELOCATION extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 4

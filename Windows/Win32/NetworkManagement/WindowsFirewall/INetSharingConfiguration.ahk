@@ -1,18 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include .\INetSharingPortMappingCollection.ahk
 #Include .\INetSharingPortMapping.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * The INetSharingConfiguration interface provides methods to manage connection sharing, port mapping, and Internet Connection Firewall.
  * @see https://learn.microsoft.com/windows/win32/api/netcon/nn-netcon-inetsharingconfiguration
  * @namespace Windows.Win32.NetworkManagement.WindowsFirewall
- * @version v4.0.30319
  */
-class INetSharingConfiguration extends IDispatch{
+class INetSharingConfiguration extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -41,7 +39,7 @@ class INetSharingConfiguration extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {SHARINGCONNECTIONTYPE} 
      */
     SharingConnectionType {
         get => this.get_SharingConnectionType()
@@ -80,7 +78,7 @@ class INetSharingConfiguration extends IDispatch{
      * Use the 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/netcon/nf-netcon-inetsharingmanager-get_inetsharingconfigurationforinetconnection">INetSharingManager::get_INetSharingConfigurationForINetConnection</a> method to obtain an 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/netcon/nn-netcon-inetsharingconfiguration">INetSharingConfiguration</a> interface for a particular connection.
-     * @returns {Integer} Pointer to a variable of type 
+     * @returns {SHARINGCONNECTIONTYPE} Pointer to a variable of type 
      * <a href="https://docs.microsoft.com/windows/desktop/api/netcon/ne-netcon-sharingconnectiontype">SHARINGCONNECTIONTYPE</a> that specifies whether this connection is shared publicly or privately.
      * @see https://learn.microsoft.com/windows/win32/api/netcon/nf-netcon-inetsharingconfiguration-get_sharingconnectiontype
      */
@@ -220,7 +218,7 @@ class INetSharingConfiguration extends IDispatch{
      * Use the 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/netcon/nf-netcon-inetsharingmanager-get_inetsharingconfigurationforinetconnection">INetSharingManager::get_INetSharingConfigurationForINetConnection</a> method to obtain an 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/netcon/nn-netcon-inetsharingconfiguration">INetSharingConfiguration</a> interface for a particular connection.
-     * @param {Integer} Type Specifies whether this connection is shared publicly or privately.
+     * @param {SHARINGCONNECTIONTYPE} Type Specifies whether this connection is shared publicly or privately.
      * @returns {HRESULT} If the method succeeds the return value is S_OK.
      * 
      * If the method fails, the return value is one of the following error codes.
@@ -584,7 +582,7 @@ class INetSharingConfiguration extends IDispatch{
      * Use the 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/netcon/nf-netcon-inetsharingmanager-get_inetsharingconfigurationforinetconnection">INetSharingManager::get_INetSharingConfigurationForINetConnection</a> method to obtain an 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/netcon/nn-netcon-inetsharingconfiguration">INetSharingConfiguration</a> interface for a particular connection.
-     * @param {Integer} Flags This parameter must be ICSSC_DEFAULT.
+     * @param {SHARINGCONNECTION_ENUM_FLAGS} Flags This parameter must be ICSSC_DEFAULT.
      * @returns {INetSharingPortMappingCollection} Pointer to an interface pointer that, on successful return, points to a 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/netcon/nn-netcon-inetsharingportmappingcollection">INetSharingPortMappingCollection</a> interface.
      * @see https://learn.microsoft.com/windows/win32/api/netcon/nf-netcon-inetsharingconfiguration-get_enumportmappings
@@ -613,7 +611,7 @@ class INetSharingConfiguration extends IDispatch{
      * @param {Integer} dwOptions This parameter is reserved and not used at this time.
      * @param {BSTR} bstrTargetNameOrIPAddress Pointer to a 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/automat/bstr">BSTR</a> variable that contains the name of the target computer for this port mapping. Specify either the target name or the target IP address, but not both.
-     * @param {Integer} eTargetType Indicates target type.
+     * @param {ICS_TARGETTYPE} eTargetType Indicates target type.
      * @returns {INetSharingPortMapping} Pointer to a pointer that, on successful return, points to an 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/netcon/nn-netcon-inetsharingportmapping">INetSharingPortMapping</a> interface for the port mapping.
      * @see https://learn.microsoft.com/windows/win32/api/netcon/nf-netcon-inetsharingconfiguration-addportmapping

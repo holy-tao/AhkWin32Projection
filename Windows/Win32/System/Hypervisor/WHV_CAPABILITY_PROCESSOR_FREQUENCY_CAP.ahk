@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Hypervisor
- * @version v4.0.30319
  */
-class WHV_CAPABILITY_PROCESSOR_FREQUENCY_CAP extends Win32Struct
-{
+class WHV_CAPABILITY_PROCESSOR_FREQUENCY_CAP extends Win32Struct {
     static sizeof => 20
 
     static packingSize => 4

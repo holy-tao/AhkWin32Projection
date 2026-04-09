@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Security
- * @version v4.0.30319
  */
-class CLAIM_SECURITY_ATTRIBUTE_VALUE_TYPE extends Win32Enum{
+class CLAIM_SECURITY_ATTRIBUTE_VALUE_TYPE extends Win32Enum {
 
     /**
      * @type {Integer (UInt16)}

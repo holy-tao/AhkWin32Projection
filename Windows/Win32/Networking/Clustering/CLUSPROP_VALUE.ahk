@@ -63,10 +63,8 @@
  * </ul>
  * @see https://learn.microsoft.com/windows/win32/api/clusapi/ns-clusapi-clusprop_value
  * @namespace Windows.Win32.Networking.Clustering
- * @version v4.0.30319
  */
-class CLUSPROP_VALUE extends Win32Struct
-{
+class CLUSPROP_VALUE extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4
@@ -76,7 +74,7 @@ class CLUSPROP_VALUE extends Win32Struct
      *       value.
      * @type {CLUSPROP_SYNTAX}
      */
-    Syntax{
+    Syntax {
         get {
             if(!this.HasProp("__Syntax"))
                 this.__Syntax := CLUSPROP_SYNTAX(0, this)

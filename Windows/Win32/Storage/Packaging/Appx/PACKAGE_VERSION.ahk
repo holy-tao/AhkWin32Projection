@@ -5,10 +5,8 @@
  * Represents the package version information.
  * @see https://learn.microsoft.com/windows/win32/api/appmodel/ns-appmodel-package_version
  * @namespace Windows.Win32.Storage.Packaging.Appx
- * @version v4.0.30319
  */
-class PACKAGE_VERSION extends Win32Struct
-{
+class PACKAGE_VERSION extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4

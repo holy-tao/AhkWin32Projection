@@ -5,13 +5,10 @@
 
 /**
  * The ICoreFrameworkInputViewInterop interface is to be determined.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/windows.ui.viewmanagement.core.coreframeworkinputviewinterop/nn-windows-ui-viewmanagement-core-coreframeworkinputviewinterop-icoreframeworkinputviewinterop
  * @namespace Windows.Win32.System.WinRT.CoreInputView
- * @version v4.0.30319
  */
-class ICoreFrameworkInputViewInterop extends IInspectable{
+class ICoreFrameworkInputViewInterop extends IInspectable {
 
     static sizeof => A_PtrSize
     /**

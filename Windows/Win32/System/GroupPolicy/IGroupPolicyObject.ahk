@@ -10,9 +10,8 @@
  * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/gpedit/nn-gpedit-igpeinformation">IGPEInformation</a> interface.
  * @see https://learn.microsoft.com/windows/win32/api/gpedit/nn-gpedit-igrouppolicyobject
  * @namespace Windows.Win32.System.GroupPolicy
- * @version v4.0.30319
  */
-class IGroupPolicyObject extends IUnknown{
+class IGroupPolicyObject extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -58,7 +57,7 @@ class IGroupPolicyObject extends IUnknown{
      * To create a new GPO in the Active Directory, you can call the 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/gpedit/nf-gpedit-igrouppolicyobject-new">New</a> method.
      * @param {PWSTR} pszPath Specifies the Active Directory path of the object to open. If the path specifies a domain controller, the GPO is created on that DC. Otherwise, the system will select a DC on the caller's behalf.
-     * @param {Integer} dwFlags 
+     * @param {GPO_OPEN_FLAGS} dwFlags 
      * @returns {HRESULT} If the method succeeds, the return value is <b>S_OK</b>. Otherwise, the method returns one of the COM error codes defined in the Platform SDK header file WinError.h.
      * @see https://learn.microsoft.com/windows/win32/api/gpedit/nf-gpedit-igrouppolicyobject-opendsgpo
      */
@@ -74,7 +73,7 @@ class IGroupPolicyObject extends IUnknown{
      * @remarks
      * To open the default GPO for a remote computer, you can call the 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/gpedit/nf-gpedit-igrouppolicyobject-openremotemachinegpo">OpenRemoteMachineGPO</a> method.
-     * @param {Integer} dwFlags 
+     * @param {GPO_OPEN_FLAGS} dwFlags 
      * @returns {HRESULT} If the method succeeds, the return value is <b>S_OK</b>. Otherwise, the method returns one of the COM error codes defined in the Platform SDK header file WinError.h.
      * @see https://learn.microsoft.com/windows/win32/api/gpedit/nf-gpedit-igrouppolicyobject-openlocalmachinegpo
      */
@@ -90,7 +89,7 @@ class IGroupPolicyObject extends IUnknown{
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/gpedit/nf-gpedit-igrouppolicyobject-getmachinename">GetMachineName</a> method. Call 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/gpedit/nf-gpedit-igrouppolicyobject-openlocalmachinegpo">OpenLocalMachineGPO</a> to open the default GPO for a local computer.
      * @param {PWSTR} pszComputerName Specifies the name of the computer. The format of the name is &#92;&#92;<i>ComputerName</i>.
-     * @param {Integer} dwFlags 
+     * @param {GPO_OPEN_FLAGS} dwFlags 
      * @returns {HRESULT} If the method succeeds, the return value is <b>S_OK</b>. Otherwise, the method returns one of the COM error codes defined in the Platform SDK header file WinError.h.
      * @see https://learn.microsoft.com/windows/win32/api/gpedit/nf-gpedit-igrouppolicyobject-openremotemachinegpo
      */
@@ -248,8 +247,9 @@ class IGroupPolicyObject extends IUnknown{
      * 
      * When you have finished using the registry handle, call the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regclosekey">RegCloseKey</a> function to close the handle.
-     * @param {Integer} dwSection 
-     * @param {Pointer<HKEY>} _hKey 
+     * @param {GPO_SECTION} dwSection 
+     * @param {Pointer<HKEY>} _hKey Receives a handle to the registry key. This handle is opened with all access rights. For more information, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-key-security-and-access-rights">Registry Key Security and Access Rights</a>.
      * @returns {HRESULT} If the method succeeds, the return value is <b>S_OK</b>. Otherwise, the method returns one of the COM error codes defined in the Platform SDK header file WinError.h. If the registry information is not loaded, the method returns <b>E_FAIL</b>.
      * @see https://learn.microsoft.com/windows/win32/api/gpedit/nf-gpedit-igrouppolicyobject-getregistrykey
      */
@@ -263,7 +263,7 @@ class IGroupPolicyObject extends IUnknown{
      * @remarks
      * To set the options for a GPO, you can call the 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/gpedit/nf-gpedit-igrouppolicyobject-setoptions">SetOptions</a> method.
-     * @param {Pointer<Integer>} dwOptions Receives the options. This parameter can be one or more of the following options.
+     * @param {Pointer<GPO_OPTIONS>} dwOptions Receives the options. This parameter can be one or more of the following options.
      * @returns {HRESULT} If the method succeeds, the return value is <b>S_OK</b>. Otherwise, the method returns one of the COM error codes defined in the Platform SDK header file WinError.h.
      * @see https://learn.microsoft.com/windows/win32/api/gpedit/nf-gpedit-igrouppolicyobject-getoptions
      */
@@ -299,7 +299,7 @@ class IGroupPolicyObject extends IUnknown{
      * 
      * To retrieve the options for a GPO, you can call the 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/gpedit/nf-gpedit-igrouppolicyobject-getoptions">GetOptions</a> method.
-     * @param {Integer} dwOptions Specifies the new option values. This parameter can be one or more of the following options. For more information, see the following Remarks section.
+     * @param {GPO_OPTIONS} dwOptions Specifies the new option values. This parameter can be one or more of the following options. For more information, see the following Remarks section.
      * @param {Integer} dwMask Specifies the options to change. This parameter can be one or more of the following options. For more information, see the following Remarks section.
      * @returns {HRESULT} If the method succeeds, the return value is <b>S_OK</b>. Otherwise, the method returns one of the COM error codes defined in the Platform SDK header file WinError.h.
      * @see https://learn.microsoft.com/windows/win32/api/gpedit/nf-gpedit-igrouppolicyobject-setoptions
@@ -311,7 +311,7 @@ class IGroupPolicyObject extends IUnknown{
 
     /**
      * The GetType method retrieves type information for the GPO being edited. (IGroupPolicyObject.GetType)
-     * @param {Pointer<Integer>} gpoType 
+     * @param {Pointer<GROUP_POLICY_OBJECT_TYPE>} gpoType 
      * @returns {HRESULT} If the method succeeds, the return value is <b>S_OK</b>. Otherwise, the method returns one of the COM error codes defined in the Platform SDK header file WinError.h.
      * @see https://learn.microsoft.com/windows/win32/api/gpedit/nf-gpedit-igrouppolicyobject-gettype
      */

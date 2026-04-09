@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IPartBase.ahk
 #Include .\IPartPrintTicket.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 #Include .\IPrintWriteStream.ahk
 #Include .\IXpsPartIterator.ahk
-#Include .\IPartBase.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
- * @version v4.0.30319
  */
-class IFixedPage extends IPartBase{
+class IFixedPage extends IPartBase {
 
     static sizeof => A_PtrSize
     /**

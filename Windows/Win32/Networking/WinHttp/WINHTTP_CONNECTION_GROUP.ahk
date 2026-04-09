@@ -3,14 +3,10 @@
 
 /**
  * Represents a connection group.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/winhttp/ns-winhttp-winhttp_connection_group
  * @namespace Windows.Win32.Networking.WinHttp
- * @version v4.0.30319
  */
-class WINHTTP_CONNECTION_GROUP extends Win32Struct
-{
+class WINHTTP_CONNECTION_GROUP extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
@@ -30,7 +26,7 @@ class WINHTTP_CONNECTION_GROUP extends Win32Struct
      * Type: **[GUID](/windows/win32/api/guiddef/ns-guiddef-guid)**
      * 
      * A http connection **GUID**.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     guidGroup {
         get => NumGet(this, 8, "ptr")

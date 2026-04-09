@@ -7,9 +7,8 @@
  * An extension to IPropertyPage to support initial selection of a property on a page.
  * @see https://learn.microsoft.com/windows/win32/api/ocidl/nn-ocidl-ipropertypage2
  * @namespace Windows.Win32.System.Ole
- * @version v4.0.30319
  */
-class IPropertyPage2 extends IPropertyPage{
+class IPropertyPage2 extends IPropertyPage {
 
     static sizeof => A_PtrSize
     /**

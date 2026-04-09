@@ -5,9 +5,8 @@
  * The types of security keys.
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ne-webservices-ws_security_key_handle_type
  * @namespace Windows.Win32.Networking.WindowsWebServices
- * @version v4.0.30319
  */
-class WS_SECURITY_KEY_HANDLE_TYPE extends Win32Enum{
+class WS_SECURITY_KEY_HANDLE_TYPE extends Win32Enum {
 
     /**
      * Type ID for <a href="https://docs.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_raw_symmetric_security_key_handle">WS_RAW_SYMMETRIC_SECURITY_KEY_HANDLE</a>.

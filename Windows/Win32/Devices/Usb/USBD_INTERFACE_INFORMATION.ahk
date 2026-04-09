@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\USBD_PIPE_INFORMATION.ahk
+#Include .\USBD_PIPE_TYPE.ahk
 
 /**
  * @namespace Windows.Win32.Devices.Usb
- * @version v4.0.30319
  */
-class USBD_INTERFACE_INFORMATION extends Win32Struct
-{
-    static sizeof => 32
+class USBD_INTERFACE_INFORMATION extends Win32Struct {
+    static sizeof => 48
 
     static packingSize => 8
 
@@ -85,9 +84,9 @@ class USBD_INTERFACE_INFORMATION extends Win32Struct
     }
 
     /**
-     * @type {Array<USBD_PIPE_INFORMATION>}
+     * @type {USBD_PIPE_INFORMATION}
      */
-    Pipes{
+    Pipes {
         get {
             if(!this.HasProp("__PipesProxyArray"))
                 this.__PipesProxyArray := Win32FixedArray(this.ptr + 24, 1, USBD_PIPE_INFORMATION, "")

@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 
 /**
  * The ITfCompartment interface is implemented by the TSF manager and is used by clients (applications and text services) to obtain and set data in a TSF compartment.
  * @see https://learn.microsoft.com/windows/win32/api/msctf/nn-msctf-itfcompartment
  * @namespace Windows.Win32.UI.TextServices
- * @version v4.0.30319
  */
-class ITfCompartment extends IUnknown{
+class ITfCompartment extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

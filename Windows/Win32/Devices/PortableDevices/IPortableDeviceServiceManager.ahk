@@ -7,9 +7,8 @@
  * Retrieves the device associated with a service and the list of services found on a device.
  * @see https://learn.microsoft.com/windows/win32/api/portabledeviceapi/nn-portabledeviceapi-iportabledeviceservicemanager
  * @namespace Windows.Win32.Devices.PortableDevices
- * @version v4.0.30319
  */
-class IPortableDeviceServiceManager extends IUnknown{
+class IPortableDeviceServiceManager extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

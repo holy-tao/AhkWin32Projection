@@ -7,9 +7,8 @@
  * Contains methods for interacting with the file catalog.
  * @see https://learn.microsoft.com/windows/win32/api/indexsrv/nn-indexsrv-isimplecommandcreator
  * @namespace Windows.Win32.System.Search
- * @version v4.0.30319
  */
-class ISimpleCommandCreator extends IUnknown{
+class ISimpleCommandCreator extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -7,17 +7,15 @@
  * This structure provides access to the parameters that describe an uncompressed PCM audio format.
  * @see https://learn.microsoft.com/windows/win32/api/audiomediatype/ns-audiomediatype-uncompressedaudioformat
  * @namespace Windows.Win32.Media.Audio.Apo
- * @version v4.0.30319
  */
-class UNCOMPRESSEDAUDIOFORMAT extends Win32Struct
-{
+class UNCOMPRESSEDAUDIOFORMAT extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
 
     /**
      * Specifies the GUID of the data format type.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     guidFormatType {
         get => NumGet(this, 0, "ptr")

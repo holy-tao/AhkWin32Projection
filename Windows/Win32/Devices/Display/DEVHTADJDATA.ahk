@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DEVHTINFO.ahk
 
 /**
  * The DEVHTADJDATA structure is used as input to the HTUI_DeviceColorAdjustment function.
@@ -7,10 +8,8 @@
  * If <b>pAdjHTInfo</b> is <b>NULL</b>, or if <b>pAdjHTInfo</b> and <b>pDefHTInfo</b> point to the same buffer, the <a href="https://docs.microsoft.com/windows/desktop/api/winddi/nf-winddi-htui_devicecoloradjustment">HTUI_DeviceColorAdjustment</a> function displays the halftoning properties supplied by <b>pDefHTInfo</b> but does not allow the user to modify them.
  * @see https://learn.microsoft.com/windows/win32/api/winddi/ns-winddi-devhtadjdata
  * @namespace Windows.Win32.Devices.Display
- * @version v4.0.30319
  */
-class DEVHTADJDATA extends Win32Struct
-{
+class DEVHTADJDATA extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8

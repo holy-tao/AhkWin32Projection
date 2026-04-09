@@ -4,18 +4,16 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
- * @version v4.0.30319
  */
-class DOT11_WFD_DISCOVER_DEVICE_FILTER extends Win32Struct
-{
+class DOT11_WFD_DISCOVER_DEVICE_FILTER extends Win32Struct {
     static sizeof => 44
 
     static packingSize => 4
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    DeviceID{
+    DeviceID {
         get {
             if(!this.HasProp("__DeviceIDProxyArray"))
                 this.__DeviceIDProxyArray := Win32FixedArray(this.ptr + 0, 6, Primitive, "char")
@@ -34,7 +32,7 @@ class DOT11_WFD_DISCOVER_DEVICE_FILTER extends Win32Struct
     /**
      * @type {DOT11_SSID}
      */
-    GroupSSID{
+    GroupSSID {
         get {
             if(!this.HasProp("__GroupSSID"))
                 this.__GroupSSID := DOT11_SSID(8, this)

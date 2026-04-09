@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\DML_TENSOR_DESC.ahk
+#Include .\DML_REDUCE_FUNCTION.ahk
+#Include .\DML_INTERPOLATION_MODE.ahk
 
 /**
  * Computes backpropagation gradients for [ROI_ALIGN](/windows/win32/api/directml/ns-directml-dml_roi_align_operator_desc) and [ROI_ALIGN1](/windows/win32/api/directml/ns-directml-dml_roi_align1_operator_desc).
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/directml/ns-directml-dml_roi_align_grad_operator_desc
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
- * @version v4.0.30319
  */
-class DML_ROI_ALIGN_GRAD_OPERATOR_DESC extends Win32Struct
-{
+class DML_ROI_ALIGN_GRAD_OPERATOR_DESC extends Win32Struct {
     static sizeof => 88
 
     static packingSize => 8
@@ -83,7 +82,7 @@ class DML_ROI_ALIGN_GRAD_OPERATOR_DESC extends Win32Struct
      * Type: [**DML_REDUCE_FUNCTION**](/windows/win32/api/directml/ne-directml-dml_reduce_function)
      * 
      * See [DML_ROI_ALIGN1_OPERATOR_DESC::ReductionFunction](/windows/win32/api/directml/ns-directml-dml_roi_align1_operator_desc).
-     * @type {Integer}
+     * @type {DML_REDUCE_FUNCTION}
      */
     ReductionFunction {
         get => NumGet(this, 48, "int")
@@ -94,7 +93,7 @@ class DML_ROI_ALIGN_GRAD_OPERATOR_DESC extends Win32Struct
      * Type: [**DML_INTERPOLATION_MODE**](/windows/win32/api/directml/ne-directml-dml_interpolation_mode)
      * 
      * See [DML_ROI_ALIGN1_OPERATOR_DESC::InterpolationMode](/windows/win32/api/directml/ns-directml-dml_roi_align1_operator_desc).
-     * @type {Integer}
+     * @type {DML_INTERPOLATION_MODE}
      */
     InterpolationMode {
         get => NumGet(this, 52, "int")

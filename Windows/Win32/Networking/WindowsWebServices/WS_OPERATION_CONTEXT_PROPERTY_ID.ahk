@@ -5,9 +5,8 @@
  * The properties available on the Context. Not all properties may be available at a given point on a context. All context properties are available through WsGetOperationContextProperty.
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ne-webservices-ws_operation_context_property_id
  * @namespace Windows.Win32.Networking.WindowsWebServices
- * @version v4.0.30319
  */
-class WS_OPERATION_CONTEXT_PROPERTY_ID extends Win32Enum{
+class WS_OPERATION_CONTEXT_PROPERTY_ID extends Win32Enum {
 
     /**
      * This value is a handle to the underlying channel. This property is available to service operations ,
@@ -61,13 +60,11 @@ class WS_OPERATION_CONTEXT_PROPERTY_ID extends Win32Enum{
     static WS_OPERATION_CONTEXT_PROPERTY_HEAP => 6
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static WS_OPERATION_CONTEXT_PROPERTY_LISTENER => 7
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static WS_OPERATION_CONTEXT_PROPERTY_ENDPOINT_ADDRESS => 8

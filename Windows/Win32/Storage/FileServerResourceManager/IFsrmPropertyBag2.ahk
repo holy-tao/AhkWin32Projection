@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IFsrmPropertyBag.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
 #Include .\IFsrmCollection.ahk
-#Include .\IFsrmPropertyBag.ahk
 
 /**
  * IFsrmPropertyBag2 Interface
  * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nn-fsrmpipeline-ifsrmpropertybag2
  * @namespace Windows.Win32.Storage.FileServerResourceManager
- * @version v4.0.30319
  */
-class IFsrmPropertyBag2 extends IFsrmPropertyBag{
+class IFsrmPropertyBag2 extends IFsrmPropertyBag {
 
     static sizeof => A_PtrSize
     /**
@@ -34,7 +33,7 @@ class IFsrmPropertyBag2 extends IFsrmPropertyBag{
 
     /**
      * Gets the value of the specified field from the property bag.
-     * @param {Integer} field Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/fsrmenums/ne-fsrmenums-fsrmpropertybagfield">FsrmPropertyBagField</a></b>
+     * @param {FsrmPropertyBagField} field Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/fsrmenums/ne-fsrmenums-fsrmpropertybagfield">FsrmPropertyBagField</a></b>
      * 
      * Indicates whether the volume name returned is the name of the volume being accessed, which may be a snapshot, or the volume where the property bag lives.
      * @returns {VARIANT} Type: <b>VARIANT*</b>

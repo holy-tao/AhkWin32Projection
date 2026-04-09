@@ -7,9 +7,8 @@
  * Exposes methods called by the stream interface (IRDPSRAPITransportStream) to notify the Remote Desktop Protocol (RDP) stack about the completion of events.
  * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nn-rdpencomapi-irdpsrapitransportstreamevents
  * @namespace Windows.Win32.System.DesktopSharing
- * @version v4.0.30319
  */
-class IRDPSRAPITransportStreamEvents extends IUnknown{
+class IRDPSRAPITransportStreamEvents extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

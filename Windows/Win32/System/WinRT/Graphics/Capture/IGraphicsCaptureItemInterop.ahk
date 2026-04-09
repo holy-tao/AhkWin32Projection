@@ -5,13 +5,10 @@
 
 /**
  * Targets a monitor(s) for the creation of a graphics capture item.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/windows.graphics.capture.interop/nf-windows-graphics-capture-interop-igraphicscaptureiteminterop-createformonitor
  * @namespace Windows.Win32.System.WinRT.Graphics.Capture
- * @version v4.0.30319
  */
-class IGraphicsCaptureItemInterop extends IUnknown{
+class IGraphicsCaptureItemInterop extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -54,7 +51,9 @@ class IGraphicsCaptureItemInterop extends IUnknown{
 
     /**
      * Targets a monitor(s) for the creation of a graphics capture item.
-     * @param {HMONITOR} _monitor 
+     * @param {HMONITOR} _monitor Type: **HMONITOR**
+     * 
+     * The monitor handle that represents the monitor to capture.
      * @param {Pointer<Guid>} riid Type: **REFIID**
      * 
      * GUID for the type returned. Supported value: [GraphicsCaptureItem](/uwp/api/windows.graphics.capture.graphicscaptureitem).

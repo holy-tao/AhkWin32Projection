@@ -7,7 +7,6 @@
 
 /**
  * @namespace Windows.Win32.Devices.DeviceAndDriverInstallation
- * @version v4.0.30319
  */
 class DeviceAndDriverInstallation {
 
@@ -5123,7 +5122,7 @@ class DeviceAndDriverInstallation {
      * > The setupapi.h header defines SetupGetInfInformation as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Void>} InfSpec Handle or a file name for an INF file, depending on the value of <i>SearchControl</i>.
      * @param {Integer} SearchControl This parameter can be one of the following constants.
-     * @param {Pointer} ReturnBuffer If not <b>NULL</b>, points to a buffer in which this function returns the <a href="https://docs.microsoft.com/windows/desktop/api/setupapi/ns-setupapi-sp_inf_information">SP_INF_INFORMATION</a> structure. 
+     * @param {Integer} ReturnBuffer If not <b>NULL</b>, points to a buffer in which this function returns the <a href="https://docs.microsoft.com/windows/desktop/api/setupapi/ns-setupapi-sp_inf_information">SP_INF_INFORMATION</a> structure. 
      * 
      * You can call the function one time to get the required buffer size, allocate the necessary memory, and then call the function a second time to retrieve the data. Using this technique, you can avoid errors due to an insufficient buffer size. For more information, see the Remarks section of this topic.
      * @param {Integer} ReturnBufferSize Size of  <i>ReturnBuffer</i>, in bytes.
@@ -5167,7 +5166,7 @@ class DeviceAndDriverInstallation {
      * > The setupapi.h header defines SetupGetInfInformation as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Void>} InfSpec Handle or a file name for an INF file, depending on the value of <i>SearchControl</i>.
      * @param {Integer} SearchControl This parameter can be one of the following constants.
-     * @param {Pointer} ReturnBuffer If not <b>NULL</b>, points to a buffer in which this function returns the <a href="https://docs.microsoft.com/windows/desktop/api/setupapi/ns-setupapi-sp_inf_information">SP_INF_INFORMATION</a> structure. 
+     * @param {Integer} ReturnBuffer If not <b>NULL</b>, points to a buffer in which this function returns the <a href="https://docs.microsoft.com/windows/desktop/api/setupapi/ns-setupapi-sp_inf_information">SP_INF_INFORMATION</a> structure. 
      * 
      * You can call the function one time to get the required buffer size, allocate the necessary memory, and then call the function a second time to retrieve the data. Using this technique, you can avoid errors due to an insufficient buffer size. For more information, see the Remarks section of this topic.
      * @param {Integer} ReturnBufferSize Size of  <i>ReturnBuffer</i>, in bytes.
@@ -5789,7 +5788,7 @@ class DeviceAndDriverInstallation {
      * > [!NOTE]
      * > The setupapi.h header defines SetupGetInfFileList as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PSTR} DirectoryPath Optional pointer to a <b>null</b>-terminated string containing the path of the directory in which to search. If this value is <b>NULL</b>, the %windir%\inf directory is used.
-     * @param {Integer} InfStyle Type of INF file to search for. May be a combination of the following flags.
+     * @param {INF_STYLE} InfStyle Type of INF file to search for. May be a combination of the following flags.
      * @param {PSTR} ReturnBuffer If not <b>NULL</b>, points to a buffer in which this function returns the list of all INF files of the desired styles that were found in the specified subdirectory. File names are <b>null</b>-terminated, with an extra <b>null</b> at the end of the list. The <b>null</b>-terminated string should not exceed the size of the destination buffer. You can call the function once to get the required buffer size, allocate the necessary memory, and then call the function a second time to retrieve the data. Using this technique, you can avoid errors due to an insufficient buffer size. The filenames do not include the path. See the Remarks section.
      * @param {Integer} ReturnBufferSize Size of the buffer pointed to by the <i>ReturnBuffer</i> parameter, in characters. This includes the <b>null</b> terminator. If <i>ReturnBuffer</i> is not specified, <i>ReturnBufferSize</i> is ignored.
      * @param {Pointer<Integer>} RequiredSize If not <b>NULL</b>, points to a variable in which this function returns the required size for the buffer pointed to by the <i>ReturnBuffer</i> parameter, in characters. This includes the <b>null</b> terminator. If <i>ReturnBuffer</i> is specified and the size needed is larger than <i>ReturnBufferSize</i>, the function fails and a call to <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns ERROR_INSUFFICIENT_BUFFER.
@@ -5831,7 +5830,7 @@ class DeviceAndDriverInstallation {
      * > [!NOTE]
      * > The setupapi.h header defines SetupGetInfFileList as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PWSTR} DirectoryPath Optional pointer to a <b>null</b>-terminated string containing the path of the directory in which to search. If this value is <b>NULL</b>, the %windir%\inf directory is used.
-     * @param {Integer} InfStyle Type of INF file to search for. May be a combination of the following flags.
+     * @param {INF_STYLE} InfStyle Type of INF file to search for. May be a combination of the following flags.
      * @param {PWSTR} ReturnBuffer If not <b>NULL</b>, points to a buffer in which this function returns the list of all INF files of the desired styles that were found in the specified subdirectory. File names are <b>null</b>-terminated, with an extra <b>null</b> at the end of the list. The <b>null</b>-terminated string should not exceed the size of the destination buffer. You can call the function once to get the required buffer size, allocate the necessary memory, and then call the function a second time to retrieve the data. Using this technique, you can avoid errors due to an insufficient buffer size. The filenames do not include the path. See the Remarks section.
      * @param {Integer} ReturnBufferSize Size of the buffer pointed to by the <i>ReturnBuffer</i> parameter, in characters. This includes the <b>null</b> terminator. If <i>ReturnBuffer</i> is not specified, <i>ReturnBufferSize</i> is ignored.
      * @param {Pointer<Integer>} RequiredSize If not <b>NULL</b>, points to a variable in which this function returns the required size for the buffer pointed to by the <i>ReturnBuffer</i> parameter, in characters. This includes the <b>null</b> terminator. If <i>ReturnBuffer</i> is specified and the size needed is larger than <i>ReturnBufferSize</i>, the function fails and a call to <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns ERROR_INSUFFICIENT_BUFFER.
@@ -5880,7 +5879,7 @@ class DeviceAndDriverInstallation {
      * > The setupapi.h header defines SetupOpenInfFile as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PWSTR} FileName Pointer to a null-terminated string containing the name (and optional path) of the INF file to be opened. If the filename does not contain path separator characters, it is searched for, first in the %windir%\inf directory, and then in the %windir%\system32 directory. If the filename contains path separator characters, it is assumed to be a full path specification and no further processing is performed on it.
      * @param {PWSTR} InfClass Optional pointer to a null-terminated string containing the class of INF file desired. This string must match the Class value of the <b>Version</b> section (for example, Class=Net). If there is no entry in the Class value, but there is an entry for ClassGUID in the <b>Version</b> section, the corresponding class name for that GUID is retrieved and used for the comparison.
-     * @param {Integer} InfStyle Style of INF file to open or search for. This parameter can be a combination of the following flags.
+     * @param {INF_STYLE} InfStyle Style of INF file to open or search for. This parameter can be a combination of the following flags.
      * @param {Pointer<Integer>} ErrorLine Optional pointer to a variable to which this function returns the (1-based) line number where an error occurred during loading of the INF file. This value is generally reliable only if 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> does not return ERROR_NOT_ENOUGH_MEMORY. If an out-of-memory condition does occur, <i>ErrorLine</i> may be 0.
      * @returns {Pointer<Void>} The function returns a handle to the opened INF file if it is successful. Otherwise, the return value is INVALID_HANDLE_VALUE. Extended error information can be retrieved by a call to 
@@ -5926,7 +5925,7 @@ class DeviceAndDriverInstallation {
      * > The setupapi.h header defines SetupOpenInfFile as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PSTR} FileName Pointer to a null-terminated string containing the name (and optional path) of the INF file to be opened. If the filename does not contain path separator characters, it is searched for, first in the %windir%\inf directory, and then in the %windir%\system32 directory. If the filename contains path separator characters, it is assumed to be a full path specification and no further processing is performed on it.
      * @param {PSTR} InfClass Optional pointer to a null-terminated string containing the class of INF file desired. This string must match the Class value of the <b>Version</b> section (for example, Class=Net). If there is no entry in the Class value, but there is an entry for ClassGUID in the <b>Version</b> section, the corresponding class name for that GUID is retrieved and used for the comparison.
-     * @param {Integer} InfStyle Style of INF file to open or search for. This parameter can be a combination of the following flags.
+     * @param {INF_STYLE} InfStyle Style of INF file to open or search for. This parameter can be a combination of the following flags.
      * @param {Pointer<Integer>} ErrorLine Optional pointer to a variable to which this function returns the (1-based) line number where an error occurred during loading of the INF file. This value is generally reliable only if 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> does not return ERROR_NOT_ENOUGH_MEMORY. If an out-of-memory condition does occur, <i>ErrorLine</i> may be 0.
      * @returns {Pointer<Void>} The function returns a handle to the opened INF file if it is successful. Otherwise, the return value is INVALID_HANDLE_VALUE. Extended error information can be retrieved by a call to 
@@ -6084,9 +6083,9 @@ class DeviceAndDriverInstallation {
      * > [!NOTE]
      * > The setupapi.h header defines SetupFindFirstLine as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Void>} InfHandle Handle to the INF file to query.
-     * @param {PSTR} _Section 
+     * @param {PSTR} _Section Pointer to a <b>null</b>-terminated string specifying the section of the INF files to search in.
      * @param {PSTR} Key Optional pointer to a <b>null</b>-terminated string specifying the key to search for within the section. The <b>null</b>-terminated string should not exceed the size of the destination buffer. This parameter can be <b>NULL</b>. If <i>Key</i> is <b>NULL</b>, the first line in the section is returned.
-     * @param {Pointer<INFCONTEXT>} _Context 
+     * @param {Pointer<INFCONTEXT>} _Context Pointer to a structure that receives the context information used internally by the INF handle. Applications must not overwrite values in this structure.
      * @returns {BOOL} If the function could not find a line, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://learn.microsoft.com/windows/win32/api/setupapi/nf-setupapi-setupfindfirstlinea
@@ -6122,9 +6121,9 @@ class DeviceAndDriverInstallation {
      * > [!NOTE]
      * > The setupapi.h header defines SetupFindFirstLine as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Void>} InfHandle Handle to the INF file to query.
-     * @param {PWSTR} _Section 
+     * @param {PWSTR} _Section Pointer to a <b>null</b>-terminated string specifying the section of the INF files to search in.
      * @param {PWSTR} Key Optional pointer to a <b>null</b>-terminated string specifying the key to search for within the section. The <b>null</b>-terminated string should not exceed the size of the destination buffer. This parameter can be <b>NULL</b>. If <i>Key</i> is <b>NULL</b>, the first line in the section is returned.
-     * @param {Pointer<INFCONTEXT>} _Context 
+     * @param {Pointer<INFCONTEXT>} _Context Pointer to a structure that receives the context information used internally by the INF handle. Applications must not overwrite values in this structure.
      * @returns {BOOL} If the function could not find a line, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://learn.microsoft.com/windows/win32/api/setupapi/nf-setupapi-setupfindfirstlinew
@@ -6258,10 +6257,10 @@ class DeviceAndDriverInstallation {
      * > [!NOTE]
      * > The setupapi.h header defines SetupGetLineByIndex as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Void>} InfHandle Handle to the INF file.
-     * @param {PSTR} _Section 
+     * @param {PSTR} _Section Pointer to a null-terminated string specifying the section of the INF file to search.
      * @param {Integer} Index Index of the line to be located. The total number of lines in a particular section can be found with a 
      *       call to <a href="https://docs.microsoft.com/windows/desktop/api/setupapi/nf-setupapi-setupgetlinecounta">SetupGetLineCount</a>.
-     * @param {Pointer<INFCONTEXT>} _Context 
+     * @param {Pointer<INFCONTEXT>} _Context Pointer to a variable that receives the context information for the found line.
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value. If the function fails, the return value is 
      *        zero. To get extended error information, call 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -6297,10 +6296,10 @@ class DeviceAndDriverInstallation {
      * > [!NOTE]
      * > The setupapi.h header defines SetupGetLineByIndex as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Void>} InfHandle Handle to the INF file.
-     * @param {PWSTR} _Section 
+     * @param {PWSTR} _Section Pointer to a null-terminated string specifying the section of the INF file to search.
      * @param {Integer} Index Index of the line to be located. The total number of lines in a particular section can be found with a 
      *       call to <a href="https://docs.microsoft.com/windows/desktop/api/setupapi/nf-setupapi-setupgetlinecounta">SetupGetLineCount</a>.
-     * @param {Pointer<INFCONTEXT>} _Context 
+     * @param {Pointer<INFCONTEXT>} _Context Pointer to a variable that receives the context information for the found line.
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value. If the function fails, the return value is 
      *        zero. To get extended error information, call 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -6328,7 +6327,7 @@ class DeviceAndDriverInstallation {
      * > [!NOTE]
      * > The setupapi.h header defines SetupGetLineCount as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Void>} InfHandle Handle to the INF file.
-     * @param {PSTR} _Section 
+     * @param {PSTR} _Section Pointer to a null-terminated string that specifies the section in which you want to count the lines.
      * @returns {Integer} If <i>InfHandle</i> references multiple INF files that have been appended  using 
      * <a href="https://docs.microsoft.com/windows/desktop/api/setupapi/nf-setupapi-setupopenappendinffilea">SetupOpenAppendInfFile</a>, this function returns the sum of the lines in all of the INF files containing the specified section. A return value of 0 specifies an empty section. If the section does not exist, the function returns –1.
      * 
@@ -6358,7 +6357,7 @@ class DeviceAndDriverInstallation {
      * > [!NOTE]
      * > The setupapi.h header defines SetupGetLineCount as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Void>} InfHandle Handle to the INF file.
-     * @param {PWSTR} _Section 
+     * @param {PWSTR} _Section Pointer to a null-terminated string that specifies the section in which you want to count the lines.
      * @returns {Integer} If <i>InfHandle</i> references multiple INF files that have been appended  using 
      * <a href="https://docs.microsoft.com/windows/desktop/api/setupapi/nf-setupapi-setupopenappendinffilea">SetupOpenAppendInfFile</a>, this function returns the sum of the lines in all of the INF files containing the specified section. A return value of 0 specifies an empty section. If the section does not exist, the function returns –1.
      * 
@@ -6410,9 +6409,9 @@ class DeviceAndDriverInstallation {
      * 
      * > [!NOTE]
      * > The setupapi.h header defines SetupGetLineText as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<INFCONTEXT>} _Context 
+     * @param {Pointer<INFCONTEXT>} _Context Context for a line in an INF file whose text is to be retrieved. This parameter can be <b>NULL</b>. If <i>Context</i> is <b>NULL</b>, <i>InfHandle</i>, <i>Section</i>, and <i>Key</i> must all be specified.
      * @param {Pointer<Void>} InfHandle Handle to the INF file to query. This parameter can be <b>NULL</b>. This parameter is used only if <i>Context</i> is <b>NULL</b>. If <i>Context</i> is <b>NULL</b>, <i>InfHandle</i>, <i>Section</i>, and <i>Key</i> must all be specified.
-     * @param {PSTR} _Section 
+     * @param {PSTR} _Section Pointer to a <b>null</b>-terminated string that specifies the section that  contains the key name of the line whose text is to be retrieved. This parameter can be <b>NULL</b>. This parameter is used only if <i>Context</i> is <b>NULL</b>. If <i>Context</i> is <b>NULL</b>, <i>InfHandle</i>, <i>Section</i>, and <i>Key</i> must be specified.
      * @param {PSTR} Key Pointer to a <b>null</b>-terminated string that contains the key name whose associated string is to be retrieved. This parameter can be <b>NULL</b>. This parameter is used only if <i>Context</i> is <b>NULL</b>. If <i>Context</i> is <b>NULL</b>, <i>InfHandle</i>, <i>Section</i>, and <i>Key</i> must be specified.
      * @param {PSTR} ReturnBuffer If not <b>NULL</b>, <i>ReturnBuffer</i> points to a buffer in which this function returns the contents of the line. The <b>null</b>-terminated string must not exceed the size of the destination buffer. You can call the function once to get the required buffer size, allocate the necessary memory, and then call the function a second time to retrieve the data. Using this technique, you can avoid errors due to an insufficient buffer size. See the Remarks section. This parameter can be <b>NULL</b>.
      * @param {Integer} ReturnBufferSize Size of the buffer pointed to by the <i>ReturnBuffer</i> parameter, in characters. This includes the <b>null</b> terminator.
@@ -6470,9 +6469,9 @@ class DeviceAndDriverInstallation {
      * 
      * > [!NOTE]
      * > The setupapi.h header defines SetupGetLineText as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<INFCONTEXT>} _Context 
+     * @param {Pointer<INFCONTEXT>} _Context Context for a line in an INF file whose text is to be retrieved. This parameter can be <b>NULL</b>. If <i>Context</i> is <b>NULL</b>, <i>InfHandle</i>, <i>Section</i>, and <i>Key</i> must all be specified.
      * @param {Pointer<Void>} InfHandle Handle to the INF file to query. This parameter can be <b>NULL</b>. This parameter is used only if <i>Context</i> is <b>NULL</b>. If <i>Context</i> is <b>NULL</b>, <i>InfHandle</i>, <i>Section</i>, and <i>Key</i> must all be specified.
-     * @param {PWSTR} _Section 
+     * @param {PWSTR} _Section Pointer to a <b>null</b>-terminated string that specifies the section that  contains the key name of the line whose text is to be retrieved. This parameter can be <b>NULL</b>. This parameter is used only if <i>Context</i> is <b>NULL</b>. If <i>Context</i> is <b>NULL</b>, <i>InfHandle</i>, <i>Section</i>, and <i>Key</i> must be specified.
      * @param {PWSTR} Key Pointer to a <b>null</b>-terminated string that contains the key name whose associated string is to be retrieved. This parameter can be <b>NULL</b>. This parameter is used only if <i>Context</i> is <b>NULL</b>. If <i>Context</i> is <b>NULL</b>, <i>InfHandle</i>, <i>Section</i>, and <i>Key</i> must be specified.
      * @param {PWSTR} ReturnBuffer If not <b>NULL</b>, <i>ReturnBuffer</i> points to a buffer in which this function returns the contents of the line. The <b>null</b>-terminated string must not exceed the size of the destination buffer. You can call the function once to get the required buffer size, allocate the necessary memory, and then call the function a second time to retrieve the data. Using this technique, you can avoid errors due to an insufficient buffer size. See the Remarks section. This parameter can be <b>NULL</b>.
      * @param {Integer} ReturnBufferSize Size of the buffer pointed to by the <i>ReturnBuffer</i> parameter, in characters. This includes the <b>null</b> terminator.
@@ -6504,7 +6503,7 @@ class DeviceAndDriverInstallation {
 
     /**
      * The SetupGetFieldCount function retrieves the number of fields in the specified line in an INF file.
-     * @param {Pointer<INFCONTEXT>} _Context 
+     * @param {Pointer<INFCONTEXT>} _Context Pointer to the context for a line in an INF file.
      * @returns {Integer} This function returns the number of fields on the line. If <i>Context</i> is invalid, 0 is returned. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://learn.microsoft.com/windows/win32/api/setupapi/nf-setupapi-setupgetfieldcount
@@ -6538,7 +6537,7 @@ class DeviceAndDriverInstallation {
      * 
      * > [!NOTE]
      * > The setupapi.h header defines SetupGetStringField as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<INFCONTEXT>} _Context 
+     * @param {Pointer<INFCONTEXT>} _Context Pointer to the context for a line in an INF file.
      * @param {Integer} FieldIndex The 1-based index of the field within the specified line from which the string should be retrieved. Use a <i>FieldIndex</i> of 0 to retrieve a string key, if present.
      * @param {PSTR} ReturnBuffer Optional pointer to a  buffer that receives the <b>null</b>-terminated string. You should ensure the destination buffer is the same size or larger than the source buffer.  This parameter can be <b>NULL</b>. See the Remarks section.
      * @param {Integer} ReturnBufferSize Size of the buffer pointed to by <i>ReturnBuffer</i>, in characters. This includes the <b>null</b> terminator.
@@ -6582,7 +6581,7 @@ class DeviceAndDriverInstallation {
      * 
      * > [!NOTE]
      * > The setupapi.h header defines SetupGetStringField as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<INFCONTEXT>} _Context 
+     * @param {Pointer<INFCONTEXT>} _Context Pointer to the context for a line in an INF file.
      * @param {Integer} FieldIndex The 1-based index of the field within the specified line from which the string should be retrieved. Use a <i>FieldIndex</i> of 0 to retrieve a string key, if present.
      * @param {PWSTR} ReturnBuffer Optional pointer to a  buffer that receives the <b>null</b>-terminated string. You should ensure the destination buffer is the same size or larger than the source buffer.  This parameter can be <b>NULL</b>. See the Remarks section.
      * @param {Integer} ReturnBufferSize Size of the buffer pointed to by <i>ReturnBuffer</i>, in characters. This includes the <b>null</b> terminator.
@@ -6613,7 +6612,7 @@ class DeviceAndDriverInstallation {
      * The SetupGetIntField function retrieves an integer value from the specified field of a line in an INF file.
      * @remarks
      * The integer field may start with a positive (+) or negative (-) sign. It will be interpreted as a decimal number, unless  prefixed in the file with 0x or 0X, in which case it is hexadecimal.
-     * @param {Pointer<INFCONTEXT>} _Context 
+     * @param {Pointer<INFCONTEXT>} _Context Pointer to the context for a line in an INF file.
      * @param {Integer} FieldIndex The 1-based index of the field within the specified line from which the integer should be retrieved. 
      * 
      * 
@@ -6659,7 +6658,7 @@ class DeviceAndDriverInstallation {
      * 
      * > [!NOTE]
      * > The setupapi.h header defines SetupGetMultiSzField as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<INFCONTEXT>} _Context 
+     * @param {Pointer<INFCONTEXT>} _Context Pointer to the context for a line in an INF file.
      * @param {Integer} FieldIndex The 1-based index of the starting field within the specified line from which the strings should be retrieved. The string list is built from each field starting at this point to the end of the line. A <i>FieldIndex</i> of zero is not valid with this function.
      * @param {PSTR} ReturnBuffer Optional pointer to a character buffer that receives the strings. Each string is <b>null</b>-terminated, with an extra <b>null</b> at the end of the string list. The <b>null</b>-terminated string should not exceed the size of the destination buffer. You can call the function once to get the required buffer size, allocate the necessary memory, and then call the function a second time to retrieve the data. Using this technique, you can avoid errors due to an insufficient buffer size. See the Remarks section. This parameter can be <b>NULL</b>.
      * @param {Integer} ReturnBufferSize Size of the buffer pointed to by <i>ReturnBuffer</i>, in characters. This includes the <b>null</b> terminator.
@@ -6702,7 +6701,7 @@ class DeviceAndDriverInstallation {
      * 
      * > [!NOTE]
      * > The setupapi.h header defines SetupGetMultiSzField as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<INFCONTEXT>} _Context 
+     * @param {Pointer<INFCONTEXT>} _Context Pointer to the context for a line in an INF file.
      * @param {Integer} FieldIndex The 1-based index of the starting field within the specified line from which the strings should be retrieved. The string list is built from each field starting at this point to the end of the line. A <i>FieldIndex</i> of zero is not valid with this function.
      * @param {PWSTR} ReturnBuffer Optional pointer to a character buffer that receives the strings. Each string is <b>null</b>-terminated, with an extra <b>null</b> at the end of the string list. The <b>null</b>-terminated string should not exceed the size of the destination buffer. You can call the function once to get the required buffer size, allocate the necessary memory, and then call the function a second time to retrieve the data. Using this technique, you can avoid errors due to an insufficient buffer size. See the Remarks section. This parameter can be <b>NULL</b>.
      * @param {Integer} ReturnBufferSize Size of the buffer pointed to by <i>ReturnBuffer</i>, in characters. This includes the <b>null</b> terminator.
@@ -6751,9 +6750,9 @@ class DeviceAndDriverInstallation {
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * 
      * Thus, you can call the function once to get the required buffer size, allocate the necessary memory, and then call the function a second time to retrieve the data. Using this technique, you can avoid errors due to an insufficient buffer size.
-     * @param {Pointer<INFCONTEXT>} _Context 
+     * @param {Pointer<INFCONTEXT>} _Context INF context for the line.
      * @param {Integer} FieldIndex The 1-based index of the starting field within the specified line from which the binary data should be retrieved. The binary data is built from each field, starting at this point to the end of the line. Each field corresponds to 1 byte and is in hexadecimal notation. A <i>FieldIndex</i> of zero is not valid with this function.
-     * @param {Pointer} ReturnBuffer Optional pointer to a buffer that receives the binary data. You should ensure the destination buffer is the same size or larger than the source buffer. You can call the function once to get the required buffer size, allocate the necessary memory, and then call the function a second time to retrieve the data. Using this technique, you can avoid errors due to an insufficient buffer size. See the Remarks section.
+     * @param {Integer} ReturnBuffer Optional pointer to a buffer that receives the binary data. You should ensure the destination buffer is the same size or larger than the source buffer. You can call the function once to get the required buffer size, allocate the necessary memory, and then call the function a second time to retrieve the data. Using this technique, you can avoid errors due to an insufficient buffer size. See the Remarks section.
      * @param {Integer} ReturnBufferSize Size of the buffer pointed to by <i>ReturnBuffer</i>, in characters. This number includes the <b>null</b> terminator.
      * @param {Pointer<Integer>} RequiredSize Optional pointer to a variable that receives the required size for the buffer pointed to <i>ReturnBuffer</i>, in characters. This number includes the <b>null</b> terminator. If the size needed is larger than the value specified by <i>ReturnBufferSize</i>, the function fails and a call to <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns ERROR_INSUFFICIENT_BUFFER.
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
@@ -6823,7 +6822,7 @@ class DeviceAndDriverInstallation {
      * @param {Pointer<PSTR>} ActualSourceFileName Pointer to a variable that receives the full path of the file that it has been able to locate. The caller can free the pointer with a call to <b>LocalFree</b>. The path is valid only if the function returns NO_ERROR. Note that if the version of SetupAPI.dll is less than 5.0.2195, then the caller needs to use the exported function <b>MyFree</b> from SetupAPI to free the memory allocated by this function, rather then using <b>LocalFree</b>. See the Remarks section.
      * @param {Pointer<Integer>} SourceFileSize Pointer to a variable in which this function returns the size of the file in its current form which is the current size of the file named by <i>ActualSourceFileName</i>. The size is determined by examining the source file; it is not retrieved from an INF file. The source file size is valid only if the function returns NO_ERROR.
      * @param {Pointer<Integer>} TargetFileSize Pointer to a variable in which this function returns the size the file will occupy when it is uncompressed or copied. If the file is not compressed, this value will be the same as <i>SourceFileSize</i>. The size is determined by examining the file; it is not retrieved from an INF file. The target file size is valid only if the function returns NO_ERROR.
-     * @param {Pointer<Integer>} CompressionType Pointer to a variable in which this function returns a value indicating the type of compression used on <i>ActualSourceFileName</i>. The compression type is valid only if the function returns NO_ERROR. The value can be one of the following flags.
+     * @param {Pointer<FILE_COMPRESSION_TYPE>} CompressionType Pointer to a variable in which this function returns a value indicating the type of compression used on <i>ActualSourceFileName</i>. The compression type is valid only if the function returns NO_ERROR. The value can be one of the following flags.
      * @returns {Integer} The function returns a <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a> that indicates the outcome of the file search. The error code can be one of the following values.
      * 
      * To get extended error information, call 
@@ -6892,7 +6891,7 @@ class DeviceAndDriverInstallation {
      * @param {Pointer<PWSTR>} ActualSourceFileName Pointer to a variable that receives the full path of the file that it has been able to locate. The caller can free the pointer with a call to <b>LocalFree</b>. The path is valid only if the function returns NO_ERROR. Note that if the version of SetupAPI.dll is less than 5.0.2195, then the caller needs to use the exported function <b>MyFree</b> from SetupAPI to free the memory allocated by this function, rather then using <b>LocalFree</b>. See the Remarks section.
      * @param {Pointer<Integer>} SourceFileSize Pointer to a variable in which this function returns the size of the file in its current form which is the current size of the file named by <i>ActualSourceFileName</i>. The size is determined by examining the source file; it is not retrieved from an INF file. The source file size is valid only if the function returns NO_ERROR.
      * @param {Pointer<Integer>} TargetFileSize Pointer to a variable in which this function returns the size the file will occupy when it is uncompressed or copied. If the file is not compressed, this value will be the same as <i>SourceFileSize</i>. The size is determined by examining the file; it is not retrieved from an INF file. The target file size is valid only if the function returns NO_ERROR.
-     * @param {Pointer<Integer>} CompressionType Pointer to a variable in which this function returns a value indicating the type of compression used on <i>ActualSourceFileName</i>. The compression type is valid only if the function returns NO_ERROR. The value can be one of the following flags.
+     * @param {Pointer<FILE_COMPRESSION_TYPE>} CompressionType Pointer to a variable in which this function returns a value indicating the type of compression used on <i>ActualSourceFileName</i>. The compression type is valid only if the function returns NO_ERROR. The value can be one of the following flags.
      * @returns {Integer} The function returns a <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a> that indicates the outcome of the file search. The error code can be one of the following values.
      * 
      * To get extended error information, call 
@@ -6937,7 +6936,7 @@ class DeviceAndDriverInstallation {
      * @param {Pointer<Integer>} RequiredBufferLen Size of the file name and full path including the terminating <b>NULL</b>, if this parameter is not <b>NULL</b>. If <i>ActualSourceFileNameBuffer</i> is <b>NULL</b> and <i>ActualSourceFileNameLen</i> is zero, the function succeeds but fills in <i>RequiredBufferLen</i>. This parameter is valid only if the function returns NO_ERROR or ERROR_INSUFFICIENT_BUFFER.
      * @param {Pointer<Integer>} SourceFileSize Pointer to a variable in which this function returns the size of the file in its current form, which is the current size of the file named by <i>ActualSourceFileNameBuffer</i>. The size is determined by examining the source file; it is not retrieved from an INF file. The source file size is valid only if the function returns NO_ERROR or ERROR_INSUFFICIENT_BUFFER.
      * @param {Pointer<Integer>} TargetFileSize Pointer to a variable in which this function returns the size that the file will occupy when it is uncompressed or copied. If the file is not compressed, this value will be the same as <i>SourceFileSize</i>. The size is determined by examining the file; it is not retrieved from an INF file. The target file size is valid only if the function returns NO_ERROR or ERROR_INSUFFICIENT_BUFFER.
-     * @param {Pointer<Integer>} CompressionType Pointer to a variable in which this function returns a value indicating the type of compression used on <i>ActualSourceFileName</i>. The compression type is valid only if the function returns NO_ERROR or ERROR_INSUFFICIENT_BUFFER. This parameter value can be one of the following flags.
+     * @param {Pointer<FILE_COMPRESSION_TYPE>} CompressionType Pointer to a variable in which this function returns a value indicating the type of compression used on <i>ActualSourceFileName</i>. The compression type is valid only if the function returns NO_ERROR or ERROR_INSUFFICIENT_BUFFER. This parameter value can be one of the following flags.
      * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b> (nonzero).
      * 
      * If the function fails, the return value is <b>FALSE</b> (zero). The function can also return one of the following  <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error codes</a>.
@@ -6985,7 +6984,7 @@ class DeviceAndDriverInstallation {
      * @param {Pointer<Integer>} RequiredBufferLen Size of the file name and full path including the terminating <b>NULL</b>, if this parameter is not <b>NULL</b>. If <i>ActualSourceFileNameBuffer</i> is <b>NULL</b> and <i>ActualSourceFileNameLen</i> is zero, the function succeeds but fills in <i>RequiredBufferLen</i>. This parameter is valid only if the function returns NO_ERROR or ERROR_INSUFFICIENT_BUFFER.
      * @param {Pointer<Integer>} SourceFileSize Pointer to a variable in which this function returns the size of the file in its current form, which is the current size of the file named by <i>ActualSourceFileNameBuffer</i>. The size is determined by examining the source file; it is not retrieved from an INF file. The source file size is valid only if the function returns NO_ERROR or ERROR_INSUFFICIENT_BUFFER.
      * @param {Pointer<Integer>} TargetFileSize Pointer to a variable in which this function returns the size that the file will occupy when it is uncompressed or copied. If the file is not compressed, this value will be the same as <i>SourceFileSize</i>. The size is determined by examining the file; it is not retrieved from an INF file. The target file size is valid only if the function returns NO_ERROR or ERROR_INSUFFICIENT_BUFFER.
-     * @param {Pointer<Integer>} CompressionType Pointer to a variable in which this function returns a value indicating the type of compression used on <i>ActualSourceFileName</i>. The compression type is valid only if the function returns NO_ERROR or ERROR_INSUFFICIENT_BUFFER. This parameter value can be one of the following flags.
+     * @param {Pointer<FILE_COMPRESSION_TYPE>} CompressionType Pointer to a variable in which this function returns a value indicating the type of compression used on <i>ActualSourceFileName</i>. The compression type is valid only if the function returns NO_ERROR or ERROR_INSUFFICIENT_BUFFER. This parameter value can be one of the following flags.
      * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b> (nonzero).
      * 
      * If the function fails, the return value is <b>FALSE</b> (zero). The function can also return one of the following  <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error codes</a>.
@@ -7022,7 +7021,7 @@ class DeviceAndDriverInstallation {
      * @param {PSTR} SourceFileName File name of the file to be copied. You should use a <b>null</b>-terminated string. This parameter can be <b>NULL</b>. If <i>CompressionType</i> is not specified and the 
      * <b>SetupDecompressOrCopyFile</b> function does not find the file specified in <i>SourceFileName</i>, the function searches for the file with up to two alternate, "compressed-form" names. For example, if the file is F:\x86\cmd.exe and it is not found, the function searches for F:\x86\cmd.ex_ and, if that is not found, F:\x86\cmd.ex$ is searched for. If <i>CompressionType</i> is specified, no additional processing is performed on the filename; the file must exist exactly as specified or the function fails.
      * @param {PSTR} TargetFileName Exact name of the target file that will be created by decompressing or copying the source file. You should use a <b>null</b>-terminated string.
-     * @param {Pointer<Integer>} CompressionType Optional pointer to the compression type used on the source file. You can determine the compression type by calling 
+     * @param {Pointer<FILE_COMPRESSION_TYPE>} CompressionType Optional pointer to the compression type used on the source file. You can determine the compression type by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/setupapi/nf-setupapi-setupgetfilecompressioninfoa">SetupGetFileCompressionInfo</a>. If this value is FILE_COMPRESSION_NONE, the file is copied (not decompressed) regardless of any compression in use on the source. If <i>CompressionType</i> is not specified, this routine determines the compression type automatically.
      * @returns {Integer} The 
      * <b>SetupDecompressOrCopyFile</b> function returns a <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a> that indicates the outcome of the operation. 
@@ -7056,7 +7055,7 @@ class DeviceAndDriverInstallation {
      * @param {PWSTR} SourceFileName File name of the file to be copied. You should use a <b>null</b>-terminated string. This parameter can be <b>NULL</b>. If <i>CompressionType</i> is not specified and the 
      * <b>SetupDecompressOrCopyFile</b> function does not find the file specified in <i>SourceFileName</i>, the function searches for the file with up to two alternate, "compressed-form" names. For example, if the file is F:\x86\cmd.exe and it is not found, the function searches for F:\x86\cmd.ex_ and, if that is not found, F:\x86\cmd.ex$ is searched for. If <i>CompressionType</i> is specified, no additional processing is performed on the filename; the file must exist exactly as specified or the function fails.
      * @param {PWSTR} TargetFileName Exact name of the target file that will be created by decompressing or copying the source file. You should use a <b>null</b>-terminated string.
-     * @param {Pointer<Integer>} CompressionType Optional pointer to the compression type used on the source file. You can determine the compression type by calling 
+     * @param {Pointer<FILE_COMPRESSION_TYPE>} CompressionType Optional pointer to the compression type used on the source file. You can determine the compression type by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/setupapi/nf-setupapi-setupgetfilecompressioninfoa">SetupGetFileCompressionInfo</a>. If this value is FILE_COMPRESSION_NONE, the file is copied (not decompressed) regardless of any compression in use on the source. If <i>CompressionType</i> is not specified, this routine determines the compression type automatically.
      * @returns {Integer} The 
      * <b>SetupDecompressOrCopyFile</b> function returns a <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a> that indicates the outcome of the operation. 
@@ -7094,7 +7093,7 @@ class DeviceAndDriverInstallation {
      * > [!NOTE]
      * > The setupapi.h header defines SetupGetSourceFileLocation as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Void>} InfHandle Handle to the INF file that contains the <b>SourceDisksNames</b> and <b>SourceDisksFiles</b> sections. If platform-specific sections exist for the user's system (for example, <b>SourceDisksNames.x86</b> and <b>SourceDisksFiles.x86</b>), the platform-specific section will be used.
-     * @param {Pointer<INFCONTEXT>} _InfContext 
+     * @param {Pointer<INFCONTEXT>} _InfContext Optional pointer to the context of a line in a <b>Copy Files</b> section for which the full source path is to be retrieved. If this parameter is <b>NULL</b>, <i>FileName</i> is searched for in the <b>SourceDisksFiles</b> section of the INF file specified by <i>InfHandle</i>.
      * @param {PSTR} FileName Optional pointer to a <b>null</b>-terminated string containing the filename (no path) for which to return the full source location. This parameter can be <b>NULL</b>, but either <i>FileName</i> or <i>InfContext</i> must be specified.
      * @param {Pointer<Integer>} SourceId Pointer to a variable that receives the source identifier of the media where the file is located from the <b>SourceDisksNames</b> section of the INF file.
      * @param {PSTR} ReturnBuffer Optional pointer to a buffer to receive the relative source path. The source path does not include the filename itself, nor does it include a drive letter/network share name. The path does not start or end with a backslash (\), so the empty string specifies the root directory. You should use a <b>null</b>-terminated string buffer. The <b>null</b>-terminated string should not exceed the size of the destination buffer. You can call the function once to get the required buffer size, allocate the necessary memory, and then call the function a second time to retrieve the data.  Using this technique, you can avoid errors due to an insufficient buffer size. See the Remarks section. This parameter can be <b>NULL</b>.
@@ -7137,7 +7136,7 @@ class DeviceAndDriverInstallation {
      * > [!NOTE]
      * > The setupapi.h header defines SetupGetSourceFileLocation as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Void>} InfHandle Handle to the INF file that contains the <b>SourceDisksNames</b> and <b>SourceDisksFiles</b> sections. If platform-specific sections exist for the user's system (for example, <b>SourceDisksNames.x86</b> and <b>SourceDisksFiles.x86</b>), the platform-specific section will be used.
-     * @param {Pointer<INFCONTEXT>} _InfContext 
+     * @param {Pointer<INFCONTEXT>} _InfContext Optional pointer to the context of a line in a <b>Copy Files</b> section for which the full source path is to be retrieved. If this parameter is <b>NULL</b>, <i>FileName</i> is searched for in the <b>SourceDisksFiles</b> section of the INF file specified by <i>InfHandle</i>.
      * @param {PWSTR} FileName Optional pointer to a <b>null</b>-terminated string containing the filename (no path) for which to return the full source location. This parameter can be <b>NULL</b>, but either <i>FileName</i> or <i>InfContext</i> must be specified.
      * @param {Pointer<Integer>} SourceId Pointer to a variable that receives the source identifier of the media where the file is located from the <b>SourceDisksNames</b> section of the INF file.
      * @param {PWSTR} ReturnBuffer Optional pointer to a buffer to receive the relative source path. The source path does not include the filename itself, nor does it include a drive letter/network share name. The path does not start or end with a backslash (\), so the empty string specifies the root directory. You should use a <b>null</b>-terminated string buffer. The <b>null</b>-terminated string should not exceed the size of the destination buffer. You can call the function once to get the required buffer size, allocate the necessary memory, and then call the function a second time to retrieve the data.  Using this technique, you can avoid errors due to an insufficient buffer size. See the Remarks section. This parameter can be <b>NULL</b>.
@@ -7180,9 +7179,9 @@ class DeviceAndDriverInstallation {
      * > [!NOTE]
      * > The setupapi.h header defines SetupGetSourceFileSize as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Void>} InfHandle Handle to the loaded INF file that contains the <b>SourceDisksNames</b> and <b>SourceDisksFiles</b> sections. If platform-specific sections exist for the user's system (for example, <b>SourceDisksNames.x86</b> and <b>SourceDisksFiles.x86</b>), the platform-specific section will be used.
-     * @param {Pointer<INFCONTEXT>} _InfContext 
+     * @param {Pointer<INFCONTEXT>} _InfContext Optional pointer to a context for a line in a <b>Copy Files</b> section for which the size is to be retrieved. If <i>InfContext</i> is <b>NULL</b>, the <i>FileName</i> parameter is used.
      * @param {PSTR} FileName Optional pointer to a <b>null</b>-terminated string containing the filename (no path) for which to return the size. If this parameter is <b>NULL</b> as well as <i>InfContext</i>, then the <i>Section</i> parameter is used.
-     * @param {PSTR} _Section 
+     * @param {PSTR} _Section Optional pointer to a <b>null</b>-terminated string containing the name of a <b>Copy Files</b> section. If this parameter is specified, the total size of all files listed in the section is computed.
      * @param {Pointer<Integer>} FileSize Pointer to a variable that receives the size, in bytes, of the specified file(s).
      * @param {Integer} RoundingFactor Optional value for rounding file sizes. All file sizes are rounded up to a multiple of this number before being added to the total size. Rounding is useful for more exact determinations of the space that a file will occupy on a given volume, because it allows the caller to have file sizes rounded up to a multiple of the cluster size. Rounding does not occur unless <i>RoundingFactor</i> is specified.
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
@@ -7221,9 +7220,9 @@ class DeviceAndDriverInstallation {
      * > [!NOTE]
      * > The setupapi.h header defines SetupGetSourceFileSize as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Void>} InfHandle Handle to the loaded INF file that contains the <b>SourceDisksNames</b> and <b>SourceDisksFiles</b> sections. If platform-specific sections exist for the user's system (for example, <b>SourceDisksNames.x86</b> and <b>SourceDisksFiles.x86</b>), the platform-specific section will be used.
-     * @param {Pointer<INFCONTEXT>} _InfContext 
+     * @param {Pointer<INFCONTEXT>} _InfContext Optional pointer to a context for a line in a <b>Copy Files</b> section for which the size is to be retrieved. If <i>InfContext</i> is <b>NULL</b>, the <i>FileName</i> parameter is used.
      * @param {PWSTR} FileName Optional pointer to a <b>null</b>-terminated string containing the filename (no path) for which to return the size. If this parameter is <b>NULL</b> as well as <i>InfContext</i>, then the <i>Section</i> parameter is used.
-     * @param {PWSTR} _Section 
+     * @param {PWSTR} _Section Optional pointer to a <b>null</b>-terminated string containing the name of a <b>Copy Files</b> section. If this parameter is specified, the total size of all files listed in the section is computed.
      * @param {Pointer<Integer>} FileSize Pointer to a variable that receives the size, in bytes, of the specified file(s).
      * @param {Integer} RoundingFactor Optional value for rounding file sizes. All file sizes are rounded up to a multiple of this number before being added to the total size. Rounding is useful for more exact determinations of the space that a file will occupy on a given volume, because it allows the caller to have file sizes rounded up to a multiple of the cluster size. Rounding does not occur unless <i>RoundingFactor</i> is specified.
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
@@ -7262,8 +7261,9 @@ class DeviceAndDriverInstallation {
      * > [!NOTE]
      * > The setupapi.h header defines SetupGetTargetPath as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Void>} InfHandle Handle to the load INF file that contains a <b>DestinationDirs</b> section.
-     * @param {Pointer<INFCONTEXT>} _InfContext 
-     * @param {PSTR} _Section 
+     * @param {Pointer<INFCONTEXT>} _InfContext Optional pointer to an INF context that specifies a line in a file list section whose destination directory is to be retrieved. If <i>InfContext</i> is <b>NULL</b>, then the <i>Section</i> parameter is used.
+     * @param {PSTR} _Section Optional parameter that specifies the name of a section of the INF file whose handle is <i>InfHandle</i>. 
+     * <b>SetupGetTargetPath</b> retrieves the target directory for this section. The <i>Section</i> parameter is ignored if <i>InfContext</i> is specified. If neither <i>InfContext</i> nor <i>Section</i> is specified, the function retrieves the default target path from the INF file. You should use a <b>null</b>-terminated string.
      * @param {PSTR} ReturnBuffer Optional pointer to  buffer to receive the fully qualified  target path. The path is guaranteed not to end with \. You should use a <b>null</b>-terminated string. You can call the function once to get the required buffer size, allocate the necessary memory, and then call the function a second time to retrieve the data. Using this technique, you can avoid errors due to an insufficient buffer size. See the Remarks section. This parameter can be <b>NULL</b>.
      * @param {Integer} ReturnBufferSize Size of the buffer pointed to by <i>ReturnBuffer</i>, in characters. This includes the <b>null</b> terminator.
      * @param {Pointer<Integer>} RequiredSize Optional pointer to a  variable that receives the required size for the buffer pointed to by <i>ReturnBuffer</i>, in characters. This includes the <b>null</b> terminator.  If the actual size needed is larger than the value specified by <i>ReturnBufferSize</i>, the function fails and a call to <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns ERROR_INSUFFICIENT_BUFFER.
@@ -7303,8 +7303,9 @@ class DeviceAndDriverInstallation {
      * > [!NOTE]
      * > The setupapi.h header defines SetupGetTargetPath as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Void>} InfHandle Handle to the load INF file that contains a <b>DestinationDirs</b> section.
-     * @param {Pointer<INFCONTEXT>} _InfContext 
-     * @param {PWSTR} _Section 
+     * @param {Pointer<INFCONTEXT>} _InfContext Optional pointer to an INF context that specifies a line in a file list section whose destination directory is to be retrieved. If <i>InfContext</i> is <b>NULL</b>, then the <i>Section</i> parameter is used.
+     * @param {PWSTR} _Section Optional parameter that specifies the name of a section of the INF file whose handle is <i>InfHandle</i>. 
+     * <b>SetupGetTargetPath</b> retrieves the target directory for this section. The <i>Section</i> parameter is ignored if <i>InfContext</i> is specified. If neither <i>InfContext</i> nor <i>Section</i> is specified, the function retrieves the default target path from the INF file. You should use a <b>null</b>-terminated string.
      * @param {PWSTR} ReturnBuffer Optional pointer to  buffer to receive the fully qualified  target path. The path is guaranteed not to end with \. You should use a <b>null</b>-terminated string. You can call the function once to get the required buffer size, allocate the necessary memory, and then call the function a second time to retrieve the data. Using this technique, you can avoid errors due to an insufficient buffer size. See the Remarks section. This parameter can be <b>NULL</b>.
      * @param {Integer} ReturnBufferSize Size of the buffer pointed to by <i>ReturnBuffer</i>, in characters. This includes the <b>null</b> terminator.
      * @param {Pointer<Integer>} RequiredSize Optional pointer to a  variable that receives the required size for the buffer pointed to by <i>ReturnBuffer</i>, in characters. This includes the <b>null</b> terminator.  If the actual size needed is larger than the value specified by <i>ReturnBufferSize</i>, the function fails and a call to <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns ERROR_INSUFFICIENT_BUFFER.
@@ -7773,7 +7774,9 @@ class DeviceAndDriverInstallation {
      * @param {PSTR} PathToSource A pointer to the path component of the source file where an operation fails, for example, F:\x86. 
      * 
      * Use a <b>null</b>-terminated string.
-     * @param {PSTR} _SourceFile 
+     * @param {PSTR} _SourceFile A pointer to a <b>null</b>-terminated string that specifies the filename part of the file where an operation fails. 
+     * 
+     * Use a <b>null</b>-terminated string. This filename is displayed if the user clicks on the <b>Details</b> or <b>Browse</b> buttons. The <b>SetupCopyError</b> function looks for the file that uses its compressed form names. Therefore, you can pass cmd.exe and not worry that the file actually exists as cmd.ex_ on the source media.
      * @param {PSTR} TargetPathFile An optional pointer to a <b>null</b>-terminated string that specifies the full path of the target file for rename and copy operations. 
      * 
      * Use a <b>null</b>-terminated string.  This parameter can be <b>NULL</b>. If TargetPathFile is not specified, "(Unknown)" (localized to the system language) is used.
@@ -7844,7 +7847,9 @@ class DeviceAndDriverInstallation {
      * @param {PWSTR} PathToSource A pointer to the path component of the source file where an operation fails, for example, F:\x86. 
      * 
      * Use a <b>null</b>-terminated string.
-     * @param {PWSTR} _SourceFile 
+     * @param {PWSTR} _SourceFile A pointer to a <b>null</b>-terminated string that specifies the filename part of the file where an operation fails. 
+     * 
+     * Use a <b>null</b>-terminated string. This filename is displayed if the user clicks on the <b>Details</b> or <b>Browse</b> buttons. The <b>SetupCopyError</b> function looks for the file that uses its compressed form names. Therefore, you can pass cmd.exe and not worry that the file actually exists as cmd.ex_ on the source media.
      * @param {PWSTR} TargetPathFile An optional pointer to a <b>null</b>-terminated string that specifies the full path of the target file for rename and copy operations. 
      * 
      * Use a <b>null</b>-terminated string.  This parameter can be <b>NULL</b>. If TargetPathFile is not specified, "(Unknown)" (localized to the system language) is used.
@@ -7897,7 +7902,7 @@ class DeviceAndDriverInstallation {
      * > The setupapi.h header defines SetupRenameError as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HWND} hwndParent Handle to the parent window for this dialog box.
      * @param {PSTR} DialogTitle Pointer to a <b>null</b>-terminated string that specifies the error dialog box title. This parameter may be <b>NULL</b>. If this parameter is <b>NULL</b>, the default title of "Rename Error" (localized) is used.
-     * @param {PSTR} _SourceFile 
+     * @param {PSTR} _SourceFile Pointer to a <b>null</b>-terminated string that specifies the full path of the source file on which the operation failed.
      * @param {PSTR} TargetFile Pointer to a <b>null</b>-terminated string that specifies the full path of the target file on which the operation failed.
      * @param {Integer} Win32ErrorCode The <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a> encountered during the file operation.
      * @param {Integer} Style Specifies display formatting and behavior of the dialog box. This parameter can be one of the following flags.
@@ -7931,7 +7936,7 @@ class DeviceAndDriverInstallation {
      * > The setupapi.h header defines SetupRenameError as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HWND} hwndParent Handle to the parent window for this dialog box.
      * @param {PWSTR} DialogTitle Pointer to a <b>null</b>-terminated string that specifies the error dialog box title. This parameter may be <b>NULL</b>. If this parameter is <b>NULL</b>, the default title of "Rename Error" (localized) is used.
-     * @param {PWSTR} _SourceFile 
+     * @param {PWSTR} _SourceFile Pointer to a <b>null</b>-terminated string that specifies the full path of the source file on which the operation failed.
      * @param {PWSTR} TargetFile Pointer to a <b>null</b>-terminated string that specifies the full path of the target file on which the operation failed.
      * @param {Integer} Win32ErrorCode The <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a> encountered during the file operation.
      * @param {Integer} Style Specifies display formatting and behavior of the dialog box. This parameter can be one of the following flags.
@@ -7965,7 +7970,7 @@ class DeviceAndDriverInstallation {
      * > The setupapi.h header defines SetupDeleteError as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HWND} hwndParent Handle to the parent window for this dialog box.
      * @param {PSTR} DialogTitle Optional pointer to a <b>null</b>-terminated string specifying the error dialog box title. If this parameter is <b>NULL</b>, the default title of "Delete Error" (localized) is used.
-     * @param {PSTR} _File 
+     * @param {PSTR} _File Pointer to a <b>null</b>-terminated string specifying the full path of the file on which the delete operation failed.
      * @param {Integer} Win32ErrorCode The <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a> encountered during the file operation.
      * @param {Integer} Style Flags that control display formatting and behavior of the dialog box. This parameter can be one of the following flags.
      * @returns {Integer} This function returns one of the following values.
@@ -7997,7 +8002,7 @@ class DeviceAndDriverInstallation {
      * > The setupapi.h header defines SetupDeleteError as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HWND} hwndParent Handle to the parent window for this dialog box.
      * @param {PWSTR} DialogTitle Optional pointer to a <b>null</b>-terminated string specifying the error dialog box title. If this parameter is <b>NULL</b>, the default title of "Delete Error" (localized) is used.
-     * @param {PWSTR} _File 
+     * @param {PWSTR} _File Pointer to a <b>null</b>-terminated string specifying the full path of the file on which the delete operation failed.
      * @param {Integer} Win32ErrorCode The <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a> encountered during the file operation.
      * @param {Integer} Style Flags that control display formatting and behavior of the dialog box. This parameter can be one of the following flags.
      * @returns {Integer} This function returns one of the following values.
@@ -8029,7 +8034,7 @@ class DeviceAndDriverInstallation {
      * > The setupapi.h header defines SetupBackupError as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HWND} hwndParent Handle to the parent window for this dialog box.
      * @param {PSTR} DialogTitle Optional pointer to a <b>null</b>-terminated string specifying the error dialog box title. If this parameter is <b>NULL</b>, the default title of "Backup Error" (localized) is used.
-     * @param {PSTR} _SourceFile 
+     * @param {PSTR} _SourceFile Pointer to a <b>null</b>-terminated string specifying the full path of the source file that is being backed up.
      * @param {PSTR} TargetFile Optional pointer to a <b>null</b>-terminated string specifying the full path of the backup name of the file. This parameter can be <b>NULL</b>.
      * @param {Integer} Win32ErrorCode If an error occurs, this member is the <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>. If no error has occurred, it is  NO_ERROR.
      * @param {Integer} Style Flags that control display formatting and behavior of the dialog box. This parameter can be one of the following flags.
@@ -8063,7 +8068,7 @@ class DeviceAndDriverInstallation {
      * > The setupapi.h header defines SetupBackupError as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HWND} hwndParent Handle to the parent window for this dialog box.
      * @param {PWSTR} DialogTitle Optional pointer to a <b>null</b>-terminated string specifying the error dialog box title. If this parameter is <b>NULL</b>, the default title of "Backup Error" (localized) is used.
-     * @param {PWSTR} _SourceFile 
+     * @param {PWSTR} _SourceFile Pointer to a <b>null</b>-terminated string specifying the full path of the source file that is being backed up.
      * @param {PWSTR} TargetFile Optional pointer to a <b>null</b>-terminated string specifying the full path of the backup name of the file. This parameter can be <b>NULL</b>.
      * @param {Integer} Win32ErrorCode If an error occurs, this member is the <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>. If no error has occurred, it is  NO_ERROR.
      * @param {Integer} Style Flags that control display formatting and behavior of the dialog box. This parameter can be one of the following flags.
@@ -8355,13 +8360,13 @@ class DeviceAndDriverInstallation {
      * > [!NOTE]
      * > The setupapi.h header defines SetupInstallFile as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Void>} InfHandle Optional pointer to the handle to an INF file that contains SourceDisksNames and SourceDisksFiles sections. If platform-specific sections exist for the user's system (for example, SourceDisksNames.x86 and SourceDisksFiles.x86), the platform-specific section will be used. If <i>InfContext</i> is null and <i>CopyStyle</i> includes SP_COPY_SOURCE_ABSOLUTE or SP_COPY_SOURCEPATH_ABSOLUTE, <i>InfHandle</i> is ignored.
-     * @param {Pointer<INFCONTEXT>} _InfContext 
-     * @param {PSTR} _SourceFile 
+     * @param {Pointer<INFCONTEXT>} _InfContext Optional pointer to the context of a line in a Copy Files section in an INF file. The routine looks up this file  in the SourceDisksFiles section of <i>InfHandle</i> to get file copy information. If <i>InfHandle</i> is not specified, <i>SourceFile</i> must be.
+     * @param {PSTR} _SourceFile Optional pointer to the file name (no path) of the file to copy. The file is looked up in the SourceDisksFiles section. The <i>SourceFile</i> parameter must be specified if <i>InfContext</i> is not. <i>SourceFile</i> is ignored if <i>InfContext</i> is specified.
      * @param {PSTR} SourcePathRoot Optional pointer to the root path for the file to be copied (for example, A:\ or F:\). Paths in the SourceDisksNames section are appended to this path. The <i>SourcePathRoot</i> parameter is ignored if <i>CopyStyle</i> includes the SP_COPY_SOURCE_ABSOLUTE flag.
      * @param {PSTR} DestinationName Optional pointer to the file name only (no path) of the target file. This parameter can be null to indicate that the target file should have the same name as the source file. If <i>InfContext</i> is not specified, <i>DestinationName</i> supplies the full  path and file name for the target.
-     * @param {Integer} CopyStyle 
+     * @param {SP_COPY_STYLE} CopyStyle 
      * @param {Pointer<PSP_FILE_CALLBACK_A>} CopyMsgHandler Optional pointer to a callback function to be notified of various conditions that may arise during the file copy operation.
-     * @param {Pointer<Void>} _Context 
+     * @param {Pointer<Void>} _Context Optional pointer to a caller-defined value that is passed as the first parameter of the callback function.
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -8402,13 +8407,13 @@ class DeviceAndDriverInstallation {
      * > [!NOTE]
      * > The setupapi.h header defines SetupInstallFile as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Void>} InfHandle Optional pointer to the handle to an INF file that contains SourceDisksNames and SourceDisksFiles sections. If platform-specific sections exist for the user's system (for example, SourceDisksNames.x86 and SourceDisksFiles.x86), the platform-specific section will be used. If <i>InfContext</i> is null and <i>CopyStyle</i> includes SP_COPY_SOURCE_ABSOLUTE or SP_COPY_SOURCEPATH_ABSOLUTE, <i>InfHandle</i> is ignored.
-     * @param {Pointer<INFCONTEXT>} _InfContext 
-     * @param {PWSTR} _SourceFile 
+     * @param {Pointer<INFCONTEXT>} _InfContext Optional pointer to the context of a line in a Copy Files section in an INF file. The routine looks up this file  in the SourceDisksFiles section of <i>InfHandle</i> to get file copy information. If <i>InfHandle</i> is not specified, <i>SourceFile</i> must be.
+     * @param {PWSTR} _SourceFile Optional pointer to the file name (no path) of the file to copy. The file is looked up in the SourceDisksFiles section. The <i>SourceFile</i> parameter must be specified if <i>InfContext</i> is not. <i>SourceFile</i> is ignored if <i>InfContext</i> is specified.
      * @param {PWSTR} SourcePathRoot Optional pointer to the root path for the file to be copied (for example, A:\ or F:\). Paths in the SourceDisksNames section are appended to this path. The <i>SourcePathRoot</i> parameter is ignored if <i>CopyStyle</i> includes the SP_COPY_SOURCE_ABSOLUTE flag.
      * @param {PWSTR} DestinationName Optional pointer to the file name only (no path) of the target file. This parameter can be null to indicate that the target file should have the same name as the source file. If <i>InfContext</i> is not specified, <i>DestinationName</i> supplies the full  path and file name for the target.
-     * @param {Integer} CopyStyle 
+     * @param {SP_COPY_STYLE} CopyStyle 
      * @param {Pointer<PSP_FILE_CALLBACK_W>} CopyMsgHandler Optional pointer to a callback function to be notified of various conditions that may arise during the file copy operation.
-     * @param {Pointer<Void>} _Context 
+     * @param {Pointer<Void>} _Context Optional pointer to a caller-defined value that is passed as the first parameter of the callback function.
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -8451,13 +8456,13 @@ class DeviceAndDriverInstallation {
      * > [!NOTE]
      * > The setupapi.h header defines SetupInstallFileEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Void>} InfHandle Optional pointer to the handle to an INF file that contains the SourceDisksNames and SourceDisksFiles sections. If platform-specific sections exist for the user's system (for example, SourceDisksNames.x86 and SourceDisksFiles.x86), the platform-specific section are used. If <i>InfContext</i> is not specified and <i>CopyStyle</i> includes SP_COPY_SOURCE_ABSOLUTE or SP_COPY_SOURCEPATH_ABSOLUTE, <i>InfHandle</i> is ignored.
-     * @param {Pointer<INFCONTEXT>} _InfContext 
-     * @param {PSTR} _SourceFile 
+     * @param {Pointer<INFCONTEXT>} _InfContext Optional pointer to context for a line in a Copy Files section in an INF file. The routine looks this file up in the SourceDisksFiles section of <i>InfHandle</i> to get file copy information. If <i>InfContext</i> is not specified, <i>SourceFile</i> must be.
+     * @param {PSTR} _SourceFile Optional pointer to the filename (no path) of the file to copy. The file is looked up in the SourceDisksFiles section. The <i>SourceFile</i> parameter must be specified if <i>InfContext</i> is not. However, <i>SourceFile</i> is ignored if <i>InfContext</i> is specified.
      * @param {PSTR} SourcePathRoot Optional pointer to the root path for the file to be copied (for example, A:\ or F:\). Paths in the SourceDisksNames section are appended to this path. The <i>SourcePathRoot</i> parameter is ignored if <i>CopyStyle</i> includes the SP_COPY_SOURCE_ABSOLUTE flag.
      * @param {PSTR} DestinationName Optional pointer  to  a new name for the copied file. If <i>InfContext</i> is specified, <i>DestinationName</i> supplies the filename only (no path) of the target file. This parameter can be <b>NULL</b> to indicate that the target file should have the same name as the source file. If <i>InfContext</i> is not specified, <i>DestinationName</i> supplies the full target path and filename for the target.
-     * @param {Integer} CopyStyle Flags that control the behavior of the file copy operation.
+     * @param {SP_COPY_STYLE} CopyStyle Flags that control the behavior of the file copy operation.
      * @param {Pointer<PSP_FILE_CALLBACK_A>} CopyMsgHandler Optional pointer to a callback function to be notified of various conditions that may arise during the file copy.
-     * @param {Pointer<Void>} _Context 
+     * @param {Pointer<Void>} _Context Pointer to a caller-defined value that is passed as the first parameter of the callback function.
      * @param {Pointer<BOOL>} FileWasInUse Pointer to a variable in which this function returns a flag that indicates whether the file was in use. This parameter is required.
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
@@ -8502,13 +8507,13 @@ class DeviceAndDriverInstallation {
      * > [!NOTE]
      * > The setupapi.h header defines SetupInstallFileEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Void>} InfHandle Optional pointer to the handle to an INF file that contains the SourceDisksNames and SourceDisksFiles sections. If platform-specific sections exist for the user's system (for example, SourceDisksNames.x86 and SourceDisksFiles.x86), the platform-specific section are used. If <i>InfContext</i> is not specified and <i>CopyStyle</i> includes SP_COPY_SOURCE_ABSOLUTE or SP_COPY_SOURCEPATH_ABSOLUTE, <i>InfHandle</i> is ignored.
-     * @param {Pointer<INFCONTEXT>} _InfContext 
-     * @param {PWSTR} _SourceFile 
+     * @param {Pointer<INFCONTEXT>} _InfContext Optional pointer to context for a line in a Copy Files section in an INF file. The routine looks this file up in the SourceDisksFiles section of <i>InfHandle</i> to get file copy information. If <i>InfContext</i> is not specified, <i>SourceFile</i> must be.
+     * @param {PWSTR} _SourceFile Optional pointer to the filename (no path) of the file to copy. The file is looked up in the SourceDisksFiles section. The <i>SourceFile</i> parameter must be specified if <i>InfContext</i> is not. However, <i>SourceFile</i> is ignored if <i>InfContext</i> is specified.
      * @param {PWSTR} SourcePathRoot Optional pointer to the root path for the file to be copied (for example, A:\ or F:\). Paths in the SourceDisksNames section are appended to this path. The <i>SourcePathRoot</i> parameter is ignored if <i>CopyStyle</i> includes the SP_COPY_SOURCE_ABSOLUTE flag.
      * @param {PWSTR} DestinationName Optional pointer  to  a new name for the copied file. If <i>InfContext</i> is specified, <i>DestinationName</i> supplies the filename only (no path) of the target file. This parameter can be <b>NULL</b> to indicate that the target file should have the same name as the source file. If <i>InfContext</i> is not specified, <i>DestinationName</i> supplies the full target path and filename for the target.
-     * @param {Integer} CopyStyle Flags that control the behavior of the file copy operation.
+     * @param {SP_COPY_STYLE} CopyStyle Flags that control the behavior of the file copy operation.
      * @param {Pointer<PSP_FILE_CALLBACK_W>} CopyMsgHandler Optional pointer to a callback function to be notified of various conditions that may arise during the file copy.
-     * @param {Pointer<Void>} _Context 
+     * @param {Pointer<Void>} _Context Pointer to a caller-defined value that is passed as the first parameter of the callback function.
      * @param {Pointer<BOOL>} FileWasInUse Pointer to a variable in which this function returns a flag that indicates whether the file was in use. This parameter is required.
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
@@ -8988,7 +8993,7 @@ class DeviceAndDriverInstallation {
      * @param {PSTR} SourceRootPath Pointer to a null-terminated string that specifies the root of the source for this copy, such as A:\.
      * @param {Pointer<Void>} InfHandle Handle to an open INF file that contains the <b>SourceDisksFiles</b> and <b>SourceDisksNames</b> sections. If <i>ListInfHandle</i> is not specified, <i>InfHandle</i> contains the section names. If platform-specific sections exist for the user's system (for example, SourceDisksNames.x86 and SourceDisksFiles.x86), the platform-specific section will be used.
      * @param {Pointer<Void>} ListInfHandle Optional handle to an open INF file that contains the section to queue for copying. If <i>ListInfHandle</i> is not specified, <i>InfHandle</i> is assumed to contain the section.
-     * @param {PSTR} _Section 
+     * @param {PSTR} _Section Pointer to a null-terminated string that specifies the name of the section to be queued for copy.
      * @param {Integer} CopyStyle 
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
@@ -9033,7 +9038,7 @@ class DeviceAndDriverInstallation {
      * @param {PWSTR} SourceRootPath Pointer to a null-terminated string that specifies the root of the source for this copy, such as A:\.
      * @param {Pointer<Void>} InfHandle Handle to an open INF file that contains the <b>SourceDisksFiles</b> and <b>SourceDisksNames</b> sections. If <i>ListInfHandle</i> is not specified, <i>InfHandle</i> contains the section names. If platform-specific sections exist for the user's system (for example, SourceDisksNames.x86 and SourceDisksFiles.x86), the platform-specific section will be used.
      * @param {Pointer<Void>} ListInfHandle Optional handle to an open INF file that contains the section to queue for copying. If <i>ListInfHandle</i> is not specified, <i>InfHandle</i> is assumed to contain the section.
-     * @param {PWSTR} _Section 
+     * @param {PWSTR} _Section Pointer to a null-terminated string that specifies the name of the section to be queued for copy.
      * @param {Integer} CopyStyle 
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
@@ -9151,7 +9156,7 @@ class DeviceAndDriverInstallation {
      * <a href="https://docs.microsoft.com/windows/desktop/api/setupapi/nf-setupapi-setupopenfilequeue">SetupOpenFileQueue</a>.
      * @param {Pointer<Void>} InfHandle Handle to an open INF file that contains the <b>DestinationDirs</b> section. If <i>ListInfHandle</i> is not specified, <i>InfHandle</i> contains the section name.
      * @param {Pointer<Void>} ListInfHandle Optional  handle to an open INF file that contains the section to queue for deletion. If <i>ListInfHandle</i> is not specified, <i>InfHandle</i> is assumed to contain the section name.
-     * @param {PSTR} _Section 
+     * @param {PSTR} _Section Pointer to a  null-terminated string that specifies the name of the section to be queued for deletion.
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -9191,7 +9196,7 @@ class DeviceAndDriverInstallation {
      * <a href="https://docs.microsoft.com/windows/desktop/api/setupapi/nf-setupapi-setupopenfilequeue">SetupOpenFileQueue</a>.
      * @param {Pointer<Void>} InfHandle Handle to an open INF file that contains the <b>DestinationDirs</b> section. If <i>ListInfHandle</i> is not specified, <i>InfHandle</i> contains the section name.
      * @param {Pointer<Void>} ListInfHandle Optional  handle to an open INF file that contains the section to queue for deletion. If <i>ListInfHandle</i> is not specified, <i>InfHandle</i> is assumed to contain the section name.
-     * @param {PWSTR} _Section 
+     * @param {PWSTR} _Section Pointer to a  null-terminated string that specifies the name of the section to be queued for deletion.
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -9318,7 +9323,7 @@ class DeviceAndDriverInstallation {
      * <a href="https://docs.microsoft.com/windows/desktop/api/setupapi/nf-setupapi-setupopenfilequeue">SetupOpenFileQueue</a>.
      * @param {Pointer<Void>} InfHandle Handle to the INF file that contains the <b>DestinationDirs</b> section. If <i>ListInfHandle</i> is not specified, <i>InfHandle</i> contains the section name.
      * @param {Pointer<Void>} ListInfHandle Optional handle to an INF file that contains the section to queue for renaming. If <i>ListInfHandle</i> is not specified, <i>InfHandle</i> is assumed to contain the section name.
-     * @param {PSTR} _Section 
+     * @param {PSTR} _Section Name of the section to be queued for renaming.
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -9361,7 +9366,7 @@ class DeviceAndDriverInstallation {
      * <a href="https://docs.microsoft.com/windows/desktop/api/setupapi/nf-setupapi-setupopenfilequeue">SetupOpenFileQueue</a>.
      * @param {Pointer<Void>} InfHandle Handle to the INF file that contains the <b>DestinationDirs</b> section. If <i>ListInfHandle</i> is not specified, <i>InfHandle</i> contains the section name.
      * @param {Pointer<Void>} ListInfHandle Optional handle to an INF file that contains the section to queue for renaming. If <i>ListInfHandle</i> is not specified, <i>InfHandle</i> is assumed to contain the section name.
-     * @param {PWSTR} _Section 
+     * @param {PWSTR} _Section Name of the section to be queued for renaming.
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -9407,7 +9412,9 @@ class DeviceAndDriverInstallation {
      * <a href="https://docs.microsoft.com/windows/desktop/SetupApi/default-queue-callback-routine">Default Queue Callback Routine</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/setupapi/nc-setupapi-psp_file_callback_a">FileCallback</a> If the callback routine is <b>null</b>, 
      * <b>SetupCommitFileQueue</b> returns <b>TRUE</b> and the error is 0 or NO_ERROR.
-     * @param {Pointer<Void>} _Context 
+     * @param {Pointer<Void>} _Context Value that is passed to the callback function supplied by the <i>MsgHandler</i> parameter. If the default callback routine has been specified as <i>MsgHandler</i>, this context must be the context returned from 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/setupapi/nf-setupapi-setupinitdefaultqueuecallback">SetupInitDefaultQueueCallback</a> or 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/setupapi/nf-setupapi-setupinitdefaultqueuecallbackex">SetupInitDefaultQueueCallbackEx</a>.
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -9452,7 +9459,9 @@ class DeviceAndDriverInstallation {
      * <a href="https://docs.microsoft.com/windows/desktop/SetupApi/default-queue-callback-routine">Default Queue Callback Routine</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/setupapi/nc-setupapi-psp_file_callback_a">FileCallback</a> If the callback routine is <b>null</b>, 
      * <b>SetupCommitFileQueue</b> returns <b>TRUE</b> and the error is 0 or NO_ERROR.
-     * @param {Pointer<Void>} _Context 
+     * @param {Pointer<Void>} _Context Value that is passed to the callback function supplied by the <i>MsgHandler</i> parameter. If the default callback routine has been specified as <i>MsgHandler</i>, this context must be the context returned from 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/setupapi/nf-setupapi-setupinitdefaultqueuecallback">SetupInitDefaultQueueCallback</a> or 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/setupapi/nf-setupapi-setupinitdefaultqueuecallbackex">SetupInitDefaultQueueCallbackEx</a>.
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -9482,7 +9491,7 @@ class DeviceAndDriverInstallation {
      * > [!NOTE]
      * > The setupapi.h header defines SetupScanFileQueue as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Void>} FileQueue Handle to the setup file queue whose copy list is to be scanned or iterated.
-     * @param {Integer} Flags Flags to combine to control the file queue scan operation. Note that either SPQ_SCAN_FILE_PRESENCE, SPQ_SCAN_USE_CALLBACK, SPQ_SCAN_USE_CALLBACKEX, or SPQ_SCAN_FILE_VALIDITY must be specified. 
+     * @param {SETUPSCANFILEQUEUE_FLAGS} Flags Flags to combine to control the file queue scan operation. Note that either SPQ_SCAN_FILE_PRESENCE, SPQ_SCAN_USE_CALLBACK, SPQ_SCAN_USE_CALLBACKEX, or SPQ_SCAN_FILE_VALIDITY must be specified. 
      * 
      * 
      * 
@@ -9665,7 +9674,7 @@ class DeviceAndDriverInstallation {
      * > [!NOTE]
      * > The setupapi.h header defines SetupScanFileQueue as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Void>} FileQueue Handle to the setup file queue whose copy list is to be scanned or iterated.
-     * @param {Integer} Flags Flags to combine to control the file queue scan operation. Note that either SPQ_SCAN_FILE_PRESENCE, SPQ_SCAN_USE_CALLBACK, SPQ_SCAN_USE_CALLBACKEX, or SPQ_SCAN_FILE_VALIDITY must be specified. 
+     * @param {SETUPSCANFILEQUEUE_FLAGS} Flags Flags to combine to control the file queue scan operation. Note that either SPQ_SCAN_FILE_PRESENCE, SPQ_SCAN_USE_CALLBACK, SPQ_SCAN_USE_CALLBACKEX, or SPQ_SCAN_FILE_VALIDITY must be specified. 
      * 
      * 
      * 
@@ -10085,8 +10094,8 @@ class DeviceAndDriverInstallation {
      * > The setupapi.h header defines SetupCopyOEMInf as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PSTR} SourceInfFileName Full path to the source .inf file. You should use a null-terminated string. This path should not exceed <b>MAX_PATH</b> in size, including the terminating <b>NULL</b>.
      * @param {PSTR} OEMSourceMediaLocation Source location information to be stored in the precompiled .inf (.pnf). This location information is specific to the source media type specified. You should use a null-terminated string. This path should not exceed <b>MAX_PATH</b> in size, including the terminating <b>NULL</b>.
-     * @param {Integer} OEMSourceMediaType 
-     * @param {Integer} CopyStyle Specifies how the .inf file is copied into the .inf directory. The following flags can be combined.
+     * @param {OEM_SOURCE_MEDIA_TYPE} OEMSourceMediaType 
+     * @param {SP_COPY_STYLE} CopyStyle Specifies how the .inf file is copied into the .inf directory. The following flags can be combined.
      * 
      * <table>
      * <tr>
@@ -10190,8 +10199,8 @@ class DeviceAndDriverInstallation {
      * > The setupapi.h header defines SetupCopyOEMInf as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PWSTR} SourceInfFileName Full path to the source .inf file. You should use a null-terminated string. This path should not exceed <b>MAX_PATH</b> in size, including the terminating <b>NULL</b>.
      * @param {PWSTR} OEMSourceMediaLocation Source location information to be stored in the precompiled .inf (.pnf). This location information is specific to the source media type specified. You should use a null-terminated string. This path should not exceed <b>MAX_PATH</b> in size, including the terminating <b>NULL</b>.
-     * @param {Integer} OEMSourceMediaType 
-     * @param {Integer} CopyStyle Specifies how the .inf file is copied into the .inf directory. The following flags can be combined.
+     * @param {OEM_SOURCE_MEDIA_TYPE} OEMSourceMediaType 
+     * @param {SP_COPY_STYLE} CopyStyle Specifies how the .inf file is copied into the .inf directory. The following flags can be combined.
      * 
      * <table>
      * <tr>
@@ -10851,7 +10860,7 @@ class DeviceAndDriverInstallation {
      * @param {PSTR} TargetFilespec File name of the file to be added to the disk-space list. You should use a null-terminated string that specifies  a fully qualified path. Otherwise, the path must be relative to the current directory.
      * @param {Integer} FileSize Uncompressed size of the file as it will exist in the target directory, in bytes. You can use 
      * <a href="https://docs.microsoft.com/windows/desktop/api/setupapi/nf-setupapi-setupgetsourcefilesizea">SetupGetSourceFileSize</a> to retrieve this information from an INF file. This parameter is ignored for FILEOP_DELETE operations.
-     * @param {Integer} Operation 
+     * @param {SETUP_FILE_OPERATION} Operation 
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -10885,7 +10894,7 @@ class DeviceAndDriverInstallation {
      * @param {PWSTR} TargetFilespec File name of the file to be added to the disk-space list. You should use a null-terminated string that specifies  a fully qualified path. Otherwise, the path must be relative to the current directory.
      * @param {Integer} FileSize Uncompressed size of the file as it will exist in the target directory, in bytes. You can use 
      * <a href="https://docs.microsoft.com/windows/desktop/api/setupapi/nf-setupapi-setupgetsourcefilesizea">SetupGetSourceFileSize</a> to retrieve this information from an INF file. This parameter is ignored for FILEOP_DELETE operations.
-     * @param {Integer} Operation 
+     * @param {SETUP_FILE_OPERATION} Operation 
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -10925,7 +10934,7 @@ class DeviceAndDriverInstallation {
      * @param {Pointer<Void>} InfHandle Handle to an open INF file that contains the <b>SourceDisksFiles</b> section. If <i>ListInfHandle</i> is not specified, this INF file must also contain the section named by <i>SectionName</i>.
      * @param {Pointer<Void>} ListInfHandle Optional handle to an open INF file that contains the section specified by <i>SectionName</i>. Otherwise, <i>InfHandle</i> is assumed to contain this section.
      * @param {PSTR} SectionName Name of the <b>Copy Files</b> or <b>Delete Files</b> section that contains the file operations to add to the disk-space list. Use a null-terminated string.
-     * @param {Integer} Operation 
+     * @param {SETUP_FILE_OPERATION} Operation 
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -10967,7 +10976,7 @@ class DeviceAndDriverInstallation {
      * @param {Pointer<Void>} InfHandle Handle to an open INF file that contains the <b>SourceDisksFiles</b> section. If <i>ListInfHandle</i> is not specified, this INF file must also contain the section named by <i>SectionName</i>.
      * @param {Pointer<Void>} ListInfHandle Optional handle to an open INF file that contains the section specified by <i>SectionName</i>. Otherwise, <i>InfHandle</i> is assumed to contain this section.
      * @param {PWSTR} SectionName Name of the <b>Copy Files</b> or <b>Delete Files</b> section that contains the file operations to add to the disk-space list. Use a null-terminated string.
-     * @param {Integer} Operation 
+     * @param {SETUP_FILE_OPERATION} Operation 
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -11083,7 +11092,7 @@ class DeviceAndDriverInstallation {
      * > The setupapi.h header defines SetupRemoveFromDiskSpaceList as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Void>} DiskSpace Handle to a disk-space list.
      * @param {PSTR} TargetFilespec Pointer to a null-terminated string that specifies the file name of the file to remove from the disk-space list. This is typically a fully qualified  path. Otherwise, the path must be relative to the current directory.
-     * @param {Integer} Operation 
+     * @param {SETUP_FILE_OPERATION} Operation 
      * @returns {BOOL} If the file was not in the list, the 
      * <b>SetupRemoveFromDiskSpaceList</b> function returns a nonzero value and 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns ERROR_INVALID_DRIVE or ERROR_INVALID_NAME. If the file was in the list then upon success the routine returns a nonzero value and 
@@ -11118,7 +11127,7 @@ class DeviceAndDriverInstallation {
      * > The setupapi.h header defines SetupRemoveFromDiskSpaceList as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Void>} DiskSpace Handle to a disk-space list.
      * @param {PWSTR} TargetFilespec Pointer to a null-terminated string that specifies the file name of the file to remove from the disk-space list. This is typically a fully qualified  path. Otherwise, the path must be relative to the current directory.
-     * @param {Integer} Operation 
+     * @param {SETUP_FILE_OPERATION} Operation 
      * @returns {BOOL} If the file was not in the list, the 
      * <b>SetupRemoveFromDiskSpaceList</b> function returns a nonzero value and 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns ERROR_INVALID_DRIVE or ERROR_INVALID_NAME. If the file was in the list then upon success the routine returns a nonzero value and 
@@ -11166,7 +11175,7 @@ class DeviceAndDriverInstallation {
      * @param {Pointer<Void>} InfHandle Handle to an open INF file that contains the <b>SourceDisksFiles</b> section. If <i>ListInfHandle</i> is not specified, this INF file must also contain the section specified by <i>SectionName</i>.
      * @param {Pointer<Void>} ListInfHandle Optional handle to an open INF file that contains the section to remove from the disk-space list. Otherwise, <i>InfHandle</i> must contain the section specified by <i>SectionName</i>.
      * @param {PSTR} SectionName Pointer to a null-terminated string that specifies the name of the <b>Copy Files</b> or <b>Delete Files</b> section to remove from the disk-space list.
-     * @param {Integer} Operation 
+     * @param {SETUP_FILE_OPERATION} Operation 
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -11213,7 +11222,7 @@ class DeviceAndDriverInstallation {
      * @param {Pointer<Void>} InfHandle Handle to an open INF file that contains the <b>SourceDisksFiles</b> section. If <i>ListInfHandle</i> is not specified, this INF file must also contain the section specified by <i>SectionName</i>.
      * @param {Pointer<Void>} ListInfHandle Optional handle to an open INF file that contains the section to remove from the disk-space list. Otherwise, <i>InfHandle</i> must contain the section specified by <i>SectionName</i>.
      * @param {PWSTR} SectionName Pointer to a null-terminated string that specifies the name of the <b>Copy Files</b> or <b>Delete Files</b> section to remove from the disk-space list.
-     * @param {Integer} Operation 
+     * @param {SETUP_FILE_OPERATION} Operation 
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -11330,7 +11339,7 @@ class DeviceAndDriverInstallation {
      * @param {PSTR} CabinetFile Cabinet (.CAB) file to iterate through.
      * @param {Pointer<PSP_FILE_CALLBACK_A>} MsgHandler Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/setupapi/nc-setupapi-psp_file_callback_a">FileCallback</a> routine that will process the notifications 
      * <b>SetupIterateCabinet</b> returns as it iterates through the files in the cabinet file. The callback routine may then return a value specifying whether to decompress, copy, or skip the file.
-     * @param {Pointer<Void>} _Context 
+     * @param {Pointer<Void>} _Context Context value that is passed into the routine specified in <i>MsgHandler</i>. This enables the callback routine to track values between notifications, without having to use global variables.
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -11363,7 +11372,7 @@ class DeviceAndDriverInstallation {
      * @param {PWSTR} CabinetFile Cabinet (.CAB) file to iterate through.
      * @param {Pointer<PSP_FILE_CALLBACK_W>} MsgHandler Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/setupapi/nc-setupapi-psp_file_callback_a">FileCallback</a> routine that will process the notifications 
      * <b>SetupIterateCabinet</b> returns as it iterates through the files in the cabinet file. The callback routine may then return a value specifying whether to decompress, copy, or skip the file.
-     * @param {Pointer<Void>} _Context 
+     * @param {Pointer<Void>} _Context Context value that is passed into the routine specified in <i>MsgHandler</i>. This enables the callback routine to track values between notifications, without having to use global variables.
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -11495,7 +11504,7 @@ class DeviceAndDriverInstallation {
      * <a href="https://docs.microsoft.com/windows/desktop/api/setupapi/nf-setupapi-setupinitdefaultqueuecallbackex">SetupInitDefaultQueueCallbackEx</a>, after the queued operations have finished processing, call 
      * <b>SetupTermDefaultQueueCallback</b> to release the resources allocated in initializing the context structure. For more information see 
      * <a href="https://docs.microsoft.com/windows/desktop/SetupApi/initializing-and-terminating-the-callback-context">Initializing and Terminating the Callback Context</a>.
-     * @param {Pointer<Void>} _Context 
+     * @param {Pointer<Void>} _Context Pointer to the context used by the default callback routine.
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/setupapi/nf-setupapi-setuptermdefaultqueuecallback
      * @since windows5.1.2600
@@ -11528,8 +11537,189 @@ class DeviceAndDriverInstallation {
      * 
      * > [!NOTE]
      * > The setupapi.h header defines SetupDefaultQueueCallback as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<Void>} _Context 
-     * @param {Integer} _Notification 
+     * @param {Pointer<Void>} _Context Pointer to the context initialized by the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/setupapi/nf-setupapi-setupinitdefaultqueuecallback">SetupInitDefaultQueueCallback</a> or 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/setupapi/nf-setupapi-setupinitdefaultqueuecallbackex">SetupInitDefaultQueueCallbackEx</a> functions.
+     * @param {Integer} _Notification Notification of a queue action. This parameter can be one of the  values shown in the following table. 
+     * 
+     * 
+     * 
+     * <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="SPFILENOTIFY_STARTQUEUE"></a><a id="spfilenotify_startqueue"></a><dl>
+     * <dt><b>SPFILENOTIFY_STARTQUEUE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Started queued file operations.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="SPFILENOTIFY_ENDQUEUE"></a><a id="spfilenotify_endqueue"></a><dl>
+     * <dt><b>SPFILENOTIFY_ENDQUEUE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Finished queued file operations.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="SPFILENOTIFY_STARTSUBQUEUE"></a><a id="spfilenotify_startsubqueue"></a><dl>
+     * <dt><b>SPFILENOTIFY_STARTSUBQUEUE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Started a copy, rename, or delete subqueue.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="SPFILENOTIFY_ENDSUBQUEUE"></a><a id="spfilenotify_endsubqueue"></a><dl>
+     * <dt><b>SPFILENOTIFY_ENDSUBQUEUE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Finished a copy, rename, or delete subqueue.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="SPFILENOTIFY_STARTRENAME"></a><a id="spfilenotify_startrename"></a><dl>
+     * <dt><b>SPFILENOTIFY_STARTRENAME</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Started a rename operation.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="SPFILENOTIFY_ENDRENAME"></a><a id="spfilenotify_endrename"></a><dl>
+     * <dt><b>SPFILENOTIFY_ENDRENAME</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Finished a rename operation.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="SPFILENOTIFY_RENAMEERROR"></a><a id="spfilenotify_renameerror"></a><dl>
+     * <dt><b>SPFILENOTIFY_RENAMEERROR</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Encountered an error while renaming a file.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="SPFILENOTIFY_STARTDELETE"></a><a id="spfilenotify_startdelete"></a><dl>
+     * <dt><b>SPFILENOTIFY_STARTDELETE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Started a delete operation.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="SPFILENOTIFY_ENDDELETE"></a><a id="spfilenotify_enddelete"></a><dl>
+     * <dt><b>SPFILENOTIFY_ENDDELETE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Finished a delete operation.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="SPFILENOTIFY_DELETEERROR"></a><a id="spfilenotify_deleteerror"></a><dl>
+     * <dt><b>SPFILENOTIFY_DELETEERROR</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Encountered an error while deleting a file.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="SPFILENOTIFY_STARTCOPY"></a><a id="spfilenotify_startcopy"></a><dl>
+     * <dt><b>SPFILENOTIFY_STARTCOPY</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Started a copy operation.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="SPFILENOTIFY_ENDCOPY"></a><a id="spfilenotify_endcopy"></a><dl>
+     * <dt><b>SPFILENOTIFY_ENDCOPY</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Finished a copy operation.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="SPFILENOTIFY_COPYERROR"></a><a id="spfilenotify_copyerror"></a><dl>
+     * <dt><b>SPFILENOTIFY_COPYERROR</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Encountered an error while copying a file.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="SPFILENOTIFY_NEEDMEDIA"></a><a id="spfilenotify_needmedia"></a><dl>
+     * <dt><b>SPFILENOTIFY_NEEDMEDIA</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * New media is required.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="SPFILENOTIFY_LANGMISMATCH"></a><a id="spfilenotify_langmismatch"></a><dl>
+     * <dt><b>SPFILENOTIFY_LANGMISMATCH</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Existing target file is in a different language than the source.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="SPFILENOTIFY_TARGETEXISTS"></a><a id="spfilenotify_targetexists"></a><dl>
+     * <dt><b>SPFILENOTIFY_TARGETEXISTS</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Target file exists.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="SPFILENOTIFY_TARGETNEWER_"></a><a id="spfilenotify_targetnewer_"></a><dl>
+     * <dt><b>SPFILENOTIFY_TARGETNEWER </b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Existing target file is newer than source.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @param {Pointer} Param1 Additional message information. The content of this parameter depends on the value of the <i>Notification</i> parameter.
      * @param {Pointer} Param2 Additional message information. The content of this parameter depends on the value of the <i>Notification</i> parameter.
      * @returns {Integer} Returns an unsigned integer to 
@@ -11632,8 +11822,189 @@ class DeviceAndDriverInstallation {
      * 
      * > [!NOTE]
      * > The setupapi.h header defines SetupDefaultQueueCallback as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<Void>} _Context 
-     * @param {Integer} _Notification 
+     * @param {Pointer<Void>} _Context Pointer to the context initialized by the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/setupapi/nf-setupapi-setupinitdefaultqueuecallback">SetupInitDefaultQueueCallback</a> or 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/setupapi/nf-setupapi-setupinitdefaultqueuecallbackex">SetupInitDefaultQueueCallbackEx</a> functions.
+     * @param {Integer} _Notification Notification of a queue action. This parameter can be one of the  values shown in the following table. 
+     * 
+     * 
+     * 
+     * <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="SPFILENOTIFY_STARTQUEUE"></a><a id="spfilenotify_startqueue"></a><dl>
+     * <dt><b>SPFILENOTIFY_STARTQUEUE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Started queued file operations.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="SPFILENOTIFY_ENDQUEUE"></a><a id="spfilenotify_endqueue"></a><dl>
+     * <dt><b>SPFILENOTIFY_ENDQUEUE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Finished queued file operations.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="SPFILENOTIFY_STARTSUBQUEUE"></a><a id="spfilenotify_startsubqueue"></a><dl>
+     * <dt><b>SPFILENOTIFY_STARTSUBQUEUE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Started a copy, rename, or delete subqueue.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="SPFILENOTIFY_ENDSUBQUEUE"></a><a id="spfilenotify_endsubqueue"></a><dl>
+     * <dt><b>SPFILENOTIFY_ENDSUBQUEUE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Finished a copy, rename, or delete subqueue.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="SPFILENOTIFY_STARTRENAME"></a><a id="spfilenotify_startrename"></a><dl>
+     * <dt><b>SPFILENOTIFY_STARTRENAME</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Started a rename operation.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="SPFILENOTIFY_ENDRENAME"></a><a id="spfilenotify_endrename"></a><dl>
+     * <dt><b>SPFILENOTIFY_ENDRENAME</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Finished a rename operation.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="SPFILENOTIFY_RENAMEERROR"></a><a id="spfilenotify_renameerror"></a><dl>
+     * <dt><b>SPFILENOTIFY_RENAMEERROR</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Encountered an error while renaming a file.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="SPFILENOTIFY_STARTDELETE"></a><a id="spfilenotify_startdelete"></a><dl>
+     * <dt><b>SPFILENOTIFY_STARTDELETE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Started a delete operation.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="SPFILENOTIFY_ENDDELETE"></a><a id="spfilenotify_enddelete"></a><dl>
+     * <dt><b>SPFILENOTIFY_ENDDELETE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Finished a delete operation.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="SPFILENOTIFY_DELETEERROR"></a><a id="spfilenotify_deleteerror"></a><dl>
+     * <dt><b>SPFILENOTIFY_DELETEERROR</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Encountered an error while deleting a file.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="SPFILENOTIFY_STARTCOPY"></a><a id="spfilenotify_startcopy"></a><dl>
+     * <dt><b>SPFILENOTIFY_STARTCOPY</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Started a copy operation.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="SPFILENOTIFY_ENDCOPY"></a><a id="spfilenotify_endcopy"></a><dl>
+     * <dt><b>SPFILENOTIFY_ENDCOPY</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Finished a copy operation.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="SPFILENOTIFY_COPYERROR"></a><a id="spfilenotify_copyerror"></a><dl>
+     * <dt><b>SPFILENOTIFY_COPYERROR</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Encountered an error while copying a file.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="SPFILENOTIFY_NEEDMEDIA"></a><a id="spfilenotify_needmedia"></a><dl>
+     * <dt><b>SPFILENOTIFY_NEEDMEDIA</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * New media is required.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="SPFILENOTIFY_LANGMISMATCH"></a><a id="spfilenotify_langmismatch"></a><dl>
+     * <dt><b>SPFILENOTIFY_LANGMISMATCH</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Existing target file is in a different language than the source.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="SPFILENOTIFY_TARGETEXISTS"></a><a id="spfilenotify_targetexists"></a><dl>
+     * <dt><b>SPFILENOTIFY_TARGETEXISTS</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Target file exists.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="SPFILENOTIFY_TARGETNEWER_"></a><a id="spfilenotify_targetnewer_"></a><dl>
+     * <dt><b>SPFILENOTIFY_TARGETNEWER </b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Existing target file is newer than source.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @param {Pointer} Param1 Additional message information. The content of this parameter depends on the value of the <i>Notification</i> parameter.
      * @param {Pointer} Param2 Additional message information. The content of this parameter depends on the value of the <i>Notification</i> parameter.
      * @returns {Integer} Returns an unsigned integer to 
@@ -11770,7 +12141,12 @@ class DeviceAndDriverInstallation {
      *         <a href="https://docs.microsoft.com/windows/desktop/SetupApi/spfilenotify-endregistration">SPFILENOTIFY_ENDREGISTRATION</a> 
      *         is sent to the callback routine once each time a file is registered or unregistered using the 
      *         <b>RegisterDlls</b> INF directive on Windows 2000.
-     * @param {Pointer<Void>} _Context 
+     * @param {Pointer<Void>} _Context Value to be passed to the callback function when the file queue built by this routine internally is 
+     *       committed via 
+     *       <a href="https://docs.microsoft.com/windows/desktop/api/setupapi/nf-setupapi-setupcommitfilequeuea">SetupCommitFileQueue</a>. The 
+     *       <i>Context</i> parameter is optional only if the <i>Flags</i> parameter 
+     *       does not include SPINST_FIlLES. This parameter must be specified if <i>Flags</i> includes 
+     *       SPINST_FIlLES.
      * @param {HDEVINFO} DeviceInfoSet Optional pointer to a handle to a device information set. For more information about 
      *       the Device Installer setup functions, see the DDK 
      *       <i>Programmer's Guide</i>.
@@ -11855,7 +12231,12 @@ class DeviceAndDriverInstallation {
      *         <a href="https://docs.microsoft.com/windows/desktop/SetupApi/spfilenotify-endregistration">SPFILENOTIFY_ENDREGISTRATION</a> 
      *         is sent to the callback routine once each time a file is registered or unregistered using the 
      *         <b>RegisterDlls</b> INF directive on Windows 2000.
-     * @param {Pointer<Void>} _Context 
+     * @param {Pointer<Void>} _Context Value to be passed to the callback function when the file queue built by this routine internally is 
+     *       committed via 
+     *       <a href="https://docs.microsoft.com/windows/desktop/api/setupapi/nf-setupapi-setupcommitfilequeuea">SetupCommitFileQueue</a>. The 
+     *       <i>Context</i> parameter is optional only if the <i>Flags</i> parameter 
+     *       does not include SPINST_FIlLES. This parameter must be specified if <i>Flags</i> includes 
+     *       SPINST_FIlLES.
      * @param {HDEVINFO} DeviceInfoSet Optional pointer to a handle to a device information set. For more information about 
      *       the Device Installer setup functions, see the DDK 
      *       <i>Programmer's Guide</i>.
@@ -12002,7 +12383,7 @@ class DeviceAndDriverInstallation {
      * @param {Pointer<Void>} InfHandle A handle to the INF file that contains the <b>Service</b> section.
      * @param {PSTR} SectionName The name of the <b>Service</b> section to process. You should use a null-terminated 
      *       string.
-     * @param {Integer} Flags The controls for the installation of each service in the specified section.
+     * @param {SPSVCINST_FLAGS} Flags The controls for the installation of each service in the specified section.
      * 
      * <table>
      * <tr>
@@ -12185,7 +12566,7 @@ class DeviceAndDriverInstallation {
      * @param {Pointer<Void>} InfHandle A handle to the INF file that contains the <b>Service</b> section.
      * @param {PWSTR} SectionName The name of the <b>Service</b> section to process. You should use a null-terminated 
      *       string.
-     * @param {Integer} Flags The controls for the installation of each service in the specified section.
+     * @param {SPSVCINST_FLAGS} Flags The controls for the installation of each service in the specified section.
      * 
      * <table>
      * <tr>
@@ -12367,7 +12748,7 @@ class DeviceAndDriverInstallation {
      * > The setupapi.h header defines SetupInstallServicesFromInfSectionEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Void>} InfHandle A handle to the INF file that contains the <b>Service</b> section.
      * @param {PSTR} SectionName The name of the <b>Service</b> section to process. You should use a null-terminated string.
-     * @param {Integer} Flags The controls for the installation. 
+     * @param {SPSVCINST_FLAGS} Flags The controls for the installation. 
      * 
      * 
      * 
@@ -12564,7 +12945,7 @@ class DeviceAndDriverInstallation {
      * > The setupapi.h header defines SetupInstallServicesFromInfSectionEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Void>} InfHandle A handle to the INF file that contains the <b>Service</b> section.
      * @param {PWSTR} SectionName The name of the <b>Service</b> section to process. You should use a null-terminated string.
-     * @param {Integer} Flags The controls for the installation. 
+     * @param {SPSVCINST_FLAGS} Flags The controls for the installation. 
      * 
      * 
      * 
@@ -13185,7 +13566,7 @@ class DeviceAndDriverInstallation {
      * @param {Pointer<Void>} FileLogHandle Handle to the file log as returned by <a href="https://docs.microsoft.com/windows/desktop/api/setupapi/nf-setupapi-setupinitializefileloga">SetupInitializeFileLog</a>.
      * @param {PSTR} LogSectionName Optional pointer to the section name for the log file in a format that is meaningful to the caller. You should use a <b>null</b>-terminated string. Required for non-system logs. If no <i>LogSectionName</i> is specified for a system log, a default is supplied.
      * @param {PSTR} TargetFilename Name of the file for which log information is desired. You should use a <b>null</b>-terminated string.
-     * @param {Integer} DesiredInfo Indicates what information should be returned to the <i>DataOut</i> buffer. This parameter can be one of the following enumerated values. 
+     * @param {SetupFileLogInfo} DesiredInfo Indicates what information should be returned to the <i>DataOut</i> buffer. This parameter can be one of the following enumerated values. 
      * 
      * 
      * 
@@ -13293,7 +13674,7 @@ class DeviceAndDriverInstallation {
      * @param {Pointer<Void>} FileLogHandle Handle to the file log as returned by <a href="https://docs.microsoft.com/windows/desktop/api/setupapi/nf-setupapi-setupinitializefileloga">SetupInitializeFileLog</a>.
      * @param {PWSTR} LogSectionName Optional pointer to the section name for the log file in a format that is meaningful to the caller. You should use a <b>null</b>-terminated string. Required for non-system logs. If no <i>LogSectionName</i> is specified for a system log, a default is supplied.
      * @param {PWSTR} TargetFilename Name of the file for which log information is desired. You should use a <b>null</b>-terminated string.
-     * @param {Integer} DesiredInfo Indicates what information should be returned to the <i>DataOut</i> buffer. This parameter can be one of the following enumerated values. 
+     * @param {SetupFileLogInfo} DesiredInfo Indicates what information should be returned to the <i>DataOut</i> buffer. This parameter can be one of the following enumerated values. 
      * 
      * 
      * 
@@ -13691,16 +14072,16 @@ class DeviceAndDriverInstallation {
      * 
      * </li>
      * </ul>
-     * @param {Integer} Error A SetupAPI-specific error code or a Win32 error code. The SetupAPI-specific error codes are listed in <i>Setupapi.h</i>. The Win32 error codes are listed in <i>Winerror.h</i>.
+     * @param {Integer} _Error A SetupAPI-specific error code or a Win32 error code. The SetupAPI-specific error codes are listed in <i>Setupapi.h</i>. The Win32 error codes are listed in <i>Winerror.h</i>.
      * @param {PSTR} MessageStr A pointer to a NULL-terminated constant string that contains a <b>printf</b>-compatible format string, which specifies the formatted message to include in the log entry.
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/setupapi/nf-setupapi-setupwritetextlogerror
      * @since windows6.0.6000
      */
-    static SetupWriteTextLogError(LogToken, Category, LogFlags, Error, MessageStr) {
+    static SetupWriteTextLogError(LogToken, Category, LogFlags, _Error, MessageStr) {
         MessageStr := MessageStr is String ? StrPtr(MessageStr) : MessageStr
 
-        DllCall("SETUPAPI.dll\SetupWriteTextLogError", "uint", LogToken, "uint", Category, "uint", LogFlags, "uint", Error, "ptr", MessageStr, "CDecl ")
+        DllCall("SETUPAPI.dll\SetupWriteTextLogError", "uint", LogToken, "uint", Category, "uint", LogFlags, "uint", _Error, "ptr", MessageStr, "CDecl ")
     }
 
     /**
@@ -13757,7 +14138,7 @@ class DeviceAndDriverInstallation {
      * </li>
      * </ul>
      * @param {Pointer<Void>} InfHandle A handle to the INF file that includes the line of text to be written to the text log. A handle to an INF file is obtained by calling <b>SetupOpenInfFile</b>, which is documented in the Platform SDK.
-     * @param {Pointer<INFCONTEXT>} _Context 
+     * @param {Pointer<INFCONTEXT>} _Context A pointer to an INF file context that specifies the  line of text to be written to the text log. An INF file context for a line is obtained by calling the <b>SetupFind</b><i>Xxx</i><b>Line</b> functions. For information about INF files and an INF file context, see the information that is provided in the Platform SDK about using INF files, obtaining an INF file context, and the INFCONTEXT structure.
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/setupapi/nf-setupapi-setupwritetextloginfline
      * @since windows6.0.6000
@@ -14088,7 +14469,7 @@ class DeviceAndDriverInstallation {
      * @param {Pointer<Guid>} ClassGuid A pointer to the <a href="https://docs.microsoft.com/windows-hardware/drivers/install/overview-of-device-setup-classes">device setup class</a> GUID for the device. If the device setup class of the device is not known, set *<i>ClassGuid</i> to a GUID_NULL structure.
      * @param {PSTR} DeviceDescription A pointer to a NULL-terminated string that supplies the text description of the device. This pointer is optional and can be <b>NULL</b>.
      * @param {HWND} hwndParent A handle to the top-level window to use for any user interface that is related to installing the device. This handle is optional and can be <b>NULL</b>.
-     * @param {Integer} CreationFlags 
+     * @param {SETUP_DI_DEVICE_CREATION_FLAGS} CreationFlags 
      * @param {Pointer<SP_DEVINFO_DATA>} DeviceInfoData A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/setupapi/ns-setupapi-sp_devinfo_data">SP_DEVINFO_DATA</a> structure that receives the new device information element. This pointer is optional and can be <b>NULL</b>. If the structure is supplied, the caller must set the <b>cbSize</b> member of this structure to <b>sizeof(</b>SP_DEVINFO_DATA<b>)</b> before calling the function. For more information, see the following <b>Remarks</b> section.
      * @returns {BOOL} The function returns <b>TRUE</b> if it is successful. Otherwise, it returns <b>FALSE</b> and the logged error can be retrieved by making a call to <a href="https://docs.microsoft.com/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://learn.microsoft.com/windows/win32/api/setupapi/nf-setupapi-setupdicreatedeviceinfoa
@@ -14134,7 +14515,7 @@ class DeviceAndDriverInstallation {
      * @param {Pointer<Guid>} ClassGuid A pointer to the <a href="https://docs.microsoft.com/windows-hardware/drivers/install/overview-of-device-setup-classes">device setup class</a> GUID for the device. If the device setup class of the device is not known, set *<i>ClassGuid</i> to a GUID_NULL structure.
      * @param {PWSTR} DeviceDescription A pointer to a NULL-terminated string that supplies the text description of the device. This pointer is optional and can be <b>NULL</b>.
      * @param {HWND} hwndParent A handle to the top-level window to use for any user interface that is related to installing the device. This handle is optional and can be <b>NULL</b>.
-     * @param {Integer} CreationFlags 
+     * @param {SETUP_DI_DEVICE_CREATION_FLAGS} CreationFlags 
      * @param {Pointer<SP_DEVINFO_DATA>} DeviceInfoData A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/setupapi/ns-setupapi-sp_devinfo_data">SP_DEVINFO_DATA</a> structure that receives the new device information element. This pointer is optional and can be <b>NULL</b>. If the structure is supplied, the caller must set the <b>cbSize</b> member of this structure to <b>sizeof(</b>SP_DEVINFO_DATA<b>)</b> before calling the function. For more information, see the following <b>Remarks</b> section.
      * @returns {BOOL} The function returns <b>TRUE</b> if it is successful. Otherwise, it returns <b>FALSE</b> and the logged error can be retrieved by making a call to <a href="https://docs.microsoft.com/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://learn.microsoft.com/windows/win32/api/setupapi/nf-setupapi-setupdicreatedeviceinfow
@@ -14726,7 +15107,7 @@ class DeviceAndDriverInstallation {
      * > The setupapi.h header defines SetupDiGetDeviceInterfaceDetail as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HDEVINFO} DeviceInfoSet A pointer to the <a href="https://docs.microsoft.com/windows-hardware/drivers/install/device-information-sets">device information set</a> that contains the interface for which to retrieve details. This handle is typically returned by <a href="https://docs.microsoft.com/windows/desktop/api/setupapi/nf-setupapi-setupdigetclassdevsw">SetupDiGetClassDevs</a>.
      * @param {Pointer<SP_DEVICE_INTERFACE_DATA>} DeviceInterfaceData A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/setupapi/ns-setupapi-sp_device_interface_data">SP_DEVICE_INTERFACE_DATA</a> structure that specifies the interface in <i>DeviceInfoSet</i> for which to retrieve details. A pointer of this type is typically returned by <a href="https://docs.microsoft.com/windows/desktop/api/setupapi/nf-setupapi-setupdienumdeviceinterfaces">SetupDiEnumDeviceInterfaces</a>.
-     * @param {Pointer} DeviceInterfaceDetailData A pointer to an <a href="https://docs.microsoft.com/windows/win32/api/setupapi/ns-setupapi-sp_device_interface_detail_data_a">SP_DEVICE_INTERFACE_DETAIL_DATA</a> structure to receive information about the specified interface. This parameter is optional and can be <b>NULL</b>. This parameter must be <b>NULL</b> if <i>DeviceInterfaceDetailSize</i> is zero. If this parameter is specified, the caller must set <i>DeviceInterfaceDetailData</i><b>.cbSize</b> to <b>sizeof</b>(SP_DEVICE_INTERFACE_DETAIL_DATA) before calling this function. The <b>cbSize</b> member always contains the size of the fixed part of the data structure, not a size reflecting the variable-length string at the end.
+     * @param {Integer} DeviceInterfaceDetailData A pointer to an <a href="https://docs.microsoft.com/windows/win32/api/setupapi/ns-setupapi-sp_device_interface_detail_data_a">SP_DEVICE_INTERFACE_DETAIL_DATA</a> structure to receive information about the specified interface. This parameter is optional and can be <b>NULL</b>. This parameter must be <b>NULL</b> if <i>DeviceInterfaceDetailSize</i> is zero. If this parameter is specified, the caller must set <i>DeviceInterfaceDetailData</i><b>.cbSize</b> to <b>sizeof</b>(SP_DEVICE_INTERFACE_DETAIL_DATA) before calling this function. The <b>cbSize</b> member always contains the size of the fixed part of the data structure, not a size reflecting the variable-length string at the end.
      * @param {Integer} DeviceInterfaceDetailDataSize The size of the <i>DeviceInterfaceDetailData</i> buffer. The buffer must be at least (<b>offsetof</b>(SP_DEVICE_INTERFACE_DETAIL_DATA, <b>DevicePath</b>) + <b>sizeof</b>(TCHAR)) bytes, to contain the fixed part of the structure and a single <b>NULL</b> to terminate an empty MULTI_SZ string. 
      * 
      * This parameter must be zero if <i>DeviceInterfaceDetailData</i> is <b>NULL</b>.
@@ -14778,7 +15159,7 @@ class DeviceAndDriverInstallation {
      * > The setupapi.h header defines SetupDiGetDeviceInterfaceDetail as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HDEVINFO} DeviceInfoSet A pointer to the <a href="https://docs.microsoft.com/windows-hardware/drivers/install/device-information-sets">device information set</a> that contains the interface for which to retrieve details. This handle is typically returned by <a href="https://docs.microsoft.com/windows/desktop/api/setupapi/nf-setupapi-setupdigetclassdevsw">SetupDiGetClassDevs</a>.
      * @param {Pointer<SP_DEVICE_INTERFACE_DATA>} DeviceInterfaceData A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/setupapi/ns-setupapi-sp_device_interface_data">SP_DEVICE_INTERFACE_DATA</a> structure that specifies the interface in <i>DeviceInfoSet</i> for which to retrieve details. A pointer of this type is typically returned by <a href="https://docs.microsoft.com/windows/desktop/api/setupapi/nf-setupapi-setupdienumdeviceinterfaces">SetupDiEnumDeviceInterfaces</a>.
-     * @param {Pointer} DeviceInterfaceDetailData A pointer to an <a href="https://docs.microsoft.com/windows/win32/api/setupapi/ns-setupapi-sp_device_interface_detail_data_a">SP_DEVICE_INTERFACE_DETAIL_DATA</a> structure to receive information about the specified interface. This parameter is optional and can be <b>NULL</b>. This parameter must be <b>NULL</b> if <i>DeviceInterfaceDetailSize</i> is zero. If this parameter is specified, the caller must set <i>DeviceInterfaceDetailData</i><b>.cbSize</b> to <b>sizeof</b>(SP_DEVICE_INTERFACE_DETAIL_DATA) before calling this function. The <b>cbSize</b> member always contains the size of the fixed part of the data structure, not a size reflecting the variable-length string at the end.
+     * @param {Integer} DeviceInterfaceDetailData A pointer to an <a href="https://docs.microsoft.com/windows/win32/api/setupapi/ns-setupapi-sp_device_interface_detail_data_a">SP_DEVICE_INTERFACE_DETAIL_DATA</a> structure to receive information about the specified interface. This parameter is optional and can be <b>NULL</b>. This parameter must be <b>NULL</b> if <i>DeviceInterfaceDetailSize</i> is zero. If this parameter is specified, the caller must set <i>DeviceInterfaceDetailData</i><b>.cbSize</b> to <b>sizeof</b>(SP_DEVICE_INTERFACE_DETAIL_DATA) before calling this function. The <b>cbSize</b> member always contains the size of the fixed part of the data structure, not a size reflecting the variable-length string at the end.
      * @param {Integer} DeviceInterfaceDetailDataSize The size of the <i>DeviceInterfaceDetailData</i> buffer. The buffer must be at least (<b>offsetof</b>(SP_DEVICE_INTERFACE_DETAIL_DATA, <b>DevicePath</b>) + <b>sizeof</b>(TCHAR)) bytes, to contain the fixed part of the structure and a single <b>NULL</b> to terminate an empty MULTI_SZ string. 
      * 
      * This parameter must be zero if <i>DeviceInterfaceDetailData</i> is <b>NULL</b>.
@@ -14961,7 +15342,7 @@ class DeviceAndDriverInstallation {
      * @param {Pointer<SP_DEVINFO_DATA>} DeviceInfoData A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/setupapi/ns-setupapi-sp_devinfo_data">SP_DEVINFO_DATA</a> structure for the device information element in <i>DeviceInfoSet</i> that represents the device for which to build a driver list. This parameter is optional and can be <b>NULL</b>. If this parameter is specified, the list is associated with the specified device. If this parameter is <b>NULL</b>, the list is associated with the global class driver list for <i>DeviceInfoSet</i>. 
      * 
      * If the class of this device is updated because of building a compatible driver list, <i>DeviceInfoData.</i><b>ClassGuid</b> is updated upon return.
-     * @param {Integer} DriverType 
+     * @param {SETUP_DI_DRIVER_TYPE} DriverType 
      * @returns {BOOL} The function returns <b>TRUE</b> if it is successful. Otherwise, it returns <b>FALSE</b> and the logged error can be retrieved by making a call to <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://learn.microsoft.com/windows/win32/api/setupapi/nf-setupapi-setupdibuilddriverinfolist
      * @since windows5.0
@@ -15018,7 +15399,7 @@ class DeviceAndDriverInstallation {
      * > The setupapi.h header defines SetupDiEnumDriverInfo as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HDEVINFO} DeviceInfoSet A handle to the <a href="https://docs.microsoft.com/windows-hardware/drivers/install/device-information-sets">device information set</a> that contains the driver list to enumerate.
      * @param {Pointer<SP_DEVINFO_DATA>} DeviceInfoData A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/setupapi/ns-setupapi-sp_devinfo_data">SP_DEVINFO_DATA</a> structure that specifies a device information element in <i>DeviceInfoSet</i>. This parameter is optional and can be <b>NULL</b>. If this parameter is specified, <b>SetupDiEnumDriverInfo</b> enumerates a driver list for the specified device. If this parameter is <b>NULL</b>, <b>SetupDiEnumDriverInfo</b> enumerates the global class driver list that is associated with <i>DeviceInfoSet</i> (this list is of type SPDIT_CLASSDRIVER).
-     * @param {Integer} DriverType 
+     * @param {SETUP_DI_DRIVER_TYPE} DriverType 
      * @param {Integer} MemberIndex The zero-based index of the driver information member to retrieve.
      * @param {Pointer<SP_DRVINFO_DATA_V2_A>} DriverInfoData A pointer to a caller-initialized <a href="https://docs.microsoft.com/windows/desktop/api/setupapi/ns-setupapi-sp_drvinfo_data_v2_a">SP_DRVINFO_DATA</a> structure that receives information about the enumerated driver. The caller must set <i>DriverInfoData.</i><b>cbSize</b> to <b>sizeof(</b>SP_DRVINFO_DATA<b>)</b> before calling <b>SetupDiEnumDriverInfo</b>. If the <b>cbSize</b> member is not properly set, <b>SetupDiEnumDriverInfo</b> will return <b>FALSE</b>.
      * @returns {BOOL} The function returns <b>TRUE</b> if it is successful. Otherwise, it returns <b>FALSE</b> and the logged error can be retrieved with a call to <a href="https://docs.microsoft.com/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -15055,7 +15436,7 @@ class DeviceAndDriverInstallation {
      * > The setupapi.h header defines SetupDiEnumDriverInfo as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HDEVINFO} DeviceInfoSet A handle to the <a href="https://docs.microsoft.com/windows-hardware/drivers/install/device-information-sets">device information set</a> that contains the driver list to enumerate.
      * @param {Pointer<SP_DEVINFO_DATA>} DeviceInfoData A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/setupapi/ns-setupapi-sp_devinfo_data">SP_DEVINFO_DATA</a> structure that specifies a device information element in <i>DeviceInfoSet</i>. This parameter is optional and can be <b>NULL</b>. If this parameter is specified, <b>SetupDiEnumDriverInfo</b> enumerates a driver list for the specified device. If this parameter is <b>NULL</b>, <b>SetupDiEnumDriverInfo</b> enumerates the global class driver list that is associated with <i>DeviceInfoSet</i> (this list is of type SPDIT_CLASSDRIVER).
-     * @param {Integer} DriverType 
+     * @param {SETUP_DI_DRIVER_TYPE} DriverType 
      * @param {Integer} MemberIndex The zero-based index of the driver information member to retrieve.
      * @param {Pointer<SP_DRVINFO_DATA_V2_W>} DriverInfoData A pointer to a caller-initialized <a href="https://docs.microsoft.com/windows/desktop/api/setupapi/ns-setupapi-sp_drvinfo_data_v2_w">SP_DRVINFO_DATA</a> structure that receives information about the enumerated driver. The caller must set <i>DriverInfoData.</i><b>cbSize</b> to <b>sizeof(</b>SP_DRVINFO_DATA<b>)</b> before calling <b>SetupDiEnumDriverInfo</b>. If the <b>cbSize</b> member is not properly set, <b>SetupDiEnumDriverInfo</b> will return <b>FALSE</b>.
      * @returns {BOOL} The function returns <b>TRUE</b> if it is successful. Otherwise, it returns <b>FALSE</b> and the logged error can be retrieved with a call to <a href="https://docs.microsoft.com/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -15209,7 +15590,7 @@ class DeviceAndDriverInstallation {
      * @param {HDEVINFO} DeviceInfoSet A handle to a <a href="https://docs.microsoft.com/windows-hardware/drivers/install/device-information-sets">device information set</a> that contains a driver information element for which to retrieve driver information.
      * @param {Pointer<SP_DEVINFO_DATA>} DeviceInfoData A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/setupapi/ns-setupapi-sp_devinfo_data">SP_DEVINFO_DATA</a> structure that specifies a device information element that represents the device for which to retrieve driver information. This parameter is optional and can be  <b>NULL</b>. If this parameter is specified, <b>SetupDiGetDriverInfoDetail</b> retrieves information about a driver in a driver list for the specified device. If this parameter is <b>NULL</b>, <b>SetupDiGetDriverInfoDetail</b> retrieves information about a driver that is a member of the global class driver list for <i>DeviceInfoSet</i>.
      * @param {Pointer<SP_DRVINFO_DATA_V2_A>} DriverInfoData A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/setupapi/ns-setupapi-sp_drvinfo_data_v1_a">SP_DRVINFO_DATA</a> structure that specifies the driver information element that represents the driver for which to retrieve details. If <i>DeviceInfoData</i> is specified, the driver must be a member of the driver list for the device that is specified by <i>DeviceInfoData</i>. Otherwise, the driver must be a member of the global class driver list for <i>DeviceInfoSet</i>.
-     * @param {Pointer} DriverInfoDetailData A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/setupapi/ns-setupapi-sp_drvinfo_detail_data_a">SP_DRVINFO_DETAIL_DATA</a> structure that receives detailed information about the specified driver. If this parameter is not specified, <i>DriverInfoDetailDataSize</i> must be zero. If this parameter is specified, <i>DriverInfoDetailData.</i><b>cbSize</b> must be set to the value of <b>sizeof(</b>SP_DRVINFO_DETAIL_DATA<b>)</b> before it calls <b>SetupDiGetDriverInfoDetail</b>.
+     * @param {Integer} DriverInfoDetailData A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/setupapi/ns-setupapi-sp_drvinfo_detail_data_a">SP_DRVINFO_DETAIL_DATA</a> structure that receives detailed information about the specified driver. If this parameter is not specified, <i>DriverInfoDetailDataSize</i> must be zero. If this parameter is specified, <i>DriverInfoDetailData.</i><b>cbSize</b> must be set to the value of <b>sizeof(</b>SP_DRVINFO_DETAIL_DATA<b>)</b> before it calls <b>SetupDiGetDriverInfoDetail</b>.
      * 
      * <div class="alert"><b>Note</b>  <i>DriverInfoDetailData.</i><b>cbSize</b> must not be set to the value of the <i>DriverInfoDetailDataSize </i> parameter<i>.</i></div>
      * <div> </div>
@@ -15248,7 +15629,7 @@ class DeviceAndDriverInstallation {
      * @param {HDEVINFO} DeviceInfoSet A handle to a <a href="https://docs.microsoft.com/windows-hardware/drivers/install/device-information-sets">device information set</a> that contains a driver information element for which to retrieve driver information.
      * @param {Pointer<SP_DEVINFO_DATA>} DeviceInfoData A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/setupapi/ns-setupapi-sp_devinfo_data">SP_DEVINFO_DATA</a> structure that specifies a device information element that represents the device for which to retrieve driver information. This parameter is optional and can be  <b>NULL</b>. If this parameter is specified, <b>SetupDiGetDriverInfoDetail</b> retrieves information about a driver in a driver list for the specified device. If this parameter is <b>NULL</b>, <b>SetupDiGetDriverInfoDetail</b> retrieves information about a driver that is a member of the global class driver list for <i>DeviceInfoSet</i>.
      * @param {Pointer<SP_DRVINFO_DATA_V2_W>} DriverInfoData A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/setupapi/ns-setupapi-sp_drvinfo_data_v1_a">SP_DRVINFO_DATA</a> structure that specifies the driver information element that represents the driver for which to retrieve details. If <i>DeviceInfoData</i> is specified, the driver must be a member of the driver list for the device that is specified by <i>DeviceInfoData</i>. Otherwise, the driver must be a member of the global class driver list for <i>DeviceInfoSet</i>.
-     * @param {Pointer} DriverInfoDetailData A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/setupapi/ns-setupapi-sp_drvinfo_detail_data_a">SP_DRVINFO_DETAIL_DATA</a> structure that receives detailed information about the specified driver. If this parameter is not specified, <i>DriverInfoDetailDataSize</i> must be zero. If this parameter is specified, <i>DriverInfoDetailData.</i><b>cbSize</b> must be set to the value of <b>sizeof(</b>SP_DRVINFO_DETAIL_DATA<b>)</b> before it calls <b>SetupDiGetDriverInfoDetail</b>.
+     * @param {Integer} DriverInfoDetailData A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/setupapi/ns-setupapi-sp_drvinfo_detail_data_a">SP_DRVINFO_DETAIL_DATA</a> structure that receives detailed information about the specified driver. If this parameter is not specified, <i>DriverInfoDetailDataSize</i> must be zero. If this parameter is specified, <i>DriverInfoDetailData.</i><b>cbSize</b> must be set to the value of <b>sizeof(</b>SP_DRVINFO_DETAIL_DATA<b>)</b> before it calls <b>SetupDiGetDriverInfoDetail</b>.
      * 
      * <div class="alert"><b>Note</b>  <i>DriverInfoDetailData.</i><b>cbSize</b> must not be set to the value of the <i>DriverInfoDetailDataSize </i> parameter<i>.</i></div>
      * <div> </div>
@@ -15283,7 +15664,7 @@ class DeviceAndDriverInstallation {
      * If a compatible driver list is being destroyed, the DI_FLAGSEX_DIDCOMPATINFO and DI_DIDCOMPAT flags are reset for the corresponding device information element.
      * @param {HDEVINFO} DeviceInfoSet A handle to a <a href="https://docs.microsoft.com/windows-hardware/drivers/install/device-information-sets">device information set</a> that contains the driver list to delete.
      * @param {Pointer<SP_DEVINFO_DATA>} DeviceInfoData A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/setupapi/ns-setupapi-sp_devinfo_data">SP_DEVINFO_DATA</a> structure that specifies the device information element in <i>DeviceInfoSet</i>. This parameter is optional and can be set to <b>NULL</b>. If this parameter is specified, <b>SetupDiDestroyDriverInfoList</b> deletes the driver list for the specified device. If this parameter is <b>NULL</b>, <b>SetupDiDestroyDriverInfoList</b> deletes the global class driver list that is associated with <i>DeviceInfoSet</i>.
-     * @param {Integer} DriverType 
+     * @param {SETUP_DI_DRIVER_TYPE} DriverType 
      * @returns {BOOL} The function returns <b>TRUE</b> if it is successful. Otherwise, it returns <b>FALSE</b> and the logged error can be retrieved with a call to <a href="https://docs.microsoft.com/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://learn.microsoft.com/windows/win32/api/setupapi/nf-setupapi-setupdidestroydriverinfolist
      * @since windows5.0
@@ -15379,9 +15760,23 @@ class DeviceAndDriverInstallation {
      * </li>
      * </ul>
      * @param {Pointer<Guid>} ClassGuid A pointer to the GUID for a <a href="https://docs.microsoft.com/windows-hardware/drivers/install/overview-of-device-setup-classes">device setup class</a> or a <a href="https://docs.microsoft.com/windows-hardware/drivers/install/overview-of-device-interface-classes">device interface class</a>. This pointer is optional and can be <b>NULL</b>. For more information about how to set <i>ClassGuid</i>, see the following <b>Remarks</b> section.
-     * @param {PSTR} _Enumerator 
+     * @param {PSTR} _Enumerator A pointer to a NULL-terminated string that specifies:
+     * 
+     * <ul>
+     * <li>
+     * An identifier (ID) of a Plug and Play (PnP) <a href="https://docs.microsoft.com/windows-hardware/drivers/">enumerator</a>. This ID can either be the value's globally unique identifier (GUID) or symbolic name. For example, "PCI" can be used to specify the PCI PnP value. Other examples of symbolic names for PnP values include "USB," "PCMCIA," and "SCSI".
+     * 
+     * </li>
+     * <li>
+     * A PnP <a href="https://docs.microsoft.com/windows-hardware/drivers/install/device-instance-ids">device instance ID</a>. When specifying a PnP device instance ID, DIGCF_DEVICEINTERFACE must be set in the Flags parameter.
+     * 
+     * </li>
+     * </ul>
+     * This pointer is optional and can be <b>NULL</b>. If an <i>enumeration</i> value is not used to select devices, set <i>Enumerator</i> to <b>NULL</b>
+     * 
+     * For more information about how to set the <i>Enumerator</i> value, see the following <b>Remarks</b> section.
      * @param {HWND} hwndParent A handle to the top-level window to be used for a user interface that is associated with installing a device instance in the device information set. This handle is optional and can be <b>NULL</b>.
-     * @param {Integer} Flags A variable of type DWORD that specifies control options that filter the device information elements that are added to the device information set. This parameter can be a bitwise OR of zero or more of the following flags. For more information about combining these flags, see the following <b>Remarks</b> section.
+     * @param {SETUP_DI_GET_CLASS_DEVS_FLAGS} Flags A variable of type DWORD that specifies control options that filter the device information elements that are added to the device information set. This parameter can be a bitwise OR of zero or more of the following flags. For more information about combining these flags, see the following <b>Remarks</b> section.
      * @returns {HDEVINFO} If the operation succeeds, <b>SetupDiGetClassDevs</b> returns a handle to a <a href="https://docs.microsoft.com/windows-hardware/drivers/install/device-information-sets">device information set</a> that contains all installed devices that matched the supplied parameters. If the operation fails, the function returns INVALID_HANDLE_VALUE. To get extended error information, call <a href="https://docs.microsoft.com/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://learn.microsoft.com/windows/win32/api/setupapi/nf-setupapi-setupdigetclassdevsa
      * @since windows5.0
@@ -15479,9 +15874,23 @@ class DeviceAndDriverInstallation {
      * </li>
      * </ul>
      * @param {Pointer<Guid>} ClassGuid A pointer to the GUID for a <a href="https://docs.microsoft.com/windows-hardware/drivers/install/overview-of-device-setup-classes">device setup class</a> or a <a href="https://docs.microsoft.com/windows-hardware/drivers/install/overview-of-device-interface-classes">device interface class</a>. This pointer is optional and can be <b>NULL</b>. For more information about how to set <i>ClassGuid</i>, see the following <b>Remarks</b> section.
-     * @param {PWSTR} _Enumerator 
+     * @param {PWSTR} _Enumerator A pointer to a NULL-terminated string that specifies:
+     * 
+     * <ul>
+     * <li>
+     * An identifier (ID) of a Plug and Play (PnP) <a href="https://docs.microsoft.com/windows-hardware/drivers/">enumerator</a>. This ID can either be the value's globally unique identifier (GUID) or symbolic name. For example, "PCI" can be used to specify the PCI PnP value. Other examples of symbolic names for PnP values include "USB," "PCMCIA," and "SCSI".
+     * 
+     * </li>
+     * <li>
+     * A PnP <a href="https://docs.microsoft.com/windows-hardware/drivers/install/device-instance-ids">device instance ID</a>. When specifying a PnP device instance ID, DIGCF_DEVICEINTERFACE must be set in the Flags parameter.
+     * 
+     * </li>
+     * </ul>
+     * This pointer is optional and can be <b>NULL</b>. If an <i>enumeration</i> value is not used to select devices, set <i>Enumerator</i> to <b>NULL</b>
+     * 
+     * For more information about how to set the <i>Enumerator</i> value, see the following <b>Remarks</b> section.
      * @param {HWND} hwndParent A handle to the top-level window to be used for a user interface that is associated with installing a device instance in the device information set. This handle is optional and can be <b>NULL</b>.
-     * @param {Integer} Flags A variable of type DWORD that specifies control options that filter the device information elements that are added to the device information set. This parameter can be a bitwise OR of zero or more of the following flags. For more information about combining these flags, see the following <b>Remarks</b> section.
+     * @param {SETUP_DI_GET_CLASS_DEVS_FLAGS} Flags A variable of type DWORD that specifies control options that filter the device information elements that are added to the device information set. This parameter can be a bitwise OR of zero or more of the following flags. For more information about combining these flags, see the following <b>Remarks</b> section.
      * @returns {HDEVINFO} If the operation succeeds, <b>SetupDiGetClassDevs</b> returns a handle to a <a href="https://docs.microsoft.com/windows-hardware/drivers/install/device-information-sets">device information set</a> that contains all installed devices that matched the supplied parameters. If the operation fails, the function returns INVALID_HANDLE_VALUE. To get extended error information, call <a href="https://docs.microsoft.com/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://learn.microsoft.com/windows/win32/api/setupapi/nf-setupapi-setupdigetclassdevsw
      * @since windows5.0
@@ -15605,9 +16014,23 @@ class DeviceAndDriverInstallation {
      * > [!NOTE]
      * > The setupapi.h header defines SetupDiGetClassDevsEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Guid>} ClassGuid A pointer to the GUID for a <a href="https://docs.microsoft.com/windows-hardware/drivers/install/overview-of-device-setup-classes">device setup class</a> or a <a href="https://docs.microsoft.com/windows-hardware/drivers/install/overview-of-device-interface-classes">device interface class</a>. This pointer is optional and can be <b>NULL</b>. If a GUID value is not used to select devices, set <i>ClassGuid</i> to <b>NULL</b>. For more information about how to use <i>ClassGuid</i>, see the following <b>Remarks</b> section.
-     * @param {PSTR} _Enumerator 
+     * @param {PSTR} _Enumerator A pointer to a NULL-terminated string that specifies:
+     * 
+     * <ul>
+     * <li>
+     * An identifier (ID) of a Plug and Play (PnP) <a href="https://docs.microsoft.com/windows-hardware/drivers/">enumerator</a>. This ID can either be the enumerator's globally unique identifier (GUID) or symbolic name. For example, "PCI" can be used to specify the PCI PnP enumerator. Other examples of symbolic names for PnP enumerators include "USB", "PCMCIA", and "SCSI".
+     * 
+     * </li>
+     * <li>
+     *  A PnP <a href="https://docs.microsoft.com/windows-hardware/drivers/install/device-instance-ids">device instance IDs</a>. When specifying a PnP device instance ID, DIGCF_DEVICEINTERFACE must be set in the Flags parameter.
+     * 
+     * </li>
+     * </ul>
+     * This pointer is optional and can be <b>NULL</b>. If an <i>Enumerator</i> value is not used to select devices, set <i>Enumerator</i> to <b>NULL</b>
+     * 
+     * For more information about how to set the <i>Enumerator</i> value, see the following <b>Remarks</b> section.
      * @param {HWND} hwndParent A handle to the top-level window to be used for a user interface that is associated with installing a device instance in the device information set. This handle is optional and can be <b>NULL</b>.
-     * @param {Integer} Flags A variable of type DWORD that specifies control options that filter the device information elements that are added to the device information set. This parameter can be a bitwise OR of one or more of the following flags. For more information about combining these control options, see the following <b>Remarks</b> section.
+     * @param {SETUP_DI_GET_CLASS_DEVS_FLAGS} Flags A variable of type DWORD that specifies control options that filter the device information elements that are added to the device information set. This parameter can be a bitwise OR of one or more of the following flags. For more information about combining these control options, see the following <b>Remarks</b> section.
      * @param {HDEVINFO} DeviceInfoSet The handle to an existing <a href="https://docs.microsoft.com/windows-hardware/drivers/install/device-information-sets">device information set</a> to which <b>SetupDiGetClassDevsEx</b> adds the requested device information elements. This parameter is optional and can be set to <b>NULL</b>. For more information about using this parameter, see the following <b>Remarks</b> section.
      * @param {PSTR} MachineName A pointer to a constant string that contains the name of a remote computer on which the devices reside. A value of <b>NULL</b> for <i>MachineName</i> specifies that the device is installed on the local computer.
      * 
@@ -15740,9 +16163,23 @@ class DeviceAndDriverInstallation {
      * > [!NOTE]
      * > The setupapi.h header defines SetupDiGetClassDevsEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Guid>} ClassGuid A pointer to the GUID for a <a href="https://docs.microsoft.com/windows-hardware/drivers/install/overview-of-device-setup-classes">device setup class</a> or a <a href="https://docs.microsoft.com/windows-hardware/drivers/install/overview-of-device-interface-classes">device interface class</a>. This pointer is optional and can be <b>NULL</b>. If a GUID value is not used to select devices, set <i>ClassGuid</i> to <b>NULL</b>. For more information about how to use <i>ClassGuid</i>, see the following <b>Remarks</b> section.
-     * @param {PWSTR} _Enumerator 
+     * @param {PWSTR} _Enumerator A pointer to a NULL-terminated string that specifies:
+     * 
+     * <ul>
+     * <li>
+     * An identifier (ID) of a Plug and Play (PnP) <a href="https://docs.microsoft.com/windows-hardware/drivers/">enumerator</a>. This ID can either be the enumerator's globally unique identifier (GUID) or symbolic name. For example, "PCI" can be used to specify the PCI PnP enumerator. Other examples of symbolic names for PnP enumerators include "USB", "PCMCIA", and "SCSI".
+     * 
+     * </li>
+     * <li>
+     *  A PnP <a href="https://docs.microsoft.com/windows-hardware/drivers/install/device-instance-ids">device instance IDs</a>. When specifying a PnP device instance ID, DIGCF_DEVICEINTERFACE must be set in the Flags parameter.
+     * 
+     * </li>
+     * </ul>
+     * This pointer is optional and can be <b>NULL</b>. If an <i>Enumerator</i> value is not used to select devices, set <i>Enumerator</i> to <b>NULL</b>
+     * 
+     * For more information about how to set the <i>Enumerator</i> value, see the following <b>Remarks</b> section.
      * @param {HWND} hwndParent A handle to the top-level window to be used for a user interface that is associated with installing a device instance in the device information set. This handle is optional and can be <b>NULL</b>.
-     * @param {Integer} Flags A variable of type DWORD that specifies control options that filter the device information elements that are added to the device information set. This parameter can be a bitwise OR of one or more of the following flags. For more information about combining these control options, see the following <b>Remarks</b> section.
+     * @param {SETUP_DI_GET_CLASS_DEVS_FLAGS} Flags A variable of type DWORD that specifies control options that filter the device information elements that are added to the device information set. This parameter can be a bitwise OR of one or more of the following flags. For more information about combining these control options, see the following <b>Remarks</b> section.
      * @param {HDEVINFO} DeviceInfoSet The handle to an existing <a href="https://docs.microsoft.com/windows-hardware/drivers/install/device-information-sets">device information set</a> to which <b>SetupDiGetClassDevsEx</b> adds the requested device information elements. This parameter is optional and can be set to <b>NULL</b>. For more information about using this parameter, see the following <b>Remarks</b> section.
      * @param {PWSTR} MachineName A pointer to a constant string that contains the name of a remote computer on which the devices reside. A value of <b>NULL</b> for <i>MachineName</i> specifies that the device is installed on the local computer. Remote computer is not supported beginning with Windows 8 and Windows Server 2012.
      * 
@@ -16125,7 +16562,7 @@ class DeviceAndDriverInstallation {
      * The device information set specified by <i>DeviceInfoSet</i> must only contain elements for devices on the local computer.
      * 
      * For information about the design and operation of co-installers, see <a href="https://docs.microsoft.com/windows-hardware/drivers/install/writing-a-co-installer">Writing a Co-installer</a>.
-     * @param {Integer} InstallFunction The device installation request (DIF request) to pass to the co-installers and class installer. DIF codes have the format <b>DIF_<i>XXX</i></b> and are defined in Setupapi.h. See <a href="https://docs.microsoft.com/windows-hardware/drivers/install/handling-dif-codes">Device Installation Function Codes</a> for more information.
+     * @param {DI_FUNCTION} InstallFunction The device installation request (DIF request) to pass to the co-installers and class installer. DIF codes have the format <b>DIF_<i>XXX</i></b> and are defined in Setupapi.h. See <a href="https://docs.microsoft.com/windows-hardware/drivers/install/handling-dif-codes">Device Installation Function Codes</a> for more information.
      * 
      * <div class="alert"><b>Note</b>  For certain DIF requests, the caller must be a member of the Administrators group. For such DIF requests, this requirement is listed on the reference page for the associated default handler.</div>
      * <div> </div>
@@ -17361,9 +17798,9 @@ class DeviceAndDriverInstallation {
      * To set a device instance property, call <a href="https://docs.microsoft.com/windows/desktop/api/setupapi/nf-setupapi-setupdisetdevicepropertyw">SetupDiSetDeviceProperty</a>.
      * @param {HDEVINFO} DeviceInfoSet A handle to a <a href="https://docs.microsoft.com/windows-hardware/drivers/install/device-information-sets">device information set</a> that contains a device instance for which to retrieve a device instance property.
      * @param {Pointer<SP_DEVINFO_DATA>} DeviceInfoData A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/setupapi/ns-setupapi-sp_devinfo_data">SP_DEVINFO_DATA</a> structure that represents the device instance for which to retrieve a device instance property.
-     * @param {Pointer<DEVPROPKEY>} _PropertyKey 
-     * @param {Pointer<Integer>} PropertyType A pointer to a <a href="https://docs.microsoft.com/windows-hardware/drivers/install/property-data-type-identifiers">DEVPROPTYPE</a>-typed variable that receives the property-data-type identifier of the requested device instance property, where the property-data-type identifier is the bitwise OR between a base-data-type identifier and, if the base-data type is modified, a property-data-type modifier.
-     * @param {Pointer} PropertyBuffer A pointer to a buffer that receives the requested device instance property. <b>SetupDiGetDeviceProperty</b> retrieves the requested property only if the buffer is large enough to hold all the property value data. The pointer can be <b>NULL</b>. If the pointer is set to <b>NULL</b> and <i>RequiredSize</i> is supplied, <b>SetupDiGetDeviceProperty</b> returns the size of the property, in bytes, in *<i>RequiredSize</i>.
+     * @param {Pointer<DEVPROPKEY>} _PropertyKey A pointer to a <a href="https://docs.microsoft.com/windows-hardware/drivers/install/devpropkey">DEVPROPKEY</a> structure that represents the device property key of the requested device instance property.
+     * @param {Pointer<DEVPROPTYPE>} PropertyType A pointer to a <a href="https://docs.microsoft.com/windows-hardware/drivers/install/property-data-type-identifiers">DEVPROPTYPE</a>-typed variable that receives the property-data-type identifier of the requested device instance property, where the property-data-type identifier is the bitwise OR between a base-data-type identifier and, if the base-data type is modified, a property-data-type modifier.
+     * @param {Integer} PropertyBuffer A pointer to a buffer that receives the requested device instance property. <b>SetupDiGetDeviceProperty</b> retrieves the requested property only if the buffer is large enough to hold all the property value data. The pointer can be <b>NULL</b>. If the pointer is set to <b>NULL</b> and <i>RequiredSize</i> is supplied, <b>SetupDiGetDeviceProperty</b> returns the size of the property, in bytes, in *<i>RequiredSize</i>.
      * @param {Integer} PropertyBufferSize The size, in bytes, of the <i>PropertyBuffer</i> buffer. If <i>PropertyBuffer</i> is set to <b>NULL</b>, <i>PropertyBufferSize</i> must be set to zero.
      * @param {Pointer<Integer>} RequiredSize A pointer to a DWORD-typed variable that receives the size, in bytes, of either the device instance property if the property is retrieved or the required buffer size if the buffer is not large enough. This pointer can be set to <b>NULL</b>.
      * @param {Integer} Flags This parameter must be set to zero.
@@ -17533,9 +17970,9 @@ class DeviceAndDriverInstallation {
      * To retrieve a device instance property, call <a href="https://docs.microsoft.com/windows/desktop/api/setupapi/nf-setupapi-setupdigetdevicepropertyw">SetupDiGetDeviceProperty</a>.
      * @param {HDEVINFO} DeviceInfoSet A handle to a <a href="https://docs.microsoft.com/windows-hardware/drivers/install/device-information-sets">device information set</a>. This device information set contains a device information element that represents the device instance for which to set a device instance property.
      * @param {Pointer<SP_DEVINFO_DATA>} DeviceInfoData A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/setupapi/ns-setupapi-sp_devinfo_data">SP_DEVINFO_DATA</a> structure that identifies the device instance for which to set a device instance property.
-     * @param {Pointer<DEVPROPKEY>} _PropertyKey 
-     * @param {Integer} PropertyType A <a href="https://docs.microsoft.com/windows-hardware/drivers/install/property-data-type-identifiers">DEVPROPTYPE</a>-typed value that represents the property-data-type identifier for the device instance property. For more information, see the <b>Remarks</b> section later in this topic.
-     * @param {Pointer} PropertyBuffer A pointer to a buffer that contains the device instance property value. If the property is being deleted or set to a <b>NULL</b> value, this pointer must be <b>NULL</b>, and <i>PropertyBufferSize</i> must be set to zero.
+     * @param {Pointer<DEVPROPKEY>} _PropertyKey A pointer to a <a href="https://docs.microsoft.com/windows-hardware/drivers/install/devpropkey">DEVPROPKEY</a> structure that represents the device property key of the device instance property to set.
+     * @param {DEVPROPTYPE} PropertyType A <a href="https://docs.microsoft.com/windows-hardware/drivers/install/property-data-type-identifiers">DEVPROPTYPE</a>-typed value that represents the property-data-type identifier for the device instance property. For more information, see the <b>Remarks</b> section later in this topic.
+     * @param {Integer} PropertyBuffer A pointer to a buffer that contains the device instance property value. If the property is being deleted or set to a <b>NULL</b> value, this pointer must be <b>NULL</b>, and <i>PropertyBufferSize</i> must be set to zero.
      * @param {Integer} PropertyBufferSize The size, in bytes, of the <i>PropertyBuffer</i> buffer. If <i>PropertyBuffer </i> is <b>NULL</b>, <i>PropertyBufferSize</i> must be set to zero.
      * @param {Integer} Flags This parameter must be set to zero.
      * @returns {BOOL} The function returns <b>TRUE</b> if it is successful. Otherwise, it returns <b>FALSE</b>, and the logged error can be retrieved by calling <a href="https://docs.microsoft.com/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -17830,9 +18267,9 @@ class DeviceAndDriverInstallation {
      * To set a device interface property, call <a href="https://docs.microsoft.com/windows/desktop/api/setupapi/nf-setupapi-setupdisetdeviceinterfacepropertyw">SetupDiSetDeviceInterfaceProperty</a>.
      * @param {HDEVINFO} DeviceInfoSet A handle to a <a href="https://docs.microsoft.com/windows-hardware/drivers/install/device-information-sets">device information set</a> that contains a device interface for which to retrieve a device interface property.
      * @param {Pointer<SP_DEVICE_INTERFACE_DATA>} DeviceInterfaceData A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/setupapi/ns-setupapi-sp_device_interface_data">SP_DEVICE_INTERFACE_DATA</a> structure that represents the device interface for which to retrieve a device interface property.
-     * @param {Pointer<DEVPROPKEY>} _PropertyKey 
-     * @param {Pointer<Integer>} PropertyType A pointer to a <a href="https://docs.microsoft.com/windows-hardware/drivers/install/property-data-type-identifiers">DEVPROPTYPE</a>-typed variable that receives the property-data-type identifier of the requested device interface property. The property-data-type identifier is a bitwise OR between a base-data-type identifier and, if the base-data type is modified, a property-data-type modifier.
-     * @param {Pointer} PropertyBuffer A pointer to a buffer that receives the requested device interface property. <b>SetupDiGetDeviceInterfaceProperty</b> retrieves the requested property only if the buffer is large enough to hold all the property value data. The pointer can be <b>NULL</b>. If the pointer is set to <b>NULL</b> and <i>RequiredSize</i> is supplied, <b>SetupDiGetDeviceInterfaceProperty</b> returns the size of the property, in bytes, in *<i>RequiredSize</i>.
+     * @param {Pointer<DEVPROPKEY>} _PropertyKey A pointer to a <a href="https://docs.microsoft.com/windows-hardware/drivers/install/devpropkey">DEVPROPKEY</a> structure that represents the device interface property key of the device interface property to retrieve.
+     * @param {Pointer<DEVPROPTYPE>} PropertyType A pointer to a <a href="https://docs.microsoft.com/windows-hardware/drivers/install/property-data-type-identifiers">DEVPROPTYPE</a>-typed variable that receives the property-data-type identifier of the requested device interface property. The property-data-type identifier is a bitwise OR between a base-data-type identifier and, if the base-data type is modified, a property-data-type modifier.
+     * @param {Integer} PropertyBuffer A pointer to a buffer that receives the requested device interface property. <b>SetupDiGetDeviceInterfaceProperty</b> retrieves the requested property only if the buffer is large enough to hold all the property value data. The pointer can be <b>NULL</b>. If the pointer is set to <b>NULL</b> and <i>RequiredSize</i> is supplied, <b>SetupDiGetDeviceInterfaceProperty</b> returns the size of the property, in bytes, in *<i>RequiredSize</i>.
      * @param {Integer} PropertyBufferSize The size, in bytes, of the <i>PropertyBuffer</i> buffer. If <i>PropertyBuffer</i> is set to <b>NULL</b>, <i>PropertyBufferSize</i> must be set to zero.
      * @param {Pointer<Integer>} RequiredSize A pointer to a DWORD-typed variable that receives the size, in bytes, of either the device interface property if the property is retrieved or the required buffer size, if the buffer is not large enough. This pointer can be set to <b>NULL</b>.
      * @param {Integer} Flags This parameter must be set to zero.
@@ -18003,9 +18440,9 @@ class DeviceAndDriverInstallation {
      * To retrieve a device interface property, call <a href="https://docs.microsoft.com/windows/desktop/api/setupapi/nf-setupapi-setupdigetdeviceinterfacepropertyw">SetupDiGetDeviceInterfaceProperty</a>.
      * @param {HDEVINFO} DeviceInfoSet A handle to a <a href="https://docs.microsoft.com/windows-hardware/drivers/install/device-information-sets">device information set</a> that contains the device interface for which to set a device interface property.
      * @param {Pointer<SP_DEVICE_INTERFACE_DATA>} DeviceInterfaceData A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/setupapi/ns-setupapi-sp_device_interface_data">SP_DEVICE_INTERFACE_DATA</a> structure that represents the device interface for which to set a device interface property.
-     * @param {Pointer<DEVPROPKEY>} _PropertyKey 
-     * @param {Integer} PropertyType A <a href="https://docs.microsoft.com/windows-hardware/drivers/install/property-data-type-identifiers">DEVPROPTYPE</a>-typed value that represents the property-data-type identifier of the device interface property to set. For more information about the property-data-type identifier, see the <b>Remarks</b> section later in this topic.
-     * @param {Pointer} PropertyBuffer A pointer to a buffer that contains the device interface property value. If either the property or the interface value is being deleted, this pointer must be set to <b>NULL</b>, and <i>PropertyBufferSize</i> must be set to zero. For more information about property value data, see the <b>Remarks</b> section later in this topic.
+     * @param {Pointer<DEVPROPKEY>} _PropertyKey A pointer to a <a href="https://docs.microsoft.com/windows-hardware/drivers/install/devpropkey">DEVPROPKEY</a> structure that represents the device property key of the device interface property to set.
+     * @param {DEVPROPTYPE} PropertyType A <a href="https://docs.microsoft.com/windows-hardware/drivers/install/property-data-type-identifiers">DEVPROPTYPE</a>-typed value that represents the property-data-type identifier of the device interface property to set. For more information about the property-data-type identifier, see the <b>Remarks</b> section later in this topic.
+     * @param {Integer} PropertyBuffer A pointer to a buffer that contains the device interface property value. If either the property or the interface value is being deleted, this pointer must be set to <b>NULL</b>, and <i>PropertyBufferSize</i> must be set to zero. For more information about property value data, see the <b>Remarks</b> section later in this topic.
      * @param {Integer} PropertyBufferSize The size, in bytes, of the <i>PropertyBuffer</i> buffer. The property buffer size must be consistent with the property-data-type identifier that is supplied by <i>PropertyType</i>. If <i>PropertyBuffer </i> is set to <b>NULL</b>, <i>PropertyBufferSize</i> must be set to zero.
      * @param {Integer} Flags Must be set to zero.
      * @returns {BOOL} <b>SetupDiSetDeviceInterfaceProperty</b> returns <b>TRUE</b> if it is successful. Otherwise, this function returns <b>FALSE</b>, and the logged error can be retrieved by calling <a href="https://docs.microsoft.com/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -18498,9 +18935,9 @@ class DeviceAndDriverInstallation {
      * 
      * To set a device class property on a local computer, call <a href="https://docs.microsoft.com/windows/desktop/api/setupapi/nf-setupapi-setupdisetclasspropertyw">SetupDiSetClassProperty</a><b>,</b> and to set a device class property on a remote computer, call <a href="https://docs.microsoft.com/windows/desktop/api/setupapi/nf-setupapi-setupdisetclasspropertyexw">SetupDiSetClassPropertyEx</a>.
      * @param {Pointer<Guid>} ClassGuid A pointer to a GUID that identifies the device setup class or device interface class for which to retrieve a device property that is set for the device class. For information about specifying the class type, see the <i>Flags</i> parameter.
-     * @param {Pointer<DEVPROPKEY>} _PropertyKey 
-     * @param {Pointer<Integer>} PropertyType A pointer to a <a href="https://docs.microsoft.com/windows-hardware/drivers/install/property-data-type-identifiers">DEVPROPTYPE</a>-typed variable that receives the property-data-type identifier of the requested device class property, where the property-data-type identifier is the bitwise OR between a base-data-type identifier and, if the base data type is modified, a property-data-type modifier.
-     * @param {Pointer} PropertyBuffer A pointer to a buffer that receives the requested device class property. <b>SetupDiGetClassProperty</b> retrieves the requested property value only if the buffer is large enough to hold all the property value data. The pointer can be <b>NULL</b>. If the pointer is set to <b>NULL</b> and <i>RequiredSize</i> is supplied, <b>SetupDiGetClassProperty</b> returns the size of the device class property, in bytes, in *<i>RequiredSize</i>.
+     * @param {Pointer<DEVPROPKEY>} _PropertyKey A pointer to a <a href="https://docs.microsoft.com/windows-hardware/drivers/install/devpropkey">DEVPROPKEY</a> structure that represents the device property key of the requested device class property.
+     * @param {Pointer<DEVPROPTYPE>} PropertyType A pointer to a <a href="https://docs.microsoft.com/windows-hardware/drivers/install/property-data-type-identifiers">DEVPROPTYPE</a>-typed variable that receives the property-data-type identifier of the requested device class property, where the property-data-type identifier is the bitwise OR between a base-data-type identifier and, if the base data type is modified, a property-data-type modifier.
+     * @param {Integer} PropertyBuffer A pointer to a buffer that receives the requested device class property. <b>SetupDiGetClassProperty</b> retrieves the requested property value only if the buffer is large enough to hold all the property value data. The pointer can be <b>NULL</b>. If the pointer is set to <b>NULL</b> and <i>RequiredSize</i> is supplied, <b>SetupDiGetClassProperty</b> returns the size of the device class property, in bytes, in *<i>RequiredSize</i>.
      * @param {Integer} PropertyBufferSize The size, in bytes, of the <i>PropertyBuffer</i> buffer. If <i>PropertyBuffer</i> is set to <b>NULL</b>, <i>PropertyBufferSize</i> must be set to zero.
      * @param {Pointer<Integer>} RequiredSize A pointer to a DWORD-typed variable that receives either the size, in bytes, of the device class property if the device class property is retrieved or the required buffer size if the buffer is not large enough. This pointer can be set to <b>NULL</b>.
      * @param {Integer} Flags 
@@ -18679,9 +19116,9 @@ class DeviceAndDriverInstallation {
      * 
      * To set a device class property on a local computer, call <a href="https://docs.microsoft.com/windows/desktop/api/setupapi/nf-setupapi-setupdisetclasspropertyw">SetupDiSetClassProperty</a><b>,</b> and to set a device class property on a remote computer, call <a href="https://docs.microsoft.com/windows/desktop/api/setupapi/nf-setupapi-setupdisetclasspropertyexw">SetupDiSetClassPropertyEx</a>.
      * @param {Pointer<Guid>} ClassGuid A pointer to a GUID that identifies the device setup class or device interface class for which to retrieve a device property for the device class. For information about specifying the class type, see the <i>Flags</i> parameter.
-     * @param {Pointer<DEVPROPKEY>} _PropertyKey 
-     * @param {Pointer<Integer>} PropertyType A pointer to a <a href="https://docs.microsoft.com/windows-hardware/drivers/install/property-data-type-identifiers">DEVPROPTYPE</a>-typed variable that receives the property-data-type identifier of the requested device class property, where the property-data-type identifier is the bitwise OR between a base-data-type identifier and, if the base data type is modified, a property-data-type modifier.
-     * @param {Pointer} PropertyBuffer A pointer to a buffer that receives the requested device class property. <b>SetupDiGetClassPropertyEx</b> retrieves the requested property value only if the buffer is large enough to hold all the property value data. The pointer can be <b>NULL</b>. If the pointer is set to <b>NULL</b> and <i>RequiredSize</i> is supplied, <b>SetupDiGetClassPropertyEx</b> returns the size of the device class property, in bytes, in *<i>RequiredSize</i>.
+     * @param {Pointer<DEVPROPKEY>} _PropertyKey A pointer to a <a href="https://docs.microsoft.com/windows-hardware/drivers/install/devpropkey">DEVPROPKEY</a> structure that represents the device property key of the requested device class property.
+     * @param {Pointer<DEVPROPTYPE>} PropertyType A pointer to a <a href="https://docs.microsoft.com/windows-hardware/drivers/install/property-data-type-identifiers">DEVPROPTYPE</a>-typed variable that receives the property-data-type identifier of the requested device class property, where the property-data-type identifier is the bitwise OR between a base-data-type identifier and, if the base data type is modified, a property-data-type modifier.
+     * @param {Integer} PropertyBuffer A pointer to a buffer that receives the requested device class property. <b>SetupDiGetClassPropertyEx</b> retrieves the requested property value only if the buffer is large enough to hold all the property value data. The pointer can be <b>NULL</b>. If the pointer is set to <b>NULL</b> and <i>RequiredSize</i> is supplied, <b>SetupDiGetClassPropertyEx</b> returns the size of the device class property, in bytes, in *<i>RequiredSize</i>.
      * @param {Integer} PropertyBufferSize The size, in bytes, of the <i>PropertyBuffer</i> buffer. If <i>PropertyBuffer</i> is set to <b>NULL</b>, <i>PropertyBufferSize</i> must be set to zero.
      * @param {Pointer<Integer>} RequiredSize A pointer to a DWORD-typed variable that receives either the size, in bytes, of the device class property if the property is retrieved or the required buffer size if the buffer is not large enough. This pointer can be set to <b>NULL</b>.
      * @param {Integer} Flags 
@@ -18881,9 +19318,9 @@ class DeviceAndDriverInstallation {
      * 
      * To set a device class property on a remote computer, call <a href="https://docs.microsoft.com/windows/desktop/api/setupapi/nf-setupapi-setupdisetclasspropertyexw">SetupDiSetClassPropertyEx</a>.
      * @param {Pointer<Guid>} ClassGuid A pointer to a GUID that identifies the device setup class or device interface class for which to set a device property. For information about how to specify the class type, see the <i>Flags</i> parameter.
-     * @param {Pointer<DEVPROPKEY>} _PropertyKey 
-     * @param {Integer} PropertyType A <a href="https://docs.microsoft.com/windows-hardware/drivers/install/property-data-type-identifiers">DEVPROPTYPE</a>-typed value that represents the property-data-type identifier for the device class property. For more information about the property-data-type identifier, see the <b>Remarks</b> section later in this topic.
-     * @param {Pointer} PropertyBuffer A pointer to a buffer that contains the property value of the device class. If either the property or the data is being deleted, this pointer must be set to <b>NULL</b>, and <i>PropertyBufferSize</i> must be set to zero. For more information about property data, see the <b>Remarks</b> section later in this topic.
+     * @param {Pointer<DEVPROPKEY>} _PropertyKey A pointer to a <a href="https://docs.microsoft.com/windows-hardware/drivers/install/devpropkey">DEVPROPKEY</a> structure that represents the device property key of the device class property to set.
+     * @param {DEVPROPTYPE} PropertyType A <a href="https://docs.microsoft.com/windows-hardware/drivers/install/property-data-type-identifiers">DEVPROPTYPE</a>-typed value that represents the property-data-type identifier for the device class property. For more information about the property-data-type identifier, see the <b>Remarks</b> section later in this topic.
+     * @param {Integer} PropertyBuffer A pointer to a buffer that contains the property value of the device class. If either the property or the data is being deleted, this pointer must be set to <b>NULL</b>, and <i>PropertyBufferSize</i> must be set to zero. For more information about property data, see the <b>Remarks</b> section later in this topic.
      * @param {Integer} PropertyBufferSize The size, in bytes, of the <i>PropertyBuffer</i> buffer. If <i>PropertyBuffer </i> is set to <b>NULL</b>, <i>PropertyBufferSize</i> must be set to zero.
      * @param {Integer} Flags 
      * @returns {BOOL} <b>SetupDiSetClassProperty</b> returns <b>TRUE</b> if it is successful. Otherwise, it returns <b>FALSE</b>, and the logged error can be retrieved by calling <a href="https://docs.microsoft.com/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -19049,9 +19486,9 @@ class DeviceAndDriverInstallation {
      * 
      * To set a device class property on a local computer, call <a href="https://docs.microsoft.com/windows/desktop/api/setupapi/nf-setupapi-setupdisetclasspropertyw">SetupDiSetClassProperty</a>.
      * @param {Pointer<Guid>} ClassGuid A pointer to a GUID that identifies the device setup class or device interface class for which to set a device property. For information about how to specify the class type, see the <i>Flags</i> parameter.
-     * @param {Pointer<DEVPROPKEY>} _PropertyKey 
-     * @param {Integer} PropertyType A <a href="https://docs.microsoft.com/windows-hardware/drivers/install/property-data-type-identifiers">DEVPROPTYPE</a>-typed value that represents the property-data-type identifier for the class property. For more information about the property-data-type identifier, see the <b>Remarks</b> section later in this topic.
-     * @param {Pointer} PropertyBuffer A pointer to a buffer that contains the class property value. If either the property or the property value is being deleted, this pointer must be set to <b>NULL</b>, and <i>PropertyBufferSize</i> must be set to zero. For more information about property value requirements, see the <b>Remarks</b> section later in this topic.
+     * @param {Pointer<DEVPROPKEY>} _PropertyKey A pointer to a <a href="https://docs.microsoft.com/windows-hardware/drivers/install/devpropkey">DEVPROPKEY</a> structure that represents the device property key of the device class property to set.
+     * @param {DEVPROPTYPE} PropertyType A <a href="https://docs.microsoft.com/windows-hardware/drivers/install/property-data-type-identifiers">DEVPROPTYPE</a>-typed value that represents the property-data-type identifier for the class property. For more information about the property-data-type identifier, see the <b>Remarks</b> section later in this topic.
+     * @param {Integer} PropertyBuffer A pointer to a buffer that contains the class property value. If either the property or the property value is being deleted, this pointer must be set to <b>NULL</b>, and <i>PropertyBufferSize</i> must be set to zero. For more information about property value requirements, see the <b>Remarks</b> section later in this topic.
      * @param {Integer} PropertyBufferSize The size, in bytes, of the <i>PropertyBuffer</i> buffer. The property buffer size must be consistent with the property-data-type identifier that is supplied by <i>PropertyType</i>. If <i>PropertyBuffer </i> is set to <b>NULL</b>, <i>PropertyBufferSize</i> must be set to zero.
      * @param {Integer} Flags 
      * @param {PWSTR} MachineName A pointer to a NULL-terminated Unicode string that contains the UNC name, including the "\\" prefix, of a computer. This pointer can be set to <b>NULL</b>. If the pointer is <b>NULL</b>, <b>SetupDiSetClassPropertyEx</b> sets the class property for a class that is installed on the local computer.
@@ -19226,9 +19663,9 @@ class DeviceAndDriverInstallation {
      * > The setupapi.h header defines SetupDiGetDeviceRegistryProperty as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HDEVINFO} DeviceInfoSet A handle to a <a href="https://docs.microsoft.com/windows-hardware/drivers/install/device-information-sets">device information set</a> that contains a device information element that represents the device for which to retrieve a Plug and Play property.
      * @param {Pointer<SP_DEVINFO_DATA>} DeviceInfoData A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/setupapi/ns-setupapi-sp_devinfo_data">SP_DEVINFO_DATA</a> structure that specifies the device information element in <i>DeviceInfoSet</i>.
-     * @param {Integer} _Property 
+     * @param {SETUP_DI_REGISTRY_PROPERTY} _Property 
      * @param {Pointer<Integer>} PropertyRegDataType A pointer to a variable that receives the data type of the property that is being retrieved. This is one of the standard registry data types. This parameter is optional and can be <b>NULL</b>.
-     * @param {Pointer} PropertyBuffer A pointer to a buffer that receives the property that is being retrieved. If this parameter is set to <b>NULL</b>, and <i>PropertyBufferSize</i> is also set to zero, the function returns the required size for the buffer in <i>RequiredSize</i>.
+     * @param {Integer} PropertyBuffer A pointer to a buffer that receives the property that is being retrieved. If this parameter is set to <b>NULL</b>, and <i>PropertyBufferSize</i> is also set to zero, the function returns the required size for the buffer in <i>RequiredSize</i>.
      * @param {Integer} PropertyBufferSize The size, in bytes, of the <i>PropertyBuffer </i> buffer.
      * @param {Pointer<Integer>} RequiredSize A pointer to a variable of type DWORD that receives the required size, in bytes, of the <i>PropertyBuffer</i> buffer that is required to hold the data for the requested property. This parameter is optional and can be <b>NULL</b>.
      * @returns {BOOL} <b>SetupDiGetDeviceRegistryProperty</b> returns <b>TRUE</b> if the call was successful. Otherwise, it returns <b>FALSE</b> and the logged error can be retrieved by making a call to <a href="https://docs.microsoft.com/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. <b>SetupDiGetDeviceRegistryProperty</b> returns the ERROR_INVALID_DATA error code if the requested property does not exist for a device or if the property data is not valid.
@@ -19258,9 +19695,9 @@ class DeviceAndDriverInstallation {
      * > The setupapi.h header defines SetupDiGetDeviceRegistryProperty as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HDEVINFO} DeviceInfoSet A handle to a <a href="https://docs.microsoft.com/windows-hardware/drivers/install/device-information-sets">device information set</a> that contains a device information element that represents the device for which to retrieve a Plug and Play property.
      * @param {Pointer<SP_DEVINFO_DATA>} DeviceInfoData A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/setupapi/ns-setupapi-sp_devinfo_data">SP_DEVINFO_DATA</a> structure that specifies the device information element in <i>DeviceInfoSet</i>.
-     * @param {Integer} _Property 
+     * @param {SETUP_DI_REGISTRY_PROPERTY} _Property 
      * @param {Pointer<Integer>} PropertyRegDataType A pointer to a variable that receives the data type of the property that is being retrieved. This is one of the standard registry data types. This parameter is optional and can be <b>NULL</b>.
-     * @param {Pointer} PropertyBuffer A pointer to a buffer that receives the property that is being retrieved. If this parameter is set to <b>NULL</b>, and <i>PropertyBufferSize</i> is also set to zero, the function returns the required size for the buffer in <i>RequiredSize</i>.
+     * @param {Integer} PropertyBuffer A pointer to a buffer that receives the property that is being retrieved. If this parameter is set to <b>NULL</b>, and <i>PropertyBufferSize</i> is also set to zero, the function returns the required size for the buffer in <i>RequiredSize</i>.
      * @param {Integer} PropertyBufferSize The size, in bytes, of the <i>PropertyBuffer </i> buffer.
      * @param {Pointer<Integer>} RequiredSize A pointer to a variable of type DWORD that receives the required size, in bytes, of the <i>PropertyBuffer</i> buffer that is required to hold the data for the requested property. This parameter is optional and can be <b>NULL</b>.
      * @returns {BOOL} <b>SetupDiGetDeviceRegistryProperty</b> returns <b>TRUE</b> if the call was successful. Otherwise, it returns <b>FALSE</b> and the logged error can be retrieved by making a call to <a href="https://docs.microsoft.com/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. <b>SetupDiGetDeviceRegistryProperty</b> returns the ERROR_INVALID_DATA error code if the requested property does not exist for a device or if the property data is not valid.
@@ -19291,7 +19728,7 @@ class DeviceAndDriverInstallation {
      * @param {Pointer<Guid>} ClassGuid A pointer to a GUID representing the device setup class for which a property is to be retrieved.
      * @param {Integer} _Property 
      * @param {Pointer<Integer>} PropertyRegDataType A pointer to a variable of type DWORD that receives the property data type as one of the REG_-prefixed registry data types. This parameter is optional and can be <b>NULL</b>. If this parameter is <b>NULL</b>, <b>SetupDiGetClassRegistryProperty</b> does not return the data type.
-     * @param {Pointer} PropertyBuffer A pointer to a buffer that receives the requested property.
+     * @param {Integer} PropertyBuffer A pointer to a buffer that receives the requested property.
      * @param {Integer} PropertyBufferSize The size, in bytes, of the <i>PropertyBuffer </i> buffer.
      * @param {Pointer<Integer>} RequiredSize A pointer to a variable of type DWORD that receives the required size, in bytes, of the <i>PropertyBuffer </i> buffer. If the <i>PropertyBuffer</i> buffer is too small, and <i>RequiredSize</i> is not <b>NULL</b>, the function sets <i>RequiredSize</i> to the minimum buffer size that is required to receive the requested property.
      * @param {PSTR} MachineName A pointer to a NULL-terminated string that contains the name of a remote system from which to retrieve the specified device class property. This parameter is optional and can be <b>NULL</b>. If this parameter is <b>NULL</b>, the property is retrieved from the local system.
@@ -19328,7 +19765,7 @@ class DeviceAndDriverInstallation {
      * @param {Pointer<Guid>} ClassGuid A pointer to a GUID representing the device setup class for which a property is to be retrieved.
      * @param {Integer} _Property 
      * @param {Pointer<Integer>} PropertyRegDataType A pointer to a variable of type DWORD that receives the property data type as one of the REG_-prefixed registry data types. This parameter is optional and can be <b>NULL</b>. If this parameter is <b>NULL</b>, <b>SetupDiGetClassRegistryProperty</b> does not return the data type.
-     * @param {Pointer} PropertyBuffer A pointer to a buffer that receives the requested property.
+     * @param {Integer} PropertyBuffer A pointer to a buffer that receives the requested property.
      * @param {Integer} PropertyBufferSize The size, in bytes, of the <i>PropertyBuffer </i> buffer.
      * @param {Pointer<Integer>} RequiredSize A pointer to a variable of type DWORD that receives the required size, in bytes, of the <i>PropertyBuffer </i> buffer. If the <i>PropertyBuffer</i> buffer is too small, and <i>RequiredSize</i> is not <b>NULL</b>, the function sets <i>RequiredSize</i> to the minimum buffer size that is required to receive the requested property.
      * @param {PWSTR} MachineName A pointer to a NULL-terminated string that contains the name of a remote system from which to retrieve the specified device class property. This parameter is optional and can be <b>NULL</b>. If this parameter is <b>NULL</b>, the property is retrieved from the local system.
@@ -19372,8 +19809,8 @@ class DeviceAndDriverInstallation {
      * > The setupapi.h header defines SetupDiSetDeviceRegistryProperty as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HDEVINFO} DeviceInfoSet A handle to the <a href="https://docs.microsoft.com/windows-hardware/drivers/install/device-information-sets">device information set</a> that contains a device information element that represents the device for which to set a Plug and Play device property.
      * @param {Pointer<SP_DEVINFO_DATA>} DeviceInfoData A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/setupapi/ns-setupapi-sp_devinfo_data">SP_DEVINFO_DATA</a> structure that specifies the device information element in <i>DeviceInfoSet</i>. If the <b>ClassGuid</b> property is set, <i>DeviceInfoData.</i><b>ClassGuid</b> is set upon return to the new class for the device.
-     * @param {Integer} _Property 
-     * @param {Pointer} PropertyBuffer A pointer to a buffer that contains the new data for the property. If the property is being cleared, then this pointer should be <b>NULL</b> and <i>PropertyBufferSize</i> must be zero.
+     * @param {SETUP_DI_REGISTRY_PROPERTY} _Property 
+     * @param {Integer} PropertyBuffer A pointer to a buffer that contains the new data for the property. If the property is being cleared, then this pointer should be <b>NULL</b> and <i>PropertyBufferSize</i> must be zero.
      * @param {Integer} PropertyBufferSize The size, in bytes, of <i>PropertyBuffer</i>. If <i>PropertyBuffer</i> is <b>NULL</b>, then this field must be zero.
      * @returns {BOOL} The function returns <b>TRUE</b> if it is successful. Otherwise, it returns <b>FALSE</b> and the logged error can be retrieved with a call to <a href="https://docs.microsoft.com/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://learn.microsoft.com/windows/win32/api/setupapi/nf-setupapi-setupdisetdeviceregistrypropertya
@@ -19407,8 +19844,8 @@ class DeviceAndDriverInstallation {
      * > The setupapi.h header defines SetupDiSetDeviceRegistryProperty as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HDEVINFO} DeviceInfoSet A handle to the <a href="https://docs.microsoft.com/windows-hardware/drivers/install/device-information-sets">device information set</a> that contains a device information element that represents the device for which to set a Plug and Play device property.
      * @param {Pointer<SP_DEVINFO_DATA>} DeviceInfoData A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/setupapi/ns-setupapi-sp_devinfo_data">SP_DEVINFO_DATA</a> structure that specifies the device information element in <i>DeviceInfoSet</i>. If the <b>ClassGuid</b> property is set, <i>DeviceInfoData.</i><b>ClassGuid</b> is set upon return to the new class for the device.
-     * @param {Integer} _Property 
-     * @param {Pointer} PropertyBuffer A pointer to a buffer that contains the new data for the property. If the property is being cleared, then this pointer should be <b>NULL</b> and <i>PropertyBufferSize</i> must be zero.
+     * @param {SETUP_DI_REGISTRY_PROPERTY} _Property 
+     * @param {Integer} PropertyBuffer A pointer to a buffer that contains the new data for the property. If the property is being cleared, then this pointer should be <b>NULL</b> and <i>PropertyBufferSize</i> must be zero.
      * @param {Integer} PropertyBufferSize The size, in bytes, of <i>PropertyBuffer</i>. If <i>PropertyBuffer</i> is <b>NULL</b>, then this field must be zero.
      * @returns {BOOL} The function returns <b>TRUE</b> if it is successful. Otherwise, it returns <b>FALSE</b> and the logged error can be retrieved with a call to <a href="https://docs.microsoft.com/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://learn.microsoft.com/windows/win32/api/setupapi/nf-setupapi-setupdisetdeviceregistrypropertyw
@@ -19441,8 +19878,8 @@ class DeviceAndDriverInstallation {
      * > [!NOTE]
      * > The setupapi.h header defines SetupDiSetClassRegistryProperty as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Guid>} ClassGuid A pointer to the GUID that identifies the device class for which a property is to be set.
-     * @param {Integer} _Property 
-     * @param {Pointer} PropertyBuffer A pointer to a buffer that supplies the specified property. This parameter is optional and can be <b>NULL</b>.
+     * @param {Integer} _Property A value that identifies the property to be set, which must be one of the following:
+     * @param {Integer} PropertyBuffer A pointer to a buffer that supplies the specified property. This parameter is optional and can be <b>NULL</b>.
      * @param {Integer} PropertyBufferSize The size, in bytes, of the <i>PropertyBuffer </i> buffer.
      * @param {PSTR} MachineName A pointer to a NULL-terminated string that contains the name of a remote system on which to set the specified device class property. This parameter is optional and can be <b>NULL</b>. If this parameter is <b>NULL</b>, the property is set on the name of the local system.
      * 
@@ -19481,8 +19918,8 @@ class DeviceAndDriverInstallation {
      * > [!NOTE]
      * > The setupapi.h header defines SetupDiSetClassRegistryProperty as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Guid>} ClassGuid A pointer to the GUID that identifies the device class for which a property is to be set.
-     * @param {Integer} _Property 
-     * @param {Pointer} PropertyBuffer A pointer to a buffer that supplies the specified property. This parameter is optional and can be <b>NULL</b>.
+     * @param {Integer} _Property A value that identifies the property to be set, which must be one of the following:
+     * @param {Integer} PropertyBuffer A pointer to a buffer that supplies the specified property. This parameter is optional and can be <b>NULL</b>.
      * @param {Integer} PropertyBufferSize The size, in bytes, of the <i>PropertyBuffer </i> buffer.
      * @param {PWSTR} MachineName A pointer to a NULL-terminated string that contains the name of a remote system on which to set the specified device class property. This parameter is optional and can be <b>NULL</b>. If this parameter is <b>NULL</b>, the property is set on the name of the local system.
      * 
@@ -19570,7 +20007,7 @@ class DeviceAndDriverInstallation {
      * > The setupapi.h header defines SetupDiGetClassInstallParams as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HDEVINFO} DeviceInfoSet A handle to a <a href="https://docs.microsoft.com/windows-hardware/drivers/install/device-information-sets">device information set</a> that contains the class install parameters to retrieve.
      * @param {Pointer<SP_DEVINFO_DATA>} DeviceInfoData A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/setupapi/ns-setupapi-sp_devinfo_data">SP_DEVINFO_DATA</a> structure that specified a device information element in <i>DeviceInfoSet</i>. This parameter is optional and can be <b>NULL</b>. If this parameter is specified, <b>SetupDiGetClassInstallParams</b> retrieves the class installation parameters for the specified device. If this parameter is <b>NULL</b>, <b>SetupDiGetClassInstallParams</b> retrieves the class install parameters for the global class driver list that is associated with <i>DeviceInfoSet</i>.
-     * @param {Pointer} ClassInstallParams A pointer to a buffer that contains an <a href="https://docs.microsoft.com/windows/desktop/api/setupapi/ns-setupapi-sp_classinstall_header">SP_CLASSINSTALL_HEADER</a> structure. This structure must have its <b>cbSize</b> member set to <b>sizeof(</b>SP_CLASSINSTALL_HEADER<b>)</b> on input or the buffer is considered to be invalid. On output, the <b>InstallFunction</b> member is filled with the <a href="https://docs.microsoft.com/windows-hardware/drivers/install/handling-dif-codes">device installation function code</a> for the class installation parameters being retrieved. If the buffer is large enough, it also receives the class installation parameters structure specific to the function code. If <i>ClassInstallParams</i> is not specified, <i>ClassInstallParamsSize</i> must be 0.
+     * @param {Integer} ClassInstallParams A pointer to a buffer that contains an <a href="https://docs.microsoft.com/windows/desktop/api/setupapi/ns-setupapi-sp_classinstall_header">SP_CLASSINSTALL_HEADER</a> structure. This structure must have its <b>cbSize</b> member set to <b>sizeof(</b>SP_CLASSINSTALL_HEADER<b>)</b> on input or the buffer is considered to be invalid. On output, the <b>InstallFunction</b> member is filled with the <a href="https://docs.microsoft.com/windows-hardware/drivers/install/handling-dif-codes">device installation function code</a> for the class installation parameters being retrieved. If the buffer is large enough, it also receives the class installation parameters structure specific to the function code. If <i>ClassInstallParams</i> is not specified, <i>ClassInstallParamsSize</i> must be 0.
      * @param {Integer} ClassInstallParamsSize The size, in bytes, of the <i>ClassInstallParams</i> buffer. If the buffer is supplied, it must be at least as large as <b>sizeof(</b>SP_CLASSINSTALL_HEADER<b>)</b>. If the buffer is not supplied, <i>ClassInstallParamsSize</i> must be 0<i>.</i>
      * @param {Pointer<Integer>} RequiredSize A pointer to a variable of type DWORD that receives the number of bytes required to store the class install parameters. This parameter is optional and can be <b>NULL</b>.
      * @returns {BOOL} The function returns <b>TRUE</b> if it is successful. Otherwise, it returns <b>FALSE</b> and the logged error can be retrieved with a call to <a href="https://docs.microsoft.com/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -19605,7 +20042,7 @@ class DeviceAndDriverInstallation {
      * > The setupapi.h header defines SetupDiGetClassInstallParams as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HDEVINFO} DeviceInfoSet A handle to a <a href="https://docs.microsoft.com/windows-hardware/drivers/install/device-information-sets">device information set</a> that contains the class install parameters to retrieve.
      * @param {Pointer<SP_DEVINFO_DATA>} DeviceInfoData A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/setupapi/ns-setupapi-sp_devinfo_data">SP_DEVINFO_DATA</a> structure that specified a device information element in <i>DeviceInfoSet</i>. This parameter is optional and can be <b>NULL</b>. If this parameter is specified, <b>SetupDiGetClassInstallParams</b> retrieves the class installation parameters for the specified device. If this parameter is <b>NULL</b>, <b>SetupDiGetClassInstallParams</b> retrieves the class install parameters for the global class driver list that is associated with <i>DeviceInfoSet</i>.
-     * @param {Pointer} ClassInstallParams A pointer to a buffer that contains an <a href="https://docs.microsoft.com/windows/desktop/api/setupapi/ns-setupapi-sp_classinstall_header">SP_CLASSINSTALL_HEADER</a> structure. This structure must have its <b>cbSize</b> member set to <b>sizeof(</b>SP_CLASSINSTALL_HEADER<b>)</b> on input or the buffer is considered to be invalid. On output, the <b>InstallFunction</b> member is filled with the <a href="https://docs.microsoft.com/windows-hardware/drivers/install/handling-dif-codes">device installation function code</a> for the class installation parameters being retrieved. If the buffer is large enough, it also receives the class installation parameters structure specific to the function code. If <i>ClassInstallParams</i> is not specified, <i>ClassInstallParamsSize</i> must be 0.
+     * @param {Integer} ClassInstallParams A pointer to a buffer that contains an <a href="https://docs.microsoft.com/windows/desktop/api/setupapi/ns-setupapi-sp_classinstall_header">SP_CLASSINSTALL_HEADER</a> structure. This structure must have its <b>cbSize</b> member set to <b>sizeof(</b>SP_CLASSINSTALL_HEADER<b>)</b> on input or the buffer is considered to be invalid. On output, the <b>InstallFunction</b> member is filled with the <a href="https://docs.microsoft.com/windows-hardware/drivers/install/handling-dif-codes">device installation function code</a> for the class installation parameters being retrieved. If the buffer is large enough, it also receives the class installation parameters structure specific to the function code. If <i>ClassInstallParams</i> is not specified, <i>ClassInstallParamsSize</i> must be 0.
      * @param {Integer} ClassInstallParamsSize The size, in bytes, of the <i>ClassInstallParams</i> buffer. If the buffer is supplied, it must be at least as large as <b>sizeof(</b>SP_CLASSINSTALL_HEADER<b>)</b>. If the buffer is not supplied, <i>ClassInstallParamsSize</i> must be 0<i>.</i>
      * @param {Pointer<Integer>} RequiredSize A pointer to a variable of type DWORD that receives the number of bytes required to store the class install parameters. This parameter is optional and can be <b>NULL</b>.
      * @returns {BOOL} The function returns <b>TRUE</b> if it is successful. Otherwise, it returns <b>FALSE</b> and the logged error can be retrieved with a call to <a href="https://docs.microsoft.com/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -19706,7 +20143,7 @@ class DeviceAndDriverInstallation {
      * > The setupapi.h header defines SetupDiSetClassInstallParams as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HDEVINFO} DeviceInfoSet A handle to the <a href="https://docs.microsoft.com/windows-hardware/drivers/install/device-information-sets">device information set</a> for which to set class install parameters.
      * @param {Pointer<SP_DEVINFO_DATA>} DeviceInfoData A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/setupapi/ns-setupapi-sp_devinfo_data">SP_DEVINFO_DATA</a> structure that represents the device for which to set class install parameters. This parameter is optional and can be <b>NULL</b>. If this parameter is specified, <b>SetupDiSetClassInstallParams</b> sets the class installation parameters for the specified device. If this parameter is <b>NULL</b>, <b>SetupDiSetClassInstallParams</b> sets the class install parameters that are associated with <i>DeviceInfoSet</i>.
-     * @param {Pointer} ClassInstallParams A pointer to a buffer that contains the new class install parameters to use. The <a href="https://docs.microsoft.com/windows/desktop/api/setupapi/ns-setupapi-sp_classinstall_header">SP_CLASSINSTALL_HEADER</a> structure at the beginning of this buffer must have its <b>cbSize</b> field set to <b>sizeof(</b>SP_CLASSINSTALL_HEADER<b>)</b> and the <b>InstallFunction</b> field must be set to the DI_FUNCTION code that reflects the type of parameters contained in the rest of the buffer. 
+     * @param {Integer} ClassInstallParams A pointer to a buffer that contains the new class install parameters to use. The <a href="https://docs.microsoft.com/windows/desktop/api/setupapi/ns-setupapi-sp_classinstall_header">SP_CLASSINSTALL_HEADER</a> structure at the beginning of this buffer must have its <b>cbSize</b> field set to <b>sizeof(</b>SP_CLASSINSTALL_HEADER<b>)</b> and the <b>InstallFunction</b> field must be set to the DI_FUNCTION code that reflects the type of parameters contained in the rest of the buffer. 
      * 
      * If <i>ClassInstallParams</i> is not specified, the current class install parameters, if any, are cleared for the specified device information set or element.
      * @param {Integer} ClassInstallParamsSize The size, in bytes, of the <i>ClassInstallParams</i> buffer. If the buffer is not supplied (that is, the class install parameters are being cleared), <i>ClassInstallParamsSize</i> must be 0<i>.</i>
@@ -19744,7 +20181,7 @@ class DeviceAndDriverInstallation {
      * > The setupapi.h header defines SetupDiSetClassInstallParams as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HDEVINFO} DeviceInfoSet A handle to the <a href="https://docs.microsoft.com/windows-hardware/drivers/install/device-information-sets">device information set</a> for which to set class install parameters.
      * @param {Pointer<SP_DEVINFO_DATA>} DeviceInfoData A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/setupapi/ns-setupapi-sp_devinfo_data">SP_DEVINFO_DATA</a> structure that represents the device for which to set class install parameters. This parameter is optional and can be <b>NULL</b>. If this parameter is specified, <b>SetupDiSetClassInstallParams</b> sets the class installation parameters for the specified device. If this parameter is <b>NULL</b>, <b>SetupDiSetClassInstallParams</b> sets the class install parameters that are associated with <i>DeviceInfoSet</i>.
-     * @param {Pointer} ClassInstallParams A pointer to a buffer that contains the new class install parameters to use. The <a href="https://docs.microsoft.com/windows/desktop/api/setupapi/ns-setupapi-sp_classinstall_header">SP_CLASSINSTALL_HEADER</a> structure at the beginning of this buffer must have its <b>cbSize</b> field set to <b>sizeof(</b>SP_CLASSINSTALL_HEADER<b>)</b> and the <b>InstallFunction</b> field must be set to the DI_FUNCTION code that reflects the type of parameters contained in the rest of the buffer. 
+     * @param {Integer} ClassInstallParams A pointer to a buffer that contains the new class install parameters to use. The <a href="https://docs.microsoft.com/windows/desktop/api/setupapi/ns-setupapi-sp_classinstall_header">SP_CLASSINSTALL_HEADER</a> structure at the beginning of this buffer must have its <b>cbSize</b> field set to <b>sizeof(</b>SP_CLASSINSTALL_HEADER<b>)</b> and the <b>InstallFunction</b> field must be set to the DI_FUNCTION code that reflects the type of parameters contained in the rest of the buffer. 
      * 
      * If <i>ClassInstallParams</i> is not specified, the current class install parameters, if any, are cleared for the specified device information set or element.
      * @param {Integer} ClassInstallParamsSize The size, in bytes, of the <i>ClassInstallParams</i> buffer. If the buffer is not supplied (that is, the class install parameters are being cleared), <i>ClassInstallParamsSize</i> must be 0<i>.</i>
@@ -19942,7 +20379,7 @@ class DeviceAndDriverInstallation {
      * @param {Integer} cxIcon The width, in pixels, of the icon to be retrieved. Use the system metric index SM_CXICON to specify a default-sized icon or use the system metric index SM_CXSMICON to specify a small icon. The system metric indexes are defined in <i>Winuser.h</i>, and their associated values can be retrieved by a call to the <a href="https://docs.microsoft.com/windows/win32/api/winuser/nf-winuser-getsystemmetrics">GetSystemMetrics</a> function. (The <b>GetSystemMetrics</b> function is documented in the Microsoft Windows SDK.)
      * @param {Integer} cyIcon The height, in pixels, of the icon to be retrieved. Use SM_CXICON to specify a default-sized icon or use SM_CXSMICON to specify a small icon.
      * @param {Integer} Flags Not used. Must set to zero.
-     * @param {Pointer<HICON>} _hIcon 
+     * @param {Pointer<HICON>} _hIcon A pointer to a handle to an icon that receives a handle to the icon that this function retrieves. After the application that calls this function is finished using the icon, the application must call <a href="https://docs.microsoft.com/windows/win32/api/winuser/nf-winuser-destroyicon">DestroyIcon</a> to delete the icon. (<b>DestroyIcon</b> is documented in the Microsoft Windows SDK.)
      * @returns {BOOL} <b>SetupDiLoadDeviceIcon</b> returns <b>TRUE</b> if the function succeeds in retrieving the icon for the specified device. Otherwise, the function returns <b>FALSE</b> and the logged error can be retrieved by a call to <a href="https://docs.microsoft.com/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://learn.microsoft.com/windows/win32/api/setupapi/nf-setupapi-setupdiloaddeviceicon
      * @since windows6.0.6000
@@ -19979,7 +20416,7 @@ class DeviceAndDriverInstallation {
      * 
      * 
      * For more information about <a href="https://docs.microsoft.com/windows/win32/api/winuser/nf-winuser-drawicon">DrawIcon</a> or <a href="https://docs.microsoft.com/windows/win32/api/winuser/nf-winuser-drawiconex">DrawIconEx</a>, refer to the Microsoft Windows Software Development Kit (SDK) for Windows 7 and .NET Framework 4.0 documentation.
-     * @param {HDC} _hdc 
+     * @param {HDC} _hdc The handle to the device context in which the mini-icon will be drawn.
      * @param {RECT} rc The rectangle in the specified device context handle to draw the mini-icon in.
      * @param {Integer} MiniIconIndex The index of the mini-icon, as retrieved from <a href="https://docs.microsoft.com/windows/desktop/api/setupapi/nf-setupapi-setupdiloadclassicon">SetupDiLoadClassIcon</a> or <a href="https://docs.microsoft.com/windows/desktop/api/setupapi/nf-setupapi-setupdigetclassbitmapindex">SetupDiGetClassBitmapIndex</a>. The following predefined indexes for devices can be used:
      * 
@@ -21092,7 +21529,7 @@ class DeviceAndDriverInstallation {
      * 
      * > [!NOTE]
      * > The setupapi.h header defines SetupDiGetActualModelsSection as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<INFCONTEXT>} _Context 
+     * @param {Pointer<INFCONTEXT>} _Context A pointer to an INF file context that specifies a <i>manufacturer-identifier</i> entry in an <a href="https://docs.microsoft.com/windows-hardware/drivers/install/inf-manufacturer-section">INF Manufacturer section</a> of an INF file. The <i>manufacturer-identifier</i> entry specifies an INF <i>Models</i> section name and optionally specifies <i>TargetOSVersion</i> decorations for the <i>Models</i> section name. For information about INF files and an INF file context, see the Platform SDK topics on <a href="https://docs.microsoft.com/windows/win32/setupapi/using-inf-files">using INF files</a> and the <a href="https://docs.microsoft.com/windows/win32/api/setupapi/ns-setupapi-infcontext">INFCONTEXT structure</a>.
      * @param {Pointer<SP_ALTPLATFORM_INFO_V2>} AlternatePlatformInfo A pointer to an <a href="https://docs.microsoft.com/windows/win32/api/setupapi/ns-setupapi-sp_altplatform_info_v2">SP_ALTPLATFORM_INFO</a> structure that supplies information about a Windows version and processor architecture. The <b>cbSize</b> member of this structure must be set to <b>sizeof(</b>SP_ALTPLATFORM_INFO_V2<b>)</b>. This parameter is optional and can be set to <b>NULL</b>.
      * @param {PSTR} InfSectionWithExt A pointer to a buffer that receives a string that contains the decorated INF <i>Models</i> section name and a NULL terminator. If <i>AlternatePlatformInfo</i> is not supplied, the decorated INF <i>Models</i> section name applies to the current platform; otherwise the name applies to the specified alternative platform. This parameter is optional and can be set to <b>NULL</b>. If this parameter is <b>NULL</b>, the function returns <b>TRUE</b> and sets <i>RequiredSize</i> to the size, in characters, that is required to return the decorated <i>Models</i> section name and a terminating NULL character.
      * @param {Integer} InfSectionWithExtSize The size, in characters, of the <i>DecoratedModelsSection </i> buffer. If <i>DecoratedModelsSection</i> is <b>NULL</b>, this parameter must be set to zero.
@@ -21130,7 +21567,7 @@ class DeviceAndDriverInstallation {
      * 
      * > [!NOTE]
      * > The setupapi.h header defines SetupDiGetActualModelsSection as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<INFCONTEXT>} _Context 
+     * @param {Pointer<INFCONTEXT>} _Context A pointer to an INF file context that specifies a <i>manufacturer-identifier</i> entry in an <a href="https://docs.microsoft.com/windows-hardware/drivers/install/inf-manufacturer-section">INF Manufacturer section</a> of an INF file. The <i>manufacturer-identifier</i> entry specifies an INF <i>Models</i> section name and optionally specifies <i>TargetOSVersion</i> decorations for the <i>Models</i> section name. For information about INF files and an INF file context, see the Platform SDK topics on <a href="https://docs.microsoft.com/windows/win32/setupapi/using-inf-files">using INF files</a> and the <a href="https://docs.microsoft.com/windows/win32/api/setupapi/ns-setupapi-infcontext">INFCONTEXT structure</a>.
      * @param {Pointer<SP_ALTPLATFORM_INFO_V2>} AlternatePlatformInfo A pointer to an <a href="https://docs.microsoft.com/windows/win32/api/setupapi/ns-setupapi-sp_altplatform_info_v2">SP_ALTPLATFORM_INFO</a> structure that supplies information about a Windows version and processor architecture. The <b>cbSize</b> member of this structure must be set to <b>sizeof(</b>SP_ALTPLATFORM_INFO_V2<b>)</b>. This parameter is optional and can be set to <b>NULL</b>.
      * @param {PWSTR} InfSectionWithExt A pointer to a buffer that receives a string that contains the decorated INF <i>Models</i> section name and a NULL terminator. If <i>AlternatePlatformInfo</i> is not supplied, the decorated INF <i>Models</i> section name applies to the current platform; otherwise the name applies to the specified alternative platform. This parameter is optional and can be set to <b>NULL</b>. If this parameter is <b>NULL</b>, the function returns <b>TRUE</b> and sets <i>RequiredSize</i> to the size, in characters, that is required to return the decorated <i>Models</i> section name and a terminating NULL character.
      * @param {Integer} InfSectionWithExtSize The size, in characters, of the <i>DecoratedModelsSection </i> buffer. If <i>DecoratedModelsSection</i> is <b>NULL</b>, this parameter must be set to zero.
@@ -21202,7 +21639,7 @@ class DeviceAndDriverInstallation {
      * @param {PSTR} InfSectionWithExt A pointer to a character buffer to receive the <i>DDInstall</i> section name, its platform extension, and a NULL terminator. This is the decorated section name that should be used for installation. If this parameter is <b>NULL</b>, <i>InfSectionWithExtSize</i> must be zero. If this parameter is <b>NULL</b>, the function returns <b>TRUE</b> and sets <i>RequiredSize</i> to the size, in characters, that is required to return the <i>DDInstall</i> section name, its platform extension, and a terminating NULL character.
      * @param {Integer} InfSectionWithExtSize The size, in characters, of the <i>InfSectionWithExt</i> buffer. If <i>InfSectionWithExt</i> is <b>NULL</b>, this parameter must be zero.
      * @param {Pointer<Integer>} RequiredSize A pointer to the variable that receives the size, in characters, that is required to return the <i>DDInstall</i> section name, the platform extension, and a terminating NULL character.
-     * @param {Pointer<PSTR>} _Extension 
+     * @param {Pointer<PSTR>} _Extension A pointer to a variable that receives a pointer to the '.' character that marks the start of the extension in the <i>InfSectionWithExt</i> buffer. If the <i>InfSectionWithExt</i> buffer is not supplied or is too small, this parameter is not set. Set this parameter to <b>NULL</b> if a pointer to the extension is not required.
      * @returns {BOOL} If the function is successful, it returns <b>TRUE</b>. If the function fails, it returns <b>FALSE</b>. To get extended error information, call <a href="https://docs.microsoft.com/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://learn.microsoft.com/windows/win32/api/setupapi/nf-setupapi-setupdigetactualsectiontoinstalla
      * @since windows5.0
@@ -21272,7 +21709,7 @@ class DeviceAndDriverInstallation {
      * @param {PWSTR} InfSectionWithExt A pointer to a character buffer to receive the <i>DDInstall</i> section name, its platform extension, and a NULL terminator. This is the decorated section name that should be used for installation. If this parameter is <b>NULL</b>, <i>InfSectionWithExtSize</i> must be zero. If this parameter is <b>NULL</b>, the function returns <b>TRUE</b> and sets <i>RequiredSize</i> to the size, in characters, that is required to return the <i>DDInstall</i> section name, its platform extension, and a terminating NULL character.
      * @param {Integer} InfSectionWithExtSize The size, in characters, of the <i>InfSectionWithExt</i> buffer. If <i>InfSectionWithExt</i> is <b>NULL</b>, this parameter must be zero.
      * @param {Pointer<Integer>} RequiredSize A pointer to the variable that receives the size, in characters, that is required to return the <i>DDInstall</i> section name, the platform extension, and a terminating NULL character.
-     * @param {Pointer<PWSTR>} _Extension 
+     * @param {Pointer<PWSTR>} _Extension A pointer to a variable that receives a pointer to the '.' character that marks the start of the extension in the <i>InfSectionWithExt</i> buffer. If the <i>InfSectionWithExt</i> buffer is not supplied or is too small, this parameter is not set. Set this parameter to <b>NULL</b> if a pointer to the extension is not required.
      * @returns {BOOL} If the function is successful, it returns <b>TRUE</b>. If the function fails, it returns <b>FALSE</b>. To get extended error information, call <a href="https://docs.microsoft.com/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://learn.microsoft.com/windows/win32/api/setupapi/nf-setupapi-setupdigetactualsectiontoinstallw
      * @since windows5.0
@@ -21329,7 +21766,7 @@ class DeviceAndDriverInstallation {
      * @param {PSTR} InfSectionWithExt A pointer to a character buffer to receive the <i>DDInstall</i> section name, its platform extension, and a NULL terminator. This is the decorated section name that should be used for installation.  If this parameter is <b>NULL</b>, the function returns <b>TRUE</b> and sets <i>RequiredSize</i> to the size, in characters, that is required to return the <i>DDInstall</i> section name, its platform extension, and a terminating NULL character.
      * @param {Integer} InfSectionWithExtSize The size, in characters, of the buffer that is pointed to by the <i>InfSectionWithExt</i> parameter. The maximum length of a NULL-terminated INF section name, in characters, is MAX_INF_SECTION_NAME_LENGTH.
      * @param {Pointer<Integer>} RequiredSize A pointer to the variable that receives the size, in characters, that is required to return the <i>DDInstall</i> section name, the platform extension, and a terminating NULL character.
-     * @param {Pointer<PSTR>} _Extension 
+     * @param {Pointer<PSTR>} _Extension A pointer to a variable that receives a pointer to the '.' character that marks the start of the extension in the <i>InfSectionWithExt</i> buffer. If the <i>InfSectionWithExt</i> buffer is not supplied or is too small, this parameter is not set. Set this parameter to <b>NULL</b> if a pointer to the extension is not required.
      * @returns {BOOL} If the function is successful, it returns <b>TRUE</b>. Otherwise, it returns <b>FALSE</b>. To get extended error information, call <a href="https://docs.microsoft.com/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://learn.microsoft.com/windows/win32/api/setupapi/nf-setupapi-setupdigetactualsectiontoinstallexa
      * @since windows5.1.2600
@@ -21388,7 +21825,7 @@ class DeviceAndDriverInstallation {
      * @param {PWSTR} InfSectionWithExt A pointer to a character buffer to receive the <i>DDInstall</i> section name, its platform extension, and a NULL terminator. This is the decorated section name that should be used for installation.  If this parameter is <b>NULL</b>, the function returns <b>TRUE</b> and sets <i>RequiredSize</i> to the size, in characters, that is required to return the <i>DDInstall</i> section name, its platform extension, and a terminating NULL character.
      * @param {Integer} InfSectionWithExtSize The size, in characters, of the buffer that is pointed to by the <i>InfSectionWithExt</i> parameter. The maximum length of a NULL-terminated INF section name, in characters, is MAX_INF_SECTION_NAME_LENGTH.
      * @param {Pointer<Integer>} RequiredSize A pointer to the variable that receives the size, in characters, that is required to return the <i>DDInstall</i> section name, the platform extension, and a terminating NULL character.
-     * @param {Pointer<PWSTR>} _Extension 
+     * @param {Pointer<PWSTR>} _Extension A pointer to a variable that receives a pointer to the '.' character that marks the start of the extension in the <i>InfSectionWithExt</i> buffer. If the <i>InfSectionWithExt</i> buffer is not supplied or is too small, this parameter is not set. Set this parameter to <b>NULL</b> if a pointer to the extension is not required.
      * @returns {BOOL} If the function is successful, it returns <b>TRUE</b>. Otherwise, it returns <b>FALSE</b>. To get extended error information, call <a href="https://docs.microsoft.com/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://learn.microsoft.com/windows/win32/api/setupapi/nf-setupapi-setupdigetactualsectiontoinstallexw
      * @since windows5.1.2600
@@ -21425,8 +21862,8 @@ class DeviceAndDriverInstallation {
      * > The setupapi.h header defines SetupEnumInfSections as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Void>} InfHandle Handle to the INF file that is to be queried.
      * @param {Integer} Index The zero-based index of the section name to retrieve. This index may not correspond to the order of sections as they appear in the INF file.
-     * @param {PSTR} _Buffer 
-     * @param {Integer} _Size 
+     * @param {PSTR} _Buffer Pointer to a buffer that receives the section name. You can call the function once to get the required buffer size, allocate the necessary memory, and then call the function a second time to retrieve the name. Using this technique, you can avoid errors caused by an insufficient buffer size. This parameter is optional. For more information, see the Remarks section.
+     * @param {Integer} _Size Size of the buffer pointed to by <i>ReturnBuffer</i> in characters. This number includes the terminating <b>NULL</b> character.
      * @param {Pointer<Integer>} SizeNeeded Pointer to a location that receives the required size of the buffer pointed to by <i>ReturnBuffer</i>. The size is specified as the number of characters required to store the section name, including the terminating <b>NULL</b> character.
      * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
@@ -21466,8 +21903,8 @@ class DeviceAndDriverInstallation {
      * > The setupapi.h header defines SetupEnumInfSections as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Void>} InfHandle Handle to the INF file that is to be queried.
      * @param {Integer} Index The zero-based index of the section name to retrieve. This index may not correspond to the order of sections as they appear in the INF file.
-     * @param {PWSTR} _Buffer 
-     * @param {Integer} _Size 
+     * @param {PWSTR} _Buffer Pointer to a buffer that receives the section name. You can call the function once to get the required buffer size, allocate the necessary memory, and then call the function a second time to retrieve the name. Using this technique, you can avoid errors caused by an insufficient buffer size. This parameter is optional. For more information, see the Remarks section.
+     * @param {Integer} _Size Size of the buffer pointed to by <i>ReturnBuffer</i> in characters. This number includes the terminating <b>NULL</b> character.
      * @param {Pointer<Integer>} SizeNeeded Pointer to a location that receives the required size of the buffer pointed to by <i>ReturnBuffer</i>. The size is specified as the number of characters required to store the section name, including the terminating <b>NULL</b> character.
      * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
@@ -21557,7 +21994,7 @@ class DeviceAndDriverInstallation {
      * @param {PSTR} CustomPropertyName A registry value name representing a custom property.
      * @param {Integer} Flags A flag value that indicates how the requested information should be returned. The flag can be zero or one of the following:
      * @param {Pointer<Integer>} PropertyRegDataType A pointer to a variable of type DWORD that receives the data type of the retrieved property. The data type is specified as one of the REG_-prefixed constants that represents registry data types. This parameter is optional and can be <b>NULL</b>.
-     * @param {Pointer} PropertyBuffer A pointer to a buffer that receives requested property information.
+     * @param {Integer} PropertyBuffer A pointer to a buffer that receives requested property information.
      * @param {Integer} PropertyBufferSize The size, in bytes, of the <i>PropertyBuffer </i> buffer.
      * @param {Pointer<Integer>} RequiredSize A pointer to a variable of type DWORD that receives the buffer size, in bytes, that is required to receive the requested information. This parameter is optional and can be <b>NULL</b>. If this parameter is specified, <b>SetupDiGetCustomDeviceProperty</b> returns the required size, regardless of whether the <i>PropertyBuffer</i> buffer is large enough to receive the requested information.
      * @returns {BOOL} If the operation succeeds, <b>SetupDiGetCustomDeviceProperty</b> returns <b>TRUE</b>. Otherwise, the function returns <b>FALSE</b> and the logged error can be retrieved with a call to <a href="https://docs.microsoft.com/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. If the <i>PropertyBuffer </i> buffer is not large enough to receive the requested information, <b>SetupDiGetCustomDeviceProperty</b> returns <b>FALSE</b> and a subsequent call to <a href="https://docs.microsoft.com/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> will return ERROR_INSUFFICIENT_BUFFER.
@@ -21603,7 +22040,7 @@ class DeviceAndDriverInstallation {
      * @param {PWSTR} CustomPropertyName A registry value name representing a custom property.
      * @param {Integer} Flags A flag value that indicates how the requested information should be returned. The flag can be zero or one of the following:
      * @param {Pointer<Integer>} PropertyRegDataType A pointer to a variable of type DWORD that receives the data type of the retrieved property. The data type is specified as one of the REG_-prefixed constants that represents registry data types. This parameter is optional and can be <b>NULL</b>.
-     * @param {Pointer} PropertyBuffer A pointer to a buffer that receives requested property information.
+     * @param {Integer} PropertyBuffer A pointer to a buffer that receives requested property information.
      * @param {Integer} PropertyBufferSize The size, in bytes, of the <i>PropertyBuffer </i> buffer.
      * @param {Pointer<Integer>} RequiredSize A pointer to a variable of type DWORD that receives the buffer size, in bytes, that is required to receive the requested information. This parameter is optional and can be <b>NULL</b>. If this parameter is specified, <b>SetupDiGetCustomDeviceProperty</b> returns the required size, regardless of whether the <i>PropertyBuffer</i> buffer is large enough to receive the requested information.
      * @returns {BOOL} If the operation succeeds, <b>SetupDiGetCustomDeviceProperty</b> returns <b>TRUE</b>. Otherwise, the function returns <b>FALSE</b> and the logged error can be retrieved with a call to <a href="https://docs.microsoft.com/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. If the <i>PropertyBuffer </i> buffer is not large enough to receive the requested information, <b>SetupDiGetCustomDeviceProperty</b> returns <b>FALSE</b> and a subsequent call to <a href="https://docs.microsoft.com/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> will return ERROR_INSUFFICIENT_BUFFER.
@@ -21731,7 +22168,154 @@ class DeviceAndDriverInstallation {
      * For information about using device instance handles that are bound to the local machine, see <a href="https://docs.microsoft.com/windows/desktop/api/cfgmgr32/nf-cfgmgr32-cm_get_child">CM_Get_Child</a>.
      * @param {Pointer<Pointer>} plcLogConf Address of a location to receive the handle to an empty logical configuration.
      * @param {Integer} dnDevInst Caller-supplied device instance handle that is bound to the local machine.
-     * @param {Integer} _Priority 
+     * @param {PRIORITY} _Priority Caller-supplied configuration priority value. This must be one of the constant values listed in the following table. The constants are listed in order of priority, from highest to lowest. (For multiple configurations with the same <i>ulFlags</i> value, the system will attempt to use the one with the highest priority first.)
+     * 
+     * <table>
+     * <tr>
+     * <th>Priority Constant</th>
+     * <th>Definition</th>
+     * </tr>
+     * <tr>
+     * <td>
+     * LCPRI_FORCECONFIG
+     * 
+     * </td>
+     * <td>
+     * Result of a <a href="https://docs.microsoft.com/windows-hardware/drivers/kernel/hardware-resources">forced configuration</a>.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td>
+     * LCPRI_BOOTCONFIG
+     * 
+     * </td>
+     * <td>
+     * Result of a <a href="https://docs.microsoft.com/windows-hardware/drivers/kernel/hardware-resources">boot configuration</a>.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td>
+     * LCPRI_DESIRED
+     * 
+     * </td>
+     * <td>
+     * Preferred configuration (better performance).
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td>
+     * LCPRI_NORMAL
+     * 
+     * </td>
+     * <td>
+     * Workable configuration (acceptable performance).
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td>
+     * LCPRI_LASTBESTCONFIG
+     * 
+     * </td>
+     * <td>
+     * <i>For internal use only.</i>
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td>
+     * LCPRI_SUBOPTIMAL
+     * 
+     * </td>
+     * <td>
+     * Not a desirable configuration, but it will work.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td>
+     * LCPRI_LASTSOFTCONFIG
+     * 
+     * </td>
+     * <td>
+     * <i>For internal use only.</i>
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td>
+     * LCPRI_RESTART
+     * 
+     * </td>
+     * <td>
+     * The system must be restarted
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td>
+     * LCPRI_REBOOT
+     * 
+     * </td>
+     * <td>
+     * The system must be restarted (same as LCPRI_RESTART).
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td>
+     * LCPRI_POWEROFF
+     * 
+     * </td>
+     * <td>
+     * The system must be shut down and powered off.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td>
+     * LCPRI_HARDRECONFIG
+     * 
+     * </td>
+     * <td>
+     * A jumper must be changed.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td>
+     * LCPRI_HARDWIRED
+     * 
+     * </td>
+     * <td>
+     * The configuration cannot be changed.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td>
+     * LCPRI_IMPOSSIBLE
+     * 
+     * </td>
+     * <td>
+     * The configuration cannot exist.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td>
+     * LCPRI_DISABLED
+     * 
+     * </td>
+     * <td>
+     * Disabled configuration.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @param {Integer} ulFlags Caller-supplied flags that specify the type of the logical configuration. One of the following flags must be specified.
      * 
      * <table>
@@ -21830,7 +22414,7 @@ class DeviceAndDriverInstallation {
      * </td>
      * </tr>
      * </table>
-     * @returns {Integer} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
+     * @returns {CONFIGRET} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
      * 
      * <div class="alert"><b>Note</b>  Starting with Windows 8, <b>CM_Add_Empty_Log_Conf</b> returns CR_CALL_NOT_IMPLEMENTED when used in a Wow64 scenario. To request information about the hardware resources on a local machine it is necessary implement an architecture-native version of the application using the hardware resource APIs. For example: An AMD64 application for AMD64 systems.</div>
      * <div> </div>
@@ -21860,13 +22444,13 @@ class DeviceAndDriverInstallation {
      * Functionality to access remote machines has been removed in Windows 8 and Windows Server 2012 and later operating systems thus you cannot access remote machines when running on these versions of Windows.
      * @param {Pointer<Pointer>} plcLogConf Pointer to a location to receive the handle to an empty logical configuration.
      * @param {Integer} dnDevInst Caller-supplied device instance handle that is bound to the machine handle supplied by <i>hMachine</i>.
-     * @param {Integer} _Priority 
+     * @param {PRIORITY} _Priority Caller-supplied configuration priority value. For a list of values, see the <i>Priority</i> description for <a href="https://docs.microsoft.com/windows/desktop/api/cfgmgr32/nf-cfgmgr32-cm_add_empty_log_conf">CM_Add_Empty_Log_Conf</a>.
      * @param {Integer} ulFlags Caller-supplied flags that specify the type of the logical configuration. For a list of flags, see the description <i>ulFlags</i> description for <a href="https://docs.microsoft.com/windows/desktop/api/cfgmgr32/nf-cfgmgr32-cm_add_empty_log_conf">CM_Add_Empty_Log_Conf</a>.
      * @param {Pointer} hMachine Caller-supplied machine handle to which the caller-supplied device instance handle is bound.
      * 
      * <div class="alert"><b>Note</b>  Using this function to access remote machines is not supported beginning with Windows 8 and Windows Server 2012, as this functionality has been removed.</div>
      * <div> </div>
-     * @returns {Integer} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
+     * @returns {CONFIGRET} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
      * 
      * <div class="alert"><b>Note</b>  Starting with Windows 8, <b>CM_Add_Empty_Log_Conf_Ex</b> returns CR_CALL_NOT_IMPLEMENTED when used in a Wow64 scenario. To request information about the hardware resources on a local machine it is necessary implement an architecture-native version of the application using the hardware resource APIs. For example: An AMD64 application for AMD64 systems.</div>
      * <div> </div>
@@ -21920,7 +22504,7 @@ class DeviceAndDriverInstallation {
      * </td>
      * </tr>
      * </table>
-     * @returns {Integer} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
+     * @returns {CONFIGRET} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_add_ida
      */
     static CM_Add_IDA(dnDevInst, pszID, ulFlags) {
@@ -21970,7 +22554,7 @@ class DeviceAndDriverInstallation {
      * </td>
      * </tr>
      * </table>
-     * @returns {Integer} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
+     * @returns {CONFIGRET} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_add_idw
      * @since windows5.0
      */
@@ -22025,7 +22609,7 @@ class DeviceAndDriverInstallation {
      * 
      * <div class="alert"><b>Note</b>  Using this function to access remote machines is not supported beginning with Windows 8 and Windows Server 2012, as this functionality has been removed.</div>
      * <div> </div>
-     * @returns {Integer} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
+     * @returns {CONFIGRET} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_add_id_exa
      */
     static CM_Add_ID_ExA(dnDevInst, pszID, ulFlags, hMachine) {
@@ -22083,7 +22667,7 @@ class DeviceAndDriverInstallation {
      * 
      * <div class="alert"><b>Note</b>  Using this function to access remote machines is not supported beginning with Windows 8 and Windows Server 2012, as this functionality has been removed.</div>
      * <div> </div>
-     * @returns {Integer} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
+     * @returns {CONFIGRET} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_add_id_exw
      * @since windows5.0
      */
@@ -22100,7 +22684,7 @@ class DeviceAndDriverInstallation {
      * @param {Integer} ullEndValue 
      * @param {Pointer} rlh 
      * @param {Integer} ulFlags 
-     * @returns {Integer} 
+     * @returns {CONFIGRET} 
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_add_range
      */
     static CM_Add_Range(ullStartValue, ullEndValue, rlh, ulFlags) {
@@ -22140,7 +22724,7 @@ class DeviceAndDriverInstallation {
      * 
      * <a href="https://docs.microsoft.com/windows/desktop/api/cfgmgr32/nf-cfgmgr32-cm_get_next_log_conf_ex">CM_Get_Next_Log_Conf_Ex</a>
      * @param {Integer} ResourceID Caller-supplied resource type identifier, which identifies the type of structure supplied by <i>ResourceData</i>. This must be one of the <b>ResType_</b>-prefixed constants defined in <i>Cfgmgr32.h</i>.
-     * @param {Pointer} ResourceData Caller-supplied pointer to one of the resource structures listed in the following table.
+     * @param {Integer} ResourceData Caller-supplied pointer to one of the resource structures listed in the following table.
      * 
      * <table>
      * <tr>
@@ -22258,7 +22842,7 @@ class DeviceAndDriverInstallation {
      * </table>
      * @param {Integer} ResourceLen Caller-supplied length of the structure pointed to by <i>ResourceData</i>.
      * @param {Integer} ulFlags Not used, must be zero.
-     * @returns {Integer} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
+     * @returns {CONFIGRET} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
      * 
      * <div class="alert"><b>Note</b>  Starting with Windows 8,  <b>CM_Add_Res_Des</b> returns CR_CALL_NOT_IMPLEMENTED when used in a Wow64 scenario. To request information about the hardware resources on a local machine it is necessary implement an architecture-native version of the application using the hardware resource APIs. For example: An AMD64 application for AMD64 systems.</div>
      * <div> </div>
@@ -22306,7 +22890,7 @@ class DeviceAndDriverInstallation {
      * 
      * <a href="https://docs.microsoft.com/windows/desktop/api/cfgmgr32/nf-cfgmgr32-cm_get_next_log_conf_ex">CM_Get_Next_Log_Conf_Ex</a>
      * @param {Integer} ResourceID Caller-supplied resource type identifier, which identifies the type of structure supplied by <i>ResourceData</i>. This must be one of the <b>ResType_</b>-prefixed constants defined in <i>Cfgmgr32.h</i>.
-     * @param {Pointer} ResourceData Caller-supplied pointer to one of the resource structures listed in the following table.
+     * @param {Integer} ResourceData Caller-supplied pointer to one of the resource structures listed in the following table.
      * 
      * <table>
      * <tr>
@@ -22428,7 +23012,7 @@ class DeviceAndDriverInstallation {
      * 
      * <div class="alert"><b>Note</b>  Using this function to access remote machines is not supported beginning with Windows 8 and Windows Server 2012, as this functionality has been removed.</div>
      * <div> </div>
-     * @returns {Integer} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
+     * @returns {CONFIGRET} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
      * 
      * <div class="alert"><b>Note</b>  Starting with Windows 8, <b>CM_Add_Res_Des_Ex</b> returns CR_CALL_NOT_IMPLEMENTED when used in a Wow64 scenario. To request information about the hardware resources on a local machine it is necessary implement an architecture-native version of the application using the hardware resource APIs. For example: An AMD64 application for AMD64 systems.</div>
      * <div> </div>
@@ -22455,7 +23039,7 @@ class DeviceAndDriverInstallation {
      * 
      * <div class="alert"><b>Note</b> Using this function to access remote machines is not supported beginning with Windows 8 and Windows Server 2012, as this functionality has been removed.</div>
      * <div> </div>
-     * @returns {Integer} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
+     * @returns {CONFIGRET} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_connect_machinea
      */
     static CM_Connect_MachineA(UNCServerName, phMachine) {
@@ -22480,7 +23064,7 @@ class DeviceAndDriverInstallation {
      * 
      * <div class="alert"><b>Note</b>  Using this function to access remote machines is not supported beginning with Windows 8 and Windows Server 2012, as this functionality has been removed.</div>
      * <div> </div>
-     * @returns {Integer} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
+     * @returns {CONFIGRET} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_connect_machinew
      * @since windows5.0
      */
@@ -22499,7 +23083,7 @@ class DeviceAndDriverInstallation {
      * @param {PSTR} pDeviceID 
      * @param {Integer} dnParent 
      * @param {Integer} ulFlags 
-     * @returns {Integer} 
+     * @returns {CONFIGRET} 
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_create_devnodea
      */
     static CM_Create_DevNodeA(pdnDevInst, pDeviceID, dnParent, ulFlags) {
@@ -22517,7 +23101,7 @@ class DeviceAndDriverInstallation {
      * @param {PWSTR} pDeviceID 
      * @param {Integer} dnParent 
      * @param {Integer} ulFlags 
-     * @returns {Integer} 
+     * @returns {CONFIGRET} 
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_create_devnodew
      */
     static CM_Create_DevNodeW(pdnDevInst, pDeviceID, dnParent, ulFlags) {
@@ -22536,7 +23120,7 @@ class DeviceAndDriverInstallation {
      * @param {Integer} dnParent 
      * @param {Integer} ulFlags 
      * @param {Pointer} hMachine 
-     * @returns {Integer} 
+     * @returns {CONFIGRET} 
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_create_devnode_exa
      */
     static CM_Create_DevNode_ExA(pdnDevInst, pDeviceID, dnParent, ulFlags, hMachine) {
@@ -22555,7 +23139,7 @@ class DeviceAndDriverInstallation {
      * @param {Integer} dnParent 
      * @param {Integer} ulFlags 
      * @param {Pointer} hMachine 
-     * @returns {Integer} 
+     * @returns {CONFIGRET} 
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_create_devnode_exw
      */
     static CM_Create_DevNode_ExW(pdnDevInst, pDeviceID, dnParent, ulFlags, hMachine) {
@@ -22571,7 +23155,7 @@ class DeviceAndDriverInstallation {
      * 
      * @param {Pointer<Pointer>} prlh 
      * @param {Integer} ulFlags 
-     * @returns {Integer} 
+     * @returns {CONFIGRET} 
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_create_range_list
      */
     static CM_Create_Range_List(prlh, ulFlags) {
@@ -22585,7 +23169,7 @@ class DeviceAndDriverInstallation {
      * The CM_Delete_Class_Key function removes the specified installed device class from the system.
      * @param {Pointer<Guid>} ClassGuid Pointer to the GUID of the device class to remove.
      * @param {Integer} ulFlags Delete class key flags:
-     * @returns {Integer} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
+     * @returns {CONFIGRET} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_delete_class_key
      * @since windows5.0
      */
@@ -22599,7 +23183,7 @@ class DeviceAndDriverInstallation {
      * @param {Pointer<Guid>} ClassGuid 
      * @param {Integer} ulFlags 
      * @param {Pointer} hMachine 
-     * @returns {Integer} 
+     * @returns {CONFIGRET} 
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_delete_class_key_ex
      */
     static CM_Delete_Class_Key_Ex(ClassGuid, ulFlags, hMachine) {
@@ -22612,7 +23196,7 @@ class DeviceAndDriverInstallation {
      * @param {Integer} dnDevNode Device instance handle that is bound to the local machine.
      * @param {Integer} ulHardwareProfile The hardware profile to delete if <i>ulFlags</i> includes CM_REGISTRY_CONFIG. If this value is zero, the key for the current hardware profile is deleted. If this value is 0xFFFFFFFF, the registry keys for all hardware profiles are deleted.
      * @param {Integer} ulFlags Delete device node key flags. Indicates the scope and type of registry storage key to delete.  Can be a combination of the following flags:
-     * @returns {Integer} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
+     * @returns {CONFIGRET} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_delete_devnode_key
      * @since windows5.0
      */
@@ -22627,7 +23211,7 @@ class DeviceAndDriverInstallation {
      * @param {Integer} ulHardwareProfile 
      * @param {Integer} ulFlags 
      * @param {Pointer} hMachine 
-     * @returns {Integer} 
+     * @returns {CONFIGRET} 
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_delete_devnode_key_ex
      */
     static CM_Delete_DevNode_Key_Ex(dnDevNode, ulHardwareProfile, ulFlags, hMachine) {
@@ -22641,7 +23225,7 @@ class DeviceAndDriverInstallation {
      * @param {Integer} ullEndValue 
      * @param {Pointer} rlh 
      * @param {Integer} ulFlags 
-     * @returns {Integer} 
+     * @returns {CONFIGRET} 
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_delete_range
      */
     static CM_Delete_Range(ullStartValue, ullEndValue, rlh, ulFlags) {
@@ -22653,11 +23237,11 @@ class DeviceAndDriverInstallation {
      * 
      * @param {Integer} dnDevInst 
      * @param {Integer} ResourceID 
-     * @param {Pointer} ResourceData 
+     * @param {Integer} ResourceData 
      * @param {Integer} ResourceLen 
      * @param {Pointer<BOOL>} pbConflictDetected 
      * @param {Integer} ulFlags 
-     * @returns {Integer} 
+     * @returns {CONFIGRET} 
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_detect_resource_conflict
      */
     static CM_Detect_Resource_Conflict(dnDevInst, ResourceID, ResourceData, ResourceLen, pbConflictDetected, ulFlags) {
@@ -22671,12 +23255,12 @@ class DeviceAndDriverInstallation {
      * 
      * @param {Integer} dnDevInst 
      * @param {Integer} ResourceID 
-     * @param {Pointer} ResourceData 
+     * @param {Integer} ResourceData 
      * @param {Integer} ResourceLen 
      * @param {Pointer<BOOL>} pbConflictDetected 
      * @param {Integer} ulFlags 
      * @param {Pointer} hMachine 
-     * @returns {Integer} 
+     * @returns {CONFIGRET} 
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_detect_resource_conflict_ex
      */
     static CM_Detect_Resource_Conflict_Ex(dnDevInst, ResourceID, ResourceData, ResourceLen, pbConflictDetected, ulFlags, hMachine) {
@@ -22692,7 +23276,7 @@ class DeviceAndDriverInstallation {
      * By default, <b>CM_Disable_DevNode</b> disables a device at one time, but after reboot the device is enabled again. Starting in Windows 10, you can specify the <b>CM_DISABLE_PERSIST</b> flag to disable the device across reboots.
      * @param {Integer} dnDevInst Device instance handle that is bound to the local machine.
      * @param {Integer} ulFlags Disable flags:
-     * @returns {Integer} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
+     * @returns {CONFIGRET} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_disable_devnode
      * @since windows5.0
      */
@@ -22706,7 +23290,7 @@ class DeviceAndDriverInstallation {
      * @param {Integer} dnDevInst 
      * @param {Integer} ulFlags 
      * @param {Pointer} hMachine 
-     * @returns {Integer} 
+     * @returns {CONFIGRET} 
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_disable_devnode_ex
      */
     static CM_Disable_DevNode_Ex(dnDevInst, ulFlags, hMachine) {
@@ -22722,7 +23306,7 @@ class DeviceAndDriverInstallation {
      * 
      * <div class="alert"><b>Note</b>  Using this function to access remote machines is not supported beginning with Windows 8 and Windows Server 2012, as this functionality has been removed.</div>
      * <div> </div>
-     * @returns {Integer} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
+     * @returns {CONFIGRET} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_disconnect_machine
      * @since windows5.0
      */
@@ -22736,7 +23320,7 @@ class DeviceAndDriverInstallation {
      * @param {Pointer} rlhOld 
      * @param {Pointer} rlhNew 
      * @param {Integer} ulFlags 
-     * @returns {Integer} 
+     * @returns {CONFIGRET} 
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_dup_range_list
      */
     static CM_Dup_Range_List(rlhOld, rlhNew, ulFlags) {
@@ -22748,7 +23332,7 @@ class DeviceAndDriverInstallation {
      * The CM_Enable_DevNode function enables a device.
      * @param {Integer} dnDevInst Device instance handle that is bound to the local machine.
      * @param {Integer} ulFlags Reserved. Must be set to zero.
-     * @returns {Integer} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
+     * @returns {CONFIGRET} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_enable_devnode
      * @since windows5.0
      */
@@ -22762,7 +23346,7 @@ class DeviceAndDriverInstallation {
      * @param {Integer} dnDevInst 
      * @param {Integer} ulFlags 
      * @param {Pointer} hMachine 
-     * @returns {Integer} 
+     * @returns {CONFIGRET} 
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_enable_devnode_ex
      */
     static CM_Enable_DevNode_Ex(dnDevInst, ulFlags, hMachine) {
@@ -22780,8 +23364,8 @@ class DeviceAndDriverInstallation {
      * Beginning with Windows 8 and later operating systems, callers can use the <b>ulFlags</b> member to specify which device classes CM_Enumerate_Classes should return. Prior to Windows 8, CM_Enumerate_Classes returned only device setup classes.
      * @param {Integer} ulClassIndex Caller-supplied index into the machine's list of device classes. For more information, see the <b>Remarks</b> section.
      * @param {Pointer<Guid>} ClassGuid Caller-supplied address of a GUID structure (described in the Microsoft Windows SDK) to receive a device class's GUID.
-     * @param {Integer} ulFlags Beginning with Windows 8, callers can specify the following flags:
-     * @returns {Integer} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
+     * @param {CM_ENUMERATE_FLAGS} ulFlags Beginning with Windows 8, callers can specify the following flags:
+     * @returns {CONFIGRET} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_enumerate_classes
      * @since windows5.0
      */
@@ -22802,12 +23386,12 @@ class DeviceAndDriverInstallation {
      *  Functionality to access remote machines has been removed in Windows 8 and Windows Server 2012 and later operating systems thus you cannot access remote machines when running on these versions of Windows.
      * @param {Integer} ulClassIndex Caller-supplied index into the machine's list of device classes. For more information, see the following <b>Remarks</b> section.
      * @param {Pointer<Guid>} ClassGuid Caller-supplied address of a GUID structure (described in the Microsoft Windows SDK) to receive a device class's GUID.
-     * @param {Integer} ulFlags Beginning with Windows 8, callers can specify the following flags:
+     * @param {CM_ENUMERATE_FLAGS} ulFlags Beginning with Windows 8, callers can specify the following flags:
      * @param {Pointer} hMachine Caller-supplied machine handle, obtained from a previous call to <a href="https://docs.microsoft.com/windows/desktop/api/cfgmgr32/nf-cfgmgr32-cm_connect_machinew">CM_Connect_Machine</a>.
      * 
      * <div class="alert"><b>Note</b>  Using this function to access remote machines is not supported beginning with Windows 8 and Windows Server 2012, as this functionality has been removed.</div>
      * <div> </div>
-     * @returns {Integer} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
+     * @returns {CONFIGRET} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_enumerate_classes_ex
      * @since windows5.0
      */
@@ -22823,10 +23407,10 @@ class DeviceAndDriverInstallation {
      * 
      * After enumerator names have been obtained, the names can be used as input to <a href="https://docs.microsoft.com/windows/desktop/api/cfgmgr32/nf-cfgmgr32-cm_get_device_id_lista">CM_Get_Device_ID_List</a>.
      * @param {Integer} ulEnumIndex Caller-supplied index into the machine's list of device enumerators. For more information, see the following <b>Remarks</b> section.
-     * @param {PSTR} _Buffer 
+     * @param {PSTR} _Buffer Address of a buffer to receive an enumerator name. This buffer should be MAX_DEVICE_ID_LEN-sized (or, set <i>Buffer</i> to zero and obtain the actual name length in the location referenced by <i>puLength</i>).
      * @param {Pointer<Integer>} pulLength Caller-supplied address of a location to hold the buffer size. The caller supplies the length of the buffer pointed to by <i>Buffer</i>. The function replaces this value with the actual size of the enumerator's name string. If the caller-supplied buffer length is too small, the function supplies the required buffer size and returns CR_BUFFER_SMALL.
      * @param {Integer} ulFlags Not used, must be zero.
-     * @returns {Integer} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
+     * @returns {CONFIGRET} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_enumerate_enumeratorsa
      */
     static CM_Enumerate_EnumeratorsA(ulEnumIndex, _Buffer, pulLength, ulFlags) {
@@ -22845,10 +23429,10 @@ class DeviceAndDriverInstallation {
      * 
      * After enumerator names have been obtained, the names can be used as input to <a href="https://docs.microsoft.com/windows/desktop/api/cfgmgr32/nf-cfgmgr32-cm_get_device_id_lista">CM_Get_Device_ID_List</a>.
      * @param {Integer} ulEnumIndex Caller-supplied index into the machine's list of device enumerators. For more information, see the following <b>Remarks</b> section.
-     * @param {PWSTR} _Buffer 
+     * @param {PWSTR} _Buffer Address of a buffer to receive an enumerator name. This buffer should be MAX_DEVICE_ID_LEN-sized (or, set <i>Buffer</i> to zero and obtain the actual name length in the location referenced by <i>puLength</i>).
      * @param {Pointer<Integer>} pulLength Caller-supplied address of a location to hold the buffer size. The caller supplies the length of the buffer pointed to by <i>Buffer</i>. The function replaces this value with the actual size of the enumerator's name string. If the caller-supplied buffer length is too small, the function supplies the required buffer size and returns CR_BUFFER_SMALL.
      * @param {Integer} ulFlags Not used, must be zero.
-     * @returns {Integer} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
+     * @returns {CONFIGRET} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_enumerate_enumeratorsw
      * @since windows5.0
      */
@@ -22870,14 +23454,14 @@ class DeviceAndDriverInstallation {
      * 
      * Functionality to access remote machines has been removed in Windows 8 and Windows Server 2012 and later operating systems thus you cannot access remote machines when running on these versions of Windows.
      * @param {Integer} ulEnumIndex Caller-supplied index into the machine's list of device enumerators. For more information, see the following <b>Remarks</b> section.
-     * @param {PSTR} _Buffer 
+     * @param {PSTR} _Buffer Address of a buffer to receive an enumerator name. This buffer should be MAX_DEVICE_ID_LEN-sized (or, set <i>Buffer</i> to zero and obtain the actual name length in the location referenced by <b>puLength</b>).
      * @param {Pointer<Integer>} pulLength Caller-supplied address of a location to hold the buffer size. The caller supplies the length of the buffer pointed to by <i>Buffer</i>. The function replaces this value with the actual size of the enumerator's name string. If the caller-supplied buffer length is too small, the function supplies the required buffer size and returns CR_BUFFER_SMALL.
      * @param {Integer} ulFlags Not used, must be zero.
      * @param {Pointer} hMachine Caller-supplied machine handle, obtained from a previous call to <a href="https://docs.microsoft.com/windows/desktop/api/cfgmgr32/nf-cfgmgr32-cm_connect_machinea">CM_Connect_Machine</a>.
      * 
      * <div class="alert"><b>Note</b>  Using this function to access remote machines is not supported beginning with Windows 8 and Windows Server 2012, as this functionality has been removed.</div>
      * <div> </div>
-     * @returns {Integer} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
+     * @returns {CONFIGRET} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_enumerate_enumerators_exa
      */
     static CM_Enumerate_Enumerators_ExA(ulEnumIndex, _Buffer, pulLength, ulFlags, hMachine) {
@@ -22898,14 +23482,14 @@ class DeviceAndDriverInstallation {
      * 
      *  Functionality to access remote machines has been removed in Windows 8 and Windows Server 2012 and later operating systems thus you cannot access remote machines when running on these versions of Windows.
      * @param {Integer} ulEnumIndex Caller-supplied index into the machine's list of device enumerators. For more information, see the following <b>Remarks</b> section.
-     * @param {PWSTR} _Buffer 
+     * @param {PWSTR} _Buffer Address of a buffer to receive an enumerator name. This buffer should be MAX_DEVICE_ID_LEN-sized (or, set <i>Buffer</i> to zero and obtain the actual name length in the location referenced by <b>puLength</b>).
      * @param {Pointer<Integer>} pulLength Caller-supplied address of a location to hold the buffer size. The caller supplies the length of the buffer pointed to by <i>Buffer</i>. The function replaces this value with the actual size of the enumerator's name string. If the caller-supplied buffer length is too small, the function supplies the required buffer size and returns CR_BUFFER_SMALL.
      * @param {Integer} ulFlags Not used, must be zero.
      * @param {Pointer} hMachine Caller-supplied machine handle, obtained from a previous call to <a href="https://docs.microsoft.com/windows/desktop/api/cfgmgr32/nf-cfgmgr32-cm_connect_machinew">CM_Connect_Machine</a>.
      * 
      * <div class="alert"><b>Note</b>  Using this function to access remote machines is not supported beginning with Windows 8 and Windows Server 2012, as this functionality has been removed.</div>
      * <div> </div>
-     * @returns {Integer} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
+     * @returns {CONFIGRET} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_enumerate_enumerators_exw
      * @since windows5.0
      */
@@ -22927,7 +23511,7 @@ class DeviceAndDriverInstallation {
      * @param {Integer} ullEnd 
      * @param {Pointer} rlh 
      * @param {Integer} ulFlags 
-     * @returns {Integer} 
+     * @returns {CONFIGRET} 
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_find_range
      */
     static CM_Find_Range(pullStart, ullStart, ulLength, ullAlignment, ullEnd, rlh, ulFlags) {
@@ -22944,7 +23528,7 @@ class DeviceAndDriverInstallation {
      * @param {Pointer<Integer>} pullEnd 
      * @param {Pointer<Pointer>} preElement 
      * @param {Integer} ulFlags 
-     * @returns {Integer} 
+     * @returns {CONFIGRET} 
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_first_range
      */
     static CM_First_Range(rlh, pullStart, pullEnd, preElement, ulFlags) {
@@ -22989,7 +23573,7 @@ class DeviceAndDriverInstallation {
      * 
      * <a href="https://docs.microsoft.com/windows/desktop/api/cfgmgr32/nf-cfgmgr32-cm_get_next_log_conf_ex">CM_Get_Next_Log_Conf_Ex</a>
      * @param {Integer} ulFlags Not used, must be zero.
-     * @returns {Integer} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
+     * @returns {CONFIGRET} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
      * 
      * <div class="alert"><b>Note</b>  Starting with Windows 8, <b>CM_Free_Log_Conf</b> returns CR_CALL_NOT_IMPLEMENTED when used in a Wow64 scenario. To request information about the hardware resources on a local machine it is necessary implement an architecture-native version of the application using the hardware resource APIs. For example: An AMD64 application for AMD64 systems.</div>
      * <div> </div>
@@ -23040,7 +23624,7 @@ class DeviceAndDriverInstallation {
      * 
      * <div class="alert"><b>Note</b>  Using this function to access remote machines is not supported beginning with Windows 8 and Windows Server 2012, as this functionality has been removed.</div>
      * <div> </div>
-     * @returns {Integer} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
+     * @returns {CONFIGRET} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
      * 
      * <div class="alert"><b>Note</b>  Starting with Windows 8, <b>CM_Free_Log_Conf_Ex</b> returns CR_CALL_NOT_IMPLEMENTED when used in a Wow64 scenario. To request information about the hardware resources on a local machine it is necessary implement an architecture-native version of the application using the hardware resource APIs. For example: An AMD64 application for AMD64 systems.</div>
      * <div> </div>
@@ -23080,7 +23664,7 @@ class DeviceAndDriverInstallation {
      * 
      * 
      * <a href="https://docs.microsoft.com/windows/desktop/api/cfgmgr32/nf-cfgmgr32-cm_get_next_log_conf_ex">CM_Get_Next_Log_Conf_Ex</a>
-     * @returns {Integer} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
+     * @returns {CONFIGRET} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_free_log_conf_handle
      * @since windows5.0
      */
@@ -23093,7 +23677,7 @@ class DeviceAndDriverInstallation {
      * 
      * @param {Pointer} rlh 
      * @param {Integer} ulFlags 
-     * @returns {Integer} 
+     * @returns {CONFIGRET} 
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_free_range_list
      */
     static CM_Free_Range_List(rlh, ulFlags) {
@@ -23135,7 +23719,7 @@ class DeviceAndDriverInstallation {
      * 
      * <a href="https://docs.microsoft.com/windows/desktop/api/cfgmgr32/nf-cfgmgr32-cm_modify_res_des_ex">CM_Modify_Res_Des_Ex</a>
      * @param {Integer} ulFlags Not used, must be zero.
-     * @returns {Integer} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
+     * @returns {CONFIGRET} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
      * 
      * <div class="alert"><b>Note</b>  Starting with Windows 8, <b>CM_Free_Res_Des</b> returns CR_CALL_NOT_IMPLEMENTED when used in a Wow64 scenario. To request information about the hardware resources on a local machine it is necessary implement an architecture-native version of the application using the hardware resource APIs. For example: An AMD64 application for AMD64 systems.</div>
      * <div> </div>
@@ -23189,7 +23773,7 @@ class DeviceAndDriverInstallation {
      * 
      * <div class="alert"><b>Note</b>  Using this function to access remote machines is not supported beginning with Windows 8 and Windows Server 2012, as this functionality has been removed.</div>
      * <div> </div>
-     * @returns {Integer} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
+     * @returns {CONFIGRET} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
      * 
      * <div class="alert"><b>Note</b>  Starting with Windows 8, <b>CM_Free_Res_Des_Ex</b> returns CR_CALL_NOT_IMPLEMENTED when used in a Wow64 scenario. To request information about the hardware resources on a local machine it is necessary implement an architecture-native version of the application using the hardware resource APIs. For example: An AMD64 application for AMD64 systems.</div>
      * <div> </div>
@@ -23231,7 +23815,7 @@ class DeviceAndDriverInstallation {
      * 
      * 
      * <a href="https://docs.microsoft.com/windows/desktop/api/cfgmgr32/nf-cfgmgr32-cm_modify_res_des_ex">CM_Modify_Res_Des_Ex</a>
-     * @returns {Integer} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
+     * @returns {CONFIGRET} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_free_res_des_handle
      * @since windows5.0
      */
@@ -23298,7 +23882,7 @@ class DeviceAndDriverInstallation {
      * @param {Pointer<Integer>} pdnDevInst Caller-supplied pointer to the device instance handle to the child node that this function retrieves. The retrieved handle is bound to the local machine. See the <b>Remarks</b> section.
      * @param {Integer} dnDevInst Caller-supplied device instance handle that is bound to the local machine.
      * @param {Integer} ulFlags Not used, must be zero.
-     * @returns {Integer} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
+     * @returns {CONFIGRET} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_get_child
      * @since windows5.0
      */
@@ -23378,7 +23962,7 @@ class DeviceAndDriverInstallation {
      * 
      * <div class="alert"><b>Note</b>  Using this function to access remote machines is not supported beginning with Windows 8 and Windows Server 2012, as this functionality has been removed.</div>
      * <div> </div>
-     * @returns {Integer} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
+     * @returns {CONFIGRET} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_get_child_ex
      * @since windows5.0
      */
@@ -23395,7 +23979,7 @@ class DeviceAndDriverInstallation {
      * @param {PSTR} _Buffer 
      * @param {Pointer<Integer>} pulLength 
      * @param {Integer} ulFlags 
-     * @returns {Integer} 
+     * @returns {CONFIGRET} 
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_get_class_namea
      */
     static CM_Get_Class_NameA(ClassGuid, _Buffer, pulLength, ulFlags) {
@@ -23413,7 +23997,7 @@ class DeviceAndDriverInstallation {
      * @param {PWSTR} _Buffer 
      * @param {Pointer<Integer>} pulLength 
      * @param {Integer} ulFlags 
-     * @returns {Integer} 
+     * @returns {CONFIGRET} 
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_get_class_namew
      */
     static CM_Get_Class_NameW(ClassGuid, _Buffer, pulLength, ulFlags) {
@@ -23432,7 +24016,7 @@ class DeviceAndDriverInstallation {
      * @param {Pointer<Integer>} pulLength 
      * @param {Integer} ulFlags 
      * @param {Pointer} hMachine 
-     * @returns {Integer} 
+     * @returns {CONFIGRET} 
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_get_class_name_exa
      */
     static CM_Get_Class_Name_ExA(ClassGuid, _Buffer, pulLength, ulFlags, hMachine) {
@@ -23451,7 +24035,7 @@ class DeviceAndDriverInstallation {
      * @param {Pointer<Integer>} pulLength 
      * @param {Integer} ulFlags 
      * @param {Pointer} hMachine 
-     * @returns {Integer} 
+     * @returns {CONFIGRET} 
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_get_class_name_exw
      */
     static CM_Get_Class_Name_ExW(ClassGuid, _Buffer, pulLength, ulFlags, hMachine) {
@@ -23469,7 +24053,7 @@ class DeviceAndDriverInstallation {
      * @param {PSTR} pszKeyName 
      * @param {Pointer<Integer>} pulLength 
      * @param {Integer} ulFlags 
-     * @returns {Integer} 
+     * @returns {CONFIGRET} 
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_get_class_key_namea
      */
     static CM_Get_Class_Key_NameA(ClassGuid, pszKeyName, pulLength, ulFlags) {
@@ -23487,7 +24071,7 @@ class DeviceAndDriverInstallation {
      * @param {PWSTR} pszKeyName 
      * @param {Pointer<Integer>} pulLength 
      * @param {Integer} ulFlags 
-     * @returns {Integer} 
+     * @returns {CONFIGRET} 
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_get_class_key_namew
      */
     static CM_Get_Class_Key_NameW(ClassGuid, pszKeyName, pulLength, ulFlags) {
@@ -23506,7 +24090,7 @@ class DeviceAndDriverInstallation {
      * @param {Pointer<Integer>} pulLength 
      * @param {Integer} ulFlags 
      * @param {Pointer} hMachine 
-     * @returns {Integer} 
+     * @returns {CONFIGRET} 
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_get_class_key_name_exa
      */
     static CM_Get_Class_Key_Name_ExA(ClassGuid, pszKeyName, pulLength, ulFlags, hMachine) {
@@ -23525,7 +24109,7 @@ class DeviceAndDriverInstallation {
      * @param {Pointer<Integer>} pulLength 
      * @param {Integer} ulFlags 
      * @param {Pointer} hMachine 
-     * @returns {Integer} 
+     * @returns {CONFIGRET} 
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_get_class_key_name_exw
      */
     static CM_Get_Class_Key_Name_ExW(ClassGuid, pszKeyName, pulLength, ulFlags, hMachine) {
@@ -23544,7 +24128,7 @@ class DeviceAndDriverInstallation {
      * @param {Pointer<Integer>} pulDepth Caller-supplied address of a location to receive a depth value, where zero represents the device tree's root node, one represents the root node's children, and so on.
      * @param {Integer} dnDevInst Caller-supplied device instance handle that is bound to the local machine.
      * @param {Integer} ulFlags Not used, must be zero.
-     * @returns {Integer} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
+     * @returns {CONFIGRET} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_get_depth
      * @since windows5.0
      */
@@ -23568,7 +24152,7 @@ class DeviceAndDriverInstallation {
      * 
      * <div class="alert"><b>Note</b>  Using this function to access remote machines is not supported beginning with Windows 8 and Windows Server 2012, as this functionality has been removed.</div>
      * <div> </div>
-     * @returns {Integer} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
+     * @returns {CONFIGRET} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_get_depth_ex
      * @since windows5.0
      */
@@ -23588,10 +24172,10 @@ class DeviceAndDriverInstallation {
      * 
      * For information about using device instance handles that are bound to the local machine, see <a href="https://docs.microsoft.com/windows/desktop/api/cfgmgr32/nf-cfgmgr32-cm_get_child">CM_Get_Child</a>.
      * @param {Integer} dnDevInst Caller-supplied device instance handle that is bound to the local machine.
-     * @param {PSTR} _Buffer 
+     * @param {PSTR} _Buffer Address of a buffer to receive a device instance ID string. The required buffer size can be obtained by calling <a href="https://docs.microsoft.com/windows/desktop/api/cfgmgr32/nf-cfgmgr32-cm_get_device_id_size">CM_Get_Device_ID_Size</a>, then incrementing the received value to allow room for the string's terminating <b>NULL</b>.
      * @param {Integer} BufferLen Caller-supplied length, in characters, of the buffer specified by <i>Buffer</i>.
      * @param {Integer} ulFlags Not used, must be zero.
-     * @returns {Integer} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
+     * @returns {CONFIGRET} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_get_device_ida
      */
     static CM_Get_Device_IDA(dnDevInst, _Buffer, BufferLen, ulFlags) {
@@ -23610,10 +24194,10 @@ class DeviceAndDriverInstallation {
      * 
      * For information about using device instance handles that are bound to the local machine, see <a href="https://docs.microsoft.com/windows/desktop/api/cfgmgr32/nf-cfgmgr32-cm_get_child">CM_Get_Child</a>.
      * @param {Integer} dnDevInst Caller-supplied device instance handle that is bound to the local machine.
-     * @param {PWSTR} _Buffer 
+     * @param {PWSTR} _Buffer Address of a buffer to receive a device instance ID string. The required buffer size can be obtained by calling <a href="https://docs.microsoft.com/windows/desktop/api/cfgmgr32/nf-cfgmgr32-cm_get_device_id_size">CM_Get_Device_ID_Size</a>, then incrementing the received value to allow room for the string's terminating <b>NULL</b>.
      * @param {Integer} BufferLen Caller-supplied length, in characters, of the buffer specified by <i>Buffer</i>.
      * @param {Integer} ulFlags Not used, must be zero.
-     * @returns {Integer} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
+     * @returns {CONFIGRET} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_get_device_idw
      * @since windows5.0
      */
@@ -23635,14 +24219,14 @@ class DeviceAndDriverInstallation {
      * 
      * Functionality to access remote machines has been removed in Windows 8 and Windows Server 2012 and later operating systems thus you cannot access remote machines when running on these versions of Windows.
      * @param {Integer} dnDevInst Caller-supplied device instance handle that is bound to the machine handle supplied by <i>hMachine</i>.
-     * @param {PSTR} _Buffer 
+     * @param {PSTR} _Buffer Address of a buffer to receive a device instance ID string. The required buffer size can be obtained by calling <a href="https://docs.microsoft.com/windows/desktop/api/cfgmgr32/nf-cfgmgr32-cm_get_device_id_size_ex">CM_Get_Device_ID_Size_Ex</a>, then incrementing the received value to allow room for the string's terminating <b>NULL</b>.
      * @param {Integer} BufferLen Caller-supplied length, in characters, of the buffer specified by <i>Buffer</i>.
      * @param {Integer} ulFlags Not used, must be zero.
      * @param {Pointer} hMachine Caller-supplied machine handle to which the caller-supplied device instance handle is bound.
      * 
      * <div class="alert"><b>Note</b>  Using this function to access remote machines is not supported beginning with Windows 8 and Windows Server 2012, as this functionality has been removed.</div>
      * <div> </div>
-     * @returns {Integer} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
+     * @returns {CONFIGRET} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_get_device_id_exa
      */
     static CM_Get_Device_ID_ExA(dnDevInst, _Buffer, BufferLen, ulFlags, hMachine) {
@@ -23663,14 +24247,14 @@ class DeviceAndDriverInstallation {
      * 
      *  Functionality to access remote machines has been removed in Windows 8 and Windows Server 2012 and later operating systems thus you cannot access remote machines when running on these versions of Windows.
      * @param {Integer} dnDevInst Caller-supplied device instance handle that is bound to the machine handle supplied by <i>hMachine</i>.
-     * @param {PWSTR} _Buffer 
+     * @param {PWSTR} _Buffer Address of a buffer to receive a device instance ID string. The required buffer size can be obtained by calling <a href="https://docs.microsoft.com/windows/desktop/api/cfgmgr32/nf-cfgmgr32-cm_get_device_id_size_ex">CM_Get_Device_ID_Size_Ex</a>, then incrementing the received value to allow room for the string's terminating <b>NULL</b>.
      * @param {Integer} BufferLen Caller-supplied length, in characters, of the buffer specified by <i>Buffer</i>.
      * @param {Integer} ulFlags Not used, must be zero.
      * @param {Pointer} hMachine Caller-supplied machine handle to which the caller-supplied device instance handle is bound.
      * 
      * <div class="alert"><b>Note</b>  Using this function to access remote machines is not supported beginning with Windows 8 and Windows Server 2012, as this functionality has been removed.</div>
      * <div> </div>
-     * @returns {Integer} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
+     * @returns {CONFIGRET} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_get_device_id_exw
      * @since windows5.0
      */
@@ -23703,10 +24287,10 @@ class DeviceAndDriverInstallation {
      * > [!NOTE]
      * > The cfgmgr32.h header defines CM_Get_Device_ID_List as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PSTR} pszFilter Caller-supplied pointer to a character string that is either set to a subset of the computer's device instance identifiers (IDs), or to <b>NULL</b>. See the following description of <i>ulFlags</i>.
-     * @param {PSTR} _Buffer 
+     * @param {PSTR} _Buffer Address of a buffer to receive a set of NULL-terminated device instance identifier strings. The end of the set is terminated by an extra <b>NULL</b>. The required buffer size should be obtained by calling <a href="https://docs.microsoft.com/windows/desktop/api/cfgmgr32/nf-cfgmgr32-cm_get_device_id_list_sizea">CM_Get_Device_ID_List_Size</a>.
      * @param {Integer} BufferLen Caller-supplied length, in characters, of the buffer specified by <i>Buffer</i>.
      * @param {Integer} ulFlags One of the following caller-supplied bit flags that specifies search filters:
-     * @returns {Integer} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
+     * @returns {CONFIGRET} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_get_device_id_lista
      * @since windows5.0
      */
@@ -23740,10 +24324,10 @@ class DeviceAndDriverInstallation {
      * > [!NOTE]
      * > The cfgmgr32.h header defines CM_Get_Device_ID_List as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PWSTR} pszFilter Caller-supplied pointer to a character string that is either set to a subset of the computer's device instance identifiers (IDs), or to <b>NULL</b>. See the following description of <i>ulFlags</i>.
-     * @param {PWSTR} _Buffer 
+     * @param {PWSTR} _Buffer Address of a buffer to receive a set of NULL-terminated device instance identifier strings. The end of the set is terminated by an extra <b>NULL</b>. The required buffer size should be obtained by calling <a href="https://docs.microsoft.com/windows/desktop/api/cfgmgr32/nf-cfgmgr32-cm_get_device_id_list_sizea">CM_Get_Device_ID_List_Size</a>.
      * @param {Integer} BufferLen Caller-supplied length, in characters, of the buffer specified by <i>Buffer</i>.
      * @param {Integer} ulFlags One of the following caller-supplied bit flags that specifies search filters:
-     * @returns {Integer} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
+     * @returns {CONFIGRET} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_get_device_id_listw
      * @since windows5.0
      */
@@ -23762,14 +24346,14 @@ class DeviceAndDriverInstallation {
      * 
      * Functionality to access remote machines has been removed in Windows 8 and Windows Server 2012 and later operating systems thus you cannot access remote machines when running on these versions of Windows.
      * @param {PSTR} pszFilter Caller-supplied pointer to a character string specifying a subset of the machine's device instance identifiers, or <b>NULL</b>. See the following description of <i>ulFlags</i>.
-     * @param {PSTR} _Buffer 
+     * @param {PSTR} _Buffer Address of a buffer to receive a set of NULL-terminated device instance identifier strings. The end of the set is terminated by an extra <b>NULL</b>. The required buffer size should be obtained by calling <a href="https://docs.microsoft.com/windows/desktop/api/cfgmgr32/nf-cfgmgr32-cm_get_device_id_list_size_exa">CM_Get_Device_ID_List_Size_Ex</a>.
      * @param {Integer} BufferLen Caller-supplied length, in characters, of the buffer specified by <i>Buffer</i>.
      * @param {Integer} ulFlags One of the optional, caller-supplied bit flags that specify search filters. If no flags are specified, the function supplies all instance identifiers for all device instances. For a list of bit flags, see the <i>ulFlags</i> description for <a href="https://docs.microsoft.com/windows/desktop/api/cfgmgr32/nf-cfgmgr32-cm_get_device_id_lista">CM_Get_Device_ID_List</a>.
      * @param {Pointer} hMachine Caller-supplied machine handle, obtained from a previous call to <a href="https://docs.microsoft.com/windows/desktop/api/cfgmgr32/nf-cfgmgr32-cm_connect_machinea">CM_Connect_Machine</a>.
      * 
      * <div class="alert"><b>Note</b>  Using this function to access remote machines is not supported beginning with Windows 8 and Windows Server 2012, as this functionality has been removed.</div>
      * <div> </div>
-     * @returns {Integer} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
+     * @returns {CONFIGRET} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_get_device_id_list_exa
      */
     static CM_Get_Device_ID_List_ExA(pszFilter, _Buffer, BufferLen, ulFlags, hMachine) {
@@ -23787,14 +24371,14 @@ class DeviceAndDriverInstallation {
      * 
      *  Functionality to access remote machines has been removed in Windows 8 and Windows Server 2012 and later operating systems thus you cannot access remote machines when running on these versions of Windows.
      * @param {PWSTR} pszFilter Caller-supplied pointer to a character string specifying a subset of the machine's device instance identifiers, or <b>NULL</b>. See the following description of <i>ulFlags</i>.
-     * @param {PWSTR} _Buffer 
+     * @param {PWSTR} _Buffer Address of a buffer to receive a set of NULL-terminated device instance identifier strings. The end of the set is terminated by an extra <b>NULL</b>. The required buffer size should be obtained by calling <a href="https://docs.microsoft.com/windows/desktop/api/cfgmgr32/nf-cfgmgr32-cm_get_device_id_list_size_exw">CM_Get_Device_ID_List_Size_Ex</a>.
      * @param {Integer} BufferLen Caller-supplied length, in characters, of the buffer specified by <i>Buffer</i>.
      * @param {Integer} ulFlags One of the optional, caller-supplied bit flags that specify search filters. If no flags are specified, the function supplies all instance identifiers for all device instances. For a list of bit flags, see the <i>ulFlags</i> description for <a href="https://docs.microsoft.com/windows/desktop/api/cfgmgr32/nf-cfgmgr32-cm_get_device_id_lista">CM_Get_Device_ID_List</a>.
      * @param {Pointer} hMachine Caller-supplied machine handle, obtained from a previous call to <a href="https://docs.microsoft.com/windows/desktop/api/cfgmgr32/nf-cfgmgr32-cm_connect_machinew">CM_Connect_Machine</a>.
      * 
      * <div class="alert"><b>Note</b>  Using this function to access remote machines is not supported beginning with Windows 8 and Windows Server 2012, as this functionality has been removed.</div>
      * <div> </div>
-     * @returns {Integer} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
+     * @returns {CONFIGRET} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_get_device_id_list_exw
      * @since windows5.0
      */
@@ -23824,7 +24408,7 @@ class DeviceAndDriverInstallation {
      * @param {Pointer<Integer>} pulLen Receives a value representing the required buffer size, in characters.
      * @param {PSTR} pszFilter Caller-supplied pointer to a character string specifying a subset of the machine's device instance identifiers, or <b>NULL</b>. See the following description of <i>ulFlags</i>.
      * @param {Integer} ulFlags One of the optional, caller-supplied bit flags that specify search filters. If no flags are specified, the function supplies the buffer size required to hold all instance identifiers for all device instances. For a list of bit flags, see the <i>ulFlags</i> description for <a href="https://docs.microsoft.com/windows/desktop/api/cfgmgr32/nf-cfgmgr32-cm_get_device_id_lista">CM_Get_Device_ID_List</a>.
-     * @returns {Integer} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
+     * @returns {CONFIGRET} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_get_device_id_list_sizea
      * @since windows5.0
      */
@@ -23855,7 +24439,7 @@ class DeviceAndDriverInstallation {
      * @param {Pointer<Integer>} pulLen Receives a value representing the required buffer size, in characters.
      * @param {PWSTR} pszFilter Caller-supplied pointer to a character string specifying a subset of the machine's device instance identifiers, or <b>NULL</b>. See the following description of <i>ulFlags</i>.
      * @param {Integer} ulFlags One of the optional, caller-supplied bit flags that specify search filters. If no flags are specified, the function supplies the buffer size required to hold all instance identifiers for all device instances. For a list of bit flags, see the <i>ulFlags</i> description for <a href="https://docs.microsoft.com/windows/desktop/api/cfgmgr32/nf-cfgmgr32-cm_get_device_id_lista">CM_Get_Device_ID_List</a>.
-     * @returns {Integer} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
+     * @returns {CONFIGRET} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_get_device_id_list_sizew
      * @since windows5.0
      */
@@ -23885,7 +24469,7 @@ class DeviceAndDriverInstallation {
      * 
      * <div class="alert"><b>Note</b>  Using this function to access remote machines is not supported beginning with Windows 8 and Windows Server 2012, as this functionality has been removed.</div>
      * <div> </div>
-     * @returns {Integer} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
+     * @returns {CONFIGRET} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_get_device_id_list_size_exa
      */
     static CM_Get_Device_ID_List_Size_ExA(pulLen, pszFilter, ulFlags, hMachine) {
@@ -23914,7 +24498,7 @@ class DeviceAndDriverInstallation {
      * 
      * <div class="alert"><b>Note</b>  Using this function to access remote machines is not supported beginning with Windows 8 and Windows Server 2012, as this functionality has been removed.</div>
      * <div> </div>
-     * @returns {Integer} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
+     * @returns {CONFIGRET} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_get_device_id_list_size_exw
      * @since windows5.0
      */
@@ -23940,7 +24524,7 @@ class DeviceAndDriverInstallation {
      * @param {Pointer<Integer>} pulLen Receives a value representing the required buffer size, in characters.
      * @param {Integer} dnDevInst Caller-supplied device instance handle that is bound to the local machine.
      * @param {Integer} ulFlags Not used, must be zero.
-     * @returns {Integer} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
+     * @returns {CONFIGRET} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_get_device_id_size
      * @since windows5.0
      */
@@ -23970,7 +24554,7 @@ class DeviceAndDriverInstallation {
      * 
      * <div class="alert"><b>Note</b>  Using this function to access remote machines is not supported beginning with Windows 8 and Windows Server 2012, as this functionality has been removed.</div>
      * <div> </div>
-     * @returns {Integer} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
+     * @returns {CONFIGRET} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_get_device_id_size_ex
      * @since windows5.0
      */
@@ -23986,12 +24570,12 @@ class DeviceAndDriverInstallation {
      * @remarks
      * <b>CM_Get_DevNode_Property</b> is part of the <a href="https://docs.microsoft.com/windows-hardware/drivers/install/unified-device-property-model--windows-vista-and-later-">Unified Device Property Model</a>.
      * @param {Integer} dnDevInst Device instance handle that is bound to the local machine.
-     * @param {Pointer<DEVPROPKEY>} _PropertyKey 
-     * @param {Pointer<Integer>} PropertyType Pointer to a <a href="https://docs.microsoft.com/windows-hardware/drivers/install/property-data-type-identifiers">DEVPROPTYPE</a>-typed variable that receives the property-data-type identifier of the requested device instance property, where the property-data-type identifier is the bitwise OR between a base-data-type identifier and, if the base-data type is modified, a property-data-type modifier.
-     * @param {Pointer} PropertyBuffer Pointer to a buffer that receives the requested device instance property. <b>CM_Get_DevNode_Property</b> retrieves the requested property only if the buffer is large enough to hold all the property value data. The pointer can be NULL.
+     * @param {Pointer<DEVPROPKEY>} _PropertyKey Pointer to a <a href="https://docs.microsoft.com/windows-hardware/drivers/install/devpropkey">DEVPROPKEY</a> structure that represents the device property key of the requested device instance property.
+     * @param {Pointer<DEVPROPTYPE>} PropertyType Pointer to a <a href="https://docs.microsoft.com/windows-hardware/drivers/install/property-data-type-identifiers">DEVPROPTYPE</a>-typed variable that receives the property-data-type identifier of the requested device instance property, where the property-data-type identifier is the bitwise OR between a base-data-type identifier and, if the base-data type is modified, a property-data-type modifier.
+     * @param {Integer} PropertyBuffer Pointer to a buffer that receives the requested device instance property. <b>CM_Get_DevNode_Property</b> retrieves the requested property only if the buffer is large enough to hold all the property value data. The pointer can be NULL.
      * @param {Pointer<Integer>} PropertyBufferSize The size, in bytes, of the <i>PropertyBuffer</i> buffer. If <i>PropertyBuffer</i> is set to NULL, <i>*PropertyBufferSize</i> must be set to zero. As output, if the buffer is not large enough to hold all the property value data, <b>CM_Get_DevNode_Property</b> returns the size of the data, in bytes, in <i>*PropertyBufferSize</i>.
      * @param {Integer} ulFlags Reserved. Must be set to zero.
-     * @returns {Integer} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
+     * @returns {CONFIGRET} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_get_devnode_propertyw
      * @since windows6.0.6000
      */
@@ -24008,16 +24592,16 @@ class DeviceAndDriverInstallation {
      * @remarks
      * <b>CM_Get_DevNode_Property_ExW</b> is part of the <a href="https://docs.microsoft.com/windows-hardware/drivers/install/unified-device-property-model--windows-vista-and-later-">Unified Device Property Model</a>.
      * @param {Integer} dnDevInst Device instance handle that is bound to the local machine.
-     * @param {Pointer<DEVPROPKEY>} _PropertyKey 
-     * @param {Pointer<Integer>} PropertyType Pointer to a <a href="https://docs.microsoft.com/windows-hardware/drivers/install/property-data-type-identifiers">DEVPROPTYPE</a>-typed variable that receives the property-data-type identifier of the requested device instance property, where the property-data-type identifier is the bitwise OR between a base-data-type identifier and, if the base-data type is modified, a property-data-type modifier.
-     * @param {Pointer} PropertyBuffer Pointer to a buffer that receives the requested device instance property. <b>CM_Get_DevNode_Property_ExW</b> retrieves the requested property only if the buffer is large enough to hold all the property value data. The pointer can be NULL.
+     * @param {Pointer<DEVPROPKEY>} _PropertyKey Pointer to a <a href="https://docs.microsoft.com/windows-hardware/drivers/install/devpropkey">DEVPROPKEY</a> structure that represents the device property key of the requested device instance property.
+     * @param {Pointer<DEVPROPTYPE>} PropertyType Pointer to a <a href="https://docs.microsoft.com/windows-hardware/drivers/install/property-data-type-identifiers">DEVPROPTYPE</a>-typed variable that receives the property-data-type identifier of the requested device instance property, where the property-data-type identifier is the bitwise OR between a base-data-type identifier and, if the base-data type is modified, a property-data-type modifier.
+     * @param {Integer} PropertyBuffer Pointer to a buffer that receives the requested device instance property. <b>CM_Get_DevNode_Property_ExW</b> retrieves the requested property only if the buffer is large enough to hold all the property value data. The pointer can be NULL.
      * @param {Pointer<Integer>} PropertyBufferSize The size, in bytes, of the <i>PropertyBuffer</i> buffer. If <i>PropertyBuffer</i> is set to NULL, <i>*PropertyBufferSize</i> must be set to zero. As output, if the buffer is not large enough to hold all the property value data, <b>CM_Get_DevNode_Property_ExW</b> returns the size of the data, in bytes, in <i>*PropertyBufferSize</i>.
      * @param {Integer} ulFlags Reserved. Must be set to zero.
      * @param {Pointer} hMachine Caller-supplied machine handle, obtained from a previous call to <a href="https://docs.microsoft.com/windows/desktop/api/cfgmgr32/nf-cfgmgr32-cm_connect_machinew">CM_Connect_Machine</a>.
      * 
      * <div class="alert"><b>Note</b>  Using this function to access remote machines is not supported beginning with Windows 8 and Windows Server 2012, as this functionality has been removed.</div>
      * <div> </div>
-     * @returns {Integer} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
+     * @returns {CONFIGRET} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_get_devnode_property_exw
      * @since windows10.0.10240
      */
@@ -24037,7 +24621,7 @@ class DeviceAndDriverInstallation {
      * @param {Pointer<DEVPROPKEY>} PropertyKeyArray Pointer to a buffer that receives an array of <a href="https://docs.microsoft.com/windows-hardware/drivers/install/devpropkey">DEVPROPKEY</a>-typed values, where each value is a device property key that represents a device property that is set for the device instance. The pointer is optional and can be NULL.
      * @param {Pointer<Integer>} PropertyKeyCount The size, in <a href="https://docs.microsoft.com/windows-hardware/drivers/install/devpropkey">DEVPROPKEY</a>-typed units, of the <i>PropertyKeyArray</i> buffer. If <i>PropertyKeyArray</i> is set to NULL, <i>*PropertyKeyCount</i> must be set to zero. As output, If <i>PropertyKeyArray</i> is not large enough to hold all the property key data, <b>CM_Get_DevNode_Property_Keys</b> returns the count of the keys in <i>*PropertyKeyCount</i>.
      * @param {Integer} ulFlags Reserved. Must be set to zero.
-     * @returns {Integer} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
+     * @returns {CONFIGRET} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_get_devnode_property_keys
      * @since windows6.0.6000
      */
@@ -24060,7 +24644,7 @@ class DeviceAndDriverInstallation {
      * 
      * <div class="alert"><b>Note</b>  Using this function to access remote machines is not supported beginning with Windows 8 and Windows Server 2012, as this functionality has been removed.</div>
      * <div> </div>
-     * @returns {Integer} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
+     * @returns {CONFIGRET} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_get_devnode_property_keys_ex
      * @since windows10.0.10240
      */
@@ -24078,14 +24662,14 @@ class DeviceAndDriverInstallation {
      * @param {Integer} dnDevInst A caller-supplied device instance handle that is bound to the local machine.
      * @param {Integer} ulProperty A CM_DRP_-prefixed constant value that identifies the device property to be obtained from the registry. These constants are defined in <i>Cfgmgr32.h</i>.
      * @param {Pointer<Integer>} pulRegDataType Optional, can be <b>NULL</b>. A pointer to a location that receives the registry data type, specified as a REG_-prefixed constant defined in <i>Winnt.h</i>.
-     * @param {Pointer} _Buffer 
+     * @param {Integer} _Buffer Optional, can be <b>NULL</b>. A pointer to a caller-supplied buffer that receives the requested device property. If this value is <b>NULL</b>, the function supplies only the length of the requested data in the address pointed to by <i>pulLength</i>.
      * @param {Pointer<Integer>} pulLength A pointer to a ULONG variable into which the function stores the length, in bytes, of the requested device property.
      * 
      * If the <i>Buffer</i> parameter is set to <b>NULL</b>, the ULONG variable must be set to zero.
      * 
      * If the <i>Buffer</i> parameter is not set to <b>NULL</b>, the ULONG variable must be set to the length, in bytes, of the caller-supplied buffer.
      * @param {Integer} ulFlags Not used, must be zero.
-     * @returns {Integer} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes that are defined in <i>Cfgmgr32.h</i>.
+     * @returns {CONFIGRET} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes that are defined in <i>Cfgmgr32.h</i>.
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_get_devnode_registry_propertya
      */
     static CM_Get_DevNode_Registry_PropertyA(dnDevInst, ulProperty, pulRegDataType, _Buffer, pulLength, ulFlags) {
@@ -24103,14 +24687,14 @@ class DeviceAndDriverInstallation {
      * @param {Integer} dnDevInst A caller-supplied device instance handle that is bound to the local machine.
      * @param {Integer} ulProperty A CM_DRP_-prefixed constant value that identifies the device property to be obtained from the registry. These constants are defined in <i>Cfgmgr32.h</i>.
      * @param {Pointer<Integer>} pulRegDataType Optional, can be <b>NULL</b>. A pointer to a location that receives the registry data type, specified as a REG_-prefixed constant defined in <i>Winnt.h</i>.
-     * @param {Pointer} _Buffer 
+     * @param {Integer} _Buffer Optional, can be <b>NULL</b>. A pointer to a caller-supplied buffer that receives the requested device property. If this value is <b>NULL</b>, the function supplies only the length of the requested data in the address pointed to by <i>pulLength</i>.
      * @param {Pointer<Integer>} pulLength A pointer to a ULONG variable into which the function stores the length, in bytes, of the requested device property.
      * 
      * If the <i>Buffer</i> parameter is set to <b>NULL</b>, the ULONG variable must be set to zero.
      * 
      * If the <i>Buffer</i> parameter is not set to <b>NULL</b>, the ULONG variable must be set to the length, in bytes, of the caller-supplied buffer.
      * @param {Integer} ulFlags Not used, must be zero.
-     * @returns {Integer} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes that are defined in <i>Cfgmgr32.h</i>.
+     * @returns {CONFIGRET} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes that are defined in <i>Cfgmgr32.h</i>.
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_get_devnode_registry_propertyw
      * @since windows5.0
      */
@@ -24127,11 +24711,11 @@ class DeviceAndDriverInstallation {
      * @param {Integer} dnDevInst 
      * @param {Integer} ulProperty 
      * @param {Pointer<Integer>} pulRegDataType 
-     * @param {Pointer} _Buffer 
+     * @param {Integer} _Buffer 
      * @param {Pointer<Integer>} pulLength 
      * @param {Integer} ulFlags 
      * @param {Pointer} hMachine 
-     * @returns {Integer} 
+     * @returns {CONFIGRET} 
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_get_devnode_registry_property_exa
      */
     static CM_Get_DevNode_Registry_Property_ExA(dnDevInst, ulProperty, pulRegDataType, _Buffer, pulLength, ulFlags, hMachine) {
@@ -24147,11 +24731,11 @@ class DeviceAndDriverInstallation {
      * @param {Integer} dnDevInst 
      * @param {Integer} ulProperty 
      * @param {Pointer<Integer>} pulRegDataType 
-     * @param {Pointer} _Buffer 
+     * @param {Integer} _Buffer 
      * @param {Pointer<Integer>} pulLength 
      * @param {Integer} ulFlags 
      * @param {Pointer} hMachine 
-     * @returns {Integer} 
+     * @returns {CONFIGRET} 
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_get_devnode_registry_property_exw
      */
     static CM_Get_DevNode_Registry_Property_ExW(dnDevInst, ulProperty, pulRegDataType, _Buffer, pulLength, ulFlags, hMachine) {
@@ -24167,10 +24751,10 @@ class DeviceAndDriverInstallation {
      * @param {Integer} dnDevInst 
      * @param {PSTR} pszCustomPropertyName 
      * @param {Pointer<Integer>} pulRegDataType 
-     * @param {Pointer} _Buffer 
+     * @param {Integer} _Buffer 
      * @param {Pointer<Integer>} pulLength 
      * @param {Integer} ulFlags 
-     * @returns {Integer} 
+     * @returns {CONFIGRET} 
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_get_devnode_custom_propertya
      */
     static CM_Get_DevNode_Custom_PropertyA(dnDevInst, pszCustomPropertyName, pulRegDataType, _Buffer, pulLength, ulFlags) {
@@ -24188,10 +24772,10 @@ class DeviceAndDriverInstallation {
      * @param {Integer} dnDevInst 
      * @param {PWSTR} pszCustomPropertyName 
      * @param {Pointer<Integer>} pulRegDataType 
-     * @param {Pointer} _Buffer 
+     * @param {Integer} _Buffer 
      * @param {Pointer<Integer>} pulLength 
      * @param {Integer} ulFlags 
-     * @returns {Integer} 
+     * @returns {CONFIGRET} 
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_get_devnode_custom_propertyw
      */
     static CM_Get_DevNode_Custom_PropertyW(dnDevInst, pszCustomPropertyName, pulRegDataType, _Buffer, pulLength, ulFlags) {
@@ -24209,11 +24793,11 @@ class DeviceAndDriverInstallation {
      * @param {Integer} dnDevInst 
      * @param {PSTR} pszCustomPropertyName 
      * @param {Pointer<Integer>} pulRegDataType 
-     * @param {Pointer} _Buffer 
+     * @param {Integer} _Buffer 
      * @param {Pointer<Integer>} pulLength 
      * @param {Integer} ulFlags 
      * @param {Pointer} hMachine 
-     * @returns {Integer} 
+     * @returns {CONFIGRET} 
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_get_devnode_custom_property_exa
      */
     static CM_Get_DevNode_Custom_Property_ExA(dnDevInst, pszCustomPropertyName, pulRegDataType, _Buffer, pulLength, ulFlags, hMachine) {
@@ -24231,11 +24815,11 @@ class DeviceAndDriverInstallation {
      * @param {Integer} dnDevInst 
      * @param {PWSTR} pszCustomPropertyName 
      * @param {Pointer<Integer>} pulRegDataType 
-     * @param {Pointer} _Buffer 
+     * @param {Integer} _Buffer 
      * @param {Pointer<Integer>} pulLength 
      * @param {Integer} ulFlags 
      * @param {Pointer} hMachine 
-     * @returns {Integer} 
+     * @returns {CONFIGRET} 
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_get_devnode_custom_property_exw
      */
     static CM_Get_DevNode_Custom_Property_ExW(dnDevInst, pszCustomPropertyName, pulRegDataType, _Buffer, pulLength, ulFlags, hMachine) {
@@ -24252,11 +24836,11 @@ class DeviceAndDriverInstallation {
      * The CM_Get_DevNode_Status function obtains the status of a device instance from its device node (devnode) in the local machine's device tree.
      * @remarks
      * For information about using device instance handles that are bound to the local machine, see <a href="https://docs.microsoft.com/windows/desktop/api/cfgmgr32/nf-cfgmgr32-cm_get_child">CM_Get_Child</a>.
-     * @param {Pointer<Integer>} pulStatus Address of a location to receive status bit flags. The function can set any combination of the <b>DN_-</b> prefixed bit flags defined in <i>Cfg.h</i>.
-     * @param {Pointer<Integer>} pulProblemNumber Address of a location to receive one of the <b>CM_PROB_</b>-prefixed problem values defined in <i>Cfg.h</i>. Used only if DN_HAS_PROBLEM is set in <i>pulStatus</i>.
+     * @param {Pointer<CM_DEVNODE_STATUS_FLAGS>} pulStatus Address of a location to receive status bit flags. The function can set any combination of the <b>DN_-</b> prefixed bit flags defined in <i>Cfg.h</i>.
+     * @param {Pointer<CM_PROB>} pulProblemNumber Address of a location to receive one of the <b>CM_PROB_</b>-prefixed problem values defined in <i>Cfg.h</i>. Used only if DN_HAS_PROBLEM is set in <i>pulStatus</i>.
      * @param {Integer} dnDevInst Caller-supplied device instance handle that is bound to the local machine.
      * @param {Integer} ulFlags Not used, must be zero.
-     * @returns {Integer} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
+     * @returns {CONFIGRET} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_get_devnode_status
      * @since windows5.0
      */
@@ -24274,15 +24858,15 @@ class DeviceAndDriverInstallation {
      * For information about using device instance handles that are bound to a local or a remote machine, see <a href="https://docs.microsoft.com/windows/desktop/api/cfgmgr32/nf-cfgmgr32-cm_get_child_ex">CM_Get_Child_Ex</a>.
      * 
      *  Functionality to access remote machines has been removed in Windows 8 and Windows Server 2012 and later operating systems thus you cannot access remote machines when running on these versions of Windows.
-     * @param {Pointer<Integer>} pulStatus Address of a location to receive status bit flags. The function can set any combination of the DN_-prefixed bit flags defined in <i>Cfg.h</i>.
-     * @param {Pointer<Integer>} pulProblemNumber Address of a location to receive one of the CM_PROB_-prefixed problem values defined in <i>Cfg.h</i>. Used only if DN_HAS_PROBLEM is set in <i>pulStatus</i>.
+     * @param {Pointer<CM_DEVNODE_STATUS_FLAGS>} pulStatus Address of a location to receive status bit flags. The function can set any combination of the DN_-prefixed bit flags defined in <i>Cfg.h</i>.
+     * @param {Pointer<CM_PROB>} pulProblemNumber Address of a location to receive one of the CM_PROB_-prefixed problem values defined in <i>Cfg.h</i>. Used only if DN_HAS_PROBLEM is set in <i>pulStatus</i>.
      * @param {Integer} dnDevInst Caller-supplied device instance handle that is bound to the machine handle supplied by <i>hMachine</i>.
      * @param {Integer} ulFlags Not used, must be zero.
      * @param {Pointer} hMachine Caller-supplied machine handle to which the caller-supplied device instance handle is bound.
      * 
      * <div class="alert"><b>Note</b>  Using this function to access remote machines is not supported beginning with Windows 8 and Windows Server 2012, as this functionality has been removed.</div>
      * <div> </div>
-     * @returns {Integer} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
+     * @returns {CONFIGRET} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_get_devnode_status_ex
      * @since windows5.0
      */
@@ -24306,7 +24890,7 @@ class DeviceAndDriverInstallation {
      * For information about using device instance handles that are bound to the local machine, see <a href="https://docs.microsoft.com/windows/desktop/api/cfgmgr32/nf-cfgmgr32-cm_get_child">CM_Get_Child</a>.
      * @param {Pointer<Pointer>} plcLogConf Address of a location to receive the handle to a logical configuration, or <b>NULL</b>. See the following <b>Remarks</b> section.
      * @param {Integer} dnDevInst Caller-supplied device instance handle that is bound to the local machine.
-     * @param {Integer} ulFlags Caller-supplied flag value indicating the type of logical configuration being requested. One of the flags in the following table must be specified.
+     * @param {CM_LOG_CONF} ulFlags Caller-supplied flag value indicating the type of logical configuration being requested. One of the flags in the following table must be specified.
      * 
      * <table>
      * <tr>
@@ -24374,7 +24958,7 @@ class DeviceAndDriverInstallation {
      * </td>
      * </tr>
      * </table>
-     * @returns {Integer} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
+     * @returns {CONFIGRET} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
      * 
      * <div class="alert"><b>Note</b>  Starting with Windows 8, <b>CM_Get_First_Log_Conf</b> returns CR_CALL_NOT_IMPLEMENTED when used in a Wow64 scenario. To request information about the hardware resources on a local machine it is necessary implement an architecture-native version of the application using the hardware resource APIs. For example: An AMD64 application for AMD64 systems.</div>
      * <div> </div>
@@ -24402,12 +24986,12 @@ class DeviceAndDriverInstallation {
      *  Functionality to access remote machines has been removed in Windows 8 and Windows Server 2012 and later operating systems thus you cannot access remote machines when running on these versions of Windows.
      * @param {Pointer<Pointer>} plcLogConf Address of a location to receive the handle to a logical configuration, or <b>NULL</b>. See the <b>Remarks</b> section.
      * @param {Integer} dnDevInst Caller-supplied device instance handle that is bound to the machine handle supplied by <i>hMachine</i>.
-     * @param {Integer} ulFlags Caller-supplied flag value indicating the type of logical configuration being requested. For a list of flags, see the <i>ulFlags</i> description for <a href="https://docs.microsoft.com/windows/desktop/api/cfgmgr32/nf-cfgmgr32-cm_get_first_log_conf">CM_Get_First_Log_Conf</a>.
+     * @param {CM_LOG_CONF} ulFlags Caller-supplied flag value indicating the type of logical configuration being requested. For a list of flags, see the <i>ulFlags</i> description for <a href="https://docs.microsoft.com/windows/desktop/api/cfgmgr32/nf-cfgmgr32-cm_get_first_log_conf">CM_Get_First_Log_Conf</a>.
      * @param {Pointer} hMachine Caller-supplied machine handle to which the caller-supplied device instance handle is bound.
      * 
      * <div class="alert"><b>Note</b>  Using this function to access remote machines is not supported beginning with Windows 8 and Windows Server 2012, as this functionality has been removed.</div>
      * <div> </div>
-     * @returns {Integer} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
+     * @returns {CONFIGRET} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
      * 
      * <div class="alert"><b>Note</b>  Starting with Windows 8, <b>CM_Get_First_Log_Conf_Ex</b> returns CR_CALL_NOT_IMPLEMENTED when used in a Wow64 scenario. To request information about the hardware resources on a local machine it is necessary implement an architecture-native version of the application using the hardware resource APIs. For example: An AMD64 application for AMD64 systems.</div>
      * <div> </div>
@@ -24425,7 +25009,7 @@ class DeviceAndDriverInstallation {
      * 
      * @param {Pointer<Integer>} pulState 
      * @param {Integer} ulFlags 
-     * @returns {Integer} 
+     * @returns {CONFIGRET} 
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_get_global_state
      */
     static CM_Get_Global_State(pulState, ulFlags) {
@@ -24440,7 +25024,7 @@ class DeviceAndDriverInstallation {
      * @param {Pointer<Integer>} pulState 
      * @param {Integer} ulFlags 
      * @param {Pointer} hMachine 
-     * @returns {Integer} 
+     * @returns {CONFIGRET} 
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_get_global_state_ex
      */
     static CM_Get_Global_State_Ex(pulState, ulFlags, hMachine) {
@@ -24455,7 +25039,7 @@ class DeviceAndDriverInstallation {
      * @param {Integer} ulIndex 
      * @param {Pointer<HWPROFILEINFO_A>} pHWProfileInfo 
      * @param {Integer} ulFlags 
-     * @returns {Integer} 
+     * @returns {CONFIGRET} 
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_get_hardware_profile_infoa
      */
     static CM_Get_Hardware_Profile_InfoA(ulIndex, pHWProfileInfo, ulFlags) {
@@ -24469,7 +25053,7 @@ class DeviceAndDriverInstallation {
      * @param {Pointer<HWPROFILEINFO_A>} pHWProfileInfo 
      * @param {Integer} ulFlags 
      * @param {Pointer} hMachine 
-     * @returns {Integer} 
+     * @returns {CONFIGRET} 
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_get_hardware_profile_info_exa
      */
     static CM_Get_Hardware_Profile_Info_ExA(ulIndex, pHWProfileInfo, ulFlags, hMachine) {
@@ -24482,7 +25066,7 @@ class DeviceAndDriverInstallation {
      * @param {Integer} ulIndex 
      * @param {Pointer<HWPROFILEINFO_W>} pHWProfileInfo 
      * @param {Integer} ulFlags 
-     * @returns {Integer} 
+     * @returns {CONFIGRET} 
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_get_hardware_profile_infow
      */
     static CM_Get_Hardware_Profile_InfoW(ulIndex, pHWProfileInfo, ulFlags) {
@@ -24496,7 +25080,7 @@ class DeviceAndDriverInstallation {
      * @param {Pointer<HWPROFILEINFO_W>} pHWProfileInfo 
      * @param {Integer} ulFlags 
      * @param {Pointer} hMachine 
-     * @returns {Integer} 
+     * @returns {CONFIGRET} 
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_get_hardware_profile_info_exw
      */
     static CM_Get_Hardware_Profile_Info_ExW(ulIndex, pHWProfileInfo, ulFlags, hMachine) {
@@ -24521,7 +25105,7 @@ class DeviceAndDriverInstallation {
      * @param {Integer} ulHardwareProfile A variable of ULONG type that specifies the identifier of the hardware profile for which to retrieve configuration flags. If this parameter is zero, this function retrieves the configuration flags for the current hardware profile.
      * @param {Pointer<Integer>} pulValue Pointer to a caller-supplied variable of ULONG type that receives zero or a bitwise OR of the following configuration flags that are defined in <i>Regstr.h</i>:
      * @param {Integer} ulFlags Reserved for internal use. Must be set to zero.
-     * @returns {Integer} If the operation succeeds, <b>CM_Get_HW_Prof_Flags</b> returns CR_SUCCESS. Otherwise, the function returns one of the CR_<i>Xxx</i> error codes that are defined in <i>Cfgmgr32.h</i>.
+     * @returns {CONFIGRET} If the operation succeeds, <b>CM_Get_HW_Prof_Flags</b> returns CR_SUCCESS. Otherwise, the function returns one of the CR_<i>Xxx</i> error codes that are defined in <i>Cfgmgr32.h</i>.
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_get_hw_prof_flagsa
      * @since windows5.0
      */
@@ -24551,7 +25135,7 @@ class DeviceAndDriverInstallation {
      * @param {Integer} ulHardwareProfile A variable of ULONG type that specifies the identifier of the hardware profile for which to retrieve configuration flags. If this parameter is zero, this function retrieves the configuration flags for the current hardware profile.
      * @param {Pointer<Integer>} pulValue Pointer to a caller-supplied variable of ULONG type that receives zero or a bitwise OR of the following configuration flags that are defined in <i>Regstr.h</i>:
      * @param {Integer} ulFlags Reserved for internal use. Must be set to zero.
-     * @returns {Integer} If the operation succeeds, <b>CM_Get_HW_Prof_Flags</b> returns CR_SUCCESS. Otherwise, the function returns one of the CR_<i>Xxx</i> error codes that are defined in <i>Cfgmgr32.h</i>.
+     * @returns {CONFIGRET} If the operation succeeds, <b>CM_Get_HW_Prof_Flags</b> returns CR_SUCCESS. Otherwise, the function returns one of the CR_<i>Xxx</i> error codes that are defined in <i>Cfgmgr32.h</i>.
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_get_hw_prof_flagsw
      * @since windows5.0
      */
@@ -24585,7 +25169,7 @@ class DeviceAndDriverInstallation {
      * 
      * <div class="alert"><b>Note</b>  Using this function to access remote machines is not supported beginning with Windows 8 and Windows Server 2012, as this functionality has been removed.</div>
      * <div> </div>
-     * @returns {Integer} If the operation succeeds, <b>CM_Get_HW_Prof_Flags</b> returns CR_SUCCESS. Otherwise, the function returns one of the CR_-prefixed error codes that are defined in <i>Cfgmgr32.h</i>.
+     * @returns {CONFIGRET} If the operation succeeds, <b>CM_Get_HW_Prof_Flags</b> returns CR_SUCCESS. Otherwise, the function returns one of the CR_-prefixed error codes that are defined in <i>Cfgmgr32.h</i>.
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_get_hw_prof_flags_exa
      * @since windows5.0
      */
@@ -24619,7 +25203,7 @@ class DeviceAndDriverInstallation {
      * 
      * <div class="alert"><b>Note</b>  Using this function to access remote machines is not supported beginning with Windows 8 and Windows Server 2012, as this functionality has been removed.</div>
      * <div> </div>
-     * @returns {Integer} If the operation succeeds, <b>CM_Get_HW_Prof_Flags</b> returns CR_SUCCESS. Otherwise, the function returns one of the CR_-prefixed error codes that are defined in <i>Cfgmgr32.h</i>.
+     * @returns {CONFIGRET} If the operation succeeds, <b>CM_Get_HW_Prof_Flags</b> returns CR_SUCCESS. Otherwise, the function returns one of the CR_-prefixed error codes that are defined in <i>Cfgmgr32.h</i>.
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_get_hw_prof_flags_exw
      * @since windows5.0
      */
@@ -24651,7 +25235,7 @@ class DeviceAndDriverInstallation {
      * 
      * On input, this parameter must be greater than 0.
      * @param {Integer} ulFlags Reserved. Do not use.
-     * @returns {Integer} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
+     * @returns {CONFIGRET} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
      * 
      * <table>
      * <tr>
@@ -24723,7 +25307,7 @@ class DeviceAndDriverInstallation {
      * 
      * On input, this parameter must be greater than 0.
      * @param {Integer} ulFlags Reserved. Do not use.
-     * @returns {Integer} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
+     * @returns {CONFIGRET} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
      * 
      * <table>
      * <tr>
@@ -24785,7 +25369,7 @@ class DeviceAndDriverInstallation {
      * @param {Pointer<Integer>} pulLength 
      * @param {Integer} ulFlags 
      * @param {Pointer} hMachine 
-     * @returns {Integer} 
+     * @returns {CONFIGRET} 
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_get_device_interface_alias_exa
      */
     static CM_Get_Device_Interface_Alias_ExA(pszDeviceInterface, AliasInterfaceGuid, pszAliasDeviceInterface, pulLength, ulFlags, hMachine) {
@@ -24806,7 +25390,7 @@ class DeviceAndDriverInstallation {
      * @param {Pointer<Integer>} pulLength 
      * @param {Integer} ulFlags 
      * @param {Pointer} hMachine 
-     * @returns {Integer} 
+     * @returns {CONFIGRET} 
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_get_device_interface_alias_exw
      */
     static CM_Get_Device_Interface_Alias_ExW(pszDeviceInterface, AliasInterfaceGuid, pszAliasDeviceInterface, pulLength, ulFlags, hMachine) {
@@ -24825,10 +25409,10 @@ class DeviceAndDriverInstallation {
      * Between calling <a href="https://docs.microsoft.com/windows/desktop/api/cfgmgr32/nf-cfgmgr32-cm_get_device_interface_list_sizea">CM_Get_Device_Interface_List_Size</a> to get the size of the list and calling <b>CM_Get_Device_Interface_List</b> to get the list, a new device interface can be added to the system causing the size returned to no longer be valid.  Callers should be robust to that condition and retry getting the size and the list if <b>CM_Get_Device_Interface_List</b> returns <b>CR_BUFFER_SMALL</b>.
      * @param {Pointer<Guid>} InterfaceClassGuid Supplies a GUID that identifies a device interface class.
      * @param {PSTR} pDeviceID Caller-supplied pointer to a NULL-terminated string that represents a <a href="https://docs.microsoft.com/windows-hardware/drivers/install/device-instance-ids">device instance ID</a>. If specified, the function retrieves device interfaces that are supported by the device for the specified class. If this value is <b>NULL</b>, or if it points to a zero-length string, the function retrieves all interfaces that belong to the specified class.
-     * @param {PSTR} _Buffer 
+     * @param {PSTR} _Buffer Caller-supplied pointer to a buffer that receives multiple, NULL-terminated Unicode strings, each representing the symbolic link name of an interface instance.
      * @param {Integer} BufferLen Caller-supplied value that specifies the length, in characters, of the buffer pointed to by <i>Buffer</i>. Call <a href="https://docs.microsoft.com/windows/desktop/api/cfgmgr32/nf-cfgmgr32-cm_get_device_interface_list_sizea">CM_Get_Device_Interface_List_Size</a> to determine the required buffer size.
-     * @param {Integer} ulFlags Contains one of the following caller-supplied flags:
-     * @returns {Integer} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the error codes with the CR_ prefix as defined in <i>Cfgmgr32.h</i>.
+     * @param {CM_GET_DEVICE_INTERFACE_LIST_FLAGS} ulFlags Contains one of the following caller-supplied flags:
+     * @returns {CONFIGRET} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the error codes with the CR_ prefix as defined in <i>Cfgmgr32.h</i>.
      * 
      * The following table includes some of the more common error codes that this function might return.
      * 
@@ -24866,10 +25450,10 @@ class DeviceAndDriverInstallation {
      * Between calling <a href="https://docs.microsoft.com/windows/desktop/api/cfgmgr32/nf-cfgmgr32-cm_get_device_interface_list_sizea">CM_Get_Device_Interface_List_Size</a> to get the size of the list and calling <b>CM_Get_Device_Interface_List</b> to get the list, a new device interface can be added to the system causing the size returned to no longer be valid.  Callers should be robust to that condition and retry getting the size and the list if <b>CM_Get_Device_Interface_List</b> returns <b>CR_BUFFER_SMALL</b>.
      * @param {Pointer<Guid>} InterfaceClassGuid Supplies a GUID that identifies a device interface class.
      * @param {PWSTR} pDeviceID Caller-supplied pointer to a NULL-terminated string that represents a <a href="https://docs.microsoft.com/windows-hardware/drivers/install/device-instance-ids">device instance ID</a>. If specified, the function retrieves device interfaces that are supported by the device for the specified class. If this value is <b>NULL</b>, or if it points to a zero-length string, the function retrieves all interfaces that belong to the specified class.
-     * @param {PWSTR} _Buffer 
+     * @param {PWSTR} _Buffer Caller-supplied pointer to a buffer that receives multiple, NULL-terminated Unicode strings, each representing the symbolic link name of an interface instance.
      * @param {Integer} BufferLen Caller-supplied value that specifies the length, in characters, of the buffer pointed to by <i>Buffer</i>. Call <a href="https://docs.microsoft.com/windows/desktop/api/cfgmgr32/nf-cfgmgr32-cm_get_device_interface_list_sizea">CM_Get_Device_Interface_List_Size</a> to determine the required buffer size.
-     * @param {Integer} ulFlags Contains one of the following caller-supplied flags:
-     * @returns {Integer} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the error codes with the CR_ prefix as defined in <i>Cfgmgr32.h</i>.
+     * @param {CM_GET_DEVICE_INTERFACE_LIST_FLAGS} ulFlags Contains one of the following caller-supplied flags:
+     * @returns {CONFIGRET} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the error codes with the CR_ prefix as defined in <i>Cfgmgr32.h</i>.
      * 
      * The following table includes some of the more common error codes that this function might return.
      * 
@@ -24907,9 +25491,9 @@ class DeviceAndDriverInstallation {
      * @param {PSTR} pDeviceID 
      * @param {PSTR} _Buffer 
      * @param {Integer} BufferLen 
-     * @param {Integer} ulFlags 
+     * @param {CM_GET_DEVICE_INTERFACE_LIST_FLAGS} ulFlags 
      * @param {Pointer} hMachine 
-     * @returns {Integer} 
+     * @returns {CONFIGRET} 
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_get_device_interface_list_exa
      */
     static CM_Get_Device_Interface_List_ExA(InterfaceClassGuid, pDeviceID, _Buffer, BufferLen, ulFlags, hMachine) {
@@ -24926,9 +25510,9 @@ class DeviceAndDriverInstallation {
      * @param {PWSTR} pDeviceID 
      * @param {PWSTR} _Buffer 
      * @param {Integer} BufferLen 
-     * @param {Integer} ulFlags 
+     * @param {CM_GET_DEVICE_INTERFACE_LIST_FLAGS} ulFlags 
      * @param {Pointer} hMachine 
-     * @returns {Integer} 
+     * @returns {CONFIGRET} 
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_get_device_interface_list_exw
      */
     static CM_Get_Device_Interface_List_ExW(InterfaceClassGuid, pDeviceID, _Buffer, BufferLen, ulFlags, hMachine) {
@@ -24955,7 +25539,7 @@ class DeviceAndDriverInstallation {
      *            device, for the specified class. If this value is <b>NULL</b>, or if it points to a 
      *            zero-length string, the function retrieves the length of symbolic link names for all interfaces that belong 
      *            to the specified class.
-     * @param {Integer} ulFlags Contains one of the following caller-supplied flags:
+     * @param {CM_GET_DEVICE_INTERFACE_LIST_FLAGS} ulFlags Contains one of the following caller-supplied flags:
      * 
      * <table>
      * <tr>
@@ -24985,7 +25569,7 @@ class DeviceAndDriverInstallation {
      * </td>
      * </tr>
      * </table>
-     * @returns {Integer} If the operation succeeds, the function returns <b>CR_SUCCESS</b>. Otherwise, it 
+     * @returns {CONFIGRET} If the operation succeeds, the function returns <b>CR_SUCCESS</b>. Otherwise, it 
      *            returns one of the error codes with the <b>CR_</b> prefix as defined in 
      *            Cfgmgr32.h.
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_get_device_interface_list_sizea
@@ -25016,7 +25600,7 @@ class DeviceAndDriverInstallation {
      *            device, for the specified class. If this value is <b>NULL</b>, or if it points to a 
      *            zero-length string, the function retrieves the length of symbolic link names for all interfaces that belong 
      *            to the specified class.
-     * @param {Integer} ulFlags Contains one of the following caller-supplied flags:
+     * @param {CM_GET_DEVICE_INTERFACE_LIST_FLAGS} ulFlags Contains one of the following caller-supplied flags:
      * 
      * <table>
      * <tr>
@@ -25046,7 +25630,7 @@ class DeviceAndDriverInstallation {
      * </td>
      * </tr>
      * </table>
-     * @returns {Integer} If the operation succeeds, the function returns <b>CR_SUCCESS</b>. Otherwise, it 
+     * @returns {CONFIGRET} If the operation succeeds, the function returns <b>CR_SUCCESS</b>. Otherwise, it 
      *            returns one of the error codes with the <b>CR_</b> prefix as defined in 
      *            Cfgmgr32.h.
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_get_device_interface_list_sizew
@@ -25066,9 +25650,9 @@ class DeviceAndDriverInstallation {
      * @param {Pointer<Integer>} pulLen 
      * @param {Pointer<Guid>} InterfaceClassGuid 
      * @param {PSTR} pDeviceID 
-     * @param {Integer} ulFlags 
+     * @param {CM_GET_DEVICE_INTERFACE_LIST_FLAGS} ulFlags 
      * @param {Pointer} hMachine 
-     * @returns {Integer} 
+     * @returns {CONFIGRET} 
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_get_device_interface_list_size_exa
      */
     static CM_Get_Device_Interface_List_Size_ExA(pulLen, InterfaceClassGuid, pDeviceID, ulFlags, hMachine) {
@@ -25085,9 +25669,9 @@ class DeviceAndDriverInstallation {
      * @param {Pointer<Integer>} pulLen 
      * @param {Pointer<Guid>} InterfaceClassGuid 
      * @param {PWSTR} pDeviceID 
-     * @param {Integer} ulFlags 
+     * @param {CM_GET_DEVICE_INTERFACE_LIST_FLAGS} ulFlags 
      * @param {Pointer} hMachine 
-     * @returns {Integer} 
+     * @returns {CONFIGRET} 
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_get_device_interface_list_size_exw
      */
     static CM_Get_Device_Interface_List_Size_ExW(pulLen, InterfaceClassGuid, pDeviceID, ulFlags, hMachine) {
@@ -25104,12 +25688,12 @@ class DeviceAndDriverInstallation {
      * @remarks
      * <b>CM_Get_Device_Interface_Property</b> is part of the <a href="https://docs.microsoft.com/windows-hardware/drivers/install/unified-device-property-model--windows-vista-and-later-">Unified Device Property Model</a>.
      * @param {PWSTR} pszDeviceInterface Pointer to a string that identifies the device interface instance to retrieve the property from.
-     * @param {Pointer<DEVPROPKEY>} _PropertyKey 
-     * @param {Pointer<Integer>} PropertyType Pointer to a <a href="https://docs.microsoft.com/windows-hardware/drivers/install/property-data-type-identifiers">DEVPROPTYPE</a>-typed variable that receives the property-data-type identifier of the requested device interface property. The property-data-type identifier is a bitwise OR between a base-data-type identifier and, if the base-data type is modified, a property-data-type modifier.
-     * @param {Pointer} PropertyBuffer A pointer to a buffer that receives the requested device interface property. <b>CM_Get_Device_Interface_Property</b> retrieves the requested property only if the buffer is large enough to hold all the property value data. The pointer can be NULL.
+     * @param {Pointer<DEVPROPKEY>} _PropertyKey Pointer to a <a href="https://docs.microsoft.com/windows-hardware/drivers/install/devpropkey">DEVPROPKEY</a> structure that represents the device interface property key of the device interface property to retrieve.
+     * @param {Pointer<DEVPROPTYPE>} PropertyType Pointer to a <a href="https://docs.microsoft.com/windows-hardware/drivers/install/property-data-type-identifiers">DEVPROPTYPE</a>-typed variable that receives the property-data-type identifier of the requested device interface property. The property-data-type identifier is a bitwise OR between a base-data-type identifier and, if the base-data type is modified, a property-data-type modifier.
+     * @param {Integer} PropertyBuffer A pointer to a buffer that receives the requested device interface property. <b>CM_Get_Device_Interface_Property</b> retrieves the requested property only if the buffer is large enough to hold all the property value data. The pointer can be NULL.
      * @param {Pointer<Integer>} PropertyBufferSize The size, in bytes, of the <i>PropertyBuffer</i> buffer. If <i>PropertyBuffer</i> is set to NULL, <i>*PropertyBufferSize</i> must be set to zero. As output, if the buffer is not large enough to hold all the property value data, <b>CM_Get_Device_Interface_Property</b> returns the size of the data, in bytes, in <i>*PropertyBufferSize</i>.
      * @param {Integer} ulFlags Reserved. Must be set to zero.
-     * @returns {Integer} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
+     * @returns {CONFIGRET} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_get_device_interface_propertyw
      * @since windows6.0.6000
      */
@@ -25128,16 +25712,16 @@ class DeviceAndDriverInstallation {
      * @remarks
      * <b>CM_Get_Device_Interface_Property_ExW</b> is part of the <a href="https://docs.microsoft.com/windows-hardware/drivers/install/unified-device-property-model--windows-vista-and-later-">Unified Device Property Model</a>.
      * @param {PWSTR} pszDeviceInterface Pointer to a string that identifies the device interface instance to retrieve the property from.
-     * @param {Pointer<DEVPROPKEY>} _PropertyKey 
-     * @param {Pointer<Integer>} PropertyType Pointer to a <a href="https://docs.microsoft.com/windows-hardware/drivers/install/property-data-type-identifiers">DEVPROPTYPE</a>-typed variable that receives the property-data-type identifier of the requested device interface property. The property-data-type identifier is a bitwise OR between a base-data-type identifier and, if the base-data type is modified, a property-data-type modifier.
-     * @param {Pointer} PropertyBuffer A pointer to a buffer that receives the requested device interface property. <b>CM_Get_Device_Interface_Property_ExW</b> retrieves the requested property only if the buffer is large enough to hold all the property value data. The pointer can be NULL.
+     * @param {Pointer<DEVPROPKEY>} _PropertyKey Pointer to a <a href="https://docs.microsoft.com/windows-hardware/drivers/install/devpropkey">DEVPROPKEY</a> structure that represents the device interface property key of the device interface property to retrieve.
+     * @param {Pointer<DEVPROPTYPE>} PropertyType Pointer to a <a href="https://docs.microsoft.com/windows-hardware/drivers/install/property-data-type-identifiers">DEVPROPTYPE</a>-typed variable that receives the property-data-type identifier of the requested device interface property. The property-data-type identifier is a bitwise OR between a base-data-type identifier and, if the base-data type is modified, a property-data-type modifier.
+     * @param {Integer} PropertyBuffer A pointer to a buffer that receives the requested device interface property. <b>CM_Get_Device_Interface_Property_ExW</b> retrieves the requested property only if the buffer is large enough to hold all the property value data. The pointer can be NULL.
      * @param {Pointer<Integer>} PropertyBufferSize The size, in bytes, of the <i>PropertyBuffer</i> buffer. If <i>PropertyBuffer</i> is set to NULL, <i>*PropertyBufferSize</i> must be set to zero. As output, if the buffer is not large enough to hold all the property value data, <b>CM_Get_Device_Interface_Property_ExW</b> returns the size of the data, in bytes, in <i>*PropertyBufferSize</i>.
      * @param {Integer} ulFlags Reserved. Must be set to zero.
      * @param {Pointer} hMachine Caller-supplied machine handle, obtained from a previous call to <a href="https://docs.microsoft.com/windows/desktop/api/cfgmgr32/nf-cfgmgr32-cm_connect_machinew">CM_Connect_Machine</a>.
      * 
      * <div class="alert"><b>Note</b>  Using this function to access remote machines is not supported beginning with Windows 8 and Windows Server 2012, as this functionality has been removed.</div>
      * <div> </div>
-     * @returns {Integer} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
+     * @returns {CONFIGRET} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_get_device_interface_property_exw
      * @since windows10.0.10240
      */
@@ -25159,7 +25743,7 @@ class DeviceAndDriverInstallation {
      * @param {Pointer<DEVPROPKEY>} PropertyKeyArray Pointer to a buffer that receives an array of <a href="https://docs.microsoft.com/windows-hardware/drivers/install/devpropkey">DEVPROPKEY</a>-typed values, where each value is a device property key that represents a device property that is set for the device interface. The pointer is optional and can be NULL
      * @param {Pointer<Integer>} PropertyKeyCount The size, in <a href="https://docs.microsoft.com/windows-hardware/drivers/install/devpropkey">DEVPROPKEY</a>-typed units, of the <i>PropertyKeyArray</i> buffer. If <i>PropertyKeyArray</i> is set to NULL, <i>*PropertyKeyCount</i> must be set to zero.  As output, if <i>PropertyKeyArray</i> is not large enough to hold all the property key data, <b>CM_Get_Device_Interface_Property_Keys</b> returns the count of the keys, in <i>*PropertyKeyCount</i>.
      * @param {Integer} ulFlags Reserved. Must be set to zero.
-     * @returns {Integer} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
+     * @returns {CONFIGRET} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_get_device_interface_property_keysw
      * @since windows6.0.6000
      */
@@ -25184,7 +25768,7 @@ class DeviceAndDriverInstallation {
      * 
      * <div class="alert"><b>Note</b>  Using this function to access remote machines is not supported beginning with Windows 8 and Windows Server 2012, as this functionality has been removed.</div>
      * <div> </div>
-     * @returns {Integer} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
+     * @returns {CONFIGRET} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_get_device_interface_property_keys_exw
      * @since windows10.0.10240
      */
@@ -25225,7 +25809,7 @@ class DeviceAndDriverInstallation {
      * <a href="https://docs.microsoft.com/windows/desktop/api/cfgmgr32/nf-cfgmgr32-cm_get_next_log_conf_ex">CM_Get_Next_Log_Conf_Ex</a>
      * @param {Pointer<Integer>} pPriority Caller-supplied address of a location to receive a configuration priority value. For a list of priority values, see the description of <i>Priority</i> for <a href="https://docs.microsoft.com/windows/desktop/api/cfgmgr32/nf-cfgmgr32-cm_add_empty_log_conf">CM_Add_Empty_Log_Conf</a>.
      * @param {Integer} ulFlags Not used, must be zero.
-     * @returns {Integer} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
+     * @returns {CONFIGRET} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
      * 
      * <div class="alert"><b>Note</b>  Starting with Windows 8, <b>CM_Get_Log_Conf_Priority</b> returns CR_CALL_NOT_IMPLEMENTED when used in a Wow64 scenario. To request information about the hardware resources on a local machine it is necessary implement an architecture-native version of the application using the hardware resource APIs. For example: An AMD64 application for AMD64 systems.</div>
      * <div> </div>
@@ -25273,7 +25857,7 @@ class DeviceAndDriverInstallation {
      * 
      * <div class="alert"><b>Note</b>  Using this function to access remote machines is not supported beginning with Windows 8 and Windows Server 2012, as this functionality has been removed.</div>
      * <div> </div>
-     * @returns {Integer} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
+     * @returns {CONFIGRET} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
      * 
      * <div class="alert"><b>Note</b>  Starting with Windows 8, <b>CM_Get_Log_Conf_Priority_Ex</b> returns CR_CALL_NOT_IMPLEMENTED when used in a Wow64 scenario. To request information about the hardware resources on a local machine it is necessary implement an architecture-native version of the application using the hardware resource APIs. For example: An AMD64 application for AMD64 systems.</div>
      * <div> </div>
@@ -25305,7 +25889,7 @@ class DeviceAndDriverInstallation {
      * 
      * 
      * <b>CM_Get_Next_Log_Conf</b>
-     * @returns {Integer} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
+     * @returns {CONFIGRET} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
      * 
      * <div class="alert"><b>Note</b>  Starting with Windows 8, <b>CM_Get_Next_Log_Conf</b> returns CR_CALL_NOT_IMPLEMENTED when used in a Wow64 scenario. To request information about the hardware resources on a local machine it is necessary implement an architecture-native version of the application using the hardware resource APIs. For example: An AMD64 application for AMD64 systems.</div>
      * <div> </div>
@@ -25345,7 +25929,7 @@ class DeviceAndDriverInstallation {
      * 
      * <div class="alert"><b>Note</b>  Using this function to access remote machines is not supported beginning with Windows 8 and Windows Server 2012, as this functionality has been removed.</div>
      * <div> </div>
-     * @returns {Integer} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
+     * @returns {CONFIGRET} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
      * 
      * <div class="alert"><b>Note</b>  Starting with Windows 8, <b>CM_Get_Next_Log_Conf_Ex</b> returns CR_CALL_NOT_IMPLEMENTED when used in a Wow64 scenario. To request information about the hardware resources on a local machine it is necessary implement an architecture-native version of the application using the hardware resource APIs. For example: An AMD64 application for AMD64 systems.</div>
      * <div> </div>
@@ -25368,7 +25952,7 @@ class DeviceAndDriverInstallation {
      * @param {Pointer<Integer>} pdnDevInst Caller-supplied pointer to the device instance handle to the parent node that this function retrieves. The retrieved handle is bound to the local machine.
      * @param {Integer} dnDevInst Caller-supplied device instance handle that is bound to the local machine.
      * @param {Integer} ulFlags Not used, must be zero.
-     * @returns {Integer} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
+     * @returns {CONFIGRET} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_get_parent
      * @since windows5.0
      */
@@ -25392,7 +25976,7 @@ class DeviceAndDriverInstallation {
      * 
      * <div class="alert"><b>Note</b>  Using this function to access remote machines is not supported beginning with Windows 8 and Windows Server 2012, as this functionality has been removed.</div>
      * <div> </div>
-     * @returns {Integer} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
+     * @returns {CONFIGRET} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_get_parent_ex
      * @since windows5.0
      */
@@ -25408,10 +25992,10 @@ class DeviceAndDriverInstallation {
      * @remarks
      * Information returned in the buffer supplied by <i>Buffer</i> will be formatted as one of the resource type structures listed in the description of <a href="https://docs.microsoft.com/windows/desktop/api/cfgmgr32/nf-cfgmgr32-cm_add_res_des">CM_Add_Res_Des</a>, based on the resource type that was specified when <a href="https://docs.microsoft.com/windows/desktop/api/cfgmgr32/nf-cfgmgr32-cm_get_next_res_des">CM_Get_Next_Res_Des</a> was called to obtain the resource descriptor handle.
      * @param {Pointer} rdResDes Caller-supplied handle to a resource descriptor, obtained by a previous call to <a href="https://docs.microsoft.com/windows/desktop/api/cfgmgr32/nf-cfgmgr32-cm_get_next_res_des">CM_Get_Next_Res_Des</a>.
-     * @param {Pointer} _Buffer 
+     * @param {Integer} _Buffer Address of a buffer to receive the contents of a resource descriptor. The required buffer size should be obtained by calling <a href="https://docs.microsoft.com/windows/desktop/api/cfgmgr32/nf-cfgmgr32-cm_get_res_des_data_size">CM_Get_Res_Des_Data_Size</a>.
      * @param {Integer} BufferLen Caller-supplied length of the buffer specified by <i>Buffer</i>.
      * @param {Integer} ulFlags Not used, must be zero.
-     * @returns {Integer} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
+     * @returns {CONFIGRET} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
      * 
      * <div class="alert"><b>Note</b>  Starting with Windows 8, <b>CM_Get_Res_Des_Data</b> returns CR_CALL_NOT_IMPLEMENTED when used in a Wow64 scenario. To request information about the hardware resources on a local machine it is necessary implement an architecture-native version of the application using the hardware resource APIs. For example: An AMD64 application for AMD64 systems.</div>
      * <div> </div>
@@ -25430,14 +26014,14 @@ class DeviceAndDriverInstallation {
      * 
      *  Functionality to access remote machines has been removed in Windows 8 and Windows Server 2012 and later operating systems thus you cannot access remote machines when running on these versions of Windows.
      * @param {Pointer} rdResDes Caller-supplied handle to a resource descriptor, obtained by a previous call to <a href="https://docs.microsoft.com/windows/desktop/api/cfgmgr32/nf-cfgmgr32-cm_get_next_res_des_ex">CM_Get_Next_Res_Des_Ex</a>.
-     * @param {Pointer} _Buffer 
+     * @param {Integer} _Buffer Address of a buffer to receive the contents of a resource descriptor. The required buffer size should be obtained by calling <a href="https://docs.microsoft.com/windows/desktop/api/cfgmgr32/nf-cfgmgr32-cm_get_res_des_data_size_ex">CM_Get_Res_Des_Data_Size_Ex</a>.
      * @param {Integer} BufferLen Caller-supplied length of the buffer specified by <i>Buffer</i>.
      * @param {Integer} ulFlags Not used, must be zero.
      * @param {Pointer} hMachine Caller-supplied machine handle, obtained from a previous call to <a href="https://docs.microsoft.com/windows/desktop/api/cfgmgr32/nf-cfgmgr32-cm_connect_machinew">CM_Connect_Machine</a>.
      * 
      * <div class="alert"><b>Note</b>  Using this function to access remote machines is not supported beginning with Windows 8 and Windows Server 2012, as this functionality has been removed.</div>
      * <div> </div>
-     * @returns {Integer} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
+     * @returns {CONFIGRET} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
      * 
      * <div class="alert"><b>Note</b>  Starting with Windows 8, <b>CM_Get_Res_Des_Data_Ex</b> returns CR_CALL_NOT_IMPLEMENTED when used in a Wow64 scenario. To request information about the hardware resources on a local machine it is necessary implement an architecture-native version of the application using the hardware resource APIs. For example: An AMD64 application for AMD64 systems.</div>
      * <div> </div>
@@ -25456,7 +26040,7 @@ class DeviceAndDriverInstallation {
      * @param {Pointer<Integer>} pulSize Caller-supplied address of a location to receive the required buffer size.
      * @param {Pointer} rdResDes Caller-supplied handle to a resource descriptor, obtained by a previous call to <a href="https://docs.microsoft.com/windows/desktop/api/cfgmgr32/nf-cfgmgr32-cm_get_next_res_des">CM_Get_Next_Res_Des</a>.
      * @param {Integer} ulFlags Not used, must be zero.
-     * @returns {Integer} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
+     * @returns {CONFIGRET} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
      * 
      * <div class="alert"><b>Note</b>  Starting with Windows 8, <b>CM_Get_Res_Des_Data_Size</b> returns CR_CALL_NOT_IMPLEMENTED when used in a Wow64 scenario. To request information about the hardware resources on a local machine it is necessary implement an architecture-native version of the application using the hardware resource APIs. For example: An AMD64 application for AMD64 systems.</div>
      * <div> </div>
@@ -25483,7 +26067,7 @@ class DeviceAndDriverInstallation {
      * 
      * <div class="alert"><b>Note</b>  Using this function to access remote machines is not supported beginning with Windows 8 and Windows Server 2012, as this functionality has been removed.</div>
      * <div> </div>
-     * @returns {Integer} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
+     * @returns {CONFIGRET} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
      * 
      * <div class="alert"><b>Note</b>  Starting with Windows 8, <b>CM_Get_Res_Des_Data_Size_Ex</b> returns CR_CALL_NOT_IMPLEMENTED when used in a Wow64 scenario. To request information about the hardware resources on a local machine it is necessary implement an architecture-native version of the application using the hardware resource APIs. For example: An AMD64 application for AMD64 systems.</div>
      * <div> </div>
@@ -25506,7 +26090,7 @@ class DeviceAndDriverInstallation {
      * @param {Pointer<Integer>} pdnDevInst Caller-supplied pointer to the device instance handle to the sibling node that this function retrieves. The retrieved handle is bound to the local machine.
      * @param {Integer} dnDevInst Caller-supplied device instance handle that is bound to the local machine.
      * @param {Integer} ulFlags Not used, must be zero.
-     * @returns {Integer} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
+     * @returns {CONFIGRET} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_get_sibling
      * @since windows5.0
      */
@@ -25532,7 +26116,7 @@ class DeviceAndDriverInstallation {
      * 
      * <div class="alert"><b>Note</b>  Using this function to access remote machines is not supported beginning with Windows 8 and Windows Server 2012, as this functionality has been removed.</div>
      * <div> </div>
-     * @returns {Integer} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
+     * @returns {CONFIGRET} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_get_sibling_ex
      * @since windows5.0
      */
@@ -25633,7 +26217,7 @@ class DeviceAndDriverInstallation {
      * @param {Pointer} rlhOld2 
      * @param {Pointer} rlhNew 
      * @param {Integer} ulFlags 
-     * @returns {Integer} 
+     * @returns {CONFIGRET} 
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_intersect_range_list
      */
     static CM_Intersect_Range_List(rlhOld1, rlhOld2, rlhNew, ulFlags) {
@@ -25647,7 +26231,7 @@ class DeviceAndDriverInstallation {
      * @param {Pointer} rlhNew 
      * @param {Integer} ullMaxValue 
      * @param {Integer} ulFlags 
-     * @returns {Integer} 
+     * @returns {CONFIGRET} 
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_invert_range_list
      */
     static CM_Invert_Range_List(rlhOld, rlhNew, ullMaxValue, ulFlags) {
@@ -25668,8 +26252,8 @@ class DeviceAndDriverInstallation {
      * > The cfgmgr32.h header defines CM_Locate_DevNode as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Integer>} pdnDevInst A pointer to a device instance handle that <b>CM_Locate_DevNode</b> retrieves. The retrieved handle is bound to the local machine.
      * @param {PSTR} pDeviceID A pointer to a NULL-terminated string representing a <a href="https://docs.microsoft.com/windows-hardware/drivers/install/device-instance-ids">device instance ID</a>. If this value is <b>NULL</b>, or if it points to a zero-length string, the function retrieves a device instance handle to the device at the root of the <a href="https://docs.microsoft.com/windows-hardware/drivers/kernel/device-tree">device tree</a>.
-     * @param {Integer} ulFlags A variable of ULONG type that supplies one of the following flag values that apply if the caller supplies a device instance identifier:
-     * @returns {Integer} If the operation succeeds, <b>CM_Locate_DevNode</b> returns CR_SUCCESS. Otherwise, the function returns one of the CR_<i>Xxx</i> error codes that are defined in <i>Cfgmgr32.h</i>.
+     * @param {CM_LOCATE_DEVNODE_FLAGS} ulFlags A variable of ULONG type that supplies one of the following flag values that apply if the caller supplies a device instance identifier:
+     * @returns {CONFIGRET} If the operation succeeds, <b>CM_Locate_DevNode</b> returns CR_SUCCESS. Otherwise, the function returns one of the CR_<i>Xxx</i> error codes that are defined in <i>Cfgmgr32.h</i>.
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_locate_devnodea
      * @since windows5.0
      */
@@ -25695,8 +26279,8 @@ class DeviceAndDriverInstallation {
      * > The cfgmgr32.h header defines CM_Locate_DevNode as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Integer>} pdnDevInst A pointer to a device instance handle that <b>CM_Locate_DevNode</b> retrieves. The retrieved handle is bound to the local machine.
      * @param {PWSTR} pDeviceID A pointer to a NULL-terminated string representing a <a href="https://docs.microsoft.com/windows-hardware/drivers/install/device-instance-ids">device instance ID</a>. If this value is <b>NULL</b>, or if it points to a zero-length string, the function retrieves a device instance handle to the device at the root of the <a href="https://docs.microsoft.com/windows-hardware/drivers/kernel/device-tree">device tree</a>.
-     * @param {Integer} ulFlags A variable of ULONG type that supplies one of the following flag values that apply if the caller supplies a device instance identifier:
-     * @returns {Integer} If the operation succeeds, <b>CM_Locate_DevNode</b> returns CR_SUCCESS. Otherwise, the function returns one of the CR_<i>Xxx</i> error codes that are defined in <i>Cfgmgr32.h</i>.
+     * @param {CM_LOCATE_DEVNODE_FLAGS} ulFlags A variable of ULONG type that supplies one of the following flag values that apply if the caller supplies a device instance identifier:
+     * @returns {CONFIGRET} If the operation succeeds, <b>CM_Locate_DevNode</b> returns CR_SUCCESS. Otherwise, the function returns one of the CR_<i>Xxx</i> error codes that are defined in <i>Cfgmgr32.h</i>.
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_locate_devnodew
      * @since windows5.0
      */
@@ -25722,7 +26306,7 @@ class DeviceAndDriverInstallation {
      * 
      * <div class="alert"><b>Note</b>  Using this function to access remote machines is not supported beginning with Windows 8 and Windows Server 2012, as this functionality has been removed.</div>
      * <div> </div>
-     * @returns {Integer} If the operation succeeds, <b>CM_Locate_DevNode</b> returns CR_SUCCESS. Otherwise, the function returns one of the CR_-prefixed error codes that are defined in <i>Cfgmgr32.h</i>.
+     * @returns {CONFIGRET} If the operation succeeds, <b>CM_Locate_DevNode</b> returns CR_SUCCESS. Otherwise, the function returns one of the CR_-prefixed error codes that are defined in <i>Cfgmgr32.h</i>.
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_locate_devnode_exa
      */
     static CM_Locate_DevNode_ExA(pdnDevInst, pDeviceID, ulFlags, hMachine) {
@@ -25747,7 +26331,7 @@ class DeviceAndDriverInstallation {
      * 
      * <div class="alert"><b>Note</b>  Using this function to access remote machines is not supported beginning with Windows 8 and Windows Server 2012, as this functionality has been removed.</div>
      * <div> </div>
-     * @returns {Integer} If the operation succeeds, <b>CM_Locate_DevNode</b> returns CR_SUCCESS. Otherwise, the function returns one of the CR_-prefixed error codes that are defined in <i>Cfgmgr32.h</i>.
+     * @returns {CONFIGRET} If the operation succeeds, <b>CM_Locate_DevNode</b> returns CR_SUCCESS. Otherwise, the function returns one of the CR_-prefixed error codes that are defined in <i>Cfgmgr32.h</i>.
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_locate_devnode_exw
      * @since windows5.0
      */
@@ -25766,7 +26350,7 @@ class DeviceAndDriverInstallation {
      * @param {Pointer} rlhOld2 
      * @param {Pointer} rlhNew 
      * @param {Integer} ulFlags 
-     * @returns {Integer} 
+     * @returns {CONFIGRET} 
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_merge_range_list
      */
     static CM_Merge_Range_List(rlhOld1, rlhOld2, rlhNew, ulFlags) {
@@ -25808,10 +26392,10 @@ class DeviceAndDriverInstallation {
      * 
      * <a href="https://docs.microsoft.com/windows/desktop/api/cfgmgr32/nf-cfgmgr32-cm_modify_res_des_ex">CM_Modify_Res_Des_Ex</a>
      * @param {Integer} ResourceID Caller-supplied resource type identifier. This must be one of the <b>ResType_</b>-prefixed constants defined in <i>Cfgmgr32.h</i>.
-     * @param {Pointer} ResourceData Caller-supplied pointer to a resource descriptor, which can be one of the structures listed under the <a href="https://docs.microsoft.com/windows/desktop/api/cfgmgr32/nf-cfgmgr32-cm_add_res_des">CM_Add_Res_Des</a> function's description of <i>ResourceData</i>.
+     * @param {Integer} ResourceData Caller-supplied pointer to a resource descriptor, which can be one of the structures listed under the <a href="https://docs.microsoft.com/windows/desktop/api/cfgmgr32/nf-cfgmgr32-cm_add_res_des">CM_Add_Res_Des</a> function's description of <i>ResourceData</i>.
      * @param {Integer} ResourceLen Caller-supplied length of the structure pointed to by <i>ResourceData</i>.
      * @param {Integer} ulFlags Not used, must be zero.
-     * @returns {Integer} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
+     * @returns {CONFIGRET} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
      * 
      * <div class="alert"><b>Note</b>  Starting with Windows 8, <b>CM_Modify_Res_Des</b> returns CR_CALL_NOT_IMPLEMENTED when used in a Wow64 scenario. To request information about the hardware resources on a local machine it is necessary implement an architecture-native version of the application using the hardware resource APIs. For example: An AMD64 application for AMD64 systems.</div>
      * <div> </div>
@@ -25862,14 +26446,14 @@ class DeviceAndDriverInstallation {
      * 
      * <b>CM_Modify_Res_Des_Ex</b>
      * @param {Integer} ResourceID Caller-supplied resource type identifier. This must be one of the <b>ResType_</b>-prefixed constants defined in <i>Cfgmgr32.h</i>.
-     * @param {Pointer} ResourceData Caller-supplied pointer to a resource descriptor, which can be one of the structures listed under the <a href="https://docs.microsoft.com/windows/desktop/api/cfgmgr32/nf-cfgmgr32-cm_add_res_des_ex">CM_Add_Res_Des_Ex</a> function's description of <i>ResourceData</i>.
+     * @param {Integer} ResourceData Caller-supplied pointer to a resource descriptor, which can be one of the structures listed under the <a href="https://docs.microsoft.com/windows/desktop/api/cfgmgr32/nf-cfgmgr32-cm_add_res_des_ex">CM_Add_Res_Des_Ex</a> function's description of <i>ResourceData</i>.
      * @param {Integer} ResourceLen Caller-supplied length of the structure pointed to by <i>ResourceData</i>.
      * @param {Integer} ulFlags Not used, must be zero.
      * @param {Pointer} hMachine Caller-supplied machine handle, obtained from a previous call to <a href="https://docs.microsoft.com/windows/desktop/api/cfgmgr32/nf-cfgmgr32-cm_connect_machinew">CM_Connect_Machine</a>.
      * 
      * <div class="alert"><b>Note</b>  Using this function to access remote machines is not supported beginning with Windows 8 and Windows Server 2012, as this functionality has been removed.</div>
      * <div> </div>
-     * @returns {Integer} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
+     * @returns {CONFIGRET} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
      * 
      * <div class="alert"><b>Note</b>  Starting with Windows 8, <b>CM_Modify_Res_Des_Ex</b> returns CR_CALL_NOT_IMPLEMENTED when used in a Wow64 scenario. To request information about the hardware resources on a local machine it is necessary implement an architecture-native version of the application using the hardware resource APIs. For example: An AMD64 application for AMD64 systems.</div>
      * <div> </div>
@@ -25888,7 +26472,7 @@ class DeviceAndDriverInstallation {
      * @param {Integer} dnFromDevInst 
      * @param {Integer} dnToDevInst 
      * @param {Integer} ulFlags 
-     * @returns {Integer} 
+     * @returns {CONFIGRET} 
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_move_devnode
      */
     static CM_Move_DevNode(dnFromDevInst, dnToDevInst, ulFlags) {
@@ -25902,7 +26486,7 @@ class DeviceAndDriverInstallation {
      * @param {Integer} dnToDevInst 
      * @param {Integer} ulFlags 
      * @param {Pointer} hMachine 
-     * @returns {Integer} 
+     * @returns {CONFIGRET} 
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_move_devnode_ex
      */
     static CM_Move_DevNode_Ex(dnFromDevInst, dnToDevInst, ulFlags, hMachine) {
@@ -25916,7 +26500,7 @@ class DeviceAndDriverInstallation {
      * @param {Pointer<Integer>} pullStart 
      * @param {Pointer<Integer>} pullEnd 
      * @param {Integer} ulFlags 
-     * @returns {Integer} 
+     * @returns {CONFIGRET} 
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_next_range
      */
     static CM_Next_Range(preElement, pullStart, pullEnd, ulFlags) {
@@ -25940,10 +26524,10 @@ class DeviceAndDriverInstallation {
      * Callers of <b>CM_Get_Next_Res_Des</b> must call <a href="https://docs.microsoft.com/windows/desktop/api/cfgmgr32/nf-cfgmgr32-cm_free_res_des_handle">CM_Free_Res_Des_Handle</a> to deallocate the resource descriptor handle, after it is no longer needed.
      * @param {Pointer<Pointer>} prdResDes Pointer to a location to receive a resource descriptor handle.
      * @param {Pointer} rdResDes Caller-supplied handle to either a resource descriptor or a logical configuration. For more information, see the following <b>Remarks</b> section.
-     * @param {Integer} ForResource Caller-supplied resource type identifier, indicating the type of resource descriptor being requested. This must be one of the <b>ResType_</b>-prefixed constants defined in <i>Cfgmgr32.h</i>.
-     * @param {Pointer<Integer>} pResourceID Pointer to a location to receive a resource type identifier, if <i>ForResource</i> specifies <b>ResType_All</b>. For any other <i>ForResource</i> value, callers should set this to <b>NULL</b>.
+     * @param {CM_RESTYPE} ForResource Caller-supplied resource type identifier, indicating the type of resource descriptor being requested. This must be one of the <b>ResType_</b>-prefixed constants defined in <i>Cfgmgr32.h</i>.
+     * @param {Pointer<CM_RESTYPE>} pResourceID Pointer to a location to receive a resource type identifier, if <i>ForResource</i> specifies <b>ResType_All</b>. For any other <i>ForResource</i> value, callers should set this to <b>NULL</b>.
      * @param {Integer} ulFlags Not used, must be zero.
-     * @returns {Integer} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
+     * @returns {CONFIGRET} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
      * 
      * <div class="alert"><b>Note</b>  Starting with Windows 8, <b>CM_Get_Next_Res_Des</b> returns CR_CALL_NOT_IMPLEMENTED when used in a Wow64 scenario. To request information about the hardware resources on a local machine it is necessary implement an architecture-native version of the application using the hardware resource APIs. For example: An AMD64 application for AMD64 systems.</div>
      * <div> </div>
@@ -25972,14 +26556,14 @@ class DeviceAndDriverInstallation {
      *  Functionality to access remote machines has been removed in Windows 8 and Windows Server 2012 and later operating systems thus you cannot access remote machines when running on these versions of Windows.
      * @param {Pointer<Pointer>} prdResDes Pointer to a location to receive a resource descriptor handle.
      * @param {Pointer} rdResDes Caller-supplied handle to either a resource descriptor or a logical configuration. For more information, see the following <b>Remarks</b> section.
-     * @param {Integer} ForResource Caller-supplied resource type identifier, indicating the type of resource descriptor being requested. This must be one of the ResType_-prefixed constants defined in <i>Cfgmgr32.h</i>.
-     * @param {Pointer<Integer>} pResourceID Pointer to a location to receive a resource type identifier, if <i>ForResource</i> specifies <b>ResType_All</b>. For any other <i>ForResource</i> value, callers should set this to <b>NULL</b>.
+     * @param {CM_RESTYPE} ForResource Caller-supplied resource type identifier, indicating the type of resource descriptor being requested. This must be one of the ResType_-prefixed constants defined in <i>Cfgmgr32.h</i>.
+     * @param {Pointer<CM_RESTYPE>} pResourceID Pointer to a location to receive a resource type identifier, if <i>ForResource</i> specifies <b>ResType_All</b>. For any other <i>ForResource</i> value, callers should set this to <b>NULL</b>.
      * @param {Integer} ulFlags Not used, must be zero.
      * @param {Pointer} hMachine Caller-supplied machine handle, obtained from a previous call to <a href="https://docs.microsoft.com/windows/desktop/api/cfgmgr32/nf-cfgmgr32-cm_connect_machinew">CM_Connect_Machine</a>.
      * 
      * <div class="alert"><b>Note</b>  Using this function to access remote machines is not supported beginning with Windows 8 and Windows Server 2012, as this functionality has been removed.</div>
      * <div> </div>
-     * @returns {Integer} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
+     * @returns {CONFIGRET} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
      * 
      * <div class="alert"><b>Note</b>  Starting with Windows 8, <b>CM_Get_Next_Res_Des_Ex</b> returns CR_CALL_NOT_IMPLEMENTED when used in a Wow64 scenario. To request information about the hardware resources on a local machine it is necessary implement an architecture-native version of the application using the hardware resource APIs. For example: An AMD64 application for AMD64 systems.</div>
      * <div> </div>
@@ -26004,7 +26588,7 @@ class DeviceAndDriverInstallation {
      * @param {Integer} Disposition 
      * @param {Pointer<HKEY>} phkClass Pointer to an HKEY that will receive the opened key upon success.
      * @param {Integer} ulFlags Open class key flags:
-     * @returns {Integer} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
+     * @returns {CONFIGRET} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_open_class_keya
      */
     static CM_Open_Class_KeyA(ClassGuid, pszClassName, samDesired, Disposition, phkClass, ulFlags) {
@@ -26024,7 +26608,7 @@ class DeviceAndDriverInstallation {
      * @param {Integer} Disposition 
      * @param {Pointer<HKEY>} phkClass Pointer to an HKEY that will receive the opened key upon success.
      * @param {Integer} ulFlags Open class key flags:
-     * @returns {Integer} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
+     * @returns {CONFIGRET} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_open_class_keyw
      * @since windows5.0
      */
@@ -26044,7 +26628,7 @@ class DeviceAndDriverInstallation {
      * @param {Pointer<HKEY>} phkClass 
      * @param {Integer} ulFlags 
      * @param {Pointer} hMachine 
-     * @returns {Integer} 
+     * @returns {CONFIGRET} 
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_open_class_key_exa
      */
     static CM_Open_Class_Key_ExA(ClassGuid, pszClassName, samDesired, Disposition, phkClass, ulFlags, hMachine) {
@@ -26063,7 +26647,7 @@ class DeviceAndDriverInstallation {
      * @param {Pointer<HKEY>} phkClass 
      * @param {Integer} ulFlags 
      * @param {Pointer} hMachine 
-     * @returns {Integer} 
+     * @returns {CONFIGRET} 
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_open_class_key_exw
      */
     static CM_Open_Class_Key_ExW(ClassGuid, pszClassName, samDesired, Disposition, phkClass, ulFlags, hMachine) {
@@ -26083,7 +26667,7 @@ class DeviceAndDriverInstallation {
      * @param {Integer} Disposition 
      * @param {Pointer<HKEY>} phkDevice Pointer to an HKEY that will receive the opened key upon success.
      * @param {Integer} ulFlags Open device node key flags. Indicates the scope and type of registry storage key to open.  Can be a combination of the following flags:
-     * @returns {Integer} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
+     * @returns {CONFIGRET} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_open_devnode_key
      * @since windows5.0
      */
@@ -26101,7 +26685,7 @@ class DeviceAndDriverInstallation {
      * @param {Pointer<HKEY>} phkDevice 
      * @param {Integer} ulFlags 
      * @param {Pointer} hMachine 
-     * @returns {Integer} 
+     * @returns {CONFIGRET} 
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_open_devnode_key_ex
      */
     static CM_Open_DevNode_Key_Ex(dnDevNode, samDesired, ulHardwareProfile, Disposition, phkDevice, ulFlags, hMachine) {
@@ -26125,7 +26709,7 @@ class DeviceAndDriverInstallation {
      * @param {Integer} Disposition 
      * @param {Pointer<HKEY>} phkDeviceInterface Pointer to an HKEY that will receive the opened key upon success.
      * @param {Integer} ulFlags Reserved. Must be set to zero.
-     * @returns {Integer} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
+     * @returns {CONFIGRET} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_open_device_interface_keya
      * @since windows6.0.6000
      */
@@ -26152,7 +26736,7 @@ class DeviceAndDriverInstallation {
      * @param {Integer} Disposition 
      * @param {Pointer<HKEY>} phkDeviceInterface Pointer to an HKEY that will receive the opened key upon success.
      * @param {Integer} ulFlags Reserved. Must be set to zero.
-     * @returns {Integer} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
+     * @returns {CONFIGRET} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_open_device_interface_keyw
      * @since windows6.0.6000
      */
@@ -26183,7 +26767,7 @@ class DeviceAndDriverInstallation {
      * 
      * <div class="alert"><b>Note</b>  Using this function to access remote machines is not supported beginning with Windows 8 and Windows Server 2012, as this functionality has been removed.</div>
      * <div> </div>
-     * @returns {Integer} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
+     * @returns {CONFIGRET} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_open_device_interface_key_exa
      * @since windows10.0.10240
      */
@@ -26214,7 +26798,7 @@ class DeviceAndDriverInstallation {
      * 
      * <div class="alert"><b>Note</b>  Using this function to access remote machines is not supported beginning with Windows 8 and Windows Server 2012, as this functionality has been removed.</div>
      * <div> </div>
-     * @returns {Integer} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
+     * @returns {CONFIGRET} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_open_device_interface_key_exw
      * @since windows10.0.10240
      */
@@ -26229,7 +26813,7 @@ class DeviceAndDriverInstallation {
      * The CM_Delete_Device_Interface_Key function deletes the registry subkey that is used by applications and drivers to store interface-specific information. (ANSI)
      * @param {PSTR} pszDeviceInterface Pointer to a string that identifies the device interface instance of the registry subkey to delete.
      * @param {Integer} ulFlags Reserved. Must be set to zero.
-     * @returns {Integer} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
+     * @returns {CONFIGRET} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_delete_device_interface_keya
      */
     static CM_Delete_Device_Interface_KeyA(pszDeviceInterface, ulFlags) {
@@ -26243,7 +26827,7 @@ class DeviceAndDriverInstallation {
      * The CM_Delete_Device_Interface_Key function deletes the registry subkey that is used by applications and drivers to store interface-specific information. (Unicode)
      * @param {PWSTR} pszDeviceInterface Pointer to a string that identifies the device interface instance of the registry subkey to delete.
      * @param {Integer} ulFlags Reserved. Must be set to zero.
-     * @returns {Integer} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
+     * @returns {CONFIGRET} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_delete_device_interface_keyw
      * @since windows6.0.6000
      */
@@ -26265,7 +26849,7 @@ class DeviceAndDriverInstallation {
      * 
      * <div class="alert"><b>Note</b>  Using this function to access remote machines is not supported beginning with Windows 8 and Windows Server 2012, as this functionality has been removed.</div>
      * <div> </div>
-     * @returns {Integer} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
+     * @returns {CONFIGRET} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_delete_device_interface_key_exa
      * @since windows10.0.10240
      */
@@ -26287,7 +26871,7 @@ class DeviceAndDriverInstallation {
      * 
      * <div class="alert"><b>Note</b>  Using this function to access remote machines is not supported beginning with Windows 8 and Windows Server 2012, as this functionality has been removed.</div>
      * <div> </div>
-     * @returns {Integer} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
+     * @returns {CONFIGRET} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_delete_device_interface_key_exw
      * @since windows10.0.10240
      */
@@ -26300,12 +26884,12 @@ class DeviceAndDriverInstallation {
 
     /**
      * 
-     * @param {Pointer} pData 
+     * @param {Integer} pData 
      * @param {Integer} DataLen 
      * @param {Integer} dnDevInst 
      * @param {Integer} ResourceID 
      * @param {Integer} ulFlags 
-     * @returns {Integer} 
+     * @returns {CONFIGRET} 
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_query_arbitrator_free_data
      */
     static CM_Query_Arbitrator_Free_Data(pData, DataLen, dnDevInst, ResourceID, ulFlags) {
@@ -26315,13 +26899,13 @@ class DeviceAndDriverInstallation {
 
     /**
      * 
-     * @param {Pointer} pData 
+     * @param {Integer} pData 
      * @param {Integer} DataLen 
      * @param {Integer} dnDevInst 
      * @param {Integer} ResourceID 
      * @param {Integer} ulFlags 
      * @param {Pointer} hMachine 
-     * @returns {Integer} 
+     * @returns {CONFIGRET} 
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_query_arbitrator_free_data_ex
      */
     static CM_Query_Arbitrator_Free_Data_Ex(pData, DataLen, dnDevInst, ResourceID, ulFlags, hMachine) {
@@ -26335,7 +26919,7 @@ class DeviceAndDriverInstallation {
      * @param {Integer} dnDevInst 
      * @param {Integer} ResourceID 
      * @param {Integer} ulFlags 
-     * @returns {Integer} 
+     * @returns {CONFIGRET} 
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_query_arbitrator_free_size
      */
     static CM_Query_Arbitrator_Free_Size(pulSize, dnDevInst, ResourceID, ulFlags) {
@@ -26352,7 +26936,7 @@ class DeviceAndDriverInstallation {
      * @param {Integer} ResourceID 
      * @param {Integer} ulFlags 
      * @param {Pointer} hMachine 
-     * @returns {Integer} 
+     * @returns {CONFIGRET} 
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_query_arbitrator_free_size_ex
      */
     static CM_Query_Arbitrator_Free_Size_Ex(pulSize, dnDevInst, ResourceID, ulFlags, hMachine) {
@@ -26366,7 +26950,7 @@ class DeviceAndDriverInstallation {
      * 
      * @param {Integer} dnAncestor 
      * @param {Integer} ulFlags 
-     * @returns {Integer} 
+     * @returns {CONFIGRET} 
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_query_remove_subtree
      */
     static CM_Query_Remove_SubTree(dnAncestor, ulFlags) {
@@ -26379,7 +26963,7 @@ class DeviceAndDriverInstallation {
      * @param {Integer} dnAncestor 
      * @param {Integer} ulFlags 
      * @param {Pointer} hMachine 
-     * @returns {Integer} 
+     * @returns {CONFIGRET} 
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_query_remove_subtree_ex
      */
     static CM_Query_Remove_SubTree_Ex(dnAncestor, ulFlags, hMachine) {
@@ -26417,11 +27001,11 @@ class DeviceAndDriverInstallation {
      * 
      * For information about using device instance handles that are bound to the local machine, see <a href="https://docs.microsoft.com/windows/desktop/api/cfgmgr32/nf-cfgmgr32-cm_get_child">CM_Get_Child</a>.
      * @param {Integer} dnAncestor Caller-supplied device instance handle to the device at the root of the subtree to be removed. This device instance handle is bound to the local machine.
-     * @param {Pointer<Integer>} pVetoType (<i>Optional</i>)  If the caller does not pass <b>NULL</b> and the removal request is vetoed (that is, the function returns CR_REMOVE_VETOED), on return this points to a <a href="https://docs.microsoft.com/windows/desktop/api/cfg/ne-cfg-pnp_veto_type">PNP_VETO_TYPE</a>-typed value that indicates the reason for the veto.
+     * @param {Pointer<PNP_VETO_TYPE>} pVetoType (<i>Optional</i>)  If the caller does not pass <b>NULL</b> and the removal request is vetoed (that is, the function returns CR_REMOVE_VETOED), on return this points to a <a href="https://docs.microsoft.com/windows/desktop/api/cfg/ne-cfg-pnp_veto_type">PNP_VETO_TYPE</a>-typed value that indicates the reason for the veto.
      * @param {PSTR} pszVetoName (<i>Optional</i>) If the caller does not pass <b>NULL</b> and the removal request is vetoed (that is, the function returns CR_REMOVE_VETOED), on return this points to a text string that is associated with the veto type. The type of information this string provides is dependent on the value received by <i>pVetoType</i>. For information about these strings, see <a href="https://docs.microsoft.com/windows/desktop/api/cfg/ne-cfg-pnp_veto_type">PNP_VETO_TYPE</a>.
      * @param {Integer} ulNameLength Caller-supplied value representing the length (number of characters) of the string buffer supplied by <i>pszVetoName</i>. This should be set to MAX_PATH.
      * @param {Integer} ulFlags A bitwise OR of the caller-supplied flag constants that are described in the <b>Remarks</b> section.
-     * @returns {Integer} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the other CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
+     * @returns {CONFIGRET} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the other CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_query_and_remove_subtreea
      */
     static CM_Query_And_Remove_SubTreeA(dnAncestor, pVetoType, pszVetoName, ulNameLength, ulFlags) {
@@ -26466,11 +27050,11 @@ class DeviceAndDriverInstallation {
      * 
      * For information about using device instance handles that are bound to the local machine, see <a href="https://docs.microsoft.com/windows/desktop/api/cfgmgr32/nf-cfgmgr32-cm_get_child">CM_Get_Child</a>.
      * @param {Integer} dnAncestor Caller-supplied device instance handle to the device at the root of the subtree to be removed. This device instance handle is bound to the local machine.
-     * @param {Pointer<Integer>} pVetoType (<i>Optional</i>)  If the caller does not pass <b>NULL</b> and the removal request is vetoed (that is, the function returns CR_REMOVE_VETOED), on return this points to a <a href="https://docs.microsoft.com/windows/desktop/api/cfg/ne-cfg-pnp_veto_type">PNP_VETO_TYPE</a>-typed value that indicates the reason for the veto.
+     * @param {Pointer<PNP_VETO_TYPE>} pVetoType (<i>Optional</i>)  If the caller does not pass <b>NULL</b> and the removal request is vetoed (that is, the function returns CR_REMOVE_VETOED), on return this points to a <a href="https://docs.microsoft.com/windows/desktop/api/cfg/ne-cfg-pnp_veto_type">PNP_VETO_TYPE</a>-typed value that indicates the reason for the veto.
      * @param {PWSTR} pszVetoName (<i>Optional</i>) If the caller does not pass <b>NULL</b> and the removal request is vetoed (that is, the function returns CR_REMOVE_VETOED), on return this points to a text string that is associated with the veto type. The type of information this string provides is dependent on the value received by <i>pVetoType</i>. For information about these strings, see <a href="https://docs.microsoft.com/windows/desktop/api/cfg/ne-cfg-pnp_veto_type">PNP_VETO_TYPE</a>.
      * @param {Integer} ulNameLength Caller-supplied value representing the length (number of characters) of the string buffer supplied by <i>pszVetoName</i>. This should be set to MAX_PATH.
      * @param {Integer} ulFlags A bitwise OR of the caller-supplied flag constants that are described in the <b>Remarks</b> section.
-     * @returns {Integer} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the other CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
+     * @returns {CONFIGRET} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the other CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_query_and_remove_subtreew
      * @since windows5.0
      */
@@ -26500,7 +27084,7 @@ class DeviceAndDriverInstallation {
      * 
      * Functionality to access remote machines has been removed in Windows 8 and Windows Server 2012 and later operating systems thus you cannot access remote machines when running on these versions of Windows.
      * @param {Integer} dnAncestor Caller-supplied device instance handle to the device at the root of the subtree to be removed. This device instance handle is bound to the machine handle supplied by <i>hMachine</i>.
-     * @param {Pointer<Integer>} pVetoType (<i>Optional</i>)  If the caller does not pass <b>NULL</b> and the removal request is vetoed (that is, the function returns CR_REMOVE_VETOED), on return this points to a <a href="https://docs.microsoft.com/windows/desktop/api/cfg/ne-cfg-pnp_veto_type">PNP_VETO_TYPE</a>-typed value that indicates the reason for the veto.
+     * @param {Pointer<PNP_VETO_TYPE>} pVetoType (<i>Optional</i>)  If the caller does not pass <b>NULL</b> and the removal request is vetoed (that is, the function returns CR_REMOVE_VETOED), on return this points to a <a href="https://docs.microsoft.com/windows/desktop/api/cfg/ne-cfg-pnp_veto_type">PNP_VETO_TYPE</a>-typed value that indicates the reason for the veto.
      * @param {PSTR} pszVetoName (<i>Optional</i>) If the caller does not pass <b>NULL</b> and the removal request is vetoed (that is, the function returns CR_REMOVE_VETOED), on return this points to a text string that is associated with the veto type. The type of information this string provides is dependent on the value received by <i>pVetoType</i>. For information about these strings, see <a href="https://docs.microsoft.com/windows/desktop/api/cfg/ne-cfg-pnp_veto_type">PNP_VETO_TYPE</a>.
      * @param {Integer} ulNameLength (<i>Optional</i>.) Caller-supplied value representing the length (number of characters) of the string buffer supplied by <i>pszVetoName</i>. This should be set to MAX_PATH.
      * @param {Integer} ulFlags A bitwise OR of the caller-supplied flag constants that are described in the <b>Remarks</b> section.
@@ -26508,7 +27092,7 @@ class DeviceAndDriverInstallation {
      * 
      * <div class="alert"><b>Note</b>  Using this function to access remote machines is not supported beginning with Windows 8 and Windows Server 2012, as this functionality has been removed.</div>
      * <div> </div>
-     * @returns {Integer} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
+     * @returns {CONFIGRET} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_query_and_remove_subtree_exa
      */
     static CM_Query_And_Remove_SubTree_ExA(dnAncestor, pVetoType, pszVetoName, ulNameLength, ulFlags, hMachine) {
@@ -26541,7 +27125,7 @@ class DeviceAndDriverInstallation {
      * 
      *  Functionality to access remote machines has been removed in Windows 8 and Windows Server 2012 and later operating systems thus you cannot access remote machines when running on these versions of Windows.
      * @param {Integer} dnAncestor Caller-supplied device instance handle to the device at the root of the subtree to be removed. This device instance handle is bound to the machine handle supplied by <i>hMachine</i>.
-     * @param {Pointer<Integer>} pVetoType (<i>Optional</i>)  If the caller does not pass <b>NULL</b> and the removal request is vetoed (that is, the function returns CR_REMOVE_VETOED), on return this points to a <a href="https://docs.microsoft.com/windows/desktop/api/cfg/ne-cfg-pnp_veto_type">PNP_VETO_TYPE</a>-typed value that indicates the reason for the veto.
+     * @param {Pointer<PNP_VETO_TYPE>} pVetoType (<i>Optional</i>)  If the caller does not pass <b>NULL</b> and the removal request is vetoed (that is, the function returns CR_REMOVE_VETOED), on return this points to a <a href="https://docs.microsoft.com/windows/desktop/api/cfg/ne-cfg-pnp_veto_type">PNP_VETO_TYPE</a>-typed value that indicates the reason for the veto.
      * @param {PWSTR} pszVetoName (<i>Optional</i>) If the caller does not pass <b>NULL</b> and the removal request is vetoed (that is, the function returns CR_REMOVE_VETOED), on return this points to a text string that is associated with the veto type. The type of information this string provides is dependent on the value received by <i>pVetoType</i>. For information about these strings, see <a href="https://docs.microsoft.com/windows/desktop/api/cfg/ne-cfg-pnp_veto_type">PNP_VETO_TYPE</a>.
      * @param {Integer} ulNameLength (<i>Optional</i>.) Caller-supplied value representing the length (number of characters) of the string buffer supplied by <i>pszVetoName</i>. This should be set to MAX_PATH.
      * @param {Integer} ulFlags A bitwise OR of the caller-supplied flag constants that are described in the <b>Remarks</b> section.
@@ -26549,7 +27133,7 @@ class DeviceAndDriverInstallation {
      * 
      * <div class="alert"><b>Note</b>  Using this function to access remote machines is not supported beginning with Windows 8 and Windows Server 2012, as this functionality has been removed.</div>
      * <div> </div>
-     * @returns {Integer} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
+     * @returns {CONFIGRET} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_query_and_remove_subtree_exw
      * @since windows5.0
      */
@@ -26583,11 +27167,11 @@ class DeviceAndDriverInstallation {
      * 
      * For information about using device instance handles that are bound to the local machine, see <a href="https://docs.microsoft.com/windows/desktop/api/cfgmgr32/nf-cfgmgr32-cm_get_child">CM_Get_Child</a>.
      * @param {Integer} dnDevInst Caller-supplied device instance handle that is bound to the local machine.
-     * @param {Pointer<Integer>} pVetoType (<i>Optional</i>.) If not <b>NULL</b>, this points to a location that, if the removal request fails, receives a <a href="https://docs.microsoft.com/windows/desktop/api/cfg/ne-cfg-pnp_veto_type">PNP_VETO_TYPE</a>-typed value indicating the reason for the failure.
+     * @param {Pointer<PNP_VETO_TYPE>} pVetoType (<i>Optional</i>.) If not <b>NULL</b>, this points to a location that, if the removal request fails, receives a <a href="https://docs.microsoft.com/windows/desktop/api/cfg/ne-cfg-pnp_veto_type">PNP_VETO_TYPE</a>-typed value indicating the reason for the failure.
      * @param {PSTR} pszVetoName (<i>Optional</i>.) If not <b>NULL</b>, this is a caller-supplied pointer to a string buffer that receives a text string. The type of information this string provides is dependent on the value received by <i>pVetoType</i>. For information about these strings, see <a href="https://docs.microsoft.com/windows/desktop/api/cfg/ne-cfg-pnp_veto_type">PNP_VETO_TYPE</a>.
      * @param {Integer} ulNameLength (<i>Optional</i>.) Caller-supplied value representing the length of the string buffer supplied by <i>pszVetoName</i>. This should be set to MAX_PATH.
      * @param {Integer} ulFlags Not used.
-     * @returns {Integer} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
+     * @returns {CONFIGRET} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_request_device_ejecta
      */
     static CM_Request_Device_EjectA(dnDevInst, pVetoType, pszVetoName, ulNameLength, ulFlags) {
@@ -26624,7 +27208,7 @@ class DeviceAndDriverInstallation {
      * 
      *  Functionality to access remote machines has been removed in Windows 8 and Windows Server 2012 and later operating systems thus you cannot access remote machines when running on these versions of Windows.
      * @param {Integer} dnDevInst Caller-supplied device instance handle that is bound to the machine handle supplied by <i>hMachine</i>.
-     * @param {Pointer<Integer>} pVetoType (<i>Optional</i>.) If not <b>NULL</b>, this points to a location that, if the removal request fails, receives a <a href="https://docs.microsoft.com/windows/desktop/api/cfg/ne-cfg-pnp_veto_type">PNP_VETO_TYPE</a>-typed value indicating the reason for the failure.
+     * @param {Pointer<PNP_VETO_TYPE>} pVetoType (<i>Optional</i>.) If not <b>NULL</b>, this points to a location that, if the removal request fails, receives a <a href="https://docs.microsoft.com/windows/desktop/api/cfg/ne-cfg-pnp_veto_type">PNP_VETO_TYPE</a>-typed value indicating the reason for the failure.
      * @param {PSTR} pszVetoName (<i>Optional</i>.) If not <b>NULL</b>, this is a caller-supplied pointer to a string buffer that receives a text string. The type of information this string provides is dependent on the value received by <i>pVetoType</i>. For information about these strings, see <a href="https://docs.microsoft.com/windows/desktop/api/cfg/ne-cfg-pnp_veto_type">PNP_VETO_TYPE</a>.
      * @param {Integer} ulNameLength (<i>Optional</i>.) Caller-supplied value representing the length of the string buffer supplied by <i>pszVetoName</i>. This should be set to MAX_PATH.
      * @param {Integer} ulFlags Not used.
@@ -26632,7 +27216,7 @@ class DeviceAndDriverInstallation {
      * 
      * <div class="alert"><b>Note</b>  Using this function to access remote machines is not supported beginning with Windows 8 and Windows Server 2012, as this functionality has been removed.</div>
      * <div> </div>
-     * @returns {Integer} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
+     * @returns {CONFIGRET} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_request_device_eject_exa
      */
     static CM_Request_Device_Eject_ExA(dnDevInst, pVetoType, pszVetoName, ulNameLength, ulFlags, hMachine) {
@@ -26665,11 +27249,11 @@ class DeviceAndDriverInstallation {
      * 
      * For information about using device instance handles that are bound to the local machine, see <a href="https://docs.microsoft.com/windows/desktop/api/cfgmgr32/nf-cfgmgr32-cm_get_child">CM_Get_Child</a>.
      * @param {Integer} dnDevInst Caller-supplied device instance handle that is bound to the local machine.
-     * @param {Pointer<Integer>} pVetoType (<i>Optional</i>.) If not <b>NULL</b>, this points to a location that, if the removal request fails, receives a <a href="https://docs.microsoft.com/windows/desktop/api/cfg/ne-cfg-pnp_veto_type">PNP_VETO_TYPE</a>-typed value indicating the reason for the failure.
+     * @param {Pointer<PNP_VETO_TYPE>} pVetoType (<i>Optional</i>.) If not <b>NULL</b>, this points to a location that, if the removal request fails, receives a <a href="https://docs.microsoft.com/windows/desktop/api/cfg/ne-cfg-pnp_veto_type">PNP_VETO_TYPE</a>-typed value indicating the reason for the failure.
      * @param {PWSTR} pszVetoName (<i>Optional</i>.) If not <b>NULL</b>, this is a caller-supplied pointer to a string buffer that receives a text string. The type of information this string provides is dependent on the value received by <i>pVetoType</i>. For information about these strings, see <a href="https://docs.microsoft.com/windows/desktop/api/cfg/ne-cfg-pnp_veto_type">PNP_VETO_TYPE</a>.
      * @param {Integer} ulNameLength (<i>Optional</i>.) Caller-supplied value representing the length of the string buffer supplied by <i>pszVetoName</i>. This should be set to MAX_PATH.
      * @param {Integer} ulFlags Not used.
-     * @returns {Integer} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
+     * @returns {CONFIGRET} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_request_device_ejectw
      * @since windows5.0
      */
@@ -26707,7 +27291,7 @@ class DeviceAndDriverInstallation {
      * 
      *  Functionality to access remote machines has been removed in Windows 8 and Windows Server 2012 and later operating systems thus you cannot access remote machines when running on these versions of Windows.
      * @param {Integer} dnDevInst Caller-supplied device instance handle that is bound to the machine handle supplied by <i>hMachine</i>.
-     * @param {Pointer<Integer>} pVetoType (<i>Optional</i>.) If not <b>NULL</b>, this points to a location that, if the removal request fails, receives a <a href="https://docs.microsoft.com/windows/desktop/api/cfg/ne-cfg-pnp_veto_type">PNP_VETO_TYPE</a>-typed value indicating the reason for the failure.
+     * @param {Pointer<PNP_VETO_TYPE>} pVetoType (<i>Optional</i>.) If not <b>NULL</b>, this points to a location that, if the removal request fails, receives a <a href="https://docs.microsoft.com/windows/desktop/api/cfg/ne-cfg-pnp_veto_type">PNP_VETO_TYPE</a>-typed value indicating the reason for the failure.
      * @param {PWSTR} pszVetoName (<i>Optional</i>.) If not <b>NULL</b>, this is a caller-supplied pointer to a string buffer that receives a text string. The type of information this string provides is dependent on the value received by <i>pVetoType</i>. For information about these strings, see <a href="https://docs.microsoft.com/windows/desktop/api/cfg/ne-cfg-pnp_veto_type">PNP_VETO_TYPE</a>.
      * @param {Integer} ulNameLength (<i>Optional</i>.) Caller-supplied value representing the length of the string buffer supplied by <i>pszVetoName</i>. This should be set to MAX_PATH.
      * @param {Integer} ulFlags Not used.
@@ -26715,7 +27299,7 @@ class DeviceAndDriverInstallation {
      * 
      * <div class="alert"><b>Note</b>  Using this function to access remote machines is not supported beginning with Windows 8 and Windows Server 2012, as this functionality has been removed.</div>
      * <div> </div>
-     * @returns {Integer} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
+     * @returns {CONFIGRET} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_request_device_eject_exw
      * @since windows5.0
      */
@@ -26737,8 +27321,8 @@ class DeviceAndDriverInstallation {
      * 
      * For information about using device instance handles that are bound to the local machine, see <a href="https://docs.microsoft.com/windows/desktop/api/cfgmgr32/nf-cfgmgr32-cm_get_child">CM_Get_Child</a>.
      * @param {Integer} dnDevInst Caller-supplied device instance handle that is bound to the local machine.
-     * @param {Integer} ulFlags Caller-supplied flags that specify how reenumeration should occur. This parameter can be set to a combination of the following flags, as noted:
-     * @returns {Integer} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
+     * @param {CM_REENUMERATE_FLAGS} ulFlags Caller-supplied flags that specify how reenumeration should occur. This parameter can be set to a combination of the following flags, as noted:
+     * @returns {CONFIGRET} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_reenumerate_devnode
      * @since windows5.0
      */
@@ -26763,7 +27347,7 @@ class DeviceAndDriverInstallation {
      * 
      * <div class="alert"><b>Note</b>  Using this function to access remote machines is not supported beginning with Windows 8 and Windows Server 2012, as this functionality has been removed.</div>
      * <div> </div>
-     * @returns {Integer} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
+     * @returns {CONFIGRET} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_reenumerate_devnode_ex
      * @since windows5.0
      */
@@ -26780,7 +27364,7 @@ class DeviceAndDriverInstallation {
      * @param {PSTR} pszDeviceInterface 
      * @param {Pointer<Integer>} pulLength 
      * @param {Integer} ulFlags 
-     * @returns {Integer} 
+     * @returns {CONFIGRET} 
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_register_device_interfacea
      */
     static CM_Register_Device_InterfaceA(dnDevInst, InterfaceClassGuid, pszReference, pszDeviceInterface, pulLength, ulFlags) {
@@ -26801,7 +27385,7 @@ class DeviceAndDriverInstallation {
      * @param {PWSTR} pszDeviceInterface 
      * @param {Pointer<Integer>} pulLength 
      * @param {Integer} ulFlags 
-     * @returns {Integer} 
+     * @returns {CONFIGRET} 
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_register_device_interfacew
      */
     static CM_Register_Device_InterfaceW(dnDevInst, InterfaceClassGuid, pszReference, pszDeviceInterface, pulLength, ulFlags) {
@@ -26823,7 +27407,7 @@ class DeviceAndDriverInstallation {
      * @param {Pointer<Integer>} pulLength 
      * @param {Integer} ulFlags 
      * @param {Pointer} hMachine 
-     * @returns {Integer} 
+     * @returns {CONFIGRET} 
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_register_device_interface_exa
      */
     static CM_Register_Device_Interface_ExA(dnDevInst, InterfaceClassGuid, pszReference, pszDeviceInterface, pulLength, ulFlags, hMachine) {
@@ -26845,7 +27429,7 @@ class DeviceAndDriverInstallation {
      * @param {Pointer<Integer>} pulLength 
      * @param {Integer} ulFlags 
      * @param {Pointer} hMachine 
-     * @returns {Integer} 
+     * @returns {CONFIGRET} 
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_register_device_interface_exw
      */
     static CM_Register_Device_Interface_ExW(dnDevInst, InterfaceClassGuid, pszReference, pszDeviceInterface, pulLength, ulFlags, hMachine) {
@@ -26890,7 +27474,7 @@ class DeviceAndDriverInstallation {
      * 
      * <div class="alert"><b>Note</b>  Using this function to access remote machines is not supported beginning with Windows 8 and Windows Server 2012, as this functionality has been removed.</div>
      * <div> </div>
-     * @returns {Integer} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, the function returns one of the CR_-prefixed error codes that are defined in <i>Cfgmgr32.h</i>.
+     * @returns {CONFIGRET} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, the function returns one of the CR_-prefixed error codes that are defined in <i>Cfgmgr32.h</i>.
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_set_devnode_problem_ex
      * @since windows5.0
      */
@@ -26925,7 +27509,7 @@ class DeviceAndDriverInstallation {
      * @param {Integer} dnDevInst Caller-supplied device instance handle that is bound to the local machine.
      * @param {Integer} ulProblem Supplies a problem code, which is zero or one of the CM_PROB_Xxx flags that are described in <a href="https://docs.microsoft.com/windows-hardware/drivers/install/device-manager-error-messages">Device Manager Error Messages</a>. A value of zero indicates that a problem is not set for the device.
      * @param {Integer} ulFlags Must be set to zero.
-     * @returns {Integer} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, the function returns one of the CR_-prefixed error codes that are defined in <i>Cfgmgr32.h</i>.
+     * @returns {CONFIGRET} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, the function returns one of the CR_-prefixed error codes that are defined in <i>Cfgmgr32.h</i>.
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_set_devnode_problem
      * @since windows5.0
      */
@@ -26938,7 +27522,7 @@ class DeviceAndDriverInstallation {
      * 
      * @param {PSTR} pszDeviceInterface 
      * @param {Integer} ulFlags 
-     * @returns {Integer} 
+     * @returns {CONFIGRET} 
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_unregister_device_interfacea
      */
     static CM_Unregister_Device_InterfaceA(pszDeviceInterface, ulFlags) {
@@ -26952,7 +27536,7 @@ class DeviceAndDriverInstallation {
      * 
      * @param {PWSTR} pszDeviceInterface 
      * @param {Integer} ulFlags 
-     * @returns {Integer} 
+     * @returns {CONFIGRET} 
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_unregister_device_interfacew
      */
     static CM_Unregister_Device_InterfaceW(pszDeviceInterface, ulFlags) {
@@ -26967,7 +27551,7 @@ class DeviceAndDriverInstallation {
      * @param {PSTR} pszDeviceInterface 
      * @param {Integer} ulFlags 
      * @param {Pointer} hMachine 
-     * @returns {Integer} 
+     * @returns {CONFIGRET} 
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_unregister_device_interface_exa
      */
     static CM_Unregister_Device_Interface_ExA(pszDeviceInterface, ulFlags, hMachine) {
@@ -26982,7 +27566,7 @@ class DeviceAndDriverInstallation {
      * @param {PWSTR} pszDeviceInterface 
      * @param {Integer} ulFlags 
      * @param {Pointer} hMachine 
-     * @returns {Integer} 
+     * @returns {CONFIGRET} 
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_unregister_device_interface_exw
      */
     static CM_Unregister_Device_Interface_ExW(pszDeviceInterface, ulFlags, hMachine) {
@@ -26996,7 +27580,7 @@ class DeviceAndDriverInstallation {
      * 
      * @param {Integer} dnDevInst 
      * @param {Integer} ulFlags 
-     * @returns {Integer} 
+     * @returns {CONFIGRET} 
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_register_device_driver
      */
     static CM_Register_Device_Driver(dnDevInst, ulFlags) {
@@ -27009,7 +27593,7 @@ class DeviceAndDriverInstallation {
      * @param {Integer} dnDevInst 
      * @param {Integer} ulFlags 
      * @param {Pointer} hMachine 
-     * @returns {Integer} 
+     * @returns {CONFIGRET} 
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_register_device_driver_ex
      */
     static CM_Register_Device_Driver_Ex(dnDevInst, ulFlags, hMachine) {
@@ -27021,7 +27605,7 @@ class DeviceAndDriverInstallation {
      * 
      * @param {Integer} dnAncestor 
      * @param {Integer} ulFlags 
-     * @returns {Integer} 
+     * @returns {CONFIGRET} 
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_remove_subtree
      */
     static CM_Remove_SubTree(dnAncestor, ulFlags) {
@@ -27034,7 +27618,7 @@ class DeviceAndDriverInstallation {
      * @param {Integer} dnAncestor 
      * @param {Integer} ulFlags 
      * @param {Pointer} hMachine 
-     * @returns {Integer} 
+     * @returns {CONFIGRET} 
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_remove_subtree_ex
      */
     static CM_Remove_SubTree_Ex(dnAncestor, ulFlags, hMachine) {
@@ -27047,12 +27631,12 @@ class DeviceAndDriverInstallation {
      * @remarks
      * <b>CM_Set_DevNode_Property</b> is part of the <a href="https://docs.microsoft.com/windows-hardware/drivers/install/unified-device-property-model--windows-vista-and-later-">Unified Device Property Model</a>.
      * @param {Integer} dnDevInst Device instance handle that is bound to the local machine.
-     * @param {Pointer<DEVPROPKEY>} _PropertyKey 
-     * @param {Integer} PropertyType A <a href="https://docs.microsoft.com/windows-hardware/drivers/install/property-data-type-identifiers">DEVPROPTYPE</a>-typed value that represents the property-data-type identifier for the device instance property. To delete a property, this must be set to DEVPROP_TYPE_EMPTY.
-     * @param {Pointer} PropertyBuffer Pointer to a buffer that contains the property value of the device instance property. If either the property or the data is being deleted, this pointer must be set to NULL, and <i>PropertyBufferSize</i> must be set to zero.
+     * @param {Pointer<DEVPROPKEY>} _PropertyKey Pointer to a <a href="https://docs.microsoft.com/windows-hardware/drivers/install/devpropkey">DEVPROPKEY</a> structure that represents the property key of the device instance property to set.
+     * @param {DEVPROPTYPE} PropertyType A <a href="https://docs.microsoft.com/windows-hardware/drivers/install/property-data-type-identifiers">DEVPROPTYPE</a>-typed value that represents the property-data-type identifier for the device instance property. To delete a property, this must be set to DEVPROP_TYPE_EMPTY.
+     * @param {Integer} PropertyBuffer Pointer to a buffer that contains the property value of the device instance property. If either the property or the data is being deleted, this pointer must be set to NULL, and <i>PropertyBufferSize</i> must be set to zero.
      * @param {Integer} PropertyBufferSize The size, in bytes, of the <i>PropertyBuffer</i> buffer. If <i>PropertyBuffer</i> is set to NULL, <i>PropertyBufferSize</i> must be set to zero.
      * @param {Integer} ulFlags Reserved. Must be set to zero.
-     * @returns {Integer} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
+     * @returns {CONFIGRET} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_set_devnode_propertyw
      * @since windows6.0.6000
      */
@@ -27066,16 +27650,16 @@ class DeviceAndDriverInstallation {
      * @remarks
      * <b>CM_Set_DevNode_Property_ExW</b> is part of the <a href="https://docs.microsoft.com/windows-hardware/drivers/install/unified-device-property-model--windows-vista-and-later-">Unified Device Property Model</a>.
      * @param {Integer} dnDevInst Device instance handle that is bound to the local machine.
-     * @param {Pointer<DEVPROPKEY>} _PropertyKey 
-     * @param {Integer} PropertyType A <a href="https://docs.microsoft.com/windows-hardware/drivers/install/property-data-type-identifiers">DEVPROPTYPE</a>-typed value that represents the property-data-type identifier for the device instance property. To delete a property, this must be set to DEVPROP_TYPE_EMPTY.
-     * @param {Pointer} PropertyBuffer Pointer to a buffer that contains the property value of the device instance property. If either the property or the data is being deleted, this pointer must be set to NULL, and <i>PropertyBufferSize</i> must be set to zero.
+     * @param {Pointer<DEVPROPKEY>} _PropertyKey Pointer to a <a href="https://docs.microsoft.com/windows-hardware/drivers/install/devpropkey">DEVPROPKEY</a> structure that represents the property key of the device instance property to set.
+     * @param {DEVPROPTYPE} PropertyType A <a href="https://docs.microsoft.com/windows-hardware/drivers/install/property-data-type-identifiers">DEVPROPTYPE</a>-typed value that represents the property-data-type identifier for the device instance property. To delete a property, this must be set to DEVPROP_TYPE_EMPTY.
+     * @param {Integer} PropertyBuffer Pointer to a buffer that contains the property value of the device instance property. If either the property or the data is being deleted, this pointer must be set to NULL, and <i>PropertyBufferSize</i> must be set to zero.
      * @param {Integer} PropertyBufferSize The size, in bytes, of the <i>PropertyBuffer</i> buffer. If <i>PropertyBuffer</i> is set to NULL, <i>PropertyBufferSize</i> must be set to zero.
      * @param {Integer} ulFlags Reserved. Must be set to zero.
      * @param {Pointer} hMachine Caller-supplied machine handle, obtained from a previous call to <a href="https://docs.microsoft.com/windows/desktop/api/cfgmgr32/nf-cfgmgr32-cm_connect_machinew">CM_Connect_Machine</a>.
      * 
      * <div class="alert"><b>Note</b>  Using this function to access remote machines is not supported beginning with Windows 8 and Windows Server 2012, as this functionality has been removed.</div>
      * <div> </div>
-     * @returns {Integer} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
+     * @returns {CONFIGRET} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_set_devnode_property_exw
      * @since windows10.0.10240
      */
@@ -27090,10 +27674,10 @@ class DeviceAndDriverInstallation {
      * For information about how to use device instance handles that are bound to the local machine, see <a href="https://docs.microsoft.com/windows/desktop/api/cfgmgr32/nf-cfgmgr32-cm_get_child">CM_Get_Child</a>.
      * @param {Integer} dnDevInst A caller-supplied device instance handle that is bound to the local machine.
      * @param {Integer} ulProperty A CM_DRP_-prefixed constant value that identifies the device property to be set in the registry. These constants are defined in <i>Cfgmgr32.h</i>.
-     * @param {Pointer} _Buffer 
+     * @param {Integer} _Buffer A pointer to a caller-supplied buffer that supplies the requested device property, formatted appropriately for the property's data type.
      * @param {Integer} ulLength The length, in bytes, of the supplied device property.
      * @param {Integer} ulFlags Not used, must be zero.
-     * @returns {Integer} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes that are defined in <i>Cfgmgr32.h</i>.
+     * @returns {CONFIGRET} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes that are defined in <i>Cfgmgr32.h</i>.
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_set_devnode_registry_propertya
      */
     static CM_Set_DevNode_Registry_PropertyA(dnDevInst, ulProperty, _Buffer, ulLength, ulFlags) {
@@ -27107,10 +27691,10 @@ class DeviceAndDriverInstallation {
      * For information about how to use device instance handles that are bound to the local machine, see <a href="https://docs.microsoft.com/windows/desktop/api/cfgmgr32/nf-cfgmgr32-cm_get_child">CM_Get_Child</a>.
      * @param {Integer} dnDevInst A caller-supplied device instance handle that is bound to the local machine.
      * @param {Integer} ulProperty A CM_DRP_-prefixed constant value that identifies the device property to be set in the registry. These constants are defined in <i>Cfgmgr32.h</i>.
-     * @param {Pointer} _Buffer 
+     * @param {Integer} _Buffer A pointer to a caller-supplied buffer that supplies the requested device property, formatted appropriately for the property's data type.
      * @param {Integer} ulLength The length, in bytes, of the supplied device property.
      * @param {Integer} ulFlags Not used, must be zero.
-     * @returns {Integer} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes that are defined in <i>Cfgmgr32.h</i>.
+     * @returns {CONFIGRET} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes that are defined in <i>Cfgmgr32.h</i>.
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_set_devnode_registry_propertyw
      * @since windows5.0
      */
@@ -27123,11 +27707,11 @@ class DeviceAndDriverInstallation {
      * 
      * @param {Integer} dnDevInst 
      * @param {Integer} ulProperty 
-     * @param {Pointer} _Buffer 
+     * @param {Integer} _Buffer 
      * @param {Integer} ulLength 
      * @param {Integer} ulFlags 
      * @param {Pointer} hMachine 
-     * @returns {Integer} 
+     * @returns {CONFIGRET} 
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_set_devnode_registry_property_exa
      */
     static CM_Set_DevNode_Registry_Property_ExA(dnDevInst, ulProperty, _Buffer, ulLength, ulFlags, hMachine) {
@@ -27139,11 +27723,11 @@ class DeviceAndDriverInstallation {
      * 
      * @param {Integer} dnDevInst 
      * @param {Integer} ulProperty 
-     * @param {Pointer} _Buffer 
+     * @param {Integer} _Buffer 
      * @param {Integer} ulLength 
      * @param {Integer} ulFlags 
      * @param {Pointer} hMachine 
-     * @returns {Integer} 
+     * @returns {CONFIGRET} 
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_set_devnode_registry_property_exw
      */
     static CM_Set_DevNode_Registry_Property_ExW(dnDevInst, ulProperty, _Buffer, ulLength, ulFlags, hMachine) {
@@ -27156,12 +27740,12 @@ class DeviceAndDriverInstallation {
      * @remarks
      * <b>CM_Set_Device_Interface_Property</b> is part of the <a href="https://docs.microsoft.com/windows-hardware/drivers/install/unified-device-property-model--windows-vista-and-later-">Unified Device Property Model</a>.
      * @param {PWSTR} pszDeviceInterface Pointer to a string that identifies the device interface instance for which to set a property for.
-     * @param {Pointer<DEVPROPKEY>} _PropertyKey 
-     * @param {Integer} PropertyType A <a href="https://docs.microsoft.com/windows-hardware/drivers/install/property-data-type-identifiers">DEVPROPTYPE</a>-typed value that represents the property-data-type identifier for the device interface property. To delete a property, this must be set to DEVPROP_TYPE_EMPTY.
-     * @param {Pointer} PropertyBuffer Pointer to a buffer that contains the property value of the device interface property. If either the property or the data is being deleted, this pointer must be set to NULL, and <i>PropertyBufferSize</i> must be set to zero.
+     * @param {Pointer<DEVPROPKEY>} _PropertyKey Pointer to a <a href="https://docs.microsoft.com/windows-hardware/drivers/install/devpropkey">DEVPROPKEY</a> structure that represents the property key of the device interface property to set.
+     * @param {DEVPROPTYPE} PropertyType A <a href="https://docs.microsoft.com/windows-hardware/drivers/install/property-data-type-identifiers">DEVPROPTYPE</a>-typed value that represents the property-data-type identifier for the device interface property. To delete a property, this must be set to DEVPROP_TYPE_EMPTY.
+     * @param {Integer} PropertyBuffer Pointer to a buffer that contains the property value of the device interface property. If either the property or the data is being deleted, this pointer must be set to NULL, and <i>PropertyBufferSize</i> must be set to zero.
      * @param {Integer} PropertyBufferSize The size, in bytes, of the <i>PropertyBuffer</i> buffer. If <i>PropertyBuffer</i> is set to NULL, <i>PropertyBufferSize</i> must be set to zero.
      * @param {Integer} ulFlags Reserved. Must be set to zero.
-     * @returns {Integer} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
+     * @returns {CONFIGRET} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_set_device_interface_propertyw
      * @since windows6.0.6000
      */
@@ -27177,16 +27761,16 @@ class DeviceAndDriverInstallation {
      * @remarks
      * <b>CM_Set_Device_Interface_Property_ExW</b> is part of the <a href="https://docs.microsoft.com/windows-hardware/drivers/install/unified-device-property-model--windows-vista-and-later-">Unified Device Property Model</a>.
      * @param {PWSTR} pszDeviceInterface Pointer to a string that identifies the device interface instance for which to set a property for.
-     * @param {Pointer<DEVPROPKEY>} _PropertyKey 
-     * @param {Integer} PropertyType A <a href="https://docs.microsoft.com/windows-hardware/drivers/install/property-data-type-identifiers">DEVPROPTYPE</a>-typed value that represents the property-data-type identifier for the device interface property. To delete a property, this must be set to DEVPROP_TYPE_EMPTY.
-     * @param {Pointer} PropertyBuffer Pointer to a buffer that contains the property value of the device interface property. If either the property or the data is being deleted, this pointer must be set to NULL, and <i>PropertyBufferSize</i> must be set to zero.
+     * @param {Pointer<DEVPROPKEY>} _PropertyKey Pointer to a <a href="https://docs.microsoft.com/windows-hardware/drivers/install/devpropkey">DEVPROPKEY</a> structure that represents the property key of the device interface property to set.
+     * @param {DEVPROPTYPE} PropertyType A <a href="https://docs.microsoft.com/windows-hardware/drivers/install/property-data-type-identifiers">DEVPROPTYPE</a>-typed value that represents the property-data-type identifier for the device interface property. To delete a property, this must be set to DEVPROP_TYPE_EMPTY.
+     * @param {Integer} PropertyBuffer Pointer to a buffer that contains the property value of the device interface property. If either the property or the data is being deleted, this pointer must be set to NULL, and <i>PropertyBufferSize</i> must be set to zero.
      * @param {Integer} PropertyBufferSize The size, in bytes, of the <i>PropertyBuffer</i> buffer. If <i>PropertyBuffer</i> is set to NULL, <i>PropertyBufferSize</i> must be set to zero.
      * @param {Integer} ulFlags Reserved. Must be set to zero.
      * @param {Pointer} hMachine Caller-supplied machine handle, obtained from a previous call to <a href="https://docs.microsoft.com/windows/desktop/api/cfgmgr32/nf-cfgmgr32-cm_connect_machinew">CM_Connect_Machine</a>.
      * 
      * <div class="alert"><b>Note</b>  Using this function to access remote machines is not supported beginning with Windows 8 and Windows Server 2012, as this functionality has been removed.</div>
      * <div> </div>
-     * @returns {Integer} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
+     * @returns {CONFIGRET} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_set_device_interface_property_exw
      * @since windows10.0.10240
      */
@@ -27220,7 +27804,7 @@ class DeviceAndDriverInstallation {
      * </li>
      * </ul>
      * @param {Pointer<BOOL>} pbPresent Pointer to a Boolean value that indicates whether a docking station is present in a local machine. The function sets *<i>pbPresent</i> to <b>TRUE</b> if a docking station is present. Otherwise, the function sets *<i>pbPresent</i> to <b>FALSE</b>.
-     * @returns {Integer} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, the function returns one of the CR_-prefixed error codes that are defined in <i>Cfgmgr32.h</i>.
+     * @returns {CONFIGRET} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, the function returns one of the CR_-prefixed error codes that are defined in <i>Cfgmgr32.h</i>.
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_is_dock_station_present
      * @since windows5.0
      */
@@ -27259,7 +27843,7 @@ class DeviceAndDriverInstallation {
      * 
      * <div class="alert"><b>Note</b>  Using this function to access remote machines is not supported beginning with Windows 8 and Windows Server 2012, as this functionality has been removed.</div>
      * <div> </div>
-     * @returns {Integer} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, the function returns one of the CR_-prefixed error codes that are defined in <i>Cfgmgr32.h</i>.
+     * @returns {CONFIGRET} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, the function returns one of the CR_-prefixed error codes that are defined in <i>Cfgmgr32.h</i>.
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_is_dock_station_present_ex
      * @since windows5.0
      */
@@ -27292,7 +27876,7 @@ class DeviceAndDriverInstallation {
      * 
      * </li>
      * </ul>
-     * @returns {Integer} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, the function returns one of the CR_-prefixed error codes that are defined in <i>Cfgmgr32.h</i>.
+     * @returns {CONFIGRET} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, the function returns one of the CR_-prefixed error codes that are defined in <i>Cfgmgr32.h</i>.
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_request_eject_pc
      * @since windows5.0
      */
@@ -27328,7 +27912,7 @@ class DeviceAndDriverInstallation {
      * 
      * <div class="alert"><b>Note</b>  Using this function to access remote machines is not supported beginning with Windows 8 and Windows Server 2012, as this functionality has been removed.</div>
      * <div> </div>
-     * @returns {Integer} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, the function returns one of the CR_-prefixed error codes that are defined in <i>Cfgmgr32.h</i>.
+     * @returns {CONFIGRET} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, the function returns one of the CR_-prefixed error codes that are defined in <i>Cfgmgr32.h</i>.
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_request_eject_pc_ex
      * @since windows5.0
      */
@@ -27343,7 +27927,7 @@ class DeviceAndDriverInstallation {
      * @param {Integer} ulConfig 
      * @param {Integer} ulValue 
      * @param {Integer} ulFlags 
-     * @returns {Integer} 
+     * @returns {CONFIGRET} 
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_set_hw_prof_flagsa
      */
     static CM_Set_HW_Prof_FlagsA(pDeviceID, ulConfig, ulValue, ulFlags) {
@@ -27359,7 +27943,7 @@ class DeviceAndDriverInstallation {
      * @param {Integer} ulConfig 
      * @param {Integer} ulValue 
      * @param {Integer} ulFlags 
-     * @returns {Integer} 
+     * @returns {CONFIGRET} 
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_set_hw_prof_flagsw
      */
     static CM_Set_HW_Prof_FlagsW(pDeviceID, ulConfig, ulValue, ulFlags) {
@@ -27376,7 +27960,7 @@ class DeviceAndDriverInstallation {
      * @param {Integer} ulValue 
      * @param {Integer} ulFlags 
      * @param {Pointer} hMachine 
-     * @returns {Integer} 
+     * @returns {CONFIGRET} 
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_set_hw_prof_flags_exa
      */
     static CM_Set_HW_Prof_Flags_ExA(pDeviceID, ulConfig, ulValue, ulFlags, hMachine) {
@@ -27393,7 +27977,7 @@ class DeviceAndDriverInstallation {
      * @param {Integer} ulValue 
      * @param {Integer} ulFlags 
      * @param {Pointer} hMachine 
-     * @returns {Integer} 
+     * @returns {CONFIGRET} 
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_set_hw_prof_flags_exw
      */
     static CM_Set_HW_Prof_Flags_ExW(pDeviceID, ulConfig, ulValue, ulFlags, hMachine) {
@@ -27413,7 +27997,7 @@ class DeviceAndDriverInstallation {
      * Call <a href="https://docs.microsoft.com/windows/desktop/api/cfgmgr32/nf-cfgmgr32-cm_get_devnode_status">CM_Get_DevNode_Status</a> or <a href="https://docs.microsoft.com/windows/desktop/api/cfgmgr32/nf-cfgmgr32-cm_get_devnode_status_ex">CM_Get_DevNode_Status_Ex</a> to determine the status and problem code for a device instance.
      * @param {Integer} dnDevInst A device instance handle that is bound to the local system.
      * @param {Integer} ulFlags One of the following flag values:
-     * @returns {Integer} If the operation succeeds, the function returns CR_SUCCESS. Otherwise it returns one of the error codes with "CR_" prefix that are defined in <i>Cfgmgr32.h</i>.
+     * @returns {CONFIGRET} If the operation succeeds, the function returns CR_SUCCESS. Otherwise it returns one of the error codes with "CR_" prefix that are defined in <i>Cfgmgr32.h</i>.
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_setup_devnode
      * @since windows5.0
      */
@@ -27427,7 +28011,7 @@ class DeviceAndDriverInstallation {
      * @param {Integer} dnDevInst 
      * @param {Integer} ulFlags 
      * @param {Pointer} hMachine 
-     * @returns {Integer} 
+     * @returns {CONFIGRET} 
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_setup_devnode_ex
      */
     static CM_Setup_DevNode_Ex(dnDevInst, ulFlags, hMachine) {
@@ -27441,7 +28025,7 @@ class DeviceAndDriverInstallation {
      * @param {Integer} ullEndValue 
      * @param {Pointer} rlh 
      * @param {Integer} ulFlags 
-     * @returns {Integer} 
+     * @returns {CONFIGRET} 
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_test_range_available
      */
     static CM_Test_Range_Available(ullStartValue, ullEndValue, rlh, ulFlags) {
@@ -27463,7 +28047,7 @@ class DeviceAndDriverInstallation {
      * </ol>
      * @param {Integer} dnDevInst Device instance handle that is bound to the local machine.
      * @param {Integer} ulFlags Reserved. Must be set to zero.
-     * @returns {Integer} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
+     * @returns {CONFIGRET} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_uninstall_devnode
      * @since windows5.0
      */
@@ -27477,7 +28061,7 @@ class DeviceAndDriverInstallation {
      * @param {Integer} dnDevInst 
      * @param {Integer} ulFlags 
      * @param {Pointer} hMachine 
-     * @returns {Integer} 
+     * @returns {CONFIGRET} 
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_uninstall_devnode_ex
      */
     static CM_Uninstall_DevNode_Ex(dnDevInst, ulFlags, hMachine) {
@@ -27488,7 +28072,7 @@ class DeviceAndDriverInstallation {
     /**
      * 
      * @param {Integer} ulFlags 
-     * @returns {Integer} 
+     * @returns {CONFIGRET} 
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_run_detection
      */
     static CM_Run_Detection(ulFlags) {
@@ -27500,7 +28084,7 @@ class DeviceAndDriverInstallation {
      * 
      * @param {Integer} ulFlags 
      * @param {Pointer} hMachine 
-     * @returns {Integer} 
+     * @returns {CONFIGRET} 
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_run_detection_ex
      */
     static CM_Run_Detection_Ex(ulFlags, hMachine) {
@@ -27512,7 +28096,7 @@ class DeviceAndDriverInstallation {
      * 
      * @param {Integer} ulHardwareProfile 
      * @param {Integer} ulFlags 
-     * @returns {Integer} 
+     * @returns {CONFIGRET} 
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_set_hw_prof
      */
     static CM_Set_HW_Prof(ulHardwareProfile, ulFlags) {
@@ -27525,7 +28109,7 @@ class DeviceAndDriverInstallation {
      * @param {Integer} ulHardwareProfile 
      * @param {Integer} ulFlags 
      * @param {Pointer} hMachine 
-     * @returns {Integer} 
+     * @returns {CONFIGRET} 
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_set_hw_prof_ex
      */
     static CM_Set_HW_Prof_Ex(ulHardwareProfile, ulFlags, hMachine) {
@@ -27545,12 +28129,12 @@ class DeviceAndDriverInstallation {
      * For information about using device instance handles that are bound to a local or a remote machine, see <a href="https://docs.microsoft.com/windows/desktop/api/cfgmgr32/nf-cfgmgr32-cm_get_child_ex">CM_Get_Child_Ex</a>.
      * @param {Pointer<Pointer>} pclConflictList Caller-supplied address of a location to receive a handle to a conflict list.
      * @param {Integer} dnDevInst Caller-supplied device instance handle that is bound to the machine handle supplied by <i>hMachine</i>.
-     * @param {Integer} ResourceID Caller-supplied resource type identifier. This must be one of the <b>ResType_</b>-prefixed constants defined in <i>Cfgmgr32.h</i>.
-     * @param {Pointer} ResourceData Caller-supplied pointer to a resource descriptor, which can be one of the structures listed under the <a href="https://docs.microsoft.com/windows/desktop/api/cfgmgr32/nf-cfgmgr32-cm_add_res_des">CM_Add_Res_Des</a> function's description of <i>ResourceData</i>.
+     * @param {CM_RESTYPE} ResourceID Caller-supplied resource type identifier. This must be one of the <b>ResType_</b>-prefixed constants defined in <i>Cfgmgr32.h</i>.
+     * @param {Integer} ResourceData Caller-supplied pointer to a resource descriptor, which can be one of the structures listed under the <a href="https://docs.microsoft.com/windows/desktop/api/cfgmgr32/nf-cfgmgr32-cm_add_res_des">CM_Add_Res_Des</a> function's description of <i>ResourceData</i>.
      * @param {Integer} ResourceLen Caller-supplied length of the structure pointed to by <i>ResourceData</i>.
      * @param {Integer} ulFlags Not used, must be zero.
      * @param {Pointer} hMachine Caller-supplied machine handle to which the caller-supplied device instance handle is bound.
-     * @returns {Integer} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
+     * @returns {CONFIGRET} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
      * 
      * <div class="alert"><b>Note</b>  Starting with Windows 8, <b>CM_Query_Resource_Conflict_List</b> returns CR_CALL_NOT_IMPLEMENTED when used in a Wow64 scenario. To request information about the hardware resources on a local machine it is necessary implement an architecture-native version of the application using the hardware resource APIs. For example: An AMD64 application for AMD64 systems.</div>
      * <div> </div>
@@ -27569,7 +28153,7 @@ class DeviceAndDriverInstallation {
      * @remarks
      * An application must call <b>CM_Free_Resource_Conflict_Handle</b> after it has finished using the handle that was obtained calling <a href="https://docs.microsoft.com/windows/desktop/api/cfgmgr32/nf-cfgmgr32-cm_query_resource_conflict_list">CM_Query_Resource_Conflict_List</a>.
      * @param {Pointer} clConflictList Caller-supplied handle to be freed. This conflict list handle must have been previously obtained by calling <a href="https://docs.microsoft.com/windows/desktop/api/cfgmgr32/nf-cfgmgr32-cm_query_resource_conflict_list">CM_Query_Resource_Conflict_List</a>.
-     * @returns {Integer} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
+     * @returns {CONFIGRET} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_free_resource_conflict_handle
      * @since windows5.0
      */
@@ -27586,7 +28170,7 @@ class DeviceAndDriverInstallation {
      * If there are no entries in the conflict list, the location supplied by <i>pulCount</i> will receive zero.
      * @param {Pointer} clConflictList Caller-supplied handle to a conflict list, obtained by a previous call to <a href="https://docs.microsoft.com/windows/desktop/api/cfgmgr32/nf-cfgmgr32-cm_query_resource_conflict_list">CM_Query_Resource_Conflict_List</a>.
      * @param {Pointer<Integer>} pulCount Caller-supplied address of a location to receive the conflict count.
-     * @returns {Integer} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
+     * @returns {CONFIGRET} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_get_resource_conflict_count
      * @since windows5.0
      */
@@ -27636,7 +28220,7 @@ class DeviceAndDriverInstallation {
      * @param {Pointer} clConflictList Caller-supplied handle to a conflict list, obtained by a previous call to <a href="https://docs.microsoft.com/windows/desktop/api/cfgmgr32/nf-cfgmgr32-cm_query_resource_conflict_list">CM_Query_Resource_Conflict_List</a>.
      * @param {Integer} ulIndex Caller-supplied value used as an index into the conflict list. This value can be from zero to one less than the number returned by <a href="https://docs.microsoft.com/windows/desktop/api/cfgmgr32/nf-cfgmgr32-cm_get_resource_conflict_count">CM_Get_Resource_Conflict_Count</a>.
      * @param {Pointer<CONFLICT_DETAILS_A>} pConflictDetails Caller-supplied address of a <a href="https://docs.microsoft.com/windows/desktop/api/cfgmgr32/ns-cfgmgr32-conflict_details_a">CONFLICT_DETAILS</a> structure to receive conflict details. The caller must supply values for the structure's <i>CD_ulSize</i> and <i>CD_ulMask</i> structures.
-     * @returns {Integer} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
+     * @returns {CONFIGRET} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_get_resource_conflict_detailsa
      */
     static CM_Get_Resource_Conflict_DetailsA(clConflictList, ulIndex, pConflictDetails) {
@@ -27683,7 +28267,7 @@ class DeviceAndDriverInstallation {
      * @param {Pointer} clConflictList Caller-supplied handle to a conflict list, obtained by a previous call to <a href="https://docs.microsoft.com/windows/desktop/api/cfgmgr32/nf-cfgmgr32-cm_query_resource_conflict_list">CM_Query_Resource_Conflict_List</a>.
      * @param {Integer} ulIndex Caller-supplied value used as an index into the conflict list. This value can be from zero to one less than the number returned by <a href="https://docs.microsoft.com/windows/desktop/api/cfgmgr32/nf-cfgmgr32-cm_get_resource_conflict_count">CM_Get_Resource_Conflict_Count</a>.
      * @param {Pointer<CONFLICT_DETAILS_W>} pConflictDetails Caller-supplied address of a <a href="https://docs.microsoft.com/windows/desktop/api/cfgmgr32/ns-cfgmgr32-conflict_details_a">CONFLICT_DETAILS</a> structure to receive conflict details. The caller must supply values for the structure's <i>CD_ulSize</i> and <i>CD_ulMask</i> structures.
-     * @returns {Integer} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
+     * @returns {CONFIGRET} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_get_resource_conflict_detailsw
      * @since windows5.0
      */
@@ -27697,12 +28281,12 @@ class DeviceAndDriverInstallation {
      * @remarks
      * <b>CM_Get_Class_Property</b> is part of the <a href="https://docs.microsoft.com/windows-hardware/drivers/install/unified-device-property-model--windows-vista-and-later-">Unified Device Property Model</a>.
      * @param {Pointer<Guid>} ClassGUID Pointer to the GUID that identifies the <a href="https://docs.microsoft.com/windows-hardware/drivers/install/overview-of-device-interface-classes">device interface class</a> or <a href="https://docs.microsoft.com/windows-hardware/drivers/install/overview-of-device-setup-classes">device setup class</a> for which to retrieve a device property that is set for the device class. For information about specifying the class type, see the <i>ulFlags</i> parameter.
-     * @param {Pointer<DEVPROPKEY>} _PropertyKey 
-     * @param {Pointer<Integer>} PropertyType Pointer to a <a href="https://docs.microsoft.com/windows-hardware/drivers/install/property-data-type-identifiers">DEVPROPTYPE</a>-typed variable that receives the property-data-type identifier of the requested device class property, where the property-data-type identifier is the bitwise OR between a base-data-type identifier and, if the base data type is modified, a property-data-type modifier.
-     * @param {Pointer} PropertyBuffer Pointer to a buffer that receives the requested device class property. <b>CM_Get_Class_Property</b> retrieves the requested property value only if the buffer is large enough to hold all the property value data. The pointer can be NULL.
+     * @param {Pointer<DEVPROPKEY>} _PropertyKey Pointer to a <a href="https://docs.microsoft.com/windows-hardware/drivers/install/devpropkey">DEVPROPKEY</a> structure that represents the device property key of the requested device class property.
+     * @param {Pointer<DEVPROPTYPE>} PropertyType Pointer to a <a href="https://docs.microsoft.com/windows-hardware/drivers/install/property-data-type-identifiers">DEVPROPTYPE</a>-typed variable that receives the property-data-type identifier of the requested device class property, where the property-data-type identifier is the bitwise OR between a base-data-type identifier and, if the base data type is modified, a property-data-type modifier.
+     * @param {Integer} PropertyBuffer Pointer to a buffer that receives the requested device class property. <b>CM_Get_Class_Property</b> retrieves the requested property value only if the buffer is large enough to hold all the property value data. The pointer can be NULL.
      * @param {Pointer<Integer>} PropertyBufferSize The size, in bytes, of the <i>PropertyBuffer</i> buffer. If the <i>PropertyBuffer</i> parameter is set to NULL, <i>*PropertyBufferSize</i> must be set to zero. As output, if the buffer is not large enough to hold all the property value data, <b>CM_Get_Class_Property</b> returns the size of the data, in bytes, in <i>*PropertyBufferSize</i>.
      * @param {Integer} ulFlags Class property flags:
-     * @returns {Integer} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
+     * @returns {CONFIGRET} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_get_class_propertyw
      * @since windows6.0.6000
      */
@@ -27719,16 +28303,16 @@ class DeviceAndDriverInstallation {
      * @remarks
      * <b>CM_Get_Class_Property_ExW</b> is part of the <a href="https://docs.microsoft.com/windows-hardware/drivers/install/unified-device-property-model--windows-vista-and-later-">Unified Device Property Model</a>.
      * @param {Pointer<Guid>} ClassGUID Pointer to the GUID that identifies the <a href="https://docs.microsoft.com/windows-hardware/drivers/install/overview-of-device-interface-classes">device interface class</a> or <a href="https://docs.microsoft.com/windows-hardware/drivers/install/overview-of-device-setup-classes">device setup class</a> for which to retrieve a device property that is set for the device class. For information about specifying the class type, see the <i>ulFlags</i> parameter.
-     * @param {Pointer<DEVPROPKEY>} _PropertyKey 
-     * @param {Pointer<Integer>} PropertyType Pointer to a <a href="https://docs.microsoft.com/windows-hardware/drivers/install/property-data-type-identifiers">DEVPROPTYPE</a>-typed variable that receives the property-data-type identifier of the requested device class property, where the property-data-type identifier is the bitwise OR between a base-data-type identifier and, if the base data type is modified, a property-data-type modifier.
-     * @param {Pointer} PropertyBuffer Pointer to a buffer that receives the requested device class property. <b>CM_Get_Class_Property_ExW</b> retrieves the requested property value only if the buffer is large enough to hold all the property value data. The pointer can be NULL.
+     * @param {Pointer<DEVPROPKEY>} _PropertyKey Pointer to a <a href="https://docs.microsoft.com/windows-hardware/drivers/install/devpropkey">DEVPROPKEY</a> structure that represents the device property key of the requested device class property.
+     * @param {Pointer<DEVPROPTYPE>} PropertyType Pointer to a <a href="https://docs.microsoft.com/windows-hardware/drivers/install/property-data-type-identifiers">DEVPROPTYPE</a>-typed variable that receives the property-data-type identifier of the requested device class property, where the property-data-type identifier is the bitwise OR between a base-data-type identifier and, if the base data type is modified, a property-data-type modifier.
+     * @param {Integer} PropertyBuffer Pointer to a buffer that receives the requested device class property. <b>CM_Get_Class_Property_ExW</b> retrieves the requested property value only if the buffer is large enough to hold all the property value data. The pointer can be NULL.
      * @param {Pointer<Integer>} PropertyBufferSize The size, in bytes, of the <i>PropertyBuffer</i> buffer. If the <i>PropertyBuffer</i> parameter is set to NULL, <i>*PropertyBufferSize</i> must be set to zero. As output, if the buffer is not large enough to hold all the property value data, <b>CM_Get_Class_Property_ExW</b> returns the size of the data, in bytes, in <i>*PropertyBufferSize</i>.
      * @param {Integer} ulFlags Class property flags:
      * @param {Pointer} hMachine Caller-supplied machine handle, obtained from a previous call to <a href="https://docs.microsoft.com/windows/desktop/api/cfgmgr32/nf-cfgmgr32-cm_connect_machinew">CM_Connect_Machine</a>.
      * 
      * <div class="alert"><b>Note</b>  Using this function to access remote machines is not supported beginning with Windows 8 and Windows Server 2012, as this functionality has been removed.</div>
      * <div> </div>
-     * @returns {Integer} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
+     * @returns {CONFIGRET} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_get_class_property_exw
      * @since windows10.0.10240
      */
@@ -27748,7 +28332,7 @@ class DeviceAndDriverInstallation {
      * @param {Pointer<DEVPROPKEY>} PropertyKeyArray Pointer to a buffer that receives an array of <a href="https://docs.microsoft.com/windows-hardware/drivers/install/devpropkey">DEVPROPKEY</a>-typed values, where each value is a device property key that represents a device property that is set for the device class. The pointer is optional and can be NULL.
      * @param {Pointer<Integer>} PropertyKeyCount The size, in <a href="https://docs.microsoft.com/windows-hardware/drivers/install/devpropkey">DEVPROPKEY</a>-typed units, of the <i>PropertyKeyArray</i> buffer. If <i>PropertyKeyArray</i> is set to NULL, <i>*PropertyKeyCount</i> must be set to zero. As output, if <i>PropertyKeyArray</i> is not large enough to hold all the property key data, <b>CM_Get_Class_Property_Keys</b> returns the count of the keys, in <i>*PropertyKeyCount</i>.
      * @param {Integer} ulFlags Class property key flags:
-     * @returns {Integer} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
+     * @returns {CONFIGRET} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_get_class_property_keys
      * @since windows6.0.6000
      */
@@ -27771,7 +28355,7 @@ class DeviceAndDriverInstallation {
      * 
      * <div class="alert"><b>Note</b>  Using this function to access remote machines is not supported beginning with Windows 8 and Windows Server 2012, as this functionality has been removed.</div>
      * <div> </div>
-     * @returns {Integer} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
+     * @returns {CONFIGRET} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_get_class_property_keys_ex
      * @since windows10.0.10240
      */
@@ -27787,12 +28371,12 @@ class DeviceAndDriverInstallation {
      * @remarks
      * <b>CM_Set_Class_Property</b> is part of the <a href="https://docs.microsoft.com/windows-hardware/drivers/install/unified-device-property-model--windows-vista-and-later-">Unified Device Property Model</a>.
      * @param {Pointer<Guid>} ClassGUID Pointer to the GUID that identifies the <a href="https://docs.microsoft.com/windows-hardware/drivers/install/overview-of-device-interface-classes">device interface class</a> or <a href="https://docs.microsoft.com/windows-hardware/drivers/install/overview-of-device-setup-classes">device setup class</a> for which to set a device property. For information about specifying the class type, see the <i>ulFlags</i> parameter.
-     * @param {Pointer<DEVPROPKEY>} _PropertyKey 
-     * @param {Integer} PropertyType A <a href="https://docs.microsoft.com/windows-hardware/drivers/install/property-data-type-identifiers">DEVPROPTYPE</a>-typed value that represents the property-data-type identifier for the device class property. To delete a property, set this to DEVPROP_TYPE_EMPTY.
-     * @param {Pointer} PropertyBuffer Pointer to a buffer that contains the property value of the device class property. If either the property or the data is to be deleted, this pointer must be set to NULL, and <i>PropertyBufferSize</i> must be set to zero.
+     * @param {Pointer<DEVPROPKEY>} _PropertyKey Pointer to a <a href="https://docs.microsoft.com/windows-hardware/drivers/install/devpropkey">DEVPROPKEY</a> structure that represents the property key of the device class property to set.
+     * @param {DEVPROPTYPE} PropertyType A <a href="https://docs.microsoft.com/windows-hardware/drivers/install/property-data-type-identifiers">DEVPROPTYPE</a>-typed value that represents the property-data-type identifier for the device class property. To delete a property, set this to DEVPROP_TYPE_EMPTY.
+     * @param {Integer} PropertyBuffer Pointer to a buffer that contains the property value of the device class property. If either the property or the data is to be deleted, this pointer must be set to NULL, and <i>PropertyBufferSize</i> must be set to zero.
      * @param {Integer} PropertyBufferSize The size, in bytes, of the <i>PropertyBuffer</i> buffer. If <i>PropertyBuffer</i> is set to NULL, <i>PropertyBufferSize</i> must be set to zero.
      * @param {Integer} ulFlags Class property flags:
-     * @returns {Integer} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
+     * @returns {CONFIGRET} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_set_class_propertyw
      * @since windows6.0.6000
      */
@@ -27806,16 +28390,16 @@ class DeviceAndDriverInstallation {
      * @remarks
      * <b>CM_Set_Class_Property_ExW</b> is part of the <a href="https://docs.microsoft.com/windows-hardware/drivers/install/unified-device-property-model--windows-vista-and-later-">Unified Device Property Model</a>.
      * @param {Pointer<Guid>} ClassGUID Pointer to the GUID that identifies the <a href="https://docs.microsoft.com/windows-hardware/drivers/install/overview-of-device-interface-classes">device interface class</a> or <a href="https://docs.microsoft.com/windows-hardware/drivers/install/overview-of-device-setup-classes">device setup class</a> for which to set a device property. For information about specifying the class type, see the <i>ulFlags</i> parameter.
-     * @param {Pointer<DEVPROPKEY>} _PropertyKey 
-     * @param {Integer} PropertyType A <a href="https://docs.microsoft.com/windows-hardware/drivers/install/property-data-type-identifiers">DEVPROPTYPE</a>-typed value that represents the property-data-type identifier for the device class property. To delete a property, set this to <b>DEVPROP_TYPE_EMPTY</b>.
-     * @param {Pointer} PropertyBuffer Pointer to a buffer that contains the property value of the device class property. If either the property or the data is to be deleted, this pointer must be set to NULL, and <i>PropertyBufferSize</i> must be set to zero.
+     * @param {Pointer<DEVPROPKEY>} _PropertyKey Pointer to a <a href="https://docs.microsoft.com/windows-hardware/drivers/install/devpropkey">DEVPROPKEY</a> structure that represents the property key of the device class property to set.
+     * @param {DEVPROPTYPE} PropertyType A <a href="https://docs.microsoft.com/windows-hardware/drivers/install/property-data-type-identifiers">DEVPROPTYPE</a>-typed value that represents the property-data-type identifier for the device class property. To delete a property, set this to <b>DEVPROP_TYPE_EMPTY</b>.
+     * @param {Integer} PropertyBuffer Pointer to a buffer that contains the property value of the device class property. If either the property or the data is to be deleted, this pointer must be set to NULL, and <i>PropertyBufferSize</i> must be set to zero.
      * @param {Integer} PropertyBufferSize The size, in bytes, of the <i>PropertyBuffer</i> buffer. If <i>PropertyBuffer</i> is set to NULL, <i>PropertyBufferSize</i> must be set to zero.
      * @param {Integer} ulFlags Class property flags:
      * @param {Pointer} hMachine Caller-supplied machine handle, obtained from a previous call to <a href="https://docs.microsoft.com/windows/desktop/api/cfgmgr32/nf-cfgmgr32-cm_connect_machinew">CM_Connect_Machine</a>.
      * 
      * <div class="alert"><b>Note</b>  Using this function to access remote machines is not supported beginning with Windows 8 and Windows Server 2012, as this functionality has been removed.</div>
      * <div> </div>
-     * @returns {Integer} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
+     * @returns {CONFIGRET} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_set_class_property_exw
      * @since windows10.0.10240
      */
@@ -27831,11 +28415,11 @@ class DeviceAndDriverInstallation {
      * @param {Pointer<Guid>} ClassGuid A pointer to the GUID that represents the <a href="https://docs.microsoft.com/windows-hardware/drivers/install/overview-of-device-setup-classes">device setup class</a> for which to retrieve a property.
      * @param {Integer} ulProperty A value of type ULONG that identifies the property to be retrieved. This value must be one of the following CM_CRP_<i>Xxx</i> values that are defined in <i>Cfgmgr32.h</i>:
      * @param {Pointer<Integer>} pulRegDataType A pointer to a variable of type ULONG that receives the REG_<i>Xxx</i> constant that represents the data type of the requested property. The REG_<i>Xxx</i> constants are defined in <i>Winnt.h</i> and are described in the <b>Type</b> member of the <a href="https://docs.microsoft.com/windows-hardware/drivers/ddi/content/wdm/ns-wdm-_key_value_basic_information">KEY_VALUE_BASIC_INFORMATION</a> structure. This parameter is optional and can be set to <b>NULL</b>.
-     * @param {Pointer} _Buffer 
+     * @param {Integer} _Buffer A pointer to a buffer that receives the requested property data. For more information about this parameter and the buffer-size parameter <i>pulLength</i>, see the following <b>Remarks</b> section.
      * @param {Pointer<Integer>} pulLength A pointer to variable of type ULONG whose value, on input, is the size, in bytes, of the buffer that is supplied by <i>Buffer</i>. On return, <b>CM_Get_Class_Registry_Property </b> sets this variable to the size, in bytes, of the requested property.
      * @param {Integer} ulFlags Reserved for internal use only. Must be set to zero.
      * @param {Pointer} hMachine A handle to a remote machine from which to retrieve the specified device class property. This parameter is optional, and, if it is set to <b>NULL</b>, the property is retrieved from the local machine.
-     * @returns {Integer} If the operation succeeds, <b>CM_Get_Class_Registry_Property </b> returns CR_SUCCESS. Otherwise, the function returns one of the other CR_<i>Xxx</i> status codes that are defined in <i>Cfgmgr32.h</i>.
+     * @returns {CONFIGRET} If the operation succeeds, <b>CM_Get_Class_Registry_Property </b> returns CR_SUCCESS. Otherwise, the function returns one of the other CR_<i>Xxx</i> status codes that are defined in <i>Cfgmgr32.h</i>.
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_get_class_registry_propertya
      */
     static CM_Get_Class_Registry_PropertyA(ClassGuid, ulProperty, pulRegDataType, _Buffer, pulLength, ulFlags, hMachine) {
@@ -27853,11 +28437,11 @@ class DeviceAndDriverInstallation {
      * @param {Pointer<Guid>} ClassGuid A pointer to the GUID that represents the <a href="https://docs.microsoft.com/windows-hardware/drivers/install/overview-of-device-setup-classes">device setup class</a> for which to retrieve a property.
      * @param {Integer} ulProperty A value of type ULONG that identifies the property to be retrieved. This value must be one of the following CM_CRP_<i>Xxx</i> values that are defined in <i>Cfgmgr32.h</i>:
      * @param {Pointer<Integer>} pulRegDataType A pointer to a variable of type ULONG that receives the REG_<i>Xxx</i> constant that represents the data type of the requested property. The REG_<i>Xxx</i> constants are defined in <i>Winnt.h</i> and are described in the <b>Type</b> member of the <a href="https://docs.microsoft.com/windows-hardware/drivers/ddi/content/wdm/ns-wdm-_key_value_basic_information">KEY_VALUE_BASIC_INFORMATION</a> structure. This parameter is optional and can be set to <b>NULL</b>.
-     * @param {Pointer} _Buffer 
+     * @param {Integer} _Buffer A pointer to a buffer that receives the requested property data. For more information about this parameter and the buffer-size parameter <i>pulLength</i>, see the following <b>Remarks</b> section.
      * @param {Pointer<Integer>} pulLength A pointer to variable of type ULONG whose value, on input, is the size, in bytes, of the buffer that is supplied by <i>Buffer</i>. On return, <b>CM_Get_Class_Registry_Property </b> sets this variable to the size, in bytes, of the requested property.
      * @param {Integer} ulFlags Reserved for internal use only. Must be set to zero.
      * @param {Pointer} hMachine A handle to a remote machine from which to retrieve the specified device class property. This parameter is optional, and, if it is set to <b>NULL</b>, the property is retrieved from the local machine.
-     * @returns {Integer} If the operation succeeds, <b>CM_Get_Class_Registry_Property </b> returns CR_SUCCESS. Otherwise, the function returns one of the other CR_<i>Xxx</i> status codes that are defined in <i>Cfgmgr32.h</i>.
+     * @returns {CONFIGRET} If the operation succeeds, <b>CM_Get_Class_Registry_Property </b> returns CR_SUCCESS. Otherwise, the function returns one of the other CR_<i>Xxx</i> status codes that are defined in <i>Cfgmgr32.h</i>.
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_get_class_registry_propertyw
      * @since windows5.0
      */
@@ -27879,11 +28463,11 @@ class DeviceAndDriverInstallation {
      * If <i>Buffer</i> is not set to <b>NULL</b> and <i>ulLength</i> is not set to zero, the supplied value must be the correct size for the REG_<i>Xxx</i> data type for the property that is specified in <i>ulProperty</i>.
      * @param {Pointer<Guid>} ClassGuid A pointer to the GUID that represents the device setup class for which to set a property.
      * @param {Integer} ulProperty A value of type ULONG that identifies the property to set. This value must be one of the CM_CRP_<i>Xxx</i> values that are described for the <i>ulProperty</i> parameter of the <a href="https://docs.microsoft.com/windows/desktop/api/cfgmgr32/nf-cfgmgr32-cm_get_class_registry_propertya">CM_Get_Class_Registry_Property</a> function.
-     * @param {Pointer} _Buffer 
+     * @param {Integer} _Buffer A pointer to a buffer that contains the property data. This parameter is optional and can be set to <b>NULL</b>. For more information about setting this parameter and the corresponding <i>ulLength</i> parameter, see the following <b>Remarks</b> section.
      * @param {Integer} ulLength A value of type ULONG that specifies the size, in bytes, of the property data.
      * @param {Integer} ulFlags Reserved for internal use only. Must be set to zero.
      * @param {Pointer} hMachine A handle to a remote machine on which to set the specified <a href="https://docs.microsoft.com/windows-hardware/drivers/install/accessing-device-setup-class-properties">device setup class property</a>. This parameter is optional. If set to <b>NULL</b>, the property is set on the local machine.
-     * @returns {Integer} If the operation succeeds, <b>CM_Set_Class_Registry_Property </b> returns CR_SUCCESS. Otherwise, the function returns one of the other CR_<i>Xxx</i> status codes that are defined in <i>Cfgmgr32.h</i>.
+     * @returns {CONFIGRET} If the operation succeeds, <b>CM_Set_Class_Registry_Property </b> returns CR_SUCCESS. Otherwise, the function returns one of the other CR_<i>Xxx</i> status codes that are defined in <i>Cfgmgr32.h</i>.
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_set_class_registry_propertya
      */
     static CM_Set_Class_Registry_PropertyA(ClassGuid, ulProperty, _Buffer, ulLength, ulFlags, hMachine) {
@@ -27901,11 +28485,11 @@ class DeviceAndDriverInstallation {
      * If <i>Buffer</i> is not set to <b>NULL</b> and <i>ulLength</i> is not set to zero, the supplied value must be the correct size for the REG_<i>Xxx</i> data type for the property that is specified in <i>ulProperty</i>.
      * @param {Pointer<Guid>} ClassGuid A pointer to the GUID that represents the device setup class for which to set a property.
      * @param {Integer} ulProperty A value of type ULONG that identifies the property to set. This value must be one of the CM_CRP_<i>Xxx</i> values that are described for the <i>ulProperty</i> parameter of the <a href="https://docs.microsoft.com/windows/desktop/api/cfgmgr32/nf-cfgmgr32-cm_get_class_registry_propertyw">CM_Get_Class_Registry_Property</a> function.
-     * @param {Pointer} _Buffer 
+     * @param {Integer} _Buffer A pointer to a buffer that contains the property data. This parameter is optional and can be set to <b>NULL</b>. For more information about setting this parameter and the corresponding <i>ulLength</i> parameter, see the following <b>Remarks</b> section.
      * @param {Integer} ulLength A value of type ULONG that specifies the size, in bytes, of the property data.
      * @param {Integer} ulFlags Reserved for internal use only. Must be set to zero.
      * @param {Pointer} hMachine A handle to a remote machine on which to set the specified <a href="https://docs.microsoft.com/windows-hardware/drivers/install/accessing-device-setup-class-properties">device setup class property</a>. This parameter is optional. If set to <b>NULL</b>, the property is set on the local machine.
-     * @returns {Integer} If the operation succeeds, <b>CM_Set_Class_Registry_Property </b> returns CR_SUCCESS. Otherwise, the function returns one of the other CR_<i>Xxx</i> status codes that are defined in <i>Cfgmgr32.h</i>.
+     * @returns {CONFIGRET} If the operation succeeds, <b>CM_Set_Class_Registry_Property </b> returns CR_SUCCESS. Otherwise, the function returns one of the other CR_<i>Xxx</i> status codes that are defined in <i>Cfgmgr32.h</i>.
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_set_class_registry_propertyw
      * @since windows5.0
      */
@@ -27957,7 +28541,7 @@ class DeviceAndDriverInstallation {
      * 
      * Upon receiving a notification, how the callback examines the notification will depend on the <b>FilterType</b> member of the callback routine's <i>EventData</i> parameter:
      * @param {Pointer<HCMNOTIFICATION>} pNotifyContext Pointer to receive the HCMNOTIFICATION handle that corresponds to the registration call.
-     * @returns {Integer} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
+     * @returns {CONFIGRET} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_register_notification
      * @since windows8.0
      */
@@ -27989,7 +28573,7 @@ class DeviceAndDriverInstallation {
      * <div class="alert"><b>Caution</b>  Do not free the context structure until after the work item has called <b>CM_Unregister_Notification</b>.  You can still receive notifications after submitting the threadpool work item and before the work item calls <b>CM_Unregister_Notification</b>.</div>
      * <div> </div>
      * @param {HCMNOTIFICATION} NotifyContext The HCMNOTIFICATION handle returned by the <a href="https://docs.microsoft.com/windows/desktop/api/cfgmgr32/nf-cfgmgr32-cm_register_notification">CM_Register_Notification</a> function.
-     * @returns {Integer} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
+     * @returns {CONFIGRET} If the operation succeeds, the function returns CR_SUCCESS. Otherwise, it returns one of the CR_-prefixed error codes defined in <i>Cfgmgr32.h</i>.
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_unregister_notification
      * @since windows8.0
      */
@@ -28002,7 +28586,7 @@ class DeviceAndDriverInstallation {
 
     /**
      * Converts a specified CONFIGRET code to its equivalent system error code.
-     * @param {Integer} CmReturnCode The <b>CONFIGRET</b> code to be converted. <b>CONFIGRET</b> 
+     * @param {CONFIGRET} CmReturnCode The <b>CONFIGRET</b> code to be converted. <b>CONFIGRET</b> 
      *       error codes are defined in CfgMgr32.h.
      * @param {Integer} DefaultErr A default system error code to be returned when no system error code is mapped to the specified 
      *       <b>CONFIGRET</b> code.
@@ -28053,7 +28637,7 @@ class DeviceAndDriverInstallation {
      * @param {HWND} hwndParent A handle to the top-level window to use for any UI related to installing devices.
      * @param {PSTR} HardwareId A pointer to a NULL-terminated string that supplies the hardware identifier to match existing devices on the computer. The maximum length of a NULL-terminated hardware identifier is MAX_DEVICE_ID_LEN. For more information about hardware identifiers, see <a href="https://docs.microsoft.com/windows-hardware/drivers/install/device-identification-strings">Device Identification Strings</a>.
      * @param {PSTR} FullInfPath A pointer to a NULL-terminated string that supplies the full path file name of an INF file. The files should be on the distribution media or in a vendor-created directory, not in a system location such as <i>%SystemRoot%\inf</i>. <b>UpdateDriverForPlugAndPlayDevices</b> copies driver files to the appropriate system locations if the installation is successful.
-     * @param {Integer} InstallFlags A caller-supplied value created by using OR to combine zero or more of the following bit flags:
+     * @param {UPDATEDRIVERFORPLUGANDPLAYDEVICES_FLAGS} InstallFlags A caller-supplied value created by using OR to combine zero or more of the following bit flags:
      * @param {Pointer<BOOL>} bRebootRequired A pointer to a BOOL-typed variable that indicates whether a restart is required and who should prompt for it. This pointer is optional and can be <b>NULL</b>. 
      * 
      * If the pointer is <b>NULL</b>, <b>UpdateDriverForPlugAndPlayDevices</b> prompts for a restart after installing drivers, if necessary. If the pointer is supplied, the function returns a BOOLEAN value that is <b>TRUE</b> if the system should be restarted. It is then the caller's responsibility to prompt for a restart. 
@@ -28178,7 +28762,7 @@ class DeviceAndDriverInstallation {
      * @param {HWND} hwndParent A handle to the top-level window to use for any UI related to installing devices.
      * @param {PWSTR} HardwareId A pointer to a NULL-terminated string that supplies the hardware identifier to match existing devices on the computer. The maximum length of a NULL-terminated hardware identifier is MAX_DEVICE_ID_LEN. For more information about hardware identifiers, see <a href="https://docs.microsoft.com/windows-hardware/drivers/install/device-identification-strings">Device Identification Strings</a>.
      * @param {PWSTR} FullInfPath A pointer to a NULL-terminated string that supplies the full path file name of an INF file. The files should be on the distribution media or in a vendor-created directory, not in a system location such as <i>%SystemRoot%\inf</i>. <b>UpdateDriverForPlugAndPlayDevices</b> copies driver files to the appropriate system locations if the installation is successful.
-     * @param {Integer} InstallFlags A caller-supplied value created by using OR to combine zero or more of the following bit flags:
+     * @param {UPDATEDRIVERFORPLUGANDPLAYDEVICES_FLAGS} InstallFlags A caller-supplied value created by using OR to combine zero or more of the following bit flags:
      * @param {Pointer<BOOL>} bRebootRequired A pointer to a BOOL-typed variable that indicates whether a restart is required and who should prompt for it. This pointer is optional and can be <b>NULL</b>. 
      * 
      * If the pointer is <b>NULL</b>, <b>UpdateDriverForPlugAndPlayDevices</b> prompts for a restart after installing drivers, if necessary. If the pointer is supplied, the function returns a BOOLEAN value that is <b>TRUE</b> if the system should be restarted. It is then the caller's responsibility to prompt for a restart. 
@@ -28313,7 +28897,7 @@ class DeviceAndDriverInstallation {
      * @param {HDEVINFO} DeviceInfoSet A handle to a <a href="https://docs.microsoft.com/windows-hardware/drivers/install/device-information-sets">device information set</a> that contains a device information element that represents the specified device.
      * @param {Pointer<SP_DEVINFO_DATA>} DeviceInfoData A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/setupapi/ns-setupapi-sp_devinfo_data">SP_DEVINFO_DATA</a> structure that represents the specified device in the specified device information set.
      * @param {Pointer<SP_DRVINFO_DATA_V2_W>} DriverInfoData An pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/setupapi/ns-setupapi-sp_drvinfo_data_v1_a">SP_DRVINFO_DATA</a> structure that specifies the driver to install on the specified device. This parameter is optional and can be set to <b>NULL</b>. If this parameter is <b>NULL</b>, <b>DiInstallDevice</b> searches the drivers preinstalled in the <a href="https://docs.microsoft.com/windows-hardware/drivers/install/driver-store">driver store</a> for the driver that is the best match to the specified device, and, if one is found, installs the driver on the specified device.
-     * @param {Integer} Flags A value of type <b>DWORD</b> that specifies zero or the following flag:
+     * @param {DIINSTALLDEVICE_FLAGS} Flags A value of type <b>DWORD</b> that specifies zero or the following flag:
      * @param {Pointer<BOOL>} NeedReboot A pointer to a value of type <b>BOOL</b> that <b>DiInstallDevice</b> sets to indicate whether a system restart is required to complete the installation. This parameter is optional and can be set to <b>NULL</b>. If this parameter is supplied and a system restart is required to complete the installation, <b>DiInstallDevice</b> sets the value to <b>TRUE</b>. In this case, the caller is responsible for restarting the system. If this parameter is supplied and a system restart is not required, <b>DiInstallDevice</b> sets this parameter to <b>FALSE</b>. If this parameter is <b>NULL</b> and a system restart is required to complete the installation, <b>DiInstallDevice</b> displays a system restart dialog box.
      * @returns {BOOL} <b>DiInstallDevice</b> returns <b>TRUE</b> if the function successfully installed the specified driver on the specified device. Otherwise, <b>DiInstallDevice</b> returns <b>FALSE</b> and the logged error can be retrieved by making a call to <b>GetLastError</b>. Some of the more common error values that <b>GetLastError</b> might return are as follows:
      * 
@@ -28424,7 +29008,7 @@ class DeviceAndDriverInstallation {
      * > The newdev.h header defines DiInstallDriver as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HWND} hwndParent A handle to the top-level window that <b>DiInstallDriver</b> uses to display any user interface component that is associated with installing the device. This parameter is optional and can be set to <b>NULL</b>.
      * @param {PWSTR} InfPath A pointer to a NULL-terminated string that supplies the fully qualified path of the INF file for the [driver package](/windows-hardware/drivers/install/driver-packages).
-     * @param {Integer} Flags A value of type DWORD that specifies zero or a combination of one or more flags as described here (*Flags* is typically set to zero). 
+     * @param {DIINSTALLDRIVER_FLAGS} Flags A value of type DWORD that specifies zero or a combination of one or more flags as described here (*Flags* is typically set to zero). 
      * 
      * If *Flags* is zero, <b>DiInstallDriver</b> only installs the specified driver on a device if the driver is a better match for a device than the driver that is currently installed on a device. For information about how Windows selects a driver for a device, see <a href="https://docs.microsoft.com/windows-hardware/drivers/install/how-setup-selects-drivers">How Windows Selects Drivers</a>.
      * 
@@ -28555,7 +29139,7 @@ class DeviceAndDriverInstallation {
      * > The newdev.h header defines DiInstallDriver as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HWND} hwndParent A handle to the top-level window that <b>DiInstallDriver</b> uses to display any user interface component that is associated with installing the device. This parameter is optional and can be set to <b>NULL</b>.
      * @param {PSTR} InfPath A pointer to a NULL-terminated string that supplies the fully qualified path of the INF file for the [driver package](/windows-hardware/drivers/install/driver-packages).
-     * @param {Integer} Flags A value of type DWORD that specifies zero or a combination of one or more flags as described here (*Flags* is typically set to zero). 
+     * @param {DIINSTALLDRIVER_FLAGS} Flags A value of type DWORD that specifies zero or a combination of one or more flags as described here (*Flags* is typically set to zero). 
      * 
      * If *Flags* is zero, <b>DiInstallDriver</b> only installs the specified driver on a device if the driver is a better match for a device than the driver that is currently installed on a device. For information about how Windows selects a driver for a device, see <a href="https://docs.microsoft.com/windows-hardware/drivers/install/how-setup-selects-drivers">How Windows Selects Drivers</a>.
      * 
@@ -28760,7 +29344,7 @@ class DeviceAndDriverInstallation {
      * </ul>
      * @param {HWND} hwndParent A handle to the top-level window that <b>DiUninstallDriver</b> should use to display any user interface component that is associated with uninstalling the driver. This parameter is optional and can be set to <b>NULL</b>.
      * @param {PWSTR} InfPath A pointer to a NULL-terminated string that supplies the fully qualified path of the INF file for the <a href="https://docs.microsoft.com/windows-hardware/drivers/install/driver-packages">driver package</a>.
-     * @param {Integer} Flags A value of type DWORD that specifies zero or one or more of the following flags: DIURFLAG_NO_REMOVE_INF. Typically, this flag should be set to zero. 
+     * @param {DIUNINSTALLDRIVER_FLAGS} Flags A value of type DWORD that specifies zero or one or more of the following flags: DIURFLAG_NO_REMOVE_INF. Typically, this flag should be set to zero. 
      * 
      * If this flag is zero, <b>DiUninstallDriver</b> removes the driver package from any devices it is installed on by installing those devices with another matching driver package, if available, or the null driver if no other matching driver package is available. However, if this flag is set to DIURFLAG_NO_REMOVE_INF, <b>DiUninstallDriver</b> removes the driver package from any devices it is installed on, but does not remove the driver package from the Driver Store.
      * 
@@ -28855,7 +29439,7 @@ class DeviceAndDriverInstallation {
      * </ul>
      * @param {HWND} hwndParent A handle to the top-level window that <b>DiUninstallDriver</b> should use to display any user interface component that is associated with uninstalling the driver. This parameter is optional and can be set to <b>NULL</b>.
      * @param {PSTR} InfPath A pointer to a NULL-terminated string that supplies the fully qualified path of the INF file for the <a href="https://docs.microsoft.com/windows-hardware/drivers/install/driver-packages">driver package</a>.
-     * @param {Integer} Flags A value of type DWORD that specifies zero or one or more of the following flags: DIURFLAG_NO_REMOVE_INF. Typically, this flag should be set to zero. 
+     * @param {DIUNINSTALLDRIVER_FLAGS} Flags A value of type DWORD that specifies zero or one or more of the following flags: DIURFLAG_NO_REMOVE_INF. Typically, this flag should be set to zero. 
      * 
      * If this flag is zero, <b>DiUninstallDriver</b> removes the driver package from any devices it is installed on by installing those devices with another matching driver package, if available, or the null driver if no other matching driver package is available. However, if this flag is set to DIURFLAG_NO_REMOVE_INF, <b>DiUninstallDriver</b> removes the driver package from any devices it is installed on, but does not remove the driver package from the Driver Store.
      * 
@@ -29069,7 +29653,7 @@ class DeviceAndDriverInstallation {
      * @param {HDEVINFO} DeviceInfoSet A handle to the <a href="https://docs.microsoft.com/windows-hardware/drivers/install/device-information-sets">device information set</a> that contains a device information element that represents the device for which driver rollback is performed.
      * @param {Pointer<SP_DEVINFO_DATA>} DeviceInfoData A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/setupapi/ns-setupapi-sp_devinfo_data">SP_DEVINFO_DATA</a> structure that represents the specific device in the specified device information set for which driver rollback is performed.
      * @param {HWND} hwndParent A handle to the top-level window that <b>DiRollbackDriver</b> uses to display any user interface component that is associated with a driver rollback for the specified device. This parameter is optional and can be set to <b>NULL</b>.
-     * @param {Integer} Flags A value of type DWORD that can be set to zero or ROLLBACK_FLAG_NO_UI. 
+     * @param {DIROLLBACKDRIVER_FLAGS} Flags A value of type DWORD that can be set to zero or ROLLBACK_FLAG_NO_UI. 
      * 
      * Typically, this flag should be set to zero, in which case <b>DiRollbackDriver</b> does not suppress the default user interface components that are associated with a driver rollback. However, if this flag is set to ROLLBACK_FLAG_NO_UI, <b>DiRollbackDriver</b> suppresses the display of user interface components that are associated with a driver rollback.
      * @param {Pointer<BOOL>} NeedReboot A pointer to a value of type BOOL that <b>DiRollbackDriver</b> sets to indicate whether a system restart is required to complete the rollback. This parameter is optional and can be <b>NULL</b>. 

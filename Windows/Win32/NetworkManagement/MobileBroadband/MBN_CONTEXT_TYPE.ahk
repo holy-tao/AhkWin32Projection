@@ -5,9 +5,8 @@
  * The MBN_CONTEXT_TYPE enumerated type specifies the represented context type.
  * @see https://learn.microsoft.com/windows/win32/api/mbnapi/ne-mbnapi-mbn_context_type
  * @namespace Windows.Win32.NetworkManagement.MobileBroadband
- * @version v4.0.30319
  */
-class MBN_CONTEXT_TYPE extends Win32Enum{
+class MBN_CONTEXT_TYPE extends Win32Enum {
 
     /**
      * Context has not yet provisioned for this ID.

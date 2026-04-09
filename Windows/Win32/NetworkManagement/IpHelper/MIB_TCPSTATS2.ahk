@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\TCP_RTO_ALGORITHM.ahk
 
 /**
  * Contains statistics for the TCP protocol running on the local computer. (MIB_TCPSTATS2)
@@ -9,17 +10,14 @@
  *  This  structure is defined in the <i>Tcpmib.h</i> header file, not in the <i>Iprtrmib.h</i> header file. Note that the <i>Tcpmib.h</i> header file is automatically included in <i>Iprtrmib.h</i>, which is automatically included in the <i>Iphlpapi.h</i> header file. The  <i>Tcpmib.h</i> and <i>Iprtrmib.h</i> header files should never be used directly.
  * @see https://learn.microsoft.com/windows/win32/api/tcpmib/ns-tcpmib-mib_tcpstats2
  * @namespace Windows.Win32.NetworkManagement.IpHelper
- * @version v4.0.30319
  */
-class MIB_TCPSTATS2 extends Win32Struct
-{
+class MIB_TCPSTATS2 extends Win32Struct {
     static sizeof => 72
 
     static packingSize => 8
 
     /**
-     * 
-     * @type {Integer}
+     * @type {TCP_RTO_ALGORITHM}
      */
     RtoAlgorithm {
         get => NumGet(this, 0, "int")

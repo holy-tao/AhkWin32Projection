@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.Display
- * @version v4.0.30319
  */
-class GAMMA_RAMP_RGB extends Win32Struct
-{
+class GAMMA_RAMP_RGB extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4

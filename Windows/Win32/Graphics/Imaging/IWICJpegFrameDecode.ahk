@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\Dxgi\Common\DXGI_JPEG_AC_HUFFMAN_TABLE.ahk
 #Include ..\Dxgi\Common\DXGI_JPEG_DC_HUFFMAN_TABLE.ahk
 #Include ..\Dxgi\Common\DXGI_JPEG_QUANTIZATION_TABLE.ahk
 #Include .\WICJpegFrameHeader.ahk
 #Include .\WICJpegScanHeader.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Exposes methods for decoding JPEG images. Provides access to the Start Of Frame (SOF) header, Start of Scan (SOS) header, the Huffman and Quantization tables, and the compressed JPEG JPEG data. Also enables indexing for efficient random access.
@@ -14,9 +14,8 @@
  * Obtain this interface by calling <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-queryinterface(q)">IUnknown::QueryInterface</a> on the Windows-provided <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nn-wincodec-iwicbitmapframedecode">IWICBitmapFrameDecoder</a> interface for the JPEG decoder.
  * @see https://learn.microsoft.com/windows/win32/api/wincodec/nn-wincodec-iwicjpegframedecode
  * @namespace Windows.Win32.Graphics.Imaging
- * @version v4.0.30319
  */
-class IWICJpegFrameDecode extends IUnknown{
+class IWICJpegFrameDecode extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -63,7 +62,7 @@ class IWICJpegFrameDecode extends IUnknown{
      * The provided interval size controls horizontal spacing of index entries.  This value is internally rounded up according to the JPEG’s MCU (minimum coded unit) size, which is typically either 8 or 16 unscaled pixels.  The vertical size of the index interval is always equal to one MCU size.
      * 
      * Indexes can be generated immediately, or during future calls to <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nf-wincodec-iwicbitmapsource-copypixels">IWICBitmapSource::CopyPixels</a> to reduce redundant decompression work.
-     * @param {Integer} options Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ne-wincodec-wicjpegindexingoptions">WICJpegIndexingOptions</a></b>
+     * @param {WICJpegIndexingOptions} options Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ne-wincodec-wicjpegindexingoptions">WICJpegIndexingOptions</a></b>
      * 
      * A value specifying whether indexes should be generated immediately or deferred until a future call to <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nf-wincodec-iwicbitmapsource-copypixels">IWICBitmapSource::CopyPixels</a>.
      * @param {Integer} horizontalIntervalSize Type: <b>UINT</b>

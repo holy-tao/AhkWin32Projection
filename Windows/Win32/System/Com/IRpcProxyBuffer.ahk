@@ -7,9 +7,8 @@
  * The IRpcProxyBuffer (objidlbase.h) interface controls the RPC proxy used to marshal data between COM components.
  * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nn-objidlbase-irpcproxybuffer
  * @namespace Windows.Win32.System.Com
- * @version v4.0.30319
  */
-class IRpcProxyBuffer extends IUnknown{
+class IRpcProxyBuffer extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

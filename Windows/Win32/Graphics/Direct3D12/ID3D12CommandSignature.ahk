@@ -9,9 +9,8 @@
  * To create a command signature, call <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nf-d3d12-id3d12device-createcommandsignature">ID3D12Device::CreateCommandSignature</a>, as described in <a href="https://docs.microsoft.com/windows/desktop/direct3d12/indirect-drawing">Indirect Drawing</a>.
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/nn-d3d12-id3d12commandsignature
  * @namespace Windows.Win32.Graphics.Direct3D12
- * @version v4.0.30319
  */
-class ID3D12CommandSignature extends ID3D12Pageable{
+class ID3D12CommandSignature extends ID3D12Pageable {
 
     static sizeof => A_PtrSize
     /**

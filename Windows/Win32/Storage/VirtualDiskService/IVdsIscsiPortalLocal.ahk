@@ -7,9 +7,8 @@
  * Provides methods for setting local-initiator-specific IPSEC pre-shared keys on an iSCSI portal.
  * @see https://learn.microsoft.com/windows/win32/api/vds/nn-vds-ivdsiscsiportallocal
  * @namespace Windows.Win32.Storage.VirtualDiskService
- * @version v4.0.30319
  */
-class IVdsIscsiPortalLocal extends IUnknown{
+class IVdsIscsiPortalLocal extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

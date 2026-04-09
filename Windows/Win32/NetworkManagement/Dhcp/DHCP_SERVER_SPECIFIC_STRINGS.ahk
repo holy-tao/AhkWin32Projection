@@ -5,10 +5,8 @@
  * Contains the default string values for user and vendor class names.
  * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/ns-dhcpsapi-dhcp_server_specific_strings
  * @namespace Windows.Win32.NetworkManagement.Dhcp
- * @version v4.0.30319
  */
-class DHCP_SERVER_SPECIFIC_STRINGS extends Win32Struct
-{
+class DHCP_SERVER_SPECIFIC_STRINGS extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

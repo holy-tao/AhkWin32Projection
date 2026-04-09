@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.QoS
- * @version v4.0.30319
  */
-class SIPAEVENT_VSM_IDK_RSA_INFO extends Win32Struct
-{
+class SIPAEVENT_VSM_IDK_RSA_INFO extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4
@@ -36,9 +34,9 @@ class SIPAEVENT_VSM_IDK_RSA_INFO extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    PublicKeyData{
+    PublicKeyData {
         get {
             if(!this.HasProp("__PublicKeyDataProxyArray"))
                 this.__PublicKeyDataProxyArray := Win32FixedArray(this.ptr + 12, 1, Primitive, "char")

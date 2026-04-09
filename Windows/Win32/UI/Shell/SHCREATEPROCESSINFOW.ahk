@@ -2,6 +2,9 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\HWND.ahk
 #Include ..\..\Foundation\HANDLE.ahk
+#Include ..\..\Security\SECURITY_ATTRIBUTES.ahk
+#Include ..\..\System\Threading\STARTUPINFOW.ahk
+#Include ..\..\System\Threading\PROCESS_INFORMATION.ahk
 
 /**
  * Contains the information needed by SHCreateProcessAsUserW to create a process.
@@ -19,10 +22,9 @@
  * In this case, the application receives three parameters: <i>An, example:, and "quoted text"</i>.
  * @see https://learn.microsoft.com/windows/win32/api/shellapi/ns-shellapi-shcreateprocessinfow
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
+ * @architecture X64, Arm64
  */
-class SHCREATEPROCESSINFOW extends Win32Struct
-{
+class SHCREATEPROCESSINFOW extends Win32Struct {
     static sizeof => 88
 
     static packingSize => 8
@@ -53,7 +55,7 @@ class SHCREATEPROCESSINFOW extends Win32Struct
      * A parent window handle.
      * @type {HWND}
      */
-    hwnd{
+    hwnd {
         get {
             if(!this.HasProp("__hwnd"))
                 this.__hwnd := HWND(8, this)
@@ -103,7 +105,7 @@ class SHCREATEPROCESSINFOW extends Win32Struct
      * An <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/access-tokens">Access token</a> that can be used to represent a particular user. It is needed when there are multiple users for those folders that are treated as belonging to a single user. The calling application must have appropriate security privileges for the particular user, including TOKEN_QUERY and TOKEN_IMPERSONATE, and the user's registry hive must be currently mounted. For further discussion of access control issues, see <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/access-control">Access Control</a>.
      * @type {HANDLE}
      */
-    hUserToken{
+    hUserToken {
         get {
             if(!this.HasProp("__hUserToken"))
                 this.__hUserToken := HANDLE(40, this)

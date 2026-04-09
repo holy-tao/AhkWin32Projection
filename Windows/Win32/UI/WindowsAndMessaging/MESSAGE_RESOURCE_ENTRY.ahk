@@ -5,10 +5,8 @@
  * Contains the error message or message box display text for a message table resource.
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-message_resource_entry
  * @namespace Windows.Win32.UI.WindowsAndMessaging
- * @version v4.0.30319
  */
-class MESSAGE_RESOURCE_ENTRY extends Win32Struct
-{
+class MESSAGE_RESOURCE_ENTRY extends Win32Struct {
     static sizeof => 6
 
     static packingSize => 2
@@ -39,9 +37,9 @@ class MESSAGE_RESOURCE_ENTRY extends Win32Struct
      * Type: <b>BYTE[1]</b>
      * 
      * Pointer to an array that contains the error message or message box display text.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Text{
+    Text {
         get {
             if(!this.HasProp("__TextProxyArray"))
                 this.__TextProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "char")

@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class DRIVER_RUNTIME_INIT_FLAGS extends Win32Enum{
+class DRIVER_RUNTIME_INIT_FLAGS extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

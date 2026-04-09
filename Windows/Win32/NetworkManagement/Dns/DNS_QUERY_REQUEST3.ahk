@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DNS_ADDR_ARRAY.ahk
+#Include .\DNS_CUSTOM_SERVER.ahk
 
 /**
  * Contains the DNS query parameters used in a call to [DnsQueryEx](/windows/win32/api/windns/nf-windns-dnsqueryex).
@@ -9,10 +11,8 @@
  * If the query name matches a rule in the **Name Resolution Policy Table (NRPT)**, then the custom servers are ignored, and only the servers from the **NRPT** rule are used.
  * @see https://learn.microsoft.com/windows/win32/api/windns/ns-windns-dns_query_request3
  * @namespace Windows.Win32.NetworkManagement.Dns
- * @version v4.0.30319
  */
-class DNS_QUERY_REQUEST3 extends Win32Struct
-{
+class DNS_QUERY_REQUEST3 extends Win32Struct {
     static sizeof => 88
 
     static packingSize => 8

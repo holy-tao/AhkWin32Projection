@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ICondition.ahk
 #Include ..\Com\IUnknown.ahk
+#Include .\ICondition.ahk
 
 /**
  * Provides methods for handling named entities and generating special conditions.
@@ -12,9 +12,8 @@
  * A query parser has condition generators preregistered for the known semantic types representing numbers, Booleans, date/time and file paths.
  * @see https://learn.microsoft.com/windows/win32/api/structuredquery/nn-structuredquery-iconditiongenerator
  * @namespace Windows.Win32.System.Search
- * @version v4.0.30319
  */
-class IConditionGenerator extends IUnknown{
+class IConditionGenerator extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -96,7 +95,7 @@ class IConditionGenerator extends IUnknown{
      * @param {PWSTR} pszPropertyName Type: <b>LPCWSTR</b>
      * 
      * Property name, or <b>NULL</b> if there is no property name.
-     * @param {Integer} cop Type: <b><a href="https://docs.microsoft.com/windows/win32/api/structuredquerycondition/ne-structuredquerycondition-condition_operation">CONDITION_OPERATION</a></b>
+     * @param {CONDITION_OPERATION} cop Type: <b><a href="https://docs.microsoft.com/windows/win32/api/structuredquerycondition/ne-structuredquerycondition-condition_operation">CONDITION_OPERATION</a></b>
      * 
      * A <a href="https://docs.microsoft.com/windows/win32/api/structuredquerycondition/ne-structuredquerycondition-condition_operation">CONDITION_OPERATION</a> enumerated type identifying the operation.
      * @param {PWSTR} pszValueType Type: <b>LPCWSTR</b>

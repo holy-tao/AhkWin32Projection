@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\IShellItem2.ahk
+#Include .\SYNCMGR_CONFLICT_ITEM_TYPE.ahk
 
 /**
  * Defines conflict item structure.
  * @see https://learn.microsoft.com/windows/win32/api/syncmgr/ns-syncmgr-confirm_conflict_item
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class CONFIRM_CONFLICT_ITEM extends Win32Struct
-{
+class CONFIRM_CONFLICT_ITEM extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -72,7 +72,7 @@ class CONFIRM_CONFLICT_ITEM extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/ne-syncmgr-syncmgr_conflict_item_type">SYNCMGR_CONFLICT_ITEM_TYPE</a></b>
      * 
      * The conflict item type. See <a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/ne-syncmgr-syncmgr_conflict_item_type">SYNCMGR_CONFLICT_ITEM_TYPE</a>.
-     * @type {Integer}
+     * @type {SYNCMGR_CONFLICT_ITEM_TYPE}
      */
     nType {
         get => NumGet(this, 40, "int")

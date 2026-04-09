@@ -7,9 +7,8 @@
  * The IWMPlayerTimestampHook interface is implemented on a player's source filter.
  * @see https://learn.microsoft.com/windows/win32/api/wmdxva/nn-wmdxva-iwmplayertimestamphook
  * @namespace Windows.Win32.Media.WindowsMediaFormat
- * @version v4.0.30319
  */
-class IWMPlayerTimestampHook extends IUnknown{
+class IWMPlayerTimestampHook extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

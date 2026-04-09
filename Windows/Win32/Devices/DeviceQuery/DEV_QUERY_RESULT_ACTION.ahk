@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.DeviceQuery
- * @version v4.0.30319
  */
-class DEV_QUERY_RESULT_ACTION extends Win32Enum{
+class DEV_QUERY_RESULT_ACTION extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

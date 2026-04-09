@@ -7,9 +7,8 @@
  * The IMDSPDeviceControl interface provides methods for controlling devices.
  * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nn-mswmdm-imdspdevicecontrol
  * @namespace Windows.Win32.Media.DeviceManager
- * @version v4.0.30319
  */
-class IMDSPDeviceControl extends IUnknown{
+class IMDSPDeviceControl extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class InFileSignatureResource extends Win32Struct
-{
+class InFileSignatureResource extends Win32Struct {
     static sizeof => 96
 
     static packingSize => 4
@@ -28,9 +26,9 @@ class InFileSignatureResource extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    rgbSignature{
+    rgbSignature {
         get {
             if(!this.HasProp("__rgbSignatureProxyArray"))
                 this.__rgbSignatureProxyArray := Win32FixedArray(this.ptr + 8, 88, Primitive, "char")

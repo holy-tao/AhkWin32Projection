@@ -5,10 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.Usb
- * @version v4.0.30319
  */
-class USB_HUB_STATUS_AND_CHANGE extends Win32Struct
-{
+class USB_HUB_STATUS_AND_CHANGE extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 1
@@ -24,7 +22,7 @@ class USB_HUB_STATUS_AND_CHANGE extends Win32Struct
     /**
      * @type {USB_HUB_STATUS}
      */
-    HubStatus{
+    HubStatus {
         get {
             if(!this.HasProp("__HubStatus"))
                 this.__HubStatus := USB_HUB_STATUS(0, this)
@@ -35,7 +33,7 @@ class USB_HUB_STATUS_AND_CHANGE extends Win32Struct
     /**
      * @type {USB_HUB_CHANGE}
      */
-    HubChange{
+    HubChange {
         get {
             if(!this.HasProp("__HubChange"))
                 this.__HubChange := USB_HUB_CHANGE(4, this)

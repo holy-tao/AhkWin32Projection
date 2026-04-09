@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Ndis
- * @version v4.0.30319
  */
-class NDIS_HARDWARE_CROSSTIMESTAMP extends Win32Struct
-{
+class NDIS_HARDWARE_CROSSTIMESTAMP extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -15,7 +13,7 @@ class NDIS_HARDWARE_CROSSTIMESTAMP extends Win32Struct
     /**
      * @type {NDIS_OBJECT_HEADER}
      */
-    Header{
+    Header {
         get {
             if(!this.HasProp("__Header"))
                 this.__Header := NDIS_OBJECT_HEADER(0, this)

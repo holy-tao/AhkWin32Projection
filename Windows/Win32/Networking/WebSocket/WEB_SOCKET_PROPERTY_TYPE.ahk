@@ -5,9 +5,8 @@
  * Specifies a WebSocket property type.
  * @see https://learn.microsoft.com/windows/win32/api/websocket/ne-websocket-web_socket_property_type
  * @namespace Windows.Win32.Networking.WebSocket
- * @version v4.0.30319
  */
-class WEB_SOCKET_PROPERTY_TYPE extends Win32Enum{
+class WEB_SOCKET_PROPERTY_TYPE extends Win32Enum {
 
     /**
      * Property type: <b>ULONG</b>

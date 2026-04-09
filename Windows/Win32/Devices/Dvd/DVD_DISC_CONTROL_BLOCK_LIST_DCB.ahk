@@ -3,18 +3,16 @@
 
 /**
  * @namespace Windows.Win32.Devices.Dvd
- * @version v4.0.30319
  */
-class DVD_DISC_CONTROL_BLOCK_LIST_DCB extends Win32Struct
-{
+class DVD_DISC_CONTROL_BLOCK_LIST_DCB extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 1
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    DcbIdentifier{
+    DcbIdentifier {
         get {
             if(!this.HasProp("__DcbIdentifierProxyArray"))
                 this.__DcbIdentifierProxyArray := Win32FixedArray(this.ptr + 0, 4, Primitive, "char")

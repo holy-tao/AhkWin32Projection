@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * The IADsFaxNumber interface provides methods for an ADSI client to access the Facsimile Telephone Number attribute.
  * @see https://learn.microsoft.com/windows/win32/api/iads/nn-iads-iadsfaxnumber
  * @namespace Windows.Win32.Networking.ActiveDirectory
- * @version v4.0.30319
  */
-class IADsFaxNumber extends IDispatch{
+class IADsFaxNumber extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

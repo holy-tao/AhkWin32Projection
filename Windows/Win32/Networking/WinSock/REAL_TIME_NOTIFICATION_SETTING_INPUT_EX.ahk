@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Networking.WinSock
- * @version v4.0.30319
  */
-class REAL_TIME_NOTIFICATION_SETTING_INPUT_EX extends Win32Struct
-{
+class REAL_TIME_NOTIFICATION_SETTING_INPUT_EX extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -15,7 +13,7 @@ class REAL_TIME_NOTIFICATION_SETTING_INPUT_EX extends Win32Struct
     /**
      * @type {TRANSPORT_SETTING_ID}
      */
-    TransportSettingId{
+    TransportSettingId {
         get {
             if(!this.HasProp("__TransportSettingId"))
                 this.__TransportSettingId := TRANSPORT_SETTING_ID(0, this)
@@ -24,7 +22,7 @@ class REAL_TIME_NOTIFICATION_SETTING_INPUT_EX extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     BrokerEventGuid {
         get => NumGet(this, 8, "ptr")

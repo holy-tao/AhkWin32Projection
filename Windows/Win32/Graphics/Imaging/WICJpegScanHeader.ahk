@@ -7,10 +7,8 @@
  * Get the scan header for an image by calling <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nf-wincodec-iwicjpegframedecode-getscanheader">IWICJpegFrameDecode::GetScanHeader</a>.
  * @see https://learn.microsoft.com/windows/win32/api/wincodec/ns-wincodec-wicjpegscanheader
  * @namespace Windows.Win32.Graphics.Imaging
- * @version v4.0.30319
  */
-class WICJpegScanHeader extends Win32Struct
-{
+class WICJpegScanHeader extends Win32Struct {
     static sizeof => 20
 
     static packingSize => 4

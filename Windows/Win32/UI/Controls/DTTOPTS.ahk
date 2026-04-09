@@ -1,15 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DTTOPTS_FLAGS.ahk
 #Include ..\..\Foundation\POINT.ahk
 
 /**
  * Defines the options for the DrawThemeTextEx function.
  * @see https://learn.microsoft.com/windows/win32/api/uxtheme/ns-uxtheme-dttopts
  * @namespace Windows.Win32.UI.Controls
- * @version v4.0.30319
  */
-class DTTOPTS extends Win32Struct
-{
+class DTTOPTS extends Win32Struct {
     static sizeof => 72
 
     static packingSize => 8
@@ -187,7 +186,7 @@ class DTTOPTS extends Win32Struct
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
+     * @type {DTTOPTS_FLAGS}
      */
     dwFlags {
         get => NumGet(this, 4, "uint")
@@ -242,7 +241,7 @@ class DTTOPTS extends Win32Struct
      * Specifies the amount of offset, in logical coordinates, between the shadow and the text.
      * @type {POINT}
      */
-    ptShadowOffset{
+    ptShadowOffset {
         get {
             if(!this.HasProp("__ptShadowOffset"))
                 this.__ptShadowOffset := POINT(24, this)

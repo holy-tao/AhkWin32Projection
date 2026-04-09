@@ -5,9 +5,8 @@
  * Reserved for system use. (STORAGE_PORT_CODE_SET)
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ne-winioctl-storage_port_code_set
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class STORAGE_PORT_CODE_SET extends Win32Enum{
+class STORAGE_PORT_CODE_SET extends Win32Enum {
 
     /**
      * Indicates an unknown storage adapter driver type.

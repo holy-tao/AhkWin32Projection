@@ -107,9 +107,8 @@
  * </ul>
  * @see https://learn.microsoft.com/windows/win32/api/d3d10/ne-d3d10-d3d10_usage
  * @namespace Windows.Win32.Graphics.Direct3D10
- * @version v4.0.30319
  */
-class D3D10_USAGE extends Win32Enum{
+class D3D10_USAGE extends Win32Enum {
 
     /**
      * A resource that requires read and write access by the GPU. This is likely to be the most common usage choice.

@@ -33,17 +33,15 @@
  * For capture filters, the <b>MinFrameInterval</b> and <b>MaxFrameInterval</b> members define the minimum and maximum duration of each frame, as given in the <b>AvgTimePerFrame</b> member of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/amvideo/ns-amvideo-videoinfoheader">VIDEOINFOHEADER</a> or <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/dvdmedia/ns-dvdmedia-videoinfoheader2">VIDEOINFOHEADER2</a> structure. The filter may not support every frame rate that falls between these two values. The <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nf-strmif-iamstreamconfig-setformat">IAMStreamConfig::SetFormat</a> method will set the frame rate to the closest value that the filter supports. If <b>SetFormat</b> succeeds, call <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nf-strmif-iamstreamconfig-getformat">IAMStreamConfig::GetFormat</a> to determine the actual frame rate.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/ns-strmif-video_stream_config_caps
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class VIDEO_STREAM_CONFIG_CAPS extends Win32Struct
-{
+class VIDEO_STREAM_CONFIG_CAPS extends Win32Struct {
     static sizeof => 120
 
     static packingSize => 8
 
     /**
      * <b>GUID</b> that identifies the format type. For example, <b>FORMAT_VideoInfo</b> or <b>FORMAT_VideoInfo2</b>. For more information, see the <b>formattype</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/ns-strmif-am_media_type">AM_MEDIA_TYPE</a> structure.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     guid {
         get => NumGet(this, 0, "ptr")
@@ -67,7 +65,7 @@ class VIDEO_STREAM_CONFIG_CAPS extends Win32Struct
      * <div> </div>
      * @type {SIZE}
      */
-    InputSize{
+    InputSize {
         get {
             if(!this.HasProp("__InputSize"))
                 this.__InputSize := SIZE(12, this)
@@ -83,7 +81,7 @@ class VIDEO_STREAM_CONFIG_CAPS extends Win32Struct
      * <div> </div>
      * @type {SIZE}
      */
-    MinCroppingSize{
+    MinCroppingSize {
         get {
             if(!this.HasProp("__MinCroppingSize"))
                 this.__MinCroppingSize := SIZE(20, this)
@@ -98,7 +96,7 @@ class VIDEO_STREAM_CONFIG_CAPS extends Win32Struct
      * <div> </div>
      * @type {SIZE}
      */
-    MaxCroppingSize{
+    MaxCroppingSize {
         get {
             if(!this.HasProp("__MaxCroppingSize"))
                 this.__MaxCroppingSize := SIZE(28, this)
@@ -166,7 +164,7 @@ class VIDEO_STREAM_CONFIG_CAPS extends Win32Struct
      * <div> </div>
      * @type {SIZE}
      */
-    MinOutputSize{
+    MinOutputSize {
         get {
             if(!this.HasProp("__MinOutputSize"))
                 this.__MinOutputSize := SIZE(52, this)
@@ -182,7 +180,7 @@ class VIDEO_STREAM_CONFIG_CAPS extends Win32Struct
      * <div> </div>
      * @type {SIZE}
      */
-    MaxOutputSize{
+    MaxOutputSize {
         get {
             if(!this.HasProp("__MaxOutputSize"))
                 this.__MaxOutputSize := SIZE(60, this)

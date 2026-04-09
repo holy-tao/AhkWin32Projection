@@ -7,10 +7,8 @@
  * For more information about parameters, see the [**WER APIs**](/windows/win32/api/werapi/nf-werapi-werreportsetparameter).
  * @see https://learn.microsoft.com/windows/win32/api/diagnosticdataquerytypes/ns-diagnosticdataquerytypes-diagnostic_report_parameter
  * @namespace Windows.Win32.Security.DiagnosticDataQuery
- * @version v4.0.30319
  */
-class DIAGNOSTIC_REPORT_PARAMETER extends Win32Struct
-{
+class DIAGNOSTIC_REPORT_PARAMETER extends Win32Struct {
     static sizeof => 778
 
     static packingSize => 2

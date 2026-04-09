@@ -11,9 +11,8 @@
  * Note the qualifier "On the CPU": GPUs generally take advantage of fine-grained parallelism more so than CPUs. For example, multithreaded calls from the CPU might still end up being serialized when being sent to the GPU; however, a whole bank of pixel and vertex shaders will run in parallel to perform the rendering.
  * @see https://learn.microsoft.com/windows/win32/api/d2d1/ne-d2d1-d2d1_factory_type
  * @namespace Windows.Win32.Graphics.Direct2D
- * @version v4.0.30319
  */
-class D2D1_FACTORY_TYPE extends Win32Enum{
+class D2D1_FACTORY_TYPE extends Win32Enum {
 
     /**
      * No synchronization is provided for accessing or writing to the factory or the objects it creates. If the factory or the objects are called from multiple threads, it is up to the application to provide access locking.

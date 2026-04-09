@@ -8,9 +8,8 @@
  *      larger than 50 MB automatically receives the <b>CLUSPROP_PIFLAG_DEFAULT_QUORUM</b> flag.
  * @see https://learn.microsoft.com/windows/win32/api/msclus/ne-msclus-clusprop_piflags
  * @namespace Windows.Win32.Networking.Clustering
- * @version v4.0.30319
  */
-class CLUSPROP_PIFLAGS extends Win32Enum{
+class CLUSPROP_PIFLAGS extends Win32Enum {
 
     /**
      * The drive letter is sticky.

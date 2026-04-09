@@ -2,14 +2,14 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\IMFSinkWriter.ahk
+#Include .\IMFTransform.ahk
 
 /**
  * Extends the IMFSinkWriter interface.
  * @see https://learn.microsoft.com/windows/win32/api/mfreadwrite/nn-mfreadwrite-imfsinkwriterex
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFSinkWriterEx extends IMFSinkWriter{
+class IMFSinkWriterEx extends IMFSinkWriter {
 
     static sizeof => A_PtrSize
     /**

@@ -5,19 +5,17 @@
  * The ADAPTER_STATUS structure contains information about a network adapter.
  * @see https://learn.microsoft.com/windows/win32/api/nb30/ns-nb30-adapter_status
  * @namespace Windows.Win32.NetworkManagement.NetBios
- * @version v4.0.30319
  */
-class ADAPTER_STATUS extends Win32Struct
-{
+class ADAPTER_STATUS extends Win32Struct {
     static sizeof => 60
 
     static packingSize => 4
 
     /**
      * Specifies encoded address of the adapter.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    adapter_address{
+    adapter_address {
         get {
             if(!this.HasProp("__adapter_addressProxyArray"))
                 this.__adapter_addressProxyArray := Win32FixedArray(this.ptr + 0, 6, Primitive, "char")

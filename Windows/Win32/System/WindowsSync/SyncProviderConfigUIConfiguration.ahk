@@ -5,10 +5,8 @@
  * Represents the information for a synchronization provider configuration UI.
  * @see https://learn.microsoft.com/windows/win32/api/syncregistration/ns-syncregistration-syncproviderconfiguiconfiguration
  * @namespace Windows.Win32.System.WindowsSync
- * @version v4.0.30319
  */
-class SyncProviderConfigUIConfiguration extends Win32Struct
-{
+class SyncProviderConfigUIConfiguration extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -24,7 +22,7 @@ class SyncProviderConfigUIConfiguration extends Win32Struct
 
     /**
      * The unique instance ID of the configuration UI.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     guidInstanceId {
         get => NumGet(this, 8, "ptr")
@@ -33,7 +31,7 @@ class SyncProviderConfigUIConfiguration extends Win32Struct
 
     /**
      * The COM CLSID of the configuration UI.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     clsidConfigUI {
         get => NumGet(this, 16, "ptr")
@@ -42,7 +40,7 @@ class SyncProviderConfigUIConfiguration extends Win32Struct
 
     /**
      * The GUID that identifies the content type supported by the synchronization provider that is created by the configuration UI.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     guidContentType {
         get => NumGet(this, 24, "ptr")

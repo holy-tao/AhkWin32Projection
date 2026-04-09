@@ -5,9 +5,8 @@
  * Specifies how to reconnect filters when dynamically rebuilding the filter graph.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/ne-strmif-am_graph_config_reconnect_flags
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class AM_GRAPH_CONFIG_RECONNECT_FLAGS extends Win32Enum{
+class AM_GRAPH_CONFIG_RECONNECT_FLAGS extends Win32Enum {
 
     /**
      * Do not insert additional filters into the graph while reconnecting, aside from any filter explicitly requested.

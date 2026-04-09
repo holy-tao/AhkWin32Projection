@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DX_IRQDATA.ahk
 
 /**
  * The DDENABLEIRQINFO structure contains the information required to enable interrupts.
@@ -7,16 +8,13 @@
  * The <b>dwIRQSources</b> member of this structure does not use the DDIRQ_BUSMASTER flag. However, the DDIRQ_BUSMASTER flag can be set in the <b>dwIrqFlags</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/dxmini/ns-dxmini-dx_irqdata">DX_IRQDATA</a> structure. The driver passes this DX_IRQDATA to the <b>IRQCallback</b> function when an IRQ occurs.
  * @see https://learn.microsoft.com/windows/win32/api/dxmini/ns-dxmini-ddenableirqinfo
  * @namespace Windows.Win32.Graphics.DirectDraw
- * @version v4.0.30319
  */
-class DDENABLEIRQINFO extends Win32Struct
-{
+class DDENABLEIRQINFO extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
 
     /**
-     * 
      * @type {Integer}
      */
     dwIRQSources {

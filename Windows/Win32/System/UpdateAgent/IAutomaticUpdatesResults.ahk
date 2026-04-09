@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Variant\VARIANT.ahk
 #Include ..\Com\IDispatch.ahk
+#Include ..\Variant\VARIANT.ahk
 
 /**
  * Contains the read-only properties that describe Automatic Updates.
  * @see https://learn.microsoft.com/windows/win32/api/wuapi/nn-wuapi-iautomaticupdatesresults
  * @namespace Windows.Win32.System.UpdateAgent
- * @version v4.0.30319
  */
-class IAutomaticUpdatesResults extends IDispatch{
+class IAutomaticUpdatesResults extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

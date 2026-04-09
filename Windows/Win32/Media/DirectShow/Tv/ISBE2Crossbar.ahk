@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
 #Include .\ISBE2MediaTypeProfile.ahk
 #Include .\ISBE2EnumStream.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
  * Defines crossbar functionality for a Stream Buffer Engine (SBE) version 2 (SBE2) Stream Buffer Source filter.
@@ -11,9 +11,8 @@
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(ISBE2Crossbar)</c>.
  * @see https://learn.microsoft.com/windows/win32/api/sbe/nn-sbe-isbe2crossbar
  * @namespace Windows.Win32.Media.DirectShow.Tv
- * @version v4.0.30319
  */
-class ISBE2Crossbar extends IUnknown{
+class ISBE2Crossbar extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

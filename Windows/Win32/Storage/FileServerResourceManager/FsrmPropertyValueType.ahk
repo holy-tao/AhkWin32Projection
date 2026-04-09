@@ -5,9 +5,8 @@
  * Enumerates the type of the value being assigned to an FSRM property in a property condition.
  * @see https://learn.microsoft.com/windows/win32/api/fsrmenums/ne-fsrmenums-fsrmpropertyvaluetype
  * @namespace Windows.Win32.Storage.FileServerResourceManager
- * @version v4.0.30319
  */
-class FsrmPropertyValueType extends Win32Enum{
+class FsrmPropertyValueType extends Win32Enum {
 
     /**
      * The type assigned to the property value is not defined.

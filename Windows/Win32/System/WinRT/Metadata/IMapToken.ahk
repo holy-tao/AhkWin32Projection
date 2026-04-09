@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.WinRT.Metadata
- * @version v4.0.30319
  */
-class IMapToken extends IUnknown{
+class IMapToken extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -5,10 +5,8 @@
  * The RTM_NEXTHOP_LIST structure contains a list of next hops used to determine equal-cost paths in a route.
  * @see https://learn.microsoft.com/windows/win32/api/rtmv2/ns-rtmv2-rtm_nexthop_list
  * @namespace Windows.Win32.NetworkManagement.Rras
- * @version v4.0.30319
  */
-class RTM_NEXTHOP_LIST extends Win32Struct
-{
+class RTM_NEXTHOP_LIST extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
@@ -24,9 +22,9 @@ class RTM_NEXTHOP_LIST extends Win32Struct
 
     /**
      * Array of next-hop handles.
-     * @type {Array<IntPtr>}
+     * @type {Array<Pointer>}
      */
-    NextHops{
+    NextHops {
         get {
             if(!this.HasProp("__NextHopsProxyArray"))
                 this.__NextHopsProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "ptr")

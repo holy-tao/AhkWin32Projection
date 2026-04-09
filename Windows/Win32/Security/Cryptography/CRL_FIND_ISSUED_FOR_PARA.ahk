@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\CERT_CONTEXT.ahk
 
 /**
  * Contains the certificate contexts of both a subject and a certificate issuer.
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-crl_find_issued_for_para
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CRL_FIND_ISSUED_FOR_PARA extends Win32Struct
-{
+class CRL_FIND_ISSUED_FOR_PARA extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

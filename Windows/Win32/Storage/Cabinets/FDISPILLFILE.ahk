@@ -3,10 +3,9 @@
 
 /**
  * @namespace Windows.Win32.Storage.Cabinets
- * @version v4.0.30319
+ * @architecture X64, Arm64
  */
-class FDISPILLFILE extends Win32Struct
-{
+class FDISPILLFILE extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4
@@ -15,8 +14,8 @@ class FDISPILLFILE extends Win32Struct
      * @type {String}
      */
     ach {
-        get => StrGet(this.ptr + 0, 1, "UTF-16")
-        set => StrPut(value, this.ptr + 0, 1, "UTF-16")
+        get => StrGet(this.ptr + 0, 1, "UTF-8")
+        set => StrPut(value, this.ptr + 0, 1, "UTF-8")
     }
 
     /**

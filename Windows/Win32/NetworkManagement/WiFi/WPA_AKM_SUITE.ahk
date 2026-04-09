@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
- * @version v4.0.30319
  */
-class WPA_AKM_SUITE extends Win32Enum{
+class WPA_AKM_SUITE extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

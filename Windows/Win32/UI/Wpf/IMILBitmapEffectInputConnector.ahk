@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IMILBitmapEffectOutputConnector.ahk
 #Include .\IMILBitmapEffectConnector.ahk
+#Include .\IMILBitmapEffectOutputConnector.ahk
 
 /**
  * Exposes methods that define an input connect.
  * @see https://learn.microsoft.com/windows/win32/api/mileffects/nn-mileffects-imilbitmapeffectinputconnector
  * @namespace Windows.Win32.UI.Wpf
- * @version v4.0.30319
  */
-class IMILBitmapEffectInputConnector extends IMILBitmapEffectConnector{
+class IMILBitmapEffectInputConnector extends IMILBitmapEffectConnector {
 
     static sizeof => A_PtrSize
     /**

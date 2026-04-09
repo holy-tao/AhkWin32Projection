@@ -23,9 +23,8 @@
  * </ol>
  * @see https://learn.microsoft.com/windows/win32/api/prnasnot/nn-prnasnot-iprintasyncnotifychannel
  * @namespace Windows.Win32.Graphics.Printing
- * @version v4.0.30319
  */
-class IPrintAsyncNotifyChannel extends IUnknown{
+class IPrintAsyncNotifyChannel extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

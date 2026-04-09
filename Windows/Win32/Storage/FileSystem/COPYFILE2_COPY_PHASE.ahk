@@ -9,9 +9,8 @@
  *     <a href="https://docs.microsoft.com/windows/desktop/WinProg/using-the-windows-headers">Using the Windows Headers</a>.
  * @see https://learn.microsoft.com/windows/win32/api/winbase/ne-winbase-copyfile2_copy_phase
  * @namespace Windows.Win32.Storage.FileSystem
- * @version v4.0.30319
  */
-class COPYFILE2_COPY_PHASE extends Win32Enum{
+class COPYFILE2_COPY_PHASE extends Win32Enum {
 
     /**
      * The copy had not yet started processing.

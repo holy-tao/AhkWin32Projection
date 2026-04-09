@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\DML_TENSOR_DESC.ahk
+#Include .\DML_SCALE_BIAS.ahk
 
 /**
  * Computes the ceiling for each element of *InputTensor*, placing the result into the corresponding element of *OutputTensor*. The ceiling of x is the smallest integer that is greater than or equal to x.
  * @see https://learn.microsoft.com/windows/win32/api/directml/ns-directml-dml_element_wise_ceil_operator_desc
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
- * @version v4.0.30319
  */
-class DML_ELEMENT_WISE_CEIL_OPERATOR_DESC extends Win32Struct
-{
+class DML_ELEMENT_WISE_CEIL_OPERATOR_DESC extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

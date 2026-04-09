@@ -1,18 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Win32\Graphics\Direct3D9\D3DTRANSFORMCAPS.ahk
-#Include ..\..\..\Win32\Graphics\Direct3D9\D3DLIGHTINGCAPS.ahk
-#Include ..\..\..\Win32\Graphics\Direct3D9\D3DPRIMCAPS.ahk
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
- * @version v4.0.30319
  */
-class D3DNTDEVICEDESC_V3 extends Win32Struct
-{
-    static sizeof => 252
+class D3DNTDEVICEDESC_V3 extends Win32Struct {
+    static sizeof => 152
 
-    static packingSize => 4
+    static packingSize => 8
 
     /**
      * @type {Integer}
@@ -47,14 +42,11 @@ class D3DNTDEVICEDESC_V3 extends Win32Struct
     }
 
     /**
-     * @type {D3DTRANSFORMCAPS}
+     * @type {Pointer}
      */
-    dtcTransformCaps{
-        get {
-            if(!this.HasProp("__dtcTransformCaps"))
-                this.__dtcTransformCaps := D3DTRANSFORMCAPS(16, this)
-            return this.__dtcTransformCaps
-        }
+    dtcTransformCaps {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
@@ -66,235 +58,226 @@ class D3DNTDEVICEDESC_V3 extends Win32Struct
     }
 
     /**
-     * @type {D3DLIGHTINGCAPS}
+     * @type {Pointer}
      */
-    dlcLightingCaps{
-        get {
-            if(!this.HasProp("__dlcLightingCaps"))
-                this.__dlcLightingCaps := D3DLIGHTINGCAPS(28, this)
-            return this.__dlcLightingCaps
-        }
+    dlcLightingCaps {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
-     * @type {D3DPRIMCAPS}
+     * @type {Pointer}
      */
-    dpcLineCaps{
-        get {
-            if(!this.HasProp("__dpcLineCaps"))
-                this.__dpcLineCaps := D3DPRIMCAPS(44, this)
-            return this.__dpcLineCaps
-        }
+    dpcLineCaps {
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 
     /**
-     * @type {D3DPRIMCAPS}
+     * @type {Pointer}
      */
-    dpcTriCaps{
-        get {
-            if(!this.HasProp("__dpcTriCaps"))
-                this.__dpcTriCaps := D3DPRIMCAPS(100, this)
-            return this.__dpcTriCaps
-        }
+    dpcTriCaps {
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 
     /**
      * @type {Integer}
      */
     dwDeviceRenderBitDepth {
-        get => NumGet(this, 156, "uint")
-        set => NumPut("uint", value, this, 156)
+        get => NumGet(this, 56, "uint")
+        set => NumPut("uint", value, this, 56)
     }
 
     /**
      * @type {Integer}
      */
     dwDeviceZBufferBitDepth {
-        get => NumGet(this, 160, "uint")
-        set => NumPut("uint", value, this, 160)
+        get => NumGet(this, 60, "uint")
+        set => NumPut("uint", value, this, 60)
     }
 
     /**
      * @type {Integer}
      */
     dwMaxBufferSize {
-        get => NumGet(this, 164, "uint")
-        set => NumPut("uint", value, this, 164)
+        get => NumGet(this, 64, "uint")
+        set => NumPut("uint", value, this, 64)
     }
 
     /**
      * @type {Integer}
      */
     dwMaxVertexCount {
-        get => NumGet(this, 168, "uint")
-        set => NumPut("uint", value, this, 168)
+        get => NumGet(this, 68, "uint")
+        set => NumPut("uint", value, this, 68)
     }
 
     /**
      * @type {Integer}
      */
     dwMinTextureWidth {
-        get => NumGet(this, 172, "uint")
-        set => NumPut("uint", value, this, 172)
+        get => NumGet(this, 72, "uint")
+        set => NumPut("uint", value, this, 72)
     }
 
     /**
      * @type {Integer}
      */
     dwMinTextureHeight {
-        get => NumGet(this, 176, "uint")
-        set => NumPut("uint", value, this, 176)
+        get => NumGet(this, 76, "uint")
+        set => NumPut("uint", value, this, 76)
     }
 
     /**
      * @type {Integer}
      */
     dwMaxTextureWidth {
-        get => NumGet(this, 180, "uint")
-        set => NumPut("uint", value, this, 180)
+        get => NumGet(this, 80, "uint")
+        set => NumPut("uint", value, this, 80)
     }
 
     /**
      * @type {Integer}
      */
     dwMaxTextureHeight {
-        get => NumGet(this, 184, "uint")
-        set => NumPut("uint", value, this, 184)
+        get => NumGet(this, 84, "uint")
+        set => NumPut("uint", value, this, 84)
     }
 
     /**
      * @type {Integer}
      */
     dwMinStippleWidth {
-        get => NumGet(this, 188, "uint")
-        set => NumPut("uint", value, this, 188)
+        get => NumGet(this, 88, "uint")
+        set => NumPut("uint", value, this, 88)
     }
 
     /**
      * @type {Integer}
      */
     dwMaxStippleWidth {
-        get => NumGet(this, 192, "uint")
-        set => NumPut("uint", value, this, 192)
+        get => NumGet(this, 92, "uint")
+        set => NumPut("uint", value, this, 92)
     }
 
     /**
      * @type {Integer}
      */
     dwMinStippleHeight {
-        get => NumGet(this, 196, "uint")
-        set => NumPut("uint", value, this, 196)
+        get => NumGet(this, 96, "uint")
+        set => NumPut("uint", value, this, 96)
     }
 
     /**
      * @type {Integer}
      */
     dwMaxStippleHeight {
-        get => NumGet(this, 200, "uint")
-        set => NumPut("uint", value, this, 200)
+        get => NumGet(this, 100, "uint")
+        set => NumPut("uint", value, this, 100)
     }
 
     /**
      * @type {Integer}
      */
     dwMaxTextureRepeat {
-        get => NumGet(this, 204, "uint")
-        set => NumPut("uint", value, this, 204)
+        get => NumGet(this, 104, "uint")
+        set => NumPut("uint", value, this, 104)
     }
 
     /**
      * @type {Integer}
      */
     dwMaxTextureAspectRatio {
-        get => NumGet(this, 208, "uint")
-        set => NumPut("uint", value, this, 208)
+        get => NumGet(this, 108, "uint")
+        set => NumPut("uint", value, this, 108)
     }
 
     /**
      * @type {Integer}
      */
     dwMaxAnisotropy {
-        get => NumGet(this, 212, "uint")
-        set => NumPut("uint", value, this, 212)
+        get => NumGet(this, 112, "uint")
+        set => NumPut("uint", value, this, 112)
     }
 
     /**
      * @type {Float}
      */
     dvGuardBandLeft {
-        get => NumGet(this, 216, "float")
-        set => NumPut("float", value, this, 216)
+        get => NumGet(this, 116, "float")
+        set => NumPut("float", value, this, 116)
     }
 
     /**
      * @type {Float}
      */
     dvGuardBandTop {
-        get => NumGet(this, 220, "float")
-        set => NumPut("float", value, this, 220)
+        get => NumGet(this, 120, "float")
+        set => NumPut("float", value, this, 120)
     }
 
     /**
      * @type {Float}
      */
     dvGuardBandRight {
-        get => NumGet(this, 224, "float")
-        set => NumPut("float", value, this, 224)
+        get => NumGet(this, 124, "float")
+        set => NumPut("float", value, this, 124)
     }
 
     /**
      * @type {Float}
      */
     dvGuardBandBottom {
-        get => NumGet(this, 228, "float")
-        set => NumPut("float", value, this, 228)
+        get => NumGet(this, 128, "float")
+        set => NumPut("float", value, this, 128)
     }
 
     /**
      * @type {Float}
      */
     dvExtentsAdjust {
-        get => NumGet(this, 232, "float")
-        set => NumPut("float", value, this, 232)
+        get => NumGet(this, 132, "float")
+        set => NumPut("float", value, this, 132)
     }
 
     /**
      * @type {Integer}
      */
     dwStencilCaps {
-        get => NumGet(this, 236, "uint")
-        set => NumPut("uint", value, this, 236)
+        get => NumGet(this, 136, "uint")
+        set => NumPut("uint", value, this, 136)
     }
 
     /**
      * @type {Integer}
      */
     dwFVFCaps {
-        get => NumGet(this, 240, "uint")
-        set => NumPut("uint", value, this, 240)
+        get => NumGet(this, 140, "uint")
+        set => NumPut("uint", value, this, 140)
     }
 
     /**
      * @type {Integer}
      */
     dwTextureOpCaps {
-        get => NumGet(this, 244, "uint")
-        set => NumPut("uint", value, this, 244)
+        get => NumGet(this, 144, "uint")
+        set => NumPut("uint", value, this, 144)
     }
 
     /**
      * @type {Integer}
      */
     wMaxTextureBlendStages {
-        get => NumGet(this, 248, "ushort")
-        set => NumPut("ushort", value, this, 248)
+        get => NumGet(this, 148, "ushort")
+        set => NumPut("ushort", value, this, 148)
     }
 
     /**
      * @type {Integer}
      */
     wMaxSimultaneousTextures {
-        get => NumGet(this, 250, "ushort")
-        set => NumPut("ushort", value, this, 250)
+        get => NumGet(this, 150, "ushort")
+        set => NumPut("ushort", value, this, 150)
     }
 }

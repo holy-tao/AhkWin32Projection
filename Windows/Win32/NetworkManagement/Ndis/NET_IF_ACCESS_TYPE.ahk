@@ -5,9 +5,8 @@
  * The NET_IF_ACCESS_TYPE enumeration type specifies the NDIS network interface access type.
  * @see https://learn.microsoft.com/windows/win32/api/ifdef/ne-ifdef-net_if_access_type
  * @namespace Windows.Win32.NetworkManagement.Ndis
- * @version v4.0.30319
  */
-class NET_IF_ACCESS_TYPE extends Win32Enum{
+class NET_IF_ACCESS_TYPE extends Win32Enum {
 
     /**
      * Specifies the loopback access type. This access type indicates that the interface loops back

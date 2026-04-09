@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Networking.Clustering
- * @version v4.0.30319
  */
-class NodeSriovInfo extends Win32Struct
-{
+class NodeSriovInfo extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4

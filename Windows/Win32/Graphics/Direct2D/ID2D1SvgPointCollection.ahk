@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include Common\D2D_POINT_2F.ahk
 #Include .\ID2D1SvgAttribute.ahk
+#Include Common\D2D_POINT_2F.ahk
 
 /**
  * Interface describing an SVG points value in a polyline or polygon element.
  * @see https://learn.microsoft.com/windows/win32/api/d2d1svg/nn-d2d1svg-id2d1svgpointcollection
  * @namespace Windows.Win32.Graphics.Direct2D
- * @version v4.0.30319
  */
-class ID2D1SvgPointCollection extends ID2D1SvgAttribute{
+class ID2D1SvgPointCollection extends ID2D1SvgAttribute {
 
     static sizeof => A_PtrSize
     /**
@@ -48,7 +47,9 @@ class ID2D1SvgPointCollection extends ID2D1SvgAttribute{
 
     /**
      * Updates the points array. Existing points not updated by this method are preserved. The array is resized larger if necessary to accommodate the new points.
-     * @param {Pointer<D2D_POINT_2F>} _points 
+     * @param {Pointer<D2D_POINT_2F>} _points Type: <b>const D2D1_POINT_2F*</b>
+     * 
+     * The points array.
      * @param {Integer} pointsCount Type: <b>UINT32</b>
      * 
      * The number of points to update.
@@ -73,7 +74,9 @@ class ID2D1SvgPointCollection extends ID2D1SvgAttribute{
      * @param {Integer} startIndex Type: <b>UINT32</b>
      * 
      * The index of the first point to retrieve.
-     * @returns {D2D_POINT_2F} 
+     * @returns {D2D_POINT_2F} Type: <b>D2D1_POINT_2F*</b>
+     * 
+     * Buffer to contain the points.
      * @see https://learn.microsoft.com/windows/win32/api/d2d1svg/nf-d2d1svg-id2d1svgpointcollection-getpoints
      */
     GetPoints(pointsCount, startIndex) {

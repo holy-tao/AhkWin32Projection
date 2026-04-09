@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\Audio\DirectSound\IDirectSound.ahk
 #Include ..\Audio\DirectSound\IDirectSoundBuffer.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * The IAMDirectSound interface specifies which window has focus for controlling DirectSound audio playback.
  * @see https://learn.microsoft.com/windows/win32/api/amaudio/nn-amaudio-iamdirectsound
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IAMDirectSound extends IUnknown{
+class IAMDirectSound extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

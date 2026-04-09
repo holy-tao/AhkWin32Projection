@@ -7,9 +7,8 @@
  * Allow properly authorized clients to create a customized or complete view of the Certificate Services database.
  * @see https://learn.microsoft.com/windows/win32/api/certview/nn-certview-icertview2
  * @namespace Windows.Win32.Security.Cryptography.Certificates
- * @version v4.0.30319
  */
-class ICertView2 extends ICertView{
+class ICertView2 extends ICertView {
 
     static sizeof => A_PtrSize
     /**
@@ -37,7 +36,7 @@ class ICertView2 extends ICertView{
      * <a href="https://docs.microsoft.com/windows/desktop/api/certview/nf-certview-icertview-openconnection">OpenConnection</a> method first. After the <b>OpenConnection</b> and <b>SetTable</b> calls are made, subsequent calls to the <a href="https://docs.microsoft.com/windows/desktop/api/certview/nn-certview-icertview2">ICertView2</a> interface methods will use the Certificate Services database table specified by the <b>SetTable</b> method.
      * 
      * If the <b>SetTable</b> method is not called, then the default table  CVRC_TABLE_REQCERT is used.
-     * @param {Integer} Table 
+     * @param {CVRC_TABLE} Table 
      * @returns {HRESULT} <h3>VB</h3>
      *  If the method succeeds, the method returns S_OK.
      * 

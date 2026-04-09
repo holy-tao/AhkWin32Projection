@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.UI.Input.Pointer
- * @version v4.0.30319
  */
-class POINTER_FLAGS extends Win32BitflagEnum{
+class POINTER_FLAGS extends Win32BitflagEnum {
 
     /**
      * @type {Integer (UInt32)}

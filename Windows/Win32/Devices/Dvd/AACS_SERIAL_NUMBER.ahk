@@ -3,18 +3,16 @@
 
 /**
  * @namespace Windows.Win32.Devices.Dvd
- * @version v4.0.30319
  */
-class AACS_SERIAL_NUMBER extends Win32Struct
-{
+class AACS_SERIAL_NUMBER extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 1
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    PrerecordedSerialNumber{
+    PrerecordedSerialNumber {
         get {
             if(!this.HasProp("__PrerecordedSerialNumberProxyArray"))
                 this.__PrerecordedSerialNumberProxyArray := Win32FixedArray(this.ptr + 0, 16, Primitive, "char")
@@ -23,9 +21,9 @@ class AACS_SERIAL_NUMBER extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    MAC{
+    MAC {
         get {
             if(!this.HasProp("__MACProxyArray"))
                 this.__MACProxyArray := Win32FixedArray(this.ptr + 16, 16, Primitive, "char")

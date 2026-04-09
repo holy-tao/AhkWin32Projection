@@ -4,13 +4,11 @@
 
 /**
  * @namespace Windows.Win32.UI.Input.KeyboardAndMouse
- * @version v4.0.30319
  */
-class VK_F extends Win32Struct
-{
-    static sizeof => 136
+class VK_F extends Win32Struct {
+    static sizeof => 132
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}
@@ -45,23 +43,23 @@ class VK_F extends Win32Struct
     }
 
     /**
-     * @type {Array<VK_FPARAM>}
+     * @type {VK_FPARAM}
      */
-    NLSFEProc{
+    NLSFEProc {
         get {
             if(!this.HasProp("__NLSFEProcProxyArray"))
-                this.__NLSFEProcProxyArray := Win32FixedArray(this.ptr + 8, 8, VK_FPARAM, "")
+                this.__NLSFEProcProxyArray := Win32FixedArray(this.ptr + 4, 8, VK_FPARAM, "")
             return this.__NLSFEProcProxyArray
         }
     }
 
     /**
-     * @type {Array<VK_FPARAM>}
+     * @type {VK_FPARAM}
      */
-    NLSFEProcAlt{
+    NLSFEProcAlt {
         get {
             if(!this.HasProp("__NLSFEProcAltProxyArray"))
-                this.__NLSFEProcAltProxyArray := Win32FixedArray(this.ptr + 72, 8, VK_FPARAM, "")
+                this.__NLSFEProcAltProxyArray := Win32FixedArray(this.ptr + 68, 8, VK_FPARAM, "")
             return this.__NLSFEProcAltProxyArray
         }
     }

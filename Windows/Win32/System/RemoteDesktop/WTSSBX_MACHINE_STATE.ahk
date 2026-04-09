@@ -5,9 +5,8 @@
  * Contains values that indicate the current state of a server.
  * @see https://learn.microsoft.com/windows/win32/api/tssbx/ne-tssbx-wtssbx_machine_state
  * @namespace Windows.Win32.System.RemoteDesktop
- * @version v4.0.30319
  */
-class WTSSBX_MACHINE_STATE extends Win32Enum{
+class WTSSBX_MACHINE_STATE extends Win32Enum {
 
     /**
      * The server state is unspecified.

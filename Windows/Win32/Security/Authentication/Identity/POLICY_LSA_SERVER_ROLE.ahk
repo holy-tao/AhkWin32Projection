@@ -5,9 +5,8 @@
  * Defines values that indicate the role of an LSA server.
  * @see https://learn.microsoft.com/windows/win32/api/ntsecapi/ne-ntsecapi-policy_lsa_server_role
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class POLICY_LSA_SERVER_ROLE extends Win32Enum{
+class POLICY_LSA_SERVER_ROLE extends Win32Enum {
 
     /**
      * Indicates a backup LSA server.

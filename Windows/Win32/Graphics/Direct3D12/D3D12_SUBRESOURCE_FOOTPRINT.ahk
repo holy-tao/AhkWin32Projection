@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\Dxgi\Common\DXGI_FORMAT.ahk
 
 /**
  * Describes the format, width, height, depth, and row-pitch of the subresource into the parent resource.
@@ -10,17 +11,15 @@
  * The helper structure is <a href="https://docs.microsoft.com/windows/desktop/direct3d12/cd3dx12-subresource-footprint">CD3DX12_SUBRESOURCE_FOOTPRINT</a>.
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_subresource_footprint
  * @namespace Windows.Win32.Graphics.Direct3D12
- * @version v4.0.30319
  */
-class D3D12_SUBRESOURCE_FOOTPRINT extends Win32Struct
-{
+class D3D12_SUBRESOURCE_FOOTPRINT extends Win32Struct {
     static sizeof => 20
 
     static packingSize => 4
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/dxgiformat/ne-dxgiformat-dxgi_format">DXGI_FORMAT</a>-typed value that  specifies the viewing format.
-     * @type {Integer}
+     * @type {DXGI_FORMAT}
      */
     Format {
         get => NumGet(this, 0, "int")

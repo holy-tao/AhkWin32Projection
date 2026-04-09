@@ -1,17 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ITPluggableTerminalSuperclassInfo.ahk
-#Include .\IEnumPluggableSuperclassInfo.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\ITPluggableTerminalSuperclassInfo.ahk
 
 /**
  * The IEnumPluggableSuperclassInfo interface provides COM-standard enumeration methods for the ITPluggableTerminalSuperclassInfo interface. The ITTerminalSupport2::EnumeratePluggableSuperclasses method returns a pointer to IEnumPluggableSuperclassInfo.
  * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nn-tapi3if-ienumpluggablesuperclassinfo
  * @namespace Windows.Win32.Devices.Tapi
- * @version v4.0.30319
  */
-class IEnumPluggableSuperclassInfo extends IUnknown{
+class IEnumPluggableSuperclassInfo extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

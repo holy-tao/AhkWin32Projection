@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
 #Include .\MPEG_DATE_AND_TIME.ahk
 #Include .\IGenericDescriptor.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
  * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005 and later.
  * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nn-atscpsipparser-iatsc_stt
  * @namespace Windows.Win32.Media.DirectShow.Tv
- * @version v4.0.30319
  */
-class IATSC_STT extends IUnknown{
+class IATSC_STT extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

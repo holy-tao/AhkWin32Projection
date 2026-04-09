@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Controls\HPROPSHEETPAGE.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\Controls\HPROPSHEETPAGE.ahk
 
 /**
  * Used by wizards such as the Web Publishing Wizard and Online Print Ordering Wizard which host server-side content pages. This interface exposes methods to specify supported extension pages and to navigate into and out of those pages.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nn-shobjidl-iwizardextension
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IWizardExtension extends IUnknown{
+class IWizardExtension extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

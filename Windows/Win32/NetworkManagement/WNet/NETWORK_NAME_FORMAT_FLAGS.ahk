@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WNet
- * @version v4.0.30319
  */
-class NETWORK_NAME_FORMAT_FLAGS extends Win32Enum{
+class NETWORK_NAME_FORMAT_FLAGS extends Win32Enum {
 
     /**
      * @type {Integer (UInt32)}

@@ -5,10 +5,8 @@
  * An enumerator interface for the invitation collection.
  * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapiinvitationmanager-get__newenum
  * @namespace Windows.Win32.System.DesktopSharing
- * @version v4.0.30319
  */
-class RDPSRAPIInvitationManager extends Win32Struct
-{
+class RDPSRAPIInvitationManager extends Win32Struct {
     static sizeof => 0
 
     static packingSize => 1

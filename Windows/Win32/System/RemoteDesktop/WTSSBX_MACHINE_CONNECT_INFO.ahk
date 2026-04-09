@@ -1,18 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\WTSSBX_IP_ADDRESS.ahk
+#Include .\WTSSBX_ADDRESS_FAMILY.ahk
 
 /**
  * Contains information about a computer that is accepting remote connections.
  * @see https://learn.microsoft.com/windows/win32/api/tssbx/ns-tssbx-wtssbx_machine_connect_info
  * @namespace Windows.Win32.System.RemoteDesktop
- * @version v4.0.30319
  */
-class WTSSBX_MACHINE_CONNECT_INFO extends Win32Struct
-{
-    static sizeof => 648
+class WTSSBX_MACHINE_CONNECT_INFO extends Win32Struct {
+    static sizeof => 888
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * The fully qualified domain name (FQDN) of the computer.  The name cannot exceed 256 characters.
@@ -43,9 +42,9 @@ class WTSSBX_MACHINE_CONNECT_INFO extends Win32Struct
 
     /**
      * An array of <a href="https://docs.microsoft.com/windows/win32/api/tssbx/ns-tssbx-wtssbx_ip_address">WTSSBX_IP_ADDRESS</a> structures that indicate the IP addresses on this computer that are visible to Remote Desktop Connection (RDC) clients. This array cannot exceed 12 elements.
-     * @type {Array<WTSSBX_IP_ADDRESS>}
+     * @type {WTSSBX_IP_ADDRESS}
      */
-    IPaddr{
+    IPaddr {
         get {
             if(!this.HasProp("__IPaddrProxyArray"))
                 this.__IPaddrProxyArray := Win32FixedArray(this.ptr + 552, 12, WTSSBX_IP_ADDRESS, "")

@@ -5,10 +5,8 @@
  * The LINECALLTREATMENTENTRY structure provides information on the type of call treatment, such as music, recorded announcement, or silence, on the current call. The LINEADDRESSCAPS structure can contain an array of LINECALLTREATMENTENTRY structures.
  * @see https://learn.microsoft.com/windows/win32/api/tapi/ns-tapi-linecalltreatmententry
  * @namespace Windows.Win32.Devices.Tapi
- * @version v4.0.30319
  */
-class LINECALLTREATMENTENTRY extends Win32Struct
-{
+class LINECALLTREATMENTENTRY extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4

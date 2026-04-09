@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.WindowsProgramming
- * @version v4.0.30319
  */
-class CameraUIControlMode extends Win32Enum{
+class CameraUIControlMode extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

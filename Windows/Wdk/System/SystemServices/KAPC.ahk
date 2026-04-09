@@ -1,14 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Win32\System\Kernel\LIST_ENTRY.ahk
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class KAPC extends Win32Struct
-{
-    static sizeof => 88
+class KAPC extends Win32Struct {
+    static sizeof => 80
 
     static packingSize => 8
 
@@ -61,23 +58,20 @@ class KAPC extends Win32Struct
     }
 
     /**
-     * @type {LIST_ENTRY}
+     * @type {Pointer}
      */
-    ApcListEntry{
-        get {
-            if(!this.HasProp("__ApcListEntry"))
-                this.__ApcListEntry := LIST_ENTRY(16, this)
-            return this.__ApcListEntry
-        }
+    ApcListEntry {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
-     * @type {Array<Void>}
+     * @type {Array<Pointer<Void>>}
      */
-    Reserved{
+    Reserved {
         get {
             if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 32, 3, Primitive, "ptr")
+                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 24, 3, Primitive, "ptr")
             return this.__ReservedProxyArray
         }
     }
@@ -86,6 +80,14 @@ class KAPC extends Win32Struct
      * @type {Pointer<Void>}
      */
     NormalContext {
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
+    }
+
+    /**
+     * @type {Pointer<Void>}
+     */
+    SystemArgument1 {
         get => NumGet(this, 56, "ptr")
         set => NumPut("ptr", value, this, 56)
     }
@@ -93,40 +95,32 @@ class KAPC extends Win32Struct
     /**
      * @type {Pointer<Void>}
      */
-    SystemArgument1 {
+    SystemArgument2 {
         get => NumGet(this, 64, "ptr")
         set => NumPut("ptr", value, this, 64)
-    }
-
-    /**
-     * @type {Pointer<Void>}
-     */
-    SystemArgument2 {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
     }
 
     /**
      * @type {Integer}
      */
     ApcStateIndex {
-        get => NumGet(this, 80, "char")
-        set => NumPut("char", value, this, 80)
+        get => NumGet(this, 72, "char")
+        set => NumPut("char", value, this, 72)
     }
 
     /**
      * @type {Integer}
      */
     ApcMode {
-        get => NumGet(this, 81, "char")
-        set => NumPut("char", value, this, 81)
+        get => NumGet(this, 73, "char")
+        set => NumPut("char", value, this, 73)
     }
 
     /**
      * @type {BOOLEAN}
      */
     Inserted {
-        get => NumGet(this, 82, "char")
-        set => NumPut("char", value, this, 82)
+        get => NumGet(this, 74, "char")
+        set => NumPut("char", value, this, 74)
     }
 }

@@ -1,10 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\IXpsOMGeometry.ahk
 #Include .\XPS_POINT.ahk
-#Include .\IXpsOMGeometryFigure.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Describes one portion of the path or clipping region that is specified by an IXpsOMGeometry interface.
@@ -51,9 +50,8 @@
  * ```
  * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomgeometryfigure
  * @namespace Windows.Win32.Storage.Xps
- * @version v4.0.30319
  */
-class IXpsOMGeometryFigure extends IUnknown{
+class IXpsOMGeometryFigure extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -453,7 +451,7 @@ class IXpsOMGeometryFigure extends IUnknown{
      * If <i>segmentTypes</i> is <b>NULL</b> when the method is called, <i>segmentCount</i> must be set to zero.
      * 
      *  If a <b>NULL</b> pointer is returned in <i>segmentTypes</i>, the value of  <i>segmentCount</i> will contain the required buffer size, specified as the number of elements.
-     * @param {Pointer<Integer>} segmentTypes An array of <a href="https://docs.microsoft.com/windows/win32/api/xpsobjectmodel/ne-xpsobjectmodel-xps_segment_type">XPS_SEGMENT_TYPE</a> values that has the same number of elements as specified in <i>segmentCount</i>. If the caller requires that only the specified buffer size be returned, set this value to <b>NULL</b>.
+     * @param {Pointer<XPS_SEGMENT_TYPE>} segmentTypes An array of <a href="https://docs.microsoft.com/windows/win32/api/xpsobjectmodel/ne-xpsobjectmodel-xps_segment_type">XPS_SEGMENT_TYPE</a> values that has the same number of elements as specified in <i>segmentCount</i>. If the caller requires that only the specified buffer size be returned, set this value to <b>NULL</b>.
      * 
      * If the array is large enough, this method will copy the <a href="https://docs.microsoft.com/windows/win32/api/xpsobjectmodel/ne-xpsobjectmodel-xps_segment_type">XPS_SEGMENT_TYPE</a> values into the array and return, in <i>segmentCount</i>, the number of the copied values. If <i>segmentTypes</i> is <b>NULL</b> or references a buffer that is  not large enough, a <b>NULL</b> pointer will be returned, no data will be copied, and  <i>segmentCount</i> will contain the required buffer size, which is specified as the number of elements.
      * @returns {HRESULT} If the method succeeds, it returns S_OK; otherwise, it returns an <b>HRESULT</b> error code.
@@ -1029,7 +1027,7 @@ class IXpsOMGeometryFigure extends IUnknown{
      * @param {Integer} segmentDataCount The number of segment data points.
      * 
      * This value is also the number of elements in the array that is referenced by <i>segmentData</i>.
-     * @param {Pointer<Integer>} segmentTypes An array of <a href="https://docs.microsoft.com/windows/win32/api/xpsobjectmodel/ne-xpsobjectmodel-xps_segment_type">XPS_SEGMENT_TYPE</a> variables. The value of <i>segmentCount</i> specifies the number of elements in this array.
+     * @param {Pointer<XPS_SEGMENT_TYPE>} segmentTypes An array of <a href="https://docs.microsoft.com/windows/win32/api/xpsobjectmodel/ne-xpsobjectmodel-xps_segment_type">XPS_SEGMENT_TYPE</a> variables. The value of <i>segmentCount</i> specifies the number of elements in this array.
      * @param {Pointer<Float>} segmentData An array of segment data values. The value of <i>segmentDataCount</i> specifies the number of elements in this array.
      * @param {Pointer<BOOL>} segmentStrokes An array of segment stroke values. The value of <i>segmentCount</i> specifies the number of elements in this array.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the table that follows. For information about  XPS document API return values that are not listed in this table, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dd372955(v=vs.85)">XPS Document Errors</a>.
@@ -1377,7 +1375,7 @@ class IXpsOMGeometryFigure extends IUnknown{
 
     /**
      * Gets the XPS_SEGMENT_STROKE_PATTERN value that indicates whether the segments in the figure are stroked.
-     * @returns {Integer} The <a href="https://docs.microsoft.com/windows/win32/api/xpsobjectmodel/ne-xpsobjectmodel-xps_segment_stroke_pattern">XPS_SEGMENT_STROKE_PATTERN</a> value that indicates whether the segments in the figure are stroked.
+     * @returns {XPS_SEGMENT_STROKE_PATTERN} The <a href="https://docs.microsoft.com/windows/win32/api/xpsobjectmodel/ne-xpsobjectmodel-xps_segment_stroke_pattern">XPS_SEGMENT_STROKE_PATTERN</a> value that indicates whether the segments in the figure are stroked.
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomgeometryfigure-getsegmentstrokepattern
      */
     GetSegmentStrokePattern() {

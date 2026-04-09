@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\RPC_C_HTTP_FLAGS.ahk
+#Include .\RPC_C_HTTP_AUTHN_TARGET.ahk
 
 /**
  * The RPC_HTTP_TRANSPORT_CREDENTIALS_V3 structure defines additional credentials to authenticate to an RPC proxy server or HTTP proxy server when using RPC/HTTP.RPC_HTTP_TRANSPORT_CREDENTIALS_V3 extends RPC_HTTP_TRANSPORT_CREDENTIALS_V2 by allowing arbitrary credential forms to be used. (Unicode)
@@ -14,11 +16,9 @@
  * If the ANSI version of the <b>RpcBindingSetAuthInfoEx</b> function is used,  ANSI versions of <b>RPC_HTTP_TRANSPORT_CREDENTIALS_V3</b> and <b>SEC_WINNT_AUTH_IDENTITY</b> structures must be provided, and the <b>Flags</b> member in <b>TransportCredentials</b> must be set to SEC_WINNT_AUTH_IDENTITY_ANSI.
  * @see https://learn.microsoft.com/windows/win32/api/rpcdce/ns-rpcdce-rpc_http_transport_credentials_v3_w
  * @namespace Windows.Win32.System.Rpc
- * @version v4.0.30319
  * @charset Unicode
  */
-class RPC_HTTP_TRANSPORT_CREDENTIALS_V3_W extends Win32Struct
-{
+class RPC_HTTP_TRANSPORT_CREDENTIALS_V3_W extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 8
@@ -63,7 +63,7 @@ class RPC_HTTP_TRANSPORT_CREDENTIALS_V3_W extends Win32Struct
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
+     * @type {RPC_C_HTTP_FLAGS}
      */
     Flags {
         get => NumGet(this, 8, "uint")
@@ -72,7 +72,7 @@ class RPC_HTTP_TRANSPORT_CREDENTIALS_V3_W extends Win32Struct
 
     /**
      * Specifies the authentication target.
-     * @type {Integer}
+     * @type {RPC_C_HTTP_AUTHN_TARGET}
      */
     AuthenticationTarget {
         get => NumGet(this, 12, "uint")

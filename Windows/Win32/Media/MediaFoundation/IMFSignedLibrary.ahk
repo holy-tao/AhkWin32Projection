@@ -9,9 +9,8 @@
  * See  <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-mfloadsignedlibrary">MFLoadSignedLibrary</a> for an example of how to create and use an <b>IMFSignedLibrary</b> object.
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imfsignedlibrary
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFSignedLibrary extends IUnknown{
+class IMFSignedLibrary extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -37,7 +36,7 @@ class IMFSignedLibrary extends IUnknown{
      * @remarks
      * See  <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-mfloadsignedlibrary">MFLoadSignedLibrary</a> for an example of how to create an <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imfsignedlibrary">IMFSignedLibrary</a> object and call the <b>GetProcedureAddress</b> method.
      * @param {PSTR} name The entry point name in the DLL that specifies the function.
-     * @returns {Pointer<Void>} 
+     * @returns {Pointer<Void>} Receives the address of the entry point.
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsignedlibrary-getprocedureaddress
      */
     GetProcedureAddress(name) {

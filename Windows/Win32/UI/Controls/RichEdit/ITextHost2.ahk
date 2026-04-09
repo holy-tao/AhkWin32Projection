@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\ITextHost.ahk
 #Include ..\..\..\Graphics\Gdi\HPALETTE.ahk
 #Include ..\..\WindowsAndMessaging\HCURSOR.ahk
-#Include .\ITextHost.ahk
 
 /**
  * The ITextHost2 interface extends the ITextHost interface.
  * @see https://learn.microsoft.com/windows/win32/api/textserv/nl-textserv-itexthost2
  * @namespace Windows.Win32.UI.Controls.RichEdit
- * @version v4.0.30319
  */
-class ITextHost2 extends ITextHost{
+class ITextHost2 extends ITextHost {
 
     static sizeof => A_PtrSize
 
@@ -219,7 +218,9 @@ class ITextHost2 extends ITextHost{
      * @param {BOOL} fShow Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * Show or hide flag. <b>TRUE</b> shows the drop caret, and <b>FALSE</b> hides it.
-     * @param {HDC} _hdc 
+     * @param {HDC} _hdc Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HDC</a></b>
+     * 
+     * The HDC.
      * @param {Pointer<RECT>} prc Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">LPCRECT</a></b>
      * 
      * The drop caret rectangle.

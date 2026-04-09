@@ -5,9 +5,8 @@
  * The RADIUS_CODE enumeration type enumerates the possible RADIUS packet codes.
  * @see https://learn.microsoft.com/windows/win32/api/authif/ne-authif-radius_code
  * @namespace Windows.Win32.NetworkManagement.NetworkPolicyServer
- * @version v4.0.30319
  */
-class RADIUS_CODE extends Win32Enum{
+class RADIUS_CODE extends Win32Enum {
 
     /**
      * The packet type is unrecognized. This is used to indicate that the disposition of a request is not being set by this extension DLL.

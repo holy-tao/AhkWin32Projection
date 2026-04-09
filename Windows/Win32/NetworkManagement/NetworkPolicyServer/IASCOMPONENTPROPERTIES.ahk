@@ -16,9 +16,8 @@
  * ```
  * @see https://learn.microsoft.com/windows/win32/api/sdoias/ne-sdoias-iascomponentproperties
  * @namespace Windows.Win32.NetworkManagement.NetworkPolicyServer
- * @version v4.0.30319
  */
-class IASCOMPONENTPROPERTIES extends Win32Enum{
+class IASCOMPONENTPROPERTIES extends Win32Enum {
 
     /**
      * The component ID for the SDO object.

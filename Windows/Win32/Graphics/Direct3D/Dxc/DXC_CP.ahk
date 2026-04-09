@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D.Dxc
- * @version v4.0.30319
  */
-class DXC_CP extends Win32Enum{
+class DXC_CP extends Win32Enum {
 
     /**
      * @type {Integer (UInt32)}

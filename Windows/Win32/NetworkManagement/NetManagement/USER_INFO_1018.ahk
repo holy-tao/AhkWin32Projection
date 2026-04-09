@@ -5,10 +5,8 @@
  * The USER_INFO_1018 structure contains the maximum amount of disk space available to a network user account. This information level is valid only when you call the NetUserSetInfo function.
  * @see https://learn.microsoft.com/windows/win32/api/lmaccess/ns-lmaccess-user_info_1018
  * @namespace Windows.Win32.NetworkManagement.NetManagement
- * @version v4.0.30319
  */
-class USER_INFO_1018 extends Win32Struct
-{
+class USER_INFO_1018 extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 4

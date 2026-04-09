@@ -5,10 +5,8 @@
  * Represents a xsd:duration data type.
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_duration
  * @namespace Windows.Win32.Networking.WindowsWebServices
- * @version v4.0.30319
  */
-class WS_DURATION extends Win32Struct
-{
+class WS_DURATION extends Win32Struct {
     static sizeof => 36
 
     static packingSize => 4

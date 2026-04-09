@@ -5,10 +5,8 @@
  * The list of sharable applications.
  * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapiapplicationfilter-get_applications
  * @namespace Windows.Win32.System.DesktopSharing
- * @version v4.0.30319
  */
-class RDPSRAPIApplicationFilter extends Win32Struct
-{
+class RDPSRAPIApplicationFilter extends Win32Struct {
     static sizeof => 0
 
     static packingSize => 1

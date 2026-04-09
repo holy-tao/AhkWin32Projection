@@ -1,16 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IEnumTfUIElements.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * The IEnumTfUIElements interface is implemented by TSF manager and used by applications or textservices. This interface can be retrieved by ITfUIElementMgr::EnumUIElements and enumerates the registered UI elements.
  * @see https://learn.microsoft.com/windows/win32/api/msctf/nn-msctf-ienumtfuielements
  * @namespace Windows.Win32.UI.TextServices
- * @version v4.0.30319
  */
-class IEnumTfUIElements extends IUnknown{
+class IEnumTfUIElements extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -1,20 +1,20 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\RPC_VERSION.ahk
+#Include .\RPC_STATUS.ahk
+#Include .\RPC_HTTP_REDIRECTOR_STAGE.ahk
 #Include .\RPC_SYNTAX_IDENTIFIER.ahk
+#Include .\RPC_VERSION.ahk
 
 /**
  * @namespace Windows.Win32.System.Rpc
- * @version v4.0.30319
  */
-class RDR_CALLOUT_STATE extends Win32Struct
-{
+class RDR_CALLOUT_STATE extends Win32Struct {
     static sizeof => 104
 
     static packingSize => 8
 
     /**
-     * @type {Integer}
+     * @type {RPC_STATUS}
      */
     LastError {
         get => NumGet(this, 0, "int")
@@ -30,7 +30,7 @@ class RDR_CALLOUT_STATE extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {RPC_HTTP_REDIRECTOR_STAGE}
      */
     LastCalledStage {
         get => NumGet(this, 16, "int")
@@ -94,7 +94,7 @@ class RDR_CALLOUT_STATE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     ResourceType {
         get => NumGet(this, 64, "ptr")
@@ -102,7 +102,7 @@ class RDR_CALLOUT_STATE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     SessionId {
         get => NumGet(this, 72, "ptr")
@@ -112,7 +112,7 @@ class RDR_CALLOUT_STATE extends Win32Struct
     /**
      * @type {RPC_SYNTAX_IDENTIFIER}
      */
-    Interface{
+    Interface {
         get {
             if(!this.HasProp("__Interface"))
                 this.__Interface := RPC_SYNTAX_IDENTIFIER(80, this)

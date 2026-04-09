@@ -5,9 +5,8 @@
  * Column information mask.
  * @see https://learn.microsoft.com/windows/win32/api/certview/nf-certview-icertview-enumcertviewcolumn
  * @namespace Windows.Win32.Security.Cryptography.Certificates
- * @version v4.0.30319
  */
-class CVRC_COLUMN extends Win32Enum{
+class CVRC_COLUMN extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

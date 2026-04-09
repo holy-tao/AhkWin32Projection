@@ -9,10 +9,8 @@
  * The order of visible columns may be different than the order of insertion by the snap-in because the user may have rearranged the columns by dragging and dropping their headers.
  * @see https://learn.microsoft.com/windows/win32/api/mmc/ns-mmc-mmc_visible_columns
  * @namespace Windows.Win32.System.Mmc
- * @version v4.0.30319
  */
-class MMC_VISIBLE_COLUMNS extends Win32Struct
-{
+class MMC_VISIBLE_COLUMNS extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4
@@ -28,9 +26,9 @@ class MMC_VISIBLE_COLUMNS extends Win32Struct
 
     /**
      * A variable-length array in which each member contains the zero-based number of a visible column. The ordering of the columns in the array corresponds to the order of the columns as they appear in the list view. The nVisibleColumns member gives the number of elements in the list.
-     * @type {Array<Int32>}
+     * @type {Array<Integer>}
      */
-    rgVisibleCols{
+    rgVisibleCols {
         get {
             if(!this.HasProp("__rgVisibleColsProxyArray"))
                 this.__rgVisibleColsProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "int")

@@ -5,10 +5,8 @@
  * Contains shaping output properties for an output glyph.
  * @see https://learn.microsoft.com/windows/win32/api/dwrite/ns-dwrite-dwrite_shaping_glyph_properties
  * @namespace Windows.Win32.Graphics.DirectWrite
- * @version v4.0.30319
  */
-class DWRITE_SHAPING_GLYPH_PROPERTIES extends Win32Struct
-{
+class DWRITE_SHAPING_GLYPH_PROPERTIES extends Win32Struct {
     static sizeof => 2
 
     static packingSize => 2
@@ -28,9 +26,6 @@ class DWRITE_SHAPING_GLYPH_PROPERTIES extends Win32Struct
     }
 
     /**
-     * Type: <b>UINT16</b>
-     * 
-     * Indicates that the glyph has justification applied.
      * @type {Integer}
      */
     justification {
@@ -39,9 +34,6 @@ class DWRITE_SHAPING_GLYPH_PROPERTIES extends Win32Struct
     }
 
     /**
-     * Type: <b>UINT16</b>
-     * 
-     * Indicates that the glyph is the start of a cluster.
      * @type {Integer}
      */
     isClusterStart {
@@ -50,9 +42,6 @@ class DWRITE_SHAPING_GLYPH_PROPERTIES extends Win32Struct
     }
 
     /**
-     * Type: <b>UINT16</b>
-     * 
-     * Indicates that the glyph is a diacritic mark.
      * @type {Integer}
      */
     isDiacritic {
@@ -61,9 +50,6 @@ class DWRITE_SHAPING_GLYPH_PROPERTIES extends Win32Struct
     }
 
     /**
-     * Type: <b>UINT16</b>
-     * 
-     * Indicates that the glyph is a word boundary with no visible space.
      * @type {Integer}
      */
     isZeroWidthSpace {
@@ -72,9 +58,6 @@ class DWRITE_SHAPING_GLYPH_PROPERTIES extends Win32Struct
     }
 
     /**
-     * Type: <b>UINT16</b>
-     * 
-     * Reserved for future use.
      * @type {Integer}
      */
     reserved {

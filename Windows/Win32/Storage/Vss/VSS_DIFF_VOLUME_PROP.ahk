@@ -5,10 +5,8 @@
  * Describes a shadow copy storage area volume.
  * @see https://learn.microsoft.com/windows/win32/api/vsmgmt/ns-vsmgmt-vss_diff_volume_prop
  * @namespace Windows.Win32.Storage.Vss
- * @version v4.0.30319
  */
-class VSS_DIFF_VOLUME_PROP extends Win32Struct
-{
+class VSS_DIFF_VOLUME_PROP extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8

@@ -16,18 +16,16 @@
  * > The ntmsapi.h header defines NTMS_PARTITIONINFORMATION as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
  * @see https://learn.microsoft.com/windows/win32/api/ntmsapi/ns-ntmsapi-ntms_partitioninformationw
  * @namespace Windows.Win32.Storage.FileSystem
- * @version v4.0.30319
  * @charset Unicode
  */
-class NTMS_PARTITIONINFORMATIONW extends Win32Struct
-{
+class NTMS_PARTITIONINFORMATIONW extends Win32Struct {
     static sizeof => 944
 
     static packingSize => 8
 
     /**
      * Unique physical media identifier for the medium that contains this side.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     PhysicalMedia {
         get => NumGet(this, 0, "ptr")
@@ -36,7 +34,7 @@ class NTMS_PARTITIONINFORMATIONW extends Win32Struct
 
     /**
      * Unique logical media identifier (LMID) for a piece of logical media that contains this side. This parameter is a <b>NULL</b> if the side is not allocated.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     LogicalMedia {
         get => NumGet(this, 8, "ptr")
@@ -44,7 +42,6 @@ class NTMS_PARTITIONINFORMATIONW extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     State {
@@ -72,9 +69,9 @@ class NTMS_PARTITIONINFORMATIONW extends Win32Struct
 
     /**
      * Label ID unique identifier of the on-media identifier.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    OmidLabelId{
+    OmidLabelId {
         get {
             if(!this.HasProp("__OmidLabelIdProxyArray"))
                 this.__OmidLabelIdProxyArray := Win32FixedArray(this.ptr + 28, 255, Primitive, "char")

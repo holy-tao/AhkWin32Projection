@@ -6,7 +6,6 @@
 
 /**
  * @namespace Windows.Win32.Storage.FileSystem
- * @version v4.0.30319
  */
 class FileSystem {
 
@@ -2707,7 +2706,7 @@ class FileSystem {
      * 
      * For more information, see the Remarks section of this topic and 
      *        <a href="https://docs.microsoft.com/windows/desktop/FileIO/creating-and-opening-files">Creating and Opening Files</a>.
-     * @param {Integer} dwShareMode The requested sharing mode of the file or device, which can be read, write, both, delete, all of these, or 
+     * @param {FILE_SHARE_MODE} dwShareMode The requested sharing mode of the file or device, which can be read, write, both, delete, all of these, or 
      *        none (refer to the following table). Access requests to attributes or extended attributes are not affected by 
      *        this flag.
      * 
@@ -2745,12 +2744,12 @@ class FileSystem {
      *        can be inherited.
      * 
      * For more information, see the Remarks section.
-     * @param {Integer} dwCreationDisposition An action to take on a file or device that exists or does not exist.
+     * @param {FILE_CREATION_DISPOSITION} dwCreationDisposition An action to take on a file or device that exists or does not exist.
      * 
      * For devices other than files, this parameter is usually set to <b>OPEN_EXISTING</b>.
      * 
      * For more information, see the Remarks section.
-     * @param {Integer} dwFlagsAndAttributes The file or device attributes and flags, <b>FILE_ATTRIBUTE_NORMAL</b> being the most 
+     * @param {FILE_FLAGS_AND_ATTRIBUTES} dwFlagsAndAttributes The file or device attributes and flags, <b>FILE_ATTRIBUTE_NORMAL</b> being the most 
      *        common default value for files.
      * 
      * This parameter can include any combination of the available file attributes 
@@ -3735,7 +3734,7 @@ class FileSystem {
      * 
      * For more information, see the Remarks section of this topic and 
      *        <a href="https://docs.microsoft.com/windows/desktop/FileIO/creating-and-opening-files">Creating and Opening Files</a>.
-     * @param {Integer} dwShareMode The requested sharing mode of the file or device, which can be read, write, both, delete, all of these, or 
+     * @param {FILE_SHARE_MODE} dwShareMode The requested sharing mode of the file or device, which can be read, write, both, delete, all of these, or 
      *        none (refer to the following table). Access requests to attributes or extended attributes are not affected by 
      *        this flag.
      * 
@@ -3773,12 +3772,12 @@ class FileSystem {
      *        can be inherited.
      * 
      * For more information, see the Remarks section.
-     * @param {Integer} dwCreationDisposition An action to take on a file or device that exists or does not exist.
+     * @param {FILE_CREATION_DISPOSITION} dwCreationDisposition An action to take on a file or device that exists or does not exist.
      * 
      * For devices other than files, this parameter is usually set to <b>OPEN_EXISTING</b>.
      * 
      * For more information, see the Remarks section.
-     * @param {Integer} dwFlagsAndAttributes The file or device attributes and flags, <b>FILE_ATTRIBUTE_NORMAL</b> being the most 
+     * @param {FILE_FLAGS_AND_ATTRIBUTES} dwFlagsAndAttributes The file or device attributes and flags, <b>FILE_ATTRIBUTE_NORMAL</b> being the most 
      *        common default value for files.
      * 
      * This parameter can include any combination of the available file attributes 
@@ -4239,7 +4238,7 @@ class FileSystem {
      *  
      * 
      * SMB does not support volume management functions. For CsvFs, a new name will not be replicated to the other nodes on the cluster.
-     * @param {Integer} dwFlags The controllable aspects of the <b>DefineDosDevice</b> function. This parameter
+     * @param {DEFINE_DOS_DEVICE_FLAGS} dwFlags The controllable aspects of the <b>DefineDosDevice</b> function. This parameter
      * @param {PWSTR} lpDeviceName A pointer to an MS-DOS device name string specifying the device the function is defining, redefining, or 
      *       deleting. The device name string must not have a colon as the last character, unless a drive letter is being 
      *       defined, redefined, or deleted. For example, drive C  would be the string "C:". In no case is a 
@@ -4931,7 +4930,7 @@ class FileSystem {
      * In the ANSI version of this function, the name is limited to <b>MAX_PATH</b> characters. To extend this limit to 32,767 wide characters, call the Unicode version of the function and prepend "\\\\?\\" to the path. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/FileIO/naming-a-file">Naming a File</a>.
      * @param {BOOL} bWatchSubtree If this parameter is <b>TRUE</b>, the function monitors the directory tree rooted at the specified directory; if it is <b>FALSE</b>, it monitors only the specified directory.
-     * @param {Integer} dwNotifyFilter 
+     * @param {FILE_NOTIFY_CHANGE} dwNotifyFilter 
      * @returns {HANDLE} If the function succeeds, the return value is a handle to a find change notification object.
      * 
      * If the function fails, the return value is <b>INVALID_HANDLE_VALUE</b>. To get extended error information, call 
@@ -5040,7 +5039,7 @@ class FileSystem {
      * In the ANSI version of this function, the name is limited to <b>MAX_PATH</b> characters. To extend this limit to 32,767 wide characters, call the Unicode version of the function and prepend "\\\\?\\" to the path. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/FileIO/naming-a-file">Naming a File</a>.
      * @param {BOOL} bWatchSubtree If this parameter is <b>TRUE</b>, the function monitors the directory tree rooted at the specified directory; if it is <b>FALSE</b>, it monitors only the specified directory.
-     * @param {Integer} dwNotifyFilter 
+     * @param {FILE_NOTIFY_CHANGE} dwNotifyFilter 
      * @returns {HANDLE} If the function succeeds, the return value is a handle to a find change notification object.
      * 
      * If the function fails, the return value is <b>INVALID_HANDLE_VALUE</b>. To get extended error information, call 
@@ -5611,7 +5610,7 @@ class FileSystem {
      * 
      * <div class="alert"><b>Tip</b>  Starting in Windows 10, version 1607, for the unicode version of this function (<b>FindFirstFileExW</b>), you can opt-in to remove the <b>MAX_PATH</b> character limitation without prepending "\\?\". See the "Maximum Path Limitation" section of  <a href="https://docs.microsoft.com/windows/desktop/FileIO/naming-a-file">Naming Files, Paths, and Namespaces</a> for details. </div>
      * <div> </div>
-     * @param {Integer} fInfoLevelId The information level of the returned data.
+     * @param {FINDEX_INFO_LEVELS} fInfoLevelId The information level of the returned data.
      *       
      * 
      * This parameter is one of the 
@@ -5621,12 +5620,12 @@ class FileSystem {
      * 
      * The pointer type is determined by the level of information that is specified in the 
      *        <i>fInfoLevelId</i> parameter.
-     * @param {Integer} fSearchOp The type of filtering to perform that is different from wildcard matching.
+     * @param {FINDEX_SEARCH_OPS} fSearchOp The type of filtering to perform that is different from wildcard matching.
      *       
      * 
      * This parameter is one of the <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ne-minwinbase-findex_search_ops">FINDEX_SEARCH_OPS</a> 
      *        enumeration values.
-     * @param {Integer} dwAdditionalFlags Specifies additional flags that control the search.
+     * @param {FIND_FIRST_EX_FLAGS} dwAdditionalFlags Specifies additional flags that control the search.
      * 
      * <table>
      * <tr>
@@ -5878,7 +5877,7 @@ class FileSystem {
      * 
      * <div class="alert"><b>Tip</b>  Starting in Windows 10, version 1607, for the unicode version of this function (<b>FindFirstFileExW</b>), you can opt-in to remove the <b>MAX_PATH</b> character limitation without prepending "\\?\". See the "Maximum Path Limitation" section of  <a href="https://docs.microsoft.com/windows/desktop/FileIO/naming-a-file">Naming Files, Paths, and Namespaces</a> for details. </div>
      * <div> </div>
-     * @param {Integer} fInfoLevelId The information level of the returned data.
+     * @param {FINDEX_INFO_LEVELS} fInfoLevelId The information level of the returned data.
      *       
      * 
      * This parameter is one of the 
@@ -5888,12 +5887,12 @@ class FileSystem {
      * 
      * The pointer type is determined by the level of information that is specified in the 
      *        <i>fInfoLevelId</i> parameter.
-     * @param {Integer} fSearchOp The type of filtering to perform that is different from wildcard matching.
+     * @param {FINDEX_SEARCH_OPS} fSearchOp The type of filtering to perform that is different from wildcard matching.
      *       
      * 
      * This parameter is one of the <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ne-minwinbase-findex_search_ops">FINDEX_SEARCH_OPS</a> 
      *        enumeration values.
-     * @param {Integer} dwAdditionalFlags Specifies additional flags that control the search.
+     * @param {FIND_FIRST_EX_FLAGS} dwAdditionalFlags Specifies additional flags that control the search.
      * 
      * <table>
      * <tr>
@@ -7700,7 +7699,7 @@ class FileSystem {
      * 
      * <div class="alert"><b>Tip</b>  Starting in Windows 10, version 1607, for the unicode version of this function (<b>GetFileAttributesExW</b>), you can opt-in to remove the <b>MAX_PATH</b> character limitation without prepending "\\?\". See the "Maximum Path Limitation" section of  <a href="https://docs.microsoft.com/windows/desktop/FileIO/naming-a-file">Naming Files, Paths, and Namespaces</a> for details. </div>
      * <div> </div>
-     * @param {Integer} fInfoLevelId A class of attribute information to retrieve.
+     * @param {GET_FILEEX_INFO_LEVELS} fInfoLevelId A class of attribute information to retrieve.
      * 
      * This parameter can be the following value from the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ne-minwinbase-get_fileex_info_levels">GET_FILEEX_INFO_LEVELS</a> enumeration.
@@ -7852,7 +7851,7 @@ class FileSystem {
      * 
      * <div class="alert"><b>Tip</b>  Starting in Windows 10, version 1607, for the unicode version of this function (<b>GetFileAttributesExW</b>), you can opt-in to remove the <b>MAX_PATH</b> character limitation without prepending "\\?\". See the "Maximum Path Limitation" section of  <a href="https://docs.microsoft.com/windows/desktop/FileIO/naming-a-file">Naming Files, Paths, and Namespaces</a> for details. </div>
      * <div> </div>
-     * @param {Integer} fInfoLevelId A class of attribute information to retrieve.
+     * @param {GET_FILEEX_INFO_LEVELS} fInfoLevelId A class of attribute information to retrieve.
      * 
      * This parameter can be the following value from the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ne-minwinbase-get_fileex_info_levels">GET_FILEEX_INFO_LEVELS</a> enumeration.
@@ -8279,7 +8278,7 @@ class FileSystem {
      * </tr>
      * </table>
      * @param {HANDLE} hFile A handle to the file.
-     * @returns {Integer} The function returns one of the following values.
+     * @returns {FILE_TYPE} The function returns one of the following values.
      * 
      * <table>
      * <tr>
@@ -8447,7 +8446,7 @@ class FileSystem {
      * @param {HANDLE} hFile A handle to a file or directory.
      * @param {PSTR} lpszFilePath A pointer to a buffer that receives the path of <i>hFile</i>.
      * @param {Integer} cchFilePath The size of <i>lpszFilePath</i>, in <b>TCHAR</b>s. This value must include a <b>NULL</b> termination character.
-     * @param {Integer} dwFlags 
+     * @param {GETFINALPATHNAMEBYHANDLE_FLAGS} dwFlags 
      * @returns {Integer} If the function succeeds, the return value is the length of the string received by 
      *        <i>lpszFilePath</i>, in <b>TCHAR</b>s. This value does not include the 
      *        size of the terminating null character.
@@ -8605,7 +8604,7 @@ class FileSystem {
      * @param {HANDLE} hFile A handle to a file or directory.
      * @param {PWSTR} lpszFilePath A pointer to a buffer that receives the path of <i>hFile</i>.
      * @param {Integer} cchFilePath The size of <i>lpszFilePath</i>, in <b>TCHAR</b>s. This value must include a <b>NULL</b> termination character.
-     * @param {Integer} dwFlags 
+     * @param {GETFINALPATHNAMEBYHANDLE_FLAGS} dwFlags 
      * @returns {Integer} If the function succeeds, the return value is the length of the string received by 
      *        <i>lpszFilePath</i>, in <b>TCHAR</b>s. This value does not include the 
      *        size of the terminating null character.
@@ -9502,7 +9501,7 @@ class FileSystem {
 
     /**
      * The AreShortNamesEnabled function determines whether short names are enabled for the specified volume.
-     * @param {HANDLE} _Handle 
+     * @param {HANDLE} _Handle The handle to the volume or the handle to a file or directory that resides on the volume to query.
      * @param {Pointer<BOOL>} Enabled A pointer to a `BOOLEAN` value that receives the result of the query. If `TRUE`, short names are enabled for the volume, otherwise `FALSE` is returned.
      * @returns {BOOL} A `BOOLEAN` value that indicates whether the function succeeded. If the function succeeds, the return value is `TRUE`. If the function fails, the return value is `FALSE`. To get extended error information, call the [**GetLastError**](/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror) function.
      * @see https://learn.microsoft.com/windows/win32/api/fileapi/nf-fileapi-areshortnamesenabled
@@ -10844,7 +10843,7 @@ class FileSystem {
      * </table>
      * @param {HANDLE} hFile A handle to the file. The handle must have been created with either the <b>GENERIC_READ</b> or <b>GENERIC_WRITE</b> access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/FileIO/file-security-and-access-rights">File Security and Access Rights</a>.
-     * @param {Integer} dwFlags 
+     * @param {LOCK_FILE_FLAGS} dwFlags 
      * @param {Integer} nNumberOfBytesToLockLow The low-order 32 bits of the length of the byte range to lock.
      * @param {Integer} nNumberOfBytesToLockHigh The high-order 32 bits of the length of the byte range to lock.
      * @param {Pointer<OVERLAPPED>} lpOverlapped A pointer to an 
@@ -11254,7 +11253,7 @@ class FileSystem {
      *        <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-createfilea">CreateFile</a> function, or a socket handle returned by the 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/nf-winsock2-socket">socket</a> or 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/nf-winsock2-accept">accept</a> function.
-     * @param {Pointer} lpBuffer A pointer to the buffer that receives the data read from a file or device.
+     * @param {Integer} lpBuffer A pointer to the buffer that receives the data read from a file or device.
      * 
      * This buffer must remain valid for the duration of the read operation. The caller must not use this buffer 
      *        until the read operation is completed.
@@ -11450,7 +11449,7 @@ class FileSystem {
      * This handle also must have the <b>GENERIC_READ</b> access right. For more information on 
      *        access rights, see 
      *        <a href="https://docs.microsoft.com/windows/desktop/FileIO/file-security-and-access-rights">File Security and Access Rights</a>.
-     * @param {Pointer} lpBuffer A pointer to a buffer that receives the data read from the file or device.
+     * @param {Integer} lpBuffer A pointer to a buffer that receives the data read from the file or device.
      * 
      * This buffer must remain valid for the duration of the read operation. The application should not use this 
      *        buffer until the read operation is completed.
@@ -12148,7 +12147,7 @@ class FileSystem {
      * 
      * <div class="alert"><b>Tip</b>  Starting in Windows 10, version 1607, for the unicode version of this function (<b>SetFileAttributesW</b>), you can opt-in to remove the <b>MAX_PATH</b> character limitation without prepending "\\?\". See the "Maximum Path Limitation" section of  <a href="https://docs.microsoft.com/windows/desktop/FileIO/naming-a-file">Naming Files, Paths, and Namespaces</a> for details. </div>
      * <div> </div>
-     * @param {Integer} dwFileAttributes The file attributes to set for the file.
+     * @param {FILE_FLAGS_AND_ATTRIBUTES} dwFileAttributes The file attributes to set for the file.
      * 
      * This parameter can be one or more values, combined using the bitwise-OR operator. However, all other values 
      *        override <b>FILE_ATTRIBUTE_NORMAL</b>.
@@ -12454,7 +12453,7 @@ class FileSystem {
      * 
      * <div class="alert"><b>Tip</b>  Starting in Windows 10, version 1607, for the unicode version of this function (<b>SetFileAttributesW</b>), you can opt-in to remove the <b>MAX_PATH</b> character limitation without prepending "\\?\". See the "Maximum Path Limitation" section of  <a href="https://docs.microsoft.com/windows/desktop/FileIO/naming-a-file">Naming Files, Paths, and Namespaces</a> for details. </div>
      * <div> </div>
-     * @param {Integer} dwFileAttributes The file attributes to set for the file.
+     * @param {FILE_FLAGS_AND_ATTRIBUTES} dwFileAttributes The file attributes to set for the file.
      * 
      * This parameter can be one or more values, combined using the bitwise-OR operator. However, all other values 
      *        override <b>FILE_ATTRIBUTE_NORMAL</b>.
@@ -12773,11 +12772,11 @@ class FileSystem {
      *        see the Remarks and Example Code sections.
      * 
      * This handle should not be a pipe handle.
-     * @param {Integer} FileInformationClass A <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ne-minwinbase-file_info_by_handle_class">FILE_INFO_BY_HANDLE_CLASS</a> enumeration 
+     * @param {FILE_INFO_BY_HANDLE_CLASS} FileInformationClass A <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ne-minwinbase-file_info_by_handle_class">FILE_INFO_BY_HANDLE_CLASS</a> enumeration 
      *        value that specifies the type of information to be changed.
      * 
      * For a table of valid values, see the Remarks section.
-     * @param {Pointer} lpFileInformation A pointer to the buffer that contains the information to change  for the specified file information class. 
+     * @param {Integer} lpFileInformation A pointer to the buffer that contains the information to change  for the specified file information class. 
      *        The structure that this parameter points to corresponds to the class that is specified by 
      *        <i>FileInformationClass</i>.
      * 
@@ -13053,7 +13052,7 @@ class FileSystem {
      * When  not <b>NULL</b>, this parameter also receives the high order 
      *        <b>DWORD</b> of the new value of the file pointer. For more information, see the Remarks 
      *        section in this topic.
-     * @param {Integer} dwMoveMethod The starting point for the file pointer move.
+     * @param {SET_FILE_POINTER_MOVE_METHOD} dwMoveMethod The starting point for the file pointer move.
      * @returns {Integer} If the function succeeds and <i>lpDistanceToMoveHigh</i> is 
      *        <b>NULL</b>, the return value is the low-order <b>DWORD</b> of the new 
      *        file pointer.
@@ -13220,7 +13219,7 @@ class FileSystem {
      *       negative value moves the file pointer backward.
      * @param {Pointer<Integer>} lpNewFilePointer A pointer to a variable to receive the new file pointer. If this parameter is 
      *       <b>NULL</b>, the new file pointer is not returned.
-     * @param {Integer} dwMoveMethod 
+     * @param {SET_FILE_POINTER_MOVE_METHOD} dwMoveMethod 
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -13870,7 +13869,7 @@ class FileSystem {
      *        <b>FILE_FLAG_OVERLAPPED</b> flag or a socket handle returned by the 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/nf-winsock2-socket">socket</a> or 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/nf-winsock2-accept">accept</a> function.
-     * @param {Pointer} lpBuffer A pointer to the buffer containing the data to be written to the file or device.
+     * @param {Integer} lpBuffer A pointer to the buffer containing the data to be written to the file or device.
      * 
      * This buffer must remain valid for the duration of the write operation. The caller must not use this buffer 
      *         until the write operation is completed.
@@ -14003,7 +14002,7 @@ class FileSystem {
      * Do not associate an I/O completion port with this handle. For more information, see the Remarks section.
      * 
      * This handle also must have the **GENERIC_WRITE** access right. For more information on access rights, see [File Security and Access Rights](/windows/win32/FileIO/file-security-and-access-rights).
-     * @param {Pointer} lpBuffer A pointer to the buffer containing the data to be written to the file or device.
+     * @param {Integer} lpBuffer A pointer to the buffer containing the data to be written to the file or device.
      * 
      * This buffer must remain valid for the duration of the write operation. The caller must not use this buffer until the write operation is completed.
      * @param {Integer} nNumberOfBytesToWrite The number of bytes to be written to the file or device.
@@ -15009,7 +15008,7 @@ class FileSystem {
      * 
      * For more information, see the Remarks section of this topic and 
      *        <a href="https://docs.microsoft.com/windows/desktop/FileIO/creating-and-opening-files">Creating and Opening Files</a>.
-     * @param {Integer} dwShareMode The requested sharing mode of the file or device, which can be read, write, both, delete, all of these, or 
+     * @param {FILE_SHARE_MODE} dwShareMode The requested sharing mode of the file or device, which can be read, write, both, delete, all of these, or 
      *        none (refer to the following table). Access requests to attributes or extended attributes are not affected by 
      *        this flag.
      * 
@@ -15023,7 +15022,7 @@ class FileSystem {
      *        <b>ERROR_SHARING_VIOLATION</b>.
      * 
      * To enable a process to share a file or device while another process has the file or device open, use a
-     * @param {Integer} dwCreationDisposition An action to take on a file or device that exists or does not exist.
+     * @param {FILE_CREATION_DISPOSITION} dwCreationDisposition An action to take on a file or device that exists or does not exist.
      * 
      * For devices other than files, this parameter is usually set to <b>OPEN_EXISTING</b>.
      * 
@@ -15468,7 +15467,7 @@ class FileSystem {
      * 
      * SMB 3.0 supports list of streams less than or equal to 64K.
      * @param {PWSTR} lpFileName The fully qualified file name.
-     * @param {Integer} InfoLevel The information level of the returned data. This parameter is one of the values in the 
+     * @param {STREAM_INFO_LEVELS} InfoLevel The information level of the returned data. This parameter is one of the values in the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/ne-fileapi-stream_info_levels">STREAM_INFO_LEVELS</a> enumeration type.
      * 
      * <table>
@@ -16917,7 +16916,8 @@ class FileSystem {
      * </table>
      * @param {Integer} BufferLength The size of the string buffer identified by <i>lpBuffer</i>, in 
      *       <b>TCHARs</b>.
-     * @param {PWSTR} _Buffer 
+     * @param {PWSTR} _Buffer A pointer to a string buffer that receives the null-terminated string specifying the temporary file path. 
+     *       The returned string ends with a backslash, for example, "C:\\TEMP\\".
      * @returns {Integer} If the function succeeds, the return value is the length, in <b>TCHARs</b>, of the 
      *        string copied to <i>lpBuffer</i>, not including the terminating null character. If the 
      *        return value is greater than <i>nBufferLength</i>, the return value is the length, in 
@@ -17019,7 +17019,8 @@ class FileSystem {
      * </table>
      * @param {Integer} BufferLength The size of the string buffer identified by <i>lpBuffer</i>, in 
      *       <b>TCHARs</b>.
-     * @param {PSTR} _Buffer 
+     * @param {PSTR} _Buffer A pointer to a string buffer that receives the null-terminated string specifying the temporary file path. 
+     *       The returned string ends with a backslash, for example, "C:\\TEMP\\".
      * @returns {Integer} If the function succeeds, the return value is the length, in <b>TCHARs</b>, of the 
      *        string copied to <i>lpBuffer</i>, not including the terminating null character. If the 
      *        return value is greater than <i>nBufferLength</i>, the return value is the length, in 
@@ -17060,7 +17061,7 @@ class FileSystem {
      * @param {PSTR} lpPathName 
      * @param {Integer} dwDesiredAccess 
      * @param {Integer} dwShareMode 
-     * @param {Integer} DirectoryFlags 
+     * @param {DIRECTORY_FLAGS} DirectoryFlags 
      * @param {Pointer<SECURITY_ATTRIBUTES>} lpSecurityAttributes 
      * @returns {HANDLE} 
      */
@@ -17077,7 +17078,7 @@ class FileSystem {
      * @param {PWSTR} lpPathName 
      * @param {Integer} dwDesiredAccess 
      * @param {Integer} dwShareMode 
-     * @param {Integer} DirectoryFlags 
+     * @param {DIRECTORY_FLAGS} DirectoryFlags 
      * @param {Pointer<SECURITY_ATTRIBUTES>} lpSecurityAttributes 
      * @returns {HANDLE} 
      */
@@ -17092,7 +17093,7 @@ class FileSystem {
     /**
      * 
      * @param {PSTR} lpPathName 
-     * @param {Integer} DirectoryFlags 
+     * @param {DIRECTORY_FLAGS} DirectoryFlags 
      * @returns {BOOL} 
      */
     static RemoveDirectory2A(lpPathName, DirectoryFlags) {
@@ -17105,7 +17106,7 @@ class FileSystem {
     /**
      * 
      * @param {PWSTR} lpPathName 
-     * @param {Integer} DirectoryFlags 
+     * @param {DIRECTORY_FLAGS} DirectoryFlags 
      * @returns {BOOL} 
      */
     static RemoveDirectory2W(lpPathName, DirectoryFlags) {
@@ -17554,13 +17555,13 @@ class FileSystem {
      * If the string ends with a wildcard, period, or directory name, the user must have access to the root and all subdirectories on the path.
      * 
      * For information about opting out of the **MAX\_PATH** limitation without prepending "\\\\?\\", see the "Maximum Path Length Limitation" section of [Naming Files, Paths, and Namespaces](/windows/win32/fileio/naming-a-file) for details.
-     * @param {Integer} fInfoLevelId The information level of the returned data.
+     * @param {FINDEX_INFO_LEVELS} fInfoLevelId The information level of the returned data.
      *     
      * This parameter is one of the [**FINDEX\_INFO\_LEVELS**](../minwinbase/ne-minwinbase-findex_info_levels.md) enumeration values.
      * @param {Pointer<Void>} lpFindFileData A pointer to the buffer that receives the file data.
      *     
      * The pointer type is determined by the level of information that is specified in the *fInfoLevelId* parameter.
-     * @param {Integer} fSearchOp The type of filtering to perform that is different from wildcard matching.
+     * @param {FINDEX_SEARCH_OPS} fSearchOp The type of filtering to perform that is different from wildcard matching.
      *     
      * This parameter is one of the [**FINDEX\_SEARCH\_OPS**](../minwinbase/ne-minwinbase-findex_search_ops.md) enumeration values.
      * @param {Integer} dwAdditionalFlags Specifies additional flags that control the search.
@@ -17619,7 +17620,7 @@ class FileSystem {
      * @param {PWSTR} lpFileName The name of the file or directory.
      * 
      * For information about opting out of the **MAX\_PATH** limitation without prepending "\\\\?\\", see the "Maximum Path Length Limitation" section of [Naming Files, Paths, and Namespaces](/windows/win32/fileio/naming-a-file) for details.
-     * @param {Integer} fInfoLevelId A class of attribute information to retrieve.
+     * @param {GET_FILEEX_INFO_LEVELS} fInfoLevelId A class of attribute information to retrieve.
      * 
      * This parameter can be the following value from the [GET\_FILEEX\_INFO\_LEVELS](../minwinbase/ne-minwinbase-get_fileex_info_levels.md) enumeration.
      * 
@@ -17851,7 +17852,7 @@ class FileSystem {
      * 
      * > [!NOTE]
      * > The winver.h header defines VerFindFile as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Integer} uFlags Type: <b>DWORD</b>
+     * @param {VER_FIND_FILE_FLAGS} uFlags Type: <b>DWORD</b>
      * 
      * This parameter can be the following value. All other bits are reserved. 
      * 
@@ -17905,7 +17906,7 @@ class FileSystem {
      * 					<i>lpuDestDirLen</i> contains the size, in characters, of the data returned in 
      * 					<i>szDestDir</i>, including the terminating null character. If the buffer is too small to contain all the data, 
      * 					<i>lpuDestDirLen</i> will be the size of the buffer needed to hold the path.
-     * @returns {Integer} Type: <b>DWORD</b>
+     * @returns {VER_FIND_FILE_STATUS} Type: <b>DWORD</b>
      * 
      * The return value is a bitmask that indicates the status of the file. It can be one or more of the following values. All other values are reserved.
      * 
@@ -17984,7 +17985,7 @@ class FileSystem {
      * 
      * > [!NOTE]
      * > The winver.h header defines VerFindFile as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Integer} uFlags Type: <b>DWORD</b>
+     * @param {VER_FIND_FILE_FLAGS} uFlags Type: <b>DWORD</b>
      * 
      * This parameter can be the following value. All other bits are reserved. 
      * 
@@ -18038,7 +18039,7 @@ class FileSystem {
      * 					<i>lpuDestDirLen</i> contains the size, in characters, of the data returned in 
      * 					<i>szDestDir</i>, including the terminating null character. If the buffer is too small to contain all the data, 
      * 					<i>lpuDestDirLen</i> will be the size of the buffer needed to hold the path.
-     * @returns {Integer} Type: <b>DWORD</b>
+     * @returns {VER_FIND_FILE_STATUS} Type: <b>DWORD</b>
      * 
      * The return value is a bitmask that indicates the status of the file. It can be one or more of the following values. All other values are reserved.
      * 
@@ -18117,7 +18118,7 @@ class FileSystem {
      * 
      * > [!NOTE]
      * > The winver.h header defines VerInstallFile as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Integer} uFlags Type: <b>DWORD</b>
+     * @param {VER_INSTALL_FILE_FLAGS} uFlags Type: <b>DWORD</b>
      * @param {PSTR} szSrcFileName Type: <b>LPCTSTR</b>
      * 
      * The name of the file to be installed. This is the filename in the directory pointed to by the 
@@ -18149,7 +18150,7 @@ class FileSystem {
      * 					<i>lpuTmpFileLen</i> receives the size, in characters, of the data returned in 
      * 					<i>szTmpFile</i>, including the terminating null character. If the buffer is too small to contain all the data, 
      * 					<i>lpuTmpFileLen</i> will be the size of the buffer required to hold the data.
-     * @returns {Integer} Type: <b>DWORD</b>
+     * @returns {VER_INSTALL_FILE_STATUS} Type: <b>DWORD</b>
      * 
      * The return value is a bitmask that indicates exceptions. It can be one or more of the following values. All other values are reserved.
      * 
@@ -18444,7 +18445,7 @@ class FileSystem {
      * 
      * > [!NOTE]
      * > The winver.h header defines VerInstallFile as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Integer} uFlags Type: <b>DWORD</b>
+     * @param {VER_INSTALL_FILE_FLAGS} uFlags Type: <b>DWORD</b>
      * @param {PWSTR} szSrcFileName Type: <b>LPCTSTR</b>
      * 
      * The name of the file to be installed. This is the filename in the directory pointed to by the 
@@ -18476,7 +18477,7 @@ class FileSystem {
      * 					<i>lpuTmpFileLen</i> receives the size, in characters, of the data returned in 
      * 					<i>szTmpFile</i>, including the terminating null character. If the buffer is too small to contain all the data, 
      * 					<i>lpuTmpFileLen</i> will be the size of the buffer required to hold the data.
-     * @returns {Integer} Type: <b>DWORD</b>
+     * @returns {VER_INSTALL_FILE_STATUS} Type: <b>DWORD</b>
      * 
      * The return value is a bitmask that indicates exceptions. It can be one or more of the following values. All other values are reserved.
      * 
@@ -18864,7 +18865,7 @@ class FileSystem {
      * 
      * If the buffer pointed to by 
      * 						<i>lpData</i> is not large enough, the function truncates the file's version information to the size of the buffer.
-     * @param {Pointer} lpData Type: <b>LPVOID</b>
+     * @param {Integer} lpData Type: <b>LPVOID</b>
      * 
      * Pointer to a buffer that receives the file-version information.
      * 
@@ -18919,7 +18920,7 @@ class FileSystem {
      * 
      * If the buffer pointed to by 
      * 						<i>lpData</i> is not large enough, the function truncates the file's version information to the size of the buffer.
-     * @param {Pointer} lpData Type: <b>LPVOID</b>
+     * @param {Integer} lpData Type: <b>LPVOID</b>
      * 
      * Pointer to a buffer that receives the file-version information.
      * 
@@ -18958,7 +18959,7 @@ class FileSystem {
      * 
      * > [!NOTE]
      * > The winver.h header defines GetFileVersionInfoSizeEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Integer} dwFlags Type: <b>DWORD</b>
+     * @param {GET_FILE_VERSION_INFO_FLAGS} dwFlags Type: <b>DWORD</b>
      * 
      * Controls which MUI DLLs (if any) from which the version resource is extracted. Zero or more of the following flags.
      * 
@@ -19032,7 +19033,7 @@ class FileSystem {
      * 
      * > [!NOTE]
      * > The winver.h header defines GetFileVersionInfoSizeEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Integer} dwFlags Type: <b>DWORD</b>
+     * @param {GET_FILE_VERSION_INFO_FLAGS} dwFlags Type: <b>DWORD</b>
      * 
      * Controls which MUI DLLs (if any) from which the version resource is extracted. Zero or more of the following flags.
      * 
@@ -19107,7 +19108,7 @@ class FileSystem {
      * 
      * > [!NOTE]
      * > The winver.h header defines GetFileVersionInfoEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Integer} dwFlags Type: <b>DWORD</b>
+     * @param {GET_FILE_VERSION_INFO_FLAGS} dwFlags Type: <b>DWORD</b>
      * 
      * Controls the MUI DLLs (if any) from which the version resource is extracted. The value of this flag must match the flags passed to the corresponding <a href="https://docs.microsoft.com/windows/desktop/api/winver/nf-winver-getfileversioninfosizeexa">GetFileVersionInfoSizeEx</a> call, which was used to determine the buffer size that is passed in the <i>dwLen</i> parameter. Zero or more of the following flags.
      * 
@@ -19162,7 +19163,7 @@ class FileSystem {
      * Call the <a href="https://docs.microsoft.com/windows/desktop/api/winver/nf-winver-getfileversioninfosizeexa">GetFileVersionInfoSizeEx</a> function first to determine the size, in bytes, of a file's version information. The <i>dwLen</i> parameter should be equal to or greater than that value.
      * 
      * If the buffer pointed to by <i>lpData</i> is not large enough, the function truncates the file's version information to the size of the buffer.
-     * @param {Pointer} lpData Type: <b>LPVOID</b>
+     * @param {Integer} lpData Type: <b>LPVOID</b>
      * 
      * When this function returns, contains a pointer to a buffer that contains the file-version information.
      * 
@@ -19202,7 +19203,7 @@ class FileSystem {
      * 
      * > [!NOTE]
      * > The winver.h header defines GetFileVersionInfoEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Integer} dwFlags Type: <b>DWORD</b>
+     * @param {GET_FILE_VERSION_INFO_FLAGS} dwFlags Type: <b>DWORD</b>
      * 
      * Controls the MUI DLLs (if any) from which the version resource is extracted. The value of this flag must match the flags passed to the corresponding <a href="https://docs.microsoft.com/windows/desktop/api/winver/nf-winver-getfileversioninfosizeexa">GetFileVersionInfoSizeEx</a> call, which was used to determine the buffer size that is passed in the <i>dwLen</i> parameter. Zero or more of the following flags.
      * 
@@ -19257,7 +19258,7 @@ class FileSystem {
      * Call the <a href="https://docs.microsoft.com/windows/desktop/api/winver/nf-winver-getfileversioninfosizeexa">GetFileVersionInfoSizeEx</a> function first to determine the size, in bytes, of a file's version information. The <i>dwLen</i> parameter should be equal to or greater than that value.
      * 
      * If the buffer pointed to by <i>lpData</i> is not large enough, the function truncates the file's version information to the size of the buffer.
-     * @param {Pointer} lpData Type: <b>LPVOID</b>
+     * @param {Integer} lpData Type: <b>LPVOID</b>
      * 
      * When this function returns, contains a pointer to a buffer that contains the file-version information.
      * 
@@ -19661,7 +19662,7 @@ class FileSystem {
      *        <div class="alert"><b>Note</b>  You must specify <b>DELETE</b> access to be able to delete the log.</div>
      * <div> </div>
      * <b>Windows Server 2003 R2:  </b>This parameter must be set to <b>GENERIC_WRITE</b>.
-     * @param {Integer} dwShareMode The sharing mode of a file.
+     * @param {FILE_SHARE_MODE} dwShareMode The sharing mode of a file.
      * 
      * A client cannot request a sharing mode that conflicts with any mode that is specified in any previous open 
      *        request that has an open handle.
@@ -19681,8 +19682,8 @@ class FileSystem {
      *       handle. If <i>psaLogFile</i> is <b>NULL</b>, the object gets a default 
      *       security descriptor. The access control lists (ACL) in the default security descriptor for a log come from the 
      *       primary or impersonation token of the creator.
-     * @param {Integer} fCreateDisposition An action to be taken.
-     * @param {Integer} fFlagsAndAttributes The file attributes and flags for the file.
+     * @param {FILE_CREATION_DISPOSITION} fCreateDisposition An action to be taken.
+     * @param {FILE_FLAGS_AND_ATTRIBUTES} fFlagsAndAttributes The file attributes and flags for the file.
      * 
      * This parameter can take the following values.
      * 
@@ -19744,7 +19745,7 @@ class FileSystem {
 
     /**
      * Marks the specified log for deletion. The log is actually deleted when all handles, marshaling areas, and read contexts to the log are closed. If the log is a physical log, its underlying containers are deleted.
-     * @param {HANDLE} _hLog 
+     * @param {HANDLE} _hLog A handle to an open log that is obtained by a successful call to <a href="https://docs.microsoft.com/windows/desktop/api/clfsw32/nf-clfsw32-createlogfile">CreateLogFile</a>. The log must have been created with DELETE access or you cannot delete the log.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 						
      * 
@@ -19805,7 +19806,9 @@ class FileSystem {
 
     /**
      * Adds a container to the physical log that is associated with the log handle�if the calling process has write access to the .blf file and the ability to create files in the target directory of the container.
-     * @param {HANDLE} _hLog 
+     * @param {HANDLE} _hLog The handle to an open log. 
+     * 
+     * The handle must  be   obtained from <a href="https://docs.microsoft.com/windows/desktop/api/clfsw32/nf-clfsw32-createlogfile">CreateLogFile</a> with write access to the log. The client application must have  write access to the .blf file, and the ability to create files in the target directory of a container.
      * @param {Pointer<Integer>} pcbContainer The optional parameter that specifies the size of the container, in bytes.  
      * 
      * The minimum size is  512 KB for normal logs and 1024 KB for multiplexed logs. The maximum size is approximately 4 gigabytes.
@@ -19857,7 +19860,9 @@ class FileSystem {
      *           efficient than making repeated calls to <a href="https://docs.microsoft.com/windows/desktop/api/clfsw32/nf-clfsw32-addlogcontainer">AddLogContainer</a>, which only adds one container.
      * 
      * Containers are created and opened in a noncompressed mode, and are initialized with 0 (zeros) when they are created.
-     * @param {HANDLE} _hLog 
+     * @param {HANDLE} _hLog The handle to an open log that is obtained from <a href="https://docs.microsoft.com/windows/desktop/api/clfsw32/nf-clfsw32-createlogfile">CreateLogFile</a> with permissions to add a log container. 
+     * 
+     * The file can be dedicated or multiplexed.
      * @param {Integer} cContainer The number of containers  in the <i>rgwszContainerPath</i> array.  
      * 
      * This value must be nonzero.  A log must have at least two containers before any I/O can be performed on it.
@@ -19906,7 +19911,7 @@ class FileSystem {
      * By default, container deletion is lazy, which means that a container is deleted  only if it is not part of an active log.  If the container is part of the active log, it is marked for deletion. However,  deletion does not occur until the  end  of the log exceeds the last sector of the container, or the container has a logical identifier that is greater than the logical identifier of the head of the active log.  The log size reflects the container deletion only when the container is deleted physically.
      * 
      * A log client can request a forced deletion on a container by setting the deletion flag to <b>TRUE</b>. This has the same effect  as deleting a container  that  is  not part of the active log.  However, if the container is part of the active log, the call fails without marking the container for deletion.
-     * @param {HANDLE} _hLog 
+     * @param {HANDLE} _hLog A handle to the log that is obtained from <a href="https://docs.microsoft.com/windows/desktop/api/clfsw32/nf-clfsw32-createlogfile">CreateLogFile</a>.
      * @param {PWSTR} pwszContainerPath A pointer to a wide character string that contains a  path for a  log container that is created by either  <a href="https://docs.microsoft.com/windows/desktop/api/clfsw32/nf-clfsw32-addlogcontainer">AddLogContainer</a> or <a href="https://docs.microsoft.com/windows/desktop/api/clfsw32/nf-clfsw32-addlogcontainerset">AddLogContainerSet</a>.
      * @param {BOOL} fForce The deletion flag  that determines when and how a container is deleted.
      * 
@@ -19947,7 +19952,9 @@ class FileSystem {
      * 
      * 
      * A log client can request a forced deletion on a container by setting the deletion flag to <b>TRUE</b>. This has the same effect  as  deleting a container that  is  not part of the active log.  However, if a container is part of the active log, the call fails without marking the container for deletion.
-     * @param {HANDLE} _hLog 
+     * @param {HANDLE} _hLog A handle to the log that is obtained from <a href="https://docs.microsoft.com/windows/desktop/api/clfsw32/nf-clfsw32-createlogfile">CreateLogFile</a>.  
+     * 
+     * The log handle must have administrative permission to add a log container, and can refer to either a dedicated or multiplexed log.
      * @param {Integer} cContainer The number of container path names in an array that is pointed to by <i>rgwszContainerPath</i>.  
      * 
      * This value must be nonzero.
@@ -19990,7 +19997,9 @@ class FileSystem {
      * Sets the last archived log sequence number (LSN) or archive tail of an archivable log.
      * @remarks
      * If there are any archive contexts obtained from <a href="https://docs.microsoft.com/windows/desktop/api/clfsw32/nf-clfsw32-preparelogarchive">PrepareLogArchive</a> that are not terminated with <a href="https://docs.microsoft.com/windows/desktop/api/clfsw32/nf-clfsw32-terminatelogarchive">TerminateLogArchive</a>, the change does not take effect until all archives are complete. While there are outstanding archive contexts, only the greatest archive tail is applied.
-     * @param {HANDLE} _hLog 
+     * @param {HANDLE} _hLog A handle to the log that is obtained from <a href="https://docs.microsoft.com/windows/desktop/api/clfsw32/nf-clfsw32-createlogfile">CreateLogFile</a>.  
+     * 
+     * The log handle can refer to a dedicated or multiplexed log.
      * @param {Pointer<CLS_LSN>} plsnArchiveTail A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/clfs/ns-clfs-cls_lsn">CLFS_LSN</a> structure that specifies a valid physical LSN in the log.
      * 
      * 
@@ -20028,7 +20037,9 @@ class FileSystem {
      * The <b>SetEndOfLog</b> function  truncates the log by setting the end of the log to the specified value.   This operation only works on dedicated logs.
      * 
      * <b>SetEndOfLog</b> can only be used to truncate a log.
-     * @param {HANDLE} _hLog 
+     * @param {HANDLE} _hLog A handle to the log that is obtained from <a href="https://docs.microsoft.com/windows/desktop/api/clfsw32/nf-clfsw32-createlogfile">CreateLogFile</a>.  
+     * 
+     * The log handle must refer to a dedicated log.
      * @param {Pointer<CLS_LSN>} plsnEnd A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/clfs/ns-clfs-cls_lsn">CLFS_LSN</a> structure that specifies the new end of a log.  
      * 
      * The LSN must be between the base log sequence number (LSN) of the log and the last LSN of the log.
@@ -20088,7 +20099,9 @@ class FileSystem {
      * Creates a scan context to use with ScanLogContainers to enumerate all log containers that are associated with a log, and performs the first scan.
      * @remarks
      * After completing a scan, the client must call <a href="https://docs.microsoft.com/windows/desktop/api/clfsw32/nf-clfsw32-scanlogcontainers">ScanLogContainers</a> again with the <i>eScanMode</i> parameter set to <b>CLFS_SCAN_CLOSE</b>  so that it can free the system-allocated array of <a href="https://docs.microsoft.com/windows/desktop/api/clfs/ns-clfs-cls_container_information">CLFS_CONTAINER_INFORMATION</a> structures; otherwise, memory leaks result.
-     * @param {HANDLE} _hLog 
+     * @param {HANDLE} _hLog A  handle to the log that is obtained from <a href="https://docs.microsoft.com/windows/desktop/api/clfsw32/nf-clfsw32-createlogfile">CreateLogFile</a> with permissions  to scan the log containers.  
+     * 
+     * The file can be  a dedicated or multiplexed log.
      * @param {Integer} cFromContainer The container where  the scan is to be started.  
      * 
      * This parameter is an ordinal number relative to the number of containers in the log.
@@ -20369,7 +20382,9 @@ class FileSystem {
 
     /**
      * Returns a buffer that contains metadata about a specified log and its current state, which is defined by the CLFS_INFORMATION structure.
-     * @param {HANDLE} _hLog 
+     * @param {HANDLE} _hLog A handle to an open log that is obtained from a successful call to <a href="https://docs.microsoft.com/windows/desktop/api/clfsw32/nf-clfsw32-createlogfile">CreateLogFile</a>.  
+     * 
+     * The log handle can refer to a dedicated or multiplexed log.
      * @param {Pointer<CLS_INFORMATION>} pinfoBuffer A pointer to a user-allocated <a href="https://docs.microsoft.com/windows/desktop/api/clfs/ns-clfs-cls_information">CLFS_INFORMATION</a> structure that receives the log metadata.
      * @param {Pointer<Integer>} cbBuffer A pointer to a variable that on input specifies the size, in bytes, of the metadata buffer pointed to by <i>pinfoBuffer</i>.
      * 
@@ -20401,8 +20416,9 @@ class FileSystem {
 
     /**
      * Enables or disables log archive support for a specified log.
-     * @param {HANDLE} _hLog 
-     * @param {Integer} eMode 
+     * @param {HANDLE} _hLog A handle to the log that is obtained from 
+     *       <a href="https://docs.microsoft.com/windows/desktop/api/clfsw32/nf-clfsw32-createlogfile">CreateLogFile</a>.
+     * @param {CLFS_LOG_ARCHIVE_MODE} eMode 
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      *       
      * 
@@ -20553,7 +20569,7 @@ class FileSystem {
      * @param {Pointer<CLS_LSN>} plsnBase A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/clfs/ns-clfs-cls_lsn">CLFS_LSN</a> structure that specifies the new base LSN of the log after successfully writing the restart area.  
      * 
      * This value cannot be outside the range of the active log. It must be at least the value of the current base LSN, and not greater than the LSN that was returned in the <i>lastLSN</i> parameter from the latest call to <a href="https://docs.microsoft.com/windows/desktop/api/clfsw32/nf-clfsw32-reserveandappendlog">ReserveAndAppendLog</a>.  If you omit this optional parameter, the base LSN  does not change.
-     * @param {Integer} fFlags The flags that specify the behavior of this function.
+     * @param {CLFS_FLAG} fFlags The flags that specify the behavior of this function.
      * @param {Pointer<Integer>} pcbWritten A pointer to a variable that receives the number of bytes that are  written when an operation completes.
      * @param {Pointer<CLS_LSN>} plsnNext A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/clfs/ns-clfs-cls_lsn">CLFS_LSN</a> structure that specifies the LSN of the restart area that is written.
      * @param {Pointer<OVERLAPPED>} pOverlapped A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-overlapped">OVERLAPPED</a> structure. 
@@ -20639,7 +20655,9 @@ class FileSystem {
 
     /**
      * Resets the log file and then shuts the log.
-     * @param {HANDLE} _hLog 
+     * @param {HANDLE} _hLog A handle to a dedicated or multiplexed log. 
+     * 
+     * This handle is returned by a successful call to <a href="https://docs.microsoft.com/windows/desktop/api/clfsw32/nf-clfsw32-createlogfile">CreateLogFile</a>.  It is invalidated on successful completion of the call. No other operations that use this handle, or a derivative of this handle, can be called after this function has returned.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 						
      * 
@@ -20663,7 +20681,9 @@ class FileSystem {
 
     /**
      * Creates a marshaling area for a log, and when successful it returns a marshaling context. Before creating a marshaling area, the log must have at least one container.
-     * @param {HANDLE} _hLog 
+     * @param {HANDLE} _hLog A handle to the log that is obtained from <a href="https://docs.microsoft.com/windows/desktop/api/clfsw32/nf-clfsw32-createlogfile">CreateLogFile</a>.  
+     * 
+     * The log handle  can  refer to a dedicated or multiplexed log.
      * @param {Pointer<CLFS_BLOCK_ALLOCATION>} pfnAllocBuffer The callback function that allocates memory for log blocks.  
      * 
      * If this parameter is <b>NULL</b>, the Common Log File System (CLFS) provides a default block allocation function.  This parameter cannot be <b>NULL</b> if a block-freeing callback is specified by using the <i>pfnFreeBuffer</i>  parameter.
@@ -20774,7 +20794,7 @@ class FileSystem {
      *  This parameter is ignored if the <i>cReserveRecords</i> parameter is zero.    If a reservation size is negative, a reservation of that size is released.
      * 
      * The actual space that is reserved for each record, including required overhead, is returned in the individual array elements on successful completion. These values can  be passed to the <a href="https://docs.microsoft.com/windows/desktop/api/clfsw32/nf-clfsw32-freereservedlog">FreeReservedLog</a>  function to adjust space that is reserved in the marshaling area.
-     * @param {Integer} fFlags The flags that specify the behavior of this function.
+     * @param {CLFS_FLAG} fFlags The flags that specify the behavior of this function.
      * @param {Pointer<CLS_LSN>} plsn A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/clfs/ns-clfs-cls_lsn">CLFS_LSN</a> structure that receives the LSN  of the appended record.
      * @param {Pointer<OVERLAPPED>} pOverlapped A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-overlapped">OVERLAPPED</a> structure. 
      * 
@@ -20835,7 +20855,7 @@ class FileSystem {
      *  This parameter is ignored if the <i>cReserveRecords</i> parameter is zero.    If a reservation size is negative, a reservation of that size is released.
      * 
      * The actual space that is reserved for each record, including required overhead, is returned in the individual array elements on successful completion. These values can  be passed to the <a href="https://docs.microsoft.com/windows/desktop/api/clfsw32/nf-clfsw32-freereservedlog">FreeReservedLog</a>  function to adjust space that is reserved in the marshaling area.
-     * @param {Integer} fFlags The flags that specify the behavior of this function.
+     * @param {CLFS_FLAG} fFlags The flags that specify the behavior of this function.
      * @param {Pointer<CLS_LSN>} plsn A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/clfs/ns-clfs-cls_lsn">CLFS_LSN</a> structure that receives the LSN  of the appended record.
      * @param {Pointer<OVERLAPPED>} pOverlapped A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-overlapped">OVERLAPPED</a> structure. 
      * 
@@ -20945,7 +20965,7 @@ class FileSystem {
      * @param {Pointer<CLS_LSN>} plsnFirst A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/clfs/ns-clfs-cls_lsn">CLFS_LSN</a> structure that specifies the log sequence number (LSN) of the record  where  the read operation should start.  
      * 
      * This value must be an LSN of a valid record in the active range of the log.
-     * @param {Integer} eContextMode The mode for the read context that is returned in <i>*ppvReadContext</i>.  
+     * @param {CLFS_CONTEXT_MODE} eContextMode The mode for the read context that is returned in <i>*ppvReadContext</i>.  
      * 
      * The following table identifies the three  mutually exclusive  read modes.
      * 
@@ -21155,7 +21175,9 @@ class FileSystem {
      * Until you call <a href="https://docs.microsoft.com/windows/desktop/api/clfsw32/nf-clfsw32-terminatelogarchive">TerminateLogArchive</a>, containers that are being archived cannot be recycled.
      * 
      * You can only perform one archive operation at a time per handle that  <a href="https://docs.microsoft.com/windows/desktop/api/clfsw32/nf-clfsw32-createlogfile">CreateLogFile</a> returns.
-     * @param {HANDLE} _hLog 
+     * @param {HANDLE} _hLog A handle to the log that is  obtained by a successful call to <a href="https://docs.microsoft.com/windows/desktop/api/clfsw32/nf-clfsw32-createlogfile">CreateLogFile</a>.  
+     * 
+     * This handle can be the handle to a dedicated or multiplexed log.
      * @param {PWSTR} pszBaseLogFileName A pointer to a  user-allocated buffer to receive the fully qualified path of the base log.  
      * 
      * If the buffer is not large enough, it contains a truncated file path on exit, and the function fails with an <i>ERROR_BUFFER_OVERFLOW</i> status code. 
@@ -21353,7 +21375,11 @@ class FileSystem {
 
     /**
      * Retrieves the full path name of the specified container.
-     * @param {HANDLE} _hLog 
+     * @param {HANDLE} _hLog A handle to the log that is obtained from a successful call to 
+     *       <a href="https://docs.microsoft.com/windows/desktop/api/clfsw32/nf-clfsw32-createlogfile">CreateLogFile</a>. 
+     * 
+     * The log handle could refer to a 
+     *       log stream or a physical log.
      * @param {Integer} cidLogicalContainer The unique  identifier that is associated with a container.
      * @param {PWSTR} pwstrContainerName A pointer to a user-allocated buffer to receive the full path and name of the log container, in wide characters.
      * @param {Integer} cLenContainerName The size of the buffer pointed to by <i>pwstrContainerName</i>, in characters.
@@ -21390,14 +21416,14 @@ class FileSystem {
 
     /**
      * Retrieves log I/O statistics for a dedicated or multiplexed log that is associated with the specified handle.
-     * @param {HANDLE} _hLog 
+     * @param {HANDLE} _hLog A handle to an open log file that <a href="https://docs.microsoft.com/windows/desktop/api/clfsw32/nf-clfsw32-createlogfile">CreateLogFile</a> gets.  The log handle can refer to either a dedicated or multiplexed log file.
      * @param {Pointer<Void>} pvStatsBuffer A pointer to a buffer to receive the I/O statistics.  
      * 
      * This buffer must be at least as large as an I/O statistics packet header. For more information, see  <a href="https://docs.microsoft.com/windows/desktop/api/clfs/ns-clfs-cls_io_statistics_header">CLFS_IO_STATISTICS_HEADER</a>.
      * @param {Integer} cbStatsBuffer The size of the I/O statistics buffer <i>pvStatsBuffer</i>, in bytes.   
      * 
      * If the buffer is not large enough for the statistics packet, the function fails with <b>ERROR_MORE_DATA</b>.
-     * @param {Integer} eStatsClass This parameter is not implemented at this time; it is reserved for future use.
+     * @param {CLFS_IOSTATS_CLASS} eStatsClass This parameter is not implemented at this time; it is reserved for future use.
      * @param {Pointer<Integer>} pcbStatsWritten A pointer to a variable to receive the size of the I/O statistics packet that is written to  <i>pvStatsBuffer</i>.   
      * 
      * This value is less than or equal to <i>cbStatsBuffer</i>.
@@ -21429,7 +21455,7 @@ class FileSystem {
      * Registers a client with the log manager. A client can specify whether to receive notifications by using callbacks, or have the notifications queued for retrieval by using ReadLogNotification.
      * @remarks
      * A client can deregister either by closing the log handle, or by calling <a href="https://docs.microsoft.com/windows/desktop/api/clfsmgmtw32/nf-clfsmgmtw32-deregistermanageablelogclient">DeregisterManageableLogClient</a>.
-     * @param {HANDLE} _hLog 
+     * @param {HANDLE} _hLog The handle to the log to register. Only one registration per unique opening of the log is allowed.
      * @param {Pointer<LOG_MANAGEMENT_CALLBACKS>} pCallbacks Specifies the callbacks that the client is registering for.  Valid callbacks are enumerated by <a href="https://docs.microsoft.com/windows/desktop/api/clfsmgmtw32/ns-clfsmgmtw32-log_management_callbacks">LOG_MANAGEMENT_CALLBACKS</a>. Specify zero to queue notifications instead.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 						
@@ -21454,7 +21480,7 @@ class FileSystem {
 
     /**
      * Deregisters a client with the log manager.
-     * @param {HANDLE} _hLog 
+     * @param {HANDLE} _hLog The handle to deregister.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 						
      * 
@@ -21480,7 +21506,7 @@ class FileSystem {
      * Retrieves notifications from the log manager. It retrieves a queued notification from the log manager immediately if a notification is available; otherwise the request remains pending until a notification is generated.
      * @remarks
      * If the log handle is not created with the <b>FILE_FLAG_OVERLAPPED</b> file option, no operations can start on the log handle while the call to <b>ReadLogNotification</b>  is pending.
-     * @param {HANDLE} _hLog 
+     * @param {HANDLE} _hLog The handle to the log.
      * @param {Pointer<CLFS_MGMT_NOTIFICATION>} pNotification Receives the notification type, and if the type has parameters associated with it, the parameters.
      * @param {Pointer<OVERLAPPED>} lpOverlapped A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-overlapped">OVERLAPPED</a> structure that is required for asynchronous operation. If asynchronous operation is not used, this parameter can be <b>NULL</b>.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
@@ -21507,7 +21533,7 @@ class FileSystem {
      * Installs (sets) a policy for a log.
      * @remarks
      * Installing a log policy does not trigger an immediate change in behavior.
-     * @param {HANDLE} _hLog 
+     * @param {HANDLE} _hLog A handle to a log.
      * @param {Pointer<CLFS_MGMT_POLICY>} pPolicy A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/clfsmgmt/ns-clfsmgmt-clfs_mgmt_policy">CLFS_MGMT_POLICY</a> structure that represents the desired policy to install.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
@@ -21531,8 +21557,8 @@ class FileSystem {
 
     /**
      * Resets the specified policy to its default behavior.
-     * @param {HANDLE} _hLog 
-     * @param {Integer} ePolicyType Specifies the policy to reset. Policy types are enumerated in <a href="https://docs.microsoft.com/windows/desktop/api/clfsmgmt/ne-clfsmgmt-clfs_mgmt_policy_type">CLFS_MGMT_POLICY_TYPE</a>.
+     * @param {HANDLE} _hLog Handle to the log to reset the policy for.
+     * @param {CLFS_MGMT_POLICY_TYPE} ePolicyType Specifies the policy to reset. Policy types are enumerated in <a href="https://docs.microsoft.com/windows/desktop/api/clfsmgmt/ne-clfsmgmt-clfs_mgmt_policy_type">CLFS_MGMT_POLICY_TYPE</a>.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero (0). To get extended error information, call 
@@ -21555,8 +21581,8 @@ class FileSystem {
 
     /**
      * The QueryLogPolicy function allows you to obtain a policy that is installed for the specified log.
-     * @param {HANDLE} _hLog 
-     * @param {Integer} ePolicyType Specifies the type of policy to query for. Policy types are enumerated in <a href="https://docs.microsoft.com/windows/desktop/api/clfsmgmt/ne-clfsmgmt-clfs_mgmt_policy_type">CLFS_MGMT_POLICY_TYPE</a>.
+     * @param {HANDLE} _hLog The handle to the log to query.
+     * @param {CLFS_MGMT_POLICY_TYPE} ePolicyType Specifies the type of policy to query for. Policy types are enumerated in <a href="https://docs.microsoft.com/windows/desktop/api/clfsmgmt/ne-clfsmgmt-clfs_mgmt_policy_type">CLFS_MGMT_POLICY_TYPE</a>.
      * @param {Pointer<CLFS_MGMT_POLICY>} pPolicyBuffer A pointer to a buffer to receive the returned policies.
      * @param {Pointer<Integer>} pcbPolicyBuffer A pointer to the size of <i>pPolicyBuffer</i>. If the buffer is not large enough, <i>pcbPolicyBuffer</i> receives the size buffer required to successfully retrieve the specified policies.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
@@ -21585,7 +21611,7 @@ class FileSystem {
      * Adds or deletes containers from a log based on the state of the installed policies.
      * @remarks
      * Containers are  created using the same security attributes as   the .blf file and are created within the context of the application, not the context of the owner of the .blf file. For more information about .blf files, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/clfs/log-types">Log Types</a>. If containers are deleted, they are deleted using the security context of the calling application.
-     * @param {HANDLE} _hLog 
+     * @param {HANDLE} _hLog A handle to a log.
      * @param {Pointer<Integer>} pDesiredSize 
      * @param {Pointer<Integer>} pResultingSize A pointer to a valid ULONGLONG data variable, receives the number of containers in the resized log upon success.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
@@ -21617,7 +21643,7 @@ class FileSystem {
      * If containers are created to resolve a log-full condition, they are created using the calling application's security context.
      * 
      * <b>HandleLogFull</b> always results in asynchronous behavior or an error; if it returns false and <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns <b>ERROR_IO_PENDING</b>, the result is asynchronous behavior. If a request is asynchronous, a notification is sent to the client when the handler has either  resolved the log full condition or it fails.
-     * @param {HANDLE} _hLog 
+     * @param {HANDLE} _hLog A handle to the log on which to resolve the log full condition. The handle must have been registered with <a href="https://docs.microsoft.com/windows/desktop/api/clfsmgmtw32/nf-clfsmgmtw32-registermanageablelogclient">RegisterManageableLogClient</a>.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 						
      * 
@@ -21641,7 +21667,7 @@ class FileSystem {
 
     /**
      * The LogTailAdvanceFailure function is called by a log client to indicate that it cannot comply with a request from log management to advance its tail.
-     * @param {HANDLE} _hLog 
+     * @param {HANDLE} _hLog A handle to the log on which to resolve the log full condition.
      * @param {Integer} dwReason Win32 error code with the reason for the failure For a list of possible values, see 
      *       <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
@@ -21667,7 +21693,7 @@ class FileSystem {
 
     /**
      * The RegisterForLogWriteNotification function is called by a managed log client to enable or disable log write notifications.
-     * @param {HANDLE} _hLog 
+     * @param {HANDLE} _hLog A handle to the log on which to resolve the log full condition.
      * @param {Integer} cbThreshold Number of bytes to be written to the log file before the notification is sent.
      * @param {BOOL} fEnable If <b>TRUE</b>, the notification is enabled. If <b>FALSE</b>, the notification is disabled.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
@@ -22413,7 +22439,6 @@ class FileSystem {
      * @param {Pointer<Integer>} pcbMetadata 
      * @param {Pointer<Pointer<Integer>>} ppbMetadata 
      * @returns {Integer} 
-     * @deprecated 
      */
     static GetEncryptedFileMetadata(lpFileName, pcbMetadata, ppbMetadata) {
         lpFileName := lpFileName is String ? StrPtr(lpFileName) : lpFileName
@@ -22434,7 +22459,6 @@ class FileSystem {
      * @param {Integer} dwOperation 
      * @param {Pointer<ENCRYPTION_CERTIFICATE_HASH_LIST>} pCertificatesAdded 
      * @returns {Integer} 
-     * @deprecated 
      */
     static SetEncryptedFileMetadata(lpFileName, pbOldMetadata, pbNewMetadata, pOwnerHash, dwOperation, pCertificatesAdded) {
         lpFileName := lpFileName is String ? StrPtr(lpFileName) : lpFileName
@@ -22450,7 +22474,6 @@ class FileSystem {
      * 
      * @param {Pointer<Integer>} pbMetadata 
      * @returns {String} Nothing - always returns an empty string
-     * @deprecated 
      */
     static FreeEncryptedFileMetadata(pbMetadata) {
         pbMetadataMarshal := pbMetadata is VarRef ? "char*" : "ptr"
@@ -23078,7 +23101,7 @@ class FileSystem {
      * 
      * The <b>szPathName</b> member of this structure contains characters from the original 
      *        equipment manufacturer (OEM) character set.
-     * @param {Integer} wStyle 
+     * @param {LZOPENFILE_STYLE} wStyle 
      * @returns {Integer} If the function succeeds and the value specified by the <i>wStyle</i> parameter is not 
      *        <b>OF_READ</b>, the return value is a handle identifying the file. If the file is compressed 
      *        and opened with <i>wStyle</i> set to <b>OF_READ</b>, the return value is 
@@ -23235,7 +23258,7 @@ class FileSystem {
      * 
      * The <b>szPathName</b> member of this structure contains characters from the original 
      *        equipment manufacturer (OEM) character set.
-     * @param {Integer} wStyle 
+     * @param {LZOPENFILE_STYLE} wStyle 
      * @returns {Integer} If the function succeeds and the value specified by the <i>wStyle</i> parameter is not 
      *        <b>OF_READ</b>, the return value is a handle identifying the file. If the file is compressed 
      *        and opened with <i>wStyle</i> set to <b>OF_READ</b>, the return value is 
@@ -23494,7 +23517,7 @@ class FileSystem {
      * 
      * CsvFs will do redirected IO for compressed files.
      * @param {Integer} hFile A handle to the file.
-     * @param {Pointer} lpBuffer A pointer to a buffer that receives the bytes read from the file. Ensure that this buffer is larger than <i>cbRead</i>.
+     * @param {Integer} lpBuffer A pointer to a buffer that receives the bytes read from the file. Ensure that this buffer is larger than <i>cbRead</i>.
      * @param {Integer} cbRead The count of bytes to be read.
      * @returns {Integer} If the function succeeds, the return value specifies the number of bytes read.
      * 
@@ -23848,7 +23871,7 @@ class FileSystem {
      * </tr>
      * </table>
      * @param {Pointer<WofEnumEntryProc>} EnumProc The callback function for each data source. The enumeration will stop          if <i>EnumProc</i> returns <b>FALSE</b>.
-     * @param {Pointer<Void>} _UserData 
+     * @param {Pointer<Void>} _UserData User defined data passed to <i>EnumProc</i>.
      * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/wofapi/nf-wofapi-wofenumentries
      */
@@ -23883,7 +23906,7 @@ class FileSystem {
      * @param {PWSTR} VolumeName The path to the volume which hosts WIM-backed files.
      * @param {Integer} DataSourceId Identifier used to identify the WIM entry.
      * @param {Pointer<WofEnumFilesProc>} EnumProc The callback function for file provided by the WIM entry.
-     * @param {Pointer<Void>} _UserData 
+     * @param {Pointer<Void>} _UserData Optional user defined data passed to <i>EnumProc</i>.
      * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/wofapi/nf-wofapi-wofwimenumfiles
      */
@@ -23949,7 +23972,7 @@ class FileSystem {
      * @param {PWSTR} VolumeName A full path to the volume containing the files to enumerate.
      * @param {Integer} Algorithm The compression algorithm to enumerate.  For a list of valid compression algorithms, see <a href="https://docs.microsoft.com/windows/desktop/api/wofapi/ns-wofapi-wof_file_compression_info_v1">WOF_FILE_COMPRESSION_INFO_V1</a>.  If this value is MAX_ULONG, files compressed with any supported compression algorithm will be returned.
      * @param {Pointer<WofEnumFilesProc>} EnumProc The callback function for each data source. The enumeration will stop if <i>EnumProc</i> returns FALSE.
-     * @param {Pointer<Void>} _UserData 
+     * @param {Pointer<Void>} _UserData User defined data passed to <i>EnumProc</i>.
      * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/wofapi/nf-wofapi-woffileenumfiles
      */
@@ -24041,7 +24064,7 @@ class FileSystem {
      * Reads the redo records from the log.
      * @param {Pointer<Void>} TxfLogContext A pointer to the context.
      * @param {Integer} BufferLength The size of the output buffer, in bytes.
-     * @param {Pointer} _Buffer 
+     * @param {Integer} _Buffer A pointer to the buffer that receives the records. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/txfw32/ns-txfw32-txf_log_record_base">TXF_LOG_RECORD_BASE</a>.
      * @param {Pointer<Integer>} BytesUsed The number of bytes written to the output buffer.
      * @param {Pointer<Integer>} RecordCount The number of records written to the output buffer.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
@@ -24142,9 +24165,9 @@ class FileSystem {
 
     /**
      * 
-     * @param {Pointer} RecordBuffer 
+     * @param {Integer} RecordBuffer 
      * @param {Integer} RecordBufferLengthInBytes 
-     * @param {Pointer} NameBuffer 
+     * @param {Integer} NameBuffer 
      * @param {Pointer<Integer>} NameBufferLengthInBytes 
      * @param {Pointer<TXF_ID>} TxfId 
      * @returns {BOOL} 
@@ -24233,7 +24256,7 @@ class FileSystem {
      * </td>
      * </tr>
      * </table>
-     * @param {Integer} _IsolationLevel 
+     * @param {Integer} _IsolationLevel Reserved; specify zero (0).
      * @param {Integer} IsolationFlags Reserved; specify zero (0).
      * @param {Integer} Timeout The time-out interval, in milliseconds. If a nonzero value is specified, the transaction will be aborted when the interval elapses if it has not already reached the prepared state.
      * 
@@ -24420,7 +24443,7 @@ class FileSystem {
      * Returns the requested information about the specified transaction.
      * @param {HANDLE} TransactionHandle A handle to the transaction. The handle must have  the TRANSACTION_QUERY_INFORMATION permission to retrieve the information.
      * @param {Pointer<Integer>} Outcome A pointer to a buffer that receives the current outcome of the transaction. If the call to the <b>GetTransactionInformation</b> function is successful, this value will be one of the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ne-winnt-transaction_outcome">TRANSACTION_OUTCOME</a> enumeration values.
-     * @param {Pointer<Integer>} _IsolationLevel 
+     * @param {Pointer<Integer>} _IsolationLevel Reserved.
      * @param {Pointer<Integer>} IsolationFlags Reserved.
      * @param {Pointer<Integer>} Timeout A pointer to a variable that receives the timeout value, in milliseconds, for this transaction.
      * @param {Integer} BufferLength The size of the <i>Description</i> parameter, in bytes. The buffer length value cannot be longer than the value of MAX_TRANSACTION_DESCRIPTION_LENGTH.
@@ -24456,7 +24479,7 @@ class FileSystem {
     /**
      * Sets the transaction information for the specified transaction.
      * @param {HANDLE} TransactionHandle A handle to the transaction. The handle must have the TRANSACTION_SET_INFORMATION permission to set the transaction information.
-     * @param {Integer} _IsolationLevel 
+     * @param {Integer} _IsolationLevel Reserved; specify zero.
      * @param {Integer} IsolationFlags Reserved.
      * @param {Integer} Timeout The timeout value, in milliseconds, for this transaction.
      * @param {PWSTR} Description The user-defined description of this transaction.
@@ -25109,7 +25132,7 @@ class FileSystem {
      * This call cannot be used with volatile transaction managers.
      * @param {HANDLE} EnlistmentHandle A handle to the enlistment.
      * @param {Integer} BufferSize The size of the <i>Buffer</i> parameter, in bytes.
-     * @param {Pointer<Void>} _Buffer 
+     * @param {Pointer<Void>} _Buffer A pointer to a buffer that receives the enlistment recovery information.
      * @param {Pointer<Integer>} BufferUsed A pointer to a variable that receives the actual number of bytes returned in the <i>Buffer</i> parameter.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
@@ -25169,7 +25192,7 @@ class FileSystem {
      * The information that is provided by the user may not be durably stored in the log at the completion of this operation, but it will be durably stored by the end of the next commit operation for this enlistment.
      * @param {HANDLE} EnlistmentHandle A handle to the enlistment.
      * @param {Integer} BufferSize The size of <i>Buffer</i>, in bytes.
-     * @param {Pointer<Void>} _Buffer 
+     * @param {Pointer<Void>} _Buffer The recovery information.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is 0 (zero). To get extended error information, call the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
@@ -27010,7 +27033,10 @@ class FileSystem {
      * </tr>
      * </table>
      * @param {Integer} Options This parameter must be zero.
-     * @param {Pointer<Pointer<Integer>>} _Buffer 
+     * @param {Pointer<Pointer<Integer>>} _Buffer Pointer to the buffer that receives the data. The format of this data depends on the value of the <i>level</i> parameter. This buffer is allocated by the system and must be freed using the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/lmapibuf/nf-lmapibuf-netapibufferfree">NetApiBufferFree</a> function. For more information, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/network-management-function-buffers">Network Management Function Buffers</a> and 
+     * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/network-management-function-buffer-lengths">Network Management Function Buffer Lengths</a>.
      * @returns {Integer} If the function succeeds, the return value is <b>NERR_Success</b>.
      * 
      * If the function fails, the return value is a system error code. For a list of error codes, see 
@@ -27045,7 +27071,7 @@ class FileSystem {
      * @remarks
      * Unknown operation codes are treated as unsupported. Invalid **HIORING** handles are treated as not supporting any operations. So, this method will not throw errors due to these conditions.
      * @param {HIORING} ioRing An **HIORING** representing a handle to the I/O ring for which operation support is queried.
-     * @param {Integer} op A value from the [IORING_OP_CODE](../ntioring_x/ne-ntioring_x-ioring_op_code.md) enumeration specifying the operation for which support is queried.
+     * @param {IORING_OP_CODE} op A value from the [IORING_OP_CODE](../ntioring_x/ne-ntioring_x-ioring_op_code.md) enumeration specifying the operation for which support is queried.
      * @returns {BOOL} Returns an HRESULT including, but not limitted to the following:
      * 
      * | Value | Description |
@@ -27063,7 +27089,7 @@ class FileSystem {
 
     /**
      * Creates a new instance of an I/O ring submission/completion queue pair and returns a handle for referencing the I/O ring.
-     * @param {Integer} ioringVersion A UNIT32 representing the version of the I/O ring API the ring is created for. This value must be less than or equal to the value retrieved from a call to [QueryIoRingCapabilities](nf-ioringapi-queryioringcapabilities.md)
+     * @param {IORING_VERSION} ioringVersion A UNIT32 representing the version of the I/O ring API the ring is created for. This value must be less than or equal to the value retrieved from a call to [QueryIoRingCapabilities](nf-ioringapi-queryioringcapabilities.md)
      * @param {IORING_CREATE_FLAGS} flags A value from the [IORING_CREATE_FLAGS](ns-ioringapi-ioring_create_flags.md) enumeration specifying creation flags.
      * @param {Integer} submissionQueueSize The requested minimum submission queue size. The system may round up the size as needed to ensure the actual size is a power of 2. You can get the actual allocated queue size by calling [GetIoRingInfo](nf-ioringapi-getioringinfo.md). You can get the maximum submission queue size on the current system by calling [QueryIoRingCapabilities](nf-ioringapi-queryioringcapabilities.md).
      * @param {Integer} completionQueueSize The requested minimum size of the completion queue. The system will round this size up to a power of two that is no less than two times the actual submission queue size to allow for submissions while some operations are still in progress. You can get the actual allocated queue size by calling [GetIoRingInfo](nf-ioringapi-getioringinfo.md).
@@ -27175,9 +27201,9 @@ class FileSystem {
      * @remarks
      * Since I/O ring operations are performed asynchronously this function call is only a request for cancellation. The specified operation may complete before the cancellation is processed. The cancellation operation may complete after the operation it is canceling is completed. The completion of the cancel operation is not dependent on the actual completion of the I/O operations it cancels. Apps should look for the completion of the original operation in the completion queue by calling [PopIoRingCompletion](nf-ioringapi-popioringcompletion.md) to observe the final status of the operation. The operation may have completed successfully or with an error rather than being cancelled by the call to this function.
      * @param {HIORING} ioRing An **HIORING** representing a handle to the I/O ring for which a cancellation is requested.
-     * @param {IORING_HANDLE_REF} _file 
+     * @param {IORING_HANDLE_REF} _file An [IORING_HANDLE_REF](ns-ioringapi-ioring_handle_ref.md) representing the file associated with the operation to cancel.
      * @param {Pointer} opToCancel A **UINT_PTR** specifying the operation to cancel. This value is the same value provided in the *userData* parameter when the operation was registered. To support cancellation, the *userData* value must be unique for each operation.
-     * @param {Pointer} _userData 
+     * @param {Pointer} _userData A UINT_PTR value identifying the cancellation operation. Specify this value when cancelling the operation with a call to [BuildIoRingCancelRequest](nf-ioringapi-buildioringcancelrequest.md). If an app implements cancellation behavior for the operation, the *userData* value must be unique. Otherwise, the value is treated as opaque by the system and can be anything, including 0.
      * @returns {HRESULT} | Value | Description |
      * |-------|-------------|
      * | S_OK  | Success |
@@ -27201,8 +27227,8 @@ class FileSystem {
      * @param {IORING_BUFFER_REF} dataRef An [IORING_BUFFER_REF](ns-ioringapi-ioring_buffer_ref.md) specifying the buffer into which the file is read. The provided buffer must have a size of at least *numberOfBytesToRead* bytes.
      * @param {Integer} numberOfBytesToRead The number of bytes to read.
      * @param {Integer} fileOffset The offset into the file to begin reading.
-     * @param {Pointer} _userData 
-     * @param {Integer} sqeFlags 
+     * @param {Pointer} _userData A UINT_PTR value identifying the file read operation. Specify this value when cancelling the operation with a call to [BuildIoRingCancelRequest](nf-ioringapi-buildioringcancelrequest.md). If an app implements cancellation behavior for the operation, the *userData* value must be unique. Otherwise, the value is treated as opaque by the system and can be anything, including 0.
+     * @param {IORING_SQE_FLAGS} sqeFlags 
      * @returns {HRESULT} Returns an HRESULT including, but not limited to the following:
      * 
      * | Value | Description |
@@ -27226,7 +27252,7 @@ class FileSystem {
      * @param {HIORING} ioRing An **HIORING** representing a handle to the I/O ring for which file handles are registered.
      * @param {Integer} count A UINT32 specifying the number of handles provided in the *handles* parameter.
      * @param {Pointer<HANDLE>} handles An array of HANDLE values to be registered.
-     * @param {Pointer} _userData 
+     * @param {Pointer} _userData A UINT_PTR value identifying the registration operation. Specify this value when cancelling the operation with a call to [BuildIoRingCancelRequest](nf-ioringapi-buildioringcancelrequest.md). If an app implements cancellation behavior for the operation, the *userData* value must be unique. Otherwise, the value is treated as opaque by the system and can be anything, including 0.
      * @returns {HRESULT} Returns an HRESULT including, but not limited to the following:
      * 
      * | Value | Description |
@@ -27250,7 +27276,7 @@ class FileSystem {
      * @param {HIORING} ioRing An **HIORING** representing a handle to the I/O ring for which buffers are registered.
      * @param {Integer} count A UINT32 specifying the number of buffers provided in the *buffers* parameter.
      * @param {Pointer<IORING_BUFFER_INFO>} buffers An array of [IORING_BUFFER_INFO](../ntioring_x/ns-ntioring_x-ioring_buffer_info.md) structures representing the buffers to be registered.
-     * @param {Pointer} _userData 
+     * @param {Pointer} _userData A UINT_PTR value identifying the registration operation. Specify this value when cancelling the operation with a call to [BuildIoRingCancelRequest](nf-ioringapi-buildioringcancelrequest.md). If an app implements cancellation behavior for the operation, the *userData* value must be unique. Otherwise, the value is treated as opaque by the system and can be anything, including 0.
      * @returns {HRESULT} Returns an HRESULT including, but not limited to the following:
      * 
      * | Value | Description |
@@ -27274,9 +27300,9 @@ class FileSystem {
      * @param {IORING_BUFFER_REF} bufferRef 
      * @param {Integer} numberOfBytesToWrite 
      * @param {Integer} fileOffset 
-     * @param {Integer} writeFlags 
+     * @param {FILE_WRITE_FLAGS} writeFlags 
      * @param {Pointer} _userData 
-     * @param {Integer} sqeFlags 
+     * @param {IORING_SQE_FLAGS} sqeFlags 
      * @returns {HRESULT} 
      */
     static BuildIoRingWriteFile(ioRing, fileRef, bufferRef, numberOfBytesToWrite, fileOffset, writeFlags, _userData, sqeFlags) {
@@ -27290,9 +27316,9 @@ class FileSystem {
      * 
      * @param {HIORING} ioRing 
      * @param {IORING_HANDLE_REF} fileRef 
-     * @param {Integer} flushMode 
+     * @param {FILE_FLUSH_MODE} flushMode 
      * @param {Pointer} _userData 
-     * @param {Integer} sqeFlags 
+     * @param {IORING_SQE_FLAGS} sqeFlags 
      * @returns {HRESULT} 
      */
     static BuildIoRingFlushFile(ioRing, fileRef, flushMode, _userData, sqeFlags) {
@@ -27311,7 +27337,7 @@ class FileSystem {
      * @param {Integer} numberOfBytesToRead 
      * @param {Integer} fileOffset 
      * @param {Pointer} _userData 
-     * @param {Integer} sqeFlags 
+     * @param {IORING_SQE_FLAGS} sqeFlags 
      * @returns {HRESULT} 
      */
     static BuildIoRingReadFileScatter(ioRing, fileRef, segmentCount, segmentArray, numberOfBytesToRead, fileOffset, _userData, sqeFlags) {
@@ -27329,9 +27355,9 @@ class FileSystem {
      * @param {Pointer<FILE_SEGMENT_ELEMENT>} segmentArray 
      * @param {Integer} numberOfBytesToWrite 
      * @param {Integer} fileOffset 
-     * @param {Integer} writeFlags 
+     * @param {FILE_WRITE_FLAGS} writeFlags 
      * @param {Pointer} _userData 
-     * @param {Integer} sqeFlags 
+     * @param {IORING_SQE_FLAGS} sqeFlags 
      * @returns {HRESULT} 
      */
     static BuildIoRingWriteFileGather(ioRing, fileRef, segmentCount, segmentArray, numberOfBytesToWrite, fileOffset, writeFlags, _userData, sqeFlags) {
@@ -27345,7 +27371,7 @@ class FileSystem {
      * 
      * @param {PWSTR} virtualPath 
      * @param {PWSTR} backingPath 
-     * @param {Integer} createBindLinkFlags 
+     * @param {CREATE_BIND_LINK_FLAGS} createBindLinkFlags 
      * @param {Integer} exceptionCount 
      * @param {Pointer<PWSTR>} exceptionPaths 
      * @returns {HRESULT} 
@@ -28893,7 +28919,7 @@ class FileSystem {
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-gettapeparameters">GetTapeParameters</a> function.
      * @param {HANDLE} hDevice Handle to the device on which to set the tape position. This handle is created by using the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-createfilea">CreateFile</a> function.
-     * @param {Integer} dwPositionMethod 
+     * @param {TAPE_POSITION_METHOD} dwPositionMethod 
      * @param {Integer} dwPartition Partition to position within. If <i>dwPartition</i> is zero, the current partition is used. Partitions are numbered logically from 1 through n, where 1 is the first partition on the tape and n is the last.
      * @param {Integer} dwOffsetLow Low-order bits of the block address or count for the position operation specified by the <i>dwPositionMethod</i> parameter.
      * @param {Integer} dwOffsetHigh High-order bits of the block address or count for the position operation specified by the <i>dwPositionMethod</i> parameter. If the high-order bits are not required, this parameter should be zero.
@@ -29107,7 +29133,7 @@ class FileSystem {
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-gettapeparameters">GetTapeParameters</a> function to obtain information about the status, capabilities, and capacities of tape drives and media.
      * @param {HANDLE} hDevice Handle to the device on which to get the tape position. This handle is created by using 
      * <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-createfilea">CreateFile</a>.
-     * @param {Integer} dwPositionType 
+     * @param {TAPE_POSITION_TYPE} dwPositionType 
      * @param {Pointer<Integer>} lpdwPartition Pointer to a variable that receives the number of the current tape partition. Partitions are numbered logically from 1 through n, where 1 is the first partition on the tape and n is the last. When a device-specific block address is retrieved, or if the device supports only one partition, this parameter receives zero.
      * @param {Pointer<Integer>} lpdwOffsetLow Pointer to a variable that receives the low-order bits of the current tape position.
      * @param {Pointer<Integer>} lpdwOffsetHigh Pointer to a variable that receives the high-order bits of the current tape position. This parameter can be <b>NULL</b> if the high-order bits are not required.
@@ -29322,7 +29348,7 @@ class FileSystem {
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-gettapeparameters">GetTapeParameters</a> function to determine your tape device's capabilities.
      * @param {HANDLE} hDevice Handle to the device preparing the tape. This handle is created by using the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-createfilea">CreateFile</a> function.
-     * @param {Integer} dwOperation 
+     * @param {PREPARE_TAPE_OPERATION} dwOperation 
      * @param {BOOL} bImmediate If this parameter is <b>TRUE</b>, the function returns immediately. If it is <b>FALSE</b>, the function does not return until the operation has been completed.
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
      * 
@@ -29531,7 +29557,7 @@ class FileSystem {
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-gettapeparameters">GetTapeParameters</a> function.
      * @param {HANDLE} hDevice Handle to the device where the tape is to be erased. This handle is created by using the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-createfilea">CreateFile</a> function.
-     * @param {Integer} dwEraseType 
+     * @param {ERASE_TAPE_TYPE} dwEraseType 
      * @param {BOOL} bImmediate If this parameter is <b>TRUE</b>, the function returns immediately; if it is <b>FALSE</b>, the function does not return until the erase operation has been completed.
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
      * 
@@ -29739,7 +29765,7 @@ class FileSystem {
      * Creating partitions reformats the tape. All previous information recorded on the tape is destroyed.
      * @param {HANDLE} hDevice Handle to the device where the new partition is to be created. This handle is created by using the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-createfilea">CreateFile</a> function.
-     * @param {Integer} dwPartitionMethod 
+     * @param {CREATE_TAPE_PARTITION_METHOD} dwPartitionMethod 
      * @param {Integer} dwCount Number of partitions to create. The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-gettapeparameters">GetTapeParameters</a> function provides the maximum number of partitions a tape can support.
      * @param {Integer} dwSize Size of each partition, in megabytes. This value is ignored if the <i>dwPartitionMethod</i> parameter is <b>TAPE_SELECT_PARTITIONS</b>.
@@ -29953,7 +29979,7 @@ class FileSystem {
      * A long filemark contains a long erase gap that allows an application to position the tape at the beginning of the filemark and to overwrite the filemark and the erase gap.
      * @param {HANDLE} hDevice Handle to the device on which to write tapemarks. This handle is created by using the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-createfilea">CreateFile</a> function.
-     * @param {Integer} dwTapemarkType 
+     * @param {TAPEMARK_TYPE} dwTapemarkType 
      * @param {Integer} dwTapemarkCount Number of tapemarks to write.
      * @param {BOOL} bImmediate If this parameter is <b>TRUE</b>, the function returns immediately; if it is <b>FALSE</b>, the function does not return until the operation has been completed.
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
@@ -30379,9 +30405,9 @@ class FileSystem {
      * <b>GetTapeParameters</b> function called with the <i>dwOperation</i> parameter set to the <b>GET_TAPE_DRIVE_INFORMATION</b> value will indicate system limits, not drive limits. However, it is the tape drive device and the media present in the drive that determine the true block size limits. Thus, an application may not be able to set all the block sizes mentioned in the range obtained by specifying <b>GET_TAPE_DRIVE_INFORMATION</b> in <i>dwOperation</i>.
      * @param {HANDLE} hDevice Handle to the device about which information is sought. This handle is created by using the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-createfilea">CreateFile</a> function.
-     * @param {Integer} dwOperation 
+     * @param {GET_TAPE_DRIVE_PARAMETERS_OPERATION} dwOperation 
      * @param {Pointer<Integer>} lpdwSize Pointer to a variable that receives the size, in bytes, of the buffer specified by the <i>lpTapeInformation</i> parameter. If the buffer is too small, this parameter receives the required size.
-     * @param {Pointer} lpTapeInformation Pointer to a structure that contains the requested information. If the <i>dwOperation</i> parameter is <b>GET_TAPE_MEDIA_INFORMATION</b>, <i>lpTapeInformation</i> points to a 
+     * @param {Integer} lpTapeInformation Pointer to a structure that contains the requested information. If the <i>dwOperation</i> parameter is <b>GET_TAPE_MEDIA_INFORMATION</b>, <i>lpTapeInformation</i> points to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-tape_get_media_parameters">TAPE_GET_MEDIA_PARAMETERS</a> structure.
      * 
      * If <i>dwOperation</i> is <b>GET_TAPE_DRIVE_INFORMATION</b>, <i>lpTapeInformation</i> points to a 
@@ -30592,7 +30618,7 @@ class FileSystem {
      * Specifies the block size of a tape or configures the tape device.
      * @param {HANDLE} hDevice Handle to the device for which to set configuration information. This handle is created by using the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-createfilea">CreateFile</a> function.
-     * @param {Integer} dwOperation 
+     * @param {TAPE_INFORMATION_TYPE} dwOperation 
      * @param {Pointer<Void>} lpTapeInformation Pointer to a structure that contains the information to set. If the <i>dwOperation</i> parameter is SET_TAPE_MEDIA_INFORMATION, <i>lpTapeInformation</i> points to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-tape_set_media_parameters">TAPE_SET_MEDIA_PARAMETERS</a> structure. 
      * 
@@ -32477,7 +32503,7 @@ class FileSystem {
      *       <b>FILE_FLAG_NO_BUFFERING</b>. In this case, the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function returns the value 
      *       <b>ERROR_INVALID_PARAMETER</b>.
-     * @param {Pointer} lpBuffer Pointer to a buffer that receives the data.
+     * @param {Integer} lpBuffer Pointer to a buffer that receives the data.
      * @param {Integer} nNumberOfBytesToRead Length of the buffer, in bytes. The buffer size must be greater than the size of a 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/winbase/ns-winbase-win32_stream_id">WIN32_STREAM_ID</a> structure.
      * @param {Pointer<Integer>} lpNumberOfBytesRead Pointer to a variable that receives the number of bytes read.
@@ -32590,7 +32616,7 @@ class FileSystem {
      *       <b>FILE_FLAG_NO_BUFFERING</b>. In this case, the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function returns the value
      *       <b>ERROR_INVALID_PARAMETER</b>.
-     * @param {Pointer} lpBuffer Pointer to a buffer that the function writes data from.
+     * @param {Integer} lpBuffer Pointer to a buffer that the function writes data from.
      * @param {Integer} nNumberOfBytesToWrite Size of the buffer, in bytes. The buffer size must be greater than the size of a 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/winbase/ns-winbase-win32_stream_id">WIN32_STREAM_ID</a> structure.
      * @param {Pointer<Integer>} lpNumberOfBytesWritten Pointer to a variable that receives the number of bytes written.
@@ -34218,7 +34244,7 @@ class FileSystem {
      *  
      * 
      * SMB does not support volume management functions. For CsvFs, a new name will not be replicated to the other nodes on the cluster.
-     * @param {Integer} dwFlags The controllable aspects of the <b>DefineDosDevice</b> function. This parameter
+     * @param {DEFINE_DOS_DEVICE_FLAGS} dwFlags The controllable aspects of the <b>DefineDosDevice</b> function. This parameter
      * @param {PSTR} lpDeviceName A pointer to an MS-DOS device name string specifying the device the function is defining, redefining, or 
      *       deleting. The device name string must not have a colon as the last character, unless a drive letter is being 
      *       defined, redefined, or deleted. For example, drive C  would be the string "C:". In no case is a 
@@ -34619,7 +34645,7 @@ class FileSystem {
      * You cannot request an access mode that conflicts with the sharing mode that is specified in an open request 
      *        that has an open handle. For more information, see 
      *        <a href="https://docs.microsoft.com/windows/desktop/FileIO/creating-and-opening-files">Creating and Opening Files</a>.
-     * @param {Integer} dwShareMode The sharing mode of an object, which can be read, write, both, delete, all of these, or none (refer to the 
+     * @param {FILE_SHARE_MODE} dwShareMode The sharing mode of an object, which can be read, write, both, delete, all of these, or none (refer to the 
      *        following table).
      * 
      * If this parameter is zero and 
@@ -34659,10 +34685,10 @@ class FileSystem {
      *        <b>bInheritHandle</b> member.
      * 
      * For more information, see the Remarks section of this topic.
-     * @param {Integer} dwCreationDisposition An action to take on files that exist and  do not exist.
+     * @param {FILE_CREATION_DISPOSITION} dwCreationDisposition An action to take on files that exist and  do not exist.
      * 
      * For more information, see the Remarks section of this topic.
-     * @param {Integer} dwFlagsAndAttributes The file attributes and flags, <b>FILE_ATTRIBUTE_NORMAL</b> being the most common default 
+     * @param {FILE_FLAGS_AND_ATTRIBUTES} dwFlagsAndAttributes The file attributes and flags, <b>FILE_ATTRIBUTE_NORMAL</b> being the most common default 
      *        value.
      * 
      * This parameter can include any combination of the available file attributes 
@@ -35025,7 +35051,7 @@ class FileSystem {
      * When opening a new EFS-encrypted file, the file inherits the DACL from its parent directory.
      * @param {HANDLE} hTransaction A handle to the transaction. This handle is returned by the 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/ktmw32/nf-ktmw32-createtransaction">CreateTransaction</a> function.
-     * @param {Pointer<Integer>} pusMiniVersion The miniversion to be opened. If the transaction specified in <i>hTransaction</i> is not 
+     * @param {Pointer<TXFS_MINIVERSION>} pusMiniVersion The miniversion to be opened. If the transaction specified in <i>hTransaction</i> is not 
      *        the transaction that is modifying the file, this parameter should be <b>NULL</b>. Otherwise, 
      *        this parameter can be a miniversion identifier returned by the 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/winioctl/ni-winioctl-fsctl_txfs_create_miniversion">FSCTL_TXFS_CREATE_MINIVERSION</a> control
@@ -35302,7 +35328,7 @@ class FileSystem {
      * You cannot request an access mode that conflicts with the sharing mode that is specified in an open request 
      *        that has an open handle. For more information, see 
      *        <a href="https://docs.microsoft.com/windows/desktop/FileIO/creating-and-opening-files">Creating and Opening Files</a>.
-     * @param {Integer} dwShareMode The sharing mode of an object, which can be read, write, both, delete, all of these, or none (refer to the 
+     * @param {FILE_SHARE_MODE} dwShareMode The sharing mode of an object, which can be read, write, both, delete, all of these, or none (refer to the 
      *        following table).
      * 
      * If this parameter is zero and 
@@ -35342,10 +35368,10 @@ class FileSystem {
      *        <b>bInheritHandle</b> member.
      * 
      * For more information, see the Remarks section of this topic.
-     * @param {Integer} dwCreationDisposition An action to take on files that exist and  do not exist.
+     * @param {FILE_CREATION_DISPOSITION} dwCreationDisposition An action to take on files that exist and  do not exist.
      * 
      * For more information, see the Remarks section of this topic.
-     * @param {Integer} dwFlagsAndAttributes The file attributes and flags, <b>FILE_ATTRIBUTE_NORMAL</b> being the most common default 
+     * @param {FILE_FLAGS_AND_ATTRIBUTES} dwFlagsAndAttributes The file attributes and flags, <b>FILE_ATTRIBUTE_NORMAL</b> being the most common default 
      *        value.
      * 
      * This parameter can include any combination of the available file attributes 
@@ -35708,7 +35734,7 @@ class FileSystem {
      * When opening a new EFS-encrypted file, the file inherits the DACL from its parent directory.
      * @param {HANDLE} hTransaction A handle to the transaction. This handle is returned by the 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/ktmw32/nf-ktmw32-createtransaction">CreateTransaction</a> function.
-     * @param {Pointer<Integer>} pusMiniVersion The miniversion to be opened. If the transaction specified in <i>hTransaction</i> is not 
+     * @param {Pointer<TXFS_MINIVERSION>} pusMiniVersion The miniversion to be opened. If the transaction specified in <i>hTransaction</i> is not 
      *        the transaction that is modifying the file, this parameter should be <b>NULL</b>. Otherwise, 
      *        this parameter can be a miniversion identifier returned by the 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/winioctl/ni-winioctl-fsctl_txfs_create_miniversion">FSCTL_TXFS_CREATE_MINIVERSION</a> control
@@ -35814,14 +35840,14 @@ class FileSystem {
      * If this parameter is zero (0), the application can query device attributes without accessing the device. This 
      *        is useful if an application wants to determine the size of a floppy disk drive and the formats it supports 
      *        without requiring a floppy in the drive.
-     * @param {Integer} dwShareMode The sharing mode of the object. You cannot request a sharing mode that conflicts with the access mode 
+     * @param {FILE_SHARE_MODE} dwShareMode The sharing mode of the object. You cannot request a sharing mode that conflicts with the access mode 
      *        specified in a previous open request whose handle is still open.
      * 
      * If this parameter is zero (0) and <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-createfilea">CreateFile</a> succeeds, 
      *        the object cannot be shared and cannot be opened again until the handle is closed.
      * 
      * To enable other processes to share the object while your process has it open, use a combination of one or
-     * @param {Integer} dwFlagsAndAttributes 
+     * @param {FILE_FLAGS_AND_ATTRIBUTES} dwFlagsAndAttributes 
      * @returns {HANDLE} If the function succeeds, the return value is an open handle to the specified file.
      * 
      * If the function fails, the return value is <b>INVALID_HANDLE_VALUE</b>. To get extended 
@@ -36357,7 +36383,7 @@ class FileSystem {
      *        <a href="https://docs.microsoft.com/windows/desktop/FileIO/naming-a-file">Naming a File</a>.
      * 
      * The file or directory must reside on the local computer; otherwise, the function fails and the last error code is set to <b>ERROR_TRANSACTIONS_UNSUPPORTED_REMOTE</b>.
-     * @param {Integer} fInfoLevelId The level of attribute information to retrieve.
+     * @param {GET_FILEEX_INFO_LEVELS} fInfoLevelId The level of attribute information to retrieve.
      *       
      * 
      * This parameter can be the following value from the 
@@ -36511,7 +36537,7 @@ class FileSystem {
      *        <a href="https://docs.microsoft.com/windows/desktop/FileIO/naming-a-file">Naming a File</a>.
      * 
      * The file or directory must reside on the local computer; otherwise, the function fails and the last error code is set to <b>ERROR_TRANSACTIONS_UNSUPPORTED_REMOTE</b>.
-     * @param {Integer} fInfoLevelId The level of attribute information to retrieve.
+     * @param {GET_FILEEX_INFO_LEVELS} fInfoLevelId The level of attribute information to retrieve.
      *       
      * 
      * This parameter can be the following value from the 
@@ -37457,14 +37483,14 @@ class FileSystem {
      *        <a href="https://docs.microsoft.com/windows/desktop/FileIO/naming-a-file">Naming a File</a>.
      * 
      * The file must reside on the local computer; otherwise, the function fails and the last error code is set to <b>ERROR_TRANSACTIONS_UNSUPPORTED_REMOTE</b>.
-     * @param {Integer} fInfoLevelId The information level of the returned data.
+     * @param {FINDEX_INFO_LEVELS} fInfoLevelId The information level of the returned data.
      *       
      * 
      * This parameter is one of the 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ne-minwinbase-findex_info_levels">FINDEX_INFO_LEVELS</a> enumeration values.
      * @param {Pointer<Void>} lpFindFileData A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-win32_find_dataa">WIN32_FIND_DATA</a> structure that 
      *        receives information about a found file or subdirectory.
-     * @param {Integer} fSearchOp The type of filtering to perform that is different from wildcard matching.
+     * @param {FINDEX_SEARCH_OPS} fSearchOp The type of filtering to perform that is different from wildcard matching.
      *       
      * 
      * This parameter is one of the <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ne-minwinbase-findex_search_ops">FINDEX_SEARCH_OPS</a> 
@@ -37668,14 +37694,14 @@ class FileSystem {
      *        <a href="https://docs.microsoft.com/windows/desktop/FileIO/naming-a-file">Naming a File</a>.
      * 
      * The file must reside on the local computer; otherwise, the function fails and the last error code is set to <b>ERROR_TRANSACTIONS_UNSUPPORTED_REMOTE</b>.
-     * @param {Integer} fInfoLevelId The information level of the returned data.
+     * @param {FINDEX_INFO_LEVELS} fInfoLevelId The information level of the returned data.
      *       
      * 
      * This parameter is one of the 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ne-minwinbase-findex_info_levels">FINDEX_INFO_LEVELS</a> enumeration values.
      * @param {Pointer<Void>} lpFindFileData A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-win32_find_dataa">WIN32_FIND_DATA</a> structure that 
      *        receives information about a found file or subdirectory.
-     * @param {Integer} fSearchOp The type of filtering to perform that is different from wildcard matching.
+     * @param {FINDEX_SEARCH_OPS} fSearchOp The type of filtering to perform that is different from wildcard matching.
      *       
      * 
      * This parameter is one of the <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ne-minwinbase-findex_search_ops">FINDEX_SEARCH_OPS</a> 
@@ -38157,7 +38183,7 @@ class FileSystem {
      *       <b>NULL</b>.
      * @param {Pointer<BOOL>} pbCancel If this flag is set to <b>TRUE</b> during the copy operation, the operation is canceled. 
      *       Otherwise, the copy operation will continue to completion.
-     * @param {Integer} dwCopyFlags Flags that specify how the file is to be copied. This parameter can be a combination of the following 
+     * @param {COPYFILE_FLAGS} dwCopyFlags Flags that specify how the file is to be copied. This parameter can be a combination of the following 
      *       values.
      * 
      * <table>
@@ -38447,7 +38473,7 @@ class FileSystem {
      *       <b>NULL</b>.
      * @param {Pointer<BOOL>} pbCancel If this flag is set to <b>TRUE</b> during the copy operation, the operation is canceled. 
      *       Otherwise, the copy operation will continue to completion.
-     * @param {Integer} dwCopyFlags Flags that specify how the file is to be copied. This parameter can be a combination of the following 
+     * @param {COPYFILE_FLAGS} dwCopyFlags Flags that specify how the file is to be copied. This parameter can be a combination of the following 
      *       values.
      * 
      * <table>
@@ -39648,7 +39674,7 @@ class FileSystem {
      * 
      * <div class="alert"><b>Tip</b>  Starting with Windows 10, version 1607, for the unicode version of this function (<b>MoveFileExW</b>), you can opt-in to remove the <b>MAX_PATH</b> limitation without prepending "\\?\". See the "Maximum Path Length Limitation" section of <a href="https://docs.microsoft.com/windows/desktop/FileIO/naming-a-file">Naming Files, Paths, and Namespaces</a> for details.</div>
      * <div> </div>
-     * @param {Integer} dwFlags 
+     * @param {MOVE_FILE_FLAGS} dwFlags 
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero (0). To get extended error information, call 
@@ -39839,7 +39865,7 @@ class FileSystem {
      * 
      * <div class="alert"><b>Tip</b>  Starting with Windows 10, version 1607, for the unicode version of this function (<b>MoveFileExW</b>), you can opt-in to remove the <b>MAX_PATH</b> limitation without prepending "\\?\". See the "Maximum Path Length Limitation" section of <a href="https://docs.microsoft.com/windows/desktop/FileIO/naming-a-file">Naming Files, Paths, and Namespaces</a> for details.</div>
      * <div> </div>
-     * @param {Integer} dwFlags 
+     * @param {MOVE_FILE_FLAGS} dwFlags 
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero (0). To get extended error information, call 
@@ -39987,7 +40013,7 @@ class FileSystem {
      * @param {Pointer<Void>} lpData An argument to be passed to the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nc-winbase-lpprogress_routine">CopyProgressRoutine</a> callback function. This 
      *       parameter can be <b>NULL</b>.
-     * @param {Integer} dwFlags 
+     * @param {MOVE_FILE_FLAGS} dwFlags 
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -40149,7 +40175,7 @@ class FileSystem {
      * @param {Pointer<Void>} lpData An argument to be passed to the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nc-winbase-lpprogress_routine">CopyProgressRoutine</a> callback function. This 
      *       parameter can be <b>NULL</b>.
-     * @param {Integer} dwFlags 
+     * @param {MOVE_FILE_FLAGS} dwFlags 
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -40306,7 +40332,7 @@ class FileSystem {
      * @param {Pointer<Void>} lpData An argument to be passed to the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nc-winbase-lpprogress_routine">CopyProgressRoutine</a> callback function. This 
      *       parameter can be <b>NULL</b>.
-     * @param {Integer} dwFlags 
+     * @param {MOVE_FILE_FLAGS} dwFlags 
      * @param {HANDLE} hTransaction A handle to the transaction. This handle is returned by the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/ktmw32/nf-ktmw32-createtransaction">CreateTransaction</a> function.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
@@ -40466,7 +40492,7 @@ class FileSystem {
      * @param {Pointer<Void>} lpData An argument to be passed to the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nc-winbase-lpprogress_routine">CopyProgressRoutine</a> callback function. This 
      *       parameter can be <b>NULL</b>.
-     * @param {Integer} dwFlags 
+     * @param {MOVE_FILE_FLAGS} dwFlags 
      * @param {HANDLE} hTransaction A handle to the transaction. This handle is returned by the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/ktmw32/nf-ktmw32-createtransaction">CreateTransaction</a> function.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
@@ -40596,7 +40622,7 @@ class FileSystem {
      * 
      * <div class="alert"><b>Tip</b>  Starting with Windows 10, version 1607, for the unicode version of this function (<b>ReplaceFileW</b>), you can opt-in to remove the <b>MAX_PATH</b> limitation without prepending "\\?\". See the "Maximum Path Length Limitation" section of <a href="https://docs.microsoft.com/windows/desktop/FileIO/naming-a-file">Naming Files, Paths, and Namespaces</a> for details.</div>
      * <div> </div>
-     * @param {Integer} dwReplaceFlags 
+     * @param {REPLACE_FILE_FLAGS} dwReplaceFlags 
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -40768,7 +40794,7 @@ class FileSystem {
      * 
      * <div class="alert"><b>Tip</b>  Starting with Windows 10, version 1607, for the unicode version of this function (<b>ReplaceFileW</b>), you can opt-in to remove the <b>MAX_PATH</b> limitation without prepending "\\?\". See the "Maximum Path Length Limitation" section of <a href="https://docs.microsoft.com/windows/desktop/FileIO/naming-a-file">Naming Files, Paths, and Namespaces</a> for details.</div>
      * <div> </div>
-     * @param {Integer} dwReplaceFlags 
+     * @param {REPLACE_FILE_FLAGS} dwReplaceFlags 
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -41513,7 +41539,7 @@ class FileSystem {
      * 
      * The file must reside on the local computer; otherwise, the function fails and the last error code is set to 
      *        <b>ERROR_TRANSACTIONS_UNSUPPORTED_REMOTE</b> (6805).
-     * @param {Integer} InfoLevel The information level of the returned data. This parameter is one of the values in the 
+     * @param {STREAM_INFO_LEVELS} InfoLevel The information level of the returned data. This parameter is one of the values in the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/ne-fileapi-stream_info_levels">STREAM_INFO_LEVELS</a> enumeration type.
      * 
      * <table>
@@ -42238,7 +42264,7 @@ class FileSystem {
      *       transaction isolation rules.
      * @param {HANDLE} hDirectory A handle to the directory to be monitored. This directory must be opened with the 
      *       <b>FILE_LIST_DIRECTORY</b> access right, or an access right such as <b>GENERIC_READ</b> that includes the <b>FILE_LIST_DIRECTORY</b> access right.
-     * @param {Pointer} lpBuffer A pointer to the <b>DWORD</b>-aligned formatted buffer in which the read results are 
+     * @param {Integer} lpBuffer A pointer to the <b>DWORD</b>-aligned formatted buffer in which the read results are 
      *       to be returned. The structure of this buffer is defined by the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-file_notify_information">FILE_NOTIFY_INFORMATION</a> structure. This 
      *       buffer is filled either synchronously or asynchronously, depending on how the directory is opened and what value 
@@ -42249,7 +42275,7 @@ class FileSystem {
      * @param {BOOL} bWatchSubtree If this parameter is <b>TRUE</b>, the function monitors the directory tree rooted at the 
      *       specified directory. If this parameter is <b>FALSE</b>, the function monitors only the 
      *       directory specified by the <i>hDirectory</i> parameter.
-     * @param {Integer} dwNotifyFilter The filter criteria that the function checks to determine if the wait operation has completed. This
+     * @param {FILE_NOTIFY_CHANGE} dwNotifyFilter The filter criteria that the function checks to determine if the wait operation has completed. This
      * @param {Pointer<Integer>} lpBytesReturned For synchronous calls, this parameter receives the number of bytes transferred into the 
      *       <i>lpBuffer</i> parameter. For asynchronous calls, this parameter is undefined. You must use 
      *       an asynchronous notification technique to retrieve the number of bytes transferred.
@@ -42356,7 +42382,7 @@ class FileSystem {
      *       transaction isolation rules.
      * @param {HANDLE} hDirectory A handle to the directory to be monitored. This directory must be opened with the 
      *       <b>FILE_LIST_DIRECTORY</b> access right, or an access right such as <b>GENERIC_READ</b> that includes the <b>FILE_LIST_DIRECTORY</b> access right.
-     * @param {Pointer} lpBuffer A pointer to the <b>DWORD</b>-aligned formatted buffer in which <b>ReadDirectoryChangesExW</b> should return the read results. The structure of this buffer is defined by the 
+     * @param {Integer} lpBuffer A pointer to the <b>DWORD</b>-aligned formatted buffer in which <b>ReadDirectoryChangesExW</b> should return the read results. The structure of this buffer is defined by the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-file_notify_extended_information">FILE_NOTIFY_EXTENDED_INFORMATION</a> structure if the value of the <i>ReadDirectoryNotifyInformationClass</i> parameter is <b>ReadDirectoryNotifyExtendedInformation</b>, or by the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-file_notify_information">FILE_NOTIFY_INFORMATION</a> structure if <i>ReadDirectoryNotifyInformationClass</i> is <b>ReadDirectoryNotifyInformation</b>.
      * 
      * This 
@@ -42368,7 +42394,7 @@ class FileSystem {
      * @param {BOOL} bWatchSubtree If this parameter is <b>TRUE</b>, the function monitors the directory tree rooted at the 
      *       specified directory. If this parameter is <b>FALSE</b>, the function monitors only the 
      *       directory specified by the <i>hDirectory</i> parameter.
-     * @param {Integer} dwNotifyFilter The filter criteria that the function checks to determine if the wait operation has completed. This
+     * @param {FILE_NOTIFY_CHANGE} dwNotifyFilter The filter criteria that the function checks to determine if the wait operation has completed. This
      * @param {Pointer<Integer>} lpBytesReturned For synchronous calls, this parameter receives the number of bytes transferred into the 
      *       <i>lpBuffer</i> parameter. For asynchronous calls, this parameter is undefined. You must use 
      *       an asynchronous notification technique to retrieve the number of bytes transferred.
@@ -42379,7 +42405,7 @@ class FileSystem {
      * @param {Pointer<LPOVERLAPPED_COMPLETION_ROUTINE>} lpCompletionRoutine A pointer to a completion routine to be called when the operation has been completed or canceled and the 
      *       calling thread is in an alertable wait state. For more information about this completion routine, see 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/nc-minwinbase-lpoverlapped_completion_routine">FileIOCompletionRoutine</a>.
-     * @param {Integer} ReadDirectoryNotifyInformationClass The type of   information that
+     * @param {READ_DIRECTORY_NOTIFY_INFORMATION_CLASS} ReadDirectoryNotifyInformationClass The type of   information that
      *         <b>ReadDirectoryChangesExW</b> should write to the buffer to which the <i>lpBuffer</i> parameter points. Specify <b>ReadDirectoryNotifyInformation</b> to indicate 
      *         that the information should consist of <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-file_notify_information">FILE_NOTIFY_INFORMATION</a> structures, or <b>ReadDirectoryNotifyExtendedInformation</b> to indicate 
      *         that the information should consist of <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-file_notify_extended_information">FILE_NOTIFY_EXTENDED_INFORMATION</a> structures.
@@ -44026,11 +44052,11 @@ class FileSystem {
      * @param {HANDLE} hFile A handle to the file that contains the information to be retrieved.
      * 
      * This handle should not be a pipe handle.
-     * @param {Integer} FileInformationClass A <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ne-minwinbase-file_info_by_handle_class">FILE_INFO_BY_HANDLE_CLASS</a> enumeration 
+     * @param {FILE_INFO_BY_HANDLE_CLASS} FileInformationClass A <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ne-minwinbase-file_info_by_handle_class">FILE_INFO_BY_HANDLE_CLASS</a> enumeration 
      *        value that specifies the type of information to be retrieved.
      * 
      * For a table of valid values, see the Remarks section.
-     * @param {Pointer} lpFileInformation A pointer to the buffer that receives the requested file information. The structure that is returned 
+     * @param {Integer} lpFileInformation A pointer to the buffer that receives the requested file information. The structure that is returned 
      *       corresponds to the class that is specified by <i>FileInformationClass</i>. For a table of 
      *       valid structure types, see the Remarks section.
      * @param {Integer} dwBufferSize The size of the <i>lpFileInformation</i> buffer, in bytes.
@@ -44058,8 +44084,8 @@ class FileSystem {
     /**
      * 
      * @param {PWSTR} FileName 
-     * @param {Integer} FileInformationClass 
-     * @param {Pointer} FileInfoBuffer 
+     * @param {FILE_INFO_BY_NAME_CLASS} FileInformationClass 
+     * @param {Integer} FileInfoBuffer 
      * @param {Integer} FileInfoBufferSize 
      * @returns {BOOL} 
      */
@@ -44154,7 +44180,7 @@ class FileSystem {
      *       device. This is useful for an application to determine the size of a floppy disk drive and the formats it
      *       supports without requiring a floppy in a drive. It can also be used to test for the existence of a file or
      *       directory without opening them for read or write access.
-     * @param {Integer} dwShareMode The sharing mode of an object, which can be read, write, both, or none.
+     * @param {FILE_SHARE_MODE} dwShareMode The sharing mode of an object, which can be read, write, both, or none.
      * 
      * You cannot request a sharing mode that conflicts with the access mode that is specified in an open request 
      *        that has an open handle, because that would result in the following sharing violation: 
@@ -44169,7 +44195,7 @@ class FileSystem {
      * 
      * To enable a processes to share an object while another process has the object open, use a combination of one
      * @param {Pointer<SECURITY_ATTRIBUTES>} lpSecurityAttributes Reserved.
-     * @param {Integer} dwFlagsAndAttributes The file flags.
+     * @param {FILE_FLAGS_AND_ATTRIBUTES} dwFlagsAndAttributes The file flags.
      * 
      * When <b>OpenFileById</b> opens a file, it combines the file 
      *        flags with existing file attributes, and ignores any supplied file attributes. This parameter can include any 
@@ -44474,7 +44500,7 @@ class FileSystem {
      * 
      * <div class="alert"><b>Tip</b>  Starting with Windows 10, version 1607, for the unicode version of this function (<b>CreateSymbolicLinkW</b>), you can opt-in to remove the <b>MAX_PATH</b> limitation without prepending "\\?\". See the "Maximum Path Length Limitation" section of <a href="https://docs.microsoft.com/windows/desktop/FileIO/naming-a-file">Naming Files, Paths, and Namespaces</a> for details.</div>
      * <div> </div>
-     * @param {Integer} dwFlags Indicates whether the link target, <i>lpTargetFileName</i>, is a directory.
+     * @param {SYMBOLIC_LINK_FLAGS} dwFlags Indicates whether the link target, <i>lpTargetFileName</i>, is a directory.
      * 
      * <table>
      * <tr>
@@ -44654,7 +44680,7 @@ class FileSystem {
      * 
      * <div class="alert"><b>Tip</b>  Starting with Windows 10, version 1607, for the unicode version of this function (<b>CreateSymbolicLinkW</b>), you can opt-in to remove the <b>MAX_PATH</b> limitation without prepending "\\?\". See the "Maximum Path Length Limitation" section of <a href="https://docs.microsoft.com/windows/desktop/FileIO/naming-a-file">Naming Files, Paths, and Namespaces</a> for details.</div>
      * <div> </div>
-     * @param {Integer} dwFlags Indicates whether the link target, <i>lpTargetFileName</i>, is a directory.
+     * @param {SYMBOLIC_LINK_FLAGS} dwFlags Indicates whether the link target, <i>lpTargetFileName</i>, is a directory.
      * 
      * <table>
      * <tr>
@@ -44812,7 +44838,7 @@ class FileSystem {
      * 
      * If <i>lpTargetFileName</i> has a device name associated with it, the link is treated as an 
      *        absolute link; otherwise, the link is treated as a relative link.
-     * @param {Integer} dwFlags Indicates whether the link target, <i>lpTargetFileName</i>, is a directory.
+     * @param {SYMBOLIC_LINK_FLAGS} dwFlags Indicates whether the link target, <i>lpTargetFileName</i>, is a directory.
      * 
      * <table>
      * <tr>
@@ -44962,7 +44988,7 @@ class FileSystem {
      * 
      * If <i>lpTargetFileName</i> has a device name associated with it, the link is treated as an 
      *        absolute link; otherwise, the link is treated as a relative link.
-     * @param {Integer} dwFlags Indicates whether the link target, <i>lpTargetFileName</i>, is a directory.
+     * @param {SYMBOLIC_LINK_FLAGS} dwFlags Indicates whether the link target, <i>lpTargetFileName</i>, is a directory.
      * 
      * <table>
      * <tr>

@@ -1,12 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\STORAGE_OPERATIONAL_STATUS_REASON.ahk
 
 /**
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class STORAGE_OPERATIONAL_REASON extends Win32Struct
-{
+class STORAGE_OPERATIONAL_REASON extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4
@@ -18,7 +17,7 @@ class STORAGE_OPERATIONAL_REASON extends Win32Struct
         class _ScsiSenseKey extends Win32Struct {
             static sizeof => 4
             static packingSize => 1
-    
+
             /**
              * @type {Integer}
              */
@@ -26,7 +25,7 @@ class STORAGE_OPERATIONAL_REASON extends Win32Struct
                 get => NumGet(this, 0, "char")
                 set => NumPut("char", value, this, 0)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -34,7 +33,7 @@ class STORAGE_OPERATIONAL_REASON extends Win32Struct
                 get => NumGet(this, 1, "char")
                 set => NumPut("char", value, this, 1)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -42,7 +41,7 @@ class STORAGE_OPERATIONAL_REASON extends Win32Struct
                 get => NumGet(this, 2, "char")
                 set => NumPut("char", value, this, 2)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -50,13 +49,12 @@ class STORAGE_OPERATIONAL_REASON extends Win32Struct
                 get => NumGet(this, 3, "char")
                 set => NumPut("char", value, this, 3)
             }
-        
         }
-    
+
         class _NVDIMM_N extends Win32Struct {
             static sizeof => 4
             static packingSize => 1
-    
+
             /**
              * @type {Integer}
              */
@@ -64,18 +62,18 @@ class STORAGE_OPERATIONAL_REASON extends Win32Struct
                 get => NumGet(this, 0, "char")
                 set => NumPut("char", value, this, 0)
             }
-        
+
             /**
-             * @type {Array<Byte>}
+             * @type {Array<Integer>}
              */
-            ModuleHealth{
+            ModuleHealth {
                 get {
                     if(!this.HasProp("__ModuleHealthProxyArray"))
                         this.__ModuleHealthProxyArray := Win32FixedArray(this.ptr + 1, 2, Primitive, "char")
                     return this.__ModuleHealthProxyArray
                 }
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -83,31 +81,30 @@ class STORAGE_OPERATIONAL_REASON extends Win32Struct
                 get => NumGet(this, 3, "char")
                 set => NumPut("char", value, this, 3)
             }
-        
         }
-    
+
         /**
          * @type {_ScsiSenseKey}
          */
-        ScsiSenseKey{
+        ScsiSenseKey {
             get {
                 if(!this.HasProp("__ScsiSenseKey"))
-                    this.__ScsiSenseKey := %this.__Class%._ScsiSenseKey(0, this)
+                    this.__ScsiSenseKey := STORAGE_OPERATIONAL_REASON._RawBytes_e__Union._ScsiSenseKey(0, this)
                 return this.__ScsiSenseKey
             }
         }
-    
+
         /**
          * @type {_NVDIMM_N}
          */
-        NVDIMM_N{
+        NVDIMM_N {
             get {
                 if(!this.HasProp("__NVDIMM_N"))
-                    this.__NVDIMM_N := %this.__Class%._NVDIMM_N(0, this)
+                    this.__NVDIMM_N := STORAGE_OPERATIONAL_REASON._RawBytes_e__Union._NVDIMM_N(0, this)
                 return this.__NVDIMM_N
             }
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -115,7 +112,6 @@ class STORAGE_OPERATIONAL_REASON extends Win32Struct
             get => NumGet(this, 0, "uint")
             set => NumPut("uint", value, this, 0)
         }
-    
     }
 
     /**
@@ -135,7 +131,7 @@ class STORAGE_OPERATIONAL_REASON extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {STORAGE_OPERATIONAL_STATUS_REASON}
      */
     Reason {
         get => NumGet(this, 8, "int")
@@ -145,10 +141,10 @@ class STORAGE_OPERATIONAL_REASON extends Win32Struct
     /**
      * @type {_RawBytes_e__Union}
      */
-    RawBytes{
+    RawBytes {
         get {
             if(!this.HasProp("__RawBytes"))
-                this.__RawBytes := %this.__Class%._RawBytes_e__Union(12, this)
+                this.__RawBytes := STORAGE_OPERATIONAL_REASON._RawBytes_e__Union(12, this)
             return this.__RawBytes
         }
     }

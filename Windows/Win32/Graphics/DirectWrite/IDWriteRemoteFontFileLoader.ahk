@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IDWriteFontFileLoader.ahk
 #Include .\IDWriteRemoteFontFileStream.ahk
 #Include .\IDWriteFontFile.ahk
-#Include .\IDWriteFontFileLoader.ahk
 
 /**
  * Represents a font file loader that can access remote (i.e., downloadable) fonts.
  * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nn-dwrite_3-idwriteremotefontfileloader
  * @namespace Windows.Win32.Graphics.DirectWrite
- * @version v4.0.30319
  */
-class IDWriteRemoteFontFileLoader extends IDWriteFontFileLoader{
+class IDWriteRemoteFontFileLoader extends IDWriteFontFileLoader {
 
     static sizeof => A_PtrSize
     /**
@@ -38,7 +37,7 @@ class IDWriteRemoteFontFileLoader extends IDWriteFontFileLoader{
      * Unlike <a href="https://docs.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefontfileloader-createstreamfromkey">CreateStreamFromKey</a>, this method can be used to create a stream for a remote file. 
      *         If the file is remote, the client must call <a href="https://docs.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwriteremotefontfilestream-begindownload">IDWriteRemoteFontFileStream::BeginDownload</a> with an empty array 
      *         of file fragments before the stream can be used to get the file size or access data.
-     * @param {Pointer} fontFileReferenceKey Type: <b>void</b>
+     * @param {Integer} fontFileReferenceKey Type: <b>void</b>
      * 
      * Font file reference key that uniquely identifies the font file resource within the scope of the font loader being used.
      * @param {Integer} fontFileReferenceKeySize Type: <b>UINT32</b>
@@ -56,13 +55,13 @@ class IDWriteRemoteFontFileLoader extends IDWriteFontFileLoader{
 
     /**
      * Gets the locality of the file resource identified by the unique key.
-     * @param {Pointer} fontFileReferenceKey Type: <b>void</b>
+     * @param {Integer} fontFileReferenceKey Type: <b>void</b>
      * 
      * Font file reference key that uniquely identifies the font file resource within the scope of the font loader being used.
      * @param {Integer} fontFileReferenceKeySize Type: <b>UINT32</b>
      * 
      * Size of font file reference key in bytes.
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite_3/ne-dwrite_3-dwrite_locality">DWRITE_LOCALITY</a>*</b>
+     * @returns {DWRITE_LOCALITY} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite_3/ne-dwrite_3-dwrite_locality">DWRITE_LOCALITY</a>*</b>
      * 
      * Locality of the file.
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwriteremotefontfileloader-getlocalityfromkey

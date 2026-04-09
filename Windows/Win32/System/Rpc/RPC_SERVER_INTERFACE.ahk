@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\RPC_VERSION.ahk
 #Include .\RPC_SYNTAX_IDENTIFIER.ahk
+#Include .\RPC_VERSION.ahk
+#Include .\RPC_DISPATCH_TABLE.ahk
+#Include .\RPC_PROTSEQ_ENDPOINT.ahk
 
 /**
  * @namespace Windows.Win32.System.Rpc
- * @version v4.0.30319
  */
-class RPC_SERVER_INTERFACE extends Win32Struct
-{
+class RPC_SERVER_INTERFACE extends Win32Struct {
     static sizeof => 88
 
     static packingSize => 8
@@ -24,7 +24,7 @@ class RPC_SERVER_INTERFACE extends Win32Struct
     /**
      * @type {RPC_SYNTAX_IDENTIFIER}
      */
-    InterfaceId{
+    InterfaceId {
         get {
             if(!this.HasProp("__InterfaceId"))
                 this.__InterfaceId := RPC_SYNTAX_IDENTIFIER(8, this)
@@ -35,7 +35,7 @@ class RPC_SERVER_INTERFACE extends Win32Struct
     /**
      * @type {RPC_SYNTAX_IDENTIFIER}
      */
-    TransferSyntax{
+    TransferSyntax {
         get {
             if(!this.HasProp("__TransferSyntax"))
                 this.__TransferSyntax := RPC_SYNTAX_IDENTIFIER(24, this)

@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
- * @version v4.0.30319
  */
-class IPrinterScriptableSequentialStream extends IDispatch{
+class IPrinterScriptableSequentialStream extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

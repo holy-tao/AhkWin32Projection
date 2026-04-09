@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.NetManagement
- * @version v4.0.30319
  */
-class NCPNP_RECONFIG_LAYER extends Win32Enum{
+class NCPNP_RECONFIG_LAYER extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

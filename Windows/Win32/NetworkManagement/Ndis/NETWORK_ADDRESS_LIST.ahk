@@ -4,13 +4,11 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Ndis
- * @version v4.0.30319
  */
-class NETWORK_ADDRESS_LIST extends Win32Struct
-{
-    static sizeof => 16
+class NETWORK_ADDRESS_LIST extends Win32Struct {
+    static sizeof => 12
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}
@@ -29,12 +27,12 @@ class NETWORK_ADDRESS_LIST extends Win32Struct
     }
 
     /**
-     * @type {Array<NETWORK_ADDRESS>}
+     * @type {NETWORK_ADDRESS}
      */
-    Address{
+    Address {
         get {
             if(!this.HasProp("__AddressProxyArray"))
-                this.__AddressProxyArray := Win32FixedArray(this.ptr + 8, 1, NETWORK_ADDRESS, "")
+                this.__AddressProxyArray := Win32FixedArray(this.ptr + 6, 1, NETWORK_ADDRESS, "")
             return this.__AddressProxyArray
         }
     }

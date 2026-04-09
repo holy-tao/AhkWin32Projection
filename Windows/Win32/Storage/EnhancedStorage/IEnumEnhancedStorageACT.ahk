@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IEnhancedStorageACT.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\IEnhancedStorageACT.ahk
 
 /**
  * Use this interface as the top level enumerator for all IEEE 1667 Addressable Contact Targets (ACT).
  * @see https://learn.microsoft.com/windows/win32/api/ehstorapi/nn-ehstorapi-ienumenhancedstorageact
  * @namespace Windows.Win32.Storage.EnhancedStorage
- * @version v4.0.30319
  */
-class IEnumEnhancedStorageACT extends IUnknown{
+class IEnumEnhancedStorageACT extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

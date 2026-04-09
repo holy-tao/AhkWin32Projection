@@ -5,9 +5,8 @@
  * Identifies the type of logon being requested.
  * @see https://learn.microsoft.com/windows/win32/api/ntsecapi/ne-ntsecapi-kerb_logon_submit_type
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class KERB_LOGON_SUBMIT_TYPE extends Win32Enum{
+class KERB_LOGON_SUBMIT_TYPE extends Win32Enum {
 
     /**
      * Perform an interactive logon.
@@ -76,13 +75,11 @@ class KERB_LOGON_SUBMIT_TYPE extends Win32Enum{
     static KerbCertificateUnlockLogon => 15
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static KerbNoElevationLogon => 83
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static KerbLuidLogon => 84

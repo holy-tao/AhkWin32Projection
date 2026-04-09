@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\IMFAttributes.ahk
 #Include .\IMFDeviceTransform.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * The interface implemented by sensor transforms to allow the media pipeline to query requirements of the sensor transform and to create a runtime instance of the sensor transform.
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imfsensortransformfactory
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFSensorTransformFactory extends IUnknown{
+class IMFSensorTransformFactory extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

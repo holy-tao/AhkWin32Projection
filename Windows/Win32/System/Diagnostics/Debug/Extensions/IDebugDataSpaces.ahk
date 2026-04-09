@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
- * @version v4.0.30319
  */
-class IDebugDataSpaces extends IUnknown{
+class IDebugDataSpaces extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -31,7 +30,7 @@ class IDebugDataSpaces extends IUnknown{
     /**
      * 
      * @param {Integer} Offset 
-     * @param {Pointer} _Buffer 
+     * @param {Integer} _Buffer 
      * @param {Integer} BufferSize 
      * @returns {Integer} 
      */
@@ -43,7 +42,7 @@ class IDebugDataSpaces extends IUnknown{
     /**
      * 
      * @param {Integer} Offset 
-     * @param {Pointer} _Buffer 
+     * @param {Integer} _Buffer 
      * @param {Integer} BufferSize 
      * @returns {Integer} 
      */
@@ -56,7 +55,7 @@ class IDebugDataSpaces extends IUnknown{
      * 
      * @param {Integer} Offset 
      * @param {Integer} Length 
-     * @param {Pointer} Pattern 
+     * @param {Integer} Pattern 
      * @param {Integer} PatternSize 
      * @param {Integer} PatternGranularity 
      * @returns {Integer} 
@@ -69,7 +68,7 @@ class IDebugDataSpaces extends IUnknown{
     /**
      * 
      * @param {Integer} Offset 
-     * @param {Pointer} _Buffer 
+     * @param {Integer} _Buffer 
      * @param {Integer} BufferSize 
      * @returns {Integer} 
      */
@@ -81,7 +80,7 @@ class IDebugDataSpaces extends IUnknown{
     /**
      * 
      * @param {Integer} Offset 
-     * @param {Pointer} _Buffer 
+     * @param {Integer} _Buffer 
      * @param {Integer} BufferSize 
      * @returns {Integer} 
      */
@@ -118,7 +117,7 @@ class IDebugDataSpaces extends IUnknown{
     /**
      * 
      * @param {Integer} Offset 
-     * @param {Pointer} _Buffer 
+     * @param {Integer} _Buffer 
      * @param {Integer} BufferSize 
      * @returns {Integer} 
      */
@@ -130,7 +129,7 @@ class IDebugDataSpaces extends IUnknown{
     /**
      * 
      * @param {Integer} Offset 
-     * @param {Pointer} _Buffer 
+     * @param {Integer} _Buffer 
      * @param {Integer} BufferSize 
      * @returns {Integer} 
      */
@@ -143,7 +142,7 @@ class IDebugDataSpaces extends IUnknown{
      * 
      * @param {Integer} Processor 
      * @param {Integer} Offset 
-     * @param {Pointer} _Buffer 
+     * @param {Integer} _Buffer 
      * @param {Integer} BufferSize 
      * @returns {Integer} 
      */
@@ -156,7 +155,7 @@ class IDebugDataSpaces extends IUnknown{
      * 
      * @param {Integer} Processor 
      * @param {Integer} Offset 
-     * @param {Pointer} _Buffer 
+     * @param {Integer} _Buffer 
      * @param {Integer} BufferSize 
      * @returns {Integer} 
      */
@@ -171,7 +170,7 @@ class IDebugDataSpaces extends IUnknown{
      * @param {Integer} BusNumber 
      * @param {Integer} AddressSpace 
      * @param {Integer} Offset 
-     * @param {Pointer} _Buffer 
+     * @param {Integer} _Buffer 
      * @param {Integer} BufferSize 
      * @returns {Integer} 
      */
@@ -186,7 +185,7 @@ class IDebugDataSpaces extends IUnknown{
      * @param {Integer} BusNumber 
      * @param {Integer} AddressSpace 
      * @param {Integer} Offset 
-     * @param {Pointer} _Buffer 
+     * @param {Integer} _Buffer 
      * @param {Integer} BufferSize 
      * @returns {Integer} 
      */
@@ -222,7 +221,7 @@ class IDebugDataSpaces extends IUnknown{
      * @param {Integer} BusNumber 
      * @param {Integer} SlotNumber 
      * @param {Integer} Offset 
-     * @param {Pointer} _Buffer 
+     * @param {Integer} _Buffer 
      * @param {Integer} BufferSize 
      * @returns {Integer} 
      */
@@ -237,7 +236,7 @@ class IDebugDataSpaces extends IUnknown{
      * @param {Integer} BusNumber 
      * @param {Integer} SlotNumber 
      * @param {Integer} Offset 
-     * @param {Pointer} _Buffer 
+     * @param {Integer} _Buffer 
      * @param {Integer} BufferSize 
      * @returns {Integer} 
      */
@@ -258,7 +257,7 @@ class IDebugDataSpaces extends IUnknown{
     /**
      * 
      * @param {Integer} Index 
-     * @param {Pointer} _Buffer 
+     * @param {Integer} _Buffer 
      * @param {Integer} BufferSize 
      * @returns {Integer} 
      */
@@ -271,7 +270,7 @@ class IDebugDataSpaces extends IUnknown{
      * 
      * @param {Integer} Processor 
      * @param {Integer} Index 
-     * @param {Pointer} _Buffer 
+     * @param {Integer} _Buffer 
      * @param {Integer} BufferSize 
      * @returns {Integer} 
      */

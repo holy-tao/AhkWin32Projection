@@ -7,9 +7,8 @@
  * Provides the callback that is used when an asynchronous download is completed.
  * @see https://learn.microsoft.com/windows/win32/api/wuapi/nn-wuapi-idownloadcompletedcallback
  * @namespace Windows.Win32.System.UpdateAgent
- * @version v4.0.30319
  */
-class IDownloadCompletedCallback extends IUnknown{
+class IDownloadCompletedCallback extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

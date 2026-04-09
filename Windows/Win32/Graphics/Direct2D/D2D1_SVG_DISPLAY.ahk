@@ -5,9 +5,8 @@
  * Specifies a value for the SVG display property.
  * @see https://learn.microsoft.com/windows/win32/api/d2d1svg/ne-d2d1svg-d2d1_svg_display
  * @namespace Windows.Win32.Graphics.Direct2D
- * @version v4.0.30319
  */
-class D2D1_SVG_DISPLAY extends Win32Enum{
+class D2D1_SVG_DISPLAY extends Win32Enum {
 
     /**
      * The element uses the default display behavior.

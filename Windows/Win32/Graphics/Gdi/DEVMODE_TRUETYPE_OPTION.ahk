@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Graphics.Gdi
- * @version v4.0.30319
  */
-class DEVMODE_TRUETYPE_OPTION extends Win32Enum{
+class DEVMODE_TRUETYPE_OPTION extends Win32Enum {
 
     /**
      * @type {Integer (Int16)}

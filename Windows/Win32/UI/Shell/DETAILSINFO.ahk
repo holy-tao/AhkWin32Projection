@@ -1,15 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include Common\ITEMIDLIST.ahk
 #Include Common\STRRET.ahk
 
 /**
  * Contains detail information for a Shell folder item. Used with the SFVM_GETDETAILSOF notification.
  * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/ns-shlobj_core-detailsinfo
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class DETAILSINFO extends Win32Struct
-{
+class DETAILSINFO extends Win32Struct {
     static sizeof => 296
 
     static packingSize => 8
@@ -51,7 +50,7 @@ class DETAILSINFO extends Win32Struct
      * An <a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ns-shtypes-strret">STRRET</a> structure that includes a string containing the requested detail. To convert this structure to a string, use <a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/nf-shlwapi-strrettobufa">StrRetToBuf</a> or <a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/nf-shlwapi-strrettostra">StrRetToStr</a>.
      * @type {STRRET}
      */
-    str{
+    str {
         get {
             if(!this.HasProp("__str"))
                 this.__str := STRRET(16, this)

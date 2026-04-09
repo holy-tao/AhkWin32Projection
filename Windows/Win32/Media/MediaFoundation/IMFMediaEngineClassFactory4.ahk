@@ -5,13 +5,10 @@
 
 /**
  * Provides the CreateContentDecryptionModuleFactory method for creating an instance of IMFContentDecryptionModuleFactory, a class factory for Content Decryption Module (CDM) objects for a specified key system.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nn-mfmediaengine-imfmediaengineclassfactory4
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFMediaEngineClassFactory4 extends IUnknown{
+class IMFMediaEngineClassFactory4 extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

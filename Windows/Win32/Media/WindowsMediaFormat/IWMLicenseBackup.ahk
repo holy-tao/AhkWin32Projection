@@ -7,9 +7,8 @@
  * The IWMLicenseBackup interface manages the backing up of licenses, typically so that they can be restored onto another computer.This interface is obtained by using the WMCreateBackupRestorer function.
  * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nn-wmsdkidl-iwmlicensebackup
  * @namespace Windows.Win32.Media.WindowsMediaFormat
- * @version v4.0.30319
  */
-class IWMLicenseBackup extends IUnknown{
+class IWMLicenseBackup extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

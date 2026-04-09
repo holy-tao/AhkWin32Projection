@@ -5,9 +5,8 @@
  * The FilterType enumeration specifies the type of filter used for an RSVP FILTERSPEC.
  * @see https://learn.microsoft.com/windows/win32/api/qossp/ne-qossp-filtertype
  * @namespace Windows.Win32.NetworkManagement.QoS
- * @version v4.0.30319
  */
-class FilterType extends Win32Enum{
+class FilterType extends Win32Enum {
 
     /**
      * Indicates an IPv4 FILTERSPEC.

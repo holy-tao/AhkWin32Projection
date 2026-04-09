@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
- * @version v4.0.30319
  */
-class IPartFont2 extends IPartFont{
+class IPartFont2 extends IPartFont {
 
     static sizeof => A_PtrSize
     /**
@@ -30,7 +29,7 @@ class IPartFont2 extends IPartFont{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {EXpsFontRestriction} 
      */
     GetFontRestriction() {
         result := ComCall(10, this, "int*", &pRestriction := 0, "HRESULT")

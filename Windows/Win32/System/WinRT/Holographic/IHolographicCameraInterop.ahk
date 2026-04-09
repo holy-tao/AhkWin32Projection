@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Graphics\Direct3D12\ID3D12Resource.ahk
 #Include ..\IInspectable.ahk
+#Include ..\..\..\Graphics\Direct3D12\ID3D12Resource.ahk
 
 /**
  * Extends [HolographicCamera](/uwp/api/windows.graphics.holographic.holographiccamera) to allow 2D texture resources to be created and used as back buffers for holographic rendering in Direct3D 12.
@@ -49,9 +49,8 @@
  * ```
  * @see https://learn.microsoft.com/windows/win32/api/windows.graphics.holographic.interop/nn-windows-graphics-holographic-interop-iholographiccamerainterop
  * @namespace Windows.Win32.System.WinRT.Holographic
- * @version v4.0.30319
  */
-class IHolographicCameraInterop extends IInspectable{
+class IHolographicCameraInterop extends IInspectable {
 
     static sizeof => A_PtrSize
     /**

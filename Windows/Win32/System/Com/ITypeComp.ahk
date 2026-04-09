@@ -7,9 +7,8 @@
  * The ITypeComp interface provides a fast way to access information that compilers need when binding to and instantiating structures and interfaces.
  * @see https://learn.microsoft.com/windows/win32/api/oaidl/nn-oaidl-itypecomp
  * @namespace Windows.Win32.System.Com
- * @version v4.0.30319
  */
-class ITypeComp extends IUnknown{
+class ITypeComp extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -64,7 +63,7 @@ class ITypeComp extends IUnknown{
      * @param {Integer} lHashVal The hash value for the name computed by <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-lhashvalofnamesys">LHashValOfNameSys</a>.
      * @param {Integer} wFlags One or more of the flags defined in the INVOKEKIND enumeration. Specifies whether the name was referenced as a method or a property. When binding to a variable, specify the flag INVOKE_PROPERTYGET. Specify zero to bind to any type of member.
      * @param {Pointer<ITypeInfo>} ppTInfo If a FUNCDESC or VARDESC was returned, then <i>ppTInfo</i> points to a pointer to the type description that contains the item to which it is bound.
-     * @param {Pointer<Integer>} pDescKind Indicates whether the name bound to is a VARDESC, FUNCDESC, or TYPECOMP. If there was no match, DESCKIND_NONE.
+     * @param {Pointer<DESCKIND>} pDescKind Indicates whether the name bound to is a VARDESC, FUNCDESC, or TYPECOMP. If there was no match, DESCKIND_NONE.
      * @param {Pointer<BINDPTR>} pBindPtr The bound-to VARDESC, FUNCDESC, or <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nn-oaidl-itypecomp">ITypeComp</a> interface.
      * @returns {HRESULT} This method can return one of these values.
      * 

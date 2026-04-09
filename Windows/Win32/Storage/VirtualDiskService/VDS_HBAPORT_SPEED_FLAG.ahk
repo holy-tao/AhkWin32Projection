@@ -8,9 +8,8 @@
  * <div> </div>
  * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/ne-vdshwprv-vds_hbaport_speed_flag
  * @namespace Windows.Win32.Storage.VirtualDiskService
- * @version v4.0.30319
  */
-class VDS_HBAPORT_SPEED_FLAG extends Win32Enum{
+class VDS_HBAPORT_SPEED_FLAG extends Win32Enum {
 
     /**
      * The HBA port speed is unknown. The transceiver is incapable of reporting.

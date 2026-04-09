@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw
- * @version v4.0.30319
  */
-class DDVERSIONDATA extends Win32Struct
-{
+class DDVERSIONDATA extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

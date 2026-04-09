@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class PCI_EXPRESS_DESIGNATED_VENDOR_SPECIFIC_HEADER_1 extends Win32Struct
-{
+class PCI_EXPRESS_DESIGNATED_VENDOR_SPECIFIC_HEADER_1 extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4

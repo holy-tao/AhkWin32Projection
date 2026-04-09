@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IAudioData.ahk
 #Include .\IStreamSample.ahk
+#Include .\IAudioData.ahk
 
 /**
  * Note  This interface is deprecated.
  * @see https://learn.microsoft.com/windows/win32/api/austream/nn-austream-iaudiostreamsample
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IAudioStreamSample extends IStreamSample{
+class IAudioStreamSample extends IStreamSample {
 
     static sizeof => A_PtrSize
     /**

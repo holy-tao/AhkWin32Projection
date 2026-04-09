@@ -7,9 +7,8 @@
  * The IWMWriterFileSink3 interface provides additional functionality to the file sink object. To obtain a pointer to this interface, call QueryInterface on the file sink object.
  * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nn-wmsdkidl-iwmwriterfilesink3
  * @namespace Windows.Win32.Media.WindowsMediaFormat
- * @version v4.0.30319
  */
-class IWMWriterFileSink3 extends IWMWriterFileSink2{
+class IWMWriterFileSink3 extends IWMWriterFileSink2 {
 
     static sizeof => A_PtrSize
     /**

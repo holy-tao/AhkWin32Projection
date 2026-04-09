@@ -18,9 +18,8 @@
  * To view some code that registers for COM notifications, see the Client section of the <a href="https://docs.microsoft.com/archive/msdn-magazine/2007/september/clr-inside-out-com-connection-points">COM Connection Points</a> article.
  * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nn-mbnapi-imbnconnectionprofilemanagerevents
  * @namespace Windows.Win32.NetworkManagement.MobileBroadband
- * @version v4.0.30319
  */
-class IMbnConnectionProfileManagerEvents extends IUnknown{
+class IMbnConnectionProfileManagerEvents extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

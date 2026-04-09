@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Media.Speech
- * @version v4.0.30319
  */
-class SPWORDENTRY extends Win32Struct
-{
+class SPWORDENTRY extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -15,7 +13,7 @@ class SPWORDENTRY extends Win32Struct
     /**
      * @type {SPWORDHANDLE}
      */
-    hWord{
+    hWord {
         get {
             if(!this.HasProp("__hWord"))
                 this.__hWord := SPWORDHANDLE(0, this)

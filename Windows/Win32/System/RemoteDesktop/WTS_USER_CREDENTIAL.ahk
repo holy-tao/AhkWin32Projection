@@ -7,10 +7,8 @@
  * The user name and password are plaintext.
  * @see https://learn.microsoft.com/windows/win32/api/wtsdefs/ns-wtsdefs-wts_user_credential
  * @namespace Windows.Win32.System.RemoteDesktop
- * @version v4.0.30319
  */
-class WTS_USER_CREDENTIAL extends Win32Struct
-{
+class WTS_USER_CREDENTIAL extends Win32Struct {
     static sizeof => 1536
 
     static packingSize => 2

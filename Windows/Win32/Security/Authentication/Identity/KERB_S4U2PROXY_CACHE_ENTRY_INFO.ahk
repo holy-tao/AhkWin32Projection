@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class KERB_S4U2PROXY_CACHE_ENTRY_INFO extends Win32Struct
-{
+class KERB_S4U2PROXY_CACHE_ENTRY_INFO extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -15,7 +13,7 @@ class KERB_S4U2PROXY_CACHE_ENTRY_INFO extends Win32Struct
     /**
      * @type {LSA_UNICODE_STRING}
      */
-    ServerName{
+    ServerName {
         get {
             if(!this.HasProp("__ServerName"))
                 this.__ServerName := LSA_UNICODE_STRING(0, this)

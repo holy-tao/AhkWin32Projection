@@ -7,9 +7,8 @@
  * The IVMRAspectRatioControl9 interface controls whether the Video Mixing Renderer Filter 9 (VMR-9) preserves the aspect ratio of the source video.
  * @see https://learn.microsoft.com/windows/win32/api/vmr9/nn-vmr9-ivmraspectratiocontrol9
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IVMRAspectRatioControl9 extends IUnknown{
+class IVMRAspectRatioControl9 extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

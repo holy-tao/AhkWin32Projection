@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IMFMediaEventGenerator.ahk
 #Include .\IMFMediaSink.ahk
 #Include .\IMFMediaTypeHandler.ahk
-#Include .\IMFMediaEventGenerator.ahk
 
 /**
  * Represents a stream on a media sink object.
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imfstreamsink
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFStreamSink extends IMFMediaEventGenerator{
+class IMFStreamSink extends IMFMediaEventGenerator {
 
     static sizeof => A_PtrSize
     /**
@@ -205,7 +204,7 @@ class IMFStreamSink extends IMFMediaEventGenerator{
      * Places a marker in the stream.
      * @remarks
      * This method causes the stream sink to send an <a href="https://docs.microsoft.com/windows/desktop/medfound/mestreamsinkmarker">MEStreamSinkMarker</a> event after the stream sink consumes all of the samples that were delivered up to this point (before the call to <b>PlaceMarker</b>).
-     * @param {Integer} eMarkerType Specifies the marker type, as a member of the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/ne-mfidl-mfstreamsink_marker_type">MFSTREAMSINK_MARKER_TYPE</a> enumeration.
+     * @param {MFSTREAMSINK_MARKER_TYPE} eMarkerType Specifies the marker type, as a member of the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/ne-mfidl-mfstreamsink_marker_type">MFSTREAMSINK_MARKER_TYPE</a> enumeration.
      * @param {Pointer<PROPVARIANT>} pvarMarkerValue Optional pointer to a <b>PROPVARIANT</b> that contains additional information related to the marker. The meaning of this value depends on the marker type. This parameter can be <b>NULL</b>.
      * @param {Pointer<PROPVARIANT>} pvarContextValue Optional pointer to a <b>PROPVARIANT</b> that is attached to the <a href="https://docs.microsoft.com/windows/desktop/medfound/mestreamsinkmarker">MEStreamSinkMarker</a> event. Call <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nf-mfobjects-imfmediaevent-getvalue">IMFMediaEvent::GetValue</a> to get this value from the event. The caller can use this information for any purpose. This parameter can be <b>NULL</b>.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.

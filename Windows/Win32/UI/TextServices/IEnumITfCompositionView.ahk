@@ -1,16 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IEnumITfCompositionView.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * The IEnumITfCompositionView interface is implemented by the TSF manager to provide an enumeration of composition view objects.
  * @see https://learn.microsoft.com/windows/win32/api/msctf/nn-msctf-ienumitfcompositionview
  * @namespace Windows.Win32.UI.TextServices
- * @version v4.0.30319
  */
-class IEnumITfCompositionView extends IUnknown{
+class IEnumITfCompositionView extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

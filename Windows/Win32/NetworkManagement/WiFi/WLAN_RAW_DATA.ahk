@@ -27,10 +27,8 @@
  * For more information about PSD IEs, including a discussion of the format of an IE, see the  <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlansetpsdiedatalist">WlanSetPsdIEDataList</a> function.
  * @see https://learn.microsoft.com/windows/win32/api/wlanapi/ns-wlanapi-wlan_raw_data
  * @namespace Windows.Win32.NetworkManagement.WiFi
- * @version v4.0.30319
  */
-class WLAN_RAW_DATA extends Win32Struct
-{
+class WLAN_RAW_DATA extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4
@@ -46,9 +44,9 @@ class WLAN_RAW_DATA extends Win32Struct
 
     /**
      * The data blob.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    DataBlob{
+    DataBlob {
         get {
             if(!this.HasProp("__DataBlobProxyArray"))
                 this.__DataBlobProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "char")

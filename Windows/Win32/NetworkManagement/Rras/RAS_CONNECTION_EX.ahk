@@ -1,20 +1,23 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\MPRAPI_OBJECT_HEADER.ahk
+#Include .\ROUTER_INTERFACE_TYPE.ahk
+#Include .\RAS_FLAGS.ahk
+#Include .\RAS_QUARANTINE_STATE.ahk
 #Include ..\..\Foundation\FILETIME.ahk
-#Include .\PPP_PROJECTION_INFO.ahk
-#Include .\IKEV2_PROJECTION_INFO.ahk
 #Include .\PROJECTION_INFO.ahk
+#Include .\PPP_PROJECTION_INFO.ahk
+#Include .\PPP_LCP.ahk
+#Include .\PPP_LCP_INFO_AUTH_DATA.ahk
+#Include .\IKEV2_PROJECTION_INFO.ahk
 #Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * Contains specific information for the connection that includes:\_the user name, domain, and Globally Unique Identifier (GUID) associated with the connection, its Network Access Protection (NAP) quarantine state, its packet statistics, as well as its Point-to-Point(PPP) and Internet Key Exchange version 2 (IKEv2) related information.
  * @see https://learn.microsoft.com/windows/win32/api/mprapi/ns-mprapi-ras_connection_ex
  * @namespace Windows.Win32.NetworkManagement.Rras
- * @version v4.0.30319
  */
-class RAS_CONNECTION_EX extends Win32Struct
-{
+class RAS_CONNECTION_EX extends Win32Struct {
     static sizeof => 1664
 
     static packingSize => 8
@@ -26,7 +29,7 @@ class RAS_CONNECTION_EX extends Win32Struct
      * <div> </div>
      * @type {MPRAPI_OBJECT_HEADER}
      */
-    Header{
+    Header {
         get {
             if(!this.HasProp("__Header"))
                 this.__Header := MPRAPI_OBJECT_HEADER(0, this)
@@ -45,7 +48,7 @@ class RAS_CONNECTION_EX extends Win32Struct
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ne-mprapi-router_interface_type">ROUTER_INTERFACE_TYPE</a> enumeration that identifies the type of connection interface.
-     * @type {Integer}
+     * @type {ROUTER_INTERFACE_TYPE}
      */
     dwInterfaceType {
         get => NumGet(this, 8, "int")
@@ -53,8 +56,7 @@ class RAS_CONNECTION_EX extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Integer}
+     * @type {RAS_FLAGS}
      */
     dwConnectionFlags {
         get => NumGet(this, 12, "uint")
@@ -99,7 +101,7 @@ class RAS_CONNECTION_EX extends Win32Struct
 
     /**
      * A GUID  that identifies the connection. For incoming connections, this GUID is valid only as long as the connection is active.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     guid {
         get => NumGet(this, 1112, "ptr")
@@ -108,7 +110,7 @@ class RAS_CONNECTION_EX extends Win32Struct
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ne-mprapi-ras_quarantine_state">RAS_QUARANTINE_STATE</a> structure that specifies the NAP quarantine state of the connection.
-     * @type {Integer}
+     * @type {RAS_QUARANTINE_STATE}
      */
     rasQuarState {
         get => NumGet(this, 1120, "int")
@@ -119,7 +121,7 @@ class RAS_CONNECTION_EX extends Win32Struct
      * A FILETIME structure that specifies the time required for the connection to come out of quarantine after which the connection will be dropped. This value is valid only if <b>rasQuarState</b> has a value of <b>RAS_QUAR_STATE_PROBATION</b>.
      * @type {FILETIME}
      */
-    probationTime{
+    probationTime {
         get {
             if(!this.HasProp("__probationTime"))
                 this.__probationTime := FILETIME(1124, this)
@@ -266,7 +268,7 @@ class RAS_CONNECTION_EX extends Win32Struct
      * A <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ns-mprapi-projection_info">PROJECTION_INFO</a> structure that contains either a <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ns-mprapi-ppp_projection_info">PPP_PROJECTION_INFO</a>  or <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ns-mprapi-ikev2_projection_info">IKEV2_PROJECTION_INFO</a> structure.
      * @type {PROJECTION_INFO}
      */
-    ProjectionInfo{
+    ProjectionInfo {
         get {
             if(!this.HasProp("__ProjectionInfo"))
                 this.__ProjectionInfo := PROJECTION_INFO(1448, this)
@@ -278,7 +280,7 @@ class RAS_CONNECTION_EX extends Win32Struct
      * A handle to the RAS connection.
      * @type {HANDLE}
      */
-    hConnection{
+    hConnection {
         get {
             if(!this.HasProp("__hConnection"))
                 this.__hConnection := HANDLE(1648, this)
@@ -290,7 +292,7 @@ class RAS_CONNECTION_EX extends Win32Struct
      * A handle to the RAS connection interface.
      * @type {HANDLE}
      */
-    hInterface{
+    hInterface {
         get {
             if(!this.HasProp("__hInterface"))
                 this.__hInterface := HANDLE(1656, this)

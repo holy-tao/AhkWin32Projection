@@ -21,10 +21,8 @@
  * For mutual CHAP, secrets are set on the target and the initiator. To do a successful login, the target and the initiator must remember each other's secrets.
  * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/ns-vdshwprv-vds_iscsi_shared_secret
  * @namespace Windows.Win32.Storage.VirtualDiskService
- * @version v4.0.30319
  */
-class VDS_ISCSI_SHARED_SECRET extends Win32Struct
-{
+class VDS_ISCSI_SHARED_SECRET extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

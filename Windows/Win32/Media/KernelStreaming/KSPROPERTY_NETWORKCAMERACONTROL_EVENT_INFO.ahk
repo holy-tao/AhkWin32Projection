@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
- * @version v4.0.30319
  */
-class KSPROPERTY_NETWORKCAMERACONTROL_EVENT_INFO extends Win32Struct
-{
+class KSPROPERTY_NETWORKCAMERACONTROL_EVENT_INFO extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4
@@ -15,7 +13,7 @@ class KSPROPERTY_NETWORKCAMERACONTROL_EVENT_INFO extends Win32Struct
     /**
      * @type {KSCAMERA_METADATA_ITEMHEADER}
      */
-    Header{
+    Header {
         get {
             if(!this.HasProp("__Header"))
                 this.__Header := KSCAMERA_METADATA_ITEMHEADER(0, this)

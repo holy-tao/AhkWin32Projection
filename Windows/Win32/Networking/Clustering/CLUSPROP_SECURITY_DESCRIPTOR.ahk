@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\CLUSPROP_SYNTAX.ahk
 #Include .\CLUSPROP_VALUE.ahk
+#Include .\CLUSPROP_SYNTAX.ahk
 #Include ..\..\Security\SECURITY_DESCRIPTOR_RELATIVE.ahk
+#Include ..\..\Security\SECURITY_DESCRIPTOR_CONTROL.ahk
 
 /**
  * Describes a security descriptor.
  * @see https://learn.microsoft.com/windows/win32/api/clusapi/ns-clusapi-clusprop_security_descriptor
  * @namespace Windows.Win32.Networking.Clustering
- * @version v4.0.30319
  */
-class CLUSPROP_SECURITY_DESCRIPTOR extends Win32Struct
-{
+class CLUSPROP_SECURITY_DESCRIPTOR extends Win32Struct {
     static sizeof => 36
 
     static packingSize => 4
@@ -19,7 +18,7 @@ class CLUSPROP_SECURITY_DESCRIPTOR extends Win32Struct
     /**
      * @type {CLUSPROP_VALUE}
      */
-    Base{
+    Base {
         get {
             if(!this.HasProp("__Base"))
                 this.__Base := CLUSPROP_VALUE(0, this)
@@ -30,7 +29,7 @@ class CLUSPROP_SECURITY_DESCRIPTOR extends Win32Struct
     /**
      * @type {SECURITY_DESCRIPTOR_RELATIVE}
      */
-    sd{
+    sd {
         get {
             if(!this.HasProp("__sd"))
                 this.__sd := SECURITY_DESCRIPTOR_RELATIVE(12, this)
@@ -39,9 +38,9 @@ class CLUSPROP_SECURITY_DESCRIPTOR extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    rgbSecurityDescriptor{
+    rgbSecurityDescriptor {
         get {
             if(!this.HasProp("__rgbSecurityDescriptorProxyArray"))
                 this.__rgbSecurityDescriptorProxyArray := Win32FixedArray(this.ptr + 12, 1, Primitive, "char")

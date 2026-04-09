@@ -5,13 +5,10 @@
 
 /**
  * Adds the ability to disable the debug layer.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/d3d12sdklayers/nn-d3d12sdklayers-id3d12debug4
  * @namespace Windows.Win32.Graphics.Direct3D12
- * @version v4.0.30319
  */
-class ID3D12Debug4 extends ID3D12Debug3{
+class ID3D12Debug4 extends ID3D12Debug3 {
 
     static sizeof => A_PtrSize
     /**

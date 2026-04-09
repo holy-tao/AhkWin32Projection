@@ -7,10 +7,8 @@
  * The <a href="https://docs.microsoft.com/windows/desktop/api/vds/nf-vds-ivdsservice-querydriveletters">IVdsService::QueryDriveLetters</a> method returns this structure to report the property details of a drive letter.
  * @see https://learn.microsoft.com/windows/win32/api/vds/ns-vds-vds_drive_letter_prop
  * @namespace Windows.Win32.Storage.VirtualDiskService
- * @version v4.0.30319
  */
-class VDS_DRIVE_LETTER_PROP extends Win32Struct
-{
+class VDS_DRIVE_LETTER_PROP extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -26,7 +24,7 @@ class VDS_DRIVE_LETTER_PROP extends Win32Struct
 
     /**
      * The GUID of the volume object represented by the drive letter.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     volumeId {
         get => NumGet(this, 8, "ptr")

@@ -7,9 +7,8 @@
  * The IWMInputMediaProps interface is used to retrieve the properties of digital media that will be passed to the writer.An input media properties object is created by a call to either the IWMWriter::GetInputProps or IWMWriter::GetInputFormat method.
  * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nn-wmsdkidl-iwminputmediaprops
  * @namespace Windows.Win32.Media.WindowsMediaFormat
- * @version v4.0.30319
  */
-class IWMInputMediaProps extends IWMMediaProps{
+class IWMInputMediaProps extends IWMMediaProps {
 
     static sizeof => A_PtrSize
     /**

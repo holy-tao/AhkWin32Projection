@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IUIAutomationElement.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\IUIAutomationElement.ahk
 
 /**
  * Exposes a method that retrieves an item from a container, such as a virtual list.
@@ -10,9 +10,8 @@
  * This interface is not limited to use by virtualized containers. Any container that can implement efficient name lookup can support this <i>control pattern</i>, enabling clients to look up names more quickly than by using methods such as <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-findfirst">FindFirst</a>, which must traverse the Microsoft UI Automation tree.
  * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nn-uiautomationclient-iuiautomationitemcontainerpattern
  * @namespace Windows.Win32.UI.Accessibility
- * @version v4.0.30319
  */
-class IUIAutomationItemContainerPattern extends IUnknown{
+class IUIAutomationItemContainerPattern extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -49,7 +48,7 @@ class IUIAutomationItemContainerPattern extends IUnknown{
      * @param {IUIAutomationElement} pStartAfter Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationelement">IUIAutomationElement</a>*</b>
      * 
      * A pointer to the element after which the search begins, or <b>NULL</b> to search all elements.
-     * @param {Integer} propertyId Type: <b>PROPERTYID</b>
+     * @param {UIA_PROPERTY_ID} propertyId Type: <b>PROPERTYID</b>
      * 
      * The property identifier. For a list of property IDs, see <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-entry-propids">Property Identifiers</a>.
      * @param {VARIANT} value Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-variant">VARIANT</a></b>

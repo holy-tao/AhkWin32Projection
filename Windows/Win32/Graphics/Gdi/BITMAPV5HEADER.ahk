@@ -1,7 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\CIEXYZ.ahk
+#Include .\BI_COMPRESSION.ahk
 #Include .\CIEXYZTRIPLE.ahk
+#Include .\CIEXYZ.ahk
 
 /**
  * The BITMAPV5HEADER structure is the bitmap information header file. It is an extended version of the BITMAPINFOHEADER structure.
@@ -19,10 +20,8 @@
  * If a profile is linked, the path of the profile can be any fully qualified name (including a network path) that can be opened using the <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-createfilea">CreateFile</a> function.
  * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-bitmapv5header
  * @namespace Windows.Win32.Graphics.Gdi
- * @version v4.0.30319
  */
-class BITMAPV5HEADER extends Win32Struct
-{
+class BITMAPV5HEADER extends Win32Struct {
     static sizeof => 124
 
     static packingSize => 4
@@ -79,8 +78,7 @@ class BITMAPV5HEADER extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Integer}
+     * @type {BI_COMPRESSION}
      */
     bV5Compression {
         get => NumGet(this, 16, "uint")
@@ -217,7 +215,7 @@ class BITMAPV5HEADER extends Win32Struct
      * A <a href="https://docs.microsoft.com/windows/win32/api/wingdi/ns-wingdi-ciexyztriple">CIEXYZTRIPLE</a> structure that specifies the x, y, and z coordinates of the three colors that correspond to the red, green, and blue endpoints for the logical color space associated with the bitmap. This member is ignored unless the <b>bV5CSType</b> member specifies LCS_CALIBRATED_RGB.
      * @type {CIEXYZTRIPLE}
      */
-    bV5Endpoints{
+    bV5Endpoints {
         get {
             if(!this.HasProp("__bV5Endpoints"))
                 this.__bV5Endpoints := CIEXYZTRIPLE(60, this)
@@ -253,7 +251,6 @@ class BITMAPV5HEADER extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     bV5Intent {

@@ -7,9 +7,8 @@
  * The IAMDecoderCaps interface returns capabilities information from an MPEG decoder filter.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-iamdecodercaps
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IAMDecoderCaps extends IUnknown{
+class IAMDecoderCaps extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

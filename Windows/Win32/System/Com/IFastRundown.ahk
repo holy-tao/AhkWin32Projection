@@ -11,9 +11,8 @@
  * All Windows Store app processes, as well as the broker processes RuntimeBroker.exe and PickerHost.exe, apply fast rundown at the process level, which means that all objects in any of these processes are subjected to fast rundown automatically. Desktop processes don't get this behavior by default and must opt in at the process level. Specific objects opt in by implementing the <b>IFastRundown</b> marker interface.
  * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nn-objidlbase-ifastrundown
  * @namespace Windows.Win32.System.Com
- * @version v4.0.30319
  */
-class IFastRundown extends IUnknown{
+class IFastRundown extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

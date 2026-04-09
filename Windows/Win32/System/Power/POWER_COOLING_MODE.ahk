@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Power
- * @version v4.0.30319
  */
-class POWER_COOLING_MODE extends Win32Enum{
+class POWER_COOLING_MODE extends Win32Enum {
 
     /**
      * @type {Integer (UInt16)}

@@ -3,18 +3,16 @@
 
 /**
  * @namespace Windows.Win32.System.Services
- * @version v4.0.30319
  */
-class SERVICE_TRIGGER_CUSTOM_STATE_ID extends Win32Struct
-{
+class SERVICE_TRIGGER_CUSTOM_STATE_ID extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4
 
     /**
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    Data{
+    Data {
         get {
             if(!this.HasProp("__DataProxyArray"))
                 this.__DataProxyArray := Win32FixedArray(this.ptr + 0, 2, Primitive, "uint")

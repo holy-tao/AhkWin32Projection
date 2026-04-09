@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Com
- * @version v4.0.30319
  */
-class RPCOPT_SERVER_LOCALITY_VALUES extends Win32Enum{
+class RPCOPT_SERVER_LOCALITY_VALUES extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

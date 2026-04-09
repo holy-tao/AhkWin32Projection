@@ -6,11 +6,9 @@
  * Contains information about the partitions of a drive.
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-drive_layout_information
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class DRIVE_LAYOUT_INFORMATION extends Win32Struct
-{
-    static sizeof => 16
+class DRIVE_LAYOUT_INFORMATION extends Win32Struct {
+    static sizeof => 40
 
     static packingSize => 8
 
@@ -36,9 +34,9 @@ class DRIVE_LAYOUT_INFORMATION extends Win32Struct
 
     /**
      * A variable-sized array of [**PARTITION_INFORMATION**](ns-winioctl-partition_information.md) structures, one structure for each partition on a drive.
-     * @type {Array<PARTITION_INFORMATION>}
+     * @type {PARTITION_INFORMATION}
      */
-    PartitionEntry{
+    PartitionEntry {
         get {
             if(!this.HasProp("__PartitionEntryProxyArray"))
                 this.__PartitionEntryProxyArray := Win32FixedArray(this.ptr + 8, 1, PARTITION_INFORMATION, "")

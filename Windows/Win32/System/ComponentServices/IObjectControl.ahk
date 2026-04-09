@@ -7,9 +7,8 @@
  * Defines context-specific initialization and cleanup procedures for your COM+ objects, and specifies whether the objects can be recycled.
  * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nn-comsvcs-iobjectcontrol
  * @namespace Windows.Win32.System.ComponentServices
- * @version v4.0.30319
  */
-class IObjectControl extends IUnknown{
+class IObjectControl extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

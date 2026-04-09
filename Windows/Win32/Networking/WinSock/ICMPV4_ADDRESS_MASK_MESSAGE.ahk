@@ -1,14 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\ICMP_HEADER.ahk
 #Include .\ICMP_MESSAGE.ahk
+#Include .\ICMP_HEADER.ahk
 
 /**
  * @namespace Windows.Win32.Networking.WinSock
- * @version v4.0.30319
  */
-class ICMPV4_ADDRESS_MASK_MESSAGE extends Win32Struct
-{
+class ICMPV4_ADDRESS_MASK_MESSAGE extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4
@@ -16,7 +14,7 @@ class ICMPV4_ADDRESS_MASK_MESSAGE extends Win32Struct
     /**
      * @type {ICMP_MESSAGE}
      */
-    Header{
+    Header {
         get {
             if(!this.HasProp("__Header"))
                 this.__Header := ICMP_MESSAGE(0, this)

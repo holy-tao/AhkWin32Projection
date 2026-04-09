@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.NetworkManagement.Ndis
- * @version v4.0.30319
  */
-class NDIS_FDDI_ATTACHMENT_TYPE extends Win32Enum{
+class NDIS_FDDI_ATTACHMENT_TYPE extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

@@ -5,10 +5,8 @@
  * Various statistics specific to the keying module and IP version.
  * @see https://learn.microsoft.com/windows/win32/api/iketypes/ns-iketypes-ikeext_ip_version_specific_keymodule_statistics0
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
- * @version v4.0.30319
  */
-class IKEEXT_IP_VERSION_SPECIFIC_KEYMODULE_STATISTICS0 extends Win32Struct
-{
+class IKEEXT_IP_VERSION_SPECIFIC_KEYMODULE_STATISTICS0 extends Win32Struct {
     static sizeof => 72
 
     static packingSize => 4

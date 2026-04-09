@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
- * @version v4.0.30319
  */
-class ILineInfo extends IUnknown{
+class ILineInfo extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

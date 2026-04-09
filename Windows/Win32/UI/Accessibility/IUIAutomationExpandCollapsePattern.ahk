@@ -7,9 +7,8 @@
  * Provides access to a control that can visually expand to display content, and collapse to hide content.
  * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nn-uiautomationclient-iuiautomationexpandcollapsepattern
  * @namespace Windows.Win32.UI.Accessibility
- * @version v4.0.30319
  */
-class IUIAutomationExpandCollapsePattern extends IUnknown{
+class IUIAutomationExpandCollapsePattern extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -31,14 +30,14 @@ class IUIAutomationExpandCollapsePattern extends IUnknown{
     static VTableNames => ["Expand", "Collapse", "get_CurrentExpandCollapseState", "get_CachedExpandCollapseState"]
 
     /**
-     * @type {Integer} 
+     * @type {ExpandCollapseState} 
      */
     CurrentExpandCollapseState {
         get => this.get_CurrentExpandCollapseState()
     }
 
     /**
-     * @type {Integer} 
+     * @type {ExpandCollapseState} 
      */
     CachedExpandCollapseState {
         get => this.get_CachedExpandCollapseState()
@@ -78,7 +77,7 @@ class IUIAutomationExpandCollapsePattern extends IUnknown{
 
     /**
      * Retrieves a value that indicates the state, expanded or collapsed, of the element.
-     * @returns {Integer} 
+     * @returns {ExpandCollapseState} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationexpandcollapsepattern-get_currentexpandcollapsestate
      */
     get_CurrentExpandCollapseState() {
@@ -88,7 +87,7 @@ class IUIAutomationExpandCollapsePattern extends IUnknown{
 
     /**
      * Retrieves a cached value that indicates the state, expanded or collapsed, of the element.
-     * @returns {Integer} 
+     * @returns {ExpandCollapseState} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationexpandcollapsepattern-get_cachedexpandcollapsestate
      */
     get_CachedExpandCollapseState() {

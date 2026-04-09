@@ -11,10 +11,8 @@
  * <b>QOS_TRAFFIC_CLASS</b> is not used in this mode.
  * @see https://learn.microsoft.com/windows/win32/api/qosobjs/ns-qosobjs-qos_diffserv
  * @namespace Windows.Win32.NetworkManagement.QoS
- * @version v4.0.30319
  */
-class QOS_DIFFSERV extends Win32Struct
-{
+class QOS_DIFFSERV extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4
@@ -25,7 +23,7 @@ class QOS_DIFFSERV extends Win32Struct
      * QOS_OBJECT_DIFFSERV.
      * @type {QOS_OBJECT_HDR}
      */
-    ObjectHdr{
+    ObjectHdr {
         get {
             if(!this.HasProp("__ObjectHdr"))
                 this.__ObjectHdr := QOS_OBJECT_HDR(0, this)
@@ -45,9 +43,9 @@ class QOS_DIFFSERV extends Win32Struct
     /**
      * Array of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/qosobjs/ns-qosobjs-qos_diffserv_rule">QOS_DIFFSERV_RULE</a> structures.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    DiffservRule{
+    DiffservRule {
         get {
             if(!this.HasProp("__DiffservRuleProxyArray"))
                 this.__DiffservRuleProxyArray := Win32FixedArray(this.ptr + 12, 1, Primitive, "char")

@@ -3,14 +3,10 @@
 
 /**
  * Contains the credential protect extension information.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/webauthn/ns-webauthn-webauthn_cred_protect_extension_in
  * @namespace Windows.Win32.Security.Authentication.WebAuthn
- * @version v4.0.30319
  */
-class WEBAUTHN_CRED_PROTECT_EXTENSION_IN extends Win32Struct
-{
+class WEBAUTHN_CRED_PROTECT_EXTENSION_IN extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4

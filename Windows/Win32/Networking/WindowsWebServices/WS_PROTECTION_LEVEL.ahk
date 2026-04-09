@@ -5,9 +5,8 @@
  * Defines the required integrity and confidentiality levels for sent and received messages.
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ne-webservices-ws_protection_level
  * @namespace Windows.Win32.Networking.WindowsWebServices
- * @version v4.0.30319
  */
-class WS_PROTECTION_LEVEL extends Win32Enum{
+class WS_PROTECTION_LEVEL extends Win32Enum {
 
     /**
      * No signing or encryption.

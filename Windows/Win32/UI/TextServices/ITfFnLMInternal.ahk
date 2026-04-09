@@ -7,9 +7,8 @@
  * The ITfFnLMInternal interface is not used.
  * @see https://learn.microsoft.com/windows/win32/api/ctffunc/nn-ctffunc-itffnlminternal
  * @namespace Windows.Win32.UI.TextServices
- * @version v4.0.30319
  */
-class ITfFnLMInternal extends ITfFnLMProcessor{
+class ITfFnLMInternal extends ITfFnLMProcessor {
 
     static sizeof => A_PtrSize
     /**

@@ -20,17 +20,15 @@
  * order in which the  query gets the results.
  * @see https://learn.microsoft.com/windows/win32/api/perflib/ns-perflib-perf_counter_identifier
  * @namespace Windows.Win32.System.Performance
- * @version v4.0.30319
  */
-class PERF_COUNTER_IDENTIFIER extends Win32Struct
-{
+class PERF_COUNTER_IDENTIFIER extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
 
     /**
      * The <b>GUID</b> of the performance counter set.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     CounterSetGuid {
         get => NumGet(this, 0, "ptr")

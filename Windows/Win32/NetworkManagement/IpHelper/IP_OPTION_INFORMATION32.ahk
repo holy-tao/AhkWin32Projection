@@ -22,10 +22,9 @@
  * This structure is defined in the <i>Ipexport.h</i> header file which is automatically included in the <i>Iphlpapi.h</i> header file. The <i>Ipexport.h</i> header file should never be used directly.
  * @see https://learn.microsoft.com/windows/win32/api/ipexport/ns-ipexport-ip_option_information32
  * @namespace Windows.Win32.NetworkManagement.IpHelper
- * @version v4.0.30319
+ * @architecture X64, Arm64
  */
-class IP_OPTION_INFORMATION32 extends Win32Struct
-{
+class IP_OPTION_INFORMATION32 extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

@@ -1,15 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Com\IUnknown.ahk
 #Include ..\..\Foundation\BSTR.ahk
 #Include ..\Variant\VARIANT.ahk
-#Include ..\Com\IUnknown.ahk
 
 /**
  * @namespace Windows.Win32.System.Performance
- * @version v4.0.30319
  */
-class _ICounterItemUnion extends IUnknown{
+class _ICounterItemUnion extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -267,7 +266,7 @@ class _ICounterItemUnion extends IUnknown{
     /**
      * 
      * @param {Integer} iIndex 
-     * @param {Integer} iWhich 
+     * @param {SysmonDataType} iWhich 
      * @returns {VARIANT} 
      */
     GetDataAt(iIndex, iWhich) {

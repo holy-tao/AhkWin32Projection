@@ -7,9 +7,8 @@
  * The IResultData2 interface supersedes the IResultData interface. The IResultData2 interface contains the IResultData2::RenameResultItem method, which allows a result node to programmatically be put in rename mode.
  * @see https://learn.microsoft.com/windows/win32/api/mmc/nn-mmc-iresultdata2
  * @namespace Windows.Win32.System.Mmc
- * @version v4.0.30319
  */
-class IResultData2 extends IResultData{
+class IResultData2 extends IResultData {
 
     static sizeof => A_PtrSize
     /**

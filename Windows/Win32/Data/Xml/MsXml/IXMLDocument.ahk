@@ -1,15 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
-#Include .\IXMLElement.ahk
 #Include ..\..\..\System\Com\IDispatch.ahk
+#Include .\IXMLElement.ahk
+#Include ..\..\..\Foundation\BSTR.ahk
 
 /**
  * @namespace Windows.Win32.Data.Xml.MsXml
- * @version v4.0.30319
  */
-class IXMLDocument extends IDispatch{
+class IXMLDocument extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

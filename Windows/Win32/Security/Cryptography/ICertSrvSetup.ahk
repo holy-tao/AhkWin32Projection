@@ -1,19 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
 #Include .\ICertSrvSetupKeyInformationCollection.ahk
 #Include .\ICertSrvSetupKeyInformation.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * Defines functionality to install and uninstall Certification Authority (CA) and Certification Authority Web Enrollment roles on a Certificate Services computer.
  * @see https://learn.microsoft.com/windows/win32/api/casetup/nn-casetup-icertsrvsetup
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class ICertSrvSetup extends IDispatch{
+class ICertSrvSetup extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -85,7 +84,7 @@ class ICertSrvSetup extends IDispatch{
 
     /**
      * Gets a property value for a certification authority (CA) configuration.
-     * @param {Integer} propertyId A value of the <a href="https://docs.microsoft.com/windows/win32/api/casetup/ne-casetup-casetupproperty">CASetupProperty</a> enumeration that specifies the type of property to get.
+     * @param {CASetupProperty} propertyId A value of the <a href="https://docs.microsoft.com/windows/win32/api/casetup/ne-casetup-casetupproperty">CASetupProperty</a> enumeration that specifies the type of property to get.
      * @returns {VARIANT} A <b>VARIANT</b> value that specifies the property value. The <b>VARIANT</b> type depends on the property type. For more information about the <b>VARIANT</b> type, see <a href="https://docs.microsoft.com/windows/win32/api/casetup/ne-casetup-casetupproperty">CASetupProperty</a>.
      * @see https://learn.microsoft.com/windows/win32/api/casetup/nf-casetup-icertsrvsetup-getcasetupproperty
      */
@@ -97,7 +96,7 @@ class ICertSrvSetup extends IDispatch{
 
     /**
      * Sets a property value for a certification authority (CA) configuration.
-     * @param {Integer} propertyId A <a href="https://docs.microsoft.com/windows/win32/api/casetup/ne-casetup-casetupproperty">CASetupProperty</a> constant that specifies the type of property to configure.
+     * @param {CASetupProperty} propertyId A <a href="https://docs.microsoft.com/windows/win32/api/casetup/ne-casetup-casetupproperty">CASetupProperty</a> constant that specifies the type of property to configure.
      * 
      * The following properties are set as a side effect of other methods and cannot be set directly with this method.
      * 
@@ -122,7 +121,7 @@ class ICertSrvSetup extends IDispatch{
 
     /**
      * Indicates to the caller whether a specified property can be edited.
-     * @param {Integer} propertyId A <a href="https://docs.microsoft.com/windows/win32/api/casetup/ne-casetup-casetupproperty">CASetupProperty</a> constant that specifies the type of property to query.
+     * @param {CASetupProperty} propertyId A <a href="https://docs.microsoft.com/windows/win32/api/casetup/ne-casetup-casetupproperty">CASetupProperty</a> constant that specifies the type of property to query.
      * @returns {VARIANT_BOOL} A value that indicates whether the property can be edited.
      * @see https://learn.microsoft.com/windows/win32/api/casetup/nf-casetup-icertsrvsetup-ispropertyeditable
      */

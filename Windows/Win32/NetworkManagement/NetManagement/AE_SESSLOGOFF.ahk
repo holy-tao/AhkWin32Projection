@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.NetManagement
- * @version v4.0.30319
  */
-class AE_SESSLOGOFF extends Win32Struct
-{
+class AE_SESSLOGOFF extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4

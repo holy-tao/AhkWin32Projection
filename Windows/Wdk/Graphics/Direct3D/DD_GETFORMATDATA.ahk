@@ -1,19 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Win32\Graphics\DirectDraw\DDPIXELFORMAT.ahk
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
- * @version v4.0.30319
  */
-class DD_GETFORMATDATA extends Win32Struct
-{
-    static sizeof => 48
+class DD_GETFORMATDATA extends Win32Struct {
+    static sizeof => 24
 
     static packingSize => 8
 
     /**
-     * @type {Pointer<DD_GETDRIVERINFO2DATA>}
+     * @type {Pointer}
      */
     gdi2 {
         get => NumGet(this, 0, "ptr")
@@ -29,13 +26,10 @@ class DD_GETFORMATDATA extends Win32Struct
     }
 
     /**
-     * @type {DDPIXELFORMAT}
+     * @type {Pointer}
      */
-    format{
-        get {
-            if(!this.HasProp("__format"))
-                this.__format := DDPIXELFORMAT(12, this)
-            return this.__format
-        }
+    format {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 }

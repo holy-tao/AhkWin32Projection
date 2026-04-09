@@ -5,9 +5,8 @@
  * Contains the version of the virtual hard disk (VHD) STORAGE_DEPENDENCY_INFO structure to use in calls to VHD functions.
  * @see https://learn.microsoft.com/windows/win32/api/virtdisk/ne-virtdisk-storage_dependency_info_version
  * @namespace Windows.Win32.Storage.Vhd
- * @version v4.0.30319
  */
-class STORAGE_DEPENDENCY_INFO_VERSION extends Win32Enum{
+class STORAGE_DEPENDENCY_INFO_VERSION extends Win32Enum {
 
     /**
      * The version is not specified.

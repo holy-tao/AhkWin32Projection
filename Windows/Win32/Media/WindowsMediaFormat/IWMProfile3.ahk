@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IWMProfile2.ahk
 #Include .\IWMBandwidthSharing.ahk
 #Include .\IWMStreamPrioritization.ahk
-#Include .\IWMProfile2.ahk
 
 /**
  * The IWMProfile3 interface provides enhanced features for profiles.
  * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nn-wmsdkidl-iwmprofile3
  * @namespace Windows.Win32.Media.WindowsMediaFormat
- * @version v4.0.30319
  */
-class IWMProfile3 extends IWMProfile2{
+class IWMProfile3 extends IWMProfile2 {
 
     static sizeof => A_PtrSize
     /**
@@ -36,7 +35,7 @@ class IWMProfile3 extends IWMProfile2{
      * The GetStorageFormat method is not implemented.
      * @remarks
      * To retrieve the storage format, use the <a href="https://docs.microsoft.com/windows/desktop/wmformat/wm-containerformat">WM/ContainerFormat</a> attribute.
-     * @returns {Integer} Storage format.
+     * @returns {WMT_STORAGE_FORMAT} Storage format.
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmprofile3-getstorageformat
      */
     GetStorageFormat() {
@@ -48,7 +47,7 @@ class IWMProfile3 extends IWMProfile2{
      * The SetStorageFormat method is not implemented.
      * @remarks
      * To retrieve the storage format, use the <a href="https://docs.microsoft.com/windows/desktop/wmformat/wm-containerformat">WM/ContainerFormat</a> attribute.
-     * @param {Integer} nStorageFormat Storage format.
+     * @param {WMT_STORAGE_FORMAT} nStorageFormat Storage format.
      * @returns {HRESULT} The method returns E_NOTIMPL.
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmprofile3-setstorageformat
      */

@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug
- * @version v4.0.30319
  */
-class PAGE_OFFLINE_VALID_BITS extends Win32Struct
-{
+class PAGE_OFFLINE_VALID_BITS extends Win32Struct {
     static sizeof => 2
 
     static packingSize => 1

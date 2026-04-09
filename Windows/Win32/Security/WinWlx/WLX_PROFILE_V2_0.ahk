@@ -10,10 +10,8 @@
  * <a href="https://docs.microsoft.com/windows/desktop/api/winwlx/ns-winwlx-wlx_profile_v1_0">WLX_PROFILE_V1_0</a>. The information in <b>WLX_PROFILE_V1_0</b> only includes the profile type and path to the profile.
  * @see https://learn.microsoft.com/windows/win32/api/winwlx/ns-winwlx-wlx_profile_v2_0
  * @namespace Windows.Win32.Security.WinWlx
- * @version v4.0.30319
  */
-class WLX_PROFILE_V2_0 extends Win32Struct
-{
+class WLX_PROFILE_V2_0 extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8

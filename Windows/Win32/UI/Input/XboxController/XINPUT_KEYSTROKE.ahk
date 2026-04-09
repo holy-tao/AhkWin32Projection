@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\XINPUT_VIRTUAL_KEY.ahk
+#Include .\XINPUT_KEYSTROKE_FLAGS.ahk
 
 /**
  * Specifies keystroke data returned by XInputGetKeystroke.
@@ -160,17 +162,15 @@
  * </table>
  * @see https://learn.microsoft.com/windows/win32/api/xinput/ns-xinput-xinput_keystroke
  * @namespace Windows.Win32.UI.Input.XboxController
- * @version v4.0.30319
  */
-class XINPUT_KEYSTROKE extends Win32Struct
-{
+class XINPUT_KEYSTROKE extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 2
 
     /**
      * Virtual-key code of the key, button, or stick movement. See XInput.h for a list of valid virtual-key (VK_xxx) codes. Also, see Remarks.
-     * @type {Integer}
+     * @type {XINPUT_VIRTUAL_KEY}
      */
     VirtualKey {
         get => NumGet(this, 0, "ushort")
@@ -207,7 +207,7 @@ class XINPUT_KEYSTROKE extends Win32Struct
      * <td>A repeat of a held key. </td>
      * </tr>
      * </table>
-     * @type {Integer}
+     * @type {XINPUT_KEYSTROKE_FLAGS}
      */
     Flags {
         get => NumGet(this, 4, "ushort")

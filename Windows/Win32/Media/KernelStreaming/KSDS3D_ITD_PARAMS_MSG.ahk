@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
- * @version v4.0.30319
  */
-class KSDS3D_ITD_PARAMS_MSG extends Win32Struct
-{
+class KSDS3D_ITD_PARAMS_MSG extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 4
@@ -23,7 +21,7 @@ class KSDS3D_ITD_PARAMS_MSG extends Win32Struct
     /**
      * @type {KSDS3D_ITD_PARAMS}
      */
-    LeftParams{
+    LeftParams {
         get {
             if(!this.HasProp("__LeftParams"))
                 this.__LeftParams := KSDS3D_ITD_PARAMS(4, this)
@@ -34,7 +32,7 @@ class KSDS3D_ITD_PARAMS_MSG extends Win32Struct
     /**
      * @type {KSDS3D_ITD_PARAMS}
      */
-    RightParams{
+    RightParams {
         get {
             if(!this.HasProp("__RightParams"))
                 this.__RightParams := KSDS3D_ITD_PARAMS(28, this)

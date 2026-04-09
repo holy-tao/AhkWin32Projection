@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Networking.RemoteDifferentialCompression
- * @version v4.0.30319
  */
-class RdcSimilarityGenerator extends Win32Struct
-{
+class RdcSimilarityGenerator extends Win32Struct {
     static sizeof => 0
 
     static packingSize => 1

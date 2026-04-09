@@ -4,7 +4,6 @@
 
 /**
  * @namespace Windows.Win32.Devices.Usb
- * @version v4.0.30319
  */
 class Usb {
 
@@ -2954,7 +2953,7 @@ class Usb {
      * @param {Integer} DescriptorType A value that specifies the type of descriptor to return. This parameter corresponds to the <b>bDescriptorType</b> field of a standard device descriptor, whose values are described in the <i>Universal Serial Bus </i> specification. Some of these values are listed in the description of the <b>DescriptorType</b> member of the <a href="https://docs.microsoft.com/windows-hardware/drivers/ddi/content/usb/ns-usb-_urb_control_descriptor_request">_URB_CONTROL_DESCRIPTOR_REQUEST</a> structure.
      * @param {Integer} Index The descriptor index. For an explanation of the descriptor index, see the <i>Universal Serial Bus</i> specification (www.usb.org).
      * @param {Integer} LanguageID A value that specifies the language identifier, if the requested descriptor is a string descriptor.
-     * @param {Pointer} _Buffer 
+     * @param {Integer} _Buffer A caller-allocated buffer that receives the requested descriptor.
      * @param {Integer} BufferLength The length, in bytes, of <i>Buffer</i>.
      * @param {Pointer<Integer>} LengthTransferred The number of bytes that were copied into <i>Buffer</i>.
      * @returns {BOOL} <b>WinUsb_GetDescriptor</b> returns <b>TRUE</b> if the operation succeeds. Otherwise, this routine returns <b>FALSE</b>, and the caller can retrieve the logged error by calling <b>GetLastError</b>.
@@ -3066,7 +3065,9 @@ class Usb {
      * 
      * On input, <i>InformationType</i> must have the following value: DEVICE_SPEED (0x01).
      * @param {Pointer<Integer>} BufferLength The maximum number of bytes to read. This number must be less than or equal to the size, in bytes, of <i>Buffer</i>. On output, <i>BufferLength</i> is set to the actual number of bytes that were copied into <i>Buffer</i>.
-     * @param {Pointer} _Buffer 
+     * @param {Integer} _Buffer A caller-allocated buffer that receives the requested value.
+     * 
+     * If <i>InformationType</i> is DEVICE_SPEED, on successful return, <i>Buffer</i> indicates the operating speed of the device. 0x03 indicates high-speed or higher; 0x01 indicates full-speed or lower.
      * @returns {BOOL} <b>WinUsb_QueryDeviceInformation</b> returns <b>TRUE</b> if the operation succeeds. Otherwise, this routine returns <b>FALSE</b>, and the caller can retrieve the logged error by calling <b>GetLastError</b>.
      * 
      * 
@@ -3350,9 +3351,9 @@ class Usb {
      * 
      * To set policy for the pipe associated with the endpoint in the first interface, use the handle returned by <a href="https://docs.microsoft.com/windows/desktop/api/winusb/nf-winusb-winusb_initialize">WinUsb_Initialize</a>. For all other interfaces, use the handle to the target interface, retrieved by <a href="https://docs.microsoft.com/windows/desktop/api/winusb/nf-winusb-winusb_getassociatedinterface">WinUsb_GetAssociatedInterface</a>.
      * @param {Integer} PipeID An 8-bit value that consists of a 7-bit address and a direction bit. This parameter corresponds to the <b>bEndpointAddress</b> field in the endpoint descriptor.
-     * @param {Integer} PolicyType A <b>ULONG</b> variable that specifies the policy parameter to change. The <i>Value</i> parameter contains the new value for the policy parameter, defined in <i>winusbio.h</i>. For information about how to use each of the pipe policies and the resulting behavior, see <a href="https://docs.microsoft.com/windows-hardware/drivers/ddi/content/index">WinUSB Functions for Pipe Policy Modification</a>.
+     * @param {WINUSB_PIPE_POLICY} PolicyType A <b>ULONG</b> variable that specifies the policy parameter to change. The <i>Value</i> parameter contains the new value for the policy parameter, defined in <i>winusbio.h</i>. For information about how to use each of the pipe policies and the resulting behavior, see <a href="https://docs.microsoft.com/windows-hardware/drivers/ddi/content/index">WinUSB Functions for Pipe Policy Modification</a>.
      * @param {Integer} ValueLength The size, in bytes, of the buffer at <i>Value</i>.
-     * @param {Pointer} Value The new value for the policy parameter that <i>PolicyType</i> specifies. The size of this input parameter depends on the policy to change. For information about the size of this parameter, see the description of the <i>PolicyType</i> parameter.
+     * @param {Integer} Value The new value for the policy parameter that <i>PolicyType</i> specifies. The size of this input parameter depends on the policy to change. For information about the size of this parameter, see the description of the <i>PolicyType</i> parameter.
      * @returns {BOOL} <b>WinUsb_SetPipePolicy</b> returns <b>TRUE</b> if the operation succeeds. Otherwise, this function returns <b>FALSE</b>, and the caller can retrieve the logged error by calling <b>GetLastError</b>.
      * 
      * 
@@ -3420,9 +3421,9 @@ class Usb {
      * 
      * To query the pipe associated with the endpoint in the first interface, use the handle returned by <a href="https://docs.microsoft.com/windows/desktop/api/winusb/nf-winusb-winusb_initialize">WinUsb_Initialize</a>. For all other interfaces, use the handle to the target interface, retrieved by <a href="https://docs.microsoft.com/windows/desktop/api/winusb/nf-winusb-winusb_getassociatedinterface">WinUsb_GetAssociatedInterface</a>.
      * @param {Integer} PipeID An 8-bit value that consists of a 7-bit address and a direction bit. This parameter corresponds to the <b>bEndpointAddress</b> field in the endpoint descriptor.
-     * @param {Integer} PolicyType A <b>ULONG</b> variable that specifies the policy parameter to retrieve. The current value for the policy parameter is retrieved the <i>Value</i> parameter. For information about the behavior of the pipe policies, see <a href="https://docs.microsoft.com/windows-hardware/drivers/ddi/content/index">WinUSB Functions for Pipe Policy Modification</a>.
+     * @param {WINUSB_PIPE_POLICY} PolicyType A <b>ULONG</b> variable that specifies the policy parameter to retrieve. The current value for the policy parameter is retrieved the <i>Value</i> parameter. For information about the behavior of the pipe policies, see <a href="https://docs.microsoft.com/windows-hardware/drivers/ddi/content/index">WinUSB Functions for Pipe Policy Modification</a>.
      * @param {Pointer<Integer>} ValueLength A pointer to the size, in bytes, of the buffer that <i>Value</i> points to. On output, <i>ValueLength</i> receives the size, in bytes, of the data that was copied into the <i>Value </i> buffer.
-     * @param {Pointer} Value A pointer to a buffer that receives the specified pipe policy value.
+     * @param {Integer} Value A pointer to a buffer that receives the specified pipe policy value.
      * @returns {BOOL} <b>WinUsb_GetPipePolicy</b> returns <b>TRUE</b> if the operation succeeds. Otherwise, this routine returns <b>FALSE</b>, and the caller can retrieve the logged error by calling <b>GetLastError</b>.
      * 
      * 
@@ -3483,10 +3484,10 @@ class Usb {
      * 
      * To read data from the pipe associated with an endpoint in the first interface, use the handle returned by <a href="https://docs.microsoft.com/windows/desktop/api/winusb/nf-winusb-winusb_initialize">WinUsb_Initialize</a>. For all other interfaces, use the handle to the target interface, retrieved by <a href="https://docs.microsoft.com/windows/desktop/api/winusb/nf-winusb-winusb_getassociatedinterface">WinUsb_GetAssociatedInterface</a>.
      * @param {Integer} PipeID <i>PipeID</i> corresponds to the <b>bEndpointAddress</b> field in the endpoint descriptor. For information about the layout of this field, see <b>Table 9-13</b> in "Universal Serial Bus Specification Revision 2.0" at <a href="https://www.microsoft.com/whdc/connect/usb/default.mspx">USB Technology</a>. In the <b>bEndpointAddress</b> field, Bit 7 indicates the direction of the endpoint: 0 for OUT; 1 for IN.
-     * @param {Pointer} _Buffer 
+     * @param {Integer} _Buffer A caller-allocated buffer that receives the data that is read.
      * @param {Integer} BufferLength The maximum number of bytes to read. This number must be less than or equal to the size, in bytes, of <i>Buffer</i>.
      * @param {Pointer<Integer>} LengthTransferred A pointer to a ULONG variable that receives the actual number of bytes that were copied into <i>Buffer</i>. For more information, see Remarks.
-     * @param {Pointer<OVERLAPPED>} _Overlapped 
+     * @param {Pointer<OVERLAPPED>} _Overlapped An optional pointer to an OVERLAPPED structure that is used for asynchronous operations. If this parameter is specified, <b>WinUsb_ReadPipe</b> returns immediately rather than waiting synchronously for the operation to complete before returning. An event is signaled when the operation is complete.
      * @returns {BOOL} <b>WinUsb_ReadPipe</b> returns <b>TRUE</b> if the operation succeeds. Otherwise, this function returns <b>FALSE</b>, and the caller can retrieve the logged error by calling <b>GetLastError</b>.
      * 
      * 
@@ -3583,10 +3584,10 @@ class Usb {
      * 
      * To write to  a pipe that is associated with an endpoint in the first interface, use the handle returned by <a href="https://docs.microsoft.com/windows/desktop/api/winusb/nf-winusb-winusb_initialize">WinUsb_Initialize</a>. For all other interfaces, use the handle to the target interface, retrieved by <a href="https://docs.microsoft.com/windows/desktop/api/winusb/nf-winusb-winusb_getassociatedinterface">WinUsb_GetAssociatedInterface</a>.
      * @param {Integer} PipeID <i>PipeID</i> corresponds to the <b>bEndpointAddress</b> field in the endpoint descriptor. For information about the layout of this field, see <b>Table 9-13</b> in "Universal Serial Bus Specification Revision 2.0" at <a href="https://www.microsoft.com/whdc/connect/usb/default.mspx">USB Technology</a>. In the <b>bEndpointAddress</b> field, Bit 7 indicates the direction of the endpoint: 0 for OUT; 1 for IN.
-     * @param {Pointer} _Buffer 
+     * @param {Integer} _Buffer A caller-allocated buffer that contains the data to write.
      * @param {Integer} BufferLength The number of bytes to write. This number must be less than or equal to the size, in bytes, of <i>Buffer</i>.
      * @param {Pointer<Integer>} LengthTransferred A pointer to a ULONG variable that receives the actual number of bytes that were written to the pipe. For more information, see Remarks.
-     * @param {Pointer<OVERLAPPED>} _Overlapped 
+     * @param {Pointer<OVERLAPPED>} _Overlapped An optional pointer to an OVERLAPPED structure, which is used for asynchronous operations. If this parameter is specified, <b>WinUsb_WritePipe</b> immediately returns, and the event is signaled when the operation is complete.
      * @returns {BOOL} <b>WinUsb_WritePipe</b> returns <b>TRUE</b> if the operation succeeds. Otherwise, this function returns <b>FALSE</b>, and the caller can retrieve the logged error by calling <b>GetLastError</b>.
      * 
      * 
@@ -3683,11 +3684,11 @@ class Usb {
      * 
      * To specify the recipient of  a control request as the entire device or the first interface, use the handle returned by <a href="https://docs.microsoft.com/windows/desktop/api/winusb/nf-winusb-winusb_initialize">WinUsb_Initialize</a>. For all other interfaces, obtain the handle to the target interface by calling <a href="https://docs.microsoft.com/windows/desktop/api/winusb/nf-winusb-winusb_getassociatedinterface">WinUsb_GetAssociatedInterface</a>, and then call <b>WinUsb_ControlTransfer</b> by specifying the obtained interface handle.
      * @param {WINUSB_SETUP_PACKET} SetupPacket The 8-byte setup packet of type <a href="https://docs.microsoft.com/windows/desktop/api/winusb/ns-winusb-winusb_setup_packet">WINUSB_SETUP_PACKET</a>.
-     * @param {Pointer} _Buffer 
+     * @param {Integer} _Buffer A caller-allocated buffer that contains the data to transfer. The length of this buffer must not exceed 4KB.
      * @param {Integer} BufferLength The number of bytes to transfer, not including the setup packet. This number must be less than or equal to the size, in bytes, of <i>Buffer</i>.
      * @param {Pointer<Integer>} LengthTransferred A pointer to a ULONG variable that receives the actual number of transferred bytes. If the application does not expect any data to be transferred during the
      *         data phase (<i>BufferLength</i> is zero),  <i>LengthTransferred</i> can be <b>NULL</b>.
-     * @param {Pointer<OVERLAPPED>} _Overlapped 
+     * @param {Pointer<OVERLAPPED>} _Overlapped An optional pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-overlapped">OVERLAPPED</a> structure, which is used for asynchronous operations. If this parameter is specified, <b>WinUsb_ControlTransfer</b> immediately returns, and the event is signaled when the operation is complete. If <i>Overlapped</i> is not supplied, the <b>WinUsb_ControlTransfer</b> function transfers data synchronously.
      * @returns {BOOL} <b>WinUsb_ControlTransfer</b> returns <b>TRUE</b> if the operation succeeds. Otherwise, this routine returns <b>FALSE</b>, and the caller can retrieve the logged error by calling <b>GetLastError</b>.
      * 
      * 
@@ -3897,7 +3898,7 @@ class Usb {
      * </li>
      * </ul>
      * @param {WINUSB_INTERFACE_HANDLE} InterfaceHandle An opaque handle to the first (default) interface on the device, which is returned by <a href="https://docs.microsoft.com/windows/desktop/api/winusb/nf-winusb-winusb_initialize">WinUsb_Initialize</a>.
-     * @param {Integer} PolicyType A value that specifies the power policy to set. The following table describes symbolic constants that are defined in winusbio.h. 
+     * @param {WINUSB_POWER_POLICY} PolicyType A value that specifies the power policy to set. The following table describes symbolic constants that are defined in winusbio.h. 
      * 
      * <table>
      * <tr>
@@ -3942,7 +3943,7 @@ class Usb {
      * </tr>
      * </table>
      * @param {Integer} ValueLength The size, in bytes, of the buffer at <i>Value</i>.
-     * @param {Pointer} Value The new value for the power policy parameter. Datatype and value for <i>Value</i> depends on the type of power policy passed in <i>PolicyType</i>. For more information, see <i>PolicyType</i>.
+     * @param {Integer} Value The new value for the power policy parameter. Datatype and value for <i>Value</i> depends on the type of power policy passed in <i>PolicyType</i>. For more information, see <i>PolicyType</i>.
      * @returns {BOOL} <b>WinUsb_SetPowerPolicy</b> returns <b>TRUE</b> if the operation succeeds. Otherwise, this function returns <b>FALSE</b>, and the caller can retrieve the logged error by calling <b>GetLastError</b>.
      * 
      * 
@@ -4007,7 +4008,7 @@ class Usb {
     /**
      * The WinUsb_GetPowerPolicy function retrieves the power policy for a device. This is a synchronous operation.
      * @param {WINUSB_INTERFACE_HANDLE} InterfaceHandle An opaque handle to the first interface on the device, which is returned by <a href="https://docs.microsoft.com/windows/desktop/api/winusb/nf-winusb-winusb_initialize">WinUsb_Initialize</a>.
-     * @param {Integer} PolicyType A value that specifies the power policy parameter to retrieve in <i>Value</i>. The following table describes symbolic constants that are defined in <i>Winusbio.h</i>. 
+     * @param {WINUSB_POWER_POLICY} PolicyType A value that specifies the power policy parameter to retrieve in <i>Value</i>. The following table describes symbolic constants that are defined in <i>Winusbio.h</i>. 
      * 
      * <table>
      * <tr>
@@ -4050,7 +4051,7 @@ class Usb {
      * </tr>
      * </table>
      * @param {Pointer<Integer>} ValueLength A pointer to the size of the buffer that <i>Value</i>. On output, <i>ValueLength</i> receives the size of the data that was copied into the <i>Value </i> buffer.
-     * @param {Pointer} Value A buffer that receives the specified power policy parameter. For more information, see <i>PolicyType</i>.
+     * @param {Integer} Value A buffer that receives the specified power policy parameter. For more information, see <i>PolicyType</i>.
      * @returns {BOOL} <b>WinUsb_GetPowerPolicy</b> returns <b>TRUE</b> if the operation succeeds. Otherwise, this routine returns <b>FALSE</b>, and the caller can retrieve the logged error by calling <b>GetLastError</b>.
      * 
      * 
@@ -4152,7 +4153,7 @@ class Usb {
 
     /**
      * 
-     * @param {Pointer} DescriptorBuffer 
+     * @param {Integer} DescriptorBuffer 
      * @param {Integer} TotalLength 
      * @param {Pointer<Void>} StartPosition 
      * @param {Integer} DescriptorType 
@@ -4177,7 +4178,7 @@ class Usb {
      * The caller may compare the PerformanceCount with the value returned by the Win32 function <a href="https://docs.microsoft.com/windows/desktop/api/profileapi/nf-profileapi-queryperformancecounter">QueryPerformanceCounter</a> to determine if there has been a delay in transitioning back to user-mode after the frame number was read.  The caller can then adjust the starting frame number as needed.
      * @param {WINUSB_INTERFACE_HANDLE} InterfaceHandle The handle to the device that <b>CreateFile</b> returned.
      * @param {Pointer<Integer>} CurrentFrameNumber The current frame number value.
-     * @param {Pointer<Integer>} _TimeStamp 
+     * @param {Pointer<Integer>} _TimeStamp The time stamp value when the current frame was read.
      * @returns {BOOL} <b>WinUsb_GetCurrentFrameNumber</b> returns TRUE if the operation succeeds.  Otherwise this function returns FALSE, and the caller can retrieve the logged error by calling <b>GetLastError</b>.
      * @see https://learn.microsoft.com/windows/win32/api/winusb/nf-winusb-winusb_getcurrentframenumber
      * @since windows8.1
@@ -4201,7 +4202,7 @@ class Usb {
     /**
      * The WinUsb_GetAdjustedFrameNumber function computes what the current USB frame number should be based on the frame number value and timestamp.
      * @param {Pointer<Integer>} CurrentFrameNumber The frame number to be adjusted.
-     * @param {Integer} _TimeStamp 
+     * @param {Integer} _TimeStamp The timestamp recorded at the time the frame        number was returned.
      * @returns {BOOL} <b>WinUsb_GetAdjustedFrameNumber</b> returns TRUE if the operation succeeds. Otherwise this function returns FALSE, and the caller can retrieve the logged error by calling <b>GetLastError</b>.
      * @see https://learn.microsoft.com/windows/win32/api/winusb/nf-winusb-winusb_getadjustedframenumber
      * @since windows8.1
@@ -4225,7 +4226,7 @@ class Usb {
      * Prior to initiating isochronous transfers to or from a buffer, the caller must register the buffer with <b>WinUsb_RegisterIsochBuffer</b>.  This call allows the Winusb.sys to pre-map and lock the buffer after for all subsequent transfers using the buffer.
      * @param {WINUSB_INTERFACE_HANDLE} InterfaceHandle An opaque handle to an interface in the selected configuration. That handle must be created by a previous call to  <a href="https://docs.microsoft.com/windows/desktop/api/winusb/nf-winusb-winusb_initialize">WinUsb_Initialize</a> or <a href="https://docs.microsoft.com/windows/desktop/api/winusb/nf-winusb-winusb_getassociatedinterface">WinUsb_GetAssociatedInterface</a>.
      * @param {Integer} PipeID Derived from Bit 3...0 of the <b>bEndpointAddress</b> field in the endpoint descriptor.
-     * @param {Pointer} _Buffer 
+     * @param {Integer} _Buffer Pointer to the transfer buffer to be registered.
      * @param {Integer} BufferLength Length, in bytes, of the transfer buffer pointed to by <i>Buffer</i>.
      * @param {Pointer<Pointer<Void>>} IsochBufferHandle Receives an opaque handle to the registered buffer. This handle is required by other WinUSB functions that perform isochronous transfers. To release the handle, call the <a href="https://docs.microsoft.com/windows/desktop/api/winusb/nf-winusb-winusb_unregisterisochbuffer">WinUsb_UnregisterIsochBuffer</a> function.
      * @returns {BOOL} <b>WinUsb_RegisterIsochBuffer</b> returns TRUE if the operation succeeds.  Otherwise this function returns FALSE, and the caller can retrieve the logged error by calling <b>GetLastError</b>.
@@ -4283,7 +4284,7 @@ class Usb {
      * @param {Integer} Offset Offset into the buffer relative to the start the transfer.
      * @param {Integer} Length Length in bytes of the transfer buffer.
      * @param {Pointer<Integer>} FrameNumber On input, indicates the starting frame number for the transfer. On output, contains the frame number of the frame that follows the last frame used in the transfer.
-     * @param {Pointer<OVERLAPPED>} _Overlapped 
+     * @param {Pointer<OVERLAPPED>} _Overlapped Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl/ns-shobjidl-overlapped">OVERLAPPED</a> structure used for asynchronous operations.
      * @returns {BOOL} <b>WinUsb_WriteIsochPipe</b> returns TRUE if the operation succeeds. Otherwise this function returns FALSE, and the caller can retrieve the logged error by calling <b>GetLastError</b>.
      * @see https://learn.microsoft.com/windows/win32/api/winusb/nf-winusb-winusb_writeisochpipe
      * @since windows8.1
@@ -4316,7 +4317,7 @@ class Usb {
      * @param {Pointer<Integer>} FrameNumber On input, indicates the starting frame number for the transfer. On output, contains the frame number of the frame that follows the last frame used in the transfer.
      * @param {Integer} NumberOfPackets Total number of isochronous packets required to hold the transfer buffer. Also indicates the number of elements in the array pointed to by <i>IsoPacketDescriptors</i>.
      * @param {Pointer<USBD_ISO_PACKET_DESCRIPTOR>} IsoPacketDescriptors An array of <a href="https://docs.microsoft.com/windows-hardware/drivers/ddi/content/usb/ns-usb-_usbd_iso_packet_descriptor">USBD_ISO_PACKET_DESCRIPTOR</a> structures.  After the transfer completes, each element contains the status and size of the isochronous packet.
-     * @param {Pointer<OVERLAPPED>} _Overlapped 
+     * @param {Pointer<OVERLAPPED>} _Overlapped Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl/ns-shobjidl-overlapped">OVERLAPPED</a> structure used for asynchronous operations.
      * @returns {BOOL} <b>WinUsb_ReadIsochPipe</b> returns TRUE if the operation succeeds. Otherwise this function returns FALSE, and the caller can retrieve the logged error by calling <b>GetLastError</b>.
      * @see https://learn.microsoft.com/windows/win32/api/winusb/nf-winusb-winusb_readisochpipe
      * @since windows8.1
@@ -4350,7 +4351,7 @@ class Usb {
      * @param {Integer} Offset Offset into the buffer relative to the start the transfer.
      * @param {Integer} Length Length in bytes of the transfer buffer.
      * @param {BOOL} ContinueStream Indicates that the transfer should only be submitted if it can be scheduled in the first frame after the last pending transfer.
-     * @param {Pointer<OVERLAPPED>} _Overlapped 
+     * @param {Pointer<OVERLAPPED>} _Overlapped Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl/ns-shobjidl-overlapped">OVERLAPPED</a> structure used for asynchronous operations.
      * @returns {BOOL} <b>WinUsb_WriteIsochPipeAsap</b> returns TRUE if the operation succeeds. Otherwise this function returns FALSE, and the caller can retrieve the logged error by calling <b>GetLastError</b>.
      * 
      * If the caller sets <i>ContinueStream</i> to TRUE, The transfer fails if Winusb.sys is unable to schedule the transfer to continue the stream without dropping one or more frames.
@@ -4388,7 +4389,7 @@ class Usb {
      * @param {BOOL} ContinueStream Indicates that the transfer  should only be submitted if it can be scheduled in the first frame after the last pending transfer.
      * @param {Integer} NumberOfPackets Total number of isochronous packets required to hold the transfer buffer. Also indicates the number of elements in the array pointed to by <i>IsoPacketDescriptors</i>.
      * @param {Pointer<USBD_ISO_PACKET_DESCRIPTOR>} IsoPacketDescriptors An array of <a href="https://docs.microsoft.com/windows-hardware/drivers/ddi/content/usb/ns-usb-_usbd_iso_packet_descriptor">USBD_ISO_PACKET_DESCRIPTOR</a> that receives the details of each isochronous packet in the transfer.
-     * @param {Pointer<OVERLAPPED>} _Overlapped 
+     * @param {Pointer<OVERLAPPED>} _Overlapped Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl/ns-shobjidl-overlapped">OVERLAPPED</a> structure used for asynchronous operations.
      * @returns {BOOL} <b>WinUsb_ReadIsochPipeAsap</b> returns TRUE if the operation succeeds. Otherwise this function returns FALSE, and the caller can retrieve the logged error by calling <b>GetLastError</b>.
      * 
      * If the caller sets <i>ContinueStream</i> to TRUE, The transfer fails if Winusb.sys is unable to schedule the transfer to continue the stream without dropping one or more frames.

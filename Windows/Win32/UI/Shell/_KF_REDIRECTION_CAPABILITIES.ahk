@@ -5,9 +5,8 @@
  * Flags that specify the current redirection capabilities of a known folder. Used by IKnownFolder::GetRedirectionCapabilities.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/ne-shobjidl_core-_kf_redirection_capabilities
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class _KF_REDIRECTION_CAPABILITIES extends Win32Enum{
+class _KF_REDIRECTION_CAPABILITIES extends Win32Enum {
 
     /**
      * The folder can be redirected if any of the bits in the lower byte of the value are set but no DENY flag is set. DENY flags are found in the upper byte of the value.

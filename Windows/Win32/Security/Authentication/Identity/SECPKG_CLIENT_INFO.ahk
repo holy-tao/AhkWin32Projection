@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include ..\..\..\Foundation\LUID.ahk
+#Include ..\..\SECURITY_IMPERSONATION_LEVEL.ahk
 #Include ..\..\..\Foundation\HANDLE.ahk
 
 /**
  * The SECPKG_CLIENT_INFO structure holds information about a security package's client. This structure is used by the GetClientInfo function.
  * @see https://learn.microsoft.com/windows/win32/api/ntsecpkg/ns-ntsecpkg-secpkg_client_info
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class SECPKG_CLIENT_INFO extends Win32Struct
-{
+class SECPKG_CLIENT_INFO extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -19,7 +18,7 @@ class SECPKG_CLIENT_INFO extends Win32Struct
      * The client's effective <a href="https://docs.microsoft.com/windows/desktop/SecGloss/l-gly">logon identifier</a>.
      * @type {LUID}
      */
-    LogonId{
+    LogonId {
         get {
             if(!this.HasProp("__LogonId"))
                 this.__LogonId := LUID(0, this)
@@ -73,7 +72,6 @@ class SECPKG_CLIENT_INFO extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     ClientFlags {
@@ -82,8 +80,7 @@ class SECPKG_CLIENT_INFO extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Integer}
+     * @type {SECURITY_IMPERSONATION_LEVEL}
      */
     ImpersonationLevel {
         get => NumGet(this, 20, "int")
@@ -91,10 +88,9 @@ class SECPKG_CLIENT_INFO extends Win32Struct
     }
 
     /**
-     * 
      * @type {HANDLE}
      */
-    ClientToken{
+    ClientToken {
         get {
             if(!this.HasProp("__ClientToken"))
                 this.__ClientToken := HANDLE(24, this)

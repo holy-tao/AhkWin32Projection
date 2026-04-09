@@ -3,18 +3,16 @@
 
 /**
  * @namespace Windows.Win32.Devices.Dvd
- * @version v4.0.30319
  */
-class BD_PAC_HEADER extends Win32Struct
-{
+class BD_PAC_HEADER extends Win32Struct {
     static sizeof => 384
 
     static packingSize => 1
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    PACId{
+    PACId {
         get {
             if(!this.HasProp("__PACIdProxyArray"))
                 this.__PACIdProxyArray := Win32FixedArray(this.ptr + 0, 3, Primitive, "char")
@@ -31,9 +29,9 @@ class BD_PAC_HEADER extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    PACUpdateCount{
+    PACUpdateCount {
         get {
             if(!this.HasProp("__PACUpdateCountProxyArray"))
                 this.__PACUpdateCountProxyArray := Win32FixedArray(this.ptr + 4, 4, Primitive, "char")
@@ -42,9 +40,9 @@ class BD_PAC_HEADER extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    UnknownPACRules{
+    UnknownPACRules {
         get {
             if(!this.HasProp("__UnknownPACRulesProxyArray"))
                 this.__UnknownPACRulesProxyArray := Win32FixedArray(this.ptr + 8, 4, Primitive, "char")
@@ -61,9 +59,9 @@ class BD_PAC_HEADER extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Reserved1{
+    Reserved1 {
         get {
             if(!this.HasProp("__Reserved1ProxyArray"))
                 this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 13, 2, Primitive, "char")
@@ -80,9 +78,9 @@ class BD_PAC_HEADER extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Segments{
+    Segments {
         get {
             if(!this.HasProp("__SegmentsProxyArray"))
                 this.__SegmentsProxyArray := Win32FixedArray(this.ptr + 16, 256, Primitive, "char")
@@ -91,9 +89,9 @@ class BD_PAC_HEADER extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Reserved2{
+    Reserved2 {
         get {
             if(!this.HasProp("__Reserved2ProxyArray"))
                 this.__Reserved2ProxyArray := Win32FixedArray(this.ptr + 272, 112, Primitive, "char")

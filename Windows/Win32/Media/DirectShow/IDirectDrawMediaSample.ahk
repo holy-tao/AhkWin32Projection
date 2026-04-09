@@ -2,14 +2,14 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Graphics\DirectDraw\IDirectDrawSurface.ahk
 
 /**
  * The IDirectDrawMediaSample interface provides access to DirectDraw surfaces allocated by the Overlay Mixer filter.The allocator for the Overlay Mixer filter creates samples that expose this interface.
  * @see https://learn.microsoft.com/windows/win32/api/amstream/nn-amstream-idirectdrawmediasample
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IDirectDrawMediaSample extends IUnknown{
+class IDirectDrawMediaSample extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

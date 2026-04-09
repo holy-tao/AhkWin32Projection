@@ -7,9 +7,8 @@
  * The ITfMenu interface is implemented by the language bar and used by a language bar button provider to add items to the menu that the language bar will display for the button.
  * @see https://learn.microsoft.com/windows/win32/api/ctfutb/nn-ctfutb-itfmenu
  * @namespace Windows.Win32.UI.TextServices
- * @version v4.0.30319
  */
-class ITfMenu extends IUnknown{
+class ITfMenu extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

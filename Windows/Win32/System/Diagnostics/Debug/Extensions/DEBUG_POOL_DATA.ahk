@@ -3,11 +3,9 @@
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
- * @version v4.0.30319
  */
-class DEBUG_POOL_DATA extends Win32Struct
-{
-    static sizeof => 216
+class DEBUG_POOL_DATA extends Win32Struct {
+    static sizeof => 152
 
     static packingSize => 8
 
@@ -149,9 +147,9 @@ class DEBUG_POOL_DATA extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt64>}
+     * @type {Array<Integer>}
      */
-    Reserved2{
+    Reserved2 {
         get {
             if(!this.HasProp("__Reserved2ProxyArray"))
                 this.__Reserved2ProxyArray := Win32FixedArray(this.ptr + 56, 4, Primitive, "uint")
@@ -163,7 +161,7 @@ class DEBUG_POOL_DATA extends Win32Struct
      * @type {String}
      */
     PoolTagDescription {
-        get => StrGet(this.ptr + 88, 63, "UTF-16")
-        set => StrPut(value, this.ptr + 88, 63, "UTF-16")
+        get => StrGet(this.ptr + 88, 63, "UTF-8")
+        set => StrPut(value, this.ptr + 88, 63, "UTF-8")
     }
 }

@@ -7,9 +7,8 @@
  * Exposes methods that enumerate the possible values for a property.
  * @see https://learn.microsoft.com/windows/win32/api/propsys/nn-propsys-ipropertyenumtypelist
  * @namespace Windows.Win32.UI.Shell.PropertiesSystem
- * @version v4.0.30319
  */
-class IPropertyEnumTypeList extends IUnknown{
+class IPropertyEnumTypeList extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

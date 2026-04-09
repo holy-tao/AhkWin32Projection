@@ -1,9 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Include .\IHTMLDocument.ahk
 #Include .\IHTMLElementCollection.ahk
 #Include .\IHTMLElement.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include .\IHTMLSelectionObject.ahk
 #Include .\IHTMLFramesCollection2.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
@@ -12,13 +13,11 @@
 #Include .\IHTMLWindow2.ahk
 #Include .\IHTMLStyleSheetsCollection.ahk
 #Include .\IHTMLStyleSheet.ahk
-#Include .\IHTMLDocument.ahk
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
- * @version v4.0.30319
  */
-class IHTMLDocument2 extends IHTMLDocument{
+class IHTMLDocument2 extends IHTMLDocument {
 
     static sizeof => A_PtrSize
     /**

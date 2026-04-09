@@ -7,9 +7,8 @@
  * Exposes properties and methods that Microsoft UI Automation client applications can use to retrieve information about an AND-based property condition.
  * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nn-uiautomationclient-iuiautomationandcondition
  * @namespace Windows.Win32.UI.Accessibility
- * @version v4.0.30319
  */
-class IUIAutomationAndCondition extends IUIAutomationCondition{
+class IUIAutomationAndCondition extends IUIAutomationCondition {
 
     static sizeof => A_PtrSize
     /**

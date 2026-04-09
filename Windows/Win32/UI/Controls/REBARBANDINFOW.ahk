@@ -16,11 +16,9 @@
  * > The commctrl.h header defines REBARBANDINFO as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
  * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-rebarbandinfow
  * @namespace Windows.Win32.UI.Controls
- * @version v4.0.30319
  * @charset Unicode
  */
-class REBARBANDINFOW extends Win32Struct
-{
+class REBARBANDINFOW extends Win32Struct {
     static sizeof => 128
 
     static packingSize => 8
@@ -402,7 +400,7 @@ class REBARBANDINFOW extends Win32Struct
      * Handle to the child window contained in the band, if any.
      * @type {HWND}
      */
-    hwndChild{
+    hwndChild {
         get {
             if(!this.HasProp("__hwndChild"))
                 this.__hwndChild := HWND(40, this)
@@ -449,7 +447,7 @@ class REBARBANDINFOW extends Win32Struct
      * Handle to a bitmap that is used as the background for this band.
      * @type {HBITMAP}
      */
-    hbmBack{
+    hbmBack {
         get {
             if(!this.HasProp("__hbmBack"))
                 this.__hbmBack := HBITMAP(64, this)
@@ -547,7 +545,7 @@ class REBARBANDINFOW extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/Controls/common-control-versions">Version 6</a>. Location of the chevron.
      * @type {RECT}
      */
-    rcChevronLocation{
+    rcChevronLocation {
         get {
             if(!this.HasProp("__rcChevronLocation"))
                 this.__rcChevronLocation := RECT(108, this)

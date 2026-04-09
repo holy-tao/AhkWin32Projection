@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class USN_SOURCE_INFO_ID extends Win32Enum{
+class USN_SOURCE_INFO_ID extends Win32Enum {
 
     /**
      * @type {Integer (UInt32)}

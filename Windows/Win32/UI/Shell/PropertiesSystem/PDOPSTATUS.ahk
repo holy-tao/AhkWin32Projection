@@ -5,9 +5,8 @@
  * Provides operation status flags.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/ne-shobjidl_core-pdopstatus
  * @namespace Windows.Win32.UI.Shell.PropertiesSystem
- * @version v4.0.30319
  */
-class PDOPSTATUS extends Win32Enum{
+class PDOPSTATUS extends Win32Enum {
 
     /**
      * Operation is running, no user intervention.

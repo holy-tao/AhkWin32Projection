@@ -11,9 +11,8 @@
  * Once the behavior is added to the viewport, calls to <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/directmanipulation/nf-directmanipulation-idirectmanipulationviewport-addconfiguration">AddConfiguration</a>, <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/directmanipulation/nf-directmanipulation-idirectmanipulationviewport-removeconfiguration">RemoveConfiguration</a>, <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/directmanipulation/nf-directmanipulation-idirectmanipulationviewport-activateconfiguration">ActivateConfiguration</a>, or <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/directmanipulation/nf-directmanipulation-idirectmanipulationviewport-setmanualgesture">SetManualGesture</a> will fail until <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/directmanipulation/nf-directmanipulation-idirectmanipulationviewport2-removebehavior">RemoveBehavior</a> is called.
  * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nn-directmanipulation-idirectmanipulationdragdropbehavior
  * @namespace Windows.Win32.Graphics.DirectManipulation
- * @version v4.0.30319
  */
-class IDirectManipulationDragDropBehavior extends IUnknown{
+class IDirectManipulationDragDropBehavior extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -44,7 +43,7 @@ class IDirectManipulationDragDropBehavior extends IUnknown{
      * 
      * 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/directmanipulation/nf-directmanipulation-idirectmanipulationviewport-activateconfiguration">IDirectManipulationViewport::ActivateConfiguration</a> should not be called prior to calling <b>IDirectManipulationDragDropBehavior::SetConfiguration</b>. This will result in  unexpected behavior.
-     * @param {Integer} configuration Combination  of values from <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/directmanipulation/ne-directmanipulation-directmanipulation_drag_drop_configuration">DIRECTMANIPULATION_DRAG_DROP_CONFIGURATION</a>.
+     * @param {DIRECTMANIPULATION_DRAG_DROP_CONFIGURATION} configuration Combination  of values from <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/directmanipulation/ne-directmanipulation-directmanipulation_drag_drop_configuration">DIRECTMANIPULATION_DRAG_DROP_CONFIGURATION</a>.
      * 
      * For the configuration to be valid, <i>configuration</i> must contain exactly one of the following three values:
      * <ul>
@@ -70,7 +69,7 @@ class IDirectManipulationDragDropBehavior extends IUnknown{
      * Gets the status of the drag-drop interaction for the viewport this behavior is attached to.
      * @remarks
      * This method returns the drag-drop status at the time of the call and not at the time when the return value is read.
-     * @returns {Integer} 
+     * @returns {DIRECTMANIPULATION_DRAG_DROP_STATUS} One of the values from <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/directmanipulation/ne-directmanipulation-directmanipulation_drag_drop_status">DIRECTMANIPULATION_DRAG_DROP_STATUS</a>.
      * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nf-directmanipulation-idirectmanipulationdragdropbehavior-getstatus
      */
     GetStatus() {

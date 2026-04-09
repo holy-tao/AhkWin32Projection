@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Data.Xml.MsXml
- * @version v4.0.30319
  */
-class SERVERXMLHTTP_OPTION extends Win32Enum{
+class SERVERXMLHTTP_OPTION extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

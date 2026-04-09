@@ -5,10 +5,8 @@
  * Contains information about the current state of the system battery.
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-system_battery_state
  * @namespace Windows.Win32.System.Power
- * @version v4.0.30319
  */
-class SYSTEM_BATTERY_STATE extends Win32Struct
-{
+class SYSTEM_BATTERY_STATE extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 4
@@ -54,7 +52,7 @@ class SYSTEM_BATTERY_STATE extends Win32Struct
      * Reserved.
      * @type {Array<BOOLEAN>}
      */
-    Spare1{
+    Spare1 {
         get {
             if(!this.HasProp("__Spare1ProxyArray"))
                 this.__Spare1ProxyArray := Win32FixedArray(this.ptr + 4, 3, Primitive, "char")
@@ -63,7 +61,6 @@ class SYSTEM_BATTERY_STATE extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     Tag {

@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ISpEventSource.ahk
 #Include .\ISpRecognizer.ahk
 #Include .\ISpRecoGrammar.ahk
 #Include .\ISpRecoResult.ahk
 #Include .\ISpVoice.ahk
-#Include .\ISpEventSource.ahk
 
 /**
  * @namespace Windows.Win32.Media.Speech
- * @version v4.0.30319
  */
-class ISpRecoContext extends ISpEventSource{
+class ISpRecoContext extends ISpEventSource {
 
     static sizeof => A_PtrSize
     /**
@@ -85,7 +84,7 @@ class ISpRecoContext extends ISpEventSource{
 
     /**
      * 
-     * @param {Integer} Options 
+     * @param {SPAUDIOOPTIONS} Options 
      * @param {Pointer<Guid>} pAudioFormatId 
      * @param {Pointer<WAVEFORMATEX>} pWaveFormatEx 
      * @returns {HRESULT} 
@@ -97,7 +96,7 @@ class ISpRecoContext extends ISpEventSource{
 
     /**
      * 
-     * @param {Pointer<Integer>} pOptions 
+     * @param {Pointer<SPAUDIOOPTIONS>} pOptions 
      * @param {Pointer<Guid>} pAudioFormatId 
      * @param {Pointer<Pointer<WAVEFORMATEX>>} ppCoMemWFEX 
      * @returns {HRESULT} 
@@ -124,7 +123,7 @@ class ISpRecoContext extends ISpEventSource{
      * The DVDAdm.BookmarkOnClose property sets or retrieves a value that tells the MSDVDAdm object whether to automatically save a bookmark of the current location and settings when the user closes the application.
      * @remarks
      * This property is read/write with a default value of true.
-     * @param {Integer} Options 
+     * @param {SPBOOKMARKOPTIONS} Options 
      * @param {Integer} ullStreamPosition 
      * @param {LPARAM} lparamEvent 
      * @returns {HRESULT} Returns a Boolean value, which if true, indicates that the MSDVDAdm control will save a bookmark of all DVD settings, including position on disc, parental level, and parental country/region when the user closes the DVD player application.
@@ -216,7 +215,7 @@ class ISpRecoContext extends ISpEventSource{
 
     /**
      * 
-     * @param {Integer} eContextState 
+     * @param {SPCONTEXTSTATE} eContextState 
      * @returns {HRESULT} 
      */
     SetContextState(eContextState) {
@@ -226,7 +225,7 @@ class ISpRecoContext extends ISpEventSource{
 
     /**
      * 
-     * @param {Pointer<Integer>} peContextState 
+     * @param {Pointer<SPCONTEXTSTATE>} peContextState 
      * @returns {HRESULT} 
      */
     GetContextState(peContextState) {

@@ -9,9 +9,8 @@
  * For complete details of these emulation types, see the "El Torito" Bootable CD-ROM format specification at  <a href="https://www.microsoft.com/?ref=go">http://www.phoenix.com/docs/specscdrom.pdf</a>.
  * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/ne-imapi2fs-emulationtype
  * @namespace Windows.Win32.Storage.Imapi
- * @version v4.0.30319
  */
-class EmulationType extends Win32Enum{
+class EmulationType extends Win32Enum {
 
     /**
      * No emulation. The BIOS will not emulate any device type or special sector size for the CD during boot from the CD.

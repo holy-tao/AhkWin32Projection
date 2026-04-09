@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DD_DIRECTDRAW_LOCAL.ahk
+#Include .\DD_VIDEOPORT_LOCAL.ahk
 
 /**
  * The DD_GETVPORTFIELDDATA structure contains the information required for the driver to determine whether the current field of an interlaced signal is even or odd.
  * @see https://learn.microsoft.com/windows/win32/api/ddrawint/ns-ddrawint-dd_getvportfielddata
  * @namespace Windows.Win32.Graphics.DirectDraw
- * @version v4.0.30319
  */
-class DD_GETVPORTFIELDDATA extends Win32Struct
-{
+class DD_GETVPORTFIELDDATA extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8

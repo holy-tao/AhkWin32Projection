@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class ENCRYPTION_KEY_CTRL_INPUT extends Win32Struct
-{
+class ENCRYPTION_KEY_CTRL_INPUT extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8

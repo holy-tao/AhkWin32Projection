@@ -7,9 +7,8 @@
  * Enables the access control editor to communicate with the caller of the CreateSecurityPage and EditSecurity functions.
  * @see https://learn.microsoft.com/windows/win32/api/aclui/nn-aclui-isecurityinformation
  * @namespace Windows.Win32.Security.Authorization.UI
- * @version v4.0.30319
  */
-class ISecurityInformation extends IUnknown{
+class ISecurityInformation extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -49,7 +48,7 @@ class ISecurityInformation extends IUnknown{
 
     /**
      * The GetSecurity method requests a security descriptor for the securable object whose security descriptor is being edited. The access control editor calls this method to retrieve the object's current or default security descriptor.
-     * @param {Integer} RequestedInformation A set of
+     * @param {OBJECT_SECURITY_INFORMATION} RequestedInformation A set of
      * @param {Pointer<PSECURITY_DESCRIPTOR>} ppSecurityDescriptor A pointer to a variable that your implementation must set to a pointer to the object's security descriptor. The security descriptor must include the components requested by the <i>RequestedInformation</i> parameter. 
      * 
      * 
@@ -80,7 +79,7 @@ class ISecurityInformation extends IUnknown{
      * The SetSecurity method provides a security descriptor containing the security information the user wants to apply to the securable object. The access control editor calls this method when the user clicks Okay or Apply.
      * @remarks
      * To build a complete security descriptor for the object, the application must merge the new security descriptor parts, as defined by the <i>SecurityInformation</i> parameter, into the object's existing security descriptor.
-     * @param {Integer} SecurityInformation A set of
+     * @param {OBJECT_SECURITY_INFORMATION} SecurityInformation A set of
      * @param {PSECURITY_DESCRIPTOR} pSecurityDescriptor A pointer to a security descriptor containing the new security information. Do not assume the security descriptor is in <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">self-relative</a> form; it  can be either 
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/absolute-and-self-relative-security-descriptors">absolute or self-relative</a>.
      * @returns {HRESULT} Returns S_OK if successful.
@@ -104,7 +103,7 @@ class ISecurityInformation extends IUnknown{
      * @param {Pointer<Guid>} pguidObjectType A pointer to a 
      * <a href="https://docs.microsoft.com/windows/win32/api/guiddef/ns-guiddef-guid">GUID</a> structure that identifies the type of object for which access rights are being requested. If this parameter is <b>NULL</b> or a pointer to GUID_NULL, return the access rights for the object being edited. Otherwise, the GUID identifies a child object type returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/aclui/nf-aclui-isecurityinformation-getinherittypes">ISecurityInformation::GetInheritTypes</a> method. The GUID corresponds to the <b>InheritedObjectType</b> member of an object-specific ACE.
-     * @param {Integer} dwFlags 
+     * @param {SECURITY_INFO_PAGE_FLAGS} dwFlags 
      * @param {Pointer<Pointer<SI_ACCESS>>} ppAccess A pointer to an array of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/aclui/ns-aclui-si_access">SI_ACCESS</a> structures. The array must include one entry for each access right. You can specify access rights that apply to the object itself, as well as object-specific access rights that apply only to a property set or property on the object.
      * @param {Pointer<Integer>} pcAccesses A pointer to <b>ULONG</b> that indicates the number of entries in the <i>ppAccess</i> array.
@@ -168,9 +167,9 @@ class ISecurityInformation extends IUnknown{
 
     /**
      * The PropertySheetPageCallback method notifies an EditSecurity or CreateSecurityPage caller that an access control editor property page is being created or destroyed.
-     * @param {HWND} _hwnd 
-     * @param {Integer} uMsg 
-     * @param {Integer} uPage A value from the 
+     * @param {HWND} _hwnd If <i>uMsg</i> is PSPCB_SI_INITDIALOG, <i>hwnd</i> is a handle to the property page dialog box. Otherwise, <i>hwnd</i> is <b>NULL</b>.
+     * @param {PSPCB_MESSAGE} uMsg 
+     * @param {SI_PAGE_TYPE} uPage A value from the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/aclui/ne-aclui-si_page_type">SI_PAGE_TYPE</a> enumeration type that indicates the type of access control editor property page being created or destroyed.
      * @returns {HRESULT} Returns S_OK if successful.
      * 

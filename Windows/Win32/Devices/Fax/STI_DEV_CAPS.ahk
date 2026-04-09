@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.Fax
- * @version v4.0.30319
  */
-class STI_DEV_CAPS extends Win32Struct
-{
+class STI_DEV_CAPS extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 4

@@ -1,22 +1,21 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Include ..\Com\IDispatch.ahk
 #Include .\Node.ahk
 #Include .\Nodes.ahk
-#Include ..\Com\IDispatch.ahk
 #Include .\Document.ahk
 #Include .\ContextMenu.ahk
 #Include .\Frame.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include .\Columns.ahk
 
 /**
  * The View object represents a result set obtained when processing a query using the OpenView method of the Database object.
  * @see https://learn.microsoft.com/windows/win32/Msi/view-object
  * @namespace Windows.Win32.System.Mmc
- * @version v4.0.30319
  */
-class View extends IDispatch{
+class View extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -95,7 +94,7 @@ class View extends IDispatch{
     }
 
     /**
-     * @type {HRESULT} 
+     * @type {BSTR} 
      */
     StatusBarText {
         set => this.put_StatusBarText(value)
@@ -116,7 +115,7 @@ class View extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {_ListViewMode} 
      */
     ListViewMode {
         get => this.get_ListViewMode()
@@ -539,7 +538,7 @@ class View extends IDispatch{
     /**
      * 
      * @param {BSTR} _File 
-     * @param {Integer} exportoptions 
+     * @param {_ExportListOptions} exportoptions 
      * @returns {HRESULT} 
      */
     ExportList(_File, exportoptions) {
@@ -551,7 +550,7 @@ class View extends IDispatch{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {_ListViewMode} 
      */
     get_ListViewMode() {
         result := ComCall(46, this, "int*", &_Mode := 0, "HRESULT")
@@ -560,7 +559,7 @@ class View extends IDispatch{
 
     /**
      * 
-     * @param {Integer} _mode 
+     * @param {_ListViewMode} _mode 
      * @returns {HRESULT} 
      */
     put_ListViewMode(_mode) {

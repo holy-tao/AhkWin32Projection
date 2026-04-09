@@ -7,9 +7,8 @@
  * IWTSProtocolLogonErrorRedirector is no longer available. Instead, use IWRdsProtocolLogonErrorRedirector.
  * @see https://learn.microsoft.com/windows/win32/api/wtsprotocol/nn-wtsprotocol-iwtsprotocollogonerrorredirector
  * @namespace Windows.Win32.System.RemoteDesktop
- * @version v4.0.30319
  */
-class IWTSProtocolLogonErrorRedirector extends IUnknown{
+class IWTSProtocolLogonErrorRedirector extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -43,7 +42,7 @@ class IWTSProtocolLogonErrorRedirector extends IUnknown{
     /**
      * IWTSProtocolLogonErrorRedirector::RedirectStatus is no longer available. Instead, use IWRdsProtocolLogonErrorRedirector::RedirectStatus.
      * @param {PWSTR} pszMessage A pointer to a string that contains the logon status message.
-     * @returns {Integer} 
+     * @returns {WTS_LOGON_ERROR_REDIRECTOR_RESPONSE} 
      * @see https://learn.microsoft.com/windows/win32/api/wtsprotocol/nf-wtsprotocol-iwtsprotocollogonerrorredirector-redirectstatus
      */
     RedirectStatus(pszMessage) {
@@ -58,7 +57,7 @@ class IWTSProtocolLogonErrorRedirector extends IUnknown{
      * @param {PWSTR} pszCaption A pointer to a string that contains the message box caption.
      * @param {PWSTR} pszMessage A pointer to a string that contains the logon message.
      * @param {Integer} uType An integer that contains the message box type. For more information, see the <b>MessageBox</b> function.
-     * @returns {Integer} A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/wtsdefs/ne-wtsdefs-wts_logon_error_redirector_response">WTS_LOGON_ERROR_REDIRECTOR_RESPONSE</a> enumeration that specifies to the Remote Desktop Services service the preferred response for redirecting the logon message.
+     * @returns {WTS_LOGON_ERROR_REDIRECTOR_RESPONSE} A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/wtsdefs/ne-wtsdefs-wts_logon_error_redirector_response">WTS_LOGON_ERROR_REDIRECTOR_RESPONSE</a> enumeration that specifies to the Remote Desktop Services service the preferred response for redirecting the logon message.
      * @see https://learn.microsoft.com/windows/win32/api/wtsprotocol/nf-wtsprotocol-iwtsprotocollogonerrorredirector-redirectmessage
      */
     RedirectMessage(pszCaption, pszMessage, uType) {
@@ -76,7 +75,7 @@ class IWTSProtocolLogonErrorRedirector extends IUnknown{
      * @param {PWSTR} pszCaption A pointer to a string that contains the message box caption.
      * @param {PWSTR} pszMessage A pointer to a string that contains the message.
      * @param {Integer} uType An integer that contains the message box type. For more information, see the <b>MessageBox</b> function.
-     * @returns {Integer} A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/wtsdefs/ne-wtsdefs-wts_logon_error_redirector_response">WTS_LOGON_ERROR_REDIRECTOR_RESPONSE</a> enumeration that specifies to the Remote Desktop Services service the preferred response to the logon error.
+     * @returns {WTS_LOGON_ERROR_REDIRECTOR_RESPONSE} A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/wtsdefs/ne-wtsdefs-wts_logon_error_redirector_response">WTS_LOGON_ERROR_REDIRECTOR_RESPONSE</a> enumeration that specifies to the Remote Desktop Services service the preferred response to the logon error.
      * @see https://learn.microsoft.com/windows/win32/api/wtsprotocol/nf-wtsprotocol-iwtsprotocollogonerrorredirector-redirectlogonerror
      */
     RedirectLogonError(ntsStatus, ntsSubstatus, pszCaption, pszMessage, uType) {

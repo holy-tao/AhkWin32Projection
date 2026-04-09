@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.PortableDevices
- * @version v4.0.30319
  */
-class DEVICE_RADIO_STATE extends Win32Enum{
+class DEVICE_RADIO_STATE extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

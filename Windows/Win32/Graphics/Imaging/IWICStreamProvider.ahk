@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IStream.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\System\Com\IStream.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * Exposes methods for a stream provider.
  * @see https://learn.microsoft.com/windows/win32/api/wincodecsdk/nn-wincodecsdk-iwicstreamprovider
  * @namespace Windows.Win32.Graphics.Imaging
- * @version v4.0.30319
  */
-class IWICStreamProvider extends IUnknown{
+class IWICStreamProvider extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

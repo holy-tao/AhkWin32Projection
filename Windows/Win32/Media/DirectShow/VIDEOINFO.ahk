@@ -15,11 +15,9 @@
  * For information about using the <b>rcSource</b> and <b>rcTarget</b> members, see <a href="https://docs.microsoft.com/windows/desktop/DirectShow/source-and-target-rectangles-in-video-renderers">Source and Target Rectangles in Video Renderers</a>.
  * @see https://learn.microsoft.com/windows/win32/api/amvideo/ns-amvideo-videoinfo
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class VIDEOINFO extends Win32Struct
-{
-    static sizeof => 2152
+class VIDEOINFO extends Win32Struct {
+    static sizeof => 1128
 
     static packingSize => 8
 
@@ -27,7 +25,7 @@ class VIDEOINFO extends Win32Struct
      * Portion of the input video to use.
      * @type {RECT}
      */
-    rcSource{
+    rcSource {
         get {
             if(!this.HasProp("__rcSource"))
                 this.__rcSource := RECT(0, this)
@@ -39,7 +37,7 @@ class VIDEOINFO extends Win32Struct
      * Where the video should be displayed.
      * @type {RECT}
      */
-    rcTarget{
+    rcTarget {
         get {
             if(!this.HasProp("__rcTarget"))
                 this.__rcTarget := RECT(16, this)
@@ -78,7 +76,7 @@ class VIDEOINFO extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-bitmapinfoheader">BITMAPINFOHEADER</a> structure that contains color and dimension information for a device-independent bitmap.
      * @type {BITMAPINFOHEADER}
      */
-    bmiHeader{
+    bmiHeader {
         get {
             if(!this.HasProp("__bmiHeader"))
                 this.__bmiHeader := BITMAPINFOHEADER(48, this)
@@ -87,9 +85,9 @@ class VIDEOINFO extends Win32Struct
     }
 
     /**
-     * @type {Array<RGBQUAD>}
+     * @type {RGBQUAD}
      */
-    bmiColors{
+    bmiColors {
         get {
             if(!this.HasProp("__bmiColorsProxyArray"))
                 this.__bmiColorsProxyArray := Win32FixedArray(this.ptr + 88, 256, RGBQUAD, "")
@@ -98,9 +96,9 @@ class VIDEOINFO extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    dwBitMasks{
+    dwBitMasks {
         get {
             if(!this.HasProp("__dwBitMasksProxyArray"))
                 this.__dwBitMasksProxyArray := Win32FixedArray(this.ptr + 88, 3, Primitive, "uint")
@@ -111,7 +109,7 @@ class VIDEOINFO extends Win32Struct
     /**
      * @type {TRUECOLORINFO}
      */
-    TrueColorInfo{
+    TrueColorInfo {
         get {
             if(!this.HasProp("__TrueColorInfo"))
                 this.__TrueColorInfo := TRUECOLORINFO(88, this)

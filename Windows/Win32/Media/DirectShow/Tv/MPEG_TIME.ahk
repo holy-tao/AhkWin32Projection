@@ -9,10 +9,8 @@
  * <pre class="syntax" xml:space="preserve"><c>typedef MPEG_TIME MPEG_DURATION;</c></pre>
  * @see https://learn.microsoft.com/windows/win32/api/mpeg2structs/ns-mpeg2structs-mpeg_time
  * @namespace Windows.Win32.Media.DirectShow.Tv
- * @version v4.0.30319
  */
-class MPEG_TIME extends Win32Struct
-{
+class MPEG_TIME extends Win32Struct {
     static sizeof => 3
 
     static packingSize => 1

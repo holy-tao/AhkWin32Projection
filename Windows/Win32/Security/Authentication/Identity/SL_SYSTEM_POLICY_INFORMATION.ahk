@@ -3,18 +3,16 @@
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class SL_SYSTEM_POLICY_INFORMATION extends Win32Struct
-{
+class SL_SYSTEM_POLICY_INFORMATION extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
 
     /**
-     * @type {Array<Void>}
+     * @type {Array<Pointer<Void>>}
      */
-    Reserved1{
+    Reserved1 {
         get {
             if(!this.HasProp("__Reserved1ProxyArray"))
                 this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 0, 2, Primitive, "ptr")
@@ -23,9 +21,9 @@ class SL_SYSTEM_POLICY_INFORMATION extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    Reserved2{
+    Reserved2 {
         get {
             if(!this.HasProp("__Reserved2ProxyArray"))
                 this.__Reserved2ProxyArray := Win32FixedArray(this.ptr + 16, 3, Primitive, "uint")

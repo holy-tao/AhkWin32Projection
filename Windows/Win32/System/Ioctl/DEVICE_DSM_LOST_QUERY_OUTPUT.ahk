@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class DEVICE_DSM_LOST_QUERY_OUTPUT extends Win32Struct
-{
+class DEVICE_DSM_LOST_QUERY_OUTPUT extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -44,9 +42,9 @@ class DEVICE_DSM_LOST_QUERY_OUTPUT extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    BitMap{
+    BitMap {
         get {
             if(!this.HasProp("__BitMapProxyArray"))
                 this.__BitMapProxyArray := Win32FixedArray(this.ptr + 20, 1, Primitive, "uint")

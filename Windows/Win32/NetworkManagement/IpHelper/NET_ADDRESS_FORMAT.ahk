@@ -9,9 +9,8 @@
  * The [NET_ADDRESS_INFO](/windows/desktop/api/iphlpapi/ns-iphlpapi-net_address_info) structure returned by the <a href="https://docs.microsoft.com/windows/desktop/api/iphlpapi/nf-iphlpapi-parsenetworkstring">ParseNetworkString</a> function.
  * @see https://learn.microsoft.com/windows/win32/api/iphlpapi/ne-iphlpapi-net_address_format
  * @namespace Windows.Win32.NetworkManagement.IpHelper
- * @version v4.0.30319
  */
-class NET_ADDRESS_FORMAT extends Win32Enum{
+class NET_ADDRESS_FORMAT extends Win32Enum {
 
     /**
      * The format of the network address is unspecified.

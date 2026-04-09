@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include .\WEBAUTHN_EXTENSIONS.ahk
+#Include .\WEBAUTHN_EXTENSION.ahk
+#Include .\WEBAUTHN_HMAC_SECRET_SALT.ahk
 
 /**
  * Contains the attestation data for a credential.
@@ -13,10 +15,8 @@
  * | **WEBAUTHN_ATTESTATION_DECODE_COMMON** | **PWEBAUTHN_COMMON_ATTESTATION** |
  * @see https://learn.microsoft.com/windows/win32/api/webauthn/ns-webauthn-webauthn_credential_attestation
  * @namespace Windows.Win32.Security.Authentication.WebAuthn
- * @version v4.0.30319
  */
-class WEBAUTHN_CREDENTIAL_ATTESTATION extends Win32Struct
-{
+class WEBAUTHN_CREDENTIAL_ATTESTATION extends Win32Struct {
     static sizeof => 192
 
     static packingSize => 8
@@ -133,7 +133,7 @@ class WEBAUTHN_CREDENTIAL_ATTESTATION extends Win32Struct
      * The extensions for this credential.
      * @type {WEBAUTHN_EXTENSIONS}
      */
-    Extensions{
+    Extensions {
         get {
             if(!this.HasProp("__Extensions"))
                 this.__Extensions := WEBAUTHN_EXTENSIONS(96, this)

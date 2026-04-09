@@ -7,9 +7,8 @@
  * Provides methods to bring a disk online and take it offline.Windows Vista:  This interface is not supported until Windows Vista with Service Pack 1 (SP1). Use IVdsDisk2 instead.
  * @see https://learn.microsoft.com/windows/win32/api/vds/nn-vds-ivdsdiskonline
  * @namespace Windows.Win32.Storage.VirtualDiskService
- * @version v4.0.30319
  */
-class IVdsDiskOnline extends IUnknown{
+class IVdsDiskOnline extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

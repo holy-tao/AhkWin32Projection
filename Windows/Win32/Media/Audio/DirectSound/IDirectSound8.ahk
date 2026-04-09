@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Media.Audio.DirectSound
- * @version v4.0.30319
  */
-class IDirectSound8 extends IDirectSound{
+class IDirectSound8 extends IDirectSound {
 
     static sizeof => A_PtrSize
     /**

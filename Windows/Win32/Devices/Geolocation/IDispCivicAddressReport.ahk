@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * @namespace Windows.Win32.Devices.Geolocation
- * @version v4.0.30319
  */
-class IDispCivicAddressReport extends IDispatch{
+class IDispCivicAddressReport extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

@@ -7,9 +7,8 @@
  * The AutomaticUpdatesUserType is used in conjunction with the <a href="https://docs.microsoft.com/windows/desktop/api/wuapi/nf-wuapi-iautomaticupdatessettings2-checkpermission">IAutomaticUpdatesSettings2::CheckPermission</a> method.
  * @see https://learn.microsoft.com/windows/win32/api/wuapi/ne-wuapi-automaticupdatesusertype
  * @namespace Windows.Win32.System.UpdateAgent
- * @version v4.0.30319
  */
-class AutomaticUpdatesUserType extends Win32Enum{
+class AutomaticUpdatesUserType extends Win32Enum {
 
     /**
      * The context of the current user.

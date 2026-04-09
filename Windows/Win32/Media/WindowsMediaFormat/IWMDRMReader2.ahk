@@ -7,9 +7,8 @@
  * The IWMDRMReader2 interface provides methods for examining the rights granted by DRM version 10 licenses.An IWMDRMReader2 interface exists for every instance of the reader object.
  * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nn-wmsdkidl-iwmdrmreader2
  * @namespace Windows.Win32.Media.WindowsMediaFormat
- * @version v4.0.30319
  */
-class IWMDRMReader2 extends IWMDRMReader{
+class IWMDRMReader2 extends IWMDRMReader {
 
     static sizeof => A_PtrSize
     /**

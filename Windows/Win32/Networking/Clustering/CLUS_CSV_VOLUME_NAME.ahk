@@ -5,10 +5,8 @@
  * Represents the name of a cluster shared volume (CSV).
  * @see https://learn.microsoft.com/windows/win32/api/clusapi/ns-clusapi-clus_csv_volume_name
  * @namespace Windows.Win32.Networking.Clustering
- * @version v4.0.30319
  */
-class CLUS_CSV_VOLUME_NAME extends Win32Struct
-{
+class CLUS_CSV_VOLUME_NAME extends Win32Struct {
     static sizeof => 1056
 
     static packingSize => 8

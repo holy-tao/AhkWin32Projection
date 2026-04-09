@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
-#Include ..\..\..\..\Foundation\BSTR.ahk
 #Include .\IScriptNode.ahk
+#Include ..\..\..\..\Foundation\BSTR.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.ActiveScript
- * @version v4.0.30319
  */
-class IScriptEntry extends IScriptNode{
+class IScriptEntry extends IScriptNode {
 
     static sizeof => A_PtrSize
     /**

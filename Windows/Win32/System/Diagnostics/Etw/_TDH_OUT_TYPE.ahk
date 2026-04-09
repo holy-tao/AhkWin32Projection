@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Etw
- * @version v4.0.30319
  */
-class _TDH_OUT_TYPE extends Win32Enum{
+class _TDH_OUT_TYPE extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

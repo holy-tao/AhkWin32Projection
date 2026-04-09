@@ -7,9 +7,8 @@
  * By default, binaries are not returned. <b>NETISO_FLAG_FORCE_COMPUTE_BINARIES</b> must be set in order for these to be returned.
  * @see https://learn.microsoft.com/windows/win32/api/netfw/ne-netfw-netiso_flag
  * @namespace Windows.Win32.NetworkManagement.WindowsFirewall
- * @version v4.0.30319
  */
-class NETISO_FLAG extends Win32Enum{
+class NETISO_FLAG extends Win32Enum {
 
     /**
      * Specifies that all binaries will be computed before the app container is returned.

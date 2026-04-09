@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * The IFaxDevice interface defines a configuration object used by a fax client application to retrieve and set fax device information, and to add and remove fax routing methods associated with a fax device.
@@ -11,9 +11,8 @@
  * A default implementation of <b>IFaxDevice</b> is provided as the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxdevice">FaxDevice</a> object.
  * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nn-faxcomex-ifaxdevice
  * @namespace Windows.Win32.Devices.Fax
- * @version v4.0.30319
  */
-class IFaxDevice extends IDispatch{
+class IFaxDevice extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -106,7 +105,7 @@ class IFaxDevice extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {FAX_DEVICE_RECEIVE_MODE_ENUM} 
      */
     ReceiveMode {
         get => this.get_ReceiveMode()
@@ -291,7 +290,7 @@ class IFaxDevice extends IDispatch{
      * You can set only one device to receive faxes manually at any given time. If you set a device to answer manually and another device is already set to the manual mode, the device that had been previously set will automatically change to the no-answer mode. You should call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxdevice-refresh-vb">IFaxDevice::Refresh</a> method on that device to see the change.
      * 
      * Some devices, such as virtual devices, do not support the manual-answer receive mode. For those devices, the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxdevice-receivemode">ReceiveMode</a> will fail if you set the receive mode to <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_device_receive_mode_enum">fdrmMANUAL_ANSWER</a>. In C++, the method will return an ERROR_NOT_SUPPORTED error code in an <b>HRESULT</b> format.
-     * @returns {Integer} 
+     * @returns {FAX_DEVICE_RECEIVE_MODE_ENUM} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxdevice-get_receivemode
      */
     get_ReceiveMode() {
@@ -305,7 +304,7 @@ class IFaxDevice extends IDispatch{
      * You can set only one device to receive faxes manually at any given time. If you set a device to answer manually and another device is already set to the manual mode, the device that had been previously set will automatically change to the no-answer mode. You should call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxdevice-refresh-vb">IFaxDevice::Refresh</a> method on that device to see the change.
      * 
      * Some devices, such as virtual devices, do not support the manual-answer receive mode. For those devices, the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxdevice-receivemode">ReceiveMode</a> will fail if you set the receive mode to <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_device_receive_mode_enum">fdrmMANUAL_ANSWER</a>. In C++, the method will return an ERROR_NOT_SUPPORTED error code in an <b>HRESULT</b> format.
-     * @param {Integer} ReceiveMode 
+     * @param {FAX_DEVICE_RECEIVE_MODE_ENUM} ReceiveMode 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxdevice-put_receivemode
      */

@@ -1,11 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\CRYPT_INTEGER_BLOB.ahk
 #Include .\CRYPT_ALGORITHM_IDENTIFIER.ahk
-#Include .\CERT_ISSUER_SERIAL_NUMBER.ahk
+#Include .\CRYPT_INTEGER_BLOB.ahk
+#Include .\CMSG_KEY_AGREE_ORIGINATOR.ahk
 #Include .\CERT_ID.ahk
-#Include .\CRYPT_BIT_BLOB.ahk
+#Include .\CERT_ID_OPTION.ahk
+#Include .\CERT_ISSUER_SERIAL_NUMBER.ahk
 #Include .\CERT_PUBLIC_KEY_INFO.ahk
+#Include .\CRYPT_BIT_BLOB.ahk
+#Include .\CMSG_KEY_AGREE_KEY_ENCRYPT_INFO.ahk
 
 /**
  * Contains encryption information applicable to all key agreement recipients of an enveloped message.
@@ -26,10 +29,8 @@
  * The other members are read-only.
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cmsg_key_agree_encrypt_info
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CMSG_KEY_AGREE_ENCRYPT_INFO extends Win32Struct
-{
+class CMSG_KEY_AGREE_ENCRYPT_INFO extends Win32Struct {
     static sizeof => 128
 
     static packingSize => 8
@@ -56,7 +57,7 @@ class CMSG_KEY_AGREE_ENCRYPT_INFO extends Win32Struct
      * A <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-crypt_algorithm_identifier">CRYPT_ALGORITHM_IDENTIFIER</a> structure that specifies the algorithm used to encrypt the content encryption key. The <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptmsgopentoencode">CryptMsgOpenToEncode</a> function uses the <b>pszObjId</b> member of the <b>CRYPT_ALGORITHM_IDENTIFIER</b> structure to get the address of the function used to export the key. The function can be installed by using a Cryptography API: Next Generation (CNG) <a href="https://docs.microsoft.com/windows/desktop/SecGloss/o-gly">object identifier</a> (OID).
      * @type {CRYPT_ALGORITHM_IDENTIFIER}
      */
-    KeyEncryptionAlgorithm{
+    KeyEncryptionAlgorithm {
         get {
             if(!this.HasProp("__KeyEncryptionAlgorithm"))
                 this.__KeyEncryptionAlgorithm := CRYPT_ALGORITHM_IDENTIFIER(8, this)
@@ -68,7 +69,7 @@ class CMSG_KEY_AGREE_ENCRYPT_INFO extends Win32Struct
      * A <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa381414(v=vs.85)">CRYPT_DATA_BLOB</a> structure that contains user keying material provided by the sender to ensure that a different key is generated each time the same two parties generate a pair-wise key.
      * @type {CRYPT_INTEGER_BLOB}
      */
-    UserKeyingMaterial{
+    UserKeyingMaterial {
         get {
             if(!this.HasProp("__UserKeyingMaterial"))
                 this.__UserKeyingMaterial := CRYPT_INTEGER_BLOB(32, this)
@@ -77,8 +78,7 @@ class CMSG_KEY_AGREE_ENCRYPT_INFO extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Integer}
+     * @type {CMSG_KEY_AGREE_ORIGINATOR}
      */
     dwOriginatorChoice {
         get => NumGet(this, 48, "uint")
@@ -88,7 +88,7 @@ class CMSG_KEY_AGREE_ENCRYPT_INFO extends Win32Struct
     /**
      * @type {CERT_ID}
      */
-    OriginatorCertId{
+    OriginatorCertId {
         get {
             if(!this.HasProp("__OriginatorCertId"))
                 this.__OriginatorCertId := CERT_ID(56, this)
@@ -99,7 +99,7 @@ class CMSG_KEY_AGREE_ENCRYPT_INFO extends Win32Struct
     /**
      * @type {CERT_PUBLIC_KEY_INFO}
      */
-    OriginatorPublicKeyInfo{
+    OriginatorPublicKeyInfo {
         get {
             if(!this.HasProp("__OriginatorPublicKeyInfo"))
                 this.__OriginatorPublicKeyInfo := CERT_PUBLIC_KEY_INFO(56, this)

@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\VMRGUID.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\VMRGUID.ahk
 
 /**
  * The IVMRMonitorConfig interface is implemented by the Video Mixing Renderer Filter 7 (VMR-7).
  * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-ivmrmonitorconfig
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IVMRMonitorConfig extends IUnknown{
+class IVMRMonitorConfig extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

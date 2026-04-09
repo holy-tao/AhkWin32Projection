@@ -6,10 +6,8 @@
  * Represents a property inside an MI_Instance structure. (MI_Real32AField)
  * @see https://learn.microsoft.com/windows/win32/api/mi/ns-mi-mi_real32afield
  * @namespace Windows.Win32.System.Wmi
- * @version v4.0.30319
  */
-class MI_Real32AField extends Win32Struct
-{
+class MI_Real32AField extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -18,7 +16,7 @@ class MI_Real32AField extends Win32Struct
      * A field of type <a href="https://docs.microsoft.com/windows/desktop/api/mi/ns-mi-mi_real32a">MI_Real32A</a>.
      * @type {MI_Real32A}
      */
-    value{
+    value {
         get {
             if(!this.HasProp("__value"))
                 this.__value := MI_Real32A(0, this)

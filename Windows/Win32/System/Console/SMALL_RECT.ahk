@@ -7,10 +7,8 @@
  * This structure is used by console functions to specify rectangular areas of console screen buffers, where the coordinates specify the rows and columns of screen-buffer character cells.
  * @see https://learn.microsoft.com/windows/console/small-rect-str
  * @namespace Windows.Win32.System.Console
- * @version v4.0.30319
  */
-class SMALL_RECT extends Win32Struct
-{
+class SMALL_RECT extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 2

@@ -6,11 +6,9 @@
  * Represents a physical location on a disk.
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-volume_disk_extents
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class VOLUME_DISK_EXTENTS extends Win32Struct
-{
-    static sizeof => 16
+class VOLUME_DISK_EXTENTS extends Win32Struct {
+    static sizeof => 32
 
     static packingSize => 8
 
@@ -31,9 +29,9 @@ class VOLUME_DISK_EXTENTS extends Win32Struct
 
     /**
      * An array of <a href="https://docs.microsoft.com/windows/desktop/api/winioctl/ns-winioctl-disk_extent">DISK_EXTENT</a> structures.
-     * @type {Array<DISK_EXTENT>}
+     * @type {DISK_EXTENT}
      */
-    Extents{
+    Extents {
         get {
             if(!this.HasProp("__ExtentsProxyArray"))
                 this.__ExtentsProxyArray := Win32FixedArray(this.ptr + 8, 1, DISK_EXTENT, "")

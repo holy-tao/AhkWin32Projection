@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.UI.LegacyWindowsEnvironmentFeatures
- * @version v4.0.30319
  */
-class IBriefcaseInitiator extends IUnknown{
+class IBriefcaseInitiator extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

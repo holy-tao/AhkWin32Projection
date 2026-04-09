@@ -5,10 +5,8 @@
  * The DDGETTRANSFERSTATUSOUTINFO structure contains the transfer status information.
  * @see https://learn.microsoft.com/windows/win32/api/dxmini/ns-dxmini-ddgettransferstatusoutinfo
  * @namespace Windows.Win32.Graphics.DirectDraw
- * @version v4.0.30319
  */
-class DDGETTRANSFERSTATUSOUTINFO extends Win32Struct
-{
+class DDGETTRANSFERSTATUSOUTINFO extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 8

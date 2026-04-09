@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\INetSharingPortMappingProps.ahk
 #Include ..\..\System\Com\IDispatch.ahk
+#Include .\INetSharingPortMappingProps.ahk
 
 /**
  * The INetSharingPortMapping interface provides methods for managing a particular port mapping.
@@ -13,9 +13,8 @@
  * <b>INetSharingPortMapping</b> interfaces.
  * @see https://learn.microsoft.com/windows/win32/api/netcon/nn-netcon-inetsharingportmapping
  * @namespace Windows.Win32.NetworkManagement.WindowsFirewall
- * @version v4.0.30319
  */
-class INetSharingPortMapping extends IDispatch{
+class INetSharingPortMapping extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

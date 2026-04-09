@@ -1,13 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\HANDLE.ahk
+#Include .\RAS_HARDWARE_CONDITION.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Rras
- * @version v4.0.30319
  */
-class RAS_PORT_2 extends Win32Struct
-{
+class RAS_PORT_2 extends Win32Struct {
     static sizeof => 496
 
     static packingSize => 8
@@ -15,7 +14,7 @@ class RAS_PORT_2 extends Win32Struct
     /**
      * @type {HANDLE}
      */
-    hPort{
+    hPort {
         get {
             if(!this.HasProp("__hPort"))
                 this.__hPort := HANDLE(0, this)
@@ -26,7 +25,7 @@ class RAS_PORT_2 extends Win32Struct
     /**
      * @type {HANDLE}
      */
-    hConnection{
+    hConnection {
         get {
             if(!this.HasProp("__hConnection"))
                 this.__hConnection := HANDLE(8, this)
@@ -75,7 +74,7 @@ class RAS_PORT_2 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {RAS_HARDWARE_CONDITION}
      */
     dwHardwareCondition {
         get => NumGet(this, 380, "int")

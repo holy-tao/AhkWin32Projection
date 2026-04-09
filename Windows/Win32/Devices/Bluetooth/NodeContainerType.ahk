@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.Bluetooth
- * @version v4.0.30319
  */
-class NodeContainerType extends Win32Enum{
+class NodeContainerType extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

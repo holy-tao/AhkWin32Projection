@@ -63,9 +63,8 @@
  * // but provided 9 in Windows XP.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nn-shobjidl-ipublishingwizard
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IPublishingWizard extends IWizardExtension{
+class IPublishingWizard extends IWizardExtension {
 
     static sizeof => A_PtrSize
     /**

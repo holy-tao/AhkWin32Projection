@@ -34,9 +34,8 @@
  * </table>
  * @see https://learn.microsoft.com/windows/win32/api/wia_xp/nn-wia_xp-iwiadatacallback
  * @namespace Windows.Win32.Devices.ImageAcquisition
- * @version v4.0.30319
  */
-class IWiaDataCallback extends IUnknown{
+class IWiaDataCallback extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -16,9 +16,8 @@
  * <b>DBPROP_ENABLEROWSETEVENTS</b> must be set to <b>TRUE</b> with the OLE DB <a href="https://docs.microsoft.com/previous-versions/windows/desktop/ms711497(v=vs.85)">ICommandProperties::SetProperties</a> method prior to executing the query in order to use rowset eventing.
  * @see https://learn.microsoft.com/windows/win32/api/searchapi/nn-searchapi-irowsetevents
  * @namespace Windows.Win32.System.Search
- * @version v4.0.30319
  */
-class IRowsetEvents extends IUnknown{
+class IRowsetEvents extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -53,7 +52,7 @@ class IRowsetEvents extends IUnknown{
      * @param {Pointer<PROPVARIANT>} itemID Type: <b>REFPROPVARIANT</b>
      * 
      * The new item that may match the original search criteria of the rowset.
-     * @param {Integer} newItemState Type: <b><a href="https://docs.microsoft.com/windows/win32/api/searchapi/ne-searchapi-rowsetevent_itemstate">ROWSETEVENT_ITEMSTATE</a></b>
+     * @param {ROWSETEVENT_ITEMSTATE} newItemState Type: <b><a href="https://docs.microsoft.com/windows/win32/api/searchapi/ne-searchapi-rowsetevent_itemstate">ROWSETEVENT_ITEMSTATE</a></b>
      * 
      * Specifies whether the new item matches all or some of the criteria for your rowset, as a <a href="https://docs.microsoft.com/windows/win32/api/searchapi/ne-searchapi-rowsetevent_itemstate">ROWSETEVENT_ITEMSTATE</a> enumeration.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -86,10 +85,10 @@ class IRowsetEvents extends IUnknown{
      * @param {Pointer<PROPVARIANT>} itemID Type: <b>REFPROPVARIANT</b>
      * 
      * Specifies the item in the rowset that has changed.
-     * @param {Integer} rowsetItemState Type: <b><a href="https://docs.microsoft.com/windows/win32/api/searchapi/ne-searchapi-rowsetevent_itemstate">ROWSETEVENT_ITEMSTATE</a></b>
+     * @param {ROWSETEVENT_ITEMSTATE} rowsetItemState Type: <b><a href="https://docs.microsoft.com/windows/win32/api/searchapi/ne-searchapi-rowsetevent_itemstate">ROWSETEVENT_ITEMSTATE</a></b>
      * 
      * Specifies whether the changed item was originally in the rowset.
-     * @param {Integer} changedItemState Type: <b><a href="https://docs.microsoft.com/windows/win32/api/searchapi/ne-searchapi-rowsetevent_itemstate">ROWSETEVENT_ITEMSTATE</a></b>
+     * @param {ROWSETEVENT_ITEMSTATE} changedItemState Type: <b><a href="https://docs.microsoft.com/windows/win32/api/searchapi/ne-searchapi-rowsetevent_itemstate">ROWSETEVENT_ITEMSTATE</a></b>
      * 
      * Specifies whether the changed item is currently in the rowset, as a result of the change.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -116,7 +115,7 @@ class IRowsetEvents extends IUnknown{
      * @param {Pointer<PROPVARIANT>} itemID Type: <b>REFPROPVARIANT</b>
      * 
      * Specifies the item in the rowset that has been deleted.
-     * @param {Integer} deletedItemState Type: <b><a href="https://docs.microsoft.com/windows/win32/api/searchapi/ne-searchapi-rowsetevent_itemstate">ROWSETEVENT_ITEMSTATE</a></b>
+     * @param {ROWSETEVENT_ITEMSTATE} deletedItemState Type: <b><a href="https://docs.microsoft.com/windows/win32/api/searchapi/ne-searchapi-rowsetevent_itemstate">ROWSETEVENT_ITEMSTATE</a></b>
      * 
      * Specifies whether the deleted item is currently in the rowset, as a <a href="https://docs.microsoft.com/windows/win32/api/searchapi/ne-searchapi-rowsetevent_itemstate">ROWSETEVENT_ITEMSTATE</a> enumeration.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -131,7 +130,7 @@ class IRowsetEvents extends IUnknown{
 
     /**
      * Called by the indexer to notify clients of an event related to the client rowset.
-     * @param {Integer} eventType Type: <b><a href="https://docs.microsoft.com/windows/win32/api/searchapi/ne-searchapi-rowsetevent_type">ROWSETEVENT_TYPE</a></b>
+     * @param {ROWSETEVENT_TYPE} eventType Type: <b><a href="https://docs.microsoft.com/windows/win32/api/searchapi/ne-searchapi-rowsetevent_type">ROWSETEVENT_TYPE</a></b>
      * 
      * The event triggering the notification as the <a href="https://docs.microsoft.com/windows/win32/api/searchapi/ne-searchapi-rowsetevent_type">ROWSETEVENT_TYPE</a> enumeration.
      * @param {Pointer<PROPVARIANT>} eventData Type: <b>REFPROPVARIANT</b>

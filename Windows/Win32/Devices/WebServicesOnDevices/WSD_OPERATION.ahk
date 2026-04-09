@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\WSDXML_TYPE.ahk
 
 /**
  * Describes an operation as defined by WSDL in terms of one or two messages.
  * @see https://learn.microsoft.com/windows/win32/api/wsdtypes/ns-wsdtypes-wsd_operation
  * @namespace Windows.Win32.Devices.WebServicesOnDevices
- * @version v4.0.30319
  */
-class WSD_OPERATION extends Win32Struct
-{
+class WSD_OPERATION extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

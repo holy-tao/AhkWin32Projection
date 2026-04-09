@@ -5,9 +5,8 @@
  * Specifies the states that a placeholder file can have. Retrieve this value through the System.FilePlaceholderStatus (PKEY_FilePlaceholderStatus) property.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/ne-shobjidl_core-placeholder_states
  * @namespace Windows.Win32.UI.Shell.PropertiesSystem
- * @version v4.0.30319
  */
-class PLACEHOLDER_STATES extends Win32BitflagEnum{
+class PLACEHOLDER_STATES extends Win32BitflagEnum {
 
     /**
      * None of the other states apply at this time.
@@ -34,13 +33,11 @@ class PLACEHOLDER_STATES extends Win32BitflagEnum{
     static PS_CREATE_FILE_ACCESSIBLE => 4
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static PS_CLOUDFILE_PLACEHOLDER => 8
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static PS_DEFAULT => 7

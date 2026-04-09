@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IStream.ahk
 #Include .\IXpsOMResource.ahk
+#Include ..\..\System\Com\IStream.ahk
 
 /**
  * Provides an IStream interface to a font resource.
@@ -57,9 +57,8 @@
  * ```
  * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomfontresource
  * @namespace Windows.Win32.Storage.Xps
- * @version v4.0.30319
  */
-class IXpsOMFontResource extends IXpsOMResource{
+class IXpsOMFontResource extends IXpsOMResource {
 
     static sizeof => A_PtrSize
     /**
@@ -107,7 +106,7 @@ class IXpsOMFontResource extends IXpsOMResource{
      * 
      * Because <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomfontresource-getstream">GetStream</a> gets a clone of  the stream that is set by this method, the provided stream should have an efficient cloning method. A stream with an inefficient cloning method will reduce the performance of <b>GetStream</b>.
      * @param {IStream} sourceStream The read-only stream to be associated with this resource.
-     * @param {Integer} embeddingOption The <a href="https://docs.microsoft.com/windows/win32/api/xpsobjectmodel/ne-xpsobjectmodel-xps_font_embedding">XPS_FONT_EMBEDDING</a> value that describes how the resource is to be obfuscated.
+     * @param {XPS_FONT_EMBEDDING} embeddingOption The <a href="https://docs.microsoft.com/windows/win32/api/xpsobjectmodel/ne-xpsobjectmodel-xps_font_embedding">XPS_FONT_EMBEDDING</a> value that describes how the resource is to be obfuscated.
      * 
      * <table>
      * <tr>
@@ -156,7 +155,7 @@ class IXpsOMFontResource extends IXpsOMResource{
 
     /**
      * Gets the embedding option that will be applied when the resource is serialized.
-     * @returns {Integer} The stream's embedding option.
+     * @returns {XPS_FONT_EMBEDDING} The stream's embedding option.
      * 
      * The <a href="https://docs.microsoft.com/windows/win32/api/xpsobjectmodel/ne-xpsobjectmodel-xps_font_embedding">XPS_FONT_EMBEDDING</a> value describes how the resource is obfuscated. The following possible values are returned in this parameter:
      * 

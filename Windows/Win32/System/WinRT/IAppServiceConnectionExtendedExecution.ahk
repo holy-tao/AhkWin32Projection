@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.WinRT
- * @version v4.0.30319
  */
-class IAppServiceConnectionExtendedExecution extends IUnknown{
+class IAppServiceConnectionExtendedExecution extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

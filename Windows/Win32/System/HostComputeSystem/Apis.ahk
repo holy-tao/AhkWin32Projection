@@ -6,7 +6,6 @@
 
 /**
  * @namespace Windows.Win32.System.HostComputeSystem
- * @version v4.0.30319
  */
 class HostComputeSystem {
 
@@ -51,7 +50,7 @@ class HostComputeSystem {
      * HcsCreateOperation
      * @remarks
      * Refer to the async model sample code for details on how to use HCS operations.
-     * @param {Pointer<Void>} _context 
+     * @param {Pointer<Void>} _context Optional pointer to a context that is passed to the callback.
      * @param {Pointer<HCS_OPERATION_COMPLETION>} callback Optional pointer to an [`HCS_OPERATION_COMPLETION`](./HCS_OPERATION_COMPLETION.md) callback to be invoked when the operation completes.
      * @returns {HCS_OPERATION} Returns the `HCS_OPERATION` handle to the newly created operation on success, `NULL` if resources required for the operation couldn't be allocated. It is the responsibility of the caller to release the operation using [`HcsCloseOperation`](./HcsCloseOperation.md) once it is no longer used.
      * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/HcsCreateOperation
@@ -66,7 +65,7 @@ class HostComputeSystem {
 
     /**
      * 
-     * @param {Integer} eventTypes 
+     * @param {HCS_OPERATION_OPTIONS} eventTypes 
      * @param {Pointer<Void>} _context 
      * @param {Pointer<HCS_EVENT_CALLBACK>} callback 
      * @returns {HCS_OPERATION} 
@@ -107,7 +106,7 @@ class HostComputeSystem {
     /**
      * HcsSetOperationContext
      * @param {HCS_OPERATION} operation The handle to an active operation.
-     * @param {Pointer<Void>} _context 
+     * @param {Pointer<Void>} _context Optional pointer to a context that is passed to the callback.
      * @returns {HRESULT} The function returns [HRESULT](./HCSHResult.md).
      * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/HcsSetOperationContext
      */
@@ -151,7 +150,7 @@ class HostComputeSystem {
     /**
      * HcsGetOperationType
      * @param {HCS_OPERATION} operation The handle to an active operation.
-     * @returns {Integer} If the function succeeds, the return value is [HCS_OPERATION_TYPE](./HCS_OPERATION_TYPE.md).
+     * @returns {HCS_OPERATION_TYPE} If the function succeeds, the return value is [HCS_OPERATION_TYPE](./HCS_OPERATION_TYPE.md).
      * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/HcsGetOperationType
      */
     static HcsGetOperationType(operation) {
@@ -218,7 +217,7 @@ class HostComputeSystem {
     /**
      * 
      * @param {HCS_OPERATION} operation 
-     * @param {Integer} type 
+     * @param {HCS_RESOURCE_TYPE} type 
      * @param {PWSTR} uri 
      * @param {HANDLE} _handle 
      * @returns {HRESULT} 
@@ -291,7 +290,7 @@ class HostComputeSystem {
     /**
      * HcsSetOperationCallback
      * @param {HCS_OPERATION} operation The handle to an active operation.
-     * @param {Pointer<Void>} _context 
+     * @param {Pointer<Void>} _context Optional pointer to a context that is passed to the callback.
      * @param {Pointer<HCS_OPERATION_COMPLETION>} callback The target [`HCS_OPERATION_COMPLETION`](./HCS_OPERATION_COMPLETION.md) callback that is invoked on completion of an operation.
      * @returns {HRESULT} The function returns [HRESULT](./HCSHResult.md).
      * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/HcsSetOperationCallback
@@ -339,7 +338,7 @@ class HostComputeSystem {
      * @param {PWSTR} id Unique Id identifying the compute system.
      * @param {PWSTR} configuration JSON document specifying the settings of the [compute system](./../SchemaReference.md#ComputeSystem). The compute system document is expected to have a `Container`, `VirtualMachine` or `HostedSystem` property set since they are mutually exclusive.
      * @param {HCS_OPERATION} operation The handle to the operation that tracks the create operation.
-     * @param {Pointer<SECURITY_DESCRIPTOR>} _securityDescriptor 
+     * @param {Pointer<SECURITY_DESCRIPTOR>} _securityDescriptor Reserved for future use, must be `NULL`.
      * @returns {HCS_SYSTEM} Receives a handle to the newly created compute system. It is the responsibility of the caller to release the handle using [HcsCloseComputeSystem](./HcsCloseComputeSystem.md) once it is no longer in use.
      * @see https://learn.microsoft.com/virtualization/api/hcs/reference/HcsCreateComputeSystem
      */
@@ -359,7 +358,7 @@ class HostComputeSystem {
      * @param {PWSTR} id 
      * @param {PWSTR} configuration 
      * @param {HCS_OPERATION} operation 
-     * @param {Pointer<Integer>} options 
+     * @param {Pointer<HCS_CREATE_OPTIONS>} options 
      * @returns {HCS_SYSTEM} 
      */
     static HcsCreateComputeSystemInNamespace(idNamespace, id, configuration, operation, options) {
@@ -631,8 +630,8 @@ class HostComputeSystem {
     /**
      * HcsSetComputeSystemCallback
      * @param {HCS_SYSTEM} computeSystem The handle to the compute system.
-     * @param {Integer} callbackOptions The option for callback, using one from [HCS_EVENT_OPTIONS](./HCS_EVENT_OPTIONS.md).
-     * @param {Pointer<Void>} _context 
+     * @param {HCS_EVENT_OPTIONS} callbackOptions The option for callback, using one from [HCS_EVENT_OPTIONS](./HCS_EVENT_OPTIONS.md).
+     * @param {Pointer<Void>} _context Optional pointer to a context that is passed to the callback.
      * @param {Pointer<HCS_EVENT_CALLBACK>} callback The target [`HCS_EVENT_CALLBACK`](./HCS_EVENT_CALLBACK.md) for compute system events.
      * @returns {HRESULT} The function returns [HRESULT](./HCSHResult.md).
      * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/HcsSetComputeSystemCallback
@@ -717,7 +716,7 @@ class HostComputeSystem {
      * @param {HCS_SYSTEM} computeSystem The handle to the compute system in which to start the process.
      * @param {PWSTR} processParameters JSON document of [ProcessParameters](./../SchemaReference.md#ProcessParameters) specifying the command line and environment for the process.
      * @param {HCS_OPERATION} operation Handle to the operation that tracks the process creation operation.
-     * @param {Pointer<SECURITY_DESCRIPTOR>} _securityDescriptor 
+     * @param {Pointer<SECURITY_DESCRIPTOR>} _securityDescriptor Reserved for future use, must be `NULL`.
      * @returns {HCS_PROCESS} Receives the `HCS_PROCESS` handle to the newly created process.
      * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/HcsCreateProcess
      */
@@ -855,8 +854,8 @@ class HostComputeSystem {
     /**
      * HcsSetProcessCallback
      * @param {HCS_PROCESS} process The handle to the process for that the callback is registered.
-     * @param {Integer} callbackOptions The option for callback, using [HCS_EVENT_OPTIONS](./HCS_EVENT_OPTIONS.md).
-     * @param {Pointer<Void>} _context 
+     * @param {HCS_EVENT_OPTIONS} callbackOptions The option for callback, using [HCS_EVENT_OPTIONS](./HCS_EVENT_OPTIONS.md).
+     * @param {Pointer<Void>} _context Optional pointer to a context that is passed to the callback.
      * @param {Pointer<HCS_EVENT_CALLBACK>} callback Callback function that is invoked for events on the process.
      * @returns {HRESULT} The function returns [HRESULT](./HCSHResult.md).
      * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/HcsSetProcessCallback

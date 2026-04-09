@@ -7,9 +7,8 @@
  * Enables interoperability with a WinRT�RadialController object and provides access to RadialController members for customizing the interaction experience.
  * @see https://learn.microsoft.com/windows/win32/api/radialcontrollerinterop/nn-radialcontrollerinterop-iradialcontrollerinterop
  * @namespace Windows.Win32.UI.Input.Radial
- * @version v4.0.30319
  */
-class IRadialControllerInterop extends IInspectable{
+class IRadialControllerInterop extends IInspectable {
 
     static sizeof => A_PtrSize
     /**
@@ -32,7 +31,7 @@ class IRadialControllerInterop extends IInspectable{
 
     /**
      * Instantiates a RadialController object and binds it to the active application.
-     * @param {HWND} _hwnd 
+     * @param {HWND} _hwnd Handle to the window of the active application.
      * @param {Pointer<Guid>} riid The GUID for the resource interface.
      * 
      * The REFIID, or GUID, of the interface to the resource can be obtained by using the __uuidof() macro. For example, __uuidof(IRadialController) will get the GUID of the interface to a buffer resource.

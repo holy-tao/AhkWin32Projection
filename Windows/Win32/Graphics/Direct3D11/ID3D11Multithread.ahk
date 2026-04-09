@@ -14,9 +14,8 @@
  * By default in D3D11, applications can only use one thread with the immediate context at a time. But, applications can use this interface to change that restriction. The interface can turn on threading protection for the immediate context, which will increase the overhead of each immediate context call in order to share one context with multiple threads.
  * @see https://learn.microsoft.com/windows/win32/api/d3d11_4/nn-d3d11_4-id3d11multithread
  * @namespace Windows.Win32.Graphics.Direct3D11
- * @version v4.0.30319
  */
-class ID3D11Multithread extends IUnknown{
+class ID3D11Multithread extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

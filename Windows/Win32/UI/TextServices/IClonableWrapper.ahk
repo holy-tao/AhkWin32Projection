@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.UI.TextServices
- * @version v4.0.30319
  */
-class IClonableWrapper extends IUnknown{
+class IClonableWrapper extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

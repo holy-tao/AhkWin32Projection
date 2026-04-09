@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.WindowsProgramming
- * @version v4.0.30319
  */
-class SYSTEM_REGISTRY_QUOTA_INFORMATION extends Win32Struct
-{
+class SYSTEM_REGISTRY_QUOTA_INFORMATION extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

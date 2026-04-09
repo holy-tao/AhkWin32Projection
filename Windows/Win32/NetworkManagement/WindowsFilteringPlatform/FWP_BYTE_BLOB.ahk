@@ -5,10 +5,8 @@
  * Stores an array containing a variable number of bytes.
  * @see https://learn.microsoft.com/windows/win32/api/fwptypes/ns-fwptypes-fwp_byte_blob
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
- * @version v4.0.30319
  */
-class FWP_BYTE_BLOB extends Win32Struct
-{
+class FWP_BYTE_BLOB extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

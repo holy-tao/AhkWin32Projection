@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\IAudioMediaType.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
+#Include .\IAudioMediaType.ahk
 
 /**
  * System Effects Audio Processing Objects (sAPOs) are typically used in or called from real-time process threads.
  * @see https://learn.microsoft.com/windows/win32/api/audioenginebaseapo/nn-audioenginebaseapo-iaudioprocessingobject
  * @namespace Windows.Win32.Media.Audio.Apo
- * @version v4.0.30319
  */
-class IAudioProcessingObject extends IUnknown{
+class IAudioProcessingObject extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

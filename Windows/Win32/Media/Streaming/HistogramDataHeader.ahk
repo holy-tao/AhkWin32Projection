@@ -5,10 +5,8 @@
  * The HistogramDataHeader structure describes the blob format for the MF_CAPTURE_METADATA_HISTOGRAM attribute.
  * @see https://learn.microsoft.com/windows/win32/api/mfapi/ns-mfapi-histogramdataheader
  * @namespace Windows.Win32.Media.Streaming
- * @version v4.0.30319
  */
-class HistogramDataHeader extends Win32Struct
-{
+class HistogramDataHeader extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4

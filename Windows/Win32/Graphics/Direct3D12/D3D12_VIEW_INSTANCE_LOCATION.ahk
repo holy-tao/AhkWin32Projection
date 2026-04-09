@@ -9,10 +9,8 @@
  * For shaders that dynamically select the viewport or render target indices, an application can set all the view instance locations declared in a PSO to the same value to act as a uniform base value for all views.
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_view_instance_location
  * @namespace Windows.Win32.Graphics.Direct3D12
- * @version v4.0.30319
  */
-class D3D12_VIEW_INSTANCE_LOCATION extends Win32Struct
-{
+class D3D12_VIEW_INSTANCE_LOCATION extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4

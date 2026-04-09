@@ -3,16 +3,14 @@
 
 /**
  * @namespace Windows.Win32.System.MixedReality
- * @version v4.0.30319
  */
-class PERCEPTION_PAYLOAD_FIELD extends Win32Struct
-{
+class PERCEPTION_PAYLOAD_FIELD extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     FieldId {
         get => NumGet(this, 0, "ptr")

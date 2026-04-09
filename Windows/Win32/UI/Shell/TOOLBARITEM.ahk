@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\IDockingWindow.ahk
 #Include ..\..\Foundation\RECT.ahk
 #Include ..\..\Graphics\Gdi\HMONITOR.ahk
 
@@ -7,10 +8,8 @@
  * Deprecated. Data used in IBrowserService2::_GetToolbarItem, IBrowserService2::v_MayGetNextToolbarFocus, and IBrowserService2::_SetFocus to define a toolbar item.
  * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/ns-shdeprecated-toolbaritem
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class TOOLBARITEM extends Win32Struct
-{
+class TOOLBARITEM extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -32,7 +31,7 @@ class TOOLBARITEM extends Win32Struct
      * A <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/cc136564(v=vs.85)">BORDERWIDTHS</a> structure that contains the dimensions of the item, including its borders.
      * @type {RECT}
      */
-    rcBorderTool{
+    rcBorderTool {
         get {
             if(!this.HasProp("__rcBorderTool"))
                 this.__rcBorderTool := RECT(8, this)
@@ -68,7 +67,7 @@ class TOOLBARITEM extends Win32Struct
      * The handle of the monitor on which the toolbar item appears.
      * @type {HMONITOR}
      */
-    hMon{
+    hMon {
         get {
             if(!this.HasProp("__hMon"))
                 this.__hMon := HMONITOR(40, this)

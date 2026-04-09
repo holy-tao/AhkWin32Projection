@@ -5,9 +5,8 @@
  * BLUETOOTH_IO_CAPABILITY enumeration defines the input/output capabilities of a Bluetooth Device.
  * @see https://learn.microsoft.com/windows/win32/api/bluetoothapis/ne-bluetoothapis-bluetooth_io_capability
  * @namespace Windows.Win32.Devices.Bluetooth
- * @version v4.0.30319
  */
-class BLUETOOTH_IO_CAPABILITY extends Win32Enum{
+class BLUETOOTH_IO_CAPABILITY extends Win32Enum {
 
     /**
      * The Bluetooth device is capable of output via display only.

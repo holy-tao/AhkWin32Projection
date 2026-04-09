@@ -3,13 +3,10 @@
 
 /**
  * Specifies the type of an IORING_HANDLE_REF structure.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/ioringapi/ne-ioringapi-ioring_ref_kind
  * @namespace Windows.Win32.Storage.FileSystem
- * @version v4.0.30319
  */
-class IORING_REF_KIND extends Win32Enum{
+class IORING_REF_KIND extends Win32Enum {
 
     /**
      * The referenced buffer is raw.

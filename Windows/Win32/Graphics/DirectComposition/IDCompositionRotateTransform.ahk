@@ -13,9 +13,8 @@
  * The effect is to rotate the coordinate system clockwise or counter-clockwise, and to apply the corresponding translation such that the center point does not move.
  * @see https://learn.microsoft.com/windows/win32/api/dcomp/nn-dcomp-idcompositionrotatetransform
  * @namespace Windows.Win32.Graphics.DirectComposition
- * @version v4.0.30319
  */
-class IDCompositionRotateTransform extends IDCompositionTransform{
+class IDCompositionRotateTransform extends IDCompositionTransform {
 
     static sizeof => A_PtrSize
     /**

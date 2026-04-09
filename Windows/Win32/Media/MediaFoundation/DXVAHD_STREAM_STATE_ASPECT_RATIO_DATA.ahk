@@ -10,10 +10,8 @@
  * If the <b>Enable</b> member is <b>FALSE</b>, the device ignores the values of <b>SourceAspectRatio</b> and <b>DestinationAspectRatio</b>.
  * @see https://learn.microsoft.com/windows/win32/api/dxvahd/ns-dxvahd-dxvahd_stream_state_aspect_ratio_data
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class DXVAHD_STREAM_STATE_ASPECT_RATIO_DATA extends Win32Struct
-{
+class DXVAHD_STREAM_STATE_ASPECT_RATIO_DATA extends Win32Struct {
     static sizeof => 20
 
     static packingSize => 4
@@ -31,7 +29,7 @@ class DXVAHD_STREAM_STATE_ASPECT_RATIO_DATA extends Win32Struct
      * A <a href="https://docs.microsoft.com/windows/desktop/api/dxvahd/ns-dxvahd-dxvahd_rational">DXVAHD_RATIONAL</a> structure that contains the source PAR. The default state value is 1:1 (square pixels).
      * @type {DXVAHD_RATIONAL}
      */
-    SourceAspectRatio{
+    SourceAspectRatio {
         get {
             if(!this.HasProp("__SourceAspectRatio"))
                 this.__SourceAspectRatio := DXVAHD_RATIONAL(4, this)
@@ -43,7 +41,7 @@ class DXVAHD_STREAM_STATE_ASPECT_RATIO_DATA extends Win32Struct
      * A <a href="https://docs.microsoft.com/windows/desktop/api/dxvahd/ns-dxvahd-dxvahd_rational">DXVAHD_RATIONAL</a> structure that contains the destination PAR. The default state value is 1:1 (square pixels).
      * @type {DXVAHD_RATIONAL}
      */
-    DestinationAspectRatio{
+    DestinationAspectRatio {
         get {
             if(!this.HasProp("__DestinationAspectRatio"))
                 this.__DestinationAspectRatio := DXVAHD_RATIONAL(12, this)

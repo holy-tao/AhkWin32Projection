@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\JOYREGHWSETTINGS.ahk
-#Include .\JOYPOS.ahk
-#Include .\JOYRANGE.ahk
-#Include .\JOYREGHWVALUES.ahk
 #Include .\JOYREGHWCONFIG.ahk
+#Include .\JOYREGHWSETTINGS.ahk
+#Include .\JOYREGHWVALUES.ahk
+#Include .\JOYRANGE.ahk
+#Include .\JOYPOS.ahk
 
 /**
  * The DIJOYCONFIG structure contains information about a joystick's configuration.
@@ -12,10 +12,8 @@
  * WDM gameports can be found during enumeration by calling <a href="https://docs.microsoft.com/windows/desktop/api/dinputd/nf-dinputd-idirectinputjoyconfig8-gettypeinfo">IDirectInputJoyConfig8::GetTypeInfo</a> method for an enumerated joystick, then studying the flags present in the <b>dwFlags</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/dinputd/ns-dinputd-dijoytypeinfo">DIJOYTYPEINFO</a> structure. If the JOY_HWS_ISGAMEPORTBUS flag is set, the currently enumerated object is an available WDM gameport.
  * @see https://learn.microsoft.com/windows/win32/api/dinputd/ns-dinputd-dijoyconfig
  * @namespace Windows.Win32.Devices.HumanInterfaceDevice
- * @version v4.0.30319
  */
-class DIJOYCONFIG extends Win32Struct
-{
+class DIJOYCONFIG extends Win32Struct {
     static sizeof => 1168
 
     static packingSize => 8
@@ -31,7 +29,7 @@ class DIJOYCONFIG extends Win32Struct
 
     /**
      * Specifies the instance GUID for the joystick.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     guidInstance {
         get => NumGet(this, 8, "ptr")
@@ -42,7 +40,7 @@ class DIJOYCONFIG extends Win32Struct
      * Joystick hardware configuration.
      * @type {JOYREGHWCONFIG}
      */
-    hwc{
+    hwc {
         get {
             if(!this.HasProp("__hwc"))
                 this.__hwc := JOYREGHWCONFIG(16, this)
@@ -79,7 +77,7 @@ class DIJOYCONFIG extends Win32Struct
 
     /**
      * Specifies a GUID that identifies the gameport being used for this joystick.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     guidGameport {
         get => NumGet(this, 1160, "ptr")

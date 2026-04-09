@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
 #Include .\IAppxBundleWriter.ahk
 #Include .\IAppxBundleReader.ahk
 #Include .\IAppxBundleManifestReader.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
  * Creates objects for reading and writing bundle packages.
@@ -14,9 +14,8 @@
  * The <b>IAppxBundleFactory</b> interface is the main entry point to the Appx Bundle APIs.
  * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nn-appxpackaging-iappxbundlefactory
  * @namespace Windows.Win32.Storage.Packaging.Appx
- * @version v4.0.30319
  */
-class IAppxBundleFactory extends IUnknown{
+class IAppxBundleFactory extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

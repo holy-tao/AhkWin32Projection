@@ -5,10 +5,8 @@
  * Contains partition information specific to master boot record (MBR) disks.
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-partition_information_mbr
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class PARTITION_INFORMATION_MBR extends Win32Struct
-{
+class PARTITION_INFORMATION_MBR extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
@@ -53,8 +51,7 @@ class PARTITION_INFORMATION_MBR extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     PartitionId {
         get => NumGet(this, 8, "ptr")

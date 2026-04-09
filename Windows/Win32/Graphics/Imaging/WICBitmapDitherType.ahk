@@ -5,9 +5,8 @@
  * Specifies the type of dither algorithm to apply when converting between image formats.
  * @see https://learn.microsoft.com/windows/win32/api/wincodec/ne-wincodec-wicbitmapdithertype
  * @namespace Windows.Win32.Graphics.Imaging
- * @version v4.0.30319
  */
-class WICBitmapDitherType extends Win32Enum{
+class WICBitmapDitherType extends Win32Enum {
 
     /**
      * A solid color algorithm without dither.

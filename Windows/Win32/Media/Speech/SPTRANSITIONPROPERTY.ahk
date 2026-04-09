@@ -1,16 +1,19 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
+#Include ..\..\System\Variant\VARENUM.ahk
 #Include ..\..\System\Com\CY.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\System\Com\SAFEARRAY.ahk
 #Include ..\..\Foundation\DECIMAL.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
+#Include ..\..\System\Ole\IRecordInfo.ahk
 
 /**
  * @namespace Windows.Win32.Media.Speech
- * @version v4.0.30319
  */
-class SPTRANSITIONPROPERTY extends Win32Struct
-{
+class SPTRANSITIONPROPERTY extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -42,7 +45,7 @@ class SPTRANSITIONPROPERTY extends Win32Struct
     /**
      * @type {VARIANT}
      */
-    vValue{
+    vValue {
         get {
             if(!this.HasProp("__vValue"))
                 this.__vValue := VARIANT(24, this)

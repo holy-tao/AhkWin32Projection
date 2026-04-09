@@ -7,9 +7,8 @@
  * Represents a frame of video data.
  * @see https://learn.microsoft.com/windows/win32/api/windows.media.core.interop/nn-windows-media-core-interop-ivideoframenative
  * @namespace Windows.Win32.System.WinRT.Media
- * @version v4.0.30319
  */
-class IVideoFrameNative extends IInspectable{
+class IVideoFrameNative extends IInspectable {
 
     static sizeof => A_PtrSize
     /**

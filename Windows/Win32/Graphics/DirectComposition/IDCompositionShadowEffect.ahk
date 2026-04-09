@@ -7,9 +7,8 @@
  * The shadow effect is used to generate a shadow from the alpha channel of an image. The shadow is more opaque for higher alpha values and more transparent for lower alpha values. You can set the amount of blur and the color of the shadow.
  * @see https://learn.microsoft.com/windows/win32/api/dcomp/nn-dcomp-idcompositionshadoweffect
  * @namespace Windows.Win32.Graphics.DirectComposition
- * @version v4.0.30319
  */
-class IDCompositionShadowEffect extends IDCompositionFilterEffect{
+class IDCompositionShadowEffect extends IDCompositionFilterEffect {
 
     static sizeof => A_PtrSize
     /**
@@ -61,7 +60,9 @@ class IDCompositionShadowEffect extends IDCompositionFilterEffect{
 
     /**
      * Sets color of the shadow.
-     * @param {Pointer<D2D_VECTOR_4F>} _color 
+     * @param {Pointer<D2D_VECTOR_4F>} _color Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/dcommon/ns-dcommon-d2d_vector_4f">D2D1_VECTOR_4F</a></b>
+     * 
+     * The color of the shadow.
      * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
      * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.

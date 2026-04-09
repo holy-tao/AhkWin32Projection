@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ITfLangBarItem.ahk
 #Include ..\..\Foundation\SIZE.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include .\ITfLangBarItem.ahk
 
 /**
  * The ITfLangBarItemBitmapButton interface is implemented by a language bar bitmap button provider and is used by the language bar manager to obtain information specific to a bitmap button item on the language bar.
@@ -11,9 +11,8 @@
  * A language bar bitmap button functions as a button item on the language bar that displays text and a small bitmap. The bitmap displayed for the item should not be larger than the size of a small icon. Obtain these dimensions by calling <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getsystemmetrics">GetSystemMetrics</a> with SM_CXSMICON for the width and SM_CYSMICON for the height.
  * @see https://learn.microsoft.com/windows/win32/api/ctfutb/nn-ctfutb-itflangbaritembitmapbutton
  * @namespace Windows.Win32.UI.TextServices
- * @version v4.0.30319
  */
-class ITfLangBarItemBitmapButton extends ITfLangBarItem{
+class ITfLangBarItemBitmapButton extends ITfLangBarItem {
 
     static sizeof => A_PtrSize
     /**
@@ -36,7 +35,7 @@ class ITfLangBarItemBitmapButton extends ITfLangBarItem{
 
     /**
      * This method is not used if the button item does not have the TF_LBI_STYLE_BTN_BUTTON style. (ITfLangBarItemBitmapButton.OnClick)
-     * @param {Integer} click Contains a <a href="https://docs.microsoft.com/windows/win32/api/ctfutb/ne-ctfutb-tflbiclick">TfLBIClick</a> value that indicates which mouse button was used to click the button.
+     * @param {TfLBIClick} click Contains a <a href="https://docs.microsoft.com/windows/win32/api/ctfutb/ne-ctfutb-tflbiclick">TfLBIClick</a> value that indicates which mouse button was used to click the button.
      * @param {POINT} pt Pointer to a <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a> structure that contains the position, in screen coordinates, of the mouse cursor at the time of the click event.
      * @param {Pointer<RECT>} prcArea Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure that contains the bounding rectangle, in screen coordinates, of the button.
      * @returns {HRESULT} This method can return one of these values.

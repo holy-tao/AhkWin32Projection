@@ -9,9 +9,8 @@
  * A resource interface cannot be created directly; instead, <a href="https://docs.microsoft.com/windows/desktop/direct3d10/d3d10-graphics-programming-guide-resources-types">buffers</a> and textures are created that inherit from a resource interface (see <a href="https://docs.microsoft.com/windows/desktop/direct3d10/d3d10-graphics-programming-guide-resources-creating">Creating Buffer Resources</a> or <a href="https://docs.microsoft.com/windows/desktop/direct3d10/d3d10-graphics-programming-guide-resources-creating-textures">Creating Texture Resources</a>).
  * @see https://learn.microsoft.com/windows/win32/api/d3d10/nn-d3d10-id3d10resource
  * @namespace Windows.Win32.Graphics.Direct3D10
- * @version v4.0.30319
  */
-class ID3D10Resource extends ID3D10DeviceChild{
+class ID3D10Resource extends ID3D10DeviceChild {
 
     static sizeof => A_PtrSize
     /**
@@ -34,7 +33,7 @@ class ID3D10Resource extends ID3D10DeviceChild{
 
     /**
      * Get the type of the resource. (ID3D10Resource.GetType)
-     * @param {Pointer<Integer>} rType Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ne-d3d10-d3d10_resource_dimension">D3D10_RESOURCE_DIMENSION</a>*</b>
+     * @param {Pointer<D3D10_RESOURCE_DIMENSION>} rType Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ne-d3d10-d3d10_resource_dimension">D3D10_RESOURCE_DIMENSION</a>*</b>
      * 
      * Pointer to the resource type (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ne-d3d10-d3d10_resource_dimension">D3D10_RESOURCE_DIMENSION</a>).
      * @returns {String} Nothing - always returns an empty string

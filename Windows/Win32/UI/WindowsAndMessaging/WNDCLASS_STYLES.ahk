@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.UI.WindowsAndMessaging
- * @version v4.0.30319
  */
-class WNDCLASS_STYLES extends Win32BitflagEnum{
+class WNDCLASS_STYLES extends Win32BitflagEnum {
 
     /**
      * @type {Integer (UInt32)}

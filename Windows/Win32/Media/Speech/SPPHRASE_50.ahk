@@ -1,13 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\SPPHRASERULE.ahk
+#Include .\SPPHRASEPROPERTY.ahk
+#Include .\SPPHRASEELEMENT.ahk
+#Include .\SPPHRASEREPLACEMENT.ahk
 
 /**
  * @namespace Windows.Win32.Media.Speech
- * @version v4.0.30319
  */
-class SPPHRASE_50 extends Win32Struct
-{
+class SPPHRASE_50 extends Win32Struct {
     static sizeof => 152
 
     static packingSize => 8
@@ -87,7 +88,7 @@ class SPPHRASE_50 extends Win32Struct
     /**
      * @type {SPPHRASERULE}
      */
-    Rule{
+    Rule {
         get {
             if(!this.HasProp("__Rule"))
                 this.__Rule := SPPHRASERULE(48, this)
@@ -128,7 +129,7 @@ class SPPHRASE_50 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     SREngineID {
         get => NumGet(this, 128, "ptr")

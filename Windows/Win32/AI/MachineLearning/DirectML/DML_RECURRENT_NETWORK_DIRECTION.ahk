@@ -5,9 +5,8 @@
  * Defines constants that specify a direction for a recurrent DirectML operator.
  * @see https://learn.microsoft.com/windows/win32/api/directml/ne-directml-dml_recurrent_network_direction
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
- * @version v4.0.30319
  */
-class DML_RECURRENT_NETWORK_DIRECTION extends Win32Enum{
+class DML_RECURRENT_NETWORK_DIRECTION extends Win32Enum {
 
     /**
      * Indicates the forward pass.

@@ -1,13 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\DOT11_BSS_ENTRY_PHY_SPECIFIC_INFO.ahk
+#Include .\DOT11_BSS_TYPE.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
- * @version v4.0.30319
  */
-class DOT11_BSS_ENTRY extends Win32Struct
-{
+class DOT11_BSS_ENTRY extends Win32Struct {
     static sizeof => 80
 
     static packingSize => 8
@@ -23,7 +22,7 @@ class DOT11_BSS_ENTRY extends Win32Struct
     /**
      * @type {DOT11_BSS_ENTRY_PHY_SPECIFIC_INFO}
      */
-    PhySpecificInfo{
+    PhySpecificInfo {
         get {
             if(!this.HasProp("__PhySpecificInfo"))
                 this.__PhySpecificInfo := DOT11_BSS_ENTRY_PHY_SPECIFIC_INFO(4, this)
@@ -32,9 +31,9 @@ class DOT11_BSS_ENTRY extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    dot11BSSID{
+    dot11BSSID {
         get {
             if(!this.HasProp("__dot11BSSIDProxyArray"))
                 this.__dot11BSSIDProxyArray := Win32FixedArray(this.ptr + 20, 6, Primitive, "char")
@@ -43,7 +42,7 @@ class DOT11_BSS_ENTRY extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {DOT11_BSS_TYPE}
      */
     dot11BSSType {
         get => NumGet(this, 28, "int")
@@ -115,9 +114,9 @@ class DOT11_BSS_ENTRY extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    ucBuffer{
+    ucBuffer {
         get {
             if(!this.HasProp("__ucBufferProxyArray"))
                 this.__ucBufferProxyArray := Win32FixedArray(this.ptr + 72, 1, Primitive, "char")

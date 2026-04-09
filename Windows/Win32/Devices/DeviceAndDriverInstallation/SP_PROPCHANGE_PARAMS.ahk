@@ -1,15 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\SP_CLASSINSTALL_HEADER.ahk
+#Include .\DI_FUNCTION.ahk
+#Include .\SETUP_DI_STATE_CHANGE.ahk
+#Include .\SETUP_DI_PROPERTY_CHANGE_SCOPE.ahk
 
 /**
  * An SP_PROPCHANGE_PARAMS structure corresponds to a DIF_PROPERTYCHANGE installation request.
  * @see https://learn.microsoft.com/windows/win32/api/setupapi/ns-setupapi-sp_propchange_params
  * @namespace Windows.Win32.Devices.DeviceAndDriverInstallation
- * @version v4.0.30319
+ * @architecture X64, Arm64
  */
-class SP_PROPCHANGE_PARAMS extends Win32Struct
-{
+class SP_PROPCHANGE_PARAMS extends Win32Struct {
     static sizeof => 20
 
     static packingSize => 4
@@ -18,7 +20,7 @@ class SP_PROPCHANGE_PARAMS extends Win32Struct
      * An install request header that contains the header size and the DIF code for the request. See <a href="https://docs.microsoft.com/windows/desktop/api/setupapi/ns-setupapi-sp_classinstall_header">SP_CLASSINSTALL_HEADER</a>.
      * @type {SP_CLASSINSTALL_HEADER}
      */
-    ClassInstallHeader{
+    ClassInstallHeader {
         get {
             if(!this.HasProp("__ClassInstallHeader"))
                 this.__ClassInstallHeader := SP_CLASSINSTALL_HEADER(0, this)
@@ -27,8 +29,7 @@ class SP_PROPCHANGE_PARAMS extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Integer}
+     * @type {SETUP_DI_STATE_CHANGE}
      */
     StateChange {
         get => NumGet(this, 8, "uint")
@@ -37,7 +38,7 @@ class SP_PROPCHANGE_PARAMS extends Win32Struct
 
     /**
      * Flags that specify the scope of a device property change. Can be one of the following:
-     * @type {Integer}
+     * @type {SETUP_DI_PROPERTY_CHANGE_SCOPE}
      */
     Scope {
         get => NumGet(this, 12, "uint")

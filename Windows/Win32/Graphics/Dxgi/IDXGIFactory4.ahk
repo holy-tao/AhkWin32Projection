@@ -7,9 +7,8 @@
  * Enables creating Microsoft DirectX Graphics Infrastructure (DXGI) objects. (IDXGIFactory4)
  * @see https://learn.microsoft.com/windows/win32/api/dxgi1_4/nn-dxgi1_4-idxgifactory4
  * @namespace Windows.Win32.Graphics.Dxgi
- * @version v4.0.30319
  */
-class IDXGIFactory4 extends IDXGIFactory3{
+class IDXGIFactory4 extends IDXGIFactory3 {
 
     static sizeof => A_PtrSize
     /**

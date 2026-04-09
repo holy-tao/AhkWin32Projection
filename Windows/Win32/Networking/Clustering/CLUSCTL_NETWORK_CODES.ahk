@@ -5,9 +5,8 @@
  * The CLUSCTL_NETWORK_CODES enumeration (msclus.h) enumerates network control codes.
  * @see https://learn.microsoft.com/windows/win32/api/msclus/ne-msclus-clusctl_network_codes
  * @namespace Windows.Win32.Networking.Clustering
- * @version v4.0.30319
  */
-class CLUSCTL_NETWORK_CODES extends Win32Enum{
+class CLUSCTL_NETWORK_CODES extends Win32Enum {
 
     /**
      * See <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/clusctl-network-unknown">CLUSCTL_NETWORK_UNKNOWN</a>.

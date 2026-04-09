@@ -6,10 +6,8 @@
  * Represents an extended parameter for a function that manages virtual memory.
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-mem_extended_parameter
  * @namespace Windows.Win32.System.Memory
- * @version v4.0.30319
  */
-class MEM_EXTENDED_PARAMETER extends Win32Struct
-{
+class MEM_EXTENDED_PARAMETER extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -60,7 +58,7 @@ class MEM_EXTENDED_PARAMETER extends Win32Struct
     /**
      * @type {HANDLE}
      */
-    Handle{
+    Handle {
         get {
             if(!this.HasProp("__Handle"))
                 this.__Handle := HANDLE(8, this)

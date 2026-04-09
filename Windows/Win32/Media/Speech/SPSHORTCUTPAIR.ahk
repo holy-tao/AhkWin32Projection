@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\SPSHORTCUTPAIR.ahk
+#Include .\SPSHORTCUTTYPE.ahk
 
 /**
  * @namespace Windows.Win32.Media.Speech
- * @version v4.0.30319
  */
-class SPSHORTCUTPAIR extends Win32Struct
-{
+class SPSHORTCUTPAIR extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -28,7 +28,7 @@ class SPSHORTCUTPAIR extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {SPSHORTCUTTYPE}
      */
     shType {
         get => NumGet(this, 12, "int")

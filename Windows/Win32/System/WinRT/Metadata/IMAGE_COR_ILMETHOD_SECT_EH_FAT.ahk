@@ -2,21 +2,20 @@
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include .\IMAGE_COR_ILMETHOD_SECT_FAT.ahk
 #Include .\IMAGE_COR_ILMETHOD_SECT_EH_CLAUSE_FAT.ahk
+#Include .\CorExceptionFlag.ahk
 
 /**
  * @namespace Windows.Win32.System.WinRT.Metadata
- * @version v4.0.30319
  */
-class IMAGE_COR_ILMETHOD_SECT_EH_FAT extends Win32Struct
-{
-    static sizeof => 16
+class IMAGE_COR_ILMETHOD_SECT_EH_FAT extends Win32Struct {
+    static sizeof => 28
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {IMAGE_COR_ILMETHOD_SECT_FAT}
      */
-    SectFat{
+    SectFat {
         get {
             if(!this.HasProp("__SectFat"))
                 this.__SectFat := IMAGE_COR_ILMETHOD_SECT_FAT(0, this)
@@ -25,12 +24,12 @@ class IMAGE_COR_ILMETHOD_SECT_EH_FAT extends Win32Struct
     }
 
     /**
-     * @type {Array<IMAGE_COR_ILMETHOD_SECT_EH_CLAUSE_FAT>}
+     * @type {IMAGE_COR_ILMETHOD_SECT_EH_CLAUSE_FAT}
      */
-    Clauses{
+    Clauses {
         get {
             if(!this.HasProp("__ClausesProxyArray"))
-                this.__ClausesProxyArray := Win32FixedArray(this.ptr + 8, 1, IMAGE_COR_ILMETHOD_SECT_EH_CLAUSE_FAT, "")
+                this.__ClausesProxyArray := Win32FixedArray(this.ptr + 4, 1, IMAGE_COR_ILMETHOD_SECT_EH_CLAUSE_FAT, "")
             return this.__ClausesProxyArray
         }
     }

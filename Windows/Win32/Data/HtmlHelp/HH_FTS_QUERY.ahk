@@ -5,10 +5,8 @@
  * Use this structure for full-text search.
  * @see https://learn.microsoft.com/windows/win32/api/htmlhelp/ns-htmlhelp-hh_fts_query
  * @namespace Windows.Win32.Data.HtmlHelp
- * @version v4.0.30319
  */
-class HH_FTS_QUERY extends Win32Struct
-{
+class HH_FTS_QUERY extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8

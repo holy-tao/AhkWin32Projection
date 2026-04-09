@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\Foundation\RECT.ahk
 #Include .\IShellItemArray.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * . (IDesktopWallpaper)
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-idesktopwallpaper
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IDesktopWallpaper extends IUnknown{
+class IDesktopWallpaper extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -111,7 +110,7 @@ class IDesktopWallpaper extends IUnknown{
 
     /**
      * Sets the color that is visible on the desktop when no image is displayed or when the desktop background has been disabled. This color is also used as a border when the desktop wallpaper does not fill the entire screen.
-     * @param {COLORREF} _color 
+     * @param {COLORREF} _color A <a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a> value that specifies the background RGB color value.
      * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-idesktopwallpaper-setbackgroundcolor
      */
@@ -122,7 +121,7 @@ class IDesktopWallpaper extends IUnknown{
 
     /**
      * Retrieves the color that is visible on the desktop when no image is displayed or when the desktop background has been disabled. This color is also used as a border when the desktop wallpaper does not fill the entire screen.
-     * @returns {COLORREF} 
+     * @returns {COLORREF} A pointer to a <a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a> value that, when this method returns successfully, receives the RGB color value. If this method fails, this value is set to 0.
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-idesktopwallpaper-getbackgroundcolor
      */
     GetBackgroundColor() {
@@ -132,7 +131,7 @@ class IDesktopWallpaper extends IUnknown{
 
     /**
      * Sets the display option for the desktop wallpaper image, determining whether the image should be centered, tiled, or stretched.
-     * @param {Integer} position One of the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-desktop_wallpaper_position">DESKTOP_WALLPAPER_POSITION</a> enumeration values that specify how the image will be displayed on the system's monitors.
+     * @param {DESKTOP_WALLPAPER_POSITION} position One of the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-desktop_wallpaper_position">DESKTOP_WALLPAPER_POSITION</a> enumeration values that specify how the image will be displayed on the system's monitors.
      * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code, including the following.
      * 
      * <table>
@@ -161,7 +160,7 @@ class IDesktopWallpaper extends IUnknown{
 
     /**
      * Retrieves the current display value for the desktop background image.
-     * @returns {Integer} A pointer to a value that, when this method returns successfully, receives one of the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-desktop_wallpaper_position">DESKTOP_WALLPAPER_POSITION</a> enumeration values that specify how the image is being displayed on the system's monitors.
+     * @returns {DESKTOP_WALLPAPER_POSITION} A pointer to a value that, when this method returns successfully, receives one of the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-desktop_wallpaper_position">DESKTOP_WALLPAPER_POSITION</a> enumeration values that specify how the image is being displayed on the system's monitors.
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-idesktopwallpaper-getposition
      */
     GetPosition() {
@@ -192,7 +191,7 @@ class IDesktopWallpaper extends IUnknown{
 
     /**
      * Sets the desktop wallpaper slideshow settings for shuffle and timing.
-     * @param {Integer} options Set to either 0 to disable shuffle or the following value.
+     * @param {DESKTOP_SLIDESHOW_OPTIONS} options Set to either 0 to disable shuffle or the following value.
      * @param {Integer} slideshowTick The amount of time, in milliseconds, between image transitions.
      * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-idesktopwallpaper-setslideshowoptions
@@ -204,7 +203,7 @@ class IDesktopWallpaper extends IUnknown{
 
     /**
      * Gets the current desktop wallpaper slideshow settings for shuffle and timing.
-     * @param {Pointer<Integer>} options Type: <b>DESKTOP_SLIDESHOW_OPTIONS*</b>
+     * @param {Pointer<DESKTOP_SLIDESHOW_OPTIONS>} options Type: <b>DESKTOP_SLIDESHOW_OPTIONS*</b>
      * 
      * A pointer to a value that, when this method returns successfully, receives either 0 to indicate that shuffle is disabled or the following value.
      * @param {Pointer<Integer>} slideshowTick Type: <b>UINT*</b>
@@ -244,7 +243,7 @@ class IDesktopWallpaper extends IUnknown{
     /**
      * Switches the wallpaper on a specified monitor to the next image in the slideshow.
      * @param {PWSTR} monitorID The ID of the monitor on which to change the wallpaper image. This ID can be obtained through the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-idesktopwallpaper-getmonitordevicepathat">GetMonitorDevicePathAt</a> method. If this parameter is set to <b>NULL</b>, the monitor scheduled to change next is used.
-     * @param {Integer} _direction 
+     * @param {DESKTOP_SLIDESHOW_DIRECTION} _direction The direction that the slideshow should advance. One of the following DESKTOP_SLIDESHOW_DIRECTION values:
      * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-idesktopwallpaper-advanceslideshow
      */
@@ -257,7 +256,7 @@ class IDesktopWallpaper extends IUnknown{
 
     /**
      * Gets the current status of the slideshow.
-     * @returns {Integer} A pointer to a DESKTOP_SLIDESHOW_STATE value that, when this method returns successfully, receives one or more of the following flags.
+     * @returns {DESKTOP_SLIDESHOW_STATE} A pointer to a DESKTOP_SLIDESHOW_STATE value that, when this method returns successfully, receives one or more of the following flags.
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-idesktopwallpaper-getstatus
      */
     GetStatus() {

@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.Dvd
- * @version v4.0.30319
  */
-class DVD_STRUCTURE_LIST_ENTRY extends Win32Struct
-{
+class DVD_STRUCTURE_LIST_ENTRY extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 1
@@ -56,9 +54,9 @@ class DVD_STRUCTURE_LIST_ENTRY extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    FormatLength{
+    FormatLength {
         get {
             if(!this.HasProp("__FormatLengthProxyArray"))
                 this.__FormatLengthProxyArray := Win32FixedArray(this.ptr + 2, 2, Primitive, "char")

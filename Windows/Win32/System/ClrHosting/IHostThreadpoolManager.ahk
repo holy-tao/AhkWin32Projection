@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.ClrHosting
- * @version v4.0.30319
  */
-class IHostThreadpoolManager extends IUnknown{
+class IHostThreadpoolManager extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -44,7 +43,7 @@ class IHostThreadpoolManager extends IUnknown{
      * 
      * For more information, see 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms686736(v=vs.85)">ThreadProc</a>.
-     * @param {Pointer<Void>} _Context 
+     * @param {Pointer<Void>} _Context A single parameter value to be passed to the thread function.
      * @param {Integer} Flags 
      * @returns {HRESULT} If the function succeeds, the return value is nonzero.
      * 

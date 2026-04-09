@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Com\IDispatch.ahk
 #Include .\ISchedule.ahk
 #Include ..\Com\IUnknown.ahk
-#Include ..\Com\IDispatch.ahk
 
 /**
  * Manages a collection of Schedule objects.To get this interface, access the IDataCollectorSet::Schedules property.
  * @see https://learn.microsoft.com/windows/win32/api/pla/nn-pla-ischedulecollection
  * @namespace Windows.Win32.System.Performance
- * @version v4.0.30319
  */
-class IScheduleCollection extends IDispatch{
+class IScheduleCollection extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -132,7 +131,7 @@ class IScheduleCollection extends IDispatch{
 
     /**
      * Creates a schedule object.
-     * @returns {ISchedule} 
+     * @returns {ISchedule} An <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nn-pla-ischedule">ISchedule</a> interface that you use to specify when the data collector set runs.
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-ischedulecollection-createschedule
      */
     CreateSchedule() {

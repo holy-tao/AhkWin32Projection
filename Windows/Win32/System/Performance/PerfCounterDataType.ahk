@@ -5,9 +5,8 @@
  * Indicates the content type of a PERF_COUNTER_HEADER block that the PerfQueryCounterData function includes as part of the PERF_DATA_HEADER block that the function produces as output.
  * @see https://learn.microsoft.com/windows/win32/api/perflib/ne-perflib-perfcounterdatatype
  * @namespace Windows.Win32.System.Performance
- * @version v4.0.30319
  */
-class PerfCounterDataType extends Win32Enum{
+class PerfCounterDataType extends Win32Enum {
 
     /**
      * An error occurred when the performance counter value was queried.

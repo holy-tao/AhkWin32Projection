@@ -5,10 +5,8 @@
  * The DWORD_DWORD structure defines a 64-bit integer value.
  * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/ns-dhcpsapi-dword_dword
  * @namespace Windows.Win32.NetworkManagement.Dhcp
- * @version v4.0.30319
  */
-class DWORD_DWORD extends Win32Struct
-{
+class DWORD_DWORD extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4

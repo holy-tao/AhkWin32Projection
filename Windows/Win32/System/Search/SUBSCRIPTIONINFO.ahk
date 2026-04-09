@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\SUBSCRIPTIONSCHEDULE.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\SUBSCRIPTIONTYPE.ahk
 
 /**
  * @namespace Windows.Win32.System.Search
- * @version v4.0.30319
  */
-class SUBSCRIPTIONINFO extends Win32Struct
-{
+class SUBSCRIPTIONINFO extends Win32Struct {
     static sizeof => 104
 
     static packingSize => 8
@@ -29,7 +29,7 @@ class SUBSCRIPTIONINFO extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {SUBSCRIPTIONSCHEDULE}
      */
     schedule {
         get => NumGet(this, 8, "int")
@@ -37,7 +37,7 @@ class SUBSCRIPTIONINFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     customGroupCookie {
         get => NumGet(this, 16, "ptr")
@@ -111,7 +111,7 @@ class SUBSCRIPTIONINFO extends Win32Struct
     /**
      * @type {BSTR}
      */
-    bstrUserName{
+    bstrUserName {
         get {
             if(!this.HasProp("__bstrUserName"))
                 this.__bstrUserName := BSTR(64, this)
@@ -122,7 +122,7 @@ class SUBSCRIPTIONINFO extends Win32Struct
     /**
      * @type {BSTR}
      */
-    bstrPassword{
+    bstrPassword {
         get {
             if(!this.HasProp("__bstrPassword"))
                 this.__bstrPassword := BSTR(72, this)
@@ -133,7 +133,7 @@ class SUBSCRIPTIONINFO extends Win32Struct
     /**
      * @type {BSTR}
      */
-    bstrFriendlyName{
+    bstrFriendlyName {
         get {
             if(!this.HasProp("__bstrFriendlyName"))
                 this.__bstrFriendlyName := BSTR(80, this)
@@ -150,7 +150,7 @@ class SUBSCRIPTIONINFO extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {SUBSCRIPTIONTYPE}
      */
     subType {
         get => NumGet(this, 92, "int")

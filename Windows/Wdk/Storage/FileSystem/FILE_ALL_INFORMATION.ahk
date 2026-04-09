@@ -3,16 +3,14 @@
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem
- * @version v4.0.30319
  */
-class FILE_ALL_INFORMATION extends Win32Struct
-{
+class FILE_ALL_INFORMATION extends Win32Struct {
     static sizeof => 72
 
     static packingSize => 8
 
     /**
-     * @type {Pointer<FILE_BASIC_INFORMATION>}
+     * @type {Pointer}
      */
     BasicInformation {
         get => NumGet(this, 0, "ptr")
@@ -20,7 +18,7 @@ class FILE_ALL_INFORMATION extends Win32Struct
     }
 
     /**
-     * @type {Pointer<FILE_STANDARD_INFORMATION>}
+     * @type {Pointer}
      */
     StandardInformation {
         get => NumGet(this, 8, "ptr")
@@ -28,7 +26,7 @@ class FILE_ALL_INFORMATION extends Win32Struct
     }
 
     /**
-     * @type {Pointer<FILE_INTERNAL_INFORMATION>}
+     * @type {Pointer}
      */
     InternalInformation {
         get => NumGet(this, 16, "ptr")
@@ -36,7 +34,7 @@ class FILE_ALL_INFORMATION extends Win32Struct
     }
 
     /**
-     * @type {Pointer<FILE_EA_INFORMATION>}
+     * @type {Pointer}
      */
     EaInformation {
         get => NumGet(this, 24, "ptr")
@@ -44,7 +42,7 @@ class FILE_ALL_INFORMATION extends Win32Struct
     }
 
     /**
-     * @type {Pointer<FILE_ACCESS_INFORMATION>}
+     * @type {Pointer}
      */
     AccessInformation {
         get => NumGet(this, 32, "ptr")
@@ -52,7 +50,7 @@ class FILE_ALL_INFORMATION extends Win32Struct
     }
 
     /**
-     * @type {Pointer<FILE_POSITION_INFORMATION>}
+     * @type {Pointer}
      */
     PositionInformation {
         get => NumGet(this, 40, "ptr")
@@ -60,7 +58,7 @@ class FILE_ALL_INFORMATION extends Win32Struct
     }
 
     /**
-     * @type {Pointer<FILE_MODE_INFORMATION>}
+     * @type {Pointer}
      */
     ModeInformation {
         get => NumGet(this, 48, "ptr")
@@ -68,7 +66,7 @@ class FILE_ALL_INFORMATION extends Win32Struct
     }
 
     /**
-     * @type {Pointer<FILE_ALIGNMENT_INFORMATION>}
+     * @type {Pointer}
      */
     AlignmentInformation {
         get => NumGet(this, 56, "ptr")
@@ -76,7 +74,7 @@ class FILE_ALL_INFORMATION extends Win32Struct
     }
 
     /**
-     * @type {Pointer<FILE_NAME_INFORMATION>}
+     * @type {Pointer}
      */
     NameInformation {
         get => NumGet(this, 64, "ptr")

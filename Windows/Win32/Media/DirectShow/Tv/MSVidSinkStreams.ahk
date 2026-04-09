@@ -5,24 +5,20 @@
  * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005.
  * @see https://learn.microsoft.com/windows/win32/api/segment/ne-segment-msvidsinkstreams
  * @namespace Windows.Win32.Media.DirectShow.Tv
- * @version v4.0.30319
  */
-class MSVidSinkStreams extends Win32Enum{
+class MSVidSinkStreams extends Win32Enum {
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static MSVidSink_Video => 1
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static MSVidSink_Audio => 2
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static MSVidSink_Other => 4

@@ -6,10 +6,8 @@
  * The traffic control object QOS_DS_CLASS enables application developers to override the default Diffserv code point (DSCP) value for the IP packets associated with a given flow. By default, the DSCP value is derived from the flow's ServiceType.
  * @see https://learn.microsoft.com/windows/win32/api/qosobjs/ns-qosobjs-qos_ds_class
  * @namespace Windows.Win32.NetworkManagement.QoS
- * @version v4.0.30319
  */
-class QOS_DS_CLASS extends Win32Struct
-{
+class QOS_DS_CLASS extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4
@@ -20,7 +18,7 @@ class QOS_DS_CLASS extends Win32Struct
      * <b>QOS_OBJECT_DS_CLASS</b>.
      * @type {QOS_OBJECT_HDR}
      */
-    ObjectHdr{
+    ObjectHdr {
         get {
             if(!this.HasProp("__ObjectHdr"))
                 this.__ObjectHdr := QOS_OBJECT_HDR(0, this)

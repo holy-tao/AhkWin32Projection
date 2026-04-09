@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\CIE4ConnectionPoint.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\CIE4ConnectionPoint.ahk
 
 /**
  * Deprecated. Exposes methods that allow the retrieval of properties, translation of keyboard accelerators, and determination of a connection point for certain events. (IExpDispSupportXP)
  * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nn-shdeprecated-iexpdispsupportxp
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IExpDispSupportXP extends IUnknown{
+class IExpDispSupportXP extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

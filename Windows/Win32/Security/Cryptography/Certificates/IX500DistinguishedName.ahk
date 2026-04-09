@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
 #Include ..\..\..\System\Com\IDispatch.ahk
+#Include ..\..\..\Foundation\BSTR.ahk
 
 /**
  * Represents an X.500 distinguished name (DN).
  * @see https://learn.microsoft.com/windows/win32/api/certenroll/nn-certenroll-ix500distinguishedname
  * @namespace Windows.Win32.Security.Cryptography.Certificates
- * @version v4.0.30319
  */
-class IX500DistinguishedName extends IDispatch{
+class IX500DistinguishedName extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -43,8 +42,8 @@ class IX500DistinguishedName extends IDispatch{
      * @remarks
      * This method internally calls the CryptoAPI <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certnametostra">CertNameToStr</a> function. Call the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix500distinguishedname-get_name">Name</a> property to retrieve the name as a null-terminated character string. Call the  <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix500distinguishedname-get_encodedname">EncodedName</a> property to retrieve a string containing an encoded name.
      * @param {BSTR} strEncodedName A <b>BSTR</b> variable that contains the encoded name.
-     * @param {Integer} Encoding An <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/ne-certenroll-encodingtype">EncodingType</a> enumeration value that specifies the type of Unicode encoding applied to  the input string. The default value is <b>XCN_CRYPT_STRING_BASE64</b>.
-     * @param {Integer} NameFlags An <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/ne-certenroll-x500nameflags">X500NameFlags</a> enumeration value that specifies the format of the decoded string.
+     * @param {EncodingType} Encoding An <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/ne-certenroll-encodingtype">EncodingType</a> enumeration value that specifies the type of Unicode encoding applied to  the input string. The default value is <b>XCN_CRYPT_STRING_BASE64</b>.
+     * @param {X500NameFlags} NameFlags An <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/ne-certenroll-x500nameflags">X500NameFlags</a> enumeration value that specifies the format of the decoded string.
      * 
      * <div class="alert"><b>Note</b>  The following flags are set automatically:<ul>
      * <li>The default value specified in Certenroll.h is <b>XCN_CERT_NAME_STR_NONE</b>.</li>
@@ -113,7 +112,7 @@ class IX500DistinguishedName extends IDispatch{
      * @remarks
      * This method internally calls the CryptoAPI <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certstrtonamea">CertStrToName</a> function. Call the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix500distinguishedname-get_name">Name</a> property to retrieve the name as a null-terminated character string. Call the  <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix500distinguishedname-get_encodedname">EncodedName</a> property to retrieve a string containing an encoded name.
      * @param {BSTR} strName A <b>BSTR</b> variable that contains the string to encode.
-     * @param {Integer} NameFlags An <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/ne-certenroll-x500nameflags">X500NameFlags</a> enumeration value that specifies the format of the encoded value.
+     * @param {X500NameFlags} NameFlags An <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/ne-certenroll-x500nameflags">X500NameFlags</a> enumeration value that specifies the format of the encoded value.
      * 
      * <div class="alert"><b>Note</b>  The following flags are set automatically:<ul>
      * <li>The default value specified in Certenroll.h is <b>XCN_CERT_NAME_STR_NONE</b>.</li>
@@ -193,7 +192,7 @@ class IX500DistinguishedName extends IDispatch{
      * Retrieves a Unicode-encoded distinguished name.
      * @remarks
      * Call the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix500distinguishedname-encode">Encode</a> method to encode a distinguished name. Call the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix500distinguishedname-decode">Decode</a> method to decode a distinguished name.
-     * @param {Integer} Encoding 
+     * @param {EncodingType} Encoding 
      * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix500distinguishedname-get_encodedname
      */

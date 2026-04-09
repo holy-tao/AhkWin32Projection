@@ -5,9 +5,8 @@
  * Defines values that are used with the FindFirstFileEx function to specify the type of filtering to perform.
  * @see https://learn.microsoft.com/windows/win32/api/minwinbase/ne-minwinbase-findex_search_ops
  * @namespace Windows.Win32.Storage.FileSystem
- * @version v4.0.30319
  */
-class FINDEX_SEARCH_OPS extends Win32Enum{
+class FINDEX_SEARCH_OPS extends Win32Enum {
 
     /**
      * The search for a file that matches a specified file name.
@@ -44,7 +43,6 @@ class FINDEX_SEARCH_OPS extends Win32Enum{
     static FindExSearchLimitToDevices => 2
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static FindExSearchMaxSearchOp => 3

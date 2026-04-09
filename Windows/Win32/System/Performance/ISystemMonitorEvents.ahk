@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.Performance
- * @version v4.0.30319
  */
-class ISystemMonitorEvents extends IUnknown{
+class ISystemMonitorEvents extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

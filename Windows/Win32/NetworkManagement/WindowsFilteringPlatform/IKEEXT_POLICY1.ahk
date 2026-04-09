@@ -1,14 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\IKEEXT_AUTHENTICATION_METHOD1.ahk
+#Include .\IKEEXT_AUTHENTICATION_IMPERSONATION_TYPE.ahk
+#Include .\IKEEXT_PROPOSAL0.ahk
+#Include .\IKEEXT_POLICY_FLAG.ahk
 
 /**
  * Is used to store the IKE/AuthIP main mode negotiation policy. (IKEEXT_POLICY1)
  * @see https://learn.microsoft.com/windows/win32/api/iketypes/ns-iketypes-ikeext_policy1
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
- * @version v4.0.30319
  */
-class IKEEXT_POLICY1 extends Win32Struct
-{
+class IKEEXT_POLICY1 extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -46,7 +48,7 @@ class IKEEXT_POLICY1 extends Win32Struct
      * Type of impersonation. Applies only to AuthIP. 
      * 
      * See <a href="https://docs.microsoft.com/windows/win32/api/iketypes/ne-iketypes-ikeext_authentication_impersonation_type">IKEEXT_AUTHENTICATION_IMPERSONATION_TYPE</a> for more information.
-     * @type {Integer}
+     * @type {IKEEXT_AUTHENTICATION_IMPERSONATION_TYPE}
      */
     initiatorImpersonationType {
         get => NumGet(this, 16, "int")
@@ -74,8 +76,7 @@ class IKEEXT_POLICY1 extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Integer}
+     * @type {IKEEXT_POLICY_FLAG}
      */
     flags {
         get => NumGet(this, 32, "uint")

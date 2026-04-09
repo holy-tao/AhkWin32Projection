@@ -6,10 +6,8 @@
  * Contains information on physical certificate stores.
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cert_physical_store_info
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CERT_PHYSICAL_STORE_INFO extends Win32Struct
-{
+class CERT_PHYSICAL_STORE_INFO extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -76,7 +74,7 @@ class CERT_PHYSICAL_STORE_INFO extends Win32Struct
      * <b>CertOpenStore</b>.
      * @type {CRYPT_INTEGER_BLOB}
      */
-    OpenParameters{
+    OpenParameters {
         get {
             if(!this.HasProp("__OpenParameters"))
                 this.__OpenParameters := CRYPT_INTEGER_BLOB(24, this)

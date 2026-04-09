@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\VDS_PARTITION_PROP.ahk
 #Include .\IVdsAsync.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Creates and deletes partitions, and modifies partition attributes.
@@ -21,9 +21,8 @@
  * Only the <a href="https://docs.microsoft.com/windows/desktop/api/vds/nf-vds-ivdsadvanceddisk-getpartitionproperties">GetPartitionProperties</a>, <a href="https://docs.microsoft.com/windows/desktop/api/vds/nf-vds-ivdsadvanceddisk-querypartitions">QueryPartitions</a>, and <a href="https://docs.microsoft.com/windows/desktop/api/vds/nf-vds-ivdsadvanceddisk-clean">Clean</a> methods are valid operations to be performed on dynamic disks. All other methods fail. Except for the <b>Clean</b> method, configuration-type operations are not valid on dynamic disks.
  * @see https://learn.microsoft.com/windows/win32/api/vds/nn-vds-ivdsadvanceddisk
  * @namespace Windows.Win32.Storage.VirtualDiskService
- * @version v4.0.30319
  */
-class IVdsAdvancedDisk extends IUnknown{
+class IVdsAdvancedDisk extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -507,7 +506,7 @@ class IVdsAdvancedDisk extends IUnknown{
      * 
      * If an OEM partition is formatted as FAT or FAT32, the partition type does not change. If it is formatted with NTFS, the partition type changes to PARTITION_IFS (0x07). For information about partition types, see <a href="https://docs.microsoft.com/windows/desktop/api/vds/ns-vds-create_partition_parameters">CREATE_PARTITION_PARAMETERS</a>.
      * @param {Integer} ullOffset The partition offset.
-     * @param {Integer} type A 
+     * @param {VDS_FILE_SYSTEM_TYPE} type A 
      *      <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ne-vdshwprv-vds_file_system_type">VDS_FILE_SYSTEM_TYPE</a> enumeration value that specifies the file system to be used. Must be one of the following: VDS_FST_NTFS, VDS_FST_FAT, VDS_FST_FAT32, or VDS_FST_UDF.
      * @param {PWSTR} pwszLabel A string representing the volume label.
      * @param {Integer} dwUnitAllocationSize The size of the allocation unit for the file system in bytes, which is usually between 512 and 

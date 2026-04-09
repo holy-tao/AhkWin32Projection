@@ -7,9 +7,8 @@
  * Represents a fence, an object used for synchronization of the CPU and one or more GPUs. (ID3D12Fence)
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/nn-d3d12-id3d12fence
  * @namespace Windows.Win32.Graphics.Direct3D12
- * @version v4.0.30319
  */
-class ID3D12Fence extends ID3D12Pageable{
+class ID3D12Fence extends ID3D12Pageable {
 
     static sizeof => A_PtrSize
     /**

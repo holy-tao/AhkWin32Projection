@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Media.Audio.Endpoints
- * @version v4.0.30319
  */
-class EndpointConnectorType extends Win32Enum{
+class EndpointConnectorType extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

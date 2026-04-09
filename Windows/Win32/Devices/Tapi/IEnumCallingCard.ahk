@@ -1,17 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ITCallingCard.ahk
-#Include .\IEnumCallingCard.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\ITCallingCard.ahk
 
 /**
  * The IEnumCallingCard interface provides COM-standard enumeration methods for the ITCallingCard interface. The ITAddressTranslation::EnumerateCallingCards method returns a pointer to IEnumCallingCard.
  * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nn-tapi3if-ienumcallingcard
  * @namespace Windows.Win32.Devices.Tapi
- * @version v4.0.30319
  */
-class IEnumCallingCard extends IUnknown{
+class IEnumCallingCard extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

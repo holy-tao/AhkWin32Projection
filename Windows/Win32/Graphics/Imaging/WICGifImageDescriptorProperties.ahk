@@ -5,9 +5,8 @@
  * Specifies the image descriptor metadata properties for Graphics Interchange Format (GIF) frames.
  * @see https://learn.microsoft.com/windows/win32/api/wincodec/ne-wincodec-wicgifimagedescriptorproperties
  * @namespace Windows.Win32.Graphics.Imaging
- * @version v4.0.30319
  */
-class WICGifImageDescriptorProperties extends Win32Enum{
+class WICGifImageDescriptorProperties extends Win32Enum {
 
     /**
      * [VT_UI2] Indicates the X offset at which to locate this frame within the logical screen.

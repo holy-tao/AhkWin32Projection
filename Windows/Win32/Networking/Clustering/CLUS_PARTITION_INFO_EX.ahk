@@ -5,10 +5,8 @@
  * Describes a storage class resource volume and file system.
  * @see https://learn.microsoft.com/windows/win32/api/clusapi/ns-clusapi-clus_partition_info_ex
  * @namespace Windows.Win32.Networking.Clustering
- * @version v4.0.30319
  */
-class CLUS_PARTITION_INFO_EX extends Win32Struct
-{
+class CLUS_PARTITION_INFO_EX extends Win32Struct {
     static sizeof => 1152
 
     static packingSize => 8
@@ -118,7 +116,7 @@ class CLUS_PARTITION_INFO_EX extends Win32Struct
 
     /**
      * The globally unique identifier associated with the volume.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     VolumeGuid {
         get => NumGet(this, 1144, "ptr")

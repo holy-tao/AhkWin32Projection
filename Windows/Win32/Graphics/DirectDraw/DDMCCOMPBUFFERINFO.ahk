@@ -5,10 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw
- * @version v4.0.30319
  */
-class DDMCCOMPBUFFERINFO extends Win32Struct
-{
+class DDMCCOMPBUFFERINFO extends Win32Struct {
     static sizeof => 68
 
     static packingSize => 4
@@ -56,7 +54,7 @@ class DDMCCOMPBUFFERINFO extends Win32Struct
     /**
      * @type {DDSCAPS2}
      */
-    ddCompCaps{
+    ddCompCaps {
         get {
             if(!this.HasProp("__ddCompCaps"))
                 this.__ddCompCaps := DDSCAPS2(20, this)
@@ -67,7 +65,7 @@ class DDMCCOMPBUFFERINFO extends Win32Struct
     /**
      * @type {DDPIXELFORMAT}
      */
-    ddPixelFormat{
+    ddPixelFormat {
         get {
             if(!this.HasProp("__ddPixelFormat"))
                 this.__ddPixelFormat := DDPIXELFORMAT(36, this)

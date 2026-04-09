@@ -7,10 +7,8 @@
  * See our [**privacy statement**](/windows/privacy/windows-diagnostic-data) for information about diagnostic data opt-in levels.
  * @see https://learn.microsoft.com/windows/win32/api/diagnosticdataquerytypes/ns-diagnosticdataquerytypes-diagnostic_data_general_stats
  * @namespace Windows.Win32.Security.DiagnosticDataQuery
- * @version v4.0.30319
  */
-class DIAGNOSTIC_DATA_GENERAL_STATS extends Win32Struct
-{
+class DIAGNOSTIC_DATA_GENERAL_STATS extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8

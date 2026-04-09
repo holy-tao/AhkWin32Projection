@@ -20,9 +20,8 @@
  * Optionally, the description field (<a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-ishelllinka-setdescription">IShellLink::SetDescription</a>) can be set to provide a custom tooltip for the item in the Jump List.
  * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/ne-shlobj_core-shard
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class SHARD extends Win32Enum{
+class SHARD extends Win32Enum {
 
     /**
      * The <i>pv</i> parameter points to a PIDL that identifies the document's file object. PIDLs that identify non-file objects are not accepted.

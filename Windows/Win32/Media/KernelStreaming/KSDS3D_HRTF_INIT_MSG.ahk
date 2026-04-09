@@ -1,12 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\KSDS3D_HRTF_FILTER_QUALITY.ahk
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
- * @version v4.0.30319
  */
-class KSDS3D_HRTF_INIT_MSG extends Win32Struct
-{
+class KSDS3D_HRTF_INIT_MSG extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 4
@@ -20,7 +19,7 @@ class KSDS3D_HRTF_INIT_MSG extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {KSDS3D_HRTF_FILTER_QUALITY}
      */
     Quality {
         get => NumGet(this, 4, "int")

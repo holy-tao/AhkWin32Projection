@@ -19,10 +19,8 @@
  * |[Supporting Event Notification](supporting-event-notification.md) <br/> |Discussion of how service providers can use the [IMAPISupport](imapisupportiunknown.md) methods to generate notifications. |
  * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/extended_notification
  * @namespace Windows.Win32.System.AddressBook
- * @version v4.0.30319
  */
-class EXTENDED_NOTIFICATION extends Win32Struct
-{
+class EXTENDED_NOTIFICATION extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

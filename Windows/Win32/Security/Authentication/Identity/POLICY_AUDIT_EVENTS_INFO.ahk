@@ -7,10 +7,8 @@
  * LSA Policy defines a mask for the valid event auditing options. The POLICY_AUDIT_EVENT_MASK mask evaluates to <b>TRUE</b> if it is set equal to any of the preceding event auditing options.
  * @see https://learn.microsoft.com/windows/win32/api/ntsecapi/ns-ntsecapi-policy_audit_events_info
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class POLICY_AUDIT_EVENTS_INFO extends Win32Struct
-{
+class POLICY_AUDIT_EVENTS_INFO extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

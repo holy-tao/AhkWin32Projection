@@ -7,11 +7,9 @@
  * The DSQUERYPARAMS structure contains query data used by the directory service query when searching the directory service.
  * @see https://learn.microsoft.com/windows/win32/api/dsquery/ns-dsquery-dsqueryparams
  * @namespace Windows.Win32.Networking.ActiveDirectory
- * @version v4.0.30319
  */
-class DSQUERYPARAMS extends Win32Struct
-{
-    static sizeof => 40
+class DSQUERYPARAMS extends Win32Struct {
+    static sizeof => 56
 
     static packingSize => 8
 
@@ -37,7 +35,7 @@ class DSQUERYPARAMS extends Win32Struct
      * Contains an instance handle used for extracting resources.
      * @type {HINSTANCE}
      */
-    hInstance{
+    hInstance {
         get {
             if(!this.HasProp("__hInstance"))
                 this.__hInstance := HINSTANCE(8, this)
@@ -74,12 +72,12 @@ class DSQUERYPARAMS extends Win32Struct
 
     /**
      * Contains an array of <a href="https://docs.microsoft.com/windows/desktop/api/dsquery/ns-dsquery-dscolumn">DSCOLUMN</a> structures that contain the results of the query. The <b>iColumns</b> member specifies the number of elements in this array.
-     * @type {Array<DSCOLUMN>}
+     * @type {DSCOLUMN}
      */
-    aColumns{
+    aColumns {
         get {
             if(!this.HasProp("__aColumnsProxyArray"))
-                this.__aColumnsProxyArray := Win32FixedArray(this.ptr + 32, 1, DSCOLUMN, "")
+                this.__aColumnsProxyArray := Win32FixedArray(this.ptr + 28, 1, DSCOLUMN, "")
             return this.__aColumnsProxyArray
         }
     }

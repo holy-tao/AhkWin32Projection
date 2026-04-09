@@ -1,17 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\FILETIME.ahk
+#Include .\FWP_IP_VERSION.ahk
 #Include .\FWP_BYTE_ARRAY16.ahk
 #Include .\FWP_BYTE_BLOB.ahk
+#Include ..\..\Security\SID.ahk
 
 /**
  * Information common to all events.
  * @see https://learn.microsoft.com/windows/win32/api/fwpmtypes/ns-fwpmtypes-fwpm_net_event_header0
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
- * @version v4.0.30319
  */
-class FWPM_NET_EVENT_HEADER0 extends Win32Struct
-{
+class FWPM_NET_EVENT_HEADER0 extends Win32Struct {
     static sizeof => 88
 
     static packingSize => 8
@@ -20,7 +20,7 @@ class FWPM_NET_EVENT_HEADER0 extends Win32Struct
      * A [FILETIME](../minwinbase/ns-minwinbase-filetime.md) structure that specifies the time the event occurred
      * @type {FILETIME}
      */
-    timeStamp{
+    timeStamp {
         get {
             if(!this.HasProp("__timeStamp"))
                 this.__timeStamp := FILETIME(0, this)
@@ -51,7 +51,7 @@ class FWPM_NET_EVENT_HEADER0 extends Win32Struct
 
     /**
      * A [FWP_IP_VERSION](../fwptypes/ne-fwptypes-fwp_ip_version.md) value that specifies the IP version being used.
-     * @type {Integer}
+     * @type {FWP_IP_VERSION}
      */
     ipVersion {
         get => NumGet(this, 12, "int")
@@ -78,7 +78,7 @@ class FWPM_NET_EVENT_HEADER0 extends Win32Struct
     /**
      * @type {FWP_BYTE_ARRAY16}
      */
-    localAddrV6{
+    localAddrV6 {
         get {
             if(!this.HasProp("__localAddrV6"))
                 this.__localAddrV6 := FWP_BYTE_ARRAY16(20, this)
@@ -97,7 +97,7 @@ class FWPM_NET_EVENT_HEADER0 extends Win32Struct
     /**
      * @type {FWP_BYTE_ARRAY16}
      */
-    remoteAddrV6{
+    remoteAddrV6 {
         get {
             if(!this.HasProp("__remoteAddrV6"))
                 this.__remoteAddrV6 := FWP_BYTE_ARRAY16(36, this)
@@ -136,7 +136,7 @@ class FWPM_NET_EVENT_HEADER0 extends Win32Struct
      * A [FWP_BYTE_BLOB](../fwptypes/ns-fwptypes-fwp_byte_blob.md) that contains the application ID of the local application associated with the event.
      * @type {FWP_BYTE_BLOB}
      */
-    appId{
+    appId {
         get {
             if(!this.HasProp("__appId"))
                 this.__appId := FWP_BYTE_BLOB(64, this)

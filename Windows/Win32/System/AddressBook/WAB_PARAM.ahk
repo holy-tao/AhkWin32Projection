@@ -6,10 +6,8 @@
  * Do not use. Contains the input information to pass to WABOpen.
  * @see https://learn.microsoft.com/windows/win32/api/wabapi/ns-wabapi-wab_param
  * @namespace Windows.Win32.System.AddressBook
- * @version v4.0.30319
  */
-class WAB_PARAM extends Win32Struct
-{
+class WAB_PARAM extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -31,7 +29,7 @@ class WAB_PARAM extends Win32Struct
      * Value of type <b>HWND</b> that specifies the window handle of the calling client application. Can be <b>NULL</b>.
      * @type {HWND}
      */
-    hwnd{
+    hwnd {
         get {
             if(!this.HasProp("__hwnd"))
                 this.__hwnd := HWND(8, this)
@@ -65,7 +63,7 @@ class WAB_PARAM extends Win32Struct
      * Type: <b>GUID</b>
      * 
      * Value of type <b>GUID</b> that specifies the GUID that identifies the calling application's property sheet extensions. The GUID can be used to determine whether the extension property sheets are displayed or not. Available only on Internet Explorer 5 or later.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     guidPSExt {
         get => NumGet(this, 32, "ptr")

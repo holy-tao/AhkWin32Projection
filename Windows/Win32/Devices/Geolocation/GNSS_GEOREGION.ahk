@@ -1,13 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\GNSS_GEOREGIONTYPE.ahk
 #Include .\GNSS_GEOREGION_CIRCLE.ahk
 
 /**
  * @namespace Windows.Win32.Devices.Geolocation
- * @version v4.0.30319
  */
-class GNSS_GEOREGION extends Win32Struct
-{
+class GNSS_GEOREGION extends Win32Struct {
     static sizeof => 528
 
     static packingSize => 8
@@ -29,7 +28,7 @@ class GNSS_GEOREGION extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {GNSS_GEOREGIONTYPE}
      */
     GeoRegionType {
         get => NumGet(this, 8, "int")
@@ -39,7 +38,7 @@ class GNSS_GEOREGION extends Win32Struct
     /**
      * @type {GNSS_GEOREGION_CIRCLE}
      */
-    Circle{
+    Circle {
         get {
             if(!this.HasProp("__Circle"))
                 this.__Circle := GNSS_GEOREGION_CIRCLE(16, this)
@@ -48,9 +47,9 @@ class GNSS_GEOREGION extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Unused{
+    Unused {
         get {
             if(!this.HasProp("__UnusedProxyArray"))
                 this.__UnusedProxyArray := Win32FixedArray(this.ptr + 16, 512, Primitive, "char")

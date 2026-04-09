@@ -1,13 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\Com\ITypeInfo.ahk
+#Include .\DBPROPSET.ahk
 #Include ..\..\Storage\IndexServer\DBID.ahk
 
 /**
  * @namespace Windows.Win32.System.Search
- * @version v4.0.30319
+ * @architecture X64, Arm64
  */
-class DBCOLUMNDESC extends Win32Struct
-{
+class DBCOLUMNDESC extends Win32Struct {
     static sizeof => 88
 
     static packingSize => 8
@@ -63,7 +64,7 @@ class DBCOLUMNDESC extends Win32Struct
     /**
      * @type {DBID}
      */
-    dbcid{
+    dbcid {
         get {
             if(!this.HasProp("__dbcid"))
                 this.__dbcid := DBID(48, this)

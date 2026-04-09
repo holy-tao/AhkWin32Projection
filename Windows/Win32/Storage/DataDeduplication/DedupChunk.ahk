@@ -1,13 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\DedupHash.ahk
+#Include .\DedupChunkFlags.ahk
 
 /**
  * @namespace Windows.Win32.Storage.DataDeduplication
- * @version v4.0.30319
  */
-class DedupChunk extends Win32Struct
-{
+class DedupChunk extends Win32Struct {
     static sizeof => 44
 
     static packingSize => 4
@@ -15,7 +14,7 @@ class DedupChunk extends Win32Struct
     /**
      * @type {DedupHash}
      */
-    Hash{
+    Hash {
         get {
             if(!this.HasProp("__Hash"))
                 this.__Hash := DedupHash(0, this)
@@ -24,7 +23,7 @@ class DedupChunk extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {DedupChunkFlags}
      */
     Flags {
         get => NumGet(this, 32, "int")

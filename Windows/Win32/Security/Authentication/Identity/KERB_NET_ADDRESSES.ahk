@@ -4,11 +4,9 @@
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class KERB_NET_ADDRESSES extends Win32Struct
-{
-    static sizeof => 16
+class KERB_NET_ADDRESSES extends Win32Struct {
+    static sizeof => 24
 
     static packingSize => 8
 
@@ -21,9 +19,9 @@ class KERB_NET_ADDRESSES extends Win32Struct
     }
 
     /**
-     * @type {Array<KERB_NET_ADDRESS>}
+     * @type {KERB_NET_ADDRESS}
      */
-    Addresses{
+    Addresses {
         get {
             if(!this.HasProp("__AddressesProxyArray"))
                 this.__AddressesProxyArray := Win32FixedArray(this.ptr + 8, 1, KERB_NET_ADDRESS, "")

@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.Usb
- * @version v4.0.30319
  */
-class _URB_HEADER extends Win32Struct
-{
+class _URB_HEADER extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

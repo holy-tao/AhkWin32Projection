@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Storage.FileSystem
- * @version v4.0.30319
  */
-class VOLUME_ALLOCATE_BC_STREAM_INPUT extends Win32Struct
-{
+class VOLUME_ALLOCATE_BC_STREAM_INPUT extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -54,7 +52,7 @@ class VOLUME_ALLOCATE_BC_STREAM_INPUT extends Win32Struct
     /**
      * @type {Array<BOOLEAN>}
      */
-    Reserved1{
+    Reserved1 {
         get {
             if(!this.HasProp("__Reserved1ProxyArray"))
                 this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 14, 2, Primitive, "char")

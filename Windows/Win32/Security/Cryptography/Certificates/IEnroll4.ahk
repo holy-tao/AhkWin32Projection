@@ -7,9 +7,8 @@
  * The IEnroll4 interface represents the Certificate Enrollment Control and is used primarily to generate certificate requests.
  * @see https://learn.microsoft.com/windows/win32/api/xenroll/nn-xenroll-ienroll4
  * @namespace Windows.Win32.Security.Cryptography.Certificates
- * @version v4.0.30319
  */
-class IEnroll4 extends IEnroll2{
+class IEnroll4 extends IEnroll2 {
 
     static sizeof => A_PtrSize
     /**
@@ -31,6 +30,7 @@ class IEnroll4 extends IEnroll2{
     static VTableNames => ["put_ThumbPrintWStr", "get_ThumbPrintWStr", "SetPrivateKeyArchiveCertificate", "GetPrivateKeyArchiveCertificate", "binaryBlobToString", "stringToBinaryBlob", "addExtensionToRequestWStr", "addAttributeToRequestWStr", "addNameValuePairToRequestWStr", "resetExtensions", "resetAttributes", "createRequestWStr", "createFileRequestWStr", "acceptResponseBlob", "acceptFileResponseWStr", "getCertContextFromResponseBlob", "getCertContextFromFileResponseWStr", "createPFXWStr", "createFilePFXWStr", "setPendingRequestInfoWStr", "enumPendingRequestWStr", "removePendingRequestWStr", "GetKeyLenEx", "InstallPKCS7BlobEx", "AddCertTypeToRequestWStrEx", "getProviderTypeWStr", "addBlobPropertyToCertificateWStr", "SetSignerCertificate", "put_ClientId", "get_ClientId", "put_IncludeSubjectKeyID", "get_IncludeSubjectKeyID"]
 
     /**
+     * @type {CRYPT_INTEGER_BLOB} 
      */
     ThumbPrintWStr {
         get => this.get_ThumbPrintWStr()
@@ -38,6 +38,7 @@ class IEnroll4 extends IEnroll2{
     }
 
     /**
+     * @type {Integer} 
      */
     ClientId {
         get => this.get_ClientId()
@@ -45,6 +46,7 @@ class IEnroll4 extends IEnroll2{
     }
 
     /**
+     * @type {BOOL} 
      */
     IncludeSubjectKeyID {
         get => this.get_IncludeSubjectKeyID()
@@ -203,7 +205,7 @@ class IEnroll4 extends IEnroll2{
 
     /**
      * Creates a PKCS (IEnroll4.createRequestWStr)
-     * @param {Integer} Flags 
+     * @param {CERT_CREATE_REQUEST_FLAGS} Flags 
      * @param {PWSTR} pwszDNName A pointer to a <b>null</b>-terminated Unicode string that contains the distinguished name (DN) of the entity for which the request is being made. The DN name must follow the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/x-gly">X.500</a> naming convention, for example "CN=User, O=Microsoft". If a two-letter prefix does not exist, an object identifier (OID) may be provided instead. This parameter may be <b>NULL</b>.
      * @param {PWSTR} pwszUsage A pointer to a <b>null</b>-terminated Unicode string that contains the OID that describes the purpose of the certificate being generated, for example, individual or commercial Authenticode certificate, or client authentication. You can also specify multiple OIDs separated by a comma.
      * @param {Pointer<CRYPT_INTEGER_BLOB>} pblobRequest A pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa381414(v=vs.85)">CRYPT_DATA_BLOB</a> structure that receives the request.
@@ -224,7 +226,7 @@ class IEnroll4 extends IEnroll2{
 
     /**
      * Creates a PKCS (IEnroll4.createFileRequestWStr)
-     * @param {Integer} Flags 
+     * @param {CERT_CREATE_REQUEST_FLAGS} Flags 
      * @param {PWSTR} pwszDNName A pointer to a <b>null</b>-terminated wide character string that represents the distinguished name (DN) of the entity for which the request is being made. The DN name must follow the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/x-gly">X.500</a> naming convention, for example "CN=User, O=Microsoft". If a two-letter prefix does not exist, an object identifier (OID) may be provided instead. This parameter may be <b>NULL</b>.
      * @param {PWSTR} pwszUsage A pointer to a <b>null</b>-terminated wide character string for the OID that describes the purpose of the certificate being generated, for example, individual or commercial Authenticode certificate, or client authentication. You can also specify multiple OIDs separated by a comma.
      * @param {PWSTR} pwszRequestFileName A pointer to a <b>null</b>-terminated wide character string that contains the name of the file that will receive the request.
@@ -367,7 +369,7 @@ class IEnroll4 extends IEnroll2{
     /**
      * Enumerates pending certificate requests and retrieves a specified property from each.
      * @param {Integer} lIndex Specifies the ordinal position of the pending request whose property will be retrieved. Specify zero for the first request.
-     * @param {Integer} lDesiredProperty 
+     * @param {PENDING_REQUEST_DESIRED_PROPERTY} lDesiredProperty 
      * @param {Pointer<Void>} ppProperty A pointer to a <b>VOID</b> that receives the value of the retrieved property.
      * @returns {HRESULT} If the method succeeds, the method returns S_OK.
      * 
@@ -412,8 +414,8 @@ class IEnroll4 extends IEnroll2{
      * 
      * For additional details on the XEKL_KEYSIZE_INC value, see PP_SIG_KEYSIZE_INC usage in the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptgetprovparam">CryptGetProvParam</a> reference page.
-     * @param {Integer} lSizeSpec 
-     * @param {Integer} lKeySpec 
+     * @param {XEKL_KEYSIZE} lSizeSpec 
+     * @param {XEKL_KEYSPEC} lKeySpec 
      * @param {Pointer<Integer>} pdwKeySize A pointer to <b>LONG</b> that receives the key size information, in bits.
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll4-getkeylenex
@@ -447,7 +449,7 @@ class IEnroll4 extends IEnroll2{
      * <a href="https://docs.microsoft.com/windows/desktop/api/xenroll/nf-xenroll-ienroll-createpkcs10wstr">createPKCS10WStr</a> method.
      * 
      * This method can be called multiple times to establish multiple certificate templates for the request.
-     * @param {Integer} lType 
+     * @param {ADDED_CERT_TYPE} lType 
      * @param {PWSTR} pwszOIDOrName A pointer to a null-terminated character string that represents the fully qualified name of the certificate template that is being added to the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate request</a>. This value is interpreted by the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certification authority</a>.
      * @param {Integer} lMajorVersion Value that specifies the major version of the template. This parameter is ignored if <i>lType</i> is XECT_EXTENSION_V1.
      * @param {BOOL} fMinorVersion Value that specifies whether a minor version of the template is used. This parameter is ignored if <i>lType</i> is XECT_EXTENSION_V1.

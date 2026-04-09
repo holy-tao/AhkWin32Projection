@@ -5,9 +5,8 @@
  * Specifies how text is decorated (underlined and so on).
  * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/ne-mfmediaengine-mf_timed_text_decoration
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class MF_TIMED_TEXT_DECORATION extends Win32Enum{
+class MF_TIMED_TEXT_DECORATION extends Win32Enum {
 
     /**
      * Text isn't decorated.

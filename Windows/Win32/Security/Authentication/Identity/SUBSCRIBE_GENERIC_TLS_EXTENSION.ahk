@@ -4,13 +4,11 @@
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class SUBSCRIBE_GENERIC_TLS_EXTENSION extends Win32Struct
-{
-    static sizeof => 16
+class SUBSCRIBE_GENERIC_TLS_EXTENSION extends Win32Struct {
+    static sizeof => 12
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}
@@ -29,9 +27,9 @@ class SUBSCRIBE_GENERIC_TLS_EXTENSION extends Win32Struct
     }
 
     /**
-     * @type {Array<TLS_EXTENSION_SUBSCRIPTION>}
+     * @type {TLS_EXTENSION_SUBSCRIPTION}
      */
-    Subscriptions{
+    Subscriptions {
         get {
             if(!this.HasProp("__SubscriptionsProxyArray"))
                 this.__SubscriptionsProxyArray := Win32FixedArray(this.ptr + 8, 1, TLS_EXTENSION_SUBSCRIPTION, "")

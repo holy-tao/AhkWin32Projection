@@ -7,9 +7,8 @@
  * The <a href="https://docs.microsoft.com/windows/desktop/api/dvdmedia/ns-dvdmedia-am_dvdcopy_set_copy_state">AM_DVDCOPY_SET_COPY_STATE</a> structure uses this data type.
  * @see https://learn.microsoft.com/windows/win32/api/dvdmedia/ne-dvdmedia-am_dvdcopystate
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class AM_DVDCOPYSTATE extends Win32Enum{
+class AM_DVDCOPYSTATE extends Win32Enum {
 
     /**
      * Starting a full key-exchange algorithm.

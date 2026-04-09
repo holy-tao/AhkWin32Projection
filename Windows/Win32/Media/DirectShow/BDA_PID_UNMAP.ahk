@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class BDA_PID_UNMAP extends Win32Struct
-{
+class BDA_PID_UNMAP extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4
@@ -20,9 +18,9 @@ class BDA_PID_UNMAP extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    aulPIDs{
+    aulPIDs {
         get {
             if(!this.HasProp("__aulPIDsProxyArray"))
                 this.__aulPIDsProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "uint")

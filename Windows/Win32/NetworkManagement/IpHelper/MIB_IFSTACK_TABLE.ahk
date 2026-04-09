@@ -20,13 +20,11 @@
  * Note that the <i>Netioapi.h</i> header file is automatically included in the <i>Iphlpapi.h</i> header file. The  <i>Netioapi.h</i> header file should never be used directly.
  * @see https://learn.microsoft.com/windows/win32/api/netioapi/ns-netioapi-mib_ifstack_table
  * @namespace Windows.Win32.NetworkManagement.IpHelper
- * @version v4.0.30319
  */
-class MIB_IFSTACK_TABLE extends Win32Struct
-{
-    static sizeof => 16
+class MIB_IFSTACK_TABLE extends Win32Struct {
+    static sizeof => 12
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * The number of interface stack row entries in the array.
@@ -40,12 +38,12 @@ class MIB_IFSTACK_TABLE extends Win32Struct
     /**
      * An array of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/ns-netioapi-mib_ifstack_row">MIB_IFSTACK_ROW</a> structures containing interface stack row entries.
-     * @type {Array<MIB_IFSTACK_ROW>}
+     * @type {MIB_IFSTACK_ROW}
      */
-    Table{
+    Table {
         get {
             if(!this.HasProp("__TableProxyArray"))
-                this.__TableProxyArray := Win32FixedArray(this.ptr + 8, 1, MIB_IFSTACK_ROW, "")
+                this.__TableProxyArray := Win32FixedArray(this.ptr + 4, 1, MIB_IFSTACK_ROW, "")
             return this.__TableProxyArray
         }
     }

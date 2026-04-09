@@ -5,10 +5,8 @@
  * The LUID structure is an opaque structure that specifies an identifier that is guaranteed to be unique on the local machine. For more information, see the reference page for LUID in the Microsoft Windows SDK documentation.
  * @see https://learn.microsoft.com/windows/win32/api/ntdef/ns-ntdef-luid
  * @namespace Windows.Win32.Foundation
- * @version v4.0.30319
  */
-class LUID extends Win32Struct
-{
+class LUID extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4

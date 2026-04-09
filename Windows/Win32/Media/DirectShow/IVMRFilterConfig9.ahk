@@ -7,9 +7,8 @@
  * The IVMRFilterConfig9 interface is implemented by the Video Mixing Renderer Filter 9.
  * @see https://learn.microsoft.com/windows/win32/api/vmr9/nn-vmr9-ivmrfilterconfig9
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IVMRFilterConfig9 extends IUnknown{
+class IVMRFilterConfig9 extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -250,7 +249,7 @@ class IVMRFilterConfig9 extends IUnknown{
      * The VMR is in windowed mode (<b>VMR9Mode_Windowed</b>) by default. Use this method to put the VMR into windowless mode (<b>VMR9Mode_Windowless</b>) or renderless mode (<b>VMR9Mode_Renderless</b>).
      * 
      * The mode cannot be changed after any pin has been connected. Also, the mode cannot be changed from windowless or renderless mode back to windowed mode, even before pins are connected. Therefore, specifying <b>VMR9Mode_Windowed</b> for the <i>Mode</i> parameter has no effect under any circumstances.
-     * @param {Integer} _Mode 
+     * @param {Integer} _Mode Specifies the rendering mode as a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/vmr9/ne-vmr9-vmr9mode">VMR9Mode</a> value.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include those in the following table.
      * 
      * <table>

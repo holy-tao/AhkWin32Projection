@@ -18,9 +18,8 @@
  * </ul>
  * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/ne-uiautomationclient-treetraversaloptions
  * @namespace Windows.Win32.UI.Accessibility
- * @version v4.0.30319
  */
-class TreeTraversalOptions extends Win32Enum{
+class TreeTraversalOptions extends Win32Enum {
 
     /**
      * Pre-order,

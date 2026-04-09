@@ -5,13 +5,10 @@
 
 /**
  * Enables interoperability with a WinRT UserConsentVerifier class object and provides access to UserConsentVerifier members to verify the current user.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/userconsentverifierinterop/nn-userconsentverifierinterop-iuserconsentverifierinterop
  * @namespace Windows.Win32.System.WinRT
- * @version v4.0.30319
  */
-class IUserConsentVerifierInterop extends IInspectable{
+class IUserConsentVerifierInterop extends IInspectable {
 
     static sizeof => A_PtrSize
     /**

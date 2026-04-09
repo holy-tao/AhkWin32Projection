@@ -3,16 +3,14 @@
 
 /**
  * @namespace Windows.Win32.System.SystemServices
- * @version v4.0.30319
  */
-class TRANSACTION_ENLISTMENT_PAIR extends Win32Struct
-{
+class TRANSACTION_ENLISTMENT_PAIR extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     EnlistmentId {
         get => NumGet(this, 0, "ptr")
@@ -20,7 +18,7 @@ class TRANSACTION_ENLISTMENT_PAIR extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     ResourceManagerId {
         get => NumGet(this, 8, "ptr")

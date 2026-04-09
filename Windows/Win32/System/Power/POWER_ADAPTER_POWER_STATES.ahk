@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Power
- * @version v4.0.30319
  */
-class POWER_ADAPTER_POWER_STATES extends Win32Struct
-{
+class POWER_ADAPTER_POWER_STATES extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4
@@ -26,7 +24,7 @@ class POWER_ADAPTER_POWER_STATES extends Win32Struct
             get => NumGet(this, 0, "uint")
             set => NumPut("uint", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -34,7 +32,7 @@ class POWER_ADAPTER_POWER_STATES extends Win32Struct
             get => (this._bitfield >> 0) & 0x1
             set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -42,16 +40,15 @@ class POWER_ADAPTER_POWER_STATES extends Win32Struct
             get => (this._bitfield >> 1) & 0x3
             set => this._bitfield := ((value & 0x3) << 1) | (this._bitfield & ~(0x3 << 1))
         }
-    
     }
 
     /**
      * @type {_States}
      */
-    States{
+    States {
         get {
             if(!this.HasProp("__States"))
-                this.__States := %this.__Class%._States(0, this)
+                this.__States := POWER_ADAPTER_POWER_STATES._States(0, this)
             return this.__States
         }
     }

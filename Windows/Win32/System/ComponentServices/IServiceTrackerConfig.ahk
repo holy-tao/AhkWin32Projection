@@ -9,9 +9,8 @@
  * The tracker property is a reporting mechanism used by monitoring code to watch which code is running when. It is the reporting mechanism behind the spinning balls in the Component Services administrative tool.
  * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nn-comsvcs-iservicetrackerconfig
  * @namespace Windows.Win32.System.ComponentServices
- * @version v4.0.30319
  */
-class IServiceTrackerConfig extends IUnknown{
+class IServiceTrackerConfig extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -36,7 +35,7 @@ class IServiceTrackerConfig extends IUnknown{
      * Configures the tracker property for the enclosed work.
      * @remarks
      * Because no component is associated with this tracker property, tracker activity is reported as arising from a component with the name specified by <i>szTrackerAppName</i>.
-     * @param {Integer} trackerConfig A value from the <a href="https://docs.microsoft.com/windows/desktop/api/comsvcs/ne-comsvcs-csc_trackerconfig">CSC_TrackerConfig</a> enumeration.
+     * @param {CSC_TrackerConfig} trackerConfig A value from the <a href="https://docs.microsoft.com/windows/desktop/api/comsvcs/ne-comsvcs-csc_trackerconfig">CSC_TrackerConfig</a> enumeration.
      * @param {PWSTR} szTrackerAppName The application identifier under which tracker information is reported.
      * @param {PWSTR} szTrackerCtxName The context name under which tracker information is reported.
      * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_FAIL, and S_OK.

@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class KBUGCHECK_SECONDARY_DUMP_DATA extends Win32Struct
-{
+class KBUGCHECK_SECONDARY_DUMP_DATA extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -36,7 +34,7 @@ class KBUGCHECK_SECONDARY_DUMP_DATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     Guid {
         get => NumGet(this, 16, "ptr")

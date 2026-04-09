@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.Search
- * @version v4.0.30319
  */
-class IDataConvert extends IUnknown{
+class IDataConvert extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -34,7 +33,7 @@ class IDataConvert extends IUnknown{
      * @param {Integer} wDstType 
      * @param {Pointer} cbSrcLength 
      * @param {Pointer<Pointer>} pcbDstLength 
-     * @param {Pointer} pSrc 
+     * @param {Integer} pSrc 
      * @param {Pointer<Void>} pDst 
      * @param {Pointer} cbDstMaxLength 
      * @param {Integer} dbsSrcStatus 
@@ -69,7 +68,7 @@ class IDataConvert extends IUnknown{
      * @param {Integer} wSrcType 
      * @param {Integer} wDstType 
      * @param {Pointer<Pointer>} pcbSrcLength 
-     * @param {Pointer} pSrc 
+     * @param {Integer} pSrc 
      * @returns {Pointer} 
      */
     GetConversionSize(wSrcType, wDstType, pcbSrcLength, pSrc) {

@@ -3,16 +3,14 @@
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class SECPKG_SURROGATE_LOGON_ENTRY extends Win32Struct
-{
+class SECPKG_SURROGATE_LOGON_ENTRY extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     Type {
         get => NumGet(this, 0, "ptr")

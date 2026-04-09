@@ -1,16 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\CONTEXT.ahk
 
 /**
  * The APC_CALLBACK_DATA structure (processthreadsapi.h) specifies the data for a user-mode asynchronous procedure call (APC) object.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/processthreadsapi/ns-processthreadsapi-apc_callback_data
  * @namespace Windows.Win32.System.Diagnostics.Debug
- * @version v4.0.30319
  */
-class APC_CALLBACK_DATA extends Win32Struct
-{
+class APC_CALLBACK_DATA extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8

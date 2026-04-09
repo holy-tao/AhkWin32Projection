@@ -5,13 +5,10 @@
 
 /**
  * Provides video decoding and processing capabilities of a Microsoft Direct3D 12 device including the ability to query video capabilities and instantiating video decoders and processors.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/d3d12video/nn-d3d12video-id3d12videodevice
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class ID3D12VideoDevice extends IUnknown{
+class ID3D12VideoDevice extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -34,8 +31,8 @@ class ID3D12VideoDevice extends IUnknown{
 
     /**
      * Gets information about the features that are supported by the current video driver. (ID3D12VideoDevice::CheckFeatureSupport)
-     * @param {Integer} FeatureVideo A member of the [D3D12\_FEATURE\_VIDEO](ne-d3d12video-d3d12_feature_video.md) enumeration that specifies the feature to query for support.
-     * @param {Pointer} pFeatureSupportData A structure that contains data that describes the configuration details of the feature for which support is requested and, upon the completion of the call, is populated with details about the level of support available. For information on the structure that is associated with each type of feature support request, see the field descriptions for [D3D12\_FEATURE\_VIDEO](ne-d3d12video-d3d12_feature_video.md).
+     * @param {D3D12_FEATURE_VIDEO} FeatureVideo A member of the [D3D12\_FEATURE\_VIDEO](ne-d3d12video-d3d12_feature_video.md) enumeration that specifies the feature to query for support.
+     * @param {Integer} pFeatureSupportData A structure that contains data that describes the configuration details of the feature for which support is requested and, upon the completion of the call, is populated with details about the level of support available. For information on the structure that is associated with each type of feature support request, see the field descriptions for [D3D12\_FEATURE\_VIDEO](ne-d3d12video-d3d12_feature_video.md).
      * @param {Integer} FeatureSupportDataSize The size of the structure passed to the *pFeatureSupportData* parameter.
      * @returns {HRESULT} Returns **S\_OK** if successful; otherwise, returns **E\_INVALIDARG** if an unsupported data type is passed to the *pFeatureSupportData* parameter or a size mismatch is detected for the *FeatureSupportDataSize* parameter.
      * @see https://learn.microsoft.com/windows/win32/api/d3d12video/nf-d3d12video-id3d12videodevice-checkfeaturesupport

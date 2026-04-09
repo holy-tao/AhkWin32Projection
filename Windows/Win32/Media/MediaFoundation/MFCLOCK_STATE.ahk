@@ -5,9 +5,8 @@
  * Defines the state of a clock.
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/ne-mfidl-mfclock_state
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class MFCLOCK_STATE extends Win32Enum{
+class MFCLOCK_STATE extends Win32Enum {
 
     /**
      * The clock is invalid. A clock might be invalid for several reasons. Some clocks return this state before the first start. This state can also occur if the underlying device is lost.

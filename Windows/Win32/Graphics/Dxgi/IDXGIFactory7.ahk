@@ -7,9 +7,8 @@
  * This interface enables registration for notifications to detect adapter enumeration state changes.
  * @see https://learn.microsoft.com/windows/win32/api/dxgi1_6/nn-dxgi1_6-idxgifactory7
  * @namespace Windows.Win32.Graphics.Dxgi
- * @version v4.0.30319
  */
-class IDXGIFactory7 extends IDXGIFactory6{
+class IDXGIFactory7 extends IDXGIFactory6 {
 
     static sizeof => A_PtrSize
     /**

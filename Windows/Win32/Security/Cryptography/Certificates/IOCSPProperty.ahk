@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\System\Com\IDispatch.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
 #Include ..\..\..\System\Variant\VARIANT.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
 
 /**
  * Represents a name-value pair for OCSPServiceProperties or ProviderProperties.
  * @see https://learn.microsoft.com/windows/win32/api/certadm/nn-certadm-iocspproperty
  * @namespace Windows.Win32.Security.Cryptography.Certificates
- * @version v4.0.30319
  */
-class IOCSPProperty extends IDispatch{
+class IOCSPProperty extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

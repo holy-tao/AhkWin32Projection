@@ -9,9 +9,8 @@
  * An <b>ISyncSessionState2</b> object can be obtained by passing <b>IID_ISyncSessionState2</b> to the <b>QueryInterface</b> method of an <b>ISyncSessionState</b> object.
  * @see https://learn.microsoft.com/windows/win32/api/winsync/nn-winsync-isyncsessionstate2
  * @namespace Windows.Win32.System.WindowsSync
- * @version v4.0.30319
  */
-class ISyncSessionState2 extends ISyncSessionState{
+class ISyncSessionState2 extends ISyncSessionState {
 
     static sizeof => A_PtrSize
     /**

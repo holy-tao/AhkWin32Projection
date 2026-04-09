@@ -5,9 +5,8 @@
  * Indicates which part of an object's moniker is being set or retrieved.
  * @see https://learn.microsoft.com/windows/win32/api/oleidl/ne-oleidl-olewhichmk
  * @namespace Windows.Win32.System.Ole
- * @version v4.0.30319
  */
-class OLEWHICHMK extends Win32Enum{
+class OLEWHICHMK extends Win32Enum {
 
     /**
      * The moniker of the object's container. Typically, this is a file moniker. This moniker is not persistently stored inside the object, since the container can be renamed even while the object is not loaded.

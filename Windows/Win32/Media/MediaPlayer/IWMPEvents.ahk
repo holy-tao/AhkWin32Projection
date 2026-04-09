@@ -1,16 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * The IWMPEvents interface provides events that originate from the Windows Media Player control. An embedding program can respond to these events. The events exposed by IWMPEvents are also exposed by the _WMPOCXEvents interface.
  * @see https://learn.microsoft.com/windows/win32/api/wmp/nn-wmp-iwmpevents
  * @namespace Windows.Win32.Media.MediaPlayer
- * @version v4.0.30319
  */
-class IWMPEvents extends IUnknown{
+class IWMPEvents extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -302,7 +300,7 @@ class IWMPEvents extends IUnknown{
      * @remarks
      * <b>Windows Media Player 10 Mobile: </b>This event is not supported.
      * @param {IDispatch} Playlist Pointer to an <b>IDispatch</b> interface for the playlist that changed.
-     * @param {Integer} change A <b>WMPPlaylistChangeEventType</b> enumeration value.
+     * @param {WMPPlaylistChangeEventType} change A <b>WMPPlaylistChangeEventType</b> enumeration value.
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpevents-playlistchange
      */
@@ -314,7 +312,7 @@ class IWMPEvents extends IUnknown{
      * The CurrentPlaylistChange event occurs when something changes within the current playlist.
      * @remarks
      * This event does not occur when a different playlist becomes the current playlist. It only occurs when a change happens within the current playlist, such as a media item being appended to the playlist.
-     * @param {Integer} change Specifies what type of change occurred to the playlist. See the <b>PlaylistChange</b> event for a table of possible values.
+     * @param {WMPPlaylistChangeEventType} change Specifies what type of change occurred to the playlist. See the <b>PlaylistChange</b> event for a table of possible values.
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpevents-currentplaylistchange
      */

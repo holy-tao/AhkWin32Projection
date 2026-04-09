@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Com\IUnknown.ahk
 #Include .\ITaskTrigger.ahk
 #Include ..\..\Foundation\SYSTEMTIME.ahk
-#Include ..\Com\IUnknown.ahk
 
 /**
  * Provides the methods for managing specific work items.
@@ -14,9 +14,8 @@
  * <b>ITask</b> interface and are typically called through that interface.
  * @see https://learn.microsoft.com/windows/win32/api/mstask/nn-mstask-ischeduledworkitem
  * @namespace Windows.Win32.System.TaskScheduler
- * @version v4.0.30319
  */
-class IScheduledWorkItem extends IUnknown{
+class IScheduledWorkItem extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -111,7 +110,7 @@ class IScheduledWorkItem extends IUnknown{
      * 
      * To complete the deletion of the trigger, programs must call the <b>IPersistFile::Save</b> method after calling 
      * <b>DeleteTrigger</b>. Calling <b>IPersistFile::Save</b> saves the changes to disk.
-     * @param {Integer} _iTrigger 
+     * @param {Integer} _iTrigger A trigger index value that specifies the trigger to be deleted. For more information, see Remarks.
      * @returns {HRESULT} The 
      * <b>DeleteTrigger</b> method returns one of the following values.
      * 
@@ -173,7 +172,7 @@ class IScheduledWorkItem extends IUnknown{
 
     /**
      * Retrieves a task trigger.
-     * @param {Integer} _iTrigger 
+     * @param {Integer} _iTrigger The index of the trigger to retrieve.
      * @returns {ITaskTrigger} A pointer to a pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mstask/nn-mstask-itasktrigger">ITaskTrigger</a> interface for the retrieved trigger.
      * @see https://learn.microsoft.com/windows/win32/api/mstask/nf-mstask-ischeduledworkitem-gettrigger
@@ -190,7 +189,7 @@ class IScheduledWorkItem extends IUnknown{
      * 
      * You can retrieve the trigger count using 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mstask/nf-mstask-ischeduledworkitem-gettriggercount">IScheduledWorkItem::GetTriggerCount</a>.
-     * @param {Integer} _iTrigger 
+     * @param {Integer} _iTrigger The index of the trigger to be retrieved. The first trigger is always referenced by 0. For more information, see Remarks.
      * @returns {PWSTR} A pointer to a null-terminated string that contains the retrieved trigger description. Note that this string must be release by a call to <b>CoTaskMemFree</b> after the string is no longer needed.
      * @see https://learn.microsoft.com/windows/win32/api/mstask/nf-mstask-ischeduledworkitem-gettriggerstring
      */

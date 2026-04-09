@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.UI.Animation
- * @version v4.0.30319
  */
-class UI_ANIMATION_KEYFRAME extends Win32Struct
-{
+class UI_ANIMATION_KEYFRAME extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 8

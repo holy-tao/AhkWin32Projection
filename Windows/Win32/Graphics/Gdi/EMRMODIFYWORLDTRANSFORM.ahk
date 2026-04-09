@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\EMR.ahk
+#Include .\ENHANCED_METAFILE_RECORD_TYPE.ahk
 #Include .\XFORM.ahk
+#Include .\MODIFY_WORLD_TRANSFORM_MODE.ahk
 
 /**
  * The EMRMODIFYWORLDTRANSFORM structure contains members for the ModifyWorldTransform enhanced metafile record.
  * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-emrmodifyworldtransform
  * @namespace Windows.Win32.Graphics.Gdi
- * @version v4.0.30319
  */
-class EMRMODIFYWORLDTRANSFORM extends Win32Struct
-{
+class EMRMODIFYWORLDTRANSFORM extends Win32Struct {
     static sizeof => 36
 
     static packingSize => 4
@@ -19,7 +19,7 @@ class EMRMODIFYWORLDTRANSFORM extends Win32Struct
      * The base structure for all record types.
      * @type {EMR}
      */
-    emr{
+    emr {
         get {
             if(!this.HasProp("__emr"))
                 this.__emr := EMR(0, this)
@@ -31,7 +31,7 @@ class EMRMODIFYWORLDTRANSFORM extends Win32Struct
      * The world-space to page-space transform data.
      * @type {XFORM}
      */
-    xform{
+    xform {
         get {
             if(!this.HasProp("__xform"))
                 this.__xform := XFORM(8, this)
@@ -40,8 +40,7 @@ class EMRMODIFYWORLDTRANSFORM extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Integer}
+     * @type {MODIFY_WORLD_TRANSFORM_MODE}
      */
     iMode {
         get => NumGet(this, 32, "uint")

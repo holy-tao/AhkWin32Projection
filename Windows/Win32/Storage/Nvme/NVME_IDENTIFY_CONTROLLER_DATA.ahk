@@ -8,13 +8,11 @@
  * The values of the **VID**, **SN**, and **MN** fields may be combined to form a globally unique value that identifies the NVM subsystem.
  * @see https://learn.microsoft.com/windows/win32/api/nvme/ns-nvme-nvme_identify_controller_data
  * @namespace Windows.Win32.Storage.Nvme
- * @version v4.0.30319
  */
-class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
-{
-    static sizeof => 3328
+class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct {
+    static sizeof => 4096
 
-    static packingSize => 8
+    static packingSize => 4
 
     class _CMIC extends Win32Struct {
         static sizeof => 1
@@ -33,7 +31,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
             get => NumGet(this, 0, "char")
             set => NumPut("char", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -41,7 +39,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
             get => (this._bitfield >> 0) & 0x1
             set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -49,7 +47,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
             get => (this._bitfield >> 1) & 0x1
             set => this._bitfield := ((value & 0x1) << 1) | (this._bitfield & ~(0x1 << 1))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -57,7 +55,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
             get => (this._bitfield >> 2) & 0x1
             set => this._bitfield := ((value & 0x1) << 2) | (this._bitfield & ~(0x1 << 2))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -65,7 +63,6 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
             get => (this._bitfield >> 3) & 0x1
             set => this._bitfield := ((value & 0x1) << 3) | (this._bitfield & ~(0x1 << 3))
         }
-    
     }
 
     class _OAES extends Win32Struct {
@@ -93,7 +90,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
             get => NumGet(this, 0, "uint")
             set => NumPut("uint", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -101,7 +98,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
             get => (this._bitfield >> 0) & 0xFF
             set => this._bitfield := ((value & 0xFF) << 0) | (this._bitfield & ~(0xFF << 0))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -109,7 +106,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
             get => (this._bitfield >> 8) & 0x1
             set => this._bitfield := ((value & 0x1) << 8) | (this._bitfield & ~(0x1 << 8))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -117,7 +114,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
             get => (this._bitfield >> 9) & 0x1
             set => this._bitfield := ((value & 0x1) << 9) | (this._bitfield & ~(0x1 << 9))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -125,7 +122,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
             get => (this._bitfield >> 10) & 0x1
             set => this._bitfield := ((value & 0x1) << 10) | (this._bitfield & ~(0x1 << 10))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -133,7 +130,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
             get => (this._bitfield >> 11) & 0x1
             set => this._bitfield := ((value & 0x1) << 11) | (this._bitfield & ~(0x1 << 11))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -141,7 +138,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
             get => (this._bitfield >> 12) & 0x1
             set => this._bitfield := ((value & 0x1) << 12) | (this._bitfield & ~(0x1 << 12))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -149,7 +146,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
             get => (this._bitfield >> 13) & 0x1
             set => this._bitfield := ((value & 0x1) << 13) | (this._bitfield & ~(0x1 << 13))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -157,7 +154,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
             get => (this._bitfield >> 14) & 0x1
             set => this._bitfield := ((value & 0x1) << 14) | (this._bitfield & ~(0x1 << 14))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -165,7 +162,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
             get => (this._bitfield >> 15) & 0x1
             set => this._bitfield := ((value & 0x1) << 15) | (this._bitfield & ~(0x1 << 15))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -173,7 +170,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
             get => (this._bitfield >> 16) & 0x7FF
             set => this._bitfield := ((value & 0x7FF) << 16) | (this._bitfield & ~(0x7FF << 16))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -181,7 +178,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
             get => (this._bitfield >> 27) & 0x1
             set => this._bitfield := ((value & 0x1) << 27) | (this._bitfield & ~(0x1 << 27))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -189,7 +186,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
             get => (this._bitfield >> 28) & 0x7
             set => this._bitfield := ((value & 0x7) << 28) | (this._bitfield & ~(0x7 << 28))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -197,7 +194,6 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
             get => (this._bitfield >> 31) & 0x1
             set => this._bitfield := ((value & 0x1) << 31) | (this._bitfield & ~(0x1 << 31))
         }
-    
     }
 
     class _CTRATT extends Win32Struct {
@@ -229,7 +225,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
             get => NumGet(this, 0, "uint")
             set => NumPut("uint", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -237,7 +233,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
             get => (this._bitfield >> 0) & 0x1
             set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -245,7 +241,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
             get => (this._bitfield >> 1) & 0x1
             set => this._bitfield := ((value & 0x1) << 1) | (this._bitfield & ~(0x1 << 1))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -253,7 +249,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
             get => (this._bitfield >> 2) & 0x1
             set => this._bitfield := ((value & 0x1) << 2) | (this._bitfield & ~(0x1 << 2))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -261,7 +257,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
             get => (this._bitfield >> 3) & 0x1
             set => this._bitfield := ((value & 0x1) << 3) | (this._bitfield & ~(0x1 << 3))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -269,7 +265,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
             get => (this._bitfield >> 4) & 0x1
             set => this._bitfield := ((value & 0x1) << 4) | (this._bitfield & ~(0x1 << 4))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -277,7 +273,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
             get => (this._bitfield >> 5) & 0x1
             set => this._bitfield := ((value & 0x1) << 5) | (this._bitfield & ~(0x1 << 5))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -285,7 +281,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
             get => (this._bitfield >> 6) & 0x1
             set => this._bitfield := ((value & 0x1) << 6) | (this._bitfield & ~(0x1 << 6))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -293,7 +289,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
             get => (this._bitfield >> 7) & 0x1
             set => this._bitfield := ((value & 0x1) << 7) | (this._bitfield & ~(0x1 << 7))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -301,7 +297,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
             get => (this._bitfield >> 8) & 0x1
             set => this._bitfield := ((value & 0x1) << 8) | (this._bitfield & ~(0x1 << 8))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -309,7 +305,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
             get => (this._bitfield >> 9) & 0x1
             set => this._bitfield := ((value & 0x1) << 9) | (this._bitfield & ~(0x1 << 9))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -317,7 +313,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
             get => (this._bitfield >> 10) & 0x1
             set => this._bitfield := ((value & 0x1) << 10) | (this._bitfield & ~(0x1 << 10))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -325,7 +321,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
             get => (this._bitfield >> 11) & 0x1
             set => this._bitfield := ((value & 0x1) << 11) | (this._bitfield & ~(0x1 << 11))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -333,7 +329,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
             get => (this._bitfield >> 12) & 0x1
             set => this._bitfield := ((value & 0x1) << 12) | (this._bitfield & ~(0x1 << 12))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -341,7 +337,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
             get => (this._bitfield >> 13) & 0x1
             set => this._bitfield := ((value & 0x1) << 13) | (this._bitfield & ~(0x1 << 13))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -349,7 +345,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
             get => (this._bitfield >> 14) & 0x1
             set => this._bitfield := ((value & 0x1) << 14) | (this._bitfield & ~(0x1 << 14))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -357,7 +353,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
             get => (this._bitfield >> 15) & 0x1
             set => this._bitfield := ((value & 0x1) << 15) | (this._bitfield & ~(0x1 << 15))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -365,7 +361,6 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
             get => (this._bitfield >> 16) & 0xFFFF
             set => this._bitfield := ((value & 0xFFFF) << 16) | (this._bitfield & ~(0xFFFF << 16))
         }
-    
     }
 
     class _RRLS extends Win32Struct {
@@ -396,7 +391,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
             get => NumGet(this, 0, "ushort")
             set => NumPut("ushort", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -404,7 +399,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
             get => (this._bitfield >> 0) & 0x1
             set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -412,7 +407,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
             get => (this._bitfield >> 1) & 0x1
             set => this._bitfield := ((value & 0x1) << 1) | (this._bitfield & ~(0x1 << 1))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -420,7 +415,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
             get => (this._bitfield >> 2) & 0x1
             set => this._bitfield := ((value & 0x1) << 2) | (this._bitfield & ~(0x1 << 2))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -428,7 +423,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
             get => (this._bitfield >> 3) & 0x1
             set => this._bitfield := ((value & 0x1) << 3) | (this._bitfield & ~(0x1 << 3))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -436,7 +431,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
             get => (this._bitfield >> 4) & 0x1
             set => this._bitfield := ((value & 0x1) << 4) | (this._bitfield & ~(0x1 << 4))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -444,7 +439,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
             get => (this._bitfield >> 5) & 0x1
             set => this._bitfield := ((value & 0x1) << 5) | (this._bitfield & ~(0x1 << 5))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -452,7 +447,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
             get => (this._bitfield >> 6) & 0x1
             set => this._bitfield := ((value & 0x1) << 6) | (this._bitfield & ~(0x1 << 6))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -460,7 +455,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
             get => (this._bitfield >> 7) & 0x1
             set => this._bitfield := ((value & 0x1) << 7) | (this._bitfield & ~(0x1 << 7))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -468,7 +463,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
             get => (this._bitfield >> 8) & 0x1
             set => this._bitfield := ((value & 0x1) << 8) | (this._bitfield & ~(0x1 << 8))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -476,7 +471,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
             get => (this._bitfield >> 9) & 0x1
             set => this._bitfield := ((value & 0x1) << 9) | (this._bitfield & ~(0x1 << 9))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -484,7 +479,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
             get => (this._bitfield >> 10) & 0x1
             set => this._bitfield := ((value & 0x1) << 10) | (this._bitfield & ~(0x1 << 10))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -492,7 +487,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
             get => (this._bitfield >> 11) & 0x1
             set => this._bitfield := ((value & 0x1) << 11) | (this._bitfield & ~(0x1 << 11))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -500,7 +495,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
             get => (this._bitfield >> 12) & 0x1
             set => this._bitfield := ((value & 0x1) << 12) | (this._bitfield & ~(0x1 << 12))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -508,7 +503,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
             get => (this._bitfield >> 13) & 0x1
             set => this._bitfield := ((value & 0x1) << 13) | (this._bitfield & ~(0x1 << 13))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -516,7 +511,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
             get => (this._bitfield >> 14) & 0x1
             set => this._bitfield := ((value & 0x1) << 14) | (this._bitfield & ~(0x1 << 14))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -524,7 +519,6 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
             get => (this._bitfield >> 15) & 0x1
             set => this._bitfield := ((value & 0x1) << 15) | (this._bitfield & ~(0x1 << 15))
         }
-    
     }
 
     class _OACS extends Win32Struct {
@@ -551,7 +545,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
             get => NumGet(this, 0, "ushort")
             set => NumPut("ushort", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -559,7 +553,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
             get => (this._bitfield >> 0) & 0x1
             set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -567,7 +561,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
             get => (this._bitfield >> 1) & 0x1
             set => this._bitfield := ((value & 0x1) << 1) | (this._bitfield & ~(0x1 << 1))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -575,7 +569,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
             get => (this._bitfield >> 2) & 0x1
             set => this._bitfield := ((value & 0x1) << 2) | (this._bitfield & ~(0x1 << 2))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -583,7 +577,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
             get => (this._bitfield >> 3) & 0x1
             set => this._bitfield := ((value & 0x1) << 3) | (this._bitfield & ~(0x1 << 3))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -591,7 +585,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
             get => (this._bitfield >> 4) & 0x1
             set => this._bitfield := ((value & 0x1) << 4) | (this._bitfield & ~(0x1 << 4))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -599,7 +593,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
             get => (this._bitfield >> 5) & 0x1
             set => this._bitfield := ((value & 0x1) << 5) | (this._bitfield & ~(0x1 << 5))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -607,7 +601,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
             get => (this._bitfield >> 6) & 0x1
             set => this._bitfield := ((value & 0x1) << 6) | (this._bitfield & ~(0x1 << 6))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -615,7 +609,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
             get => (this._bitfield >> 7) & 0x1
             set => this._bitfield := ((value & 0x1) << 7) | (this._bitfield & ~(0x1 << 7))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -623,7 +617,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
             get => (this._bitfield >> 8) & 0x1
             set => this._bitfield := ((value & 0x1) << 8) | (this._bitfield & ~(0x1 << 8))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -631,7 +625,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
             get => (this._bitfield >> 9) & 0x1
             set => this._bitfield := ((value & 0x1) << 9) | (this._bitfield & ~(0x1 << 9))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -639,7 +633,6 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
             get => (this._bitfield >> 10) & 0x1
             set => this._bitfield := ((value & 0x1) << 10) | (this._bitfield & ~(0x1 << 10))
         }
-    
     }
 
     class _FRMW extends Win32Struct {
@@ -658,7 +651,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
             get => NumGet(this, 0, "char")
             set => NumPut("char", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -666,7 +659,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
             get => (this._bitfield >> 0) & 0x1
             set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -674,7 +667,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
             get => (this._bitfield >> 1) & 0x7
             set => this._bitfield := ((value & 0x7) << 1) | (this._bitfield & ~(0x7 << 1))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -682,7 +675,6 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
             get => (this._bitfield >> 4) & 0x1
             set => this._bitfield := ((value & 0x1) << 4) | (this._bitfield & ~(0x1 << 4))
         }
-    
     }
 
     class _LPA extends Win32Struct {
@@ -705,7 +697,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
             get => NumGet(this, 0, "char")
             set => NumPut("char", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -713,7 +705,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
             get => (this._bitfield >> 0) & 0x1
             set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -721,7 +713,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
             get => (this._bitfield >> 1) & 0x1
             set => this._bitfield := ((value & 0x1) << 1) | (this._bitfield & ~(0x1 << 1))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -729,7 +721,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
             get => (this._bitfield >> 2) & 0x1
             set => this._bitfield := ((value & 0x1) << 2) | (this._bitfield & ~(0x1 << 2))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -737,7 +729,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
             get => (this._bitfield >> 3) & 0x1
             set => this._bitfield := ((value & 0x1) << 3) | (this._bitfield & ~(0x1 << 3))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -745,7 +737,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
             get => (this._bitfield >> 4) & 0x1
             set => this._bitfield := ((value & 0x1) << 4) | (this._bitfield & ~(0x1 << 4))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -753,7 +745,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
             get => (this._bitfield >> 5) & 0x1
             set => this._bitfield := ((value & 0x1) << 5) | (this._bitfield & ~(0x1 << 5))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -761,7 +753,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
             get => (this._bitfield >> 6) & 0x1
             set => this._bitfield := ((value & 0x1) << 6) | (this._bitfield & ~(0x1 << 6))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -769,7 +761,6 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
             get => (this._bitfield >> 7) & 0x1
             set => this._bitfield := ((value & 0x1) << 7) | (this._bitfield & ~(0x1 << 7))
         }
-    
     }
 
     class _AVSCC extends Win32Struct {
@@ -786,7 +777,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
             get => NumGet(this, 0, "char")
             set => NumPut("char", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -794,7 +785,6 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
             get => (this._bitfield >> 0) & 0x1
             set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
         }
-    
     }
 
     class _APSTA extends Win32Struct {
@@ -811,7 +801,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
             get => NumGet(this, 0, "char")
             set => NumPut("char", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -819,7 +809,6 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
             get => (this._bitfield >> 0) & 0x1
             set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
         }
-    
     }
 
     class _RPMBS extends Win32Struct {
@@ -839,7 +828,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
             get => NumGet(this, 0, "uint")
             set => NumPut("uint", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -847,7 +836,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
             get => (this._bitfield >> 0) & 0x7
             set => this._bitfield := ((value & 0x7) << 0) | (this._bitfield & ~(0x7 << 0))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -855,7 +844,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
             get => (this._bitfield >> 3) & 0x7
             set => this._bitfield := ((value & 0x7) << 3) | (this._bitfield & ~(0x7 << 3))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -863,7 +852,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
             get => (this._bitfield >> 6) & 0x3FF
             set => this._bitfield := ((value & 0x3FF) << 6) | (this._bitfield & ~(0x3FF << 6))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -871,7 +860,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
             get => (this._bitfield >> 16) & 0xFF
             set => this._bitfield := ((value & 0xFF) << 16) | (this._bitfield & ~(0xFF << 16))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -879,7 +868,6 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
             get => (this._bitfield >> 24) & 0xFF
             set => this._bitfield := ((value & 0xFF) << 24) | (this._bitfield & ~(0xFF << 24))
         }
-    
     }
 
     class _HCTMA extends Win32Struct {
@@ -896,7 +884,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
             get => NumGet(this, 0, "ushort")
             set => NumPut("ushort", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -904,7 +892,6 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
             get => (this._bitfield >> 0) & 0x1
             set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
         }
-    
     }
 
     class _SANICAP extends Win32Struct {
@@ -925,7 +912,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
             get => NumGet(this, 0, "uint")
             set => NumPut("uint", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -933,7 +920,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
             get => (this._bitfield >> 0) & 0x1
             set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -941,7 +928,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
             get => (this._bitfield >> 1) & 0x1
             set => this._bitfield := ((value & 0x1) << 1) | (this._bitfield & ~(0x1 << 1))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -949,7 +936,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
             get => (this._bitfield >> 2) & 0x1
             set => this._bitfield := ((value & 0x1) << 2) | (this._bitfield & ~(0x1 << 2))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -957,7 +944,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
             get => (this._bitfield >> 29) & 0x1
             set => this._bitfield := ((value & 0x1) << 29) | (this._bitfield & ~(0x1 << 29))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -965,7 +952,6 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
             get => (this._bitfield >> 30) & 0x3
             set => this._bitfield := ((value & 0x3) << 30) | (this._bitfield & ~(0x3 << 30))
         }
-    
     }
 
     class _ANACAP extends Win32Struct {
@@ -988,7 +974,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
             get => NumGet(this, 0, "char")
             set => NumPut("char", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -996,7 +982,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
             get => (this._bitfield >> 0) & 0x1
             set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -1004,7 +990,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
             get => (this._bitfield >> 1) & 0x1
             set => this._bitfield := ((value & 0x1) << 1) | (this._bitfield & ~(0x1 << 1))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -1012,7 +998,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
             get => (this._bitfield >> 2) & 0x1
             set => this._bitfield := ((value & 0x1) << 2) | (this._bitfield & ~(0x1 << 2))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -1020,7 +1006,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
             get => (this._bitfield >> 3) & 0x1
             set => this._bitfield := ((value & 0x1) << 3) | (this._bitfield & ~(0x1 << 3))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -1028,7 +1014,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
             get => (this._bitfield >> 4) & 0x1
             set => this._bitfield := ((value & 0x1) << 4) | (this._bitfield & ~(0x1 << 4))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -1036,7 +1022,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
             get => (this._bitfield >> 6) & 0x1
             set => this._bitfield := ((value & 0x1) << 6) | (this._bitfield & ~(0x1 << 6))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -1044,7 +1030,6 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
             get => (this._bitfield >> 7) & 0x1
             set => this._bitfield := ((value & 0x1) << 7) | (this._bitfield & ~(0x1 << 7))
         }
-    
     }
 
     class _SQES extends Win32Struct {
@@ -1061,7 +1046,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
             get => NumGet(this, 0, "char")
             set => NumPut("char", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -1069,7 +1054,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
             get => (this._bitfield >> 0) & 0xF
             set => this._bitfield := ((value & 0xF) << 0) | (this._bitfield & ~(0xF << 0))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -1077,7 +1062,6 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
             get => (this._bitfield >> 4) & 0xF
             set => this._bitfield := ((value & 0xF) << 4) | (this._bitfield & ~(0xF << 4))
         }
-    
     }
 
     class _CQES extends Win32Struct {
@@ -1094,7 +1078,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
             get => NumGet(this, 0, "char")
             set => NumPut("char", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -1102,7 +1086,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
             get => (this._bitfield >> 0) & 0xF
             set => this._bitfield := ((value & 0xF) << 0) | (this._bitfield & ~(0xF << 0))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -1110,7 +1094,6 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
             get => (this._bitfield >> 4) & 0xF
             set => this._bitfield := ((value & 0xF) << 4) | (this._bitfield & ~(0xF << 4))
         }
-    
     }
 
     class _ONCS extends Win32Struct {
@@ -1134,7 +1117,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
             get => NumGet(this, 0, "ushort")
             set => NumPut("ushort", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -1142,7 +1125,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
             get => (this._bitfield >> 0) & 0x1
             set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -1150,7 +1133,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
             get => (this._bitfield >> 1) & 0x1
             set => this._bitfield := ((value & 0x1) << 1) | (this._bitfield & ~(0x1 << 1))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -1158,7 +1141,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
             get => (this._bitfield >> 2) & 0x1
             set => this._bitfield := ((value & 0x1) << 2) | (this._bitfield & ~(0x1 << 2))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -1166,7 +1149,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
             get => (this._bitfield >> 3) & 0x1
             set => this._bitfield := ((value & 0x1) << 3) | (this._bitfield & ~(0x1 << 3))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -1174,7 +1157,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
             get => (this._bitfield >> 4) & 0x1
             set => this._bitfield := ((value & 0x1) << 4) | (this._bitfield & ~(0x1 << 4))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -1182,7 +1165,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
             get => (this._bitfield >> 5) & 0x1
             set => this._bitfield := ((value & 0x1) << 5) | (this._bitfield & ~(0x1 << 5))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -1190,7 +1173,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
             get => (this._bitfield >> 6) & 0x1
             set => this._bitfield := ((value & 0x1) << 6) | (this._bitfield & ~(0x1 << 6))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -1198,7 +1181,6 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
             get => (this._bitfield >> 7) & 0x1
             set => this._bitfield := ((value & 0x1) << 7) | (this._bitfield & ~(0x1 << 7))
         }
-    
     }
 
     class _FUSES extends Win32Struct {
@@ -1215,7 +1197,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
             get => NumGet(this, 0, "ushort")
             set => NumPut("ushort", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -1223,7 +1205,6 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
             get => (this._bitfield >> 0) & 0x1
             set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
         }
-    
     }
 
     class _FNA extends Win32Struct {
@@ -1243,7 +1224,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
             get => NumGet(this, 0, "char")
             set => NumPut("char", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -1251,7 +1232,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
             get => (this._bitfield >> 0) & 0x1
             set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -1259,7 +1240,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
             get => (this._bitfield >> 1) & 0x1
             set => this._bitfield := ((value & 0x1) << 1) | (this._bitfield & ~(0x1 << 1))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -1267,7 +1248,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
             get => (this._bitfield >> 2) & 0x1
             set => this._bitfield := ((value & 0x1) << 2) | (this._bitfield & ~(0x1 << 2))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -1275,7 +1256,6 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
             get => (this._bitfield >> 3) & 0x1
             set => this._bitfield := ((value & 0x1) << 3) | (this._bitfield & ~(0x1 << 3))
         }
-    
     }
 
     class _VWC extends Win32Struct {
@@ -1293,7 +1273,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
             get => NumGet(this, 0, "char")
             set => NumPut("char", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -1301,7 +1281,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
             get => (this._bitfield >> 0) & 0x1
             set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -1309,7 +1289,6 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
             get => (this._bitfield >> 1) & 0x3
             set => this._bitfield := ((value & 0x3) << 1) | (this._bitfield & ~(0x3 << 1))
         }
-    
     }
 
     class _NVSCC extends Win32Struct {
@@ -1326,7 +1305,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
             get => NumGet(this, 0, "char")
             set => NumPut("char", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -1334,7 +1313,6 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
             get => (this._bitfield >> 0) & 0x1
             set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
         }
-    
     }
 
     class _NWPC extends Win32Struct {
@@ -1353,7 +1331,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
             get => NumGet(this, 0, "char")
             set => NumPut("char", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -1361,7 +1339,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
             get => (this._bitfield >> 0) & 0x1
             set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -1369,7 +1347,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
             get => (this._bitfield >> 1) & 0x1
             set => this._bitfield := ((value & 0x1) << 1) | (this._bitfield & ~(0x1 << 1))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -1377,7 +1355,6 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
             get => (this._bitfield >> 2) & 0x1
             set => this._bitfield := ((value & 0x1) << 2) | (this._bitfield & ~(0x1 << 2))
         }
-    
     }
 
     class _SGLS extends Win32Struct {
@@ -1402,7 +1379,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
             get => NumGet(this, 0, "uint")
             set => NumPut("uint", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -1410,7 +1387,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
             get => (this._bitfield >> 0) & 0x3
             set => this._bitfield := ((value & 0x3) << 0) | (this._bitfield & ~(0x3 << 0))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -1418,7 +1395,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
             get => (this._bitfield >> 2) & 0x1
             set => this._bitfield := ((value & 0x1) << 2) | (this._bitfield & ~(0x1 << 2))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -1426,7 +1403,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
             get => (this._bitfield >> 3) & 0x1FFF
             set => this._bitfield := ((value & 0x1FFF) << 3) | (this._bitfield & ~(0x1FFF << 3))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -1434,7 +1411,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
             get => (this._bitfield >> 16) & 0x1
             set => this._bitfield := ((value & 0x1) << 16) | (this._bitfield & ~(0x1 << 16))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -1442,7 +1419,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
             get => (this._bitfield >> 17) & 0x1
             set => this._bitfield := ((value & 0x1) << 17) | (this._bitfield & ~(0x1 << 17))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -1450,7 +1427,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
             get => (this._bitfield >> 18) & 0x1
             set => this._bitfield := ((value & 0x1) << 18) | (this._bitfield & ~(0x1 << 18))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -1458,7 +1435,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
             get => (this._bitfield >> 19) & 0x1
             set => this._bitfield := ((value & 0x1) << 19) | (this._bitfield & ~(0x1 << 19))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -1466,7 +1443,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
             get => (this._bitfield >> 20) & 0x1
             set => this._bitfield := ((value & 0x1) << 20) | (this._bitfield & ~(0x1 << 20))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -1474,7 +1451,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
             get => (this._bitfield >> 21) & 0x1
             set => this._bitfield := ((value & 0x1) << 21) | (this._bitfield & ~(0x1 << 21))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -1482,7 +1459,6 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
             get => (this._bitfield >> 22) & 0x3FF
             set => this._bitfield := ((value & 0x3FF) << 22) | (this._bitfield & ~(0x3FF << 22))
         }
-    
     }
 
     class _FCATT extends Win32Struct {
@@ -1499,7 +1475,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
             get => NumGet(this, 0, "char")
             set => NumPut("char", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -1507,7 +1483,6 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
             get => (this._bitfield >> 0) & 0x1
             set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
         }
-    
     }
 
     class _OFCS extends Win32Struct {
@@ -1524,7 +1499,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
             get => NumGet(this, 0, "ushort")
             set => NumPut("ushort", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -1532,7 +1507,6 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
             get => (this._bitfield >> 0) & 0x1
             set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
         }
-    
     }
 
     /**
@@ -1555,9 +1529,9 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
 
     /**
      * Contains the serial number for the NVM subsystem that is assigned by the vendor as an ASCII string.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    SN{
+    SN {
         get {
             if(!this.HasProp("__SNProxyArray"))
                 this.__SNProxyArray := Win32FixedArray(this.ptr + 4, 20, Primitive, "char")
@@ -1567,9 +1541,9 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
 
     /**
      * Contains the model number for the NVM subsystem that is assigned by the vendor as an ASCII string.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    MN{
+    MN {
         get {
             if(!this.HasProp("__MNProxyArray"))
                 this.__MNProxyArray := Win32FixedArray(this.ptr + 24, 40, Primitive, "char")
@@ -1581,9 +1555,9 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
      * Contains the currently active firmware revision for the NVM subsystem.
      * 
      * This is the same firmware revision information in the [NVME_FIRMWARE_SLOT_INFO_LOG](ns-nvme-nvme_firmware_slot_info_log.md) that can be retrieved with the Get Log Page command.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    FR{
+    FR {
         get {
             if(!this.HasProp("__FRProxyArray"))
                 this.__FRProxyArray := Win32FixedArray(this.ptr + 64, 8, Primitive, "char")
@@ -1604,9 +1578,9 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
      * Contains the Organization Unique Identifier (OUI) for the controller vendor.
      * 
      * The OUI is a valid IEEE/RAC assigned identifier that can be registered at http://standards.ieee.org/develop/regauth/oui/public.html.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    IEEE{
+    IEEE {
         get {
             if(!this.HasProp("__IEEEProxyArray"))
                 this.__IEEEProxyArray := Win32FixedArray(this.ptr + 73, 3, Primitive, "char")
@@ -1618,10 +1592,10 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
      * A Controller Multi-Path I/O and Namespace Sharing Capabilities (CMIC) structure that specifies the multi-path I/O and namespace sharing capabilities of the controller and NVM subsystem.
      * @type {_CMIC}
      */
-    CMIC{
+    CMIC {
         get {
             if(!this.HasProp("__CMIC"))
-                this.__CMIC := %this.__Class%._CMIC(76, this)
+                this.__CMIC := NVME_IDENTIFY_CONTROLLER_DATA._CMIC(76, this)
             return this.__CMIC
         }
     }
@@ -1689,10 +1663,10 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
      * A controller should not send optional asynchronous events before they are enabled by host software.
      * @type {_OAES}
      */
-    OAES{
+    OAES {
         get {
             if(!this.HasProp("__OAES"))
-                this.__OAES := %this.__Class%._OAES(92, this)
+                this.__OAES := NVME_IDENTIFY_CONTROLLER_DATA._OAES(92, this)
             return this.__OAES
         }
     }
@@ -1701,10 +1675,10 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
      * A Controller Attributes (CTRATT) structure containing controller attribute information.
      * @type {_CTRATT}
      */
-    CTRATT{
+    CTRATT {
         get {
             if(!this.HasProp("__CTRATT"))
-                this.__CTRATT := %this.__Class%._CTRATT(96, this)
+                this.__CTRATT := NVME_IDENTIFY_CONTROLLER_DATA._CTRATT(96, this)
             return this.__CTRATT
         }
     }
@@ -1712,19 +1686,19 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
     /**
      * @type {_RRLS}
      */
-    RRLS{
+    RRLS {
         get {
             if(!this.HasProp("__RRLS"))
-                this.__RRLS := %this.__Class%._RRLS(100, this)
+                this.__RRLS := NVME_IDENTIFY_CONTROLLER_DATA._RRLS(100, this)
             return this.__RRLS
         }
     }
 
     /**
      * Bits 10:31 of the **OAES** structure are reserved.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Reserved0{
+    Reserved0 {
         get {
             if(!this.HasProp("__Reserved0ProxyArray"))
                 this.__Reserved0ProxyArray := Win32FixedArray(this.ptr + 102, 9, Primitive, "char")
@@ -1741,9 +1715,9 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    FGUID{
+    FGUID {
         get {
             if(!this.HasProp("__FGUIDProxyArray"))
                 this.__FGUIDProxyArray := Win32FixedArray(this.ptr + 112, 16, Primitive, "char")
@@ -1777,9 +1751,9 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
 
     /**
      * Bits 0:7 of the **OAES** structure are reserved.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Reserved1{
+    Reserved1 {
         get {
             if(!this.HasProp("__Reserved1ProxyArray"))
                 this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 134, 106, Primitive, "char")
@@ -1789,9 +1763,9 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
 
     /**
      * Reserved for NVMe Management.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    ReservedForManagement{
+    ReservedForManagement {
         get {
             if(!this.HasProp("__ReservedForManagementProxyArray"))
                 this.__ReservedForManagementProxyArray := Win32FixedArray(this.ptr + 240, 13, Primitive, "char")
@@ -1827,10 +1801,10 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
      * An Optional Admin Command Support (OACS) structure containing fields that indicate the optional [Admin Commands](ne-nvme-nvme_admin_commands.md) supported by the controller.
      * @type {_OACS}
      */
-    OACS{
+    OACS {
         get {
             if(!this.HasProp("__OACS"))
-                this.__OACS := %this.__Class%._OACS(256, this)
+                this.__OACS := NVME_IDENTIFY_CONTROLLER_DATA._OACS(256, this)
             return this.__OACS
         }
     }
@@ -1861,10 +1835,10 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
      * A Firmware Updates (FRMW) structure containing fields that indicate capabilities regarding firmware updates.
      * @type {_FRMW}
      */
-    FRMW{
+    FRMW {
         get {
             if(!this.HasProp("__FRMW"))
-                this.__FRMW := %this.__Class%._FRMW(260, this)
+                this.__FRMW := NVME_IDENTIFY_CONTROLLER_DATA._FRMW(260, this)
             return this.__FRMW
         }
     }
@@ -1873,10 +1847,10 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
      * A Log Page Attributes (LPA) structure containing fields that indicate optional attributes for log pages that are accessed by using the [Get Log Page](ns-nvme-nvme_cdw10_get_log_page.md) command.
      * @type {_LPA}
      */
-    LPA{
+    LPA {
         get {
             if(!this.HasProp("__LPA"))
-                this.__LPA := %this.__Class%._LPA(261, this)
+                this.__LPA := NVME_IDENTIFY_CONTROLLER_DATA._LPA(261, this)
             return this.__LPA
         }
     }
@@ -1905,10 +1879,10 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
      * An Admin Vendor Specific Command Configuration (AVSCC) structure containing fields that indicate the configuration settings for Admin Vendor Specific command handling.
      * @type {_AVSCC}
      */
-    AVSCC{
+    AVSCC {
         get {
             if(!this.HasProp("__AVSCC"))
-                this.__AVSCC := %this.__Class%._AVSCC(264, this)
+                this.__AVSCC := NVME_IDENTIFY_CONTROLLER_DATA._AVSCC(264, this)
             return this.__AVSCC
         }
     }
@@ -1917,10 +1891,10 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
      * An Autonomous Power State Transition Attributes (APSTA) structure containing fields that indicate the attributes of the [autonomous power state transition feature](ns-nvme-nvme_cdw11_feature_auto_power_state_transition.md).
      * @type {_APSTA}
      */
-    APSTA{
+    APSTA {
         get {
             if(!this.HasProp("__APSTA"))
-                this.__APSTA := %this.__Class%._APSTA(265, this)
+                this.__APSTA := NVME_IDENTIFY_CONTROLLER_DATA._APSTA(265, this)
             return this.__APSTA
         }
     }
@@ -1988,9 +1962,9 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
      * Indicates the total NVM capacity, in bytes, of the NVM subsystem.
      * 
      * This field is supported if the Namespace Management and Namespace Attachment commands are supported.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    TNVMCAP{
+    TNVMCAP {
         get {
             if(!this.HasProp("__TNVMCAPProxyArray"))
                 this.__TNVMCAPProxyArray := Win32FixedArray(this.ptr + 280, 16, Primitive, "char")
@@ -2002,9 +1976,9 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
      * Indicates the unallocated NVM capacity, in bytes, of the NVM subsystem. 
      * 
      * This field is supported if the Namespace Management and Namespace Attachment commands are supported.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    UNVMCAP{
+    UNVMCAP {
         get {
             if(!this.HasProp("__UNVMCAPProxyArray"))
                 this.__UNVMCAPProxyArray := Win32FixedArray(this.ptr + 296, 16, Primitive, "char")
@@ -2016,10 +1990,10 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
      * A Replay Protected Memory Block Support (RPMBS) structure containing fields that indicate whether the controller supports one or more Replay Protected Memory Blocks (RPMBs) and the associated capabilities.
      * @type {_RPMBS}
      */
-    RPMBS{
+    RPMBS {
         get {
             if(!this.HasProp("__RPMBS"))
-                this.__RPMBS := %this.__Class%._RPMBS(312, this)
+                this.__RPMBS := NVME_IDENTIFY_CONTROLLER_DATA._RPMBS(312, this)
             return this.__RPMBS
         }
     }
@@ -2064,10 +2038,10 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
      * A Host Controlled Thermal Management Attributes (HCTMA) structure.
      * @type {_HCTMA}
      */
-    HCTMA{
+    HCTMA {
         get {
             if(!this.HasProp("__HCTMA"))
-                this.__HCTMA := %this.__Class%._HCTMA(322, this)
+                this.__HCTMA := NVME_IDENTIFY_CONTROLLER_DATA._HCTMA(322, this)
             return this.__HCTMA
         }
     }
@@ -2094,10 +2068,10 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
      * Sanitize Capabilities (SANICAP)
      * @type {_SANICAP}
      */
-    SANICAP{
+    SANICAP {
         get {
             if(!this.HasProp("__SANICAP"))
-                this.__SANICAP := %this.__Class%._SANICAP(328, this)
+                this.__SANICAP := NVME_IDENTIFY_CONTROLLER_DATA._SANICAP(328, this)
             return this.__SANICAP
         }
     }
@@ -2146,10 +2120,10 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
     /**
      * @type {_ANACAP}
      */
-    ANACAP{
+    ANACAP {
         get {
             if(!this.HasProp("__ANACAP"))
-                this.__ANACAP := %this.__Class%._ANACAP(343, this)
+                this.__ANACAP := NVME_IDENTIFY_CONTROLLER_DATA._ANACAP(343, this)
             return this.__ANACAP
         }
     }
@@ -2187,10 +2161,9 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Reserved2{
+    Reserved2 {
         get {
             if(!this.HasProp("__Reserved2ProxyArray"))
                 this.__Reserved2ProxyArray := Win32FixedArray(this.ptr + 358, 10, Primitive, "char")
@@ -2199,9 +2172,9 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    MEGCAP{
+    MEGCAP {
         get {
             if(!this.HasProp("__MEGCAPProxyArray"))
                 this.__MEGCAPProxyArray := Win32FixedArray(this.ptr + 368, 16, Primitive, "char")
@@ -2236,9 +2209,9 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
 
     /**
      * A reserved field.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Reserved4{
+    Reserved4 {
         get {
             if(!this.HasProp("__Reserved4ProxyArray"))
                 this.__Reserved4ProxyArray := Win32FixedArray(this.ptr + 388, 124, Primitive, "char")
@@ -2250,10 +2223,10 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
      * A Submission Queue Entry Size (SQES) structure containing fields that indicate the required and maximum Submission Queue entry size when using the NVM Command Set.
      * @type {_SQES}
      */
-    SQES{
+    SQES {
         get {
             if(!this.HasProp("__SQES"))
-                this.__SQES := %this.__Class%._SQES(512, this)
+                this.__SQES := NVME_IDENTIFY_CONTROLLER_DATA._SQES(512, this)
             return this.__SQES
         }
     }
@@ -2262,10 +2235,10 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
      * A Completion Queue Entry Size (CQES) structure containing fields that indicate the required and maximum Completion Queue entry size when using the NVM Command Set.
      * @type {_CQES}
      */
-    CQES{
+    CQES {
         get {
             if(!this.HasProp("__CQES"))
-                this.__CQES := %this.__Class%._CQES(513, this)
+                this.__CQES := NVME_IDENTIFY_CONTROLLER_DATA._CQES(513, this)
             return this.__CQES
         }
     }
@@ -2291,10 +2264,10 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
      * An Optional NVM Command Support (ONCS) structure containing fields that indicate the optional [NVM commands](ne-nvme-nvme_nvm_commands.md) and features supported by the controller.
      * @type {_ONCS}
      */
-    ONCS{
+    ONCS {
         get {
             if(!this.HasProp("__ONCS"))
-                this.__ONCS := %this.__Class%._ONCS(520, this)
+                this.__ONCS := NVME_IDENTIFY_CONTROLLER_DATA._ONCS(520, this)
             return this.__ONCS
         }
     }
@@ -2303,10 +2276,10 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
      * A Fused Operation Support (FUSES) structure containing fields that indicate the fused operations that the controller supports.
      * @type {_FUSES}
      */
-    FUSES{
+    FUSES {
         get {
             if(!this.HasProp("__FUSES"))
-                this.__FUSES := %this.__Class%._FUSES(522, this)
+                this.__FUSES := NVME_IDENTIFY_CONTROLLER_DATA._FUSES(522, this)
             return this.__FUSES
         }
     }
@@ -2315,10 +2288,10 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
      * A Format NVM Attributes (FNA) structure containing fields that indicate attributes for the [Format NVM](ns-nvme-nvme_cdw10_format_nvm.md) command.
      * @type {_FNA}
      */
-    FNA{
+    FNA {
         get {
             if(!this.HasProp("__FNA"))
-                this.__FNA := %this.__Class%._FNA(524, this)
+                this.__FNA := NVME_IDENTIFY_CONTROLLER_DATA._FNA(524, this)
             return this.__FNA
         }
     }
@@ -2327,10 +2300,10 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
      * A Volatile Write Cache (VWC) structure containing fields that indicate attributes related to the presence of a volatile write cache in the implementation.
      * @type {_VWC}
      */
-    VWC{
+    VWC {
         get {
             if(!this.HasProp("__VWC"))
-                this.__VWC := %this.__Class%._VWC(525, this)
+                this.__VWC := NVME_IDENTIFY_CONTROLLER_DATA._VWC(525, this)
             return this.__VWC
         }
     }
@@ -2371,10 +2344,10 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
      * A NVM Vendor Specific Command Configuration (NVSCC) structure containing fields that indicate the configuration settings for NVM Vendor Specific command handling.
      * @type {_NVSCC}
      */
-    NVSCC{
+    NVSCC {
         get {
             if(!this.HasProp("__NVSCC"))
-                this.__NVSCC := %this.__Class%._NVSCC(530, this)
+                this.__NVSCC := NVME_IDENTIFY_CONTROLLER_DATA._NVSCC(530, this)
             return this.__NVSCC
         }
     }
@@ -2382,10 +2355,10 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
     /**
      * @type {_NWPC}
      */
-    NWPC{
+    NWPC {
         get {
             if(!this.HasProp("__NWPC"))
-                this.__NWPC := %this.__Class%._NWPC(531, this)
+                this.__NWPC := NVME_IDENTIFY_CONTROLLER_DATA._NWPC(531, this)
             return this.__NWPC
         }
     }
@@ -2417,10 +2390,10 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
      * A SGL Support (SGLS) structure containing fields that specify whether Scatter Gather Lists (SGL) are supported for the NVM Command Set and the supported SGL types.
      * @type {_SGLS}
      */
-    SGLS{
+    SGLS {
         get {
             if(!this.HasProp("__SGLS"))
-                this.__SGLS := %this.__Class%._SGLS(536, this)
+                this.__SGLS := NVME_IDENTIFY_CONTROLLER_DATA._SGLS(536, this)
             return this.__SGLS
         }
     }
@@ -2434,9 +2407,9 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    MAXDNA{
+    MAXDNA {
         get {
             if(!this.HasProp("__MAXDNAProxyArray"))
                 this.__MAXDNAProxyArray := Win32FixedArray(this.ptr + 544, 16, Primitive, "char")
@@ -2454,9 +2427,9 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
 
     /**
      * Bytes 704:2047 are reserved for I/O Command Set Attributes.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Reserved6{
+    Reserved6 {
         get {
             if(!this.HasProp("__Reserved6ProxyArray"))
                 this.__Reserved6ProxyArray := Win32FixedArray(this.ptr + 564, 204, Primitive, "char")
@@ -2465,9 +2438,9 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    SUBNQN{
+    SUBNQN {
         get {
             if(!this.HasProp("__SUBNQNProxyArray"))
                 this.__SUBNQNProxyArray := Win32FixedArray(this.ptr + 768, 256, Primitive, "char")
@@ -2476,9 +2449,9 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Reserved7{
+    Reserved7 {
         get {
             if(!this.HasProp("__Reserved7ProxyArray"))
                 this.__Reserved7ProxyArray := Win32FixedArray(this.ptr + 1024, 768, Primitive, "char")
@@ -2513,10 +2486,10 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
     /**
      * @type {_FCATT}
      */
-    FCATT{
+    FCATT {
         get {
             if(!this.HasProp("__FCATT"))
-                this.__FCATT := %this.__Class%._FCATT(1802, this)
+                this.__FCATT := NVME_IDENTIFY_CONTROLLER_DATA._FCATT(1802, this)
             return this.__FCATT
         }
     }
@@ -2532,10 +2505,10 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
     /**
      * @type {_OFCS}
      */
-    OFCS{
+    OFCS {
         get {
             if(!this.HasProp("__OFCS"))
-                this.__OFCS := %this.__Class%._OFCS(1804, this)
+                this.__OFCS := NVME_IDENTIFY_CONTROLLER_DATA._OFCS(1804, this)
             return this.__OFCS
         }
     }
@@ -2549,9 +2522,9 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Reserved8{
+    Reserved8 {
         get {
             if(!this.HasProp("__Reserved8ProxyArray"))
                 this.__Reserved8ProxyArray := Win32FixedArray(this.ptr + 1807, 241, Primitive, "char")
@@ -2563,9 +2536,9 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
      * Contains an array of 32 Power State Descriptors. Each member of the array is a 32 bit field that indicates the characteristics of a Power State Descriptor. The format of this field is defined in the [NVME_POWER_STATE_DESC](ns-nvme-nvme_power_state_desc.md) structure.
      * 
      * The zero-based position of a structure in the array corresponds to the name of the Power State Descriptor, such that Power State 0 Descriptor (PSD0) is in position 0, Power State 1 Descriptor (PSD1) is in position 1, and so on, up to Power State 31 Descriptor (PSD31) in position 31.
-     * @type {Array<NVME_POWER_STATE_DESC>}
+     * @type {NVME_POWER_STATE_DESC}
      */
-    PDS{
+    PDS {
         get {
             if(!this.HasProp("__PDSProxyArray"))
                 this.__PDSProxyArray := Win32FixedArray(this.ptr + 2048, 32, NVME_POWER_STATE_DESC, "")
@@ -2575,12 +2548,12 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
 
     /**
      * Bytes 3072:4095 are allocated for vendor specific usage.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    VS{
+    VS {
         get {
             if(!this.HasProp("__VSProxyArray"))
-                this.__VSProxyArray := Win32FixedArray(this.ptr + 2304, 1024, Primitive, "char")
+                this.__VSProxyArray := Win32FixedArray(this.ptr + 3072, 1024, Primitive, "char")
             return this.__VSProxyArray
         }
     }

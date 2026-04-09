@@ -11,9 +11,8 @@
  * The <b>IXMLHTTPRequest2Callback</b> interface is extended by the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msxml6/nn-msxml6-ixmlhttprequest3callback">IXMLHTTPRequest3Callback</a> interface.
  * @see https://learn.microsoft.com/windows/win32/api/msxml6/nn-msxml6-ixmlhttprequest2callback
  * @namespace Windows.Win32.Data.Xml.MsXml
- * @version v4.0.30319
  */
-class IXMLHTTPRequest2Callback extends IUnknown{
+class IXMLHTTPRequest2Callback extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

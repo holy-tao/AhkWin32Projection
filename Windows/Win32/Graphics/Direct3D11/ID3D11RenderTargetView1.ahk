@@ -11,9 +11,8 @@
  * A render target is a resource that can be written by the output-merger stage at the end of a render pass. Each render target can also have a corresponding depth-stencil view.
  * @see https://learn.microsoft.com/windows/win32/api/d3d11_3/nn-d3d11_3-id3d11rendertargetview1
  * @namespace Windows.Win32.Graphics.Direct3D11
- * @version v4.0.30319
  */
-class ID3D11RenderTargetView1 extends ID3D11RenderTargetView{
+class ID3D11RenderTargetView1 extends ID3D11RenderTargetView {
 
     static sizeof => A_PtrSize
     /**

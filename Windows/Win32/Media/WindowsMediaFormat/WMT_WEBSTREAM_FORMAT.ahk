@@ -5,10 +5,8 @@
  * The WMT_WEBSTREAM_FORMAT structure contains information about a Web stream. This structure is used as the pbFormat member of the WM_MEDIA_TYPE structure for Web streams.
  * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/ns-wmsdkidl-wmt_webstream_format
  * @namespace Windows.Win32.Media.WindowsMediaFormat
- * @version v4.0.30319
  */
-class WMT_WEBSTREAM_FORMAT extends Win32Struct
-{
+class WMT_WEBSTREAM_FORMAT extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 2

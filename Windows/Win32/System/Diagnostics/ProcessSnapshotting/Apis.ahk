@@ -3,7 +3,6 @@
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.ProcessSnapshotting
- * @version v4.0.30319
  */
 class ProcessSnapshotting {
 
@@ -19,7 +18,7 @@ class ProcessSnapshotting {
     /**
      * Captures a snapshot of a target process.
      * @param {HANDLE} ProcessHandle A handle to the target process.
-     * @param {Integer} CaptureFlags Flags that specify what to capture. For more information, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/processsnapshot/ne-processsnapshot-pss_capture_flags">PSS_CAPTURE_FLAGS</a>.
+     * @param {PSS_CAPTURE_FLAGS} CaptureFlags Flags that specify what to capture. For more information, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/processsnapshot/ne-processsnapshot-pss_capture_flags">PSS_CAPTURE_FLAGS</a>.
      * @param {Integer} ThreadContextFlags The <b>CONTEXT</b> record flags to capture if <i>CaptureFlags</i> specifies thread contexts.
      * @param {Pointer<HPSS>} SnapshotHandle A handle to the snapshot that this function captures.
      * @returns {Integer} This function returns <b>ERROR_SUCCESS</b> on success.
@@ -94,8 +93,8 @@ class ProcessSnapshotting {
     /**
      * Queries the snapshot.
      * @param {HPSS} SnapshotHandle A handle to the snapshot to query.
-     * @param {Integer} InformationClass An enumerator member that selects what information to query. For more information, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/processsnapshot/ne-processsnapshot-pss_query_information_class">PSS_QUERY_INFORMATION_CLASS</a>.
-     * @param {Pointer} _Buffer 
+     * @param {PSS_QUERY_INFORMATION_CLASS} InformationClass An enumerator member that selects what information to query. For more information, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/processsnapshot/ne-processsnapshot-pss_query_information_class">PSS_QUERY_INFORMATION_CLASS</a>.
+     * @param {Integer} _Buffer The information that this function provides.
      * @param {Integer} BufferLength The size of <i>Buffer</i>, in bytes.
      * @returns {Integer} This function returns <b>ERROR_SUCCESS</b> on success or one of the following error codes.
      * 
@@ -167,9 +166,9 @@ class ProcessSnapshotting {
      * @remarks
      * For snapshot data types that have a variable number of instances within a snapshot, you use the <b>PssWalkSnapshot</b> function to obtain the instances one after another. You set the <i>InformationClass</i> parameter to specify the type of data.
      * @param {HPSS} SnapshotHandle A handle to the snapshot.
-     * @param {Integer} InformationClass The type of information to return. For more information, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/processsnapshot/ne-processsnapshot-pss_walk_information_class">PSS_WALK_INFORMATION_CLASS</a>.
+     * @param {PSS_WALK_INFORMATION_CLASS} InformationClass The type of information to return. For more information, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/processsnapshot/ne-processsnapshot-pss_walk_information_class">PSS_WALK_INFORMATION_CLASS</a>.
      * @param {HPSSWALK} WalkMarkerHandle A handle to a walk marker. The walk marker indicates the walk position from which data is to be returned. <b>PssWalkSnapshot</b> advances the walk marker to the next walk position in time order before returning to the caller.
-     * @param {Pointer<Void>} _Buffer 
+     * @param {Pointer<Void>} _Buffer The snapshot information that this function returns.
      * @param {Integer} BufferLength The size of <i>Buffer</i>, in bytes.
      * @returns {Integer} This function returns <b>ERROR_SUCCESS</b> on success or one of the following error codes.
      * 
@@ -267,7 +266,7 @@ class ProcessSnapshotting {
      * @param {HPSS} SnapshotHandle A handle to the snapshot to duplicate. This handle must be in the context of the source process.
      * @param {HANDLE} TargetProcessHandle A handle to the target process that receives the duplicate snapshot. The handle must have <b>PROCESS_VM_OPERATION</b>, <b>PROCESS_VM_WRITE</b>, and <b>PROCESS_DUP_HANDLE</b> rights.
      * @param {Pointer<HPSS>} TargetSnapshotHandle A handle to the duplicate snapshot that this function creates, in the context of the target process.
-     * @param {Integer} Flags The duplication flags. For more information, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/processsnapshot/ne-processsnapshot-pss_duplicate_flags">PSS_DUPLICATE_FLAGS</a>.
+     * @param {PSS_DUPLICATE_FLAGS} Flags The duplication flags. For more information, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/processsnapshot/ne-processsnapshot-pss_duplicate_flags">PSS_DUPLICATE_FLAGS</a>.
      * @returns {Integer} This function returns <b>ERROR_SUCCESS</b> on success or the following error code.
      * 
      * <table>

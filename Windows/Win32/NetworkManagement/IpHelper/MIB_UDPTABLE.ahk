@@ -21,13 +21,11 @@
  * On the Microsoft Windows Software Development Kit (SDK) released for Windows Vista and later, the organization of header files has changed. This  structure is defined in the <i>Udpmib.h</i> header file, not in the <i>Iprtrmib.h</i> header file. Note that the <i>Udpmib.h</i> header file is automatically included in <i>Iprtrmib.h</i>, which is automatically included in the <i>Iphlpapi.h</i> header file. The  <i>Udpmib.h</i> and <i>Iprtrmib.h</i> header files should never be used directly.
  * @see https://learn.microsoft.com/windows/win32/api/udpmib/ns-udpmib-mib_udptable
  * @namespace Windows.Win32.NetworkManagement.IpHelper
- * @version v4.0.30319
  */
-class MIB_UDPTABLE extends Win32Struct
-{
-    static sizeof => 16
+class MIB_UDPTABLE extends Win32Struct {
+    static sizeof => 12
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * The number of entries in the table.
@@ -41,12 +39,12 @@ class MIB_UDPTABLE extends Win32Struct
     /**
      * A pointer to an array of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/udpmib/ns-udpmib-mib_udprow">MIB_UDPROW</a> structures.
-     * @type {Array<MIB_UDPROW>}
+     * @type {MIB_UDPROW}
      */
-    table{
+    table {
         get {
             if(!this.HasProp("__tableProxyArray"))
-                this.__tableProxyArray := Win32FixedArray(this.ptr + 8, 1, MIB_UDPROW, "")
+                this.__tableProxyArray := Win32FixedArray(this.ptr + 4, 1, MIB_UDPROW, "")
             return this.__tableProxyArray
         }
     }

@@ -5,10 +5,8 @@
  * Specifies a PKU2U client context.
  * @see https://learn.microsoft.com/windows/win32/api/ntsecapi/ns-ntsecapi-pku2u_credui_context
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class PKU2U_CREDUI_CONTEXT extends Win32Struct
-{
+class PKU2U_CREDUI_CONTEXT extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Power
- * @version v4.0.30319
  */
-class PPM_IDLE_STATE_BUCKET_EX extends Win32Struct
-{
+class PPM_IDLE_STATE_BUCKET_EX extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

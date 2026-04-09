@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Networking.ActiveDirectory
- * @version v4.0.30319
  */
-class DS_REPL_VALUE_META_DATA_EXT extends Win32Struct
-{
+class DS_REPL_VALUE_META_DATA_EXT extends Win32Struct {
     static sizeof => 112
 
     static packingSize => 8
@@ -47,7 +45,7 @@ class DS_REPL_VALUE_META_DATA_EXT extends Win32Struct
     /**
      * @type {FILETIME}
      */
-    ftimeDeleted{
+    ftimeDeleted {
         get {
             if(!this.HasProp("__ftimeDeleted"))
                 this.__ftimeDeleted := FILETIME(32, this)
@@ -58,7 +56,7 @@ class DS_REPL_VALUE_META_DATA_EXT extends Win32Struct
     /**
      * @type {FILETIME}
      */
-    ftimeCreated{
+    ftimeCreated {
         get {
             if(!this.HasProp("__ftimeCreated"))
                 this.__ftimeCreated := FILETIME(40, this)
@@ -77,7 +75,7 @@ class DS_REPL_VALUE_META_DATA_EXT extends Win32Struct
     /**
      * @type {FILETIME}
      */
-    ftimeLastOriginatingChange{
+    ftimeLastOriginatingChange {
         get {
             if(!this.HasProp("__ftimeLastOriginatingChange"))
                 this.__ftimeLastOriginatingChange := FILETIME(52, this)
@@ -86,7 +84,7 @@ class DS_REPL_VALUE_META_DATA_EXT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     uuidLastOriginatingDsaInvocationID {
         get => NumGet(this, 64, "ptr")

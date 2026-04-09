@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\IUIAutomationTextRange.ahk
 #Include .\IUIAutomationTextRangeArray.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Provides access to a control that contains text.
  * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nn-uiautomationclient-iuiautomationtextpattern
  * @namespace Windows.Win32.UI.Accessibility
- * @version v4.0.30319
  */
-class IUIAutomationTextPattern extends IUnknown{
+class IUIAutomationTextPattern extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -40,7 +39,7 @@ class IUIAutomationTextPattern extends IUnknown{
     }
 
     /**
-     * @type {Integer} 
+     * @type {SupportedTextSelection} 
      */
     SupportedTextSelection {
         get => this.get_SupportedTextSelection()
@@ -157,7 +156,7 @@ class IUIAutomationTextPattern extends IUnknown{
      * > Type: **[SupportedTextSelection](../uiautomationcore/ne-uiautomationcore-supportedtextselection.md)\***
      * >
      * > When this function returns, contains a pointer to the [SupportedTextSelection](../uiautomationcore/ne-uiautomationcore-supportedtextselection.md) object.
-     * @returns {Integer} 
+     * @returns {SupportedTextSelection} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationtextpattern-get_supportedtextselection
      */
     get_SupportedTextSelection() {

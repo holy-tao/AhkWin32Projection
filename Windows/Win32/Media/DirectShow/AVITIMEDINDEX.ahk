@@ -4,11 +4,9 @@
 
 /**
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class AVITIMEDINDEX extends Win32Struct
-{
-    static sizeof => 21872
+class AVITIMEDINDEX extends Win32Struct {
+    static sizeof => 27320
 
     static packingSize => 8
 
@@ -85,23 +83,23 @@ class AVITIMEDINDEX extends Win32Struct
     }
 
     /**
-     * @type {Array<AVITIMEDINDEX_ENTRY>}
+     * @type {AVITIMEDINDEX_ENTRY}
      */
-    aIndex{
+    aIndex {
         get {
             if(!this.HasProp("__aIndexProxyArray"))
-                this.__aIndexProxyArray := Win32FixedArray(this.ptr + 40, 1362, AVITIMEDINDEX_ENTRY, "")
+                this.__aIndexProxyArray := Win32FixedArray(this.ptr + 36, 1362, AVITIMEDINDEX_ENTRY, "")
             return this.__aIndexProxyArray
         }
     }
 
     /**
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    adwTrailingFill{
+    adwTrailingFill {
         get {
             if(!this.HasProp("__adwTrailingFillProxyArray"))
-                this.__adwTrailingFillProxyArray := Win32FixedArray(this.ptr + 10936, 2734, Primitive, "uint")
+                this.__adwTrailingFillProxyArray := Win32FixedArray(this.ptr + 16380, 2734, Primitive, "uint")
             return this.__adwTrailingFillProxyArray
         }
     }

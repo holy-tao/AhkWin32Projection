@@ -5,10 +5,8 @@
  * The LOCALMANAGEDAPPLICATION structure describes a managed application installed for a user or a computer. Returned by the GetLocalManagedApplications function.
  * @see https://learn.microsoft.com/windows/win32/api/appmgmt/ns-appmgmt-localmanagedapplication
  * @namespace Windows.Win32.System.GroupPolicy
- * @version v4.0.30319
  */
-class LOCALMANAGEDAPPLICATION extends Win32Struct
-{
+class LOCALMANAGEDAPPLICATION extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -41,7 +39,6 @@ class LOCALMANAGEDAPPLICATION extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     dwState {

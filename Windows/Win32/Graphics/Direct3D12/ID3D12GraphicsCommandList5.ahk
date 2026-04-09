@@ -5,13 +5,10 @@
 
 /**
  * Encapsulates a list of graphics commands for rendering, extending the interface to support variable-rate shading (VRS).
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/nn-d3d12-id3d12graphicscommandlist5
  * @namespace Windows.Win32.Graphics.Direct3D12
- * @version v4.0.30319
  */
-class ID3D12GraphicsCommandList5 extends ID3D12GraphicsCommandList4{
+class ID3D12GraphicsCommandList5 extends ID3D12GraphicsCommandList4 {
 
     static sizeof => A_PtrSize
     /**
@@ -34,10 +31,10 @@ class ID3D12GraphicsCommandList5 extends ID3D12GraphicsCommandList4{
 
     /**
      * The ID3D12GraphicsCommandList5::RSSetShadingRate method (d3d12.h) sets the base shading rate, and combiners, for variable-rate shading (VRS).
-     * @param {Integer} baseShadingRate Type: [**D3D12_SHADING_RATE**](/windows/desktop/api/d3d12/ne-d3d12-d3d12_shading_rate)
+     * @param {D3D12_SHADING_RATE} baseShadingRate Type: [**D3D12_SHADING_RATE**](/windows/desktop/api/d3d12/ne-d3d12-d3d12_shading_rate)
      * 
      * A constant from the [D3D12_SHADING_RATE](/windows/desktop/api/d3d12/ne-d3d12-d3d12_shading_rate) enumeration describing the base shading rate to set.
-     * @param {Pointer<Integer>} combiners Type: **const [D3D12_SHADING_RATE_COMBINER](/windows/desktop/api/d3d12/ne-d3d12-d3d12_shading_rate_combiner)\***
+     * @param {Pointer<D3D12_SHADING_RATE_COMBINER>} combiners Type: **const [D3D12_SHADING_RATE_COMBINER](/windows/desktop/api/d3d12/ne-d3d12-d3d12_shading_rate_combiner)\***
      * 
      * An optional pointer to a constant array of [**D3D12_SHADING_RATE_COMBINER**](/windows/win32/api/d3d12/ne-d3d12-d3d12_shading_rate_combiner) containing the shading rate combiners to set. The count of [**D3D12_SHADING_RATE_COMBINER**](/windows/win32/api/d3d12/ne-d3d12-d3d12_shading_rate_combiner) elements in the array must be equal to the constant [**D3D12_RS_SET_SHADING_RATE_COMBINER_COUNT**](/windows/win32/direct3d12/constants), which is equal to **2**.
      * 

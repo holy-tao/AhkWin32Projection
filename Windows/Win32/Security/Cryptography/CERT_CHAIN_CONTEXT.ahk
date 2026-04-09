@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\CERT_TRUST_STATUS.ahk
+#Include .\CERT_SIMPLE_CHAIN.ahk
+#Include .\CERT_CHAIN_CONTEXT.ahk
 
 /**
  * Contains an array of simple certificate chains and a trust status structure that indicates summary validity data on all of the connected simple chains.
@@ -8,10 +10,8 @@
  * When a <b>CERT_CHAIN_CONTEXT</b> is built, the first simple chain begins with an end certificate and ends with a self-signed certificate. If that self-signed certificate is not a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/r-gly">root</a> or otherwise trusted certificate, an attempt is made to build a new chain. <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">CTLs</a> are used to create the new chain beginning with the self-signed certificate from the original chain as the end certificate of the new chain. This process continues building additional simple chains until the first self-signed certificate is a trusted certificate or until an additional simple chain cannot be built.
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cert_chain_context
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CERT_CHAIN_CONTEXT extends Win32Struct
-{
+class CERT_CHAIN_CONTEXT extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 8
@@ -30,7 +30,7 @@ class CERT_CHAIN_CONTEXT extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_trust_status">CERT_TRUST_STATUS</a>.
      * @type {CERT_TRUST_STATUS}
      */
-    TrustStatus{
+    TrustStatus {
         get {
             if(!this.HasProp("__TrustStatus"))
                 this.__TrustStatus := CERT_TRUST_STATUS(4, this)
@@ -93,7 +93,6 @@ class CERT_CHAIN_CONTEXT extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     dwCreateFlags {
@@ -102,8 +101,7 @@ class CERT_CHAIN_CONTEXT extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     ChainId {
         get => NumGet(this, 56, "ptr")

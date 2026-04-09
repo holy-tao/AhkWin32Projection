@@ -5,10 +5,8 @@
  * Contains the output for the FSCTL_IS_CSV_FILE control code that retrieves namespace information for a file.
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-csv_namespace_info
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class CSV_NAMESPACE_INFO extends Win32Struct
-{
+class CSV_NAMESPACE_INFO extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

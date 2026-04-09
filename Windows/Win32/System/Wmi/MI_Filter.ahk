@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\MI_FilterFT.ahk
 
 /**
  * Contains a reference to the function table MI_FilterFT.
  * @see https://learn.microsoft.com/windows/win32/api/mi/ns-mi-mi_filter
  * @namespace Windows.Win32.System.Wmi
- * @version v4.0.30319
  */
-class MI_Filter extends Win32Struct
-{
+class MI_Filter extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -24,9 +23,9 @@ class MI_Filter extends Win32Struct
 
     /**
      * Reserved for internal use.
-     * @type {Array<IntPtr>}
+     * @type {Array<Pointer>}
      */
-    reserved{
+    reserved {
         get {
             if(!this.HasProp("__reservedProxyArray"))
                 this.__reservedProxyArray := Win32FixedArray(this.ptr + 8, 3, Primitive, "ptr")

@@ -13,9 +13,8 @@
  * As long as <b>AdviseEventAdded</b> has been called more times than <b>AdviseEventRemoved</b> for a specific event or property, the provider should continue to raise corresponding events, because some clients are still listening. Alternatively, UI Automation providers can use the <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcoreapi/nf-uiautomationcoreapi-uiaclientsarelistening">UiaClientsAreListening</a> function to determine if at least one client is listening and, if so, raise all appropriate events.
  * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nn-uiautomationcore-irawelementprovideradviseevents
  * @namespace Windows.Win32.UI.Accessibility
- * @version v4.0.30319
  */
-class IRawElementProviderAdviseEvents extends IUnknown{
+class IRawElementProviderAdviseEvents extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -43,7 +42,7 @@ class IRawElementProviderAdviseEvents extends IUnknown{
      * 			that are being listened for.
      * 
      * It is important for UI Automation providers to treat the <b>IRawElementProviderAdviseEvents::AdviseEventAdded</b> like the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-addref">AddRef</a> method of the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface. As long as <b>AdviseEventAdded</b> has been called more times than <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nf-uiautomationcore-irawelementprovideradviseevents-adviseeventremoved">AdviseEventRemoved</a> for a specific event or property, the provider should continue to raise corresponding events, because some clients are still listening. Alternatively, UI Automation providers can use the <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcoreapi/nf-uiautomationcoreapi-uiaclientsarelistening">UiaClientsAreListening</a> function to determine if at least one client is listening and, if so, raise all appropriate events.
-     * @param {Integer} eventId Type: <b>EVENTID</b>
+     * @param {UIA_EVENT_ID} eventId Type: <b>EVENTID</b>
      * 
      * The identifier of the event being added. For a list of event IDs, see <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-event-ids">Event Identifiers</a>.
      * @param {Pointer<SAFEARRAY>} propertyIDs Type: <b><a href="https://docs.microsoft.com/windows/win32/api/oaidl/ns-oaidl-safearray">SAFEARRAY</a>*</b>
@@ -66,7 +65,7 @@ class IRawElementProviderAdviseEvents extends IUnknown{
      * This method enables the provider to reduce overhead by raising only events that are being listened for.
      * 
      * It is important for UI Automation providers to treat the <b>IRawElementProviderAdviseEvents::AdviseEventRemoved</b> like the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">Release</a> method of the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface. As long as <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nf-uiautomationcore-irawelementprovideradviseevents-adviseeventadded">AdviseEventAdded</a> has been called more times than <b>AdviseEventRemoved</b> for a specific event or property, the provider should continue to raise corresponding events, because some clients are still listening. Alternatively, UI Automation providers can use the <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcoreapi/nf-uiautomationcoreapi-uiaclientsarelistening">UiaClientsAreListening</a> function to determine if at least one client is listening and, if so, raise all appropriate events.
-     * @param {Integer} eventId Type: <b>EVENTID</b>
+     * @param {UIA_EVENT_ID} eventId Type: <b>EVENTID</b>
      * 
      * The identifier of the event being removed. For a list of event IDs, see <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-event-ids">Event Identifiers</a>.
      * @param {Pointer<SAFEARRAY>} propertyIDs Type: <b><a href="https://docs.microsoft.com/windows/win32/api/oaidl/ns-oaidl-safearray">SAFEARRAY</a>*</b>

@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class WHEA_X64_REGISTER_STATE extends Win32Struct
-{
+class WHEA_X64_REGISTER_STATE extends Win32Struct {
     static sizeof => 232
 
     static packingSize => 8
@@ -260,7 +258,7 @@ class WHEA_X64_REGISTER_STATE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<WHEA128A>}
+     * @type {Pointer}
      */
     Gdtr {
         get => NumGet(this, 208, "ptr")
@@ -268,7 +266,7 @@ class WHEA_X64_REGISTER_STATE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<WHEA128A>}
+     * @type {Pointer}
      */
     Idtr {
         get => NumGet(this, 216, "ptr")

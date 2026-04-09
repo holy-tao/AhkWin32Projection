@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
- * @version v4.0.30319
  */
-class D3DKMT_OUTPUTDUPL_GET_POINTER_SHAPE_DATA extends Win32Struct
-{
+class D3DKMT_OUTPUTDUPL_GET_POINTER_SHAPE_DATA extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -52,7 +50,7 @@ class D3DKMT_OUTPUTDUPL_GET_POINTER_SHAPE_DATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<D3DKMT_OUTDUPL_POINTER_SHAPE_INFO>}
+     * @type {Pointer}
      */
     ShapeInfo {
         get => NumGet(this, 32, "ptr")

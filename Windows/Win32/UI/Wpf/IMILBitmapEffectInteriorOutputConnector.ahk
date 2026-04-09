@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IMILBitmapEffectOutputConnector.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\IMILBitmapEffectOutputConnector.ahk
 
 /**
  * Exposes methods that define an interior output connector.
  * @see https://learn.microsoft.com/windows/win32/api/mileffects/nn-mileffects-imilbitmapeffectinterioroutputconnector
  * @namespace Windows.Win32.UI.Wpf
- * @version v4.0.30319
  */
-class IMILBitmapEffectInteriorOutputConnector extends IUnknown{
+class IMILBitmapEffectInteriorOutputConnector extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

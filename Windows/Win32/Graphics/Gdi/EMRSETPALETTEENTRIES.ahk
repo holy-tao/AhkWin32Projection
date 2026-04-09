@@ -1,25 +1,24 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\EMR.ahk
+#Include .\ENHANCED_METAFILE_RECORD_TYPE.ahk
 #Include .\PALETTEENTRY.ahk
 
 /**
  * The EMRSETPALETTEENTRIES structure contains members for the SetPaletteEntries enhanced metafile record.
  * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-emrsetpaletteentries
  * @namespace Windows.Win32.Graphics.Gdi
- * @version v4.0.30319
  */
-class EMRSETPALETTEENTRIES extends Win32Struct
-{
-    static sizeof => 32
+class EMRSETPALETTEENTRIES extends Win32Struct {
+    static sizeof => 24
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * The base structure for all record types.
      * @type {EMR}
      */
-    emr{
+    emr {
         get {
             if(!this.HasProp("__emr"))
                 this.__emr := EMR(0, this)
@@ -56,12 +55,12 @@ class EMRSETPALETTEENTRIES extends Win32Struct
 
     /**
      * Array of <a href="https://docs.microsoft.com/previous-versions/dd162769(v=vs.85)">PALETTEENTRY</a> structures. Note that <b>peFlags</b> members in the structures do not contain any flags.
-     * @type {Array<PALETTEENTRY>}
+     * @type {PALETTEENTRY}
      */
-    aPalEntries{
+    aPalEntries {
         get {
             if(!this.HasProp("__aPalEntriesProxyArray"))
-                this.__aPalEntriesProxyArray := Win32FixedArray(this.ptr + 24, 1, PALETTEENTRY, "")
+                this.__aPalEntriesProxyArray := Win32FixedArray(this.ptr + 20, 1, PALETTEENTRY, "")
             return this.__aPalEntriesProxyArray
         }
     }

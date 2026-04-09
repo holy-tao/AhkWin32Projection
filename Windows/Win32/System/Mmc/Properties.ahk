@@ -1,18 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Include ..\Com\IDispatch.ahk
 #Include ..\Com\IUnknown.ahk
 #Include .\Property.ahk
-#Include ..\Com\IDispatch.ahk
 
 /**
  * Like any OLE object, a control provides much of its functionality through a set of incoming interfaces with properties and methods.
  * @see https://learn.microsoft.com/windows/win32/com/properties-and-methods
  * @namespace Windows.Win32.System.Mmc
- * @version v4.0.30319
  */
-class Properties extends IDispatch{
+class Properties extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

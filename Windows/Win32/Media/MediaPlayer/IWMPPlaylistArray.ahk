@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IWMPPlaylist.ahk
 #Include ..\..\System\Com\IDispatch.ahk
+#Include .\IWMPPlaylist.ahk
 
 /**
  * The IWMPPlaylistArray interface provides methods for accessing a collection of IWMPPlaylist interface pointers by index number.
  * @see https://learn.microsoft.com/windows/win32/api/wmp/nn-wmp-iwmpplaylistarray
  * @namespace Windows.Win32.Media.MediaPlayer
- * @version v4.0.30319
  */
-class IWMPPlaylistArray extends IDispatch{
+class IWMPPlaylistArray extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

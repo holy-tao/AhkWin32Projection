@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\TF_INPUTPROCESSORPROFILE.ahk
 #Include .\IEnumTfInputProcessorProfiles.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * The ITfInputProcessorProfileMgr interface is implemented by the TSF manager and used by an application or text service to manipulate the language profile of one or more text services.
@@ -23,9 +23,8 @@
  * </ul>
  * @see https://learn.microsoft.com/windows/win32/api/msctf/nn-msctf-itfinputprocessorprofilemgr
  * @namespace Windows.Win32.UI.TextServices
- * @version v4.0.30319
  */
-class ITfInputProcessorProfileMgr extends IUnknown{
+class ITfInputProcessorProfileMgr extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -79,7 +78,7 @@ class ITfInputProcessorProfileMgr extends IUnknown{
      * @param {Integer} langid [in] The language id of the profile to be activated.
      * @param {Pointer<Guid>} clsid [in] The CLSID of the text service of the profile to be activated. This must be CLSID_NULL if <i>dwProfileType</i> is TF_PROFILETYPE_KEYBOARDLAYOUT.
      * @param {Pointer<Guid>} guidProfile [in] The guidProfile of the profile to be activated. This must be GUID_NULL if <i>dwProfileType</i> is TF_PROFILETYPE_KEYBOARDLAYOUT.
-     * @param {HKL} _hkl 
+     * @param {HKL} _hkl [in] The handle of the keyboard layout. This must be <b>NULL</b> if dwProfileType is TF_PROFILETYPE_INPUTPROCESSOR.
      * @param {Integer} dwFlags The combination of the following bits:
      * 
      * <table>
@@ -229,7 +228,7 @@ class ITfInputProcessorProfileMgr extends IUnknown{
      * @param {Integer} langid [in] The language id of the profile to be activated.
      * @param {Pointer<Guid>} clsid [in] The CLSID of the text service of the profile to be activated. This must be CLSID_NULL if <i>dwProfileType</i> is TF_PROFILETYPE_KEYBOARDLAYOUT.
      * @param {Pointer<Guid>} guidProfile [in] The guidProfile of the profile to be activated. This must be GUID_NULL if <i>dwProfileType</i> is TF_PROFILETYPE_KEYBOARDLAYOUT.
-     * @param {HKL} _hkl 
+     * @param {HKL} _hkl [in] The handle of the keyboard layout. This must be <b>NULL</b> if <i>dwProfileType</i> is TF_PROFILETYPE_INPUTPROCESSOR.
      * @param {Integer} dwFlags The combination of the following bits:
      * 
      * <table>
@@ -348,7 +347,7 @@ class ITfInputProcessorProfileMgr extends IUnknown{
      * @param {Integer} langid [in] The language id of the profile to be activated.
      * @param {Pointer<Guid>} clsid [in] The CLSID of the text service of the profile to be activated. This must be CLSID_NULL if <i>dwProfileType</i> is TF_PROFILETYPE_KEYBOARDLAYOUT.
      * @param {Pointer<Guid>} guidProfile [in] The guidProfile of the profile to be activated. This must be GUID_NULL if <i>dwProfileType</i> is TF_PROFILETYPE_KEYBOARDLAYOUT.
-     * @param {HKL} _hkl 
+     * @param {HKL} _hkl [in] The handle of the keyboard layout. This must be <b>NULL</b> if <i>dwProfileType</i> is TF_PROFILETYPE_INPUTPROCESSOR.
      * @returns {TF_INPUTPROCESSORPROFILE} [out] The buffer to receive <a href="https://docs.microsoft.com/windows/desktop/api/msctf/ns-msctf-tf_inputprocessorprofile">TF_INPUTPROCESSORPROFILE</a>.
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfinputprocessorprofilemgr-getprofile
      */

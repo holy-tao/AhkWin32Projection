@@ -1,17 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\LSA_UNICODE_STRING.ahk
 #Include .\SECPKG_SUPPLEMENTAL_CRED.ahk
+#Include .\LSA_UNICODE_STRING.ahk
 
 /**
  * The SECPKG_SUPPLEMENTAL_CRED_ARRAY structure contains supplemental credentials information. This structure is used by the LsaApLogonUserEx2 and UpdateCredentials functions.
  * @see https://learn.microsoft.com/windows/win32/api/ntsecpkg/ns-ntsecpkg-secpkg_supplemental_cred_array
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class SECPKG_SUPPLEMENTAL_CRED_ARRAY extends Win32Struct
-{
-    static sizeof => 16
+class SECPKG_SUPPLEMENTAL_CRED_ARRAY extends Win32Struct {
+    static sizeof => 40
 
     static packingSize => 8
 
@@ -26,9 +24,9 @@ class SECPKG_SUPPLEMENTAL_CRED_ARRAY extends Win32Struct
 
     /**
      * An array containing supplemental credentials.
-     * @type {Array<SECPKG_SUPPLEMENTAL_CRED>}
+     * @type {SECPKG_SUPPLEMENTAL_CRED}
      */
-    Credentials{
+    Credentials {
         get {
             if(!this.HasProp("__CredentialsProxyArray"))
                 this.__CredentialsProxyArray := Win32FixedArray(this.ptr + 8, 1, SECPKG_SUPPLEMENTAL_CRED, "")

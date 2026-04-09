@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\JOB_OBJECT_CPU_RATE_CONTROL.ahk
 
 /**
  * Contains CPU rate control information for a job object. This structure is used by the SetInformationJobObject and QueryInformationJobObject functions with the JobObjectCpuRateControlInformation information class.
@@ -9,17 +10,14 @@
  * CPU rate control cannot be used by job objects in applications running under <a href="https://docs.microsoft.com/windows/desktop/TermServ/terminal-services-portal">Remote Desktop Services</a> (formerly Terminal Services)  if Dynamic Fair Share Scheduling (DFSS) is in effect.
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-jobobject_cpu_rate_control_information
  * @namespace Windows.Win32.System.JobObjects
- * @version v4.0.30319
  */
-class JOBOBJECT_CPU_RATE_CONTROL_INFORMATION extends Win32Struct
-{
+class JOBOBJECT_CPU_RATE_CONTROL_INFORMATION extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4
 
     /**
-     * 
-     * @type {Integer}
+     * @type {JOB_OBJECT_CPU_RATE_CONTROL}
      */
     ControlFlags {
         get => NumGet(this, 0, "uint")

@@ -7,9 +7,8 @@
  * Provides additional information about an object's context. This interface extends the IObjectContextInfo interface.
  * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nn-comsvcs-iobjectcontextinfo2
  * @namespace Windows.Win32.System.ComponentServices
- * @version v4.0.30319
  */
-class IObjectContextInfo2 extends IObjectContextInfo{
+class IObjectContextInfo2 extends IObjectContextInfo {
 
     static sizeof => A_PtrSize
     /**

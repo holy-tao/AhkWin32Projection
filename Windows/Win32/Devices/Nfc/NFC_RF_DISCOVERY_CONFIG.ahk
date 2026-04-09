@@ -1,12 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\NFC_RF_DISCOVERY_MODE.ahk
 
 /**
  * @namespace Windows.Win32.Devices.Nfc
- * @version v4.0.30319
  */
-class NFC_RF_DISCOVERY_CONFIG extends Win32Struct
-{
+class NFC_RF_DISCOVERY_CONFIG extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 4
@@ -76,9 +75,9 @@ class NFC_RF_DISCOVERY_CONFIG extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    ucSystemCode{
+    ucSystemCode {
         get {
             if(!this.HasProp("__ucSystemCodeProxyArray"))
                 this.__ucSystemCodeProxyArray := Win32FixedArray(this.ptr + 14, 2, Primitive, "char")
@@ -103,7 +102,7 @@ class NFC_RF_DISCOVERY_CONFIG extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {NFC_RF_DISCOVERY_MODE}
      */
     eRfDiscoveryMode {
         get => NumGet(this, 20, "int")

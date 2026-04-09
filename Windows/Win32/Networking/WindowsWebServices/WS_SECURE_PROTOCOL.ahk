@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Networking.WindowsWebServices
- * @version v4.0.30319
  */
-class WS_SECURE_PROTOCOL extends Win32Enum{
+class WS_SECURE_PROTOCOL extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

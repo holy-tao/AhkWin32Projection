@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
- * @version v4.0.30319
  */
-class KS_ANALOGVIDEOINFO extends Win32Struct
-{
+class KS_ANALOGVIDEOINFO extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -15,7 +13,7 @@ class KS_ANALOGVIDEOINFO extends Win32Struct
     /**
      * @type {RECT}
      */
-    rcSource{
+    rcSource {
         get {
             if(!this.HasProp("__rcSource"))
                 this.__rcSource := RECT(0, this)
@@ -26,7 +24,7 @@ class KS_ANALOGVIDEOINFO extends Win32Struct
     /**
      * @type {RECT}
      */
-    rcTarget{
+    rcTarget {
         get {
             if(!this.HasProp("__rcTarget"))
                 this.__rcTarget := RECT(16, this)

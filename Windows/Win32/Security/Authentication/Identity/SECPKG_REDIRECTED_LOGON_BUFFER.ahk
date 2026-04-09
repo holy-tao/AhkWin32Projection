@@ -4,16 +4,14 @@
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class SECPKG_REDIRECTED_LOGON_BUFFER extends Win32Struct
-{
+class SECPKG_REDIRECTED_LOGON_BUFFER extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 8
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     RedirectedLogonGuid {
         get => NumGet(this, 0, "ptr")
@@ -23,7 +21,7 @@ class SECPKG_REDIRECTED_LOGON_BUFFER extends Win32Struct
     /**
      * @type {HANDLE}
      */
-    RedirectedLogonHandle{
+    RedirectedLogonHandle {
         get {
             if(!this.HasProp("__RedirectedLogonHandle"))
                 this.__RedirectedLogonHandle := HANDLE(8, this)

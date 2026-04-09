@@ -5,17 +5,15 @@
  * Describes a free extent on a disk.
  * @see https://learn.microsoft.com/windows/win32/api/vds/ns-vds-vds_disk_free_extent
  * @namespace Windows.Win32.Storage.VirtualDiskService
- * @version v4.0.30319
  */
-class VDS_DISK_FREE_EXTENT extends Win32Struct
-{
+class VDS_DISK_FREE_EXTENT extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
 
     /**
      * The <a href="https://docs.microsoft.com/windows/desktop/VDS/vds-data-types">VDS_OBJECT_ID</a> of the disk.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     diskId {
         get => NumGet(this, 0, "ptr")

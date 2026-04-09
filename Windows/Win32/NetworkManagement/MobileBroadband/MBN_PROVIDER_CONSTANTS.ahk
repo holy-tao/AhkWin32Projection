@@ -5,9 +5,8 @@
  * The MBN_PROVIDER_CONSTANTS enumerated type contains values that define the buffer lengths of MBN_PROVIDER members.
  * @see https://learn.microsoft.com/windows/win32/api/mbnapi/ne-mbnapi-mbn_provider_constants
  * @namespace Windows.Win32.NetworkManagement.MobileBroadband
- * @version v4.0.30319
  */
-class MBN_PROVIDER_CONSTANTS extends Win32Enum{
+class MBN_PROVIDER_CONSTANTS extends Win32Enum {
 
     /**
      * The maximum length of the <b>providerName</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/ns-mbnapi-mbn_provider">MBN_PROVIDER</a> structure.

@@ -3,18 +3,16 @@
 
 /**
  * @namespace Windows.Win32.Media.Audio.DirectMusic
- * @version v4.0.30319
  */
-class DMUS_OFFSETTABLE extends Win32Struct
-{
+class DMUS_OFFSETTABLE extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 4
 
     /**
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    ulOffsetTable{
+    ulOffsetTable {
         get {
             if(!this.HasProp("__ulOffsetTableProxyArray"))
                 this.__ulOffsetTableProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "uint")

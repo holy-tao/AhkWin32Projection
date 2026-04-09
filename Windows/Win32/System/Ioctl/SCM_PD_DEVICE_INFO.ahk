@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class SCM_PD_DEVICE_INFO extends Win32Struct
-{
+class SCM_PD_DEVICE_INFO extends Win32Struct {
     static sizeof => 112
 
     static packingSize => 8
@@ -28,7 +26,7 @@ class SCM_PD_DEVICE_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     DeviceGuid {
         get => NumGet(this, 8, "ptr")
@@ -100,9 +98,9 @@ class SCM_PD_DEVICE_INFO extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt16>}
+     * @type {Array<Integer>}
      */
-    FormatInterfaceCodes{
+    FormatInterfaceCodes {
         get {
             if(!this.HasProp("__FormatInterfaceCodesProxyArray"))
                 this.__FormatInterfaceCodesProxyArray := Win32FixedArray(this.ptr + 60, 8, Primitive, "ushort")
@@ -186,7 +184,7 @@ class SCM_PD_DEVICE_INFO extends Win32Struct
      * @type {String}
      */
     SerialNumber {
-        get => StrGet(this.ptr + 104, 0, "UTF-16")
-        set => StrPut(value, this.ptr + 104, 0, "UTF-16")
+        get => StrGet(this.ptr + 104, 0, "UTF-8")
+        set => StrPut(value, this.ptr + 104, 0, "UTF-8")
     }
 }

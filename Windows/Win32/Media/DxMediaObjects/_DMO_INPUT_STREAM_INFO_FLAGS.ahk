@@ -5,9 +5,8 @@
  * The DMO_INPUT_STREAM_INFO_FLAGS enumeration defines flags that describe an input stream.
  * @see https://learn.microsoft.com/windows/win32/api/mediaobj/ne-mediaobj-_dmo_input_stream_info_flags
  * @namespace Windows.Win32.Media.DxMediaObjects
- * @version v4.0.30319
  */
-class _DMO_INPUT_STREAM_INFO_FLAGS extends Win32Enum{
+class _DMO_INPUT_STREAM_INFO_FLAGS extends Win32Enum {
 
     /**
      * The stream requires whole samples. Samples must not span multiple buffers, and buffers must not contain partial samples.

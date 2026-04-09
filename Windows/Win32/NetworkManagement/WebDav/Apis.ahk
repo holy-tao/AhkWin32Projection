@@ -3,7 +3,6 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WebDav
- * @version v4.0.30319
  */
 class WebDav {
 
@@ -56,7 +55,7 @@ class WebDav {
      * @param {PWSTR} RemoteName A pointer to a <b>null</b>-terminated Unicode string that contains the path to the remote file or directory. This string must begin with the "https://" prefix.
      * @param {PWSTR} UserName A pointer to a <b>null</b>-terminated Unicode string that contains the user name to be used for the connection. This parameter is optional and can be <b>NULL</b>.
      * @param {PWSTR} Password A pointer to a <b>null</b>-terminated Unicode string that contains the password to be used for the connection. This parameter is optional and can be <b>NULL</b>.
-     * @param {Pointer} ClientCert A pointer to a buffer that contains the client certificate to be used for the connection. The certificate must be in a serialized form.
+     * @param {Integer} ClientCert A pointer to a buffer that contains the client certificate to be used for the connection. The certificate must be in a serialized form.
      * @param {Integer} CertSize Size, in bytes, of the client certificate.
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
@@ -202,7 +201,7 @@ class WebDav {
      * <li><i>drive</i>:&#92;<i>filename</i></li>
      * </ul>
      * where <i>server</i> is the name of a server, <i>path</i> is the path to a remote file on the server, <i>filename</i> is a valid file name, and <i>drive</i> is the drive letter that a remote share is mapped to on the local computer. (A <i>share</i> is a directory on a server that is made available to users over the network.)
-     * @param {Pointer} LockOwnerName A pointer to a caller-allocated buffer  that receives the name of the owner of the file lock. This parameter is optional and can be <b>NULL</b>. If it is <b>NULL</b>, the <i>LockOwnerNameLengthInBytes</i> parameter must point to zero on input.
+     * @param {Integer} LockOwnerName A pointer to a caller-allocated buffer  that receives the name of the owner of the file lock. This parameter is optional and can be <b>NULL</b>. If it is <b>NULL</b>, the <i>LockOwnerNameLengthInBytes</i> parameter must point to zero on input.
      * @param {Pointer<Integer>} LockOwnerNameLengthInBytes A pointer to a variable that on input specifies the maximum size, in Unicode characters, of the buffer that the <i>LockOwnerName</i> parameter points to. If the function succeeds, on output the variable receives the number of characters that were copied into the buffer. If the function fails with ERROR_INSUFFICIENT_BUFFER, on output the variable receives the number of characters needed to store the lock owner name, including the terminating <b>NULL</b> character.
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
@@ -431,7 +430,7 @@ class WebDav {
      * 
      * To unregister the callback function, use the <a href="https://docs.microsoft.com/windows/desktop/api/davclnt/nf-davclnt-davunregisterauthcallback">DavUnregisterAuthCallback</a> function, passing the returned opaque handle in the <i>hCallback</i>  parameter.
      * @param {Pointer<PFNDAVAUTHCALLBACK>} CallBack A pointer to a function of type <a href="https://docs.microsoft.com/windows/desktop/api/davclnt/nc-davclnt-pfndavauthcallback">PFNDAVAUTHCALLBACK</a>.
-     * @param {Integer} _Version 
+     * @param {Integer} _Version This parameter is reserved for future use.
      * @returns {Integer} If the function succeeds, the return value is an opaque handle. Note that <b>OPAQUE_HANDLE</b> is defined to be a <b>DWORD</b> value.
      * @see https://learn.microsoft.com/windows/win32/api/davclnt/nf-davclnt-davregisterauthcallback
      * @since windows6.0.6000

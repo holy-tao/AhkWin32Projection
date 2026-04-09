@@ -5,9 +5,8 @@
  * Specifies what to do with caches that are to be discarded from memory if their dirty bit has been set.
  * @see https://learn.microsoft.com/windows/win32/api/oleidl/ne-oleidl-discardcache
  * @namespace Windows.Win32.System.Ole
- * @version v4.0.30319
  */
-class DISCARDCACHE extends Win32Enum{
+class DISCARDCACHE extends Win32Enum {
 
     /**
      * The cache is to be saved to disk.

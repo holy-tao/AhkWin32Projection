@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * Defines functionality to install and uninstall a Network Device Enrollment Service (NDES) role on a Certificate Services computer.
  * @see https://learn.microsoft.com/windows/win32/api/casetup/nn-casetup-imscepsetup
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class IMSCEPSetup extends IDispatch{
+class IMSCEPSetup extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -79,7 +78,7 @@ class IMSCEPSetup extends IDispatch{
 
     /**
      * Gets a property value for a Network Device Enrollment Service (NDES) configuration.
-     * @param {Integer} propertyId A value of the <a href="https://docs.microsoft.com/windows/win32/api/casetup/ne-casetup-mscepsetupproperty">MSCEPSetupProperty</a> enumeration that specifies the type of property to get.
+     * @param {MSCEPSetupProperty} propertyId A value of the <a href="https://docs.microsoft.com/windows/win32/api/casetup/ne-casetup-mscepsetupproperty">MSCEPSetupProperty</a> enumeration that specifies the type of property to get.
      * @returns {VARIANT} A <b>VARIANT</b> that specifies the property value. The <b>VARIANT</b> type depends on the property type. For more information about the <b>VARIANT</b> type, see <a href="https://docs.microsoft.com/windows/win32/api/casetup/ne-casetup-mscepsetupproperty">MSCEPSetupProperty</a>.
      * @see https://learn.microsoft.com/windows/win32/api/casetup/nf-casetup-imscepsetup-getmscepsetupproperty
      */
@@ -91,7 +90,7 @@ class IMSCEPSetup extends IDispatch{
 
     /**
      * Sets a property value for a Network Device Enrollment Service (NDES) configuration.
-     * @param {Integer} propertyId A value of the <a href="https://docs.microsoft.com/windows/win32/api/casetup/ne-casetup-mscepsetupproperty">MSCEPSetupProperty</a> enumeration that specifies the type of property to configure.
+     * @param {MSCEPSetupProperty} propertyId A value of the <a href="https://docs.microsoft.com/windows/win32/api/casetup/ne-casetup-mscepsetupproperty">MSCEPSetupProperty</a> enumeration that specifies the type of property to configure.
      * @param {Pointer<VARIANT>} pPropertyValue A pointer to a  <b>VARIANT</b> that specifies the property value. The <b>VARIANT</b> type depends on the property type. For more information about the <b>VARIANT</b> type, see <a href="https://docs.microsoft.com/windows/win32/api/casetup/ne-casetup-mscepsetupproperty">MSCEPSetupProperty</a>.
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/casetup/nf-casetup-imscepsetup-setmscepsetupproperty

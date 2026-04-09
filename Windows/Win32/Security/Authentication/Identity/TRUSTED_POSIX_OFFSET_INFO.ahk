@@ -5,10 +5,8 @@
  * Used to query or set the value used to generate Posix user and group identifiers.
  * @see https://learn.microsoft.com/windows/win32/api/ntsecapi/ns-ntsecapi-trusted_posix_offset_info
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class TRUSTED_POSIX_OFFSET_INFO extends Win32Struct
-{
+class TRUSTED_POSIX_OFFSET_INFO extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 4

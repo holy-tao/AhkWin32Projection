@@ -9,10 +9,8 @@
  * To use the definition of the Unsigned32 type described in RFC 1902, you can specify the ASN_GAUGE32 variable type. Currently the ASN_UNSIGNED32 variable type specifies the UInteger32 type described in RFC 1442.
  * @see https://learn.microsoft.com/windows/win32/api/snmp/ns-snmp-asnany
  * @namespace Windows.Win32.NetworkManagement.Snmp
- * @version v4.0.30319
  */
-class AsnAny extends Win32Struct
-{
+class AsnAny extends Win32Struct {
     static sizeof => 20
 
     static packingSize => 4
@@ -28,7 +26,7 @@ class AsnAny extends Win32Struct
             get => NumGet(this, 0, "int")
             set => NumPut("int", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -36,7 +34,7 @@ class AsnAny extends Win32Struct
             get => NumGet(this, 0, "uint")
             set => NumPut("uint", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -44,62 +42,62 @@ class AsnAny extends Win32Struct
             get => NumGet(this, 0, "uint")
             set => NumPut("uint", value, this, 0)
         }
-    
+
         /**
          * @type {AsnOctetString}
          */
-        string{
+        string {
             get {
                 if(!this.HasProp("__string"))
                     this.__string := AsnOctetString(0, this)
                 return this.__string
             }
         }
-    
+
         /**
          * @type {AsnOctetString}
          */
-        bits{
+        bits {
             get {
                 if(!this.HasProp("__bits"))
                     this.__bits := AsnOctetString(0, this)
                 return this.__bits
             }
         }
-    
+
         /**
          * @type {AsnObjectIdentifier}
          */
-        object{
+        object {
             get {
                 if(!this.HasProp("__object"))
                     this.__object := AsnObjectIdentifier(0, this)
                 return this.__object
             }
         }
-    
+
         /**
          * @type {AsnOctetString}
          */
-        sequence{
+        sequence {
             get {
                 if(!this.HasProp("__sequence"))
                     this.__sequence := AsnOctetString(0, this)
                 return this.__sequence
             }
         }
-    
+
         /**
          * @type {AsnOctetString}
          */
-        address{
+        address {
             get {
                 if(!this.HasProp("__address"))
                     this.__address := AsnOctetString(0, this)
                 return this.__address
             }
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -107,7 +105,7 @@ class AsnAny extends Win32Struct
             get => NumGet(this, 0, "uint")
             set => NumPut("uint", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -115,7 +113,7 @@ class AsnAny extends Win32Struct
             get => NumGet(this, 0, "uint")
             set => NumPut("uint", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -123,18 +121,17 @@ class AsnAny extends Win32Struct
             get => NumGet(this, 0, "uint")
             set => NumPut("uint", value, this, 0)
         }
-    
+
         /**
          * @type {AsnOctetString}
          */
-        arbitrary{
+        arbitrary {
             get {
                 if(!this.HasProp("__arbitrary"))
                     this.__arbitrary := AsnOctetString(0, this)
                 return this.__arbitrary
             }
         }
-    
     }
 
     /**
@@ -147,13 +144,12 @@ class AsnAny extends Win32Struct
     }
 
     /**
-     * 
      * @type {_asnValue_e__Union}
      */
-    asnValue{
+    asnValue {
         get {
             if(!this.HasProp("__asnValue"))
-                this.__asnValue := %this.__Class%._asnValue_e__Union(4, this)
+                this.__asnValue := AsnAny._asnValue_e__Union(4, this)
             return this.__asnValue
         }
     }

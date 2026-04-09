@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\SRestriction.ahk
 
 /**
  * Describes a sub-object restriction which is used to filter the rows of a message's attachment or recipient table.
@@ -11,10 +12,8 @@
  * For a general discussion of how restrictions work, see [About Restrictions](about-restrictions.md).
  * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/ssubrestriction
  * @namespace Windows.Win32.System.AddressBook
- * @version v4.0.30319
  */
-class SSubRestriction extends Win32Struct
-{
+class SSubRestriction extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

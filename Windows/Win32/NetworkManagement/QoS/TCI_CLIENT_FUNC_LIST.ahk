@@ -8,10 +8,8 @@
  * <b>TCI_CLIENT_FUNC_LIST</b> structure can be <b>NULL</b> except <b>ClNotifyHandler</b>.
  * @see https://learn.microsoft.com/windows/win32/api/traffic/ns-traffic-tci_client_func_list
  * @namespace Windows.Win32.NetworkManagement.QoS
- * @version v4.0.30319
  */
-class TCI_CLIENT_FUNC_LIST extends Win32Struct
-{
+class TCI_CLIENT_FUNC_LIST extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8

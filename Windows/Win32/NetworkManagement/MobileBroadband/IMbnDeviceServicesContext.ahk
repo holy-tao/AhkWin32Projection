@@ -1,9 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\IMbnDeviceService.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\IMbnDeviceService.ahk
 
 /**
  * Allows for enumerating and retrieving Mobile Broadband device objects on the system.
@@ -11,9 +10,8 @@
  * <b>IMbnDeviceServicesContext</b> objects are provided by a call to the <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nf-mbnapi-imbndeviceservicesmanager-getdeviceservicescontext">GetDeviceServicesContext</a> method of the <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nn-mbnapi-imbndeviceservicesmanager">IMbnDeviceServicesManager</a> interface.
  * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nn-mbnapi-imbndeviceservicescontext
  * @namespace Windows.Win32.NetworkManagement.MobileBroadband
- * @version v4.0.30319
  */
-class IMbnDeviceServicesContext extends IUnknown{
+class IMbnDeviceServicesContext extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

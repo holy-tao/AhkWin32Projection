@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.Cdrom
- * @version v4.0.30319
  */
-class SUB_Q_HEADER extends Win32Struct
-{
+class SUB_Q_HEADER extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 1
@@ -28,9 +26,9 @@ class SUB_Q_HEADER extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    DataLength{
+    DataLength {
         get {
             if(!this.HasProp("__DataLengthProxyArray"))
                 this.__DataLengthProxyArray := Win32FixedArray(this.ptr + 2, 2, Primitive, "char")

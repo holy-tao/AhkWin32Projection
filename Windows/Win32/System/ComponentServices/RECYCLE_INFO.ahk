@@ -3,16 +3,14 @@
 
 /**
  * @namespace Windows.Win32.System.ComponentServices
- * @version v4.0.30319
  */
-class RECYCLE_INFO extends Win32Struct
-{
+class RECYCLE_INFO extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     guidCombaseProcessIdentifier {
         get => NumGet(this, 0, "ptr")

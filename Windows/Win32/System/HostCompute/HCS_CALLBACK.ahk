@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.System.HostCompute
- * @version v4.0.30319
  */
-class HCS_CALLBACK extends Win32Handle
-{
+class HCS_CALLBACK extends Win32Handle {
     static sizeof => 8
 
     static packingSize => 8

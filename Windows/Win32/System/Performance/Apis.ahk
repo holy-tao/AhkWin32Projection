@@ -4,7 +4,6 @@
 
 /**
  * @namespace Windows.Win32.System.Performance
- * @version v4.0.30319
  */
 class Performance {
 
@@ -1353,7 +1352,7 @@ class Performance {
      * @param {HANDLE} ProviderHandle The handle of the provider. Use the handle variable that the <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/ctrpp">CTRPP</a> tool generated for you. For the name of the variable, see the <b>symbol</b> attribute of the <a href="https://docs.microsoft.com/previous-versions/aa373164(v=vs.85)">provider</a> element.
      * 
      * <b>Windows Vista:  </b>The <a href="https://docs.microsoft.com/windows/desktop/api/perflib/nf-perflib-perfstartprovider">PerfStartProvider</a> function returns the handle.
-     * @param {Pointer} Template Buffer that contains the counter set information. For details, see <a href="https://docs.microsoft.com/windows/desktop/api/perflib/ns-perflib-perf_counterset_info">PERF_COUNTERSET_INFO</a>.
+     * @param {Integer} Template Buffer that contains the counter set information. For details, see <a href="https://docs.microsoft.com/windows/desktop/api/perflib/ns-perflib-perf_counterset_info">PERF_COUNTERSET_INFO</a>.
      * @param {Integer} TemplateSize Size, in bytes, of the <i>pTemplate</i> buffer.
      * @returns {Integer} If the function succeeds, it returns ERROR_SUCCESS.
      * 						
@@ -1491,7 +1490,11 @@ class Performance {
      * @param {Integer} CounterId Identifier that uniquely identifies the counter to update in the instance block. The identifier is defined in the <b>id</b> attribute of the <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/performance-counters-counter--counterset--element">counter</a> element and must match the <b>CounterId</b> member of one of the <a href="https://docs.microsoft.com/windows/desktop/api/perflib/ns-perflib-perf_counter_info">PERF_COUNTER_INFO</a> structures in the instance block. Use the counter ID constant that the <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/ctrpp">CTRPP</a> tool generated for you. For the name of the constant, see the <b>symbol</b> attribute of the <b>counter</b> element.
      * 
      * <b>Windows Vista:  </b>The counter ID constant is not available.
-     * @param {Pointer<Void>} _Address 
+     * @param {Pointer<Void>} _Address Pointer to the actual counter data. 
+     * 
+     * If <b>NULL</b>, the consumer receives ERROR_NO_DATA.
+     * 
+     * To indicate that the counter data is accessed by reference, the counter declaration in the manifest must include a <a href="https://docs.microsoft.com/previous-versions/aa371909(v=vs.85)">counterAttribute</a> element whose <b>name</b> attribute is set to "reference".
      * @returns {Integer} If the function succeeds, it returns ERROR_SUCCESS.
      * 						
      * 
@@ -1790,7 +1793,7 @@ class Performance {
      * <b>PERF_INSTANCE_HEADER</b> block is a multiple of 8 bytes.
      * @param {PWSTR} szMachine The name of the machine for which to get the information about the active instances of the counter set  that the <i>pCounterSet</i> parameter specifies. If NULL, the function retrieves information about the active instances of the specified counter set for the local machine.
      * @param {Pointer<Guid>} pCounterSetId The counter set identifier of the counter set for which you want to get the information about of the active instances.
-     * @param {Pointer} pInstances Pointer to a buffer that is large enough to receive the amount of data that the <i>cbInstances</i> parameter specifies. May be  
+     * @param {Integer} pInstances Pointer to a buffer that is large enough to receive the amount of data that the <i>cbInstances</i> parameter specifies. May be  
      * 
      * NULL if <i>cbInstances</i> is 0.
      * @param {Integer} cbInstances The size of the buffer that the  <i>pInstances</i> parameter specifies,  in bytes.
@@ -1880,7 +1883,7 @@ class Performance {
      * the formats of the data provided for each type of request.
      * @param {PWSTR} szMachine The name of the machine for which to get the information about the counter set  that the <i>pCounterSet</i> parameter specifies. If NULL, the function retrieves information about the specified counter set for the local machine.
      * @param {Pointer<Guid>} pCounterSetId The counter set identifier of the counter set for which you want to get information.
-     * @param {Integer} requestCode The type of information that you want to get about the counter set. See <a href="https://docs.microsoft.com/windows/desktop/api/perflib/ne-perflib-perfreginfotype">PerfRegInfoType</a> for a list of possible values.
+     * @param {PerfRegInfoType} requestCode The type of information that you want to get about the counter set. See <a href="https://docs.microsoft.com/windows/desktop/api/perflib/ne-perflib-perfreginfotype">PerfRegInfoType</a> for a list of possible values.
      * @param {Integer} requestLangId The preferred locale identifier for the strings that contain the requested information if <i>requestCode</i> is <b>PERF_REG_COUNTERSET_NAME_STRING</b>,  
      * 
      * <b>PERF_REG_COUNTERSET_HELP_STRING</b>, <b>PERF_REG_COUNTER_NAME_STRINGS</b>, or  
@@ -1890,7 +1893,7 @@ class Performance {
      * The counter identifier of the counter for which you want data, if <i>requestCode</i> is <b>PERF_REG_COUNTER_STRUCT</b>. 
      * 
      * Set to 0 for all other values of <i>requestCode</i>.
-     * @param {Pointer} pbRegInfo Pointer to a buffer that is large enough to receive the amount of data that the <i>cbRegInfo</i> parameter specifies, in bytes. May be  
+     * @param {Integer} pbRegInfo Pointer to a buffer that is large enough to receive the amount of data that the <i>cbRegInfo</i> parameter specifies, in bytes. May be  
      * 
      * NULL if <i>cbRegInfo</i> is 0.
      * @param {Integer} cbRegInfo The size of the buffer that the <i>pbRegInfo</i> parameter specifies, in bytes.
@@ -2032,7 +2035,7 @@ class Performance {
      * and padding, is determined by the <b>Size</b> member of the <b>PERF_COUNTER_IDENTIFIER</b> structure, which
      * will be a multiple of 8 bytes.
      * @param {HANDLE} hQuery A handle to the query for which you want to get the counter specifications
-     * @param {Pointer} pCounters Pointer to a buffer that is large enough to hold the amount of data that the <i>cbCounters</i> parameter specifies, in bytes. May be
+     * @param {Integer} pCounters Pointer to a buffer that is large enough to hold the amount of data that the <i>cbCounters</i> parameter specifies, in bytes. May be
      * NULL if <i>cbCounters</i> is 0.
      * @param {Integer} cbCounters The size of the <i>pCounters</i> buffer, in bytes.
      * @param {Pointer<Integer>} pcbCountersActual The size of the buffer actually required to get the counter specifications. The meaning depends on the value that the function  
@@ -2118,7 +2121,7 @@ class Performance {
      * @remarks
      * The information about the performance counter values is  written to the buffer that <i>pCounterBlock</i> specifies as a <a href="https://docs.microsoft.com/windows/desktop/api/perflib/ns-perflib-perf_data_header">PERF_DATA_HEADER</a> block, which consists <b>PERF_DATA_HEADER</b> structure followed by a sequence of <a href="https://docs.microsoft.com/windows/desktop/api/perflib/ns-perflib-perf_counter_header">PERF_COUNTER_HEADER</a> blocks.
      * @param {HANDLE} hQuery A handle to a query for the counter specifications of the performance counters for which you want to get the values.
-     * @param {Pointer} pCounterBlock A pointer to a buffer that has enough space to receive the amount of  data that the <i>cbCounterBlock</i> parameter specifies, in bytes. May be NULL if  
+     * @param {Integer} pCounterBlock A pointer to a buffer that has enough space to receive the amount of  data that the <i>cbCounterBlock</i> parameter specifies, in bytes. May be NULL if  
      * 
      * <i>cbCounterBlock</i> is 0.
      * @param {Integer} cbCounterBlock The size of the buffer that the <i>pCounterBlock</i> parameter specifies, in bytes.
@@ -2238,7 +2241,7 @@ class Performance {
      * each <a href="https://docs.microsoft.com/windows/desktop/api/perflib/ns-perflib-perf_counter_identifier">PERF_COUNTER_IDENTIFIER</a> block, and updates the <b>Status</b> member of the <b>PERF_COUNTER_IDENTIFIER</b> structure in each
      * block with the result of the attempt.
      * @param {HANDLE} hQuery A handle to the query to which you want to add performance counter specifications.
-     * @param {Pointer} pCounters A pointer to the performance counter specifications that you want to add.
+     * @param {Integer} pCounters A pointer to the performance counter specifications that you want to add.
      * @param {Integer} cbCounters The size of the buffer that the <i>pCounters</i> parameter specifies, in bytes.
      * @returns {Integer} If the function succeeds, it returns ERROR_SUCCESS.
      * 						
@@ -2270,7 +2273,7 @@ class Performance {
      * query for each <a href="https://docs.microsoft.com/windows/desktop/api/perflib/ns-perflib-perf_counter_identifier">PERF_COUNTER_IDENTIFIER</a> block,  and updates the <b>Status</b> member of the <b>PERF_COUNTER_IDENTIFIER</b> structure in each
      * block with the result of the attempt.
      * @param {HANDLE} hQuery A handle to the query from which you want to remove performance counter specifications.
-     * @param {Pointer} pCounters A pointer to the performance counter specifications that you want to remove.
+     * @param {Integer} pCounters A pointer to the performance counter specifications that you want to remove.
      * @param {Integer} cbCounters The size of the buffer that the <i>pCounters</i> parameter specifies, in bytes.
      * @returns {Integer} If the function succeeds, it returns ERROR_SUCCESS.
      * 						
@@ -2291,7 +2294,7 @@ class Performance {
      * Returns the version of the currently installed Pdh.dll file.
      * @remarks
      * This function is used to help in determining the functionality that the currently installed version of Pdh.dll supports.
-     * @param {Pointer<Integer>} lpdwVersion 
+     * @param {Pointer<PDH_DLL_VERSION>} lpdwVersion 
      * @returns {Integer} If the function succeeds, it returns ERROR_SUCCESS.
      * 						
      * 
@@ -3416,7 +3419,7 @@ class Performance {
      * <b>Prior to Windows Server 2003:  </b>The format call may fail for counters that require only a single value when the instance is not found. Try calling the query and format calls again. If the format call fails the second time, the instance is not found. As an alternative, you can call the <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhenumobjectsa">PdhEnumObjects</a> function with the refresh option set to <b>TRUE</b> to refresh the counter instances before querying and formatting the counter data.
      * @param {PDH_HCOUNTER} hCounter Handle of the counter for which you want to compute a displayable value. The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhaddcountera">PdhAddCounter</a> function returns this handle.
-     * @param {Integer} dwFormat 
+     * @param {PDH_FMT} dwFormat 
      * @param {Pointer<Integer>} lpdwType Receives the counter type. For a list of counter types, see the Counter Types section of the <a href="https://docs.microsoft.com/previous-versions/windows/it-pro/windows-server-2003/cc776490(v=ws.10)">Windows Server 2003 Deployment Kit</a>. This parameter is optional.
      * @param {Pointer<PDH_FMT_COUNTERVALUE>} pValue A 
      * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/ns-pdh-pdh_fmt_countervalue">PDH_FMT_COUNTERVALUE</a> structure that receives the counter value.
@@ -3485,7 +3488,7 @@ class Performance {
      * <b>PdhGetFormattedCounterArray</b> to prevent any changes during the processing of the call.
      * @param {PDH_HCOUNTER} hCounter Handle to the counter whose current value you want to format. The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhaddcountera">PdhAddCounter</a> function returns this handle.
-     * @param {Integer} dwFormat 
+     * @param {PDH_FMT} dwFormat 
      * @param {Pointer<Integer>} lpdwBufferSize Size of the <i>ItemBuffer</i> buffer, in bytes. If zero on input, the function returns PDH_MORE_DATA and sets this parameter to the required buffer size. If the buffer is larger than the required size, the function sets this parameter to the actual size of the buffer that was used. If the specified size on input is greater than zero but less than the required size, you should not rely on the returned size to reallocate the buffer.
      * @param {Pointer<Integer>} lpdwItemCount Number of counter values in the <i>ItemBuffer</i> buffer.
      * @param {Pointer<PDH_FMT_COUNTERVALUE_ITEM_A>} ItemBuffer Caller-allocated buffer that receives an array of 
@@ -3556,7 +3559,7 @@ class Performance {
      * <b>PdhGetFormattedCounterArray</b> to prevent any changes during the processing of the call.
      * @param {PDH_HCOUNTER} hCounter Handle to the counter whose current value you want to format. The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhaddcountera">PdhAddCounter</a> function returns this handle.
-     * @param {Integer} dwFormat 
+     * @param {PDH_FMT} dwFormat 
      * @param {Pointer<Integer>} lpdwBufferSize Size of the <i>ItemBuffer</i> buffer, in bytes. If zero on input, the function returns PDH_MORE_DATA and sets this parameter to the required buffer size. If the buffer is larger than the required size, the function sets this parameter to the actual size of the buffer that was used. If the specified size on input is greater than zero but less than the required size, you should not rely on the returned size to reallocate the buffer.
      * @param {Pointer<Integer>} lpdwItemCount Number of counter values in the <i>ItemBuffer</i> buffer.
      * @param {Pointer<PDH_FMT_COUNTERVALUE_ITEM_W>} ItemBuffer Caller-allocated buffer that receives an array of 
@@ -3837,7 +3840,7 @@ class Performance {
      * To retrieve the current raw counter value from the query, call the <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhgetrawcountervalue">PdhGetRawCounterValue</a> function.
      * @param {PDH_HCOUNTER} hCounter Handle to the counter to calculate. The function uses information from the counter to determine how to calculate the value. This handle is returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhaddcountera">PdhAddCounter</a> function.
-     * @param {Integer} dwFormat 
+     * @param {PDH_FMT} dwFormat 
      * @param {Pointer<PDH_RAW_COUNTER>} rawValue1 Raw counter value used to compute the displayable counter value. For details, see the <a href="https://docs.microsoft.com/windows/desktop/api/pdh/ns-pdh-pdh_raw_counter">PDH_RAW_COUNTER</a> structure.
      * @param {Pointer<PDH_RAW_COUNTER>} rawValue2 Raw counter value used to compute the displayable counter value. For details, see <a href="https://docs.microsoft.com/windows/desktop/api/pdh/ns-pdh-pdh_raw_counter">PDH_RAW_COUNTER</a>. Some counters (for example, rate counters) require two raw values to calculate a displayable value. If the counter type does not require a second value, set this parameter to <b>NULL</b>. This value must be the older of the two raw values.
      * @param {Pointer<PDH_FMT_COUNTERVALUE>} fmtValue A 
@@ -3889,7 +3892,7 @@ class Performance {
      * Computes statistics for a counter from an array of raw values.
      * @param {PDH_HCOUNTER} hCounter Handle of the counter for which you want to compute statistics. The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhaddcountera">PdhAddCounter</a> function returns this handle.
-     * @param {Integer} dwFormat 
+     * @param {PDH_FMT} dwFormat 
      * @param {Integer} dwFirstEntry Zero-based index of the first raw counter value to use to begin the calculations. The index value must point to the oldest entry in the buffer. The 
      * function starts at this entry and scans through the buffer, wrapping at the last entry back to the beginning of the buffer and up to the <i>dwFirstEntry-1</i> entry, which is assumed to be the newest or most recent data.
      * @param {Integer} dwNumEntries Number of raw counter values in the <i>lpRawValueArray</i> buffer.
@@ -4401,7 +4404,7 @@ class Performance {
      * @param {Pointer<Integer>} pcchBufferSize Size of the <i>mszObjectList</i> buffer, in <b>TCHARs</b>. If zero on input, the function returns PDH_MORE_DATA and sets this parameter to the required buffer size. If the buffer is larger than the required size, the function sets this parameter to the actual size of the buffer that was used. If the specified size on input is greater than zero but less than the required size, you should not rely on the returned size to reallocate the buffer.
      * 
      * <b>Windows XP:  </b>Add one to the required buffer size.
-     * @param {Integer} dwDetailLevel 
+     * @param {PERF_DETAIL} dwDetailLevel 
      * @param {BOOL} bRefresh 
      * @returns {Integer} If the function succeeds, it returns ERROR_SUCCESS.
      * 						
@@ -4499,7 +4502,7 @@ class Performance {
      * @param {Pointer<Integer>} pcchBufferSize Size of the <i>mszObjectList</i> buffer, in <b>TCHARs</b>. If zero on input, the function returns PDH_MORE_DATA and sets this parameter to the required buffer size. If the buffer is larger than the required size, the function sets this parameter to the actual size of the buffer that was used. If the specified size on input is greater than zero but less than the required size, you should not rely on the returned size to reallocate the buffer.
      * 
      * <b>Windows XP:  </b>Add one to the required buffer size.
-     * @param {Integer} dwDetailLevel 
+     * @param {PERF_DETAIL} dwDetailLevel 
      * @param {BOOL} bRefresh 
      * @returns {Integer} If the function succeeds, it returns ERROR_SUCCESS.
      * 						
@@ -4601,7 +4604,7 @@ class Performance {
      * @param {Pointer<Integer>} pcchInstanceListLength Size of the <i>mszInstanceList</i> buffer, in <b>TCHARs</b>. If zero on input and the object exists, the function returns PDH_MORE_DATA and sets this parameter to the required buffer size. If the buffer is larger than the required size, the function sets this parameter to the actual size of the buffer that was used. If the specified size on input is greater than zero but less than the required size, you should not rely on the returned size to reallocate the buffer.
      * 
      * If the specified object does not support variable instances, then the returned value will be zero. If the specified object does support variable instances, but does not currently have any instances, then the value returned is 2, which is the size of an empty MULTI_SZ list string.
-     * @param {Integer} dwDetailLevel 
+     * @param {PERF_DETAIL} dwDetailLevel 
      * @param {Integer} dwFlags This parameter must be zero.
      * @returns {Integer} If the function succeeds, it returns ERROR_SUCCESS.
      * 						
@@ -4717,7 +4720,7 @@ class Performance {
      * @param {Pointer<Integer>} pcchInstanceListLength Size of the <i>mszInstanceList</i> buffer, in <b>TCHARs</b>. If zero on input and the object exists, the function returns PDH_MORE_DATA and sets this parameter to the required buffer size. If the buffer is larger than the required size, the function sets this parameter to the actual size of the buffer that was used. If the specified size on input is greater than zero but less than the required size, you should not rely on the returned size to reallocate the buffer.
      * 
      * If the specified object does not support variable instances, then the returned value will be zero. If the specified object does support variable instances, but does not currently have any instances, then the value returned is 2, which is the size of an empty MULTI_SZ list string.
-     * @param {Integer} dwDetailLevel 
+     * @param {PERF_DETAIL} dwDetailLevel 
      * @param {Integer} dwFlags This parameter must be zero.
      * @returns {Integer} If the function succeeds, it returns ERROR_SUCCESS.
      * 						
@@ -4823,7 +4826,7 @@ class Performance {
      * If the instance name member is <b>NULL</b>, the path will not contain an instance reference and the <b>szParentInstance</b> and <b>dwInstanceIndex</b> members will be ignored.
      * @param {PWSTR} szFullPathBuffer Caller-allocated buffer that receives a <b>null</b>-terminated counter path. The maximum length of a counter path is PDH_MAX_COUNTER_PATH. Set to <b>NULL</b> if <i>pcchBufferSize</i> is zero.
      * @param {Pointer<Integer>} pcchBufferSize Size of the <i>szFullPathBuffer</i> buffer, in <b>TCHARs</b>. If zero on input, the function returns PDH_MORE_DATA and sets this parameter to the required buffer size. If the buffer is larger than the required size, the function sets this parameter to the actual size of the buffer that was used. If the specified size on input is greater than zero but less than the required size, you should not rely on the returned size to reallocate the buffer.
-     * @param {Integer} dwFlags 
+     * @param {PDH_PATH_FLAGS} dwFlags 
      * @returns {Integer} If the function succeeds, it returns ERROR_SUCCESS.
      * 						
      * 
@@ -4890,7 +4893,7 @@ class Performance {
      * If the instance name member is <b>NULL</b>, the path will not contain an instance reference and the <b>szParentInstance</b> and <b>dwInstanceIndex</b> members will be ignored.
      * @param {PSTR} szFullPathBuffer Caller-allocated buffer that receives a <b>null</b>-terminated counter path. The maximum length of a counter path is PDH_MAX_COUNTER_PATH. Set to <b>NULL</b> if <i>pcchBufferSize</i> is zero.
      * @param {Pointer<Integer>} pcchBufferSize Size of the <i>szFullPathBuffer</i> buffer, in <b>TCHARs</b>. If zero on input, the function returns PDH_MORE_DATA and sets this parameter to the required buffer size. If the buffer is larger than the required size, the function sets this parameter to the actual size of the buffer that was used. If the specified size on input is greater than zero but less than the required size, you should not rely on the returned size to reallocate the buffer.
-     * @param {Integer} dwFlags 
+     * @param {PDH_PATH_FLAGS} dwFlags 
      * @returns {Integer} If the function succeeds, it returns ERROR_SUCCESS.
      * 						
      * 
@@ -6797,8 +6800,8 @@ class Performance {
      * 
      * 
      * If the <i>lpdwLogType</i> parameter is <b>PDH_LOG_TYPE_SQL</b>, specify the name of the log file in the form, <b>SQL:</b><i>DataSourceName</i><b>!</b><i>LogFileName</i>.
-     * @param {Integer} dwAccessFlags 
-     * @param {Pointer<Integer>} lpdwLogType 
+     * @param {PDH_LOG} dwAccessFlags 
+     * @param {Pointer<PDH_LOG_TYPE>} lpdwLogType 
      * @param {PDH_HQUERY} hQuery Specify a query handle if you are writing query data to a log file. The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhopenquerya">PdhOpenQuery</a> function returns this handle. 
      * 
@@ -6852,8 +6855,8 @@ class Performance {
      * 
      * 
      * If the <i>lpdwLogType</i> parameter is <b>PDH_LOG_TYPE_SQL</b>, specify the name of the log file in the form, <b>SQL:</b><i>DataSourceName</i><b>!</b><i>LogFileName</i>.
-     * @param {Integer} dwAccessFlags 
-     * @param {Pointer<Integer>} lpdwLogType 
+     * @param {PDH_LOG} dwAccessFlags 
+     * @param {Pointer<PDH_LOG_TYPE>} lpdwLogType 
      * @param {PDH_HQUERY} hQuery Specify a query handle if you are writing query data to a log file. The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhopenquerya">PdhOpenQuery</a> function returns this handle. 
      * 
@@ -6890,7 +6893,8 @@ class Performance {
      * Collects counter data for the current query and writes the data to the log file. (Unicode)
      * @remarks
      * If you are updating a log file from another log file, the comments from the other log file do not migrate.
-     * @param {PDH_HLOG} _hLog 
+     * @param {PDH_HLOG} _hLog Handle of a single log file to update. The 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhopenloga">PdhOpenLog</a> function returns this handle.
      * @param {PWSTR} szUserString Null-terminated string that contains a user-defined comment to add to the data record. The string can not be empty.
      * @returns {Integer} If the function succeeds, it returns ERROR_SUCCESS.
      * 						
@@ -6942,7 +6946,8 @@ class Performance {
      * Collects counter data for the current query and writes the data to the log file. (ANSI)
      * @remarks
      * If you are updating a log file from another log file, the comments from the other log file do not migrate.
-     * @param {PDH_HLOG} _hLog 
+     * @param {PDH_HLOG} _hLog Handle of a single log file to update. The 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhopenloga">PdhOpenLog</a> function returns this handle.
      * @param {PSTR} szUserString Null-terminated string that contains a user-defined comment to add to the data record. The string can not be empty.
      * @returns {Integer} If the function succeeds, it returns ERROR_SUCCESS.
      * 						
@@ -6998,7 +7003,8 @@ class Performance {
      * Catalogs should be updated when the data collection process is complete and the log file has been closed. The catalog can be updated during data collection, but doing this may disrupt the process of logging the performance data because updating the catalogs can be time consuming.
      * 
      * Perfmon, CSV, and TSV log files do not have catalogs. Specifying a handle to these log file types will result in a return value of PDH_NOT_IMPLEMENTED.
-     * @param {PDH_HLOG} _hLog 
+     * @param {PDH_HLOG} _hLog Handle to the log file containing the file catalog to update. The 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhopenloga">PdhOpenLog</a> function.
      * @returns {Integer} If the function succeeds, it returns ERROR_SUCCESS.
      * 						
      * 
@@ -7059,7 +7065,8 @@ class Performance {
      * Returns the size of the specified log file.
      * @remarks
      * If the log file handle points to multiple bound log files, the size is the sum of all the log files. If the log file is a SQL log file, the <i>llSize</i> parameter is the number of records in the log file.
-     * @param {PDH_HLOG} _hLog 
+     * @param {PDH_HLOG} _hLog Handle to the log file. The 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhopenloga">PdhOpenLog</a> or <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhbindinputdatasourcea">PdhBindInputDataSource</a> function returns this handle.
      * @param {Pointer<Integer>} llSize Size of the log file, in bytes.
      * @returns {Integer} If the function succeeds, it returns ERROR_SUCCESS.
      * 						
@@ -7110,7 +7117,8 @@ class Performance {
 
     /**
      * Closes the specified log file.
-     * @param {PDH_HLOG} _hLog 
+     * @param {PDH_HLOG} _hLog Handle to the log file to be closed. This handle is returned by the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhopenloga">PdhOpenLog</a> function.
      * @param {Integer} dwFlags You can specify the following flag. 
      * 
      * 
@@ -7171,7 +7179,7 @@ class Performance {
      * > [!NOTE]
      * > The pdh.h header defines PdhSelectDataSource as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HWND} hWndOwner Owner of the dialog window. This can be <b>NULL</b> if there is no owner (the desktop becomes the owner).
-     * @param {Integer} dwFlags 
+     * @param {PDH_SELECT_DATA_SOURCE_FLAGS} dwFlags 
      * @param {PWSTR} szDataSource Caller-allocated buffer that receives a <b>null</b>-terminated string that contains the name of a log file that the user selected. The log file name is truncated to the size of the buffer if the buffer is too small.
      * 
      * If the user selected a real time source, the buffer is empty.
@@ -7230,7 +7238,7 @@ class Performance {
      * > [!NOTE]
      * > The pdh.h header defines PdhSelectDataSource as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HWND} hWndOwner Owner of the dialog window. This can be <b>NULL</b> if there is no owner (the desktop becomes the owner).
-     * @param {Integer} dwFlags 
+     * @param {PDH_SELECT_DATA_SOURCE_FLAGS} dwFlags 
      * @param {PSTR} szDataSource Caller-allocated buffer that receives a <b>null</b>-terminated string that contains the name of a log file that the user selected. The log file name is truncated to the size of the buffer if the buffer is too small.
      * 
      * If the user selected a real time source, the buffer is empty.
@@ -7565,7 +7573,7 @@ class Performance {
      * For a list of counter types, see the Counter Types section of the <a href="https://docs.microsoft.com/previous-versions/windows/it-pro/windows-server-2003/cc776490(v=ws.10)">Windows Server 2003 Deployment Kit</a>. (The constant values are defined in Winperf.h.)
      * 
      * Note that you cannot specify base types, for example, PERF_LARGE_RAW_BASE.
-     * @param {Integer} dwFormat 
+     * @param {PDH_FMT} dwFormat 
      * @param {Pointer<Integer>} pTimeBase Pointer to the time base, if necessary for the format conversion. If time base information is not necessary for the format conversion, the value of this parameter is ignored. To retrieve the time base of the counter, call <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhgetcountertimebase">PdhGetCounterTimeBase</a>.
      * @param {Pointer<PDH_RAW_COUNTER>} pRawValue1 Raw counter value used to compute the displayable counter value. For details, see <a href="https://docs.microsoft.com/windows/desktop/api/pdh/ns-pdh-pdh_raw_counter">PDH_RAW_COUNTER</a>.
      * @param {Pointer<PDH_RAW_COUNTER>} pRawValue2 Raw counter value used to compute the displayable counter value. For details, see <a href="https://docs.microsoft.com/windows/desktop/api/pdh/ns-pdh-pdh_raw_counter">PDH_RAW_COUNTER</a>. Some counters, for example, rate counters, require two raw values to calculate a displayable value. If the counter type does not require a second value, set this parameter to <b>NULL</b>. This value must be the older of the two raw values.
@@ -7649,7 +7657,8 @@ class Performance {
      * Reads the information in the specified binary trace log file.
      * @remarks
      * You should call this function twice, the first time to get the required buffer size (set <i>pRawLogRecord</i> to <b>NULL</b> and <i>pdwBufferLength</i> to 0), and the second time to get the data.
-     * @param {PDH_HLOG} _hLog 
+     * @param {PDH_HLOG} _hLog Handle to the log file. The 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhopenloga">PdhOpenLog</a>  or <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhbindinputdatasourcea">PdhBindInputDataSource</a> function returns this handle.
      * @param {FILETIME} ftRecord Time stamp of the record to be read. If the time stamp does not match a record in the log file, the function returns the record that has a time stamp closest to (but not greater than) the given time stamp.
      * @param {Pointer<PDH_RAW_LOG_RECORD>} pRawLogRecord Caller-allocated buffer that receives a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/ns-pdh-pdh_raw_log_record">PDH_RAW_LOG_RECORD</a> structure; the structure contains the log file record information. Set to <b>NULL</b> if <i>pdwBufferLength</i> is zero.
@@ -7718,7 +7727,7 @@ class Performance {
      * The term <i>real-time</i> as used in the description of this function does not imply the standard meaning of the term <i>real-time</i>. Instead, it describes the collection of performance data from a source providing current information (for example, the registry or a WMI provider) rather than from a log file.
      * 
      * If you want to query real-time data from WMI, you must call <b>PdhSetDefaultRealTimeDataSource</b> to set the default real-time data source. You must call this function before calling any other PDH API function.
-     * @param {Integer} dwDataSourceId 
+     * @param {REAL_TIME_DATA_SOURCE_ID_FLAGS} dwDataSourceId 
      * @returns {Integer} If the function succeeds, it returns ERROR_SUCCESS.
      * 						
      * 
@@ -7993,7 +8002,7 @@ class Performance {
      * @param {Pointer<Integer>} pcchBufferSize Size of the <i>mszObjectList</i> buffer, in <b>TCHARs</b>. If zero on input, the function returns PDH_MORE_DATA and sets this parameter to the required buffer size. If the buffer is larger than the required size, the function sets this parameter to the actual size of the buffer that was used. If the specified size on input is greater than zero but less than the required size, you should not rely on the returned size to reallocate the buffer.
      * 
      * <b>Windows XP:  </b>Add one to the required buffer size.
-     * @param {Integer} dwDetailLevel 
+     * @param {PERF_DETAIL} dwDetailLevel 
      * @param {BOOL} bRefresh 
      * @returns {Integer} If the function succeeds, it returns ERROR_SUCCESS.
      * 						
@@ -8089,7 +8098,7 @@ class Performance {
      * @param {Pointer<Integer>} pcchBufferSize Size of the <i>mszObjectList</i> buffer, in <b>TCHARs</b>. If zero on input, the function returns PDH_MORE_DATA and sets this parameter to the required buffer size. If the buffer is larger than the required size, the function sets this parameter to the actual size of the buffer that was used. If the specified size on input is greater than zero but less than the required size, you should not rely on the returned size to reallocate the buffer.
      * 
      * <b>Windows XP:  </b>Add one to the required buffer size.
-     * @param {Integer} dwDetailLevel 
+     * @param {PERF_DETAIL} dwDetailLevel 
      * @param {BOOL} bRefresh 
      * @returns {Integer} If the function succeeds, it returns ERROR_SUCCESS.
      * 						
@@ -8196,7 +8205,7 @@ class Performance {
      * @param {Pointer<Integer>} pcchInstanceListLength Size of the <i>mszInstanceList</i> buffer, in <b>TCHARs</b>. If zero on input and the object exists, the function returns PDH_MORE_DATA and sets this parameter to the required buffer size. If the buffer is larger than the required size, the function sets this parameter to the actual size of the buffer that was used. If the specified size on input is greater than zero but less than the required size, you should not rely on the returned size to reallocate the buffer.
      * 
      * If the specified object does not support variable instances, then the returned value will be zero. If the specified object does support variable instances, but does not currently have any instances, then the value returned is 2, which is the size of an empty MULTI_SZ list string.
-     * @param {Integer} dwDetailLevel 
+     * @param {PERF_DETAIL} dwDetailLevel 
      * @param {Integer} dwFlags This parameter must be zero.
      * @returns {Integer} If the function succeeds, it returns ERROR_SUCCESS.
      * 						
@@ -8317,7 +8326,7 @@ class Performance {
      * @param {Pointer<Integer>} pcchInstanceListLength Size of the <i>mszInstanceList</i> buffer, in <b>TCHARs</b>. If zero on input and the object exists, the function returns PDH_MORE_DATA and sets this parameter to the required buffer size. If the buffer is larger than the required size, the function sets this parameter to the actual size of the buffer that was used. If the specified size on input is greater than zero but less than the required size, you should not rely on the returned size to reallocate the buffer.
      * 
      * If the specified object does not support variable instances, then the returned value will be zero. If the specified object does support variable instances, but does not currently have any instances, then the value returned is 2, which is the size of an empty MULTI_SZ list string.
-     * @param {Integer} dwDetailLevel 
+     * @param {PERF_DETAIL} dwDetailLevel 
      * @param {Integer} dwFlags This parameter must be zero.
      * @returns {Integer} If the function succeeds, it returns ERROR_SUCCESS.
      * 						

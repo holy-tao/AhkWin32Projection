@@ -4,17 +4,13 @@
 
 /**
  * Contains an array of entries for the NVME Set Attributes command.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/nvme/ns-nvme-nvm_set_list
  * @namespace Windows.Win32.Storage.Nvme
- * @version v4.0.30319
  */
-class NVM_SET_LIST extends Win32Struct
-{
-    static sizeof => 136
+class NVM_SET_LIST extends Win32Struct {
+    static sizeof => 256
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * The number of identifiers in the entry.
@@ -26,10 +22,9 @@ class NVM_SET_LIST extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Reserved{
+    Reserved {
         get {
             if(!this.HasProp("__ReservedProxyArray"))
                 this.__ReservedProxyArray := Win32FixedArray(this.ptr + 1, 127, Primitive, "char")
@@ -39,9 +34,9 @@ class NVM_SET_LIST extends Win32Struct
 
     /**
      * An array of [NVME_SET_ATTRIBUTES_ENTRY](ns-nvme-nvme_set_attributes_entry.md) structures that specify attribute values to be set by the set list.
-     * @type {Array<NVME_SET_ATTRIBUTES_ENTRY>}
+     * @type {NVME_SET_ATTRIBUTES_ENTRY}
      */
-    Entry{
+    Entry {
         get {
             if(!this.HasProp("__EntryProxyArray"))
                 this.__EntryProxyArray := Win32FixedArray(this.ptr + 128, 1, NVME_SET_ATTRIBUTES_ENTRY, "")

@@ -6,10 +6,8 @@
  * Describes the indexing configuration for a stream and type of index.
  * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/ns-wmcontainer-asf_index_descriptor
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class ASF_INDEX_DESCRIPTOR extends Win32Struct
-{
+class ASF_INDEX_DESCRIPTOR extends Win32Struct {
     static sizeof => 88
 
     static packingSize => 8
@@ -18,7 +16,7 @@ class ASF_INDEX_DESCRIPTOR extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/wmcontainer/ns-wmcontainer-asf_index_identifier">ASF_INDEX_IDENTIFIER</a> structure that identifies the stream number and the type of index.
      * @type {ASF_INDEX_IDENTIFIER}
      */
-    Identifier{
+    Identifier {
         get {
             if(!this.HasProp("__Identifier"))
                 this.__Identifier := ASF_INDEX_IDENTIFIER(0, this)

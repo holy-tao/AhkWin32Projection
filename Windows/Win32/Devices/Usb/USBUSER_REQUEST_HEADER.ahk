@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\USB_USER_ERROR_CODE.ahk
 
 /**
  * The USBUSER_REQUEST_HEADER structure is used with the IOCTL_USB_USER_REQUEST I/O control request to send a user-mode request to the USB host controller driver.
@@ -7,10 +8,8 @@
  * The <b>USBUSER_REQUEST_HEADER</b> structure is used with the <a href="https://docs.microsoft.com/windows/desktop/api/usbuser/ni-usbuser-ioctl_usb_user_request">IOCTL_USB_USER_REQUEST</a> I/O control request to send a user-mode request to the USB port driver.
  * @see https://learn.microsoft.com/windows/win32/api/usbuser/ns-usbuser-usbuser_request_header
  * @namespace Windows.Win32.Devices.Usb
- * @version v4.0.30319
  */
-class USBUSER_REQUEST_HEADER extends Win32Struct
-{
+class USBUSER_REQUEST_HEADER extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4
@@ -26,7 +25,7 @@ class USBUSER_REQUEST_HEADER extends Win32Struct
 
     /**
      * The status code that is returned by port driver.
-     * @type {Integer}
+     * @type {USB_USER_ERROR_CODE}
      */
     UsbUserStatusCode {
         get => NumGet(this, 4, "int")

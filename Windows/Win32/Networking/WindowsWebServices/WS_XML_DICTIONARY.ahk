@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\WS_XML_STRING.ahk
 
 /**
  * Represents a set of unique strings. This information is used by the binary encoding to write a more compact xml document.
@@ -48,10 +49,8 @@
  * ```
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_xml_dictionary
  * @namespace Windows.Win32.Networking.WindowsWebServices
- * @version v4.0.30319
  */
-class WS_XML_DICTIONARY extends Win32Struct
-{
+class WS_XML_DICTIONARY extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -59,7 +58,7 @@ class WS_XML_DICTIONARY extends Win32Struct
     /**
      * A guid that uniquely identifies the set of strings represented by the dictionary.
      *           The guid is never transmitted or persisted, and needs to only be unique for the lifetime of the process.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     guid {
         get => NumGet(this, 0, "ptr")

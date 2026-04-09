@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\StructuredStorage\PROPVARIANT.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\System\Com\StructuredStorage\PROPVARIANT.ahk
 
 /**
  * The IPhotoAcquireProgressCB interface may be implemented if you wish to do extra processing at various stages in the acquisition process.
  * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nn-photoacquire-iphotoacquireprogresscb
  * @namespace Windows.Win32.Media.PictureAcquisition
- * @version v4.0.30319
  */
-class IPhotoAcquireProgressCB extends IUnknown{
+class IPhotoAcquireProgressCB extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -670,7 +669,7 @@ class IPhotoAcquireProgressCB extends IUnknown{
      * Normally, a message is displayed when an error occurs during image acquisition. If suppression of this message is desired, implement <c>ErrorAdvise</c>.
      * @param {HRESULT} hr Specifies the error that occurred.
      * @param {PWSTR} pszErrorMessage Pointer to a null-terminated string containing the error message.
-     * @param {Integer} nMessageType Integer value containing the message type. May be one of the following.
+     * @param {ERROR_ADVISE_MESSAGE_TYPE} nMessageType Integer value containing the message type. May be one of the following.
      * 
      * <table>
      * <tr>
@@ -697,7 +696,7 @@ class IPhotoAcquireProgressCB extends IUnknown{
      * <td>Specifies that the error that occurred requires an OK response. The <i>pnErrorAdviseResult</i> parameter must be set to <b>PHOTOACQUIRE_RESULT_OK</b>.</td>
      * </tr>
      * </table>
-     * @returns {Integer} Pointer to an integer value containing the error advise result. The result should be one of the acceptable types indicated by the <i>nMessageType</i> parameter, and must be one of the following:
+     * @returns {ERROR_ADVISE_RESULT} Pointer to an integer value containing the error advise result. The result should be one of the acceptable types indicated by the <i>nMessageType</i> parameter, and must be one of the following:
      * 
      * <table>
      * <tr>

@@ -7,9 +7,8 @@
  * Exposes methods that retrieve the view state of the Control Panel, the path of individual Control Panel items, and that open either the Control Panel itself or an individual Control Panel item.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-iopencontrolpanel
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IOpenControlPanel extends IUnknown{
+class IOpenControlPanel extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -109,7 +108,7 @@ class IOpenControlPanel extends IUnknown{
 
     /**
      * Gets the most recent Control Panel view:\_Classic view or Category view.
-     * @returns {Integer} Type: <b>CPVIEW*</b>
+     * @returns {CPVIEW} Type: <b>CPVIEW*</b>
      * 
      * A pointer that receives the most recent view. Valid values are as follows:
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iopencontrolpanel-getcurrentview

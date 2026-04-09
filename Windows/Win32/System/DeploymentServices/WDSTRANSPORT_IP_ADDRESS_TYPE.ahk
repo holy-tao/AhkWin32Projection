@@ -5,9 +5,8 @@
  * Indicates the type of IP address.
  * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/ne-wdstptmgmt-wdstransport_ip_address_type
  * @namespace Windows.Win32.System.DeploymentServices
- * @version v4.0.30319
  */
-class WDSTRANSPORT_IP_ADDRESS_TYPE extends Win32Enum{
+class WDSTRANSPORT_IP_ADDRESS_TYPE extends Win32Enum {
 
     /**
      * Default value that indicates that the IP address type has not yet been determined.

@@ -11,9 +11,8 @@
  * A Print Spooler-hosted component that opens a bidirectional communication channel with a listening application must provide an <b>IPrintAsyncNotifyCallback</b> object.
  * @see https://learn.microsoft.com/windows/win32/api/prnasnot/nn-prnasnot-iprintasyncnotifycallback
  * @namespace Windows.Win32.Graphics.Printing
- * @version v4.0.30319
  */
-class IPrintAsyncNotifyCallback extends IUnknown{
+class IPrintAsyncNotifyCallback extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -5,10 +5,8 @@
  * The ADS_HOLD structure is an ADSI representation of the Hold attribute syntax.
  * @see https://learn.microsoft.com/windows/win32/api/iads/ns-iads-ads_hold
  * @namespace Windows.Win32.Networking.ActiveDirectory
- * @version v4.0.30319
  */
-class ADS_HOLD extends Win32Struct
-{
+class ADS_HOLD extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

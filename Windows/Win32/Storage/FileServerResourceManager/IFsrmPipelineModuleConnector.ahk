@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include .\IFsrmPipelineModuleImplementation.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * Creates the communication channel between FSRM and your pipeline module implementation.
@@ -25,9 +25,8 @@
  *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fsrm/initializing-and-binding-a-pipeline-module">Initializing and Binding a Pipeline Module</a>.
  * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nn-fsrmpipeline-ifsrmpipelinemoduleconnector
  * @namespace Windows.Win32.Storage.FileServerResourceManager
- * @version v4.0.30319
  */
-class IFsrmPipelineModuleConnector extends IDispatch{
+class IFsrmPipelineModuleConnector extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

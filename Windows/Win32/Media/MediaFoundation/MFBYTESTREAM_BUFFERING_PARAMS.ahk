@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\MF_LEAKY_BUCKET_PAIR.ahk
 
 /**
  * Specifies the buffering parameters for a network byte stream.
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/ns-mfidl-mfbytestream_buffering_params
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class MFBYTESTREAM_BUFFERING_PARAMS extends Win32Struct
-{
+class MFBYTESTREAM_BUFFERING_PARAMS extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 8

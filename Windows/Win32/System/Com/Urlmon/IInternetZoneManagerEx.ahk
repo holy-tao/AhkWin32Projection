@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.Com.Urlmon
- * @version v4.0.30319
  */
-class IInternetZoneManagerEx extends IInternetZoneManager{
+class IInternetZoneManagerEx extends IInternetZoneManager {
 
     static sizeof => A_PtrSize
     /**
@@ -33,7 +32,7 @@ class IInternetZoneManagerEx extends IInternetZoneManager{
      * @param {Integer} dwZone 
      * @param {Integer} dwAction 
      * @param {Integer} cbPolicy 
-     * @param {Integer} _urlZoneReg 
+     * @param {URLZONEREG} _urlZoneReg 
      * @param {Integer} dwFlags 
      * @returns {Integer} 
      */
@@ -48,7 +47,7 @@ class IInternetZoneManagerEx extends IInternetZoneManager{
      * @param {Integer} dwAction 
      * @param {Pointer<Integer>} pPolicy 
      * @param {Integer} cbPolicy 
-     * @param {Integer} _urlZoneReg 
+     * @param {URLZONEREG} _urlZoneReg 
      * @param {Integer} dwFlags 
      * @returns {HRESULT} 
      */

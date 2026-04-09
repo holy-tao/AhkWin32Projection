@@ -11,10 +11,8 @@
  * A number of the nested structure members in the <a href="https://docs.microsoft.com/windows/desktop/api/dot1x/ns-dot1x-onex_result_update_data">ONEX_RESULT_UPDATE_DATA</a> structure contains members of the <b>ONEX_VARIABLE_BLOB</b> type.
  * @see https://learn.microsoft.com/windows/win32/api/dot1x/ns-dot1x-onex_variable_blob
  * @namespace Windows.Win32.NetworkManagement.WiFi
- * @version v4.0.30319
  */
-class ONEX_VARIABLE_BLOB extends Win32Struct
-{
+class ONEX_VARIABLE_BLOB extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4

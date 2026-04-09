@@ -7,10 +7,8 @@
  * The AMVACompBufferInfo structure describes the allocated surfaces and compressed buffer information.
  * @see https://learn.microsoft.com/windows/win32/api/amva/ns-amva-amvacompbufferinfo
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class AMVACompBufferInfo extends Win32Struct
-{
+class AMVACompBufferInfo extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 4
@@ -55,7 +53,7 @@ class AMVACompBufferInfo extends Win32Struct
      * <b>DDSCAPS2</b> structure defining the capabilities of the DirectDraw surface created to store compressed data.
      * @type {DDSCAPS2}
      */
-    ddCompCaps{
+    ddCompCaps {
         get {
             if(!this.HasProp("__ddCompCaps"))
                 this.__ddCompCaps := DDSCAPS2(16, this)
@@ -67,7 +65,7 @@ class AMVACompBufferInfo extends Win32Struct
      * <b>DDPIXELFORMAT</b> structure, describing the pixel format used to create surfaces to store compressed data.
      * @type {DDPIXELFORMAT}
      */
-    ddPixelFormat{
+    ddPixelFormat {
         get {
             if(!this.HasProp("__ddPixelFormat"))
                 this.__ddPixelFormat := DDPIXELFORMAT(32, this)

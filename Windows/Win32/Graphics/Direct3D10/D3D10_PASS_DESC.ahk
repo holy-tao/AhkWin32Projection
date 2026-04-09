@@ -7,10 +7,8 @@
  * Get a pass description by calling <a href="https://docs.microsoft.com/windows/desktop/api/d3d10effect/nf-d3d10effect-id3d10effectpass-getdesc">ID3D10EffectPass::GetDesc</a>; an effect technique contains one or more passes.
  * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/ns-d3d10effect-d3d10_pass_desc
  * @namespace Windows.Win32.Graphics.Direct3D10
- * @version v4.0.30319
  */
-class D3D10_PASS_DESC extends Win32Struct
-{
+class D3D10_PASS_DESC extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8
@@ -85,9 +83,9 @@ class D3D10_PASS_DESC extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">FLOAT</a></b>
      * 
      * The per-component blend factors (RGBA) for the blend state (see <a href="https://docs.microsoft.com/windows/desktop/direct3d11/d3d10-graphics-programming-guide-blend-state">Configuring Blending Functionality (Direct3D 10)</a>).
-     * @type {Array<Single>}
+     * @type {Array<Float>}
      */
-    BlendFactor{
+    BlendFactor {
         get {
             if(!this.HasProp("__BlendFactorProxyArray"))
                 this.__BlendFactorProxyArray := Win32FixedArray(this.ptr + 40, 4, Primitive, "float")

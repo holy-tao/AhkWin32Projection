@@ -3,13 +3,10 @@
 
 /**
  * Contains values that indicate a status associated with the command that is generic across many different types of commands.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/nvme/ne-nvme-nvme_status_generic_command_codes
  * @namespace Windows.Win32.Storage.Nvme
- * @version v4.0.30319
  */
-class NVME_STATUS_GENERIC_COMMAND_CODES extends Win32Enum{
+class NVME_STATUS_GENERIC_COMMAND_CODES extends Win32Enum {
 
     /**
      * The command completed successfully.

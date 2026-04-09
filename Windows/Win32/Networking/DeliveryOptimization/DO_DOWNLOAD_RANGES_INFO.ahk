@@ -4,15 +4,11 @@
 
 /**
  * Identifies an array of ranges of bytes to download from a file.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/deliveryoptimization/ns-deliveryoptimization-do_download_ranges_info
  * @namespace Windows.Win32.Networking.DeliveryOptimization
- * @version v4.0.30319
  */
-class DO_DOWNLOAD_RANGES_INFO extends Win32Struct
-{
-    static sizeof => 16
+class DO_DOWNLOAD_RANGES_INFO extends Win32Struct {
+    static sizeof => 24
 
     static packingSize => 8
 
@@ -27,9 +23,9 @@ class DO_DOWNLOAD_RANGES_INFO extends Win32Struct
 
     /**
      * Array of one or more **DO_DOWNLOAD_RANGE** structures that specify the ranges to download.
-     * @type {Array<DO_DOWNLOAD_RANGE>}
+     * @type {DO_DOWNLOAD_RANGE}
      */
-    Ranges{
+    Ranges {
         get {
             if(!this.HasProp("__RangesProxyArray"))
                 this.__RangesProxyArray := Win32FixedArray(this.ptr + 8, 1, DO_DOWNLOAD_RANGE, "")

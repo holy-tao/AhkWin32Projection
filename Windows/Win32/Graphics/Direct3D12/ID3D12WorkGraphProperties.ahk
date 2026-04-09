@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D12
- * @version v4.0.30319
  */
-class ID3D12WorkGraphProperties extends IUnknown{
+class ID3D12WorkGraphProperties extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

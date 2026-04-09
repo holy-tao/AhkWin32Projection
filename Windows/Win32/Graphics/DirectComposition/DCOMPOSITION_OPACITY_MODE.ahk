@@ -5,9 +5,8 @@
  * Specifies how the effective opacity value of a visual is applied to that visual’s content and children.
  * @see https://learn.microsoft.com/windows/win32/api/dcomptypes/ne-dcomptypes-dcomposition_opacity_mode
  * @namespace Windows.Win32.Graphics.DirectComposition
- * @version v4.0.30319
  */
-class DCOMPOSITION_OPACITY_MODE extends Win32Enum{
+class DCOMPOSITION_OPACITY_MODE extends Win32Enum {
 
     /**
      * The target visual defines a logical layer into which its entire sub-tree is composed with a starting effective opacity of 1.0. The original opacity value is then used to blend the layer onto the visual’s background.

@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include .\IWSManConnectionOptions.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * The IWSManConnectionOptionsEx object is passed to the IWSMan::CreateSession method to provide the thumbprint of the client certificate used for authentication.
  * @see https://learn.microsoft.com/windows/win32/api/wsmandisp/nn-wsmandisp-iwsmanconnectionoptionsex
  * @namespace Windows.Win32.System.RemoteManagement
- * @version v4.0.30319
  */
-class IWSManConnectionOptionsEx extends IWSManConnectionOptions{
+class IWSManConnectionOptionsEx extends IWSManConnectionOptions {
 
     static sizeof => A_PtrSize
     /**

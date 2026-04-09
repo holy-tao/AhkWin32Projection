@@ -2,14 +2,14 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\IStreamSample.ahk
+#Include ..\..\Graphics\DirectDraw\IDirectDrawSurface.ahk
 
 /**
  * Note  This interface is deprecated.
  * @see https://learn.microsoft.com/windows/win32/api/ddstream/nn-ddstream-idirectdrawstreamsample
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IDirectDrawStreamSample extends IStreamSample{
+class IDirectDrawStreamSample extends IStreamSample {
 
     static sizeof => A_PtrSize
     /**

@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Com\IUnknown.ahk
 #Include .\IWbemClassObject.ahk
 #Include .\IWbemHiPerfEnum.ahk
-#Include ..\Com\IUnknown.ahk
 
 /**
  * The IWbemConfigureRefresher interface is used by client code to add enumerators, objects, and nested refreshers into a refresher.
  * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nn-wbemcli-iwbemconfigurerefresher
  * @namespace Windows.Win32.System.Wmi
- * @version v4.0.30319
  */
-class IWbemConfigureRefresher extends IUnknown{
+class IWbemConfigureRefresher extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

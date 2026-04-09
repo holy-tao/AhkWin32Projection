@@ -1,13 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\Ndis\NDIS_OBJECT_HEADER.ahk
+#Include .\DOT11_AUTH_ALGORITHM.ahk
+#Include .\DOT11_CIPHER_ALGORITHM.ahk
+#Include .\DOT11_DS_INFO.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
- * @version v4.0.30319
  */
-class DOT11_ASSOCIATION_COMPLETION_PARAMETERS extends Win32Struct
-{
+class DOT11_ASSOCIATION_COMPLETION_PARAMETERS extends Win32Struct {
     static sizeof => 96
 
     static packingSize => 4
@@ -15,7 +16,7 @@ class DOT11_ASSOCIATION_COMPLETION_PARAMETERS extends Win32Struct
     /**
      * @type {NDIS_OBJECT_HEADER}
      */
-    Header{
+    Header {
         get {
             if(!this.HasProp("__Header"))
                 this.__Header := NDIS_OBJECT_HEADER(0, this)
@@ -24,9 +25,9 @@ class DOT11_ASSOCIATION_COMPLETION_PARAMETERS extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    MacAddr{
+    MacAddr {
         get {
             if(!this.HasProp("__MacAddrProxyArray"))
                 this.__MacAddrProxyArray := Win32FixedArray(this.ptr + 4, 6, Primitive, "char")
@@ -123,7 +124,7 @@ class DOT11_ASSOCIATION_COMPLETION_PARAMETERS extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {DOT11_AUTH_ALGORITHM}
      */
     AuthAlgo {
         get => NumGet(this, 52, "int")
@@ -131,7 +132,7 @@ class DOT11_ASSOCIATION_COMPLETION_PARAMETERS extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {DOT11_CIPHER_ALGORITHM}
      */
     UnicastCipher {
         get => NumGet(this, 56, "int")
@@ -139,7 +140,7 @@ class DOT11_ASSOCIATION_COMPLETION_PARAMETERS extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {DOT11_CIPHER_ALGORITHM}
      */
     MulticastCipher {
         get => NumGet(this, 60, "int")
@@ -187,7 +188,7 @@ class DOT11_ASSOCIATION_COMPLETION_PARAMETERS extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {DOT11_DS_INFO}
      */
     DSInfo {
         get => NumGet(this, 76, "int")
@@ -211,7 +212,7 @@ class DOT11_ASSOCIATION_COMPLETION_PARAMETERS extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {DOT11_CIPHER_ALGORITHM}
      */
     MulticastMgmtCipher {
         get => NumGet(this, 88, "int")

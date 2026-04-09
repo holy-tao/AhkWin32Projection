@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class WHEA_PCI_RECOVERY_SECTION extends Win32Struct
-{
+class WHEA_PCI_RECOVERY_SECTION extends Win32Struct {
     static sizeof => 3
 
     static packingSize => 1

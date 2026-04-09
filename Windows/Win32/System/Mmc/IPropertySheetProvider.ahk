@@ -7,9 +7,8 @@
  * The IPropertySheetProvider interface implements Windows property sheets as COM objects.
  * @see https://learn.microsoft.com/windows/win32/api/mmc/nn-mmc-ipropertysheetprovider
  * @namespace Windows.Win32.System.Mmc
- * @version v4.0.30319
  */
-class IPropertySheetProvider extends IUnknown{
+class IPropertySheetProvider extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

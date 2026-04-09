@@ -1,15 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\IRTCSession2.ahk
 #Include .\IRTCClient.ahk
+#Include .\IRTCSession2.ahk
 
 /**
  * @namespace Windows.Win32.System.RealTimeCommunications
- * @version v4.0.30319
  */
-class IRTCClient2 extends IRTCClient{
+class IRTCClient2 extends IRTCClient {
 
     static sizeof => A_PtrSize
     /**
@@ -38,14 +36,14 @@ class IRTCClient2 extends IRTCClient{
     }
 
     /**
-     * @type {HRESULT} 
+     * @type {BSTR} 
      */
     ClientName {
         set => this.put_ClientName(value)
     }
 
     /**
-     * @type {HRESULT} 
+     * @type {BSTR} 
      */
     ClientCurVer {
         set => this.put_ClientCurVer(value)
@@ -53,8 +51,8 @@ class IRTCClient2 extends IRTCClient{
 
     /**
      * 
-     * @param {Integer} enType 
-     * @param {Integer} enMode 
+     * @param {RTC_SESSION_TYPE} enType 
+     * @param {RTC_ANSWER_MODE} enMode 
      * @returns {HRESULT} 
      */
     put_AnswerMode(enType, enMode) {
@@ -64,8 +62,8 @@ class IRTCClient2 extends IRTCClient{
 
     /**
      * 
-     * @param {Integer} enType 
-     * @returns {Integer} 
+     * @param {RTC_SESSION_TYPE} enType 
+     * @returns {RTC_ANSWER_MODE} 
      */
     get_AnswerMode(enType) {
         result := ComCall(46, this, "int", enType, "int*", &penMode := 0, "HRESULT")
@@ -155,8 +153,8 @@ class IRTCClient2 extends IRTCClient{
 
     /**
      * 
-     * @param {Integer} enSecurityType 
-     * @param {Integer} enSecurityLevel 
+     * @param {RTC_SECURITY_TYPE} enSecurityType 
+     * @param {RTC_SECURITY_LEVEL} enSecurityLevel 
      * @returns {HRESULT} 
      */
     put_PreferredSecurityLevel(enSecurityType, enSecurityLevel) {
@@ -166,8 +164,8 @@ class IRTCClient2 extends IRTCClient{
 
     /**
      * 
-     * @param {Integer} enSecurityType 
-     * @returns {Integer} 
+     * @param {RTC_SECURITY_TYPE} enSecurityType 
+     * @returns {RTC_SECURITY_LEVEL} 
      */
     get_PreferredSecurityLevel(enSecurityType) {
         result := ComCall(55, this, "int", enSecurityType, "int*", &penSecurityLevel := 0, "HRESULT")
@@ -177,7 +175,7 @@ class IRTCClient2 extends IRTCClient{
     /**
      * 
      * @param {Integer} lTransport 
-     * @param {Integer} enListenMode 
+     * @param {RTC_LISTEN_MODE} enListenMode 
      * @returns {HRESULT} 
      */
     put_AllowedPorts(lTransport, enListenMode) {
@@ -188,7 +186,7 @@ class IRTCClient2 extends IRTCClient{
     /**
      * 
      * @param {Integer} lTransport 
-     * @returns {Integer} 
+     * @returns {RTC_LISTEN_MODE} 
      */
     get_AllowedPorts(lTransport) {
         result := ComCall(57, this, "int", lTransport, "int*", &penListenMode := 0, "HRESULT")

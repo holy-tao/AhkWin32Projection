@@ -44,9 +44,8 @@
  * </table>
  * @see https://learn.microsoft.com/windows/win32/api/msclus/ne-msclus-node_cluster_state
  * @namespace Windows.Win32.Networking.Clustering
- * @version v4.0.30319
  */
-class NODE_CLUSTER_STATE extends Win32Enum{
+class NODE_CLUSTER_STATE extends Win32Enum {
 
     /**
      * The Cluster service is not installed on the node.

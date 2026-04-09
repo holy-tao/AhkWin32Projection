@@ -7,10 +7,8 @@
  * This event only occurs if an application has specified a record synchronization precedence in a previous call to <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergraphopen">PeerGraphOpen</a>.
  * @see https://learn.microsoft.com/windows/win32/api/p2p/ns-p2p-peer_event_synchronized_data
  * @namespace Windows.Win32.NetworkManagement.P2P
- * @version v4.0.30319
  */
-class PEER_EVENT_SYNCHRONIZED_DATA extends Win32Struct
-{
+class PEER_EVENT_SYNCHRONIZED_DATA extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
@@ -26,7 +24,7 @@ class PEER_EVENT_SYNCHRONIZED_DATA extends Win32Struct
 
     /**
      * Specifies the type of record that is being synchronized.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     recordType {
         get => NumGet(this, 8, "ptr")

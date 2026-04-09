@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Media.Speech
- * @version v4.0.30319
  */
-class SPRECOCONTEXTHANDLE extends Win32Handle
-{
+class SPRECOCONTEXTHANDLE extends Win32Handle {
     static sizeof => 8
 
     static packingSize => 8

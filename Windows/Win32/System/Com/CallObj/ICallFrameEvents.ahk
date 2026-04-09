@@ -7,9 +7,8 @@
  * Delivers method call notifications.
  * @see https://learn.microsoft.com/windows/win32/api/callobj/nn-callobj-icallframeevents
  * @namespace Windows.Win32.System.Com.CallObj
- * @version v4.0.30319
  */
-class ICallFrameEvents extends IUnknown{
+class ICallFrameEvents extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

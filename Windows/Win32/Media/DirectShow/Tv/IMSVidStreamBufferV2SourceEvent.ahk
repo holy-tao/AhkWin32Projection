@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
 #Include .\IMSVidFilePlaybackEvent.ahk
 
 /**
@@ -10,9 +9,8 @@
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IMSVidStreamBufferV2SourceEvent)</c>.
  * @see https://learn.microsoft.com/windows/win32/api/segment/nn-segment-imsvidstreambufferv2sourceevent
  * @namespace Windows.Win32.Media.DirectShow.Tv
- * @version v4.0.30319
  */
-class IMSVidStreamBufferV2SourceEvent extends IMSVidFilePlaybackEvent{
+class IMSVidStreamBufferV2SourceEvent extends IMSVidFilePlaybackEvent {
 
     static sizeof => A_PtrSize
     /**

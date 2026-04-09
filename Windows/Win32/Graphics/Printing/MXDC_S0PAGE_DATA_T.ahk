@@ -13,10 +13,8 @@
  * Streaming consumption is more efficient if you call [**ExtEscape**](/windows/desktop/api/Wingdi/nf-wingdi-extescape) with **MXDCOP\_SET\_S0PAGE\_RESOURCE** as **opCode** for each resource on the page before you call it with **MXDCOP\_SET\_S0PAGE**.
  * @see https://learn.microsoft.com/windows/win32/printdocs/mxdcs0pagedata
  * @namespace Windows.Win32.Graphics.Printing
- * @version v4.0.30319
  */
-class MXDC_S0PAGE_DATA_T extends Win32Struct
-{
+class MXDC_S0PAGE_DATA_T extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4
@@ -32,9 +30,9 @@ class MXDC_S0PAGE_DATA_T extends Win32Struct
 
     /**
      * The XPS document page.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    bData{
+    bData {
         get {
             if(!this.HasProp("__bDataProxyArray"))
                 this.__bDataProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "char")

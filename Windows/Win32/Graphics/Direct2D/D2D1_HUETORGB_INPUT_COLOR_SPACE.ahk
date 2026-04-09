@@ -5,9 +5,8 @@
  * Values for the D2D1_HUETORGB_PROP_INPUT_COLOR_SPACE property of the Hue to RGB effect.
  * @see https://learn.microsoft.com/windows/win32/api/d2d1effects_2/ne-d2d1effects_2-d2d1_huetorgb_input_color_space
  * @namespace Windows.Win32.Graphics.Direct2D
- * @version v4.0.30319
  */
-class D2D1_HUETORGB_INPUT_COLOR_SPACE extends Win32Enum{
+class D2D1_HUETORGB_INPUT_COLOR_SPACE extends Win32Enum {
 
     /**
      * The effect converts from Hue Saturation Value (HSV) to RGB.

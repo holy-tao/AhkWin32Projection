@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\Com\TYPEDESC.ahk
+#Include .\ARRAYDESC.ahk
+#Include ..\Variant\VARENUM.ahk
 #Include ..\Com\SAFEARRAYBOUND.ahk
 
 /**
  * Describes an array, its element type, and its dimension.
  * @see https://learn.microsoft.com/windows/win32/api/oaidl/ns-oaidl-arraydesc
  * @namespace Windows.Win32.System.Ole
- * @version v4.0.30319
  */
-class ARRAYDESC extends Win32Struct
-{
+class ARRAYDESC extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -19,7 +19,7 @@ class ARRAYDESC extends Win32Struct
      * The element type.
      * @type {TYPEDESC}
      */
-    tdescElem{
+    tdescElem {
         get {
             if(!this.HasProp("__tdescElem"))
                 this.__tdescElem := TYPEDESC(0, this)
@@ -38,12 +38,12 @@ class ARRAYDESC extends Win32Struct
 
     /**
      * A variable-length array containing one element for each dimension.
-     * @type {Array<SAFEARRAYBOUND>}
+     * @type {SAFEARRAYBOUND}
      */
-    rgbounds{
+    rgbounds {
         get {
             if(!this.HasProp("__rgboundsProxyArray"))
-                this.__rgboundsProxyArray := Win32FixedArray(this.ptr + 24, 1, SAFEARRAYBOUND, "")
+                this.__rgboundsProxyArray := Win32FixedArray(this.ptr + 20, 1, SAFEARRAYBOUND, "")
             return this.__rgboundsProxyArray
         }
     }

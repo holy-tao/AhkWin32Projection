@@ -5,9 +5,8 @@
  * Specifies the type of video content.
  * @see https://learn.microsoft.com/windows/win32/api/codecapi/ne-codecapi-eavencvideocontenttype
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class eAVEncVideoContentType extends Win32Enum{
+class eAVEncVideoContentType extends Win32Enum {
 
     /**
      * Unknown or normal content. (Default.)

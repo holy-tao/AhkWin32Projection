@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\SP_CLASSINSTALL_HEADER.ahk
+#Include .\DI_FUNCTION.ahk
 #Include ..\..\UI\Controls\HPROPSHEETPAGE.ahk
 #Include ..\..\Foundation\HWND.ahk
 
@@ -10,10 +11,9 @@
  * <a href="https://docs.microsoft.com/windows/desktop/api/setupapi/ns-setupapi-sp_newdevicewizard_data">SP_ADDPROPERTYPAGE_DATA</a> is an alias for this structure.
  * @see https://learn.microsoft.com/windows/win32/api/setupapi/ns-setupapi-sp_newdevicewizard_data
  * @namespace Windows.Win32.Devices.DeviceAndDriverInstallation
- * @version v4.0.30319
+ * @architecture X64, Arm64
  */
-class SP_NEWDEVICEWIZARD_DATA extends Win32Struct
-{
+class SP_NEWDEVICEWIZARD_DATA extends Win32Struct {
     static sizeof => 192
 
     static packingSize => 8
@@ -22,7 +22,7 @@ class SP_NEWDEVICEWIZARD_DATA extends Win32Struct
      * An install request header that contains the header size and the DIF code for the request. See <a href="https://docs.microsoft.com/windows/desktop/api/setupapi/ns-setupapi-sp_classinstall_header">SP_CLASSINSTALL_HEADER</a>.
      * @type {SP_CLASSINSTALL_HEADER}
      */
-    ClassInstallHeader{
+    ClassInstallHeader {
         get {
             if(!this.HasProp("__ClassInstallHeader"))
                 this.__ClassInstallHeader := SP_CLASSINSTALL_HEADER(0, this)
@@ -43,10 +43,10 @@ class SP_NEWDEVICEWIZARD_DATA extends Win32Struct
      * An array of property sheet page handles. An installer can add the handles of custom wizard pages to this array.
      * @type {Array<HPROPSHEETPAGE>}
      */
-    DynamicPages{
+    DynamicPages {
         get {
             if(!this.HasProp("__DynamicPagesProxyArray"))
-                this.__DynamicPagesProxyArray := Win32FixedArray(this.ptr + 16, 20, HPROPSHEETPAGE, "")
+                this.__DynamicPagesProxyArray := Win32FixedArray(this.ptr + 16, 20, Primitive, "ptr")
             return this.__DynamicPagesProxyArray
         }
     }
@@ -66,7 +66,7 @@ class SP_NEWDEVICEWIZARD_DATA extends Win32Struct
      * The handle to the top-level window of the hardware installation wizard .
      * @type {HWND}
      */
-    hwndWizardDlg{
+    hwndWizardDlg {
         get {
             if(!this.HasProp("__hwndWizardDlg"))
                 this.__hwndWizardDlg := HWND(184, this)

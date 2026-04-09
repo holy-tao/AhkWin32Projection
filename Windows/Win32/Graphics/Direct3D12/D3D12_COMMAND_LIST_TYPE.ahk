@@ -19,9 +19,8 @@
  * </ul>
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/ne-d3d12-d3d12_command_list_type
  * @namespace Windows.Win32.Graphics.Direct3D12
- * @version v4.0.30319
  */
-class D3D12_COMMAND_LIST_TYPE extends Win32Enum{
+class D3D12_COMMAND_LIST_TYPE extends Win32Enum {
 
     /**
      * Specifies a command buffer that the GPU can execute. A direct command list doesn't inherit any GPU state.

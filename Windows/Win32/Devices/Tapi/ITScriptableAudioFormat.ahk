@@ -7,9 +7,8 @@
  * The ITScriptableAudioFormat interface is used by scriptable clients to get the audio format from, or set the audio format for, the track. The interface provides properties for each member from the WAVEFORMATEX structure.
  * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nn-tapi3if-itscriptableaudioformat
  * @namespace Windows.Win32.Devices.Tapi
- * @version v4.0.30319
  */
-class ITScriptableAudioFormat extends IDispatch{
+class ITScriptableAudioFormat extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

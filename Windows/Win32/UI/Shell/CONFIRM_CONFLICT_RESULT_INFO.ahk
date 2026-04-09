@@ -5,10 +5,8 @@
  * Defines conflict result information structure.
  * @see https://learn.microsoft.com/windows/win32/api/syncmgr/ns-syncmgr-confirm_conflict_result_info
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class CONFIRM_CONFLICT_RESULT_INFO extends Win32Struct
-{
+class CONFIRM_CONFLICT_RESULT_INFO extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

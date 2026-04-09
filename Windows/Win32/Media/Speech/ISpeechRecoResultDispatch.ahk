@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include .\ISpeechRecoContext.ahk
 #Include .\ISpeechRecoResultTimes.ahk
 #Include .\ISpeechAudioFormat.ahk
@@ -9,13 +9,12 @@
 #Include .\ISpeechPhraseAlternates.ahk
 #Include .\ISpeechMemoryStream.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
-#Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * @namespace Windows.Win32.Media.Speech
- * @version v4.0.30319
  */
-class ISpeechRecoResultDispatch extends IDispatch{
+class ISpeechRecoResultDispatch extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -139,7 +138,7 @@ class ISpeechRecoResultDispatch extends IDispatch{
      * 
      * @param {Integer} StartElement 
      * @param {Integer} Elements 
-     * @param {Integer} Flags 
+     * @param {SpeechVoiceSpeakFlags} Flags 
      * @returns {Integer} 
      */
     SpeakAudio(StartElement, Elements, Flags) {
@@ -159,7 +158,7 @@ class ISpeechRecoResultDispatch extends IDispatch{
 
     /**
      * 
-     * @param {Integer} ValueTypes 
+     * @param {SpeechDiscardType} ValueTypes 
      * @returns {HRESULT} 
      */
     DiscardResultInfo(ValueTypes) {
@@ -169,7 +168,7 @@ class ISpeechRecoResultDispatch extends IDispatch{
 
     /**
      * 
-     * @param {Integer} Options 
+     * @param {SPXMLRESULTOPTIONS} Options 
      * @returns {BSTR} 
      */
     GetXMLResult(Options) {

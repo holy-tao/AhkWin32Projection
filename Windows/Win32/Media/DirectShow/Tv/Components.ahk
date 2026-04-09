@@ -5,10 +5,8 @@
  * Contains an object for each component in the related application.
  * @see https://learn.microsoft.com/windows/win32/cossdk/components
  * @namespace Windows.Win32.Media.DirectShow.Tv
- * @version v4.0.30319
  */
-class Components extends Win32Struct
-{
+class Components extends Win32Struct {
     static sizeof => 0
 
     static packingSize => 1

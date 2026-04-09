@@ -7,9 +7,8 @@
  * Represents a service for managing associations between a contact and a viewport.
  * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nn-directmanipulation-idirectmanipulationdefercontactservice
  * @namespace Windows.Win32.Graphics.DirectManipulation
- * @version v4.0.30319
  */
-class IDirectManipulationDeferContactService extends IUnknown{
+class IDirectManipulationDeferContactService extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

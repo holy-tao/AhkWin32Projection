@@ -13,9 +13,8 @@
  * Custom interpolators can be reused across applications, but it is recommended that they be exposed using factory interfaces that return an  <a href="https://docs.microsoft.com/windows/desktop/api/uianimation/nn-uianimation-iuianimationtransition">IUIAnimationTransition</a> interface or an <a href="https://docs.microsoft.com/windows/desktop/api/uianimation/nn-uianimation-iuianimationtransition2">IUIAnimationTransition2</a> interface.
  * @see https://learn.microsoft.com/windows/win32/api/uianimation/nn-uianimation-iuianimationinterpolator2
  * @namespace Windows.Win32.UI.Animation
- * @version v4.0.30319
  */
-class IUIAnimationInterpolator2 extends IUnknown{
+class IUIAnimationInterpolator2 extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -184,9 +183,9 @@ class IUIAnimationInterpolator2 extends IUnknown{
      * 
      * <div class="alert"><b>Note</b>  If the flags returned for <i>durationDependencies</i> do not include <b>UI_ANIMATION_DEPENDENCY_DURATION</b>, <a href="https://docs.microsoft.com/windows/desktop/api/uianimation/nf-uianimation-iuianimationinterpolator2-setduration">SetDuration</a> will never be called on the interpolator.</div>
      * <div> </div>
-     * @param {Pointer<Integer>} initialValueDependencies Aspects of the interpolator that depend on the  initial value passed to <a href="https://docs.microsoft.com/windows/desktop/api/uianimation/nf-uianimation-iuianimationinterpolator2-setinitialvalueandvelocity">SetInitialValueAndVelocity</a>.
-     * @param {Pointer<Integer>} initialVelocityDependencies Aspects of the interpolator that depend on the initial velocity passed to <a href="https://docs.microsoft.com/windows/desktop/api/uianimation/nf-uianimation-iuianimationinterpolator2-setinitialvalueandvelocity">SetInitialValueAndVelocity</a>.
-     * @param {Pointer<Integer>} durationDependencies Aspects of the interpolator that depend on the duration passed to <a href="https://docs.microsoft.com/windows/desktop/api/uianimation/nf-uianimation-iuianimationinterpolator2-setduration">SetDuration</a>.
+     * @param {Pointer<UI_ANIMATION_DEPENDENCIES>} initialValueDependencies Aspects of the interpolator that depend on the  initial value passed to <a href="https://docs.microsoft.com/windows/desktop/api/uianimation/nf-uianimation-iuianimationinterpolator2-setinitialvalueandvelocity">SetInitialValueAndVelocity</a>.
+     * @param {Pointer<UI_ANIMATION_DEPENDENCIES>} initialVelocityDependencies Aspects of the interpolator that depend on the initial velocity passed to <a href="https://docs.microsoft.com/windows/desktop/api/uianimation/nf-uianimation-iuianimationinterpolator2-setinitialvalueandvelocity">SetInitialValueAndVelocity</a>.
+     * @param {Pointer<UI_ANIMATION_DEPENDENCIES>} durationDependencies Aspects of the interpolator that depend on the duration passed to <a href="https://docs.microsoft.com/windows/desktop/api/uianimation/nf-uianimation-iuianimationinterpolator2-setduration">SetDuration</a>.
      * @returns {HRESULT} If this method succeeds, it returns S_OK. Otherwise, it returns an  <b>HRESULT</b> error code. See <a href="https://docs.microsoft.com/windows/desktop/UIAnimation/uianimation-error-codes">Windows Animation Error Codes</a> for a list of error codes.
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationinterpolator2-getdependencies
      */

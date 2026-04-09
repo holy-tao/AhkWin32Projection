@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Security\SECURITY_ATTRIBUTES.ahk
 #Include ..\..\Foundation\HANDLE.ahk
 
 /**
@@ -8,10 +9,8 @@
  * To compile an application that uses the **CREATEFILE2_EXTENDED_PARAMETERS** structure, define the **_WIN32_WINNT** macro as `0x0602` or later. For more information, see [Using the Windows Headers](/windows/win32/WinProg/using-the-windows-headers).
  * @see https://learn.microsoft.com/windows/win32/api/fileapi/ns-fileapi-createfile2_extended_parameters
  * @namespace Windows.Win32.Storage.FileSystem
- * @version v4.0.30319
  */
-class CREATEFILE2_EXTENDED_PARAMETERS extends Win32Struct
-{
+class CREATEFILE2_EXTENDED_PARAMETERS extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -439,7 +438,7 @@ class CREATEFILE2_EXTENDED_PARAMETERS extends Win32Struct
      * When opening a new encrypted file, the file inherits the discretionary access control list from its parent directory. For additional information, see [File Encryption](/windows/win32/FileIO/file-encryption).
      * @type {HANDLE}
      */
-    hTemplateFile{
+    hTemplateFile {
         get {
             if(!this.HasProp("__hTemplateFile"))
                 this.__hTemplateFile := HANDLE(24, this)

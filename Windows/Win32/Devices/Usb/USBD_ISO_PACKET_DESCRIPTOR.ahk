@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.Usb
- * @version v4.0.30319
  */
-class USBD_ISO_PACKET_DESCRIPTOR extends Win32Struct
-{
+class USBD_ISO_PACKET_DESCRIPTOR extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4

@@ -5,9 +5,8 @@
  * Defines the possible states for any service monitored by Windows Security Center (WSC).
  * @see https://learn.microsoft.com/windows/win32/api/wscapi/ne-wscapi-wsc_security_provider_health
  * @namespace Windows.Win32.System.SecurityCenter
- * @version v4.0.30319
  */
-class WSC_SECURITY_PROVIDER_HEALTH extends Win32Enum{
+class WSC_SECURITY_PROVIDER_HEALTH extends Win32Enum {
 
     /**
      * The status of the security provider category is good and does not need user attention.

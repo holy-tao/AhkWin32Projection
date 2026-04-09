@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
- * @version v4.0.30319
  */
-class D3DKMT_BRIGHTNESS_POSSIBLE_LEVELS extends Win32Struct
-{
+class D3DKMT_BRIGHTNESS_POSSIBLE_LEVELS extends Win32Struct {
     static sizeof => 257
 
     static packingSize => 1
@@ -20,9 +18,9 @@ class D3DKMT_BRIGHTNESS_POSSIBLE_LEVELS extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    BrightnessLevels{
+    BrightnessLevels {
         get {
             if(!this.HasProp("__BrightnessLevelsProxyArray"))
                 this.__BrightnessLevelsProxyArray := Win32FixedArray(this.ptr + 1, 256, Primitive, "char")

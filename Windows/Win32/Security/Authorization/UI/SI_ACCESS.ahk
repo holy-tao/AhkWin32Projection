@@ -5,10 +5,8 @@
  * Contains information about an access right or default access mask for a securable object.
  * @see https://learn.microsoft.com/windows/win32/api/aclui/ns-aclui-si_access
  * @namespace Windows.Win32.Security.Authorization.UI
- * @version v4.0.30319
  */
-class SI_ACCESS extends Win32Struct
-{
+class SI_ACCESS extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8

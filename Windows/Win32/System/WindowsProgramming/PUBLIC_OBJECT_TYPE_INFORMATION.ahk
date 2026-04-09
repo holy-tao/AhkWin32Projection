@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.System.WindowsProgramming
- * @version v4.0.30319
  */
-class PUBLIC_OBJECT_TYPE_INFORMATION extends Win32Struct
-{
+class PUBLIC_OBJECT_TYPE_INFORMATION extends Win32Struct {
     static sizeof => 104
 
     static packingSize => 8
@@ -15,7 +13,7 @@ class PUBLIC_OBJECT_TYPE_INFORMATION extends Win32Struct
     /**
      * @type {UNICODE_STRING}
      */
-    TypeName{
+    TypeName {
         get {
             if(!this.HasProp("__TypeName"))
                 this.__TypeName := UNICODE_STRING(0, this)
@@ -24,9 +22,9 @@ class PUBLIC_OBJECT_TYPE_INFORMATION extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    Reserved{
+    Reserved {
         get {
             if(!this.HasProp("__ReservedProxyArray"))
                 this.__ReservedProxyArray := Win32FixedArray(this.ptr + 16, 22, Primitive, "uint")

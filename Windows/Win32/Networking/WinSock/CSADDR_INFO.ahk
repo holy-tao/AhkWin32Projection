@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\SOCKET_ADDRESS.ahk
+#Include .\SOCKADDR.ahk
 
 /**
  * The CSADDR_INFO structure (nspapi.h) contains Windows Sockets address information for a socket, network service, or namespace provider.
@@ -12,10 +13,8 @@
  * The <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-getsockopt">getsockopt</a> function called with the <a href="https://docs.microsoft.com/windows/desktop/WinSock/so-bsp-state">SO_BSP_STATE</a> socket option retrieves a <b>CSADDR_INFO</b> structure for the specified socket.
  * @see https://learn.microsoft.com/windows/win32/api/nspapi/ns-nspapi-csaddr_info
  * @namespace Windows.Win32.Networking.WinSock
- * @version v4.0.30319
  */
-class CSADDR_INFO extends Win32Struct
-{
+class CSADDR_INFO extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -32,7 +31,7 @@ class CSADDR_INFO extends Win32Struct
      * <b>bind</b> function so that the service is bound to the appropriate local address.
      * @type {SOCKET_ADDRESS}
      */
-    LocalAddr{
+    LocalAddr {
         get {
             if(!this.HasProp("__LocalAddr"))
                 this.__LocalAddr := SOCKET_ADDRESS(0, this)
@@ -55,7 +54,7 @@ class CSADDR_INFO extends Win32Struct
      * </ul>
      * @type {SOCKET_ADDRESS}
      */
-    RemoteAddr{
+    RemoteAddr {
         get {
             if(!this.HasProp("__RemoteAddr"))
                 this.__RemoteAddr := SOCKET_ADDRESS(16, this)

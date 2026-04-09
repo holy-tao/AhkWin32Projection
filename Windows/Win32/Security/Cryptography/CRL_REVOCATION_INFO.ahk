@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\CRL_ENTRY.ahk
+#Include .\CRL_CONTEXT.ahk
+#Include .\CERT_CHAIN_CONTEXT.ahk
 
 /**
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CRL_REVOCATION_INFO extends Win32Struct
-{
+class CRL_REVOCATION_INFO extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

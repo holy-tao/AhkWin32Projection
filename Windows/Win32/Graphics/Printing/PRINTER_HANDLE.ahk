@@ -5,10 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
- * @version v4.0.30319
  */
-class PRINTER_HANDLE extends Win32Handle
-{
+class PRINTER_HANDLE extends Win32Handle {
     static sizeof => 8
 
     static packingSize => 8

@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\Apis.ahk
 #Include .\IBackgroundCopyJobHttpOptions.ahk
+#Include ..\..\System\Com\Apis.ahk
 
 /**
  * Use this interface to retrieve and/or to override the HTTP method used for a BITS transfer.
  * @see https://learn.microsoft.com/windows/win32/api/bits10_2/nn-bits10_2-ibackgroundcopyjobhttpoptions2
  * @namespace Windows.Win32.Networking.BackgroundIntelligentTransferService
- * @version v4.0.30319
  */
-class IBackgroundCopyJobHttpOptions2 extends IBackgroundCopyJobHttpOptions{
+class IBackgroundCopyJobHttpOptions2 extends IBackgroundCopyJobHttpOptions {
 
     static sizeof => A_PtrSize
     /**

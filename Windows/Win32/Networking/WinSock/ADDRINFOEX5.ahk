@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\SOCKADDR.ahk
+#Include .\ADDRINFOEX5.ahk
 #Include ..\..\Foundation\HANDLE.ahk
 
 /**
@@ -12,10 +14,8 @@
  * If the <b>AI_RETURN_TTL</b> bit is set in the *ai_flags* member passed in through the <b>GetAddrInfoEx</b> <i>hints</i> parameter, the <b>GetAddrInfoExW</b> <i>ppResult</i> parameter will return a list of <b>ADDRINFOEX5</b> structures. Each node in this list will contain in the *ai_ttl* member the individual DNS TTL for the IP address present in the <b>sockaddr</b> member.
  * @see https://learn.microsoft.com/windows/win32/api/ws2def/ns-ws2def-addrinfoex5
  * @namespace Windows.Win32.Networking.WinSock
- * @version v4.0.30319
  */
-class ADDRINFOEX5 extends Win32Struct
-{
+class ADDRINFOEX5 extends Win32Struct {
     static sizeof => 112
 
     static packingSize => 8
@@ -568,7 +568,7 @@ class ADDRINFOEX5 extends Win32Struct
      * Handle pointing to the fully qualified domain name for the host.
      * @type {HANDLE}
      */
-    ai_resolutionhandle{
+    ai_resolutionhandle {
         get {
             if(!this.HasProp("__ai_resolutionhandle"))
                 this.__ai_resolutionhandle := HANDLE(96, this)

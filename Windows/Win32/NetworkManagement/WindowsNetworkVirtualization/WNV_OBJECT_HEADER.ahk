@@ -7,10 +7,8 @@
  * There is currently only one version number: "1.0".
  * @see https://learn.microsoft.com/windows/win32/api/wnvapi/ns-wnvapi-wnv_object_header
  * @namespace Windows.Win32.NetworkManagement.WindowsNetworkVirtualization
- * @version v4.0.30319
  */
-class WNV_OBJECT_HEADER extends Win32Struct
-{
+class WNV_OBJECT_HEADER extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4

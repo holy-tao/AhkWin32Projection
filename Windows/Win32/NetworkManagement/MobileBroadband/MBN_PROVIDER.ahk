@@ -6,10 +6,8 @@
  * The MBN_PROVIDER structure represents a network service provider.
  * @see https://learn.microsoft.com/windows/win32/api/mbnapi/ns-mbnapi-mbn_provider
  * @namespace Windows.Win32.NetworkManagement.MobileBroadband
- * @version v4.0.30319
  */
-class MBN_PROVIDER extends Win32Struct
-{
+class MBN_PROVIDER extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -18,7 +16,7 @@ class MBN_PROVIDER extends Win32Struct
      * Contains the provider ID.  For GSM networks, this string is a concatenation of a 3-digit mobile country code (MCC) and a 2- or 3-digit mobile network code (MNC).  For CDMA networks, this string is a 5-digit SID.  The maximum length of this string is defined by <b>MBN_PROVIDERID_LEN</b> from <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/ne-mbnapi-mbn_provider_constants">MBN_PROVIDER_CONSTANTS</a>.  The caller must free this string by calling <a href="https://docs.microsoft.com/windows/win32/api/oleauto/nf-oleauto-sysfreestring">SysFreeString</a>.
      * @type {BSTR}
      */
-    providerID{
+    providerID {
         get {
             if(!this.HasProp("__providerID"))
                 this.__providerID := BSTR(0, this)
@@ -39,7 +37,7 @@ class MBN_PROVIDER extends Win32Struct
      * Contains the provider name.  The contents of this member should be ignored when setting the preferred provider list.  The maximum length of this string is defined by <b>MBN_PROVIDERNAME_LEN</b> from <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/ne-mbnapi-mbn_provider_constants">MBN_PROVIDER_CONSTANTS</a>.  The string can be empty.  The caller must free this string by calling <a href="https://docs.microsoft.com/windows/win32/api/oleauto/nf-oleauto-sysfreestring">SysFreeString</a>.
      * @type {BSTR}
      */
-    providerName{
+    providerName {
         get {
             if(!this.HasProp("__providerName"))
                 this.__providerName := BSTR(16, this)

@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
 #Include .\IFaxSender.ahk
 #Include .\IFaxRecipient.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * The IFaxOutgoingJob interface describes an object that is used by a fax client application to retrieve information about an outgoing fax job in a fax server's queue.
@@ -12,9 +12,8 @@
  * A default implementation of <b>IFaxOutgoingJob</b> is provided as the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxoutgoingjob">FaxOutgoingJob</a> object.
  * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nn-faxcomex-ifaxoutgoingjob
  * @namespace Windows.Win32.Devices.Fax
- * @version v4.0.30319
  */
-class IFaxOutgoingJob extends IDispatch{
+class IFaxOutgoingJob extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -98,14 +97,14 @@ class IFaxOutgoingJob extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {FAX_RECEIPT_TYPE_ENUM} 
      */
     ReceiptType {
         get => this.get_ReceiptType()
     }
 
     /**
-     * @type {Integer} 
+     * @type {FAX_PRIORITY_TYPE_ENUM} 
      */
     Priority {
         get => this.get_Priority()
@@ -140,14 +139,14 @@ class IFaxOutgoingJob extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {FAX_JOB_STATUS_ENUM} 
      */
     Status {
         get => this.get_Status()
     }
 
     /**
-     * @type {Integer} 
+     * @type {FAX_JOB_EXTENDED_STATUS_ENUM} 
      */
     ExtendedStatusCode {
         get => this.get_ExtendedStatusCode()
@@ -161,7 +160,7 @@ class IFaxOutgoingJob extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {FAX_JOB_OPERATIONS_ENUM} 
      */
     AvailableOperations {
         get => this.get_AvailableOperations()
@@ -304,7 +303,7 @@ class IFaxOutgoingJob extends IDispatch{
 
     /**
      * The IFaxOutgoingJob::get_ReceiptType property is a value that specifies the type of delivery receipt to deliver when the fax message reaches a final state. The receipt type can be Simple Mail Transport Protocol (SMTP) mail, a message box, or no receipt.
-     * @returns {Integer} 
+     * @returns {FAX_RECEIPT_TYPE_ENUM} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutgoingjob-get_receipttype
      */
     get_ReceiptType() {
@@ -314,7 +313,7 @@ class IFaxOutgoingJob extends IDispatch{
 
     /**
      * The IFaxOutgoingJob::get_Priority property specifies the priority to use when sending the fax; for example, normal, low, or high priority.
-     * @returns {Integer} 
+     * @returns {FAX_PRIORITY_TYPE_ENUM} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutgoingjob-get_priority
      */
     get_Priority() {
@@ -366,7 +365,7 @@ class IFaxOutgoingJob extends IDispatch{
      * The IFaxOutgoingJob::get_Status property is a number that indicates the current status of an outbound fax job in the job queue.
      * @remarks
      * For more information, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_job_status_enum">FAX_JOB_STATUS_ENUM</a>.
-     * @returns {Integer} 
+     * @returns {FAX_JOB_STATUS_ENUM} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutgoingjob-get_status
      */
     get_Status() {
@@ -380,7 +379,7 @@ class IFaxOutgoingJob extends IDispatch{
      * If a fax service provider (FSP) provides a proprietary status code, the service loads the code string from the FSP, and passes both the string and the original status code to the client. If the FSP provides a status defined in <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_job_extended_status_enum">FAX_JOB_EXTENDED_STATUS_ENUM</a>, the service passes only the status code to the client.
      * 
      * A fax client application should check the extended status string first. If the string is not <b>NULL</b>/empty, it describes the extended status, and the extended status code is the same code that the FSP passed to the fax service. If the string is <b>NULL</b>/Empty, the extended status code is one of those defined in <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_job_extended_status_enum">FAX_JOB_EXTENDED_STATUS_ENUM</a>.
-     * @returns {Integer} 
+     * @returns {FAX_JOB_EXTENDED_STATUS_ENUM} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutgoingjob-get_extendedstatuscode
      */
     get_ExtendedStatusCode() {
@@ -407,7 +406,7 @@ class IFaxOutgoingJob extends IDispatch{
 
     /**
      * The IFaxOutgoingJob::get_AvailableOperations property indicates the combination of valid operations that you can perform on the fax job, given its current status.
-     * @returns {Integer} 
+     * @returns {FAX_JOB_OPERATIONS_ENUM} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutgoingjob-get_availableoperations
      */
     get_AvailableOperations() {

@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.QoS
- * @version v4.0.30319
  */
-class TCG_PCClientPCREventStruct extends Win32Struct
-{
+class TCG_PCClientPCREventStruct extends Win32Struct {
     static sizeof => 36
 
     static packingSize => 4
@@ -28,9 +26,9 @@ class TCG_PCClientPCREventStruct extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    digest{
+    digest {
         get {
             if(!this.HasProp("__digestProxyArray"))
                 this.__digestProxyArray := Win32FixedArray(this.ptr + 8, 20, Primitive, "char")
@@ -47,9 +45,9 @@ class TCG_PCClientPCREventStruct extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    event{
+    event {
         get {
             if(!this.HasProp("__eventProxyArray"))
                 this.__eventProxyArray := Win32FixedArray(this.ptr + 32, 1, Primitive, "char")

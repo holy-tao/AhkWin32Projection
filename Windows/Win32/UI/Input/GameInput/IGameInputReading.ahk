@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.UI.Input.GameInput
- * @version v4.0.30319
  */
-class IGameInputReading extends IUnknown{
+class IGameInputReading extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -30,7 +29,7 @@ class IGameInputReading extends IUnknown{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {GameInputKind} 
      */
     GetInputKind() {
         result := ComCall(3, this, "int")
@@ -39,7 +38,7 @@ class IGameInputReading extends IUnknown{
 
     /**
      * 
-     * @param {Integer} inputKind 
+     * @param {GameInputKind} inputKind 
      * @returns {Integer} 
      */
     GetSequenceNumber(inputKind) {
@@ -187,7 +186,7 @@ class IGameInputReading extends IUnknown{
     /**
      * 
      * @param {Integer} stateArrayCount 
-     * @param {Pointer<Integer>} stateArray 
+     * @param {Pointer<GameInputSwitchPosition>} stateArray 
      * @returns {Integer} 
      */
     GetControllerSwitchState(stateArrayCount, stateArray) {

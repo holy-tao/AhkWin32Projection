@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\INTERNET_PER_CONN.ahk
 #Include ..\..\Foundation\FILETIME.ahk
 
 /**
@@ -26,11 +27,9 @@
  * > The wininet.h header defines INTERNET_PER_CONN_OPTION as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
  * @see https://learn.microsoft.com/windows/win32/api/wininet/ns-wininet-internet_per_conn_optionw
  * @namespace Windows.Win32.Networking.WinInet
- * @version v4.0.30319
  * @charset Unicode
  */
-class INTERNET_PER_CONN_OPTIONW extends Win32Struct
-{
+class INTERNET_PER_CONN_OPTIONW extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
@@ -46,7 +45,7 @@ class INTERNET_PER_CONN_OPTIONW extends Win32Struct
             get => NumGet(this, 0, "uint")
             set => NumPut("uint", value, this, 0)
         }
-    
+
         /**
          * @type {PWSTR}
          */
@@ -54,23 +53,21 @@ class INTERNET_PER_CONN_OPTIONW extends Win32Struct
             get => NumGet(this, 0, "ptr")
             set => NumPut("ptr", value, this, 0)
         }
-    
+
         /**
          * @type {FILETIME}
          */
-        ftValue{
+        ftValue {
             get {
                 if(!this.HasProp("__ftValue"))
                     this.__ftValue := FILETIME(0, this)
                 return this.__ftValue
             }
         }
-    
     }
 
     /**
-     * 
-     * @type {Integer}
+     * @type {INTERNET_PER_CONN}
      */
     dwOption {
         get => NumGet(this, 0, "uint")
@@ -82,10 +79,10 @@ class INTERNET_PER_CONN_OPTIONW extends Win32Struct
      * <b>dwOption</b>:
      * @type {_Value_e__Union}
      */
-    Value{
+    Value {
         get {
             if(!this.HasProp("__Value"))
-                this.__Value := %this.__Class%._Value_e__Union(8, this)
+                this.__Value := INTERNET_PER_CONN_OPTIONW._Value_e__Union(8, this)
             return this.__Value
         }
     }

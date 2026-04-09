@@ -5,9 +5,8 @@
  * Note  This section describes functionality designed for use by online stores.
  * @see https://learn.microsoft.com/windows/win32/api/subscriptionservices/ne-subscriptionservices-wmpsubscriptionserviceevent
  * @namespace Windows.Win32.Media.MediaPlayer
- * @version v4.0.30319
  */
-class WMPSubscriptionServiceEvent extends Win32Enum{
+class WMPSubscriptionServiceEvent extends Win32Enum {
 
     /**
      * The online store is active.

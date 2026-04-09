@@ -5,10 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Media.Multimedia
- * @version v4.0.30319
  */
-class MCI_ANIM_UPDATE_PARMS extends Win32Struct
-{
+class MCI_ANIM_UPDATE_PARMS extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -24,7 +22,7 @@ class MCI_ANIM_UPDATE_PARMS extends Win32Struct
     /**
      * @type {RECT}
      */
-    rc{
+    rc {
         get {
             if(!this.HasProp("__rc"))
                 this.__rc := RECT(8, this)
@@ -35,7 +33,7 @@ class MCI_ANIM_UPDATE_PARMS extends Win32Struct
     /**
      * @type {HDC}
      */
-    hDC{
+    hDC {
         get {
             if(!this.HasProp("__hDC"))
                 this.__hDC := HDC(24, this)

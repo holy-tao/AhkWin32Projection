@@ -5,10 +5,9 @@
  * Learn more about: JET_OBJECTINFO constructor
  * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jet-objectinfo-constructor
  * @namespace Windows.Win32.Storage.Jet
- * @version v4.0.30319
+ * @architecture X64, Arm64
  */
-class JET_OBJECTINFO extends Win32Struct
-{
+class JET_OBJECTINFO extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8

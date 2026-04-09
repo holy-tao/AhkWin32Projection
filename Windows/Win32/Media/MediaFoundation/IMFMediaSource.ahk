@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IMFPresentationDescriptor.ahk
 #Include .\IMFMediaEventGenerator.ahk
+#Include .\IMFPresentationDescriptor.ahk
 
 /**
  * Implemented by media source objects.
@@ -15,9 +15,8 @@
  * > This interface is optional and may not be available. If this interface is not available, [QueryInterface](../unknwn/nf-unknwn-iunknown-queryinterface(refiid_void).md) will return E_NOINTERFACE.
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imfmediasource
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFMediaSource extends IMFMediaEventGenerator{
+class IMFMediaSource extends IMFMediaEventGenerator {
 
     static sizeof => A_PtrSize
     /**

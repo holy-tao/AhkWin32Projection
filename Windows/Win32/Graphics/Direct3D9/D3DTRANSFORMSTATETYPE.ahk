@@ -14,9 +14,8 @@
  * | [**D3DTS\_WORLDMATRIX**](d3dts-worldmatrix.md) (index) | Identifies the transform matrix to set for the world matrix at index. Multiple world matrices are used only for vertex blending. Otherwise only D3DTS\_WORLD is used. |
  * @see https://learn.microsoft.com/windows/win32/direct3d9/d3dtransformstatetype
  * @namespace Windows.Win32.Graphics.Direct3D9
- * @version v4.0.30319
  */
-class D3DTRANSFORMSTATETYPE extends Win32Enum{
+class D3DTRANSFORMSTATETYPE extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

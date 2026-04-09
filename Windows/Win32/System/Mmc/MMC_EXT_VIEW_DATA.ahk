@@ -9,17 +9,15 @@
  * <a href="https://docs.microsoft.com/windows/desktop/api/mmc/nf-mmc-iviewextensioncallback-addview">IViewExtensionCallback::AddView</a>.
  * @see https://learn.microsoft.com/windows/win32/api/mmc/ns-mmc-mmc_ext_view_data
  * @namespace Windows.Win32.System.Mmc
- * @version v4.0.30319
  */
-class MMC_EXT_VIEW_DATA extends Win32Struct
-{
+class MMC_EXT_VIEW_DATA extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
 
     /**
      * GUID for the view; this value uniquely identifies the view and is used to restore the view.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     viewID {
         get => NumGet(this, 0, "ptr")

@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\DWRITE_FONT_AXIS_VALUE.ahk
 #Include .\IDWriteTextFormat2.ahk
+#Include .\DWRITE_FONT_AXIS_VALUE.ahk
 
 /**
  * Describes the font and paragraph properties used to format text, and it describes locale information. (IDWriteTextFormat3)
  * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nn-dwrite_3-idwritetextformat3
  * @namespace Windows.Win32.Graphics.DirectWrite
- * @version v4.0.30319
  */
-class IDWriteTextFormat3 extends IDWriteTextFormat2{
+class IDWriteTextFormat3 extends IDWriteTextFormat2 {
 
     static sizeof => A_PtrSize
     /**
@@ -79,7 +78,7 @@ class IDWriteTextFormat3 extends IDWriteTextFormat2{
 
     /**
      * Retrieves the automatic axis options.
-     * @returns {Integer} Type: **[DWRITE_AUTOMATIC_FONT_AXES](./ne-dwrite_3-dwrite_automatic_font_axes.md)**
+     * @returns {DWRITE_AUTOMATIC_FONT_AXES} Type: **[DWRITE_AUTOMATIC_FONT_AXES](./ne-dwrite_3-dwrite_automatic_font_axes.md)**
      * 
      * Automatic axis options.
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritetextformat3-getautomaticfontaxes
@@ -91,7 +90,7 @@ class IDWriteTextFormat3 extends IDWriteTextFormat2{
 
     /**
      * Sets the automatic font axis options.
-     * @param {Integer} automaticFontAxes Type: **[DWRITE_AUTOMATIC_FONT_AXES](./ne-dwrite_3-dwrite_automatic_font_axes.md)**
+     * @param {DWRITE_AUTOMATIC_FONT_AXES} automaticFontAxes Type: **[DWRITE_AUTOMATIC_FONT_AXES](./ne-dwrite_3-dwrite_automatic_font_axes.md)**
      * 
      * Automatic font axis options.
      * @returns {HRESULT} Type: **[HRESULT](/windows/win32/com/structure-of-com-error-codes)**

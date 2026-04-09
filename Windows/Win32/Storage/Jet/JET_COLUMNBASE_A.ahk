@@ -3,11 +3,9 @@
 
 /**
  * @namespace Windows.Win32.Storage.Jet
- * @version v4.0.30319
  * @charset ANSI
  */
-class JET_COLUMNBASE_A extends Win32Struct
-{
+class JET_COLUMNBASE_A extends Win32Struct {
     static sizeof => 540
 
     static packingSize => 4
@@ -85,9 +83,9 @@ class JET_COLUMNBASE_A extends Win32Struct
     }
 
     /**
-     * @type {Array<SByte>}
+     * @type {Array<Integer>}
      */
-    szBaseTableName{
+    szBaseTableName {
         get {
             if(!this.HasProp("__szBaseTableNameProxyArray"))
                 this.__szBaseTableNameProxyArray := Win32FixedArray(this.ptr + 28, 256, Primitive, "char")
@@ -96,9 +94,9 @@ class JET_COLUMNBASE_A extends Win32Struct
     }
 
     /**
-     * @type {Array<SByte>}
+     * @type {Array<Integer>}
      */
-    szBaseColumnName{
+    szBaseColumnName {
         get {
             if(!this.HasProp("__szBaseColumnNameProxyArray"))
                 this.__szBaseColumnNameProxyArray := Win32FixedArray(this.ptr + 284, 256, Primitive, "char")

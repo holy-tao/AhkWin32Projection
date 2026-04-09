@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ALLOCATOR_PROPERTIES.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\ALLOCATOR_PROPERTIES.ahk
 
 /**
  * The IAMBufferNegotiation interface requests the number of buffers for a filter to create and size of each buffer.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-iambuffernegotiation
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IAMBufferNegotiation extends IUnknown{
+class IAMBufferNegotiation extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

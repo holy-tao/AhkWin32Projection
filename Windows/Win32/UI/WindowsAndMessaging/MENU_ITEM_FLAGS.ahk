@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.UI.WindowsAndMessaging
- * @version v4.0.30319
  */
-class MENU_ITEM_FLAGS extends Win32BitflagEnum{
+class MENU_ITEM_FLAGS extends Win32BitflagEnum {
 
     /**
      * @type {Integer (UInt32)}

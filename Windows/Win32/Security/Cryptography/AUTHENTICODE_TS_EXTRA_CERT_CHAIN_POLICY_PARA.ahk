@@ -5,10 +5,8 @@
  * The AUTHENTICODE_TS_EXTRA_CERT_CHAIN_POLICY_PARA structure contains time stamp policy information that can be used in certificate chain verification of files.
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-authenticode_ts_extra_cert_chain_policy_para
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class AUTHENTICODE_TS_EXTRA_CERT_CHAIN_POLICY_PARA extends Win32Struct
-{
+class AUTHENTICODE_TS_EXTRA_CERT_CHAIN_POLICY_PARA extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4

@@ -1,18 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include .\ITCallInfo.ahk
 #Include .\ITTerminal.ahk
 #Include .\ITStream.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * The ITCallMediaEvent interface contains methods that retrieve the description of media events.
  * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nn-tapi3if-itcallmediaevent
  * @namespace Windows.Win32.Devices.Tapi
- * @version v4.0.30319
  */
-class ITCallMediaEvent extends IDispatch{
+class ITCallMediaEvent extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -41,7 +40,7 @@ class ITCallMediaEvent extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {CALL_MEDIA_EVENT} 
      */
     Event {
         get => this.get_Event()
@@ -69,7 +68,7 @@ class ITCallMediaEvent extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {CALL_MEDIA_EVENT_CAUSE} 
      */
     Cause {
         get => this.get_Cause()
@@ -97,7 +96,7 @@ class ITCallMediaEvent extends IDispatch{
      * <b>IVideoWindow</b> is exposed on the 
      * <a href="https://docs.microsoft.com/windows/desktop/Tapi/terminal-object">Terminal object</a>, until the CME_STREAM_ACTIVE is received only the 
      * <b>put_Visible</b> method will succeed. For more information about <b>IVideoWindow</b> and <b>put_Visible</b>, see the DirectX documentation.
-     * @returns {Integer} Pointer to 
+     * @returns {CALL_MEDIA_EVENT} Pointer to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/ne-tapi3if-call_media_event">CALL_MEDIA_EVENT</a> indicator.
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itcallmediaevent-get_event
      */
@@ -148,7 +147,7 @@ class ITCallMediaEvent extends IDispatch{
 
     /**
      * The get_Cause method gets the cause of the call media event, such as a timeout on the renderer device.
-     * @returns {Integer} Pointer to 
+     * @returns {CALL_MEDIA_EVENT_CAUSE} Pointer to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/ne-tapi3if-call_media_event_cause">CALL_MEDIA_EVENT_CAUSE</a>.
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itcallmediaevent-get_cause
      */

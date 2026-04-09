@@ -3,16 +3,14 @@
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class WHEAP_ACPI_TIMEOUT_EVENT extends Win32Struct
-{
-    static sizeof => 136
+class WHEAP_ACPI_TIMEOUT_EVENT extends Win32Struct {
+    static sizeof => 72
 
     static packingSize => 8
 
     /**
-     * @type {Pointer<WHEA_EVENT_LOG_ENTRY>}
+     * @type {Pointer}
      */
     WheaEventLogEntry {
         get => NumGet(this, 0, "ptr")
@@ -23,15 +21,15 @@ class WHEAP_ACPI_TIMEOUT_EVENT extends Win32Struct
      * @type {String}
      */
     TableType {
-        get => StrGet(this.ptr + 8, 31, "UTF-16")
-        set => StrPut(value, this.ptr + 8, 31, "UTF-16")
+        get => StrGet(this.ptr + 8, 31, "UTF-8")
+        set => StrPut(value, this.ptr + 8, 31, "UTF-8")
     }
 
     /**
      * @type {String}
      */
     TableRequest {
-        get => StrGet(this.ptr + 72, 31, "UTF-16")
-        set => StrPut(value, this.ptr + 72, 31, "UTF-16")
+        get => StrGet(this.ptr + 40, 31, "UTF-8")
+        set => StrPut(value, this.ptr + 40, 31, "UTF-8")
     }
 }

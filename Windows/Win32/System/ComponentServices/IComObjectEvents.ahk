@@ -7,9 +7,8 @@
  * Notifies the subscriber if an instance of a just-in-time (JIT) activated object has been created or freed.
  * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nn-comsvcs-icomobjectevents
  * @namespace Windows.Win32.System.ComponentServices
- * @version v4.0.30319
  */
-class IComObjectEvents extends IUnknown{
+class IComObjectEvents extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -34,7 +33,7 @@ class IComObjectEvents extends IUnknown{
      * Generated when an object gets an instance of a new JIT-activated object.
      * @param {Pointer<COMSVCSEVENTINFO>} pInfo A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/comsvcs/ns-comsvcs-comsvcseventinfo">COMSVCSEVENTINFO</a> structure.
      * @param {Integer} CtxtID The GUID of the current context.
-     * @param {Integer} _ObjectID 
+     * @param {Integer} _ObjectID The JIT-activated object.
      * @returns {HRESULT} The user verifies the return values from this method.
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icomobjectevents-onobjectactivate
      */
@@ -47,7 +46,7 @@ class IComObjectEvents extends IUnknown{
      * Generated when the JIT-activated object is freed by SetComplete or SetAbort.
      * @param {Pointer<COMSVCSEVENTINFO>} pInfo A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/comsvcs/ns-comsvcs-comsvcseventinfo">COMSVCSEVENTINFO</a> structure.
      * @param {Integer} CtxtID The GUID of the current context.
-     * @param {Integer} _ObjectID 
+     * @param {Integer} _ObjectID The JIT-activated object.
      * @returns {HRESULT} The user verifies the return values from this method.
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icomobjectevents-onobjectdeactivate
      */

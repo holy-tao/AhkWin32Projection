@@ -1,13 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32Struct.ahk
+#Include .\ScriptDebugEvent.ahk
 #Include .\ScriptDebugPosition.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
- * @version v4.0.30319
  */
-class ScriptDebugEventInformation extends Win32Struct
-{
+class ScriptDebugEventInformation extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -19,7 +18,7 @@ class ScriptDebugEventInformation extends Win32Struct
         class _ExceptionInformation extends Win32Struct {
             static sizeof => 1
             static packingSize => 1
-    
+
             /**
              * @type {Integer}
              */
@@ -27,13 +26,12 @@ class ScriptDebugEventInformation extends Win32Struct
                 get => NumGet(this, 0, "char")
                 set => NumPut("char", value, this, 0)
             }
-        
         }
-    
+
         class _BreakpointInformation extends Win32Struct {
             static sizeof => 8
             static packingSize => 8
-    
+
             /**
              * @type {Integer}
              */
@@ -41,35 +39,33 @@ class ScriptDebugEventInformation extends Win32Struct
                 get => NumGet(this, 0, "uint")
                 set => NumPut("uint", value, this, 0)
             }
-        
         }
-    
+
         /**
          * @type {_ExceptionInformation}
          */
-        ExceptionInformation{
+        ExceptionInformation {
             get {
                 if(!this.HasProp("__ExceptionInformation"))
-                    this.__ExceptionInformation := %this.__Class%._ExceptionInformation(0, this)
+                    this.__ExceptionInformation := ScriptDebugEventInformation._u_e__Union._ExceptionInformation(0, this)
                 return this.__ExceptionInformation
             }
         }
-    
+
         /**
          * @type {_BreakpointInformation}
          */
-        BreakpointInformation{
+        BreakpointInformation {
             get {
                 if(!this.HasProp("__BreakpointInformation"))
-                    this.__BreakpointInformation := %this.__Class%._BreakpointInformation(0, this)
+                    this.__BreakpointInformation := ScriptDebugEventInformation._u_e__Union._BreakpointInformation(0, this)
                 return this.__BreakpointInformation
             }
         }
-    
     }
 
     /**
-     * @type {Integer}
+     * @type {ScriptDebugEvent}
      */
     DebugEvent {
         get => NumGet(this, 0, "int")
@@ -79,7 +75,7 @@ class ScriptDebugEventInformation extends Win32Struct
     /**
      * @type {ScriptDebugPosition}
      */
-    EventPosition{
+    EventPosition {
         get {
             if(!this.HasProp("__EventPosition"))
                 this.__EventPosition := ScriptDebugPosition(4, this)
@@ -90,7 +86,7 @@ class ScriptDebugEventInformation extends Win32Struct
     /**
      * @type {ScriptDebugPosition}
      */
-    EventSpanEnd{
+    EventSpanEnd {
         get {
             if(!this.HasProp("__EventSpanEnd"))
                 this.__EventSpanEnd := ScriptDebugPosition(12, this)
@@ -101,10 +97,10 @@ class ScriptDebugEventInformation extends Win32Struct
     /**
      * @type {_u_e__Union}
      */
-    u{
+    u {
         get {
             if(!this.HasProp("__u"))
-                this.__u := %this.__Class%._u_e__Union(24, this)
+                this.__u := ScriptDebugEventInformation._u_e__Union(24, this)
             return this.__u
         }
     }

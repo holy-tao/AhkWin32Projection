@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\IEnumTfCandidates.ahk
 #Include .\ITfCandidateString.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * The ITfCandidateList interface is implemented by a text service and is used by the TSF manager or a client (application or other text service) to obtain and manipulate candidate string objects.
@@ -11,9 +11,8 @@
  * When a text service must interpret text before it is inserted into a context, there might be more than one possible interpretation of the text. Speech input is an example of this. If the spoken word is "there", other possible interpretations might be "their" or "they're". The text service will insert the most appropriate text, but there is still some chance of error involved. Text reconversion is the process of allowing the user to select alternate text for the inserted text. The alternate text objects are known as candidates.
  * @see https://learn.microsoft.com/windows/win32/api/ctffunc/nn-ctffunc-itfcandidatelist
  * @namespace Windows.Win32.UI.TextServices
- * @version v4.0.30319
  */
-class ITfCandidateList extends IUnknown{
+class ITfCandidateList extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -78,7 +77,7 @@ class ITfCandidateList extends IUnknown{
      * <li>If the user cancels the dialog, <b>ITfCandidateList::SetResult</b> is called with an index of zero and CAND_CANCELED.</li>
      * </ol>
      * @param {Integer} nIndex Specifies the zero-based index of the candidate string to set the result for. This parameter is ignored if <i>imcr</i> contains CAND_CANCELED.
-     * @param {Integer} imcr Contains one of the <a href="https://docs.microsoft.com/windows/win32/api/ctffunc/ne-ctffunc-tfcandidateresult">TfCandidateResult</a> values that specifies the result of the reconversion operation.
+     * @param {TfCandidateResult} imcr Contains one of the <a href="https://docs.microsoft.com/windows/win32/api/ctffunc/ne-ctffunc-tfcandidateresult">TfCandidateResult</a> values that specifies the result of the reconversion operation.
      * @returns {HRESULT} This method can return one of these values.
      * 
      * <table>

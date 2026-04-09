@@ -9,9 +9,8 @@
  * This element is declared in Peninputpanel.h.
  * @see https://learn.microsoft.com/windows/win32/api/peninputpanel/nn-peninputpanel-itextinputpanelruninfo
  * @namespace Windows.Win32.UI.TabletPC
- * @version v4.0.30319
  */
-class ITextInputPanelRunInfo extends IUnknown{
+class ITextInputPanelRunInfo extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

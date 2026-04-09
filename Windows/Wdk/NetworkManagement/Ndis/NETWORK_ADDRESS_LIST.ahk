@@ -1,13 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\NETWORK_ADDRESS.ahk
 
 /**
  * @namespace Windows.Wdk.NetworkManagement.Ndis
- * @version v4.0.30319
  */
-class NETWORK_ADDRESS_LIST extends Win32Struct
-{
+class NETWORK_ADDRESS_LIST extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
@@ -29,9 +26,9 @@ class NETWORK_ADDRESS_LIST extends Win32Struct
     }
 
     /**
-     * @type {Array<NETWORK_ADDRESS>}
+     * @type {Array<Pointer>}
      */
-    Address{
+    Address {
         get {
             if(!this.HasProp("__AddressProxyArray"))
                 this.__AddressProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "ptr")

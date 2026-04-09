@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.HumanInterfaceDevice
- * @version v4.0.30319
  */
-class JOYRANGE extends Win32Struct
-{
+class JOYRANGE extends Win32Struct {
     static sizeof => 72
 
     static packingSize => 4
@@ -15,7 +13,7 @@ class JOYRANGE extends Win32Struct
     /**
      * @type {JOYPOS}
      */
-    jpMin{
+    jpMin {
         get {
             if(!this.HasProp("__jpMin"))
                 this.__jpMin := JOYPOS(0, this)
@@ -26,7 +24,7 @@ class JOYRANGE extends Win32Struct
     /**
      * @type {JOYPOS}
      */
-    jpMax{
+    jpMax {
         get {
             if(!this.HasProp("__jpMax"))
                 this.__jpMax := JOYPOS(24, this)
@@ -37,7 +35,7 @@ class JOYRANGE extends Win32Struct
     /**
      * @type {JOYPOS}
      */
-    jpCenter{
+    jpCenter {
         get {
             if(!this.HasProp("__jpCenter"))
                 this.__jpCenter := JOYPOS(48, this)

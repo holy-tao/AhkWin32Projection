@@ -3,14 +3,10 @@
 
 /**
  * Contains fields that specify the information in a Reservation Notification Log page.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/nvme/ns-nvme-nvme_reservation_notification_log
  * @namespace Windows.Win32.Storage.Nvme
- * @version v4.0.30319
  */
-class NVME_RESERVATION_NOTIFICATION_LOG extends Win32Struct
-{
+class NVME_RESERVATION_NOTIFICATION_LOG extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 8
@@ -48,9 +44,9 @@ class NVME_RESERVATION_NOTIFICATION_LOG extends Win32Struct
 
     /**
      * A reserved field.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Reserved0{
+    Reserved0 {
         get {
             if(!this.HasProp("__Reserved0ProxyArray"))
                 this.__Reserved0ProxyArray := Win32FixedArray(this.ptr + 10, 2, Primitive, "char")
@@ -69,9 +65,9 @@ class NVME_RESERVATION_NOTIFICATION_LOG extends Win32Struct
 
     /**
      * A reserved field.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Reserved1{
+    Reserved1 {
         get {
             if(!this.HasProp("__Reserved1ProxyArray"))
                 this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 16, 48, Primitive, "char")

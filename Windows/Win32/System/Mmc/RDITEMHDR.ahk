@@ -11,10 +11,8 @@
  * <a href="https://docs.microsoft.com/windows/desktop/api/mmc/nf-mmc-iresultdatacompareex-compare">IResultDataCompareEx::Compare</a> method. After the method returns, MMC releases the three structures it allocated.
  * @see https://learn.microsoft.com/windows/win32/api/mmc/ns-mmc-rditemhdr
  * @namespace Windows.Win32.System.Mmc
- * @version v4.0.30319
  */
-class RDITEMHDR extends Win32Struct
-{
+class RDITEMHDR extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

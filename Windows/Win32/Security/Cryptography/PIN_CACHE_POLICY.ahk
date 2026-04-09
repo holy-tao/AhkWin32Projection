@@ -1,12 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\PIN_CACHE_POLICY_TYPE.ahk
 
 /**
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class PIN_CACHE_POLICY extends Win32Struct
-{
+class PIN_CACHE_POLICY extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4
@@ -20,7 +19,7 @@ class PIN_CACHE_POLICY extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {PIN_CACHE_POLICY_TYPE}
      */
     PinCachePolicyType {
         get => NumGet(this, 4, "int")

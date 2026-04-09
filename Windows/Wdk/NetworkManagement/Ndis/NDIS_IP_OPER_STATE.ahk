@@ -3,16 +3,14 @@
 
 /**
  * @namespace Windows.Wdk.NetworkManagement.Ndis
- * @version v4.0.30319
  */
-class NDIS_IP_OPER_STATE extends Win32Struct
-{
+class NDIS_IP_OPER_STATE extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
 
     /**
-     * @type {Pointer<NDIS_OBJECT_HEADER>}
+     * @type {Pointer}
      */
     Header {
         get => NumGet(this, 0, "ptr")
@@ -28,7 +26,7 @@ class NDIS_IP_OPER_STATE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<NDIS_IP_OPER_STATUS>}
+     * @type {Pointer}
      */
     IpOperationalStatus {
         get => NumGet(this, 16, "ptr")

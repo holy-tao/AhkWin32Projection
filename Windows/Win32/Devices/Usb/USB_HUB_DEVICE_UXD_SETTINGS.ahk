@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.Usb
- * @version v4.0.30319
  */
-class USB_HUB_DEVICE_UXD_SETTINGS extends Win32Struct
-{
+class USB_HUB_DEVICE_UXD_SETTINGS extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8
@@ -20,7 +18,7 @@ class USB_HUB_DEVICE_UXD_SETTINGS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     PnpGuid {
         get => NumGet(this, 8, "ptr")
@@ -28,7 +26,7 @@ class USB_HUB_DEVICE_UXD_SETTINGS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     OwnerGuid {
         get => NumGet(this, 16, "ptr")
@@ -60,9 +58,9 @@ class USB_HUB_DEVICE_UXD_SETTINGS extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    Reserved{
+    Reserved {
         get {
             if(!this.HasProp("__ReservedProxyArray"))
                 this.__ReservedProxyArray := Win32FixedArray(this.ptr + 36, 5, Primitive, "uint")

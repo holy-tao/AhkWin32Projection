@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Data.HtmlHelp
- * @version v4.0.30319
  */
-class HTML_HELP_COMMAND extends Win32Enum{
+class HTML_HELP_COMMAND extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Graphics.Gdi
- * @version v4.0.30319
  */
-class EMBEDDED_FONT_PRIV_STATUS extends Win32Enum{
+class EMBEDDED_FONT_PRIV_STATUS extends Win32Enum {
 
     /**
      * @type {Integer (UInt32)}

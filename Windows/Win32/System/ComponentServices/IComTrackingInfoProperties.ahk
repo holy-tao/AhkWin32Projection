@@ -7,9 +7,8 @@
  * Retrieves the total number of properties associated with a tracking information object and their names.
  * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nn-comsvcs-icomtrackinginfoproperties
  * @namespace Windows.Win32.System.ComponentServices
- * @version v4.0.30319
  */
-class IComTrackingInfoProperties extends IUnknown{
+class IComTrackingInfoProperties extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

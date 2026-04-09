@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IAccessible.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\IAccessible.ahk
 
 /**
  * A Microsoft ActiveX control site implements this interface to enable a windowless ActiveX control that has a Microsoft Active Accessibility implementation to express its accessibility.
@@ -10,9 +10,8 @@
  * The functions that manage object ID ranges expect the site object to maintain a list of ranges that have already been reserved.  When the window that contains the ActiveX control receives a [WM_GETOBJECT](/windows/win32/winauto/wm-getobject) message with an <b>LPARAM</b> value (object ID) that is in a reserved range, the window should call the <a href="https://docs.microsoft.com/windows/desktop/api/oleacc/nf-oleacc-iaccessiblehandler-accessibleobjectfromid">IAccessibleHandler::AccessibleObjectFromID</a> method to get an <a href="https://docs.microsoft.com/windows/desktop/api/oleacc/nn-oleacc-iaccessible">IAccessible</a> object for that object ID.
  * @see https://learn.microsoft.com/windows/win32/api/oleacc/nn-oleacc-iaccessiblewindowlesssite
  * @namespace Windows.Win32.UI.Accessibility
- * @version v4.0.30319
  */
-class IAccessibleWindowlessSite extends IUnknown{
+class IAccessibleWindowlessSite extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

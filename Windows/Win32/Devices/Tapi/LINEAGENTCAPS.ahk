@@ -5,10 +5,8 @@
  * The LINEAGENTCAPS structure describes the capabilities of an ACD agent. The lineGetAgentCaps function returns the LINEAGENTCAPS structure.
  * @see https://learn.microsoft.com/windows/win32/api/tapi/ns-tapi-lineagentcaps
  * @namespace Windows.Win32.Devices.Tapi
- * @version v4.0.30319
  */
-class LINEAGENTCAPS extends Win32Struct
-{
+class LINEAGENTCAPS extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 8
@@ -153,7 +151,7 @@ class LINEAGENTCAPS extends Win32Struct
 
     /**
      * GUID for ACD proxy associated with the line. This element is exposed only to applications that negotiate a TAPI version of 2.2 or higher.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     ProxyGUID {
         get => NumGet(this, 56, "ptr")

@@ -6,10 +6,8 @@
  * The DDVIDEOPORTDESC structure describes the video port extensions (VPE) object being created.
  * @see https://learn.microsoft.com/windows/win32/api/dvp/ns-dvp-ddvideoportdesc
  * @namespace Windows.Win32.Graphics.DirectDraw
- * @version v4.0.30319
  */
-class DDVIDEOPORTDESC extends Win32Struct
-{
+class DDVIDEOPORTDESC extends Win32Struct {
     static sizeof => 80
 
     static packingSize => 8
@@ -90,7 +88,7 @@ class DDVIDEOPORTDESC extends Win32Struct
      * Specifies a <a href="https://docs.microsoft.com/windows-hardware/drivers/ddi/content/ksmedia/ns-ksmedia-_ddvideoportconnect">DDVIDEOPORTCONNECT</a> structure describing the connection characteristics of the hardware video port.
      * @type {DDVIDEOPORTCONNECT}
      */
-    VideoPortType{
+    VideoPortType {
         get {
             if(!this.HasProp("__VideoPortType"))
                 this.__VideoPortType := DDVIDEOPORTCONNECT(32, this)

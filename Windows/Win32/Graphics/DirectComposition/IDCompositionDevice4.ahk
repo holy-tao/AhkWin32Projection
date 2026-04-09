@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IDCompositionTexture.ahk
 #Include .\IDCompositionDevice3.ahk
+#Include .\IDCompositionTexture.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.DirectComposition
- * @version v4.0.30319
  */
-class IDCompositionDevice4 extends IDCompositionDevice3{
+class IDCompositionDevice4 extends IDCompositionDevice3 {
 
     static sizeof => A_PtrSize
     /**

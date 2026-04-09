@@ -21,9 +21,8 @@
  * When TYPEFLAG_FCANCREATE is set, <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nf-oaidl-itypeinfo-createinstance">CreateInstance</a> can create an instance of this type. This is true only for component object classes for which a globally unique identifier (GUID) has been specified.
  * @see https://learn.microsoft.com/windows/win32/api/oaidl/ne-oaidl-typeflags
  * @namespace Windows.Win32.System.Ole
- * @version v4.0.30319
  */
-class TYPEFLAGS extends Win32Enum{
+class TYPEFLAGS extends Win32Enum {
 
     /**
      * A type description that describes an Application object.

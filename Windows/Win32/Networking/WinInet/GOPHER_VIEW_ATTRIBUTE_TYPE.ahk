@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Networking.WinInet
- * @version v4.0.30319
  */
-class GOPHER_VIEW_ATTRIBUTE_TYPE extends Win32Struct
-{
+class GOPHER_VIEW_ATTRIBUTE_TYPE extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

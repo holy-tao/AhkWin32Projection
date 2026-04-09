@@ -1,12 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\Win32Struct.ahk
+#Include .\SECURITY_DESCRIPTOR_CONTROL.ahk
 
 /**
  * @namespace Windows.Win32.Security
- * @version v4.0.30319
  */
-class SECURITY_DESCRIPTOR_RELATIVE extends Win32Struct
-{
+class SECURITY_DESCRIPTOR_RELATIVE extends Win32Struct {
     static sizeof => 20
 
     static packingSize => 4
@@ -28,7 +27,7 @@ class SECURITY_DESCRIPTOR_RELATIVE extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {SECURITY_DESCRIPTOR_CONTROL}
      */
     Control {
         get => NumGet(this, 2, "ushort")

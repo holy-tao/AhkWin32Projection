@@ -7,9 +7,8 @@
  * Provides file attributes, time information, and file size for an item associated with a sync error.
  * @see https://learn.microsoft.com/windows/win32/api/cscobj/nn-cscobj-iofflinefilessyncerroriteminfo
  * @namespace Windows.Win32.Storage.OfflineFiles
- * @version v4.0.30319
  */
-class IOfflineFilesSyncErrorItemInfo extends IUnknown{
+class IOfflineFilesSyncErrorItemInfo extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

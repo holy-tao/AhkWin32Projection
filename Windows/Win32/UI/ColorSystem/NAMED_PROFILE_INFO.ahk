@@ -3,14 +3,10 @@
 
 /**
  * The **NAMED_PROFILE_INFO** structure is used to store information about a named color profile.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/icm/ns-icm-named_profile_info
  * @namespace Windows.Win32.UI.ColorSystem
- * @version v4.0.30319
  */
-class NAMED_PROFILE_INFO extends Win32Struct
-{
+class NAMED_PROFILE_INFO extends Win32Struct {
     static sizeof => 76
 
     static packingSize => 4
@@ -44,9 +40,9 @@ class NAMED_PROFILE_INFO extends Win32Struct
 
     /**
      * Pointer to a string containing the prefix for each color name.
-     * @type {Array<SByte>}
+     * @type {Array<Integer>}
      */
-    szPrefix{
+    szPrefix {
         get {
             if(!this.HasProp("__szPrefixProxyArray"))
                 this.__szPrefixProxyArray := Win32FixedArray(this.ptr + 12, 32, Primitive, "char")
@@ -56,9 +52,9 @@ class NAMED_PROFILE_INFO extends Win32Struct
 
     /**
      * Pointer to a string containing the suffix for each color name.
-     * @type {Array<SByte>}
+     * @type {Array<Integer>}
      */
-    szSuffix{
+    szSuffix {
         get {
             if(!this.HasProp("__szSuffixProxyArray"))
                 this.__szSuffixProxyArray := Win32FixedArray(this.ptr + 44, 32, Primitive, "char")

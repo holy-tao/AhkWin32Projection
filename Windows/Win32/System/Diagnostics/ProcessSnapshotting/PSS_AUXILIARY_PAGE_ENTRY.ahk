@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include ..\..\Memory\MEMORY_BASIC_INFORMATION.ahk
+#Include ..\..\Memory\PAGE_PROTECTION_FLAGS.ahk
+#Include ..\..\Memory\VIRTUAL_ALLOCATION_TYPE.ahk
+#Include ..\..\Memory\PAGE_TYPE.ahk
 #Include ..\..\..\Foundation\FILETIME.ahk
 
 /**
@@ -9,10 +12,8 @@
  * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/processsnapshot/nf-processsnapshot-psswalksnapshot">PssWalkSnapshot</a> returns a <b>PSS_AUXILIARY_PAGE_ENTRY</b> structure when the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/processsnapshot/ne-processsnapshot-pss_walk_information_class">PSS_WALK_INFORMATION_CLASS</a> member that the caller provides it is <b>PSS_WALK_AUXILIARY_PAGES</b>.
  * @see https://learn.microsoft.com/windows/win32/api/processsnapshot/ns-processsnapshot-pss_auxiliary_page_entry
  * @namespace Windows.Win32.System.Diagnostics.ProcessSnapshotting
- * @version v4.0.30319
  */
-class PSS_AUXILIARY_PAGE_ENTRY extends Win32Struct
-{
+class PSS_AUXILIARY_PAGE_ENTRY extends Win32Struct {
     static sizeof => 80
 
     static packingSize => 8
@@ -30,7 +31,7 @@ class PSS_AUXILIARY_PAGE_ENTRY extends Win32Struct
      * Basic information about the captured page. See <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-memory_basic_information">MEMORY_BASIC_INFORMATION</a> for more information.
      * @type {MEMORY_BASIC_INFORMATION}
      */
-    BasicInformation{
+    BasicInformation {
         get {
             if(!this.HasProp("__BasicInformation"))
                 this.__BasicInformation := MEMORY_BASIC_INFORMATION(8, this)
@@ -42,7 +43,7 @@ class PSS_AUXILIARY_PAGE_ENTRY extends Win32Struct
      * The capture time of the page. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a>.
      * @type {FILETIME}
      */
-    CaptureTime{
+    CaptureTime {
         get {
             if(!this.HasProp("__CaptureTime"))
                 this.__CaptureTime := FILETIME(56, this)

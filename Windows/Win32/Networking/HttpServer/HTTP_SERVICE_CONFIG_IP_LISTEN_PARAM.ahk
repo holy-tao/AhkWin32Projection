@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\WinSock\SOCKADDR.ahk
 
 /**
  * Used to specify an IP address to be added to or deleted from the list of IP addresses to which the HTTP service binds.
  * @see https://learn.microsoft.com/windows/win32/api/http/ns-http-http_service_config_ip_listen_param
  * @namespace Windows.Win32.Networking.HttpServer
- * @version v4.0.30319
  */
-class HTTP_SERVICE_CONFIG_IP_LISTEN_PARAM extends Win32Struct
-{
+class HTTP_SERVICE_CONFIG_IP_LISTEN_PARAM extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

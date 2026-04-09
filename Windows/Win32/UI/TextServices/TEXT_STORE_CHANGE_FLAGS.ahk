@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.UI.TextServices
- * @version v4.0.30319
  */
-class TEXT_STORE_CHANGE_FLAGS extends Win32BitflagEnum{
+class TEXT_STORE_CHANGE_FLAGS extends Win32BitflagEnum {
 
     /**
      * @type {Integer (UInt32)}

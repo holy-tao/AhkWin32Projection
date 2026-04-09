@@ -5,10 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.ErrorReporting
- * @version v4.0.30319
  */
-class WER_REPORT_INFORMATION_V3 extends Win32Struct
-{
+class WER_REPORT_INFORMATION_V3 extends Win32Struct {
     static sizeof => 2464
 
     static packingSize => 8
@@ -24,7 +22,7 @@ class WER_REPORT_INFORMATION_V3 extends Win32Struct
     /**
      * @type {HANDLE}
      */
-    hProcess{
+    hProcess {
         get {
             if(!this.HasProp("__hProcess"))
                 this.__hProcess := HANDLE(8, this)
@@ -75,7 +73,7 @@ class WER_REPORT_INFORMATION_V3 extends Win32Struct
     /**
      * @type {HWND}
      */
-    hwndParent{
+    hwndParent {
         get {
             if(!this.HasProp("__hwndParent"))
                 this.__hwndParent := HWND(2200, this)

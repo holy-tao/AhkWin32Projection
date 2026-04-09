@@ -7,9 +7,8 @@
  * Specifies the security settings for a wireless ad hoc network.
  * @see https://learn.microsoft.com/windows/win32/api/adhoc/nn-adhoc-idot11adhocsecuritysettings
  * @namespace Windows.Win32.NetworkManagement.WiFi
- * @version v4.0.30319
  */
-class IDot11AdHocSecuritySettings extends IUnknown{
+class IDot11AdHocSecuritySettings extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -32,7 +31,7 @@ class IDot11AdHocSecuritySettings extends IUnknown{
 
     /**
      * Gets the authentication algorithm associated with the security settings.
-     * @param {Pointer<Integer>} pAuth A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/adhoc/ne-adhoc-dot11_adhoc_auth_algorithm">DOT11_ADHOC_AUTH_ALGORITHM</a> value that specifies the authentication algorithm.
+     * @param {Pointer<DOT11_ADHOC_AUTH_ALGORITHM>} pAuth A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/adhoc/ne-adhoc-dot11_adhoc_auth_algorithm">DOT11_ADHOC_AUTH_ALGORITHM</a> value that specifies the authentication algorithm.
      * @returns {HRESULT} Possible return values include, but are not limited to, the following.
      * 
      * <table>
@@ -107,7 +106,7 @@ class IDot11AdHocSecuritySettings extends IUnknown{
 
     /**
      * Gets the cipher algorithm associated with the security settings.
-     * @param {Pointer<Integer>} pCipher A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/adhoc/ne-adhoc-dot11_adhoc_cipher_algorithm">DOT11_ADHOC_CIPHER_ALGORITHM</a> value that specifies the cipher algorithm.
+     * @param {Pointer<DOT11_ADHOC_CIPHER_ALGORITHM>} pCipher A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/adhoc/ne-adhoc-dot11_adhoc_cipher_algorithm">DOT11_ADHOC_CIPHER_ALGORITHM</a> value that specifies the cipher algorithm.
      * @returns {HRESULT} Possible return values include, but are not limited to, the following.
      * 
      * <table>

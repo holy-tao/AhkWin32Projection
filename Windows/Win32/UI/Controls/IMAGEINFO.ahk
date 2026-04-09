@@ -7,10 +7,8 @@
  * Contains information about an image in an image list. This structure is used with the IImageList::GetImageInfo function. (IMAGEINFO)
  * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-imageinfo
  * @namespace Windows.Win32.UI.Controls
- * @version v4.0.30319
  */
-class IMAGEINFO extends Win32Struct
-{
+class IMAGEINFO extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -21,7 +19,7 @@ class IMAGEINFO extends Win32Struct
      * A handle to the bitmap that contains the images.
      * @type {HBITMAP}
      */
-    hbmImage{
+    hbmImage {
         get {
             if(!this.HasProp("__hbmImage"))
                 this.__hbmImage := HBITMAP(0, this)
@@ -35,7 +33,7 @@ class IMAGEINFO extends Win32Struct
      * A handle to a monochrome bitmap that contains the masks for the images. If the image list does not contain a mask, this member is <b>NULL</b>.
      * @type {HBITMAP}
      */
-    hbmMask{
+    hbmMask {
         get {
             if(!this.HasProp("__hbmMask"))
                 this.__hbmMask := HBITMAP(8, this)
@@ -72,7 +70,7 @@ class IMAGEINFO extends Win32Struct
      * 					<b>hbmImage</b>.
      * @type {RECT}
      */
-    rcImage{
+    rcImage {
         get {
             if(!this.HasProp("__rcImage"))
                 this.__rcImage := RECT(24, this)

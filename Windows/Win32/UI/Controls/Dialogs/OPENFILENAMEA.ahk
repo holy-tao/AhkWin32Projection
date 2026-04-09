@@ -2,6 +2,8 @@
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include ..\..\..\Foundation\HWND.ahk
 #Include ..\..\..\Foundation\HINSTANCE.ahk
+#Include .\OPEN_FILENAME_FLAGS.ahk
+#Include .\OPEN_FILENAME_FLAGS_EX.ahk
 
 /**
  * Contains information that the GetOpenFileName and GetSaveFileName functions use to initialize an Open or Save As dialog box. After the user closes the dialog box, the system returns information about the user's selection in this structure. (ANSI)
@@ -16,11 +18,10 @@
  * > The commdlg.h header defines OPENFILENAME as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
  * @see https://learn.microsoft.com/windows/win32/api/commdlg/ns-commdlg-openfilenamea
  * @namespace Windows.Win32.UI.Controls.Dialogs
- * @version v4.0.30319
  * @charset ANSI
+ * @architecture X64, Arm64
  */
-class OPENFILENAMEA extends Win32Struct
-{
+class OPENFILENAMEA extends Win32Struct {
     static sizeof => 152
 
     static packingSize => 8
@@ -43,7 +44,7 @@ class OPENFILENAMEA extends Win32Struct
      * A handle to the window that owns the dialog box. This member can be any valid window handle, or it can be <b>NULL</b> if the dialog box has no owner.
      * @type {HWND}
      */
-    hwndOwner{
+    hwndOwner {
         get {
             if(!this.HasProp("__hwndOwner"))
                 this.__hwndOwner := HWND(8, this)
@@ -57,7 +58,7 @@ class OPENFILENAMEA extends Win32Struct
      * If the <b>OFN_ENABLETEMPLATEHANDLE</b> flag is set in the <b>Flags</b> member, <b>hInstance</b> is a handle to a memory object containing a dialog box template. If the <b>OFN_ENABLETEMPLATE</b> flag is set, <b>hInstance</b> is a handle to a module that contains a dialog box template named by the <b>lpTemplateName</b> member. If neither flag is set, this member is ignored. If the <b>OFN_EXPLORER</b> flag is set, the system uses the specified template to create a dialog box that is a child of the default Explorer-style dialog box. If the <b>OFN_EXPLORER</b> flag is not set, the system uses the template to create an old-style dialog box that replaces the default dialog box.
      * @type {HINSTANCE}
      */
-    hInstance{
+    hInstance {
         get {
             if(!this.HasProp("__hInstance"))
                 this.__hInstance := HINSTANCE(16, this)
@@ -520,7 +521,7 @@ class OPENFILENAMEA extends Win32Struct
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
+     * @type {OPEN_FILENAME_FLAGS}
      */
     Flags {
         get => NumGet(this, 96, "uint")
@@ -641,7 +642,7 @@ class OPENFILENAMEA extends Win32Struct
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
+     * @type {OPEN_FILENAME_FLAGS_EX}
      */
     FlagsEx {
         get => NumGet(this, 148, "uint")

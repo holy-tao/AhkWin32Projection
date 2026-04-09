@@ -9,10 +9,8 @@
  * When the viewport parameters for a device change (because of a call to the [**SetViewport**](/windows/win32/api/d3d9helper/nf-d3d9helper-idirect3ddevice9-setviewport) method), the driver builds a new transformation matrix.
  * @see https://learn.microsoft.com/windows/win32/direct3d9/d3dviewport9
  * @namespace Windows.Win32.Graphics.Direct3D9
- * @version v4.0.30319
  */
-class D3DVIEWPORT extends Win32Struct
-{
+class D3DVIEWPORT extends Win32Struct {
     static sizeof => 44
 
     static packingSize => 4

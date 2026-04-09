@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include .\IEnumCall.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * The ITCallHub interface provides methods to retrieve information concerning a CallHub object. The IEnumCallHub::Next and ITTapi::get_CallHubs methods create the ITCallHub interface.
  * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nn-tapi3if-itcallhub
  * @namespace Windows.Win32.Devices.Tapi
- * @version v4.0.30319
  */
-class ITCallHub extends IDispatch{
+class ITCallHub extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -47,7 +46,7 @@ class ITCallHub extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {CALLHUB_STATE} 
      */
     State {
         get => this.get_State()
@@ -136,7 +135,7 @@ class ITCallHub extends IDispatch{
 
     /**
      * The get_State method gets the current state of the CallHub.
-     * @returns {Integer} Pointer to 
+     * @returns {CALLHUB_STATE} Pointer to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/ne-tapi3if-callhub_state">CALLHUB_STATE</a> indicator of state.
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itcallhub-get_state
      */

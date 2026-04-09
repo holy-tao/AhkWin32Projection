@@ -3,7 +3,6 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Multicast
- * @version v4.0.30319
  */
 class Multicast {
 
@@ -40,7 +39,12 @@ class Multicast {
      * 
      * The 
      * <b>McastApiStartup</b> function always returns the most recent version of MADCAP available on the system (MCAST_API_CURRENT_VERSION) in <i>pVersion</i>, enabling clients to discover the most recent version implemented on the system.
-     * @param {Pointer<Integer>} _Version 
+     * @param {Pointer<Integer>} _Version Pointer to the version of multicast (MCAST) that the client wishes to use. 
+     * 
+     * 
+     * 
+     * 
+     * [out] Pointer to the version of MCAST implemented on the system.
      * @returns {Integer} If the client requests a version of MADCAP that is not supported by the system, the 
      * <b>McastApiStartup</b> function returns ERROR_NOT_SUPPORTED. If resources fail to be allocated for the function call, ERROR_NO_SYSTEM_RESOURCES is returned.
      * @see https://learn.microsoft.com/windows/win32/api/madcapcl/nf-madcapcl-mcastapistartup

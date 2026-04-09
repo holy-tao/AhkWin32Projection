@@ -5,9 +5,8 @@
  * Represents the current transaction state of the transaction.
  * @see https://learn.microsoft.com/windows/win32/api/comsvcs/ne-comsvcs-crmtransactionstate
  * @namespace Windows.Win32.System.ComponentServices
- * @version v4.0.30319
  */
-class CrmTransactionState extends Win32Enum{
+class CrmTransactionState extends Win32Enum {
 
     /**
      * The transaction is active.

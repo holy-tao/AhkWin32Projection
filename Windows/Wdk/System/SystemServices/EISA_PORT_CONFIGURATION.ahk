@@ -3,16 +3,14 @@
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class EISA_PORT_CONFIGURATION extends Win32Struct
-{
+class EISA_PORT_CONFIGURATION extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
 
     /**
-     * @type {Pointer<EISA_PORT_DESCRIPTOR>}
+     * @type {Pointer}
      */
     Configuration {
         get => NumGet(this, 0, "ptr")

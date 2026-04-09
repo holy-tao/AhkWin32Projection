@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\APPCATEGORYINFOLIST.ahk
 #Include .\IEnumPublishedApps.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Exposes methods for publishing applications through Add/Remove Programs in Control Panel. This is the principal interface implemented for this purpose.
@@ -64,9 +64,8 @@
  * With the publisher registered in this way, <b>Add/Remove Programs</b> creates an instance of your object by calling <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cocreateinstance">CoCreateInstance</a> for your object and requesting the appropriate <b>IAppPublisher</b> interface when the <b>Add New Programs</b> view is populated. Using <b>IAppPublisher</b>, Add/Remove Programs retrieves the application enumerator (<a href="https://docs.microsoft.com/windows/desktop/api/shappmgr/nn-shappmgr-ienumpublishedapps">IEnumPublishedApps</a>) and information that describes the published applications.  Your implementation of <a href="https://docs.microsoft.com/windows/desktop/api/shappmgr/nn-shappmgr-ipublishedapp">IPublishedApp</a> is responsible for installing the associated application in its <a href="https://docs.microsoft.com/windows/desktop/api/shappmgr/nf-shappmgr-ipublishedapp-install">IPublishedApp::Install</a> method. Add/Remove Programs calls this method when the user clicks the <b>Add</b> or the <b>Add Later</b> button in the user interface.
  * @see https://learn.microsoft.com/windows/win32/api/shappmgr/nn-shappmgr-iapppublisher
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IAppPublisher extends IUnknown{
+class IAppPublisher extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

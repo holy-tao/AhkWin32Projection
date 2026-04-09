@@ -7,10 +7,9 @@
  * Contains context menu information that is passed to the IRichEditOleCallback::GetContextMenu method.
  * @see https://learn.microsoft.com/windows/win32/api/richedit/ns-richedit-getcontextmenuex
  * @namespace Windows.Win32.UI.Controls.RichEdit
- * @version v4.0.30319
+ * @architecture X64, Arm64
  */
-class GETCONTEXTMENUEX extends Win32Struct
-{
+class GETCONTEXTMENUEX extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -21,7 +20,7 @@ class GETCONTEXTMENUEX extends Win32Struct
      * The character-position range in the active display.
      * @type {CHARRANGE}
      */
-    chrg{
+    chrg {
         get {
             if(!this.HasProp("__chrg"))
                 this.__chrg := CHARRANGE(0, this)
@@ -96,7 +95,7 @@ class GETCONTEXTMENUEX extends Win32Struct
      * The screen coordinates for the content menu.
      * @type {POINT}
      */
-    pt{
+    pt {
         get {
             if(!this.HasProp("__pt"))
                 this.__pt := POINT(12, this)

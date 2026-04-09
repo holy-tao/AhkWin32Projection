@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\Foundation\BSTR.ahk
 #Include .\IUIAutomationElementArray.ahk
 #Include .\IAccessible.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Exposes methods and properties that enable Microsoft UI Automation clients to retrieve UI information from Microsoft Active Accessibility (MSAA) servers.
@@ -12,9 +12,8 @@
  * This interface is obtained just like any other control pattern. It enables UI Automation clients to gather MSAA properties more efficiently, taking advantage of the caching system, and also enables UI Automation clients to interact with native Microsoft Active Accessibility servers that support the <b>IAccessible</b> interface.
  * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nn-uiautomationclient-iuiautomationlegacyiaccessiblepattern
  * @namespace Windows.Win32.UI.Accessibility
- * @version v4.0.30319
  */
-class IUIAutomationLegacyIAccessiblePattern extends IUnknown{
+class IUIAutomationLegacyIAccessiblePattern extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

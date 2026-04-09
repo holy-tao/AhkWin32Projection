@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug
- * @version v4.0.30319
  */
-class WHEA_XPF_MC_BANK_DESCRIPTOR extends Win32Struct
-{
+class WHEA_XPF_MC_BANK_DESCRIPTOR extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -39,7 +37,7 @@ class WHEA_XPF_MC_BANK_DESCRIPTOR extends Win32Struct
     /**
      * @type {XPF_MC_BANK_FLAGS}
      */
-    Flags{
+    Flags {
         get {
             if(!this.HasProp("__Flags"))
                 this.__Flags := XPF_MC_BANK_FLAGS(3, this)

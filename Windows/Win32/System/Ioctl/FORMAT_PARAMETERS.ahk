@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\MEDIA_TYPE.ahk
 
 /**
  * Contains information used in formatting a contiguous set of disk tracks.
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-format_parameters
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class FORMAT_PARAMETERS extends Win32Struct
-{
+class FORMAT_PARAMETERS extends Win32Struct {
     static sizeof => 20
 
     static packingSize => 4
@@ -16,7 +15,7 @@ class FORMAT_PARAMETERS extends Win32Struct
     /**
      * The media type. For a list of values, see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winioctl/ne-winioctl-media_type">MEDIA_TYPE</a>.
-     * @type {Integer}
+     * @type {MEDIA_TYPE}
      */
     MediaType {
         get => NumGet(this, 0, "int")

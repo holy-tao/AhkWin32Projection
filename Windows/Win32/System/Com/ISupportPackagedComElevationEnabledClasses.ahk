@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.Com
- * @version v4.0.30319
  */
-class ISupportPackagedComElevationEnabledClasses extends IUnknown{
+class ISupportPackagedComElevationEnabledClasses extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

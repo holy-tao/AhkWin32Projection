@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\CLUSTER_MGMT_POINT_TYPE.ahk
+#Include .\CLUSTER_MGMT_POINT_RESTYPE.ahk
 
 /**
  * Describes a cluster name resource and domain credentials used by the CreateClusterNameAccount function to add a cluster to a domain. PCREATE_CLUSTER_NAME_ACCOUNT defines a pointer to this structure.
  * @see https://learn.microsoft.com/windows/win32/api/clusapi/ns-clusapi-create_cluster_name_account
  * @namespace Windows.Win32.Networking.Clustering
- * @version v4.0.30319
  */
-class CREATE_CLUSTER_NAME_ACCOUNT extends Win32Struct
-{
+class CREATE_CLUSTER_NAME_ACCOUNT extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 8
@@ -69,7 +69,7 @@ class CREATE_CLUSTER_NAME_ACCOUNT extends Win32Struct
 
     /**
      * The management point type.
-     * @type {Integer}
+     * @type {CLUSTER_MGMT_POINT_TYPE}
      */
     managementPointType {
         get => NumGet(this, 48, "int")
@@ -77,8 +77,7 @@ class CREATE_CLUSTER_NAME_ACCOUNT extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Integer}
+     * @type {CLUSTER_MGMT_POINT_RESTYPE}
      */
     managementPointResType {
         get => NumGet(this, 52, "int")
@@ -86,7 +85,6 @@ class CREATE_CLUSTER_NAME_ACCOUNT extends Win32Struct
     }
 
     /**
-     * 
      * @type {BOOLEAN}
      */
     bUpgradeVCOs {

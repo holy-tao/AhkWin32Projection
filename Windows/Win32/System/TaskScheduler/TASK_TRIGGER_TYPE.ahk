@@ -8,9 +8,8 @@
  * <a href="https://docs.microsoft.com/windows/desktop/api/mstask/ns-mstask-task_trigger">TASK_TRIGGER</a> structure.
  * @see https://learn.microsoft.com/windows/win32/api/mstask/ne-mstask-task_trigger_type
  * @namespace Windows.Win32.System.TaskScheduler
- * @version v4.0.30319
  */
-class TASK_TRIGGER_TYPE extends Win32Enum{
+class TASK_TRIGGER_TYPE extends Win32Enum {
 
     /**
      * Trigger is set to run the task a single time. 

@@ -1,17 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\JOYPOS.ahk
-#Include .\JOYRANGE.ahk
 #Include .\JOYREGUSERVALUES.ahk
+#Include .\JOYRANGE.ahk
+#Include .\JOYPOS.ahk
 
 /**
  * The DIJOYUSERVALUES structure contains information about the user's joystick settings.
  * @see https://learn.microsoft.com/windows/win32/api/dinputd/ns-dinputd-dijoyuservalues
  * @namespace Windows.Win32.Devices.HumanInterfaceDevice
- * @version v4.0.30319
  */
-class DIJOYUSERVALUES extends Win32Struct
-{
+class DIJOYUSERVALUES extends Win32Struct {
     static sizeof => 1128
 
     static packingSize => 4
@@ -29,7 +27,7 @@ class DIJOYUSERVALUES extends Win32Struct
      * Joystick user configuration. In addition to the fields contained in the mmddk.h header file, the previously unused <b>jrvRanges.jpCenter</b> field contains the user saturation levels for each axis. A control panel application sets the dead zone and saturation values based on the values set by the end-user during calibration or fine-tuning. Dead zone can be interpreted as "sensitivity in the center" and saturation can be interpreted as "sensitivity along the edges".
      * @type {JOYREGUSERVALUES}
      */
-    ruv{
+    ruv {
         get {
             if(!this.HasProp("__ruv"))
                 this.__ruv := JOYREGUSERVALUES(4, this)

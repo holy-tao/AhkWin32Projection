@@ -5,9 +5,8 @@
  * Specifies the state of the cookie.
  * @see https://learn.microsoft.com/windows/win32/api/msxml6/ne-msxml6-xhr_cookie_state
  * @namespace Windows.Win32.Data.Xml.MsXml
- * @version v4.0.30319
  */
-class XHR_COOKIE_STATE extends Win32Enum{
+class XHR_COOKIE_STATE extends Win32Enum {
 
     /**
      * The state of the cookie is unknown.
@@ -28,13 +27,11 @@ class XHR_COOKIE_STATE extends Win32Enum{
     static XHR_COOKIE_STATE_PROMPT => 2
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static XHR_COOKIE_STATE_LEASH => 3
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static XHR_COOKIE_STATE_DOWNGRADE => 4

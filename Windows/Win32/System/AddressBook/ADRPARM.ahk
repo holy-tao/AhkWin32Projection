@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\ENTRYID.ahk
+#Include .\SRestriction.ahk
 
 /**
  * Describes the display and behavior of the common address dialog box.
@@ -39,10 +41,8 @@
  * - **ADRPARM_HELP_CTX**
  * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/adrparm
  * @namespace Windows.Win32.System.AddressBook
- * @version v4.0.30319
  */
-class ADRPARM extends Win32Struct
-{
+class ADRPARM extends Win32Struct {
     static sizeof => 136
 
     static packingSize => 8

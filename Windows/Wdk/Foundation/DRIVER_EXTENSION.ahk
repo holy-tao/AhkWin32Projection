@@ -1,14 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\Win32Struct.ahk
-#Include ..\..\Win32\Foundation\UNICODE_STRING.ahk
+#Include .\DRIVER_OBJECT.ahk
 
 /**
  * @namespace Windows.Wdk.Foundation
- * @version v4.0.30319
  */
-class DRIVER_EXTENSION extends Win32Struct
-{
-    static sizeof => 40
+class DRIVER_EXTENSION extends Win32Struct {
+    static sizeof => 32
 
     static packingSize => 8
 
@@ -37,13 +35,10 @@ class DRIVER_EXTENSION extends Win32Struct
     }
 
     /**
-     * @type {UNICODE_STRING}
+     * @type {Pointer}
      */
-    ServiceKeyName{
-        get {
-            if(!this.HasProp("__ServiceKeyName"))
-                this.__ServiceKeyName := UNICODE_STRING(24, this)
-            return this.__ServiceKeyName
-        }
+    ServiceKeyName {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 }

@@ -14,11 +14,9 @@
  * > The wtsapi32.h header defines WTSCLIENT as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
  * @see https://learn.microsoft.com/windows/win32/api/wtsapi32/ns-wtsapi32-wtsclientw
  * @namespace Windows.Win32.System.RemoteDesktop
- * @version v4.0.30319
  * @charset Unicode
  */
-class WTSCLIENTW extends Win32Struct
-{
+class WTSCLIENTW extends Win32Struct {
     static sizeof => 2304
 
     static packingSize => 4
@@ -88,9 +86,9 @@ class WTSCLIENTW extends Win32Struct
 
     /**
      * The client network address.
-     * @type {Array<UInt16>}
+     * @type {Array<Integer>}
      */
-    ClientAddress{
+    ClientAddress {
         get {
             if(!this.HasProp("__ClientAddressProxyArray"))
                 this.__ClientAddressProxyArray := Win32FixedArray(this.ptr + 1172, 31, Primitive, "ushort")

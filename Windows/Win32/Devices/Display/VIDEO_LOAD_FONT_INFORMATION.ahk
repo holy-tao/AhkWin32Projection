@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.Display
- * @version v4.0.30319
  */
-class VIDEO_LOAD_FONT_INFORMATION extends Win32Struct
-{
+class VIDEO_LOAD_FONT_INFORMATION extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4
@@ -36,9 +34,9 @@ class VIDEO_LOAD_FONT_INFORMATION extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Font{
+    Font {
         get {
             if(!this.HasProp("__FontProxyArray"))
                 this.__FontProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "char")

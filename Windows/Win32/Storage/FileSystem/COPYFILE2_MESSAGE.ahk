@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\COPYFILE2_MESSAGE_TYPE.ahk
 #Include ..\..\Foundation\HANDLE.ahk
+#Include .\COPYFILE2_COPY_PHASE.ahk
 
 /**
  * Passed to the CopyFile2ProgressRoutine callback function with information about a pending copy operation.
@@ -11,10 +13,8 @@
  *     <a href="https://docs.microsoft.com/windows/desktop/WinProg/using-the-windows-headers">Using the Windows Headers</a>.
  * @see https://learn.microsoft.com/windows/win32/api/winbase/ns-winbase-copyfile2_message
  * @namespace Windows.Win32.Storage.FileSystem
- * @version v4.0.30319
  */
-class COPYFILE2_MESSAGE extends Win32Struct
-{
+class COPYFILE2_MESSAGE extends Win32Struct {
     static sizeof => 80
 
     static packingSize => 8
@@ -26,7 +26,7 @@ class COPYFILE2_MESSAGE extends Win32Struct
         class _ChunkStarted extends Win32Struct {
             static sizeof => 56
             static packingSize => 8
-    
+
             /**
              * @type {Integer}
              */
@@ -34,7 +34,7 @@ class COPYFILE2_MESSAGE extends Win32Struct
                 get => NumGet(this, 0, "uint")
                 set => NumPut("uint", value, this, 0)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -42,29 +42,29 @@ class COPYFILE2_MESSAGE extends Win32Struct
                 get => NumGet(this, 4, "uint")
                 set => NumPut("uint", value, this, 4)
             }
-        
+
             /**
              * @type {HANDLE}
              */
-            hSourceFile{
+            hSourceFile {
                 get {
                     if(!this.HasProp("__hSourceFile"))
                         this.__hSourceFile := HANDLE(8, this)
                     return this.__hSourceFile
                 }
             }
-        
+
             /**
              * @type {HANDLE}
              */
-            hDestinationFile{
+            hDestinationFile {
                 get {
                     if(!this.HasProp("__hDestinationFile"))
                         this.__hDestinationFile := HANDLE(16, this)
                     return this.__hDestinationFile
                 }
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -72,7 +72,7 @@ class COPYFILE2_MESSAGE extends Win32Struct
                 get => NumGet(this, 24, "uint")
                 set => NumPut("uint", value, this, 24)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -80,7 +80,7 @@ class COPYFILE2_MESSAGE extends Win32Struct
                 get => NumGet(this, 32, "uint")
                 set => NumPut("uint", value, this, 32)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -88,7 +88,7 @@ class COPYFILE2_MESSAGE extends Win32Struct
                 get => NumGet(this, 40, "uint")
                 set => NumPut("uint", value, this, 40)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -96,13 +96,12 @@ class COPYFILE2_MESSAGE extends Win32Struct
                 get => NumGet(this, 48, "uint")
                 set => NumPut("uint", value, this, 48)
             }
-        
         }
-    
+
         class _ChunkFinished extends Win32Struct {
             static sizeof => 72
             static packingSize => 8
-    
+
             /**
              * @type {Integer}
              */
@@ -110,7 +109,7 @@ class COPYFILE2_MESSAGE extends Win32Struct
                 get => NumGet(this, 0, "uint")
                 set => NumPut("uint", value, this, 0)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -118,29 +117,29 @@ class COPYFILE2_MESSAGE extends Win32Struct
                 get => NumGet(this, 4, "uint")
                 set => NumPut("uint", value, this, 4)
             }
-        
+
             /**
              * @type {HANDLE}
              */
-            hSourceFile{
+            hSourceFile {
                 get {
                     if(!this.HasProp("__hSourceFile"))
                         this.__hSourceFile := HANDLE(8, this)
                     return this.__hSourceFile
                 }
             }
-        
+
             /**
              * @type {HANDLE}
              */
-            hDestinationFile{
+            hDestinationFile {
                 get {
                     if(!this.HasProp("__hDestinationFile"))
                         this.__hDestinationFile := HANDLE(16, this)
                     return this.__hDestinationFile
                 }
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -148,7 +147,7 @@ class COPYFILE2_MESSAGE extends Win32Struct
                 get => NumGet(this, 24, "uint")
                 set => NumPut("uint", value, this, 24)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -156,7 +155,7 @@ class COPYFILE2_MESSAGE extends Win32Struct
                 get => NumGet(this, 32, "uint")
                 set => NumPut("uint", value, this, 32)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -164,7 +163,7 @@ class COPYFILE2_MESSAGE extends Win32Struct
                 get => NumGet(this, 40, "uint")
                 set => NumPut("uint", value, this, 40)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -172,7 +171,7 @@ class COPYFILE2_MESSAGE extends Win32Struct
                 get => NumGet(this, 48, "uint")
                 set => NumPut("uint", value, this, 48)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -180,7 +179,7 @@ class COPYFILE2_MESSAGE extends Win32Struct
                 get => NumGet(this, 56, "uint")
                 set => NumPut("uint", value, this, 56)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -188,13 +187,12 @@ class COPYFILE2_MESSAGE extends Win32Struct
                 get => NumGet(this, 64, "uint")
                 set => NumPut("uint", value, this, 64)
             }
-        
         }
-    
+
         class _StreamStarted extends Win32Struct {
             static sizeof => 40
             static packingSize => 8
-    
+
             /**
              * @type {Integer}
              */
@@ -202,7 +200,7 @@ class COPYFILE2_MESSAGE extends Win32Struct
                 get => NumGet(this, 0, "uint")
                 set => NumPut("uint", value, this, 0)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -210,29 +208,29 @@ class COPYFILE2_MESSAGE extends Win32Struct
                 get => NumGet(this, 4, "uint")
                 set => NumPut("uint", value, this, 4)
             }
-        
+
             /**
              * @type {HANDLE}
              */
-            hSourceFile{
+            hSourceFile {
                 get {
                     if(!this.HasProp("__hSourceFile"))
                         this.__hSourceFile := HANDLE(8, this)
                     return this.__hSourceFile
                 }
             }
-        
+
             /**
              * @type {HANDLE}
              */
-            hDestinationFile{
+            hDestinationFile {
                 get {
                     if(!this.HasProp("__hDestinationFile"))
                         this.__hDestinationFile := HANDLE(16, this)
                     return this.__hDestinationFile
                 }
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -240,7 +238,7 @@ class COPYFILE2_MESSAGE extends Win32Struct
                 get => NumGet(this, 24, "uint")
                 set => NumPut("uint", value, this, 24)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -248,13 +246,12 @@ class COPYFILE2_MESSAGE extends Win32Struct
                 get => NumGet(this, 32, "uint")
                 set => NumPut("uint", value, this, 32)
             }
-        
         }
-    
+
         class _StreamFinished extends Win32Struct {
             static sizeof => 56
             static packingSize => 8
-    
+
             /**
              * @type {Integer}
              */
@@ -262,7 +259,7 @@ class COPYFILE2_MESSAGE extends Win32Struct
                 get => NumGet(this, 0, "uint")
                 set => NumPut("uint", value, this, 0)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -270,29 +267,29 @@ class COPYFILE2_MESSAGE extends Win32Struct
                 get => NumGet(this, 4, "uint")
                 set => NumPut("uint", value, this, 4)
             }
-        
+
             /**
              * @type {HANDLE}
              */
-            hSourceFile{
+            hSourceFile {
                 get {
                     if(!this.HasProp("__hSourceFile"))
                         this.__hSourceFile := HANDLE(8, this)
                     return this.__hSourceFile
                 }
             }
-        
+
             /**
              * @type {HANDLE}
              */
-            hDestinationFile{
+            hDestinationFile {
                 get {
                     if(!this.HasProp("__hDestinationFile"))
                         this.__hDestinationFile := HANDLE(16, this)
                     return this.__hDestinationFile
                 }
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -300,7 +297,7 @@ class COPYFILE2_MESSAGE extends Win32Struct
                 get => NumGet(this, 24, "uint")
                 set => NumPut("uint", value, this, 24)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -308,7 +305,7 @@ class COPYFILE2_MESSAGE extends Win32Struct
                 get => NumGet(this, 32, "uint")
                 set => NumPut("uint", value, this, 32)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -316,7 +313,7 @@ class COPYFILE2_MESSAGE extends Win32Struct
                 get => NumGet(this, 40, "uint")
                 set => NumPut("uint", value, this, 40)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -324,13 +321,12 @@ class COPYFILE2_MESSAGE extends Win32Struct
                 get => NumGet(this, 48, "uint")
                 set => NumPut("uint", value, this, 48)
             }
-        
         }
-    
+
         class _PollContinue extends Win32Struct {
             static sizeof => 4
             static packingSize => 4
-    
+
             /**
              * @type {Integer}
              */
@@ -338,21 +334,20 @@ class COPYFILE2_MESSAGE extends Win32Struct
                 get => NumGet(this, 0, "uint")
                 set => NumPut("uint", value, this, 0)
             }
-        
         }
-    
+
         class _Error extends Win32Struct {
             static sizeof => 56
             static packingSize => 8
-    
+
             /**
-             * @type {Integer}
+             * @type {COPYFILE2_COPY_PHASE}
              */
             CopyPhase {
                 get => NumGet(this, 0, "int")
                 set => NumPut("int", value, this, 0)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -360,7 +355,7 @@ class COPYFILE2_MESSAGE extends Win32Struct
                 get => NumGet(this, 4, "uint")
                 set => NumPut("uint", value, this, 4)
             }
-        
+
             /**
              * @type {HRESULT}
              */
@@ -368,7 +363,7 @@ class COPYFILE2_MESSAGE extends Win32Struct
                 get => NumGet(this, 8, "int")
                 set => NumPut("int", value, this, 8)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -376,7 +371,7 @@ class COPYFILE2_MESSAGE extends Win32Struct
                 get => NumGet(this, 12, "uint")
                 set => NumPut("uint", value, this, 12)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -384,7 +379,7 @@ class COPYFILE2_MESSAGE extends Win32Struct
                 get => NumGet(this, 16, "uint")
                 set => NumPut("uint", value, this, 16)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -392,7 +387,7 @@ class COPYFILE2_MESSAGE extends Win32Struct
                 get => NumGet(this, 24, "uint")
                 set => NumPut("uint", value, this, 24)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -400,7 +395,7 @@ class COPYFILE2_MESSAGE extends Win32Struct
                 get => NumGet(this, 32, "uint")
                 set => NumPut("uint", value, this, 32)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -408,7 +403,7 @@ class COPYFILE2_MESSAGE extends Win32Struct
                 get => NumGet(this, 40, "uint")
                 set => NumPut("uint", value, this, 40)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -416,75 +411,73 @@ class COPYFILE2_MESSAGE extends Win32Struct
                 get => NumGet(this, 48, "uint")
                 set => NumPut("uint", value, this, 48)
             }
-        
         }
-    
+
         /**
          * @type {_ChunkStarted}
          */
-        ChunkStarted{
+        ChunkStarted {
             get {
                 if(!this.HasProp("__ChunkStarted"))
-                    this.__ChunkStarted := %this.__Class%._ChunkStarted(0, this)
+                    this.__ChunkStarted := COPYFILE2_MESSAGE._Info_e__Union._ChunkStarted(0, this)
                 return this.__ChunkStarted
             }
         }
-    
+
         /**
          * @type {_ChunkFinished}
          */
-        ChunkFinished{
+        ChunkFinished {
             get {
                 if(!this.HasProp("__ChunkFinished"))
-                    this.__ChunkFinished := %this.__Class%._ChunkFinished(0, this)
+                    this.__ChunkFinished := COPYFILE2_MESSAGE._Info_e__Union._ChunkFinished(0, this)
                 return this.__ChunkFinished
             }
         }
-    
+
         /**
          * @type {_StreamStarted}
          */
-        StreamStarted{
+        StreamStarted {
             get {
                 if(!this.HasProp("__StreamStarted"))
-                    this.__StreamStarted := %this.__Class%._StreamStarted(0, this)
+                    this.__StreamStarted := COPYFILE2_MESSAGE._Info_e__Union._StreamStarted(0, this)
                 return this.__StreamStarted
             }
         }
-    
+
         /**
          * @type {_StreamFinished}
          */
-        StreamFinished{
+        StreamFinished {
             get {
                 if(!this.HasProp("__StreamFinished"))
-                    this.__StreamFinished := %this.__Class%._StreamFinished(0, this)
+                    this.__StreamFinished := COPYFILE2_MESSAGE._Info_e__Union._StreamFinished(0, this)
                 return this.__StreamFinished
             }
         }
-    
+
         /**
          * @type {_PollContinue}
          */
-        PollContinue{
+        PollContinue {
             get {
                 if(!this.HasProp("__PollContinue"))
-                    this.__PollContinue := %this.__Class%._PollContinue(0, this)
+                    this.__PollContinue := COPYFILE2_MESSAGE._Info_e__Union._PollContinue(0, this)
                 return this.__PollContinue
             }
         }
-    
+
         /**
          * @type {_Error}
          */
-        Error{
+        Error {
             get {
                 if(!this.HasProp("__Error"))
-                    this.__Error := %this.__Class%._Error(0, this)
+                    this.__Error := COPYFILE2_MESSAGE._Info_e__Union._Error(0, this)
                 return this.__Error
             }
         }
-    
     }
 
     /**
@@ -577,7 +570,7 @@ class COPYFILE2_MESSAGE extends Win32Struct
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
+     * @type {COPYFILE2_MESSAGE_TYPE}
      */
     Type {
         get => NumGet(this, 0, "int")
@@ -585,7 +578,6 @@ class COPYFILE2_MESSAGE extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     dwPadding {
@@ -594,13 +586,12 @@ class COPYFILE2_MESSAGE extends Win32Struct
     }
 
     /**
-     * 
      * @type {_Info_e__Union}
      */
-    Info{
+    Info {
         get {
             if(!this.HasProp("__Info"))
-                this.__Info := %this.__Class%._Info_e__Union(8, this)
+                this.__Info := COPYFILE2_MESSAGE._Info_e__Union(8, this)
             return this.__Info
         }
     }

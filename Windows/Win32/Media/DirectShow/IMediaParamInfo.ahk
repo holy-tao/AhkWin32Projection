@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\MP_PARAMINFO.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\MP_PARAMINFO.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * The IMediaParamInfo interface retrieves information about the parameters that an object supports. The set of parameters that an object supports will not change over the lifetime of an application. To set parameter values, use the IMediaParams interface.
  * @see https://learn.microsoft.com/windows/win32/api/medparam/nn-medparam-imediaparaminfo
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IMediaParamInfo extends IUnknown{
+class IMediaParamInfo extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

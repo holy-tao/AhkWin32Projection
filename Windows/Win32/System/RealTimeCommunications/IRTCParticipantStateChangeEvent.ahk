@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IRTCParticipant.ahk
 #Include ..\Com\IDispatch.ahk
+#Include .\IRTCParticipant.ahk
 
 /**
  * @namespace Windows.Win32.System.RealTimeCommunications
- * @version v4.0.30319
  */
-class IRTCParticipantStateChangeEvent extends IDispatch{
+class IRTCParticipantStateChangeEvent extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -37,7 +36,7 @@ class IRTCParticipantStateChangeEvent extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {RTC_PARTICIPANT_STATE} 
      */
     State {
         get => this.get_State()
@@ -61,7 +60,7 @@ class IRTCParticipantStateChangeEvent extends IDispatch{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {RTC_PARTICIPANT_STATE} 
      */
     get_State() {
         result := ComCall(8, this, "int*", &penState := 0, "HRESULT")

@@ -3,13 +3,10 @@
 
 /**
  * Contains values indicating status that is specific to a particular command.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/nvme/ne-nvme-nvme_status_command_specific_codes
  * @namespace Windows.Win32.Storage.Nvme
- * @version v4.0.30319
  */
-class NVME_STATUS_COMMAND_SPECIFIC_CODES extends Win32Enum{
+class NVME_STATUS_COMMAND_SPECIFIC_CODES extends Win32Enum {
 
     /**
      * The Completion Queue identifier specified in the Create I/O Submission Queue command does not exist.
@@ -199,7 +196,6 @@ class NVME_STATUS_COMMAND_SPECIFIC_CODES extends Win32Enum{
     static NVME_STATUS_NAMESPACE_NOT_ATTACHED => 26
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static NVME_STATUS_NAMESPACE_THIN_PROVISIONING_NOT_SUPPORTED => 27

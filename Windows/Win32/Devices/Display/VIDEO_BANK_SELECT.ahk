@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.Display
- * @version v4.0.30319
  */
-class VIDEO_BANK_SELECT extends Win32Struct
-{
+class VIDEO_BANK_SELECT extends Win32Struct {
     static sizeof => 52
 
     static packingSize => 4

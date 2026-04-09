@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
 #Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 
 /**
  * The IFaxSecurity configuration object is used by a fax client application to configure the security on a fax server, and permits the calling application to set and retrieve a security descriptor for the fax server.
@@ -12,9 +12,8 @@
  * A default implementation of <b>IFaxSecurity</b> is provided as the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxsecurity">FaxSecurity</a> object.
  * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nn-faxcomex-ifaxsecurity
  * @namespace Windows.Win32.Devices.Fax
- * @version v4.0.30319
  */
-class IFaxSecurity extends IDispatch{
+class IFaxSecurity extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -50,7 +49,7 @@ class IFaxSecurity extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {FAX_ACCESS_RIGHTS_ENUM} 
      */
     GrantedRights {
         get => this.get_GrantedRights()
@@ -100,7 +99,7 @@ class IFaxSecurity extends IDispatch{
      * The <b>IFaxSecurity::get_GrantedRights</b> property reflects rights granted by the fax server, while the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/nf-faxcomex-ifaxsecurity-get_descriptor">IFaxSecurity::Descriptor</a> property represents the security descriptor, which contains the rights explicitly granted to a user by the fax administrator.
      * 
      * To read this property, a user must have the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_access_rights_enum">farQUERY_CONFIG</a> access right.
-     * @returns {Integer} 
+     * @returns {FAX_ACCESS_RIGHTS_ENUM} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxsecurity-get_grantedrights
      */
     get_GrantedRights() {

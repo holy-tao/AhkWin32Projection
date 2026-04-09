@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\FILETIME.ahk
+#Include .\FWPM_FILTER_CONDITION0.ahk
 
 /**
  * Used for enumerating net events.
@@ -8,10 +9,8 @@
  * <b>FWPM_NET_EVENT_ENUM_TEMPLATE0</b> is a specific implementation of FWPM_NET_EVENT_ENUM_TEMPLATE. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-version-independent-names-and-targeting-specific-versions-of-windows">WFP Version-Independent Names and Targeting Specific Versions of Windows</a>  for more information.
  * @see https://learn.microsoft.com/windows/win32/api/fwpmtypes/ns-fwpmtypes-fwpm_net_event_enum_template0
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
- * @version v4.0.30319
  */
-class FWPM_NET_EVENT_ENUM_TEMPLATE0 extends Win32Struct
-{
+class FWPM_NET_EVENT_ENUM_TEMPLATE0 extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -20,7 +19,7 @@ class FWPM_NET_EVENT_ENUM_TEMPLATE0 extends Win32Struct
      * A <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> structure that specifies the start time of the period to be checked for net events.
      * @type {FILETIME}
      */
-    startTime{
+    startTime {
         get {
             if(!this.HasProp("__startTime"))
                 this.__startTime := FILETIME(0, this)
@@ -32,7 +31,7 @@ class FWPM_NET_EVENT_ENUM_TEMPLATE0 extends Win32Struct
      * A <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> structure that specifies the end time of the period to be checked for net events. It must be greater than or equal to <b>startTime</b>.
      * @type {FILETIME}
      */
-    endTime{
+    endTime {
         get {
             if(!this.HasProp("__endTime"))
                 this.__endTime := FILETIME(8, this)

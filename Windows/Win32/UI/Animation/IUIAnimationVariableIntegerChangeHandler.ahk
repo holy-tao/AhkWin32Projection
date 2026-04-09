@@ -11,9 +11,8 @@
  *  To receive value updates as <b>DOUBLE</b> values, use the <a href="https://docs.microsoft.com/windows/desktop/api/uianimation/nf-uianimation-iuianimationvariablechangehandler-onvaluechanged">IUIAnimationVariableChangeHandler::OnValueChanged</a> method.
  * @see https://learn.microsoft.com/windows/win32/api/uianimation/nn-uianimation-iuianimationvariableintegerchangehandler
  * @namespace Windows.Win32.UI.Animation
- * @version v4.0.30319
  */
-class IUIAnimationVariableIntegerChangeHandler extends IUnknown{
+class IUIAnimationVariableIntegerChangeHandler extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

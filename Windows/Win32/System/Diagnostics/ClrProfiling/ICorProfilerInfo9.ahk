@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.ClrProfiling
- * @version v4.0.30319
  */
-class ICorProfilerInfo9 extends ICorProfilerInfo8{
+class ICorProfilerInfo9 extends ICorProfilerInfo8 {
 
     static sizeof => A_PtrSize
     /**
@@ -50,13 +49,13 @@ class ICorProfilerInfo9 extends ICorProfilerInfo8{
      * @param {Pointer} pNativeCodeStartAddress 
      * @param {Integer} cMap 
      * @param {Pointer<Integer>} pcMap 
-     * @param {Pointer<COR_DEBUG_IL_TO_NATIVE_MAP>} map 
+     * @param {Pointer<COR_DEBUG_IL_TO_NATIVE_MAP>} _map 
      * @returns {HRESULT} 
      */
-    GetILToNativeMapping3(pNativeCodeStartAddress, cMap, pcMap, map) {
+    GetILToNativeMapping3(pNativeCodeStartAddress, cMap, pcMap, _map) {
         pcMapMarshal := pcMap is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(91, this, "ptr", pNativeCodeStartAddress, "uint", cMap, pcMapMarshal, pcMap, "ptr", map, "HRESULT")
+        result := ComCall(91, this, "ptr", pNativeCodeStartAddress, "uint", cMap, pcMapMarshal, pcMap, "ptr", _map, "HRESULT")
         return result
     }
 

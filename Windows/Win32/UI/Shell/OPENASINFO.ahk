@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\OPEN_AS_INFO_FLAGS.ahk
 
 /**
  * Stores information for the SHOpenWithDialog function.
@@ -7,10 +8,8 @@
  * Starting in Windows 10, the <b>OAIF_ALLOW_REGISTRATION</b>, <b>OAIF_FORCE_REGISTRATION</b>, and <b>OAIF_HIDE_REGISTRATION</b> flags will be ignored by <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/nf-shlobj_core-shopenwithdialog">SHOpenWithDialog</a>. The <b>Open With</b> dialog box can no longer be used to change the default program used to open a file extension. You can only use <b>SHOpenWithDialog</b> to open a single file.
  * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/ns-shlobj_core-openasinfo
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class OPENASINFO extends Win32Struct
-{
+class OPENASINFO extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -39,7 +38,7 @@ class OPENASINFO extends Win32Struct
 
     /**
      * Type: <b>OPEN_AS_INFO_FLAGS</b>
-     * @type {Integer}
+     * @type {OPEN_AS_INFO_FLAGS}
      */
     oaifInFlags {
         get => NumGet(this, 16, "int")

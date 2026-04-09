@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
 #Include .\IX509Attribute.ahk
+#Include ..\..\..\Foundation\BSTR.ahk
 
 /**
  * Represents an attribute that can be used to identify the client that generated a certificate request.
  * @see https://learn.microsoft.com/windows/win32/api/certenroll/nn-certenroll-ix509attributeclientid
  * @namespace Windows.Win32.Security.Cryptography.Certificates
- * @version v4.0.30319
  */
-class IX509AttributeClientId extends IX509Attribute{
+class IX509AttributeClientId extends IX509Attribute {
 
     static sizeof => A_PtrSize
     /**
@@ -32,7 +31,7 @@ class IX509AttributeClientId extends IX509Attribute{
     static VTableNames => ["InitializeEncode", "InitializeDecode", "get_ClientId", "get_MachineDnsName", "get_UserSamName", "get_ProcessName"]
 
     /**
-     * @type {Integer} 
+     * @type {RequestClientInfoClientId} 
      */
     ClientId {
         get => this.get_ClientId()
@@ -78,7 +77,7 @@ class IX509AttributeClientId extends IX509Attribute{
      * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509attributeclientid-get_usersamname">UserSamName</a>
      * </li>
      * </ul>
-     * @param {Integer} ClientId A <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/ne-certenroll-requestclientinfoclientid">RequestClientInfoClientId</a> enumeration value that identifies the type of application that created the request. Examples include autoenrollment services, command-line request tools, and custom request applications.
+     * @param {RequestClientInfoClientId} ClientId A <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/ne-certenroll-requestclientinfoclientid">RequestClientInfoClientId</a> enumeration value that identifies the type of application that created the request. Examples include autoenrollment services, command-line request tools, and custom request applications.
      * @param {BSTR} strMachineDnsName A <b>BSTR</b> variable that contains the Domain Name System (DNS) name of the computer on which the request was created, for example <i>ComputerName.contoso.com</i>. If you do not supply a name, the method calls the <a href="https://docs.microsoft.com/windows/desktop/api/sysinfoapi/nf-sysinfoapi-getcomputernameexa">GetComputerNameEx</a> function. If a name cannot be found, the method fails.
      * @param {BSTR} strUserSamName A <b>BSTR</b> variable that contains the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">Security Accounts Manager</a> (SAM) name for the user in the form <i>DomainName\UserName</i>. If you do not supply a name, the method calls the <a href="https://docs.microsoft.com/windows/desktop/api/secext/nf-secext-getusernameexa">GetUserNameEx</a> function. If a name cannot be found, the method fails.
      * @param {BSTR} strProcessName A <b>BSTR</b> variable that contains the name of the application that created the certificate request. If you do not supply a name, the method calls the <a href="https://docs.microsoft.com/windows/desktop/api/processenv/nf-processenv-getcommandlinea">GetCommandLine()</a> function and parses the command line. If a name cannot be found, the method fails.
@@ -117,7 +116,7 @@ class IX509AttributeClientId extends IX509Attribute{
      * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509attributeclientid-get_usersamname">UserSamName</a>
      * </li>
      * </ul>
-     * @param {Integer} Encoding An <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/ne-certenroll-encodingtype">EncodingType</a> enumeration value that specifies the type of Unicode encoding applied to the input string.
+     * @param {EncodingType} Encoding An <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/ne-certenroll-encodingtype">EncodingType</a> enumeration value that specifies the type of Unicode encoding applied to the input string.
      * @param {BSTR} strEncodedData A <b>BSTR</b> variable that contains the DER-encoded attribute.
      * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>.
      * 
@@ -147,7 +146,7 @@ class IX509AttributeClientId extends IX509Attribute{
      * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509attributeclientid-get_usersamname">UserSamName</a>
      * </li>
      * </ul>
-     * @returns {Integer} 
+     * @returns {RequestClientInfoClientId} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509attributeclientid-get_clientid
      */
     get_ClientId() {

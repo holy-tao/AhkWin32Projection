@@ -7,10 +7,8 @@
  * Represents a central access policy entry containing a list of security descriptors and staged security descriptors.
  * @see https://learn.microsoft.com/windows/win32/api/ntlsa/ns-ntlsa-central_access_policy_entry
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class CENTRAL_ACCESS_POLICY_ENTRY extends Win32Struct
-{
+class CENTRAL_ACCESS_POLICY_ENTRY extends Win32Struct {
     static sizeof => 104
 
     static packingSize => 8
@@ -19,7 +17,7 @@ class CENTRAL_ACCESS_POLICY_ENTRY extends Win32Struct
      * The name of the central access policy entry.
      * @type {LSA_UNICODE_STRING}
      */
-    Name{
+    Name {
         get {
             if(!this.HasProp("__Name"))
                 this.__Name := LSA_UNICODE_STRING(0, this)
@@ -31,7 +29,7 @@ class CENTRAL_ACCESS_POLICY_ENTRY extends Win32Struct
      * The description of the central access policy entry.
      * @type {LSA_UNICODE_STRING}
      */
-    Description{
+    Description {
         get {
             if(!this.HasProp("__Description"))
                 this.__Description := LSA_UNICODE_STRING(16, this)
@@ -43,7 +41,7 @@ class CENTRAL_ACCESS_POLICY_ENTRY extends Win32Struct
      * An identifier that can be used to version the central access policy entry.
      * @type {LSA_UNICODE_STRING}
      */
-    ChangeId{
+    ChangeId {
         get {
             if(!this.HasProp("__ChangeId"))
                 this.__ChangeId := LSA_UNICODE_STRING(32, this)
@@ -82,7 +80,7 @@ class CENTRAL_ACCESS_POLICY_ENTRY extends Win32Struct
      * A buffer of security descriptors associated with the entry.
      * @type {PSECURITY_DESCRIPTOR}
      */
-    SD{
+    SD {
         get {
             if(!this.HasProp("__SD"))
                 this.__SD := PSECURITY_DESCRIPTOR(72, this)
@@ -103,7 +101,7 @@ class CENTRAL_ACCESS_POLICY_ENTRY extends Win32Struct
      * A buffer of staged security descriptors associated with the entry.
      * @type {PSECURITY_DESCRIPTOR}
      */
-    StagedSD{
+    StagedSD {
         get {
             if(!this.HasProp("__StagedSD"))
                 this.__StagedSD := PSECURITY_DESCRIPTOR(88, this)

@@ -1,19 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\VDS_PACK_PROP.ahk
 #Include .\IVdsProvider.ahk
 #Include .\IEnumVdsObject.ahk
 #Include .\IVdsAsync.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Provides methods to query and perform management operations on a pack containing disks and volumes.
  * @see https://learn.microsoft.com/windows/win32/api/vds/nn-vds-ivdspack
  * @namespace Windows.Win32.Storage.VirtualDiskService
- * @version v4.0.30319
  */
-class IVdsPack extends IUnknown{
+class IVdsPack extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -118,7 +117,7 @@ class IVdsPack extends IUnknown{
      * 
      * Implementers must return a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/nn-vdshwprv-ivdsasync">IVdsAsync</a> 
      *     interface for this method, regardless of whether the call initiates an asynchronous operation.
-     * @param {Integer} type A volume type enumerated by <a href="https://docs.microsoft.com/windows/desktop/api/vds/ne-vds-vds_volume_type">VDS_VOLUME_TYPE</a>. 
+     * @param {VDS_VOLUME_TYPE} type A volume type enumerated by <a href="https://docs.microsoft.com/windows/desktop/api/vds/ne-vds-vds_volume_type">VDS_VOLUME_TYPE</a>. 
      *       Volumes on basic disks can have only one extent, and only the <b>VDS_VT_SIMPLE</b> flag is 
      *       valid.
      * @param {Pointer<VDS_INPUT_DISK>} pInputDiskArray Pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/vds/ns-vds-vds_input_disk">VDS_INPUT_DISK</a> 
@@ -165,7 +164,7 @@ class IVdsPack extends IUnknown{
      * 
      * If you add the disk to a dynamic pack, the operation does not create a MSR partition.
      * @param {Guid} DiskId The GUID of the disk.
-     * @param {Integer} PartitionStyle The style can be MBR or GPT. See the <a href="https://docs.microsoft.com/windows/desktop/api/vds/ne-vds-vds_partition_style">VDS_PARTITION_STYLE</a> enumeration.
+     * @param {VDS_PARTITION_STYLE} PartitionStyle The style can be MBR or GPT. See the <a href="https://docs.microsoft.com/windows/desktop/api/vds/ne-vds-vds_partition_style">VDS_PARTITION_STYLE</a> enumeration.
      * @param {BOOL} bAsHotSpare If true,  VDS can use the disk as a hot spare; otherwise, the disk cannot be used for this operation. Only hardware providers support hot sparing.
      * @returns {HRESULT} This method can return standard HRESULT values, such as E_INVALIDARG or E_OUTOFMEMORY, and <a href="https://docs.microsoft.com/windows/desktop/VDS/virtual-disk-service-common-return-codes">VDS-specific return values</a>. It can also return converted <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error codes</a>  using the <a href="https://docs.microsoft.com/windows/desktop/api/winerror/nf-winerror-hresult_from_win32">HRESULT_FROM_WIN32</a> macro. Errors can originate from VDS itself or from the underlying <a href="https://docs.microsoft.com/windows/desktop/VDS/about-vds">VDS provider</a> that is being used. Possible return values include the following.
      * 

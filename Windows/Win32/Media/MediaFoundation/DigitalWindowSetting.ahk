@@ -7,10 +7,8 @@
  * This struct is used with the [MF_CAPTURE_METADATA_DIGITALWINDOW](/windows/win32/medfound/mf-capture-metadata-digitalwindow) attribute.
  * @see https://learn.microsoft.com/windows/win32/api/mfapi/ns-mfapi-digitalwindowsetting
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class DigitalWindowSetting extends Win32Struct
-{
+class DigitalWindowSetting extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

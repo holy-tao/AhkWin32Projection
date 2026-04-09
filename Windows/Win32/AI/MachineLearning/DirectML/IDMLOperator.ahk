@@ -7,9 +7,8 @@
  * Represents a DirectML operator.
  * @see https://learn.microsoft.com/windows/win32/api/directml/nn-directml-idmloperator
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
- * @version v4.0.30319
  */
-class IDMLOperator extends IDMLDeviceChild{
+class IDMLOperator extends IDMLDeviceChild {
 
     static sizeof => A_PtrSize
     /**

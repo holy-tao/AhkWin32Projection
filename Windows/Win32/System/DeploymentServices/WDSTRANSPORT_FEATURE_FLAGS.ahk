@@ -5,9 +5,8 @@
  * Indicates which WDS features are installed on the WDS server.
  * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/ne-wdstptmgmt-wdstransport_feature_flags
  * @namespace Windows.Win32.System.DeploymentServices
- * @version v4.0.30319
  */
-class WDSTRANSPORT_FEATURE_FLAGS extends Win32Enum{
+class WDSTRANSPORT_FEATURE_FLAGS extends Win32Enum {
 
     /**
      * The server has the WDS administrator pack installed. This feature is used for managing WDS local or remote WDS servers.

@@ -12,17 +12,15 @@
  * The <a href="https://docs.microsoft.com/windows/desktop/api/vds/nf-vds-ivdspack-createvolume">IVdsPack::CreateVolume</a>, <a href="https://docs.microsoft.com/windows/desktop/api/vds/nf-vds-ivdsvolume-extend">IVdsVolume::Extend</a>, and <a href="https://docs.microsoft.com/windows/desktop/api/vds/nf-vds-ivdsvolumeplex-repair">IVdsVolumePlex::Repair</a> methods pass this structure as an argument to specify disk input information.
  * @see https://learn.microsoft.com/windows/win32/api/vds/ns-vds-vds_input_disk
  * @namespace Windows.Win32.Storage.VirtualDiskService
- * @version v4.0.30319
  */
-class VDS_INPUT_DISK extends Win32Struct
-{
+class VDS_INPUT_DISK extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
 
     /**
      * The GUID of the disk. This field is required.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     diskId {
         get => NumGet(this, 0, "ptr")
@@ -44,7 +42,7 @@ class VDS_INPUT_DISK extends Win32Struct
      * 
      * <div class="alert"><b>Note</b>  Callers can extend a volume only by extending all members of all plexes in the same operation.</div>
      * <div> </div>
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     plexId {
         get => NumGet(this, 16, "ptr")

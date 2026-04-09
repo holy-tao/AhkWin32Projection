@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
 #Include .\ISearchJob.ahk
 #Include .\ISearchResult.ahk
 #Include .\IUpdateHistoryEntryCollection.ahk
-#Include ..\Com\IDispatch.ahk
 
 /**
  * Searches for updates on a server. (IUpdateSearcher)
@@ -13,9 +13,8 @@
  * You can create an instance of this interface by using the UpdateSearcher coclass. Use the Microsoft.Update.Searcher program identifier to create the object.
  * @see https://learn.microsoft.com/windows/win32/api/wuapi/nn-wuapi-iupdatesearcher
  * @namespace Windows.Win32.System.UpdateAgent
- * @version v4.0.30319
  */
-class IUpdateSearcher extends IDispatch{
+class IUpdateSearcher extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -67,7 +66,7 @@ class IUpdateSearcher extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {ServerSelection} 
      */
     ServerSelection {
         get => this.get_ServerSelection()
@@ -164,7 +163,7 @@ class IUpdateSearcher extends IDispatch{
      * Gets and sets a ServerSelection value that indicates the server to search for updates. (Get)
      * @remarks
      * The site that is not a Windows Update site that is specified by the value of the <a href="https://docs.microsoft.com/windows/desktop/api/wuapi/nf-wuapi-iupdatesearcher-get_serviceid">ServiceID</a> property is searched only if the value of the <b>ServerSelection</b> property is  ssOthers.
-     * @returns {Integer} 
+     * @returns {ServerSelection} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatesearcher-get_serverselection
      */
     get_ServerSelection() {
@@ -176,7 +175,7 @@ class IUpdateSearcher extends IDispatch{
      * Gets and sets a ServerSelection value that indicates the server to search for updates. (Put)
      * @remarks
      * The site that is not a Windows Update site that is specified by the value of the <a href="https://docs.microsoft.com/windows/desktop/api/wuapi/nf-wuapi-iupdatesearcher-get_serviceid">ServiceID</a> property is searched only if the value of the <b>ServerSelection</b> property is  ssOthers.
-     * @param {Integer} value 
+     * @param {ServerSelection} value 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatesearcher-put_serverselection
      */

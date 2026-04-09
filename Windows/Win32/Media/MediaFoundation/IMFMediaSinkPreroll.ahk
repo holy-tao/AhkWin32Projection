@@ -11,9 +11,8 @@
  * If a media sink supports preroll, the media sink's <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-imfmediasink-getcharacteristics">IMFMediaSink::GetCharacteristics</a> method should return the MEDIASINK_CAN_PREROLL flag.
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imfmediasinkpreroll
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFMediaSinkPreroll extends IUnknown{
+class IMFMediaSinkPreroll extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -5,9 +5,8 @@
  * Defines constants that specify the ID of the property for the BITS job.
  * @see https://learn.microsoft.com/windows/win32/api/bits5_0/ne-bits5_0-bits_job_property_id
  * @namespace Windows.Win32.Networking.BackgroundIntelligentTransferService
- * @version v4.0.30319
  */
-class BITS_JOB_PROPERTY_ID extends Win32Enum{
+class BITS_JOB_PROPERTY_ID extends Win32Enum {
 
     /**
      * The ID that is used to <a href="https://docs.microsoft.com/windows/desktop/api/bits5_0/ne-bits5_0-bits_job_transfer_policy">control transfer behavior</a> over cellular and/or similar networks. This property may be changed while a transfer is ongoing – the new cost flags will take effect immediately. 

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
 #Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 
 /**
  * The IADsSecurityUtility interface is used to get, set, or retrieve the security descriptor on a file, fileshare, or registry key.
@@ -12,9 +12,8 @@
  * For more information and a code example that shows how to use the <b>IADsSecurityUtility</b> interface to add an ACE to a file, see <a href="https://docs.microsoft.com/windows/desktop/ADSI/example-code-for-adding-an-ace-to-a-file">Example Code for Adding an ACE to a File</a>.
  * @see https://learn.microsoft.com/windows/win32/api/iads/nn-iads-iadssecurityutility
  * @namespace Windows.Win32.Networking.ActiveDirectory
- * @version v4.0.30319
  */
-class IADsSecurityUtility extends IDispatch{
+class IADsSecurityUtility extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

@@ -1,12 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\MODIFIERS.ahk
+#Include .\VK_TO_WCHAR_TABLE.ahk
+#Include .\DEADKEY.ahk
+#Include .\VSC_LPWSTR.ahk
+#Include .\VSC_VK.ahk
+#Include .\LIGATURE1.ahk
 
 /**
  * @namespace Windows.Win32.UI.Input.KeyboardAndMouse
- * @version v4.0.30319
  */
-class KBDTABLES extends Win32Struct
-{
+class KBDTABLES extends Win32Struct {
     static sizeof => 104
 
     static packingSize => 8

@@ -7,10 +7,8 @@
  * The mapped rectangle is used to map a rectangle into the caller's address space.
  * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/ns-d2d1_1-d2d1_mapped_rect
  * @namespace Windows.Win32.Graphics.Direct2D
- * @version v4.0.30319
  */
-class D2D1_MAPPED_RECT extends Win32Struct
-{
+class D2D1_MAPPED_RECT extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

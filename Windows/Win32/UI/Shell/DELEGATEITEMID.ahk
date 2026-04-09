@@ -5,10 +5,8 @@
  * Used by delegate folders in place of a standard ITEMIDLIST structure.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/ns-shobjidl_core-delegateitemid
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class DELEGATEITEMID extends Win32Struct
-{
+class DELEGATEITEMID extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 2
@@ -50,9 +48,9 @@ class DELEGATEITEMID extends Win32Struct
      * Type: <b>BYTE[1]</b>
      * 
      * An array holding the inner folder's data, which is opaque to the outer folder, followed by outer folder's data.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    rgb{
+    rgb {
         get {
             if(!this.HasProp("__rgbProxyArray"))
                 this.__rgbProxyArray := Win32FixedArray(this.ptr + 6, 1, Primitive, "char")

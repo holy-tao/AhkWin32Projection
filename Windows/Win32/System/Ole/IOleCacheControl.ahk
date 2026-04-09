@@ -7,9 +7,8 @@
  * Provides proper maintenance of caches. It maintains the caches by connecting the running object's IDataObject implementation to the cache, allowing the cache to receive notifications from the running object.
  * @see https://learn.microsoft.com/windows/win32/api/oleidl/nn-oleidl-iolecachecontrol
  * @namespace Windows.Win32.System.Ole
- * @version v4.0.30319
  */
-class IOleCacheControl extends IUnknown{
+class IOleCacheControl extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

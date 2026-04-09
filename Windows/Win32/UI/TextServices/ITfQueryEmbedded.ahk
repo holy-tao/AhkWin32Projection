@@ -9,9 +9,8 @@
  * To obtain an instance of this interface, call the <b>ITfContext::QueryInterface</b> method with IID_ITfQueryEmbedded.
  * @see https://learn.microsoft.com/windows/win32/api/msctf/nn-msctf-itfqueryembedded
  * @namespace Windows.Win32.UI.TextServices
- * @version v4.0.30319
  */
-class ITfQueryEmbedded extends IUnknown{
+class ITfQueryEmbedded extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

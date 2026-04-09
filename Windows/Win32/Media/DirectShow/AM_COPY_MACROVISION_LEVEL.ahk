@@ -7,9 +7,8 @@
  * The <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/dvdmedia/ns-dvdmedia-am_copy_macrovision">AM_COPY_MACROVISION</a> structure uses this data type.
  * @see https://learn.microsoft.com/windows/win32/api/dvdmedia/ne-dvdmedia-am_copy_macrovision_level
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class AM_COPY_MACROVISION_LEVEL extends Win32Enum{
+class AM_COPY_MACROVISION_LEVEL extends Win32Enum {
 
     /**
      * Disabled.

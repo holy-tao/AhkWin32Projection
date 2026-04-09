@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\CM_CDMASK.ahk
+#Include .\CM_CDFLAGS.ahk
 
 /**
  * The CONFLICT_DETAILS structure is used as a parameter to the CM_Get_Resource_Conflict_Details function. (Unicode)
@@ -8,11 +10,9 @@
  * > The cfgmgr32.h header defines CONFLICT_DETAILS as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
  * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/ns-cfgmgr32-conflict_details_w
  * @namespace Windows.Win32.Devices.DeviceAndDriverInstallation
- * @version v4.0.30319
  * @charset Unicode
  */
-class CONFLICT_DETAILS_W extends Win32Struct
-{
+class CONFLICT_DETAILS_W extends Win32Struct {
     static sizeof => 552
 
     static packingSize => 8
@@ -75,7 +75,7 @@ class CONFLICT_DETAILS_W extends Win32Struct
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
+     * @type {CM_CDMASK}
      */
     CD_ulMask {
         get => NumGet(this, 4, "uint")
@@ -139,7 +139,7 @@ class CONFLICT_DETAILS_W extends Win32Struct
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
+     * @type {CM_CDFLAGS}
      */
     CD_ulFlags {
         get => NumGet(this, 24, "uint")

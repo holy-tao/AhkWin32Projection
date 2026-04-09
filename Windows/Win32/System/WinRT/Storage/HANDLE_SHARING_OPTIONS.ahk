@@ -5,9 +5,8 @@
  * Defines the requested sharing mode of the file handle.
  * @see https://learn.microsoft.com/windows/win32/api/windowsstoragecom/ne-windowsstoragecom-handle_sharing_options
  * @namespace Windows.Win32.System.WinRT.Storage
- * @version v4.0.30319
  */
-class HANDLE_SHARING_OPTIONS extends Win32BitflagEnum{
+class HANDLE_SHARING_OPTIONS extends Win32BitflagEnum {
 
     /**
      * Prevents other processes from opening a file if they request delete, read, or write access.

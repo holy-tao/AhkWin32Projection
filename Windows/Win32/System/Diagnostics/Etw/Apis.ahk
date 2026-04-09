@@ -5,7 +5,6 @@
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Etw
- * @version v4.0.30319
  */
 class Etw {
 
@@ -2533,8 +2532,32 @@ class Etw {
      * 
      * This function copies the session name that you provide to the offset that the
      * **LoggerNameOffset** member of _Properties_ points to.
-     * @param {Pointer<EVENT_TRACE_PROPERTIES>} _Properties 
-     * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
+     * @param {Pointer<EVENT_TRACE_PROPERTIES>} _Properties Pointer to an
+     * [EVENT_TRACE_PROPERTIES](/windows/win32/api/evntrace/ns-evntrace-event_trace_properties)
+     * structure that specifies the behavior of the session. The following are key
+     * members of the structure to set:
+     * 
+     * - **Wnode.BufferSize**
+     * - **Wnode.Guid**
+     * - **Wnode.ClientContext**
+     * - **Wnode.Flags**
+     * - **LogFileMode**
+     * - **LogFileNameOffset**
+     * - **LoggerNameOffset**
+     * 
+     * Depending on the type of log file you choose to create, you may also need to
+     * specify a value for **MaximumFileSize**. See the Remarks section for more
+     * information on setting the _Properties_ parameter and the behavior of the
+     * session.
+     * 
+     * **Starting with Windows 10, version 1703:** For better performance in cross
+     * process scenarios, you can now pass filtering in to **StartTrace** when starting
+     * system wide private loggers. You will need to pass in the new
+     * [EVENT_TRACE_PROPERTIES_V2](/windows/win32/api/evntrace/ns-evntrace-event_trace_properties_v2)
+     * structure to include filtering information. See
+     * [Configuring and Starting a Private Logger Session](/windows/win32/etw/configuring-and-starting-a-private-logger-session)
+     * for more details.
+     * @returns {WIN32_ERROR} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value is one of the
      * [system error codes](/windows/win32/debug/system-error-codes). The following
@@ -2677,8 +2700,32 @@ class Etw {
      * 
      * This function copies the session name that you provide to the offset that the
      * **LoggerNameOffset** member of _Properties_ points to.
-     * @param {Pointer<EVENT_TRACE_PROPERTIES>} _Properties 
-     * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
+     * @param {Pointer<EVENT_TRACE_PROPERTIES>} _Properties Pointer to an
+     * [EVENT_TRACE_PROPERTIES](/windows/win32/api/evntrace/ns-evntrace-event_trace_properties)
+     * structure that specifies the behavior of the session. The following are key
+     * members of the structure to set:
+     * 
+     * - **Wnode.BufferSize**
+     * - **Wnode.Guid**
+     * - **Wnode.ClientContext**
+     * - **Wnode.Flags**
+     * - **LogFileMode**
+     * - **LogFileNameOffset**
+     * - **LoggerNameOffset**
+     * 
+     * Depending on the type of log file you choose to create, you may also need to
+     * specify a value for **MaximumFileSize**. See the Remarks section for more
+     * information on setting the _Properties_ parameter and the behavior of the
+     * session.
+     * 
+     * **Starting with Windows 10, version 1703:** For better performance in cross
+     * process scenarios, you can now pass filtering in to **StartTrace** when starting
+     * system wide private loggers. You will need to pass in the new
+     * [EVENT_TRACE_PROPERTIES_V2](/windows/win32/api/evntrace/ns-evntrace-event_trace_properties_v2)
+     * structure to include filtering information. See
+     * [Configuring and Starting a Private Logger Session](/windows/win32/etw/configuring-and-starting-a-private-logger-session)
+     * for more details.
+     * @returns {WIN32_ERROR} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value is one of the
      * [system error codes](/windows/win32/debug/system-error-codes). The following
@@ -2812,8 +2859,24 @@ class Etw {
      * 
      * To specify the NT Kernel Logger session, set _InstanceName_ to
      * **KERNEL_LOGGER_NAME**.
-     * @param {Pointer<EVENT_TRACE_PROPERTIES>} _Properties 
-     * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
+     * @param {Pointer<EVENT_TRACE_PROPERTIES>} _Properties Pointer to an
+     * [EVENT_TRACE_PROPERTIES](/windows/desktop/ETW/event-trace-properties) structure
+     * that receives the final properties and statistics for the session.
+     * 
+     * If you are using a newly initialized structure, you only need to set the
+     * **Wnode.BufferSize**, **Wnode.Guid**, **LoggerNameOffset**, and
+     * **LogFileNameOffset** members of the structure. You can use the maximum session
+     * name (1024 characters) and maximum log file name (1024 characters) lengths to
+     * calculate the buffer size and offsets if not known.
+     * 
+     * **Starting with Windows 10, version 1703:** For better performance in cross
+     * process scenarios, you can now pass filtering in to **StopTrace** for system
+     * wide private loggers. You will need to pass in the new
+     * [EVENT_TRACE_PROPERTIES_V2](/windows/desktop/ETW/event-trace-properties-v2)
+     * structure to include filtering information. See
+     * [Configuring and Starting a Private Logger Session](/windows/desktop/ETW/configuring-and-starting-a-private-logger-session)
+     * for more details.
+     * @returns {WIN32_ERROR} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value is one of the
      * [system error codes](/windows/win32/debug/system-error-codes). The following
@@ -2883,8 +2946,24 @@ class Etw {
      * 
      * To specify the NT Kernel Logger session, set _InstanceName_ to
      * **KERNEL_LOGGER_NAME**.
-     * @param {Pointer<EVENT_TRACE_PROPERTIES>} _Properties 
-     * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
+     * @param {Pointer<EVENT_TRACE_PROPERTIES>} _Properties Pointer to an
+     * [EVENT_TRACE_PROPERTIES](/windows/desktop/ETW/event-trace-properties) structure
+     * that receives the final properties and statistics for the session.
+     * 
+     * If you are using a newly initialized structure, you only need to set the
+     * **Wnode.BufferSize**, **Wnode.Guid**, **LoggerNameOffset**, and
+     * **LogFileNameOffset** members of the structure. You can use the maximum session
+     * name (1024 characters) and maximum log file name (1024 characters) lengths to
+     * calculate the buffer size and offsets if not known.
+     * 
+     * **Starting with Windows 10, version 1703:** For better performance in cross
+     * process scenarios, you can now pass filtering in to **StopTrace** for system
+     * wide private loggers. You will need to pass in the new
+     * [EVENT_TRACE_PROPERTIES_V2](/windows/desktop/ETW/event-trace-properties-v2)
+     * structure to include filtering information. See
+     * [Configuring and Starting a Private Logger Session](/windows/desktop/ETW/configuring-and-starting-a-private-logger-session)
+     * for more details.
+     * @returns {WIN32_ERROR} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value is one of the
      * [system error codes](/windows/win32/debug/system-error-codes). The following
@@ -2946,8 +3025,25 @@ class Etw {
      * 
      * To specify the NT Kernel Logger session, set _InstanceName_ to
      * **KERNEL_LOGGER_NAME**.
-     * @param {Pointer<EVENT_TRACE_PROPERTIES>} _Properties 
-     * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
+     * @param {Pointer<EVENT_TRACE_PROPERTIES>} _Properties Pointer to an initialized
+     * [EVENT_TRACE_PROPERTIES](/windows/desktop/ETW/event-trace-properties) structure.
+     * 
+     * You only need to set the **Wnode.BufferSize** member of the
+     * [EVENT_TRACE_PROPERTIES](/windows/desktop/ETW/event-trace-properties) structure.
+     * You can use the maximum session name (1024 characters) and maximum log file name
+     * (1024 characters) lengths to calculate the buffer size and offsets if not known.
+     * 
+     * On output, the structure members contain the property settings and session
+     * statistics for the event tracing session.
+     * 
+     * **Starting with Windows 10, version 1703:** For better performance in cross
+     * process scenarios, you can now pass filtering into **QueryTrace** for system
+     * wide private loggers. You will need to pass in the new
+     * [EVENT_TRACE_PROPERTIES_V2](/windows/desktop/ETW/event-trace-properties-v2)
+     * structure to include filtering information. See
+     * [Configuring and Starting a Private Logger Session](/windows/desktop/ETW/configuring-and-starting-a-private-logger-session)
+     * for more details.
+     * @returns {WIN32_ERROR} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value is one of the
      * [system error codes](/windows/win32/debug/system-error-codes). The following
@@ -3016,8 +3112,25 @@ class Etw {
      * 
      * To specify the NT Kernel Logger session, set _InstanceName_ to
      * **KERNEL_LOGGER_NAME**.
-     * @param {Pointer<EVENT_TRACE_PROPERTIES>} _Properties 
-     * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
+     * @param {Pointer<EVENT_TRACE_PROPERTIES>} _Properties Pointer to an initialized
+     * [EVENT_TRACE_PROPERTIES](/windows/desktop/ETW/event-trace-properties) structure.
+     * 
+     * You only need to set the **Wnode.BufferSize** member of the
+     * [EVENT_TRACE_PROPERTIES](/windows/desktop/ETW/event-trace-properties) structure.
+     * You can use the maximum session name (1024 characters) and maximum log file name
+     * (1024 characters) lengths to calculate the buffer size and offsets if not known.
+     * 
+     * On output, the structure members contain the property settings and session
+     * statistics for the event tracing session.
+     * 
+     * **Starting with Windows 10, version 1703:** For better performance in cross
+     * process scenarios, you can now pass filtering into **QueryTrace** for system
+     * wide private loggers. You will need to pass in the new
+     * [EVENT_TRACE_PROPERTIES_V2](/windows/desktop/ETW/event-trace-properties-v2)
+     * structure to include filtering information. See
+     * [Configuring and Starting a Private Logger Session](/windows/desktop/ETW/configuring-and-starting-a-private-logger-session)
+     * for more details.
+     * @returns {WIN32_ERROR} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value is one of the
      * [system error codes](/windows/win32/debug/system-error-codes). The following
@@ -3122,8 +3235,15 @@ class Etw {
      * 
      * To specify the NT Kernel Logger session, set _InstanceName_ to
      * **KERNEL_LOGGER_NAME**.
-     * @param {Pointer<EVENT_TRACE_PROPERTIES>} _Properties 
-     * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
+     * @param {Pointer<EVENT_TRACE_PROPERTIES>} _Properties Pointer to an initialized
+     * [EVENT_TRACE_PROPERTIES](/windows/desktop/ETW/event-trace-properties) structure.
+     * 
+     * On input, the members must specify the new values for the properties to update.
+     * For information on which properties you can update, see Remarks.
+     * 
+     * On output, the structure members contains the updated settings and statistics
+     * for the event tracing session.
+     * @returns {WIN32_ERROR} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value is one of the
      * [system error codes](/windows/win32/debug/system-error-codes). The following
@@ -3225,8 +3345,15 @@ class Etw {
      * 
      * To specify the NT Kernel Logger session, set _InstanceName_ to
      * **KERNEL_LOGGER_NAME**.
-     * @param {Pointer<EVENT_TRACE_PROPERTIES>} _Properties 
-     * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
+     * @param {Pointer<EVENT_TRACE_PROPERTIES>} _Properties Pointer to an initialized
+     * [EVENT_TRACE_PROPERTIES](/windows/desktop/ETW/event-trace-properties) structure.
+     * 
+     * On input, the members must specify the new values for the properties to update.
+     * For information on which properties you can update, see Remarks.
+     * 
+     * On output, the structure members contains the updated settings and statistics
+     * for the event tracing session.
+     * @returns {WIN32_ERROR} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value is one of the
      * [system error codes](/windows/win32/debug/system-error-codes). The following
@@ -3302,8 +3429,19 @@ class Etw {
      * 
      * To specify the NT Kernel Logger session, set _InstanceName_ to
      * **KERNEL_LOGGER_NAME**.
-     * @param {Pointer<EVENT_TRACE_PROPERTIES>} _Properties 
-     * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
+     * @param {Pointer<EVENT_TRACE_PROPERTIES>} _Properties Pointer to an initialized
+     * [EVENT_TRACE_PROPERTIES](/windows/desktop/ETW/event-trace-properties) structure.
+     * 
+     * If you are using a newly initialized structure, you only need to set the
+     * **Wnode.BufferSize**, **Wnode.Guid**, **LoggerNameOffset**, and
+     * **LogFileNameOffset** members of the structure. You can use the maximum session
+     * name (1024 characters) and maximum log file name (1024 characters) lengths to
+     * calculate the buffer size and offsets if not known.
+     * 
+     * On output, the structure receives the property settings and session statistics
+     * of the event tracing session, which reflect the state of the session after the
+     * flush.
+     * @returns {WIN32_ERROR} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value is one of the
      * [system error codes](/windows/win32/debug/system-error-codes). The following
@@ -3376,8 +3514,19 @@ class Etw {
      * 
      * To specify the NT Kernel Logger session, set _InstanceName_ to
      * **KERNEL_LOGGER_NAME**.
-     * @param {Pointer<EVENT_TRACE_PROPERTIES>} _Properties 
-     * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
+     * @param {Pointer<EVENT_TRACE_PROPERTIES>} _Properties Pointer to an initialized
+     * [EVENT_TRACE_PROPERTIES](/windows/desktop/ETW/event-trace-properties) structure.
+     * 
+     * If you are using a newly initialized structure, you only need to set the
+     * **Wnode.BufferSize**, **Wnode.Guid**, **LoggerNameOffset**, and
+     * **LogFileNameOffset** members of the structure. You can use the maximum session
+     * name (1024 characters) and maximum log file name (1024 characters) lengths to
+     * calculate the buffer size and offsets if not known.
+     * 
+     * On output, the structure receives the property settings and session statistics
+     * of the event tracing session, which reflect the state of the session after the
+     * flush.
+     * @returns {WIN32_ERROR} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value is one of the
      * [system error codes](/windows/win32/debug/system-error-codes). The following
@@ -3442,9 +3591,72 @@ class Etw {
      * 
      * To specify the NT Kernel Logger session, set _InstanceName_ to
      * **KERNEL_LOGGER_NAME**.
-     * @param {Pointer<EVENT_TRACE_PROPERTIES>} _Properties 
-     * @param {Integer} ControlCode 
-     * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
+     * @param {Pointer<EVENT_TRACE_PROPERTIES>} _Properties Pointer to an initialized
+     * [EVENT_TRACE_PROPERTIES](/windows/win32/api/evntrace/ns-evntrace-event_trace_properties)
+     * structure. This structure should be zeroed-out before setting any fields.
+     * 
+     * If _ControlCode_ specifies **EVENT_TRACE_CONTROL_STOP**,
+     * **EVENT_TRACE_CONTROL_QUERY** or **EVENT_TRACE_CONTROL_FLUSH**, you only need to
+     * set the **Wnode.BufferSize**, **Wnode.Guid**, **LoggerNameOffset**, and
+     * **LogFileNameOffset** members of the
+     * [EVENT_TRACE_PROPERTIES](/windows/win32/api/evntrace/ns-evntrace-event_trace_properties)
+     * structure. If the session is a private session, you also need to set
+     * **LogFileMode**. You can use the maximum session name (1024 characters) and
+     * maximum log file name (1024 characters) lengths to calculate the buffer size and
+     * offsets if not known.
+     * 
+     * If _ControlCode_ specifies **EVENT_TRACE_CONTROL_UPDATE**, on input, the members
+     * must specify the new values for the properties to update. On output,
+     * _Properties_ contains the properties and statistics for the event tracing
+     * session. You can update the following properties.
+     * 
+     * - **EnableFlags**: Set this member to 0 to disable all system providers. Set
+     *   this to a non-zero value to specify the system providers that you want to
+     *   enable or keep enabled. This may be non-zero only for
+     *   [system loggers](/windows/win32/api/evntrace/nf-evntrace-starttracew#system-loggers).
+     * 
+     * - **FlushTimer**: Set this member if you want to change the time to wait before
+     *   flushing buffers. If this member is 0, the member is not updated.
+     * 
+     * - **LogFileNameOffset**: Set this member if you want to switch to another log
+     *   file or to flush a buffering-mode trace to a new log file. If this member is
+     *   0, the file name is not updated. If the offset is not zero and you do not
+     *   change the log file name, the function returns an error.
+     * 
+     * - **LogFileMode**: Set this member if you want to turn
+     *   **EVENT_TRACE_REAL_TIME_MODE** on and off. To turn real time consuming off,
+     *   set this member to 0. To turn real time consuming on (creating a session that
+     *   records to disk as well as delivering events in real-time), set this member to
+     *   **EVENT_TRACE_REAL_TIME_MODE** and it will be OR'd with the current modes.
+     * 
+     * - **MaximumBuffers**: Set this member if you want to change the maximum number
+     *   of buffers that ETW uses. If this member is 0, the member is not updated.
+     * 
+     * For private logger sessions, you can update only the **LogFileNameOffset** and
+     * **FlushTimer** members.
+     * 
+     * If you are using a newly initialized
+     * [EVENT_TRACE_PROPERTIES](/windows/win32/api/evntrace/ns-evntrace-event_trace_properties)
+     * structure, zero-out the structure, then set **Wnode.BufferSize**,
+     * **Wnode.Guid**, and **Wnode.Flags**, and the values you want to update.
+     * 
+     * If you are reusing a **EVENT_TRACE_PROPERTIES** structure (i.e. using a
+     * structure that you previously passed to
+     * [StartTrace](/windows/win32/api/evntrace/nf-evntrace-starttracew) or
+     * **ControlTrace**), be sure to set the **LogFileNameOffset** member to 0 unless
+     * you are changing the log file name, and be sure to set
+     * [EVENT_TRACE_PROPERTIES.Wnode.Flags](/windows/win32/api/evntrace/ns-evntrace-event_trace_properties)
+     * to **WNODE_FLAG_TRACED_GUID**.
+     * 
+     * > **Starting with Windows 10, version 1703:** For better performance in cross
+     * > process scenarios, you can now pass filtering information to **ControlTrace**
+     * > for system wide private loggers. You will need to use the
+     * > [EVENT_TRACE_PROPERTIES_V2](/windows/win32/api/evntrace/ns-evntrace-event_trace_properties_v2)
+     * > structure to include filtering information. See
+     * > [Configuring and Starting a Private Logger Session](/windows/win32/etw/configuring-and-starting-a-private-logger-session)
+     * > for more details.
+     * @param {EVENT_TRACE_CONTROL} ControlCode 
+     * @returns {WIN32_ERROR} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value is one of the
      * [system error codes](/windows/win32/debug/system-error-codes). The following
@@ -3540,9 +3752,72 @@ class Etw {
      * 
      * To specify the NT Kernel Logger session, set _InstanceName_ to
      * **KERNEL_LOGGER_NAME**.
-     * @param {Pointer<EVENT_TRACE_PROPERTIES>} _Properties 
-     * @param {Integer} ControlCode 
-     * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
+     * @param {Pointer<EVENT_TRACE_PROPERTIES>} _Properties Pointer to an initialized
+     * [EVENT_TRACE_PROPERTIES](/windows/win32/api/evntrace/ns-evntrace-event_trace_properties)
+     * structure. This structure should be zeroed-out before setting any fields.
+     * 
+     * If _ControlCode_ specifies **EVENT_TRACE_CONTROL_STOP**,
+     * **EVENT_TRACE_CONTROL_QUERY** or **EVENT_TRACE_CONTROL_FLUSH**, you only need to
+     * set the **Wnode.BufferSize**, **Wnode.Guid**, **LoggerNameOffset**, and
+     * **LogFileNameOffset** members of the
+     * [EVENT_TRACE_PROPERTIES](/windows/win32/api/evntrace/ns-evntrace-event_trace_properties)
+     * structure. If the session is a private session, you also need to set
+     * **LogFileMode**. You can use the maximum session name (1024 characters) and
+     * maximum log file name (1024 characters) lengths to calculate the buffer size and
+     * offsets if not known.
+     * 
+     * If _ControlCode_ specifies **EVENT_TRACE_CONTROL_UPDATE**, on input, the members
+     * must specify the new values for the properties to update. On output,
+     * _Properties_ contains the properties and statistics for the event tracing
+     * session. You can update the following properties.
+     * 
+     * - **EnableFlags**: Set this member to 0 to disable all system providers. Set
+     *   this to a non-zero value to specify the system providers that you want to
+     *   enable or keep enabled. This may be non-zero only for
+     *   [system loggers](/windows/win32/api/evntrace/nf-evntrace-starttracea#system-loggers).
+     * 
+     * - **FlushTimer**: Set this member if you want to change the time to wait before
+     *   flushing buffers. If this member is 0, the member is not updated.
+     * 
+     * - **LogFileNameOffset**: Set this member if you want to switch to another log
+     *   file or to flush a buffering-mode trace to a new log file. If this member is
+     *   0, the file name is not updated. If the offset is not zero and you do not
+     *   change the log file name, the function returns an error.
+     * 
+     * - **LogFileMode**: Set this member if you want to turn
+     *   **EVENT_TRACE_REAL_TIME_MODE** on and off. To turn real time consuming off,
+     *   set this member to 0. To turn real time consuming on (creating a session that
+     *   records to disk as well as delivering events in real-time), set this member to
+     *   **EVENT_TRACE_REAL_TIME_MODE** and it will be OR'd with the current modes.
+     * 
+     * - **MaximumBuffers**: Set this member if you want to change the maximum number
+     *   of buffers that ETW uses. If this member is 0, the member is not updated.
+     * 
+     * For private logger sessions, you can update only the **LogFileNameOffset** and
+     * **FlushTimer** members.
+     * 
+     * If you are using a newly initialized
+     * [EVENT_TRACE_PROPERTIES](/windows/win32/api/evntrace/ns-evntrace-event_trace_properties)
+     * structure, zero-out the structure, then set **Wnode.BufferSize**,
+     * **Wnode.Guid**, and **Wnode.Flags**, and the values you want to update.
+     * 
+     * If you are reusing a **EVENT_TRACE_PROPERTIES** structure (i.e. using a
+     * structure that you previously passed to
+     * [StartTrace](/windows/win32/api/evntrace/nf-evntrace-starttracea) or
+     * **ControlTrace**), be sure to set the **LogFileNameOffset** member to 0 unless
+     * you are changing the log file name, and be sure to set
+     * [EVENT_TRACE_PROPERTIES.Wnode.Flags](/windows/win32/api/evntrace/ns-evntrace-event_trace_properties)
+     * to **WNODE_FLAG_TRACED_GUID**.
+     * 
+     * > **Starting with Windows 10, version 1703:** For better performance in cross
+     * > process scenarios, you can now pass filtering information to **ControlTrace**
+     * > for system wide private loggers. You will need to use the
+     * > [EVENT_TRACE_PROPERTIES_V2](/windows/win32/api/evntrace/ns-evntrace-event_trace_properties_v2)
+     * > structure to include filtering information. See
+     * > [Configuring and Starting a Private Logger Session](/windows/win32/etw/configuring-and-starting-a-private-logger-session)
+     * > for more details.
+     * @param {EVENT_TRACE_CONTROL} ControlCode 
+     * @returns {WIN32_ERROR} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value is one of the
      * [system error codes](/windows/win32/debug/system-error-codes). The following
@@ -3637,7 +3912,7 @@ class Etw {
      * **Windows 10:** _PropertyArrayCount_ may be larger than 64 and some systems may
      * support more than 64 tracing sessions.
      * @param {Pointer<Integer>} LoggerCount Actual number of event tracing sessions started on the computer.
-     * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
+     * @returns {WIN32_ERROR} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value is one of the
      * [system error codes](/windows/win32/debug/system-error-codes). The following
@@ -3699,7 +3974,7 @@ class Etw {
      * @param {Pointer<Integer>} LoggerCount Receives the number of traces for which data is returned. This may differ from
      * the actual number of running event tracing sessions running if the caller does
      * not have permissions to query all sessions.
-     * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
+     * @returns {WIN32_ERROR} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value is one of the
      * [system error codes](/windows/win32/debug/system-error-codes). The following
@@ -3802,7 +4077,7 @@ class Etw {
      * @param {Pointer<Guid>} ControlGuid The control GUID (provider ID) of the event provider that you want to enable or
      * disable.
      * @param {Integer} TraceId 
-     * @returns {Integer} If the function is successful, the return value is ERROR_SUCCESS.
+     * @returns {WIN32_ERROR} If the function is successful, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value is one of the
      * [system error codes](/windows/win32/debug/system-error-codes). The following
@@ -4005,7 +4280,7 @@ class Etw {
      * A session can call the
      * [TdhEnumerateProviderFilters](/windows/desktop/api/tdh/nf-tdh-tdhenumerateproviderfilters)
      * function to look up the filters for which a provider has registered support.
-     * @returns {Integer} If the function is successful, the return value is ERROR_SUCCESS.
+     * @returns {WIN32_ERROR} If the function is successful, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value is one of the
      * [system error codes](/windows/win32/debug/system-error-codes). The following
@@ -4369,7 +4644,7 @@ class Etw {
      * To wait forever, set to **INFINITE**.
      * @param {Pointer<ENABLE_TRACE_PARAMETERS>} EnableParameters The trace parameters used to enable the provider. For details, see
      * [ENABLE_TRACE_PARAMETERS](/windows/win32/api/evntrace/ns-evntrace-enable_trace_parameters).
-     * @returns {Integer} If the function is successful, the return value is **ERROR_SUCCESS**.
+     * @returns {WIN32_ERROR} If the function is successful, the return value is **ERROR_SUCCESS**.
      * 
      * If the function fails, the return value is one of the
      * [system error codes](/windows/win32/debug/system-error-codes). The following are
@@ -4437,14 +4712,14 @@ class Etw {
      * contains a
      * [TRACE_ENABLE_INFO](/windows/win32/api/evntrace/ns-evntrace-trace_enable_info)
      * structure for each session that enabled the provider.
-     * @param {Integer} TraceQueryInfoClass Determines the type of information to return. For possible values, see the
+     * @param {TRACE_QUERY_INFO_CLASS} TraceQueryInfoClass Determines the type of information to return. For possible values, see the
      * [TRACE_QUERY_INFO_CLASS](/windows/win32/api/evntrace/ne-evntrace-trace_query_info_class)
      * enumeration.
-     * @param {Pointer} InBuffer GUID of the provider or provider group whose information you want to retrieve.
+     * @param {Integer} InBuffer GUID of the provider or provider group whose information you want to retrieve.
      * Specify the GUID only if _TraceQueryInfoClass_ is **TraceGuidQueryInfo** or
      * **TraceGroupQueryInfo**.
      * @param {Integer} InBufferSize Size, in bytes, of the data _InBuffer_.
-     * @param {Pointer} OutBuffer Application-allocated buffer that contains the enumerated information. The
+     * @param {Integer} OutBuffer Application-allocated buffer that contains the enumerated information. The
      * format of the information depends on the value of _TraceQueryInfoClass_.
      * @param {Integer} OutBufferSize Size, in bytes, of the _OutBuffer_ buffer. If the function succeeds, the
      * _ReturnLength_ parameter receives the size of the buffer used. If the buffer is
@@ -4453,7 +4728,7 @@ class Etw {
      * is zero on input, no data is returned in the buffer and the _ReturnLength_
      * parameter receives the required buffer size.
      * @param {Pointer<Integer>} ReturnLength Actual size of the data in _OutBuffer_, in bytes.
-     * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
+     * @returns {WIN32_ERROR} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value is one of the
      * [system error codes](/windows/win32/debug/system-error-codes). The following are
@@ -4502,15 +4777,15 @@ class Etw {
      * This should only be done for temporary diagnosis purposes because it increases
      * memory usage of the system.
      * @param {Integer} TraceId 
-     * @param {Integer} InformationClass The information class to enable or disable. The information that the class
+     * @param {TRACE_QUERY_INFO_CLASS} InformationClass The information class to enable or disable. The information that the class
      * captures is included in the extended data section of the event. For a list of
      * information classes that you can enable, see the
      * [TRACE_QUERY_INFO_CLASS](/windows/win32/api/evntrace/ne-evntrace-trace_query_info_class)
      * enumeration.
-     * @param {Pointer} TraceInformation A pointer to information class specific data. The information class determines
+     * @param {Integer} TraceInformation A pointer to information class specific data. The information class determines
      * the contents of this parameter.
      * @param {Integer} InformationLength The size, in bytes, of the data in the _TraceInformation_ buffer.
-     * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
+     * @returns {WIN32_ERROR} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value is one of the following error codes.
      * 
@@ -4546,11 +4821,11 @@ class Etw {
      * from a trace session. Call this function after calling
      * [StartTrace](/windows/desktop/ETW/starttrace).
      * @param {Integer} TraceId 
-     * @param {Integer} InformationClass The information class to query. The information that the class captures is
+     * @param {TRACE_QUERY_INFO_CLASS} InformationClass The information class to query. The information that the class captures is
      * included in the extended data section of the event. For a list of information
      * classes that you can query, see the
      * [TRACE_QUERY_INFO_CLASS](/windows/desktop/ETW/trace-info-class) enumeration.
-     * @param {Pointer} TraceInformation A pointer to a buffer to receive the returned information class specific data.
+     * @param {Integer} TraceInformation A pointer to a buffer to receive the returned information class specific data.
      * The information class determines the contents of this parameter. For example,
      * for the **TraceStackTracingInfo** information class, this parameter is an array
      * of [CLASSIC_EVENT_ID](/windows/desktop/ETW/classic-event-id) structures. The
@@ -4561,7 +4836,7 @@ class Etw {
      * _TraceInformation_ buffer that is needed.
      * @param {Pointer<Integer>} ReturnLength A pointer a value that receives the size, in bytes, of the specific data
      * returned in the _TraceInformation_ buffer.
-     * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
+     * @returns {WIN32_ERROR} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value is one of the following error codes.
      * 
@@ -4595,7 +4870,7 @@ class Etw {
     /**
      * 
      * @param {Integer} TraceId 
-     * @param {Integer} LbrConfiguration 
+     * @param {TRACE_LBR_CONFIGURATION} LbrConfiguration 
      * @param {Pointer<CLASSIC_EVENT_ID>} Events 
      * @param {Integer} EventCount 
      * @returns {Integer} 
@@ -4617,11 +4892,15 @@ class Etw {
      * `1` when **InstanceId** reaches the maximum value for a **ULONG**. Only
      * user-mode providers can call the **CreateTraceInstanceId** function (drivers
      * cannot call this function).
-     * @param {HANDLE} _RegHandle 
+     * @param {HANDLE} _RegHandle Handle to a registered event trace class. The
+     * [RegisterTraceGuids](/windows/win32/api/evntrace/nf-evntrace-registertraceguidsa)
+     * function returns this handle in the **RegHandle** member of the
+     * [TRACE_GUID_REGISTRATION](/windows/desktop/ETW/trace-guid-registration)
+     * structure.
      * @param {Pointer<EVENT_INSTANCE_INFO>} InstInfo Pointer to an [EVENT_INSTANCE_INFO](/windows/desktop/ETW/event-instance-info)
      * structure. The **InstanceId** member of this structure contains the transaction
      * identifier.
-     * @returns {Integer} If the function is successful, the return value is ERROR_SUCCESS.
+     * @returns {WIN32_ERROR} If the function is successful, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value is one of the
      * [system error codes](/windows/win32/debug/system-error-codes). The following are
@@ -4694,7 +4973,7 @@ class Etw {
      * 
      * - **Class.Type**
      * - **Class.Level**
-     * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
+     * @returns {WIN32_ERROR} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value is one of the
      * [system error codes](/windows/win32/debug/system-error-codes). The following
@@ -5191,7 +5470,7 @@ class Etw {
      * @param {Integer} PropertyArrayCount Number of pointers in the _GuidPropertiesArray_ array.
      * @param {Pointer<Integer>} GuidCount Receives the actual number of event tracing providers registered on the
      * computer.
-     * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
+     * @returns {WIN32_ERROR} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value is one of the
      * [system error codes](/windows/win32/debug/system-error-codes). The following are
@@ -5262,7 +5541,13 @@ class Etw {
      * [GetTraceEnableLevel](/windows/desktop/ETW/gettraceenablelevel) functions to
      * retrieve the enable flags and level values passed to the
      * [EnableTrace](/windows/desktop/ETW/enabletrace) function.
-     * @param {Pointer<Void>} _Buffer 
+     * @param {Pointer<Void>} _Buffer Pointer to a [WNODE_HEADER](/windows/desktop/ETW/wnode-header) structure. ETW
+     * passes this structure to the provider's
+     * [ControlCallback](/windows/desktop/ETW/controlcallback) function in the _Buffer_
+     * parameter.
+     * 
+     * The **HistoricalContext** member of
+     * [WNODE_HEADER](/windows/desktop/ETW/wnode-header) contains the session's handle.
      * @returns {Integer} If the function succeeds, it returns the event tracing session handle.
      * 
      * If the function fails, it returns **INVALID_HANDLE_VALUE**. To get extended
@@ -5496,7 +5781,7 @@ class Etw {
      * function does not deliver events with timestamps after _EndTime_.
      * 
      * **Windows Server 2003:** This value is ignored for real-time event delivery.
-     * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
+     * @returns {WIN32_ERROR} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value is one of the
      * [system error codes](/windows/win32/debug/system-error-codes). The following are
@@ -5574,7 +5859,7 @@ class Etw {
      * @param {PROCESSTRACE_HANDLE} TraceHandle Handle to the trace processing session to close. The
      * [OpenTrace](/windows/win32/api/evntrace/nf-evntrace-opentracea) function returns
      * this handle.
-     * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
+     * @returns {WIN32_ERROR} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value is one of the
      * [system error codes](/windows/win32/debug/system-error-codes). The following
@@ -5708,7 +5993,7 @@ class Etw {
      * 
      * **ProcessTraceBufferIncrementReference** is not supported for buffers provided by a processing session opened by [OpenTraceFromBufferStream](nf-evntrace-opentracefrombufferstream.md).
      * @param {PROCESSTRACE_HANDLE} TraceHandle The processing session that this *Buffer* came from.
-     * @param {Pointer<ETW_BUFFER_HEADER>} _Buffer 
+     * @param {Pointer<ETW_BUFFER_HEADER>} _Buffer The buffer to reference. This buffer must have been obtained by a call to the [PETW_BUFFER_CALLBACK](nc-evntrace-petw_buffer_callback.md) callback.
      * @returns {Integer} Win32 Error Code. Possible codes may include ERROR_INVALID_PARAMETER and ERROR_OUTOFMEMORY.
      * @see https://learn.microsoft.com/windows/win32/api/evntrace/nf-evntrace-processtracebufferincrementreference
      */
@@ -5721,7 +6006,7 @@ class Etw {
 
     /**
      * Releases a reference to a Buffer that was added by ProcessTraceBufferIncrementReference.
-     * @param {Pointer<ETW_BUFFER_HEADER>} _Buffer 
+     * @param {Pointer<ETW_BUFFER_HEADER>} _Buffer The buffer to decrement a reference from.
      * @returns {Integer} Win32 Error Code.
      * @see https://learn.microsoft.com/windows/win32/api/evntrace/nf-evntrace-processtracebufferdecrementreference
      */
@@ -5737,7 +6022,7 @@ class Etw {
      * 
      * When the buffer is done processing, the *BufferCompletionCallback* specified in [OpenTraceFromBufferStream](nf-evntrace-opentracefrombufferstream.md) will be called to release it.
      * @param {PROCESSTRACE_HANDLE} TraceHandle The TRACEHANDLE for the processing session to add to.
-     * @param {Pointer} _Buffer 
+     * @param {Integer} _Buffer A valid ETW buffer to process.
      * @param {Integer} BufferSize The ETW buffer size.
      * @returns {Integer} ERROR_SUCCESS or a Win32 error code to indicate that the buffer is invalid, out of time order, or that the TraceHandle is invalid.
      * @see https://learn.microsoft.com/windows/win32/api/evntrace/nf-evntrace-processtraceaddbuffertobufferstream
@@ -5754,7 +6039,7 @@ class Etw {
      * @param {PROCESSTRACE_HANDLE} ProcessingHandle A valid handle created with
      * [OpenTrace](/windows/win32/api/evntrace/nf-evntrace-opentracea) that the data
      * should be queried from.
-     * @param {Integer} InformationClass An
+     * @param {ETW_PROCESS_HANDLE_INFO_TYPE} InformationClass An
      * [ETW_PROCESS_HANDLE_INFO_TYPE](/windows/win32/api/evntrace/ne-evntrace-etw_process_handle_info_type)
      * value that specifies what kind of operation will be done on the handle.
      * @param {Pointer<Void>} InBuffer Reserved for future use. May be null.
@@ -5763,7 +6048,7 @@ class Etw {
      * @param {Integer} OutBufferSize Size in bytes of _OutBuffer._
      * @param {Pointer<Integer>} ReturnLength The size in bytes of the data that the API wrote into _OutBuffer_. Used for
      * variable length returns.
-     * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
+     * @returns {WIN32_ERROR} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value is one of the
      * [system error codes](/windows/win32/debug/system-error-codes).
@@ -5880,7 +6165,7 @@ class Etw {
      * @param {Pointer<PEVENT_CALLBACK>} EventCallback Pointer to an
      * [EventCallback](/windows/win32/api/evntrace/nc-evntrace-pevent_callback)
      * function used to process events belonging to the event trace class.
-     * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
+     * @returns {WIN32_ERROR} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value is one of the
      * [system error codes](/windows/win32/debug/system-error-codes). The following
@@ -5908,7 +6193,7 @@ class Etw {
      * receives events. Use the same class GUID that you passed to the
      * [SetTraceCallback](/windows/desktop/ETW/settracecallback) to begin receiving the
      * events.
-     * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
+     * @returns {WIN32_ERROR} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value is one of the
      * [system error codes](/windows/win32/debug/system-error-codes). The following
@@ -5963,7 +6248,7 @@ class Etw {
      * the handle when it calls the
      * [GetTraceLoggerHandle](/windows/desktop/ETW/gettraceloggerhandle) function in
      * its [ControlCallback](/windows/desktop/ETW/controlcallback) implementation.
-     * @param {Integer} MessageFlags Adds additional information to the beginning of the provider-specific data
+     * @param {TRACE_MESSAGE_FLAGS} MessageFlags Adds additional information to the beginning of the provider-specific data
      * section of the event. The provider-specific data section of the event will
      * contain data only for those flags that are set. The variable list of argument
      * data will follow this information. This parameter can be one or more of the
@@ -6009,7 +6294,7 @@ class Etw {
      * @param {Integer} MessageNumber Number that uniquely identifies each occurrence of the message. You must define
      * the value specified for this parameter; the value should be meaningful to the
      * application.
-     * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
+     * @returns {WIN32_ERROR} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value is one of the
      * [system error codes](/windows/win32/debug/system-error-codes). The following
@@ -6084,7 +6369,7 @@ class Etw {
      * the handle when it calls the
      * [GetTraceLoggerHandle](/windows/desktop/ETW/gettraceloggerhandle) function in
      * its [ControlCallback](/windows/desktop/ETW/controlcallback) implementation.
-     * @param {Integer} MessageFlags Adds additional information to the beginning of the provider-specific data
+     * @param {TRACE_MESSAGE_FLAGS} MessageFlags Adds additional information to the beginning of the provider-specific data
      * section of the event. The provider-specific data section of the event will
      * contain data only for those flags that are set. The variable list of argument
      * data will follow this information. This parameter can be one or more of the
@@ -6125,7 +6410,7 @@ class Etw {
      * 
      * The caller must ensure that the sum of the sizes of the arguments + 72 does not
      * exceed the size of the event tracing session's buffer.
-     * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
+     * @returns {WIN32_ERROR} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value is one of the
      * [system error codes](/windows/win32/debug/system-error-codes). The following
@@ -6239,7 +6524,15 @@ class Etw {
      * `NULL` if no callback is needed.
      * @param {Pointer<Void>} CallbackContext Optional context data that ETW will provide when invoking _EnableCallback_. Use
      * `NULL` if no callback context is needed.
-     * @param {Pointer<REGHANDLE>} _RegHandle 
+     * @param {Pointer<REGHANDLE>} _RegHandle Receives the event provider registration handle. The handle is used in
+     * subsequent calls to provider APIs such as **EventWrite**,
+     * **EventProviderEnabled**, and **EventRegister**.
+     * 
+     * Before your provider unloads or exits, free the provider registration handle by
+     * calling
+     * [EventUnregister](/windows/desktop/api/evntprov/nf-evntprov-eventunregister). A
+     * DLL that unloads without freeing all of the provider handles that it registered
+     * may cause the process to crash.
      * @returns {Integer} Returns **ERROR_SUCCESS** if successful.
      * 
      * The error code returned by **EventRegister** is primarily intended for use in
@@ -6264,7 +6557,8 @@ class Etw {
      * RegHandle value, do nothing, and return immediately. Callers do not need to
      * check for a zero-valued RegHandle before calling **EventWrite** or
      * **EventUnregister**.
-     * @param {REGHANDLE} _RegHandle 
+     * @param {REGHANDLE} _RegHandle Event provider registration handle returned by
+     * [EventRegister](/windows/desktop/api/evntprov/nf-evntprov-eventregister).
      * @returns {Integer} Returns **ERROR_SUCCESS** if successful.
      * @see https://learn.microsoft.com/windows/win32/api/evntprov/nf-evntprov-eventunregister
      * @since windows6.0.6000
@@ -6278,11 +6572,12 @@ class Etw {
 
     /**
      * Configures an ETW event provider.
-     * @param {REGHANDLE} _RegHandle 
-     * @param {Integer} InformationClass [EVENT_INFO_CLASS](/windows/desktop/api/evntprov/ne-evntprov-event_info_class)
+     * @param {REGHANDLE} _RegHandle Event provider registration handle. This is a handle returned by
+     * [EventRegister](/windows/desktop/api/evntprov/nf-evntprov-eventregister).
+     * @param {EVENT_INFO_CLASS} InformationClass [EVENT_INFO_CLASS](/windows/desktop/api/evntprov/ne-evntprov-event_info_class)
      * value that specifies the configuration operation to be performed on the event
      * provider.
-     * @param {Pointer} EventInformation Pointer to a buffer that contains data to be used when configuring the event
+     * @param {Integer} EventInformation Pointer to a buffer that contains data to be used when configuring the event
      * provider. The format of the data in this buffer depends on the value specified
      * in the _InformationClass_ parameter.
      * 
@@ -6341,7 +6636,10 @@ class Etw {
      *   calling **EventEnabled**.
      * - ETW framework implementations usually check their own provider state rather
      *   than calling **EventEnabled**.
-     * @param {REGHANDLE} _RegHandle 
+     * @param {REGHANDLE} _RegHandle Registration handle of the provider. The handle comes from
+     * [EventRegister](/windows/desktop/api/evntprov/nf-evntprov-eventregister).
+     * 
+     * If _RegHandle_ is **NULL**, **EventEnabled** will return **FALSE**.
      * @param {Pointer<EVENT_DESCRIPTOR>} EventDescriptor [EVENT_DESCRIPTOR](/windows/desktop/api/evntprov/ns-evntprov-event_descriptor)
      * that provides information that will be used to determine whether the event is
      * enabled. This includes the event's Level (severity) and Keyword (categories).
@@ -6391,7 +6689,10 @@ class Etw {
      * 
      * For additional details, see
      * [EventEnabled](/windows/desktop/api/evntprov/nf-evntprov-eventenabled).
-     * @param {REGHANDLE} _RegHandle 
+     * @param {REGHANDLE} _RegHandle Registration handle of the provider. The handle comes from
+     * [EventRegister](/windows/desktop/api/evntprov/nf-evntprov-eventregister).
+     * 
+     * If _RegHandle_ is **NULL**, **EventProviderEnabled** will return **FALSE**.
      * @param {Integer} Level An 8-bit number used to describe an event's severity or importance. See
      * [EVENT_DESCRIPTOR](/windows/desktop/api/evntprov/ns-evntprov-event_descriptor)
      * for more information about event level values.
@@ -6443,7 +6744,9 @@ class Etw {
      * [EventWriteEx](/windows/win32/api/evntprov/nf-evntprov-eventwriteex) with 0 for
      * _Filter_, 0 for _Flags_, **NULL** for _ActivityId_, and **NULL** for
      * _RelatedActivityId_.
-     * @param {REGHANDLE} _RegHandle 
+     * @param {REGHANDLE} _RegHandle Registration handle of the provider. The handle comes from
+     * [EventRegister](/windows/desktop/api/evntprov/nf-evntprov-eventregister). The
+     * generated event will use the ProviderId associated with the handle.
      * @param {Pointer<EVENT_DESCRIPTOR>} EventDescriptor [EVENT_DESCRIPTOR](/windows/desktop/api/evntprov/ns-evntprov-event_descriptor)
      * with event information (metadata) including ID, Version, Level, Keyword,
      * Channel, Opcode, and Task.
@@ -6455,7 +6758,16 @@ class Etw {
      * @param {Integer} UserDataCount Number of
      * [EVENT_DATA_DESCRIPTOR](/windows/desktop/api/evntprov/ns-evntprov-event_data_descriptor)
      * structures in _UserData_. The maximum number is 128.
-     * @param {Pointer<EVENT_DATA_DESCRIPTOR>} _UserData 
+     * @param {Pointer<EVENT_DATA_DESCRIPTOR>} _UserData An array of _UserDataCount_
+     * [EVENT_DATA_DESCRIPTOR](/windows/desktop/api/evntprov/ns-evntprov-event_data_descriptor)
+     * structures that describe the data to be included in the event. _UserData_ may be
+     * **NULL** if _UserDataCount_ is zero.
+     * 
+     * Each **EVENT_DATA_DESCRIPTOR** describes one block of memory to be included in
+     * the event. The specified blocks will be concatenated in order with no padding or
+     * alignment to form the event content. If using manifest-based decoding, the event
+     * content must match the layout specified in the template associated with the
+     * event in the manifest.
      * @returns {Integer} Returns **ERROR_SUCCESS** if successful or an error code. Possible error codes
      * include the following:
      * 
@@ -6514,7 +6826,9 @@ class Etw {
      * **EventWriteTransfer** is equivalent to
      * [EventWriteEx](/windows/win32/api/evntprov/nf-evntprov-eventwriteex) with 0 for
      * _Filter_ and 0 for _Flags_.
-     * @param {REGHANDLE} _RegHandle 
+     * @param {REGHANDLE} _RegHandle Registration handle of the provider. The handle comes from
+     * [EventRegister](/windows/desktop/api/evntprov/nf-evntprov-eventregister). The
+     * generated event will use the ProviderId associated with the handle.
      * @param {Pointer<EVENT_DESCRIPTOR>} EventDescriptor [EVENT_DESCRIPTOR](/windows/desktop/api/evntprov/ns-evntprov-event_descriptor)
      * with event information (metadata) including ID, Version, Level, Keyword,
      * Channel, Opcode, and Task.
@@ -6546,7 +6860,16 @@ class Etw {
      * @param {Integer} UserDataCount Number of
      * [EVENT_DATA_DESCRIPTOR](/windows/desktop/api/evntprov/ns-evntprov-event_data_descriptor)
      * structures in _UserData_. The maximum number is 128.
-     * @param {Pointer<EVENT_DATA_DESCRIPTOR>} _UserData 
+     * @param {Pointer<EVENT_DATA_DESCRIPTOR>} _UserData An array of _UserDataCount_
+     * [EVENT_DATA_DESCRIPTOR](/windows/desktop/api/evntprov/ns-evntprov-event_data_descriptor)
+     * structures that describe the data to be included in the event. _UserData_ may be
+     * **NULL** if _UserDataCount_ is zero.
+     * 
+     * Each **EVENT_DATA_DESCRIPTOR** describes one block of memory to be included in
+     * the event. The specified blocks will be concatenated in order with no padding or
+     * alignment to form the event content. If using manifest-based decoding, the event
+     * content must match the layout specified in the template associated with the
+     * event in the manifest.
      * @returns {Integer} Returns **ERROR_SUCCESS** if successful or an error code. Possible error codes
      * include the following:
      * 
@@ -6610,7 +6933,9 @@ class Etw {
      * provider can evaluate the filter and use the _Filter_ parameter of
      * **EventWriteEx** to indicate that certain trace sessions did not pass the filter
      * and should therefore not receive the event.
-     * @param {REGHANDLE} _RegHandle 
+     * @param {REGHANDLE} _RegHandle Registration handle of the provider. The handle comes from
+     * [EventRegister](/windows/desktop/api/evntprov/nf-evntprov-eventregister). The
+     * generated event will use the ProviderId associated with the handle.
      * @param {Pointer<EVENT_DESCRIPTOR>} EventDescriptor [EVENT_DESCRIPTOR](/windows/desktop/api/evntprov/ns-evntprov-event_descriptor)
      * with event information (metadata) including ID, Version, Level, Keyword,
      * Channel, Opcode, and Task.
@@ -6659,7 +6984,16 @@ class Etw {
      * @param {Integer} UserDataCount Number of
      * [EVENT_DATA_DESCRIPTOR](/windows/desktop/api/evntprov/ns-evntprov-event_data_descriptor)
      * structures in _UserData_. The maximum number is 128.
-     * @param {Pointer<EVENT_DATA_DESCRIPTOR>} _UserData 
+     * @param {Pointer<EVENT_DATA_DESCRIPTOR>} _UserData An array of _UserDataCount_
+     * [EVENT_DATA_DESCRIPTOR](/windows/desktop/api/evntprov/ns-evntprov-event_data_descriptor)
+     * structures that describe the data to be included in the event. _UserData_ may be
+     * **NULL** if _UserDataCount_ is zero.
+     * 
+     * Each **EVENT_DATA_DESCRIPTOR** describes one block of memory to be included in
+     * the event. The specified blocks will be concatenated in order with no padding or
+     * alignment to form the event content. If using manifest-based decoding, the event
+     * content must match the layout specified in the template associated with the
+     * event in the manifest.
      * @returns {Integer} Returns **ERROR_SUCCESS** if successful or an error code. Possible error codes
      * include the following:
      * 
@@ -6743,7 +7077,9 @@ class Etw {
      * can extract the string value even when the decoder cannot locate any other
      * decoding information for the event provider. However, without a manifest, the
      * tools will not be able to determine the event's provider name.
-     * @param {REGHANDLE} _RegHandle 
+     * @param {REGHANDLE} _RegHandle Registration handle of the provider. The handle comes from
+     * [EventRegister](/windows/desktop/api/evntprov/nf-evntprov-eventregister). The
+     * generated event will use the ProviderId associated with the handle.
      * @param {Integer} Level An 8-bit number used to describe an event's severity or importance.
      * 
      * > [!Important]
@@ -6763,7 +7099,7 @@ class Etw {
      * 
      * See [EVENT_DESCRIPTOR](nf-evntprov-eventdatadesccreate.md) for details about the
      * event keyword.
-     * @param {PWSTR} _String 
+     * @param {PWSTR} _String NUL-terminated string to write as the event data.
      * @returns {Integer} Returns **ERROR_SUCCESS** if successful or an error code. Possible error codes
      * include the following:
      * 
@@ -6912,7 +7248,7 @@ class Etw {
      * @param {Integer} Operation Type of operation to perform, for example, add a DACL to the session's GUID or provider's GUID. For 
      *       possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/evntcons/ne-evntcons-eventsecurityoperation">EVENTSECURITYOPERATION</a> 
      *       enumeration.
-     * @param {PSID} _Sid 
+     * @param {PSID} _Sid The security identifier (SID) of the user  or group to whom you want to grant or deny permissions.
      * @param {Integer} Rights You can specify one or more of the following permissions:
      * 
      * <table>
@@ -7023,7 +7359,7 @@ class Etw {
      * 
      * For information on accessing the components of the security descriptor, see <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/getting-information-from-an-acl">Getting Information from an ACL</a>, the <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-getsecuritydescriptordacl">GetSecurityDescriptorDacl</a>, <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-getsecuritydescriptorsacl">GetSecurityDescriptorSacl</a>, and <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-getace">GetAce</a> functions, and the <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/ace">ACE</a> structure.
      * @param {Pointer<Guid>} Guid GUID that uniquely identifies the provider or session.
-     * @param {Pointer} _Buffer 
+     * @param {Integer} _Buffer Application-allocated buffer that will contain the security descriptor of the controller or provider.
      * @param {Pointer<Integer>} BufferSize Size of the security descriptor buffer, in bytes. If the function succeeds, this parameter receives the size of the buffer used. If the buffer is too small, the function returns ERROR_MORE_DATA and this parameter receives the required buffer size. If the buffer size is zero on input, no data is returned in the buffer and this parameter receives the required buffer size.
      * @returns {Integer} Returns ERROR_SUCCESS if successful.
      * 
@@ -7310,7 +7646,7 @@ class Etw {
      * @param {Pointer<EVENT_RECORD>} Event The event record passed to your <a href="https://docs.microsoft.com/windows/desktop/ETW/eventrecordcallback">EventRecordCallback</a> callback. For details, see the <a href="https://docs.microsoft.com/windows/desktop/api/evntcons/ns-evntcons-event_record">EVENT_RECORD</a> structure.
      * @param {Integer} TdhContextCount Number of elements in <i>pTdhContext</i>.
      * @param {Pointer<TDH_CONTEXT>} TdhContext Array of context values for WPP or classic ETW events only; otherwise, <b>NULL</b>. For details, see the <a href="https://docs.microsoft.com/windows/desktop/api/tdh/ns-tdh-tdh_context">TDH_CONTEXT</a> structure.  The array must not contain duplicate context types.
-     * @param {Pointer} _Buffer 
+     * @param {Integer} _Buffer User-allocated buffer to receive the event information. For details, see the <a href="https://docs.microsoft.com/windows/desktop/api/tdh/ns-tdh-trace_event_info">TRACE_EVENT_INFO</a> structure.
      * @param {Pointer<Integer>} BufferSize Size, in bytes, of the <i>pBuffer</i> buffer. If the function succeeds, this parameter receives the size of the buffer used. If the buffer is too small, the function returns ERROR_INSUFFICIENT_BUFFER and sets this parameter to the required buffer size. If the buffer size is zero on input, no data is returned in the buffer and this parameter receives the required buffer size.
      * @returns {Integer} Returns ERROR_SUCCESS if successful. Otherwise, this function returns one of the following return codes in addition to others.
      * 
@@ -7393,7 +7729,7 @@ class Etw {
      * For maps defined in a manifest, the string will contain a space at the end of the string. For example, if the value is mapped to "Monday" in the manifest, the string is returned as "Monday ".
      * @param {Pointer<EVENT_RECORD>} pEvent The event record passed to your <a href="https://docs.microsoft.com/windows/desktop/ETW/eventrecordcallback">EventRecordCallback</a> callback. For details, see the <a href="https://docs.microsoft.com/windows/desktop/api/evntcons/ns-evntcons-event_record">EVENT_RECORD</a> structure.
      * @param {PWSTR} pMapName Null-terminated Unicode string that contains the name of the map attribute value. The name comes from the <b>MapNameOffset</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/tdh/ns-tdh-event_property_info">EVENT_PROPERTY_INFO</a> structure.
-     * @param {Pointer} pBuffer User-allocated buffer to receive the event map. The map could be a value map, bitmap, or pattern map. For details, see the <a href="https://docs.microsoft.com/windows/desktop/api/tdh/ns-tdh-event_map_info">EVENT_MAP_INFO</a> structure.
+     * @param {Integer} pBuffer User-allocated buffer to receive the event map. The map could be a value map, bitmap, or pattern map. For details, see the <a href="https://docs.microsoft.com/windows/desktop/api/tdh/ns-tdh-event_map_info">EVENT_MAP_INFO</a> structure.
      * @param {Pointer<Integer>} pBufferSize Size, in bytes, of the <i>pBuffer</i> buffer. If the function succeeds, this parameter receives the size of the buffer used. If the buffer is too small, the function returns ERROR_INSUFFICIENT_BUFFER and sets this parameter to the required buffer size. If the buffer size is zero on input, no data is returned in the buffer and this parameter receives the required buffer size.
      * @returns {Integer} Returns ERROR_SUCCESS if successful. Otherwise, this function returns one of the following return codes in addition to others.
      * 
@@ -7564,7 +7900,7 @@ class Etw {
      * 
      * If you are retrieving a property that is not a member of a structure, you can specify a single data descriptor. If you are retrieving a property that is a member of a structure, specify an array of two  data descriptors (structures cannot contain or reference other structures).
      * @param {Integer} BufferSize Size of the <i>pBuffer</i> buffer, in bytes. You can get this value from the <i>pPropertySize</i> parameter when calling <a href="https://docs.microsoft.com/windows/desktop/api/tdh/nf-tdh-tdhgetpropertysize">TdhGetPropertySize</a> function.
-     * @param {Pointer} pBuffer User-allocated buffer that receives the property data.
+     * @param {Integer} pBuffer User-allocated buffer that receives the property data.
      * @returns {Integer} Returns ERROR_SUCCESS if successful. Otherwise, this function returns one of the following return codes in addition to others.
      * 
      * <table>
@@ -7642,7 +7978,7 @@ class Etw {
      * Call [TdhEnumerateProvidersForDecodingSource function](nf-tdh-tdhenumerateprovidersfordecodingsource.md) to retrieve a list of providers that have registered a MOF class or manifest file on the computer.
      * 
      * Because the number of registered event providers may fluctuate between calls to  this function, you should place this function in a loop that loops until the returned value is no longer ERROR_INSUFFICIENT_BUFFER.
-     * @param {Pointer} pBuffer Array of providers that publicly define  their events on the computer. For details, see the <a href="https://docs.microsoft.com/windows/desktop/api/tdh/ns-tdh-provider_enumeration_info">PROVIDER_ENUMERATION_INFO</a> structure.
+     * @param {Integer} pBuffer Array of providers that publicly define  their events on the computer. For details, see the <a href="https://docs.microsoft.com/windows/desktop/api/tdh/ns-tdh-provider_enumeration_info">PROVIDER_ENUMERATION_INFO</a> structure.
      * @param {Pointer<Integer>} pBufferSize Size, in bytes, of the *pBuffer* buffer. If the function succeeds, this parameter receives the size of the buffer used. If the buffer is too small, the function returns ERROR_INSUFFICIENT_BUFFER and sets this parameter to the required buffer size. If the buffer size is zero on input, no data is returned in the buffer and this parameter receives the required buffer size.
      * @returns {Integer} Returns ERROR_SUCCESS if successful. Otherwise, this function returns one of the following return codes in addition to others.
      * 
@@ -7664,8 +8000,8 @@ class Etw {
      * Retrieves a list of providers that have registered a MOF class or manifest file on the computer.
      * @remarks
      * Use [TdhEnumerateProviders](nf-tdh-tdhenumerateproviders.md) to retrieve all providers that have registered on the computer.
-     * @param {Integer} filter One or more values from [DECODING_SOURCE enumeration](ne-tdh-decoding_source.md).
-     * @param {Pointer} _buffer 
+     * @param {DECODING_SOURCE} filter One or more values from [DECODING_SOURCE enumeration](ne-tdh-decoding_source.md).
+     * @param {Integer} _buffer Array of providers that publicly define their events on the computer. For details, see the [PROVIDER_ENUMERATION_INFO structure](ns-tdh-provider_enumeration_info.md).
      * @param {Integer} bufferSize Size, in bytes, of the *pBuffer* buffer. If the function succeeds, this parameter receives the size of the buffer used. If the buffer is too small, the function returns ERROR_INSUFFICIENT_BUFFER and sets this parameter to the required buffer size. If the buffer size is zero on input, no data is returned in the buffer and this parameter receives the required buffer size.
      * @param {Pointer<Integer>} bufferRequired The buffer required.
      * @returns {Integer} Returns ERROR_SUCCESS if successful. Otherwise, this function returns one of the following return codes in addition to others.
@@ -7689,8 +8025,8 @@ class Etw {
      * This function uses the XML manifest or WMI MOF class to retrieve the information.
      * @param {Pointer<Guid>} pGuid GUID that identifies the provider whose information you want to retrieve.
      * @param {Integer} EventFieldValue Retrieve information about the field if the field's value matches this value. If the field type is a keyword, the information is retrieved for each event keyword bit contained in the mask.
-     * @param {Integer} EventFieldType Specify the type of field for which you want to retrieve information. For possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/tdh/ne-tdh-event_field_type">EVENT_FIELD_TYPE</a> enumeration.
-     * @param {Pointer} pBuffer User-allocated buffer to receive the field information. For details, see the <a href="https://docs.microsoft.com/windows/desktop/api/tdh/ns-tdh-provider_field_infoarray">PROVIDER_FIELD_INFOARRAY</a> structure.
+     * @param {EVENT_FIELD_TYPE} EventFieldType Specify the type of field for which you want to retrieve information. For possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/tdh/ne-tdh-event_field_type">EVENT_FIELD_TYPE</a> enumeration.
+     * @param {Integer} pBuffer User-allocated buffer to receive the field information. For details, see the <a href="https://docs.microsoft.com/windows/desktop/api/tdh/ns-tdh-provider_field_infoarray">PROVIDER_FIELD_INFOARRAY</a> structure.
      * @param {Pointer<Integer>} pBufferSize Size, in bytes, of the <i>pBuffer</i> buffer. If the function succeeds, this parameter receives the size of the buffer used. If the buffer is too small, the function returns ERROR_INSUFFICIENT_BUFFER and sets this parameter to the required buffer size. If the buffer size is zero on input, no data is returned in the buffer and this parameter receives the required buffer size.
      * @returns {Integer} Returns ERROR_SUCCESS if successful. Otherwise, this function returns one of the following return codes in addition to others.
      * 
@@ -7770,8 +8106,8 @@ class Etw {
      * @remarks
      * This function uses the XML manifest or WMI MOF class to retrieve the information.
      * @param {Pointer<Guid>} pGuid GUID that identifies the provider whose information you want to retrieve.
-     * @param {Integer} EventFieldType Specify the type of field for which you want to retrieve information. For possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/tdh/ne-tdh-event_field_type">EVENT_FIELD_TYPE</a> enumeration.
-     * @param {Pointer} pBuffer User-allocated buffer to receive the field information. For details, see the <a href="https://docs.microsoft.com/windows/desktop/api/tdh/ns-tdh-provider_field_infoarray">PROVIDER_FIELD_INFOARRAY</a> structure.
+     * @param {EVENT_FIELD_TYPE} EventFieldType Specify the type of field for which you want to retrieve information. For possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/tdh/ne-tdh-event_field_type">EVENT_FIELD_TYPE</a> enumeration.
+     * @param {Integer} pBuffer User-allocated buffer to receive the field information. For details, see the <a href="https://docs.microsoft.com/windows/desktop/api/tdh/ns-tdh-provider_field_infoarray">PROVIDER_FIELD_INFOARRAY</a> structure.
      * @param {Pointer<Integer>} pBufferSize Size, in bytes, of the <i>pBuffer</i> buffer. If the function succeeds, this parameter receives the size of the buffer used. If the buffer is too small, the function returns ERROR_INSUFFICIENT_BUFFER and sets this parameter to the required buffer size. If the buffer size is zero on input, no data is returned in the buffer and this parameter receives the required buffer size.
      * @returns {Integer} Returns ERROR_SUCCESS if successful. Otherwise, this function returns one of the following return codes in addition to others.
      * 
@@ -7854,7 +8190,7 @@ class Etw {
      * @param {Integer} TdhContextCount Not used.
      * @param {Pointer<TDH_CONTEXT>} TdhContext Not used.
      * @param {Pointer<Integer>} FilterCount The number of filter structures that the <i>pBuffer</i> buffer contains. Is zero if the <i>pBuffer</i> buffer is insufficient.
-     * @param {Pointer} _Buffer 
+     * @param {Integer} _Buffer User-allocated buffer to receive the filter information. For details, see the <a href="https://docs.microsoft.com/windows/desktop/api/tdh/ns-tdh-provider_filter_info">PROVIDER_FILTER_INFO</a> structure.
      * @param {Pointer<Integer>} BufferSize Size, in bytes, of the <i>pBuffer</i> buffer. If the function succeeds, this parameter receives the size of the buffer used. If the buffer is too small, the function returns ERROR_INSUFFICIENT_BUFFER and sets this parameter to the required buffer size. If the buffer size is zero on input, no data is returned in the buffer and this parameter receives the required buffer size.
      * @returns {Integer} Returns ERROR_SUCCESS if successful. Otherwise, this function returns one of the following return codes in addition to others.
      * 
@@ -7979,7 +8315,7 @@ class Etw {
 
     /**
      * Loads the manifest from memory.
-     * @param {Pointer} pData Type: **const void***
+     * @param {Integer} pData Type: **const void***
      * 
      * Pointer to the data to be stored.
      * @param {Integer} cbData Type: **ULONG**
@@ -8058,7 +8394,7 @@ class Etw {
 
     /**
      * Unloads the manifest from memory.
-     * @param {Pointer} pData Type: **const void***
+     * @param {Integer} pData Type: **const void***
      * 
      * Pointer to the data to be stored.
      * @param {Integer} cbData Type: **ULONG**
@@ -8100,9 +8436,9 @@ class Etw {
      * @param {Integer} PropertyOutType The output type of the property. Use the **OutType** member of the [EVENT_PROPERTY_INFO structure](ns-tdh-event_property_info.md) to set this parameter.
      * @param {Integer} PropertyLength The length, in bytes, of the property. Use the **Length** member of the [EVENT_PROPERTY_INFO structure](ns-tdh-event_property_info.md) to set this parameter.
      * @param {Integer} UserDataLength The size, in bytes, of the *UserData* buffer. See Remarks.
-     * @param {Pointer} _UserData 
+     * @param {Integer} _UserData The buffer that contains the event data. See Remarks.
      * @param {Pointer<Integer>} BufferSize The size, in bytes, of the *Buffer* buffer. If the function succeeds, this parameter receives the size of the buffer used. If the buffer is too small, the function returns ERROR_INSUFFICIENT_BUFFER and sets this parameter to the required buffer size. If the buffer size is zero on input, no data is returned in the buffer and this parameter receives the required buffer size.
-     * @param {Pointer} _Buffer 
+     * @param {Integer} _Buffer A caller-allocated buffer that contains the formatted property value. To determine the required buffer size, set this parameterto **NULL** and *BufferSize* to zero.
      * @param {Pointer<Integer>} UserDataConsumed The length, in bytes, of the consumed event data. Use this value to adjust the values of the *UserData* and *UserDataLength* parameters. See Remarks.
      * @returns {Integer} Returns ERROR_SUCCESS if successful. Otherwise, this function returns one of the following return codes in addition to others.
      * 
@@ -8126,7 +8462,9 @@ class Etw {
      * Opens a decoding handle.
      * @remarks
      * Call <a href="https://docs.microsoft.com/windows/desktop/api/tdh/nf-tdh-tdhclosedecodinghandle">TdhCloseDecodingHandle</a> to free the returned handle.
-     * @param {Pointer<TDH_HANDLE>} _Handle 
+     * @param {Pointer<TDH_HANDLE>} _Handle Type: <b>PTDH_HANDLE</b>
+     * 
+     * A valid decoding handle.
      * @returns {Integer} Type: <b>ULONG</b>
      * 
      * Returns ERROR_SUCCESS if successful. Otherwise, this function returns one of the following return codes in addition to others.
@@ -8169,7 +8507,9 @@ class Etw {
 
     /**
      * Sets the value of a decoding parameter.
-     * @param {TDH_HANDLE} _Handle 
+     * @param {TDH_HANDLE} _Handle Type: <b>TDH_HANDLE</b>
+     * 
+     * A valid decoding handle.
      * @param {Pointer<TDH_CONTEXT>} TdhContext Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/tdh/ns-tdh-tdh_context">PTDH_CONTEXT</a></b>
      * 
      * Array of context values. The array must not contain duplicate context types.
@@ -8217,7 +8557,9 @@ class Etw {
 
     /**
      * Retrieves the value of a decoding parameter.
-     * @param {TDH_HANDLE} _Handle 
+     * @param {TDH_HANDLE} _Handle Type: <b>TDH_HANDLE</b>
+     * 
+     * A valid decoding handle.
      * @param {Pointer<TDH_CONTEXT>} TdhContext Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/tdh/ns-tdh-tdh_context">PTDH_CONTEXT</a></b>
      * 
      * Array of context values. The array must not contain duplicate context types.
@@ -8267,7 +8609,9 @@ class Etw {
      * Retrieves a specific property associated with a WPP message.
      * @remarks
      * To retrieve only the decoded event message without specifying a property name, call <a href="https://docs.microsoft.com/windows/desktop/api/tdh/nf-tdh-tdhgetwppmessage">TdhGetWppMessage</a>.
-     * @param {TDH_HANDLE} _Handle 
+     * @param {TDH_HANDLE} _Handle Type: <b>TDH_HANDLE</b>
+     * 
+     * A valid decoding handle.
      * @param {Pointer<EVENT_RECORD>} EventRecord Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/evntcons/ns-evntcons-event_record">PEVENT_RECORD</a></b>
      * 
      * The event record passed to your <a href="https://docs.microsoft.com/windows/desktop/ETW/eventrecordcallback">EventRecordCallback</a> callback.
@@ -8279,7 +8623,9 @@ class Etw {
      * @param {Pointer<Integer>} BufferSize Type: <b>PULONG</b>
      * 
      * Size of the <i>Buffer</i> parameter, in bytes.
-     * @param {Pointer} _Buffer 
+     * @param {Integer} _Buffer Type: <b>PBYTE</b>
+     * 
+     * User-allocated buffer that receives the property data.
      * @returns {Integer} Type: <b>ULONG</b>
      * 
      * Returns ERROR_SUCCESS if successful. Otherwise, this function returns one of the following return codes in addition to others.
@@ -8340,14 +8686,18 @@ class Etw {
      * Retrieves the formatted WPP message embedded into an EVENT_RECORD structure.
      * @remarks
      * To retrieve a specific property instead of the decoded event message without specifying a property name, call <a href="https://docs.microsoft.com/windows/desktop/api/tdh/nf-tdh-tdhgetwppproperty">TdhGetWppProperty</a>.
-     * @param {TDH_HANDLE} _Handle 
+     * @param {TDH_HANDLE} _Handle Type: <b>TDH_HANDLE</b>
+     * 
+     * A valid decoding handle.
      * @param {Pointer<EVENT_RECORD>} EventRecord Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/evntcons/ns-evntcons-event_record">PEVENT_RECORD</a></b>
      * 
      * The event record passed to your <a href="https://docs.microsoft.com/windows/desktop/ETW/eventrecordcallback">EventRecordCallback</a> callback.
      * @param {Pointer<Integer>} BufferSize Type: <b>PULONG</b>
      * 
      * Size of the <i>Buffer</i> parameter, in bytes.
-     * @param {Pointer} _Buffer 
+     * @param {Integer} _Buffer Type: <b>PBYTE</b>
+     * 
+     * User-allocated buffer that receives the property data.
      * @returns {Integer} Type: <b>ULONG</b>
      * 
      * Returns ERROR_SUCCESS if successful. Otherwise, this function returns one of the following return codes in addition to others.
@@ -8405,7 +8755,9 @@ class Etw {
 
     /**
      * Frees any resources associated with the input decoding handle.
-     * @param {TDH_HANDLE} _Handle 
+     * @param {TDH_HANDLE} _Handle Type: <b>TDH_HANDLE</b>
+     * 
+     * The decoding handle to be closed.
      * @returns {Integer} Type: <b>ULONG</b>
      * 
      * This function returns ERROR_SUCCESS on completion.
@@ -8454,7 +8806,7 @@ class Etw {
     /**
      * Retrieves the list of events present in the provider manifest.
      * @param {Pointer<Guid>} ProviderGuid A GUID that identifies the manifest provider whose list of events you want to retrieve.
-     * @param {Pointer} _Buffer 
+     * @param {Integer} _Buffer A user-allocated buffer to receive the list of events. For details, see the <a href="https://docs.microsoft.com/windows/desktop/api/tdh/ns-tdh-provider_event_info">PROVIDER_EVENT_INFO</a>  structure.
      * @param {Pointer<Integer>} BufferSize The size, in bytes, of the buffer pointed to by the <i>ProviderInfo</i> parameter. If the function succeeds, this parameter receives the size of the buffer used. If the buffer is too small, the function returns <b>ERROR_INSUFFICIENT_BUFFER</b> and sets this parameter to the required buffer size. If the buffer size is zero on input, no data is returned in the buffer and this parameter receives the required buffer size.
      * @returns {Integer} Returns <b>ERROR_SUCCESS</b> if successful. Otherwise, this function returns one of the following return codes in addition to others.
      * 
@@ -8533,7 +8885,7 @@ class Etw {
      * Retrieves metadata about an event in a manifest.
      * @param {Pointer<Guid>} ProviderGuid A GUID that identifies the manifest provider whose event metadata you want to retrieve.
      * @param {Pointer<EVENT_DESCRIPTOR>} EventDescriptor A pointer to the event descriptor that contains information such as event id, version, op-code, and keyword. For details, see the <a href="https://docs.microsoft.com/windows/desktop/api/evntprov/ns-evntprov-event_descriptor">EVENT_DESCRIPTOR</a> structure
-     * @param {Pointer} _Buffer 
+     * @param {Integer} _Buffer A user-allocated buffer to receive the metadata about an event in  a provider manifest. For details, see the <a href="https://docs.microsoft.com/windows/desktop/api/tdh/ns-tdh-trace_event_info">TRACE_EVENT_INFO</a> structure.
      * @param {Pointer<Integer>} BufferSize The size, in bytes, of the buffer pointed to by the <i>Buffer</i> parameter. If the function succeeds, this parameter receives the size of the buffer used. If the buffer is too small, the function returns <b>ERROR_INSUFFICIENT_BUFFER</b> and sets this parameter to the required buffer size. If the buffer size is zero on input, no data is returned in the buffer and this parameter receives the required buffer size.
      * @returns {Integer} Returns <b>ERROR_SUCCESS</b> if successful. Otherwise, this function returns one of the following return codes in addition to others.
      * 

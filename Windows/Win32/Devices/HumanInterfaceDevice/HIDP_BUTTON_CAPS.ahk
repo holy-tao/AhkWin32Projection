@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.HumanInterfaceDevice
- * @version v4.0.30319
  */
-class HIDP_BUTTON_CAPS extends Win32Struct
-{
+class HIDP_BUTTON_CAPS extends Win32Struct {
     static sizeof => 72
 
     static packingSize => 4
@@ -116,9 +114,9 @@ class HIDP_BUTTON_CAPS extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    Reserved{
+    Reserved {
         get {
             if(!this.HasProp("__ReservedProxyArray"))
                 this.__ReservedProxyArray := Win32FixedArray(this.ptr + 20, 9, Primitive, "uint")
@@ -137,7 +135,7 @@ class HIDP_BUTTON_CAPS extends Win32Struct
             get => NumGet(this, 0, "ushort")
             set => NumPut("ushort", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -145,7 +143,7 @@ class HIDP_BUTTON_CAPS extends Win32Struct
             get => NumGet(this, 2, "ushort")
             set => NumPut("ushort", value, this, 2)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -153,7 +151,7 @@ class HIDP_BUTTON_CAPS extends Win32Struct
             get => NumGet(this, 4, "ushort")
             set => NumPut("ushort", value, this, 4)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -161,7 +159,7 @@ class HIDP_BUTTON_CAPS extends Win32Struct
             get => NumGet(this, 6, "ushort")
             set => NumPut("ushort", value, this, 6)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -169,7 +167,7 @@ class HIDP_BUTTON_CAPS extends Win32Struct
             get => NumGet(this, 8, "ushort")
             set => NumPut("ushort", value, this, 8)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -177,7 +175,7 @@ class HIDP_BUTTON_CAPS extends Win32Struct
             get => NumGet(this, 10, "ushort")
             set => NumPut("ushort", value, this, 10)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -185,7 +183,7 @@ class HIDP_BUTTON_CAPS extends Win32Struct
             get => NumGet(this, 12, "ushort")
             set => NumPut("ushort", value, this, 12)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -193,7 +191,6 @@ class HIDP_BUTTON_CAPS extends Win32Struct
             get => NumGet(this, 14, "ushort")
             set => NumPut("ushort", value, this, 14)
         }
-    
     }
 
     class _NotRange extends Win32Struct {
@@ -207,7 +204,7 @@ class HIDP_BUTTON_CAPS extends Win32Struct
             get => NumGet(this, 0, "ushort")
             set => NumPut("ushort", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -215,7 +212,7 @@ class HIDP_BUTTON_CAPS extends Win32Struct
             get => NumGet(this, 2, "ushort")
             set => NumPut("ushort", value, this, 2)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -223,7 +220,7 @@ class HIDP_BUTTON_CAPS extends Win32Struct
             get => NumGet(this, 4, "ushort")
             set => NumPut("ushort", value, this, 4)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -231,7 +228,7 @@ class HIDP_BUTTON_CAPS extends Win32Struct
             get => NumGet(this, 6, "ushort")
             set => NumPut("ushort", value, this, 6)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -239,7 +236,7 @@ class HIDP_BUTTON_CAPS extends Win32Struct
             get => NumGet(this, 8, "ushort")
             set => NumPut("ushort", value, this, 8)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -247,7 +244,7 @@ class HIDP_BUTTON_CAPS extends Win32Struct
             get => NumGet(this, 10, "ushort")
             set => NumPut("ushort", value, this, 10)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -255,7 +252,7 @@ class HIDP_BUTTON_CAPS extends Win32Struct
             get => NumGet(this, 12, "ushort")
             set => NumPut("ushort", value, this, 12)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -263,16 +260,15 @@ class HIDP_BUTTON_CAPS extends Win32Struct
             get => NumGet(this, 14, "ushort")
             set => NumPut("ushort", value, this, 14)
         }
-    
     }
 
     /**
      * @type {_Range}
      */
-    Range{
+    Range {
         get {
             if(!this.HasProp("__Range"))
-                this.__Range := %this.__Class%._Range(56, this)
+                this.__Range := HIDP_BUTTON_CAPS._Range(56, this)
             return this.__Range
         }
     }
@@ -280,10 +276,10 @@ class HIDP_BUTTON_CAPS extends Win32Struct
     /**
      * @type {_NotRange}
      */
-    NotRange{
+    NotRange {
         get {
             if(!this.HasProp("__NotRange"))
-                this.__NotRange := %this.__Class%._NotRange(56, this)
+                this.__NotRange := HIDP_BUTTON_CAPS._NotRange(56, this)
             return this.__NotRange
         }
     }

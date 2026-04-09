@@ -5,7 +5,6 @@
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D9
- * @version v4.0.30319
  */
 class Direct3D9 {
 

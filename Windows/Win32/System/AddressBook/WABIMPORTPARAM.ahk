@@ -1,15 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\IAddrBook.ahk
 #Include ..\..\Foundation\HWND.ahk
 
 /**
  * Do not use. Structure passed to Import that gives information about importing .wab files.
  * @see https://learn.microsoft.com/windows/win32/api/wabapi/ns-wabapi-wabimportparam
  * @namespace Windows.Win32.System.AddressBook
- * @version v4.0.30319
  */
-class WABIMPORTPARAM extends Win32Struct
-{
+class WABIMPORTPARAM extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -37,10 +36,9 @@ class WABIMPORTPARAM extends Win32Struct
     }
 
     /**
-     * 
      * @type {HWND}
      */
-    hWnd{
+    hWnd {
         get {
             if(!this.HasProp("__hWnd"))
                 this.__hWnd := HWND(16, this)

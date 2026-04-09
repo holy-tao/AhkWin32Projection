@@ -3,11 +3,9 @@
 
 /**
  * Documentation varies per use. Refer to each: <see href="https://learn.microsoft.com/windows/win32/api/dbghelp/ns-dbghelp-image_debug_information">IMAGE_DEBUG_INFORMATION</see>, <see href="https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-image_file_header">IMAGE_FILE_HEADER</see>.
- * @see 
  * @namespace Windows.Win32.System.SystemInformation
- * @version v4.0.30319
  */
-class IMAGE_FILE_MACHINE extends Win32Enum{
+class IMAGE_FILE_MACHINE extends Win32Enum {
 
     /**
      * @type {Integer (UInt16)}

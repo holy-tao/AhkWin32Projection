@@ -7,9 +7,8 @@
  * Defines methods for performing application-specific restore tasks.
  * @see https://learn.microsoft.com/windows/win32/api/wsbapp/nn-wsbapp-iwsbapplicationrestoresupport
  * @namespace Windows.Win32.System.ServerBackup
- * @version v4.0.30319
  */
-class IWsbApplicationRestoreSupport extends IUnknown{
+class IWsbApplicationRestoreSupport extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

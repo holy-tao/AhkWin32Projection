@@ -1,22 +1,21 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\D3D11_VIDEO_DECODER_BUFFER_TYPE.ahk
 #Include .\D3D11_ENCRYPTED_BLOCK_INFO.ahk
 
 /**
  * Describes a compressed buffer for decoding. (D3D11_VIDEO_DECODER_BUFFER_DESC)
  * @see https://learn.microsoft.com/windows/win32/api/d3d11/ns-d3d11-d3d11_video_decoder_buffer_desc
  * @namespace Windows.Win32.Graphics.Direct3D11
- * @version v4.0.30319
  */
-class D3D11_VIDEO_DECODER_BUFFER_DESC extends Win32Struct
-{
+class D3D11_VIDEO_DECODER_BUFFER_DESC extends Win32Struct {
     static sizeof => 72
 
     static packingSize => 8
 
     /**
      * The type of buffer, specified as a member of the <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ne-d3d11-d3d11_video_decoder_buffer_type">D3D11_VIDEO_DECODER_BUFFER_TYPE</a> enumeration.
-     * @type {Integer}
+     * @type {D3D11_VIDEO_DECODER_BUFFER_TYPE}
      */
     BufferType {
         get => NumGet(this, 0, "int")
@@ -42,7 +41,6 @@ class D3D11_VIDEO_DECODER_BUFFER_DESC extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     DataSize {
@@ -135,7 +133,7 @@ class D3D11_VIDEO_DECODER_BUFFER_DESC extends Win32Struct
      * A <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ns-d3d11-d3d11_encrypted_block_info">D3D11_ENCRYPTED_BLOCK_INFO</a> structure that specifies which bytes of the surface are encrypted.
      * @type {D3D11_ENCRYPTED_BLOCK_INFO}
      */
-    EncryptedBlockInfo{
+    EncryptedBlockInfo {
         get {
             if(!this.HasProp("__EncryptedBlockInfo"))
                 this.__EncryptedBlockInfo := D3D11_ENCRYPTED_BLOCK_INFO(56, this)

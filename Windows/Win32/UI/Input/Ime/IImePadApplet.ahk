@@ -7,9 +7,8 @@
  * The IImePadApplet interface inputs strings into apps through the IImePad interface.
  * @see https://learn.microsoft.com/windows/win32/api/imepad/nn-imepad-iimepadapplet
  * @namespace Windows.Win32.UI.Input.Ime
- * @version v4.0.30319
  */
-class IImePadApplet extends IUnknown{
+class IImePadApplet extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -122,8 +121,8 @@ class IImePadApplet extends IUnknown{
      * </table>
      * @param {IUnknown} lpImePad Pointer of IUnknown interface. To get the <a href="https://docs.microsoft.com/windows/desktop/api/imepad/nn-imepad-iimepad">IImePad</a> interface pointer, use <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-queryinterface(q)">QueryInterface</a>.
      * @param {Integer} notify The <a href="https://docs.microsoft.com/windows/desktop/api/imepad/nn-imepad-iimepadapplet">IImePadApplet</a> notify code. See Remarks for the possible codes.
-     * @param {WPARAM} _wParam 
-     * @param {LPARAM} _lParam 
+     * @param {WPARAM} _wParam Additional information specific to <i>notify</i>.
+     * @param {LPARAM} _lParam Additional information specific to <i>notify</i>.
      * @returns {HRESULT} <b>S_OK</b> if successful, otherwise <b>E_FAIL</b>.
      * @see https://learn.microsoft.com/windows/win32/api/imepad/nf-imepad-iimepadapplet-notify
      */

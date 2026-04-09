@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.Iis
- * @version v4.0.30319
  */
-class IFtpLogProvider extends IUnknown{
+class IFtpLogProvider extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

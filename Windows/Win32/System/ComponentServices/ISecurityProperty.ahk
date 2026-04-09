@@ -7,9 +7,8 @@
  * Determines the security identifier of the current object's original caller or direct caller. However, the preferred way to get information about an object's callers is to use the ISecurityCallContext interface.
  * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nn-comsvcs-isecurityproperty
  * @namespace Windows.Win32.System.ComponentServices
- * @version v4.0.30319
  */
-class ISecurityProperty extends IUnknown{
+class ISecurityProperty extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -38,7 +37,7 @@ class ISecurityProperty extends IUnknown{
 
     /**
      * In MTS 2.0, this method retrieves the security identifier of the external process that directly created the current object. Do not use this method in COM+.
-     * @param {Pointer<PSID>} _pSID 
+     * @param {Pointer<PSID>} _pSID A reference to the security ID of the process that directly created the current object.
      * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, and E_FAIL, as well as the following values.
      * 
      * <table>
@@ -80,7 +79,7 @@ class ISecurityProperty extends IUnknown{
 
     /**
      * In MTS 2.0, this method retrieves the security identifier of the base process that initiated the activity in which the current object is executing. Do not use this method in COM+.
-     * @param {Pointer<PSID>} _pSID 
+     * @param {Pointer<PSID>} _pSID A reference to the security ID of the base process that initiated the activity in which the current object is executing.
      * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, and E_FAIL, as well as the following values.
      * 
      * <table>
@@ -134,7 +133,7 @@ class ISecurityProperty extends IUnknown{
      * </li>
      * </ul>
      * You must call <a href="https://docs.microsoft.com/windows/desktop/api/comsvcs/nf-comsvcs-isecurityproperty-releasesid">ISecurityProperty::ReleaseSID</a> on a security ID when you finish using it.
-     * @param {Pointer<PSID>} _pSID 
+     * @param {Pointer<PSID>} _pSID A reference to the security ID of the process from which the current method was invoked.
      * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, and E_FAIL, as well as the following values.
      * 
      * <table>
@@ -215,7 +214,8 @@ class ISecurityProperty extends IUnknown{
      * 
      * You must call <a href="https://docs.microsoft.com/windows/desktop/api/comsvcs/nf-comsvcs-isecurityproperty-releasesid">ReleaseSID</a> on a security 
      *     ID when you finish using it.
-     * @param {Pointer<PSID>} _pSID 
+     * @param {Pointer<PSID>} _pSID A reference to the security ID of the base process that initiated the call sequence from which the current 
+     *       method was called.
      * @returns {HRESULT} This method can return the standard return values <b>E_INVALIDARG</b>, 
      *       <b>E_OUTOFMEMORY</b>, <b>E_UNEXPECTED</b>, and 
      *       <b>E_FAIL</b>, as well as the following values.
@@ -264,7 +264,7 @@ class ISecurityProperty extends IUnknown{
      * Releases the security identifier returned by one of the other ISecurityProperty methods.
      * @remarks
      * You should always invoke the <b>ReleaseSID</b> method to release any security ID pointers returned by the <a href="https://docs.microsoft.com/windows/desktop/api/comsvcs/nf-comsvcs-isecurityproperty-getdirectcallersid">GetDirectCallerSID</a>, <a href="https://docs.microsoft.com/windows/desktop/api/comsvcs/nf-comsvcs-isecurityproperty-getdirectcreatorsid">GetDirectCreatorSID</a>, <a href="https://docs.microsoft.com/windows/desktop/api/comsvcs/nf-comsvcs-isecurityproperty-getoriginalcallersid">GetOriginalCallerSID</a>, and <a href="https://docs.microsoft.com/windows/desktop/api/comsvcs/nf-comsvcs-isecurityproperty-getoriginalcreatorsid">GetOriginalCreatorSID</a> methods.
-     * @param {PSID} _pSID 
+     * @param {PSID} _pSID A reference to a security ID.
      * @returns {HRESULT} This method can return the following values.
      * 
      * <table>

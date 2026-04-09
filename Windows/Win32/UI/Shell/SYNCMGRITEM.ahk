@@ -7,10 +7,8 @@
  * Provides information about items being enumerated by the ISyncMgrEnumItems interface.
  * @see https://learn.microsoft.com/windows/win32/api/mobsync/ns-mobsync-syncmgritem
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class SYNCMGRITEM extends Win32Struct
-{
+class SYNCMGRITEM extends Win32Struct {
     static sizeof => 296
 
     static packingSize => 8
@@ -41,7 +39,7 @@ class SYNCMGRITEM extends Win32Struct
      * Type: <b>GUID</b>
      * 
      * The identifier for this item.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     ItemID {
         get => NumGet(this, 8, "ptr")
@@ -63,7 +61,7 @@ class SYNCMGRITEM extends Win32Struct
      * The icon for this item.
      * @type {HICON}
      */
-    hIcon{
+    hIcon {
         get {
             if(!this.HasProp("__hIcon"))
                 this.__hIcon := HICON(24, this)
@@ -88,7 +86,7 @@ class SYNCMGRITEM extends Win32Struct
      * The time of the last synchronization for this item.
      * @type {FILETIME}
      */
-    ftLastUpdate{
+    ftLastUpdate {
         get {
             if(!this.HasProp("__ftLastUpdate"))
                 this.__ftLastUpdate := FILETIME(288, this)

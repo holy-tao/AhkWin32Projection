@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\ISyncMgrSyncItem.ahk
 #Include .\IEnumSyncMgrSyncItems.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Exposes methods that provide information to handlers about the items they contain.
@@ -11,9 +11,8 @@
  * Sync Center calls <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-queryinterface(q)">QueryInterface</a> on the <a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/nn-syncmgr-isyncmgrhandler">ISyncMgrHandler</a> interface to obtain a pointer to the <b>ISyncMgrSyncItemContainer</b> interface.
  * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nn-syncmgr-isyncmgrsyncitemcontainer
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class ISyncMgrSyncItemContainer extends IUnknown{
+class ISyncMgrSyncItemContainer extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

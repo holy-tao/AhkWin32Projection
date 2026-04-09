@@ -9,11 +9,9 @@
  * The **fPortType** member can be queried to determine information about the port. Note that port settings do not influence printer attributes (as returned by the **Attributes** member of [**PRINTER\_INFO\_2**](printer-info-2.md)).
  * @see https://learn.microsoft.com/windows/win32/printdocs/port-info-2
  * @namespace Windows.Win32.Graphics.Printing
- * @version v4.0.30319
  * @charset ANSI
  */
-class PORT_INFO_2A extends Win32Struct
-{
+class PORT_INFO_2A extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8

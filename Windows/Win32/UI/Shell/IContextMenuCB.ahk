@@ -11,9 +11,8 @@
  * This interface enables <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellfolder">IShellFolder</a> implementations to manage context menu messages before, after, and during the context menu handling of these messages.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-icontextmenucb
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IContextMenuCB extends IUnknown{
+class IContextMenuCB extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -119,8 +118,12 @@ class IContextMenuCB extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @param {WPARAM} _wParam 
-     * @param {LPARAM} _lParam 
+     * @param {WPARAM} _wParam Type: <b>WPARAM</b>
+     * 
+     * Data specific to the notification specified in <i>uMsg</i>. See the individual notification page for specific requirements.
+     * @param {LPARAM} _lParam Type: <b>LPARAM</b>
+     * 
+     * Data specific to the notification specified in <i>uMsg</i>. See the individual notification page for specific requirements.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.

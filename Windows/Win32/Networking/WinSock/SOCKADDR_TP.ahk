@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Networking.WinSock
- * @version v4.0.30319
  */
-class SOCKADDR_TP extends Win32Struct
-{
+class SOCKADDR_TP extends Win32Struct {
     static sizeof => 72
 
     static packingSize => 2
@@ -44,9 +42,9 @@ class SOCKADDR_TP extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    tp_addr{
+    tp_addr {
         get {
             if(!this.HasProp("__tp_addrProxyArray"))
                 this.__tp_addrProxyArray := Win32FixedArray(this.ptr + 8, 64, Primitive, "char")

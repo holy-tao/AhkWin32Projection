@@ -3,18 +3,16 @@
 
 /**
  * @namespace Windows.Win32.Devices.Dvd
- * @version v4.0.30319
  */
-class AACS_CHALLENGE_KEY extends Win32Struct
-{
+class AACS_CHALLENGE_KEY extends Win32Struct {
     static sizeof => 80
 
     static packingSize => 1
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    EllipticCurvePoint{
+    EllipticCurvePoint {
         get {
             if(!this.HasProp("__EllipticCurvePointProxyArray"))
                 this.__EllipticCurvePointProxyArray := Win32FixedArray(this.ptr + 0, 40, Primitive, "char")
@@ -23,9 +21,9 @@ class AACS_CHALLENGE_KEY extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Signature{
+    Signature {
         get {
             if(!this.HasProp("__SignatureProxyArray"))
                 this.__SignatureProxyArray := Win32FixedArray(this.ptr + 40, 40, Primitive, "char")

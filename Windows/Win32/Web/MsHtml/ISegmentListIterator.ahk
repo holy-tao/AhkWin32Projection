@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ISegment.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\ISegment.ahk
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
- * @version v4.0.30319
  */
-class ISegmentListIterator extends IUnknown{
+class ISegmentListIterator extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

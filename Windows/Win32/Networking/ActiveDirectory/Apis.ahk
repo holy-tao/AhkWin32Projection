@@ -6,7 +6,6 @@
 
 /**
  * @namespace Windows.Win32.Networking.ActiveDirectory
- * @version v4.0.30319
  */
 class ActiveDirectory {
 
@@ -3804,7 +3803,7 @@ class ActiveDirectory {
      * @param {PWSTR} lpszPassword Type: <b>LPCWSTR</b>
      * 
      * The null-terminated Unicode string that specifies the password to supply to the directory service to use for credentials.
-     * @param {Integer} dwReserved Type: <b>DWORD</b>
+     * @param {ADS_AUTHENTICATION_ENUM} dwReserved Type: <b>DWORD</b>
      * 
      * Provider-specific authentication flags used to define the binding options. For more information, see  <a href="https://docs.microsoft.com/windows/win32/api/iads/ne-iads-ads_authentication_enum">ADS_AUTHENTICATION_ENUM</a>.
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
@@ -4069,7 +4068,9 @@ class ActiveDirectory {
      * Allocates memory for and copies a specified string.
      * @remarks
      * For more information and a code example that shows how to use the <b>AllocADsStr</b> function, see <a href="https://docs.microsoft.com/windows/desktop/api/adshlp/nf-adshlp-reallocadsstr">ReallocADsStr</a>.
-     * @param {PWSTR} _pStr 
+     * @param {PWSTR} _pStr Type: <b>LPWSTR</b>
+     * 
+     * Pointer to a null-terminated Unicode string to be copied.
      * @returns {PWSTR} Type: <b>LPWSTR</b>
      * 
      * When successful, the function returns a non-<b>NULL</b> pointer to the allocated memory. The string in <i>pStr</i> is copied to this buffer and null-terminated. The caller must  free this memory when it is no longer required by passing the returned pointer to <a href="https://docs.microsoft.com/windows/desktop/api/adshlp/nf-adshlp-freeadsstr">FreeADsStr</a>.
@@ -4097,7 +4098,11 @@ class ActiveDirectory {
      * For more information and a code example that shows how to use the 
      *     <b>FreeADsStr</b> function, see 
      *     <a href="https://docs.microsoft.com/windows/desktop/api/adshlp/nf-adshlp-reallocadsstr">ReallocADsStr</a>.
-     * @param {PWSTR} _pStr 
+     * @param {PWSTR} _pStr Type: <b>LPWSTR</b>
+     * 
+     * Pointer to the string to be freed. This string must have been allocated with the 
+     *       <a href="https://docs.microsoft.com/windows/desktop/api/adshlp/nf-adshlp-allocadsstr">AllocADsStr</a> or 
+     *       <a href="https://docs.microsoft.com/windows/desktop/api/adshlp/nf-adshlp-reallocadsstr">ReallocADsStr</a> function.
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * The function returns <b>TRUE</b> if the memory is freed. Otherwise, it returns 
@@ -4119,7 +4124,9 @@ class ActiveDirectory {
      * Pointer to null-terminated Unicode string pointer that receives the allocated string. <b>ReallocADsStr</b> will attempt to free this memory with <a href="https://docs.microsoft.com/windows/desktop/api/adshlp/nf-adshlp-freeadsstr">FreeADsStr</a> before reallocating the string, so this parameter should be initialized to <b>NULL</b> if the memory should not be freed or was not allocated with the <a href="https://docs.microsoft.com/windows/desktop/api/adshlp/nf-adshlp-allocadsmem">AllocADsMem</a>, <a href="https://docs.microsoft.com/windows/desktop/api/adshlp/nf-adshlp-allocadsstr">AllocADsStr</a>, <a href="https://docs.microsoft.com/windows/desktop/api/adshlp/nf-adshlp-reallocadsmem">ReallocADsMem</a> or <b>ReallocADsStr</b> function.
      * 
      * The caller must free this memory when it is no longer required by passing this pointer to <a href="https://docs.microsoft.com/windows/desktop/api/adshlp/nf-adshlp-freeadsstr">FreeADsStr</a>.
-     * @param {PWSTR} _pStr 
+     * @param {PWSTR} _pStr Type: <b>LPWSTR</b>
+     * 
+     * Pointer to a null-terminated Unicode string that contains the string to copy.
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * The function returns <b>TRUE</b> if  successful, otherwise <b>FALSE</b> is returned.
@@ -5036,7 +5043,7 @@ class ActiveDirectory {
      * <a href="https://docs.microsoft.com/windows/desktop/api/dsparse/nf-dsparse-dsunquoterdnvaluea">DsUnquoteRdnValue</a>.
      * @param {Integer} cchRDN Contains the length, in characters, of the <i>pszRDN</i> string.
      * @param {Pointer<Guid>} pGuid Pointer to <b>GUID</b> value that receives the GUID of the unmangled relative distinguished name.  This parameter can be <b>NULL</b>.
-     * @param {Pointer<Integer>} peDsMangleFor Pointer 
+     * @param {Pointer<DS_MANGLE_FOR>} peDsMangleFor Pointer 
      * to a <a href="https://docs.microsoft.com/windows/desktop/api/dsparse/ne-dsparse-ds_mangle_for">DS_MANGLE_FOR</a> value that receives the type of mangling used in the mangled relative distinguished name.  This parameter can be <b>NULL</b>.
      * @returns {BOOL} This function returns <b>TRUE</b> if the relative distinguished name is mangled or <b>FALSE</b> otherwise. If this function returns <b>FALSE</b>, neither <i>pGuid</i> or <i>peDsMangleFor</i> receive any data.
      * @see https://learn.microsoft.com/windows/win32/api/dsparse/nf-dsparse-dscrackunquotedmangledrdnw
@@ -5067,7 +5074,7 @@ class ActiveDirectory {
      * <a href="https://docs.microsoft.com/windows/desktop/api/dsparse/nf-dsparse-dsunquoterdnvaluea">DsUnquoteRdnValue</a>.
      * @param {Integer} cchRDN Contains the length, in characters, of the <i>pszRDN</i> string.
      * @param {Pointer<Guid>} pGuid Pointer to <b>GUID</b> value that receives the GUID of the unmangled relative distinguished name.  This parameter can be <b>NULL</b>.
-     * @param {Pointer<Integer>} peDsMangleFor Pointer 
+     * @param {Pointer<DS_MANGLE_FOR>} peDsMangleFor Pointer 
      * to a <a href="https://docs.microsoft.com/windows/desktop/api/dsparse/ne-dsparse-ds_mangle_for">DS_MANGLE_FOR</a> value that receives the type of mangling used in the mangled relative distinguished name.  This parameter can be <b>NULL</b>.
      * @returns {BOOL} This function returns <b>TRUE</b> if the relative distinguished name is mangled or <b>FALSE</b> otherwise. If this function returns <b>FALSE</b>, neither <i>pGuid</i> or <i>peDsMangleFor</i> receive any data.
      * @see https://learn.microsoft.com/windows/win32/api/dsparse/nf-dsparse-dscrackunquotedmangledrdna
@@ -5095,7 +5102,7 @@ class ActiveDirectory {
      * > The dsparse.h header defines DsIsMangledRdnValue as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PWSTR} pszRdn Pointer to a null-terminated string that contains  the relative distinguished name  to determine if it is mangled. The <i>cRdn</i> parameter contains the number of characters in this string.
      * @param {Integer} cRdn Contains the number of characters in the <i>pszRdn</i> string.
-     * @param {Integer} eDsMangleForDesired Contains one of the <a href="https://docs.microsoft.com/windows/desktop/api/dsparse/ne-dsparse-ds_mangle_for">DS_MANGLE_FOR</a> values that specifies the type of name mangling to search for.
+     * @param {DS_MANGLE_FOR} eDsMangleForDesired Contains one of the <a href="https://docs.microsoft.com/windows/desktop/api/dsparse/ne-dsparse-ds_mangle_for">DS_MANGLE_FOR</a> values that specifies the type of name mangling to search for.
      * @returns {BOOL} Returns <b>TRUE</b> if the  relative distinguished name is mangled and the mangle type is the same as specified. Returns <b>FALSE</b> if the relative distinguished name is not mangled or the  mangle type is different than specified.
      * @see https://learn.microsoft.com/windows/win32/api/dsparse/nf-dsparse-dsismangledrdnvaluew
      * @since windows6.0.6000
@@ -5120,7 +5127,7 @@ class ActiveDirectory {
      * > The dsparse.h header defines DsIsMangledRdnValue as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PSTR} pszRdn Pointer to a null-terminated string that contains  the relative distinguished name  to determine if it is mangled. The <i>cRdn</i> parameter contains the number of characters in this string.
      * @param {Integer} cRdn Contains the number of characters in the <i>pszRdn</i> string.
-     * @param {Integer} eDsMangleForDesired Contains one of the <a href="https://docs.microsoft.com/windows/desktop/api/dsparse/ne-dsparse-ds_mangle_for">DS_MANGLE_FOR</a> values that specifies the type of name mangling to search for.
+     * @param {DS_MANGLE_FOR} eDsMangleForDesired Contains one of the <a href="https://docs.microsoft.com/windows/desktop/api/dsparse/ne-dsparse-ds_mangle_for">DS_MANGLE_FOR</a> values that specifies the type of name mangling to search for.
      * @returns {BOOL} Returns <b>TRUE</b> if the  relative distinguished name is mangled and the mangle type is the same as specified. Returns <b>FALSE</b> if the relative distinguished name is not mangled or the  mangle type is different than specified.
      * @see https://learn.microsoft.com/windows/win32/api/dsparse/nf-dsparse-dsismangledrdnvaluea
      * @since windows6.0.6000
@@ -5138,7 +5145,7 @@ class ActiveDirectory {
      * > [!NOTE]
      * > The dsparse.h header defines DsIsMangledDn as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PSTR} pszDn Pointer to a null-terminated string that contains the  distinguished name to retrieve the relative distinguished name from. This can also be a quoted distinguished name  as returned by other directory service functions.
-     * @param {Integer} eDsMangleFor Contains one of the <a href="https://docs.microsoft.com/windows/desktop/api/dsparse/ne-dsparse-ds_mangle_for">DS_MANGLE_FOR</a> values that specifies the type of name mangling to look for.
+     * @param {DS_MANGLE_FOR} eDsMangleFor Contains one of the <a href="https://docs.microsoft.com/windows/desktop/api/dsparse/ne-dsparse-ds_mangle_for">DS_MANGLE_FOR</a> values that specifies the type of name mangling to look for.
      * @returns {BOOL} Returns <b>TRUE</b> if the first relative distinguished name in <i>pszDn</i> is mangled in the manner specified by <i>eDsMangleFor</i> or <b>FALSE</b>  otherwise.
      * @see https://learn.microsoft.com/windows/win32/api/dsparse/nf-dsparse-dsismangleddna
      * @since windows6.0.6000
@@ -5156,7 +5163,7 @@ class ActiveDirectory {
      * > [!NOTE]
      * > The dsparse.h header defines DsIsMangledDn as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PWSTR} pszDn Pointer to a null-terminated string that contains the  distinguished name to retrieve the relative distinguished name from. This can also be a quoted distinguished name  as returned by other directory service functions.
-     * @param {Integer} eDsMangleFor Contains one of the <a href="https://docs.microsoft.com/windows/desktop/api/dsparse/ne-dsparse-ds_mangle_for">DS_MANGLE_FOR</a> values that specifies the type of name mangling to look for.
+     * @param {DS_MANGLE_FOR} eDsMangleFor Contains one of the <a href="https://docs.microsoft.com/windows/desktop/api/dsparse/ne-dsparse-ds_mangle_for">DS_MANGLE_FOR</a> values that specifies the type of name mangling to look for.
      * @returns {BOOL} Returns <b>TRUE</b> if the first relative distinguished name in <i>pszDn</i> is mangled in the manner specified by <i>eDsMangleFor</i> or <b>FALSE</b>  otherwise.
      * @see https://learn.microsoft.com/windows/win32/api/dsparse/nf-dsparse-dsismangleddnw
      * @since windows6.0.6000
@@ -6210,8 +6217,8 @@ class ActiveDirectory {
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsbindwithcreda">DSBindWithCred</a> function. If <i>flags</i> contains
      *     <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/ne-ntdsapi-ds_name_flags">DS_NAME_FLAG_SYNTACTICAL_ONLY</a>, <i>hDS</i> can be
      *     <b>NULL</b>.
-     * @param {Integer} flags Contains one or more of the <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/ne-ntdsapi-ds_name_flags">DS_NAME_FLAGS</a> values used to determine how the name syntax will be cracked.
-     * @param {Integer} formatOffered Contains one of the <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/ne-ntdsapi-ds_name_format">DS_NAME_FORMAT</a> values that identifies the format of the input names.
+     * @param {DS_NAME_FLAGS} flags Contains one or more of the <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/ne-ntdsapi-ds_name_flags">DS_NAME_FLAGS</a> values used to determine how the name syntax will be cracked.
+     * @param {DS_NAME_FORMAT} formatOffered Contains one of the <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/ne-ntdsapi-ds_name_format">DS_NAME_FORMAT</a> values that identifies the format of the input names.
      * 
      * The <b>DS_LIST_NCS</b> value can also be passed for this parameter. This causes <b>DsCrackNames</b> to return the distinguished names of all naming contexts in the current forest. The <i>formatDesired</i> parameter is ignored. <i>cNames</i> must be at least one and all strings in <i>rpNames</i> must have a length greater than zero characters. The contents of the <i>rpNames</i> strings is ignored.
      * 
@@ -6219,7 +6226,7 @@ class ActiveDirectory {
      * <div> </div>
      * 
      * ```cpp
-     * @param {Integer} formatDesired Contains one of the <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/ne-ntdsapi-ds_name_format">DS_NAME_FORMAT</a> values that identifies the format of the output names. The <b>DS_SID_OR_SID_HISTORY_NAME</b> value is not supported.
+     * @param {DS_NAME_FORMAT} formatDesired Contains one of the <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/ne-ntdsapi-ds_name_format">DS_NAME_FORMAT</a> values that identifies the format of the output names. The <b>DS_SID_OR_SID_HISTORY_NAME</b> value is not supported.
      * @param {Integer} cNames Contains the number of elements in the <i>rpNames</i> array.
      * @param {Pointer<PWSTR>} rpNames Pointer to an array of pointers to null-terminated strings that contain names to be converted.
      * @param {Pointer<Pointer<DS_NAME_RESULTW>>} ppResult Pointer to a <b>PDS_NAME_RESULT</b> value that receives a <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/ns-ntdsapi-ds_name_resulta">DS_NAME_RESULT</a> structure
@@ -6273,8 +6280,8 @@ class ActiveDirectory {
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsbindwithcreda">DSBindWithCred</a> function. If <i>flags</i> contains
      *     <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/ne-ntdsapi-ds_name_flags">DS_NAME_FLAG_SYNTACTICAL_ONLY</a>, <i>hDS</i> can be
      *     <b>NULL</b>.
-     * @param {Integer} flags Contains one or more of the <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/ne-ntdsapi-ds_name_flags">DS_NAME_FLAGS</a> values used to determine how the name syntax will be cracked.
-     * @param {Integer} formatOffered Contains one of the <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/ne-ntdsapi-ds_name_format">DS_NAME_FORMAT</a> values that identifies the format of the input names.
+     * @param {DS_NAME_FLAGS} flags Contains one or more of the <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/ne-ntdsapi-ds_name_flags">DS_NAME_FLAGS</a> values used to determine how the name syntax will be cracked.
+     * @param {DS_NAME_FORMAT} formatOffered Contains one of the <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/ne-ntdsapi-ds_name_format">DS_NAME_FORMAT</a> values that identifies the format of the input names.
      * 
      * The <b>DS_LIST_NCS</b> value can also be passed for this parameter. This causes <b>DsCrackNames</b> to return the distinguished names of all naming contexts in the current forest. The <i>formatDesired</i> parameter is ignored. <i>cNames</i> must be at least one and all strings in <i>rpNames</i> must have a length greater than zero characters. The contents of the <i>rpNames</i> strings is ignored.
      * 
@@ -6282,7 +6289,7 @@ class ActiveDirectory {
      * <div> </div>
      * 
      * ```cpp
-     * @param {Integer} formatDesired Contains one of the <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/ne-ntdsapi-ds_name_format">DS_NAME_FORMAT</a> values that identifies the format of the output names. The <b>DS_SID_OR_SID_HISTORY_NAME</b> value is not supported.
+     * @param {DS_NAME_FORMAT} formatDesired Contains one of the <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/ne-ntdsapi-ds_name_format">DS_NAME_FORMAT</a> values that identifies the format of the output names. The <b>DS_SID_OR_SID_HISTORY_NAME</b> value is not supported.
      * @param {Integer} cNames Contains the number of elements in the <i>rpNames</i> array.
      * @param {Pointer<PSTR>} rpNames Pointer to an array of pointers to null-terminated strings that contain names to be converted.
      * @param {Pointer<Pointer<DS_NAME_RESULTA>>} ppResult Pointer to a <b>PDS_NAME_RESULT</b> value that receives a <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/ns-ntdsapi-ds_name_resulta">DS_NAME_RESULT</a> structure
@@ -6355,7 +6362,7 @@ class ActiveDirectory {
      * 
      * > [!NOTE]
      * > The ntdsapi.h header defines DsGetSpn as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Integer} ServiceType 
+     * @param {DS_SPN_NAME_TYPE} ServiceType 
      * @param {PSTR} ServiceClass Pointer to a constant null-terminated string that specifies the class of the service; for example, http. Generally, this can be any string that is unique to the service.
      * @param {PSTR} ServiceName Pointer to a constant null-terminated string that specifies the DNS name or distinguished name (DN) of the service. <i>ServiceName</i> is not required for a host-based service. For more information, see the description of the <i>ServiceType</i> parameter for the possible values of <i>ServiceName</i>.
      * @param {Integer} InstancePort Specifies the port number of the service instance. If this value is zero, the SPN does not include a port number.
@@ -6410,7 +6417,7 @@ class ActiveDirectory {
      * 
      * > [!NOTE]
      * > The ntdsapi.h header defines DsGetSpn as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Integer} ServiceType 
+     * @param {DS_SPN_NAME_TYPE} ServiceType 
      * @param {PWSTR} ServiceClass Pointer to a constant null-terminated string that specifies the class of the service; for example, http. Generally, this can be any string that is unique to the service.
      * @param {PWSTR} ServiceName Pointer to a constant null-terminated string that specifies the DNS name or distinguished name (DN) of the service. <i>ServiceName</i> is not required for a host-based service. For more information, see the description of the <i>ServiceType</i> parameter for the possible values of <i>ServiceName</i>.
      * @param {Integer} InstancePort Specifies the port number of the service instance. If this value is zero, the SPN does not include a port number.
@@ -6527,7 +6534,7 @@ class ActiveDirectory {
      * @param {HANDLE} hDS Contains a directory service handle obtained from either the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsbinda">DSBind</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsbindwithcreda">DSBindWithCred</a> function.
-     * @param {Integer} Operation Contains one of the <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/ne-ntdsapi-ds_spn_write_op">DS_SPN_WRITE_OP</a> values that specifies the operation that <b>DsWriteAccountSpn</b> will perform.
+     * @param {DS_SPN_WRITE_OP} Operation Contains one of the <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/ne-ntdsapi-ds_spn_write_op">DS_SPN_WRITE_OP</a> values that specifies the operation that <b>DsWriteAccountSpn</b> will perform.
      * @param {PSTR} pszAccount Pointer to a constant null-terminated string that specifies the distinguished name of a user or computer object in Active Directory Domain Services. The caller must have write access to the <b>servicePrincipalName</b> property of this object.
      * @param {Integer} cSpn Specifies the number of SPNs in <i>rpszSpn</i>. If this value is zero, and <i>Operation</i> contains <b>DS_SPN_REPLACE_SPN_OP</b>, the function removes all values from the <b>servicePrincipalName</b> attribute of the specified account.
      * @param {Pointer<PSTR>} rpszSpn Pointer to an array of constant null-terminated strings that specify the SPNs to be added to or removed from the  account identified by the <i>pszAccount</i> parameter. The <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsgetspna">DsGetSpn</a> function is used to compose SPNs for a service.
@@ -6599,7 +6606,7 @@ class ActiveDirectory {
      * @param {HANDLE} hDS Contains a directory service handle obtained from either the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsbinda">DSBind</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsbindwithcreda">DSBindWithCred</a> function.
-     * @param {Integer} Operation Contains one of the <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/ne-ntdsapi-ds_spn_write_op">DS_SPN_WRITE_OP</a> values that specifies the operation that <b>DsWriteAccountSpn</b> will perform.
+     * @param {DS_SPN_WRITE_OP} Operation Contains one of the <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/ne-ntdsapi-ds_spn_write_op">DS_SPN_WRITE_OP</a> values that specifies the operation that <b>DsWriteAccountSpn</b> will perform.
      * @param {PWSTR} pszAccount Pointer to a constant null-terminated string that specifies the distinguished name of a user or computer object in Active Directory Domain Services. The caller must have write access to the <b>servicePrincipalName</b> property of this object.
      * @param {Integer} cSpn Specifies the number of SPNs in <i>rpszSpn</i>. If this value is zero, and <i>Operation</i> contains <b>DS_SPN_REPLACE_SPN_OP</b>, the function removes all values from the <b>servicePrincipalName</b> attribute of the specified account.
      * @param {Pointer<PWSTR>} rpszSpn Pointer to an array of constant null-terminated strings that specify the SPNs to be added to or removed from the  account identified by the <i>pszAccount</i> parameter. The <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsgetspna">DsGetSpn</a> function is used to compose SPNs for a service.
@@ -6724,7 +6731,7 @@ class ActiveDirectory {
      * 
      * > [!NOTE]
      * > The ntdsapi.h header defines DsServerRegisterSpn as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Integer} Operation 
+     * @param {DS_SPN_WRITE_OP} Operation 
      * @param {PSTR} ServiceClass Pointer to a constant null-terminated string specifying the class of the service. This parameter may be any string unique to that service; either the protocol name (for example, ldap) or the string form of a GUID will work.
      * @param {PSTR} UserObjectDN Pointer to a constant null-terminated string specifying the distinguished name of a user or computer account object to write the SPNs to. If this parameter is <b>NULL</b>, <b>DsServerRegisterSpn</b> writes to the account object of the primary or impersonated user associated with the calling thread. If the thread is running in the security context of the LocalSystem account, the function writes to the account object of the local computer.
      * @returns {Integer} If the function successfully registers one or more SPNs, it returns <b>ERROR_SUCCESS</b>. Modification is performed permissively, so that adding a value that already exists does not return an error.
@@ -6760,7 +6767,7 @@ class ActiveDirectory {
      * 
      * > [!NOTE]
      * > The ntdsapi.h header defines DsServerRegisterSpn as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Integer} Operation 
+     * @param {DS_SPN_WRITE_OP} Operation 
      * @param {PWSTR} ServiceClass Pointer to a constant null-terminated string specifying the class of the service. This parameter may be any string unique to that service; either the protocol name (for example, ldap) or the string form of a GUID will work.
      * @param {PWSTR} UserObjectDN Pointer to a constant null-terminated string specifying the distinguished name of a user or computer account object to write the SPNs to. If this parameter is <b>NULL</b>, <b>DsServerRegisterSpn</b> writes to the account object of the primary or impersonated user associated with the calling thread. If the thread is running in the security context of the LocalSystem account, the function writes to the account object of the local computer.
      * @returns {Integer} If the function successfully registers one or more SPNs, it returns <b>ERROR_SUCCESS</b>. Modification is performed permissively, so that adding a value that already exists does not return an error.
@@ -7104,7 +7111,7 @@ class ActiveDirectory {
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsbindwithcreda">DSBindWithCred</a> function.
      * @param {PSTR} pszNameContext Pointer to a null-terminated string that specifies the distinguished name of the naming context to synchronize. The <i>pszNameContext</i> parameter is optional; if its value is <b>NULL</b>, the configuration naming context is replicated.
      * @param {Integer} ulFlags 
-     * @param {Pointer} _pFnCallBack 
+     * @param {Pointer} _pFnCallBack Pointer to an application-defined <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms677968(v=vs.85)">SyncUpdateProc</a> function called by the <b>DsReplicaSyncAll</b> function when it encounters an error, initiates synchronization of two servers, completes synchronization of two servers, or finishes synchronization of all the servers in the site.
      * @param {Pointer<Void>} pCallbackData Pointer to application-defined data passed as the first argument of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms677968(v=vs.85)">SyncUpdateProc</a> callback function pointed to by the <i>pFnCallBack</i> parameter.
      * @param {Pointer<Pointer<Pointer<DS_REPSYNCALL_ERRINFOA>>>} pErrors A NULL-terminated array of pointers to  
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/ns-ntdsapi-ds_repsyncall_errinfoa">DS_REPSYNCALL_ERRINFO</a> structures that contain errors that occurred during synchronization. The memory used to hold both the array of pointers and the MsCS\mscs\clusctl_resource_type_get_private_property_fmts.xml data is allocated as a single block of memory and should be freed when no longer required  by a single call to <b>LocalFree</b> with the pointer value returned in <i>pErrors</i> used as the argument.
@@ -7145,7 +7152,7 @@ class ActiveDirectory {
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsbindwithcreda">DSBindWithCred</a> function.
      * @param {PWSTR} pszNameContext Pointer to a null-terminated string that specifies the distinguished name of the naming context to synchronize. The <i>pszNameContext</i> parameter is optional; if its value is <b>NULL</b>, the configuration naming context is replicated.
      * @param {Integer} ulFlags 
-     * @param {Pointer} _pFnCallBack 
+     * @param {Pointer} _pFnCallBack Pointer to an application-defined <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms677968(v=vs.85)">SyncUpdateProc</a> function called by the <b>DsReplicaSyncAll</b> function when it encounters an error, initiates synchronization of two servers, completes synchronization of two servers, or finishes synchronization of all the servers in the site.
      * @param {Pointer<Void>} pCallbackData Pointer to application-defined data passed as the first argument of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms677968(v=vs.85)">SyncUpdateProc</a> callback function pointed to by the <i>pFnCallBack</i> parameter.
      * @param {Pointer<Pointer<Pointer<DS_REPSYNCALL_ERRINFOW>>>} pErrors A NULL-terminated array of pointers to  
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/ns-ntdsapi-ds_repsyncall_errinfoa">DS_REPSYNCALL_ERRINFO</a> structures that contain errors that occurred during synchronization. The memory used to hold both the array of pointers and the MsCS\mscs\clusctl_resource_type_get_private_property_fmts.xml data is allocated as a single block of memory and should be freed when no longer required  by a single call to <b>LocalFree</b> with the pointer value returned in <i>pErrors</i> used as the argument.
@@ -7912,7 +7919,7 @@ class ActiveDirectory {
      * @param {HANDLE} hDS Contains a directory service handle obtained from either the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsbinda">DSBind</a>, 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsbindwithcreda">DSBindWithCred</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsbindwithspna">DsBindWithSpn</a> function.
-     * @param {Integer} TaskID Identifies the task that the KCC should execute. <b>DS_KCC_TASKID_UPDATE_TOPOLOGY</b> is the only currently supported value.
+     * @param {DS_KCC_TASKID} TaskID Identifies the task that the KCC should execute. <b>DS_KCC_TASKID_UPDATE_TOPOLOGY</b> is the only currently supported value.
      * @param {Integer} dwFlags 
      * @returns {Integer} If the function performs its operation successfully, the return value is <b>ERROR_SUCCESS</b>. If the function fails, the return value can be one of the following.
      * @see https://learn.microsoft.com/windows/win32/api/ntdsapi/nf-ntdsapi-dsreplicaconsistencycheck
@@ -7976,7 +7983,7 @@ class ActiveDirectory {
      * @param {HANDLE} hDS Contains a directory service handle obtained from either the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsbinda">DSBind</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsbindwithcreda">DSBindWithCred</a> function.
-     * @param {Integer} InfoType Contains one of the <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/ne-ntdsapi-ds_repl_info_type">DS_REPL_INFO_TYPE</a> values that specifies the type of replication data to retrieve. This value also determines which type of structure is returned in <i>ppInfo</i>.
+     * @param {DS_REPL_INFO_TYPE} InfoType Contains one of the <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/ne-ntdsapi-ds_repl_info_type">DS_REPL_INFO_TYPE</a> values that specifies the type of replication data to retrieve. This value also determines which type of structure is returned in <i>ppInfo</i>.
      * 
      * Only the following values are supported for this function. If other data types are required, the <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsreplicagetinfo2w">DsReplicaGetInfo2</a> function must be used.
      * 
@@ -8007,7 +8014,7 @@ class ActiveDirectory {
      * @param {HANDLE} hDS Contains a directory service handle obtained from either the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsbinda">DSBind</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsbindwithcreda">DSBindWithCred</a> function.
-     * @param {Integer} InfoType Contains one of the <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/ne-ntdsapi-ds_repl_info_type">DS_REPL_INFO_TYPE</a> values that specifies the type of replication data to retrieve. This value also determines which type of structure is returned in <i>ppInfo</i>.
+     * @param {DS_REPL_INFO_TYPE} InfoType Contains one of the <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/ne-ntdsapi-ds_repl_info_type">DS_REPL_INFO_TYPE</a> values that specifies the type of replication data to retrieve. This value also determines which type of structure is returned in <i>ppInfo</i>.
      * @param {PWSTR} pszObject Pointer to a constant null-terminated Unicode string that identifies the object to retrieve replication data for. The meaning of this parameter depends on the value of the <i>InfoType</i> parameter. The following are possible value codes.
      * @param {Pointer<Guid>} puuidForSourceDsaObjGuid Pointer to a <b>GUID</b> value that identifies a specific replication source. If this parameter is not <b>NULL</b> and the <i>InfoType</i> parameter contains <b>DS_REPL_INFO_NEIGHBORS</b>, only neighbor data for the source corresponding to the nTDSDSA object with the given <b>objectGuid</b> in the directory is returned. This parameter is ignored if <b>NULL</b> or if the <i>InfoType</i> parameter is anything other than <b>DS_REPL_INFO_NEIGHBORS</b>.
      * @param {PWSTR} pszAttributeName Pointer to a null-terminated Unicode string that contains the name of the specific attribute to retrieve replication data for.
@@ -8036,7 +8043,7 @@ class ActiveDirectory {
 
     /**
      * Frees the replication state data structure allocated by the DsReplicaGetInfo or DsReplicaGetInfo2 functions.
-     * @param {Integer} InfoType Contains one of the <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/ne-ntdsapi-ds_repl_info_type">DS_REPL_INFO_TYPE</a> values that specifies the type of replication data structure  contained in <i>pInfo</i>. This must be the same value passed to the <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsreplicagetinfow">DsReplicaGetInfo</a> or <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsreplicagetinfo2w">DsReplicaGetInfo2</a> function when the structure was allocated.
+     * @param {DS_REPL_INFO_TYPE} InfoType Contains one of the <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/ne-ntdsapi-ds_repl_info_type">DS_REPL_INFO_TYPE</a> values that specifies the type of replication data structure  contained in <i>pInfo</i>. This must be the same value passed to the <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsreplicagetinfow">DsReplicaGetInfo</a> or <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsreplicagetinfo2w">DsReplicaGetInfo2</a> function when the structure was allocated.
      * @param {Pointer<Void>} pInfo Pointer to the replication data structure allocated by the <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsreplicagetinfow">DsReplicaGetInfo</a> or <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsreplicagetinfo2w">DsReplicaGetInfo2</a> functions.
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/ntdsapi/nf-ntdsapi-dsreplicafreeinfo
@@ -8235,8 +8242,10 @@ class ActiveDirectory {
     /**
      * Retrieves state data for the computer.
      * @param {PWSTR} lpServer Pointer to null-terminated Unicode string that contains the name of the computer on which to call the function. If this parameter is <b>NULL</b>, the local computer is used.
-     * @param {Integer} InfoLevel Contains one of the <a href="https://docs.microsoft.com/windows/desktop/api/dsrole/ne-dsrole-dsrole_primary_domain_info_level">DSROLE_PRIMARY_DOMAIN_INFO_LEVEL</a> values that specify the type of data to retrieve. This parameter also determines the format of the data supplied in <i>Buffer</i>.
-     * @param {Pointer<Pointer<Integer>>} _Buffer 
+     * @param {DSROLE_PRIMARY_DOMAIN_INFO_LEVEL} InfoLevel Contains one of the <a href="https://docs.microsoft.com/windows/desktop/api/dsrole/ne-dsrole-dsrole_primary_domain_info_level">DSROLE_PRIMARY_DOMAIN_INFO_LEVEL</a> values that specify the type of data to retrieve. This parameter also determines the format of the data supplied in <i>Buffer</i>.
+     * @param {Pointer<Pointer<Integer>>} _Buffer Pointer to the address of a buffer that receives the requested data. The format of this data depends on the value of the <i>InfoLevel</i> parameter.
+     * 
+     * The caller must free this memory when it is no longer required by calling <a href="https://docs.microsoft.com/windows/desktop/api/dsrole/nf-dsrole-dsrolefreememory">DsRoleFreeMemory</a>.
      * @returns {Integer} If the function is successful, the return value is <b>ERROR_SUCCESS</b>.
      * 
      * If the function fails, the return value can be one of the following values.
@@ -8254,7 +8263,7 @@ class ActiveDirectory {
 
     /**
      * Frees memory allocated by the DsRoleGetPrimaryDomainInformation function.
-     * @param {Pointer<Void>} _Buffer 
+     * @param {Pointer<Void>} _Buffer Pointer to the buffer to be freed.
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/dsrole/nf-dsrole-dsrolefreememory
      * @since windows6.0.6000

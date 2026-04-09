@@ -8,10 +8,8 @@
  * Contains information about a Dynamic Data Exchange (DDE) message. A DDE monitoring application can use this structure to obtain information about a DDE message that was sent or posted.
  * @see https://learn.microsoft.com/windows/win32/api/ddeml/ns-ddeml-monmsgstruct
  * @namespace Windows.Win32.System.DataExchange
- * @version v4.0.30319
  */
-class MONMSGSTRUCT extends Win32Struct
-{
+class MONMSGSTRUCT extends Win32Struct {
     static sizeof => 112
 
     static packingSize => 8
@@ -33,7 +31,7 @@ class MONMSGSTRUCT extends Win32Struct
      * A handle to the window that receives the DDE message.
      * @type {HWND}
      */
-    hwndTo{
+    hwndTo {
         get {
             if(!this.HasProp("__hwndTo"))
                 this.__hwndTo := HWND(8, this)
@@ -58,7 +56,7 @@ class MONMSGSTRUCT extends Win32Struct
      * A handle to the task (application instance) containing the window that receives the DDE message.
      * @type {HANDLE}
      */
-    hTask{
+    hTask {
         get {
             if(!this.HasProp("__hTask"))
                 this.__hTask := HANDLE(24, this)
@@ -105,7 +103,7 @@ class MONMSGSTRUCT extends Win32Struct
      * Additional information about the DDE message.
      * @type {DDEML_MSG_HOOK_DATA}
      */
-    dmhd{
+    dmhd {
         get {
             if(!this.HasProp("__dmhd"))
                 this.__dmhd := DDEML_MSG_HOOK_DATA(56, this)

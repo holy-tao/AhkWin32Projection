@@ -3,16 +3,14 @@
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem
- * @version v4.0.30319
  */
-class DUAL_OPLOCK_KEY_ECP_CONTEXT extends Win32Struct
-{
+class DUAL_OPLOCK_KEY_ECP_CONTEXT extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     ParentOplockKey {
         get => NumGet(this, 0, "ptr")
@@ -20,7 +18,7 @@ class DUAL_OPLOCK_KEY_ECP_CONTEXT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     TargetOplockKey {
         get => NumGet(this, 8, "ptr")

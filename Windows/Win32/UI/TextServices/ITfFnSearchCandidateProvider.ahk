@@ -1,9 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\ITfCandidateList.ahk
 #Include .\ITfFunction.ahk
+#Include .\ITfCandidateList.ahk
 
 /**
  * Enables an integrated search experience in an Input Method Editor (IME).
@@ -15,9 +14,8 @@
  * <c>ITfFunctionProvider::GetFunction(GUID_NULL, IID_ITfFnSearchCandidateProvider, &amp;pSearchCandidate)</c>
  * @see https://learn.microsoft.com/windows/win32/api/ctffunc/nn-ctffunc-itffnsearchcandidateprovider
  * @namespace Windows.Win32.UI.TextServices
- * @version v4.0.30319
  */
-class ITfFnSearchCandidateProvider extends ITfFunction{
+class ITfFnSearchCandidateProvider extends ITfFunction {
 
     static sizeof => A_PtrSize
     /**

@@ -5,9 +5,8 @@
  * Specifies how a geometry is simplified to an ID2D1SimplifiedGeometrySink.
  * @see https://learn.microsoft.com/windows/win32/api/d2d1/ne-d2d1-d2d1_geometry_simplification_option
  * @namespace Windows.Win32.Graphics.Direct2D
- * @version v4.0.30319
  */
-class D2D1_GEOMETRY_SIMPLIFICATION_OPTION extends Win32Enum{
+class D2D1_GEOMETRY_SIMPLIFICATION_OPTION extends Win32Enum {
 
     /**
      * The output can contain cubic Bezier curves and line segments.

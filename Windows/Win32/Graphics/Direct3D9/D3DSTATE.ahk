@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\D3DLIGHTSTATETYPE.ahk
+#Include .\D3DRENDERSTATETYPE.ahk
 
 /**
  * Predefined sets of pipeline state used by state blocks (see State Blocks Save and Restore State (Direct3D 9)).
@@ -17,16 +19,14 @@
  * -   Texture state: D3DTSS\_TEXTURETRANSFORMFLAGS
  * @see https://learn.microsoft.com/windows/win32/direct3d9/d3dstateblocktype
  * @namespace Windows.Win32.Graphics.Direct3D9
- * @version v4.0.30319
  */
-class D3DSTATE extends Win32Struct
-{
+class D3DSTATE extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4
 
     /**
-     * @type {Integer}
+     * @type {D3DLIGHTSTATETYPE}
      */
     dlstLightStateType {
         get => NumGet(this, 0, "int")
@@ -34,7 +34,7 @@ class D3DSTATE extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {D3DRENDERSTATETYPE}
      */
     drstRenderStateType {
         get => NumGet(this, 0, "int")
@@ -42,9 +42,9 @@ class D3DSTATE extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    dwArg{
+    dwArg {
         get {
             if(!this.HasProp("__dwArgProxyArray"))
                 this.__dwArgProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "uint")
@@ -53,9 +53,9 @@ class D3DSTATE extends Win32Struct
     }
 
     /**
-     * @type {Array<Single>}
+     * @type {Array<Float>}
      */
-    dvArg{
+    dvArg {
         get {
             if(!this.HasProp("__dvArgProxyArray"))
                 this.__dvArgProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "float")

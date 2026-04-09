@@ -1,15 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\IRTCSession2.ahk
 #Include ..\Com\IDispatch.ahk
+#Include .\IRTCSession2.ahk
 
 /**
  * @namespace Windows.Win32.System.RealTimeCommunications
- * @version v4.0.30319
  */
-class IRTCReInviteEvent extends IDispatch{
+class IRTCReInviteEvent extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -38,7 +36,7 @@ class IRTCReInviteEvent extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {RTC_REINVITE_STATE} 
      */
     State {
         get => this.get_State()
@@ -238,7 +236,7 @@ class IRTCReInviteEvent extends IDispatch{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {RTC_REINVITE_STATE} 
      */
     get_State() {
         result := ComCall(10, this, "int*", &pState := 0, "HRESULT")

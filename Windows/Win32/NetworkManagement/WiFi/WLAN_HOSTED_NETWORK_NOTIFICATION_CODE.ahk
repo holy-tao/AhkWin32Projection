@@ -59,9 +59,8 @@
  * </table>
  * @see https://learn.microsoft.com/windows/win32/api/wlanapi/ne-wlanapi-wlan_hosted_network_notification_code
  * @namespace Windows.Win32.NetworkManagement.WiFi
- * @version v4.0.30319
  */
-class WLAN_HOSTED_NETWORK_NOTIFICATION_CODE extends Win32Enum{
+class WLAN_HOSTED_NETWORK_NOTIFICATION_CODE extends Win32Enum {
 
     /**
      * The Hosted Network state has changed.

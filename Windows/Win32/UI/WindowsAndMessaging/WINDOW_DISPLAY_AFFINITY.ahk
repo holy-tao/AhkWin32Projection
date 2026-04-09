@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.UI.WindowsAndMessaging
- * @version v4.0.30319
  */
-class WINDOW_DISPLAY_AFFINITY extends Win32Enum{
+class WINDOW_DISPLAY_AFFINITY extends Win32Enum {
 
     /**
      * @type {Integer (UInt32)}

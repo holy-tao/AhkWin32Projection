@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * Defines a property condition that the file management job uses to determine if the file is expired.
@@ -10,9 +10,8 @@
  * The property condition specifies the classification property in the file to test. When the file management job runs, it gets the value of the classification property and uses the comparison operator to compare the value of the specified classification property (see the [Value](./nf-fsrmreports-ifsrmpropertycondition-get_value.md) property). If this condition  and all the other specified conditions for the job are met, FSRM can expire the file or call the custom action if it is defined.
  * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nn-fsrmreports-ifsrmpropertycondition
  * @namespace Windows.Win32.Storage.FileServerResourceManager
- * @version v4.0.30319
  */
-class IFsrmPropertyCondition extends IDispatch{
+class IFsrmPropertyCondition extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -42,7 +41,7 @@ class IFsrmPropertyCondition extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {FsrmPropertyConditionType} 
      */
     Type {
         get => this.get_Type()
@@ -83,7 +82,7 @@ class IFsrmPropertyCondition extends IDispatch{
 
     /**
      * The comparison operator used to determine whether the property condition is met. (Get)
-     * @returns {Integer} 
+     * @returns {FsrmPropertyConditionType} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmpropertycondition-get_type
      */
     get_Type() {
@@ -93,7 +92,7 @@ class IFsrmPropertyCondition extends IDispatch{
 
     /**
      * The comparison operator used to determine whether the property condition is met. (Put)
-     * @param {Integer} type 
+     * @param {FsrmPropertyConditionType} type 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmpropertycondition-put_type
      */

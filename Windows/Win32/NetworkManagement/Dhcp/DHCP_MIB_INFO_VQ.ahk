@@ -1,13 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\DATE_TIME.ahk
+#Include .\SCOPE_MIB_INFO_VQ.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Dhcp
- * @version v4.0.30319
  */
-class DHCP_MIB_INFO_VQ extends Win32Struct
-{
+class DHCP_MIB_INFO_VQ extends Win32Struct {
     static sizeof => 80
 
     static packingSize => 8
@@ -71,7 +70,7 @@ class DHCP_MIB_INFO_VQ extends Win32Struct
     /**
      * @type {DATE_TIME}
      */
-    ServerStartTime{
+    ServerStartTime {
         get {
             if(!this.HasProp("__ServerStartTime"))
                 this.__ServerStartTime := DATE_TIME(28, this)

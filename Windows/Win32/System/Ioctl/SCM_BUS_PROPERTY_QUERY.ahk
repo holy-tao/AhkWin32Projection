@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\SCM_BUS_PROPERTY_ID.ahk
+#Include .\SCM_BUS_QUERY_TYPE.ahk
 
 /**
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class SCM_BUS_PROPERTY_QUERY extends Win32Struct
-{
+class SCM_BUS_PROPERTY_QUERY extends Win32Struct {
     static sizeof => 20
 
     static packingSize => 4
@@ -28,7 +28,7 @@ class SCM_BUS_PROPERTY_QUERY extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {SCM_BUS_PROPERTY_ID}
      */
     PropertyId {
         get => NumGet(this, 8, "int")
@@ -36,7 +36,7 @@ class SCM_BUS_PROPERTY_QUERY extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {SCM_BUS_QUERY_TYPE}
      */
     QueryType {
         get => NumGet(this, 12, "int")
@@ -44,9 +44,9 @@ class SCM_BUS_PROPERTY_QUERY extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    AdditionalParameters{
+    AdditionalParameters {
         get {
             if(!this.HasProp("__AdditionalParametersProxyArray"))
                 this.__AdditionalParametersProxyArray := Win32FixedArray(this.ptr + 16, 1, Primitive, "char")

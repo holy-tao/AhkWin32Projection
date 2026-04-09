@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.Cdrom
- * @version v4.0.30319
  */
-class STREAMING_CONTROL_REQUEST_TYPE extends Win32Enum{
+class STREAMING_CONTROL_REQUEST_TYPE extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

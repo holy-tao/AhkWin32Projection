@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Media.DirectShow.Tv
- * @version v4.0.30319
  */
-class IMSVidWebDVDEvent extends IMSVidPlaybackEvent{
+class IMSVidWebDVDEvent extends IMSVidPlaybackEvent {
 
     static sizeof => A_PtrSize
     /**
@@ -97,7 +96,7 @@ class IMSVidWebDVDEvent extends IMSVidPlaybackEvent{
      * The ShowMenu method displays the specified menu on the screen.
      * @remarks
      * DVD menu names can be somewhat confusing. The title menu is another name for the Video Manager Menu, the main menu for the entire disc; it generally lists all the video title sets available on the disc. The root menu is the menu for one video title set, which can contain one title or a group of titles. All the titles in a title set share the same Subpicture, Audio, and Angle menus.
-     * @param {Integer} MenuID 
+     * @param {DVDMenuIDConstants} MenuID 
      * @param {VARIANT_BOOL} bEnabled 
      * @returns {HRESULT} <span id="iMenuID"></span><span id="imenuid"></span><span id="IMENUID"></span>*iMenuID*
      * 

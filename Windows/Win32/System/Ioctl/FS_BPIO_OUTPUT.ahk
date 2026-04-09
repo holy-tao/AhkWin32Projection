@@ -1,20 +1,20 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\FS_BPIO_OPERATIONS.ahk
+#Include .\FS_BPIO_OUTFLAGS.ahk
 #Include .\FS_BPIO_RESULTS.ahk
 #Include .\FS_BPIO_INFO.ahk
 
 /**
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class FS_BPIO_OUTPUT extends Win32Struct
-{
+class FS_BPIO_OUTPUT extends Win32Struct {
     static sizeof => 352
 
     static packingSize => 8
 
     /**
-     * @type {Integer}
+     * @type {FS_BPIO_OPERATIONS}
      */
     Operation {
         get => NumGet(this, 0, "int")
@@ -22,7 +22,7 @@ class FS_BPIO_OUTPUT extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {FS_BPIO_OUTFLAGS}
      */
     OutFlags {
         get => NumGet(this, 4, "int")
@@ -48,7 +48,7 @@ class FS_BPIO_OUTPUT extends Win32Struct
     /**
      * @type {FS_BPIO_RESULTS}
      */
-    Enable{
+    Enable {
         get {
             if(!this.HasProp("__Enable"))
                 this.__Enable := FS_BPIO_RESULTS(24, this)
@@ -59,7 +59,7 @@ class FS_BPIO_OUTPUT extends Win32Struct
     /**
      * @type {FS_BPIO_RESULTS}
      */
-    Query{
+    Query {
         get {
             if(!this.HasProp("__Query"))
                 this.__Query := FS_BPIO_RESULTS(24, this)
@@ -70,7 +70,7 @@ class FS_BPIO_OUTPUT extends Win32Struct
     /**
      * @type {FS_BPIO_RESULTS}
      */
-    VolumeStackResume{
+    VolumeStackResume {
         get {
             if(!this.HasProp("__VolumeStackResume"))
                 this.__VolumeStackResume := FS_BPIO_RESULTS(24, this)
@@ -81,7 +81,7 @@ class FS_BPIO_OUTPUT extends Win32Struct
     /**
      * @type {FS_BPIO_RESULTS}
      */
-    StreamResume{
+    StreamResume {
         get {
             if(!this.HasProp("__StreamResume"))
                 this.__StreamResume := FS_BPIO_RESULTS(24, this)
@@ -92,7 +92,7 @@ class FS_BPIO_OUTPUT extends Win32Struct
     /**
      * @type {FS_BPIO_INFO}
      */
-    GetInfo{
+    GetInfo {
         get {
             if(!this.HasProp("__GetInfo"))
                 this.__GetInfo := FS_BPIO_INFO(24, this)

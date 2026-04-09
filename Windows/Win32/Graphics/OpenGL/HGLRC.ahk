@@ -5,10 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Graphics.OpenGL
- * @version v4.0.30319
  */
-class HGLRC extends Win32Handle
-{
+class HGLRC extends Win32Handle {
     static sizeof => 8
 
     static packingSize => 8

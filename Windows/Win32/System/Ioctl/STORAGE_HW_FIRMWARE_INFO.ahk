@@ -6,13 +6,11 @@
  * STORAGE_HW_FIRMWARE_INFO structure - This structure contains information about the device firmware.
  * @see https://learn.microsoft.com/windows/win32/FileIO/storage-hw-firmware-info
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class STORAGE_HW_FIRMWARE_INFO extends Win32Struct
-{
-    static sizeof => 32
+class STORAGE_HW_FIRMWARE_INFO extends Win32Struct {
+    static sizeof => 56
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * The version of this structure. This should be set to sizeof(STORAGE\_HW\_FIRMWARE\_INFO)
@@ -44,7 +42,6 @@ class STORAGE_HW_FIRMWARE_INFO extends Win32Struct
     }
 
     /**
-     * Indicates that this firmware supports an upgrade.
      * @type {Integer}
      */
     SupportUpgrade {
@@ -53,7 +50,6 @@ class STORAGE_HW_FIRMWARE_INFO extends Win32Struct
     }
 
     /**
-     * Reserved for future use.
      * @type {Integer}
      */
     Reserved0 {
@@ -102,9 +98,9 @@ class STORAGE_HW_FIRMWARE_INFO extends Win32Struct
 
     /**
      * Reserved for future use.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Reserved{
+    Reserved {
         get {
             if(!this.HasProp("__ReservedProxyArray"))
                 this.__ReservedProxyArray := Win32FixedArray(this.ptr + 13, 3, Primitive, "char")
@@ -132,9 +128,9 @@ class STORAGE_HW_FIRMWARE_INFO extends Win32Struct
 
     /**
      * Contains the slot information for each slot on the device, of type [**STORAGE\_HW\_FIRMWARE\_SLOT\_INFO**](storage-hw-firmware-slot-info.md).
-     * @type {Array<STORAGE_HW_FIRMWARE_SLOT_INFO>}
+     * @type {STORAGE_HW_FIRMWARE_SLOT_INFO}
      */
-    Slot{
+    Slot {
         get {
             if(!this.HasProp("__SlotProxyArray"))
                 this.__SlotProxyArray := Win32FixedArray(this.ptr + 24, 1, STORAGE_HW_FIRMWARE_SLOT_INFO, "")

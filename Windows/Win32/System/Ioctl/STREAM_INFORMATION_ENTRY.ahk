@@ -1,12 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\FILE_STORAGE_TIER_CLASS.ahk
 
 /**
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class STREAM_INFORMATION_ENTRY extends Win32Struct
-{
+class STREAM_INFORMATION_ENTRY extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8
@@ -18,15 +17,15 @@ class STREAM_INFORMATION_ENTRY extends Win32Struct
         class _DesiredStorageClass extends Win32Struct {
             static sizeof => 8
             static packingSize => 4
-    
+
             /**
-             * @type {Integer}
+             * @type {FILE_STORAGE_TIER_CLASS}
              */
             Class {
                 get => NumGet(this, 0, "int")
                 set => NumPut("int", value, this, 0)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -34,13 +33,12 @@ class STREAM_INFORMATION_ENTRY extends Win32Struct
                 get => NumGet(this, 4, "uint")
                 set => NumPut("uint", value, this, 4)
             }
-        
         }
-    
+
         class _DataStream extends Win32Struct {
             static sizeof => 16
             static packingSize => 8
-    
+
             /**
              * @type {Integer}
              */
@@ -48,7 +46,7 @@ class STREAM_INFORMATION_ENTRY extends Win32Struct
                 get => NumGet(this, 0, "ushort")
                 set => NumPut("ushort", value, this, 0)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -56,7 +54,7 @@ class STREAM_INFORMATION_ENTRY extends Win32Struct
                 get => NumGet(this, 2, "ushort")
                 set => NumPut("ushort", value, this, 2)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -64,7 +62,7 @@ class STREAM_INFORMATION_ENTRY extends Win32Struct
                 get => NumGet(this, 4, "uint")
                 set => NumPut("uint", value, this, 4)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -72,13 +70,12 @@ class STREAM_INFORMATION_ENTRY extends Win32Struct
                 get => NumGet(this, 8, "uint")
                 set => NumPut("uint", value, this, 8)
             }
-        
         }
-    
+
         class _Reparse extends Win32Struct {
             static sizeof => 12
             static packingSize => 4
-    
+
             /**
              * @type {Integer}
              */
@@ -86,7 +83,7 @@ class STREAM_INFORMATION_ENTRY extends Win32Struct
                 get => NumGet(this, 0, "ushort")
                 set => NumPut("ushort", value, this, 0)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -94,7 +91,7 @@ class STREAM_INFORMATION_ENTRY extends Win32Struct
                 get => NumGet(this, 2, "ushort")
                 set => NumPut("ushort", value, this, 2)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -102,7 +99,7 @@ class STREAM_INFORMATION_ENTRY extends Win32Struct
                 get => NumGet(this, 4, "uint")
                 set => NumPut("uint", value, this, 4)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -110,13 +107,12 @@ class STREAM_INFORMATION_ENTRY extends Win32Struct
                 get => NumGet(this, 8, "uint")
                 set => NumPut("uint", value, this, 8)
             }
-        
         }
-    
+
         class _Ea extends Win32Struct {
             static sizeof => 12
             static packingSize => 4
-    
+
             /**
              * @type {Integer}
              */
@@ -124,7 +120,7 @@ class STREAM_INFORMATION_ENTRY extends Win32Struct
                 get => NumGet(this, 0, "ushort")
                 set => NumPut("ushort", value, this, 0)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -132,7 +128,7 @@ class STREAM_INFORMATION_ENTRY extends Win32Struct
                 get => NumGet(this, 2, "ushort")
                 set => NumPut("ushort", value, this, 2)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -140,7 +136,7 @@ class STREAM_INFORMATION_ENTRY extends Win32Struct
                 get => NumGet(this, 4, "uint")
                 set => NumPut("uint", value, this, 4)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -148,53 +144,51 @@ class STREAM_INFORMATION_ENTRY extends Win32Struct
                 get => NumGet(this, 8, "uint")
                 set => NumPut("uint", value, this, 8)
             }
-        
         }
-    
+
         /**
          * @type {_DesiredStorageClass}
          */
-        DesiredStorageClass{
+        DesiredStorageClass {
             get {
                 if(!this.HasProp("__DesiredStorageClass"))
-                    this.__DesiredStorageClass := %this.__Class%._DesiredStorageClass(0, this)
+                    this.__DesiredStorageClass := STREAM_INFORMATION_ENTRY._StreamInformation._DesiredStorageClass(0, this)
                 return this.__DesiredStorageClass
             }
         }
-    
+
         /**
          * @type {_DataStream}
          */
-        DataStream{
+        DataStream {
             get {
                 if(!this.HasProp("__DataStream"))
-                    this.__DataStream := %this.__Class%._DataStream(0, this)
+                    this.__DataStream := STREAM_INFORMATION_ENTRY._StreamInformation._DataStream(0, this)
                 return this.__DataStream
             }
         }
-    
+
         /**
          * @type {_Reparse}
          */
-        Reparse{
+        Reparse {
             get {
                 if(!this.HasProp("__Reparse"))
-                    this.__Reparse := %this.__Class%._Reparse(0, this)
+                    this.__Reparse := STREAM_INFORMATION_ENTRY._StreamInformation._Reparse(0, this)
                 return this.__Reparse
             }
         }
-    
+
         /**
          * @type {_Ea}
          */
-        Ea{
+        Ea {
             get {
                 if(!this.HasProp("__Ea"))
-                    this.__Ea := %this.__Class%._Ea(0, this)
+                    this.__Ea := STREAM_INFORMATION_ENTRY._StreamInformation._Ea(0, this)
                 return this.__Ea
             }
         }
-    
     }
 
     /**
@@ -216,10 +210,10 @@ class STREAM_INFORMATION_ENTRY extends Win32Struct
     /**
      * @type {_StreamInformation}
      */
-    StreamInformation{
+    StreamInformation {
         get {
             if(!this.HasProp("__StreamInformation"))
-                this.__StreamInformation := %this.__Class%._StreamInformation(8, this)
+                this.__StreamInformation := STREAM_INFORMATION_ENTRY._StreamInformation(8, this)
             return this.__StreamInformation
         }
     }

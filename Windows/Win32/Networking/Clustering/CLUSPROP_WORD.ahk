@@ -1,16 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\CLUSPROP_SYNTAX.ahk
 #Include .\CLUSPROP_VALUE.ahk
+#Include .\CLUSPROP_SYNTAX.ahk
 
 /**
  * Describes numeric data.
  * @see https://learn.microsoft.com/windows/win32/api/clusapi/ns-clusapi-clusprop_word
  * @namespace Windows.Win32.Networking.Clustering
- * @version v4.0.30319
  */
-class CLUSPROP_WORD extends Win32Struct
-{
+class CLUSPROP_WORD extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4
@@ -18,7 +16,7 @@ class CLUSPROP_WORD extends Win32Struct
     /**
      * @type {CLUSPROP_VALUE}
      */
-    Base{
+    Base {
         get {
             if(!this.HasProp("__Base"))
                 this.__Base := CLUSPROP_VALUE(0, this)

@@ -1,22 +1,22 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\TCITEMHEADERA_MASK.ahk
+#Include .\TAB_CONTROL_ITEM_STATE.ahk
 
 /**
  * Specifies or receives the attributes of a tab item. It is used with the TCM_INSERTITEM, TCM_GETITEM, and TCM_SETITEM messages. This structure supersedes the TC_ITEM structure. (Unicode)
  * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-tcitemw
  * @namespace Windows.Win32.UI.Controls
- * @version v4.0.30319
  * @charset Unicode
  */
-class TCITEMW extends Win32Struct
-{
+class TCITEMW extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
-     * @type {Integer}
+     * @type {TCITEMHEADERA_MASK}
      */
     mask {
         get => NumGet(this, 0, "uint")
@@ -28,7 +28,7 @@ class TCITEMW extends Win32Struct
      * 
      * 
      * <a href="https://docs.microsoft.com/windows/desktop/Controls/common-control-versions">Version 4.70</a>. Specifies the item's current state if information is being retrieved. If item information is being set, this member contains the state value to be set for the item. For a list of valid tab control item states, see <a href="https://docs.microsoft.com/windows/desktop/Controls/tab-control-item-states">Tab Control Item States</a>. This member is ignored in the <a href="https://docs.microsoft.com/windows/desktop/Controls/tcm-insertitem">TCM_INSERTITEM</a> message.
-     * @type {Integer}
+     * @type {TAB_CONTROL_ITEM_STATE}
      */
     dwState {
         get => NumGet(this, 4, "uint")
@@ -40,7 +40,7 @@ class TCITEMW extends Win32Struct
      * 
      * 
      * <a href="https://docs.microsoft.com/windows/desktop/Controls/common-control-versions">Version 4.70</a>. Specifies which bits of the <b>dwState</b> member contain valid information. This member is ignored in the <a href="https://docs.microsoft.com/windows/desktop/Controls/tcm-insertitem">TCM_INSERTITEM</a> message.
-     * @type {Integer}
+     * @type {TAB_CONTROL_ITEM_STATE}
      */
     dwStateMask {
         get => NumGet(this, 8, "uint")

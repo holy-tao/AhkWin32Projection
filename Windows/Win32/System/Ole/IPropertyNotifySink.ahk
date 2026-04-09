@@ -11,9 +11,8 @@
  * The one exception to this rule is that no notifications are sent as a result of an object's initialization or loading procedures. At initialization time, it is assumed that all properties change and that all must be allowed to change. Notifications to this interface are therefore meaningful only in the context of a fully initialized/loaded object.
  * @see https://learn.microsoft.com/windows/win32/api/ocidl/nn-ocidl-ipropertynotifysink
  * @namespace Windows.Win32.System.Ole
- * @version v4.0.30319
  */
-class IPropertyNotifySink extends IUnknown{
+class IPropertyNotifySink extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

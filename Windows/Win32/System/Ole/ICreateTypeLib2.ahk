@@ -7,9 +7,8 @@
  * Provides the methods for creating and managing the component or file that contains type information. (ICreateTypeLib2)
  * @see https://learn.microsoft.com/windows/win32/api/oaidl/nn-oaidl-icreatetypelib2
  * @namespace Windows.Win32.System.Ole
- * @version v4.0.30319
  */
-class ICreateTypeLib2 extends ICreateTypeLib{
+class ICreateTypeLib2 extends ICreateTypeLib {
 
     static sizeof => A_PtrSize
     /**

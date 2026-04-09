@@ -3,13 +3,10 @@
 
 /**
  * Specifies flags for the HEVC-specific picture control properties.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/d3d12video/ne-d3d12video-d3d12_video_encoder_picture_control_codec_data_hevc_flags
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class D3D12_VIDEO_ENCODER_PICTURE_CONTROL_CODEC_DATA_HEVC_FLAGS extends Win32BitflagEnum{
+class D3D12_VIDEO_ENCODER_PICTURE_CONTROL_CODEC_DATA_HEVC_FLAGS extends Win32BitflagEnum {
 
     /**
      * None.

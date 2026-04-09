@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
-#Include .\ExtendedArrayDimension.ahk
 #Include .\IDebugHostType3.ahk
+#Include .\ExtendedArrayDimension.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
- * @version v4.0.30319
  */
-class IDebugHostType4 extends IDebugHostType3{
+class IDebugHostType4 extends IDebugHostType3 {
 
     static sizeof => A_PtrSize
     /**
@@ -51,7 +50,7 @@ class IDebugHostType4 extends IDebugHostType3{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {UDTKind} 
      */
     GetUDTKind() {
         result := ComCall(37, this, "int*", &_udtKind := 0, "HRESULT")

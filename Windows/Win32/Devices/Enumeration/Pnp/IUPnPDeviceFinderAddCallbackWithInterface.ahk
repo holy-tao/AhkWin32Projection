@@ -9,9 +9,8 @@
  * If you implement this interface, you must also implement the <a href="https://docs.microsoft.com/windows/desktop/api/upnp/nn-upnp-iupnpdevicefindercallback">IUPnPDeviceFinderCallback</a> interface.
  * @see https://learn.microsoft.com/windows/win32/api/upnp/nn-upnp-iupnpdevicefinderaddcallbackwithinterface
  * @namespace Windows.Win32.Devices.Enumeration.Pnp
- * @version v4.0.30319
  */
-class IUPnPDeviceFinderAddCallbackWithInterface extends IUnknown{
+class IUPnPDeviceFinderAddCallbackWithInterface extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Rpc
- * @version v4.0.30319
  */
-class MIDL_FORMAT_STRING extends Win32Struct
-{
+class MIDL_FORMAT_STRING extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 2
@@ -20,9 +18,9 @@ class MIDL_FORMAT_STRING extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Format{
+    Format {
         get {
             if(!this.HasProp("__FormatProxyArray"))
                 this.__FormatProxyArray := Win32FixedArray(this.ptr + 2, 1, Primitive, "char")

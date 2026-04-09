@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.SystemServices
- * @version v4.0.30319
  */
-class IGP_ID extends Win32Enum{
+class IGP_ID extends Win32Enum {
 
     /**
      * @type {Integer (UInt32)}

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DFS_STORAGE_INFO.ahk
 
 /**
  * Contains information about a Distributed File System (DFS) root or link. This structure contains the name, status, number of DFS targets, and information about each target of the root or link.
@@ -9,10 +10,8 @@
  *     target.
  * @see https://learn.microsoft.com/windows/win32/api/lmdfs/ns-lmdfs-dfs_info_3
  * @namespace Windows.Win32.Storage.DistributedFileSystem
- * @version v4.0.30319
  */
-class DFS_INFO_3 extends Win32Struct
-{
+class DFS_INFO_3 extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8

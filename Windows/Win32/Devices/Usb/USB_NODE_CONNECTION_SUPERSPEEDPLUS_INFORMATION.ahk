@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.Usb
- * @version v4.0.30319
  */
-class USB_NODE_CONNECTION_SUPERSPEEDPLUS_INFORMATION extends Win32Struct
-{
+class USB_NODE_CONNECTION_SUPERSPEEDPLUS_INFORMATION extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 4
@@ -31,7 +29,7 @@ class USB_NODE_CONNECTION_SUPERSPEEDPLUS_INFORMATION extends Win32Struct
     /**
      * @type {USB_DEVICE_CAPABILITY_SUPERSPEEDPLUS_SPEED}
      */
-    RxSuperSpeedPlus{
+    RxSuperSpeedPlus {
         get {
             if(!this.HasProp("__RxSuperSpeedPlus"))
                 this.__RxSuperSpeedPlus := USB_DEVICE_CAPABILITY_SUPERSPEEDPLUS_SPEED(8, this)
@@ -50,7 +48,7 @@ class USB_NODE_CONNECTION_SUPERSPEEDPLUS_INFORMATION extends Win32Struct
     /**
      * @type {USB_DEVICE_CAPABILITY_SUPERSPEEDPLUS_SPEED}
      */
-    TxSuperSpeedPlus{
+    TxSuperSpeedPlus {
         get {
             if(!this.HasProp("__TxSuperSpeedPlus"))
                 this.__TxSuperSpeedPlus := USB_DEVICE_CAPABILITY_SUPERSPEEDPLUS_SPEED(20, this)

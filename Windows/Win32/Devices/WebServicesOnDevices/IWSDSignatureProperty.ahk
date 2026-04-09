@@ -11,9 +11,8 @@
  * <b>IWSDSignatureProperty</b> is useful to an application that wants to perform its own signature validation.  By passing a <b>NULL</b> to the <i>pConfigParam</i> of <a href="https://docs.microsoft.com/windows/desktop/api/wsddisco/nf-wsddisco-wsdcreatediscoveryprovider2">WSDCreateDiscoveryProvider2</a>, the internal signature validation is disabled and the provider can perform its own validation by examining these properties.
  * @see https://learn.microsoft.com/windows/win32/api/wsdbase/nn-wsdbase-iwsdsignatureproperty
  * @namespace Windows.Win32.Devices.WebServicesOnDevices
- * @version v4.0.30319
  */
-class IWSDSignatureProperty extends IUnknown{
+class IWSDSignatureProperty extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -58,7 +57,7 @@ class IWSDSignatureProperty extends IUnknown{
 
     /**
      * 
-     * @param {Pointer} pbKeyInfo 
+     * @param {Integer} pbKeyInfo 
      * @param {Pointer<Integer>} pdwKeyInfoSize 
      * @returns {HRESULT} 
      */
@@ -73,7 +72,7 @@ class IWSDSignatureProperty extends IUnknown{
      * Gets the signature of a message.
      * @remarks
      * If <b>NULL</b> is passed to <i>pbSignature</i>, then <b>GetSignature</b> will return the size of the buffer to allocate in the <i>pdwSignatureSize</i> parameter.
-     * @param {Pointer} pbSignature A pointer to a buffer that will be filled with the signature  of the message.
+     * @param {Integer} pbSignature A pointer to a buffer that will be filled with the signature  of the message.
      * @param {Pointer<Integer>} pdwSignatureSize On input, the size of <i>pbSignature</i> in bytes. On output, <i>pdwSignatureSize</i> contains the actual size of the buffer that was written.
      * @returns {HRESULT} Possible return values include, but are not limited to, the following.
      * 
@@ -131,7 +130,7 @@ class IWSDSignatureProperty extends IUnknown{
      * This is the hash of the &lt;SignedInfo&gt; node.  The &lt;SignedInfo&gt; xml node contains the SHA1 hashes of the various parts of the signature that is to be included in the signature. The final XML message signature is computed by signing the hash of the &lt;SignedInfo&gt; node with the private key of the signing certificate.
      * 
      * If <b>NULL</b> is passed to <i>pbSignedInfoHash</i>, then <b>GetSignedInfoHash</b> will return the size of the buffer to allocate in the <i>pdwHashSize</i> parameter.
-     * @param {Pointer} pbSignedInfoHash A pointer to a buffer that will be filled with the hash of the message signature.
+     * @param {Integer} pbSignedInfoHash A pointer to a buffer that will be filled with the hash of the message signature.
      * @param {Pointer<Integer>} pdwHashSize On input, the size of <i>pbSignedInfoHash</i> in bytes. On output, <i>pdwHashSize</i> contains the actual size of the buffer that was written.
      * @returns {HRESULT} Possible return values include, but are not limited to, the following.
      * 

@@ -7,9 +7,8 @@
  * The PRJ_FILE_STATE_FULL and PRJ_FILE_STATE_TOMBSTONE bits will not appear in combination with each other or any other bit.
  * @see https://learn.microsoft.com/windows/win32/api/projectedfslib/ne-projectedfslib-prj_file_state
  * @namespace Windows.Win32.Storage.ProjectedFileSystem
- * @version v4.0.30319
  */
-class PRJ_FILE_STATE extends Win32BitflagEnum{
+class PRJ_FILE_STATE extends Win32BitflagEnum {
 
     /**
      * The item is a placeholder.

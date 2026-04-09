@@ -3,14 +3,10 @@
 
 /**
  * Represents a reference picture descriptor for HEVC video encoding.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/d3d12video/ns-d3d12video-d3d12_video_encoder_reference_picture_descriptor_hevc
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class D3D12_VIDEO_ENCODER_REFERENCE_PICTURE_DESCRIPTOR_HEVC extends Win32Struct
-{
+class D3D12_VIDEO_ENCODER_REFERENCE_PICTURE_DESCRIPTOR_HEVC extends Win32Struct {
     static sizeof => 20
 
     static packingSize => 4

@@ -5,9 +5,8 @@
  * Specifies the default policy server.
  * @see https://learn.microsoft.com/windows/win32/api/certenroll/ne-certenroll-enrollmentpolicyserverpropertyflags
  * @namespace Windows.Win32.Security.Cryptography.Certificates
- * @version v4.0.30319
  */
-class EnrollmentPolicyServerPropertyFlags extends Win32Enum{
+class EnrollmentPolicyServerPropertyFlags extends Win32Enum {
 
     /**
      * No default policy server URL has been specified.

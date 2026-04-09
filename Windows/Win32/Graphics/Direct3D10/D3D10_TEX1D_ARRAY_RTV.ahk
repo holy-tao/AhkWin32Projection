@@ -7,10 +7,8 @@
  * This structure is one member of a render-target-view description (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ns-d3d10-d3d10_render_target_view_desc">D3D10_RENDER_TARGET_VIEW_DESC</a>).
  * @see https://learn.microsoft.com/windows/win32/api/d3d10/ns-d3d10-d3d10_tex1d_array_rtv
  * @namespace Windows.Win32.Graphics.Direct3D10
- * @version v4.0.30319
  */
-class D3D10_TEX1D_ARRAY_RTV extends Win32Struct
-{
+class D3D10_TEX1D_ARRAY_RTV extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4

@@ -5,10 +5,8 @@
  * The PEER_VERSION_DATA structure contains the version information about the Peer Graphing and Grouping APIs.
  * @see https://learn.microsoft.com/windows/win32/api/p2p/ns-p2p-peer_version_data
  * @namespace Windows.Win32.NetworkManagement.P2P
- * @version v4.0.30319
  */
-class PEER_VERSION_DATA extends Win32Struct
-{
+class PEER_VERSION_DATA extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 2

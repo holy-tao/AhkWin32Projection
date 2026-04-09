@@ -165,10 +165,8 @@
  * You must be cautious when using the JOB_OBJECT_MSG_NEW_PROCESS and JOB_OBJECT_MSG_EXIT_PROCESS messages, as race conditions may occur. For instance, if processes are actively starting and exiting within a job, and you are in the process of assigning a completion port to the job, you may miss messages for processes whose states change during the association of the completion port. For this reason, it is best to associate a completion port with a job when the job is inactive.
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-jobobject_associate_completion_port
  * @namespace Windows.Win32.System.JobObjects
- * @version v4.0.30319
  */
-class JOBOBJECT_ASSOCIATE_COMPLETION_PORT extends Win32Struct
-{
+class JOBOBJECT_ASSOCIATE_COMPLETION_PORT extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
@@ -189,7 +187,7 @@ class JOBOBJECT_ASSOCIATE_COMPLETION_PORT extends Win32Struct
      * <b>Windows 8, Windows Server 2012, Windows 8.1, Windows Server 2012 R2, Windows 10 and Windows Server 2016:  </b>Specify <b>NULL</b> to remove the association between the current completion port and the job.
      * @type {HANDLE}
      */
-    CompletionPort{
+    CompletionPort {
         get {
             if(!this.HasProp("__CompletionPort"))
                 this.__CompletionPort := HANDLE(8, this)

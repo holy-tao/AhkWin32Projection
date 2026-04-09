@@ -14,17 +14,15 @@
  *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/lmdfs/nf-lmdfs-netdfsgetclientinfo">NetDfsGetClientInfo</a>.
  * @see https://learn.microsoft.com/windows/win32/api/lmdfs/ns-lmdfs-dfs_info_7
  * @namespace Windows.Win32.Storage.DistributedFileSystem
- * @version v4.0.30319
  */
-class DFS_INFO_7 extends Win32Struct
-{
+class DFS_INFO_7 extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 8
 
     /**
      * The value of this <b>GUID</b> changes each time the DFS metadata is changed.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     GenerationGuid {
         get => NumGet(this, 0, "ptr")

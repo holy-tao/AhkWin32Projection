@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class NCRYPT_EXPORTED_ISOLATED_KEY_ENVELOPE extends Win32Struct
-{
+class NCRYPT_EXPORTED_ISOLATED_KEY_ENVELOPE extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 4
@@ -15,7 +13,7 @@ class NCRYPT_EXPORTED_ISOLATED_KEY_ENVELOPE extends Win32Struct
     /**
      * @type {NCRYPT_EXPORTED_ISOLATED_KEY_HEADER}
      */
-    Header{
+    Header {
         get {
             if(!this.HasProp("__Header"))
                 this.__Header := NCRYPT_EXPORTED_ISOLATED_KEY_HEADER(0, this)

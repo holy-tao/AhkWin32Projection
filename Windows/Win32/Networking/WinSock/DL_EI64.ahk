@@ -3,18 +3,16 @@
 
 /**
  * @namespace Windows.Win32.Networking.WinSock
- * @version v4.0.30319
  */
-class DL_EI64 extends Win32Struct
-{
+class DL_EI64 extends Win32Struct {
     static sizeof => 5
 
     static packingSize => 1
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Byte{
+    Byte {
         get {
             if(!this.HasProp("__ByteProxyArray"))
                 this.__ByteProxyArray := Win32FixedArray(this.ptr + 0, 5, Primitive, "char")

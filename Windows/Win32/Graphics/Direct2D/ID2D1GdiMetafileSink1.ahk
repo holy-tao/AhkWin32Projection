@@ -7,9 +7,8 @@
  * This interface performs all the same functions as the existing ID2D1GdiMetafileSink interface. It also enables access to metafile records.
  * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nn-d2d1_3-id2d1gdimetafilesink1
  * @namespace Windows.Win32.Graphics.Direct2D
- * @version v4.0.30319
  */
-class ID2D1GdiMetafileSink1 extends ID2D1GdiMetafileSink{
+class ID2D1GdiMetafileSink1 extends ID2D1GdiMetafileSink {
 
     static sizeof => A_PtrSize
     /**

@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\DCOMPOSITION_FRAME_STATISTICS.ahk
 #Include .\IDCompositionTarget.ahk
 #Include .\IDCompositionVisual.ahk
 #Include .\IDCompositionSurface.ahk
 #Include .\IDCompositionVirtualSurface.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 #Include .\IDCompositionTranslateTransform.ahk
 #Include .\IDCompositionScaleTransform.ahk
 #Include .\IDCompositionRotateTransform.ahk
@@ -26,9 +26,8 @@
  * Serves as a factory for all other Microsoft DirectComposition objects and provides methods to control transactional composition. (IDCompositionDevice)
  * @see https://learn.microsoft.com/windows/win32/api/dcomp/nn-dcomp-idcompositiondevice
  * @namespace Windows.Win32.Graphics.DirectComposition
- * @version v4.0.30319
  */
-class IDCompositionDevice extends IUnknown{
+class IDCompositionDevice extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -108,7 +107,9 @@ class IDCompositionDevice extends IUnknown{
      * All four layers are clipped to the window's visible region.
      * 
      * At most, only two composition targets can be created for each window in the system, one topmost and one not topmost. If a composition target is already bound to the specified window at the specified layer, this method fails. When a composition target object is destroyed, the layer it composed is available for use by a new composition target object.
-     * @param {HWND} _hwnd 
+     * @param {HWND} _hwnd Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
+     * 
+     * The window to which the  composition target object should be bound. This parameter must not be NULL.
      * @param {BOOL} topmost Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * TRUE if the visual tree should be displayed on top of the children of the window specified by the <i>hwnd</i> parameter; otherwise, the visual tree is displayed behind the children.
@@ -164,10 +165,10 @@ class IDCompositionDevice extends IUnknown{
      * @param {Integer} height Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * The height of the surface, in pixels.
-     * @param {Integer} pixelFormat Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dxgiformat/ne-dxgiformat-dxgi_format">DXGI_FORMAT</a></b>
+     * @param {DXGI_FORMAT} pixelFormat Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dxgiformat/ne-dxgiformat-dxgi_format">DXGI_FORMAT</a></b>
      * 
      * The pixel format of the surface.
-     * @param {Integer} alphaMode Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_2/ne-dxgi1_2-dxgi_alpha_mode">DXGI_ALPHA_MODE</a></b>
+     * @param {DXGI_ALPHA_MODE} alphaMode Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_2/ne-dxgi1_2-dxgi_alpha_mode">DXGI_ALPHA_MODE</a></b>
      * @returns {IDCompositionSurface} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dcomp/nn-dcomp-idcompositionsurface">IDCompositionSurface</a>**</b>
      * 
      * The newly created surface object. This parameter must not be NULL.
@@ -205,10 +206,10 @@ class IDCompositionDevice extends IUnknown{
      * @param {Integer} initialHeight Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * The height of the surface, in pixels. The maximum height is 16,777,216 pixels.
-     * @param {Integer} pixelFormat Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dxgiformat/ne-dxgiformat-dxgi_format">DXGI_FORMAT</a></b>
+     * @param {DXGI_FORMAT} pixelFormat Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dxgiformat/ne-dxgiformat-dxgi_format">DXGI_FORMAT</a></b>
      * 
      * The pixel format of the surface.
-     * @param {Integer} alphaMode Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_2/ne-dxgi1_2-dxgi_alpha_mode">DXGI_ALPHA_MODE</a></b>
+     * @param {DXGI_ALPHA_MODE} alphaMode Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_2/ne-dxgi1_2-dxgi_alpha_mode">DXGI_ALPHA_MODE</a></b>
      * @returns {IDCompositionVirtualSurface} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dcomp/nn-dcomp-idcompositionvirtualsurface">IDCompositionVirtualSurface</a>**</b>
      * 
      * The newly created surface object. This parameter must not be NULL.
@@ -223,7 +224,9 @@ class IDCompositionDevice extends IUnknown{
      * The IDCompositionDevice::CreateSurfaceFromHandle method creates a new composition surface object that wraps an existing composition surface.
      * @remarks
      * This method enables an application to use a shared composition surface in a composition tree.
-     * @param {HANDLE} _handle 
+     * @param {HANDLE} _handle Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HANDLE</a></b>
+     * 
+     * The handle of an existing composition surface that was created by a call to the <a href="https://docs.microsoft.com/windows/desktop/api/dcomp/nf-dcomp-dcompositioncreatesurfacehandle">DCompositionCreateSurfaceHandle</a> function.
      * @returns {IUnknown} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dcomp/nn-dcomp-idcompositionsurface">IUnknown</a>**</b>
      * 
      * The new composition surface object. This parameter must not be NULL.
@@ -246,7 +249,9 @@ class IDCompositionDevice extends IUnknown{
      * The contents of the window are not cached beyond the life of the window. That is, if the window is destroyed, the affected visuals stop composing the window.
      * 
      * If the window is moved off-screen or resized to zero, the system stops composing the content of visuals. You should use the <a href="https://docs.microsoft.com/windows/desktop/api/dwmapi/nf-dwmapi-dwmsetwindowattribute">DwmSetWindowAttribute</a> function with the <b>DWMWA_CLOAK</b> flag to "cloak" the layered child window when you need to hide the original window while allowing the system to continue to compose the content of the visuals. For more information, see <a href="https://docs.microsoft.com/windows/desktop/directcomp/how-to--animate-the-bitmap-of-a-layered-child-window">How to animate the bitmap of a layered child window</a> and <a href="https://github.com/microsoft/Windows-classic-samples/tree/master/Samples/DirectCompositionLayeredChildWindow">DirectComposition layered child window sample</a>.
-     * @param {HWND} _hwnd 
+     * @param {HWND} _hwnd Type: [in] <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
+     * 
+     * The handle of the layered window for which to create a  wrapper. A layered window is created by specifying <b>WS_EX_LAYERED</b> when creating the window with the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-createwindowexa">CreateWindowEx</a> function or by setting <b>WS_EX_LAYERED</b> via <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-setwindowlonga">SetWindowLong</a> after the window has been created.
      * @returns {IUnknown} Type: [out] <b><a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>**</b>
      * 
      * The new composition surface object. This parameter must not be NULL.

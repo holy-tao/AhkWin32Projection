@@ -11,9 +11,8 @@
  * To get a pointer to this interface, call <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-queryinterface(q)">QueryInterface</a> on the byte stream object.
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imfbytestreamtimeseek
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFByteStreamTimeSeek extends IUnknown{
+class IMFByteStreamTimeSeek extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -49,10 +49,8 @@
  * For more information, see [Entry Identifiers](mapi-entry-identifiers.md).
  * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/entryid
  * @namespace Windows.Win32.System.AddressBook
- * @version v4.0.30319
  */
-class ENTRYID extends Win32Struct
-{
+class ENTRYID extends Win32Struct {
     static sizeof => 5
 
     static packingSize => 1
@@ -79,9 +77,9 @@ class ENTRYID extends Win32Struct
      * MAPI_THISSESSION 
      *   
      * > The entry identifier cannot be used on other sessions.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    abFlags{
+    abFlags {
         get {
             if(!this.HasProp("__abFlagsProxyArray"))
                 this.__abFlagsProxyArray := Win32FixedArray(this.ptr + 0, 4, Primitive, "char")
@@ -91,9 +89,9 @@ class ENTRYID extends Win32Struct
 
     /**
      * > Indicates an array of binary data that is used by service providers. The client application cannot use this array.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    ab{
+    ab {
         get {
             if(!this.HasProp("__abProxyArray"))
                 this.__abProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "char")

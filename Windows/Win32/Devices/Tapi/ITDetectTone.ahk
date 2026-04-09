@@ -7,9 +7,8 @@
  * The ITDetectTone interface exposes methods that allow an application to specify the tones and tone characteristics that should cause the TAPI Server to generate a tone event.
  * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nn-tapi3if-itdetecttone
  * @namespace Windows.Win32.Devices.Tapi
- * @version v4.0.30319
  */
-class ITDetectTone extends IDispatch{
+class ITDetectTone extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

@@ -4,11 +4,9 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Dns
- * @version v4.0.30319
  */
-class DNS_SVCB_PARAM_ALPN extends Win32Struct
-{
-    static sizeof => 16
+class DNS_SVCB_PARAM_ALPN extends Win32Struct {
+    static sizeof => 24
 
     static packingSize => 8
 
@@ -21,9 +19,9 @@ class DNS_SVCB_PARAM_ALPN extends Win32Struct
     }
 
     /**
-     * @type {Array<DNS_SVCB_PARAM_ALPN_ID>}
+     * @type {DNS_SVCB_PARAM_ALPN_ID}
      */
-    rgIds{
+    rgIds {
         get {
             if(!this.HasProp("__rgIdsProxyArray"))
                 this.__rgIdsProxyArray := Win32FixedArray(this.ptr + 8, 1, DNS_SVCB_PARAM_ALPN_ID, "")

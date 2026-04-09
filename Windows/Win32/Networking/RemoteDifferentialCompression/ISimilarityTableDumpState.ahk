@@ -7,9 +7,8 @@
  * Provides a method for retrieving information from the similarity traits list that was returned by the ISimilarityTraitsTable::BeginDump method.
  * @see https://learn.microsoft.com/windows/win32/api/msrdc/nn-msrdc-isimilaritytabledumpstate
  * @namespace Windows.Win32.Networking.RemoteDifferentialCompression
- * @version v4.0.30319
  */
-class ISimilarityTableDumpState extends IUnknown{
+class ISimilarityTableDumpState extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

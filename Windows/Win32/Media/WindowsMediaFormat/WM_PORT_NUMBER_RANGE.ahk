@@ -5,10 +5,8 @@
  * The WM_PORT_NUMBER_RANGE structure describes the range of port numbers used by the IWMReaderNetworkConfig interface.
  * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/ns-wmsdkidl-wm_port_number_range
  * @namespace Windows.Win32.Media.WindowsMediaFormat
- * @version v4.0.30319
  */
-class WM_PORT_NUMBER_RANGE extends Win32Struct
-{
+class WM_PORT_NUMBER_RANGE extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 2

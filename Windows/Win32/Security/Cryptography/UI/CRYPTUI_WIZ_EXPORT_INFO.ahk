@@ -1,15 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\CRYPTUI_WIZ_EXPORT_SUBJECT.ahk
+#Include ..\CERT_CONTEXT.ahk
+#Include ..\CTL_CONTEXT.ahk
+#Include ..\CRL_CONTEXT.ahk
 #Include ..\HCERTSTORE.ahk
 
 /**
  * Contains information that controls the operation of the CryptUIWizExport function.
  * @see https://learn.microsoft.com/windows/win32/api/cryptuiapi/ns-cryptuiapi-cryptui_wiz_export_info
  * @namespace Windows.Win32.Security.Cryptography.UI
- * @version v4.0.30319
  */
-class CRYPTUI_WIZ_EXPORT_INFO extends Win32Struct
-{
+class CRYPTUI_WIZ_EXPORT_INFO extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -35,8 +37,7 @@ class CRYPTUI_WIZ_EXPORT_INFO extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Integer}
+     * @type {CRYPTUI_WIZ_EXPORT_SUBJECT}
      */
     dwSubjectChoice {
         get => NumGet(this, 16, "uint")
@@ -70,7 +71,7 @@ class CRYPTUI_WIZ_EXPORT_INFO extends Win32Struct
     /**
      * @type {HCERTSTORE}
      */
-    hCertStore{
+    hCertStore {
         get {
             if(!this.HasProp("__hCertStore"))
                 this.__hCertStore := HCERTSTORE(24, this)

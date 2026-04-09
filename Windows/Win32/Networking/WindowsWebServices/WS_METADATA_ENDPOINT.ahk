@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\WS_STRING.ahk
 #Include .\WS_ENDPOINT_ADDRESS.ahk
+#Include .\WS_STRING.ahk
+#Include .\WS_ENDPOINT_IDENTITY.ahk
+#Include .\WS_XML_STRING.ahk
 
 /**
  * Information about a single endpoint that was read from metadata documents.
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_metadata_endpoint
  * @namespace Windows.Win32.Networking.WindowsWebServices
- * @version v4.0.30319
  */
-class WS_METADATA_ENDPOINT extends Win32Struct
-{
+class WS_METADATA_ENDPOINT extends Win32Struct {
     static sizeof => 104
 
     static packingSize => 8
@@ -19,7 +19,7 @@ class WS_METADATA_ENDPOINT extends Win32Struct
      * The address of the endpoint.
      * @type {WS_ENDPOINT_ADDRESS}
      */
-    endpointAddress{
+    endpointAddress {
         get {
             if(!this.HasProp("__endpointAddress"))
                 this.__endpointAddress := WS_ENDPOINT_ADDRESS(0, this)

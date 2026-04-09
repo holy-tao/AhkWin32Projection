@@ -3,11 +3,9 @@
 
 /**
  * @namespace Windows.Win32.Devices.DeviceAndDriverInstallation
- * @version v4.0.30319
  * @charset Unicode
  */
-class HWPROFILEINFO_W extends Win32Struct
-{
+class HWPROFILEINFO_W extends Win32Struct {
     static sizeof => 168
 
     static packingSize => 4

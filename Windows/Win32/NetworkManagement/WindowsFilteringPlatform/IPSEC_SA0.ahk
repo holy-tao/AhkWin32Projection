@@ -1,5 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\IPSEC_TRANSFORM_TYPE.ahk
+#Include .\IPSEC_SA_AUTH_INFORMATION0.ahk
+#Include .\IPSEC_SA_CIPHER_INFORMATION0.ahk
+#Include .\IPSEC_SA_AUTH_AND_CIPHER_INFORMATION0.ahk
 
 /**
  * Is used to store information about an IPsec security association (SA).
@@ -7,10 +11,8 @@
  * <b>IPSEC_SA0</b> is a specific implementation of IPSEC_SA. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-version-independent-names-and-targeting-specific-versions-of-windows">WFP Version-Independent Names and Targeting Specific Versions of Windows</a>  for more information.
  * @see https://learn.microsoft.com/windows/win32/api/ipsectypes/ns-ipsectypes-ipsec_sa0
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
- * @version v4.0.30319
  */
-class IPSEC_SA0 extends Win32Struct
-{
+class IPSEC_SA0 extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
@@ -28,7 +30,7 @@ class IPSEC_SA0 extends Win32Struct
      * Transform type of the SA specifying the IPsec security protocol.
      * 
      * See [IPSEC_TRANSFORM_TYPE](/windows/desktop/api/ipsectypes/ne-ipsectypes-ipsec_transform_type) for more information.
-     * @type {Integer}
+     * @type {IPSEC_TRANSFORM_TYPE}
      */
     saTransformType {
         get => NumGet(this, 4, "int")

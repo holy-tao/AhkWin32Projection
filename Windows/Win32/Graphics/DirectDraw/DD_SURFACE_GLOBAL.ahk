@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\VIDEOMEMORY.ahk
 #Include .\DDPIXELFORMAT.ahk
 #Include ..\..\Foundation\HANDLE.ahk
 
@@ -11,10 +12,8 @@
  * When a DirectX driver is working with a vertex buffer, it is important for it to be able to correctly determine the size of this buffer. DirectDraw passes the linear buffer size to the driver in the <b>lPitch</b> member of this structure. On Windows 2000 and later versions, but not on Windows 98/Me, the <b>wWidth</b> member of this structure is set to the same value. Note that both structure members should be considered to be read-only. The value that DirectDraw places in these members represents the minimum vertex buffer size. Should the need for a larger buffer arise (such as for optimization), a driver writer is free to create a buffer larger than that size. Under no circumstances, however, should the driver report the larger buffer size to DirectDraw.
  * @see https://learn.microsoft.com/windows/win32/api/ddrawint/ns-ddrawint-dd_surface_global
  * @namespace Windows.Win32.Graphics.DirectDraw
- * @version v4.0.30319
  */
-class DD_SURFACE_GLOBAL extends Win32Struct
-{
+class DD_SURFACE_GLOBAL extends Win32Struct {
     static sizeof => 104
 
     static packingSize => 8
@@ -60,7 +59,6 @@ class DD_SURFACE_GLOBAL extends Win32Struct
     }
 
     /**
-     * 
      * @type {Pointer}
      */
     fpVidMem {
@@ -133,7 +131,7 @@ class DD_SURFACE_GLOBAL extends Win32Struct
      * Points to the <a href="https://docs.microsoft.com/windows-hardware/drivers/ddi/content/ksmedia/ns-ksmedia-_ddpixelformat">DDPIXELFORMAT</a> structure that describes the pixel format of the surface.
      * @type {DDPIXELFORMAT}
      */
-    ddpfSurface{
+    ddpfSurface {
         get {
             if(!this.HasProp("__ddpfSurface"))
                 this.__ddpfSurface := DDPIXELFORMAT(56, this)
@@ -154,7 +152,7 @@ class DD_SURFACE_GLOBAL extends Win32Struct
      * Reserved for system use and should be ignored by the driver.
      * @type {HANDLE}
      */
-    hCreatorProcess{
+    hCreatorProcess {
         get {
             if(!this.HasProp("__hCreatorProcess"))
                 this.__hCreatorProcess := HANDLE(96, this)

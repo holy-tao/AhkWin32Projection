@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Security.Authorization.UI
- * @version v4.0.30319
  */
-class SI_PAGE_ACTIVATED extends Win32Enum{
+class SI_PAGE_ACTIVATED extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

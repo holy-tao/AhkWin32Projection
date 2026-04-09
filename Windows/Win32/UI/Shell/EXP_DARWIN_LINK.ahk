@@ -8,11 +8,9 @@
  * <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-ishelllinkdatalist-getflags">IShellLinkDataList::GetFlags</a> returns the flag SLDF_HAS_DARWINID for links that have a darwin signature.
  * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/ns-shlobj_core-exp_darwin_link
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class EXP_DARWIN_LINK extends Win32Struct
-{
-    static sizeof => 1048
+class EXP_DARWIN_LINK extends Win32Struct {
+    static sizeof => 788
 
     static packingSize => 4
 
@@ -23,7 +21,7 @@ class EXP_DARWIN_LINK extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/win32/api/shlobj_core/ns-shlobj_core-datablock_header">DATABLOCK_HEADER</a> structure stating the size and signature of the <b>EXP_DARWIN_LINK</b> structure. The following is the only recognized signature value.
      * @type {DATABLOCK_HEADER}
      */
-    dbh{
+    dbh {
         get {
             if(!this.HasProp("__dbh"))
                 this.__dbh := DATABLOCK_HEADER(0, this)
@@ -38,8 +36,8 @@ class EXP_DARWIN_LINK extends Win32Struct
      * @type {String}
      */
     szDarwinID {
-        get => StrGet(this.ptr + 8, 259, "UTF-16")
-        set => StrPut(value, this.ptr + 8, 259, "UTF-16")
+        get => StrGet(this.ptr + 8, 259, "UTF-8")
+        set => StrPut(value, this.ptr + 8, 259, "UTF-8")
     }
 
     /**
@@ -49,7 +47,7 @@ class EXP_DARWIN_LINK extends Win32Struct
      * @type {String}
      */
     szwDarwinID {
-        get => StrGet(this.ptr + 528, 259, "UTF-16")
-        set => StrPut(value, this.ptr + 528, 259, "UTF-16")
+        get => StrGet(this.ptr + 268, 259, "UTF-16")
+        set => StrPut(value, this.ptr + 268, 259, "UTF-16")
     }
 }

@@ -1,9 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IReplicaKeyMap.ahk
-#Include .\ISyncKnowledge.ahk
 #Include ..\Com\IUnknown.ahk
+#Include .\IReplicaKeyMap.ahk
 
 /**
  * Represents knowledge that a replica has about its item store.
@@ -11,9 +10,8 @@
  * Be aware that there is no single representation of knowledge. Equivalent knowledge might be represented in different forms and return different values from knowledge inspection methods, such as <b>GetScopeVector</b>, <b>GetRangeExceptions</b>, <b>GetSingleItemExceptions</b>, <b>GetChangeUnitExceptions</b>.
  * @see https://learn.microsoft.com/windows/win32/api/winsync/nn-winsync-isyncknowledge
  * @namespace Windows.Win32.System.WindowsSync
- * @version v4.0.30319
  */
-class ISyncKnowledge extends IUnknown{
+class ISyncKnowledge extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

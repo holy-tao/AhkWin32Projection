@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * Exposes methods that support the Lock method.
@@ -11,9 +12,8 @@
  * To release the exclusive lock set by <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nf-wincodec-iwicbitmap-lock">Lock</a> method and the associated <b>IWICBitmapLock</b> object, call <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">IUnknown::Release</a> on the <b>IWICBitmapLock</b> object.
  * @see https://learn.microsoft.com/windows/win32/api/wincodec/nn-wincodec-iwicbitmaplock
  * @namespace Windows.Win32.Graphics.Imaging
- * @version v4.0.30319
  */
-class IWICBitmapLock extends IUnknown{
+class IWICBitmapLock extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

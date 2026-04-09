@@ -7,9 +7,8 @@
  * The IWbemUnboundObjectSink interface is implemented by all logical event consumers. It is a simple sink interface that accepts delivery of event objects.
  * @see https://learn.microsoft.com/windows/win32/api/wbemprov/nn-wbemprov-iwbemunboundobjectsink
  * @namespace Windows.Win32.System.Wmi
- * @version v4.0.30319
  */
-class IWbemUnboundObjectSink extends IUnknown{
+class IWbemUnboundObjectSink extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

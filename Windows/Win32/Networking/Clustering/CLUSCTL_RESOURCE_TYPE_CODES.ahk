@@ -5,9 +5,8 @@
  * The CLUSCTL_RESOURCE_TYPE_CODES enumeration (msclus.h) enumerates resource type control codes.
  * @see https://learn.microsoft.com/windows/win32/api/msclus/ne-msclus-clusctl_resource_type_codes
  * @namespace Windows.Win32.Networking.Clustering
- * @version v4.0.30319
  */
-class CLUSCTL_RESOURCE_TYPE_CODES extends Win32Enum{
+class CLUSCTL_RESOURCE_TYPE_CODES extends Win32Enum {
 
     /**
      * See 
@@ -268,7 +267,6 @@ class CLUSCTL_RESOURCE_TYPE_CODES extends Win32Enum{
     static CLUSCTL_RESOURCE_TYPE_STORAGE_REMOVE_VM_OWNERSHIP => 37749262
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static CLUSCTL_RESOURCE_TYPE_STORAGE_IS_CSV_FILE => 16777769
@@ -456,7 +454,6 @@ class CLUSCTL_RESOURCE_TYPE_CODES extends Win32Enum{
     static CLUSCTL_RESOURCE_TYPE_UPGRADE_COMPLETED => 37757166
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static CLUSCTL_RESOURCE_TYPE_NOTIFY_MONITOR_SHUTTING_DOWN => 34603137

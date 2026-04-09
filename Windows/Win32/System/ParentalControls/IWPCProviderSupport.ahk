@@ -2,14 +2,14 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\Com\IUnknown.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * Exposes methods that allow third-party providers to query the currently enabled provider.
  * @see https://learn.microsoft.com/windows/win32/api/wpcapi/nn-wpcapi-iwpcprovidersupport
  * @namespace Windows.Win32.System.ParentalControls
- * @version v4.0.30319
  */
-class IWPCProviderSupport extends IUnknown{
+class IWPCProviderSupport extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

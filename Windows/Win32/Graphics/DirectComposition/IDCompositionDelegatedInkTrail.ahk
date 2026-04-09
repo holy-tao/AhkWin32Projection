@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Graphics.DirectComposition
- * @version v4.0.30319
  */
-class IDCompositionDelegatedInkTrail extends IUnknown{
+class IDCompositionDelegatedInkTrail extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -7,9 +7,8 @@
  * The IKsNodeControl interface must be implemented by USB Video Class (UVC) extension units.
  * @see https://learn.microsoft.com/windows/win32/api/vidcap/nn-vidcap-iksnodecontrol
  * @namespace Windows.Win32.Media.KernelStreaming
- * @version v4.0.30319
  */
-class IKsNodeControl extends IUnknown{
+class IKsNodeControl extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -31,14 +30,14 @@ class IKsNodeControl extends IUnknown{
     static VTableNames => ["put_NodeId", "put_KsControl"]
 
     /**
-     * @type {HRESULT} 
+     * @type {Integer} 
      */
     NodeId {
         set => this.put_NodeId(value)
     }
 
     /**
-     * @type {HRESULT} 
+     * @type {Void} 
      */
     KsControl {
         set => this.put_KsControl(value)

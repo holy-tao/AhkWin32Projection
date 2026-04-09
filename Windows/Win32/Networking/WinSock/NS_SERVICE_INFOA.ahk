@@ -1,7 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\System\Com\BLOB.ahk
 #Include .\SERVICE_INFOA.ahk
+#Include .\RESOURCE_DISPLAY_TYPE.ahk
+#Include .\SERVICE_ADDRESSES.ahk
+#Include ..\..\System\Com\BLOB.ahk
 
 /**
  * Contains information about a network service or a network service type in the context of a specified namespace, or a set of default namespaces. (ANSI)
@@ -10,11 +12,9 @@
  * > The nspapi.h header defines NS_SERVICE_INFO as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
  * @see https://learn.microsoft.com/windows/win32/api/nspapi/ns-nspapi-ns_service_infoa
  * @namespace Windows.Win32.Networking.WinSock
- * @version v4.0.30319
  * @charset ANSI
  */
-class NS_SERVICE_INFOA extends Win32Struct
-{
+class NS_SERVICE_INFOA extends Win32Struct {
     static sizeof => 88
 
     static packingSize => 8
@@ -169,7 +169,7 @@ class NS_SERVICE_INFOA extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/nspapi/ns-nspapi-service_infoa">SERVICE_INFO</a> structure that contains information about a network service or network service type.
      * @type {SERVICE_INFOA}
      */
-    ServiceInfo{
+    ServiceInfo {
         get {
             if(!this.HasProp("__ServiceInfo"))
                 this.__ServiceInfo := SERVICE_INFOA(8, this)

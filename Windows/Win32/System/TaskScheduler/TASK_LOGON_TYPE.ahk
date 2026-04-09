@@ -5,9 +5,8 @@
  * Defines what logon technique is required to run a task.
  * @see https://learn.microsoft.com/windows/win32/api/taskschd/ne-taskschd-task_logon_type
  * @namespace Windows.Win32.System.TaskScheduler
- * @version v4.0.30319
  */
-class TASK_LOGON_TYPE extends Win32Enum{
+class TASK_LOGON_TYPE extends Win32Enum {
 
     /**
      * The logon method is not specified. Used for non-NT credentials.

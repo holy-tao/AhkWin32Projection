@@ -33,10 +33,8 @@
  * <div> </div>
  * @see https://learn.microsoft.com/windows/win32/api/ws2ipdef/ns-ws2ipdef-ip_mreq_source
  * @namespace Windows.Win32.Networking.WinSock
- * @version v4.0.30319
  */
-class IP_MREQ_SOURCE extends Win32Struct
-{
+class IP_MREQ_SOURCE extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4
@@ -45,7 +43,7 @@ class IP_MREQ_SOURCE extends Win32Struct
      * The address of the IPv4 multicast group.
      * @type {IN_ADDR}
      */
-    imr_multiaddr{
+    imr_multiaddr {
         get {
             if(!this.HasProp("__imr_multiaddr"))
                 this.__imr_multiaddr := IN_ADDR(0, this)
@@ -57,7 +55,7 @@ class IP_MREQ_SOURCE extends Win32Struct
      * The address of the IPv4 multicast source.
      * @type {IN_ADDR}
      */
-    imr_sourceaddr{
+    imr_sourceaddr {
         get {
             if(!this.HasProp("__imr_sourceaddr"))
                 this.__imr_sourceaddr := IN_ADDR(4, this)
@@ -71,7 +69,7 @@ class IP_MREQ_SOURCE extends Win32Struct
      *  To use an interface index of 1 would be the same as an IP address of  0.0.0.1.
      * @type {IN_ADDR}
      */
-    imr_interface{
+    imr_interface {
         get {
             if(!this.HasProp("__imr_interface"))
                 this.__imr_interface := IN_ADDR(8, this)

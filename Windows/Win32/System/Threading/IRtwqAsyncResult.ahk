@@ -7,9 +7,8 @@
  * Provides information about the result of an asynchronous operation. (IRtwqAsyncResult)
  * @see https://learn.microsoft.com/windows/win32/api/rtworkq/nn-rtworkq-irtwqasyncresult
  * @namespace Windows.Win32.System.Threading
- * @version v4.0.30319
  */
-class IRtwqAsyncResult extends IUnknown{
+class IRtwqAsyncResult extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

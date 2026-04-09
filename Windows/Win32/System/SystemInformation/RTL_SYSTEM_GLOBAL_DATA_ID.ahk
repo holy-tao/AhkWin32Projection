@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.SystemInformation
- * @version v4.0.30319
  */
-class RTL_SYSTEM_GLOBAL_DATA_ID extends Win32Enum{
+class RTL_SYSTEM_GLOBAL_DATA_ID extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

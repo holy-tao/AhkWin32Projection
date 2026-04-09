@@ -5,10 +5,8 @@
  * The DVD_DECODER_CAPS structure indicates the capabilities of a DVD decoder.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/ns-strmif-dvd_decoder_caps
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class DVD_DECODER_CAPS extends Win32Struct
-{
+class DVD_DECODER_CAPS extends Win32Struct {
     static sizeof => 72
 
     static packingSize => 8

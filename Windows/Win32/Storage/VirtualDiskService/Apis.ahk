@@ -4,7 +4,6 @@
 
 /**
  * @namespace Windows.Win32.Storage.VirtualDiskService
- * @version v4.0.30319
  */
 class VirtualDiskService {
 

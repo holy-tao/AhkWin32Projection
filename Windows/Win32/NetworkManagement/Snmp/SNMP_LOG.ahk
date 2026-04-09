@@ -5,9 +5,8 @@
  * Display recoverable errors.
  * @see https://learn.microsoft.com/windows/win32/api/snmp/nf-snmp-snmpsvcsetloglevel
  * @namespace Windows.Win32.NetworkManagement.Snmp
- * @version v4.0.30319
  */
-class SNMP_LOG extends Win32Enum{
+class SNMP_LOG extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

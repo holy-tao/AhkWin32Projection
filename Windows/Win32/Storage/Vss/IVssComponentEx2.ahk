@@ -7,9 +7,8 @@
  * Defines additional methods for reporting and retrieving component-level writer errors.
  * @see https://learn.microsoft.com/windows/win32/api/vswriter/nl-vswriter-ivsscomponentex2
  * @namespace Windows.Win32.Storage.Vss
- * @version v4.0.30319
  */
-class IVssComponentEx2 extends IVssComponentEx{
+class IVssComponentEx2 extends IVssComponentEx {
 
     static sizeof => A_PtrSize
     /**

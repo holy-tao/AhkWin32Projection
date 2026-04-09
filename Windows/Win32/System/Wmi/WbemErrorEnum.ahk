@@ -5,9 +5,8 @@
  * Define the errors that may be returned by Scripting API for WMI calls.
  * @see https://learn.microsoft.com/windows/win32/api/wbemdisp/ne-wbemdisp-wbemerrorenum
  * @namespace Windows.Win32.System.Wmi
- * @version v4.0.30319
  */
-class WbemErrorEnum extends Win32Enum{
+class WbemErrorEnum extends Win32Enum {
 
     /**
      * The call was successful.

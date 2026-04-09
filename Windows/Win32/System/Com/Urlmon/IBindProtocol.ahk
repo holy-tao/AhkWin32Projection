@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\IBinding.ahk
 #Include ..\IUnknown.ahk
+#Include ..\IBinding.ahk
 
 /**
  * @namespace Windows.Win32.System.Com.Urlmon
- * @version v4.0.30319
  */
-class IBindProtocol extends IUnknown{
+class IBindProtocol extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

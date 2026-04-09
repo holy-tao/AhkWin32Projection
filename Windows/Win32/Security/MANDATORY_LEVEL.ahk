@@ -5,9 +5,8 @@
  * Lists the possible security levels.
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ne-winnt-mandatory_level
  * @namespace Windows.Win32.Security
- * @version v4.0.30319
  */
-class MANDATORY_LEVEL extends Win32Enum{
+class MANDATORY_LEVEL extends Win32Enum {
 
     /**
      * The required security level is untrusted.

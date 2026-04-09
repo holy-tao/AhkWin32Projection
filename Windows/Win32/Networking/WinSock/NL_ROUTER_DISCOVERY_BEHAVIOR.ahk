@@ -9,9 +9,8 @@
  *     (IPv6)</a> memo by the Network Working Group.
  * @see https://learn.microsoft.com/windows/win32/api/nldef/ne-nldef-nl_router_discovery_behavior
  * @namespace Windows.Win32.Networking.WinSock
- * @version v4.0.30319
  */
-class NL_ROUTER_DISCOVERY_BEHAVIOR extends Win32Enum{
+class NL_ROUTER_DISCOVERY_BEHAVIOR extends Win32Enum {
 
     /**
      * Router discovery is disabled.

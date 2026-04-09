@@ -7,9 +7,8 @@
  * Represents application callbacks that are used to notify the application of synchronization events.
  * @see https://learn.microsoft.com/windows/win32/api/winsync/nn-winsync-isynccallback
  * @namespace Windows.Win32.System.WindowsSync
- * @version v4.0.30319
  */
-class ISyncCallback extends IUnknown{
+class ISyncCallback extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -34,8 +33,8 @@ class ISyncCallback extends IUnknown{
      * Occurs periodically during the synchronization session to report progress.
      * @remarks
      * Exactly when <b>OnProgress</b> is sent and with what values depends on the providers.
-     * @param {Integer} provider The role of the provider that is associated with this event.
-     * @param {Integer} syncStage The current stage of the synchronization session.
+     * @param {SYNC_PROVIDER_ROLE} provider The role of the provider that is associated with this event.
+     * @param {SYNC_PROGRESS_STAGE} syncStage The current stage of the synchronization session.
      * @param {Integer} dwCompletedWork The amount of work that is currently completed in the session. This value is interpreted as being a part of <i>dwTotalWork</i>.
      * @param {Integer} dwTotalWork The total work for the session.
      * @returns {HRESULT} The possible return codes include, but are not limited to, the values shown in the following table.
@@ -152,7 +151,7 @@ class ISyncCallback extends IUnknown{
      * Occurs when the forgotten knowledge from the source provider is not contained in the current knowledge of the destination provider.
      * @remarks
      * By default, if an application callback is not registered to receive this notification, Windows Sync uses <b>SFEA_ABORT</b>.
-     * @param {Pointer<Integer>} pFullEnumerationAction Specifies how a synchronization session should handle the full enumeration.
+     * @param {Pointer<SYNC_FULL_ENUMERATION_ACTION>} pFullEnumerationAction Specifies how a synchronization session should handle the full enumeration.
      * @returns {HRESULT} The possible return codes include, but are not limited to, the values shown in the following table.
      * 
      * <table>

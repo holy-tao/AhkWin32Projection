@@ -13,10 +13,8 @@
  * If the output format is a wide-gamut RGB format, output might fall outside the nominal [0...1] range of sRGB. This is particularly true if one or more input streams use extended YCbCr.
  * @see https://learn.microsoft.com/windows/win32/api/dxvahd/ns-dxvahd-dxvahd_blt_state_output_color_space_data
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class DXVAHD_BLT_STATE_OUTPUT_COLOR_SPACE_DATA extends Win32Struct
-{
+class DXVAHD_BLT_STATE_OUTPUT_COLOR_SPACE_DATA extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 4

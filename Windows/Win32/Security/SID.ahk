@@ -6,10 +6,8 @@
  * Used to uniquely identify users or groups.
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-sid
  * @namespace Windows.Win32.Security
- * @version v4.0.30319
  */
-class SID extends Win32Struct
-{
+class SID extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4
@@ -33,7 +31,7 @@ class SID extends Win32Struct
     /**
      * @type {SID_IDENTIFIER_AUTHORITY}
      */
-    IdentifierAuthority{
+    IdentifierAuthority {
         get {
             if(!this.HasProp("__IdentifierAuthority"))
                 this.__IdentifierAuthority := SID_IDENTIFIER_AUTHORITY(2, this)
@@ -42,9 +40,9 @@ class SID extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    SubAuthority{
+    SubAuthority {
         get {
             if(!this.HasProp("__SubAuthorityProxyArray"))
                 this.__SubAuthorityProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "uint")

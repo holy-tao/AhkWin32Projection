@@ -5,9 +5,8 @@
  * Specifies which part of a selection, if any, was hit during a hit test.
  * @see https://learn.microsoft.com/windows/win32/api/msinkaut/ne-msinkaut-selectionhitresult
  * @namespace Windows.Win32.UI.TabletPC
- * @version v4.0.30319
  */
-class SelectionHitResult extends Win32Enum{
+class SelectionHitResult extends Win32Enum {
 
     /**
      * No part of the selection was hit.

@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Gaming
- * @version v4.0.30319
  */
-class IGameExplorer2 extends IUnknown{
+class IGameExplorer2 extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -32,7 +31,7 @@ class IGameExplorer2 extends IUnknown{
      * 
      * @param {PWSTR} binaryGDFPath 
      * @param {PWSTR} installDirectory 
-     * @param {Integer} installScope 
+     * @param {GAME_INSTALL_SCOPE} installScope 
      * @returns {HRESULT} 
      */
     InstallGame(binaryGDFPath, installDirectory, installScope) {

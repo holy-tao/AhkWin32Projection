@@ -1,18 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\GameInputLabel.ahk
+#Include .\GameInputSwitchKind.ahk
 
 /**
  * @namespace Windows.Win32.UI.Input.GameInput
- * @version v4.0.30319
  */
-class GameInputFlightStickInfo extends Win32Struct
-{
+class GameInputFlightStickInfo extends Win32Struct {
     static sizeof => 20
 
     static packingSize => 4
 
     /**
-     * @type {Integer}
+     * @type {GameInputLabel}
      */
     menuButtonLabel {
         get => NumGet(this, 0, "int")
@@ -20,7 +20,7 @@ class GameInputFlightStickInfo extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {GameInputLabel}
      */
     viewButtonLabel {
         get => NumGet(this, 4, "int")
@@ -28,7 +28,7 @@ class GameInputFlightStickInfo extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {GameInputLabel}
      */
     firePrimaryButtonLabel {
         get => NumGet(this, 8, "int")
@@ -36,7 +36,7 @@ class GameInputFlightStickInfo extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {GameInputLabel}
      */
     fireSecondaryButtonLabel {
         get => NumGet(this, 12, "int")
@@ -44,7 +44,7 @@ class GameInputFlightStickInfo extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {GameInputSwitchKind}
      */
     hatSwitchKind {
         get => NumGet(this, 16, "int")

@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Ndis
- * @version v4.0.30319
  */
-class OFFLOAD_IPSEC_DELETE_SA extends Win32Struct
-{
+class OFFLOAD_IPSEC_DELETE_SA extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 8
@@ -15,7 +13,7 @@ class OFFLOAD_IPSEC_DELETE_SA extends Win32Struct
     /**
      * @type {HANDLE}
      */
-    OffloadHandle{
+    OffloadHandle {
         get {
             if(!this.HasProp("__OffloadHandle"))
                 this.__OffloadHandle := HANDLE(0, this)

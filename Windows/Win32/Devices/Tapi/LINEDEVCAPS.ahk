@@ -27,10 +27,8 @@
  * The members <b>dwSettableDevStatus</b> through <b>dwDeviceClassesOffset</b> are available only to applications that open the line device with a TAPI version of 2.0 or later.
  * @see https://learn.microsoft.com/windows/win32/api/tapi/ns-tapi-linedevcaps
  * @namespace Windows.Win32.Devices.Tapi
- * @version v4.0.30319
  */
-class LINEDEVCAPS extends Win32Struct
-{
+class LINEDEVCAPS extends Win32Struct {
     static sizeof => 264
 
     static packingSize => 8
@@ -424,7 +422,7 @@ class LINEDEVCAPS extends Win32Struct
      * Minimum value for the dial parameters that can be set for calls on this line, in milliseconds. Dialing parameters can be set to values in the range <b>MinDialParams</b> to <b>MaxDialParams</b>. The granularity of the actual settings is service provider-specific.
      * @type {LINEDIALPARAMS}
      */
-    MinDialParams{
+    MinDialParams {
         get {
             if(!this.HasProp("__MinDialParams"))
                 this.__MinDialParams := LINEDIALPARAMS(156, this)
@@ -436,7 +434,7 @@ class LINEDEVCAPS extends Win32Struct
      * Maximum value for the dial parameters that can be set for calls on this line, in milliseconds. Dialing parameters can be set to values in the range <b>MinDialParams</b> to <b>MaxDialParams</b>. The granularity of the actual settings is service provider-specific.
      * @type {LINEDIALPARAMS}
      */
-    MaxDialParams{
+    MaxDialParams {
         get {
             if(!this.HasProp("__MaxDialParams"))
                 this.__MaxDialParams := LINEDIALPARAMS(172, this)
@@ -448,7 +446,7 @@ class LINEDEVCAPS extends Win32Struct
      * Default dial parameters used for calls on this line. These parameter values can be overridden on a per-call basis.
      * @type {LINEDIALPARAMS}
      */
-    DefaultDialParams{
+    DefaultDialParams {
         get {
             if(!this.HasProp("__DefaultDialParams"))
                 this.__DefaultDialParams := LINEDIALPARAMS(188, this)
@@ -571,7 +569,7 @@ class LINEDEVCAPS extends Win32Struct
 
     /**
      * GUID permanently associated with the line device.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     PermanentLineGuid {
         get => NumGet(this, 256, "ptr")

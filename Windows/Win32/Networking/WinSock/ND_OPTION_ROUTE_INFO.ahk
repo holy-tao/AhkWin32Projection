@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Networking.WinSock
- * @version v4.0.30319
  */
-class ND_OPTION_ROUTE_INFO extends Win32Struct
-{
+class ND_OPTION_ROUTE_INFO extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 4
@@ -50,7 +48,7 @@ class ND_OPTION_ROUTE_INFO extends Win32Struct
             get => NumGet(this, 0, "char")
             set => NumPut("char", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -58,7 +56,6 @@ class ND_OPTION_ROUTE_INFO extends Win32Struct
             get => (this._bitfield >> 3) & 0x3
             set => this._bitfield := ((value & 0x3) << 3) | (this._bitfield & ~(0x3 << 3))
         }
-    
     }
 
     /**
@@ -72,10 +69,10 @@ class ND_OPTION_ROUTE_INFO extends Win32Struct
     /**
      * @type {_Flags}
      */
-    Flags{
+    Flags {
         get {
             if(!this.HasProp("__Flags"))
-                this.__Flags := %this.__Class%._Flags(3, this)
+                this.__Flags := ND_OPTION_ROUTE_INFO._Flags(3, this)
             return this.__Flags
         }
     }
@@ -91,7 +88,7 @@ class ND_OPTION_ROUTE_INFO extends Win32Struct
     /**
      * @type {IN6_ADDR}
      */
-    nd_opt_ri_prefix{
+    nd_opt_ri_prefix {
         get {
             if(!this.HasProp("__nd_opt_ri_prefix"))
                 this.__nd_opt_ri_prefix := IN6_ADDR(8, this)

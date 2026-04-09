@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include .\IFsrmAction.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * Used to run a command or script in response to a quota, file screen, or file management job event.
  * @see https://learn.microsoft.com/windows/win32/api/fsrm/nn-fsrm-ifsrmactioncommand
  * @namespace Windows.Win32.Storage.FileServerResourceManager
- * @version v4.0.30319
  */
-class IFsrmActionCommand extends IFsrmAction{
+class IFsrmActionCommand extends IFsrmAction {
 
     static sizeof => A_PtrSize
     /**
@@ -48,7 +47,7 @@ class IFsrmActionCommand extends IFsrmAction{
     }
 
     /**
-     * @type {Integer} 
+     * @type {FsrmAccountType} 
      */
     Account {
         get => this.get_Account()
@@ -157,7 +156,7 @@ class IFsrmActionCommand extends IFsrmAction{
 
     /**
      * Retrieves or sets the system account that is used to run the executable program specified in the ExecutablePath property. (Get)
-     * @returns {Integer} 
+     * @returns {FsrmAccountType} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmactioncommand-get_account
      */
     get_Account() {
@@ -167,7 +166,7 @@ class IFsrmActionCommand extends IFsrmAction{
 
     /**
      * Retrieves or sets the system account that is used to run the executable program specified in the ExecutablePath property. (Put)
-     * @param {Integer} account 
+     * @param {FsrmAccountType} account 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmactioncommand-put_account
      */

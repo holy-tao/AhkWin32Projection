@@ -1,14 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\..\Win32\Foundation\UNICODE_STRING.ahk
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem.Minifilters
- * @version v4.0.30319
  */
-class FLT_FILE_NAME_INFORMATION extends Win32Struct
-{
-    static sizeof => 120
+class FLT_FILE_NAME_INFORMATION extends Win32Struct {
+    static sizeof => 64
 
     static packingSize => 8
 
@@ -37,79 +34,58 @@ class FLT_FILE_NAME_INFORMATION extends Win32Struct
     }
 
     /**
-     * @type {UNICODE_STRING}
+     * @type {Pointer}
      */
-    Name{
-        get {
-            if(!this.HasProp("__Name"))
-                this.__Name := UNICODE_STRING(8, this)
-            return this.__Name
-        }
+    Name {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
-     * @type {UNICODE_STRING}
+     * @type {Pointer}
      */
-    Volume{
-        get {
-            if(!this.HasProp("__Volume"))
-                this.__Volume := UNICODE_STRING(24, this)
-            return this.__Volume
-        }
+    Volume {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
-     * @type {UNICODE_STRING}
+     * @type {Pointer}
      */
-    Share{
-        get {
-            if(!this.HasProp("__Share"))
-                this.__Share := UNICODE_STRING(40, this)
-            return this.__Share
-        }
+    Share {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
-     * @type {UNICODE_STRING}
+     * @type {Pointer}
      */
-    Extension{
-        get {
-            if(!this.HasProp("__Extension"))
-                this.__Extension := UNICODE_STRING(56, this)
-            return this.__Extension
-        }
+    Extension {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
-     * @type {UNICODE_STRING}
+     * @type {Pointer}
      */
-    Stream{
-        get {
-            if(!this.HasProp("__Stream"))
-                this.__Stream := UNICODE_STRING(72, this)
-            return this.__Stream
-        }
+    Stream {
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 
     /**
-     * @type {UNICODE_STRING}
+     * @type {Pointer}
      */
-    FinalComponent{
-        get {
-            if(!this.HasProp("__FinalComponent"))
-                this.__FinalComponent := UNICODE_STRING(88, this)
-            return this.__FinalComponent
-        }
+    FinalComponent {
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 
     /**
-     * @type {UNICODE_STRING}
+     * @type {Pointer}
      */
-    ParentDir{
-        get {
-            if(!this.HasProp("__ParentDir"))
-                this.__ParentDir := UNICODE_STRING(104, this)
-            return this.__ParentDir
-        }
+    ParentDir {
+        get => NumGet(this, 56, "ptr")
+        set => NumPut("ptr", value, this, 56)
     }
 }

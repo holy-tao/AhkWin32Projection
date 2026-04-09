@@ -1,16 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * The IWMSInternalAdminNetSource2 interface provides improved methods for password caching.
  * @see https://learn.microsoft.com/windows/win32/api/wmsinternaladminnetsource/nn-wmsinternaladminnetsource-iwmsinternaladminnetsource2
  * @namespace Windows.Win32.Media.WindowsMediaFormat
- * @version v4.0.30319
  */
-class IWMSInternalAdminNetSource2 extends IUnknown{
+class IWMSInternalAdminNetSource2 extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -62,7 +60,7 @@ class IWMSInternalAdminNetSource2 extends IUnknown{
      * If <i>fProxy</i> is False, this realm refers to the host server. If <i>fProxy</i> is True, this realm refers to the proxy server.
      * @param {BSTR} bstrUrl String containing the URL to which the credentials apply.
      * @param {BOOL} fProxy Boolean value that is True if the password applies when using a proxy server to access the site specified by <i>bstrUrl</i>.
-     * @param {Pointer<Integer>} pdwUrlPolicy Pointer to a <b>DWORD</b> containing one member of the <a href="https://docs.microsoft.com/windows/desktop/api/wmsinternaladminnetsource/ne-wmsinternaladminnetsource-netsource_urlcredpolicy_settings">NETSOURCE_URLCREDPOLICY_SETTINGS</a> enumeration type. This value is based on the user's network security settings and determines whether your application can automatically log in to sites for the user if you have credentials cached.
+     * @param {Pointer<NETSOURCE_URLCREDPOLICY_SETTINGS>} pdwUrlPolicy Pointer to a <b>DWORD</b> containing one member of the <a href="https://docs.microsoft.com/windows/desktop/api/wmsinternaladminnetsource/ne-wmsinternaladminnetsource-netsource_urlcredpolicy_settings">NETSOURCE_URLCREDPOLICY_SETTINGS</a> enumeration type. This value is based on the user's network security settings and determines whether your application can automatically log in to sites for the user if you have credentials cached.
      * @param {Pointer<BSTR>} pbstrName Pointer to a string containing the user name.
      * @param {Pointer<BSTR>} pbstrPassword Pointer to a string containing the password.
      * @param {Pointer<BOOL>} pfConfirmedGood Boolean value that is True if the password was cached after it was confirmed as correct by the server.

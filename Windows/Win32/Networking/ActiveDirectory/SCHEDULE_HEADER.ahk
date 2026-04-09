@@ -5,16 +5,13 @@
  * Used to contain the replication schedule data for a replication source.
  * @see https://learn.microsoft.com/windows/win32/api/schedule/ns-schedule-schedule_header
  * @namespace Windows.Win32.Networking.ActiveDirectory
- * @version v4.0.30319
  */
-class SCHEDULE_HEADER extends Win32Struct
-{
+class SCHEDULE_HEADER extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4
 
     /**
-     * 
      * @type {Integer}
      */
     Type {

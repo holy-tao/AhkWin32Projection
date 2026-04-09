@@ -1,18 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include .\IInkStrokes.ahk
 #Include .\IInkRecognizerContext.ahk
 #Include .\IInkDivisionResult.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * . (IInkDivider)
  * @see https://learn.microsoft.com/windows/win32/api/msinkaut15/nn-msinkaut15-iinkdivider
  * @namespace Windows.Win32.UI.TabletPC
- * @version v4.0.30319
  */
-class IInkDivider extends IDispatch{
+class IInkDivider extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

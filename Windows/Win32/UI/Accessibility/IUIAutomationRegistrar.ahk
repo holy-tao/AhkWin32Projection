@@ -9,9 +9,8 @@
  * The **IUIAutomationRegistrar** interface is exposed by the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ff384837(v=vs.85)">CUIAutomationRegistrar</a> object. To obtain an instance of this object, call the <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cocreateinstance">CoCreateInstance</a> function with a class ID of <b>CLSID_CUIAutomationRegistrar</b>.
  * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nn-uiautomationcore-iuiautomationregistrar
  * @namespace Windows.Win32.UI.Accessibility
- * @version v4.0.30319
  */
-class IUIAutomationRegistrar extends IUnknown{
+class IUIAutomationRegistrar extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -36,7 +35,9 @@ class IUIAutomationRegistrar extends IUnknown{
      * Registers a third-party property.
      * @remarks
      * The property ID can be used in various property methods, including <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-getcurrentpropertyvalue">GetCurrentPropertyValue</a>, and <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nf-uiautomationclient-iuiautomation-createpropertycondition">CreatePropertyCondition</a>. The same value can be used as a WinEvent value for property change events in <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nn-uiautomationcore-iaccessibleex">IAccessibleEx</a> implementations.
-     * @param {Pointer<UIAutomationPropertyInfo>} _property 
+     * @param {Pointer<UIAutomationPropertyInfo>} _property Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/ns-uiautomationcore-uiautomationpropertyinfo">UIAutomationPropertyInfo</a>*</b>
+     * 
+     * A pointer to a structure that contains information about the property to register.
      * @returns {Integer} Type: <b>PropertyID*</b>
      * 
      * Receives the property ID of the newly registered property.

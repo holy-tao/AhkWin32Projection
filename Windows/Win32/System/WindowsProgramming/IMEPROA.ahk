@@ -5,11 +5,9 @@
 
 /**
  * @namespace Windows.Win32.System.WindowsProgramming
- * @version v4.0.30319
  * @charset ANSI
  */
-class IMEPROA extends Win32Struct
-{
+class IMEPROA extends Win32Struct {
     static sizeof => 184
 
     static packingSize => 8
@@ -17,7 +15,7 @@ class IMEPROA extends Win32Struct
     /**
      * @type {HWND}
      */
-    hWnd{
+    hWnd {
         get {
             if(!this.HasProp("__hWnd"))
                 this.__hWnd := HWND(0, this)
@@ -28,7 +26,7 @@ class IMEPROA extends Win32Struct
     /**
      * @type {DATETIME}
      */
-    InstDate{
+    InstDate {
         get {
             if(!this.HasProp("__InstDate"))
                 this.__InstDate := DATETIME(8, this)
@@ -45,9 +43,9 @@ class IMEPROA extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    szDescription{
+    szDescription {
         get {
             if(!this.HasProp("__szDescriptionProxyArray"))
                 this.__szDescriptionProxyArray := Win32FixedArray(this.ptr + 24, 50, Primitive, "char")
@@ -56,9 +54,9 @@ class IMEPROA extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    szName{
+    szName {
         get {
             if(!this.HasProp("__szNameProxyArray"))
                 this.__szNameProxyArray := Win32FixedArray(this.ptr + 74, 80, Primitive, "char")
@@ -67,9 +65,9 @@ class IMEPROA extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    szOptions{
+    szOptions {
         get {
             if(!this.HasProp("__szOptionsProxyArray"))
                 this.__szOptionsProxyArray := Win32FixedArray(this.ptr + 154, 30, Primitive, "char")

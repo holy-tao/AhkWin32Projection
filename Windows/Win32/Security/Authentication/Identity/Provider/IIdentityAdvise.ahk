@@ -7,9 +7,8 @@
  * Allows an identity provider to notify a calling application when an identity is updated.
  * @see https://learn.microsoft.com/windows/win32/api/identityprovider/nn-identityprovider-iidentityadvise
  * @namespace Windows.Win32.Security.Authentication.Identity.Provider
- * @version v4.0.30319
  */
-class IIdentityAdvise extends IUnknown{
+class IIdentityAdvise extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -1,16 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IEnumPins.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Enumerates pins on a filter.The IBaseFilter::EnumPins method returns this interface.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-ienumpins
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IEnumPins extends IUnknown{
+class IEnumPins extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

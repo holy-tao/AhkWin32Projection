@@ -1,16 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
  * Defines the methods that are called by the Task Scheduler service to manage a COM handler.
  * @see https://learn.microsoft.com/windows/win32/api/taskschd/nn-taskschd-itaskhandler
  * @namespace Windows.Win32.System.TaskScheduler
- * @version v4.0.30319
  */
-class ITaskHandler extends IUnknown{
+class ITaskHandler extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

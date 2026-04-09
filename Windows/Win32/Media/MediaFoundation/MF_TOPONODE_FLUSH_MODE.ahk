@@ -5,9 +5,8 @@
  * Defines when a transform in a topology is flushed.
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/ne-mfidl-mf_toponode_flush_mode
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class MF_TOPONODE_FLUSH_MODE extends Win32Enum{
+class MF_TOPONODE_FLUSH_MODE extends Win32Enum {
 
     /**
      * The transform is flushed whenever the stream changes, including seeks and new segments.

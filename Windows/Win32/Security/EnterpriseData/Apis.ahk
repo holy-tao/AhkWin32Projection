@@ -4,7 +4,6 @@
 
 /**
  * @namespace Windows.Win32.Security.EnterpriseData
- * @version v4.0.30319
  */
 class EnterpriseData {
 
@@ -59,7 +58,7 @@ class EnterpriseData {
      * Gets the list of enterprise identifiers for the given token.
      * @param {HANDLE} tokenHandle Token Handle to be checked.
      * @param {Pointer<Integer>} numberOfBytes If <i>enterpriseIds</i> is provided, then this supplies the size of the <i>enterpriseIds</i> buffer. If you provide a buffer size, and it's too small, the output will contain the required size of the <i>enterpriseIds</i> buffer.
-     * @param {Pointer} enterpriseIds An array of enterprise ID string pointers.
+     * @param {Integer} enterpriseIds An array of enterprise ID string pointers.
      * @returns {Integer} The enterprise ID count on the token. Zero if the token is not explicitly enterprise allowed.
      * @see https://learn.microsoft.com/windows/win32/api/srpapi/nf-srpapi-srpgetenterpriseids
      * @since windows10.0.10240
@@ -105,7 +104,7 @@ class EnterpriseData {
     /**
      * Policy can be applied on Windows 10, version 1607.Gets information about the enterprise policy of an app.
      * @param {HANDLE} tokenHandle Token Handle to be checked.
-     * @returns {Integer} A collection of flags that indicate among other things whether the host app is allowed by the managing enterprise policy, and has been enlightened for Windows Information Protection.
+     * @returns {ENTERPRISE_DATA_POLICIES} A collection of flags that indicate among other things whether the host app is allowed by the managing enterprise policy, and has been enlightened for Windows Information Protection.
      * @see https://learn.microsoft.com/windows/win32/api/srpapi/nf-srpapi-srpgetenterprisepolicy
      * @since windows10.0.10240
      */
@@ -161,8 +160,8 @@ class EnterpriseData {
 
     /**
      * 
-     * @param {Integer} _Version 
-     * @param {Integer} Type 
+     * @param {SRPHOSTING_VERSION} _Version 
+     * @param {SRPHOSTING_TYPE} Type 
      * @param {Pointer<Void>} pvData 
      * @param {Integer} cbData 
      * @returns {HRESULT} 
@@ -176,7 +175,7 @@ class EnterpriseData {
 
     /**
      * 
-     * @param {Integer} Type 
+     * @param {SRPHOSTING_TYPE} Type 
      * @returns {String} Nothing - always returns an empty string
      */
     static SrpHostingTerminate(Type) {

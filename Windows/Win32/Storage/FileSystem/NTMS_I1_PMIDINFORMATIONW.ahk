@@ -3,17 +3,15 @@
 
 /**
  * @namespace Windows.Win32.Storage.FileSystem
- * @version v4.0.30319
  * @charset Unicode
  */
-class NTMS_I1_PMIDINFORMATIONW extends Win32Struct
-{
+class NTMS_I1_PMIDINFORMATIONW extends Win32Struct {
     static sizeof => 256
 
     static packingSize => 8
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     CurrentLibrary {
         get => NumGet(this, 0, "ptr")
@@ -21,7 +19,7 @@ class NTMS_I1_PMIDINFORMATIONW extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     MediaPool {
         get => NumGet(this, 8, "ptr")
@@ -29,7 +27,7 @@ class NTMS_I1_PMIDINFORMATIONW extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     Location {
         get => NumGet(this, 16, "ptr")
@@ -45,7 +43,7 @@ class NTMS_I1_PMIDINFORMATIONW extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     MediaType {
         get => NumGet(this, 32, "ptr")
@@ -53,7 +51,7 @@ class NTMS_I1_PMIDINFORMATIONW extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     HomeSlot {
         get => NumGet(this, 40, "ptr")

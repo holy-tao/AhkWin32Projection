@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\PRJ_CALLBACK_DATA_FLAGS.ahk
 #Include .\PRJ_NAMESPACE_VIRTUALIZATION_CONTEXT.ahk
+#Include .\PRJ_PLACEHOLDER_VERSION_INFO.ahk
 
 /**
  * Defines the standard information passed to a provider for every operation callback.
  * @see https://learn.microsoft.com/windows/win32/api/projectedfslib/ns-projectedfslib-prj_callback_data
  * @namespace Windows.Win32.Storage.ProjectedFileSystem
- * @version v4.0.30319
  */
-class PRJ_CALLBACK_DATA extends Win32Struct
-{
+class PRJ_CALLBACK_DATA extends Win32Struct {
     static sizeof => 80
 
     static packingSize => 8
@@ -25,7 +25,7 @@ class PRJ_CALLBACK_DATA extends Win32Struct
 
     /**
      * Callback-specific flags.
-     * @type {Integer}
+     * @type {PRJ_CALLBACK_DATA_FLAGS}
      */
     Flags {
         get => NumGet(this, 4, "int")
@@ -36,7 +36,7 @@ class PRJ_CALLBACK_DATA extends Win32Struct
      * Opaque handle to the virtualization instance that is sending the callback.
      * @type {PRJ_NAMESPACE_VIRTUALIZATION_CONTEXT}
      */
-    NamespaceVirtualizationContext{
+    NamespaceVirtualizationContext {
         get {
             if(!this.HasProp("__NamespaceVirtualizationContext"))
                 this.__NamespaceVirtualizationContext := PRJ_NAMESPACE_VIRTUALIZATION_CONTEXT(8, this)
@@ -61,7 +61,7 @@ class PRJ_CALLBACK_DATA extends Win32Struct
 
     /**
      * A value that uniquely identifies the file handle for the callback.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     FileId {
         get => NumGet(this, 24, "ptr")
@@ -70,7 +70,7 @@ class PRJ_CALLBACK_DATA extends Win32Struct
 
     /**
      * A value that uniquely identifies an open data stream for the callback.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     DataStreamId {
         get => NumGet(this, 32, "ptr")

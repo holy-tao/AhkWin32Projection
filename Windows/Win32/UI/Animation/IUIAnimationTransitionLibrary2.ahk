@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IUIAnimationTransition2.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\IUIAnimationTransition2.ahk
 
 /**
  * Defines a library of standard transitions for a specified dimension.
@@ -12,9 +12,8 @@
  * If an application requires an effect that cannot be specified using the transition library, developers can implement custom transitions. A custom transition is created by first implementing the interpolator function for the transition, and then by using a factory object to generate transitions from interpolators. An interpolator must implement the <a href="https://docs.microsoft.com/windows/desktop/api/uianimation/nn-uianimation-iuianimationinterpolator2">IUIAnimationInterpolator2</a> interface; an implementation of the transition factory object is provided by the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/hh448667(v=vs.85)">UIAnimationTransitionFactory2</a> object.
  * @see https://learn.microsoft.com/windows/win32/api/uianimation/nn-uianimation-iuianimationtransitionlibrary2
  * @namespace Windows.Win32.UI.Animation
- * @version v4.0.30319
  */
-class IUIAnimationTransitionLibrary2 extends IUnknown{
+class IUIAnimationTransitionLibrary2 extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -107,7 +106,7 @@ class IUIAnimationTransitionLibrary2 extends IUnknown{
      * <img alt="Diagram showing a discrete transition" src="Images/DiscreteTransition.png"/>
      * @param {Float} delay The amount of time by which to delay the instantaneous switch to the final value.
      * @param {Float} finalValue The value of the animation variable at the end of the transition.
-     * @param {Float} _hold 
+     * @param {Float} _hold The amount of time by which to hold the variable at its final value.
      * @returns {IUIAnimationTransition2} The new discrete transition.
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationtransitionlibrary2-creatediscretetransition
      */
@@ -127,7 +126,7 @@ class IUIAnimationTransitionLibrary2 extends IUnknown{
      * @param {Float} delay The amount of time by which to delay the instantaneous switch to the final value.
      * @param {Pointer<Float>} finalValue A vector (of size <i>cDimension</i>) that contains  the final values of the animation variable at the end of the transition.
      * @param {Integer} cDimension The number of dimensions to apply the transition. This parameter specifies the number of values listed in <i>finalValue</i>.
-     * @param {Float} _hold 
+     * @param {Float} _hold The amount of time by which to hold the variable at its final value.
      * @returns {IUIAnimationTransition2} The new discrete transition.
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationtransitionlibrary2-creatediscretevectortransition
      */
@@ -246,7 +245,7 @@ class IUIAnimationTransitionLibrary2 extends IUnknown{
      * @param {Float} minimumValue The value of the animation variable at a trough of the sinusoidal wave.
      * @param {Float} maximumValue The value of the animation variable at a peak of the sinusoidal wave.
      * @param {Float} period The period of oscillation of the sinusoidal wave.
-     * @param {Integer} slope The slope at the start of the transition.
+     * @param {UI_ANIMATION_SLOPE} slope The slope at the start of the transition.
      * @returns {IUIAnimationTransition2} The new sinusoidal-range transition.
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationtransitionlibrary2-createsinusoidaltransitionfromrange
      */

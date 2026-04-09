@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.UI.WindowsAndMessaging
- * @version v4.0.30319
  */
-class DEV_BROADCAST_VOLUME_FLAGS extends Win32Enum{
+class DEV_BROADCAST_VOLUME_FLAGS extends Win32Enum {
 
     /**
      * @type {Integer (UInt16)}

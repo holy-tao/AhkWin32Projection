@@ -7,9 +7,8 @@
  * Implement this interface to receive notifications of the current raw-image write operation.
  * @see https://learn.microsoft.com/windows/win32/api/imapi2/nn-imapi2-ddiscformat2rawcdevents
  * @namespace Windows.Win32.Storage.Imapi
- * @version v4.0.30319
  */
-class DDiscFormat2RawCDEvents extends IDispatch{
+class DDiscFormat2RawCDEvents extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -42,7 +41,9 @@ class DDiscFormat2RawCDEvents extends IDispatch{
      * Notifications are sent in response to calling the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/nf-imapi2-idiscformat2rawcd-writemedia">IDiscFormat2RawCD::WriteMedia</a> or <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/nf-imapi2-idiscformat2rawcd-writemedia2">IDiscFormat2RawCD::WriteMedia2</a> method.
      * 
      * To stop the write process, call the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/nf-imapi2-idiscformat2rawcd-cancelwrite">IDiscFormat2RawCD::CancelWrite</a> method.
-     * @param {IDispatch} _object 
+     * @param {IDispatch} _object The <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/nn-imapi2-idiscformat2rawcd">IDiscFormat2RawCD</a> interface that initiated the write operation. 
+     * 
+     * This parameter is a <b>MsftDiscFormat2RawCD</b> object in script.
      * @param {IDispatch} progress An <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/nn-imapi2-idiscformat2rawcdeventargs">IDiscFormat2RawCDEventArgs</a> interface that you use to determine the progress of the write operation. 
      * 
      * This parameter is a <b>MsftDiscFormat2RawCD</b> object in script.

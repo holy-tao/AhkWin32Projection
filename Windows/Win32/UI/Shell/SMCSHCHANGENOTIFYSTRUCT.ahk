@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include Common\ITEMIDLIST.ahk
 
 /**
  * Contains information about change notification. It is used by IShellMenuCallback::CallbackSM.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/ns-shobjidl_core-smcshchangenotifystruct
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class SMCSHCHANGENOTIFYSTRUCT extends Win32Struct
-{
+class SMCSHCHANGENOTIFYSTRUCT extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

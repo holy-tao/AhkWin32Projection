@@ -5,11 +5,9 @@
  * The SRCCODEINFO structure (dbghelp.h) contains line information.
  * @see https://learn.microsoft.com/windows/win32/api/dbghelp/ns-dbghelp-srccodeinfo
  * @namespace Windows.Win32.System.Diagnostics.Debug
- * @version v4.0.30319
  * @charset ANSI
  */
-class SRCCODEINFO extends Win32Struct
-{
+class SRCCODEINFO extends Win32Struct {
     static sizeof => 560
 
     static packingSize => 8

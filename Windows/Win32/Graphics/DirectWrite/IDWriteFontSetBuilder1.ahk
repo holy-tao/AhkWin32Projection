@@ -7,9 +7,8 @@
  * Contains methods for building a font set. (IDWriteFontSetBuilder1)
  * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nn-dwrite_3-idwritefontsetbuilder1
  * @namespace Windows.Win32.Graphics.DirectWrite
- * @version v4.0.30319
  */
-class IDWriteFontSetBuilder1 extends IDWriteFontSetBuilder{
+class IDWriteFontSetBuilder1 extends IDWriteFontSetBuilder {
 
     static sizeof => A_PtrSize
     /**

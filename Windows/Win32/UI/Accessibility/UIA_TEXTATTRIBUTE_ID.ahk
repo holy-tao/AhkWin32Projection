@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.UI.Accessibility
- * @version v4.0.30319
  */
-class UIA_TEXTATTRIBUTE_ID extends Win32Enum{
+class UIA_TEXTATTRIBUTE_ID extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

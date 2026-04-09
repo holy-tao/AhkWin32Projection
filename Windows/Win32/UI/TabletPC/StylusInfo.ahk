@@ -5,10 +5,8 @@
  * Provides information about the stylus.
  * @see https://learn.microsoft.com/windows/win32/api/rtscom/ns-rtscom-stylusinfo
  * @namespace Windows.Win32.UI.TabletPC
- * @version v4.0.30319
  */
-class StylusInfo extends Win32Struct
-{
+class StylusInfo extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4

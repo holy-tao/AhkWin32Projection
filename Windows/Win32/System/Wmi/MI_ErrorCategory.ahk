@@ -5,9 +5,8 @@
  * This enumeration defines error categories for the CIM extensions.
  * @see https://learn.microsoft.com/windows/win32/api/mi/ne-mi-mi_errorcategory
  * @namespace Windows.Win32.System.Wmi
- * @version v4.0.30319
  */
-class MI_ErrorCategory extends Win32Enum{
+class MI_ErrorCategory extends Win32Enum {
 
     /**
      * Use only when not enough is known about the error to assign it to another error category. Avoid using this category if you have any information about the error, even if that information is incomplete.
@@ -148,13 +147,11 @@ class MI_ErrorCategory extends Win32Enum{
     static MI_ERRORCATEGORY_READ_ERROR => 22
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static MI_ERRORCATEGORY_WRITE_ERROR => 23
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static MI_ERRORCATEGORY_FROM_STDERR => 24
@@ -166,37 +163,31 @@ class MI_ErrorCategory extends Win32Enum{
     static MI_ERRORCATEGORY_SECURITY_ERROR => 25
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static MI_ERRORCATEGORY_PROTOCOL_ERROR => 26
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static MI_ERRORCATEGORY_CONNECTION_ERROR => 27
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static MI_ERRORCATEGORY_AUTHENTICATION_ERROR => 28
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static MI_ERRORCATEGORY_LIMITS_EXCEEDED => 29
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static MI_ERRORCATEGORY_QUOTA_EXCEEDED => 30
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static MI_ERRORCATEGORY_NOT_ENABLED => 31

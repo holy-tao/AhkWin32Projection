@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * Represents a session with the Digital Rights Management (DRM) key system.
  * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nn-mfmediaengine-imfmediakeysession
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFMediaKeySession extends IUnknown{
+class IMFMediaKeySession extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -84,7 +83,7 @@ class IMFMediaKeySession extends IUnknown{
 
     /**
      * Passes in a key value with any associated data required by the Content Decryption Module for the given key system.
-     * @param {Pointer} key 
+     * @param {Integer} key 
      * @param {Integer} cb The count in bytes of <i>key</i>.
      * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediakeysession-update

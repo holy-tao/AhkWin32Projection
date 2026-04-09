@@ -15,9 +15,8 @@
  * Use this interface when you need to retrieve or set autocomplete options. The list of available options is given in the method references.
  * @see https://learn.microsoft.com/windows/win32/api/shldisp/nn-shldisp-iautocomplete2
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IAutoComplete2 extends IAutoComplete{
+class IAutoComplete2 extends IAutoComplete {
 
     static sizeof => A_PtrSize
     /**

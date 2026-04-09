@@ -5,10 +5,8 @@
  * Contains statistics about the performance of the sink writer.
  * @see https://learn.microsoft.com/windows/win32/api/mfreadwrite/ns-mfreadwrite-mf_sink_writer_statistics
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class MF_SINK_WRITER_STATISTICS extends Win32Struct
-{
+class MF_SINK_WRITER_STATISTICS extends Win32Struct {
     static sizeof => 112
 
     static packingSize => 8

@@ -5,10 +5,8 @@
  * Describes a cross timestamp retrieved from a network adapter.
  * @see https://learn.microsoft.com/windows/win32/api/iphlpapi/ns-iphlpapi-interface_hardware_crosstimestamp
  * @namespace Windows.Win32.NetworkManagement.IpHelper
- * @version v4.0.30319
  */
-class INTERFACE_HARDWARE_CROSSTIMESTAMP extends Win32Struct
-{
+class INTERFACE_HARDWARE_CROSSTIMESTAMP extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

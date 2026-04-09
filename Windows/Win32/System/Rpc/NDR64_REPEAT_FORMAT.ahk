@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.System.Rpc
- * @version v4.0.30319
  */
-class NDR64_REPEAT_FORMAT extends Win32Struct
-{
+class NDR64_REPEAT_FORMAT extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4
@@ -23,7 +21,7 @@ class NDR64_REPEAT_FORMAT extends Win32Struct
     /**
      * @type {NDR64_POINTER_REPEAT_FLAGS}
      */
-    Flags{
+    Flags {
         get {
             if(!this.HasProp("__Flags"))
                 this.__Flags := NDR64_POINTER_REPEAT_FLAGS(1, this)

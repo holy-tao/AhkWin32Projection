@@ -5,10 +5,8 @@
  * Defines the matrix that represents a transform on a message consumer.
  * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-input_transform
  * @namespace Windows.Win32.UI.Input.Pointer
- * @version v4.0.30319
  */
-class INPUT_TRANSFORM extends Win32Struct
-{
+class INPUT_TRANSFORM extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 4
@@ -142,9 +140,9 @@ class INPUT_TRANSFORM extends Win32Struct
     }
 
     /**
-     * @type {Array<Single>}
+     * @type {Array<Float>}
      */
-    m{
+    m {
         get {
             if(!this.HasProp("__mProxyArray"))
                 this.__mProxyArray := Win32FixedArray(this.ptr + 0, 16, Primitive, "float")

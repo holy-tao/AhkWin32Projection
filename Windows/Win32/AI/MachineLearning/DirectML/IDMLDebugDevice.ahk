@@ -7,9 +7,8 @@
  * Controls the DirectML debug layers.
  * @see https://learn.microsoft.com/windows/win32/api/directml/nn-directml-idmldebugdevice
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
- * @version v4.0.30319
  */
-class IDMLDebugDevice extends IUnknown{
+class IDMLDebugDevice extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

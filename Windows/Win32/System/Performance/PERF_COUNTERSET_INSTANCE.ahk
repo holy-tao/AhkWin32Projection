@@ -7,17 +7,15 @@
  * The <b>Offset</b> member of  <a href="https://docs.microsoft.com/windows/desktop/api/perflib/ns-perflib-perf_counter_info">PERF_COUNTER_INFO</a> contains the byte offset from the beginning of the <b>PERF_COUNTERSET_INSTANCE</b> block to the counter's raw counter value.
  * @see https://learn.microsoft.com/windows/win32/api/perflib/ns-perflib-perf_counterset_instance
  * @namespace Windows.Win32.System.Performance
- * @version v4.0.30319
  */
-class PERF_COUNTERSET_INSTANCE extends Win32Struct
-{
+class PERF_COUNTERSET_INSTANCE extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
 
     /**
      * GUID that identifies the counter set to which this instance belongs.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     CounterSetGuid {
         get => NumGet(this, 0, "ptr")

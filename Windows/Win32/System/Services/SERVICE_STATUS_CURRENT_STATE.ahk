@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Services
- * @version v4.0.30319
  */
-class SERVICE_STATUS_CURRENT_STATE extends Win32Enum{
+class SERVICE_STATUS_CURRENT_STATE extends Win32Enum {
 
     /**
      * @type {Integer (UInt32)}

@@ -1,17 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\CLUSPROP_SYNTAX.ahk
 #Include .\CLUSPROP_VALUE.ahk
+#Include .\CLUSPROP_SYNTAX.ahk
 #Include ..\..\Foundation\FILETIME.ahk
 
 /**
  * Describes a date and time stamp for a file.
  * @see https://learn.microsoft.com/windows/win32/api/clusapi/ns-clusapi-clusprop_filetime
  * @namespace Windows.Win32.Networking.Clustering
- * @version v4.0.30319
  */
-class CLUSPROP_FILETIME extends Win32Struct
-{
+class CLUSPROP_FILETIME extends Win32Struct {
     static sizeof => 20
 
     static packingSize => 4
@@ -19,7 +17,7 @@ class CLUSPROP_FILETIME extends Win32Struct
     /**
      * @type {CLUSPROP_VALUE}
      */
-    Base{
+    Base {
         get {
             if(!this.HasProp("__Base"))
                 this.__Base := CLUSPROP_VALUE(0, this)
@@ -31,7 +29,7 @@ class CLUSPROP_FILETIME extends Win32Struct
      * A date and time value.
      * @type {FILETIME}
      */
-    ft{
+    ft {
         get {
             if(!this.HasProp("__ft"))
                 this.__ft := FILETIME(12, this)

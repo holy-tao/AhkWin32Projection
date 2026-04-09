@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * The ITfKeystrokeMgr interface is implemented by the TSF manager and used by applications and text services to interact with the keyboard manager.
  * @see https://learn.microsoft.com/windows/win32/api/msctf/nn-msctf-itfkeystrokemgr
  * @namespace Windows.Win32.UI.TextServices
- * @version v4.0.30319
  */
-class ITfKeystrokeMgr extends IUnknown{
+class ITfKeystrokeMgr extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -175,8 +175,8 @@ class ITfKeystrokeMgr extends IUnknown{
      * ```
      * 
      * If the keystroke manager does not handle the key event, it passes the key event to the TSF text services by calling the text service <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nf-msctf-itfkeyeventsink-ontestkeydown">ITfKeyEventSink::OnTestKeyDown</a> method.
-     * @param {WPARAM} _wParam 
-     * @param {LPARAM} _lParam 
+     * @param {WPARAM} _wParam Specifies the virtual-key code of the key. For more information about this parameter, see the <i>wParam</i> parameter in <a href="https://docs.microsoft.com/windows/desktop/inputdev/wm-keydown">WM_KEYDOWN</a>.
+     * @param {LPARAM} _lParam Specifies the repeat count, scan code, extended-key flag, context code, previous key-state flag, and transition-state flag of the key. For more information about this parameter, see the <i>lParam</i> parameter in <a href="https://docs.microsoft.com/windows/desktop/inputdev/wm-keydown">WM_KEYDOWN</a>.
      * @returns {BOOL} Pointer to a BOOL that indicates if the key event would be handled. If this value receives <b>TRUE</b>, the key event would be handled and the event should not be forwarded to the application. If this value is <b>FALSE</b>, the key event would not be handled and the event should be forwarded to the application.
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfkeystrokemgr-testkeydown
      */
@@ -212,8 +212,8 @@ class ITfKeystrokeMgr extends IUnknown{
      * ```
      * 
      * If the keystroke manager does not handle the key event, it passes the key event to the TSF text service by calling the TSF text service <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nf-msctf-itfkeyeventsink-ontestkeyup">ITfKeyEventSink::OnTestKeyUp</a> method.
-     * @param {WPARAM} _wParam 
-     * @param {LPARAM} _lParam 
+     * @param {WPARAM} _wParam Specifies the virtual-key code of the key. For more information about this parameter, see the <i>wParam</i> parameter in <a href="https://docs.microsoft.com/windows/desktop/inputdev/wm-keyup">WM_KEYUP</a>.
+     * @param {LPARAM} _lParam Specifies the repeat count, scan code, extended-key flag, context code, previous key-state flag, and transition-state flag of the key. For more information about this parameter, see the <i>lParam</i> parameter in <a href="https://docs.microsoft.com/windows/desktop/inputdev/wm-keyup">WM_KEYUP</a>.
      * @returns {BOOL} Pointer to a BOOL that indicates if the key event is handled. If this value receives <b>TRUE</b>, the key event is handled and the event should not be forwarded to the application. If this value is <b>FALSE</b>, the key event is not handled and the event should be forwarded to the application.
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfkeystrokemgr-testkeyup
      */
@@ -249,8 +249,8 @@ class ITfKeystrokeMgr extends IUnknown{
      * ```
      * 
      * If the keystroke manager does not handle the key event, it passes the key event to TSF text services by calling the TSF text service <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nf-msctf-itfkeyeventsink-onkeydown">ITfKeyEventSink::OnKeyDown</a> method.
-     * @param {WPARAM} _wParam 
-     * @param {LPARAM} _lParam 
+     * @param {WPARAM} _wParam Specifies the virtual-key code of the key. For more information about this parameter, see the <i>wParam</i> parameter in <a href="https://docs.microsoft.com/windows/desktop/inputdev/wm-keydown">WM_KEYDOWN</a>.
+     * @param {LPARAM} _lParam Specifies the repeat count, scan code, extended-key flag, context code, previous key-state flag, and transition-state flag of the key. For more information about this parameter, see the <i>lParam</i> parameter in <a href="https://docs.microsoft.com/windows/desktop/inputdev/wm-keydown">WM_KEYDOWN</a>.
      * @returns {BOOL} Pointer to a BOOL that, on exit, indicates if the key event was handled. If this value receives <b>TRUE</b>, the key event was handled and the event should not be forwarded to the application. If this value is <b>FALSE</b>, the key event was not handled and the event should be forwarded to the application.
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfkeystrokemgr-keydown
      */
@@ -286,8 +286,8 @@ class ITfKeystrokeMgr extends IUnknown{
      * ```
      * 
      * If the keystroke manager does not handle the key event, it passes the key event to the text services by a call to the text service <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nf-msctf-itfkeyeventsink-onkeyup">ITfKeyEventSink::OnKeyUp</a> method.
-     * @param {WPARAM} _wParam 
-     * @param {LPARAM} _lParam 
+     * @param {WPARAM} _wParam Specifies the virtual-key code of the key. For more information about this parameter, see the <i>wParam</i> parameter in <a href="https://docs.microsoft.com/windows/desktop/inputdev/wm-keyup">WM_KEYUP</a>.
+     * @param {LPARAM} _lParam Specifies the repeat count, scan code, extended-key flag, context code, previous key-state flag, and transition-state flag of the key. For more information about this parameter, see the <i>lParam</i> parameter in <a href="https://docs.microsoft.com/windows/desktop/inputdev/wm-keyup">WM_KEYUP</a>.
      * @returns {BOOL} Pointer to a BOOL that, on exit, indicates if the key event will be handled. If this value receives <b>TRUE</b>, the key event would be handled and the event should not be forwarded to the application. If this value is <b>FALSE</b>, the key event would not be handled and the event should be forwarded to the application.
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfkeystrokemgr-keyup
      */

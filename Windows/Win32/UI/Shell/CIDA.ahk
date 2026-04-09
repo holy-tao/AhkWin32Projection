@@ -12,10 +12,8 @@
  * ```
  * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/ns-shlobj_core-cida
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class CIDA extends Win32Struct
-{
+class CIDA extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4
@@ -35,9 +33,9 @@ class CIDA extends Win32Struct
      * Type: <b>UINT[1]</b>
      * 
      * An array of offsets, relative to the beginning of this structure. The array contains <b>cidl</b>+1 elements. The first element of <b>aoffset</b> contains an offset to the fully qualified PIDL of a parent folder. If this PIDL is empty, the parent folder is the desktop. Each of the remaining elements of the array contains an offset to one of the PIDLs to be transferred. All of these PIDLs are relative to the PIDL of the parent folder.
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    aoffset{
+    aoffset {
         get {
             if(!this.HasProp("__aoffsetProxyArray"))
                 this.__aoffsetProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "uint")

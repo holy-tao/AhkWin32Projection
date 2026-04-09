@@ -1,16 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IEnumQueue.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * The IEnumQueue interface (tapi3cc.h) provides COM-standard enumeration methods for the ITQueue interface.
  * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/nn-tapi3cc-ienumqueue
  * @namespace Windows.Win32.Devices.Tapi
- * @version v4.0.30319
  */
-class IEnumQueue extends IUnknown{
+class IEnumQueue extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -3,16 +3,14 @@
 
 /**
  * @namespace Windows.Win32.Storage.FileSystem
- * @version v4.0.30319
  */
-class KCRM_PROTOCOL_BLOB extends Win32Struct
-{
+class KCRM_PROTOCOL_BLOB extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     ProtocolId {
         get => NumGet(this, 0, "ptr")

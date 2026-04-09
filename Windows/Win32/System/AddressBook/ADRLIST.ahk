@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\ADRENTRY.ahk
+#Include .\SPropValue.ahk
 
 /**
  * Describes zero or more properties that belong to one or more recipients
@@ -22,11 +23,9 @@
  * For more information about how to allocate memory for **ADRENTRY** structures, see [Managing Memory for ADRLIST and SRowSet Structures](managing-memory-for-adrlist-and-srowset-structures.md).
  * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/adrlist
  * @namespace Windows.Win32.System.AddressBook
- * @version v4.0.30319
  */
-class ADRLIST extends Win32Struct
-{
-    static sizeof => 16
+class ADRLIST extends Win32Struct {
+    static sizeof => 24
 
     static packingSize => 8
 
@@ -41,9 +40,9 @@ class ADRLIST extends Win32Struct
 
     /**
      * > Array of [ADRENTRY](adrentry.md) structures, one structure for each recipient.
-     * @type {Array<ADRENTRY>}
+     * @type {ADRENTRY}
      */
-    aEntries{
+    aEntries {
         get {
             if(!this.HasProp("__aEntriesProxyArray"))
                 this.__aEntriesProxyArray := Win32FixedArray(this.ptr + 8, 1, ADRENTRY, "")

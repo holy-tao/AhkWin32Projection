@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\WS_XML_STRING.ahk
 
 /**
  * Represents the port element for the endpoint. The port element is generated for the service element as specified by serviceName and serviceNs for WS_SERVICE_PROPERTY_METADATA property on the WS_SERVICE_HOST.
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_service_endpoint_metadata
  * @namespace Windows.Win32.Networking.WindowsWebServices
- * @version v4.0.30319
  */
-class WS_SERVICE_ENDPOINT_METADATA extends Win32Struct
-{
+class WS_SERVICE_ENDPOINT_METADATA extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

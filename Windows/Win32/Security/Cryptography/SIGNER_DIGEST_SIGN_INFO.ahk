@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\CRYPT_INTEGER_BLOB.ahk
 
 /**
  * contains information about digest signing.
  * @see https://learn.microsoft.com/windows/win32/SecCrypto/signer-digest-sign-info
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class SIGNER_DIGEST_SIGN_INFO extends Win32Struct
-{
+class SIGNER_DIGEST_SIGN_INFO extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8

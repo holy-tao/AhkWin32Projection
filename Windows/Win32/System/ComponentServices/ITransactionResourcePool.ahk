@@ -7,9 +7,8 @@
  * Maintains a list of pooled objects, keyed by IObjPool, that are used until the transaction completes.
  * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nn-comsvcs-itransactionresourcepool
  * @namespace Windows.Win32.System.ComponentServices
- * @version v4.0.30319
  */
-class ITransactionResourcePool extends IUnknown{
+class ITransactionResourcePool extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

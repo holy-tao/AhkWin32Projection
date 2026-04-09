@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 #Include .\ITextRange2.ahk
+#Include ..\..\..\Foundation\BSTR.ahk
 
 /**
  * The ITextStory interface methods are used to access shared data from multiple stories, which is stored in the parent ITextServices instance.
  * @see https://learn.microsoft.com/windows/win32/api/tom/nn-tom-itextstory
  * @namespace Windows.Win32.UI.Controls.RichEdit
- * @version v4.0.30319
  */
-class ITextStory extends IUnknown{
+class ITextStory extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -252,7 +251,9 @@ class ITextStory extends IUnknown{
      * <a id="tomCheckTextLimit"></a>
      * <a id="tomchecktextlimit"></a>
      * <a id="TOMCHECKTEXTLIMIT"></a>
-     * @param {BSTR} _bstr 
+     * @param {BSTR} _bstr Type: <b>BSTR</b>
+     * 
+     * The new text for this story. If this parameter is <b>NULL</b>, the text in the story is deleted.
      * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If the method succeeds, it returns <b>S_OK</b>. If the method fails, it returns one of the following COM error codes. For more information about COM error codes, see <a href="https://docs.microsoft.com/windows/desktop/com/error-handling-in-com">Error Handling in COM</a>.

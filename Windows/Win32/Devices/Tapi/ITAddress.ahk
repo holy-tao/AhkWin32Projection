@@ -1,21 +1,20 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
 #Include .\ITTAPI.ahk
 #Include .\ITBasicCallControl.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
 #Include .\IEnumCall.ahk
 #Include .\ITForwardInformation.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * The ITAddress interface is the base interface for the Address object. Applications use this interface to get information about and use the Address object.
  * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nn-tapi3if-itaddress
  * @namespace Windows.Win32.Devices.Tapi
- * @version v4.0.30319
  */
-class ITAddress extends IDispatch{
+class ITAddress extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -37,7 +36,7 @@ class ITAddress extends IDispatch{
     static VTableNames => ["get_State", "get_AddressName", "get_ServiceProviderName", "get_TAPIObject", "CreateCall", "get_Calls", "EnumerateCalls", "get_DialableAddress", "CreateForwardInfoObject", "Forward", "get_CurrentForwardInfo", "put_MessageWaiting", "get_MessageWaiting", "put_DoNotDisturb", "get_DoNotDisturb"]
 
     /**
-     * @type {Integer} 
+     * @type {ADDRESS_STATE} 
      */
     State {
         get => this.get_State()
@@ -103,7 +102,7 @@ class ITAddress extends IDispatch{
 
     /**
      * The get_State method gets the current state of the address in pAddressState.
-     * @returns {Integer} Pointer to a member of 
+     * @returns {ADDRESS_STATE} Pointer to a member of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/ne-tapi3if-address_state">ADDRESS_STATE</a>.
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itaddress-get_state
      */

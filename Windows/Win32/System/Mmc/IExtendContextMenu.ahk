@@ -7,9 +7,8 @@
  * The IExtendContextMenu interface enables a snap-in to add items to an existing context menu.
  * @see https://learn.microsoft.com/windows/win32/api/mmc/nn-mmc-iextendcontextmenu
  * @namespace Windows.Win32.System.Mmc
- * @version v4.0.30319
  */
-class IExtendContextMenu extends IUnknown{
+class IExtendContextMenu extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

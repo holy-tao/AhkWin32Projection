@@ -18,11 +18,9 @@
  * > The shlobj_core.h header defines FILEDESCRIPTOR as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
  * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/ns-shlobj_core-filedescriptorw
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  * @charset Unicode
  */
-class FILEDESCRIPTORW extends Win32Struct
-{
+class FILEDESCRIPTORW extends Win32Struct {
     static sizeof => 592
 
     static packingSize => 8
@@ -40,7 +38,7 @@ class FILEDESCRIPTORW extends Win32Struct
      * Type: <b>CLSID</b>
      * 
      * The file type identifier.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     clsid {
         get => NumGet(this, 8, "ptr")
@@ -53,7 +51,7 @@ class FILEDESCRIPTORW extends Win32Struct
      * The width and height of the file icon.
      * @type {SIZE}
      */
-    sizel{
+    sizel {
         get {
             if(!this.HasProp("__sizel"))
                 this.__sizel := SIZE(16, this)
@@ -67,7 +65,7 @@ class FILEDESCRIPTORW extends Win32Struct
      * The screen coordinates of the file object.
      * @type {POINTL}
      */
-    pointl{
+    pointl {
         get {
             if(!this.HasProp("__pointl"))
                 this.__pointl := POINTL(24, this)
@@ -92,7 +90,7 @@ class FILEDESCRIPTORW extends Win32Struct
      * The <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> structure that contains the time of file creation.
      * @type {FILETIME}
      */
-    ftCreationTime{
+    ftCreationTime {
         get {
             if(!this.HasProp("__ftCreationTime"))
                 this.__ftCreationTime := FILETIME(36, this)
@@ -106,7 +104,7 @@ class FILEDESCRIPTORW extends Win32Struct
      * The <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> structure that contains the time that the file was last accessed.
      * @type {FILETIME}
      */
-    ftLastAccessTime{
+    ftLastAccessTime {
         get {
             if(!this.HasProp("__ftLastAccessTime"))
                 this.__ftLastAccessTime := FILETIME(44, this)
@@ -120,7 +118,7 @@ class FILEDESCRIPTORW extends Win32Struct
      * The <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> structure that contains the time of the last write operation.
      * @type {FILETIME}
      */
-    ftLastWriteTime{
+    ftLastWriteTime {
         get {
             if(!this.HasProp("__ftLastWriteTime"))
                 this.__ftLastWriteTime := FILETIME(52, this)

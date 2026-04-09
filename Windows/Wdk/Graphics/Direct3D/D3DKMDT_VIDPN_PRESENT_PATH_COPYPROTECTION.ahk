@@ -1,18 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\D3DKMDT_VIDPN_PRESENT_PATH_COPYPROTECTION_TYPE.ahk
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
- * @version v4.0.30319
  */
-class D3DKMDT_VIDPN_PRESENT_PATH_COPYPROTECTION extends Win32Struct
-{
+class D3DKMDT_VIDPN_PRESENT_PATH_COPYPROTECTION extends Win32Struct {
     static sizeof => 272
 
     static packingSize => 8
 
     /**
-     * @type {Integer}
+     * @type {D3DKMDT_VIDPN_PRESENT_PATH_COPYPROTECTION_TYPE}
      */
     CopyProtectionType {
         get => NumGet(this, 0, "int")
@@ -28,9 +27,9 @@ class D3DKMDT_VIDPN_PRESENT_PATH_COPYPROTECTION extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    OEMCopyProtection{
+    OEMCopyProtection {
         get {
             if(!this.HasProp("__OEMCopyProtectionProxyArray"))
                 this.__OEMCopyProtectionProxyArray := Win32FixedArray(this.ptr + 8, 256, Primitive, "char")
@@ -39,7 +38,7 @@ class D3DKMDT_VIDPN_PRESENT_PATH_COPYPROTECTION extends Win32Struct
     }
 
     /**
-     * @type {Pointer<D3DKMDT_VIDPN_PRESENT_PATH_COPYPROTECTION_SUPPORT>}
+     * @type {Pointer}
      */
     CopyProtectionSupport {
         get => NumGet(this, 264, "ptr")

@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\Cryptography\CRYPT_INTEGER_BLOB.ahk
 
 /**
  * The SecPkgContext_IssuerListInfoEx structure holds a list of trusted certification authorities (CAs).
  * @see https://learn.microsoft.com/windows/win32/api/schannel/ns-schannel-secpkgcontext_issuerlistinfoex
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class SecPkgContext_IssuerListInfoEx extends Win32Struct
-{
+class SecPkgContext_IssuerListInfoEx extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

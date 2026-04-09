@@ -7,10 +7,8 @@
  * For a general discussion of how restrictions work, see [About Restrictions](about-restrictions.md).
  * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/ssizerestriction
  * @namespace Windows.Win32.System.AddressBook
- * @version v4.0.30319
  */
-class SSizeRestriction extends Win32Struct
-{
+class SSizeRestriction extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4

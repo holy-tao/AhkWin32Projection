@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\MIDIHDR.ahk
 
 /**
  * The MIDIHDR structure defines the header used to identify a MIDI system-exclusive or stream buffer.
  * @see https://learn.microsoft.com/windows/win32/api/mmeapi/ns-mmeapi-midihdr
  * @namespace Windows.Win32.Media.Audio
- * @version v4.0.30319
  */
-class MIDIHDR extends Win32Struct
-{
+class MIDIHDR extends Win32Struct {
     static sizeof => 120
 
     static packingSize => 8
@@ -134,9 +133,9 @@ class MIDIHDR extends Win32Struct
 
     /**
      * Reserved; do not use.
-     * @type {Array<UIntPtr>}
+     * @type {Array<Pointer>}
      */
-    dwReserved{
+    dwReserved {
         get {
             if(!this.HasProp("__dwReservedProxyArray"))
                 this.__dwReservedProxyArray := Win32FixedArray(this.ptr + 56, 8, Primitive, "ptr")

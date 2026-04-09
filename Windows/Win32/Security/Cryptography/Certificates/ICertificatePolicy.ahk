@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\System\Com\IDispatch.ahk
 #Include .\IObjectId.ahk
 #Include .\IPolicyQualifiers.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
 
 /**
  * Can be used to specify a certificate policy that identifies a purpose for which the certificate can be used.
  * @see https://learn.microsoft.com/windows/win32/api/certenroll/nn-certenroll-icertificatepolicy
  * @namespace Windows.Win32.Security.Cryptography.Certificates
- * @version v4.0.30319
  */
-class ICertificatePolicy extends IDispatch{
+class ICertificatePolicy extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

@@ -5,10 +5,9 @@
  * This structure contains data for memory pressure reporting.
  * @see https://learn.microsoft.com/windows/win32/medfound/d3dmemorypressure
  * @namespace Windows.Win32.Graphics.Direct3D9
- * @version v4.0.30319
+ * @architecture X64, Arm64
  */
-class D3DMEMORYPRESSURE extends Win32Struct
-{
+class D3DMEMORYPRESSURE extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

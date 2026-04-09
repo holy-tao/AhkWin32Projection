@@ -7,9 +7,8 @@
  * Enables containers and other objects to receive notifications of data changes, view changes, and compound-document changes occurring in objects of interest.
  * @see https://learn.microsoft.com/windows/win32/api/objidl/nn-objidl-iadvisesink
  * @namespace Windows.Win32.System.Com
- * @version v4.0.30319
  */
-class IAdviseSink extends IUnknown{
+class IAdviseSink extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

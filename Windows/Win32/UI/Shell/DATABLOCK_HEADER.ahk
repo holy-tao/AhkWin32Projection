@@ -5,10 +5,8 @@
  * Serves as the header for some of the extra data structures used by IShellLinkDataList.
  * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/ns-shlobj_core-datablock_header
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class DATABLOCK_HEADER extends Win32Struct
-{
+class DATABLOCK_HEADER extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4

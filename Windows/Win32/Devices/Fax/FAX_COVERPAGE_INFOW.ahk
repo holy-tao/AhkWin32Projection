@@ -15,11 +15,9 @@
  * > The winfax.h header defines FAX_COVERPAGE_INFO as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
  * @see https://learn.microsoft.com/windows/win32/api/winfax/ns-winfax-fax_coverpage_infow
  * @namespace Windows.Win32.Devices.Fax
- * @version v4.0.30319
  * @charset Unicode
  */
-class FAX_COVERPAGE_INFOW extends Win32Struct
-{
+class FAX_COVERPAGE_INFOW extends Win32Struct {
     static sizeof => 240
 
     static packingSize => 8
@@ -327,7 +325,7 @@ class FAX_COVERPAGE_INFOW extends Win32Struct
      * Specifies a <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-systemtime">SYSTEMTIME</a> structure. The fax server sets this member when it initiates the fax transmission. The time is expressed in local system time.
      * @type {SYSTEMTIME}
      */
-    TimeSent{
+    TimeSent {
         get {
             if(!this.HasProp("__TimeSent"))
                 this.__TimeSent := SYSTEMTIME(216, this)

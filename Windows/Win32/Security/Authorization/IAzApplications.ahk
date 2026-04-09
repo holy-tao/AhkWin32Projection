@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
 #Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * Represents a collection of IAzApplication objects.
  * @see https://learn.microsoft.com/windows/win32/api/azroles/nn-azroles-iazapplications
  * @namespace Windows.Win32.Security.Authorization
- * @version v4.0.30319
  */
-class IAzApplications extends IDispatch{
+class IAzApplications extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

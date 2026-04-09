@@ -9,9 +9,8 @@
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IMPEG2_TIF_CONTROL)</c>.
  * @see https://learn.microsoft.com/windows/win32/api/bdatif/nn-bdatif-impeg2_tif_control
  * @namespace Windows.Win32.Media.DirectShow.Tv
- * @version v4.0.30319
  */
-class IMPEG2_TIF_CONTROL extends IUnknown{
+class IMPEG2_TIF_CONTROL extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

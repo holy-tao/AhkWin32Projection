@@ -1,9 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IDispatch.ahk
-#Include .\Folder.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include .\FolderItems.ahk
 #Include .\FolderItem.ahk
 
@@ -20,9 +19,8 @@
  * > Not all methods are implemented for all folders. For example, the [**ParseName**](folder-parsename.md) method is not implemented for the Control Panel folder (CSIDL\_CONTROLS). If you attempt to call an unimplemented method, a 0x800A01BD (decimal 445) error is raised.
  * @see https://learn.microsoft.com/windows/win32/shell/folder
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class Folder extends IDispatch{
+class Folder extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

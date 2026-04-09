@@ -6,13 +6,11 @@
  * Contains information about processor performance control and C-states.
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-processor_power_policy
  * @namespace Windows.Win32.System.Power
- * @version v4.0.30319
  */
-class PROCESSOR_POWER_POLICY extends Win32Struct
-{
-    static sizeof => 40
+class PROCESSOR_POWER_POLICY extends Win32Struct {
+    static sizeof => 76
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * The current structure revision level.  Set this value by calling <a href="https://docs.microsoft.com/windows/desktop/api/powrprof/nf-powrprof-readprocessorpwrscheme">ReadProcessorPwrScheme</a> before using a  <b>PROCESSOR_POWER_POLICY</b> structure to set power policy.
@@ -35,9 +33,9 @@ class PROCESSOR_POWER_POLICY extends Win32Struct
 
     /**
      * Reserved; set to zero.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Spare{
+    Spare {
         get {
             if(!this.HasProp("__SpareProxyArray"))
                 this.__SpareProxyArray := Win32FixedArray(this.ptr + 5, 3, Primitive, "char")
@@ -57,7 +55,6 @@ class PROCESSOR_POWER_POLICY extends Win32Struct
     }
 
     /**
-     * Reserved; set to zero.
      * @type {Integer}
      */
     DisableCStates {
@@ -77,9 +74,9 @@ class PROCESSOR_POWER_POLICY extends Win32Struct
     /**
      * An array of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-processor_power_policy_info">PROCESSOR_POWER_POLICY_INFO</a> structures that defines values used to apply processor C-state policy settings. Policy[0] corresponds to ACPI C-state C1, Policy[1] corresponds to C2, and Policy[2] corresponds to C3. The <b>AllowPromotion</b> member determines whether the processor can be promoted to the state. For example, if Policy[0].AllowPromotion is 0, the computer cannot transition from C0 to C1.
-     * @type {Array<PROCESSOR_POWER_POLICY_INFO>}
+     * @type {PROCESSOR_POWER_POLICY_INFO}
      */
-    Policy{
+    Policy {
         get {
             if(!this.HasProp("__PolicyProxyArray"))
                 this.__PolicyProxyArray := Win32FixedArray(this.ptr + 16, 3, PROCESSOR_POWER_POLICY_INFO, "")

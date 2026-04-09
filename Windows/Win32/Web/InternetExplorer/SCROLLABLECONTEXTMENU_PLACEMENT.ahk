@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Web.InternetExplorer
- * @version v4.0.30319
  */
-class SCROLLABLECONTEXTMENU_PLACEMENT extends Win32Enum{
+class SCROLLABLECONTEXTMENU_PLACEMENT extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

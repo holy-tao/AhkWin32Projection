@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * Provides access to the visual styles associated with the content of a document.
  * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nn-uiautomationcore-istylesprovider
  * @namespace Windows.Win32.UI.Accessibility
- * @version v4.0.30319
  */
-class IStylesProvider extends IUnknown{
+class IStylesProvider extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -32,7 +31,7 @@ class IStylesProvider extends IUnknown{
     static VTableNames => ["get_StyleId", "get_StyleName", "get_FillColor", "get_FillPatternStyle", "get_Shape", "get_FillPatternColor", "get_ExtendedProperties"]
 
     /**
-     * @type {Integer} 
+     * @type {UIA_STYLE_ID} 
      */
     StyleId {
         get => this.get_StyleId()
@@ -93,7 +92,7 @@ class IStylesProvider extends IUnknown{
      * When bullet styles are mixed within a list, the <b>BulletedList</b> style should be applied to the whole range, and the <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/ne-uiautomationcore-bulletstyle">BulletStyle</a> attribute value (property identified by <b>UIA_BulletStyleAttributeId</b>) should be mixed according to breakdown of different bullet types within the range.
      * 
      * When nested lists contain bullets also (perhaps of a different type than the main list), the <b>BulletedList</b> style would again be applied to the whole range, and the <b>BulletStyle</b> attribute value is whatever the nested bullet style is (for the range covering the nested list).
-     * @returns {Integer} 
+     * @returns {UIA_STYLE_ID} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-istylesprovider-get_styleid
      */
     get_StyleId() {

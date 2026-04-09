@@ -1,21 +1,20 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\TXFS_RMF_LAGS.ahk
 
 /**
  * Contains the information required when modifying log parameters and logging mode for a secondary resource manager.
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-txfs_modify_rm
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class TXFS_MODIFY_RM extends Win32Struct
-{
+class TXFS_MODIFY_RM extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
 
     /**
      * The log parameters to be set.
-     * @type {Integer}
+     * @type {TXFS_RMF_LAGS}
      */
     Flags {
         get => NumGet(this, 0, "uint")

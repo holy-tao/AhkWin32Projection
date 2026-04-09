@@ -5,9 +5,8 @@
  * The CLUSCTL_NODE_CODES enumeration (msclus.h) enumerates node control codes.
  * @see https://learn.microsoft.com/windows/win32/api/msclus/ne-msclus-clusctl_node_codes
  * @namespace Windows.Win32.Networking.Clustering
- * @version v4.0.30319
  */
-class CLUSCTL_NODE_CODES extends Win32Enum{
+class CLUSCTL_NODE_CODES extends Win32Enum {
 
     /**
      * See <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/clusctl-node-unknown">CLUSCTL_NODE_UNKNOWN</a>.
@@ -132,7 +131,6 @@ class CLUSCTL_NODE_CODES extends Win32Enum{
     static CLUSCTL_NODE_GET_CLUSTER_SERVICE_ACCOUNT_NAME => 67108929
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static CLUSCTL_NODE_GET_STUCK_NODES => 67109565

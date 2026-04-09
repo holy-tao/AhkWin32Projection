@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\StructuredStorage\PROPVARIANT.ahk
 #Include .\IObjectWithPropertyKey.ahk
+#Include ..\..\..\System\Com\StructuredStorage\PROPVARIANT.ahk
 
 /**
  * Exposes a method that encapsulates a change to a single property.
  * @see https://learn.microsoft.com/windows/win32/api/propsys/nn-propsys-ipropertychange
  * @namespace Windows.Win32.UI.Shell.PropertiesSystem
- * @version v4.0.30319
  */
-class IPropertyChange extends IObjectWithPropertyKey{
+class IPropertyChange extends IObjectWithPropertyKey {
 
     static sizeof => A_PtrSize
     /**

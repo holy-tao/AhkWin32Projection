@@ -5,9 +5,8 @@
  * Contains values that differentiate between a primary token and an impersonation token.
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ne-winnt-token_type
  * @namespace Windows.Win32.Security
- * @version v4.0.30319
  */
-class TOKEN_TYPE extends Win32Enum{
+class TOKEN_TYPE extends Win32Enum {
 
     /**
      * Indicates a primary token.

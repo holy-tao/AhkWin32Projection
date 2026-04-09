@@ -1,17 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\JOYREGHWSETTINGS.ahk
-#Include .\JOYPOS.ahk
-#Include .\JOYRANGE.ahk
-#Include .\JOYREGHWVALUES.ahk
 #Include .\JOYREGHWCONFIG.ahk
+#Include .\JOYREGHWSETTINGS.ahk
+#Include .\JOYREGHWVALUES.ahk
+#Include .\JOYRANGE.ahk
+#Include .\JOYPOS.ahk
 
 /**
  * @namespace Windows.Win32.Devices.HumanInterfaceDevice
- * @version v4.0.30319
  */
-class DIJOYCONFIG_DX5 extends Win32Struct
-{
+class DIJOYCONFIG_DX5 extends Win32Struct {
     static sizeof => 1160
 
     static packingSize => 8
@@ -25,7 +23,7 @@ class DIJOYCONFIG_DX5 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     guidInstance {
         get => NumGet(this, 8, "ptr")
@@ -35,7 +33,7 @@ class DIJOYCONFIG_DX5 extends Win32Struct
     /**
      * @type {JOYREGHWCONFIG}
      */
-    hwc{
+    hwc {
         get {
             if(!this.HasProp("__hwc"))
                 this.__hwc := JOYREGHWCONFIG(16, this)

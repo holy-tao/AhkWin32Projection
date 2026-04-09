@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.SerialCommunication
- * @version v4.0.30319
  */
-class SERIAL_HANDFLOW extends Win32Struct
-{
+class SERIAL_HANDFLOW extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4

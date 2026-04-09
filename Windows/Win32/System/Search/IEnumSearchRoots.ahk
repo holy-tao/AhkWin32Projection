@@ -1,9 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ISearchRoot.ahk
-#Include .\IEnumSearchRoots.ahk
 #Include ..\Com\IUnknown.ahk
+#Include .\ISearchRoot.ahk
 
 /**
  * Provides methods to enumerate the search roots of a catalog, for example, SystemIndex.
@@ -11,9 +10,8 @@
  * For a sample that demonstrates how to define command line options for Crawl Scope Manager (CSM) indexing operations, see the [CrawlScopeCommandLine](https://github.com/microsoft/Windows-classic-samples/tree/master/Samples/Win7Samples/winui/WindowsSearch/CrawlScopeCommandLine) code sample.
  * @see https://learn.microsoft.com/windows/win32/api/searchapi/nn-searchapi-ienumsearchroots
  * @namespace Windows.Win32.System.Search
- * @version v4.0.30319
  */
-class IEnumSearchRoots extends IUnknown{
+class IEnumSearchRoots extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

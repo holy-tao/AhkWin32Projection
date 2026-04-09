@@ -7,9 +7,8 @@
  * Callback interface for receiving events from the camera user interface control.
  * @see https://learn.microsoft.com/windows/win32/api/camerauicontrol/nn-camerauicontrol-icamerauicontroleventcallback
  * @namespace Windows.Win32.System.WindowsProgramming
- * @version v4.0.30319
  */
-class ICameraUIControlEventCallback extends IUnknown{
+class ICameraUIControlEventCallback extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

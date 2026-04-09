@@ -4,16 +4,14 @@
 
 /**
  * @namespace Windows.Win32.Storage.FileSystem
- * @version v4.0.30319
  */
-class NTMS_ASYNC_IO extends Win32Struct
-{
+class NTMS_ASYNC_IO extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     OperationId {
         get => NumGet(this, 0, "ptr")
@@ -21,7 +19,7 @@ class NTMS_ASYNC_IO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     EventId {
         get => NumGet(this, 8, "ptr")
@@ -55,7 +53,7 @@ class NTMS_ASYNC_IO extends Win32Struct
     /**
      * @type {HANDLE}
      */
-    hEvent{
+    hEvent {
         get {
             if(!this.HasProp("__hEvent"))
                 this.__hEvent := HANDLE(32, this)

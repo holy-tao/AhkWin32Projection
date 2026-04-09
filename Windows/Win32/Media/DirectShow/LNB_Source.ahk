@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class LNB_Source extends Win32Enum{
+class LNB_Source extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

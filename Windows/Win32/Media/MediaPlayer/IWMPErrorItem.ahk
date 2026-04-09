@@ -7,9 +7,8 @@
  * The IWMPErrorItem interface provides a way to access error information.
  * @see https://learn.microsoft.com/windows/win32/api/wmp/nn-wmp-iwmperroritem
  * @namespace Windows.Win32.Media.MediaPlayer
- * @version v4.0.30319
  */
-class IWMPErrorItem extends IDispatch{
+class IWMPErrorItem extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

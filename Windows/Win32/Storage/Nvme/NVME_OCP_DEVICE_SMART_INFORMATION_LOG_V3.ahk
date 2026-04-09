@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Storage.Nvme
- * @version v4.0.30319
  */
-class NVME_OCP_DEVICE_SMART_INFORMATION_LOG_V3 extends Win32Struct
-{
+class NVME_OCP_DEVICE_SMART_INFORMATION_LOG_V3 extends Win32Struct {
     static sizeof => 512
 
     static packingSize => 8
@@ -16,27 +14,26 @@ class NVME_OCP_DEVICE_SMART_INFORMATION_LOG_V3 extends Win32Struct
         static packingSize => 1
 
         /**
-         * @type {Array<Byte>}
+         * @type {Array<Integer>}
          */
-        RawCount{
+        RawCount {
             get {
                 if(!this.HasProp("__RawCountProxyArray"))
                     this.__RawCountProxyArray := Win32FixedArray(this.ptr + 0, 6, Primitive, "char")
                 return this.__RawCountProxyArray
             }
         }
-    
+
         /**
-         * @type {Array<Byte>}
+         * @type {Array<Integer>}
          */
-        Normalized{
+        Normalized {
             get {
                 if(!this.HasProp("__NormalizedProxyArray"))
                     this.__NormalizedProxyArray := Win32FixedArray(this.ptr + 6, 2, Primitive, "char")
                 return this.__NormalizedProxyArray
             }
         }
-    
     }
 
     class _BadSystemNANDBlockCount extends Win32Struct {
@@ -44,27 +41,26 @@ class NVME_OCP_DEVICE_SMART_INFORMATION_LOG_V3 extends Win32Struct
         static packingSize => 1
 
         /**
-         * @type {Array<Byte>}
+         * @type {Array<Integer>}
          */
-        RawCount{
+        RawCount {
             get {
                 if(!this.HasProp("__RawCountProxyArray"))
                     this.__RawCountProxyArray := Win32FixedArray(this.ptr + 0, 6, Primitive, "char")
                 return this.__RawCountProxyArray
             }
         }
-    
+
         /**
-         * @type {Array<Byte>}
+         * @type {Array<Integer>}
          */
-        Normalized{
+        Normalized {
             get {
                 if(!this.HasProp("__NormalizedProxyArray"))
                     this.__NormalizedProxyArray := Win32FixedArray(this.ptr + 6, 2, Primitive, "char")
                 return this.__NormalizedProxyArray
             }
         }
-    
     }
 
     class _EndToEndCorrectionCounts extends Win32Struct {
@@ -78,7 +74,7 @@ class NVME_OCP_DEVICE_SMART_INFORMATION_LOG_V3 extends Win32Struct
             get => NumGet(this, 0, "uint")
             set => NumPut("uint", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -86,7 +82,6 @@ class NVME_OCP_DEVICE_SMART_INFORMATION_LOG_V3 extends Win32Struct
             get => NumGet(this, 4, "uint")
             set => NumPut("uint", value, this, 4)
         }
-    
     }
 
     class _UserDataEraseCounts extends Win32Struct {
@@ -100,7 +95,7 @@ class NVME_OCP_DEVICE_SMART_INFORMATION_LOG_V3 extends Win32Struct
             get => NumGet(this, 0, "uint")
             set => NumPut("uint", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -108,7 +103,6 @@ class NVME_OCP_DEVICE_SMART_INFORMATION_LOG_V3 extends Win32Struct
             get => NumGet(this, 4, "uint")
             set => NumPut("uint", value, this, 4)
         }
-    
     }
 
     class _ThermalThrottling extends Win32Struct {
@@ -122,7 +116,7 @@ class NVME_OCP_DEVICE_SMART_INFORMATION_LOG_V3 extends Win32Struct
             get => NumGet(this, 0, "char")
             set => NumPut("char", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -130,7 +124,6 @@ class NVME_OCP_DEVICE_SMART_INFORMATION_LOG_V3 extends Win32Struct
             get => NumGet(this, 1, "char")
             set => NumPut("char", value, this, 1)
         }
-    
     }
 
     class _DSSDSpecVersion extends Win32Struct {
@@ -144,7 +137,7 @@ class NVME_OCP_DEVICE_SMART_INFORMATION_LOG_V3 extends Win32Struct
             get => NumGet(this, 0, "char")
             set => NumPut("char", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -152,7 +145,7 @@ class NVME_OCP_DEVICE_SMART_INFORMATION_LOG_V3 extends Win32Struct
             get => NumGet(this, 2, "ushort")
             set => NumPut("ushort", value, this, 2)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -160,7 +153,7 @@ class NVME_OCP_DEVICE_SMART_INFORMATION_LOG_V3 extends Win32Struct
             get => NumGet(this, 4, "ushort")
             set => NumPut("ushort", value, this, 4)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -168,13 +161,12 @@ class NVME_OCP_DEVICE_SMART_INFORMATION_LOG_V3 extends Win32Struct
             get => NumGet(this, 6, "char")
             set => NumPut("char", value, this, 6)
         }
-    
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    MediaUnitsWritten{
+    MediaUnitsWritten {
         get {
             if(!this.HasProp("__MediaUnitsWrittenProxyArray"))
                 this.__MediaUnitsWrittenProxyArray := Win32FixedArray(this.ptr + 0, 16, Primitive, "char")
@@ -183,9 +175,9 @@ class NVME_OCP_DEVICE_SMART_INFORMATION_LOG_V3 extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    MediaUnitsRead{
+    MediaUnitsRead {
         get {
             if(!this.HasProp("__MediaUnitsReadProxyArray"))
                 this.__MediaUnitsReadProxyArray := Win32FixedArray(this.ptr + 16, 16, Primitive, "char")
@@ -196,10 +188,10 @@ class NVME_OCP_DEVICE_SMART_INFORMATION_LOG_V3 extends Win32Struct
     /**
      * @type {_BadUserNANDBlockCount}
      */
-    BadUserNANDBlockCount{
+    BadUserNANDBlockCount {
         get {
             if(!this.HasProp("__BadUserNANDBlockCount"))
-                this.__BadUserNANDBlockCount := %this.__Class%._BadUserNANDBlockCount(32, this)
+                this.__BadUserNANDBlockCount := NVME_OCP_DEVICE_SMART_INFORMATION_LOG_V3._BadUserNANDBlockCount(32, this)
             return this.__BadUserNANDBlockCount
         }
     }
@@ -207,10 +199,10 @@ class NVME_OCP_DEVICE_SMART_INFORMATION_LOG_V3 extends Win32Struct
     /**
      * @type {_BadSystemNANDBlockCount}
      */
-    BadSystemNANDBlockCount{
+    BadSystemNANDBlockCount {
         get {
             if(!this.HasProp("__BadSystemNANDBlockCount"))
-                this.__BadSystemNANDBlockCount := %this.__Class%._BadSystemNANDBlockCount(40, this)
+                this.__BadSystemNANDBlockCount := NVME_OCP_DEVICE_SMART_INFORMATION_LOG_V3._BadSystemNANDBlockCount(40, this)
             return this.__BadSystemNANDBlockCount
         }
     }
@@ -242,10 +234,10 @@ class NVME_OCP_DEVICE_SMART_INFORMATION_LOG_V3 extends Win32Struct
     /**
      * @type {_EndToEndCorrectionCounts}
      */
-    EndToEndCorrectionCounts{
+    EndToEndCorrectionCounts {
         get {
             if(!this.HasProp("__EndToEndCorrectionCounts"))
-                this.__EndToEndCorrectionCounts := %this.__Class%._EndToEndCorrectionCounts(72, this)
+                this.__EndToEndCorrectionCounts := NVME_OCP_DEVICE_SMART_INFORMATION_LOG_V3._EndToEndCorrectionCounts(72, this)
             return this.__EndToEndCorrectionCounts
         }
     }
@@ -259,9 +251,9 @@ class NVME_OCP_DEVICE_SMART_INFORMATION_LOG_V3 extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    RefreshCount{
+    RefreshCount {
         get {
             if(!this.HasProp("__RefreshCountProxyArray"))
                 this.__RefreshCountProxyArray := Win32FixedArray(this.ptr + 81, 7, Primitive, "char")
@@ -272,10 +264,10 @@ class NVME_OCP_DEVICE_SMART_INFORMATION_LOG_V3 extends Win32Struct
     /**
      * @type {_UserDataEraseCounts}
      */
-    UserDataEraseCounts{
+    UserDataEraseCounts {
         get {
             if(!this.HasProp("__UserDataEraseCounts"))
-                this.__UserDataEraseCounts := %this.__Class%._UserDataEraseCounts(88, this)
+                this.__UserDataEraseCounts := NVME_OCP_DEVICE_SMART_INFORMATION_LOG_V3._UserDataEraseCounts(88, this)
             return this.__UserDataEraseCounts
         }
     }
@@ -283,10 +275,10 @@ class NVME_OCP_DEVICE_SMART_INFORMATION_LOG_V3 extends Win32Struct
     /**
      * @type {_ThermalThrottling}
      */
-    ThermalThrottling{
+    ThermalThrottling {
         get {
             if(!this.HasProp("__ThermalThrottling"))
-                this.__ThermalThrottling := %this.__Class%._ThermalThrottling(96, this)
+                this.__ThermalThrottling := NVME_OCP_DEVICE_SMART_INFORMATION_LOG_V3._ThermalThrottling(96, this)
             return this.__ThermalThrottling
         }
     }
@@ -294,10 +286,10 @@ class NVME_OCP_DEVICE_SMART_INFORMATION_LOG_V3 extends Win32Struct
     /**
      * @type {_DSSDSpecVersion}
      */
-    DSSDSpecVersion{
+    DSSDSpecVersion {
         get {
             if(!this.HasProp("__DSSDSpecVersion"))
-                this.__DSSDSpecVersion := %this.__Class%._DSSDSpecVersion(98, this)
+                this.__DSSDSpecVersion := NVME_OCP_DEVICE_SMART_INFORMATION_LOG_V3._DSSDSpecVersion(98, this)
             return this.__DSSDSpecVersion
         }
     }
@@ -335,9 +327,9 @@ class NVME_OCP_DEVICE_SMART_INFORMATION_LOG_V3 extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Reserved2{
+    Reserved2 {
         get {
             if(!this.HasProp("__Reserved2ProxyArray"))
                 this.__Reserved2ProxyArray := Win32FixedArray(this.ptr + 129, 7, Primitive, "char")
@@ -362,9 +354,9 @@ class NVME_OCP_DEVICE_SMART_INFORMATION_LOG_V3 extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Reserved3{
+    Reserved3 {
         get {
             if(!this.HasProp("__Reserved3ProxyArray"))
                 this.__Reserved3ProxyArray := Win32FixedArray(this.ptr + 139, 5, Primitive, "char")
@@ -397,9 +389,9 @@ class NVME_OCP_DEVICE_SMART_INFORMATION_LOG_V3 extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    PLPStartCount{
+    PLPStartCount {
         get {
             if(!this.HasProp("__PLPStartCountProxyArray"))
                 this.__PLPStartCountProxyArray := Win32FixedArray(this.ptr + 168, 16, Primitive, "char")
@@ -408,9 +400,9 @@ class NVME_OCP_DEVICE_SMART_INFORMATION_LOG_V3 extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    EnduranceEstimate{
+    EnduranceEstimate {
         get {
             if(!this.HasProp("__EnduranceEstimateProxyArray"))
                 this.__EnduranceEstimateProxyArray := Win32FixedArray(this.ptr + 184, 16, Primitive, "char")
@@ -435,9 +427,9 @@ class NVME_OCP_DEVICE_SMART_INFORMATION_LOG_V3 extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Reserved4{
+    Reserved4 {
         get {
             if(!this.HasProp("__Reserved4ProxyArray"))
                 this.__Reserved4ProxyArray := Win32FixedArray(this.ptr + 216, 286, Primitive, "char")
@@ -454,7 +446,7 @@ class NVME_OCP_DEVICE_SMART_INFORMATION_LOG_V3 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     LogPageGUID {
         get => NumGet(this, 504, "ptr")

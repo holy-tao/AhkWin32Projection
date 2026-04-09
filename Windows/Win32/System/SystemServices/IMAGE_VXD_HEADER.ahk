@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.SystemServices
- * @version v4.0.30319
  */
-class IMAGE_VXD_HEADER extends Win32Struct
-{
+class IMAGE_VXD_HEADER extends Win32Struct {
     static sizeof => 196
 
     static packingSize => 4
@@ -380,9 +378,9 @@ class IMAGE_VXD_HEADER extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    e32_res3{
+    e32_res3 {
         get {
             if(!this.HasProp("__e32_res3ProxyArray"))
                 this.__e32_res3ProxyArray := Win32FixedArray(this.ptr + 172, 12, Primitive, "char")

@@ -7,9 +7,8 @@
  * The SetGuideFailed, SetFlagsFailed, SetFactoidFailed, and SetPrefixSuffixFailed members are redundant because an error is also raised when the corresponding properties are set.
  * @see https://learn.microsoft.com/windows/win32/api/msinkaut/ne-msinkaut-inkrecognitionstatus
  * @namespace Windows.Win32.UI.TabletPC
- * @version v4.0.30319
  */
-class InkRecognitionStatus extends Win32Enum{
+class InkRecognitionStatus extends Win32Enum {
 
     /**
      * Specifies no error.

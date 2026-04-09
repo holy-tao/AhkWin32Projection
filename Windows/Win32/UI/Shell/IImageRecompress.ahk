@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IStream.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\System\Com\IStream.ahk
 
 /**
  * Exposes a method that recompress images.
@@ -13,9 +13,8 @@
  * 			<a href="https://docs.microsoft.com/windows/desktop/shell/known-folders">ImageRecompress</a> object.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nn-shobjidl-iimagerecompress
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IImageRecompress extends IUnknown{
+class IImageRecompress extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -44,7 +43,9 @@ class IImageRecompress extends IUnknown{
      * @param {Integer} cx Type: <b>int</b>
      * 
      * The x dimension of the image to return.
-     * @param {Integer} _cy 
+     * @param {Integer} _cy Type: <b>int</b>
+     * 
+     * The y dimension of the image to return.
      * @param {Integer} iQuality Type: <b>int</b>
      * 
      * An indication of recompression quality that can range from 0 to 100.

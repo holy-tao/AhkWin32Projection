@@ -1,17 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
-#Include .\ITextRange2.ahk
 #Include ..\..\..\System\Com\IDispatch.ahk
+#Include .\ITextRange2.ahk
 
 /**
  * The ITextStrings interface represents a collection of rich-text strings that are useful for manipulating rich text.
  * @see https://learn.microsoft.com/windows/win32/api/tom/nn-tom-itextstrings
  * @namespace Windows.Win32.UI.Controls.RichEdit
- * @version v4.0.30319
  */
-class ITextStrings extends IDispatch{
+class ITextStrings extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -65,7 +63,9 @@ class ITextStrings extends IDispatch{
      * Adds a string to the end of the collection.
      * @remarks
      * Adding an item to the end of a collection is like pushing a parameter onto the stack.
-     * @param {BSTR} _bstr 
+     * @param {BSTR} _bstr Type: <b>BSTR</b>
+     * 
+     * The string. The value can be <b>NULL</b> for  a null string.
      * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If the method succeeds, it returns <b>S_OK</b>. If the method fails, it returns one of the following COM error codes. For more information about COM error codes, see <a href="https://docs.microsoft.com/windows/desktop/com/error-handling-in-com">Error Handling in COM</a>.
@@ -173,7 +173,9 @@ class ITextStrings extends IDispatch{
 
     /**
      * Inserts text between the top two strings in a collection.
-     * @param {BSTR} _bstr 
+     * @param {BSTR} _bstr Type: <b>BSTR</b>
+     * 
+     * The text to insert. The value can be <b>NULL</b>.
      * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If the method succeeds, it returns <b>NOERROR</b>. Otherwise, it returns an <b>HRESULT</b> error code.
@@ -242,7 +244,9 @@ class ITextStrings extends IDispatch{
      * @param {Integer} Align Type: <b>long</b>
      * 
      * The object alignment. See <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextrange2-getinlineobject">ITextRange2::GetInlineObject</a> for a table of definitions.
-     * @param {Integer} _Char 
+     * @param {Integer} _Char Type: <b>long</b>
+     * 
+     * The object character.
      * @param {Integer} Char1 Type: <b>long</b>
      * 
      * The object character.
@@ -327,7 +331,9 @@ class ITextStrings extends IDispatch{
 
     /**
      * Prefixes a string to the top string in the collection.
-     * @param {BSTR} _bstr 
+     * @param {BSTR} _bstr Type: <b>BSTR</b>
+     * 
+     * The string to prefix to the collection.
      * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If the method succeeds, it returns <b>S_OK</b>. If the method fails, it returns one of the following COM error codes. For more information about COM error codes, see <a href="https://docs.microsoft.com/windows/desktop/com/error-handling-in-com">Error Handling in COM</a>.
@@ -365,7 +371,9 @@ class ITextStrings extends IDispatch{
      * @param {Integer} iString Type: <b>long</b>
      * 
      * The string index.
-     * @param {Integer} _cString 
+     * @param {Integer} _cString Type: <b>long</b>
+     * 
+     * The count of strings to remove.
      * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If the method succeeds, it returns <b>S_OK</b>. If the method fails, it returns one of the following COM error codes. For more information about COM error codes, see <a href="https://docs.microsoft.com/windows/desktop/com/error-handling-in-com">Error Handling in COM</a>.
@@ -481,7 +489,9 @@ class ITextStrings extends IDispatch{
      * Suffixes a string to the top string in the collection.
      * @remarks
      * This method is similar to <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextstrings-append">ITextStrings::Append</a>, but appends a string instead of a range.
-     * @param {BSTR} _bstr 
+     * @param {BSTR} _bstr Type: <b>BSTR</b>
+     * 
+     * The text to suffix to the top string.
      * @param {ITextRange2} pRange Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/tom/nn-tom-itextrange2">ITextRange2</a>*</b>
      * 
      * The range with the desired character formatting.

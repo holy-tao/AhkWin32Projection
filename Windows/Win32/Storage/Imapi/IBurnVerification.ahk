@@ -12,9 +12,8 @@
  * ```cpp
  * @see https://learn.microsoft.com/windows/win32/api/imapi2/nn-imapi2-iburnverification
  * @namespace Windows.Win32.Storage.Imapi
- * @version v4.0.30319
  */
-class IBurnVerification extends IUnknown{
+class IBurnVerification extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -36,7 +35,7 @@ class IBurnVerification extends IUnknown{
     static VTableNames => ["put_BurnVerificationLevel", "get_BurnVerificationLevel"]
 
     /**
-     * @type {Integer} 
+     * @type {IMAPI_BURN_VERIFICATION_LEVEL} 
      */
     BurnVerificationLevel {
         get => this.get_BurnVerificationLevel()
@@ -47,7 +46,7 @@ class IBurnVerification extends IUnknown{
      * Sets the Burn Verification Level.
      * @remarks
      * This method is supported in Windows Server 2003 with Service Pack 1 (SP1), Windows XP with Service Pack 2 (SP2),  and Windows Vista  via the Windows Feature Pack for Storage. All  features provided by this  update package are supported natively in Windows 7 and Windows Server 2008 R2.
-     * @param {Integer} value Value that defines the Burn Verification Level. For possible values, see <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/ne-imapi2-imapi_burn_verification_level">IMAPI_BURN_VERIFICATION_LEVEL</a>.
+     * @param {IMAPI_BURN_VERIFICATION_LEVEL} value Value that defines the Burn Verification Level. For possible values, see <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/ne-imapi2-imapi_burn_verification_level">IMAPI_BURN_VERIFICATION_LEVEL</a>.
      * @returns {HRESULT} S_OK is returned on success, but other success codes may be returned as a result of implementation.
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-iburnverification-put_burnverificationlevel
      */
@@ -60,7 +59,7 @@ class IBurnVerification extends IUnknown{
      * Retrieves the current Burn Verification Level.
      * @remarks
      * This method is supported in Windows Server 2003 with Service Pack 1 (SP1), Windows XP with Service Pack 2 (SP2),  and Windows Vista  via the Windows Feature Pack for Storage. All  features provided by this  update package are supported natively in Windows 7 and Windows Server 2008 R2.
-     * @returns {Integer} Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/ne-imapi2-imapi_burn_verification_level">IMAPI_BURN_VERIFICATION_LEVEL</a> enumeration that specifies the current the Burn Verification Level.
+     * @returns {IMAPI_BURN_VERIFICATION_LEVEL} Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/ne-imapi2-imapi_burn_verification_level">IMAPI_BURN_VERIFICATION_LEVEL</a> enumeration that specifies the current the Burn Verification Level.
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-iburnverification-get_burnverificationlevel
      */
     get_BurnVerificationLevel() {

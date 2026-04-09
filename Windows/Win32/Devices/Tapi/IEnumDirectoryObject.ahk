@@ -1,17 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ITDirectoryObject.ahk
-#Include .\IEnumDirectoryObject.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\ITDirectoryObject.ahk
 
 /**
  * The IEnumDirectoryObject interface provides COM-standard enumeration methods for the ITDirectoryObject interface. The ITDirectory::EnumerateDirectoryObjects method returns a pointer to IEnumDirectoryObject.
  * @see https://learn.microsoft.com/windows/win32/api/rend/nn-rend-ienumdirectoryobject
  * @namespace Windows.Win32.Devices.Tapi
- * @version v4.0.30319
  */
-class IEnumDirectoryObject extends IUnknown{
+class IEnumDirectoryObject extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

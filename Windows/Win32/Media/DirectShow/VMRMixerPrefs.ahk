@@ -5,9 +5,8 @@
  * The VMRMixerPrefs enumeration contains flags that specify decimation, filtering, and color space information that will be used when the video image is created on the DirectDraw surface.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/ne-strmif-vmrmixerprefs
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class VMRMixerPrefs extends Win32Enum{
+class VMRMixerPrefs extends Win32Enum {
 
     /**
      * No decimation. The video will be rendered onto the surface in its native size.

@@ -11,10 +11,8 @@
  * This structure is defined in the <i>Ipexport.h</i> header file which is automatically included in the <i>Iphlpapi.h</i> header file. The <i>Ipexport.h</i> header file should never be used directly.
  * @see https://learn.microsoft.com/windows/win32/api/ipexport/ns-ipexport-ip_adapter_order_map
  * @namespace Windows.Win32.NetworkManagement.IpHelper
- * @version v4.0.30319
  */
-class IP_ADAPTER_ORDER_MAP extends Win32Struct
-{
+class IP_ADAPTER_ORDER_MAP extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4
@@ -30,9 +28,9 @@ class IP_ADAPTER_ORDER_MAP extends Win32Struct
 
     /**
      * An array of adapter indexes  on the local computer, provided in the order specified in the <b>Adapters and Bindings</b> dialog box for <b>Network Connections</b>.
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    AdapterOrder{
+    AdapterOrder {
         get {
             if(!this.HasProp("__AdapterOrderProxyArray"))
                 this.__AdapterOrderProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "uint")

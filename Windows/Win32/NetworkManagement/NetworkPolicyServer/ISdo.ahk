@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * Use the ISdo interface to store, retrieve, and update Server Data Objects (SDO) information.
  * @see https://learn.microsoft.com/windows/win32/api/sdoias/nn-sdoias-isdo
  * @namespace Windows.Win32.NetworkManagement.NetworkPolicyServer
- * @version v4.0.30319
  */
-class ISdo extends IDispatch{
+class ISdo extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

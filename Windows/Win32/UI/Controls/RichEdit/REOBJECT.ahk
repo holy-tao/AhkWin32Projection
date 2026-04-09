@@ -1,6 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\System\Ole\IOleObject.ahk
+#Include ..\..\..\System\Com\StructuredStorage\IStorage.ahk
+#Include ..\..\..\System\Ole\IOleClientSite.ahk
 #Include ..\..\..\Foundation\SIZE.ahk
+#Include .\REOBJECT_FLAGS.ahk
 
 /**
  * Contains information about an OLE or image object in a rich edit control.
@@ -8,10 +12,8 @@
  * An OLE or image object  in a rich edit control occupies one character position in the plain text part of the in-memory backing store and have the value U+FFFC. They differ from "in-line objects" such as math objects. In-line objects occupy at least two character positions because they have an in-line object start delimiter (U+FDD0) and end delimiter  (U+FDEF).
  * @see https://learn.microsoft.com/windows/win32/api/richole/ns-richole-reobject
  * @namespace Windows.Win32.UI.Controls.RichEdit
- * @version v4.0.30319
  */
-class REOBJECT extends Win32Struct
-{
+class REOBJECT extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 8
@@ -42,7 +44,7 @@ class REOBJECT extends Win32Struct
      * Type: <b>CLSID</b>
      * 
      * Class identifier of the object.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     clsid {
         get => NumGet(this, 8, "ptr")
@@ -88,7 +90,7 @@ class REOBJECT extends Win32Struct
      * The size of the object. The unit of measure is 0.01 millimeters, which is a HIMETRIC measurement. For more information, see function <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-getmapmode">GetMapMode</a>. A 0, 0 on insertion indicates that an object is free to determine its size until the modify flag is turned off.
      * @type {SIZE}
      */
-    sizel{
+    sizel {
         get {
             if(!this.HasProp("__sizel"))
                 this.__sizel := SIZE(40, this)
@@ -109,7 +111,7 @@ class REOBJECT extends Win32Struct
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
-     * @type {Integer}
+     * @type {REOBJECT_FLAGS}
      */
     dwFlags {
         get => NumGet(this, 52, "uint")

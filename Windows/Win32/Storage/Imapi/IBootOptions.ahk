@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\System\Com\IStream.ahk
 #Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\System\Com\IStream.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * Use this interface to specify the boot image to add to the optical disc. A boot image contains one or more sectors of code used to start the computer.
@@ -17,9 +17,8 @@
  * To create the <b>BootOptions</b> object in a script, use IMAPI2.BootOptions as the program identifier when calling <b>CreateObject</b>.
  * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nn-imapi2fs-ibootoptions
  * @namespace Windows.Win32.Storage.Imapi
- * @version v4.0.30319
  */
-class IBootOptions extends IDispatch{
+class IBootOptions extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -62,7 +61,7 @@ class IBootOptions extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {PlatformId} 
      */
     PlatformId {
         get => this.get_PlatformId()
@@ -70,7 +69,7 @@ class IBootOptions extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {EmulationType} 
      */
     Emulation {
         get => this.get_Emulation()
@@ -153,7 +152,7 @@ class IBootOptions extends IDispatch{
 
     /**
      * Retrieves the platform identifier that identifies the operating system architecture that the boot image supports.
-     * @returns {Integer} Identifies the operating system architecture that the boot image supports. For possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2fs/ne-imapi2fs-platformid">PlatformId</a> enumeration type.
+     * @returns {PlatformId} Identifies the operating system architecture that the boot image supports. For possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2fs/ne-imapi2fs-platformid">PlatformId</a> enumeration type.
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ibootoptions-get_platformid
      */
     get_PlatformId() {
@@ -163,7 +162,7 @@ class IBootOptions extends IDispatch{
 
     /**
      * Sets the platform identifier that identifies the operating system architecture that the boot image supports.
-     * @param {Integer} newVal Identifies the operating system architecture that the boot image supports. For possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2fs/ne-imapi2fs-platformid">PlatformId</a> enumeration type. The default value is  <b>PlatformX86</b> for Intel x86–based platforms.
+     * @param {PlatformId} newVal Identifies the operating system architecture that the boot image supports. For possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2fs/ne-imapi2fs-platformid">PlatformId</a> enumeration type. The default value is  <b>PlatformX86</b> for Intel x86–based platforms.
      * @returns {HRESULT} S_OK is returned on success, but other success codes may be returned as a result of implementation.
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ibootoptions-put_platformid
      */
@@ -174,7 +173,7 @@ class IBootOptions extends IDispatch{
 
     /**
      * Retrieves the media type that the boot image is intended to emulate.
-     * @returns {Integer} Media type that the boot image is intended to emulate. For possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2fs/ne-imapi2fs-emulationtype">EmulationType</a> enumeration type.
+     * @returns {EmulationType} Media type that the boot image is intended to emulate. For possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2fs/ne-imapi2fs-emulationtype">EmulationType</a> enumeration type.
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ibootoptions-get_emulation
      */
     get_Emulation() {
@@ -184,7 +183,7 @@ class IBootOptions extends IDispatch{
 
     /**
      * Sets the media type that the boot image is intended to emulate.
-     * @param {Integer} newVal Media type that the boot image is intended to emulate. For possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2fs/ne-imapi2fs-emulationtype">EmulationType</a> enumeration type. The default value is <b>EmulationNone</b>, which means the BIOS will not emulate any device type or special sector size for the CD during boot from the CD.
+     * @param {EmulationType} newVal Media type that the boot image is intended to emulate. For possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2fs/ne-imapi2fs-emulationtype">EmulationType</a> enumeration type. The default value is <b>EmulationNone</b>, which means the BIOS will not emulate any device type or special sector size for the CD during boot from the CD.
      * @returns {HRESULT} S_OK is returned on success, but other success codes may be returned as a result of implementation. The following error codes are commonly returned on operation failure, but do not represent the only possible error values:
      * 
      * <table>

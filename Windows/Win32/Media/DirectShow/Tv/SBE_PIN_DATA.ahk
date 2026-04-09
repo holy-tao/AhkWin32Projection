@@ -5,10 +5,8 @@
  * This topic applies to Windows XP Service Pack 2 only. The STREAMBUFFER_ATTRIBUTE structure contains performance data for the stream buffer filters.
  * @see https://learn.microsoft.com/windows/win32/api/sbe/ns-sbe-sbe_pin_data
  * @namespace Windows.Win32.Media.DirectShow.Tv
- * @version v4.0.30319
  */
-class SBE_PIN_DATA extends Win32Struct
-{
+class SBE_PIN_DATA extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8

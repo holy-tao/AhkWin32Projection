@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.SystemServices
- * @version v4.0.30319
  */
-class SCRUB_DATA_OUTPUT extends Win32Struct
-{
+class SCRUB_DATA_OUTPUT extends Win32Struct {
     static sizeof => 1232
 
     static packingSize => 8
@@ -108,9 +106,9 @@ class SCRUB_DATA_OUTPUT extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    Reserved{
+    Reserved {
         get {
             if(!this.HasProp("__ReservedProxyArray"))
                 this.__ReservedProxyArray := Win32FixedArray(this.ptr + 80, 4, Primitive, "uint")
@@ -215,9 +213,9 @@ class SCRUB_DATA_OUTPUT extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    ResumeContext{
+    ResumeContext {
         get {
             if(!this.HasProp("__ResumeContextProxyArray"))
                 this.__ResumeContextProxyArray := Win32FixedArray(this.ptr + 192, 1040, Primitive, "char")

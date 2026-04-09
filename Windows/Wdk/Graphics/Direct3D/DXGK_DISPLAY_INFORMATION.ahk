@@ -1,12 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\D3DDDIFORMAT.ahk
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
- * @version v4.0.30319
  */
-class DXGK_DISPLAY_INFORMATION extends Win32Struct
-{
+class DXGK_DISPLAY_INFORMATION extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -36,7 +35,7 @@ class DXGK_DISPLAY_INFORMATION extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {D3DDDIFORMAT}
      */
     ColorFormat {
         get => NumGet(this, 12, "uint")

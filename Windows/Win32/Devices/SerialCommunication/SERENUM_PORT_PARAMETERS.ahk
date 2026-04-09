@@ -1,12 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\SERENUM_PORTION.ahk
 
 /**
  * @namespace Windows.Win32.Devices.SerialCommunication
- * @version v4.0.30319
  */
-class SERENUM_PORT_PARAMETERS extends Win32Struct
-{
+class SERENUM_PORT_PARAMETERS extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8
@@ -52,7 +51,7 @@ class SERENUM_PORT_PARAMETERS extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {SERENUM_PORTION}
      */
     Portion {
         get => NumGet(this, 40, "int")
@@ -68,9 +67,9 @@ class SERENUM_PORT_PARAMETERS extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt16>}
+     * @type {Array<Integer>}
      */
-    Reserved{
+    Reserved {
         get {
             if(!this.HasProp("__ReservedProxyArray"))
                 this.__ReservedProxyArray := Win32FixedArray(this.ptr + 46, 3, Primitive, "ushort")

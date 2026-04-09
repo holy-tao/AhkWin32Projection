@@ -7,9 +7,8 @@
  * Used by a client calling the IOfflineFilesCache::Synchronize method to prescribe a conflict resolution strategy for sync conflicts as they are detected.
  * @see https://learn.microsoft.com/windows/win32/api/cscobj/nn-cscobj-iofflinefilessyncconflicthandler
  * @namespace Windows.Win32.Storage.OfflineFiles
- * @version v4.0.30319
  */
-class IOfflineFilesSyncConflictHandler extends IUnknown{
+class IOfflineFilesSyncConflictHandler extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -34,9 +33,9 @@ class IOfflineFilesSyncConflictHandler extends IUnknown{
      * Provides a resolution decision for a sync conflict.
      * @param {PWSTR} pszPath The fully qualified UNC path of the item in conflict.
      * @param {Integer} fStateKnown Indicates if the sync state was based on the client state, server state, or both.  This parameter can be one or both of the following flag values.
-     * @param {Integer} state A value from the <a href="https://docs.microsoft.com/windows/desktop/api/cscobj/ne-cscobj-offlinefiles_sync_state">OFFLINEFILES_SYNC_STATE</a> enumeration indicating the state of the item in conflict.
+     * @param {OFFLINEFILES_SYNC_STATE} state A value from the <a href="https://docs.microsoft.com/windows/desktop/api/cscobj/ne-cscobj-offlinefiles_sync_state">OFFLINEFILES_SYNC_STATE</a> enumeration indicating the state of the item in conflict.
      * @param {Integer} fChangeDetails In cases where the <i>state</i> code indicates a change in item state, this value describes the change in further detail.  The value can be either <b>OFFLINEFILES_CHANGES_NONE</b> (0x00000000) or one or more of the following flag values:
-     * @param {Pointer<Integer>} pConflictResolution Receives the desired resolution code.  Specify a value from the <a href="https://docs.microsoft.com/windows/desktop/api/cscobj/ne-cscobj-offlinefiles_sync_conflict_resolve">OFFLINEFILES_SYNC_CONFLICT_RESOLVE</a> enumeration.
+     * @param {Pointer<OFFLINEFILES_SYNC_CONFLICT_RESOLVE>} pConflictResolution Receives the desired resolution code.  Specify a value from the <a href="https://docs.microsoft.com/windows/desktop/api/cscobj/ne-cscobj-offlinefiles_sync_conflict_resolve">OFFLINEFILES_SYNC_CONFLICT_RESOLVE</a> enumeration.
      * @param {Pointer<PWSTR>} ppszNewName If the value of the  <i>pConflictResolution</i> parameter is <b>OFFLINEFILES_SYNC_CONFLICT_RESOLVE_KEEPALLCHANGES</b>, the conflict handler must provide a new name for the item.  This new name is used for the new copies created remotely and locally.  Note that this is a file name, not a fully qualified path.
      * 
      * The name string must be allocated using <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemalloc">CoTaskMemAlloc</a>.

@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Power
- * @version v4.0.30319
  */
-class LATENCY_TIME extends Win32Enum{
+class LATENCY_TIME extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

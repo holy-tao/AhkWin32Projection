@@ -7,9 +7,8 @@
  * A register component type is specified in the <b>ComponentType</b> member of the <a href="https://docs.microsoft.com/windows/win32/api/d3d11shader/ns-d3d11shader-d3d11_signature_parameter_desc">D3D11_SIGNATURE_PARAMETER_DESC</a> structure.
  * @see https://learn.microsoft.com/windows/win32/api/d3dcommon/ne-d3dcommon-d3d_register_component_type
  * @namespace Windows.Win32.Graphics.Direct3D
- * @version v4.0.30319
  */
-class D3D_REGISTER_COMPONENT_TYPE extends Win32Enum{
+class D3D_REGISTER_COMPONENT_TYPE extends Win32Enum {
 
     /**
      * The data type is unknown.

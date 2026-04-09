@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ID3D10Device.ahk
 #Include .\ID3D10ShaderResourceView1.ahk
 #Include .\ID3D10BlendState1.ahk
-#Include .\ID3D10Device.ahk
 
 /**
  * The device interface represents a virtual adapter for Direct3D 10.1; it is used to perform rendering and create Direct3D resources.
@@ -13,9 +13,8 @@
  * This method requires Windows Vista Service Pack 1.
  * @see https://learn.microsoft.com/windows/win32/api/d3d10_1/nn-d3d10_1-id3d10device1
  * @namespace Windows.Win32.Graphics.Direct3D10
- * @version v4.0.30319
  */
-class ID3D10Device1 extends ID3D10Device{
+class ID3D10Device1 extends ID3D10Device {
 
     static sizeof => A_PtrSize
     /**
@@ -83,7 +82,7 @@ class ID3D10Device1 extends ID3D10Device{
      * Gets the feature level of the hardware device. (ID3D10Device1.GetFeatureLevel)
      * @remarks
      * This method requires Windows Vista Service Pack 1.
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10_1/ne-d3d10_1-d3d10_feature_level1">D3D10_FEATURE_LEVEL1</a></b>
+     * @returns {D3D10_FEATURE_LEVEL1} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10_1/ne-d3d10_1-d3d10_feature_level1">D3D10_FEATURE_LEVEL1</a></b>
      * 
      * The feature level (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d10_1/ne-d3d10_1-d3d10_feature_level1">D3D10_FEATURE_LEVEL1</a>).
      * @see https://learn.microsoft.com/windows/win32/api/d3d10_1/nf-d3d10_1-id3d10device1-getfeaturelevel

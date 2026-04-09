@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.Com
- * @version v4.0.30319
  */
-class AsyncIPipeDouble extends IUnknown{
+class AsyncIPipeDouble extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

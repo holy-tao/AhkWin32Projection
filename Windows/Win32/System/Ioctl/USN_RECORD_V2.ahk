@@ -32,10 +32,8 @@
  *     <a href="https://docs.microsoft.com/windows/desktop/FileIO/creating-modifying-and-deleting-a-change-journal">Creating, Modifying, and Deleting a Change Journal</a>.
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-usn_record_v2
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class USN_RECORD_V2 extends Win32Struct
-{
+class USN_RECORD_V2 extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 8

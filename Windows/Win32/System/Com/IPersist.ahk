@@ -2,14 +2,14 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\IUnknown.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * Provides the CLSID of an object that can be stored persistently in the system. Allows the object to specify which object handler to use in the client process, as it is used in the default implementation of marshaling.
  * @see https://learn.microsoft.com/windows/win32/api/objidl/nn-objidl-ipersist
  * @namespace Windows.Win32.System.Com
- * @version v4.0.30319
  */
-class IPersist extends IUnknown{
+class IPersist extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

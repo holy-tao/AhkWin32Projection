@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class STORAGE_QUERY_DEPENDENT_VOLUME_LEV2_ENTRY extends Win32Struct
-{
+class STORAGE_QUERY_DEPENDENT_VOLUME_LEV2_ENTRY extends Win32Struct {
     static sizeof => 72
 
     static packingSize => 8
@@ -39,7 +37,7 @@ class STORAGE_QUERY_DEPENDENT_VOLUME_LEV2_ENTRY extends Win32Struct
     /**
      * @type {VIRTUAL_STORAGE_TYPE}
      */
-    VirtualStorageType{
+    VirtualStorageType {
         get {
             if(!this.HasProp("__VirtualStorageType"))
                 this.__VirtualStorageType := VIRTUAL_STORAGE_TYPE(16, this)

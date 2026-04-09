@@ -1,20 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\MD_FLAGS.ahk
 
 /**
  * The MEM_DES structure is used for specifying either a resource list or a resource requirements list that describes memory usage for a device instance. For more information about resource lists and resource requirements lists, see Hardware Resources.
  * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/ns-cfgmgr32-mem_des
  * @namespace Windows.Win32.Devices.DeviceAndDriverInstallation
- * @version v4.0.30319
  */
-class MEM_DES extends Win32Struct
-{
+class MEM_DES extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
 
     /**
-     * 
      * @type {Integer}
      */
     MD_Count {
@@ -32,7 +30,6 @@ class MEM_DES extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     MD_Alloc_Base {
@@ -41,7 +38,6 @@ class MEM_DES extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     MD_Alloc_End {
@@ -299,7 +295,7 @@ class MEM_DES extends Win32Struct
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
+     * @type {MD_FLAGS}
      */
     MD_Flags {
         get => NumGet(this, 24, "uint")

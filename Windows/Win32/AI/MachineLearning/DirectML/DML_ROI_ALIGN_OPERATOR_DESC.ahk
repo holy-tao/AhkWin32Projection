@@ -1,14 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\DML_TENSOR_DESC.ahk
+#Include .\DML_REDUCE_FUNCTION.ahk
+#Include .\DML_INTERPOLATION_MODE.ahk
 
 /**
  * Performs an ROI align operation, as described in the [Mask R-CNN](https://arxiv.org/abs/1703.06870) paper. In summary, the operation extracts crops from the input image tensor and resizes them to a common output size specified by the last 2 dimensions of *OutputTensor* using the specified *InterpolationMode*.
  * @see https://learn.microsoft.com/windows/win32/api/directml/ns-directml-dml_roi_align_operator_desc
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
- * @version v4.0.30319
  */
-class DML_ROI_ALIGN_OPERATOR_DESC extends Win32Struct
-{
+class DML_ROI_ALIGN_OPERATOR_DESC extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 8
@@ -61,7 +62,7 @@ class DML_ROI_ALIGN_OPERATOR_DESC extends Win32Struct
      * Type: **[DML_REDUCE_FUNCTION](/windows/win32/api/directml/ne-directml-dml_reduce_function)**
      * 
      * The reduction function to use when reducing across all input samples that contribute to an output element ([DML_REDUCE_FUNCTION_AVERAGE](/windows/win32/api/directml/ne-directml-dml_reduce_function) or **DML_REDUCE_FUNCTION_MAX**). The number of input samples to reduce across is bounded by *MinimumSamplesPerOutput* and *MaximumSamplesPerOutput*.
-     * @type {Integer}
+     * @type {DML_REDUCE_FUNCTION}
      */
     ReductionFunction {
         get => NumGet(this, 32, "int")
@@ -75,7 +76,7 @@ class DML_ROI_ALIGN_OPERATOR_DESC extends Win32Struct
      * 
      * - [DML_INTERPOLATION_MODE_NEAREST_NEIGHBOR](/windows/win32/api/directml/ne-directml-dml_interpolation_mode). Uses the *Nearest Neighbor* algorithm, which chooses the input element nearest to the corresponding pixel center for each output element.
      * - **DML_INTERPOLATION_MODE_LINEAR**. Uses the *Bilinear* algorithm, which computes the output element by doing the weighted average of the 2 nearest neighboring input elements per dimension. Since only 2 dimensions are resized, the weighted average is computed on a total of 4 input elements for each output element.
-     * @type {Integer}
+     * @type {DML_INTERPOLATION_MODE}
      */
     InterpolationMode {
         get => NumGet(this, 36, "int")

@@ -1,16 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IEnumFORMATETC.ahk
 #Include .\IUnknown.ahk
 
 /**
  * Enumerates the FORMATETC structures that define the formats and media supported by a given data object.
  * @see https://learn.microsoft.com/windows/win32/api/objidl/nn-objidl-ienumformatetc
  * @namespace Windows.Win32.System.Com
- * @version v4.0.30319
  */
-class IEnumFORMATETC extends IUnknown{
+class IEnumFORMATETC extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

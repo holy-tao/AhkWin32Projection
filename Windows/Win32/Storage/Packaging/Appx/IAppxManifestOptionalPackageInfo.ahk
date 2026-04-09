@@ -7,9 +7,8 @@
  * Provides access to attribute values of the optional package information.
  * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nn-appxpackaging-iappxmanifestoptionalpackageinfo
  * @namespace Windows.Win32.Storage.Packaging.Appx
- * @version v4.0.30319
  */
-class IAppxManifestOptionalPackageInfo extends IUnknown{
+class IAppxManifestOptionalPackageInfo extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

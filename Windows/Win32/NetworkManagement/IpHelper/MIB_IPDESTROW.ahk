@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\MIB_IPFORWARDROW.ahk
+#Include .\MIB_IPFORWARD_TYPE.ahk
+#Include ..\..\Networking\WinSock\NL_ROUTE_PROTOCOL.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.IpHelper
- * @version v4.0.30319
  */
-class MIB_IPDESTROW extends Win32Struct
-{
+class MIB_IPDESTROW extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 4
@@ -15,7 +15,7 @@ class MIB_IPDESTROW extends Win32Struct
     /**
      * @type {MIB_IPFORWARDROW}
      */
-    ForwardRow{
+    ForwardRow {
         get {
             if(!this.HasProp("__ForwardRow"))
                 this.__ForwardRow := MIB_IPFORWARDROW(0, this)

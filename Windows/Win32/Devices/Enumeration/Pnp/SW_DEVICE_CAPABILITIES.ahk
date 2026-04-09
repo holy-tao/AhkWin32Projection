@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.Enumeration.Pnp
- * @version v4.0.30319
  */
-class SW_DEVICE_CAPABILITIES extends Win32Enum{
+class SW_DEVICE_CAPABILITIES extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

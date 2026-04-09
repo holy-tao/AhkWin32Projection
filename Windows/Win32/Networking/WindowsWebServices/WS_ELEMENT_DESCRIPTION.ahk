@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\WS_XML_STRING.ahk
+#Include .\WS_TYPE.ahk
 
 /**
  * Represents a mapping between a C data type and an XML element.
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_element_description
  * @namespace Windows.Win32.Networking.WindowsWebServices
- * @version v4.0.30319
  */
-class WS_ELEMENT_DESCRIPTION extends Win32Struct
-{
+class WS_ELEMENT_DESCRIPTION extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -38,7 +38,7 @@ class WS_ELEMENT_DESCRIPTION extends Win32Struct
      * Not all types support being read and written as an element.  If the
      *                     documentation for the <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_type">WS_TYPE</a> indicates it supports
      *                     <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_type_mapping">WS_ELEMENT_TYPE_MAPPING</a>, then it can be used with this structure.
-     * @type {Integer}
+     * @type {WS_TYPE}
      */
     type {
         get => NumGet(this, 16, "int")

@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\HANDLE.ahk
+#Include .\PATCH_IGNORE_RANGE.ahk
+#Include .\PATCH_RETAIN_RANGE.ahk
 
 /**
  * @namespace Windows.Win32.System.ApplicationInstallationAndServicing
- * @version v4.0.30319
  */
-class PATCH_OLD_FILE_INFO_H extends Win32Struct
-{
+class PATCH_OLD_FILE_INFO_H extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -23,7 +23,7 @@ class PATCH_OLD_FILE_INFO_H extends Win32Struct
     /**
      * @type {HANDLE}
      */
-    OldFileHandle{
+    OldFileHandle {
         get {
             if(!this.HasProp("__OldFileHandle"))
                 this.__OldFileHandle := HANDLE(8, this)

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IAutomaticUpdatesSettings.ahk
 #Include ..\Com\IDispatch.ahk
+#Include .\IAutomaticUpdatesSettings.ahk
 
 /**
  * Contains the functionality of Automatic Updates. (IAutomaticUpdates)
@@ -10,9 +10,8 @@
  * You can create an instance of this interface by using the AutomaticUpdates coclass. Use the Microsoft.Update.AutoUpdate program identifier to create the object.
  * @see https://learn.microsoft.com/windows/win32/api/wuapi/nn-wuapi-iautomaticupdates
  * @namespace Windows.Win32.System.UpdateAgent
- * @version v4.0.30319
  */
-class IAutomaticUpdates extends IDispatch{
+class IAutomaticUpdates extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

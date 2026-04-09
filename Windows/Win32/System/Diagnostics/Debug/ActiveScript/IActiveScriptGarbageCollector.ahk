@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.ActiveScript
- * @version v4.0.30319
  */
-class IActiveScriptGarbageCollector extends IUnknown{
+class IActiveScriptGarbageCollector extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -30,7 +29,7 @@ class IActiveScriptGarbageCollector extends IUnknown{
 
     /**
      * 
-     * @param {Integer} _scriptgctype 
+     * @param {SCRIPTGCTYPE} _scriptgctype 
      * @returns {HRESULT} 
      */
     CollectGarbage(_scriptgctype) {

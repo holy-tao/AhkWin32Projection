@@ -7,9 +7,8 @@
  * Provides access to attribute values of the main package dependency.
  * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nn-appxpackaging-iappxmanifestmainpackagedependency
  * @namespace Windows.Win32.Storage.Packaging.Appx
- * @version v4.0.30319
  */
-class IAppxManifestMainPackageDependency extends IUnknown{
+class IAppxManifestMainPackageDependency extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

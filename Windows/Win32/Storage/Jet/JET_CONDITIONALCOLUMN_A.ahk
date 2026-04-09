@@ -3,11 +3,9 @@
 
 /**
  * @namespace Windows.Win32.Storage.Jet
- * @version v4.0.30319
  * @charset ANSI
  */
-class JET_CONDITIONALCOLUMN_A extends Win32Struct
-{
+class JET_CONDITIONALCOLUMN_A extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

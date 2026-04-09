@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
- * @version v4.0.30319
  */
-class D3DKMT_WAITFORSYNCHRONIZATIONOBJECTFROMCPU extends Win32Struct
-{
+class D3DKMT_WAITFORSYNCHRONIZATIONOBJECTFROMCPU extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -47,7 +45,7 @@ class D3DKMT_WAITFORSYNCHRONIZATIONOBJECTFROMCPU extends Win32Struct
     /**
      * @type {HANDLE}
      */
-    hAsyncEvent{
+    hAsyncEvent {
         get {
             if(!this.HasProp("__hAsyncEvent"))
                 this.__hAsyncEvent := HANDLE(24, this)
@@ -56,7 +54,7 @@ class D3DKMT_WAITFORSYNCHRONIZATIONOBJECTFROMCPU extends Win32Struct
     }
 
     /**
-     * @type {Pointer<D3DDDI_WAITFORSYNCHRONIZATIONOBJECTFROMCPU_FLAGS>}
+     * @type {Pointer}
      */
     Flags {
         get => NumGet(this, 32, "ptr")

@@ -9,9 +9,8 @@
  * Many of the exported APIs (such as <a href="https://docs.microsoft.com/windows/desktop/api/propsys/nf-propsys-psgetpropertydescription">PSGetPropertyDescription</a>) are simply wrappers around the <a href="https://docs.microsoft.com/windows/desktop/api/propsys/nn-propsys-ipropertysystem">IPropertySystem</a> methods. If your code calls a lot of these helper APIs in sequence, it may be worthwhile to instantiate a single <b>IPropertySystem</b> object, and call the methods directly, rather than calling the helper APIs. (To improve the performance, the helper APIs do obtain a cached instance of the <b>IPropertySystem</b> object.)
  * @see https://learn.microsoft.com/windows/win32/api/propsys/nn-propsys-ipropertysystem
  * @namespace Windows.Win32.UI.Shell.PropertiesSystem
- * @version v4.0.30319
  */
-class IPropertySystem extends IUnknown{
+class IPropertySystem extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -211,7 +210,7 @@ class IPropertySystem extends IUnknown{
      * This method is not implemented where BUILDING_DOWNLEVEL_LIB is defined.
      * 
      * It is recommended that you use the IID_PPV_ARGS macro, defined in objbase.h, to package the <i>riid</i> and <i>ppv</i> parameters. This macro provides the correct IID based on the interface pointed to by the value in <i>ppv</i>, eliminating the possibility of a coding error.
-     * @param {Integer} filterOn Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/propsys/ne-propsys-propdesc_enumfilter">PROPDESC_ENUMFILTER</a></b>
+     * @param {PROPDESC_ENUMFILTER} filterOn Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/propsys/ne-propsys-propdesc_enumfilter">PROPDESC_ENUMFILTER</a></b>
      * 
      * The list to return. See <a href="https://docs.microsoft.com/windows/desktop/api/propsys/ne-propsys-propdesc_enumfilter">PROPDESC_ENUMFILTER</a>. Valid values for this method are 0 through 4.
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
@@ -363,7 +362,7 @@ class IPropertySystem extends IUnknown{
      * @param {Pointer<PROPVARIANT>} propvar Type: <b>REFPROPVARIANT</b>
      * 
      * A reference to a <a href="https://docs.microsoft.com/windows/desktop/api/propidl/ns-propidl-propvariant">PROPVARIANT</a> structure containing the type and value of the property.
-     * @param {Integer} pdff Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/propsys/ne-propsys-propdesc_format_flags">PROPDESC_FORMAT_FLAGS</a></b>
+     * @param {PROPDESC_FORMAT_FLAGS} pdff Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/propsys/ne-propsys-propdesc_format_flags">PROPDESC_FORMAT_FLAGS</a></b>
      * 
      * The format of the property string. See <a href="https://docs.microsoft.com/windows/desktop/api/propsys/ne-propsys-propdesc_format_flags">PROPDESC_FORMAT_FLAGS</a> for possible values.
      * @param {PWSTR} pszText Type: <b>LPWSTR</b>
@@ -562,7 +561,7 @@ class IPropertySystem extends IUnknown{
      * @param {Pointer<PROPVARIANT>} propvar Type: <b>REFPROPVARIANT</b>
      * 
      * A reference to a <a href="https://docs.microsoft.com/windows/desktop/api/propidl/ns-propidl-propvariant">PROPVARIANT</a> structure that contains the type and value of the property.
-     * @param {Integer} pdff Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/propsys/ne-propsys-propdesc_format_flags">PROPDESC_FORMAT_FLAGS</a></b>
+     * @param {PROPDESC_FORMAT_FLAGS} pdff Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/propsys/ne-propsys-propdesc_format_flags">PROPDESC_FORMAT_FLAGS</a></b>
      * 
      * The format of the property string. See <a href="https://docs.microsoft.com/windows/desktop/api/propsys/ne-propsys-propdesc_format_flags">PROPDESC_FORMAT_FLAGS</a>.
      * @returns {PWSTR} Type: <b>LPWSTR*</b>

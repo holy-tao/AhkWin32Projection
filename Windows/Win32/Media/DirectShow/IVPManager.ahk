@@ -7,9 +7,8 @@
  * The IVPManager interface is implemented on the Video Port Manager (VPM).
  * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-ivpmanager
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IVPManager extends IUnknown{
+class IVPManager extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

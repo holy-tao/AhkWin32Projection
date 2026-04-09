@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WNet
- * @version v4.0.30319
  */
-class CONNECTDLGSTRUCT_FLAGS extends Win32BitflagEnum{
+class CONNECTDLGSTRUCT_FLAGS extends Win32BitflagEnum {
 
     /**
      * @type {Integer (UInt32)}

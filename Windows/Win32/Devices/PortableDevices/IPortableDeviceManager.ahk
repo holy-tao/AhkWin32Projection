@@ -7,9 +7,8 @@
  * Enumerates devices that are connected to the computer and provides a simple way to request installation information, including manufacturer, friendly name, and description.
  * @see https://learn.microsoft.com/windows/win32/api/portabledeviceapi/nn-portabledeviceapi-iportabledevicemanager
  * @namespace Windows.Win32.Devices.PortableDevices
- * @version v4.0.30319
  */
-class IPortableDeviceManager extends IUnknown{
+class IPortableDeviceManager extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

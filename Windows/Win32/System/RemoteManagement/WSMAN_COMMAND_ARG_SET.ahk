@@ -5,10 +5,8 @@
  * Represents the set of arguments that are passed in to the command line.
  * @see https://learn.microsoft.com/windows/win32/api/wsman/ns-wsman-wsman_command_arg_set
  * @namespace Windows.Win32.System.RemoteManagement
- * @version v4.0.30319
  */
-class WSMAN_COMMAND_ARG_SET extends Win32Struct
-{
+class WSMAN_COMMAND_ARG_SET extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

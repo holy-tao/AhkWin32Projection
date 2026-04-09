@@ -10,9 +10,8 @@
  *                 <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_listener_property_id">WS_LISTENER_PROPERTY_ASYNC_CALLBACK_MODEL</a> properties.
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ne-webservices-ws_callback_model
  * @namespace Windows.Win32.Networking.WindowsWebServices
- * @version v4.0.30319
  */
-class WS_CALLBACK_MODEL extends Win32Enum{
+class WS_CALLBACK_MODEL extends Win32Enum {
 
     /**
      * This value is used to indicate that a callback is invoked short.

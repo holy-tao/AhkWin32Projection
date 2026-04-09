@@ -1,18 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\COMPLUS_APPTYPE.ahk
 
 /**
  * @namespace Windows.Win32.System.ComponentServices
- * @version v4.0.30319
  */
-class CLSIDDATA2 extends Win32Struct
-{
+class CLSIDDATA2 extends Win32Struct {
     static sizeof => 72
 
     static packingSize => 8
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     m_clsid {
         get => NumGet(this, 0, "ptr")
@@ -20,7 +19,7 @@ class CLSIDDATA2 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     m_appid {
         get => NumGet(this, 8, "ptr")
@@ -28,7 +27,7 @@ class CLSIDDATA2 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     m_partid {
         get => NumGet(this, 16, "ptr")
@@ -52,7 +51,7 @@ class CLSIDDATA2 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {COMPLUS_APPTYPE}
      */
     m_eAppType {
         get => NumGet(this, 40, "int")

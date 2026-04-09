@@ -7,9 +7,8 @@
  * The <b>FsrmCommitOptions_Asynchronous</b> option is not supported.
  * @see https://learn.microsoft.com/windows/win32/api/fsrmenums/ne-fsrmenums-fsrmcommitoptions
  * @namespace Windows.Win32.Storage.FileServerResourceManager
- * @version v4.0.30319
  */
-class FsrmCommitOptions extends Win32Enum{
+class FsrmCommitOptions extends Win32Enum {
 
     /**
      * Use no options and commit the collection of objects synchronously.

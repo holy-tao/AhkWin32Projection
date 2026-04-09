@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
- * @version v4.0.30319
  */
-class KSCAMERA_EXTENDEDPROP_DIGITALWINDOW_CONFIGCAPS extends Win32Struct
-{
+class KSCAMERA_EXTENDEDPROP_DIGITALWINDOW_CONFIGCAPS extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 4

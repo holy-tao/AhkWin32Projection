@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
+#Include ..\..\..\Foundation\BSTR.ahk
 
 /**
  * Use this interface to asynchronously query state variables and invoke actions on an instance of a service .
  * @see https://learn.microsoft.com/windows/win32/api/upnp/nn-upnp-iupnpserviceasync
  * @namespace Windows.Win32.Devices.Enumeration.Pnp
- * @version v4.0.30319
  */
-class IUPnPServiceAsync extends IUnknown{
+class IUPnPServiceAsync extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

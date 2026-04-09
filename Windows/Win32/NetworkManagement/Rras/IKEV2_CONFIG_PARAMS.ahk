@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Security\Cryptography\CRYPT_INTEGER_BLOB.ahk
 #Include .\IKEV2_TUNNEL_CONFIG_PARAMS4.ahk
+#Include ..\..\Security\Cryptography\CRYPT_INTEGER_BLOB.ahk
+#Include .\ROUTER_CUSTOM_IKEv2_POLICY0.ahk
+#Include .\MPR_CERT_EKU.ahk
 
 /**
  * Used to get or set parameters for Internet Key Exchange version 2 (IKEv2) devices (RFC 4306).
  * @see https://learn.microsoft.com/windows/win32/api/mprapi/ns-mprapi-ikev2_config_params
  * @namespace Windows.Win32.NetworkManagement.Rras
- * @version v4.0.30319
  */
-class IKEV2_CONFIG_PARAMS extends Win32Struct
-{
+class IKEV2_CONFIG_PARAMS extends Win32Struct {
     static sizeof => 120
 
     static packingSize => 8
@@ -81,7 +81,7 @@ class IKEV2_CONFIG_PARAMS extends Win32Struct
      * An <a href="https://docs.microsoft.com/windows/desktop/RRAS/router-management-data-types">IKEV2_TUNNEL_CONFIG_PARAMS</a> structure that contains IKEv2 tunnel information.
      * @type {IKEV2_TUNNEL_CONFIG_PARAMS4}
      */
-    TunnelConfigParams{
+    TunnelConfigParams {
         get {
             if(!this.HasProp("__TunnelConfigParams"))
                 this.__TunnelConfigParams := IKEV2_TUNNEL_CONFIG_PARAMS4(16, this)

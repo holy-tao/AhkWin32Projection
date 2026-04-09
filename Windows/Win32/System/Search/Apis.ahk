@@ -5,7 +5,6 @@
 
 /**
  * @namespace Windows.Win32.System.Search
- * @version v4.0.30319
  */
 class Search {
 
@@ -17509,7 +17508,7 @@ class Search {
      *   
      *  Column 0 can be specified in this argument, but all values except SQL_DESC_TYPE and SQL_DESC_OCTET_LENGTH will return undefined values.
      * @param {Integer} FieldIdentifier [Input] The descriptor handle. This handle defines which field in the IRD should be queried (for example, SQL_COLUMN_TABLE_NAME).
-     * @param {Pointer} CharacterAttribute 
+     * @param {Integer} CharacterAttribute 
      * @param {Integer} BufferLength [Input] If *FieldIdentifier* is an ODBC-defined field and *CharacterAttributePtr* points to a character string or binary buffer, this argument should be the length of \**CharacterAttributePtr*. If *FieldIdentifier* is an ODBC-defined field and \**CharacterAttribute*Ptr is an integer, this field is ignored. If the *\*CharacterAttributePtr* is a Unicode string (when calling **SQLColAttributeW**), the *BufferLength* argument must be an even number. If *FieldIdentifier* is a driver-defined field, the application indicates the nature of the field to the Driver Manager by setting the *BufferLength* argument. *BufferLength* can have the following values:  
      *   
      * -   If *CharacterAttributePtr* is a pointer to a pointer, *BufferLength* should have the value SQL_IS_POINTER.  
@@ -17811,7 +17810,7 @@ class Search {
      * @param {Integer} Length [Input] The value to which to set the SQL_DESC_OCTET_LENGTH field for the descriptor record.
      * @param {Integer} Precision [Input] The value to which to set the SQL_DESC_PRECISION field for the descriptor record.
      * @param {Integer} Scale [Input] The value to which to set the SQL_DESC_SCALE field for the descriptor record.
-     * @param {Pointer} Data 
+     * @param {Integer} Data 
      * @param {Pointer<Integer>} StringLength 
      * @param {Pointer<Integer>} Indicator 
      * @returns {Integer} SQL_SUCCESS, SQL_SUCCESS_WITH_INFO, SQL_ERROR, or SQL_INVALID_HANDLE.
@@ -18046,7 +18045,7 @@ class Search {
      * @param {Pointer<Void>} hstmt 
      * @param {Integer} iCol 
      * @param {Integer} iField 
-     * @param {Pointer} pCharAttr 
+     * @param {Integer} pCharAttr 
      * @param {Integer} cbDescMax 
      * @param {Pointer<Integer>} pcbCharAttr 
      * @param {Pointer<Integer>} pNumAttr 
@@ -18066,7 +18065,7 @@ class Search {
      * @param {Pointer<Void>} hstmt 
      * @param {Integer} icol 
      * @param {Integer} fDescType 
-     * @param {Pointer} rgbDesc 
+     * @param {Integer} rgbDesc 
      * @param {Integer} cbDescMax 
      * @param {Pointer<Integer>} pcbDesc 
      * @param {Pointer<Integer>} pfDesc 
@@ -18156,7 +18155,7 @@ class Search {
      * @param {Pointer<Void>} hstmt 
      * @param {Integer} iCol 
      * @param {Integer} iField 
-     * @param {Pointer} pCharAttr 
+     * @param {Integer} pCharAttr 
      * @param {Integer} cbCharAttrMax 
      * @param {Pointer<Integer>} pcbCharAttr 
      * @param {Pointer<Integer>} pNumAttr 
@@ -18176,7 +18175,7 @@ class Search {
      * @param {Pointer<Void>} hstmt 
      * @param {Integer} icol 
      * @param {Integer} fDescType 
-     * @param {Pointer} rgbDesc 
+     * @param {Integer} rgbDesc 
      * @param {Integer} cbDescMax 
      * @param {Pointer<Integer>} pcbDesc 
      * @param {Pointer<Integer>} pfDesc 
@@ -18312,7 +18311,19 @@ class Search {
      * -   **SQLAllocHandle and not SQLAllocHandleStd** to allocate an environment handle.  
      *   
      * -   **SQLSetEnvAttr** to set the SQL_ATTR_ODBC_VERSION environment attribute to SQL_OV_ODBC3_80.
-     * @param {Integer} _HandleType 
+     * @param {Integer} _HandleType [Input] The type of handle to be allocated by **SQLAllocHandle**. Must be one of the following values:  
+     *   
+     * -   SQL_HANDLE_DBC  
+     *   
+     * -   SQL_HANDLE_DBC_INFO_TOKEN  
+     *   
+     * -   SQL_HANDLE_DESC  
+     *   
+     * -   SQL_HANDLE_ENV  
+     *   
+     * -   SQL_HANDLE_STMT  
+     *   
+     *  SQL_HANDLE_DBC_INFO_TOKEN handle is used only by the Driver Manager and driver. Applications should not use this handle type. For more information about SQL_HANDLE_DBC_INFO_TOKEN, see [Developing Connection-Pool Awareness in an ODBC Driver](../../../odbc/reference/develop-driver/developing-connection-pool-awareness-in-an-odbc-driver.md).
      * @param {Pointer<Void>} InputHandle [Input] The input handle in whose context the new handle is to be allocated. If *HandleType* is SQL_HANDLE_ENV, this is SQL_NULL_HANDLE. If *HandleType* is SQL_HANDLE_DBC, this must be an environment handle, and if it is SQL_HANDLE_STMT or SQL_HANDLE_DESC, it must be a connection handle.
      * @param {Pointer<Pointer<Void>>} OutputHandle 
      * @returns {Integer} SQL_SUCCESS, SQL_SUCCESS_WITH_INFO, SQL_INVALID_HANDLE, or SQL_ERROR.  
@@ -18389,7 +18400,7 @@ class Search {
      *   
      * > [!NOTE]  
      * >  For information about how to use **SQLCancelHandle** in an application that will be deployed on a Windows operating system older than Windows 7, see [Compatibility Matrix](../../../odbc/reference/develop-app/compatibility-matrix.md).
-     * @param {Integer} _HandleType 
+     * @param {Integer} _HandleType [Input] The type of the handle on which to cacel processing. Valid values are SQL_HANDLE_DBC or SQL_HANDLE_STMT.
      * @param {Pointer<Void>} InputHandle 
      * @returns {Integer} SQL_SUCCESS, SQL_SUCCESS_WITH_INFO, SQL_ERROR, or SQL_INVALID_HANDLE.
      * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlcancelhandle-function
@@ -18530,8 +18541,10 @@ class Search {
      * SQLCompleteAsync Function
      * @remarks
      * In polling based asynchronous processing mode, *AsyncRetCodePtr* might be SQL_STILL_EXECUTING when **SQLCompleteAsync** returns SQL_SUCCESS. Application should keep polling until *AsyncRetCodePtr* is not SQL_STILL_EXECUTING. In notification based asynchronous processing mode, *AsyncRetCodePtr* will never be SQL_STILL_EXECUTING.
-     * @param {Integer} _HandleType 
-     * @param {Pointer<Void>} _Handle 
+     * @param {Integer} _HandleType [Input] The type of the handle on which to complete asynchronous processing. Valid values are SQL_HANDLE_DBC or SQL_HANDLE_STMT.
+     * @param {Pointer<Void>} _Handle [Input] The handle on which to complete asynchronous processing. If *Handle* is not a valid handle of the type specified by *HandleType*, **SQLCompleteAsync** returns SQL_INVALID_HANDLE.  
+     *   
+     *  If *Handle* is not a valid handle of the type specified by *HandleType*, **SQLCompleteAsync** returns SQL_INVALID_HANDLE.
      * @param {Pointer<Integer>} AsyncRetCodePtr [Output] Pointer to a buffer that will contain the return code of the asynchronous API. If *AsyncRetCodePtr* is NULL, **SQLCompleteAsync** returns SQL_ERROR.
      * @returns {Integer} SQL_SUCCESS, SQL_ERROR, SQL_NO_DATA, or SQL_INVALID_HANDLE.
      * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlcompleteasync-function
@@ -18631,7 +18644,11 @@ class Search {
      *   
      *  The driver determines how data source names are mapped to actual data sources.
      * @param {Pointer<Void>} EnvironmentHandle [Input] Environment handle.
-     * @param {Integer} _Direction 
+     * @param {Integer} _Direction [Input] Determines which data source the Driver Manager returns information about. Can be:  
+     *   
+     *  SQL_FETCH_NEXT (to fetch the next data source name in the list), SQL_FETCH_FIRST (to fetch from the beginning of the list), SQL_FETCH_FIRST_USER (to fetch the first user DSN), or SQL_FETCH_FIRST_SYSTEM (to fetch the first system DSN).  
+     *   
+     *  When *Direction* is set to SQL_FETCH_FIRST, subsequent calls to **SQLDataSources** with *Direction* set to SQL_FETCH_NEXT return both user and system DSNs. When *Direction* is set to SQL_FETCH_FIRST_USER, all subsequent calls to **SQLDataSources** with *Direction* set to SQL_FETCH_NEXT return only user DSNs. When *Direction* is set to SQL_FETCH_FIRST_SYSTEM, all subsequent calls to **SQLDataSources** with *Direction* set to SQL_FETCH_NEXT return only system DSNs.
      * @param {Pointer<Integer>} ServerName [Output] Pointer to a buffer in which to return the data source name.  
      *   
      *  If *ServerName* is NULL, *NameLength1Ptr* will still return the total number of characters (excluding the null-termination character for character data) available to return in the buffer pointed to by *ServerName*.
@@ -18707,8 +18724,8 @@ class Search {
      *  When a driver is in autocommit mode, the Driver Manager does not call **SQLEndTran** in the driver. **SQLEndTran** always returns SQL_SUCCESS regardless of whether it is called with a *CompletionType* of SQL_COMMIT or SQL_ROLLBACK.  
      *   
      *  Drivers or data sources that do not support transactions (**SQLGetInfo** *option* SQL_TXN_CAPABLE is SQL_TC_NONE) are effectively always in autocommit mode and therefore always return SQL_SUCCESS for **SQLEndTran** whether or not they are called with a *CompletionType* of SQL_COMMIT or SQL_ROLLBACK. Such drivers and data sources do not actually roll back transactions when requested to do so.
-     * @param {Integer} _HandleType 
-     * @param {Pointer<Void>} _Handle 
+     * @param {Integer} _HandleType [Input] Handle type identifier. Contains either SQL_HANDLE_ENV (if *Handle* is an environment handle) or SQL_HANDLE_DBC (if *Handle* is a connection handle).
+     * @param {Pointer<Void>} _Handle [Input] The handle, of the type indicated by *HandleType*, indicating the scope of the transaction. See "Comments" for more information.
      * @param {Integer} CompletionType [Input] One of the following two values:  
      *   
      *  SQL_COMMIT SQL_ROLLBACK
@@ -18868,8 +18885,22 @@ class Search {
      * **SQLFreeHandle** is used to free handles for environments, connections, statements, and descriptors, as described in the following sections. For general information about handles, see [Handles](../../../odbc/reference/develop-app/handles.md).  
      *   
      *  An application should not use a handle after it has been freed; the Driver Manager does not check the validity of a handle in a function call.
-     * @param {Integer} _HandleType 
-     * @param {Pointer<Void>} _Handle 
+     * @param {Integer} _HandleType [Input] The type of handle to be freed by **SQLFreeHandle**. Must be one of the following values:  
+     *   
+     * -   SQL_HANDLE_DBC  
+     *   
+     * -   SQL_HANDLE_DBC_INFO_TOKEN  
+     *   
+     * -   SQL_HANDLE_DESC  
+     *   
+     * -   SQL_HANDLE_ENV  
+     *   
+     * -   SQL_HANDLE_STMT  
+     *   
+     *  SQL_HANDLE_DBC_INFO_TOKEN handle is used only by the Driver Manager and driver. Applications should not use this handle type. For more information about SQL_HANDLE_DBC_INFO_TOKEN, see [Developing Connection-Pool Awareness in an ODBC Driver](../../../odbc/reference/develop-driver/developing-connection-pool-awareness-in-an-odbc-driver.md).  
+     *   
+     *  If *HandleType* is not one of these values, **SQLFreeHandle** returns SQL_INVALID_HANDLE.
+     * @param {Pointer<Void>} _Handle [Input] The handle to be freed.
      * @returns {Integer} SQL_SUCCESS, SQL_ERROR, or SQL_INVALID_HANDLE.  
      *   
      *  If **SQLFreeHandle** returns SQL_ERROR, the handle is still valid.
@@ -19062,8 +19093,20 @@ class Search {
      *  For more information, see [Using SQLGetDiagRec and SQLGetDiagField](../../../odbc/reference/develop-app/using-sqlgetdiagrec-and-sqlgetdiagfield.md) and [Implementing SQLGetDiagRec and SQLGetDiagField](../../../odbc/reference/develop-app/implementing-sqlgetdiagrec-and-sqlgetdiagfield.md).  
      *   
      *  Calling an API other than the one that's being executed asynchronously will generate HY010 "Function sequence error". However, the error record cannot be retrieved before the asynchronous operation completes.
-     * @param {Integer} _HandleType 
-     * @param {Pointer<Void>} _Handle 
+     * @param {Integer} _HandleType [Input] A handle type identifier that describes the type of handle for which diagnostics are required. Must be one of the following:  
+     *   
+     * -   SQL_HANDLE_DBC  
+     *   
+     * -   SQL_HANDLE_DBC_INFO_TOKEN  
+     *   
+     * -   SQL_HANDLE_DESC  
+     *   
+     * -   SQL_HANDLE_ENV  
+     *   
+     * -   SQL_HANDLE_STMT  
+     *   
+     *  SQL_HANDLE_DBC_INFO_TOKEN handle is used only by the Driver Manager and driver. Applications should not use this handle type. For more information about SQL_HANDLE_DBC_INFO_TOKEN, see [Developing Connection-Pool Awareness in an ODBC Driver](../../../odbc/reference/develop-driver/developing-connection-pool-awareness-in-an-odbc-driver.md).
+     * @param {Pointer<Void>} _Handle [Input] A handle for the diagnostic data structure, of the type indicated by *HandleType*. If *HandleType* is SQL_HANDLE_ENV, *Handle* can be either a shared or an unshared environment handle.
      * @param {Integer} RecNumber [Input] Indicates the status record from which the application seeks information. Status records are numbered from 1. If the *DiagIdentifier* argument indicates any field of the diagnostics header, *RecNumber* is ignored. If not, it should be more than 0.
      * @param {Integer} DiagIdentifier [Input] Indicates the field of the diagnostic whose value is to be returned. For more information, see the "*DiagIdentifier* Argument" section in "Comments."
      * @param {Pointer<Void>} DiagInfo 
@@ -19105,8 +19148,20 @@ class Search {
      *  For a description of the fields of the diagnostic data structure, see [SQLGetDiagField](../../../odbc/reference/syntax/sqlgetdiagfield-function.md). For more information, see [Using SQLGetDiagRec and SQLGetDiagField](../../../odbc/reference/develop-app/using-sqlgetdiagrec-and-sqlgetdiagfield.md) and [Implementing SQLGetDiagRec and SQLGetDiagField](../../../odbc/reference/develop-app/implementing-sqlgetdiagrec-and-sqlgetdiagfield.md).  
      *   
      *  Calling an API other than the one that's being executed asynchronously will generate HY010 "Function sequence error". However, the error record cannot be retrieved before the asynchronous operation completes.
-     * @param {Integer} _HandleType 
-     * @param {Pointer<Void>} _Handle 
+     * @param {Integer} _HandleType [Input] A handle type identifier that describes the type of handle for which diagnostics are required. Must be one of the following:  
+     *   
+     * -   SQL_HANDLE_DBC  
+     *   
+     * -   SQL_HANDLE_DBC_INFO_TOKEN  
+     *   
+     * -   SQL_HANDLE_DESC  
+     *   
+     * -   SQL_HANDLE_ENV  
+     *   
+     * -   SQL_HANDLE_STMT  
+     *   
+     *  SQL_HANDLE_DBC_INFO_TOKEN handle is used only by the Driver Manager and driver. Applications should not use this handle type. For more information about SQL_HANDLE_DBC_INFO_TOKEN, see [Developing Connection-Pool Awareness in an ODBC Driver](../../../odbc/reference/develop-driver/developing-connection-pool-awareness-in-an-odbc-driver.md).
+     * @param {Pointer<Void>} _Handle [Input] A handle for the diagnostic data structure, of the type indicated by *HandleType*. If *HandleType* is SQL_HANDLE_ENV, *Handle* can be either a shared or an unshared environment handle.
      * @param {Integer} RecNumber [Input] Indicates the status record from which the application seeks information. Status records are numbered from 1.
      * @param {Pointer<Integer>} Sqlstate 
      * @param {Pointer<Integer>} NativeError 
@@ -19271,7 +19326,7 @@ class Search {
      *  All calls to **SQLGetInfo** require an open connection, except when the *InfoType* is SQL_ODBC_VER, which returns the version of the Driver Manager.
      * @param {Pointer<Void>} ConnectionHandle [Input] Connection handle.
      * @param {Integer} InfoType [Input] Type of information.
-     * @param {Pointer} InfoValue 
+     * @param {Integer} InfoValue 
      * @param {Integer} BufferLength [Input] Length of the \**InfoValuePtr* buffer. If the value in *\*InfoValuePtr* is not a character string or if *InfoValuePtr* is a null pointer, the *BufferLength* argument is ignored. The driver assumes that the size of *\*InfoValuePtr* is SQLUSMALLINT or SQLUINTEGER, based on the *InfoType*. If *\*InfoValuePtr* is a Unicode string (when calling **SQLGetInfoW**), the *BufferLength* argument must be an even number; if not, SQLSTATE HY090 (Invalid string or buffer length) is returned.
      * @param {Pointer<Integer>} StringLengthPtr [Output] Pointer to a buffer in which to return the total number of bytes (excluding the null-termination character for character data) available to return in **InfoValuePtr*.  
      *   
@@ -19599,7 +19654,7 @@ class Search {
      *  [1]   These functions can be called asynchronously only if the descriptor is an implementation descriptor, not an application descriptor.
      * @param {Pointer<Void>} ConnectionHandle [Input] Connection handle.
      * @param {Integer} Attribute [Input] Attribute to set, listed in "Comments."
-     * @param {Pointer} Value 
+     * @param {Integer} Value 
      * @param {Integer} StringLength [Input] If *Attribute* is an ODBC-defined attribute and *ValuePtr* points to a character string or a binary buffer, this argument should be the length of **ValuePtr*. For character string data, this argument should contain the number of bytes in the string.  
      *   
      *  If *Attribute* is an ODBC-defined attribute and *ValuePtr* is an integer, *StringLength* is ignored.  
@@ -19712,7 +19767,7 @@ class Search {
      * |SQL_ATTR_OUTPUT_NTS (ODBC 3.0)|A 32-bit integer that determines how the driver returns string data. If SQL_TRUE, the driver returns string data null-terminated. If SQL_FALSE, the driver does not return string data null-terminated.<br /><br /> This attribute defaults to SQL_TRUE. A call to **SQLSetEnvAttr** to set it to SQL_TRUE returns SQL_SUCCESS. A call to **SQLSetEnvAttr** to set it to SQL_FALSE returns SQL_ERROR and SQLSTATE HYC00 (Optional feature not implemented).|
      * @param {Pointer<Void>} EnvironmentHandle [Input] Environment handle.
      * @param {Integer} Attribute [Input] Attribute to set, listed in "Comments."
-     * @param {Pointer} Value 
+     * @param {Integer} Value 
      * @param {Integer} StringLength [Input] If *ValuePtr* points to a character string or a binary buffer, this argument should be the length of **ValuePtr*. For character string data, this argument should contain the number of bytes in the string.  
      *   
      *  If *ValuePtr* is an integer, *StringLength* is ignored.
@@ -21494,7 +21549,7 @@ class Search {
      * 
      * @param {Pointer<Void>} hdbc 
      * @param {Integer} fAttribute 
-     * @param {Pointer} rgbValue 
+     * @param {Integer} rgbValue 
      * @param {Integer} cbValue 
      * @returns {Integer} 
      */
@@ -21563,7 +21618,7 @@ class Search {
      * 
      * @param {Pointer<Void>} hdbc 
      * @param {Integer} fInfoType 
-     * @param {Pointer} rgbInfoValue 
+     * @param {Integer} rgbInfoValue 
      * @param {Integer} cbInfoValueMax 
      * @param {Pointer<Integer>} pcbInfoValue 
      * @returns {Integer} 
@@ -22151,7 +22206,7 @@ class Search {
      * 
      * @param {Pointer<Void>} hdbc 
      * @param {Integer} fAttribute 
-     * @param {Pointer} rgbValue 
+     * @param {Integer} rgbValue 
      * @param {Integer} cbValue 
      * @returns {Integer} 
      */
@@ -22220,7 +22275,7 @@ class Search {
      * 
      * @param {Pointer<Void>} hdbc 
      * @param {Integer} fInfoType 
-     * @param {Pointer} rgbInfoValue 
+     * @param {Integer} rgbInfoValue 
      * @param {Integer} cbInfoValueMax 
      * @param {Pointer<Integer>} pcbInfoValue 
      * @returns {Integer} 

@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\IGenericDescriptor.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
+#Include .\IGenericDescriptor.ahk
 
 /**
  * Implements methods that get information from an Integrated Services Digital Broadcasting (ISDB) broadcaster information table (BIT). A BIT contains a broadcaster unit and the service information transmission parameter for each broadcaster unit.
  * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nn-dvbsiparser-iisdb_bit
  * @namespace Windows.Win32.Media.DirectShow.Tv
- * @version v4.0.30319
  */
-class IISDB_BIT extends IUnknown{
+class IISDB_BIT extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

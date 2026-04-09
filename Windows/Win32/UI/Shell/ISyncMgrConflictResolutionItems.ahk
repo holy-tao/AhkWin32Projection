@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\CONFIRM_CONFLICT_RESULT_INFO.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\CONFIRM_CONFLICT_RESULT_INFO.ahk
 
 /**
  * Exposes methods that get item info and item count.
  * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nn-syncmgr-isyncmgrconflictresolutionitems
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class ISyncMgrConflictResolutionItems extends IUnknown{
+class ISyncMgrConflictResolutionItems extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

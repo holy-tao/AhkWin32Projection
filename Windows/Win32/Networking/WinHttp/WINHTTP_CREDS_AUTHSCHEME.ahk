@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Networking.WinHttp
- * @version v4.0.30319
  */
-class WINHTTP_CREDS_AUTHSCHEME extends Win32Enum{
+class WINHTTP_CREDS_AUTHSCHEME extends Win32Enum {
 
     /**
      * @type {Integer (UInt32)}

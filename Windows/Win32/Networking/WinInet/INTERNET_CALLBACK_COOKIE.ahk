@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Networking.WinInet
- * @version v4.0.30319
  */
-class INTERNET_CALLBACK_COOKIE extends Win32Struct
-{
+class INTERNET_CALLBACK_COOKIE extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -47,7 +45,7 @@ class INTERNET_CALLBACK_COOKIE extends Win32Struct
     /**
      * @type {FILETIME}
      */
-    ftExpires{
+    ftExpires {
         get {
             if(!this.HasProp("__ftExpires"))
                 this.__ftExpires := FILETIME(32, this)

@@ -5,9 +5,8 @@
  * Elements of the TfIntegratableCandidateListSelectionStyle enumeration specify the integratable candidate list selection styles.
  * @see https://learn.microsoft.com/windows/win32/api/ctffunc/ne-ctffunc-tfintegratablecandidatelistselectionstyle
  * @namespace Windows.Win32.UI.TextServices
- * @version v4.0.30319
  */
-class TfIntegratableCandidateListSelectionStyle extends Win32Enum{
+class TfIntegratableCandidateListSelectionStyle extends Win32Enum {
 
     /**
      * The selection can be changed with the arrow keys.

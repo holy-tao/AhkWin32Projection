@@ -5,9 +5,8 @@
  * Indicates the completion status of a print job.
  * @see https://learn.microsoft.com/windows/win32/api/xpsprint/ne-xpsprint-xps_job_completion
  * @namespace Windows.Win32.Storage.Xps.Printing
- * @version v4.0.30319
  */
-class XPS_JOB_COMPLETION extends Win32Enum{
+class XPS_JOB_COMPLETION extends Win32Enum {
 
     /**
      * The print  job is running.

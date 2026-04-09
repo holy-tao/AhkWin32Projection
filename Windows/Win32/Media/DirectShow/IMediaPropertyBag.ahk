@@ -7,9 +7,8 @@
  * The IMediaPropertyBag interface is exposed by the Media Property Bag object.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-imediapropertybag
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IMediaPropertyBag extends IPropertyBag{
+class IMediaPropertyBag extends IPropertyBag {
 
     static sizeof => A_PtrSize
     /**

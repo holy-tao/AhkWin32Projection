@@ -5,9 +5,8 @@
  * The types of operations that can be performed on placeholder files and directories.
  * @see https://learn.microsoft.com/windows/win32/api/cfapi/ne-cfapi-cf_operation_type
  * @namespace Windows.Win32.Storage.CloudFilters
- * @version v4.0.30319
  */
-class CF_OPERATION_TYPE extends Win32Enum{
+class CF_OPERATION_TYPE extends Win32Enum {
 
     /**
      * A sync provider performs **TRANSFER_DATA** to hydrate a placeholder file. This operation can be performed as a response to a **FETCH_DATA** callback, a **VALIDATE_DATA** callback, or as part of a preemptive background hydration effort outside of any callback context.

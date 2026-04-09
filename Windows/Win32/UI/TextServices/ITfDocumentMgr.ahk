@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\ITfContext.ahk
 #Include .\IEnumTfContexts.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * The ITfDocumentMgr interface is implemented by the TSF manager and used by an application or text service to create and manage text contexts. To obtain an instance of this interface call ITfThreadMgr::CreateDocumentMgr.
  * @see https://learn.microsoft.com/windows/win32/api/msctf/nn-msctf-itfdocumentmgr
  * @namespace Windows.Win32.UI.TextServices
- * @version v4.0.30319
  */
-class ITfDocumentMgr extends IUnknown{
+class ITfDocumentMgr extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

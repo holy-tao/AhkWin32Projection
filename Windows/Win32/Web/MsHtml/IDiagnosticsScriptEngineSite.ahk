@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
- * @version v4.0.30319
  */
-class IDiagnosticsScriptEngineSite extends IUnknown{
+class IDiagnosticsScriptEngineSite extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

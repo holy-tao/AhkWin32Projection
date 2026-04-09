@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\Foundation\RECT.ahk
 #Include .\IStylusSyncPlugin.ahk
 #Include .\IStylusAsyncPlugin.ahk
-#Include .\IRealTimeStylus.ahk
 #Include .\IInkTablet.ahk
 #Include .\IInkCursors.ahk
 #Include .\IInkCursor.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Handles the stylus packet data from a digitizer in real time.
@@ -23,9 +22,8 @@
  * <div> </div>
  * @see https://learn.microsoft.com/windows/win32/api/rtscom/nn-rtscom-irealtimestylus
  * @namespace Windows.Win32.UI.TabletPC
- * @version v4.0.30319
  */
-class IRealTimeStylus extends IUnknown{
+class IRealTimeStylus extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -372,7 +370,7 @@ class IRealTimeStylus extends IUnknown{
      * The GUID can be used by objects other than plug-ins and real time styluses to add customized information to the queue. This method can be called from any object that has a reference to the <a href="https://docs.microsoft.com/windows/desktop/tablet/realtimestylus-class">RealTimeStylus Class</a> object. The calling object does not have to be a plug-in.
      * 
      * <b>IRealTimeStylus::AddCustomStylusDataToQueue Method</b> enables you to add functionality, such as selection and erase.
-     * @param {Integer} sq The <a href="https://docs.microsoft.com/windows/desktop/api/rtscom/ne-rtscom-stylusqueue">StylusQueue Enumeration</a> specifying the stylus queue to which to add the custom data.
+     * @param {StylusQueue} sq The <a href="https://docs.microsoft.com/windows/desktop/api/rtscom/ne-rtscom-stylusqueue">StylusQueue Enumeration</a> specifying the stylus queue to which to add the custom data.
      * @param {Pointer<Guid>} pGuidId The GUID for the data to add to the queue specified in <i>sq</i>.
      * @param {Integer} cbData The size, in chars, of the data that <i>pbData</i> points to and which is to be added to the specified queue.
      * @param {Pointer<Integer>} pbData The custom data to add to the specified queue. May not be <b>NULL</b>.
@@ -515,7 +513,7 @@ class IRealTimeStylus extends IUnknown{
 
     /**
      * Retrieves a stylus for the specified stylus identifier.
-     * @param {Integer} _sid 
+     * @param {Integer} _sid Specifies security identifier (SID) for the collection.
      * @returns {IInkCursor} When this method returns, contains a pointer to an IInkCursor that describes the stylus for the <i>sid</i> parameter.
      * @see https://learn.microsoft.com/windows/win32/api/rtscom/nf-rtscom-irealtimestylus-getstylusforid
      */

@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IDownloadProgress.ahk
 #Include ..\Com\IDispatch.ahk
+#Include .\IDownloadProgress.ahk
 
 /**
  * Contains information about the change in the progress of an asynchronous download operation.
  * @see https://learn.microsoft.com/windows/win32/api/wuapi/nn-wuapi-idownloadprogresschangedcallbackargs
  * @namespace Windows.Win32.System.UpdateAgent
- * @version v4.0.30319
  */
-class IDownloadProgressChangedCallbackArgs extends IDispatch{
+class IDownloadProgressChangedCallbackArgs extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

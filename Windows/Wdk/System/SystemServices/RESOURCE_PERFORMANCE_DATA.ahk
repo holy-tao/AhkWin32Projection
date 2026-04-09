@@ -1,13 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Win32\System\Kernel\LIST_ENTRY.ahk
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class RESOURCE_PERFORMANCE_DATA extends Win32Struct
-{
+class RESOURCE_PERFORMANCE_DATA extends Win32Struct {
     static sizeof => 552
 
     static packingSize => 8
@@ -93,12 +90,12 @@ class RESOURCE_PERFORMANCE_DATA extends Win32Struct
     }
 
     /**
-     * @type {Array<LIST_ENTRY>}
+     * @type {Array<Pointer>}
      */
-    HashTable{
+    HashTable {
         get {
             if(!this.HasProp("__HashTableProxyArray"))
-                this.__HashTableProxyArray := Win32FixedArray(this.ptr + 40, 64, LIST_ENTRY, "")
+                this.__HashTableProxyArray := Win32FixedArray(this.ptr + 40, 64, Primitive, "ptr")
             return this.__HashTableProxyArray
         }
     }

@@ -5,10 +5,8 @@
  * Packages the object type, version, and size information that is required in many NDIS 6.0 structures.
  * @see https://learn.microsoft.com/windows/win32/NativeWiFi/ndis-object-header
  * @namespace Windows.Win32.NetworkManagement.Ndis
- * @version v4.0.30319
  */
-class NDIS_OBJECT_HEADER extends Win32Struct
-{
+class NDIS_OBJECT_HEADER extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 2

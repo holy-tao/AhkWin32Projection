@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\D3D12_DESCRIPTOR_RANGE_TYPE.ahk
+#Include .\D3D12_DESCRIPTOR_RANGE_FLAGS.ahk
 
 /**
  * Describes a descriptor range, with flags to determine their volatility.
@@ -10,17 +12,15 @@
  * Refer to the helper structure <a href="https://docs.microsoft.com/windows/desktop/direct3d12/cd3dx12-descriptor-range1">CD3DX12_DESCRIPTOR_RANGE1</a>.
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_descriptor_range1
  * @namespace Windows.Win32.Graphics.Direct3D12
- * @version v4.0.30319
  */
-class D3D12_DESCRIPTOR_RANGE1 extends Win32Struct
-{
+class D3D12_DESCRIPTOR_RANGE1 extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 4
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_descriptor_range_type">D3D12_DESCRIPTOR_RANGE_TYPE</a>-typed value that specifies the type of descriptor range.
-     * @type {Integer}
+     * @type {D3D12_DESCRIPTOR_RANGE_TYPE}
      */
     RangeType {
         get => NumGet(this, 0, "int")
@@ -57,7 +57,7 @@ class D3D12_DESCRIPTOR_RANGE1 extends Win32Struct
 
     /**
      * Specifies the <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_descriptor_range_flags">D3D12_DESCRIPTOR_RANGE_FLAGS</a> that determine descriptor and data volatility.
-     * @type {Integer}
+     * @type {D3D12_DESCRIPTOR_RANGE_FLAGS}
      */
     Flags {
         get => NumGet(this, 16, "int")

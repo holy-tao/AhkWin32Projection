@@ -9,10 +9,8 @@
  * For information about partition types, see <a href="https://docs.microsoft.com/windows/desktop/api/vds/ns-vds-create_partition_parameters">CREATE_PARTITION_PARAMETERS</a>.
  * @see https://learn.microsoft.com/windows/win32/api/vds/ns-vds-vds_partition_info_mbr
  * @namespace Windows.Win32.Storage.VirtualDiskService
- * @version v4.0.30319
  */
-class VDS_PARTITION_INFO_MBR extends Win32Struct
-{
+class VDS_PARTITION_INFO_MBR extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4

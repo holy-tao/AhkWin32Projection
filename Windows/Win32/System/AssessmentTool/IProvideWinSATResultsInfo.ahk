@@ -1,18 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Com\IDispatch.ahk
 #Include .\IProvideWinSATAssessmentInfo.ahk
 #Include ..\Variant\VARIANT.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include ..\Com\IDispatch.ahk
 
 /**
  * Gets information about the results of an assessment, for example, the base score and the date that the assessment was run.
  * @see https://learn.microsoft.com/windows/win32/api/winsatcominterfacei/nn-winsatcominterfacei-iprovidewinsatresultsinfo
  * @namespace Windows.Win32.System.AssessmentTool
- * @version v4.0.30319
  */
-class IProvideWinSATResultsInfo extends IDispatch{
+class IProvideWinSATResultsInfo extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -34,7 +33,7 @@ class IProvideWinSATResultsInfo extends IDispatch{
     static VTableNames => ["GetAssessmentInfo", "get_AssessmentState", "get_AssessmentDateTime", "get_SystemRating", "get_RatingStateDesc"]
 
     /**
-     * @type {Integer} 
+     * @type {WINSAT_ASSESSMENT_STATE} 
      */
     AssessmentState {
         get => this.get_AssessmentState()
@@ -63,7 +62,7 @@ class IProvideWinSATResultsInfo extends IDispatch{
 
     /**
      * Retrieves summary information for a subcomponent of the assessment.
-     * @param {Integer} assessment A subcomponent of the assessment whose summary information you want to retrieve. For possible values, see the <a href="https://docs.microsoft.com/windows/win32/api/winsatcominterfacei/ne-winsatcominterfacei-winsat_assessment_type">WINSAT_ASSESSMENT_TYPE</a> enumeration.
+     * @param {WINSAT_ASSESSMENT_TYPE} assessment A subcomponent of the assessment whose summary information you want to retrieve. For possible values, see the <a href="https://docs.microsoft.com/windows/win32/api/winsatcominterfacei/ne-winsatcominterfacei-winsat_assessment_type">WINSAT_ASSESSMENT_TYPE</a> enumeration.
      * @returns {IProvideWinSATAssessmentInfo} An <a href="https://docs.microsoft.com/windows/desktop/api/winsatcominterfacei/nn-winsatcominterfacei-iprovidewinsatassessmentinfo">IProvideWinSATAssessmentInfo</a> interface that you use to get the score for the subcomponent.
      * @see https://learn.microsoft.com/windows/win32/api/winsatcominterfacei/nf-winsatcominterfacei-iprovidewinsatresultsinfo-getassessmentinfo
      */
@@ -74,7 +73,7 @@ class IProvideWinSATResultsInfo extends IDispatch{
 
     /**
      * Retrieves the state of the assessment.
-     * @returns {Integer} 
+     * @returns {WINSAT_ASSESSMENT_STATE} 
      * @see https://learn.microsoft.com/windows/win32/api/winsatcominterfacei/nf-winsatcominterfacei-iprovidewinsatresultsinfo-get_assessmentstate
      */
     get_AssessmentState() {

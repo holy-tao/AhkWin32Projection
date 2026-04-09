@@ -5,9 +5,8 @@
  * Specifies the Internet protocol.
  * @see https://learn.microsoft.com/windows/win32/api/icftypes/ne-icftypes-net_fw_ip_protocol
  * @namespace Windows.Win32.NetworkManagement.WindowsFirewall
- * @version v4.0.30319
  */
-class NET_FW_IP_PROTOCOL extends Win32Enum{
+class NET_FW_IP_PROTOCOL extends Win32Enum {
 
     /**
      * Transmission Control Protocol.
@@ -22,7 +21,6 @@ class NET_FW_IP_PROTOCOL extends Win32Enum{
     static NET_FW_IP_PROTOCOL_UDP => 17
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static NET_FW_IP_PROTOCOL_ANY => 256

@@ -9,10 +9,8 @@
  * The <a href="https://docs.microsoft.com/windows/desktop/api/winddi/ns-winddi-fd_glyphset">FD_GLYPHSET</a> structure contains a WCRUN structure as one of its members.
  * @see https://learn.microsoft.com/windows/win32/api/winddi/ns-winddi-wcrun
  * @namespace Windows.Win32.Devices.Display
- * @version v4.0.30319
  */
-class WCRUN extends Win32Struct
-{
+class WCRUN extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

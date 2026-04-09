@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.RealTimeCommunications
- * @version v4.0.30319
  */
-class IRTCClientProvisioning2 extends IRTCClientProvisioning{
+class IRTCClientProvisioning2 extends IRTCClientProvisioning {
 
     static sizeof => A_PtrSize
     /**

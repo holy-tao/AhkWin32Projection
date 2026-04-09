@@ -7,9 +7,8 @@
  * Represents a meta command. A meta command is a Direct3D 12 object representing an algorithm that is accelerated by independent hardware vendors (IHVs). It's an opaque reference to a command generator that is implemented by the driver.
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/nn-d3d12-id3d12metacommand
  * @namespace Windows.Win32.Graphics.Direct3D12
- * @version v4.0.30319
  */
-class ID3D12MetaCommand extends ID3D12Pageable{
+class ID3D12MetaCommand extends ID3D12Pageable {
 
     static sizeof => A_PtrSize
     /**
@@ -32,7 +31,7 @@ class ID3D12MetaCommand extends ID3D12Pageable{
 
     /**
      * Retrieves the amount of memory required for the specified runtime parameter resource for a meta command, for the specified stage.
-     * @param {Integer} Stage Type: <b>D3D12_META_COMMAND_PARAMETER_STAGE</b>
+     * @param {D3D12_META_COMMAND_PARAMETER_STAGE} Stage Type: <b>D3D12_META_COMMAND_PARAMETER_STAGE</b>
      * 
      * A <b>D3D12_META_COMMAND_PARAMETER_STAGE</b> specifying the stage to which the parameter belongs.
      * @param {Integer} ParameterIndex Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>

@@ -1,7 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include ..\..\..\Foundation\HWND.ahk
+#Include .\CRYPTUI_VIEWCERTIFICATE_FLAGS.ahk
+#Include ..\CERT_CONTEXT.ahk
+#Include ..\..\WinTrust\CRYPT_PROVIDER_DATA.ahk
 #Include ..\..\..\Foundation\HANDLE.ahk
+#Include ..\HCERTSTORE.ahk
+#Include ..\..\..\UI\Controls\PROPSHEETPAGEW.ahk
 
 /**
  * Contains information about a certificate to view. This structure is used in the CryptUIDlgViewCertificate function. (Unicode)
@@ -10,11 +15,9 @@
  * > The cryptuiapi.h header defines CRYPTUI_VIEWCERTIFICATE_STRUCT as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
  * @see https://learn.microsoft.com/windows/win32/api/cryptuiapi/ns-cryptuiapi-cryptui_viewcertificate_structw
  * @namespace Windows.Win32.Security.Cryptography.UI
- * @version v4.0.30319
  * @charset Unicode
  */
-class CRYPTUI_VIEWCERTIFICATE_STRUCTW extends Win32Struct
-{
+class CRYPTUI_VIEWCERTIFICATE_STRUCTW extends Win32Struct {
     static sizeof => 120
 
     static packingSize => 8
@@ -32,7 +35,7 @@ class CRYPTUI_VIEWCERTIFICATE_STRUCTW extends Win32Struct
      * A handle to the window that is the parent of the dialog box produced by <a href="https://docs.microsoft.com/windows/desktop/api/cryptuiapi/nf-cryptuiapi-cryptuidlgviewcertificatea">CryptUIDlgViewCertificate</a>.
      * @type {HWND}
      */
-    hwndParent{
+    hwndParent {
         get {
             if(!this.HasProp("__hwndParent"))
                 this.__hwndParent := HWND(8, this)
@@ -41,8 +44,7 @@ class CRYPTUI_VIEWCERTIFICATE_STRUCTW extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Integer}
+     * @type {CRYPTUI_VIEWCERTIFICATE_FLAGS}
      */
     dwFlags {
         get => NumGet(this, 16, "uint")
@@ -96,7 +98,7 @@ class CRYPTUI_VIEWCERTIFICATE_STRUCTW extends Win32Struct
     /**
      * @type {HANDLE}
      */
-    hWVTStateData{
+    hWVTStateData {
         get {
             if(!this.HasProp("__hWVTStateData"))
                 this.__hWVTStateData := HANDLE(56, this)

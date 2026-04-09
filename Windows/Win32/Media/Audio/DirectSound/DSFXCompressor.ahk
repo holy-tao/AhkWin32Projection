@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Media.Audio.DirectSound
- * @version v4.0.30319
  */
-class DSFXCompressor extends Win32Struct
-{
+class DSFXCompressor extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 4

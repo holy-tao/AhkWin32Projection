@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\MIB_IFROW.ahk
+#Include .\INTERNAL_IF_OPER_STATUS.ahk
 
 /**
  * Contains a table of interface entries.
@@ -16,13 +17,11 @@
  * On the Microsoft Windows Software Development Kit (SDK) released for Windows Vista and later, the organization of header files has changed and the <b>MIB_IFTABLE</b> structure is defined in the <i>Ifmib.h</i> header file not in the <i>Iprtrmib.h</i> header file. Note that the <i>Ifmib.h</i> header file is automatically included in <i>Ipmib.h</i> header file. This file is automatically included in the <i>Iprtrmib.h</i> header file which is automatically included in the <i>Iphlpapi.h</i> header file. The <i>Ifmib.h</i> header file should never be used directly.
  * @see https://learn.microsoft.com/windows/win32/api/ifmib/ns-ifmib-mib_iftable
  * @namespace Windows.Win32.NetworkManagement.IpHelper
- * @version v4.0.30319
  */
-class MIB_IFTABLE extends Win32Struct
-{
-    static sizeof => 16
+class MIB_IFTABLE extends Win32Struct {
+    static sizeof => 864
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * The number of interface entries in the array.
@@ -36,12 +35,12 @@ class MIB_IFTABLE extends Win32Struct
     /**
      * An array of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ifmib/ns-ifmib-mib_ifrow">MIB_IFROW</a> structures containing interface entries.
-     * @type {Array<MIB_IFROW>}
+     * @type {MIB_IFROW}
      */
-    table{
+    table {
         get {
             if(!this.HasProp("__tableProxyArray"))
-                this.__tableProxyArray := Win32FixedArray(this.ptr + 8, 1, MIB_IFROW, "")
+                this.__tableProxyArray := Win32FixedArray(this.ptr + 4, 1, MIB_IFROW, "")
             return this.__tableProxyArray
         }
     }

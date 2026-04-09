@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class INFORMATIONCARD_ASYMMETRIC_CRYPTO_PARAMETERS extends Win32Struct
-{
+class INFORMATIONCARD_ASYMMETRIC_CRYPTO_PARAMETERS extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

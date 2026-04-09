@@ -9,9 +9,8 @@
  * Use the methods of the [IMFRelativePanelWatcher](nn-mfidl-imfrelativepanelwatcher.md) interface to get an instance of this interface.
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imfrelativepanelreport
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFRelativePanelReport extends IUnknown{
+class IMFRelativePanelReport extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

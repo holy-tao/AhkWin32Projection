@@ -27,11 +27,9 @@
  * When using the <b>MapiFileDescW</b> member <b>nPosition</b>, the client application should not place two attachments in the same location. Client applications might not display file attachments at positions beyond the end of the message text.
  * @see https://learn.microsoft.com/windows/win32/api/mapi/ns-mapi-mapifiledescw
  * @namespace Windows.Win32.System.Mapi
- * @version v4.0.30319
  * @charset Unicode
  */
-class MapiFileDescW extends Win32Struct
-{
+class MapiFileDescW extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8

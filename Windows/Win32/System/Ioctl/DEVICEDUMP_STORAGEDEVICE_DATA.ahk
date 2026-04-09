@@ -6,10 +6,8 @@
 
 /**
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class DEVICEDUMP_STORAGEDEVICE_DATA extends Win32Struct
-{
+class DEVICEDUMP_STORAGEDEVICE_DATA extends Win32Struct {
     static sizeof => 304
 
     static packingSize => 8
@@ -17,7 +15,7 @@ class DEVICEDUMP_STORAGEDEVICE_DATA extends Win32Struct
     /**
      * @type {DEVICEDUMP_STRUCTURE_VERSION}
      */
-    Descriptor{
+    Descriptor {
         get {
             if(!this.HasProp("__Descriptor"))
                 this.__Descriptor := DEVICEDUMP_STRUCTURE_VERSION(0, this)
@@ -28,7 +26,7 @@ class DEVICEDUMP_STORAGEDEVICE_DATA extends Win32Struct
     /**
      * @type {DEVICEDUMP_SECTION_HEADER}
      */
-    SectionHeader{
+    SectionHeader {
         get {
             if(!this.HasProp("__SectionHeader"))
                 this.__SectionHeader := DEVICEDUMP_SECTION_HEADER(16, this)
@@ -55,7 +53,7 @@ class DEVICEDUMP_STORAGEDEVICE_DATA extends Win32Struct
     /**
      * @type {DEVICEDUMP_SUBSECTION_POINTER}
      */
-    PublicData{
+    PublicData {
         get {
             if(!this.HasProp("__PublicData"))
                 this.__PublicData := DEVICEDUMP_SUBSECTION_POINTER(264, this)
@@ -66,7 +64,7 @@ class DEVICEDUMP_STORAGEDEVICE_DATA extends Win32Struct
     /**
      * @type {DEVICEDUMP_SUBSECTION_POINTER}
      */
-    RestrictedData{
+    RestrictedData {
         get {
             if(!this.HasProp("__RestrictedData"))
                 this.__RestrictedData := DEVICEDUMP_SUBSECTION_POINTER(276, this)
@@ -77,7 +75,7 @@ class DEVICEDUMP_STORAGEDEVICE_DATA extends Win32Struct
     /**
      * @type {DEVICEDUMP_SUBSECTION_POINTER}
      */
-    PrivateData{
+    PrivateData {
         get {
             if(!this.HasProp("__PrivateData"))
                 this.__PrivateData := DEVICEDUMP_SUBSECTION_POINTER(288, this)

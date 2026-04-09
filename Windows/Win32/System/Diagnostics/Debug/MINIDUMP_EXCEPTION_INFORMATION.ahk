@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\EXCEPTION_POINTERS.ahk
 
 /**
  * Contains the exception information written to the minidump file by the MiniDumpWriteDump function.
  * @see https://learn.microsoft.com/windows/win32/api/minidumpapiset/ns-minidumpapiset-minidump_exception_information
  * @namespace Windows.Win32.System.Diagnostics.Debug
- * @version v4.0.30319
+ * @architecture X64, Arm64
  */
-class MINIDUMP_EXCEPTION_INFORMATION extends Win32Struct
-{
+class MINIDUMP_EXCEPTION_INFORMATION extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

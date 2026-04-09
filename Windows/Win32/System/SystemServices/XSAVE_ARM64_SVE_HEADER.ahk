@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.SystemServices
- * @version v4.0.30319
  */
-class XSAVE_ARM64_SVE_HEADER extends Win32Struct
-{
+class XSAVE_ARM64_SVE_HEADER extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 4
@@ -36,9 +34,9 @@ class XSAVE_ARM64_SVE_HEADER extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    Reserved{
+    Reserved {
         get {
             if(!this.HasProp("__ReservedProxyArray"))
                 this.__ReservedProxyArray := Win32FixedArray(this.ptr + 12, 5, Primitive, "uint")

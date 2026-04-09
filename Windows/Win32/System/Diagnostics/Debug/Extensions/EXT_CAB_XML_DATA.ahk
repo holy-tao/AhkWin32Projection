@@ -3,11 +3,9 @@
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
- * @version v4.0.30319
  */
-class EXT_CAB_XML_DATA extends Win32Struct
-{
-    static sizeof => 32
+class EXT_CAB_XML_DATA extends Win32Struct {
+    static sizeof => 64
 
     static packingSize => 8
 
@@ -22,7 +20,7 @@ class EXT_CAB_XML_DATA extends Win32Struct
             get => NumGet(this, 0, "ptr")
             set => NumPut("ptr", value, this, 0)
         }
-    
+
         /**
          * @type {PWSTR}
          */
@@ -30,7 +28,7 @@ class EXT_CAB_XML_DATA extends Win32Struct
             get => NumGet(this, 8, "ptr")
             set => NumPut("ptr", value, this, 8)
         }
-    
+
         /**
          * @type {PWSTR}
          */
@@ -38,7 +36,7 @@ class EXT_CAB_XML_DATA extends Win32Struct
             get => NumGet(this, 16, "ptr")
             set => NumPut("ptr", value, this, 16)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -46,7 +44,7 @@ class EXT_CAB_XML_DATA extends Win32Struct
             get => NumGet(this, 24, "uint")
             set => NumPut("uint", value, this, 24)
         }
-    
+
         /**
          * This bitfield backs the following members:
          * - MatchType
@@ -57,7 +55,7 @@ class EXT_CAB_XML_DATA extends Win32Struct
             get => NumGet(this, 28, "uint")
             set => NumPut("uint", value, this, 28)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -65,7 +63,7 @@ class EXT_CAB_XML_DATA extends Win32Struct
             get => (this._bitfield >> 0) & 0x7
             set => this._bitfield := ((value & 0x7) << 0) | (this._bitfield & ~(0x7 << 0))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -73,7 +71,6 @@ class EXT_CAB_XML_DATA extends Win32Struct
             get => NumGet(this, 32, "uint")
             set => NumPut("uint", value, this, 32)
         }
-    
     }
 
     /**
@@ -101,12 +98,12 @@ class EXT_CAB_XML_DATA extends Win32Struct
     }
 
     /**
-     * @type {Array<_SUBTAGS>}
+     * @type {_SUBTAGS}
      */
-    SubTags{
+    SubTags {
         get {
             if(!this.HasProp("__SubTagsProxyArray"))
-                this.__SubTagsProxyArray := Win32FixedArray(this.ptr + 24, 1, %this.__Class%._SUBTAGS, "")
+                this.__SubTagsProxyArray := Win32FixedArray(this.ptr + 24, 1, EXT_CAB_XML_DATA._SUBTAGS, "")
             return this.__SubTagsProxyArray
         }
     }

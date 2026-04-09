@@ -11,9 +11,8 @@
  * The <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-mfgetservice">MFGetService</a> function is a helper function that queries an object for <b>IMFGetService</b> and calls the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-imfgetservice-getservice">GetService</a> method.
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imfgetservice
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFGetService extends IUnknown{
+class IMFGetService extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

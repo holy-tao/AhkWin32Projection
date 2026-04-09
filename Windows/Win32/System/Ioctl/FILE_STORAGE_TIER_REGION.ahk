@@ -5,17 +5,15 @@
  * Describes a single storage tier region.
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-file_storage_tier_region
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class FILE_STORAGE_TIER_REGION extends Win32Struct
-{
+class FILE_STORAGE_TIER_REGION extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
 
     /**
      * Tier ID.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     TierId {
         get => NumGet(this, 0, "ptr")

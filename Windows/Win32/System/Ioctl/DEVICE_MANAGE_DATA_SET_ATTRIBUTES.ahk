@@ -8,10 +8,8 @@
  *     <c>(sizeof(DEVICE_MANAGE_DATA_SET_ATTRIBUTES) + ParameterBlockLength + DataSetRangesLength)</c>.
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-device_manage_data_set_attributes
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class DEVICE_MANAGE_DATA_SET_ATTRIBUTES extends Win32Struct
-{
+class DEVICE_MANAGE_DATA_SET_ATTRIBUTES extends Win32Struct {
     static sizeof => 28
 
     static packingSize => 4

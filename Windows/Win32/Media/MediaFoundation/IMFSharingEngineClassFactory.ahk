@@ -7,9 +7,8 @@
  * Creates an instance of the media sharing engine. (IMFSharingEngineClassFactory)
  * @see https://learn.microsoft.com/windows/win32/api/mfsharingengine/nn-mfsharingengine-imfsharingengineclassfactory
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFSharingEngineClassFactory extends IUnknown{
+class IMFSharingEngineClassFactory extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

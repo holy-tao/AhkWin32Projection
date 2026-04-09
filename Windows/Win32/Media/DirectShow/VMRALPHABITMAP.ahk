@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Graphics\Gdi\HDC.ahk
+#Include ..\..\Graphics\DirectDraw\IDirectDrawSurface7.ahk
 #Include ..\..\Foundation\RECT.ahk
 #Include .\NORMALIZEDRECT.ahk
 
@@ -8,10 +9,8 @@
  * The VMRALPHABITMAP structure is used in the VMR-7 filter's IVMRMixerBitmap methods when the application is providing a static alpha-blended bitmap to be displayed on the composited video frame.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/ns-strmif-vmralphabitmap
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class VMRALPHABITMAP extends Win32Struct
-{
+class VMRALPHABITMAP extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 8
@@ -96,7 +95,7 @@ class VMRALPHABITMAP extends Win32Struct
      * The handle to the device context for the bitmap. Specify <b>NULL</b> if the bitmap is located in a DirectDraw surface.
      * @type {HDC}
      */
-    hdc{
+    hdc {
         get {
             if(!this.HasProp("__hdc"))
                 this.__hdc := HDC(8, this)
@@ -118,7 +117,7 @@ class VMRALPHABITMAP extends Win32Struct
      * Specifies the source rectangle in either the GDI device context or the DirectDraw surface.
      * @type {RECT}
      */
-    rSrc{
+    rSrc {
         get {
             if(!this.HasProp("__rSrc"))
                 this.__rSrc := RECT(24, this)
@@ -130,7 +129,7 @@ class VMRALPHABITMAP extends Win32Struct
      * Specifies the destination rectangle in composition space.
      * @type {NORMALIZEDRECT}
      */
-    rDest{
+    rDest {
         get {
             if(!this.HasProp("__rDest"))
                 this.__rDest := NORMALIZEDRECT(40, this)

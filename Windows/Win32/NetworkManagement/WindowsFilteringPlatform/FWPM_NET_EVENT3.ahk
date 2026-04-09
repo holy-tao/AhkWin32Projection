@@ -1,18 +1,30 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\FWPM_NET_EVENT_HEADER3.ahk
 #Include ..\..\Foundation\FILETIME.ahk
+#Include .\FWP_IP_VERSION.ahk
 #Include .\FWP_BYTE_ARRAY16.ahk
 #Include .\FWP_BYTE_BLOB.ahk
-#Include .\FWPM_NET_EVENT_HEADER3.ahk
+#Include ..\..\Security\SID.ahk
+#Include .\FWP_AF.ahk
+#Include .\FWPM_NET_EVENT_TYPE.ahk
+#Include .\FWPM_NET_EVENT_IKEEXT_MM_FAILURE1.ahk
+#Include .\FWPM_NET_EVENT_IKEEXT_QM_FAILURE0.ahk
+#Include .\FWPM_NET_EVENT_IKEEXT_EM_FAILURE1.ahk
+#Include .\FWPM_NET_EVENT_CLASSIFY_DROP2.ahk
+#Include .\FWPM_NET_EVENT_IPSEC_KERNEL_DROP0.ahk
+#Include .\FWPM_NET_EVENT_IPSEC_DOSP_DROP0.ahk
+#Include .\FWPM_NET_EVENT_CLASSIFY_ALLOW0.ahk
+#Include .\FWPM_NET_EVENT_CAPABILITY_DROP0.ahk
+#Include .\FWPM_NET_EVENT_CAPABILITY_ALLOW0.ahk
+#Include .\FWPM_NET_EVENT_CLASSIFY_DROP_MAC0.ahk
 
 /**
  * Contains information about all event types. (FWPM_NET_EVENT3)
  * @see https://learn.microsoft.com/windows/win32/api/fwpmtypes/ns-fwpmtypes-fwpm_net_event3
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
- * @version v4.0.30319
  */
-class FWPM_NET_EVENT3 extends Win32Struct
-{
+class FWPM_NET_EVENT3 extends Win32Struct {
     static sizeof => 152
 
     static packingSize => 8
@@ -21,7 +33,7 @@ class FWPM_NET_EVENT3 extends Win32Struct
      * Information common to all events.
      * @type {FWPM_NET_EVENT_HEADER3}
      */
-    header{
+    header {
         get {
             if(!this.HasProp("__header"))
                 this.__header := FWPM_NET_EVENT_HEADER3(0, this)
@@ -31,7 +43,7 @@ class FWPM_NET_EVENT3 extends Win32Struct
 
     /**
      * The type of event.
-     * @type {Integer}
+     * @type {FWPM_NET_EVENT_TYPE}
      */
     type {
         get => NumGet(this, 136, "int")

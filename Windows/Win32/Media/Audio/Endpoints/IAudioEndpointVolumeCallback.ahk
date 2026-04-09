@@ -7,9 +7,8 @@
  * The IAudioEndpointVolumeCallback interface provides notifications of changes in the volume level and muting state of an audio endpoint device.
  * @see https://learn.microsoft.com/windows/win32/api/endpointvolume/nn-endpointvolume-iaudioendpointvolumecallback
  * @namespace Windows.Win32.Media.Audio.Endpoints
- * @version v4.0.30319
  */
-class IAudioEndpointVolumeCallback extends IUnknown{
+class IAudioEndpointVolumeCallback extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

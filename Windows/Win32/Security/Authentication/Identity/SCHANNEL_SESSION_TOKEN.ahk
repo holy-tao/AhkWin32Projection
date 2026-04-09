@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\SCHANNEL_SESSION_TOKEN_FLAGS.ahk
 
 /**
  * Specifies whether reconnections are enabled for an authentication session created by calling either the InitializeSecurityContext (Schannel) function or the AcceptSecurityContext (Schannel) function.
@@ -9,10 +10,8 @@
  * This API only applies to Session ID-based reconnects.
  * @see https://learn.microsoft.com/windows/win32/api/schannel/ns-schannel-schannel_session_token
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class SCHANNEL_SESSION_TOKEN extends Win32Struct
-{
+class SCHANNEL_SESSION_TOKEN extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4
@@ -27,8 +26,7 @@ class SCHANNEL_SESSION_TOKEN extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Integer}
+     * @type {SCHANNEL_SESSION_TOKEN_FLAGS}
      */
     dwFlags {
         get => NumGet(this, 4, "uint")

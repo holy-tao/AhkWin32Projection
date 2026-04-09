@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IMMDevice.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\IMMDevice.ahk
 
 /**
  * The IMMDeviceCollection interface represents a collection of multimedia device resources.
  * @see https://learn.microsoft.com/windows/win32/api/mmdeviceapi/nn-mmdeviceapi-immdevicecollection
  * @namespace Windows.Win32.Media.Audio
- * @version v4.0.30319
  */
-class IMMDeviceCollection extends IUnknown{
+class IMMDeviceCollection extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

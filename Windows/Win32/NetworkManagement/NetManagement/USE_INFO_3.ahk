@@ -1,15 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\USE_INFO_2.ahk
+#Include .\USE_INFO_ASG_TYPE.ahk
 
 /**
  * The USE_INFO_3 structure contains information about a connection between a local computer and a shared resource, including connection type, connection status, user name, domain name, and specific flags that describe connection behavior.
  * @see https://learn.microsoft.com/windows/win32/api/lmuse/ns-lmuse-use_info_3
  * @namespace Windows.Win32.NetworkManagement.NetManagement
- * @version v4.0.30319
  */
-class USE_INFO_3 extends Win32Struct
-{
+class USE_INFO_3 extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 8
@@ -18,7 +17,7 @@ class USE_INFO_3 extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmuse/ns-lmuse-use_info_2">USE_INFO_2</a> structure that contains
      * @type {USE_INFO_2}
      */
-    ui3_ui2{
+    ui3_ui2 {
         get {
             if(!this.HasProp("__ui3_ui2"))
                 this.__ui3_ui2 := USE_INFO_2(0, this)

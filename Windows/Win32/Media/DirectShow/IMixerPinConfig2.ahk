@@ -7,9 +7,8 @@
  * The IMixerPinConfig2 interface is exposed on the input pins of the Overlay Mixer and contains methods that manipulate video color controls, if the VGA chip supports it.This interface derives from the IMixerPinConfig interface.Applications use this interface to get and set video color controls when mixing multiple video streams.
  * @see https://learn.microsoft.com/windows/win32/api/mpconfig/nn-mpconfig-imixerpinconfig2
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IMixerPinConfig2 extends IMixerPinConfig{
+class IMixerPinConfig2 extends IMixerPinConfig {
 
     static sizeof => A_PtrSize
     /**

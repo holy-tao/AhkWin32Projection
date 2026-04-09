@@ -7,9 +7,8 @@
  * Sets and retrieves user-name and password information for authentication purposes.
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imfnetcredential
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFNetCredential extends IUnknown{
+class IMFNetCredential extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -32,7 +31,7 @@ class IMFNetCredential extends IUnknown{
 
     /**
      * Sets the user name.
-     * @param {Pointer} pbData Pointer to a buffer that contains the user name. If <i>fDataIsEncrypted</i> is <b>FALSE</b>, the buffer is a wide-character string. Otherwise, the buffer contains encrypted data.
+     * @param {Integer} pbData Pointer to a buffer that contains the user name. If <i>fDataIsEncrypted</i> is <b>FALSE</b>, the buffer is a wide-character string. Otherwise, the buffer contains encrypted data.
      * @param {Integer} cbData Size of <i>pbData</i>, in bytes. If <i>fDataIsEncrypted</i> is <b>FALSE</b>, the size includes the terminating null character.
      * @param {BOOL} fDataIsEncrypted If <b>TRUE</b>, the user name is encrypted. Otherwise, the user name is not encrypted.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
@@ -63,7 +62,7 @@ class IMFNetCredential extends IUnknown{
 
     /**
      * Sets the password.
-     * @param {Pointer} pbData Pointer to a buffer that contains the password. If <i>fDataIsEncrypted</i> is <b>FALSE</b>, the buffer is a wide-character string. Otherwise, the buffer contains encrypted data.
+     * @param {Integer} pbData Pointer to a buffer that contains the password. If <i>fDataIsEncrypted</i> is <b>FALSE</b>, the buffer is a wide-character string. Otherwise, the buffer contains encrypted data.
      * @param {Integer} cbData Size of <i>pbData</i>, in bytes. If <i>fDataIsEncrypted</i> is <b>FALSE</b>, the size includes the terminating null character.
      * @param {BOOL} fDataIsEncrypted If <b>TRUE</b>, the password is encrypted. Otherwise, the password is not encrypted.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.

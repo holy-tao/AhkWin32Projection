@@ -7,12 +7,10 @@
  * Prior to Windows Vista, this enumeration was declared in Shlwapi.h.
  * @see https://learn.microsoft.com/windows/win32/api/shtypes/ne-shtypes-perceived
  * @namespace Windows.Win32.UI.Shell.Common
- * @version v4.0.30319
  */
-class PERCEIVED extends Win32Enum{
+class PERCEIVED extends Win32Enum {
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static PERCEIVED_TYPE_FIRST => -3
@@ -102,7 +100,6 @@ class PERCEIVED extends Win32Enum{
     static PERCEIVED_TYPE_CONTACTS => 10
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static PERCEIVED_TYPE_LAST => 10

@@ -9,9 +9,8 @@
  * The <b>IProxyProviderWinEventSink</b> interface is provided by UIAutomationCore.dll when the framework calls the <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nf-uiautomationcore-iproxyproviderwineventhandler-respondtowinevent">IProxyProviderWinEventHandler::RespondToWinEvent</a> method. The framework stores the events added to the <b>IProxyProviderWinEventSink</b> object. When <b>IProxyProviderWinEventHandler::RespondToWinEvent</b> returns, the framework passes the events back to the client side, where the UI Automation events are actually fired.
  * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nn-uiautomationcore-iproxyproviderwineventsink
  * @namespace Windows.Win32.UI.Accessibility
- * @version v4.0.30319
  */
-class IProxyProviderWinEventSink extends IUnknown{
+class IProxyProviderWinEventSink extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -37,7 +36,7 @@ class IProxyProviderWinEventSink extends IUnknown{
      * @param {IRawElementProviderSimple} pProvider Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nn-uiautomationcore-irawelementprovidersimple">IRawElementProviderSimple</a>*</b>
      * 
      * A pointer to the provider for the element that will raise the event.
-     * @param {Integer} id Type: <b>PROPERTYID</b>
+     * @param {UIA_PROPERTY_ID} id Type: <b>PROPERTYID</b>
      * 
      * The identifier of the property that is to be changed. For a list of property IDs, see <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-entry-propids">Property Identifiers</a>.
      * @param {VARIANT} newValue Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinAuto/variant-structure">VARIANT</a></b>
@@ -58,7 +57,7 @@ class IProxyProviderWinEventSink extends IUnknown{
      * @param {IRawElementProviderSimple} pProvider Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nn-uiautomationcore-irawelementprovidersimple">IRawElementProviderSimple</a>*</b>
      * 
      * A pointer to the provider for the element that will raise the event.
-     * @param {Integer} id Type: <b>EVENTID</b>
+     * @param {UIA_EVENT_ID} id Type: <b>EVENTID</b>
      * 
      * The identifier of the event that will be raised. For a list of event identifiers, see <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-event-ids">Event Identifiers</a>
      * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
@@ -76,7 +75,7 @@ class IProxyProviderWinEventSink extends IUnknown{
      * @param {IRawElementProviderSimple} pProvider Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nn-uiautomationcore-irawelementprovidersimple">IRawElementProviderSimple</a>*</b>
      * 
      * A pointer to the provider of the element that is raising the event.
-     * @param {Integer} _structureChangeType 
+     * @param {StructureChangeType} _structureChangeType 
      * @param {Pointer<SAFEARRAY>} runtimeId Type: <b><a href="https://docs.microsoft.com/windows/win32/api/oaidl/ns-oaidl-safearray">SAFEARRAY</a>*</b>
      * 
      * A pointer to the runtime identifiers of the elements that are affected. These IDs enable applications to identify elements that have been removed and are no longer represented by <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationelement">IUIAutomationElement</a> interfaces.

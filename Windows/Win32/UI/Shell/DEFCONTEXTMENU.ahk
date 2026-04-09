@@ -1,6 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\HWND.ahk
+#Include .\IContextMenuCB.ahk
+#Include Common\ITEMIDLIST.ahk
+#Include .\IShellFolder.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\System\Registry\HKEY.ahk
 
 /**
  * Contains context menu information used by SHCreateDefaultContextMenu.
@@ -10,10 +15,8 @@
  * Members <b>apidl</b> and <b>cidl</b> can be used as parameters to method <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-ishellfolder-getuiobjectof">IShellFolder::GetUIObjectOf</a> to retrieve <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-idataobject">IDataObject</a>.
  * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/ns-shlobj_core-defcontextmenu
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class DEFCONTEXTMENU extends Win32Struct
-{
+class DEFCONTEXTMENU extends Win32Struct {
     static sizeof => 72
 
     static packingSize => 8
@@ -24,7 +27,7 @@ class DEFCONTEXTMENU extends Win32Struct
      * A handle to the context menu. Set this member to the handle returned from <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-createmenu">CreateMenu</a>.
      * @type {HWND}
      */
-    hwnd{
+    hwnd {
         get {
             if(!this.HasProp("__hwnd"))
                 this.__hwnd := HWND(0, this)

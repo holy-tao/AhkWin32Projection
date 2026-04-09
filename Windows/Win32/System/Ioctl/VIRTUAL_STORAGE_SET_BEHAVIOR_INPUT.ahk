@@ -1,12 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\VIRTUAL_STORAGE_BEHAVIOR_CODE.ahk
 
 /**
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class VIRTUAL_STORAGE_SET_BEHAVIOR_INPUT extends Win32Struct
-{
+class VIRTUAL_STORAGE_SET_BEHAVIOR_INPUT extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4
@@ -20,7 +19,7 @@ class VIRTUAL_STORAGE_SET_BEHAVIOR_INPUT extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {VIRTUAL_STORAGE_BEHAVIOR_CODE}
      */
     BehaviorCode {
         get => NumGet(this, 4, "int")

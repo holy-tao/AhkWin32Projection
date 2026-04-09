@@ -1,13 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Win32\Foundation\LUID.ahk
+#Include .\D3DKMT_CANCEL_PRESENTS_OPERATION.ahk
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
- * @version v4.0.30319
  */
-class D3DKMT_CANCEL_PRESENTS extends Win32Struct
-{
+class D3DKMT_CANCEL_PRESENTS extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -29,7 +27,7 @@ class D3DKMT_CANCEL_PRESENTS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<D3DKMT_CANCEL_PRESENTS_FLAGS>}
+     * @type {Pointer}
      */
     Flags {
         get => NumGet(this, 8, "ptr")
@@ -37,7 +35,7 @@ class D3DKMT_CANCEL_PRESENTS extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {D3DKMT_CANCEL_PRESENTS_OPERATION}
      */
     Operation {
         get => NumGet(this, 16, "int")
@@ -53,14 +51,11 @@ class D3DKMT_CANCEL_PRESENTS extends Win32Struct
     }
 
     /**
-     * @type {LUID}
+     * @type {Pointer}
      */
-    CompSurfaceLuid{
-        get {
-            if(!this.HasProp("__CompSurfaceLuid"))
-                this.__CompSurfaceLuid := LUID(32, this)
-            return this.__CompSurfaceLuid
-        }
+    CompSurfaceLuid {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**

@@ -5,9 +5,8 @@
  * Specifies additional options in a tensor description. Values can be bitwise OR'd together.
  * @see https://learn.microsoft.com/windows/win32/api/directml/ne-directml-dml_tensor_flags
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
- * @version v4.0.30319
  */
-class DML_TENSOR_FLAGS extends Win32BitflagEnum{
+class DML_TENSOR_FLAGS extends Win32BitflagEnum {
 
     /**
      * No options are specified.

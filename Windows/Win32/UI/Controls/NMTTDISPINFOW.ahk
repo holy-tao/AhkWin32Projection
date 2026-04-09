@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HWND.ahk
 #Include .\NMHDR.ahk
+#Include ..\..\Foundation\HWND.ahk
 #Include ..\..\Foundation\HINSTANCE.ahk
+#Include .\TOOLTIP_FLAGS.ahk
 
 /**
  * Contains information used in handling the TTN_GETDISPINFO notification code. This structure supersedes the TOOLTIPTEXT structure. (Unicode)
@@ -16,11 +17,9 @@
  * > The commctrl.h header defines NMTTDISPINFO as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
  * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-nmttdispinfow
  * @namespace Windows.Win32.UI.Controls
- * @version v4.0.30319
  * @charset Unicode
  */
-class NMTTDISPINFOW extends Win32Struct
-{
+class NMTTDISPINFOW extends Win32Struct {
     static sizeof => 216
 
     static packingSize => 8
@@ -32,7 +31,7 @@ class NMTTDISPINFOW extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/richedit/ns-richedit-nmhdr">NMHDR</a> structure that contains additional information about the notification.
      * @type {NMHDR}
      */
-    hdr{
+    hdr {
         get {
             if(!this.HasProp("__hdr"))
                 this.__hdr := NMHDR(0, this)
@@ -68,7 +67,7 @@ class NMTTDISPINFOW extends Win32Struct
      * Handle to the instance that contains a string resource to be used as the tooltip text. If <b>lpszText</b> is the address of the tooltip text string, this member must be <b>NULL</b>.
      * @type {HINSTANCE}
      */
-    hinst{
+    hinst {
         get {
             if(!this.HasProp("__hinst"))
                 this.__hinst := HINSTANCE(192, this)
@@ -120,7 +119,7 @@ class NMTTDISPINFOW extends Win32Struct
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
+     * @type {TOOLTIP_FLAGS}
      */
     uFlags {
         get => NumGet(this, 200, "uint")

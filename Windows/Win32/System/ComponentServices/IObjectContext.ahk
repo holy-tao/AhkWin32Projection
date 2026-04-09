@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -10,9 +9,8 @@
  * As with any COM object, you must release an <b>IObjectContext</b> object when you are finished using it, unless it is a local variable.
  * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nn-comsvcs-iobjectcontext
  * @namespace Windows.Win32.System.ComponentServices
- * @version v4.0.30319
  */
-class IObjectContext extends IUnknown{
+class IObjectContext extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

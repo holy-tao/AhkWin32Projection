@@ -5,9 +5,8 @@
  * Specifies whether the enrollment status of an object will be monitored during the enrollment process.
  * @see https://learn.microsoft.com/windows/win32/api/certenroll/ne-certenroll-enrollmentselectionstatus
  * @namespace Windows.Win32.Security.Cryptography.Certificates
- * @version v4.0.30319
  */
-class EnrollmentSelectionStatus extends Win32Enum{
+class EnrollmentSelectionStatus extends Win32Enum {
 
     /**
      * The enrollment status is not monitored.

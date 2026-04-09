@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class D3D12_FEATURE_DATA_VIDEO_DECODE_PROFILE_COUNT extends Win32Struct
-{
+class D3D12_FEATURE_DATA_VIDEO_DECODE_PROFILE_COUNT extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4

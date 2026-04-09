@@ -7,9 +7,8 @@
  * The IMediaPosition interface contains methods for seeking to a position within a stream.
  * @see https://learn.microsoft.com/windows/win32/api/control/nn-control-imediaposition
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IMediaPosition extends IDispatch{
+class IMediaPosition extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.UI.WindowsAndMessaging
- * @version v4.0.30319
  */
-class SYSTEM_PARAMETERS_INFO_ACTION extends Win32BitflagEnum{
+class SYSTEM_PARAMETERS_INFO_ACTION extends Win32BitflagEnum {
 
     /**
      * @type {Integer (UInt32)}

@@ -7,9 +7,8 @@
  * Represents a DirectML device, which is used to create operators, binding tables, command recorders, and other objects. (IDMLDevice1)
  * @see https://learn.microsoft.com/windows/win32/api/directml/nn-directml-idmldevice1
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
- * @version v4.0.30319
  */
-class IDMLDevice1 extends IDMLDevice{
+class IDMLDevice1 extends IDMLDevice {
 
     static sizeof => A_PtrSize
     /**
@@ -39,7 +38,7 @@ class IDMLDevice1 extends IDMLDevice{
      * @param {Pointer<DML_GRAPH_DESC>} desc Type: **[DML_GRAPH_DESC](/windows/win32/api/directml/ns-directml-dml_graph_desc)\***
      * 
      * A description of the graph to compile. See [DML_GRAPH_DESC](/windows/win32/api/directml/ns-directml-dml_graph_desc).
-     * @param {Integer} flags Type: [**DML_EXECUTION_FLAGS**](/windows/win32/api/directml/ne-directml-dml_execution_flags)
+     * @param {DML_EXECUTION_FLAGS} flags Type: [**DML_EXECUTION_FLAGS**](/windows/win32/api/directml/ne-directml-dml_execution_flags)
      * 
      * Any flags to control the execution of this operator.
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>

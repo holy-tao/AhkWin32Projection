@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\STORAGE_PROTOCOL_TYPE.ahk
 
 /**
  * Describes protocol-specific device data, provided in the input and output buffer of an IOCTL_STORAGE_QUERY_PROPERTY request.
@@ -59,17 +60,15 @@
  * </ul>
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-storage_protocol_specific_data
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class STORAGE_PROTOCOL_SPECIFIC_DATA extends Win32Struct
-{
+class STORAGE_PROTOCOL_SPECIFIC_DATA extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 4
 
     /**
      * The protocol type. Values for this member are defined in the <a href="https://docs.microsoft.com/windows/desktop/api/winioctl/ne-winioctl-storage_protocol_type">STORAGE_PROTOCOL_TYPE</a> enumeration.
-     * @type {Integer}
+     * @type {STORAGE_PROTOCOL_TYPE}
      */
     ProtocolType {
         get => NumGet(this, 0, "int")
@@ -131,7 +130,6 @@ class STORAGE_PROTOCOL_SPECIFIC_DATA extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     ProtocolDataRequestSubValue2 {
@@ -140,7 +138,6 @@ class STORAGE_PROTOCOL_SPECIFIC_DATA extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     ProtocolDataRequestSubValue3 {

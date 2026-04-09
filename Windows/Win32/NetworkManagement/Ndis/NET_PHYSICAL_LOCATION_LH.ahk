@@ -16,10 +16,8 @@
  *     <a href="https://docs.microsoft.com/windows-hardware/drivers/ddi/content/ndis/nf-ndis-ndisifregisterinterface">NdisIfRegisterInterface</a> function.
  * @see https://learn.microsoft.com/windows/win32/api/ifdef/ns-ifdef-net_physical_location_lh
  * @namespace Windows.Win32.NetworkManagement.Ndis
- * @version v4.0.30319
  */
-class NET_PHYSICAL_LOCATION_LH extends Win32Struct
-{
+class NET_PHYSICAL_LOCATION_LH extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4

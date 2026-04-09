@@ -5,10 +5,8 @@
  * The SECPKG_CONTEXT_THUNKS structure contains information about QueryContextAttributes (General) calls to be executed in LSA mode.This structure is used by the SpGetExtendedInformation and SpSetExtendedInformation functions.
  * @see https://learn.microsoft.com/windows/win32/api/ntsecpkg/ns-ntsecpkg-secpkg_context_thunks
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class SECPKG_CONTEXT_THUNKS extends Win32Struct
-{
+class SECPKG_CONTEXT_THUNKS extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4
@@ -25,9 +23,9 @@ class SECPKG_CONTEXT_THUNKS extends Win32Struct
     /**
      * An array of one or more context attributes. For a complete list of valid values, see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/sspi/nf-sspi-querycontextattributesa">QueryContextAttributes (General)</a>.
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    Levels{
+    Levels {
         get {
             if(!this.HasProp("__LevelsProxyArray"))
                 this.__LevelsProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "uint")

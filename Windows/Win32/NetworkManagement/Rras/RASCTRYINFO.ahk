@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Rras
- * @version v4.0.30319
  */
-class RASCTRYINFO extends Win32Struct
-{
+class RASCTRYINFO extends Win32Struct {
     static sizeof => 20
 
     static packingSize => 4

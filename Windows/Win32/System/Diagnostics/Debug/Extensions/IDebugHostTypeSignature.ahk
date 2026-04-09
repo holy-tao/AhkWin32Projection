@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
- * @version v4.0.30319
  */
-class IDebugHostTypeSignature extends IUnknown{
+class IDebugHostTypeSignature extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -54,7 +53,7 @@ class IDebugHostTypeSignature extends IUnknown{
     /**
      * 
      * @param {IDebugHostTypeSignature} typeSignature 
-     * @returns {Integer} 
+     * @returns {SignatureComparison} 
      */
     CompareAgainst(typeSignature) {
         result := ComCall(5, this, "ptr", typeSignature, "int*", &result := 0, "HRESULT")

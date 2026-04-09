@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem
- * @version v4.0.30319
  */
-class OPLOCK_KEY_CONTEXT extends Win32Struct
-{
+class OPLOCK_KEY_CONTEXT extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -28,7 +26,7 @@ class OPLOCK_KEY_CONTEXT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     ParentOplockKey {
         get => NumGet(this, 8, "ptr")
@@ -36,7 +34,7 @@ class OPLOCK_KEY_CONTEXT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     TargetOplockKey {
         get => NumGet(this, 16, "ptr")

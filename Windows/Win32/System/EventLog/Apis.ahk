@@ -5,7 +5,6 @@
 
 /**
  * @namespace Windows.Win32.System.EventLog
- * @version v4.0.30319
  */
 class EventLog {
 
@@ -51,7 +50,7 @@ class EventLog {
      * To connect to the remote computer, the remote computer must enable the "Remote Event Log Management" Windows Firewall exception; otherwise, when you try to use the session handle, the call will error with RPC_S_SERVER_UNAVAILABLE. The computer to which you are connecting must be running Windows Vista or later.
      * 
      * This function does not validate the credentials; the credentials are validated the first time you try to use the session handle. If the credentials are not valid, the call will fail with ERROR_ACCESS_DENIED.
-     * @param {Integer} LoginClass The connection method to use to connect to the remote computer. For possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/winevt/ne-winevt-evt_login_class">EVT_LOGIN_CLASS</a> enumeration.
+     * @param {EVT_LOGIN_CLASS} LoginClass The connection method to use to connect to the remote computer. For possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/winevt/ne-winevt-evt_login_class">EVT_LOGIN_CLASS</a> enumeration.
      * @param {Pointer<Void>} Login A <a href="https://docs.microsoft.com/windows/desktop/api/winevt/ns-winevt-evt_rpc_login">EVT_RPC_LOGIN</a> structure that identifies the remote computer that you want to connect to, the user's credentials, and the type of authentication to use when connecting.
      * @returns {EVT_HANDLE} If successful, the function returns a session handle that you can use to access event log information on the remote computer; otherwise, <b>NULL</b>. If <b>NULL</b>, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function to get the error code.
      * @see https://learn.microsoft.com/windows/win32/api/winevt/nf-winevt-evtopensession
@@ -77,7 +76,7 @@ class EventLog {
      * Closes an open handle.
      * @remarks
      * You cannot use the handle after the handle is closed. When you close a parent handle, any opened handles that were created using the handle are also closed. For example, if you query for events, the query result contains a handle for each event that matches the query. Best practice suggests that you close each event handle when you are done with the event but if you do not, when you close the query handle, all event handles are also closed.
-     * @param {EVT_HANDLE} _Object 
+     * @param {EVT_HANDLE} _Object An open event handle to close.
      * @returns {BOOL} <table>
      * <tr>
      * <th>Return code/value</th>
@@ -154,7 +153,34 @@ class EventLog {
      *       the <a href="https://docs.microsoft.com/windows/desktop/api/winevt/nf-winevt-evtclose">EvtClose</a> function.</li>
      * </ol>
      * The operation being stopped will return with an error code of ERROR_CANCELLED.
-     * @param {EVT_HANDLE} _Object 
+     * @param {EVT_HANDLE} _Object The handle whose operation you want to cancel. You can cancel the following operations:
+     * 
+     * <ul>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winevt/nf-winevt-evtclearlog">EvtClearLog</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winevt/nf-winevt-evtexportlog">EvtExportLog</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winevt/nf-winevt-evtnext">EvtNext</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winevt/nf-winevt-evtquery">EvtQuery</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winevt/nf-winevt-evtseek">EvtSeek</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winevt/nf-winevt-evtsubscribe">EvtSubscribe</a>
+     * </li>
+     * </ul>
+     * To cancel the <a href="https://docs.microsoft.com/windows/desktop/api/winevt/nf-winevt-evtclearlog">EvtClearLog</a>, 
+     *        <a href="https://docs.microsoft.com/windows/desktop/api/winevt/nf-winevt-evtexportlog">EvtExportLog</a>, 
+     *        <a href="https://docs.microsoft.com/windows/desktop/api/winevt/nf-winevt-evtquery">EvtQuery</a>, and 
+     *        <a href="https://docs.microsoft.com/windows/desktop/api/winevt/nf-winevt-evtsubscribe">EvtSubscribe</a> operations, you must pass the session 
+     *        handle. To specify the default session (local session), set this parameter to 
+     *        <b>NULL</b>.
      * @returns {BOOL} <table>
      * <tr>
      * <th>Return code/value</th>
@@ -209,7 +235,7 @@ class EventLog {
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/api/winevt/nf-winevt-evtquery">EvtQuery</a> and <a href="https://docs.microsoft.com/windows/desktop/api/winevt/nf-winevt-evtsubscribe">EvtSubscribe</a> functions can provide extended error information if there is a problem with the specified XPath. For example, the error information can identify the character in the XPath where a parsing error occurred. To receive the extended error information for a malformed XPath, you cannot specify the EvtQueryTolerateQueryErrors flag when calling <b>EvtQuery</b> or <b>EvtSubscribe</b>.
      * @param {Integer} BufferSize The size of the <i>Buffer</i> buffer, in characters.
-     * @param {PWSTR} _Buffer 
+     * @param {PWSTR} _Buffer A caller-allocated string buffer that will receive the extended error information. You can set this parameter to <b>NULL</b> to determine the required buffer size.
      * @param {Pointer<Integer>} BufferUsed The size, in characters, of the caller-allocated buffer that the function used or the required buffer size if the function fails with ERROR_INSUFFICIENT_BUFFER.
      * @returns {Integer} The return value is ERROR_SUCCESS if the call succeeded; otherwise, a Win32 error code.
      * @see https://learn.microsoft.com/windows/win32/api/winevt/nf-winevt-evtgetextendedstatus
@@ -233,7 +259,7 @@ class EventLog {
      * 
      * You must only use the query handle that this function returns on the same thread that created the handle.
      * @param {EVT_HANDLE} Session A remote session handle that the <a href="https://docs.microsoft.com/windows/desktop/api/winevt/nf-winevt-evtopensession">EvtOpenSession</a> function returns. Set to <b>NULL</b> to query for events on the local computer.
-     * @param {PWSTR} _Path 
+     * @param {PWSTR} _Path The name of the channel or the full path to a log file that contains the events that you want to query. You can specify an .evt, .evtx, or.etl log file. The path is required if the <i>Query</i> parameter contains an XPath query; the path is ignored if the <i>Query</i> parameter contains a structured XML query and the query specifies the path.
      * @param {PWSTR} Query A query that specifies the types of events that you want to retrieve. You can specify an XPath 1.0 query or structured XML query. If your XPath contains more than 20 expressions, use a structured XML query. To receive all events, set this parameter to <b>NULL</b> or "*".
      * @param {Integer} Flags One or more flags that specify the order that you want to receive the events and whether you are querying against a channel or log file.  For possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/winevt/ne-winevt-evt_query_flags">EVT_QUERY_FLAGS</a> enumeration.
      * @returns {EVT_HANDLE} A handle to the query results if successful; otherwise, <b>NULL</b>. If the function returns <b>NULL</b>, call the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function to get the error code.
@@ -389,7 +415,7 @@ class EventLog {
      * @param {PWSTR} ChannelPath The name of the Admin or Operational channel that contains the events that you want to subscribe to (you cannot subscribe to Analytic or Debug channels). The path is required if the <i>Query</i> parameter contains an XPath query; the path is ignored if the <i>Query</i> parameter contains a structured XML query.
      * @param {PWSTR} Query A query that specifies the types of events that you want the subscription service to return. You can specify an XPath 1.0 query or structured XML query. If your XPath contains more than 20 expressions, use a structured XML query. To receive all events, set this parameter to <b>NULL</b> or "*".
      * @param {EVT_HANDLE} Bookmark A handle to a bookmark that identifies the starting point for the subscription.  To get a bookmark handle, call the <a href="https://docs.microsoft.com/windows/desktop/api/winevt/nf-winevt-evtcreatebookmark">EvtCreateBookmark</a> function.  You must set this parameter if the <i>Flags</i> parameter contains the EvtSubscribeStartAfterBookmark flag; otherwise, <b>NULL</b>.
-     * @param {Pointer<Void>} _Context 
+     * @param {Pointer<Void>} _Context A caller-defined context value that the subscription service will pass to the specified callback each time it delivers an event.
      * @param {Pointer<EVT_SUBSCRIBE_CALLBACK>} Callback Pointer to your <a href="https://docs.microsoft.com/windows/desktop/api/winevt/nc-winevt-evt_subscribe_callback">EVT_SUBSCRIBE_CALLBACK</a> callback function that will receive the subscription events. This parameter must be <b>NULL</b> if the <i>SignalEvent</i> parameter is not <b>NULL</b>.
      * @param {Integer} Flags One or more flags that specify when to start subscribing to events. For example, if you specify EvtSubscribeStartAtOldestRecord, the service will retrieve all current and future events that match your query criteria; however, if you specify EvtSubscribeToFutureEvents, the service returns only future events that match your query criteria. For possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/winevt/ne-winevt-evt_subscribe_flags">EVT_SUBSCRIBE_FLAGS</a> enumeration.
      * @returns {EVT_HANDLE} A handle to the subscription if successful; otherwise, <b>NULL</b>. If the function returns <b>NULL</b>, call the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function to get the error code. You must call the <a href="https://docs.microsoft.com/windows/desktop/api/winevt/nf-winevt-evtclose">EvtClose</a> function with the subscription handle when done.
@@ -457,11 +483,13 @@ class EventLog {
      * When an EVT_HANDLE from this function is used in the <b>EvtRender</b> function, the list of values that is returned by that function consists of an array of <a href="https://docs.microsoft.com/windows/desktop/api/winevt/ns-winevt-evt_variant">EVT_VARIANT</a> structures, each corresponding to exactly one of the XPATH expressions in the original <i>ValuePaths</i> parameter array in order of appearance.  Each such <b>EVT_VARIANT</b> structure contains the value that is identified by its corresponding XPATH expression for the event that is being rendered.  If no value is found, the <b>EVT_VARIANT</b> structure contains <b>NULL</b>.  If multiple values are present, the <b>EVT_VARIANT</b> structure will contain the first value encountered.
      * 
      * Be careful when comparing floating-point numbers in XPath queries. Any string representation of a floating-point number is approximated, so the value displayed in XML might not match the number stored with the event. Floating-point numbers should be compared as being less than or greater than a constant.
-     * @param {EVT_HANDLE} _Context 
+     * @param {EVT_HANDLE} _Context A handle to the rendering context that the <a href="https://docs.microsoft.com/windows/desktop/api/winevt/nf-winevt-evtcreaterendercontext">EvtCreateRenderContext</a> function returns. This parameter must be set to <b>NULL</b> if the <i>Flags</i> parameter is set to EvtRenderEventXml or EvtRenderBookmark.
      * @param {EVT_HANDLE} Fragment A handle to an event or to a bookmark. Set this parameter to a bookmark handle if the <i>Flags</i> parameter is set to EvtRenderBookmark; otherwise, set to an event handle.
      * @param {Integer} Flags A flag that identifies what to render. For example, the entire event or specific properties of the event. For possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/winevt/ne-winevt-evt_render_flags">EVT_RENDER_FLAGS</a> enumeration.
      * @param {Integer} BufferSize The size of the <i>Buffer</i> buffer, in bytes.
-     * @param {Pointer} _Buffer 
+     * @param {Integer} _Buffer A caller-allocated buffer that will receive the rendered output. The contents is a <b>null</b>-terminated Unicode string if the <i>Flags</i> parameter is set to EvtRenderEventXml or EvtRenderBookmark. Otherwise, if <i>Flags</i> is set to EvtRenderEventValues, the buffer contains an array of <a href="https://docs.microsoft.com/windows/desktop/api/winevt/ns-winevt-evt_variant">EVT_VARIANT</a> structures; one for each property specified by the rendering context. The <i>PropertyCount</i> parameter contains the number of elements in the array.
+     * 
+     *  You can set this parameter to <b>NULL</b> to determine the required buffer size.
      * @param {Pointer<Integer>} BufferUsed The size, in bytes, of the caller-allocated buffer that the function used or the required buffer size if the function fails with ERROR_INSUFFICIENT_BUFFER.
      * @param {Pointer<Integer>} PropertyCount The number of the properties in the <i>Buffer</i> parameter if the <i>Flags</i> parameter is set to EvtRenderEventValues; otherwise, zero.
      * @returns {BOOL} <table>
@@ -557,7 +585,7 @@ class EventLog {
      * To override the insertion values, the <i>Flags</i> parameter must be set to <a href="https://docs.microsoft.com/windows/desktop/api/winevt/ne-winevt-evt_format_message_flags">EvtFormatMessageEvent</a>, <a href="https://docs.microsoft.com/windows/desktop/api/winevt/ne-winevt-evt_format_message_flags">EvtFormatMessageXML</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/winevt/ne-winevt-evt_format_message_flags">EvtFormatMessageId</a>. If <i>Flags</i> is set to <a href="https://docs.microsoft.com/windows/desktop/api/winevt/ne-winevt-evt_format_message_flags">EvtFormatMessageId</a>, the resource identifier must identify the event's message string.
      * @param {Integer} Flags A flag that specifies the message string in the event to format. For possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/winevt/ne-winevt-evt_format_message_flags">EVT_FORMAT_MESSAGE_FLAGS</a> enumeration.
      * @param {Integer} BufferSize The size of the <i>Buffer</i> buffer, in characters.
-     * @param {PWSTR} _Buffer 
+     * @param {PWSTR} _Buffer A caller-allocated buffer that will receive the formatted message string. You can set this parameter to <b>NULL</b> to determine the required buffer size.
      * @param {Pointer<Integer>} BufferUsed The size, in characters of the caller-allocated buffer that the function used or the required buffer size if the function fails with ERROR_INSUFFICIENT_BUFFER.
      * @returns {BOOL} <table>
      * <tr>
@@ -616,7 +644,7 @@ class EventLog {
      * 
      * To get information about the channel or log file, call the <a href="https://docs.microsoft.com/windows/desktop/api/winevt/nf-winevt-evtgetloginfo">EvtGetLogInfo</a> function.
      * @param {EVT_HANDLE} Session A remote session handle that the <a href="https://docs.microsoft.com/windows/desktop/api/winevt/nf-winevt-evtopensession">EvtOpenSession</a> function returns. Set to <b>NULL</b> to open a channel or log on the local computer.
-     * @param {PWSTR} _Path 
+     * @param {PWSTR} _Path The name of the channel or the full path to the exported log file.
      * @param {Integer} Flags A flag that determines whether the <i>Path</i> parameter points to a log file or channel. For possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/winevt/ne-winevt-evt_open_log_flags">EVT_OPEN_LOG_FLAGS</a> enumeration.
      * @returns {EVT_HANDLE} If successful, the function returns a handle to the file or channel; otherwise, <b>NULL</b>. If <b>NULL</b>, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function to get the error code.
      * @see https://learn.microsoft.com/windows/win32/api/winevt/nf-winevt-evtopenlog
@@ -642,9 +670,9 @@ class EventLog {
      * @remarks
      * You can get complete information for Operational and Admin channels or .evtx files; however, for Debug and Analytic channels or .etl files, you cannot get information for the EvtLogFull, EvtLogOldestRecordNumber, and EvtLogNumberOfLogRecords properties.
      * @param {EVT_HANDLE} Log A handle to the channel or log file that the <a href="https://docs.microsoft.com/windows/desktop/api/winevt/nf-winevt-evtopenlog">EvtOpenLog</a> function returns.
-     * @param {Integer} PropertyId The identifier of the property to retrieve. For a list of property identifiers, see the <a href="https://docs.microsoft.com/windows/desktop/api/winevt/ne-winevt-evt_log_property_id">EVT_LOG_PROPERTY_ID</a> enumeration.
+     * @param {EVT_LOG_PROPERTY_ID} PropertyId The identifier of the property to retrieve. For a list of property identifiers, see the <a href="https://docs.microsoft.com/windows/desktop/api/winevt/ne-winevt-evt_log_property_id">EVT_LOG_PROPERTY_ID</a> enumeration.
      * @param {Integer} PropertyValueBufferSize The size of the <i>PropertyValueBuffer</i> buffer, in bytes.
-     * @param {Pointer} PropertyValueBuffer A caller-allocated buffer that will receive the property value. The buffer contains an <a href="https://docs.microsoft.com/windows/desktop/api/winevt/ns-winevt-evt_variant">EVT_VARIANT</a> object. You can set this parameter to <b>NULL</b> to determine the required buffer size.
+     * @param {Integer} PropertyValueBuffer A caller-allocated buffer that will receive the property value. The buffer contains an <a href="https://docs.microsoft.com/windows/desktop/api/winevt/ns-winevt-evt_variant">EVT_VARIANT</a> object. You can set this parameter to <b>NULL</b> to determine the required buffer size.
      * @param {Pointer<Integer>} PropertyValueBufferUsed The size, in bytes, of the caller-allocated buffer that the function used or the required buffer size if the function fails with ERROR_INSUFFICIENT_BUFFER.
      * @returns {BOOL} <table>
      * <tr>
@@ -765,7 +793,7 @@ class EventLog {
      * 
      * This function  affects only the specified channel or log file—if the channel uses autoBackup or fileMax, this function will not affect those backup files.
      * @param {EVT_HANDLE} Session A remote session handle that the <a href="https://docs.microsoft.com/windows/desktop/api/winevt/nf-winevt-evtopensession">EvtOpenSession</a> function returns. Set to <b>NULL</b> for local channels.
-     * @param {PWSTR} _Path 
+     * @param {PWSTR} _Path The name of the channel or the full path to a log file that contains the events that you want to export. If the <i>Query</i> parameter contains an XPath query, you must specify the channel or log file. If the <i>Flags</i> parameter contains EvtExportLogFilePath, you must specify the log file. If the <i>Query</i> parameter contains a structured XML query, the channel or path that you specify here must match the channel or path in the query. If the <i>Flags</i> parameter contains EvtExportLogChannelPath, this parameter can be <b>NULL</b> if  the query is a structured XML query that specifies the channel.
      * @param {PWSTR} Query A query that specifies the types of events that you want to export. You can specify an XPath 1.0 query or structured XML query. If your XPath contains more than 20 expressions, use a structured XML query. To export all events, set this parameter to <b>NULL</b> or "*".
      * @param {PWSTR} TargetFilePath The full path to the target log file that will receive the events. The target log file must not exist.
      * @param {Integer} Flags Flags that indicate whether the events come from a channel or log file. For possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/winevt/ne-winevt-evt_exportlog_flags">EVT_EXPORTLOG_FLAGS</a> enumeration.
@@ -1047,9 +1075,11 @@ class EventLog {
      * @remarks
      * This function changes an in-memory copy of the configuration properties. To apply the changes that you have made to one or more of the configuration properties, call the  <a href="https://docs.microsoft.com/windows/desktop/api/winevt/nf-winevt-evtsavechannelconfig">EvtSaveChannelConfig</a> function.
      * @param {EVT_HANDLE} ChannelConfig A handle to the channel's configuration properties that the  <a href="https://docs.microsoft.com/windows/desktop/api/winevt/nf-winevt-evtopenchannelconfig">EvtOpenChannelConfig</a> function returns.
-     * @param {Integer} PropertyId The identifier of the channel property to set. For a list of property identifiers, see the <a href="https://docs.microsoft.com/windows/desktop/api/winevt/ne-winevt-evt_channel_config_property_id">EVT_CHANNEL_CONFIG_PROPERTY_ID</a> enumeration.
+     * @param {EVT_CHANNEL_CONFIG_PROPERTY_ID} PropertyId The identifier of the channel property to set. For a list of property identifiers, see the <a href="https://docs.microsoft.com/windows/desktop/api/winevt/ne-winevt-evt_channel_config_property_id">EVT_CHANNEL_CONFIG_PROPERTY_ID</a> enumeration.
      * @param {Integer} Flags Reserved. Must be zero.
-     * @param {Pointer<EVT_VARIANT>} _PropertyValue 
+     * @param {Pointer<EVT_VARIANT>} _PropertyValue The property value to set.
+     * 
+     * A caller-allocated buffer that contains the new configuration property value. The buffer contains an <a href="https://docs.microsoft.com/windows/desktop/api/winevt/ns-winevt-evt_variant">EVT_VARIANT</a> object. Be sure to set the configuration value and variant type.
      * @returns {BOOL} <table>
      * <tr>
      * <th>Return code/value</th>
@@ -1099,10 +1129,10 @@ class EventLog {
     /**
      * Gets the specified channel configuration property.
      * @param {EVT_HANDLE} ChannelConfig A handle to the channel's configuration properties that the  <a href="https://docs.microsoft.com/windows/desktop/api/winevt/nf-winevt-evtopenchannelconfig">EvtOpenChannelConfig</a> function returns.
-     * @param {Integer} PropertyId The identifier of the channel property to retrieve. For a list of property identifiers, see the <a href="https://docs.microsoft.com/windows/desktop/api/winevt/ne-winevt-evt_channel_config_property_id">EVT_CHANNEL_CONFIG_PROPERTY_ID</a> enumeration.
+     * @param {EVT_CHANNEL_CONFIG_PROPERTY_ID} PropertyId The identifier of the channel property to retrieve. For a list of property identifiers, see the <a href="https://docs.microsoft.com/windows/desktop/api/winevt/ne-winevt-evt_channel_config_property_id">EVT_CHANNEL_CONFIG_PROPERTY_ID</a> enumeration.
      * @param {Integer} Flags Reserved. Must be zero.
      * @param {Integer} PropertyValueBufferSize The size of the <i>PropertyValueBuffer</i> buffer, in bytes.
-     * @param {Pointer} PropertyValueBuffer A caller-allocated buffer that will receive the configuration property. The buffer contains an <a href="https://docs.microsoft.com/windows/desktop/api/winevt/ns-winevt-evt_variant">EVT_VARIANT</a> object. You can set this parameter to <b>NULL</b> to determine the required buffer size.
+     * @param {Integer} PropertyValueBuffer A caller-allocated buffer that will receive the configuration property. The buffer contains an <a href="https://docs.microsoft.com/windows/desktop/api/winevt/ns-winevt-evt_variant">EVT_VARIANT</a> object. You can set this parameter to <b>NULL</b> to determine the required buffer size.
      * @param {Pointer<Integer>} PropertyValueBufferUsed The size, in bytes, of the caller-allocated buffer that the function used or the required buffer size if the function fails with ERROR_INSUFFICIENT_BUFFER.
      * @returns {BOOL} <table>
      * <tr>
@@ -1279,10 +1309,10 @@ class EventLog {
      * </div>
      * <div> </div>
      * @param {EVT_HANDLE} PublisherMetadata A handle to the metadata that the  <a href="https://docs.microsoft.com/windows/desktop/api/winevt/nf-winevt-evtopenpublishermetadata">EvtOpenPublisherMetadata</a> function returns.
-     * @param {Integer} PropertyId The identifier of the metadata property to retrieve. For a list of property identifiers, see the <a href="https://docs.microsoft.com/windows/desktop/api/winevt/ne-winevt-evt_publisher_metadata_property_id">EVT_PUBLISHER_METADATA_PROPERTY_ID</a> enumeration.
+     * @param {EVT_PUBLISHER_METADATA_PROPERTY_ID} PropertyId The identifier of the metadata property to retrieve. For a list of property identifiers, see the <a href="https://docs.microsoft.com/windows/desktop/api/winevt/ne-winevt-evt_publisher_metadata_property_id">EVT_PUBLISHER_METADATA_PROPERTY_ID</a> enumeration.
      * @param {Integer} Flags Reserved. Must be zero.
      * @param {Integer} PublisherMetadataPropertyBufferSize The size of the <i>PublisherMetadataPropertyBuffer</i> buffer, in bytes.
-     * @param {Pointer} PublisherMetadataPropertyBuffer A caller-allocated buffer that will receive the metadata property. The buffer contains an <a href="https://docs.microsoft.com/windows/desktop/api/winevt/ns-winevt-evt_variant">EVT_VARIANT</a> object. You can set this parameter to <b>NULL</b> to determine the required buffer size.
+     * @param {Integer} PublisherMetadataPropertyBuffer A caller-allocated buffer that will receive the metadata property. The buffer contains an <a href="https://docs.microsoft.com/windows/desktop/api/winevt/ns-winevt-evt_variant">EVT_VARIANT</a> object. You can set this parameter to <b>NULL</b> to determine the required buffer size.
      * @param {Pointer<Integer>} PublisherMetadataPropertyBufferUsed The size, in bytes, of the caller-allocated buffer that the function used or the required buffer size if the function fails with ERROR_INSUFFICIENT_BUFFER.
      * @returns {BOOL} <table>
      * <tr>
@@ -1389,10 +1419,10 @@ class EventLog {
     /**
      * Gets the specified event metadata property.
      * @param {EVT_HANDLE} EventMetadata A handle to the event metadata that the  <a href="https://docs.microsoft.com/windows/desktop/api/winevt/nf-winevt-evtnexteventmetadata">EvtNextEventMetadata</a> function returns.
-     * @param {Integer} PropertyId The identifier of the metadata property to retrieve. For a list of property identifiers, see the <a href="https://docs.microsoft.com/windows/desktop/api/winevt/ne-winevt-evt_event_metadata_property_id">EVT_EVENT_METADATA_PROPERTY_ID</a> enumeration.
+     * @param {EVT_EVENT_METADATA_PROPERTY_ID} PropertyId The identifier of the metadata property to retrieve. For a list of property identifiers, see the <a href="https://docs.microsoft.com/windows/desktop/api/winevt/ne-winevt-evt_event_metadata_property_id">EVT_EVENT_METADATA_PROPERTY_ID</a> enumeration.
      * @param {Integer} Flags Reserved. Must be zero.
      * @param {Integer} EventMetadataPropertyBufferSize The size of the <i>EventMetadataPropertyBuffer</i> buffer, in bytes.
-     * @param {Pointer} EventMetadataPropertyBuffer A caller-allocated buffer that will receive the metadata property. The buffer contains an <a href="https://docs.microsoft.com/windows/desktop/api/winevt/ns-winevt-evt_variant">EVT_VARIANT</a> object. You can set this parameter to <b>NULL</b> to determine the required buffer size.
+     * @param {Integer} EventMetadataPropertyBuffer A caller-allocated buffer that will receive the metadata property. The buffer contains an <a href="https://docs.microsoft.com/windows/desktop/api/winevt/ns-winevt-evt_variant">EVT_VARIANT</a> object. You can set this parameter to <b>NULL</b> to determine the required buffer size.
      * @param {Pointer<Integer>} EventMetadataPropertyBufferUsed The size, in bytes, of the caller-allocated buffer that the function used or the required buffer size if the function fails with ERROR_INSUFFICIENT_BUFFER.
      * @returns {BOOL} <table>
      * <tr>
@@ -1512,7 +1542,7 @@ class EventLog {
      * @param {Integer} ArrayIndex The zero-based index of the object in the array.
      * @param {Integer} Flags Reserved. Must be zero.
      * @param {Integer} PropertyValueBufferSize The size of the <i>PropertyValueBuffer</i> buffer, in bytes.
-     * @param {Pointer} PropertyValueBuffer A caller-allocated buffer that will receive the metadata property. The buffer contains an <a href="https://docs.microsoft.com/windows/desktop/api/winevt/ns-winevt-evt_variant">EVT_VARIANT</a> object. You can set this parameter to <b>NULL</b> to determine the required buffer size.
+     * @param {Integer} PropertyValueBuffer A caller-allocated buffer that will receive the metadata property. The buffer contains an <a href="https://docs.microsoft.com/windows/desktop/api/winevt/ns-winevt-evt_variant">EVT_VARIANT</a> object. You can set this parameter to <b>NULL</b> to determine the required buffer size.
      * @param {Pointer<Integer>} PropertyValueBufferUsed The size, in bytes, of the caller-allocated buffer that the function used or the required buffer size if the function fails with ERROR_INSUFFICIENT_BUFFER.
      * @returns {BOOL} <table>
      * <tr>
@@ -1565,9 +1595,9 @@ class EventLog {
      * @remarks
      * You only need to call this function, if you pass the EvtQueryTolerateQueryErrors flag to <a href="https://docs.microsoft.com/windows/desktop/api/winevt/nf-winevt-evtquery">EvtQuery</a> or the EvtSubscribeTolerateQueryErrors flag to <a href="https://docs.microsoft.com/windows/desktop/api/winevt/nf-winevt-evtsubscribe">EvtSubscribe</a>.
      * @param {EVT_HANDLE} QueryOrSubscription A handle to the query that the<a href="https://docs.microsoft.com/windows/desktop/api/winevt/nf-winevt-evtquery">EvtQuery</a> or  <a href="https://docs.microsoft.com/windows/desktop/api/winevt/nf-winevt-evtsubscribe">EvtSubscribe</a> function returns.
-     * @param {Integer} PropertyId The identifier of the query information to retrieve. For a list of identifiers, see the <a href="https://docs.microsoft.com/windows/desktop/api/winevt/ne-winevt-evt_query_property_id">EVT_QUERY_PROPERTY_ID</a> enumeration.
+     * @param {EVT_QUERY_PROPERTY_ID} PropertyId The identifier of the query information to retrieve. For a list of identifiers, see the <a href="https://docs.microsoft.com/windows/desktop/api/winevt/ne-winevt-evt_query_property_id">EVT_QUERY_PROPERTY_ID</a> enumeration.
      * @param {Integer} PropertyValueBufferSize The size of the <i>PropertyValueBuffer</i> buffer, in bytes.
-     * @param {Pointer} PropertyValueBuffer A caller-allocated buffer that will receive the query information. The buffer contains an <a href="https://docs.microsoft.com/windows/desktop/api/winevt/ns-winevt-evt_variant">EVT_VARIANT</a> object. You can set this parameter to <b>NULL</b> to determine the required buffer size.
+     * @param {Integer} PropertyValueBuffer A caller-allocated buffer that will receive the query information. The buffer contains an <a href="https://docs.microsoft.com/windows/desktop/api/winevt/ns-winevt-evt_variant">EVT_VARIANT</a> object. You can set this parameter to <b>NULL</b> to determine the required buffer size.
      * @param {Pointer<Integer>} PropertyValueBufferUsed The size, in bytes, of the caller-allocated buffer that the function used or the required buffer size if the function fails with ERROR_INSUFFICIENT_BUFFER.
      * @returns {BOOL} <table>
      * <tr>
@@ -1700,9 +1730,9 @@ class EventLog {
      * @remarks
      * If the query that you passed to <a href="https://docs.microsoft.com/windows/desktop/api/winevt/nf-winevt-evtquery">EvtQuery</a> or <a href="https://docs.microsoft.com/windows/desktop/api/winevt/nf-winevt-evtsubscribe">EvtSubscribe</a> was an XPath instead of a structured XML query, the query identifier will be zero and the path will be the path that you passed to the function.
      * @param {EVT_HANDLE} Event A handle to an event for which you want to retrieve information.
-     * @param {Integer} PropertyId A flag that identifies the information to retrieve. For example, the query identifier or the path. For possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/winevt/ne-winevt-evt_event_property_id">EVT_EVENT_PROPERTY_ID</a> enumeration.
+     * @param {EVT_EVENT_PROPERTY_ID} PropertyId A flag that identifies the information to retrieve. For example, the query identifier or the path. For possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/winevt/ne-winevt-evt_event_property_id">EVT_EVENT_PROPERTY_ID</a> enumeration.
      * @param {Integer} PropertyValueBufferSize The size of the <i>PropertyValueBuffer</i> buffer, in bytes.
-     * @param {Pointer} PropertyValueBuffer A caller-allocated buffer that will receive the information. The buffer contains an <a href="https://docs.microsoft.com/windows/desktop/api/winevt/ns-winevt-evt_variant">EVT_VARIANT</a> object. You can set this parameter to <b>NULL</b> to determine the required buffer size.
+     * @param {Integer} PropertyValueBuffer A caller-allocated buffer that will receive the information. The buffer contains an <a href="https://docs.microsoft.com/windows/desktop/api/winevt/ns-winevt-evt_variant">EVT_VARIANT</a> object. You can set this parameter to <b>NULL</b> to determine the required buffer size.
      * @param {Pointer<Integer>} PropertyValueBufferUsed The size, in bytes, of the caller-allocated buffer that the function used or the required buffer size if the function fails with ERROR_INSUFFICIENT_BUFFER.
      * @returns {BOOL} <table>
      * <tr>
@@ -2286,9 +2316,9 @@ class EventLog {
      * <div> </div>
      * @param {HANDLE} hEventLog A handle to the event log to be read. The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-openeventloga">OpenEventLog</a> function returns this handle.
-     * @param {Integer} dwReadFlags 
+     * @param {READ_EVENT_LOG_READ_FLAGS} dwReadFlags 
      * @param {Integer} dwRecordOffset The record number of the log-entry at which the read operation should start. This parameter is ignored unless <i>dwReadFlags</i> includes the <b>EVENTLOG_SEEK_READ</b> flag.
-     * @param {Pointer} lpBuffer An application-allocated buffer that will receive one or more <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-eventlogrecord">EVENTLOGRECORD</a> structures. This parameter cannot be <b>NULL</b>, even if the <i>nNumberOfBytesToRead</i> parameter is zero. 
+     * @param {Integer} lpBuffer An application-allocated buffer that will receive one or more <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-eventlogrecord">EVENTLOGRECORD</a> structures. This parameter cannot be <b>NULL</b>, even if the <i>nNumberOfBytesToRead</i> parameter is zero. 
      * 
      * 
      * 
@@ -2331,9 +2361,9 @@ class EventLog {
      * <div> </div>
      * @param {HANDLE} hEventLog A handle to the event log to be read. The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-openeventloga">OpenEventLog</a> function returns this handle.
-     * @param {Integer} dwReadFlags 
+     * @param {READ_EVENT_LOG_READ_FLAGS} dwReadFlags 
      * @param {Integer} dwRecordOffset The record number of the log-entry at which the read operation should start. This parameter is ignored unless <i>dwReadFlags</i> includes the <b>EVENTLOG_SEEK_READ</b> flag.
-     * @param {Pointer} lpBuffer An application-allocated buffer that will receive one or more <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-eventlogrecord">EVENTLOGRECORD</a> structures. This parameter cannot be <b>NULL</b>, even if the <i>nNumberOfBytesToRead</i> parameter is zero. 
+     * @param {Integer} lpBuffer An application-allocated buffer that will receive one or more <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-eventlogrecord">EVENTLOGRECORD</a> structures. This parameter cannot be <b>NULL</b>, even if the <i>nNumberOfBytesToRead</i> parameter is zero. 
      * 
      * 
      * 
@@ -2380,7 +2410,7 @@ class EventLog {
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-registereventsourcea">RegisterEventSource</a> function returns this handle. 
      * 
      * As of Windows XP with SP2, this parameter cannot be a handle to the <b>Security</b> log. To write an event to the <b>Security</b> log, use the <a href="https://docs.microsoft.com/windows/desktop/api/authz/nf-authz-authzreportsecurityevent">AuthzReportSecurityEvent</a> function.
-     * @param {Integer} wType 
+     * @param {REPORT_EVENT_TYPE} wType 
      * @param {Integer} wCategory The event category. This is source-specific information; the category can have any value. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/EventLog/event-categories">Event Categories</a>.
      * @param {Integer} dwEventID The event identifier. The event identifier specifies the entry in the message file associated with the event source. For more information, see <a href="https://docs.microsoft.com/windows/desktop/EventLog/event-identifiers">Event Identifiers</a>.
@@ -2390,7 +2420,7 @@ class EventLog {
      * @param {Pointer<PSTR>} lpStrings A pointer to a buffer containing an array of null-terminated strings that are merged into the message before Event Viewer displays the string to the user. This parameter must be a valid pointer (or <b>NULL</b>), even if <i>wNumStrings</i> is zero. Each string is limited to 31,839  characters.
      * 
      * <b>Prior to Windows Vista:  </b>Each string is limited to 32K characters.
-     * @param {Pointer} lpRawData A pointer to the buffer containing the binary data. This parameter must be a valid pointer (or <b>NULL</b>), even if the <i>dwDataSize</i> parameter is zero.
+     * @param {Integer} lpRawData A pointer to the buffer containing the binary data. This parameter must be a valid pointer (or <b>NULL</b>), even if the <i>dwDataSize</i> parameter is zero.
      * @returns {BOOL} If the function succeeds, the return value is nonzero, indicating that the entry was written to the log.
      * 						
      * 
@@ -2496,7 +2526,7 @@ class EventLog {
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-registereventsourcea">RegisterEventSource</a> function returns this handle. 
      * 
      * As of Windows XP with SP2, this parameter cannot be a handle to the <b>Security</b> log. To write an event to the <b>Security</b> log, use the <a href="https://docs.microsoft.com/windows/desktop/api/authz/nf-authz-authzreportsecurityevent">AuthzReportSecurityEvent</a> function.
-     * @param {Integer} wType 
+     * @param {REPORT_EVENT_TYPE} wType 
      * @param {Integer} wCategory The event category. This is source-specific information; the category can have any value. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/EventLog/event-categories">Event Categories</a>.
      * @param {Integer} dwEventID The event identifier. The event identifier specifies the entry in the message file associated with the event source. For more information, see <a href="https://docs.microsoft.com/windows/desktop/EventLog/event-identifiers">Event Identifiers</a>.
@@ -2506,7 +2536,7 @@ class EventLog {
      * @param {Pointer<PWSTR>} lpStrings A pointer to a buffer containing an array of null-terminated strings that are merged into the message before Event Viewer displays the string to the user. This parameter must be a valid pointer (or <b>NULL</b>), even if <i>wNumStrings</i> is zero. Each string is limited to 31,839  characters.
      * 
      * <b>Prior to Windows Vista:  </b>Each string is limited to 32K characters.
-     * @param {Pointer} lpRawData A pointer to the buffer containing the binary data. This parameter must be a valid pointer (or <b>NULL</b>), even if the <i>dwDataSize</i> parameter is zero.
+     * @param {Integer} lpRawData A pointer to the buffer containing the binary data. This parameter must be a valid pointer (or <b>NULL</b>), even if the <i>dwDataSize</i> parameter is zero.
      * @returns {BOOL} If the function succeeds, the return value is nonzero, indicating that the entry was written to the log.
      * 						
      * 
@@ -2627,7 +2657,7 @@ class EventLog {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer} lpBuffer An application-allocated buffer that receives the event log information. The format of this data depends on the value of the <i>dwInfoLevel</i> parameter.
+     * @param {Integer} lpBuffer An application-allocated buffer that receives the event log information. The format of this data depends on the value of the <i>dwInfoLevel</i> parameter.
      * @param {Integer} cbBufSize The size of the <i>lpBuffer</i> buffer, in bytes.
      * @param {Pointer<Integer>} pcbBytesNeeded The function sets this parameter to the required buffer size for the requested information, regardless of whether the function succeeds. Use this value if the function fails with <b>ERROR_INSUFFICIENT_BUFFER</b> to allocate a buffer of the correct size.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.

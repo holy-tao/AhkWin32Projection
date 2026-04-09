@@ -1,18 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\IEnumDiscMasterFormats.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\IEnumDiscRecorders.ahk
 #Include .\IDiscRecorder.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * The IDiscMaster interface allows an application to reserve an image mastering API, enumerate disc mastering formats and disc recorders supported by an image mastering object, and start a simulated or actual burn of a disc.
  * @see https://learn.microsoft.com/windows/win32/api/imapi/nn-imapi-idiscmaster
  * @namespace Windows.Win32.Storage.Imapi
- * @version v4.0.30319
  */
-class IDiscMaster extends IUnknown{
+class IDiscMaster extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

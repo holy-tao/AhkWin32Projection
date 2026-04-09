@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.ActiveScript
- * @version v4.0.30319
  */
-class PROFILER_PROPERTY_TYPE_SUBSTRING_INFO extends Win32Struct
-{
+class PROFILER_PROPERTY_TYPE_SUBSTRING_INFO extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

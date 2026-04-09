@@ -1,12 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\XLAT_SIDE.ahk
 
 /**
  * @namespace Windows.Win32.System.Rpc
- * @version v4.0.30319
  */
-class FULL_PTR_XLAT_TABLES extends Win32Struct
-{
+class FULL_PTR_XLAT_TABLES extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -36,7 +35,7 @@ class FULL_PTR_XLAT_TABLES extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {XLAT_SIDE}
      */
     XlatSide {
         get => NumGet(this, 20, "int")

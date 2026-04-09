@@ -9,16 +9,13 @@
  * Some IME windows adjust the composition window position specified by the system or the application. The CFS_FORCE_POSITION directs the IME window to skip this adjustment.
  * @see https://learn.microsoft.com/windows/win32/api/immdev/ns-immdev-compositionform
  * @namespace Windows.Win32.UI.Input.Ime
- * @version v4.0.30319
  */
-class COMPOSITIONFORM extends Win32Struct
-{
+class COMPOSITIONFORM extends Win32Struct {
     static sizeof => 28
 
     static packingSize => 4
 
     /**
-     * 
      * @type {Integer}
      */
     dwStyle {
@@ -30,7 +27,7 @@ class COMPOSITIONFORM extends Win32Struct
      * A <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a> structure containing the coordinates of the upper left corner of the composition window.
      * @type {POINT}
      */
-    ptCurrentPos{
+    ptCurrentPos {
         get {
             if(!this.HasProp("__ptCurrentPos"))
                 this.__ptCurrentPos := POINT(4, this)
@@ -42,7 +39,7 @@ class COMPOSITIONFORM extends Win32Struct
      * A <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure containing the coordinates of the upper left and lower right corners of the composition window.
      * @type {RECT}
      */
-    rcArea{
+    rcArea {
         get {
             if(!this.HasProp("__rcArea"))
                 this.__rcArea := RECT(12, this)

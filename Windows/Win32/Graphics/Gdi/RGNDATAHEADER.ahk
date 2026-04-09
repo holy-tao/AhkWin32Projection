@@ -6,10 +6,8 @@
  * The RGNDATAHEADER structure describes the data returned by the GetRegionData function.
  * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-rgndataheader
  * @namespace Windows.Win32.Graphics.Gdi
- * @version v4.0.30319
  */
-class RGNDATAHEADER extends Win32Struct
-{
+class RGNDATAHEADER extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 4
@@ -54,7 +52,7 @@ class RGNDATAHEADER extends Win32Struct
      * A bounding rectangle for the region in logical units.
      * @type {RECT}
      */
-    rcBound{
+    rcBound {
         get {
             if(!this.HasProp("__rcBound"))
                 this.__rcBound := RECT(16, this)

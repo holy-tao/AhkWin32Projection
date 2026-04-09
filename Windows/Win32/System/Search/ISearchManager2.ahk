@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ISearchCatalogManager.ahk
 #Include .\ISearchManager.ahk
+#Include .\ISearchCatalogManager.ahk
 
 /**
  * Enabled applications to create and delete custom catalogs in the Windows Search indexer.
@@ -17,9 +17,8 @@
  * These methods can be called in any COM apartment, and the behavior will not be impacted by the type of apartment. These APIs is safe to call on a UI thread but this is not recommended practice as the APIs involve cross-process IO and other potentially long-running operations.
  * @see https://learn.microsoft.com/windows/win32/api/searchapi/nn-searchapi-isearchmanager2
  * @namespace Windows.Win32.System.Search
- * @version v4.0.30319
  */
-class ISearchManager2 extends ISearchManager{
+class ISearchManager2 extends ISearchManager {
 
     static sizeof => A_PtrSize
     /**

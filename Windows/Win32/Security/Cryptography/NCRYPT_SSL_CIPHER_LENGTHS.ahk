@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class NCRYPT_SSL_CIPHER_LENGTHS extends Win32Struct
-{
+class NCRYPT_SSL_CIPHER_LENGTHS extends Win32Struct {
     static sizeof => 20
 
     static packingSize => 4

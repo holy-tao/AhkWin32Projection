@@ -7,9 +7,8 @@
  * The members of <b>SYNC_RESOLVE_ACTION</b> specify the action that the change applier uses to resolve a concurrency conflict. Concurrency conflicts occur when the same item or change unit is changed on two different replicas that are later synchronized.
  * @see https://learn.microsoft.com/windows/win32/api/winsync/ne-winsync-sync_resolve_action
  * @namespace Windows.Win32.System.WindowsSync
- * @version v4.0.30319
  */
-class SYNC_RESOLVE_ACTION extends Win32Enum{
+class SYNC_RESOLVE_ACTION extends Win32Enum {
 
     /**
      * Ignore the conflict and do not apply the change. The change applier does not pass the conflict data to the destination provider.

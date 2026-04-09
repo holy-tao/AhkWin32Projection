@@ -1,16 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\DWRITE_GLYPH_RUN.ahk
+#Include .\IDWriteFontFace.ahk
+#Include .\DWRITE_GLYPH_OFFSET.ahk
+#Include .\DWRITE_GLYPH_RUN_DESCRIPTION.ahk
 #Include .\DWRITE_COLOR_F.ahk
 
 /**
  * Contains the information needed by renderers to draw glyph runs with glyph color information.
  * @see https://learn.microsoft.com/windows/win32/api/dwrite_2/ns-dwrite_2-dwrite_color_glyph_run
  * @namespace Windows.Win32.Graphics.DirectWrite
- * @version v4.0.30319
  */
-class DWRITE_COLOR_GLYPH_RUN extends Win32Struct
-{
+class DWRITE_COLOR_GLYPH_RUN extends Win32Struct {
     static sizeof => 88
 
     static packingSize => 8
@@ -19,7 +20,7 @@ class DWRITE_COLOR_GLYPH_RUN extends Win32Struct
      * Glyph run to draw for this layer.
      * @type {DWRITE_GLYPH_RUN}
      */
-    glyphRun{
+    glyphRun {
         get {
             if(!this.HasProp("__glyphRun"))
                 this.__glyphRun := DWRITE_GLYPH_RUN(0, this)
@@ -58,7 +59,7 @@ class DWRITE_COLOR_GLYPH_RUN extends Win32Struct
      * Color value of the run; if all members are zero, the run should be drawn using the current brush.
      * @type {DWRITE_COLOR_F}
      */
-    runColor{
+    runColor {
         get {
             if(!this.HasProp("__runColor"))
                 this.__runColor := DWRITE_COLOR_F(64, this)

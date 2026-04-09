@@ -1,13 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\Ndis\NDIS_OBJECT_HEADER.ahk
+#Include .\DOT11_CIPHER_ALGORITHM.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
- * @version v4.0.30319
  */
-class DOT11_CIPHER_ALGORITHM_LIST extends Win32Struct
-{
+class DOT11_CIPHER_ALGORITHM_LIST extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4
@@ -15,7 +14,7 @@ class DOT11_CIPHER_ALGORITHM_LIST extends Win32Struct
     /**
      * @type {NDIS_OBJECT_HEADER}
      */
-    Header{
+    Header {
         get {
             if(!this.HasProp("__Header"))
                 this.__Header := NDIS_OBJECT_HEADER(0, this)
@@ -40,9 +39,9 @@ class DOT11_CIPHER_ALGORITHM_LIST extends Win32Struct
     }
 
     /**
-     * @type {Array<Int32>}
+     * @type {Array<DOT11_CIPHER_ALGORITHM>}
      */
-    AlgorithmIds{
+    AlgorithmIds {
         get {
             if(!this.HasProp("__AlgorithmIdsProxyArray"))
                 this.__AlgorithmIdsProxyArray := Win32FixedArray(this.ptr + 12, 1, Primitive, "int")

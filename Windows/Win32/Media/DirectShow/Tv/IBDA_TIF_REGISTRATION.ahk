@@ -10,9 +10,8 @@
  *      operator: <c>__uuidof(IBDA_TIF_REGISTRATION)</c>.
  * @see https://learn.microsoft.com/windows/win32/api/bdatif/nn-bdatif-ibda_tif_registration
  * @namespace Windows.Win32.Media.DirectShow.Tv
- * @version v4.0.30319
  */
-class IBDA_TIF_REGISTRATION extends IUnknown{
+class IBDA_TIF_REGISTRATION extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

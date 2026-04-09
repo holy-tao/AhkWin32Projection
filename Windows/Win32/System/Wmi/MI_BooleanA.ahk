@@ -5,10 +5,8 @@
  * Represents an array of MI_Boolean types.
  * @see https://learn.microsoft.com/windows/win32/api/mi/ns-mi-mi_booleana
  * @namespace Windows.Win32.System.Wmi
- * @version v4.0.30319
  */
-class MI_BooleanA extends Win32Struct
-{
+class MI_BooleanA extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

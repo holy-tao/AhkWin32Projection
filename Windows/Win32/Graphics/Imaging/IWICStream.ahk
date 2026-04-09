@@ -13,9 +13,8 @@
  *             This stream can then be used to create an <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nn-wincodec-iwicbitmapdecoder">IWICBitmapDecoder</a> using the <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nf-wincodec-iwicimagingfactory-createdecoderfromstream">CreateDecoderFromStream</a> method.
  * @see https://learn.microsoft.com/windows/win32/api/wincodec/nn-wincodec-iwicstream
  * @namespace Windows.Win32.Graphics.Imaging
- * @version v4.0.30319
  */
-class IWICStream extends IStream{
+class IWICStream extends IStream {
 
     static sizeof => A_PtrSize
     /**

@@ -1,14 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\Dxgi\Common\DXGI_FORMAT.ahk
+#Include .\WICDdsDimension.ahk
+#Include .\WICDdsAlphaMode.ahk
 
 /**
  * Specifies the DDS image dimension, DXGI_FORMAT and alpha mode of contained data.
  * @see https://learn.microsoft.com/windows/win32/api/wincodec/ns-wincodec-wicddsparameters
  * @namespace Windows.Win32.Graphics.Imaging
- * @version v4.0.30319
  */
-class WICDdsParameters extends Win32Struct
-{
+class WICDdsParameters extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 4
@@ -72,7 +73,7 @@ class WICDdsParameters extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dxgiformat/ne-dxgiformat-dxgi_format">DXGI_FORMAT</a></b>
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/api/dxgiformat/ne-dxgiformat-dxgi_format">DXGI_FORMAT</a> of the DDS pixel data.
-     * @type {Integer}
+     * @type {DXGI_FORMAT}
      */
     DxgiFormat {
         get => NumGet(this, 20, "int")
@@ -83,7 +84,7 @@ class WICDdsParameters extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ne-wincodec-wicddsdimension">WICDdsDimension</a></b>
      * 
      * Specifies the dimension type of the data contained in DDS image (1D, 2D, 3D or cube texture).
-     * @type {Integer}
+     * @type {WICDdsDimension}
      */
     Dimension {
         get => NumGet(this, 24, "int")
@@ -94,7 +95,7 @@ class WICDdsParameters extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ne-wincodec-wicddsalphamode">WICDdsAlphaMode</a></b>
      * 
      * Specifies the alpha behavior of the DDS image.
-     * @type {Integer}
+     * @type {WICDdsAlphaMode}
      */
     AlphaMode {
         get => NumGet(this, 28, "int")

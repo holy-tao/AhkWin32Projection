@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DD_ATTACHLIST.ahk
+#Include .\DD_SURFACE_LOCAL.ahk
 
 /**
  * The DD_ATTACHLIST structure maintains a list of attached surfaces for Microsoft DirectDraw.
  * @see https://learn.microsoft.com/windows/win32/api/ddrawint/ns-ddrawint-dd_attachlist
  * @namespace Windows.Win32.Graphics.DirectDraw
- * @version v4.0.30319
  */
-class DD_ATTACHLIST extends Win32Struct
-{
+class DD_ATTACHLIST extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

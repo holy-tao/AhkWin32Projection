@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\DSFXGargle.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
+#Include .\DSFXGargle.ahk
 
 /**
  * @namespace Windows.Win32.Media.Audio.DirectSound
- * @version v4.0.30319
  */
-class IDirectSoundFXGargle extends IUnknown{
+class IDirectSoundFXGargle extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

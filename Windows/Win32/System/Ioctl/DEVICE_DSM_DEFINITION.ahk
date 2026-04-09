@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class DEVICE_DSM_DEFINITION extends Win32Struct
-{
+class DEVICE_DSM_DEFINITION extends Win32Struct {
     static sizeof => 28
 
     static packingSize => 4

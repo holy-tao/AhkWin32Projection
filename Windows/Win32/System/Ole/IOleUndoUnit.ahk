@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\Com\IUnknown.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * Serves as the main interface on an undo unit. An undo unit encapsulates the information necessary to undo or redo a single action.
  * @see https://learn.microsoft.com/windows/win32/api/ocidl/nn-ocidl-ioleundounit
  * @namespace Windows.Win32.System.Ole
- * @version v4.0.30319
  */
-class IOleUndoUnit extends IUnknown{
+class IOleUndoUnit extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

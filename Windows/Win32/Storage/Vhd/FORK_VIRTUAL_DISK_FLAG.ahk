@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Storage.Vhd
- * @version v4.0.30319
  */
-class FORK_VIRTUAL_DISK_FLAG extends Win32BitflagEnum{
+class FORK_VIRTUAL_DISK_FLAG extends Win32BitflagEnum {
 
     /**
      * @type {Integer (Int32)}

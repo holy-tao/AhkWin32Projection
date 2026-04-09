@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Security.WinWlx
- * @version v4.0.30319
  */
-class WLX_SHUTDOWN_TYPE extends Win32Enum{
+class WLX_SHUTDOWN_TYPE extends Win32Enum {
 
     /**
      * @type {Integer (UInt32)}

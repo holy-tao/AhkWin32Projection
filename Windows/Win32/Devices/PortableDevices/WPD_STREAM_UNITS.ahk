@@ -5,9 +5,8 @@
  * The WPD\_STREAM\_UNITS enumeration specifies the unit types to be used for IPortableDeviceUnitsStream operations.
  * @see https://learn.microsoft.com/windows/win32/wpd_sdk/wpd-stream-units
  * @namespace Windows.Win32.Devices.PortableDevices
- * @version v4.0.30319
  */
-class WPD_STREAM_UNITS extends Win32Enum{
+class WPD_STREAM_UNITS extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

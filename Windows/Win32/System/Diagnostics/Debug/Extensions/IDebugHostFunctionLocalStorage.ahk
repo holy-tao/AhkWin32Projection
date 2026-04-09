@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
- * @version v4.0.30319
  */
-class IDebugHostFunctionLocalStorage extends IUnknown{
+class IDebugHostFunctionLocalStorage extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -46,7 +45,7 @@ class IDebugHostFunctionLocalStorage extends IUnknown{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {StorageKind} 
      */
     GetStorageKind() {
         result := ComCall(4, this, "int*", &kind := 0, "HRESULT")

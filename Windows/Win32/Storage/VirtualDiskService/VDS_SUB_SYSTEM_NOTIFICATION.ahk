@@ -15,10 +15,8 @@
  * To get the subsystem object, use the <a href="https://docs.microsoft.com/windows/desktop/api/vds/nf-vds-ivdsservice-getobject">IVdsService::GetObject</a> method. You can then use the <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/nf-vdshwprv-ivdssubsystem-getproperties">IVdsSubSystem::GetProperties</a> method or the <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/nf-vdshwprv-ivdssubsystem2-getproperties2">IVdsSubSystem2::GetProperties2</a> methodto get the subsystem properties.
  * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/ns-vdshwprv-vds_sub_system_notification
  * @namespace Windows.Win32.Storage.VirtualDiskService
- * @version v4.0.30319
  */
-class VDS_SUB_SYSTEM_NOTIFICATION extends Win32Struct
-{
+class VDS_SUB_SYSTEM_NOTIFICATION extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
@@ -76,7 +74,7 @@ class VDS_SUB_SYSTEM_NOTIFICATION extends Win32Struct
 
     /**
      * The subsystem's GUID.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     subSystemId {
         get => NumGet(this, 8, "ptr")

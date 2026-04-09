@@ -7,10 +7,8 @@
  * The measurement units depend on the context and are not specified in the structure.
  * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/ns-xpsobjectmodel-xps_rect
  * @namespace Windows.Win32.Storage.Xps
- * @version v4.0.30319
  */
-class XPS_RECT extends Win32Struct
-{
+class XPS_RECT extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4

@@ -3,16 +3,14 @@
 
 /**
  * @namespace Windows.Wdk.NetworkManagement.Ndis
- * @version v4.0.30319
  */
-class NDIS_EVENT extends Win32Struct
-{
+class NDIS_EVENT extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 8
 
     /**
-     * @type {Pointer<KEVENT>}
+     * @type {Pointer}
      */
     Event {
         get => NumGet(this, 0, "ptr")

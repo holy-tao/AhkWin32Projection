@@ -11,9 +11,8 @@
  * - [CfGetPlaceholderStateFromFindData](nf-cfapi-cfgetplaceholderstatefromfinddata.md)
  * @see https://learn.microsoft.com/windows/win32/api/cfapi/ne-cfapi-cf_placeholder_state
  * @namespace Windows.Win32.Storage.CloudFilters
- * @version v4.0.30319
  */
-class CF_PLACEHOLDER_STATE extends Win32BitflagEnum{
+class CF_PLACEHOLDER_STATE extends Win32BitflagEnum {
 
     /**
      * When returned, the file or directory whose *FileAttributes* and *ReparseTag* examined by the API is not a placeholder.

@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DHCPV4_FAILOVER_CLIENT_INFO.ahk
 
 /**
  * The DHCPV4_FAILOVER_CLIENT_INFO_ARRAY structure defines an array of DHCP server scope statistics that are part of a failover relationship.
  * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/ns-dhcpsapi-dhcpv4_failover_client_info_array
  * @namespace Windows.Win32.NetworkManagement.Dhcp
- * @version v4.0.30319
  */
-class DHCPV4_FAILOVER_CLIENT_INFO_ARRAY extends Win32Struct
-{
+class DHCPV4_FAILOVER_CLIENT_INFO_ARRAY extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Power
- * @version v4.0.30319
  */
-class CUSTOMIZED_IO_CAPABILITIES extends Win32Struct
-{
+class CUSTOMIZED_IO_CAPABILITIES extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4

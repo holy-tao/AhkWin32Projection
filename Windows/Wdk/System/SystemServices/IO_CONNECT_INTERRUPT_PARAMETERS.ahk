@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class IO_CONNECT_INTERRUPT_PARAMETERS extends Win32Struct
-{
+class IO_CONNECT_INTERRUPT_PARAMETERS extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
@@ -20,7 +18,7 @@ class IO_CONNECT_INTERRUPT_PARAMETERS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<IO_CONNECT_INTERRUPT_FULLY_SPECIFIED_PARAMETERS>}
+     * @type {Pointer}
      */
     FullySpecified {
         get => NumGet(this, 8, "ptr")
@@ -28,7 +26,7 @@ class IO_CONNECT_INTERRUPT_PARAMETERS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<IO_CONNECT_INTERRUPT_LINE_BASED_PARAMETERS>}
+     * @type {Pointer}
      */
     LineBased {
         get => NumGet(this, 8, "ptr")
@@ -36,7 +34,7 @@ class IO_CONNECT_INTERRUPT_PARAMETERS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<IO_CONNECT_INTERRUPT_MESSAGE_BASED_PARAMETERS>}
+     * @type {Pointer}
      */
     MessageBased {
         get => NumGet(this, 8, "ptr")

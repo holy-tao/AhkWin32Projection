@@ -10,9 +10,8 @@
  * of these methods must not block, touch paged memory, or call any blocking system routines.
  * @see https://learn.microsoft.com/windows/win32/api/audioenginebaseapo/nn-audioenginebaseapo-iapoauxiliaryinputrt
  * @namespace Windows.Win32.Media.Audio.Apo
- * @version v4.0.30319
  */
-class IApoAuxiliaryInputRT extends IUnknown{
+class IApoAuxiliaryInputRT extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

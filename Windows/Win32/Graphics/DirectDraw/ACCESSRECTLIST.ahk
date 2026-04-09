@@ -1,13 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\ACCESSRECTLIST.ahk
 #Include ..\..\Foundation\RECT.ahk
+#Include .\DDRAWI_DIRECTDRAW_LCL.ahk
+#Include .\HEAPALIASINFO.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw
- * @version v4.0.30319
  */
-class ACCESSRECTLIST extends Win32Struct
-{
+class ACCESSRECTLIST extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8
@@ -23,7 +24,7 @@ class ACCESSRECTLIST extends Win32Struct
     /**
      * @type {RECT}
      */
-    rDest{
+    rDest {
         get {
             if(!this.HasProp("__rDest"))
                 this.__rDest := RECT(8, this)

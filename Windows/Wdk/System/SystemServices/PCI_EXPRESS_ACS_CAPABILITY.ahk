@@ -3,16 +3,14 @@
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class PCI_EXPRESS_ACS_CAPABILITY extends Win32Struct
-{
+class PCI_EXPRESS_ACS_CAPABILITY extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
 
     /**
-     * @type {Pointer<PCI_EXPRESS_ENHANCED_CAPABILITY_HEADER>}
+     * @type {Pointer}
      */
     Header {
         get => NumGet(this, 0, "ptr")
@@ -20,7 +18,7 @@ class PCI_EXPRESS_ACS_CAPABILITY extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PCI_EXPRESS_ACS_CAPABILITY_REGISTER>}
+     * @type {Pointer}
      */
     Capability {
         get => NumGet(this, 8, "ptr")
@@ -28,7 +26,7 @@ class PCI_EXPRESS_ACS_CAPABILITY extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PCI_EXPRESS_ACS_CONTROL>}
+     * @type {Pointer}
      */
     Control {
         get => NumGet(this, 16, "ptr")
@@ -36,9 +34,9 @@ class PCI_EXPRESS_ACS_CAPABILITY extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    EgressControl{
+    EgressControl {
         get {
             if(!this.HasProp("__EgressControlProxyArray"))
                 this.__EgressControlProxyArray := Win32FixedArray(this.ptr + 24, 1, Primitive, "uint")

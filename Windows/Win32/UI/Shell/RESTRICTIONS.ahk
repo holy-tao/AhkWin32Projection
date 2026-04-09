@@ -5,9 +5,8 @@
  * These flags are used with the SHRestricted function.
  * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/ne-shlobj_core-restrictions
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class RESTRICTIONS extends Win32Enum{
+class RESTRICTIONS extends Win32Enum {
 
     /**
      * Not used.

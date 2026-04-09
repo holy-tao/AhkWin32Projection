@@ -11,10 +11,8 @@
  * If <i>iFlickCommandCode</i> is <b>FLICKACTION_COMMANDCODE_CUSTOMKEY</b>, the value of <i>iActionArgument</i> indicates the key stroke. The <i>fControlModifier</i>, <i>fMenuModifier</i>, <i>fAltGRModifier</i>, <i>fWinModifier</i>, and <i>fShiftModifier</i> fields indicate whether the pen action activates a modifier key. For example, if the user assigns a pen flick to the key stroke, CTRL+N, <i>fControlModifier</i> is <b>true</b> and <i>iActionArgument</i> is the virtual code key, VK_N.
  * @see https://learn.microsoft.com/windows/win32/api/tabflicks/ns-tabflicks-flick_data
  * @namespace Windows.Win32.UI.TabletPC
- * @version v4.0.30319
  */
-class FLICK_DATA extends Win32Struct
-{
+class FLICK_DATA extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 4
@@ -39,7 +37,6 @@ class FLICK_DATA extends Win32Struct
     }
 
     /**
-     * The flick action assigned to the pen flick.
      * @type {Integer}
      */
     iFlickActionCommandCode {
@@ -48,7 +45,6 @@ class FLICK_DATA extends Win32Struct
     }
 
     /**
-     * The direction of the pen flick.
      * @type {Integer}
      */
     iFlickDirection {
@@ -57,7 +53,6 @@ class FLICK_DATA extends Win32Struct
     }
 
     /**
-     * <b>TRUE</b> if the pen flick action activates the CTRL key; otherwise, <b>FALSE</b>.
      * @type {Integer}
      */
     fControlModifier {
@@ -66,7 +61,6 @@ class FLICK_DATA extends Win32Struct
     }
 
     /**
-     * <b>TRUE</b> if the pen flick action activates the ALT key; otherwise, <b>FALSE</b>.
      * @type {Integer}
      */
     fMenuModifier {
@@ -75,7 +69,6 @@ class FLICK_DATA extends Win32Struct
     }
 
     /**
-     * <b>TRUE</b> if the pen flick action activates the ALT GR key; otherwise, <b>FALSE</b>.
      * @type {Integer}
      */
     fAltGRModifier {
@@ -84,7 +77,6 @@ class FLICK_DATA extends Win32Struct
     }
 
     /**
-     * <b>TRUE</b> if the pen flick action activates the Windows Logo key; otherwise, <b>FALSE</b>.
      * @type {Integer}
      */
     fWinModifier {
@@ -93,7 +85,6 @@ class FLICK_DATA extends Win32Struct
     }
 
     /**
-     * <b>TRUE</b> if the pen flick action activates the SHIFT key; otherwise, <b>FALSE</b>.
      * @type {Integer}
      */
     fShiftModifier {
@@ -102,7 +93,6 @@ class FLICK_DATA extends Win32Struct
     }
 
     /**
-     * Do not use.
      * @type {Integer}
      */
     iReserved {
@@ -111,7 +101,6 @@ class FLICK_DATA extends Win32Struct
     }
 
     /**
-     * <b>TRUE</b> if the pen flick is sent to an inking surface; otherwise, <b>FALSE</b>.
      * @type {Integer}
      */
     fOnInkingSurface {
@@ -120,7 +109,6 @@ class FLICK_DATA extends Win32Struct
     }
 
     /**
-     * Contains additional information about <b>iFlickActionCommandCode</b>.
      * @type {Integer}
      */
     iActionArgument {

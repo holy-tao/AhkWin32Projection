@@ -7,10 +7,8 @@
  * This structure is optional.
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-usn_range_track_output
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class USN_RANGE_TRACK_OUTPUT extends Win32Struct
-{
+class USN_RANGE_TRACK_OUTPUT extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 8

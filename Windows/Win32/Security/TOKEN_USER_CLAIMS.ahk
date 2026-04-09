@@ -5,10 +5,8 @@
  * Defines the user claims for the token.
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-token_user_claims
  * @namespace Windows.Win32.Security
- * @version v4.0.30319
  */
-class TOKEN_USER_CLAIMS extends Win32Struct
-{
+class TOKEN_USER_CLAIMS extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 8

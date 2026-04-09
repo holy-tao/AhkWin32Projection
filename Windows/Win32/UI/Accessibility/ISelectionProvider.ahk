@@ -11,9 +11,8 @@
  * Providers should raise an event of type <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-event-ids">UIA_Selection_InvalidatedEventId</a> when a selection in a container has changed significantly.
  * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nn-uiautomationcore-iselectionprovider
  * @namespace Windows.Win32.UI.Accessibility
- * @version v4.0.30319
  */
-class ISelectionProvider extends IUnknown{
+class ISelectionProvider extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

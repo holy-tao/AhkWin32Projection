@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem
- * @version v4.0.30319
  */
-class FILE_RENAME_INFORMATION extends Win32Struct
-{
+class FILE_RENAME_INFORMATION extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -31,7 +29,7 @@ class FILE_RENAME_INFORMATION extends Win32Struct
     /**
      * @type {HANDLE}
      */
-    RootDirectory{
+    RootDirectory {
         get {
             if(!this.HasProp("__RootDirectory"))
                 this.__RootDirectory := HANDLE(8, this)

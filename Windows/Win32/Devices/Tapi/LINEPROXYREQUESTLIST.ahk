@@ -5,10 +5,8 @@
  * The LINEPROXYREQUESTLIST structure describes a list of proxy requests. The lineGetProxyStatus function returns the LINEPROXYREQUESTLIST structure.
  * @see https://learn.microsoft.com/windows/win32/api/tapi/ns-tapi-lineproxyrequestlist
  * @namespace Windows.Win32.Devices.Tapi
- * @version v4.0.30319
  */
-class LINEPROXYREQUESTLIST extends Win32Struct
-{
+class LINEPROXYREQUESTLIST extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 4

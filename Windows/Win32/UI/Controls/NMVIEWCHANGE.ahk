@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HWND.ahk
 #Include .\NMHDR.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include .\MONTH_CALDENDAR_MESSAGES_VIEW.ahk
 
 /**
  * Stores information required to process the MCN_VIEWCHANGE notification code.
  * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-nmviewchange
  * @namespace Windows.Win32.UI.Controls
- * @version v4.0.30319
  */
-class NMVIEWCHANGE extends Win32Struct
-{
+class NMVIEWCHANGE extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -22,7 +21,7 @@ class NMVIEWCHANGE extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/richedit/ns-richedit-nmhdr">NMHDR</a> structure that contains information about this notification code.
      * @type {NMHDR}
      */
-    nmhdr{
+    nmhdr {
         get {
             if(!this.HasProp("__nmhdr"))
                 this.__nmhdr := NMHDR(0, this)
@@ -81,7 +80,7 @@ class NMVIEWCHANGE extends Win32Struct
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
+     * @type {MONTH_CALDENDAR_MESSAGES_VIEW}
      */
     dwOldView {
         get => NumGet(this, 24, "uint")
@@ -92,7 +91,7 @@ class NMVIEWCHANGE extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
      * 
      * New view. One of the constants listed at <b>dwOldView</b>.
-     * @type {Integer}
+     * @type {MONTH_CALDENDAR_MESSAGES_VIEW}
      */
     dwNewView {
         get => NumGet(this, 28, "uint")

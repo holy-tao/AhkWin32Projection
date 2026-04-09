@@ -5,9 +5,8 @@
  * The view of the file as of its last commit.
  * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-createfiletransacteda
  * @namespace Windows.Win32.Storage.FileSystem
- * @version v4.0.30319
  */
-class TXFS_MINIVERSION extends Win32Enum{
+class TXFS_MINIVERSION extends Win32Enum {
 
     /**
      * @type {Integer (UInt32)}

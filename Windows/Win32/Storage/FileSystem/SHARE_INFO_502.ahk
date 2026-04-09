@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\SHARE_TYPE.ahk
+#Include .\SHARE_INFO_PERMISSIONS.ahk
 #Include ..\..\Security\PSECURITY_DESCRIPTOR.ahk
 
 /**
  * Contains information about the shared resource, including name of the resource, type and permissions, number of connections, and other pertinent information.
  * @see https://learn.microsoft.com/windows/win32/api/lmshare/ns-lmshare-share_info_502
  * @namespace Windows.Win32.Storage.FileSystem
- * @version v4.0.30319
  */
-class SHARE_INFO_502 extends Win32Struct
-{
+class SHARE_INFO_502 extends Win32Struct {
     static sizeof => 72
 
     static packingSize => 8
@@ -27,7 +27,7 @@ class SHARE_INFO_502 extends Win32Struct
     /**
      * A combination of values that specify the type of share. Calls to the 
      * <b>NetShareSetInfo</b> function ignore this member.
-     * @type {Integer}
+     * @type {SHARE_TYPE}
      */
     shi502_type {
         get => NumGet(this, 8, "uint")
@@ -44,8 +44,7 @@ class SHARE_INFO_502 extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Integer}
+     * @type {SHARE_INFO_PERMISSIONS}
      */
     shi502_permissions {
         get => NumGet(this, 24, "uint")
@@ -111,7 +110,7 @@ class SHARE_INFO_502 extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> associated with this share.
      * @type {PSECURITY_DESCRIPTOR}
      */
-    shi502_security_descriptor{
+    shi502_security_descriptor {
         get {
             if(!this.HasProp("__shi502_security_descriptor"))
                 this.__shi502_security_descriptor := PSECURITY_DESCRIPTOR(64, this)

@@ -5,9 +5,8 @@
  * Describes the sync state of an Offline Files item.
  * @see https://learn.microsoft.com/windows/win32/api/cscobj/ne-cscobj-offlinefiles_sync_state
  * @namespace Windows.Win32.Storage.OfflineFiles
- * @version v4.0.30319
  */
-class OFFLINEFILES_SYNC_STATE extends Win32Enum{
+class OFFLINEFILES_SYNC_STATE extends Win32Enum {
 
     /**
      * The client and server copies of the file are in sync.
@@ -334,7 +333,6 @@ class OFFLINEFILES_SYNC_STATE extends Win32Enum{
     static OFFLINEFILES_SYNC_STATE_FileReplacedAndDeletedOnClient_DirChangedOnServer => 53
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static OFFLINEFILES_SYNC_STATE_NUMSTATES => 54

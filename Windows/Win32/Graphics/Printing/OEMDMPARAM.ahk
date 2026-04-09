@@ -1,13 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\HANDLE.ahk
+#Include ..\Gdi\DEVMODEA.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
- * @version v4.0.30319
  */
-class OEMDMPARAM extends Win32Struct
-{
+class OEMDMPARAM extends Win32Struct {
     static sizeof => 72
 
     static packingSize => 8
@@ -31,7 +30,7 @@ class OEMDMPARAM extends Win32Struct
     /**
      * @type {HANDLE}
      */
-    hPrinter{
+    hPrinter {
         get {
             if(!this.HasProp("__hPrinter"))
                 this.__hPrinter := HANDLE(16, this)
@@ -42,7 +41,7 @@ class OEMDMPARAM extends Win32Struct
     /**
      * @type {HANDLE}
      */
-    hModule{
+    hModule {
         get {
             if(!this.HasProp("__hModule"))
                 this.__hModule := HANDLE(24, this)

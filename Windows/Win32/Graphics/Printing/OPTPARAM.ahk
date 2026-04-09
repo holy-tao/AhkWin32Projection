@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
- * @version v4.0.30319
  */
-class OPTPARAM extends Win32Struct
-{
+class OPTPARAM extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -60,9 +58,9 @@ class OPTPARAM extends Win32Struct
     }
 
     /**
-     * @type {Array<UIntPtr>}
+     * @type {Array<Pointer>}
      */
-    dwReserved{
+    dwReserved {
         get {
             if(!this.HasProp("__dwReservedProxyArray"))
                 this.__dwReservedProxyArray := Win32FixedArray(this.ptr + 32, 2, Primitive, "ptr")

@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Graphics\Direct3D9\D3DFORMAT.ahk
+#Include ..\..\Graphics\Direct3D9\D3DPOOL.ahk
 #Include ..\..\Foundation\SIZE.ahk
 
 /**
  * The VMR9AllocationInfo structure describes the Direct3D surfaces that a VMR-9 Allocator-Presenter object should allocate.
  * @see https://learn.microsoft.com/windows/win32/api/vmr9/ns-vmr9-vmr9allocationinfo
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class VMR9AllocationInfo extends Win32Struct
-{
+class VMR9AllocationInfo extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 4
@@ -43,7 +43,7 @@ class VMR9AllocationInfo extends Win32Struct
 
     /**
      * Specifies the surface format, as a <b>D3DFORMAT</b> type. The value D3DFMT_UNKNOWN (zero) indicates that the surface format should be compatible with the display.
-     * @type {Integer}
+     * @type {D3DFORMAT}
      */
     Format {
         get => NumGet(this, 12, "uint")
@@ -52,7 +52,7 @@ class VMR9AllocationInfo extends Win32Struct
 
     /**
      * Specifies the Direct3D memory pool to use for the surfaces, as a <b>D3DPOOL</b> type.
-     * @type {Integer}
+     * @type {D3DPOOL}
      */
     Pool {
         get => NumGet(this, 16, "int")
@@ -72,7 +72,7 @@ class VMR9AllocationInfo extends Win32Struct
      * Specifies the video aspect ratio as a <b>SIZE</b> structure.
      * @type {SIZE}
      */
-    szAspectRatio{
+    szAspectRatio {
         get {
             if(!this.HasProp("__szAspectRatio"))
                 this.__szAspectRatio := SIZE(24, this)
@@ -84,7 +84,7 @@ class VMR9AllocationInfo extends Win32Struct
      * Specifies the native video size as a <b>SIZE</b> structure.
      * @type {SIZE}
      */
-    szNativeSize{
+    szNativeSize {
         get {
             if(!this.HasProp("__szNativeSize"))
                 this.__szNativeSize := SIZE(32, this)

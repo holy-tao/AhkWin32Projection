@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IDWriteFontFile.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\IDWriteFontFile.ahk
 
 /**
  * Encapsulates a collection of font files. The font system uses this interface to enumerate font files when building a font collection.
  * @see https://learn.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritefontfileenumerator
  * @namespace Windows.Win32.Graphics.DirectWrite
- * @version v4.0.30319
  */
-class IDWriteFontFileEnumerator extends IUnknown{
+class IDWriteFontFileEnumerator extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

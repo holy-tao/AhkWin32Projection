@@ -5,10 +5,8 @@
  * Specifies a buffer for the IDirect3DDXVADevice9::Execute method.
  * @see https://learn.microsoft.com/windows/win32/api/dxva9typ/ns-dxva9typ-dxvabufferinfo
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class DXVABufferInfo extends Win32Struct
-{
+class DXVABufferInfo extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

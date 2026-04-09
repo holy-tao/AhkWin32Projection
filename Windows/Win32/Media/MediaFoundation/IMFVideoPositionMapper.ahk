@@ -7,9 +7,8 @@
  * Maps a position on an input video stream to the corresponding position on an output video stream.
  * @see https://learn.microsoft.com/windows/win32/api/evr/nn-evr-imfvideopositionmapper
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFVideoPositionMapper extends IUnknown{
+class IMFVideoPositionMapper extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

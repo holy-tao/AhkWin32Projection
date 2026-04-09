@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\XINPUT_GAMEPAD_BUTTON_FLAGS.ahk
 
 /**
  * Describes the current state of the Xbox 360 Controller.
@@ -15,10 +16,8 @@
  * The constant XINPUT_GAMEPAD_TRIGGER_THRESHOLD may be used as the value which <i>bLeftTrigger</i> and <i>bRightTrigger</i> must be greater than to register as pressed. This is optional, but often desirable. Xbox 360 Controller buttons do not manifest crosstalk.
  * @see https://learn.microsoft.com/windows/win32/api/xinput/ns-xinput-xinput_gamepad
  * @namespace Windows.Win32.UI.Input.XboxController
- * @version v4.0.30319
  */
-class XINPUT_GAMEPAD extends Win32Struct
-{
+class XINPUT_GAMEPAD extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 2
@@ -92,7 +91,7 @@ class XINPUT_GAMEPAD extends Win32Struct
      *  
      * 
      * Bits that are set but not defined above are reserved, and their state is undefined.
-     * @type {Integer}
+     * @type {XINPUT_GAMEPAD_BUTTON_FLAGS}
      */
     wButtons {
         get => NumGet(this, 0, "ushort")

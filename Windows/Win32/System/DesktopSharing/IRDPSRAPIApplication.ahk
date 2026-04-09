@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Com\IDispatch.ahk
 #Include .\IRDPSRAPIWindowList.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include ..\Com\IDispatch.ahk
 
 /**
  * Groups the sharable windows within a process. Each application object contains a list of window objects. If an application object is shared, all its windows are shared.
  * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nn-rdpencomapi-irdpsrapiapplication
  * @namespace Windows.Win32.System.DesktopSharing
- * @version v4.0.30319
  */
-class IRDPSRAPIApplication extends IDispatch{
+class IRDPSRAPIApplication extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

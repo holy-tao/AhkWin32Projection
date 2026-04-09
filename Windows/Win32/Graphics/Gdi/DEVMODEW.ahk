@@ -1,6 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DEVMODE_FIELD_FLAGS.ahk
 #Include ..\..\Foundation\POINTL.ahk
+#Include .\DEVMODE_DISPLAY_ORIENTATION.ahk
+#Include .\DEVMODE_DISPLAY_FIXED_OUTPUT.ahk
+#Include .\DEVMODE_COLOR.ahk
+#Include .\DEVMODE_DUPLEX.ahk
+#Include .\DEVMODE_TRUETYPE_OPTION.ahk
+#Include .\DEVMODE_COLLATE.ahk
 
 /**
  * The DEVMODEW structure is used for specifying characteristics of display and print devices in the Unicode (wide) character set.
@@ -37,11 +44,9 @@
  * > The wingdi.h header defines DEVMODE as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
  * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-devmodew
  * @namespace Windows.Win32.Graphics.Gdi
- * @version v4.0.30319
  * @charset Unicode
  */
-class DEVMODEW extends Win32Struct
-{
+class DEVMODEW extends Win32Struct {
     static sizeof => 220
 
     static packingSize => 4
@@ -97,7 +102,7 @@ class DEVMODEW extends Win32Struct
 
     /**
      * Specifies bit flags identifying which of the following DEVMODEW members are in use. For example, the DM_ORIENTATION flag is set when the <b>dmOrientation</b> member contains valid data. The DM_XXX flags are defined in <i>wingdi.h</i>.
-     * @type {Integer}
+     * @type {DEVMODE_FIELD_FLAGS}
      */
     dmFields {
         get => NumGet(this, 72, "uint")
@@ -171,7 +176,7 @@ class DEVMODEW extends Win32Struct
     /**
      * @type {POINTL}
      */
-    dmPosition{
+    dmPosition {
         get {
             if(!this.HasProp("__dmPosition"))
                 this.__dmPosition := POINTL(76, this)
@@ -180,7 +185,7 @@ class DEVMODEW extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {DEVMODE_DISPLAY_ORIENTATION}
      */
     dmDisplayOrientation {
         get => NumGet(this, 84, "uint")
@@ -188,7 +193,7 @@ class DEVMODEW extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {DEVMODE_DISPLAY_FIXED_OUTPUT}
      */
     dmDisplayFixedOutput {
         get => NumGet(this, 88, "uint")
@@ -199,7 +204,7 @@ class DEVMODEW extends Win32Struct
      * For printers, specifies whether a color printer should print color or monochrome. This member can be one of DMCOLOR_COLOR or DMCOLOR_MONOCHROME.
      * 
      * This member is not used for displays.
-     * @type {Integer}
+     * @type {DEVMODE_COLOR}
      */
     dmColor {
         get => NumGet(this, 92, "short")
@@ -207,8 +212,7 @@ class DEVMODEW extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Integer}
+     * @type {DEVMODE_DUPLEX}
      */
     dmDuplex {
         get => NumGet(this, 94, "short")
@@ -230,7 +234,7 @@ class DEVMODEW extends Win32Struct
      * For printers, specifies how TrueType fonts should be printed. This member must be one of the DMTT-prefixed constants defined in <i>wingdi.h</i>.
      * 
      * This member is not used for displays.
-     * @type {Integer}
+     * @type {DEVMODE_TRUETYPE_OPTION}
      */
     dmTTOption {
         get => NumGet(this, 98, "short")
@@ -238,8 +242,7 @@ class DEVMODEW extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Integer}
+     * @type {DEVMODE_COLLATE}
      */
     dmCollate {
         get => NumGet(this, 100, "short")

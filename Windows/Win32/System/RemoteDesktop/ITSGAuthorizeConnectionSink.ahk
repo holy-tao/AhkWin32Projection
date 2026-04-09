@@ -7,9 +7,8 @@
  * Exposes methods that notify Remote Desktop Gateway (RD Gateway) about the result of an attempt to authorize a connection.
  * @see https://learn.microsoft.com/windows/win32/api/tsgpolicyengine/nn-tsgpolicyengine-itsgauthorizeconnectionsink
  * @namespace Windows.Win32.System.RemoteDesktop
- * @version v4.0.30319
  */
-class ITSGAuthorizeConnectionSink extends IUnknown{
+class ITSGAuthorizeConnectionSink extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -46,8 +45,8 @@ class ITSGAuthorizeConnectionSink extends IUnknown{
      * @param {Pointer<Integer>} pbSoHResponse A pointer to a <b>BYTE</b> that specifies the response to the request for a statement of health (SoH). If the <i>hrIn</i> parameter is not <b>S_OK</b>, this parameter is ignored.
      * @param {Integer} idleTimeout The number of minutes that the connection can remain idle before being disconnected. If the <i>hrIn</i> parameter is not <b>S_OK</b>, this parameter is ignored.
      * @param {Integer} sessionTimeout The maximum number of minutes allotted to the session. If the <i>hrIn</i> parameter is not <b>S_OK</b>, this parameter is ignored.
-     * @param {Integer} sessionTimeoutAction 
-     * @param {Integer} trustClass This parameter is reserved. Always set it to  <b>AA_TRUSTEDUSER_TRUSTEDCLIENT</b>. If the <i>hrIn</i> parameter is not <b>S_OK</b>, this parameter is ignored.
+     * @param {SESSION_TIMEOUT_ACTION_TYPE} sessionTimeoutAction 
+     * @param {AATrustClassID} trustClass This parameter is reserved. Always set it to  <b>AA_TRUSTEDUSER_TRUSTEDCLIENT</b>. If the <i>hrIn</i> parameter is not <b>S_OK</b>, this parameter is ignored.
      * @param {Pointer<Integer>} policyAttributes An array of Boolean values  that specify the redirection settings associated with the connection. Each element of the array corresponds to a value of the <a href="https://docs.microsoft.com/windows/win32/api/tsgpolicyengine/ne-tsgpolicyengine-policyattributetype">PolicyAttributeType</a> enumeration. If the <i>hrIn</i> parameter is not <b>S_OK</b>, this parameter is ignored.
      * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/tsgpolicyengine/nf-tsgpolicyengine-itsgauthorizeconnectionsink-onconnectionauthorized

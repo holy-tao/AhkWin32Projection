@@ -7,9 +7,8 @@
  * Use this interface as a point of access for actions involving IEEE 1667 silos.
  * @see https://learn.microsoft.com/windows/win32/api/ehstorapi/nn-ehstorapi-ienhancedstoragesiloaction
  * @namespace Windows.Win32.Storage.EnhancedStorage
- * @version v4.0.30319
  */
-class IEnhancedStorageSiloAction extends IUnknown{
+class IEnhancedStorageSiloAction extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

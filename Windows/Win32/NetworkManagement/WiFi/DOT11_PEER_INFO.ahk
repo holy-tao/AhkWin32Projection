@@ -1,21 +1,23 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DOT11_AUTH_ALGORITHM.ahk
+#Include .\DOT11_CIPHER_ALGORITHM.ahk
+#Include .\DOT11_ASSOCIATION_STATE.ahk
+#Include .\DOT11_POWER_MODE.ahk
 #Include .\DOT11_PEER_STATISTICS.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
- * @version v4.0.30319
  */
-class DOT11_PEER_INFO extends Win32Struct
-{
+class DOT11_PEER_INFO extends Win32Struct {
     static sizeof => 352
 
     static packingSize => 8
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    MacAddress{
+    MacAddress {
         get {
             if(!this.HasProp("__MacAddressProxyArray"))
                 this.__MacAddressProxyArray := Win32FixedArray(this.ptr + 0, 6, Primitive, "char")
@@ -32,7 +34,7 @@ class DOT11_PEER_INFO extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {DOT11_AUTH_ALGORITHM}
      */
     AuthAlgo {
         get => NumGet(this, 8, "int")
@@ -40,7 +42,7 @@ class DOT11_PEER_INFO extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {DOT11_CIPHER_ALGORITHM}
      */
     UnicastCipherAlgo {
         get => NumGet(this, 12, "int")
@@ -48,7 +50,7 @@ class DOT11_PEER_INFO extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {DOT11_CIPHER_ALGORITHM}
      */
     MulticastCipherAlgo {
         get => NumGet(this, 16, "int")
@@ -72,9 +74,9 @@ class DOT11_PEER_INFO extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    ucSupportedRates{
+    ucSupportedRates {
         get {
             if(!this.HasProp("__ucSupportedRatesProxyArray"))
                 this.__ucSupportedRatesProxyArray := Win32FixedArray(this.ptr + 24, 255, Primitive, "char")
@@ -91,7 +93,7 @@ class DOT11_PEER_INFO extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {DOT11_ASSOCIATION_STATE}
      */
     AssociationState {
         get => NumGet(this, 284, "int")
@@ -99,7 +101,7 @@ class DOT11_PEER_INFO extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {DOT11_POWER_MODE}
      */
     PowerMode {
         get => NumGet(this, 288, "int")
@@ -117,7 +119,7 @@ class DOT11_PEER_INFO extends Win32Struct
     /**
      * @type {DOT11_PEER_STATISTICS}
      */
-    Statistics{
+    Statistics {
         get {
             if(!this.HasProp("__Statistics"))
                 this.__Statistics := DOT11_PEER_STATISTICS(304, this)

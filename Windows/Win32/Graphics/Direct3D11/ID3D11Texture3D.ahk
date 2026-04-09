@@ -11,9 +11,8 @@
  * Textures cannot be bound directly to the pipeline; instead, a view must be created and bound. Using a view, texture data can be interpreted at run time within certain restrictions. To use the texture as a render target or depth-stencil resource, call <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11device-createrendertargetview">ID3D11Device::CreateRenderTargetView</a>, and <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11device-createdepthstencilview">ID3D11Device::CreateDepthStencilView</a>, respectively. To use the texture as an input to a shader, create a  by calling <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11device-createshaderresourceview">ID3D11Device::CreateShaderResourceView</a>.
  * @see https://learn.microsoft.com/windows/win32/api/d3d11/nn-d3d11-id3d11texture3d
  * @namespace Windows.Win32.Graphics.Direct3D11
- * @version v4.0.30319
  */
-class ID3D11Texture3D extends ID3D11Resource{
+class ID3D11Texture3D extends ID3D11Resource {
 
     static sizeof => A_PtrSize
     /**

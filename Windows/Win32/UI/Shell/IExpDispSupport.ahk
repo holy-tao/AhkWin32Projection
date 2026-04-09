@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IConnectionPoint.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\System\Com\IConnectionPoint.ahk
 
 /**
  * Deprecated. Exposes methods that allow the retrieval of properties, translation of keyboard accelerators, and determination of a connection point for certain events. (IExpDispSupport)
@@ -11,9 +11,8 @@
  * <div> </div>
  * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nn-shdeprecated-iexpdispsupport
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IExpDispSupport extends IUnknown{
+class IExpDispSupport extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

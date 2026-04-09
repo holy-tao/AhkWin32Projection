@@ -33,10 +33,8 @@
  * Streaming consumption is more efficient if you call [**ExtEscape**](/windows/desktop/api/Wingdi/nf-wingdi-extescape) with the **MXDCOP\_SET\_S0PAGE\_RESOURCE** **opCode** for each resource on the page before you call **ExtEscape** with the **MXDCOP\_SET\_S0PAGE**  **opCode**.
  * @see https://learn.microsoft.com/windows/win32/printdocs/mxdcs0pageresourceescape
  * @namespace Windows.Win32.Graphics.Printing
- * @version v4.0.30319
  */
-class MXDC_S0PAGE_RESOURCE_ESCAPE_T extends Win32Struct
-{
+class MXDC_S0PAGE_RESOURCE_ESCAPE_T extends Win32Struct {
     static sizeof => 288
 
     static packingSize => 4
@@ -45,7 +43,7 @@ class MXDC_S0PAGE_RESOURCE_ESCAPE_T extends Win32Struct
      * An [**MXDC\_ESCAPE\_HEADER\_T**](mxdcescapeheader.md) structure with its **opCode** member set to MXDCOP\_SET\_S0PAGE\_RESOURCE.
      * @type {MXDC_ESCAPE_HEADER_T}
      */
-    mxdcEscape{
+    mxdcEscape {
         get {
             if(!this.HasProp("__mxdcEscape"))
                 this.__mxdcEscape := MXDC_ESCAPE_HEADER_T(0, this)
@@ -57,7 +55,7 @@ class MXDC_S0PAGE_RESOURCE_ESCAPE_T extends Win32Struct
      * An [**MXDC\_XPS\_S0PAGE\_RESOURCE\_T**](mxdcxpss0pageresource.md) structure representing a resource, such as a font or image file, on an XPS document page.
      * @type {MXDC_XPS_S0PAGE_RESOURCE_T}
      */
-    xpsS0PageResourcePassthrough{
+    xpsS0PageResourcePassthrough {
         get {
             if(!this.HasProp("__xpsS0PageResourcePassthrough"))
                 this.__xpsS0PageResourcePassthrough := MXDC_XPS_S0PAGE_RESOURCE_T(12, this)

@@ -5,9 +5,8 @@
  * Enumerates the possible versions for parameters for the TakeSnapshotVhdSet function.
  * @see https://learn.microsoft.com/windows/win32/api/virtdisk/ne-virtdisk-take_snapshot_vhdset_version
  * @namespace Windows.Win32.Storage.Vhd
- * @version v4.0.30319
  */
-class TAKE_SNAPSHOT_VHDSET_VERSION extends Win32Enum{
+class TAKE_SNAPSHOT_VHDSET_VERSION extends Win32Enum {
 
     /**
      * Not Supported.

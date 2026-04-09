@@ -7,9 +7,8 @@
  * Establishes a one-way secure channel between two objects.
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imfsecurechannel
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFSecureChannel extends IUnknown{
+class IMFSecureChannel extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -65,7 +64,7 @@ class IMFSecureChannel extends IUnknown{
 
     /**
      * Passes the encrypted session key to the client.
-     * @param {Pointer} pbEncryptedSessionKey Pointer to a buffer that contains the encrypted session key. This parameter can be <b>NULL</b>.
+     * @param {Integer} pbEncryptedSessionKey Pointer to a buffer that contains the encrypted session key. This parameter can be <b>NULL</b>.
      * @param {Integer} cbSessionKey Size of the <i>pbEncryptedSessionKey</i> buffer, in bytes.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 

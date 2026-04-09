@@ -22,9 +22,8 @@
  * </ul>
  * @see https://learn.microsoft.com/windows/win32/api/d2d1effectauthor/nn-d2d1effectauthor-id2d1boundsadjustmenttransform
  * @namespace Windows.Win32.Graphics.Direct2D
- * @version v4.0.30319
  */
-class ID2D1BoundsAdjustmentTransform extends ID2D1TransformNode{
+class ID2D1BoundsAdjustmentTransform extends ID2D1TransformNode {
 
     static sizeof => A_PtrSize
     /**

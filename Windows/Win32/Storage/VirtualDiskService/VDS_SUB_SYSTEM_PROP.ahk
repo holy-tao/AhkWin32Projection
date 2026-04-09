@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\VDS_SUB_SYSTEM_STATUS.ahk
+#Include .\VDS_HEALTH.ahk
 
 /**
  * The VDS_SUB_SYSTEM_PROP structure (vdshwprv.h) defines the properties of a subsystem object.
@@ -8,17 +10,15 @@
  *     method returns this structure to report the properties of a <a href="https://docs.microsoft.com/windows/desktop/VDS/subsystem-object">subsystem object</a>.
  * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/ns-vdshwprv-vds_sub_system_prop
  * @namespace Windows.Win32.Storage.VirtualDiskService
- * @version v4.0.30319
  */
-class VDS_SUB_SYSTEM_PROP extends Win32Struct
-{
+class VDS_SUB_SYSTEM_PROP extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
 
     /**
      * The GUID of the subsystem object.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     id {
         get => NumGet(this, 0, "ptr")
@@ -68,7 +68,7 @@ class VDS_SUB_SYSTEM_PROP extends Win32Struct
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ne-vdshwprv-vds_sub_system_status">VDS_SUB_SYSTEM_STATUS</a> enumeration value that specifies the status of the subsystem object.
-     * @type {Integer}
+     * @type {VDS_SUB_SYSTEM_STATUS}
      */
     status {
         get => NumGet(this, 32, "int")
@@ -78,7 +78,7 @@ class VDS_SUB_SYSTEM_PROP extends Win32Struct
     /**
      * A 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ne-vdshwprv-vds_health">VDS_HEALTH</a> enumeration value that specifies the health state of the subsystem. The following are the valid values for this member.
-     * @type {Integer}
+     * @type {VDS_HEALTH}
      */
     health {
         get => NumGet(this, 36, "int")

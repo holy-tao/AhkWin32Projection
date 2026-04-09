@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
 #Include ..\..\..\System\Com\IDispatch.ahk
+#Include ..\..\..\Foundation\BSTR.ahk
 
 /**
  * The IX509PolicyServerUrl interface can be used to set or retrieve property values associated with the certificate enrollment policy (CEP) server and to update associated registry values.
  * @see https://learn.microsoft.com/windows/win32/api/certenroll/nn-certenroll-ix509policyserverurl
  * @namespace Windows.Win32.Security.Cryptography.Certificates
- * @version v4.0.30319
  */
-class IX509PolicyServerUrl extends IDispatch{
+class IX509PolicyServerUrl extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -48,7 +47,7 @@ class IX509PolicyServerUrl extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {PolicyServerUrlFlags} 
      */
     Flags {
         get => this.get_Flags()
@@ -56,7 +55,7 @@ class IX509PolicyServerUrl extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {X509EnrollmentAuthFlags} 
      */
     AuthFlags {
         get => this.get_AuthFlags()
@@ -73,7 +72,7 @@ class IX509PolicyServerUrl extends IDispatch{
 
     /**
      * Initializes an IX509PolicyServerUrl object for a computer or user context.
-     * @param {Integer} _context 
+     * @param {X509CertificateEnrollmentContext} _context 
      * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>.
      * 
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table.  For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
@@ -151,7 +150,7 @@ class IX509PolicyServerUrl extends IDispatch{
      * Specifies or retrieves a value that indicates whether the certificate enrollment policy (CEP) server policy information can be loaded from group policy, from the registry, or both. (Get)
      * @remarks
      * When the PsfLocationGroupPolicy and PsfLocationRegistry flags are combined, this method reads policy information from the local registry and combines it with policy information specified by group policy.
-     * @returns {Integer} 
+     * @returns {PolicyServerUrlFlags} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509policyserverurl-get_flags
      */
     get_Flags() {
@@ -163,7 +162,7 @@ class IX509PolicyServerUrl extends IDispatch{
      * Specifies or retrieves a value that indicates whether the certificate enrollment policy (CEP) server policy information can be loaded from group policy, from the registry, or both. (Put)
      * @remarks
      * When the PsfLocationGroupPolicy and PsfLocationRegistry flags are combined, this method reads policy information from the local registry and combines it with policy information specified by group policy.
-     * @param {Integer} Flags 
+     * @param {PolicyServerUrlFlags} Flags 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509policyserverurl-put_flags
      */
@@ -174,7 +173,7 @@ class IX509PolicyServerUrl extends IDispatch{
 
     /**
      * Specifies and retrieves a value that indicates the authentication type used by the client to authenticate itself to the certificate enrollment policy (CEP) server. (Get)
-     * @returns {Integer} 
+     * @returns {X509EnrollmentAuthFlags} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509policyserverurl-get_authflags
      */
     get_AuthFlags() {
@@ -184,7 +183,7 @@ class IX509PolicyServerUrl extends IDispatch{
 
     /**
      * Specifies and retrieves a value that indicates the authentication type used by the client to authenticate itself to the certificate enrollment policy (CEP) server. (Put)
-     * @param {Integer} Flags 
+     * @param {X509EnrollmentAuthFlags} Flags 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509policyserverurl-put_authflags
      */
@@ -216,7 +215,7 @@ class IX509PolicyServerUrl extends IDispatch{
 
     /**
      * Retrieves the certificate enrollment policy (CEP) server ID or the display name of the CEP server.
-     * @param {Integer} propertyId 
+     * @param {PolicyServerUrlPropertyID} propertyId 
      * @returns {BSTR} Pointer to a <b>BSTR</b> variable that receives the property value.
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509policyserverurl-getstringproperty
      */
@@ -228,7 +227,7 @@ class IX509PolicyServerUrl extends IDispatch{
 
     /**
      * Specifies the certificate enrollment policy (CEP) server ID or the display name of the CEP server.
-     * @param {Integer} propertyId 
+     * @param {PolicyServerUrlPropertyID} propertyId 
      * @param {BSTR} pValue A <b>BSTR</b> variable that receives the property value.
      * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>.
      * 
@@ -275,7 +274,7 @@ class IX509PolicyServerUrl extends IDispatch{
      * Registers a certificate enrollment policy (CEP) server.
      * @remarks
      * The <b>UpdateRegistry</b> method is called by the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509enrollmenthelper-addpolicyserver">AddPolicyServer</a> method.
-     * @param {Integer} _context 
+     * @param {X509CertificateEnrollmentContext} _context 
      * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>.
      * 
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table.  For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
@@ -317,7 +316,7 @@ class IX509PolicyServerUrl extends IDispatch{
 
     /**
      * Unregisters a certificate enrollment policy (CEP) server.
-     * @param {Integer} _context 
+     * @param {X509CertificateEnrollmentContext} _context 
      * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>.
      * 
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table.  For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.

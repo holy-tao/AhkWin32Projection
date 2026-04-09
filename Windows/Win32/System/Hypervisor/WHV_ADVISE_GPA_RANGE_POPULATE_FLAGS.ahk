@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Hypervisor
- * @version v4.0.30319
  */
-class WHV_ADVISE_GPA_RANGE_POPULATE_FLAGS extends Win32Struct
-{
+class WHV_ADVISE_GPA_RANGE_POPULATE_FLAGS extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4

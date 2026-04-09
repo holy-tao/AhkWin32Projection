@@ -14,10 +14,8 @@
  *     <b>UnmapGranularityAlignment</b> should assume it has a value of 0.
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-device_lb_provisioning_descriptor
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class DEVICE_LB_PROVISIONING_DESCRIPTOR extends Win32Struct
-{
+class DEVICE_LB_PROVISIONING_DESCRIPTOR extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -58,36 +56,6 @@ class DEVICE_LB_PROVISIONING_DESCRIPTOR extends Win32Struct
     }
 
     /**
-     * The thin provisioning–enabled status.
-     * 
-     * <table>
-     * <tr>
-     * <th>Value</th>
-     * <th>Meaning</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt>0</dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Thin provisioning is disabled.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt>1</dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Thin provisioning is enabled.
-     * 
-     * </td>
-     * </tr>
-     * </table>
      * @type {Integer}
      */
     ThinProvisioningEnabled {
@@ -96,36 +64,6 @@ class DEVICE_LB_PROVISIONING_DESCRIPTOR extends Win32Struct
     }
 
     /**
-     * Reads to unmapped regions return zeros.
-     * 
-     * <table>
-     * <tr>
-     * <th>Value</th>
-     * <th>Meaning</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt>0</dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Data read from unmapped regions is undefined.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt>1</dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Reads return zeros.
-     * 
-     * </td>
-     * </tr>
-     * </table>
      * @type {Integer}
      */
     ThinProvisioningReadZeros {
@@ -134,36 +72,6 @@ class DEVICE_LB_PROVISIONING_DESCRIPTOR extends Win32Struct
     }
 
     /**
-     * Deterministic read after trim support.
-     * 
-     * <table>
-     * <tr>
-     * <th>Value</th>
-     * <th>Meaning</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt>0</dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Deterministic read after trim is not supported.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt>1</dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Deterministic read after trim is supported.
-     * 
-     * </td>
-     * </tr>
-     * </table>
      * @type {Integer}
      */
     AnchorSupported {
@@ -172,36 +80,6 @@ class DEVICE_LB_PROVISIONING_DESCRIPTOR extends Win32Struct
     }
 
     /**
-     * The validity of unmap granularity alignment for the device.
-     * 
-     * <table>
-     * <tr>
-     * <th>Value</th>
-     * <th>Meaning</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt>0</dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Unmap granularity alignment is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt>1</dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Unmap granularity alignment is valid.
-     * 
-     * </td>
-     * </tr>
-     * </table>
      * @type {Integer}
      */
     UnmapGranularityAlignmentValid {
@@ -227,9 +105,9 @@ class DEVICE_LB_PROVISIONING_DESCRIPTOR extends Win32Struct
 
     /**
      * Reserved.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Reserved1{
+    Reserved1 {
         get {
             if(!this.HasProp("__Reserved1ProxyArray"))
                 this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 9, 7, Primitive, "char")

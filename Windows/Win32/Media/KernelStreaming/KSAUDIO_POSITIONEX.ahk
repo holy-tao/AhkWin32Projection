@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
- * @version v4.0.30319
  */
-class KSAUDIO_POSITIONEX extends Win32Struct
-{
+class KSAUDIO_POSITIONEX extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -31,7 +29,7 @@ class KSAUDIO_POSITIONEX extends Win32Struct
     /**
      * @type {KSAUDIO_POSITION}
      */
-    Position{
+    Position {
         get {
             if(!this.HasProp("__Position"))
                 this.__Position := KSAUDIO_POSITION(16, this)

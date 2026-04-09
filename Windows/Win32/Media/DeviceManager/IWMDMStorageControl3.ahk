@@ -7,9 +7,8 @@
  * The IWMDMStorageControl3 interface extends IWMDMStorageControl2 by providing an Insert method that accepts an IWMDMMetaData interface pointer.
  * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nn-mswmdm-iwmdmstoragecontrol3
  * @namespace Windows.Win32.Media.DeviceManager
- * @version v4.0.30319
  */
-class IWMDMStorageControl3 extends IWMDMStorageControl2{
+class IWMDMStorageControl3 extends IWMDMStorageControl2 {
 
     static sizeof => A_PtrSize
     /**

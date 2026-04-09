@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\CERT_TRUST_STATUS.ahk
+#Include .\CERT_CHAIN_ELEMENT.ahk
+#Include .\CERT_TRUST_LIST_INFO.ahk
 
 /**
  * The CERT_SIMPLE_CHAIN structure contains an array of chain elements and a summary trust status for the chain that the array represents.
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cert_simple_chain
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CERT_SIMPLE_CHAIN extends Win32Struct
-{
+class CERT_SIMPLE_CHAIN extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -27,7 +27,7 @@ class CERT_SIMPLE_CHAIN extends Win32Struct
      * A structure that indicates the trust status of the whole chain. The structure includes an error status code and an information status code. For information about status code values, see <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_trust_status">CERT_TRUST_STATUS</a>.
      * @type {CERT_TRUST_STATUS}
      */
-    TrustStatus{
+    TrustStatus {
         get {
             if(!this.HasProp("__TrustStatus"))
                 this.__TrustStatus := CERT_TRUST_STATUS(4, this)

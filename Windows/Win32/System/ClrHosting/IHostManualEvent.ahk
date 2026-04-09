@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.ClrHosting
- * @version v4.0.30319
  */
-class IHostManualEvent extends IUnknown{
+class IHostManualEvent extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Com\IDispatch.ahk
 #Include .\ISecurityIdentityColl.ahk
 #Include ..\Com\IUnknown.ahk
-#Include ..\Com\IDispatch.ahk
 
 /**
  * Provides access to information about individual callers in a collection of callers.
  * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nn-comsvcs-isecuritycallerscoll
  * @namespace Windows.Win32.System.ComponentServices
- * @version v4.0.30319
  */
-class ISecurityCallersColl extends IDispatch{
+class ISecurityCallersColl extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class PROCESS_EXCEPTION_PORT extends Win32Struct
-{
+class PROCESS_EXCEPTION_PORT extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
@@ -15,7 +13,7 @@ class PROCESS_EXCEPTION_PORT extends Win32Struct
     /**
      * @type {HANDLE}
      */
-    ExceptionPortHandle{
+    ExceptionPortHandle {
         get {
             if(!this.HasProp("__ExceptionPortHandle"))
                 this.__ExceptionPortHandle := HANDLE(0, this)

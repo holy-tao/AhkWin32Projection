@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ITQueue.ahk
 #Include ..\..\System\Com\IDispatch.ahk
+#Include .\ITQueue.ahk
 
 /**
  * The ITQueueEvent interface (tapi3cc.h) contains methods that retrieve the description of Automatic Call Distribution (ACD) queue events.
  * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/nn-tapi3cc-itqueueevent
  * @namespace Windows.Win32.Devices.Tapi
- * @version v4.0.30319
  */
-class ITQueueEvent extends IDispatch{
+class ITQueueEvent extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -39,7 +38,7 @@ class ITQueueEvent extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {ACDQUEUE_EVENT} 
      */
     Event {
         get => this.get_Event()
@@ -62,7 +61,7 @@ class ITQueueEvent extends IDispatch{
 
     /**
      * The ITQueueEvent::get_Event method (tapi3cc.h) gets the descriptor of the event that occurred.
-     * @returns {Integer} Pointer to 
+     * @returns {ACDQUEUE_EVENT} Pointer to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3/ne-tapi3-acdqueue_event">ACDQUEUE_EVENT</a> descriptor of event.
      * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/nf-tapi3cc-itqueueevent-get_event
      */

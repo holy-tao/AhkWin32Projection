@@ -7,9 +7,8 @@
  * Defines a method for handling events related to changes in timer client status.
  * @see https://learn.microsoft.com/windows/win32/api/uianimation/nn-uianimation-iuianimationtimerclienteventhandler
  * @namespace Windows.Win32.UI.Animation
- * @version v4.0.30319
  */
-class IUIAnimationTimerClientEventHandler extends IUnknown{
+class IUIAnimationTimerClientEventHandler extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -32,8 +31,8 @@ class IUIAnimationTimerClientEventHandler extends IUnknown{
 
     /**
      * Handles events that occur when the status of the timer's client changes.
-     * @param {Integer} newStatus The new status of the timer's client.
-     * @param {Integer} previousStatus The previous status of the timer's client.
+     * @param {UI_ANIMATION_TIMER_CLIENT_STATUS} newStatus The new status of the timer's client.
+     * @param {UI_ANIMATION_TIMER_CLIENT_STATUS} previousStatus The previous status of the timer's client.
      * @returns {HRESULT} If the method succeeds, it returns S_OK. Otherwise, it returns an <b>HRESULT</b> error code. See <a href="https://docs.microsoft.com/windows/desktop/UIAnimation/uianimation-error-codes">Windows Animation Error Codes</a> for a list of error codes.
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationtimerclienteventhandler-ontimerclientstatuschanged
      */

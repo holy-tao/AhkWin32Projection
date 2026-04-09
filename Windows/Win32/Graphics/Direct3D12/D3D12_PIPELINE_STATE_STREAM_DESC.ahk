@@ -32,10 +32,8 @@
  * Consider using the `d3dx12.h` extensions for C++, which provide a set of helper structs for all pipeline subobjects (for example, the above struct is very similar to `CD3DX12_PIPELINE_STATE_STREAM_RASTERIZER`). This header can be found under the **[DirectX-Headers](https://github.com/microsoft/DirectX-Headers/blob/main/include/directx/d3dx12.h)** repo on github.
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_pipeline_state_stream_desc
  * @namespace Windows.Win32.Graphics.Direct3D12
- * @version v4.0.30319
  */
-class D3D12_PIPELINE_STATE_STREAM_DESC extends Win32Struct
-{
+class D3D12_PIPELINE_STATE_STREAM_DESC extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

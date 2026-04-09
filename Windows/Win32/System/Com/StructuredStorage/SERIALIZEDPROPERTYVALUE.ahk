@@ -5,10 +5,8 @@
  * A range of memory of arbitrary type that represents a serialized PROPVARIANT structure.
  * @see https://learn.microsoft.com/windows/win32/api/propidl/ns-propidl-serializedpropertyvalue
  * @namespace Windows.Win32.System.Com.StructuredStorage
- * @version v4.0.30319
  */
-class SERIALIZEDPROPERTYVALUE extends Win32Struct
-{
+class SERIALIZEDPROPERTYVALUE extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4
@@ -28,9 +26,9 @@ class SERIALIZEDPROPERTYVALUE extends Win32Struct
      * Type: <b>BYTE[1]</b>
      * 
      * A variable-length additional data that depends on the type passed in <b>dwType</b>.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    rgb{
+    rgb {
         get {
             if(!this.HasProp("__rgbProxyArray"))
                 this.__rgbProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "char")

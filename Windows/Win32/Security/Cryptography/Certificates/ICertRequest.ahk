@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
 #Include ..\..\..\System\Com\IDispatch.ahk
+#Include ..\..\..\Foundation\BSTR.ahk
 
 /**
  * Provides communications between a client or intermediary application and Certificate services.
  * @see https://learn.microsoft.com/windows/win32/api/certcli/nn-certcli-icertrequest
  * @namespace Windows.Win32.Security.Cryptography.Certificates
- * @version v4.0.30319
  */
-class ICertRequest extends IDispatch{
+class ICertRequest extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

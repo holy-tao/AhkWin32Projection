@@ -7,9 +7,8 @@
  * Allows snap-ins to add HTML Help support. (ISnapinHelp)
  * @see https://learn.microsoft.com/windows/win32/api/mmc/nn-mmc-isnapinhelp
  * @namespace Windows.Win32.System.Mmc
- * @version v4.0.30319
  */
-class ISnapinHelp extends IUnknown{
+class ISnapinHelp extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

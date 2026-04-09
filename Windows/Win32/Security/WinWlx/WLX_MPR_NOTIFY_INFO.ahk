@@ -5,10 +5,8 @@
  * Provides identification and authentication information to network providers.
  * @see https://learn.microsoft.com/windows/win32/api/winwlx/ns-winwlx-wlx_mpr_notify_info
  * @namespace Windows.Win32.Security.WinWlx
- * @version v4.0.30319
  */
-class WLX_MPR_NOTIFY_INFO extends Win32Struct
-{
+class WLX_MPR_NOTIFY_INFO extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8

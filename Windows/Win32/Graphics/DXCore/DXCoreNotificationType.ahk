@@ -5,9 +5,8 @@
  * Defines constants that specify types of notifications raised by [IDXCoreAdapter](/windows/win32/dxcore/dxcore_interface/nn-dxcore_interface-idxcoreadapter) or [IDXCoreAdapterList](/windows/win32/dxcore/dxcore_interface/nn-dxcore_interface-idxcoreadapterlist) objects.
  * @see https://learn.microsoft.com/windows/win32/api/dxcore_interface/ne-dxcore_interface-dxcorenotificationtype
  * @namespace Windows.Win32.Graphics.DXCore
- * @version v4.0.30319
  */
-class DXCoreNotificationType extends Win32Enum{
+class DXCoreNotificationType extends Win32Enum {
 
     /**
      * This notification is raised by an <a href="https://docs.microsoft.com/windows/win32/dxcore/dxcore_interface/nn-dxcore_interface-idxcoreadapterlist">IDXCoreAdapterList</a> object when the adapter list becomes stale. The fresh-to-stale transition is one-way, and one-time, so this notification is raised at most one time.

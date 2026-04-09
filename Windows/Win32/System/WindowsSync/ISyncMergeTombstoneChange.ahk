@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.WindowsSync
- * @version v4.0.30319
  */
-class ISyncMergeTombstoneChange extends IUnknown{
+class ISyncMergeTombstoneChange extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

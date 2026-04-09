@@ -1,21 +1,19 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\PROCESSOR_CACHE_TYPE.ahk
 #Include .\GROUP_AFFINITY.ahk
 
 /**
  * Describes cache attributes. This structure is used with the GetLogicalProcessorInformationEx function.
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-cache_relationship
  * @namespace Windows.Win32.System.SystemInformation
- * @version v4.0.30319
  */
-class CACHE_RELATIONSHIP extends Win32Struct
-{
+class CACHE_RELATIONSHIP extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
 
     /**
-     * 
      * @type {Integer}
      */
     Level {
@@ -52,7 +50,7 @@ class CACHE_RELATIONSHIP extends Win32Struct
 
     /**
      * The cache type. This member is a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ne-winnt-processor_cache_type">PROCESSOR_CACHE_TYPE</a> value.
-     * @type {Integer}
+     * @type {PROCESSOR_CACHE_TYPE}
      */
     Type {
         get => NumGet(this, 8, "int")
@@ -61,9 +59,9 @@ class CACHE_RELATIONSHIP extends Win32Struct
 
     /**
      * This member is reserved.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Reserved{
+    Reserved {
         get {
             if(!this.HasProp("__ReservedProxyArray"))
                 this.__ReservedProxyArray := Win32FixedArray(this.ptr + 12, 18, Primitive, "char")
@@ -82,7 +80,7 @@ class CACHE_RELATIONSHIP extends Win32Struct
     /**
      * @type {GROUP_AFFINITY}
      */
-    GroupMask{
+    GroupMask {
         get {
             if(!this.HasProp("__GroupMask"))
                 this.__GroupMask := GROUP_AFFINITY(32, this)
@@ -91,9 +89,9 @@ class CACHE_RELATIONSHIP extends Win32Struct
     }
 
     /**
-     * @type {Array<GROUP_AFFINITY>}
+     * @type {GROUP_AFFINITY}
      */
-    GroupMasks{
+    GroupMasks {
         get {
             if(!this.HasProp("__GroupMasksProxyArray"))
                 this.__GroupMasksProxyArray := Win32FixedArray(this.ptr + 32, 1, GROUP_AFFINITY, "")

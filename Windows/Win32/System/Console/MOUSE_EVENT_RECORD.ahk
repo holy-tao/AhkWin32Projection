@@ -10,10 +10,8 @@
  * Mouse events are generated whenever the user moves the mouse, or presses or releases one of the mouse buttons. Mouse events are placed in a console's input buffer only when the console group has the keyboard focus and the cursor is within the borders of the console's window.
  * @see https://learn.microsoft.com/windows/console/mouse-event-record-str
  * @namespace Windows.Win32.System.Console
- * @version v4.0.30319
  */
-class MOUSE_EVENT_RECORD extends Win32Struct
-{
+class MOUSE_EVENT_RECORD extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4
@@ -22,7 +20,7 @@ class MOUSE_EVENT_RECORD extends Win32Struct
      * A [**COORD**](coord-str.md) structure that contains the location of the cursor, in terms of the console screen buffer's character-cell coordinates.
      * @type {COORD}
      */
-    dwMousePosition{
+    dwMousePosition {
         get {
             if(!this.HasProp("__dwMousePosition"))
                 this.__dwMousePosition := COORD(0, this)

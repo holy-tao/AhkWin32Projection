@@ -1,15 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\Foundation\HANDLE.ahk
 #Include .\KSSTREAMALLOCATOR_STATUS.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
- * @version v4.0.30319
  */
-class IKsAllocator extends IUnknown{
+class IKsAllocator extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -42,7 +41,7 @@ class IKsAllocator extends IUnknown{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {KSALLOCATORMODE} 
      */
     KsGetAllocatorMode() {
         result := ComCall(4, this, "int")
@@ -61,7 +60,7 @@ class IKsAllocator extends IUnknown{
 
     /**
      * 
-     * @param {Integer} _Mode 
+     * @param {KSALLOCATORMODE} _Mode 
      * @returns {String} Nothing - always returns an empty string
      */
     KsSetAllocatorMode(_Mode) {

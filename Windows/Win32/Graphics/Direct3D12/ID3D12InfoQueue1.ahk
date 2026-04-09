@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D12
- * @version v4.0.30319
  */
-class ID3D12InfoQueue1 extends ID3D12InfoQueue{
+class ID3D12InfoQueue1 extends ID3D12InfoQueue {
 
     static sizeof => A_PtrSize
     /**
@@ -31,7 +30,7 @@ class ID3D12InfoQueue1 extends ID3D12InfoQueue{
     /**
      * 
      * @param {Pointer<D3D12MessageFunc>} CallbackFunc 
-     * @param {Integer} CallbackFilterFlags 
+     * @param {D3D12_MESSAGE_CALLBACK_FLAGS} CallbackFilterFlags 
      * @param {Pointer<Void>} pContext 
      * @param {Pointer<Integer>} pCallbackCookie 
      * @returns {HRESULT} 

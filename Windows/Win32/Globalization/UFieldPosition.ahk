@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Globalization
- * @version v4.0.30319
  */
-class UFieldPosition extends Win32Struct
-{
+class UFieldPosition extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4

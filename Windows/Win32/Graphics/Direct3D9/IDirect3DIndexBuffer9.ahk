@@ -22,9 +22,8 @@
  * ```
  * @see https://learn.microsoft.com/windows/win32/api/d3d9/nn-d3d9-idirect3dindexbuffer9
  * @namespace Windows.Win32.Graphics.Direct3D9
- * @version v4.0.30319
  */
-class IDirect3DIndexBuffer9 extends IDirect3DResource9{
+class IDirect3DIndexBuffer9 extends IDirect3DResource9 {
 
     static sizeof => A_PtrSize
     /**

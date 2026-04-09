@@ -5,9 +5,8 @@
  * The CLUSTER_RESOURCE_STATE enumeration (msclus.h) describes the operational condition of a resource.
  * @see https://learn.microsoft.com/windows/win32/api/msclus/ne-msclus-cluster_resource_state
  * @namespace Windows.Win32.Networking.Clustering
- * @version v4.0.30319
  */
-class CLUSTER_RESOURCE_STATE extends Win32Enum{
+class CLUSTER_RESOURCE_STATE extends Win32Enum {
 
     /**
      * The operation was not successful. For more information about the error, call the function 

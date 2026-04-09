@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\ICEnroll3.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
 #Include ..\..\..\System\Variant\VARIANT.ahk
-#Include .\ICEnroll3.ahk
 
 /**
  * The ICEnroll4 interface is one of several interfaces that represent the Certificate Enrollment Control.
  * @see https://learn.microsoft.com/windows/win32/api/xenroll/nn-xenroll-icenroll4
  * @namespace Windows.Win32.Security.Cryptography.Certificates
- * @version v4.0.30319
  */
-class ICEnroll4 extends ICEnroll3{
+class ICEnroll4 extends ICEnroll3 {
 
     static sizeof => A_PtrSize
     /**
@@ -49,7 +48,7 @@ class ICEnroll4 extends ICEnroll3{
     }
 
     /**
-     * @type {HRESULT} 
+     * @type {BSTR} 
      */
     SignerCertificate {
         set => this.put_SignerCertificate(value)
@@ -247,7 +246,7 @@ class ICEnroll4 extends ICEnroll3{
      * Creates a PKCS (ICEnroll4.createRequest)
      * @remarks
      * When this method is called from script, the method displays a user interface that asks whether the user will allow creation of a  certificate request. If a .pvk or .spc file was specified, the method displays a user interface that asks whether the user will allow a write operation to the file system.
-     * @param {Integer} Flags 
+     * @param {CERT_CREATE_REQUEST_FLAGS} Flags 
      * @param {BSTR} strDNName This parameter can be <b>NULL</b>; otherwise, this parameter specifies the distinguished name (DN) of the entity for which the request is being made. The DN name must follow the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/x-gly">X.500</a> naming convention, for example "CN=User, O=Microsoft". If a two-letter prefix does not exist, an OID may be provided instead.
      * @param {BSTR} Usage An <a href="https://docs.microsoft.com/windows/desktop/SecGloss/o-gly">object identifier</a> (OID) that describes the purpose of the certificate being generated, for example, individual or commercial Authenticode certificate, or client authentication. You can also specify multiple OIDs separated by a comma.
      * @returns {BSTR} A pointer to a <b>BSTR</b> (BASE64_HEADER format) that receives the request. When you have finished using the <b>BSTR</b>, free it by calling the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysfreestring">SysFreeString</a> function.
@@ -266,7 +265,7 @@ class ICEnroll4 extends ICEnroll3{
      * Creates a PKCS (ICEnroll4.createFileRequest)
      * @remarks
      * When this method is called from script, the method displays a user interface that asks whether the user will allow creation of a  certificate request and whether the user will allow a write operation to the file system.
-     * @param {Integer} Flags 
+     * @param {CERT_CREATE_REQUEST_FLAGS} Flags 
      * @param {BSTR} strDNName This parameter can be <b>NULL</b>; otherwise, this parameter specifies the distinguished name (DN) of the entity for which the request is being made. The DN name must follow the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/x-gly">X.500</a> naming convention, for example "CN=User, O=Microsoft". If a two-letter prefix does not exist, an OID can be provided instead.
      * @param {BSTR} strUsage An <a href="https://docs.microsoft.com/windows/desktop/SecGloss/o-gly">object identifier</a> (OID) that describes the purpose of the request being generated, for example, individual or commercial Authenticode certificate, or client authentication. You can also specify multiple OIDs separated by a comma.
      * @param {BSTR} strRequestFileName The name of the file that will receive the request.
@@ -434,7 +433,7 @@ class ICEnroll4 extends ICEnroll3{
      * @remarks
      * This method is disabled when  the Certificate Enrollment Control is executed as a scripted control.
      * @param {Integer} lIndex Specifies the ordinal position of the pending request whose property will be retrieved. Specify zero for the first request.
-     * @param {Integer} lDesiredProperty 
+     * @param {PENDING_REQUEST_DESIRED_PROPERTY} lDesiredProperty 
      * @returns {VARIANT} A pointer to a <b>VARIANT</b> that receives the value of the retrieved property. 
      * 
      * 
@@ -473,8 +472,8 @@ class ICEnroll4 extends ICEnroll3{
      * 
      * For more information about the XEKL_KEYSIZE_INC value, see PP_SIG_KEYSIZE_INC usage in the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptgetprovparam">CryptGetProvParam</a> reference page.
-     * @param {Integer} lSizeSpec 
-     * @param {Integer} lKeySpec 
+     * @param {XEKL_KEYSIZE} lSizeSpec 
+     * @param {XEKL_KEYSPEC} lKeySpec 
      * @returns {Integer} A pointer to a variable that receives the key size, in bits.
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll4-getkeylenex
      */
@@ -506,7 +505,7 @@ class ICEnroll4 extends ICEnroll3{
      * <a href="https://docs.microsoft.com/windows/desktop/api/xenroll/nf-xenroll-icenroll-createpkcs10">createPKCS10</a> method.
      * 
      * This method can be called multiple times to establish multiple certificate templates for the request.
-     * @param {Integer} lType 
+     * @param {ADDED_CERT_TYPE} lType 
      * @param {BSTR} bstrOIDOrName The certificate template fully qualified name which is being added to the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate request</a>. This value is interpreted by the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certification authority</a>.
      * @param {Integer} lMajorVersion Sets the major version of the template. This parameter is ignored if <i>lFlag</i> is XECT_EXTENSION_V!.
      * @param {BOOL} fMinorVersion Indicates whether a minor version of the template is used. This parameter is ignored if <i>lFlag</i> is XECT_EXTENSION_V!.

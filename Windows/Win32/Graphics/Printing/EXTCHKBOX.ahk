@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
- * @version v4.0.30319
  */
-class EXTCHKBOX extends Win32Struct
-{
+class EXTCHKBOX extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 8
@@ -60,9 +58,9 @@ class EXTCHKBOX extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt16>}
+     * @type {Array<Integer>}
      */
-    wReserved{
+    wReserved {
         get {
             if(!this.HasProp("__wReservedProxyArray"))
                 this.__wReservedProxyArray := Win32FixedArray(this.ptr + 40, 4, Primitive, "ushort")
@@ -71,9 +69,9 @@ class EXTCHKBOX extends Win32Struct
     }
 
     /**
-     * @type {Array<UIntPtr>}
+     * @type {Array<Pointer>}
      */
-    dwReserved{
+    dwReserved {
         get {
             if(!this.HasProp("__dwReservedProxyArray"))
                 this.__dwReservedProxyArray := Win32FixedArray(this.ptr + 48, 2, Primitive, "ptr")

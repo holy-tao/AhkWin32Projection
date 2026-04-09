@@ -27,9 +27,8 @@
  *         </b> This API is supported.
  * @see https://learn.microsoft.com/windows/win32/api/dxgi/nn-dxgi-idxgiobject
  * @namespace Windows.Win32.Graphics.Dxgi
- * @version v4.0.30319
  */
-class IDXGIObject extends IUnknown{
+class IDXGIObject extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -75,7 +74,7 @@ class IDXGIObject extends IUnknown{
      * @param {Integer} DataSize Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * The size of the object's data.
-     * @param {Pointer} pData Type: <b>const void*</b>
+     * @param {Integer} pData Type: <b>const void*</b>
      * 
      * A pointer to the object's data.
      * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
@@ -131,7 +130,7 @@ class IDXGIObject extends IUnknown{
      * @param {Pointer<Integer>} pDataSize Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a>*</b>
      * 
      * The size of the data.
-     * @param {Pointer} pData Type: <b>void*</b>
+     * @param {Integer} pData Type: <b>void*</b>
      * 
      * Pointer to the data.
      * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>

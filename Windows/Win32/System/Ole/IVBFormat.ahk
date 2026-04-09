@@ -1,16 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
  * Provides formatting support for controls on a Visual Basic container.
  * @see https://learn.microsoft.com/windows/win32/api/vbinterf/nn-vbinterf-ivbformat
  * @namespace Windows.Win32.System.Ole
- * @version v4.0.30319
  */
-class IVBFormat extends IUnknown{
+class IVBFormat extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

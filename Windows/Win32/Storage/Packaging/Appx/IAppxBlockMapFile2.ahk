@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Storage.Packaging.Appx
- * @version v4.0.30319
  */
-class IAppxBlockMapFile2 extends IAppxBlockMapFile{
+class IAppxBlockMapFile2 extends IAppxBlockMapFile {
 
     static sizeof => A_PtrSize
     /**

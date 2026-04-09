@@ -1,18 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\FILETIME.ahk
+#Include .\GNSS_AGNSS_REQUEST_TYPE.ahk
 #Include .\GNSS_AGNSS_INJECTTIME.ahk
+#Include ..\..\Foundation\FILETIME.ahk
+#Include .\GNSS_AGNSS_INJECTPOSITION.ahk
 #Include .\GNSS_FIXDATA_BASIC.ahk
 #Include .\GNSS_FIXDATA_ACCURACY.ahk
-#Include .\GNSS_AGNSS_INJECTPOSITION.ahk
 #Include .\GNSS_AGNSS_INJECTBLOB.ahk
 
 /**
  * @namespace Windows.Win32.Devices.Geolocation
- * @version v4.0.30319
  */
-class GNSS_AGNSS_INJECT extends Win32Struct
-{
+class GNSS_AGNSS_INJECT extends Win32Struct {
     static sizeof => 672
 
     static packingSize => 8
@@ -34,7 +33,7 @@ class GNSS_AGNSS_INJECT extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {GNSS_AGNSS_REQUEST_TYPE}
      */
     InjectionType {
         get => NumGet(this, 8, "int")
@@ -58,9 +57,9 @@ class GNSS_AGNSS_INJECT extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Unused{
+    Unused {
         get {
             if(!this.HasProp("__UnusedProxyArray"))
                 this.__UnusedProxyArray := Win32FixedArray(this.ptr + 20, 512, Primitive, "char")
@@ -71,7 +70,7 @@ class GNSS_AGNSS_INJECT extends Win32Struct
     /**
      * @type {GNSS_AGNSS_INJECTTIME}
      */
-    Time{
+    Time {
         get {
             if(!this.HasProp("__Time"))
                 this.__Time := GNSS_AGNSS_INJECTTIME(536, this)
@@ -82,7 +81,7 @@ class GNSS_AGNSS_INJECT extends Win32Struct
     /**
      * @type {GNSS_AGNSS_INJECTPOSITION}
      */
-    Position{
+    Position {
         get {
             if(!this.HasProp("__Position"))
                 this.__Position := GNSS_AGNSS_INJECTPOSITION(536, this)
@@ -93,7 +92,7 @@ class GNSS_AGNSS_INJECT extends Win32Struct
     /**
      * @type {GNSS_AGNSS_INJECTBLOB}
      */
-    BlobData{
+    BlobData {
         get {
             if(!this.HasProp("__BlobData"))
                 this.__BlobData := GNSS_AGNSS_INJECTBLOB(536, this)

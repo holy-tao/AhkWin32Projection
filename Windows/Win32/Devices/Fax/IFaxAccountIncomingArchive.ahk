@@ -1,18 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include .\IFaxIncomingMessageIterator.ahk
 #Include .\IFaxIncomingMessage.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * Used by a fax client application to access a particular fax account's archive of successfully received inbound fax messages. Use this interface to retrieve messages and get the size of the archive.
  * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nn-faxcomex-ifaxaccountincomingarchive
  * @namespace Windows.Win32.Devices.Fax
- * @version v4.0.30319
  */
-class IFaxAccountIncomingArchive extends IDispatch{
+class IFaxAccountIncomingArchive extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

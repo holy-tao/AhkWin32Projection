@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IWindowsDriverUpdateEntryCollection.ahk
 #Include .\IWindowsDriverUpdate3.ahk
+#Include .\IWindowsDriverUpdateEntryCollection.ahk
 
 /**
  * Contains the properties and methods that are available only from a Windows driver update. (IWindowsDriverUpdate4)
  * @see https://learn.microsoft.com/windows/win32/api/wuapi/nn-wuapi-iwindowsdriverupdate4
  * @namespace Windows.Win32.System.UpdateAgent
- * @version v4.0.30319
  */
-class IWindowsDriverUpdate4 extends IWindowsDriverUpdate3{
+class IWindowsDriverUpdate4 extends IWindowsDriverUpdate3 {
 
     static sizeof => A_PtrSize
     /**

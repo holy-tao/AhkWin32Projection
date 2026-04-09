@@ -13,10 +13,8 @@
  * <div> </div>
  * @see https://learn.microsoft.com/windows/win32/api/d2d1/ns-d2d1-d2d1_bezier_segment
  * @namespace Windows.Win32.Graphics.Direct2D.Common
- * @version v4.0.30319
  */
-class D2D1_BEZIER_SEGMENT extends Win32Struct
-{
+class D2D1_BEZIER_SEGMENT extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 4
@@ -27,7 +25,7 @@ class D2D1_BEZIER_SEGMENT extends Win32Struct
      * The first control point for the Bezier segment.
      * @type {D2D_POINT_2F}
      */
-    point1{
+    point1 {
         get {
             if(!this.HasProp("__point1"))
                 this.__point1 := D2D_POINT_2F(0, this)
@@ -41,7 +39,7 @@ class D2D1_BEZIER_SEGMENT extends Win32Struct
      * The second control point for the Bezier segment.
      * @type {D2D_POINT_2F}
      */
-    point2{
+    point2 {
         get {
             if(!this.HasProp("__point2"))
                 this.__point2 := D2D_POINT_2F(8, this)
@@ -55,7 +53,7 @@ class D2D1_BEZIER_SEGMENT extends Win32Struct
      * The end point for the Bezier segment.
      * @type {D2D_POINT_2F}
      */
-    point3{
+    point3 {
         get {
             if(!this.HasProp("__point3"))
                 this.__point3 := D2D_POINT_2F(16, this)

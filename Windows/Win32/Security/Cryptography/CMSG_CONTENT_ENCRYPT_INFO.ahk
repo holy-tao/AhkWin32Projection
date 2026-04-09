@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\HCRYPTPROV_LEGACY.ahk
-#Include .\CRYPT_INTEGER_BLOB.ahk
 #Include .\CRYPT_ALGORITHM_IDENTIFIER.ahk
+#Include .\CRYPT_INTEGER_BLOB.ahk
+#Include .\CMSG_RECIPIENT_ENCODE_INFO.ahk
 #Include .\BCRYPT_KEY_HANDLE.ahk
 
 /**
@@ -43,10 +44,8 @@
  * </dl>
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cmsg_content_encrypt_info
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CMSG_CONTENT_ENCRYPT_INFO extends Win32Struct
-{
+class CMSG_CONTENT_ENCRYPT_INFO extends Win32Struct {
     static sizeof => 128
 
     static packingSize => 8
@@ -64,7 +63,7 @@ class CMSG_CONTENT_ENCRYPT_INFO extends Win32Struct
      * A handle to a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">cryptographic service provider</a> (CSP). If the <b>fCNG</b> member is <b>FALSE</b> and the <b>hCryptProv</b> member is <b>NULL</b> upon input, <b>hCryptProv</b> must be updated by the callback function. If a provider is acquired that must be released, the <b>CMSG_CONTENT_ENCRYPT_RELEASE_CONTEXT_FLAG</b> must be set in the <b>dwFlags</b> member.
      * @type {HCRYPTPROV_LEGACY}
      */
-    hCryptProv{
+    hCryptProv {
         get {
             if(!this.HasProp("__hCryptProv"))
                 this.__hCryptProv := HCRYPTPROV_LEGACY(8, this)
@@ -76,7 +75,7 @@ class CMSG_CONTENT_ENCRYPT_INFO extends Win32Struct
      * A <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-crypt_algorithm_identifier">CRYPT_ALGORITHM_IDENTIFIER</a> structure that specifies the algorithm used to encrypt the key. If the callback function updates either the <b>pszObjId</b> member or the <b>Parameters</b> member of the <b>CRYPT_ALGORITHM_IDENTIFIER</b> structure, set the appropriate value in the <b>dwFlags</b> member. You must allocate and free memory for these values by using the <b>pfnAlloc</b> and <b>pfnFree</b> members.
      * @type {CRYPT_ALGORITHM_IDENTIFIER}
      */
-    ContentEncryptionAlgorithm{
+    ContentEncryptionAlgorithm {
         get {
             if(!this.HasProp("__ContentEncryptionAlgorithm"))
                 this.__ContentEncryptionAlgorithm := CRYPT_ALGORITHM_IDENTIFIER(16, this)
@@ -183,7 +182,7 @@ class CMSG_CONTENT_ENCRYPT_INFO extends Win32Struct
     /**
      * @type {BCRYPT_KEY_HANDLE}
      */
-    hCNGContentEncryptKey{
+    hCNGContentEncryptKey {
         get {
             if(!this.HasProp("__hCNGContentEncryptKey"))
                 this.__hCNGContentEncryptKey := BCRYPT_KEY_HANDLE(88, this)

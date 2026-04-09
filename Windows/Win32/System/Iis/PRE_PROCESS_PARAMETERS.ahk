@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.System.Iis
- * @version v4.0.30319
  */
-class PRE_PROCESS_PARAMETERS extends Win32Struct
-{
+class PRE_PROCESS_PARAMETERS extends Win32Struct {
     static sizeof => 104
 
     static packingSize => 8
@@ -95,7 +93,7 @@ class PRE_PROCESS_PARAMETERS extends Win32Struct
     /**
      * @type {FILETIME}
      */
-    SessionStartTime{
+    SessionStartTime {
         get {
             if(!this.HasProp("__SessionStartTime"))
                 this.__SessionStartTime := FILETIME(80, this)

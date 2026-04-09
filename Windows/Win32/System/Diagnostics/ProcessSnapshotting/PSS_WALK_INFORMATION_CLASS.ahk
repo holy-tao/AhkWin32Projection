@@ -5,9 +5,8 @@
  * Specifies what information the PssWalkSnapshot function returns.
  * @see https://learn.microsoft.com/windows/win32/api/processsnapshot/ne-processsnapshot-pss_walk_information_class
  * @namespace Windows.Win32.System.Diagnostics.ProcessSnapshotting
- * @version v4.0.30319
  */
-class PSS_WALK_INFORMATION_CLASS extends Win32Enum{
+class PSS_WALK_INFORMATION_CLASS extends Win32Enum {
 
     /**
      * Returns a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/processsnapshot/ns-processsnapshot-pss_auxiliary_page_entry">PSS_AUXILIARY_PAGE_ENTRY</a> structure, which contains the address, page attributes and contents of an auxiliary copied page.

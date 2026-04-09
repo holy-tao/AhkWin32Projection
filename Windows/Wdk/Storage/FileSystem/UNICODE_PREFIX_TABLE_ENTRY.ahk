@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\UNICODE_PREFIX_TABLE_ENTRY.ahk
+#Include ..\..\..\Win32\Foundation\UNICODE_STRING.ahk
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem
- * @version v4.0.30319
  */
-class UNICODE_PREFIX_TABLE_ENTRY extends Win32Struct
-{
+class UNICODE_PREFIX_TABLE_ENTRY extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -44,7 +44,7 @@ class UNICODE_PREFIX_TABLE_ENTRY extends Win32Struct
     }
 
     /**
-     * @type {Pointer<RTL_SPLAY_LINKS>}
+     * @type {Pointer}
      */
     Links {
         get => NumGet(this, 24, "ptr")

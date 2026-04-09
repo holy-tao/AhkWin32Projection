@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Storage.FileSystem
- * @version v4.0.30319
  */
-class LOCK_FILE_FLAGS extends Win32BitflagEnum{
+class LOCK_FILE_FLAGS extends Win32BitflagEnum {
 
     /**
      * @type {Integer (UInt32)}

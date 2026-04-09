@@ -3,14 +3,10 @@
 
 /**
  * Represents an HTTP request header as a name/value string pair.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/winhttp/ns-winhttp-winhttp_extended_header
  * @namespace Windows.Win32.Networking.WinHttp
- * @version v4.0.30319
  */
-class WINHTTP_EXTENDED_HEADER extends Win32Struct
-{
+class WINHTTP_EXTENDED_HEADER extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

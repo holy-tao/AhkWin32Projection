@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.UI.TextServices
- * @version v4.0.30319
  */
-class TEXT_STORE_LOCK_FLAGS extends Win32Enum{
+class TEXT_STORE_LOCK_FLAGS extends Win32Enum {
 
     /**
      * @type {Integer (UInt32)}

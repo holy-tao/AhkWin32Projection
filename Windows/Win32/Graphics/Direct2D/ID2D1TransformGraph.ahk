@@ -9,9 +9,8 @@
  * This interface allows a graph of transform nodes to be specified. This interface is passed to <a href="https://docs.microsoft.com/windows/desktop/api/d2d1effectauthor/nf-d2d1effectauthor-id2d1effectimpl-initialize">ID2D1EffectImpl::Initialize</a> to allow an effect implementation to specify a graph of transforms or a single transform.
  * @see https://learn.microsoft.com/windows/win32/api/d2d1effectauthor/nn-d2d1effectauthor-id2d1transformgraph
  * @namespace Windows.Win32.Graphics.Direct2D
- * @version v4.0.30319
  */
-class ID2D1TransformGraph extends IUnknown{
+class ID2D1TransformGraph extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -48,7 +47,9 @@ class ID2D1TransformGraph extends IUnknown{
      * Sets a single transform node as being equivalent to the whole graph.
      * @remarks
      * This equivalent to calling <a href="https://docs.microsoft.com/windows/desktop/api/d2d1effectauthor/nf-d2d1effectauthor-id2d1transformgraph-clear">ID2D1TransformGraph::Clear</a>, adding a single node, connecting all of the node inputs to the effect inputs in order, and setting the transform not as the graph output.
-     * @param {ID2D1TransformNode} _node 
+     * @param {ID2D1TransformNode} _node Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1effectauthor/nn-d2d1effectauthor-id2d1transformnode">ID2D1TransformNode</a>*</b>
+     * 
+     * The node to be set.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
@@ -82,7 +83,9 @@ class ID2D1TransformGraph extends IUnknown{
      * 
      * A transform graph cannot be directly added to another transform graph. 
      * Only interfaces derived from <a href="https://docs.microsoft.com/windows/desktop/api/d2d1effectauthor/nn-d2d1effectauthor-id2d1transformnode">ID2D1TransformNode</a> can be added to the transform graph.
-     * @param {ID2D1TransformNode} _node 
+     * @param {ID2D1TransformNode} _node Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1effectauthor/nn-d2d1effectauthor-id2d1transformnode">ID2D1TransformNode</a>*</b>
+     * 
+     * The node that will be added to the transform graph.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
@@ -116,7 +119,9 @@ class ID2D1TransformGraph extends IUnknown{
      * Any connections to this node will be removed when the node is removed.
      * 
      * After the node is removed, it cannot be used by the interface until it has been added to the graph by <a href="https://docs.microsoft.com/windows/desktop/api/d2d1effectauthor/nf-d2d1effectauthor-id2d1transformgraph-addnode">AddNode</a>.
-     * @param {ID2D1TransformNode} _node 
+     * @param {ID2D1TransformNode} _node Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1effectauthor/nn-d2d1effectauthor-id2d1transformnode">ID2D1TransformNode</a>*</b>
+     * 
+     * The node that will be removed from the transform graph.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
@@ -146,7 +151,9 @@ class ID2D1TransformGraph extends IUnknown{
      * Sets the output node for the transform graph.
      * @remarks
      * The node must already exist in the graph; otherwise, the call fails with <b>D2DERR_NOT_FOUND</b>.
-     * @param {ID2D1TransformNode} _node 
+     * @param {ID2D1TransformNode} _node Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1effectauthor/nn-d2d1effectauthor-id2d1transformnode">ID2D1TransformNode</a>*</b>
+     * 
+     * The node that will be considered the output of the transform node.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
@@ -215,7 +222,9 @@ class ID2D1TransformGraph extends IUnknown{
      * @param {Integer} toEffectInputIndex Type: <b>UINT32</b>
      * 
      * The effect input to which the transform node will be bound.
-     * @param {ID2D1TransformNode} _node 
+     * @param {ID2D1TransformNode} _node Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1effectauthor/nn-d2d1effectauthor-id2d1transformnode">ID2D1TransformNode</a>*</b>
+     * 
+     * The node to which the connection will be made.
      * @param {Integer} toNodeInputIndex Type: <b>UINT32</b>
      * 
      * The node input that will be connected.

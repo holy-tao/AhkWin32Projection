@@ -1,16 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\ISchemaItem.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
 #Include .\ISchemaStringCollection.ahk
-#Include .\ISchemaIdentityConstraint.ahk
-#Include .\ISchemaItem.ahk
 
 /**
  * @namespace Windows.Win32.Data.Xml.MsXml
- * @version v4.0.30319
  */
-class ISchemaIdentityConstraint extends ISchemaItem{
+class ISchemaIdentityConstraint extends ISchemaItem {
 
     static sizeof => A_PtrSize
     /**

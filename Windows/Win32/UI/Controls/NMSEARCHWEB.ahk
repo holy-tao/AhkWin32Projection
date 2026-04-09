@@ -1,18 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HWND.ahk
 #Include .\NMHDR.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include .\EC_SEARCHWEB_ENTRYPOINT.ahk
 
 /**
  * Contains information used to handle an [EN_SEARCHWEB](/windows/win32/controls/en-searchweb) notification code.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-nmsearchweb
  * @namespace Windows.Win32.UI.Controls
- * @version v4.0.30319
  */
-class NMSEARCHWEB extends Win32Struct
-{
+class NMSEARCHWEB extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -23,7 +20,7 @@ class NMSEARCHWEB extends Win32Struct
      * An NMHDR structure that contains additional information about this notification.
      * @type {NMHDR}
      */
-    hdr{
+    hdr {
         get {
             if(!this.HasProp("__hdr"))
                 this.__hdr := NMHDR(0, this)
@@ -35,7 +32,7 @@ class NMSEARCHWEB extends Win32Struct
      * Type: **[EC_SEARCHWEB_ENTRYPOINT](ne-commctrl-ec_searchweb_entrypoint.md)**
      * 
      * An enum value that indicates the entry point of the search.
-     * @type {Integer}
+     * @type {EC_SEARCHWEB_ENTRYPOINT}
      */
     entrypoint {
         get => NumGet(this, 24, "int")

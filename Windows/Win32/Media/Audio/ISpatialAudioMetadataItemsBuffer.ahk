@@ -7,9 +7,8 @@
  * Provides methods for attaching buffers to SpatialAudioMetadataItems for in-place storage of data.
  * @see https://learn.microsoft.com/windows/win32/api/spatialaudiometadata/nn-spatialaudiometadata-ispatialaudiometadataitemsbuffer
  * @namespace Windows.Win32.Media.Audio
- * @version v4.0.30319
  */
-class ISpatialAudioMetadataItemsBuffer extends IUnknown{
+class ISpatialAudioMetadataItemsBuffer extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -32,7 +31,7 @@ class ISpatialAudioMetadataItemsBuffer extends IUnknown{
 
     /**
      * Attaches caller-provided memory for storage of ISpatialAudioMetadataItems objects.
-     * @param {Pointer} _buffer 
+     * @param {Integer} _buffer A pointer to memory to use for storage.
      * @param {Integer} bufferLength The length of the supplied buffer. This size must match the length required for the metadata format and maximum metadata item count.
      * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, possible return codes include, but are not limited to, the values shown in the following table.
      * 
@@ -97,7 +96,7 @@ class ISpatialAudioMetadataItemsBuffer extends IUnknown{
 
     /**
      * Attaches a previously populated buffer for storage of ISpatialAudioMetadataItems objects. The metadata items already in the buffer are retained.
-     * @param {Pointer} _buffer 
+     * @param {Integer} _buffer A pointer to memory to use for storage.
      * @param {Integer} bufferLength The length of the supplied buffer. This size must match the length required for the metadata format and maximum metadata item count.
      * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, possible return codes include, but are not limited to, the values shown in the following table.
      * 

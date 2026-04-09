@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Ndis
- * @version v4.0.30319
  */
-class OFFLOAD_OPERATION_E extends Win32Enum{
+class OFFLOAD_OPERATION_E extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

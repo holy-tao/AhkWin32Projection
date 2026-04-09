@@ -1,13 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\NFC_LLCP_SOCKET_CONNECT_TYPE.ahk
 #Include .\NFC_LLCP_SERVICE_NAME_ENTRY.ahk
 
 /**
  * @namespace Windows.Win32.Devices.Nfc
- * @version v4.0.30319
  */
-class NFC_LLCP_SOCKET_CONNECT_INFO extends Win32Struct
-{
+class NFC_LLCP_SOCKET_CONNECT_INFO extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -29,7 +28,7 @@ class NFC_LLCP_SOCKET_CONNECT_INFO extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {NFC_LLCP_SOCKET_CONNECT_TYPE}
      */
     eConnectType {
         get => NumGet(this, 16, "int")
@@ -47,7 +46,7 @@ class NFC_LLCP_SOCKET_CONNECT_INFO extends Win32Struct
     /**
      * @type {NFC_LLCP_SERVICE_NAME_ENTRY}
      */
-    sServiceName{
+    sServiceName {
         get {
             if(!this.HasProp("__sServiceName"))
                 this.__sServiceName := NFC_LLCP_SERVICE_NAME_ENTRY(20, this)

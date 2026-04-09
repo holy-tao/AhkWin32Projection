@@ -10,9 +10,8 @@
  * | **MF\_DECODE\_UNIT\_SEI** | The unit type is Supplemental Enhancement Information (SEI).<br/> | 1     |
  * @see https://learn.microsoft.com/windows/win32/medfound/mf-custom-decode-unit-type-enum
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class MF_CUSTOM_DECODE_UNIT_TYPE extends Win32Enum{
+class MF_CUSTOM_DECODE_UNIT_TYPE extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

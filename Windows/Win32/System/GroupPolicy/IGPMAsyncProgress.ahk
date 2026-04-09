@@ -24,9 +24,8 @@
  *     operation by calling the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/gpmgmt/nf-gpmgmt-igpmasynccancel-cancel">Cancel</a> method.
  * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nn-gpmgmt-igpmasyncprogress
  * @namespace Windows.Win32.System.GroupPolicy
- * @version v4.0.30319
  */
-class IGPMAsyncProgress extends IDispatch{
+class IGPMAsyncProgress extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

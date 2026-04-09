@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IHTMLOptionElement.ahk
 #Include ..\..\System\Com\IDispatch.ahk
+#Include .\IHTMLOptionElement.ahk
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
- * @version v4.0.30319
  */
-class IHTMLOptionElementFactory extends IDispatch{
+class IHTMLOptionElementFactory extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

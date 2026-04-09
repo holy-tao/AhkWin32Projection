@@ -7,9 +7,8 @@
  * The IWMStreamConfig3 interface controls language settings for a stream.An IWMStreamConfig3 interface exists for every stream configuration object.
  * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nn-wmsdkidl-iwmstreamconfig3
  * @namespace Windows.Win32.Media.WindowsMediaFormat
- * @version v4.0.30319
  */
-class IWMStreamConfig3 extends IWMStreamConfig2{
+class IWMStreamConfig3 extends IWMStreamConfig2 {
 
     static sizeof => A_PtrSize
     /**

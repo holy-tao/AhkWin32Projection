@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem
- * @version v4.0.30319
  */
-class GENERATE_NAME_CONTEXT extends Win32Struct
-{
+class GENERATE_NAME_CONTEXT extends Win32Struct {
     static sizeof => 36
 
     static packingSize => 4

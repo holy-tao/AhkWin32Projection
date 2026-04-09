@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem
- * @version v4.0.30319
  */
-class FILE_PIPE_SILO_ARRIVAL_INPUT extends Win32Struct
-{
+class FILE_PIPE_SILO_ARRIVAL_INPUT extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 8
@@ -15,7 +13,7 @@ class FILE_PIPE_SILO_ARRIVAL_INPUT extends Win32Struct
     /**
      * @type {HANDLE}
      */
-    JobHandle{
+    JobHandle {
         get {
             if(!this.HasProp("__JobHandle"))
                 this.__JobHandle := HANDLE(0, this)

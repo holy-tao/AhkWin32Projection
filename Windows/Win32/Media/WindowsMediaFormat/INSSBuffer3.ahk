@@ -7,9 +7,8 @@
  * The INSSBuffer3 interface enhances the INSSBuffer interface by adding the ability to set and retrieve single properties for a sample.
  * @see https://learn.microsoft.com/windows/win32/api/wmsbuffer/nn-wmsbuffer-inssbuffer3
  * @namespace Windows.Win32.Media.WindowsMediaFormat
- * @version v4.0.30319
  */
-class INSSBuffer3 extends INSSBuffer2{
+class INSSBuffer3 extends INSSBuffer2 {
 
     static sizeof => A_PtrSize
     /**

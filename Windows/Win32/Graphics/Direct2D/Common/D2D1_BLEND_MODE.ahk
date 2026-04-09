@@ -5,9 +5,8 @@
  * The blend mode used for the Blend effect.
  * @see https://learn.microsoft.com/windows/win32/api/d2d1effects/ne-d2d1effects-d2d1_blend_mode
  * @namespace Windows.Win32.Graphics.Direct2D.Common
- * @version v4.0.30319
  */
-class D2D1_BLEND_MODE extends Win32Enum{
+class D2D1_BLEND_MODE extends Win32Enum {
 
     /**
      * Basic blend formula for alpha only. 

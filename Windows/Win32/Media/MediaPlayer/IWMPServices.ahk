@@ -7,9 +7,8 @@
  * The IWMPServices interface is implemented by Windows Media Player. It provides methods to retrieve the current stream state and current stream time.
  * @see https://learn.microsoft.com/windows/win32/api/wmpservices/nn-wmpservices-iwmpservices
  * @namespace Windows.Win32.Media.MediaPlayer
- * @version v4.0.30319
  */
-class IWMPServices extends IUnknown{
+class IWMPServices extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -51,7 +50,7 @@ class IWMPServices extends IUnknown{
      * The IWMPServices::GetStreamState method retrieves information about the current play state of the stream.
      * @remarks
      * The stream is stopped, paused, or playing.
-     * @param {Pointer<Integer>} pState A pointer to a <b>WMPServices_StreamState</b> enumeration value.
+     * @param {Pointer<WMPServices_StreamState>} pState A pointer to a <b>WMPServices_StreamState</b> enumeration value.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>.
      * @see https://learn.microsoft.com/windows/win32/api/wmpservices/nf-wmpservices-iwmpservices-getstreamstate
      */

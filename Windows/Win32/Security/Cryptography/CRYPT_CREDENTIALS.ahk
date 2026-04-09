@@ -5,10 +5,8 @@
  * Contains information about credentials that can be passed as optional input to a remote object retrieval function such as CryptRetrieveObjectByUrl or CryptGetTimeValidObject.
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-crypt_credentials
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CRYPT_CREDENTIALS extends Win32Struct
-{
+class CRYPT_CREDENTIALS extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

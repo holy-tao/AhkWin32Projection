@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D
- * @version v4.0.30319
  */
-class D3D_SHADER_CACHE_APPLICATION_DESC extends Win32Struct
-{
+class D3D_SHADER_CACHE_APPLICATION_DESC extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8
@@ -31,7 +29,7 @@ class D3D_SHADER_CACHE_APPLICATION_DESC extends Win32Struct
     /**
      * @type {D3D_VERSION_NUMBER}
      */
-    Version{
+    Version {
         get {
             if(!this.HasProp("__Version"))
                 this.__Version := D3D_VERSION_NUMBER(16, this)
@@ -50,7 +48,7 @@ class D3D_SHADER_CACHE_APPLICATION_DESC extends Win32Struct
     /**
      * @type {D3D_VERSION_NUMBER}
      */
-    EngineVersion{
+    EngineVersion {
         get {
             if(!this.HasProp("__EngineVersion"))
                 this.__EngineVersion := D3D_VERSION_NUMBER(40, this)

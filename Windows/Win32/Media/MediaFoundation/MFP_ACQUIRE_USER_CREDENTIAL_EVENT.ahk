@@ -1,6 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\MFP_EVENT_HEADER.ahk
+#Include .\MFP_EVENT_TYPE.ahk
+#Include .\IMFPMediaPlayer.ahk
+#Include .\MFP_MEDIAPLAYER_STATE.ahk
+#Include ..\..\UI\Shell\PropertiesSystem\IPropertyStore.ahk
+#Include .\IMFNetCredential.ahk
 
 /**
  * Event structure for the MFP_EVENT_TYPE_ACQUIRE_USER_CREDENTIAL event.
@@ -24,10 +29,8 @@
  * </ol>
  * @see https://learn.microsoft.com/windows/win32/api/mfplay/ns-mfplay-mfp_acquire_user_credential_event
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class MFP_ACQUIRE_USER_CREDENTIAL_EVENT extends Win32Struct
-{
+class MFP_ACQUIRE_USER_CREDENTIAL_EVENT extends Win32Struct {
     static sizeof => 96
 
     static packingSize => 8
@@ -36,7 +39,7 @@ class MFP_ACQUIRE_USER_CREDENTIAL_EVENT extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/mfplay/ns-mfplay-mfp_event_header">MFP_EVENT_HEADER</a> structure that contains data common to all <a href="https://docs.microsoft.com/windows/desktop/api/mfplay/nn-mfplay-imfpmediaplayer">IMFPMediaPlayer</a> events.
      * @type {MFP_EVENT_HEADER}
      */
-    header{
+    header {
         get {
             if(!this.HasProp("__header"))
                 this.__header := MFP_EVENT_HEADER(0, this)

@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Storage.FileSystem
- * @version v4.0.30319
  */
-class FH_OVERLAPPED extends Win32Struct
-{
+class FH_OVERLAPPED extends Win32Struct {
     static sizeof => 72
 
     static packingSize => 8
@@ -47,7 +45,7 @@ class FH_OVERLAPPED extends Win32Struct
     /**
      * @type {HANDLE}
      */
-    hEvent{
+    hEvent {
         get {
             if(!this.HasProp("__hEvent"))
                 this.__hEvent := HANDLE(24, this)

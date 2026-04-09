@@ -1,17 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\MIB_IPFORWARDROW.ahk
 #Include .\MIB_IPDESTROW.ahk
+#Include .\MIB_IPFORWARDROW.ahk
+#Include .\MIB_IPFORWARD_TYPE.ahk
+#Include ..\..\Networking\WinSock\NL_ROUTE_PROTOCOL.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.IpHelper
- * @version v4.0.30319
  */
-class MIB_IPDESTTABLE extends Win32Struct
-{
-    static sizeof => 16
+class MIB_IPDESTTABLE extends Win32Struct {
+    static sizeof => 68
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}
@@ -22,12 +22,12 @@ class MIB_IPDESTTABLE extends Win32Struct
     }
 
     /**
-     * @type {Array<MIB_IPDESTROW>}
+     * @type {MIB_IPDESTROW}
      */
-    table{
+    table {
         get {
             if(!this.HasProp("__tableProxyArray"))
-                this.__tableProxyArray := Win32FixedArray(this.ptr + 8, 1, MIB_IPDESTROW, "")
+                this.__tableProxyArray := Win32FixedArray(this.ptr + 4, 1, MIB_IPDESTROW, "")
             return this.__tableProxyArray
         }
     }

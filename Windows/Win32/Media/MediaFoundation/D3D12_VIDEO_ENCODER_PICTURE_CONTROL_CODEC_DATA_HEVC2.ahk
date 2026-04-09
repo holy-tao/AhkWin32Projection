@@ -1,18 +1,19 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\D3D12_VIDEO_ENCODER_PICTURE_CONTROL_CODEC_DATA_HEVC_FLAGS.ahk
+#Include .\D3D12_VIDEO_ENCODER_FRAME_TYPE_HEVC.ahk
+#Include .\D3D12_VIDEO_ENCODER_REFERENCE_PICTURE_DESCRIPTOR_HEVC.ahk
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class D3D12_VIDEO_ENCODER_PICTURE_CONTROL_CODEC_DATA_HEVC2 extends Win32Struct
-{
-    static sizeof => 152
+class D3D12_VIDEO_ENCODER_PICTURE_CONTROL_CODEC_DATA_HEVC2 extends Win32Struct {
+    static sizeof => 144
 
     static packingSize => 8
 
     /**
-     * @type {Integer}
+     * @type {D3D12_VIDEO_ENCODER_PICTURE_CONTROL_CODEC_DATA_HEVC_FLAGS}
      */
     Flags {
         get => NumGet(this, 0, "int")
@@ -20,7 +21,7 @@ class D3D12_VIDEO_ENCODER_PICTURE_CONTROL_CODEC_DATA_HEVC2 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {D3D12_VIDEO_ENCODER_FRAME_TYPE_HEVC}
      */
     FrameType {
         get => NumGet(this, 4, "int")
@@ -191,31 +192,31 @@ class D3D12_VIDEO_ENCODER_PICTURE_CONTROL_CODEC_DATA_HEVC2 extends Win32Struct
      * @type {String}
      */
     cb_qp_offset_list {
-        get => StrGet(this.ptr + 118, 5, "UTF-16")
-        set => StrPut(value, this.ptr + 118, 5, "UTF-16")
+        get => StrGet(this.ptr + 118, 5, "UTF-8")
+        set => StrPut(value, this.ptr + 118, 5, "UTF-8")
     }
 
     /**
      * @type {String}
      */
     cr_qp_offset_list {
-        get => StrGet(this.ptr + 130, 5, "UTF-16")
-        set => StrPut(value, this.ptr + 130, 5, "UTF-16")
+        get => StrGet(this.ptr + 124, 5, "UTF-8")
+        set => StrPut(value, this.ptr + 124, 5, "UTF-8")
     }
 
     /**
      * @type {Integer}
      */
     num_ref_idx_l0_active_minus1 {
-        get => NumGet(this, 144, "uint")
-        set => NumPut("uint", value, this, 144)
+        get => NumGet(this, 132, "uint")
+        set => NumPut("uint", value, this, 132)
     }
 
     /**
      * @type {Integer}
      */
     num_ref_idx_l1_active_minus1 {
-        get => NumGet(this, 148, "uint")
-        set => NumPut("uint", value, this, 148)
+        get => NumGet(this, 136, "uint")
+        set => NumPut("uint", value, this, 136)
     }
 }

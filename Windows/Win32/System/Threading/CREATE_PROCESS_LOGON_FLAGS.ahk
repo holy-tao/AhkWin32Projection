@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Threading
- * @version v4.0.30319
  */
-class CREATE_PROCESS_LOGON_FLAGS extends Win32Enum{
+class CREATE_PROCESS_LOGON_FLAGS extends Win32Enum {
 
     /**
      * @type {Integer (UInt32)}

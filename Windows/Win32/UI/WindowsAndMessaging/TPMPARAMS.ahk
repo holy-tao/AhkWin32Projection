@@ -6,10 +6,8 @@
  * Contains extended parameters for the TrackPopupMenuEx function.
  * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-tpmparams
  * @namespace Windows.Win32.UI.WindowsAndMessaging
- * @version v4.0.30319
  */
-class TPMPARAMS extends Win32Struct
-{
+class TPMPARAMS extends Win32Struct {
     static sizeof => 20
 
     static packingSize => 4
@@ -31,7 +29,7 @@ class TPMPARAMS extends Win32Struct
      * The rectangle to be excluded when positioning the window, in screen coordinates.
      * @type {RECT}
      */
-    rcExclude{
+    rcExclude {
         get {
             if(!this.HasProp("__rcExclude"))
                 this.__rcExclude := RECT(4, this)

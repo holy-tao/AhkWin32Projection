@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\MINIDUMP_MISC_INFO_FLAGS.ahk
 
 /**
  * Contains a variety of information.
  * @see https://learn.microsoft.com/windows/win32/api/minidumpapiset/ns-minidumpapiset-minidump_misc_info
  * @namespace Windows.Win32.System.Diagnostics.Debug
- * @version v4.0.30319
  */
-class MINIDUMP_MISC_INFO extends Win32Struct
-{
+class MINIDUMP_MISC_INFO extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 4
@@ -23,8 +22,7 @@ class MINIDUMP_MISC_INFO extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Integer}
+     * @type {MINIDUMP_MISC_INFO_FLAGS}
      */
     Flags1 {
         get => NumGet(this, 4, "uint")

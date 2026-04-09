@@ -120,9 +120,8 @@
  * Because VBScript cannot read data from a type library, VBScript applications do not recognize the symbolic constants as defined above. You should use the numerical constants, instead, to set the appropriate flags in your VBScript applications. To use the symbolic constants, as a good programming practice, explicitly declare such constants, as done here, in your VBScript applications.
  * @see https://learn.microsoft.com/windows/win32/api/iads/ne-iads-ads_searchpref_enum
  * @namespace Windows.Win32.Networking.ActiveDirectory
- * @version v4.0.30319
  */
-class ADS_SEARCHPREF_ENUM extends Win32Enum{
+class ADS_SEARCHPREF_ENUM extends Win32Enum {
 
     /**
      * Specifies that searches should be performed asynchronously. By default, searches are synchronous.
@@ -241,13 +240,11 @@ class ADS_SEARCHPREF_ENUM extends Win32Enum{
     static ADS_SEARCHPREF_ATTRIBUTE_QUERY => 15
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static ADS_SEARCHPREF_SECURITY_MASK => 16
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static ADS_SEARCHPREF_DIRSYNC_FLAG => 17

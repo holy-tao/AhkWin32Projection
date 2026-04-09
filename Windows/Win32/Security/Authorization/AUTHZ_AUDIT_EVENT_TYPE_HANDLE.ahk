@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Security.Authorization
- * @version v4.0.30319
  */
-class AUTHZ_AUDIT_EVENT_TYPE_HANDLE extends Win32Handle
-{
+class AUTHZ_AUDIT_EVENT_TYPE_HANDLE extends Win32Handle {
     static sizeof => 8
 
     static packingSize => 8

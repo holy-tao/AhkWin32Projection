@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CRYPT_DEFAULT_CONTEXT_FLAGS extends Win32BitflagEnum{
+class CRYPT_DEFAULT_CONTEXT_FLAGS extends Win32BitflagEnum {
 
     /**
      * @type {Integer (UInt32)}

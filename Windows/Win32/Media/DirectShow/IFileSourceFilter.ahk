@@ -7,9 +7,8 @@
  * The IFileSourceFilter interface is exposed by source filters to set the file name and media type of the media file that they are to render.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-ifilesourcefilter
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IFileSourceFilter extends IUnknown{
+class IFileSourceFilter extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

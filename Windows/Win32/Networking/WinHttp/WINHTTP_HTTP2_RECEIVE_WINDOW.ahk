@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Networking.WinHttp
- * @version v4.0.30319
  */
-class WINHTTP_HTTP2_RECEIVE_WINDOW extends Win32Struct
-{
+class WINHTTP_HTTP2_RECEIVE_WINDOW extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4

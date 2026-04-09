@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.Geolocation
- * @version v4.0.30319
  */
-class _ICivicAddressReportFactoryEvents extends IDispatch{
+class _ICivicAddressReportFactoryEvents extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

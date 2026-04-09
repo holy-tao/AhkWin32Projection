@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
- * @version v4.0.30319
  */
-class ATTRIBUTE_INFO_1 extends Win32Struct
-{
+class ATTRIBUTE_INFO_1 extends Win32Struct {
     static sizeof => 28
 
     static packingSize => 4

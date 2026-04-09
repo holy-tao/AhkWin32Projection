@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class MFExtendedCameraIntrinsic_IntrinsicModel extends Win32Struct
-{
+class MFExtendedCameraIntrinsic_IntrinsicModel extends Win32Struct {
     static sizeof => 28
 
     static packingSize => 4
@@ -39,7 +37,7 @@ class MFExtendedCameraIntrinsic_IntrinsicModel extends Win32Struct
     /**
      * @type {MFCameraIntrinsic_CameraModel}
      */
-    CameraModel{
+    CameraModel {
         get {
             if(!this.HasProp("__CameraModel"))
                 this.__CameraModel := MFCameraIntrinsic_CameraModel(12, this)

@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\ISchemaStringCollection.ahk
 #Include .\ISchemaParticle.ahk
+#Include .\ISchemaStringCollection.ahk
 
 /**
  * @namespace Windows.Win32.Data.Xml.MsXml
- * @version v4.0.30319
  */
-class ISchemaAny extends ISchemaParticle{
+class ISchemaAny extends ISchemaParticle {
 
     static sizeof => A_PtrSize
     /**
@@ -37,7 +36,7 @@ class ISchemaAny extends ISchemaParticle{
     }
 
     /**
-     * @type {Integer} 
+     * @type {SCHEMAPROCESSCONTENTS} 
      */
     processContents {
         get => this.get_processContents()
@@ -54,7 +53,7 @@ class ISchemaAny extends ISchemaParticle{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {SCHEMAPROCESSCONTENTS} 
      */
     get_processContents() {
         result := ComCall(17, this, "int*", &processContents := 0, "HRESULT")

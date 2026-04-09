@@ -9,9 +9,8 @@
  * Support for this interface is optional and must not be assumed.
  * @see https://learn.microsoft.com/windows/win32/api/ctfutb/nn-ctfutb-itfsystemdevicetypelangbaritem
  * @namespace Windows.Win32.UI.TextServices
- * @version v4.0.30319
  */
-class ITfSystemDeviceTypeLangBarItem extends IUnknown{
+class ITfSystemDeviceTypeLangBarItem extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -34,7 +33,7 @@ class ITfSystemDeviceTypeLangBarItem extends IUnknown{
 
     /**
      * ITfSystemDeviceTypeLangBarItem::SetIconMode method
-     * @param {Integer} dwFlags 
+     * @param {LANG_BAR_ITEM_ICON_MODE_FLAGS} dwFlags 
      * @returns {HRESULT} This method can return one of these values.
      * 
      * <table>

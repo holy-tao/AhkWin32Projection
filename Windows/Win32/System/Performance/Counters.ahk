@@ -15,10 +15,8 @@
  * Add to this collection those counters that you want to graph. SYSMON retrieves the counter values either from the system or from a log file depending on the [**data source**](systemmonitor-datasourcetype.md) that you specify.
  * @see https://learn.microsoft.com/windows/win32/SysMon/counters
  * @namespace Windows.Win32.System.Performance
- * @version v4.0.30319
  */
-class Counters extends Win32Struct
-{
+class Counters extends Win32Struct {
     static sizeof => 0
 
     static packingSize => 1

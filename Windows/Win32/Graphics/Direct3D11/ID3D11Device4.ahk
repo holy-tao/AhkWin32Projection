@@ -7,9 +7,8 @@
  * The device interface represents a virtual adapter; it is used to create resources. ID3D11Device4 adds new methods to those in ID3D11Device3, such as RegisterDeviceRemovedEvent and UnregisterDeviceRemoved.
  * @see https://learn.microsoft.com/windows/win32/api/d3d11_4/nn-d3d11_4-id3d11device4
  * @namespace Windows.Win32.Graphics.Direct3D11
- * @version v4.0.30319
  */
-class ID3D11Device4 extends ID3D11Device3{
+class ID3D11Device4 extends ID3D11Device3 {
 
     static sizeof => A_PtrSize
     /**

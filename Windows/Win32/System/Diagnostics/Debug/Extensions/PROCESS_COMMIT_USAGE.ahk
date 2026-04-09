@@ -3,18 +3,16 @@
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
- * @version v4.0.30319
  */
-class PROCESS_COMMIT_USAGE extends Win32Struct
-{
+class PROCESS_COMMIT_USAGE extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 8
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    ImageFileName{
+    ImageFileName {
         get {
             if(!this.HasProp("__ImageFileNameProxyArray"))
                 this.__ImageFileNameProxyArray := Win32FixedArray(this.ptr + 0, 16, Primitive, "char")

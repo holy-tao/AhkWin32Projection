@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Ole
- * @version v4.0.30319
  */
-class OLECREATE extends Win32Enum{
+class OLECREATE extends Win32Enum {
 
     /**
      * @type {Integer (UInt32)}

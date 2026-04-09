@@ -3,13 +3,10 @@
 
 /**
  * Specifies the IORING API version.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/ntioring_x/ne-ntioring_x-ioring_version
  * @namespace Windows.Win32.Storage.FileSystem
- * @version v4.0.30319
  */
-class IORING_VERSION extends Win32Enum{
+class IORING_VERSION extends Win32Enum {
 
     /**
      * Invalid version.

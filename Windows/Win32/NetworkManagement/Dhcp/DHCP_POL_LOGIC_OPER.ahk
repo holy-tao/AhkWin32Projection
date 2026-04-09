@@ -5,9 +5,8 @@
  * The DHCP_POL_LOGIC_OPER enumeration defines how to group the constituent conditions and sub-expressions of an expression in a DHCP server policy.
  * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/ne-dhcpsapi-dhcp_pol_logic_oper
  * @namespace Windows.Win32.NetworkManagement.Dhcp
- * @version v4.0.30319
  */
-class DHCP_POL_LOGIC_OPER extends Win32Enum{
+class DHCP_POL_LOGIC_OPER extends Win32Enum {
 
     /**
      * The results of the constituent conditions and sub-expressions must be logically ORed to evaluate the expression.

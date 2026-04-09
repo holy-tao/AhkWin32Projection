@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\RpcLocalAddressFormat.ahk
 
 /**
  * Contains information about the local address on which a call was made.
  * @see https://learn.microsoft.com/windows/win32/api/rpcasync/ns-rpcasync-rpc_call_local_address_v1
  * @namespace Windows.Win32.System.Rpc
- * @version v4.0.30319
  */
-class RPC_CALL_LOCAL_ADDRESS_V1 extends Win32Struct
-{
+class RPC_CALL_LOCAL_ADDRESS_V1 extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -42,7 +41,7 @@ class RPC_CALL_LOCAL_ADDRESS_V1 extends Win32Struct
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/api/rpcasync/ne-rpcasync-rpclocaladdressformat">RpcLocalAddressFormat</a> enumeration values that specifies the format of the local address written to <b>Buffer</b>. For this version of the structure, only IPv4 and IPv6 addresses  are supported; if another is specified, RPC_S_CANNOT_SUPPORT is returned.
-     * @type {Integer}
+     * @type {RpcLocalAddressFormat}
      */
     AddressFormat {
         get => NumGet(this, 20, "int")

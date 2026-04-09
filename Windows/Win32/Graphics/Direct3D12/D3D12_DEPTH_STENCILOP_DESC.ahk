@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\D3D12_STENCIL_OP.ahk
+#Include .\D3D12_COMPARISON_FUNC.ahk
 
 /**
  * Describes stencil operations that can be performed based on the results of stencil test.
@@ -9,17 +11,15 @@
  * Members of <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ns-d3d12-d3d12_depth_stencil_desc">D3D12_DEPTH_STENCIL_DESC</a> have this structure for their data type.
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_depth_stencilop_desc
  * @namespace Windows.Win32.Graphics.Direct3D12
- * @version v4.0.30319
  */
-class D3D12_DEPTH_STENCILOP_DESC extends Win32Struct
-{
+class D3D12_DEPTH_STENCILOP_DESC extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_stencil_op">D3D12_STENCIL_OP</a>-typed value that identifies the stencil operation to perform when stencil testing fails.
-     * @type {Integer}
+     * @type {D3D12_STENCIL_OP}
      */
     StencilFailOp {
         get => NumGet(this, 0, "int")
@@ -28,7 +28,7 @@ class D3D12_DEPTH_STENCILOP_DESC extends Win32Struct
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_stencil_op">D3D12_STENCIL_OP</a>-typed value that identifies the stencil operation to perform when stencil testing passes and depth testing fails.
-     * @type {Integer}
+     * @type {D3D12_STENCIL_OP}
      */
     StencilDepthFailOp {
         get => NumGet(this, 4, "int")
@@ -37,7 +37,7 @@ class D3D12_DEPTH_STENCILOP_DESC extends Win32Struct
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_stencil_op">D3D12_STENCIL_OP</a>-typed value that identifies the stencil operation to perform when stencil testing and depth testing both pass.
-     * @type {Integer}
+     * @type {D3D12_STENCIL_OP}
      */
     StencilPassOp {
         get => NumGet(this, 8, "int")
@@ -46,7 +46,7 @@ class D3D12_DEPTH_STENCILOP_DESC extends Win32Struct
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_comparison_func">D3D12_COMPARISON_FUNC</a>-typed value that identifies the function that compares stencil data against existing stencil data.
-     * @type {Integer}
+     * @type {D3D12_COMPARISON_FUNC}
      */
     StencilFunc {
         get => NumGet(this, 12, "int")

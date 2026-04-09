@@ -7,10 +7,8 @@
  * For uncompressed video formats, set the structure members to zero.
  * @see https://learn.microsoft.com/windows/win32/api/mfobjects/ns-mfobjects-mfvideocompressedinfo
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class MFVideoCompressedInfo extends Win32Struct
-{
+class MFVideoCompressedInfo extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

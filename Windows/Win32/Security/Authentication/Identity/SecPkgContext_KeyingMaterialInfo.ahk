@@ -5,10 +5,8 @@
  * The SecPkgContext_KeyingMaterialInfo structure contains information about the exportable keying material in a security context.
  * @see https://learn.microsoft.com/windows/win32/api/schannel/ns-schannel-secpkgcontext_keyingmaterialinfo
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class SecPkgContext_KeyingMaterialInfo extends Win32Struct
-{
+class SecPkgContext_KeyingMaterialInfo extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -34,7 +32,6 @@ class SecPkgContext_KeyingMaterialInfo extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     cbContextValue {

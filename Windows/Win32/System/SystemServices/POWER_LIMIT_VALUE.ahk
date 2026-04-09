@@ -1,18 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\POWER_LIMIT_TYPES.ahk
 
 /**
  * @namespace Windows.Win32.System.SystemServices
- * @version v4.0.30319
  */
-class POWER_LIMIT_VALUE extends Win32Struct
-{
+class POWER_LIMIT_VALUE extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4
 
     /**
-     * @type {Integer}
+     * @type {POWER_LIMIT_TYPES}
      */
     Type {
         get => NumGet(this, 0, "int")

@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\LUID.ahk
 #Include .\DISPLAYCONFIG_DEVICE_INFO_HEADER.ahk
+#Include .\DISPLAYCONFIG_DEVICE_INFO_TYPE.ahk
+#Include ..\..\Foundation\LUID.ahk
+#Include ..\..\Graphics\Gdi\DISPLAYCONFIG_COLOR_ENCODING.ahk
 
 /**
  * @namespace Windows.Win32.Devices.Display
- * @version v4.0.30319
  */
-class DISPLAYCONFIG_GET_ADVANCED_COLOR_INFO extends Win32Struct
-{
+class DISPLAYCONFIG_GET_ADVANCED_COLOR_INFO extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 4
@@ -16,7 +16,7 @@ class DISPLAYCONFIG_GET_ADVANCED_COLOR_INFO extends Win32Struct
     /**
      * @type {DISPLAYCONFIG_DEVICE_INFO_HEADER}
      */
-    header{
+    header {
         get {
             if(!this.HasProp("__header"))
                 this.__header := DISPLAYCONFIG_DEVICE_INFO_HEADER(0, this)
@@ -87,7 +87,7 @@ class DISPLAYCONFIG_GET_ADVANCED_COLOR_INFO extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {DISPLAYCONFIG_COLOR_ENCODING}
      */
     colorEncoding {
         get => NumGet(this, 24, "int")

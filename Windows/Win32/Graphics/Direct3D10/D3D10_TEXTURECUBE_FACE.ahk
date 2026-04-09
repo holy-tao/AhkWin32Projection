@@ -5,9 +5,8 @@
  * The different faces of a cube texture. (D3D10_TEXTURECUBE_FACE)
  * @see https://learn.microsoft.com/windows/win32/api/d3d10/ne-d3d10-d3d10_texturecube_face
  * @namespace Windows.Win32.Graphics.Direct3D10
- * @version v4.0.30319
  */
-class D3D10_TEXTURECUBE_FACE extends Win32Enum{
+class D3D10_TEXTURECUBE_FACE extends Win32Enum {
 
     /**
      * Positive X face.

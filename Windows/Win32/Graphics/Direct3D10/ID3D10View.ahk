@@ -22,9 +22,8 @@
  * A view can also be used to access a <a href="https://docs.microsoft.com/windows/desktop/direct3d10/d3d10-graphics-programming-guide-resources-access-views">typeless resource</a>.
  * @see https://learn.microsoft.com/windows/win32/api/d3d10/nn-d3d10-id3d10view
  * @namespace Windows.Win32.Graphics.Direct3D10
- * @version v4.0.30319
  */
-class ID3D10View extends ID3D10DeviceChild{
+class ID3D10View extends ID3D10DeviceChild {
 
     static sizeof => A_PtrSize
     /**

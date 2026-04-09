@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Power
- * @version v4.0.30319
  */
-class USER_ACTIVITY_PRESENCE extends Win32Enum{
+class USER_ACTIVITY_PRESENCE extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

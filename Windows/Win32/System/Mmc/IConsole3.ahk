@@ -7,9 +7,8 @@
  * The IConsole3 interface supersedes the IConsole2 interface. The IConsole3 interface contains the IConsole3::RenameScopeItem method, which allows a scope node to programmatically be placed in rename mode.
  * @see https://learn.microsoft.com/windows/win32/api/mmc/nn-mmc-iconsole3
  * @namespace Windows.Win32.System.Mmc
- * @version v4.0.30319
  */
-class IConsole3 extends IConsole2{
+class IConsole3 extends IConsole2 {
 
     static sizeof => A_PtrSize
     /**

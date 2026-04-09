@@ -7,9 +7,8 @@
  * Defines methods used for connection-management and property-retrieval for a paired MTP/Bluetooth device.
  * @see https://learn.microsoft.com/windows/win32/api/portabledeviceconnectapi/nn-portabledeviceconnectapi-iportabledeviceconnector
  * @namespace Windows.Win32.Devices.PortableDevices
- * @version v4.0.30319
  */
-class IPortableDeviceConnector extends IUnknown{
+class IPortableDeviceConnector extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -149,7 +148,7 @@ class IPortableDeviceConnector extends IUnknown{
      * 
      * Once the application no longer needs the property data specified by the <i>ppData</i> parameter, it must call <b>CoTaskMemAlloc</b> to free this data.
      * @param {Pointer<DEVPROPKEY>} pPropertyKey A pointer to a property key for the requested property.
-     * @param {Pointer<Integer>} pPropertyType A pointer to a property type.
+     * @param {Pointer<DEVPROPTYPE>} pPropertyType A pointer to a property type.
      * @param {Pointer<Pointer<Integer>>} ppData The address of a pointer to the property data.
      * @param {Pointer<Integer>} pcbData A pointer to the size (in bytes) of the property data.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
@@ -198,7 +197,7 @@ class IPortableDeviceConnector extends IUnknown{
      * @remarks
      * Before calling this method, an application must verify that it has Administrator user rights.
      * @param {Pointer<DEVPROPKEY>} pPropertyKey A pointer to a property key for the given property.
-     * @param {Integer} PropertyType The property type.
+     * @param {DEVPROPTYPE} PropertyType The property type.
      * @param {Pointer<Integer>} pData A pointer to the property data.
      * @param {Integer} cbData The size (in bytes) of the property data.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.

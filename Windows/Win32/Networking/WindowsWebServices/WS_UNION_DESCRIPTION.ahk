@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\WS_UNION_FIELD_DESCRIPTION.ahk
 
 /**
  * Information about the choices within a union type. This is used with WS_UNION_TYPE.
@@ -152,10 +153,8 @@
  * </ul>
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_union_description
  * @namespace Windows.Win32.Networking.WindowsWebServices
- * @version v4.0.30319
  */
-class WS_UNION_DESCRIPTION extends Win32Struct
-{
+class WS_UNION_DESCRIPTION extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8

@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class PctPublicKey extends Win32Struct
-{
+class PctPublicKey extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4
@@ -28,9 +26,9 @@ class PctPublicKey extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    pKey{
+    pKey {
         get {
             if(!this.HasProp("__pKeyProxyArray"))
                 this.__pKeyProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "char")

@@ -5,9 +5,8 @@
  * Specifies whether Protected Process Light (PPL) is enabled.
  * @see https://learn.microsoft.com/windows/win32/api/processthreadsapi/ns-processthreadsapi-process_protection_level_information
  * @namespace Windows.Win32.System.Threading
- * @version v4.0.30319
  */
-class PROCESS_PROTECTION_LEVEL extends Win32Enum{
+class PROCESS_PROTECTION_LEVEL extends Win32Enum {
 
     /**
      * @type {Integer (UInt32)}

@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Rras
- * @version v4.0.30319
  */
-class PPP_LCP_INFO_AUTH_DATA extends Win32Enum{
+class PPP_LCP_INFO_AUTH_DATA extends Win32Enum {
 
     /**
      * @type {Integer (UInt32)}

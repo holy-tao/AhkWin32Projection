@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\EXCEPTION_RECORD.ahk
+#Include .\CONTEXT.ahk
 
 /**
  * Contains an exception record with a machine-independent description of an exception and a context record with a machine-dependent description of the processor context at the time of the exception.
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-exception_pointers
  * @namespace Windows.Win32.System.Diagnostics.Debug
- * @version v4.0.30319
  */
-class EXCEPTION_POINTERS extends Win32Struct
-{
+class EXCEPTION_POINTERS extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

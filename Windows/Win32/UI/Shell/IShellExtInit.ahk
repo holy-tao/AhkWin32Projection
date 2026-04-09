@@ -13,9 +13,8 @@
  * You do not use this interface directly. The Shell calls it to initialize the handler.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-ishellextinit
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IShellExtInit extends IUnknown{
+class IShellExtInit extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

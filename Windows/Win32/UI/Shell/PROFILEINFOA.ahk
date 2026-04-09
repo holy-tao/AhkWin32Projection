@@ -22,11 +22,9 @@
  * > The profinfo.h header defines PROFILEINFO as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
  * @see https://learn.microsoft.com/windows/win32/api/profinfo/ns-profinfo-profileinfoa
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  * @charset ANSI
  */
-class PROFILEINFOA extends Win32Struct
-{
+class PROFILEINFOA extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8
@@ -114,7 +112,7 @@ class PROFILEINFOA extends Win32Struct
      * A handle to the <b>HKEY_CURRENT_USER</b> registry subtree. For more information, see Remarks.
      * @type {HANDLE}
      */
-    hProfile{
+    hProfile {
         get {
             if(!this.HasProp("__hProfile"))
                 this.__hProfile := HANDLE(48, this)

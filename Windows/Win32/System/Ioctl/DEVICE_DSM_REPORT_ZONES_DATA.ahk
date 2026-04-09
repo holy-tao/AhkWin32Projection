@@ -1,14 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\STORAGE_ZONES_ATTRIBUTES.ahk
 #Include .\STORAGE_ZONE_DESCRIPTOR.ahk
+#Include .\STORAGE_ZONE_TYPES.ahk
+#Include .\STORAGE_ZONE_CONDITION.ahk
 
 /**
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class DEVICE_DSM_REPORT_ZONES_DATA extends Win32Struct
-{
-    static sizeof => 24
+class DEVICE_DSM_REPORT_ZONES_DATA extends Win32Struct {
+    static sizeof => 48
 
     static packingSize => 8
 
@@ -29,7 +30,7 @@ class DEVICE_DSM_REPORT_ZONES_DATA extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {STORAGE_ZONES_ATTRIBUTES}
      */
     Attributes {
         get => NumGet(this, 8, "int")
@@ -45,9 +46,9 @@ class DEVICE_DSM_REPORT_ZONES_DATA extends Win32Struct
     }
 
     /**
-     * @type {Array<STORAGE_ZONE_DESCRIPTOR>}
+     * @type {STORAGE_ZONE_DESCRIPTOR}
      */
-    ZoneDescriptors{
+    ZoneDescriptors {
         get {
             if(!this.HasProp("__ZoneDescriptorsProxyArray"))
                 this.__ZoneDescriptorsProxyArray := Win32FixedArray(this.ptr + 16, 1, STORAGE_ZONE_DESCRIPTOR, "")

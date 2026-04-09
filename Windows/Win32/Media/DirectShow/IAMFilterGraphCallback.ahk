@@ -7,9 +7,8 @@
  * The IAMFilterGraphCallback interface provides a callback mechanism during graph building.To use this interface, implement the interface in your application or client object.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-iamfiltergraphcallback
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IAMFilterGraphCallback extends IUnknown{
+class IAMFilterGraphCallback extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

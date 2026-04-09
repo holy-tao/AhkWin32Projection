@@ -7,9 +7,8 @@
  * Populates an ID2D1Mesh object with triangles.
  * @see https://learn.microsoft.com/windows/win32/api/d2d1/nn-d2d1-id2d1tessellationsink
  * @namespace Windows.Win32.Graphics.Direct2D
- * @version v4.0.30319
  */
-class ID2D1TessellationSink extends IUnknown{
+class ID2D1TessellationSink extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

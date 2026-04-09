@@ -7,9 +7,8 @@
  * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005.
  * @see https://learn.microsoft.com/windows/win32/api/mpeg2psiparser/nn-mpeg2psiparser-igenericdescriptor
  * @namespace Windows.Win32.Media.DirectShow.Tv
- * @version v4.0.30319
  */
-class IGenericDescriptor extends IUnknown{
+class IGenericDescriptor extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -1,18 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\APO_CONNECTION_BUFFER_TYPE.ahk
+#Include .\IAudioMediaType.ahk
 
 /**
  * @namespace Windows.Win32.Media.Audio.Apo
- * @version v4.0.30319
  */
-class APO_CONNECTION_DESCRIPTOR extends Win32Struct
-{
+class APO_CONNECTION_DESCRIPTOR extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
 
     /**
-     * @type {Integer}
+     * @type {APO_CONNECTION_BUFFER_TYPE}
      */
     Type {
         get => NumGet(this, 0, "int")

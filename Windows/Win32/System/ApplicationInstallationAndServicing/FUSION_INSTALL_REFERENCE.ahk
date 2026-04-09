@@ -5,10 +5,8 @@
  * The FUSION_INSTALL_REFERENCE structure contains information about the application which references the side-by-side assembly.
  * @see https://learn.microsoft.com/windows/win32/api/winsxs/ns-winsxs-fusion_install_reference
  * @namespace Windows.Win32.System.ApplicationInstallationAndServicing
- * @version v4.0.30319
  */
-class FUSION_INSTALL_REFERENCE extends Win32Struct
-{
+class FUSION_INSTALL_REFERENCE extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -33,7 +31,7 @@ class FUSION_INSTALL_REFERENCE extends Win32Struct
 
     /**
      * The application  that uses the side-by-side assembly.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     guidScheme {
         get => NumGet(this, 8, "ptr")

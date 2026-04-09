@@ -5,10 +5,8 @@
  * A matrix is a special data type that contains between one and sixteen components. Every component of a matrix must be of the same type.
  * @see https://learn.microsoft.com/windows/win32/direct3dhlsl/dx-graphics-hlsl-matrix
  * @namespace Windows.Win32.Graphics.GdiPlus
- * @version v4.0.30319
  */
-class Matrix extends Win32Struct
-{
+class Matrix extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 8

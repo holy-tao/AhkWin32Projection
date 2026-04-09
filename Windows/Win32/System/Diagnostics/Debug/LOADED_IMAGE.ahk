@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include ..\..\..\Foundation\HANDLE.ahk
+#Include .\IMAGE_NT_HEADERS64.ahk
+#Include .\IMAGE_SECTION_HEADER.ahk
+#Include .\IMAGE_FILE_CHARACTERISTICS2.ahk
 #Include ..\..\Kernel\LIST_ENTRY.ahk
 
 /**
@@ -17,10 +20,9 @@
  * ```
  * @see https://learn.microsoft.com/windows/win32/api/dbghelp/ns-dbghelp-loaded_image
  * @namespace Windows.Win32.System.Diagnostics.Debug
- * @version v4.0.30319
+ * @architecture X64, Arm64
  */
-class LOADED_IMAGE extends Win32Struct
-{
+class LOADED_IMAGE extends Win32Struct {
     static sizeof => 88
 
     static packingSize => 8
@@ -38,7 +40,7 @@ class LOADED_IMAGE extends Win32Struct
      * A handle to the mapped file.
      * @type {HANDLE}
      */
-    hFile{
+    hFile {
         get {
             if(!this.HasProp("__hFile"))
                 this.__hFile := HANDLE(8, this)
@@ -95,8 +97,7 @@ class LOADED_IMAGE extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Integer}
+     * @type {IMAGE_FILE_CHARACTERISTICS2}
      */
     Characteristics {
         get => NumGet(this, 56, "uint")
@@ -147,7 +148,7 @@ class LOADED_IMAGE extends Win32Struct
      * The list of loaded images.
      * @type {LIST_ENTRY}
      */
-    Links{
+    Links {
         get {
             if(!this.HasProp("__Links"))
                 this.__Links := LIST_ENTRY(64, this)

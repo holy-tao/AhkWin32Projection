@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class MCI_STATUS_INTEL_BITS extends Win32Struct
-{
+class MCI_STATUS_INTEL_BITS extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 8

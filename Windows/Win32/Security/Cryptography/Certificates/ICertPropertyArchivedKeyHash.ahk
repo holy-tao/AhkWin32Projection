@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
 #Include .\ICertProperty.ahk
+#Include ..\..\..\Foundation\BSTR.ahk
 
 /**
  * Represents a SHA-1 hash of an encrypted private key submitted to a certification authority for archival.
  * @see https://learn.microsoft.com/windows/win32/api/certenroll/nn-certenroll-icertpropertyarchivedkeyhash
  * @namespace Windows.Win32.Security.Cryptography.Certificates
- * @version v4.0.30319
  */
-class ICertPropertyArchivedKeyHash extends ICertProperty{
+class ICertPropertyArchivedKeyHash extends ICertProperty {
 
     static sizeof => A_PtrSize
     /**
@@ -35,7 +34,7 @@ class ICertPropertyArchivedKeyHash extends ICertProperty{
      * Initializes the object from a byte array that contains the hash.
      * @remarks
      * Call the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-icertproperty-setvalueoncertificate">SetValueOnCertificate</a> method to associate the property with a certificate. Call the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-icertpropertyarchivedkeyhash-get_archivedkeyhash">ArchivedKeyHash</a> property to retrieve the hash.
-     * @param {Integer} Encoding An <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/ne-certenroll-encodingtype">EncodingType</a> enumeration value that specifies the type of Unicode encoding applied to  the input string.
+     * @param {EncodingType} Encoding An <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/ne-certenroll-encodingtype">EncodingType</a> enumeration value that specifies the type of Unicode encoding applied to  the input string.
      * @param {BSTR} strArchivedKeyHashValue A <b>BSTR</b> variable that contains a SHA-1 hash of the encrypted private key.
      * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>.
      * 
@@ -72,7 +71,7 @@ class ICertPropertyArchivedKeyHash extends ICertProperty{
      * Retrieves a SHA-1 hash of the private key.
      * @remarks
      * Call the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-icertpropertyarchivedkeyhash-initialize">Initialize</a> method to specify the hash.
-     * @param {Integer} Encoding 
+     * @param {EncodingType} Encoding 
      * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icertpropertyarchivedkeyhash-get_archivedkeyhash
      */

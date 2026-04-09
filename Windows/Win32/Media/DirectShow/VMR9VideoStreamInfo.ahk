@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Graphics\Direct3D9\IDirect3DSurface9.ahk
 #Include .\VMR9NormalizedRect.ahk
+#Include .\VMR9_SampleFormat.ahk
 
 /**
  * The VMR9VideoStreamInfo structure describes the rendering parameters for a video compositing operation in the VRM-9 filter. This structure is used in the IVMRImageCompositor9::CompositeImage method.
  * @see https://learn.microsoft.com/windows/win32/api/vmr9/ns-vmr9-vmr9videostreaminfo
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class VMR9VideoStreamInfo extends Win32Struct
-{
+class VMR9VideoStreamInfo extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 8
@@ -63,7 +63,7 @@ class VMR9VideoStreamInfo extends Win32Struct
      * The position of the image in composition space, as a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/vmr9/ns-vmr9-vmr9normalizedrect">VMR9NormalizedRect</a> structure.
      * @type {VMR9NormalizedRect}
      */
-    rNormal{
+    rNormal {
         get {
             if(!this.HasProp("__rNormal"))
                 this.__rNormal := VMR9NormalizedRect(24, this)
@@ -91,7 +91,7 @@ class VMR9VideoStreamInfo extends Win32Struct
 
     /**
      * The video interlacing format, specified as a member of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/vmr9/ne-vmr9-vmr9_sampleformat">VMR9_SampleFormat</a> enumeration type.
-     * @type {Integer}
+     * @type {VMR9_SampleFormat}
      */
     SampleFormat {
         get => NumGet(this, 56, "int")

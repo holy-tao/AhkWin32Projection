@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.UI.TextServices
- * @version v4.0.30319
  */
-class ITfFnCustomSpeechCommand extends ITfFunction{
+class ITfFnCustomSpeechCommand extends ITfFunction {
 
     static sizeof => A_PtrSize
     /**

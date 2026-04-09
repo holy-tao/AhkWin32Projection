@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include .\ITrigger.ahk
 
 /**
@@ -12,9 +11,8 @@
  * When reading or writing your own XML for a task, a monthly trigger is specified using the <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/taskschedulerschema-schedulebymonth-calendartriggertype-element">ScheduleByMonth </a> element of the Task Scheduler schema.
  * @see https://learn.microsoft.com/windows/win32/api/taskschd/nn-taskschd-imonthlytrigger
  * @namespace Windows.Win32.System.TaskScheduler
- * @version v4.0.30319
  */
-class IMonthlyTrigger extends ITrigger{
+class IMonthlyTrigger extends ITrigger {
 
     static sizeof => A_PtrSize
     /**
@@ -36,6 +34,7 @@ class IMonthlyTrigger extends ITrigger{
     static VTableNames => ["get_DaysOfMonth", "put_DaysOfMonth", "get_MonthsOfYear", "put_MonthsOfYear", "get_RunOnLastDayOfMonth", "put_RunOnLastDayOfMonth", "get_RandomDelay", "put_RandomDelay"]
 
     /**
+     * @type {Integer} 
      */
     DaysOfMonth {
         get => this.get_DaysOfMonth()
@@ -43,6 +42,7 @@ class IMonthlyTrigger extends ITrigger{
     }
 
     /**
+     * @type {Integer} 
      */
     MonthsOfYear {
         get => this.get_MonthsOfYear()
@@ -50,6 +50,7 @@ class IMonthlyTrigger extends ITrigger{
     }
 
     /**
+     * @type {VARIANT_BOOL} 
      */
     RunOnLastDayOfMonth {
         get => this.get_RunOnLastDayOfMonth()
@@ -57,6 +58,7 @@ class IMonthlyTrigger extends ITrigger{
     }
 
     /**
+     * @type {BSTR} 
      */
     RandomDelay {
         get => this.get_RandomDelay()

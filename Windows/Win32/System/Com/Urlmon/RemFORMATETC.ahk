@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Com.Urlmon
- * @version v4.0.30319
  */
-class RemFORMATETC extends Win32Struct
-{
+class RemFORMATETC extends Win32Struct {
     static sizeof => 20
 
     static packingSize => 4

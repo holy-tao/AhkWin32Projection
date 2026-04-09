@@ -6,10 +6,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.Usb
- * @version v4.0.30319
  */
-class HUB_DEVICE_CONFIG_INFO extends Win32Struct
-{
+class HUB_DEVICE_CONFIG_INFO extends Win32Struct {
     static sizeof => 200
 
     static packingSize => 8
@@ -33,7 +31,7 @@ class HUB_DEVICE_CONFIG_INFO extends Win32Struct
     /**
      * @type {USB_HUB_CAP_FLAGS}
      */
-    HubFlags{
+    HubFlags {
         get {
             if(!this.HasProp("__HubFlags"))
                 this.__HubFlags := USB_HUB_CAP_FLAGS(8, this)
@@ -44,7 +42,7 @@ class HUB_DEVICE_CONFIG_INFO extends Win32Struct
     /**
      * @type {USB_ID_STRING}
      */
-    HardwareIds{
+    HardwareIds {
         get {
             if(!this.HasProp("__HardwareIds"))
                 this.__HardwareIds := USB_ID_STRING(16, this)
@@ -55,7 +53,7 @@ class HUB_DEVICE_CONFIG_INFO extends Win32Struct
     /**
      * @type {USB_ID_STRING}
      */
-    CompatibleIds{
+    CompatibleIds {
         get {
             if(!this.HasProp("__CompatibleIds"))
                 this.__CompatibleIds := USB_ID_STRING(32, this)
@@ -66,7 +64,7 @@ class HUB_DEVICE_CONFIG_INFO extends Win32Struct
     /**
      * @type {USB_ID_STRING}
      */
-    DeviceDescription{
+    DeviceDescription {
         get {
             if(!this.HasProp("__DeviceDescription"))
                 this.__DeviceDescription := USB_ID_STRING(48, this)
@@ -75,9 +73,9 @@ class HUB_DEVICE_CONFIG_INFO extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    Reserved{
+    Reserved {
         get {
             if(!this.HasProp("__ReservedProxyArray"))
                 this.__ReservedProxyArray := Win32FixedArray(this.ptr + 64, 19, Primitive, "uint")
@@ -88,7 +86,7 @@ class HUB_DEVICE_CONFIG_INFO extends Win32Struct
     /**
      * @type {USB_HUB_DEVICE_UXD_SETTINGS}
      */
-    UxdSettings{
+    UxdSettings {
         get {
             if(!this.HasProp("__UxdSettings"))
                 this.__UxdSettings := USB_HUB_DEVICE_UXD_SETTINGS(144, this)

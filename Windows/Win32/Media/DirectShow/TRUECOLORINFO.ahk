@@ -8,19 +8,17 @@
  * This structure is not used for some RGB formats. For more information about which fields are valid under different circumstances, see the Platform SDK documentation for <b>BITMAPINFO</b>.
  * @see https://learn.microsoft.com/windows/win32/api/amvideo/ns-amvideo-truecolorinfo
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class TRUECOLORINFO extends Win32Struct
-{
-    static sizeof => 2064
+class TRUECOLORINFO extends Win32Struct {
+    static sizeof => 1036
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Array of color masks (one per color element).
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    dwBitMasks{
+    dwBitMasks {
         get {
             if(!this.HasProp("__dwBitMasksProxyArray"))
                 this.__dwBitMasksProxyArray := Win32FixedArray(this.ptr + 0, 3, Primitive, "uint")
@@ -30,12 +28,12 @@ class TRUECOLORINFO extends Win32Struct
 
     /**
      * Array of palette colors.
-     * @type {Array<RGBQUAD>}
+     * @type {RGBQUAD}
      */
-    bmiColors{
+    bmiColors {
         get {
             if(!this.HasProp("__bmiColorsProxyArray"))
-                this.__bmiColorsProxyArray := Win32FixedArray(this.ptr + 16, 256, RGBQUAD, "")
+                this.__bmiColorsProxyArray := Win32FixedArray(this.ptr + 12, 256, RGBQUAD, "")
             return this.__bmiColorsProxyArray
         }
     }

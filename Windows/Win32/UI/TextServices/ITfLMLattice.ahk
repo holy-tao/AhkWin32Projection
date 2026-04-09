@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IEnumTfLatticeElements.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\IEnumTfLatticeElements.ahk
 
 /**
  * The ITfLMLattice interface is implemented by the speech text service to provide information about lattice element properties and is used by a client (application or other text service).
  * @see https://learn.microsoft.com/windows/win32/api/ctffunc/nn-ctffunc-itflmlattice
  * @namespace Windows.Win32.UI.TextServices
- * @version v4.0.30319
  */
-class ITfLMLattice extends IUnknown{
+class ITfLMLattice extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

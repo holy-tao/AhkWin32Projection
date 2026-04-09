@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.ClrHosting
- * @version v4.0.30319
  */
-class ICLRMemoryNotificationCallback extends IUnknown{
+class ICLRMemoryNotificationCallback extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -30,7 +29,7 @@ class ICLRMemoryNotificationCallback extends IUnknown{
 
     /**
      * 
-     * @param {Integer} _eMemoryAvailable 
+     * @param {EMemoryAvailable} _eMemoryAvailable 
      * @returns {HRESULT} 
      */
     OnMemoryNotification(_eMemoryAvailable) {

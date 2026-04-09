@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\StructuredStorage\PROPVARIANT.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\StructuredStorage\PROPVARIANT.ahk
 
 /**
  * Provides methods used to retrieve certain properties of an individual user included in a logon or credential UI.
@@ -13,9 +14,8 @@
  * Third-parties do not implement this interface. An implementation is included with Windows.
  * @see https://learn.microsoft.com/windows/win32/api/credentialprovider/nn-credentialprovider-icredentialprovideruser
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class ICredentialProviderUser extends IUnknown{
+class ICredentialProviderUser extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -42,7 +42,7 @@ class ICredentialProviderUser extends IUnknown{
      * This SID applies to both logon and credential UI.
      * 
      * This value can also be retrieved as a <b>PROPVARIANT</b> through <a href="https://docs.microsoft.com/windows/desktop/api/credentialprovider/nf-credentialprovider-icredentialprovideruser-getvalue">ICredentialProviderUser::GetValue</a>.
-     * @returns {PWSTR} 
+     * @returns {PWSTR} The address of a pointer to a buffer that, when this method returns successfully, receives the user's SID. It is the responsibility of the caller to free this resource by calling the <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a> function.
      * @see https://learn.microsoft.com/windows/win32/api/credentialprovider/nf-credentialprovider-icredentialprovideruser-getsid
      */
     GetSid() {

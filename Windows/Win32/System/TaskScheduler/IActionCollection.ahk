@@ -1,10 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Include ..\Com\IDispatch.ahk
 #Include .\IAction.ahk
 #Include ..\Com\IUnknown.ahk
-#Include ..\Com\IDispatch.ahk
 
 /**
  * Contains the actions that are performed by the task.
@@ -12,9 +11,8 @@
  * When reading or writing XML for a task, the actions of the task are specified in the  <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/taskschedulerschema-actions-tasktype-element">Actions</a> element of the Task Scheduler schema.
  * @see https://learn.microsoft.com/windows/win32/api/taskschd/nn-taskschd-iactioncollection
  * @namespace Windows.Win32.System.TaskScheduler
- * @version v4.0.30319
  */
-class IActionCollection extends IDispatch{
+class IActionCollection extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -49,6 +47,7 @@ class IActionCollection extends IDispatch{
     }
 
     /**
+     * @type {BSTR} 
      */
     XmlText {
         get => this.get_XmlText()
@@ -56,6 +55,7 @@ class IActionCollection extends IDispatch{
     }
 
     /**
+     * @type {BSTR} 
      */
     Context {
         get => this.get_Context()
@@ -126,7 +126,7 @@ class IActionCollection extends IDispatch{
      * Creates and adds a new action to the collection.
      * @remarks
      * You cannot add more than 32 actions to the collection.
-     * @param {Integer} type This parameter is set to one of the following  <a href="https://docs.microsoft.com/windows/desktop/api/taskschd/ne-taskschd-task_action_type">TASK_ACTION_TYPE</a> enumeration constants.
+     * @param {TASK_ACTION_TYPE} type This parameter is set to one of the following  <a href="https://docs.microsoft.com/windows/desktop/api/taskschd/ne-taskschd-task_action_type">TASK_ACTION_TYPE</a> enumeration constants.
      * 
      * <table>
      * <tr>

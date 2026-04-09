@@ -11,9 +11,8 @@
  * Exposes methods that modify the view and select items in the current folder. (IShellFolderViewDual)
  * @see https://learn.microsoft.com/windows/win32/api/shldisp/nn-shldisp-ishellfolderviewdual
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IShellFolderViewDual extends IDispatch{
+class IShellFolderViewDual extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

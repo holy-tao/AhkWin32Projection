@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IMFAttributes.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\IMFAttributes.ahk
 
 /**
  * Represents a sensor device that can belong to a sensor group, which is represented by the IMFSensorGroup interface. The term &quot;device&quot; in this context could refer to a physical device, a custom media source, or a frame provider.
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imfsensordevice
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFSensorDevice extends IUnknown{
+class IMFSensorDevice extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -43,7 +42,7 @@ class IMFSensorDevice extends IUnknown{
 
     /**
      * Gets a value that specifies the type of sensor device represented by the object.
-     * @returns {Integer} A value that specifies the type of sensor device represented by the object.
+     * @returns {MFSensorDeviceType} A value that specifies the type of sensor device represented by the object.
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsensordevice-getdevicetype
      */
     GetDeviceType() {
@@ -100,7 +99,7 @@ class IMFSensorDevice extends IUnknown{
      * If no streams are marked as shared and no preview stream is available, the first capture stream, with the category <b>PINNAME_VIDEO_CAPTURE</b>,  will be shared.
      * </div>
      * <div> </div>
-     * @param {Integer} eType A member of the <a href="https://docs.microsoft.com/windows/win32/api/mfidl/ne-mfidl-mfsensorstreamtype">MFSensorStreamType</a> enumeration specifying whether the attribute store count is being requested for an input or output stream.
+     * @param {MFSensorStreamType} eType A member of the <a href="https://docs.microsoft.com/windows/win32/api/mfidl/ne-mfidl-mfsensorstreamtype">MFSensorStreamType</a> enumeration specifying whether the attribute store count is being requested for an input or output stream.
      * @returns {Integer} The number of stream attributes available for this sensor device.
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsensordevice-getstreamattributescount
      */
@@ -113,7 +112,7 @@ class IMFSensorDevice extends IUnknown{
      * Gets the stream attribute store with the specified index.
      * @remarks
      * The object returned is a copy of the internal attribute store and so changes made to the returned attributes have no effect on the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imfsensordevice">IMFSensorDevice</a>.
-     * @param {Integer} eType A member of the <a href="https://docs.microsoft.com/windows/win32/api/mfidl/ne-mfidl-mfsensorstreamtype">MFSensorStreamType</a> enumeration specifying whether the attribute store is being requested for an input or output stream.
+     * @param {MFSensorStreamType} eType A member of the <a href="https://docs.microsoft.com/windows/win32/api/mfidl/ne-mfidl-mfsensorstreamtype">MFSensorStreamType</a> enumeration specifying whether the attribute store is being requested for an input or output stream.
      * @param {Integer} dwIndex The 0-based index of the stream to be retrieved.  The index must be between 0 and the value returned by <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-imfsensordevice-getstreamattributescount">GetStreamAttributesCount</a> - 1.
      * @returns {IMFAttributes} The <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfattributes">IMFAttributes</a> interface representing a copy internal attribute store of the stream.
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsensordevice-getstreamattributes
@@ -125,7 +124,7 @@ class IMFSensorDevice extends IUnknown{
 
     /**
      * Sets a value that specifies the sharing mode of the sensor device to either controller or shared.
-     * @param {Integer} eMode A member of the <a href="https://docs.microsoft.com/windows/win32/api/mfidl/ne-mfidl-mfsensordevicemode">MFSensorDeviceMode</a> enumeration specifying whether the device is in shared or controller mode.
+     * @param {MFSensorDeviceMode} eMode A member of the <a href="https://docs.microsoft.com/windows/win32/api/mfidl/ne-mfidl-mfsensordevicemode">MFSensorDeviceMode</a> enumeration specifying whether the device is in shared or controller mode.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      *           
      * 
@@ -167,7 +166,7 @@ class IMFSensorDevice extends IUnknown{
 
     /**
      * Gets a value that specifies the current sharing mode of the sensor device, which is either controller or shared.
-     * @returns {Integer} If the call succeeds, receives a member of the <a href="https://docs.microsoft.com/windows/win32/api/mfidl/ne-mfidl-mfsensordevicemode">MFSensorDeviceMode</a>, specifying the current mode of the sendsor device.
+     * @returns {MFSensorDeviceMode} If the call succeeds, receives a member of the <a href="https://docs.microsoft.com/windows/win32/api/mfidl/ne-mfidl-mfsensordevicemode">MFSensorDeviceMode</a>, specifying the current mode of the sendsor device.
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsensordevice-getsensordevicemode
      */
     GetSensorDeviceMode() {

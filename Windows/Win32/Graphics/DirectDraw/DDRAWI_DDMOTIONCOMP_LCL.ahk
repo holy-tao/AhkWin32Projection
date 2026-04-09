@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DDRAWI_DIRECTDRAW_LCL.ahk
 #Include .\DDPIXELFORMAT.ahk
 #Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw
- * @version v4.0.30319
  */
-class DDRAWI_DDMOTIONCOMP_LCL extends Win32Struct
-{
+class DDRAWI_DDMOTIONCOMP_LCL extends Win32Struct {
     static sizeof => 120
 
     static packingSize => 8
@@ -22,7 +21,7 @@ class DDRAWI_DDMOTIONCOMP_LCL extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     guid {
         get => NumGet(this, 8, "ptr")
@@ -48,7 +47,7 @@ class DDRAWI_DDMOTIONCOMP_LCL extends Win32Struct
     /**
      * @type {DDPIXELFORMAT}
      */
-    ddUncompPixelFormat{
+    ddUncompPixelFormat {
         get {
             if(!this.HasProp("__ddUncompPixelFormat"))
                 this.__ddUncompPixelFormat := DDPIXELFORMAT(24, this)
@@ -83,7 +82,7 @@ class DDRAWI_DDMOTIONCOMP_LCL extends Win32Struct
     /**
      * @type {HANDLE}
      */
-    hMoComp{
+    hMoComp {
         get {
             if(!this.HasProp("__hMoComp"))
                 this.__hMoComp := HANDLE(72, this)

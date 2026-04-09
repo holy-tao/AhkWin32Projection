@@ -7,10 +7,8 @@
  * For more information about PT_MV_LONG, see [List of Property Types](property-types.md).
  * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/slongarray
  * @namespace Windows.Win32.System.AddressBook
- * @version v4.0.30319
  */
-class SLongArray extends Win32Struct
-{
+class SLongArray extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

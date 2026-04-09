@@ -3,16 +3,14 @@
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class WHEA_EVENT_LOG_ENTRY extends Win32Struct
-{
+class WHEA_EVENT_LOG_ENTRY extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 8
 
     /**
-     * @type {Pointer<WHEA_EVENT_LOG_ENTRY_HEADER>}
+     * @type {Pointer}
      */
     Header {
         get => NumGet(this, 0, "ptr")

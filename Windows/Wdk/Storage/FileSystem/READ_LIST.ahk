@@ -1,13 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Win32\Storage\FileSystem\FILE_SEGMENT_ELEMENT.ahk
+#Include ..\..\Foundation\FILE_OBJECT.ahk
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem
- * @version v4.0.30319
  */
-class READ_LIST extends Win32Struct
-{
+class READ_LIST extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -37,12 +35,12 @@ class READ_LIST extends Win32Struct
     }
 
     /**
-     * @type {Array<FILE_SEGMENT_ELEMENT>}
+     * @type {Array<Pointer>}
      */
-    List{
+    List {
         get {
             if(!this.HasProp("__ListProxyArray"))
-                this.__ListProxyArray := Win32FixedArray(this.ptr + 16, 1, FILE_SEGMENT_ELEMENT, "")
+                this.__ListProxyArray := Win32FixedArray(this.ptr + 16, 1, Primitive, "ptr")
             return this.__ListProxyArray
         }
     }

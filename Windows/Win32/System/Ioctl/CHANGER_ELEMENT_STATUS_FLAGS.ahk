@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class CHANGER_ELEMENT_STATUS_FLAGS extends Win32BitflagEnum{
+class CHANGER_ELEMENT_STATUS_FLAGS extends Win32BitflagEnum {
 
     /**
      * @type {Integer (UInt32)}

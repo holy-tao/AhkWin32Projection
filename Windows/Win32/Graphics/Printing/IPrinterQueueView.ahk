@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
- * @version v4.0.30319
  */
-class IPrinterQueueView extends IDispatch{
+class IPrinterQueueView extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

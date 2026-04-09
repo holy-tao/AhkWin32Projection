@@ -1,16 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IWMDMEnumDevice.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * The IWMDMEnumDevice interface enumerates portable devices attached to a computer. To obtain this interface, call IWMDeviceManager::EnumDevices.
  * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nn-mswmdm-iwmdmenumdevice
  * @namespace Windows.Win32.Media.DeviceManager
- * @version v4.0.30319
  */
-class IWMDMEnumDevice extends IUnknown{
+class IWMDMEnumDevice extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Storage.FileSystem
- * @version v4.0.30319
  */
-class VER_FIND_FILE_FLAGS extends Win32Enum{
+class VER_FIND_FILE_FLAGS extends Win32Enum {
 
     /**
      * @type {Integer (UInt32)}

@@ -12,9 +12,8 @@
  * <div> </div>
  * @see https://learn.microsoft.com/windows/win32/api/dxgidebug/ne-dxgidebug-dxgi_debug_rlo_flags
  * @namespace Windows.Win32.Graphics.Dxgi
- * @version v4.0.30319
  */
-class DXGI_DEBUG_RLO_FLAGS extends Win32BitflagEnum{
+class DXGI_DEBUG_RLO_FLAGS extends Win32BitflagEnum {
 
     /**
      * A flag that specifies to obtain a summary about an object's lifetime.

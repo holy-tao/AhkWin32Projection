@@ -1,13 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\Win32Struct.ahk
-#Include ..\..\Win32\System\Kernel\SINGLE_LIST_ENTRY.ahk
 
 /**
  * @namespace Windows.Wdk.Foundation
- * @version v4.0.30319
  */
-class KDPC extends Win32Struct
-{
+class KDPC extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 8
@@ -45,14 +42,11 @@ class KDPC extends Win32Struct
     }
 
     /**
-     * @type {SINGLE_LIST_ENTRY}
+     * @type {Pointer}
      */
-    DpcListEntry{
-        get {
-            if(!this.HasProp("__DpcListEntry"))
-                this.__DpcListEntry := SINGLE_LIST_ENTRY(8, this)
-            return this.__DpcListEntry
-        }
+    DpcListEntry {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**

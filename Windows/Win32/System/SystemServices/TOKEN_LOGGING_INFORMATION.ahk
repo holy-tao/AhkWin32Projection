@@ -1,21 +1,22 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Security\TOKEN_TYPE.ahk
 #Include ..\..\Security\TOKEN_ELEVATION.ahk
+#Include ..\..\Security\TOKEN_ELEVATION_TYPE.ahk
+#Include ..\..\Security\SECURITY_IMPERSONATION_LEVEL.ahk
 #Include ..\..\Security\SID_AND_ATTRIBUTES.ahk
 #Include ..\..\Foundation\LUID.ahk
 
 /**
  * @namespace Windows.Win32.System.SystemServices
- * @version v4.0.30319
  */
-class TOKEN_LOGGING_INFORMATION extends Win32Struct
-{
+class TOKEN_LOGGING_INFORMATION extends Win32Struct {
     static sizeof => 80
 
     static packingSize => 8
 
     /**
-     * @type {Integer}
+     * @type {TOKEN_TYPE}
      */
     TokenType {
         get => NumGet(this, 0, "int")
@@ -25,7 +26,7 @@ class TOKEN_LOGGING_INFORMATION extends Win32Struct
     /**
      * @type {TOKEN_ELEVATION}
      */
-    TokenElevation{
+    TokenElevation {
         get {
             if(!this.HasProp("__TokenElevation"))
                 this.__TokenElevation := TOKEN_ELEVATION(4, this)
@@ -34,7 +35,7 @@ class TOKEN_LOGGING_INFORMATION extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {TOKEN_ELEVATION_TYPE}
      */
     TokenElevationType {
         get => NumGet(this, 8, "int")
@@ -42,7 +43,7 @@ class TOKEN_LOGGING_INFORMATION extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {SECURITY_IMPERSONATION_LEVEL}
      */
     ImpersonationLevel {
         get => NumGet(this, 12, "int")
@@ -60,7 +61,7 @@ class TOKEN_LOGGING_INFORMATION extends Win32Struct
     /**
      * @type {SID_AND_ATTRIBUTES}
      */
-    User{
+    User {
         get {
             if(!this.HasProp("__User"))
                 this.__User := SID_AND_ATTRIBUTES(24, this)
@@ -95,7 +96,7 @@ class TOKEN_LOGGING_INFORMATION extends Win32Struct
     /**
      * @type {LUID}
      */
-    AuthenticationId{
+    AuthenticationId {
         get {
             if(!this.HasProp("__AuthenticationId"))
                 this.__AuthenticationId := LUID(56, this)

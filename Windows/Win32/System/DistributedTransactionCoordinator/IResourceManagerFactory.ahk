@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IResourceManager.ahk
 #Include ..\Com\IUnknown.ahk
+#Include .\IResourceManager.ahk
 
 /**
  * @namespace Windows.Win32.System.DistributedTransactionCoordinator
- * @version v4.0.30319
  */
-class IResourceManagerFactory extends IUnknown{
+class IResourceManagerFactory extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

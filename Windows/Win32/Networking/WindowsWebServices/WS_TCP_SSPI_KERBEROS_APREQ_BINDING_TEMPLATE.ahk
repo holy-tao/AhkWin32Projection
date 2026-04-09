@@ -1,19 +1,21 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\WS_CHANNEL_PROPERTIES.ahk
+#Include .\WS_CHANNEL_PROPERTY.ahk
 #Include .\WS_SECURITY_PROPERTIES.ahk
-#Include .\WS_SECURITY_BINDING_PROPERTIES.ahk
+#Include .\WS_SECURITY_PROPERTY.ahk
 #Include .\WS_TCP_SSPI_TRANSPORT_SECURITY_BINDING_TEMPLATE.ahk
+#Include .\WS_SECURITY_BINDING_PROPERTIES.ahk
+#Include .\WS_SECURITY_BINDING_PROPERTY.ahk
+#Include .\WS_WINDOWS_INTEGRATED_AUTH_CREDENTIAL.ahk
 #Include .\WS_KERBEROS_APREQ_MESSAGE_SECURITY_BINDING_TEMPLATE.ahk
 
 /**
  * Username/password security template information to be filled in by application. Associated with WS_TCP_SSPI_KERBEROS_APREQ_BINDING_TEMPLATE_TYPE.
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_tcp_sspi_kerberos_apreq_binding_template
  * @namespace Windows.Win32.Networking.WindowsWebServices
- * @version v4.0.30319
  */
-class WS_TCP_SSPI_KERBEROS_APREQ_BINDING_TEMPLATE extends Win32Struct
-{
+class WS_TCP_SSPI_KERBEROS_APREQ_BINDING_TEMPLATE extends Win32Struct {
     static sizeof => 80
 
     static packingSize => 8
@@ -22,7 +24,7 @@ class WS_TCP_SSPI_KERBEROS_APREQ_BINDING_TEMPLATE extends Win32Struct
      * Application provided additional channel properties that cannot be represented in policy.
      * @type {WS_CHANNEL_PROPERTIES}
      */
-    channelProperties{
+    channelProperties {
         get {
             if(!this.HasProp("__channelProperties"))
                 this.__channelProperties := WS_CHANNEL_PROPERTIES(0, this)
@@ -34,7 +36,7 @@ class WS_TCP_SSPI_KERBEROS_APREQ_BINDING_TEMPLATE extends Win32Struct
      * Application provided additional security properties that cannot be represented in policy.
      * @type {WS_SECURITY_PROPERTIES}
      */
-    securityProperties{
+    securityProperties {
         get {
             if(!this.HasProp("__securityProperties"))
                 this.__securityProperties := WS_SECURITY_PROPERTIES(16, this)
@@ -47,7 +49,7 @@ class WS_TCP_SSPI_KERBEROS_APREQ_BINDING_TEMPLATE extends Win32Struct
      *           in policy.
      * @type {WS_TCP_SSPI_TRANSPORT_SECURITY_BINDING_TEMPLATE}
      */
-    sspiTransportSecurityBinding{
+    sspiTransportSecurityBinding {
         get {
             if(!this.HasProp("__sspiTransportSecurityBinding"))
                 this.__sspiTransportSecurityBinding := WS_TCP_SSPI_TRANSPORT_SECURITY_BINDING_TEMPLATE(32, this)
@@ -59,7 +61,7 @@ class WS_TCP_SSPI_KERBEROS_APREQ_BINDING_TEMPLATE extends Win32Struct
      * Application provided kerberos binding information that cannot be represented in policy.
      * @type {WS_KERBEROS_APREQ_MESSAGE_SECURITY_BINDING_TEMPLATE}
      */
-    kerberosApreqMessageSecurityBinding{
+    kerberosApreqMessageSecurityBinding {
         get {
             if(!this.HasProp("__kerberosApreqMessageSecurityBinding"))
                 this.__kerberosApreqMessageSecurityBinding := WS_KERBEROS_APREQ_MESSAGE_SECURITY_BINDING_TEMPLATE(56, this)

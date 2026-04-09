@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Graphics\Gdi\HBITMAP.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Graphics\Gdi\HBITMAP.ahk
 
 /**
  * Exposes methods that enable the handling of a credential.
@@ -22,9 +22,8 @@
  * </ul>
  * @see https://learn.microsoft.com/windows/win32/api/credentialprovider/nn-credentialprovider-icredentialprovidercredential
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class ICredentialProviderCredential extends IUnknown{
+class ICredentialProviderCredential extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -115,10 +114,10 @@ class ICredentialProviderCredential extends IUnknown{
      * @param {Integer} dwFieldID Type: <b>DWORD</b>
      * 
      * The identifier for the field.
-     * @param {Pointer<Integer>} pcpfs Type: <b><a href="https://docs.microsoft.com/windows/win32/api/credentialprovider/ne-credentialprovider-credential_provider_field_state">CREDENTIAL_PROVIDER_FIELD_STATE</a>*</b>
+     * @param {Pointer<CREDENTIAL_PROVIDER_FIELD_STATE>} pcpfs Type: <b><a href="https://docs.microsoft.com/windows/win32/api/credentialprovider/ne-credentialprovider-credential_provider_field_state">CREDENTIAL_PROVIDER_FIELD_STATE</a>*</b>
      * 
      * A pointer to the credential provider field state. This indicates when the field should be displayed on the user tile.
-     * @param {Pointer<Integer>} pcpfis Type: <b><a href="https://docs.microsoft.com/windows/win32/api/credentialprovider/ne-credentialprovider-credential_provider_field_interactive_state">CREDENTIAL_PROVIDER_FIELD_INTERACTIVE_STATE</a>*</b>
+     * @param {Pointer<CREDENTIAL_PROVIDER_FIELD_INTERACTIVE_STATE>} pcpfis Type: <b><a href="https://docs.microsoft.com/windows/win32/api/credentialprovider/ne-credentialprovider-credential_provider_field_interactive_state">CREDENTIAL_PROVIDER_FIELD_INTERACTIVE_STATE</a>*</b>
      * 
      * A pointer to the credential provider field interactive state. This indicates when the user can interact with the field.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -394,7 +393,7 @@ class ICredentialProviderCredential extends IUnknown{
      * <li>Securely discard secrets promptly after they are used.</li>
      * <li>Securely discard secrets if they are not used for their intended purpose within an expected amount of time.</li>
      * </ul>
-     * @param {Pointer<Integer>} pcpgsr Type: <b><a href="https://docs.microsoft.com/windows/win32/api/credentialprovider/ne-credentialprovider-credential_provider_get_serialization_response">CREDENTIAL_PROVIDER_GET_SERIALIZATION_RESPONSE</a>*</b>
+     * @param {Pointer<CREDENTIAL_PROVIDER_GET_SERIALIZATION_RESPONSE>} pcpgsr Type: <b><a href="https://docs.microsoft.com/windows/win32/api/credentialprovider/ne-credentialprovider-credential_provider_get_serialization_response">CREDENTIAL_PROVIDER_GET_SERIALIZATION_RESPONSE</a>*</b>
      * 
      * Indicates the success or failure of the attempt to serialize credentials.
      * @param {Pointer<CREDENTIAL_PROVIDER_CREDENTIAL_SERIALIZATION>} pcpcs Type: <b><a href="https://docs.microsoft.com/windows/win32/api/credentialprovider/ns-credentialprovider-credential_provider_credential_serialization">CREDENTIAL_PROVIDER_CREDENTIAL_SERIALIZATION</a>*</b>
@@ -403,7 +402,7 @@ class ICredentialProviderCredential extends IUnknown{
      * @param {Pointer<PWSTR>} ppszOptionalStatusText Type: <b>LPWSTR*</b>
      * 
      * A pointer to a Unicode string value that will be displayed by the Logon UI after serialization. May be <b>NULL</b>.
-     * @param {Pointer<Integer>} pcpsiOptionalStatusIcon Type: <b><a href="https://docs.microsoft.com/windows/win32/api/credentialprovider/ne-credentialprovider-credential_provider_status_icon">CREDENTIAL_PROVIDER_STATUS_ICON</a>*</b>
+     * @param {Pointer<CREDENTIAL_PROVIDER_STATUS_ICON>} pcpsiOptionalStatusIcon Type: <b><a href="https://docs.microsoft.com/windows/win32/api/credentialprovider/ne-credentialprovider-credential_provider_status_icon">CREDENTIAL_PROVIDER_STATUS_ICON</a>*</b>
      * 
      * A pointer to an icon that will be displayed by the credential after the call to <b>GetSerialization</b> returns. This value can be <b>NULL</b>.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -435,7 +434,7 @@ class ICredentialProviderCredential extends IUnknown{
      * @param {Pointer<PWSTR>} ppszOptionalStatusText Type: <b>LPWSTR*</b>
      * 
      * A pointer to the error message that will be displayed to the user. May be <b>NULL</b>.
-     * @param {Pointer<Integer>} pcpsiOptionalStatusIcon Type: <b><a href="https://docs.microsoft.com/windows/win32/api/credentialprovider/ne-credentialprovider-credential_provider_status_icon">CREDENTIAL_PROVIDER_STATUS_ICON</a>*</b>
+     * @param {Pointer<CREDENTIAL_PROVIDER_STATUS_ICON>} pcpsiOptionalStatusIcon Type: <b><a href="https://docs.microsoft.com/windows/win32/api/credentialprovider/ne-credentialprovider-credential_provider_status_icon">CREDENTIAL_PROVIDER_STATUS_ICON</a>*</b>
      * 
      * A pointer to an icon  that will shown on the credential. May be <b>NULL</b>.
      * @returns {HRESULT} Type: <b>HRESULT</b>

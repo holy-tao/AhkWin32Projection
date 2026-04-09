@@ -4,16 +4,14 @@
 
 /**
  * @namespace Windows.Win32.System.ApplicationInstallationAndServicing
- * @version v4.0.30319
  */
-class PM_BSATASKID extends Win32Struct
-{
+class PM_BSATASKID extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     ProductID {
         get => NumGet(this, 0, "ptr")
@@ -23,7 +21,7 @@ class PM_BSATASKID extends Win32Struct
     /**
      * @type {BSTR}
      */
-    TaskID{
+    TaskID {
         get {
             if(!this.HasProp("__TaskID"))
                 this.__TaskID := BSTR(8, this)

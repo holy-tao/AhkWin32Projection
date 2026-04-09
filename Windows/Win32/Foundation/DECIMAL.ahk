@@ -3,14 +3,10 @@
 
 /**
  * The DECIMAL structure represents a decimal data type that provides a sign and scale for a number.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/wtypes/ns-wtypes-decimal~r1
  * @namespace Windows.Win32.Foundation
- * @version v4.0.30319
  */
-class DECIMAL extends Win32Struct
-{
+class DECIMAL extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

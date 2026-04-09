@@ -5,9 +5,8 @@
  * Specifies how to remove a filter from the filter graph.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/ne-strmif-_rem_filter_flags
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class _REM_FILTER_FLAGS extends Win32Enum{
+class _REM_FILTER_FLAGS extends Win32Enum {
 
     /**
      * Leave the filter connected. By default, filters are disconnected when removed from the graph.

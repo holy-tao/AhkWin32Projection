@@ -7,9 +7,8 @@
  * The IChannelAudioVolume interface enables a client to control and monitor the volume levels for all of the channels in the audio session that the stream belongs to.
  * @see https://learn.microsoft.com/windows/win32/api/audioclient/nn-audioclient-ichannelaudiovolume
  * @namespace Windows.Win32.Media.Audio
- * @version v4.0.30319
  */
-class IChannelAudioVolume extends IUnknown{
+class IChannelAudioVolume extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

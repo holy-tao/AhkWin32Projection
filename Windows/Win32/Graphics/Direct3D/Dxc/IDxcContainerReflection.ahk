@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\IDxcBlob.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
+#Include .\IDxcBlob.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D.Dxc
- * @version v4.0.30319
  */
-class IDxcContainerReflection extends IUnknown{
+class IDxcContainerReflection extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\CHANGER_ELEMENT.ahk
+#Include .\ELEMENT_TYPE.ahk
+#Include .\CHANGER_ELEMENT_STATUS_FLAGS.ahk
 
 /**
  * Represents the status of the specified element. (CHANGER_ELEMENT_STATUS)
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-changer_element_status
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class CHANGER_ELEMENT_STATUS extends Win32Struct
-{
+class CHANGER_ELEMENT_STATUS extends Win32Struct {
     static sizeof => 100
 
     static packingSize => 4
@@ -19,7 +19,7 @@ class CHANGER_ELEMENT_STATUS extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/winioctl/ns-winioctl-changer_element">CHANGER_ELEMENT</a> structure that represents the element.
      * @type {CHANGER_ELEMENT}
      */
-    Element{
+    Element {
         get {
             if(!this.HasProp("__Element"))
                 this.__Element := CHANGER_ELEMENT(0, this)
@@ -34,7 +34,7 @@ class CHANGER_ELEMENT_STATUS extends Win32Struct
      * This member is valid only if the <b>Flags</b> member includes ELEMENT_STATUS_SVALID.
      * @type {CHANGER_ELEMENT}
      */
-    SrcElementAddress{
+    SrcElementAddress {
         get {
             if(!this.HasProp("__SrcElementAddress"))
                 this.__SrcElementAddress := CHANGER_ELEMENT(8, this)
@@ -43,8 +43,7 @@ class CHANGER_ELEMENT_STATUS extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Integer}
+     * @type {CHANGER_ELEMENT_STATUS_FLAGS}
      */
     Flags {
         get => NumGet(this, 16, "uint")
@@ -52,7 +51,6 @@ class CHANGER_ELEMENT_STATUS extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     ExceptionCode {
@@ -94,9 +92,9 @@ class CHANGER_ELEMENT_STATUS extends Win32Struct
      * This member is valid only if the <b>Flags</b> member includes ELEMENT_STATUS_PVOLTAG.
      * 
      * If the volume identifier is missing or unreadable, this member is cleared.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    PrimaryVolumeID{
+    PrimaryVolumeID {
         get {
             if(!this.HasProp("__PrimaryVolumeIDProxyArray"))
                 this.__PrimaryVolumeIDProxyArray := Win32FixedArray(this.ptr + 28, 36, Primitive, "char")
@@ -111,9 +109,9 @@ class CHANGER_ELEMENT_STATUS extends Win32Struct
      * 
      * 
      * This member is valid only if the <b>Flags</b> member includes ELEMENT_STATUS_AVOLTAG.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    AlternateVolumeID{
+    AlternateVolumeID {
         get {
             if(!this.HasProp("__AlternateVolumeIDProxyArray"))
                 this.__AlternateVolumeIDProxyArray := Win32FixedArray(this.ptr + 64, 36, Primitive, "char")

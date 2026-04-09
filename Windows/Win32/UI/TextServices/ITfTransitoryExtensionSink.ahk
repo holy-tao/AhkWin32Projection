@@ -7,9 +7,8 @@
  * The ITfTransitoryExtensionSink interface is implemented by the application that uses Transitory Extension dim. The application can track the changes that happened in the transitory extension by using this sink interface.
  * @see https://learn.microsoft.com/windows/win32/api/msctf/nn-msctf-itftransitoryextensionsink
  * @namespace Windows.Win32.UI.TextServices
- * @version v4.0.30319
  */
-class ITfTransitoryExtensionSink extends IUnknown{
+class ITfTransitoryExtensionSink extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

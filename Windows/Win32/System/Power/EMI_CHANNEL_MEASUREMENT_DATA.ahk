@@ -7,10 +7,8 @@
  * This structure is returned through a successful completion of an <a href="https://docs.microsoft.com/windows/desktop/api/emi/ni-emi-ioctl_emi_get_measurement">IOCTL_EMI_GET_MEASUREMENT</a> IOCTL request.
  * @see https://learn.microsoft.com/windows/win32/api/emi/ns-emi-emi_channel_measurement_data
  * @namespace Windows.Win32.System.Power
- * @version v4.0.30319
  */
-class EMI_CHANNEL_MEASUREMENT_DATA extends Win32Struct
-{
+class EMI_CHANNEL_MEASUREMENT_DATA extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

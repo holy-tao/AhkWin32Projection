@@ -7,9 +7,8 @@
  * The IWMIndexer2 interface enables you to change the settings of the indexer object to suit your needs.This interface is implemented as part of the indexer object.
  * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nn-wmsdkidl-iwmindexer2
  * @namespace Windows.Win32.Media.WindowsMediaFormat
- * @version v4.0.30319
  */
-class IWMIndexer2 extends IWMIndexer{
+class IWMIndexer2 extends IWMIndexer {
 
     static sizeof => A_PtrSize
     /**
@@ -37,7 +36,7 @@ class IWMIndexer2 extends IWMIndexer{
      * 
      * If you configure the indexer to build a frame-based index, it will also create a temporal index. This is required for synchronizing audio and video.
      * @param {Integer} wStreamNum <b>WORD</b> containing the stream number for which an index is to be made. If you pass 0, all streams will be indexed.
-     * @param {Integer} nIndexerType A variable containing one member of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/wmsdkidl/ne-wmsdkidl-wmt_indexer_type">WMT_INDEXER_TYPE</a> enumeration type.
+     * @param {WMT_INDEXER_TYPE} nIndexerType A variable containing one member of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/wmsdkidl/ne-wmsdkidl-wmt_indexer_type">WMT_INDEXER_TYPE</a> enumeration type.
      * @param {Pointer<Void>} pvInterval This void pointer must point to a <b>DWORD</b> containing the desired indexing interval. Intervals for temporal indexing are in milliseconds. Frame-based index intervals are specified in frames.
      * 
      * If you pass <b>NULL</b>, <b>Configure</b> will use the default value. For temporal indexes, the default value is 3000 milliseconds, for frame-based indexes it is 10 frames.

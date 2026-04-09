@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.UI.Input.Ime
- * @version v4.0.30319
  */
-class IActiveIMMMessagePumpOwner extends IUnknown{
+class IActiveIMMMessagePumpOwner extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

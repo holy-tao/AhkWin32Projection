@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DHCP_BINARY_DATA.ahk
 
 /**
  * The DHCP_IP_RESERVATION structure defines a client IP reservation.
  * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/ns-dhcpsapi-dhcp_ip_reservation
  * @namespace Windows.Win32.NetworkManagement.Dhcp
- * @version v4.0.30319
  */
-class DHCP_IP_RESERVATION extends Win32Struct
-{
+class DHCP_IP_RESERVATION extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

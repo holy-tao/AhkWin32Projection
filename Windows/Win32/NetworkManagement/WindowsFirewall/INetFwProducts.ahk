@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 #Include .\INetFwProduct.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * To access the methods and properties for registering third-party firewall products with Windows Firewall and for enumerating registered products.
  * @see https://learn.microsoft.com/windows/win32/api/netfw/nn-netfw-inetfwproducts
  * @namespace Windows.Win32.NetworkManagement.WindowsFirewall
- * @version v4.0.30319
  */
-class INetFwProducts extends IDispatch{
+class INetFwProducts extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

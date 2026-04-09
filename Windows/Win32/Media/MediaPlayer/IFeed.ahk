@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * IFeedbackHubAppInfo interface - This API is not available to all apps. Unless your app is specially provisioned by Microsoft, calls to these APIs will fail at runtime.
  * @see https://learn.microsoft.com/windows/win32/DevNotes/ifeebackhubappinfo
  * @namespace Windows.Win32.Media.MediaPlayer
- * @version v4.0.30319
  */
-class IFeed extends IDispatch{
+class IFeed extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -75,7 +74,7 @@ class IFeed extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {FEEDS_SYNC_SETTING} 
      */
     SyncSetting {
         get => this.get_SyncSetting()
@@ -191,14 +190,14 @@ class IFeed extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {FEEDS_DOWNLOAD_STATUS} 
      */
     DownloadStatus {
         get => this.get_DownloadStatus()
     }
 
     /**
-     * @type {Integer} 
+     * @type {FEEDS_DOWNLOAD_ERROR} 
      */
     LastDownloadError {
         get => this.get_LastDownloadError()
@@ -235,10 +234,10 @@ class IFeed extends IDispatch{
     /**
      * Resource string ids set by caller to be returned in xml data for visualizing objects.
      * @param {Integer} count 
-     * @param {Integer} sortProperty 
-     * @param {Integer} sortOrder 
-     * @param {Integer} filterFlags 
-     * @param {Integer} includeFlags 
+     * @param {FEEDS_XML_SORT_PROPERTY} sortProperty 
+     * @param {FEEDS_XML_SORT_ORDER} sortOrder 
+     * @param {FEEDS_XML_FILTER_FLAGS} filterFlags 
+     * @param {FEEDS_XML_INCLUDE_FLAGS} includeFlags 
      * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/direct3dtools/xml-resource-ids
      */
@@ -430,7 +429,7 @@ class IFeed extends IDispatch{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {FEEDS_SYNC_SETTING} 
      */
     get_SyncSetting() {
         result := ComCall(21, this, "int*", &syncSetting := 0, "HRESULT")
@@ -439,7 +438,7 @@ class IFeed extends IDispatch{
 
     /**
      * 
-     * @param {Integer} syncSetting 
+     * @param {FEEDS_SYNC_SETTING} syncSetting 
      * @returns {HRESULT} 
      */
     put_SyncSetting(syncSetting) {
@@ -631,7 +630,7 @@ class IFeed extends IDispatch{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {FEEDS_DOWNLOAD_STATUS} 
      */
     get_DownloadStatus() {
         result := ComCall(42, this, "int*", &_status := 0, "HRESULT")
@@ -640,11 +639,11 @@ class IFeed extends IDispatch{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {FEEDS_DOWNLOAD_ERROR} 
      */
     get_LastDownloadError() {
-        result := ComCall(43, this, "int*", &error := 0, "HRESULT")
-        return error
+        result := ComCall(43, this, "int*", &_error := 0, "HRESULT")
+        return _error
     }
 
     /**
@@ -694,8 +693,8 @@ class IFeed extends IDispatch{
 
     /**
      * 
-     * @param {Integer} scope 
-     * @param {Integer} mask 
+     * @param {FEEDS_EVENTS_SCOPE} scope 
+     * @param {FEEDS_EVENTS_MASK} mask 
      * @returns {IDispatch} 
      */
     GetWatcher(scope, mask) {

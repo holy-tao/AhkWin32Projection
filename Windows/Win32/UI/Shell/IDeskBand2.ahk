@@ -22,9 +22,8 @@
  * </ul>
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nn-shobjidl-ideskband2
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IDeskBand2 extends IDeskBand{
+class IDeskBand2 extends IDeskBand {
 
     static sizeof => A_PtrSize
     /**

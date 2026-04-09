@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.DistributedTransactionCoordinator
- * @version v4.0.30319
  */
-class ITransactionEnlistmentAsync extends IUnknown{
+class ITransactionEnlistmentAsync extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

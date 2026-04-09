@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.UI.Shell.PropertiesSystem
- * @version v4.0.30319
  */
-class IPropertySystemChangeNotify extends IUnknown{
+class IPropertySystemChangeNotify extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

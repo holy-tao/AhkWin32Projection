@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Com
- * @version v4.0.30319
  */
-class BYTE_BLOB extends Win32Struct
-{
+class BYTE_BLOB extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4
@@ -20,9 +18,9 @@ class BYTE_BLOB extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    abData{
+    abData {
         get {
             if(!this.HasProp("__abDataProxyArray"))
                 this.__abDataProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "char")

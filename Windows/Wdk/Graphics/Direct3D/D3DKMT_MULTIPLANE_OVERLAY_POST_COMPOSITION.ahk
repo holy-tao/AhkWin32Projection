@@ -1,19 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Win32\Foundation\RECT.ahk
+#Include .\D3DDDI_ROTATION.ahk
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
- * @version v4.0.30319
  */
-class D3DKMT_MULTIPLANE_OVERLAY_POST_COMPOSITION extends Win32Struct
-{
-    static sizeof => 48
+class D3DKMT_MULTIPLANE_OVERLAY_POST_COMPOSITION extends Win32Struct {
+    static sizeof => 32
 
     static packingSize => 8
 
     /**
-     * @type {Pointer<D3DKMT_MULTIPLANE_OVERLAY_POST_COMPOSITION_FLAGS>}
+     * @type {Pointer}
      */
     Flags {
         get => NumGet(this, 0, "ptr")
@@ -21,32 +19,26 @@ class D3DKMT_MULTIPLANE_OVERLAY_POST_COMPOSITION extends Win32Struct
     }
 
     /**
-     * @type {RECT}
+     * @type {Pointer}
      */
-    SrcRect{
-        get {
-            if(!this.HasProp("__SrcRect"))
-                this.__SrcRect := RECT(8, this)
-            return this.__SrcRect
-        }
+    SrcRect {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
-     * @type {RECT}
+     * @type {Pointer}
      */
-    DstRect{
-        get {
-            if(!this.HasProp("__DstRect"))
-                this.__DstRect := RECT(24, this)
-            return this.__DstRect
-        }
+    DstRect {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
-     * @type {Integer}
+     * @type {D3DDDI_ROTATION}
      */
     Rotation {
-        get => NumGet(this, 40, "int")
-        set => NumPut("int", value, this, 40)
+        get => NumGet(this, 24, "int")
+        set => NumPut("int", value, this, 24)
     }
 }

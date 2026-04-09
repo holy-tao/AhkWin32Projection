@@ -13,9 +13,8 @@
  * The implementation must be agile (aggregating a free-threaded marshaler).
  * @see https://learn.microsoft.com/windows/win32/api/mmdeviceapi/nn-mmdeviceapi-iactivateaudiointerfacecompletionhandler
  * @namespace Windows.Win32.Media.Audio
- * @version v4.0.30319
  */
-class IActivateAudioInterfaceCompletionHandler extends IUnknown{
+class IActivateAudioInterfaceCompletionHandler extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

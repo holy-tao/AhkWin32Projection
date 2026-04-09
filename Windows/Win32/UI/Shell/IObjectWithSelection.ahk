@@ -13,9 +13,8 @@
  * <b>IObjectWithSelection</b> is used by Windows Explorer to invoke a verb on the selected items. Do not call this interface directly.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-iobjectwithselection
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IObjectWithSelection extends IUnknown{
+class IObjectWithSelection extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

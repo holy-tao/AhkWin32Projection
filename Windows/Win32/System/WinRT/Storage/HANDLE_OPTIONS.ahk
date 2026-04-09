@@ -5,9 +5,8 @@
  * Defines the flags of the file handle.
  * @see https://learn.microsoft.com/windows/win32/api/windowsstoragecom/ne-windowsstoragecom-handle_options
  * @namespace Windows.Win32.System.WinRT.Storage
- * @version v4.0.30319
  */
-class HANDLE_OPTIONS extends Win32BitflagEnum{
+class HANDLE_OPTIONS extends Win32BitflagEnum {
 
     /**
      * None.

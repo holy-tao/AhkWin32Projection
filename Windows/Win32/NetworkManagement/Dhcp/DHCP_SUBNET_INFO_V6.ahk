@@ -6,10 +6,8 @@
  * Contains information about an IPv6 subnet.
  * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/ns-dhcpsapi-dhcp_subnet_info_v6
  * @namespace Windows.Win32.NetworkManagement.Dhcp
- * @version v4.0.30319
  */
-class DHCP_SUBNET_INFO_V6 extends Win32Struct
-{
+class DHCP_SUBNET_INFO_V6 extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -18,7 +16,7 @@ class DHCP_SUBNET_INFO_V6 extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-dhcp_ipv6_address">DHCP_IPV6_ADDRESS</a> structure containing the IPv6 prefix.
      * @type {DHCP_IPV6_ADDRESS}
      */
-    SubnetAddress{
+    SubnetAddress {
         get {
             if(!this.HasProp("__SubnetAddress"))
                 this.__SubnetAddress := DHCP_IPV6_ADDRESS(0, this)

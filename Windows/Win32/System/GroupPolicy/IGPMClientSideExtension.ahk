@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\Com\IDispatch.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * The IGPMClientSideExtension interface supports methods that allow you to query client-side extension properties when you use the Group Policy Management Console (GPMC) interfaces.
  * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nn-gpmgmt-igpmclientsideextension
  * @namespace Windows.Win32.System.GroupPolicy
- * @version v4.0.30319
  */
-class IGPMClientSideExtension extends IDispatch{
+class IGPMClientSideExtension extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

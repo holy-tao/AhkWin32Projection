@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class FILE_TYPE_NOTIFICATION_INPUT extends Win32Struct
-{
+class FILE_TYPE_NOTIFICATION_INPUT extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
@@ -28,9 +26,9 @@ class FILE_TYPE_NOTIFICATION_INPUT extends Win32Struct
     }
 
     /**
-     * @type {Array<Guid>}
+     * @type {Array<Pointer>}
      */
-    FileTypeID{
+    FileTypeID {
         get {
             if(!this.HasProp("__FileTypeIDProxyArray"))
                 this.__FileTypeIDProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "ptr")

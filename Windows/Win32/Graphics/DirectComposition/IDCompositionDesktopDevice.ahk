@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IDCompositionDevice2.ahk
 #Include .\IDCompositionTarget.ahk
 #Include ..\..\System\Com\IUnknown.ahk
-#Include .\IDCompositionDevice2.ahk
 
 /**
  * An application must use the IDCompositionDesktopDevice interface in order to use DirectComposition in a Win32 desktop application.
  * @see https://learn.microsoft.com/windows/win32/api/dcomp/nn-dcomp-idcompositiondesktopdevice
  * @namespace Windows.Win32.Graphics.DirectComposition
- * @version v4.0.30319
  */
-class IDCompositionDesktopDevice extends IDCompositionDevice2{
+class IDCompositionDesktopDevice extends IDCompositionDevice2 {
 
     static sizeof => A_PtrSize
     /**
@@ -50,7 +49,7 @@ class IDCompositionDesktopDevice extends IDCompositionDevice2{
      * All four layers are clipped to the window’s visible region.
      * 
      * At most, only two composition targets can be created for each window in the system, one topmost and one not topmost. If a composition target is already bound to the specified window at the specified layer, this method fails. When a composition target object is destroyed, the layer it composed is available for use by a new composition target object.
-     * @param {HWND} _hwnd 
+     * @param {HWND} _hwnd The window to which the composition target object should be bound. This parameter must not be NULL.
      * @param {BOOL} topmost TRUE if the visual tree should be displayed on top of the children of the window specified by the hwnd parameter; otherwise, the visual tree is displayed behind the children.
      * @returns {IDCompositionTarget} The new composition target object. This parameter must not be NULL.
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositiondesktopdevice-createtargetforhwnd
@@ -64,7 +63,7 @@ class IDCompositionDesktopDevice extends IDCompositionDevice2{
 
     /**
      * Creates a new composition surface object that wraps an existing composition surface.
-     * @param {HANDLE} _handle 
+     * @param {HANDLE} _handle The handle of an existing composition surface that was created by a call to the <a href="https://docs.microsoft.com/windows/desktop/api/dcomp/nf-dcomp-dcompositioncreatesurfacehandle">DCompositionCreateSurfaceHandle</a> function.
      * @returns {IUnknown} The new composition surface object. This parameter must not be NULL.
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositiondesktopdevice-createsurfacefromhandle
      */
@@ -87,7 +86,7 @@ class IDCompositionDesktopDevice extends IDCompositionDevice2{
      * 
      * 
      * If the window is moved off-screen or resized to zero, the system stops composing the content of those visuals. You should use the <a href="https://docs.microsoft.com/windows/desktop/api/dwmapi/nf-dwmapi-dwmsetwindowattribute">DwmSetWindowAttribute</a> function with the DWMWA_CLOAK flag to "cloak" the layered child window when you need to hide the original window while allowing the system to continue to compose the content of the visuals.
-     * @param {HWND} _hwnd 
+     * @param {HWND} _hwnd The handle of the layered window for which to create a wrapper. A layered window is created by specifying WS_EX_LAYERED when creating the window with the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-createwindowexa">CreateWindowEx</a> function or by setting WS_EX_LAYERED via <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-setwindowlonga">SetWindowLong</a> after the window has been created.
      * @returns {IUnknown} The new composition surface object. This parameter must not be NULL.
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositiondesktopdevice-createsurfacefromhwnd
      */

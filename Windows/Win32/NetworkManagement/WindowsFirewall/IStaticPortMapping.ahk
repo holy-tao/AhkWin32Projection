@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * The IStaticPortMapping interface provides methods to retrieve and change the information for a particular port mapping.
@@ -10,9 +10,8 @@
  * The NAT API with UPnP technology uses the combination of the external port and the protocol to identify the port mapping.
  * @see https://learn.microsoft.com/windows/win32/api/natupnp/nn-natupnp-istaticportmapping
  * @namespace Windows.Win32.NetworkManagement.WindowsFirewall
- * @version v4.0.30319
  */
-class IStaticPortMapping extends IDispatch{
+class IStaticPortMapping extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

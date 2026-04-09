@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Storage.Nvme
- * @version v4.0.30319
  */
-class NVME_CHANGED_ZONE_LIST_LOG extends Win32Struct
-{
+class NVME_CHANGED_ZONE_LIST_LOG extends Win32Struct {
     static sizeof => 4096
 
     static packingSize => 8
@@ -20,9 +18,9 @@ class NVME_CHANGED_ZONE_LIST_LOG extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Reserved{
+    Reserved {
         get {
             if(!this.HasProp("__ReservedProxyArray"))
                 this.__ReservedProxyArray := Win32FixedArray(this.ptr + 2, 6, Primitive, "char")
@@ -31,9 +29,9 @@ class NVME_CHANGED_ZONE_LIST_LOG extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt64>}
+     * @type {Array<Integer>}
      */
-    ZoneIdentifier{
+    ZoneIdentifier {
         get {
             if(!this.HasProp("__ZoneIdentifierProxyArray"))
                 this.__ZoneIdentifierProxyArray := Win32FixedArray(this.ptr + 8, 511, Primitive, "uint")

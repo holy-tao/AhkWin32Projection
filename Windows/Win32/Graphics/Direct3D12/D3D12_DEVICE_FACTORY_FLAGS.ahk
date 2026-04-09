@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D12
- * @version v4.0.30319
  */
-class D3D12_DEVICE_FACTORY_FLAGS extends Win32BitflagEnum{
+class D3D12_DEVICE_FACTORY_FLAGS extends Win32BitflagEnum {
 
     /**
      * @type {Integer (Int32)}

@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CERT_OTHER_NAME extends Win32Struct
-{
+class CERT_OTHER_NAME extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -23,7 +21,7 @@ class CERT_OTHER_NAME extends Win32Struct
     /**
      * @type {CRYPT_INTEGER_BLOB}
      */
-    Value{
+    Value {
         get {
             if(!this.HasProp("__Value"))
                 this.__Value := CRYPT_INTEGER_BLOB(8, this)

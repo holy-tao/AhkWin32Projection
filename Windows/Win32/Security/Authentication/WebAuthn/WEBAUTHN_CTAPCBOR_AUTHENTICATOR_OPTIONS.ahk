@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Security.Authentication.WebAuthn
- * @version v4.0.30319
  */
-class WEBAUTHN_CTAPCBOR_AUTHENTICATOR_OPTIONS extends Win32Struct
-{
+class WEBAUTHN_CTAPCBOR_AUTHENTICATOR_OPTIONS extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4

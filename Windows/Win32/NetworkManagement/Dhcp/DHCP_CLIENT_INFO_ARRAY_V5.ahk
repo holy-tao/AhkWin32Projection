@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DHCP_CLIENT_INFO_V5.ahk
 
 /**
  * Defines an array of DHCP_CLIENT_INFO_V5 structures for use with enumeration functions.
  * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/ns-dhcpsapi-dhcp_client_info_array_v5
  * @namespace Windows.Win32.NetworkManagement.Dhcp
- * @version v4.0.30319
  */
-class DHCP_CLIENT_INFO_ARRAY_V5 extends Win32Struct
-{
+class DHCP_CLIENT_INFO_ARRAY_V5 extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

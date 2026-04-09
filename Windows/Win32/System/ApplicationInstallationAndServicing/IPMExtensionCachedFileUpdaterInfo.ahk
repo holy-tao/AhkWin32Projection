@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.ApplicationInstallationAndServicing
- * @version v4.0.30319
  */
-class IPMExtensionCachedFileUpdaterInfo extends IUnknown{
+class IPMExtensionCachedFileUpdaterInfo extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

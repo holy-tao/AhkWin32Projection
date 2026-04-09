@@ -1,10 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Include ..\Com\IDispatch.ahk
 #Include .\IIdleSettings.ahk
 #Include .\INetworkSettings.ahk
-#Include ..\Com\IDispatch.ahk
 
 /**
  * Provides the settings that the Task Scheduler service uses to perform the task.
@@ -23,9 +22,8 @@
  * All other triggers are delayed until battery saver is off. For more information about accessing battery saver status in your application, see <a href="https://docs.microsoft.com/windows/desktop/api/winbase/ns-winbase-system_power_status">SYSTEM_POWER_STATUS</a>. For general information about battery saver, see <a href="https://docs.microsoft.com/windows-hardware/design/component-guidelines/battery-saver">battery saver (in the hardware component guidelines)</a>.
  * @see https://learn.microsoft.com/windows/win32/api/taskschd/nn-taskschd-itasksettings
  * @namespace Windows.Win32.System.TaskScheduler
- * @version v4.0.30319
  */
-class ITaskSettings extends IDispatch{
+class ITaskSettings extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -47,6 +45,7 @@ class ITaskSettings extends IDispatch{
     static VTableNames => ["get_AllowDemandStart", "put_AllowDemandStart", "get_RestartInterval", "put_RestartInterval", "get_RestartCount", "put_RestartCount", "get_MultipleInstances", "put_MultipleInstances", "get_StopIfGoingOnBatteries", "put_StopIfGoingOnBatteries", "get_DisallowStartIfOnBatteries", "put_DisallowStartIfOnBatteries", "get_AllowHardTerminate", "put_AllowHardTerminate", "get_StartWhenAvailable", "put_StartWhenAvailable", "get_XmlText", "put_XmlText", "get_RunOnlyIfNetworkAvailable", "put_RunOnlyIfNetworkAvailable", "get_ExecutionTimeLimit", "put_ExecutionTimeLimit", "get_Enabled", "put_Enabled", "get_DeleteExpiredTaskAfter", "put_DeleteExpiredTaskAfter", "get_Priority", "put_Priority", "get_Compatibility", "put_Compatibility", "get_Hidden", "put_Hidden", "get_IdleSettings", "put_IdleSettings", "get_RunOnlyIfIdle", "put_RunOnlyIfIdle", "get_WakeToRun", "put_WakeToRun", "get_NetworkSettings", "put_NetworkSettings"]
 
     /**
+     * @type {VARIANT_BOOL} 
      */
     AllowDemandStart {
         get => this.get_AllowDemandStart()
@@ -54,6 +53,7 @@ class ITaskSettings extends IDispatch{
     }
 
     /**
+     * @type {BSTR} 
      */
     RestartInterval {
         get => this.get_RestartInterval()
@@ -61,6 +61,7 @@ class ITaskSettings extends IDispatch{
     }
 
     /**
+     * @type {Integer} 
      */
     RestartCount {
         get => this.get_RestartCount()
@@ -68,6 +69,7 @@ class ITaskSettings extends IDispatch{
     }
 
     /**
+     * @type {TASK_INSTANCES_POLICY} 
      */
     MultipleInstances {
         get => this.get_MultipleInstances()
@@ -75,6 +77,7 @@ class ITaskSettings extends IDispatch{
     }
 
     /**
+     * @type {VARIANT_BOOL} 
      */
     StopIfGoingOnBatteries {
         get => this.get_StopIfGoingOnBatteries()
@@ -82,6 +85,7 @@ class ITaskSettings extends IDispatch{
     }
 
     /**
+     * @type {VARIANT_BOOL} 
      */
     DisallowStartIfOnBatteries {
         get => this.get_DisallowStartIfOnBatteries()
@@ -89,6 +93,7 @@ class ITaskSettings extends IDispatch{
     }
 
     /**
+     * @type {VARIANT_BOOL} 
      */
     AllowHardTerminate {
         get => this.get_AllowHardTerminate()
@@ -96,6 +101,7 @@ class ITaskSettings extends IDispatch{
     }
 
     /**
+     * @type {VARIANT_BOOL} 
      */
     StartWhenAvailable {
         get => this.get_StartWhenAvailable()
@@ -103,6 +109,7 @@ class ITaskSettings extends IDispatch{
     }
 
     /**
+     * @type {BSTR} 
      */
     XmlText {
         get => this.get_XmlText()
@@ -110,6 +117,7 @@ class ITaskSettings extends IDispatch{
     }
 
     /**
+     * @type {VARIANT_BOOL} 
      */
     RunOnlyIfNetworkAvailable {
         get => this.get_RunOnlyIfNetworkAvailable()
@@ -117,6 +125,7 @@ class ITaskSettings extends IDispatch{
     }
 
     /**
+     * @type {BSTR} 
      */
     ExecutionTimeLimit {
         get => this.get_ExecutionTimeLimit()
@@ -124,6 +133,7 @@ class ITaskSettings extends IDispatch{
     }
 
     /**
+     * @type {VARIANT_BOOL} 
      */
     Enabled {
         get => this.get_Enabled()
@@ -131,6 +141,7 @@ class ITaskSettings extends IDispatch{
     }
 
     /**
+     * @type {BSTR} 
      */
     DeleteExpiredTaskAfter {
         get => this.get_DeleteExpiredTaskAfter()
@@ -138,6 +149,7 @@ class ITaskSettings extends IDispatch{
     }
 
     /**
+     * @type {Integer} 
      */
     Priority {
         get => this.get_Priority()
@@ -145,6 +157,7 @@ class ITaskSettings extends IDispatch{
     }
 
     /**
+     * @type {TASK_COMPATIBILITY} 
      */
     Compatibility {
         get => this.get_Compatibility()
@@ -152,6 +165,7 @@ class ITaskSettings extends IDispatch{
     }
 
     /**
+     * @type {VARIANT_BOOL} 
      */
     Hidden {
         get => this.get_Hidden()
@@ -167,6 +181,7 @@ class ITaskSettings extends IDispatch{
     }
 
     /**
+     * @type {VARIANT_BOOL} 
      */
     RunOnlyIfIdle {
         get => this.get_RunOnlyIfIdle()
@@ -174,6 +189,7 @@ class ITaskSettings extends IDispatch{
     }
 
     /**
+     * @type {VARIANT_BOOL} 
      */
     WakeToRun {
         get => this.get_WakeToRun()
@@ -280,7 +296,7 @@ class ITaskSettings extends IDispatch{
      * Gets or sets the policy that defines how the Task Scheduler deals with multiple instances of the task. (Get)
      * @remarks
      * When reading or writing XML for a task, this setting is specified in the <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/taskschedulerschema-multipleinstancespolicy-settingstype-element">MultipleInstancesPolicy</a> element of the Task Scheduler schema.
-     * @param {Pointer<Integer>} pPolicy 
+     * @param {Pointer<TASK_INSTANCES_POLICY>} pPolicy 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-itasksettings-get_multipleinstances
      */
@@ -295,7 +311,7 @@ class ITaskSettings extends IDispatch{
      * Gets or sets the policy that defines how the Task Scheduler deals with multiple instances of the task. (Put)
      * @remarks
      * When reading or writing XML for a task, this setting is specified in the <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/taskschedulerschema-multipleinstancespolicy-settingstype-element">MultipleInstancesPolicy</a> element of the Task Scheduler schema.
-     * @param {Integer} policy 
+     * @param {TASK_INSTANCES_POLICY} policy 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-itasksettings-put_multipleinstances
      */
@@ -789,7 +805,7 @@ class ITaskSettings extends IDispatch{
      * Tasks compatible with Task Scheduler 1.0 can only have a time trigger, a logon trigger, or a boot trigger, and the task can only have an executable action.
      * 
      * For more information about task compatibility, see <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/what-s-new-in-task-scheduler">What's New in Task Scheduler</a> and <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/tasks">Tasks</a>.
-     * @param {Pointer<Integer>} pCompatLevel 
+     * @param {Pointer<TASK_COMPATIBILITY>} pCompatLevel 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-itasksettings-get_compatibility
      */
@@ -810,7 +826,7 @@ class ITaskSettings extends IDispatch{
      * Tasks compatible with Task Scheduler 1.0 can only have a time trigger, a logon trigger, or a boot trigger, and the task can only have an executable action.
      * 
      * For more information about task compatibility, see <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/what-s-new-in-task-scheduler">What's New in Task Scheduler</a> and <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/tasks">Tasks</a>.
-     * @param {Integer} compatLevel 
+     * @param {TASK_COMPATIBILITY} compatLevel 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-itasksettings-put_compatibility
      */

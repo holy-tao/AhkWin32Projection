@@ -5,9 +5,8 @@
  * Identifies the properties used to specify security binding settings. Security binding settings are present in security bindings that are used, in turn, in a security description.
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ne-webservices-ws_security_binding_property_id
  * @namespace Windows.Win32.Networking.WindowsWebServices
- * @version v4.0.30319
  */
-class WS_SECURITY_BINDING_PROPERTY_ID extends Win32Enum{
+class WS_SECURITY_BINDING_PROPERTY_ID extends Win32Enum {
 
     /**
      * A <b>BOOL</b> that specifies whether a client certificate should be demanded when using SSL.  The
@@ -280,7 +279,6 @@ class WS_SECURITY_BINDING_PROPERTY_ID extends Win32Enum{
     static WS_SECURITY_BINDING_PROPERTY_DISABLE_CERT_REVOCATION_CHECK => 21
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static WS_SECURITY_BINDING_PROPERTY_DISALLOWED_SECURE_PROTOCOLS => 22

@@ -1,12 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\JOB_OBJECT_IO_RATE_CONTROL_FLAGS.ahk
 
 /**
  * @namespace Windows.Win32.System.JobObjects
- * @version v4.0.30319
  */
-class JOBOBJECT_IO_RATE_CONTROL_INFORMATION_NATIVE_V3 extends Win32Struct
-{
+class JOBOBJECT_IO_RATE_CONTROL_INFORMATION_NATIVE_V3 extends Win32Struct {
     static sizeof => 144
 
     static packingSize => 8
@@ -52,7 +51,7 @@ class JOBOBJECT_IO_RATE_CONTROL_INFORMATION_NATIVE_V3 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {JOB_OBJECT_IO_RATE_CONTROL_FLAGS}
      */
     ControlFlags {
         get => NumGet(this, 36, "int")

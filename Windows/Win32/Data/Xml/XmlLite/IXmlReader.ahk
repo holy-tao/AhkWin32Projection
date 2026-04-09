@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Data.Xml.XmlLite
- * @version v4.0.30319
  */
-class IXmlReader extends IUnknown{
+class IXmlReader extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -89,7 +88,7 @@ class IXmlReader extends IUnknown{
 
     /**
      * The ReadBlobFromFile function reads a BLOB in a file.
-     * @returns {Integer} 
+     * @returns {XmlNodeType} 
      * @see https://learn.microsoft.com/windows/win32/NetMon2/readblobfromfile
      */
     Read() {
@@ -99,7 +98,7 @@ class IXmlReader extends IUnknown{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {XmlNodeType} 
      */
     GetNodeType() {
         result := ComCall(7, this, "int*", &pNodeType := 0, "HRESULT")

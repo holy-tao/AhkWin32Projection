@@ -5,10 +5,8 @@
  * Contains credentials used to authorize a client session.
  * @see https://learn.microsoft.com/windows/win32/api/wdsclientapi/ns-wdsclientapi-wds_cli_cred
  * @namespace Windows.Win32.System.DeploymentServices
- * @version v4.0.30319
  */
-class WDS_CLI_CRED extends Win32Struct
-{
+class WDS_CLI_CRED extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

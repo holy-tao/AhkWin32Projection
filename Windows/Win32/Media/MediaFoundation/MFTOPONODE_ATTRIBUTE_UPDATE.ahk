@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\MF_ATTRIBUTE_TYPE.ahk
 
 /**
  * Specifies a new attribute value for a topology node.
@@ -7,10 +8,8 @@
  * Due to an error in the structure declaration, the <b>u64</b> member is declared as a 32-bit integer, not a 64-bit integer. Therefore, any 64-bit value passed to the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-imftopologynodeattributeeditor-updatenodeattributes">IMFTopologyNodeAttributeEditor::UpdateNodeAttributes</a> method is truncated to 32 bits.
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/ns-mfidl-mftoponode_attribute_update
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class MFTOPONODE_ATTRIBUTE_UPDATE extends Win32Struct
-{
+class MFTOPONODE_ATTRIBUTE_UPDATE extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -26,7 +25,7 @@ class MFTOPONODE_ATTRIBUTE_UPDATE extends Win32Struct
 
     /**
      * GUID that specifies the attribute to update.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     guidAttributeKey {
         get => NumGet(this, 8, "ptr")
@@ -35,7 +34,7 @@ class MFTOPONODE_ATTRIBUTE_UPDATE extends Win32Struct
 
     /**
      * Attribute type, specified as a member of the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/ne-mfobjects-mf_attribute_type">MF_ATTRIBUTE_TYPE</a> enumeration.
-     * @type {Integer}
+     * @type {MF_ATTRIBUTE_TYPE}
      */
     attrType {
         get => NumGet(this, 16, "int")

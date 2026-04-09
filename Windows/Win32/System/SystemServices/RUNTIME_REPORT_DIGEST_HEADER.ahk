@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.SystemServices
- * @version v4.0.30319
  */
-class RUNTIME_REPORT_DIGEST_HEADER extends Win32Struct
-{
+class RUNTIME_REPORT_DIGEST_HEADER extends Win32Struct {
     static sizeof => 68
 
     static packingSize => 2
@@ -28,9 +26,9 @@ class RUNTIME_REPORT_DIGEST_HEADER extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    ReportDigest{
+    ReportDigest {
         get {
             if(!this.HasProp("__ReportDigestProxyArray"))
                 this.__ReportDigestProxyArray := Win32FixedArray(this.ptr + 4, 64, Primitive, "char")

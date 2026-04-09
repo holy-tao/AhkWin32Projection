@@ -5,10 +5,8 @@
  * The POLICY_ELEMENT (lpmapi.h) structure contains an RSVP policy element.
  * @see https://learn.microsoft.com/windows/win32/api/lpmapi/ns-lpmapi-policy_element
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class POLICY_ELEMENT extends Win32Struct
-{
+class POLICY_ELEMENT extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8

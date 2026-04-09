@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Storage.Nvme
- * @version v4.0.30319
  */
-class IO_COMMAND_SET_VECTOR extends Win32Struct
-{
+class IO_COMMAND_SET_VECTOR extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 8

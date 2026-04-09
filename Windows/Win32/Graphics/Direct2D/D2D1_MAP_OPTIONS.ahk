@@ -11,12 +11,10 @@
  * <b>D2D1_MAP_OPTIONS_DISCARD</b> can only be used with <b>D2D1_MAP_OPTIONS_WRITE</b>.  Both of these options are only available through the effect author API, not through the Direct2D rendering API.
  * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/ne-d2d1_1-d2d1_map_options
  * @namespace Windows.Win32.Graphics.Direct2D
- * @version v4.0.30319
  */
-class D2D1_MAP_OPTIONS extends Win32BitflagEnum{
+class D2D1_MAP_OPTIONS extends Win32BitflagEnum {
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static D2D1_MAP_OPTIONS_NONE => 0

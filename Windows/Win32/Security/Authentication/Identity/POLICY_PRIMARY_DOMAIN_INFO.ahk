@@ -6,10 +6,8 @@
  * The PolicyPrimaryDomainInformation value and POLICY_PRIMARY_DOMAIN_INFO structure are obsolete. Use the PolicyDnsDomainInformation and POLICY_DNS_DOMAIN_INFO structure instead.
  * @see https://learn.microsoft.com/windows/win32/api/ntsecapi/ns-ntsecapi-policy_primary_domain_info
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class POLICY_PRIMARY_DOMAIN_INFO extends Win32Struct
-{
+class POLICY_PRIMARY_DOMAIN_INFO extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -19,7 +17,7 @@ class POLICY_PRIMARY_DOMAIN_INFO extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/lsalookup/ns-lsalookup-lsa_unicode_string">LSA_UNICODE_STRING</a> structure that specifies the name of the primary domain.
      * @type {LSA_UNICODE_STRING}
      */
-    Name{
+    Name {
         get {
             if(!this.HasProp("__Name"))
                 this.__Name := LSA_UNICODE_STRING(0, this)

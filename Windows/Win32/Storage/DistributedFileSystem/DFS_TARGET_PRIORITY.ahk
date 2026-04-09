@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DFS_TARGET_PRIORITY_CLASS.ahk
 
 /**
  * Contains the priority class and rank of a specific DFS target.
@@ -38,10 +39,8 @@
  *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dfs/dfs-server-target-prioritization">DFS Server Target Prioritization</a>.
  * @see https://learn.microsoft.com/windows/win32/api/lmdfs/ns-lmdfs-dfs_target_priority
  * @namespace Windows.Win32.Storage.DistributedFileSystem
- * @version v4.0.30319
  */
-class DFS_TARGET_PRIORITY extends Win32Struct
-{
+class DFS_TARGET_PRIORITY extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4
@@ -49,7 +48,7 @@ class DFS_TARGET_PRIORITY extends Win32Struct
     /**
      * <a href="https://docs.microsoft.com/windows/win32/api/lmdfs/ne-lmdfs-dfs_target_priority_class~r1">DFS_TARGET_PRIORITY_CLASS</a> enumeration 
      *       value that specifies the priority class of the target.
-     * @type {Integer}
+     * @type {DFS_TARGET_PRIORITY_CLASS}
      */
     TargetPriorityClass {
         get => NumGet(this, 0, "int")

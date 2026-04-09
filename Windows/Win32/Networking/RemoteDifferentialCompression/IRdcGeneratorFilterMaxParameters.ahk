@@ -7,9 +7,8 @@
  * Sets and retrieves parameters used by the FilterMax generator.
  * @see https://learn.microsoft.com/windows/win32/api/msrdc/nn-msrdc-irdcgeneratorfiltermaxparameters
  * @namespace Windows.Win32.Networking.RemoteDifferentialCompression
- * @version v4.0.30319
  */
-class IRdcGeneratorFilterMaxParameters extends IUnknown{
+class IRdcGeneratorFilterMaxParameters extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

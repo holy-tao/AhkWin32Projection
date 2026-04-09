@@ -7,9 +7,8 @@
  * The IResultData interface enables a user to add, remove, find, and modify items associated with the result view pane. It also enables the manipulation of the view style of the result view pane.
  * @see https://learn.microsoft.com/windows/win32/api/mmc/nn-mmc-iresultdata
  * @namespace Windows.Win32.System.Mmc
- * @version v4.0.30319
  */
-class IResultData extends IUnknown{
+class IResultData extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -80,7 +79,7 @@ class IResultData extends IUnknown{
      * FindItemByLParam searches for an item based on its lParam. The unique identifier (cookie) of the first item in the list with a matching lParam is returned in pItemID. If no item is found, the search returns S_FALSE.
      * 
      * This method does not support virtual lists.
-     * @param {LPARAM} _lParam 
+     * @param {LPARAM} _lParam A generic 32-bit value in which information can be stored.
      * @returns {Pointer} A pointer to an item identifier to hold the results of the search for the lParam value.
      * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-iresultdata-finditembylparam
      */
@@ -172,8 +171,8 @@ class IResultData extends IUnknown{
      * The IResultData::ModifyViewStyle method enables the snap-in to set the result pane's view style.
      * @remarks
      * This method provides the same functionality for both result view panes and virtual lists.
-     * @param {Integer} add A value that specifies the view style (or styles) to be set in the result view pane. This value can be a valid combination of the following:
-     * @param {Integer} remove A value that specifies the view style (or styles) to be removed from the result view pane. This value can be a valid combination of the preceding flags shown for the add parameter. As described there, these values are from the 
+     * @param {MMC_RESULT_VIEW_STYLE} add A value that specifies the view style (or styles) to be set in the result view pane. This value can be a valid combination of the following:
+     * @param {MMC_RESULT_VIEW_STYLE} remove A value that specifies the view style (or styles) to be removed from the result view pane. This value can be a valid combination of the preceding flags shown for the add parameter. As described there, these values are from the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mmc/ne-mmc-mmc_result_view_style">MMC_RESULT_VIEW_STYLE</a> enumeration and correspond to the Win32 LVS_* flags of the same names.
      * @returns {HRESULT} This method can return one of these values.
      * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-iresultdata-modifyviewstyle

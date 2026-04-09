@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
 #Include ..\..\..\System\Com\IDispatch.ahk
+#Include ..\..\..\Foundation\BSTR.ahk
 
 /**
  * Can be used to associate an external property with a certificate.
  * @see https://learn.microsoft.com/windows/win32/api/certenroll/nn-certenroll-icertproperty
  * @namespace Windows.Win32.Security.Cryptography.Certificates
- * @version v4.0.30319
  */
-class ICertProperty extends IDispatch{
+class ICertProperty extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -32,7 +31,7 @@ class ICertProperty extends IDispatch{
     static VTableNames => ["InitializeFromCertificate", "InitializeDecode", "get_PropertyId", "put_PropertyId", "get_RawData", "RemoveFromCertificate", "SetValueOnCertificate"]
 
     /**
-     * @type {Integer} 
+     * @type {CERTENROLL_PROPERTYID} 
      */
     PropertyId {
         get => this.get_PropertyId()
@@ -44,7 +43,7 @@ class ICertProperty extends IDispatch{
      * @remarks
      * Specify the property to initialize by calling the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-icertproperty-get_propertyid">PropertyId</a> property. You can call the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-icertproperty-get_rawdata">RawData</a> property to retrieve an encoded string that contains the property.
      * @param {VARIANT_BOOL} MachineContext A <b>VARIANT_BOOL</b> value that indicates  whether the certificate store is for the local computer or the current user. Specify <b>VARIANT_TRUE</b> for the computer and <b>VARIANT_FALSE</b> for the user.
-     * @param {Integer} Encoding An <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/ne-certenroll-encodingtype">EncodingType</a> enumeration value that specifies the type of Unicode encoding applied to  the certificate contained in the <i>strCertificate</i> parameter.
+     * @param {EncodingType} Encoding An <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/ne-certenroll-encodingtype">EncodingType</a> enumeration value that specifies the type of Unicode encoding applied to  the certificate contained in the <i>strCertificate</i> parameter.
      * @param {BSTR} strCertificate A <b>BSTR</b> variable that contains the DER-encoded certificate.
      * 
      * Beginning with Windows 7 and Windows Server 2008 R2, you can specify a certificate thumb print or serial number rather than an encoded certificate. Doing so causes the function to search the appropriate local stores for the matching certificate. Keep in mind the following points:
@@ -144,7 +143,7 @@ class ICertProperty extends IDispatch{
      * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-icertpropertysha1hash">ICertPropertySHA1Hash</a>
      * </li>
      * </ul>
-     * @param {Integer} Encoding An <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/ne-certenroll-encodingtype">EncodingType</a> enumeration value that specifies the type of Unicode encoding applied to the input string.
+     * @param {EncodingType} Encoding An <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/ne-certenroll-encodingtype">EncodingType</a> enumeration value that specifies the type of Unicode encoding applied to the input string.
      * @param {BSTR} strEncodedData A <b>BSTR</b> variable that contains the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/d-gly">Distinguished Encoding Rules</a> (DER) encoded property value.
      * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>.
      * 
@@ -181,7 +180,7 @@ class ICertProperty extends IDispatch{
      * Specifies or retrieves a value of the CERTENROLL_PROPERTYID enumeration that identifies an external certificate property. (Get)
      * @remarks
      * Call the <b>PropertyId</b> property before trying to initialize the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-icertproperty">ICertProperty</a> object. Call the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-icertproperty-initializedecode">InitializeDecode</a> method or the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-icertproperty-initializefromcertificate">InitializeFromCertificate</a> method to create a value for the certificate property. Call the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-icertproperty-get_rawdata">RawData</a> property to retrieve the property value.
-     * @returns {Integer} 
+     * @returns {CERTENROLL_PROPERTYID} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icertproperty-get_propertyid
      */
     get_PropertyId() {
@@ -193,7 +192,7 @@ class ICertProperty extends IDispatch{
      * Specifies or retrieves a value of the CERTENROLL_PROPERTYID enumeration that identifies an external certificate property. (Put)
      * @remarks
      * Call the <b>PropertyId</b> property before trying to initialize the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-icertproperty">ICertProperty</a> object. Call the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-icertproperty-initializedecode">InitializeDecode</a> method or the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-icertproperty-initializefromcertificate">InitializeFromCertificate</a> method to create a value for the certificate property. Call the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-icertproperty-get_rawdata">RawData</a> property to retrieve the property value.
-     * @param {Integer} Value 
+     * @param {CERTENROLL_PROPERTYID} Value 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icertproperty-put_propertyid
      */
@@ -206,7 +205,7 @@ class ICertProperty extends IDispatch{
      * Retrieves the value of the certificate property.
      * @remarks
      * Call <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-icertproperty-get_propertyid">PropertyId</a> to identify the property to retrieve before calling the <b>RawData</b> property.
-     * @param {Integer} Encoding 
+     * @param {EncodingType} Encoding 
      * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icertproperty-get_rawdata
      */
@@ -219,7 +218,7 @@ class ICertProperty extends IDispatch{
     /**
      * Disassociates a property from a certificate.
      * @param {VARIANT_BOOL} MachineContext A <b>VARIANT_BOOL</b> value that indicates  whether the certificate store is located on the local computer. Specify <b>VARIANT_TRUE</b> if the store is local.
-     * @param {Integer} Encoding An <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/ne-certenroll-encodingtype">EncodingType</a> enumeration value that specifies the type of encoding applied to  the certificate string identified by the <i>strCertificate</i> parameter.
+     * @param {EncodingType} Encoding An <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/ne-certenroll-encodingtype">EncodingType</a> enumeration value that specifies the type of encoding applied to  the certificate string identified by the <i>strCertificate</i> parameter.
      * @param {BSTR} strCertificate A <b>BSTR</b> variable that contains the DER-encoded certificate.
      * 
      * Beginning with Windows 7 and Windows Server 2008 R2, you can specify a certificate thumb print or serial number rather than an encoded certificate. Doing so causes the function to search the appropriate local stores for the matching certificate. Keep in mind the following points:
@@ -280,7 +279,7 @@ class ICertProperty extends IDispatch{
      * @remarks
      * Call the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-icertproperty-initializedecode">InitializeDecode</a> method or the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-icertproperty-initializefromcertificate">InitializeFromCertificate</a> method to create a property value. Before calling either method, you must first set the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-icertproperty-get_propertyid">PropertyId</a> property to specify which property value to initialize.
      * @param {VARIANT_BOOL} MachineContext A <b>VARIANT_BOOL</b> value that indicates  whether the certificate store is for the local computer or the current user. Specify <b>VARIANT_TRUE</b> for the computer and <b>VARIANT_FALSE</b> for the user.
-     * @param {Integer} Encoding An <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/ne-certenroll-encodingtype">EncodingType</a> enumeration value that specifies the type of Unicode encoding applied to  the certificate string identified by the <i>strCertificate</i> parameter.
+     * @param {EncodingType} Encoding An <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/ne-certenroll-encodingtype">EncodingType</a> enumeration value that specifies the type of Unicode encoding applied to  the certificate string identified by the <i>strCertificate</i> parameter.
      * @param {BSTR} strCertificate A <b>BSTR</b> variable that contains the DER-encoded certificate.
      * 
      * Beginning with Windows 7 and Windows Server 2008 R2, you can specify a certificate thumb print or serial number rather than an encoded certificate. Doing so causes the function to search the appropriate local stores for the matching certificate. Keep in mind the following points:

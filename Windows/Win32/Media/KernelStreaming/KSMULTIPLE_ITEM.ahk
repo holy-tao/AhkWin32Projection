@@ -5,10 +5,8 @@
  * The KSMULTIPLE\_ITEM structure describes the size and count of variable-length properties on kernel-mode pins.
  * @see https://learn.microsoft.com/windows/win32/DirectShow/ksmultiple-item
  * @namespace Windows.Win32.Media.KernelStreaming
- * @version v4.0.30319
  */
-class KSMULTIPLE_ITEM extends Win32Struct
-{
+class KSMULTIPLE_ITEM extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4

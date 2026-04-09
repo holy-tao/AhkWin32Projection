@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.Nfc
- * @version v4.0.30319
  */
-class NFC_LLCP_SOCKET_SERVICE_INFO extends Win32Struct
-{
+class NFC_LLCP_SOCKET_SERVICE_INFO extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -31,7 +29,7 @@ class NFC_LLCP_SOCKET_SERVICE_INFO extends Win32Struct
     /**
      * @type {NFC_LLCP_SERVICE_NAME_ENTRY}
      */
-    sServiceName{
+    sServiceName {
         get {
             if(!this.HasProp("__sServiceName"))
                 this.__sServiceName := NFC_LLCP_SERVICE_NAME_ENTRY(12, this)

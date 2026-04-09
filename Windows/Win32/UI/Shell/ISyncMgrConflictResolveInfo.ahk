@@ -7,9 +7,8 @@
  * Exposes methods that get and set information about sync manager conflict resolution.
  * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nn-syncmgr-isyncmgrconflictresolveinfo
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class ISyncMgrConflictResolveInfo extends IUnknown{
+class ISyncMgrConflictResolveInfo extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -57,7 +56,7 @@ class ISyncMgrConflictResolveInfo extends IUnknown{
 
     /**
      * Gets what the presenter wants to do as the next step in the sync manager conflict resolution.
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/ne-syncmgr-syncmgr_presenter_next_step">SYNCMGR_PRESENTER_NEXT_STEP</a>*</b>
+     * @returns {SYNCMGR_PRESENTER_NEXT_STEP} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/ne-syncmgr-syncmgr_presenter_next_step">SYNCMGR_PRESENTER_NEXT_STEP</a>*</b>
      * 
      * When this method returns, contains a pointer to the next step in conflict resolution. One of the members of the <a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/ne-syncmgr-syncmgr_presenter_next_step">SYNCMGR_PRESENTER_NEXT_STEP</a> enumeration.
      * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nf-syncmgr-isyncmgrconflictresolveinfo-getpresenternextstep
@@ -69,7 +68,7 @@ class ISyncMgrConflictResolveInfo extends IUnknown{
 
     /**
      * Gets what kind of choice was made and whether to apply the choice to all subsequent conflicts in the set.
-     * @param {Pointer<Integer>} pnPresenterChoice Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/ne-syncmgr-syncmgr_presenter_choice">SYNCMGR_PRESENTER_CHOICE</a>*</b>
+     * @param {Pointer<SYNCMGR_PRESENTER_CHOICE>} pnPresenterChoice Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/ne-syncmgr-syncmgr_presenter_choice">SYNCMGR_PRESENTER_CHOICE</a>*</b>
      * 
      * When this method returns, contains a pointer to the choice that was made about the conflict resolution. One of the members of the <a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/ne-syncmgr-syncmgr_presenter_choice">SYNCMGR_PRESENTER_CHOICE</a> enumeration.
      * @param {Pointer<BOOL>} pfApplyToAll Type: <b>BOOL*</b>
@@ -117,7 +116,7 @@ class ISyncMgrConflictResolveInfo extends IUnknown{
 
     /**
      * Sets what the presenter wants to do as the next step in the sync manager conflict resolution.
-     * @param {Integer} nPresenterNextStep Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/ne-syncmgr-syncmgr_presenter_next_step">SYNCMGR_PRESENTER_NEXT_STEP</a></b>
+     * @param {SYNCMGR_PRESENTER_NEXT_STEP} nPresenterNextStep Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/ne-syncmgr-syncmgr_presenter_next_step">SYNCMGR_PRESENTER_NEXT_STEP</a></b>
      * 
      * The next step in the conflict resolution. One of the members of the <a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/ne-syncmgr-syncmgr_presenter_next_step">SYNCMGR_PRESENTER_NEXT_STEP</a> enumeration.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -132,7 +131,7 @@ class ISyncMgrConflictResolveInfo extends IUnknown{
 
     /**
      * Sets what kind of choice was made about a sync manager conflict resolution and whether to apply the choice to all subsequent conflicts in the set.
-     * @param {Integer} nPresenterChoice Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/ne-syncmgr-syncmgr_presenter_choice">SYNCMGR_PRESENTER_CHOICE</a></b>
+     * @param {SYNCMGR_PRESENTER_CHOICE} nPresenterChoice Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/ne-syncmgr-syncmgr_presenter_choice">SYNCMGR_PRESENTER_CHOICE</a></b>
      * 
      * The choice that was made about the conflict resolution. One of the members of the <a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/ne-syncmgr-syncmgr_presenter_choice">SYNCMGR_PRESENTER_CHOICE</a> enumeration.
      * @param {BOOL} fApplyToAll Type: <b>BOOL</b>

@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Graphics.OpenGL
- * @version v4.0.30319
  */
-class PFD_FLAGS extends Win32BitflagEnum{
+class PFD_FLAGS extends Win32BitflagEnum {
 
     /**
      * @type {Integer (UInt32)}

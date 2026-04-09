@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
 #Include .\IPAT.ahk
 #Include .\ICAT.ahk
 #Include .\IPMT.ahk
@@ -15,7 +16,6 @@
 #Include .\IDVB_TOT.ahk
 #Include .\IDVB_DIT.ahk
 #Include .\IDVB_SIT.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
  * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005 and later. The IDvbSiParser retrieves program specific information (PSI) and service information (SI) tables from a DVB transport stream.
@@ -23,9 +23,8 @@
  * To get a pointer to this interface, see the remarks for <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/dvbsiparser/nn-dvbsiparser-idvbsiparser2">IDvbSiParser2</a>.
  * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nn-dvbsiparser-idvbsiparser
  * @namespace Windows.Win32.Media.DirectShow.Tv
- * @version v4.0.30319
  */
-class IDvbSiParser extends IUnknown{
+class IDvbSiParser extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

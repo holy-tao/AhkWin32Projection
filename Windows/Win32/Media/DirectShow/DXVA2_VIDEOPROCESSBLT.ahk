@@ -4,16 +4,15 @@
 #Include ..\..\Foundation\SIZE.ahk
 #Include ..\MediaFoundation\DXVA2_AYUVSample16.ahk
 #Include ..\MediaFoundation\DXVA2_ExtendedFormat.ahk
-#Include ..\MediaFoundation\DXVA2_Fixed32.ahk
 #Include ..\MediaFoundation\DXVA2_ProcAmpValues.ahk
+#Include ..\MediaFoundation\DXVA2_Fixed32.ahk
 #Include ..\MediaFoundation\DXVA2_FilterValues.ahk
+#Include .\DXVA2_VIDEOSAMPLE.ahk
 
 /**
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class DXVA2_VIDEOPROCESSBLT extends Win32Struct
-{
+class DXVA2_VIDEOPROCESSBLT extends Win32Struct {
     static sizeof => 136
 
     static packingSize => 8
@@ -29,7 +28,7 @@ class DXVA2_VIDEOPROCESSBLT extends Win32Struct
     /**
      * @type {RECT}
      */
-    TargetRect{
+    TargetRect {
         get {
             if(!this.HasProp("__TargetRect"))
                 this.__TargetRect := RECT(8, this)
@@ -40,7 +39,7 @@ class DXVA2_VIDEOPROCESSBLT extends Win32Struct
     /**
      * @type {SIZE}
      */
-    ConstrictionSize{
+    ConstrictionSize {
         get {
             if(!this.HasProp("__ConstrictionSize"))
                 this.__ConstrictionSize := SIZE(24, this)
@@ -59,7 +58,7 @@ class DXVA2_VIDEOPROCESSBLT extends Win32Struct
     /**
      * @type {DXVA2_AYUVSample16}
      */
-    BackgroundColor{
+    BackgroundColor {
         get {
             if(!this.HasProp("__BackgroundColor"))
                 this.__BackgroundColor := DXVA2_AYUVSample16(36, this)
@@ -70,7 +69,7 @@ class DXVA2_VIDEOPROCESSBLT extends Win32Struct
     /**
      * @type {DXVA2_ExtendedFormat}
      */
-    DestFormat{
+    DestFormat {
         get {
             if(!this.HasProp("__DestFormat"))
                 this.__DestFormat := DXVA2_ExtendedFormat(44, this)
@@ -89,7 +88,7 @@ class DXVA2_VIDEOPROCESSBLT extends Win32Struct
     /**
      * @type {DXVA2_ProcAmpValues}
      */
-    ProcAmpValues{
+    ProcAmpValues {
         get {
             if(!this.HasProp("__ProcAmpValues"))
                 this.__ProcAmpValues := DXVA2_ProcAmpValues(52, this)
@@ -100,7 +99,7 @@ class DXVA2_VIDEOPROCESSBLT extends Win32Struct
     /**
      * @type {DXVA2_Fixed32}
      */
-    Alpha{
+    Alpha {
         get {
             if(!this.HasProp("__Alpha"))
                 this.__Alpha := DXVA2_Fixed32(68, this)
@@ -111,7 +110,7 @@ class DXVA2_VIDEOPROCESSBLT extends Win32Struct
     /**
      * @type {DXVA2_FilterValues}
      */
-    NoiseFilterLuma{
+    NoiseFilterLuma {
         get {
             if(!this.HasProp("__NoiseFilterLuma"))
                 this.__NoiseFilterLuma := DXVA2_FilterValues(72, this)
@@ -122,7 +121,7 @@ class DXVA2_VIDEOPROCESSBLT extends Win32Struct
     /**
      * @type {DXVA2_FilterValues}
      */
-    NoiseFilterChroma{
+    NoiseFilterChroma {
         get {
             if(!this.HasProp("__NoiseFilterChroma"))
                 this.__NoiseFilterChroma := DXVA2_FilterValues(84, this)
@@ -133,7 +132,7 @@ class DXVA2_VIDEOPROCESSBLT extends Win32Struct
     /**
      * @type {DXVA2_FilterValues}
      */
-    DetailFilterLuma{
+    DetailFilterLuma {
         get {
             if(!this.HasProp("__DetailFilterLuma"))
                 this.__DetailFilterLuma := DXVA2_FilterValues(96, this)
@@ -144,7 +143,7 @@ class DXVA2_VIDEOPROCESSBLT extends Win32Struct
     /**
      * @type {DXVA2_FilterValues}
      */
-    DetailFilterChroma{
+    DetailFilterChroma {
         get {
             if(!this.HasProp("__DetailFilterChroma"))
                 this.__DetailFilterChroma := DXVA2_FilterValues(108, this)

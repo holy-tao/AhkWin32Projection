@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\SBinary.ahk
 
 /**
  * Contains an array of binary values. The SBinaryArray structure is used to describe properties of type PT_MV_BINARY.
@@ -9,10 +10,8 @@
  * For more information about PT_MV_BINARY, see [List of Property Types](property-types.md).
  * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/sbinaryarray
  * @namespace Windows.Win32.System.AddressBook
- * @version v4.0.30319
  */
-class SBinaryArray extends Win32Struct
-{
+class SBinaryArray extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

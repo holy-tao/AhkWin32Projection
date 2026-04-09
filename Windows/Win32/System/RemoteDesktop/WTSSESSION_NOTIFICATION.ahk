@@ -5,10 +5,8 @@
  * Provides information about the session change notification. A service receives this structure in its HandlerEx function in response to a session change event.
  * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-wtssession_notification
  * @namespace Windows.Win32.System.RemoteDesktop
- * @version v4.0.30319
  */
-class WTSSESSION_NOTIFICATION extends Win32Struct
-{
+class WTSSESSION_NOTIFICATION extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4

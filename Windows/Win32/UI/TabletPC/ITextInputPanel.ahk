@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\Foundation\HWND.ahk
 #Include ..\..\Foundation\RECT.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Provides control of appearance and behavior of the Tablet PC Input Panel.
@@ -22,9 +22,8 @@
  * This element is declared in Peninputpanel.h.
  * @see https://learn.microsoft.com/windows/win32/api/peninputpanel/nn-peninputpanel-itextinputpanel
  * @namespace Windows.Win32.UI.TabletPC
- * @version v4.0.30319
  */
-class ITextInputPanel extends IUnknown{
+class ITextInputPanel extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -60,14 +59,14 @@ class ITextInputPanel extends IUnknown{
     }
 
     /**
-     * @type {Integer} 
+     * @type {InteractionMode} 
      */
     CurrentInteractionMode {
         get => this.get_CurrentInteractionMode()
     }
 
     /**
-     * @type {Integer} 
+     * @type {InPlaceState} 
      */
     DefaultInPlaceState {
         get => this.get_DefaultInPlaceState()
@@ -75,14 +74,14 @@ class ITextInputPanel extends IUnknown{
     }
 
     /**
-     * @type {Integer} 
+     * @type {InPlaceState} 
      */
     CurrentInPlaceState {
         get => this.get_CurrentInPlaceState()
     }
 
     /**
-     * @type {Integer} 
+     * @type {PanelInputArea} 
      */
     DefaultInputArea {
         get => this.get_DefaultInputArea()
@@ -90,21 +89,21 @@ class ITextInputPanel extends IUnknown{
     }
 
     /**
-     * @type {Integer} 
+     * @type {PanelInputArea} 
      */
     CurrentInputArea {
         get => this.get_CurrentInputArea()
     }
 
     /**
-     * @type {Integer} 
+     * @type {CorrectionMode} 
      */
     CurrentCorrectionMode {
         get => this.get_CurrentCorrectionMode()
     }
 
     /**
-     * @type {Integer} 
+     * @type {InPlaceDirection} 
      */
     PreferredInPlaceDirection {
         get => this.get_PreferredInPlaceDirection()
@@ -180,7 +179,7 @@ class ITextInputPanel extends IUnknown{
      * Gets the positioning of the Tablet PC Input Panel as specified by the InteractionMode Enumeration.
      * @remarks
      * The current interaction mode is dictated by the user. However, the <a href="https://docs.microsoft.com/windows/win32/api/peninputpanel/ne-peninputpanel-interactionmode">InteractionMode_InPlace</a> mode can be disabled by the application on a per field basis.
-     * @returns {Integer} 
+     * @returns {InteractionMode} 
      * @see https://learn.microsoft.com/windows/win32/api/peninputpanel/nf-peninputpanel-itextinputpanel-get_currentinteractionmode
      */
     get_CurrentInteractionMode() {
@@ -192,7 +191,7 @@ class ITextInputPanel extends IUnknown{
      * Gets or sets the default in-place state as specified by the InPlaceState Enumeration. (Get)
      * @remarks
      * Set this property to <a href="https://docs.microsoft.com/windows/win32/api/peninputpanel/ne-peninputpanel-inplacestate">InPlaceState_Expanded</a> to have the Input Panel open without requiring the user to tap the hover target. Setting the default state to <b>InPlaceState_HoverTarget</b> overrides the Input Panel's heuristics for remaining expanded. When switching between fields, setting the default forces Input Panel to the collapsed or hover state, after a focus change. The system default is <b>InPlaceState_Auto</b>.
-     * @returns {Integer} 
+     * @returns {InPlaceState} 
      * @see https://learn.microsoft.com/windows/win32/api/peninputpanel/nf-peninputpanel-itextinputpanel-get_defaultinplacestate
      */
     get_DefaultInPlaceState() {
@@ -204,7 +203,7 @@ class ITextInputPanel extends IUnknown{
      * Gets or sets the default in-place state as specified by the InPlaceState Enumeration. (Put)
      * @remarks
      * Set this property to <a href="https://docs.microsoft.com/windows/win32/api/peninputpanel/ne-peninputpanel-inplacestate">InPlaceState_Expanded</a> to have the Input Panel open without requiring the user to tap the hover target. Setting the default state to <b>InPlaceState_HoverTarget</b> overrides the Input Panel's heuristics for remaining expanded. When switching between fields, setting the default forces Input Panel to the collapsed or hover state, after a focus change. The system default is <b>InPlaceState_Auto</b>.
-     * @param {Integer} State 
+     * @param {InPlaceState} State 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/peninputpanel/nf-peninputpanel-itextinputpanel-put_defaultinplacestate
      */
@@ -217,7 +216,7 @@ class ITextInputPanel extends IUnknown{
      * Gets the current in-place state as specified by the InPlaceState Enumeration.
      * @remarks
      * When the Tablet PC Input Panel is closed or hidden, the current in-place state is reset to the default state, unless the default state is <a href="https://docs.microsoft.com/windows/win32/api/peninputpanel/ne-peninputpanel-inplacestate">Auto</a>, in which case, the current in-place state is reset to <b>Hover</b>.
-     * @returns {Integer} 
+     * @returns {InPlaceState} 
      * @see https://learn.microsoft.com/windows/win32/api/peninputpanel/nf-peninputpanel-itextinputpanel-get_currentinplacestate
      */
     get_CurrentInPlaceState() {
@@ -229,7 +228,7 @@ class ITextInputPanel extends IUnknown{
      * Gets or sets the default input area as specified by the PanelInputArea Enumeration. (Get)
      * @remarks
      * The system default is <a href="https://docs.microsoft.com/windows/win32/api/peninputpanel/ne-peninputpanel-panelinputarea">PanelInputArea_Auto</a>, except in password fields where the system default is <b>PanelInputArea_Keyboard</b>. Setting the default input area overrides the system default in all cases, except when an input area is unavailable because the current recognizer does not support that mode or because there is no recognizer for the current input language.
-     * @returns {Integer} 
+     * @returns {PanelInputArea} 
      * @see https://learn.microsoft.com/windows/win32/api/peninputpanel/nf-peninputpanel-itextinputpanel-get_defaultinputarea
      */
     get_DefaultInputArea() {
@@ -241,7 +240,7 @@ class ITextInputPanel extends IUnknown{
      * Gets or sets the default input area as specified by the PanelInputArea Enumeration. (Put)
      * @remarks
      * The system default is <a href="https://docs.microsoft.com/windows/win32/api/peninputpanel/ne-peninputpanel-panelinputarea">PanelInputArea_Auto</a>, except in password fields where the system default is <b>PanelInputArea_Keyboard</b>. Setting the default input area overrides the system default in all cases, except when an input area is unavailable because the current recognizer does not support that mode or because there is no recognizer for the current input language.
-     * @param {Integer} Area 
+     * @param {PanelInputArea} Area 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/peninputpanel/nf-peninputpanel-itextinputpanel-put_defaultinputarea
      */
@@ -254,7 +253,7 @@ class ITextInputPanel extends IUnknown{
      * Gets the current input area as specified by the PanelInputArea Enumeration.
      * @remarks
      * The current input area is different from the default input area when the user has explicitly switched input areas. It is also different if the default input area is unavailable because the current recognizer does not support that mode or because there is no recognizer for the current input language. When the Tablet PC Input Panel is closed or hidden, the current input areas is reset to equal the default input area, unless the default state is <a href="https://docs.microsoft.com/windows/win32/api/peninputpanel/ne-peninputpanel-panelinputarea">Auto</a>, in which case, the current input area is not reset and represents the last visible input area.
-     * @returns {Integer} 
+     * @returns {PanelInputArea} 
      * @see https://learn.microsoft.com/windows/win32/api/peninputpanel/nf-peninputpanel-itextinputpanel-get_currentinputarea
      */
     get_CurrentInputArea() {
@@ -269,7 +268,7 @@ class ITextInputPanel extends IUnknown{
      * 		</div>
      * <div> </div>
      * When the Tablet PC Input Panel or the correction comb is not visible, the current mode is <a href="https://docs.microsoft.com/windows/win32/api/peninputpanel/ne-peninputpanel-correctionmode">CorrectionMode_NotVisible</a>.
-     * @returns {Integer} 
+     * @returns {CorrectionMode} 
      * @see https://learn.microsoft.com/windows/win32/api/peninputpanel/nf-peninputpanel-itextinputpanel-get_currentcorrectionmode
      */
     get_CurrentCorrectionMode() {
@@ -281,7 +280,7 @@ class ITextInputPanel extends IUnknown{
      * Gets or sets the preferred direction of the in-place Input Panel relative to the text entry field. (Get)
      * @remarks
      * An application can specify whether the in-place Input Panel defaults to appearing above or below a text entry field. To do this the application can set the <b>ITextInputPanel::PreferredInPlaceDirection Property</b> to <a href="https://docs.microsoft.com/windows/win32/api/peninputpanel/ne-peninputpanel-inplacedirection">InPlaceDirection_Bottom</a> or <b>InPlaceDirection_Top</b>. <b>ITextInputPanel::PreferredInPlaceDirection Property</b> is a preference because the in-place Input Panel overrides the preference set by the application when necessary to keep Input Panel on the screen. The system default is to position the in-place Input Panel below a text field when possible and otherwise to position it above. Setting the <b>PreferredInPlaceDirection</b> to <b>InPlaceDirection_Auto</b> restores the system default.
-     * @returns {Integer} 
+     * @returns {InPlaceDirection} 
      * @see https://learn.microsoft.com/windows/win32/api/peninputpanel/nf-peninputpanel-itextinputpanel-get_preferredinplacedirection
      */
     get_PreferredInPlaceDirection() {
@@ -293,7 +292,7 @@ class ITextInputPanel extends IUnknown{
      * Gets or sets the preferred direction of the in-place Input Panel relative to the text entry field. (Put)
      * @remarks
      * An application can specify whether the in-place Input Panel defaults to appearing above or below a text entry field. To do this the application can set the <b>ITextInputPanel::PreferredInPlaceDirection Property</b> to <a href="https://docs.microsoft.com/windows/win32/api/peninputpanel/ne-peninputpanel-inplacedirection">InPlaceDirection_Bottom</a> or <b>InPlaceDirection_Top</b>. <b>ITextInputPanel::PreferredInPlaceDirection Property</b> is a preference because the in-place Input Panel overrides the preference set by the application when necessary to keep Input Panel on the screen. The system default is to position the in-place Input Panel below a text field when possible and otherwise to position it above. Setting the <b>PreferredInPlaceDirection</b> to <b>InPlaceDirection_Auto</b> restores the system default.
-     * @param {Integer} _Direction 
+     * @param {InPlaceDirection} _Direction 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/peninputpanel/nf-peninputpanel-itextinputpanel-put_preferredinplacedirection
      */
@@ -525,7 +524,7 @@ class ITextInputPanel extends IUnknown{
      * This method is synchronous. Positioning occurs before the method returns.
      * @param {Integer} xPosition The horizontal x-coordinate for the top left corner of the Input Panel, with no correction comb visible.
      * @param {Integer} yPosition The vertical y-coordinate for the top left corner of the Input Panel, with no correction comb visible.
-     * @param {Integer} position The direction the post insertion correction comb should pop up in, as defined by the <a href="https://docs.microsoft.com/windows/win32/api/peninputpanel/ne-peninputpanel-correctionposition">CorrectionPosition</a> enumeration.
+     * @param {CorrectionPosition} position The direction the post insertion correction comb should pop up in, as defined by the <a href="https://docs.microsoft.com/windows/win32/api/peninputpanel/ne-peninputpanel-correctionposition">CorrectionPosition</a> enumeration.
      * @returns {HRESULT} Returns <b>false</b> when the Input Panel is open (docked or floating) and cannot be moved; otherwise it returns <b>true</b>.
      * 
      * <table>
@@ -611,7 +610,7 @@ class ITextInputPanel extends IUnknown{
     /**
      * Establishes an advisory connection between the Tablet PC Input Panel and the specified sink object.
      * @param {ITextInputPanelEventSink} EventSink Reference to the sink object to receive event notifications from the Input Panel.
-     * @param {Integer} _EventMask 
+     * @param {Integer} _EventMask A bitwise value of the <a href="https://docs.microsoft.com/windows/win32/api/peninputpanel/ne-peninputpanel-eventmask">EventMask Enumeration</a>, indicating the events of interest.
      * @returns {HRESULT} This method can return one of these values.
      * 
      * <table>

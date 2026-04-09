@@ -16,10 +16,8 @@
  * Downsampling is sometimes used to reduce the quality of premium content when other forms of content protection are not available.
  * @see https://learn.microsoft.com/windows/win32/api/dxvahd/ns-dxvahd-dxvahd_blt_state_constriction_data
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class DXVAHD_BLT_STATE_CONSTRICTION_DATA extends Win32Struct
-{
+class DXVAHD_BLT_STATE_CONSTRICTION_DATA extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4
@@ -37,7 +35,7 @@ class DXVAHD_BLT_STATE_CONSTRICTION_DATA extends Win32Struct
      * The sampling size. The default value is (1,1).
      * @type {SIZE}
      */
-    Size{
+    Size {
         get {
             if(!this.HasProp("__Size"))
                 this.__Size := SIZE(4, this)

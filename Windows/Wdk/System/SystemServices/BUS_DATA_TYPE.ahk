@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class BUS_DATA_TYPE extends Win32Enum{
+class BUS_DATA_TYPE extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

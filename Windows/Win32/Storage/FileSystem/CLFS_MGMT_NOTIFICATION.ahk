@@ -1,15 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\CLFS_MGMT_NOTIFICATION_TYPE.ahk
 #Include .\CLS_LSN.ahk
 
 /**
  * The CLFS_MGMT_NOTIFICATION structure specifies information about the notifications that the client receives.
  * @see https://learn.microsoft.com/windows/win32/api/clfsmgmt/ns-clfsmgmt-clfs_mgmt_notification
  * @namespace Windows.Win32.Storage.FileSystem
- * @version v4.0.30319
  */
-class CLFS_MGMT_NOTIFICATION extends Win32Struct
-{
+class CLFS_MGMT_NOTIFICATION extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -77,7 +76,7 @@ class CLFS_MGMT_NOTIFICATION extends Win32Struct
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
+     * @type {CLFS_MGMT_NOTIFICATION_TYPE}
      */
     Notification {
         get => NumGet(this, 0, "int")
@@ -90,7 +89,7 @@ class CLFS_MGMT_NOTIFICATION extends Win32Struct
      *       tail to.
      * @type {CLS_LSN}
      */
-    Lsn{
+    Lsn {
         get {
             if(!this.HasProp("__Lsn"))
                 this.__Lsn := CLS_LSN(8, this)

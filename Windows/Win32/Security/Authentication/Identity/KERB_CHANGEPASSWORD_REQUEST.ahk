@@ -1,22 +1,20 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\KERB_PROTOCOL_MESSAGE_TYPE.ahk
 #Include .\LSA_UNICODE_STRING.ahk
 
 /**
  * Contains information used to change a password.
  * @see https://learn.microsoft.com/windows/win32/api/ntsecapi/ns-ntsecapi-kerb_changepassword_request
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class KERB_CHANGEPASSWORD_REQUEST extends Win32Struct
-{
+class KERB_CHANGEPASSWORD_REQUEST extends Win32Struct {
     static sizeof => 80
 
     static packingSize => 8
 
     /**
-     * 
-     * @type {Integer}
+     * @type {KERB_PROTOCOL_MESSAGE_TYPE}
      */
     MessageType {
         get => NumGet(this, 0, "int")
@@ -27,7 +25,7 @@ class KERB_CHANGEPASSWORD_REQUEST extends Win32Struct
      * <b>UNICODE_STRING</b> that contains the domain name of the account for which to change the password.
      * @type {LSA_UNICODE_STRING}
      */
-    DomainName{
+    DomainName {
         get {
             if(!this.HasProp("__DomainName"))
                 this.__DomainName := LSA_UNICODE_STRING(8, this)
@@ -39,7 +37,7 @@ class KERB_CHANGEPASSWORD_REQUEST extends Win32Struct
      * <b>UNICODE_STRING</b> that contains the account name of the account for which to change the password.
      * @type {LSA_UNICODE_STRING}
      */
-    AccountName{
+    AccountName {
         get {
             if(!this.HasProp("__AccountName"))
                 this.__AccountName := LSA_UNICODE_STRING(24, this)
@@ -51,7 +49,7 @@ class KERB_CHANGEPASSWORD_REQUEST extends Win32Struct
      * <b>UNICODE_STRING</b> that contains the old password to be changed.
      * @type {LSA_UNICODE_STRING}
      */
-    OldPassword{
+    OldPassword {
         get {
             if(!this.HasProp("__OldPassword"))
                 this.__OldPassword := LSA_UNICODE_STRING(40, this)
@@ -63,7 +61,7 @@ class KERB_CHANGEPASSWORD_REQUEST extends Win32Struct
      * <b>UNICODE_STRING</b> that contains the new password.
      * @type {LSA_UNICODE_STRING}
      */
-    NewPassword{
+    NewPassword {
         get {
             if(!this.HasProp("__NewPassword"))
                 this.__NewPassword := LSA_UNICODE_STRING(56, this)

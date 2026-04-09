@@ -14,9 +14,8 @@
  *             container object as long as the children can be moved, resized, or rotated freely within the boundaries of the container.
  * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nn-uiautomationcore-itransformprovider
  * @namespace Windows.Win32.UI.Accessibility
- * @version v4.0.30319
  */
-class ITransformProvider extends IUnknown{
+class ITransformProvider extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

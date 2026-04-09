@@ -1,7 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\CLUSPROP_SYNTAX.ahk
 #Include .\CLUSPROP_VALUE.ahk
+#Include .\CLUSPROP_SYNTAX.ahk
+#Include .\CLUSTER_RESOURCE_CLASS.ahk
 
 /**
  * Describes a resource class.
@@ -13,10 +14,8 @@
  *      beginning for user-defined resource class identifiers.
  * @see https://learn.microsoft.com/windows/win32/api/clusapi/ns-clusapi-clusprop_resource_class
  * @namespace Windows.Win32.Networking.Clustering
- * @version v4.0.30319
  */
-class CLUSPROP_RESOURCE_CLASS extends Win32Struct
-{
+class CLUSPROP_RESOURCE_CLASS extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4
@@ -24,7 +23,7 @@ class CLUSPROP_RESOURCE_CLASS extends Win32Struct
     /**
      * @type {CLUSPROP_VALUE}
      */
-    Base{
+    Base {
         get {
             if(!this.HasProp("__Base"))
                 this.__Base := CLUSPROP_VALUE(0, this)
@@ -35,7 +34,7 @@ class CLUSPROP_RESOURCE_CLASS extends Win32Struct
     /**
      * Resource class described with one of these values enumerated by the 
      *        <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/ne-clusapi-cluster_resource_class">CLUSTER_RESOURCE_CLASS</a> enumeration.
-     * @type {Integer}
+     * @type {CLUSTER_RESOURCE_CLASS}
      */
     rc {
         get => NumGet(this, 12, "int")

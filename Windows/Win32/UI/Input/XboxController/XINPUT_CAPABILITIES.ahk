@@ -1,6 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\XINPUT_DEVTYPE.ahk
+#Include .\XINPUT_DEVSUBTYPE.ahk
+#Include .\XINPUT_CAPABILITIES_FLAGS.ahk
 #Include .\XINPUT_GAMEPAD.ahk
+#Include .\XINPUT_GAMEPAD_BUTTON_FLAGS.ahk
 #Include .\XINPUT_VIBRATION.ahk
 
 /**
@@ -22,17 +26,14 @@
  * Older XUSB Windows drivers report incomplete capabilities information, particularly for wireless devices. The latest XUSB Windows driver provides full support for wired and wireless devices, and more complete and accurate capabilities flags.
  * @see https://learn.microsoft.com/windows/win32/api/xinput/ns-xinput-xinput_capabilities
  * @namespace Windows.Win32.UI.Input.XboxController
- * @version v4.0.30319
  */
-class XINPUT_CAPABILITIES extends Win32Struct
-{
+class XINPUT_CAPABILITIES extends Win32Struct {
     static sizeof => 20
 
     static packingSize => 2
 
     /**
-     * 
-     * @type {Integer}
+     * @type {XINPUT_DEVTYPE}
      */
     Type {
         get => NumGet(this, 0, "char")
@@ -44,7 +45,7 @@ class XINPUT_CAPABILITIES extends Win32Struct
      * 
      * <div class="alert"><b>Note</b>  For restrictions on the use of this subtype value, see Remarks. More subtypes may be added in the future.</div>
      * <div> </div>
-     * @type {Integer}
+     * @type {XINPUT_DEVSUBTYPE}
      */
     SubType {
         get => NumGet(this, 1, "char")
@@ -82,7 +83,7 @@ class XINPUT_CAPABILITIES extends Win32Struct
      * <td>Device lacks menu navigation buttons (START, BACK, DPAD).</td>
      * </tr>
      * </table>
-     * @type {Integer}
+     * @type {XINPUT_CAPABILITIES_FLAGS}
      */
     Flags {
         get => NumGet(this, 2, "ushort")
@@ -93,7 +94,7 @@ class XINPUT_CAPABILITIES extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/xinput/ns-xinput-xinput_gamepad">XINPUT_GAMEPAD</a> structure that describes available controller features and control resolutions.
      * @type {XINPUT_GAMEPAD}
      */
-    Gamepad{
+    Gamepad {
         get {
             if(!this.HasProp("__Gamepad"))
                 this.__Gamepad := XINPUT_GAMEPAD(4, this)
@@ -105,7 +106,7 @@ class XINPUT_CAPABILITIES extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/xinput/ns-xinput-xinput_vibration">XINPUT_VIBRATION</a> structure that describes available vibration functionality and resolutions.
      * @type {XINPUT_VIBRATION}
      */
-    Vibration{
+    Vibration {
         get {
             if(!this.HasProp("__Vibration"))
                 this.__Vibration := XINPUT_VIBRATION(16, this)

@@ -5,9 +5,8 @@
  * Lists the types of messages that can be sent to the Kerberos authentication package by calling the LsaCallAuthenticationPackage function.
  * @see https://learn.microsoft.com/windows/win32/api/ntsecapi/ne-ntsecapi-kerb_protocol_message_type
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class KERB_PROTOCOL_MESSAGE_TYPE extends Win32Enum{
+class KERB_PROTOCOL_MESSAGE_TYPE extends Win32Enum {
 
     /**
      * Reserved.
@@ -226,13 +225,11 @@ class KERB_PROTOCOL_MESSAGE_TYPE extends Win32Enum{
     static KerbPurgeBindingCacheMessage => 29
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static KerbPinKdcMessage => 30
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static KerbUnpinAllKdcsMessage => 31

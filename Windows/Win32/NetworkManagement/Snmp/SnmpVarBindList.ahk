@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\SnmpVarBind.ahk
 
 /**
  * The SnmpVarBindList structure represents an SNMP variable bindings list. This structure is used by multiple SNMP functions. This structure is not used by the WinSNMP API functions.
  * @see https://learn.microsoft.com/windows/win32/api/snmp/ns-snmp-snmpvarbindlist
  * @namespace Windows.Win32.NetworkManagement.Snmp
- * @version v4.0.30319
+ * @architecture X64, Arm64
  */
-class SnmpVarBindList extends Win32Struct
-{
+class SnmpVarBindList extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

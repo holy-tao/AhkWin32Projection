@@ -1,18 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Win32\Graphics\Direct3D9\D3DTRANSFORMCAPS.ahk
-#Include ..\..\..\Win32\Graphics\Direct3D9\D3DLIGHTINGCAPS.ahk
-#Include ..\..\..\Win32\Graphics\Direct3D9\D3DPRIMCAPS.ahk
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
- * @version v4.0.30319
  */
-class D3DNTHALDEVICEDESC_V1 extends Win32Struct
-{
-    static sizeof => 172
+class D3DNTHALDEVICEDESC_V1 extends Win32Struct {
+    static sizeof => 72
 
-    static packingSize => 4
+    static packingSize => 8
 
     /**
      * @type {Integer}
@@ -47,14 +42,11 @@ class D3DNTHALDEVICEDESC_V1 extends Win32Struct
     }
 
     /**
-     * @type {D3DTRANSFORMCAPS}
+     * @type {Pointer}
      */
-    dtcTransformCaps{
-        get {
-            if(!this.HasProp("__dtcTransformCaps"))
-                this.__dtcTransformCaps := D3DTRANSFORMCAPS(16, this)
-            return this.__dtcTransformCaps
-        }
+    dtcTransformCaps {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
@@ -66,67 +58,58 @@ class D3DNTHALDEVICEDESC_V1 extends Win32Struct
     }
 
     /**
-     * @type {D3DLIGHTINGCAPS}
+     * @type {Pointer}
      */
-    dlcLightingCaps{
-        get {
-            if(!this.HasProp("__dlcLightingCaps"))
-                this.__dlcLightingCaps := D3DLIGHTINGCAPS(28, this)
-            return this.__dlcLightingCaps
-        }
+    dlcLightingCaps {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
-     * @type {D3DPRIMCAPS}
+     * @type {Pointer}
      */
-    dpcLineCaps{
-        get {
-            if(!this.HasProp("__dpcLineCaps"))
-                this.__dpcLineCaps := D3DPRIMCAPS(44, this)
-            return this.__dpcLineCaps
-        }
+    dpcLineCaps {
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 
     /**
-     * @type {D3DPRIMCAPS}
+     * @type {Pointer}
      */
-    dpcTriCaps{
-        get {
-            if(!this.HasProp("__dpcTriCaps"))
-                this.__dpcTriCaps := D3DPRIMCAPS(100, this)
-            return this.__dpcTriCaps
-        }
+    dpcTriCaps {
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 
     /**
      * @type {Integer}
      */
     dwDeviceRenderBitDepth {
-        get => NumGet(this, 156, "uint")
-        set => NumPut("uint", value, this, 156)
+        get => NumGet(this, 56, "uint")
+        set => NumPut("uint", value, this, 56)
     }
 
     /**
      * @type {Integer}
      */
     dwDeviceZBufferBitDepth {
-        get => NumGet(this, 160, "uint")
-        set => NumPut("uint", value, this, 160)
+        get => NumGet(this, 60, "uint")
+        set => NumPut("uint", value, this, 60)
     }
 
     /**
      * @type {Integer}
      */
     dwMaxBufferSize {
-        get => NumGet(this, 164, "uint")
-        set => NumPut("uint", value, this, 164)
+        get => NumGet(this, 64, "uint")
+        set => NumPut("uint", value, this, 64)
     }
 
     /**
      * @type {Integer}
      */
     dwMaxVertexCount {
-        get => NumGet(this, 168, "uint")
-        set => NumPut("uint", value, this, 168)
+        get => NumGet(this, 68, "uint")
+        set => NumPut("uint", value, this, 68)
     }
 }

@@ -3,16 +3,14 @@
 
 /**
  * @namespace Windows.Wdk.NetworkManagement.Ndis
- * @version v4.0.30319
  */
-class NDIS_TIMEOUT_DPC_REQUEST_CAPABILITIES extends Win32Struct
-{
+class NDIS_TIMEOUT_DPC_REQUEST_CAPABILITIES extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
 
     /**
-     * @type {Pointer<NDIS_OBJECT_HEADER>}
+     * @type {Pointer}
      */
     Header {
         get => NumGet(this, 0, "ptr")
@@ -36,9 +34,9 @@ class NDIS_TIMEOUT_DPC_REQUEST_CAPABILITIES extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    TimeoutArray{
+    TimeoutArray {
         get {
             if(!this.HasProp("__TimeoutArrayProxyArray"))
                 this.__TimeoutArrayProxyArray := Win32FixedArray(this.ptr + 16, 1, Primitive, "uint")

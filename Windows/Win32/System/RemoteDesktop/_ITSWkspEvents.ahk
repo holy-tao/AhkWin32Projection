@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.RemoteDesktop
- * @version v4.0.30319
  */
-class _ITSWkspEvents extends IDispatch{
+class _ITSWkspEvents extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

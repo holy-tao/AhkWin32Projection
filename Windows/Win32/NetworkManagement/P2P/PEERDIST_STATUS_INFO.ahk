@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\PEERDIST_STATUS.ahk
+#Include .\PEERDIST_RETRIEVAL_OPTIONS_CONTENTINFO_VERSION_VALUE.ahk
 
 /**
  * The PEERDIST_STATUS_INFO structure contains information about the current status and capabilities of the BranchCache service on the local computer.
  * @see https://learn.microsoft.com/windows/win32/api/peerdist/ns-peerdist-peerdist_status_info
  * @namespace Windows.Win32.NetworkManagement.P2P
- * @version v4.0.30319
  */
-class PEERDIST_STATUS_INFO extends Win32Struct
-{
+class PEERDIST_STATUS_INFO extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4
@@ -24,7 +24,7 @@ class PEERDIST_STATUS_INFO extends Win32Struct
 
     /**
      * Specifies the current status of the BranchCache service. This member should be one of following values defined in the <a href="https://docs.microsoft.com/windows/desktop/api/peerdist/ne-peerdist-peerdist_status">PEERDIST_STATUS</a> enumeration.
-     * @type {Integer}
+     * @type {PEERDIST_STATUS}
      */
     status {
         get => NumGet(this, 4, "int")
@@ -32,8 +32,7 @@ class PEERDIST_STATUS_INFO extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Integer}
+     * @type {PEERDIST_RETRIEVAL_OPTIONS_CONTENTINFO_VERSION_VALUE}
      */
     dwMinVer {
         get => NumGet(this, 8, "uint")
@@ -41,8 +40,7 @@ class PEERDIST_STATUS_INFO extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Integer}
+     * @type {PEERDIST_RETRIEVAL_OPTIONS_CONTENTINFO_VERSION_VALUE}
      */
     dwMaxVer {
         get => NumGet(this, 12, "uint")

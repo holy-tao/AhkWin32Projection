@@ -5,9 +5,8 @@
  * Defines the type of task page to be retrieved.
  * @see https://learn.microsoft.com/windows/win32/api/mstask/ne-mstask-taskpage
  * @namespace Windows.Win32.System.TaskScheduler
- * @version v4.0.30319
  */
-class TASKPAGE extends Win32Enum{
+class TASKPAGE extends Win32Enum {
 
     /**
      * Specifies the Task page for the task. This page provides the following UI elements: 

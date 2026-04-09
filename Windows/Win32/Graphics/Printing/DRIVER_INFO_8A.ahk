@@ -8,11 +8,9 @@
  * The strings for these members are contained in the .inf file that is used to add the driver.
  * @see https://learn.microsoft.com/windows/win32/printdocs/driver-info-8
  * @namespace Windows.Win32.Graphics.Printing
- * @version v4.0.30319
  * @charset ANSI
  */
-class DRIVER_INFO_8A extends Win32Struct
-{
+class DRIVER_INFO_8A extends Win32Struct {
     static sizeof => 200
 
     static packingSize => 8
@@ -120,7 +118,7 @@ class DRIVER_INFO_8A extends Win32Struct
      * The date of the driver package, as coded in the driver files.
      * @type {FILETIME}
      */
-    ftDriverDate{
+    ftDriverDate {
         get {
             if(!this.HasProp("__ftDriverDate"))
                 this.__ftDriverDate := FILETIME(88, this)
@@ -247,7 +245,7 @@ class DRIVER_INFO_8A extends Win32Struct
      * The earliest allowed date of any drivers that shipped with Windows and on which this driver depends.
      * @type {FILETIME}
      */
-    ftMinInboxDriverVerDate{
+    ftMinInboxDriverVerDate {
         get {
             if(!this.HasProp("__ftMinInboxDriverVerDate"))
                 this.__ftMinInboxDriverVerDate := FILETIME(184, this)

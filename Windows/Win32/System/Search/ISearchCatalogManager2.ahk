@@ -7,9 +7,8 @@
  * Extends the ISearchCatalogManager interface to manage a search catalog, for purposes such as re-indexing or setting timeouts.
  * @see https://learn.microsoft.com/windows/win32/api/searchapi/nn-searchapi-isearchcatalogmanager2
  * @namespace Windows.Win32.System.Search
- * @version v4.0.30319
  */
-class ISearchCatalogManager2 extends ISearchCatalogManager{
+class ISearchCatalogManager2 extends ISearchCatalogManager {
 
     static sizeof => A_PtrSize
     /**
@@ -40,7 +39,7 @@ class ISearchCatalogManager2 extends ISearchCatalogManager{
      * @param {PWSTR} pszPattern Type: <b>LPCWSTR</b>
      * 
      * A string specifying the URL pattern that defines items that failed indexing and need re-indexing.
-     * @param {Integer} dwPrioritizeFlags Type: <b><a href="https://docs.microsoft.com/windows/win32/api/searchapi/ne-searchapi-tagprioritize_flags">PRIORITIZE_FLAGS</a></b>
+     * @param {PRIORITIZE_FLAGS} dwPrioritizeFlags Type: <b><a href="https://docs.microsoft.com/windows/win32/api/searchapi/ne-searchapi-tagprioritize_flags">PRIORITIZE_FLAGS</a></b>
      * 
      * A value from the <a href="https://docs.microsoft.com/windows/win32/api/searchapi/ne-searchapi-tagprioritize_flags">PRIORITIZE_FLAGS</a> enumeration that specifies how to process items that the indexer has failed to index.
      * @returns {HRESULT} Type: <b>HRESULT</b>

@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Media.Audio.XAudio2
- * @version v4.0.30319
  */
-class FXReverb extends Win32Struct
-{
+class FXReverb extends Win32Struct {
     static sizeof => 0
 
     static packingSize => 1

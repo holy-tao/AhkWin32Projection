@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -41,9 +40,8 @@
  *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/cluadmex/nn-cluadmex-igetclusterresourceinfo">IGetClusterResourceInfo</a>.
  * @see https://learn.microsoft.com/windows/win32/api/cluadmex/nn-cluadmex-igetclusterobjectinfo
  * @namespace Windows.Win32.Networking.Clustering
- * @version v4.0.30319
  */
-class IGetClusterObjectInfo extends IUnknown{
+class IGetClusterObjectInfo extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -149,7 +147,7 @@ class IGetClusterObjectInfo extends IUnknown{
      * @param {Integer} lObjIndex A number representing the zero-based index of the target object. This parameter is restricted to the number 
      *        that can be retrieved by calling 
      *        <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/cluadmex/nf-cluadmex-igetclusterdatainfo-getobjectcount">IGetClusterDataInfo::GetObjectCount</a>.
-     * @returns {Integer} If <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/cluadmex/nf-cluadmex-igetclusterobjectinfo-getobjecttype">GetObjectType</a> is 
+     * @returns {CLUADMEX_OBJECT_TYPE} If <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/cluadmex/nf-cluadmex-igetclusterobjectinfo-getobjecttype">GetObjectType</a> is 
      *         successful, it returns one of the following values enumerated by the 
      *         <b>CLUADMEX_OBJECT_TYPE</b> enumeration representing the object types:
      * 

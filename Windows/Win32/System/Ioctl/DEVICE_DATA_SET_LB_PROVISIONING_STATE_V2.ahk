@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class DEVICE_DATA_SET_LB_PROVISIONING_STATE_V2 extends Win32Struct
-{
+class DEVICE_DATA_SET_LB_PROVISIONING_STATE_V2 extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -60,9 +58,9 @@ class DEVICE_DATA_SET_LB_PROVISIONING_STATE_V2 extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    SlabAllocationBitMap{
+    SlabAllocationBitMap {
         get {
             if(!this.HasProp("__SlabAllocationBitMapProxyArray"))
                 this.__SlabAllocationBitMapProxyArray := Win32FixedArray(this.ptr + 32, 1, Primitive, "uint")

@@ -1,14 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DD_DIRECTDRAW_GLOBAL.ahk
+#Include .\DD_PALETTE_GLOBAL.ahk
+#Include ..\Gdi\PALETTEENTRY.ahk
 
 /**
  * The DD_SETENTRIESDATA structure contains information necessary to set palette entries.
  * @see https://learn.microsoft.com/windows/win32/api/ddrawint/ns-ddrawint-dd_setentriesdata
  * @namespace Windows.Win32.Graphics.DirectDraw
- * @version v4.0.30319
  */
-class DD_SETENTRIESDATA extends Win32Struct
-{
+class DD_SETENTRIESDATA extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8

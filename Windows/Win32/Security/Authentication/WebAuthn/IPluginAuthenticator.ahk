@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\WEBAUTHN_PLUGIN_OPERATION_RESPONSE.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
+#Include .\WEBAUTHN_PLUGIN_OPERATION_RESPONSE.ahk
 
 /**
  * @namespace Windows.Win32.Security.Authentication.WebAuthn
- * @version v4.0.30319
  */
-class IPluginAuthenticator extends IUnknown{
+class IPluginAuthenticator extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -69,7 +68,7 @@ class IPluginAuthenticator extends IUnknown{
      * The volume that contains the currently running operating system is always accessible and cannot be locked.
      * 
      * Managed Object Format (MOF) files contain the definitions for Windows Management Instrumentation (WMI) classes. MOF files are not installed as part of the Windows SDK. They are installed on the server when you add the associated role by using the Server Manager. For more information about MOF files, see [Managed Object Format (MOF)](../wmisdk/managed-object-format--mof-.md).
-     * @returns {Integer} 
+     * @returns {PLUGIN_LOCK_STATUS} 
      * @see https://learn.microsoft.com/windows/win32/SecProv/getlockstatus-win32-encryptablevolume
      */
     GetLockStatus() {

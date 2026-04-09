@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D.Dxc
- * @version v4.0.30319
  */
-class IDxcResult extends IDxcOperationResult{
+class IDxcResult extends IDxcOperationResult {
 
     static sizeof => A_PtrSize
     /**
@@ -30,7 +29,7 @@ class IDxcResult extends IDxcOperationResult{
 
     /**
      * 
-     * @param {Integer} dxcOutKind 
+     * @param {DXC_OUT_KIND} dxcOutKind 
      * @returns {BOOL} 
      */
     HasOutput(dxcOutKind) {
@@ -40,7 +39,7 @@ class IDxcResult extends IDxcOperationResult{
 
     /**
      * 
-     * @param {Integer} dxcOutKind 
+     * @param {DXC_OUT_KIND} dxcOutKind 
      * @param {Pointer<Guid>} iid 
      * @param {Pointer<Pointer<Void>>} ppvObject 
      * @param {Pointer<IDxcBlobUtf16>} ppOutputName 
@@ -65,7 +64,7 @@ class IDxcResult extends IDxcOperationResult{
     /**
      * 
      * @param {Integer} Index 
-     * @returns {Integer} 
+     * @returns {DXC_OUT_KIND} 
      */
     GetOutputByIndex(Index) {
         result := ComCall(9, this, "uint", Index, "int")
@@ -74,7 +73,7 @@ class IDxcResult extends IDxcOperationResult{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {DXC_OUT_KIND} 
      */
     PrimaryOutput() {
         result := ComCall(10, this, "int")

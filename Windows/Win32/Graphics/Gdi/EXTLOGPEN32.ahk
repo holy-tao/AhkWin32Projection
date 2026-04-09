@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Graphics.Gdi
- * @version v4.0.30319
  */
-class EXTLOGPEN32 extends Win32Struct
-{
+class EXTLOGPEN32 extends Win32Struct {
     static sizeof => 28
 
     static packingSize => 4
@@ -60,9 +58,9 @@ class EXTLOGPEN32 extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    elpStyleEntry{
+    elpStyleEntry {
         get {
             if(!this.HasProp("__elpStyleEntryProxyArray"))
                 this.__elpStyleEntryProxyArray := Win32FixedArray(this.ptr + 24, 1, Primitive, "uint")

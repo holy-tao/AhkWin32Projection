@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Networking.ActiveDirectory
- * @version v4.0.30319
  */
-class PostalAddress extends Win32Struct
-{
+class PostalAddress extends Win32Struct {
     static sizeof => 0
 
     static packingSize => 1

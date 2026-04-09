@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.System.WindowsProgramming
- * @version v4.0.30319
  */
-class ACTCTX_SECTION_KEYED_DATA_2600 extends Win32Struct
-{
+class ACTCTX_SECTION_KEYED_DATA_2600 extends Win32Struct {
     static sizeof => 72
 
     static packingSize => 8
@@ -79,7 +77,7 @@ class ACTCTX_SECTION_KEYED_DATA_2600 extends Win32Struct
     /**
      * @type {HANDLE}
      */
-    hActCtx{
+    hActCtx {
         get {
             if(!this.HasProp("__hActCtx"))
                 this.__hActCtx := HANDLE(56, this)

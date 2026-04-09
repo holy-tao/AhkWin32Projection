@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class D3D12_VIDEO_ENCODER_AV1_TIER extends Win32Enum{
+class D3D12_VIDEO_ENCODER_AV1_TIER extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

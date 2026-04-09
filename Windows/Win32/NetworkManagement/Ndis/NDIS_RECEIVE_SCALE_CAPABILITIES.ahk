@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Ndis
- * @version v4.0.30319
  */
-class NDIS_RECEIVE_SCALE_CAPABILITIES extends Win32Struct
-{
+class NDIS_RECEIVE_SCALE_CAPABILITIES extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4
@@ -15,7 +13,7 @@ class NDIS_RECEIVE_SCALE_CAPABILITIES extends Win32Struct
     /**
      * @type {NDIS_OBJECT_HEADER}
      */
-    Header{
+    Header {
         get {
             if(!this.HasProp("__Header"))
                 this.__Header := NDIS_OBJECT_HEADER(0, this)

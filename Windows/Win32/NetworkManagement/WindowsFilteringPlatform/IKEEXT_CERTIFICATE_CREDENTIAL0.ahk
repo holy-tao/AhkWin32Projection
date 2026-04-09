@@ -6,10 +6,8 @@
  * Is used to store credential information specific to certificate authentication. (IKEEXT_CERTIFICATE_CREDENTIAL0)
  * @see https://learn.microsoft.com/windows/win32/api/iketypes/ns-iketypes-ikeext_certificate_credential0
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
- * @version v4.0.30319
  */
-class IKEEXT_CERTIFICATE_CREDENTIAL0 extends Win32Struct
-{
+class IKEEXT_CERTIFICATE_CREDENTIAL0 extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -20,7 +18,7 @@ class IKEEXT_CERTIFICATE_CREDENTIAL0 extends Win32Struct
      * See [FWP_BYTE_BLOB](/windows/desktop/api/fwptypes/ns-fwptypes-fwp_byte_blob) for more information.
      * @type {FWP_BYTE_BLOB}
      */
-    subjectName{
+    subjectName {
         get {
             if(!this.HasProp("__subjectName"))
                 this.__subjectName := FWP_BYTE_BLOB(0, this)
@@ -34,7 +32,7 @@ class IKEEXT_CERTIFICATE_CREDENTIAL0 extends Win32Struct
      * See [FWP_BYTE_BLOB](/windows/desktop/api/fwptypes/ns-fwptypes-fwp_byte_blob) for more information.
      * @type {FWP_BYTE_BLOB}
      */
-    certHash{
+    certHash {
         get {
             if(!this.HasProp("__certHash"))
                 this.__certHash := FWP_BYTE_BLOB(16, this)

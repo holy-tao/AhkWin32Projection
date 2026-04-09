@@ -9,9 +9,8 @@
  * You can create an instance of this interface by using the UpdateSession coclass. Use the Microsoft.Update.Session program identifier to create the object.
  * @see https://learn.microsoft.com/windows/win32/api/wuapi/nn-wuapi-iupdatesession2
  * @namespace Windows.Win32.System.UpdateAgent
- * @version v4.0.30319
  */
-class IUpdateSession2 extends IUpdateSession{
+class IUpdateSession2 extends IUpdateSession {
 
     static sizeof => A_PtrSize
     /**

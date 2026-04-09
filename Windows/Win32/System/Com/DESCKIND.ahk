@@ -5,9 +5,8 @@
  * Identifies the type description being bound to.
  * @see https://learn.microsoft.com/windows/win32/api/oaidl/ne-oaidl-desckind
  * @namespace Windows.Win32.System.Com
- * @version v4.0.30319
  */
-class DESCKIND extends Win32Enum{
+class DESCKIND extends Win32Enum {
 
     /**
      * No match was found.

@@ -1,9 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\System\Ole\IEnumVARIANT.ahk
 #Include .\IFsiItem.ahk
+#Include ..\..\System\Ole\IEnumVARIANT.ahk
 #Include .\IEnumFsiItems.ahk
 
 /**
@@ -17,9 +16,8 @@
  * This is an <b>FsiDirectoryItem</b> object in script.
  * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nn-imapi2fs-ifsidirectoryitem
  * @namespace Windows.Win32.Storage.Imapi
- * @version v4.0.30319
  */
-class IFsiDirectoryItem extends IFsiItem{
+class IFsiDirectoryItem extends IFsiItem {
 
     static sizeof => A_PtrSize
     /**
@@ -87,7 +85,7 @@ class IFsiDirectoryItem extends IFsiItem{
      * To determine whether the item is a file item or directory item, call the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2fs/nn-imapi2fs-ifsiitem">IFsiItem::QueryInterface</a>  method passing __uuidof(IFsiDirectoryItem) as the interface identifier. If the call succeeds, the item is a directory item; otherwise, the item is a file item.
      * 
      * To enumerate all children, call the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2fs/nf-imapi2fs-ifsidirectoryitem-get__newenum">IFsiDirectoryItem::get__NewEnum</a> method.
-     * @param {BSTR} _path 
+     * @param {BSTR} _path String that contains the path to the item to retrieve.
      * @returns {IFsiItem} An <a href="https://docs.microsoft.com/windows/desktop/api/imapi2fs/nn-imapi2fs-ifsiitem">IFsiItem</a> interface of the requested directory or file item.
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifsidirectoryitem-get_item
      */
@@ -124,7 +122,9 @@ class IFsiDirectoryItem extends IFsiItem{
      * Adds a directory to the file system image.
      * @remarks
      * The parent directory for the new subdirectory must already exist within the file system image.
-     * @param {BSTR} _path 
+     * @param {BSTR} _path String that contains the relative path of directory to create.   
+     * 
+     * Specify the full path when calling this method from the root directory item.
      * @returns {HRESULT} S_OK is returned on success, but other success codes may be returned as a result of implementation. The following error codes are commonly returned on operation failure, but do not represent the only possible error values:
      * 
      * <table>
@@ -198,7 +198,9 @@ class IFsiDirectoryItem extends IFsiItem{
      * Adds a file to the file system image.
      * @remarks
      * The directory that will contain the new file must already exist within the file system image.
-     * @param {BSTR} _path 
+     * @param {BSTR} _path String that contains the relative path of the directory to contain the new file.
+     * 
+     * Specify the full path when calling this method from the root directory item.
      * @param {IStream} fileData An <b>IStream</b> interface of the file (data stream) to write to the media.
      * @returns {HRESULT} S_OK is returned on success, but other success codes may be returned as a result of implementation. The following error codes are commonly returned on operation failure, but do not represent the only possible error values:
      * 
@@ -720,7 +722,10 @@ class IFsiDirectoryItem extends IFsiItem{
      * Removes the specified item from the file system image.
      * @remarks
      * This method is only callable on directory items present in the file system image.
-     * @param {BSTR} _path 
+     * @param {BSTR} _path String that contains the relative path of the item to remove.
+     * The path is relative to current directory item.
+     * 
+     * Specify the full path when calling this method from the root directory item.
      * @returns {HRESULT} S_OK is returned on success, but other success codes may be returned as a result of implementation. The following error codes are commonly returned on operation failure, but do not represent the only possible error values:
      * 
      * <table>
@@ -836,7 +841,8 @@ class IFsiDirectoryItem extends IFsiItem{
      * 
      * 
      * You can delete the entire file-system image by calling this method for the root directory item and setting the path to a single path delimiter (\\).
-     * @param {BSTR} _path 
+     * @param {BSTR} _path String that contains the name of directory to remove.
+     * The path is relative to current directory item.
      * @returns {HRESULT} S_OK is returned on success, but other success codes may be returned as a result of implementation. The following error codes are commonly returned on operation failure, but do not represent the only possible error values:
      * 
      * <table>

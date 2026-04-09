@@ -2,12 +2,12 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * @namespace Windows.Win32.Storage.DataDeduplication
- * @version v4.0.30319
  */
-class IDedupDataPort extends IUnknown{
+class IDedupDataPort extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -36,7 +36,7 @@ class IDedupDataPort extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pStatus 
+     * @param {Pointer<DedupDataPortVolumeStatus>} pStatus 
      * @param {Pointer<Integer>} pDataHeadroomMb 
      * @returns {HRESULT} 
      */
@@ -139,7 +139,7 @@ class IDedupDataPort extends IUnknown{
      * @param {Pointer<Pointer<DedupStream>>} ppStreams 
      * @param {Pointer<Integer>} pEntryCount 
      * @param {Pointer<Pointer<DedupStreamEntry>>} ppEntries 
-     * @param {Pointer<Integer>} pStatus 
+     * @param {Pointer<DedupDataPortRequestStatus>} pStatus 
      * @param {Pointer<Pointer<HRESULT>>} ppItemResults 
      * @returns {HRESULT} 
      */
@@ -176,7 +176,7 @@ class IDedupDataPort extends IUnknown{
      * @param {Pointer<Pointer<DedupChunk>>} ppChunkMetadata 
      * @param {Pointer<Integer>} pDataByteCount 
      * @param {Pointer<Pointer<Integer>>} ppChunkData 
-     * @param {Pointer<Integer>} pStatus 
+     * @param {Pointer<DedupDataPortRequestStatus>} pStatus 
      * @param {Pointer<Pointer<HRESULT>>} ppItemResults 
      * @returns {HRESULT} 
      */
@@ -195,7 +195,7 @@ class IDedupDataPort extends IUnknown{
     /**
      * 
      * @param {Guid} RequestId 
-     * @returns {Integer} 
+     * @returns {DedupDataPortRequestStatus} 
      */
     GetRequestStatus(RequestId) {
         result := ComCall(13, this, "ptr", RequestId, "int*", &pStatus := 0, "HRESULT")
@@ -208,7 +208,7 @@ class IDedupDataPort extends IUnknown{
      * @param {Integer} MaxWaitMs 
      * @param {Pointer<HRESULT>} pBatchResult 
      * @param {Pointer<Integer>} pBatchCount 
-     * @param {Pointer<Integer>} pStatus 
+     * @param {Pointer<DedupDataPortRequestStatus>} pStatus 
      * @param {Pointer<Pointer<HRESULT>>} ppItemResults 
      * @returns {HRESULT} 
      */

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\CF_CALLBACK_TYPE.ahk
 
 /**
  * The callbacks to be registered by the sync provider.
@@ -9,17 +10,15 @@
  * Note that the sync provider only needs to register implemented callbacks, and **CF_CALLBACK_REGISTRATION** should always end with **CF_CALLBACK_REGISTRATION_END**.
  * @see https://learn.microsoft.com/windows/win32/api/cfapi/ns-cfapi-cf_callback_registration
  * @namespace Windows.Win32.Storage.CloudFilters
- * @version v4.0.30319
  */
-class CF_CALLBACK_REGISTRATION extends Win32Struct
-{
+class CF_CALLBACK_REGISTRATION extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
 
     /**
      * The type of callback to be registered. See [CF_CALLBACK_TYPE](ne-cfapi-cf_callback_type.md).
-     * @type {Integer}
+     * @type {CF_CALLBACK_TYPE}
      */
     Type {
         get => NumGet(this, 0, "int")

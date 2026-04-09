@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Com
- * @version v4.0.30319
  */
-class RemSTGMEDIUM extends Win32Struct
-{
+class RemSTGMEDIUM extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 4
@@ -52,9 +50,9 @@ class RemSTGMEDIUM extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    data{
+    data {
         get {
             if(!this.HasProp("__dataProxyArray"))
                 this.__dataProxyArray := Win32FixedArray(this.ptr + 20, 1, Primitive, "char")

@@ -1,16 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
  * The IUPnPDeviceProvider interface allows a device provider to start and stop its processing.
  * @see https://learn.microsoft.com/windows/win32/api/upnphost/nn-upnphost-iupnpdeviceprovider
  * @namespace Windows.Win32.Devices.Enumeration.Pnp
- * @version v4.0.30319
  */
-class IUPnPDeviceProvider extends IUnknown{
+class IUPnPDeviceProvider extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

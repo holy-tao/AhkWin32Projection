@@ -12,11 +12,9 @@
  * If the <b>PROCESSOR_RELATIONSHIP</b> structure represents a processor package, the  <b>GroupCount</b> member is 1 only if all processors are in the same processor group. If the package contains more than one NUMA node, the system might assign different NUMA nodes to different processor groups. In this case, the <b>GroupCount</b> member is the number of groups to which NUMA nodes in the package are assigned.
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-processor_relationship
  * @namespace Windows.Win32.System.SystemInformation
- * @version v4.0.30319
  */
-class PROCESSOR_RELATIONSHIP extends Win32Struct
-{
-    static sizeof => 32
+class PROCESSOR_RELATIONSHIP extends Win32Struct {
+    static sizeof => 40
 
     static packingSize => 8
 
@@ -46,9 +44,9 @@ class PROCESSOR_RELATIONSHIP extends Win32Struct
 
     /**
      * This member is reserved.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Reserved{
+    Reserved {
         get {
             if(!this.HasProp("__ReservedProxyArray"))
                 this.__ReservedProxyArray := Win32FixedArray(this.ptr + 2, 20, Primitive, "char")
@@ -67,9 +65,9 @@ class PROCESSOR_RELATIONSHIP extends Win32Struct
 
     /**
      * An array of <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-group_affinity">GROUP_AFFINITY</a> structures. The <b>GroupCount</b> member specifies the number of structures in the array. Each structure in the array specifies a  group number and processor affinity within the group.
-     * @type {Array<GROUP_AFFINITY>}
+     * @type {GROUP_AFFINITY}
      */
-    GroupMask{
+    GroupMask {
         get {
             if(!this.HasProp("__GroupMaskProxyArray"))
                 this.__GroupMaskProxyArray := Win32FixedArray(this.ptr + 24, 1, GROUP_AFFINITY, "")

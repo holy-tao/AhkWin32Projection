@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IWdsTransportCollection.ahk
 #Include .\IWdsTransportSetupManager.ahk
+#Include .\IWdsTransportCollection.ahk
 
 /**
  * This interface inherits from the IWdsTransportSetupManager interface and extends it. It is available beginning with Windows Server 2012.
  * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nn-wdstptmgmt-iwdstransportsetupmanager2
  * @namespace Windows.Win32.System.DeploymentServices
- * @version v4.0.30319
  */
-class IWdsTransportSetupManager2 extends IWdsTransportSetupManager{
+class IWdsTransportSetupManager2 extends IWdsTransportSetupManager {
 
     static sizeof => A_PtrSize
     /**

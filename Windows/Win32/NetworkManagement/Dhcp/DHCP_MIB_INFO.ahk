@@ -1,15 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\DATE_TIME.ahk
+#Include .\SCOPE_MIB_INFO.ahk
 
 /**
  * Defines information returned from the DHCP-specific SNMP Management Information Block (MIB) about the current DHCP service.
  * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/ns-dhcpsapi-dhcp_mib_info
  * @namespace Windows.Win32.NetworkManagement.Dhcp
- * @version v4.0.30319
  */
-class DHCP_MIB_INFO extends Win32Struct
-{
+class DHCP_MIB_INFO extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -81,7 +80,7 @@ class DHCP_MIB_INFO extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-date_time">DATE_TIME</a> structure that contains the date and time the DHCP service started.
      * @type {DATE_TIME}
      */
-    ServerStartTime{
+    ServerStartTime {
         get {
             if(!this.HasProp("__ServerStartTime"))
                 this.__ServerStartTime := DATE_TIME(28, this)

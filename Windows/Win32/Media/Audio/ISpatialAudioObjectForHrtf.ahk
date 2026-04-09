@@ -10,9 +10,8 @@
  * <div> </div>
  * @see https://learn.microsoft.com/windows/win32/api/spatialaudiohrtf/nn-spatialaudiohrtf-ispatialaudioobjectforhrtf
  * @namespace Windows.Win32.Media.Audio
- * @version v4.0.30319
  */
-class ISpatialAudioObjectForHrtf extends ISpatialAudioObjectBase{
+class ISpatialAudioObjectForHrtf extends ISpatialAudioObjectBase {
 
     static sizeof => A_PtrSize
     /**
@@ -190,7 +189,7 @@ class ISpatialAudioObjectForHrtf extends ISpatialAudioObjectBase{
      * Sets the type of acoustic environment that is simulated when audio is processed for the ISpatialAudioObjectForHrtf.
      * @remarks
      * If <b>SetEnvironment</b> is not called, the default value of <a href="https://docs.microsoft.com/windows/desktop/api/spatialaudiohrtf/ne-spatialaudiohrtf-spatialaudiohrtfenvironmenttype">SpatialAudioHrtfEnvironment_Small</a> is used.
-     * @param {Integer} environment A value specifying the type of acoustic environment that is simulated when audio is processed for the <a href="https://docs.microsoft.com/windows/desktop/api/spatialaudiohrtf/nn-spatialaudiohrtf-ispatialaudioobjectforhrtf">ISpatialAudioObjectForHrtf</a>.
+     * @param {SpatialAudioHrtfEnvironmentType} environment A value specifying the type of acoustic environment that is simulated when audio is processed for the <a href="https://docs.microsoft.com/windows/desktop/api/spatialaudiohrtf/nn-spatialaudiohrtf-ispatialaudioobjectforhrtf">ISpatialAudioObjectForHrtf</a>.
      * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, possible return codes include, but are not limited to, the values shown in the following table.
      * 
      * <table>

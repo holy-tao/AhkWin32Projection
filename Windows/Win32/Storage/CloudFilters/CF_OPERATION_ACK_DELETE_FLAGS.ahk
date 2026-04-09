@@ -5,9 +5,8 @@
  * Flags to acknowledge the deletion of a placeholder file or directory.
  * @see https://learn.microsoft.com/windows/win32/api/cfapi/ne-cfapi-cf_operation_ack_delete_flags
  * @namespace Windows.Win32.Storage.CloudFilters
- * @version v4.0.30319
  */
-class CF_OPERATION_ACK_DELETE_FLAGS extends Win32BitflagEnum{
+class CF_OPERATION_ACK_DELETE_FLAGS extends Win32BitflagEnum {
 
     /**
      * No deletion acknowledgment flags.

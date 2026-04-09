@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.ClrProfiling
- * @version v4.0.30319
  */
-class ICorProfilerInfo7 extends ICorProfilerInfo6{
+class ICorProfilerInfo7 extends ICorProfilerInfo6 {
 
     static sizeof => A_PtrSize
     /**

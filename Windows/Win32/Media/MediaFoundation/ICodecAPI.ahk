@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 
 /**
  * The ICodecAPI interface (strmif.h) sets and retrieves settings on an encoder or decoder filter.
@@ -53,9 +53,8 @@
  * where {...} is a property GUID that the application can map into its user interface.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-icodecapi
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class ICodecAPI extends IUnknown{
+class ICodecAPI extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -443,7 +442,7 @@ class ICodecAPI extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer} _userData 
+     * @param {Pointer} _userData Pointer to caller-defined data. The application receives this pointer in the <i>lParam1</i> event parameter.
      * @returns {HRESULT} This method can return one of these values.
      * 
      * <table>

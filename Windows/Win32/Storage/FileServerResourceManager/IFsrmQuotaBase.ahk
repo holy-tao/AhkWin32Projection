@@ -1,18 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IFsrmObject.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
 #Include .\IFsrmAction.ahk
 #Include .\IFsrmCollection.ahk
-#Include .\IFsrmObject.ahk
 
 /**
  * Base interface for all quota interfaces.
  * @see https://learn.microsoft.com/windows/win32/api/fsrmquota/nn-fsrmquota-ifsrmquotabase
  * @namespace Windows.Win32.Storage.FileServerResourceManager
- * @version v4.0.30319
  */
-class IFsrmQuotaBase extends IFsrmObject{
+class IFsrmQuotaBase extends IFsrmObject {
 
     static sizeof => A_PtrSize
     /**
@@ -170,7 +169,7 @@ class IFsrmQuotaBase extends IFsrmObject{
      * @param {Integer} threshold The threshold with which to associate the action. Specify the same value that you specified when calling 
      *       the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmquota/nf-fsrmquota-ifsrmquotabase-addthreshold">IFsrmQuotaBase::AddThreshold</a> 
      *       method.
-     * @param {Integer} actionType The action to perform when the threshold is reached or exceeded. For possible values, see the 
+     * @param {FsrmActionType} actionType The action to perform when the threshold is reached or exceeded. For possible values, see the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/fsrmenums/ne-fsrmenums-fsrmactiontype">FsrmActionType</a> enumeration.
      * @returns {IFsrmAction} An <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrm/nn-fsrm-ifsrmaction">IFsrmAction</a> interface of the newly created action. 
      *       Query the interface for the action interface that you specified in the <i>actionType</i> 

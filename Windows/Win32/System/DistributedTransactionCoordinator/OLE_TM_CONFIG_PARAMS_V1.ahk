@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.DistributedTransactionCoordinator
- * @version v4.0.30319
  */
-class OLE_TM_CONFIG_PARAMS_V1 extends Win32Struct
-{
+class OLE_TM_CONFIG_PARAMS_V1 extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4

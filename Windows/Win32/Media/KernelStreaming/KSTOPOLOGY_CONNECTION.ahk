@@ -5,10 +5,8 @@
  * This topic applies to Windows XP Service Pack 2 or later. The KSTOPOLOGY_CONNECTION structure describes a node connection within a kernel-streaming (KS) filter. A node can be connected to another node within the filter, or to a pin on the filter.
  * @see https://learn.microsoft.com/windows/win32/api/vidcap/ns-vidcap-kstopology_connection
  * @namespace Windows.Win32.Media.KernelStreaming
- * @version v4.0.30319
  */
-class KSTOPOLOGY_CONNECTION extends Win32Struct
-{
+class KSTOPOLOGY_CONNECTION extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4

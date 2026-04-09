@@ -4,11 +4,9 @@
 
 /**
  * @namespace Windows.Win32.System.SystemServices
- * @version v4.0.30319
  */
-class TRANSACTION_ENLISTMENTS_INFORMATION extends Win32Struct
-{
-    static sizeof => 16
+class TRANSACTION_ENLISTMENTS_INFORMATION extends Win32Struct {
+    static sizeof => 24
 
     static packingSize => 8
 
@@ -21,9 +19,9 @@ class TRANSACTION_ENLISTMENTS_INFORMATION extends Win32Struct
     }
 
     /**
-     * @type {Array<TRANSACTION_ENLISTMENT_PAIR>}
+     * @type {TRANSACTION_ENLISTMENT_PAIR}
      */
-    EnlistmentPair{
+    EnlistmentPair {
         get {
             if(!this.HasProp("__EnlistmentPairProxyArray"))
                 this.__EnlistmentPairProxyArray := Win32FixedArray(this.ptr + 8, 1, TRANSACTION_ENLISTMENT_PAIR, "")

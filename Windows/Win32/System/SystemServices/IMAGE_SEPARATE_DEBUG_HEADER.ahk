@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.SystemServices
- * @version v4.0.30319
  */
-class IMAGE_SEPARATE_DEBUG_HEADER extends Win32Struct
-{
+class IMAGE_SEPARATE_DEBUG_HEADER extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 4
@@ -108,9 +106,9 @@ class IMAGE_SEPARATE_DEBUG_HEADER extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    Reserved{
+    Reserved {
         get {
             if(!this.HasProp("__ReservedProxyArray"))
                 this.__ReservedProxyArray := Win32FixedArray(this.ptr + 40, 2, Primitive, "uint")

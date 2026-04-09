@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\Guid.ahk
+#Include ..\System\Com\IUnknown.ahk
 #Include ..\System\Com\IEnumString.ahk
 #Include .\ISpellCheckProvider.ahk
-#Include ..\System\Com\IUnknown.ahk
 
 /**
  * A factory for instantiating a spell checker (ISpellCheckProvider) as well as providing functionality for determining which languages are supported.
  * @see https://learn.microsoft.com/windows/win32/api/spellcheckprovider/nn-spellcheckprovider-ispellcheckproviderfactory
  * @namespace Windows.Win32.Globalization
- * @version v4.0.30319
  */
-class ISpellCheckProviderFactory extends IUnknown{
+class ISpellCheckProviderFactory extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

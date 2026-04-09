@@ -7,9 +7,8 @@
  * The Gaussian blur effect is used to blur an image by a Gaussian function, typically to reduce image noise and reduce detail.
  * @see https://learn.microsoft.com/windows/win32/api/dcomp/nn-dcomp-idcompositiongaussianblureffect
  * @namespace Windows.Win32.Graphics.DirectComposition
- * @version v4.0.30319
  */
-class IDCompositionGaussianBlurEffect extends IDCompositionFilterEffect{
+class IDCompositionGaussianBlurEffect extends IDCompositionFilterEffect {
 
     static sizeof => A_PtrSize
     /**
@@ -61,7 +60,9 @@ class IDCompositionGaussianBlurEffect extends IDCompositionFilterEffect{
 
     /**
      * Sets the mode used to calculate the border of the image.
-     * @param {Integer} _mode 
+     * @param {D2D1_BORDER_MODE} _mode Type: <b><a href="https://docs.microsoft.com/windows/desktop/Direct2D/gaussian-blur">D2D1_BORDER_MODE</a></b>
+     * 
+     * The mode used to calculate the border of the image.
      * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
      * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.

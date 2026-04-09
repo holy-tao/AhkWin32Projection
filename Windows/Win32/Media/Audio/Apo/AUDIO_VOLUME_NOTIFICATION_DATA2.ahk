@@ -1,16 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\AUDIO_VOLUME_NOTIFICATION_DATA.ahk
 
 /**
  * Represents information about a volume change notification event. This structure is used by the AUDIO_ENDPOINT_VOLUME_CHANGE_NOTIFICATION2 structure.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/audioengineextensionapo/ns-audioengineextensionapo-audio_volume_notification_data2
  * @namespace Windows.Win32.Media.Audio.Apo
- * @version v4.0.30319
  */
-class AUDIO_VOLUME_NOTIFICATION_DATA2 extends Win32Struct
-{
+class AUDIO_VOLUME_NOTIFICATION_DATA2 extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -80,9 +77,9 @@ class AUDIO_VOLUME_NOTIFICATION_DATA2 extends Win32Struct
 
     /**
      * The first element in an array of channel volumes in dB. This element contains the current volume level of channel 0 in the audio stream. If the audio stream contains more than one channel, the volume levels for the additional channels immediately follow the **AUDIO_VOLUME_NOTIFICATION_DATA2** structure.
-     * @type {Array<Single>}
+     * @type {Array<Float>}
      */
-    channelVolumesInDb{
+    channelVolumesInDb {
         get {
             if(!this.HasProp("__channelVolumesInDbProxyArray"))
                 this.__channelVolumesInDbProxyArray := Win32FixedArray(this.ptr + 32, 1, Primitive, "float")

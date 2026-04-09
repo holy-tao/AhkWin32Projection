@@ -18,10 +18,8 @@
  * For more information about supporting JPEG and PNG compressed images, see <a href="https://docs.microsoft.com/windows/desktop/api/winddi/ns-winddi-devinfo">DEVINFO</a>.
  * @see https://learn.microsoft.com/windows/win32/api/winddi/ns-winddi-surfobj
  * @namespace Windows.Win32.Devices.Display
- * @version v4.0.30319
  */
-class SURFOBJ extends Win32Struct
-{
+class SURFOBJ extends Win32Struct {
     static sizeof => 80
 
     static packingSize => 8
@@ -30,7 +28,7 @@ class SURFOBJ extends Win32Struct
      * Handle to a surface, provided that the surface is device-managed. Otherwise, this member is zero.
      * @type {DHSURF}
      */
-    dhsurf{
+    dhsurf {
         get {
             if(!this.HasProp("__dhsurf"))
                 this.__dhsurf := DHSURF(0, this)
@@ -42,7 +40,7 @@ class SURFOBJ extends Win32Struct
      * Handle to the surface.
      * @type {HSURF}
      */
-    hsurf{
+    hsurf {
         get {
             if(!this.HasProp("__hsurf"))
                 this.__hsurf := HSURF(8, this)
@@ -54,7 +52,7 @@ class SURFOBJ extends Win32Struct
      * Identifies the device's <a href="https://docs.microsoft.com/windows-hardware/drivers/">PDEV</a> that is associated with the specified surface.
      * @type {DHPDEV}
      */
-    dhpdev{
+    dhpdev {
         get {
             if(!this.HasProp("__dhpdev"))
                 this.__dhpdev := DHPDEV(16, this)
@@ -66,7 +64,7 @@ class SURFOBJ extends Win32Struct
      * GDI's logical handle to the PDEV associated with this device.
      * @type {HDEV}
      */
-    hdev{
+    hdev {
         get {
             if(!this.HasProp("__hdev"))
                 this.__hdev := HDEV(24, this)
@@ -78,7 +76,7 @@ class SURFOBJ extends Win32Struct
      * Specifies a SIZEL structure that contains the width and height, in pixels, of the surface. The SIZEL structure is identical to the <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-size">SIZE</a> structure.
      * @type {SIZE}
      */
-    sizlBitmap{
+    sizlBitmap {
         get {
             if(!this.HasProp("__sizlBitmap"))
                 this.__sizlBitmap := SIZE(32, this)

@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Graphics.GdiPlus
- * @version v4.0.30319
  */
-class IImageBytes extends IUnknown{
+class IImageBytes extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

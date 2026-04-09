@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\MI_Datetime.ahk
 #Include .\MI_Timestamp.ahk
 #Include .\MI_Interval.ahk
-#Include .\MI_Datetime.ahk
+#Include .\MI_Instance.ahk
 #Include .\MI_BooleanA.ahk
 #Include .\MI_Uint8A.ahk
 #Include .\MI_Sint8A.ahk
@@ -25,16 +26,13 @@
  * A union of all CIM data types.
  * @see https://learn.microsoft.com/windows/win32/api/mi/ns-mi-mi_value
  * @namespace Windows.Win32.System.Wmi
- * @version v4.0.30319
  */
-class MI_Value extends Win32Struct
-{
+class MI_Value extends Win32Struct {
     static sizeof => 384
 
     static packingSize => 8
 
     /**
-     * 
      * @type {Integer}
      */
     boolean {
@@ -43,7 +41,6 @@ class MI_Value extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     uint8 {
@@ -52,7 +49,6 @@ class MI_Value extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     sint8 {
@@ -61,7 +57,6 @@ class MI_Value extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     uint16 {
@@ -70,7 +65,6 @@ class MI_Value extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     sint16 {
@@ -79,7 +73,6 @@ class MI_Value extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     uint32 {
@@ -88,7 +81,6 @@ class MI_Value extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     sint32 {
@@ -97,7 +89,6 @@ class MI_Value extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     uint64 {
@@ -106,7 +97,6 @@ class MI_Value extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     sint64 {
@@ -115,7 +105,6 @@ class MI_Value extends Win32Struct
     }
 
     /**
-     * 
      * @type {Float}
      */
     real32 {
@@ -124,7 +113,6 @@ class MI_Value extends Win32Struct
     }
 
     /**
-     * 
      * @type {Float}
      */
     real64 {
@@ -133,7 +121,6 @@ class MI_Value extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     char16 {
@@ -142,10 +129,9 @@ class MI_Value extends Win32Struct
     }
 
     /**
-     * 
      * @type {MI_Datetime}
      */
-    datetime{
+    datetime {
         get {
             if(!this.HasProp("__datetime"))
                 this.__datetime := MI_Datetime(0, this)
@@ -154,7 +140,6 @@ class MI_Value extends Win32Struct
     }
 
     /**
-     * 
      * @type {Pointer<Integer>}
      */
     string {
@@ -163,7 +148,6 @@ class MI_Value extends Win32Struct
     }
 
     /**
-     * 
      * @type {Pointer<MI_Instance>}
      */
     instance {
@@ -172,7 +156,6 @@ class MI_Value extends Win32Struct
     }
 
     /**
-     * 
      * @type {Pointer<MI_Instance>}
      */
     reference {
@@ -181,10 +164,9 @@ class MI_Value extends Win32Struct
     }
 
     /**
-     * 
      * @type {MI_BooleanA}
      */
-    booleana{
+    booleana {
         get {
             if(!this.HasProp("__booleana"))
                 this.__booleana := MI_BooleanA(0, this)
@@ -193,10 +175,9 @@ class MI_Value extends Win32Struct
     }
 
     /**
-     * 
      * @type {MI_Uint8A}
      */
-    uint8a{
+    uint8a {
         get {
             if(!this.HasProp("__uint8a"))
                 this.__uint8a := MI_Uint8A(0, this)
@@ -205,10 +186,9 @@ class MI_Value extends Win32Struct
     }
 
     /**
-     * 
      * @type {MI_Sint8A}
      */
-    sint8a{
+    sint8a {
         get {
             if(!this.HasProp("__sint8a"))
                 this.__sint8a := MI_Sint8A(0, this)
@@ -217,10 +197,9 @@ class MI_Value extends Win32Struct
     }
 
     /**
-     * 
      * @type {MI_Uint16A}
      */
-    uint16a{
+    uint16a {
         get {
             if(!this.HasProp("__uint16a"))
                 this.__uint16a := MI_Uint16A(0, this)
@@ -229,10 +208,9 @@ class MI_Value extends Win32Struct
     }
 
     /**
-     * 
      * @type {MI_Sint16A}
      */
-    sint16a{
+    sint16a {
         get {
             if(!this.HasProp("__sint16a"))
                 this.__sint16a := MI_Sint16A(0, this)
@@ -241,10 +219,9 @@ class MI_Value extends Win32Struct
     }
 
     /**
-     * 
      * @type {MI_Uint32A}
      */
-    uint32a{
+    uint32a {
         get {
             if(!this.HasProp("__uint32a"))
                 this.__uint32a := MI_Uint32A(0, this)
@@ -253,10 +230,9 @@ class MI_Value extends Win32Struct
     }
 
     /**
-     * 
      * @type {MI_Sint32A}
      */
-    sint32a{
+    sint32a {
         get {
             if(!this.HasProp("__sint32a"))
                 this.__sint32a := MI_Sint32A(0, this)
@@ -265,10 +241,9 @@ class MI_Value extends Win32Struct
     }
 
     /**
-     * 
      * @type {MI_Uint64A}
      */
-    uint64a{
+    uint64a {
         get {
             if(!this.HasProp("__uint64a"))
                 this.__uint64a := MI_Uint64A(0, this)
@@ -277,10 +252,9 @@ class MI_Value extends Win32Struct
     }
 
     /**
-     * 
      * @type {MI_Sint64A}
      */
-    sint64a{
+    sint64a {
         get {
             if(!this.HasProp("__sint64a"))
                 this.__sint64a := MI_Sint64A(0, this)
@@ -289,10 +263,9 @@ class MI_Value extends Win32Struct
     }
 
     /**
-     * 
      * @type {MI_Real32A}
      */
-    real32a{
+    real32a {
         get {
             if(!this.HasProp("__real32a"))
                 this.__real32a := MI_Real32A(0, this)
@@ -301,10 +274,9 @@ class MI_Value extends Win32Struct
     }
 
     /**
-     * 
      * @type {MI_Real64A}
      */
-    real64a{
+    real64a {
         get {
             if(!this.HasProp("__real64a"))
                 this.__real64a := MI_Real64A(0, this)
@@ -313,10 +285,9 @@ class MI_Value extends Win32Struct
     }
 
     /**
-     * 
      * @type {MI_Char16A}
      */
-    char16a{
+    char16a {
         get {
             if(!this.HasProp("__char16a"))
                 this.__char16a := MI_Char16A(0, this)
@@ -325,10 +296,9 @@ class MI_Value extends Win32Struct
     }
 
     /**
-     * 
      * @type {MI_DatetimeA}
      */
-    datetimea{
+    datetimea {
         get {
             if(!this.HasProp("__datetimea"))
                 this.__datetimea := MI_DatetimeA(0, this)
@@ -337,10 +307,9 @@ class MI_Value extends Win32Struct
     }
 
     /**
-     * 
      * @type {MI_StringA}
      */
-    stringa{
+    stringa {
         get {
             if(!this.HasProp("__stringa"))
                 this.__stringa := MI_StringA(0, this)
@@ -349,10 +318,9 @@ class MI_Value extends Win32Struct
     }
 
     /**
-     * 
      * @type {MI_ReferenceA}
      */
-    referencea{
+    referencea {
         get {
             if(!this.HasProp("__referencea"))
                 this.__referencea := MI_ReferenceA(0, this)
@@ -361,10 +329,9 @@ class MI_Value extends Win32Struct
     }
 
     /**
-     * 
      * @type {MI_InstanceA}
      */
-    instancea{
+    instancea {
         get {
             if(!this.HasProp("__instancea"))
                 this.__instancea := MI_InstanceA(0, this)
@@ -373,10 +340,9 @@ class MI_Value extends Win32Struct
     }
 
     /**
-     * 
      * @type {MI_Array}
      */
-    array{
+    array {
         get {
             if(!this.HasProp("__array"))
                 this.__array := MI_Array(0, this)

@@ -5,9 +5,8 @@
  * Lists the kind of logon profile returned.
  * @see https://learn.microsoft.com/windows/win32/api/ntsecapi/ne-ntsecapi-msv1_0_profile_buffer_type
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class MSV1_0_PROFILE_BUFFER_TYPE extends Win32Enum{
+class MSV1_0_PROFILE_BUFFER_TYPE extends Win32Enum {
 
     /**
      * The profile describes an interactive <a href="https://docs.microsoft.com/windows/desktop/SecGloss/l-gly">logon session</a>.

@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * Retrieves out-of-band guide data from a media transform device (MTD). This interface provides access to a device's Guide Data Delivery Service.
@@ -10,9 +11,8 @@
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IBDA_GuideDataDeliveryService)</c>.
  * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nn-bdaiface-ibda_guidedatadeliveryservice
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IBDA_GuideDataDeliveryService extends IUnknown{
+class IBDA_GuideDataDeliveryService extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

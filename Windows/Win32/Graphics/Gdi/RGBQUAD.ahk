@@ -7,10 +7,8 @@
  * The <b>bmiColors</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-bitmapinfo">BITMAPINFO</a> structure consists of an array of <b>RGBQUAD</b> structures.
  * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-rgbquad
  * @namespace Windows.Win32.Graphics.Gdi
- * @version v4.0.30319
  */
-class RGBQUAD extends Win32Struct
-{
+class RGBQUAD extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 1

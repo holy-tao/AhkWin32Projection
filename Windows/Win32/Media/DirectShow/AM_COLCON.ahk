@@ -7,10 +7,8 @@
  * This structure is contained within the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/dvdmedia/ns-dvdmedia-am_property_sphli">AM_PROPERTY_SPHLI</a> structure.
  * @see https://learn.microsoft.com/windows/win32/api/dvdmedia/ns-dvdmedia-am_colcon
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class AM_COLCON extends Win32Struct
-{
+class AM_COLCON extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 1
@@ -27,7 +25,6 @@ class AM_COLCON extends Win32Struct
     }
 
     /**
-     * Emphasis color 1.
      * @type {Integer}
      */
     emph1col {
@@ -36,7 +33,6 @@ class AM_COLCON extends Win32Struct
     }
 
     /**
-     * Emphasis color 2.
      * @type {Integer}
      */
     emph2col {
@@ -56,7 +52,6 @@ class AM_COLCON extends Win32Struct
     }
 
     /**
-     * Background color.
      * @type {Integer}
      */
     backcol {
@@ -65,7 +60,6 @@ class AM_COLCON extends Win32Struct
     }
 
     /**
-     * Pattern color.
      * @type {Integer}
      */
     patcol {
@@ -85,7 +79,6 @@ class AM_COLCON extends Win32Struct
     }
 
     /**
-     * Emphasis contrast 1.
      * @type {Integer}
      */
     emph1con {
@@ -94,7 +87,6 @@ class AM_COLCON extends Win32Struct
     }
 
     /**
-     * Emphasis contrast 2.
      * @type {Integer}
      */
     emph2con {
@@ -114,7 +106,6 @@ class AM_COLCON extends Win32Struct
     }
 
     /**
-     * Background contrast.
      * @type {Integer}
      */
     backcon {
@@ -123,7 +114,6 @@ class AM_COLCON extends Win32Struct
     }
 
     /**
-     * Pattern contrast.
      * @type {Integer}
      */
     patcon {

@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Ole
- * @version v4.0.30319
  */
-class OLEIVERB extends Win32Enum{
+class OLEIVERB extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

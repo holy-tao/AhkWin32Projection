@@ -5,9 +5,8 @@
  * Specifies the identifiers of the metadata items in an 8BIMResolutionInfo block.
  * @see https://learn.microsoft.com/windows/win32/api/wincodec/ne-wincodec-wic8bimresolutioninfoproperties
  * @namespace Windows.Win32.Graphics.Imaging
- * @version v4.0.30319
  */
-class WIC8BIMResolutionInfoProperties extends Win32Enum{
+class WIC8BIMResolutionInfoProperties extends Win32Enum {
 
     /**
      * [VT_LPSTR] A name that identifies the 8BIM block.

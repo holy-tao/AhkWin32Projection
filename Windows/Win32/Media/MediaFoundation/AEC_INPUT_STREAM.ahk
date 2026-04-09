@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class AEC_INPUT_STREAM extends Win32Enum{
+class AEC_INPUT_STREAM extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

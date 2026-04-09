@@ -22,9 +22,8 @@
  * Implement this interface to associate credential tiles with specific user tiles in the Logon UI.
  * @see https://learn.microsoft.com/windows/win32/api/credentialprovider/nn-credentialprovider-icredentialprovidercredential2
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class ICredentialProviderCredential2 extends ICredentialProviderCredential{
+class ICredentialProviderCredential2 extends ICredentialProviderCredential {
 
     static sizeof => A_PtrSize
     /**
@@ -49,7 +48,7 @@ class ICredentialProviderCredential2 extends ICredentialProviderCredential{
      * Retrieves the security identifier (SID) of the user that is associated with this credential.
      * @remarks
      * The Logon UI will use the returned SID from this method to associate the credential tile with a user tile. To associate the credential with the "Other user" user tile in the Logon UI, this method should return <b>S_FALSE</b> and a null SID. The "Other user" tile is normally only valid when the PC is joined to a domain.
-     * @returns {PWSTR} 
+     * @returns {PWSTR} The address of a pointer to a buffer that, when this method returns successfully, receives the user's SID.
      * @see https://learn.microsoft.com/windows/win32/api/credentialprovider/nf-credentialprovider-icredentialprovidercredential2-getusersid
      */
     GetUserSid() {

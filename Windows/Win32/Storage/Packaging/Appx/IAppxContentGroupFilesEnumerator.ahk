@@ -7,9 +7,8 @@
  * Enumerates files in content groups from a content group map.
  * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nn-appxpackaging-iappxcontentgroupfilesenumerator
  * @namespace Windows.Win32.Storage.Packaging.Appx
- * @version v4.0.30319
  */
-class IAppxContentGroupFilesEnumerator extends IUnknown{
+class IAppxContentGroupFilesEnumerator extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -32,7 +31,7 @@ class IAppxContentGroupFilesEnumerator extends IUnknown{
 
     /**
      * Gets the file from the content group at the current position of the enumerator.
-     * @returns {PWSTR} 
+     * @returns {PWSTR} The file at the position of the enumerator.
      * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxcontentgroupfilesenumerator-getcurrent
      */
     GetCurrent() {

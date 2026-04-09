@@ -5,9 +5,8 @@
  * Identifies the kind of media stream that failed.
  * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/ne-mfmediaengine-mf_media_engine_streamtype_failed
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class MF_MEDIA_ENGINE_STREAMTYPE_FAILED extends Win32Enum{
+class MF_MEDIA_ENGINE_STREAMTYPE_FAILED extends Win32Enum {
 
     /**
      * The stream type is unknown.

@@ -7,9 +7,8 @@
  * Note  This interface is deprecated.
  * @see https://learn.microsoft.com/windows/win32/api/austream/nn-austream-imemorydata
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IMemoryData extends IUnknown{
+class IMemoryData extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

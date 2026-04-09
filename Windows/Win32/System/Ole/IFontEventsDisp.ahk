@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.Ole
- * @version v4.0.30319
  */
-class IFontEventsDisp extends IDispatch{
+class IFontEventsDisp extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

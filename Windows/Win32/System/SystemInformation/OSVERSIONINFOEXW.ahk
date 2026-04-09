@@ -184,11 +184,9 @@
  * </table>
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-osversioninfoexw
  * @namespace Windows.Win32.System.SystemInformation
- * @version v4.0.30319
  * @charset Unicode
  */
-class OSVERSIONINFOEXW extends Win32Struct
-{
+class OSVERSIONINFOEXW extends Win32Struct {
     static sizeof => 284
 
     static packingSize => 4
@@ -451,7 +449,6 @@ class OSVERSIONINFOEXW extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     wProductType {

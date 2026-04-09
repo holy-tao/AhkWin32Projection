@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.Nfc
- * @version v4.0.30319
  */
-class SECURE_ELEMENT_NFCC_CAPABILITIES extends Win32Struct
-{
+class SECURE_ELEMENT_NFCC_CAPABILITIES extends Win32Struct {
     static sizeof => 6
 
     static packingSize => 2

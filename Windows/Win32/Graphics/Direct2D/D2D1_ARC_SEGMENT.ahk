@@ -2,15 +2,15 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include Common\D2D_POINT_2F.ahk
 #Include Common\D2D_SIZE_F.ahk
+#Include .\D2D1_SWEEP_DIRECTION.ahk
+#Include .\D2D1_ARC_SIZE.ahk
 
 /**
  * Describes an elliptical arc between two points.
  * @see https://learn.microsoft.com/windows/win32/api/d2d1/ns-d2d1-d2d1_arc_segment
  * @namespace Windows.Win32.Graphics.Direct2D
- * @version v4.0.30319
  */
-class D2D1_ARC_SEGMENT extends Win32Struct
-{
+class D2D1_ARC_SEGMENT extends Win32Struct {
     static sizeof => 28
 
     static packingSize => 4
@@ -21,7 +21,7 @@ class D2D1_ARC_SEGMENT extends Win32Struct
      * The end point of the arc.
      * @type {D2D_POINT_2F}
      */
-    point{
+    point {
         get {
             if(!this.HasProp("__point"))
                 this.__point := D2D_POINT_2F(0, this)
@@ -35,7 +35,7 @@ class D2D1_ARC_SEGMENT extends Win32Struct
      * The x-radius and y-radius of the arc.
      * @type {D2D_SIZE_F}
      */
-    size{
+    size {
         get {
             if(!this.HasProp("__size"))
                 this.__size := D2D_SIZE_F(8, this)
@@ -58,7 +58,7 @@ class D2D1_ARC_SEGMENT extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/win32/api/d2d1/ne-d2d1-d2d1_sweep_direction">D2D1_SWEEP_DIRECTION</a></b>
      * 
      * A value that specifies whether the arc sweep is clockwise or counterclockwise.
-     * @type {Integer}
+     * @type {D2D1_SWEEP_DIRECTION}
      */
     sweepDirection {
         get => NumGet(this, 20, "int")
@@ -69,7 +69,7 @@ class D2D1_ARC_SEGMENT extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/win32/api/d2d1/ne-d2d1-d2d1_arc_size">D2D1_ARC_SIZE</a></b>
      * 
      * A value that specifies whether the given arc is larger than 180 degrees.
-     * @type {Integer}
+     * @type {D2D1_ARC_SIZE}
      */
     arcSize {
         get => NumGet(this, 24, "int")

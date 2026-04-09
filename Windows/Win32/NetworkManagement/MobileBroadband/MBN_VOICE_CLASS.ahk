@@ -5,9 +5,8 @@
  * The MBN_VOICE_CLASS enumerated type specifies a device's voice capabilities and how they interact with the data service.
  * @see https://learn.microsoft.com/windows/win32/api/mbnapi/ne-mbnapi-mbn_voice_class
  * @namespace Windows.Win32.NetworkManagement.MobileBroadband
- * @version v4.0.30319
  */
-class MBN_VOICE_CLASS extends Win32Enum{
+class MBN_VOICE_CLASS extends Win32Enum {
 
     /**
      * The device voice class is unknown.

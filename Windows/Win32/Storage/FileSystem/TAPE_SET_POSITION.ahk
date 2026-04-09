@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\TAPE_POSITION_METHOD.ahk
 
 /**
  * Describes how and where to position the tape.
@@ -7,17 +8,14 @@
  * If the positioning is relative, a positive offset moves the tape forward (toward the end of the tape) and a negative offset moves the tape backward (toward the beginning of the tape).
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-tape_set_position
  * @namespace Windows.Win32.Storage.FileSystem
- * @version v4.0.30319
  */
-class TAPE_SET_POSITION extends Win32Struct
-{
+class TAPE_SET_POSITION extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
 
     /**
-     * 
-     * @type {Integer}
+     * @type {TAPE_POSITION_METHOD}
      */
     Method {
         get => NumGet(this, 0, "uint")

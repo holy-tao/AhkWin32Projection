@@ -5,9 +5,8 @@
  * The ROUTER_INTERFACE_TYPE type enumerates the different kinds of interfaces on a router.
  * @see https://learn.microsoft.com/windows/win32/api/mprapi/ne-mprapi-router_interface_type
  * @namespace Windows.Win32.NetworkManagement.Rras
- * @version v4.0.30319
  */
-class ROUTER_INTERFACE_TYPE extends Win32Enum{
+class ROUTER_INTERFACE_TYPE extends Win32Enum {
 
     /**
      * The interface is for a remote client.
@@ -46,7 +45,6 @@ class ROUTER_INTERFACE_TYPE extends Win32Enum{
     static ROUTER_IF_TYPE_LOOPBACK => 5
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static ROUTER_IF_TYPE_TUNNEL1 => 6
@@ -58,7 +56,6 @@ class ROUTER_INTERFACE_TYPE extends Win32Enum{
     static ROUTER_IF_TYPE_DIALOUT => 7
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static ROUTER_IF_TYPE_MAX => 8

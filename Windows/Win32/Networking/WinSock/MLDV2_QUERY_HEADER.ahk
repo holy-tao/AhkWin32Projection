@@ -5,10 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Networking.WinSock
- * @version v4.0.30319
  */
-class MLDV2_QUERY_HEADER extends Win32Struct
-{
+class MLDV2_QUERY_HEADER extends Win32Struct {
     static sizeof => 28
 
     static packingSize => 2
@@ -16,7 +14,7 @@ class MLDV2_QUERY_HEADER extends Win32Struct
     /**
      * @type {ICMP_HEADER}
      */
-    IcmpHeader{
+    IcmpHeader {
         get {
             if(!this.HasProp("__IcmpHeader"))
                 this.__IcmpHeader := ICMP_HEADER(0, this)
@@ -88,7 +86,7 @@ class MLDV2_QUERY_HEADER extends Win32Struct
     /**
      * @type {IN6_ADDR}
      */
-    MulticastAddress{
+    MulticastAddress {
         get {
             if(!this.HasProp("__MulticastAddress"))
                 this.__MulticastAddress := IN6_ADDR(8, this)

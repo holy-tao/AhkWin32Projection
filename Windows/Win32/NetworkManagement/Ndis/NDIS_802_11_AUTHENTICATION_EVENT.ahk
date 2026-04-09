@@ -1,22 +1,21 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\NDIS_802_11_STATUS_INDICATION.ahk
+#Include .\NDIS_802_11_STATUS_TYPE.ahk
 #Include .\NDIS_802_11_AUTHENTICATION_REQUEST.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Ndis
- * @version v4.0.30319
  */
-class NDIS_802_11_AUTHENTICATION_EVENT extends Win32Struct
-{
-    static sizeof => 16
+class NDIS_802_11_AUTHENTICATION_EVENT extends Win32Struct {
+    static sizeof => 20
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {NDIS_802_11_STATUS_INDICATION}
      */
-    Status{
+    Status {
         get {
             if(!this.HasProp("__Status"))
                 this.__Status := NDIS_802_11_STATUS_INDICATION(0, this)
@@ -25,12 +24,12 @@ class NDIS_802_11_AUTHENTICATION_EVENT extends Win32Struct
     }
 
     /**
-     * @type {Array<NDIS_802_11_AUTHENTICATION_REQUEST>}
+     * @type {NDIS_802_11_AUTHENTICATION_REQUEST}
      */
-    Request{
+    Request {
         get {
             if(!this.HasProp("__RequestProxyArray"))
-                this.__RequestProxyArray := Win32FixedArray(this.ptr + 8, 1, NDIS_802_11_AUTHENTICATION_REQUEST, "")
+                this.__RequestProxyArray := Win32FixedArray(this.ptr + 4, 1, NDIS_802_11_AUTHENTICATION_REQUEST, "")
             return this.__RequestProxyArray
         }
     }

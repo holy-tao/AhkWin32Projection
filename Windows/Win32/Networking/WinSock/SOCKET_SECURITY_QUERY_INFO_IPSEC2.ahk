@@ -1,18 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\SOCKET_SECURITY_PROTOCOL.ahk
 
 /**
  * @namespace Windows.Win32.Networking.WinSock
- * @version v4.0.30319
  */
-class SOCKET_SECURITY_QUERY_INFO_IPSEC2 extends Win32Struct
-{
+class SOCKET_SECURITY_QUERY_INFO_IPSEC2 extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8
 
     /**
-     * @type {Integer}
+     * @type {SOCKET_SECURITY_PROTOCOL}
      */
     SecurityProtocol {
         get => NumGet(this, 0, "int")
@@ -68,7 +67,7 @@ class SOCKET_SECURITY_QUERY_INFO_IPSEC2 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     SaLookupContext {
         get => NumGet(this, 48, "ptr")

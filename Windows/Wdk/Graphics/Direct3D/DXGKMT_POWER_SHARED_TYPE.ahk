@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
- * @version v4.0.30319
  */
-class DXGKMT_POWER_SHARED_TYPE extends Win32Enum{
+class DXGKMT_POWER_SHARED_TYPE extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

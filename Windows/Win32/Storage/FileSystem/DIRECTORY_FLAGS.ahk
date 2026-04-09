@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Storage.FileSystem
- * @version v4.0.30319
  */
-class DIRECTORY_FLAGS extends Win32BitflagEnum{
+class DIRECTORY_FLAGS extends Win32BitflagEnum {
 
     /**
      * @type {Integer (Int32)}

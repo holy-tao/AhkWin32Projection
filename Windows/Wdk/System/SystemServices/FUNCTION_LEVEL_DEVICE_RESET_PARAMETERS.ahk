@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class FUNCTION_LEVEL_DEVICE_RESET_PARAMETERS extends Win32Struct
-{
+class FUNCTION_LEVEL_DEVICE_RESET_PARAMETERS extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

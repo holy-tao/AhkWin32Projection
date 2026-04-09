@@ -1,8 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DD_DIRECTDRAW_GLOBAL.ahk
+#Include .\DD_SURFACE_LOCAL.ahk
 #Include ..\..\Foundation\RECTL.ahk
-#Include .\DDCOLORKEY.ahk
 #Include .\DDBLTFX.ahk
+#Include .\IDirectDrawSurface.ahk
+#Include .\DDCOLORKEY.ahk
+#Include ..\..\Foundation\RECT.ahk
 #Include .\DDARGB.ahk
 
 /**
@@ -11,10 +15,8 @@
  * For more information about the DDBLT_PRESENTATION and DDBLT_LAST_PRESENTATION flags, see <a href="https://docs.microsoft.com/windows-hardware/drivers/display/presentation">Presentation</a>.
  * @see https://learn.microsoft.com/windows/win32/api/ddrawint/ns-ddrawint-dd_bltdata
  * @namespace Windows.Win32.Graphics.DirectDraw
- * @version v4.0.30319
  */
-class DD_BLTDATA extends Win32Struct
-{
+class DD_BLTDATA extends Win32Struct {
     static sizeof => 264
 
     static packingSize => 8
@@ -38,10 +40,9 @@ class DD_BLTDATA extends Win32Struct
     }
 
     /**
-     * 
      * @type {RECTL}
      */
-    rDest{
+    rDest {
         get {
             if(!this.HasProp("__rDest"))
                 this.__rDest := RECTL(16, this)
@@ -59,10 +60,9 @@ class DD_BLTDATA extends Win32Struct
     }
 
     /**
-     * 
      * @type {RECTL}
      */
-    rSrc{
+    rSrc {
         get {
             if(!this.HasProp("__rSrc"))
                 this.__rSrc := RECTL(40, this)
@@ -265,10 +265,9 @@ class DD_BLTDATA extends Win32Struct
     }
 
     /**
-     * 
      * @type {DDBLTFX}
      */
-    bltFX{
+    bltFX {
         get {
             if(!this.HasProp("__bltFX"))
                 this.__bltFX := DDBLTFX(64, this)
@@ -307,7 +306,7 @@ class DD_BLTDATA extends Win32Struct
      * <b>Unused for Windows 2000 and later.</b> Specifies a RECTL structure that defines the unclipped destination rectangle. This member is valid only if <b>IsClipped</b> is <b>TRUE</b>.
      * @type {RECTL}
      */
-    rOrigDest{
+    rOrigDest {
         get {
             if(!this.HasProp("__rOrigDest"))
                 this.__rOrigDest := RECTL(212, this)
@@ -319,7 +318,7 @@ class DD_BLTDATA extends Win32Struct
      * <b>Unused for Windows 2000 and later.</b> Specifies a RECTL structure that defines the unclipped source rectangle. This member is valid only if <b>IsClipped</b> is <b>TRUE</b>.
      * @type {RECTL}
      */
-    rOrigSrc{
+    rOrigSrc {
         get {
             if(!this.HasProp("__rOrigSrc"))
                 this.__rOrigSrc := RECTL(228, this)
@@ -358,7 +357,7 @@ class DD_BLTDATA extends Win32Struct
      * ARGB scaling factors (AlphaBlt)
      * @type {DDARGB}
      */
-    ddargbScaleFactors{
+    ddargbScaleFactors {
         get {
             if(!this.HasProp("__ddargbScaleFactors"))
                 this.__ddargbScaleFactors := DDARGB(260, this)

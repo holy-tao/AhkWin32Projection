@@ -5,10 +5,8 @@
  * Contains revision information about an ACL structure.
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-acl_revision_information
  * @namespace Windows.Win32.Security
- * @version v4.0.30319
  */
-class ACL_REVISION_INFORMATION extends Win32Struct
-{
+class ACL_REVISION_INFORMATION extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 4

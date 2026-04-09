@@ -9,10 +9,8 @@
  * For more information about the **SBitMaskRestriction** structure and restrictions in general, see [About Restrictions](about-restrictions.md).
  * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/sbitmaskrestriction
  * @namespace Windows.Win32.System.AddressBook
- * @version v4.0.30319
  */
-class SBitMaskRestriction extends Win32Struct
-{
+class SBitMaskRestriction extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4

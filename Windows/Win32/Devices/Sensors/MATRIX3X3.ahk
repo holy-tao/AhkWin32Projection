@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.Sensors
- * @version v4.0.30319
  */
-class MATRIX3X3 extends Win32Struct
-{
+class MATRIX3X3 extends Win32Struct {
     static sizeof => 36
 
     static packingSize => 4
@@ -87,7 +85,7 @@ class MATRIX3X3 extends Win32Struct
     /**
      * @type {VEC3D}
      */
-    V1{
+    V1 {
         get {
             if(!this.HasProp("__V1"))
                 this.__V1 := VEC3D(0, this)
@@ -98,7 +96,7 @@ class MATRIX3X3 extends Win32Struct
     /**
      * @type {VEC3D}
      */
-    V2{
+    V2 {
         get {
             if(!this.HasProp("__V2"))
                 this.__V2 := VEC3D(12, this)
@@ -109,7 +107,7 @@ class MATRIX3X3 extends Win32Struct
     /**
      * @type {VEC3D}
      */
-    V3{
+    V3 {
         get {
             if(!this.HasProp("__V3"))
                 this.__V3 := VEC3D(24, this)
@@ -118,9 +116,9 @@ class MATRIX3X3 extends Win32Struct
     }
 
     /**
-     * @type {Array<Single>}
+     * @type {Array<Float>}
      */
-    M{
+    M {
         get {
             if(!this.HasProp("__MProxyArray"))
                 this.__MProxyArray := Win32FixedArray(this.ptr + 0, 9, Primitive, "float")

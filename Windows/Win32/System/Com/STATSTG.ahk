@@ -1,15 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\FILETIME.ahk
+#Include .\STGM.ahk
 
 /**
  * Contains statistical data about an open storage, stream, or byte-array object.
  * @see https://learn.microsoft.com/windows/win32/api/objidl/ns-objidl-statstg
  * @namespace Windows.Win32.System.Com
- * @version v4.0.30319
  */
-class STATSTG extends Win32Struct
-{
+class STATSTG extends Win32Struct {
     static sizeof => 72
 
     static packingSize => 8
@@ -48,7 +47,7 @@ class STATSTG extends Win32Struct
      * Indicates the last modification time for this storage, stream, or byte array.
      * @type {FILETIME}
      */
-    mtime{
+    mtime {
         get {
             if(!this.HasProp("__mtime"))
                 this.__mtime := FILETIME(24, this)
@@ -60,7 +59,7 @@ class STATSTG extends Win32Struct
      * Indicates the creation time for this storage, stream, or byte array.
      * @type {FILETIME}
      */
-    ctime{
+    ctime {
         get {
             if(!this.HasProp("__ctime"))
                 this.__ctime := FILETIME(32, this)
@@ -72,7 +71,7 @@ class STATSTG extends Win32Struct
      * Indicates the last access time for this storage, stream, or byte array.
      * @type {FILETIME}
      */
-    atime{
+    atime {
         get {
             if(!this.HasProp("__atime"))
                 this.__atime := FILETIME(40, this)
@@ -83,7 +82,7 @@ class STATSTG extends Win32Struct
     /**
      * Indicates the access mode specified when the object was opened. This member is only valid in calls to 
      * <b>Stat</b> methods.
-     * @type {Integer}
+     * @type {STGM}
      */
     grfMode {
         get => NumGet(this, 48, "uint")
@@ -102,7 +101,7 @@ class STATSTG extends Win32Struct
 
     /**
      * Indicates the class identifier for the storage object; set to CLSID_NULL for new storage objects. This member is not used for streams or byte arrays.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     clsid {
         get => NumGet(this, 56, "ptr")

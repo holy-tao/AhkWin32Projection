@@ -5,9 +5,8 @@
  * Used with the DRMGetUsagePolicy and DRMSetUsagePolicy functions to specify a type of usage policy.
  * @see https://learn.microsoft.com/windows/win32/api/msdrmdefs/ne-msdrmdefs-drm_usagepolicy_type
  * @namespace Windows.Win32.Data.RightsManagement
- * @version v4.0.30319
  */
-class DRM_USAGEPOLICY_TYPE extends Win32Enum{
+class DRM_USAGEPOLICY_TYPE extends Win32Enum {
 
     /**
      * The usage policy is tied to an application name.

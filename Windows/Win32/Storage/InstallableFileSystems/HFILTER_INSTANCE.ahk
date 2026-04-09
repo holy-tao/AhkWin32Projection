@@ -5,10 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Storage.InstallableFileSystems
- * @version v4.0.30319
  */
-class HFILTER_INSTANCE extends Win32Handle
-{
+class HFILTER_INSTANCE extends Win32Handle {
     static sizeof => 8
 
     static packingSize => 8

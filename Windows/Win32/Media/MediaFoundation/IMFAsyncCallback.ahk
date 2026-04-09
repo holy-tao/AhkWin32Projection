@@ -19,9 +19,8 @@
  * </ul>
  * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nn-mfobjects-imfasynccallback
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFAsyncCallback extends IUnknown{
+class IMFAsyncCallback extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
 #Include .\IOpcSignatureReference.ahk
 #Include .\IOpcSignatureReferenceEnumerator.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
  * An unordered set of IOpcSignatureReference interface pointers that represent references to XML elements to be signed.
@@ -17,9 +17,8 @@
  * To access an <b>IOpcSignatureReferenceSet</b> interface pointer, call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nf-msopc-iopcsigningoptions-getcustomreferenceset">IOpcSigningOptions::GetCustomReferenceSet</a> method.
  * @see https://learn.microsoft.com/windows/win32/api/msopc/nn-msopc-iopcsignaturereferenceset
  * @namespace Windows.Win32.Storage.Packaging.Opc
- * @version v4.0.30319
  */
-class IOpcSignatureReferenceSet extends IUnknown{
+class IOpcSignatureReferenceSet extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -86,8 +85,8 @@ class IOpcSignatureReferenceSet extends IUnknown{
      * 
      * <div class="alert"><b>Important</b>  The default digest method must be set by calling the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nf-msopc-iopcsigningoptions-setdefaultdigestmethod">IOpcSigningOptions::SetDefaultDigestMethod</a> method before <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nf-msopc-iopcdigitalsignaturemanager-sign">IOpcDigitalSignatureManager::Sign</a> is called.</div>
      * <div> </div>
-     * @param {Integer} transformMethod The canonicalization method to be used for the XML markup to be referenced.
-     * @returns {IOpcSignatureReference} 
+     * @param {OPC_CANONICALIZATION_METHOD} transformMethod The canonicalization method to be used for the XML markup to be referenced.
+     * @returns {IOpcSignatureReference} A new <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcsignaturereference">IOpcSignatureReference</a> interface pointer that represents the reference to  the XML element to be signed.
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcsignaturereferenceset-create
      */
     Create(referenceUri, referenceId, type, digestMethod, transformMethod) {
@@ -103,7 +102,7 @@ class IOpcSignatureReferenceSet extends IUnknown{
      * Deletes a specified IOpcSignatureReference interface pointer from the set.
      * @remarks
      * When an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcsignaturereference">IOpcSignatureReference</a> interface pointer is deleted from the set, the reference it represents is not saved when the package is saved.
-     * @param {IOpcSignatureReference} _reference 
+     * @param {IOpcSignatureReference} _reference An <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcsignaturereference">IOpcSignatureReference</a> interface pointer to be deleted.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>

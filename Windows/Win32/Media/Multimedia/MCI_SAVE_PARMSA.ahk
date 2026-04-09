@@ -3,11 +3,9 @@
 
 /**
  * @namespace Windows.Win32.Media.Multimedia
- * @version v4.0.30319
  * @charset ANSI
  */
-class MCI_SAVE_PARMSA extends Win32Struct
-{
+class MCI_SAVE_PARMSA extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

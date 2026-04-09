@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Media.Audio.DirectMusic
- * @version v4.0.30319
  */
-class DMUS_COPYRIGHT extends Win32Struct
-{
+class DMUS_COPYRIGHT extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4
@@ -20,9 +18,9 @@ class DMUS_COPYRIGHT extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    byCopyright{
+    byCopyright {
         get {
             if(!this.HasProp("__byCopyrightProxyArray"))
                 this.__byCopyrightProxyArray := Win32FixedArray(this.ptr + 4, 4, Primitive, "char")

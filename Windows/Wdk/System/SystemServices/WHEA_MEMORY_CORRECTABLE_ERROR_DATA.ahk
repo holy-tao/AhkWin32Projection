@@ -3,16 +3,14 @@
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class WHEA_MEMORY_CORRECTABLE_ERROR_DATA extends Win32Struct
-{
+class WHEA_MEMORY_CORRECTABLE_ERROR_DATA extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
 
     /**
-     * @type {Pointer<WHEA_MEMORY_CORRECTABLE_ERROR_SECTION_VALIDBITS>}
+     * @type {Pointer}
      */
     ValidBits {
         get => NumGet(this, 0, "ptr")

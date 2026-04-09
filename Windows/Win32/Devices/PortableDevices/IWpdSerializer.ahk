@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IPortableDeviceValues.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\IPortableDeviceValues.ahk
 
 /**
  * The IWpdSerializer interface is used by the device driver to serialize IPortableDeviceValues interfaces to and from the raw data buffers used to communicate with the application.Applications do not need to use this interface, because the data is serialized and deserialized automatically when calling IPortableDevice::SendCommand.To get this interface, call CoCreateInstance and pass in IID\_IWpdSerializer.
  * @see https://learn.microsoft.com/windows/win32/wpd_sdk/iwpdserializer
  * @namespace Windows.Win32.Devices.PortableDevices
- * @version v4.0.30319
  */
-class IWpdSerializer extends IUnknown{
+class IWpdSerializer extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

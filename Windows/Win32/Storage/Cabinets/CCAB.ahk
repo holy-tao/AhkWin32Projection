@@ -5,11 +5,9 @@
  * The CCAB structure contains cabinet information.
  * @see https://learn.microsoft.com/windows/win32/api/fci/ns-fci-ccab
  * @namespace Windows.Win32.Storage.Cabinets
- * @version v4.0.30319
  */
-class CCAB extends Win32Struct
-{
-    static sizeof => 1572
+class CCAB extends Win32Struct {
+    static sizeof => 804
 
     static packingSize => 4
 
@@ -99,8 +97,8 @@ class CCAB extends Win32Struct
      * @type {String}
      */
     szDisk {
-        get => StrGet(this.ptr + 34, 255, "UTF-16")
-        set => StrPut(value, this.ptr + 34, 255, "UTF-16")
+        get => StrGet(this.ptr + 34, 255, "UTF-8")
+        set => StrPut(value, this.ptr + 34, 255, "UTF-8")
     }
 
     /**
@@ -108,8 +106,8 @@ class CCAB extends Win32Struct
      * @type {String}
      */
     szCab {
-        get => StrGet(this.ptr + 546, 255, "UTF-16")
-        set => StrPut(value, this.ptr + 546, 255, "UTF-16")
+        get => StrGet(this.ptr + 290, 255, "UTF-8")
+        set => StrPut(value, this.ptr + 290, 255, "UTF-8")
     }
 
     /**
@@ -117,7 +115,7 @@ class CCAB extends Win32Struct
      * @type {String}
      */
     szCabPath {
-        get => StrGet(this.ptr + 1058, 255, "UTF-16")
-        set => StrPut(value, this.ptr + 1058, 255, "UTF-16")
+        get => StrGet(this.ptr + 546, 255, "UTF-8")
+        set => StrPut(value, this.ptr + 546, 255, "UTF-8")
     }
 }

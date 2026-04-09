@@ -5,10 +5,8 @@
  * Defines a DHCP option class.
  * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/ns-dhcpsapi-dhcp_class_info
  * @namespace Windows.Win32.NetworkManagement.Dhcp
- * @version v4.0.30319
  */
-class DHCP_CLASS_INFO extends Win32Struct
-{
+class DHCP_CLASS_INFO extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8

@@ -11,9 +11,8 @@
  * Limiting a depth-stencil buffer to read-only access allows more than one depth-stencil view to be bound to the pipeline simultaneously, since it is not possible to have read/write conflicts between separate views.
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/ne-d3d12-d3d12_dsv_flags
  * @namespace Windows.Win32.Graphics.Direct3D12
- * @version v4.0.30319
  */
-class D3D12_DSV_FLAGS extends Win32BitflagEnum{
+class D3D12_DSV_FLAGS extends Win32BitflagEnum {
 
     /**
      * Indicates a default view.

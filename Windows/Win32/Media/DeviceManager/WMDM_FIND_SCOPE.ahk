@@ -5,9 +5,8 @@
  * The WMDM\_FIND\_SCOPE enumeration type defines the scope of the storage object.
  * @see https://learn.microsoft.com/windows/win32/WMDM/wmdm-find-scope
  * @namespace Windows.Win32.Media.DeviceManager
- * @version v4.0.30319
  */
-class WMDM_FIND_SCOPE extends Win32Enum{
+class WMDM_FIND_SCOPE extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

@@ -3,11 +3,9 @@
 
 /**
  * @namespace Windows.Win32.Networking.WinSock
- * @version v4.0.30319
  */
-class SOCKADDR_NB extends Win32Struct
-{
-    static sizeof => 36
+class SOCKADDR_NB extends Win32Struct {
+    static sizeof => 20
 
     static packingSize => 2
 
@@ -31,7 +29,7 @@ class SOCKADDR_NB extends Win32Struct
      * @type {String}
      */
     snb_name {
-        get => StrGet(this.ptr + 4, 15, "UTF-16")
-        set => StrPut(value, this.ptr + 4, 15, "UTF-16")
+        get => StrGet(this.ptr + 4, 15, "UTF-8")
+        set => StrPut(value, this.ptr + 4, 15, "UTF-8")
     }
 }

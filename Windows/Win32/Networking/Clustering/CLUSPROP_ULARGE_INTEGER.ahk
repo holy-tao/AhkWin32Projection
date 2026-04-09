@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\CLUSPROP_SYNTAX.ahk
 #Include .\CLUSPROP_VALUE.ahk
+#Include .\CLUSPROP_SYNTAX.ahk
 
 /**
  * Describes an unsigned large integer.
@@ -16,10 +16,8 @@
  *      into local variables, which are guaranteed to be naturally aligned.
  * @see https://learn.microsoft.com/windows/win32/api/clusapi/ns-clusapi-clusprop_ularge_integer
  * @namespace Windows.Win32.Networking.Clustering
- * @version v4.0.30319
  */
-class CLUSPROP_ULARGE_INTEGER extends Win32Struct
-{
+class CLUSPROP_ULARGE_INTEGER extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -27,7 +25,7 @@ class CLUSPROP_ULARGE_INTEGER extends Win32Struct
     /**
      * @type {CLUSPROP_VALUE}
      */
-    Base{
+    Base {
         get {
             if(!this.HasProp("__Base"))
                 this.__Base := CLUSPROP_VALUE(0, this)

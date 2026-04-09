@@ -34,10 +34,8 @@
  * ```C++
  * @see https://learn.microsoft.com/windows/win32/SecBioMet/winbio-bir-header
  * @namespace Windows.Win32.Devices.BiometricFramework
- * @version v4.0.30319
  */
-class WINBIO_BIR_HEADER extends Win32Struct
-{
+class WINBIO_BIR_HEADER extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -53,7 +51,7 @@ class WINBIO_BIR_HEADER extends Win32Struct
             get => NumGet(this, 0, "int64")
             set => NumPut("int64", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -61,7 +59,6 @@ class WINBIO_BIR_HEADER extends Win32Struct
             get => NumGet(this, 8, "int64")
             set => NumPut("int64", value, this, 8)
         }
-    
     }
 
     /**
@@ -175,10 +172,10 @@ class WINBIO_BIR_HEADER extends Win32Struct
      * The period for which the BIR is valid.
      * @type {_ValidityPeriod}
      */
-    ValidityPeriod{
+    ValidityPeriod {
         get {
             if(!this.HasProp("__ValidityPeriod"))
-                this.__ValidityPeriod := %this.__Class%._ValidityPeriod(24, this)
+                this.__ValidityPeriod := WINBIO_BIR_HEADER._ValidityPeriod(24, this)
             return this.__ValidityPeriod
         }
     }
@@ -194,7 +191,7 @@ class WINBIO_BIR_HEADER extends Win32Struct
      * | <span id="WINBIO_NO_FORMAT_TYPE_AVAILABLE"></span><span id="winbio_no_format_type_available"></span><dl> <dt>**WINBIO\_NO\_FORMAT\_TYPE\_AVAILABLE**</dt> <dt>((USHORT)0)</dt> </dl>    | No format type has been specified.<br/>                                                              |
      * @type {WINBIO_REGISTERED_FORMAT}
      */
-    BiometricDataFormat{
+    BiometricDataFormat {
         get {
             if(!this.HasProp("__BiometricDataFormat"))
                 this.__BiometricDataFormat := WINBIO_REGISTERED_FORMAT(40, this)
@@ -206,7 +203,7 @@ class WINBIO_BIR_HEADER extends Win32Struct
      * A [**WINBIO\_REGISTERED\_FORMAT**](winbio-registered-format.md) structure that specifies the product ID of the component that generated the standard data block in the BIR. The **WINBIO\_REGISTERED\_FORMAT** members can be zero.
      * @type {WINBIO_REGISTERED_FORMAT}
      */
-    ProductId{
+    ProductId {
         get {
             if(!this.HasProp("__ProductId"))
                 this.__ProductId := WINBIO_REGISTERED_FORMAT(44, this)

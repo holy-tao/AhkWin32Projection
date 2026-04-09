@@ -3,18 +3,16 @@
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
- * @version v4.0.30319
  */
-class KS_DVDCOPY_CHLGKEY extends Win32Struct
-{
+class KS_DVDCOPY_CHLGKEY extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 1
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    ChlgKey{
+    ChlgKey {
         get {
             if(!this.HasProp("__ChlgKeyProxyArray"))
                 this.__ChlgKeyProxyArray := Win32FixedArray(this.ptr + 0, 10, Primitive, "char")
@@ -23,9 +21,9 @@ class KS_DVDCOPY_CHLGKEY extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Reserved{
+    Reserved {
         get {
             if(!this.HasProp("__ReservedProxyArray"))
                 this.__ReservedProxyArray := Win32FixedArray(this.ptr + 10, 2, Primitive, "char")

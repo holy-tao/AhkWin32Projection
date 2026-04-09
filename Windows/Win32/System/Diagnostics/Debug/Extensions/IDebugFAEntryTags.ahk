@@ -4,9 +4,8 @@
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
- * @version v4.0.30319
  */
-class IDebugFAEntryTags extends Win32ComInterface{
+class IDebugFAEntryTags extends Win32ComInterface {
 
     static sizeof => A_PtrSize
 
@@ -27,8 +26,8 @@ class IDebugFAEntryTags extends Win32ComInterface{
      * @remarks
      * > [!NOTE]
      * > The nspapi.h header defines GetTypeByName as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Integer} Tag 
-     * @returns {Integer} If the function succeeds, the return value is zero.
+     * @param {DEBUG_FLR_PARAM_TYPE} Tag 
+     * @returns {FA_ENTRY_TYPE} If the function succeeds, the return value is zero.
      * 
      * If the function fails, the return value is SOCKET_ERROR( – 1). To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which returns the following extended error value.
@@ -59,8 +58,8 @@ class IDebugFAEntryTags extends Win32ComInterface{
 
     /**
      * 
-     * @param {Integer} Tag 
-     * @param {Integer} EntryType 
+     * @param {DEBUG_FLR_PARAM_TYPE} Tag 
+     * @param {FA_ENTRY_TYPE} EntryType 
      * @returns {HRESULT} 
      */
     SetType(Tag, EntryType) {
@@ -70,10 +69,10 @@ class IDebugFAEntryTags extends Win32ComInterface{
 
     /**
      * 
-     * @param {Integer} Tag 
-     * @param {Pointer} Name 
+     * @param {DEBUG_FLR_PARAM_TYPE} Tag 
+     * @param {Integer} Name 
      * @param {Pointer<Integer>} NameSize 
-     * @param {Pointer} Description 
+     * @param {Integer} Description 
      * @param {Pointer<Integer>} DescSize 
      * @returns {Integer} 
      */
@@ -87,7 +86,7 @@ class IDebugFAEntryTags extends Win32ComInterface{
 
     /**
      * 
-     * @param {Integer} Tag 
+     * @param {DEBUG_FLR_PARAM_TYPE} Tag 
      * @param {PSTR} Name 
      * @param {PSTR} Description 
      * @param {Integer} Flags 
@@ -105,7 +104,7 @@ class IDebugFAEntryTags extends Win32ComInterface{
      * 
      * @param {PSTR} PluginId 
      * @param {PSTR} TagName 
-     * @returns {Integer} 
+     * @returns {DEBUG_FLR_PARAM_TYPE} 
      */
     GetTagByName(PluginId, TagName) {
         PluginId := PluginId is String ? StrPtr(PluginId) : PluginId
@@ -117,7 +116,7 @@ class IDebugFAEntryTags extends Win32ComInterface{
 
     /**
      * 
-     * @param {Integer} Tag 
+     * @param {DEBUG_FLR_PARAM_TYPE} Tag 
      * @returns {BOOL} 
      */
     IsValidTagToSet(Tag) {

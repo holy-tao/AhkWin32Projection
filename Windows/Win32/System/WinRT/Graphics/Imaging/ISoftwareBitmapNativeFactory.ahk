@@ -7,9 +7,8 @@
  * Creates instances of ISoftwareBitmapNative.
  * @see https://learn.microsoft.com/windows/win32/api/windows.graphics.imaging.interop/nn-windows-graphics-imaging-interop-isoftwarebitmapnativefactory
  * @namespace Windows.Win32.System.WinRT.Graphics.Imaging
- * @version v4.0.30319
  */
-class ISoftwareBitmapNativeFactory extends IInspectable{
+class ISoftwareBitmapNativeFactory extends IInspectable {
 
     static sizeof => A_PtrSize
     /**

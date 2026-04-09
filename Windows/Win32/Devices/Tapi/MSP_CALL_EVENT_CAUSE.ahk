@@ -5,9 +5,8 @@
  * The MSP_CALL_EVENT_CAUSE (msp.h) enumeration constant is returned within the MSP_EVENT_INFO struct by the GetEvent method when MSP_EVENT is ME_CALL_EVENT.
  * @see https://learn.microsoft.com/windows/win32/api/msp/ne-msp-msp_call_event_cause
  * @namespace Windows.Win32.Devices.Tapi
- * @version v4.0.30319
  */
-class MSP_CALL_EVENT_CAUSE extends Win32Enum{
+class MSP_CALL_EVENT_CAUSE extends Win32Enum {
 
     /**
      * Call event cause is unknown.
@@ -52,7 +51,6 @@ class MSP_CALL_EVENT_CAUSE extends Win32Enum{
     static CALL_CAUSE_MEDIA_RECOVERED => 6
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static CALL_CAUSE_QUALITY_OF_SERVICE => 7

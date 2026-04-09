@@ -40,10 +40,8 @@
  *                 <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nc-webservices-ws_free_encoder_callback">WS_FREE_ENCODER_CALLBACK</a>.
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_channel_encoder
  * @namespace Windows.Win32.Networking.WindowsWebServices
- * @version v4.0.30319
  */
-class WS_CHANNEL_ENCODER extends Win32Struct
-{
+class WS_CHANNEL_ENCODER extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8

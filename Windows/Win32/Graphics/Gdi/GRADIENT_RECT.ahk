@@ -12,10 +12,8 @@
  * <img alt="Illustration of a rectangle that shades from dark on the top to light on the bottom" border="0" src="images/GradientFillRectangle2.png"/>
  * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-gradient_rect
  * @namespace Windows.Win32.Graphics.Gdi
- * @version v4.0.30319
  */
-class GRADIENT_RECT extends Win32Struct
-{
+class GRADIENT_RECT extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4

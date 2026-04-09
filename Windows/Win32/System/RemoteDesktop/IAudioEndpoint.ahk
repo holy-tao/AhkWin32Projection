@@ -10,9 +10,8 @@
  *     applications.
  * @see https://learn.microsoft.com/windows/win32/api/audioengineendpoint/nn-audioengineendpoint-iaudioendpoint
  * @namespace Windows.Win32.System.RemoteDesktop
- * @version v4.0.30319
  */
-class IAudioEndpoint extends IUnknown{
+class IAudioEndpoint extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HWND.ahk
 #Include .\NMHDR.ahk
+#Include ..\..\Foundation\HWND.ahk
 #Include ..\..\Foundation\SYSTEMTIME.ahk
 
 /**
@@ -11,11 +11,9 @@
  * > The commctrl.h header defines NMDATETIMEFORMAT as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
  * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-nmdatetimeformata
  * @namespace Windows.Win32.UI.Controls
- * @version v4.0.30319
  * @charset ANSI
  */
-class NMDATETIMEFORMATA extends Win32Struct
-{
+class NMDATETIMEFORMATA extends Win32Struct {
     static sizeof => 120
 
     static packingSize => 8
@@ -26,7 +24,7 @@ class NMDATETIMEFORMATA extends Win32Struct
      * An <a href="https://docs.microsoft.com/windows/desktop/api/richedit/ns-richedit-nmhdr">NMHDR</a> structure that contains information about the notification code.
      * @type {NMHDR}
      */
-    nmhdr{
+    nmhdr {
         get {
             if(!this.HasProp("__nmhdr"))
                 this.__nmhdr := NMHDR(0, this)
@@ -51,7 +49,7 @@ class NMDATETIMEFORMATA extends Win32Struct
      * A <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-systemtime">SYSTEMTIME</a> structure that contains the date and time to be formatted.
      * @type {SYSTEMTIME}
      */
-    st{
+    st {
         get {
             if(!this.HasProp("__st"))
                 this.__st := SYSTEMTIME(32, this)

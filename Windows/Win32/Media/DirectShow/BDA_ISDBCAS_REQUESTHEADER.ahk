@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class BDA_ISDBCAS_REQUESTHEADER extends Win32Struct
-{
+class BDA_ISDBCAS_REQUESTHEADER extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4
@@ -20,9 +18,9 @@ class BDA_ISDBCAS_REQUESTHEADER extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    bReserved{
+    bReserved {
         get {
             if(!this.HasProp("__bReservedProxyArray"))
                 this.__bReservedProxyArray := Win32FixedArray(this.ptr + 1, 3, Primitive, "char")
@@ -39,9 +37,9 @@ class BDA_ISDBCAS_REQUESTHEADER extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    argbIsdbCommand{
+    argbIsdbCommand {
         get {
             if(!this.HasProp("__argbIsdbCommandProxyArray"))
                 this.__argbIsdbCommandProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "char")

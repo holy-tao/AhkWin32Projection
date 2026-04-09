@@ -5,9 +5,8 @@
  * The AnalogVideoStandard enumeration specifies the format of an analog television signal.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/ne-strmif-analogvideostandard
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class AnalogVideoStandard extends Win32Enum{
+class AnalogVideoStandard extends Win32Enum {
 
     /**
      * Digital sensor.
@@ -46,7 +45,6 @@ class AnalogVideoStandard extends Win32Enum{
     static AnalogVideo_PAL_D => 32
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static AnalogVideo_PAL_G => 64
@@ -136,19 +134,16 @@ class AnalogVideoStandard extends Win32Enum{
     static AnalogVideo_PAL_N_COMBO => 1048576
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static AnalogVideoMask_MCE_NTSC => 1052167
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static AnalogVideoMask_MCE_PAL => 496
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static AnalogVideoMask_MCE_SECAM => 1044480

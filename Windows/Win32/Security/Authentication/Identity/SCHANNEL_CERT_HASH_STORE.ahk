@@ -5,10 +5,8 @@
  * Contains the hash store data for the certificate that Schannel uses in kernel-mode.
  * @see https://learn.microsoft.com/windows/win32/api/schannel/ns-schannel-schannel_cert_hash_store
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class SCHANNEL_CERT_HASH_STORE extends Win32Struct
-{
+class SCHANNEL_CERT_HASH_STORE extends Win32Struct {
     static sizeof => 296
 
     static packingSize => 8
@@ -60,9 +58,9 @@ class SCHANNEL_CERT_HASH_STORE extends Win32Struct
 
     /**
      * The secure hash algorithm.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    ShaHash{
+    ShaHash {
         get {
             if(!this.HasProp("__ShaHashProxyArray"))
                 this.__ShaHashProxyArray := Win32FixedArray(this.ptr + 16, 20, Primitive, "char")

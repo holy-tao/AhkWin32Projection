@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include .\INetFwRemoteAdminSettings.ahk
 #Include .\INetFwIcmpSettings.ahk
 #Include .\INetFwOpenPorts.ahk
 #Include .\INetFwServices.ahk
 #Include .\INetFwAuthorizedApplications.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * The INetFwProfile interface provides access to the firewall settings profile.
@@ -19,9 +19,8 @@
  * effect immediately.
  * @see https://learn.microsoft.com/windows/win32/api/netfw/nn-netfw-inetfwprofile
  * @namespace Windows.Win32.NetworkManagement.WindowsFirewall
- * @version v4.0.30319
  */
-class INetFwProfile extends IDispatch{
+class INetFwProfile extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -43,7 +42,7 @@ class INetFwProfile extends IDispatch{
     static VTableNames => ["get_Type", "get_FirewallEnabled", "put_FirewallEnabled", "get_ExceptionsNotAllowed", "put_ExceptionsNotAllowed", "get_NotificationsDisabled", "put_NotificationsDisabled", "get_UnicastResponsesToMulticastBroadcastDisabled", "put_UnicastResponsesToMulticastBroadcastDisabled", "get_RemoteAdminSettings", "get_IcmpSettings", "get_GloballyOpenPorts", "get_Services", "get_AuthorizedApplications"]
 
     /**
-     * @type {Integer} 
+     * @type {NET_FW_PROFILE_TYPE} 
      */
     Type {
         get => this.get_Type()
@@ -118,7 +117,7 @@ class INetFwProfile extends IDispatch{
 
     /**
      * Specifies the type of the profile.
-     * @returns {Integer} 
+     * @returns {NET_FW_PROFILE_TYPE} 
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwprofile-get_type
      */
     get_Type() {

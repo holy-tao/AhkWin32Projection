@@ -7,10 +7,9 @@
  * Before an <b>ACMSTREAMHEADER</b> structure can be used for a conversion, it must be prepared by using the <a href="https://docs.microsoft.com/windows/desktop/api/msacm/nf-msacm-acmstreamprepareheader">acmStreamPrepareHeader</a> function. When an application is finished with an <b>ACMSTREAMHEADER</b> structure, it must call the <a href="https://docs.microsoft.com/windows/desktop/api/msacm/nf-msacm-acmstreamunprepareheader">acmStreamUnprepareHeader</a> function before freeing the source and destination buffers.
  * @see https://learn.microsoft.com/windows/win32/api/msacm/ns-msacm-acmstreamheader
  * @namespace Windows.Win32.Media.Audio
- * @version v4.0.30319
+ * @architecture X64, Arm64
  */
-class ACMSTREAMHEADER extends Win32Struct
-{
+class ACMSTREAMHEADER extends Win32Struct {
     static sizeof => 128
 
     static packingSize => 8
@@ -153,9 +152,9 @@ class ACMSTREAMHEADER extends Win32Struct
 
     /**
      * Reserved; do not use. This member requires no initialization by the application and should never be modified while the header remains prepared.
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    dwReservedDriver{
+    dwReservedDriver {
         get {
             if(!this.HasProp("__dwReservedDriverProxyArray"))
                 this.__dwReservedDriverProxyArray := Win32FixedArray(this.ptr + 64, 15, Primitive, "uint")

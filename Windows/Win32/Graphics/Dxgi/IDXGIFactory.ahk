@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IDXGIObject.ahk
 #Include .\IDXGIAdapter.ahk
 #Include ..\..\Foundation\HWND.ahk
 #Include .\IDXGISwapChain.ahk
-#Include .\IDXGIObject.ahk
 
 /**
  * An IDXGIFactory interface implements methods for generating DXGI objects (which handle full screen transitions).
@@ -34,9 +34,8 @@
  *         </b> This API is supported.
  * @see https://learn.microsoft.com/windows/win32/api/dxgi/nn-dxgi-idxgifactory
  * @namespace Windows.Win32.Graphics.Dxgi
- * @version v4.0.30319
  */
-class IDXGIFactory extends IDXGIObject{
+class IDXGIFactory extends IDXGIObject {
 
     static sizeof => A_PtrSize
     /**
@@ -67,7 +66,9 @@ class IDXGIFactory extends IDXGIObject{
      *       adapter interface, call the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">Release</a> method to decrement the reference count before you destroy the pointer.
      * 
      * <b>EnumAdapters</b> first returns the adapter with the output on which the desktop primary is displayed. This adapter corresponds with an index of zero. <b>EnumAdapters</b> next returns other adapters with outputs. <b>EnumAdapters</b> finally returns adapters without outputs.
-     * @param {Integer} _Adapter 
+     * @param {Integer} _Adapter Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
+     * 
+     * The index of the adapter to enumerate.
      * @returns {IDXGIAdapter} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dxgi/nn-dxgi-idxgiadapter">IDXGIAdapter</a>**</b>
      * 
      * The address of a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/dxgi/nn-dxgi-idxgiadapter">IDXGIAdapter</a> interface at the position specified by the <i>Adapter</i> parameter.  This parameter must not be <b>NULL</b>.
@@ -114,7 +115,7 @@ class IDXGIFactory extends IDXGIObject{
      * @param {HWND} WindowHandle Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
      * 
      * The handle of the window that is to be monitored. This parameter can be <b>NULL</b>; but only if *Flags* is also 0.
-     * @param {Integer} Flags Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
+     * @param {DXGI_MWA_FLAGS} Flags Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
      * <a href="https://docs.microsoft.com/windows/desktop/direct3ddxgi/dxgi-error">DXGI_ERROR_INVALID_CALL</a> if <i>WindowHandle</i> is invalid, or E_OUTOFMEMORY.

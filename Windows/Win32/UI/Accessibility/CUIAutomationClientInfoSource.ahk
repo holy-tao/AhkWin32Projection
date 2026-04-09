@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.UI.Accessibility
- * @version v4.0.30319
  */
-class CUIAutomationClientInfoSource extends Win32Struct
-{
+class CUIAutomationClientInfoSource extends Win32Struct {
     static sizeof => 0
 
     static packingSize => 1

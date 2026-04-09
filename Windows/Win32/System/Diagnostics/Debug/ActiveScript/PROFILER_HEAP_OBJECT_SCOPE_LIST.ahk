@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.ActiveScript
- * @version v4.0.30319
  */
-class PROFILER_HEAP_OBJECT_SCOPE_LIST extends Win32Struct
-{
+class PROFILER_HEAP_OBJECT_SCOPE_LIST extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
@@ -20,9 +18,9 @@ class PROFILER_HEAP_OBJECT_SCOPE_LIST extends Win32Struct
     }
 
     /**
-     * @type {Array<UIntPtr>}
+     * @type {Array<Pointer>}
      */
-    scopes{
+    scopes {
         get {
             if(!this.HasProp("__scopesProxyArray"))
                 this.__scopesProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "ptr")

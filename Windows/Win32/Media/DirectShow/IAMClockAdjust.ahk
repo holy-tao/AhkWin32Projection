@@ -7,9 +7,8 @@
  * The IAMClockAdjust interface adjusts the reference clock. The System Reference Clock exposes this interface.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-iamclockadjust
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IAMClockAdjust extends IUnknown{
+class IAMClockAdjust extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IXpsOMGradientStop.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\IXpsOMGradientStop.ahk
 
 /**
  * A collection of IXpsOMGradientStop interface pointers.
@@ -10,9 +10,8 @@
  * For more information about the collection methods, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dd372931(v=vs.85)">Working with XPS OM Collection Interfaces</a>.
  * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomgradientstopcollection
  * @namespace Windows.Win32.Storage.Xps
- * @version v4.0.30319
  */
-class IXpsOMGradientStopCollection extends IUnknown{
+class IXpsOMGradientStopCollection extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

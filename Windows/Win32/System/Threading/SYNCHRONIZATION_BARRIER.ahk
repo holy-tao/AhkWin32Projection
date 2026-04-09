@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Threading
- * @version v4.0.30319
  */
-class SYNCHRONIZATION_BARRIER extends Win32Struct
-{
+class SYNCHRONIZATION_BARRIER extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -28,9 +26,9 @@ class SYNCHRONIZATION_BARRIER extends Win32Struct
     }
 
     /**
-     * @type {Array<UIntPtr>}
+     * @type {Array<Pointer>}
      */
-    Reserved3{
+    Reserved3 {
         get {
             if(!this.HasProp("__Reserved3ProxyArray"))
                 this.__Reserved3ProxyArray := Win32FixedArray(this.ptr + 8, 2, Primitive, "ptr")

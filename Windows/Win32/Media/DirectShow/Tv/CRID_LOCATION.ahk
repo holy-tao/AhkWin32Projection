@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Media.DirectShow.Tv
- * @version v4.0.30319
  */
-class CRID_LOCATION extends Win32Enum{
+class CRID_LOCATION extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

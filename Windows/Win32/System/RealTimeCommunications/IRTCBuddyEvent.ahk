@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IRTCBuddy.ahk
 #Include ..\Com\IDispatch.ahk
+#Include .\IRTCBuddy.ahk
 
 /**
  * @namespace Windows.Win32.System.RealTimeCommunications
- * @version v4.0.30319
  */
-class IRTCBuddyEvent extends IDispatch{
+class IRTCBuddyEvent extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

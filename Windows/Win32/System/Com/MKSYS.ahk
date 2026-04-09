@@ -5,9 +5,8 @@
  * Indicates the moniker's class.
  * @see https://learn.microsoft.com/windows/win32/api/objidl/ne-objidl-mksys
  * @namespace Windows.Win32.System.Com
- * @version v4.0.30319
  */
-class MKSYS extends Win32Enum{
+class MKSYS extends Win32Enum {
 
     /**
      * Indicates a custom moniker implementation.

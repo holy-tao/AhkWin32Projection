@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Media.Audio
- * @version v4.0.30319
  */
-class IAudioAmbisonicsControl extends IUnknown{
+class IAudioAmbisonicsControl extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

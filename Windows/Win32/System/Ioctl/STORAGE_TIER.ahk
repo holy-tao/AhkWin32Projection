@@ -1,18 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\STORAGE_TIER_MEDIA_TYPE.ahk
+#Include .\STORAGE_TIER_CLASS.ahk
 
 /**
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class STORAGE_TIER extends Win32Struct
-{
+class STORAGE_TIER extends Win32Struct {
     static sizeof => 1056
 
     static packingSize => 8
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     Id {
         get => NumGet(this, 0, "ptr")
@@ -52,7 +52,7 @@ class STORAGE_TIER extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {STORAGE_TIER_MEDIA_TYPE}
      */
     MediaType {
         get => NumGet(this, 1048, "int")
@@ -60,7 +60,7 @@ class STORAGE_TIER extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {STORAGE_TIER_CLASS}
      */
     Class {
         get => NumGet(this, 1052, "int")

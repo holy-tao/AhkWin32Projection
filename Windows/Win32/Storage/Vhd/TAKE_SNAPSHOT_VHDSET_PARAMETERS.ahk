@@ -1,21 +1,20 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\TAKE_SNAPSHOT_VHDSET_VERSION.ahk
 
 /**
  * Contains snapshot parameters, indicating information about the new snapshot to be created.
  * @see https://learn.microsoft.com/windows/win32/api/virtdisk/ns-virtdisk-take_snapshot_vhdset_parameters
  * @namespace Windows.Win32.Storage.Vhd
- * @version v4.0.30319
  */
-class TAKE_SNAPSHOT_VHDSET_PARAMETERS extends Win32Struct
-{
+class TAKE_SNAPSHOT_VHDSET_PARAMETERS extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
 
     /**
      * A value from the <a href="https://docs.microsoft.com/windows/win32/api/virtdisk/ne-virtdisk-take_snapshot_vhdset_version">TAKE_SNAPSHOT_VHDSET_VERSION</a> enumeration that is the discriminant for the union.
-     * @type {Integer}
+     * @type {TAKE_SNAPSHOT_VHDSET_VERSION}
      */
     Version {
         get => NumGet(this, 0, "int")
@@ -27,22 +26,21 @@ class TAKE_SNAPSHOT_VHDSET_PARAMETERS extends Win32Struct
         static packingSize => 8
 
         /**
-         * @type {Pointer<Guid>}
+         * @type {Pointer}
          */
         SnapshotId {
             get => NumGet(this, 0, "ptr")
             set => NumPut("ptr", value, this, 0)
         }
-    
     }
 
     /**
      * @type {_Version1}
      */
-    Version1{
+    Version1 {
         get {
             if(!this.HasProp("__Version1"))
-                this.__Version1 := %this.__Class%._Version1(8, this)
+                this.__Version1 := TAKE_SNAPSHOT_VHDSET_PARAMETERS._Version1(8, this)
             return this.__Version1
         }
     }

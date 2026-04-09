@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\CERT_ACCESS_DESCRIPTION.ahk
 
 /**
  * Represents authority information access and subject information access certificate extensions and specifies how to access additional information and services for the subject or the issuer of a certificate.
@@ -12,10 +13,8 @@
  * An instance of this structure can be used as input to the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptencodeobject">CryptEncodeObject</a> function to create an appropriate <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_extension">CERT_EXTENSION</a>.
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cert_authority_info_access
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CERT_AUTHORITY_INFO_ACCESS extends Win32Struct
-{
+class CERT_AUTHORITY_INFO_ACCESS extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

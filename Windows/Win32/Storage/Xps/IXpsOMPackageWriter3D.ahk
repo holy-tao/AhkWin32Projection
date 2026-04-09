@@ -7,9 +7,8 @@
  * Contains methods that support model textures and print ticket.
  * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel_2/nn-xpsobjectmodel_2-ixpsompackagewriter3d
  * @namespace Windows.Win32.Storage.Xps
- * @version v4.0.30319
  */
-class IXpsOMPackageWriter3D extends IXpsOMPackageWriter{
+class IXpsOMPackageWriter3D extends IXpsOMPackageWriter {
 
     static sizeof => A_PtrSize
     /**

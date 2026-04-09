@@ -4,18 +4,16 @@
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
- * @version v4.0.30319
  */
-class KSPROPERTY_SPPAL extends Win32Struct
-{
-    static sizeof => 128
+class KSPROPERTY_SPPAL extends Win32Struct {
+    static sizeof => 64
 
-    static packingSize => 8
+    static packingSize => 1
 
     /**
-     * @type {Array<KS_DVD_YUV>}
+     * @type {KS_DVD_YUV}
      */
-    sppal{
+    sppal {
         get {
             if(!this.HasProp("__sppalProxyArray"))
                 this.__sppalProxyArray := Win32FixedArray(this.ptr + 0, 16, KS_DVD_YUV, "")

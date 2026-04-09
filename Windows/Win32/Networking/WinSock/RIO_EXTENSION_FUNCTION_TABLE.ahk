@@ -11,10 +11,8 @@
  * <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/nf-winsock2-wsaioctl">WSAIoctl</a> function with the <b>SIO_GET_MULTIPLE_EXTENSION_FUNCTION_POINTER</b> opcode specified. The input buffer passed to the <b>WSAIoctl</b> function must contain <b>WSAID_MULTIPLE_RIO</b>, a globally unique identifier (GUID) whose value identifies the Winsock registered I/O  extension functions. On success, the output returned by the <b>WSAIoctl</b> function contains a pointer to the <b>RIO_EXTENSION_FUNCTION_TABLE</b> structure that contains pointers to the Winsock registered I/O  extension functions. The <b>SIO_GET_MULTIPLE_EXTENSION_FUNCTION_POINTER</b> IOCTL is defined in the <i>Ws2def.h</i> header file.The <b>WSAID_MULTIPLE_RIO</b> GUID is defined in the <i>Mswsock.h</i> header file.
  * @see https://learn.microsoft.com/windows/win32/api/mswsock/ns-mswsock-rio_extension_function_table
  * @namespace Windows.Win32.Networking.WinSock
- * @version v4.0.30319
  */
-class RIO_EXTENSION_FUNCTION_TABLE extends Win32Struct
-{
+class RIO_EXTENSION_FUNCTION_TABLE extends Win32Struct {
     static sizeof => 112
 
     static packingSize => 8

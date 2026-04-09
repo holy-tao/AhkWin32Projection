@@ -1,10 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IUIAutomationElement.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\IUIAutomationElementArray.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\Foundation\HWND.ahk
 #Include ..\..\Foundation\RECT.ahk
@@ -13,9 +12,8 @@
  * Exposes methods and properties for a UI Automation element, which represents a UI item.
  * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nn-uiautomationclient-iuiautomationelement
  * @namespace Windows.Win32.UI.Accessibility
- * @version v4.0.30319
  */
-class IUIAutomationElement extends IUnknown{
+class IUIAutomationElement extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -44,7 +42,7 @@ class IUIAutomationElement extends IUnknown{
     }
 
     /**
-     * @type {Integer} 
+     * @type {UIA_CONTROLTYPE_ID} 
      */
     CurrentControlType {
         get => this.get_CurrentControlType()
@@ -170,7 +168,7 @@ class IUIAutomationElement extends IUnknown{
     }
 
     /**
-     * @type {Integer} 
+     * @type {OrientationType} 
      */
     CurrentOrientation {
         get => this.get_CurrentOrientation()
@@ -268,7 +266,7 @@ class IUIAutomationElement extends IUnknown{
     }
 
     /**
-     * @type {Integer} 
+     * @type {UIA_CONTROLTYPE_ID} 
      */
     CachedControlType {
         get => this.get_CachedControlType()
@@ -394,7 +392,7 @@ class IUIAutomationElement extends IUnknown{
     }
 
     /**
-     * @type {Integer} 
+     * @type {OrientationType} 
      */
     CachedOrientation {
         get => this.get_CachedOrientation()
@@ -524,7 +522,7 @@ class IUIAutomationElement extends IUnknown{
      * If your client application might try to find elements in its own user interface, you must make all UI Automation calls on a separate thread.
      * 
      * This function ignores elements in the raw tree. Call <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-findfirstbuildcache">FindFirstBuildCache</a> to search the raw tree by specifying the appropriate <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/ne-uiautomationclient-treescope">TreeScope</a> on the <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationcacherequest">IUIAutomationCacheRequest</a> passed to that function.
-     * @param {Integer} scope 
+     * @param {TreeScope} scope 
      * @param {IUIAutomationCondition} condition Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationcondition">IUIAutomationCondition</a>*</b>
      * 
      * A pointer to a condition that represents the criteria to match.
@@ -548,7 +546,7 @@ class IUIAutomationElement extends IUnknown{
      * When searching for top-level windows on the desktop, be sure to specify <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/ne-uiautomationclient-treescope">TreeScope_Children</a> in the <i>scope</i> parameter, not <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/ne-uiautomationclient-treescope">TreeScope_Descendants</a>. A search through the entire subtree of the desktop could iterate through thousands of items and lead to a stack overflow.
      * 
      * If your client application might try to find elements in its own user interface, you must make all UI Automation calls on a separate thread.
-     * @param {Integer} scope 
+     * @param {TreeScope} scope 
      * @param {IUIAutomationCondition} condition Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationcondition">IUIAutomationCondition</a>*</b>
      * 
      * A pointer to a condition that represents the criteria to match.
@@ -574,7 +572,7 @@ class IUIAutomationElement extends IUnknown{
      * If your client application might try to find elements in its own user interface, you must make all UI Automation calls on a separate thread.
      * 
      * To search the raw tree, specify the appropriate <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/ne-uiautomationclient-treescope">TreeScope</a> in the <i>cacheRequest</i> parameter.
-     * @param {Integer} scope 
+     * @param {TreeScope} scope 
      * @param {IUIAutomationCondition} condition Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationcondition">IUIAutomationCondition</a>*</b>
      * 
      * A pointer to a condition that represents the criteria to match.
@@ -601,7 +599,7 @@ class IUIAutomationElement extends IUnknown{
      * When searching for top-level windows on the desktop, be sure to specify <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/ne-uiautomationclient-treescope">TreeScope_Children</a> in the <i>scope</i> parameter, not <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/ne-uiautomationclient-treescope">TreeScope_Descendants</a>. A search through the entire subtree of the desktop could iterate through thousands of items and lead to a stack overflow.
      * 
      * If your client application might try to find elements in its own user interface, you must make all UI Automation calls on a separate thread.
-     * @param {Integer} scope 
+     * @param {TreeScope} scope 
      * @param {IUIAutomationCondition} condition Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationcondition">IUIAutomationCondition</a>*</b>
      * 
      * A pointer to a condition that represents the criteria to match.
@@ -639,7 +637,7 @@ class IUIAutomationElement extends IUnknown{
      * Retrieves the current value of a property for this UI Automation element.
      * @remarks
      * Microsoft UI Automation properties of the <b>double</b> type support Not a Number (NaN) values. When retrieving a property of the <b>double</b> type, a client can use the <a href="https://docs.microsoft.com/previous-versions/visualstudio/visual-studio-6.0/aa298428(v=vs.60)">_isnan</a> function to determine whether the property is a NaN value.
-     * @param {Integer} propertyId Type: <b>PROPERTYID</b>
+     * @param {UIA_PROPERTY_ID} propertyId Type: <b>PROPERTYID</b>
      * 
      * The identifier of the property. For a list of property IDs, see <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-entry-propids">Property Identifiers</a>.
      * @returns {VARIANT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-variant">VARIANT</a>*</b>
@@ -663,7 +661,7 @@ class IUIAutomationElement extends IUnknown{
      *  This method returns a failure code if the requested property was not previously cached.
      * 
      * UI Automation properties of the <b>double</b> type support Not a Number (NaN) values. When retrieving a property of the <b>double</b> type, a client can use the <a href="https://docs.microsoft.com/previous-versions/visualstudio/visual-studio-6.0/aa298428(v=vs.60)">_isnan</a> function to determine whether the property is a NaN value.
-     * @param {Integer} propertyId Type: <b>PROPERTYID</b>
+     * @param {UIA_PROPERTY_ID} propertyId Type: <b>PROPERTYID</b>
      * 
      * The identifier of the property. For a list of property IDs, see <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-entry-propids">Property Identifiers</a>.
      * @param {BOOL} ignoreDefaultValue Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
@@ -684,7 +682,7 @@ class IUIAutomationElement extends IUnknown{
      * Retrieves a property value from the cache for this UI Automation element.
      * @remarks
      * Microsoft UI Automation properties of the <b>double</b> type support Not a Number (NaN) values. When retrieving a property of the <b>double</b> type, a client can use the <a href="https://docs.microsoft.com/previous-versions/visualstudio/visual-studio-6.0/aa298428(v=vs.60)">_isnan</a> function to determine whether the property is a NaN value.
-     * @param {Integer} propertyId Type: <b>PROPERTYID</b>
+     * @param {UIA_PROPERTY_ID} propertyId Type: <b>PROPERTYID</b>
      * 
      * The identifier of the property.  For a list of property IDs, see <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-entry-propids">Property Identifiers</a>.
      * @returns {VARIANT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-variant">VARIANT</a>*</b>
@@ -710,7 +708,7 @@ class IUIAutomationElement extends IUnknown{
      * This method returns a failure code  if the requested property was not previously cached.
      * 
      * UI Automation properties of the <b>double</b> type support Not a Number (NaN) values. When retrieving a property of the <b>double</b> type, a client can use the <a href="https://docs.microsoft.com/previous-versions/visualstudio/visual-studio-6.0/aa298428(v=vs.60)">_isnan</a> function to determine whether the property is a NaN value.
-     * @param {Integer} propertyId Type: <b>PROPERTYID</b>
+     * @param {UIA_PROPERTY_ID} propertyId Type: <b>PROPERTYID</b>
      * 
      * The identifier of the property. For a list of property IDs, see <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-entry-propids">Property Identifiers</a>.
      * @param {BOOL} ignoreDefaultValue Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
@@ -731,7 +729,7 @@ class IUIAutomationElement extends IUnknown{
      * Retrieves the control pattern interface of the specified pattern on this UI Automation element.
      * @remarks
      * It is recommended that you use the <b>IID_PPV_ARGS</b> macro, defined in Objbase.h, to package the <i>riid</i> and <i>ppv</i> parameters. This macro provides the correct IID based on the interface pointed to by the value in <i>ppv</i>, which eliminates the possibility of a coding error.
-     * @param {Integer} patternId Type: <b>PATTERNID</b>
+     * @param {UIA_PATTERN_ID} patternId Type: <b>PATTERNID</b>
      * 
      * The identifier of the control pattern. For a list of control pattern IDs, see <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-controlpattern-ids">Control Pattern Identifiers</a>.
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
@@ -751,7 +749,7 @@ class IUIAutomationElement extends IUnknown{
      * Retrieves the control pattern interface of the specified pattern from the cache of this UI Automation element.
      * @remarks
      * It is recommended that you use the <b>IID_PPV_ARGS</b> macro, defined in Objbase.h, to package the <i>riid</i> and <i>ppv</i> parameters. This macro provides the correct IID based on the interface pointed to by the value in <i>ppv</i>, which eliminates the possibility of a coding error.
-     * @param {Integer} patternId Type: <b>PATTERNID</b>
+     * @param {UIA_PATTERN_ID} patternId Type: <b>PATTERNID</b>
      * 
      * The identifier of the control pattern. For a list of control pattern IDs, see <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-controlpattern-ids">Control Pattern Identifiers</a>.
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
@@ -773,7 +771,7 @@ class IUIAutomationElement extends IUnknown{
      * This method gets the specified control pattern based on its availability at the time of the call.
      * 
      * For some forms of UI, this method will incur cross-process performance overhead. Applications can reduce overhead by caching control patterns and then retrieving them by using <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-getcachedpattern">IUIAutomationElement::GetCachedPattern</a>.
-     * @param {Integer} patternId Type: <b>PATTERNID</b>
+     * @param {UIA_PATTERN_ID} patternId Type: <b>PATTERNID</b>
      * 
      * The identifier of the control pattern. For a list of control pattern IDs, see <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-controlpattern-ids">Control Pattern Identifiers</a>.
      * @returns {IUnknown} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>**</b>
@@ -788,7 +786,7 @@ class IUIAutomationElement extends IUnknown{
 
     /**
      * Retrieves from the cache the IUnknown interface of the specified control pattern of this UI Automation element.
-     * @param {Integer} patternId Type: <b>PATTERNID</b>
+     * @param {UIA_PATTERN_ID} patternId Type: <b>PATTERNID</b>
      * 
      * The identifier of the control pattern. For a list of control pattern IDs, see <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-controlpattern-ids">Control Pattern Identifiers</a>.
      * @returns {IUnknown} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>**</b>
@@ -846,7 +844,7 @@ class IUIAutomationElement extends IUnknown{
      * @remarks
      * Control types describe a known interaction model for UI Automation elements without relying on a localized control type or combination of complex logic rules.
      * This property cannot change at run time unless the control supports the <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationmultipleviewpattern">IUIAutomationMultipleViewPattern</a> interface. An example is the Win32 ListView control, which can change from a data grid to a list, depending on the current view.
-     * @returns {Integer} 
+     * @returns {UIA_CONTROLTYPE_ID} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_currentcontroltype
      */
     get_CurrentControlType() {
@@ -1056,7 +1054,7 @@ class IUIAutomationElement extends IUnknown{
      * Retrieves a value that indicates the orientation of the element.
      * @remarks
      * This property is supported by controls such as scroll bars and sliders that can have either a vertical or a horizontal orientation.
-     * @returns {Integer} 
+     * @returns {OrientationType} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_currentorientation
      */
     get_CurrentOrientation() {
@@ -1214,7 +1212,7 @@ class IUIAutomationElement extends IUnknown{
      * Retrieves a cached value that indicates the control type of the element.
      * @remarks
      * Control types describe a known interaction model for UI Automation elements without relying on a localized control type or combination of complex logic rules. This property cannot change at run time unless the control supports the <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationmultipleviewpattern">IUIAutomationMultipleViewPattern</a> interface. An example is the Win32 ListView control, which can change from a data grid to a list, depending on the current view.
-     * @returns {Integer} 
+     * @returns {UIA_CONTROLTYPE_ID} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_cachedcontroltype
      */
     get_CachedControlType() {
@@ -1426,7 +1424,7 @@ class IUIAutomationElement extends IUnknown{
      * Retrieves a cached value that indicates the orientation of the element.
      * @remarks
      * This property is supported by controls such as scroll bars and sliders that can have either a vertical or a horizontal orientation.
-     * @returns {Integer} 
+     * @returns {OrientationType} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_cachedorientation
      */
     get_CachedOrientation() {

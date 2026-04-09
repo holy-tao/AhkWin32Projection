@@ -5,9 +5,8 @@
  * Defines stereo 3D capabilities for a Microsoft Direct3D 11 video processor.
  * @see https://learn.microsoft.com/windows/win32/api/d3d11/ne-d3d11-d3d11_video_processor_stereo_caps
  * @namespace Windows.Win32.Graphics.Direct3D11
- * @version v4.0.30319
  */
-class D3D11_VIDEO_PROCESSOR_STEREO_CAPS extends Win32Enum{
+class D3D11_VIDEO_PROCESSOR_STEREO_CAPS extends Win32Enum {
 
     /**
      * The video processor supports the <b>D3D11_VIDEO_PROCESSOR_STEREO_FORMAT_MONO_OFFSET</b> 

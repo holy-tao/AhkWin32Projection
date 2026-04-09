@@ -6,10 +6,8 @@
  * Provides information about the functions of a provider.
  * @see https://learn.microsoft.com/windows/win32/api/wintrust/ns-wintrust-crypt_register_actionid
  * @namespace Windows.Win32.Security.WinTrust
- * @version v4.0.30319
  */
-class CRYPT_REGISTER_ACTIONID extends Win32Struct
-{
+class CRYPT_REGISTER_ACTIONID extends Win32Struct {
     static sizeof => 200
 
     static packingSize => 8
@@ -27,7 +25,7 @@ class CRYPT_REGISTER_ACTIONID extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/wintrust/ns-wintrust-crypt_trust_reg_entry">CRYPT_TRUST_REG_ENTRY</a> structure that identifies the function that initializes the provider.
      * @type {CRYPT_TRUST_REG_ENTRY}
      */
-    sInitProvider{
+    sInitProvider {
         get {
             if(!this.HasProp("__sInitProvider"))
                 this.__sInitProvider := CRYPT_TRUST_REG_ENTRY(8, this)
@@ -39,7 +37,7 @@ class CRYPT_REGISTER_ACTIONID extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/wintrust/ns-wintrust-crypt_trust_reg_entry">CRYPT_TRUST_REG_ENTRY</a> structure that identifies the object provider function.
      * @type {CRYPT_TRUST_REG_ENTRY}
      */
-    sObjectProvider{
+    sObjectProvider {
         get {
             if(!this.HasProp("__sObjectProvider"))
                 this.__sObjectProvider := CRYPT_TRUST_REG_ENTRY(32, this)
@@ -51,7 +49,7 @@ class CRYPT_REGISTER_ACTIONID extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/wintrust/ns-wintrust-crypt_trust_reg_entry">CRYPT_TRUST_REG_ENTRY</a> structure that identifies the signature provider function.
      * @type {CRYPT_TRUST_REG_ENTRY}
      */
-    sSignatureProvider{
+    sSignatureProvider {
         get {
             if(!this.HasProp("__sSignatureProvider"))
                 this.__sSignatureProvider := CRYPT_TRUST_REG_ENTRY(56, this)
@@ -63,7 +61,7 @@ class CRYPT_REGISTER_ACTIONID extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/wintrust/ns-wintrust-crypt_trust_reg_entry">CRYPT_TRUST_REG_ENTRY</a> structure that identifies the certificate provider function.
      * @type {CRYPT_TRUST_REG_ENTRY}
      */
-    sCertificateProvider{
+    sCertificateProvider {
         get {
             if(!this.HasProp("__sCertificateProvider"))
                 this.__sCertificateProvider := CRYPT_TRUST_REG_ENTRY(80, this)
@@ -75,7 +73,7 @@ class CRYPT_REGISTER_ACTIONID extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/wintrust/ns-wintrust-crypt_trust_reg_entry">CRYPT_TRUST_REG_ENTRY</a> structure that identifies the certificate policy provider function.
      * @type {CRYPT_TRUST_REG_ENTRY}
      */
-    sCertificatePolicyProvider{
+    sCertificatePolicyProvider {
         get {
             if(!this.HasProp("__sCertificatePolicyProvider"))
                 this.__sCertificatePolicyProvider := CRYPT_TRUST_REG_ENTRY(104, this)
@@ -87,7 +85,7 @@ class CRYPT_REGISTER_ACTIONID extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/wintrust/ns-wintrust-crypt_trust_reg_entry">CRYPT_TRUST_REG_ENTRY</a> structure that identifies the final policy provider function.
      * @type {CRYPT_TRUST_REG_ENTRY}
      */
-    sFinalPolicyProvider{
+    sFinalPolicyProvider {
         get {
             if(!this.HasProp("__sFinalPolicyProvider"))
                 this.__sFinalPolicyProvider := CRYPT_TRUST_REG_ENTRY(128, this)
@@ -99,7 +97,7 @@ class CRYPT_REGISTER_ACTIONID extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/wintrust/ns-wintrust-crypt_trust_reg_entry">CRYPT_TRUST_REG_ENTRY</a> structure that identifies the test policy provider function.
      * @type {CRYPT_TRUST_REG_ENTRY}
      */
-    sTestPolicyProvider{
+    sTestPolicyProvider {
         get {
             if(!this.HasProp("__sTestPolicyProvider"))
                 this.__sTestPolicyProvider := CRYPT_TRUST_REG_ENTRY(152, this)
@@ -111,7 +109,7 @@ class CRYPT_REGISTER_ACTIONID extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/wintrust/ns-wintrust-crypt_trust_reg_entry">CRYPT_TRUST_REG_ENTRY</a> structure that identifies the cleanup provider function.
      * @type {CRYPT_TRUST_REG_ENTRY}
      */
-    sCleanupProvider{
+    sCleanupProvider {
         get {
             if(!this.HasProp("__sCleanupProvider"))
                 this.__sCleanupProvider := CRYPT_TRUST_REG_ENTRY(176, this)

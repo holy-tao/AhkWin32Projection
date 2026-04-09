@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IBrowserService.ahk
 #Include ..\..\Foundation\RECT.ahk
 #Include ..\..\Foundation\HWND.ahk
-#Include .\IBrowserService.ahk
 
 /**
  * Deprecated. (IBrowserService2)
@@ -11,9 +11,8 @@
  * This interface also provides the methods of the <a href="https://docs.microsoft.com/windows/desktop/api/shdeprecated/nn-shdeprecated-ibrowserservice">IBrowserService</a> interface, from which it inherits.
  * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nn-shdeprecated-ibrowserservice2
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IBrowserService2 extends IBrowserService{
+class IBrowserService2 extends IBrowserService {
 
     static sizeof => A_PtrSize
     /**
@@ -36,12 +35,18 @@ class IBrowserService2 extends IBrowserService{
 
     /**
      * Deprecated. Allows a derived class to call the WinProc function of the base class.
-     * @param {HWND} _hwnd 
+     * @param {HWND} _hwnd Type: <b>HWND</b>
+     * 
+     * The handle of the window receiving the message.
      * @param {Integer} uMsg Type: <b>UINT</b>
      * 
      * The message received by the window.
-     * @param {WPARAM} _wParam 
-     * @param {LPARAM} _lParam 
+     * @param {WPARAM} _wParam Type: <b>WPARAM</b>
+     * 
+     * Additional message information specific to the message type.
+     * @param {LPARAM} _lParam Type: <b>LPARAM</b>
+     * 
+     * Additional message information specific to the message type.
      * @returns {LRESULT} Type: <b>LRESULT</b>
      * 
      * The return value specifies the result of the message processing; it depends on the message sent.
@@ -81,7 +86,9 @@ class IBrowserService2 extends IBrowserService{
 
     /**
      * Deprecated. Calls the derived class from the base class on receipt of a WM_SIZE message. The derived class handles the message.
-     * @param {WPARAM} _wParam 
+     * @param {WPARAM} _wParam Type: <b>WPARAM</b>
+     * 
+     * Additional information provided by the <a href="https://docs.microsoft.com/windows/desktop/winmsg/wm-size">WM_SIZE</a> message.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
@@ -109,8 +116,15 @@ class IBrowserService2 extends IBrowserService{
 
     /**
      * Deprecated. Calls the derived class from the base class on receipt of a WM_COMMAND message. The derived class handles the message.
-     * @param {WPARAM} _wParam 
-     * @param {LPARAM} _lParam 
+     * @param {WPARAM} _wParam Type: <b>WPARAM</b>
+     * 
+     * Additional information taken from the <a href="https://docs.microsoft.com/windows/desktop/menurc/wm-command">WM_COMMAND</a> message. The high-order word specifies the notification code if the message is from a control. If the message is from an accelerator, this value is 1. If the message is from a menu, this value is zero. 
+     *                     
+     * 
+     * The low-order word specifies the identifier of the menu item, control, or accelerator.
+     * @param {LPARAM} _lParam Type: <b>LPARAM</b>
+     * 
+     * Additional information taken from the <a href="https://docs.microsoft.com/windows/desktop/menurc/wm-command">WM_COMMAND</a> message. Handle to the control sending the message if the message is from a control. Otherwise, this parameter is <b>NULL</b>.
      * @returns {LRESULT} Type: <b>LRESULT</b>
      * 
      * The return value specifies the result of the command processing; it depends on the command sent.
@@ -393,7 +407,9 @@ class IBrowserService2 extends IBrowserService{
 
     /**
      * Deprecated. Coordinates the initializing of state between the base and the derived classes.
-     * @param {HWND} _hwnd 
+     * @param {HWND} _hwnd Type: <b>HWND</b>
+     * 
+     * A handle to the current window.
      * @param {IUnknown} pauto Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>*</b>
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> of the outer object's <a href="https://docs.microsoft.com/windows/desktop/api/exdisp/nn-exdisp-iwebbrowser2">IWebBrowser2</a> automation interface.
@@ -564,8 +580,12 @@ class IBrowserService2 extends IBrowserService{
      * @param {Integer} uMsg Type: <b>UINT</b>
      * 
      * The message to be sent.
-     * @param {WPARAM} _wParam 
-     * @param {LPARAM} _lParam 
+     * @param {WPARAM} _wParam Type: <b>WPARAM</b>
+     * 
+     * Additional message-specific information.
+     * @param {LPARAM} _lParam Type: <b>LPARAM</b>
+     * 
+     * Additional message-specific information.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
@@ -771,8 +791,12 @@ class IBrowserService2 extends IBrowserService{
      * @param {Integer} uMsg Type: <b>UINT</b>
      * 
      * The message to be sent.
-     * @param {WPARAM} _wParam 
-     * @param {LPARAM} _lParam 
+     * @param {WPARAM} _wParam Type: <b>WPARAM</b>
+     * 
+     * Additional message-specific information.
+     * @param {LPARAM} _lParam Type: <b>LPARAM</b>
+     * 
+     * Additional message-specific information.
      * @returns {LRESULT} Type: <b>LRESULT</b>
      * 
      * The return value specifies the result of the message processing; it depends on the message sent.
@@ -947,7 +971,9 @@ class IBrowserService2 extends IBrowserService{
      * @param {Pointer<TOOLBARITEM>} ptbi Type: <b>LPTOOLBARITEM</b>
      * 
      * A pointer to a [TOOLBARITEM](./ns-shdeprecated-toolbaritem.md) structure that specifies a browser toolbar item.
-     * @param {HWND} _hwnd 
+     * @param {HWND} _hwnd Type: <b>HWND</b>
+     * 
+     * The handle of the browser window in which the focus shift is taking place.
      * @param {Pointer<MSG>} lpMsg Type: <b>LPMSG</b>
      * 
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-msg">MSG</a> that contains a keystroke message that indicates an accelerator.

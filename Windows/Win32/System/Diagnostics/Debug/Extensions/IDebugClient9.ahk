@@ -1,19 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
+#Include ..\..\..\Com\IUnknown.ahk
 #Include .\IDebugClient.ahk
 #Include .\IDebugInputCallbacks.ahk
 #Include .\IDebugOutputCallbacks.ahk
 #Include .\IDebugEventCallbacks.ahk
 #Include .\IDebugOutputCallbacksWide.ahk
 #Include .\IDebugEventCallbacksWide.ahk
-#Include ..\..\..\Com\IUnknown.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
- * @version v4.0.30319
  */
-class IDebugClient9 extends IUnknown{
+class IDebugClient9 extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -1060,7 +1059,7 @@ class IDebugClient9 extends IUnknown{
      * 
      * @param {Integer} Server 
      * @param {PSTR} CommandLine 
-     * @param {Pointer} OptionsBuffer 
+     * @param {Integer} OptionsBuffer 
      * @param {Integer} OptionsBufferSize 
      * @param {PSTR} InitialDirectory 
      * @param {PSTR} Environment 
@@ -1079,7 +1078,7 @@ class IDebugClient9 extends IUnknown{
      * 
      * @param {Integer} Server 
      * @param {PWSTR} CommandLine 
-     * @param {Pointer} OptionsBuffer 
+     * @param {Integer} OptionsBuffer 
      * @param {Integer} OptionsBufferSize 
      * @param {PWSTR} InitialDirectory 
      * @param {PWSTR} Environment 
@@ -1098,7 +1097,7 @@ class IDebugClient9 extends IUnknown{
      * 
      * @param {Integer} Server 
      * @param {PSTR} CommandLine 
-     * @param {Pointer} OptionsBuffer 
+     * @param {Integer} OptionsBuffer 
      * @param {Integer} OptionsBufferSize 
      * @param {PSTR} InitialDirectory 
      * @param {PSTR} Environment 
@@ -1119,7 +1118,7 @@ class IDebugClient9 extends IUnknown{
      * 
      * @param {Integer} Server 
      * @param {PWSTR} CommandLine 
-     * @param {Pointer} OptionsBuffer 
+     * @param {Integer} OptionsBuffer 
      * @param {Integer} OptionsBufferSize 
      * @param {PWSTR} InitialDirectory 
      * @param {PWSTR} Environment 
@@ -1260,7 +1259,7 @@ class IDebugClient9 extends IUnknown{
 
     /**
      * 
-     * @param {Pointer} _Context 
+     * @param {Integer} _Context 
      * @param {Integer} ContextSize 
      * @returns {HRESULT} 
      */

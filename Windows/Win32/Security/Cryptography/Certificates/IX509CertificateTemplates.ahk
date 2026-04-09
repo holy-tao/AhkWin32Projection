@@ -1,18 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
+#Include ..\..\..\System\Com\IDispatch.ahk
 #Include .\IX509CertificateTemplate.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
 
 /**
  * The IX509CertificateTemplates interface defines the following methods and properties that manage a collection of IX509CertificateTemplate objects.
  * @see https://learn.microsoft.com/windows/win32/api/certenroll/nn-certenroll-ix509certificatetemplates
  * @namespace Windows.Win32.Security.Cryptography.Certificates
- * @version v4.0.30319
  */
-class IX509CertificateTemplates extends IDispatch{
+class IX509CertificateTemplates extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

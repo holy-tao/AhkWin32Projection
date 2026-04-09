@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.DataExchange
- * @version v4.0.30319
  */
-class DDEUP extends Win32Struct
-{
+class DDEUP extends Win32Struct {
     static sizeof => 6
 
     static packingSize => 2
@@ -74,9 +72,9 @@ class DDEUP extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    rgb{
+    rgb {
         get {
             if(!this.HasProp("__rgbProxyArray"))
                 this.__rgbProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "char")

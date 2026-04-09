@@ -7,9 +7,8 @@
  * The value returned by the <a href="https://docs.microsoft.com/windows/desktop/api/netlistmgr/nf-netlistmgr-inetworkconnectioncost-getcost">INetworkConnectionCost::GetCost</a> method can have multiple bits set with the values specified by this enumeration.
  * @see https://learn.microsoft.com/windows/win32/api/netlistmgr/ne-netlistmgr-nlm_connection_cost
  * @namespace Windows.Win32.Networking.NetworkListManager
- * @version v4.0.30319
  */
-class NLM_CONNECTION_COST extends Win32Enum{
+class NLM_CONNECTION_COST extends Win32Enum {
 
     /**
      * The cost is unknown.

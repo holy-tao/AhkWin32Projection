@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Graphics.DXCore
- * @version v4.0.30319
  */
-class DXCoreHardwareTypeFilterFlags extends Win32BitflagEnum{
+class DXCoreHardwareTypeFilterFlags extends Win32BitflagEnum {
 
     /**
      * @type {Integer (UInt32)}

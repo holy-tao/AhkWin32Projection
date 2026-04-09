@@ -3,18 +3,16 @@
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
- * @version v4.0.30319
  */
-class VBICODECFILTERING_SCANLINES extends Win32Struct
-{
+class VBICODECFILTERING_SCANLINES extends Win32Struct {
     static sizeof => 128
 
     static packingSize => 4
 
     /**
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    DwordBitArray{
+    DwordBitArray {
         get {
             if(!this.HasProp("__DwordBitArrayProxyArray"))
                 this.__DwordBitArrayProxyArray := Win32FixedArray(this.ptr + 0, 32, Primitive, "uint")

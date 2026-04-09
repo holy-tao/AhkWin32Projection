@@ -1,5 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\Win32Struct.ahk
+#Include .\CLAIM_SECURITY_ATTRIBUTE_VALUE_TYPE.ahk
+#Include .\CLAIM_SECURITY_ATTRIBUTE_FQBN_VALUE.ahk
+#Include .\CLAIM_SECURITY_ATTRIBUTE_OCTET_STRING_VALUE.ahk
 
 /**
  * Defines a security attribute that can be associated with a token or authorization context.
@@ -7,10 +10,8 @@
  * The field value type indicates that the value can be an octet string or a SID. However, the [Directory Services documentation for claims entries](/openspecs/windows_protocols/ms-adts/252d7e10-eaf8-44e9-8b8d-205b384f5782) specifies that effective possible data types for claims are limited to Int64, UInt64, UnicodeString, and Boolean.
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-claim_security_attribute_v1
  * @namespace Windows.Win32.Security
- * @version v4.0.30319
  */
-class CLAIM_SECURITY_ATTRIBUTE_V1 extends Win32Struct
-{
+class CLAIM_SECURITY_ATTRIBUTE_V1 extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -26,7 +27,7 @@ class CLAIM_SECURITY_ATTRIBUTE_V1 extends Win32Struct
             get => NumGet(this, 0, "ptr")
             set => NumPut("ptr", value, this, 0)
         }
-    
+
         /**
          * @type {Pointer<Integer>}
          */
@@ -34,7 +35,7 @@ class CLAIM_SECURITY_ATTRIBUTE_V1 extends Win32Struct
             get => NumGet(this, 0, "ptr")
             set => NumPut("ptr", value, this, 0)
         }
-    
+
         /**
          * @type {Pointer<PWSTR>}
          */
@@ -42,7 +43,7 @@ class CLAIM_SECURITY_ATTRIBUTE_V1 extends Win32Struct
             get => NumGet(this, 0, "ptr")
             set => NumPut("ptr", value, this, 0)
         }
-    
+
         /**
          * @type {Pointer<CLAIM_SECURITY_ATTRIBUTE_FQBN_VALUE>}
          */
@@ -50,7 +51,7 @@ class CLAIM_SECURITY_ATTRIBUTE_V1 extends Win32Struct
             get => NumGet(this, 0, "ptr")
             set => NumPut("ptr", value, this, 0)
         }
-    
+
         /**
          * @type {Pointer<CLAIM_SECURITY_ATTRIBUTE_OCTET_STRING_VALUE>}
          */
@@ -58,7 +59,6 @@ class CLAIM_SECURITY_ATTRIBUTE_V1 extends Win32Struct
             get => NumGet(this, 0, "ptr")
             set => NumPut("ptr", value, this, 0)
         }
-    
     }
 
     /**
@@ -71,8 +71,7 @@ class CLAIM_SECURITY_ATTRIBUTE_V1 extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Integer}
+     * @type {CLAIM_SECURITY_ATTRIBUTE_VALUE_TYPE}
      */
     ValueType {
         get => NumGet(this, 8, "ushort")
@@ -183,10 +182,10 @@ class CLAIM_SECURITY_ATTRIBUTE_V1 extends Win32Struct
      * An array of security attribute values of the type specified in the <b>ValueType</b> member.
      * @type {_Values_e__Union}
      */
-    Values{
+    Values {
         get {
             if(!this.HasProp("__Values"))
-                this.__Values := %this.__Class%._Values_e__Union(24, this)
+                this.__Values := CLAIM_SECURITY_ATTRIBUTE_V1._Values_e__Union(24, this)
             return this.__Values
         }
     }

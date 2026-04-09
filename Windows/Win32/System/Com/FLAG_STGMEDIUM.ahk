@@ -1,16 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\STGMEDIUM.ahk
 #Include ..\..\Graphics\Gdi\HBITMAP.ahk
 #Include ..\..\Graphics\Gdi\HENHMETAFILE.ahk
 #Include ..\..\Foundation\HGLOBAL.ahk
-#Include .\STGMEDIUM.ahk
+#Include .\IStream.ahk
+#Include StructuredStorage\IStorage.ahk
+#Include .\IUnknown.ahk
 
 /**
  * @namespace Windows.Win32.System.Com
- * @version v4.0.30319
  */
-class FLAG_STGMEDIUM extends Win32Struct
-{
+class FLAG_STGMEDIUM extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -34,7 +35,7 @@ class FLAG_STGMEDIUM extends Win32Struct
     /**
      * @type {STGMEDIUM}
      */
-    Stgmed{
+    Stgmed {
         get {
             if(!this.HasProp("__Stgmed"))
                 this.__Stgmed := STGMEDIUM(8, this)

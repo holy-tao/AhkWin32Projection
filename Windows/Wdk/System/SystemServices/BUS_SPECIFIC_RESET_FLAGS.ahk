@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class BUS_SPECIFIC_RESET_FLAGS extends Win32Struct
-{
+class BUS_SPECIFIC_RESET_FLAGS extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
@@ -25,7 +23,7 @@ class BUS_SPECIFIC_RESET_FLAGS extends Win32Struct
             get => NumGet(this, 0, "uint")
             set => NumPut("uint", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -33,16 +31,15 @@ class BUS_SPECIFIC_RESET_FLAGS extends Win32Struct
             get => (this._bitfield >> 0) & 0x1
             set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
         }
-    
     }
 
     /**
      * @type {_u}
      */
-    u{
+    u {
         get {
             if(!this.HasProp("__u"))
-                this.__u := %this.__Class%._u(0, this)
+                this.__u := BUS_SPECIFIC_RESET_FLAGS._u(0, this)
             return this.__u
         }
     }

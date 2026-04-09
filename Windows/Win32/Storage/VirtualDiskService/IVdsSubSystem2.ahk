@@ -1,18 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\VDS_SUB_SYSTEM_PROP2.ahk
 #Include .\IVdsDrive.ahk
 #Include .\IVdsAsync.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * The IVdsSubSystem2 interface provides methods for performing query and configuration operations on a subsystem using the VDS_HINTS2 and VDS_SUB_SYSTEM_PROP2 structures.
  * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nn-vdshwprv-ivdssubsystem2
  * @namespace Windows.Win32.Storage.VirtualDiskService
- * @version v4.0.30319
  */
-class IVdsSubSystem2 extends IUnknown{
+class IVdsSubSystem2 extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -83,7 +82,7 @@ class IVdsSubSystem2 extends IUnknown{
      *     <b>CreateLun2</b> method exposes the ability to 
      *     create many different types of LUNs (for example, simple, mirror, striped, and parity). However, providers are not required to support all 
      *     types of LUNs. If the caller specifies a value for the <i>type</i> parameter that is not a valid <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ne-vdshwprv-vds_lun_type">VDS_LUN_TYPE</a> enumeration value, the provider should return <b>E_INVALIDARG</b>. If the caller specifies a valid <i>type</i> value that the provider does not support, the provider should return VDS_E_NOT_SUPPORTED.
-     * @param {Integer} type A <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ne-vdshwprv-vds_lun_type">VDS_LUN_TYPE</a> enumeration value that specifies the LUN type. The new 
+     * @param {VDS_LUN_TYPE} type A <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ne-vdshwprv-vds_lun_type">VDS_LUN_TYPE</a> enumeration value that specifies the LUN type. The new 
      *       LUN can be an automagic type or a specific RAID type, but not both. If the caller specifies an automagic type, one or more automagic hints should be specified in the <i>pHints</i> parameter. 
      * 
      * The interface pointer for the new 
@@ -161,7 +160,7 @@ class IVdsSubSystem2 extends IUnknown{
 
     /**
      * The IVdsSubSystem2::QueryMaxLunCreateSize2 (vdshwprv.h) method returns the size of the maximum LUN that can be created using the specified LUN type and hints.
-     * @param {Integer} type A <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ne-vdshwprv-vds_lun_type">VDS_LUN_TYPE</a> enumeration value that specifies the LUN type.
+     * @param {VDS_LUN_TYPE} type A <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ne-vdshwprv-vds_lun_type">VDS_LUN_TYPE</a> enumeration value that specifies the LUN type.
      * @param {Pointer<Guid>} pDriveIdArray A pointer to an array containing a <b>VDS_OBJECT_ID</b> for each of the drives to be 
      *       used in the LUN creation. The provider should attempt to use the drives in the order provided. This parameter 
      *       can be <b>NULL</b> if the <i>lNumberOfDrives</i> parameter is zero, in which 

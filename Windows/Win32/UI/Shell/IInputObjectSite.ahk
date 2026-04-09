@@ -13,9 +13,8 @@
  * <b>IInputObjectSite</b> is derived from <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>. The listed method is specific to <b>IInputObjectSite</b>.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-iinputobjectsite
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IInputObjectSite extends IUnknown{
+class IInputObjectSite extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

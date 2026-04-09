@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.Search
- * @version v4.0.30319
  */
-class ILoadFilterWithPrivateComActivation extends ILoadFilter{
+class ILoadFilterWithPrivateComActivation extends ILoadFilter {
 
     static sizeof => A_PtrSize
     /**

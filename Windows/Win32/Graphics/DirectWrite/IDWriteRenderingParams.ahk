@@ -7,9 +7,8 @@
  * Represents text rendering settings such as ClearType level, enhanced contrast, and gamma correction for glyph rasterization and filtering.
  * @see https://learn.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwriterenderingparams
  * @namespace Windows.Win32.Graphics.DirectWrite
- * @version v4.0.30319
  */
-class IDWriteRenderingParams extends IUnknown{
+class IDWriteRenderingParams extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -76,7 +75,7 @@ class IDWriteRenderingParams extends IUnknown{
 
     /**
      * Gets the pixel geometry of the rendering parameters object.
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_pixel_geometry">DWRITE_PIXEL_GEOMETRY</a></b>
+     * @returns {DWRITE_PIXEL_GEOMETRY} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_pixel_geometry">DWRITE_PIXEL_GEOMETRY</a></b>
      * 
      *  A value that indicates the type of  pixel geometry used in the rendering parameters object.
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwriterenderingparams-getpixelgeometry
@@ -90,7 +89,7 @@ class IDWriteRenderingParams extends IUnknown{
      * Gets the rendering mode of the rendering parameters object.
      * @remarks
      * By default, the rendering mode is initialized to DWRITE_RENDERING_MODE_DEFAULT, which means the rendering mode is determined automatically based on the font and size. To determine the recommended rendering mode to use for a given font and size and rendering parameters object, use the <a href="https://docs.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefontface-getrecommendedrenderingmode">IDWriteFontFace::GetRecommendedRenderingMode</a> method.
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_rendering_mode">DWRITE_RENDERING_MODE</a></b>
+     * @returns {DWRITE_RENDERING_MODE} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_rendering_mode">DWRITE_RENDERING_MODE</a></b>
      * 
      * A value that indicates the rendering mode of the rendering parameters object.
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwriterenderingparams-getrenderingmode

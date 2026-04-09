@@ -5,10 +5,8 @@
  * Description of a vertex element in a vertex buffer in an output slot. (D3D11_SO_DECLARATION_ENTRY)
  * @see https://learn.microsoft.com/windows/win32/api/d3d11/ns-d3d11-d3d11_so_declaration_entry
  * @namespace Windows.Win32.Graphics.Direct3D11
- * @version v4.0.30319
  */
-class D3D11_SO_DECLARATION_ENTRY extends Win32Struct
-{
+class D3D11_SO_DECLARATION_ENTRY extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

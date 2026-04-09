@@ -3,18 +3,16 @@
 
 /**
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class BDA_ETHERNET_ADDRESS extends Win32Struct
-{
+class BDA_ETHERNET_ADDRESS extends Win32Struct {
     static sizeof => 6
 
     static packingSize => 1
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    rgbAddress{
+    rgbAddress {
         get {
             if(!this.HasProp("__rgbAddressProxyArray"))
                 this.__rgbAddressProxyArray := Win32FixedArray(this.ptr + 0, 6, Primitive, "char")

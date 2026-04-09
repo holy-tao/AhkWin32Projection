@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\RECT.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\RECT.ahk
 
 /**
  * Encapsulates content inside a viewport, where content represents a visual surface clipped inside the viewport.
@@ -10,9 +10,8 @@
  * The system provides an implementation of <b>IDirectManipulationContent</b>.
  * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nn-directmanipulation-idirectmanipulationcontent
  * @namespace Windows.Win32.Graphics.DirectManipulation
- * @version v4.0.30319
  */
-class IDirectManipulationContent extends IUnknown{
+class IDirectManipulationContent extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -62,7 +61,7 @@ class IDirectManipulationContent extends IUnknown{
     /**
      * Retrieves the viewport that contains the content.
      * @param {Pointer<Guid>} riid A reference to the identifier of the interface to use.
-     * @returns {Pointer<Void>} 
+     * @returns {Pointer<Void>} The viewport object.
      * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nf-directmanipulation-idirectmanipulationcontent-getviewport
      */
     GetViewport(riid) {
@@ -80,7 +79,7 @@ class IDirectManipulationContent extends IUnknown{
      * A tag is a pairing of an integer ID (<i>id</i>) with a Component Object Model (COM) object (<i>object</i>). It can be used by an app to identify a motion.
      * The parameters are optional, so that the method can return both parts of the tag, the identifier portion, or the tag object.
      * @param {Pointer<Guid>} riid A reference to the identifier of the interface to use. The tag object typically implements this interface.
-     * @param {Pointer<Pointer<Void>>} _object 
+     * @param {Pointer<Pointer<Void>>} _object The tag object.
      * @param {Pointer<Integer>} id The ID portion of the tag.
      * @returns {HRESULT} If the method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nf-directmanipulation-idirectmanipulationcontent-gettag
@@ -101,7 +100,7 @@ class IDirectManipulationContent extends IUnknown{
      * A tag is a pairing of an integer ID  (<i>id</i>) with a Component Object Model (COM) object (<i>object</i>). It can be used by an app to store and retrieve an arbitrary object associated with the content.
      * 
      * The <i>object</i> parameter is optional, so that the method can set just the identifier portion.
-     * @param {IUnknown} _object 
+     * @param {IUnknown} _object The object portion of the tag.
      * @param {Integer} id The ID portion of the tag.
      * @returns {HRESULT} If the method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nf-directmanipulation-idirectmanipulationcontent-settag
@@ -118,7 +117,7 @@ class IDirectManipulationContent extends IUnknown{
      * 
      * This transform contains both the content transform and the sync transform set with <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/directmanipulation/nf-directmanipulation-idirectmanipulationcontent-synccontenttransform">SyncContentTransform</a>.
      * @param {Integer} pointCount The size of the transform matrix. This value is always 6, because a 3x2 matrix is used for all direct manipulation transforms.
-     * @returns {Float} 
+     * @returns {Float} The transform matrix.
      * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nf-directmanipulation-idirectmanipulationcontent-getoutputtransform
      */
     GetOutputTransform(pointCount) {
@@ -144,7 +143,7 @@ class IDirectManipulationContent extends IUnknown{
      * <i>matrix</i>
      * <i>matrix</i>
      * @param {Integer} pointCount The size of the transform matrix. This value is always 6, because a 3x2 matrix is used for all direct manipulation transforms.
-     * @returns {Float} 
+     * @returns {Float} The transform matrix.
      * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nf-directmanipulation-idirectmanipulationcontent-getcontenttransform
      */
     GetContentTransform(pointCount) {
@@ -158,7 +157,7 @@ class IDirectManipulationContent extends IUnknown{
      * This method will fail if the viewport state is <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/directmanipulation/ne-directmanipulation-directmanipulation_status">DIRECTMANIPULATION_RUNNING</a>, <b>DIRECTMANIPULATION_INERTIA</b> or <b>DIRECTMANIPULATION_SUSPENDED</b>.
      * 
      * This method is useful when the application wants to apply transforms on top of the content transforms at the end of a manipulation, while preserving the visual output transform of the content.
-     * @param {Pointer<Float>} _matrix 
+     * @param {Pointer<Float>} _matrix The transform matrix.
      * @param {Integer} pointCount The size of the transform matrix. This value is always 6, because a 3x2 matrix is used for all direct manipulation transforms.
      * @returns {HRESULT} If the method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nf-directmanipulation-idirectmanipulationcontent-synccontenttransform

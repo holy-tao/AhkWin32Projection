@@ -1,19 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32Struct.ahk
+#Include .\EXT_TDOP.ahk
 #Include .\DEBUG_TYPED_DATA.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
- * @version v4.0.30319
  */
-class EXT_TYPED_DATA extends Win32Struct
-{
+class EXT_TYPED_DATA extends Win32Struct {
     static sizeof => 392
 
     static packingSize => 8
 
     /**
-     * @type {Integer}
+     * @type {EXT_TDOP}
      */
     Operation {
         get => NumGet(this, 0, "int")
@@ -31,7 +30,7 @@ class EXT_TYPED_DATA extends Win32Struct
     /**
      * @type {DEBUG_TYPED_DATA}
      */
-    InData{
+    InData {
         get {
             if(!this.HasProp("__InData"))
                 this.__InData := DEBUG_TYPED_DATA(8, this)
@@ -42,7 +41,7 @@ class EXT_TYPED_DATA extends Win32Struct
     /**
      * @type {DEBUG_TYPED_DATA}
      */
-    OutData{
+    OutData {
         get {
             if(!this.HasProp("__OutData"))
                 this.__OutData := DEBUG_TYPED_DATA(136, this)
@@ -147,9 +146,9 @@ class EXT_TYPED_DATA extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt64>}
+     * @type {Array<Integer>}
      */
-    Reserved{
+    Reserved {
         get {
             if(!this.HasProp("__ReservedProxyArray"))
                 this.__ReservedProxyArray := Win32FixedArray(this.ptr + 328, 8, Primitive, "uint")

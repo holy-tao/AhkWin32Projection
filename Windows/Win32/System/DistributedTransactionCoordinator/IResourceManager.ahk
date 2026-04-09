@@ -7,9 +7,8 @@
  * The IResourceManager interface resolves contentions for system resources.The filter graph manager exposes this interface.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-iresourcemanager
  * @namespace Windows.Win32.System.DistributedTransactionCoordinator
- * @version v4.0.30319
  */
-class IResourceManager extends IUnknown{
+class IResourceManager extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -52,7 +51,7 @@ class IResourceManager extends IUnknown{
      * @param {Pointer<Integer>} pPrepInfo 
      * @param {Integer} cbPrepInfo 
      * @param {Integer} lTimeout 
-     * @returns {Integer} 
+     * @returns {XACTSTAT} 
      */
     Reenlist(pPrepInfo, cbPrepInfo, lTimeout) {
         pPrepInfoMarshal := pPrepInfo is VarRef ? "char*" : "ptr"

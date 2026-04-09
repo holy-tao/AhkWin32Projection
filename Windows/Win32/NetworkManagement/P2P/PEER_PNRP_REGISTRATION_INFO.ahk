@@ -1,15 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Networking\WinSock\SOCKADDR.ahk
 #Include .\PEER_DATA.ahk
 
 /**
  * Contains the information provided by a peer identity when it registers with a PNRP cloud.
  * @see https://learn.microsoft.com/windows/win32/api/p2p/ns-p2p-peer_pnrp_registration_info
  * @namespace Windows.Win32.NetworkManagement.P2P
- * @version v4.0.30319
  */
-class PEER_PNRP_REGISTRATION_INFO extends Win32Struct
-{
+class PEER_PNRP_REGISTRATION_INFO extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 8
@@ -70,10 +69,10 @@ class PEER_PNRP_REGISTRATION_INFO extends Win32Struct
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/p2p/ns-p2p-peer_data">PEER_DATA</a> structure that contains a pointer to an opaque byte buffer containing application-specific data for the peer endpoint (such as a message or an image).
-     * @deprecated 
+     * @deprecated
      * @type {PEER_DATA}
      */
-    payload{
+    payload {
         get {
             if(!this.HasProp("__payload"))
                 this.__payload := PEER_DATA(48, this)

@@ -14,10 +14,8 @@
  * This structure is defined in the <i>Ipexport.h</i> header file which is automatically included in the <i>Iphlpapi.h</i> header file. The <i>Ipexport.h</i> header file should never be used directly.
  * @see https://learn.microsoft.com/windows/win32/api/ipexport/ns-ipexport-ip_adapter_index_map
  * @namespace Windows.Win32.NetworkManagement.IpHelper
- * @version v4.0.30319
  */
-class IP_ADAPTER_INDEX_MAP extends Win32Struct
-{
+class IP_ADAPTER_INDEX_MAP extends Win32Struct {
     static sizeof => 260
 
     static packingSize => 4

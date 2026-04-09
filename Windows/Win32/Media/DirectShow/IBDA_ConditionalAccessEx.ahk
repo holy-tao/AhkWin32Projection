@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -10,9 +9,8 @@
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IBDA_ConditionalAccessEx)</c>.
  * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nn-bdaiface-ibda_conditionalaccessex
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IBDA_ConditionalAccessEx extends IUnknown{
+class IBDA_ConditionalAccessEx extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -37,7 +35,7 @@ class IBDA_ConditionalAccessEx extends IUnknown{
      * Checks the access availability of content that is identified by an entitlement token.
      * @param {Integer} ulDialogRequest A dialog request number that specifies the dialog that might be triggered by setting the value. A dialog is part of the device's user interface (MMI).
      * @param {BSTR} bstrLanguage The language of the dialog. This string contains an ISO 639-2 language code with a dash followed by an ISO 3166 country/region code.
-     * @param {Integer} RequestType The type of access that is being requested, specified as a member of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mstv/bda-conditionalaccess-requesttype">BDA_CONDITIONALACCESS_REQUESTTYPE</a> enumeration.
+     * @param {BDA_CONDITIONALACCESS_REQUESTTYPE} RequestType The type of access that is being requested, specified as a member of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mstv/bda-conditionalaccess-requesttype">BDA_CONDITIONALACCESS_REQUESTTYPE</a> enumeration.
      * @param {Integer} ulcbEntitlementTokenLen The size, in bytes, of the <i>pbEntitlementToken</i> array.
      * @param {Pointer<Integer>} pbEntitlementToken Pointer to a byte array that contains the entitlement token.
      * @returns {Integer} Receives a status code indicating the descrambling status. For more information, see <i>Protected Broadcast Driver Architecture, Part 1: Core Services</i>, section 5.5.
@@ -86,7 +84,7 @@ class IBDA_ConditionalAccessEx extends IUnknown{
      * @param {Integer} ulDialogRequest A logical link with the user interface (MMI) dialog that was triggered by the action.
      * @param {BSTR} bstrLanguage The language for any dialogs resulting from this action. This string contains an ISO 639-2 language code with a dash followed by an ISO 3166 country/region code.
      * @param {Integer} ulDialogNumber The dialog number of the dialog that was closed.
-     * @param {Integer} ReasonCode The reason for closing the dialog,  specified as a member of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mstv/bda-conditionalaccess-mmiclosereason">BDA_CONDITIONALACCESS_MMICLOSEREASON</a> enumeration.
+     * @param {BDA_CONDITIONALACCESS_MMICLOSEREASON} ReasonCode The reason for closing the dialog,  specified as a member of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mstv/bda-conditionalaccess-mmiclosereason">BDA_CONDITIONALACCESS_MMICLOSEREASON</a> enumeration.
      * @returns {Integer} Receives the result code for the MMI session. For more information, see <i>Protected Broadcast Driver Architecture, Part 1: Core Services - CAS</i>, section 2.6.6.
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_conditionalaccessex-closemmidialog
      */

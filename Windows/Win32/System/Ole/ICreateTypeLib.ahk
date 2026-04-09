@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ICreateTypeInfo.ahk
 #Include ..\Com\IUnknown.ahk
+#Include .\ICreateTypeInfo.ahk
 
 /**
  * Provides the methods for creating and managing the component or file that contains type information. (ICreateTypeLib)
  * @see https://learn.microsoft.com/windows/win32/api/oaidl/nn-oaidl-icreatetypelib
  * @namespace Windows.Win32.System.Ole
- * @version v4.0.30319
  */
-class ICreateTypeLib extends IUnknown{
+class ICreateTypeLib extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -36,7 +35,7 @@ class ICreateTypeLib extends IUnknown{
      * @remarks
      * Use <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nn-oaidl-icreatetypelib">ICreateTypeLib</a> to create a new type description instance within the library. An error is returned if the specified name already appears in the library. Valid <i>tkind</i> values are described in TYPEKIND. To get the type information of the type description that is being created, call <c>IUnknown::QueryInterface(IID_ITypeInfo, ...)</c> on the returned <b>ICreateTypeLib</b>. This type information can be used by other type descriptions that reference it by using <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nf-oaidl-icreatetypeinfo-addreftypeinfo">ICreateTypeInfo::AddRefTypeInfo</a>.
      * @param {PWSTR} szName The name of the new type.
-     * @param {Integer} tkind TYPEKIND of the type description to be created.
+     * @param {TYPEKIND} tkind TYPEKIND of the type description to be created.
      * @returns {ICreateTypeInfo} The type description.
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-icreatetypelib-createtypeinfo
      */

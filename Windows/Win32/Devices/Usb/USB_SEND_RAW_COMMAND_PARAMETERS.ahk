@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.Usb
- * @version v4.0.30319
  */
-class USB_SEND_RAW_COMMAND_PARAMETERS extends Win32Struct
-{
+class USB_SEND_RAW_COMMAND_PARAMETERS extends Win32Struct {
     static sizeof => 28
 
     static packingSize => 4
@@ -92,9 +90,9 @@ class USB_SEND_RAW_COMMAND_PARAMETERS extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Data{
+    Data {
         get {
             if(!this.HasProp("__DataProxyArray"))
                 this.__DataProxyArray := Win32FixedArray(this.ptr + 24, 4, Primitive, "char")

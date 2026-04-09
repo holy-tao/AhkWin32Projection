@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\Com\IDispatch.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * Exposes methods that allow a plug-in to manage third-party file name extensions in RemoteApp and Desktop Connection runtime.
  * @see https://learn.microsoft.com/windows/win32/api/workspaceax/nn-workspaceax-iworkspacerestyperegistry
  * @namespace Windows.Win32.System.RemoteDesktop
- * @version v4.0.30319
  */
-class IWorkspaceResTypeRegistry extends IDispatch{
+class IWorkspaceResTypeRegistry extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

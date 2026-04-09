@@ -1,9 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IXpsOMVisual.ahk
-#Include .\IXpsOMVisualBrush.ahk
 #Include .\IXpsOMTileBrush.ahk
+#Include .\IXpsOMVisual.ahk
 
 /**
  * A brush that uses a visual element as a source.
@@ -58,9 +57,8 @@
  * ```
  * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomvisualbrush
  * @namespace Windows.Win32.Storage.Xps
- * @version v4.0.30319
  */
-class IXpsOMVisualBrush extends IXpsOMTileBrush{
+class IXpsOMVisualBrush extends IXpsOMTileBrush {
 
     static sizeof => A_PtrSize
     /**

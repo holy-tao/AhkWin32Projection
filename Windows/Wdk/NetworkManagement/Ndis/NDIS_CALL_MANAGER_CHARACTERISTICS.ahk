@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.NetworkManagement.Ndis
- * @version v4.0.30319
  */
-class NDIS_CALL_MANAGER_CHARACTERISTICS extends Win32Struct
-{
+class NDIS_CALL_MANAGER_CHARACTERISTICS extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 8

@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.TransactionServer
- * @version v4.0.30319
  */
-class MTSPackageInstallOptions extends Win32Enum{
+class MTSPackageInstallOptions extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

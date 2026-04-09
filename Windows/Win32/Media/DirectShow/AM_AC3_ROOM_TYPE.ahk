@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class AM_AC3_ROOM_TYPE extends Win32Struct
-{
+class AM_AC3_ROOM_TYPE extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 4

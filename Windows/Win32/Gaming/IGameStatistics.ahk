@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Gaming
- * @version v4.0.30319
  */
-class IGameStatistics extends IUnknown{
+class IGameStatistics extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

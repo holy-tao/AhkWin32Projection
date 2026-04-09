@@ -1,13 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\DDSCAPS.ahk
+#Include .\VMEMHEAP.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw
- * @version v4.0.30319
  */
-class VIDMEM extends Win32Struct
-{
+class VIDMEM extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8
@@ -47,7 +46,7 @@ class VIDMEM extends Win32Struct
     /**
      * @type {DDSCAPS}
      */
-    ddsCaps{
+    ddsCaps {
         get {
             if(!this.HasProp("__ddsCaps"))
                 this.__ddsCaps := DDSCAPS(28, this)
@@ -58,7 +57,7 @@ class VIDMEM extends Win32Struct
     /**
      * @type {DDSCAPS}
      */
-    ddsCapsAlt{
+    ddsCapsAlt {
         get {
             if(!this.HasProp("__ddsCapsAlt"))
                 this.__ddsCapsAlt := DDSCAPS(32, this)

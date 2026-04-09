@@ -58,9 +58,8 @@
  *     Locations</a>.
  * @see https://learn.microsoft.com/windows/win32/api/vswriter/ne-vswriter-vss_restoremethod_enum
  * @namespace Windows.Win32.Storage.Vss
- * @version v4.0.30319
  */
-class VSS_RESTOREMETHOD_ENUM extends Win32Enum{
+class VSS_RESTOREMETHOD_ENUM extends Win32Enum {
 
     /**
      * No restore method is defined. 

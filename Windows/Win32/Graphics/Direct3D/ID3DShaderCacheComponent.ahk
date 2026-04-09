@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\D3D_SHADER_CACHE_PSDB_PROPERTIES.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\D3D_SHADER_CACHE_PSDB_PROPERTIES.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D
- * @version v4.0.30319
  */
-class ID3DShaderCacheComponent extends IUnknown{
+class ID3DShaderCacheComponent extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

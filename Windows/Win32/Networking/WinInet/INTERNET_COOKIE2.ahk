@@ -9,10 +9,8 @@
  * > WinINet does not support server implementations. In addition, it should not be used from a service. For server implementations or services use [Microsoft Windows HTTP Services (WinHTTP)](/windows/desktop/winhttp/winhttp-start-page).
  * @see https://learn.microsoft.com/windows/win32/api/wininet/ns-wininet-internet_cookie2
  * @namespace Windows.Win32.Networking.WinInet
- * @version v4.0.30319
  */
-class INTERNET_COOKIE2 extends Win32Struct
-{
+class INTERNET_COOKIE2 extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -77,7 +75,7 @@ class INTERNET_COOKIE2 extends Win32Struct
      * The expiry time of the cookie.
      * @type {FILETIME}
      */
-    ftExpires{
+    ftExpires {
         get {
             if(!this.HasProp("__ftExpires"))
                 this.__ftExpires := FILETIME(36, this)

@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
 #Include .\IGPMResult.ahk
 #Include .\IGPMSecurityInfo.ahk
-#Include ..\Com\IDispatch.ahk
 
 /**
  * The IGPMStarterGPO interface supports methods that enable you to manage Starter Group Policy Objects (GPOs) in the directory service.
@@ -23,9 +23,8 @@
  * The <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/gpmgmt/nf-gpmgmt-igpmstartergpo-save">Save</a> method has no corresponding method in the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/gpmgmt/nn-gpmgmt-igpmgpo2">IGPMGPO2</a> interface.  The <b>Save</b> method will generate a CAB file containing all the contents of a single Starter GPO.  The objective of this method is to allow a user to save a Starter GPO in a form that can be easily redistributed. There is no way to create a CAB file containing multiple Starter GPOs.
  * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nn-gpmgmt-igpmstartergpo
  * @namespace Windows.Win32.System.GroupPolicy
- * @version v4.0.30319
  */
-class IGPMStarterGPO extends IDispatch{
+class IGPMStarterGPO extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -98,7 +97,7 @@ class IGPMStarterGPO extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {GPMStarterGPOType} 
      */
     Type {
         get => this.get_Type()
@@ -219,7 +218,7 @@ class IGPMStarterGPO extends IDispatch{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {GPMStarterGPOType} 
      */
     get_Type() {
         result := ComCall(16, this, "int*", &pVal := 0, "HRESULT")
@@ -336,7 +335,7 @@ class IGPMStarterGPO extends IDispatch{
 
     /**
      * Gets the report for the Starter GPO.
-     * @param {Integer} _gpmReportType 
+     * @param {GPMReportType} _gpmReportType Specifies whether the report is in XML or HTML.
      * @param {Pointer<VARIANT>} pvarGPMProgress Pointer to an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/gpmgmt/nn-gpmgmt-igpmasyncprogress">IGPMAsyncProgress</a> interface that allows the client to receive status notifications about the progress of the copy operation. If not <b>NULL</b>, the call to <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/gpmgmt/nf-gpmgmt-igpmbackup-generatereport">GenerateReport</a> is handled asynchronously and <i>pvarGPMCancel</i> receives a pointer to an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/gpmgmt/nn-gpmgmt-igpmasynccancel">IGPMAsyncCancel</a> interface.   If this parameter is <b>NULL</b> the call to <b>GenerateReport</b> is handled synchronously. The <i>pvarGPMProgress</i> parameter must be <b>NULL</b> if the client should not receive asynchronous notifications.
      * @param {Pointer<VARIANT>} pvarGPMCancel Receives a pointer to an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/gpmgmt/nn-gpmgmt-igpmasynccancel">IGPMAsyncCancel</a> interface that the client can use to cancel the copy operation. This parameter is not returned if <i>pvarGPMProgress</i> is <b>NULL</b>.
      * @returns {IGPMResult} Pointer to an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/gpmgmt/nn-gpmgmt-igpmresult">IGPMResult</a>. The Result property contains  a binary string of XML or HTML. The Status property contains a reference to an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/gpmgmt/nn-gpmgmt-igpmstatusmsgcollection">IGPMStatusMsgCollection</a>.
@@ -349,7 +348,7 @@ class IGPMStarterGPO extends IDispatch{
 
     /**
      * The GenerateReportToFile method gets the report for the GPO and saves it to a file at a specified path.
-     * @param {Integer} _gpmReportType 
+     * @param {GPMReportType} _gpmReportType Specifies whether the report is in XML or HTML.
      * @param {BSTR} bstrTargetFilePath Binary string that contains the path to the file where the report is being saved. Use null-terminated string.
      * @returns {IGPMResult} Pointer to an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/gpmgmt/nn-gpmgmt-igpmresult">IGPMResult</a> interface. The <b>Status</b> property contains a reference to an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/gpmgmt/nn-gpmgmt-igpmstatusmsgcollection">IGPMStatusMsgCollection</a>.
      * 

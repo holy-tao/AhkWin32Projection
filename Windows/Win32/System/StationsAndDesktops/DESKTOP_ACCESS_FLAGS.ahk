@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.StationsAndDesktops
- * @version v4.0.30319
  */
-class DESKTOP_ACCESS_FLAGS extends Win32Enum{
+class DESKTOP_ACCESS_FLAGS extends Win32Enum {
 
     /**
      * @type {Integer (UInt32)}

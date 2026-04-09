@@ -1,21 +1,20 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\ALG_ID.ahk
 
 /**
  * The HMAC_INFO structure specifies the hash algorithm and the inner and outer strings that are to be used to calculate the HMAC hash.
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-hmac_info
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class HMAC_INFO extends Win32Struct
-{
+class HMAC_INFO extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
 
     /**
      * Specifies the hash algorithm to be used.
-     * @type {Integer}
+     * @type {ALG_ID}
      */
     HashAlgid {
         get => NumGet(this, 0, "uint")

@@ -5,9 +5,8 @@
  * The optimization mode for the Gaussian blur effect.
  * @see https://learn.microsoft.com/windows/win32/api/d2d1effects/ne-d2d1effects-d2d1_gaussianblur_optimization
  * @namespace Windows.Win32.Graphics.Direct2D
- * @version v4.0.30319
  */
-class D2D1_GAUSSIANBLUR_OPTIMIZATION extends Win32Enum{
+class D2D1_GAUSSIANBLUR_OPTIMIZATION extends Win32Enum {
 
     /**
      * Applies internal optimizations such as pre-scaling at relatively small radii. Uses linear filtering.

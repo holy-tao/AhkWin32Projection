@@ -1,18 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IMediaFilter.ahk
 #Include .\IEnumPins.ahk
 #Include .\IPin.ahk
 #Include .\FILTER_INFO.ahk
-#Include .\IMediaFilter.ahk
 
 /**
  * The IBaseFilter interface is the primary interface for DirectShow filters.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-ibasefilter
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IBaseFilter extends IMediaFilter{
+class IBaseFilter extends IMediaFilter {
 
     static sizeof => A_PtrSize
     /**

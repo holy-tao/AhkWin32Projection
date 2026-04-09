@@ -6,7 +6,6 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.NetManagement
- * @version v4.0.30319
  */
 class NetManagement {
 
@@ -10666,7 +10665,7 @@ class NetManagement {
      * 		function supports a <i>level</i> parameter of 4 and the <b>USER_INFO_4</b> structure.
      * @param {PWSTR} servername A pointer to a constant string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
      * @param {Integer} level 
-     * @param {Integer} filter A value that specifies the user account types to be included in the enumeration. A value of zero indicates that all normal user, trust data, and machine account data should be included.
+     * @param {NET_USER_ENUM_FILTER_FLAGS} filter A value that specifies the user account types to be included in the enumeration. A value of zero indicates that all normal user, trust data, and machine account data should be included.
      * @param {Pointer<Pointer<Integer>>} bufptr A pointer to the buffer that receives the data. The format of this data depends on the value of the <i>level</i> parameter. 
      * 
      * The buffer for this data is allocated by the system and the application must call the <a href="https://docs.microsoft.com/windows/desktop/api/lmapibuf/nf-lmapibuf-netapibufferfree">NetApiBufferFree</a> function to free the allocated memory when the data returned is no longer needed. Note that you must free the buffer even if the <b>NetUserEnum</b> function fails with ERROR_MORE_DATA.
@@ -14511,7 +14510,7 @@ class NetManagement {
      * @param {PWSTR} ServerName A pointer to a constant Unicode string specifying the name of the remote server on which the function is to execute. This string must
      *         begin with \\ followed by the remote server name. If this parameter is <b>NULL</b>, the local computer is used.
      * @param {Pointer<Void>} Qualifier Reserved for future use. This parameter must be <b>NULL</b>.
-     * @param {Integer} ValidationType The type of password validation to perform. This parameter must be one of the following enumerated constant values. 
+     * @param {NET_VALIDATE_PASSWORD_TYPE} ValidationType The type of password validation to perform. This parameter must be one of the following enumerated constant values. 
      * 
      * 
      * 
@@ -14936,7 +14935,9 @@ class NetManagement {
      * </table>
      * @param {Integer} QueryLevel Indicates what information should be returned from the Netlogon service. This value can be any of the following structures.
      * @param {Pointer<Integer>} Data Carries input data that depends on the value specified in the <i>FunctionCode</i> parameter. The NETLOGON_CONTROL_REDISCOVER and NETLOGON_CONTROL_TC_QUERY function codes specify the trusted domain name (the data type is <b>LPWSTR *</b>).
-     * @param {Pointer<Pointer<Integer>>} _Buffer 
+     * @param {Pointer<Pointer<Integer>>} _Buffer Returns a pointer to a buffer that contains the requested information in the structure passed in the <i>QueryLevel</i> parameter.
+     * 
+     *  The buffer must be freed using <a href="https://docs.microsoft.com/windows/desktop/api/lmapibuf/nf-lmapibuf-netapibufferfree">NetApiBufferFree</a>.
      * @returns {Integer} The method returns 0x00000000 (<b>NERR_Success</b>) on success; otherwise, it returns a nonzero error code defined in Lmerr.h or Winerror.h. NET_API_STATUS error codes begin with the value 0x00000834. For more information about network management error codes, see <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/network-management-error-codes">Network_Management_Error_Codes</a>. The following table describes possible return values.
      * 
      * <table>
@@ -15232,7 +15233,7 @@ class NetManagement {
      * @param {PWSTR} ServerName 
      * @param {PWSTR} AccountName 
      * @param {Pointer<BOOL>} IsService 
-     * @param {Pointer<Integer>} AccountType 
+     * @param {Pointer<MSA_INFO_ACCOUNT_TYPE>} AccountType 
      * @returns {NTSTATUS} 
      */
     static NetIsServiceAccount2(ServerName, AccountName, IsService, AccountType) {
@@ -15270,7 +15271,9 @@ class NetManagement {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Pointer<Integer>>} _Buffer 
+     * @param {Pointer<Pointer<Integer>>} _Buffer Information about the specified service account.
+     * 
+     * When you have finished using this buffer, free it by calling the <a href="https://docs.microsoft.com/windows/desktop/api/lmapibuf/nf-lmapibuf-netapibufferfree">NetApiBufferFree</a> function.
      * @returns {NTSTATUS} If the function succeeds, it returns <b>STATUS_SUCCESS</b>.
      * 
      * If the function fails, it returns an error code.
@@ -15356,7 +15359,18 @@ class NetManagement {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Void>} _Buffer 
+     * @param {Pointer<Void>} _Buffer A pointer to the data to send to the clients listening for the interrupting message. The data should begin with a fixed-length 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/lmalert/ns-lmalert-std_alert">STD_ALERT</a> structure followed by additional message data in one 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/lmalert/ns-lmalert-admin_other_info">ADMIN_OTHER_INFO</a>, 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/lmalert/ns-lmalert-errlog_other_info">ERRLOG_OTHER_INFO</a>, 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/lmalert/ns-lmalert-print_other_info">PRINT_OTHER_INFO</a>, or 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/lmalert/ns-lmalert-user_other_info">USER_OTHER_INFO</a> structure. Finally, the buffer should include any required variable-length information. For more information, see the code sample in the following Remarks section. 
+     * 
+     * 
+     * 
+     * 
+     * The calling application must allocate and free the memory for all structures and variable data. For more information, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/network-management-function-buffers">Network Management Function Buffers</a>.
      * @param {Integer} BufferSize The size, in bytes, of the message buffer.
      * @returns {Integer} If the function succeeds, the return value is NERR_Success.
      * 
@@ -16094,7 +16108,7 @@ class NetManagement {
      * No special group membership is required to successfully execute the 
      * <b>NetRemoteComputerSupports</b> function.
      * @param {PWSTR} UncServerName Pointer to a constant string that specifies the name of the remote server to query. If this parameter is <b>NULL</b>, the local computer is used.
-     * @param {Integer} OptionsWanted 
+     * @param {NET_REMOTE_COMPUTER_SUPPORTS_OPTIONS} OptionsWanted 
      * @param {Pointer<Integer>} OptionsSupported Pointer to a value that receives a set of bit flags. The flags indicate which features specified by the <i>OptionsWanted</i> parameter are implemented on the computer specified by the <i>UncServerName</i> parameter. (All other bits are set to zero.) 
      * 
      * 
@@ -16439,7 +16453,7 @@ class NetManagement {
      * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/network-management-function-buffer-lengths">Network Management Function Buffer Lengths</a>.
      * @param {Pointer<Integer>} entriesread A pointer to a value that receives the count of elements actually enumerated.
      * @param {Pointer<Integer>} totalentries A pointer to a value that receives the total number of visible servers and workstations on the network. Note that applications should consider this value only as a hint.
-     * @param {Integer} servertype 
+     * @param {NET_SERVER_TYPE} servertype 
      * @param {PWSTR} domain A pointer to a constant string that specifies the name of the domain for which a list of servers is to be returned. The domain name must be a NetBIOS domain name (for example, microsoft). 
      * The <b>NetServerEnum</b> function does not support DNS-style names (for example, microsoft.com). 
      * 
@@ -17807,7 +17821,7 @@ class NetManagement {
      * @param {PWSTR} UseName A pointer to a string that specifies the path of the connection to delete.
      * 
      * This string is Unicode if  <b>_WIN32_WINNT</b> or <b>FORCE_UNICODE</b> are defined.
-     * @param {Integer} ForceLevelFlags The level of force to use in deleting the connection.
+     * @param {FORCE_LEVEL_FLAGS} ForceLevelFlags The level of force to use in deleting the connection.
      * @returns {Integer} If the function succeeds, the return value is NERR_Success.
      * 
      * If the function fails, the return value is a system error code. For a list of error codes, see 
@@ -18163,7 +18177,8 @@ class NetManagement {
      * <b>NetWkstaSetInfo</b> can be overwritten when workstation parameters are reset.
      * @param {PWSTR} servername A pointer to a string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
      * @param {Integer} level 
-     * @param {Pointer<Integer>} _buffer 
+     * @param {Pointer<Integer>} _buffer A pointer to the buffer that specifies the data. The format of this data depends on the value of the <i>level</i> parameter. For more information, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/network-management-function-buffers">Network Management Function Buffers</a>.
      * @param {Pointer<Integer>} parm_err A pointer to a value that receives the index of the first member of the workstation information structure that causes the ERROR_INVALID_PARAMETER error. If this parameter is <b>NULL</b>, the index is not returned on error. For more information, see the Remarks section.
      * @returns {Integer} If the function succeeds, the return value is NERR_Success.
      * 
@@ -18549,7 +18564,7 @@ class NetManagement {
      * 
      * This string must begin with \\.
      * @param {PWSTR} transportname Pointer to a string that specifies the name of the transport protocol to disconnect from the redirector.
-     * @param {Integer} ucond 
+     * @param {FORCE_LEVEL_FLAGS} ucond 
      * @returns {Integer} If the function succeeds, the return value is NERR_Success.
      * 
      * If the function fails, the return value can be one of the following error codes.
@@ -18735,7 +18750,7 @@ class NetManagement {
      * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/network-management-function-buffers">Network Management Function Buffers</a> and 
      * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/network-management-function-buffer-lengths">Network Management Function Buffer Lengths</a>.
      * @param {Integer} ByteCount Number of bytes to be allocated.
-     * @param {Pointer<Pointer<Void>>} _Buffer 
+     * @param {Pointer<Pointer<Void>>} _Buffer Receives a pointer to the allocated buffer.
      * @returns {Integer} If the function succeeds, the return value is NERR_Success.
      * 
      * If the function fails, the return value is a system error code. For a list of error codes, see 
@@ -18772,7 +18787,7 @@ class NetManagement {
      * 
      * For a code sample that demonstrates how to use of the <b>NetApiBufferFree</b> function to free memory internally allocated by a network management function to return information, see 
      * the <a href="https://docs.microsoft.com/windows/desktop/api/lmserver/nf-lmserver-netserverenum">NetServerEnum</a> function.
-     * @param {Pointer<Void>} _Buffer 
+     * @param {Pointer<Void>} _Buffer A pointer to a buffer returned previously by another network management function or memory allocated by calling the <a href="https://docs.microsoft.com/windows/desktop/api/lmapibuf/nf-lmapibuf-netapibufferallocate">NetApiBufferAllocate</a> function.
      * @returns {Integer} If the function succeeds, the return value is NERR_Success.
      * 
      * If the function fails, the return value is a system error code. For a list of error codes, see 
@@ -18822,7 +18837,8 @@ class NetManagement {
      * For a code sample that demonstrates how to use the network management 
      * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/apibuffer-functions">ApiBuffer functions</a>, see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmapibuf/nf-lmapibuf-netapibufferallocate">NetApiBufferAllocate</a>.
-     * @param {Pointer<Void>} _Buffer 
+     * @param {Pointer<Void>} _Buffer Pointer to a buffer returned by the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/lmapibuf/nf-lmapibuf-netapibufferallocate">NetApiBufferAllocate</a> function.
      * @param {Pointer<Integer>} ByteCount Receives the size of the buffer, in bytes.
      * @returns {Integer} If the function succeeds, the return value is NERR_Success.
      * 
@@ -18890,8 +18906,8 @@ class NetManagement {
      * The NetErrorLogWrite function is obsolete. It is included for compatibility with 16-bit versions of Windows. Other applications should use event logging.
      * @param {Pointer<Integer>} Reserved1 TBD
      * @param {Integer} Code TBD
-     * @param {PWSTR} _Component 
-     * @param {Pointer<Integer>} _Buffer 
+     * @param {PWSTR} _Component TBD
+     * @param {Pointer<Integer>} _Buffer TBD
      * @param {Integer} NumBytes TBD
      * @param {Pointer<Integer>} MsgBuf TBD
      * @param {Integer} StrCount TBD
@@ -18914,7 +18930,7 @@ class NetManagement {
     /**
      * The NetConfigGet function is obsolete. It is included for compatibility with 16-bit versions of Windows. Other applications should use the registry.
      * @param {PWSTR} server TBD
-     * @param {PWSTR} _component 
+     * @param {PWSTR} _component TBD
      * @param {PWSTR} parameter TBD
      * @param {Pointer<Pointer<Integer>>} bufptr TBD
      * @returns {Integer} 
@@ -18934,7 +18950,7 @@ class NetManagement {
     /**
      * The NetConfigGetAll function is obsolete. It is included for compatibility with 16-bit versions of Windows. Other applications should use the registry.
      * @param {PWSTR} server TBD
-     * @param {PWSTR} _component 
+     * @param {PWSTR} _component TBD
      * @param {Pointer<Pointer<Integer>>} bufptr TBD
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/lmconfig/nf-lmconfig-netconfiggetall
@@ -18953,7 +18969,7 @@ class NetManagement {
      * The NetConfigSet function is obsolete. It is included for compatibility with 16-bit versions of Windows. Other applications should use the registry.
      * @param {PWSTR} server TBD
      * @param {PWSTR} reserved1 TBD
-     * @param {PWSTR} _component 
+     * @param {PWSTR} _component TBD
      * @param {Integer} level TBD
      * @param {Integer} reserved2 TBD
      * @param {Pointer<Integer>} buf TBD
@@ -19073,7 +19089,7 @@ class NetManagement {
      * 
      * 
      * You can specify a local machine account password rather than a user password for unsecured joins. For more information, see the description of the NETSETUP_MACHINE_PWD_PASSED flag described in the <i>fJoinOptions</i> parameter.
-     * @param {Integer} fJoinOptions 
+     * @param {NET_JOIN_DOMAIN_JOIN_OPTIONS} fJoinOptions 
      * @returns {Integer} If the function succeeds, the return value is NERR_Success.
      * 
      * If the function fails, the return value can be one of the following error codes or one of the 
@@ -19378,7 +19394,7 @@ class NetManagement {
      * @param {PWSTR} lpName A pointer to a constant string that specifies the name to validate. Depending on the value specified in the <i>NameType</i> parameter, the <i>lpName</i>  parameter can point to a computer name, workgroup name, domain name, or DNS computer name.
      * @param {PWSTR} lpAccount If the <i>lpName</i> parameter is a domain name, this parameter points to an account name to use when connecting to the domain controller. The string must specify either a domain NetBIOS name and user account (for example, "REDMOND\user") or the user principal name (UPN) of the user in the form of an Internet-style login name (for example, "someone@example.com"). If this parameter is <b>NULL</b>, the caller's context is used.
      * @param {PWSTR} lpPassword If the <i>lpAccount</i>  parameter specifies an account name, this parameter must point to the password to use when connecting to the domain controller. Otherwise, this parameter must be <b>NULL</b>.
-     * @param {Integer} NameType The type of the name passed in the <i>lpName</i> parameter to validate. This parameter can be one of the values from the NETSETUP_NAME_TYPE enumeration type defined in the <i>Lmjoin.h</i> header file.
+     * @param {NETSETUP_NAME_TYPE} NameType The type of the name passed in the <i>lpName</i> parameter to validate. This parameter can be one of the values from the NETSETUP_NAME_TYPE enumeration type defined in the <i>Lmjoin.h</i> header file.
      * 
      * Note that the <i>Lmjoin.h</i> header is automatically included by the <i>Lm.h</i> header file. The <i>Lmjoin.h</i> header files should not be used directly. 
      * 
@@ -20080,7 +20096,7 @@ class NetManagement {
      * 
      * The <b>NetEnumerateComputerNames</b> function requires that the caller is a member of the Administrators local group on the target computer.
      * @param {PWSTR} Server A pointer to a constant string that specifies the name of the computer on which to execute this function. If this parameter is <b>NULL</b>, the local computer is used.
-     * @param {Integer} NameType 
+     * @param {NET_COMPUTER_NAME_TYPE} NameType 
      * @param {Integer} Reserved Reserved for future use.   This parameter should be <b>NULL</b>.
      * @param {Pointer<Integer>} EntryCount A pointer to a DWORD value that returns the number of names returned
      * in the buffer pointed to by the <i>ComputerNames</i> parameter if the function succeeds.
@@ -20227,7 +20243,7 @@ class NetManagement {
      * 
      * If this parameter is <b>NULL</b>, the well known computer object container will be used as published in the domain.
      * @param {PWSTR} lpDcName An optional pointer to a <b>NULL</b>-terminated character string that contains the name of the domain controller to target.
-     * @param {Integer} dwOptions 
+     * @param {NETSETUP_PROVISION} dwOptions 
      * @param {Pointer<Pointer<Integer>>} pProvisionBinData An optional pointer that will receive the opaque binary blob of serialized metadata required by <a href="https://docs.microsoft.com/windows/desktop/api/lmjoin/nf-lmjoin-netrequestofflinedomainjoin">NetRequestOfflineDomainJoin</a> function to complete an offline domain join, if the <b>NetProvisionComputerAccount</b> function completes successfully.  The data is returned as an opaque binary buffer which may be passed to <b>NetRequestOfflineDomainJoin</b> function.  
      * 
      * If this parameter is <b>NULL</b>, then <i>pProvisionTextData</i> parameter must not be <b>NULL</b>. If this parameter is not <b>NULL</b>, then the  <i>pProvisionTextData</i> parameter must be <b>NULL</b>.
@@ -20405,13 +20421,13 @@ class NetManagement {
      * The opaque blob returned in the  <i>pProvisionBinData</i> parameter by the <a href="https://docs.microsoft.com/windows/desktop/api/lmjoin/nf-lmjoin-netprovisioncomputeraccount">NetProvisionComputerAccount</a> function is versioned to allow interoperability and serviceability scenarios between different versions of Windows (joining client, provisioning machine, and domain controller). The offline join scenario currently does not limit the lifetime of the blob returned by the <b>NetProvisionComputerAccount</b> function.   
      * 
      * For more information on offline domain join operations, see the <a href="https://docs.microsoft.com/previous-versions/windows/it-pro/windows-server-2008-R2-and-2008/dd392267(v=ws.10)">Offline Domain Join Step-by-Step Guide</a>.
-     * @param {Pointer} pProvisionBinData A pointer to a buffer required to initialize the registry of a Windows operating system image to process the final local state change during the completion phase of the offline domain join operation. 
+     * @param {Integer} pProvisionBinData A pointer to a buffer required to initialize the registry of a Windows operating system image to process the final local state change during the completion phase of the offline domain join operation. 
      * 
      * The opaque binary blob of serialized metadata passed in the <i>pProvisionBinData</i> parameter is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/lmjoin/nf-lmjoin-netprovisioncomputeraccount">NetProvisionComputerAccount</a> function.
      * @param {Integer} cbProvisionBinDataSize The size, in bytes, of the buffer pointed to by the <i>pProvisionBinData</i> parameter. 
      * 
      * This parameter must not be <b>NULL</b>.
-     * @param {Integer} dwOptions 
+     * @param {NET_REQUEST_PROVISION_OPTIONS} dwOptions 
      * @param {PWSTR} lpWindowsPath A pointer to a constant null-terminated character string that specifies the path to a Windows operating system image  under which the registry hives are located. This image must be offline and not currently booted unless the <i>dwOptions</i> parameter contains <b>NETSETUP_PROVISION_ONLINE_CALLER</b> in which case the locally running operating system directory is allowed. 
      * 
      * This path could
@@ -20855,13 +20871,13 @@ class NetManagement {
      * The package returned in the  <i>pPackageBinData</i> parameter by the <a href="https://docs.microsoft.com/windows/desktop/api/lmjoin/nf-lmjoin-netcreateprovisioningpackage">NetCreateProvisioningPackage</a> function is versioned to allow interoperability and serviceability scenarios between different versions of Windows (such as joining a client, provisioning a machine, and using a domain controller). The offline join scenario currently does not limit the lifetime of the package returned by the <b>NetCreateProvisioningPackage</b> function.
      * 
      * All phases of the provisioning process append to a  <i>NetSetup.log</i> file on the local computer. The provisioning process can include up to three different computers: the computer where the provisioning package is created,  the computer that requests the installation of the package,  and the computer where the  package is installed. There will be <i>NetSetup.log</i> file information stored on all three computers according to  the operation performed. Reviewing the contents of these files is the most common means of troubleshooting online and offline provisioning errors. Provisioning operations undertaken by admins are logged to the <i>NetSetup.log</i> file in the <i>%WINDIR%\Debug</i>. Provisioning operations performed by non-admins are logged to the <i>NetSetup.log</i> file  in the <i>%USERPROFILE%\Debug</i> folder.
-     * @param {Pointer} pPackageBinData A pointer to a buffer required to initialize the registry of a Windows operating system image to process the final local state change during the completion phase of the offline domain join operation. 
+     * @param {Integer} pPackageBinData A pointer to a buffer required to initialize the registry of a Windows operating system image to process the final local state change during the completion phase of the offline domain join operation. 
      * 
      * The opaque binary blob of serialized metadata passed in the <i>pPackageBinData</i> parameter is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/lmjoin/nf-lmjoin-netprovisioncomputeraccount">NetCreateProvisioningPackage</a> function.
      * @param {Integer} dwPackageBinDataSize The size, in bytes, of the buffer pointed to by the <i>pPackageBinData</i> parameter. 
      * 
      * This parameter must not be <b>NULL</b>.
-     * @param {Integer} dwProvisionOptions 
+     * @param {NET_REQUEST_PROVISION_OPTIONS} dwProvisionOptions 
      * @param {PWSTR} lpWindowsPath A pointer to a <b>NULL</b>-terminated character string that specifies the path to a Windows operating system image  under which the registry hives are located. This image must be offline and not currently booted unless the <i>dwProvisionOptions</i> parameter contains <b>NETSETUP_PROVISION_ONLINE_CALLER</b>, in which case, the locally running operating system directory is allowed. 
      * 
      * This path could
@@ -21063,7 +21079,7 @@ class NetManagement {
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmapibuf/nf-lmapibuf-netapibufferfree">NetApiBufferFree</a> function. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/network-management-function-buffers">Network Management Function Buffers</a> and 
      * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/network-management-function-buffer-lengths">Network Management Function Buffer Lengths</a>.
-     * @param {Pointer<Integer>} BufferType 
+     * @param {Pointer<NETSETUP_JOIN_STATUS>} BufferType 
      * @returns {Integer} If the function succeeds, the return value is NERR_Success.
      * 
      * If the function fails, the return value can be the following error code or one of the 
@@ -21256,7 +21272,9 @@ class NetManagement {
      * 
      * Starting with   Windows Vista, the precision for the Task Scheduler was increased to the second. Therefore, the <b>NetScheduleJobAdd</b> function uses only the hours, minutes, and seconds specified in the <b>JobTime</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/lmat/ns-lmat-at_info">AT_INFO</a> structure when a job is scheduled to run.
      * @param {PWSTR} Servername A pointer to a constant string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
-     * @param {Pointer<Integer>} _Buffer 
+     * @param {Pointer<Integer>} _Buffer A pointer to an 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/lmat/ns-lmat-at_info">AT_INFO</a> structure describing the job to submit. For more information about scheduling jobs using different job properties, see the following Remarks section and 
+     * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/network-management-function-buffers">Network Management Function Buffers</a>.
      * @param {Pointer<Integer>} JobId A pointer that receives a job identifier for the newly submitted job. This entry is valid only if the function returns successfully.
      * @returns {Integer} If the function succeeds, the return value is NERR_Success.
      * 

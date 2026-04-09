@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\IPhotoAcquireSource.ahk
 #Include ..\..\System\Com\IEnumString.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * The IPhotoAcquire interface provides methods for acquiring photos from a device.
  * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nn-photoacquire-iphotoacquire
  * @namespace Windows.Win32.Media.PictureAcquisition
- * @version v4.0.30319
  */
-class IPhotoAcquire extends IUnknown{
+class IPhotoAcquire extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

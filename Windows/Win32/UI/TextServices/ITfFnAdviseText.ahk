@@ -7,9 +7,8 @@
  * The ITfFnAdviseText interface is implemented by a text service and used by the TSF manager to supply notifications when the text or lattice element in a context changes.
  * @see https://learn.microsoft.com/windows/win32/api/ctffunc/nn-ctffunc-itffnadvisetext
  * @namespace Windows.Win32.UI.TextServices
- * @version v4.0.30319
  */
-class ITfFnAdviseText extends ITfFunction{
+class ITfFnAdviseText extends ITfFunction {
 
     static sizeof => A_PtrSize
     /**

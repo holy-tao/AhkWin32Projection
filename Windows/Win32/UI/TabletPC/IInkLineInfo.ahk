@@ -7,9 +7,8 @@
  * The IInkLineInfo interface provides access to the display properties and recognition result list of a text ink object (tInk).
  * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nn-msinkaut-iinklineinfo
  * @namespace Windows.Win32.UI.TabletPC
- * @version v4.0.30319
  */
-class IInkLineInfo extends IUnknown{
+class IInkLineInfo extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

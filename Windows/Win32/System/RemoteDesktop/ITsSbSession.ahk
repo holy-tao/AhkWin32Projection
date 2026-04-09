@@ -1,18 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Com\IUnknown.ahk
 #Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\Foundation\FILETIME.ahk
 #Include .\CLIENT_DISPLAY.ahk
-#Include ..\Com\IUnknown.ahk
 
 /**
  * Exposes properties that store information about a user session.
  * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nn-sbtsv-itssbsession
  * @namespace Windows.Win32.System.RemoteDesktop
- * @version v4.0.30319
  */
-class ITsSbSession extends IUnknown{
+class ITsSbSession extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -63,7 +62,7 @@ class ITsSbSession extends IUnknown{
     }
 
     /**
-     * @type {Integer} 
+     * @type {TSSESSION_STATE} 
      */
     State {
         get => this.get_State()
@@ -167,7 +166,7 @@ class ITsSbSession extends IUnknown{
 
     /**
      * Retrieves or specifies the session state. (Get)
-     * @returns {Integer} 
+     * @returns {TSSESSION_STATE} 
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbsession-get_state
      */
     get_State() {
@@ -177,7 +176,7 @@ class ITsSbSession extends IUnknown{
 
     /**
      * Retrieves or specifies the session state. (Put)
-     * @param {Integer} State 
+     * @param {TSSESSION_STATE} State 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbsession-put_state
      */

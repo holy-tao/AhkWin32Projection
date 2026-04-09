@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\VDS_DISK_PROP2.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\VDS_DISK_PROP2.ahk
 
 /**
  * Provides a method to retrieve property information for a disk, including the disk's location path.
  * @see https://learn.microsoft.com/windows/win32/api/vds/nn-vds-ivdsdisk3
  * @namespace Windows.Win32.Storage.VirtualDiskService
- * @version v4.0.30319
  */
-class IVdsDisk3 extends IUnknown{
+class IVdsDisk3 extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

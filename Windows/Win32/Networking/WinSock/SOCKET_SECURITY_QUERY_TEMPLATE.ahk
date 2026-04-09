@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\SOCKET_SECURITY_PROTOCOL.ahk
 #Include .\SOCKADDR_STORAGE.ahk
+#Include .\ADDRESS_FAMILY.ahk
 
 /**
  * Contains the security template used by the WSAQuerySocketSecurity function.
@@ -14,17 +16,15 @@
  * Currently, the only type of security protocol that is supported is IPsec. So specifying an enumeration value  of <b>SOCKET_SECURITY_PROTOCOL_DEFAULT</b> for the <b>SecurityProtocol</b> member has the same effect as specifying <b>SOCKET_SECURITY_PROTOCOL_IPSEC</b>.
  * @see https://learn.microsoft.com/windows/win32/api/mstcpip/ns-mstcpip-socket_security_query_template
  * @namespace Windows.Win32.Networking.WinSock
- * @version v4.0.30319
  */
-class SOCKET_SECURITY_QUERY_TEMPLATE extends Win32Struct
-{
-    static sizeof => 264
+class SOCKET_SECURITY_QUERY_TEMPLATE extends Win32Struct {
+    static sizeof => 144
 
     static packingSize => 8
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/mstcpip/ne-mstcpip-socket_security_protocol">SOCKET_SECURITY_PROTOCOL</a> value that identifies the protocol used to secure the traffic.
-     * @type {Integer}
+     * @type {SOCKET_SECURITY_PROTOCOL}
      */
     SecurityProtocol {
         get => NumGet(this, 0, "int")
@@ -35,7 +35,7 @@ class SOCKET_SECURITY_QUERY_TEMPLATE extends Win32Struct
      * The IP address of the peer for which security information is being queried.  For connection-oriented sockets (protocol of <b>IPPROTO_TCP</b>), the connected socket uniquely identifies a peer.  In this case, this parameter is ignored.
      * @type {SOCKADDR_STORAGE}
      */
-    PeerAddress{
+    PeerAddress {
         get {
             if(!this.HasProp("__PeerAddress"))
                 this.__PeerAddress := SOCKADDR_STORAGE(8, this)
@@ -48,7 +48,7 @@ class SOCKET_SECURITY_QUERY_TEMPLATE extends Win32Struct
      * @type {Integer}
      */
     PeerTokenAccessMask {
-        get => NumGet(this, 256, "uint")
-        set => NumPut("uint", value, this, 256)
+        get => NumGet(this, 136, "uint")
+        set => NumPut("uint", value, this, 136)
     }
 }

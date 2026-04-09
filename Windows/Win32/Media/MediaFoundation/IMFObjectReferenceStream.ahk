@@ -7,9 +7,8 @@
  * Marshals an interface pointer to and from a stream.Stream objects that support IStream can expose this interface to provide custom marshaling for interface pointers.
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imfobjectreferencestream
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFObjectReferenceStream extends IUnknown{
+class IMFObjectReferenceStream extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

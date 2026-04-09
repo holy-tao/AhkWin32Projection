@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class BOOTDISK_INFORMATION_EX extends Win32Struct
-{
+class BOOTDISK_INFORMATION_EX extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -44,7 +42,7 @@ class BOOTDISK_INFORMATION_EX extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     BootDeviceGuid {
         get => NumGet(this, 24, "ptr")
@@ -52,7 +50,7 @@ class BOOTDISK_INFORMATION_EX extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     SystemDeviceGuid {
         get => NumGet(this, 32, "ptr")

@@ -1,13 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\RECT.ahk
+#Include ..\..\Graphics\Direct3D9\D3DFORMAT.ahk
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class DXVAHDETW_VIDEOPROCESSBLTHD extends Win32Struct
-{
+class DXVAHDETW_VIDEOPROCESSBLTHD extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8
@@ -31,7 +30,7 @@ class DXVAHDETW_VIDEOPROCESSBLTHD extends Win32Struct
     /**
      * @type {RECT}
      */
-    TargetRect{
+    TargetRect {
         get {
             if(!this.HasProp("__TargetRect"))
                 this.__TargetRect := RECT(16, this)
@@ -40,7 +39,7 @@ class DXVAHDETW_VIDEOPROCESSBLTHD extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {D3DFORMAT}
      */
     OutputFormat {
         get => NumGet(this, 32, "uint")

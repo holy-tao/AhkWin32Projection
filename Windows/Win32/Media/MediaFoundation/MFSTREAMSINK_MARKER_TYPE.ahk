@@ -7,9 +7,8 @@
  * If the <a href="https://docs.microsoft.com/windows/desktop/medfound/streaming-audio-renderer">Streaming Audio Renderer</a> receives an <b>MFSTREAMSINK_MARKER_TICK</b> marker, it inserts silence to cover the gap in the data.
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/ne-mfidl-mfstreamsink_marker_type
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class MFSTREAMSINK_MARKER_TYPE extends Win32Enum{
+class MFSTREAMSINK_MARKER_TYPE extends Win32Enum {
 
     /**
      * This marker is for the application's use and does not convey any information to the stream sink.

@@ -1,21 +1,20 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\EAP_ATTRIBUTE_TYPE.ahk
 
 /**
  * Contains an EAP attribute.
  * @see https://learn.microsoft.com/windows/win32/api/eaptypes/ns-eaptypes-eap_attribute
  * @namespace Windows.Win32.Security.ExtensibleAuthenticationProtocol
- * @version v4.0.30319
  */
-class EAP_ATTRIBUTE extends Win32Struct
-{
+class EAP_ATTRIBUTE extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
 
     /**
      * An <a href="https://docs.microsoft.com/windows/desktop/api/eaptypes/ne-eaptypes-eap_attribute_type">EAP_ATTRIBUTE_TYPE</a> enumeration value that describes the type of the EAP attribute value supplied in <b>pValue</b>.
-     * @type {Integer}
+     * @type {EAP_ATTRIBUTE_TYPE}
      */
     eaType {
         get => NumGet(this, 0, "int")

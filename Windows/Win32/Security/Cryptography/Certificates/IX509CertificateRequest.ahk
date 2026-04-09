@@ -1,19 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\System\Com\IDispatch.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
-#Include .\IX509CertificateRequest.ahk
 #Include .\ICspInformations.ahk
 #Include .\IObjectId.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
 
 /**
  * The IX509CertificateRequest interface represents an abstract base certificate request that identifies methods and properties common to and inherited by each of the request objects implemented by the Certificate Enrollment API.
  * @see https://learn.microsoft.com/windows/win32/api/certenroll/nn-certenroll-ix509certificaterequest
  * @namespace Windows.Win32.Security.Cryptography.Certificates
- * @version v4.0.30319
  */
-class IX509CertificateRequest extends IDispatch{
+class IX509CertificateRequest extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -35,14 +33,14 @@ class IX509CertificateRequest extends IDispatch{
     static VTableNames => ["Initialize", "Encode", "ResetForEncode", "GetInnerRequest", "get_Type", "get_EnrollmentContext", "get_Silent", "put_Silent", "get_ParentWindow", "put_ParentWindow", "get_UIContextMessage", "put_UIContextMessage", "get_SuppressDefaults", "put_SuppressDefaults", "get_RenewalCertificate", "put_RenewalCertificate", "get_ClientId", "put_ClientId", "get_CspInformations", "put_CspInformations", "get_HashAlgorithm", "put_HashAlgorithm", "get_AlternateSignatureAlgorithm", "put_AlternateSignatureAlgorithm", "get_RawData"]
 
     /**
-     * @type {Integer} 
+     * @type {X509RequestType} 
      */
     Type {
         get => this.get_Type()
     }
 
     /**
-     * @type {Integer} 
+     * @type {X509CertificateEnrollmentContext} 
      */
     EnrollmentContext {
         get => this.get_EnrollmentContext()
@@ -81,7 +79,7 @@ class IX509CertificateRequest extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {RequestClientInfoClientId} 
      */
     ClientId {
         get => this.get_ClientId()
@@ -150,7 +148,7 @@ class IX509CertificateRequest extends IDispatch{
      * 
      * 
      * You must call the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509certificaterequest-get_cspinformations">CSPInformations</a> property before calling this method if you want to specify an <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-icspinformations">ICspInformations</a> collection.
-     * @param {Integer} _Context 
+     * @param {X509CertificateEnrollmentContext} _Context 
      * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>.
      * 
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
@@ -312,7 +310,7 @@ class IX509CertificateRequest extends IDispatch{
      * <li>A PKCS #7 request can contain only a PKCS #10 inner request object.</li>
      * <li>A CMC request can contain a CMC or a PKCS #10 inner request object. For a CMC request that contains an inner CMC request, there is no theoretical limit to the number of nested levels that can exist before the final inner PKCS #10 request is reached. That is, a top-level CMC request can contain an inner CMC request that also contains an inner CMC request and so on.</li>
      * </ul>
-     * @param {Integer} Level A value of an <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/ne-certenroll-innerrequestlevel">InnerRequestLevel</a> enumeration that specifies the envelopment level of the data to retrieve. You can use the <i>LevelNext</i> value to iterate through the nested levels or the <i>LevelInnermost</i> value to retrieve the most deeply nested request object. You cannot specify <i>LevelNext</i> for a PKCS #10 request.
+     * @param {InnerRequestLevel} Level A value of an <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/ne-certenroll-innerrequestlevel">InnerRequestLevel</a> enumeration that specifies the envelopment level of the data to retrieve. You can use the <i>LevelNext</i> value to iterate through the nested levels or the <i>LevelInnermost</i> value to retrieve the most deeply nested request object. You cannot specify <i>LevelNext</i> for a PKCS #10 request.
      * @returns {IX509CertificateRequest} Address of a variable that receives a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-ix509certificaterequest">IX509CertificateRequest</a> interface that contains the nested request. Call the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509certificaterequest-get_type">Type</a> property to determine whether the inner request object is a PKCS #10 or a CMC request. Then call <b>QueryInterface</b> to retrieve the appropriate pointer.
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequest-getinnerrequest
      */
@@ -325,7 +323,7 @@ class IX509CertificateRequest extends IDispatch{
      * Retrieves a value that specifies the type of the request object.
      * @remarks
      * You can use this property with the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509certificaterequest-getinnerrequest">GetInnerRequest</a> method to determine the type of the inner request object.
-     * @returns {Integer} 
+     * @returns {X509RequestType} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequest-get_type
      */
     get_Type() {
@@ -337,7 +335,7 @@ class IX509CertificateRequest extends IDispatch{
      * Retrieves a value that specifies whether the certificate is intended for a computer or a user.
      * @remarks
      * For a PKCS #7 or CMC request, the property value is retrieved from the inner request object.
-     * @returns {Integer} 
+     * @returns {X509CertificateEnrollmentContext} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequest-get_enrollmentcontext
      */
     get_EnrollmentContext() {
@@ -502,7 +500,7 @@ class IX509CertificateRequest extends IDispatch{
      * The certificate is encoded by using DER as defined by the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">Abstract Syntax Notation One</a> (ASN.1) standard. The encoding process creates a byte array. The byte array is returned in a  string that is either a pure binary sequence or is Unicode encoded so that it can be displayed as text.
      * 
      * You must initialize the request object before calling this property. You can call this property before calling the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509certificaterequest-encode">Encode</a> method.
-     * @param {Integer} Encoding 
+     * @param {EncodingType} Encoding 
      * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequest-get_renewalcertificate
      */
@@ -518,7 +516,7 @@ class IX509CertificateRequest extends IDispatch{
      * The certificate is encoded by using DER as defined by the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">Abstract Syntax Notation One</a> (ASN.1) standard. The encoding process creates a byte array. The byte array is returned in a  string that is either a pure binary sequence or is Unicode encoded so that it can be displayed as text.
      * 
      * You must initialize the request object before calling this property. You can call this property before calling the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509certificaterequest-encode">Encode</a> method.
-     * @param {Integer} Encoding 
+     * @param {EncodingType} Encoding 
      * @param {BSTR} Value 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequest-put_renewalcertificate
@@ -534,7 +532,7 @@ class IX509CertificateRequest extends IDispatch{
      * Specifies and retrieves a value that identifies the executable that created the request. (Get)
      * @remarks
      * You must initialize the request object before calling this property. You can call this property before calling the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509certificaterequest-encode">Encode</a> method.
-     * @returns {Integer} 
+     * @returns {RequestClientInfoClientId} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequest-get_clientid
      */
     get_ClientId() {
@@ -546,7 +544,7 @@ class IX509CertificateRequest extends IDispatch{
      * Specifies and retrieves a value that identifies the executable that created the request. (Put)
      * @remarks
      * You must initialize the request object before calling this property. You can call this property before calling the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509certificaterequest-encode">Encode</a> method.
-     * @param {Integer} Value 
+     * @param {RequestClientInfoClientId} Value 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequest-put_clientid
      */
@@ -794,7 +792,7 @@ class IX509CertificateRequest extends IDispatch{
      * Retrieves a byte array that contains the signed, Distinguished Encoding Rules (DER) encoded certificate request.
      * @remarks
      * Call the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509certificaterequest-encode">Encode</a> method to encode a certificate request using DER as defined by the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">Abstract Syntax Notation One</a> (ASN.1) standard. The encoding process creates a byte array that the <b>RawData</b> property returns   as a string. The string is either a pure binary sequence, or it is Unicode encoded so that it can be displayed as text.
-     * @param {Integer} Encoding 
+     * @param {EncodingType} Encoding 
      * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequest-get_rawdata
      */

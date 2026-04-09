@@ -4,9 +4,8 @@
 
 /**
  * @namespace Windows.Win32.System.Search
- * @version v4.0.30319
  */
-class IUMS extends Win32ComInterface{
+class IUMS extends Win32ComInterface {
 
     static sizeof => A_PtrSize
 

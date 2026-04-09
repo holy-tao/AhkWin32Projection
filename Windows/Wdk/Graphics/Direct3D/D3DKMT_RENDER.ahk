@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\D3DDDI_ALLOCATIONLIST.ahk
+#Include .\D3DDDI_PATCHLOCATIONLIST.ahk
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
- * @version v4.0.30319
  */
-class D3DKMT_RENDER extends Win32Struct
-{
+class D3DKMT_RENDER extends Win32Struct {
     static sizeof => 376
 
     static packingSize => 8
@@ -108,7 +108,7 @@ class D3DKMT_RENDER extends Win32Struct
     }
 
     /**
-     * @type {Pointer<D3DKMT_RENDERFLAGS>}
+     * @type {Pointer}
      */
     Flags {
         get => NumGet(this, 72, "ptr")
@@ -132,9 +132,9 @@ class D3DKMT_RENDER extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    BroadcastContext{
+    BroadcastContext {
         get {
             if(!this.HasProp("__BroadcastContextProxyArray"))
                 this.__BroadcastContextProxyArray := Win32FixedArray(this.ptr + 92, 64, Primitive, "uint")

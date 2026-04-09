@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class OUTPUT_STATE extends Win32BitflagEnum{
+class OUTPUT_STATE extends Win32BitflagEnum {
 
     /**
      * @type {Integer (Int32)}

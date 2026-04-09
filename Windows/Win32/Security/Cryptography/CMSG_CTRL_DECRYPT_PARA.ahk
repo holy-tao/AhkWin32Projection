@@ -6,10 +6,8 @@
  * Contains information used to decrypt an enveloped message for a key transport recipient. This structure is passed to CryptMsgControl if the dwCtrlType parameter is CMSG_CTRL_DECRYPT.
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cmsg_ctrl_decrypt_para
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CMSG_CTRL_DECRYPT_PARA extends Win32Struct
-{
+class CMSG_CTRL_DECRYPT_PARA extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -34,7 +32,7 @@ class CMSG_CTRL_DECRYPT_PARA extends Win32Struct
     /**
      * @type {NCRYPT_KEY_HANDLE}
      */
-    hNCryptKey{
+    hNCryptKey {
         get {
             if(!this.HasProp("__hNCryptKey"))
                 this.__hNCryptKey := NCRYPT_KEY_HANDLE(8, this)

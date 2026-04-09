@@ -5,10 +5,8 @@
  * The RemSNB structure is used for marshaling the SNB data type.Defined in the IStorage interface (Storag.idl).
  * @see https://learn.microsoft.com/windows/win32/api/objidl/ns-objidl-remsnb
  * @namespace Windows.Win32.System.Com.StructuredStorage
- * @version v4.0.30319
  */
-class RemSNB extends Win32Struct
-{
+class RemSNB extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4

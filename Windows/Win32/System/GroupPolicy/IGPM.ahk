@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Include ..\Com\IDispatch.ahk
 #Include .\IGPMDomain.ahk
 #Include .\IGPMBackupDir.ahk
 #Include .\IGPMSitesContainer.ahk
@@ -12,15 +12,13 @@
 #Include .\IGPMCSECollection.ahk
 #Include .\IGPMConstants.ahk
 #Include .\IGPMMigrationTable.ahk
-#Include ..\Com\IDispatch.ahk
 
 /**
  * The IGPM interface provides methods that access other interfaces of the Group Policy Management Console (GPMC) and methods that create other objects on which various search operations can be performed.
  * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nn-gpmgmt-igpm
  * @namespace Windows.Win32.System.GroupPolicy
- * @version v4.0.30319
  */
-class IGPM extends IDispatch{
+class IGPM extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -113,7 +111,7 @@ class IGPM extends IDispatch{
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/gpmc/igpmrsop-property-methods">Namespace</a> property method of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/gpmgmt/nn-gpmgmt-igpmrsop">IGPMRSOP</a> interface. Or, call the <b>RsopCreateSession</b> method of the 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/Policy/rsoploggingmodeprovider">RsopLoggingModeProvider</a> and 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/Policy/rsopplanningmodeprovider">RsopPlanningModeProvider</a> WMI classes. For more information about these methods, see the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/Policy/group-policy-start-page">Group Policy</a> documentation.
-     * @param {Integer} _gpmRSoPMode 
+     * @param {GPMRSOPMode} _gpmRSoPMode Required. Mode in which to open the object. The following modes are supported.
      * @param {BSTR} bstrNamespace WMI namespace for the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/gpmgmt/nn-gpmgmt-igpmrsop">IGPMRSOP</a><b>GPMRSOP</b><b>GPMRSOP</b>.  Use a null-terminated string. This parameter can be <b>NULL</b>. For more information about how to retrieve the namespace, see the "Remarks" section.
      * @param {Integer} lFlags This parameter must be zero.
      * @returns {IGPMRSOP} Address of a pointer to the 
@@ -133,7 +131,7 @@ class IGPM extends IDispatch{
      * For more information about access control lists (ACLs), access rights, and the security model for controlling access to Windows objects, see <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/access-control">Access Control</a>. For more information about security groups, see 
      * How <a href="https://docs.microsoft.com/windows/desktop/AD/how-security-groups-are-used-in-access-control">Security Groups are Used in Access Control</a> in the Active Directory Programmer's Guide.
      * @param {BSTR} bstrTrustee Required. Trustee name. This parameter can be a string that specifies the security identifier (SID) of the account. This parameter can also be a Security Accounts Manager (SAM) account name, such as "Engineering\JSmith".
-     * @param {Integer} perm Required. Permission to use for the trustee. The following policy-related permissions are supported. Note that each permission value represents one or more 
+     * @param {GPMPermissionType} perm Required. Permission to use for the trustee. The following policy-related permissions are supported. Note that each permission value represents one or more 
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/access-rights-and-access-masks">access rights</a> that apply to the GPO.
      * 
      * The following GPO permissions are supported.

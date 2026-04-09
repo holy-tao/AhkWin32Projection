@@ -7,9 +7,8 @@
  * The IWMPStringCollection interface provides methods that work with a collection of strings.
  * @see https://learn.microsoft.com/windows/win32/api/wmp/nn-wmp-iwmpstringcollection
  * @namespace Windows.Win32.Media.MediaPlayer
- * @version v4.0.30319
  */
-class IWMPStringCollection extends IDispatch{
+class IWMPStringCollection extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

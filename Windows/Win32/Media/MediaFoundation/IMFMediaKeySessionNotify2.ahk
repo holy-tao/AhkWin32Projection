@@ -1,14 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include .\IMFMediaKeySessionNotify.ahk
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFMediaKeySessionNotify2 extends IMFMediaKeySessionNotify{
+class IMFMediaKeySessionNotify2 extends IMFMediaKeySessionNotify {
 
     static sizeof => A_PtrSize
     /**
@@ -31,9 +29,9 @@ class IMFMediaKeySessionNotify2 extends IMFMediaKeySessionNotify{
 
     /**
      * 
-     * @param {Integer} eMessageType 
+     * @param {MF_MEDIAKEYSESSION_MESSAGETYPE} eMessageType 
      * @param {BSTR} destinationURL 
-     * @param {Pointer} pbMessage 
+     * @param {Integer} pbMessage 
      * @param {Integer} cbMessage 
      * @returns {String} Nothing - always returns an empty string
      */

@@ -7,9 +7,8 @@
  * When implemented by the drop target application, this interface gives the OLE drag and drop engine the ability to determine whether the drop target application intends to evaluate enterprise protection policy and gives the OLE drag and drop engine a way to provide the enterprise ID of the drop source application to the drop target application.
  * @see https://learn.microsoft.com/windows/win32/api/oleidl/nn-oleidl-ienterprisedroptarget
  * @namespace Windows.Win32.System.Ole
- * @version v4.0.30319
  */
-class IEnterpriseDropTarget extends IUnknown{
+class IEnterpriseDropTarget extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

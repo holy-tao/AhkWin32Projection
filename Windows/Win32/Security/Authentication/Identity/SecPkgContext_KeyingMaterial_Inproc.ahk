@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class SecPkgContext_KeyingMaterial_Inproc extends Win32Struct
-{
+class SecPkgContext_KeyingMaterial_Inproc extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8

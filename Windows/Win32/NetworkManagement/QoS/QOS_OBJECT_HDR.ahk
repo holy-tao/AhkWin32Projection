@@ -5,10 +5,8 @@
  * The QOS object QOS_OBJECT_HDR is attached to each QOS object. It specifies the object type and its length.
  * @see https://learn.microsoft.com/windows/win32/api/qos/ns-qos-qos_object_hdr
  * @namespace Windows.Win32.NetworkManagement.QoS
- * @version v4.0.30319
  */
-class QOS_OBJECT_HDR extends Win32Struct
-{
+class QOS_OBJECT_HDR extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4

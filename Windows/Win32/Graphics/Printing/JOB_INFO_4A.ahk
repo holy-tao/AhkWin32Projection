@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\Gdi\DEVMODEA.ahk
 #Include ..\..\Security\PSECURITY_DESCRIPTOR.ahk
 #Include ..\..\Foundation\SYSTEMTIME.ahk
 
@@ -9,11 +10,9 @@
  * Port monitors that do not support TrueEndOfJob will set the job as JOB\_STATUS\_PRINTED immediately after the job is submitted to the printer.
  * @see https://learn.microsoft.com/windows/win32/printdocs/job-info-4
  * @namespace Windows.Win32.Graphics.Printing
- * @version v4.0.30319
  * @charset ANSI
  */
-class JOB_INFO_4A extends Win32Struct
-{
+class JOB_INFO_4A extends Win32Struct {
     static sizeof => 160
 
     static packingSize => 8
@@ -130,7 +129,7 @@ class JOB_INFO_4A extends Win32Struct
      * The value of this member is **NULL**. Retrieval and setting of document security descriptors is not supported in this release.
      * @type {PSECURITY_DESCRIPTOR}
      */
-    pSecurityDescriptor{
+    pSecurityDescriptor {
         get {
             if(!this.HasProp("__pSecurityDescriptor"))
                 this.__pSecurityDescriptor := PSECURITY_DESCRIPTOR(96, this)
@@ -241,7 +240,7 @@ class JOB_INFO_4A extends Win32Struct
      * This time value is in Universal Time Coordinate (UTC) format. You should convert it to a local time value before displaying it. You can use the [**FileTimeToLocalFileTime**](/windows/desktop/api/fileapi/nf-fileapi-filetimetolocalfiletime) function to perform the conversion.
      * @type {SYSTEMTIME}
      */
-    Submitted{
+    Submitted {
         get {
             if(!this.HasProp("__Submitted"))
                 this.__Submitted := SYSTEMTIME(132, this)

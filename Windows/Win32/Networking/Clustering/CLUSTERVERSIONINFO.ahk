@@ -29,10 +29,8 @@
  *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/version-compatibility">Version Compatibility</a>.
  * @see https://learn.microsoft.com/windows/win32/api/clusapi/ns-clusapi-clusterversioninfo
  * @namespace Windows.Win32.Networking.Clustering
- * @version v4.0.30319
  */
-class CLUSTERVERSIONINFO extends Win32Struct
-{
+class CLUSTERVERSIONINFO extends Win32Struct {
     static sizeof => 284
 
     static packingSize => 4

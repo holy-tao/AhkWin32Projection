@@ -4,13 +4,11 @@
 
 /**
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class SCM_PD_FIRMWARE_INFO extends Win32Struct
-{
-    static sizeof => 24
+class SCM_PD_FIRMWARE_INFO extends Win32Struct {
+    static sizeof => 60
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}
@@ -53,12 +51,12 @@ class SCM_PD_FIRMWARE_INFO extends Win32Struct
     }
 
     /**
-     * @type {Array<SCM_PD_FIRMWARE_SLOT_INFO>}
+     * @type {SCM_PD_FIRMWARE_SLOT_INFO}
      */
-    Slots{
+    Slots {
         get {
             if(!this.HasProp("__SlotsProxyArray"))
-                this.__SlotsProxyArray := Win32FixedArray(this.ptr + 16, 1, SCM_PD_FIRMWARE_SLOT_INFO, "")
+                this.__SlotsProxyArray := Win32FixedArray(this.ptr + 12, 1, SCM_PD_FIRMWARE_SLOT_INFO, "")
             return this.__SlotsProxyArray
         }
     }

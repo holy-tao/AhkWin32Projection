@@ -7,10 +7,8 @@
  * The size of this structure is different between 64-bit and 32-bit operating systems.  On 64-bit operating systems, the size is different between 64-bit and 32-bit processes.  Instances of this structure must not be shared across threads or passed between processes.
  * @see https://learn.microsoft.com/windows/win32/api/bcrypt/ns-bcrypt-bcrypt_authenticated_cipher_mode_info
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class BCRYPT_AUTHENTICATED_CIPHER_MODE_INFO extends Win32Struct
-{
+class BCRYPT_AUTHENTICATED_CIPHER_MODE_INFO extends Win32Struct {
     static sizeof => 88
 
     static packingSize => 8

@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Com\IUnknown.ahk
 #Include .\IEnumSyncChanges.ahk
 #Include .\ISyncChangeBuilder.ahk
 #Include .\ISyncKnowledge.ahk
 #Include .\IForgottenKnowledge.ahk
-#Include ..\Com\IUnknown.ahk
 
 /**
  * Represents metadata for a set of changes. (ISyncChangeBatchBase)
@@ -13,9 +13,8 @@
  * <b>ISyncChangeBatchBase</b> is the base interface for change batches. Typically, it is overridden by a derived interface, such as <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winsync/nn-winsync-isyncchangebatch">ISyncChangeBatch</a> for a knowledge synchronization, and <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winsync/nn-winsync-isyncfullenumerationchangebatch">ISyncFullEnumerationChangeBatch</a> for a full enumeration synchronization.
  * @see https://learn.microsoft.com/windows/win32/api/winsync/nn-winsync-isyncchangebatchbase
  * @namespace Windows.Win32.System.WindowsSync
- * @version v4.0.30319
  */
-class ISyncChangeBatchBase extends IUnknown{
+class ISyncChangeBatchBase extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

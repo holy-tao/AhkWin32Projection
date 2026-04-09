@@ -4,14 +4,10 @@
 #Include .\IInspectable.ahk
 
 /**
- * 
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/useractivityinterop/nn-useractivityinterop-iuseractivitysourcehostinterop
  * @namespace Windows.Win32.System.WinRT
- * @version v4.0.30319
  */
-class IUserActivitySourceHostInterop extends IInspectable{
+class IUserActivitySourceHostInterop extends IInspectable {
 
     static sizeof => A_PtrSize
     /**

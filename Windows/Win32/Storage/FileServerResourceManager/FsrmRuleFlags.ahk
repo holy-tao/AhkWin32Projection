@@ -7,9 +7,8 @@
  * You cannot set <b>FsrmRuleFlags_Invalid</b>; this flag is used by FSRM.
  * @see https://learn.microsoft.com/windows/win32/api/fsrmenums/ne-fsrmenums-fsrmruleflags
  * @namespace Windows.Win32.Storage.FileServerResourceManager
- * @version v4.0.30319
  */
-class FsrmRuleFlags extends Win32Enum{
+class FsrmRuleFlags extends Win32Enum {
 
     /**
      * Disable the rule; do not use the rule to classify files.

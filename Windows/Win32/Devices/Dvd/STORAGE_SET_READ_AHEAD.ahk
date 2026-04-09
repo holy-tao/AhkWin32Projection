@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.Dvd
- * @version v4.0.30319
  */
-class STORAGE_SET_READ_AHEAD extends Win32Struct
-{
+class STORAGE_SET_READ_AHEAD extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

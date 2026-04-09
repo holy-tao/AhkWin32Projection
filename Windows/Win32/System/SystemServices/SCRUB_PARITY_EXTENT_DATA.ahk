@@ -4,11 +4,9 @@
 
 /**
  * @namespace Windows.Win32.System.SystemServices
- * @version v4.0.30319
  */
-class SCRUB_PARITY_EXTENT_DATA extends Win32Struct
-{
-    static sizeof => 16
+class SCRUB_PARITY_EXTENT_DATA extends Win32Struct {
+    static sizeof => 24
 
     static packingSize => 8
 
@@ -45,9 +43,9 @@ class SCRUB_PARITY_EXTENT_DATA extends Win32Struct
     }
 
     /**
-     * @type {Array<SCRUB_PARITY_EXTENT>}
+     * @type {SCRUB_PARITY_EXTENT}
      */
-    ParityExtents{
+    ParityExtents {
         get {
             if(!this.HasProp("__ParityExtentsProxyArray"))
                 this.__ParityExtentsProxyArray := Win32FixedArray(this.ptr + 8, 1, SCRUB_PARITY_EXTENT, "")

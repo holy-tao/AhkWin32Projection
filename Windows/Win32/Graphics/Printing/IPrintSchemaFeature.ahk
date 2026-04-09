@@ -1,15 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\IPrintSchemaOption.ahk
 #Include .\IPrintSchemaDisplayableElement.ahk
+#Include .\IPrintSchemaOption.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
- * @version v4.0.30319
  */
-class IPrintSchemaFeature extends IPrintSchemaDisplayableElement{
+class IPrintSchemaFeature extends IPrintSchemaDisplayableElement {
 
     static sizeof => A_PtrSize
     /**
@@ -39,7 +37,7 @@ class IPrintSchemaFeature extends IPrintSchemaDisplayableElement{
     }
 
     /**
-     * @type {Integer} 
+     * @type {PrintSchemaSelectionType} 
      */
     SelectionType {
         get => this.get_SelectionType()
@@ -73,7 +71,7 @@ class IPrintSchemaFeature extends IPrintSchemaDisplayableElement{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {PrintSchemaSelectionType} 
      */
     get_SelectionType() {
         result := ComCall(13, this, "int*", &pSelectionType := 0, "HRESULT")

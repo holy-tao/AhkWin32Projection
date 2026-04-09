@@ -9,10 +9,8 @@
  * <a href="https://docs.microsoft.com/windows/desktop/api/mstask/ns-mstask-task_trigger">TASK_TRIGGER</a> structure definition.
  * @see https://learn.microsoft.com/windows/win32/api/mstask/ns-mstask-daily
  * @namespace Windows.Win32.System.TaskScheduler
- * @version v4.0.30319
  */
-class DAILY extends Win32Struct
-{
+class DAILY extends Win32Struct {
     static sizeof => 2
 
     static packingSize => 2

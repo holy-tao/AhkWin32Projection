@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Storage.Nvme
- * @version v4.0.30319
  */
-class NVME_WCS_DEVICE_RESET_ACTION extends Win32Struct
-{
+class NVME_WCS_DEVICE_RESET_ACTION extends Win32Struct {
     static sizeof => 1
 
     static packingSize => 1

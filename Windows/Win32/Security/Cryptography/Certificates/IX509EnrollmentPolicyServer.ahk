@@ -1,20 +1,19 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
+#Include ..\..\..\System\Com\IDispatch.ahk
 #Include .\IX509CertificateTemplates.ahk
 #Include .\ICertificationAuthorities.ahk
 #Include .\IObjectIds.ahk
+#Include ..\..\..\Foundation\BSTR.ahk
 #Include ..\..\..\System\Variant\VARIANT.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
 
 /**
  * The IX509EnrollmentPolicyServer interface represents a certificate enrollment policy (CEP) server.
  * @see https://learn.microsoft.com/windows/win32/api/certenroll/nn-certenroll-ix509enrollmentpolicyserver
  * @namespace Windows.Win32.Security.Cryptography.Certificates
- * @version v4.0.30319
  */
-class IX509EnrollmentPolicyServer extends IDispatch{
+class IX509EnrollmentPolicyServer extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -47,9 +46,9 @@ class IX509EnrollmentPolicyServer extends IDispatch{
      * Initializes an IX509EnrollmentPolicyServer object.
      * @param {BSTR} bstrPolicyServerUrl A <b>BSTR</b> variable that contains the URL for the certificate enrollment policy server.
      * @param {BSTR} bstrPolicyServerId A <b>BSTR</b> variable that contains a unique ID for the certificate enrollment policy server. If this value is not <b>NULL</b>, it must match the ID string returned by the CEP response.
-     * @param {Integer} authFlags 
+     * @param {X509EnrollmentAuthFlags} authFlags 
      * @param {VARIANT_BOOL} fIsUnTrusted A Boolean value that specifies whether to allow an untrusted certification authority certificates.
-     * @param {Integer} _context 
+     * @param {X509CertificateEnrollmentContext} _context 
      * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>.
      * 
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table.  For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
@@ -116,7 +115,7 @@ class IX509EnrollmentPolicyServer extends IDispatch{
 
     /**
      * Retrieves policy information from the certificate enrollment policy (CEP) server.
-     * @param {Integer} option 
+     * @param {X509EnrollmentPolicyLoadOption} option 
      * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>.
      * 
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table.  For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
@@ -355,7 +354,7 @@ class IX509EnrollmentPolicyServer extends IDispatch{
 
     /**
      * Retrieves a value that specifies the authentication type used by the client to authenticate itself to the certificate enrollment policy (CEP) server.
-     * @returns {Integer} 
+     * @returns {X509EnrollmentAuthFlags} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509enrollmentpolicyserver-getauthflags
      */
     GetAuthFlags() {
@@ -396,7 +395,7 @@ class IX509EnrollmentPolicyServer extends IDispatch{
      * </tr>
      * </table>
      * @param {Integer} hWndParent Parent window handle.
-     * @param {Integer} flag 
+     * @param {X509EnrollmentAuthFlags} flag 
      * @param {BSTR} strCredential A <b>BSTR</b> variable that contains the credential.
      * @param {BSTR} strPassword A <b>BSTR</b> variable that contains the password.
      * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>.
@@ -451,7 +450,7 @@ class IX509EnrollmentPolicyServer extends IDispatch{
      * Initializes the certificate enrollment policy (CEP) server from a collection of templates and object identifiers.
      * @remarks
      * Call this method to import templates and OIDs previously written to a buffer by the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509enrollmentpolicyserver-export">Export</a> method.
-     * @param {VARIANT} _val 
+     * @param {VARIANT} _val A <b>VARIANT</b> of type <b>VT_ARRAY|VT_UI1</b> that contains the templates and object identifiers.
      * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>.
      * 
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table.  For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
@@ -497,7 +496,7 @@ class IX509EnrollmentPolicyServer extends IDispatch{
      * To prevent memory leaks, you must free the <b>VARIANT</b> returned by this function.
      * 
      * You must call <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509enrollmentpolicyserver-loadpolicy">LoadPolicy</a> before calling this function and after calling <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509enrollmentpolicyserver-initialize">Initialize</a> for the exported data to be meaningful.
-     * @param {Integer} exportFlags 
+     * @param {X509EnrollmentPolicyExportFlags} exportFlags 
      * @returns {VARIANT} Pointer to a <b>VARIANT</b> of type <b>VT_ARRAY|VT_UI1</b> that receives the templates and object identifiers.
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509enrollmentpolicyserver-export
      */

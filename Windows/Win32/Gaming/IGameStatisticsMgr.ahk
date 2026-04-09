@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Gaming
- * @version v4.0.30319
  */
-class IGameStatisticsMgr extends IUnknown{
+class IGameStatisticsMgr extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -31,8 +30,8 @@ class IGameStatisticsMgr extends IUnknown{
     /**
      * 
      * @param {PWSTR} GDFBinaryPath 
-     * @param {Integer} openType 
-     * @param {Pointer<Integer>} pOpenResult 
+     * @param {GAMESTATS_OPEN_TYPE} openType 
+     * @param {Pointer<GAMESTATS_OPEN_RESULT>} pOpenResult 
      * @param {Pointer<IGameStatistics>} ppiStats 
      * @returns {HRESULT} 
      */

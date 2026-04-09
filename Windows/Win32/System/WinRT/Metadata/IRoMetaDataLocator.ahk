@@ -6,9 +6,8 @@
  * Enables the RoGetParameterizedTypeInstanceIID function to access run-time metadata.
  * @see https://learn.microsoft.com/windows/win32/api/roparameterizediid/ns-roparameterizediid-irometadatalocator
  * @namespace Windows.Win32.System.WinRT.Metadata
- * @version v4.0.30319
  */
-class IRoMetaDataLocator extends Win32ComInterface{
+class IRoMetaDataLocator extends Win32ComInterface {
 
     static sizeof => A_PtrSize
 

@@ -1,19 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\IDispatch.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
 #Include ..\IUnknown.ahk
 #Include ..\..\Variant\VARIANT.ahk
 #Include .\IEventObjectCollection.ahk
-#Include ..\IDispatch.ahk
 
 /**
  * Specifies information about the relationship between an event subscriber and an event to which it is subscribing. It is used by publisher filters.
  * @see https://learn.microsoft.com/windows/win32/api/eventsys/nn-eventsys-ieventsubscription
  * @namespace Windows.Win32.System.Com.Events
- * @version v4.0.30319
  */
-class IEventSubscription extends IDispatch{
+class IEventSubscription extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -442,7 +441,7 @@ class IEventSubscription extends IDispatch{
      * @remarks
      * Publisher filters should call this method to obtain filter properties stored by the subscription builder.
      * @param {BSTR} bstrPropertyName The name of the requested property.
-     * @returns {VARIANT} 
+     * @returns {VARIANT} The value of the requested property.
      * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventsubscription-getpublisherproperty
      */
     GetPublisherProperty(bstrPropertyName) {
@@ -458,7 +457,7 @@ class IEventSubscription extends IDispatch{
      * @remarks
      * A property bag is used to store information about the events the subscriber needs to be notified about. For example, if a subscriber to a sports ticker is to obtain only baseball scores, it could use the property bag in the subscription object to specify this restriction.
      * @param {BSTR} bstrPropertyName The name of the property whose value is to be written to the property bag. If the property is not in the property bag, this method adds it.
-     * @param {Pointer<VARIANT>} _propertyValue 
+     * @param {Pointer<VARIANT>} _propertyValue The value of the property to be written to the property bag. If the property is already in the property bag, this method overwrites the current value.
      * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, E_FAIL, and S_OK.
      * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventsubscription-putpublisherproperty
      */
@@ -499,7 +498,7 @@ class IEventSubscription extends IDispatch{
     /**
      * Retrieves the value of a property stored in the property bag to define subscriber context.
      * @param {BSTR} bstrPropertyName The name of the requested property.
-     * @returns {VARIANT} 
+     * @returns {VARIANT} The value of the requested property.
      * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventsubscription-getsubscriberproperty
      */
     GetSubscriberProperty(bstrPropertyName) {
@@ -515,7 +514,7 @@ class IEventSubscription extends IDispatch{
      * @remarks
      * A property bag is used to store information about the events the subscriber needs to be notified about. For example, if a subscriber to a sports ticker is to obtain only baseball scores, it could use the property bag in the subscription object to specify this restriction.
      * @param {BSTR} bstrPropertyName The name of the property whose value is to be written to the property bag. If the property is not in the property bag, this method adds it.
-     * @param {Pointer<VARIANT>} _propertyValue 
+     * @param {Pointer<VARIANT>} _propertyValue The value of the property to be written to the property bag. If the property is already in the property bag, this method overwrites the current value.
      * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, E_FAIL, and S_OK.
      * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventsubscription-putsubscriberproperty
      */

@@ -8,9 +8,8 @@
  * <div> </div>
  * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/ne-vdshwprv-vds_hbaport_type
  * @namespace Windows.Win32.Storage.VirtualDiskService
- * @version v4.0.30319
  */
-class VDS_HBAPORT_TYPE extends Win32Enum{
+class VDS_HBAPORT_TYPE extends Win32Enum {
 
     /**
      * The port type is unknown.

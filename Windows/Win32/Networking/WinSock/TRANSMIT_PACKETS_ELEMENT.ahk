@@ -6,10 +6,8 @@
  * Specifies a single data element to be transmitted by the TransmitPackets function.
  * @see https://learn.microsoft.com/windows/win32/api/mswsock/ns-mswsock-transmit_packets_element
  * @namespace Windows.Win32.Networking.WinSock
- * @version v4.0.30319
  */
-class TRANSMIT_PACKETS_ELEMENT extends Win32Struct
-{
+class TRANSMIT_PACKETS_ELEMENT extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -86,7 +84,7 @@ class TRANSMIT_PACKETS_ELEMENT extends Win32Struct
     /**
      * @type {HANDLE}
      */
-    hFile{
+    hFile {
         get {
             if(!this.HasProp("__hFile"))
                 this.__hFile := HANDLE(16, this)

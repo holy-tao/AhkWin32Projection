@@ -5,9 +5,8 @@
  * A list of commonly used security identifiers (SIDs). Programs can pass these values to the CreateWellKnownSid function to create a SID from this list.
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ne-winnt-well_known_sid_type
  * @namespace Windows.Win32.Security
- * @version v4.0.30319
  */
-class WELL_KNOWN_SID_TYPE extends Win32Enum{
+class WELL_KNOWN_SID_TYPE extends Win32Enum {
 
     /**
      * Indicates a null SID.
@@ -612,151 +611,126 @@ class WELL_KNOWN_SID_TYPE extends Win32Enum{
     static WinCapabilityRemovableStorageSid => 94
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static WinBuiltinRDSRemoteAccessServersSid => 95
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static WinBuiltinRDSEndpointServersSid => 96
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static WinBuiltinRDSManagementServersSid => 97
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static WinUserModeDriversSid => 98
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static WinBuiltinHyperVAdminsSid => 99
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static WinAccountCloneableControllersSid => 100
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static WinBuiltinAccessControlAssistanceOperatorsSid => 101
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static WinBuiltinRemoteManagementUsersSid => 102
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static WinAuthenticationAuthorityAssertedSid => 103
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static WinAuthenticationServiceAssertedSid => 104
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static WinLocalAccountSid => 105
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static WinLocalAccountAndAdministratorSid => 106
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static WinAccountProtectedUsersSid => 107
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static WinCapabilityAppointmentsSid => 108
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static WinCapabilityContactsSid => 109
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static WinAccountDefaultSystemManagedSid => 110
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static WinBuiltinDefaultSystemManagedGroupSid => 111
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static WinBuiltinStorageReplicaAdminsSid => 112
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static WinAccountKeyAdminsSid => 113
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static WinAccountEnterpriseKeyAdminsSid => 114
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static WinAuthenticationKeyTrustSid => 115
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static WinAuthenticationKeyPropertyMFASid => 116
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static WinAuthenticationKeyPropertyAttestationSid => 117
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static WinAuthenticationFreshKeyAuthSid => 118
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static WinBuiltinDeviceOwnersSid => 119

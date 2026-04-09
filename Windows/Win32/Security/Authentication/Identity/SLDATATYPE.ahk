@@ -5,9 +5,8 @@
  * Specifies the data type of the buffer returned by the SLGetWindowsInformation function.
  * @see https://learn.microsoft.com/windows/win32/api/slpublic/ne-slpublic-sldatatype
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class SLDATATYPE extends Win32Enum{
+class SLDATATYPE extends Win32Enum {
 
     /**
      * The buffer has no data type.

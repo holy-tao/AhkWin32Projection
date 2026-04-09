@@ -5,13 +5,10 @@
 
 /**
  * Server certificates are sent when an HTTPS connection is opened. Use this method to implement a callback to be called to validate those server certificates.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/bits10_3/nn-bits10_3-ibackgroundcopyservercertificatevalidationcallback
  * @namespace Windows.Win32.Networking.BackgroundIntelligentTransferService
- * @version v4.0.30319
  */
-class IBackgroundCopyServerCertificateValidationCallback extends IUnknown{
+class IBackgroundCopyServerCertificateValidationCallback extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -86,7 +83,9 @@ class IBackgroundCopyServerCertificateValidationCallback extends IUnknown{
      * @param {IBackgroundCopyJob} job Type: **[IBackgroundCopyJob](/windows/desktop/api/bits/nn-bits-ibackgroundcopyjob)\***
      * 
      * The job.
-     * @param {IBackgroundCopyFile} _file 
+     * @param {IBackgroundCopyFile} _file Type: **[IBackgroundCopyFile](/windows/desktop/api/bits/nn-bits-ibackgroundcopyfile)\***
+     * 
+     * The file being transferred.
      * @param {Integer} certLength Type: **[DWORD](/windows/desktop/winprog/windows-data-types)**
      * 
      * The length in bytes of the certificate data.

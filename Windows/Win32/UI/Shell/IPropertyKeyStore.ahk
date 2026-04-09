@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\PROPERTYKEY.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\PROPERTYKEY.ahk
 
 /**
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IPropertyKeyStore extends IUnknown{
+class IPropertyKeyStore extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

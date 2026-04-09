@@ -5,10 +5,8 @@
  * Contains performance information. (PERFORMANCE_INFORMATION)
  * @see https://learn.microsoft.com/windows/win32/api/psapi/ns-psapi-performance_information
  * @namespace Windows.Win32.System.ProcessStatus
- * @version v4.0.30319
  */
-class PERFORMANCE_INFORMATION extends Win32Struct
-{
+class PERFORMANCE_INFORMATION extends Win32Struct {
     static sizeof => 104
 
     static packingSize => 8

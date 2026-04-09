@@ -1,13 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3DKMT_PAGE_TABLE_LEVEL_DESC.ahk
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
- * @version v4.0.30319
  */
-class DXGK_ESCAPE_GPUMMUCAPS extends Win32Struct
-{
+class DXGK_ESCAPE_GPUMMUCAPS extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 8
@@ -85,9 +82,9 @@ class DXGK_ESCAPE_GPUMMUCAPS extends Win32Struct
     }
 
     /**
-     * @type {Array<D3DKMT_PAGE_TABLE_LEVEL_DESC>}
+     * @type {Array<Pointer>}
      */
-    PageTableLevelDesk{
+    PageTableLevelDesk {
         get {
             if(!this.HasProp("__PageTableLevelDeskProxyArray"))
                 this.__PageTableLevelDeskProxyArray := Win32FixedArray(this.ptr + 16, 6, Primitive, "ptr")

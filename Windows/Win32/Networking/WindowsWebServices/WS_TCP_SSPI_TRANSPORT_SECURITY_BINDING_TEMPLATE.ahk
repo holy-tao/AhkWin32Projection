@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\WS_SECURITY_BINDING_PROPERTIES.ahk
+#Include .\WS_SECURITY_BINDING_PROPERTY.ahk
+#Include .\WS_WINDOWS_INTEGRATED_AUTH_CREDENTIAL.ahk
 
 /**
  * The security binding template for specifying the use of Windows SSPI protocol based transport security.
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_tcp_sspi_transport_security_binding_template
  * @namespace Windows.Win32.Networking.WindowsWebServices
- * @version v4.0.30319
  */
-class WS_TCP_SSPI_TRANSPORT_SECURITY_BINDING_TEMPLATE extends Win32Struct
-{
+class WS_TCP_SSPI_TRANSPORT_SECURITY_BINDING_TEMPLATE extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -18,7 +18,7 @@ class WS_TCP_SSPI_TRANSPORT_SECURITY_BINDING_TEMPLATE extends Win32Struct
      * Application provided security binding properties that cannot be represented in policy.
      * @type {WS_SECURITY_BINDING_PROPERTIES}
      */
-    securityBindingProperties{
+    securityBindingProperties {
         get {
             if(!this.HasProp("__securityBindingProperties"))
                 this.__securityBindingProperties := WS_SECURITY_BINDING_PROPERTIES(0, this)

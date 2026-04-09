@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DHCP_IPV6_ADDRESS.ahk
 
 /**
  * The DHCPV6_IP_ARRAY structure contains an array of DHCP IPv6 address structures.
  * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/ns-dhcpsapi-dhcpv6_ip_array
  * @namespace Windows.Win32.NetworkManagement.Dhcp
- * @version v4.0.30319
  */
-class DHCPV6_IP_ARRAY extends Win32Struct
-{
+class DHCPV6_IP_ARRAY extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

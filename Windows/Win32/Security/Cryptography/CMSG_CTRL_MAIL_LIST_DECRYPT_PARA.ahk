@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\CMSG_MAIL_LIST_RECIPIENT_INFO.ahk
 
 /**
  * Contains information on a mail list message recipient.
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cmsg_ctrl_mail_list_decrypt_para
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CMSG_CTRL_MAIL_LIST_DECRYPT_PARA extends Win32Struct
-{
+class CMSG_CTRL_MAIL_LIST_DECRYPT_PARA extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8

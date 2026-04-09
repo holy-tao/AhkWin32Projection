@@ -1,19 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\IPortableDevicePropVariantCollection.ahk
 #Include .\IPortableDeviceValues.ahk
 #Include .\IPortableDeviceKeyCollection.ahk
 #Include .\IPortableDeviceValuesCollection.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Retrieves information describing the capabilities of a service.
  * @see https://learn.microsoft.com/windows/win32/api/portabledeviceapi/nn-portabledeviceapi-iportabledeviceservicecapabilities
  * @namespace Windows.Win32.Devices.PortableDevices
- * @version v4.0.30319
  */
-class IPortableDeviceServiceCapabilities extends IUnknown{
+class IPortableDeviceServiceCapabilities extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -127,7 +126,7 @@ class IPortableDeviceServiceCapabilities extends IUnknown{
      * 
      * Note that this method will not retrieve attributes that differ across object instances.
      * @param {Pointer<Guid>} Format The format whose property has its attributes retrieved.
-     * @param {Pointer<PROPERTYKEY>} _Property 
+     * @param {Pointer<PROPERTYKEY>} _Property The property whose attributes are retrieved.
      * @returns {IPortableDeviceValues} The <a href="https://docs.microsoft.com/windows/desktop/wpd_sdk/iportabledevicevalues">IPortableDeviceValues</a> interface that receives the list of attributes.
      * @see https://learn.microsoft.com/windows/win32/api/portabledeviceapi/nf-portabledeviceapi-iportabledeviceservicecapabilities-getformatpropertyattributes
      */

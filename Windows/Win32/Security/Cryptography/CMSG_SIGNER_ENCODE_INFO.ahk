@@ -1,17 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\CERT_INFO.ahk
 #Include .\NCRYPT_KEY_HANDLE.ahk
-#Include .\CRYPT_INTEGER_BLOB.ahk
 #Include .\CRYPT_ALGORITHM_IDENTIFIER.ahk
+#Include .\CRYPT_INTEGER_BLOB.ahk
+#Include .\CRYPT_ATTRIBUTE.ahk
 
 /**
  * Contains signer information. It is passed to CryptMsgCountersign, CryptMsgCountersignEncoded, and optionally to CryptMsgOpenToEncode as a member of the CMSG_SIGNED_ENCODE_INFO structure, if the dwMsgType parameter is CMSG_SIGNED.
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cmsg_signer_encode_info
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CMSG_SIGNER_ENCODE_INFO extends Win32Struct
-{
+class CMSG_SIGNER_ENCODE_INFO extends Win32Struct {
     static sizeof => 96
 
     static packingSize => 8
@@ -51,7 +51,7 @@ class CMSG_SIGNER_ENCODE_INFO extends Win32Struct
     /**
      * @type {NCRYPT_KEY_HANDLE}
      */
-    hNCryptKey{
+    hNCryptKey {
         get {
             if(!this.HasProp("__hNCryptKey"))
                 this.__hNCryptKey := NCRYPT_KEY_HANDLE(16, this)
@@ -107,7 +107,7 @@ class CMSG_SIGNER_ENCODE_INFO extends Win32Struct
      * 						<a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-crypt_algorithm_identifier">CRYPT_ALGORITHM_IDENTIFIER</a> structure that specifies the hash algorithm.
      * @type {CRYPT_ALGORITHM_IDENTIFIER}
      */
-    HashAlgorithm{
+    HashAlgorithm {
         get {
             if(!this.HasProp("__HashAlgorithm"))
                 this.__HashAlgorithm := CRYPT_ALGORITHM_IDENTIFIER(32, this)

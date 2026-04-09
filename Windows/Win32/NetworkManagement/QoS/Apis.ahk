@@ -4,7 +4,6 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.QoS
- * @version v4.0.30319
  */
 class QoS {
 
@@ -2388,7 +2387,7 @@ class QoS {
      * Every process intending to use qWAVE must first call <b>QOSCreateHandle</b>. The handle returned can be used for performing overlapped I/O. For example, this handle can be associated with an I/O completion port (IOCP) to receive overlapped completion notifications. This function can be  called multiple times to obtain multiple handles although a single handle is sufficient for most applications.
      * 
      * If a machine enters a power save mode that interrupts connectivity such as sleep or standby, existing and active network experiments such as <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/qos2/nf-qos2-qosstarttrackingclient">QOSStartTrackingClient</a> must be reinitiated.  This recreation of the flow mirrors the cleanup and creation activities also necessary for existing sockets. A new handle must be created, and the flow must be recreated and readmitted.
-     * @param {Pointer<QOS_VERSION>} _Version 
+     * @param {Pointer<QOS_VERSION>} _Version Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/qos2/ns-qos2-qos_version">QOS_VERSION</a> structure that indicates the version of QOS being used.  The <b>MajorVersion</b> member must be set to 1, and the <b>MinorVersion</b> member must be set to 0.
      * @param {Pointer<HANDLE>} QOSHandle Pointer to a variable that receives a QOS handle.  This handle is used when calling other QOS functions.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
@@ -2761,8 +2760,12 @@ class QoS {
      * 
      * Flows from another process cannot be modified.
      * @param {HANDLE} QOSHandle Handle to the QOS subsystem returned by <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/qos2/nf-qos2-qoscreatehandle">QOSCreateHandle</a>.
-     * @param {Pointer<Integer>} _Size 
-     * @param {Pointer} _Buffer 
+     * @param {Pointer<Integer>} _Size Indicates the size of the <i>Buffer</i> parameter, in bytes.
+     * 
+     * On function return, if successful, this parameter will specify the number of bytes copied into <i>Buffer</i>.
+     * 
+     * If this call fails with <b>ERROR_INSUFFICIENT_BUFFER</b>, this parameter will indicate the minimum required <i>Buffer</i> size in order to successfully complete this operation.
+     * @param {Integer} _Buffer Pointer to an array of <b>QOS_FlowId</b> flow identifiers. A <b>QOS_FlowId</b> is an unsigned 32-bit integer.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is 0.  To get extended error information, call <b>GetLastError</b>.  Some possible error codes follow.
@@ -2879,7 +2882,7 @@ class QoS {
      * 
      * Non-adaptive applications, or adaptive applications making non-adaptive flows, should call this function with the <b>QOS_NON_ADAPTIVE_FLOW</b> flag.  After calling this function A/V applications should call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/qos2/nf-qos2-qossetflow">QOSSetFlow</a> function with a <i>Operation</i>. <b>QOSSetFlow</b> does not need to be called unless shaping is desired.
      * @param {HANDLE} QOSHandle Handle to the QOS subsystem returned by <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/qos2/nf-qos2-qoscreatehandle">QOSCreateHandle</a>.
-     * @param {SOCKET} _Socket 
+     * @param {SOCKET} _Socket Identifies the socket that the application will use to flow traffic.
      * @param {Pointer<SOCKADDR>} DestAddr Pointer to a <a href="https://docs.microsoft.com/windows/desktop/WinSock/sockaddr-2">sockaddr</a> structure that contains the destination IP address to which the application will send traffic.  The sockaddr structure must specify a destination port.
      * 
      * <div class="alert"><b>Note</b>  <i>DestAddr</i> is optional if the socket is already connected. If this parameter is specified, the remote IP address and port must match those used in the socket's connect call.<p class="note">If the socket is not connected, this parameter must be specified.  If the socket is already connected, this parameter does not need to be specified.  In this case, if the parameter is still specified, the destination host and port must match what was specified during the socket connect call.
@@ -2888,7 +2891,7 @@ class QoS {
      * 
      * </div>
      * <div> </div>
-     * @param {Integer} TrafficType A <a href="https://docs.microsoft.com/windows/desktop/api/qos2/ne-qos2-qos_traffic_type">QOS_TRAFFIC_TYPE</a> constant that specifies the type of traffic for which this flow will be used.
+     * @param {QOS_TRAFFIC_TYPE} TrafficType A <a href="https://docs.microsoft.com/windows/desktop/api/qos2/ne-qos2-qos_traffic_type">QOS_TRAFFIC_TYPE</a> constant that specifies the type of traffic for which this flow will be used.
      * @param {Integer} Flags Optional flag values.
      * 
      * <table>
@@ -3054,7 +3057,9 @@ class QoS {
      * @remarks
      * Calling the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/qos2/nf-qos2-qosclosehandle">QOSCloseHandle</a> function immediately aborts all pending operations and flows added by that handle.  If a handle is closed while a <b>QOSRemoveSocketFromFlow</b> call is still progress, the call will complete with <b>ERROR_OPERATION_ABORTED</b>.
      * @param {HANDLE} QOSHandle Handle to the QOS subsystem returned by <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/qos2/nf-qos2-qoscreatehandle">QOSCreateHandle</a>.
-     * @param {SOCKET} _Socket 
+     * @param {SOCKET} _Socket Socket to be removed from the flow.
+     * 
+     * Only flows created with the <b>QOS_NON_ADAPTIVE_FLOW</b> flag may have multiple sockets added to the same flow.  By passing the <i>Socket</i> parameter in this call, each socket can be removed individually.  If the <i>Socket</i> parameter is not passed, the entire flow will be destroyed.  If only one socket was attached to the flow, passing this socket as a parameter to this function and passing <b>NULL</b> as a socket are equivalent calls.
      * @param {Integer} FlowId A flow identifier. A <b>QOS_FLOWID</b> is an unsigned 32-bit integer.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
@@ -3185,7 +3190,7 @@ class QoS {
      * This function may optionally be called asynchronously.
      * @param {HANDLE} QOSHandle Handle to the QOS subsystem returned by <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/qos2/nf-qos2-qoscreatehandle">QOSCreateHandle</a>.
      * @param {Integer} FlowId A flow identifier. A <b>QOS_FLOWID</b> is an unsigned 32-bit integer.
-     * @param {Integer} Operation A <a href="https://docs.microsoft.com/windows/desktop/api/qos2/ne-qos2-qos_set_flow">QOS_SET_FLOW</a> enumerated type that identifies what will be changed in the flow.  This parameter specifies what structure the <i>Buffer</i> will contain.
+     * @param {QOS_SET_FLOW} Operation A <a href="https://docs.microsoft.com/windows/desktop/api/qos2/ne-qos2-qos_set_flow">QOS_SET_FLOW</a> enumerated type that identifies what will be changed in the flow.  This parameter specifies what structure the <i>Buffer</i> will contain.
      * 
      * <table>
      * <tr>
@@ -3228,9 +3233,9 @@ class QoS {
      * </td>
      * </tr>
      * </table>
-     * @param {Integer} _Size 
-     * @param {Pointer} _Buffer 
-     * @param {Pointer<OVERLAPPED>} _Overlapped 
+     * @param {Integer} _Size The size of the <i>Buffer</i> parameter, in bytes.
+     * @param {Integer} _Buffer Pointer to the structure specified by the value of the <i>Operation</i> parameter.
+     * @param {Pointer<OVERLAPPED>} _Overlapped Pointer to an OVERLAPPED structure used for asynchronous output.  This must be set to <b>NULL</b> if this function is not being called asynchronously.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is 0.  To get extended error information, call <b>GetLastError</b>.  Some possible error codes follow.
@@ -3433,7 +3438,7 @@ class QoS {
      * Requests information about a specific flow.
      * @param {HANDLE} QOSHandle Handle to the QOS subsystem returned by <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/qos2/nf-qos2-qoscreatehandle">QOSCreateHandle</a>.
      * @param {Integer} FlowId Specifies a flow identifier. A <b>QOS_FLOWID</b> is an unsigned 32-bit integer.
-     * @param {Integer} Operation Specifies which type of flow information is being queried. This parameter specifies what structure the <i>Buffer</i> will contain.
+     * @param {QOS_QUERY_FLOW} Operation Specifies which type of flow information is being queried. This parameter specifies what structure the <i>Buffer</i> will contain.
      * 
      * <table>
      * <tr>
@@ -3471,8 +3476,12 @@ class QoS {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Integer>} _Size 
-     * @param {Pointer} _Buffer 
+     * @param {Pointer<Integer>} _Size Indicates the size of the <i>Buffer</i> parameter, in bytes.
+     * 
+     * On function return, if successful, this parameter will specify the number of bytes copied into <i>Buffer</i>.
+     * 
+     * If this call fails with <b>ERROR_INSUFFICIENT_BUFFER</b>, this parameter will indicate the minimum required <i>Buffer</i> size in order to successfully complete this operation.
+     * @param {Integer} _Buffer Pointer to the structure specified by the value of the <i>Operation</i> parameter.
      * @param {Integer} Flags Flags pertaining to the data being returned.
      * 
      * <table>
@@ -3493,7 +3502,7 @@ class QoS {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<OVERLAPPED>} _Overlapped 
+     * @param {Pointer<OVERLAPPED>} _Overlapped Pointer to an OVERLAPPED structure used for asynchronous output. This must be set to <b>NULL</b> if this function is not being called asynchronously.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is 0.  To get extended error information, call <b>GetLastError</b>.  Some possible error codes follow.
@@ -3698,10 +3707,14 @@ class QoS {
      * This function may be called asynchronously.
      * @param {HANDLE} QOSHandle Handle to the QOS subsystem returned by <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/qos2/nf-qos2-qoscreatehandle">QOSCreateHandle</a>.
      * @param {Integer} FlowId Specifies the flow identifier from which the application wishes to receive notifications. A <b>QOS_FLOWID</b> is an unsigned 32-bit integer.
-     * @param {Integer} Operation A <a href="https://docs.microsoft.com/windows/desktop/api/qos2/ne-qos2-qos_notify_flow">QOS_NOTIFY_FLOW</a> value that indicates what the type of  notification being requested.
-     * @param {Pointer<Integer>} _Size 
-     * @param {Pointer} _Buffer 
-     * @param {Pointer<OVERLAPPED>} _Overlapped 
+     * @param {QOS_NOTIFY_FLOW} Operation A <a href="https://docs.microsoft.com/windows/desktop/api/qos2/ne-qos2-qos_notify_flow">QOS_NOTIFY_FLOW</a> value that indicates what the type of  notification being requested.
+     * @param {Pointer<Integer>} _Size Indicates the size of the <i>Buffer</i> parameter, in bytes.
+     * 
+     * On function return, if successful, this parameter will specify the number of bytes copied into <i>Buffer</i>.
+     * 
+     * If this call fails with <b>ERROR_INSUFFICIENT_BUFFER</b>, this parameter will indicate the minimum required <i>Buffer</i> size in order to successfully complete this operation.
+     * @param {Integer} _Buffer Pointer to a UINT64 that indicates the bandwidth at which point a notification will be sent.  This parameter is only used if the <i>Operation</i> parameter is set to <b>QOSNotifyAvailable</b>. For the <b>QOSNotifyCongested</b> and <b>QOSNotifyUncongested</b> options, this parameter must be set to <b>NULL</b> on input.
+     * @param {Pointer<OVERLAPPED>} _Overlapped Pointer to an OVERLAPPED structure used for asynchronous output. This must be se to <b>NULL</b> if this function is not being called asynchronously.
      * @returns {BOOL} If the function succeeds, a return value of nonzero is sent when the conditions set by the <i>Operation</i> parameter are met.
      * 
      * If the function fails, the return value is 0.  To get extended error information, call <b>GetLastError</b>.  Some possible error codes follow.
@@ -3900,7 +3913,7 @@ class QoS {
      * 
      * Closing a handle with the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/qos2/nf-qos2-qosclosehandle">QOSCloseHandle</a> will automatically abort all pending operations issued with that handle.  If the handle is closed while a <b>QOSCancel</b> is still in progress, the call will complete with <b>ERROR_OPERATION_ABORTED</b> as the return code.
      * @param {HANDLE} QOSHandle Handle to the QOS subsystem returned by <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/qos2/nf-qos2-qoscreatehandle">QOSCreateHandle</a>.
-     * @param {Pointer<OVERLAPPED>} _Overlapped 
+     * @param {Pointer<OVERLAPPED>} _Overlapped Pointer to the OVERLAPPED structure used in the operation to be canceled.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is 0.  To get extended error information, call <b>GetLastError</b>. Some possible error codes follow.
@@ -4455,7 +4468,7 @@ class QoS {
      * @param {BOOLEAN} NotifyChange Used to request notifications from traffic control for the parameter being queried. If <b>TRUE</b>, traffic control will notify the client, through the 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/traffic/nc-traffic-tci_notify_handler">ClNotifyHandler</a> function, upon changes to the parameter corresponding to the GUID provided in <i>pGuidParam</i>. Notifications are off by default.
      * @param {Pointer<Integer>} pBufferSize Indicates the size of the buffer, in bytes. For input, this value is the size of the buffer allocated by the caller. For output, this value is the actual size of the buffer, in bytes, used by traffic control.
-     * @param {Pointer} _Buffer 
+     * @param {Integer} _Buffer Pointer to a client-allocated buffer into which returned data will be written.
      * @returns {Integer} Note that, with regard to a requested notification state, only a return value of NO_ERROR will result in the application of the requested notification state. If a return value other than NO_ERROR is returned from a call to the 
      * <b>TcQueryInterface</b> function, the requested change in notification state will not be accepted.
      * 
@@ -4566,7 +4579,7 @@ class QoS {
      * @param {Pointer<Guid>} pGuidParam Pointer to the globally unique identifier (GUID) that corresponds to the parameter to be set. A list of available GUIDs can be found in 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/qos/guid">GUID</a>.
      * @param {Integer} BufferSize Size of the client-provided buffer, in bytes.
-     * @param {Pointer} _Buffer 
+     * @param {Integer} _Buffer Pointer to a client-provided buffer. <i>Buffer</i> must contain the value to which the traffic control parameter provided in <i>pGuidParam</i> should be set.
      * @returns {Integer} <table>
      * <tr>
      * <th>Return code</th>
@@ -4665,7 +4678,7 @@ class QoS {
      * @param {Pointer<Guid>} pGuidParam Pointer to the globally unique identifier (GUID) that corresponds to the flow parameter of interest. A list of traffic control's GUIDs can be found in 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/qos/guid">GUID</a>.
      * @param {Pointer<Integer>} pBufferSize Pointer to the size of the client-provided buffer or the number of bytes used by traffic control. For input, points to the size of <i>Buffer</i>, in bytes. For output, points to the actual amount of buffer space written with returned flow-parameter data, in bytes.
-     * @param {Pointer} _Buffer 
+     * @param {Integer} _Buffer Pointer to the client-provided buffer in which the returned flow parameter is written.
      * @returns {Integer} <table>
      * <tr>
      * <th>Return code</th>
@@ -4766,7 +4779,7 @@ class QoS {
      * @param {Pointer<Guid>} pGuidParam Pointer to the globally unique identifier (GUID) that corresponds to the flow parameter of interest. A list of traffic control's GUIDs can be found in 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/qos/guid">GUID</a>.
      * @param {Pointer<Integer>} pBufferSize Pointer to the size of the client-provided buffer or the number of bytes used by traffic control. For input, points to the size of <i>Buffer</i>, in bytes. For output, points to the actual amount of buffer space written with returned flow-parameter data, in bytes.
-     * @param {Pointer} _Buffer 
+     * @param {Integer} _Buffer Pointer to the client-provided buffer in which the returned flow parameter is written.
      * @returns {Integer} <table>
      * <tr>
      * <th>Return code</th>
@@ -4868,7 +4881,7 @@ class QoS {
      * @param {Pointer<Guid>} pGuidParam Pointer to the globally unique identifier (GUID) that corresponds to the parameter to be set. A list of available GUIDs can be found in 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/qos/guid">GUID</a>.
      * @param {Integer} BufferSize Size of the client-provided buffer, in bytes.
-     * @param {Pointer} _Buffer 
+     * @param {Integer} _Buffer Pointer to a client-provided buffer. Buffer must contain the value to which the traffic control parameter provided in <i>pGuidParam</i> should be set.
      * @returns {Integer} The 
      * <b>TcSetFlow</b> function has the following return values.
      * 
@@ -4982,7 +4995,7 @@ class QoS {
      * @param {Pointer<Guid>} pGuidParam Pointer to the globally unique identifier (GUID) that corresponds to the parameter to be set. A list of available GUIDs can be found in 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/qos/guid">GUID</a>.
      * @param {Integer} BufferSize Size of the client-provided buffer, in bytes.
-     * @param {Pointer} _Buffer 
+     * @param {Integer} _Buffer Pointer to a client-provided buffer. Buffer must contain the value to which the traffic control parameter provided in <i>pGuidParam</i> should be set.
      * @returns {Integer} The 
      * <b>TcSetFlow</b> function has the following return values.
      * 
@@ -6071,7 +6084,8 @@ class QoS {
      * <b>TcEnumerateFlows</b>.
      * @param {Pointer<Integer>} pFlowCount Pointer to the number of requested or returned flows. For input, this parameter designates the number of requested flows or it can be set to <b>0xFFFF</b> to request all flows. For output, <i>pFlowCount</i> returns the number of flows actually returned in <i>Buffer</i>.
      * @param {Pointer<Integer>} pBufSize Pointer to the size of the client-provided buffer or the number of bytes used by traffic control. For input, points to the size of <i>Buffer</i>, in bytes. For output, points to the actual amount of buffer space, in bytes, written or needed with flow enumerations.
-     * @param {Pointer<ENUMERATION_BUFFER>} _Buffer 
+     * @param {Pointer<ENUMERATION_BUFFER>} _Buffer Pointer to the buffer containing flow enumerations. See 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/traffic/ns-traffic-enumeration_buffer">ENUMERATION_BUFFER</a> for more information about flow enumerations.
      * @returns {Integer} <table>
      * <tr>
      * <th>Return code</th>

@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Networking.WinSock
- * @version v4.0.30319
  */
-class SNAP_HEADER extends Win32Struct
-{
+class SNAP_HEADER extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 2
@@ -36,9 +34,9 @@ class SNAP_HEADER extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Oui{
+    Oui {
         get {
             if(!this.HasProp("__OuiProxyArray"))
                 this.__OuiProxyArray := Win32FixedArray(this.ptr + 3, 3, Primitive, "char")

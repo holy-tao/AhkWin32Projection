@@ -7,10 +7,8 @@
  * Contains information that describes a MAC layer drop failure.
  * @see https://learn.microsoft.com/windows/win32/api/fwpmtypes/ns-fwpmtypes-fwpm_net_event_classify_drop_mac0
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
- * @version v4.0.30319
  */
-class FWPM_NET_EVENT_CLASSIFY_DROP_MAC0 extends Win32Struct
-{
+class FWPM_NET_EVENT_CLASSIFY_DROP_MAC0 extends Win32Struct {
     static sizeof => 104
 
     static packingSize => 8
@@ -19,7 +17,7 @@ class FWPM_NET_EVENT_CLASSIFY_DROP_MAC0 extends Win32Struct
      * The local MAC address.
      * @type {FWP_BYTE_ARRAY6}
      */
-    localMacAddr{
+    localMacAddr {
         get {
             if(!this.HasProp("__localMacAddr"))
                 this.__localMacAddr := FWP_BYTE_ARRAY6(0, this)
@@ -31,7 +29,7 @@ class FWPM_NET_EVENT_CLASSIFY_DROP_MAC0 extends Win32Struct
      * The remote MAC address.
      * @type {FWP_BYTE_ARRAY6}
      */
-    remoteMacAddr{
+    remoteMacAddr {
         get {
             if(!this.HasProp("__remoteMacAddr"))
                 this.__remoteMacAddr := FWP_BYTE_ARRAY6(6, this)
@@ -214,7 +212,7 @@ class FWPM_NET_EVENT_CLASSIFY_DROP_MAC0 extends Win32Struct
      * GUID identifier of a vSwitch.
      * @type {FWP_BYTE_BLOB}
      */
-    vSwitchId{
+    vSwitchId {
         get {
             if(!this.HasProp("__vSwitchId"))
                 this.__vSwitchId := FWP_BYTE_BLOB(80, this)

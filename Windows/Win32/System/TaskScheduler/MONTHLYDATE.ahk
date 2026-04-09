@@ -18,10 +18,8 @@
  * ```
  * @see https://learn.microsoft.com/windows/win32/api/mstask/ns-mstask-monthlydate
  * @namespace Windows.Win32.System.TaskScheduler
- * @version v4.0.30319
  */
-class MONTHLYDATE extends Win32Struct
-{
+class MONTHLYDATE extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4

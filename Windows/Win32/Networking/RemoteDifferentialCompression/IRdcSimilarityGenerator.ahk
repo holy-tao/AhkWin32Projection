@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\SimilarityData.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\SimilarityData.ahk
 
 /**
  * Defines methods for enabling the signature generator to generate similarity data and for retrieving the similarity data after it is generated.
  * @see https://learn.microsoft.com/windows/win32/api/msrdc/nn-msrdc-irdcsimilaritygenerator
  * @namespace Windows.Win32.Networking.RemoteDifferentialCompression
- * @version v4.0.30319
  */
-class IRdcSimilarityGenerator extends IUnknown{
+class IRdcSimilarityGenerator extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -49,7 +48,7 @@ class IRdcSimilarityGenerator extends IUnknown{
 
     /**
      * Retrieves the similarity data that was generated for a file by the signature generator.
-     * @returns {SimilarityData} 
+     * @returns {SimilarityData} A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/msrdc/ns-msrdc-similaritydata">SimilarityData</a> structure that will receive the similarity data.
      * @see https://learn.microsoft.com/windows/win32/api/msrdc/nf-msrdc-irdcsimilaritygenerator-results
      */
     Results() {

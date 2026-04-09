@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * The ITfSystemLangBarItemText interface is implemented by a system language bar and is used by a system language bar extension to modify the description displayed for the menu.
  * @see https://learn.microsoft.com/windows/win32/api/ctfutb/nn-ctfutb-itfsystemlangbaritemtext
  * @namespace Windows.Win32.UI.TextServices
- * @version v4.0.30319
  */
-class ITfSystemLangBarItemText extends IUnknown{
+class ITfSystemLangBarItemText extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

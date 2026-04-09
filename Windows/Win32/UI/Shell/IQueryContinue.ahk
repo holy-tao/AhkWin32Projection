@@ -7,9 +7,8 @@
  * Exposes a method that provides a simple, standard mechanism for objects to query a client for permission to continue an operation.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-iquerycontinue
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IQueryContinue extends IUnknown{
+class IQueryContinue extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

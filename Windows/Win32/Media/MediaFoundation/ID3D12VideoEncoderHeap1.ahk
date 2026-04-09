@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class ID3D12VideoEncoderHeap1 extends ID3D12VideoEncoderHeap{
+class ID3D12VideoEncoderHeap1 extends ID3D12VideoEncoderHeap {
 
     static sizeof => A_PtrSize
     /**

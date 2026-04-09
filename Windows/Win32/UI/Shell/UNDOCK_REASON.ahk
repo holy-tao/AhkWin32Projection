@@ -5,9 +5,8 @@
  * Values that indicate the reason that a docked accessibility app window has been undocked. Used by IAccessibilityDockingServiceCallback::Undocked.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl/ne-shobjidl-undock_reason
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class UNDOCK_REASON extends Win32Enum{
+class UNDOCK_REASON extends Win32Enum {
 
     /**
      * The accessibility window was undocked because the screen resolution has changed.

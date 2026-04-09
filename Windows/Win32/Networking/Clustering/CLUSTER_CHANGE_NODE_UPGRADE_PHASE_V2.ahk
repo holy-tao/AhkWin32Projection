@@ -5,9 +5,8 @@
  * The CLUSTER_CHANGE_NODE_UPGRADE_PHASE_V2 enumeration (msclus.h) defines the notifications that are generated for the upgrade of a cluster node.
  * @see https://learn.microsoft.com/windows/win32/api/msclus/ne-msclus-cluster_change_node_upgrade_phase_v2
  * @namespace Windows.Win32.Networking.Clustering
- * @version v4.0.30319
  */
-class CLUSTER_CHANGE_NODE_UPGRADE_PHASE_V2 extends Win32Enum{
+class CLUSTER_CHANGE_NODE_UPGRADE_PHASE_V2 extends Win32Enum {
 
     /**
      * Indicates that the upgrade is being prepared.

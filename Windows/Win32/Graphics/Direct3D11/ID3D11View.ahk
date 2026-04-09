@@ -22,9 +22,8 @@
  * </ul>
  * @see https://learn.microsoft.com/windows/win32/api/d3d11/nn-d3d11-id3d11view
  * @namespace Windows.Win32.Graphics.Direct3D11
- * @version v4.0.30319
  */
-class ID3D11View extends ID3D11DeviceChild{
+class ID3D11View extends ID3D11DeviceChild {
 
     static sizeof => A_PtrSize
     /**

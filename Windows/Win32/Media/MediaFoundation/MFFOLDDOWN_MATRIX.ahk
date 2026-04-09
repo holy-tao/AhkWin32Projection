@@ -9,10 +9,8 @@
  * The ASF media source supports fold-down from six channels (5.1 audio) to two channels (stereo). It gets the information from the g_wszFold6To2Channels3 attribute in the ASF header. This attribute is documented in the Windows Media Format SDK documentation.
  * @see https://learn.microsoft.com/windows/win32/api/mfapi/ns-mfapi-mffolddown_matrix
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class MFFOLDDOWN_MATRIX extends Win32Struct
-{
+class MFFOLDDOWN_MATRIX extends Win32Struct {
     static sizeof => 272
 
     static packingSize => 4
@@ -55,9 +53,9 @@ class MFFOLDDOWN_MATRIX extends Win32Struct
 
     /**
      * Array that contains the fold-down coefficients. The number of coefficients is <b>cSrcChannels</b>×<b>cDstChannels</b>. If the number of coefficients is less than the size of the array, the remaining elements in the array are ignored. For more information about how the coefficients are applied, see <a href="https://docs.microsoft.com/previous-versions/ms867218(v=msdn.10)">Windows Media Audio Professional Codec Features</a>.
-     * @type {Array<Int32>}
+     * @type {Array<Integer>}
      */
-    Coeff{
+    Coeff {
         get {
             if(!this.HasProp("__CoeffProxyArray"))
                 this.__CoeffProxyArray := Win32FixedArray(this.ptr + 16, 64, Primitive, "int")

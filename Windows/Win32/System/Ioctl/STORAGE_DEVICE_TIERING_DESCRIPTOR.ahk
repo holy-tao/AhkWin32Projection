@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\STORAGE_TIER.ahk
+#Include .\STORAGE_TIER_MEDIA_TYPE.ahk
+#Include .\STORAGE_TIER_CLASS.ahk
 
 /**
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class STORAGE_DEVICE_TIERING_DESCRIPTOR extends Win32Struct
-{
-    static sizeof => 32
+class STORAGE_DEVICE_TIERING_DESCRIPTOR extends Win32Struct {
+    static sizeof => 1080
 
     static packingSize => 8
 
@@ -53,9 +53,9 @@ class STORAGE_DEVICE_TIERING_DESCRIPTOR extends Win32Struct
     }
 
     /**
-     * @type {Array<STORAGE_TIER>}
+     * @type {STORAGE_TIER}
      */
-    Tiers{
+    Tiers {
         get {
             if(!this.HasProp("__TiersProxyArray"))
                 this.__TiersProxyArray := Win32FixedArray(this.ptr + 24, 1, STORAGE_TIER, "")

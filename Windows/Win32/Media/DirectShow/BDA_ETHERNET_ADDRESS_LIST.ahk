@@ -4,13 +4,11 @@
 
 /**
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class BDA_ETHERNET_ADDRESS_LIST extends Win32Struct
-{
-    static sizeof => 16
+class BDA_ETHERNET_ADDRESS_LIST extends Win32Struct {
+    static sizeof => 12
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}
@@ -21,12 +19,12 @@ class BDA_ETHERNET_ADDRESS_LIST extends Win32Struct
     }
 
     /**
-     * @type {Array<BDA_ETHERNET_ADDRESS>}
+     * @type {BDA_ETHERNET_ADDRESS}
      */
-    rgAddressl{
+    rgAddressl {
         get {
             if(!this.HasProp("__rgAddresslProxyArray"))
-                this.__rgAddresslProxyArray := Win32FixedArray(this.ptr + 8, 1, BDA_ETHERNET_ADDRESS, "")
+                this.__rgAddresslProxyArray := Win32FixedArray(this.ptr + 4, 1, BDA_ETHERNET_ADDRESS, "")
             return this.__rgAddresslProxyArray
         }
     }

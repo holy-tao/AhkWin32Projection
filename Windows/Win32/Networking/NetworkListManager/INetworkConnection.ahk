@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\INetwork.ahk
 #Include ..\..\System\Com\IDispatch.ahk
+#Include .\INetwork.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * The INetworkConnection interface represents a single network connection.
  * @see https://learn.microsoft.com/windows/win32/api/netlistmgr/nn-netlistmgr-inetworkconnection
  * @namespace Windows.Win32.Networking.NetworkListManager
- * @version v4.0.30319
  */
-class INetworkConnection extends IDispatch{
+class INetworkConnection extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -77,7 +77,7 @@ class INetworkConnection extends IDispatch{
 
     /**
      * The GetConnectivity method returns the connectivity state of the network connection.
-     * @returns {Integer} Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/netlistmgr/ne-netlistmgr-nlm_connectivity">NLM_CONNECTIVITY</a> enumeration value that contains  a bitmask that specifies the connectivity of this network connection.
+     * @returns {NLM_CONNECTIVITY} Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/netlistmgr/ne-netlistmgr-nlm_connectivity">NLM_CONNECTIVITY</a> enumeration value that contains  a bitmask that specifies the connectivity of this network connection.
      * @see https://learn.microsoft.com/windows/win32/api/netlistmgr/nf-netlistmgr-inetworkconnection-getconnectivity
      */
     GetConnectivity() {
@@ -111,7 +111,7 @@ class INetworkConnection extends IDispatch{
 
     /**
      * The GetDomainType method returns the domain type of the network connection.
-     * @returns {Integer} Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/netlistmgr/ne-netlistmgr-nlm_domain_type">NLM_DOMAIN_TYPE</a> enumeration value that specifies the domain type of the network.
+     * @returns {NLM_DOMAIN_TYPE} Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/netlistmgr/ne-netlistmgr-nlm_domain_type">NLM_DOMAIN_TYPE</a> enumeration value that specifies the domain type of the network.
      * @see https://learn.microsoft.com/windows/win32/api/netlistmgr/nf-netlistmgr-inetworkconnection-getdomaintype
      */
     GetDomainType() {

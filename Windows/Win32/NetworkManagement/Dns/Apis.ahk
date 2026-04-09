@@ -3,7 +3,6 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Dns
- * @version v4.0.30319
  */
 class Dns {
 
@@ -1573,14 +1572,14 @@ class Dns {
 ;@region Methods
     /**
      * The DnsQueryConfig function enables application programmers to query for the configuration of the local computer or a specific adapter.
-     * @param {Integer} Config A <a href="https://docs.microsoft.com/windows/win32/api/windns/ne-windns-dns_config_type">DNS_CONFIG_TYPE</a> value that specifies the configuration type of the information to be queried.
+     * @param {DNS_CONFIG_TYPE} Config A <a href="https://docs.microsoft.com/windows/win32/api/windns/ne-windns-dns_config_type">DNS_CONFIG_TYPE</a> value that specifies the configuration type of the information to be queried.
      * @param {Integer} Flag A value that specifies whether to allocate memory for the configuration information. Set <i>Flag</i> to <b>DNS_CONFIG_FLAG_ALLOC </b> to allocate memory; otherwise, set it to 0.  
      * 
      * <div class="alert"><b>Note</b>  Free the allocated memory with <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a>.</div>
      * <div> </div>
      * @param {PWSTR} pwsAdapterName A pointer to a string that represents the adapter name against which the query is run.
      * @param {Pointer<Void>} pReserved Reserved for future use.
-     * @param {Pointer} pBuffer A pointer to a buffer that receives the query response. The following table shows the data type of the buffer for each  of the <i>Config</i> parameter values.
+     * @param {Integer} pBuffer A pointer to a buffer that receives the query response. The following table shows the data type of the buffer for each  of the <i>Config</i> parameter values.
      * 
      * <table>
      * <tr>
@@ -1680,8 +1679,8 @@ class Dns {
      * @remarks
      * The <i>CharSetIn</i> parameter is used only if the character encoding of the source RR is not specified in <i>pRecord</i>.
      * @param {Pointer<DNS_RECORDA>} pRecord A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/windns/ns-windns-dns_recorda">DNS_RECORD</a> structure that contains the RR to be copied.
-     * @param {Integer} CharSetIn A <a href="https://docs.microsoft.com/windows/desktop/api/windns/ne-windns-dns_charset">DNS_CHARSET</a> value that specifies the character encoding of the source RR.
-     * @param {Integer} CharSetOut A <a href="https://docs.microsoft.com/windows/desktop/api/windns/ne-windns-dns_charset">DNS_CHARSET</a> value that specifies the character encoding required of the destination record.
+     * @param {DNS_CHARSET} CharSetIn A <a href="https://docs.microsoft.com/windows/desktop/api/windns/ne-windns-dns_charset">DNS_CHARSET</a> value that specifies the character encoding of the source RR.
+     * @param {DNS_CHARSET} CharSetOut A <a href="https://docs.microsoft.com/windows/desktop/api/windns/ne-windns-dns_charset">DNS_CHARSET</a> value that specifies the character encoding required of the destination record.
      * @returns {Pointer<DNS_RECORDA>} Successful execution returns a pointer to the (newly created) destination record. Otherwise, returns null.
      * @see https://learn.microsoft.com/windows/win32/api/windns/nf-windns-dnsrecordcopyex
      * @since windows5.0
@@ -1696,8 +1695,8 @@ class Dns {
      * @remarks
      * The <i>CharSetIn</i> parameter is used only if the character encoding of the source resource record set is not specified in <i>pRecordSet</i>.
      * @param {Pointer<DNS_RECORDA>} pRecordSet A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/windns/ns-windns-dns_recorda">DNS_RECORD</a> structure that contains the resource record set to be copied.
-     * @param {Integer} CharSetIn A <a href="https://docs.microsoft.com/windows/desktop/api/windns/ne-windns-dns_charset">DNS_CHARSET</a> value that specifies the character encoding of the source resource record set.
-     * @param {Integer} CharSetOut A <a href="https://docs.microsoft.com/windows/desktop/api/windns/ne-windns-dns_charset">DNS_CHARSET</a> value that specifies the character encoding required of the destination record set.
+     * @param {DNS_CHARSET} CharSetIn A <a href="https://docs.microsoft.com/windows/desktop/api/windns/ne-windns-dns_charset">DNS_CHARSET</a> value that specifies the character encoding of the source resource record set.
+     * @param {DNS_CHARSET} CharSetOut A <a href="https://docs.microsoft.com/windows/desktop/api/windns/ne-windns-dns_charset">DNS_CHARSET</a> value that specifies the character encoding required of the destination record set.
      * @returns {Pointer<DNS_RECORDA>} Successful execution returns a pointer to the newly created destination record set. Otherwise, it returns null.
      * @see https://learn.microsoft.com/windows/win32/api/windns/nf-windns-dnsrecordsetcopyex
      * @since windows5.0
@@ -1760,7 +1759,7 @@ class Dns {
     /**
      * Frees memory allocated for DNS records that was obtained using the DnsQuery function.
      * @param {Pointer<Void>} pData A pointer to the DNS data to be freed.
-     * @param {Integer} FreeType A value that specifies the type of DNS data in <i>pData</i>. For more information and a list of values, see the <a href="https://docs.microsoft.com/windows/win32/api/windns/ne-windns-dns_free_type">DNS_FREE_TYPE</a> enumeration.
+     * @param {DNS_FREE_TYPE} FreeType A value that specifies the type of DNS data in <i>pData</i>. For more information and a list of values, see the <a href="https://docs.microsoft.com/windows/win32/api/windns/ne-windns-dns_free_type">DNS_FREE_TYPE</a> enumeration.
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/windns/nf-windns-dnsfree
      * @since windows5.1.2600
@@ -1801,11 +1800,11 @@ class Dns {
      *  If the <i>lpstrName </i> parameter is set to <b>NULL</b>, the <b>DnsQuery</b> function fails with the error <b>INVALID_PARAMETER</b>.
      * @param {PSTR} pszName A pointer to a string that represents the DNS name to query.
      * @param {Integer} wType A value that represents the Resource Record (RR)<a href="https://docs.microsoft.com/windows/desktop/DNS/dns-constants">DNS Record Type</a> that is queried. <b>wType</b> determines the format of data pointed to by <b>ppQueryResultsSet</b>. For example, if the value of <b>wType</b> is <b>DNS_TYPE_A</b>, the format of data pointed to by <b>ppQueryResultsSet</b> is <a href="https://docs.microsoft.com/windows/win32/api/windns/ns-windns-dns_a_data">DNS_A_DATA</a>.
-     * @param {Integer} Options A value that contains a bitmap of <a href="https://docs.microsoft.com/windows/desktop/DNS/dns-constants">DNS Query  Options</a> to use in the DNS query. Options can be combined and all options override <b>DNS_QUERY_STANDARD</b>.
+     * @param {DNS_QUERY_OPTIONS} Options A value that contains a bitmap of <a href="https://docs.microsoft.com/windows/desktop/DNS/dns-constants">DNS Query  Options</a> to use in the DNS query. Options can be combined and all options override <b>DNS_QUERY_STANDARD</b>.
      * @param {Pointer<Void>} pExtra This parameter is reserved for future use and must be set to <b>NULL</b>.
      * @param {Pointer<Pointer<DNS_RECORDA>>} ppQueryResults Optional. A pointer to a pointer that points to the list of RRs that comprise the response. For more information, see the Remarks section.
      * @param {Pointer<Pointer<Void>>} pReserved This parameter is reserved for future use and must be set to <b>NULL</b>.
-     * @returns {Integer} Returns success confirmation upon successful completion. Otherwise, returns the appropriate DNS-specific error code as defined in Winerror.h.
+     * @returns {WIN32_ERROR} Returns success confirmation upon successful completion. Otherwise, returns the appropriate DNS-specific error code as defined in Winerror.h.
      * @see https://learn.microsoft.com/windows/win32/api/windns/nf-windns-dnsquery_a
      * @since windows5.0
      */
@@ -1836,11 +1835,11 @@ class Dns {
      *  If the <i>lpstrName </i> parameter is set to <b>NULL</b>, the <b>DnsQuery</b> function fails with the error <b>INVALID_PARAMETER</b>.
      * @param {PSTR} pszName A pointer to a string that represents the DNS name to query.
      * @param {Integer} wType A value that represents the Resource Record (RR)<a href="https://docs.microsoft.com/windows/desktop/DNS/dns-constants">DNS Record Type</a> that is queried. <b>wType</b> determines the format of data pointed to by <b>ppQueryResultsSet</b>. For example, if the value of <b>wType</b> is <b>DNS_TYPE_A</b>, the format of data pointed to by <b>ppQueryResultsSet</b> is <a href="https://docs.microsoft.com/windows/win32/api/windns/ns-windns-dns_a_data">DNS_A_DATA</a>.
-     * @param {Integer} Options A value that contains a bitmap of <a href="https://docs.microsoft.com/windows/desktop/DNS/dns-constants">DNS Query  Options</a> to use in the DNS query. Options can be combined and all options override <b>DNS_QUERY_STANDARD</b>.
+     * @param {DNS_QUERY_OPTIONS} Options A value that contains a bitmap of <a href="https://docs.microsoft.com/windows/desktop/DNS/dns-constants">DNS Query  Options</a> to use in the DNS query. Options can be combined and all options override <b>DNS_QUERY_STANDARD</b>.
      * @param {Pointer<Void>} pExtra This parameter is reserved for future use and must be set to <b>NULL</b>.
      * @param {Pointer<Pointer<DNS_RECORDA>>} ppQueryResults Optional. A pointer to a pointer that points to the list of RRs that comprise the response. For more information, see the Remarks section.
      * @param {Pointer<Pointer<Void>>} pReserved This parameter is reserved for future use and must be set to <b>NULL</b>.
-     * @returns {Integer} Returns success confirmation upon successful completion. Otherwise, returns the appropriate DNS-specific error code as defined in Winerror.h.
+     * @returns {WIN32_ERROR} Returns success confirmation upon successful completion. Otherwise, returns the appropriate DNS-specific error code as defined in Winerror.h.
      * @see https://learn.microsoft.com/windows/win32/api/windns/nf-windns-dnsquery_utf8
      * @since windows5.0
      */
@@ -1871,11 +1870,11 @@ class Dns {
      *  If the <i>lpstrName </i> parameter is set to <b>NULL</b>, the <b>DnsQuery</b> function fails with the error <b>INVALID_PARAMETER</b>.
      * @param {PWSTR} pszName A pointer to a string that represents the DNS name to query.
      * @param {Integer} wType A value that represents the Resource Record (RR)<a href="https://docs.microsoft.com/windows/desktop/DNS/dns-constants">DNS Record Type</a> that is queried. <b>wType</b> determines the format of data pointed to by <b>ppQueryResultsSet</b>. For example, if the value of <b>wType</b> is <b>DNS_TYPE_A</b>, the format of data pointed to by <b>ppQueryResultsSet</b> is <a href="https://docs.microsoft.com/windows/win32/api/windns/ns-windns-dns_a_data">DNS_A_DATA</a>.
-     * @param {Integer} Options A value that contains a bitmap of <a href="https://docs.microsoft.com/windows/desktop/DNS/dns-constants">DNS Query  Options</a> to use in the DNS query. Options can be combined and all options override <b>DNS_QUERY_STANDARD</b>.
+     * @param {DNS_QUERY_OPTIONS} Options A value that contains a bitmap of <a href="https://docs.microsoft.com/windows/desktop/DNS/dns-constants">DNS Query  Options</a> to use in the DNS query. Options can be combined and all options override <b>DNS_QUERY_STANDARD</b>.
      * @param {Pointer<Void>} pExtra This parameter is reserved for future use and must be set to <b>NULL</b>.
      * @param {Pointer<Pointer<DNS_RECORDA>>} ppQueryResults Optional. A pointer to a pointer that points to the list of RRs that comprise the response. For more information, see the Remarks section.
      * @param {Pointer<Pointer<Void>>} pReserved This parameter is reserved for future use and must be set to <b>NULL</b>.
-     * @returns {Integer} Returns success confirmation upon successful completion. Otherwise, returns the appropriate DNS-specific error code as defined in Winerror.h.
+     * @returns {WIN32_ERROR} Returns success confirmation upon successful completion. Otherwise, returns the appropriate DNS-specific error code as defined in Winerror.h.
      * @see https://learn.microsoft.com/windows/win32/api/windns/nf-windns-dnsquery_w
      * @since windows5.0
      */
@@ -2387,7 +2386,7 @@ class Dns {
      * </div>
      * <div> </div>
      * @param {PWSTR} pszName A pointer to a string that represents the DNS name to be examined.
-     * @param {Integer} Format A <a href="https://docs.microsoft.com/windows/desktop/api/windns/ne-windns-dns_name_format">DNS_NAME_FORMAT</a> value that specifies the format of the name to be examined.
+     * @param {DNS_NAME_FORMAT} Format A <a href="https://docs.microsoft.com/windows/desktop/api/windns/ne-windns-dns_name_format">DNS_NAME_FORMAT</a> value that specifies the format of the name to be examined.
      * @returns {Integer} The 
      * <b>DnsValidateName</b> function has the following possible return values:
      * @see https://learn.microsoft.com/windows/win32/api/windns/nf-windns-dnsvalidatename_w
@@ -2454,7 +2453,7 @@ class Dns {
      * </div>
      * <div> </div>
      * @param {PSTR} pszName A pointer to a string that represents the DNS name to be examined.
-     * @param {Integer} Format A <a href="https://docs.microsoft.com/windows/desktop/api/windns/ne-windns-dns_name_format">DNS_NAME_FORMAT</a> value that specifies the format of the name to be examined.
+     * @param {DNS_NAME_FORMAT} Format A <a href="https://docs.microsoft.com/windows/desktop/api/windns/ne-windns-dns_name_format">DNS_NAME_FORMAT</a> value that specifies the format of the name to be examined.
      * @returns {Integer} The 
      * <b>DnsValidateName</b> function has the following possible return values:
      * @see https://learn.microsoft.com/windows/win32/api/windns/nf-windns-dnsvalidatename_a
@@ -2521,7 +2520,7 @@ class Dns {
      * </div>
      * <div> </div>
      * @param {PSTR} pszName A pointer to a string that represents the DNS name to be examined.
-     * @param {Integer} Format A <a href="https://docs.microsoft.com/windows/desktop/api/windns/ne-windns-dns_name_format">DNS_NAME_FORMAT</a> value that specifies the format of the name to be examined.
+     * @param {DNS_NAME_FORMAT} Format A <a href="https://docs.microsoft.com/windows/desktop/api/windns/ne-windns-dns_name_format">DNS_NAME_FORMAT</a> value that specifies the format of the name to be examined.
      * @returns {Integer} The 
      * <b>DnsValidateName</b> function has the following possible return values:
      * @see https://learn.microsoft.com/windows/win32/api/windns/nf-windns-dnsvalidatename_utf8
@@ -2598,7 +2597,7 @@ class Dns {
      * @param {Pointer<Integer>} pdwBufferSize The size, in bytes, of the buffer allocated to store <i>pDnsBuffer</i>. If the buffer size is insufficient to contain the message, <b>FALSE</b> is returned and <i>pdwBufferSize</i> contains the minimum required buffer size.
      * @param {PWSTR} pszName A pointer to a string that represents the name of the owner of the record set being queried.
      * @param {Integer} wType A value that represents the RR <a href="https://docs.microsoft.com/windows/desktop/DNS/dns-constants">DNS Record Type</a>. <b>wType</b> determines the format of <b>Data</b>. For example, if the value of <b>wType</b> is <b>DNS_TYPE_A</b>, the data type of <b>Data</b> is <a href="https://docs.microsoft.com/windows/win32/api/windns/ns-windns-dns_a_data">DNS_A_DATA</a>.
-     * @param {Integer} _Xid 
+     * @param {Integer} _Xid A value that specifies the unique DNS query identifier.
      * @param {BOOL} fRecursionDesired A BOOL that specifies whether recursive name query should be used  by the DNS name server. Set to <b>TRUE</b> to request recursive name query, <b>FALSE</b> to request iterative name query.
      * @returns {BOOL} Returns <b>TRUE</b> upon successful execution, otherwise <b>FALSE</b>.
      * @see https://learn.microsoft.com/windows/win32/api/windns/nf-windns-dnswritequestiontobuffer_w
@@ -2635,7 +2634,7 @@ class Dns {
      * @param {Pointer<Integer>} pdwBufferSize The size, in bytes, of the buffer allocated to store <i>pDnsBuffer</i>. If the buffer size is insufficient to contain the message, <b>FALSE</b> is returned and <i>pdwBufferSize</i> contains the minimum required buffer size.
      * @param {PSTR} pszName A pointer to a string that represents the name of the owner of the record set being queried.
      * @param {Integer} wType A value that represents the RR <a href="https://docs.microsoft.com/windows/desktop/DNS/dns-constants">DNS Record Type</a>. <b>wType</b> determines the format of <b>Data</b>. For example, if the value of <b>wType</b> is <b>DNS_TYPE_A</b>, the data type of <b>Data</b> is <a href="https://docs.microsoft.com/windows/win32/api/windns/ns-windns-dns_a_data">DNS_A_DATA</a>.
-     * @param {Integer} _Xid 
+     * @param {Integer} _Xid A value that specifies the unique DNS query identifier.
      * @param {BOOL} fRecursionDesired A BOOL that specifies whether recursive name query should be used  by the DNS name server. Set to <b>TRUE</b> to request recursive name query, <b>FALSE</b> to request iterative name query.
      * @returns {BOOL} Returns <b>TRUE</b> upon successful execution, otherwise <b>FALSE</b>.
      * @see https://learn.microsoft.com/windows/win32/api/windns/nf-windns-dnswritequestiontobuffer_utf8
@@ -2802,7 +2801,7 @@ class Dns {
     /**
      * 
      * @param {PWSTR} pwszConnectionName 
-     * @param {Integer} Type 
+     * @param {DNS_CONNECTION_PROXY_TYPE} Type 
      * @param {Pointer<DNS_CONNECTION_PROXY_INFO>} pProxyInfo 
      * @returns {Integer} 
      */
@@ -2825,7 +2824,7 @@ class Dns {
     /**
      * 
      * @param {PWSTR} pwszConnectionName 
-     * @param {Integer} Type 
+     * @param {DNS_CONNECTION_PROXY_TYPE} Type 
      * @param {Pointer<DNS_CONNECTION_PROXY_INFO>} pProxyInfo 
      * @returns {Integer} 
      */
@@ -2839,7 +2838,7 @@ class Dns {
     /**
      * 
      * @param {PWSTR} pwszConnectionName 
-     * @param {Integer} Type 
+     * @param {DNS_CONNECTION_PROXY_TYPE} Type 
      * @returns {Integer} 
      */
     static DnsConnectionDeleteProxyInfo(pwszConnectionName, Type) {
@@ -2902,7 +2901,7 @@ class Dns {
 
     /**
      * 
-     * @param {Integer} PolicyEntryTag 
+     * @param {DNS_CONNECTION_POLICY_TAG} PolicyEntryTag 
      * @param {Pointer<DNS_CONNECTION_POLICY_ENTRY_LIST>} pPolicyEntryList 
      * @returns {Integer} 
      */
@@ -2913,7 +2912,7 @@ class Dns {
 
     /**
      * 
-     * @param {Integer} PolicyEntryTag 
+     * @param {DNS_CONNECTION_POLICY_TAG} PolicyEntryTag 
      * @returns {Integer} 
      */
     static DnsConnectionDeletePolicyEntries(PolicyEntryTag) {

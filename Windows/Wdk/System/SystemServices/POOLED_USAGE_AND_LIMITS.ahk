@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class POOLED_USAGE_AND_LIMITS extends Win32Struct
-{
+class POOLED_USAGE_AND_LIMITS extends Win32Struct {
     static sizeof => 72
 
     static packingSize => 8

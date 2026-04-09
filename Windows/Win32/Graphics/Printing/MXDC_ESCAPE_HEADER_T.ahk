@@ -44,10 +44,8 @@
  * -   This call must occur before the call to [**StartDoc**](/windows/desktop/api/Wingdi/nf-wingdi-startdoca).
  * @see https://learn.microsoft.com/windows/win32/printdocs/mxdcescapeheader
  * @namespace Windows.Win32.Graphics.Printing
- * @version v4.0.30319
  */
-class MXDC_ESCAPE_HEADER_T extends Win32Struct
-{
+class MXDC_ESCAPE_HEADER_T extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4

@@ -1,18 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IMultiMediaStream.ahk
 #Include .\IGraphBuilder.ahk
 #Include .\IMediaStreamFilter.ahk
 #Include .\IMediaStream.ahk
-#Include .\IMultiMediaStream.ahk
 
 /**
  * Note  This interface is deprecated. New applications should not use it. The IAMMultiMediaStream interface is supported by the multimedia stream object. It contains methods for creating the underlying filter graph that the object manages.
  * @see https://learn.microsoft.com/windows/win32/api/amstream/nn-amstream-iammultimediastream
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IAMMultiMediaStream extends IMultiMediaStream{
+class IAMMultiMediaStream extends IMultiMediaStream {
 
     static sizeof => A_PtrSize
     /**
@@ -37,7 +36,7 @@ class IAMMultiMediaStream extends IMultiMediaStream{
      * Note  This interface is deprecated. New applications should not use it. The Initialize method initializes the multimedia stream object.
      * @remarks
      * If you specify AMMSF_NOGRAPHTHREAD in the <i>dwFlags</i> parameter, the calling thread must process window messages, and it must release all multimedia streaming objects before the thread exits. Otherwise, the application might deadlock.
-     * @param {Integer} StreamType Member of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/mmstream/ne-mmstream-stream_type">STREAM_TYPE</a> enumeration, specifying whether the streams are read-only, write-only, or read/write.
+     * @param {STREAM_TYPE} StreamType Member of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/mmstream/ne-mmstream-stream_type">STREAM_TYPE</a> enumeration, specifying whether the streams are read-only, write-only, or read/write.
      * @param {Integer} dwFlags 
      * @param {IGraphBuilder} pFilterGraph [optional] Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nn-strmif-igraphbuilder">IGraphBuilder</a> interface, or <b>NULL</b>. If this parameter is non-<b>NULL</b>, it specifies a filter graph that the multimedia stream object will use. Otherwise, the multimedia stream object creates a new filter graph.
      * @returns {HRESULT} Returns an <b>HRESULT</b> value. Possible values include the following.

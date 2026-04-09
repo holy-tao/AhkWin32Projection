@@ -9,10 +9,8 @@
  * When reading an <b>AASHELLMENUFILENAME</b> structure, first read a single SHORT to determine the total size of the structure, then use that value to read the remainder of the structure.
  * @see https://learn.microsoft.com/windows/win32/api/shlobj/ns-shlobj-aashellmenufilename
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class AASHELLMENUFILENAME extends Win32Struct
-{
+class AASHELLMENUFILENAME extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 2
@@ -32,9 +30,9 @@ class AASHELLMENUFILENAME extends Win32Struct
      * Type: <b>BYTE[12]</b>
      * 
      * Reserved. Applications should ignore this value.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    rgbReserved{
+    rgbReserved {
         get {
             if(!this.HasProp("__rgbReservedProxyArray"))
                 this.__rgbReservedProxyArray := Win32FixedArray(this.ptr + 2, 12, Primitive, "char")

@@ -11,9 +11,8 @@
  * Once initialized, a color transform cannot be reinitialized. Because of this, a color transform cannot be used with multiple sources or varying parameters.
  * @see https://learn.microsoft.com/windows/win32/api/wincodec/nn-wincodec-iwiccolortransform
  * @namespace Windows.Win32.Graphics.Imaging
- * @version v4.0.30319
  */
-class IWICColorTransform extends IWICBitmapSource{
+class IWICColorTransform extends IWICBitmapSource {
 
     static sizeof => A_PtrSize
     /**

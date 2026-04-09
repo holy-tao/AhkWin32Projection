@@ -15,9 +15,8 @@
  * For information about obtaining a description of the audio jack or connector through which an audio endpoint device connects to an audio adapter, see <a href="https://docs.microsoft.com/windows/desktop/api/devicetopology/nf-devicetopology-iksjackdescription-getjackdescription">IKsJackDescription::GetJackDescription</a> and <a href="https://docs.microsoft.com/windows/desktop/api/devicetopology/nf-devicetopology-iksjackdescription2-getjackdescription2">IKsJackDescription2::GetJackDescription2</a>.
  * @see https://learn.microsoft.com/windows/win32/api/mmdeviceapi/ne-mmdeviceapi-endpointformfactor
  * @namespace Windows.Win32.Media.Audio
- * @version v4.0.30319
  */
-class EndpointFormFactor extends Win32Enum{
+class EndpointFormFactor extends Win32Enum {
 
     /**
      * An audio endpoint device that the user accesses remotely through a network.

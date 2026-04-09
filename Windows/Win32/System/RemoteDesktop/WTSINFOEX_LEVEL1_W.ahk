@@ -1,15 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\WTS_CONNECTSTATE_CLASS.ahk
 
 /**
  * Contains extended information about a Remote Desktop Services session. (Unicode)
  * @see https://learn.microsoft.com/windows/win32/api/wtsapi32/ns-wtsapi32-wtsinfoex_level1_w
  * @namespace Windows.Win32.System.RemoteDesktop
- * @version v4.0.30319
  * @charset Unicode
  */
-class WTSINFOEX_LEVEL1_W extends Win32Struct
-{
+class WTSINFOEX_LEVEL1_W extends Win32Struct {
     static sizeof => 224
 
     static packingSize => 8
@@ -25,7 +24,7 @@ class WTSINFOEX_LEVEL1_W extends Win32Struct
 
     /**
      * A value of the <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/ne-wtsapi32-wts_connectstate_class">WTS_CONNECTSTATE_CLASS</a> enumeration type that specifies the connection state of a Remote Desktop Services session.
-     * @type {Integer}
+     * @type {WTS_CONNECTSTATE_CLASS}
      */
     SessionState {
         get => NumGet(this, 4, "int")
@@ -33,7 +32,6 @@ class WTSINFOEX_LEVEL1_W extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     SessionFlags {

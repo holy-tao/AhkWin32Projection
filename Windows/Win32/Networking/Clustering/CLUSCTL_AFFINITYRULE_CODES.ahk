@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Networking.Clustering
- * @version v4.0.30319
  */
-class CLUSCTL_AFFINITYRULE_CODES extends Win32Enum{
+class CLUSCTL_AFFINITYRULE_CODES extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

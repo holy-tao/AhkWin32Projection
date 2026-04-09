@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\PERSIST_FOLDER_TARGET_INFO.ahk
 #Include .\IPersistFolder2.ahk
+#Include .\PERSIST_FOLDER_TARGET_INFO.ahk
 
 /**
  * Extends the IPersistFolder and IPersistFolder2 interfaces by allowing a folder object to implement nondefault handling of folder shortcuts.
@@ -18,9 +18,8 @@
  * Applications do not normally use this interface directly.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-ipersistfolder3
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IPersistFolder3 extends IPersistFolder2{
+class IPersistFolder3 extends IPersistFolder2 {
 
     static sizeof => A_PtrSize
     /**

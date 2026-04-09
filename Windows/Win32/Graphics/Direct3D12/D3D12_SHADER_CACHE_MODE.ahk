@@ -3,13 +3,10 @@
 
 /**
  * Defines constants that specify a shader cache's mode.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/ne-d3d12-d3d12_shader_cache_mode
  * @namespace Windows.Win32.Graphics.Direct3D12
- * @version v4.0.30319
  */
-class D3D12_SHADER_CACHE_MODE extends Win32Enum{
+class D3D12_SHADER_CACHE_MODE extends Win32Enum {
 
     /**
      * Specifies that there's no backing file for this cache. All stores are discarded when the session object is destroyed.

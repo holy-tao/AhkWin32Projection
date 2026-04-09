@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\POINT.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\POINT.ahk
 
 /**
  * Exposes methods that retrieve information about a folder's display options, select specified items in that folder, and set the folder's view mode. (IFolderView)
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-ifolderview
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IFolderView extends IUnknown{
+class IFolderView extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

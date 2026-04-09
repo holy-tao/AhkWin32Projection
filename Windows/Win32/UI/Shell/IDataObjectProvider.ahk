@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDataObject.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\System\Com\IDataObject.ahk
 
 /**
  * Provides methods that enable you to set or retrieve a DataPackage object's IDataObject interface, which the DataPackage uses to support interoperability. The DataPackage object is used by an app to provide data to another app.
@@ -11,9 +11,8 @@
  * Do not implement this interface. An implementation is provided as part of the DataPackage object.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-idataobjectprovider
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IDataObjectProvider extends IUnknown{
+class IDataObjectProvider extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

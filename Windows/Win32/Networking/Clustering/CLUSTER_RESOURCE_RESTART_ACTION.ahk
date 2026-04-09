@@ -5,9 +5,8 @@
  * CLUSTER_RESOURCE_RESTART_ACTION (msclus.h) is used by the RestartAction resource common property to specify the cluster service's action if the resource fails.
  * @see https://learn.microsoft.com/windows/win32/api/msclus/ne-msclus-cluster_resource_restart_action
  * @namespace Windows.Win32.Networking.Clustering
- * @version v4.0.30319
  */
-class CLUSTER_RESOURCE_RESTART_ACTION extends Win32Enum{
+class CLUSTER_RESOURCE_RESTART_ACTION extends Win32Enum {
 
     /**
      * Do not restart the resource after a failure.

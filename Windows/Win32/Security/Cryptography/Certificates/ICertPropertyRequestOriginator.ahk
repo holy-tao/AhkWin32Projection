@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
 #Include .\ICertProperty.ahk
+#Include ..\..\..\Foundation\BSTR.ahk
 
 /**
  * Represents a certificate property that contains the Domain Naming System (DNS) name of the computer on which the request was created.
  * @see https://learn.microsoft.com/windows/win32/api/certenroll/nn-certenroll-icertpropertyrequestoriginator
  * @namespace Windows.Win32.Security.Cryptography.Certificates
- * @version v4.0.30319
  */
-class ICertPropertyRequestOriginator extends ICertProperty{
+class ICertPropertyRequestOriginator extends ICertProperty {
 
     static sizeof => A_PtrSize
     /**

@@ -5,10 +5,8 @@
  * Provides user interface (UI) data for a provider. This structure is used by the CRYPT_PROVUI_FUNCS structure.
  * @see https://learn.microsoft.com/windows/win32/api/wintrust/ns-wintrust-crypt_provui_data
  * @namespace Windows.Win32.Security.WinTrust
- * @version v4.0.30319
  */
-class CRYPT_PROVUI_DATA extends Win32Struct
-{
+class CRYPT_PROVUI_DATA extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 8

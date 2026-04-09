@@ -7,9 +7,8 @@
  * The IColumnData interface is introduced in MMC 1.2.
  * @see https://learn.microsoft.com/windows/win32/api/mmc/nn-mmc-icolumndata
  * @namespace Windows.Win32.System.Mmc
- * @version v4.0.30319
  */
-class IColumnData extends IUnknown{
+class IColumnData extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

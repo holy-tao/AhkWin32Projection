@@ -8,10 +8,8 @@
  * When assigning data to the members of this structure, set the corresponding flags in the <i>fdwCommand</i> parameter of the <a href="https://docs.microsoft.com/previous-versions/dd757160(v=vs.85)">mciSendCommand</a> function to validate the members.
  * @see https://learn.microsoft.com/windows/win32/api/digitalv/ns-digitalv-mci_dgv_cut_parms
  * @namespace Windows.Win32.Media.Multimedia
- * @version v4.0.30319
  */
-class MCI_DGV_CUT_PARMS extends Win32Struct
-{
+class MCI_DGV_CUT_PARMS extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -47,7 +45,7 @@ class MCI_DGV_CUT_PARMS extends Win32Struct
      * Rectangle describing area to be cut. <a href="https://docs.microsoft.com/previous-versions//ms536136(v=vs.85)">RECT</a> structures are handled differently in MCI than in other parts of Windows; in MCI, <b>rc.right</b> contains the width of the rectangle and <b>rc.bottom</b> contains its height.
      * @type {RECT}
      */
-    rc{
+    rc {
         get {
             if(!this.HasProp("__rc"))
                 this.__rc := RECT(16, this)

@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\Win32Struct.ahk
+#Include .\SID_AND_ATTRIBUTES.ahk
 
 /**
  * Specifies a hash values for the specified array of security identifiers (SIDs).
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-sid_and_attributes_hash
  * @namespace Windows.Win32.Security
- * @version v4.0.30319
  */
-class SID_AND_ATTRIBUTES_HASH extends Win32Struct
-{
+class SID_AND_ATTRIBUTES_HASH extends Win32Struct {
     static sizeof => 272
 
     static packingSize => 8
@@ -37,9 +36,9 @@ class SID_AND_ATTRIBUTES_HASH extends Win32Struct
      * The <b>SID_HASH_ENTRY</b> data type is defined in Winnt.h as a <b>ULONG_PTR</b>.
      * 
      * The <b>SID_HASH_SIZE</b> array dimension is defined in Winnt.h as 32.
-     * @type {Array<UIntPtr>}
+     * @type {Array<Pointer>}
      */
-    Hash{
+    Hash {
         get {
             if(!this.HasProp("__HashProxyArray"))
                 this.__HashProxyArray := Win32FixedArray(this.ptr + 16, 32, Primitive, "ptr")

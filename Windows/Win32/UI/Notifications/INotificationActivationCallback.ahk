@@ -7,9 +7,8 @@
  * Receives notification messages when an app is triggered through a toast from the action center.
  * @see https://learn.microsoft.com/windows/win32/api/notificationactivationcallback/nn-notificationactivationcallback-inotificationactivationcallback
  * @namespace Windows.Win32.UI.Notifications
- * @version v4.0.30319
  */
-class INotificationActivationCallback extends IUnknown{
+class INotificationActivationCallback extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

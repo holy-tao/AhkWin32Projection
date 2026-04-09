@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.Cdrom
- * @version v4.0.30319
  */
-class WRITE_ROTATION extends Win32Enum{
+class WRITE_ROTATION extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

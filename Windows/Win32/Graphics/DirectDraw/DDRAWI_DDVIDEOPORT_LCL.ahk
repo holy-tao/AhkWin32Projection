@@ -1,17 +1,19 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\DDVIDEOPORTCONNECT.ahk
+#Include .\DDRAWI_DIRECTDRAW_LCL.ahk
 #Include .\DDVIDEOPORTDESC.ahk
-#Include ..\..\Foundation\RECT.ahk
+#Include .\DDVIDEOPORTCONNECT.ahk
 #Include .\DDVIDEOPORTINFO.ahk
+#Include ..\..\Foundation\RECT.ahk
+#Include .\DDPIXELFORMAT.ahk
+#Include .\DDRAWI_DDRAWSURFACE_INT.ahk
 #Include ..\..\Foundation\HANDLE.ahk
+#Include .\DDRAWI_DDVIDEOPORT_INT.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw
- * @version v4.0.30319
  */
-class DDRAWI_DDVIDEOPORT_LCL extends Win32Struct
-{
+class DDRAWI_DDVIDEOPORT_LCL extends Win32Struct {
     static sizeof => 312
 
     static packingSize => 8
@@ -27,7 +29,7 @@ class DDRAWI_DDVIDEOPORT_LCL extends Win32Struct
     /**
      * @type {DDVIDEOPORTDESC}
      */
-    ddvpDesc{
+    ddvpDesc {
         get {
             if(!this.HasProp("__ddvpDesc"))
                 this.__ddvpDesc := DDVIDEOPORTDESC(8, this)
@@ -38,7 +40,7 @@ class DDRAWI_DDVIDEOPORT_LCL extends Win32Struct
     /**
      * @type {DDVIDEOPORTINFO}
      */
-    ddvpInfo{
+    ddvpInfo {
         get {
             if(!this.HasProp("__ddvpInfo"))
                 this.__ddvpInfo := DDVIDEOPORTINFO(88, this)
@@ -137,7 +139,7 @@ class DDRAWI_DDVIDEOPORT_LCL extends Win32Struct
     /**
      * @type {HANDLE}
      */
-    hDDVideoPort{
+    hDDVideoPort {
         get {
             if(!this.HasProp("__hDDVideoPort"))
                 this.__hDDVideoPort := HANDLE(248, this)

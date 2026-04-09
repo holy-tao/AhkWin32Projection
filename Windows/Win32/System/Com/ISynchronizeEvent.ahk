@@ -7,9 +7,8 @@
  * The ISynchronizeEvent (objidlbase.h) interface assigns an event handle to a synchronization object.
  * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nn-objidlbase-isynchronizeevent
  * @namespace Windows.Win32.System.Com
- * @version v4.0.30319
  */
-class ISynchronizeEvent extends ISynchronizeHandle{
+class ISynchronizeEvent extends ISynchronizeHandle {
 
     static sizeof => A_PtrSize
     /**

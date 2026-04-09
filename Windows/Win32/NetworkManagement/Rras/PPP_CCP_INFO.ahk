@@ -5,10 +5,8 @@
  * The PPP_CCP_INFO structure contains information that describes the results of a Compression Control Protocol (CCP) negotiation.
  * @see https://learn.microsoft.com/windows/win32/api/mprapi/ns-mprapi-ppp_ccp_info
  * @namespace Windows.Win32.NetworkManagement.Rras
- * @version v4.0.30319
  */
-class PPP_CCP_INFO extends Win32Struct
-{
+class PPP_CCP_INFO extends Win32Struct {
     static sizeof => 20
 
     static packingSize => 4

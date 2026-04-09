@@ -7,9 +7,8 @@
  * The IWMReaderTimecode interface provides access to information about SMPTE (Society of Motion Picture and Television Engineers) time code ranges.
  * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nn-wmsdkidl-iwmreadertimecode
  * @namespace Windows.Win32.Media.WindowsMediaFormat
- * @version v4.0.30319
  */
-class IWMReaderTimecode extends IUnknown{
+class IWMReaderTimecode extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

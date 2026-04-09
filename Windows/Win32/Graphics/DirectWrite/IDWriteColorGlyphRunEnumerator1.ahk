@@ -7,9 +7,8 @@
  * Enumerator for an ordered collection of color glyph runs.
  * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nn-dwrite_3-idwritecolorglyphrunenumerator1
  * @namespace Windows.Win32.Graphics.DirectWrite
- * @version v4.0.30319
  */
-class IDWriteColorGlyphRunEnumerator1 extends IDWriteColorGlyphRunEnumerator{
+class IDWriteColorGlyphRunEnumerator1 extends IDWriteColorGlyphRunEnumerator {
 
     static sizeof => A_PtrSize
     /**

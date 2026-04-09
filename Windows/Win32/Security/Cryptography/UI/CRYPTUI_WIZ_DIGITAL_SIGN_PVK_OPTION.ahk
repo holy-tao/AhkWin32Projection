@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Security.Cryptography.UI
- * @version v4.0.30319
  */
-class CRYPTUI_WIZ_DIGITAL_SIGN_PVK_OPTION extends Win32Enum{
+class CRYPTUI_WIZ_DIGITAL_SIGN_PVK_OPTION extends Win32Enum {
 
     /**
      * @type {Integer (UInt32)}

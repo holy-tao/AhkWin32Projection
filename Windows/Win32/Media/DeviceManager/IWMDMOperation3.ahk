@@ -7,9 +7,8 @@
  * The optional, application-implemented IWMDMOperation3 interface extends IWMDMOperation by providing a new method for transferring data unencrypted for added efficiency.
  * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nn-mswmdm-iwmdmoperation3
  * @namespace Windows.Win32.Media.DeviceManager
- * @version v4.0.30319
  */
-class IWMDMOperation3 extends IWMDMOperation{
+class IWMDMOperation3 extends IWMDMOperation {
 
     static sizeof => A_PtrSize
     /**

@@ -1,9 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\INetFwPolicy.ahk
 #Include ..\..\System\Com\IDispatch.ahk
+#Include .\INetFwPolicy.ahk
 
 /**
  * The INetFwMgr interface provides access to the firewall settings for a computer.
@@ -17,9 +16,8 @@
  * effect immediately.
  * @see https://learn.microsoft.com/windows/win32/api/netfw/nn-netfw-inetfwmgr
  * @namespace Windows.Win32.NetworkManagement.WindowsFirewall
- * @version v4.0.30319
  */
-class INetFwMgr extends IDispatch{
+class INetFwMgr extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -54,7 +52,7 @@ class INetFwMgr extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {NET_FW_PROFILE_TYPE} 
      */
     CurrentProfileType {
         get => this.get_CurrentProfileType()
@@ -74,7 +72,7 @@ class INetFwMgr extends IDispatch{
      * Retrieves the type of firewall profile currently in effect.
      * @remarks
      * The SharedAccess service must be running.
-     * @returns {Integer} 
+     * @returns {NET_FW_PROFILE_TYPE} 
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwmgr-get_currentprofiletype
      */
     get_CurrentProfileType() {
@@ -184,14 +182,14 @@ class INetFwMgr extends IDispatch{
      *    network. It must be a fully qualified path, but  may contain
      *    environment variables. If <i>imageFileName</i> is <b>NULL</b>, the function
      *    determines whether the port is allowed for all applications.
-     * @param {Integer} ipVersion IP version of the traffic. If <i>localAddress</i> is non-<b>NULL</b>,
+     * @param {NET_FW_IP_VERSION} ipVersion IP version of the traffic. If <i>localAddress</i> is non-<b>NULL</b>,
      *    this must not be <b>NET_FW_IP_VERSION_ANY</b>.
      * @param {Integer} portNumber Local IP port number of the traffic.
      * @param {BSTR} localAddress Either a dotted-decimal IPv4 address or an IPv6 hex
      *    address specifying the local address of the traffic. Typically, this is
      *    the address passed to bind. If <i>localAddress</i> is <b>NULL</b>, the function
      *    determines whether the port is allowed for all interfaces.
-     * @param {Integer} ipProtocol IP protocol of the traffic, either <b>NET_FW_IP_PROTOCOL_TCP</b> or <b>NET_FW_IP_PROTOCOL_UDP</b>.
+     * @param {NET_FW_IP_PROTOCOL} ipProtocol IP protocol of the traffic, either <b>NET_FW_IP_PROTOCOL_TCP</b> or <b>NET_FW_IP_PROTOCOL_UDP</b>.
      * @param {Pointer<VARIANT>} allowed Indicates by a value of VARIANT_TRUE or VARIANT_FALSE whether the port is allowed for at least some local
      *    interfaces and remote addresses.
      * @param {Pointer<VARIANT>} restricted Indicates by a value of VARIANT_TRUE or VARIANT_FALSE whether some local interfaces or remote addresses
@@ -319,7 +317,7 @@ class INetFwMgr extends IDispatch{
      * Determines whether the specified ICMP type is allowed.
      * @remarks
      * The <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/netfw/nf-netfw-inetfwpolicy2-isrulegroupenabled">INetFwPolicy2::IsRuleGroupEnabled</a> method is generally recommended in place of this method.
-     * @param {Integer} ipVersion IP version of the traffic. This cannot be <b>NET_FW_IP_VERSION_ANY</b>.
+     * @param {NET_FW_IP_VERSION} ipVersion IP version of the traffic. This cannot be <b>NET_FW_IP_VERSION_ANY</b>.
      * 
      * IP version of the traffic. 
      *    This cannot be <b>NET_FW_IP_VERSION_ANY</b>.

@@ -4,18 +4,16 @@
 
 /**
  * @namespace Windows.Win32.Storage.Nvme
- * @version v4.0.30319
  */
-class NVME_UUID_LIST extends Win32Struct
-{
-    static sizeof => 1024
+class NVME_UUID_LIST extends Win32Struct {
+    static sizeof => 4096
 
-    static packingSize => 8
+    static packingSize => 1
 
     /**
-     * @type {Array<NVME_UUID_LIST_ENTRY>}
+     * @type {NVME_UUID_LIST_ENTRY}
      */
-    UUID{
+    UUID {
         get {
             if(!this.HasProp("__UUIDProxyArray"))
                 this.__UUIDProxyArray := Win32FixedArray(this.ptr + 0, 128, NVME_UUID_LIST_ENTRY, "")

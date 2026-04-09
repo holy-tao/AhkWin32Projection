@@ -1,13 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\COLORSPACE_TRANSFORM_DATA_CAP.ahk
+#Include .\COLORSPACE_TRANSFORM_DATA_TYPE.ahk
 
 /**
  * @namespace Windows.Win32.Devices.Display
- * @version v4.0.30319
  */
-class COLORSPACE_TRANSFORM_MATRIX_CAP extends Win32Struct
-{
+class COLORSPACE_TRANSFORM_MATRIX_CAP extends Win32Struct {
     static sizeof => 20
 
     static packingSize => 4
@@ -50,7 +49,7 @@ class COLORSPACE_TRANSFORM_MATRIX_CAP extends Win32Struct
     /**
      * @type {COLORSPACE_TRANSFORM_DATA_CAP}
      */
-    DataCap{
+    DataCap {
         get {
             if(!this.HasProp("__DataCap"))
                 this.__DataCap := COLORSPACE_TRANSFORM_DATA_CAP(4, this)

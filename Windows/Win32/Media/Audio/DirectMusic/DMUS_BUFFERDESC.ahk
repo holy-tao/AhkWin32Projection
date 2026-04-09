@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Media.Audio.DirectMusic
- * @version v4.0.30319
  */
-class DMUS_BUFFERDESC extends Win32Struct
-{
+class DMUS_BUFFERDESC extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -28,7 +26,7 @@ class DMUS_BUFFERDESC extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     guidBufferFormat {
         get => NumGet(this, 8, "ptr")

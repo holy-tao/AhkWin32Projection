@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\IDWriteFontCollection.ahk
 #Include .\IDWriteFontFile.ahk
 #Include .\IDWriteFontFace.ahk
@@ -13,7 +14,6 @@
 #Include .\IDWriteTextAnalyzer.ahk
 #Include .\IDWriteNumberSubstitution.ahk
 #Include .\IDWriteGlyphRunAnalysis.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Used to create all subsequent DirectWrite objects. This interface is the root factory interface for all DirectWrite objects.
@@ -39,9 +39,8 @@
  * An <b>IDWriteFactory</b> object holds state information, such as font loader registration and cached font data.  This state can be shared or isolated.  Shared is recommended for most applications because it saves memory.  However, isolated can be useful in situations where you want to have a separate state for some objects.
  * @see https://learn.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritefactory
  * @namespace Windows.Win32.Graphics.DirectWrite
- * @version v4.0.30319
  */
-class IDWriteFactory extends IUnknown{
+class IDWriteFactory extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -70,7 +69,9 @@ class IDWriteFactory extends IUnknown{
      *     installed fonts. If this parameter is <b>FALSE</b>, the function will still detect changes if the font cache service is running, but
      *      there may be some latency. For example, an application might specify <b>TRUE</b> if it has itself just installed a font and wants to 
      *      be sure the font collection contains that font.
-     * @returns {IDWriteFontCollection} 
+     * @returns {IDWriteFontCollection} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritefontcollection">IDWriteFontCollection</a>**</b>
+     * 
+     * When this method returns, contains the address of a pointer to the system font collection object, or <b>NULL</b> in case of failure.
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefactory-getsystemfontcollection
      */
     GetSystemFontCollection(checkForUpdates) {
@@ -84,13 +85,15 @@ class IDWriteFactory extends IUnknown{
      * 
      * An application-defined font collection loader, which must have been previously
      *      registered using <a href="https://docs.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefactory-registerfontcollectionloader">RegisterFontCollectionLoader</a>.
-     * @param {Pointer} collectionKey Type: <b>const void*</b>
+     * @param {Integer} collectionKey Type: <b>const void*</b>
      * 
      * The key used by the loader to identify a collection of font files.  The buffer allocated for this key should at least be the size of <i>collectionKeySize</i>.
      * @param {Integer} collectionKeySize Type: <b>UINT32</b>
      * 
      * The size, in bytes, of the collection key.
-     * @returns {IDWriteFontCollection} 
+     * @returns {IDWriteFontCollection} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritefontcollection">IDWriteFontCollection</a>**</b>
+     * 
+     * Contains  an address of a pointer to the system font collection object if the method succeeds, or <b>NULL</b> in case of failure.
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefactory-createcustomfontcollection
      */
     CreateCustomFontCollection(collectionLoader, collectionKey, collectionKeySize) {
@@ -164,7 +167,7 @@ class IDWriteFactory extends IUnknown{
      * This function is provided for cases when an application or a document needs to use a private font
      *      without having to install it on the system. <i>fontFileReferenceKey</i> has to be unique only in the scope
      *      of the <i>fontFileLoader</i> used in this call.
-     * @param {Pointer} fontFileReferenceKey Type: <b>const void*</b>
+     * @param {Integer} fontFileReferenceKey Type: <b>const void*</b>
      * 
      * A font file reference key that uniquely identifies the font file resource
      *      during the lifetime of <i>fontFileLoader</i>.
@@ -187,7 +190,7 @@ class IDWriteFactory extends IUnknown{
 
     /**
      * Creates an object that represents a font face.
-     * @param {Integer} fontFaceType Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_font_face_type">DWRITE_FONT_FACE_TYPE</a></b>
+     * @param {DWRITE_FONT_FACE_TYPE} fontFaceType Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_font_face_type">DWRITE_FONT_FACE_TYPE</a></b>
      * 
      * A value that indicates the type of file format of the font face.
      * @param {Integer} numberOfFiles Type: <b>UINT32</b>
@@ -201,7 +204,7 @@ class IDWriteFactory extends IUnknown{
      * 
      * The zero-based index of a font face, in cases when the font files contain a collection of font faces.
      *      If the font files contain a single face, this value should be zero.
-     * @param {Integer} fontFaceSimulationFlags Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_font_simulations">DWRITE_FONT_SIMULATIONS</a></b>
+     * @param {DWRITE_FONT_SIMULATIONS} fontFaceSimulationFlags Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_font_simulations">DWRITE_FONT_SIMULATIONS</a></b>
      * 
      * A value that indicates which, if any, font face simulation flags for algorithmic means of making text bold or italic are applied to the current font face.
      * @returns {IDWriteFontFace} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritefontface">IDWriteFontFace</a>**</b>
@@ -228,7 +231,9 @@ class IDWriteFactory extends IUnknown{
 
     /**
      * Creates a rendering parameters object with default settings for the specified monitor. In most cases, this is the preferred way to create a rendering parameters object.
-     * @param {HMONITOR} _monitor 
+     * @param {HMONITOR} _monitor Type: <b>HMONITOR</b>
+     * 
+     * A handle for the specified monitor.
      * @returns {IDWriteRenderingParams} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwriterenderingparams">IDWriteRenderingParams</a>**</b>
      * 
      * When this method returns, contains an address of a pointer to the rendering parameters object created by this method.
@@ -252,10 +257,10 @@ class IDWriteFactory extends IUnknown{
      * @param {Float} clearTypeLevel Type: <b>FLOAT</b>
      * 
      * The ClearType level to be set for the new rendering parameters object.
-     * @param {Integer} pixelGeometry Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_pixel_geometry">DWRITE_PIXEL_GEOMETRY</a></b>
+     * @param {DWRITE_PIXEL_GEOMETRY} pixelGeometry Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_pixel_geometry">DWRITE_PIXEL_GEOMETRY</a></b>
      * 
      * Represents the internal structure of a device pixel (that is, the physical arrangement of red, green, and blue color components) that is assumed for purposes of rendering text.
-     * @param {Integer} renderingMode Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_rendering_mode">DWRITE_RENDERING_MODE</a></b>
+     * @param {DWRITE_RENDERING_MODE} renderingMode Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_rendering_mode">DWRITE_RENDERING_MODE</a></b>
      * 
      * A value that represents the method (for example, ClearType natural quality) for rendering glyphs.
      * @returns {IDWriteRenderingParams} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwriterenderingparams">IDWriteRenderingParams</a>**</b>
@@ -321,12 +326,16 @@ class IDWriteFactory extends IUnknown{
      * @param {PWSTR} fontFamilyName Type: <b>const WCHAR*</b>
      * 
      * An array of characters that contains the name of the font family
-     * @param {IDWriteFontCollection} _fontCollection 
-     * @param {Integer} fontWeight Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_font_weight">DWRITE_FONT_WEIGHT</a></b>
+     * @param {IDWriteFontCollection} _fontCollection Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritefontcollection">IDWriteFontCollection</a>*</b>
+     * 
+     * A pointer to a font collection object. When this is <b>NULL</b>, indicates the system font collection.
+     * @param {DWRITE_FONT_WEIGHT} fontWeight Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_font_weight">DWRITE_FONT_WEIGHT</a></b>
      * 
      * A value that indicates the font weight for the text object created by this method.
-     * @param {Integer} _fontStyle 
-     * @param {Integer} fontStretch Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_font_stretch">DWRITE_FONT_STRETCH</a></b>
+     * @param {DWRITE_FONT_STYLE} _fontStyle Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_font_style">DWRITE_FONT_STYLE</a></b>
+     * 
+     * A value that indicates the font style for the text object created by this method.
+     * @param {DWRITE_FONT_STRETCH} fontStretch Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_font_stretch">DWRITE_FONT_STRETCH</a></b>
      * 
      * A value that indicates the font stretch for the text object created by this method.
      * @param {Float} fontSize Type: <b>FLOAT</b>
@@ -374,7 +383,9 @@ class IDWriteFactory extends IUnknown{
 
     /**
      * Takes a string, text format, and associated constraints, and produces an object that represents the fully analyzed and formatted result.
-     * @param {PWSTR} _string 
+     * @param {PWSTR} _string Type: <b>const WCHAR*</b>
+     * 
+     * An array of characters that contains the string to create a new <a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritetextlayout">IDWriteTextLayout</a> object from. This array must be of length <i>stringLength</i> and can contain embedded <b>NULL</b> characters.
      * @param {Integer} stringLength Type: <b>UINT32</b>
      * 
      * The number of characters in  the string.
@@ -404,7 +415,9 @@ class IDWriteFactory extends IUnknown{
      * @remarks
      * The resulting text layout should only be used for the intended resolution,
      *      and for cases where text scalability is desired <a href="https://docs.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefactory-createtextlayout">CreateTextLayout</a> should be used instead.
-     * @param {PWSTR} _string 
+     * @param {PWSTR} _string Type: <b>const WCHAR*</b>
+     * 
+     * An array of characters that contains the string to create a new <a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritetextlayout">IDWriteTextLayout</a> object from. This array must be of length <i>stringLength</i> and can contain embedded <b>NULL</b> characters.
      * @param {Integer} stringLength Type: <b>UINT32</b>
      * 
      * The length of the string, in character count.
@@ -473,7 +486,7 @@ class IDWriteFactory extends IUnknown{
 
     /**
      * Creates a number substitution object using a locale name, substitution method, and an indicator whether to ignore user overrides (use NLS defaults for the given culture instead).
-     * @param {Integer} substitutionMethod Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_number_substitution_method">DWRITE_NUMBER_SUBSTITUTION_METHOD</a></b>
+     * @param {DWRITE_NUMBER_SUBSTITUTION_METHOD} substitutionMethod Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_number_substitution_method">DWRITE_NUMBER_SUBSTITUTION_METHOD</a></b>
      * 
      * A value that specifies how to apply number substitution on digits and related punctuation.
      * @param {PWSTR} localeName Type: <b>const WCHAR*</b>
@@ -498,18 +511,20 @@ class IDWriteFactory extends IUnknown{
      * Creates a glyph run analysis object, which encapsulates information used to render a glyph run. (IDWriteFactory.CreateGlyphRunAnalysis)
      * @remarks
      * The glyph run analysis object contains the results of analyzing the glyph run, including the positions of all the glyphs and references to all of the rasterized glyphs in the font cache.
-     * @param {Pointer<DWRITE_GLYPH_RUN>} _glyphRun 
+     * @param {Pointer<DWRITE_GLYPH_RUN>} _glyphRun Type: <b>const <a href="https://docs.microsoft.com/windows/win32/api/dwrite/ns-dwrite-dwrite_glyph_run">DWRITE_GLYPH_RUN</a>*</b>
+     * 
+     * A structure that contains the properties of the glyph run (font face, advances, and so on).
      * @param {Float} pixelsPerDip Type: <b>FLOAT</b>
      * 
      * Number of physical pixels per DIP (device independent pixel). For example, if rendering onto a 96 DPI bitmap then <i>pixelsPerDip</i> is 1. If rendering onto a 120 DPI bitmap then <i>pixelsPerDip</i> is 1.25.
      * @param {Pointer<DWRITE_MATRIX>} transform Type: <b>const <a href="https://docs.microsoft.com/windows/win32/api/dwrite/ns-dwrite-dwrite_matrix">DWRITE_MATRIX</a>*</b>
      * 
      * Optional transform applied to the glyphs and their positions. This transform is applied after the scaling specified the <i>emSize</i> and <i>pixelsPerDip</i>.
-     * @param {Integer} renderingMode Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_rendering_mode">DWRITE_RENDERING_MODE</a></b>
+     * @param {DWRITE_RENDERING_MODE} renderingMode Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_rendering_mode">DWRITE_RENDERING_MODE</a></b>
      * 
      * A value that specifies the rendering mode, which must be one of the raster rendering modes (that is, not default
      *      and not outline).
-     * @param {Integer} measuringMode Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dcommon/ne-dcommon-dwrite_measuring_mode">DWRITE_MEASURING_MODE</a></b>
+     * @param {DWRITE_MEASURING_MODE} measuringMode Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dcommon/ne-dcommon-dwrite_measuring_mode">DWRITE_MEASURING_MODE</a></b>
      * 
      * Specifies the measuring mode to use with glyphs.
      * @param {Float} baselineOriginX Type: <b>FLOAT</b>

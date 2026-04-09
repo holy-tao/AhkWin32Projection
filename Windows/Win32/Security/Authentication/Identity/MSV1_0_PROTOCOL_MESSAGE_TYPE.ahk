@@ -5,9 +5,8 @@
  * Lists the types of messages that can be sent to the MSV1_0 Authentication Package by calling the LsaCallAuthenticationPackage function.
  * @see https://learn.microsoft.com/windows/win32/api/ntsecapi/ne-ntsecapi-msv1_0_protocol_message_type
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class MSV1_0_PROTOCOL_MESSAGE_TYPE extends Win32Enum{
+class MSV1_0_PROTOCOL_MESSAGE_TYPE extends Win32Enum {
 
     /**
      * This dispatch routine serves as the first half of an NTLM version 2.0 protocol logon. The challenge returned by this call may be delivered to the initiating NTLM 2.0 node. When that node responds with a challenge response, a <b>MsV1_0Lm20Logon</b> message to the 
@@ -155,31 +154,26 @@ class MSV1_0_PROTOCOL_MESSAGE_TYPE extends Win32Enum{
     static MsV1_0SetThreadOption => 19
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static MsV1_0DecryptDpapiMasterKey => 20
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static MsV1_0GetStrongCredentialKey => 21
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static MsV1_0TransferCred => 22
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static MsV1_0ProvisionTbal => 23
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static MsV1_0DeleteTbalSecrets => 24

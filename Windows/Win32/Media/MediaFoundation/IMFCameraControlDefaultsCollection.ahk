@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IMFCameraControlDefaults.ahk
 #Include .\IMFAttributes.ahk
+#Include .\IMFCameraControlDefaults.ahk
 
 /**
  * Represents a collection of camera controls.
@@ -10,9 +10,8 @@
  * The [IMFCameraControlDefaults](nn-mfidl-imfcameracontroldefaults.md) is used to specify default control values for the controls in the collection. [IMFCameraConfigurationManager](nn-mfidl-imfcameraconfigurationmanager.md) allows you to save the collection as a set of default control values, enabling scenarios such as providing separate sets of default control values for different users.
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imfcameracontroldefaultscollection
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFCameraControlDefaultsCollection extends IMFAttributes{
+class IMFCameraControlDefaultsCollection extends IMFAttributes {
 
     static sizeof => A_PtrSize
     /**
@@ -60,7 +59,7 @@ class IMFCameraControlDefaultsCollection extends IMFAttributes{
      * Adds a new extended camera control to the camera control collection.
      * @remarks
      * The data payload size may vary for different controls. The *dataSize* value must be valid for the control payload schema so the control can reserve the buffer required.
-     * @param {Integer} configType A value from the [MF_CAMERA_CONTROL_CONFIGURATION_TYPE](ne-mfidl-mf_camera_control_configuration_type.md) specifying whether the control value must be set before streaming begins or after streaming starts.
+     * @param {MF_CAMERA_CONTROL_CONFIGURATION_TYPE} configType A value from the [MF_CAMERA_CONTROL_CONFIGURATION_TYPE](ne-mfidl-mf_camera_control_configuration_type.md) specifying whether the control value must be set before streaming begins or after streaming starts.
      * @param {Integer} constrolId The ID of the control to be added to the collection. This value must be an ID  in the [KSPROPERTYSETID_ExtendedCameraControl](/windows-hardware/drivers/stream/kspropertysetid-extendedcameracontrol) property set.
      * @param {Integer} streamId The ID of the stream associated with the control. This paramater is only used for pin-level controls. Otherwise, this value is ignored.
      * @param {Integer} dataSize The size of the data payload for the control, in bytes.
@@ -76,7 +75,7 @@ class IMFCameraControlDefaultsCollection extends IMFAttributes{
      * Adds a new custom camera control to the camera control collection.
      * @remarks
      * For custom controls, *controlSet* and *controlId* are based on the custom control DDI published by the camera driver vendor. Similarly, the *controlSize* and *dataSize* are based on the DDI published by the vendor.
-     * @param {Integer} configType A value from the [MF_CAMERA_CONTROL_CONFIGURATION_TYPE](ne-mfidl-mf_camera_control_configuration_type.md) specifying whether the control value must be set before streaming begins or after streaming starts.
+     * @param {MF_CAMERA_CONTROL_CONFIGURATION_TYPE} configType A value from the [MF_CAMERA_CONTROL_CONFIGURATION_TYPE](ne-mfidl-mf_camera_control_configuration_type.md) specifying whether the control value must be set before streaming begins or after streaming starts.
      * @param {Pointer<Guid>} controlSet A GUID specifying the control set to which the control belongs.
      * @param {Integer} constrolId The ID of the control to be added to the collection. This value must be an ID  in the [KSPROPERTYSETID_ExtendedCameraControl](/windows-hardware/drivers/stream/kspropertysetid-extendedcameracontrol) property set.
      * @param {Integer} controlSize The size of the control, in bytes. This value must be greater than or equal to the size of [KSPROPERTY](/windows-hardware/drivers/stream/ksproperty-structure).

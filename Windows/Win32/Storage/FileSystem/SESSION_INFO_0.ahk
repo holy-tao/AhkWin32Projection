@@ -5,10 +5,8 @@
  * Contains the name of the computer that established the session.
  * @see https://learn.microsoft.com/windows/win32/api/lmshare/ns-lmshare-session_info_0
  * @namespace Windows.Win32.Storage.FileSystem
- * @version v4.0.30319
  */
-class SESSION_INFO_0 extends Win32Struct
-{
+class SESSION_INFO_0 extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 8

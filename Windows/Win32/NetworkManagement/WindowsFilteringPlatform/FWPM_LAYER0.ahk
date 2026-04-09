@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\FWPM_DISPLAY_DATA0.ahk
+#Include .\FWPM_FIELD0.ahk
 
 /**
  * Schema information for a layer.
@@ -8,17 +9,15 @@
  * <b>FWPM_LAYER0</b> is a specific implementation of FWPM_LAYER. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-version-independent-names-and-targeting-specific-versions-of-windows">WFP Version-Independent Names and Targeting Specific Versions of Windows</a>  for more information.
  * @see https://learn.microsoft.com/windows/win32/api/fwpmtypes/ns-fwpmtypes-fwpm_layer0
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
- * @version v4.0.30319
  */
-class FWPM_LAYER0 extends Win32Struct
-{
+class FWPM_LAYER0 extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8
 
     /**
      * Uniquely identifies the layer.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     layerKey {
         get => NumGet(this, 0, "ptr")
@@ -29,7 +28,7 @@ class FWPM_LAYER0 extends Win32Struct
      * Allows layers to be annotated in a human-readable form. The [FWPM_DISPLAY_DATA0](/windows/desktop/api/fwptypes/ns-fwptypes-fwpm_display_data0) structure is not <b>NULL</b>.
      * @type {FWPM_DISPLAY_DATA0}
      */
-    displayData{
+    displayData {
         get {
             if(!this.HasProp("__displayData"))
                 this.__displayData := FWPM_DISPLAY_DATA0(8, this)
@@ -115,7 +114,7 @@ class FWPM_LAYER0 extends Win32Struct
 
     /**
      * Sublayer used when a filter is added with a null sublayer.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     defaultSubLayerKey {
         get => NumGet(this, 40, "ptr")

@@ -6,10 +6,8 @@
  * The VDS_PATH_POLICY structure (vdshwprv.h) defines the load balance policy as it applies to a particular path.
  * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/ns-vdshwprv-vds_path_policy
  * @namespace Windows.Win32.Storage.VirtualDiskService
- * @version v4.0.30319
  */
-class VDS_PATH_POLICY extends Win32Struct
-{
+class VDS_PATH_POLICY extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -18,7 +16,7 @@ class VDS_PATH_POLICY extends Win32Struct
      * The ID of the path used by MPIO.
      * @type {VDS_PATH_ID}
      */
-    pathId{
+    pathId {
         get {
             if(!this.HasProp("__pathId"))
                 this.__pathId := VDS_PATH_ID(0, this)

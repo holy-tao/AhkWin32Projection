@@ -1,30 +1,35 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\GNSS_EVENT_TYPE.ahk
+#Include .\GNSS_FIXDATA.ahk
 #Include ..\..\Foundation\FILETIME.ahk
 #Include .\GNSS_FIXDATA_BASIC.ahk
 #Include .\GNSS_FIXDATA_ACCURACY.ahk
-#Include .\GNSS_SATELLITEINFO.ahk
 #Include .\GNSS_FIXDATA_SATELLITE.ahk
-#Include .\GNSS_FIXDATA.ahk
+#Include .\GNSS_SATELLITEINFO.ahk
 #Include .\GNSS_AGNSS_REQUEST_PARAM.ahk
+#Include .\GNSS_AGNSS_REQUEST_TYPE.ahk
+#Include .\GNSS_NI_REQUEST_PARAM.ahk
+#Include .\GNSS_NI_REQUEST_TYPE.ahk
+#Include .\GNSS_NI_NOTIFICATION_TYPE.ahk
+#Include .\GNSS_NI_PLANE_TYPE.ahk
 #Include .\GNSS_SUPL_NI_INFO.ahk
 #Include .\GNSS_CP_NI_INFO.ahk
 #Include .\GNSS_V2UPL_NI_INFO.ahk
-#Include .\GNSS_NI_REQUEST_PARAM.ahk
 #Include .\GNSS_ERRORINFO.ahk
 #Include .\GNSS_NMEA_DATA.ahk
 #Include .\GNSS_GEOFENCE_ALERT_DATA.ahk
+#Include .\GNSS_GEOFENCE_STATE.ahk
 #Include .\GNSS_BREADCRUMBING_ALERT_DATA.ahk
 #Include .\GNSS_GEOFENCES_TRACKINGSTATUS_DATA.ahk
 #Include .\GNSS_DRIVER_REQUEST_DATA.ahk
+#Include .\GNSS_DRIVER_REQUEST.ahk
 
 /**
  * @namespace Windows.Win32.Devices.Geolocation
- * @version v4.0.30319
  */
-class GNSS_EVENT extends Win32Struct
-{
-    static sizeof => 2136
+class GNSS_EVENT extends Win32Struct {
+    static sizeof => 2744
 
     static packingSize => 8
 
@@ -45,7 +50,7 @@ class GNSS_EVENT extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {GNSS_EVENT_TYPE}
      */
     EventType {
         get => NumGet(this, 8, "int")
@@ -61,9 +66,9 @@ class GNSS_EVENT extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Unused{
+    Unused {
         get {
             if(!this.HasProp("__UnusedProxyArray"))
                 this.__UnusedProxyArray := Win32FixedArray(this.ptr + 16, 512, Primitive, "char")
@@ -74,7 +79,7 @@ class GNSS_EVENT extends Win32Struct
     /**
      * @type {GNSS_FIXDATA}
      */
-    FixData{
+    FixData {
         get {
             if(!this.HasProp("__FixData"))
                 this.__FixData := GNSS_FIXDATA(528, this)
@@ -85,7 +90,7 @@ class GNSS_EVENT extends Win32Struct
     /**
      * @type {GNSS_AGNSS_REQUEST_PARAM}
      */
-    AgnssRequest{
+    AgnssRequest {
         get {
             if(!this.HasProp("__AgnssRequest"))
                 this.__AgnssRequest := GNSS_AGNSS_REQUEST_PARAM(528, this)
@@ -96,7 +101,7 @@ class GNSS_EVENT extends Win32Struct
     /**
      * @type {GNSS_NI_REQUEST_PARAM}
      */
-    NiRequest{
+    NiRequest {
         get {
             if(!this.HasProp("__NiRequest"))
                 this.__NiRequest := GNSS_NI_REQUEST_PARAM(528, this)
@@ -107,7 +112,7 @@ class GNSS_EVENT extends Win32Struct
     /**
      * @type {GNSS_ERRORINFO}
      */
-    ErrorInformation{
+    ErrorInformation {
         get {
             if(!this.HasProp("__ErrorInformation"))
                 this.__ErrorInformation := GNSS_ERRORINFO(528, this)
@@ -118,7 +123,7 @@ class GNSS_EVENT extends Win32Struct
     /**
      * @type {GNSS_NMEA_DATA}
      */
-    NmeaData{
+    NmeaData {
         get {
             if(!this.HasProp("__NmeaData"))
                 this.__NmeaData := GNSS_NMEA_DATA(528, this)
@@ -129,7 +134,7 @@ class GNSS_EVENT extends Win32Struct
     /**
      * @type {GNSS_GEOFENCE_ALERT_DATA}
      */
-    GeofenceAlertData{
+    GeofenceAlertData {
         get {
             if(!this.HasProp("__GeofenceAlertData"))
                 this.__GeofenceAlertData := GNSS_GEOFENCE_ALERT_DATA(528, this)
@@ -140,7 +145,7 @@ class GNSS_EVENT extends Win32Struct
     /**
      * @type {GNSS_BREADCRUMBING_ALERT_DATA}
      */
-    BreadcrumbAlertData{
+    BreadcrumbAlertData {
         get {
             if(!this.HasProp("__BreadcrumbAlertData"))
                 this.__BreadcrumbAlertData := GNSS_BREADCRUMBING_ALERT_DATA(528, this)
@@ -151,7 +156,7 @@ class GNSS_EVENT extends Win32Struct
     /**
      * @type {GNSS_GEOFENCES_TRACKINGSTATUS_DATA}
      */
-    GeofencesTrackingStatus{
+    GeofencesTrackingStatus {
         get {
             if(!this.HasProp("__GeofencesTrackingStatus"))
                 this.__GeofencesTrackingStatus := GNSS_GEOFENCES_TRACKINGSTATUS_DATA(528, this)
@@ -162,7 +167,7 @@ class GNSS_EVENT extends Win32Struct
     /**
      * @type {GNSS_DRIVER_REQUEST_DATA}
      */
-    DriverRequestData{
+    DriverRequestData {
         get {
             if(!this.HasProp("__DriverRequestData"))
                 this.__DriverRequestData := GNSS_DRIVER_REQUEST_DATA(528, this)
@@ -171,9 +176,9 @@ class GNSS_EVENT extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    CustomData{
+    CustomData {
         get {
             if(!this.HasProp("__CustomDataProxyArray"))
                 this.__CustomDataProxyArray := Win32FixedArray(this.ptr + 528, 1, Primitive, "char")

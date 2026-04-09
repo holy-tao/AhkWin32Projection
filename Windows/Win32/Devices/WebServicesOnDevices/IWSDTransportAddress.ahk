@@ -7,9 +7,8 @@
  * Represents an IP-based transport address.
  * @see https://learn.microsoft.com/windows/win32/api/wsdbase/nn-wsdbase-iwsdtransportaddress
  * @namespace Windows.Win32.Devices.WebServicesOnDevices
- * @version v4.0.30319
  */
-class IWSDTransportAddress extends IWSDAddress{
+class IWSDTransportAddress extends IWSDAddress {
 
     static sizeof => A_PtrSize
     /**

@@ -5,9 +5,8 @@
  * Defines flags that specify states related to a graphics command list. Values can be bitwise OR'd together.
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/ne-d3d12-d3d12_graphics_states
  * @namespace Windows.Win32.Graphics.Direct3D12
- * @version v4.0.30319
  */
-class D3D12_GRAPHICS_STATES extends Win32BitflagEnum{
+class D3D12_GRAPHICS_STATES extends Win32BitflagEnum {
 
     /**
      * Specifies no state.

@@ -1,14 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\SPGRAMMARHANDLE.ahk
 #Include .\SPRECORESULTINFO.ahk
+#Include .\SPRESULTTYPE.ahk
+#Include .\SPGRAMMARHANDLE.ahk
+#Include .\ISpPhraseBuilder.ahk
+#Include .\SPPHRASEALT.ahk
 
 /**
  * @namespace Windows.Win32.Media.Speech
- * @version v4.0.30319
  */
-class SPRECORESULTINFOEX extends Win32Struct
-{
+class SPRECORESULTINFOEX extends Win32Struct {
     static sizeof => 96
 
     static packingSize => 8
@@ -16,7 +17,7 @@ class SPRECORESULTINFOEX extends Win32Struct
     /**
      * @type {SPRECORESULTINFO}
      */
-    Base{
+    Base {
         get {
             if(!this.HasProp("__Base"))
                 this.__Base := SPRECORESULTINFO(0, this)

@@ -5,10 +5,8 @@
  * PEERDIST_PUBLICATION_OPTIONS structure contains publication options, including the API version information and possible option flags.
  * @see https://learn.microsoft.com/windows/win32/api/peerdist/ns-peerdist-peerdist_publication_options
  * @namespace Windows.Win32.NetworkManagement.P2P
- * @version v4.0.30319
  */
-class PEERDIST_PUBLICATION_OPTIONS extends Win32Struct
-{
+class PEERDIST_PUBLICATION_OPTIONS extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4

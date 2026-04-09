@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.UI.Input.KeyboardAndMouse
- * @version v4.0.30319
  */
-class DEADKEY extends Win32Struct
-{
+class DEADKEY extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4

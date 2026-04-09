@@ -7,9 +7,8 @@
  * The IDVB_EIT2 interface enables an application to get information from a Digital Video Broadcasting (DVB) event information table (EIT). The IDvbSiParser2::GetEIT2 method returns a pointer to this interface. This interface extends the IDVB_EIT interface.
  * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nn-dvbsiparser-idvb_eit2
  * @namespace Windows.Win32.Media.DirectShow.Tv
- * @version v4.0.30319
  */
-class IDVB_EIT2 extends IDVB_EIT{
+class IDVB_EIT2 extends IDVB_EIT {
 
     static sizeof => A_PtrSize
     /**

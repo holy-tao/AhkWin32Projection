@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Foundation\HANDLE.ahk
 #Include ..\..\Com\IUnknown.ahk
+#Include ..\..\..\Foundation\HANDLE.ahk
 
 /**
  * For a [DisplaySurface](/uwp/api/windows.devices.display.core.displaysurface) or a [DisplayFence](/uwp/api/windows.devices.display.core.displayfence) object, creates a shared handle that can be used for interop with Direct3D or other graphics APIs.
@@ -22,9 +22,8 @@
  * Use the [CloseHandle](../handleapi/nf-handleapi-closehandle.md) function to close the handle. The system closes the handle automatically when the process terminates. The object is destroyed when its last handle has been closed and its last interface reference has been released.
  * @see https://learn.microsoft.com/windows/win32/api/windows.devices.display.core.interop/nf-windows-devices-display-core-interop-idisplaydeviceinterop-createsharedhandle
  * @namespace Windows.Win32.System.WinRT.Display
- * @version v4.0.30319
  */
-class IDisplayDeviceInterop extends IUnknown{
+class IDisplayDeviceInterop extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

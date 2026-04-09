@@ -1,14 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Win32\Foundation\UNICODE_STRING.ahk
+#Include ..\..\Foundation\IO_SECURITY_CONTEXT.ahk
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem
- * @version v4.0.30319
  */
-class QUERY_PATH_REQUEST_EX extends Win32Struct
-{
-    static sizeof => 80
+class QUERY_PATH_REQUEST_EX extends Win32Struct {
+    static sizeof => 64
 
     static packingSize => 8
 
@@ -37,48 +35,42 @@ class QUERY_PATH_REQUEST_EX extends Win32Struct
     }
 
     /**
-     * @type {UNICODE_STRING}
+     * @type {Pointer}
      */
-    PathName{
-        get {
-            if(!this.HasProp("__PathName"))
-                this.__PathName := UNICODE_STRING(24, this)
-            return this.__PathName
-        }
+    PathName {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
-     * @type {UNICODE_STRING}
+     * @type {Pointer}
      */
-    DomainServiceName{
-        get {
-            if(!this.HasProp("__DomainServiceName"))
-                this.__DomainServiceName := UNICODE_STRING(40, this)
-            return this.__DomainServiceName
-        }
+    DomainServiceName {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
      * @type {Pointer<ECP_LIST>}
      */
     EcpList {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 
     /**
      * @type {PESILO}
      */
     Silo {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 
     /**
      * @type {Pointer}
      */
     Reserved {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
+        get => NumGet(this, 56, "ptr")
+        set => NumPut("ptr", value, this, 56)
     }
 }

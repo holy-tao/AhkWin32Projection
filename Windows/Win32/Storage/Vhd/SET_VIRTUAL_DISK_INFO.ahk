@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\SET_VIRTUAL_DISK_INFO_VERSION.ahk
 
 /**
  * Contains virtual hard disk (VHD) information to use when you call the SetVirtualDiskInformation function to set VHD properties.
  * @see https://learn.microsoft.com/windows/win32/api/virtdisk/ns-virtdisk-set_virtual_disk_info
  * @namespace Windows.Win32.Storage.Vhd
- * @version v4.0.30319
  */
-class SET_VIRTUAL_DISK_INFO extends Win32Struct
-{
+class SET_VIRTUAL_DISK_INFO extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -18,7 +17,7 @@ class SET_VIRTUAL_DISK_INFO extends Win32Struct
      *       enumeration that specifies the version of the 
      *       <b>SET_VIRTUAL_DISK_INFO</b> structure being passed to or 
      *       from the VHD functions. This determines the type of information set.
-     * @type {Integer}
+     * @type {SET_VIRTUAL_DISK_INFO_VERSION}
      */
     Version {
         get => NumGet(this, 0, "int")
@@ -36,7 +35,7 @@ class SET_VIRTUAL_DISK_INFO extends Win32Struct
             get => NumGet(this, 0, "uint")
             set => NumPut("uint", value, this, 0)
         }
-    
+
         /**
          * @type {PWSTR}
          */
@@ -44,7 +43,6 @@ class SET_VIRTUAL_DISK_INFO extends Win32Struct
             get => NumGet(this, 8, "ptr")
             set => NumPut("ptr", value, this, 8)
         }
-    
     }
 
     class _ParentLocator extends Win32Struct {
@@ -52,13 +50,13 @@ class SET_VIRTUAL_DISK_INFO extends Win32Struct
         static packingSize => 8
 
         /**
-         * @type {Pointer<Guid>}
+         * @type {Pointer}
          */
         LinkageId {
             get => NumGet(this, 0, "ptr")
             set => NumPut("ptr", value, this, 0)
         }
-    
+
         /**
          * @type {PWSTR}
          */
@@ -66,7 +64,6 @@ class SET_VIRTUAL_DISK_INFO extends Win32Struct
             get => NumGet(this, 8, "ptr")
             set => NumPut("ptr", value, this, 8)
         }
-    
     }
 
     /**
@@ -78,7 +75,7 @@ class SET_VIRTUAL_DISK_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     UniqueIdentifier {
         get => NumGet(this, 8, "ptr")
@@ -88,10 +85,10 @@ class SET_VIRTUAL_DISK_INFO extends Win32Struct
     /**
      * @type {_ParentPathWithDepthInfo}
      */
-    ParentPathWithDepthInfo{
+    ParentPathWithDepthInfo {
         get {
             if(!this.HasProp("__ParentPathWithDepthInfo"))
-                this.__ParentPathWithDepthInfo := %this.__Class%._ParentPathWithDepthInfo(8, this)
+                this.__ParentPathWithDepthInfo := SET_VIRTUAL_DISK_INFO._ParentPathWithDepthInfo(8, this)
             return this.__ParentPathWithDepthInfo
         }
     }
@@ -105,7 +102,7 @@ class SET_VIRTUAL_DISK_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     VirtualDiskId {
         get => NumGet(this, 8, "ptr")
@@ -123,10 +120,10 @@ class SET_VIRTUAL_DISK_INFO extends Win32Struct
     /**
      * @type {_ParentLocator}
      */
-    ParentLocator{
+    ParentLocator {
         get {
             if(!this.HasProp("__ParentLocator"))
-                this.__ParentLocator := %this.__Class%._ParentLocator(8, this)
+                this.__ParentLocator := SET_VIRTUAL_DISK_INFO._ParentLocator(8, this)
             return this.__ParentLocator
         }
     }

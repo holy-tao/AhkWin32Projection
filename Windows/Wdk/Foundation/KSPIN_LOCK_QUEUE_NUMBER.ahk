@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.Foundation
- * @version v4.0.30319
  */
-class KSPIN_LOCK_QUEUE_NUMBER extends Win32Enum{
+class KSPIN_LOCK_QUEUE_NUMBER extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

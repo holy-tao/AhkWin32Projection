@@ -5,10 +5,8 @@
  * Contains information about the display of a Remote Desktop Connection (RDC) client. (WTS_CLIENT_DISPLAY)
  * @see https://learn.microsoft.com/windows/win32/api/wtsapi32/ns-wtsapi32-wts_client_display
  * @namespace Windows.Win32.System.RemoteDesktop
- * @version v4.0.30319
  */
-class WTS_CLIENT_DISPLAY extends Win32Struct
-{
+class WTS_CLIENT_DISPLAY extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4
@@ -32,7 +30,6 @@ class WTS_CLIENT_DISPLAY extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     ColorDepth {

@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.Cdrom
- * @version v4.0.30319
  */
-class CDROM_TOC_CD_TEXT_DATA_BLOCK extends Win32Struct
-{
+class CDROM_TOC_CD_TEXT_DATA_BLOCK extends Win32Struct {
     static sizeof => 18
 
     static packingSize => 2
@@ -91,9 +89,9 @@ class CDROM_TOC_CD_TEXT_DATA_BLOCK extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Text{
+    Text {
         get {
             if(!this.HasProp("__TextProxyArray"))
                 this.__TextProxyArray := Win32FixedArray(this.ptr + 4, 12, Primitive, "char")
@@ -110,9 +108,9 @@ class CDROM_TOC_CD_TEXT_DATA_BLOCK extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    CRC{
+    CRC {
         get {
             if(!this.HasProp("__CRCProxyArray"))
                 this.__CRCProxyArray := Win32FixedArray(this.ptr + 16, 2, Primitive, "char")

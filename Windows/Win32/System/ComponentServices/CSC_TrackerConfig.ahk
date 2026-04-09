@@ -9,9 +9,8 @@
  * The tracker property is a reporting mechanism used by monitoring code to watch which code is running at a given time. It is the reporting mechanism behind the spinning balls in the Component Services administrative tool.
  * @see https://learn.microsoft.com/windows/win32/api/comsvcs/ne-comsvcs-csc_trackerconfig
  * @namespace Windows.Win32.System.ComponentServices
- * @version v4.0.30319
  */
-class CSC_TrackerConfig extends Win32Enum{
+class CSC_TrackerConfig extends Win32Enum {
 
     /**
      * The tracker property is not added to the context in which the enclosed code runs.

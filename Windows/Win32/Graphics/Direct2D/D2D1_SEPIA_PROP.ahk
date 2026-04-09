@@ -5,9 +5,8 @@
  * Identifiers for properties of the Sepia effect.
  * @see https://learn.microsoft.com/windows/win32/api/d2d1effects_2/ne-d2d1effects_2-d2d1_sepia_prop
  * @namespace Windows.Win32.Graphics.Direct2D
- * @version v4.0.30319
  */
-class D2D1_SEPIA_PROP extends Win32Enum{
+class D2D1_SEPIA_PROP extends Win32Enum {
 
     /**
      * The D2D1_SEPIA_PROP_INTENSITY property is a float value indicating the intensity of the sepia effect. The allowed range is 0.0 to 1.0.  The default value is 0.5.

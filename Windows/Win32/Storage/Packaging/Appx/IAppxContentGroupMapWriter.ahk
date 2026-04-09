@@ -7,9 +7,8 @@
  * Provides a write-only object model for a content group map.
  * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nn-appxpackaging-iappxcontentgroupmapwriter
  * @namespace Windows.Win32.Storage.Packaging.Appx
- * @version v4.0.30319
  */
-class IAppxContentGroupMapWriter extends IUnknown{
+class IAppxContentGroupMapWriter extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\IEnumTfDisplayAttributeInfo.ahk
 #Include .\ITfDisplayAttributeInfo.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * The ITfDisplayAttributeProvider interface is implemented by a text service and is used by the TSF manager to enumerate and obtain individual display attribute information objects.
  * @see https://learn.microsoft.com/windows/win32/api/msctf/nn-msctf-itfdisplayattributeprovider
  * @namespace Windows.Win32.UI.TextServices
- * @version v4.0.30319
  */
-class ITfDisplayAttributeProvider extends IUnknown{
+class ITfDisplayAttributeProvider extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

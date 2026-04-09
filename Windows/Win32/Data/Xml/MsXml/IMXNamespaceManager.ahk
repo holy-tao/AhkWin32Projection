@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Data.Xml.MsXml
- * @version v4.0.30319
  */
-class IMXNamespaceManager extends IUnknown{
+class IMXNamespaceManager extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

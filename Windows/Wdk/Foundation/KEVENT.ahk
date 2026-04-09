@@ -3,16 +3,14 @@
 
 /**
  * @namespace Windows.Wdk.Foundation
- * @version v4.0.30319
  */
-class KEVENT extends Win32Struct
-{
+class KEVENT extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 8
 
     /**
-     * @type {Pointer<DISPATCHER_HEADER>}
+     * @type {Pointer}
      */
     Header {
         get => NumGet(this, 0, "ptr")

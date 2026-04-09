@@ -13,9 +13,8 @@
  * Prior to Windows Vista, a bookmark can be used only on the same computer where it was created. Starting in Windows Vista, the DVD Navigator is able to create bookmarks that can be used other computers. To enable this feature, call <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nf-strmif-idvdcontrol2-setoption">IDvdControl2::SetOption</a> with the DVD_EnablePortableBookmarks flag, before calling <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nf-strmif-idvdinfo2-getstate">GetState</a> or <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nf-strmif-idvdcontrol2-setstate">SetState</a>.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-idvdstate
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IDvdState extends IUnknown{
+class IDvdState extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

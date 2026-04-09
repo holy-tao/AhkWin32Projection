@@ -5,9 +5,8 @@
  * Specifies the current state of the filter engine.
  * @see https://learn.microsoft.com/windows/win32/api/fwpmtypes/ne-fwpmtypes-fwpm_service_state
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
- * @version v4.0.30319
  */
-class FWPM_SERVICE_STATE extends Win32Enum{
+class FWPM_SERVICE_STATE extends Win32Enum {
 
     /**
      * The filter engine is not running.

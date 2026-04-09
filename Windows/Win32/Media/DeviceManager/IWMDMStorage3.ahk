@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IWMDMMetaData.ahk
 #Include .\IWMDMStorage2.ahk
+#Include .\IWMDMMetaData.ahk
 
 /**
  * The IWMDMStorage3 interface extends IWMDMStorage2 by exposing metadata.
  * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nn-mswmdm-iwmdmstorage3
  * @namespace Windows.Win32.Media.DeviceManager
- * @version v4.0.30319
  */
-class IWMDMStorage3 extends IWMDMStorage2{
+class IWMDMStorage3 extends IWMDMStorage2 {
 
     static sizeof => A_PtrSize
     /**
@@ -91,7 +90,7 @@ class IWMDMStorage3 extends IWMDMStorage2{
      * After this method is called, later calls to <a href="https://docs.microsoft.com/windows/desktop/api/mswmdm/nf-mswmdm-iwmdmstorage-enumstorage">IWMDMStorage::EnumStorage</a> will behave according to the storage enumeration preference set by this method. This method can be called again to change the behavior of subsequent <b>IWMDMStorage::EnumStorage</b> calls.
      * 
      * This method should typically be called on the top-level storage. If this method is called on any of the storages in metadata view, it will return WMDM_E_NOTSUPPORTED.
-     * @param {Pointer<Integer>} pMode Desired mode of the storage enumerator. For more details on the mode, see <a href="https://docs.microsoft.com/windows/desktop/WMDM/wmdm-storage-enum-mode">WMDM_STORAGE_ENUM_MODE</a>. If the value of <i>pMode</i> is set to ENUM_MODE_USE_DEVICE_PREF, then upon return it is set to ENUM_MODE_RAW or ENUM_MODE_METADATA_VIEWS, based on the device preference.
+     * @param {Pointer<WMDM_STORAGE_ENUM_MODE>} pMode Desired mode of the storage enumerator. For more details on the mode, see <a href="https://docs.microsoft.com/windows/desktop/WMDM/wmdm-storage-enum-mode">WMDM_STORAGE_ENUM_MODE</a>. If the value of <i>pMode</i> is set to ENUM_MODE_USE_DEVICE_PREF, then upon return it is set to ENUM_MODE_RAW or ENUM_MODE_METADATA_VIEWS, based on the device preference.
      * @param {Integer} nViews Number of view definitions provided.
      * 
      * This parameter is ignored if the value of <i>pMode</i> is ENUM_MODE_RAW or if the value of <i>pMode</i> is ENUM_MODE_USE_DEVICE_PREF and the device does not prefer metadata views.

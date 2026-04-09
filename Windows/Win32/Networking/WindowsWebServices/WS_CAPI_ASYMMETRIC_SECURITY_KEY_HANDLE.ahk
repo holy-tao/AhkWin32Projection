@@ -1,15 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\WS_SECURITY_KEY_HANDLE.ahk
+#Include .\WS_SECURITY_KEY_HANDLE_TYPE.ahk
 
 /**
  * The type for specifying asymmetric cryptographic keys as CAPI 1.0 key handles.
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_capi_asymmetric_security_key_handle
  * @namespace Windows.Win32.Networking.WindowsWebServices
- * @version v4.0.30319
  */
-class WS_CAPI_ASYMMETRIC_SECURITY_KEY_HANDLE extends Win32Struct
-{
+class WS_CAPI_ASYMMETRIC_SECURITY_KEY_HANDLE extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -18,7 +17,7 @@ class WS_CAPI_ASYMMETRIC_SECURITY_KEY_HANDLE extends Win32Struct
      * The base type from which this type and all other key handle types derive.
      * @type {WS_SECURITY_KEY_HANDLE}
      */
-    keyHandle{
+    keyHandle {
         get {
             if(!this.HasProp("__keyHandle"))
                 this.__keyHandle := WS_SECURITY_KEY_HANDLE(0, this)

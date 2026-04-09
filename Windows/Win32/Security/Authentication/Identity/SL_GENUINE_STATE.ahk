@@ -5,9 +5,8 @@
  * Specifies the state of an application installation.
  * @see https://learn.microsoft.com/windows/win32/api/slpublic/ne-slpublic-sl_genuine_state
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class SL_GENUINE_STATE extends Win32Enum{
+class SL_GENUINE_STATE extends Win32Enum {
 
     /**
      * The installation is genuine.

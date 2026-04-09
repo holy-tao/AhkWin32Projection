@@ -7,9 +7,8 @@
  * Exposes methods to get the &quot;sort by&quot; columns properties for an item. This interface is used by UI objects that want to retrieve the primary or secondary sort columns for a given property.
  * @see https://learn.microsoft.com/windows/win32/api/propsys/nn-propsys-ipropertydescriptionaliasinfo
  * @namespace Windows.Win32.UI.Shell.PropertiesSystem
- * @version v4.0.30319
  */
-class IPropertyDescriptionAliasInfo extends IPropertyDescription{
+class IPropertyDescriptionAliasInfo extends IPropertyDescription {
 
     static sizeof => A_PtrSize
     /**

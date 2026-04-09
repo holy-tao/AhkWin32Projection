@@ -29,9 +29,8 @@
  * ```
  * @see https://learn.microsoft.com/windows/win32/api/dsclient/nn-dsclient-idsbrowsedomaintree
  * @namespace Windows.Win32.Networking.ActiveDirectory
- * @version v4.0.30319
  */
-class IDsBrowseDomainTree extends IUnknown{
+class IDsBrowseDomainTree extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

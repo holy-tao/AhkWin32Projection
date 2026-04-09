@@ -7,9 +7,8 @@
  * The IAMWMBufferPass interface is implemented on the output pins of the WM ASF Reader and the input pins of the WM ASF Writer.
  * @see https://learn.microsoft.com/windows/win32/api/dshowasf/nn-dshowasf-iamwmbufferpass
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IAMWMBufferPass extends IUnknown{
+class IAMWMBufferPass extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * The IFaxDeviceIds interface defines a configuration collection used by a fax client application to enumerate the ordered fax device IDs associated with a FaxOutboundRoutingGroup object.
@@ -10,9 +10,8 @@
  * A default implementation of <b>IFaxDeviceIds</b> is provided as the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxdeviceids">FaxDeviceIds</a> object.
  * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nn-faxcomex-ifaxdeviceids
  * @namespace Windows.Win32.Devices.Fax
- * @version v4.0.30319
  */
-class IFaxDeviceIds extends IDispatch{
+class IFaxDeviceIds extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

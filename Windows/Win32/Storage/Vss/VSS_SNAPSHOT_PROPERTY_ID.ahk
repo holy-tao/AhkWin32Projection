@@ -5,9 +5,8 @@
  * Specifies the property to be set for a shadow copy.
  * @see https://learn.microsoft.com/windows/win32/api/vss/ne-vss-vss_snapshot_property_id
  * @namespace Windows.Win32.Storage.Vss
- * @version v4.0.30319
  */
-class VSS_SNAPSHOT_PROPERTY_ID extends Win32Enum{
+class VSS_SNAPSHOT_PROPERTY_ID extends Win32Enum {
 
     /**
      * The property is not known.

@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Hypervisor
- * @version v4.0.30319
  */
-class WHV_EMULATOR_MEMORY_ACCESS_INFO extends Win32Struct
-{
+class WHV_EMULATOR_MEMORY_ACCESS_INFO extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -36,9 +34,9 @@ class WHV_EMULATOR_MEMORY_ACCESS_INFO extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Data{
+    Data {
         get {
             if(!this.HasProp("__DataProxyArray"))
                 this.__DataProxyArray := Win32FixedArray(this.ptr + 10, 8, Primitive, "char")

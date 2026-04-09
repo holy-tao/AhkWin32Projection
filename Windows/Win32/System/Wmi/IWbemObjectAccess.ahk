@@ -21,9 +21,8 @@
  * Property handles are the same for all instances of a class. Therefore, it is only necessary to retrieve a handle one time.
  * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nn-wbemcli-iwbemobjectaccess
  * @namespace Windows.Win32.System.Wmi
- * @version v4.0.30319
  */
-class IWbemObjectAccess extends IWbemClassObject{
+class IWbemObjectAccess extends IWbemClassObject {
 
     static sizeof => A_PtrSize
     /**

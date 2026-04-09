@@ -11,9 +11,8 @@
  * If you define a class that implements this interface, the new class will not interact correctly with the Tablet PC application programming interfaces (APIs).
  * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nn-msinkaut-iinkgesture
  * @namespace Windows.Win32.UI.TabletPC
- * @version v4.0.30319
  */
-class IInkGesture extends IDispatch{
+class IInkGesture extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -35,14 +34,14 @@ class IInkGesture extends IDispatch{
     static VTableNames => ["get_Confidence", "get_Id", "GetHotPoint"]
 
     /**
-     * @type {Integer} 
+     * @type {InkRecognitionConfidence} 
      */
     Confidence {
         get => this.get_Confidence()
     }
 
     /**
-     * @type {Integer} 
+     * @type {InkApplicationGesture} 
      */
     Id {
         get => this.get_Id()
@@ -63,7 +62,7 @@ class IInkGesture extends IDispatch{
      * <div class="alert"><b>Note</b>  This property throws an exception if the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nn-msinkaut-iinkrecognizer">IInkRecognizer</a> that generates the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nn-msinkaut-iinkrecognitionalternate">IInkRecognitionAlternate</a> does not support confidence levels.</div>
      * <div> </div>
      * Of the Microsoft recognizers, only the Microsoft English (US) Handwriting Recognizer and the Microsoft Gesture Recognizer support confidence levels. Third party recognizers may or may not support confidence levels.
-     * @returns {Integer} 
+     * @returns {InkRecognitionConfidence} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkgesture-get_confidence
      */
     get_Confidence() {
@@ -78,7 +77,7 @@ class IInkGesture extends IDispatch{
      * 
      * <div class="alert"><b>Note</b>  Accessing this property within certain message handlers can result in the underlying function being re-entered, causing unexpected results. Take care to avoid a reentrant call when handling any of the following messages: <b>WM_ACTIVATE</b>; <b>WM_ACTIVATEAPP</b>; <b>WM_NCACTIVATE</b>; <b>WM_PAINT</b>; <b>WM_SYSCOMMAND</b> if <i>wParam</i> is set to <b>SC_HOTKEY</b> or <b>SC_TASKLIST</b>; and <b>WM_SYSKEYDOWN</b> (when processing ALT+TAB or ALT+ESC key combinations). This is an issue with single-threaded apartment model applications.</div>
      * <div> </div>
-     * @returns {Integer} 
+     * @returns {InkApplicationGesture} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkgesture-get_id
      */
     get_Id() {

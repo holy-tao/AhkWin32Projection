@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
-#Include .\IDebugDocumentContext.ahk
 #Include ..\..\..\Com\IUnknown.ahk
+#Include .\IDebugDocumentContext.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.ActiveScript
- * @version v4.0.30319
  */
-class IDebugCodeContext extends IUnknown{
+class IDebugCodeContext extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -40,7 +39,7 @@ class IDebugCodeContext extends IUnknown{
 
     /**
      * 
-     * @param {Integer} bps 
+     * @param {BREAKPOINT_STATE} bps 
      * @returns {HRESULT} 
      */
     SetBreakPoint(bps) {

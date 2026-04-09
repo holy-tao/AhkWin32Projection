@@ -15,10 +15,8 @@
  * The members of this structure are not defined in the IETF RFC on the TCP Extended Statistics MIB. However, there are members in the <a href="https://docs.microsoft.com/windows/desktop/api/tcpestats/ns-tcpestats-tcp_estats_path_rod_v0">TCP_ESTATS_PATH_ROD_v0</a> structure that provide similar time measurements in milliseconds. For more information, see the <b>TCP_ESTATS_PATH_ROD_v0</b> structure and <a href="http://tools.ietf.org/html/rfc4898">http://www.ietf.org/rfc/rfc4898.txt</a>.
  * @see https://learn.microsoft.com/windows/win32/api/tcpestats/ns-tcpestats-tcp_estats_fine_rtt_rod_v0
  * @namespace Windows.Win32.NetworkManagement.IpHelper
- * @version v4.0.30319
  */
-class TCP_ESTATS_FINE_RTT_ROD_v0 extends Win32Struct
-{
+class TCP_ESTATS_FINE_RTT_ROD_v0 extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4

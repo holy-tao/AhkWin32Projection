@@ -9,10 +9,8 @@
  * It can be useful to set this flag if your service has common failure paths where is it possible that the service could recover.
  * @see https://learn.microsoft.com/windows/win32/api/winsvc/ns-winsvc-service_failure_actions_flag
  * @namespace Windows.Win32.System.Services
- * @version v4.0.30319
  */
-class SERVICE_FAILURE_ACTIONS_FLAG extends Win32Struct
-{
+class SERVICE_FAILURE_ACTIONS_FLAG extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 4

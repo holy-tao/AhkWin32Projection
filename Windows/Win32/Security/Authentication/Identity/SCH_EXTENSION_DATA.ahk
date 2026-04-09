@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class SCH_EXTENSION_DATA extends Win32Struct
-{
+class SCH_EXTENSION_DATA extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

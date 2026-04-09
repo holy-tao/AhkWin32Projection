@@ -9,10 +9,8 @@
  * CODECAPI\_AVEncVideoTemporalLayerCount, [CODECAPI\_AVEncVideoUsage](codecapi-avencvideousage.md), and [CODECAPI\_AVEncCommonRateControlMode](/windows/desktop/DirectShow/avenccommonratecontrolmode-property) are static encoder properties. Once set, these will only take effect after a set media type is called on the camera s output pin.
  * @see https://learn.microsoft.com/windows/win32/medfound/codecapi-avencvideotemporallayercount
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class CODECAPI_AVEncVideoTemporalLayerCount extends Win32Struct
-{
+class CODECAPI_AVEncVideoTemporalLayerCount extends Win32Struct {
     static sizeof => 0
 
     static packingSize => 1

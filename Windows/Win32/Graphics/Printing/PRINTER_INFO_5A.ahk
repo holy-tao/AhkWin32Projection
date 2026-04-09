@@ -5,11 +5,9 @@
  * The PRINTER\_INFO\_5 structure specifies detailed printer information.
  * @see https://learn.microsoft.com/windows/win32/printdocs/printer-info-5
  * @namespace Windows.Win32.Graphics.Printing
- * @version v4.0.30319
  * @charset ANSI
  */
-class PRINTER_INFO_5A extends Win32Struct
-{
+class PRINTER_INFO_5A extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8

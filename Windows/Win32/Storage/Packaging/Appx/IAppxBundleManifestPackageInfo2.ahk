@@ -7,9 +7,8 @@
  * Provides a read-only object model for a &lt;Package&gt; element in a bundle package manifest. (IAppxBundleManifestPackageInfo2)
  * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nn-appxpackaging-iappxbundlemanifestpackageinfo2
  * @namespace Windows.Win32.Storage.Packaging.Appx
- * @version v4.0.30319
  */
-class IAppxBundleManifestPackageInfo2 extends IUnknown{
+class IAppxBundleManifestPackageInfo2 extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

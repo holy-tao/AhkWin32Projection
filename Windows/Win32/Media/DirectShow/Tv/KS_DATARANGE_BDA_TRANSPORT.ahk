@@ -5,10 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Media.DirectShow.Tv
- * @version v4.0.30319
  */
-class KS_DATARANGE_BDA_TRANSPORT extends Win32Struct
-{
+class KS_DATARANGE_BDA_TRANSPORT extends Win32Struct {
     static sizeof => 72
 
     static packingSize => 8
@@ -16,7 +14,7 @@ class KS_DATARANGE_BDA_TRANSPORT extends Win32Struct
     /**
      * @type {KSDATAFORMAT}
      */
-    DataRange{
+    DataRange {
         get {
             if(!this.HasProp("__DataRange"))
                 this.__DataRange := KSDATAFORMAT(0, this)
@@ -27,7 +25,7 @@ class KS_DATARANGE_BDA_TRANSPORT extends Win32Struct
     /**
      * @type {BDA_TRANSPORT_INFO}
      */
-    BdaTransportInfo{
+    BdaTransportInfo {
         get {
             if(!this.HasProp("__BdaTransportInfo"))
                 this.__BdaTransportInfo := BDA_TRANSPORT_INFO(48, this)

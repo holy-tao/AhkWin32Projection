@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
- * @version v4.0.30319
  */
-class DOC_INFO_INTERNAL extends Win32Struct
-{
+class DOC_INFO_INTERNAL extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -47,7 +45,7 @@ class DOC_INFO_INTERNAL extends Win32Struct
     /**
      * @type {HANDLE}
      */
-    hTokenLowIL{
+    hTokenLowIL {
         get {
             if(!this.HasProp("__hTokenLowIL"))
                 this.__hTokenLowIL := HANDLE(32, this)

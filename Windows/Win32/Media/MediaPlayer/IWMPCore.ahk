@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include .\IWMPControls.ahk
 #Include .\IWMPSettings.ahk
 #Include .\IWMPMedia.ahk
@@ -12,15 +12,13 @@
 #Include .\IWMPCdromCollection.ahk
 #Include .\IWMPClosedCaption.ahk
 #Include .\IWMPError.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * The IWMPCore interface is the root interface for the Windows Media Player control. It can be used to retrieve pointers to other interfaces supported by the control and to access some basic features.
  * @see https://learn.microsoft.com/windows/win32/api/wmp/nn-wmp-iwmpcore
  * @namespace Windows.Win32.Media.MediaPlayer
- * @version v4.0.30319
  */
-class IWMPCore extends IDispatch{
+class IWMPCore extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -42,6 +40,7 @@ class IWMPCore extends IDispatch{
     static VTableNames => ["close", "get_URL", "put_URL", "get_openState", "get_playState", "get_controls", "get_settings", "get_currentMedia", "put_currentMedia", "get_mediaCollection", "get_playlistCollection", "get_versionInfo", "launchURL", "get_network", "get_currentPlaylist", "put_currentPlaylist", "get_cdromCollection", "get_closedCaption", "get_isOnline", "get_error", "get_status"]
 
     /**
+     * @type {BSTR} 
      */
     URL {
         get => this.get_URL()
@@ -254,7 +253,7 @@ class IWMPCore extends IDispatch{
      * The get_openState method retrieves an enumeration value indicating the state of the content source.
      * @remarks
      * Windows Media Player states are not guaranteed to occur in any particular order. Furthermore, not every state necessarily occurs during a sequence of events. You should not write code that relies upon state order.
-     * @param {Pointer<Integer>} pwmpos Pointer to a <b>WMPOpenState</b> enumeration.
+     * @param {Pointer<WMPOpenState>} pwmpos Pointer to a <b>WMPOpenState</b> enumeration.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>
@@ -287,7 +286,7 @@ class IWMPCore extends IDispatch{
      * The get_playState method retrieves an enumeration value indicating the operating state of Windows Media Player.
      * @remarks
      * Windows Media Player states are not guaranteed to occur in any particular order. Furthermore, not every state necessarily occurs during a sequence of events. You should not write code that relies upon state order.
-     * @param {Pointer<Integer>} pwmpps Pointer to a <b>WMPPlayState</b> enumeration.
+     * @param {Pointer<WMPPlayState>} pwmpps Pointer to a <b>WMPPlayState</b> enumeration.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>

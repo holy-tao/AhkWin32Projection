@@ -29,9 +29,8 @@
  * <b>Windows Vista</b> IThumbnailProivder is new for Vista and replaces <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-iextractimage">IExtractImage</a>. Vista still supports IExtractImage but lacks the ability to return the image type (alpha or not).
  * @see https://learn.microsoft.com/windows/win32/api/thumbcache/nn-thumbcache-ithumbnailprovider
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IThumbnailProvider extends IUnknown{
+class IThumbnailProvider extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -60,7 +59,7 @@ class IThumbnailProvider extends IUnknown{
      * @param {Pointer<HBITMAP>} phbmp Type: <b>HBITMAP*</b>
      * 
      * When this method returns, contains a pointer to the thumbnail image handle. The image must be a DIB section and 32 bits per pixel. The Shell scales down the bitmap if its width or height is larger than the size specified by <i>cx</i>. The Shell always respects the aspect ratio and never scales a bitmap larger than its original size.
-     * @param {Pointer<Integer>} pdwAlpha Type: <b>WTS_ALPHATYPE*</b>
+     * @param {Pointer<WTS_ALPHATYPE>} pdwAlpha Type: <b>WTS_ALPHATYPE*</b>
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.

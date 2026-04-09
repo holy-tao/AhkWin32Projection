@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
 #Include ..\..\..\System\Ole\IOleClientSite.ahk
 #Include ..\..\..\System\Com\IDataObject.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
  * The IRichEditOle interface exposes the Component Object Model (COM) functionality of a rich edit control. The interface can be obtained by sending the EM_GETOLEINTERFACE message. This interface has the following methods.
  * @see https://learn.microsoft.com/windows/win32/api/richole/nn-richole-iricheditole
  * @namespace Windows.Win32.UI.Controls.RichEdit
- * @version v4.0.30319
  */
-class IRichEditOle extends IUnknown{
+class IRichEditOle extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -76,7 +75,7 @@ class IRichEditOle extends IUnknown{
      * @param {Pointer<REOBJECT>} lpreobject Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/richole/ns-richole-reobject">REOBJECT</a>*</b>
      * 
      * Structure that receives information about the object. The reference count of the interfaces returned in this structure has been incremented; it is the responsibility of the caller to use the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">Release</a> method to decrement the count.
-     * @param {Integer} dwFlags Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
+     * @param {RICH_EDIT_GET_OBJECT_FLAGS} dwFlags Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
      * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * Returns <b>S_OK</b> if successful, or an error value otherwise. <b>E_INVALIDARG</b> is returned if no buffer for the <a href="https://docs.microsoft.com/windows/desktop/api/richole/ns-richole-reobject">REOBJECT</a> structure was given or if the <i>iob</i> value or character position is invalid.
@@ -189,7 +188,9 @@ class IRichEditOle extends IUnknown{
      * @param {Integer} iob Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LONG</a></b>
      * 
      * Index of the object whose aspect is to be set. If this parameter is REO_IOB_SELECTION, the aspect of the selected object is to be set.
-     * @param {Integer} _dvaspect 
+     * @param {Integer} _dvaspect Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
+     * 
+     * Aspect to use when drawing. The values are defined by OLE.
      * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * Returns S_OK on success, or a failure code otherwise. E_INVALIDARG is returned if the index is invalid.

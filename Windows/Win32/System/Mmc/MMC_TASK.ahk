@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\MMC_TASK_DISPLAY_OBJECT.ahk
+#Include .\MMC_TASK_DISPLAY_TYPE.ahk
 #Include .\MMC_TASK_DISPLAY_BITMAP.ahk
 #Include .\MMC_TASK_DISPLAY_SYMBOL.ahk
-#Include .\MMC_TASK_DISPLAY_OBJECT.ahk
+#Include .\MMC_ACTION_TYPE.ahk
 
 /**
  * The MMC_TASK structure is introduced in MMC 1.1.
@@ -14,10 +16,8 @@
  * <a href="https://docs.microsoft.com/windows/desktop/api/mmc/ns-mmc-mmc_task_display_symbol">MMC_TASK_DISPLAY_SYMBOL</a> structure specified in the <b>sDisplayObject</b> member with <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemalloc">CoTaskMemAlloc</a> (or the equivalent) and MMC will release them.
  * @see https://learn.microsoft.com/windows/win32/api/mmc/ns-mmc-mmc_task
  * @namespace Windows.Win32.System.Mmc
- * @version v4.0.30319
  */
-class MMC_TASK extends Win32Struct
-{
+class MMC_TASK extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 8
@@ -26,7 +26,7 @@ class MMC_TASK extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/mmc/ns-mmc-mmc_task_display_object">MMC_TASK_DISPLAY_OBJECT</a> structure that the snap-in must fill in to specify the image to be displayed as the image for the task in the taskpad specified by <b>pszGroup</b>.
      * @type {MMC_TASK_DISPLAY_OBJECT}
      */
-    sDisplayObject{
+    sDisplayObject {
         get {
             if(!this.HasProp("__sDisplayObject"))
                 this.__sDisplayObject := MMC_TASK_DISPLAY_OBJECT(0, this)
@@ -57,7 +57,7 @@ class MMC_TASK extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/mmc/ne-mmc-mmc_action_type">MMC_ACTION_TYPE</a> that specifies the type of action triggered when a user clicks a task on a taskpad.
      * 
      * There are three types of actions:
-     * @type {Integer}
+     * @type {MMC_ACTION_TYPE}
      */
     eActionType {
         get => NumGet(this, 48, "int")

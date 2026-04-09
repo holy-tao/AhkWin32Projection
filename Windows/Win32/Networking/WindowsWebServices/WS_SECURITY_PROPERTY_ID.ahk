@@ -10,9 +10,8 @@
  *         the properties below.
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ne-webservices-ws_security_property_id
  * @namespace Windows.Win32.Networking.WindowsWebServices
- * @version v4.0.30319
  */
-class WS_SECURITY_PROPERTY_ID extends Win32Enum{
+class WS_SECURITY_PROPERTY_ID extends Win32Enum {
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_protection_level">WS_PROTECTION_LEVEL</a> value that determines whether signing alone or

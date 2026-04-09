@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Media.Audio.Apo
- * @version v4.0.30319
  */
-class IApoAcousticEchoCancellation2 extends IApoAcousticEchoCancellation{
+class IApoAcousticEchoCancellation2 extends IApoAcousticEchoCancellation {
 
     static sizeof => A_PtrSize
     /**
@@ -30,7 +29,7 @@ class IApoAcousticEchoCancellation2 extends IApoAcousticEchoCancellation{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {APO_REFERENCE_STREAM_PROPERTIES} 
      */
     GetDesiredReferenceStreamProperties() {
         result := ComCall(3, this, "int*", &pProperties := 0, "HRESULT")

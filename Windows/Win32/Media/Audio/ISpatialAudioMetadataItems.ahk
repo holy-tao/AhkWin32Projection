@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\SpatialAudioMetadataItemsInfo.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\SpatialAudioMetadataItemsInfo.ahk
 
 /**
  * Represents a buffer of spatial audio metadata items.
@@ -10,9 +10,8 @@
  * Get an instance of this interface by calling <a href="https://docs.microsoft.com/windows/desktop/api/spatialaudiometadata/nf-spatialaudiometadata-ispatialaudiometadataclient-activatespatialaudiometadataitems">ISpatialAudioMetadataClient::ActivateSpatialAudioMetadataItems</a>.
  * @see https://learn.microsoft.com/windows/win32/api/spatialaudiometadata/nn-spatialaudiometadata-ispatialaudiometadataitems
  * @namespace Windows.Win32.Media.Audio
- * @version v4.0.30319
  */
-class ISpatialAudioMetadataItems extends IUnknown{
+class ISpatialAudioMetadataItems extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

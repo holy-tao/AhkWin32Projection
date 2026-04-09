@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IWMStreamConfig.ahk
 #Include .\IWMCodecInfo.ahk
+#Include .\IWMStreamConfig.ahk
 
 /**
  * The IWMCodecInfo2 interface manages the retrieval of information about codecs. To access it, call QueryInterface on a profile manager object.
  * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nn-wmsdkidl-iwmcodecinfo2
  * @namespace Windows.Win32.Media.WindowsMediaFormat
- * @version v4.0.30319
  */
-class IWMCodecInfo2 extends IWMCodecInfo{
+class IWMCodecInfo2 extends IWMCodecInfo {
 
     static sizeof => A_PtrSize
     /**

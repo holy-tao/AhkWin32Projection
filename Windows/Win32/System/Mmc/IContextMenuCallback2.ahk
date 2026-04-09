@@ -7,9 +7,8 @@
  * The IContextMenuCallback2 interface is used to add menu items to a context menu. This interface supersedes IContextMenuCallback.
  * @see https://learn.microsoft.com/windows/win32/api/mmc/nn-mmc-icontextmenucallback2
  * @namespace Windows.Win32.System.Mmc
- * @version v4.0.30319
  */
-class IContextMenuCallback2 extends IUnknown{
+class IContextMenuCallback2 extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

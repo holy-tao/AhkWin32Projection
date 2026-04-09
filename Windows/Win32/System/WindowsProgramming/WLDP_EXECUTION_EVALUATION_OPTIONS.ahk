@@ -3,13 +3,10 @@
 
 /**
  * Specifies execution options when querying for execution authorization with WldpCanExecuteBuffer, WldpCanExecuteFile, and WldpCanExecuteStream.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/wldp/ne-wldp-wldp_execution_evaluation_options
  * @namespace Windows.Win32.System.WindowsProgramming
- * @version v4.0.30319
  */
-class WLDP_EXECUTION_EVALUATION_OPTIONS extends Win32BitflagEnum{
+class WLDP_EXECUTION_EVALUATION_OPTIONS extends Win32BitflagEnum {
 
     /**
      * No options.

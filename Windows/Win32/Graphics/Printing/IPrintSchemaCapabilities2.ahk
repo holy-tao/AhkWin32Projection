@@ -1,15 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\IPrintSchemaParameterDefinition.ahk
 #Include .\IPrintSchemaCapabilities.ahk
+#Include .\IPrintSchemaParameterDefinition.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
- * @version v4.0.30319
  */
-class IPrintSchemaCapabilities2 extends IPrintSchemaCapabilities{
+class IPrintSchemaCapabilities2 extends IPrintSchemaCapabilities {
 
     static sizeof => A_PtrSize
     /**

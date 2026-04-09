@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Rpc
- * @version v4.0.30319
  */
-class COMM_FAULT_OFFSETS extends Win32Struct
-{
+class COMM_FAULT_OFFSETS extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 2

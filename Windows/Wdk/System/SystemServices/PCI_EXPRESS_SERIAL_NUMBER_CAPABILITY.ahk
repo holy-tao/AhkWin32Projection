@@ -3,16 +3,14 @@
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class PCI_EXPRESS_SERIAL_NUMBER_CAPABILITY extends Win32Struct
-{
+class PCI_EXPRESS_SERIAL_NUMBER_CAPABILITY extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
 
     /**
-     * @type {Pointer<PCI_EXPRESS_ENHANCED_CAPABILITY_HEADER>}
+     * @type {Pointer}
      */
     Header {
         get => NumGet(this, 0, "ptr")

@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class SHGFI_FLAGS extends Win32BitflagEnum{
+class SHGFI_FLAGS extends Win32BitflagEnum {
 
     /**
      * @type {Integer (UInt32)}

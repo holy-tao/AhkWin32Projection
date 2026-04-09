@@ -9,9 +9,8 @@
  * This interface is not supported by the Windows provided codecs.
  * @see https://learn.microsoft.com/windows/win32/api/wincodec/nn-wincodec-iwicbitmapcodecprogressnotification
  * @namespace Windows.Win32.Graphics.Imaging
- * @version v4.0.30319
  */
-class IWICBitmapCodecProgressNotification extends IUnknown{
+class IWICBitmapCodecProgressNotification extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -44,7 +43,9 @@ class IWICBitmapCodecProgressNotification extends IUnknown{
      * 
      * <b>WICProgressNotificationFrequent</b> increases the frequency in which the callback is called.
      *             If an operation is expected to take more than 30 seconds, <b>WICProgressNotificationFrequent</b> should be added to <i>dwProgressFlags</i>.
-     * @param {Pointer<PFNProgressNotification>} _pfnProgressNotification 
+     * @param {Pointer<PFNProgressNotification>} _pfnProgressNotification Type: <b>PFNProgressNotification</b>
+     * 
+     * A function pointer to the application defined progress notification callback function. See <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nc-wincodec-pfnprogressnotification">ProgressNotificationCallback</a> for the callback signature.
      * @param {Pointer<Void>} pvData Type: <b>LPVOID</b>
      * 
      * A pointer to component data for the callback method.

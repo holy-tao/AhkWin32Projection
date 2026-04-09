@@ -1,18 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\PCI_HARDWARE_INTERFACE.ahk
+#Include .\PCI_BUS_WIDTH.ahk
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class PCI_ROOT_BUS_HARDWARE_CAPABILITY extends Win32Struct
-{
+class PCI_ROOT_BUS_HARDWARE_CAPABILITY extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
 
     /**
-     * @type {Integer}
+     * @type {PCI_HARDWARE_INTERFACE}
      */
     SecondaryInterface {
         get => NumGet(this, 0, "int")
@@ -52,7 +52,7 @@ class PCI_ROOT_BUS_HARDWARE_CAPABILITY extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {PCI_BUS_WIDTH}
      */
     SecondaryBusWidth {
         get => NumGet(this, 20, "int")
@@ -60,7 +60,7 @@ class PCI_ROOT_BUS_HARDWARE_CAPABILITY extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PCI_ROOT_BUS_OSC_SUPPORT_FIELD>}
+     * @type {Pointer}
      */
     OscFeatureSupport {
         get => NumGet(this, 24, "ptr")
@@ -68,7 +68,7 @@ class PCI_ROOT_BUS_HARDWARE_CAPABILITY extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PCI_ROOT_BUS_OSC_CONTROL_FIELD>}
+     * @type {Pointer}
      */
     OscControlRequest {
         get => NumGet(this, 32, "ptr")
@@ -76,7 +76,7 @@ class PCI_ROOT_BUS_HARDWARE_CAPABILITY extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PCI_ROOT_BUS_OSC_CONTROL_FIELD>}
+     * @type {Pointer}
      */
     OscControlGranted {
         get => NumGet(this, 40, "ptr")

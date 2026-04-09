@@ -9,9 +9,8 @@
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IDVBSLocator2)</c>.
  * @see https://learn.microsoft.com/windows/win32/api/tuner/nn-tuner-idvbslocator2
  * @namespace Windows.Win32.Media.DirectShow.Tv
- * @version v4.0.30319
  */
-class IDVBSLocator2 extends IDVBSLocator{
+class IDVBSLocator2 extends IDVBSLocator {
 
     static sizeof => A_PtrSize
     /**
@@ -33,7 +32,7 @@ class IDVBSLocator2 extends IDVBSLocator{
     static VTableNames => ["get_DiseqLNBSource", "put_DiseqLNBSource", "get_LocalOscillatorOverrideLow", "put_LocalOscillatorOverrideLow", "get_LocalOscillatorOverrideHigh", "put_LocalOscillatorOverrideHigh", "get_LocalLNBSwitchOverride", "put_LocalLNBSwitchOverride", "get_LocalSpectralInversionOverride", "put_LocalSpectralInversionOverride", "get_SignalRollOff", "put_SignalRollOff", "get_SignalPilot", "put_SignalPilot"]
 
     /**
-     * @type {Integer} 
+     * @type {LNB_Source} 
      */
     DiseqLNBSource {
         get => this.get_DiseqLNBSource()
@@ -65,7 +64,7 @@ class IDVBSLocator2 extends IDVBSLocator{
     }
 
     /**
-     * @type {Integer} 
+     * @type {SpectralInversion} 
      */
     LocalSpectralInversionOverride {
         get => this.get_LocalSpectralInversionOverride()
@@ -73,7 +72,7 @@ class IDVBSLocator2 extends IDVBSLocator{
     }
 
     /**
-     * @type {Integer} 
+     * @type {RollOff} 
      */
     SignalRollOff {
         get => this.get_SignalRollOff()
@@ -81,7 +80,7 @@ class IDVBSLocator2 extends IDVBSLocator{
     }
 
     /**
-     * @type {Integer} 
+     * @type {Pilot} 
      */
     SignalPilot {
         get => this.get_SignalPilot()
@@ -90,7 +89,7 @@ class IDVBSLocator2 extends IDVBSLocator{
 
     /**
      * Specifies the input for a Digital Satellite Equipment Control (DiSEqC) low-noise block converter (LNB).
-     * @returns {Integer} 
+     * @returns {LNB_Source} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-idvbslocator2-get_diseqlnbsource
      */
     get_DiseqLNBSource() {
@@ -100,7 +99,7 @@ class IDVBSLocator2 extends IDVBSLocator{
 
     /**
      * Specifies the input for a Digital Satellite Equipment Control (DiSEqC) low-noise block converter (LNB).
-     * @param {Integer} DiseqLNBSourceVal 
+     * @param {LNB_Source} DiseqLNBSourceVal 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-idvbslocator2-put_diseqlnbsource
      */
@@ -174,7 +173,7 @@ class IDVBSLocator2 extends IDVBSLocator{
 
     /**
      * Specifies the spectral inversion state for a Digital Video Broadcasting-Satellite, Second Generation (DVB-S2) signal.
-     * @returns {Integer} 
+     * @returns {SpectralInversion} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-idvbslocator2-get_localspectralinversionoverride
      */
     get_LocalSpectralInversionOverride() {
@@ -184,7 +183,7 @@ class IDVBSLocator2 extends IDVBSLocator{
 
     /**
      * Specifies the spectral inversion state for a Digital Video Broadcasting-Satellite, Second Generation (DVB-S2) signal.
-     * @param {Integer} LocalSpectralInversionOverrideVal 
+     * @param {SpectralInversion} LocalSpectralInversionOverrideVal 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-idvbslocator2-put_localspectralinversionoverride
      */
@@ -195,7 +194,7 @@ class IDVBSLocator2 extends IDVBSLocator{
 
     /**
      * Specifies the roll-off factor for a Digital Video Broadcasting-Satellite, Second Generation (DVB-S2) signal.
-     * @returns {Integer} 
+     * @returns {RollOff} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-idvbslocator2-get_signalrolloff
      */
     get_SignalRollOff() {
@@ -205,7 +204,7 @@ class IDVBSLocator2 extends IDVBSLocator{
 
     /**
      * Specifies the roll-off factor for a Digital Video Broadcasting-Satellite, Second Generation (DVB-S2) signal.
-     * @param {Integer} RollOffVal 
+     * @param {RollOff} RollOffVal 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-idvbslocator2-put_signalrolloff
      */
@@ -216,7 +215,7 @@ class IDVBSLocator2 extends IDVBSLocator{
 
     /**
      * Specifies the pilot mode for a Digital Video Broadcasting-Satellite, Second Generation (DVB-S2) signal.
-     * @returns {Integer} 
+     * @returns {Pilot} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-idvbslocator2-get_signalpilot
      */
     get_SignalPilot() {
@@ -226,7 +225,7 @@ class IDVBSLocator2 extends IDVBSLocator{
 
     /**
      * Specifies the pilot mode for a Digital Video Broadcasting-Satellite, Second Generation (DVB-S2) signal.
-     * @param {Integer} PilotVal 
+     * @param {Pilot} PilotVal 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-idvbslocator2-put_signalpilot
      */

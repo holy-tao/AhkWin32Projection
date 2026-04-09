@@ -40,10 +40,8 @@
  * This setting identifies a message within the context of a sequence identifier and an instance identifier. must be incremented by a value of at least 1 for each message sent. Retransmission of this message at the transport level must maintain this value.
  * @see https://learn.microsoft.com/windows/win32/api/wsdtypes/ns-wsdtypes-wsd_app_sequence
  * @namespace Windows.Win32.Devices.WebServicesOnDevices
- * @version v4.0.30319
  */
-class WSD_APP_SEQUENCE extends Win32Struct
-{
+class WSD_APP_SEQUENCE extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

@@ -7,9 +7,8 @@
  * Implemented by the Sequencer Source.
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imfsequencersource
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFSequencerSource extends IUnknown{
+class IMFSequencerSource extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

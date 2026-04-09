@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\IAppxManifestApplication.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
+#Include .\IAppxManifestApplication.ahk
 
 /**
  * Enumerates the applications defined in the package manifest.
@@ -12,9 +12,8 @@
  * This object can be retrieved using the <a href="https://docs.microsoft.com/windows/desktop/api/appxpackaging/nf-appxpackaging-iappxmanifestreader-getapplications">IAppxManifestReader::GetApplications</a> method.
  * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nn-appxpackaging-iappxmanifestapplicationsenumerator
  * @namespace Windows.Win32.Storage.Packaging.Appx
- * @version v4.0.30319
  */
-class IAppxManifestApplicationsEnumerator extends IUnknown{
+class IAppxManifestApplicationsEnumerator extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -39,7 +38,9 @@ class IAppxManifestApplicationsEnumerator extends IUnknown{
      * Gets the application at the current position of the enumerator.
      * @remarks
      * The enumerator returned can be empty. In this case, a call to  <a href="https://docs.microsoft.com/windows/desktop/api/appxpackaging/nf-appxpackaging-iappxmanifestapplicationsenumerator-gethascurrent">GetHasCurrent</a> returns <b>false</b>. If the enumerator is not empty, it points to the first element, and this method returns the first item. Subsequently, the user should use <a href="https://docs.microsoft.com/windows/desktop/api/appxpackaging/nf-appxpackaging-iappxmanifestapplicationsenumerator-movenext">MoveNext</a> to move through the items, and call <b>GetHasCurrent</b> before using <b>GetCurrent</b> to access the item.
-     * @returns {IAppxManifestApplication} 
+     * @returns {IAppxManifestApplication} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/appxpackaging/nn-appxpackaging-iappxmanifestapplication">IAppxManifestApplication</a>**</b>
+     * 
+     * The current application.
      * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxmanifestapplicationsenumerator-getcurrent
      */
     GetCurrent() {

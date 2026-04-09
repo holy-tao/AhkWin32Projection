@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IFolderView.ahk
 #Include ..\..\System\Com\StructuredStorage\PROPVARIANT.ahk
 #Include .\SORTCOLUMN.ahk
 #Include .\IShellItemArray.ahk
-#Include .\IFolderView.ahk
 
 /**
  * Exposes methods that retrieve information about a folder's display options, select specified items in that folder, and set the folder's view mode. (IFolderView2)
@@ -12,9 +12,8 @@
  * This interface also provides the methods of the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ifolderview">IFolderView</a> interface, from which it inherits.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-ifolderview2
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IFolderView2 extends IFolderView{
+class IFolderView2 extends IFolderView {
 
     static sizeof => A_PtrSize
     /**
@@ -119,7 +118,6 @@ class IFolderView2 extends IFolderView{
      * 
      * Returns <b>S_OK</b> if successful, or an error value otherwise.
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifolderview2-setviewproperty
-     * @deprecated 
      */
     SetViewProperty(pidl, propkey, propvar) {
         result := ComCall(19, this, "ptr", pidl, "ptr", propkey, "ptr", propvar, "HRESULT")
@@ -138,7 +136,6 @@ class IFolderView2 extends IFolderView{
      * 
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/propidl/ns-propidl-propvariant">PROPVARIANT</a> structure in which the <a href="https://docs.microsoft.com/windows/desktop/api/wtypes/ns-wtypes-propertykey">PROPERTYKEY</a> is stored.
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifolderview2-getviewproperty
-     * @deprecated 
      */
     GetViewProperty(pidl, propkey) {
         ppropvar := PROPVARIANT()
@@ -160,7 +157,6 @@ class IFolderView2 extends IFolderView{
      * 
      * Returns <b>S_OK</b> if successful, or an error value otherwise.
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifolderview2-settileviewproperties
-     * @deprecated 
      */
     SetTileViewProperties(pidl, pszPropList) {
         pszPropList := pszPropList is String ? StrPtr(pszPropList) : pszPropList
@@ -183,7 +179,6 @@ class IFolderView2 extends IFolderView{
      * 
      * Returns <b>S_OK</b> if successful, or an error value otherwise.
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifolderview2-setextendedtileviewproperties
-     * @deprecated 
      */
     SetExtendedTileViewProperties(pidl, pszPropList) {
         pszPropList := pszPropList is String ? StrPtr(pszPropList) : pszPropList
@@ -194,7 +189,7 @@ class IFolderView2 extends IFolderView{
 
     /**
      * Sets the default text to be used when there are no items in the view.
-     * @param {Integer} iType Type: <b>FVTEXTTYPE</b>
+     * @param {FVTEXTTYPE} iType Type: <b>FVTEXTTYPE</b>
      * 
      * This value should be set to the following flag.
      * @param {PWSTR} pwszText Type: <b>LPCWSTR</b>
@@ -396,7 +391,7 @@ class IFolderView2 extends IFolderView{
      * Sets and applies the view mode and image size.
      * @remarks
      * If <i>iImageSize</i> is -1 then the current default icon size for the view mode is used.
-     * @param {Integer} uViewMode Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-folderviewmode">FOLDERVIEWMODE</a></b>
+     * @param {FOLDERVIEWMODE} uViewMode Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-folderviewmode">FOLDERVIEWMODE</a></b>
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-folderviewmode">FOLDERVIEWMODE</a> to be applied.
      * @param {Integer} iImageSize Type: <b>int</b>
@@ -414,7 +409,7 @@ class IFolderView2 extends IFolderView{
 
     /**
      * Gets the current view mode and icon size applied to the view.
-     * @param {Pointer<Integer>} puViewMode Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-folderviewmode">FOLDERVIEWMODE</a>*</b>
+     * @param {Pointer<FOLDERVIEWMODE>} puViewMode Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-folderviewmode">FOLDERVIEWMODE</a>*</b>
      * 
      * A pointer to the current <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-folderviewmode">FOLDERVIEWMODE</a>.
      * @param {Pointer<Integer>} piImageSize Type: <b>int*</b>

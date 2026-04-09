@@ -7,9 +7,8 @@
  * Used in Windows Explorer by an IShellFolder implementation to give suggestions to the view about what panes are visible.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-iexplorerpanevisibility
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IExplorerPaneVisibility extends IUnknown{
+class IExplorerPaneVisibility extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

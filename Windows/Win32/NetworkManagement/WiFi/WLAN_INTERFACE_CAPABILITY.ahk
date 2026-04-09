@@ -1,21 +1,21 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\WLAN_INTERFACE_TYPE.ahk
+#Include .\DOT11_PHY_TYPE.ahk
 
 /**
  * Contains information about the capabilities of an interface.
  * @see https://learn.microsoft.com/windows/win32/api/wlanapi/ns-wlanapi-wlan_interface_capability
  * @namespace Windows.Win32.NetworkManagement.WiFi
- * @version v4.0.30319
  */
-class WLAN_INTERFACE_CAPABILITY extends Win32Struct
-{
+class WLAN_INTERFACE_CAPABILITY extends Win32Struct {
     static sizeof => 276
 
     static packingSize => 4
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/ne-wlanapi-wlan_interface_type">WLAN_INTERFACE_TYPE</a> value that indicates the type of the interface.
-     * @type {Integer}
+     * @type {WLAN_INTERFACE_TYPE}
      */
     interfaceType {
         get => NumGet(this, 0, "int")
@@ -60,9 +60,9 @@ class WLAN_INTERFACE_CAPABILITY extends Win32Struct
 
     /**
      * An array of <a href="https://docs.microsoft.com/windows/desktop/NativeWiFi/dot11-phy-type">DOT11_PHY_TYPE</a> values that specify the supported PHY types. WLAN_MAX_PHY_INDEX is set to 64.
-     * @type {Array<Int32>}
+     * @type {Array<DOT11_PHY_TYPE>}
      */
-    dot11PhyTypes{
+    dot11PhyTypes {
         get {
             if(!this.HasProp("__dot11PhyTypesProxyArray"))
                 this.__dot11PhyTypesProxyArray := Win32FixedArray(this.ptr + 20, 64, Primitive, "int")

@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Globalization
- * @version v4.0.30319
  */
-class RFC1766INFO extends Win32Struct
-{
+class RFC1766INFO extends Win32Struct {
     static sizeof => 80
 
     static packingSize => 4

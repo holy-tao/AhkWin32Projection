@@ -1,18 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
 #Include .\IEnumTerminal.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * The ITStream interfaces expose methods that allow an application to retrieve information on a stream; to start, pause, or stop the stream; to select or unselect terminals on a stream; and to obtain a list of terminals selected on the stream.
  * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nn-tapi3if-itstream
  * @namespace Windows.Win32.Devices.Tapi
- * @version v4.0.30319
  */
-class ITStream extends IDispatch{
+class ITStream extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -41,7 +40,7 @@ class ITStream extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {TERMINAL_DIRECTION} 
      */
     Direction {
         get => this.get_Direction()
@@ -75,7 +74,7 @@ class ITStream extends IDispatch{
      * The get_Direction method gets the stream's terminal direction.
      * @remarks
      * Terminals of either direction can, in general, be selected on any stream whose media type matches the terminal's media type. However, some MSPs allow only terminals whose terminal direction matches the stream's terminal direction to be selected on a stream.
-     * @returns {Integer} Pointer to 
+     * @returns {TERMINAL_DIRECTION} Pointer to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/ne-tapi3if-terminal_direction">TERMINAL_DIRECTION</a> descriptor.
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itstream-get_direction
      */

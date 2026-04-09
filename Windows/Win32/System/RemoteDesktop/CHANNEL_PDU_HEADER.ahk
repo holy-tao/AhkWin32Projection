@@ -14,10 +14,8 @@
  *     <a href="https://docs.microsoft.com/windows/desktop/api/tsvirtualchannels/nf-tsvirtualchannels-iwtsvirtualchannel-write">IWTSVirtualChannel::Write</a> method.
  * @see https://learn.microsoft.com/windows/win32/api/pchannel/ns-pchannel-channel_pdu_header
  * @namespace Windows.Win32.System.RemoteDesktop
- * @version v4.0.30319
  */
-class CHANNEL_PDU_HEADER extends Win32Struct
-{
+class CHANNEL_PDU_HEADER extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4

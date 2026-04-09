@@ -6,10 +6,8 @@
  * Contains a DDE service name and topic name. A DDE server application can use this structure during an XTYP_WILDCONNECT transaction to enumerate the service-topic pairs that it supports.
  * @see https://learn.microsoft.com/windows/win32/api/ddeml/ns-ddeml-hszpair
  * @namespace Windows.Win32.System.DataExchange
- * @version v4.0.30319
  */
-class HSZPAIR extends Win32Struct
-{
+class HSZPAIR extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
@@ -20,7 +18,7 @@ class HSZPAIR extends Win32Struct
      * A handle to the service name.
      * @type {HSZ}
      */
-    hszSvc{
+    hszSvc {
         get {
             if(!this.HasProp("__hszSvc"))
                 this.__hszSvc := HSZ(0, this)
@@ -34,7 +32,7 @@ class HSZPAIR extends Win32Struct
      * A handle to the topic name.
      * @type {HSZ}
      */
-    hszTopic{
+    hszTopic {
         get {
             if(!this.HasProp("__hszTopic"))
                 this.__hszTopic := HSZ(8, this)

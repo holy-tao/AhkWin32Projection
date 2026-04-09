@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HWND.ahk
 #Include .\NMHDR.ahk
+#Include ..\..\Foundation\HWND.ahk
 #Include ..\..\Foundation\SYSTEMTIME.ahk
 
 /**
@@ -11,11 +11,9 @@
  * > The commctrl.h header defines NMDATETIMESTRING as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
  * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-nmdatetimestringa
  * @namespace Windows.Win32.UI.Controls
- * @version v4.0.30319
  * @charset ANSI
  */
-class NMDATETIMESTRINGA extends Win32Struct
-{
+class NMDATETIMESTRINGA extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8
@@ -26,7 +24,7 @@ class NMDATETIMESTRINGA extends Win32Struct
      * An <a href="https://docs.microsoft.com/windows/desktop/api/richedit/ns-richedit-nmhdr">NMHDR</a> structure that contains information about this notification code.
      * @type {NMHDR}
      */
-    nmhdr{
+    nmhdr {
         get {
             if(!this.HasProp("__nmhdr"))
                 this.__nmhdr := NMHDR(0, this)
@@ -51,7 +49,7 @@ class NMDATETIMESTRINGA extends Win32Struct
      * A <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-systemtime">SYSTEMTIME</a> structure that must be filled in by the owner when handling the <a href="https://docs.microsoft.com/windows/desktop/Controls/dtn-userstring">DTN_USERSTRING</a> notification code.
      * @type {SYSTEMTIME}
      */
-    st{
+    st {
         get {
             if(!this.HasProp("__st"))
                 this.__st := SYSTEMTIME(32, this)

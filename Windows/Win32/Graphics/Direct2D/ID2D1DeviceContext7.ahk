@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Graphics.Direct2D
- * @version v4.0.30319
  */
-class ID2D1DeviceContext7 extends ID2D1DeviceContext6{
+class ID2D1DeviceContext7 extends ID2D1DeviceContext6 {
 
     static sizeof => A_PtrSize
     /**
@@ -30,7 +29,7 @@ class ID2D1DeviceContext7 extends ID2D1DeviceContext6{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {DWRITE_PAINT_FEATURE_LEVEL} 
      */
     GetPaintFeatureLevel() {
         result := ComCall(120, this, "int")
@@ -43,7 +42,7 @@ class ID2D1DeviceContext7 extends ID2D1DeviceContext6{
      * @param {Pointer<DWRITE_GLYPH_RUN>} _glyphRun 
      * @param {ID2D1Brush} defaultFillBrush 
      * @param {Integer} colorPaletteIndex 
-     * @param {Integer} measuringMode 
+     * @param {DWRITE_MEASURING_MODE} measuringMode 
      * @returns {String} Nothing - always returns an empty string
      */
     DrawPaintGlyphRun(baselineOrigin, _glyphRun, defaultFillBrush, colorPaletteIndex, measuringMode) {
@@ -58,8 +57,8 @@ class ID2D1DeviceContext7 extends ID2D1DeviceContext6{
      * @param {ID2D1Brush} foregroundBrush 
      * @param {ID2D1SvgGlyphStyle} svgGlyphStyle 
      * @param {Integer} colorPaletteIndex 
-     * @param {Integer} measuringMode 
-     * @param {Integer} bitmapSnapOption 
+     * @param {DWRITE_MEASURING_MODE} measuringMode 
+     * @param {D2D1_COLOR_BITMAP_GLYPH_SNAP_OPTION} bitmapSnapOption 
      * @returns {String} Nothing - always returns an empty string
      */
     DrawGlyphRunWithColorSupport(baselineOrigin, _glyphRun, glyphRunDescription, foregroundBrush, svgGlyphStyle, colorPaletteIndex, measuringMode, bitmapSnapOption) {

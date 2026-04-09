@@ -1,13 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\D3D12_VIDEO_ENCODER_MOVE_RECT.ahk
 #Include .\D3D12_VIDEO_ENCODER_FRAME_MOTION_SEARCH_MODE_CONFIG.ahk
+#Include .\D3D12_VIDEO_ENCODER_FRAME_MOTION_SEARCH_MODE.ahk
+#Include .\D3D12_VIDEO_ENCODER_FRAME_INPUT_MOTION_UNIT_PRECISION.ahk
+#Include .\D3D12_VIDEO_ENCODER_MOVEREGION_INFO_FLAGS.ahk
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class D3D12_VIDEO_ENCODER_MOVEREGION_INFO extends Win32Struct
-{
+class D3D12_VIDEO_ENCODER_MOVEREGION_INFO extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -31,7 +33,7 @@ class D3D12_VIDEO_ENCODER_MOVEREGION_INFO extends Win32Struct
     /**
      * @type {D3D12_VIDEO_ENCODER_FRAME_MOTION_SEARCH_MODE_CONFIG}
      */
-    MotionSearchModeConfiguration{
+    MotionSearchModeConfiguration {
         get {
             if(!this.HasProp("__MotionSearchModeConfiguration"))
                 this.__MotionSearchModeConfiguration := D3D12_VIDEO_ENCODER_FRAME_MOTION_SEARCH_MODE_CONFIG(16, this)
@@ -48,7 +50,7 @@ class D3D12_VIDEO_ENCODER_MOVEREGION_INFO extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {D3D12_VIDEO_ENCODER_FRAME_INPUT_MOTION_UNIT_PRECISION}
      */
     MotionUnitPrecision {
         get => NumGet(this, 28, "int")
@@ -56,7 +58,7 @@ class D3D12_VIDEO_ENCODER_MOVEREGION_INFO extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {D3D12_VIDEO_ENCODER_MOVEREGION_INFO_FLAGS}
      */
     Flags {
         get => NumGet(this, 32, "int")

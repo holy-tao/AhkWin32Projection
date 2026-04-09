@@ -1,14 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\Guid.ahk
-#Include ..\Foundation\BSTR.ahk
 #Include ..\System\Com\IUnknown.ahk
 
 /**
  * @namespace Windows.Win32.Gaming
- * @version v4.0.30319
  */
-class IGameExplorer extends IUnknown{
+class IGameExplorer extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -39,7 +37,7 @@ class IGameExplorer extends IUnknown{
      * 
      * @param {BSTR} bstrGDFBinaryPath 
      * @param {BSTR} bstrGameInstallDirectory 
-     * @param {Integer} installScope 
+     * @param {GAME_INSTALL_SCOPE} installScope 
      * @param {Pointer<Guid>} pguidInstanceID 
      * @returns {HRESULT} 
      */

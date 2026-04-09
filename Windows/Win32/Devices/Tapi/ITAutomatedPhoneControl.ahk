@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include .\IEnumCall.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * The ITAutomatedPhoneControl is a fully OLE automatable and scriptable interface exposed by the TAPI phone object.
@@ -13,9 +13,8 @@
  * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nf-tapi3if-itphone-close">ITPhone::Close</a> method is called.
  * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nn-tapi3if-itautomatedphonecontrol
  * @namespace Windows.Win32.Devices.Tapi
- * @version v4.0.30319
  */
-class ITAutomatedPhoneControl extends IDispatch{
+class ITAutomatedPhoneControl extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -37,7 +36,7 @@ class ITAutomatedPhoneControl extends IDispatch{
     static VTableNames => ["StartTone", "StopTone", "get_Tone", "StartRinger", "StopRinger", "get_Ringer", "put_PhoneHandlingEnabled", "get_PhoneHandlingEnabled", "put_AutoEndOfNumberTimeout", "get_AutoEndOfNumberTimeout", "put_AutoDialtone", "get_AutoDialtone", "put_AutoStopTonesOnOnHook", "get_AutoStopTonesOnOnHook", "put_AutoStopRingOnOffHook", "get_AutoStopRingOnOffHook", "put_AutoKeypadTones", "get_AutoKeypadTones", "put_AutoKeypadTonesMinimumDuration", "get_AutoKeypadTonesMinimumDuration", "put_AutoVolumeControl", "get_AutoVolumeControl", "put_AutoVolumeControlStep", "get_AutoVolumeControlStep", "put_AutoVolumeControlRepeatDelay", "get_AutoVolumeControlRepeatDelay", "put_AutoVolumeControlRepeatPeriod", "get_AutoVolumeControlRepeatPeriod", "SelectCall", "UnselectCall", "EnumerateSelectedCalls", "get_SelectedCalls"]
 
     /**
-     * @type {Integer} 
+     * @type {PHONE_TONE} 
      */
     Tone {
         get => this.get_Tone()
@@ -147,7 +146,7 @@ class ITAutomatedPhoneControl extends IDispatch{
 
     /**
      * The StartTone method sends control tones.
-     * @param {Integer} Tone <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/ne-tapi3if-phone_tone">PHONE_TONE</a> descriptor of the type of tone to send, such as PT_KEYPADONE.
+     * @param {PHONE_TONE} Tone <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/ne-tapi3if-phone_tone">PHONE_TONE</a> descriptor of the type of tone to send, such as PT_KEYPADONE.
      * @param {Integer} lDuration Duration, in milliseconds, of the tone being sent.
      * @returns {HRESULT} If the method succeeds, it returns S_OK. Otherwise, it returns an error value.
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itautomatedphonecontrol-starttone
@@ -169,7 +168,7 @@ class ITAutomatedPhoneControl extends IDispatch{
 
     /**
      * The get_Tone method returns a PHONE_TONE enum value indicating the type of tone, if any, that the phone is currently playing.
-     * @returns {Integer} <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/ne-tapi3if-phone_tone">PHONE_TONE</a> descriptor of tone being played.
+     * @returns {PHONE_TONE} <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/ne-tapi3if-phone_tone">PHONE_TONE</a> descriptor of tone being played.
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itautomatedphonecontrol-get_tone
      */
     get_Tone() {

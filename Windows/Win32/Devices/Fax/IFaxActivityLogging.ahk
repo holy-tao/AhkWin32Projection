@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * The IFaxActivityLogging interface defines a configuration object used by a fax client application to retrieve and set options for activity logging.
@@ -10,9 +10,8 @@
  * A default implementation of <b>IFaxActivityLogging</b> is provided as the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxactivitylogging">FaxActivityLogging</a> object.
  * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nn-faxcomex-ifaxactivitylogging
  * @namespace Windows.Win32.Devices.Fax
- * @version v4.0.30319
  */
-class IFaxActivityLogging extends IDispatch{
+class IFaxActivityLogging extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

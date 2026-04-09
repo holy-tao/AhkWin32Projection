@@ -7,9 +7,8 @@
  * Provides a means to determine effective permission for a security principal on an object.
  * @see https://learn.microsoft.com/windows/win32/api/aclui/nn-aclui-ieffectivepermission
  * @namespace Windows.Win32.Security.Authorization.UI
- * @version v4.0.30319
  */
-class IEffectivePermission extends IUnknown{
+class IEffectivePermission extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

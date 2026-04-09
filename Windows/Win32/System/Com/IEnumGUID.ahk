@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IEnumGUID.ahk
 #Include .\IUnknown.ahk
 
 /**
@@ -10,9 +9,8 @@
  * Alternate names for this interface are <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/dd542667(v=vs.85)">IEnumCLSID</a> and <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/dd542661(v=vs.85)">IEnumCATID</a>.
  * @see https://learn.microsoft.com/windows/win32/api/comcat/nn-comcat-ienumguid
  * @namespace Windows.Win32.System.Com
- * @version v4.0.30319
  */
-class IEnumGUID extends IUnknown{
+class IEnumGUID extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

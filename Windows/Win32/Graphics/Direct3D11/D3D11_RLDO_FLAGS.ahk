@@ -10,9 +10,8 @@
  * Several inline functions exist to combine the options using operators, see the D3D11SDKLayers.h header file for details.
  * @see https://learn.microsoft.com/windows/win32/api/d3d11sdklayers/ne-d3d11sdklayers-d3d11_rldo_flags
  * @namespace Windows.Win32.Graphics.Direct3D11
- * @version v4.0.30319
  */
-class D3D11_RLDO_FLAGS extends Win32BitflagEnum{
+class D3D11_RLDO_FLAGS extends Win32BitflagEnum {
 
     /**
      * Specifies to obtain a summary about a device object's lifetime.

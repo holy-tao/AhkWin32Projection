@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
- * @version v4.0.30319
  */
-class IAsyncGetSendNotificationCookie extends IPrintAsyncCookie{
+class IAsyncGetSendNotificationCookie extends IPrintAsyncCookie {
 
     static sizeof => A_PtrSize
 

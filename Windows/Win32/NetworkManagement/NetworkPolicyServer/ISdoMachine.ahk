@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * Use the ISdoMachine interface to attach to an SDO computer, obtain information about the SDO computer, and obtain interfaces to other SDO objects.
  * @see https://learn.microsoft.com/windows/win32/api/sdoias/nn-sdoias-isdomachine
  * @namespace Windows.Win32.NetworkManagement.NetworkPolicyServer
- * @version v4.0.30319
  */
-class ISdoMachine extends IDispatch{
+class ISdoMachine extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -80,7 +79,7 @@ class ISdoMachine extends IDispatch{
      *     computer.
      * 
      * None of the parameters for this method can be <b>NULL</b>.
-     * @param {Integer} eDataStore Specifies a value from the <a href="https://docs.microsoft.com/windows/desktop/api/sdoias/ne-sdoias-iasdatastore">IASDATASTORE</a> enumeration 
+     * @param {IASDATASTORE} eDataStore Specifies a value from the <a href="https://docs.microsoft.com/windows/desktop/api/sdoias/ne-sdoias-iasdatastore">IASDATASTORE</a> enumeration 
      *       type.
      * @param {BSTR} bstrServiceName Specifies a 
      *       <a href="https://docs.microsoft.com/previous-versions/windows/desktop/automat/bstr">BSTR</a> that contains the service
@@ -112,7 +111,7 @@ class ISdoMachine extends IDispatch{
      *     <b>DATA_STORE_LOCAL</b>.
      * 
      * None of the parameters can be <b>NULL</b>.
-     * @param {Integer} eDataStore Specifies a value from the <a href="https://docs.microsoft.com/windows/desktop/api/sdoias/ne-sdoias-iasdatastore">IASDATASTORE</a> enumeration 
+     * @param {IASDATASTORE} eDataStore Specifies a value from the <a href="https://docs.microsoft.com/windows/desktop/api/sdoias/ne-sdoias-iasdatastore">IASDATASTORE</a> enumeration 
      *       type.
      * @param {BSTR} bstrUserName Specifies a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/automat/bstr">BSTR</a> that contains 
      *       the name of the user. The name can be in Lightweight Directory Access Protocol (LDAP) format, or in Security 
@@ -136,7 +135,7 @@ class ISdoMachine extends IDispatch{
      * @remarks
      * Before calling this method, use the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/sdoias/nf-sdoias-isdomachine-attach">ISdoMachine::Attach</a> method to attach to the SDO computer.
-     * @returns {Integer} Pointer to an 
+     * @returns {IASOSTYPE} Pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/sdoias/ne-sdoias-iasostype">IASOSTYPE</a> variable that receives the type of the operating system on the SDO computer.
      * @see https://learn.microsoft.com/windows/win32/api/sdoias/nf-sdoias-isdomachine-getostype
      */
@@ -151,7 +150,7 @@ class ISdoMachine extends IDispatch{
      * Before calling this method, use the 
      *     <a href="https://docs.microsoft.com/windows/desktop/api/sdoias/nf-sdoias-isdomachine-attach">ISdoMachine::Attach</a> method to attach to the SDO 
      *     computer.
-     * @returns {Integer} Pointer to an <a href="https://docs.microsoft.com/windows/win32/api/sdoias/ne-sdoias-iasdomaintype">IASDOMAINTYPE</a> variable that receives 
+     * @returns {IASDOMAINTYPE} Pointer to an <a href="https://docs.microsoft.com/windows/win32/api/sdoias/ne-sdoias-iasdomaintype">IASDOMAINTYPE</a> variable that receives 
      *       the type of the domain in which the SDO computer resides.
      * @see https://learn.microsoft.com/windows/win32/api/sdoias/nf-sdoias-isdomachine-getdomaintype
      */

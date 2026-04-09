@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\IAppxManifestOptionalPackageInfo.ahk
 #Include .\IAppxManifestReader3.ahk
+#Include .\IAppxManifestOptionalPackageInfo.ahk
 
 /**
  * @namespace Windows.Win32.Storage.Packaging.Appx
- * @version v4.0.30319
  */
-class IAppxManifestReader4 extends IAppxManifestReader3{
+class IAppxManifestReader4 extends IAppxManifestReader3 {
 
     static sizeof => A_PtrSize
     /**

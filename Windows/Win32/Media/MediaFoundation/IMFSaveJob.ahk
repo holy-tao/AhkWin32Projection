@@ -7,9 +7,8 @@
  * Persists media data from a source byte stream to an application-provided byte stream.
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imfsavejob
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFSaveJob extends IUnknown{
+class IMFSaveJob extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

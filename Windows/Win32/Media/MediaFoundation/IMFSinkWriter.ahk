@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\MF_SINK_WRITER_STATISTICS.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\MF_SINK_WRITER_STATISTICS.ahk
 
 /**
  * Implemented by the Microsoft Media Foundation sink writer object.
@@ -24,9 +24,8 @@
  * In Windows 8, this interface is extended with <a href="https://docs.microsoft.com/windows/desktop/api/mfreadwrite/nn-mfreadwrite-imfsinkwriterex">IMFSinkWriterEx</a>.
  * @see https://learn.microsoft.com/windows/win32/api/mfreadwrite/nn-mfreadwrite-imfsinkwriter
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFSinkWriter extends IUnknown{
+class IMFSinkWriter extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

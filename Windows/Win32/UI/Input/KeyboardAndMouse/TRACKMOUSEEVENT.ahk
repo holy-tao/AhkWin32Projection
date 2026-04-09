@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\TRACKMOUSEEVENT_FLAGS.ahk
 #Include ..\..\..\Foundation\HWND.ahk
 
 /**
@@ -10,10 +11,8 @@
  * The system default hover rectangle is the same as the double-click rectangle. You can call <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-systemparametersinfoa">SystemParametersInfo</a> and use <b>SPI_GETMOUSEHOVERWIDTH</b> and <b>SPI_GETMOUSEHOVERHEIGHT</b> to retrieve the size of the rectangle within which the mouse pointer has to stay for <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-trackmouseevent">TrackMouseEvent</a> to generate a <a href="https://docs.microsoft.com/windows/desktop/inputdev/wm-mousehover">WM_MOUSEHOVER</a> message.
  * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-trackmouseevent
  * @namespace Windows.Win32.UI.Input.KeyboardAndMouse
- * @version v4.0.30319
  */
-class TRACKMOUSEEVENT extends Win32Struct
-{
+class TRACKMOUSEEVENT extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -31,7 +30,7 @@ class TRACKMOUSEEVENT extends Win32Struct
 
     /**
      * Type: <b>DWORD</b>
-     * @type {Integer}
+     * @type {TRACKMOUSEEVENT_FLAGS}
      */
     dwFlags {
         get => NumGet(this, 4, "uint")
@@ -44,7 +43,7 @@ class TRACKMOUSEEVENT extends Win32Struct
      * A handle to the window to track.
      * @type {HWND}
      */
-    hwndTrack{
+    hwndTrack {
         get {
             if(!this.HasProp("__hwndTrack"))
                 this.__hwndTrack := HWND(8, this)

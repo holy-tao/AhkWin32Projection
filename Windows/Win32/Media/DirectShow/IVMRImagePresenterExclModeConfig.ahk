@@ -7,9 +7,8 @@
  * The IVMRImagePresenterExclModeConfig interface inherits from IVMRImagePresenterConfig and provides methods for setting and retrieving the rendering preferences on the Exclusive Mode Allocator-Presenter.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-ivmrimagepresenterexclmodeconfig
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IVMRImagePresenterExclModeConfig extends IVMRImagePresenterConfig{
+class IVMRImagePresenterExclModeConfig extends IVMRImagePresenterConfig {
 
     static sizeof => A_PtrSize
     /**

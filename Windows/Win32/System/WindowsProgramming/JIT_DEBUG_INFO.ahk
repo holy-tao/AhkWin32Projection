@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.WindowsProgramming
- * @version v4.0.30319
  */
-class JIT_DEBUG_INFO extends Win32Struct
-{
+class JIT_DEBUG_INFO extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8

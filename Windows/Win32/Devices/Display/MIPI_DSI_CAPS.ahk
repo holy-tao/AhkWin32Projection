@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.Display
- * @version v4.0.30319
  */
-class MIPI_DSI_CAPS extends Win32Struct
-{
+class MIPI_DSI_CAPS extends Win32Struct {
     static sizeof => 20
 
     static packingSize => 2

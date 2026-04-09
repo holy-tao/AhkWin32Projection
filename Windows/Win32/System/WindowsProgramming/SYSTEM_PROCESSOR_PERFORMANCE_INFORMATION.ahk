@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.WindowsProgramming
- * @version v4.0.30319
  */
-class SYSTEM_PROCESSOR_PERFORMANCE_INFORMATION extends Win32Struct
-{
+class SYSTEM_PROCESSOR_PERFORMANCE_INFORMATION extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -36,9 +34,9 @@ class SYSTEM_PROCESSOR_PERFORMANCE_INFORMATION extends Win32Struct
     }
 
     /**
-     * @type {Array<Int64>}
+     * @type {Array<Integer>}
      */
-    Reserved1{
+    Reserved1 {
         get {
             if(!this.HasProp("__Reserved1ProxyArray"))
                 this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 24, 2, Primitive, "int64")

@@ -5,9 +5,8 @@
  * Defines the version number for sample protection.
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/ne-mfidl-sample_protection_version
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class SAMPLE_PROTECTION_VERSION extends Win32Enum{
+class SAMPLE_PROTECTION_VERSION extends Win32Enum {
 
     /**
      * No sample protection.
@@ -34,7 +33,6 @@ class SAMPLE_PROTECTION_VERSION extends Win32Enum{
     static SAMPLE_PROTECTION_VERSION_RC4 => 3
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static SAMPLE_PROTECTION_VERSION_AES128CTR => 4

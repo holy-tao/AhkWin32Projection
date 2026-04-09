@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Storage.Nvme
- * @version v4.0.30319
  */
-class NVME_PERSISTENT_EVENT_LOG_HEADER extends Win32Struct
-{
+class NVME_PERSISTENT_EVENT_LOG_HEADER extends Win32Struct {
     static sizeof => 520
 
     static packingSize => 8
@@ -20,9 +18,9 @@ class NVME_PERSISTENT_EVENT_LOG_HEADER extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Reserved0{
+    Reserved0 {
         get {
             if(!this.HasProp("__Reserved0ProxyArray"))
                 this.__Reserved0ProxyArray := Win32FixedArray(this.ptr + 1, 3, Primitive, "char")
@@ -79,9 +77,9 @@ class NVME_PERSISTENT_EVENT_LOG_HEADER extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    PowerOnHours{
+    PowerOnHours {
         get {
             if(!this.HasProp("__PowerOnHoursProxyArray"))
                 this.__PowerOnHoursProxyArray := Win32FixedArray(this.ptr + 32, 16, Primitive, "char")
@@ -114,9 +112,9 @@ class NVME_PERSISTENT_EVENT_LOG_HEADER extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    SerialNumber{
+    SerialNumber {
         get {
             if(!this.HasProp("__SerialNumberProxyArray"))
                 this.__SerialNumberProxyArray := Win32FixedArray(this.ptr + 60, 20, Primitive, "char")
@@ -125,9 +123,9 @@ class NVME_PERSISTENT_EVENT_LOG_HEADER extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    ModelNumber{
+    ModelNumber {
         get {
             if(!this.HasProp("__ModelNumberProxyArray"))
                 this.__ModelNumberProxyArray := Win32FixedArray(this.ptr + 80, 40, Primitive, "char")
@@ -136,9 +134,9 @@ class NVME_PERSISTENT_EVENT_LOG_HEADER extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    NVMSubsystemNVMeQualifiedName{
+    NVMSubsystemNVMeQualifiedName {
         get {
             if(!this.HasProp("__NVMSubsystemNVMeQualifiedNameProxyArray"))
                 this.__NVMSubsystemNVMeQualifiedNameProxyArray := Win32FixedArray(this.ptr + 120, 256, Primitive, "char")
@@ -147,9 +145,9 @@ class NVME_PERSISTENT_EVENT_LOG_HEADER extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Reserved{
+    Reserved {
         get {
             if(!this.HasProp("__ReservedProxyArray"))
                 this.__ReservedProxyArray := Win32FixedArray(this.ptr + 376, 108, Primitive, "char")
@@ -158,9 +156,9 @@ class NVME_PERSISTENT_EVENT_LOG_HEADER extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    SupportedEventsBitmap{
+    SupportedEventsBitmap {
         get {
             if(!this.HasProp("__SupportedEventsBitmapProxyArray"))
                 this.__SupportedEventsBitmapProxyArray := Win32FixedArray(this.ptr + 484, 32, Primitive, "char")

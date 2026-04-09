@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IPackageDebugSettings2 extends IPackageDebugSettings{
+class IPackageDebugSettings2 extends IPackageDebugSettings {
 
     static sizeof => A_PtrSize
     /**

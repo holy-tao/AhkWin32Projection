@@ -1,12 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\WHEA_CPU_VENDOR.ahk
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class WHEA_XPF_MCA_SECTION extends Win32Struct
-{
+class WHEA_XPF_MCA_SECTION extends Win32Struct {
     static sizeof => 288
 
     static packingSize => 8
@@ -20,7 +19,7 @@ class WHEA_XPF_MCA_SECTION extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {WHEA_CPU_VENDOR}
      */
     CpuVendor {
         get => NumGet(this, 4, "int")
@@ -44,7 +43,7 @@ class WHEA_XPF_MCA_SECTION extends Win32Struct
     }
 
     /**
-     * @type {Pointer<MCG_STATUS>}
+     * @type {Pointer}
      */
     GlobalStatus {
         get => NumGet(this, 24, "ptr")
@@ -68,7 +67,7 @@ class WHEA_XPF_MCA_SECTION extends Win32Struct
     }
 
     /**
-     * @type {Pointer<MCI_STATUS>}
+     * @type {Pointer}
      */
     Status {
         get => NumGet(this, 48, "ptr")
@@ -108,9 +107,9 @@ class WHEA_XPF_MCA_SECTION extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt64>}
+     * @type {Array<Integer>}
      */
-    ExtendedRegisters{
+    ExtendedRegisters {
         get {
             if(!this.HasProp("__ExtendedRegistersProxyArray"))
                 this.__ExtendedRegistersProxyArray := Win32FixedArray(this.ptr + 80, 24, Primitive, "uint")
@@ -119,7 +118,7 @@ class WHEA_XPF_MCA_SECTION extends Win32Struct
     }
 
     /**
-     * @type {Pointer<WHEA_AMD_EXTENDED_REGISTERS>}
+     * @type {Pointer}
      */
     AMDExtendedRegisters {
         get => NumGet(this, 80, "ptr")
@@ -127,7 +126,7 @@ class WHEA_XPF_MCA_SECTION extends Win32Struct
     }
 
     /**
-     * @type {Pointer<MCG_CAP>}
+     * @type {Pointer}
      */
     GlobalCapability {
         get => NumGet(this, 272, "ptr")
@@ -135,7 +134,7 @@ class WHEA_XPF_MCA_SECTION extends Win32Struct
     }
 
     /**
-     * @type {Pointer<XPF_RECOVERY_INFO>}
+     * @type {Pointer}
      */
     RecoveryInfo {
         get => NumGet(this, 280, "ptr")

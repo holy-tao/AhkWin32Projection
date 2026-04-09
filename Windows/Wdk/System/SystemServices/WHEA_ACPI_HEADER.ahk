@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class WHEA_ACPI_HEADER extends Win32Struct
-{
+class WHEA_ACPI_HEADER extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -44,9 +42,9 @@ class WHEA_ACPI_HEADER extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    OemId{
+    OemId {
         get {
             if(!this.HasProp("__OemIdProxyArray"))
                 this.__OemIdProxyArray := Win32FixedArray(this.ptr + 10, 6, Primitive, "char")

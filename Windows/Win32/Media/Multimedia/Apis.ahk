@@ -14,7 +14,6 @@
 
 /**
  * @namespace Windows.Win32.Media.Multimedia
- * @version v4.0.30319
  */
 class Multimedia {
 
@@ -23639,7 +23638,7 @@ class Multimedia {
     /**
      * Provides default processing for any messages not processed by an installable driver. This function is intended to be used only within the DriverProc function of an installable driver. (DefDriverProc)
      * @param {Pointer} dwDriverIdentifier Identifier of the installable driver.
-     * @param {HDRVR} _hdrvr 
+     * @param {HDRVR} _hdrvr Handle of the installable driver instance.
      * @param {Integer} uMsg Driver message value.
      * @param {LPARAM} lParam1 32-bit message-dependent information.
      * @param {LPARAM} lParam2 32-bit message-dependent information.
@@ -24227,7 +24226,7 @@ class Multimedia {
 
     /**
      * The mmioClose function closes a file that was opened by using the mmioOpen function.
-     * @param {HMMIO} _hmmio 
+     * @param {HMMIO} _hmmio File handle of the file to close.
      * @param {Integer} fuClose Flags for the close operation. The following value is defined.
      * 
      * <table>
@@ -24273,8 +24272,8 @@ class Multimedia {
 
     /**
      * The mmioRead function reads a specified number of bytes from a file opened by using the mmioOpen function.
-     * @param {HMMIO} _hmmio 
-     * @param {Pointer} pch Pointer to a buffer to contain the data read from the file.
+     * @param {HMMIO} _hmmio File handle of the file to be read.
+     * @param {Integer} pch Pointer to a buffer to contain the data read from the file.
      * @param {Integer} cch Number of bytes to read from the file.
      * @returns {Integer} Returns the number of bytes actually read. If the end of the file has been reached and no more bytes can be read, the return value is 0. If there is an error reading from the file, the return value is –1.
      * @see https://learn.microsoft.com/windows/win32/api/mmiscapi/nf-mmiscapi-mmioread
@@ -24291,8 +24290,8 @@ class Multimedia {
      * The mmioWrite function writes a specified number of bytes to a file opened by using the mmioOpen function.
      * @remarks
      * The current file position is incremented by the number of bytes written.
-     * @param {HMMIO} _hmmio 
-     * @param {Pointer} pch Pointer to the buffer to be written to the file.
+     * @param {HMMIO} _hmmio File handle of the file.
+     * @param {Integer} pch Pointer to the buffer to be written to the file.
      * @param {Integer} cch Number of bytes to write to the file.
      * @returns {Integer} Returns the number of bytes actually written. If there is an error writing to the file, the return value is -1.
      * @see https://learn.microsoft.com/windows/win32/api/mmiscapi/nf-mmiscapi-mmiowrite
@@ -24311,7 +24310,7 @@ class Multimedia {
      * Seeking to an invalid location in the file, such as past the end of the file, might not cause <b>mmioSeek</b> to return an error, but it might cause subsequent I/O operations on the file to fail.
      * 
      * To locate the end of a file, call <b>mmioSeek</b> with <i>lOffset</i> set to zero and <i>iOrigin</i> set to SEEK_END.
-     * @param {HMMIO} _hmmio 
+     * @param {HMMIO} _hmmio File handle of the file to seek in.
      * @param {Integer} lOffset Offset to change the file position.
      * @param {Integer} iOrigin Flags indicating how the offset specified by <i>lOffset</i> is interpreted. The following values are defined:
      * 
@@ -24379,7 +24378,7 @@ class Multimedia {
      * Before calling <a href="https://docs.microsoft.com/previous-versions/dd757314(v=vs.85)">mmioAdvance</a> or <a href="https://docs.microsoft.com/previous-versions/dd757339(v=vs.85)">mmioSetInfo</a> to flush a buffer to disk, set the MMIO_DIRTY flag in the <b>dwFlags</b> member of the <a href="https://docs.microsoft.com/previous-versions/dd757322(v=vs.85)">MMIOINFO</a> structure for the file. Otherwise, the buffer will not be written to disk.
      * 
      * Do not decrement <b>pchNext</b> or modify any members in the <a href="https://docs.microsoft.com/previous-versions/dd757322(v=vs.85)">MMIOINFO</a> structure other than <b>pchNext</b> and <b>dwFlags</b>. Do not set any flags in <b>dwFlags</b> except MMIO_DIRTY.
-     * @param {HMMIO} _hmmio 
+     * @param {HMMIO} _hmmio File handle of the file.
      * @param {Pointer<MMIOINFO>} pmmioinfo Pointer to a buffer that receives an <a href="https://docs.microsoft.com/previous-versions/dd757322(v=vs.85)">MMIOINFO</a> structure that <b>mmioGetInfo</b> fills with information about the file.
      * @param {Integer} fuInfo Reserved; must be zero.
      * @returns {Integer} Returns zero if successful or an error otherwise.
@@ -24397,7 +24396,7 @@ class Multimedia {
      * The mmioSetInfo function updates the information retrieved by the mmioGetInfo function about a file opened by using the mmioOpen function. Use this function to terminate direct buffer access of a file opened for buffered I/O.
      * @remarks
      * If you have written to the file I/O buffer, set the MMIO_DIRTY flag in the <b>dwFlags</b> member of the <a href="https://docs.microsoft.com/previous-versions/dd757322(v=vs.85)">MMIOINFO</a> structure before calling <b>mmioSetInfo</b> to terminate direct buffer access. Otherwise, the buffer will not get flushed to disk.
-     * @param {HMMIO} _hmmio 
+     * @param {HMMIO} _hmmio File handle of the file.
      * @param {Pointer<MMIOINFO>} pmmioinfo Pointer to an <a href="https://docs.microsoft.com/previous-versions/dd757322(v=vs.85)">MMIOINFO</a> structure filled with information by the <a href="https://docs.microsoft.com/previous-versions/dd757321(v=vs.85)">mmioGetInfo</a> function.
      * @param {Integer} fuInfo Reserved; must be zero.
      * @returns {Integer} Returns zero if successful or an error otherwise.
@@ -24421,7 +24420,7 @@ class Multimedia {
      * To disable buffered I/O, set <i>pchBuffer</i> to <b>NULL</b> and <i>cchBuffer</i> to zero.
      * 
      * If buffered I/O is already enabled using an internal buffer, you can reallocate the buffer to a different size by setting <i>pchBuffer</i> to <b>NULL</b> and <i>cchBuffer</i> to the new buffer size. The contents of the buffer can be changed after resizing.
-     * @param {HMMIO} _hmmio 
+     * @param {HMMIO} _hmmio File handle of the file.
      * @param {PSTR} pchBuffer Pointer to an application-defined buffer to use for buffered I/O. If this parameter is <b>NULL</b>, <b>mmioSetBuffer</b> allocates an internal buffer for buffered I/O.
      * @param {Integer} cchBuffer Size, in characters, of the application-defined buffer, or the size of the buffer for <b>mmioSetBuffer</b> to allocate.
      * @param {Integer} fuBuffer Reserved; must be zero.
@@ -24472,7 +24471,7 @@ class Multimedia {
      * Closing a file with the <a href="https://docs.microsoft.com/previous-versions/dd757316(v=vs.85)">mmioClose</a> function automatically flushes its buffer.
      * 
      * If there is insufficient disk space to write the buffer, <b>mmioFlush</b> fails, even if the preceding calls of the <a href="https://docs.microsoft.com/previous-versions/dd757341(v=vs.85)">mmioWrite</a> function were successful.
-     * @param {HMMIO} _hmmio 
+     * @param {HMMIO} _hmmio File handle of a file opened by using the <a href="https://docs.microsoft.com/previous-versions/dd757331(v=vs.85)">mmioOpen</a> function.
      * @param {Integer} fuFlush Flag determining how the flush is carried out. It can be zero or the following.
      * 
      * <table>
@@ -24528,7 +24527,7 @@ class Multimedia {
      * If you have written to the I/O buffer, you must set the MMIO_DIRTY flag in the <b>dwFlags</b> member of the <b>MMIOINFO</b> structure before calling <b>mmioAdvance</b>. Otherwise, the buffer will not be written to disk.
      * 
      * If the end of file is reached, <b>mmioAdvance</b> still returns successfully even though no more data can be read. To check for the end of the file, check if the <b>pchNext</b> and <b>pchEndRead</b> members of the <b>MMIOINFO</b> structure are equal after calling <b>mmioAdvance</b>.
-     * @param {HMMIO} _hmmio 
+     * @param {HMMIO} _hmmio File handle of a file opened by using the <a href="https://docs.microsoft.com/previous-versions/dd757331(v=vs.85)">mmioOpen</a> function.
      * @param {Pointer<MMIOINFO>} pmmioinfo Pointer to the <a href="https://docs.microsoft.com/previous-versions/dd757322(v=vs.85)">MMIOINFO</a> structure obtained by using the <a href="https://docs.microsoft.com/previous-versions/dd757321(v=vs.85)">mmioGetInfo</a> function. This structure is used to set the current file information, and then it is updated after the buffer is advanced. This parameter is optional.
      * @param {Integer} fuAdvance Flags for the operation. It can be one of the following.
      * 
@@ -24625,7 +24624,7 @@ class Multimedia {
      * The mmioSendMessage function sends a message to the I/O procedure associated with the specified file.
      * @remarks
      * Use this function to send custom user-defined messages. Do not use it to send the MMIOM_OPEN, MMIOM_CLOSE, MMIOM_READ, MMIOM_WRITE, MMIOM_WRITEFLUSH, or MMIOM_SEEK messages. Define custom messages to be greater than or equal to the MMIOM_USER constant.
-     * @param {HMMIO} _hmmio 
+     * @param {HMMIO} _hmmio File handle for a file opened by using the <a href="https://docs.microsoft.com/previous-versions/dd757331(v=vs.85)">mmioOpen</a> function.
      * @param {Integer} uMsg Message to send to the I/O procedure.
      * @param {LPARAM} lParam1 Parameter for the message.
      * @param {LPARAM} lParam2 Parameter for the message.
@@ -24658,7 +24657,7 @@ class Multimedia {
      * <li>The <b>dwDataOffset</b> member is the file offset of the beginning of the data portion of the chunk. If the chunk is a "RIFF" chunk or a "LIST" chunk, this member is the offset of the form type or list type.</li>
      * <li>The <b>dwFlags</b> member contains other information about the chunk. Currently, this information is not used and is set to zero.</li>
      * </ul>
-     * @param {HMMIO} _hmmio 
+     * @param {HMMIO} _hmmio File handle of an open RIFF file.
      * @param {Pointer<MMCKINFO>} pmmcki Pointer to a buffer that receives an <a href="https://docs.microsoft.com/previous-versions/dd757312(v=vs.85)">MMCKINFO</a> structure.
      * @param {Pointer<MMCKINFO>} pmmckiParent Pointer to an optional application-defined <a href="https://docs.microsoft.com/previous-versions/dd757312(v=vs.85)">MMCKINFO</a> structure identifying the parent of the chunk being searched for. If this parameter is not <b>NULL</b>, <b>mmioDescend</b> assumes the <b>MMCKINFO</b> structure it refers to was filled when <b>mmioDescend</b> was called to descend into the parent chunk, and <b>mmioDescend</b> searches for a chunk within the parent chunk. Set this parameter to <b>NULL</b> if no parent chunk is being specified.
      * @param {Integer} fuDescend Search flags. If no flags are specified, <b>mmioDescend</b> descends into the chunk beginning at the current file position. The following values are defined.
@@ -24718,7 +24717,7 @@ class Multimedia {
      * If the chunk was descended into by using <a href="https://docs.microsoft.com/previous-versions/dd757318(v=vs.85)">mmioDescend</a>, <b>mmioAscend</b> seeks to the location following the end of the chunk (past the extra pad byte, if any).
      * 
      * If the chunk was created and descended into by using <b>mmioCreateChunk</b>, or if the MMIO_DIRTY flag is set in the <b>dwFlags</b> member of the <b>MMCKINFO</b> structure referenced by <i>lpck</i>, the current file position is assumed to be the end of the data portion of the chunk. If the chunk size is not the same as the value stored in the <b>cksize</b> member of the <b>MMCKINFO</b> structure when <b>mmioCreateChunk</b> was called, <b>mmioAscend</b> corrects the chunk size in the file before ascending from the chunk. If the chunk size is odd, <b>mmioAscend</b> writes a null pad byte at the end of the chunk. After ascending from the chunk, the current file position is the location following the end of the chunk (past the extra pad byte, if any).
-     * @param {HMMIO} _hmmio 
+     * @param {HMMIO} _hmmio File handle of an open RIFF file.
      * @param {Pointer<MMCKINFO>} pmmcki Pointer to an application-defined <a href="https://docs.microsoft.com/previous-versions/dd757312(v=vs.85)">MMCKINFO</a> structure previously filled by the <a href="https://docs.microsoft.com/previous-versions/dd757318(v=vs.85)">mmioDescend</a> or <a href="https://docs.microsoft.com/previous-versions/dd757317(v=vs.85)">mmioCreateChunk</a> function.
      * @param {Integer} fuAscend Reserved; must be zero.
      * @returns {Integer} Returns MMSYSERR_NOERROR if successful or an error otherwise. Possible error values include the following.
@@ -24775,7 +24774,7 @@ class Multimedia {
      * <li>The <b>dwDataOffset</b> member does not need to be filled in. The <b>mmioCreateChunk</b> function fills this member with the file offset of the data portion of the chunk.</li>
      * <li>The <b>dwFlags</b> member does not need to be filled in. The <b>mmioCreateChunk</b> function sets the MMIO_DIRTY flag in <b>dwFlags</b>.</li>
      * </ul>
-     * @param {HMMIO} _hmmio 
+     * @param {HMMIO} _hmmio File handle of an open RIFF file.
      * @param {Pointer<MMCKINFO>} pmmcki Pointer to a buffer that receives a <a href="https://docs.microsoft.com/previous-versions/dd757312(v=vs.85)">MMCKINFO</a> structure containing information about the chunk to be created.
      * @param {Integer} fuCreate Flags identifying what type of chunk to create. The following values are defined.
      * 
@@ -24935,7 +24934,7 @@ class Multimedia {
      * > [!NOTE]
      * > The joystickapi.h header defines joyGetDevCaps as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer} uJoyID Identifier of the joystick to be queried. Valid values for <i>uJoyID</i> range from -1 to 15. A value of -1 enables retrieval of the <b>szRegKey</b> member of the <a href="https://docs.microsoft.com/previous-versions/dd757103(v=vs.85)">JOYCAPS</a> structure whether a device is present or not.
-     * @param {Pointer} pjc Pointer to a <a href="https://docs.microsoft.com/previous-versions/dd757103(v=vs.85)">JOYCAPS</a> structure to contain the capabilities of the joystick.
+     * @param {Integer} pjc Pointer to a <a href="https://docs.microsoft.com/previous-versions/dd757103(v=vs.85)">JOYCAPS</a> structure to contain the capabilities of the joystick.
      * @param {Integer} cbjc Size, in bytes, of the <a href="https://docs.microsoft.com/previous-versions/dd757103(v=vs.85)">JOYCAPS</a> structure.
      * @returns {Integer} Returns JOYERR_NOERROR if successful or one of the following error values:
      * 
@@ -24990,7 +24989,7 @@ class Multimedia {
      * > [!NOTE]
      * > The joystickapi.h header defines joyGetDevCaps as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer} uJoyID Identifier of the joystick to be queried. Valid values for <i>uJoyID</i> range from -1 to 15. A value of -1 enables retrieval of the <b>szRegKey</b> member of the <a href="https://docs.microsoft.com/previous-versions/dd757103(v=vs.85)">JOYCAPS</a> structure whether a device is present or not.
-     * @param {Pointer} pjc Pointer to a <a href="https://docs.microsoft.com/previous-versions/dd757103(v=vs.85)">JOYCAPS</a> structure to contain the capabilities of the joystick.
+     * @param {Integer} pjc Pointer to a <a href="https://docs.microsoft.com/previous-versions/dd757103(v=vs.85)">JOYCAPS</a> structure to contain the capabilities of the joystick.
      * @param {Integer} cbjc Size, in bytes, of the <a href="https://docs.microsoft.com/previous-versions/dd757103(v=vs.85)">JOYCAPS</a> structure.
      * @returns {Integer} Returns JOYERR_NOERROR if successful or one of the following error values:
      * 
@@ -25189,7 +25188,7 @@ class Multimedia {
      * The joySetCapture function captures a joystick by causing its messages to be sent to the specified window.
      * @remarks
      * If the specified joystick is currently captured, the function returns undefined behavior. Call the <a href="https://docs.microsoft.com/previous-versions/dd757113(v=vs.85)">joyReleaseCapture</a> function to release the captured joystick, or destroy the window to release the joystick automatically.
-     * @param {HWND} _hwnd 
+     * @param {HWND} _hwnd Handle to the window to receive the joystick messages.
      * @param {Integer} uJoyID Identifier of the joystick to be captured. Valid values for <i>uJoyID</i> range from zero (JOYSTICKID1) to 15.
      * @param {Integer} uPeriod Polling frequency, in milliseconds.
      * @param {BOOL} fChanged Change position flag. Specify <b>TRUE</b> for this parameter to send messages only when the position changes by a value greater than the joystick movement threshold. Otherwise, messages are sent at the polling frequency specified in <i>uPeriod</i>.
@@ -25343,7 +25342,7 @@ class Multimedia {
      * If your application installs a function as a compressor or decompressor, it should remove the function with the <a href="https://docs.microsoft.com/windows/desktop/api/vfw/nf-vfw-icremove">ICRemove</a> function before it terminates. This prevents other applications from trying to access the function when it is not available.
      * @param {Integer} fccType Four-character code indicating the type of data used by the compressor or decompressor. Specify "VIDC" for a video compressor or decompressor.
      * @param {Integer} fccHandler Four-character code identifying a specific compressor or decompressor.
-     * @param {LPARAM} _lParam 
+     * @param {LPARAM} _lParam Pointer to a null-terminated string containing the name of the compressor or decompressor, or the address of a function used for compression or decompression. The contents of this parameter are defined by the flags set for <i>wFlags</i>.
      * @param {PSTR} szDesc Reserved; do not use.
      * @param {Integer} wFlags Flags defining the contents of <i>lParam</i>. The following values are defined.
      * 
@@ -25390,8 +25389,8 @@ class Multimedia {
 
     /**
      * The ICGetInfo function obtains information about a compressor.
-     * @param {HIC} _hic 
-     * @param {Pointer} picinfo Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/vfw/ns-vfw-icinfo">ICINFO</a> structure to return information about the compressor.
+     * @param {HIC} _hic Handle to a compressor.
+     * @param {Integer} picinfo Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/vfw/ns-vfw-icinfo">ICINFO</a> structure to return information about the compressor.
      * @param {Integer} cb Size, in bytes, of the structure pointed to by <i>lpicinfo</i>.
      * @returns {LRESULT} Returns the number of bytes copied into the structure or zero if an error occurs.
      * @see https://learn.microsoft.com/windows/win32/api/vfw/nf-vfw-icgetinfo
@@ -25503,7 +25502,7 @@ class Multimedia {
 
     /**
      * The ICClose function closes a compressor or decompressor.
-     * @param {HIC} _hic 
+     * @param {HIC} _hic Handle to a compressor or decompressor.
      * @returns {LRESULT} Returns ICERR_OK if successful or an error otherwise.
      * @see https://learn.microsoft.com/windows/win32/api/vfw/nf-vfw-icclose
      * @since windows5.0
@@ -25517,8 +25516,8 @@ class Multimedia {
 
     /**
      * The ICSendMessage function sends a message to a compressor.
-     * @param {HIC} _hic 
-     * @param {Integer} _msg 
+     * @param {HIC} _hic Handle to the compressor to receive the message.
+     * @param {Integer} _msg Message to send.
      * @param {Pointer} dw1 Additional message-specific information.
      * @param {Pointer} dw2 Additional message-specific information.
      * @returns {LRESULT} Returns a message-specific result.
@@ -25540,7 +25539,7 @@ class Multimedia {
      * The compressor sets the contents of <i>lpdwFlags</i> to <b>AVIIF_KEYFRAME</b> when it creates a key frame. If your application creates AVI files, it should save the information returned for <i>lpckid</i> and <i>lpdwFlags</i> in the file.
      * 
      * Compressors use <i>lpbiPrev</i> and <i>lpPrev</i> to perform temporal compression and require an external buffer to store the format and data of the previous frame. Specify <b>NULL</b> for <i>lpbiPrev</i> and <i>lpPrev</i> when compressing a key frame, when performing fast compression, or if the compressor has its own buffer to store the format and data of the previous image. Specify non-<b>NULL</b> values for these parameters if <a href="https://docs.microsoft.com/windows/desktop/api/vfw/nf-vfw-icgetinfo">ICGetInfo</a> returns the <b>VIDCF_TEMPORAL</b> flag, the compressor is performing normal compression, and the frame to compress is not a key frame.
-     * @param {HIC} _hic 
+     * @param {HIC} _hic Handle to the compressor to use.
      * @param {Integer} dwFlags Compression flag. The following value is defined:
      * @param {Pointer<BITMAPINFOHEADER>} lpbiOutput Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-bitmapinfoheader">BITMAPINFOHEADER</a> structure containing the output format.
      * @param {Pointer<Void>} lpData Pointer to an output buffer large enough to contain a compressed frame.
@@ -25574,7 +25573,7 @@ class Multimedia {
 
     /**
      * The ICDecompress function decompresses a single video frame.
-     * @param {HIC} _hic 
+     * @param {HIC} _hic Handle to the decompressor to use.
      * @param {Integer} dwFlags Applicable decompression flags. The following values are defined.
      * 
      * <table>
@@ -25633,7 +25632,7 @@ class Multimedia {
      * The source rectangle is relative to the full video frame. The portion of the video frame specified by the source rectangle is stretched or shrunk to fit the destination rectangle.
      * 
      * The <i>dwRate</i> and <i>dwScale</i> parameters specify the decompression rate. The integer value specified for <i>dwRate</i> divided by the integer value specified for <i>dwScale</i> defines the frame rate in frames per second. This value is used by the renderer when it is responsible for timing frames during playback.
-     * @param {HIC} _hic 
+     * @param {HIC} _hic Handle to the decompressor to use.
      * @param {Integer} dwFlags Decompression flags. The following values are defined.
      *             
      * 
@@ -25674,8 +25673,8 @@ class Multimedia {
      * </tr>
      * </table>
      * @param {HPALETTE} hpal Handle to the palette used for drawing.
-     * @param {HWND} _hwnd 
-     * @param {HDC} _hdc 
+     * @param {HWND} _hwnd Handle to the window used for drawing.
+     * @param {HDC} _hdc DC used for drawing.
      * @param {Integer} xDst The x-coordinate of the upper right corner of the destination rectangle.
      * @param {Integer} yDst The y-coordinate of the upper right corner of the destination rectangle.
      * @param {Integer} dxDst Width of the destination rectangle.
@@ -25705,7 +25704,7 @@ class Multimedia {
      * The ICDraw function decompresses an image for drawing.
      * @remarks
      * You can initiate drawing the frames by sending the <a href="https://docs.microsoft.com/windows/desktop/Multimedia/icm-draw-start">ICM_DRAW_START</a> message (or by using the <a href="https://docs.microsoft.com/windows/desktop/api/vfw/nf-vfw-icdrawstart">ICDrawStart</a> macro). The application should be sure to buffer the required number of frames before drawing is started. Send the <b>KM_GETBUFFERSWANTED</b> message (or use the <a href="https://docs.microsoft.com/windows/desktop/api/vfw/nf-vfw-icgetbufferswanted">ICGetBuffersWanted</a> macro) to obtain this value.
-     * @param {HIC} _hic 
+     * @param {HIC} _hic Handle to a decompressor.
      * @param {Integer} dwFlags Decompression flags. The following values are defined.
      * 
      * <table>
@@ -25737,7 +25736,7 @@ class Multimedia {
      * </tr>
      * </table>
      * @param {Pointer<Void>} lpFormat Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-bitmapinfoheader">BITMAPINFOHEADER</a> structure containing the input format of the data.
-     * @param {Pointer} lpData Pointer to the input data.
+     * @param {Integer} lpData Pointer to the input data.
      * @param {Integer} cbData Size of the input data, in bytes.
      * @param {Integer} lTime Time, in samples, to draw this frame. The units for video data are frames. For a definition of the playback rate, see the <b>dwRate</b> and <b>dwScale</b> members of the <a href="https://docs.microsoft.com/windows/desktop/api/vfw/ns-vfw-icdrawbegin">ICDRAWBEGIN</a> structure.
      * @returns {Integer} Returns<b> ICERR_OK</b> if successful or an error otherwise.
@@ -25836,7 +25835,7 @@ class Multimedia {
 
     /**
      * The ICGetDisplayFormat function determines the best format available for displaying a compressed image. The function also opens a compressor if a handle of an open compressor is not specified.
-     * @param {HIC} _hic 
+     * @param {HIC} _hic Handle to the compressor to use. Specify <b>NULL</b> to have VCM select and open an appropriate compressor.
      * @param {Pointer<BITMAPINFOHEADER>} lpbiIn Pointer to <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-bitmapinfoheader">BITMAPINFOHEADER</a> structure containing the compressed format.
      * @param {Pointer<BITMAPINFOHEADER>} lpbiOut Pointer to a buffer to return the decompressed format. The buffer should be large enough for a <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-bitmapinfoheader">BITMAPINFOHEADER</a> structure and 256 color entries.
      * @param {Integer} BitDepth Preferred bit depth, if nonzero.
@@ -25858,7 +25857,7 @@ class Multimedia {
      * The ICImageCompress function compresses an image to a given size. This function does not require initialization functions.
      * @remarks
      * To obtain the format information from the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-bitmapinfoheader">BITMAPINFOHEADER</a> structure, use the <a href="https://docs.microsoft.com/windows/win32/api/winbase/nf-winbase-globallock">GlobalLock</a> function to lock the data. Use the <a href="https://docs.microsoft.com/windows/win32/api/winbase/nf-winbase-globalfree">GlobalFree</a> function to free the DIB when you are finished.
-     * @param {HIC} _hic 
+     * @param {HIC} _hic Handle to a compressor opened with the <a href="https://docs.microsoft.com/windows/desktop/api/vfw/nf-vfw-icopen">ICOpen</a> function. Specify <b>NULL</b> to have VCM select an appropriate compressor for the compression format. An application can have the user select the compressor by using the <a href="https://docs.microsoft.com/windows/desktop/api/vfw/nf-vfw-iccompressorchoose">ICCompressorChoose</a> function, which opens the selected compressor and returns a handle of the compressor in this parameter.
      * @param {Integer} uiFlags Reserved; must be zero.
      * @param {Pointer<BITMAPINFO>} lpbiIn Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-bitmapinfo">BITMAPINFO</a> structure containing the input data format.
      * @param {Pointer<Void>} lpBits Pointer to input data bits to compress. The data bits exclude header and format information.
@@ -25884,7 +25883,7 @@ class Multimedia {
      * The ICImageDecompress function decompresses an image without using initialization functions.
      * @remarks
      * To obtain the format information from the <b>LPBITMAPINFOHEADER</b> structure, use the <b>GlobalLock</b> function to lock the data. Use the <b>GlobalFree</b> function to free the DIB when you are finished.
-     * @param {HIC} _hic 
+     * @param {HIC} _hic Handle to a decompressor opened with the <a href="https://docs.microsoft.com/windows/desktop/api/vfw/nf-vfw-icopen">ICOpen</a> function. Specify <b>NULL</b> to have VCM select an appropriate decompressor for the compressed image.
      * @param {Integer} uiFlags Reserved; must be zero.
      * @param {Pointer<BITMAPINFO>} lpbiIn Compressed input data format.
      * @param {Pointer<Void>} lpBits Pointer to input data bits to compress. The data bits exclude header and format information.
@@ -25907,7 +25906,7 @@ class Multimedia {
      * The ICCompressorChoose function displays a dialog box in which a user can select a compressor. This function can display all registered compressors or list only the compressors that support a specific format.
      * @remarks
      * Before using this function, set the <b>cbSize</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/vfw/ns-vfw-compvars">COMPVARS</a> structure to the size of the structure. Initialize the rest of the structure to zeros unless you want to specify some valid defaults for the dialog box. If specifying defaults, set the <i>dwFlags</i> member to ICMF_COMPVARS_VALID and initialize the other members of the structure. For more information about initializing the structure, see the <a href="https://docs.microsoft.com/windows/desktop/api/vfw/nf-vfw-icseqcompressframestart">ICSeqCompressFrameStart</a> function and <b>COMPVARS</b>.
-     * @param {HWND} _hwnd 
+     * @param {HWND} _hwnd Handle to a parent window for the dialog box.
      * @param {Integer} uiFlags Applicable flags. The following values are defined.
      * 
      * <table>
@@ -26128,7 +26127,7 @@ class Multimedia {
      * @remarks
      * To select the palette of the DrawDib DC as a background palette, use the <a href="https://docs.microsoft.com/windows/desktop/api/vfw/nf-vfw-drawdibdraw">DrawDibDraw</a> function and specify the DDF_BACKGROUNDPAL flag.
      * @param {Pointer} hdd Handle to a DrawDib DC.
-     * @param {HDC} _hdc 
+     * @param {HDC} _hdc Handle to the DC containing the palette.
      * @param {BOOL} fBackground Background palette flag. If this value is nonzero, the palette is a background palette. If this value is zero and the DC is attached to a window, the logical palette becomes the foreground palette when the window has the input focus. (A DC is attached to a window when the window class style is CS_OWNDC or when the DC is obtained by using the <a href="https://docs.microsoft.com/previous-versions//ms533241(v=vs.85)">GetDC</a> function.)
      * @returns {Integer} Returns the number of entries in the logical palette mapped to different values in the system palette. If an error occurs or no colors were updated, it returns zero.
      * @see https://learn.microsoft.com/windows/win32/api/vfw/nf-vfw-drawdibrealize
@@ -26175,7 +26174,7 @@ class Multimedia {
      * 
      * If the parameters of <b>DrawDibBegin</b> have not changed, subsequent calls to the function have no effect.
      * @param {Pointer} hdd Handle to a DrawDib DC.
-     * @param {HDC} _hdc 
+     * @param {HDC} _hdc Handle to a DC for drawing. This parameter is optional.
      * @param {Integer} dxDst Width, in <b>MM_TEXT</b> client units, of the destination rectangle.
      * @param {Integer} dyDst Height, in <b>MM_TEXT</b> client units, of the destination rectangle.
      * @param {Pointer<BITMAPINFOHEADER>} lpbi Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-bitmapinfoheader">BITMAPINFOHEADER</a> structure containing the image format. The color table for the DIB follows the image format and the <b>biHeight</b> member must be a positive value.
@@ -26252,7 +26251,7 @@ class Multimedia {
      * 
      * Although they are set at different times, <b>DDF_UPDATE</b> and <b>DDF_DONTDRAW</b> can be used together to create composite images off-screen. When the off-screen image is complete, you can display the image by calling <b>DrawDibDraw</b>.
      * @param {Pointer} hdd Handle to a DrawDib DC.
-     * @param {HDC} _hdc 
+     * @param {HDC} _hdc Handle to the DC.
      * @param {Integer} xDst The x-coordinate, in <b>MM_TEXT</b> client coordinates, of the upper left corner of the destination rectangle.
      * @param {Integer} yDst The y-coordinate, in <b>MM_TEXT</b> client coordinates, of the upper left corner of the destination rectangle.
      * @param {Integer} dxDst Width, in <b>MM_TEXT</b> client coordinates, of the destination rectangle. If <i>dxDst</i> is −1, the width of the bitmap is used.
@@ -26618,7 +26617,7 @@ class Multimedia {
      * > [!NOTE]
      * > The vfw.h header defines AVIFILEINFO as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {IAVIFile} pfile Handle to an open AVI file.
-     * @param {Pointer} pfi Pointer to the structure used to return file information. Typically, this parameter points to an <a href="https://docs.microsoft.com/windows/desktop/api/vfw/ns-vfw-avifileinfoa">AVIFILEINFO</a> structure.
+     * @param {Integer} pfi Pointer to the structure used to return file information. Typically, this parameter points to an <a href="https://docs.microsoft.com/windows/desktop/api/vfw/ns-vfw-avifileinfoa">AVIFILEINFO</a> structure.
      * @param {Integer} lSize Size, in bytes, of the structure.
      * @returns {HRESULT} Returns zero if successful or an error otherwise.
      * @see https://learn.microsoft.com/windows/win32/api/vfw/nf-vfw-avifileinfow
@@ -26641,7 +26640,7 @@ class Multimedia {
      * > [!NOTE]
      * > The vfw.h header defines AVIFILEINFO as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {IAVIFile} pfile Handle to an open AVI file.
-     * @param {Pointer} pfi Pointer to the structure used to return file information. Typically, this parameter points to an <a href="https://docs.microsoft.com/windows/desktop/api/vfw/ns-vfw-avifileinfoa">AVIFILEINFO</a> structure.
+     * @param {Integer} pfi Pointer to the structure used to return file information. Typically, this parameter points to an <a href="https://docs.microsoft.com/windows/desktop/api/vfw/ns-vfw-avifileinfoa">AVIFILEINFO</a> structure.
      * @param {Integer} lSize Size, in bytes, of the structure.
      * @returns {HRESULT} Returns zero if successful or an error otherwise.
      * @see https://learn.microsoft.com/windows/win32/api/vfw/nf-vfw-avifileinfoa
@@ -26683,7 +26682,7 @@ class Multimedia {
      * <td>Indicates a video stream.</td>
      * </tr>
      * </table>
-     * @param {Integer} _lParam 
+     * @param {Integer} _lParam Count of the stream type. Identifies which occurrence of the specified stream type to access.
      * @returns {IAVIStream} Pointer to the new stream interface.
      * @see https://learn.microsoft.com/windows/win32/api/vfw/nf-vfw-avifilegetstream
      * @since windows5.0
@@ -26749,7 +26748,7 @@ class Multimedia {
      * The argument <i>pfile</i> is a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/vfw/nn-vfw-iavifile">IAVIFile</a> interface.
      * @param {IAVIFile} pfile Handle to an open AVI file.
      * @param {Integer} ckid RIFF chunk identifier (four-character code) of the data.
-     * @param {Pointer} lpData Pointer to the buffer used to write the data.
+     * @param {Integer} lpData Pointer to the buffer used to write the data.
      * @param {Integer} cbData Size, in bytes, of the memory block referenced by <i>lpData</i>.
      * @returns {HRESULT} Returns zero if successful or an error otherwise. In an application has read-only access to the file, the error code AVIERR_READONLY is returned.
      * @see https://learn.microsoft.com/windows/win32/api/vfw/nf-vfw-avifilewritedata
@@ -26768,7 +26767,7 @@ class Multimedia {
      * The argument <i>pfile</i> is a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/vfw/nn-vfw-iavifile">IAVIFile</a> interface.
      * @param {IAVIFile} pfile Handle to an open AVI file.
      * @param {Integer} ckid RIFF chunk identifier (four-character code) of the data.
-     * @param {Pointer} lpData Pointer to the buffer used to return the data read.
+     * @param {Integer} lpData Pointer to the buffer used to return the data read.
      * @param {Pointer<Integer>} lpcbData Pointer to a location indicating the size of the memory block referenced by <i>lpData</i>. If the data is read successfully, the value is changed to indicate the amount of data read.
      * @returns {HRESULT} Returns zero if successful or an error otherwise. The return value AVIERR_NODATA indicates that data with the requested chunk identifier does not exist.
      * @see https://learn.microsoft.com/windows/win32/api/vfw/nf-vfw-avifilereaddata
@@ -26831,7 +26830,7 @@ class Multimedia {
      * > [!NOTE]
      * > The vfw.h header defines AVISTREAMINFO as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {IAVIStream} pavi Handle to an open stream.
-     * @param {Pointer} psi Pointer to a structure to contain the stream information.
+     * @param {Integer} psi Pointer to a structure to contain the stream information.
      * @param {Integer} lSize Size, in bytes, of the structure used for psi.
      * @returns {HRESULT} Returns zero if successful or an error otherwise.
      * 
@@ -26850,7 +26849,7 @@ class Multimedia {
      * > [!NOTE]
      * > The vfw.h header defines AVISTREAMINFO as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {IAVIStream} pavi Handle to an open stream.
-     * @param {Pointer} psi Pointer to a structure to contain the stream information.
+     * @param {Integer} psi Pointer to a structure to contain the stream information.
      * @param {Integer} lSize Size, in bytes, of the structure used for psi.
      * @returns {HRESULT} Returns zero if successful or an error otherwise.
      * 
@@ -26920,7 +26919,7 @@ class Multimedia {
      * Standard video stream handlers provide format information in a <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-bitmapinfoheader">BITMAPINFOHEADER</a> structure. Standard audio stream handlers provide format information in a <a href="https://docs.microsoft.com/previous-versions/dd743663(v=vs.85)">PCMWAVEFORMAT</a> structure. Other data streams can use other structures that describe the stream data.
      * @param {IAVIStream} pavi Handle to an open stream.
      * @param {Integer} lPos Position in the stream used to obtain the format data.
-     * @param {Pointer} lpFormat Pointer to a buffer to contain the format data.
+     * @param {Integer} lpFormat Pointer to a buffer to contain the format data.
      * @param {Pointer<Integer>} lpcbFormat Pointer to a location indicating the size of the memory block referenced by <i>lpFormat</i>. On return, the value is changed to indicate the amount of data read. If <i>lpFormat</i> is <b>NULL</b>, this parameter can be used to obtain the amount of memory needed to return the format.
      * @returns {HRESULT} Returns zero if successful or an error otherwise.
      * 
@@ -26943,7 +26942,7 @@ class Multimedia {
      * The argument <i>pavi</i> is a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/vfw/nn-vfw-iavistream">IAVIStream</a> interface.
      * @param {IAVIStream} pavi Handle to an open stream.
      * @param {Integer} lPos Position in the stream to receive the format.
-     * @param {Pointer} lpFormat Pointer to a structure containing the new format.
+     * @param {Integer} lpFormat Pointer to a structure containing the new format.
      * @param {Integer} cbFormat Size, in bytes, of the block of memory referenced by <i>lpFormat</i>.
      * @returns {HRESULT} Returns zero if successful or an error otherwise.
      * @see https://learn.microsoft.com/windows/win32/api/vfw/nf-vfw-avistreamsetformat
@@ -26962,7 +26961,7 @@ class Multimedia {
      * The argument <i>pavi</i> is a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/vfw/nn-vfw-iavistream">IAVIStream</a> interface.
      * @param {IAVIStream} pavi Handle to an open stream.
      * @param {Integer} fcc Four-character code identifying the data.
-     * @param {Pointer} lp Pointer to the buffer to contain the optional header data.
+     * @param {Integer} lp Pointer to the buffer to contain the optional header data.
      * @param {Pointer<Integer>} lpcb Pointer to the location that specifies the buffer size used for <i>lpData</i>. If the read is successful, AVIFile changes this value to indicate the amount of data written into the buffer for <i>lpData</i>.
      * @returns {HRESULT} Returns zero if successful or an error otherwise. The return value AVIERR_NODATA indicates the system could not find any data with the specified chunk identifier.
      * @see https://learn.microsoft.com/windows/win32/api/vfw/nf-vfw-avistreamreaddata
@@ -26983,7 +26982,7 @@ class Multimedia {
      * The argument <i>pavi</i> is a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/vfw/nn-vfw-iavistream">IAVIStream</a> interface.
      * @param {IAVIStream} pavi Handle to an open stream.
      * @param {Integer} fcc Four-character code identifying the data.
-     * @param {Pointer} lp Pointer to a buffer containing the data to write.
+     * @param {Integer} lp Pointer to a buffer containing the data to write.
      * @param {Integer} cb Number of bytes of data to write into the stream.
      * @returns {HRESULT} Returns zero if successful or an error otherwise. The return value AVIERR_READONLY indicates the file was opened without write access.
      * @see https://learn.microsoft.com/windows/win32/api/vfw/nf-vfw-avistreamwritedata
@@ -27003,7 +27002,7 @@ class Multimedia {
      * @param {IAVIStream} pavi Handle to an open stream.
      * @param {Integer} lStart First sample to read.
      * @param {Integer} lSamples Number of samples to read. You can also specify the value AVISTREAMREAD_CONVENIENT to let the stream handler determine the number of samples to read.
-     * @param {Pointer} lpBuffer Pointer to a buffer to contain the data.
+     * @param {Integer} lpBuffer Pointer to a buffer to contain the data.
      * @param {Integer} cbBuffer Size, in bytes, of the buffer pointed to by <i>lpBuffer</i>.
      * @param {Pointer<Integer>} plBytes Pointer to a buffer that receives the number of bytes of data written in the buffer referenced by <i>lpBuffer</i>. This value can be <b>NULL</b>.
      * @param {Pointer<Integer>} plSamples Pointer to a buffer that receives the number of samples written in the buffer referenced by <i>lpBuffer</i>. This value can be <b>NULL</b>.
@@ -27070,7 +27069,7 @@ class Multimedia {
      * @param {IAVIStream} pavi Handle to an open stream.
      * @param {Integer} lStart First sample to write.
      * @param {Integer} lSamples Number of samples to write.
-     * @param {Pointer} lpBuffer Pointer to a buffer containing the data to write.
+     * @param {Integer} lpBuffer Pointer to a buffer containing the data to write.
      * @param {Integer} cbBuffer Size of the buffer referenced by <i>lpBuffer</i>.
      * @param {Integer} dwFlags Flag associated with this data. The following flag is defined:
      * 
@@ -27277,8 +27276,8 @@ class Multimedia {
      * <td>Indicates a video stream.</td>
      * </tr>
      * </table>
-     * @param {Integer} _lParam 
-     * @param {Integer} _mode 
+     * @param {Integer} _lParam Stream of the type specified in <i>fccType</i> to access. This parameter is zero-based; use zero to specify the first occurrence.
+     * @param {Integer} _mode Access mode to use when opening the file. This function can open only existing streams, so the OF_CREATE mode flag cannot be used. For more information about the available flags for the <i>mode</i> parameter, see the <b>OpenFile</b> function.
      * @param {Pointer<Guid>} pclsidHandler Pointer to a class identifier of the handler you want to use. If the value is <b>NULL</b>, the system chooses one from the registry based on the file extension or the file RIFF type.
      * @returns {IAVIStream} Pointer to a buffer that receives the new stream handle.
      * @see https://learn.microsoft.com/windows/win32/api/vfw/nf-vfw-avistreamopenfromfilea
@@ -27329,8 +27328,8 @@ class Multimedia {
      * <td>Indicates a video stream.</td>
      * </tr>
      * </table>
-     * @param {Integer} _lParam 
-     * @param {Integer} _mode 
+     * @param {Integer} _lParam Stream of the type specified in <i>fccType</i> to access. This parameter is zero-based; use zero to specify the first occurrence.
+     * @param {Integer} _mode Access mode to use when opening the file. This function can open only existing streams, so the OF_CREATE mode flag cannot be used. For more information about the available flags for the <i>mode</i> parameter, see the <b>OpenFile</b> function.
      * @param {Pointer<Guid>} pclsidHandler Pointer to a class identifier of the handler you want to use. If the value is <b>NULL</b>, the system chooses one from the registry based on the file extension or the file RIFF type.
      * @returns {IAVIStream} Pointer to a buffer that receives the new stream handle.
      * @see https://learn.microsoft.com/windows/win32/api/vfw/nf-vfw-avistreamopenfromfilew
@@ -27547,7 +27546,7 @@ class Multimedia {
      * An application must allocate memory for the <a href="https://docs.microsoft.com/windows/desktop/api/vfw/ns-vfw-avicompressoptions">AVICOMPRESSOPTIONS</a> structures and the array of pointers to these structures.
      * 
      * The argument <i>ppavi</i> contains the address of a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/vfw/nn-vfw-iavistream">IAVIStream</a> interface.
-     * @param {HWND} _hwnd 
+     * @param {HWND} _hwnd Handle to the parent window for the Compression Options dialog box.
      * @param {Integer} uiFlags Flags for displaying the Compression Options dialog box. The following flags are defined.
      * 
      * <table>
@@ -27735,7 +27734,7 @@ class Multimedia {
      * 
      * The argument ppstream is the address of a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/vfw/nn-vfw-iavistream">IAVIStream</a> interface.
      * @param {Integer} cfFormat Clipboard flag.
-     * @param {HANDLE} _hGlobal 
+     * @param {HANDLE} _hGlobal Handle to stream data on the clipboard.
      * @returns {IAVIStream} Handle to the created stream.
      * @see https://learn.microsoft.com/windows/win32/api/vfw/nf-vfw-avimakestreamfromclipboard
      * @since windows5.0
@@ -27972,7 +27971,7 @@ class Multimedia {
      * > [!NOTE]
      * > The vfw.h header defines EditStreamSetInfo as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {IAVIStream} pavi Handle to an open stream.
-     * @param {Pointer} lpInfo Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/vfw/ns-vfw-avistreaminfoa">AVISTREAMINFO</a> structure containing new information.
+     * @param {Integer} lpInfo Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/vfw/ns-vfw-avistreaminfoa">AVISTREAMINFO</a> structure containing new information.
      * @param {Integer} cbInfo Size, in bytes, of the structure pointed to by <i>lpInfo</i>.
      * @returns {HRESULT} Returns zero if successful or an error otherwise.
      * @see https://learn.microsoft.com/windows/win32/api/vfw/nf-vfw-editstreamsetinfow
@@ -28020,7 +28019,7 @@ class Multimedia {
      * > [!NOTE]
      * > The vfw.h header defines EditStreamSetInfo as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {IAVIStream} pavi Handle to an open stream.
-     * @param {Pointer} lpInfo Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/vfw/ns-vfw-avistreaminfoa">AVISTREAMINFO</a> structure containing new information.
+     * @param {Integer} lpInfo Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/vfw/ns-vfw-avistreaminfoa">AVISTREAMINFO</a> structure containing new information.
      * @param {Integer} cbInfo Size, in bytes, of the structure pointed to by <i>lpInfo</i>.
      * @returns {HRESULT} Returns zero if successful or an error otherwise.
      * @see https://learn.microsoft.com/windows/win32/api/vfw/nf-vfw-editstreamsetinfoa
@@ -28047,7 +28046,7 @@ class Multimedia {
      * > [!NOTE]
      * > The vfw.h header defines MCIWndCreate as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HWND} hwndParent Handle to the parent window.
-     * @param {HINSTANCE} _hInstance 
+     * @param {HINSTANCE} _hInstance Handle to the module instance to associate with the MCIWnd window.
      * @param {Integer} dwStyle Flags defining the window style. In addition to specifying the window styles used with the <a href="https://docs.microsoft.com/windows/win32/api/winuser/nf-winuser-createwindowexa">CreateWindowEx</a> function, you can specify the following styles to use with MCIWnd windows.
      * 
      * <table>
@@ -28161,7 +28160,7 @@ class Multimedia {
      * > [!NOTE]
      * > The vfw.h header defines MCIWndCreate as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HWND} hwndParent Handle to the parent window.
-     * @param {HINSTANCE} _hInstance 
+     * @param {HINSTANCE} _hInstance Handle to the module instance to associate with the MCIWnd window.
      * @param {Integer} dwStyle Flags defining the window style. In addition to specifying the window styles used with the <a href="https://docs.microsoft.com/windows/win32/api/winuser/nf-winuser-createwindowexa">CreateWindowEx</a> function, you can specify the following styles to use with MCIWnd windows.
      * 
      * <table>

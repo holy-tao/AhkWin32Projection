@@ -1,12 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\SERVERSILO_STATE.ahk
 
 /**
  * @namespace Windows.Win32.System.SystemServices
- * @version v4.0.30319
  */
-class SERVERSILO_BASIC_INFORMATION extends Win32Struct
-{
+class SERVERSILO_BASIC_INFORMATION extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -20,7 +19,7 @@ class SERVERSILO_BASIC_INFORMATION extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {SERVERSILO_STATE}
      */
     State {
         get => NumGet(this, 4, "int")

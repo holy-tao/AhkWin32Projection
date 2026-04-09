@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
- * @version v4.0.30319
  */
-class WLAN_CONNECTION_QOS_INFO extends Win32Struct
-{
+class WLAN_CONNECTION_QOS_INFO extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 4
@@ -15,7 +13,7 @@ class WLAN_CONNECTION_QOS_INFO extends Win32Struct
     /**
      * @type {WLAN_QOS_CAPABILITIES}
      */
-    peerCapabilities{
+    peerCapabilities {
         get {
             if(!this.HasProp("__peerCapabilities"))
                 this.__peerCapabilities := WLAN_QOS_CAPABILITIES(0, this)

@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem
- * @version v4.0.30319
  */
-class BASE_MCB extends Win32Struct
-{
+class BASE_MCB extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

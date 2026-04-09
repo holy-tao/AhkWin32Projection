@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
- * @version v4.0.30319
  */
-class D3DKMT_OUTPUTDUPLPRESENTTOHWQUEUE extends Win32Struct
-{
+class D3DKMT_OUTPUTDUPLPRESENTTOHWQUEUE extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -44,7 +42,7 @@ class D3DKMT_OUTPUTDUPLPRESENTTOHWQUEUE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<D3DKMT_PRESENT_RGNS>}
+     * @type {Pointer}
      */
     PresentRegions {
         get => NumGet(this, 24, "ptr")
@@ -52,7 +50,7 @@ class D3DKMT_OUTPUTDUPLPRESENTTOHWQUEUE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<D3DKMT_OUTPUTDUPLPRESENTFLAGS>}
+     * @type {Pointer}
      */
     Flags {
         get => NumGet(this, 32, "ptr")

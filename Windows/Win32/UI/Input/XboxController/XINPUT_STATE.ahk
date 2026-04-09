@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include .\XINPUT_GAMEPAD.ahk
+#Include .\XINPUT_GAMEPAD_BUTTON_FLAGS.ahk
 
 /**
  * Represents the state of a controller.
@@ -8,10 +9,8 @@
  * The <i>dwPacketNumber</i> member is incremented only if the status of the controller has changed since the controller was last polled.
  * @see https://learn.microsoft.com/windows/win32/api/xinput/ns-xinput-xinput_state
  * @namespace Windows.Win32.UI.Input.XboxController
- * @version v4.0.30319
  */
-class XINPUT_STATE extends Win32Struct
-{
+class XINPUT_STATE extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4
@@ -29,7 +28,7 @@ class XINPUT_STATE extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/xinput/ns-xinput-xinput_gamepad">XINPUT_GAMEPAD</a> structure containing the current state of an Xbox 360 Controller.
      * @type {XINPUT_GAMEPAD}
      */
-    Gamepad{
+    Gamepad {
         get {
             if(!this.HasProp("__Gamepad"))
                 this.__Gamepad := XINPUT_GAMEPAD(4, this)

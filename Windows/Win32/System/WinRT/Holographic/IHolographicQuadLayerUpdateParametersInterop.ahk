@@ -26,9 +26,8 @@
  * ```
  * @see https://learn.microsoft.com/windows/win32/api/windows.graphics.holographic.interop/nn-windows-graphics-holographic-interop-iholographicquadlayerupdateparametersinterop
  * @namespace Windows.Win32.System.WinRT.Holographic
- * @version v4.0.30319
  */
-class IHolographicQuadLayerUpdateParametersInterop extends IInspectable{
+class IHolographicQuadLayerUpdateParametersInterop extends IInspectable {
 
     static sizeof => A_PtrSize
     /**

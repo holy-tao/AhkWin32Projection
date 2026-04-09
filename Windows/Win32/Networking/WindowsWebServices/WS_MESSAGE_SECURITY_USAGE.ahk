@@ -5,9 +5,8 @@
  * Defines how a message security binding attaches the security token corresponding to it to a message using WS-Security mechanisms.
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ne-webservices-ws_message_security_usage
  * @namespace Windows.Win32.Networking.WindowsWebServices
- * @version v4.0.30319
  */
-class WS_MESSAGE_SECURITY_USAGE extends Win32Enum{
+class WS_MESSAGE_SECURITY_USAGE extends Win32Enum {
 
     /**
      * The security token obtained security binding is used for client

@@ -4,11 +4,9 @@
 
 /**
  * @namespace Windows.Win32.System.Power
- * @version v4.0.30319
  */
-class PPM_IDLE_ACCOUNTING extends Win32Struct
-{
-    static sizeof => 32
+class PPM_IDLE_ACCOUNTING extends Win32Struct {
+    static sizeof => 72
 
     static packingSize => 8
 
@@ -45,9 +43,9 @@ class PPM_IDLE_ACCOUNTING extends Win32Struct
     }
 
     /**
-     * @type {Array<PPM_IDLE_STATE_ACCOUNTING>}
+     * @type {PPM_IDLE_STATE_ACCOUNTING}
      */
-    State{
+    State {
         get {
             if(!this.HasProp("__StateProxyArray"))
                 this.__StateProxyArray := Win32FixedArray(this.ptr + 24, 1, PPM_IDLE_STATE_ACCOUNTING, "")

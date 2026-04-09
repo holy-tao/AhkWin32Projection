@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\WSDXML_NODE.ahk
+#Include .\WSDXML_ELEMENT.ahk
 
 /**
  * Describes the text in an XML node.
@@ -8,10 +9,8 @@
  * <b>WSDXML_TEXT</b> is used to represent the contents of an element. Since no type information exists for elements in DOM, the <b>Text</b> member is the exact representation of the element contents from the XML document.
  * @see https://learn.microsoft.com/windows/win32/api/wsdxmldom/ns-wsdxmldom-wsdxml_text
  * @namespace Windows.Win32.Devices.WebServicesOnDevices
- * @version v4.0.30319
  */
-class WSDXML_TEXT extends Win32Struct
-{
+class WSDXML_TEXT extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -20,7 +19,7 @@ class WSDXML_TEXT extends Win32Struct
      * The current node in a linked list of <a href="https://docs.microsoft.com/windows/desktop/api/wsdxmldom/ns-wsdxmldom-wsdxml_node">WSDXML_NODE</a> structures.
      * @type {WSDXML_NODE}
      */
-    Node{
+    Node {
         get {
             if(!this.HasProp("__Node"))
                 this.__Node := WSDXML_NODE(0, this)

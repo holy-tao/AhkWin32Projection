@@ -11,11 +11,10 @@
  * ```
  * @see https://learn.microsoft.com/windows/win32/api/setupapi/ns-setupapi-sp_drvinfo_data_v2_w
  * @namespace Windows.Win32.Devices.DeviceAndDriverInstallation
- * @version v4.0.30319
  * @charset Unicode
+ * @architecture X64, Arm64
  */
-class SP_DRVINFO_DATA_V2_W extends Win32Struct
-{
+class SP_DRVINFO_DATA_V2_W extends Win32Struct {
     static sizeof => 1568
 
     static packingSize => 8
@@ -30,7 +29,6 @@ class SP_DRVINFO_DATA_V2_W extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     DriverType {
@@ -78,7 +76,7 @@ class SP_DRVINFO_DATA_V2_W extends Win32Struct
      * Date of the driver. From the <b>DriverVer</b> entry in the INF file. See the <a href="https://docs.microsoft.com/windows-hardware/drivers/install/inf-ddinstall-section">INF DDInstall Section</a> for more information about the <b>DriverVer</b> entry.
      * @type {FILETIME}
      */
-    DriverDate{
+    DriverDate {
         get {
             if(!this.HasProp("__DriverDate"))
                 this.__DriverDate := FILETIME(1552, this)

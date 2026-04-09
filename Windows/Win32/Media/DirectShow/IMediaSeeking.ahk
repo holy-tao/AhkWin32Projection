@@ -2,14 +2,14 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * The IMediaSeeking interface contains methods for seeking to a position within a stream, and for setting the playback rate.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-imediaseeking
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IMediaSeeking extends IUnknown{
+class IMediaSeeking extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

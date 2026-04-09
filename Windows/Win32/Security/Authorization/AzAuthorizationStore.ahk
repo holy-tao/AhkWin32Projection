@@ -14,10 +14,8 @@
  * You must call the [Submit](nf-azroles-iazauthorizationstore-submit.md) method to persist any changes made by this method.
  * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazauthorizationstore-adddelegatedpolicyuser
  * @namespace Windows.Win32.Security.Authorization
- * @version v4.0.30319
  */
-class AzAuthorizationStore extends Win32Struct
-{
+class AzAuthorizationStore extends Win32Struct {
     static sizeof => 0
 
     static packingSize => 1

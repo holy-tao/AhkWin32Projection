@@ -2,13 +2,12 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\DOT11_RATE_SET.ahk
 #Include .\DOT11_BSS_DESCRIPTION.ahk
+#Include .\DOT11_BSS_TYPE.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
- * @version v4.0.30319
  */
-class DOT11_AP_JOIN_REQUEST extends Win32Struct
-{
+class DOT11_AP_JOIN_REQUEST extends Win32Struct {
     static sizeof => 192
 
     static packingSize => 8
@@ -24,7 +23,7 @@ class DOT11_AP_JOIN_REQUEST extends Win32Struct
     /**
      * @type {DOT11_RATE_SET}
      */
-    OperationalRateSet{
+    OperationalRateSet {
         get {
             if(!this.HasProp("__OperationalRateSet"))
                 this.__OperationalRateSet := DOT11_RATE_SET(4, this)
@@ -43,7 +42,7 @@ class DOT11_AP_JOIN_REQUEST extends Win32Struct
     /**
      * @type {DOT11_BSS_DESCRIPTION}
      */
-    dot11BSSDescription{
+    dot11BSSDescription {
         get {
             if(!this.HasProp("__dot11BSSDescription"))
                 this.__dot11BSSDescription := DOT11_BSS_DESCRIPTION(144, this)

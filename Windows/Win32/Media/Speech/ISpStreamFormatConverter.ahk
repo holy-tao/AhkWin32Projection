@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Media.Speech
- * @version v4.0.30319
  */
-class ISpStreamFormatConverter extends ISpStreamFormat{
+class ISpStreamFormatConverter extends ISpStreamFormat {
 
     static sizeof => A_PtrSize
     /**

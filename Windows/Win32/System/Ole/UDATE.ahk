@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.System.Ole
- * @version v4.0.30319
  */
-class UDATE extends Win32Struct
-{
+class UDATE extends Win32Struct {
     static sizeof => 18
 
     static packingSize => 2
@@ -15,7 +13,7 @@ class UDATE extends Win32Struct
     /**
      * @type {SYSTEMTIME}
      */
-    st{
+    st {
         get {
             if(!this.HasProp("__st"))
                 this.__st := SYSTEMTIME(0, this)

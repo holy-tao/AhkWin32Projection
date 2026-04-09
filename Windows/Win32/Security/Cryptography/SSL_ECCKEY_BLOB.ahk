@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class SSL_ECCKEY_BLOB extends Win32Struct
-{
+class SSL_ECCKEY_BLOB extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4

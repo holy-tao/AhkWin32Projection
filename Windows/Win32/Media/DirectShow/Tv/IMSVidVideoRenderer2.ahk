@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\IMSVidVideoRenderer.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 #Include ..\IVMRSurfaceAllocator.ahk
-#Include .\IMSVidVideoRenderer.ahk
 
 /**
  * The IMSVidVideoRenderer2 interface represents a video renderer device.
@@ -11,9 +11,8 @@
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IMSVidVideoRenderer2)</c>.
  * @see https://learn.microsoft.com/windows/win32/api/segment/nn-segment-imsvidvideorenderer2
  * @namespace Windows.Win32.Media.DirectShow.Tv
- * @version v4.0.30319
  */
-class IMSVidVideoRenderer2 extends IMSVidVideoRenderer{
+class IMSVidVideoRenderer2 extends IMSVidVideoRenderer {
 
     static sizeof => A_PtrSize
     /**

@@ -5,10 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.Threading
- * @version v4.0.30319
  */
-class AVRT_TASK_HANDLE extends Win32Handle
-{
+class AVRT_TASK_HANDLE extends Win32Handle {
     static sizeof => 8
 
     static packingSize => 8

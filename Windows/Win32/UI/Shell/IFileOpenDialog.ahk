@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IShellItemArray.ahk
 #Include .\IFileDialog.ahk
+#Include .\IShellItemArray.ahk
 
 /**
  * Extends the IFileDialog interface by adding methods specific to the open dialog.
@@ -13,9 +13,8 @@
  * This interface also provides the methods of the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ifiledialog">IFileDialog</a> interface, from which it inherits.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-ifileopendialog
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IFileOpenDialog extends IFileDialog{
+class IFileOpenDialog extends IFileDialog {
 
     static sizeof => A_PtrSize
     /**

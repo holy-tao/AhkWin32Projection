@@ -5,10 +5,8 @@
  * Defines the attributes of rows in a table.
  * @see https://learn.microsoft.com/windows/win32/api/richedit/ns-richedit-tablerowparms
  * @namespace Windows.Win32.UI.Controls.RichEdit
- * @version v4.0.30319
  */
-class TABLEROWPARMS extends Win32Struct
-{
+class TABLEROWPARMS extends Win32Struct {
     static sizeof => 28
 
     static packingSize => 4
@@ -106,7 +104,6 @@ class TABLEROWPARMS extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     nAlignment {
@@ -115,7 +112,6 @@ class TABLEROWPARMS extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     fRTL {
@@ -124,7 +120,6 @@ class TABLEROWPARMS extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     fKeep {
@@ -133,7 +128,6 @@ class TABLEROWPARMS extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     fKeepFollow {
@@ -142,7 +136,6 @@ class TABLEROWPARMS extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     fWrap {
@@ -151,7 +144,6 @@ class TABLEROWPARMS extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     fIdentCells {

@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.Display
- * @version v4.0.30319
  */
-class EMFINFO extends Win32Struct
-{
+class EMFINFO extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -23,7 +21,7 @@ class EMFINFO extends Win32Struct
     /**
      * @type {HDC}
      */
-    hdc{
+    hdc {
         get {
             if(!this.HasProp("__hdc"))
                 this.__hdc := HDC(8, this)

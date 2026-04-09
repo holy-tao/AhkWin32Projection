@@ -4,11 +4,9 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.IpHelper
- * @version v4.0.30319
  */
-class MIB_UDPTABLE2 extends Win32Struct
-{
-    static sizeof => 16
+class MIB_UDPTABLE2 extends Win32Struct {
+    static sizeof => 176
 
     static packingSize => 8
 
@@ -21,9 +19,9 @@ class MIB_UDPTABLE2 extends Win32Struct
     }
 
     /**
-     * @type {Array<MIB_UDPROW2>}
+     * @type {MIB_UDPROW2}
      */
-    table{
+    table {
         get {
             if(!this.HasProp("__tableProxyArray"))
                 this.__tableProxyArray := Win32FixedArray(this.ptr + 8, 1, MIB_UDPROW2, "")

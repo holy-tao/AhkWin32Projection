@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * @namespace Windows.Win32.Media.MediaPlayer
- * @version v4.0.30319
  */
-class IFeedFolder extends IDispatch{
+class IFeedFolder extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -314,8 +313,8 @@ class IFeedFolder extends IDispatch{
 
     /**
      * 
-     * @param {Integer} scope 
-     * @param {Integer} mask 
+     * @param {FEEDS_EVENTS_SCOPE} scope 
+     * @param {FEEDS_EVENTS_MASK} mask 
      * @returns {IDispatch} 
      */
     GetWatcher(scope, mask) {

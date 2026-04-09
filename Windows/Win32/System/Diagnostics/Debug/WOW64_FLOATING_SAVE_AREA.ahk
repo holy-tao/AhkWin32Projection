@@ -5,10 +5,8 @@
  * Represents the 80387 save area on WOW64.
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-wow64_floating_save_area
  * @namespace Windows.Win32.System.Diagnostics.Debug
- * @version v4.0.30319
  */
-class WOW64_FLOATING_SAVE_AREA extends Win32Struct
-{
+class WOW64_FLOATING_SAVE_AREA extends Win32Struct {
     static sizeof => 112
 
     static packingSize => 4
@@ -70,9 +68,9 @@ class WOW64_FLOATING_SAVE_AREA extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    RegisterArea{
+    RegisterArea {
         get {
             if(!this.HasProp("__RegisterAreaProxyArray"))
                 this.__RegisterAreaProxyArray := Win32FixedArray(this.ptr + 28, 80, Primitive, "char")

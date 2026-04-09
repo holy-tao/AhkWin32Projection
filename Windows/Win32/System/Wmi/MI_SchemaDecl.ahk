@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\MI_QualifierDecl.ahk
+#Include .\MI_ClassDecl.ahk
 
 /**
  * Represents the schema objects in a CIM schema, which include CIM classes and CIM qualifier declarations.
  * @see https://learn.microsoft.com/windows/win32/api/mi/ns-mi-mi_schemadecl
  * @namespace Windows.Win32.System.Wmi
- * @version v4.0.30319
  */
-class MI_SchemaDecl extends Win32Struct
-{
+class MI_SchemaDecl extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8

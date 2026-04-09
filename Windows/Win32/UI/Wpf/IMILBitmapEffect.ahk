@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\Graphics\Imaging\IWICBitmapSource.ahk
 #Include .\IMILBitmapEffectGroup.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Exposes methods that define a Windows Presentation Foundation (WPF) bitmap effect.
@@ -12,9 +12,8 @@
  *             Therefore, independent software vendor (ISV) effect writers do not need to implement the <b>IMILBitmapEffect</b>, <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/mileffects/nn-mileffects-imilbitmapeffectimpl">IMILBitmapEffectImpl</a>, and <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/mileffects/nn-mileffects-imilbitmapeffectconnections">IMILBitmapEffectConnections</a> interfaces.
  * @see https://learn.microsoft.com/windows/win32/api/mileffects/nn-mileffects-imilbitmapeffect
  * @namespace Windows.Win32.UI.Wpf
- * @version v4.0.30319
  */
-class IMILBitmapEffect extends IUnknown{
+class IMILBitmapEffect extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

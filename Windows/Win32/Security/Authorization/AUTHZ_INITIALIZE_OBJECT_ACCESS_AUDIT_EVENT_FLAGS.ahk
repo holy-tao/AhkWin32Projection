@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Security.Authorization
- * @version v4.0.30319
  */
-class AUTHZ_INITIALIZE_OBJECT_ACCESS_AUDIT_EVENT_FLAGS extends Win32Enum{
+class AUTHZ_INITIALIZE_OBJECT_ACCESS_AUDIT_EVENT_FLAGS extends Win32Enum {
 
     /**
      * @type {Integer (UInt32)}

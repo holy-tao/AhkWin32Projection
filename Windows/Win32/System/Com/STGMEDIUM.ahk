@@ -3,17 +3,16 @@
 #Include ..\..\Graphics\Gdi\HBITMAP.ahk
 #Include ..\..\Graphics\Gdi\HENHMETAFILE.ahk
 #Include ..\..\Foundation\HGLOBAL.ahk
+#Include .\IStream.ahk
+#Include StructuredStorage\IStorage.ahk
+#Include .\IUnknown.ahk
 
 /**
  * The STGMEDIUM_UserFree function (oleidl.h) frees resources on the server side when called by RPC stub files.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-stgmedium_userfree
  * @namespace Windows.Win32.System.Com
- * @version v4.0.30319
  */
-class STGMEDIUM extends Win32Struct
-{
+class STGMEDIUM extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -25,14 +24,14 @@ class STGMEDIUM extends Win32Struct
         /**
          * @type {HBITMAP}
          */
-        hBitmap{
+        hBitmap {
             get {
                 if(!this.HasProp("__hBitmap"))
                     this.__hBitmap := HBITMAP(0, this)
                 return this.__hBitmap
             }
         }
-    
+
         /**
          * @type {Pointer<Void>}
          */
@@ -40,29 +39,29 @@ class STGMEDIUM extends Win32Struct
             get => NumGet(this, 0, "ptr")
             set => NumPut("ptr", value, this, 0)
         }
-    
+
         /**
          * @type {HENHMETAFILE}
          */
-        hEnhMetaFile{
+        hEnhMetaFile {
             get {
                 if(!this.HasProp("__hEnhMetaFile"))
                     this.__hEnhMetaFile := HENHMETAFILE(0, this)
                 return this.__hEnhMetaFile
             }
         }
-    
+
         /**
          * @type {HGLOBAL}
          */
-        hGlobal{
+        hGlobal {
             get {
                 if(!this.HasProp("__hGlobal"))
                     this.__hGlobal := HGLOBAL(0, this)
                 return this.__hGlobal
             }
         }
-    
+
         /**
          * @type {PWSTR}
          */
@@ -70,7 +69,7 @@ class STGMEDIUM extends Win32Struct
             get => NumGet(this, 0, "ptr")
             set => NumPut("ptr", value, this, 0)
         }
-    
+
         /**
          * @type {IStream}
          */
@@ -78,7 +77,7 @@ class STGMEDIUM extends Win32Struct
             get => NumGet(this, 0, "ptr")
             set => NumPut("ptr", value, this, 0)
         }
-    
+
         /**
          * @type {IStorage}
          */
@@ -86,7 +85,6 @@ class STGMEDIUM extends Win32Struct
             get => NumGet(this, 0, "ptr")
             set => NumPut("ptr", value, this, 0)
         }
-    
     }
 
     /**
@@ -100,10 +98,10 @@ class STGMEDIUM extends Win32Struct
     /**
      * @type {_u_e__Union}
      */
-    u{
+    u {
         get {
             if(!this.HasProp("__u"))
-                this.__u := %this.__Class%._u_e__Union(8, this)
+                this.__u := STGMEDIUM._u_e__Union(8, this)
             return this.__u
         }
     }

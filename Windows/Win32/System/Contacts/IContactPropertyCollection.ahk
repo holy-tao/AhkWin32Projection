@@ -11,9 +11,8 @@
  * <div> </div>
  * @see https://learn.microsoft.com/windows/win32/api/icontact/nn-icontact-icontactpropertycollection
  * @namespace Windows.Win32.System.Contacts
- * @version v4.0.30319
  */
-class IContactPropertyCollection extends IUnknown{
+class IContactPropertyCollection extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

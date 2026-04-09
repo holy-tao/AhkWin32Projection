@@ -5,7 +5,6 @@
 
 /**
  * @namespace Windows.Win32.System.SideShow
- * @version v4.0.30319
  */
 class SideShow {
 

@@ -7,9 +7,8 @@
  * Records dispatches of DirectML work into a Direct3D 12 command list.
  * @see https://learn.microsoft.com/windows/win32/api/directml/nn-directml-idmlcommandrecorder
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
- * @version v4.0.30319
  */
-class IDMLCommandRecorder extends IDMLDeviceChild{
+class IDMLCommandRecorder extends IDMLDeviceChild {
 
     static sizeof => A_PtrSize
     /**

@@ -1,18 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\GameInputFlightStickButtons.ahk
+#Include .\GameInputSwitchPosition.ahk
 
 /**
  * @namespace Windows.Win32.UI.Input.GameInput
- * @version v4.0.30319
  */
-class GameInputFlightStickState extends Win32Struct
-{
+class GameInputFlightStickState extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 4
 
     /**
-     * @type {Integer}
+     * @type {GameInputFlightStickButtons}
      */
     buttons {
         get => NumGet(this, 0, "int")
@@ -20,7 +20,7 @@ class GameInputFlightStickState extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {GameInputSwitchPosition}
      */
     hatSwitch {
         get => NumGet(this, 4, "int")

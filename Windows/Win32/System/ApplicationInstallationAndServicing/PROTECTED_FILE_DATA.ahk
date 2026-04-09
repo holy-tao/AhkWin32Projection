@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.ApplicationInstallationAndServicing
- * @version v4.0.30319
  */
-class PROTECTED_FILE_DATA extends Win32Struct
-{
+class PROTECTED_FILE_DATA extends Win32Struct {
     static sizeof => 524
 
     static packingSize => 4

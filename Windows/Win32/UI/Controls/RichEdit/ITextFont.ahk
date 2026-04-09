@@ -1,9 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
-#Include .\ITextFont.ahk
 #Include ..\..\..\System\Com\IDispatch.ahk
+#Include ..\..\..\Foundation\BSTR.ahk
 
 /**
  * Text Object Model (TOM) rich text-range attributes are accessed through a pair of dual interfaces, ITextFont and ITextPara. (ITextFont)
@@ -32,9 +31,8 @@
  * The rich edit control is able to accept and return all <b>ITextFont</b> properties intact, that is, without modification, both through TOM and through its Rich Text Format (RTF) converters. However, it cannot display the All Caps, Animation, Embossed, Imprint, Shadow, Small Caps, Hidden, Kerning, Outline, and Style font properties.
  * @see https://learn.microsoft.com/windows/win32/api/tom/nn-tom-itextfont
  * @namespace Windows.Win32.UI.Controls.RichEdit
- * @version v4.0.30319
  */
-class ITextFont extends IDispatch{
+class ITextFont extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -178,7 +176,7 @@ class ITextFont extends IDispatch{
      * Calling 
      * 				<b>ITextFont::Reset</b> with <b>tomUndefined</b> sets all properties to undefined values. Thus, applying the font object to a range changes nothing. This applies to a font object that is obtained by the 
      * 				<a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextfont-getduplicate">ITextFont::GetDuplicate</a> method.
-     * @param {Integer} Value Type: <b>long</b>
+     * @param {tomConstants} Value Type: <b>long</b>
      * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If the method succeeds, it returns <b>S_OK</b>. If the method fails, it returns one of the following COM error codes. For more information about COM error codes, see <a href="https://docs.microsoft.com/windows/desktop/com/error-handling-in-com">Error Handling in COM</a>.
@@ -1490,7 +1488,9 @@ class ITextFont extends IDispatch{
 
     /**
      * Sets the font name.
-     * @param {BSTR} _bstr 
+     * @param {BSTR} _bstr Type: <b>BSTR</b>
+     * 
+     * The new font name.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If the method succeeds, it returns <b>S_OK</b>. If the method fails, it returns one of the following COM error codes. For more information about COM error codes, see <a href="https://docs.microsoft.com/windows/desktop/com/error-handling-in-com">Error Handling in COM</a>.

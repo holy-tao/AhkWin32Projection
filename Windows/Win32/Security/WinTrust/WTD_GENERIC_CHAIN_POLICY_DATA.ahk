@@ -1,12 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\WTD_GENERIC_CHAIN_POLICY_CREATE_INFO.ahk
 
 /**
  * @namespace Windows.Win32.Security.WinTrust
- * @version v4.0.30319
  */
-class WTD_GENERIC_CHAIN_POLICY_DATA extends Win32Struct
-{
+class WTD_GENERIC_CHAIN_POLICY_DATA extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8

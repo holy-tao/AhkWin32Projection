@@ -5,10 +5,8 @@
  * Contains the virtual IP address assigned to a session.
  * @see https://learn.microsoft.com/windows/win32/api/wtsapi32/ns-wtsapi32-wts_session_address
  * @namespace Windows.Win32.System.RemoteDesktop
- * @version v4.0.30319
  */
-class WTS_SESSION_ADDRESS extends Win32Struct
-{
+class WTS_SESSION_ADDRESS extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 4
@@ -24,9 +22,9 @@ class WTS_SESSION_ADDRESS extends Win32Struct
 
     /**
      * The virtual IP address assigned to the session. The format of this address is identical to that used in the <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/ns-wtsapi32-wts_client_address">WTS_CLIENT_ADDRESS</a> structure.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Address{
+    Address {
         get {
             if(!this.HasProp("__AddressProxyArray"))
                 this.__AddressProxyArray := Win32FixedArray(this.ptr + 4, 20, Primitive, "char")

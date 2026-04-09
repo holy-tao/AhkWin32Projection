@@ -18,9 +18,8 @@
  * To view some code that registers for COM notifications, see the Client section of the <a href="https://docs.microsoft.com/archive/msdn-magazine/2007/september/clr-inside-out-com-connection-points">COM Connection Points</a> article.
  * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nn-mbnapi-imbnconnectionevents
  * @namespace Windows.Win32.NetworkManagement.MobileBroadband
- * @version v4.0.30319
  */
-class IMbnConnectionEvents extends IUnknown{
+class IMbnConnectionEvents extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -49,7 +48,7 @@ class IMbnConnectionEvents extends IUnknown{
      * When the connection operation results in an error, an application can call the <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nf-mbnapi-imbnconnection-getactivationnetworkerror">GetActivationNetworkError</a> method of the <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nn-mbnapi-imbnconnection">IMbnConnection</a> interface to obtain network error information.
      * @param {IMbnConnection} newConnection An <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nn-mbnapi-imbnconnection">IMbnConnection</a> interface that represents the device on which the connection operation has completed.
      * @param {Integer} requestID The request ID assigned by the Mobile Broadband service to identify the connection operation.
-     * @param {HRESULT} _status 
+     * @param {HRESULT} _status The completion status.
      * @returns {HRESULT} This method must return <b>S_OK</b>.
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnconnectionevents-onconnectcomplete
      */
@@ -64,7 +63,7 @@ class IMbnConnectionEvents extends IUnknown{
      * An application can use <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nn-mbnapi-imbnconnection">IMbnConnection</a> to get the current connection state.
      * @param {IMbnConnection} newConnection An <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nn-mbnapi-imbnconnection">IMbnConnection</a> interface that represents the connection that has been disconnected.
      * @param {Integer} requestID The request ID assigned by the Mobile Broadband service to identify the disconnection operation.
-     * @param {HRESULT} _status 
+     * @param {HRESULT} _status The operation completion status.  This can only be <b>S_OK</b>.
      * @returns {HRESULT} This method must return <b>S_OK</b>.
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnconnectionevents-ondisconnectcomplete
      */

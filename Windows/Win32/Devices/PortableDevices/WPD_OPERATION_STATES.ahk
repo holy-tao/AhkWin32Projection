@@ -7,9 +7,8 @@
  * These values are received in the application-defined callback ([**IPortableDeviceEventCallback**](/windows/desktop/api/PortableDeviceApi/nn-portabledeviceapi-iportabledeviceeventcallback)).
  * @see https://learn.microsoft.com/windows/win32/wpd_sdk/wpd-operation-states
  * @namespace Windows.Win32.Devices.PortableDevices
- * @version v4.0.30319
  */
-class WPD_OPERATION_STATES extends Win32Enum{
+class WPD_OPERATION_STATES extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

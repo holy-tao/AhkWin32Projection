@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\Ndis\NDIS_OBJECT_HEADER.ahk
+#Include .\DOT11_WFD_DISCOVER_TYPE.ahk
+#Include .\DOT11_WFD_SCAN_TYPE.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
- * @version v4.0.30319
  */
-class DOT11_WFD_DISCOVER_REQUEST extends Win32Struct
-{
+class DOT11_WFD_DISCOVER_REQUEST extends Win32Struct {
     static sizeof => 36
 
     static packingSize => 4
@@ -15,7 +15,7 @@ class DOT11_WFD_DISCOVER_REQUEST extends Win32Struct
     /**
      * @type {NDIS_OBJECT_HEADER}
      */
-    Header{
+    Header {
         get {
             if(!this.HasProp("__Header"))
                 this.__Header := NDIS_OBJECT_HEADER(0, this)
@@ -24,7 +24,7 @@ class DOT11_WFD_DISCOVER_REQUEST extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {DOT11_WFD_DISCOVER_TYPE}
      */
     DiscoverType {
         get => NumGet(this, 4, "int")
@@ -32,7 +32,7 @@ class DOT11_WFD_DISCOVER_REQUEST extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {DOT11_WFD_SCAN_TYPE}
      */
     ScanType {
         get => NumGet(this, 8, "int")

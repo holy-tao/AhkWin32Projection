@@ -1,19 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
 #Include .\IEnumAddress.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include .\IEnumTerminal.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * The ITPhone interface is the main interface for the new Phone objects in the TAPI 3.1 object model.
  * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nn-tapi3if-itphone
  * @namespace Windows.Win32.Devices.Tapi
- * @version v4.0.30319
  */
-class ITPhone extends IDispatch{
+class ITPhone extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -58,7 +57,7 @@ class ITPhone extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {PHONE_PRIVILEGE} 
      */
     Privilege {
         get => this.get_Privilege()
@@ -85,7 +84,7 @@ class ITPhone extends IDispatch{
      * 
      * Also, a phone must be open with owner privilege for the application to set the state of the phone. Querying the state of the phone can typically be done even if the phone is not open; for more details, see the individual methods of the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itphone">ITPhone</a> interface.
-     * @param {Integer} Privilege The 
+     * @param {PHONE_PRIVILEGE} Privilege The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/ne-tapi3if-phone_privilege">PHONE_PRIVILEGE</a> descriptor for the application's privilege status with respect to the phone device.
      * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itphone-open
@@ -177,7 +176,7 @@ class ITPhone extends IDispatch{
 
     /**
      * The get_PhoneCapsLong method gets a DWORD capability of the phone, based on the PHONECAPS_LONG enum passed in. The application does not have to call ITPhone::Open before executing this method.
-     * @param {Integer} pclCap The 
+     * @param {PHONECAPS_LONG} pclCap The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/ne-tapi3if-phonecaps_long">PHONECAPS_LONG</a> descriptor for the phone capability.
      * @returns {Integer} Capability value.
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itphone-get_phonecapslong
@@ -189,7 +188,7 @@ class ITPhone extends IDispatch{
 
     /**
      * The get_PhoneCapsString method gets a string capability/information about the phone, based on the PHONECAPS_STRING enum passed in. The application does not have to call ITPhone::Open before executing this method.
-     * @param {Integer} pcsCap The 
+     * @param {PHONECAPS_STRING} pcsCap The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/ne-tapi3if-phonecaps_string">PHONECAPS_STRING</a> descriptor for the phone capability.
      * @returns {BSTR} Capability value. The <b>BSTR</b> is allocated using 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysallocstring">SysAllocString</a>. The <b>BSTR</b> argument should be deallocated by the client.
@@ -269,7 +268,7 @@ class ITPhone extends IDispatch{
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/ne-tapi3if-phone_button_mode">PHONE_BUTTON_MODE</a> value is PBM_KEYPAD, the button is a keypad button whose value is indicated by the value of the <i>lButtonID</i> parameter. For example, if <i>lButtonID</i> == 10 then the button is the * (star) key on the keypad.</li>
      * </ol>
      * @param {Integer} lButtonID Button identifier. For more information, see the following Remarks section.
-     * @returns {Integer} The 
+     * @returns {PHONE_BUTTON_MODE} The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/ne-tapi3if-phone_button_mode">PHONE_BUTTON_MODE</a> descriptor for the button's mode.
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itphone-get_buttonmode
      */
@@ -281,7 +280,7 @@ class ITPhone extends IDispatch{
     /**
      * The put_ButtonMode method sets the button mode.
      * @param {Integer} lButtonID Button identifier.
-     * @param {Integer} ButtonMode The 
+     * @param {PHONE_BUTTON_MODE} ButtonMode The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/ne-tapi3if-phone_button_mode">PHONE_BUTTON_MODE</a> descriptor for the button's mode.
      * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itphone-put_buttonmode
@@ -297,7 +296,7 @@ class ITPhone extends IDispatch{
      * See the description of the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/ne-tapi3if-phone_button_function">PHONE_BUTTON_FUNCTION</a> enum for a list of possible button functions.
      * @param {Integer} lButtonID Button identifier.
-     * @returns {Integer} The 
+     * @returns {PHONE_BUTTON_FUNCTION} The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/ne-tapi3if-phone_button_function">PHONE_BUTTON_FUNCTION</a> descriptor for the button's function.
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itphone-get_buttonfunction
      */
@@ -309,7 +308,7 @@ class ITPhone extends IDispatch{
     /**
      * The put_ButtonFunction method sets the button function.
      * @param {Integer} lButtonID Button identifier.
-     * @param {Integer} ButtonFunction The 
+     * @param {PHONE_BUTTON_FUNCTION} ButtonFunction The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/ne-tapi3if-phone_button_function">PHONE_BUTTON_FUNCTION</a> descriptor for the button's function.
      * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itphone-put_buttonfunction
@@ -349,7 +348,7 @@ class ITPhone extends IDispatch{
     /**
      * The get_ButtonState method retrieves the button state associated with a particular button.
      * @param {Integer} lButtonID Button identifier.
-     * @returns {Integer} The 
+     * @returns {PHONE_BUTTON_STATE} The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/ne-tapi3if-phone_button_state">PHONE_BUTTON_STATE</a> descriptor for the button's state.
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itphone-get_buttonstate
      */
@@ -360,9 +359,9 @@ class ITPhone extends IDispatch{
 
     /**
      * The get_HookSwitchState method retrieves the current hookswitch state for a particular hookswitch device on the phone.
-     * @param {Integer} HookSwitchDevice The 
+     * @param {PHONE_HOOK_SWITCH_DEVICE} HookSwitchDevice The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/ne-tapi3if-phone_hook_switch_device">PHONE_HOOK_SWITCH_DEVICE</a> descriptor for the hookswitch type.
-     * @returns {Integer} The 
+     * @returns {PHONE_HOOK_SWITCH_STATE} The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/ne-tapi3if-phone_hook_switch_state">PHONE_HOOK_SWITCH_STATE</a> descriptor for the hookswitch status.
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itphone-get_hookswitchstate
      */
@@ -375,9 +374,9 @@ class ITPhone extends IDispatch{
      * The put_HookSwitchState method sets the current hookswitch state for a particular hookswitch device on the phone.
      * @remarks
      * Typically, speakerphones and headsets have application-settable hookswitch states, and handsets do not, but this feature is TSP-dependent.
-     * @param {Integer} HookSwitchDevice The 
+     * @param {PHONE_HOOK_SWITCH_DEVICE} HookSwitchDevice The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/ne-tapi3if-phone_hook_switch_device">PHONE_HOOK_SWITCH_DEVICE</a> descriptor for the hookswitch type.
-     * @param {Integer} HookSwitchState The 
+     * @param {PHONE_HOOK_SWITCH_STATE} HookSwitchState The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/ne-tapi3if-phone_hook_switch_state">PHONE_HOOK_SWITCH_STATE</a> descriptor for the hookswitch status.
      * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itphone-put_hookswitchstate
@@ -433,7 +432,7 @@ class ITPhone extends IDispatch{
 
     /**
      * The get_Privilege method retrieves the privilege of the open phone.
-     * @returns {Integer} The 
+     * @returns {PHONE_PRIVILEGE} The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/ne-tapi3if-phone_privilege">PHONE_PRIVILEGE</a> descriptor for the application's privilege status with respect to the phone device.
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itphone-get_privilege
      */
@@ -444,7 +443,7 @@ class ITPhone extends IDispatch{
 
     /**
      * The GetPhoneCapsBuffer method gets a buffer capability/information about the phone, based on the PHONECAPS_BUFFER enum passed in.
-     * @param {Integer} pcbCaps The 
+     * @param {PHONECAPS_BUFFER} pcbCaps The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/ne-tapi3if-phonecaps_buffer">PHONECAPS_BUFFER</a> descriptor for the phone capability.
      * @param {Pointer<Integer>} pdwSize Size of the buffer, in bytes.
      * @param {Pointer<Pointer<Integer>>} ppPhoneCapsBuffer Pointer to the buffer containing the values.
@@ -461,7 +460,7 @@ class ITPhone extends IDispatch{
 
     /**
      * The get_PhoneCapsBuffer method gets a buffer capability/information about the phone, based on the PHONECAPS_BUFFER enum passed in.
-     * @param {Integer} pcbCaps The 
+     * @param {PHONECAPS_BUFFER} pcbCaps The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/ne-tapi3if-phonecaps_buffer">PHONECAPS_BUFFER</a> descriptor for the phone capability.
      * @returns {VARIANT} Pointer to VARIANT containing the capability value.
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itphone-get_phonecapsbuffer
@@ -475,7 +474,7 @@ class ITPhone extends IDispatch{
     /**
      * The get_LampMode method gets the current lamp mode for the given lamp.
      * @param {Integer} lLampID Lamp identifier.
-     * @returns {Integer} The 
+     * @returns {PHONE_LAMP_MODE} The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/ne-tapi3if-phone_lamp_mode">PHONE_LAMP_MODE</a> descriptor for the phone's lamp status.
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itphone-get_lampmode
      */
@@ -487,7 +486,7 @@ class ITPhone extends IDispatch{
     /**
      * The put_LampMode method sets the current lamp mode for the given lamp.
      * @param {Integer} lLampID Lamp identifier.
-     * @param {Integer} LampMode The 
+     * @param {PHONE_LAMP_MODE} LampMode The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/ne-tapi3if-phone_lamp_mode">PHONE_LAMP_MODE</a> descriptor for the phone's lamp status.
      * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itphone-put_lampmode

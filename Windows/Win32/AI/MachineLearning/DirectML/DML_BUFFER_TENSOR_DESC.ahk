@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\DML_TENSOR_DATA_TYPE.ahk
+#Include .\DML_TENSOR_FLAGS.ahk
 
 /**
  * Describes a tensor that will be stored in a Direct3D 12 buffer resource.
  * @see https://learn.microsoft.com/windows/win32/api/directml/ns-directml-dml_buffer_tensor_desc
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
- * @version v4.0.30319
  */
-class DML_BUFFER_TENSOR_DESC extends Win32Struct
-{
+class DML_BUFFER_TENSOR_DESC extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -17,7 +17,7 @@ class DML_BUFFER_TENSOR_DESC extends Win32Struct
      * Type: [**DML_TENSOR_DATA_TYPE**](/windows/win32/api/directml/ne-directml-dml_tensor_data_type)
      * 
      * The type of the values in the tensor.
-     * @type {Integer}
+     * @type {DML_TENSOR_DATA_TYPE}
      */
     DataType {
         get => NumGet(this, 0, "int")
@@ -28,7 +28,7 @@ class DML_BUFFER_TENSOR_DESC extends Win32Struct
      * Type: [**DML_TENSOR_FLAGS**](/windows/win32/api/directml/ne-directml-dml_tensor_flags)
      * 
      * Specifies additional options for the tensor.
-     * @type {Integer}
+     * @type {DML_TENSOR_FLAGS}
      */
     Flags {
         get => NumGet(this, 4, "int")

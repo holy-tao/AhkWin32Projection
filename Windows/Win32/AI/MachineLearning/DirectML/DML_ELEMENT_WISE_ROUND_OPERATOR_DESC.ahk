@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\DML_TENSOR_DESC.ahk
+#Include .\DML_ROUNDING_MODE.ahk
 
 /**
  * Rounds each element of *InputTensor* to an integer value, placing the result into the corresponding element of *OutputTensor*.
  * @see https://learn.microsoft.com/windows/win32/api/directml/ns-directml-dml_element_wise_round_operator_desc
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
- * @version v4.0.30319
  */
-class DML_ELEMENT_WISE_ROUND_OPERATOR_DESC extends Win32Struct
-{
+class DML_ELEMENT_WISE_ROUND_OPERATOR_DESC extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -43,7 +43,7 @@ class DML_ELEMENT_WISE_ROUND_OPERATOR_DESC extends Win32Struct
      * * If **DML_ROUNDING_MODE_HALVES_TO_NEAREST_EVEN**: values are rounded to the nearest integer, with halfway values (for example, 0.5) being rounded toward the nearest even integer.
      * * If **DML_ROUNDING_MODE_TOWARD_ZERO**: values are rounded toward zero. This effectively truncates the fractional part.
      * * If **DML_ROUNDING_MODE_TOWARD_INFINITY**: values are rounded to the nearest integer, with halfway values (for example, 0.5) being rounded away from zero (toward positive or negative infinity, depending on the sign of the value).
-     * @type {Integer}
+     * @type {DML_ROUNDING_MODE}
      */
     RoundingMode {
         get => NumGet(this, 16, "int")

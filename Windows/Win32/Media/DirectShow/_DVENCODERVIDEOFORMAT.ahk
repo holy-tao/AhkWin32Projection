@@ -5,9 +5,8 @@
  * Indicates the video standard (NTSC or PAL) for digital video (DV) encoding.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/ne-strmif-_dvencodervideoformat
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class _DVENCODERVIDEOFORMAT extends Win32Enum{
+class _DVENCODERVIDEOFORMAT extends Win32Enum {
 
     /**
      * National Television Standards Committee (NTSC)

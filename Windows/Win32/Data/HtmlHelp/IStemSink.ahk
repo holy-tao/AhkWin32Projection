@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Data.HtmlHelp
- * @version v4.0.30319
  */
-class IStemSink extends IUnknown{
+class IStemSink extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Security.WinTrust
- * @version v4.0.30319
  */
-class SEALING_TIMESTAMP_ATTRIBUTE extends Win32Struct
-{
+class SEALING_TIMESTAMP_ATTRIBUTE extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -31,7 +29,7 @@ class SEALING_TIMESTAMP_ATTRIBUTE extends Win32Struct
     /**
      * @type {CRYPT_INTEGER_BLOB}
      */
-    sealTimeStampToken{
+    sealTimeStampToken {
         get {
             if(!this.HasProp("__sealTimeStampToken"))
                 this.__sealTimeStampToken := CRYPT_INTEGER_BLOB(8, this)

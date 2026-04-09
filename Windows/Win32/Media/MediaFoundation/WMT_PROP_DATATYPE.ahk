@@ -7,9 +7,8 @@
  * Most properties are accessed by using the methods of the <b>IPropertyBag</b> interface. The data types of those properties are defined as constants used with <b>VARIANTARG</b> values.
  * @see https://learn.microsoft.com/windows/win32/api/wmcodecdsp/ne-wmcodecdsp-wmt_prop_datatype
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class WMT_PROP_DATATYPE extends Win32Enum{
+class WMT_PROP_DATATYPE extends Win32Enum {
 
     /**
      * Specifies a double-word value.

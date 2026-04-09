@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\WS_XML_STRING.ahk
+#Include .\WS_XML_DICTIONARY.ahk
+#Include .\WS_XML_TEXT.ahk
 
 /**
  * This type is used to store an attribute that has not been directly mapped to a field.
@@ -8,10 +10,8 @@
  * This structure is used with <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_any_attributes">WS_ANY_ATTRIBUTES</a>.
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_any_attribute
  * @namespace Windows.Win32.Networking.WindowsWebServices
- * @version v4.0.30319
  */
-class WS_ANY_ATTRIBUTE extends Win32Struct
-{
+class WS_ANY_ATTRIBUTE extends Win32Struct {
     static sizeof => 72
 
     static packingSize => 8
@@ -20,7 +20,7 @@ class WS_ANY_ATTRIBUTE extends Win32Struct
      * Specifies the localName of the attribute.
      * @type {WS_XML_STRING}
      */
-    localName{
+    localName {
         get {
             if(!this.HasProp("__localName"))
                 this.__localName := WS_XML_STRING(0, this)
@@ -32,7 +32,7 @@ class WS_ANY_ATTRIBUTE extends Win32Struct
      * Specifies the namespace of the attribute.
      * @type {WS_XML_STRING}
      */
-    ns{
+    ns {
         get {
             if(!this.HasProp("__ns"))
                 this.__ns := WS_XML_STRING(32, this)

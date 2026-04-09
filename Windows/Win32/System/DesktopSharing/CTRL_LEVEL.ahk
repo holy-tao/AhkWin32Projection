@@ -5,9 +5,8 @@
  * Defines the level of control that an attendee has on a session.
  * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/ne-rdpencomapi-ctrl_level
  * @namespace Windows.Win32.System.DesktopSharing
- * @version v4.0.30319
  */
-class CTRL_LEVEL extends Win32Enum{
+class CTRL_LEVEL extends Win32Enum {
 
     /**
      * Minimum enumeration value.

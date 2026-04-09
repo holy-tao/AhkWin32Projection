@@ -36,9 +36,8 @@
  * </table>
  * @see https://learn.microsoft.com/windows/win32/api/rend/ne-rend-rnd_advertising_scope
  * @namespace Windows.Win32.Devices.Tapi
- * @version v4.0.30319
  */
-class RND_ADVERTISING_SCOPE extends Win32Enum{
+class RND_ADVERTISING_SCOPE extends Win32Enum {
 
     /**
      * Advertising scope is local.

@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.ClrHosting
- * @version v4.0.30319
  */
-class ICLRMetaHostPolicy extends IUnknown{
+class ICLRMetaHostPolicy extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -30,7 +29,7 @@ class ICLRMetaHostPolicy extends IUnknown{
 
     /**
      * 
-     * @param {Integer} dwPolicyFlags 
+     * @param {METAHOST_POLICY_FLAGS} dwPolicyFlags 
      * @param {PWSTR} pwzBinary 
      * @param {IStream} pCfgStream 
      * @param {PWSTR} pwzVersion 

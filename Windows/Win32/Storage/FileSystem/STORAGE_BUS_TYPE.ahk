@@ -5,9 +5,8 @@
  * Specifies the various types of storage buses.
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ne-winioctl-storage_bus_type
  * @namespace Windows.Win32.Storage.FileSystem
- * @version v4.0.30319
  */
-class STORAGE_BUS_TYPE extends Win32Enum{
+class STORAGE_BUS_TYPE extends Win32Enum {
 
     /**
      * Unknown bus type.
@@ -64,7 +63,6 @@ class STORAGE_BUS_TYPE extends Win32Enum{
     static BusTypeRAID => 8
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static BusTypeiScsi => 9
@@ -86,49 +84,41 @@ class STORAGE_BUS_TYPE extends Win32Enum{
     static BusTypeSata => 11
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static BusTypeSd => 12
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static BusTypeMmc => 13
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static BusTypeVirtual => 14
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static BusTypeFileBackedVirtual => 15
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static BusTypeSpaces => 16
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static BusTypeNvme => 17
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static BusTypeSCM => 18
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static BusTypeUfs => 19
@@ -139,13 +129,11 @@ class STORAGE_BUS_TYPE extends Win32Enum{
     static BusTypeNvmeof => 20
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static BusTypeMax => 21
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static BusTypeMaxReserved => 127

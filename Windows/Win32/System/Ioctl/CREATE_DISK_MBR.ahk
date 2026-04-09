@@ -9,10 +9,8 @@
  * <a href="https://docs.microsoft.com/windows/desktop/api/winioctl/ns-winioctl-create_disk">CREATE_DISK</a> structure.
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-create_disk_mbr
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class CREATE_DISK_MBR extends Win32Struct
-{
+class CREATE_DISK_MBR extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 4

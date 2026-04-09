@@ -1,20 +1,20 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\M128A.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug
- * @version v4.0.30319
+ * @architecture X64
  */
-class KNONVOLATILE_CONTEXT_POINTERS extends Win32Struct
-{
+class KNONVOLATILE_CONTEXT_POINTERS extends Win32Struct {
     static sizeof => 256
 
     static packingSize => 8
 
     /**
-     * @type {Array<M128A>}
+     * @type {Array<Pointer<M128A>>}
      */
-    FloatingContext{
+    FloatingContext {
         get {
             if(!this.HasProp("__FloatingContextProxyArray"))
                 this.__FloatingContextProxyArray := Win32FixedArray(this.ptr + 0, 16, Primitive, "ptr")
@@ -151,9 +151,9 @@ class KNONVOLATILE_CONTEXT_POINTERS extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt64>}
+     * @type {Array<Pointer<Integer>>}
      */
-    IntegerContext{
+    IntegerContext {
         get {
             if(!this.HasProp("__IntegerContextProxyArray"))
                 this.__IntegerContextProxyArray := Win32FixedArray(this.ptr + 128, 16, Primitive, "ptr")

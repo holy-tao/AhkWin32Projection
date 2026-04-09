@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.Display
- * @version v4.0.30319
  */
-class BRIGHTNESS_INTERFACE_VERSION extends Win32Enum{
+class BRIGHTNESS_INTERFACE_VERSION extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

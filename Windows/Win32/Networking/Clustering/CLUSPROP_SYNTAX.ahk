@@ -10,10 +10,8 @@
  *      defines a type that the application cannot understand.
  * @see https://learn.microsoft.com/windows/win32/api/clusapi/ns-clusapi-clusprop_syntax
  * @namespace Windows.Win32.Networking.Clustering
- * @version v4.0.30319
  */
-class CLUSPROP_SYNTAX extends Win32Struct
-{
+class CLUSPROP_SYNTAX extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4

@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ISpEventSource.ahk
 #Include .\ISpObjectToken.ahk
 #Include .\ISpStreamFormat.ahk
 #Include ..\..\Foundation\HANDLE.ahk
-#Include .\ISpEventSource.ahk
 
 /**
  * @namespace Windows.Win32.Media.Speech
- * @version v4.0.30319
  */
-class ISpVoice extends ISpEventSource{
+class ISpVoice extends ISpEventSource {
 
     static sizeof => A_PtrSize
     /**
@@ -188,7 +187,7 @@ class ISpVoice extends ISpEventSource{
      * If a process is in background processing mode, the new threads it creates will also be in background processing mode. When a thread is in background processing mode, it should minimize sharing resources such as critical sections, heaps, and handles with other threads in the process, otherwise priority inversions can occur. If there are threads executing at high priority, a thread in background processing mode may not be scheduled promptly, but it will never be starved.
      * 
      * Each  thread can enter background processing mode independently using <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-setthreadpriority">SetThreadPriority</a>. Do not call <b>SetPriorityClass</b> to enter background processing mode after a thread in the process has called <b>SetThreadPriority</b> to enter background processing mode. After a process ends background processing mode, it resets all threads in the process; however, it is not possible for the process to know which threads were already in background processing mode.
-     * @param {Integer} ePriority 
+     * @param {SPVPRIORITY} ePriority 
      * @returns {HRESULT} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -208,7 +207,7 @@ class ISpVoice extends ISpEventSource{
      * For a table that shows the base priority levels for each combination of priority class and thread priority value, see <a href="https://docs.microsoft.com/windows/desktop/ProcThread/scheduling-priorities">Scheduling Priorities</a>.
      * 
      * Priority class is maintained by the executive, so all processes have a priority class that can be queried.
-     * @param {Pointer<Integer>} pePriority 
+     * @param {Pointer<SPVPRIORITY>} pePriority 
      * @returns {HRESULT} If the function succeeds, the return value is the priority class of the specified process.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -305,7 +304,7 @@ class ISpVoice extends ISpEventSource{
 
     /**
      * 
-     * @param {Integer} eBoundary 
+     * @param {SPEVENTENUM} eBoundary 
      * @returns {HRESULT} 
      */
     SetAlertBoundary(eBoundary) {
@@ -315,7 +314,7 @@ class ISpVoice extends ISpEventSource{
 
     /**
      * 
-     * @param {Pointer<Integer>} peBoundary 
+     * @param {Pointer<SPEVENTENUM>} peBoundary 
      * @returns {HRESULT} 
      */
     GetAlertBoundary(peBoundary) {

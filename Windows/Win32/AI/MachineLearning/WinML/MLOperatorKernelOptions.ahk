@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.AI.MachineLearning.WinML
- * @version v4.0.30319
  */
-class MLOperatorKernelOptions extends Win32BitflagEnum{
+class MLOperatorKernelOptions extends Win32BitflagEnum {
 
     /**
      * @type {Integer (UInt32)}

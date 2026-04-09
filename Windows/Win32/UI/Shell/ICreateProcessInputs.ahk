@@ -11,9 +11,8 @@
  * A pointer to this interface is passed to <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-icreatingprocess-oncreating">ICreatingProcess::OnCreating</a>.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-icreateprocessinputs
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class ICreateProcessInputs extends IUnknown{
+class ICreateProcessInputs extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

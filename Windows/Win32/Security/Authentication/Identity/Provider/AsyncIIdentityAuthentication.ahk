@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity.Provider
- * @version v4.0.30319
  */
-class AsyncIIdentityAuthentication extends IUnknown{
+class AsyncIIdentityAuthentication extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -6,10 +6,8 @@
  * Used to pass information about a user for logon subauthentication.
  * @see https://learn.microsoft.com/windows/win32/api/subauth/ns-subauth-netlogon_logon_identity_info
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class NETLOGON_LOGON_IDENTITY_INFO extends Win32Struct
-{
+class NETLOGON_LOGON_IDENTITY_INFO extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 8
@@ -19,7 +17,7 @@ class NETLOGON_LOGON_IDENTITY_INFO extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/subauth/ns-subauth-unicode_string">UNICODE_STRING</a> containing the name of the logon domain. The specified domain name must be a domain that is trusted by this machine. If the logon domain is unknown, such as a down-level client that does not supply this information, this member should be <b>NULL</b>.
      * @type {LSA_UNICODE_STRING}
      */
-    LogonDomainName{
+    LogonDomainName {
         get {
             if(!this.HasProp("__LogonDomainName"))
                 this.__LogonDomainName := LSA_UNICODE_STRING(0, this)
@@ -72,7 +70,7 @@ class NETLOGON_LOGON_IDENTITY_INFO extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/subauth/ns-subauth-unicode_string">UNICODE_STRING</a> identifying the account name of the user attempting to log on.
      * @type {LSA_UNICODE_STRING}
      */
-    UserName{
+    UserName {
         get {
             if(!this.HasProp("__UserName"))
                 this.__UserName := LSA_UNICODE_STRING(32, this)
@@ -84,7 +82,7 @@ class NETLOGON_LOGON_IDENTITY_INFO extends Win32Struct
      * Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/subauth/ns-subauth-unicode_string">UNICODE_STRING</a> identifying the workstation from which the user is attempting to log on. <b>NULL</b> indicates that the workstation identity is unknown.
      * @type {LSA_UNICODE_STRING}
      */
-    Workstation{
+    Workstation {
         get {
             if(!this.HasProp("__Workstation"))
                 this.__Workstation := LSA_UNICODE_STRING(48, this)

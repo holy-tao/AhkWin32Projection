@@ -7,9 +7,8 @@
  * The IMultiQI (objidlbase.h) interface enables a client to query an object proxy, or handler, for multiple interfaces by using a single RPC call.
  * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nn-objidlbase-imultiqi
  * @namespace Windows.Win32.System.Com
- * @version v4.0.30319
  */
-class IMultiQI extends IUnknown{
+class IMultiQI extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

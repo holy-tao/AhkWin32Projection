@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\IEnumVdsObject.ahk
 #Include .\IVdsAsync.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * The IVdsHwProviderStoragePools interface (vdshwprv.h) provides methods to create LUNs in a storage pool and enumerate the storage pools managed by a hardware provider.
  * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nn-vdshwprv-ivdshwproviderstoragepools
  * @namespace Windows.Win32.Storage.VirtualDiskService
- * @version v4.0.30319
  */
-class IVdsHwProviderStoragePools extends IUnknown{
+class IVdsHwProviderStoragePools extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -72,7 +71,7 @@ class IVdsHwProviderStoragePools extends IUnknown{
      *     <b>CreateLunInStoragePool</b> method exposes the ability to 
      *     create many different types of LUNs (for example, simple, mirror, striped, and parity). However, providers are not required to support all 
      *     types of LUNs. If the caller specifies a value for the <i>type</i> parameter that is not a valid <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ne-vdshwprv-vds_lun_type">VDS_LUN_TYPE</a> enumeration value, the provider should return <b>E_INVALIDARG</b>. If the caller specifies a valid <i>type</i> value that the provider does not support, the provider should return VDS_E_NOT_SUPPORTED.
-     * @param {Integer} type A <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ne-vdshwprv-vds_lun_type">VDS_LUN_TYPE</a> enumeration value that specifies the type of LUN to be created. The new 
+     * @param {VDS_LUN_TYPE} type A <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ne-vdshwprv-vds_lun_type">VDS_LUN_TYPE</a> enumeration value that specifies the type of LUN to be created. The new 
      *       LUN can be an automagic type or a specific RAID type, but not both. If the caller specifies an automagic type, one or more automagic hints should be specified in the <i>pHints2</i> parameter. 
      * 
      * The interface pointer for the new 
@@ -128,7 +127,7 @@ class IVdsHwProviderStoragePools extends IUnknown{
 
     /**
      * The IVdsHwProviderStoragePools::QueryMaxLunCreateSizeInStoragePool (vdshwprv.h) method returns the maximum size of the LUN that can be created in the storage pool based on the specified LUN type and hints.
-     * @param {Integer} type A <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ne-vdshwprv-vds_lun_type">VDS_LUN_TYPE</a> enumeration value that specifies the LUN type. This parameter is required and must be a valid LUN type.
+     * @param {VDS_LUN_TYPE} type A <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ne-vdshwprv-vds_lun_type">VDS_LUN_TYPE</a> enumeration value that specifies the LUN type. This parameter is required and must be a valid LUN type.
      * @param {Guid} StoragePoolId A VDS_OBJECT_ID (GUID) value that identifies the storage pools to be used to create the new LUN. This parameter is required and cannot be GUID_NULL.
      * @param {Pointer<VDS_HINTS2>} pHints2 A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ns-vdshwprv-vds_hints2">VDS_HINTS2</a> structure that contains hints to be used in creating the LUN.
      * @returns {Integer} The address of a ULONGLONG value that receives the maximum LUN size, in bytes.

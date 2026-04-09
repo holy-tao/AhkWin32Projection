@@ -7,9 +7,8 @@
  * Queries an object for the number of quality modes it supports.
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imfqualityadviselimits
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFQualityAdviseLimits extends IUnknown{
+class IMFQualityAdviseLimits extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -34,7 +33,7 @@ class IMFQualityAdviseLimits extends IUnknown{
      * Gets the maximum drop mode.
      * @remarks
      * To get the current drop mode, call the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-imfqualityadvise-getdropmode">IMFQualityAdvise::GetDropMode</a> method. To set the drop mode, call the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-imfqualityadvise-setdropmode">IMFQualityAdvise::SetDropMode</a> method.
-     * @returns {Integer} Receives the maximum drop mode, specified as a member of the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/ne-mfidl-mf_quality_drop_mode">MF_QUALITY_DROP_MODE</a> enumeration.
+     * @returns {MF_QUALITY_DROP_MODE} Receives the maximum drop mode, specified as a member of the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/ne-mfidl-mf_quality_drop_mode">MF_QUALITY_DROP_MODE</a> enumeration.
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfqualityadviselimits-getmaximumdropmode
      */
     GetMaximumDropMode() {
@@ -46,7 +45,7 @@ class IMFQualityAdviseLimits extends IUnknown{
      * Gets the minimum quality level that is supported by the component.
      * @remarks
      * To get the current quality level, call the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-imfqualityadvise-getqualitylevel">IMFQualityAdvise::GetQualityLevel</a> method. To set the quality level, call the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-imfqualityadvise-setqualitylevel">IMFQualityAdvise::SetQualityLevel</a> method.
-     * @returns {Integer} Receives the minimum quality level, specified as a member of the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/ne-mfidl-mf_quality_level">MF_QUALITY_LEVEL</a> enumeration.
+     * @returns {MF_QUALITY_LEVEL} Receives the minimum quality level, specified as a member of the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/ne-mfidl-mf_quality_level">MF_QUALITY_LEVEL</a> enumeration.
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfqualityadviselimits-getminimumqualitylevel
      */
     GetMinimumQualityLevel() {

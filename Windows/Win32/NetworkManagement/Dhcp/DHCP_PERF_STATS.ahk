@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Dhcp
- * @version v4.0.30319
  */
-class DHCP_PERF_STATS extends Win32Struct
-{
+class DHCP_PERF_STATS extends Win32Struct {
     static sizeof => 76
 
     static packingSize => 4

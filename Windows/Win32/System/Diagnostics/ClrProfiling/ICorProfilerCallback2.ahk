@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.ClrProfiling
- * @version v4.0.30319
  */
-class ICorProfilerCallback2 extends ICorProfilerCallback{
+class ICorProfilerCallback2 extends ICorProfilerCallback {
 
     static sizeof => A_PtrSize
     /**
@@ -46,7 +45,7 @@ class ICorProfilerCallback2 extends ICorProfilerCallback{
      * 
      * @param {Integer} cGenerations 
      * @param {Pointer<BOOL>} generationCollected 
-     * @param {Integer} reason 
+     * @param {COR_PRF_GC_REASON} reason 
      * @returns {HRESULT} 
      */
     GarbageCollectionStarted(cGenerations, generationCollected, reason) {
@@ -95,8 +94,8 @@ class ICorProfilerCallback2 extends ICorProfilerCallback{
      * 
      * @param {Integer} cRootRefs 
      * @param {Pointer<Pointer>} rootRefIds 
-     * @param {Pointer<Integer>} rootKinds 
-     * @param {Pointer<Integer>} rootFlags 
+     * @param {Pointer<COR_PRF_GC_ROOT_KIND>} rootKinds 
+     * @param {Pointer<COR_PRF_GC_ROOT_FLAGS>} rootFlags 
      * @param {Pointer<Pointer>} rootIds 
      * @returns {HRESULT} 
      */

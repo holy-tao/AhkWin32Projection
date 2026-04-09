@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Foundation.Metadata
- * @version v4.0.30319
  */
-class Architecture extends Win32BitflagEnum{
+class Architecture extends Win32BitflagEnum {
 
     /**
      * @type {Integer (Int32)}

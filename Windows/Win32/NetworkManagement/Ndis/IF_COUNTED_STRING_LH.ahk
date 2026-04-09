@@ -9,10 +9,8 @@
  * If the string is NULL-terminated, the <b>Length</b> member must not include the terminating NULL character.
  * @see https://learn.microsoft.com/windows/win32/api/ifdef/ns-ifdef-if_counted_string_lh
  * @namespace Windows.Win32.NetworkManagement.Ndis
- * @version v4.0.30319
  */
-class IF_COUNTED_STRING_LH extends Win32Struct
-{
+class IF_COUNTED_STRING_LH extends Win32Struct {
     static sizeof => 516
 
     static packingSize => 2

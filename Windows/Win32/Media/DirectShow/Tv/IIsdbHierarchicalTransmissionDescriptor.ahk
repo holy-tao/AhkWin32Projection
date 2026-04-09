@@ -7,9 +7,8 @@
  * Implements methods that get data from an Integrated Services Digital Broadcasting (ISDB) hierarchical transmission descriptor.
  * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nn-dvbsiparser-iisdbhierarchicaltransmissiondescriptor
  * @namespace Windows.Win32.Media.DirectShow.Tv
- * @version v4.0.30319
  */
-class IIsdbHierarchicalTransmissionDescriptor extends IUnknown{
+class IIsdbHierarchicalTransmissionDescriptor extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

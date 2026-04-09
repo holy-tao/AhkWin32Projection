@@ -7,10 +7,8 @@
  * Data for a single glyph from GetGlyphImageData.
  * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/ns-dwrite_3-dwrite_glyph_image_data
  * @namespace Windows.Win32.Graphics.DirectWrite
- * @version v4.0.30319
  */
-class DWRITE_GLYPH_IMAGE_DATA extends Win32Struct
-{
+class DWRITE_GLYPH_IMAGE_DATA extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 8
@@ -56,7 +54,7 @@ class DWRITE_GLYPH_IMAGE_DATA extends Win32Struct
      * Size of image when the format is pixel data.
      * @type {D2D_SIZE_U}
      */
-    pixelSize{
+    pixelSize {
         get {
             if(!this.HasProp("__pixelSize"))
                 this.__pixelSize := D2D_SIZE_U(20, this)
@@ -68,7 +66,7 @@ class DWRITE_GLYPH_IMAGE_DATA extends Win32Struct
      * Left origin along the horizontal Roman baseline.
      * @type {POINT}
      */
-    horizontalLeftOrigin{
+    horizontalLeftOrigin {
         get {
             if(!this.HasProp("__horizontalLeftOrigin"))
                 this.__horizontalLeftOrigin := POINT(28, this)
@@ -80,7 +78,7 @@ class DWRITE_GLYPH_IMAGE_DATA extends Win32Struct
      * Right origin along the horizontal Roman baseline.
      * @type {POINT}
      */
-    horizontalRightOrigin{
+    horizontalRightOrigin {
         get {
             if(!this.HasProp("__horizontalRightOrigin"))
                 this.__horizontalRightOrigin := POINT(36, this)
@@ -92,7 +90,7 @@ class DWRITE_GLYPH_IMAGE_DATA extends Win32Struct
      * Top origin along the vertical central baseline.
      * @type {POINT}
      */
-    verticalTopOrigin{
+    verticalTopOrigin {
         get {
             if(!this.HasProp("__verticalTopOrigin"))
                 this.__verticalTopOrigin := POINT(44, this)
@@ -104,7 +102,7 @@ class DWRITE_GLYPH_IMAGE_DATA extends Win32Struct
      * Bottom origin along vertical central baseline.
      * @type {POINT}
      */
-    verticalBottomOrigin{
+    verticalBottomOrigin {
         get {
             if(!this.HasProp("__verticalBottomOrigin"))
                 this.__verticalBottomOrigin := POINT(52, this)

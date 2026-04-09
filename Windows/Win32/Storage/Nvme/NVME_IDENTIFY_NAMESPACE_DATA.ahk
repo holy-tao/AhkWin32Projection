@@ -5,14 +5,10 @@
 
 /**
  * Contains values that indicate capabilities and settings that are specific to a particular namespace.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/nvme/ns-nvme-nvme_identify_namespace_data
  * @namespace Windows.Win32.Storage.Nvme
- * @version v4.0.30319
  */
-class NVME_IDENTIFY_NAMESPACE_DATA extends Win32Struct
-{
+class NVME_IDENTIFY_NAMESPACE_DATA extends Win32Struct {
     static sizeof => 4360
 
     static packingSize => 8
@@ -35,7 +31,7 @@ class NVME_IDENTIFY_NAMESPACE_DATA extends Win32Struct
             get => NumGet(this, 0, "char")
             set => NumPut("char", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -43,7 +39,7 @@ class NVME_IDENTIFY_NAMESPACE_DATA extends Win32Struct
             get => (this._bitfield >> 0) & 0x1
             set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -51,7 +47,7 @@ class NVME_IDENTIFY_NAMESPACE_DATA extends Win32Struct
             get => (this._bitfield >> 1) & 0x1
             set => this._bitfield := ((value & 0x1) << 1) | (this._bitfield & ~(0x1 << 1))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -59,7 +55,7 @@ class NVME_IDENTIFY_NAMESPACE_DATA extends Win32Struct
             get => (this._bitfield >> 2) & 0x1
             set => this._bitfield := ((value & 0x1) << 2) | (this._bitfield & ~(0x1 << 2))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -67,7 +63,7 @@ class NVME_IDENTIFY_NAMESPACE_DATA extends Win32Struct
             get => (this._bitfield >> 3) & 0x1
             set => this._bitfield := ((value & 0x1) << 3) | (this._bitfield & ~(0x1 << 3))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -75,7 +71,6 @@ class NVME_IDENTIFY_NAMESPACE_DATA extends Win32Struct
             get => (this._bitfield >> 4) & 0x1
             set => this._bitfield := ((value & 0x1) << 4) | (this._bitfield & ~(0x1 << 4))
         }
-    
     }
 
     class _FLBAS extends Win32Struct {
@@ -94,7 +89,7 @@ class NVME_IDENTIFY_NAMESPACE_DATA extends Win32Struct
             get => NumGet(this, 0, "char")
             set => NumPut("char", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -102,7 +97,7 @@ class NVME_IDENTIFY_NAMESPACE_DATA extends Win32Struct
             get => (this._bitfield >> 0) & 0xF
             set => this._bitfield := ((value & 0xF) << 0) | (this._bitfield & ~(0xF << 0))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -110,7 +105,7 @@ class NVME_IDENTIFY_NAMESPACE_DATA extends Win32Struct
             get => (this._bitfield >> 4) & 0x1
             set => this._bitfield := ((value & 0x1) << 4) | (this._bitfield & ~(0x1 << 4))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -118,7 +113,6 @@ class NVME_IDENTIFY_NAMESPACE_DATA extends Win32Struct
             get => (this._bitfield >> 5) & 0x3
             set => this._bitfield := ((value & 0x3) << 5) | (this._bitfield & ~(0x3 << 5))
         }
-    
     }
 
     class _MC extends Win32Struct {
@@ -136,7 +130,7 @@ class NVME_IDENTIFY_NAMESPACE_DATA extends Win32Struct
             get => NumGet(this, 0, "char")
             set => NumPut("char", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -144,7 +138,7 @@ class NVME_IDENTIFY_NAMESPACE_DATA extends Win32Struct
             get => (this._bitfield >> 0) & 0x1
             set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -152,7 +146,6 @@ class NVME_IDENTIFY_NAMESPACE_DATA extends Win32Struct
             get => (this._bitfield >> 1) & 0x1
             set => this._bitfield := ((value & 0x1) << 1) | (this._bitfield & ~(0x1 << 1))
         }
-    
     }
 
     class _DPC extends Win32Struct {
@@ -173,7 +166,7 @@ class NVME_IDENTIFY_NAMESPACE_DATA extends Win32Struct
             get => NumGet(this, 0, "char")
             set => NumPut("char", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -181,7 +174,7 @@ class NVME_IDENTIFY_NAMESPACE_DATA extends Win32Struct
             get => (this._bitfield >> 0) & 0x1
             set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -189,7 +182,7 @@ class NVME_IDENTIFY_NAMESPACE_DATA extends Win32Struct
             get => (this._bitfield >> 1) & 0x1
             set => this._bitfield := ((value & 0x1) << 1) | (this._bitfield & ~(0x1 << 1))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -197,7 +190,7 @@ class NVME_IDENTIFY_NAMESPACE_DATA extends Win32Struct
             get => (this._bitfield >> 2) & 0x1
             set => this._bitfield := ((value & 0x1) << 2) | (this._bitfield & ~(0x1 << 2))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -205,7 +198,7 @@ class NVME_IDENTIFY_NAMESPACE_DATA extends Win32Struct
             get => (this._bitfield >> 3) & 0x1
             set => this._bitfield := ((value & 0x1) << 3) | (this._bitfield & ~(0x1 << 3))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -213,7 +206,6 @@ class NVME_IDENTIFY_NAMESPACE_DATA extends Win32Struct
             get => (this._bitfield >> 4) & 0x1
             set => this._bitfield := ((value & 0x1) << 4) | (this._bitfield & ~(0x1 << 4))
         }
-    
     }
 
     class _DPS extends Win32Struct {
@@ -231,7 +223,7 @@ class NVME_IDENTIFY_NAMESPACE_DATA extends Win32Struct
             get => NumGet(this, 0, "char")
             set => NumPut("char", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -239,7 +231,7 @@ class NVME_IDENTIFY_NAMESPACE_DATA extends Win32Struct
             get => (this._bitfield >> 0) & 0x7
             set => this._bitfield := ((value & 0x7) << 0) | (this._bitfield & ~(0x7 << 0))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -247,7 +239,6 @@ class NVME_IDENTIFY_NAMESPACE_DATA extends Win32Struct
             get => (this._bitfield >> 3) & 0x1
             set => this._bitfield := ((value & 0x1) << 3) | (this._bitfield & ~(0x1 << 3))
         }
-    
     }
 
     class _NMIC extends Win32Struct {
@@ -264,7 +255,7 @@ class NVME_IDENTIFY_NAMESPACE_DATA extends Win32Struct
             get => NumGet(this, 0, "char")
             set => NumPut("char", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -272,7 +263,6 @@ class NVME_IDENTIFY_NAMESPACE_DATA extends Win32Struct
             get => (this._bitfield >> 0) & 0x1
             set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
         }
-    
     }
 
     class _FPI extends Win32Struct {
@@ -289,7 +279,7 @@ class NVME_IDENTIFY_NAMESPACE_DATA extends Win32Struct
             get => NumGet(this, 0, "char")
             set => NumPut("char", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -297,7 +287,7 @@ class NVME_IDENTIFY_NAMESPACE_DATA extends Win32Struct
             get => (this._bitfield >> 0) & 0x7F
             set => this._bitfield := ((value & 0x7F) << 0) | (this._bitfield & ~(0x7F << 0))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -305,7 +295,6 @@ class NVME_IDENTIFY_NAMESPACE_DATA extends Win32Struct
             get => (this._bitfield >> 7) & 0x1
             set => this._bitfield := ((value & 0x1) << 7) | (this._bitfield & ~(0x1 << 7))
         }
-    
     }
 
     class _DLFEAT extends Win32Struct {
@@ -324,7 +313,7 @@ class NVME_IDENTIFY_NAMESPACE_DATA extends Win32Struct
             get => NumGet(this, 0, "char")
             set => NumPut("char", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -332,7 +321,7 @@ class NVME_IDENTIFY_NAMESPACE_DATA extends Win32Struct
             get => (this._bitfield >> 0) & 0x7
             set => this._bitfield := ((value & 0x7) << 0) | (this._bitfield & ~(0x7 << 0))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -340,7 +329,7 @@ class NVME_IDENTIFY_NAMESPACE_DATA extends Win32Struct
             get => (this._bitfield >> 3) & 0x1
             set => this._bitfield := ((value & 0x1) << 3) | (this._bitfield & ~(0x1 << 3))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -348,7 +337,6 @@ class NVME_IDENTIFY_NAMESPACE_DATA extends Win32Struct
             get => (this._bitfield >> 4) & 0x1
             set => this._bitfield := ((value & 0x1) << 4) | (this._bitfield & ~(0x1 << 4))
         }
-    
     }
 
     class _NSATTR extends Win32Struct {
@@ -365,7 +353,7 @@ class NVME_IDENTIFY_NAMESPACE_DATA extends Win32Struct
             get => NumGet(this, 0, "char")
             set => NumPut("char", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -373,7 +361,6 @@ class NVME_IDENTIFY_NAMESPACE_DATA extends Win32Struct
             get => (this._bitfield >> 0) & 0x1
             set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
         }
-    
     }
 
     /**
@@ -421,10 +408,10 @@ class NVME_IDENTIFY_NAMESPACE_DATA extends Win32Struct
      * A Namespace Features (NSFEAT) structure containing fields that define features of the namespace.
      * @type {_NSFEAT}
      */
-    NSFEAT{
+    NSFEAT {
         get {
             if(!this.HasProp("__NSFEAT"))
-                this.__NSFEAT := %this.__Class%._NSFEAT(24, this)
+                this.__NSFEAT := NVME_IDENTIFY_NAMESPACE_DATA._NSFEAT(24, this)
             return this.__NSFEAT
         }
     }
@@ -448,10 +435,10 @@ class NVME_IDENTIFY_NAMESPACE_DATA extends Win32Struct
      * A Formatted LBA Size (FLBAS) structure containing fields that indicate the LBA data size and metadata size combination that the namespace has been formatted with.
      * @type {_FLBAS}
      */
-    FLBAS{
+    FLBAS {
         get {
             if(!this.HasProp("__FLBAS"))
-                this.__FLBAS := %this.__Class%._FLBAS(26, this)
+                this.__FLBAS := NVME_IDENTIFY_NAMESPACE_DATA._FLBAS(26, this)
             return this.__FLBAS
         }
     }
@@ -460,10 +447,10 @@ class NVME_IDENTIFY_NAMESPACE_DATA extends Win32Struct
      * A Metadata Capabilities (MC) structure containing fields that indicate the capabilities for metadata.
      * @type {_MC}
      */
-    MC{
+    MC {
         get {
             if(!this.HasProp("__MC"))
-                this.__MC := %this.__Class%._MC(27, this)
+                this.__MC := NVME_IDENTIFY_NAMESPACE_DATA._MC(27, this)
             return this.__MC
         }
     }
@@ -474,10 +461,10 @@ class NVME_IDENTIFY_NAMESPACE_DATA extends Win32Struct
      * Multiple bits may be set in this field.
      * @type {_DPC}
      */
-    DPC{
+    DPC {
         get {
             if(!this.HasProp("__DPC"))
-                this.__DPC := %this.__Class%._DPC(28, this)
+                this.__DPC := NVME_IDENTIFY_NAMESPACE_DATA._DPC(28, this)
             return this.__DPC
         }
     }
@@ -488,10 +475,10 @@ class NVME_IDENTIFY_NAMESPACE_DATA extends Win32Struct
      * [NVME_PROTECTION_INFORMATION_TYPES](ne-nvme-nvme_protection_information_types.md)
      * @type {_DPS}
      */
-    DPS{
+    DPS {
         get {
             if(!this.HasProp("__DPS"))
-                this.__DPS := %this.__Class%._DPS(29, this)
+                this.__DPS := NVME_IDENTIFY_NAMESPACE_DATA._DPS(29, this)
             return this.__DPS
         }
     }
@@ -500,10 +487,10 @@ class NVME_IDENTIFY_NAMESPACE_DATA extends Win32Struct
      * A Namespace Multi-path I/O and Namespace Sharing Capabilities (NMIC) structure containing fields that specify the multi-path I/O and namespace sharing capabilities of the namespace.
      * @type {_NMIC}
      */
-    NMIC{
+    NMIC {
         get {
             if(!this.HasProp("__NMIC"))
-                this.__NMIC := %this.__Class%._NMIC(30, this)
+                this.__NMIC := NVME_IDENTIFY_NAMESPACE_DATA._NMIC(30, this)
             return this.__NMIC
         }
     }
@@ -514,7 +501,7 @@ class NVME_IDENTIFY_NAMESPACE_DATA extends Win32Struct
      * A value of `00h` in this field indicates that reservations are not supported by this namespace.
      * @type {NVM_RESERVATION_CAPABILITIES}
      */
-    RESCAP{
+    RESCAP {
         get {
             if(!this.HasProp("__RESCAP"))
                 this.__RESCAP := NVM_RESERVATION_CAPABILITIES(31, this)
@@ -526,10 +513,10 @@ class NVME_IDENTIFY_NAMESPACE_DATA extends Win32Struct
      * A Format Progress Indicator (FPI) structure containing fields that indicate the percentage of the namespace that remains to be formatted when a format operation is in progress.
      * @type {_FPI}
      */
-    FPI{
+    FPI {
         get {
             if(!this.HasProp("__FPI"))
-                this.__FPI := %this.__Class%._FPI(33, this)
+                this.__FPI := NVME_IDENTIFY_NAMESPACE_DATA._FPI(33, this)
             return this.__FPI
         }
     }
@@ -537,10 +524,10 @@ class NVME_IDENTIFY_NAMESPACE_DATA extends Win32Struct
     /**
      * @type {_DLFEAT}
      */
-    DLFEAT{
+    DLFEAT {
         get {
             if(!this.HasProp("__DLFEAT"))
-                this.__DLFEAT := %this.__Class%._DLFEAT(34, this)
+                this.__DLFEAT := NVME_IDENTIFY_NAMESPACE_DATA._DLFEAT(34, this)
             return this.__DLFEAT
         }
     }
@@ -630,9 +617,9 @@ class NVME_IDENTIFY_NAMESPACE_DATA extends Win32Struct
      * The value of this field is in bytes. This field is supported if the Namespace Management and Namespace Attachment commands are supported.
      * 
      * Note: This field may not correspond to the logical block size multiplied by the Namespace Size (**NSZE**) field. Due to thin provisioning or other settings (such as, endurance), this field may be larger or smaller than the **NSZE** reported.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    NVMCAP{
+    NVMCAP {
         get {
             if(!this.HasProp("__NVMCAPProxyArray"))
                 this.__NVMCAPProxyArray := Win32FixedArray(this.ptr + 50, 16, Primitive, "char")
@@ -706,9 +693,9 @@ class NVME_IDENTIFY_NAMESPACE_DATA extends Win32Struct
 
     /**
      * A reserved field.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Reserved2{
+    Reserved2 {
         get {
             if(!this.HasProp("__Reserved2ProxyArray"))
                 this.__Reserved2ProxyArray := Win32FixedArray(this.ptr + 85, 11, Primitive, "char")
@@ -726,9 +713,9 @@ class NVME_IDENTIFY_NAMESPACE_DATA extends Win32Struct
 
     /**
      * Bytes 192:383A are reserved.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Reserved3{
+    Reserved3 {
         get {
             if(!this.HasProp("__Reserved3ProxyArray"))
                 this.__Reserved3ProxyArray := Win32FixedArray(this.ptr + 100, 3, Primitive, "char")
@@ -739,10 +726,10 @@ class NVME_IDENTIFY_NAMESPACE_DATA extends Win32Struct
     /**
      * @type {_NSATTR}
      */
-    NSATTR{
+    NSATTR {
         get {
             if(!this.HasProp("__NSATTR"))
-                this.__NSATTR := %this.__Class%._NSATTR(103, this)
+                this.__NSATTR := NVME_IDENTIFY_NAMESPACE_DATA._NSATTR(103, this)
             return this.__NSATTR
         }
     }
@@ -777,9 +764,9 @@ class NVME_IDENTIFY_NAMESPACE_DATA extends Win32Struct
      * - Bytes 111:104 contain the vendor specific extension identifier assigned by the corresponding organization.
      * 
      * See the IEEE EUI-64 guidelines for more information. The controller should specify a globally unique namespace identifier in this field or the **EUI64** field when the namespace is created.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    NGUID{
+    NGUID {
         get {
             if(!this.HasProp("__NGUIDProxyArray"))
                 this.__NGUIDProxyArray := Win32FixedArray(this.ptr + 108, 16, Primitive, "char")
@@ -796,9 +783,9 @@ class NVME_IDENTIFY_NAMESPACE_DATA extends Win32Struct
      * organization. See the IEEE EUI-64 guidelines for more information.
      * 
      * The controller should specify a globally unique namespace identifier in this field or the **NGUID** field when the namespace is created. If the controller is not able to allocate a globally unique 64-bit identifier then this field will be cleared to `0h`.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    EUI64{
+    EUI64 {
         get {
             if(!this.HasProp("__EUI64ProxyArray"))
                 this.__EUI64ProxyArray := Win32FixedArray(this.ptr + 124, 8, Primitive, "char")
@@ -810,24 +797,24 @@ class NVME_IDENTIFY_NAMESPACE_DATA extends Win32Struct
      * Contains an array of 16 [NVME_LBA_FORMAT](ns-nvme-nvme_lba_format.md) structures. Each structure in the array specifies an LBA Format and indicates that it is supported by the controller.
      * 
      * The zero-based position of a structure in the array corresponds to the name of the LBA Format, such that LBA Format 0 (LBAF0) is in position 0, LBA Format 1 (LBAF1) is in position 1, and so on, up to LBA Format 15 (LBAF15) in position 15.
-     * @type {Array<NVME_LBA_FORMAT>}
+     * @type {NVME_LBA_FORMAT}
      */
-    LBAF{
+    LBAF {
         get {
             if(!this.HasProp("__LBAFProxyArray"))
-                this.__LBAFProxyArray := Win32FixedArray(this.ptr + 136, 64, NVME_LBA_FORMAT, "")
+                this.__LBAFProxyArray := Win32FixedArray(this.ptr + 132, 64, NVME_LBA_FORMAT, "")
             return this.__LBAFProxyArray
         }
     }
 
     /**
      * This range of bytes (384:4095) is allocated for Vendor Specific (VS) usage.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    VS{
+    VS {
         get {
             if(!this.HasProp("__VSProxyArray"))
-                this.__VSProxyArray := Win32FixedArray(this.ptr + 648, 3712, Primitive, "char")
+                this.__VSProxyArray := Win32FixedArray(this.ptr + 644, 3712, Primitive, "char")
             return this.__VSProxyArray
         }
     }

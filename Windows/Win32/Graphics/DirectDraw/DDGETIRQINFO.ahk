@@ -5,10 +5,8 @@
  * The DDGETIRQINFO structure contains interrupt information for the video miniport driver.
  * @see https://learn.microsoft.com/windows/win32/api/dxmini/ns-dxmini-ddgetirqinfo
  * @namespace Windows.Win32.Graphics.DirectDraw
- * @version v4.0.30319
  */
-class DDGETIRQINFO extends Win32Struct
-{
+class DDGETIRQINFO extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 4

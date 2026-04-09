@@ -8,10 +8,8 @@
  * The VMRMONITORINFO structure is used in the IVMRMonitorConfig::GetAvailableMonitors method to set and retrieve information about monitors on the system (VMR-7 only).
  * @see https://learn.microsoft.com/windows/win32/api/strmif/ns-strmif-vmrmonitorinfo
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class VMRMONITORINFO extends Win32Struct
-{
+class VMRMONITORINFO extends Win32Struct {
     static sizeof => 648
 
     static packingSize => 8
@@ -20,7 +18,7 @@ class VMRMONITORINFO extends Win32Struct
      * A [VMRGUID](/windows/desktop/api/strmif/ns-strmif-vmrguid) structure that specifies the monitor.
      * @type {VMRGUID}
      */
-    guid{
+    guid {
         get {
             if(!this.HasProp("__guid"))
                 this.__guid := VMRGUID(0, this)
@@ -32,7 +30,7 @@ class VMRMONITORINFO extends Win32Struct
      * The monitor rectangle.
      * @type {RECT}
      */
-    rcMonitor{
+    rcMonitor {
         get {
             if(!this.HasProp("__rcMonitor"))
                 this.__rcMonitor := RECT(16, this)
@@ -44,7 +42,7 @@ class VMRMONITORINFO extends Win32Struct
      * A handle to the monitor.
      * @type {HMONITOR}
      */
-    hMon{
+    hMon {
         get {
             if(!this.HasProp("__hMon"))
                 this.__hMon := HMONITOR(32, this)
@@ -80,7 +78,6 @@ class VMRMONITORINFO extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     liDriverVersion {
@@ -89,7 +86,6 @@ class VMRMONITORINFO extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     dwVendorId {
@@ -98,7 +94,6 @@ class VMRMONITORINFO extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     dwDeviceId {
@@ -107,7 +102,6 @@ class VMRMONITORINFO extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     dwSubSysId {
@@ -116,7 +110,6 @@ class VMRMONITORINFO extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     dwRevision {

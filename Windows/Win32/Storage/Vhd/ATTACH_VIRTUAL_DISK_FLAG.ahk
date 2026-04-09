@@ -5,9 +5,8 @@
  * Contains virtual disk attach request flags.
  * @see https://learn.microsoft.com/windows/win32/api/virtdisk/ne-virtdisk-attach_virtual_disk_flag
  * @namespace Windows.Win32.Storage.Vhd
- * @version v4.0.30319
  */
-class ATTACH_VIRTUAL_DISK_FLAG extends Win32BitflagEnum{
+class ATTACH_VIRTUAL_DISK_FLAG extends Win32BitflagEnum {
 
     /**
      * No flags. Use system defaults.
@@ -57,13 +56,11 @@ class ATTACH_VIRTUAL_DISK_FLAG extends Win32BitflagEnum{
     static ATTACH_VIRTUAL_DISK_FLAG_NO_LOCAL_HOST => 8
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static ATTACH_VIRTUAL_DISK_FLAG_NO_SECURITY_DESCRIPTOR => 16
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static ATTACH_VIRTUAL_DISK_FLAG_BYPASS_DEFAULT_ENCRYPTION_POLICY => 32

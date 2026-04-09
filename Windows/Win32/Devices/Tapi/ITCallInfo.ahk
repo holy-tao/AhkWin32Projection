@@ -1,19 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include .\ITAddress.ahk
 #Include .\ITCallHub.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * The ITCallInfo interface gets and sets a variety of information concerning a Call object. The ITAddress::get_Calls and IEnumCall::Next methods create the ITCallInfo interface.
  * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nn-tapi3if-itcallinfo
  * @namespace Windows.Win32.Devices.Tapi
- * @version v4.0.30319
  */
-class ITCallInfo extends IDispatch{
+class ITCallInfo extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -42,14 +41,14 @@ class ITCallInfo extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {CALL_STATE} 
      */
     CallState {
         get => this.get_CallState()
     }
 
     /**
-     * @type {Integer} 
+     * @type {CALL_PRIVILEGE} 
      */
     Privilege {
         get => this.get_Privilege()
@@ -81,7 +80,7 @@ class ITCallInfo extends IDispatch{
      * The get_CallState method gets a pointer to the current call state, such as CS_IDLE.
      * @remarks
      * <b>TAPI 2.1 Cross-References:  </b><a href="https://docs.microsoft.com/windows/desktop/api/tapi/ns-tapi-linecallstatus">LINECALLSTATUS</a>, <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itcallinfo">ITCallInfo</a>, <b>dwMediaMode</b> member of <a href="https://docs.microsoft.com/windows/desktop/api/tapi/ns-tapi-linecallinfo">LINECALLINFO</a> structure, <a href="https://docs.microsoft.com/windows/desktop/Tapi/call-object">Call Object</a>
-     * @returns {Integer} Pointer to variable containing current 
+     * @returns {CALL_STATE} Pointer to variable containing current 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/ne-tapi3if-call_state">CALL_STATE</a> type.
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itcallinfo-get_callstate
      */
@@ -94,7 +93,7 @@ class ITCallInfo extends IDispatch{
      * The get_Privilege method gets the call privilege of the application for the current call, such as CP_MONITOR.
      * @remarks
      * <b>TAPI 2.1 Cross-Reference: </b><a href="https://docs.microsoft.com/windows/desktop/api/tapi/ns-tapi-linecallstatus">LINECALLSTATUS</a>
-     * @returns {Integer} Pointer to 
+     * @returns {CALL_PRIVILEGE} Pointer to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/ne-tapi3if-call_privilege">CALL_PRIVILEGE</a>.
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itcallinfo-get_privilege
      */
@@ -122,7 +121,7 @@ class ITCallInfo extends IDispatch{
 
     /**
      * The get_CallInfoLong method gets call information items described by a long, such as the bearer mode.
-     * @param {Integer} CallInfoLong <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/ne-tapi3if-callinfo_long">CALLINFO_LONG</a> indicator of information type needed, such as CIL_BEARERMODE.
+     * @param {CALLINFO_LONG} CallInfoLong <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/ne-tapi3if-callinfo_long">CALLINFO_LONG</a> indicator of information type needed, such as CIL_BEARERMODE.
      * @returns {Integer} Pointer to value returned.
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itcallinfo-get_callinfolong
      */
@@ -133,7 +132,7 @@ class ITCallInfo extends IDispatch{
 
     /**
      * The put_CallInfoLong method sets call information items described by a long, such as the bearer mode.
-     * @param {Integer} CallInfoLong <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/ne-tapi3if-callinfo_long">CALLINFO_LONG</a> indicator of information type needed, such as CIL_BEARERMODE.
+     * @param {CALLINFO_LONG} CallInfoLong <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/ne-tapi3if-callinfo_long">CALLINFO_LONG</a> indicator of information type needed, such as CIL_BEARERMODE.
      * @param {Integer} lCallInfoLongVal Pointer to new value.
      * @returns {HRESULT} This method can return one of these values.
      * 
@@ -201,7 +200,7 @@ class ITCallInfo extends IDispatch{
      * @remarks
      * The application must use 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysfreestring">SysFreeString</a> to free the memory allocated for the <i>ppCallInfoString</i> parameter.
-     * @param {Integer} CallInfoString <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/ne-tapi3if-callinfo_string">CALLINFO_STRING</a> indicator of information type needed, such as CIS_DISPLAYABLEADDRESS.
+     * @param {CALLINFO_STRING} CallInfoString <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/ne-tapi3if-callinfo_string">CALLINFO_STRING</a> indicator of information type needed, such as CIS_DISPLAYABLEADDRESS.
      * @returns {BSTR} Pointer to <b>BSTR</b> representation of needed string.
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itcallinfo-get_callinfostring
      */
@@ -217,7 +216,7 @@ class ITCallInfo extends IDispatch{
      * The application must use 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysallocstring">SysAllocString</a> to allocate memory for the string data referenced by <i>pCallInfoString</i> parameter and use 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysfreestring">SysFreeString</a> to free the memory when the variable is no longer needed.
-     * @param {Integer} CallInfoString <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/ne-tapi3if-callinfo_string">CALLINFO_STRING</a> indicator of information type, such as CIS_DISPLAYABLEADDRESS.
+     * @param {CALLINFO_STRING} CallInfoString <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/ne-tapi3if-callinfo_string">CALLINFO_STRING</a> indicator of information type, such as CIS_DISPLAYABLEADDRESS.
      * @param {BSTR} pCallInfoString Pointer to a BSTR representation of the string.
      * @returns {HRESULT} This method can return one of these values.
      * 
@@ -283,7 +282,7 @@ class ITCallInfo extends IDispatch{
 
     /**
      * The get_CallInfoBuffer method gets call information items which require a buffer, such as user-user information.
-     * @param {Integer} CallInfoBuffer <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/ne-tapi3if-callinfo_buffer">CALLINFO_BUFFER</a> indicator of information type needed, such as CIB_USERUSERINFO.
+     * @param {CALLINFO_BUFFER} CallInfoBuffer <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/ne-tapi3if-callinfo_buffer">CALLINFO_BUFFER</a> indicator of information type needed, such as CIB_USERUSERINFO.
      * @returns {VARIANT} Pointer to <b>VARIANT</b> representation of call information buffer. The application must call the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a> function to free the memory allocated for this parameter.
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itcallinfo-get_callinfobuffer
@@ -296,7 +295,7 @@ class ITCallInfo extends IDispatch{
 
     /**
      * The put_CallInfoBuffer method sets call information items which require a buffer, such as user-user information.
-     * @param {Integer} CallInfoBuffer <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/ne-tapi3if-callinfo_buffer">CALLINFO_BUFFER</a> indicator of information type, such as CIB_USERUSERINFO.
+     * @param {CALLINFO_BUFFER} CallInfoBuffer <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/ne-tapi3if-callinfo_buffer">CALLINFO_BUFFER</a> indicator of information type, such as CIB_USERUSERINFO.
      * @param {VARIANT} pCallInfoBuffer <b>VARIANT</b>
      * @returns {HRESULT} This method can return one of these values.
      * 
@@ -360,7 +359,7 @@ class ITCallInfo extends IDispatch{
 
     /**
      * The GetCallInfoBuffer method gets call information items that require a buffer, such as user-user information. Automation client applications, such as those written in Visual Basic, must use the ITCallInfo::get_CallInfoBuffer method.
-     * @param {Integer} CallInfoBuffer <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/ne-tapi3if-callinfo_buffer">CALLINFO_BUFFER</a> indicator of information type needed, such as CIB_USERUSERINFO.
+     * @param {CALLINFO_BUFFER} CallInfoBuffer <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/ne-tapi3if-callinfo_buffer">CALLINFO_BUFFER</a> indicator of information type needed, such as CIB_USERUSERINFO.
      * @param {Pointer<Integer>} pdwSize Size of buffer returned in bytes.
      * @param {Pointer<Pointer<Integer>>} ppCallInfoBuffer Pointer to buffer containing the needed call information.
      * @returns {HRESULT} This method can return one of these values.
@@ -439,7 +438,7 @@ class ITCallInfo extends IDispatch{
 
     /**
      * The SetCallInfoBuffer method sets call information items that require a buffer, such as user-user information. Automation client applications, such as those written in Visual Basic, must use the ITCallInfo::put_CallInfoBuffer method.
-     * @param {Integer} CallInfoBuffer <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/ne-tapi3if-callinfo_buffer">CALLINFO_BUFFER</a> indicator of information type needed, such as CIB_USERUSERINFO.
+     * @param {CALLINFO_BUFFER} CallInfoBuffer <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/ne-tapi3if-callinfo_buffer">CALLINFO_BUFFER</a> indicator of information type needed, such as CIB_USERUSERINFO.
      * @param {Integer} dwSize Size of <i>pCallInfoBuffer</i>.
      * @param {Pointer<Integer>} pCallInfoBuffer Pointer to call information buffer.
      * @returns {HRESULT} This method can return one of these values.

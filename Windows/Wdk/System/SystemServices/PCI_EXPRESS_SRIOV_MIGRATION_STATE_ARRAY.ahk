@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class PCI_EXPRESS_SRIOV_MIGRATION_STATE_ARRAY extends Win32Struct
-{
+class PCI_EXPRESS_SRIOV_MIGRATION_STATE_ARRAY extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4

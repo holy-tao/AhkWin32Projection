@@ -7,9 +7,8 @@
  * Provides methods to finalize updates that were previously staged or installed.
  * @see https://learn.microsoft.com/windows/win32/api/wuapi/nn-wuapi-iupdateinstaller4
  * @namespace Windows.Win32.System.UpdateAgent
- * @version v4.0.30319
  */
-class IUpdateInstaller4 extends IUpdateInstaller3{
+class IUpdateInstaller4 extends IUpdateInstaller3 {
 
     static sizeof => A_PtrSize
     /**

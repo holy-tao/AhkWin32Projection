@@ -1,25 +1,27 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\OUTPUT_WIRE_COLOR_SPACE_TYPE.ahk
 #Include .\OUTPUT_WIRE_FORMAT.ahk
+#Include .\OUTPUT_COLOR_ENCODING.ahk
+#Include .\COLORSPACE_TRANSFORM.ahk
+#Include .\COLORSPACE_TRANSFORM_TYPE.ahk
 #Include .\GAMMA_RAMP_RGB256x3x16.ahk
-#Include .\GAMMA_RAMP_RGB.ahk
 #Include .\GAMMA_RAMP_DXGI_1.ahk
+#Include .\GAMMA_RAMP_RGB.ahk
 #Include .\COLORSPACE_TRANSFORM_3x4.ahk
 #Include .\COLORSPACE_TRANSFORM_MATRIX_V2.ahk
-#Include .\COLORSPACE_TRANSFORM.ahk
+#Include .\COLORSPACE_TRANSFORM_STAGE_CONTROL.ahk
 
 /**
  * @namespace Windows.Win32.Devices.Display
- * @version v4.0.30319
  */
-class COLORSPACE_TRANSFORM_SET_INPUT extends Win32Struct
-{
-    static sizeof => 65616
+class COLORSPACE_TRANSFORM_SET_INPUT extends Win32Struct {
+    static sizeof => 98368
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
-     * @type {Integer}
+     * @type {OUTPUT_WIRE_COLOR_SPACE_TYPE}
      */
     OutputWireColorSpaceExpected {
         get => NumGet(this, 0, "int")
@@ -29,7 +31,7 @@ class COLORSPACE_TRANSFORM_SET_INPUT extends Win32Struct
     /**
      * @type {OUTPUT_WIRE_FORMAT}
      */
-    OutputWireFormatExpected{
+    OutputWireFormatExpected {
         get {
             if(!this.HasProp("__OutputWireFormatExpected"))
                 this.__OutputWireFormatExpected := OUTPUT_WIRE_FORMAT(4, this)
@@ -40,10 +42,10 @@ class COLORSPACE_TRANSFORM_SET_INPUT extends Win32Struct
     /**
      * @type {COLORSPACE_TRANSFORM}
      */
-    ColorSpaceTransform{
+    ColorSpaceTransform {
         get {
             if(!this.HasProp("__ColorSpaceTransform"))
-                this.__ColorSpaceTransform := COLORSPACE_TRANSFORM(16, this)
+                this.__ColorSpaceTransform := COLORSPACE_TRANSFORM(12, this)
             return this.__ColorSpaceTransform
         }
     }

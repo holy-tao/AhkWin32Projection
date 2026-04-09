@@ -5,10 +5,8 @@
  * Input structure for the FSCTL_REPAIR_COPIES control code.
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-repair_copies_input
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class REPAIR_COPIES_INPUT extends Win32Struct
-{
+class REPAIR_COPIES_INPUT extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -70,9 +68,9 @@ class REPAIR_COPIES_INPUT extends Win32Struct
 
     /**
      * The zero-based copy numbers of the copies that will be repaired.
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    RepairCopies{
+    RepairCopies {
         get {
             if(!this.HasProp("__RepairCopiesProxyArray"))
                 this.__RepairCopiesProxyArray := Win32FixedArray(this.ptr + 28, 1, Primitive, "uint")

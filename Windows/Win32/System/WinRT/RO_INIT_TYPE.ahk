@@ -7,12 +7,10 @@
  * Pass the <b>RO_INIT_TYPE</b> enumeration to the <a href="https://docs.microsoft.com/windows/desktop/api/roapi/nf-roapi-roinitialize">RoInitialize</a> function to initialize a thread in the Windows Runtime.
  * @see https://learn.microsoft.com/windows/win32/api/roapi/ne-roapi-ro_init_type
  * @namespace Windows.Win32.System.WinRT
- * @version v4.0.30319
  */
-class RO_INIT_TYPE extends Win32Enum{
+class RO_INIT_TYPE extends Win32Enum {
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static RO_INIT_SINGLETHREADED => 0

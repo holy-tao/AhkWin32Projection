@@ -5,10 +5,8 @@
  * Contains private key information needed to authenticate a client or server.
  * @see https://learn.microsoft.com/windows/win32/api/schannel/ns-schannel-sch_cred_secret_privkey
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class SCH_CRED_SECRET_PRIVKEY extends Win32Struct
-{
+class SCH_CRED_SECRET_PRIVKEY extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8

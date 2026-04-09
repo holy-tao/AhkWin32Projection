@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\DML_TENSOR_DESC.ahk
 
 /**
  * Concatenates an array of input tensors along a specified axis.
  * @see https://learn.microsoft.com/windows/win32/api/directml/ns-directml-dml_join_operator_desc
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
- * @version v4.0.30319
  */
-class DML_JOIN_OPERATOR_DESC extends Win32Struct
-{
+class DML_JOIN_OPERATOR_DESC extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8

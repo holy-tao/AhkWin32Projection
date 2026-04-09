@@ -3,11 +3,9 @@
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
- * @version v4.0.30319
  */
-class DEBUG_ANALYSIS_PROCESSOR_INFO extends Win32Struct
-{
-    static sizeof => 616
+class DEBUG_ANALYSIS_PROCESSOR_INFO extends Win32Struct {
+    static sizeof => 328
 
     static packingSize => 4
 
@@ -95,39 +93,39 @@ class DEBUG_ANALYSIS_PROCESSOR_INFO extends Win32Struct
      * @type {String}
      */
     DeviceID {
-        get => StrGet(this.ptr + 40, 31, "UTF-16")
-        set => StrPut(value, this.ptr + 40, 31, "UTF-16")
+        get => StrGet(this.ptr + 40, 31, "UTF-8")
+        set => StrPut(value, this.ptr + 40, 31, "UTF-8")
     }
 
     /**
      * @type {String}
      */
     Manufacturer {
-        get => StrGet(this.ptr + 104, 63, "UTF-16")
-        set => StrPut(value, this.ptr + 104, 63, "UTF-16")
+        get => StrGet(this.ptr + 72, 63, "UTF-8")
+        set => StrPut(value, this.ptr + 72, 63, "UTF-8")
     }
 
     /**
      * @type {String}
      */
     Name {
-        get => StrGet(this.ptr + 232, 63, "UTF-16")
-        set => StrPut(value, this.ptr + 232, 63, "UTF-16")
+        get => StrGet(this.ptr + 136, 63, "UTF-8")
+        set => StrPut(value, this.ptr + 136, 63, "UTF-8")
     }
 
     /**
      * @type {String}
      */
     Version {
-        get => StrGet(this.ptr + 360, 63, "UTF-16")
-        set => StrPut(value, this.ptr + 360, 63, "UTF-16")
+        get => StrGet(this.ptr + 200, 63, "UTF-8")
+        set => StrPut(value, this.ptr + 200, 63, "UTF-8")
     }
 
     /**
      * @type {String}
      */
     Description {
-        get => StrGet(this.ptr + 488, 63, "UTF-16")
-        set => StrPut(value, this.ptr + 488, 63, "UTF-16")
+        get => StrGet(this.ptr + 264, 63, "UTF-8")
+        set => StrPut(value, this.ptr + 264, 63, "UTF-8")
     }
 }

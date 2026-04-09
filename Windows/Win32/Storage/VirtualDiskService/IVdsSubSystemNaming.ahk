@@ -7,9 +7,8 @@
  * The IVdsSubSystemNaming interface (vdshwprv.h) provides a method to name subsystems for a class implementing the IVdsSubSystem interface.
  * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nn-vdshwprv-ivdssubsystemnaming
  * @namespace Windows.Win32.Storage.VirtualDiskService
- * @version v4.0.30319
  */
-class IVdsSubSystemNaming extends IUnknown{
+class IVdsSubSystemNaming extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

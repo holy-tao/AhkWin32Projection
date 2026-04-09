@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ITPhone.ahk
 #Include ..\..\System\Com\IDispatch.ahk
+#Include .\ITPhone.ahk
 
 /**
  * The ITPhoneDeviceSpecificEvent exposes methods that allow an application to retrieve information about a phone device-specific event.
  * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nn-tapi3if-itphonedevicespecificevent
  * @namespace Windows.Win32.Devices.Tapi
- * @version v4.0.30319
  */
-class ITPhoneDeviceSpecificEvent extends IDispatch{
+class ITPhoneDeviceSpecificEvent extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

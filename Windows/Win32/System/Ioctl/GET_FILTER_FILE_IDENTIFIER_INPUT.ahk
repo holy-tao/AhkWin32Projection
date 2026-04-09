@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class GET_FILTER_FILE_IDENTIFIER_INPUT extends Win32Struct
-{
+class GET_FILTER_FILE_IDENTIFIER_INPUT extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 2

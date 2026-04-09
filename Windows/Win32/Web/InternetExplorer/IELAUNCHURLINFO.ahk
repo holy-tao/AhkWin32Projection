@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Web.InternetExplorer
- * @version v4.0.30319
  */
-class IELAUNCHURLINFO extends Win32Struct
-{
+class IELAUNCHURLINFO extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4

@@ -10,10 +10,8 @@
  * ``` syntax
  * @see https://learn.microsoft.com/windows/win32/api/traffic/ns-traffic-ip_pattern
  * @namespace Windows.Win32.NetworkManagement.QoS
- * @version v4.0.30319
  */
-class IP_PATTERN extends Win32Struct
-{
+class IP_PATTERN extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 4
@@ -25,7 +23,7 @@ class IP_PATTERN extends Win32Struct
         class _S_un_ports extends Win32Struct {
             static sizeof => 4
             static packingSize => 2
-    
+
             /**
              * @type {Integer}
              */
@@ -33,7 +31,7 @@ class IP_PATTERN extends Win32Struct
                 get => NumGet(this, 0, "ushort")
                 set => NumPut("ushort", value, this, 0)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -41,13 +39,12 @@ class IP_PATTERN extends Win32Struct
                 get => NumGet(this, 2, "ushort")
                 set => NumPut("ushort", value, this, 2)
             }
-        
         }
-    
+
         class _S_un_icmp extends Win32Struct {
             static sizeof => 4
             static packingSize => 2
-    
+
             /**
              * @type {Integer}
              */
@@ -55,7 +52,7 @@ class IP_PATTERN extends Win32Struct
                 get => NumGet(this, 0, "char")
                 set => NumPut("char", value, this, 0)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -63,7 +60,7 @@ class IP_PATTERN extends Win32Struct
                 get => NumGet(this, 1, "char")
                 set => NumPut("char", value, this, 1)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -71,31 +68,30 @@ class IP_PATTERN extends Win32Struct
                 get => NumGet(this, 2, "ushort")
                 set => NumPut("ushort", value, this, 2)
             }
-        
         }
-    
+
         /**
          * @type {_S_un_ports}
          */
-        S_un_ports{
+        S_un_ports {
             get {
                 if(!this.HasProp("__S_un_ports"))
-                    this.__S_un_ports := %this.__Class%._S_un_ports(0, this)
+                    this.__S_un_ports := IP_PATTERN._S_un_e__Union._S_un_ports(0, this)
                 return this.__S_un_ports
             }
         }
-    
+
         /**
          * @type {_S_un_icmp}
          */
-        S_un_icmp{
+        S_un_icmp {
             get {
                 if(!this.HasProp("__S_un_icmp"))
-                    this.__S_un_icmp := %this.__Class%._S_un_icmp(0, this)
+                    this.__S_un_icmp := IP_PATTERN._S_un_e__Union._S_un_icmp(0, this)
                 return this.__S_un_icmp
             }
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -103,7 +99,6 @@ class IP_PATTERN extends Win32Struct
             get => NumGet(this, 0, "uint")
             set => NumPut("uint", value, this, 0)
         }
-    
     }
 
     /**
@@ -143,13 +138,12 @@ class IP_PATTERN extends Win32Struct
     }
 
     /**
-     * 
      * @type {_S_un_e__Union}
      */
-    S_un{
+    S_un {
         get {
             if(!this.HasProp("__S_un"))
-                this.__S_un := %this.__Class%._S_un_e__Union(16, this)
+                this.__S_un := IP_PATTERN._S_un_e__Union(16, this)
             return this.__S_un
         }
     }
@@ -165,9 +159,9 @@ class IP_PATTERN extends Win32Struct
 
     /**
      * Reserved for future use.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Reserved3{
+    Reserved3 {
         get {
             if(!this.HasProp("__Reserved3ProxyArray"))
                 this.__Reserved3ProxyArray := Win32FixedArray(this.ptr + 21, 3, Primitive, "char")

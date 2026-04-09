@@ -9,9 +9,8 @@
  * This interface is implemented by the [DesktopWindowXamlSource](/uwp/api/windows.ui.xaml.hosting.desktopwindowxamlsource) class. **DesktopWindowXamlSource** is a key component the [WinRT XAML hosting API](/windows/apps/desktop/modernize/using-the-xaml-hosting-api), which desktop apps can use to host WinRT XAML controls in any UI element that is associated with a window handle (this feature is also called *XAML Islands*).
  * @see https://learn.microsoft.com/windows/win32/api/windows.ui.xaml.hosting.desktopwindowxamlsource/nn-windows-ui-xaml-hosting-desktopwindowxamlsource-idesktopwindowxamlsourcenative2
  * @namespace Windows.Win32.System.WinRT.Xaml
- * @version v4.0.30319
  */
-class IDesktopWindowXamlSourceNative2 extends IDesktopWindowXamlSourceNative{
+class IDesktopWindowXamlSourceNative2 extends IDesktopWindowXamlSourceNative {
 
     static sizeof => A_PtrSize
     /**

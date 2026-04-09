@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class WHEA_ARMV8_AARCH64_EL3_CSR extends Win32Struct
-{
+class WHEA_ARMV8_AARCH64_EL3_CSR extends Win32Struct {
     static sizeof => 80
 
     static packingSize => 8

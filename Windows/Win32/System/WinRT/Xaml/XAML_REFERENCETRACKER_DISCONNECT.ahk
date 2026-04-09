@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.WinRT.Xaml
- * @version v4.0.30319
  */
-class XAML_REFERENCETRACKER_DISCONNECT extends Win32Enum{
+class XAML_REFERENCETRACKER_DISCONNECT extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

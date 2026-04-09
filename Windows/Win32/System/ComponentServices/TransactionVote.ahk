@@ -5,9 +5,8 @@
  * Indicates the readiness of an object to commit or abort the current transaction.
  * @see https://learn.microsoft.com/windows/win32/api/comsvcs/ne-comsvcs-transactionvote
  * @namespace Windows.Win32.System.ComponentServices
- * @version v4.0.30319
  */
-class TransactionVote extends Win32Enum{
+class TransactionVote extends Win32Enum {
 
     /**
      * An existing object votes to commit the current transaction.

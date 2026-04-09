@@ -9,10 +9,8 @@
  * Often, it is not possible to modify all portions of the security descriptor. For example, if the current user has full control of an object, but is not an administrator and does not own the object, the user can modify the DACL, but cannot modify the owner. This will cause an error when the <b>ntSecurityDescriptor</b> is updated. To avoid this problem, the <a href="https://docs.microsoft.com/windows/desktop/api/iads/nn-iads-iadsobjectoptions">IADsObjectOptions</a> interface can be used to specify the specific portions of the security descriptor that should be modified.
  * @see https://learn.microsoft.com/windows/win32/api/iads/nn-iads-iadssecuritydescriptor
  * @namespace Windows.Win32.Networking.ActiveDirectory
- * @version v4.0.30319
  */
-class ADsSecurityUtility extends Win32Struct
-{
+class ADsSecurityUtility extends Win32Struct {
     static sizeof => 0
 
     static packingSize => 1

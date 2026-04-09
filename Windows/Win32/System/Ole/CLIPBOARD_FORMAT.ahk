@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Ole
- * @version v4.0.30319
  */
-class CLIPBOARD_FORMAT extends Win32Enum{
+class CLIPBOARD_FORMAT extends Win32Enum {
 
     /**
      * @type {Integer (UInt16)}

@@ -1,23 +1,23 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\CRYPT_INTEGER_BLOB.ahk
+#Include .\CRYPT_TIMESTAMP_VERSION.ahk
 #Include .\CRYPT_ALGORITHM_IDENTIFIER.ahk
+#Include .\CRYPT_INTEGER_BLOB.ahk
+#Include .\CERT_EXTENSION.ahk
 
 /**
  * Defines a time stamp request structure that corresponds to the Abstract Syntax Notation One (ASN.1) definition of a TimeStampReq type.
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-crypt_timestamp_request
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CRYPT_TIMESTAMP_REQUEST extends Win32Struct
-{
+class CRYPT_TIMESTAMP_REQUEST extends Win32Struct {
     static sizeof => 88
 
     static packingSize => 8
 
     /**
      * A <b>DWORD</b> value that specifies the version of the time stamp request.
-     * @type {Integer}
+     * @type {CRYPT_TIMESTAMP_VERSION}
      */
     dwVersion {
         get => NumGet(this, 0, "uint")
@@ -28,7 +28,7 @@ class CRYPT_TIMESTAMP_REQUEST extends Win32Struct
      * A <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-crypt_algorithm_identifier">CRYPT_ALGORITHM_IDENTIFIER</a> structure that contains information about the algorithm used to calculate the hash.
      * @type {CRYPT_ALGORITHM_IDENTIFIER}
      */
-    HashAlgorithm{
+    HashAlgorithm {
         get {
             if(!this.HasProp("__HashAlgorithm"))
                 this.__HashAlgorithm := CRYPT_ALGORITHM_IDENTIFIER(8, this)
@@ -40,7 +40,7 @@ class CRYPT_TIMESTAMP_REQUEST extends Win32Struct
      * A <a href="https://docs.microsoft.com/windows/win32/api/dpapi/ns-dpapi-crypt_integer_blob">CRYPT_DER_BLOB</a> structure that specifies the hash values to be time stamped.
      * @type {CRYPT_INTEGER_BLOB}
      */
-    HashedMessage{
+    HashedMessage {
         get {
             if(!this.HasProp("__HashedMessage"))
                 this.__HashedMessage := CRYPT_INTEGER_BLOB(32, this)
@@ -62,7 +62,7 @@ class CRYPT_TIMESTAMP_REQUEST extends Win32Struct
      * timeliness of the response when no local clock is available.
      * @type {CRYPT_INTEGER_BLOB}
      */
-    Nonce{
+    Nonce {
         get {
             if(!this.HasProp("__Nonce"))
                 this.__Nonce := CRYPT_INTEGER_BLOB(56, this)

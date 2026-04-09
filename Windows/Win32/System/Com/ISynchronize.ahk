@@ -7,9 +7,8 @@
  * The ISynchronize (objidlbase.h) interface provides asynchronous communication between objects about the occurrence of an event.
  * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nn-objidlbase-isynchronize
  * @namespace Windows.Win32.System.Com
- * @version v4.0.30319
  */
-class ISynchronize extends IUnknown{
+class ISynchronize extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

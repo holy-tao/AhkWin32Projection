@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Dhcp
- * @version v4.0.30319
  */
-class DHCP_RESERVED_SCOPE6 extends Win32Struct
-{
+class DHCP_RESERVED_SCOPE6 extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -15,7 +13,7 @@ class DHCP_RESERVED_SCOPE6 extends Win32Struct
     /**
      * @type {DHCP_IPV6_ADDRESS}
      */
-    ReservedIpAddress{
+    ReservedIpAddress {
         get {
             if(!this.HasProp("__ReservedIpAddress"))
                 this.__ReservedIpAddress := DHCP_IPV6_ADDRESS(0, this)
@@ -26,7 +24,7 @@ class DHCP_RESERVED_SCOPE6 extends Win32Struct
     /**
      * @type {DHCP_IPV6_ADDRESS}
      */
-    ReservedIpSubnetAddress{
+    ReservedIpSubnetAddress {
         get {
             if(!this.HasProp("__ReservedIpSubnetAddress"))
                 this.__ReservedIpSubnetAddress := DHCP_IPV6_ADDRESS(16, this)

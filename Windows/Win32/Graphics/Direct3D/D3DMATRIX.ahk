@@ -5,10 +5,8 @@
  * A 4x4 row-major matrix.
  * @see https://learn.microsoft.com/windows/win32/direct3d10/d3d10-d3dmatrix
  * @namespace Windows.Win32.Graphics.Direct3D
- * @version v4.0.30319
  */
-class D3DMATRIX extends Win32Struct
-{
+class D3DMATRIX extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 4
@@ -142,9 +140,9 @@ class D3DMATRIX extends Win32Struct
     }
 
     /**
-     * @type {Array<Single>}
+     * @type {Array<Float>}
      */
-    m{
+    m {
         get {
             if(!this.HasProp("__mProxyArray"))
                 this.__mProxyArray := Win32FixedArray(this.ptr + 0, 16, Primitive, "float")

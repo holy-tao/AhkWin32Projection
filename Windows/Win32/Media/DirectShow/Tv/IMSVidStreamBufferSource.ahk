@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
 #Include .\IMSVidFilePlayback.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
  * The IMSVidStreamBufferSource interface represents the Stream Buffer Source filter within the Video Control.
@@ -10,9 +10,8 @@
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IMSVidStreamBufferSource)</c>.
  * @see https://learn.microsoft.com/windows/win32/api/segment/nn-segment-imsvidstreambuffersource
  * @namespace Windows.Win32.Media.DirectShow.Tv
- * @version v4.0.30319
  */
-class IMSVidStreamBufferSource extends IMSVidFilePlayback{
+class IMSVidStreamBufferSource extends IMSVidFilePlayback {
 
     static sizeof => A_PtrSize
     /**
@@ -54,14 +53,14 @@ class IMSVidStreamBufferSource extends IMSVidFilePlayback{
     }
 
     /**
-     * @type {HRESULT} 
+     * @type {VARIANT_BOOL} 
      */
     BlockUnrated {
         set => this.put_BlockUnrated(value)
     }
 
     /**
-     * @type {HRESULT} 
+     * @type {Integer} 
      */
     UnratedDelay {
         set => this.put_UnratedDelay(value)
@@ -98,8 +97,8 @@ class IMSVidStreamBufferSource extends IMSVidFilePlayback{
 
     /**
      * The CurrentRatings method retrieves the current ratings information from the data source.
-     * @param {Pointer<Integer>} pEnSystem Pointer to a variable that receives the rating system, as an <a href="https://docs.microsoft.com/previous-versions/dd375612(v=vs.85)">EnTvRat_System</a> enumeration value.
-     * @param {Pointer<Integer>} pEnRating Receives the rating level, as an <a href="https://docs.microsoft.com/previous-versions/dd375610(v=vs.85)">EnTvRat_GenericLevel</a> enumeration value.
+     * @param {Pointer<EnTvRat_System>} pEnSystem Pointer to a variable that receives the rating system, as an <a href="https://docs.microsoft.com/previous-versions/dd375612(v=vs.85)">EnTvRat_System</a> enumeration value.
+     * @param {Pointer<EnTvRat_GenericLevel>} pEnRating Receives the rating level, as an <a href="https://docs.microsoft.com/previous-versions/dd375610(v=vs.85)">EnTvRat_GenericLevel</a> enumeration value.
      * @param {Pointer<Integer>} pBfEnAttr Pointer to a variable that receives the ratings attributes, as a bitwise combination of zero or more flags from the <a href="https://docs.microsoft.com/previous-versions/dd318226(v=vs.85)">BfEnTvRat_GenericAttributes</a> enumeration.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include the following.
      * 
@@ -133,8 +132,8 @@ class IMSVidStreamBufferSource extends IMSVidFilePlayback{
 
     /**
      * The MaxRatingsLevel method specifies the maximum ratings level the object is permitted to play.
-     * @param {Integer} enSystem Specifies the rating system, as an <a href="https://docs.microsoft.com/previous-versions/dd375612(v=vs.85)">EnTvRat_System</a> enumeration value.
-     * @param {Integer} enRating Specifies the maximum rating level, as an <a href="https://docs.microsoft.com/previous-versions/dd375610(v=vs.85)">EnTvRat_GenericLevel</a> enumeration value.
+     * @param {EnTvRat_System} enSystem Specifies the rating system, as an <a href="https://docs.microsoft.com/previous-versions/dd375612(v=vs.85)">EnTvRat_System</a> enumeration value.
+     * @param {EnTvRat_GenericLevel} enRating Specifies the maximum rating level, as an <a href="https://docs.microsoft.com/previous-versions/dd375610(v=vs.85)">EnTvRat_GenericLevel</a> enumeration value.
      * @param {Integer} lbfEnAttr Specifies zero or more ratings attributes, as a bitwise combination of flags from the <a href="https://docs.microsoft.com/previous-versions/dd318226(v=vs.85)">BfEnTvRat_GenericAttributes</a> enumeration.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include the following.
      * 

@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Storage.Nvme
- * @version v4.0.30319
  */
-class NVME_EXTENDED_ATTR extends Win32Struct
-{
+class NVME_EXTENDED_ATTR extends Win32Struct {
     static sizeof => 6
 
     static packingSize => 2
@@ -28,9 +26,9 @@ class NVME_EXTENDED_ATTR extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    EXATVAL{
+    EXATVAL {
         get {
             if(!this.HasProp("__EXATVALProxyArray"))
                 this.__EXATVALProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "char")

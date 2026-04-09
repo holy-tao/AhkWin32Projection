@@ -5,9 +5,8 @@
  * Defines the interaction configuration states available in Direct Manipulation.
  * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/ne-directmanipulation-directmanipulation_configuration
  * @namespace Windows.Win32.Graphics.DirectManipulation
- * @version v4.0.30319
  */
-class DIRECTMANIPULATION_CONFIGURATION extends Win32BitflagEnum{
+class DIRECTMANIPULATION_CONFIGURATION extends Win32BitflagEnum {
 
     /**
      * No interaction is defined.

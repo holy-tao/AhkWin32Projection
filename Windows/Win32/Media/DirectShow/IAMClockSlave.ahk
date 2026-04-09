@@ -7,9 +7,8 @@
  * The IAMClockSlave interface controls the tolerance of an audio renderer when it is matching rates with another clock.If the audio renderer is matching rates with another clock, it allows the audio to drift up to the amount of the specified tolerance.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-iamclockslave
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IAMClockSlave extends IUnknown{
+class IAMClockSlave extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

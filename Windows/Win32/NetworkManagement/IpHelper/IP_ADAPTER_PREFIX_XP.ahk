@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\IP_ADAPTER_PREFIX_XP.ahk
 #Include ..\..\Networking\WinSock\SOCKET_ADDRESS.ahk
+#Include ..\..\Networking\WinSock\SOCKADDR.ahk
 
 /**
  * Stores an IP address prefix.I
@@ -10,10 +12,8 @@
  * The <a href="https://docs.microsoft.com/windows/desktop/api/ws2def/ns-ws2def-socket_address">SOCKET_ADDRESS</a> structure is used in the <b>IP_ADAPTER_PREFIX</b> structure. On the Microsoft Windows Software Development Kit (SDK) released for Windows Vista and later, the organization of header files has changed and the <b>SOCKET_ADDRESS</b> structure is defined in the <i>Ws2def.h</i> header file which is automatically included by the <i>Winsock2.h</i> header file. On the Platform Software Development Kit (SDK) released for Windows Server 2003 and Windows XP, the <b>SOCKET_ADDRESS</b> structure is declared in the <i>Winsock2.h</i> header file. In order to use the <b>IP_ADAPTER_PREFIX</b> structure, the <i>Winsock2.h</i> header file must be included before the <i>Iphlpapi.h</i> header file.
  * @see https://learn.microsoft.com/windows/win32/api/iptypes/ns-iptypes-ip_adapter_prefix_xp
  * @namespace Windows.Win32.NetworkManagement.IpHelper
- * @version v4.0.30319
  */
-class IP_ADAPTER_PREFIX_XP extends Win32Struct
-{
+class IP_ADAPTER_PREFIX_XP extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -55,7 +55,7 @@ class IP_ADAPTER_PREFIX_XP extends Win32Struct
      * The address prefix, in the form of a <a href="https://docs.microsoft.com/windows/desktop/api/ws2def/ns-ws2def-socket_address">SOCKET_ADDRESS</a> structure.
      * @type {SOCKET_ADDRESS}
      */
-    Address{
+    Address {
         get {
             if(!this.HasProp("__Address"))
                 this.__Address := SOCKET_ADDRESS(16, this)

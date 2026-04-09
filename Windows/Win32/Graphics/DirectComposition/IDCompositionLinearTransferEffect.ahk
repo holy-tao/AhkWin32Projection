@@ -7,9 +7,8 @@
  * The linear transfer effect is used to map the color intensities of an image using a linear function created from a list of values you provide for each channel.
  * @see https://learn.microsoft.com/windows/win32/api/dcomp/nn-dcomp-idcompositionlineartransfereffect
  * @namespace Windows.Win32.Graphics.DirectComposition
- * @version v4.0.30319
  */
-class IDCompositionLinearTransferEffect extends IDCompositionFilterEffect{
+class IDCompositionLinearTransferEffect extends IDCompositionFilterEffect {
 
     static sizeof => A_PtrSize
     /**

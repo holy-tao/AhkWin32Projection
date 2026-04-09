@@ -7,9 +7,8 @@
  * Encapsulates a list of graphics commands for rendering, extending the interface to support programmable sample positions, atomic copies for implementing late-latch techniques, and optional depth-bounds testing.
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/nn-d3d12-id3d12graphicscommandlist1
  * @namespace Windows.Win32.Graphics.Direct3D12
- * @version v4.0.30319
  */
-class ID3D12GraphicsCommandList1 extends ID3D12GraphicsCommandList{
+class ID3D12GraphicsCommandList1 extends ID3D12GraphicsCommandList {
 
     static sizeof => A_PtrSize
     /**
@@ -250,12 +249,12 @@ class ID3D12GraphicsCommandList1 extends ID3D12GraphicsCommandList{
      * <a href="https://docs.microsoft.com/visualstudio/code-quality/annotating-function-parameters-and-return-values">SAL</a>: <c>_In_opt_</c>
      * 
      * Specifies the rectangular region of the source resource to be resolved. Passing NULL for <i>pSrcRect</i> specifies that the entire subresource is to be resolved.
-     * @param {Integer} Format Type: <b>DXGI_FORMAT</b>
+     * @param {DXGI_FORMAT} Format Type: <b>DXGI_FORMAT</b>
      * 
      * <a href="https://docs.microsoft.com/visualstudio/code-quality/annotating-function-parameters-and-return-values">SAL</a>: <c>_In_</c>
      * 
      * A DXGI_FORMAT that specifies how the source and destination resource formats are consolidated.
-     * @param {Integer} ResolveMode Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_resolve_mode">D3D12_RESOLVE_MODE</a></b>
+     * @param {D3D12_RESOLVE_MODE} ResolveMode Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_resolve_mode">D3D12_RESOLVE_MODE</a></b>
      * 
      * <a href="https://docs.microsoft.com/visualstudio/code-quality/annotating-function-parameters-and-return-values">SAL</a>: <c>_In_</c>
      * 

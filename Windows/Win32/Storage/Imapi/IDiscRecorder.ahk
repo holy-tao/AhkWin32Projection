@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\StructuredStorage\IPropertyStorage.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * The IDiscRecorder interface enables access to a single disc recorder device, labeled the active disc recorder. An IMAPI object such as MSDiscMasterObj maintains an active disc recorder.
@@ -14,9 +14,8 @@
  * <a href="https://docs.microsoft.com/windows/desktop/api/imapi/nf-imapi-idiscmaster-setactivediscrecorder">IDiscMaster::SetActiveDiscRecorder</a> first.
  * @see https://learn.microsoft.com/windows/win32/api/imapi/nn-imapi-idiscrecorder
  * @namespace Windows.Win32.Storage.Imapi
- * @version v4.0.30319
  */
-class IDiscRecorder extends IUnknown{
+class IDiscRecorder extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -73,7 +72,7 @@ class IDiscRecorder extends IUnknown{
 
     /**
      * Determines whether the disc recorder is a CD-R or CD-RW type device. This does not indicate the type of media that is currently inserted in the device.
-     * @returns {Integer} 
+     * @returns {RECORDER_TYPES} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi/nf-imapi-idiscrecorder-getrecordertype
      */
     GetRecorderType() {
@@ -157,7 +156,7 @@ class IDiscRecorder extends IUnknown{
 
     /**
      * Retrieves the disc recorder state.
-     * @returns {Integer} 
+     * @returns {DISC_RECORDER_STATE_FLAGS} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi/nf-imapi-idiscrecorder-getrecorderstate
      */
     GetRecorderState() {
@@ -194,8 +193,8 @@ class IDiscRecorder extends IUnknown{
 
     /**
      * Detects the type of media currently inserted in the recorder, if any.
-     * @param {Pointer<Integer>} fMediaType 
-     * @param {Pointer<Integer>} fMediaFlags 
+     * @param {Pointer<MEDIA_TYPES>} fMediaType 
+     * @param {Pointer<MEDIA_FLAGS>} fMediaFlags 
      * @returns {HRESULT} S_OK is returned on success, but other success codes may be returned as a result of implementation. The following error codes are commonly returned on operation failure, but do not represent the only possible error values:
      * @see https://learn.microsoft.com/windows/win32/api/imapi/nf-imapi-idiscrecorder-querymediatype
      */

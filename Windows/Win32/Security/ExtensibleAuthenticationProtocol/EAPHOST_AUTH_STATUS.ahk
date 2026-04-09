@@ -5,9 +5,8 @@
  * Defines the set of possible EAP authentication session status values during the authentication process.
  * @see https://learn.microsoft.com/windows/win32/api/eaphostpeertypes/ne-eaphostpeertypes-eaphost_auth_status
  * @namespace Windows.Win32.Security.ExtensibleAuthenticationProtocol
- * @version v4.0.30319
  */
-class EAPHOST_AUTH_STATUS extends Win32Enum{
+class EAPHOST_AUTH_STATUS extends Win32Enum {
 
     /**
      * The EAP authentication session is no longer valid.

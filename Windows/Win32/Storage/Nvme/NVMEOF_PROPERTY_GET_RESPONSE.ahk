@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Storage.Nvme
- * @version v4.0.30319
  */
-class NVMEOF_PROPERTY_GET_RESPONSE extends Win32Struct
-{
+class NVMEOF_PROPERTY_GET_RESPONSE extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
@@ -18,7 +16,7 @@ class NVMEOF_PROPERTY_GET_RESPONSE extends Win32Struct
         class _FourBytes extends Win32Struct {
             static sizeof => 8
             static packingSize => 4
-    
+
             /**
              * @type {Integer}
              */
@@ -26,7 +24,7 @@ class NVMEOF_PROPERTY_GET_RESPONSE extends Win32Struct
                 get => NumGet(this, 0, "uint")
                 set => NumPut("uint", value, this, 0)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -34,20 +32,19 @@ class NVMEOF_PROPERTY_GET_RESPONSE extends Win32Struct
                 get => NumGet(this, 4, "uint")
                 set => NumPut("uint", value, this, 4)
             }
-        
         }
-    
+
         /**
          * @type {_FourBytes}
          */
-        FourBytes{
+        FourBytes {
             get {
                 if(!this.HasProp("__FourBytes"))
-                    this.__FourBytes := %this.__Class%._FourBytes(0, this)
+                    this.__FourBytes := NVMEOF_PROPERTY_GET_RESPONSE._VALUE_e__Union._FourBytes(0, this)
                 return this.__FourBytes
             }
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -55,16 +52,15 @@ class NVMEOF_PROPERTY_GET_RESPONSE extends Win32Struct
             get => NumGet(this, 0, "uint")
             set => NumPut("uint", value, this, 0)
         }
-    
     }
 
     /**
      * @type {_VALUE_e__Union}
      */
-    VALUE{
+    VALUE {
         get {
             if(!this.HasProp("__VALUE"))
-                this.__VALUE := %this.__Class%._VALUE_e__Union(0, this)
+                this.__VALUE := NVMEOF_PROPERTY_GET_RESPONSE._VALUE_e__Union(0, this)
             return this.__VALUE
         }
     }

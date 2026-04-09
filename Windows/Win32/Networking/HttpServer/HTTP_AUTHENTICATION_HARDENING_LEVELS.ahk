@@ -5,9 +5,8 @@
  * Server Hardening level.
  * @see https://learn.microsoft.com/windows/win32/api/http/ne-http-http_authentication_hardening_levels
  * @namespace Windows.Win32.Networking.HttpServer
- * @version v4.0.30319
  */
-class HTTP_AUTHENTICATION_HARDENING_LEVELS extends Win32Enum{
+class HTTP_AUTHENTICATION_HARDENING_LEVELS extends Win32Enum {
 
     /**
      * Server is not hardened and operates without Channel Binding Token (CBT) support.

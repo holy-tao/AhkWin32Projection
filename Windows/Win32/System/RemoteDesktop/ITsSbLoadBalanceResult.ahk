@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\Com\IUnknown.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * Exposes methods and properties that store the target name returned by a load-balancing algorithm.
  * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nn-sbtsv-itssbloadbalanceresult
  * @namespace Windows.Win32.System.RemoteDesktop
- * @version v4.0.30319
  */
-class ITsSbLoadBalanceResult extends IUnknown{
+class ITsSbLoadBalanceResult extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

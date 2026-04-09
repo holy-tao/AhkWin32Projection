@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\WM_STREAM_PRIORITY_RECORD.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\WM_STREAM_PRIORITY_RECORD.ahk
 
 /**
  * The IWMStreamPrioritization interface provides methods to set and read priority records for a file.Stream prioritization allows content creators to specify the priority of the streams in an ASF file.
  * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nn-wmsdkidl-iwmstreamprioritization
  * @namespace Windows.Win32.Media.WindowsMediaFormat
- * @version v4.0.30319
  */
-class IWMStreamPrioritization extends IUnknown{
+class IWMStreamPrioritization extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.Usb
- * @version v4.0.30319
  */
-class USB_CONFIGURATION_POWER_DESCRIPTOR extends Win32Struct
-{
+class USB_CONFIGURATION_POWER_DESCRIPTOR extends Win32Struct {
     static sizeof => 18
 
     static packingSize => 2
@@ -28,9 +26,9 @@ class USB_CONFIGURATION_POWER_DESCRIPTOR extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    SelfPowerConsumedD0{
+    SelfPowerConsumedD0 {
         get {
             if(!this.HasProp("__SelfPowerConsumedD0ProxyArray"))
                 this.__SelfPowerConsumedD0ProxyArray := Win32FixedArray(this.ptr + 2, 3, Primitive, "char")

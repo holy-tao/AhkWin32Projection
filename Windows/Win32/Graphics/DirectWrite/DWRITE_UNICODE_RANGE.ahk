@@ -5,10 +5,8 @@
  * The DWRITE_UNICODE_RANGE structure specifies the range of Unicode code points.
  * @see https://learn.microsoft.com/windows/win32/api/dwrite_1/ns-dwrite_1-dwrite_unicode_range
  * @namespace Windows.Win32.Graphics.DirectWrite
- * @version v4.0.30319
  */
-class DWRITE_UNICODE_RANGE extends Win32Struct
-{
+class DWRITE_UNICODE_RANGE extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4

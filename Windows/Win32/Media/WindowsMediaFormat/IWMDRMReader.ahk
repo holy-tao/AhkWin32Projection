@@ -7,9 +7,8 @@
  * The IWMDRMReader interface provides methods to configure the DRM component and to manage DRM license acquisition and individualization of client applications.
  * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nn-wmsdkidl-iwmdrmreader
  * @namespace Windows.Win32.Media.WindowsMediaFormat
- * @version v4.0.30319
  */
-class IWMDRMReader extends IUnknown{
+class IWMDRMReader extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -208,7 +207,7 @@ class IWMDRMReader extends IUnknown{
     /**
      * The SetDRMProperty method on the reader object is used to set a DRM property, such as the DRM_Rights property.
      * @param {PWSTR} pwstrName Specifies the name of the property to set.
-     * @param {Integer} dwType One member of the <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/ne-wmsdkidl-wmt_attr_datatype">WMT_ATTR_DATATYPE</a> enumeration type. The only supported value for this method is <b>WMT_TYPE_STRING</b>.
+     * @param {WMT_ATTR_DATATYPE} dwType One member of the <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/ne-wmsdkidl-wmt_attr_datatype">WMT_ATTR_DATATYPE</a> enumeration type. The only supported value for this method is <b>WMT_TYPE_STRING</b>.
      * @param {Pointer<Integer>} pValue Pointer to a byte array containing the attribute value.
      * @param {Integer} cbLength Size of <i>pValue</i>, in bytes.
      * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an <b>HRESULT</b> error code.
@@ -389,7 +388,7 @@ class IWMDRMReader extends IUnknown{
      * 
      * Before calling this method on a new file, always call the helper function <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nf-wmsdkidl-wmiscontentprotected">WMIsContentProtected</a> to ensure that the file is protected with DRM. It is important to do this because in some cases this method might succeed when called on unprotected content.
      * @param {PWSTR} pwstrName Specifies the property or file attribute to retrieve.
-     * @param {Pointer<Integer>} pdwType Pointer that receives the data type of the returned value.
+     * @param {Pointer<WMT_ATTR_DATATYPE>} pdwType Pointer that receives the data type of the returned value.
      * @param {Pointer<Integer>} pValue Pointer to the value requested in <i>pwstrName</i>.
      * @param {Pointer<Integer>} pcbLength Size of <i>pValue</i>, in bytes.
      * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an <b>HRESULT</b> error code.

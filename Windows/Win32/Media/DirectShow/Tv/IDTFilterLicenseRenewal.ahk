@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Media.DirectShow.Tv
- * @version v4.0.30319
  */
-class IDTFilterLicenseRenewal extends IUnknown{
+class IDTFilterLicenseRenewal extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

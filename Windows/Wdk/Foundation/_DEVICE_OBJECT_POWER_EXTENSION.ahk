@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.Foundation
- * @version v4.0.30319
  */
-class _DEVICE_OBJECT_POWER_EXTENSION extends Win32Struct
-{
+class _DEVICE_OBJECT_POWER_EXTENSION extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 8

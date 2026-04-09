@@ -5,9 +5,8 @@
  * The CLUSTER_PROPERTY_TYPE enumeration (msclus.h) defines the property types that are supported by a cluster property list.
  * @see https://learn.microsoft.com/windows/win32/api/msclus/ne-msclus-cluster_property_type
  * @namespace Windows.Win32.Networking.Clustering
- * @version v4.0.30319
  */
-class CLUSTER_PROPERTY_TYPE extends Win32Enum{
+class CLUSTER_PROPERTY_TYPE extends Win32Enum {
 
     /**
      * The property type is unknown.

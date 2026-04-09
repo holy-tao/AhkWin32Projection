@@ -5,10 +5,8 @@
  * Contains standard Int13 drive geometry parameters.
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-disk_int13_info
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class DISK_INT13_INFO extends Win32Struct
-{
+class DISK_INT13_INFO extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4

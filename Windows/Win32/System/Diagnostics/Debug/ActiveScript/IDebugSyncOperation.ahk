@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
-#Include .\IDebugApplicationThread.ahk
 #Include ..\..\..\Com\IUnknown.ahk
+#Include .\IDebugApplicationThread.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.ActiveScript
- * @version v4.0.30319
  */
-class IDebugSyncOperation extends IUnknown{
+class IDebugSyncOperation extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

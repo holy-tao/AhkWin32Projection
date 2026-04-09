@@ -5,12 +5,10 @@
  * Provides information about when a particular log record to the CRM compensator was written.
  * @see https://learn.microsoft.com/windows/win32/api/comsvcs/ne-comsvcs-crmflags
  * @namespace Windows.Win32.System.ComponentServices
- * @version v4.0.30319
  */
-class CRMFLAGS extends Win32Enum{
+class CRMFLAGS extends Win32Enum {
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static CRMFLAG_FORGETTARGET => 1
@@ -46,7 +44,6 @@ class CRMFLAGS extends Win32Enum{
     static CRMFLAG_WRITTENDURINGREPLAY => 32
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static CRMFLAG_REPLAYINPROGRESS => 64

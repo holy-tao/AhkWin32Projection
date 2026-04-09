@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
 #Include .\IMSVidFeature.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
  * The IMSVidEncoder interface represents the MSVidEncoder feature object, which is required for stream buffer applications using the Video Control. For more information, see Using the Stream Buffer Engine with the Video Control.
@@ -10,9 +10,8 @@
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IMSVidEncoder)</c>.
  * @see https://learn.microsoft.com/windows/win32/api/segment/nn-segment-imsvidencoder
  * @namespace Windows.Win32.Media.DirectShow.Tv
- * @version v4.0.30319
  */
-class IMSVidEncoder extends IMSVidFeature{
+class IMSVidEncoder extends IMSVidFeature {
 
     static sizeof => A_PtrSize
     /**

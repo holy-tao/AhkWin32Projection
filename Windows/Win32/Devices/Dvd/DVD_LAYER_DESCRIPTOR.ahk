@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.Dvd
- * @version v4.0.30319
  */
-class DVD_LAYER_DESCRIPTOR extends Win32Struct
-{
+class DVD_LAYER_DESCRIPTOR extends Win32Struct {
     static sizeof => 20
 
     static packingSize => 4

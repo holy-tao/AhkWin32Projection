@@ -1,21 +1,21 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\ENUM_SERVICE_TYPE.ahk
+#Include .\SERVICE_STATUS_CURRENT_STATE.ahk
+#Include .\SERVICE_RUNS_IN_PROCESS.ahk
 
 /**
  * Contains process status information for a service. The ControlServiceEx, EnumServicesStatusEx, NotifyServiceStatusChange, and QueryServiceStatusEx functions use this structure.
  * @see https://learn.microsoft.com/windows/win32/api/winsvc/ns-winsvc-service_status_process
  * @namespace Windows.Win32.System.Services
- * @version v4.0.30319
  */
-class SERVICE_STATUS_PROCESS extends Win32Struct
-{
+class SERVICE_STATUS_PROCESS extends Win32Struct {
     static sizeof => 36
 
     static packingSize => 4
 
     /**
-     * 
-     * @type {Integer}
+     * @type {ENUM_SERVICE_TYPE}
      */
     dwServiceType {
         get => NumGet(this, 0, "uint")
@@ -23,8 +23,7 @@ class SERVICE_STATUS_PROCESS extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Integer}
+     * @type {SERVICE_STATUS_CURRENT_STATE}
      */
     dwCurrentState {
         get => NumGet(this, 4, "uint")
@@ -244,8 +243,7 @@ class SERVICE_STATUS_PROCESS extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Integer}
+     * @type {SERVICE_RUNS_IN_PROCESS}
      */
     dwServiceFlags {
         get => NumGet(this, 32, "uint")

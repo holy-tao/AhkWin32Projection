@@ -5,9 +5,8 @@
  * The PEER_RECORD_CHANGE_TYPE enumeration specifies the changes that can occur to a record.
  * @see https://learn.microsoft.com/windows/win32/api/p2p/ne-p2p-peer_record_change_type
  * @namespace Windows.Win32.NetworkManagement.P2P
- * @version v4.0.30319
  */
-class PEER_RECORD_CHANGE_TYPE extends Win32Enum{
+class PEER_RECORD_CHANGE_TYPE extends Win32Enum {
 
     /**
      * Indicates that the specified record is added to the peer graph or group.

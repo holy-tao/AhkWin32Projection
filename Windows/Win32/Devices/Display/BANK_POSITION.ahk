@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.Display
- * @version v4.0.30319
  */
-class BANK_POSITION extends Win32Struct
-{
+class BANK_POSITION extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4

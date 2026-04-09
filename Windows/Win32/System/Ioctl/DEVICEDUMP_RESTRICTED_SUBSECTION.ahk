@@ -3,18 +3,16 @@
 
 /**
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class DEVICEDUMP_RESTRICTED_SUBSECTION extends Win32Struct
-{
+class DEVICEDUMP_RESTRICTED_SUBSECTION extends Win32Struct {
     static sizeof => 1
 
     static packingSize => 1
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    bData{
+    bData {
         get {
             if(!this.HasProp("__bDataProxyArray"))
                 this.__bDataProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "char")

@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.Usb
- * @version v4.0.30319
  */
-class USB_DEVICE_CHARACTERISTICS extends Win32Struct
-{
+class USB_DEVICE_CHARACTERISTICS extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 4
@@ -20,9 +18,9 @@ class USB_DEVICE_CHARACTERISTICS extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    Reserved{
+    Reserved {
         get {
             if(!this.HasProp("__ReservedProxyArray"))
                 this.__ReservedProxyArray := Win32FixedArray(this.ptr + 4, 2, Primitive, "uint")

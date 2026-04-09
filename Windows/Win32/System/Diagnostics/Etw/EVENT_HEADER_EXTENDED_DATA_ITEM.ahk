@@ -5,10 +5,8 @@
  * The EVENT_HEADER_EXTENDED_DATA_ITEM structure (evntcons.h) defines the extended data that ETW collects as part of the event data.
  * @see https://learn.microsoft.com/windows/win32/api/evntcons/ns-evntcons-event_header_extended_data_item
  * @namespace Windows.Win32.System.Diagnostics.Etw
- * @version v4.0.30319
  */
-class EVENT_HEADER_EXTENDED_DATA_ITEM extends Win32Struct
-{
+class EVENT_HEADER_EXTENDED_DATA_ITEM extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

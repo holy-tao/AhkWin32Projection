@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class AMMSF_RENDER_FLAGS extends Win32BitflagEnum{
+class AMMSF_RENDER_FLAGS extends Win32BitflagEnum {
 
     /**
      * @type {Integer (Int32)}

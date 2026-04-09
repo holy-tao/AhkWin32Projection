@@ -1,7 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HANDLE.ahk
 #Include .\STARTUPINFOW.ahk
+#Include .\STARTUPINFOW_FLAGS.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 #Include .\LPPROC_THREAD_ATTRIBUTE_LIST.ahk
 
 /**
@@ -17,11 +18,9 @@
  * > The winbase.h header defines STARTUPINFOEX as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
  * @see https://learn.microsoft.com/windows/win32/api/winbase/ns-winbase-startupinfoexw
  * @namespace Windows.Win32.System.Threading
- * @version v4.0.30319
  * @charset Unicode
  */
-class STARTUPINFOEXW extends Win32Struct
-{
+class STARTUPINFOEXW extends Win32Struct {
     static sizeof => 112
 
     static packingSize => 8
@@ -30,7 +29,7 @@ class STARTUPINFOEXW extends Win32Struct
      * A <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/ns-processthreadsapi-startupinfoa">STARTUPINFO</a> structure.
      * @type {STARTUPINFOW}
      */
-    StartupInfo{
+    StartupInfo {
         get {
             if(!this.HasProp("__StartupInfo"))
                 this.__StartupInfo := STARTUPINFOW(0, this)
@@ -42,7 +41,7 @@ class STARTUPINFOEXW extends Win32Struct
      * An attribute list. This list is created by the <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-initializeprocthreadattributelist">InitializeProcThreadAttributeList</a> function.
      * @type {LPPROC_THREAD_ATTRIBUTE_LIST}
      */
-    lpAttributeList{
+    lpAttributeList {
         get {
             if(!this.HasProp("__lpAttributeList"))
                 this.__lpAttributeList := LPPROC_THREAD_ATTRIBUTE_LIST(104, this)

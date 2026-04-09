@@ -6,10 +6,8 @@
  * Learn more about: JET_API_PTR
  * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jet-api-ptr
  * @namespace Windows.Win32.Storage.StructuredStorage
- * @version v4.0.30319
  */
-class JET_API_PTR extends Win32Handle
-{
+class JET_API_PTR extends Win32Handle {
     static sizeof => 8
 
     static packingSize => 8

@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class PCI_EXPRESS_CXL_DVSEC_RANGE_BASE_HIGH_REGISTER extends Win32Struct
-{
+class PCI_EXPRESS_CXL_DVSEC_RANGE_BASE_HIGH_REGISTER extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 4

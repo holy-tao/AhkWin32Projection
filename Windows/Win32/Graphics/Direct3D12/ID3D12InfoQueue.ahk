@@ -9,9 +9,8 @@
  * This interface is obtained by querying it from the <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nn-d3d12-id3d12device">ID3D12Device</a> using <c>IUnknown::QueryInterface</code>. The <code>ID3D12Debug</code> layer must be enabled through <code>ID3D12Debug::EnableDebugLayer</c> for that operation to succeed.
  * @see https://learn.microsoft.com/windows/win32/api/d3d12sdklayers/nn-d3d12sdklayers-id3d12infoqueue
  * @namespace Windows.Win32.Graphics.Direct3D12
- * @version v4.0.30319
  */
-class ID3D12InfoQueue extends IUnknown{
+class ID3D12InfoQueue extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -88,7 +87,7 @@ class ID3D12InfoQueue extends IUnknown{
      * @param {Integer} MessageIndex Type: <b>UINT64</b>
      * 
      * Index into message queue after an optional retrieval filter has been applied. This can be between 0 and the number of messages in the message queue that pass through the retrieval filter (which can be obtained with <a href="https://docs.microsoft.com/windows/desktop/api/d3d12sdklayers/nf-d3d12sdklayers-id3d12infoqueue-getnumstoredmessagesallowedbyretrievalfilter">GetNumStoredMessagesAllowedByRetrievalFilter</a>). 0 is the message at the front of the message queue.
-     * @param {Pointer} pMessage Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d12sdklayers/ns-d3d12sdklayers-d3d12_message">D3D12_MESSAGE</a>*</b>
+     * @param {Integer} pMessage Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d12sdklayers/ns-d3d12sdklayers-d3d12_message">D3D12_MESSAGE</a>*</b>
      * 
      * Returned message.
      * @param {Pointer<Pointer>} pMessageByteLength Type: <b>SIZE_T*</b>
@@ -199,7 +198,7 @@ class ID3D12InfoQueue extends IUnknown{
 
     /**
      * Get the storage filter at the top of the storage-filter stack. (ID3D12InfoQueue.GetStorageFilter)
-     * @param {Pointer} pFilter Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d12sdklayers/ns-d3d12sdklayers-d3d12_info_queue_filter">D3D12_INFO_QUEUE_FILTER</a>*</b>
+     * @param {Integer} pFilter Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d12sdklayers/ns-d3d12sdklayers-d3d12_info_queue_filter">D3D12_INFO_QUEUE_FILTER</a>*</b>
      * 
      * Storage filter at the top of the storage-filter stack.
      * @param {Pointer<Pointer>} pFilterByteLength Type: <b>SIZE_T*</b>
@@ -337,7 +336,7 @@ class ID3D12InfoQueue extends IUnknown{
 
     /**
      * Get the retrieval filter at the top of the retrieval-filter stack. (ID3D12InfoQueue.GetRetrievalFilter)
-     * @param {Pointer} pFilter Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d12sdklayers/ns-d3d12sdklayers-d3d12_info_queue_filter">D3D12_INFO_QUEUE_FILTER</a>*</b>
+     * @param {Integer} pFilter Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d12sdklayers/ns-d3d12sdklayers-d3d12_info_queue_filter">D3D12_INFO_QUEUE_FILTER</a>*</b>
      * 
      * Retrieval filter at the top of the retrieval-filter stack.
      * @param {Pointer<Pointer>} pFilterByteLength Type: <b>SIZE_T*</b>
@@ -430,13 +429,13 @@ class ID3D12InfoQueue extends IUnknown{
      * Adds a debug message to the message queue and sends that message to debug output.
      * @remarks
      * This method is used by the runtime's internal mechanisms to add debug messages to the message queue and send them to debug output. For applications to add their own custom messages to the message queue and send them to debug output, call <a href="https://docs.microsoft.com/windows/desktop/api/d3d12sdklayers/nf-d3d12sdklayers-id3d12infoqueue-addapplicationmessage">ID3D12InfoQueue::AddApplicationMessage</a>.
-     * @param {Integer} Category Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d12sdklayers/ne-d3d12sdklayers-d3d12_message_category">D3D12_MESSAGE_CATEGORY</a></b>
+     * @param {D3D12_MESSAGE_CATEGORY} Category Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d12sdklayers/ne-d3d12sdklayers-d3d12_message_category">D3D12_MESSAGE_CATEGORY</a></b>
      * 
      * Category of a message.
-     * @param {Integer} Severity Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d12sdklayers/ne-d3d12sdklayers-d3d12_message_severity">D3D12_MESSAGE_SEVERITY</a></b>
+     * @param {D3D12_MESSAGE_SEVERITY} Severity Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d12sdklayers/ne-d3d12sdklayers-d3d12_message_severity">D3D12_MESSAGE_SEVERITY</a></b>
      * 
      * Severity of a message.
-     * @param {Integer} ID Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d12sdklayers/ne-d3d12sdklayers-d3d12_message_id">D3D12_MESSAGE_ID</a></b>
+     * @param {D3D12_MESSAGE_ID} ID Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d12sdklayers/ne-d3d12sdklayers-d3d12_message_id">D3D12_MESSAGE_ID</a></b>
      * 
      * Unique identifier of a message.
      * @param {PSTR} pDescription Type: <b>LPCSTR</b>
@@ -456,7 +455,7 @@ class ID3D12InfoQueue extends IUnknown{
 
     /**
      * Adds a user-defined message to the message queue and sends that message to debug output.
-     * @param {Integer} Severity Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d12sdklayers/ne-d3d12sdklayers-d3d12_message_severity">D3D12_MESSAGE_SEVERITY</a></b>
+     * @param {D3D12_MESSAGE_SEVERITY} Severity Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d12sdklayers/ne-d3d12sdklayers-d3d12_message_severity">D3D12_MESSAGE_SEVERITY</a></b>
      * 
      * Severity of a message.
      * @param {PSTR} pDescription Type: <b>LPCSTR</b>
@@ -476,7 +475,7 @@ class ID3D12InfoQueue extends IUnknown{
 
     /**
      * Set a message category to break on when a message with that category passes through the storage filter. (ID3D12InfoQueue.SetBreakOnCategory)
-     * @param {Integer} Category Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d12sdklayers/ne-d3d12sdklayers-d3d12_message_category">D3D12_MESSAGE_CATEGORY</a></b>
+     * @param {D3D12_MESSAGE_CATEGORY} Category Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d12sdklayers/ne-d3d12sdklayers-d3d12_message_category">D3D12_MESSAGE_CATEGORY</a></b>
      * 
      * Message category to break on.
      * @param {BOOL} bEnable Type: <b>BOOL</b>
@@ -494,7 +493,7 @@ class ID3D12InfoQueue extends IUnknown{
 
     /**
      * Set a message severity level to break on when a message with that severity level passes through the storage filter. (ID3D12InfoQueue.SetBreakOnSeverity)
-     * @param {Integer} Severity Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d12sdklayers/ne-d3d12sdklayers-d3d12_message_severity">D3D12_MESSAGE_SEVERITY</a></b>
+     * @param {D3D12_MESSAGE_SEVERITY} Severity Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d12sdklayers/ne-d3d12sdklayers-d3d12_message_severity">D3D12_MESSAGE_SEVERITY</a></b>
      * 
      * A message severity level to break on.
      * @param {BOOL} bEnable Type: <b>BOOL</b>
@@ -512,7 +511,7 @@ class ID3D12InfoQueue extends IUnknown{
 
     /**
      * Set a message identifier to break on when a message with that identifier passes through the storage filter. (ID3D12InfoQueue.SetBreakOnID)
-     * @param {Integer} ID Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d12sdklayers/ne-d3d12sdklayers-d3d12_message_id">D3D12_MESSAGE_ID</a></b>
+     * @param {D3D12_MESSAGE_ID} ID Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d12sdklayers/ne-d3d12sdklayers-d3d12_message_id">D3D12_MESSAGE_ID</a></b>
      * 
      * Message identifier to break on.
      * @param {BOOL} bEnable Type: <b>BOOL</b>
@@ -530,7 +529,7 @@ class ID3D12InfoQueue extends IUnknown{
 
     /**
      * Get a message category to break on when a message with that category passes through the storage filter. (ID3D12InfoQueue.GetBreakOnCategory)
-     * @param {Integer} Category Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d12sdklayers/ne-d3d12sdklayers-d3d12_message_category">D3D12_MESSAGE_CATEGORY</a></b>
+     * @param {D3D12_MESSAGE_CATEGORY} Category Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d12sdklayers/ne-d3d12sdklayers-d3d12_message_category">D3D12_MESSAGE_CATEGORY</a></b>
      * 
      * Message category to break on.
      * @returns {BOOL} Type: <b>BOOL</b>
@@ -545,7 +544,7 @@ class ID3D12InfoQueue extends IUnknown{
 
     /**
      * Get a message severity level to break on when a message with that severity level passes through the storage filter. (ID3D12InfoQueue.GetBreakOnSeverity)
-     * @param {Integer} Severity Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d12sdklayers/ne-d3d12sdklayers-d3d12_message_severity">D3D12_MESSAGE_SEVERITY</a></b>
+     * @param {D3D12_MESSAGE_SEVERITY} Severity Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d12sdklayers/ne-d3d12sdklayers-d3d12_message_severity">D3D12_MESSAGE_SEVERITY</a></b>
      * 
      * Message severity level to break on.
      * @returns {BOOL} Type: <b>BOOL</b>
@@ -560,7 +559,7 @@ class ID3D12InfoQueue extends IUnknown{
 
     /**
      * Get a message identifier to break on when a message with that identifier passes through the storage filter. (ID3D12InfoQueue.GetBreakOnID)
-     * @param {Integer} ID Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d12sdklayers/ne-d3d12sdklayers-d3d12_message_id">D3D12_MESSAGE_ID</a></b>
+     * @param {D3D12_MESSAGE_ID} ID Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d12sdklayers/ne-d3d12sdklayers-d3d12_message_id">D3D12_MESSAGE_ID</a></b>
      * 
      * Message identifier to break on.
      * @returns {BOOL} Type: <b>BOOL</b>

@@ -3,11 +3,9 @@
 
 /**
  * @namespace Windows.Win32.Devices.HumanInterfaceDevice
- * @version v4.0.30319
  * @charset Unicode
  */
-class DIACTIONW extends Win32Struct
-{
+class DIACTIONW extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -53,7 +51,7 @@ class DIACTIONW extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     guidInstance {
         get => NumGet(this, 32, "ptr")

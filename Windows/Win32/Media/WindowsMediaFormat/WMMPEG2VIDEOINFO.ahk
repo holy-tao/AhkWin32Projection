@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\WMVIDEOINFOHEADER2.ahk
 #Include ..\..\Foundation\RECT.ahk
 #Include ..\..\Graphics\Gdi\BITMAPINFOHEADER.ahk
-#Include .\WMVIDEOINFOHEADER2.ahk
 
 /**
  * The WMMPEG2VIDEOINFO structure describes an MPEG-2 video stream.
@@ -10,10 +10,8 @@
  * This structure is identical to the <b>MPEG2VIDEOINFO</b> structure defined in Dvdmedia.h. For more information, see the DirectShow documentation in the DirectX SDK.
  * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/ns-wmsdkidl-wmmpeg2videoinfo
  * @namespace Windows.Win32.Media.WindowsMediaFormat
- * @version v4.0.30319
  */
-class WMMPEG2VIDEOINFO extends Win32Struct
-{
+class WMMPEG2VIDEOINFO extends Win32Struct {
     static sizeof => 136
 
     static packingSize => 8
@@ -22,7 +20,7 @@ class WMMPEG2VIDEOINFO extends Win32Struct
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/wmsdkidl/ns-wmsdkidl-wmvideoinfoheader2">WMVIDEOINFOHEADER2</a> structure giving header information.
      * @type {WMVIDEOINFOHEADER2}
      */
-    hdr{
+    hdr {
         get {
             if(!this.HasProp("__hdr"))
                 this.__hdr := WMVIDEOINFOHEADER2(0, this)
@@ -79,9 +77,9 @@ class WMMPEG2VIDEOINFO extends Win32Struct
 
     /**
      * Address of a buffer that contains the sequence header, including quantization matrices and the sequence extension, if required. This field is typed as a <b>DWORD</b> array to preserve the 32-bit alignment.
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    dwSequenceHeader{
+    dwSequenceHeader {
         get {
             if(!this.HasProp("__dwSequenceHeaderProxyArray"))
                 this.__dwSequenceHeaderProxyArray := Win32FixedArray(this.ptr + 132, 1, Primitive, "uint")

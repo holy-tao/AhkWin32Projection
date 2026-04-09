@@ -22,9 +22,8 @@
  *     <a href="https://docs.microsoft.com/windows/desktop/api/vswriter/nf-vswriter-cvsswriter-getcurrentlevel">CVssWriter::GetCurrentLevel</a>.
  * @see https://learn.microsoft.com/windows/win32/api/vss/ne-vss-vss_application_level
  * @namespace Windows.Win32.Storage.Vss
- * @version v4.0.30319
  */
-class VSS_APPLICATION_LEVEL extends Win32Enum{
+class VSS_APPLICATION_LEVEL extends Win32Enum {
 
     /**
      * The level at which this writer's freeze state will occur is not known. This indicates an application 
@@ -52,7 +51,6 @@ class VSS_APPLICATION_LEVEL extends Win32Enum{
     static VSS_APP_FRONT_END => 3
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static VSS_APP_SYSTEM_RM => 4

@@ -5,10 +5,8 @@
  * Contains information associated with a media change event.
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-class_media_change_context
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class CLASS_MEDIA_CHANGE_CONTEXT extends Win32Struct
-{
+class CLASS_MEDIA_CHANGE_CONTEXT extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4
@@ -23,7 +21,6 @@ class CLASS_MEDIA_CHANGE_CONTEXT extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     NewState {

@@ -7,9 +7,8 @@
  * The IWMProfileManagerLanguage interface controls the language of the system profiles parsed by the profile manager.An IWMProfileManagerLanguage interface exists for every profile manager object.
  * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nn-wmsdkidl-iwmprofilemanagerlanguage
  * @namespace Windows.Win32.Media.WindowsMediaFormat
- * @version v4.0.30319
  */
-class IWMProfileManagerLanguage extends IUnknown{
+class IWMProfileManagerLanguage extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -7,9 +7,8 @@
  * Configures the thread pool of the activity object that is returned by calling CoCreateActivity.
  * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nn-comsvcs-iservicethreadpoolconfig
  * @namespace Windows.Win32.System.ComponentServices
- * @version v4.0.30319
  */
-class IServiceThreadPoolConfig extends IUnknown{
+class IServiceThreadPoolConfig extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -32,7 +31,7 @@ class IServiceThreadPoolConfig extends IUnknown{
 
     /**
      * Selects the thread pool in which the work submitted through the activity is to run.
-     * @param {Integer} threadPool A value from the <a href="https://docs.microsoft.com/windows/desktop/api/comsvcs/ne-comsvcs-csc_threadpool">CSC_ThreadPool</a> enumeration.
+     * @param {CSC_ThreadPool} threadPool A value from the <a href="https://docs.microsoft.com/windows/desktop/api/comsvcs/ne-comsvcs-csc_threadpool">CSC_ThreadPool</a> enumeration.
      * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_FAIL, and S_OK.
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-iservicethreadpoolconfig-selectthreadpool
      */
@@ -43,7 +42,7 @@ class IServiceThreadPoolConfig extends IUnknown{
 
     /**
      * Binds all work submitted by the activity to a single single-threaded apartment.
-     * @param {Integer} binding A value from the <a href="https://docs.microsoft.com/windows/desktop/api/comsvcs/ne-comsvcs-csc_binding">CSC_Binding</a> enumeration.
+     * @param {CSC_Binding} binding A value from the <a href="https://docs.microsoft.com/windows/desktop/api/comsvcs/ne-comsvcs-csc_binding">CSC_Binding</a> enumeration.
      * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_FAIL, and S_OK.
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-iservicethreadpoolconfig-setbindinginfo
      */

@@ -7,9 +7,8 @@
  * Passes configuration information to the media sinks that are used for streaming the content.
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imfstreamingsinkconfig
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFStreamingSinkConfig extends IUnknown{
+class IMFStreamingSinkConfig extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
 #Include .\IGPMResult.ahk
-#Include ..\Com\IDispatch.ahk
 
 /**
  * The IGPMStarterGPOBackup interface supports methods that allow you to delete GPMStarterGPOBackup objects and to retrieve various properties of GPMStarterGPOBackup objects.
  * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nn-gpmgmt-igpmstartergpobackup
  * @namespace Windows.Win32.System.GroupPolicy
- * @version v4.0.30319
  */
-class IGPMStarterGPOBackup extends IDispatch{
+class IGPMStarterGPOBackup extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -88,7 +87,7 @@ class IGPMStarterGPOBackup extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {GPMStarterGPOType} 
      */
     Type {
         get => this.get_Type()
@@ -165,7 +164,7 @@ class IGPMStarterGPOBackup extends IDispatch{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {GPMStarterGPOType} 
      */
     get_Type() {
         result := ComCall(14, this, "int*", &pType := 0, "HRESULT")
@@ -188,7 +187,7 @@ class IGPMStarterGPOBackup extends IDispatch{
 
     /**
      * The GenerateReport method gets the report for the backup GPO.
-     * @param {Integer} _gpmReportType 
+     * @param {GPMReportType} _gpmReportType Specifies whether the report is in XML or HTML.
      * @param {Pointer<VARIANT>} pvarGPMProgress Pointer to an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/gpmgmt/nn-gpmgmt-igpmasyncprogress">IGPMAsyncProgress</a> interface. If <i>pvarGPMProgress</i> is null, the call to <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/gpmgmt/nf-gpmgmt-igpmbackup-generatereport">GenerateReport</a> is handled synchronously. If  not null, the call to <b>GenerateReport</b> is handled asynchronously and <i>pvarGPMCancel</i> returns a pointer to   <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/gpmgmt/nn-gpmgmt-igpmasynccancel">IGPMAsyncCancel</a>.
      * @param {Pointer<VARIANT>} pvarGPMCancel Pointer to an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/gpmgmt/nn-gpmgmt-igpmasynccancel">IGPMAsyncCancel</a> interface. A value for this parameter is returned only when <i>pvarGPMProgress</i> is specified and is not null.
      * @returns {IGPMResult} Pointer to an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/gpmgmt/nn-gpmgmt-igpmresult">IGPMResult</a>. The Result property contains  a string of XML or HTML. The Status property contains a reference to an  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/gpmgmt/nn-gpmgmt-igpmstatusmsgcollection">IGPMStatusMsgCollection</a>.
@@ -201,7 +200,7 @@ class IGPMStarterGPOBackup extends IDispatch{
 
     /**
      * The GenerateReportToFile gets the report for the backup Starter GPO and saves it to a file at a specified path.
-     * @param {Integer} _gpmReportType 
+     * @param {GPMReportType} _gpmReportType Specifies whether the report is in XML or HTML.
      * @param {BSTR} bstrTargetFilePath Binary string that contains the path to the file where the report is being saved. Use null-terminated string.
      * @returns {IGPMResult} Pointer to an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/gpmgmt/nn-gpmgmt-igpmresult">IGPMResult</a> interface. The <b>Status</b> property contains a reference to an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/gpmgmt/nn-gpmgmt-igpmstatusmsgcollection">IGPMStatusMsgCollection</a>.
      * 

@@ -1,14 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\WS_MESSAGE_DESCRIPTION.ahk
+#Include .\WS_PARAMETER_DESCRIPTION.ahk
+#Include .\WS_OPERATION_STYLE.ahk
 
 /**
  * Metadata for the service operation.
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_operation_description
  * @namespace Windows.Win32.Networking.WindowsWebServices
- * @version v4.0.30319
  */
-class WS_OPERATION_DESCRIPTION extends Win32Struct
-{
+class WS_OPERATION_DESCRIPTION extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 8
@@ -99,8 +100,7 @@ class WS_OPERATION_DESCRIPTION extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Integer}
+     * @type {WS_OPERATION_STYLE}
      */
     style {
         get => NumGet(this, 56, "int")

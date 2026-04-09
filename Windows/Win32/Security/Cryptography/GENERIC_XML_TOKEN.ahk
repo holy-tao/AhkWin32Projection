@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class GENERIC_XML_TOKEN extends Win32Struct
-{
+class GENERIC_XML_TOKEN extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -15,7 +13,7 @@ class GENERIC_XML_TOKEN extends Win32Struct
     /**
      * @type {FILETIME}
      */
-    createDate{
+    createDate {
         get {
             if(!this.HasProp("__createDate"))
                 this.__createDate := FILETIME(0, this)
@@ -26,7 +24,7 @@ class GENERIC_XML_TOKEN extends Win32Struct
     /**
      * @type {FILETIME}
      */
-    expiryDate{
+    expiryDate {
         get {
             if(!this.HasProp("__expiryDate"))
                 this.__expiryDate := FILETIME(8, this)

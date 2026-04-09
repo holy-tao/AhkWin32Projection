@@ -7,9 +7,8 @@
  * The IDropSourceNotify interface is implemented on an IDropSource object to receive notifications from OLE when a user drags the mouse into or out of a potential drop target window.
  * @see https://learn.microsoft.com/windows/win32/api/oleidl/nn-oleidl-idropsourcenotify
  * @namespace Windows.Win32.System.Ole
- * @version v4.0.30319
  */
-class IDropSourceNotify extends IUnknown{
+class IDropSourceNotify extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

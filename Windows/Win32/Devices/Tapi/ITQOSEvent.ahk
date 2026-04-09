@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ITCallInfo.ahk
 #Include ..\..\System\Com\IDispatch.ahk
+#Include .\ITCallInfo.ahk
 
 /**
  * The ITQOSEvent interface contains methods that retrieve the description of quality of service (QOS) events.
  * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nn-tapi3if-itqosevent
  * @namespace Windows.Win32.Devices.Tapi
- * @version v4.0.30319
  */
-class ITQOSEvent extends IDispatch{
+class ITQOSEvent extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -39,7 +38,7 @@ class ITQOSEvent extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {QOS_EVENT} 
      */
     Event {
         get => this.get_Event()
@@ -69,7 +68,7 @@ class ITQOSEvent extends IDispatch{
 
     /**
      * The get_Event method gets the QOS_EVENT indicator.
-     * @returns {Integer} Indicator of the QOS event type.
+     * @returns {QOS_EVENT} Indicator of the QOS event type.
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itqosevent-get_event
      */
     get_Event() {

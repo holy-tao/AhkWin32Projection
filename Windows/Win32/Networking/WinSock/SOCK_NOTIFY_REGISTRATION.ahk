@@ -4,14 +4,10 @@
 
 /**
  * Represents info supplied to the [ProcessSocketNotifications](/windows/win32/api/winsock2/nf-winsock2-processsocketnotifications) function.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/winsock2/ns-winsock2-sock_notify_registration
  * @namespace Windows.Win32.Networking.WinSock
- * @version v4.0.30319
  */
-class SOCK_NOTIFY_REGISTRATION extends Win32Struct
-{
+class SOCK_NOTIFY_REGISTRATION extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -22,7 +18,7 @@ class SOCK_NOTIFY_REGISTRATION extends Win32Struct
      * A handle to a Winsock socket opened by any of the [WSASocket](/windows/win32/api/winsock2/nf-winsock2-wsasocketw), [socket](/windows/win32/api/winsock2/nf-winsock2-socket), [WSAAccept](/windows/win32/api/winsock2/nf-winsock2-wsaaccept), [accept](/windows/win32/api/winsock2/nf-winsock2-accept), or [WSADuplicateSocket](/windows/win32/api/winsock2/nf-winsock2-wsaduplicatesocketw) functions. Only Microsoft [Winsock](/windows/win32/winsock/windows-sockets-start-page-2) provider sockets are supported.
      * @type {SOCKET}
      */
-    socket{
+    socket {
         get {
             if(!this.HasProp("__socket"))
                 this.__socket := SOCKET(0, this)

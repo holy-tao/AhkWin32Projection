@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\CERT_OR_CRL_BLOB.ahk
 
 /**
  * Encapsulates an array of certificates for use with Internet Key Exchange messages.
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cert_or_crl_bundle
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CERT_OR_CRL_BUNDLE extends Win32Struct
-{
+class CERT_OR_CRL_BUNDLE extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

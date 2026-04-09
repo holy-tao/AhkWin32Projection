@@ -1,19 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
-#Include .\IHTMLBookmarkCollection.ahk
 #Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include .\IHTMLBookmarkCollection.ahk
 #Include .\IHTMLElementCollection.ahk
 #Include .\IHTMLElement.ahk
 #Include .\IHTMLDataTransfer.ahk
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
- * @version v4.0.30319
  */
-class IHTMLEventObj2 extends IDispatch{
+class IHTMLEventObj2 extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

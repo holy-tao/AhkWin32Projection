@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Com.StructuredStorage
- * @version v4.0.30319
  */
-class PROPVAR_COMPARE_FLAGS extends Win32BitflagEnum{
+class PROPVAR_COMPARE_FLAGS extends Win32BitflagEnum {
 
     /**
      * @type {Integer (Int32)}

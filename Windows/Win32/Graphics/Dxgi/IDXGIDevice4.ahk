@@ -17,9 +17,8 @@
  * ```
  * @see https://learn.microsoft.com/windows/win32/api/dxgi1_5/nn-dxgi1_5-idxgidevice4
  * @namespace Windows.Win32.Graphics.Dxgi
- * @version v4.0.30319
  */
-class IDXGIDevice4 extends IDXGIDevice3{
+class IDXGIDevice4 extends IDXGIDevice3 {
 
     static sizeof => A_PtrSize
     /**
@@ -62,7 +61,9 @@ class IDXGIDevice4 extends IDXGIDevice3{
      * @param {Pointer<IDXGIResource>} ppResources Type: <b>IDXGIResource*</b>
      * 
      * An array of pointers to <a href="https://docs.microsoft.com/windows/desktop/api/dxgi/nn-dxgi-idxgiresource">IDXGIResource</a> interfaces for the resources to offer.
-     * @param {Integer} _Priority 
+     * @param {DXGI_OFFER_RESOURCE_PRIORITY} _Priority Type: <b>DXGI_OFFER_RESOURCE_PRIORITY</b>
+     * 
+     * A <a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_2/ne-dxgi1_2-dxgi_offer_resource_priority">DXGI_OFFER_RESOURCE_PRIORITY</a>-typed value that indicates how valuable data is.
      * @param {Integer} Flags Type: <b>UINT</b>
      * 
      * Specifies the <a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_5/ne-dxgi1_5-dxgi_offer_resource_flags">DXGI_OFFER_RESOURCE_FLAGS</a>.
@@ -88,7 +89,7 @@ class IDXGIDevice4 extends IDXGIDevice3{
      * @param {Pointer<IDXGIResource>} ppResources Type: <b>IDXGIResource*</b>
      * 
      * An array of pointers to <a href="https://docs.microsoft.com/windows/desktop/api/dxgi/nn-dxgi-idxgiresource">IDXGIResource</a> interfaces for the resources to reclaim.
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_5/ne-dxgi1_5-dxgi_reclaim_resource_results">DXGI_RECLAIM_RESOURCE_RESULTS</a>*</b>
+     * @returns {DXGI_RECLAIM_RESOURCE_RESULTS} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_5/ne-dxgi1_5-dxgi_reclaim_resource_results">DXGI_RECLAIM_RESOURCE_RESULTS</a>*</b>
      * 
      * A pointer to an array that receives <a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_5/ne-dxgi1_5-dxgi_reclaim_resource_results">DXGI_RECLAIM_RESOURCE_RESULTS</a> values. Each value in the array corresponds to a resource at the same index that the <i>ppResources</i> parameter specifies.  The caller can pass in <b>NULL</b>, if the caller intends to fill the resources with new content regardless of whether the old content was discarded.
      * @see https://learn.microsoft.com/windows/win32/api/dxgi1_5/nf-dxgi1_5-idxgidevice4-reclaimresources1

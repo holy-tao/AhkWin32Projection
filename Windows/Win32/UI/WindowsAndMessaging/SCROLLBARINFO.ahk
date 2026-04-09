@@ -6,10 +6,8 @@
  * The SCROLLBARINFO structure contains scroll bar information.
  * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-scrollbarinfo
  * @namespace Windows.Win32.UI.WindowsAndMessaging
- * @version v4.0.30319
  */
-class SCROLLBARINFO extends Win32Struct
-{
+class SCROLLBARINFO extends Win32Struct {
     static sizeof => 60
 
     static packingSize => 4
@@ -31,7 +29,7 @@ class SCROLLBARINFO extends Win32Struct
      * Coordinates of the scroll bar as specified in a <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure.
      * @type {RECT}
      */
-    rcScrollBar{
+    rcScrollBar {
         get {
             if(!this.HasProp("__rcScrollBar"))
                 this.__rcScrollBar := RECT(4, this)
@@ -169,9 +167,9 @@ class SCROLLBARINFO extends Win32Struct
      * </td>
      * </tr>
      * </table>
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    rgstate{
+    rgstate {
         get {
             if(!this.HasProp("__rgstateProxyArray"))
                 this.__rgstateProxyArray := Win32FixedArray(this.ptr + 36, 6, Primitive, "uint")

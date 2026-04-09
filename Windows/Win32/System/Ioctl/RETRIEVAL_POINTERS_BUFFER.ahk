@@ -5,11 +5,9 @@
  * Contains the output for the FSCTL_GET_RETRIEVAL_POINTERS control code.
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-retrieval_pointers_buffer
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class RETRIEVAL_POINTERS_BUFFER extends Win32Struct
-{
-    static sizeof => 24
+class RETRIEVAL_POINTERS_BUFFER extends Win32Struct {
+    static sizeof => 32
 
     static packingSize => 8
 

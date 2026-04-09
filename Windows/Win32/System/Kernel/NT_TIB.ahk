@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\EXCEPTION_REGISTRATION_RECORD.ahk
+#Include .\NT_TIB.ahk
 
 /**
  * @namespace Windows.Win32.System.Kernel
- * @version v4.0.30319
  */
-class NT_TIB extends Win32Struct
-{
+class NT_TIB extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 8

@@ -5,10 +5,8 @@
  * The SecPkgContext_SessionKey structure contains information about the session key used for the security context. This structure is returned by the QueryContextAttributes (General) function.
  * @see https://learn.microsoft.com/windows/win32/api/sspi/ns-sspi-secpkgcontext_sessionkey
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class SecPkgContext_SessionKey extends Win32Struct
-{
+class SecPkgContext_SessionKey extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CRYPT_URL_ARRAY extends Win32Struct
-{
+class CRYPT_URL_ARRAY extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

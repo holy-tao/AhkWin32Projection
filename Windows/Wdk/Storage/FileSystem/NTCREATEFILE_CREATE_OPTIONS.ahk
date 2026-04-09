@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem
- * @version v4.0.30319
  */
-class NTCREATEFILE_CREATE_OPTIONS extends Win32BitflagEnum{
+class NTCREATEFILE_CREATE_OPTIONS extends Win32BitflagEnum {
 
     /**
      * @type {Integer (UInt32)}

@@ -7,9 +7,8 @@
  * Provides a direct channel of communication between an in-place object and the associated application's outer-most frame window and the document window within the application that contains the embedded object.
  * @see https://learn.microsoft.com/windows/win32/api/oleidl/nn-oleidl-ioleinplaceactiveobject
  * @namespace Windows.Win32.System.Ole
- * @version v4.0.30319
  */
-class IOleInPlaceActiveObject extends IOleWindow{
+class IOleInPlaceActiveObject extends IOleWindow {
 
     static sizeof => A_PtrSize
     /**

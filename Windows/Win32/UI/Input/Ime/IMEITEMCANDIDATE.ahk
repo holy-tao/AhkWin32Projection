@@ -4,11 +4,9 @@
 
 /**
  * @namespace Windows.Win32.UI.Input.Ime
- * @version v4.0.30319
  */
-class IMEITEMCANDIDATE extends Win32Struct
-{
-    static sizeof => 16
+class IMEITEMCANDIDATE extends Win32Struct {
+    static sizeof => 24
 
     static packingSize => 8
 
@@ -21,9 +19,9 @@ class IMEITEMCANDIDATE extends Win32Struct
     }
 
     /**
-     * @type {Array<IMEITEM>}
+     * @type {IMEITEM}
      */
-    imeItem{
+    imeItem {
         get {
             if(!this.HasProp("__imeItemProxyArray"))
                 this.__imeItemProxyArray := Win32FixedArray(this.ptr + 8, 1, IMEITEM, "")

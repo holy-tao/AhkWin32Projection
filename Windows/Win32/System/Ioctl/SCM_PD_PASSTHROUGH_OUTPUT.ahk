@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class SCM_PD_PASSTHROUGH_OUTPUT extends Win32Struct
-{
+class SCM_PD_PASSTHROUGH_OUTPUT extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -28,7 +26,7 @@ class SCM_PD_PASSTHROUGH_OUTPUT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     ProtocolGuid {
         get => NumGet(this, 8, "ptr")
@@ -44,9 +42,9 @@ class SCM_PD_PASSTHROUGH_OUTPUT extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Data{
+    Data {
         get {
             if(!this.HasProp("__DataProxyArray"))
                 this.__DataProxyArray := Win32FixedArray(this.ptr + 20, 1, Primitive, "char")

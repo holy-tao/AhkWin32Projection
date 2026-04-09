@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\WS_ENUM_VALUE.ahk
 
 /**
  * A type description that is used with WS_ENUM_TYPE and is required. It provides information used in serializing and deserializing values of an enumeration.
@@ -48,10 +49,8 @@
  * ```
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_enum_description
  * @namespace Windows.Win32.Networking.WindowsWebServices
- * @version v4.0.30319
  */
-class WS_ENUM_DESCRIPTION extends Win32Struct
-{
+class WS_ENUM_DESCRIPTION extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

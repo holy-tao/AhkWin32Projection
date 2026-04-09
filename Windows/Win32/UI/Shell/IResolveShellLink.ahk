@@ -23,9 +23,8 @@
  * <div> </div>
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-iresolveshelllink
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IResolveShellLink extends IUnknown{
+class IResolveShellLink extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -53,7 +52,9 @@ class IResolveShellLink extends IUnknown{
      * @param {IUnknown} punkLink Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>*</b>
      * 
      * Pointer to the object's <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishelllinka">IShellLink</a> interface. This interface can then be queried to determine the contents of the link.
-     * @param {HWND} _hwnd 
+     * @param {HWND} _hwnd Type: <b>HWND</b>
+     * 
+     * Handle to the window that the Shell uses as the parent for a dialog box. The Shell displays the dialog box if it needs to prompt the user for more information while resolving the link.
      * @param {Integer} fFlags Type: <b>DWORD</b>
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 

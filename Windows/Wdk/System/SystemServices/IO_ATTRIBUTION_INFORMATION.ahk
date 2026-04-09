@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class IO_ATTRIBUTION_INFORMATION extends Win32Struct
-{
+class IO_ATTRIBUTION_INFORMATION extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -29,7 +27,7 @@ class IO_ATTRIBUTION_INFORMATION extends Win32Struct
             get => NumGet(this, 0, "uint")
             set => NumPut("uint", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -37,7 +35,7 @@ class IO_ATTRIBUTION_INFORMATION extends Win32Struct
             get => (this._bitfield >> 0) & 0xFF
             set => this._bitfield := ((value & 0xFF) << 0) | (this._bitfield & ~(0xFF << 0))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -45,7 +43,7 @@ class IO_ATTRIBUTION_INFORMATION extends Win32Struct
             get => (this._bitfield >> 8) & 0x1
             set => this._bitfield := ((value & 0x1) << 8) | (this._bitfield & ~(0x1 << 8))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -53,7 +51,7 @@ class IO_ATTRIBUTION_INFORMATION extends Win32Struct
             get => (this._bitfield >> 9) & 0x1
             set => this._bitfield := ((value & 0x1) << 9) | (this._bitfield & ~(0x1 << 9))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -61,7 +59,7 @@ class IO_ATTRIBUTION_INFORMATION extends Win32Struct
             get => (this._bitfield >> 10) & 0x1
             set => this._bitfield := ((value & 0x1) << 10) | (this._bitfield & ~(0x1 << 10))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -69,7 +67,7 @@ class IO_ATTRIBUTION_INFORMATION extends Win32Struct
             get => (this._bitfield >> 11) & 0x1
             set => this._bitfield := ((value & 0x1) << 11) | (this._bitfield & ~(0x1 << 11))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -77,7 +75,7 @@ class IO_ATTRIBUTION_INFORMATION extends Win32Struct
             get => (this._bitfield >> 12) & 0xFFFFF
             set => this._bitfield := ((value & 0xFFFFF) << 12) | (this._bitfield & ~(0xFFFFF << 12))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -85,7 +83,6 @@ class IO_ATTRIBUTION_INFORMATION extends Win32Struct
             get => NumGet(this, 0, "uint")
             set => NumPut("uint", value, this, 0)
         }
-    
     }
 
     /**
@@ -99,10 +96,10 @@ class IO_ATTRIBUTION_INFORMATION extends Win32Struct
     /**
      * @type {_Flags_e__Union}
      */
-    Flags{
+    Flags {
         get {
             if(!this.HasProp("__Flags"))
-                this.__Flags := %this.__Class%._Flags_e__Union(4, this)
+                this.__Flags := IO_ATTRIBUTION_INFORMATION._Flags_e__Union(4, this)
             return this.__Flags
         }
     }

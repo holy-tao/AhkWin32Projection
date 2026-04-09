@@ -5,9 +5,8 @@
  * Contains flags that describe query tokens used in the GetAnalysis method.
  * @see https://learn.microsoft.com/windows/win32/api/wmiutils/ne-wmiutils-wmiq_rpn_token_flags
  * @namespace Windows.Win32.System.Wmi
- * @version v4.0.30319
  */
-class WMIQ_RPN_TOKEN_FLAGS extends Win32Enum{
+class WMIQ_RPN_TOKEN_FLAGS extends Win32Enum {
 
     /**
      * This token is an expression, for example, J = 7.

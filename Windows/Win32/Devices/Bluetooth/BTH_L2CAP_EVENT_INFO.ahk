@@ -7,10 +7,8 @@
  * Notifications for a destroyed channel are only to be sent for channels that have been successfully established.
  * @see https://learn.microsoft.com/windows/win32/api/bthdef/ns-bthdef-bth_l2cap_event_info
  * @namespace Windows.Win32.Devices.Bluetooth
- * @version v4.0.30319
  */
-class BTH_L2CAP_EVENT_INFO extends Win32Struct
-{
+class BTH_L2CAP_EVENT_INFO extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

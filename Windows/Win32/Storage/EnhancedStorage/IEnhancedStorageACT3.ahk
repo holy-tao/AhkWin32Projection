@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Storage.EnhancedStorage
- * @version v4.0.30319
  */
-class IEnhancedStorageACT3 extends IEnhancedStorageACT2{
+class IEnhancedStorageACT3 extends IEnhancedStorageACT2 {
 
     static sizeof => A_PtrSize
     /**

@@ -2,15 +2,17 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\D3D12_FEATURE_DATA_VIDEO_ENCODER_RESOLUTION_SUPPORT_QPMAP.ahk
 #Include .\D3D12_FEATURE_DATA_VIDEO_ENCODER_RESOLUTION_SUPPORT_DIRTY_REGIONS.ahk
+#Include .\D3D12_VIDEO_ENCODER_DIRTY_REGIONS_SUPPORT_FLAGS.ahk
 #Include .\D3D12_FEATURE_DATA_VIDEO_ENCODER_RESOLUTION_SUPPORT_MOTION_SEARCH.ahk
+#Include .\D3D12_VIDEO_ENCODER_FRAME_INPUT_MOTION_UNIT_PRECISION_SUPPORT_FLAGS.ahk
+#Include .\D3D12_VIDEO_ENCODER_MOTION_SEARCH_SUPPORT_FLAGS.ahk
 #Include .\D3D12_FEATURE_DATA_VIDEO_ENCODER_RESOLUTION_SUPPORT_FRAME_ANALYSIS.ahk
+#Include .\D3D12_VIDEO_ENCODER_RATE_CONTROL_FRAME_ANALYSIS_SUPPORT_FLAGS.ahk
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class D3D12_FEATURE_DATA_VIDEO_ENCODER_RESOLUTION_SUPPORT_LIMITS1 extends Win32Struct
-{
+class D3D12_FEATURE_DATA_VIDEO_ENCODER_RESOLUTION_SUPPORT_LIMITS1 extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 4
@@ -50,7 +52,7 @@ class D3D12_FEATURE_DATA_VIDEO_ENCODER_RESOLUTION_SUPPORT_LIMITS1 extends Win32S
     /**
      * @type {D3D12_FEATURE_DATA_VIDEO_ENCODER_RESOLUTION_SUPPORT_QPMAP}
      */
-    QPMap{
+    QPMap {
         get {
             if(!this.HasProp("__QPMap"))
                 this.__QPMap := D3D12_FEATURE_DATA_VIDEO_ENCODER_RESOLUTION_SUPPORT_QPMAP(16, this)
@@ -61,7 +63,7 @@ class D3D12_FEATURE_DATA_VIDEO_ENCODER_RESOLUTION_SUPPORT_LIMITS1 extends Win32S
     /**
      * @type {D3D12_FEATURE_DATA_VIDEO_ENCODER_RESOLUTION_SUPPORT_DIRTY_REGIONS}
      */
-    DirtyRegions{
+    DirtyRegions {
         get {
             if(!this.HasProp("__DirtyRegions"))
                 this.__DirtyRegions := D3D12_FEATURE_DATA_VIDEO_ENCODER_RESOLUTION_SUPPORT_DIRTY_REGIONS(20, this)
@@ -72,7 +74,7 @@ class D3D12_FEATURE_DATA_VIDEO_ENCODER_RESOLUTION_SUPPORT_LIMITS1 extends Win32S
     /**
      * @type {D3D12_FEATURE_DATA_VIDEO_ENCODER_RESOLUTION_SUPPORT_MOTION_SEARCH}
      */
-    MotionSearch{
+    MotionSearch {
         get {
             if(!this.HasProp("__MotionSearch"))
                 this.__MotionSearch := D3D12_FEATURE_DATA_VIDEO_ENCODER_RESOLUTION_SUPPORT_MOTION_SEARCH(28, this)
@@ -83,7 +85,7 @@ class D3D12_FEATURE_DATA_VIDEO_ENCODER_RESOLUTION_SUPPORT_LIMITS1 extends Win32S
     /**
      * @type {D3D12_FEATURE_DATA_VIDEO_ENCODER_RESOLUTION_SUPPORT_FRAME_ANALYSIS}
      */
-    FrameAnalysis{
+    FrameAnalysis {
         get {
             if(!this.HasProp("__FrameAnalysis"))
                 this.__FrameAnalysis := D3D12_FEATURE_DATA_VIDEO_ENCODER_RESOLUTION_SUPPORT_FRAME_ANALYSIS(52, this)

@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.UI.Controls
- * @version v4.0.30319
  */
-class LIST_VIEW_GROUP_ALIGN_FLAGS extends Win32BitflagEnum{
+class LIST_VIEW_GROUP_ALIGN_FLAGS extends Win32BitflagEnum {
 
     /**
      * @type {Integer (UInt32)}

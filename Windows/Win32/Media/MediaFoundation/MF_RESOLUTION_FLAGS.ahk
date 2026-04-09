@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class MF_RESOLUTION_FLAGS extends Win32BitflagEnum{
+class MF_RESOLUTION_FLAGS extends Win32BitflagEnum {
 
     /**
      * @type {Integer (Int32)}

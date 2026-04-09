@@ -7,9 +7,8 @@
  * The turbulence effect is used to generate a bitmap based on the Perlin noise function. The turbulence effect has no input image.
  * @see https://learn.microsoft.com/windows/win32/api/dcomp/nn-dcomp-idcompositionturbulenceeffect
  * @namespace Windows.Win32.Graphics.DirectComposition
- * @version v4.0.30319
  */
-class IDCompositionTurbulenceEffect extends IDCompositionFilterEffect{
+class IDCompositionTurbulenceEffect extends IDCompositionFilterEffect {
 
     static sizeof => A_PtrSize
     /**
@@ -70,7 +69,9 @@ class IDCompositionTurbulenceEffect extends IDCompositionFilterEffect{
 
     /**
      * Sets the size of the turbulence output.
-     * @param {Pointer<D2D_VECTOR_2F>} _size 
+     * @param {Pointer<D2D_VECTOR_2F>} _size Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/dcommon/ns-dcommon-d2d_vector_2f">D2D1_VECTOR_2F</a></b>
+     * 
+     * The size of the turbulence output
      * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
      * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
@@ -113,7 +114,7 @@ class IDCompositionTurbulenceEffect extends IDCompositionFilterEffect{
 
     /**
      * Sets the turbulence noise mode.
-     * @param {Integer} noise Type: <b><a href="https://docs.microsoft.com/windows/desktop/Direct2D/turbulence">D2D1_TURBULENCE_NOISE</a></b>
+     * @param {D2D1_TURBULENCE_NOISE} noise Type: <b><a href="https://docs.microsoft.com/windows/desktop/Direct2D/turbulence">D2D1_TURBULENCE_NOISE</a></b>
      * 
      * The turbulence noise mode. Indicates whether to generate a bitmap based on Fractal Noise or the Turbulence function.
      * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>

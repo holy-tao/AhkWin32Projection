@@ -9,10 +9,8 @@
  * If you are building an app that uses or is aware of placeholder files, this may be useful to you.
  * @see https://learn.microsoft.com/windows/win32/api/cfapi/ns-cfapi-cf_platform_info
  * @namespace Windows.Win32.Storage.CloudFilters
- * @version v4.0.30319
  */
-class CF_PLATFORM_INFO extends Win32Struct
-{
+class CF_PLATFORM_INFO extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4

@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
- * @version v4.0.30319
  */
-class FIELD_INFO extends Win32Struct
-{
+class FIELD_INFO extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 8
@@ -22,7 +20,7 @@ class FIELD_INFO extends Win32Struct
             get => NumGet(this, 0, "ushort")
             set => NumPut("ushort", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -30,7 +28,6 @@ class FIELD_INFO extends Win32Struct
             get => NumGet(this, 2, "ushort")
             set => NumPut("ushort", value, this, 2)
         }
-    
     }
 
     /**
@@ -116,10 +113,10 @@ class FIELD_INFO extends Win32Struct
     /**
      * @type {_BitField}
      */
-    BitField{
+    BitField {
         get {
             if(!this.HasProp("__BitField"))
-                this.__BitField := %this.__Class%._BitField(52, this)
+                this.__BitField := FIELD_INFO._BitField(52, this)
             return this.__BitField
         }
     }

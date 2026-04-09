@@ -5,10 +5,8 @@
  * Identifies a provider function by DLL name and function name.
  * @see https://learn.microsoft.com/windows/win32/api/wintrust/ns-wintrust-crypt_trust_reg_entry
  * @namespace Windows.Win32.Security.WinTrust
- * @version v4.0.30319
  */
-class CRYPT_TRUST_REG_ENTRY extends Win32Struct
-{
+class CRYPT_TRUST_REG_ENTRY extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

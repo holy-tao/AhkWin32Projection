@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
 #Include .\IWindowsMediaLibrarySharingDeviceProperties.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * The IWindowsMediaLibrarySharingDevice interface defines methods that provide access to an individual media device on the home network.
@@ -11,9 +11,8 @@
  * To obtain an <b>IWindowsMediaLibrarySharingDevice</b> interface, call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/wmlss/nf-wmlss-iwindowsmedialibrarysharingdevices-getdevice">GetDevice</a> method or the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/wmlss/nf-wmlss-iwindowsmedialibrarysharingdevices-get_item">get_Item</a> method of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/wmlss/nn-wmlss-iwindowsmedialibrarysharingdevices">IWindowsMediaLibrarySharingDevices</a> interface.
  * @see https://learn.microsoft.com/windows/win32/api/wmlss/nn-wmlss-iwindowsmedialibrarysharingdevice
  * @namespace Windows.Win32.Media.LibrarySharingServices
- * @version v4.0.30319
  */
-class IWindowsMediaLibrarySharingDevice extends IDispatch{
+class IWindowsMediaLibrarySharingDevice extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -42,7 +41,7 @@ class IWindowsMediaLibrarySharingDevice extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {WindowsMediaLibrarySharingDeviceAuthorizationStatus} 
      */
     Authorization {
         get => this.get_Authorization()
@@ -69,7 +68,7 @@ class IWindowsMediaLibrarySharingDevice extends IDispatch{
 
     /**
      * The get_Authorization method retrieves a value that indicates whether the device is authorized to have access to the current user's media library.
-     * @returns {Integer} A pointer to a variable that receives an element of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/wmlss/ne-wmlss-windowsmedialibrarysharingdeviceauthorizationstatus">WindowsMediaLibrarySharingDeviceAuthorizationStatus</a> enumeration.
+     * @returns {WindowsMediaLibrarySharingDeviceAuthorizationStatus} A pointer to a variable that receives an element of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/wmlss/ne-wmlss-windowsmedialibrarysharingdeviceauthorizationstatus">WindowsMediaLibrarySharingDeviceAuthorizationStatus</a> enumeration.
      * @see https://learn.microsoft.com/windows/win32/api/wmlss/nf-wmlss-iwindowsmedialibrarysharingdevice-get_authorization
      */
     get_Authorization() {
@@ -79,7 +78,7 @@ class IWindowsMediaLibrarySharingDevice extends IDispatch{
 
     /**
      * The put_Authorization method authorizes or unauthorizes the device to have access to the current user's media library.
-     * @param {Integer} authorization An element of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/wmlss/ne-wmlss-windowsmedialibrarysharingdeviceauthorizationstatus">WindowsMediaLibrarySharingDeviceAuthorizationStatus</a> enumeration that specifies whether the device is authorized (<b>DEVICE_AUTHORIZATION_ALLOWED</b>) or unauthorized (<b>DEVICE_AUTHORIZATION_DENIED</b>) to have access to the current user's media library.
+     * @param {WindowsMediaLibrarySharingDeviceAuthorizationStatus} authorization An element of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/wmlss/ne-wmlss-windowsmedialibrarysharingdeviceauthorizationstatus">WindowsMediaLibrarySharingDeviceAuthorizationStatus</a> enumeration that specifies whether the device is authorized (<b>DEVICE_AUTHORIZATION_ALLOWED</b>) or unauthorized (<b>DEVICE_AUTHORIZATION_DENIED</b>) to have access to the current user's media library.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>

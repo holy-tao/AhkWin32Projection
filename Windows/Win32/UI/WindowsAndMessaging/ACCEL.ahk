@@ -1,21 +1,20 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\ACCEL_VIRT_FLAGS.ahk
 
 /**
  * Defines an accelerator key used in an accelerator table.
  * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-accel
  * @namespace Windows.Win32.UI.WindowsAndMessaging
- * @version v4.0.30319
  */
-class ACCEL extends Win32Struct
-{
+class ACCEL extends Win32Struct {
     static sizeof => 6
 
     static packingSize => 2
 
     /**
      * Type: <b>BYTE</b>
-     * @type {Integer}
+     * @type {ACCEL_VIRT_FLAGS}
      */
     fVirt {
         get => NumGet(this, 0, "char")

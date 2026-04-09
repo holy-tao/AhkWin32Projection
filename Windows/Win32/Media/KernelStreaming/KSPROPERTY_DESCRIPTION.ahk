@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
- * @version v4.0.30319
  */
-class KSPROPERTY_DESCRIPTION extends Win32Struct
-{
+class KSPROPERTY_DESCRIPTION extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -31,7 +29,7 @@ class KSPROPERTY_DESCRIPTION extends Win32Struct
     /**
      * @type {KSIDENTIFIER}
      */
-    PropTypeSet{
+    PropTypeSet {
         get {
             if(!this.HasProp("__PropTypeSet"))
                 this.__PropTypeSet := KSIDENTIFIER(8, this)

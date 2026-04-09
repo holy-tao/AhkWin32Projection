@@ -7,9 +7,8 @@
  * Encapsulates a device- and transform-dependent representation of a filled or stroked geometry.
  * @see https://learn.microsoft.com/windows/win32/api/d2d1_2/nn-d2d1_2-id2d1geometryrealization
  * @namespace Windows.Win32.Graphics.Direct2D
- * @version v4.0.30319
  */
-class ID2D1GeometryRealization extends ID2D1Resource{
+class ID2D1GeometryRealization extends ID2D1Resource {
 
     static sizeof => A_PtrSize
     /**

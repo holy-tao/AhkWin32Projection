@@ -5,10 +5,8 @@
  * Specifies a counted array of UUID or GUID types used to receive an array of CLSIDs for the property pages that the object wants to display.
  * @see https://learn.microsoft.com/windows/win32/api/ocidl/ns-ocidl-cauuid
  * @namespace Windows.Win32.System.Ole
- * @version v4.0.30319
  */
-class CAUUID extends Win32Struct
-{
+class CAUUID extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

@@ -7,9 +7,8 @@
  * Developers should use IPropertyDescription instead. (IPropertyUI)
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-ipropertyui
  * @namespace Windows.Win32.UI.Shell.PropertiesSystem
- * @version v4.0.30319
  */
-class IPropertyUI extends IUnknown{
+class IPropertyUI extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -82,7 +81,7 @@ class IPropertyUI extends IUnknown{
      * @param {Integer} pid Type: <b>PROPID</b>
      * 
      * The PROPID of the property.
-     * @param {Integer} flags Type: <b>PROPERTYUI_NAME_FLAGS</b>
+     * @param {PROPERTYUI_NAME_FLAGS} flags Type: <b>PROPERTYUI_NAME_FLAGS</b>
      * 
      * One of the following PROPERTYUI_NAME_FLAGS values:
      * @param {PWSTR} pwszText Type: <b>LPWSTR</b>
@@ -155,7 +154,7 @@ class IPropertyUI extends IUnknown{
      * @param {Integer} pid Type: <b>PROPID</b>
      * 
      * The PROPID of the property.
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/shobjidl_core/ne-shobjidl_core-_propertyui_flags">PROPERTYUI_FLAGS</a>*</b>
+     * @returns {PROPERTYUI_FLAGS} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/shobjidl_core/ne-shobjidl_core-_propertyui_flags">PROPERTYUI_FLAGS</a>*</b>
      * 
      * The <a href="https://docs.microsoft.com/windows/win32/api/shobjidl_core/ne-shobjidl_core-_propertyui_flags">PROPERTYUI_FLAGS</a> for the property.
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ipropertyui-getflags
@@ -172,7 +171,7 @@ class IPropertyUI extends IUnknown{
      * @param {Pointer<PROPVARIANT>} ppropvar Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/propidl/ns-propidl-propvariant">PROPVARIANT</a>*</b>
      * 
      * A <a href="https://docs.microsoft.com/windows/desktop/api/propidl/ns-propidl-propvariant">PROPVARIANT</a> structure that contains the type and value of the property.
-     * @param {Integer} puiff Type: <b>PROPERTYUI_FORMAT_FLAGS</b>
+     * @param {PROPERTYUI_FORMAT_FLAGS} puiff Type: <b>PROPERTYUI_FORMAT_FLAGS</b>
      * 
      * The format for the returned property value.
      * @param {PWSTR} pwszText Type: <b>LPWSTR</b>

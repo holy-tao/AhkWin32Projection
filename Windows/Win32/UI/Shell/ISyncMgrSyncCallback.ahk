@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * Exposes methods that allow a synchronization process to report progress and events to Sync Center, or to query whether the process has been canceled.
@@ -13,9 +14,8 @@
  * <b>ISyncMgrSyncCallback</b> is a replacement for <a href="https://docs.microsoft.com/windows/desktop/api/mobsync/nn-mobsync-isyncmgrsynchronizecallback">ISyncMgrSynchronizeCallback</a>.
  * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nn-syncmgr-isyncmgrsynccallback
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class ISyncMgrSyncCallback extends IUnknown{
+class ISyncMgrSyncCallback extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -54,7 +54,7 @@ class ISyncMgrSyncCallback extends IUnknown{
      * @param {PWSTR} pszProgressText Type: <b>LPCWSTR</b>
      * 
      * A pointer to a buffer containing a Unicode string for any custom progress messaging for this item.
-     * @param {Integer} nStatus Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/ne-syncmgr-syncmgr_progress_status">SYNCMGR_PROGRESS_STATUS</a></b>
+     * @param {SYNCMGR_PROGRESS_STATUS} nStatus Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/ne-syncmgr-syncmgr_progress_status">SYNCMGR_PROGRESS_STATUS</a></b>
      * 
      * A value from the <a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/ne-syncmgr-syncmgr_progress_status">SYNCMGR_PROGRESS_STATUS</a> enumeration stating the current progress status of the synchronization.
      * @param {Integer} uCurrentStep Type: <b>ULONG</b>
@@ -63,7 +63,7 @@ class ISyncMgrSyncCallback extends IUnknown{
      * @param {Integer} uMaxStep Type: <b>ULONG</b>
      * 
      * The total number of steps required to complete the synchronization of the item. If the <a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/ne-syncmgr-syncmgr_progress_status">SYNCMGR_PS_UPDATING_INDETERMINATE</a> flag is set in <i>nStatus</i>, this parameter is ignored.
-     * @param {Pointer<Integer>} pnCancelRequest Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/ne-syncmgr-syncmgr_cancel_request">SYNCMGR_CANCEL_REQUEST</a>*</b>
+     * @param {Pointer<SYNCMGR_CANCEL_REQUEST>} pnCancelRequest Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/ne-syncmgr-syncmgr_cancel_request">SYNCMGR_CANCEL_REQUEST</a>*</b>
      * 
      * When this method returns, points to a value from the <a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/ne-syncmgr-syncmgr_cancel_request">SYNCMGR_CANCEL_REQUEST</a> enumeration specifying the nature of a cancel request, if any.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -86,7 +86,7 @@ class ISyncMgrSyncCallback extends IUnknown{
      * @param {PWSTR} pszProgressText Type: <b>LPCWSTR</b>
      * 
      * Pointer to a buffer containing the comment text.
-     * @param {Pointer<Integer>} pnCancelRequest Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/ne-syncmgr-syncmgr_cancel_request">SYNCMGR_CANCEL_REQUEST</a>*</b>
+     * @param {Pointer<SYNCMGR_CANCEL_REQUEST>} pnCancelRequest Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/ne-syncmgr-syncmgr_cancel_request">SYNCMGR_CANCEL_REQUEST</a>*</b>
      * 
      * A value from the <a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/ne-syncmgr-syncmgr_cancel_request">SYNCMGR_CANCEL_REQUEST</a> enumeration specifying the nature of a cancel request, if any.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -114,10 +114,10 @@ class ISyncMgrSyncCallback extends IUnknown{
      * @param {PWSTR} pszItemID Type: <b>LPCWSTR</b>
      * 
      * A pointer to a buffer that contains the unique ID of the item currently being synchronized. This string is of maximum length MAX_SYNCMGR_ID including the terminating <b>null</b> character.
-     * @param {Integer} nLevel Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/ne-syncmgr-syncmgr_event_level">SYNCMGR_EVENT_LEVEL</a></b>
+     * @param {SYNCMGR_EVENT_LEVEL} nLevel Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/ne-syncmgr-syncmgr_event_level">SYNCMGR_EVENT_LEVEL</a></b>
      * 
      * A value from the <a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/ne-syncmgr-syncmgr_event_level">SYNCMGR_EVENT_LEVEL</a> enumeration declaring the type of event involved.
-     * @param {Integer} nFlags Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/ne-syncmgr-syncmgr_event_flags">SYNCMGR_EVENT_FLAGS</a></b>
+     * @param {SYNCMGR_EVENT_FLAGS} nFlags Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/ne-syncmgr-syncmgr_event_flags">SYNCMGR_EVENT_FLAGS</a></b>
      * 
      * Not used.
      * @param {PWSTR} pszName Type: <b>LPCWSTR</b>

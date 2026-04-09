@@ -8,10 +8,8 @@
  * The <b>POINTFX</b> structure is a member of the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-ttpolycurve">TTPOLYCURVE</a> and <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-ttpolygonheader">TTPOLYGONHEADER</a> structures. Values in the <b>POINTFX</b> structure are specified in device units.
  * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-pointfx
  * @namespace Windows.Win32.Graphics.Gdi
- * @version v4.0.30319
  */
-class POINTFX extends Win32Struct
-{
+class POINTFX extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 2
@@ -20,7 +18,7 @@ class POINTFX extends Win32Struct
      * The x-component of a point on the outline of a TrueType character.
      * @type {FIXED}
      */
-    x{
+    x {
         get {
             if(!this.HasProp("__x"))
                 this.__x := FIXED(0, this)
@@ -32,7 +30,7 @@ class POINTFX extends Win32Struct
      * The y-component of a point on the outline of a TrueType character.
      * @type {FIXED}
      */
-    y{
+    y {
         get {
             if(!this.HasProp("__y"))
                 this.__y := FIXED(4, this)

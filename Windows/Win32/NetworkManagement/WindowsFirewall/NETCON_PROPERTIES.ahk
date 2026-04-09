@@ -1,21 +1,21 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\NETCON_STATUS.ahk
+#Include .\NETCON_MEDIATYPE.ahk
 
 /**
  * The NETCON_PROPERTIES structure stores values that describe the properties of a network connection.
  * @see https://learn.microsoft.com/windows/win32/api/netcon/ns-netcon-netcon_properties
  * @namespace Windows.Win32.NetworkManagement.WindowsFirewall
- * @version v4.0.30319
  */
-class NETCON_PROPERTIES extends Win32Struct
-{
+class NETCON_PROPERTIES extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8
 
     /**
      * Globally-unique identifier (GUID) for this connection.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     guidId {
         get => NumGet(this, 0, "ptr")
@@ -42,7 +42,7 @@ class NETCON_PROPERTIES extends Win32Struct
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/api/netcon/ne-netcon-netcon_status">Current status</a> of the connection.
-     * @type {Integer}
+     * @type {NETCON_STATUS}
      */
     Status {
         get => NumGet(this, 24, "int")
@@ -51,7 +51,7 @@ class NETCON_PROPERTIES extends Win32Struct
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/api/netcon/ne-netcon-netcon_mediatype">Media type</a> associated with this connection.
-     * @type {Integer}
+     * @type {NETCON_MEDIATYPE}
      */
     MediaType {
         get => NumGet(this, 28, "int")
@@ -69,7 +69,7 @@ class NETCON_PROPERTIES extends Win32Struct
 
     /**
      * Class identifier for the connection object.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     clsidThisObject {
         get => NumGet(this, 40, "ptr")
@@ -78,7 +78,7 @@ class NETCON_PROPERTIES extends Win32Struct
 
     /**
      * Class identifier for the user-interface object.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     clsidUiObject {
         get => NumGet(this, 48, "ptr")

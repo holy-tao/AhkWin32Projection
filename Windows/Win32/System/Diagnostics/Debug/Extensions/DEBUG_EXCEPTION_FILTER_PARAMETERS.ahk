@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
- * @version v4.0.30319
  */
-class DEBUG_EXCEPTION_FILTER_PARAMETERS extends Win32Struct
-{
+class DEBUG_EXCEPTION_FILTER_PARAMETERS extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 4

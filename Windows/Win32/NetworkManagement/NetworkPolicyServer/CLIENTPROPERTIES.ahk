@@ -5,9 +5,8 @@
  * The values of the CLIENTPROPERTIES type enumerate the properties of a RADIUS client. The SDO computer is the RADIUS server.
  * @see https://learn.microsoft.com/windows/win32/api/sdoias/ne-sdoias-clientproperties
  * @namespace Windows.Win32.NetworkManagement.NetworkPolicyServer
- * @version v4.0.30319
  */
-class CLIENTPROPERTIES extends Win32Enum{
+class CLIENTPROPERTIES extends Win32Enum {
 
     /**
      * Specifies whether the RADIUS server checks for a digital signature.
@@ -55,7 +54,6 @@ class CLIENTPROPERTIES extends Win32Enum{
     static PROPERTY_CLIENT_ENABLED => 1030
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static PROPERTY_CLIENT_SECRET_TEMPLATE_GUID => 1031

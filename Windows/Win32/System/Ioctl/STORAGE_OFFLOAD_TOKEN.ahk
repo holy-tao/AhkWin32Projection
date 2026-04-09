@@ -5,19 +5,17 @@
  * The token used to represent a portion of a file used in by offload read and write operations.
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-storage_offload_token
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class STORAGE_OFFLOAD_TOKEN extends Win32Struct
-{
+class STORAGE_OFFLOAD_TOKEN extends Win32Struct {
     static sizeof => 512
 
     static packingSize => 1
 
     /**
      * A 32-bit unsigned integer which defines the type of <b>Token</b>.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    TokenType{
+    TokenType {
         get {
             if(!this.HasProp("__TokenTypeProxyArray"))
                 this.__TokenTypeProxyArray := Win32FixedArray(this.ptr + 0, 4, Primitive, "char")
@@ -27,9 +25,9 @@ class STORAGE_OFFLOAD_TOKEN extends Win32Struct
 
     /**
      * Reserved.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Reserved{
+    Reserved {
         get {
             if(!this.HasProp("__ReservedProxyArray"))
                 this.__ReservedProxyArray := Win32FixedArray(this.ptr + 4, 2, Primitive, "char")
@@ -39,9 +37,9 @@ class STORAGE_OFFLOAD_TOKEN extends Win32Struct
 
     /**
      * The length of the token data in <b>Token</b>.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    TokenIdLength{
+    TokenIdLength {
         get {
             if(!this.HasProp("__TokenIdLengthProxyArray"))
                 this.__TokenIdLengthProxyArray := Win32FixedArray(this.ptr + 6, 2, Primitive, "char")
@@ -54,33 +52,32 @@ class STORAGE_OFFLOAD_TOKEN extends Win32Struct
         static packingSize => 1
 
         /**
-         * @type {Array<Byte>}
+         * @type {Array<Integer>}
          */
-        Reserved2{
+        Reserved2 {
             get {
                 if(!this.HasProp("__Reserved2ProxyArray"))
                     this.__Reserved2ProxyArray := Win32FixedArray(this.ptr + 0, 504, Primitive, "char")
                 return this.__Reserved2ProxyArray
             }
         }
-    
     }
 
     /**
      * @type {_StorageOffloadZeroDataToken}
      */
-    StorageOffloadZeroDataToken{
+    StorageOffloadZeroDataToken {
         get {
             if(!this.HasProp("__StorageOffloadZeroDataToken"))
-                this.__StorageOffloadZeroDataToken := %this.__Class%._StorageOffloadZeroDataToken(8, this)
+                this.__StorageOffloadZeroDataToken := STORAGE_OFFLOAD_TOKEN._StorageOffloadZeroDataToken(8, this)
             return this.__StorageOffloadZeroDataToken
         }
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Token{
+    Token {
         get {
             if(!this.HasProp("__TokenProxyArray"))
                 this.__TokenProxyArray := Win32FixedArray(this.ptr + 8, 504, Primitive, "char")

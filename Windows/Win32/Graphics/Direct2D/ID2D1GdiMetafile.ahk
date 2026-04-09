@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include Common\D2D_RECT_F.ahk
 #Include .\ID2D1Resource.ahk
+#Include Common\D2D_RECT_F.ahk
 
 /**
  * A Direct2D resource that wraps a WMF, EMF, or EMF+ metafile.
  * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nn-d2d1_1-id2d1gdimetafile
  * @namespace Windows.Win32.Graphics.Direct2D
- * @version v4.0.30319
  */
-class ID2D1GdiMetafile extends ID2D1Resource{
+class ID2D1GdiMetafile extends ID2D1Resource {
 
     static sizeof => A_PtrSize
     /**

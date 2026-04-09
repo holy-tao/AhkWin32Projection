@@ -10,9 +10,8 @@
  * Enables communication with the console.
  * @see https://learn.microsoft.com/windows/win32/api/mmc/nn-mmc-iconsole
  * @namespace Windows.Win32.System.Mmc
- * @version v4.0.30319
  */
-class IConsole extends IUnknown{
+class IConsole extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

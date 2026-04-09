@@ -1,18 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Networking\WinSock\DL_EUI48.ahk
 #Include ..\..\Networking\WinSock\DL_OUI.ahk
 #Include ..\..\Networking\WinSock\DL_EI48.ahk
-#Include ..\..\Networking\WinSock\DL_EUI48.ahk
+#Include ..\..\Networking\WinSock\ADDRESS_FAMILY.ahk
+#Include .\WNV_IP_ADDRESS.ahk
 #Include ..\..\Networking\WinSock\IN_ADDR.ahk
 #Include ..\..\Networking\WinSock\IN6_ADDR.ahk
-#Include .\WNV_IP_ADDRESS.ahk
+#Include .\WNV_CA_NOTIFICATION_TYPE.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WindowsNetworkVirtualization
- * @version v4.0.30319
  */
-class WNV_CUSTOMER_ADDRESS_CHANGE_PARAM extends Win32Struct
-{
+class WNV_CUSTOMER_ADDRESS_CHANGE_PARAM extends Win32Struct {
     static sizeof => 60
 
     static packingSize => 4
@@ -20,7 +20,7 @@ class WNV_CUSTOMER_ADDRESS_CHANGE_PARAM extends Win32Struct
     /**
      * @type {DL_EUI48}
      */
-    MACAddress{
+    MACAddress {
         get {
             if(!this.HasProp("__MACAddress"))
                 this.__MACAddress := DL_EUI48(0, this)
@@ -29,7 +29,7 @@ class WNV_CUSTOMER_ADDRESS_CHANGE_PARAM extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {ADDRESS_FAMILY}
      */
     CAFamily {
         get => NumGet(this, 14, "ushort")
@@ -39,7 +39,7 @@ class WNV_CUSTOMER_ADDRESS_CHANGE_PARAM extends Win32Struct
     /**
      * @type {WNV_IP_ADDRESS}
      */
-    CA{
+    CA {
         get {
             if(!this.HasProp("__CA"))
                 this.__CA := WNV_IP_ADDRESS(16, this)
@@ -56,7 +56,7 @@ class WNV_CUSTOMER_ADDRESS_CHANGE_PARAM extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {ADDRESS_FAMILY}
      */
     PAFamily {
         get => NumGet(this, 36, "ushort")
@@ -66,7 +66,7 @@ class WNV_CUSTOMER_ADDRESS_CHANGE_PARAM extends Win32Struct
     /**
      * @type {WNV_IP_ADDRESS}
      */
-    PA{
+    PA {
         get {
             if(!this.HasProp("__PA"))
                 this.__PA := WNV_IP_ADDRESS(40, this)
@@ -75,7 +75,7 @@ class WNV_CUSTOMER_ADDRESS_CHANGE_PARAM extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {WNV_CA_NOTIFICATION_TYPE}
      */
     NotificationReason {
         get => NumGet(this, 56, "int")

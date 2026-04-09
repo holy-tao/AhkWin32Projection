@@ -9,9 +9,8 @@
  * For Windows Driver Model (WDM) devices, the <a href="https://docs.microsoft.com/windows/desktop/DirectShow/wdm-video-capture-filter">WDM Video Capture Filter</a> automatically exposes this interface if the WDM driver supports the <a href="https://docs.microsoft.com/windows-hardware/drivers/stream/propsetid-vidcap-videocontrol">PROPSETID_VIDCAP_VIDEOCONTROL</a> property set. For more information, see the <a href="https://docs.microsoft.com/windows-hardware/drivers/gettingstarted/">Windows Driver Kit (WDK)</a> documentation.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-iamvideocontrol
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IAMVideoControl extends IUnknown{
+class IAMVideoControl extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -50,7 +49,7 @@ class IAMVideoControl extends IUnknown{
      * @remarks
      * Possible modes of operation include one or more of the following: flipping the picture horizontally, flipping the picture vertically, enabling external triggers, and simulating external triggers.
      * @param {IPin} pPin Pointer to the pin to set the video control mode on.
-     * @param {Integer} _Mode 
+     * @param {Integer} _Mode Value specifying a combination of the flags from the [VideoControlFlags](/windows/desktop/api/strmif/ne-strmif-videocontrolflags) enumeration to set the video control mode.
      * @returns {HRESULT} Returns an <b>HRESULT</b> value that depends on the implementation of the interface.
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamvideocontrol-setmode
      */
@@ -64,7 +63,7 @@ class IAMVideoControl extends IUnknown{
      * @remarks
      * Possible modes of operation include one or more of the following: flipping the picture horizontally, flipping the picture vertically, enabling external triggers, and simulating external triggers.
      * @param {IPin} pPin Pointer to the pin to retrieve the video control mode from.
-     * @returns {Integer} 
+     * @returns {Integer} Pointer to a value representing a combination of the flags from the [VideoControlFlags](/windows/desktop/api/strmif/ne-strmif-videocontrolflags) enumeration, which specify the video control mode.
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamvideocontrol-getmode
      */
     GetMode(pPin) {

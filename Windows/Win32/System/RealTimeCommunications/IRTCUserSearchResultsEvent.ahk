@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Com\IDispatch.ahk
 #Include .\IRTCEnumUserSearchResults.ahk
 #Include .\IRTCCollection.ahk
 #Include .\IRTCProfile2.ahk
 #Include .\IRTCUserSearchQuery.ahk
-#Include ..\Com\IDispatch.ahk
 
 /**
  * @namespace Windows.Win32.System.RealTimeCommunications
- * @version v4.0.30319
  */
-class IRTCUserSearchResultsEvent extends IDispatch{
+class IRTCUserSearchResultsEvent extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

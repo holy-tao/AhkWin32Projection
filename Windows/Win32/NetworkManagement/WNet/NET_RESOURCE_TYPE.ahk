@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WNet
- * @version v4.0.30319
  */
-class NET_RESOURCE_TYPE extends Win32BitflagEnum{
+class NET_RESOURCE_TYPE extends Win32BitflagEnum {
 
     /**
      * @type {Integer (UInt32)}

@@ -11,9 +11,8 @@
  * If the context is destroyed before the application grants a lock, or if the calling text service is deactivated before a lock is granted, the <b>DoEditSession</b> method is not called. For this reason, a text service should put cleanup operations for an edit session in the <b>ITfEditSession</b> interface destructor rather than in the <b>DoEditSession</b> method.
  * @see https://learn.microsoft.com/windows/win32/api/msctf/nn-msctf-itfeditsession
  * @namespace Windows.Win32.UI.TextServices
- * @version v4.0.30319
  */
-class ITfEditSession extends IUnknown{
+class ITfEditSession extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

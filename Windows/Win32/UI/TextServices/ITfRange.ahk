@@ -1,9 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDataObject.ahk
 #Include ..\..\System\Com\IUnknown.ahk
-#Include .\ITfRange.ahk
+#Include ..\..\System\Com\IDataObject.ahk
 #Include .\ITfContext.ahk
 
 /**
@@ -12,9 +11,8 @@
  * The TSF manager implements this interface. For more information about ranges, anchors, embedded objects, and other text properties used by TSF, see <a href="https://docs.microsoft.com/windows/desktop/TSF/ranges">Ranges</a>, <a href="https://docs.microsoft.com/windows/desktop/TSF/embedded-objects">Embedded Objects</a>, and other topics within <a href="https://docs.microsoft.com/windows/desktop/TSF/using-text-services-framework">Using Text Services Framework</a>.
  * @see https://learn.microsoft.com/windows/win32/api/msctf/nn-msctf-itfrange
  * @namespace Windows.Win32.UI.TextServices
- * @version v4.0.30319
  */
-class ITfRange extends IUnknown{
+class ITfRange extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -407,7 +405,7 @@ class ITfRange extends IUnknown{
      * This method is more efficient than <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nf-msctf-itfrange-shiftstart">ITfRange::ShiftStart</a> and should be used when possible.
      * @param {Integer} ec Contains an edit cookie that identifies the edit context obtained from <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nf-msctf-itfdocumentmgr-createcontext">ITfDocumentMgr::CreateContext</a> or <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nf-msctf-itfeditsession-doeditsession">ITfEditSession::DoEditSession</a>.
      * @param {ITfRange} pRange Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nn-msctf-itfrange">ITfRange</a> interface that contains the anchor that the start anchor is moved to.
-     * @param {Integer} aPos Contains one of the <a href="https://docs.microsoft.com/windows/win32/api/msctf/ne-msctf-tfanchor">TfAnchor</a> values that specifies which anchor of <i>pRange</i> the start anchor is moved to.
+     * @param {TfAnchor} aPos Contains one of the <a href="https://docs.microsoft.com/windows/win32/api/msctf/ne-msctf-tfanchor">TfAnchor</a> values that specifies which anchor of <i>pRange</i> the start anchor is moved to.
      * @returns {HRESULT} This method can return one of these values.
      * 
      * <table>
@@ -477,7 +475,7 @@ class ITfRange extends IUnknown{
      * This method is more efficient than <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nf-msctf-itfrange-shiftend">ITfRange::ShiftEnd</a> and should be used.
      * @param {Integer} ec Contains an edit cookie that identifies the edit context obtained from <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nf-msctf-itfdocumentmgr-createcontext">ITfDocumentMgr::CreateContext</a> or <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nf-msctf-itfeditsession-doeditsession">ITfEditSession::DoEditSession</a>.
      * @param {ITfRange} pRange Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nn-msctf-itfrange">ITfRange</a> interface that contains the anchor that the end anchor is moved to.
-     * @param {Integer} aPos Contains one of the <a href="https://docs.microsoft.com/windows/win32/api/msctf/ne-msctf-tfanchor">TfAnchor</a> values that specify which anchor of <i>pRange</i> the end anchor will get moved to.
+     * @param {TfAnchor} aPos Contains one of the <a href="https://docs.microsoft.com/windows/win32/api/msctf/ne-msctf-tfanchor">TfAnchor</a> values that specify which anchor of <i>pRange</i> the end anchor will get moved to.
      * @returns {HRESULT} This method can return one of these values.
      * 
      * <table>
@@ -544,7 +542,7 @@ class ITfRange extends IUnknown{
      * 
      * The anchor must be positioned adjacent to the desired region prior to calling this method. If it is not, then <i>pfNoRegion</i> receives a nonzero value and the anchor is not moved. If the anchor is adjacent to the desired region, <i>pfNoRegion</i> receives zero and the anchor is moved to the region.
      * @param {Integer} ec Contains an edit cookie that identifies the edit context obtained from <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nf-msctf-itfdocumentmgr-createcontext">ITfDocumentMgr::CreateContext</a> or <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nf-msctf-itfeditsession-doeditsession">ITfEditSession::DoEditSession</a>.
-     * @param {Integer} dir Contains one of the <a href="https://docs.microsoft.com/windows/win32/api/msctf/ne-msctf-tfshiftdir">TfShiftDir</a> values that specifies which adjacent region the start anchor is moved to.
+     * @param {TfShiftDir} dir Contains one of the <a href="https://docs.microsoft.com/windows/win32/api/msctf/ne-msctf-tfshiftdir">TfShiftDir</a> values that specifies which adjacent region the start anchor is moved to.
      * @returns {BOOL} Pointer to a <b>BOOL</b> that receives a flag that indicates if the anchor is positioned adjacent to another region. Receives a nonzero value if the anchor is not adjacent to another region or zero otherwise.
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfrange-shiftstartregion
      */
@@ -560,7 +558,7 @@ class ITfRange extends IUnknown{
      * 
      * The anchor must be positioned adjacent to the desired region prior to calling this method. If it is not, then <i>pfNoRegion</i> receives a nonzero value and the anchor is not moved. If the anchor is adjacent to the desired region, <i>pfNoRegion</i> receives zero and the anchor is moved into the region.
      * @param {Integer} ec Contains an edit cookie that identifies the edit context obtained from <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nf-msctf-itfdocumentmgr-createcontext">ITfDocumentMgr::CreateContext</a> or <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nf-msctf-itfeditsession-doeditsession">ITfEditSession::DoEditSession</a>.
-     * @param {Integer} dir Contains one of the <a href="https://docs.microsoft.com/windows/win32/api/msctf/ne-msctf-tfshiftdir">TfShiftDir</a> values that specify which adjacent region the end anchor is moved to.
+     * @param {TfShiftDir} dir Contains one of the <a href="https://docs.microsoft.com/windows/win32/api/msctf/ne-msctf-tfshiftdir">TfShiftDir</a> values that specify which adjacent region the end anchor is moved to.
      * @returns {BOOL} Pointer to a <b>BOOL</b> value that receives a flag that indicates if the anchor is positioned adjacent to another region. Receives a nonzero value if the anchor is not adjacent to another region or zero otherwise.
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfrange-shiftendregion
      */
@@ -583,7 +581,7 @@ class ITfRange extends IUnknown{
     /**
      * The ITfRange::Collapse method clears the range of text by moving its start anchor and end anchor to the same position.
      * @param {Integer} ec Edit cookie obtained from <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nf-msctf-itfdocumentmgr-createcontext">ITfDocumentMgr::CreateContext</a> or <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nf-msctf-itfeditsession-doeditsession">ITfEditSession::DoEditSession</a>.
-     * @param {Integer} aPos <a href="https://docs.microsoft.com/windows/win32/api/msctf/ne-msctf-tfanchor">TfAnchor
+     * @param {TfAnchor} aPos <a href="https://docs.microsoft.com/windows/win32/api/msctf/ne-msctf-tfanchor">TfAnchor
      *             </a> enumeration that describes how to collapse the range.
      * 
      * <table>
@@ -677,7 +675,7 @@ class ITfRange extends IUnknown{
      * This method is identical to, but more efficient than, <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nf-msctf-itfrange-comparestart">ITfRange::CompareStart</a>.
      * @param {Integer} ec Edit cookie obtained from <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nf-msctf-itfdocumentmgr-createcontext">ITfDocumentMgr::CreateContext</a> or <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nf-msctf-itfeditsession-doeditsession">ITfEditSession::DoEditSession</a>.
      * @param {ITfRange} pWith Pointer to a specified range in which an anchor is to be compared to this range start anchor.
-     * @param {Integer} aPos Enumeration element that indicates which anchor of the specified <i>pWith</i> range to compare to this range start anchor.
+     * @param {TfAnchor} aPos Enumeration element that indicates which anchor of the specified <i>pWith</i> range to compare to this range start anchor.
      * 
      * <table>
      * <tr>
@@ -721,7 +719,7 @@ class ITfRange extends IUnknown{
      * This method is functionally equivalent to, but more efficient than, <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nf-msctf-itfrange-compareend">ITfRange::CompareEnd</a>.
      * @param {Integer} ec Edit cookie obtained from <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nf-msctf-itfdocumentmgr-createcontext">ITfDocumentMgr::CreateContext</a> or <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nf-msctf-itfeditsession-doeditsession">ITfEditSession::DoEditSession</a>.
      * @param {ITfRange} pWith Pointer to a specified range in which an anchor is to be compared to this range end anchor.
-     * @param {Integer} aPos Enumeration element that indicates which anchor of the specified <i>pWith</i> range to compare with this range end anchor.
+     * @param {TfAnchor} aPos Enumeration element that indicates which anchor of the specified <i>pWith</i> range to compare with this range end anchor.
      * 
      * <table>
      * <tr>
@@ -763,7 +761,7 @@ class ITfRange extends IUnknown{
      * This method will never return 0 unless the two anchors are in a single region. If the caller only requires information about whether the two anchors are positioned at the same location, <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nf-msctf-itfrange-isequalstart">ITfRange::IsEqualStart</a> is more efficient.
      * @param {Integer} ec Edit cookie obtained from <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nf-msctf-itfdocumentmgr-createcontext">ITfDocumentMgr::CreateContext</a> or <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nf-msctf-itfeditsession-doeditsession">ITfEditSession::DoEditSession</a>.
      * @param {ITfRange} pWith Pointer to a specified range in which an anchor is to be compared to this range start anchor.
-     * @param {Integer} aPos Enumeration element that indicates which anchor of the specified <i>pWith</i> range to compare to this range start anchor.
+     * @param {TfAnchor} aPos Enumeration element that indicates which anchor of the specified <i>pWith</i> range to compare to this range start anchor.
      * 
      * <table>
      * <tr>
@@ -844,7 +842,7 @@ class ITfRange extends IUnknown{
      * This method is identical to <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nf-msctf-itfrange-isequalstart">ITfRange::CompareStart</a>, except that the end anchor of this range is compared to an anchor of another specified range.
      * @param {Integer} ec Edit cookie obtained from <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nf-msctf-itfdocumentmgr-createcontext">ITfDocumentMgr::CreateContext</a> or <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nf-msctf-itfeditsession-doeditsession">ITfEditSession::DoEditSession</a>.
      * @param {ITfRange} pWith Pointer to a specified range in which an anchor is to be compared with this range end anchor.
-     * @param {Integer} aPos Enumeration element that indicates which anchor of the specified <i>pWith</i> range to compare with this range end anchor.
+     * @param {TfAnchor} aPos Enumeration element that indicates which anchor of the specified <i>pWith</i> range to compare with this range end anchor.
      * 
      * <table>
      * <tr>
@@ -939,8 +937,8 @@ class ITfRange extends IUnknown{
 
     /**
      * ITfRange::GetGravity method
-     * @param {Pointer<Integer>} pgStart Pointer to a <a href="https://docs.microsoft.com/windows/win32/api/msctf/ne-msctf-tfgravity">TfGravity</a> value that receives the gravity of the start anchor.
-     * @param {Pointer<Integer>} pgEnd Pointer to a <b>TfGravity</b> value that receives the gravity of the end anchor.
+     * @param {Pointer<TfGravity>} pgStart Pointer to a <a href="https://docs.microsoft.com/windows/win32/api/msctf/ne-msctf-tfgravity">TfGravity</a> value that receives the gravity of the start anchor.
+     * @param {Pointer<TfGravity>} pgEnd Pointer to a <b>TfGravity</b> value that receives the gravity of the end anchor.
      * @returns {HRESULT} This method can return one of these values.
      * 
      * <table>
@@ -984,8 +982,8 @@ class ITfRange extends IUnknown{
     /**
      * ITfRange::SetGravity method
      * @param {Integer} ec Contains an edit cookie that identifies the edit context obtained from <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nf-msctf-itfdocumentmgr-createcontext">ITfDocumentMgr::CreateContext</a> or <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nf-msctf-itfeditsession-doeditsession">ITfEditSession::DoEditSession</a>.
-     * @param {Integer} gStart Contains one of the <a href="https://docs.microsoft.com/windows/win32/api/msctf/ne-msctf-tfgravity">TfGravity</a> values that specifies the gravity of the start anchor.
-     * @param {Integer} gEnd Contains one of the <b>TfGravity</b> values that specifies the gravity of the end anchor.
+     * @param {TfGravity} gStart Contains one of the <a href="https://docs.microsoft.com/windows/win32/api/msctf/ne-msctf-tfgravity">TfGravity</a> values that specifies the gravity of the start anchor.
+     * @param {TfGravity} gEnd Contains one of the <b>TfGravity</b> values that specifies the gravity of the end anchor.
      * @returns {HRESULT} This method can return one of these values.
      * 
      * <table>

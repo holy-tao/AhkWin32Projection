@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class SchGetExtensionsOptions extends Win32BitflagEnum{
+class SchGetExtensionsOptions extends Win32BitflagEnum {
 
     /**
      * @type {Integer (Int32)}

@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.WindowsProgramming
- * @version v4.0.30319
  */
-class WLDP_SECURE_SETTING_VALUE_TYPE extends Win32Enum{
+class WLDP_SECURE_SETTING_VALUE_TYPE extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

@@ -5,10 +5,8 @@
  * Contains the data needed to request a token. It is used as the input parameter of the CLUSCTL_RESOURCE_NETNAME_GET_VIRTUAL_SERVER_TOKEN control code.
  * @see https://learn.microsoft.com/windows/win32/api/clusapi/ns-clusapi-clus_netname_vs_token_info
  * @namespace Windows.Win32.Networking.Clustering
- * @version v4.0.30319
  */
-class CLUS_NETNAME_VS_TOKEN_INFO extends Win32Struct
-{
+class CLUS_NETNAME_VS_TOKEN_INFO extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4

@@ -5,10 +5,8 @@
  * Contains a stream item used by the PFNDPASTREAM callback function.
  * @see https://learn.microsoft.com/windows/win32/api/dpa_dsa/ns-dpa_dsa-dpastreaminfo
  * @namespace Windows.Win32.UI.Controls
- * @version v4.0.30319
  */
-class DPASTREAMINFO extends Win32Struct
-{
+class DPASTREAMINFO extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

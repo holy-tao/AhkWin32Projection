@@ -1,15 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\LUID.ahk
-#Include .\AUTHZ_AUDIT_EVENT_TYPE_LEGACY.ahk
 #Include .\AUTHZ_AUDIT_EVENT_TYPE_UNION.ahk
+#Include .\AUTHZ_AUDIT_EVENT_TYPE_LEGACY.ahk
 
 /**
  * @namespace Windows.Win32.Security.Authorization
- * @version v4.0.30319
  */
-class AUTHZ_AUDIT_EVENT_TYPE_OLD extends Win32Struct
-{
+class AUTHZ_AUDIT_EVENT_TYPE_OLD extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -49,7 +47,7 @@ class AUTHZ_AUDIT_EVENT_TYPE_OLD extends Win32Struct
     /**
      * @type {LUID}
      */
-    LinkId{
+    LinkId {
         get {
             if(!this.HasProp("__LinkId"))
                 this.__LinkId := LUID(24, this)
@@ -60,7 +58,7 @@ class AUTHZ_AUDIT_EVENT_TYPE_OLD extends Win32Struct
     /**
      * @type {AUTHZ_AUDIT_EVENT_TYPE_UNION}
      */
-    u{
+    u {
         get {
             if(!this.HasProp("__u"))
                 this.__u := AUTHZ_AUDIT_EVENT_TYPE_UNION(32, this)

@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IMFExtendedCameraIntrinsicModel.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\IMFExtendedCameraIntrinsicModel.ahk
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFExtendedCameraIntrinsics extends IUnknown{
+class IMFExtendedCameraIntrinsics extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -31,7 +30,7 @@ class IMFExtendedCameraIntrinsics extends IUnknown{
 
     /**
      * 
-     * @param {Pointer} pbBuffer 
+     * @param {Integer} pbBuffer 
      * @param {Integer} dwBufferSize 
      * @returns {HRESULT} 
      */
@@ -52,7 +51,7 @@ class IMFExtendedCameraIntrinsics extends IUnknown{
 
     /**
      * 
-     * @param {Pointer} pbBuffer 
+     * @param {Integer} pbBuffer 
      * @param {Pointer<Integer>} pdwBufferSize 
      * @returns {HRESULT} 
      */

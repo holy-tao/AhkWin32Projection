@@ -5,9 +5,8 @@
  * Contains flags affecting the behavior of the RawSCSIVirtualDisk function.
  * @see https://learn.microsoft.com/windows/win32/api/virtdisk/ne-virtdisk-raw_scsi_virtual_disk_flag
  * @namespace Windows.Win32.Storage.Vhd
- * @version v4.0.30319
  */
-class RAW_SCSI_VIRTUAL_DISK_FLAG extends Win32BitflagEnum{
+class RAW_SCSI_VIRTUAL_DISK_FLAG extends Win32BitflagEnum {
 
     /**
      * No flag specified.

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\HTTP_RESPONSE_INFO_TYPE.ahk
 
 /**
  * Extends the HTTP_RESPONSE structure with additional information for the response.
@@ -7,17 +8,15 @@
  * Starting with the HTTP Server API version 2.0, the HTTP_RESPONSE structure is extended to include an array of <b>HTTP_RESPONSE_INFO</b> structures in the <b>pRequestInfo</b> member. These structures contain additional information for the  response.
  * @see https://learn.microsoft.com/windows/win32/api/http/ns-http-http_response_info
  * @namespace Windows.Win32.Networking.HttpServer
- * @version v4.0.30319
  */
-class HTTP_RESPONSE_INFO extends Win32Struct
-{
+class HTTP_RESPONSE_INFO extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
 
     /**
      * A member of the <a href="https://docs.microsoft.com/windows/desktop/api/http/ne-http-http_response_info_type">HTTP_RESPONSE_INFO_TYPE</a> enumeration specifying the type of information contained in this structure.
-     * @type {Integer}
+     * @type {HTTP_RESPONSE_INFO_TYPE}
      */
     Type {
         get => NumGet(this, 0, "int")

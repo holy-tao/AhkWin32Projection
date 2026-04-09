@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Mmc
- * @version v4.0.30319
  */
-class AppEventsDHTMLConnector extends Win32Struct
-{
+class AppEventsDHTMLConnector extends Win32Struct {
     static sizeof => 0
 
     static packingSize => 1

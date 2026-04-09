@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IWbemDecoupledRegistrar.ahk
 #Include .\IWbemObjectSink.ahk
 #Include .\IWbemServices.ahk
-#Include .\IWbemDecoupledRegistrar.ahk
 
 /**
  * The IWbemDecoupledBasicEventProvider interface is a cocreatable interface that registers decoupled providers with WMI. The object created should be passed into the pUnknown argument of IWbemDecoupledRegistrar::Register.
  * @see https://learn.microsoft.com/windows/win32/api/wbemprov/nn-wbemprov-iwbemdecoupledbasiceventprovider
  * @namespace Windows.Win32.System.Wmi
- * @version v4.0.30319
  */
-class IWbemDecoupledBasicEventProvider extends IWbemDecoupledRegistrar{
+class IWbemDecoupledBasicEventProvider extends IWbemDecoupledRegistrar {
 
     static sizeof => A_PtrSize
     /**

@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IADs.ahk
 #Include ..\..\Foundation\BSTR.ahk
 #Include .\IADsCollection.ahk
-#Include .\IADs.ahk
 
 /**
  * The IADsProperty interface is designed to manage a single attribute definition for a schema class object.
@@ -12,9 +12,8 @@
  *     attributes and property objects to a provider-specific implementation.
  * @see https://learn.microsoft.com/windows/win32/api/iads/nn-iads-iadsproperty
  * @namespace Windows.Win32.Networking.ActiveDirectory
- * @version v4.0.30319
  */
-class IADsProperty extends IADs{
+class IADsProperty extends IADs {
 
     static sizeof => A_PtrSize
     /**

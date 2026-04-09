@@ -1,15 +1,22 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\HWND.ahk
+#Include .\ITravelLog.ahk
+#Include .\IHlinkFrame.ahk
+#Include .\IWebBrowser2.ahk
+#Include .\IExpDispSupport.ahk
+#Include .\IShellService.ahk
+#Include Common\ITEMIDLIST.ahk
+#Include ..\..\System\Ole\IOleCommandTarget.ahk
+#Include .\IShellView.ahk
+#Include .\IShellFolder.ahk
 
 /**
  * The BASEBROWSERDATALH structure contains protected members of the base class. (BASEBROWSERDATALH structure)
  * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/ns-shdeprecated-basebrowserdatalh
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class BASEBROWSERDATALH extends Win32Struct
-{
+class BASEBROWSERDATALH extends Win32Struct {
     static sizeof => 200
 
     static packingSize => 8
@@ -20,7 +27,7 @@ class BASEBROWSERDATALH extends Win32Struct
      * The handle of the browser's top-level window.
      * @type {HWND}
      */
-    _hwnd{
+    _hwnd {
         get {
             if(!this.HasProp("___hwnd"))
                 this.___hwnd := HWND(0, this)
@@ -108,9 +115,6 @@ class BASEBROWSERDATALH extends Win32Struct
     }
 
     /**
-     * Type: <b>UINT</b>
-     * 
-     * A view window is being created by the browser.
      * @type {Integer}
      */
     _fCreatingViewWindow {
@@ -130,7 +134,6 @@ class BASEBROWSERDATALH extends Win32Struct
     }
 
     /**
-     * 
      * @type {Pointer<ITEMIDLIST>}
      */
     _pidlViewState {
@@ -188,7 +191,7 @@ class BASEBROWSERDATALH extends Win32Struct
      * A handle to the window returned by <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-ishellview-createviewwindow">_psv->CreateViewWindow</a>.
      * @type {HWND}
      */
-    _hwndView{
+    _hwndView {
         get {
             if(!this.HasProp("___hwndView"))
                 this.___hwndView := HWND(104, this)
@@ -246,7 +249,7 @@ class BASEBROWSERDATALH extends Win32Struct
      * A handle to the pending target location's view window. Once navigation is complete, this value moves to <b>_hwndView</b>.
      * @type {HWND}
      */
-    _hwndViewPending{
+    _hwndViewPending {
         get {
             if(!this.HasProp("___hwndViewPending"))
                 this.___hwndViewPending := HWND(144, this)
@@ -289,7 +292,7 @@ class BASEBROWSERDATALH extends Win32Struct
 
     /**
      * Type: <b>CLSID</b>
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     _clsidView {
         get => NumGet(this, 168, "ptr")
@@ -298,7 +301,7 @@ class BASEBROWSERDATALH extends Win32Struct
 
     /**
      * Type: <b>CLSID</b>
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     _clsidViewPending {
         get => NumGet(this, 176, "ptr")
@@ -309,7 +312,7 @@ class BASEBROWSERDATALH extends Win32Struct
      * Type: <b>HWND</b>
      * @type {HWND}
      */
-    _hwndFrame{
+    _hwndFrame {
         get {
             if(!this.HasProp("___hwndFrame"))
                 this.___hwndFrame := HWND(184, this)

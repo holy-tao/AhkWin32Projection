@@ -7,9 +7,8 @@
  * Provides access to a control that can cycle through a set of states, and maintain a state after it is set.
  * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nn-uiautomationclient-iuiautomationtogglepattern
  * @namespace Windows.Win32.UI.Accessibility
- * @version v4.0.30319
  */
-class IUIAutomationTogglePattern extends IUnknown{
+class IUIAutomationTogglePattern extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -31,14 +30,14 @@ class IUIAutomationTogglePattern extends IUnknown{
     static VTableNames => ["Toggle", "get_CurrentToggleState", "get_CachedToggleState"]
 
     /**
-     * @type {Integer} 
+     * @type {ToggleState} 
      */
     CurrentToggleState {
         get => this.get_CurrentToggleState()
     }
 
     /**
-     * @type {Integer} 
+     * @type {ToggleState} 
      */
     CachedToggleState {
         get => this.get_CachedToggleState()
@@ -60,7 +59,7 @@ class IUIAutomationTogglePattern extends IUnknown{
 
     /**
      * Retrieves the state of the control.
-     * @returns {Integer} 
+     * @returns {ToggleState} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationtogglepattern-get_currenttogglestate
      */
     get_CurrentToggleState() {
@@ -70,7 +69,7 @@ class IUIAutomationTogglePattern extends IUnknown{
 
     /**
      * Retrieves the cached state of the control.
-     * @returns {Integer} 
+     * @returns {ToggleState} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationtogglepattern-get_cachedtogglestate
      */
     get_CachedToggleState() {

@@ -5,10 +5,8 @@
  * Contains the current signal generation state of a pin.
  * @see https://learn.microsoft.com/windows/win32/DevIO/pwm-pin-is-started-output
  * @namespace Windows.Win32.Devices.Pwm
- * @version v4.0.30319
  */
-class PWM_PIN_IS_STARTED_OUTPUT extends Win32Struct
-{
+class PWM_PIN_IS_STARTED_OUTPUT extends Win32Struct {
     static sizeof => 1
 
     static packingSize => 1

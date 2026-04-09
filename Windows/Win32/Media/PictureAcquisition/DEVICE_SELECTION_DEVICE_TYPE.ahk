@@ -7,9 +7,8 @@
  * This enumeration type is pointed to by the <i>pnDeviceType</i> parameter of <a href="https://docs.microsoft.com/windows/desktop/api/photoacquire/nf-photoacquire-iphotoacquiredeviceselectiondialog-domodal">IPhotoAcquireDeviceSelectionDialog::DoModal</a>.
  * @see https://learn.microsoft.com/windows/win32/api/photoacquire/ne-photoacquire-device_selection_device_type
  * @namespace Windows.Win32.Media.PictureAcquisition
- * @version v4.0.30319
  */
-class DEVICE_SELECTION_DEVICE_TYPE extends Win32Enum{
+class DEVICE_SELECTION_DEVICE_TYPE extends Win32Enum {
 
     /**
      * Specifies that the type of the selected device is unknown.
@@ -48,7 +47,6 @@ class DEVICE_SELECTION_DEVICE_TYPE extends Win32Enum{
     static DST_FS_DEVICE => 5
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static DST_DV_DEVICE => 6

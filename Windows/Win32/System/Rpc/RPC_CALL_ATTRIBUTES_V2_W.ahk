@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\RpcCallClientLocality.ahk
 #Include ..\..\Foundation\HANDLE.ahk
+#Include .\RpcCallType.ahk
+#Include .\RPC_CALL_LOCAL_ADDRESS_V1.ahk
 
 /**
  * The RPC_CALL_ATTRIBUTES_V2 structure provides parameters to the RpcServerInqCallAttributes function. Version 2 specifies support for local addresses and client process IDs. (Unicode)
@@ -17,11 +20,9 @@
  *  Until the process terminates, <b>ClientPID</b> uniquely identifies that process on the client. When the process terminates, the process ID specified by <b>ClientPID</b> can be used by new processes.
  * @see https://learn.microsoft.com/windows/win32/api/rpcasync/ns-rpcasync-rpc_call_attributes_v2_w
  * @namespace Windows.Win32.System.Rpc
- * @version v4.0.30319
  * @charset Unicode
  */
-class RPC_CALL_ATTRIBUTES_V2_W extends Win32Struct
-{
+class RPC_CALL_ATTRIBUTES_V2_W extends Win32Struct {
     static sizeof => 104
 
     static packingSize => 8
@@ -174,7 +175,6 @@ class RPC_CALL_ATTRIBUTES_V2_W extends Win32Struct
     }
 
     /**
-     * 
      * @type {BOOL}
      */
     KernelModeCaller {
@@ -193,7 +193,7 @@ class RPC_CALL_ATTRIBUTES_V2_W extends Win32Struct
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/api/rpcasync/ne-rpcasync-rpccallclientlocality">RpcCallClientLocality</a> enumeration value that indicates the locality of the client (local, remote, or unknown).
-     * @type {Integer}
+     * @type {RpcCallClientLocality}
      */
     IsClientLocal {
         get => NumGet(this, 60, "int")
@@ -204,7 +204,7 @@ class RPC_CALL_ATTRIBUTES_V2_W extends Win32Struct
      * Handle that contains the process ID of the calling client. This field is only supported for the ncalrpc protocol sequence, and is populated only when <b>RPC_QUERY_CLIENT_PID</b> is specified in the <i>Flags</i> parameter.
      * @type {HANDLE}
      */
-    ClientPID{
+    ClientPID {
         get {
             if(!this.HasProp("__ClientPID"))
                 this.__ClientPID := HANDLE(64, this)
@@ -263,7 +263,7 @@ class RPC_CALL_ATTRIBUTES_V2_W extends Win32Struct
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/api/rpcasync/ne-rpcasync-rpccalltype">RpcCallType</a> enumeration value that indicates the  type of the RPC call.
-     * @type {Integer}
+     * @type {RpcCallType}
      */
     CallType {
         get => NumGet(this, 76, "int")
@@ -294,7 +294,7 @@ class RPC_CALL_ATTRIBUTES_V2_W extends Win32Struct
 
     /**
      * The interface UUID on which the call is made.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     InterfaceUuid {
         get => NumGet(this, 96, "ptr")

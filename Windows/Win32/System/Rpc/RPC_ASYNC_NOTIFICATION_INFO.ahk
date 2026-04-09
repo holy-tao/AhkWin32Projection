@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\HANDLE.ahk
+#Include ..\IO\OVERLAPPED.ahk
 #Include ..\..\Foundation\HWND.ahk
 
 /**
@@ -9,10 +10,8 @@
  * Prior to Windows Vista and earlier versions of Windows, the <b>RPC_ASYNC_NOTIFICATION_INFO</b> union was part of the <a href="https://docs.microsoft.com/windows/desktop/api/rpcasync/ns-rpcasync-rpc_async_state">RPC_ASYNC_STATE</a> structure. Please see the <b>RPC_ASYNC_STATE</b> topic for additional information.
  * @see https://learn.microsoft.com/windows/win32/api/rpcasync/ns-rpcasync-rpc_async_notification_info
  * @namespace Windows.Win32.System.Rpc
- * @version v4.0.30319
  */
-class RPC_ASYNC_NOTIFICATION_INFO extends Win32Struct
-{
+class RPC_ASYNC_NOTIFICATION_INFO extends Win32Struct {
     static sizeof => 80
 
     static packingSize => 8
@@ -28,18 +27,17 @@ class RPC_ASYNC_NOTIFICATION_INFO extends Win32Struct
             get => NumGet(this, 0, "ptr")
             set => NumPut("ptr", value, this, 0)
         }
-    
+
         /**
          * @type {HANDLE}
          */
-        hThread{
+        hThread {
             get {
                 if(!this.HasProp("__hThread"))
                     this.__hThread := HANDLE(8, this)
                 return this.__hThread
             }
         }
-    
     }
 
     class _IOC extends Win32Struct {
@@ -49,14 +47,14 @@ class RPC_ASYNC_NOTIFICATION_INFO extends Win32Struct
         /**
          * @type {HANDLE}
          */
-        hIOPort{
+        hIOPort {
             get {
                 if(!this.HasProp("__hIOPort"))
                     this.__hIOPort := HANDLE(0, this)
                 return this.__hIOPort
             }
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -64,7 +62,7 @@ class RPC_ASYNC_NOTIFICATION_INFO extends Win32Struct
             get => NumGet(this, 8, "uint")
             set => NumPut("uint", value, this, 8)
         }
-    
+
         /**
          * @type {Pointer}
          */
@@ -72,7 +70,7 @@ class RPC_ASYNC_NOTIFICATION_INFO extends Win32Struct
             get => NumGet(this, 16, "ptr")
             set => NumPut("ptr", value, this, 16)
         }
-    
+
         /**
          * @type {Pointer<OVERLAPPED>}
          */
@@ -80,7 +78,6 @@ class RPC_ASYNC_NOTIFICATION_INFO extends Win32Struct
             get => NumGet(this, 24, "ptr")
             set => NumPut("ptr", value, this, 24)
         }
-    
     }
 
     class _IntPtr extends Win32Struct {
@@ -90,14 +87,14 @@ class RPC_ASYNC_NOTIFICATION_INFO extends Win32Struct
         /**
          * @type {HWND}
          */
-        hWnd{
+        hWnd {
             get {
                 if(!this.HasProp("__hWnd"))
                     this.__hWnd := HWND(0, this)
                 return this.__hWnd
             }
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -105,17 +102,16 @@ class RPC_ASYNC_NOTIFICATION_INFO extends Win32Struct
             get => NumGet(this, 8, "uint")
             set => NumPut("uint", value, this, 8)
         }
-    
     }
 
     /**
      * Structure used for Windows asynchronous procedure call (APC) notifications.
      * @type {_APC}
      */
-    APC{
+    APC {
         get {
             if(!this.HasProp("__APC"))
-                this.__APC := %this.__Class%._APC(0, this)
+                this.__APC := RPC_ASYNC_NOTIFICATION_INFO._APC(0, this)
             return this.__APC
         }
     }
@@ -124,10 +120,10 @@ class RPC_ASYNC_NOTIFICATION_INFO extends Win32Struct
      * Structure used for notification on an I/O completion port.
      * @type {_IOC}
      */
-    IOC{
+    IOC {
         get {
             if(!this.HasProp("__IOC"))
-                this.__IOC := %this.__Class%._IOC(0, this)
+                this.__IOC := RPC_ASYNC_NOTIFICATION_INFO._IOC(0, this)
             return this.__IOC
         }
     }
@@ -135,10 +131,10 @@ class RPC_ASYNC_NOTIFICATION_INFO extends Win32Struct
     /**
      * @type {_IntPtr}
      */
-    IntPtr{
+    IntPtr {
         get {
             if(!this.HasProp("__IntPtr"))
-                this.__IntPtr := %this.__Class%._IntPtr(0, this)
+                this.__IntPtr := RPC_ASYNC_NOTIFICATION_INFO._IntPtr(0, this)
             return this.__IntPtr
         }
     }
@@ -147,7 +143,7 @@ class RPC_ASYNC_NOTIFICATION_INFO extends Win32Struct
      * Handle used for notification by an event.
      * @type {HANDLE}
      */
-    hEvent{
+    hEvent {
         get {
             if(!this.HasProp("__hEvent"))
                 this.__hEvent := HANDLE(0, this)

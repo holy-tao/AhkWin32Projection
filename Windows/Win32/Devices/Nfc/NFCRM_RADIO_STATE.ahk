@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.Nfc
- * @version v4.0.30319
  */
-class NFCRM_RADIO_STATE extends Win32Struct
-{
+class NFCRM_RADIO_STATE extends Win32Struct {
     static sizeof => 1
 
     static packingSize => 1

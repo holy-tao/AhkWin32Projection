@@ -7,9 +7,8 @@
  * Used by item monikers when they are bound to the objects they identify.
  * @see https://learn.microsoft.com/windows/win32/api/oleidl/nn-oleidl-ioleitemcontainer
  * @namespace Windows.Win32.System.Ole
- * @version v4.0.30319
  */
-class IOleItemContainer extends IOleContainer{
+class IOleItemContainer extends IOleContainer {
 
     static sizeof => A_PtrSize
     /**

@@ -3,14 +3,10 @@
 
 /**
  * TBD (NAMEDCOLOR)
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/icm/ns-icm-namedcolor
  * @namespace Windows.Win32.UI.ColorSystem
- * @version v4.0.30319
  */
-class NAMEDCOLOR extends Win32Struct
-{
+class NAMEDCOLOR extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 4

@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\IDataCollectorSet.ahk
-#Include .\IValueMap.ahk
 #Include ..\Com\IDispatch.ahk
+#Include .\IDataCollectorSet.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include .\IValueMap.ahk
 
 /**
  * Sets and retrieves collector properties using XML, specifies the log file name, and retrieves the location of the log file.This interface is an abstract class from which the following data collectors derive:IAlertDataCollectorIApiTracingDataCollectorIConfigurationDataCollectorIPerformanceCounterDataCollectorITraceDataCollector
@@ -58,9 +58,8 @@
  * When you specify the XML to create the collector, you can specify only the elements for the properties that you want to set. If you do not specify a property, PLA provides a default value. When you retrieve the XML for the collector, the XML provides all elements, including those from <b>IDataCollector</b>.
  * @see https://learn.microsoft.com/windows/win32/api/pla/nn-pla-idatacollector
  * @namespace Windows.Win32.System.Performance
- * @version v4.0.30319
  */
-class IDataCollector extends IDispatch{
+class IDataCollector extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -90,7 +89,7 @@ class IDataCollector extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {DataCollectorType} 
      */
     DataCollectorType {
         get => this.get_DataCollectorType()
@@ -105,7 +104,7 @@ class IDataCollector extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {AutoPathFormat} 
      */
     FileNameFormat {
         get => this.get_FileNameFormat()
@@ -206,7 +205,7 @@ class IDataCollector extends IDispatch{
      * Retrieves the type of this data collector, for example, a performance data collector.
      * @remarks
      * PLA sets the type when you create the data collector.
-     * @returns {Integer} 
+     * @returns {DataCollectorType} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollector-get_datacollectortype
      */
     get_DataCollectorType() {
@@ -298,7 +297,7 @@ class IDataCollector extends IDispatch{
      * Retrieves or sets flags that describe how to decorate the file name. (Get)
      * @remarks
      * PLA appends the decoration to the file name. For example, if you specify <b>plaMonthDayHour</b>, PLA appends the current month, day, and hour values to the file name. If the file name is MyFile, the result could be MyFile110816.
-     * @returns {Integer} 
+     * @returns {AutoPathFormat} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollector-get_filenameformat
      */
     get_FileNameFormat() {
@@ -310,7 +309,7 @@ class IDataCollector extends IDispatch{
      * Retrieves or sets flags that describe how to decorate the file name. (Put)
      * @remarks
      * PLA appends the decoration to the file name. For example, if you specify <b>plaMonthDayHour</b>, PLA appends the current month, day, and hour values to the file name. If the file name is MyFile, the result could be MyFile110816.
-     * @param {Integer} format 
+     * @param {AutoPathFormat} format 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollector-put_filenameformat
      */

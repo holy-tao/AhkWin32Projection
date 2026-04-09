@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\SIGNER_PRIVATE_KEY_CHOICE.ahk
 
 /**
  * Specifies the cryptographic service provider (CSP) and private key information used to create a digital signature.
  * @see https://learn.microsoft.com/windows/win32/SecCrypto/signer-provider-info
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class SIGNER_PROVIDER_INFO extends Win32Struct
-{
+class SIGNER_PROVIDER_INFO extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -58,7 +57,7 @@ class SIGNER_PROVIDER_INFO extends Win32Struct
      * |-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------|
      * | <span id="PVK_TYPE_FILE_NAME"></span><span id="pvk_type_file_name"></span><dl> <dt>**PVK\_TYPE\_FILE\_NAME**</dt> <dt>1 (0x1)</dt> </dl>         | The private key information is a file name.<br/>     |
      * | <span id="PVK_TYPE_KEYCONTAINER"></span><span id="pvk_type_keycontainer"></span><dl> <dt>**PVK\_TYPE\_KEYCONTAINER**</dt> <dt>2 (0x2)</dt> </dl> | The private key information is a key container.<br/> |
-     * @type {Integer}
+     * @type {SIGNER_PRIVATE_KEY_CHOICE}
      */
     dwPvkChoice {
         get => NumGet(this, 24, "uint")

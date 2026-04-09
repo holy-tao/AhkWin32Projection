@@ -1,21 +1,20 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\HrtfDistanceDecayType.ahk
 
 /**
  * Describes a distance-based decay behavior.
  * @see https://learn.microsoft.com/windows/win32/api/hrtfapoapi/ns-hrtfapoapi-hrtfdistancedecay
  * @namespace Windows.Win32.Media.Audio.XAudio2
- * @version v4.0.30319
  */
-class HrtfDistanceDecay extends Win32Struct
-{
+class HrtfDistanceDecay extends Win32Struct {
     static sizeof => 20
 
     static packingSize => 4
 
     /**
      * The type of decay behavior, natural or custom.
-     * @type {Integer}
+     * @type {HrtfDistanceDecayType}
      */
     type {
         get => NumGet(this, 0, "int")

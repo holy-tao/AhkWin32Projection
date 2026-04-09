@@ -1,5 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\D3D11_FILL_MODE.ahk
+#Include .\D3D11_CULL_MODE.ahk
+#Include .\D3D11_CONSERVATIVE_RASTERIZATION_MODE.ahk
 
 /**
  * Describes rasterizer state. (D3D11_RASTERIZER_DESC2)
@@ -97,17 +100,15 @@
  * The settings of the <b>MultisampleEnable</b> and <b>AntialiasedLineEnable</b> members apply only to multisample antialiasing (MSAA) render targets (that is, render targets with sample counts greater than 1). Because of the differences in <a href="https://docs.microsoft.com/windows/desktop/direct3d11/overviews-direct3d-11-devices-downlevel-intro">feature-level</a> behavior and as long as you aren’t performing any line drawing or don’t mind that lines render as quadrilaterals, we recommend that you always set <b>MultisampleEnable</b> to <b>TRUE</b> whenever you render on MSAA render targets.
  * @see https://learn.microsoft.com/windows/win32/api/d3d11_3/ns-d3d11_3-d3d11_rasterizer_desc2
  * @namespace Windows.Win32.Graphics.Direct3D11
- * @version v4.0.30319
  */
-class D3D11_RASTERIZER_DESC2 extends Win32Struct
-{
+class D3D11_RASTERIZER_DESC2 extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 4
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ne-d3d11-d3d11_fill_mode">D3D11_FILL_MODE</a>-typed value that determines the fill mode to use when rendering.
-     * @type {Integer}
+     * @type {D3D11_FILL_MODE}
      */
     FillMode {
         get => NumGet(this, 0, "int")
@@ -116,7 +117,7 @@ class D3D11_RASTERIZER_DESC2 extends Win32Struct
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ne-d3d11-d3d11_cull_mode">D3D11_CULL_MODE</a>-typed value that indicates that triangles facing the specified direction are not drawn.
-     * @type {Integer}
+     * @type {D3D11_CULL_MODE}
      */
     CullMode {
         get => NumGet(this, 4, "int")
@@ -231,7 +232,7 @@ class D3D11_RASTERIZER_DESC2 extends Win32Struct
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/d3d11_3/ne-d3d11_3-d3d11_conservative_rasterization_mode">D3D11_CONSERVATIVE_RASTERIZATION_MODE</a>-typed value that identifies whether conservative rasterization is on or off.
-     * @type {Integer}
+     * @type {D3D11_CONSERVATIVE_RASTERIZATION_MODE}
      */
     ConservativeRaster {
         get => NumGet(this, 44, "int")

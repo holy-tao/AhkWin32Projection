@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include .\IVssComponent.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * Defines additional methods for examining and modifying information about components contained in a requester's Backup Components Document.
  * @see https://learn.microsoft.com/windows/win32/api/vswriter/nl-vswriter-ivsscomponentex
  * @namespace Windows.Win32.Storage.Vss
- * @version v4.0.30319
  */
-class IVssComponentEx extends IVssComponent{
+class IVssComponentEx extends IVssComponent {
 
     static sizeof => A_PtrSize
     /**
@@ -227,7 +226,7 @@ class IVssComponentEx extends IVssComponent{
      * For more 
      *       information, see <a href="https://docs.microsoft.com/windows/desktop/VSS/setting-vss-restore-options">Setting VSS Restore 
      *       Options</a>.
-     * @param {Pointer<Integer>} pRollType A <a href="https://docs.microsoft.com/windows/desktop/api/vss/ne-vss-vss_rollforward_type">VSS_ROLLFORWARD_TYPE</a> enumeration value indicating the type of roll-forward operation to be performed.
+     * @param {Pointer<VSS_ROLLFORWARD_TYPE>} pRollType A <a href="https://docs.microsoft.com/windows/desktop/api/vss/ne-vss-vss_rollforward_type">VSS_ROLLFORWARD_TYPE</a> enumeration value indicating the type of roll-forward operation to be performed.
      * @param {Pointer<BSTR>} pbstrPoint The address of a caller-allocated variable that receives a null-terminated wide character string specifying the roll-forward restore point.
      * @returns {HRESULT} The following are the valid return codes for this method.
      * 

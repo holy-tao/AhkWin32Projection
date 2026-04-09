@@ -1,16 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include .\IWMPLibrary.ahk
 
 /**
  * The IWMPLibrary2 interface represents a media library.
  * @see https://learn.microsoft.com/windows/win32/api/wmp/nn-wmp-iwmplibrary2
  * @namespace Windows.Win32.Media.MediaPlayer
- * @version v4.0.30319
  */
-class IWMPLibrary2 extends IWMPLibrary{
+class IWMPLibrary2 extends IWMPLibrary {
 
     static sizeof => A_PtrSize
     /**

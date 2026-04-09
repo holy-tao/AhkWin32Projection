@@ -1,14 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
 #Include .\IInkDrawingAttributes.ahk
 #Include .\IInkDisp.ahk
 #Include .\IInkExtendedProperties.ahk
 #Include .\IInkRectangle.ahk
-#Include .\IInkStrokeDisp.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * Represents a single ink stroke.A stroke is a set of properties and point data that the digitizer captures that represent the coordinates and properties of a known ink mark.
@@ -16,9 +14,8 @@
  * If you define a class that implements this interface, the new class will not interact correctly with the Tablet PC application programming interfaces (APIs).
  * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nn-msinkaut-iinkstrokedisp
  * @namespace Windows.Win32.UI.TabletPC
- * @version v4.0.30319
  */
-class IInkStrokeDisp extends IDispatch{
+class IInkStrokeDisp extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -308,7 +305,7 @@ class IInkStrokeDisp extends IDispatch{
      * <div> </div>
      * <div class="alert"><b>Note</b>  If you have not set the pen width explicitly, it is 53 by default. You must multiply the pen width by the square root of the determinant to yield the correct bounding box. The height and width of the bounding box are expanded by half this amount in each direction. For example, consider that the pen width is 53, the square root of the determinant is 50, and the bounding box is (0, 0, 1000, 1000). The pen width adjustment to the bounding box in each direction is calculated as (53 * 50) / 2, and the right and bottom sides are incremented by one. This results in a rendered bounding box of (-1325, -1325, 2326, 2326).</div>
      * <div> </div>
-     * @param {Integer} BoundingBoxMode Optional. Specifies the stroke characteristics to use to calculate the bounding box. The default value is -1, indicating that all characteristics of a stroke are used to specify the bounding box. 
+     * @param {InkBoundingBoxMode} BoundingBoxMode Optional. Specifies the stroke characteristics to use to calculate the bounding box. The default value is -1, indicating that all characteristics of a stroke are used to specify the bounding box. 
      * 
      * For more details about the use of stroke characteristics to calculate a bounding box, see the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/ne-msinkaut-inkboundingboxmode">BoundingBoxMode</a> enumeration type.
      * @returns {IInkRectangle} When this method returns, contains a pointer to the rectangle that defines the bounding box of an <a href="https://docs.microsoft.com/windows/desktop/tablet/inkdisp-class">InkDisp</a> object, an <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nn-msinkaut-iinkstrokedisp">IInkStrokeDisp</a> object, or an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms703293(v=vs.85)">InkStrokes</a> collection.
@@ -473,7 +470,9 @@ class IInkStrokeDisp extends IDispatch{
      * @param {Integer} X The x-position in ink space of the point to test.
      * @param {Integer} Y The y-position in ink space of the point to test.
      * @param {Pointer<Float>} Distance Optional. The distance from the point to the stroke. This parameter can be <b>NULL</b>. The default value is 0.
-     * @returns {Float} 
+     * @returns {Float} When this method returns, contains the floating point index value that represents the closest location on the stroke.
+     * 
+     * A floating point index is a float value that represents a location somewhere between two points in the stroke. As examples, if 0.0 is the first point in the stroke and 1.0 is the second point in the stroke, 0.5 is halfway between the first and second points. Similarly, a floating point index value of 37.25 represents a location that is 25 percent along the line between points 37 and 38 of the stroke.
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkstrokedisp-nearestpoint
      */
     NearestPoint(X, Y, Distance) {
@@ -508,7 +507,7 @@ class IInkStrokeDisp extends IDispatch{
      * For more information about the BSTR data type, see <a href="https://docs.microsoft.com/windows/desktop/tablet/using-the-com-library">Using the COM Library</a>.
      * @param {Pointer<Integer>} Minimum The minimum value, in logical units, that the tablet reports for this property. For example, a tablet reporting x-values from 0 to 9000 would have a logical minimum of 0.
      * @param {Pointer<Integer>} Maximum The maximum value, in logical units, that the tablet reports for this property. For example, a tablet reporting x-values from 0 to 9000 would have a logical maximum of 9000.
-     * @param {Pointer<Integer>} Units The physical units of the property, such as inches or degrees. For a list of property units, see the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/ne-msinkaut-tabletpropertymetricunit">TabletPropertyMetricUnit</a> enumeration type.
+     * @param {Pointer<TabletPropertyMetricUnit>} Units The physical units of the property, such as inches or degrees. For a list of property units, see the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/ne-msinkaut-tabletpropertymetricunit">TabletPropertyMetricUnit</a> enumeration type.
      * @param {Pointer<Float>} Resolution The resolution or increment value for the <i>units</i> member. For example, a tablet that reports 400 dots per inch (dpi) would have a <i>resolution</i> value of 400.
      * @returns {HRESULT} This method can return one of these values.
      * 
@@ -602,7 +601,9 @@ class IInkStrokeDisp extends IDispatch{
      * Retrieves the points that make up a stroke.
      * @param {Integer} Index Optional. The starting index within the array of points that make up the stroke. The default value ISC_FirstElement, defined in the <a href="https://docs.microsoft.com/windows/win32/api/msinkaut/ne-msinkaut-inkselectionconstants">InkSelectionConstants</a> enumeration type, specifies the first point.
      * @param {Integer} Count Optional. The number of points to return. The default value ISC_AllElements, defined in the <a href="https://docs.microsoft.com/windows/win32/api/msinkaut/ne-msinkaut-inkselectionconstants">InkSelectionConstants</a> enumeration type, specifies all of the points that make up the stroke data.
-     * @returns {VARIANT} 
+     * @returns {VARIANT} When this method returns, contains the array of points from the stroke.
+     * 
+     * For more information about the VARIANT structure, see <a href="https://docs.microsoft.com/windows/desktop/tablet/using-the-com-library">Using the COM Library</a>.
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkstrokedisp-getpoints
      */
     GetPoints(Index, Count) {
@@ -621,7 +622,9 @@ class IInkStrokeDisp extends IDispatch{
      * This method does not provide for extending the stroke. If the points array contains more points than the stroke, the extra points are not used. If the count exceeds the number of points in the array, only the number of points in the array are modified.
      * 
      * In order to draw the stroke after calling <b>SetPoints</b>, call the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-invalidaterect">InvalidateRect</a> function.
-     * @param {VARIANT} _Points 
+     * @param {VARIANT} _Points The array of new points to replace the points in the stroke beginning at <i>index</i>. This is a VARIANT containing an array of Long with the points represented by alternating values of the form x0, y0, x1, y1, x2, y2, and so on.
+     * 
+     * For more information about the VARIANT structure, see <a href="https://docs.microsoft.com/windows/desktop/tablet/using-the-com-library">Using the COM Library</a>.
      * @param {Integer} Index Optional. The zero-based index of the first point in the stroke to be modified. The default value <a href="https://docs.microsoft.com/windows/win32/api/msinkaut/ne-msinkaut-inkselectionconstants">ISC_FirstElement</a>, defined in the <b>ItemSelectionConstants</b> enumeration type, specifies that the first point in the stroke is modified.
      * @param {Integer} Count Optional. The count of points in the stroke to be modified. The default value <a href="https://docs.microsoft.com/windows/win32/api/msinkaut/ne-msinkaut-inkselectionconstants">ISC_AllElements</a>, defined in the <b>ItemSelectionConstants</b> enumeration type, specifies that all points in the stroke are modified.
      * @returns {Integer} When this method returns, contains the actual number of packets set.

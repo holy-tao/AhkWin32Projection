@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Storage.IscsiDisc
- * @version v4.0.30319
  */
-class IO_SCSI_CAPABILITIES extends Win32Struct
-{
+class IO_SCSI_CAPABILITIES extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 4

@@ -9,10 +9,8 @@
  * See the [Bluetooth class-of-device (CoD) codes](https://www.bluetooth.com/specifications/assigned-numbers/baseband/) for more information.
  * @see https://learn.microsoft.com/windows/win32/api/bluetoothapis/ns-bluetoothapis-bluetooth_device_info_struct
  * @namespace Windows.Win32.Devices.Bluetooth
- * @version v4.0.30319
  */
-class BLUETOOTH_DEVICE_INFO extends Win32Struct
-{
+class BLUETOOTH_DEVICE_INFO extends Win32Struct {
     static sizeof => 568
 
     static packingSize => 8
@@ -31,7 +29,7 @@ class BLUETOOTH_DEVICE_INFO extends Win32Struct
      * Address of the device.
      * @type {BLUETOOTH_ADDRESS}
      */
-    Address{
+    Address {
         get {
             if(!this.HasProp("__Address"))
                 this.__Address := BLUETOOTH_ADDRESS(8, this)
@@ -80,7 +78,7 @@ class BLUETOOTH_DEVICE_INFO extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-systemtime">SYSTEMTIME</a> structure.
      * @type {SYSTEMTIME}
      */
-    stLastSeen{
+    stLastSeen {
         get {
             if(!this.HasProp("__stLastSeen"))
                 this.__stLastSeen := SYSTEMTIME(40, this)
@@ -92,7 +90,7 @@ class BLUETOOTH_DEVICE_INFO extends Win32Struct
      * Last time the device was used, in the form of a <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-systemtime">SYSTEMTIME</a> structure.
      * @type {SYSTEMTIME}
      */
-    stLastUsed{
+    stLastUsed {
         get {
             if(!this.HasProp("__stLastUsed"))
                 this.__stLastUsed := SYSTEMTIME(56, this)

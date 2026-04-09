@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.UI.WindowsAndMessaging
- * @version v4.0.30319
  */
-class DEVICE_EVENT_GENERIC_DATA extends Win32Struct
-{
+class DEVICE_EVENT_GENERIC_DATA extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 4

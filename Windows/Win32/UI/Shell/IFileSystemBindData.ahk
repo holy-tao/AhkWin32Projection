@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Storage\FileSystem\WIN32_FIND_DATAW.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Storage\FileSystem\WIN32_FIND_DATAW.ahk
 
 /**
  * Exposes methods that store file system information for optimizing calls to IShellFolder::ParseDisplayName.
@@ -24,9 +24,8 @@
  * <div> </div>
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-ifilesystembinddata
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IFileSystemBindData extends IUnknown{
+class IFileSystemBindData extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

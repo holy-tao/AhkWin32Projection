@@ -7,9 +7,8 @@
  * Deprecated. IShellService Exposes one method that declares ownership when a service component implementing a certain interface is shared among multiple clients, such as Windows Internet Explorer and Windows Explorer.
  * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nn-shdeprecated-ishellservice
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IShellService extends IUnknown{
+class IShellService extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

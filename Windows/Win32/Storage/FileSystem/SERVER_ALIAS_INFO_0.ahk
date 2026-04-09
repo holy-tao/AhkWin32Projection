@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Storage.FileSystem
- * @version v4.0.30319
  */
-class SERVER_ALIAS_INFO_0 extends Win32Struct
-{
+class SERVER_ALIAS_INFO_0 extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

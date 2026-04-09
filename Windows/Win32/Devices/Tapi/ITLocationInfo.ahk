@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * The ITLocationInfo interface is used to get information related to the location of the calling party. This is the location information that is entered by using the Telephony applet under the Control Panel.
  * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nn-tapi3if-itlocationinfo
  * @namespace Windows.Win32.Devices.Tapi
- * @version v4.0.30319
  */
-class ITLocationInfo extends IDispatch{
+class ITLocationInfo extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

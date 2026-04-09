@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IWMOutputMediaProps.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\IWMOutputMediaProps.ahk
 
 /**
  * The IWMSyncReader interface provides the ability to read ASF files using synchronous calls.
  * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nn-wmsdkidl-iwmsyncreader
  * @namespace Windows.Win32.Media.WindowsMediaFormat
- * @version v4.0.30319
  */
-class IWMSyncReader extends IUnknown{
+class IWMSyncReader extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -329,7 +328,7 @@ class IWMSyncReader extends IUnknown{
      * This method is identical to <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nf-wmsdkidl-iwmreaderadvanced-setstreamsselected">IWMReaderAdvanced::SetStreamsSelected</a> except that, in the synchronous reader, stream selection is always manual. Also, because <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nf-wmsdkidl-iwmsyncreader-getnextsample">IWMSyncReader::GetNextSample</a> includes a stream number output, you can select as many mutually exclusive streams as you like and receive samples for them.
      * @param {Integer} cStreamCount Count of streams listed at <i>pwStreamNumbers</i>.
      * @param {Pointer<Integer>} pwStreamNumbers Pointer to an array of <b>WORD</b> values containing the stream numbers.
-     * @param {Pointer<Integer>} pSelections Pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/ne-wmsdkidl-wmt_stream_selection">WMT_STREAM_SELECTION</a> enumeration values. These values correspond with the stream numbers listed at <i>pwStreamNumbers</i>. Each value specifies the samples to deliver for the appropriate stream.
+     * @param {Pointer<WMT_STREAM_SELECTION>} pSelections Pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/ne-wmsdkidl-wmt_stream_selection">WMT_STREAM_SELECTION</a> enumeration values. These values correspond with the stream numbers listed at <i>pwStreamNumbers</i>. Each value specifies the samples to deliver for the appropriate stream.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>
@@ -401,7 +400,7 @@ class IWMSyncReader extends IUnknown{
      * @remarks
      * This method is identical to <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nf-wmsdkidl-iwmreaderadvanced-getstreamselected">IWMReaderAdvanced::GetStreamSelected</a>.
      * @param {Integer} wStreamNum <b>WORD</b> containing the stream number.
-     * @returns {Integer} Pointer to a variable that receives one member of the <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/ne-wmsdkidl-wmt_stream_selection">WMT_STREAM_SELECTION</a> enumeration type on output. This value specifies the selection status for the specified stream.
+     * @returns {WMT_STREAM_SELECTION} Pointer to a variable that receives one member of the <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/ne-wmsdkidl-wmt_stream_selection">WMT_STREAM_SELECTION</a> enumeration type on output. This value specifies the selection status for the specified stream.
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmsyncreader-getstreamselected
      */
     GetStreamSelected(wStreamNum) {
@@ -495,7 +494,7 @@ class IWMSyncReader extends IUnknown{
      * If you pass a buffer as <i>pValue</i> that is not large enough to contain the data, an error code of ASF_E_BUFFERTOOSMALL is returned. When returning this error code, the method still sets the value of <i>pcbLength</i> to the correct size of the value.
      * @param {Integer} dwOutputNum <b>DWORD</b> containing the output number.
      * @param {PWSTR} pszName Pointer to a wide-character <b>null</b>-terminated string containing the name of the setting for which you want the value. For a list of global constants representing setting names, see <a href="https://docs.microsoft.com/windows/desktop/wmformat/output-settings">Output Settings</a>.
-     * @param {Pointer<Integer>} pType Pointer to a variable that receives one value from the <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/ne-wmsdkidl-wmt_attr_datatype">WMT_ATTR_DATATYPE</a> enumeration type. The value received specifies the type of data in <i>pValue</i>.
+     * @param {Pointer<WMT_ATTR_DATATYPE>} pType Pointer to a variable that receives one value from the <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/ne-wmsdkidl-wmt_attr_datatype">WMT_ATTR_DATATYPE</a> enumeration type. The value received specifies the type of data in <i>pValue</i>.
      * @param {Pointer<Integer>} pValue Pointer to a byte buffer containing the value. Pass <b>NULL</b> to retrieve the length of the buffer required.
      * @param {Pointer<Integer>} pcbLength On input, pointer to a variable containing the length of <i>pValue</i>. On output, the variable contains the number of bytes in <i>pValue</i> used.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
@@ -586,7 +585,7 @@ class IWMSyncReader extends IUnknown{
      * The SetOutputSetting method specifies a named setting for a particular output.
      * @param {Integer} dwOutputNum <b>DWORD</b> containing the output number.
      * @param {PWSTR} pszName Pointer to a <b>null</b>-terminated string containing the name of the setting. For a list of global constants representing setting names, see <a href="https://docs.microsoft.com/windows/desktop/wmformat/output-settings">Output Settings</a>.
-     * @param {Integer} Type Member of the <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/ne-wmsdkidl-wmt_attr_datatype">WMT_ATTR_DATATYPE</a> enumeration type. This value specifies the type of data in the buffer at <i>pValue</i>.
+     * @param {WMT_ATTR_DATATYPE} Type Member of the <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/ne-wmsdkidl-wmt_attr_datatype">WMT_ATTR_DATATYPE</a> enumeration type. This value specifies the type of data in the buffer at <i>pValue</i>.
      * @param {Pointer<Integer>} pValue Pointer to a byte array containing the value of the setting. The type of data stored in this buffer is specified by <i>Type</i>.
      * @param {Integer} cbLength Size of <i>pValue</i> in bytes.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.

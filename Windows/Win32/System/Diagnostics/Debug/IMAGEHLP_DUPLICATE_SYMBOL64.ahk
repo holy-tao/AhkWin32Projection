@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\IMAGEHLP_SYMBOL64.ahk
 
 /**
  * Contains duplicate symbol information. (IMAGEHLP_DUPLICATE_SYMBOL64)
@@ -11,10 +12,8 @@
  * ```cpp
  * @see https://learn.microsoft.com/windows/win32/api/dbghelp/ns-dbghelp-imagehlp_duplicate_symbol64
  * @namespace Windows.Win32.System.Diagnostics.Debug
- * @version v4.0.30319
  */
-class IMAGEHLP_DUPLICATE_SYMBOL64 extends Win32Struct
-{
+class IMAGEHLP_DUPLICATE_SYMBOL64 extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

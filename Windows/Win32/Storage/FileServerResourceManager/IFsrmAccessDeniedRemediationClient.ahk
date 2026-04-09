@@ -1,16 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * Used to show the Access Denied Remediation (ADR) client user interface.
  * @see https://learn.microsoft.com/windows/win32/api/fsrm/nn-fsrm-ifsrmaccessdeniedremediationclient
  * @namespace Windows.Win32.Storage.FileServerResourceManager
- * @version v4.0.30319
  */
-class IFsrmAccessDeniedRemediationClient extends IDispatch{
+class IFsrmAccessDeniedRemediationClient extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -41,7 +39,7 @@ class IFsrmAccessDeniedRemediationClient extends IDispatch{
      * Displays the Access Denied Remediation (ADR) client dialog.
      * @param {Pointer} parentWnd Handle to the window that will be the parent of the dialog that will be displayed.
      * @param {BSTR} accessPath Path of the file being accessed.
-     * @param {Integer} errorType The client error type as enumerated by the 
+     * @param {AdrClientErrorType} errorType The client error type as enumerated by the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/fsrmenums/ne-fsrmenums-adrclienterrortype">AdrClientErrorType</a> enumeration.
      * @param {Integer} flags Reserved. Set to 0.
      * @param {BSTR} windowTitle Optional text to display as the title of the dialog window that is opened.

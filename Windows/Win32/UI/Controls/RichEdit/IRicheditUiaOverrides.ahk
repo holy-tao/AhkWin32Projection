@@ -7,9 +7,8 @@
  * Enables the host container of a windowless rich edit control to override the control's Microsoft UI Automation accessibility properties.
  * @see https://learn.microsoft.com/windows/win32/api/textserv/nn-textserv-irichedituiaoverrides
  * @namespace Windows.Win32.UI.Controls.RichEdit
- * @version v4.0.30319
  */
-class IRicheditUiaOverrides extends IUnknown{
+class IRicheditUiaOverrides extends IUnknown {
 
     static sizeof => A_PtrSize
 

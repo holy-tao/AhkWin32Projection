@@ -6,10 +6,8 @@
  * Defines the metafile picture format used for exchanging metafile data through the clipboard.
  * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-metafilepict
  * @namespace Windows.Win32.System.DataExchange
- * @version v4.0.30319
  */
-class METAFILEPICT extends Win32Struct
-{
+class METAFILEPICT extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -53,7 +51,7 @@ class METAFILEPICT extends Win32Struct
      * A handle to a memory metafile.
      * @type {HMETAFILE}
      */
-    hMF{
+    hMF {
         get {
             if(!this.HasProp("__hMF"))
                 this.__hMF := HMETAFILE(16, this)

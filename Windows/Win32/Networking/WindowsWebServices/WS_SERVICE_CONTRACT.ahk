@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\WS_CONTRACT_DESCRIPTION.ahk
 
 /**
  * Specifies a service contract on an endpoint.
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_service_contract
  * @namespace Windows.Win32.Networking.WindowsWebServices
- * @version v4.0.30319
  */
-class WS_SERVICE_CONTRACT extends Win32Struct
-{
+class WS_SERVICE_CONTRACT extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

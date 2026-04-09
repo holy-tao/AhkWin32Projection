@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Graphics.DXCore
- * @version v4.0.30319
  */
-class DXCoreEngineNamePropertyInput extends Win32Struct
-{
+class DXCoreEngineNamePropertyInput extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -15,7 +13,7 @@ class DXCoreEngineNamePropertyInput extends Win32Struct
     /**
      * @type {DXCoreAdapterEngineIndex}
      */
-    adapterEngineIndex{
+    adapterEngineIndex {
         get {
             if(!this.HasProp("__adapterEngineIndex"))
                 this.__adapterEngineIndex := DXCoreAdapterEngineIndex(0, this)

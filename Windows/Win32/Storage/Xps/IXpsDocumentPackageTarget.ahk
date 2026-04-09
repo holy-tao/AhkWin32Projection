@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\IXpsOMPackageWriter.ahk
 #Include .\IXpsOMObjectFactory.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * The IXpsDocumentPackageTarget interface contains the elements needed for printing XPS content in the Document Printing model.
  * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel_1/nn-xpsobjectmodel_1-ixpsdocumentpackagetarget
  * @namespace Windows.Win32.Storage.Xps
- * @version v4.0.30319
  */
-class IXpsDocumentPackageTarget extends IUnknown{
+class IXpsDocumentPackageTarget extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -56,7 +55,7 @@ class IXpsDocumentPackageTarget extends IUnknown{
 
     /**
      * Gets the XPS_DOCUMENT_TYPE enumerated value for the document package.
-     * @returns {Integer} The <a href="https://docs.microsoft.com/windows/win32/api/xpsobjectmodel_1/ne-xpsobjectmodel_1-xps_document_type">XPS_DOCUMENT_TYPE</a> enumerated value.
+     * @returns {XPS_DOCUMENT_TYPE} The <a href="https://docs.microsoft.com/windows/win32/api/xpsobjectmodel_1/ne-xpsobjectmodel_1-xps_document_type">XPS_DOCUMENT_TYPE</a> enumerated value.
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel_1/nf-xpsobjectmodel_1-ixpsdocumentpackagetarget-getxpstype
      */
     GetXpsType() {

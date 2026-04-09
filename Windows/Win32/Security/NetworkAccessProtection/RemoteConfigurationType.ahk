@@ -5,9 +5,8 @@
  * Describes the type of remote configuration possible for a component.
  * @see https://learn.microsoft.com/windows/win32/api/naptypes/ne-naptypes-remoteconfigurationtype
  * @namespace Windows.Win32.Security.NetworkAccessProtection
- * @version v4.0.30319
  */
-class RemoteConfigurationType extends Win32Enum{
+class RemoteConfigurationType extends Win32Enum {
 
     /**
      * The component allows  remote configuration directly on the machine.

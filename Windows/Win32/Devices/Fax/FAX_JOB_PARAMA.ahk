@@ -15,11 +15,9 @@
  * > The winfax.h header defines FAX_JOB_PARAM as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
  * @see https://learn.microsoft.com/windows/win32/api/winfax/ns-winfax-fax_job_parama
  * @namespace Windows.Win32.Devices.Fax
- * @version v4.0.30319
  * @charset ANSI
  */
-class FAX_JOB_PARAMA extends Win32Struct
-{
+class FAX_JOB_PARAMA extends Win32Struct {
     static sizeof => 136
 
     static packingSize => 8
@@ -129,7 +127,7 @@ class FAX_JOB_PARAMA extends Win32Struct
      * If the <b>ScheduleAction</b> member is equal to the value <b>JSA_SPECIFIC_TIME</b>, specifies a <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-systemtime">SYSTEMTIME</a> structure that contains the date and time to send the fax. The time specified must be expressed in UTC.
      * @type {SYSTEMTIME}
      */
-    ScheduleTime{
+    ScheduleTime {
         get {
             if(!this.HasProp("__ScheduleTime"))
                 this.__ScheduleTime := SYSTEMTIME(68, this)
@@ -185,9 +183,9 @@ class FAX_JOB_PARAMA extends Win32Struct
      * Type: <b>DWORD_PTR[3]</b>
      * 
      * This member is reserved for future use by Microsoft. It must be set to zero.
-     * @type {Array<UIntPtr>}
+     * @type {Array<Pointer>}
      */
-    Reserved{
+    Reserved {
         get {
             if(!this.HasProp("__ReservedProxyArray"))
                 this.__ReservedProxyArray := Win32FixedArray(this.ptr + 112, 3, Primitive, "ptr")

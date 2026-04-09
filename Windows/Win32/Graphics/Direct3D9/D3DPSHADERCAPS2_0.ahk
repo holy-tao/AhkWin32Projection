@@ -5,10 +5,8 @@
  * Pixel shader driver caps.
  * @see https://learn.microsoft.com/windows/win32/api/d3d9caps/ns-d3d9caps-d3dpshadercaps2_0
  * @namespace Windows.Win32.Graphics.Direct3D9
- * @version v4.0.30319
  */
-class D3DPSHADERCAPS2_0 extends Win32Struct
-{
+class D3DPSHADERCAPS2_0 extends Win32Struct {
     static sizeof => 20
 
     static packingSize => 4

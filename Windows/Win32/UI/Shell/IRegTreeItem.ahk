@@ -7,9 +7,8 @@
  * Exposes methods that retrieve and set the state of items in a tree-view control that have the Tree-View Control Window Styles flag set.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-iregtreeitem
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IRegTreeItem extends IUnknown{
+class IRegTreeItem extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

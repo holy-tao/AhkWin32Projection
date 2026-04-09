@@ -13,9 +13,8 @@
  * <b>ISyncMgrControl</b> is a replacement for <a href="https://docs.microsoft.com/windows/desktop/api/mobsync/nn-mobsync-isyncmgrsynchronizeinvoke">ISyncMgrSynchronizeInvoke</a>.
  * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nn-syncmgr-isyncmgrcontrol
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class ISyncMgrControl extends IUnknown{
+class ISyncMgrControl extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -53,7 +52,7 @@ class ISyncMgrControl extends IUnknown{
      * @param {IUnknown} punk Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>*</b>
      * 
      * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> to be passed to <a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/nf-syncmgr-isyncmgrhandler-synchronize">Synchronize</a>. This parameter can be <b>NULL</b>.
-     * @param {Integer} nSyncControlFlags Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/ne-syncmgr-syncmgr_sync_control_flags">SYNCMGR_SYNC_CONTROL_FLAGS</a></b>
+     * @param {SYNCMGR_SYNC_CONTROL_FLAGS} nSyncControlFlags Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/ne-syncmgr-syncmgr_sync_control_flags">SYNCMGR_SYNC_CONTROL_FLAGS</a></b>
      * 
      * A member of the <a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/ne-syncmgr-syncmgr_sync_control_flags">SYNCMGR_SYNC_CONTROL_FLAGS</a> enumeration that specifies whether an item found in both a current sync and a queued sync should be synchronized again when the queued sync is performed.
      * @param {ISyncMgrSyncResult} pResult Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/nn-syncmgr-isyncmgrsyncresult">ISyncMgrSyncResult</a>*</b>
@@ -91,7 +90,7 @@ class ISyncMgrControl extends IUnknown{
      * @param {IUnknown} punk Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>*</b>
      * 
      * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> to be passed to <a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/nf-syncmgr-isyncmgrhandler-synchronize">Synchronize</a>. This parameter can be <b>NULL</b>.
-     * @param {Integer} nSyncControlFlags Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/ne-syncmgr-syncmgr_sync_control_flags">SYNCMGR_SYNC_CONTROL_FLAGS</a></b>
+     * @param {SYNCMGR_SYNC_CONTROL_FLAGS} nSyncControlFlags Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/ne-syncmgr-syncmgr_sync_control_flags">SYNCMGR_SYNC_CONTROL_FLAGS</a></b>
      * 
      * A member of the <a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/ne-syncmgr-syncmgr_sync_control_flags">SYNCMGR_SYNC_CONTROL_FLAGS</a> enumeration that specifies whether an item found in both a current sync and a queued sync should be synchronized again when the queued sync is performed.
      * @param {ISyncMgrSyncResult} pResult Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/nn-syncmgr-isyncmgrsyncresult">ISyncMgrSyncResult</a>*</b>
@@ -192,7 +191,7 @@ class ISyncMgrControl extends IUnknown{
      * @param {Pointer<Guid>} rclsidCollectionID Type: <b>REFCLSID</b>
      * 
      * A reference to the handler collection's CLSID.
-     * @param {Integer} nControlFlags Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/ne-syncmgr-syncmgr_control_flags">SYNCMGR_CONTROL_FLAGS</a></b>
+     * @param {SYNCMGR_CONTROL_FLAGS} nControlFlags Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/ne-syncmgr-syncmgr_control_flags">SYNCMGR_CONTROL_FLAGS</a></b>
      * 
      * A value from the <a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/ne-syncmgr-syncmgr_control_flags">SYNCMGR_CONTROL_FLAGS</a> enumeration specifying whether the update should be performed synchronously or asynchronously.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -212,7 +211,7 @@ class ISyncMgrControl extends IUnknown{
      * @param {PWSTR} pszHandlerID Type: <b>LPCWSTR</b>
      * 
      * A pointer to a buffer containing the unique ID of the handler. This string is of maximum length MAX_SYNCMGR_ID including the terminating <b>null</b> character.
-     * @param {Integer} nControlFlags Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/ne-syncmgr-syncmgr_control_flags">SYNCMGR_CONTROL_FLAGS</a></b>
+     * @param {SYNCMGR_CONTROL_FLAGS} nControlFlags Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/ne-syncmgr-syncmgr_control_flags">SYNCMGR_CONTROL_FLAGS</a></b>
      * 
      * A value from the <a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/ne-syncmgr-syncmgr_control_flags">SYNCMGR_CONTROL_FLAGS</a> enumeration specifying whether the update should be performed synchronously or asynchronously.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -237,7 +236,7 @@ class ISyncMgrControl extends IUnknown{
      * @param {PWSTR} pszItemID Type: <b>LPCWSTR</b>
      * 
      * A pointer to a buffer containing the unique ID of the item. This string is of maximum length MAX_SYNCMGR_ID including the terminating <b>null</b> character.
-     * @param {Integer} nControlFlags Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/ne-syncmgr-syncmgr_control_flags">SYNCMGR_CONTROL_FLAGS</a></b>
+     * @param {SYNCMGR_CONTROL_FLAGS} nControlFlags Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/ne-syncmgr-syncmgr_control_flags">SYNCMGR_CONTROL_FLAGS</a></b>
      * 
      * A value from the <a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/ne-syncmgr-syncmgr_control_flags">SYNCMGR_CONTROL_FLAGS</a> enumeration specifying whether the update should be performed synchronously or asynchronously.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -263,7 +262,7 @@ class ISyncMgrControl extends IUnknown{
      * @param {PWSTR} pszItemID Type: <b>LPCWSTR</b>
      * 
      * A pointer to a buffer containing the unique ID of the item. This string is of maximum length MAX_SYNCMGR_ID including the terminating <b>null</b> character. This parameter can be <b>NULL</b> if the event occurred on the handler rather than on a specific item.
-     * @param {Integer} nControlFlags Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/ne-syncmgr-syncmgr_control_flags">SYNCMGR_CONTROL_FLAGS</a></b>
+     * @param {SYNCMGR_CONTROL_FLAGS} nControlFlags Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/ne-syncmgr-syncmgr_control_flags">SYNCMGR_CONTROL_FLAGS</a></b>
      * 
      * A value from the <a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/ne-syncmgr-syncmgr_control_flags">SYNCMGR_CONTROL_FLAGS</a> enumeration specifying whether the update should be performed synchronously or asynchronously.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -290,7 +289,7 @@ class ISyncMgrControl extends IUnknown{
      * 
      * A pointer to a buffer containing the unique ID of the item. This string is of maximum length MAX_SYNCMGR_ID including the terminating <b>null</b> character. This parameter can be <b>NULL</b> if the event occurred on the handler rather than on a specific item.
      * @param {ISyncMgrConflict} pConflict 
-     * @param {Integer} nReason 
+     * @param {SYNCMGR_UPDATE_REASON} nReason 
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
@@ -314,7 +313,7 @@ class ISyncMgrControl extends IUnknown{
      * @param {PWSTR} pszItemID Type: <b>LPCWSTR</b>
      * 
      * A pointer to a buffer containing the unique ID of the item. This string is of maximum length MAX_SYNCMGR_ID including the terminating <b>null</b> character. This parameter can be <b>NULL</b> if the event occurred on the handler rather than on a specific item.
-     * @param {Integer} nControlFlags Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/ne-syncmgr-syncmgr_control_flags">SYNCMGR_CONTROL_FLAGS</a></b>
+     * @param {SYNCMGR_CONTROL_FLAGS} nControlFlags Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/ne-syncmgr-syncmgr_control_flags">SYNCMGR_CONTROL_FLAGS</a></b>
      * 
      * A value from the <a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/ne-syncmgr-syncmgr_control_flags">SYNCMGR_CONTROL_FLAGS</a> enumeration specifying whether the update should be performed synchronously or asynchronously.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -347,7 +346,7 @@ class ISyncMgrControl extends IUnknown{
      * @param {HWND} hwndOwner Type: <b>HWND</b>
      * 
      * A handle to a window that can be used by the handler to display any necessary UI. This value can be <b>NULL</b>.
-     * @param {Integer} nControlFlags Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/ne-syncmgr-syncmgr_control_flags">SYNCMGR_CONTROL_FLAGS</a></b>
+     * @param {SYNCMGR_CONTROL_FLAGS} nControlFlags Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/ne-syncmgr-syncmgr_control_flags">SYNCMGR_CONTROL_FLAGS</a></b>
      * 
      * A value from the <a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/ne-syncmgr-syncmgr_control_flags">SYNCMGR_CONTROL_FLAGS</a> enumeration specifying whether the activation or deactivation of the handler should be performed synchronously or asynchronously.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -380,7 +379,7 @@ class ISyncMgrControl extends IUnknown{
      * @param {HWND} hwndOwner Type: <b>HWND</b>
      * 
      * A handle to a window that can be used by the handler to display any necessary UI. This value can be <b>NULL</b>.
-     * @param {Integer} nControlFlags Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/ne-syncmgr-syncmgr_control_flags">SYNCMGR_CONTROL_FLAGS</a></b>
+     * @param {SYNCMGR_CONTROL_FLAGS} nControlFlags Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/ne-syncmgr-syncmgr_control_flags">SYNCMGR_CONTROL_FLAGS</a></b>
      * 
      * A value from the <a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/ne-syncmgr-syncmgr_control_flags">SYNCMGR_CONTROL_FLAGS</a> enumeration specifying whether the enabling or disabling of the handler should be performed synchronously or asynchronously.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -416,7 +415,7 @@ class ISyncMgrControl extends IUnknown{
      * @param {HWND} hwndOwner Type: <b>HWND</b>
      * 
      * A handle to a window that can be used by the item to display any necessary UI. This value can be <b>NULL</b>.
-     * @param {Integer} nControlFlags Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/ne-syncmgr-syncmgr_control_flags">SYNCMGR_CONTROL_FLAGS</a></b>
+     * @param {SYNCMGR_CONTROL_FLAGS} nControlFlags Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/ne-syncmgr-syncmgr_control_flags">SYNCMGR_CONTROL_FLAGS</a></b>
      * 
      * A value from the <a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/ne-syncmgr-syncmgr_control_flags">SYNCMGR_CONTROL_FLAGS</a> enumeration specifying whether the enabling or disabling of the item should be performed synchronously or asynchronously.
      * @returns {HRESULT} Type: <b>HRESULT</b>

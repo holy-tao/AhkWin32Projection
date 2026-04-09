@@ -7,10 +7,8 @@
  * The <b>NL_INTERFACE_OFFLOAD_ROD</b> structure is defined on Windows Vista and later.
  * @see https://learn.microsoft.com/windows/win32/api/nldef/ns-nldef-nl_interface_offload_rod
  * @namespace Windows.Win32.Networking.WinSock
- * @version v4.0.30319
  */
-class NL_INTERFACE_OFFLOAD_ROD extends Win32Struct
-{
+class NL_INTERFACE_OFFLOAD_ROD extends Win32Struct {
     static sizeof => 1
 
     static packingSize => 1
@@ -33,9 +31,6 @@ class NL_INTERFACE_OFFLOAD_ROD extends Win32Struct
     }
 
     /**
-     * Type: <b>BOOLEAN</b>
-     * 
-     * The network adapter for this network interface supports the offload of IP checksum calculations.
      * @type {Integer}
      */
     NlChecksumSupported {
@@ -44,9 +39,6 @@ class NL_INTERFACE_OFFLOAD_ROD extends Win32Struct
     }
 
     /**
-     * Type: <b>BOOLEAN</b>
-     * 
-     * The network adapter for this network interface supports the offload of IP checksum calculations for IPv4 packets with IP options.
      * @type {Integer}
      */
     NlOptionsSupported {
@@ -55,9 +47,6 @@ class NL_INTERFACE_OFFLOAD_ROD extends Win32Struct
     }
 
     /**
-     * Type: <b>BOOLEAN</b>
-     * 
-     * The network adapter for this network interface supports the offload of UDP checksum calculations.
      * @type {Integer}
      */
     TlDatagramChecksumSupported {
@@ -66,9 +55,6 @@ class NL_INTERFACE_OFFLOAD_ROD extends Win32Struct
     }
 
     /**
-     * Type: <b>BOOLEAN</b>
-     * 
-     * The network adapter for this network interface supports the offload of TCP checksum calculations.
      * @type {Integer}
      */
     TlStreamChecksumSupported {
@@ -77,9 +63,6 @@ class NL_INTERFACE_OFFLOAD_ROD extends Win32Struct
     }
 
     /**
-     * Type: <b>BOOLEAN</b>
-     * 
-     * The network adapter for this network interface supports the offload of TCP checksum calculations for IPv4 packets containing IP options.
      * @type {Integer}
      */
     TlStreamOptionsSupported {
@@ -88,9 +71,6 @@ class NL_INTERFACE_OFFLOAD_ROD extends Win32Struct
     }
 
     /**
-     * Type: <b>BOOLEAN</b>
-     * 
-     * Reserved for internal use.
      * @type {Integer}
      */
     FastPathCompatible {
@@ -99,9 +79,6 @@ class NL_INTERFACE_OFFLOAD_ROD extends Win32Struct
     }
 
     /**
-     * Type: <b>BOOLEAN</b>
-     * 
-     * The network adapter for this network interface supports TCP Large Send Offload Version 1. With this capability, TCP can pass a buffer to be transmitted that is bigger than the maximum transmission unit (MTU) supported by the medium.  Version 1 allows TCP to pass a buffer up to 64K to be transmitted.
      * @type {Integer}
      */
     TlLargeSendOffloadSupported {
@@ -110,9 +87,6 @@ class NL_INTERFACE_OFFLOAD_ROD extends Win32Struct
     }
 
     /**
-     * Type: <b>BOOLEAN</b>
-     * 
-     * The network adapter for this network interface supports TCP Large Send Offload Version 2. With this capability, TCP can pass a buffer to be transmitted that is bigger than the maximum transmission unit (MTU) supported by the medium.  Version 2 allows TCP to pass a buffer up to 256K to be transmitted.
      * @type {Integer}
      */
     TlGiantSendOffloadSupported {

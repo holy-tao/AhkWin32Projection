@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\WTS_CONNECTSTATE_CLASS.ahk
 
 /**
  * Contains extended information about a client session on a Remote Desktop Session Host (RD Session Host) server or Remote Desktop Virtualization Host (RD Virtualization Host) server. (ANSI)
@@ -16,11 +17,9 @@
  * > The wtsapi32.h header defines WTS_SESSION_INFO_1 as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
  * @see https://learn.microsoft.com/windows/win32/api/wtsapi32/ns-wtsapi32-wts_session_info_1a
  * @namespace Windows.Win32.System.RemoteDesktop
- * @version v4.0.30319
  * @charset ANSI
  */
-class WTS_SESSION_INFO_1A extends Win32Struct
-{
+class WTS_SESSION_INFO_1A extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8
@@ -36,7 +35,7 @@ class WTS_SESSION_INFO_1A extends Win32Struct
 
     /**
      * A value of the <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/ne-wtsapi32-wts_connectstate_class">WTS_CONNECTSTATE_CLASS</a> enumeration type that specifies the connection state of a Remote Desktop Services session.
-     * @type {Integer}
+     * @type {WTS_CONNECTSTATE_CLASS}
      */
     State {
         get => NumGet(this, 4, "int")

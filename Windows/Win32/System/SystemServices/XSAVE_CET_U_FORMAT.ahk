@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.SystemServices
- * @version v4.0.30319
  */
-class XSAVE_CET_U_FORMAT extends Win32Struct
-{
+class XSAVE_CET_U_FORMAT extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

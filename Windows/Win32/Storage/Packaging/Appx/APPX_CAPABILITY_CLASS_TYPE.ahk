@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Storage.Packaging.Appx
- * @version v4.0.30319
  */
-class APPX_CAPABILITY_CLASS_TYPE extends Win32Enum{
+class APPX_CAPABILITY_CLASS_TYPE extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

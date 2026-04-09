@@ -11,7 +11,6 @@
 
 /**
  * @namespace Windows.Win32.System.Com.StructuredStorage
- * @version v4.0.30319
  */
 class StructuredStorage {
 
@@ -361,7 +360,7 @@ class StructuredStorage {
      * @param {Pointer<COSERVERINFO>} pServerInfo A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/objidl/ns-objidl-coserverinfo">COSERVERINFO</a> structure that specifies the computer on which to instantiate the object and the authentication setting to be used. This parameter can be <b>NULL</b>, in which case the object is instantiated on the current computer, at the computer specified under the <a href="https://docs.microsoft.com/windows/desktop/com/remoteservername">RemoteServerName</a> registry value for the class, or at the computer where the <i>pwszName</i> file resides if the <a href="https://docs.microsoft.com/windows/desktop/com/activateatstorage">ActivateAtStorage</a> value is specified for the class or there is no local registry information.
      * @param {Pointer<Guid>} pClsid A pointer to the class identifier of the object to be created. This parameter can be <b>NULL</b>, in which case there is a call to <a href="https://docs.microsoft.com/windows/desktop/api/objbase/nf-objbase-getclassfile">GetClassFile</a>, using <i>pwszName</i> as its parameter to get the class of the object to be instantiated.
      * @param {IUnknown} punkOuter When non-<b>NULL</b>, indicates the instance is being created as part of an aggregate, and <i>punkOuter</i> is to be used as the pointer to the new instance's controlling <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>. Aggregation is not supported cross-process or cross-computer. When instantiating an object out of process, CLASS_E_NOAGGREGATION will be returned if <i>punkOuter</i> is non-<b>NULL</b>.
-     * @param {Integer} dwClsCtx Values from the <a href="https://docs.microsoft.com/windows/desktop/api/wtypesbase/ne-wtypesbase-clsctx">CLSCTX</a> enumeration.
+     * @param {CLSCTX} dwClsCtx Values from the <a href="https://docs.microsoft.com/windows/desktop/api/wtypesbase/ne-wtypesbase-clsctx">CLSCTX</a> enumeration.
      * @param {Integer} grfMode Specifies how the file is to be opened. See <a href="https://docs.microsoft.com/windows/desktop/Stg/stgm-constants">STGM Constants</a>.
      * @param {PWSTR} pwszName The file used to initialize the object with <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-ipersistfile-load">IPersistFile::Load</a>. This parameter cannot be <b>NULL</b>.
      * @param {Integer} dwCount The number of structures in <i>pResults</i>. This parameter must be greater than 0.
@@ -432,7 +431,7 @@ class StructuredStorage {
      * @param {Pointer<COSERVERINFO>} pServerInfo A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/objidl/ns-objidl-coserverinfo">COSERVERINFO</a> structure that specifies the computer on which to instantiate the object and the authentication setting to be used. This parameter can be <b>NULL</b>, in which case the object is instantiated on the current computer, at the computer specified under the <a href="https://docs.microsoft.com/windows/desktop/com/remoteservername">RemoteServerName</a> registry value for the class, or at the computer where the <i>pstg</i> storage object resides if the <a href="https://docs.microsoft.com/windows/desktop/com/activateatstorage">ActivateAtStorage</a> value is specified for the class or there is no local registry information.
      * @param {Pointer<Guid>} pClsid A pointer to the class identifier of the object to be created. This parameter can be <b>NULL</b>, in which case there is a call to <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-istorage-stat">IStorage::Stat</a> to find the class of the object.
      * @param {IUnknown} punkOuter When non-<b>NULL</b>, indicates the instance is being created as part of an aggregate, and <i>punkOuter</i> is to be used as the pointer to the new instance's controlling <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>. Aggregation is not supported cross-process or cross-computer. When instantiating an object out of process, CLASS_E_NOAGGREGATION will be returned if <i>punkOuter</i> is non-<b>NULL</b>.
-     * @param {Integer} dwClsCtx Values from the <a href="https://docs.microsoft.com/windows/desktop/api/wtypesbase/ne-wtypesbase-clsctx">CLSCTX</a> enumeration.
+     * @param {CLSCTX} dwClsCtx Values from the <a href="https://docs.microsoft.com/windows/desktop/api/wtypesbase/ne-wtypesbase-clsctx">CLSCTX</a> enumeration.
      * @param {IStorage} pstg A pointer to the storage object used to initialize the object with <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-ipersistfile-load">IPersistFile::Load</a>. This parameter cannot be <b>NULL</b>.
      * @param {Integer} dwCount The number of structures in <i>pResults</i>. This parameter must be greater than 0.
      * @param {Pointer<MULTI_QI>} pResults An array of <a href="https://docs.microsoft.com/windows/desktop/api/objidl/ns-objidl-multi_qi">MULTI_QI</a> structures. Each structure has three members: the identifier for a requested interface (<b>pIID</b>), the location to return the interface pointer (<b>pItf</b>) and the return value of the call to <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-queryinterface(q)">QueryInterface</a> (<b>hr</b>).
@@ -612,7 +611,7 @@ class StructuredStorage {
      * <b>CreateStreamOnHGlobal</b> will accept a memory handle allocated with <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-globalalloc">GMEM_FIXED</a>, but this usage is not recommended. HGLOBALs allocated with <b>GMEM_FIXED</b> are not really handles and their value can change when they are reallocated. If the memory handle was allocated with <b>GMEM_FIXED</b> and <i>fDeleteOnRelease</i> is <b>FALSE</b>,  the caller must call <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-gethglobalfromstream">GetHGlobalFromStream</a> to get the correct handle in order to free it.
      * 
      * Prior to Windows 7 and Windows Server 2008 R2, this implementation did not zero memory when calling <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-globalrealloc">GlobalReAlloc</a> to grow the memory block. Increasing the size of the stream with <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-istream-setsize">IStream::SetSize</a> or by writing to a location past the current end of the stream may leave portions of the newly allocated memory uninitialized.
-     * @param {HGLOBAL} _hGlobal 
+     * @param {HGLOBAL} _hGlobal A memory handle allocated by the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-globalalloc">GlobalAlloc</a> function, or if <b>NULL</b> a new handle is to be allocated instead. The handle must be allocated as moveable and nondiscardable.
      * @param {BOOL} fDeleteOnRelease A value that indicates whether the underlying handle for this stream object should be automatically freed when the stream object is released. If set to <b>FALSE</b>, the caller must free the <i>hGlobal</i> after the final release. If set to <b>TRUE</b>, the final release will automatically free the underlying handle. See the Remarks for further discussion of the case where <i>fDeleteOnRelease</i> is <b>FALSE</b>.
      * @returns {IStream} The address of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a>* pointer variable that receives the interface pointer to the new stream object. Its value cannot be <b>NULL</b>.
@@ -760,7 +759,7 @@ class StructuredStorage {
      * 
      * <b>StgCreateDocfile</b> can be used to create a temporary compound file by passing a <b>NULL</b> value for the <i>pwcsName</i> parameter. However, these files are temporary only in the sense that they have a system-provided unique name — likely one that is meaningless to the user. The caller is responsible for deleting the temporary file when finished with it, unless STGM_DELETEONRELEASE was specified for the <i>grfMode</i> parameter.
      * @param {PWSTR} pwcsName A pointer to a null-terminated Unicode string name for the compound file being created. It is passed uninterpreted to the file system. This can be a relative name or <b>NULL</b>. If <b>NULL</b>, a temporary compound file is allocated with a unique name.
-     * @param {Integer} grfMode Specifies the access mode to use when opening the new storage object. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Stg/stgm-constants">STGM Constants</a>. If the caller specifies transacted mode together with STGM_CREATE or STGM_CONVERT, the overwrite or conversion takes place when the commit operation is called for the root storage. If <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-istorage-commit">IStorage::Commit</a> is not called for the root storage object, previous contents of the file will be restored. STGM_CREATE and STGM_CONVERT cannot be combined with the STGM_NOSNAPSHOT flag, because a snapshot copy is required when a file is overwritten or converted in the transacted mode.
+     * @param {STGM} grfMode Specifies the access mode to use when opening the new storage object. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Stg/stgm-constants">STGM Constants</a>. If the caller specifies transacted mode together with STGM_CREATE or STGM_CONVERT, the overwrite or conversion takes place when the commit operation is called for the root storage. If <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-istorage-commit">IStorage::Commit</a> is not called for the root storage object, previous contents of the file will be restored. STGM_CREATE and STGM_CONVERT cannot be combined with the STGM_NOSNAPSHOT flag, because a snapshot copy is required when a file is overwritten or converted in the transacted mode.
      * @returns {IStorage} A pointer to the location of the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istorage">IStorage</a> pointer to the new storage object.
      * @see https://learn.microsoft.com/windows/win32/api/coml2api/nf-coml2api-stgcreatedocfile
@@ -810,7 +809,7 @@ class StructuredStorage {
      * </ul>
      * @param {ILockBytes} plkbyt A pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-ilockbytes">ILockBytes</a> interface on the underlying byte-array object on which to create a compound file.
-     * @param {Integer} grfMode Specifies the access mode to use when opening the new compound file. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Stg/stgm-constants">STGM Constants</a> and the Remarks section below.
+     * @param {STGM} grfMode Specifies the access mode to use when opening the new compound file. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Stg/stgm-constants">STGM Constants</a> and the Remarks section below.
      * @param {Integer} reserved Reserved for future use; must be zero.
      * @returns {IStorage} A pointer to the location of the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istorage">IStorage</a> pointer on the new storage object.
@@ -927,7 +926,7 @@ class StructuredStorage {
      * <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istorage">IStorage</a> interface that should be <b>NULL</b>. If not <b>NULL</b>, this parameter is used as described below in the Remarks section.
      * 
      * After <b>StgOpenStorage</b> returns, the storage object specified in <i>pStgPriority</i> may have been released and should no longer be used.
-     * @param {Integer} grfMode Specifies the access mode to use to open the storage object.
+     * @param {STGM} grfMode Specifies the access mode to use to open the storage object.
      * @param {Pointer<Pointer<Integer>>} snbExclude If not <b>NULL</b>, pointer to a block of elements in the storage to be excluded as the storage object is opened. The exclusion occurs regardless of whether a snapshot copy happens on the open. Can be <b>NULL</b>.
      * @param {Integer} reserved Indicates reserved for future use; must be zero.
      * @returns {IStorage} A pointer to a 
@@ -984,7 +983,7 @@ class StructuredStorage {
      * <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istorage">IStorage</a> interface that should be <b>NULL</b>. If not <b>NULL</b>, this parameter is used as described below in the Remarks section.
      * 
      * After <b>StgOpenStorageOnILockBytes</b> returns, the storage object specified in <i>pStgPriority</i> may have been released and should no longer be used.
-     * @param {Integer} grfMode Specifies the access mode to use to open the storage object. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Stg/stgm-constants">STGM Constants</a> and the Remarks section below.
+     * @param {STGM} grfMode Specifies the access mode to use to open the storage object. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Stg/stgm-constants">STGM Constants</a> and the Remarks section below.
      * @param {Pointer<Pointer<Integer>>} snbExclude Can be <b>NULL</b>. If not <b>NULL</b>, this parameter points to a block of elements in this storage that are to be excluded as the storage object is opened. This exclusion occurs independently of whether a snapshot copy happens on the open.
      * @returns {IStorage} Points to the location of an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istorage">IStorage</a> pointer to the opened storage on successful return.
@@ -1118,8 +1117,9 @@ class StructuredStorage {
      * 
      * 
      * <b>Windows 2000:  </b>Unlike the <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-createfilea">CreateFile</a> function, you cannot exceed the MAX_PATH limit by using the "\\?\" prefix.
-     * @param {Integer} grfMode A value that specifies the access mode to use when opening the new storage object. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Stg/stgm-constants">STGM Constants</a>. If the caller specifies transacted mode together with STGM_CREATE or STGM_CONVERT, the overwrite or conversion takes place when the commit operation is called for the root storage. If <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-istorage-commit">IStorage::Commit</a> is not called for the root storage object, previous contents of the file will be restored. STGM_CREATE and STGM_CONVERT cannot be combined with the STGM_NOSNAPSHOT flag, because a snapshot copy is required when a file is overwritten or converted in the transacted mode.
-     * @param {Integer} _stgfmt 
+     * @param {STGM} grfMode A value that specifies the access mode to use when opening the new storage object. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Stg/stgm-constants">STGM Constants</a>. If the caller specifies transacted mode together with STGM_CREATE or STGM_CONVERT, the overwrite or conversion takes place when the commit operation is called for the root storage. If <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-istorage-commit">IStorage::Commit</a> is not called for the root storage object, previous contents of the file will be restored. STGM_CREATE and STGM_CONVERT cannot be combined with the STGM_NOSNAPSHOT flag, because a snapshot copy is required when a file is overwritten or converted in the transacted mode.
+     * @param {STGFMT} _stgfmt A value that specifies the storage file format. For more information, see the 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa380330(v=vs.85)">STGFMT</a> enumeration.
      * @param {Integer} grfAttrs A value that depends on the value of the <i>stgfmt</i> parameter.
      * 
      * <table>
@@ -1230,13 +1230,14 @@ class StructuredStorage {
      * @param {PWSTR} pwcsName A pointer to the path of the null-terminated Unicode string file that contains the storage object. This string size cannot exceed <b>MAX_PATH</b> characters.
      * 
      * <b>Windows Server 2003 and Windows XP/2000:  </b>Unlike the <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-createfilea">CreateFile</a> function, the <b>MAX_PATH</b> limit cannot be exceeded by using the "\\?\" prefix.
-     * @param {Integer} grfMode A value that specifies the access mode to open the new storage object. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Stg/stgm-constants">STGM Constants</a>. If the caller specifies transacted mode together with <b>STGM_CREATE</b> or <b>STGM_CONVERT</b>, the overwrite or conversion occurs when the commit operation is called for the root storage. If <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-istorage-commit">IStorage::Commit</a> is not called for the root storage object, previous contents of the file will be restored. <b>STGM_CREATE</b> and <b>STGM_CONVERT</b> cannot be combined with the <b>STGM_NOSNAPSHOT</b> flag, because a snapshot copy is required when a file is overwritten or converted in transacted mode.
+     * @param {STGM} grfMode A value that specifies the access mode to open the new storage object. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Stg/stgm-constants">STGM Constants</a>. If the caller specifies transacted mode together with <b>STGM_CREATE</b> or <b>STGM_CONVERT</b>, the overwrite or conversion occurs when the commit operation is called for the root storage. If <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-istorage-commit">IStorage::Commit</a> is not called for the root storage object, previous contents of the file will be restored. <b>STGM_CREATE</b> and <b>STGM_CONVERT</b> cannot be combined with the <b>STGM_NOSNAPSHOT</b> flag, because a snapshot copy is required when a file is overwritten or converted in transacted mode.
      * 
      * If the storage object is opened in direct mode (<b>STGM_DIRECT</b>) with access to either <b>STGM_WRITE</b> or <b>STGM_READWRITE</b>, the sharing mode must be <b>STGM_SHARE_EXCLUSIVE</b> unless the <b>STGM_DIRECT_SWMR</b> mode is specified. For more information, see the Remarks section. If the storage object is opened in direct mode with access to <b>STGM_READ</b>, the sharing mode must be either <b>STGM_SHARE_EXCLUSIVE</b> or <b>STGM_SHARE_DENY_WRITE</b>, unless <b>STGM_PRIORITY</b> or <b>STGM_DIRECT_SWMR</b> is specified. For more information, see the Remarks section.
      * 
      * The mode in which a file is opened can affect implementation performance. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Stg/structured-storage-interfaces">Compound File Implementation Limits</a>.
-     * @param {Integer} _stgfmt 
+     * @param {STGFMT} _stgfmt A value that specifies the storage file format. For more information, see the 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa380330(v=vs.85)">STGFMT</a> enumeration.
      * @param {Integer} grfAttrs A value that depends upon the value of the <i>stgfmt</i> parameter. 
      * 
      * <b>STGFMT_DOCFILE</b> must be zero (0) or <b>FILE_FLAG_NO_BUFFERING</b>. For more information about this value, see <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-createfilea">CreateFile</a>. If the sector size of the file, specified in <i>pStgOptions</i>, is not an integer multiple of the physical sector size of the underlying disk, then this operation will fail. All other values of <i>stgfmt</i> must be zero.
@@ -1546,7 +1547,7 @@ class StructuredStorage {
      * <li>Instead of a compound file in memory, create a temporary file by calling <a href="https://docs.microsoft.com/windows/desktop/api/coml2api/nf-coml2api-stgcreatestorageex">StgCreateStorageEx</a> with a <b>NULL</b> value for the <i>pwcsName</i> parameter. When it is time to write to the destination file, use the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-irootstorage-switchtofile">IRootStorage::SwitchToFile</a> method.</li>
      * <li>Implement the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-ilockbytes">ILockBytes</a> interface such that memory reallocations are zeroed (see for example the <b>HEAP_ZERO_MEMORY</b> flag in <a href="https://docs.microsoft.com/windows/desktop/api/heapapi/nf-heapapi-heaprealloc">HeapReAlloc</a>). The memory contents of this byte array can then be written to a file. </li>
      * </ul>
-     * @param {HGLOBAL} _hGlobal 
+     * @param {HGLOBAL} _hGlobal A memory handle allocated by the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-globalalloc">GlobalAlloc</a> function, or if <b>NULL</b> a new handle is to be allocated instead. The handle must be allocated as moveable and nondiscardable.
      * @param {BOOL} fDeleteOnRelease A flag  that specifies whether the underlying handle for this byte array object should be automatically freed when the object is released. If set to <b>FALSE</b>, the caller must free the <i>hGlobal</i> after the final release. If set to <b>TRUE</b>, the final release will automatically free the <i>hGlobal</i> parameter.
      * @returns {ILockBytes} The address of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-ilockbytes">ILockBytes</a> pointer variable that receives the interface pointer to the new byte array object.
@@ -1592,7 +1593,7 @@ class StructuredStorage {
      * This function converts a <b>PROPVARIANT</b> to a property. If the function fails it throws an exception that represents <b>STATUS_INVALID_PARAMETER NT_STATUS</b>.
      * @param {Pointer<PROPVARIANT>} pvar A  pointer to <b>PROPVARIANT</b>.
      * @param {Integer} CodePage A property set codepage.
-     * @param {Pointer} pprop Optional. A pointer to <b>SERIALIZEDPROPERTYVALUE</b>.
+     * @param {Integer} pprop Optional. A pointer to <b>SERIALIZEDPROPERTYVALUE</b>.
      * @param {Pointer<Integer>} pcb A pointer to the remaining stream length, updated to the actual property size on return.
      * @param {Integer} pid The propid (used if indirect).
      * @param {Pointer<Integer>} pcIndirect Optional. A pointer to the indirect property count.
@@ -1631,7 +1632,7 @@ class StructuredStorage {
      * The StgPropertyLengthAsVariant function examines a SERIALIZEDPROPERTYVALUE and returns the amount of memory that this property would occupy as a PROPVARIANT.
      * @remarks
      * Use this function to decide whether or not to deserialize a property value in a low-memory scenario.  Most applications will have no need to call this function.
-     * @param {Pointer} pProp A pointer to a <b>SERIALIZEDPROPERTYVALUE</b>.
+     * @param {Integer} pProp A pointer to a <b>SERIALIZEDPROPERTYVALUE</b>.
      * @param {Integer} cbProp The size of the <i>pProp</i> buffer in bytes.
      * @param {Integer} CodePage A property set code page.
      * @returns {Integer} Returns the amount of memory the property would occupy as a <b>PROPVARIANT</b>.
@@ -1945,7 +1946,7 @@ class StructuredStorage {
      * Initializes a PROPVARIANT structure using the contents of a buffer.
      * @remarks
      * Creates a VT_VECTOR | VT_UI1 propvariant.
-     * @param {Pointer} pv Type: <b>const void*</b>
+     * @param {Integer} pv Type: <b>const void*</b>
      * 
      * Pointer to the buffer.
      * @param {Integer} cb Type: <b>UINT</b>
@@ -2786,7 +2787,7 @@ class StructuredStorage {
      * @param {Pointer<PROPVARIANT>} propvar Type: <b>REFPROPVARIANT</b>
      * 
      * The source <a href="https://docs.microsoft.com/windows/desktop/api/propidl/ns-propidl-propvariant">PROPVARIANT</a> structure.
-     * @param {Pointer} pv Type: <b>VOID*</b>
+     * @param {Integer} pv Type: <b>VOID*</b>
      * 
      * Pointer to a buffer of length <i>cb</i> bytes. When this function returns, contains the first <i>cb</i> bytes of the extracted buffer value.
      * @param {Integer} cb Type: <b>UINT</b>
@@ -3027,7 +3028,7 @@ class StructuredStorage {
      * @param {Pointer<PROPVARIANT>} propvar Type: <b>REFPROPVARIANT</b>
      * 
      * Reference to a source <a href="https://docs.microsoft.com/windows/desktop/api/propidl/ns-propidl-propvariant">PROPVARIANT</a> structure.
-     * @param {Integer} pstfOut Type: <b>PSTIME_FLAGS</b>
+     * @param {PSTIME_FLAGS} pstfOut Type: <b>PSTIME_FLAGS</b>
      * 
      * Specifies one of the following time flags.
      * @param {Pointer<FILETIME>} pftOut Type: <b>FILETIME*</b>
@@ -4595,8 +4596,10 @@ class StructuredStorage {
      * @param {Pointer<PROPVARIANT>} propvar2 Type: <b>REFPROPVARIANT</b>
      * 
      * Reference to the second <a href="https://docs.microsoft.com/windows/desktop/api/propidl/ns-propidl-propvariant">PROPVARIANT</a> structure.
-     * @param {Integer} _unit 
-     * @param {Integer} flags Type: <b>PROPVAR_COMPARE_FLAGS</b>
+     * @param {PROPVAR_COMPARE_UNIT} _unit Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/propvarutil/ne-propvarutil-propvar_compare_unit">PROPVAR_COMPARE_UNIT</a></b>
+     * 
+     * Specifies, where appropriate, one of the comparison units defined in <a href="https://docs.microsoft.com/windows/desktop/api/propvarutil/ne-propvarutil-propvar_compare_unit">PROPVAR_COMPARE_UNIT</a>.
+     * @param {PROPVAR_COMPARE_FLAGS} flags Type: <b>PROPVAR_COMPARE_FLAGS</b>
      * 
      * Specifies one of the following:
      * @returns {Integer} Type: <b>INT</b>
@@ -4921,10 +4924,10 @@ class StructuredStorage {
      * @param {Pointer<PROPVARIANT>} propvarSrc Type: <b>REFPROPVARIANT</b>
      * 
      * A reference to the source <a href="https://docs.microsoft.com/windows/desktop/api/propidl/ns-propidl-propvariant">PROPVARIANT</a> structure that contains the value expressed as its original type.
-     * @param {Integer} flags Type: <b>PROPVAR_CHANGE_FLAGS</b>
+     * @param {PROPVAR_CHANGE_FLAGS} flags Type: <b>PROPVAR_CHANGE_FLAGS</b>
      * 
      * Reserved, must be 0.
-     * @param {Integer} vt Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms221127(v=vs.85)">VARTYPE</a></b>
+     * @param {VARENUM} vt Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms221127(v=vs.85)">VARTYPE</a></b>
      * 
      * Specifies the new type for the value. See the tables below for recognized type names.
      * @returns {HRESULT} Type: <b>HRESULT</b>

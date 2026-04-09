@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class DEVICEDUMP_SUBSECTION_POINTER extends Win32Struct
-{
+class DEVICEDUMP_SUBSECTION_POINTER extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4

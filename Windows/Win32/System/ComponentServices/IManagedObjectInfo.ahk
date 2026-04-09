@@ -8,9 +8,8 @@
  * Describes the stub for a managed object.
  * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nn-comsvcs-imanagedobjectinfo
  * @namespace Windows.Win32.System.ComponentServices
- * @version v4.0.30319
  */
-class IManagedObjectInfo extends IUnknown{
+class IManagedObjectInfo extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

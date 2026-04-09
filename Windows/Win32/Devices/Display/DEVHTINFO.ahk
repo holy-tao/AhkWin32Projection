@@ -1,16 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\CIECHROMA.ahk
 #Include .\COLORINFO.ahk
+#Include .\CIECHROMA.ahk
 
 /**
  * The DEVHTINFO structure is used as input to the HTUI_DeviceColorAdjustment function.
  * @see https://learn.microsoft.com/windows/win32/api/winddi/ns-winddi-devhtinfo
  * @namespace Windows.Win32.Devices.Display
- * @version v4.0.30319
  */
-class DEVHTINFO extends Win32Struct
-{
+class DEVHTINFO extends Win32Struct {
     static sizeof => 132
 
     static packingSize => 4
@@ -48,7 +46,7 @@ class DEVHTINFO extends Win32Struct
      * Is a caller-supplied pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winddi/ns-winddi-colorinfo">COLORINFO</a> structure containing halftoning color information.
      * @type {COLORINFO}
      */
-    ColorInfo{
+    ColorInfo {
         get {
             if(!this.HasProp("__ColorInfo"))
                 this.__ColorInfo := COLORINFO(12, this)

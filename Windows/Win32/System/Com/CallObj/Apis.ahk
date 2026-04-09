@@ -3,7 +3,6 @@
 
 /**
  * @namespace Windows.Win32.System.Com.CallObj
- * @version v4.0.30319
  */
 class CallObj {
 

@@ -5,9 +5,8 @@
  * Defines values for recognized file systems.
  * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/ne-imapi2fs-fsifilesystems
  * @namespace Windows.Win32.Storage.Imapi
- * @version v4.0.30319
  */
-class FsiFileSystems extends Win32Enum{
+class FsiFileSystems extends Win32Enum {
 
     /**
      * The disc does not contain a recognized file system.

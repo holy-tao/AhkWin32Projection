@@ -1,16 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ID2D1SvgElement.ahk
 #Include .\ID2D1Resource.ahk
 
 /**
  * Interface for all SVG elements.
  * @see https://learn.microsoft.com/windows/win32/api/d2d1svg/nn-d2d1svg-id2d1svgelement
  * @namespace Windows.Win32.Graphics.Direct2D
- * @version v4.0.30319
  */
-class ID2D1SvgElement extends ID2D1Resource{
+class ID2D1SvgElement extends ID2D1Resource {
 
     static sizeof => A_PtrSize
     /**
@@ -33,7 +31,9 @@ class ID2D1SvgElement extends ID2D1Resource{
 
     /**
      * Gets the document that contains this element.
-     * @param {Pointer<ID2D1SvgDocument>} _document 
+     * @param {Pointer<ID2D1SvgDocument>} _document Type: <b>ID2D1SvgDocument**</b>
+     * 
+     * Outputs the document that contains this element. This argument will be null if the element has been removed from the tree.
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/d2d1svg/nf-d2d1svg-id2d1svgelement-getdocument
      */
@@ -421,8 +421,8 @@ class ID2D1SvgElement extends ID2D1Resource{
     /**
      * Sets an attribute of this element.
      * @param {PWSTR} name 
-     * @param {Integer} type 
-     * @param {Pointer} value 
+     * @param {D2D1_SVG_ATTRIBUTE_POD_TYPE} type 
+     * @param {Integer} value 
      * @param {Integer} valueSizeInBytes 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/Direct2D/id2d1svgelement-setattributevalue-overload
@@ -437,7 +437,7 @@ class ID2D1SvgElement extends ID2D1Resource{
     /**
      * Sets an attribute of this element.
      * @param {PWSTR} name 
-     * @param {Integer} type 
+     * @param {D2D1_SVG_ATTRIBUTE_STRING_TYPE} type 
      * @param {PWSTR} value 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/Direct2D/id2d1svgelement-setattributevalue-overload
@@ -467,8 +467,8 @@ class ID2D1SvgElement extends ID2D1Resource{
     /**
      * Gets an attribute of this element.
      * @param {PWSTR} name 
-     * @param {Integer} type 
-     * @param {Pointer} value 
+     * @param {D2D1_SVG_ATTRIBUTE_POD_TYPE} type 
+     * @param {Integer} value 
      * @param {Integer} valueSizeInBytes 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/Direct2D/id2d1svgelement-getattributevalue-overload
@@ -483,7 +483,7 @@ class ID2D1SvgElement extends ID2D1Resource{
     /**
      * Gets an attribute of this element.
      * @param {PWSTR} name 
-     * @param {Integer} type 
+     * @param {D2D1_SVG_ATTRIBUTE_STRING_TYPE} type 
      * @param {PWSTR} value 
      * @param {Integer} valueCount 
      * @returns {HRESULT} 
@@ -502,7 +502,7 @@ class ID2D1SvgElement extends ID2D1Resource{
      * @param {PWSTR} name Type: <b>PCWSTR</b>
      * 
      * The name of the attribute.
-     * @param {Integer} type Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1svg/ne-d2d1svg-d2d1_svg_attribute_string_type">D2D1_SVG_ATTRIBUTE_STRING_TYPE</a></b>
+     * @param {D2D1_SVG_ATTRIBUTE_STRING_TYPE} type Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1svg/ne-d2d1svg-d2d1_svg_attribute_string_type">D2D1_SVG_ATTRIBUTE_STRING_TYPE</a></b>
      * 
      * The string type of the attribute.
      * @returns {Integer} Type: <b>UINT32*</b>

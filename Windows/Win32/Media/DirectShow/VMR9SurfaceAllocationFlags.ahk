@@ -7,9 +7,8 @@
  * The VMR9AllocFlag_TextureSurface flag can be combined with the VMR9AllocFlag_DXVATarget and VMR9AllocFlag_3DRenderTarget flags.
  * @see https://learn.microsoft.com/windows/win32/api/vmr9/ne-vmr9-vmr9surfaceallocationflags
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class VMR9SurfaceAllocationFlags extends Win32Enum{
+class VMR9SurfaceAllocationFlags extends Win32Enum {
 
     /**
      * Indicates that the surface is a Direct3D render target.

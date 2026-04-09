@@ -7,9 +7,8 @@
  * Represents a clip object that restricts the rendering of a visual subtree to the specified rectangular region. Optionally, the clip object may have rounded corners specified.
  * @see https://learn.microsoft.com/windows/win32/api/dcomp/nn-dcomp-idcompositionrectangleclip
  * @namespace Windows.Win32.Graphics.DirectComposition
- * @version v4.0.30319
  */
-class IDCompositionRectangleClip extends IDCompositionClip{
+class IDCompositionRectangleClip extends IDCompositionClip {
 
     static sizeof => A_PtrSize
     /**

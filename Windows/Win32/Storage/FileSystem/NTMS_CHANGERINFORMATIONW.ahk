@@ -16,11 +16,9 @@
  * > The ntmsapi.h header defines NTMS_CHANGERINFORMATION as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
  * @see https://learn.microsoft.com/windows/win32/api/ntmsapi/ns-ntmsapi-ntms_changerinformationw
  * @namespace Windows.Win32.Storage.FileSystem
- * @version v4.0.30319
  * @charset Unicode
  */
-class NTMS_CHANGERINFORMATIONW extends Win32Struct
-{
+class NTMS_CHANGERINFORMATIONW extends Win32Struct {
     static sizeof => 288
 
     static packingSize => 8
@@ -36,7 +34,7 @@ class NTMS_CHANGERINFORMATIONW extends Win32Struct
 
     /**
      * Identifier of the changer type of this changer.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     ChangerType {
         get => NumGet(this, 8, "ptr")
@@ -108,7 +106,7 @@ class NTMS_CHANGERINFORMATIONW extends Win32Struct
 
     /**
      * Unique identifier of the library that contains the changer.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     Library {
         get => NumGet(this, 280, "ptr")

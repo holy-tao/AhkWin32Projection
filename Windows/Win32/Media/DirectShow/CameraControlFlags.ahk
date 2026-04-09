@@ -35,9 +35,8 @@
  * </table>
  * @see https://learn.microsoft.com/windows/win32/api/strmif/ne-strmif-cameracontrolflags
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class CameraControlFlags extends Win32Enum{
+class CameraControlFlags extends Win32Enum {
 
     /**
      * The setting is controlled automatically.

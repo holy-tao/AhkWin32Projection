@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class NCRYPT_FLAGS extends Win32BitflagEnum{
+class NCRYPT_FLAGS extends Win32BitflagEnum {
 
     /**
      * @type {Integer (UInt32)}

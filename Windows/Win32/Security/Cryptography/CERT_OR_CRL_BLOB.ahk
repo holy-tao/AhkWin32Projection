@@ -5,10 +5,8 @@
  * Encapsulates certificates for use with Internet Key Exchange messages.
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cert_or_crl_blob
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CERT_OR_CRL_BLOB extends Win32Struct
-{
+class CERT_OR_CRL_BLOB extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

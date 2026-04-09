@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.SystemServices
- * @version v4.0.30319
  */
-class WORD_WHEEL_OPEN_FLAGS extends Win32BitflagEnum{
+class WORD_WHEEL_OPEN_FLAGS extends Win32BitflagEnum {
 
     /**
      * @type {Integer (UInt32)}

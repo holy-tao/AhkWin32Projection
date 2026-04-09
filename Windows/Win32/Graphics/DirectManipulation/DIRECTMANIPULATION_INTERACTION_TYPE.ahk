@@ -5,9 +5,8 @@
  * Defines gestures recognized by Direct Manipulation.
  * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/ne-directmanipulation-directmanipulation_interaction_type
  * @namespace Windows.Win32.Graphics.DirectManipulation
- * @version v4.0.30319
  */
-class DIRECTMANIPULATION_INTERACTION_TYPE extends Win32Enum{
+class DIRECTMANIPULATION_INTERACTION_TYPE extends Win32Enum {
 
     /**
      * Marks the beginning of an interaction.

@@ -9,10 +9,8 @@
  * In Windows 8, this request completes successfully. However, the values retrieved from the underlying USB 3.0 driver stack do not reflect actual  bus statistics.
  * @see https://learn.microsoft.com/windows/win32/api/usbuser/ns-usbuser-usb_bus_statistics_0
  * @namespace Windows.Win32.Devices.Usb
- * @version v4.0.30319
  */
-class USB_BUS_STATISTICS_0 extends Win32Struct
-{
+class USB_BUS_STATISTICS_0 extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 8
@@ -135,7 +133,6 @@ class USB_BUS_STATISTICS_0 extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     RootHubDevicePowerState {

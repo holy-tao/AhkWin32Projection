@@ -5,14 +5,12 @@
 
 /**
  * @namespace Windows.Win32.Devices.HumanInterfaceDevice
- * @version v4.0.30319
  * @charset Unicode
  */
-class DIDEVICEIMAGEINFOW extends Win32Struct
-{
-    static sizeof => 616
+class DIDEVICEIMAGEINFOW extends Win32Struct {
+    static sizeof => 612
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {String}
@@ -41,7 +39,7 @@ class DIDEVICEIMAGEINFOW extends Win32Struct
     /**
      * @type {RECT}
      */
-    rcOverlay{
+    rcOverlay {
         get {
             if(!this.HasProp("__rcOverlay"))
                 this.__rcOverlay := RECT(528, this)
@@ -66,9 +64,9 @@ class DIDEVICEIMAGEINFOW extends Win32Struct
     }
 
     /**
-     * @type {Array<POINT>}
+     * @type {POINT}
      */
-    rgptCalloutLine{
+    rgptCalloutLine {
         get {
             if(!this.HasProp("__rgptCalloutLineProxyArray"))
                 this.__rgptCalloutLineProxyArray := Win32FixedArray(this.ptr + 552, 5, POINT, "")
@@ -79,7 +77,7 @@ class DIDEVICEIMAGEINFOW extends Win32Struct
     /**
      * @type {RECT}
      */
-    rcCalloutRect{
+    rcCalloutRect {
         get {
             if(!this.HasProp("__rcCalloutRect"))
                 this.__rcCalloutRect := RECT(592, this)

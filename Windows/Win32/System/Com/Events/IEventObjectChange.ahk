@@ -1,16 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
 #Include ..\IUnknown.ahk
 
 /**
  * Notifies subscribers of changes to the event store.
  * @see https://learn.microsoft.com/windows/win32/api/eventsys/nn-eventsys-ieventobjectchange
  * @namespace Windows.Win32.System.Com.Events
- * @version v4.0.30319
  */
-class IEventObjectChange extends IUnknown{
+class IEventObjectChange extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -39,7 +37,7 @@ class IEventObjectChange extends IUnknown{
 
     /**
      * Indicates that a subscription object has been added, modified, or deleted. (IEventObjectChange.ChangedSubscription)
-     * @param {Integer} _changeType 
+     * @param {EOC_ChangeType} _changeType The type of change to the subscription object. Values are taken from the EOC_ChangeType enumeration.
      * @param {BSTR} bstrSubscriptionID The SubscriptionID property of the subscription object that changed.
      * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, E_FAIL, and S_OK.
      * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventobjectchange-changedsubscription
@@ -53,7 +51,7 @@ class IEventObjectChange extends IUnknown{
 
     /**
      * Indicates that an event class object has been added, modified, or deleted. (IEventObjectChange.ChangedEventClass)
-     * @param {Integer} _changeType 
+     * @param {EOC_ChangeType} _changeType The type of change to the event class object. Values are taken from the <a href="https://docs.microsoft.com/windows/desktop/api/eventsys/ne-eventsys-eoc_changetype">EOC_ChangeType</a> enumeration.
      * @param {BSTR} bstrEventClassID The EventClassID property of the event class object that changed.
      * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, E_FAIL, and S_OK.
      * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventobjectchange-changedeventclass
@@ -67,7 +65,7 @@ class IEventObjectChange extends IUnknown{
 
     /**
      * Indicates a publisher object has been added, modified, or deleted.
-     * @param {Integer} _changeType 
+     * @param {EOC_ChangeType} _changeType The type of change to the publisher object. Values are taken from the <a href="https://docs.microsoft.com/windows/desktop/api/eventsys/ne-eventsys-eoc_changetype">EOC_ChangeType</a> enumeration.
      * @param {BSTR} bstrPublisherID The PublisherID property of the publisher object that changed.
      * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, E_FAIL, and S_OK.
      * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventobjectchange-changedpublisher

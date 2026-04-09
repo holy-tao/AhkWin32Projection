@@ -4,7 +4,6 @@
 
 /**
  * @namespace Windows.Win32.System.WinRT.Direct3D11
- * @version v4.0.30319
  */
 class Direct3D11 {
 

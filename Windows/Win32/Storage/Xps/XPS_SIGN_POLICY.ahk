@@ -7,9 +7,8 @@
  * More than one value may be set.
  * @see https://learn.microsoft.com/windows/win32/api/xpsdigitalsignature/ne-xpsdigitalsignature-xps_sign_policy
  * @namespace Windows.Win32.Storage.Xps
- * @version v4.0.30319
  */
-class XPS_SIGN_POLICY extends Win32BitflagEnum{
+class XPS_SIGN_POLICY extends Win32BitflagEnum {
 
     /**
      * No optional parts or relationships are signed.

@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Storage.FileSystem
- * @version v4.0.30319
  */
-class FILE_INFO_FLAGS_PERMISSIONS extends Win32BitflagEnum{
+class FILE_INFO_FLAGS_PERMISSIONS extends Win32BitflagEnum {
 
     /**
      * @type {Integer (UInt32)}

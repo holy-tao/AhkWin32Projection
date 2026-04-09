@@ -14,10 +14,8 @@
  * On the Microsoft Windows Software Development Kit (SDK) released for Windows Vista and later, the organization of header files has changed and the <b>in6_pktinfo</b> structure is defined in the <i>Ws2ipdef.h</i> header file which is automatically included in the <i>Ws2tcpip.h</i> header file. The <i>Ws2ipdef.h</i>  header files should never be used directly.
  * @see https://learn.microsoft.com/windows/win32/api/ws2ipdef/ns-ws2ipdef-in6_pktinfo
  * @namespace Windows.Win32.Networking.WinSock
- * @version v4.0.30319
  */
-class IN6_PKTINFO extends Win32Struct
-{
+class IN6_PKTINFO extends Win32Struct {
     static sizeof => 20
 
     static packingSize => 4
@@ -26,7 +24,7 @@ class IN6_PKTINFO extends Win32Struct
      * The destination IPv6 address from the IP header of the received packet when used with the <a href="https://docs.microsoft.com/windows/win32/api/mswsock/nc-mswsock-lpfn_wsarecvmsg">LPFN_WSARECVMSG (WSARecvMsg)</a> function. The local source IPv6 address to set in the IP header when used with the <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/nf-winsock2-wsasendmsg">WSASendMsg</a> function.
      * @type {IN6_ADDR}
      */
-    ipi6_addr{
+    ipi6_addr {
         get {
             if(!this.HasProp("__ipi6_addr"))
                 this.__ipi6_addr := IN6_ADDR(0, this)

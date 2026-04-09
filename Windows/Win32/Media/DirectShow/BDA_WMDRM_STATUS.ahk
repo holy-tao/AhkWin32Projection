@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class BDA_WMDRM_STATUS extends Win32Struct
-{
+class BDA_WMDRM_STATUS extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8

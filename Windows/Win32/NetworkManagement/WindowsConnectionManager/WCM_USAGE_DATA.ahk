@@ -6,10 +6,8 @@
  * Contains information related to connection usage.
  * @see https://learn.microsoft.com/windows/win32/api/wcmapi/ns-wcmapi-wcm_usage_data
  * @namespace Windows.Win32.NetworkManagement.WindowsConnectionManager
- * @version v4.0.30319
  */
-class WCM_USAGE_DATA extends Win32Struct
-{
+class WCM_USAGE_DATA extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4
@@ -31,7 +29,7 @@ class WCM_USAGE_DATA extends Win32Struct
      * Specifies the last time that usage information was reconciled with the carrier's billing system.
      * @type {FILETIME}
      */
-    LastSyncTime{
+    LastSyncTime {
         get {
             if(!this.HasProp("__LastSyncTime"))
                 this.__LastSyncTime := FILETIME(4, this)

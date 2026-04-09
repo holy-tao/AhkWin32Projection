@@ -7,9 +7,8 @@
  * Enables applications to receive notifications of state changes in a display and of changes in Start screen visibility.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-iappvisibilityevents
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IAppVisibilityEvents extends IUnknown{
+class IAppVisibilityEvents extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -32,9 +31,9 @@ class IAppVisibilityEvents extends IUnknown{
 
     /**
      * Notifies a client that the mode of a display has changed.
-     * @param {HMONITOR} _hMonitor 
-     * @param {Integer} previousMode The previous mode of <i>hMonitor</i>, which may be <b>MAV_UNKNOWN</b>  if the client was unaware of the display previously.
-     * @param {Integer} currentMode The current mode of <i>hMonitor</i>, which will not be <b>MAV_UNKNOWN</b>.
+     * @param {HMONITOR} _hMonitor The display that has a changing mode.
+     * @param {MONITOR_APP_VISIBILITY} previousMode The previous mode of <i>hMonitor</i>, which may be <b>MAV_UNKNOWN</b>  if the client was unaware of the display previously.
+     * @param {MONITOR_APP_VISIBILITY} currentMode The current mode of <i>hMonitor</i>, which will not be <b>MAV_UNKNOWN</b>.
      * @returns {HRESULT} The return value is ignored.
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iappvisibilityevents-appvisibilityonmonitorchanged
      */

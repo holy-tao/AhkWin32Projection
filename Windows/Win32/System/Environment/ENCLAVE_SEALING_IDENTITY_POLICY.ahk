@@ -5,9 +5,8 @@
  * Defines values that specify how another enclave must be related to the enclave that calls EnclaveSealData for the enclave to unseal the data.
  * @see https://learn.microsoft.com/windows/win32/api/ntenclv/ne-ntenclv-enclave_sealing_identity_policy
  * @namespace Windows.Win32.System.Environment
- * @version v4.0.30319
  */
-class ENCLAVE_SEALING_IDENTITY_POLICY extends Win32Enum{
+class ENCLAVE_SEALING_IDENTITY_POLICY extends Win32Enum {
 
     /**
      * This value is not valid. Do not use.

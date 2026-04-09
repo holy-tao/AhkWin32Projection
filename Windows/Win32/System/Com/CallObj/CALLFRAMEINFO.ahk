@@ -5,10 +5,8 @@
  * Provides information about a call frame such as the method in the call frame, if it has in, out, or in/out parameters, the number of [in], [out], or [in, out] interfaces, the interface ID, the number of methods in the interface and the number of parameters in this method.
  * @see https://learn.microsoft.com/windows/win32/api/callobj/ns-callobj-callframeinfo
  * @namespace Windows.Win32.System.Com.CallObj
- * @version v4.0.30319
  */
-class CALLFRAMEINFO extends Win32Struct
-{
+class CALLFRAMEINFO extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8
@@ -96,7 +94,7 @@ class CALLFRAMEINFO extends Win32Struct
 
     /**
      * The interface ID.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     iid {
         get => NumGet(this, 40, "ptr")

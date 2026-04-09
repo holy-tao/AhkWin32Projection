@@ -9,10 +9,8 @@
  * On Windows Vista and later as well as on the Microsoft Windows Software Development Kit (SDK), the organization of header files has changed and the <b>TCPIP_OWNER_MODULE_BASIC_INFO</b> structure is defined in the <i>Iprtrmib.h</i> header file.
  * @see https://learn.microsoft.com/windows/win32/api/iprtrmib/ns-iprtrmib-tcpip_owner_module_basic_info
  * @namespace Windows.Win32.NetworkManagement.IpHelper
- * @version v4.0.30319
  */
-class TCPIP_OWNER_MODULE_BASIC_INFO extends Win32Struct
-{
+class TCPIP_OWNER_MODULE_BASIC_INFO extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

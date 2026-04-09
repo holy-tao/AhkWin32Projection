@@ -1,20 +1,21 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\WinSock\SOCKADDR_STORAGE.ahk
+#Include .\HTTP_SERVICE_CONFIG_QUERY_TYPE.ahk
 #Include .\HTTP_SERVICE_CONFIG_SSL_SNI_KEY.ahk
+#Include ..\WinSock\SOCKADDR_STORAGE.ahk
+#Include ..\WinSock\ADDRESS_FAMILY.ahk
+#Include .\HTTP_SSL_SERVICE_CONFIG_EX_PARAM_TYPE.ahk
 
 /**
  * @namespace Windows.Win32.Networking.HttpServer
- * @version v4.0.30319
  */
-class HTTP_SERVICE_CONFIG_SSL_SNI_QUERY_EX extends Win32Struct
-{
-    static sizeof => 272
+class HTTP_SERVICE_CONFIG_SSL_SNI_QUERY_EX extends Win32Struct {
+    static sizeof => 152
 
     static packingSize => 8
 
     /**
-     * @type {Integer}
+     * @type {HTTP_SERVICE_CONFIG_QUERY_TYPE}
      */
     QueryDesc {
         get => NumGet(this, 0, "int")
@@ -24,7 +25,7 @@ class HTTP_SERVICE_CONFIG_SSL_SNI_QUERY_EX extends Win32Struct
     /**
      * @type {HTTP_SERVICE_CONFIG_SSL_SNI_KEY}
      */
-    KeyDesc{
+    KeyDesc {
         get {
             if(!this.HasProp("__KeyDesc"))
                 this.__KeyDesc := HTTP_SERVICE_CONFIG_SSL_SNI_KEY(8, this)
@@ -36,15 +37,15 @@ class HTTP_SERVICE_CONFIG_SSL_SNI_QUERY_EX extends Win32Struct
      * @type {Integer}
      */
     dwToken {
-        get => NumGet(this, 264, "uint")
-        set => NumPut("uint", value, this, 264)
+        get => NumGet(this, 144, "uint")
+        set => NumPut("uint", value, this, 144)
     }
 
     /**
-     * @type {Integer}
+     * @type {HTTP_SSL_SERVICE_CONFIG_EX_PARAM_TYPE}
      */
     ParamType {
-        get => NumGet(this, 268, "int")
-        set => NumPut("int", value, this, 268)
+        get => NumGet(this, 148, "int")
+        set => NumPut("int", value, this, 148)
     }
 }

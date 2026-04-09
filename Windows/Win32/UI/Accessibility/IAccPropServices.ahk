@@ -7,9 +7,8 @@
  * Exposes methods for annotating accessible elements and for manipulating identity strings.
  * @see https://learn.microsoft.com/windows/win32/api/oleacc/nn-oleacc-iaccpropservices
  * @namespace Windows.Win32.UI.Accessibility
- * @version v4.0.30319
  */
-class IAccPropServices extends IUnknown{
+class IAccPropServices extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -83,7 +82,9 @@ class IAccPropServices extends IUnknown{
      * @param {IAccPropServer} pServer Type: <b>IAccPropServer*</b>
      * 
      * Specifies the callback object that will be invoked when a client requests one of the overridden properties.
-     * @param {Integer} _annoScope 
+     * @param {AnnoScope} _annoScope Type: <b>AnnoScope</b>
+     * 
+     * May be ANNO_THIS, indicating that the annotation affects the indicated accessible element only; or ANNO_CONTAINER, indicating that it applies to the element and its immediate element children.
      * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If successful, returns S_OK.
@@ -138,7 +139,9 @@ class IAccPropServices extends IUnknown{
      * This method wraps SetPropValue, providing a convenient entry point for callers who are annotating HWND-based accessible elements. If the new value is a string, you can use IAccPropServices::SetHwndPropStr instead.
      * @remarks
      * By using this method, the caller does not have to obtain an identity string; it can specify the <i>hwnd</i>, <i>idObject</i>, and <i>idChild</i> parameters directly.
-     * @param {HWND} _hwnd 
+     * @param {HWND} _hwnd Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
+     * 
+     * Identifies the accessible element that is to be annotated. This replaces the identity string.
      * @param {Integer} idObject Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
      * 
      * Identifies the accessible element that is to be annotated. This replaces the identity string.
@@ -171,7 +174,9 @@ class IAccPropServices extends IUnknown{
      * This method wraps SetPropValue, providing a more convenient entry point for callers who are annotating HWND-based accessible elements.
      * @remarks
      * By using this method, the caller does not have to obtain an identity string; it can specify the <i>hwnd</i>, <i>idObject</i>, and <i>idChild</i> parameters directly.
-     * @param {HWND} _hwnd 
+     * @param {HWND} _hwnd Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
+     * 
+     * Identifies the accessible element that is to be annotated. This replaces the identity string.
      * @param {Integer} idObject Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
      * 
      * Identifies the accessible element that is to be annotated. This replaces the identity string.
@@ -203,7 +208,9 @@ class IAccPropServices extends IUnknown{
      * This method wraps SetPropServer, providing a convenient entry point for callers who are annotating HWND-based accessible elements.
      * @remarks
      * By using this method, the caller does not have to obtain an identity string; it can specify the <i>hwnd</i>, <i>idObject</i>, and <i>idChild</i> parameters directly.
-     * @param {HWND} _hwnd 
+     * @param {HWND} _hwnd Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
+     * 
+     * Identifies the accessible element that is to be annotated. This replaces the identity string.
      * @param {Integer} idObject Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
      * 
      * Identifies the accessible element that is to be annotated. This replaces the identity string.
@@ -219,7 +226,9 @@ class IAccPropServices extends IUnknown{
      * @param {IAccPropServer} pServer Type: <b>IAccPropServer*</b>
      * 
      * Specifies the callback object, which will be invoked when a client requests one of the overridden properties.
-     * @param {Integer} _annoScope 
+     * @param {AnnoScope} _annoScope Type: <b>AnnoScope</b>
+     * 
+     * May be ANNO_THIS, indicating that the annotation affects the indicated accessible element only; or ANNO_CONTAINER, indicating that it applies to the element and its immediate element children.
      * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If successful, returns S_OK.
@@ -242,7 +251,9 @@ class IAccPropServices extends IUnknown{
      * By using this method, the caller does not have to obtain an identity string; it can specify the <i>hwnd</i>, <i>idObject</i>, and <i>idChild</i> parameters directly.
      * 
      * Additionally, <a href="https://docs.microsoft.com/windows/desktop/api/oleacc/nf-oleacc-iaccpropservices-sethwndpropstr">SetHwndPropStr</a> takes a regular Unicode string as a parameter; the caller does not need to specially allocate a <b>BSTR</b>.
-     * @param {HWND} _hwnd 
+     * @param {HWND} _hwnd Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
+     * 
+     * Identifies the accessible element that is to be annotated. This replaces the identity string.
      * @param {Integer} idObject Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
      * 
      * Identifies the accessible element that is to be annotated. This replaces the identity string.
@@ -275,7 +286,9 @@ class IAccPropServices extends IUnknown{
 
     /**
      * Callers use ComposeHwndIdentityString to retrieve an identity string.
-     * @param {HWND} _hwnd 
+     * @param {HWND} _hwnd Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
+     * 
+     * Specifies the <b>HWND</b> of the accessible element that the caller wants to identify.
      * @param {Integer} idObject Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
      * 
      * Specifies the object ID of the accessible element.
@@ -346,7 +359,9 @@ class IAccPropServices extends IUnknown{
 
     /**
      * This method wraps SetPropValue, providing a convenient entry point for callers who are annotating HMENU-based accessible elements. If the new value is a string, you can use IAccPropServices::SetHmenuPropStr instead.
-     * @param {HMENU} _hmenu 
+     * @param {HMENU} _hmenu Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HMENU</a></b>
+     * 
+     * Identifies the <b>HMENU</b>-based accessible element to be annotated.
      * @param {Integer} idChild Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
      * 
      * Specifies the child ID of the accessible element.
@@ -374,7 +389,9 @@ class IAccPropServices extends IUnknown{
      * This method wraps SetPropValue, providing a more convenient entry point for callers who are annotating HMENU-based accessible elements.
      * @remarks
      * By using this method, the caller does not have to obtain an identity string; it can specify the <i>hmenu</i>, <i>idObject</i>, and <i>idChild</i> parameters directly.
-     * @param {HMENU} _hmenu 
+     * @param {HMENU} _hmenu Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HMENU</a></b>
+     * 
+     * Identifies the <b>HMENU</b>-based accessible element to be annotated.
      * @param {Integer} idChild Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
      * 
      * Specifies the child ID of the accessible element.
@@ -403,7 +420,9 @@ class IAccPropServices extends IUnknown{
      * This method wraps SetPropServer, providing a convenient entry point for callers who are annotating HMENU-based accessible elements.
      * @remarks
      * By using this method, the caller does not have to obtain an identity string; it can specify the <i>hmenu</i> and <i>idChild</i> parameters directly.
-     * @param {HMENU} _hmenu 
+     * @param {HMENU} _hmenu Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HMENU</a></b>
+     * 
+     * Identifies the <b>HMENU</b>-accessible element to be annotated.
      * @param {Integer} idChild Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
      * 
      * Identifies the accessible element that is to be annotated. This replaces the identity string.
@@ -416,7 +435,9 @@ class IAccPropServices extends IUnknown{
      * @param {IAccPropServer} pServer Type: <b>IAccPropServer*</b>
      * 
      * Specifies the callback object, which will be invoked when a client requests one of the overridden properties.
-     * @param {Integer} _annoScope 
+     * @param {AnnoScope} _annoScope Type: <b>AnnoScope</b>
+     * 
+     * May be ANNO_THIS, indicating that the annotation affects the indicated accessible element only; or ANNO_CONTAINER, indicating that it applies to the element and its immediate element children.
      * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If successful, returns S_OK.
@@ -437,7 +458,9 @@ class IAccPropServices extends IUnknown{
      * This method wraps ClearProps, and provides a convenient entry point for callers who are annotating HMENU-based accessible elements.
      * @remarks
      * By using this method, the caller does not have to obtain an identity string; it can specify the <i>hmenu</i> and <i>idChild</i> parameters directly.
-     * @param {HMENU} _hmenu 
+     * @param {HMENU} _hmenu Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HMENU</a></b>
+     * 
+     * Identifies the <b>HMENU</b>-based accessible element to be annotated.
      * @param {Integer} idChild Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
      * 
      * Specifies the child ID of the accessible element.
@@ -467,7 +490,9 @@ class IAccPropServices extends IUnknown{
 
     /**
      * Callers use ComposeHmenuIdentityString to retrieve an identity string for an HMENU-based accessible element.
-     * @param {HMENU} _hmenu 
+     * @param {HMENU} _hmenu Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HMENU</a></b>
+     * 
+     * Identifies the <b>HMENU</b>-based accessible element.
      * @param {Integer} idChild Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
      * 
      * Specifies the child ID of the accessible element.

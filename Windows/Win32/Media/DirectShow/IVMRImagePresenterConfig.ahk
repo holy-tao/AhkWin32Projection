@@ -7,9 +7,8 @@
  * The IVMRImagePresenterConfig interface provides methods for setting the rendering preferences on the allocator-presenter used by the Video Mixing Renderer Filter 7 (VMR-7).Applications should not use this interface directly.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-ivmrimagepresenterconfig
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IVMRImagePresenterConfig extends IUnknown{
+class IVMRImagePresenterConfig extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -5,17 +5,15 @@
  * Contains a list of files locked by a transacted writer.
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-txfs_list_transaction_locked_files
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class TXFS_LIST_TRANSACTION_LOCKED_FILES extends Win32Struct
-{
+class TXFS_LIST_TRANSACTION_LOCKED_FILES extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
 
     /**
      * The KTM transaction to enumerate locked files for in this RM.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     KtmTransaction {
         get => NumGet(this, 0, "ptr")

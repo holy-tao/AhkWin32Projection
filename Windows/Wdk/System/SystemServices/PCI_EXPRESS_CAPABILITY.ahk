@@ -3,16 +3,14 @@
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class PCI_EXPRESS_CAPABILITY extends Win32Struct
-{
+class PCI_EXPRESS_CAPABILITY extends Win32Struct {
     static sizeof => 160
 
     static packingSize => 8
 
     /**
-     * @type {Pointer<PCI_CAPABILITIES_HEADER>}
+     * @type {Pointer}
      */
     Header {
         get => NumGet(this, 0, "ptr")
@@ -20,7 +18,7 @@ class PCI_EXPRESS_CAPABILITY extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PCI_EXPRESS_CAPABILITIES_REGISTER>}
+     * @type {Pointer}
      */
     ExpressCapabilities {
         get => NumGet(this, 8, "ptr")
@@ -28,7 +26,7 @@ class PCI_EXPRESS_CAPABILITY extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PCI_EXPRESS_DEVICE_CAPABILITIES_REGISTER>}
+     * @type {Pointer}
      */
     DeviceCapabilities {
         get => NumGet(this, 16, "ptr")
@@ -36,7 +34,7 @@ class PCI_EXPRESS_CAPABILITY extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PCI_EXPRESS_DEVICE_CONTROL_REGISTER>}
+     * @type {Pointer}
      */
     DeviceControl {
         get => NumGet(this, 24, "ptr")
@@ -44,7 +42,7 @@ class PCI_EXPRESS_CAPABILITY extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PCI_EXPRESS_DEVICE_STATUS_REGISTER>}
+     * @type {Pointer}
      */
     DeviceStatus {
         get => NumGet(this, 32, "ptr")
@@ -52,7 +50,7 @@ class PCI_EXPRESS_CAPABILITY extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PCI_EXPRESS_LINK_CAPABILITIES_REGISTER>}
+     * @type {Pointer}
      */
     LinkCapabilities {
         get => NumGet(this, 40, "ptr")
@@ -60,7 +58,7 @@ class PCI_EXPRESS_CAPABILITY extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PCI_EXPRESS_LINK_CONTROL_REGISTER>}
+     * @type {Pointer}
      */
     LinkControl {
         get => NumGet(this, 48, "ptr")
@@ -68,7 +66,7 @@ class PCI_EXPRESS_CAPABILITY extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PCI_EXPRESS_LINK_STATUS_REGISTER>}
+     * @type {Pointer}
      */
     LinkStatus {
         get => NumGet(this, 56, "ptr")
@@ -76,7 +74,7 @@ class PCI_EXPRESS_CAPABILITY extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PCI_EXPRESS_SLOT_CAPABILITIES_REGISTER>}
+     * @type {Pointer}
      */
     SlotCapabilities {
         get => NumGet(this, 64, "ptr")
@@ -84,7 +82,7 @@ class PCI_EXPRESS_CAPABILITY extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PCI_EXPRESS_SLOT_CONTROL_REGISTER>}
+     * @type {Pointer}
      */
     SlotControl {
         get => NumGet(this, 72, "ptr")
@@ -92,7 +90,7 @@ class PCI_EXPRESS_CAPABILITY extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PCI_EXPRESS_SLOT_STATUS_REGISTER>}
+     * @type {Pointer}
      */
     SlotStatus {
         get => NumGet(this, 80, "ptr")
@@ -100,7 +98,7 @@ class PCI_EXPRESS_CAPABILITY extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PCI_EXPRESS_ROOT_CONTROL_REGISTER>}
+     * @type {Pointer}
      */
     RootControl {
         get => NumGet(this, 88, "ptr")
@@ -108,7 +106,7 @@ class PCI_EXPRESS_CAPABILITY extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PCI_EXPRESS_ROOT_CAPABILITIES_REGISTER>}
+     * @type {Pointer}
      */
     RootCapabilities {
         get => NumGet(this, 96, "ptr")
@@ -116,7 +114,7 @@ class PCI_EXPRESS_CAPABILITY extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PCI_EXPRESS_ROOT_STATUS_REGISTER>}
+     * @type {Pointer}
      */
     RootStatus {
         get => NumGet(this, 104, "ptr")
@@ -124,7 +122,7 @@ class PCI_EXPRESS_CAPABILITY extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PCI_EXPRESS_DEVICE_CAPABILITIES_2_REGISTER>}
+     * @type {Pointer}
      */
     DeviceCapabilities2 {
         get => NumGet(this, 112, "ptr")
@@ -132,7 +130,7 @@ class PCI_EXPRESS_CAPABILITY extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PCI_EXPRESS_DEVICE_CONTROL_2_REGISTER>}
+     * @type {Pointer}
      */
     DeviceControl2 {
         get => NumGet(this, 120, "ptr")
@@ -140,7 +138,7 @@ class PCI_EXPRESS_CAPABILITY extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PCI_EXPRESS_DEVICE_STATUS_2_REGISTER>}
+     * @type {Pointer}
      */
     DeviceStatus2 {
         get => NumGet(this, 128, "ptr")
@@ -148,7 +146,7 @@ class PCI_EXPRESS_CAPABILITY extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PCI_EXPRESS_LINK_CAPABILITIES_2_REGISTER>}
+     * @type {Pointer}
      */
     LinkCapabilities2 {
         get => NumGet(this, 136, "ptr")
@@ -156,7 +154,7 @@ class PCI_EXPRESS_CAPABILITY extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PCI_EXPRESS_LINK_CONTROL_2_REGISTER>}
+     * @type {Pointer}
      */
     LinkControl2 {
         get => NumGet(this, 144, "ptr")
@@ -164,7 +162,7 @@ class PCI_EXPRESS_CAPABILITY extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PCI_EXPRESS_LINK_STATUS_2_REGISTER>}
+     * @type {Pointer}
      */
     LinkStatus2 {
         get => NumGet(this, 152, "ptr")

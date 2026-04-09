@@ -7,9 +7,8 @@
  * This enumeration is numerically equivalent to the <b>COPP_ACP_Protection_Level</b> enumeration used in Certified Output Protection Protocol. The OPM_ACP_OFF flag corresponds to COPP_ACP_Level0.
  * @see https://learn.microsoft.com/windows/win32/api/opmapi/ne-opmapi-opm_acp_protection_level
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class OPM_ACP_PROTECTION_LEVEL extends Win32Enum{
+class OPM_ACP_PROTECTION_LEVEL extends Win32Enum {
 
     /**
      * ACP is disabled.

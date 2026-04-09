@@ -7,10 +7,8 @@
  * The DISPLAYCONFIG_DESKTOP_IMAGE_INFO structure contains information about the image displayed on the desktop.
  * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-displayconfig_desktop_image_info
  * @namespace Windows.Win32.Devices.Display
- * @version v4.0.30319
  */
-class DISPLAYCONFIG_DESKTOP_IMAGE_INFO extends Win32Struct
-{
+class DISPLAYCONFIG_DESKTOP_IMAGE_INFO extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 4
@@ -19,7 +17,7 @@ class DISPLAYCONFIG_DESKTOP_IMAGE_INFO extends Win32Struct
      * A <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-pointl">POINTL</a> structure that specifies the size of the VidPn source surface that is being displayed on the monitor.
      * @type {POINTL}
      */
-    PathSourceSize{
+    PathSourceSize {
         get {
             if(!this.HasProp("__PathSourceSize"))
                 this.__PathSourceSize := POINTL(0, this)
@@ -31,7 +29,7 @@ class DISPLAYCONFIG_DESKTOP_IMAGE_INFO extends Win32Struct
      * A <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rectl">RECTL</a> structure that defines where the desktop image will be positioned within path source. 	Region must be completely inside the bounds of the path source size.
      * @type {RECTL}
      */
-    DesktopImageRegion{
+    DesktopImageRegion {
         get {
             if(!this.HasProp("__DesktopImageRegion"))
                 this.__DesktopImageRegion := RECTL(8, this)
@@ -43,7 +41,7 @@ class DISPLAYCONFIG_DESKTOP_IMAGE_INFO extends Win32Struct
      * A <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rectl">RECTL</a> structure that defines which part of the desktop image for this clone group will be displayed on this path. This currently must be set to the desktop size.
      * @type {RECTL}
      */
-    DesktopImageClip{
+    DesktopImageClip {
         get {
             if(!this.HasProp("__DesktopImageClip"))
                 this.__DesktopImageClip := RECTL(24, this)

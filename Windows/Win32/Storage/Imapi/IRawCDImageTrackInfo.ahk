@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * Use this interface to track per-track properties that are applied to CD media.
@@ -10,9 +10,8 @@
  * This interface is supported in Windows Server 2003 with Service Pack 1 (SP1), Windows XP with Service Pack 2 (SP2),  and Windows Vista  via the Windows Feature Pack for Storage. All  features provided by this  update package are supported natively in Windows 7 and Windows Server 2008 R2.
  * @see https://learn.microsoft.com/windows/win32/api/imapi2/nn-imapi2-irawcdimagetrackinfo
  * @namespace Windows.Win32.Storage.Imapi
- * @version v4.0.30319
  */
-class IRawCDImageTrackInfo extends IDispatch{
+class IRawCDImageTrackInfo extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -55,7 +54,7 @@ class IRawCDImageTrackInfo extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {IMAPI_CD_SECTOR_TYPE} 
      */
     SectorType {
         get => this.get_SectorType()
@@ -70,7 +69,7 @@ class IRawCDImageTrackInfo extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {IMAPI_CD_TRACK_DIGITAL_COPY_SETTING} 
      */
     DigitalAudioCopySetting {
         get => this.get_DigitalAudioCopySetting()
@@ -138,7 +137,7 @@ class IRawCDImageTrackInfo extends IDispatch{
      * Retrieves the type of data provided for the sectors in this track. For more detail on the possible sector types, see IMAPI_CD_SECTOR_TYPE.
      * @remarks
      * This method is supported in Windows Server 2003 with Service Pack 1 (SP1), Windows XP with Service Pack 2 (SP2),  and Windows Vista  via the Windows Feature Pack for Storage. All  features provided by this  update package are supported natively in Windows 7 and Windows Server 2008 R2.
-     * @returns {Integer} A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/ne-imapi2-imapi_cd_sector_type">IMAPI_CD_SECTOR_TYPE</a> enumeration that specifies the type of data provided for the sectors on the track.
+     * @returns {IMAPI_CD_SECTOR_TYPE} A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/ne-imapi2-imapi_cd_sector_type">IMAPI_CD_SECTOR_TYPE</a> enumeration that specifies the type of data provided for the sectors on the track.
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-irawcdimagetrackinfo-get_sectortype
      */
     get_SectorType() {
@@ -184,7 +183,7 @@ class IRawCDImageTrackInfo extends IDispatch{
      * This property may only be set for tracks containing audio data.
      * 
      * This method is supported in Windows Server 2003 with Service Pack 1 (SP1), Windows XP with Service Pack 2 (SP2),  and Windows Vista  via the Windows Feature Pack for Storage. All  features provided by this  update package are supported natively in Windows 7 and Windows Server 2008 R2.
-     * @returns {Integer} The current digital audio copy setting.
+     * @returns {IMAPI_CD_TRACK_DIGITAL_COPY_SETTING} The current digital audio copy setting.
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-irawcdimagetrackinfo-get_digitalaudiocopysetting
      */
     get_DigitalAudioCopySetting() {
@@ -198,7 +197,7 @@ class IRawCDImageTrackInfo extends IDispatch{
      * This property may only be set for tracks containing audio data.
      * 
      * This method is supported in Windows Server 2003 with Service Pack 1 (SP1), Windows XP with Service Pack 2 (SP2),  and Windows Vista  via the Windows Feature Pack for Storage. All  features provided by this  update package are supported natively in Windows 7 and Windows Server 2008 R2.
-     * @param {Integer} value The digital audio copy setting value to assign.
+     * @param {IMAPI_CD_TRACK_DIGITAL_COPY_SETTING} value The digital audio copy setting value to assign.
      * @returns {HRESULT} S_OK is returned on success, but other success codes may be returned as a result of implementation.
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-irawcdimagetrackinfo-put_digitalaudiocopysetting
      */

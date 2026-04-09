@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\FWP_IP_VERSION.ahk
+#Include .\IPSEC_TRAFFIC_TYPE.ahk
 
 /**
  * Specifies parameters to describe IPsec traffic. (IPSEC_TRAFFIC0)
@@ -11,10 +13,8 @@
  * For IPsec tunnel mode, the <b>localV*Address</b> and  <b>remoteV*Address</b> members specify the outer IP header tunnel endpoints. The <b>tunnelPolicyId</b> member specifies (as part of the filter conditions specified via <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmipsectunneladd0">FwpmIPsecTunnelAdd0</a>) the inner IP header addresses, transport protocol information, of the matching traffic. The <b>remotePort</b> member should not be specified for tunnel mode.
  * @see https://learn.microsoft.com/windows/win32/api/ipsectypes/ns-ipsectypes-ipsec_traffic0
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
- * @version v4.0.30319
  */
-class IPSEC_TRAFFIC0 extends Win32Struct
-{
+class IPSEC_TRAFFIC0 extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8
@@ -23,7 +23,7 @@ class IPSEC_TRAFFIC0 extends Win32Struct
      * Internet Protocol (IP) version. 
      * 
      * See [FWP_IP_VERSION](/windows/desktop/api/fwptypes/ne-fwptypes-fwp_ip_version) for more information.
-     * @type {Integer}
+     * @type {FWP_IP_VERSION}
      */
     ipVersion {
         get => NumGet(this, 0, "int")
@@ -39,9 +39,9 @@ class IPSEC_TRAFFIC0 extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    localV6Address{
+    localV6Address {
         get {
             if(!this.HasProp("__localV6AddressProxyArray"))
                 this.__localV6AddressProxyArray := Win32FixedArray(this.ptr + 4, 16, Primitive, "char")
@@ -58,9 +58,9 @@ class IPSEC_TRAFFIC0 extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    remoteV6Address{
+    remoteV6Address {
         get {
             if(!this.HasProp("__remoteV6AddressProxyArray"))
                 this.__remoteV6AddressProxyArray := Win32FixedArray(this.ptr + 20, 16, Primitive, "char")
@@ -72,7 +72,7 @@ class IPSEC_TRAFFIC0 extends Win32Struct
      * Type of IPsec traffic.
      * 
      * See [IPSEC_TRAFFIC_TYPE](/windows/desktop/api/ipsectypes/ne-ipsectypes-ipsec_traffic_type) for more information.
-     * @type {Integer}
+     * @type {IPSEC_TRAFFIC_TYPE}
      */
     trafficType {
         get => NumGet(this, 36, "int")

@@ -7,9 +7,8 @@
  * For more information about scaling, see <a href="https://docs.microsoft.com/windows-hardware/drivers/display/scaling-the-desktop-image">Scaling the Desktop Image</a>.
  * @see https://learn.microsoft.com/windows/win32/api/wingdi/ne-wingdi-displayconfig_scaling
  * @namespace Windows.Win32.Devices.Display
- * @version v4.0.30319
  */
-class DISPLAYCONFIG_SCALING extends Win32Enum{
+class DISPLAYCONFIG_SCALING extends Win32Enum {
 
     /**
      * Indicates the identity transformation; the source content is presented with no change. This transformation is available only if the path's source mode has the same spatial resolution as the path's target mode.

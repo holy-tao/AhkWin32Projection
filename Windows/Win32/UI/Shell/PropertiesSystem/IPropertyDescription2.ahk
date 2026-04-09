@@ -16,9 +16,8 @@
  * Do not implement this interface. There is only one implementation of <a href="https://docs.microsoft.com/windows/desktop/api/propsys/nn-propsys-ipropertydescription">IPropertyDescription</a> in the system; it is provided by the Shell.
  * @see https://learn.microsoft.com/windows/win32/api/propsys/nn-propsys-ipropertydescription2
  * @namespace Windows.Win32.UI.Shell.PropertiesSystem
- * @version v4.0.30319
  */
-class IPropertyDescription2 extends IPropertyDescription{
+class IPropertyDescription2 extends IPropertyDescription {
 
     static sizeof => A_PtrSize
     /**

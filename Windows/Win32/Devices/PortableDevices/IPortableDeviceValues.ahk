@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\System\Com\StructuredStorage\PROPVARIANT.ahk
 #Include ..\..\Foundation\PROPERTYKEY.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IPortableDeviceValues.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\IPortableDevicePropVariantCollection.ahk
 #Include .\IPortableDeviceKeyCollection.ahk
 #Include .\IPortableDeviceValuesCollection.ahk
@@ -13,9 +13,8 @@
  * The IPortableDeviceValues interface holds a collection of PROPERTYKEY/PROPVARIANT pairs.
  * @see https://learn.microsoft.com/windows/win32/wpd_sdk/iportabledevicevalues
  * @namespace Windows.Win32.Devices.PortableDevices
- * @version v4.0.30319
  */
-class IPortableDeviceValues extends IUnknown{
+class IPortableDeviceValues extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

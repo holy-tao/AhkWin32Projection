@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem.Minifilters
- * @version v4.0.30319
  */
-class PFLT_PORT extends Win32Struct
-{
+class PFLT_PORT extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 8

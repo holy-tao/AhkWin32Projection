@@ -14,9 +14,8 @@
  * You must include Ks.h before Ksproxy.h.
  * @see https://learn.microsoft.com/windows/win32/DirectShow/ikspropertyset
  * @namespace Windows.Win32.Media.KernelStreaming
- * @version v4.0.30319
  */
-class IKsPropertySet extends IUnknown{
+class IKsPropertySet extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -48,9 +47,9 @@ class IKsPropertySet extends IUnknown{
      * You must include Ks.h before Ksproxy.h.
      * @param {Pointer<Guid>} guidPropSet Property set GUID.
      * @param {Integer} dwPropID Identifier of the property within the property set.
-     * @param {Pointer} pInstanceData Pointer to a buffer that contains instance data for the property.
+     * @param {Integer} pInstanceData Pointer to a buffer that contains instance data for the property.
      * @param {Integer} cbInstanceData Size of the *pInstanceData* buffer, in bytes.
-     * @param {Pointer} pPropData Pointer to a buffer that contains the value of the property.
+     * @param {Integer} pPropData Pointer to a buffer that contains the value of the property.
      * @param {Integer} cbPropData Sise of the *pPropData* buffer, in bytes.
      * @returns {HRESULT} Returns an **HRESULT** value. Possible values include the following.
      * 
@@ -81,9 +80,9 @@ class IKsPropertySet extends IUnknown{
      * You must include Ks.h before Ksproxy.h.
      * @param {Pointer<Guid>} guidPropSet The GUID of the property set .
      * @param {Integer} dwPropID The identifier of the property within the property set.
-     * @param {Pointer} pInstanceData A pointer to an array of bytes that contains instance data for the property.
+     * @param {Integer} pInstanceData A pointer to an array of bytes that contains instance data for the property.
      * @param {Integer} cbInstanceData The size of the array given in *pInstanceData*, in bytes.
-     * @param {Pointer} pPropData A pointer to an array of bytes that receives the property data.
+     * @param {Integer} pPropData A pointer to an array of bytes that receives the property data.
      * @param {Integer} cbPropData The size of the array given in *pPropData*, in bytes.
      * @returns {Integer} Receives the number of bytes the method copies to the *pPropData* array.
      * @see https://learn.microsoft.com/windows/win32/DirectShow/ikspropertyset-get

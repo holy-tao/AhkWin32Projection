@@ -5,9 +5,8 @@
  * Defines the fix-up state of the System Health Agent (SHA).
  * @see https://learn.microsoft.com/windows/win32/api/naptypes/ne-naptypes-fixupstate
  * @namespace Windows.Win32.Security.NetworkAccessProtection
- * @version v4.0.30319
  */
-class FixupState extends Win32Enum{
+class FixupState extends Win32Enum {
 
     /**
      * SHA fix-up is successful.

@@ -9,9 +9,8 @@
  * This interface is implemented by the application to handle events that it has subscribed to by using <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nf-uiautomationclient-iuiautomation-addpropertychangedeventhandler">AddPropertyChangedEventHandler</a>.
  * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nn-uiautomationclient-iuiautomationpropertychangedeventhandler
  * @namespace Windows.Win32.UI.Accessibility
- * @version v4.0.30319
  */
-class IUIAutomationPropertyChangedEventHandler extends IUnknown{
+class IUIAutomationPropertyChangedEventHandler extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -42,7 +41,7 @@ class IUIAutomationPropertyChangedEventHandler extends IUnknown{
      * @param {IUIAutomationElement} sender Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationelement">IUIAutomationElement</a>*</b>
      * 
      * A pointer to the element that raised the event.
-     * @param {Integer} propertyId Type: <b>PROPERTYID</b>
+     * @param {UIA_PROPERTY_ID} propertyId Type: <b>PROPERTYID</b>
      * 
      * The identifier of the property whose value has changed. For a list of property IDs, see <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-entry-propids">Property Identifiers</a>.
      * @param {VARIANT} newValue Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-variant">VARIANT</a></b>

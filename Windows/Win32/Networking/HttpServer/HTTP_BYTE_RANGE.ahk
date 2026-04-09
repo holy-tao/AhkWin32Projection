@@ -5,10 +5,8 @@
  * The HTTP_BYTE_RANGE structure is used to specify a byte range within a cached response fragment, file, or other data block.
  * @see https://learn.microsoft.com/windows/win32/api/http/ns-http-http_byte_range
  * @namespace Windows.Win32.Networking.HttpServer
- * @version v4.0.30319
  */
-class HTTP_BYTE_RANGE extends Win32Struct
-{
+class HTTP_BYTE_RANGE extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

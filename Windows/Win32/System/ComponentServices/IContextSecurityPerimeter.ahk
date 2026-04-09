@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.ComponentServices
- * @version v4.0.30319
  */
-class IContextSecurityPerimeter extends IUnknown{
+class IContextSecurityPerimeter extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

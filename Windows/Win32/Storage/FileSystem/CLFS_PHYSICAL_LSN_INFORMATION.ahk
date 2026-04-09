@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Storage.FileSystem
- * @version v4.0.30319
  */
-class CLFS_PHYSICAL_LSN_INFORMATION extends Win32Struct
-{
+class CLFS_PHYSICAL_LSN_INFORMATION extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -23,7 +21,7 @@ class CLFS_PHYSICAL_LSN_INFORMATION extends Win32Struct
     /**
      * @type {CLS_LSN}
      */
-    VirtualLsn{
+    VirtualLsn {
         get {
             if(!this.HasProp("__VirtualLsn"))
                 this.__VirtualLsn := CLS_LSN(8, this)
@@ -34,7 +32,7 @@ class CLFS_PHYSICAL_LSN_INFORMATION extends Win32Struct
     /**
      * @type {CLS_LSN}
      */
-    PhysicalLsn{
+    PhysicalLsn {
         get {
             if(!this.HasProp("__PhysicalLsn"))
                 this.__PhysicalLsn := CLS_LSN(16, this)

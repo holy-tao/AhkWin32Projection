@@ -1,15 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DDRAWI_DIRECTDRAW_GBL.ahk
+#Include .\DDRAWI_DDRAWSURFACE_LCL.ahk
 #Include ..\..\Foundation\RECTL.ahk
-#Include .\DDCOLORKEY.ahk
 #Include .\DDBLTFX.ahk
+#Include .\IDirectDrawSurface.ahk
+#Include .\DDCOLORKEY.ahk
+#Include ..\..\Foundation\RECT.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw
- * @version v4.0.30319
  */
-class DDHAL_BLTDATA extends Win32Struct
-{
+class DDHAL_BLTDATA extends Win32Struct {
     static sizeof => 256
 
     static packingSize => 8
@@ -33,7 +35,7 @@ class DDHAL_BLTDATA extends Win32Struct
     /**
      * @type {RECTL}
      */
-    rDest{
+    rDest {
         get {
             if(!this.HasProp("__rDest"))
                 this.__rDest := RECTL(16, this)
@@ -52,7 +54,7 @@ class DDHAL_BLTDATA extends Win32Struct
     /**
      * @type {RECTL}
      */
-    rSrc{
+    rSrc {
         get {
             if(!this.HasProp("__rSrc"))
                 this.__rSrc := RECTL(40, this)
@@ -79,7 +81,7 @@ class DDHAL_BLTDATA extends Win32Struct
     /**
      * @type {DDBLTFX}
      */
-    bltFX{
+    bltFX {
         get {
             if(!this.HasProp("__bltFX"))
                 this.__bltFX := DDBLTFX(64, this)
@@ -114,7 +116,7 @@ class DDHAL_BLTDATA extends Win32Struct
     /**
      * @type {RECTL}
      */
-    rOrigDest{
+    rOrigDest {
         get {
             if(!this.HasProp("__rOrigDest"))
                 this.__rOrigDest := RECTL(212, this)
@@ -125,7 +127,7 @@ class DDHAL_BLTDATA extends Win32Struct
     /**
      * @type {RECTL}
      */
-    rOrigSrc{
+    rOrigSrc {
         get {
             if(!this.HasProp("__rOrigSrc"))
                 this.__rOrigSrc := RECTL(228, this)

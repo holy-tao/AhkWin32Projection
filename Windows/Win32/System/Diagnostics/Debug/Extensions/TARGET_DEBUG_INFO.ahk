@@ -1,22 +1,20 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32Struct.ahk
 #Include .\OS_INFO.ahk
+#Include .\CPU_INFO.ahk
+#Include .\DEBUG_PROCESSOR_IDENTIFICATION_ALL.ahk
 #Include .\DEBUG_PROCESSOR_IDENTIFICATION_ALPHA.ahk
 #Include .\DEBUG_PROCESSOR_IDENTIFICATION_AMD64.ahk
 #Include .\DEBUG_PROCESSOR_IDENTIFICATION_IA64.ahk
 #Include .\DEBUG_PROCESSOR_IDENTIFICATION_X86.ahk
 #Include .\DEBUG_PROCESSOR_IDENTIFICATION_ARM.ahk
 #Include .\DEBUG_PROCESSOR_IDENTIFICATION_ARM64.ahk
-#Include .\DEBUG_PROCESSOR_IDENTIFICATION_ALL.ahk
-#Include .\CPU_INFO.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
- * @version v4.0.30319
  */
-class TARGET_DEBUG_INFO extends Win32Struct
-{
-    static sizeof => 17984
+class TARGET_DEBUG_INFO extends Win32Struct {
+    static sizeof => 295768
 
     static packingSize => 8
 
@@ -71,7 +69,7 @@ class TARGET_DEBUG_INFO extends Win32Struct
     /**
      * @type {OS_INFO}
      */
-    OsInfo{
+    OsInfo {
         get {
             if(!this.HasProp("__OsInfo"))
                 this.__OsInfo := OS_INFO(48, this)
@@ -82,10 +80,10 @@ class TARGET_DEBUG_INFO extends Win32Struct
     /**
      * @type {CPU_INFO}
      */
-    Cpu{
+    Cpu {
         get {
             if(!this.HasProp("__Cpu"))
-                this.__Cpu := CPU_INFO(1056, this)
+                this.__Cpu := CPU_INFO(576, this)
             return this.__Cpu
         }
     }
@@ -94,7 +92,7 @@ class TARGET_DEBUG_INFO extends Win32Struct
      * @type {String}
      */
     DumpFile {
-        get => StrGet(this.ptr + 17464, 259, "UTF-16")
-        set => StrPut(value, this.ptr + 17464, 259, "UTF-16")
+        get => StrGet(this.ptr + 295504, 259, "UTF-8")
+        set => StrPut(value, this.ptr + 295504, 259, "UTF-8")
     }
 }

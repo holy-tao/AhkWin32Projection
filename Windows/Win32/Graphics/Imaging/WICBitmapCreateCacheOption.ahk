@@ -7,9 +7,8 @@
  * The <b>CreateBitmap</b> of the <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nn-wincodec-iwicimagingfactory">IWICImagingFactory</a> interface does not support WICBitmapNoCache when the <i>pixelFormat</i> is a native pixel format provided by Windows Imaging Component (WIC).
  * @see https://learn.microsoft.com/windows/win32/api/wincodec/ne-wincodec-wicbitmapcreatecacheoption
  * @namespace Windows.Win32.Graphics.Imaging
- * @version v4.0.30319
  */
-class WICBitmapCreateCacheOption extends Win32Enum{
+class WICBitmapCreateCacheOption extends Win32Enum {
 
     /**
      * Do not cache the bitmap.

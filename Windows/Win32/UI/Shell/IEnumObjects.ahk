@@ -1,16 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IEnumObjects.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Exposes methods to enumerate unknown objects.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-ienumobjects
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IEnumObjects extends IUnknown{
+class IEnumObjects extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

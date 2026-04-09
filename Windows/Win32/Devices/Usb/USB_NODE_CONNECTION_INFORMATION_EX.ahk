@@ -1,18 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\USB_DEVICE_DESCRIPTOR.ahk
-#Include .\USB_ENDPOINT_DESCRIPTOR.ahk
+#Include .\USB_CONNECTION_STATUS.ahk
 #Include .\USB_PIPE_INFO.ahk
+#Include .\USB_ENDPOINT_DESCRIPTOR.ahk
 
 /**
  * @namespace Windows.Win32.Devices.Usb
- * @version v4.0.30319
  */
-class USB_NODE_CONNECTION_INFORMATION_EX extends Win32Struct
-{
+class USB_NODE_CONNECTION_INFORMATION_EX extends Win32Struct {
     static sizeof => 48
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}
@@ -25,7 +24,7 @@ class USB_NODE_CONNECTION_INFORMATION_EX extends Win32Struct
     /**
      * @type {USB_DEVICE_DESCRIPTOR}
      */
-    DeviceDescriptor{
+    DeviceDescriptor {
         get {
             if(!this.HasProp("__DeviceDescriptor"))
                 this.__DeviceDescriptor := USB_DEVICE_DESCRIPTOR(4, this)
@@ -74,7 +73,7 @@ class USB_NODE_CONNECTION_INFORMATION_EX extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {USB_CONNECTION_STATUS}
      */
     ConnectionStatus {
         get => NumGet(this, 32, "int")
@@ -82,12 +81,12 @@ class USB_NODE_CONNECTION_INFORMATION_EX extends Win32Struct
     }
 
     /**
-     * @type {Array<USB_PIPE_INFO>}
+     * @type {USB_PIPE_INFO}
      */
-    PipeList{
+    PipeList {
         get {
             if(!this.HasProp("__PipeListProxyArray"))
-                this.__PipeListProxyArray := Win32FixedArray(this.ptr + 40, 1, USB_PIPE_INFO, "")
+                this.__PipeListProxyArray := Win32FixedArray(this.ptr + 36, 1, USB_PIPE_INFO, "")
             return this.__PipeListProxyArray
         }
     }

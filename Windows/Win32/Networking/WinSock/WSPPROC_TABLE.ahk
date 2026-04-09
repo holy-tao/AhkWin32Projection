@@ -7,10 +7,8 @@
  * The **WSPPROC_TABLE** structure contains a table of pointers to service provider functions that are returned by the <a href="https://docs.microsoft.com/windows/win32/api/ws2spi/nf-ws2spi-wspstartup">WSPStartup<a> function.
  * @see https://learn.microsoft.com/windows/win32/api/ws2spi/ns-ws2spi-wspproc_table
  * @namespace Windows.Win32.Networking.WinSock
- * @version v4.0.30319
  */
-class WSPPROC_TABLE extends Win32Struct
-{
+class WSPPROC_TABLE extends Win32Struct {
     static sizeof => 240
 
     static packingSize => 8

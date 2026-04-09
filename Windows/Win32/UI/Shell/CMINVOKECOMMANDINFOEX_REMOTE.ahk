@@ -5,10 +5,8 @@
 
 /**
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class CMINVOKECOMMANDINFOEX_REMOTE extends Win32Struct
-{
+class CMINVOKECOMMANDINFOEX_REMOTE extends Win32Struct {
     static sizeof => 104
 
     static packingSize => 8
@@ -32,7 +30,7 @@ class CMINVOKECOMMANDINFOEX_REMOTE extends Win32Struct
     /**
      * @type {HWND}
      */
-    hwnd{
+    hwnd {
         get {
             if(!this.HasProp("__hwnd"))
                 this.__hwnd := HWND(8, this)
@@ -123,7 +121,7 @@ class CMINVOKECOMMANDINFOEX_REMOTE extends Win32Struct
     /**
      * @type {POINT}
      */
-    ptInvoke{
+    ptInvoke {
         get {
             if(!this.HasProp("__ptInvoke"))
                 this.__ptInvoke := POINT(88, this)

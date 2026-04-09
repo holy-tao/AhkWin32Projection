@@ -7,9 +7,8 @@
  * The IWMPErrorItem2 interface provides a method that supplements the IWMPErrorItem interface.
  * @see https://learn.microsoft.com/windows/win32/api/wmp/nn-wmp-iwmperroritem2
  * @namespace Windows.Win32.Media.MediaPlayer
- * @version v4.0.30319
  */
-class IWMPErrorItem2 extends IWMPErrorItem{
+class IWMPErrorItem2 extends IWMPErrorItem {
 
     static sizeof => A_PtrSize
     /**

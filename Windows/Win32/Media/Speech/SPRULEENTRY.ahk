@@ -5,10 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Media.Speech
- * @version v4.0.30319
  */
-class SPRULEENTRY extends Win32Struct
-{
+class SPRULEENTRY extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -16,7 +14,7 @@ class SPRULEENTRY extends Win32Struct
     /**
      * @type {SPRULEHANDLE}
      */
-    hRule{
+    hRule {
         get {
             if(!this.HasProp("__hRule"))
                 this.__hRule := SPRULEHANDLE(0, this)
@@ -27,7 +25,7 @@ class SPRULEENTRY extends Win32Struct
     /**
      * @type {SPSTATEHANDLE}
      */
-    hInitialState{
+    hInitialState {
         get {
             if(!this.HasProp("__hInitialState"))
                 this.__hInitialState := SPSTATEHANDLE(8, this)

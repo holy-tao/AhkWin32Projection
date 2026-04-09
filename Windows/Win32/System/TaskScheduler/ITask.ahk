@@ -11,9 +11,8 @@
  * <a href="https://docs.microsoft.com/windows/desktop/api/mstask/nf-mstask-itaskscheduler-newworkitem">ITaskScheduler::NewWorkItem</a> for new tasks.
  * @see https://learn.microsoft.com/windows/win32/api/mstask/nn-mstask-itask
  * @namespace Windows.Win32.System.TaskScheduler
- * @version v4.0.30319
  */
-class ITask extends IScheduledWorkItem{
+class ITask extends IScheduledWorkItem {
 
     static sizeof => A_PtrSize
     /**

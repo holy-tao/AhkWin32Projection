@@ -7,9 +7,8 @@
  * Reserved for Microsoft use. (IXblIdpAuthTokenResult)
  * @see https://learn.microsoft.com/windows/win32/api/xblidpauthmanager/nn-xblidpauthmanager-ixblidpauthtokenresult
  * @namespace Windows.Win32.Gaming
- * @version v4.0.30319
  */
-class IXblIdpAuthTokenResult extends IUnknown{
+class IXblIdpAuthTokenResult extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -38,7 +37,7 @@ class IXblIdpAuthTokenResult extends IUnknown{
 
     /**
      * Reserved for Microsoft use. (IXblIdpAuthTokenResult.GetStatus)
-     * @returns {Integer} 
+     * @returns {XBL_IDP_AUTH_TOKEN_STATUS} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/xblidpauthmanager/ne-xblidpauthmanager-xbl_idp_auth_token_status">XBL_IDP_AUTH_TOKEN_STATUS</a>*</b>
      * @see https://learn.microsoft.com/windows/win32/api/xblidpauthmanager/nf-xblidpauthmanager-ixblidpauthtokenresult-getstatus
      */
     GetStatus() {
@@ -218,7 +217,7 @@ class IXblIdpAuthTokenResult extends IUnknown{
 
     /**
      * Reserved for Microsoft use. (IXblIdpAuthTokenResult.GetRestrictions)
-     * @returns {PWSTR} 
+     * @returns {PWSTR} Type: <b>__RPC__deref_out_opt_string*</b>
      * @see https://learn.microsoft.com/windows/win32/api/xblidpauthmanager/nf-xblidpauthmanager-ixblidpauthtokenresult-getrestrictions
      */
     GetRestrictions() {

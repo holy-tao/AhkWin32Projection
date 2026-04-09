@@ -11,9 +11,8 @@
  * This interface is used by the [D3D12_VIDEO_MOTION_ESTIMATOR_OUTPUT](ns-d3d12video-d3d12_video_motion_estimator_output.md) structure returned from [ID3D12VideoEncodeCommandList::EstimateMotion](nf-d3d12video-id3d12videoencodecommandlist-estimatemotion.md). It is also used to supply hint vectors in the [D3D12_VIDEO_MOTION_ESTIMATOR_INPUT](ns-d3d12video-d3d12_video_motion_estimator_input.md) structure.
  * @see https://learn.microsoft.com/windows/win32/api/d3d12video/nn-d3d12video-id3d12videomotionvectorheap
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class ID3D12VideoMotionVectorHeap extends ID3D12Pageable{
+class ID3D12VideoMotionVectorHeap extends ID3D12Pageable {
 
     static sizeof => A_PtrSize
     /**

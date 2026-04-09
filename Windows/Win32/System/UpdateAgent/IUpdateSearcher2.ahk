@@ -9,9 +9,8 @@
  * The <b>IUpdateSearcher2</b> interface  may require you to update Windows Update Agent (WUA). For more information, see <a href="https://docs.microsoft.com/windows/desktop/Wua_Sdk/updating-the-windows-update-agent">Updating Windows Update Agent</a>.
  * @see https://learn.microsoft.com/windows/win32/api/wuapi/nn-wuapi-iupdatesearcher2
  * @namespace Windows.Win32.System.UpdateAgent
- * @version v4.0.30319
  */
-class IUpdateSearcher2 extends IUpdateSearcher{
+class IUpdateSearcher2 extends IUpdateSearcher {
 
     static sizeof => A_PtrSize
     /**

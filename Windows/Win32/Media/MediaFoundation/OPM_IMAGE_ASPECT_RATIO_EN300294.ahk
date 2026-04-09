@@ -7,9 +7,8 @@
  * This enumeration is numerically equivalent to the <b>COPP_ImageAspectRatio_EN300294</b> enumeration used in Certified Output Protection Protocol (COPP).
  * @see https://learn.microsoft.com/windows/win32/api/opmapi/ne-opmapi-opm_image_aspect_ratio_en300294
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class OPM_IMAGE_ASPECT_RATIO_EN300294 extends Win32Enum{
+class OPM_IMAGE_ASPECT_RATIO_EN300294 extends Win32Enum {
 
     /**
      * Full format 4:3.

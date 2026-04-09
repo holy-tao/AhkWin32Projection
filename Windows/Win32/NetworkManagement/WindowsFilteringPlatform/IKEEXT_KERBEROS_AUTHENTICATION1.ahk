@@ -1,21 +1,20 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\IKEEXT_KERBEROS_AUTHENTICATION_FLAGS.ahk
 
 /**
  * Contains information needed for preshared key authentication. (IKEEXT_KERBEROS_AUTHENTICATION1)
  * @see https://learn.microsoft.com/windows/win32/api/iketypes/ns-iketypes-ikeext_kerberos_authentication1
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
- * @version v4.0.30319
  */
-class IKEEXT_KERBEROS_AUTHENTICATION1 extends Win32Struct
-{
+class IKEEXT_KERBEROS_AUTHENTICATION1 extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
 
     /**
      * Type: <b>UINT32</b>
-     * @type {Integer}
+     * @type {IKEEXT_KERBEROS_AUTHENTICATION_FLAGS}
      */
     flags {
         get => NumGet(this, 0, "uint")

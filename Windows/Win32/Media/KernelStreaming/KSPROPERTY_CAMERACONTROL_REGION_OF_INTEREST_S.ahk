@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
- * @version v4.0.30319
  */
-class KSPROPERTY_CAMERACONTROL_REGION_OF_INTEREST_S extends Win32Struct
-{
+class KSPROPERTY_CAMERACONTROL_REGION_OF_INTEREST_S extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 4
@@ -15,7 +13,7 @@ class KSPROPERTY_CAMERACONTROL_REGION_OF_INTEREST_S extends Win32Struct
     /**
      * @type {RECT}
      */
-    FocusRect{
+    FocusRect {
         get {
             if(!this.HasProp("__FocusRect"))
                 this.__FocusRect := RECT(0, this)

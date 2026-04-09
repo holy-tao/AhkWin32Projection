@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Graphics\DirectDraw\IDirectDraw.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Graphics\DirectDraw\IDirectDraw.ahk
 
 /**
  * The IDirectDrawMediaSampleAllocator interface allocates samples that contain DirectDraw surfaces.The Overlay Mixer filter's input pin creates an allocator that implements this interface.
  * @see https://learn.microsoft.com/windows/win32/api/amstream/nn-amstream-idirectdrawmediasampleallocator
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IDirectDrawMediaSampleAllocator extends IUnknown{
+class IDirectDrawMediaSampleAllocator extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

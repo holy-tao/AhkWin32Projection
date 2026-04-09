@@ -7,9 +7,8 @@
  * Used to implement the batch work that is submitted through the activity created by CoCreateActivity.
  * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nn-comsvcs-iservicecall
  * @namespace Windows.Win32.System.ComponentServices
- * @version v4.0.30319
  */
-class IServiceCall extends IUnknown{
+class IServiceCall extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

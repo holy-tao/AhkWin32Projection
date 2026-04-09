@@ -17,10 +17,8 @@
  * - Ae = The palette-entry alpha value, or 1.0 (palette-entry alpha values apply only to palettized color formats)
  * @see https://learn.microsoft.com/windows/win32/api/d3d12video/ns-d3d12video-d3d12_video_process_alpha_blending
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class D3D12_VIDEO_PROCESS_ALPHA_BLENDING extends Win32Struct
-{
+class D3D12_VIDEO_PROCESS_ALPHA_BLENDING extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4

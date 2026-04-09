@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IHostTask.ahk
 #Include ..\Com\IUnknown.ahk
+#Include .\IHostTask.ahk
 
 /**
  * @namespace Windows.Win32.System.ClrHosting
- * @version v4.0.30319
  */
-class IHostTaskManager extends IUnknown{
+class IHostTaskManager extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

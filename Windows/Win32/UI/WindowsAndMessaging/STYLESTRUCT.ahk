@@ -14,10 +14,8 @@
  * 				<b>styleNew</b> members indicate the styles through their bit pattern. Note that several styles are equal to zero; to detect these styles, test for the negation of their inverse style. For example, to see if <b>WS_EX_LEFT</b> is set, you test for ~<b>WS_EX_RIGHT</b>.
  * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-stylestruct
  * @namespace Windows.Win32.UI.WindowsAndMessaging
- * @version v4.0.30319
  */
-class STYLESTRUCT extends Win32Struct
-{
+class STYLESTRUCT extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4

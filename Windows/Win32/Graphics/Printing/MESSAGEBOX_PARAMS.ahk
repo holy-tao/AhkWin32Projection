@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
- * @version v4.0.30319
  */
-class MESSAGEBOX_PARAMS extends Win32Struct
-{
+class MESSAGEBOX_PARAMS extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8

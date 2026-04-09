@@ -3,11 +3,9 @@
 
 /**
  * @namespace Windows.Win32.Media.Audio
- * @version v4.0.30319
  * @charset ANSI
  */
-class ACMFILTERTAGDETAILSA extends Win32Struct
-{
+class ACMFILTERTAGDETAILSA extends Win32Struct {
     static sizeof => 72
 
     static packingSize => 4

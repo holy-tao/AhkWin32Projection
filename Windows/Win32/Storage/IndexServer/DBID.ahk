@@ -7,10 +7,9 @@
  * The <b>DBID</b> structure identifies the requested columns for a query. Each unique column is represented by a unique combination of GUID and number or GUID and name.
  * @see https://learn.microsoft.com/windows/win32/api/oledbguid/ns-oledbguid-dbid
  * @namespace Windows.Win32.Storage.IndexServer
- * @version v4.0.30319
+ * @architecture X64, Arm64
  */
-class DBID extends Win32Struct
-{
+class DBID extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -20,13 +19,13 @@ class DBID extends Win32Struct
         static packingSize => 8
 
         /**
-         * @type {Pointer<Guid>}
+         * @type {Pointer}
          */
         guid {
             get => NumGet(this, 0, "ptr")
             set => NumPut("ptr", value, this, 0)
         }
-    
+
         /**
          * @type {Pointer<Guid>}
          */
@@ -34,7 +33,6 @@ class DBID extends Win32Struct
             get => NumGet(this, 0, "ptr")
             set => NumPut("ptr", value, this, 0)
         }
-    
     }
 
     class _uName_e__Union extends Win32Struct {
@@ -48,7 +46,7 @@ class DBID extends Win32Struct
             get => NumGet(this, 0, "ptr")
             set => NumPut("ptr", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -56,23 +54,20 @@ class DBID extends Win32Struct
             get => NumGet(this, 0, "uint")
             set => NumPut("uint", value, this, 0)
         }
-    
     }
 
     /**
-     * 
      * @type {_uGuid_e__Union}
      */
-    uGuid{
+    uGuid {
         get {
             if(!this.HasProp("__uGuid"))
-                this.__uGuid := %this.__Class%._uGuid_e__Union(0, this)
+                this.__uGuid := DBID._uGuid_e__Union(0, this)
             return this.__uGuid
         }
     }
 
     /**
-     * 
      * @type {Integer}
      */
     eKind {
@@ -81,13 +76,12 @@ class DBID extends Win32Struct
     }
 
     /**
-     * 
      * @type {_uName_e__Union}
      */
-    uName{
+    uName {
         get {
             if(!this.HasProp("__uName"))
-                this.__uName := %this.__Class%._uName_e__Union(16, this)
+                this.__uName := DBID._uName_e__Union(16, this)
             return this.__uName
         }
     }

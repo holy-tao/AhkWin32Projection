@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\WS_POLICY_EXTENSION.ahk
+#Include .\WS_POLICY_EXTENSION_TYPE.ahk
+#Include .\WS_XML_STRING.ahk
 
 /**
  * This structure is used to specify an endpoint policy extension.
@@ -26,10 +28,8 @@
  * ```
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_endpoint_policy_extension
  * @namespace Windows.Win32.Networking.WindowsWebServices
- * @version v4.0.30319
  */
-class WS_ENDPOINT_POLICY_EXTENSION extends Win32Struct
-{
+class WS_ENDPOINT_POLICY_EXTENSION extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -45,14 +45,13 @@ class WS_ENDPOINT_POLICY_EXTENSION extends Win32Struct
             get => NumGet(this, 0, "ptr")
             set => NumPut("ptr", value, this, 0)
         }
-    
     }
 
     /**
      * The base policy extension that this policy extension derives from.
      * @type {WS_POLICY_EXTENSION}
      */
-    policyExtension{
+    policyExtension {
         get {
             if(!this.HasProp("__policyExtension"))
                 this.__policyExtension := WS_POLICY_EXTENSION(0, this)
@@ -83,10 +82,10 @@ class WS_ENDPOINT_POLICY_EXTENSION extends Win32Struct
      *                     fields of this structure will be filled out as follows:
      * @type {_out}
      */
-    out{
+    out {
         get {
             if(!this.HasProp("__out"))
-                this.__out := %this.__Class%._out(24, this)
+                this.__out := WS_ENDPOINT_POLICY_EXTENSION._out(24, this)
             return this.__out
         }
     }

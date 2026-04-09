@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\Guid.ahk
-#Include .\IEnumSpellingError.ahk
 #Include ..\System\Com\IUnknown.ahk
+#Include .\IEnumSpellingError.ahk
 
 /**
  * Allows the provider to optionally support a more comprehensive spell checking functionality.
  * @see https://learn.microsoft.com/windows/win32/api/spellcheckprovider/nn-spellcheckprovider-icomprehensivespellcheckprovider
  * @namespace Windows.Win32.Globalization
- * @version v4.0.30319
  */
-class IComprehensiveSpellCheckProvider extends IUnknown{
+class IComprehensiveSpellCheckProvider extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

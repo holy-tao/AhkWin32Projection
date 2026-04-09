@@ -6,10 +6,8 @@
  * Represents a single statement in a sequence of one or more statements for inclusion in a Qualified Certificate (QC) statements extension.
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cert_qc_statement
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CERT_QC_STATEMENT extends Win32Struct
-{
+class CERT_QC_STATEMENT extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -61,7 +59,7 @@ class CERT_QC_STATEMENT extends Win32Struct
      * An optional <a href="https://docs.microsoft.com/windows/desktop/SecGloss/b-gly">BLOB</a> that contains additional information that qualifies the defined statement. The <b>pszStatementId</b> member defines the syntax of this parameter.
      * @type {CRYPT_INTEGER_BLOB}
      */
-    StatementInfo{
+    StatementInfo {
         get {
             if(!this.HasProp("__StatementInfo"))
                 this.__StatementInfo := CRYPT_INTEGER_BLOB(8, this)

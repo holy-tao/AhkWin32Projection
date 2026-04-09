@@ -1,15 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\HWND.ahk
+#Include .\WAVEFORMATEX.ahk
 #Include ..\..\Foundation\HINSTANCE.ahk
 
 /**
  * @namespace Windows.Win32.Media.Audio
- * @version v4.0.30319
  * @charset ANSI
  */
-class ACMFORMATCHOOSEA extends Win32Struct
-{
+class ACMFORMATCHOOSEA extends Win32Struct {
     static sizeof => 272
 
     static packingSize => 8
@@ -33,7 +32,7 @@ class ACMFORMATCHOOSEA extends Win32Struct
     /**
      * @type {HWND}
      */
-    hwndOwner{
+    hwndOwner {
         get {
             if(!this.HasProp("__hwndOwner"))
                 this.__hwndOwner := HWND(8, this)
@@ -116,7 +115,7 @@ class ACMFORMATCHOOSEA extends Win32Struct
     /**
      * @type {HINSTANCE}
      */
-    hInstance{
+    hInstance {
         get {
             if(!this.HasProp("__hInstance"))
                 this.__hInstance := HINSTANCE(240, this)

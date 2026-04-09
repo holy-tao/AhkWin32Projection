@@ -9,9 +9,8 @@
  * If a downstream component is configured with a higher isolation level than an upstream component and attempts to enlist in a transaction, an error results and the transaction aborts.
  * @see https://learn.microsoft.com/windows/win32/api/comadmin/ne-comadmin-comadmintxisolationleveloptions
  * @namespace Windows.Win32.System.ComponentServices
- * @version v4.0.30319
  */
-class COMAdminTxIsolationLevelOptions extends Win32Enum{
+class COMAdminTxIsolationLevelOptions extends Win32Enum {
 
     /**
      * Any isolation level is supported. A downstream component that has this isolation level always uses the same isolation level that its immediate upstream component uses. If the root object in a transaction has its isolation level configured to COMAdminTxIsolationLevelAny, its isolation level becomes COMAdminTxIsolationLevelSerializable.

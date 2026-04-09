@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\WCM_PROFILE_INFO.ahk
+#Include .\WCM_MEDIA_TYPE.ahk
 
 /**
  * Contains a list of profiles in preferred order.
  * @see https://learn.microsoft.com/windows/win32/api/wcmapi/ns-wcmapi-wcm_profile_info_list
  * @namespace Windows.Win32.NetworkManagement.WindowsConnectionManager
- * @version v4.0.30319
  */
-class WCM_PROFILE_INFO_LIST extends Win32Struct
-{
-    static sizeof => 16
+class WCM_PROFILE_INFO_LIST extends Win32Struct {
+    static sizeof => 536
 
     static packingSize => 8
 
@@ -29,9 +28,9 @@ class WCM_PROFILE_INFO_LIST extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wcmapi/ns-wcmapi-wcm_profile_info">WCM_PROFILE_INFO</a>[1]</b>
      * 
      * Information about each profile.
-     * @type {Array<WCM_PROFILE_INFO>}
+     * @type {WCM_PROFILE_INFO}
      */
-    ProfileInfo{
+    ProfileInfo {
         get {
             if(!this.HasProp("__ProfileInfoProxyArray"))
                 this.__ProfileInfoProxyArray := Win32FixedArray(this.ptr + 8, 1, WCM_PROFILE_INFO, "")

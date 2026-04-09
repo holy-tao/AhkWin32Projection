@@ -12,10 +12,8 @@
  * Even when both *radiusX* and *radiusY* are zero, the rounded rectangle is different from a rectangle. When stroked, the corners of the rounded rectangle are roundly joined, not mitered (square).
  * @see https://learn.microsoft.com/windows/win32/api/d2d1/ns-d2d1-d2d1_rounded_rect
  * @namespace Windows.Win32.Graphics.Direct2D
- * @version v4.0.30319
  */
-class D2D1_ROUNDED_RECT extends Win32Struct
-{
+class D2D1_ROUNDED_RECT extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 4
@@ -26,7 +24,7 @@ class D2D1_ROUNDED_RECT extends Win32Struct
      * The coordinates of the rectangle.
      * @type {D2D_RECT_F}
      */
-    rect{
+    rect {
         get {
             if(!this.HasProp("__rect"))
                 this.__rect := D2D_RECT_F(0, this)

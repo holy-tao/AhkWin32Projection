@@ -1,14 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\ID3D12GraphicsCommandList.ahk
+#Include .\ID3D12CommandQueue.ahk
+#Include .\D3D12_AUTO_BREADCRUMB_OP.ahk
+#Include .\D3D12_AUTO_BREADCRUMB_NODE.ahk
 
 /**
  * Represents Device Removed Extended Data (DRED) auto-breadcrumb data as a node in a linked list.
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_auto_breadcrumb_node
  * @namespace Windows.Win32.Graphics.Direct3D12
- * @version v4.0.30319
  */
-class D3D12_AUTO_BREADCRUMB_NODE extends Win32Struct
-{
+class D3D12_AUTO_BREADCRUMB_NODE extends Win32Struct {
     static sizeof => 80
 
     static packingSize => 8
@@ -87,7 +89,7 @@ class D3D12_AUTO_BREADCRUMB_NODE extends Win32Struct
 
     /**
      * A pointer to a constant array of [D3D12_AUTO_BREADCRUMB_OP](ne-d3d12-d3d12_auto_breadcrumb_op.md) values representing all of the render/compute operations recorded into the associated command list.
-     * @type {Pointer<Integer>}
+     * @type {Pointer<D3D12_AUTO_BREADCRUMB_OP>}
      */
     pCommandHistory {
         get => NumGet(this, 64, "ptr")

@@ -8,10 +8,8 @@
  * When the <b>QOS_TCP_TRAFFIC</b> object is passed, the <b>DSField</b> mapping and <b>UserPriorityMapping</b> of <b>ServiceType</b> are ignored, as are QOS_OBJECT_DS_CLASS and QOS_OBJECT_TRAFFIC_CLASS.
  * @see https://learn.microsoft.com/windows/win32/api/qosobjs/ns-qosobjs-qos_tcp_traffic
  * @namespace Windows.Win32.NetworkManagement.QoS
- * @version v4.0.30319
  */
-class QOS_TCP_TRAFFIC extends Win32Struct
-{
+class QOS_TCP_TRAFFIC extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4
@@ -20,7 +18,7 @@ class QOS_TCP_TRAFFIC extends Win32Struct
      * A QOS object header.
      * @type {QOS_OBJECT_HDR}
      */
-    ObjectHdr{
+    ObjectHdr {
         get {
             if(!this.HasProp("__ObjectHdr"))
                 this.__ObjectHdr := QOS_OBJECT_HDR(0, this)

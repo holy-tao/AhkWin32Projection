@@ -9,19 +9,17 @@
  * by 112 0's.
  * @see https://learn.microsoft.com/windows/win32/api/fwptypes/ns-fwptypes-fwp_v6_addr_and_mask
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
- * @version v4.0.30319
  */
-class FWP_V6_ADDR_AND_MASK extends Win32Struct
-{
+class FWP_V6_ADDR_AND_MASK extends Win32Struct {
     static sizeof => 17
 
     static packingSize => 1
 
     /**
      * An array of size <b>FWP_V6_ADDR_SIZE</b> bytes containing an IPv6 address. <b>FWP_V6_ADDR_SIZE</b> maps to 16.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    addr{
+    addr {
         get {
             if(!this.HasProp("__addrProxyArray"))
                 this.__addrProxyArray := Win32FixedArray(this.ptr + 0, 16, Primitive, "char")

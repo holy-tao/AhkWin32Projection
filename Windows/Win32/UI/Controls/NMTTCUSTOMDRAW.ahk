@@ -1,19 +1,19 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HWND.ahk
+#Include .\NMCUSTOMDRAW.ahk
 #Include .\NMHDR.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include .\NMCUSTOMDRAW_DRAW_STAGE.ahk
 #Include ..\..\Graphics\Gdi\HDC.ahk
 #Include ..\..\Foundation\RECT.ahk
-#Include .\NMCUSTOMDRAW.ahk
+#Include .\NMCUSTOMDRAW_DRAW_STATE_FLAGS.ahk
 
 /**
  * Contains information specific to an NM_CUSTOMDRAW notification code sent by a tooltip control.
  * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-nmttcustomdraw
  * @namespace Windows.Win32.UI.Controls
- * @version v4.0.30319
  */
-class NMTTCUSTOMDRAW extends Win32Struct
-{
+class NMTTCUSTOMDRAW extends Win32Struct {
     static sizeof => 88
 
     static packingSize => 8
@@ -24,7 +24,7 @@ class NMTTCUSTOMDRAW extends Win32Struct
      * Contains general custom draw information.
      * @type {NMCUSTOMDRAW}
      */
-    nmcd{
+    nmcd {
         get {
             if(!this.HasProp("__nmcd"))
                 this.__nmcd := NMCUSTOMDRAW(0, this)

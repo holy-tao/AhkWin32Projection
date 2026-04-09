@@ -3,16 +3,14 @@
 
 /**
  * @namespace Windows.Wdk.NetworkManagement.Ndis
- * @version v4.0.30319
  */
-class NDIS_CO_DEVICE_PROFILE extends Win32Struct
-{
+class NDIS_CO_DEVICE_PROFILE extends Win32Struct {
     static sizeof => 120
 
     static packingSize => 8
 
     /**
-     * @type {Pointer<NDIS_VAR_DATA_DESC>}
+     * @type {Pointer}
      */
     DeviceDescription {
         get => NumGet(this, 0, "ptr")
@@ -20,7 +18,7 @@ class NDIS_CO_DEVICE_PROFILE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<NDIS_VAR_DATA_DESC>}
+     * @type {Pointer}
      */
     DevSpecificInfo {
         get => NumGet(this, 8, "ptr")

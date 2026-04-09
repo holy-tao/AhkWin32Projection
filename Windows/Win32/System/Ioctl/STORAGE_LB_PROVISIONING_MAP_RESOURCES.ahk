@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class STORAGE_LB_PROVISIONING_MAP_RESOURCES extends Win32Struct
-{
+class STORAGE_LB_PROVISIONING_MAP_RESOURCES extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -64,9 +62,9 @@ class STORAGE_LB_PROVISIONING_MAP_RESOURCES extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Reserved1{
+    Reserved1 {
         get {
             if(!this.HasProp("__Reserved1ProxyArray"))
                 this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 9, 3, Primitive, "char")
@@ -111,9 +109,9 @@ class STORAGE_LB_PROVISIONING_MAP_RESOURCES extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Reserved3{
+    Reserved3 {
         get {
             if(!this.HasProp("__Reserved3ProxyArray"))
                 this.__Reserved3ProxyArray := Win32FixedArray(this.ptr + 13, 3, Primitive, "char")

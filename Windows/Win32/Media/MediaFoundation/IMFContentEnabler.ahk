@@ -2,14 +2,14 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * Implements one step that must be performed for the user to access media content.
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imfcontentenabler
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFContentEnabler extends IUnknown{
+class IMFContentEnabler extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -101,7 +101,7 @@ class IMFContentEnabler extends IUnknown{
      * </table>
      * @param {Pointer<PWSTR>} ppwszURL Receives a pointer to a buffer that contains the URL. The caller must release the memory for the buffer by calling <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a>.
      * @param {Pointer<Integer>} pcchURL Receives the number of characters returned in <i>ppwszURL</i>, including the terminating NULL character.
-     * @param {Pointer<Integer>} pTrustStatus Receives a member of the <a href="https://docs.microsoft.com/windows/win32/api/mfidl/ne-mfidl-mf_url_trust_status">MF_URL_TRUST_STATUS</a> enumeration indicating whether the URL is trusted.
+     * @param {Pointer<MF_URL_TRUST_STATUS>} pTrustStatus Receives a member of the <a href="https://docs.microsoft.com/windows/win32/api/mfidl/ne-mfidl-mf_url_trust_status">MF_URL_TRUST_STATUS</a> enumeration indicating whether the URL is trusted.
      * @returns {HRESULT} The method returns an HRESULT. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>

@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\TILE_TEMPLATE_TYPE.ahk
+#Include .\PM_STARTTILE_TYPE.ahk
 #Include .\PM_INVOCATIONINFO.ahk
 
 /**
  * @namespace Windows.Win32.System.ApplicationInstallationAndServicing
- * @version v4.0.30319
  */
-class PM_STARTTILEBLOB extends Win32Struct
-{
+class PM_STARTTILEBLOB extends Win32Struct {
     static sizeof => 208
 
     static packingSize => 8
@@ -22,7 +22,7 @@ class PM_STARTTILEBLOB extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     ProductID {
         get => NumGet(this, 8, "ptr")
@@ -32,7 +32,7 @@ class PM_STARTTILEBLOB extends Win32Struct
     /**
      * @type {BSTR}
      */
-    TileID{
+    TileID {
         get {
             if(!this.HasProp("__TileID"))
                 this.__TileID := BSTR(16, this)
@@ -41,7 +41,7 @@ class PM_STARTTILEBLOB extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {TILE_TEMPLATE_TYPE}
      */
     TemplateType {
         get => NumGet(this, 24, "int")
@@ -49,9 +49,9 @@ class PM_STARTTILEBLOB extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    HubPosition{
+    HubPosition {
         get {
             if(!this.HasProp("__HubPositionProxyArray"))
                 this.__HubPositionProxyArray := Win32FixedArray(this.ptr + 28, 32, Primitive, "uint")
@@ -76,7 +76,7 @@ class PM_STARTTILEBLOB extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {PM_STARTTILE_TYPE}
      */
     TileType {
         get => NumGet(this, 164, "int")
@@ -118,7 +118,7 @@ class PM_STARTTILEBLOB extends Win32Struct
     /**
      * @type {PM_INVOCATIONINFO}
      */
-    InvocationInfo{
+    InvocationInfo {
         get {
             if(!this.HasProp("__InvocationInfo"))
                 this.__InvocationInfo := PM_INVOCATIONINFO(192, this)

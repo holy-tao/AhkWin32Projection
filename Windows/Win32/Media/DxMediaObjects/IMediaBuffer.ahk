@@ -7,9 +7,8 @@
  * The IMediaBuffer interface provides methods for manipulating a data buffer. Buffers passed to the IMediaObject::ProcessInput and ProcessOutput methods must implement this interface.
  * @see https://learn.microsoft.com/windows/win32/api/mediaobj/nn-mediaobj-imediabuffer
  * @namespace Windows.Win32.Media.DxMediaObjects
- * @version v4.0.30319
  */
-class IMediaBuffer extends IUnknown{
+class IMediaBuffer extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

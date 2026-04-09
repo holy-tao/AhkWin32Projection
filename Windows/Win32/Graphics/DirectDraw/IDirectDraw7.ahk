@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\IDirectDrawClipper.ahk
 #Include .\IDirectDrawPalette.ahk
 #Include .\IDirectDrawSurface7.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Applications use the methods of the IDirectDraw7 interface to create DirectDraw objects and work with system-level variables. This section is a reference to the methods of the IDirectDraw7 interface.
@@ -97,9 +97,8 @@
  * ```
  * @see https://learn.microsoft.com/windows/win32/api/ddraw/nn-ddraw-idirectdraw7
  * @namespace Windows.Win32.Graphics.DirectDraw
- * @version v4.0.30319
  */
-class IDirectDraw7 extends IUnknown{
+class IDirectDraw7 extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

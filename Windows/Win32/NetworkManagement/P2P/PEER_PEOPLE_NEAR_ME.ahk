@@ -1,19 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\PEER_ENDPOINT.ahk
+#Include .\PEER_ADDRESS.ahk
+#Include ..\..\Networking\WinSock\SOCKADDR_IN6.ahk
+#Include ..\..\Networking\WinSock\ADDRESS_FAMILY.ahk
 #Include ..\..\Networking\WinSock\IN6_ADDR.ahk
 #Include ..\..\Networking\WinSock\SCOPE_ID.ahk
-#Include ..\..\Networking\WinSock\SOCKADDR_IN6.ahk
-#Include .\PEER_ADDRESS.ahk
-#Include .\PEER_ENDPOINT.ahk
 
 /**
  * Contains information about a peer in the same logical or virtual subnet.
  * @see https://learn.microsoft.com/windows/win32/api/p2p/ns-p2p-peer_people_near_me
  * @namespace Windows.Win32.NetworkManagement.P2P
- * @version v4.0.30319
  */
-class PEER_PEOPLE_NEAR_ME extends Win32Struct
-{
+class PEER_PEOPLE_NEAR_ME extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8
@@ -29,10 +28,10 @@ class PEER_PEOPLE_NEAR_ME extends Win32Struct
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/api/p2p/ns-p2p-peer_endpoint">PEER_ENDPOINT</a> structure that contains the IPv6 network address of the peer whose endpoint shares the same subnet.
-     * @deprecated 
+     * @deprecated
      * @type {PEER_ENDPOINT}
      */
-    endpoint{
+    endpoint {
         get {
             if(!this.HasProp("__endpoint"))
                 this.__endpoint := PEER_ENDPOINT(8, this)
@@ -42,7 +41,7 @@ class PEER_PEOPLE_NEAR_ME extends Win32Struct
 
     /**
      * GUID value that contains the unique ID value for this peer.  Since this value uniquely identifies a peer endpoint, the display name and even the associated IPv6 address can be changed with deleting the rest of the peer information.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     id {
         get => NumGet(this, 48, "ptr")

@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class FILE_STANDARD_INFORMATION_EX extends Win32Struct
-{
+class FILE_STANDARD_INFORMATION_EX extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

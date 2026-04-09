@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IRawElementProviderSimple.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\IRawElementProviderSimple.ahk
 
 /**
  * Provides access to individual, selectable child controls of containers that implement ISelectionProvider.
@@ -11,9 +11,8 @@
  *             must support the <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-implementingselectionitem">SelectionItem</a> control pattern.
  * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nn-uiautomationcore-iselectionitemprovider
  * @namespace Windows.Win32.UI.Accessibility
- * @version v4.0.30319
  */
-class ISelectionItemProvider extends IUnknown{
+class ISelectionItemProvider extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -6,10 +6,9 @@
  * Receives information used to retrieve a stock Shell icon. This structure is used in a call SHGetStockIconInfo.
  * @see https://learn.microsoft.com/windows/win32/api/shellapi/ns-shellapi-shstockiconinfo
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
+ * @architecture X64, Arm64
  */
-class SHSTOCKICONINFO extends Win32Struct
-{
+class SHSTOCKICONINFO extends Win32Struct {
     static sizeof => 544
 
     static packingSize => 8
@@ -31,7 +30,7 @@ class SHSTOCKICONINFO extends Win32Struct
      * When <a href="https://docs.microsoft.com/windows/desktop/api/shellapi/nf-shellapi-shgetstockiconinfo">SHGetStockIconInfo</a> is called with the SHGSI_ICON flag, this member receives a handle to the icon.
      * @type {HICON}
      */
-    hIcon{
+    hIcon {
         get {
             if(!this.HasProp("__hIcon"))
                 this.__hIcon := HICON(8, this)

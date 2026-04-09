@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.UI.ColorSystem
- * @version v4.0.30319
  */
-class JChColorF extends Win32Struct
-{
+class JChColorF extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4

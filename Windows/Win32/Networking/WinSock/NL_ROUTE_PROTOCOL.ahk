@@ -14,9 +14,8 @@
  *     Nldef.h header file directly.
  * @see https://learn.microsoft.com/windows/win32/api/nldef/ne-nldef-nl_route_protocol
  * @namespace Windows.Win32.Networking.WinSock
- * @version v4.0.30319
  */
-class NL_ROUTE_PROTOCOL extends Win32Enum{
+class NL_ROUTE_PROTOCOL extends Win32Enum {
 
     /**
      * Reserved for system use. Do not use this value in your driver.
@@ -103,31 +102,26 @@ class NL_ROUTE_PROTOCOL extends Win32Enum{
     static RouteProtocolBgp => 14
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static RouteProtocolIdpr => 15
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static RouteProtocolEigrp => 16
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static RouteProtocolDvmrp => 17
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static RouteProtocolRpl => 18
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static RouteProtocolDhcp => 19

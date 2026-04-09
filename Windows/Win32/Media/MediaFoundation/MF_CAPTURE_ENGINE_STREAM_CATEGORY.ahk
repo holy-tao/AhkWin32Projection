@@ -5,9 +5,8 @@
  * Defines the values for the source stream category.
  * @see https://learn.microsoft.com/windows/win32/api/mfcaptureengine/ne-mfcaptureengine-mf_capture_engine_stream_category
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class MF_CAPTURE_ENGINE_STREAM_CATEGORY extends Win32Enum{
+class MF_CAPTURE_ENGINE_STREAM_CATEGORY extends Win32Enum {
 
     /**
      * Specifies a video preview stream.

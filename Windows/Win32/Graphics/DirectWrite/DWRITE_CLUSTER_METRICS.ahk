@@ -5,10 +5,8 @@
  * Contains information about a glyph cluster.
  * @see https://learn.microsoft.com/windows/win32/api/dwrite/ns-dwrite-dwrite_cluster_metrics
  * @namespace Windows.Win32.Graphics.DirectWrite
- * @version v4.0.30319
  */
-class DWRITE_CLUSTER_METRICS extends Win32Struct
-{
+class DWRITE_CLUSTER_METRICS extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4
@@ -51,9 +49,6 @@ class DWRITE_CLUSTER_METRICS extends Win32Struct
     }
 
     /**
-     * Type: <b>UINT16</b>
-     * 
-     * Indicates whether a line can be broken right after the cluster.
      * @type {Integer}
      */
     canWrapLineAfter {
@@ -62,9 +57,6 @@ class DWRITE_CLUSTER_METRICS extends Win32Struct
     }
 
     /**
-     * Type: <b>UINT16</b>
-     * 
-     * Indicates whether the cluster corresponds to a whitespace character.
      * @type {Integer}
      */
     isWhitespace {
@@ -73,9 +65,6 @@ class DWRITE_CLUSTER_METRICS extends Win32Struct
     }
 
     /**
-     * Type: <b>UINT16</b>
-     * 
-     * Indicates whether the cluster corresponds to a newline character.
      * @type {Integer}
      */
     isNewline {
@@ -84,9 +73,6 @@ class DWRITE_CLUSTER_METRICS extends Win32Struct
     }
 
     /**
-     * Type: <b>UINT16</b>
-     * 
-     * Indicates whether the cluster corresponds to a soft hyphen character.
      * @type {Integer}
      */
     isSoftHyphen {
@@ -95,9 +81,6 @@ class DWRITE_CLUSTER_METRICS extends Win32Struct
     }
 
     /**
-     * Type: <b>UINT16</b>
-     * 
-     * Indicates whether the cluster is read from right to left.
      * @type {Integer}
      */
     isRightToLeft {
@@ -106,9 +89,6 @@ class DWRITE_CLUSTER_METRICS extends Win32Struct
     }
 
     /**
-     * Type: <b>UINT16</b>
-     * 
-     * Reserved for future use.
      * @type {Integer}
      */
     padding {

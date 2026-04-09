@@ -7,9 +7,8 @@
  * The IConfigAviMux interface configures the AVI Mux filter.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-iconfigavimux
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IConfigAviMux extends IUnknown{
+class IConfigAviMux extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -38,7 +37,7 @@ class IConfigAviMux extends IUnknown{
      * It is recommended to use the audio stream as the master stream, because minor adjustments to the video playback rate are less noticeable than changes to the audio playback rate. Also, modifying the audio playback rate will cause the audio to be resampled by the audio driver.
      * 
      * This method works by adjusting the <i>dwScale</i> and <i>dwRate</i> values in the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/avifmt/ns-avifmt-avistreamheader">AVISTREAMHEADER</a> structure.
-     * @param {Integer} _iStream 
+     * @param {Integer} _iStream Specifies the index of the stream, or –1 to indicate no master stream. The AVI Mux writes one stream for each connected input pin. Stream numbers are indexed from zero.
      * @returns {HRESULT} Returns an <b>HRESULT</b> value. Possible values include the following.
      * 
      * <table>

@@ -9,9 +9,8 @@
  * This interface provides a mechanism for apps that use <a href="https://docs.microsoft.com/windows/desktop/api/mfreadwrite/nn-mfreadwrite-imfsinkwriter">IMFSinkWriter</a> to receive asynchronous notifications when the transform chain is complete and the system is ready for use or when an asynchronous error occurs.
  * @see https://learn.microsoft.com/windows/win32/api/mfreadwrite/nn-mfreadwrite-imfsinkwritercallback2
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFSinkWriterCallback2 extends IMFSinkWriterCallback{
+class IMFSinkWriterCallback2 extends IMFSinkWriterCallback {
 
     static sizeof => A_PtrSize
     /**

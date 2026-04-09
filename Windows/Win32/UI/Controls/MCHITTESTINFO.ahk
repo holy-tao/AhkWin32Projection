@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\POINT.ahk
+#Include .\MCHITTESTINFO_HIT_FLAGS.ahk
 #Include ..\..\Foundation\SYSTEMTIME.ahk
 #Include ..\..\Foundation\RECT.ahk
 
@@ -10,10 +11,8 @@
  * Columns and rows in this control use a zero-based index system, that is, the first column or row has an index of zero.
  * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-mchittestinfo
  * @namespace Windows.Win32.UI.Controls
- * @version v4.0.30319
  */
-class MCHITTESTINFO extends Win32Struct
-{
+class MCHITTESTINFO extends Win32Struct {
     static sizeof => 60
 
     static packingSize => 4
@@ -35,7 +34,7 @@ class MCHITTESTINFO extends Win32Struct
      * Point to be hit-tested.
      * @type {POINT}
      */
-    pt{
+    pt {
         get {
             if(!this.HasProp("__pt"))
                 this.__pt := POINT(4, this)
@@ -206,7 +205,7 @@ class MCHITTESTINFO extends Win32Struct
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
+     * @type {MCHITTESTINFO_HIT_FLAGS}
      */
     uHit {
         get => NumGet(this, 12, "uint")
@@ -219,7 +218,7 @@ class MCHITTESTINFO extends Win32Struct
      * Receives date and time information specific to the location that was hit-tested.
      * @type {SYSTEMTIME}
      */
-    st{
+    st {
         get {
             if(!this.HasProp("__st"))
                 this.__st := SYSTEMTIME(16, this)
@@ -233,7 +232,7 @@ class MCHITTESTINFO extends Win32Struct
      * Hit-tested location.
      * @type {RECT}
      */
-    rc{
+    rc {
         get {
             if(!this.HasProp("__rc"))
                 this.__rc := RECT(32, this)

@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.WinRT.ML
- * @version v4.0.30319
  */
-class ITensorStaticsNative extends IUnknown{
+class ITensorStaticsNative extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

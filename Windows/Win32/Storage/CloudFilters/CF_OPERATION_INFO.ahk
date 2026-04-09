@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\CF_OPERATION_TYPE.ahk
 #Include .\CF_CONNECTION_KEY.ahk
+#Include ..\..\System\CorrelationVector\CORRELATION_VECTOR.ahk
+#Include .\CF_SYNC_STATUS.ahk
 
 /**
  * Information about an operation on a placeholder file or folder.
@@ -8,10 +11,8 @@
  * The platform provides the *ConnectionKey*, *TransferKey*, and *CorrelationVector* to all callback functions registered via [CfConnectSyncRoot](nf-cfapi-cfconnectsyncroot.md). Additionally, sync providers can obtain a *TransferKey* using [CfGetTransferKey](nf-cfapi-cfgettransferkey.md) and a *CorrelationVector* using [CfGetCorrelationVector](nf-cfapi-cfgetcorrelationvector.md).
  * @see https://learn.microsoft.com/windows/win32/api/cfapi/ns-cfapi-cf_operation_info
  * @namespace Windows.Win32.Storage.CloudFilters
- * @version v4.0.30319
  */
-class CF_OPERATION_INFO extends Win32Struct
-{
+class CF_OPERATION_INFO extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -27,7 +28,7 @@ class CF_OPERATION_INFO extends Win32Struct
 
     /**
      * The type of operation being performed. See [CF_OPERATION_TYPE](ne-cfapi-cf_operation_type.md) for more information.
-     * @type {Integer}
+     * @type {CF_OPERATION_TYPE}
      */
     Type {
         get => NumGet(this, 4, "int")
@@ -38,7 +39,7 @@ class CF_OPERATION_INFO extends Win32Struct
      * A connection key obtained for the communication channel.
      * @type {CF_CONNECTION_KEY}
      */
-    ConnectionKey{
+    ConnectionKey {
         get {
             if(!this.HasProp("__ConnectionKey"))
                 this.__ConnectionKey := CF_CONNECTION_KEY(8, this)

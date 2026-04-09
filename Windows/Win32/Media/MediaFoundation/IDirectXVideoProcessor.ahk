@@ -1,18 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\IDirectXVideoProcessorService.ahk
 #Include .\DXVA2_VideoProcessorCaps.ahk
 #Include .\DXVA2_ValueRange.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Represents a DirectX Video Acceleration (DXVA) video processor device.
  * @see https://learn.microsoft.com/windows/win32/api/dxva2api/nn-dxva2api-idirectxvideoprocessor
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IDirectXVideoProcessor extends IUnknown{
+class IDirectXVideoProcessor extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -49,7 +48,7 @@ class IDirectXVideoProcessor extends IUnknown{
      * You can set any parameter to <b>NULL</b> if you are not interested in the result. At least one parameter must be non-<b>NULL</b>.
      * @param {Pointer<Guid>} pDeviceGuid Receives the device GUID. This parameter can be <b>NULL</b>.
      * @param {Pointer<DXVA2_VideoDesc>} pVideoDesc Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/dxva2api/ns-dxva2api-dxva2_videodesc">DXVA2_VideoDesc</a> structure allocated by the caller. The method fills the structure with a description of the video format. This parameter can be <b>NULL</b>.
-     * @param {Pointer<Integer>} pRenderTargetFormat Receives the render target format, specified as a <b>D3DFORMAT</b> value. For more information, see the Direct3D documentation. This parameter can be <b>NULL</b>.
+     * @param {Pointer<D3DFORMAT>} pRenderTargetFormat Receives the render target format, specified as a <b>D3DFORMAT</b> value. For more information, see the Direct3D documentation. This parameter can be <b>NULL</b>.
      * @param {Pointer<Integer>} pMaxNumSubStreams Receives the maximum number of streams supported by the device. This parameter can be <b>NULL</b>.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 

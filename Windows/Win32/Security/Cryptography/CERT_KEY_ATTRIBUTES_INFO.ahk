@@ -2,15 +2,14 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\CRYPT_INTEGER_BLOB.ahk
 #Include .\CRYPT_BIT_BLOB.ahk
+#Include .\CERT_PRIVATE_KEY_VALIDITY.ahk
 
 /**
  * The CERT_KEY_ATTRIBUTES_INFO structure contains optional additional information about the public key being certified.
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cert_key_attributes_info
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CERT_KEY_ATTRIBUTES_INFO extends Win32Struct
-{
+class CERT_KEY_ATTRIBUTES_INFO extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -19,7 +18,7 @@ class CERT_KEY_ATTRIBUTES_INFO extends Win32Struct
      * A <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa381414(v=vs.85)">CRYPT_DATA_BLOB</a> structure with a unique identifier of a key.
      * @type {CRYPT_INTEGER_BLOB}
      */
-    KeyId{
+    KeyId {
         get {
             if(!this.HasProp("__KeyId"))
                 this.__KeyId := CRYPT_INTEGER_BLOB(0, this)
@@ -37,7 +36,7 @@ class CERT_KEY_ATTRIBUTES_INFO extends Win32Struct
      * This member can be used to find the correct key or certificate of a user who has multiple keys or certificates. Its indication of usage is advisory field, only, and does not imply that usage of the key is restricted to the purpose indicated. The list of intended uses is not necessarily all-inclusive, and the field can be omitted. If a key is to be restricted to a particular use a <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_key_usage_restriction_info">CERT_KEY_USAGE_RESTRICTION_INFO</a> extension must be used.
      * @type {CRYPT_BIT_BLOB}
      */
-    IntendedKeyUsage{
+    IntendedKeyUsage {
         get {
             if(!this.HasProp("__IntendedKeyUsage"))
                 this.__IntendedKeyUsage := CRYPT_BIT_BLOB(16, this)

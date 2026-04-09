@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.Dvd
- * @version v4.0.30319
  */
-class DVD_RAM_RECORDING_TYPE extends Win32Struct
-{
+class DVD_RAM_RECORDING_TYPE extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 1
@@ -48,9 +46,9 @@ class DVD_RAM_RECORDING_TYPE extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Reserved2{
+    Reserved2 {
         get {
             if(!this.HasProp("__Reserved2ProxyArray"))
                 this.__Reserved2ProxyArray := Win32FixedArray(this.ptr + 1, 3, Primitive, "char")

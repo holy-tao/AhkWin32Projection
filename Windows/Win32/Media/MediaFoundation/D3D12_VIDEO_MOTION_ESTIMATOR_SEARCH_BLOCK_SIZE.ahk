@@ -9,9 +9,8 @@
  * Set the desired block size for video motion estimation with the [D3D12_VIDEO_MOTION_ESTIMATOR_DESC](ns-d3d12video-d3d12_video_motion_estimator_desc.md) passed into [ID3D12VideoDevice1::CreateVideoMotionEstimator](nf-d3d12video-id3d12videodevice1-createvideomotionestimator.md).
  * @see https://learn.microsoft.com/windows/win32/api/d3d12video/ne-d3d12video-d3d12_video_motion_estimator_search_block_size
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class D3D12_VIDEO_MOTION_ESTIMATOR_SEARCH_BLOCK_SIZE extends Win32Enum{
+class D3D12_VIDEO_MOTION_ESTIMATOR_SEARCH_BLOCK_SIZE extends Win32Enum {
 
     /**
      * The search block size is 8x8 pixels.

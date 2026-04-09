@@ -1,12 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Graphics\Direct3D9\D3DFORMAT.ahk
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class DXVA_ProcAmpControlCaps extends Win32Struct
-{
+class DXVA_ProcAmpControlCaps extends Win32Struct {
     static sizeof => 20
 
     static packingSize => 4
@@ -28,7 +27,7 @@ class DXVA_ProcAmpControlCaps extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {D3DFORMAT}
      */
     d3dOutputFormat {
         get => NumGet(this, 8, "uint")

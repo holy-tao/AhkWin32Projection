@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\EBranchOfficeJobEventType.ahk
 #Include .\BranchOfficeJobDataPrinted.ahk
 #Include .\BranchOfficeJobDataRendered.ahk
 #Include .\BranchOfficeJobDataError.ahk
@@ -8,10 +9,8 @@
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
- * @version v4.0.30319
  */
-class BranchOfficeJobData extends Win32Struct
-{
+class BranchOfficeJobData extends Win32Struct {
     static sizeof => 96
 
     static packingSize => 8
@@ -23,62 +22,61 @@ class BranchOfficeJobData extends Win32Struct
         /**
          * @type {BranchOfficeJobDataPrinted}
          */
-        LogJobPrinted{
+        LogJobPrinted {
             get {
                 if(!this.HasProp("__LogJobPrinted"))
                     this.__LogJobPrinted := BranchOfficeJobDataPrinted(0, this)
                 return this.__LogJobPrinted
             }
         }
-    
+
         /**
          * @type {BranchOfficeJobDataRendered}
          */
-        LogJobRendered{
+        LogJobRendered {
             get {
                 if(!this.HasProp("__LogJobRendered"))
                     this.__LogJobRendered := BranchOfficeJobDataRendered(0, this)
                 return this.__LogJobRendered
             }
         }
-    
+
         /**
          * @type {BranchOfficeJobDataError}
          */
-        LogJobError{
+        LogJobError {
             get {
                 if(!this.HasProp("__LogJobError"))
                     this.__LogJobError := BranchOfficeJobDataError(0, this)
                 return this.__LogJobError
             }
         }
-    
+
         /**
          * @type {BranchOfficeJobDataPipelineFailed}
          */
-        LogPipelineFailed{
+        LogPipelineFailed {
             get {
                 if(!this.HasProp("__LogPipelineFailed"))
                     this.__LogPipelineFailed := BranchOfficeJobDataPipelineFailed(0, this)
                 return this.__LogPipelineFailed
             }
         }
-    
+
         /**
          * @type {BranchOfficeLogOfflineFileFull}
          */
-        LogOfflineFileFull{
+        LogOfflineFileFull {
             get {
                 if(!this.HasProp("__LogOfflineFileFull"))
                     this.__LogOfflineFileFull := BranchOfficeLogOfflineFileFull(0, this)
                 return this.__LogOfflineFileFull
             }
         }
-    
     }
 
     /**
-     * @type {Integer}
+     * @type {EBranchOfficeJobEventType}
      */
     eEventType {
         get => NumGet(this, 0, "int")
@@ -96,10 +94,10 @@ class BranchOfficeJobData extends Win32Struct
     /**
      * @type {_JobInfo_e__Union}
      */
-    JobInfo{
+    JobInfo {
         get {
             if(!this.HasProp("__JobInfo"))
-                this.__JobInfo := %this.__Class%._JobInfo_e__Union(8, this)
+                this.__JobInfo := BranchOfficeJobData._JobInfo_e__Union(8, this)
             return this.__JobInfo
         }
     }

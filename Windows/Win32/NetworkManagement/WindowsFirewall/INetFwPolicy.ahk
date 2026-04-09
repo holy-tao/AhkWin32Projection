@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\INetFwProfile.ahk
 #Include ..\..\System\Com\IDispatch.ahk
+#Include .\INetFwProfile.ahk
 
 /**
  * The INetFwPolicy interface provides access to a firewall policy.
@@ -16,9 +16,8 @@
  * The Windows Firewall/Internet Connection Sharing  service must be running to access this interface.
  * @see https://learn.microsoft.com/windows/win32/api/netfw/nn-netfw-inetfwpolicy
  * @namespace Windows.Win32.NetworkManagement.WindowsFirewall
- * @version v4.0.30319
  */
-class INetFwPolicy extends IDispatch{
+class INetFwPolicy extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -64,8 +63,10 @@ class INetFwPolicy extends IDispatch{
 
     /**
      * Retrieves the profile of the requested type.
-     * @param {Integer} profileType Type of profile from <a href="https://docs.microsoft.com/windows/desktop/api/icftypes/ne-icftypes-net_fw_profile_type">NET_FW_PROFILE_TYPE</a>.
-     * @returns {INetFwProfile} 
+     * @param {NET_FW_PROFILE_TYPE} profileType Type of profile from <a href="https://docs.microsoft.com/windows/desktop/api/icftypes/ne-icftypes-net_fw_profile_type">NET_FW_PROFILE_TYPE</a>.
+     * @returns {INetFwProfile} Retrieved profile of type <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/netfw/nn-netfw-inetfwprofile">INetFwProfile</a>.
+     * 
+     * Retrieved profile of type <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/netfw/nn-netfw-inetfwprofile">INetFwProfile</a>.
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwpolicy-getprofilebytype
      */
     GetProfileByType(profileType) {

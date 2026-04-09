@@ -5,10 +5,8 @@
  * Learn more about: JET_LGPOS structure
  * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jet-lgpos-structure2
  * @namespace Windows.Win32.Storage.Jet
- * @version v4.0.30319
  */
-class JET_LGPOS extends Win32Struct
-{
+class JET_LGPOS extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4

@@ -3,11 +3,9 @@
 
 /**
  * @namespace Windows.Win32.Media.Audio
- * @version v4.0.30319
  * @charset Unicode
  */
-class ACMFORMATTAGDETAILSW extends Win32Struct
-{
+class ACMFORMATTAGDETAILSW extends Win32Struct {
     static sizeof => 120
 
     static packingSize => 4

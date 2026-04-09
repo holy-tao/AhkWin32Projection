@@ -7,9 +7,8 @@
  * This enumeration is used with the <a href="https://docs.microsoft.com/windows/desktop/medfound/mf-mt-video-lighting-attribute">MF_MT_VIDEO_LIGHTING</a> attribute.
  * @see https://learn.microsoft.com/windows/win32/api/mfobjects/ne-mfobjects-mfvideolighting
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class MFVideoLighting extends Win32Enum{
+class MFVideoLighting extends Win32Enum {
 
     /**
      * The optimal lighting is unknown.

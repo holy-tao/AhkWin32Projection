@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\VDS_FILE_SYSTEM_PROP.ahk
 #Include .\IVdsAsync.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Provides methods to perform file system management operations on partitions.
  * @see https://learn.microsoft.com/windows/win32/api/vds/nn-vds-ivdsdiskpartitionmf
  * @namespace Windows.Win32.Storage.VirtualDiskService
- * @version v4.0.30319
  */
-class IVdsDiskPartitionMF extends IUnknown{
+class IVdsDiskPartitionMF extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

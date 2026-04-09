@@ -7,9 +7,8 @@
  * Implement this interface to receive notifications of the current write operation. (DWriteEngine2Events)
  * @see https://learn.microsoft.com/windows/win32/api/imapi2/nn-imapi2-dwriteengine2events
  * @namespace Windows.Win32.Storage.Imapi
- * @version v4.0.30319
  */
-class DWriteEngine2Events extends IDispatch{
+class DWriteEngine2Events extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -49,7 +48,9 @@ class DWriteEngine2Events extends IDispatch{
      * <li>Once after the operation completes</li>
      * </ul>
      * To stop the write process, call the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/nf-imapi2-iwriteengine2-cancelwrite">IWriteEngine2::CancelWrite</a> method.
-     * @param {IDispatch} _object 
+     * @param {IDispatch} _object The <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/nn-imapi2-iwriteengine2">IWriteEngine2</a> interface that initiated the write operation. 
+     * 
+     * This parameter is a <b>MsftWriteEngine2</b> object in script.
      * @param {IDispatch} progress An <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/nn-imapi2-iwriteengine2eventargs">IWriteEngine2EventArgs</a> interface that you use to determine the progress of the write operation. 
      * 
      * This parameter is a <b>MsftWriteEngine2</b> object in script.

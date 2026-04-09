@@ -13,10 +13,8 @@
  * Calling CODECAPI\_AVEncVideoUseLTRFrame on a non-base layer frame is valid and shall apply to the non-base layer frame, without delay to a base layer frame.
  * @see https://learn.microsoft.com/windows/win32/medfound/codecapi-avencvideouseltrframe
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class CODECAPI_AVEncVideoUseLTRFrame extends Win32Struct
-{
+class CODECAPI_AVEncVideoUseLTRFrame extends Win32Struct {
     static sizeof => 0
 
     static packingSize => 1

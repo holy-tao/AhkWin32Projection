@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class SIGNER_CERT_POLICY extends Win32BitflagEnum{
+class SIGNER_CERT_POLICY extends Win32BitflagEnum {
 
     /**
      * @type {Integer (UInt32)}

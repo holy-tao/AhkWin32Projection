@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Networking.WinHttp
- * @version v4.0.30319
  */
-class WIN_HTTP_CREATE_URL_FLAGS extends Win32Enum{
+class WIN_HTTP_CREATE_URL_FLAGS extends Win32Enum {
 
     /**
      * @type {Integer (UInt32)}

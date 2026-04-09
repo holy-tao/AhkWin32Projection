@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Networking.WinSock
- * @version v4.0.30319
  */
-class ATM_TRANSIT_NETWORK_SELECTION_IE extends Win32Struct
-{
+class ATM_TRANSIT_NETWORK_SELECTION_IE extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 1
@@ -36,9 +34,9 @@ class ATM_TRANSIT_NETWORK_SELECTION_IE extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    NetworkId{
+    NetworkId {
         get {
             if(!this.HasProp("__NetworkIdProxyArray"))
                 this.__NetworkIdProxyArray := Win32FixedArray(this.ptr + 3, 1, Primitive, "char")

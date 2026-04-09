@@ -1,31 +1,30 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3D12_VIDEO_PROCESS_REFERENCE_SET.ahk
 #Include .\D3D12_VIDEO_PROCESS_INPUT_STREAM.ahk
-#Include ..\..\Foundation\RECT.ahk
+#Include ..\..\Graphics\Direct3D12\ID3D12Resource.ahk
+#Include .\D3D12_VIDEO_PROCESS_REFERENCE_SET.ahk
 #Include .\D3D12_VIDEO_PROCESS_TRANSFORM.ahk
+#Include ..\..\Foundation\RECT.ahk
+#Include .\D3D12_VIDEO_PROCESS_ORIENTATION.ahk
+#Include .\D3D12_VIDEO_PROCESS_INPUT_STREAM_FLAGS.ahk
 #Include .\D3D12_VIDEO_PROCESS_INPUT_STREAM_RATE.ahk
 #Include .\D3D12_VIDEO_PROCESS_ALPHA_BLENDING.ahk
 
 /**
  * Specifies input stream arguments for an input stream passed to ID3D12VideoCommandList::ProcessFrames.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/d3d12video/ns-d3d12video-d3d12_video_process_input_stream_arguments
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class D3D12_VIDEO_PROCESS_INPUT_STREAM_ARGUMENTS extends Win32Struct
-{
-    static sizeof => 200
+class D3D12_VIDEO_PROCESS_INPUT_STREAM_ARGUMENTS extends Win32Struct {
+    static sizeof => 312
 
     static packingSize => 8
 
     /**
      * An array of [D3D12_VIDEO_PROCESS_INPUT_STREAM](ns-d3d12video-d3d12_video_process_input_stream.md) structures containing the set of references for video processing. If the stereo format is [D3D12_VIDEO_PROCESS_STEREO_FORMAT_SEPARATE](ne-d3d12video-d3d12_video_frame_stereo_format.md), then two sets of input streams must be supplied.  For all other stereo formats, the first set of reference must be supplied, and the second should be zero initialized.
-     * @type {Array<D3D12_VIDEO_PROCESS_INPUT_STREAM>}
+     * @type {D3D12_VIDEO_PROCESS_INPUT_STREAM}
      */
-    InputStream{
+    InputStream {
         get {
             if(!this.HasProp("__InputStreamProxyArray"))
                 this.__InputStreamProxyArray := Win32FixedArray(this.ptr + 0, 2, D3D12_VIDEO_PROCESS_INPUT_STREAM, "")
@@ -37,43 +36,43 @@ class D3D12_VIDEO_PROCESS_INPUT_STREAM_ARGUMENTS extends Win32Struct
      * A [D3D12_VIDEO_PROCESS_TRANSFORM](ns-d3d12video-d3d12_video_process_transform.md) structure specifying the flip, rotation, scale and destination translation for the video input.
      * @type {D3D12_VIDEO_PROCESS_TRANSFORM}
      */
-    Transform{
+    Transform {
         get {
             if(!this.HasProp("__Transform"))
-                this.__Transform := D3D12_VIDEO_PROCESS_TRANSFORM(16, this)
+                this.__Transform := D3D12_VIDEO_PROCESS_TRANSFORM(128, this)
             return this.__Transform
         }
     }
 
     /**
      * A value from the [D3D12_VIDEO_PROCESS_INPUT_STREAM_FLAGS](ne-d3d12video-d3d12_video_process_input_stream_flags.md) enumeration specifying the options for the input stream.
-     * @type {Integer}
+     * @type {D3D12_VIDEO_PROCESS_INPUT_STREAM_FLAGS}
      */
     Flags {
-        get => NumGet(this, 52, "int")
-        set => NumPut("int", value, this, 52)
+        get => NumGet(this, 164, "int")
+        set => NumPut("int", value, this, 164)
     }
 
     /**
      * A [D3D12_VIDEO_PROCESS_INPUT_STREAM_RATE](ns-d3d12video-d3d12_video_process_input_stream_rate.md) structure specifying the framerate and input and output indices for framerate conversion and deinterlacing.
      * @type {D3D12_VIDEO_PROCESS_INPUT_STREAM_RATE}
      */
-    RateInfo{
+    RateInfo {
         get {
             if(!this.HasProp("__RateInfo"))
-                this.__RateInfo := D3D12_VIDEO_PROCESS_INPUT_STREAM_RATE(56, this)
+                this.__RateInfo := D3D12_VIDEO_PROCESS_INPUT_STREAM_RATE(168, this)
             return this.__RateInfo
         }
     }
 
     /**
      * The level to apply for each enabled filter.  The filter level is specified in the order that filters appear in the [D3D12_VIDEO_PROCESS_FILTER_FLAGS](ne-d3d12video-d3d12_video_process_filter_flags.md) enumeration.  Specify 0 if a filter is not enabled or the filter index is reserved.
-     * @type {Array<Int32>}
+     * @type {Array<Integer>}
      */
-    FilterLevels{
+    FilterLevels {
         get {
             if(!this.HasProp("__FilterLevelsProxyArray"))
-                this.__FilterLevelsProxyArray := Win32FixedArray(this.ptr + 64, 32, Primitive, "int")
+                this.__FilterLevelsProxyArray := Win32FixedArray(this.ptr + 176, 32, Primitive, "int")
             return this.__FilterLevelsProxyArray
         }
     }
@@ -82,10 +81,10 @@ class D3D12_VIDEO_PROCESS_INPUT_STREAM_ARGUMENTS extends Win32Struct
      * A [D3D12_VIDEO_PROCESS_ALPHA_BLENDING](ns-d3d12video-d3d12_video_process_alpha_blending.md) structure specifying the planar alpha for an input stream on the video processor.
      * @type {D3D12_VIDEO_PROCESS_ALPHA_BLENDING}
      */
-    AlphaBlending{
+    AlphaBlending {
         get {
             if(!this.HasProp("__AlphaBlending"))
-                this.__AlphaBlending := D3D12_VIDEO_PROCESS_ALPHA_BLENDING(192, this)
+                this.__AlphaBlending := D3D12_VIDEO_PROCESS_ALPHA_BLENDING(304, this)
             return this.__AlphaBlending
         }
     }

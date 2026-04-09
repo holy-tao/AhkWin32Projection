@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ID2D1Device4.ahk
 #Include .\ID2D1Factory4.ahk
+#Include .\ID2D1Device4.ahk
 
 /**
  * Creates Direct2D resources. This interface also enables the creation of ID2D1Device4 objects.
  * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nn-d2d1_3-id2d1factory5
  * @namespace Windows.Win32.Graphics.Direct2D
- * @version v4.0.30319
  */
-class ID2D1Factory5 extends ID2D1Factory4{
+class ID2D1Factory5 extends ID2D1Factory4 {
 
     static sizeof => A_PtrSize
     /**

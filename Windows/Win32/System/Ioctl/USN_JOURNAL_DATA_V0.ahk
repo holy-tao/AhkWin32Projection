@@ -5,10 +5,8 @@
  * Represents an update sequence number (USN) change journal, its records, and its capacity. (USN_JOURNAL_DATA_V0)
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-usn_journal_data_v0
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class USN_JOURNAL_DATA_V0 extends Win32Struct
-{
+class USN_JOURNAL_DATA_V0 extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8

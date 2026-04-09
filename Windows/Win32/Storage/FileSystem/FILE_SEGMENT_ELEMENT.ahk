@@ -3,14 +3,10 @@
 
 /**
  * The FILE_SEGMENT_ELEMENT structure represents a segment buffer structure for scatter/gather read/write actions.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-file_segment_element
  * @namespace Windows.Win32.Storage.FileSystem
- * @version v4.0.30319
  */
-class FILE_SEGMENT_ELEMENT extends Win32Struct
-{
+class FILE_SEGMENT_ELEMENT extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

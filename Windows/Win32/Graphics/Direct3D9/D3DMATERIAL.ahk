@@ -10,10 +10,8 @@
  * For more information about using the lighting engine to calculate specular lighting, see [Specular Lighting (Direct3D 9)](specular-lighting.md).
  * @see https://learn.microsoft.com/windows/win32/direct3d9/d3dmaterial9
  * @namespace Windows.Win32.Graphics.Direct3D9
- * @version v4.0.30319
  */
-class D3DMATERIAL extends Win32Struct
-{
+class D3DMATERIAL extends Win32Struct {
     static sizeof => 80
 
     static packingSize => 4
@@ -29,7 +27,7 @@ class D3DMATERIAL extends Win32Struct
     /**
      * @type {D3DCOLORVALUE}
      */
-    diffuse{
+    diffuse {
         get {
             if(!this.HasProp("__diffuse"))
                 this.__diffuse := D3DCOLORVALUE(4, this)
@@ -40,7 +38,7 @@ class D3DMATERIAL extends Win32Struct
     /**
      * @type {D3DCOLORVALUE}
      */
-    dcvDiffuse{
+    dcvDiffuse {
         get {
             if(!this.HasProp("__dcvDiffuse"))
                 this.__dcvDiffuse := D3DCOLORVALUE(4, this)
@@ -51,7 +49,7 @@ class D3DMATERIAL extends Win32Struct
     /**
      * @type {D3DCOLORVALUE}
      */
-    ambient{
+    ambient {
         get {
             if(!this.HasProp("__ambient"))
                 this.__ambient := D3DCOLORVALUE(20, this)
@@ -62,7 +60,7 @@ class D3DMATERIAL extends Win32Struct
     /**
      * @type {D3DCOLORVALUE}
      */
-    dcvAmbient{
+    dcvAmbient {
         get {
             if(!this.HasProp("__dcvAmbient"))
                 this.__dcvAmbient := D3DCOLORVALUE(20, this)
@@ -73,7 +71,7 @@ class D3DMATERIAL extends Win32Struct
     /**
      * @type {D3DCOLORVALUE}
      */
-    specular{
+    specular {
         get {
             if(!this.HasProp("__specular"))
                 this.__specular := D3DCOLORVALUE(36, this)
@@ -84,7 +82,7 @@ class D3DMATERIAL extends Win32Struct
     /**
      * @type {D3DCOLORVALUE}
      */
-    dcvSpecular{
+    dcvSpecular {
         get {
             if(!this.HasProp("__dcvSpecular"))
                 this.__dcvSpecular := D3DCOLORVALUE(36, this)
@@ -95,7 +93,7 @@ class D3DMATERIAL extends Win32Struct
     /**
      * @type {D3DCOLORVALUE}
      */
-    emissive{
+    emissive {
         get {
             if(!this.HasProp("__emissive"))
                 this.__emissive := D3DCOLORVALUE(52, this)
@@ -106,7 +104,7 @@ class D3DMATERIAL extends Win32Struct
     /**
      * @type {D3DCOLORVALUE}
      */
-    dcvEmissive{
+    dcvEmissive {
         get {
             if(!this.HasProp("__dcvEmissive"))
                 this.__dcvEmissive := D3DCOLORVALUE(52, this)

@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.QoS
- * @version v4.0.30319
  */
-class WBCL_LogHdr extends Win32Struct
-{
+class WBCL_LogHdr extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4

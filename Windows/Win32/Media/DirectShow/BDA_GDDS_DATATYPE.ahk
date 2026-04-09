@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class BDA_GDDS_DATATYPE extends Win32Struct
-{
+class BDA_GDDS_DATATYPE extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
@@ -20,7 +18,7 @@ class BDA_GDDS_DATATYPE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     uuidDataType {
         get => NumGet(this, 8, "ptr")

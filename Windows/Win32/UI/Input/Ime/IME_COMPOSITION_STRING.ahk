@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.UI.Input.Ime
- * @version v4.0.30319
  */
-class IME_COMPOSITION_STRING extends Win32BitflagEnum{
+class IME_COMPOSITION_STRING extends Win32BitflagEnum {
 
     /**
      * @type {Integer (UInt32)}

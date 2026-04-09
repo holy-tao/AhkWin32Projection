@@ -1,12 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DUPLICATE_EXTENTS_STATE.ahk
 
 /**
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class ASYNC_DUPLICATE_EXTENTS_STATUS extends Win32Struct
-{
+class ASYNC_DUPLICATE_EXTENTS_STATUS extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -20,7 +19,7 @@ class ASYNC_DUPLICATE_EXTENTS_STATUS extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {DUPLICATE_EXTENTS_STATE}
      */
     State {
         get => NumGet(this, 4, "int")

@@ -1,21 +1,19 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\ERASE_TAPE_TYPE.ahk
 
 /**
  * Describes the partition to be erased.
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-tape_erase
  * @namespace Windows.Win32.Storage.FileSystem
- * @version v4.0.30319
  */
-class TAPE_ERASE extends Win32Struct
-{
+class TAPE_ERASE extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4
 
     /**
-     * 
-     * @type {Integer}
+     * @type {ERASE_TAPE_TYPE}
      */
     Type {
         get => NumGet(this, 0, "uint")

@@ -3,20 +3,15 @@
 
 /**
  * Contains fields that specify the information in an Endurance Group Information log page that indicates the amount of data being read from and written to an Endurance Group.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/nvme/ns-nvme-nvme_endurance_group_log
  * @namespace Windows.Win32.Storage.Nvme
- * @version v4.0.30319
  */
-class NVME_ENDURANCE_GROUP_LOG extends Win32Struct
-{
+class NVME_ENDURANCE_GROUP_LOG extends Win32Struct {
     static sizeof => 512
 
     static packingSize => 4
 
     /**
-     * 
      * @type {Integer}
      */
     Reserved0 {
@@ -44,9 +39,9 @@ class NVME_ENDURANCE_GROUP_LOG extends Win32Struct
 
     /**
      * A reserved field.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Reserved1{
+    Reserved1 {
         get {
             if(!this.HasProp("__Reserved1ProxyArray"))
                 this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 6, 26, Primitive, "char")
@@ -56,9 +51,9 @@ class NVME_ENDURANCE_GROUP_LOG extends Win32Struct
 
     /**
      * An estimate of the total number of data bytes written to NVM set(s) in the Endurance Group, expressed in units of one billion.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    EnduranceEstimate{
+    EnduranceEstimate {
         get {
             if(!this.HasProp("__EnduranceEstimateProxyArray"))
                 this.__EnduranceEstimateProxyArray := Win32FixedArray(this.ptr + 32, 16, Primitive, "char")
@@ -68,9 +63,9 @@ class NVME_ENDURANCE_GROUP_LOG extends Win32Struct
 
     /**
      * The total number of data bytes read from NVM set(s) in the Endurance Group, expressed in units of one billion.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    DataUnitsRead{
+    DataUnitsRead {
         get {
             if(!this.HasProp("__DataUnitsReadProxyArray"))
                 this.__DataUnitsReadProxyArray := Win32FixedArray(this.ptr + 48, 16, Primitive, "char")
@@ -82,9 +77,9 @@ class NVME_ENDURANCE_GROUP_LOG extends Win32Struct
      * The total number of data bytes written to the NVM sets(s) in the Endurance Group, expressed in units of one billion.
      * 
      * This value only includes data written by the host.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    DataUnitsWritten{
+    DataUnitsWritten {
         get {
             if(!this.HasProp("__DataUnitsWrittenProxyArray"))
                 this.__DataUnitsWrittenProxyArray := Win32FixedArray(this.ptr + 64, 16, Primitive, "char")
@@ -96,9 +91,9 @@ class NVME_ENDURANCE_GROUP_LOG extends Win32Struct
      * The total number of data bytes written to the NVM sets(s) in the Endurance Group, expressed in units of one billion.
      * 
      * This value includes data written by the host and the controller.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    MediaUnitsWritten{
+    MediaUnitsWritten {
         get {
             if(!this.HasProp("__MediaUnitsWrittenProxyArray"))
                 this.__MediaUnitsWrittenProxyArray := Win32FixedArray(this.ptr + 80, 16, Primitive, "char")
@@ -108,9 +103,9 @@ class NVME_ENDURANCE_GROUP_LOG extends Win32Struct
 
     /**
      * A reserved field.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Reserved2{
+    Reserved2 {
         get {
             if(!this.HasProp("__Reserved2ProxyArray"))
                 this.__Reserved2ProxyArray := Win32FixedArray(this.ptr + 96, 416, Primitive, "char")

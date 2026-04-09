@@ -11,10 +11,8 @@
  * ```cpp
  * @see https://learn.microsoft.com/windows/win32/api/dbghelp/ns-dbghelp-kdhelp64
  * @namespace Windows.Win32.System.Diagnostics.Debug
- * @version v4.0.30319
  */
-class KDHELP64 extends Win32Struct
-{
+class KDHELP64 extends Win32Struct {
     static sizeof => 112
 
     static packingSize => 8
@@ -167,9 +165,9 @@ class KDHELP64 extends Win32Struct
 
     /**
      * This member is reserved for use by the operating system.
-     * @type {Array<UInt64>}
+     * @type {Array<Integer>}
      */
-    Reserved0{
+    Reserved0 {
         get {
             if(!this.HasProp("__Reserved0ProxyArray"))
                 this.__Reserved0ProxyArray := Win32FixedArray(this.ptr + 96, 2, Primitive, "uint")

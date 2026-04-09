@@ -5,9 +5,8 @@
  * Contains values that specify the toggle state of a Microsoft UI Automation element that implements the Toggle control pattern.
  * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/ne-uiautomationcore-togglestate
  * @namespace Windows.Win32.UI.Accessibility
- * @version v4.0.30319
  */
-class ToggleState extends Win32Enum{
+class ToggleState extends Win32Enum {
 
     /**
      * The UI Automation element is not selected, checked, marked or otherwise activated.

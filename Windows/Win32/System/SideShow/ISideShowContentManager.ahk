@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ISideShowCapabilitiesCollection.ahk
 #Include ..\Com\IUnknown.ahk
+#Include .\ISideShowCapabilitiesCollection.ahk
 
 /**
  * @namespace Windows.Win32.System.SideShow
- * @version v4.0.30319
  */
-class ISideShowContentManager extends IUnknown{
+class ISideShowContentManager extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

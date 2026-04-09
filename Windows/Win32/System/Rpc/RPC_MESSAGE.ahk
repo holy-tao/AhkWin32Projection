@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\RPC_SYNTAX_IDENTIFIER.ahk
 
 /**
  * The RPC_MESSAGE structure contains information shared between NDR and the rest of the RPC or OLE runtime.
  * @see https://learn.microsoft.com/windows/win32/api/rpcdcep/ns-rpcdcep-rpc_message
  * @namespace Windows.Win32.System.Rpc
- * @version v4.0.30319
  */
-class RPC_MESSAGE extends Win32Struct
-{
+class RPC_MESSAGE extends Win32Struct {
     static sizeof => 80
 
     static packingSize => 8

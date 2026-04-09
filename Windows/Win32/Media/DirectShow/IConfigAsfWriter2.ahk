@@ -7,9 +7,8 @@
  * The IConfigAsfWriter2 interface extends the IConfigAsfWriter interface, which configures the WM ASF Writer filter.
  * @see https://learn.microsoft.com/windows/win32/api/dshowasf/nn-dshowasf-iconfigasfwriter2
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IConfigAsfWriter2 extends IConfigAsfWriter{
+class IConfigAsfWriter2 extends IConfigAsfWriter {
 
     static sizeof => A_PtrSize
     /**

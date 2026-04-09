@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\D3DKMT_CHECK_MULTIPLANE_OVERLAY_PLANE3.ahk
+#Include .\D3DKMT_MULTIPLANE_OVERLAY_POST_COMPOSITION_WITH_SOURCE.ahk
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
- * @version v4.0.30319
  */
-class D3DKMT_CHECKMULTIPLANEOVERLAYSUPPORT3 extends Win32Struct
-{
+class D3DKMT_CHECKMULTIPLANEOVERLAYSUPPORT3 extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8
@@ -68,7 +68,7 @@ class D3DKMT_CHECKMULTIPLANEOVERLAYSUPPORT3 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<D3DKMT_CHECK_MULTIPLANE_OVERLAY_SUPPORT_RETURN_INFO>}
+     * @type {Pointer}
      */
     ReturnInfo {
         get => NumGet(this, 48, "ptr")

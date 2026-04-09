@@ -5,9 +5,8 @@
  * The FT_STATE_EVENT_CAUSE enum indicates the type of file terminal event.
  * @see https://learn.microsoft.com/windows/win32/api/tapi3if/ne-tapi3if-ft_state_event_cause
  * @namespace Windows.Win32.Devices.Tapi
- * @version v4.0.30319
  */
-class FT_STATE_EVENT_CAUSE extends Win32Enum{
+class FT_STATE_EVENT_CAUSE extends Win32Enum {
 
     /**
      * State change in response to a normal API call.

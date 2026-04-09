@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class DMA_IOMMU_INTERFACE_V1 extends Win32Struct
-{
+class DMA_IOMMU_INTERFACE_V1 extends Win32Struct {
     static sizeof => 104
 
     static packingSize => 8

@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\CRYPTCATATTRIBUTE_FLAGS.ahk
 
 /**
  * The CRYPTCATATTRIBUTE structure defines a catalog attribute. This structure is used by the CryptCATEnumerateAttr and CryptCATEnumerateCatAttr functions.
  * @see https://learn.microsoft.com/windows/win32/api/mscat/ns-mscat-cryptcatattribute
  * @namespace Windows.Win32.Security.Cryptography.Catalog
- * @version v4.0.30319
  */
-class CRYPTCATATTRIBUTE extends Win32Struct
-{
+class CRYPTCATATTRIBUTE extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -117,7 +116,7 @@ class CRYPTCATATTRIBUTE extends Win32Struct
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
+     * @type {CRYPTCATATTRIBUTE_FLAGS}
      */
     dwAttrTypeAndAction {
         get => NumGet(this, 16, "uint")

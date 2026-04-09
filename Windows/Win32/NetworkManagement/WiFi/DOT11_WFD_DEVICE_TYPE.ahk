@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
- * @version v4.0.30319
  */
-class DOT11_WFD_DEVICE_TYPE extends Win32Struct
-{
+class DOT11_WFD_DEVICE_TYPE extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 2
@@ -28,9 +26,9 @@ class DOT11_WFD_DEVICE_TYPE extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    OUI{
+    OUI {
         get {
             if(!this.HasProp("__OUIProxyArray"))
                 this.__OUIProxyArray := Win32FixedArray(this.ptr + 4, 4, Primitive, "char")

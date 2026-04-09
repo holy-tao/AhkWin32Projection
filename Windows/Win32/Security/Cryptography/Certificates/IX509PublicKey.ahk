@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
-#Include .\IObjectId.ahk
 #Include ..\..\..\System\Com\IDispatch.ahk
+#Include .\IObjectId.ahk
+#Include ..\..\..\Foundation\BSTR.ahk
 
 /**
  * Represents a public key in a public/private key pair.
  * @see https://learn.microsoft.com/windows/win32/api/certenroll/nn-certenroll-ix509publickey
  * @namespace Windows.Win32.Security.Cryptography.Certificates
- * @version v4.0.30319
  */
-class IX509PublicKey extends IDispatch{
+class IX509PublicKey extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -68,7 +67,7 @@ class IX509PublicKey extends IDispatch{
      * @param {IObjectId} pObjectId Pointer to an  <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-iobjectid">IObjectId</a> interface that represents the algorithm OID.
      * @param {BSTR} strEncodedKey A <b>BSTR</b> variable that contains the public key.
      * @param {BSTR} strEncodedParameters A <b>BSTR</b> variable that contains the parameters associated with the public key. For more information, see the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509publickey-get_encodedparameters">EncodedParameters</a> property.
-     * @param {Integer} Encoding An <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/ne-certenroll-encodingtype">EncodingType</a> enumeration value that specifies the type of Unicode-encoding applied to the  arguments specified in the <i>strEncodedKey</i> and <i>strEncodedParameters</i> parameters. The default value is XCN_CRYPT_STRING_BASE64.
+     * @param {EncodingType} Encoding An <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/ne-certenroll-encodingtype">EncodingType</a> enumeration value that specifies the type of Unicode-encoding applied to the  arguments specified in the <i>strEncodedKey</i> and <i>strEncodedParameters</i> parameters. The default value is XCN_CRYPT_STRING_BASE64.
      * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>.
      * 
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
@@ -121,7 +120,7 @@ class IX509PublicKey extends IDispatch{
      * </li>
      * </ul>
      * @param {BSTR} strEncodedPublicKeyInfo A <b>BSTR</b> variable that contains the key.
-     * @param {Integer} Encoding An <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/ne-certenroll-encodingtype">EncodingType</a> enumeration value that specifies the type of Unicode encoding applied to  the key contained in the <i>strEncodedPublicKeyInfo</i> parameter. The default value is XCN_CRYPT_STRING_BASE64.
+     * @param {EncodingType} Encoding An <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/ne-certenroll-encodingtype">EncodingType</a> enumeration value that specifies the type of Unicode encoding applied to  the key contained in the <i>strEncodedPublicKeyInfo</i> parameter. The default value is XCN_CRYPT_STRING_BASE64.
      * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>.
      * 
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
@@ -181,7 +180,7 @@ class IX509PublicKey extends IDispatch{
      * Retrieves a byte array that contains the public key.
      * @remarks
      * Call the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509publickey-initializefromencodedpublickeyinfo">InitializeFromEncodedPublicKeyInfo</a> method or the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509publickey-initialize">Initialize</a> method to initialize the public key object before calling this property.
-     * @param {Integer} Encoding 
+     * @param {EncodingType} Encoding 
      * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509publickey-get_encodedkey
      */
@@ -279,7 +278,7 @@ class IX509PublicKey extends IDispatch{
      * AES-IV ::= OCTET STRING (SIZE(16))
      * 
      * ```
-     * @param {Integer} Encoding 
+     * @param {EncodingType} Encoding 
      * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509publickey-get_encodedparameters
      */
@@ -293,12 +292,12 @@ class IX509PublicKey extends IDispatch{
      * Creates an identifier from a 160-bit SHA-1 hash of the public key.
      * @remarks
      * You must call the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509publickey-initializefromencodedpublickeyinfo">InitializeFromEncodedPublicKeyInfo</a> method or the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509publickey-initialize">Initialize</a> method to initialize the public key object before calling  <b>ComputeKeyIdentifier</b>.
-     * @param {Integer} Algorithm A value of the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/ne-certenroll-keyidentifierhashalgorithm">KeyIdentifierHashAlgorithm</a> enumeration that specifies what hash algorithm to use to create the key identifier.
+     * @param {KeyIdentifierHashAlgorithm} Algorithm A value of the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/ne-certenroll-keyidentifierhashalgorithm">KeyIdentifierHashAlgorithm</a> enumeration that specifies what hash algorithm to use to create the key identifier.
      * 
      * If this value is SKIHashDefault or SKIHashSha1, the identifier is created by hashing only the byte array that contains the key and excluding the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/d-gly">Distinguished Encoding Rules</a> (DER) tag, length, and unused bits fields.
      * 
      * If this value is SKIHashCapiSha1, the identifier is created by hashing the DER-encoded byte array that contains the tag, length,  number of unused bits, and the public key.
-     * @param {Integer} Encoding An <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/ne-certenroll-encodingtype">EncodingType</a> enumeration value that specifies the type of Unicode-encoding to be applied to the hash contained in the <i>pValue</i> parameter. The default value is XCN_CRYPT_STRING_BASE64.
+     * @param {EncodingType} Encoding An <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/ne-certenroll-encodingtype">EncodingType</a> enumeration value that specifies the type of Unicode-encoding to be applied to the hash contained in the <i>pValue</i> parameter. The default value is XCN_CRYPT_STRING_BASE64.
      * @returns {BSTR} Pointer to a <b>BSTR</b> variable that contains the key identifier.
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509publickey-computekeyidentifier
      */

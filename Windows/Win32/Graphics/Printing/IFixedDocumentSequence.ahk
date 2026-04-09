@@ -1,15 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\Foundation\BSTR.ahk
 #Include .\IPartPrintTicket.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
- * @version v4.0.30319
  */
-class IFixedDocumentSequence extends IUnknown{
+class IFixedDocumentSequence extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

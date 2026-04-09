@@ -3,7 +3,6 @@
 
 /**
  * @namespace Windows.Win32.Data.RightsManagement
- * @version v4.0.30319
  */
 class RightsManagement {
 
@@ -354,7 +353,7 @@ class RightsManagement {
      * WinINet does not support usage under the network service account. If an application will be run under the network service account, the application must specify the <b>DRMGLOBALOPTIONS_USE_WINHTTP</b> option.
      * 
      * An AD RMS-enabled server application should call the <b>DRMSetGlobalOptions</b> function prior to calling any other rights management functions. Calling <b>DRMSetGlobalOptions</b> after other rights management functions have been called will not change the type of lockbox or transport protocol in use.
-     * @param {Integer} eGlobalOptions A value of the <a href="https://docs.microsoft.com/windows/desktop/api/msdrmdefs/ne-msdrmdefs-drmglobaloptions">DRMGLOBALOPTIONS</a> enumeration that specifies the option to set.
+     * @param {DRMGLOBALOPTIONS} eGlobalOptions A value of the <a href="https://docs.microsoft.com/windows/desktop/api/msdrmdefs/ne-msdrmdefs-drmglobaloptions">DRMGLOBALOPTIONS</a> enumeration that specifies the option to set.
      * 
      * Only one option can be specified in each call to <b>DRMSetGlobalOptions</b>. For example, if both WinHTTP and the server lockbox are required, you must call <b>DRMSetGlobalOptions</b> twice, once with <i>eGlobalOptions</i> set to <b>DRMGLOBALOPTIONS_USE_WINHTTP</b> and once with <i>eGlobalOptions</i> set to <b>DRMGLOBALOPTIONS_USE_SERVERSECURITYPROCESSOR</b>.
      * @param {Pointer<Void>} pvdata A pointer to a <b>void</b> value. This parameter is not currently used.
@@ -396,8 +395,8 @@ class RightsManagement {
      *      handle by calling <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrm/nf-msdrm-drmclosehandle">DRMCloseHandle</a>. Close the environment 
      *      handle by calling 
      *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrm/nf-msdrm-drmcloseenvironmenthandle">DRMCloseEnvironmentHandle</a>.
-     * @param {Integer} eSecurityProviderType Specifies the type of security provider to use.
-     * @param {Integer} eSpecification Specifies which security provider to use.
+     * @param {DRMSECURITYPROVIDERTYPE} eSecurityProviderType Specifies the type of security provider to use.
+     * @param {DRMSPECTYPE} eSpecification Specifies which security provider to use.
      * @param {PWSTR} wszSecurityProvider The file name and ID of the security provider. A security provider can be a file on the computer (the 
      *       lockbox) or a hardware device that holds the secure machine key. The path to this key is obtained by calling 
      *       <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrm/nf-msdrm-drmgetsecurityprovider">DRMGetSecurityProvider</a>.
@@ -437,7 +436,7 @@ class RightsManagement {
      * Dependencies of the loaded DLL will also be loaded, provided they are included in the plug-in credentials and are properly signed. If the DLL has already been loaded, the function will return S_OK and return a pointer to the same handle.<div class="alert"><b>Note</b>  If an application attempts to load a second library with the name of a previously loaded library, this new library will not be checked against the manifest, even if it is from a different path. Use only uniquely named libraries to avoid this circumvention of manifest checking.</div>
      * <div> </div>
      * @param {Integer} hEnv A handle to an environment, created by <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrm/nf-msdrm-drminitenvironment">DRMInitEnvironment</a>.
-     * @param {Integer} eSpecification The library provider type.
+     * @param {DRMSPECTYPE} eSpecification The library provider type.
      * @param {PWSTR} wszLibraryProvider Name and optional path to the DLL. Every DLL must have a unique name. If similarly named DLLs are loaded, even if they are in different paths, only the first item will be included in the manifest and checked.
      * @param {PWSTR} wszCredentials Reserved, must be <b>NULL</b>. The DLL that is loaded must be referenced in the application manifest loaded by <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrm/nf-msdrm-drminitenvironment">DRMInitEnvironment</a>.
      * @param {Pointer<Integer>} phLibrary A handle to the library.
@@ -489,7 +488,7 @@ class RightsManagement {
      * If this function fails, an application should destroy the current process after closing the environment with <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrm/nf-msdrm-drmcloseenvironmenthandle">DRMCloseEnvironmentHandle</a>.
      * 
      * Closing a handle to a library will cause the library to be unloaded if it has no remaining open objects.
-     * @param {Integer} _handle 
+     * @param {Integer} _handle A handle to close.
      * @returns {HRESULT} If the function succeeds, the function returns S_OK.
      * 
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
@@ -787,7 +786,7 @@ class RightsManagement {
      * Data signed by using <b>DRMAttest</b> can be verified by using <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrm/nf-msdrm-drmverify">DRMVerify</a>.
      * @param {Integer} hEnablingPrincipal A handle to an enabling principal object created by using <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrm/nf-msdrm-drmcreateenablingprincipal">DRMCreateEnablingPrincipal</a>.
      * @param {PWSTR} wszData The data to encode.
-     * @param {Integer} eType An enumeration that determines whether to include full environment data or only a hash.
+     * @param {DRMATTESTTYPE} eType An enumeration that determines whether to include full environment data or only a hash.
      * @param {Pointer<Integer>} pcAttestedBlob Length, in characters, of the string being returned, plus one for a terminating null character.
      * @param {PWSTR} wszAttestedBlob The signed data.
      * @returns {HRESULT} If the function succeeds, the function returns S_OK.
@@ -808,7 +807,7 @@ class RightsManagement {
     /**
      * Requests a secure time from the rights management system.
      * @param {Integer} hEnv Environment handle.
-     * @param {Integer} eTimerIdType The type of time returned.
+     * @param {DRMTIMETYPE} eTimerIdType The type of time returned.
      * @param {Pointer<SYSTEMTIME>} poTimeObject Pointer to a time structure.
      * @returns {HRESULT} If the function succeeds, the function returns S_OK.
      * 
@@ -833,12 +832,23 @@ class RightsManagement {
      * 
      * 
      * To retrieve  information about the secure environment, you can call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrm/nf-msdrm-drmgetenvironmentinfo">DRMGetEnvironmentInfo</a> function.
-     * @param {Integer} _handle 
+     * @param {Integer} _handle Specifies the handle to query. This can be created by using one of the following functions:
+     * 
+     * <ul>
+     * <li>
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrm/nf-msdrm-drmcreateenablingbitsdecryptor">DRMCreateEnablingBitsDecryptor</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrm/nf-msdrm-drmcreateenablingbitsencryptor">DRMCreateEnablingBitsEncryptor</a>
+     * </li>
+     * </ul>
+     * <div class="alert"><b>Note</b>  You can specify only the handle of an encrypting or a decrypting object. If you specify any other handle, the function returns <b>E_DRM_INVALID_HANDLE</b>.</div>
+     * <div> </div>
      * @param {PWSTR} wszAttribute The attribute of the handle to query for. The supported attributes are <b>g_wszQUERY_BLOCKSIZE</b>, to determine the block size, and <b>g_wszQUERY_SYMMETRICKEY_TYPE</b>, to determine whether the cipher mode is AES ECB or AES CBC 4K. 
      * 
      * <div class="alert"><b>Note</b>  You can use <b>g_wszQUERY_SYMMETRICKEY_TYPE</b> only in Windows 7. It is not available for earlier versions of AD RMS.</div>
      * <div> </div>
-     * @param {Pointer<Integer>} peEncoding Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/msdrmdefs/ne-msdrmdefs-drmencodingtype">DRMENCODINGTYPE</a> enumeration that identifies the type of encoding to be applied to the information retrieved.
+     * @param {Pointer<DRMENCODINGTYPE>} peEncoding Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/msdrmdefs/ne-msdrmdefs-drmencodingtype">DRMENCODINGTYPE</a> enumeration that identifies the type of encoding to be applied to the information retrieved.
      * @param {Pointer<Integer>} pcBuffer A pointer to a <b>UINT</b> value that, on input, contains the size of the buffer pointed to by the <i>pbBuffer</i> parameter. The size of the buffer is expressed as the number of Unicode characters, including the terminating null character. On output, the value contains the number of characters copied to the buffer. The number copied includes the terminating null character.
      * @param {Pointer<Integer>} pbBuffer A pointer to a null-terminated Unicode string that receives the value associated with the attribute specified by the <i>wszAttribute</i> parameter. The size of this buffer is specified by the <i>pcBuffer</i> parameter. The size is expressed as the number of Unicode characters, including the terminating null character.
      * 
@@ -879,9 +889,9 @@ class RightsManagement {
      * 
      * 
      * In Rights Management Services client 1.0 SP1, the only supported attribute is <b>g_wszQUERY_BLOCKSIZE</b>. For the attributes that can be queried in Rights Management Services client 1.0, see the Msdrmgetinfo.h header file that installs with this SDK.
-     * @param {Integer} _handle 
+     * @param {Integer} _handle Environment handle.
      * @param {PWSTR} wszAttribute The attribute to query for. In Rights Management Services client 1.0 SP1, the only supported attribute is <b>g_wszQUERY_BLOCKSIZE</b>. In Rights Management Services client 1.0, the attributes that can be queried are listed in the header file Msdrmgetinfo.h. Attributes include <b>g_wszQUERY_MANIFESTSOURCE</b> and <b>g_wszQUERY_APIVERSION</b>.
-     * @param {Pointer<Integer>} peEncoding Encoding type used.
+     * @param {Pointer<DRMENCODINGTYPE>} peEncoding Encoding type used.
      * @param {Pointer<Integer>} pcBuffer A pointer to a UINT value that, on input, contains the size of the buffer pointed to by the <i>pbBuffer</i> parameter. The size of the buffer is expressed as the number of Unicode characters, including the terminating null character. On output, the value contains the number of characters copied to the buffer. The number copied includes the terminating null character.
      * @param {Pointer<Integer>} pbBuffer A pointer to a null-terminated Unicode string that receives the value associated with the attribute specified by the <i>wszAttribute</i> parameter. The size of this buffer is specified by the <i>pcBuffer</i> parameter. The size is expressed as the number of Unicode characters, including the terminating null character.
      * @returns {HRESULT} If the function succeeds, the function returns S_OK.
@@ -1016,7 +1026,7 @@ class RightsManagement {
      * @param {Integer} hQueryRoot A handle to a root query object, from a previous call to this function or from <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrm/nf-msdrm-drmcreateboundlicense">DRMCreateBoundLicense</a>.
      * @param {PWSTR} wszAttribute The attribute to retrieve.
      * @param {Integer} iWhich Zero-based index of the occurrence to retrieve.
-     * @param {Pointer<Integer>} peEncoding Encoding type used.
+     * @param {Pointer<DRMENCODINGTYPE>} peEncoding Encoding type used.
      * @param {Pointer<Integer>} pcBuffer Size, in characters, of the attribute retrieved plus one for a terminating null character.
      * @param {Pointer<Integer>} pbBuffer Pointer to the attribute object.
      * @returns {HRESULT} If the function succeeds, the function returns S_OK.
@@ -1045,7 +1055,7 @@ class RightsManagement {
      * All license storage sessions must be closed before closing the client session. When you have finished using the client session, close it by passing the handle provided by this function to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrm/nf-msdrm-drmclosesession">DRMCloseSession</a> function.
      * 
      * The <b>DRMCreateClientSession</b> function cannot be called concurrently by different processes running as different users on the same computer if one or more of these processes is a service process. A call by a second  process, for example, can succeed only after the client session handle for the first process has been closed.
-     * @param {Pointer<DRMCALLBACK>} _pfnCallback 
+     * @param {Pointer<DRMCALLBACK>} _pfnCallback A pointer to an application-defined callback function that will receive asynchronous function status messages in response to other AD RMS functions, such as <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrm/nf-msdrm-drmactivate">DRMActivate</a>. The format of this callback function is defined in <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrmdefs/nc-msdrmdefs-drmcallback">Callback Prototype</a>. This parameter cannot be <b>NULL</b>.
      * @param {Integer} uCallbackVersion Specifies the version of the callback function. Currently, only version zero is supported.
      * @param {PWSTR} wszGroupIDProviderType 
      * @param {PWSTR} wszGroupID A pointer to a null-terminated Unicode string that contains an email address for the user in the format <i>someone@example.com</i>. Typically, this value already exists in Active Directory (AD) and is the same ID as that supplied in the logon credentials. If it is not the same, later calls to <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrm/nf-msdrm-drmisactivated">DRMIsActivated</a> and <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrm/nf-msdrm-drmenumeratelicense">DRMEnumerateLicense</a> will fail. For more information, see Remarks.
@@ -1942,7 +1952,7 @@ class RightsManagement {
      * @param {Integer} hQueryRoot A handle to a license or object in the license, created by using <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrm/nf-msdrm-drmgetunboundlicenseobject">DRMGetUnboundLicenseObject</a> or <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrm/nf-msdrm-drmparseunboundlicense">DRMParseUnboundLicense</a>.
      * @param {PWSTR} wszAttributeType Name of the attribute to retrieve.
      * @param {Integer} iWhich Zero-based index of the attribute to retrieve.
-     * @param {Pointer<Integer>} peEncoding An enumeration value specifying the encoding type of the return value.
+     * @param {Pointer<DRMENCODINGTYPE>} peEncoding An enumeration value specifying the encoding type of the return value.
      * @param {Pointer<Integer>} pcBuffer Size of the returned data, in characters, plus one for a null terminator.
      * @param {Pointer<Integer>} pbBuffer Attribute value.
      * @returns {HRESULT} If the function succeeds, the function returns S_OK.
@@ -2011,7 +2021,7 @@ class RightsManagement {
      * @param {PWSTR} wszData The data to verify (original data).
      * @param {Pointer<Integer>} pcAttestedData Length, in characters, of the data to verify, plus one for a terminating null character.
      * @param {PWSTR} wszAttestedData The signed data.
-     * @param {Pointer<Integer>} peType Whether full environment information,  or just a hash of the environment, is included.
+     * @param {Pointer<DRMATTESTTYPE>} peType Whether full environment information,  or just a hash of the environment, is included.
      * @param {Pointer<Integer>} pcPrincipal Size, in characters, of the <i>wszPrincipalCredentials</i> parameter, plus one for a terminating null character.
      * @param {PWSTR} wszPrincipal Certificate chain of the principal attesting the data. This chain is needed to create the principal used to verify the data.
      * @param {Pointer<Integer>} pcManifest Size, in characters, of the manifest used to sign the data, plus one for a terminating null character. For information about making a manifest, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/adrms_sdk/creating-an-application-manifest">Creating an Application Manifest</a>.
@@ -2391,7 +2401,7 @@ class RightsManagement {
      * 
      * The version comparison is a case-sensitive, character-by-character string comparison, so when comparing versions, "6" and "6.0" are considered different. Because of this, an application must use a consistent format when setting and comparing values.
      * @param {Integer} hIssuanceLicense A handle to an issuance license.
-     * @param {Integer} eUsagePolicyType One of the <a href="https://docs.microsoft.com/windows/desktop/api/msdrmdefs/ne-msdrmdefs-drm_usagepolicy_type">DRM_USAGEPOLICY_TYPE</a> values that specifies the type of usage policy to be added or deleted. Only one type may be selected.
+     * @param {DRM_USAGEPOLICY_TYPE} eUsagePolicyType One of the <a href="https://docs.microsoft.com/windows/desktop/api/msdrmdefs/ne-msdrmdefs-drm_usagepolicy_type">DRM_USAGEPOLICY_TYPE</a> values that specifies the type of usage policy to be added or deleted. Only one type may be selected.
      * @param {BOOL} fDelete Determines whether the policy should be added or removed. <b>TRUE</b> indicates the policy should be deleted. <b>FALSE</b> indicates the policy should be added.
      * @param {BOOL} fExclusion Determines whether the application is prohibited from, or required to, exercise the rights. <b>FALSE</b> indicates that the application is required to exercise the rights. <b>TRUE</b> indicates that the application is prohibited from exercising the rights. You must specify <b>TRUE</b> if you set the <i>eUsagePolicyType</i> parameter to <b>DRM_USAGEPOLICY_TYPE_BYNAME</b> or <b>DRM_USAGEPOLICY_TYPE_BYDIGEST</b>.
      * @param {PWSTR} wszName A pointer to a null-terminated Unicode string that contains the name of the application. This parameter is required when <i>eUsagePolicyType</i> contains <b>DRM_USAGEPOLICY_TYPE_BYNAME</b>. It is ignored for all other <i>eUsagePolicyType</i> values.
@@ -2959,7 +2969,7 @@ class RightsManagement {
      * @param {Integer} cbSymKey The size, in bytes, of the content key. Currently, this parameter can only be 16 unless the <i>uFlags</i> parameter specifies <b>DRM_AUTO_GENERATE_KEY</b> or <b>DRM_REUSE_KEY</b>, in which case this parameter can be zero.
      * @param {PWSTR} wszSymKeyType The key type. The value <b>AES</b> specifies the Advanced Encryption Standard (AES) algorithm with the  electronic code book (ECB) cipher mode. If you are using Windows 7, the value <b>AES_CBC4K</b> can be used to specify the AES algorithm with cipher-block chaining (CBC) cipher mode. See the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrm/nf-msdrm-drmencrypt">DRMEncrypt</a> code examples for more information.
      * @param {PWSTR} wszClientLicensorCertificate A pointer to null-terminated Unicode string that contains a client licensor certificate obtained by using the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrm/nf-msdrm-drmacquirelicense">DRMAcquireLicense</a> function. If you are attempting online signing, this parameter should be <b>NULL</b>. If you are developing a server application that does not use a lockbox and  if you are using the <b>DRM_SERVER_ISSUANCELICENSE</b> flag in <i>uFlags</i>, pass in the server license certificate chain. The server licensor certificate chain can be retrieved by using the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/adrms_sdk/-getlicensorcertificate">GetLicensorCertificate</a> SOAP method; however, to make the chain usable, it must be reordered by using the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrm/nf-msdrm-drmconstructcertificatechain">DRMConstructCertificateChain</a> function.
-     * @param {Pointer<DRMCALLBACK>} _pfnCallback 
+     * @param {Pointer<DRMCALLBACK>} _pfnCallback A pointer to the callback function used to notify the application of an asynchronous request's progress. For the signature of the callback function you must provide, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrmdefs/nc-msdrmdefs-drmcallback">Callback Prototype</a>.
      * @param {PWSTR} wszURL A pointer to a null-terminated Unicode string that contains the URL of an AD RMS licensing server that was obtained by using the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrm/nf-msdrm-drmgetservicelocation">DRMGetServiceLocation</a> function. This string takes the form "<i>ADRMSLicensingServerURL</i>/_wmcs/Licensing". This parameter value is required for online license requests; you can use <b>NULL</b> for offline license requests. This URL is entered in the signed issuance license as the default silent license acquisition URL, which is where an application will automatically go to acquire an end-user license if none is specified in <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrm/nf-msdrm-drmacquirelicense">DRMAcquireLicense</a>.
      * @param {Pointer<Void>} pvContext A 32-bit, application-defined value that is sent in the <i>pvContext</i> parameter of the callback function. This value can be a pointer to data, a pointer to an event handle, or whatever else the custom callback function is designed to handle. For more information, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/adrms_sdk/creating-a-callback-function">Creating a Callback Function</a>.
      * @returns {HRESULT} If the function succeeds, the function returns S_OK.
@@ -2986,13 +2996,13 @@ class RightsManagement {
      * @param {Integer} hEnv A handle to a secure environment created by using the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrm/nf-msdrm-drminitenvironment">DRMInitEnvironment</a> function. The handle is required for offline signing. Applications that do not use a lockbox should pass <b>NULL</b> for this parameter.
      * @param {Integer} hIssuanceLicense A handle to an issuance license to sign, created by using the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrm/nf-msdrm-drmcreateissuancelicense">DRMCreateIssuanceLicense</a> function.
      * @param {Integer} uFlags 
-     * @param {Pointer} pbSymKey The content key used to encrypt the document. If this value is <b>NULL</b>, the <i>uFlags</i> parameter must specify <b>DRM_AUTO_GENERATE_KEY</b> or <b>DRM_REUSE_KEY</b>. These <i>uFlags</i> values cause <i>pbSymKey</i> to be ignored.
+     * @param {Integer} pbSymKey The content key used to encrypt the document. If this value is <b>NULL</b>, the <i>uFlags</i> parameter must specify <b>DRM_AUTO_GENERATE_KEY</b> or <b>DRM_REUSE_KEY</b>. These <i>uFlags</i> values cause <i>pbSymKey</i> to be ignored.
      * @param {Integer} cbSymKey The size, in bytes, of the content key. Currently, this parameter can only be 16 unless the <i>uFlags</i> parameter specifies <b>DRM_AUTO_GENERATE_KEY</b> or <b>DRM_REUSE_KEY</b>, in which case this parameter can be zero.
      * @param {PWSTR} wszSymKeyType The key type. The value <b>AES</b> specifies the Advanced Encryption Standard (AES) algorithm with the  electronic code book (ECB) cipher mode. If you are using Windows 7, the value <b>AES_CBC4K</b> can be used to specify the AES algorithm with cipher-block chaining (CBC) cipher mode. See the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrm/nf-msdrm-drmencrypt">DRMEncrypt</a> code examples for more information.
      * @param {Pointer<Void>} pvReserved Reserved for future use.
      * @param {Integer} hEnablingPrincipal A handle to an enabling principal in the end-user license that should be bound. Create this handle by using the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrm/nf-msdrm-drmcreateenablingprincipal">DRMCreateEnablingPrincipal</a> function by passing in the rights account certificate. This parameter is required.
      * @param {Integer} hBoundLicenseCLC A handle to the bound license corresponding to the client licensor certificate created using <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrm/nf-msdrm-drmcreateboundlicense">DRMCreateBoundLicense</a>. This can be created by binding the <i>wszClientLicensorCertificate</i> to the <b>ISSUE</b> right using the <i>hEnablingPrincipal</i> handle. This parameter is required.
-     * @param {Pointer<DRMCALLBACK>} _pfnCallback 
+     * @param {Pointer<DRMCALLBACK>} _pfnCallback A pointer to the callback function used to notify the application of an asynchronous request's progress. For the signature of the callback function you must provide, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrmdefs/nc-msdrmdefs-drmcallback">Callback Prototype</a>.
      * @param {Pointer<Void>} pvContext A 32-bit, application-defined value that is sent in the <i>pvContext</i> parameter of the callback function. This value can be a pointer to data, a pointer to an event handle, or whatever else the custom callback function is designed to handle. For more information, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/adrms_sdk/creating-a-callback-function">Creating a Callback Function</a>.
      * @returns {HRESULT} If the function succeeds, the function returns S_OK.
      * 
@@ -3403,7 +3413,7 @@ class RightsManagement {
      * Currently, comparison is a case-sensitive, character-by-character string comparison, so the values "6" and "6.0" are considered different. Because of this, an application must use a consistent format when setting and comparing values.
      * @param {Integer} hIssuanceLicense The handle of the issuance license that the usage policy is contained in.
      * @param {Integer} uIndex The zero-based index of the policy to retrieve.
-     * @param {Pointer<Integer>} peUsagePolicyType A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/msdrmdefs/ne-msdrmdefs-drm_usagepolicy_type">DRM_USAGEPOLICY_TYPE</a> value that receives one of the <b>DRM_USAGEPOLICY_TYPE</b> values that specifies the type of usage policy (name, public key, and so on). If a usage policy of type <b>DRM_USAGEPOLICY_TYPE_BYNAME</b> is chosen, then application versions between, and including, the minimum and maximum versions specified in  <i>wszMinVersion</i> and <i>wszMaxVersion</i>, respectively, will be included or excluded.
+     * @param {Pointer<DRM_USAGEPOLICY_TYPE>} peUsagePolicyType A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/msdrmdefs/ne-msdrmdefs-drm_usagepolicy_type">DRM_USAGEPOLICY_TYPE</a> value that receives one of the <b>DRM_USAGEPOLICY_TYPE</b> values that specifies the type of usage policy (name, public key, and so on). If a usage policy of type <b>DRM_USAGEPOLICY_TYPE_BYNAME</b> is chosen, then application versions between, and including, the minimum and maximum versions specified in  <i>wszMinVersion</i> and <i>wszMaxVersion</i>, respectively, will be included or excluded.
      * @param {Pointer<BOOL>} pfExclusion A pointer to a <b>BOOL</b> value that receives a value the specifies whether the policy is an exclusion policy. <b>TRUE</b> indicates that the application is prohibited from exercising the rights. <b>FALSE</b> indicates that the application is required to exercise the rights.
      * @param {Pointer<Integer>} puNameLength A pointer to a <b>UINT</b> value that, on entry, contains the length, in characters, of the <i>wszName</i> buffer. This length must include the terminating null character.
      * 
@@ -3566,7 +3576,7 @@ class RightsManagement {
      * @remarks
      * If the process ID does not equal the ID of the thread that created the window, the function fails. Also, if the visibility state of the window is not <b>WS_VISIBLE</b>, the function fails.
      * @param {Integer} hEnv A handle to the secure environment.
-     * @param {HWND} _hwnd 
+     * @param {HWND} _hwnd A handle to the window to be registered.
      * @returns {HRESULT} If the function succeeds, the function returns S_OK.
      * 
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following list. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
@@ -3582,7 +3592,7 @@ class RightsManagement {
 
     /**
      * Indicates whether a window is associated with a protected environment.
-     * @param {HWND} _hwnd 
+     * @param {HWND} _hwnd The window handle.
      * @param {Pointer<BOOL>} pfProtected A pointer to a <b>BOOL</b> that indicates whether the window is associated with a protected environment.
      * @returns {HRESULT} If the function succeeds, the function returns S_OK.
      * 

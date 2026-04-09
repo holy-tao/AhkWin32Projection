@@ -1,14 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
-#Include .\IDebugHostType2.ahk
 #Include .\IDebugHostType.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
- * @version v4.0.30319
  */
-class IDebugHostType2 extends IDebugHostType{
+class IDebugHostType2 extends IDebugHostType {
 
     static sizeof => A_PtrSize
     /**
@@ -58,7 +56,7 @@ class IDebugHostType2 extends IDebugHostType{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {VarArgsKind} 
      */
     GetFunctionVarArgsKind() {
         result := ComCall(32, this, "int*", &_varArgsKind := 0, "HRESULT")

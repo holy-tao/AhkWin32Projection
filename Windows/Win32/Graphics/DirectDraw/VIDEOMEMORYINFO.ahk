@@ -10,10 +10,8 @@
  * GDI allocates memory for and passes a VIDEOMEMORYINFO structure to the driver's <a href="https://docs.microsoft.com/windows/desktop/api/winddi/nf-winddi-drvgetdirectdrawinfo">DrvGetDirectDrawInfo</a> function as a member of the DD_HALINFO parameter. The driver should fill in the appropriate members to describe the general characteristics of the device's memory.
  * @see https://learn.microsoft.com/windows/win32/api/ddrawint/ns-ddrawint-videomemoryinfo
  * @namespace Windows.Win32.Graphics.DirectDraw
- * @version v4.0.30319
  */
-class VIDEOMEMORYINFO extends Win32Struct
-{
+class VIDEOMEMORYINFO extends Win32Struct {
     static sizeof => 88
 
     static packingSize => 8
@@ -67,7 +65,7 @@ class VIDEOMEMORYINFO extends Win32Struct
      * Specifies a <a href="https://docs.microsoft.com/windows-hardware/drivers/ddi/content/ksmedia/ns-ksmedia-_ddpixelformat">DDPIXELFORMAT</a> structure in which the pixel format of the display is described.
      * @type {DDPIXELFORMAT}
      */
-    ddpfDisplay{
+    ddpfDisplay {
         get {
             if(!this.HasProp("__ddpfDisplay"))
                 this.__ddpfDisplay := DDPIXELFORMAT(24, this)

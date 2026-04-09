@@ -1,15 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\WS_CERT_CREDENTIAL.ahk
+#Include .\WS_CERT_CREDENTIAL_TYPE.ahk
 
 /**
  * The type for specifying a certificate credential that is to be supplied by a callback to the application.
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_custom_cert_credential
  * @namespace Windows.Win32.Networking.WindowsWebServices
- * @version v4.0.30319
  */
-class WS_CUSTOM_CERT_CREDENTIAL extends Win32Struct
-{
+class WS_CUSTOM_CERT_CREDENTIAL extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -18,7 +17,7 @@ class WS_CUSTOM_CERT_CREDENTIAL extends Win32Struct
      * The base type from which this type and all other certificate credential types derive.
      * @type {WS_CERT_CREDENTIAL}
      */
-    credential{
+    credential {
         get {
             if(!this.HasProp("__credential"))
                 this.__credential := WS_CERT_CREDENTIAL(0, this)
@@ -45,7 +44,6 @@ class WS_CUSTOM_CERT_CREDENTIAL extends Win32Struct
     }
 
     /**
-     * 
      * @type {Pointer<WS_CERT_ISSUER_LIST_NOTIFICATION_CALLBACK>}
      */
     certIssuerListNotificationCallback {
@@ -54,7 +52,6 @@ class WS_CUSTOM_CERT_CREDENTIAL extends Win32Struct
     }
 
     /**
-     * 
      * @type {Pointer<Void>}
      */
     certIssuerListNotificationCallbackState {

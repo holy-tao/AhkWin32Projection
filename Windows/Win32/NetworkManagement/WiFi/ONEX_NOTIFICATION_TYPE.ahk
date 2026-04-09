@@ -13,9 +13,8 @@
  * The callback function is called with a pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms706902(v=vs.85)">WLAN_NOTIFICATION_DATA</a> structure as the first parameter that contains detailed information on the notification. The callback function also receives a second parameter that contains a pointer to the client context passed in the <i>pCallbackContext</i> parameter to the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlanregisternotification">WlanRegisterNotification</a> function. This client context can be a <b>NULL</b> pointer if that is what was passed to the <b>WlanRegisterNotification</b> function.
  * @see https://learn.microsoft.com/windows/win32/api/dot1x/ne-dot1x-onex_notification_type
  * @namespace Windows.Win32.NetworkManagement.WiFi
- * @version v4.0.30319
  */
-class ONEX_NOTIFICATION_TYPE extends Win32Enum{
+class ONEX_NOTIFICATION_TYPE extends Win32Enum {
 
     /**
      * Indicates the beginning of the range that specifies the possible values for 802.1X notifications.

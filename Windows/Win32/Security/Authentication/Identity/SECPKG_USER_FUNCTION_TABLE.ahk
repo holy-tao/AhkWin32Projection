@@ -5,10 +5,8 @@
  * The SECPKG_USER_FUNCTION_TABLE structure contains pointers to the functions that a security package implements to support executing in process with client/server applications. This structure is provided by the SpUserModeInitialize function.
  * @see https://learn.microsoft.com/windows/win32/api/ntsecpkg/ns-ntsecpkg-secpkg_user_function_table
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class SECPKG_USER_FUNCTION_TABLE extends Win32Struct
-{
+class SECPKG_USER_FUNCTION_TABLE extends Win32Struct {
     static sizeof => 120
 
     static packingSize => 8

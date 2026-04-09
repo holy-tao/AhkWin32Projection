@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Com\IUnknown.ahk
 #Include .\IItemEnumerator.ahk
 #Include .\ISettingsNamespace.ahk
 #Include ..\..\Foundation\BSTR.ahk
@@ -8,15 +9,13 @@
 #Include ..\Variant\VARIANT.ahk
 #Include .\ITargetInfo.ahk
 #Include .\ISettingsContext.ahk
-#Include ..\Com\IUnknown.ahk
 
 /**
  * The central interface for opening namespaces and controlling how they are opened.
  * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nn-wcmconfig-isettingsengine
  * @namespace Windows.Win32.System.SettingsManagementInfrastructure
- * @version v4.0.30319
  */
-class ISettingsEngine extends IUnknown{
+class ISettingsEngine extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -45,7 +44,7 @@ class ISettingsEngine extends IUnknown{
 
     /**
      * Returns an enumerator to the installed namespaces.
-     * @param {Integer} Flags A <a href="https://docs.microsoft.com/windows/win32/api/wcmconfig/ne-wcmconfig-wcmnamespaceenumerationflags">WcmNamespaceEnumerationFlags</a> value that specifies the context to include in the collection of namespaces.
+     * @param {WcmNamespaceEnumerationFlags} Flags A <a href="https://docs.microsoft.com/windows/win32/api/wcmconfig/ne-wcmconfig-wcmnamespaceenumerationflags">WcmNamespaceEnumerationFlags</a> value that specifies the context to include in the collection of namespaces.
      * @param {Pointer<Void>} Reserved Reserved. Must be <b>NULL</b>.
      * @returns {IItemEnumerator} An <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/wcmconfig/nn-wcmconfig-iitemenumerator">IItemEnumerator</a> interface pointer whose methods can be used to access members of the collection.
      * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-isettingsengine-getnamespaces
@@ -60,7 +59,7 @@ class ISettingsEngine extends IUnknown{
     /**
      * Opens an existing namespace as specified by the ISettingsIdentity parameter.
      * @param {ISettingsIdentity} SettingsID An <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/wcmconfig/nn-wcmconfig-isettingsidentity">ISettingsIdentity</a> object that specifies an existing namespace to get.
-     * @param {Integer} Access A <a href="https://docs.microsoft.com/windows/win32/api/wcmconfig/ne-wcmconfig-wcmnamespaceaccess">WcmNamespaceAccess</a> value that specifies the type of access, whether it is read-only or read and write access.
+     * @param {WcmNamespaceAccess} Access A <a href="https://docs.microsoft.com/windows/win32/api/wcmconfig/ne-wcmconfig-wcmnamespaceaccess">WcmNamespaceAccess</a> value that specifies the type of access, whether it is read-only or read and write access.
      * @param {Pointer<Void>} Reserved Reserved. Must be <b>NULL</b>.
      * @returns {ISettingsNamespace} A pointer to an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/wcmconfig/nn-wcmconfig-isettingsnamespace">ISettingsNamespace</a> object that is the result of the get operation.
      * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-isettingsengine-getnamespace
@@ -74,7 +73,7 @@ class ISettingsEngine extends IUnknown{
 
     /**
      * Retrieves a text message for a returned HRESULT code.
-     * @param {Integer} _HResult 
+     * @param {Integer} _HResult The HRESULT code for which this method retrieves the error description.
      * @returns {BSTR} The text message that corresponds to the HRESULT code.
      * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-isettingsengine-geterrordescription
      */
@@ -97,7 +96,7 @@ class ISettingsEngine extends IUnknown{
     /**
      * Gets the status of the schema store.
      * @param {Pointer<Void>} Reserved Reserved. Must be <b>NULL</b>.
-     * @returns {Integer} 
+     * @returns {WcmUserStatus} A <a href="https://docs.microsoft.com/windows/win32/api/wcmconfig/ne-wcmconfig-wcmuserstatus">WcmUserStatus</a> value that indicates the status of the store.
      * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-isettingsengine-getstorestatus
      */
     GetStoreStatus(Reserved) {

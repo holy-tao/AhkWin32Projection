@@ -7,9 +7,8 @@
  * A string-variable interface accesses a string variable.
  * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nn-d3d10effect-id3d10effectstringvariable
  * @namespace Windows.Win32.Graphics.Direct3D10
- * @version v4.0.30319
  */
-class ID3D10EffectStringVariable extends ID3D10EffectVariable{
+class ID3D10EffectStringVariable extends ID3D10EffectVariable {
 
     static sizeof => A_PtrSize
     /**

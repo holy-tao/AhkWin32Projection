@@ -1,22 +1,20 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32Struct.ahk
+#Include .\DEBUG_PROCESSOR_IDENTIFICATION_ALL.ahk
 #Include .\DEBUG_PROCESSOR_IDENTIFICATION_ALPHA.ahk
 #Include .\DEBUG_PROCESSOR_IDENTIFICATION_AMD64.ahk
 #Include .\DEBUG_PROCESSOR_IDENTIFICATION_IA64.ahk
 #Include .\DEBUG_PROCESSOR_IDENTIFICATION_X86.ahk
 #Include .\DEBUG_PROCESSOR_IDENTIFICATION_ARM.ahk
 #Include .\DEBUG_PROCESSOR_IDENTIFICATION_ARM64.ahk
-#Include .\DEBUG_PROCESSOR_IDENTIFICATION_ALL.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
- * @version v4.0.30319
  */
-class CPU_INFO_v2 extends Win32Struct
-{
-    static sizeof => 10264
+class CPU_INFO_v2 extends Win32Struct {
+    static sizeof => 184336
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}
@@ -43,12 +41,12 @@ class CPU_INFO_v2 extends Win32Struct
     }
 
     /**
-     * @type {Array<DEBUG_PROCESSOR_IDENTIFICATION_ALL>}
+     * @type {DEBUG_PROCESSOR_IDENTIFICATION_ALL}
      */
-    ProcInfo{
+    ProcInfo {
         get {
             if(!this.HasProp("__ProcInfoProxyArray"))
-                this.__ProcInfoProxyArray := Win32FixedArray(this.ptr + 16, 1280, DEBUG_PROCESSOR_IDENTIFICATION_ALL, "")
+                this.__ProcInfoProxyArray := Win32FixedArray(this.ptr + 12, 1280, DEBUG_PROCESSOR_IDENTIFICATION_ALL, "")
             return this.__ProcInfoProxyArray
         }
     }
@@ -57,7 +55,7 @@ class CPU_INFO_v2 extends Win32Struct
      * @type {Integer}
      */
     Mhz {
-        get => NumGet(this, 10256, "uint")
-        set => NumPut("uint", value, this, 10256)
+        get => NumGet(this, 184332, "uint")
+        set => NumPut("uint", value, this, 184332)
     }
 }

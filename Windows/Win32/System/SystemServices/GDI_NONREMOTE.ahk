@@ -1,12 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\Com\DWORD_BLOB.ahk
 
 /**
  * @namespace Windows.Win32.System.SystemServices
- * @version v4.0.30319
  */
-class GDI_NONREMOTE extends Win32Struct
-{
+class GDI_NONREMOTE extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -22,7 +21,7 @@ class GDI_NONREMOTE extends Win32Struct
             get => NumGet(this, 0, "int")
             set => NumPut("int", value, this, 0)
         }
-    
+
         /**
          * @type {Pointer<DWORD_BLOB>}
          */
@@ -30,7 +29,6 @@ class GDI_NONREMOTE extends Win32Struct
             get => NumGet(this, 0, "ptr")
             set => NumPut("ptr", value, this, 0)
         }
-    
     }
 
     /**
@@ -44,10 +42,10 @@ class GDI_NONREMOTE extends Win32Struct
     /**
      * @type {_u}
      */
-    u{
+    u {
         get {
             if(!this.HasProp("__u"))
-                this.__u := %this.__Class%._u(8, this)
+                this.__u := GDI_NONREMOTE._u(8, this)
             return this.__u
         }
     }

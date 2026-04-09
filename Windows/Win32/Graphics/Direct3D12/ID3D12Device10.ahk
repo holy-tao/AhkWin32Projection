@@ -5,13 +5,10 @@
 
 /**
  * TBD
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/nn-d3d12-id3d12device10
  * @namespace Windows.Win32.Graphics.Direct3D12
- * @version v4.0.30319
  */
-class ID3D12Device10 extends ID3D12Device9{
+class ID3D12Device10 extends ID3D12Device9 {
 
     static sizeof => A_PtrSize
     /**
@@ -37,13 +34,13 @@ class ID3D12Device10 extends ID3D12Device9{
      * @param {Pointer<D3D12_HEAP_PROPERTIES>} pHeapProperties Type: \_In\_ **const [D3D12_HEAP_PROPERTIES](/windows/win32/api/d3d12/ns-d3d12-d3d12_heap_properties)\***
      * 
      * A pointer to a **D3D12_HEAP_PROPERTIES** structure that provides properties for the resource's heap.
-     * @param {Integer} HeapFlags Type: **[D3D12_HEAP_FLAGS](/windows/win32/api/d3d12/ne-d3d12-d3d12_heap_flags)**
+     * @param {D3D12_HEAP_FLAGS} HeapFlags Type: **[D3D12_HEAP_FLAGS](/windows/win32/api/d3d12/ne-d3d12-d3d12_heap_flags)**
      * 
      * Heap options, as a bitwise-OR'd combination of **D3D12_HEAP_FLAGS** enumeration constants.
      * @param {Pointer<D3D12_RESOURCE_DESC1>} pDesc Type: **const [D3D12_RESOURCE_DESC1](/windows/win32/api/d3d12/ns-d3d12-d3d12_resource_desc1)\***
      * 
      * A pointer to a **D3D12_RESOURCE_DESC1** structure that describes the resource, including a mip region.
-     * @param {Integer} InitialLayout The initial layout of the texture resource; **D3D12_BARRIER_LAYOUT::D3D12_BARRIER_LAYOUT_UNDEFINED** for buffers.
+     * @param {D3D12_BARRIER_LAYOUT} InitialLayout The initial layout of the texture resource; **D3D12_BARRIER_LAYOUT::D3D12_BARRIER_LAYOUT_UNDEFINED** for buffers.
      * @param {Pointer<D3D12_CLEAR_VALUE>} pOptimizedClearValue Type: **const [D3D12_CLEAR_VALUE](/windows/win32/api/d3d12/ns-d3d12-d3d12_clear_value)\***
      * 
      * Specifies a **D3D12_CLEAR_VALUE** structure that describes the default value for a clear color.
@@ -55,7 +52,7 @@ class ID3D12Device10 extends ID3D12Device9{
      * 
      * An optional pointer to an object that represents a session for content protection. If provided, this session indicates that the resource should be protected. You can obtain an **ID3D12ProtectedResourceSession** by calling [ID3D12Device4::CreateProtectedResourceSession](/windows/win32/api/d3d12/nf-d3d12-id3d12device4-createprotectedresourcesession).
      * @param {Integer} NumCastableFormats The number of elements in *pCastableFormats*.
-     * @param {Pointer<Integer>} pCastableFormats A contiguous array of [DXGI_FORMAT](/windows/win32/api/dxgiformat/ne-dxgiformat-dxgi_format) structures that this resource can be cast to.
+     * @param {Pointer<DXGI_FORMAT>} pCastableFormats A contiguous array of [DXGI_FORMAT](/windows/win32/api/dxgiformat/ne-dxgiformat-dxgi_format) structures that this resource can be cast to.
      * @param {Pointer<Guid>} riidResource Type: **REFIID**
      * 
      * A reference to the globally unique identifier (**GUID**) of the resource interface to return in *ppvResource*.
@@ -88,7 +85,7 @@ class ID3D12Device10 extends ID3D12Device9{
      * @param {Pointer<D3D12_RESOURCE_DESC1>} pDesc Type: [in] **const <a href="https://docs.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_resource_desc">D3D12_RESOURCE_DESC</a>***
      * 
      * A pointer to a **D3D12_RESOURCE_DESC** structure that describes the resource.
-     * @param {Integer} InitialLayout The initial layout of the texture resource; **D3D12_BARRIER_LAYOUT::D3D12_BARRIER_LAYOUT_UNDEFINED** for buffers.
+     * @param {D3D12_BARRIER_LAYOUT} InitialLayout The initial layout of the texture resource; **D3D12_BARRIER_LAYOUT::D3D12_BARRIER_LAYOUT_UNDEFINED** for buffers.
      * @param {Pointer<D3D12_CLEAR_VALUE>} pOptimizedClearValue Type: [in, optional] **const <a href="https://docs.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_clear_value">D3D12_CLEAR_VALUE</a>***
      * 
      * Specifies a **D3D12_CLEAR_VALUE** that describes the default value for a clear color.
@@ -99,7 +96,7 @@ class ID3D12Device10 extends ID3D12Device9{
      * 
      * *pOptimizedClearValue* must be NULL when used with **D3D12_RESOURCE_DIMENSION_BUFFER**.
      * @param {Integer} NumCastableFormats The number of elements in *pCastableFormats*.
-     * @param {Pointer<Integer>} pCastableFormats A contiguous array of [DXGI_FORMAT](/windows/win32/api/dxgiformat/ne-dxgiformat-dxgi_format) structures that this resource can be cast to.
+     * @param {Pointer<DXGI_FORMAT>} pCastableFormats A contiguous array of [DXGI_FORMAT](/windows/win32/api/dxgiformat/ne-dxgiformat-dxgi_format) structures that this resource can be cast to.
      * @param {Pointer<Guid>} riid Type: **REFIID**
      * 
      * The globally unique identifier (**GUID**) for the resource interface. This is an input parameter.
@@ -124,7 +121,7 @@ class ID3D12Device10 extends ID3D12Device9{
      * @param {Pointer<D3D12_RESOURCE_DESC>} pDesc Type: **const [D3D12_RESOURCE_DESC](./ns-d3d12-d3d12_resource_desc.md)\***
      * 
      * A pointer to a **D3D12_RESOURCE_DESC** structure that describes the resource.
-     * @param {Integer} InitialLayout The initial layout of the texture resource; **D3D12_BARRIER_LAYOUT::D3D12_BARRIER_LAYOUT_UNDEFINED** for buffers.
+     * @param {D3D12_BARRIER_LAYOUT} InitialLayout The initial layout of the texture resource; **D3D12_BARRIER_LAYOUT::D3D12_BARRIER_LAYOUT_UNDEFINED** for buffers.
      * @param {Pointer<D3D12_CLEAR_VALUE>} pOptimizedClearValue Type: **const [D3D12_CLEAR_VALUE](./ns-d3d12-d3d12_clear_value.md)\***
      * 
      * Specifies a **D3D12_CLEAR_VALUE** structure that describes the default value for a clear color.
@@ -136,7 +133,7 @@ class ID3D12Device10 extends ID3D12Device9{
      * 
      * An optional pointer to an object that represents a session for content protection. If provided, this session indicates that the resource should be protected. You can obtain an **ID3D12ProtectedResourceSession** by calling [ID3D12Device4::CreateProtectedResourceSession](/windows/win32/api/d3d12/nf-d3d12-id3d12device4-createprotectedresourcesession).
      * @param {Integer} NumCastableFormats The number of elements in *pCastableFormats*.
-     * @param {Pointer<Integer>} pCastableFormats A contiguous array of [DXGI_FORMAT](/windows/win32/api/dxgiformat/ne-dxgiformat-dxgi_format) structures that this resource can be cast to.
+     * @param {Pointer<DXGI_FORMAT>} pCastableFormats A contiguous array of [DXGI_FORMAT](/windows/win32/api/dxgiformat/ne-dxgiformat-dxgi_format) structures that this resource can be cast to.
      * @param {Pointer<Guid>} riid Type: **REFIID**
      * 
      * A reference to the globally unique identifier (**GUID**) of the resource interface to return in *ppvResource*. See **Remarks**.

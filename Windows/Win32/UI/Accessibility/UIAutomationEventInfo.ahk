@@ -5,10 +5,8 @@
  * Contains information about a custom event.
  * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/ns-uiautomationcore-uiautomationeventinfo
  * @namespace Windows.Win32.UI.Accessibility
- * @version v4.0.30319
  */
-class UIAutomationEventInfo extends Win32Struct
-{
+class UIAutomationEventInfo extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
@@ -17,7 +15,7 @@ class UIAutomationEventInfo extends Win32Struct
      * Type: <b>GUID</b>
      * 
      * The event identifier.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     guid {
         get => NumGet(this, 0, "ptr")

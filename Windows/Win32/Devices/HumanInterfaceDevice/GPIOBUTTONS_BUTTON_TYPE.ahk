@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.HumanInterfaceDevice
- * @version v4.0.30319
  */
-class GPIOBUTTONS_BUTTON_TYPE extends Win32Enum{
+class GPIOBUTTONS_BUTTON_TYPE extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

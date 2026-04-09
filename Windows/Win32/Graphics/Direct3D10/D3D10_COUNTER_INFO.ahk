@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\D3D10_COUNTER.ahk
 
 /**
  * Information about the video card's performance counter capabilities. (D3D10_COUNTER_INFO)
@@ -7,10 +8,8 @@
  * This structure is returned by <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nf-d3d10-id3d10device-checkcounterinfo">ID3D10Device::CheckCounterInfo</a>.
  * @see https://learn.microsoft.com/windows/win32/api/d3d10/ns-d3d10-d3d10_counter_info
  * @namespace Windows.Win32.Graphics.Direct3D10
- * @version v4.0.30319
  */
-class D3D10_COUNTER_INFO extends Win32Struct
-{
+class D3D10_COUNTER_INFO extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4
@@ -19,7 +18,7 @@ class D3D10_COUNTER_INFO extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ne-d3d10-d3d10_counter">D3D10_COUNTER</a></b>
      * 
      * Largest device-dependent counter ID that the device supports. If none are supported, this value will be 0. Otherwise it will be greater than or equal to D3D10_COUNTER_DEVICE_DEPENDENT_0. See <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ne-d3d10-d3d10_counter">D3D10_COUNTER</a>.
-     * @type {Integer}
+     * @type {D3D10_COUNTER}
      */
     LastDeviceDependentCounter {
         get => NumGet(this, 0, "int")

@@ -1,20 +1,20 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\PrimaryJabColors.ahk
+#Include .\JabColorF.ahk
+#Include .\GamutShell.ahk
 
 /**
  * Defines a gamut boundary.
  * @see https://learn.microsoft.com/windows/win32/api/wcsplugin/ns-wcsplugin-gamutboundarydescription
  * @namespace Windows.Win32.UI.ColorSystem
- * @version v4.0.30319
  */
-class GamutBoundaryDescription extends Win32Struct
-{
+class GamutBoundaryDescription extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
 
     /**
-     * 
      * @type {Pointer<PrimaryJabColors>}
      */
     pPrimaries {
@@ -32,7 +32,6 @@ class GamutBoundaryDescription extends Win32Struct
     }
 
     /**
-     * 
      * @type {Pointer<JabColorF>}
      */
     pNeutralSamples {
@@ -41,7 +40,6 @@ class GamutBoundaryDescription extends Win32Struct
     }
 
     /**
-     * 
      * @type {Pointer<GamutShell>}
      */
     pReferenceShell {
@@ -50,7 +48,6 @@ class GamutBoundaryDescription extends Win32Struct
     }
 
     /**
-     * 
      * @type {Pointer<GamutShell>}
      */
     pPlausibleShell {
@@ -59,7 +56,6 @@ class GamutBoundaryDescription extends Win32Struct
     }
 
     /**
-     * 
      * @type {Pointer<GamutShell>}
      */
     pPossibleShell {

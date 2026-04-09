@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\Win32Struct.ahk
+#Include .\SE_SECURITY_DESCRIPTOR.ahk
+#Include .\GENERIC_MAPPING.ahk
+#Include .\OBJECT_TYPE_LIST.ahk
 
 /**
  * @namespace Windows.Win32.Security
- * @version v4.0.30319
  */
-class SE_ACCESS_REQUEST extends Win32Struct
-{
+class SE_ACCESS_REQUEST extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8

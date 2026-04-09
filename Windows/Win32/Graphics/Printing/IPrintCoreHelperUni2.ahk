@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
- * @version v4.0.30319
  */
-class IPrintCoreHelperUni2 extends IPrintCoreHelperUni{
+class IPrintCoreHelperUni2 extends IPrintCoreHelperUni {
 
     static sizeof => A_PtrSize
     /**
@@ -30,7 +29,7 @@ class IPrintCoreHelperUni2 extends IPrintCoreHelperUni{
 
     /**
      * 
-     * @param {Pointer} pDevmode 
+     * @param {Integer} pDevmode 
      * @param {Integer} cbSize 
      * @param {PWSTR} pszCommandName 
      * @param {Pointer<Pointer<Integer>>} ppCommandBytes 

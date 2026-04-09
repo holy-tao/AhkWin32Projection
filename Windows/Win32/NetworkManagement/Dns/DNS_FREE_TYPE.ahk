@@ -5,9 +5,8 @@
  * The DNS_FREE_TYPE enumeration specifies the type of data to free.
  * @see https://learn.microsoft.com/windows/win32/api/windns/ne-windns-dns_free_type
  * @namespace Windows.Win32.NetworkManagement.Dns
- * @version v4.0.30319
  */
-class DNS_FREE_TYPE extends Win32Enum{
+class DNS_FREE_TYPE extends Win32Enum {
 
     /**
      * The data freed is a flat structure.

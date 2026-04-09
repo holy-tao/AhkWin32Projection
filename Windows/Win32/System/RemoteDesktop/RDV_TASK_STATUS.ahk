@@ -5,9 +5,8 @@
  * Used with the IRDVTaskPluginNotifySink::OnTaskStateChange method to indicate the status of a task.
  * @see https://learn.microsoft.com/windows/win32/api/sessdirpublictypes/ne-sessdirpublictypes-rdv_task_status
  * @namespace Windows.Win32.System.RemoteDesktop
- * @version v4.0.30319
  */
-class RDV_TASK_STATUS extends Win32Enum{
+class RDV_TASK_STATUS extends Win32Enum {
 
     /**
      * The task state cannot be determined.

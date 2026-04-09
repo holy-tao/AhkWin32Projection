@@ -5,10 +5,8 @@
  * Represents a function table for the StartupEx callback function.
  * @see https://learn.microsoft.com/windows/win32/api/resapi/ns-resapi-clres_callback_function_table
  * @namespace Windows.Win32.Networking.Clustering
- * @version v4.0.30319
  */
-class CLRES_CALLBACK_FUNCTION_TABLE extends Win32Struct
-{
+class CLRES_CALLBACK_FUNCTION_TABLE extends Win32Struct {
     static sizeof => 136
 
     static packingSize => 8
@@ -147,7 +145,6 @@ class CLRES_CALLBACK_FUNCTION_TABLE extends Win32Struct
     }
 
     /**
-     * 
      * @type {Pointer<PSET_RESOURCE_LOCKED_MODE_EX_ROUTINE>}
      */
     SetResourceLockedModeEx {

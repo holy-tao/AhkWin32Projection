@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * The IWiaItemExtras interface provides several methods that enable applications to communicate with hardware drivers.
@@ -35,9 +35,8 @@
  * </table>
  * @see https://learn.microsoft.com/windows/win32/api/wia_xp/nn-wia_xp-iwiaitemextras
  * @namespace Windows.Win32.Devices.ImageAcquisition
- * @version v4.0.30319
  */
-class IWiaItemExtras extends IUnknown{
+class IWiaItemExtras extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

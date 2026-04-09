@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Storage.Nvme
- * @version v4.0.30319
  */
-class NVME_RESERVATION_REPORT_STATUS_HEADER extends Win32Struct
-{
+class NVME_RESERVATION_REPORT_STATUS_HEADER extends Win32Struct {
     static sizeof => 28
 
     static packingSize => 4
@@ -36,9 +34,9 @@ class NVME_RESERVATION_REPORT_STATUS_HEADER extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Reserved{
+    Reserved {
         get {
             if(!this.HasProp("__ReservedProxyArray"))
                 this.__ReservedProxyArray := Win32FixedArray(this.ptr + 8, 2, Primitive, "char")
@@ -55,9 +53,9 @@ class NVME_RESERVATION_REPORT_STATUS_HEADER extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Reserved1{
+    Reserved1 {
         get {
             if(!this.HasProp("__Reserved1ProxyArray"))
                 this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 11, 14, Primitive, "char")

@@ -7,9 +7,8 @@
  * Exposes methods that return the result of a load-balancing algorithm to Remote Desktop Connection Broker (RD Connection Broker).
  * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nn-sbtsv-itssbloadbalancingnotifysink
  * @namespace Windows.Win32.System.RemoteDesktop
- * @version v4.0.30319
  */
-class ITsSbLoadBalancingNotifySink extends ITsSbBaseNotifySink{
+class ITsSbLoadBalancingNotifySink extends ITsSbBaseNotifySink {
 
     static sizeof => A_PtrSize
     /**

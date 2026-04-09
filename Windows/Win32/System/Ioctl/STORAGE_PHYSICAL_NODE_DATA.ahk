@@ -5,10 +5,8 @@
  * Specifies the physical device data of a storage node.
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-storage_physical_node_data
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class STORAGE_PHYSICAL_NODE_DATA extends Win32Struct
-{
+class STORAGE_PHYSICAL_NODE_DATA extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 4
@@ -78,9 +76,9 @@ class STORAGE_PHYSICAL_NODE_DATA extends Win32Struct
 
     /**
      * Specifies if the storage adapter is reserved.
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    Reserved{
+    Reserved {
         get {
             if(!this.HasProp("__ReservedProxyArray"))
                 this.__ReservedProxyArray := Win32FixedArray(this.ptr + 28, 3, Primitive, "uint")

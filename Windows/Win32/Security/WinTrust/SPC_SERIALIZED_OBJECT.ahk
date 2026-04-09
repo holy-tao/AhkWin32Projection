@@ -4,18 +4,16 @@
 
 /**
  * @namespace Windows.Win32.Security.WinTrust
- * @version v4.0.30319
  */
-class SPC_SERIALIZED_OBJECT extends Win32Struct
-{
+class SPC_SERIALIZED_OBJECT extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    ClassId{
+    ClassId {
         get {
             if(!this.HasProp("__ClassIdProxyArray"))
                 this.__ClassIdProxyArray := Win32FixedArray(this.ptr + 0, 16, Primitive, "char")
@@ -26,7 +24,7 @@ class SPC_SERIALIZED_OBJECT extends Win32Struct
     /**
      * @type {CRYPT_INTEGER_BLOB}
      */
-    SerializedData{
+    SerializedData {
         get {
             if(!this.HasProp("__SerializedData"))
                 this.__SerializedData := CRYPT_INTEGER_BLOB(16, this)

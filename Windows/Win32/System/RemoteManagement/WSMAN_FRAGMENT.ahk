@@ -5,10 +5,8 @@
  * WSMAN_FRAGMENT is reserved for future use.
  * @see https://learn.microsoft.com/windows/win32/api/wsman/ns-wsman-wsman_fragment
  * @namespace Windows.Win32.System.RemoteManagement
- * @version v4.0.30319
  */
-class WSMAN_FRAGMENT extends Win32Struct
-{
+class WSMAN_FRAGMENT extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

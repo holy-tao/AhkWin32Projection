@@ -11,9 +11,8 @@
  * This interface is passed into calls to [ID3D12VideoEncodeCommandList::EstimateMotion](nf-d3d12video-id3d12videoencodecommandlist-estimatemotion.md).
  * @see https://learn.microsoft.com/windows/win32/api/d3d12video/nn-d3d12video-id3d12videomotionestimator
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class ID3D12VideoMotionEstimator extends ID3D12Pageable{
+class ID3D12VideoMotionEstimator extends ID3D12Pageable {
 
     static sizeof => A_PtrSize
     /**

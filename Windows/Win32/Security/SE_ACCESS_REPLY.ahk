@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\Win32Struct.ahk
+#Include .\ACCESS_REASONS.ahk
+#Include .\PRIVILEGE_SET.ahk
 
 /**
  * @namespace Windows.Win32.Security
- * @version v4.0.30319
  */
-class SE_ACCESS_REPLY extends Win32Struct
-{
+class SE_ACCESS_REPLY extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8

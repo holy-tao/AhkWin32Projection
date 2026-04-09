@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class DMA_TRANSFER_INFO extends Win32Struct
-{
+class DMA_TRANSFER_INFO extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
@@ -20,7 +18,7 @@ class DMA_TRANSFER_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<DMA_TRANSFER_INFO_V1>}
+     * @type {Pointer}
      */
     V1 {
         get => NumGet(this, 8, "ptr")
@@ -28,7 +26,7 @@ class DMA_TRANSFER_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<DMA_TRANSFER_INFO_V2>}
+     * @type {Pointer}
      */
     V2 {
         get => NumGet(this, 8, "ptr")

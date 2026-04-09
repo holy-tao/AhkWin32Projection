@@ -7,10 +7,8 @@
  * Not extensible.
  * @see https://learn.microsoft.com/windows/win32/api/tapi/ns-tapi-lineproviderentry
  * @namespace Windows.Win32.Devices.Tapi
- * @version v4.0.30319
  */
-class LINEPROVIDERENTRY extends Win32Struct
-{
+class LINEPROVIDERENTRY extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4

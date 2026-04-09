@@ -1,16 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 #Include .\ISClusResource.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * @namespace Windows.Win32.Networking.Clustering
- * @version v4.0.30319
  */
-class ISClusResGroupResources extends IDispatch{
+class ISClusResGroupResources extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -102,7 +100,7 @@ class ISClusResGroupResources extends IDispatch{
      * Nested containers are allowed also, as in the case where an object is contained within an embedded object inside another document. The complete moniker of such an object would be the equivalent of "C:\work\report.doc!embedobj1!A1:E7." In this case, each containing object must call <b>CreateItemMoniker</b> and provide its own implementation of the <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nn-oleidl-ioleitemcontainer">IOleItemContainer</a> interface.
      * @param {BSTR} bstrResourceName 
      * @param {BSTR} bstrResourceType 
-     * @param {Integer} dwFlags 
+     * @param {CLUSTER_RESOURCE_CREATE_FLAGS} dwFlags 
      * @returns {ISClusResource} 
      * @see https://learn.microsoft.com/windows/win32/api/objbase/nf-objbase-createitemmoniker
      */

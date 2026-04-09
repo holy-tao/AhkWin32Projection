@@ -3,14 +3,10 @@
 
 /**
  * TBD (RGBCOLOR)
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/icm/ns-icm-rgbcolor
  * @namespace Windows.Win32.UI.ColorSystem
- * @version v4.0.30319
  */
-class RGBCOLOR extends Win32Struct
-{
+class RGBCOLOR extends Win32Struct {
     static sizeof => 6
 
     static packingSize => 2

@@ -7,9 +7,8 @@
  * The IVssWMDependency is a C++ (not COM) interface returned by the IVssWMComponent interface and used by applications when backing up or restoring a component that has an explicit writer-component dependency on a component managed by another writer.
  * @see https://learn.microsoft.com/windows/win32/api/vswriter/nl-vswriter-ivsswmdependency
  * @namespace Windows.Win32.Storage.Vss
- * @version v4.0.30319
  */
-class IVssWMDependency extends IUnknown{
+class IVssWMDependency extends IUnknown {
 
     static sizeof => A_PtrSize
 

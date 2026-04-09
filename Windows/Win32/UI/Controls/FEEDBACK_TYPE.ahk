@@ -5,9 +5,8 @@
  * Specifies the visual feedback associated with an event.
  * @see https://learn.microsoft.com/windows/win32/api/winuser/ne-winuser-feedback_type
  * @namespace Windows.Win32.UI.Controls
- * @version v4.0.30319
  */
-class FEEDBACK_TYPE extends Win32Enum{
+class FEEDBACK_TYPE extends Win32Enum {
 
     /**
      * Feedback for a touch contact event.

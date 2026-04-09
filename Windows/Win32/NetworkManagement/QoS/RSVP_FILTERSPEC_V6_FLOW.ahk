@@ -6,10 +6,8 @@
  * The RSVP_FILTERSPEC_V6_FLOW structure provides flow label information for an IPv6 FILTERSPEC.
  * @see https://learn.microsoft.com/windows/win32/api/qossp/ns-qossp-rsvp_filterspec_v6_flow
  * @namespace Windows.Win32.NetworkManagement.QoS
- * @version v4.0.30319
  */
-class RSVP_FILTERSPEC_V6_FLOW extends Win32Struct
-{
+class RSVP_FILTERSPEC_V6_FLOW extends Win32Struct {
     static sizeof => 20
 
     static packingSize => 1
@@ -18,7 +16,7 @@ class RSVP_FILTERSPEC_V6_FLOW extends Win32Struct
      * IPv4 address for which the FILTERSPEC flow label applies, expressed as an <a href="https://docs.microsoft.com/windows/desktop/api/qossp/ns-qossp-in_addr_ipv6">IN_ADDR_IPV6</a> structure.
      * @type {IN_ADDR_IPV6}
      */
-    Address{
+    Address {
         get {
             if(!this.HasProp("__Address"))
                 this.__Address := IN_ADDR_IPV6(0, this)
@@ -27,7 +25,6 @@ class RSVP_FILTERSPEC_V6_FLOW extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     UnUsed {
@@ -37,9 +34,9 @@ class RSVP_FILTERSPEC_V6_FLOW extends Win32Struct
 
     /**
      * Label for the flow.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    FlowLabel{
+    FlowLabel {
         get {
             if(!this.HasProp("__FlowLabelProxyArray"))
                 this.__FlowLabelProxyArray := Win32FixedArray(this.ptr + 17, 3, Primitive, "char")

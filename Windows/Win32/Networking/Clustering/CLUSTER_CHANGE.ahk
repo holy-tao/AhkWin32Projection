@@ -5,9 +5,8 @@
  * The CLUSTER_CHANGE enumeration (msclus.h) describes the type of notification returned.
  * @see https://learn.microsoft.com/windows/win32/api/msclus/ne-msclus-cluster_change
  * @namespace Windows.Win32.Networking.Clustering
- * @version v4.0.30319
  */
-class CLUSTER_CHANGE extends Win32Enum{
+class CLUSTER_CHANGE extends Win32Enum {
 
     /**
      * The queue receives a notification when a node changes state. For a list of possible node state values, see 
@@ -238,7 +237,6 @@ class CLUSTER_CHANGE extends Win32Enum{
     static CLUSTER_CHANGE_HANDLE_CLOSE => -2147483648
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static CLUSTER_CHANGE_ALL => -1

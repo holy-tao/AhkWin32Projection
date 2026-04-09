@@ -9,7 +9,6 @@
 
 /**
  * @namespace Windows.Win32.Security.DiagnosticDataQuery
- * @version v4.0.30319
  */
 class DiagnosticDataQuery {
 
@@ -19,7 +18,7 @@ class DiagnosticDataQuery {
 ;@region Methods
     /**
      * Creates a Diagnostic Data Query API session handle to be used to uniquely identify a Diagnostic Data Query session.
-     * @param {Integer} accessLevel Type: **[DdqAccessLevel](/windows/win32/api/diagnosticdataquerytypes/ne-diagnosticdataquerytypes-ddqaccesslevel)**
+     * @param {DdqAccessLevel} accessLevel Type: **[DdqAccessLevel](/windows/win32/api/diagnosticdataquerytypes/ne-diagnosticdataquerytypes-ddqaccesslevel)**
      * The access level desired for this session.
      * @returns {HDIAGNOSTIC_DATA_QUERY_SESSION} Type: **[HANDLE](/windows/desktop/winprog/windows-data-types)**
      * This output parameter is a handle to the created Diagnostic Data Query session.
@@ -52,7 +51,7 @@ class DiagnosticDataQuery {
      * Returns the data access level of the current Diagnostic Data Query session.
      * @param {HDIAGNOSTIC_DATA_QUERY_SESSION} hSession Type: **[HANDLE](/windows/desktop/winprog/windows-data-types)**
      * Handle to the Diagnostic Data Query session.
-     * @returns {Integer} Type: **[DdqAccessLevel\*](/windows/win32/api/diagnosticdataquerytypes/ne-diagnosticdataquerytypes-ddqaccesslevel)**
+     * @returns {DdqAccessLevel} Type: **[DdqAccessLevel\*](/windows/win32/api/diagnosticdataquerytypes/ne-diagnosticdataquerytypes-ddqaccesslevel)**
      * This output parameter is the pointer to the access level for this session.
      * @see https://learn.microsoft.com/windows/win32/api/diagnosticdataquery/nf-diagnosticdataquery-ddqgetsessionaccesslevel
      * @since windows10.0.19041
@@ -66,7 +65,7 @@ class DiagnosticDataQuery {
 
     /**
      * Returns the highest available data access level for the API caller. This can be NoData, CurrentUserData or AllUserData.
-     * @returns {Integer} Type: **[DdqAccessLevel\*](/windows/win32/api/diagnosticdataquerytypes/ne-diagnosticdataquerytypes-ddqaccesslevel)**
+     * @returns {DdqAccessLevel} Type: **[DdqAccessLevel\*](/windows/win32/api/diagnosticdataquerytypes/ne-diagnosticdataquerytypes-ddqaccesslevel)**
      * This output parameter is a pointer to the highest access level available for the API caller.
      * @see https://learn.microsoft.com/windows/win32/api/diagnosticdataquery/nf-diagnosticdataquery-ddqgetdiagnosticdataaccesslevelallowed
      * @since windows10.0.19041
@@ -519,7 +518,8 @@ class DiagnosticDataQuery {
      * Handle to the Diagnostic Data Query session.
      * @param {Integer} reportStoreType Type: **[UINT32](/windows/desktop/winprog/windows-data-types)**
      * The type of report store to extract from. See remarks.
-     * @returns {HDIAGNOSTIC_REPORT} 
+     * @returns {HDIAGNOSTIC_REPORT} Type: **[HANDLE\*](/windows/desktop/winprog/windows-data-types)**
+     * This output parameter is a pointer to the handle for the resource that contains the known set of problem reports.
      * @see https://learn.microsoft.com/windows/win32/api/diagnosticdataquery/nf-diagnosticdataquery-ddqgetdiagnosticreport
      * @since windows10.0.19041
      */
@@ -535,7 +535,8 @@ class DiagnosticDataQuery {
      * Frees memory allocated for error reports referenced by HDIAGNOSTIC_REPORT_DATA handle.
      * @remarks
      * For information the datatype DIAGNOSTIC_REPORT_DATA, see [**here**](/windows/win32/api/diagnosticdataquerytypes/ns-diagnosticdataquerytypes-diagnostic_report_data)
-     * @param {HDIAGNOSTIC_REPORT} _hReport 
+     * @param {HDIAGNOSTIC_REPORT} _hReport Type: **[HANDLE](/windows/desktop/winprog/windows-data-types)**
+     * The handle to the resource that contains the set of error reports to be freed.
      * @returns {HRESULT} Type: **[HRESULT](/windows/desktop/com/structure-of-com-error-codes)**
      * Returns S_OK on successful completion.
      * @see https://learn.microsoft.com/windows/win32/api/diagnosticdataquery/nf-diagnosticdataquery-ddqfreediagnosticreport
@@ -550,7 +551,8 @@ class DiagnosticDataQuery {
 
     /**
      * Fetches an error report and its information at the specified index in the resource pointed to by the HDIAGNOSTIC_REPORT_DATA handle.
-     * @param {HDIAGNOSTIC_REPORT} _hReport 
+     * @param {HDIAGNOSTIC_REPORT} _hReport Type: **[HANDLE](/windows/desktop/winprog/windows-data-types)**
+     * Handle to the resource with the set of problem reports.
      * @param {Integer} index Type: **[UINT32](/windows/desktop/winprog/windows-data-types)**
      * The index of the error report to fetch.
      * @param {Pointer<DIAGNOSTIC_REPORT_DATA>} report Type: **[DIAGNOSTIC_DATA_REPORT_DATA\*](/windows/win32/api/diagnosticdataquerytypes/ns-diagnosticdataquerytypes-diagnostic_report_data)**
@@ -569,7 +571,8 @@ class DiagnosticDataQuery {
 
     /**
      * Fetches the number (size) of error reports in the resource pointed to by HDIAGNOSTIC_REPORT_DATA handle.
-     * @param {HDIAGNOSTIC_REPORT} _hReport 
+     * @param {HDIAGNOSTIC_REPORT} _hReport Type: **[HANDLE](/windows/desktop/com/structure-of-com-error-codes)**
+     * Handle to the resource that contains the set of error reports.
      * @returns {Integer} Type: **[UINT32\*](/windows/desktop/com/structure-of-com-error-codes)**
      * Pointer to the number of error reports.
      * @see https://learn.microsoft.com/windows/win32/api/diagnosticdataquery/nf-diagnosticdataquery-ddqgetdiagnosticreportcount

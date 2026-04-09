@@ -5,9 +5,8 @@
  * A file system volume is being formatted.
  * @see https://learn.microsoft.com/windows/win32/api/vds/ns-vds-vds_file_system_notification
  * @namespace Windows.Win32.Storage.VirtualDiskService
- * @version v4.0.30319
  */
-class VDS_NF_FILE_SYSTEM extends Win32Enum{
+class VDS_NF_FILE_SYSTEM extends Win32Enum {
 
     /**
      * @type {Integer (UInt32)}

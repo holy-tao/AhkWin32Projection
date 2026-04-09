@@ -3,13 +3,11 @@
 
 /**
  * @namespace Windows.Win32.Devices.Display
- * @version v4.0.30319
  */
-class VIDEO_BRIGHTNESS_POLICY extends Win32Struct
-{
-    static sizeof => 16
+class VIDEO_BRIGHTNESS_POLICY extends Win32Struct {
+    static sizeof => 4
 
-    static packingSize => 8
+    static packingSize => 1
 
     /**
      * @type {BOOLEAN}
@@ -31,15 +29,15 @@ class VIDEO_BRIGHTNESS_POLICY extends Win32Struct
      * @type {Integer}
      */
     BatteryLevel {
-        get => NumGet(this, 8, "char")
-        set => NumPut("char", value, this, 8)
+        get => NumGet(this, 2, "char")
+        set => NumPut("char", value, this, 2)
     }
 
     /**
      * @type {Integer}
      */
     Brightness {
-        get => NumGet(this, 9, "char")
-        set => NumPut("char", value, this, 9)
+        get => NumGet(this, 3, "char")
+        set => NumPut("char", value, this, 3)
     }
 }

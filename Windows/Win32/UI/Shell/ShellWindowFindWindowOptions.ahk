@@ -5,9 +5,8 @@
  * Specifies options for finding window in the Shell windows collection.
  * @see https://learn.microsoft.com/windows/win32/api/exdisp/ne-exdisp-shellwindowfindwindowoptions
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class ShellWindowFindWindowOptions extends Win32Enum{
+class ShellWindowFindWindowOptions extends Win32Enum {
 
     /**
      * The window must have an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nn-oaidl-idispatch">IDispatch</a> interface.

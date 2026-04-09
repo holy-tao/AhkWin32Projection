@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\Com\IDispatch.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * Manages the virtual channel.
  * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nn-rdpencomapi-irdpsrapivirtualchannel
  * @namespace Windows.Win32.System.DesktopSharing
- * @version v4.0.30319
  */
-class IRDPSRAPIVirtualChannel extends IDispatch{
+class IRDPSRAPIVirtualChannel extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -46,7 +45,7 @@ class IRDPSRAPIVirtualChannel extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {CHANNEL_PRIORITY} 
      */
     Priority {
         get => this.get_Priority()
@@ -82,7 +81,7 @@ class IRDPSRAPIVirtualChannel extends IDispatch{
      * @param {Integer} lAttendeeId Type: <b>long</b>
      * 
      * The identifier of the attendee.
-     * @param {Integer} AccessType Type: <b>CHANNEL_ACCESS_ENUM</b>
+     * @param {CHANNEL_ACCESS_ENUM} AccessType Type: <b>CHANNEL_ACCESS_ENUM</b>
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If the method succeeds, the return value is <b>S_OK</b>. Otherwise, the return value is an error code.
@@ -116,7 +115,7 @@ class IRDPSRAPIVirtualChannel extends IDispatch{
 
     /**
      * The channel priority.
-     * @returns {Integer} 
+     * @returns {CHANNEL_PRIORITY} 
      * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapivirtualchannel-get_priority
      */
     get_Priority() {

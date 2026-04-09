@@ -9,16 +9,13 @@
  * System-alarm ACEs are not currently supported. The <b>AceType</b> member cannot specify the SYSTEM_ALARM_ACE_TYPE or SYSTEM_ALARM_OBJECT_ACE_TYPE values. Do not use the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-system_alarm_ace">SYSTEM_ALARM_ACE</a> or <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-system_alarm_object_ace">SYSTEM_ALARM_OBJECT_ACE</a> structures.
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-ace_header
  * @namespace Windows.Wdk.Storage.FileSystem
- * @version v4.0.30319
  */
-class ACE_HEADER extends Win32Struct
-{
+class ACE_HEADER extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 2
 
     /**
-     * 
      * @type {Integer}
      */
     AceType {
@@ -27,7 +24,6 @@ class ACE_HEADER extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     AceFlags {

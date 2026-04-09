@@ -5,10 +5,8 @@
  * Contains the security package's object identifier (OID).
  * @see https://learn.microsoft.com/windows/win32/api/ntsecpkg/ns-ntsecpkg-secpkg_serialized_oid
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class SECPKG_SERIALIZED_OID extends Win32Struct
-{
+class SECPKG_SERIALIZED_OID extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 4
@@ -33,9 +31,9 @@ class SECPKG_SERIALIZED_OID extends Win32Struct
 
     /**
      * The value of the OID. The value of SECPKG_MAX_OID_LENGTH is currently set to 32.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    OidValue{
+    OidValue {
         get {
             if(!this.HasProp("__OidValueProxyArray"))
                 this.__OidValueProxyArray := Win32FixedArray(this.ptr + 8, 32, Primitive, "char")

@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\Cryptography\CMSG_SIGNER_INFO.ahk
+#Include ..\Cryptography\HCERTSTORE.ahk
 
 /**
  * Used when calling WinVerifyTrust to verify a CMSG_SIGNER_INFO structure.
  * @see https://learn.microsoft.com/windows/win32/api/wintrust/ns-wintrust-wintrust_sgnr_info
  * @namespace Windows.Win32.Security.WinTrust
- * @version v4.0.30319
  */
-class WINTRUST_SGNR_INFO extends Win32Struct
-{
+class WINTRUST_SGNR_INFO extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8

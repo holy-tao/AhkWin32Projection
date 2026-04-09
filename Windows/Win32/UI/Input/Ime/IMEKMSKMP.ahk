@@ -1,13 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include .\HIMC.ahk
+#Include .\IMEKMSKEY.ahk
 
 /**
  * @namespace Windows.Win32.UI.Input.Ime
- * @version v4.0.30319
  */
-class IMEKMSKMP extends Win32Struct
-{
+class IMEKMSKMP extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -23,7 +22,7 @@ class IMEKMSKMP extends Win32Struct
     /**
      * @type {HIMC}
      */
-    hIMC{
+    hIMC {
         get {
             if(!this.HasProp("__hIMC"))
                 this.__hIMC := HIMC(8, this)

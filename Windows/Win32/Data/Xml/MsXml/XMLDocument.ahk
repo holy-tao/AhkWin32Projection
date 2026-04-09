@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Data.Xml.MsXml
- * @version v4.0.30319
  */
-class XMLDocument extends Win32Struct
-{
+class XMLDocument extends Win32Struct {
     static sizeof => 0
 
     static packingSize => 1

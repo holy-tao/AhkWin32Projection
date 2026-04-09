@@ -7,9 +7,8 @@
  * Enables access to PlayToManager methods in a Windows Store app that manages multiple windows.
  * @see https://learn.microsoft.com/windows/win32/api/playtomanagerinterop/nn-playtomanagerinterop-iplaytomanagerinterop
  * @namespace Windows.Win32.System.WinRT
- * @version v4.0.30319
  */
-class IPlayToManagerInterop extends IInspectable{
+class IPlayToManagerInterop extends IInspectable {
 
     static sizeof => A_PtrSize
     /**

@@ -5,10 +5,8 @@
  * The ARP_SEND_REPLY structure stores information about an Address Resolution Protocol (ARP) reply messages.
  * @see https://learn.microsoft.com/windows/win32/api/ipexport/ns-ipexport-arp_send_reply
  * @namespace Windows.Win32.NetworkManagement.IpHelper
- * @version v4.0.30319
  */
-class ARP_SEND_REPLY extends Win32Struct
-{
+class ARP_SEND_REPLY extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4

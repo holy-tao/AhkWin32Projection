@@ -1,21 +1,21 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Com\IUnknown.ahk
 #Include .\IOleClientSite.ahk
 #Include ..\Com\IMoniker.ahk
 #Include ..\Com\IDataObject.ahk
 #Include .\IEnumOLEVERB.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\SIZE.ahk
 #Include ..\Com\IEnumSTATDATA.ahk
-#Include ..\Com\IUnknown.ahk
 
 /**
  * Serves as the principal means by which an embedded object provides basic functionality to, and communicates with, its container.
  * @see https://learn.microsoft.com/windows/win32/api/oleidl/nn-oleidl-ioleobject
  * @namespace Windows.Win32.System.Ole
- * @version v4.0.30319
  */
-class IOleObject extends IUnknown{
+class IOleObject extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -739,7 +739,7 @@ class IOleObject extends IUnknown{
      * You may want to implement this method so that your object rescales itself to match as closely as possible the maximum space available to it in its container.
      * 
      * If an object's size is fixed, that is, if it cannot be set by its container, <b>IOleObject::SetExtent</b> should return E_FAIL. This is always the case with linked objects, whose sizes are set by their link sources, not by their containers.
-     * @param {Integer} dwDrawAspect DWORD that describes which form, or "aspect," of an object is to be displayed. The object's container obtains this value from the enumeration <a href="https://docs.microsoft.com/windows/desktop/api/wtypes/ne-wtypes-dvaspect">DVASPECT</a> (refer to the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/ns-objidl-formatetc">FORMATETC</a> enumeration). The most common aspect is DVASPECT_CONTENT, which specifies a full rendering of the object within its container. An object can also be rendered as an icon, a thumbnail version for display in a browsing tool, or a print version, which displays the object as it would be rendered using the <b>File Print</b> command.
+     * @param {DVASPECT} dwDrawAspect DWORD that describes which form, or "aspect," of an object is to be displayed. The object's container obtains this value from the enumeration <a href="https://docs.microsoft.com/windows/desktop/api/wtypes/ne-wtypes-dvaspect">DVASPECT</a> (refer to the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/ns-objidl-formatetc">FORMATETC</a> enumeration). The most common aspect is DVASPECT_CONTENT, which specifies a full rendering of the object within its container. An object can also be rendered as an icon, a thumbnail version for display in a browsing tool, or a print version, which displays the object as it would be rendered using the <b>File Print</b> command.
      * @param {Pointer<SIZE>} psizel Pointer to the size limit for the object.
      * @returns {HRESULT} This method returns S_OK on success. Other possible return values include the following.
      * 
@@ -794,7 +794,7 @@ class IOleObject extends IUnknown{
      * 
      * <h3><a id="Notes_to_Implementers"></a><a id="notes_to_implementers"></a><a id="NOTES_TO_IMPLEMENTERS"></a>Notes to Implementers</h3>
      * Implementation consists of filling the sizel structure with an object's height and width.
-     * @param {Integer} dwDrawAspect The aspect of the object whose limit is to be retrieved; the value is obtained from the enumerations <a href="https://docs.microsoft.com/windows/desktop/api/wtypes/ne-wtypes-dvaspect">DVASPECT</a> and from <a href="https://docs.microsoft.com/windows/desktop/api/ocidl/ne-ocidl-dvaspect2">DVASPECT2</a>. Note that newer objects and containers that support optimized drawing interfaces support the <b>DVASPECT2</b> enumeration values. Older objects and containers that do not support optimized drawing interfaces may not support <b>DVASPECT2</b>. The most common value for this method is DVASPECT_CONTENT, which specifies a full rendering of the object within its container.
+     * @param {DVASPECT} dwDrawAspect The aspect of the object whose limit is to be retrieved; the value is obtained from the enumerations <a href="https://docs.microsoft.com/windows/desktop/api/wtypes/ne-wtypes-dvaspect">DVASPECT</a> and from <a href="https://docs.microsoft.com/windows/desktop/api/ocidl/ne-ocidl-dvaspect2">DVASPECT2</a>. Note that newer objects and containers that support optimized drawing interfaces support the <b>DVASPECT2</b> enumeration values. Older objects and containers that do not support optimized drawing interfaces may not support <b>DVASPECT2</b>. The most common value for this method is DVASPECT_CONTENT, which specifies a full rendering of the object within its container.
      * @returns {SIZE} Pointer to where the object's size is to be returned.
      * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-ioleobject-getextent
      */
@@ -899,8 +899,8 @@ class IOleObject extends IUnknown{
      * 
      * <h3><a id="Notes_to_Implementers"></a><a id="notes_to_implementers"></a><a id="NOTES_TO_IMPLEMENTERS"></a>Notes to Implementers</h3>
      * Implementation normally consists of delegating the call to the default handler.
-     * @param {Integer} dwAspect The aspect of an object about which status information is being requested. The value is obtained from the enumeration <a href="https://docs.microsoft.com/windows/desktop/api/wtypes/ne-wtypes-dvaspect">DVASPECT</a>.
-     * @returns {Integer} Pointer to where the status information is returned. This parameter cannot be <b>NULL</b>.
+     * @param {DVASPECT} dwAspect The aspect of an object about which status information is being requested. The value is obtained from the enumeration <a href="https://docs.microsoft.com/windows/desktop/api/wtypes/ne-wtypes-dvaspect">DVASPECT</a>.
+     * @returns {OLEMISC} Pointer to where the status information is returned. This parameter cannot be <b>NULL</b>.
      * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-ioleobject-getmiscstatus
      */
     GetMiscStatus(dwAspect) {

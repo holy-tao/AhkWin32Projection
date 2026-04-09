@@ -7,9 +7,8 @@
  * Encapsulates forward and inverse FFTs.
  * @see https://learn.microsoft.com/windows/win32/api/d3dcsx/nn-d3dcsx-id3dx11fft
  * @namespace Windows.Win32.Graphics.Direct3D11
- * @version v4.0.30319
  */
-class ID3DX11FFT extends IUnknown{
+class ID3DX11FFT extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

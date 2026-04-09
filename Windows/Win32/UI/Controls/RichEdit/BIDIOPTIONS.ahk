@@ -5,10 +5,8 @@
  * Contains bidirectional information about a rich edit control. This structure is used by the EM_GETBIDIOPTIONS and EM_SETBIDIOPTIONS messages to get and set the bidirectional information for a control.
  * @see https://learn.microsoft.com/windows/win32/api/richedit/ns-richedit-bidioptions
  * @namespace Windows.Win32.UI.Controls.RichEdit
- * @version v4.0.30319
  */
-class BIDIOPTIONS extends Win32Struct
-{
+class BIDIOPTIONS extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4

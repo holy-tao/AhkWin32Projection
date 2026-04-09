@@ -8,9 +8,8 @@
  * <div> </div>
  * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/ne-vdshwprv-vds_loadbalance_policy_enum
  * @namespace Windows.Win32.Storage.VirtualDiskService
- * @version v4.0.30319
  */
-class VDS_LOADBALANCE_POLICY_ENUM extends Win32Enum{
+class VDS_LOADBALANCE_POLICY_ENUM extends Win32Enum {
 
     /**
      * The policy is unknown.

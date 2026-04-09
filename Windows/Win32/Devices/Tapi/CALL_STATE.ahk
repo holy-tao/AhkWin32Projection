@@ -78,9 +78,8 @@
  * </table>
  * @see https://learn.microsoft.com/windows/win32/api/tapi3if/ne-tapi3if-call_state
  * @namespace Windows.Win32.Devices.Tapi
- * @version v4.0.30319
  */
-class CALL_STATE extends Win32Enum{
+class CALL_STATE extends Win32Enum {
 
     /**
      * The call has been created, but 
@@ -129,7 +128,6 @@ class CALL_STATE extends Win32Enum{
     static CS_QUEUED => 6
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static CS_LASTITEM => 6

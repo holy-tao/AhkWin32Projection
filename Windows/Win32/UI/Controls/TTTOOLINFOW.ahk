@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\TOOLTIP_FLAGS.ahk
 #Include ..\..\Foundation\HWND.ahk
 #Include ..\..\Foundation\RECT.ahk
 #Include ..\..\Foundation\HINSTANCE.ahk
@@ -16,11 +17,9 @@
  * > The commctrl.h header defines TTTOOLINFO as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
  * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-tttoolinfow
  * @namespace Windows.Win32.UI.Controls
- * @version v4.0.30319
  * @charset Unicode
  */
-class TTTOOLINFOW extends Win32Struct
-{
+class TTTOOLINFOW extends Win32Struct {
     static sizeof => 72
 
     static packingSize => 8
@@ -38,7 +37,7 @@ class TTTOOLINFOW extends Win32Struct
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
-     * @type {Integer}
+     * @type {TOOLTIP_FLAGS}
      */
     uFlags {
         get => NumGet(this, 4, "uint")
@@ -51,7 +50,7 @@ class TTTOOLINFOW extends Win32Struct
      * Handle to the window that contains the tool. If <b>lpszText</b> includes the LPSTR_TEXTCALLBACK value, this member identifies the window that receives the <a href="https://docs.microsoft.com/windows/desktop/Controls/ttn-getdispinfo">TTN_GETDISPINFO</a> notification codes.
      * @type {HWND}
      */
-    hwnd{
+    hwnd {
         get {
             if(!this.HasProp("__hwnd"))
                 this.__hwnd := HWND(8, this)
@@ -76,7 +75,7 @@ class TTTOOLINFOW extends Win32Struct
      * The bounding rectangle coordinates of the tool. The coordinates are relative to the upper-left corner of the client area of the window identified by <b>hwnd</b>. If <b>uFlags</b> includes the TTF_IDISHWND flag, this member is ignored.
      * @type {RECT}
      */
-    rect{
+    rect {
         get {
             if(!this.HasProp("__rect"))
                 this.__rect := RECT(24, this)
@@ -90,7 +89,7 @@ class TTTOOLINFOW extends Win32Struct
      * Handle to the instance that contains the string resource for the tool. If <b>lpszText</b> specifies the identifier of a string resource, this member is used.
      * @type {HINSTANCE}
      */
-    hinst{
+    hinst {
         get {
             if(!this.HasProp("__hinst"))
                 this.__hinst := HINSTANCE(40, this)

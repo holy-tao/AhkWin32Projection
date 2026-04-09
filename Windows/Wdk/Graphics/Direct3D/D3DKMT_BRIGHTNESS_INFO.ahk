@@ -1,18 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\D3DKMT_BRIGHTNESS_INFO_TYPE.ahk
+#Include .\DXGK_BACKLIGHT_OPTIMIZATION_LEVEL.ahk
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
- * @version v4.0.30319
  */
-class D3DKMT_BRIGHTNESS_INFO extends Win32Struct
-{
+class D3DKMT_BRIGHTNESS_INFO extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
 
     /**
-     * @type {Integer}
+     * @type {D3DKMT_BRIGHTNESS_INFO_TYPE}
      */
     Type {
         get => NumGet(this, 0, "int")
@@ -28,7 +28,7 @@ class D3DKMT_BRIGHTNESS_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<D3DKMT_BRIGHTNESS_POSSIBLE_LEVELS>}
+     * @type {Pointer}
      */
     PossibleLevels {
         get => NumGet(this, 8, "ptr")
@@ -44,7 +44,7 @@ class D3DKMT_BRIGHTNESS_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<DXGK_BRIGHTNESS_CAPS>}
+     * @type {Pointer}
      */
     BrightnessCaps {
         get => NumGet(this, 8, "ptr")
@@ -52,7 +52,7 @@ class D3DKMT_BRIGHTNESS_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<DXGK_BRIGHTNESS_STATE>}
+     * @type {Pointer}
      */
     BrightnessState {
         get => NumGet(this, 8, "ptr")
@@ -60,7 +60,7 @@ class D3DKMT_BRIGHTNESS_INFO extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {DXGK_BACKLIGHT_OPTIMIZATION_LEVEL}
      */
     OptimizationLevel {
         get => NumGet(this, 8, "int")
@@ -68,7 +68,7 @@ class D3DKMT_BRIGHTNESS_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<DXGK_BACKLIGHT_INFO>}
+     * @type {Pointer}
      */
     ReductionInfo {
         get => NumGet(this, 8, "ptr")
@@ -84,7 +84,7 @@ class D3DKMT_BRIGHTNESS_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<DXGK_BRIGHTNESS_GET_NIT_RANGES_OUT>}
+     * @type {Pointer}
      */
     NitRanges {
         get => NumGet(this, 8, "ptr")
@@ -92,7 +92,7 @@ class D3DKMT_BRIGHTNESS_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<DXGK_BRIGHTNESS_GET_OUT>}
+     * @type {Pointer}
      */
     GetBrightnessMillinits {
         get => NumGet(this, 8, "ptr")
@@ -100,7 +100,7 @@ class D3DKMT_BRIGHTNESS_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<DXGK_BRIGHTNESS_SET_IN>}
+     * @type {Pointer}
      */
     SetBrightnessMillinits {
         get => NumGet(this, 8, "ptr")

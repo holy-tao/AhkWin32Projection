@@ -7,9 +7,8 @@
  * No export flags are defined in the current release.
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/ne-d3d12-d3d12_export_flags
  * @namespace Windows.Win32.Graphics.Direct3D12
- * @version v4.0.30319
  */
-class D3D12_EXPORT_FLAGS extends Win32BitflagEnum{
+class D3D12_EXPORT_FLAGS extends Win32BitflagEnum {
 
     /**
      * No export flags.

@@ -5,10 +5,8 @@
  * The IGPMResult interface contains methods to retrieve status message information while performing various types of GPO processing operations such as restore, import, copy and backup.
  * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nn-gpmgmt-igpmresult
  * @namespace Windows.Win32.System.GroupPolicy
- * @version v4.0.30319
  */
-class GPMResult extends Win32Struct
-{
+class GPMResult extends Win32Struct {
     static sizeof => 0
 
     static packingSize => 1

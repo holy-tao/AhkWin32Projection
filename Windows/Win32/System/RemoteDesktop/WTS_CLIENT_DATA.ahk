@@ -1,17 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\WTS_SYSTEMTIME.ahk
 #Include .\WTS_TIME_ZONE_INFORMATION.ahk
+#Include .\WTS_SYSTEMTIME.ahk
 #Include .\WTS_SOCKADDR.ahk
 
 /**
  * Contains information about the client connection.
  * @see https://learn.microsoft.com/windows/win32/api/wtsdefs/ns-wtsdefs-wts_client_data
  * @namespace Windows.Win32.System.RemoteDesktop
- * @version v4.0.30319
  */
-class WTS_CLIENT_DATA extends Win32Struct
-{
+class WTS_CLIENT_DATA extends Win32Struct {
     static sizeof => 3712
 
     static packingSize => 4
@@ -335,7 +333,7 @@ class WTS_CLIENT_DATA extends Win32Struct
      * A <a href="https://docs.microsoft.com/windows/desktop/api/wtsdefs/ns-wtsdefs-wts_time_zone_information">WTS_TIME_ZONE_INFORMATION</a> structure that contains client time zone information.
      * @type {WTS_TIME_ZONE_INFORMATION}
      */
-    ClientTimeZone{
+    ClientTimeZone {
         get {
             if(!this.HasProp("__ClientTimeZone"))
                 this.__ClientTimeZone := WTS_TIME_ZONE_INFORMATION(2788, this)
@@ -383,7 +381,7 @@ class WTS_CLIENT_DATA extends Win32Struct
      * A <a href="https://docs.microsoft.com/windows/desktop/api/wtsdefs/ns-wtsdefs-wts_sockaddr">WTS_SOCKADDR</a> structure that contains information about the client socket.
      * @type {WTS_SOCKADDR}
      */
-    ClientSockAddress{
+    ClientSockAddress {
         get {
             if(!this.HasProp("__ClientSockAddress"))
                 this.__ClientSockAddress := WTS_SOCKADDR(3076, this)

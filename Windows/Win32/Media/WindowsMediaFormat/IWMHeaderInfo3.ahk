@@ -9,9 +9,8 @@
  * For information about using the writer for metadata editing, see <a href="https://docs.microsoft.com/windows/desktop/wmformat/to-edit-metadata-with-the-writer">To Edit Metadata with the Writer</a>.
  * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nn-wmsdkidl-iwmheaderinfo3
  * @namespace Windows.Win32.Media.WindowsMediaFormat
- * @version v4.0.30319
  */
-class IWMHeaderInfo3 extends IWMHeaderInfo2{
+class IWMHeaderInfo3 extends IWMHeaderInfo2 {
 
     static sizeof => A_PtrSize
     /**
@@ -80,7 +79,7 @@ class IWMHeaderInfo3 extends IWMHeaderInfo2{
      * @param {Integer} wIndex <b>WORD</b> containing the index of the attribute to be retrieved.
      * @param {PWSTR} pwszName Pointer to a wide-character <b>null</b>-terminated string containing the attribute name. Pass <b>NULL</b> to retrieve the size of the string, which will be returned in <i>pwNameLen</i>.
      * @param {Pointer<Integer>} pwNameLen Pointer to a <b>WORD</b> containing the size of <i>pwszName</i>, in wide characters. This size includes the terminating <b>null</b> character. Attribute names are limited to 1024 wide characters.
-     * @param {Pointer<Integer>} pType Type of data used for the attribute. For more information about the types of data supported, see <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/ne-wmsdkidl-wmt_attr_datatype">WMT_ATTR_DATATYPE</a>.
+     * @param {Pointer<WMT_ATTR_DATATYPE>} pType Type of data used for the attribute. For more information about the types of data supported, see <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/ne-wmsdkidl-wmt_attr_datatype">WMT_ATTR_DATATYPE</a>.
      * @param {Pointer<Integer>} pwLangIndex Pointer to a <b>WORD</b> containing the language index of the language associated with the attribute. This is the index of the language in the language list for the file.
      * @param {Pointer<Integer>} pValue Pointer to an array of bytes containing the attribute value. Pass <b>NULL</b> to retrieve the size of the attribute value, which will be returned in <i>pdwDataLength</i>.
      * @param {Pointer<Integer>} pdwDataLength Pointer to a <b>DWORD</b> containing the length, in bytes, of the attribute value pointed to by <i>pValue</i>.
@@ -161,7 +160,7 @@ class IWMHeaderInfo3 extends IWMHeaderInfo2{
      * The objects of the Windows Media Format SDK perform type checking on some supported metadata attributes, but not all of them. You should ensure that any attributes you use are set using the data type specified in the <a href="https://docs.microsoft.com/windows/desktop/wmformat/attributes">Attributes</a> section of this documentation. Likewise, you cannot assume that an attribute set by another application will use the correct data type.
      * @param {Integer} wStreamNum <b>WORD</b> containing the stream number to which the attribute applies. Pass zero for file-level attributes.
      * @param {Integer} wIndex <b>WORD</b> containing the index of the attribute to change.
-     * @param {Integer} Type Type of data used for the new attribute value. For more information about the types of data supported, see <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/ne-wmsdkidl-wmt_attr_datatype">WMT_ATTR_DATATYPE</a>.
+     * @param {WMT_ATTR_DATATYPE} Type Type of data used for the new attribute value. For more information about the types of data supported, see <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/ne-wmsdkidl-wmt_attr_datatype">WMT_ATTR_DATATYPE</a>.
      * @param {Integer} wLangIndex <b>WORD</b> containing the language index of the language to be associated with the new attribute. This is the index of the language in the language list for the file.
      * @param {Pointer<Integer>} pValue Pointer to an array of bytes containing the attribute value.
      * @param {Integer} dwLength <b>DWORD</b> containing the length of the attribute value, in bytes.
@@ -261,7 +260,7 @@ class IWMHeaderInfo3 extends IWMHeaderInfo2{
      * <div> </div>
      * @param {Integer} wStreamNum <b>WORD</b> containing the stream number of the stream to which the attribute applies. Setting this value to zero indicates an attribute that applies to the entire file.
      * @param {PWSTR} pszName Pointer to a wide-character null-terminated string containing the name of the attribute. Attribute names are limited to 1024 wide characters.
-     * @param {Integer} Type Type of data used for the new attribute. For more information about the types of data supported, see <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/ne-wmsdkidl-wmt_attr_datatype">WMT_ATTR_DATATYPE</a>.
+     * @param {WMT_ATTR_DATATYPE} Type Type of data used for the new attribute. For more information about the types of data supported, see <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/ne-wmsdkidl-wmt_attr_datatype">WMT_ATTR_DATATYPE</a>.
      * @param {Integer} wLangIndex <b>WORD</b> containing the language index of the language to be associated with the new attribute. This is the index of the language in the language list for the file. Setting this value to zero indicates that the default language will be used. A default language is created and set according to the regional settings on the computer running your application.
      * @param {Pointer<Integer>} pValue Pointer to an array of bytes containing the attribute value.
      * @param {Integer} dwLength <b>DWORD</b> containing the length of the attribute value, in bytes.
@@ -339,7 +338,7 @@ class IWMHeaderInfo3 extends IWMHeaderInfo2{
      * The parameters passed to this method should be obtained from the original file with a call to <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nf-wmsdkidl-iwmheaderinfo2-getcodecinfo">IWMHeaderInfo2::GetCodecInfo</a>.
      * @param {PWSTR} pwszName Pointer to a wide-character null-terminated string containing the name.
      * @param {PWSTR} pwszDescription Pointer to a wide-character null-terminated string containing the description.
-     * @param {Integer} codecType A value from the <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/ne-wmsdkidl-wmt_codec_info_type">WMT_CODEC_INFO_TYPE</a> enumeration specifying the codec type.
+     * @param {WMT_CODEC_INFO_TYPE} codecType A value from the <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/ne-wmsdkidl-wmt_codec_info_type">WMT_CODEC_INFO_TYPE</a> enumeration specifying the codec type.
      * @param {Integer} cbCodecInfo The size of the codec information, in bytes.
      * @param {Pointer<Integer>} pbCodecInfo Pointer to an array of bytes that contains the codec information.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.

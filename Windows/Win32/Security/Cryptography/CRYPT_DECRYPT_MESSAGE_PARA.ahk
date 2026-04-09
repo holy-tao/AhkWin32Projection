@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\HCERTSTORE.ahk
 
 /**
  * The CRYPT_DECRYPT_MESSAGE_PARA structure contains information for decrypting messages.
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-crypt_decrypt_message_para
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CRYPT_DECRYPT_MESSAGE_PARA extends Win32Struct
-{
+class CRYPT_DECRYPT_MESSAGE_PARA extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

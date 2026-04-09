@@ -5,11 +5,9 @@
  * The ADDJOB\_INFO\_1 structure identifies a print job as well as the directory and file in which an application can store that job.
  * @see https://learn.microsoft.com/windows/win32/printdocs/addjob-info-1
  * @namespace Windows.Win32.Graphics.Printing
- * @version v4.0.30319
  * @charset Unicode
  */
-class ADDJOB_INFO_1W extends Win32Struct
-{
+class ADDJOB_INFO_1W extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

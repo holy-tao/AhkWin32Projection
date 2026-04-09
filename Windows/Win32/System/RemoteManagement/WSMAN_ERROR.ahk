@@ -5,10 +5,8 @@
  * Contains error information that is returned by a Windows Remote Management (WinRM) client.
  * @see https://learn.microsoft.com/windows/win32/api/wsman/ns-wsman-wsman_error
  * @namespace Windows.Win32.System.RemoteManagement
- * @version v4.0.30319
  */
-class WSMAN_ERROR extends Win32Struct
-{
+class WSMAN_ERROR extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8

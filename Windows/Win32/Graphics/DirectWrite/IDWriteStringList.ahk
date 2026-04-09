@@ -7,9 +7,8 @@
  * Represents a collection of strings indexed by number.
  * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nn-dwrite_3-idwritestringlist
  * @namespace Windows.Win32.Graphics.DirectWrite
- * @version v4.0.30319
  */
-class IDWriteStringList extends IUnknown{
+class IDWriteStringList extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -65,7 +64,9 @@ class IDWriteStringList extends IUnknown{
      * @param {PWSTR} localeName Type: <b>WCHAR*</b>
      * 
      * Character array that receives the locale name.
-     * @param {Integer} _size 
+     * @param {Integer} _size Type: <b>UINT32</b>
+     * 
+     * Size of the array in characters. The size must include space for the terminating null character.
      * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
      * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.

@@ -5,10 +5,8 @@
  * A structure containing optional memory allocation and deallocation routines.
  * @see https://learn.microsoft.com/windows/win32/api/compressapi/ns-compressapi-compress_allocation_routines
  * @namespace Windows.Win32.Storage.Compression
- * @version v4.0.30319
  */
-class COMPRESS_ALLOCATION_ROUTINES extends Win32Struct
-{
+class COMPRESS_ALLOCATION_ROUTINES extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

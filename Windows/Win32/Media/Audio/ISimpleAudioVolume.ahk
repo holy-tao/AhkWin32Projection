@@ -7,9 +7,8 @@
  * The ISimpleAudioVolume interface enables a client to control the master volume level of an audio session.
  * @see https://learn.microsoft.com/windows/win32/api/audioclient/nn-audioclient-isimpleaudiovolume
  * @namespace Windows.Win32.Media.Audio
- * @version v4.0.30319
  */
-class ISimpleAudioVolume extends IUnknown{
+class ISimpleAudioVolume extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

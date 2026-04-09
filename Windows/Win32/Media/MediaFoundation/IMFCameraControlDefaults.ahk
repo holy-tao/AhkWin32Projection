@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\MF_CAMERA_CONTROL_RANGE_INFO.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\MF_CAMERA_CONTROL_RANGE_INFO.ahk
 
 /**
  * Provides methods for specifying camera control default values.
@@ -10,9 +10,8 @@
  * Use this interface in conjunction with [IMFCameraControlDefaultsCollection](nn-mfidl-imfcameracontroldefaultscollection.md) and [IMFCameraConfigurationManager](nn-mfidl-imfcameraconfigurationmanager.md) to save sets of default control values. This enables scenarios such as providing separate sets of default control values for different users.
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imfcameracontroldefaults
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFCameraControlDefaults extends IUnknown{
+class IMFCameraControlDefaults extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -37,7 +36,7 @@ class IMFCameraControlDefaults extends IUnknown{
      * Gets the configuration type of the control, indicating whether the control value must be set  before streaming begins or after streaming has started.
      * @remarks
      * Some sensor-level controls can only be set after the sensor has started (such as focus/brightness/whitebalance) since the controls require frame data for the parameters to converge. Other types of controls, such as HDR support, can only be configured when the sensor is not in a running state because it requires a re-programming of the sensor mode. Whether a well known control is pre or post start is specified in the DDI specification of the control. If the DDI specification does not explicitly indicate the a control is a pre-start control, the caller should assume the control is post-start.
-     * @returns {Integer} A member of the [MF_SENSOR_CONTROL_CONFIGURATION_TYPE](ne-mfidl-mf_camera_control_configuration_type.md) enumeration specifying the configuration type of the control.
+     * @returns {MF_CAMERA_CONTROL_CONFIGURATION_TYPE} A member of the [MF_SENSOR_CONTROL_CONFIGURATION_TYPE](ne-mfidl-mf_camera_control_configuration_type.md) enumeration specifying the configuration type of the control.
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfcameracontroldefaults-gettype
      */
     GetType() {

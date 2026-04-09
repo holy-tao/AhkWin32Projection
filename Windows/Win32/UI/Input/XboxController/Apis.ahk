@@ -3,7 +3,6 @@
 
 /**
  * @namespace Windows.Win32.UI.Input.XboxController
- * @version v4.0.30319
  */
 class XboxController {
 
@@ -83,7 +82,7 @@ class XboxController {
      * <h3><a id="Platform_Requirements"></a><a id="platform_requirements"></a><a id="PLATFORM_REQUIREMENTS"></a>Platform Requirements</h3>
      * Windows 8 (XInput 1.4), DirectX SDK (XInput 1.3), Windows Vista (XInput 9.1.0)
      * @param {Integer} dwUserIndex Index of the user's controller. Can be a value in the range 0–3. For information about how this value is determined and how the value maps to indicators on the controller, see <a href="https://docs.microsoft.com/windows/desktop/xinput/getting-started-with-xinput">Multiple Controllers</a>.
-     * @param {Integer} dwFlags Input flags that identify the controller type. If this value is 0, then the capabilities of all controllers connected to the system are returned. Currently, only one value is supported:
+     * @param {XINPUT_FLAG} dwFlags Input flags that identify the controller type. If this value is 0, then the capabilities of all controllers connected to the system are returned. Currently, only one value is supported:
      * 
      * <table>
      * <tr>
@@ -176,7 +175,7 @@ class XboxController {
     /**
      * Retrieves the battery type and charge status of a wireless controller.
      * @param {Integer} dwUserIndex Index of the signed-in gamer associated with the device. Can be a value in the range 0–XUSER_MAX_COUNT − 1.
-     * @param {Integer} devType Specifies which device associated with this user index should be queried. Must be <b>BATTERY_DEVTYPE_GAMEPAD</b> or <b>BATTERY_DEVTYPE_HEADSET</b>.
+     * @param {BATTERY_DEVTYPE} devType Specifies which device associated with this user index should be queried. Must be <b>BATTERY_DEVTYPE_GAMEPAD</b> or <b>BATTERY_DEVTYPE_HEADSET</b>.
      * @param {Pointer<XINPUT_BATTERY_INFORMATION>} pBatteryInformation Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/xinput/ns-xinput-xinput_battery_information">XINPUT_BATTERY_INFORMATION</a> structure that receives the battery information.
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * @see https://learn.microsoft.com/windows/win32/api/xinput/nf-xinput-xinputgetbatteryinformation

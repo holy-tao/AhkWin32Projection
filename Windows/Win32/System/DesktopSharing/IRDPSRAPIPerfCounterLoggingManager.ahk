@@ -1,17 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\IRDPSRAPIPerfCounterLogger.ahk
 #Include ..\Com\IUnknown.ahk
+#Include .\IRDPSRAPIPerfCounterLogger.ahk
 
 /**
  * Manages IRDPSRAPIPerfCounterLogger objects.
  * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nn-rdpencomapi-irdpsrapiperfcounterloggingmanager
  * @namespace Windows.Win32.System.DesktopSharing
- * @version v4.0.30319
  */
-class IRDPSRAPIPerfCounterLoggingManager extends IUnknown{
+class IRDPSRAPIPerfCounterLoggingManager extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

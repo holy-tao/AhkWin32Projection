@@ -7,16 +7,13 @@
  * The BUSNUMBER_DES structure is included as a member of the [BUSNUMBER_RESOURCE](/windows/desktop/api/cfgmgr32/ns-cfgmgr32-busnumber_resource) structure.
  * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/ns-cfgmgr32-busnumber_des
  * @namespace Windows.Win32.Devices.DeviceAndDriverInstallation
- * @version v4.0.30319
  */
-class BUSNUMBER_DES extends Win32Struct
-{
+class BUSNUMBER_DES extends Win32Struct {
     static sizeof => 20
 
     static packingSize => 4
 
     /**
-     * 
      * @type {Integer}
      */
     BUSD_Count {
@@ -43,7 +40,6 @@ class BUSNUMBER_DES extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     BUSD_Alloc_Base {
@@ -52,7 +48,6 @@ class BUSNUMBER_DES extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     BUSD_Alloc_End {

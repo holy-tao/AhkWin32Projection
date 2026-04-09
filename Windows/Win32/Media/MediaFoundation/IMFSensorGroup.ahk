@@ -1,18 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\IMFAttributes.ahk
 #Include .\IMFSensorDevice.ahk
 #Include .\IMFMediaSource.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Represents a group of sensor devices from which an IMFMediaSource can be created.
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imfsensorgroup
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFSensorGroup extends IUnknown{
+class IMFSensorGroup extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

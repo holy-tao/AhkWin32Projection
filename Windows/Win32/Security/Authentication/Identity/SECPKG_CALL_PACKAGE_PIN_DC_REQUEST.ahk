@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class SECPKG_CALL_PACKAGE_PIN_DC_REQUEST extends Win32Struct
-{
+class SECPKG_CALL_PACKAGE_PIN_DC_REQUEST extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -31,7 +29,7 @@ class SECPKG_CALL_PACKAGE_PIN_DC_REQUEST extends Win32Struct
     /**
      * @type {LSA_UNICODE_STRING}
      */
-    DomainName{
+    DomainName {
         get {
             if(!this.HasProp("__DomainName"))
                 this.__DomainName := LSA_UNICODE_STRING(8, this)
@@ -42,7 +40,7 @@ class SECPKG_CALL_PACKAGE_PIN_DC_REQUEST extends Win32Struct
     /**
      * @type {LSA_UNICODE_STRING}
      */
-    DcName{
+    DcName {
         get {
             if(!this.HasProp("__DcName"))
                 this.__DcName := LSA_UNICODE_STRING(24, this)

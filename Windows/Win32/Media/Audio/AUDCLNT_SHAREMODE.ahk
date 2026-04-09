@@ -15,9 +15,8 @@
  * Starting with Xbox May 2021 Update, you can open an audio client in exclusive mode on Xbox.
  * @see https://learn.microsoft.com/windows/win32/api/audiosessiontypes/ne-audiosessiontypes-audclnt_sharemode
  * @namespace Windows.Win32.Media.Audio
- * @version v4.0.30319
  */
-class AUDCLNT_SHAREMODE extends Win32Enum{
+class AUDCLNT_SHAREMODE extends Win32Enum {
 
     /**
      * The audio stream will run in shared mode. For more information, see Remarks.

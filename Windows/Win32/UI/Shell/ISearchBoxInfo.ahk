@@ -19,9 +19,8 @@
  * An implementation of this interface is provided with Windows. Third parties do not need to implement their own version.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nn-shobjidl-isearchboxinfo
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class ISearchBoxInfo extends IUnknown{
+class ISearchBoxInfo extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

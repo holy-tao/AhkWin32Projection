@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Packaging\Opc\IOpcPartUri.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\Packaging\Opc\IOpcPartUri.ahk
 
 /**
  * The base interface for all XPS document part interfaces.
  * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsompart
  * @namespace Windows.Win32.Storage.Xps
- * @version v4.0.30319
  */
-class IXpsOMPart extends IUnknown{
+class IXpsOMPart extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -7,9 +7,8 @@
  * This interface allows the application to enumerate through the color glyph runs.
  * @see https://learn.microsoft.com/windows/win32/DirectWrite/idwritecolorglyphrunenumerator
  * @namespace Windows.Win32.Graphics.DirectWrite
- * @version v4.0.30319
  */
-class IDWriteColorGlyphRunEnumerator extends IUnknown{
+class IDWriteColorGlyphRunEnumerator extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

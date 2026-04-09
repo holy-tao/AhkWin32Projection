@@ -4,13 +4,11 @@
 
 /**
  * @namespace Windows.Win32.Devices.Display
- * @version v4.0.30319
  */
-class BRIGHTNESS_NIT_RANGES extends Win32Struct
-{
-    static sizeof => 144
+class BRIGHTNESS_NIT_RANGES extends Win32Struct {
+    static sizeof => 204
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}
@@ -37,12 +35,12 @@ class BRIGHTNESS_NIT_RANGES extends Win32Struct
     }
 
     /**
-     * @type {Array<BRIGHTNESS_NIT_RANGE>}
+     * @type {BRIGHTNESS_NIT_RANGE}
      */
-    SupportedRanges{
+    SupportedRanges {
         get {
             if(!this.HasProp("__SupportedRangesProxyArray"))
-                this.__SupportedRangesProxyArray := Win32FixedArray(this.ptr + 16, 16, BRIGHTNESS_NIT_RANGE, "")
+                this.__SupportedRangesProxyArray := Win32FixedArray(this.ptr + 12, 16, BRIGHTNESS_NIT_RANGE, "")
             return this.__SupportedRangesProxyArray
         }
     }

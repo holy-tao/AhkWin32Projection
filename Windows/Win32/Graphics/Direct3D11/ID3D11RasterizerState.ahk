@@ -9,9 +9,8 @@
  * To create a rasterizer-state object, call <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11device-createrasterizerstate">ID3D11Device::CreateRasterizerState</a>. To bind the rasterizer-state object to the <a href="https://docs.microsoft.com/windows/desktop/direct3d11/d3d10-graphics-programming-guide-rasterizer-stage">rasterizer stage</a>, call <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11devicecontext-rssetstate">ID3D11DeviceContext::RSSetState</a>.
  * @see https://learn.microsoft.com/windows/win32/api/d3d11/nn-d3d11-id3d11rasterizerstate
  * @namespace Windows.Win32.Graphics.Direct3D11
- * @version v4.0.30319
  */
-class ID3D11RasterizerState extends ID3D11DeviceChild{
+class ID3D11RasterizerState extends ID3D11DeviceChild {
 
     static sizeof => A_PtrSize
     /**

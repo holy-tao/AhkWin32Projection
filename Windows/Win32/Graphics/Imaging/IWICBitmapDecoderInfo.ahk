@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IWICBitmapDecoder.ahk
 #Include .\IWICBitmapCodecInfo.ahk
+#Include .\IWICBitmapDecoder.ahk
 
 /**
  * Exposes methods that provide information about a decoder.
  * @see https://learn.microsoft.com/windows/win32/api/wincodec/nn-wincodec-iwicbitmapdecoderinfo
  * @namespace Windows.Win32.Graphics.Imaging
- * @version v4.0.30319
  */
-class IWICBitmapDecoderInfo extends IWICBitmapCodecInfo{
+class IWICBitmapDecoderInfo extends IWICBitmapCodecInfo {
 
     static sizeof => A_PtrSize
     /**
@@ -39,7 +38,7 @@ class IWICBitmapDecoderInfo extends IWICBitmapCodecInfo{
      * @param {Integer} cbSizePatterns Type: <b>UINT</b>
      * 
      * The array size of the <i>pPatterns</i> array.
-     * @param {Pointer} pPatterns Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ns-wincodec-wicbitmappattern">WICBitmapPattern</a>*</b>
+     * @param {Integer} pPatterns Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ns-wincodec-wicbitmappattern">WICBitmapPattern</a>*</b>
      * 
      * Receives a list of <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ns-wincodec-wicbitmappattern">WICBitmapPattern</a> objects supported by the decoder.
      * @param {Pointer<Integer>} pcPatterns Type: <b>UINT*</b>

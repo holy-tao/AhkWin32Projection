@@ -12,7 +12,6 @@
 
 /**
  * @namespace Windows.Win32.System.Com.Urlmon
- * @version v4.0.30319
  */
 class Urlmon {
 
@@ -1653,7 +1652,7 @@ class Urlmon {
      * 
      * @param {IBindCtx} pBC 
      * @param {PWSTR} szFilename 
-     * @param {Pointer} pBuffer 
+     * @param {Integer} pBuffer 
      * @param {Integer} cbSize 
      * @param {PWSTR} szMime 
      * @param {Integer} dwReserved 
@@ -1690,7 +1689,7 @@ class Urlmon {
      * @param {Integer} dwFileVersionLS 
      * @param {PWSTR} szTYPE 
      * @param {IBindCtx} pBindCtx 
-     * @param {Integer} dwClsContext 
+     * @param {CLSCTX} dwClsContext 
      * @param {Pointer<Guid>} riid 
      * @returns {Pointer<Void>} 
      */
@@ -1845,7 +1844,7 @@ class Urlmon {
     /**
      * 
      * @param {Integer} dwOption 
-     * @param {Pointer} pBuffer 
+     * @param {Integer} pBuffer 
      * @param {Integer} dwBufferLength 
      * @returns {HRESULT} 
      */
@@ -1859,7 +1858,7 @@ class Urlmon {
     /**
      * 
      * @param {Integer} dwOption 
-     * @param {Pointer} pBuffer 
+     * @param {Integer} pBuffer 
      * @param {Integer} dwBufferLength 
      * @returns {Integer} 
      */
@@ -1874,7 +1873,7 @@ class Urlmon {
      * 
      * @param {IBindCtx} pBC 
      * @param {PWSTR} pwzUrl 
-     * @param {Pointer} pBuffer 
+     * @param {Integer} pBuffer 
      * @param {Integer} cbSize 
      * @param {PWSTR} pwzMimeProposed 
      * @param {Integer} dwMimeFlags 
@@ -1941,7 +1940,7 @@ class Urlmon {
     /**
      * 
      * @param {HANDLE} hObject 
-     * @param {Integer} _ieObjectType 
+     * @param {IEObjectType} _ieObjectType 
      * @param {Integer} dwAccessMask 
      * @returns {HRESULT} 
      */
@@ -2200,7 +2199,7 @@ class Urlmon {
     /**
      * 
      * @param {PWSTR} pwzUrl 
-     * @param {Integer} _ParseAction 
+     * @param {PARSEACTION} _ParseAction 
      * @param {Integer} dwFlags 
      * @param {PWSTR} pszResult 
      * @param {Integer} cchResult 
@@ -2218,7 +2217,7 @@ class Urlmon {
     /**
      * 
      * @param {IUri} pIUri 
-     * @param {Integer} _ParseAction 
+     * @param {PARSEACTION} _ParseAction 
      * @param {Integer} dwFlags 
      * @param {PWSTR} pwzResult 
      * @param {Integer} cchResult 
@@ -2312,9 +2311,9 @@ class Urlmon {
     /**
      * 
      * @param {PWSTR} pwzUrl 
-     * @param {Integer} QueryOptions 
+     * @param {QUERYOPTION} QueryOptions 
      * @param {Integer} dwQueryFlags 
-     * @param {Pointer} pvBuffer 
+     * @param {Integer} pvBuffer 
      * @param {Integer} cbBuffer 
      * @param {Integer} dwReserved 
      * @returns {Integer} 
@@ -2340,7 +2339,7 @@ class Urlmon {
     /**
      * 
      * @param {PWSTR} pwszUrl 
-     * @param {Integer} _psuAction 
+     * @param {PSUACTION} _psuAction 
      * @returns {PWSTR} 
      */
     static CoInternetGetSecurityUrl(pwszUrl, _psuAction) {
@@ -2355,7 +2354,7 @@ class Urlmon {
     /**
      * 
      * @param {IUri} pUri 
-     * @param {Integer} _psuAction 
+     * @param {PSUACTION} _psuAction 
      * @returns {IUri} 
      */
     static CoInternetGetSecurityUrlEx(pUri, _psuAction) {
@@ -2367,7 +2366,7 @@ class Urlmon {
 
     /**
      * 
-     * @param {Integer} FeatureEntry 
+     * @param {INTERNETFEATURELIST} FeatureEntry 
      * @param {Integer} dwFlags 
      * @param {BOOL} fEnable 
      * @returns {HRESULT} 
@@ -2379,7 +2378,7 @@ class Urlmon {
 
     /**
      * 
-     * @param {Integer} FeatureEntry 
+     * @param {INTERNETFEATURELIST} FeatureEntry 
      * @param {Integer} dwFlags 
      * @returns {HRESULT} 
      */
@@ -2390,7 +2389,7 @@ class Urlmon {
 
     /**
      * 
-     * @param {Integer} FeatureEntry 
+     * @param {INTERNETFEATURELIST} FeatureEntry 
      * @param {Integer} dwFlags 
      * @param {PWSTR} szURL 
      * @param {IInternetSecurityManager} pSecMgr 
@@ -2405,7 +2404,7 @@ class Urlmon {
 
     /**
      * 
-     * @param {Integer} FeatureEntry 
+     * @param {INTERNETFEATURELIST} FeatureEntry 
      * @param {Integer} dwFlags 
      * @param {IUri} pIUri 
      * @param {IInternetSecurityManagerEx2} pSecMgr 

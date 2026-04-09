@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IPrinterScriptablePropertyBag.ahk
 #Include ..\..\System\Com\IDispatch.ahk
+#Include .\IPrinterScriptablePropertyBag.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
- * @version v4.0.30319
  */
-class IPrinterScriptContext extends IDispatch{
+class IPrinterScriptContext extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

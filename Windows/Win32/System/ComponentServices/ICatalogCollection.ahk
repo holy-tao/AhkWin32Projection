@@ -1,18 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include ..\Com\IUnknown.ahk
 #Include ..\Com\IDispatch.ahk
+#Include ..\Com\IUnknown.ahk
 #Include ..\Variant\VARIANT.ahk
 
 /**
  * Represents any collection in the COM+ catalog. ICatalogCollection enables you to enumerate, add, remove, and retrieve items in a collection and to access related collections.
  * @see https://learn.microsoft.com/windows/win32/api/comadmin/nn-comadmin-icatalogcollection
  * @namespace Windows.Win32.System.ComponentServices
- * @version v4.0.30319
  */
-class ICatalogCollection extends IDispatch{
+class ICatalogCollection extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

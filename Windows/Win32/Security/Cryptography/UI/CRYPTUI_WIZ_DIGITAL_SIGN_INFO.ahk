@@ -1,14 +1,20 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\CRYPTUI_WIZ_DIGITAL_SIGN_SUBJECT.ahk
+#Include .\CRYPTUI_WIZ_DIGITAL_SIGN_BLOB_INFO.ahk
+#Include .\CRYPTUI_WIZ_DIGITAL_SIGN.ahk
+#Include ..\CERT_CONTEXT.ahk
+#Include .\CRYPTUI_WIZ_DIGITAL_SIGN_STORE_INFO.ahk
+#Include .\CRYPTUI_WIZ_DIGITAL_SIGN_CERT_PVK_INFO.ahk
+#Include .\CRYPTUI_WIZ_DIGITAL_ADDITIONAL_CERT_CHOICE.ahk
+#Include .\CRYPTUI_WIZ_DIGITAL_SIGN_EXTENDED_INFO.ahk
 
 /**
  * Contains information about digital signing.
  * @see https://learn.microsoft.com/windows/win32/api/cryptuiapi/ns-cryptuiapi-cryptui_wiz_digital_sign_info
  * @namespace Windows.Win32.Security.Cryptography.UI
- * @version v4.0.30319
  */
-class CRYPTUI_WIZ_DIGITAL_SIGN_INFO extends Win32Struct
-{
+class CRYPTUI_WIZ_DIGITAL_SIGN_INFO extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8
@@ -23,8 +29,7 @@ class CRYPTUI_WIZ_DIGITAL_SIGN_INFO extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Integer}
+     * @type {CRYPTUI_WIZ_DIGITAL_SIGN_SUBJECT}
      */
     dwSubjectChoice {
         get => NumGet(this, 4, "uint")
@@ -48,8 +53,7 @@ class CRYPTUI_WIZ_DIGITAL_SIGN_INFO extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Integer}
+     * @type {CRYPTUI_WIZ_DIGITAL_SIGN}
      */
     dwSigningCertChoice {
         get => NumGet(this, 16, "uint")
@@ -90,8 +94,7 @@ class CRYPTUI_WIZ_DIGITAL_SIGN_INFO extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Integer}
+     * @type {CRYPTUI_WIZ_DIGITAL_ADDITIONAL_CERT_CHOICE}
      */
     dwAdditionalCertChoice {
         get => NumGet(this, 40, "uint")

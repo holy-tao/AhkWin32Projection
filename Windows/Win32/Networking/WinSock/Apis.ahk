@@ -2,13 +2,11 @@
 #Include ..\..\..\..\Win32Handle.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\SOCKET.ahk
-#Include ..\..\Foundation\HANDLE.ahk
 #Include .\WSAEVENT.ahk
-#Include .\Apis.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * @namespace Windows.Win32.Networking.WinSock
- * @version v4.0.30319
  */
 class WinSock {
 
@@ -5740,7 +5738,7 @@ class WinSock {
      * The order in which the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/ns-winsock2-wsaprotocol_infow">WSAPROTOCOL_INFOW</a> structures appear in the buffer coincides with the order in which the protocol entries were registered by the service provider with the WS2_32.dll, or with any subsequent reordering that may have occurred through the Windows Sockets applet supplied for establishing default transport providers.
      * @param {Pointer<Integer>} lpiProtocols Null-terminated array of <i>iProtocol</i> values. This parameter is optional; if <i>lpiProtocols</i> is null, information on all available protocols is returned. Otherwise, information is retrieved only for those protocols listed in the array.
-     * @param {Pointer} lpProtocolBuffer Buffer that is filled with 
+     * @param {Integer} lpProtocolBuffer Buffer that is filled with 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/ns-winsock2-wsaprotocol_infow">WSAPROTOCOL_INFOW</a> structures.
      * @param {Pointer<Integer>} lpdwBufferLength On input, size of the <i>lpProtocolBuffer</i> buffer passed to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ws2spi/nf-ws2spi-wscenumprotocols">WSCEnumProtocols</a>, in bytes. On output, the minimum buffer size, in bytes, that can be passed to 
@@ -6230,8 +6228,8 @@ class WinSock {
      * The **WSCSetProviderInfo32** function can only be called by a user logged on as a member of the Administrators group. If **WSCSetProviderInfo32** is called by a user that is not a member of the Administrators group, the function call will fail and **WSANO_RECOVERY** is returned in the <i>lpErrno</i> parameter. 
      *  This function can also fail because of user account control (UAC). If an application  that contains this function is executed by a user logged on as a member of the Administrators group other than the built-in Administrator, this call will fail unless the application has been marked in the manifest file with a **requestedExecutionLevel** set to **requireAdministrator**. If the application on Windows Vista or Windows Server 2008 lacks this manifest file, a user logged on as a member of the Administrators group other than the built-in Administrator must then be executing the application in an enhanced shell as the built-in Administrator (RunAs administrator) for this function to succeed.
      * @param {Pointer<Guid>} lpProviderId A pointer to a globally unique identifier (GUID)  for the provider.
-     * @param {Integer} InfoType The information class to be set for this LSP protocol entry.
-     * @param {Pointer} Info A pointer to a buffer that contains the information class data to set for the LSP protocol entry.
+     * @param {WSC_PROVIDER_INFO_TYPE} InfoType The information class to be set for this LSP protocol entry.
+     * @param {Integer} Info A pointer to a buffer that contains the information class data to set for the LSP protocol entry.
      * @param {Pointer} InfoSize The size, in bytes, of the buffer pointed to by the <i>Info</i> parameter.
      * @param {Integer} Flags The flags used to modify the behavior of the **WSCSetProviderInfo32** function call.
      * @param {Pointer<Integer>} lpErrno A pointer to the error code if the function fails.
@@ -6382,8 +6380,8 @@ class WinSock {
      * 
      * If an LSP does not have a category set, it is considered to be in the All Other category. This LSP category will not be loaded in services or system processes (for example, lsass, winlogon, and many svchost processes).
      * @param {Pointer<Guid>} lpProviderId A pointer to a globally unique identifier (GUID)  for the provider.
-     * @param {Integer} InfoType The information class that is requested for this LSP protocol entry.
-     * @param {Pointer} Info A pointer to a buffer to receive the information class data for the requested LSP protocol entry. If this parameter is **NULL**, then **WSCGetProviderInfo32** returns failure and the size required for this buffer is returned in the <i>InfoSize</i> parameter.
+     * @param {WSC_PROVIDER_INFO_TYPE} InfoType The information class that is requested for this LSP protocol entry.
+     * @param {Integer} Info A pointer to a buffer to receive the information class data for the requested LSP protocol entry. If this parameter is **NULL**, then **WSCGetProviderInfo32** returns failure and the size required for this buffer is returned in the <i>InfoSize</i> parameter.
      * @param {Pointer<Pointer>} InfoSize The size, in bytes, of the buffer pointed to by the <i>Info</i> parameter. If the Info parameter is **NULL**, then  **WSCGetProviderInfo32** returns failure and the <i>InfoSize</i> parameter will receive the size of the required buffer.
      * @param {Integer} Flags The flags used to modify the behavior of the **WSCGetProviderInfo32** function call.
      * @param {Pointer<Integer>} lpErrno A pointer to the error code if the function fails.
@@ -6482,7 +6480,7 @@ class WinSock {
      * The **WSCEnumNameSpaceProviders32** function is a Unicode only function and returns <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/ns-winsock2-wsanamespace_infoexw">WSANAMESPACE_INFOEXW</a> structures.
      * @param {Pointer<Integer>} lpdwBufferLength On input, the number of bytes contained in the buffer pointed to by <i>lpnspBuffer</i>. On output (if the function fails, and the error is 
      * <a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEFAULT</a>), the minimum number of bytes to allocate for the <i>lpnspBuffer</i> buffer to allow it to retrieve all the requested information. The buffer passed to **WSCEnumNameSpaceProviders32** must be sufficient to hold all of the namespace information.
-     * @param {Pointer} lpnspBuffer A buffer that is filled with 
+     * @param {Integer} lpnspBuffer A buffer that is filled with 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/ns-winsock2-wsanamespace_infow">WSANAMESPACE_INFOW</a> structures. The returned structures are located consecutively at the head of the buffer. Variable sized information referenced by pointers in the structures point to locations within the buffer located between the end of the fixed sized structures and the end of the buffer. The number of structures filled in is the return value of 
      * **WSCEnumNameSpaceProviders32**.
      * @returns {Integer} The 
@@ -6554,7 +6552,7 @@ class WinSock {
      *                      passed in the <i>lpProviderInfo</i> parameter to the <a href="https://docs.microsoft.com/windows/desktop/api/ws2spi/nf-ws2spi-wscinstallnamespaceex32">WSCInstallNameSpaceEx32</a> function can be queried using **WSCEnumNameSpaceProvidersEx32** function.
      * @param {Pointer<Integer>} lpdwBufferLength On input, the number of bytes contained in the buffer pointed to by <i>lpnspBuffer</i>. On output (if the function fails, and the error is 
      * <a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEFAULT</a>), the minimum number of bytes to allocate for the <i>lpnspBuffer</i> buffer to allow it to retrieve all the requested information. The buffer passed to **WSCEnumNameSpaceProvidersEx32** must be sufficient to hold all of the namespace information.
-     * @param {Pointer} lpnspBuffer A buffer that is filled with 
+     * @param {Integer} lpnspBuffer A buffer that is filled with 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/ns-winsock2-wsanamespace_infoexw">WSANAMESPACE_INFOEXW</a> structures. The returned structures are located consecutively at the head of the buffer. Variable sized information referenced by pointers in the structures point to locations within the buffer located between the end of the fixed sized structures and the end of the buffer. The number of structures filled in is the return value of 
      * **WSCEnumNameSpaceProvidersEx32**.
      * @returns {Integer} The 
@@ -7399,7 +7397,7 @@ class WinSock {
      * @param {SOCKET} s A descriptor that identifies a socket that has been placed in a listening state with the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/nf-winsock2-listen">listen</a> function. The connection is actually made with the socket that is returned by 
      * <b>accept</b>.
-     * @param {Pointer} addr An optional pointer to a buffer that receives the address of the connecting entity, as known to the communications layer. The exact format of the <i>addr</i> parameter is determined by the address family that was established when the socket from the 
+     * @param {Integer} addr An optional pointer to a buffer that receives the address of the connecting entity, as known to the communications layer. The exact format of the <i>addr</i> parameter is determined by the address family that was established when the socket from the 
      * <a href="https://docs.microsoft.com/windows/desktop/WinSock/sockaddr-2">sockaddr</a> structure was created.
      * @param {Pointer<Integer>} addrlen An optional pointer to an integer that contains the length of structure pointed to by the <i>addr</i> parameter.
      * @returns {SOCKET} If no error occurs, 
@@ -7634,7 +7632,7 @@ class WinSock {
      * 
      * <b>Windows 8.1</b> and <b>Windows Server 2012 R2</b>: This function is supported for Windows Store apps on Windows 8.1, Windows Server 2012 R2, and later.
      * @param {SOCKET} s A descriptor identifying an unbound socket.
-     * @param {Pointer} name 
+     * @param {Integer} name 
      * @param {Integer} namelen The length, in bytes, of the value pointed to by *addr*.
      * @returns {Integer} If no error occurs, 
      * <b>bind</b> returns zero. Otherwise, it returns SOCKET_ERROR, and a specific error code can be retrieved by calling 
@@ -8119,7 +8117,7 @@ class WinSock {
      * 
      * ```cpp
      * @param {SOCKET} s A descriptor identifying an unconnected socket.
-     * @param {Pointer} name A pointer to the 
+     * @param {Integer} name A pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/WinSock/sockaddr-2">sockaddr</a> structure to which the connection should be established.
      * @param {Integer} namelen The length, in bytes, of the <a href="https://docs.microsoft.com/windows/desktop/WinSock/sockaddr-2">sockaddr</a> structure pointed to by the <i>name</i> parameter.
      * @returns {Integer} If no error occurs, 
@@ -8528,7 +8526,7 @@ class WinSock {
      * 
      * <b>Windows 8.1</b> and <b>Windows Server 2012 R2</b>: This function is supported for Windows Store apps on Windows 8.1, Windows Server 2012 R2, and later.
      * @param {SOCKET} s A descriptor identifying a connected socket.
-     * @param {Pointer} name The 
+     * @param {Integer} name The 
      * <a href="https://docs.microsoft.com/windows/desktop/WinSock/sockaddr-2">SOCKADDR</a> structure that receives the address of the peer.
      * @param {Pointer<Integer>} namelen A pointer to the size, in bytes, of the <i>name</i> parameter.
      * @returns {Integer} If no error occurs, 
@@ -8646,7 +8644,7 @@ class WinSock {
      * 
      * <b>Windows 8.1</b> and <b>Windows Server 2012 R2</b>: This function is supported for Windows Store apps on Windows 8.1, Windows Server 2012 R2, and later.
      * @param {SOCKET} s Descriptor identifying a socket.
-     * @param {Pointer} name Pointer to a 
+     * @param {Integer} name Pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/WinSock/sockaddr-2">SOCKADDR</a> structure that receives the address (name) of the socket.
      * @param {Pointer<Integer>} namelen Size of the <i>name</i> buffer, in bytes.
      * @returns {Integer} If no error occurs, 
@@ -9190,7 +9188,7 @@ class WinSock {
      * @param {SOCKET} s A descriptor identifying a socket.
      * @param {Integer} level The level at which the option is defined. Example:  <a href="https://docs.microsoft.com/windows/desktop/WinSock/sol-socket-socket-options">SOL_SOCKET</a>.
      * @param {Integer} optname The socket option for which the value is to be retrieved. Example: <a href="https://docs.microsoft.com/windows/desktop/WinSock/socket-options-and-ioctls-2">SO_ACCEPTCONN</a>. The <i>optname</i> value must be a socket option defined within the specified <i>level</i>, or behavior is undefined.
-     * @param {Pointer} optval A pointer to the buffer in which the value for the requested option is to be returned.
+     * @param {Integer} optval A pointer to the buffer in which the value for the requested option is to be returned.
      * @param {Pointer<Integer>} optlen A pointer to the size, in bytes, of the <i>optval</i> buffer.
      * @returns {Integer} If no error occurs, 
      * <b>getsockopt</b> returns zero. Otherwise, a value of SOCKET_ERROR is returned, and a specific error code can be retrieved by calling 
@@ -9786,9 +9784,9 @@ class WinSock {
      * 
      * ```cpp
      * @param {SOCKET} s The descriptor that identifies a connected socket.
-     * @param {Pointer} buf A pointer to the buffer to receive the incoming data.
+     * @param {Integer} buf A pointer to the buffer to receive the incoming data.
      * @param {Integer} len The length, in bytes, of the buffer pointed to by the <i>buf</i> parameter.
-     * @param {Integer} flags A set of flags that influences the behavior of this function. See remarks below. See the Remarks section for details on the possible value for this parameter.
+     * @param {SEND_RECV_FLAGS} flags A set of flags that influences the behavior of this function. See remarks below. See the Remarks section for details on the possible value for this parameter.
      * @returns {Integer} If no error occurs, 
      * <b>recv</b> returns the number of bytes received and the buffer pointed to by the <i>buf</i> parameter will contain this data received. If the connection has been gracefully closed, the return value is zero.
      * 
@@ -10058,10 +10056,10 @@ class WinSock {
      * 
      * ```cpp
      * @param {SOCKET} s A descriptor identifying a bound socket.
-     * @param {Pointer} buf A buffer for the incoming data.
+     * @param {Integer} buf A buffer for the incoming data.
      * @param {Integer} len The length, in bytes, of the buffer pointed to by the <i>buf</i> parameter.
      * @param {Integer} flags A set of options that modify the behavior of the function call beyond the options specified for the associated socket. See the Remarks below for more details.
-     * @param {Pointer} from An optional pointer to a buffer in a 
+     * @param {Integer} from An optional pointer to a buffer in a 
      * <a href="https://docs.microsoft.com/windows/desktop/WinSock/sockaddr-2">sockaddr</a> structure that will hold the source address upon return.
      * @param {Pointer<Integer>} fromlen An optional pointer to the size, in bytes, of the buffer pointed to by the <i>from</i> parameter.
      * @returns {Integer} If no error occurs, 
@@ -10505,9 +10503,9 @@ class WinSock {
      * 
      * ```cpp
      * @param {SOCKET} s A descriptor identifying a connected socket.
-     * @param {Pointer} buf A pointer to a buffer containing the data to be transmitted.
+     * @param {Integer} buf A pointer to a buffer containing the data to be transmitted.
      * @param {Integer} len The length, in bytes, of the data in buffer pointed to by the <i>buf</i> parameter.
-     * @param {Integer} flags 
+     * @param {SEND_RECV_FLAGS} flags 
      * @returns {Integer} If no error occurs, 
      * <b>send</b> returns the total number of bytes sent, which can be less than the number requested to be sent in the <i>len</i> parameter. Otherwise, a value of SOCKET_ERROR is returned, and a specific error code can be retrieved by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a>.
@@ -10787,10 +10785,10 @@ class WinSock {
      * 
      * ```cpp
      * @param {SOCKET} s A descriptor identifying a (possibly connected) socket.
-     * @param {Pointer} buf A pointer to a buffer containing the data to be transmitted.
+     * @param {Integer} buf A pointer to a buffer containing the data to be transmitted.
      * @param {Integer} len The length, in bytes, of the data pointed to by the <i>buf</i> parameter.
      * @param {Integer} flags A set of flags that specify the way in which the call is made.
-     * @param {Pointer} to An optional pointer to a 
+     * @param {Integer} to An optional pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/WinSock/sockaddr-2">sockaddr</a> structure that contains the address of the target socket.
      * @param {Integer} tolen The size, in bytes, of the address pointed to by the <i>to</i> parameter.
      * @returns {Integer} If no error occurs, 
@@ -11317,7 +11315,7 @@ class WinSock {
      * @param {SOCKET} s A descriptor that identifies a socket.
      * @param {Integer} level The level at which the option is defined (for example, SOL_SOCKET).
      * @param {Integer} optname The socket option for which the value is to be set (for example, SO_BROADCAST). The <i>optname</i> parameter must be a socket option defined within the specified <i>level</i>, or behavior is undefined.
-     * @param {Pointer} optval A pointer to the buffer in which the value for the requested option is specified.
+     * @param {Integer} optval A pointer to the buffer in which the value for the requested option is specified.
      * @param {Integer} optlen The size, in bytes, of the buffer pointed to by the <i>optval</i> parameter.
      * @returns {Integer} If no error occurs, 
      * <b>setsockopt</b> returns zero. Otherwise, a value of SOCKET_ERROR is returned, and a specific error code can be retrieved by calling 
@@ -11526,7 +11524,7 @@ class WinSock {
      * 
      * <b>Windows 8.1</b> and <b>Windows Server 2012 R2</b>: This function is supported for Windows Store apps on Windows 8.1, Windows Server 2012 R2, and later.
      * @param {SOCKET} s A descriptor identifying a socket.
-     * @param {Integer} how A flag that describes what types of operation will no longer be allowed. Possible values for this flag are listed in the <i>Winsock2.h</i> header file.
+     * @param {WINSOCK_SHUTDOWN_HOW} how A flag that describes what types of operation will no longer be allowed. Possible values for this flag are listed in the <i>Winsock2.h</i> header file.
      * 
      * <table>
      * <tr>
@@ -11870,7 +11868,7 @@ class WinSock {
      * </td>
      * </tr>
      * </table>
-     * @param {Integer} type The type specification for the new socket. 
+     * @param {WINSOCK_SOCKET_TYPE} type The type specification for the new socket. 
      * 
      * 
      * Possible values for the socket type are defined in the <i>Winsock2.h</i> header file.
@@ -12247,7 +12245,7 @@ class WinSock {
      * 
      * 
      * ```cpp
-     * @param {Pointer} addr 
+     * @param {Integer} addr 
      * @param {Integer} len 
      * @param {Integer} type 
      * @returns {Pointer<HOSTENT>} 
@@ -12352,7 +12350,7 @@ class WinSock {
      * <b>Windows Phone 8:</b> This function is supported for Windows Phone Store apps on Windows Phone 8 and later.
      * 
      * <b>Windows 8.1</b> and <b>Windows Server 2012 R2</b>: This function is supported for Windows Store apps on Windows 8.1, Windows Server 2012 R2, and later.
-     * @param {Pointer} name A pointer to a buffer that receives the local host name.
+     * @param {Integer} name A pointer to a buffer that receives the local host name.
      * @param {Integer} namelen The length, in bytes, of the buffer pointed to by the <i>name</i> parameter.
      * @returns {Integer} If no error occurs, 
      * <b>gethostname</b> returns zero. Otherwise, it returns SOCKET_ERROR and a specific error code can be retrieved by calling 
@@ -13489,7 +13487,7 @@ class WinSock {
      * <b>Windows Phone 8:</b> This function is supported for Windows Phone Store apps on Windows Phone 8 and later.
      * 
      * <b>Windows 8.1</b> and <b>Windows Server 2012 R2</b>: This function is supported for Windows Store apps on Windows 8.1, Windows Server 2012 R2, and later.
-     * @returns {Integer} The return value indicates the error code for this thread's last Windows Sockets operation that failed.
+     * @returns {WSA_ERROR} The return value indicates the error code for this thread's last Windows Sockets operation that failed.
      * @see https://learn.microsoft.com/windows/win32/api/winsock/nf-winsock-wsagetlasterror
      * @since windows8.1
      */
@@ -13597,13 +13595,13 @@ class WinSock {
      * 
      * 
      * ```cpp
-     * @param {HWND} _hWnd 
+     * @param {HWND} _hWnd Handle of the window that should receive a message when the asynchronous request completes.
      * @param {Integer} wMsg Message to be received when the asynchronous request completes.
      * @param {PSTR} name Pointer to a <b>null</b>-terminated service name.
      * @param {PSTR} proto Pointer to a protocol name. This can be <b>NULL</b>, in which case 
      * <b>WSAAsyncGetServByName</b> will search for the first service entry for which <i>s_name</i> or one of the <i>s_aliases</i> matches the given <i>name</i>. Otherwise, 
      * <b>WSAAsyncGetServByName</b> matches both <i>name</i> and <i>proto</i>.
-     * @param {Pointer} buf Pointer to the data area to receive the 
+     * @param {Integer} buf Pointer to the data area to receive the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/ns-winsock-servent">servent</a> data. The data area must be larger than the size of a 
      * <b>servent</b> structure because the data area is used by Windows Sockets to contain a 
      * <b>servent</b> structure and all of the data that is referenced by members of the 
@@ -13776,13 +13774,13 @@ class WinSock {
      * 
      * 
      * ```cpp
-     * @param {HWND} _hWnd 
+     * @param {HWND} _hWnd Handle of the window that should receive a message when the asynchronous request completes.
      * @param {Integer} wMsg Message to be received when the asynchronous request completes.
      * @param {Integer} port Port for the service, in network byte order.
      * @param {PSTR} proto Pointer to a protocol name. This can be <b>NULL</b>, in which case 
      * <b>WSAAsyncGetServByPort</b> will search for the first service entry for which <i>s_port</i> match the given <i>port</i>. Otherwise, 
      * <b>WSAAsyncGetServByPort</b> matches both <i>port</i> and <i>proto</i>.
-     * @param {Pointer} buf Pointer to the data area to receive the 
+     * @param {Integer} buf Pointer to the data area to receive the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/ns-winsock-servent">servent</a> data. The data area must be larger than the size of a 
      * <b>servent</b> structure because the data area is used by Windows Sockets to contain a 
      * <b>servent</b> structure and all of the data that is referenced by members of the 
@@ -13954,10 +13952,10 @@ class WinSock {
      * 
      * 
      * ```cpp
-     * @param {HWND} _hWnd 
+     * @param {HWND} _hWnd Handle of the window that will receive a message when the asynchronous request completes.
      * @param {Integer} wMsg Message to be received when the asynchronous request completes.
      * @param {PSTR} name Pointer to the null-terminated protocol name to be resolved.
-     * @param {Pointer} buf Pointer to the data area to receive the 
+     * @param {Integer} buf Pointer to the data area to receive the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/ns-winsock-protoent">protoent</a> data. The data area must be larger than the size of a 
      * <b>protoent</b> structure because the data area is used by Windows Sockets to contain a 
      * <b>protoent</b> structure and all of the data that is referenced by members of the 
@@ -14129,10 +14127,10 @@ class WinSock {
      * 
      * 
      * ```cpp
-     * @param {HWND} _hWnd 
+     * @param {HWND} _hWnd Handle of the window that will receive a message when the asynchronous request completes.
      * @param {Integer} wMsg Message to be received when the asynchronous request completes.
-     * @param {Integer} _number 
-     * @param {Pointer} buf Pointer to the data area to receive the 
+     * @param {Integer} _number Protocol number to be resolved, in host byte order.
+     * @param {Integer} buf Pointer to the data area to receive the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/ns-winsock-protoent">protoent</a> data. The data area must be larger than the size of a 
      * <b>protoent</b> structure because the data area is used by Windows Sockets to contain a 
      * <b>protoent</b> structure and all of the data that is referenced by members of the 
@@ -14307,7 +14305,7 @@ class WinSock {
      * @param {HWND} _hWnd 
      * @param {Integer} wMsg 
      * @param {PSTR} name 
-     * @param {Pointer} buf 
+     * @param {Integer} buf 
      * @param {Integer} buflen 
      * @returns {HANDLE} 
      * @see https://learn.microsoft.com/windows/win32/api/wsipv6ok/nf-wsipv6ok-wsaasyncgethostbyname
@@ -14356,10 +14354,10 @@ class WinSock {
      * ```cpp
      * @param {HWND} _hWnd 
      * @param {Integer} wMsg 
-     * @param {Pointer} addr 
+     * @param {Integer} addr 
      * @param {Integer} len 
      * @param {Integer} type 
-     * @param {Pointer} buf 
+     * @param {Integer} buf 
      * @param {Integer} buflen 
      * @returns {HANDLE} 
      * @see https://learn.microsoft.com/windows/win32/api/wsipv6ok/nf-wsipv6ok-wsaasyncgethostbyaddr
@@ -14463,7 +14461,6 @@ class WinSock {
      * <a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEALREADY</a>, since in both cases the error indicates that there is no asynchronous operation in progress with the indicated handle. (Trivial exception: zero is always an invalid asynchronous task handle.) The Windows Sockets specification does not prescribe how a conformant Windows Sockets provider should distinguish between the two cases. For maximum portability, a Windows Sockets application should treat the two errors as equivalent.</div>
      * <div> </div>
      * @see https://learn.microsoft.com/windows/win32/api/winsock/nf-winsock-wsacancelasyncrequest
-     * @deprecated 
      * @since windows5.0
      */
     static WSACancelAsyncRequest(hAsyncTaskHandle) {
@@ -14590,7 +14587,7 @@ class WinSock {
      * 
      * ```cpp
      * @param {SOCKET} s A descriptor that identifies the socket for which event notification is required.
-     * @param {HWND} _hWnd 
+     * @param {HWND} _hWnd A handle that identifies the window that will receive a message when a network event occurs.
      * @param {Integer} wMsg A message to be received when a network event occurs.
      * @param {Integer} lEvent A bitmask that specifies a combination of network events in which the application is interested.
      * @returns {Integer} If the 
@@ -14859,7 +14856,7 @@ class WinSock {
      * ```cpp
      * @param {SOCKET} s A descriptor that identifies a socket that is listening for connections after a call to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/nf-winsock2-listen">listen</a> function.
-     * @param {Pointer} addr An optional pointer to an <a href="https://docs.microsoft.com/windows/desktop/WinSock/sockaddr-2">sockaddr</a> structure that receives the address of the connecting entity, as known to the communications layer. The exact format of the <i>addr</i> parameter is determined by the address family established when the socket was created.
+     * @param {Integer} addr An optional pointer to an <a href="https://docs.microsoft.com/windows/desktop/WinSock/sockaddr-2">sockaddr</a> structure that receives the address of the connecting entity, as known to the communications layer. The exact format of the <i>addr</i> parameter is determined by the address family established when the socket was created.
      * @param {Pointer<Integer>} addrlen An optional pointer to an integer that contains the length of the <a href="https://docs.microsoft.com/windows/desktop/WinSock/sockaddr-2">sockaddr</a> structure pointed to by the <i>addr</i> parameter, in bytes.
      * @param {Pointer<LPCONDITIONPROC>} lpfnCondition The  address of an optional, application-specified condition function that will make an accept/reject decision based on the caller information passed in as parameters, and optionally create or join a socket group by assigning an appropriate value to the result parameter <i>g</i> of this function. If this parameter is <b>NULL</b>, then no condition function is called.
      * @param {Pointer} dwCallbackData Callback data passed back to the application-specified condition function as the value of the <i>dwCallbackData</i> parameter passed to the condition function. This parameter is only applicable if the <i>lpfnCondition</i> parameter is not <b>NULL</b>. This parameter is not interpreted by Windows Sockets.
@@ -15217,7 +15214,7 @@ class WinSock {
      * 
      * <b>Windows 8.1</b> and <b>Windows Server 2012 R2</b>: This function is supported for Windows Store apps on Windows 8.1, Windows Server 2012 R2, and later.
      * @param {SOCKET} s A descriptor identifying an unconnected socket.
-     * @param {Pointer} name A pointer to a <a href="https://docs.microsoft.com/windows/desktop/WinSock/sockaddr-2">sockaddr</a> structure  that specifies the address to which to connect. For  IPv4, the <b>sockaddr</b> contains <b>AF_INET</b> for the address family, the destination IPv4 address, and the destination port. For  IPv6, the <b>sockaddr</b> structure contains <b>AF_INET6</b> for the address family, the destination IPv6 address, the destination port, and may contain additional flow and scope-id information.
+     * @param {Integer} name A pointer to a <a href="https://docs.microsoft.com/windows/desktop/WinSock/sockaddr-2">sockaddr</a> structure  that specifies the address to which to connect. For  IPv4, the <b>sockaddr</b> contains <b>AF_INET</b> for the address family, the destination IPv4 address, and the destination port. For  IPv6, the <b>sockaddr</b> structure contains <b>AF_INET6</b> for the address family, the destination IPv6 address, the destination port, and may contain additional flow and scope-id information.
      * @param {Integer} namelen The length, in bytes, of the <a href="https://docs.microsoft.com/windows/desktop/WinSock/sockaddr-2">sockaddr</a> structure pointed to by the <i>name</i> parameter.
      * @param {Pointer<WSABUF>} lpCallerData A pointer to the user data that is to be transferred to the other socket during connection establishment. See Remarks.
      * @param {Pointer<WSABUF>} lpCalleeData A pointer to the user data that is to be transferred back from the other socket during connection establishment. See Remarks.
@@ -15568,9 +15565,9 @@ class WinSock {
      * 
      * <c>%WINDIR%\system32\drivers\etc\services</c>
      * @param {Pointer<Integer>} LocalAddressLength On input, a pointer to the size, in bytes, of the <i>LocalAddress</i> buffer provided by the caller. On output, a pointer to the size, in bytes, of the <b>SOCKADDR</b> for the local address stored in the <i>LocalAddress</i> buffer filled in by the system upon successful completion of the call.
-     * @param {Pointer} LocalAddress A pointer to the <b>SOCKADDR</b> structure that receives the local address of the connection. The size of the parameter is exactly the size returned in <i>LocalAddressLength</i>. This is the same information that would be returned by the <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-getsockname">getsockname</a> function. This parameter can be <b>NULL</b>, in which case, the <i>LocalAddressLength</i> parameter is ignored.
+     * @param {Integer} LocalAddress A pointer to the <b>SOCKADDR</b> structure that receives the local address of the connection. The size of the parameter is exactly the size returned in <i>LocalAddressLength</i>. This is the same information that would be returned by the <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-getsockname">getsockname</a> function. This parameter can be <b>NULL</b>, in which case, the <i>LocalAddressLength</i> parameter is ignored.
      * @param {Pointer<Integer>} RemoteAddressLength On input, a pointer to the size, in bytes, of the <i>RemoteAddress</i> buffer provided by the caller. On output, a pointer to the size, in bytes, of the <b>SOCKADDR</b> for the remote address stored in <i>RemoteAddress</i> buffer filled-in by the system upon successful completion of the call.
-     * @param {Pointer} RemoteAddress A pointer to the <b>SOCKADDR</b> structure that receives the remote address of the connection. This is the same information that would be returned by the <b>getpeername</b> function. This parameter can be <b>NULL</b>, in which case, the <i>RemoteAddressLength</i> is ignored.
+     * @param {Integer} RemoteAddress A pointer to the <b>SOCKADDR</b> structure that receives the remote address of the connection. This is the same information that would be returned by the <b>getpeername</b> function. This parameter can be <b>NULL</b>, in which case, the <i>RemoteAddressLength</i> is ignored.
      * @param {Pointer<TIMEVAL>} timeout The time, in milliseconds, to wait for a response from the remote application before aborting the call.
      * @returns {BOOL} If a connection is established, <b>WSAConnectByName</b> returns <b>TRUE</b> and <i>LocalAddress</i> and <i>RemoteAddress</i> parameters are filled in if these buffers were supplied by the caller.
      * 
@@ -15717,9 +15714,9 @@ class WinSock {
      * 
      * <c>%WINDIR%\system32\drivers\etc\services</c>
      * @param {Pointer<Integer>} LocalAddressLength On input, a pointer to the size, in bytes, of the <i>LocalAddress</i> buffer provided by the caller. On output, a pointer to the size, in bytes, of the <b>SOCKADDR</b> for the local address stored in the <i>LocalAddress</i> buffer filled in by the system upon successful completion of the call.
-     * @param {Pointer} LocalAddress A pointer to the <b>SOCKADDR</b> structure that receives the local address of the connection. The size of the parameter is exactly the size returned in <i>LocalAddressLength</i>. This is the same information that would be returned by the <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-getsockname">getsockname</a> function. This parameter can be <b>NULL</b>, in which case, the <i>LocalAddressLength</i> parameter is ignored.
+     * @param {Integer} LocalAddress A pointer to the <b>SOCKADDR</b> structure that receives the local address of the connection. The size of the parameter is exactly the size returned in <i>LocalAddressLength</i>. This is the same information that would be returned by the <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-getsockname">getsockname</a> function. This parameter can be <b>NULL</b>, in which case, the <i>LocalAddressLength</i> parameter is ignored.
      * @param {Pointer<Integer>} RemoteAddressLength On input, a pointer to the size, in bytes, of the <i>RemoteAddress</i> buffer provided by the caller. On output, a pointer to the size, in bytes, of the <b>SOCKADDR</b> for the remote address stored in <i>RemoteAddress</i> buffer filled-in by the system upon successful completion of the call.
-     * @param {Pointer} RemoteAddress A pointer to the <b>SOCKADDR</b> structure that receives the remote address of the connection. This is the same information that would be returned by the <b>getpeername</b> function. This parameter can be <b>NULL</b>, in which case, the <i>RemoteAddressLength</i> is ignored.
+     * @param {Integer} RemoteAddress A pointer to the <b>SOCKADDR</b> structure that receives the remote address of the connection. This is the same information that would be returned by the <b>getpeername</b> function. This parameter can be <b>NULL</b>, in which case, the <i>RemoteAddressLength</i> is ignored.
      * @param {Pointer<TIMEVAL>} timeout The time, in milliseconds, to wait for a response from the remote application before aborting the call.
      * @returns {BOOL} If a connection is established, <b>WSAConnectByName</b> returns <b>TRUE</b> and <i>LocalAddress</i> and <i>RemoteAddress</i> parameters are filled in if these buffers were supplied by the caller.
      * 
@@ -15927,7 +15924,7 @@ class WinSock {
      *       the caller. On output, a pointer to the size, in bytes, of the <b>SOCKADDR</b> for the 
      *       local address stored in the <i>LocalAddress</i> buffer filled in by the system upon 
      *       successful completion of the call.
-     * @param {Pointer} LocalAddress A pointer to the <b>SOCKADDR</b> structure that receives the local address of the 
+     * @param {Integer} LocalAddress A pointer to the <b>SOCKADDR</b> structure that receives the local address of the 
      *       connection. The size of the parameter is exactly the size returned in 
      *       <i>LocalAddressLength</i>. This is the same information that would be returned by the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-getsockname">getsockname</a> function. This parameter can be 
@@ -15937,7 +15934,7 @@ class WinSock {
      *       by the caller. On output, a pointer to the size, in bytes, of the <b>SOCKADDR</b> for the 
      *       remote address stored in <i>RemoteAddress</i> buffer filled-in by the system upon successful 
      *       completion of the call.
-     * @param {Pointer} RemoteAddress A pointer to the <b>SOCKADDR</b> structure that receives the remote address of the 
+     * @param {Integer} RemoteAddress A pointer to the <b>SOCKADDR</b> structure that receives the remote address of the 
      *       connection. This is the same information that would be returned by the 
      *       <b>getpeername</b> function. This parameter can be <b>NULL</b>, in 
      *       which case, the <i>RemoteAddressLength</i> is ignored.
@@ -16828,7 +16825,7 @@ class WinSock {
      * 
      * <b>Windows 8.1</b> and <b>Windows Server 2012 R2</b>: The <b>WSAEnumProtocolsW</b> function is supported for Windows Store apps on Windows 8.1, Windows Server 2012 R2, and later.
      * @param {Pointer<Integer>} lpiProtocols A <b>NULL</b>-terminated array of iProtocol values. This parameter is optional; if <i>lpiProtocols</i> is <b>NULL</b>, information on all available protocols is returned. Otherwise, information is retrieved only for those protocols listed in the array.
-     * @param {Pointer} lpProtocolBuffer A pointer to a buffer that is filled with 
+     * @param {Integer} lpProtocolBuffer A pointer to a buffer that is filled with 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/ns-winsock2-wsaprotocol_infoa">WSAPROTOCOL_INFO</a> structures.
      * @param {Pointer<Integer>} lpdwBufferLength On input, number of bytes in the <i>lpProtocolBuffer</i> buffer passed to 
      * <b>WSAEnumProtocols</b>. On output, the minimum buffer size that can be passed to 
@@ -16954,7 +16951,7 @@ class WinSock {
      * 
      * <b>Windows 8.1</b> and <b>Windows Server 2012 R2</b>: The <b>WSAEnumProtocolsW</b> function is supported for Windows Store apps on Windows 8.1, Windows Server 2012 R2, and later.
      * @param {Pointer<Integer>} lpiProtocols A <b>NULL</b>-terminated array of iProtocol values. This parameter is optional; if <i>lpiProtocols</i> is <b>NULL</b>, information on all available protocols is returned. Otherwise, information is retrieved only for those protocols listed in the array.
-     * @param {Pointer} lpProtocolBuffer A pointer to a buffer that is filled with 
+     * @param {Integer} lpProtocolBuffer A pointer to a buffer that is filled with 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/ns-winsock2-wsaprotocol_infoa">WSAPROTOCOL_INFO</a> structures.
      * @param {Pointer<Integer>} lpdwBufferLength On input, number of bytes in the <i>lpProtocolBuffer</i> buffer passed to 
      * <b>WSAEnumProtocols</b>. On output, the minimum buffer size that can be passed to 
@@ -17710,7 +17707,6 @@ class WinSock {
      * </tr>
      * </table>
      * @see https://learn.microsoft.com/windows/win32/api/winsock2/nf-winsock2-wsagetqosbyname
-     * @deprecated 
      * @since windows5.0
      */
     static WSAGetQOSByName(s, lpQOSName, lpQOS) {
@@ -17952,9 +17948,9 @@ class WinSock {
      * ```cpp
      * @param {SOCKET} s A descriptor identifying a socket.
      * @param {Integer} dwIoControlCode The control code of operation to perform.
-     * @param {Pointer} lpvInBuffer A pointer to the input buffer.
+     * @param {Integer} lpvInBuffer A pointer to the input buffer.
      * @param {Integer} cbInBuffer The size, in bytes, of the input buffer.
-     * @param {Pointer} lpvOutBuffer A pointer to the output buffer.
+     * @param {Integer} lpvOutBuffer A pointer to the output buffer.
      * @param {Integer} cbOutBuffer The size, in bytes, of the output buffer.
      * @param {Pointer<Integer>} lpcbBytesReturned A pointer to actual number of bytes of output.
      * @param {Pointer<OVERLAPPED>} lpOverlapped A pointer to a 
@@ -18157,7 +18153,7 @@ class WinSock {
      * 
      * <b>Windows 8.1</b> and <b>Windows Server 2012 R2</b>: This function is supported for Windows Store apps on Windows 8.1, Windows Server 2012 R2, and later.
      * @param {SOCKET} s Descriptor identifying a multipoint socket.
-     * @param {Pointer} name Name of the peer to which the socket is to be joined.
+     * @param {Integer} name Name of the peer to which the socket is to be joined.
      * @param {Integer} namelen Length of <i>name</i>, in bytes.
      * @param {Pointer<WSABUF>} lpCallerData Pointer to the user data that is to be transferred to the peer during multipoint session establishment.
      * @param {Pointer<WSABUF>} lpCalleeData Pointer to the user data that is to be transferred back from the peer during multipoint session establishment.
@@ -19380,7 +19376,7 @@ class WinSock {
      * Use <b>NULL</b> for this parameter if the <i>lpOverlapped</i> parameter is not <b>NULL</b> to avoid potentially erroneous results. This parameter can be <b>NULL</b> only if the <i>lpOverlapped</i> parameter is not <b>NULL</b>.
      * @param {Pointer<Integer>} lpFlags A pointer to flags used to modify the behavior of the 
      * <b>WSARecvFrom</b> function call. See remarks below.
-     * @param {Pointer} lpFrom An optional pointer to a buffer that will hold the source address upon the completion of the overlapped operation.
+     * @param {Integer} lpFrom An optional pointer to a buffer that will hold the source address upon the completion of the overlapped operation.
      * @param {Pointer<Integer>} lpFromlen A pointer to the size, in bytes, of the "from" buffer required only if <i>lpFrom</i> is specified.
      * @param {Pointer<OVERLAPPED>} lpOverlapped A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/ns-winsock2-wsaoverlapped">WSAOVERLAPPED</a> structure (ignored for nonoverlapped sockets).
@@ -20140,7 +20136,7 @@ class WinSock {
      * Returning from this function allows invocation of another pending completion routine for the socket. All waiting completion routines are called before the alertable thread's wait is satisfied with a return code of WSA_IO_COMPLETION. The completion routines can be called in any order, not necessarily in the same order the overlapped operations are completed. However, the posted buffers are guaranteed to be sent in the same order they are specified.
      * 
      * <b>Windows 8.1</b> and <b>Windows Server 2012 R2</b>: This   function is supported for Windows Store apps on Windows 8.1, Windows Server 2012 R2, and later.
-     * @param {SOCKET} _Handle 
+     * @param {SOCKET} _Handle A descriptor identifying the  socket.
      * @param {Pointer<WSAMSG>} lpMsg A <a href="https://docs.microsoft.com/windows/desktop/api/ws2def/ns-ws2def-wsamsg">WSAMSG</a> structure storing the Posix.1g <b>msghdr</b> structure.
      * @param {Integer} dwFlags The flags used to modify the behavior of the <b>WSASendMsg</b> function call. For more information, see Using <i>dwFlags</i> in the Remarks section.
      * @param {Pointer<Integer>} lpNumberOfBytesSent A pointer to the number, in bytes, sent by this call if the I/O operation completes immediately. 
@@ -20688,7 +20684,7 @@ class WinSock {
      * Use <b>NULL</b> for this parameter if the <i>lpOverlapped</i> parameter is not <b>NULL</b> to avoid potentially erroneous results. This parameter can be <b>NULL</b> only  if the <i>lpOverlapped</i> parameter is not <b>NULL</b>.
      * @param {Integer} dwFlags The flags  used to modify the behavior of the 
      * <b>WSASendTo</b> function call.
-     * @param {Pointer} lpTo An optional pointer to the address of the target socket in the 
+     * @param {Integer} lpTo An optional pointer to the address of the target socket in the 
      * <a href="https://docs.microsoft.com/windows/desktop/WinSock/sockaddr-2">SOCKADDR</a> structure.
      * @param {Integer} iTolen The size, in bytes, of the address in the <i>lpTo</i> parameter.
      * @param {Pointer<OVERLAPPED>} lpOverlapped A pointer to a 
@@ -22630,7 +22626,7 @@ class WinSock {
      * @param {BOOL} fWaitAll A value that specifies the wait type. If <b>TRUE</b>, the function returns when the state of all objects in the <i>lphEvents</i> array is signaled. If <b>FALSE</b>, the function returns when any  of the event objects is signaled. In the latter case, the return value minus <b>WSA_WAIT_EVENT_0</b> indicates the index of the event object whose state caused the function to return. If more than one event object became signaled during the call, this is the array index to the signaled event object with the smallest index value of all the signaled event objects.
      * @param {Integer} dwTimeout The time-out interval, in milliseconds. <b>WSAWaitForMultipleEvents</b> returns if the time-out interval expires, even if conditions specified by the <i>fWaitAll</i> parameter are not satisfied. If the <i>dwTimeout</i> parameter is zero, <b>WSAWaitForMultipleEvents</b> tests the state of the specified event objects and returns immediately. If <i>dwTimeout</i> is <b>WSA_INFINITE</b>, <b>WSAWaitForMultipleEvents</b> waits forever; that is, the time-out interval never expires.
      * @param {BOOL} fAlertable A value that specifies whether the thread is placed in an alertable wait state so the system can execute I/O completion routines. If <b>TRUE</b>, the thread is placed in an alertable wait state and <b>WSAWaitForMultipleEvents</b> can return when the system executes an I/O completion routine. In this case, <b>WSA_WAIT_IO_COMPLETION</b> is returned and the event that was being waited on is not signaled yet. The application must call the <b>WSAWaitForMultipleEvents</b> function again. If <b>FALSE</b>, the thread is not placed in an alertable wait state and I/O completion routines are not executed.
-     * @returns {Integer} If the 
+     * @returns {WAIT_EVENT} If the 
      * <b>WSAWaitForMultipleEvents</b> function succeeds,  the return value upon success is one of the following values.
      * 
      * <table>
@@ -22749,7 +22745,7 @@ class WinSock {
      * 
      * > [!NOTE]
      * > The winsock2.h header defines WSAAddressToString as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer} lpsaAddress A pointer to the 
+     * @param {Integer} lpsaAddress A pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/WinSock/sockaddr-2">sockaddr</a> structure to translate into a string.
      * @param {Integer} dwAddressLength The length, in bytes, of the address in the <a href="https://docs.microsoft.com/windows/desktop/WinSock/sockaddr-2">sockaddr</a> structure pointed to by the <i>lpsaAddress</i> parameter. The <i>dwAddressLength</i> parameter may vary in size with different protocols.
      * @param {Pointer<WSAPROTOCOL_INFOA>} lpProtocolInfo A pointer to the 
@@ -22857,7 +22853,7 @@ class WinSock {
      * 
      * > [!NOTE]
      * > The winsock2.h header defines WSAAddressToString as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer} lpsaAddress A pointer to the 
+     * @param {Integer} lpsaAddress A pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/WinSock/sockaddr-2">sockaddr</a> structure to translate into a string.
      * @param {Integer} dwAddressLength The length, in bytes, of the address in the <a href="https://docs.microsoft.com/windows/desktop/WinSock/sockaddr-2">sockaddr</a> structure pointed to by the <i>lpsaAddress</i> parameter. The <i>dwAddressLength</i> parameter may vary in size with different protocols.
      * @param {Pointer<WSAPROTOCOL_INFOW>} lpProtocolInfo A pointer to the 
@@ -22967,7 +22963,7 @@ class WinSock {
      * @param {Integer} AddressFamily The address family of the network address pointed to by the <i>AddressString</i> parameter.
      * @param {Pointer<WSAPROTOCOL_INFOA>} lpProtocolInfo The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/ns-winsock2-wsaprotocol_infoa">WSAPROTOCOL_INFO</a> structure associated with the provider to be used. If this is <b>NULL</b>, the call is routed to the provider of the first protocol supporting the indicated <i>AddressFamily</i>.
-     * @param {Pointer} lpAddress A pointer to a buffer that is filled with a  <a href="https://docs.microsoft.com/windows/desktop/WinSock/sockaddr-2">sockaddr</a> structure for the address string if the function succeeds.
+     * @param {Integer} lpAddress A pointer to a buffer that is filled with a  <a href="https://docs.microsoft.com/windows/desktop/WinSock/sockaddr-2">sockaddr</a> structure for the address string if the function succeeds.
      * @param {Pointer<Integer>} lpAddressLength A pointer to the length, in bytes, of the buffer pointed to by the <i>lpAddress</i> parameter. If the function call is successful, this parameter returns a pointer to the size of the <a href="https://docs.microsoft.com/windows/desktop/WinSock/sockaddr-2">sockaddr</a> structure returned in the <i>lpAddress</i> parameter. If the specified buffer is not large enough, the function fails with a specific error of 
      * <a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEFAULT</a> and this parameter is updated with the required size in bytes.
      * @returns {Integer} The return value for 
@@ -23074,7 +23070,7 @@ class WinSock {
      * @param {Integer} AddressFamily The address family of the network address pointed to by the <i>AddressString</i> parameter.
      * @param {Pointer<WSAPROTOCOL_INFOW>} lpProtocolInfo The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/ns-winsock2-wsaprotocol_infoa">WSAPROTOCOL_INFO</a> structure associated with the provider to be used. If this is <b>NULL</b>, the call is routed to the provider of the first protocol supporting the indicated <i>AddressFamily</i>.
-     * @param {Pointer} lpAddress A pointer to a buffer that is filled with a  <a href="https://docs.microsoft.com/windows/desktop/WinSock/sockaddr-2">sockaddr</a> structure for the address string if the function succeeds.
+     * @param {Integer} lpAddress A pointer to a buffer that is filled with a  <a href="https://docs.microsoft.com/windows/desktop/WinSock/sockaddr-2">sockaddr</a> structure for the address string if the function succeeds.
      * @param {Pointer<Integer>} lpAddressLength A pointer to the length, in bytes, of the buffer pointed to by the <i>lpAddress</i> parameter. If the function call is successful, this parameter returns a pointer to the size of the <a href="https://docs.microsoft.com/windows/desktop/WinSock/sockaddr-2">sockaddr</a> structure returned in the <i>lpAddress</i> parameter. If the specified buffer is not large enough, the function fails with a specific error of 
      * <a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEFAULT</a> and this parameter is updated with the required size in bytes.
      * @returns {Integer} The return value for 
@@ -24263,7 +24259,7 @@ class WinSock {
      * </table>
      * @param {Pointer<Integer>} lpdwBufferLength On input, the number of bytes contained in the buffer pointed to by <i>lpqsResults</i>. On output, if the function fails and the error is 
      * <a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEFAULT</a>, then it contains the minimum number of bytes to pass for the <i>lpqsResults</i> to retrieve the record.
-     * @param {Pointer} lpqsResults A pointer to a block of memory, which will contain one result set in a 
+     * @param {Integer} lpqsResults A pointer to a block of memory, which will contain one result set in a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/ns-winsock2-wsaquerysetw">WSAQUERYSET</a> structure on return.
      * @returns {Integer} The return value is zero if the operation was successful. Otherwise, the value SOCKET_ERROR is returned, and a specific error number can be retrieved by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a>.
@@ -24691,7 +24687,7 @@ class WinSock {
      * </table>
      * @param {Pointer<Integer>} lpdwBufferLength On input, the number of bytes contained in the buffer pointed to by <i>lpqsResults</i>. On output, if the function fails and the error is 
      * <a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEFAULT</a>, then it contains the minimum number of bytes to pass for the <i>lpqsResults</i> to retrieve the record.
-     * @param {Pointer} lpqsResults A pointer to a block of memory, which will contain one result set in a 
+     * @param {Integer} lpqsResults A pointer to a block of memory, which will contain one result set in a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/ns-winsock2-wsaquerysetw">WSAQUERYSET</a> structure on return.
      * @returns {Integer} The return value is zero if the operation was successful. Otherwise, the value SOCKET_ERROR is returned, and a specific error number can be retrieved by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a>.
@@ -24902,9 +24898,9 @@ class WinSock {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer} lpvInBuffer A pointer to the input buffer.
+     * @param {Integer} lpvInBuffer A pointer to the input buffer.
      * @param {Integer} cbInBuffer The size, in bytes, of the input buffer.
-     * @param {Pointer} lpvOutBuffer A pointer to the output buffer.
+     * @param {Integer} lpvOutBuffer A pointer to the output buffer.
      * @param {Integer} cbOutBuffer The size, in bytes, of the output buffer.
      * @param {Pointer<Integer>} lpcbBytesReturned A pointer to the number of bytes returned.
      * @param {Pointer<WSACOMPLETION>} lpCompletion A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/ns-winsock2-wsacompletion">WSACOMPLETION</a> structure, used for asynchronous processing. Set <i>lpCompletion</i> to <b>NULL</b> to force blocking (synchronous) execution.
@@ -25449,7 +25445,7 @@ class WinSock {
      * 
      * On output, if the function fails and the error is 
      * <a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEFAULT</a>, this parameter specifies the minimum size, in bytes, of the buffer pointed to <i>lpServiceClassInfo</i> needed to retrieve the record.
-     * @param {Pointer} lpServiceClassInfo A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/ns-winsock2-wsaserviceclassinfow">WSASERVICECLASSINFO</a> structure that contains the service class information from the indicated namespace provider for the specified service class.
+     * @param {Integer} lpServiceClassInfo A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/ns-winsock2-wsaserviceclassinfow">WSASERVICECLASSINFO</a> structure that contains the service class information from the indicated namespace provider for the specified service class.
      * @returns {Integer} The return value is zero if the 
      * <b>WSAGetServiceClassInfo</b> was successful. Otherwise, the value SOCKET_ERROR is returned, and a specific error number can be retrieved by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a>.
@@ -25585,7 +25581,7 @@ class WinSock {
      * 
      * On output, if the function fails and the error is 
      * <a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEFAULT</a>, this parameter specifies the minimum size, in bytes, of the buffer pointed to <i>lpServiceClassInfo</i> needed to retrieve the record.
-     * @param {Pointer} lpServiceClassInfo A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/ns-winsock2-wsaserviceclassinfow">WSASERVICECLASSINFO</a> structure that contains the service class information from the indicated namespace provider for the specified service class.
+     * @param {Integer} lpServiceClassInfo A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/ns-winsock2-wsaserviceclassinfow">WSASERVICECLASSINFO</a> structure that contains the service class information from the indicated namespace provider for the specified service class.
      * @returns {Integer} The return value is zero if the 
      * <b>WSAGetServiceClassInfo</b> was successful. Otherwise, the value SOCKET_ERROR is returned, and a specific error number can be retrieved by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a>.
@@ -25719,7 +25715,7 @@ class WinSock {
      * ```cpp
      * @param {Pointer<Integer>} lpdwBufferLength On input, the number of bytes contained in the buffer pointed to by <i>lpnspBuffer</i>. On output (if the function fails, and the error is 
      * <a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEFAULT</a>), the minimum number of bytes to pass for the <i>lpnspBuffer</i> to retrieve all the requested information. The buffer passed to <b>WSAEnumNameSpaceProviders</b> must be sufficient to hold all of the namespace information.
-     * @param {Pointer} lpnspBuffer A buffer that is filled with 
+     * @param {Integer} lpnspBuffer A buffer that is filled with 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/ns-winsock2-wsanamespace_infow">WSANAMESPACE_INFO</a> structures. The returned structures are located consecutively at the head of the buffer. Variable sized information referenced by pointers in the structures point to locations within the buffer located between the end of the fixed sized structures and the end of the buffer. The number of structures filled in is the return value of 
      * <b>WSAEnumNameSpaceProviders</b>.
      * @returns {Integer} The 
@@ -25803,7 +25799,7 @@ class WinSock {
      * ```cpp
      * @param {Pointer<Integer>} lpdwBufferLength On input, the number of bytes contained in the buffer pointed to by <i>lpnspBuffer</i>. On output (if the function fails, and the error is 
      * <a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEFAULT</a>), the minimum number of bytes to pass for the <i>lpnspBuffer</i> to retrieve all the requested information. The buffer passed to <b>WSAEnumNameSpaceProviders</b> must be sufficient to hold all of the namespace information.
-     * @param {Pointer} lpnspBuffer A buffer that is filled with 
+     * @param {Integer} lpnspBuffer A buffer that is filled with 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/ns-winsock2-wsanamespace_infow">WSANAMESPACE_INFO</a> structures. The returned structures are located consecutively at the head of the buffer. Variable sized information referenced by pointers in the structures point to locations within the buffer located between the end of the fixed sized structures and the end of the buffer. The number of structures filled in is the return value of 
      * <b>WSAEnumNameSpaceProviders</b>.
      * @returns {Integer} The 
@@ -25890,7 +25886,7 @@ class WinSock {
      * > The winsock2.h header defines WSAEnumNameSpaceProvidersEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Integer>} lpdwBufferLength On input, the number of bytes contained in the buffer pointed to by <i>lpnspBuffer</i>. On output (if the function fails, and the error is 
      * <a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEFAULT</a>), the minimum number of bytes to allocate for the <i>lpnspBuffer</i> buffer to allow it to retrieve all the requested information. The buffer passed to <b>WSAEnumNameSpaceProvidersEx</b> must be sufficient to hold all of the namespace information.
-     * @param {Pointer} lpnspBuffer A buffer that is filled with 
+     * @param {Integer} lpnspBuffer A buffer that is filled with 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/ns-winsock2-wsanamespace_infoexw">WSANAMESPACE_INFOEX</a> structures. The returned structures are located consecutively at the head of the buffer. Variable sized information referenced by pointers in the structures point to locations within the buffer located between the end of the fixed sized structures and the end of the buffer. The number of structures filled in is the return value of 
      * <b>WSAEnumNameSpaceProvidersEx</b>.
      * @returns {Integer} The 
@@ -25978,7 +25974,7 @@ class WinSock {
      * > The winsock2.h header defines WSAEnumNameSpaceProvidersEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Integer>} lpdwBufferLength On input, the number of bytes contained in the buffer pointed to by <i>lpnspBuffer</i>. On output (if the function fails, and the error is 
      * <a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEFAULT</a>), the minimum number of bytes to allocate for the <i>lpnspBuffer</i> buffer to allow it to retrieve all the requested information. The buffer passed to <b>WSAEnumNameSpaceProvidersEx</b> must be sufficient to hold all of the namespace information.
-     * @param {Pointer} lpnspBuffer A buffer that is filled with 
+     * @param {Integer} lpnspBuffer A buffer that is filled with 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/ns-winsock2-wsanamespace_infoexw">WSANAMESPACE_INFOEX</a> structures. The returned structures are located consecutively at the head of the buffer. Variable sized information referenced by pointers in the structures point to locations within the buffer located between the end of the fixed sized structures and the end of the buffer. The number of structures filled in is the return value of 
      * <b>WSAEnumNameSpaceProvidersEx</b>.
      * @returns {Integer} The 
@@ -26049,7 +26045,7 @@ class WinSock {
      * > [!NOTE]
      * > The winsock2.h header defines WSAGetServiceClassNameByClassId as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Guid>} lpServiceClassId A pointer to the GUID for the service class.
-     * @param {Pointer} lpszServiceClassName A pointer to the service name.
+     * @param {Integer} lpszServiceClassName A pointer to the service name.
      * @param {Pointer<Integer>} lpdwBufferLength On input, the length of the buffer returned by <i>lpszServiceClassName</i>, in characters. On output, the length of the service name copied into <i>lpszServiceClassName</i>, in characters.
      * @returns {Integer} The 
      * <b>WSAGetServiceClassNameByClassId</b> function returns a value of zero if successful. Otherwise, the value SOCKET_ERROR is returned, and a specific error number can be retrieved by calling 
@@ -26173,7 +26169,7 @@ class WinSock {
      * > [!NOTE]
      * > The winsock2.h header defines WSAGetServiceClassNameByClassId as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Guid>} lpServiceClassId A pointer to the GUID for the service class.
-     * @param {Pointer} lpszServiceClassName A pointer to the service name.
+     * @param {Integer} lpszServiceClassName A pointer to the service name.
      * @param {Pointer<Integer>} lpdwBufferLength On input, the length of the buffer returned by <i>lpszServiceClassName</i>, in characters. On output, the length of the service name copied into <i>lpszServiceClassName</i>, in characters.
      * @returns {Integer} The 
      * <b>WSAGetServiceClassNameByClassId</b> function returns a value of zero if successful. Otherwise, the value SOCKET_ERROR is returned, and a specific error number can be retrieved by calling 
@@ -26462,7 +26458,7 @@ class WinSock {
      * > [!NOTE]
      * > The winsock2.h header defines WSASetService as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<WSAQUERYSETA>} lpqsRegInfo A pointer to the service information for registration or deregistration.
-     * @param {Integer} essoperation A value that determines that operation requested. This parameter can be one of the values from the WSAESETSERVICEOP enumeration type defined in the <i>Winsock2.h</i> header file. 
+     * @param {WSAESETSERVICEOP} essoperation A value that determines that operation requested. This parameter can be one of the values from the WSAESETSERVICEOP enumeration type defined in the <i>Winsock2.h</i> header file. 
      * 
      * 
      * 
@@ -26764,7 +26760,7 @@ class WinSock {
      * > [!NOTE]
      * > The winsock2.h header defines WSASetService as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<WSAQUERYSETW>} lpqsRegInfo A pointer to the service information for registration or deregistration.
-     * @param {Integer} essoperation A value that determines that operation requested. This parameter can be one of the values from the WSAESETSERVICEOP enumeration type defined in the <i>Winsock2.h</i> header file. 
+     * @param {WSAESETSERVICEOP} essoperation A value that determines that operation requested. This parameter can be one of the values from the WSAESETSERVICEOP enumeration type defined in the <i>Winsock2.h</i> header file. 
      * 
      * 
      * 
@@ -27320,7 +27316,7 @@ class WinSock {
      * The <b>IN_ADDR</b> structure is defined in the <i>Inaddr.h</i> header file.
      * 
      * An import library containing the <b>RtlIpv4AddressToStringEx</b> function is not included in the Microsoft Windows Software Development Kit (SDK) released for Windows Vista. The <b>RtlIpv4AddressToStringEx</b> function is included in the <i>Ntdll.lib</i> import library included in the Windows Driver Kit (WDK). An application could also use the <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-getmodulehandlea">GetModuleHandle</a> and <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-getprocaddress">GetProcAddress</a> functions to retrieve the function pointer from the <i>Ntdll.dll</i> and call this function.
-     * @param {Pointer<IN_ADDR>} _Address 
+     * @param {Pointer<IN_ADDR>} _Address The IPv4 address in network byte order.
      * @param {Integer} Port The port number in network byte order format. This parameter is optional.
      * @param {PSTR} AddressString A pointer to the buffer to receive the <b>NULL</b>-terminated string representation of the IPv4 address and port. This buffer should be large enough to hold at least INET_ADDRSTRLEN characters. The INET_ADDRSTRLEN value is defined in the <i>Ws2ipdef.h</i> header file.
      * @param {Pointer<Integer>} AddressStringLength On input, the number of characters that fit in the buffer pointed to by the <i>AddressString</i> parameter, including the NULL terminator.
@@ -27427,7 +27423,7 @@ class WinSock {
      * The <b>IN_ADDR</b> structure is defined in the <i>Inaddr.h</i> header file.
      * 
      * An import library containing the <b>RtlIpv4AddressToStringEx</b> function is not included in the Microsoft Windows Software Development Kit (SDK) released for Windows Vista. The <b>RtlIpv4AddressToStringEx</b> function is included in the <i>Ntdll.lib</i> import library included in the Windows Driver Kit (WDK). An application could also use the <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-getmodulehandlea">GetModuleHandle</a> and <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-getprocaddress">GetProcAddress</a> functions to retrieve the function pointer from the <i>Ntdll.dll</i> and call this function.
-     * @param {Pointer<IN_ADDR>} _Address 
+     * @param {Pointer<IN_ADDR>} _Address The IPv4 address in network byte order.
      * @param {Integer} Port The port number in network byte order format. This parameter is optional.
      * @param {PWSTR} AddressString A pointer to the buffer to receive the <b>NULL</b>-terminated string representation of the IPv4 address and port. This buffer should be large enough to hold at least INET_ADDRSTRLEN characters. The INET_ADDRSTRLEN value is defined in the <i>Ws2ipdef.h</i> header file.
      * @param {Pointer<Integer>} AddressStringLength On input, the number of characters that fit in the buffer pointed to by the <i>AddressString</i> parameter, including the NULL terminator.
@@ -27601,7 +27597,7 @@ class WinSock {
      * An import library containing the <b>RtlIpv4StringToAddressEx</b> function is not included in the Microsoft Windows Software Development Kit (SDK) released for Windows Vista. The <b>RtlIpv4StringToAddressEx</b> function is included in the <i>Ntdll.lib</i> import library included in the Windows Driver Kit (WDK). An application could also use the <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-getmodulehandlea">GetModuleHandle</a> and <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-getprocaddress">GetProcAddress</a> functions to retrieve the function pointer from the <i>Ntdll.dll</i> and call this function.
      * @param {PSTR} AddressString A pointer to a buffer containing the <b>NULL</b>-terminated string representation of the IPv4 address followed by an optional colon and string representation of a port number.
      * @param {BOOLEAN} Strict A value that indicates whether the string must be an IPv4 address represented in strict four-part dotted-decimal notation.  If this parameter is <b>TRUE</b>, the string must be dotted-decimal with four parts. If this parameter is <b>FALSE</b>, any of four forms are allowed for the string representation of the Ipv4 address, with decimal, octal, or hexadecimal notation. See the Remarks section for details.
-     * @param {Pointer<IN_ADDR>} _Address 
+     * @param {Pointer<IN_ADDR>} _Address A pointer where the binary representation of the IPv4 address is to be stored. The IPv4 address is stored in network byte order.
      * @param {Pointer<Integer>} Port A pointer where the binary representation of the port number is to be stored. The port number is returned in network byte order. If no port was specified in the string pointed to by the <i>AddressString</i> parameter, then the <i>Port</i> parameter is set to zero.
      * @returns {Integer} If the function succeeds, the return value is <b>STATUS_SUCCESS</b>.
      * 
@@ -27774,7 +27770,7 @@ class WinSock {
      * @param {PWSTR} AddressString A pointer to a buffer containing the <b>NULL</b>-terminated string representation of the IPv4 address followed by an optional colon and string representation of a port number.
      * @param {BOOLEAN} Strict A value that indicates whether the string must be an IPv4 address represented in strict four-part dotted-decimal notation.  If this parameter is <b>TRUE</b>, the string must be dotted-decimal with four parts. If this parameter is <b>FALSE</b>, any of four forms are allowed for the string representation of the Ipv4 address, with decimal,
      *              octal, or hexadecimal notation. See the Remarks section for details.
-     * @param {Pointer<IN_ADDR>} _Address 
+     * @param {Pointer<IN_ADDR>} _Address A pointer where the binary representation of the IPv4 address is to be stored. The IPv4 address is stored in network byte order.
      * @param {Pointer<Integer>} Port A pointer where the binary representation of the port number is to be stored. The port number is returned in network byte order. If no port was specified in the string pointed to by the <i>AddressString</i> parameter, then the <i>Port</i> parameter is set to zero.
      * @returns {Integer} If the function succeeds, the return value is <b>STATUS_SUCCESS</b>.
      * 
@@ -27888,7 +27884,7 @@ class WinSock {
      * The <b>IN6_ADDR</b> structure is defined in the <i>In6addr.h</i> header file.
      * 
      * An import library containing the <b>RtlIpv6AddressToStringEx</b> function is not included in the Microsoft Windows Software Development Kit (SDK) released for Windows Vista. The <b>RtlIpv6AddressToStringEx</b> function is included in the <i>Ntdll.lib</i> import library included in the Windows Driver Kit (WDK). An application could also use the <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-getmodulehandlea">GetModuleHandle</a> and <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-getprocaddress">GetProcAddress</a> functions to retrieve the function pointer from the <i>Ntdll.dll</i> and call this function.
-     * @param {Pointer<IN6_ADDR>} _Address 
+     * @param {Pointer<IN6_ADDR>} _Address The IPv6 address in network byte order.
      * @param {Integer} ScopeId The scope ID of the IPv6 address in network byte order. This parameter is optional.
      * @param {Integer} Port The port number in network byte order format. This parameter is optional.
      * @param {PSTR} AddressString A pointer to the buffer to receive the <b>NULL</b>-terminated string representation of the IP address, scope ID, and port. This buffer should be large enough to hold at least INET6_ADDRSTRLEN characters. The INET6_ADDRSTRLEN value is defined in the <i>Ws2ipdef.h</i> header file.
@@ -28009,7 +28005,7 @@ class WinSock {
      * The <b>IN6_ADDR</b> structure is defined in the <i>In6addr.h</i> header file.
      * 
      * An import library containing the <b>RtlIpv6AddressToStringEx</b> function is not included in the Microsoft Windows Software Development Kit (SDK) released for Windows Vista. The <b>RtlIpv6AddressToStringEx</b> function is included in the <i>Ntdll.lib</i> import library included in the Windows Driver Kit (WDK). An application could also use the <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-getmodulehandlea">GetModuleHandle</a> and <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-getprocaddress">GetProcAddress</a> functions to retrieve the function pointer from the <i>Ntdll.dll</i> and call this function.
-     * @param {Pointer<IN6_ADDR>} _Address 
+     * @param {Pointer<IN6_ADDR>} _Address The IPv6 address in network byte order.
      * @param {Integer} ScopeId The scope ID of the IPv6 address in network byte order. This parameter is optional.
      * @param {Integer} Port The port number in network byte order format. This parameter is optional.
      * @param {PWSTR} AddressString A pointer to the buffer to receive the <b>NULL</b>-terminated string representation of the IP address, scope ID, and port. This buffer should be large enough to hold at least INET6_ADDRSTRLEN characters. The INET6_ADDRSTRLEN value is defined in the <i>Ws2ipdef.h</i> header file.
@@ -28167,7 +28163,7 @@ class WinSock {
      * 
      * An import library containing the <b>RtlIpv6StringToAddressEx</b> function is not included in the Microsoft Windows Software Development Kit (SDK) released for Windows Vista. The <b>RtlIpv6StringToAddressEx</b> function is included in the <i>Ntdll.lib</i> import library included in the Windows Driver Kit (WDK). An application could also use the <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-getmodulehandlea">GetModuleHandle</a> and <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-getprocaddress">GetProcAddress</a> functions to retrieve the function pointer from the <i>Ntdll.dll</i> and call this function.
      * @param {PSTR} AddressString A pointer to a buffer containing the <b>NULL</b>-terminated string representation of the IPv6 address, scope ID, and port number.
-     * @param {Pointer<IN6_ADDR>} _Address 
+     * @param {Pointer<IN6_ADDR>} _Address A pointer where the binary representation of the IPv6 address is to be stored.
      * @param {Pointer<Integer>} ScopeId A pointer to where scope ID of the IPv6 address is stored. If <i>AddressString</i> parameter does not contain the string representation of a scope ID, then zero is returned in this parameter.
      * @param {Pointer<Integer>} Port A pointer where the port number is stored. The port number is in network byte order format. If <i>AddressString</i> parameter does not contain the string representation of a port number, then zero is returned in this parameter.
      * @returns {Integer} If the function succeeds, the return value is <b>STATUS_SUCCESS</b>.
@@ -28329,7 +28325,7 @@ class WinSock {
      * 
      * An import library containing the <b>RtlIpv6StringToAddressEx</b> function is not included in the Microsoft Windows Software Development Kit (SDK) released for Windows Vista. The <b>RtlIpv6StringToAddressEx</b> function is included in the <i>Ntdll.lib</i> import library included in the Windows Driver Kit (WDK). An application could also use the <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-getmodulehandlea">GetModuleHandle</a> and <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-getprocaddress">GetProcAddress</a> functions to retrieve the function pointer from the <i>Ntdll.dll</i> and call this function.
      * @param {PWSTR} AddressString A pointer to a buffer containing the <b>NULL</b>-terminated string representation of the IPv6 address, scope ID, and port number.
-     * @param {Pointer<IN6_ADDR>} _Address 
+     * @param {Pointer<IN6_ADDR>} _Address A pointer where the binary representation of the IPv6 address is to be stored.
      * @param {Pointer<Integer>} ScopeId A pointer to where scope ID of the IPv6 address is stored. If <i>AddressString</i> parameter does not contain the string representation of a scope ID, then zero is returned in this parameter.
      * @param {Pointer<Integer>} Port A pointer where the port number is stored. The port number is in network byte order format. If <i>AddressString</i> parameter does not contain the string representation of a port number, then zero is returned in this parameter.
      * @returns {Integer} If the function succeeds, the return value is <b>STATUS_SUCCESS</b>.
@@ -28679,7 +28675,7 @@ class WinSock {
      * <div class="alert"><b>Note</b>   All I/O initiated by a given thread is canceled when that thread exits. For overlapped sockets, pending asynchronous operations can fail if the thread is closed before the  operations complete. See the <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-exitthread">ExitThread</a> function for more information.</div>
      * <div> </div>
      * @param {SOCKET} s A descriptor that identifies a connected socket.
-     * @param {Pointer} buf A pointer to the buffer to receive the incoming data.
+     * @param {Integer} buf A pointer to the buffer to receive the incoming data.
      * @param {Integer} len The length, in bytes, of the buffer pointed to by the <i>buf</i> parameter.
      * @param {Pointer<Integer>} flags An indicator specifying whether the message is fully or partially received for datagram sockets.
      * @returns {Integer} If no error occurs, 
@@ -29480,7 +29476,7 @@ class WinSock {
      * The order in which the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/ns-winsock2-wsaprotocol_infow">WSAPROTOCOL_INFOW</a> structures appear in the buffer coincides with the order in which the protocol entries were registered by the service provider with the WS2_32.dll, or with any subsequent reordering that may have occurred through the Windows Sockets applet supplied for establishing default transport providers.
      * @param {Pointer<Integer>} lpiProtocols A **NULL**-terminated array of <i>iProtocol</i> values. This parameter is optional; if <i>lpiProtocols</i> is NULL, information on all available protocols is returned. Otherwise, information is retrieved only for those protocols listed in the array.
-     * @param {Pointer} lpProtocolBuffer A pointer to a buffer that is filled with 
+     * @param {Integer} lpProtocolBuffer A pointer to a buffer that is filled with 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/ns-winsock2-wsaprotocol_infow">WSAPROTOCOL_INFOW</a> structures.
      * @param {Pointer<Integer>} lpdwBufferLength On input, size of the <i>lpProtocolBuffer</i> buffer passed to 
      * **WSCEnumProtocols**, in bytes. On output, the minimum buffer size, in bytes, that can be passed to 
@@ -29965,8 +29961,8 @@ class WinSock {
      * </div>
      * <div> </div>
      * @param {Pointer<Guid>} lpProviderId A pointer to a globally unique identifier (GUID)  for the provider.
-     * @param {Integer} InfoType The information class to be set for this LSP protocol entry.
-     * @param {Pointer} Info A pointer to a buffer that contains the information class data to set for the LSP protocol entry.
+     * @param {WSC_PROVIDER_INFO_TYPE} InfoType The information class to be set for this LSP protocol entry.
+     * @param {Integer} Info A pointer to a buffer that contains the information class data to set for the LSP protocol entry.
      * @param {Pointer} InfoSize The size, in bytes, of the buffer pointed to by the <i>Info</i> parameter.
      * @param {Integer} Flags The flags used to modify the behavior of the **WSCSetProviderInfo** function call.
      * @param {Pointer<Integer>} lpErrno A pointer to the error code if the function fails.
@@ -30116,8 +30112,8 @@ class WinSock {
      * 
      * If an LSP does not have a category set, it is considered to be in the All Other category. This LSP category will not be loaded in services or system processes (for example, lsass, winlogon, and many svchost processes).
      * @param {Pointer<Guid>} lpProviderId A pointer to a globally unique identifier (GUID)  for the provider.
-     * @param {Integer} InfoType The information class that is requested for this LSP protocol entry.
-     * @param {Pointer} Info A pointer to a buffer to receive the information class data for the requested LSP protocol entry. If this parameter is **NULL**, then **WSCGetProviderInfo** returns failure and the size required for this buffer is returned in the <i>InfoSize</i> parameter.
+     * @param {WSC_PROVIDER_INFO_TYPE} InfoType The information class that is requested for this LSP protocol entry.
+     * @param {Integer} Info A pointer to a buffer to receive the information class data for the requested LSP protocol entry. If this parameter is **NULL**, then **WSCGetProviderInfo** returns failure and the size required for this buffer is returned in the <i>InfoSize</i> parameter.
      * @param {Pointer<Pointer>} InfoSize The size, in bytes, of the buffer pointed to by the <i>Info </i> parameter. If the Info parameter is **NULL**, then  **WSCGetProviderInfo** returns failure and the <i>InfoSize</i> parameter will receive the size of the required buffer.
      * @param {Integer} Flags The flags used to modify the behavior of the **WSCGetProviderInfo** function call.
      * @param {Pointer<Integer>} lpErrno A pointer to the error code if the function fails.
@@ -30290,7 +30286,7 @@ class WinSock {
      *  This function can also fail because of user account control (UAC). If an application  that contains this function is executed by a user logged on as a member of the Administrators group other than the built-in Administrator, this call will fail unless the application has been marked in the manifest file with a **requestedExecutionLevel** set to **requireAdministrator**. If the application on Windows Vista or Windows Server 2008 lacks this manifest file, a user logged on as a member of the Administrators group other than the built-in Administrator must then be executing the application in an enhanced shell as the built-in Administrator (RunAs administrator) for this function to succeed.
      * 
      * Any file installation or service provider-specific configuration must be performed by the caller.
-     * @param {PWSTR} _Path 
+     * @param {PWSTR} _Path A pointer to a Unicode string that contains the load path to the executable image for the application. This string observes the usual rules for path resolution and can contain embedded environment strings (such as <i>%SystemRoot%</i>).
      * @param {Integer} PathLength The length, in characters, of the <i>Path</i> parameter. This length does not include the terminating **NULL**.
      * @param {PWSTR} Extra A pointer to a Unicode string which represents the command line arguments used when starting the application specified in the <i>Path</i> parameter. The <i>Extra</i> parameter is used to distinguish between multiple, distinct instances of an application when launched with a consistent command line.  This is to support different application categorizations for different instances of Svchost.exe or Rundll32.exe. If only the <i>Path</i> parameter is required and no command line arguments are needed to further distinguish between instances of an application, then the <i>Extra</i> parameter should be set to **NULL**.
      * @param {Integer} ExtraLength The length, in characters, of the <i>Extra</i> parameter. This length does not include the terminating **NULL**.
@@ -30429,7 +30425,7 @@ class WinSock {
      * An LSP may belong to more than one category.  For example, a firewall/security LSP could belong to both the inspector (**LSP_INSPECTOR**) and firewall (**LSP_FIREWALL**) categories.
      * 
      * If an LSP does not have a category set, it is considered to be in the All Other category. This LSP category will not be loaded in services or system processes (for example, lsass, winlogon, and many svchost processes).
-     * @param {PWSTR} _Path 
+     * @param {PWSTR} _Path A pointer to a Unicode string that contains the load path to the executable image for the application. This string observes the usual rules for path resolution and can contain embedded environment strings (such as <i>%SystemRoot%</i>).
      * @param {Integer} PathLength The length, in characters, of the <i>Path</i> parameter. This length does not include the terminating **NULL**.
      * @param {PWSTR} Extra A pointer to a Unicode string which represents the command line arguments used when starting the application specified in the <i>Path</i> parameter. The <i>Extra</i> parameter is used to distinguish between multiple, distinct instances of an application when launched with a consistent command line.  This is to support different application categorizations for different instances of Svchost.exe or Rundll32.exe. If only the <i>Path</i> parameter is required and no command line arguments are needed to further distinguish between instances of an application, then the <i>Extra</i> parameter should be set to **NULL**.
      * @param {Integer} ExtraLength The length, in characters, of the <i>Extra</i> parameter. This length does not include the terminating **NULL**.
@@ -31258,7 +31254,7 @@ class WinSock {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer} lpProtocolBuffer A pointer to a buffer that the function fills with an array of 
+     * @param {Integer} lpProtocolBuffer A pointer to a buffer that the function fills with an array of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/nspapi/ns-nspapi-protocol_infoa">PROTOCOL_INFO</a> data structures.
      * @param {Pointer<Integer>} lpdwBufferLength A pointer to a variable that, on input, specifies the size, in bytes, of the buffer pointed to by <i>lpProtocolBuffer</i>. 
      * 
@@ -31391,7 +31387,7 @@ class WinSock {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer} lpProtocolBuffer A pointer to a buffer that the function fills with an array of 
+     * @param {Integer} lpProtocolBuffer A pointer to a buffer that the function fills with an array of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/nspapi/ns-nspapi-protocol_infoa">PROTOCOL_INFO</a> data structures.
      * @param {Pointer<Integer>} lpdwBufferLength A pointer to a variable that, on input, specifies the size, in bytes, of the buffer pointed to by <i>lpProtocolBuffer</i>. 
      * 
@@ -31603,7 +31599,7 @@ class WinSock {
      * </tr>
      * </table>
      * @param {Pointer<SERVICE_ASYNC_INFO>} lpServiceAsyncInfo Reserved for future use; must be set to <b>NULL</b>.
-     * @param {Pointer} lpCsaddrBuffer A pointer to a buffer to receive one or more 
+     * @param {Integer} lpCsaddrBuffer A pointer to a buffer to receive one or more 
      * <a href="https://docs.microsoft.com/windows/desktop/api/nspapi/ns-nspapi-csaddr_info">CSADDR_INFO</a> data structures. The number of structures written to the buffer depends on the amount of information found in the resolution attempt. You should assume that multiple structures will be written, although in many cases there will only be one.
      * @param {Pointer<Integer>} lpdwBufferLength A pointer to a variable that, upon input, specifies the size, in bytes, of the buffer pointed to by <i>lpCsaddrBuffer</i>.
      * 
@@ -31829,7 +31825,7 @@ class WinSock {
      * </tr>
      * </table>
      * @param {Pointer<SERVICE_ASYNC_INFO>} lpServiceAsyncInfo Reserved for future use; must be set to <b>NULL</b>.
-     * @param {Pointer} lpCsaddrBuffer A pointer to a buffer to receive one or more 
+     * @param {Integer} lpCsaddrBuffer A pointer to a buffer to receive one or more 
      * <a href="https://docs.microsoft.com/windows/desktop/api/nspapi/ns-nspapi-csaddr_info">CSADDR_INFO</a> data structures. The number of structures written to the buffer depends on the amount of information found in the resolution attempt. You should assume that multiple structures will be written, although in many cases there will only be one.
      * @param {Pointer<Integer>} lpdwBufferLength A pointer to a variable that, upon input, specifies the size, in bytes, of the buffer pointed to by <i>lpCsaddrBuffer</i>.
      * 
@@ -31994,7 +31990,7 @@ class WinSock {
      * @param {Pointer<Guid>} lpServiceType A pointer to a globally unique identifier (GUID) that specifies the type of the network service. The <i>Svcguid.h</i> header file includes definitions of several GUID service types, and macros for working with them.
      * 
      * The <i>Svcguid.h</i> header file is not automatically included by the <i>Winsock2.h</i> header file.
-     * @param {Pointer} lpServiceName A pointer to a buffer to receive a zero-terminated string that uniquely represents the name of the network service.
+     * @param {Integer} lpServiceName A pointer to a buffer to receive a zero-terminated string that uniquely represents the name of the network service.
      * @param {Integer} dwNameLength A pointer to a variable that, on input, specifies the size, in bytes, of the buffer pointed to by <i>lpServiceName</i>. On output, the variable contains the actual size of the service name string, in bytes.
      * @returns {Integer} If the function succeeds, the return value is not SOCKET_ERROR (–1).
      * 
@@ -32022,7 +32018,7 @@ class WinSock {
      * @param {Pointer<Guid>} lpServiceType A pointer to a globally unique identifier (GUID) that specifies the type of the network service. The <i>Svcguid.h</i> header file includes definitions of several GUID service types, and macros for working with them.
      * 
      * The <i>Svcguid.h</i> header file is not automatically included by the <i>Winsock2.h</i> header file.
-     * @param {Pointer} lpServiceName A pointer to a buffer to receive a zero-terminated string that uniquely represents the name of the network service.
+     * @param {Integer} lpServiceName A pointer to a buffer to receive a zero-terminated string that uniquely represents the name of the network service.
      * @param {Integer} dwNameLength A pointer to a variable that, on input, specifies the size, in bytes, of the buffer pointed to by <i>lpServiceName</i>. On output, the variable contains the actual size of the service name string, in bytes.
      * @returns {Integer} If the function succeeds, the return value is not SOCKET_ERROR (–1).
      * 
@@ -32130,7 +32126,7 @@ class WinSock {
      * </td>
      * </tr>
      * </table>
-     * @param {Integer} dwOperation 
+     * @param {SET_SERVICE_OPERATION} dwOperation 
      * @param {Integer} dwFlags A set of bit flags that modify the function's operation. You can set one or more of the following bit flags: 
      * 
      * 
@@ -32322,7 +32318,7 @@ class WinSock {
      * </td>
      * </tr>
      * </table>
-     * @param {Integer} dwOperation 
+     * @param {SET_SERVICE_OPERATION} dwOperation 
      * @param {Integer} dwFlags A set of bit flags that modify the function's operation. You can set one or more of the following bit flags: 
      * 
      * 
@@ -32608,7 +32604,7 @@ class WinSock {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer} lpBuffer A pointer to a buffer to receive an array of 
+     * @param {Integer} lpBuffer A pointer to a buffer to receive an array of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/nspapi/ns-nspapi-ns_service_infoa">NS_SERVICE_INFO</a> structures and associated service information. Each 
      * <b>NS_SERVICE_INFO</b> structure contains service information in the context of a particular namespace. Note that if <i>dwNameSpace</i> is NS_DEFAULT, the function stores more than one structure into the buffer; otherwise, just one structure is stored.
      * 
@@ -32857,7 +32853,7 @@ class WinSock {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer} lpBuffer A pointer to a buffer to receive an array of 
+     * @param {Integer} lpBuffer A pointer to a buffer to receive an array of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/nspapi/ns-nspapi-ns_service_infoa">NS_SERVICE_INFO</a> structures and associated service information. Each 
      * <b>NS_SERVICE_INFO</b> structure contains service information in the context of a particular namespace. Note that if <i>dwNameSpace</i> is NS_DEFAULT, the function stores more than one structure into the buffer; otherwise, just one structure is stored.
      * 
@@ -35063,7 +35059,7 @@ class WinSock {
      * 
      * 
      * ```cpp
-     * @param {Pointer} pSockaddr A pointer to a socket address structure that contains the address and port number of the socket. For IPv4, the <i>sa</i> parameter points to a 
+     * @param {Integer} pSockaddr A pointer to a socket address structure that contains the address and port number of the socket. For IPv4, the <i>sa</i> parameter points to a 
      * <a href="https://docs.microsoft.com/windows/desktop/WinSock/sockaddr-2">sockaddr_in</a> structure. For IPv6, the <i>sa</i> parameter points to a <b>sockaddr_in6</b> structure.
      * @param {socklen_t} SockaddrLength The length, in bytes, of the structure pointed to by the <i>sa</i> parameter.
      * @param {PSTR} pNodeBuffer A pointer to  an ANSI string used to hold the host name. On success, the host name is returned as a Fully Qualified Domain Name (FQDN) by default. If the <i>host</i> parameter is <b>NULL</b>, this indicates the caller does not want to receive a host name string.
@@ -35174,7 +35170,7 @@ class WinSock {
      * 
      * 
      * ```cpp
-     * @param {Pointer} pSockaddr A pointer to a socket address structure containing the IP address and port number of the socket. For IPv4, the <i>pSockaddr</i> parameter points to a 
+     * @param {Integer} pSockaddr A pointer to a socket address structure containing the IP address and port number of the socket. For IPv4, the <i>pSockaddr</i> parameter points to a 
      * <a href="https://docs.microsoft.com/windows/desktop/WinSock/sockaddr-2">sockaddr_in</a> structure. For IPv6, the <i>pSockaddr</i> parameter points to a <b>sockaddr_in6</b> structure.
      * @param {socklen_t} SockaddrLength The length, in bytes, of the structure pointed to by the <i>pSockaddr</i> parameter.
      * @param {PWSTR} pNodeBuffer A pointer to  a Unicode string to hold the host name. On success, a pointer to the Unicode host name is returned as a Fully Qualified Domain Name (FQDN) by default. If the <i>pNodeBuffer</i> parameter is <b>NULL</b>, this indicates the caller does not want to receive a host name string.
@@ -35879,10 +35875,10 @@ class WinSock {
      * }
      * 
      * ```
-     * @param {SOCKET} _Socket 
-     * @param {Pointer} SecuritySettings A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/mstcpip/ns-mstcpip-socket_security_settings">SOCKET_SECURITY_SETTINGS</a> structure that specifies the security settings to be applied to the socket's traffic. If this parameter is <b>NULL</b>, default settings will be applied to the socket.
+     * @param {SOCKET} _Socket A descriptor that identifies a socket on which security settings are being applied.
+     * @param {Integer} SecuritySettings A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/mstcpip/ns-mstcpip-socket_security_settings">SOCKET_SECURITY_SETTINGS</a> structure that specifies the security settings to be applied to the socket's traffic. If this parameter is <b>NULL</b>, default settings will be applied to the socket.
      * @param {Integer} SecuritySettingsLen The size, in bytes, of the <i>SecuritySettings</i> parameter.
-     * @param {Pointer<OVERLAPPED>} _Overlapped 
+     * @param {Pointer<OVERLAPPED>} _Overlapped A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/ns-winsock2-wsaoverlapped">WSAOVERLAPPED</a> structure.  This parameter is ignored for non-overlapped sockets.
      * @param {Pointer<LPWSAOVERLAPPED_COMPLETION_ROUTINE>} CompletionRoutine A pointer to the completion routine called when the operation has been completed.  This parameter is ignored for non-overlapped sockets.
      * @returns {Integer} If the function succeeds, the return value is zero.  Otherwise, a value of <b>SOCKET_ERROR</b> is returned, and a specific error code can be retrieved by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a>.
@@ -35987,8 +35983,8 @@ class WinSock {
      * <li>The address family of the <i>Socket</i> parameter must be either AF_INET or AF_INET6.</li>
      * <li>The socket type must be either SOCK_STREAM or SOCK_DGRAM.</li>
      * </ul>
-     * @param {SOCKET} _Socket 
-     * @param {Pointer} SecurityQueryTemplate A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/mstcpip/ns-mstcpip-socket_security_query_template">SOCKET_SECURITY_QUERY_TEMPLATE</a> structure that specifies the type of query information to return. 
+     * @param {SOCKET} _Socket A descriptor identifying a socket for which security information is being queried.
+     * @param {Integer} SecurityQueryTemplate A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/mstcpip/ns-mstcpip-socket_security_query_template">SOCKET_SECURITY_QUERY_TEMPLATE</a> structure that specifies the type of query information to return. 
      * 
      * A <a href="https://docs.microsoft.com/windows/desktop/api/mstcpip/ns-mstcpip-socket_security_query_template">SOCKET_SECURITY_QUERY_TEMPLATE</a> structure pointed to by this parameter may contain zeroes for all members to request default security information. On successful return, only the <b>Flags</b> member in the <a href="https://docs.microsoft.com/windows/desktop/api/mstcpip/ns-mstcpip-socket_security_query_info">SOCKET_SECURITY_QUERY_INFO</a> will be set in the returned  <i>SecurityQueryInfo</i> parameter. 
      * 
@@ -36000,9 +35996,9 @@ class WinSock {
      * @param {Integer} SecurityQueryTemplateLen The size, in bytes, of the <i>SecurityQueryTemplate</i> parameter. 
      * 
      * This parameter may be a zero if the <i>Socket</i> parameter was created with a protocol of <b>IPPROTO_TCP</b>. Otherwise, this parameter must be the size of a <a href="https://docs.microsoft.com/windows/desktop/api/mstcpip/ns-mstcpip-socket_security_query_template">SOCKET_SECURITY_QUERY_TEMPLATE</a> structure.
-     * @param {Pointer} SecurityQueryInfo A pointer to a buffer that will receive a <a href="https://docs.microsoft.com/windows/desktop/api/mstcpip/ns-mstcpip-socket_security_query_info">SOCKET_SECURITY_QUERY_INFO</a> structure containing the information queried.  This value can be set to <b>NULL</b> to query the size of the output buffer.
+     * @param {Integer} SecurityQueryInfo A pointer to a buffer that will receive a <a href="https://docs.microsoft.com/windows/desktop/api/mstcpip/ns-mstcpip-socket_security_query_info">SOCKET_SECURITY_QUERY_INFO</a> structure containing the information queried.  This value can be set to <b>NULL</b> to query the size of the output buffer.
      * @param {Pointer<Integer>} SecurityQueryInfoLen On input, a pointer to the size, in bytes, of the <i>SecurityQueryInfo</i> parameter.   If the buffer is too small to receive the queried information, the call will return SOCKET_ERROR, and the number of bytes needed to return the queried information will be set in the value pointed to by this parameter.  On a successful call, the number of bytes copied is returned.
-     * @param {Pointer<OVERLAPPED>} _Overlapped 
+     * @param {Pointer<OVERLAPPED>} _Overlapped A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/ns-winsock2-wsaoverlapped">WSAOVERLAPPED</a> structure.  This parameter is ignored for non-overlapped sockets.
      * @param {Pointer<LPWSAOVERLAPPED_COMPLETION_ROUTINE>} CompletionRoutine A pointer to the completion routine called when the operation has been completed.  This parameter is ignored for non-overlapped sockets.
      * @returns {Integer} If the function succeeds, the return value is zero.  Otherwise, a value of <b>SOCKET_ERROR</b> is returned, and a specific error code can be retrieved by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a>. 
@@ -36112,10 +36108,10 @@ class WinSock {
      * <li>The address family of the <i>Socket</i> parameter must be either AF_INET or AF_INET6.</li>
      * <li>The socket type must be either SOCK_STREAM or SOCK_DGRAM.</li>
      * </ul>
-     * @param {SOCKET} _Socket 
-     * @param {Pointer} PeerTargetName A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/mstcpip/ns-mstcpip-socket_peer_target_name">SOCKET_PEER_TARGET_NAME</a> structure that defines the peer target name.
+     * @param {SOCKET} _Socket A descriptor identifying a socket on which the peer target name is being assigned.
+     * @param {Integer} PeerTargetName A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/mstcpip/ns-mstcpip-socket_peer_target_name">SOCKET_PEER_TARGET_NAME</a> structure that defines the peer target name.
      * @param {Integer} PeerTargetNameLen The size, in bytes, of the <i>PeerTargetName</i> parameter.
-     * @param {Pointer<OVERLAPPED>} _Overlapped 
+     * @param {Pointer<OVERLAPPED>} _Overlapped A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/ns-winsock2-wsaoverlapped">WSAOVERLAPPED</a> structure.  This parameter is ignored for non-overlapped sockets.
      * @param {Pointer<LPWSAOVERLAPPED_COMPLETION_ROUTINE>} CompletionRoutine A pointer to the completion routine called when the operation has been completed.  This parameter is ignored for non-overlapped sockets.
      * @returns {Integer} If the function succeeds, the return value is zero.  Otherwise, a value of <b>SOCKET_ERROR</b> is returned, and a specific error code can be retrieved by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a>. 
@@ -36221,10 +36217,10 @@ class WinSock {
      * <li>The address family of the <i>Socket</i> parameter must be either AF_INET or AF_INET6.</li>
      * <li>The socket type must be either SOCK_STREAM or SOCK_DGRAM.</li>
      * </ul>
-     * @param {SOCKET} _Socket 
-     * @param {Pointer} PeerAddr The IP address of the peer for which the target name is being deleted.
+     * @param {SOCKET} _Socket A descriptor identifying a socket on which the peer target name is being deleted.
+     * @param {Integer} PeerAddr The IP address of the peer for which the target name is being deleted.
      * @param {Integer} PeerAddrLen The size, in bytes, of the <i>PeerAddr</i> parameter.
-     * @param {Pointer<OVERLAPPED>} _Overlapped 
+     * @param {Pointer<OVERLAPPED>} _Overlapped A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/ns-winsock2-wsaoverlapped">WSAOVERLAPPED</a> structure.  This parameter is ignored for non-overlapped sockets.
      * @param {Pointer<LPWSAOVERLAPPED_COMPLETION_ROUTINE>} CompletionRoutine A pointer to the completion routine called when the operation has been completed.  This parameter is ignored for non-overlapped sockets.
      * @returns {Integer} If the function succeeds, the return value is 0.  Otherwise, a value of <b>SOCKET_ERROR</b> is returned, and a specific error code can be retrieved by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a>. 
@@ -36326,8 +36322,8 @@ class WinSock {
      * 
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/api/ws2tcpip/nf-ws2tcpip-wsarevertimpersonation">WSARevertImpersonation</a> function must be called to end the impersonation.
-     * @param {SOCKET} _Socket 
-     * @param {Pointer} PeerAddr The IP address of the peer to be impersonated.  For connection-oriented sockets, the connected socket uniquely identifies a peer.  In this case, this parameter is ignored.
+     * @param {SOCKET} _Socket Identifies the application socket.
+     * @param {Integer} PeerAddr The IP address of the peer to be impersonated.  For connection-oriented sockets, the connected socket uniquely identifies a peer.  In this case, this parameter is ignored.
      * @param {Integer} PeerAddrLen The size, in bytes, of the <i>PeerAddress</i> parameter.
      * @returns {Integer} If the function succeeds, the return value is 0.  Otherwise, a value of <b>SOCKET_ERROR</b> is returned, and a specific error code can be retrieved by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a>. 

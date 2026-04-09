@@ -9,9 +9,8 @@
  * Whenever possible, it is recommended that initialization be done through a stream using <a href="https://docs.microsoft.com/windows/desktop/api/propsys/nn-propsys-iinitializewithstream">IInitializeWithStream</a>. Benefits of this include increased security and stability.
  * @see https://learn.microsoft.com/windows/win32/api/propsys/nn-propsys-iinitializewithfile
  * @namespace Windows.Win32.UI.Shell.PropertiesSystem
- * @version v4.0.30319
  */
-class IInitializeWithFile extends IUnknown{
+class IInitializeWithFile extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

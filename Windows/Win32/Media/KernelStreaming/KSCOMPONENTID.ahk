@@ -3,16 +3,14 @@
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
- * @version v4.0.30319
  */
-class KSCOMPONENTID extends Win32Struct
-{
+class KSCOMPONENTID extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     Manufacturer {
         get => NumGet(this, 0, "ptr")
@@ -20,7 +18,7 @@ class KSCOMPONENTID extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     Product {
         get => NumGet(this, 8, "ptr")
@@ -28,7 +26,7 @@ class KSCOMPONENTID extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     Component {
         get => NumGet(this, 16, "ptr")
@@ -36,7 +34,7 @@ class KSCOMPONENTID extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     Name {
         get => NumGet(this, 24, "ptr")

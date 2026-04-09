@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Com\IUnknown.ahk
 #Include .\IMAPITable.ahk
 #Include .\MAPIUID.ahk
 #Include .\IProfSect.ahk
-#Include ..\Com\IUnknown.ahk
 
 /**
  * Describes the properties and vtable order of members for IProviderAdmin IUnknown, which works with service providers in a message service.
@@ -12,9 +12,8 @@
  * Clients can get a pointer to an **IProviderAdmin** interface by calling the [IMsgServiceAdmin::AdminProviders](imsgserviceadmin-adminproviders.md) method; service providers are passed an **IProviderAdmin** pointer when their message service's entry point function is called.
  * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/iprovideradminiunknown
  * @namespace Windows.Win32.System.AddressBook
- * @version v4.0.30319
  */
-class IProviderAdmin extends IUnknown{
+class IProviderAdmin extends IUnknown {
 
     static sizeof => A_PtrSize
 
@@ -34,7 +33,7 @@ class IProviderAdmin extends IUnknown{
      * 
      * @remarks
      * The **IProviderAdmin::GetLastError** method supplies information about a prior method call that failed. Callers can provide their users with detailed information about the error by including the data from the **MAPIERROR** structure in a dialog box.
-     * @param {HRESULT} _hResult 
+     * @param {HRESULT} _hResult > [in] An HRESULT data type that contains the error value generated in the previous method call.
      * @param {Integer} ulFlags > [in] A bitmask of flags that controls the type of strings returned. The following flag can be set:
      *     
      * MAPI_UNICODE 

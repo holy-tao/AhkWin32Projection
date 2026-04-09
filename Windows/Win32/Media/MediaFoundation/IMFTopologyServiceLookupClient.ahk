@@ -9,9 +9,8 @@
  * When the EVR loads the video mixer and the video presenter, the EVR queries the object for this interface and calls <a href="https://docs.microsoft.com/windows/desktop/api/evr/nf-evr-imftopologyservicelookupclient-initservicepointers">InitServicePointers</a>. Inside the <b>InitServicePointers</b> method, the object can query the EVR for interface pointers.
  * @see https://learn.microsoft.com/windows/win32/api/evr/nn-evr-imftopologyservicelookupclient
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFTopologyServiceLookupClient extends IUnknown{
+class IMFTopologyServiceLookupClient extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

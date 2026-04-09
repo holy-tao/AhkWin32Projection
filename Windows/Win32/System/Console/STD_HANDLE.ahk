@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Console
- * @version v4.0.30319
  */
-class STD_HANDLE extends Win32Enum{
+class STD_HANDLE extends Win32Enum {
 
     /**
      * @type {Integer (UInt32)}

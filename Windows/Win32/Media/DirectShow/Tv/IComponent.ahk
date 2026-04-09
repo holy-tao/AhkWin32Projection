@@ -1,10 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
-#Include .\IComponentType.ahk
-#Include .\IComponent.ahk
 #Include ..\..\..\System\Com\IDispatch.ahk
+#Include .\IComponentType.ahk
+#Include ..\..\..\Foundation\BSTR.ahk
 
 /**
  * The IComponent interface a base class for all derived interfaces such as IMPEG2Component and it describes the general characteristics of a component, which is an elementary stream within the program stream.
@@ -12,9 +11,8 @@
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IComponent)</c>.
  * @see https://learn.microsoft.com/windows/win32/api/tuner/nn-tuner-icomponent
  * @namespace Windows.Win32.Media.DirectShow.Tv
- * @version v4.0.30319
  */
-class IComponent extends IDispatch{
+class IComponent extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -58,7 +56,7 @@ class IComponent extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {ComponentStatus} 
      */
     Status {
         get => this.get_Status()
@@ -127,7 +125,7 @@ class IComponent extends IDispatch{
      * The get_Status method retrieves the requested or actual status of the component.
      * @remarks
      * When the TIF adds a component to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/tuner/nn-tuner-icomponents">IComponents</a> collection, it can indicate whether the component is active or not. An application can attempt to set this status, and resubmit a tune request. The tuner will update the status from the enumeration: Active, Inactive, Unavailable. The Unavailable status is only set by a tuner in response to a request to activate, when the component is not really available.
-     * @returns {Integer} 
+     * @returns {ComponentStatus} Pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mstv/componentstatus">ComponentStatus</a> enumeration that receives the status value.
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-icomponent-get_status
      */
     get_Status() {
@@ -139,7 +137,7 @@ class IComponent extends IDispatch{
      * The put_Status method sets the requested or actual status of the component.
      * @remarks
      * Use this method to activate or inactivate a stream component.
-     * @param {Integer} _Status 
+     * @param {ComponentStatus} _Status A variable of type <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mstv/componentstatus">ComponentStatus</a> that specifies the status value.
      * @returns {HRESULT} Returns S_OK if successful. If the method fails, error information can be retrieved using the standard COM <b>IErrorInfo</b> interface.
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-icomponent-put_status
      */

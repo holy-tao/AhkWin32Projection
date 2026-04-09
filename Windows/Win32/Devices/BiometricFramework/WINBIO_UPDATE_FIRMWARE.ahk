@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.BiometricFramework
- * @version v4.0.30319
  */
-class WINBIO_UPDATE_FIRMWARE extends Win32Struct
-{
+class WINBIO_UPDATE_FIRMWARE extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4
@@ -23,7 +21,7 @@ class WINBIO_UPDATE_FIRMWARE extends Win32Struct
     /**
      * @type {WINBIO_DATA}
      */
-    FirmwareData{
+    FirmwareData {
         get {
             if(!this.HasProp("__FirmwareData"))
                 this.__FirmwareData := WINBIO_DATA(4, this)

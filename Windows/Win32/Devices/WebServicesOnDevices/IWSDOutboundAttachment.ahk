@@ -7,9 +7,8 @@
  * Enables applications to send attachment data in a message using a MIME container.
  * @see https://learn.microsoft.com/windows/win32/api/wsdattachment/nn-wsdattachment-iwsdoutboundattachment
  * @namespace Windows.Win32.Devices.WebServicesOnDevices
- * @version v4.0.30319
  */
-class IWSDOutboundAttachment extends IWSDAttachment{
+class IWSDOutboundAttachment extends IWSDAttachment {
 
     static sizeof => A_PtrSize
     /**

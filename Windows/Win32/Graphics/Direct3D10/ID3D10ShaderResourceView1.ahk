@@ -13,9 +13,8 @@
  * This method requires Windows Vista Service Pack 1.
  * @see https://learn.microsoft.com/windows/win32/api/d3d10_1/nn-d3d10_1-id3d10shaderresourceview1
  * @namespace Windows.Win32.Graphics.Direct3D10
- * @version v4.0.30319
  */
-class ID3D10ShaderResourceView1 extends ID3D10ShaderResourceView{
+class ID3D10ShaderResourceView1 extends ID3D10ShaderResourceView {
 
     static sizeof => A_PtrSize
     /**

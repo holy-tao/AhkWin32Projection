@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
 #Include .\IOpcSignatureCustomObject.ahk
 #Include .\IOpcSignatureCustomObjectEnumerator.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
  * An unordered set of IOpcSignatureCustomObject interface pointers that contain the XML markup of application-specific Object elements.
@@ -17,9 +17,8 @@
  * To create an <b>IOpcSignatureCustomObjectSet</b> interface pointer, call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nf-msopc-iopcsigningoptions-getcustomobjectset">IOpcSigningOptions::GetCustomObjectSet</a> method.
  * @see https://learn.microsoft.com/windows/win32/api/msopc/nn-msopc-iopcsignaturecustomobjectset
  * @namespace Windows.Win32.Storage.Packaging.Opc
- * @version v4.0.30319
  */
-class IOpcSignatureCustomObjectSet extends IUnknown{
+class IOpcSignatureCustomObjectSet extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

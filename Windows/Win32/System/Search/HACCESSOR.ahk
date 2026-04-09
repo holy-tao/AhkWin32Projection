@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.System.Search
- * @version v4.0.30319
  */
-class HACCESSOR extends Win32Handle
-{
+class HACCESSOR extends Win32Handle {
     static sizeof => 8
 
     static packingSize => 8

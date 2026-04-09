@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\RECT.ahk
 #Include ..\..\System\Ole\IOleWindow.ahk
+#Include ..\..\Foundation\RECT.ahk
 
 /**
  * Exposes methods that manage the border space for one or more IDockingWindow objects. This interface is implemented by the browser and is similar to the IOleInPlaceUIWindow interface.
@@ -35,9 +35,8 @@
  * You use <b>IDockingWindowSite</b> to negotiate the space for a docking window object in a browser frame.
  * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nn-shlobj_core-idockingwindowsite
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IDockingWindowSite extends IOleWindow{
+class IDockingWindowSite extends IOleWindow {
 
     static sizeof => A_PtrSize
     /**

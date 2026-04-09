@@ -6,10 +6,8 @@
  * Specifies the source rectangle for an input stream when using Microsoft DirectX Video Acceleration High Definition (DXVA-HD).
  * @see https://learn.microsoft.com/windows/win32/api/dxvahd/ns-dxvahd-dxvahd_stream_state_source_rect_data
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class DXVAHD_STREAM_STATE_SOURCE_RECT_DATA extends Win32Struct
-{
+class DXVAHD_STREAM_STATE_SOURCE_RECT_DATA extends Win32Struct {
     static sizeof => 20
 
     static packingSize => 4
@@ -56,7 +54,7 @@ class DXVAHD_STREAM_STATE_SOURCE_RECT_DATA extends Win32Struct
      * If the <b>Enable</b> member is <b>FALSE</b>, the <b>SourceRect</b> member is ignored.
      * @type {RECT}
      */
-    SourceRect{
+    SourceRect {
         get {
             if(!this.HasProp("__SourceRect"))
                 this.__SourceRect := RECT(4, this)

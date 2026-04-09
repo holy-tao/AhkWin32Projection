@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\CLUSPROP_SYNTAX.ahk
 #Include .\CLUSPROP_VALUE.ahk
+#Include .\CLUSPROP_SYNTAX.ahk
 #Include .\CLUSPROP_RESOURCE_CLASS.ahk
+#Include .\CLUSTER_RESOURCE_CLASS.ahk
 #Include .\CLUSPROP_SZ.ahk
 
 /**
@@ -24,10 +25,8 @@
  *      structure with the <b>ResTypeName</b> member set to "Network Name".
  * @see https://learn.microsoft.com/windows/win32/api/clusapi/ns-clusapi-clusprop_required_dependency
  * @namespace Windows.Win32.Networking.Clustering
- * @version v4.0.30319
  */
-class CLUSPROP_REQUIRED_DEPENDENCY extends Win32Struct
-{
+class CLUSPROP_REQUIRED_DEPENDENCY extends Win32Struct {
     static sizeof => 44
 
     static packingSize => 4
@@ -37,7 +36,7 @@ class CLUSPROP_REQUIRED_DEPENDENCY extends Win32Struct
      *        in the structure is a resource class or resource type name.
      * @type {CLUSPROP_VALUE}
      */
-    Value{
+    Value {
         get {
             if(!this.HasProp("__Value"))
                 this.__Value := CLUSPROP_VALUE(0, this)
@@ -46,10 +45,9 @@ class CLUSPROP_REQUIRED_DEPENDENCY extends Win32Struct
     }
 
     /**
-     * 
      * @type {CLUSPROP_RESOURCE_CLASS}
      */
-    ResClass{
+    ResClass {
         get {
             if(!this.HasProp("__ResClass"))
                 this.__ResClass := CLUSPROP_RESOURCE_CLASS(0, this)
@@ -62,7 +60,7 @@ class CLUSPROP_REQUIRED_DEPENDENCY extends Win32Struct
      *        as <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/ip-address">IP Address</a>.
      * @type {CLUSPROP_SZ}
      */
-    ResTypeName{
+    ResTypeName {
         get {
             if(!this.HasProp("__ResTypeName"))
                 this.__ResTypeName := CLUSPROP_SZ(0, this)

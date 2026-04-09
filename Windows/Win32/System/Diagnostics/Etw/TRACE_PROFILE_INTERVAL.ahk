@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Etw
- * @version v4.0.30319
  */
-class TRACE_PROFILE_INTERVAL extends Win32Struct
-{
+class TRACE_PROFILE_INTERVAL extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4

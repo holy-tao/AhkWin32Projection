@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug
- * @version v4.0.30319
  */
-class WHEA_XPF_NMI_DESCRIPTOR extends Win32Struct
-{
+class WHEA_XPF_NMI_DESCRIPTOR extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 2

@@ -1,18 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IDWriteTextAnalyzer.ahk
 #Include .\DWRITE_MATRIX.ahk
 #Include .\DWRITE_SCRIPT_PROPERTIES.ahk
 #Include .\DWRITE_JUSTIFICATION_OPPORTUNITY.ahk
-#Include .\IDWriteTextAnalyzer.ahk
 
 /**
  * Analyzes various text properties for complex script processing. (IDWriteTextAnalyzer1)
  * @see https://learn.microsoft.com/windows/win32/api/dwrite_1/nn-dwrite_1-idwritetextanalyzer1
  * @namespace Windows.Win32.Graphics.DirectWrite
- * @version v4.0.30319
  */
-class IDWriteTextAnalyzer1 extends IDWriteTextAnalyzer{
+class IDWriteTextAnalyzer1 extends IDWriteTextAnalyzer {
 
     static sizeof => A_PtrSize
     /**
@@ -73,7 +72,7 @@ class IDWriteTextAnalyzer1 extends IDWriteTextAnalyzer{
      * @param {IDWriteFontFace} fontFace Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite_1/nn-dwrite_1-idwritefontface1">IDWriteFontFace</a>*</b>
      * 
      * The font face to read.
-     * @param {Integer} baseline Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite_1/ne-dwrite_1-dwrite_baseline">DWRITE_BASELINE</a></b>
+     * @param {DWRITE_BASELINE} baseline Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite_1/ne-dwrite_1-dwrite_baseline">DWRITE_BASELINE</a></b>
      * 
      * A <a href="https://docs.microsoft.com/windows/win32/api/dwrite_1/ne-dwrite_1-dwrite_baseline">DWRITE_BASELINE</a>-typed value that specifies the baseline of interest.
      * @param {BOOL} isVertical Type: <b>BOOL</b>
@@ -140,7 +139,7 @@ class IDWriteTextAnalyzer1 extends IDWriteTextAnalyzer{
      * Returns 2x3 transform matrix for the respective angle to draw the glyph run. (IDWriteTextAnalyzer1.GetGlyphOrientationTransform)
      * @remarks
      * The translation component of the transform returned is zero.
-     * @param {Integer} glyphOrientationAngle Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite_1/ne-dwrite_1-dwrite_glyph_orientation_angle">DWRITE_GLYPH_ORIENTATION_ANGLE</a></b>
+     * @param {DWRITE_GLYPH_ORIENTATION_ANGLE} glyphOrientationAngle Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite_1/ne-dwrite_1-dwrite_glyph_orientation_angle">DWRITE_GLYPH_ORIENTATION_ANGLE</a></b>
      * 
      * A <a href="https://docs.microsoft.com/windows/win32/api/dwrite_1/ne-dwrite_1-dwrite_glyph_orientation_angle">DWRITE_GLYPH_ORIENTATION_ANGLE</a>-typed value that specifies the angle that was reported into
      *     <a href="https://docs.microsoft.com/windows/win32/api/dwrite_1/nf-dwrite_1-idwritetextanalysissink1-setglyphorientation">IDWriteTextAnalysisSink1::SetGlyphOrientation</a>.

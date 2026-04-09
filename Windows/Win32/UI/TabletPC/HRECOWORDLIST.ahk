@@ -17,10 +17,8 @@
  * | [**MakeWordList**](/windows/desktop/api/recapis/nf-recapis-makewordlist)             | Creates a word list.<br/>                     |
  * @see https://learn.microsoft.com/windows/win32/tablet/hrecowordlist-handle
  * @namespace Windows.Win32.UI.TabletPC
- * @version v4.0.30319
  */
-class HRECOWORDLIST extends Win32Handle
-{
+class HRECOWORDLIST extends Win32Handle {
     static sizeof => 8
 
     static packingSize => 8

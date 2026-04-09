@@ -5,13 +5,10 @@
 
 /**
  * Allows a D3D12 resource allocator to manage the lifetime of a D3D12 resource.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/mfd3d12/nn-mfd3d12-imfd3d12synchronizationobject
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFD3D12SynchronizationObject extends IUnknown{
+class IMFD3D12SynchronizationObject extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

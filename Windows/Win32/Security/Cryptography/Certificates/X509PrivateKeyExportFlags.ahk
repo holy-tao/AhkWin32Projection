@@ -5,9 +5,8 @@
  * Specifies the export policy for a private key.
  * @see https://learn.microsoft.com/windows/win32/api/certenroll/ne-certenroll-x509privatekeyexportflags
  * @namespace Windows.Win32.Security.Cryptography.Certificates
- * @version v4.0.30319
  */
-class X509PrivateKeyExportFlags extends Win32Enum{
+class X509PrivateKeyExportFlags extends Win32Enum {
 
     /**
      * Export is not allowed. This is the default value.

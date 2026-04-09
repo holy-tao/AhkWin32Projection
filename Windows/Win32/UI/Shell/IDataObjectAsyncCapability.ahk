@@ -13,9 +13,8 @@
  * Drop sources and targets use this interface when they wish to have a lengthy data extraction process handled by a background thread.
  * @see https://learn.microsoft.com/windows/win32/api/shldisp/nn-shldisp-idataobjectasynccapability
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IDataObjectAsyncCapability extends IUnknown{
+class IDataObjectAsyncCapability extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -106,7 +105,9 @@ class IDataObjectAsyncCapability extends IUnknown{
      * <b>EndOperation</b> retrieves the <a href="https://docs.microsoft.com/windows/desktop/api/shldisp/nn-shldisp-idataobjectasynccapability">IDataObjectAsyncCapability</a> pointer stored by <a href="https://docs.microsoft.com/windows/desktop/api/shldisp/nf-shldisp-idataobjectasynccapability-setasyncmode">IDataObjectAsyncCapability::SetAsyncMode</a> and passes its parameter values to that interface's <b>IDataObjectAsyncCapability::EndOperation</b> method. <b>EndOperation</b> then releases the <b>IDataObjectAsyncCapability</b> pointer.
      * 
      * <b>EndOperation</b> is also responsible for any associated clean-up operations. When finished, <b>EndOperation</b> should notify the drop source through a private interface.
-     * @param {HRESULT} _hResult 
+     * @param {HRESULT} _hResult Type: <b>HRESULT</b>
+     * 
+     * Indicates the outcome of the data extraction. Set this value to S_OK if successful, or a COM error code otherwise.
      * @param {IBindCtx} pbcReserved Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-ibindctx">IBindCtx</a>*</b>
      * 
      * Reserved. Set to <b>nullptr</b>.

@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\SESSION_INFO_USER_FLAGS.ahk
 
 /**
  * Contains information about the session, including name of the computer; name of the user; open files, pipes, and devices on the computer; and the type of client that established the session.
  * @see https://learn.microsoft.com/windows/win32/api/lmshare/ns-lmshare-session_info_2
  * @namespace Windows.Win32.Storage.FileSystem
- * @version v4.0.30319
  */
-class SESSION_INFO_2 extends Win32Struct
-{
+class SESSION_INFO_2 extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -59,8 +58,7 @@ class SESSION_INFO_2 extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Integer}
+     * @type {SESSION_INFO_USER_FLAGS}
      */
     sesi2_user_flags {
         get => NumGet(this, 28, "uint")

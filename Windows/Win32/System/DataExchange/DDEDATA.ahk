@@ -5,10 +5,8 @@
  * Contains the data, and information about the data, sent as part of a WM_DDE_DATA message.
  * @see https://learn.microsoft.com/windows/win32/api/dde/ns-dde-ddedata
  * @namespace Windows.Win32.System.DataExchange
- * @version v4.0.30319
  */
-class DDEDATA extends Win32Struct
-{
+class DDEDATA extends Win32Struct {
     static sizeof => 6
 
     static packingSize => 2
@@ -28,9 +26,6 @@ class DDEDATA extends Win32Struct
     }
 
     /**
-     * Type: <b>unsigned short</b>
-     * 
-     * Unused.
      * @type {Integer}
      */
     unused {
@@ -39,9 +34,6 @@ class DDEDATA extends Win32Struct
     }
 
     /**
-     * Type: <b>unsigned short</b>
-     * 
-     * Indicates whether the data was sent in response to a <a href="https://docs.microsoft.com/windows/desktop/dataxchg/wm-dde-request">WM_DDE_REQUEST</a> message or a <a href="https://docs.microsoft.com/windows/desktop/dataxchg/wm-dde-advise">WM_DDE_ADVISE</a> message. If this value is nonzero, the data was sent in response to a <b>WM_DDE_REQUEST</b> message.
      * @type {Integer}
      */
     fResponse {
@@ -50,9 +42,6 @@ class DDEDATA extends Win32Struct
     }
 
     /**
-     * Type: <b>unsigned short</b>
-     * 
-     * Indicates whether the application receiving the <a href="https://docs.microsoft.com/windows/desktop/dataxchg/wm-dde-poke">WM_DDE_POKE</a> message should free the data. If this value is nonzero, the application should free the data.
      * @type {Integer}
      */
     fRelease {
@@ -61,9 +50,6 @@ class DDEDATA extends Win32Struct
     }
 
     /**
-     * Type: <b>unsigned short</b>
-     * 
-     * Reserved.
      * @type {Integer}
      */
     reserved {
@@ -72,9 +58,6 @@ class DDEDATA extends Win32Struct
     }
 
     /**
-     * Type: <b>BYTE</b>
-     * 
-     * Indicates whether the application receiving the <a href="https://docs.microsoft.com/windows/desktop/dataxchg/wm-dde-data">WM_DDE_DATA</a> message should acknowledge receipt of the data by sending a <a href="https://docs.microsoft.com/windows/desktop/dataxchg/wm-dde-ack">WM_DDE_ACK</a> message. If this value is nonzero, the application should send the acknowledgment.
      * @type {Integer}
      */
     fAckReq {
@@ -97,9 +80,9 @@ class DDEDATA extends Win32Struct
      * Type: <b>BYTE[1]</b>
      * 
      * Contains the data. The length and type of data depend on the <b>cfFormat</b> member.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Value{
+    Value {
         get {
             if(!this.HasProp("__ValueProxyArray"))
                 this.__ValueProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "char")

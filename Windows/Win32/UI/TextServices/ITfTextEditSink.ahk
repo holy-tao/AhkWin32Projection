@@ -7,9 +7,8 @@
  * The ITfTextEditSink interface supports completion of an edit session that involves read/write access.
  * @see https://learn.microsoft.com/windows/win32/api/msctf/nn-msctf-itftexteditsink
  * @namespace Windows.Win32.UI.TextServices
- * @version v4.0.30319
  */
-class ITfTextEditSink extends IUnknown{
+class ITfTextEditSink extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

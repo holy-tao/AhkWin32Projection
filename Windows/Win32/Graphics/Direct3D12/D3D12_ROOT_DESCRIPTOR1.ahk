@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\D3D12_ROOT_DESCRIPTOR_FLAGS.ahk
 
 /**
  * Describes descriptors inline in the root signature version 1.1 that appear in shaders.
@@ -11,10 +12,8 @@
  * Refer to the helper structure <a href="https://docs.microsoft.com/windows/desktop/direct3d12/cd3dx12-root-descriptor1">CD3DX12_ROOT_DESCRIPTOR1</a>.
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_root_descriptor1
  * @namespace Windows.Win32.Graphics.Direct3D12
- * @version v4.0.30319
  */
-class D3D12_ROOT_DESCRIPTOR1 extends Win32Struct
-{
+class D3D12_ROOT_DESCRIPTOR1 extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4
@@ -39,7 +38,7 @@ class D3D12_ROOT_DESCRIPTOR1 extends Win32Struct
 
     /**
      * Specifies the <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_root_descriptor_flags">D3D12_ROOT_DESCRIPTOR_FLAGS</a> that determine the volatility of descriptors and the data they reference.
-     * @type {Integer}
+     * @type {D3D12_ROOT_DESCRIPTOR_FLAGS}
      */
     Flags {
         get => NumGet(this, 8, "int")

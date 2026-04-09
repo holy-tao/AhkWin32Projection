@@ -13,9 +13,8 @@
  * <b>IInputObject</b> is derived from <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>. The listed methods are specific to <b>IInputObject</b>.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-iinputobject
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IInputObject extends IUnknown{
+class IInputObject extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

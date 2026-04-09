@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\IUnknown.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * The IComThreadingInfo (objidlbase.h) interface enables you to obtain the following information about the apartment and thread that the caller is executing.
@@ -9,9 +10,8 @@
  * An instance of this interface for the current context can be obtained using <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cogetobjectcontext">CoGetObjectContext</a>.
  * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nn-objidlbase-icomthreadinginfo
  * @namespace Windows.Win32.System.Com
- * @version v4.0.30319
  */
-class IComThreadingInfo extends IUnknown{
+class IComThreadingInfo extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -34,7 +34,7 @@ class IComThreadingInfo extends IUnknown{
 
     /**
      * The IComThreadingInfo::GetCurrentApartmentType (objidlbase.h) method retrieves the type of apartment in which the caller is executing.
-     * @returns {Integer} A points to an <a href="https://docs.microsoft.com/windows/desktop/api/objidl/ne-objidl-apttype">APTTYPE</a> enumeration value that characterizes the caller's apartment.
+     * @returns {APTTYPE} A points to an <a href="https://docs.microsoft.com/windows/desktop/api/objidl/ne-objidl-apttype">APTTYPE</a> enumeration value that characterizes the caller's apartment.
      * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nf-objidlbase-icomthreadinginfo-getcurrentapartmenttype
      */
     GetCurrentApartmentType() {
@@ -44,7 +44,7 @@ class IComThreadingInfo extends IUnknown{
 
     /**
      * The IComThreadingInfo::GetCurrentThreadType (objidlbase.h) method retrieves the type of thread in which the caller is executing.
-     * @returns {Integer} A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/objidl/ne-objidl-thdtype">THDTYPE</a> enumeration value that characterizes the caller's thread.
+     * @returns {THDTYPE} A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/objidl/ne-objidl-thdtype">THDTYPE</a> enumeration value that characterizes the caller's thread.
      * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nf-objidlbase-icomthreadinginfo-getcurrentthreadtype
      */
     GetCurrentThreadType() {

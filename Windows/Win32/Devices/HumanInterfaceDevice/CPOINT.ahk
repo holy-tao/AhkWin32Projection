@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.HumanInterfaceDevice
- * @version v4.0.30319
  */
-class CPOINT extends Win32Struct
-{
+class CPOINT extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4

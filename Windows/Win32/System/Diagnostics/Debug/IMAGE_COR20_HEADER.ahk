@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug
- * @version v4.0.30319
  */
-class IMAGE_COR20_HEADER extends Win32Struct
-{
+class IMAGE_COR20_HEADER extends Win32Struct {
     static sizeof => 72
 
     static packingSize => 4
@@ -39,7 +37,7 @@ class IMAGE_COR20_HEADER extends Win32Struct
     /**
      * @type {IMAGE_DATA_DIRECTORY}
      */
-    MetaData{
+    MetaData {
         get {
             if(!this.HasProp("__MetaData"))
                 this.__MetaData := IMAGE_DATA_DIRECTORY(8, this)
@@ -74,7 +72,7 @@ class IMAGE_COR20_HEADER extends Win32Struct
     /**
      * @type {IMAGE_DATA_DIRECTORY}
      */
-    Resources{
+    Resources {
         get {
             if(!this.HasProp("__Resources"))
                 this.__Resources := IMAGE_DATA_DIRECTORY(24, this)
@@ -85,7 +83,7 @@ class IMAGE_COR20_HEADER extends Win32Struct
     /**
      * @type {IMAGE_DATA_DIRECTORY}
      */
-    StrongNameSignature{
+    StrongNameSignature {
         get {
             if(!this.HasProp("__StrongNameSignature"))
                 this.__StrongNameSignature := IMAGE_DATA_DIRECTORY(32, this)
@@ -96,7 +94,7 @@ class IMAGE_COR20_HEADER extends Win32Struct
     /**
      * @type {IMAGE_DATA_DIRECTORY}
      */
-    CodeManagerTable{
+    CodeManagerTable {
         get {
             if(!this.HasProp("__CodeManagerTable"))
                 this.__CodeManagerTable := IMAGE_DATA_DIRECTORY(40, this)
@@ -107,7 +105,7 @@ class IMAGE_COR20_HEADER extends Win32Struct
     /**
      * @type {IMAGE_DATA_DIRECTORY}
      */
-    VTableFixups{
+    VTableFixups {
         get {
             if(!this.HasProp("__VTableFixups"))
                 this.__VTableFixups := IMAGE_DATA_DIRECTORY(48, this)
@@ -118,7 +116,7 @@ class IMAGE_COR20_HEADER extends Win32Struct
     /**
      * @type {IMAGE_DATA_DIRECTORY}
      */
-    ExportAddressTableJumps{
+    ExportAddressTableJumps {
         get {
             if(!this.HasProp("__ExportAddressTableJumps"))
                 this.__ExportAddressTableJumps := IMAGE_DATA_DIRECTORY(56, this)
@@ -129,7 +127,7 @@ class IMAGE_COR20_HEADER extends Win32Struct
     /**
      * @type {IMAGE_DATA_DIRECTORY}
      */
-    ManagedNativeHeader{
+    ManagedNativeHeader {
         get {
             if(!this.HasProp("__ManagedNativeHeader"))
                 this.__ManagedNativeHeader := IMAGE_DATA_DIRECTORY(64, this)

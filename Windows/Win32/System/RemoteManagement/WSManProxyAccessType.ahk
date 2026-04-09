@@ -11,9 +11,8 @@
  * The <b>WSMAN_OPTION_PROXY_WINHTTP_PROXY_CONFIG</b> option translates into the <b>WINHTTP_ACCESS_TYPE_DEFAULT_PROXY</b> option in WinHTTP. WinHTTP retrieves the static proxy or direct configuration from the registry. <b>WINHTTP_ACCESS_TYPE_DEFAULT_PROXY</b> does not inherit browser proxy settings. WinHTTP does not share any proxy settings with Internet Explorer. This option gets the WinHTTP proxy configuration set by the ProxyCfg.exe utility.
  * @see https://learn.microsoft.com/windows/win32/api/wsman/ne-wsman-wsmanproxyaccesstype
  * @namespace Windows.Win32.System.RemoteManagement
- * @version v4.0.30319
  */
-class WSManProxyAccessType extends Win32Enum{
+class WSManProxyAccessType extends Win32Enum {
 
     /**
      * Use the Internet Explorer proxy configuration for the current user. This is the default setting.

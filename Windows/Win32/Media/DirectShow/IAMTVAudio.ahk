@@ -7,9 +7,8 @@
  * The IAMTVAudio interface controls audio from a television source. The TV Audio filter implements this interface. Applications can use it to control television audio settings, including secondary audio program (SAP) and stereo or mono selection.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-iamtvaudio
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IAMTVAudio extends IUnknown{
+class IAMTVAudio extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

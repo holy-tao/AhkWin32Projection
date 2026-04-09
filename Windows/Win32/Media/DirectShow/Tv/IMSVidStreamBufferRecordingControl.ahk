@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
 #Include ..\..\..\System\Com\IDispatch.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
  * The IMSVidStreamBufferRecordingControl interface enables an application to manage a stream buffer recording object through the Video Control.
@@ -10,9 +10,8 @@
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IMSVidStreamBufferRecordingControl)</c>.
  * @see https://learn.microsoft.com/windows/win32/api/segment/nn-segment-imsvidstreambufferrecordingcontrol
  * @namespace Windows.Win32.Media.DirectShow.Tv
- * @version v4.0.30319
  */
-class IMSVidStreamBufferRecordingControl extends IDispatch{
+class IMSVidStreamBufferRecordingControl extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -70,7 +69,7 @@ class IMSVidStreamBufferRecordingControl extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {RecordingType} 
      */
     RecordingType {
         get => this.get_RecordingType()
@@ -205,7 +204,7 @@ class IMSVidStreamBufferRecordingControl extends IDispatch{
 
     /**
      * The get_RecordingType method retrieves the type of recording, either content recording or reference recording.
-     * @returns {Integer} 
+     * @returns {RecordingType} 
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidstreambufferrecordingcontrol-get_recordingtype
      */
     get_RecordingType() {

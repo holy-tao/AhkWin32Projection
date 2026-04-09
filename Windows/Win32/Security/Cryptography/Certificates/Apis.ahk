@@ -4,7 +4,6 @@
 
 /**
  * @namespace Windows.Win32.Security.Cryptography.Certificates
- * @version v4.0.30319
  */
 class Certificates {
 
@@ -5076,7 +5075,7 @@ class Certificates {
      * <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/setting-the-backup-and-restore-privileges">Setting the Backup and Restore Privileges</a>.
      * @param {PWSTR} pwszServerName A pointer to the machine name of the server to prepare for online backup. This name can be the NetBIOS name or the DNS name.
      * @param {Integer} grbitJet Value used by the database engine; this value should be set to zero.
-     * @param {Integer} dwBackupFlags 
+     * @param {CSBACKUP_TYPE} dwBackupFlags 
      * @param {Pointer<Pointer<Void>>} phbc A pointer to a Certificate Services backup context handle (<b>HCSBC</b>).
      * @returns {HRESULT} The return value is an <b>HRESULT</b>. A value of S_OK indicates success, and *<i>phbc</i> will be set to an <b>HCSBC</b> which can be used by other Certificate Services backup APIs.
      * @see https://learn.microsoft.com/windows/win32/api/certbcli/nf-certbcli-certsrvbackuppreparew
@@ -5627,7 +5626,7 @@ class Certificates {
     /**
      * Retrieves a structure that specifies information that can be used to create a user token associated with the specified certificate.
      * @param {Pointer<CERT_CONTEXT>} pCert A constant pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_context">CERT_CONTEXT</a> structure that specifies the certificate for which to obtain token information.
-     * @param {Pointer<Integer>} pTokenInformationType A pointer to a value of the <a href="https://docs.microsoft.com/windows/desktop/api/ntsecpkg/ne-ntsecpkg-lsa_token_information_type">LSA_TOKEN_INFORMATION_TYPE</a> enumeration that indicates the type of structure pointed to by the <i>ppTokenInformation</i> parameter.
+     * @param {Pointer<LSA_TOKEN_INFORMATION_TYPE>} pTokenInformationType A pointer to a value of the <a href="https://docs.microsoft.com/windows/desktop/api/ntsecpkg/ne-ntsecpkg-lsa_token_information_type">LSA_TOKEN_INFORMATION_TYPE</a> enumeration that indicates the type of structure pointed to by the <i>ppTokenInformation</i> parameter.
      * @param {Pointer<Pointer<Void>>} ppTokenInformation The address of a pointer to a structure that specifies information that can be used to create a user token.
      * @returns {NTSTATUS} If the function succeeds, return <b>STATUS_SUCCESS</b>.
      * 

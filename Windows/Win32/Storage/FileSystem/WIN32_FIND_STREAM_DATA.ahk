@@ -5,10 +5,8 @@
  * Contains information about the stream found by the FindFirstStreamW or FindNextStreamW function.
  * @see https://learn.microsoft.com/windows/win32/api/fileapi/ns-fileapi-win32_find_stream_data
  * @namespace Windows.Win32.Storage.FileSystem
- * @version v4.0.30319
  */
-class WIN32_FIND_STREAM_DATA extends Win32Struct
-{
+class WIN32_FIND_STREAM_DATA extends Win32Struct {
     static sizeof => 600
 
     static packingSize => 8

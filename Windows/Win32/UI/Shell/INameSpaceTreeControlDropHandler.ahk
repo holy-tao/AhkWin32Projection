@@ -7,9 +7,8 @@
  * Exposes handler methods for drag-and-drop.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nn-shobjidl-inamespacetreecontroldrophandler
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class INameSpaceTreeControlDropHandler extends IUnknown{
+class INameSpaceTreeControlDropHandler extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

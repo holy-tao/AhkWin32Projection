@@ -1,15 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\D3DAUTHENTICATEDCHANNEL_QUERY_OUTPUT.ahk
 #Include .\D3D_OMAC.ahk
 #Include ..\..\Foundation\HANDLE.ahk
-#Include .\D3DAUTHENTICATEDCHANNEL_QUERY_OUTPUT.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D9
- * @version v4.0.30319
+ * @architecture X64, Arm64
  */
-class D3DAUTHENTICATEDCHANNEL_QUERYOUTPUTID_OUTPUT extends Win32Struct
-{
+class D3DAUTHENTICATEDCHANNEL_QUERYOUTPUTID_OUTPUT extends Win32Struct {
     static sizeof => 72
 
     static packingSize => 8
@@ -17,7 +16,7 @@ class D3DAUTHENTICATEDCHANNEL_QUERYOUTPUTID_OUTPUT extends Win32Struct
     /**
      * @type {D3DAUTHENTICATEDCHANNEL_QUERY_OUTPUT}
      */
-    Output{
+    Output {
         get {
             if(!this.HasProp("__Output"))
                 this.__Output := D3DAUTHENTICATEDCHANNEL_QUERY_OUTPUT(0, this)
@@ -28,7 +27,7 @@ class D3DAUTHENTICATEDCHANNEL_QUERYOUTPUTID_OUTPUT extends Win32Struct
     /**
      * @type {HANDLE}
      */
-    DeviceHandle{
+    DeviceHandle {
         get {
             if(!this.HasProp("__DeviceHandle"))
                 this.__DeviceHandle := HANDLE(40, this)
@@ -39,7 +38,7 @@ class D3DAUTHENTICATEDCHANNEL_QUERYOUTPUTID_OUTPUT extends Win32Struct
     /**
      * @type {HANDLE}
      */
-    CryptoSessionHandle{
+    CryptoSessionHandle {
         get {
             if(!this.HasProp("__CryptoSessionHandle"))
                 this.__CryptoSessionHandle := HANDLE(48, this)

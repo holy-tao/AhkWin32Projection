@@ -1,13 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\ISCSI_UNIQUE_SESSION_ID.ahk
+#Include .\ISCSI_CONNECTION_INFO_EX.ahk
 
 /**
  * @namespace Windows.Win32.Storage.IscsiDisc
- * @version v4.0.30319
  */
-class ISCSI_SESSION_INFO_EX extends Win32Struct
-{
+class ISCSI_SESSION_INFO_EX extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8
@@ -15,7 +14,7 @@ class ISCSI_SESSION_INFO_EX extends Win32Struct
     /**
      * @type {ISCSI_UNIQUE_SESSION_ID}
      */
-    SessionId{
+    SessionId {
         get {
             if(!this.HasProp("__SessionId"))
                 this.__SessionId := ISCSI_UNIQUE_SESSION_ID(0, this)

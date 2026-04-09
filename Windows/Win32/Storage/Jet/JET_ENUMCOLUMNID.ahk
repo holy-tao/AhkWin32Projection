@@ -5,10 +5,8 @@
  * Learn more about: JET_ENUMCOLUMNID Structure
  * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jet-enumcolumnid-structure
  * @namespace Windows.Win32.Storage.Jet
- * @version v4.0.30319
  */
-class JET_ENUMCOLUMNID extends Win32Struct
-{
+class JET_ENUMCOLUMNID extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

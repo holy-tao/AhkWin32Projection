@@ -16,10 +16,8 @@
  *      <a href="https://docs.microsoft.com/windows/desktop/api/wbemcli/nf-wbemcli-iwbemservices-putclass">IWbemServices::PutClass</a>.
  * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nn-wbemcli-iwbemclassobject
  * @namespace Windows.Win32.System.Wmi
- * @version v4.0.30319
  */
-class WbemClassObject extends Win32Struct
-{
+class WbemClassObject extends Win32Struct {
     static sizeof => 0
 
     static packingSize => 1

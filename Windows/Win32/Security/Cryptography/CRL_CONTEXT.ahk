@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\CERT_QUERY_ENCODING_TYPE.ahk
+#Include .\CRL_INFO.ahk
 #Include .\HCERTSTORE.ahk
 
 /**
  * The CRL_CONTEXT structure contains both the encoded and decoded representations of a certificate revocation list (CRL). CRL contexts returned by any CryptoAPI function must be freed by calling the CertFreeCRLContext function.
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-crl_context
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CRL_CONTEXT extends Win32Struct
-{
+class CRL_CONTEXT extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -25,7 +25,7 @@ class CRL_CONTEXT extends Win32Struct
      * <li>X509_ASN_ENCODING</li>
      * <li>PKCS_7_ASN_ENCODING</li>
      * </ul>
-     * @type {Integer}
+     * @type {CERT_QUERY_ENCODING_TYPE}
      */
     dwCertEncodingType {
         get => NumGet(this, 0, "uint")
@@ -64,7 +64,7 @@ class CRL_CONTEXT extends Win32Struct
      * A handle to the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate store</a>.
      * @type {HCERTSTORE}
      */
-    hCertStore{
+    hCertStore {
         get {
             if(!this.HasProp("__hCertStore"))
                 this.__hCertStore := HCERTSTORE(32, this)

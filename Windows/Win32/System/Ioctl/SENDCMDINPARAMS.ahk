@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class SENDCMDINPARAMS extends Win32Struct
-{
+class SENDCMDINPARAMS extends Win32Struct {
     static sizeof => 36
 
     static packingSize => 4
@@ -23,7 +21,7 @@ class SENDCMDINPARAMS extends Win32Struct
     /**
      * @type {IDEREGS}
      */
-    irDriveRegs{
+    irDriveRegs {
         get {
             if(!this.HasProp("__irDriveRegs"))
                 this.__irDriveRegs := IDEREGS(4, this)
@@ -40,9 +38,9 @@ class SENDCMDINPARAMS extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    bReserved{
+    bReserved {
         get {
             if(!this.HasProp("__bReservedProxyArray"))
                 this.__bReservedProxyArray := Win32FixedArray(this.ptr + 13, 3, Primitive, "char")
@@ -51,9 +49,9 @@ class SENDCMDINPARAMS extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    dwReserved{
+    dwReserved {
         get {
             if(!this.HasProp("__dwReservedProxyArray"))
                 this.__dwReservedProxyArray := Win32FixedArray(this.ptr + 16, 4, Primitive, "uint")
@@ -62,9 +60,9 @@ class SENDCMDINPARAMS extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    bBuffer{
+    bBuffer {
         get {
             if(!this.HasProp("__bBufferProxyArray"))
                 this.__bBufferProxyArray := Win32FixedArray(this.ptr + 32, 1, Primitive, "char")

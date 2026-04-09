@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\IDVB_EIT2.ahk
 #Include .\IDvbSiParser.ahk
+#Include .\IDVB_EIT2.ahk
 
 /**
  * The IDvbSiParser2 interface retrieves program specific information (PSI) and service information (SI) tables from a DVB transport stream.
@@ -18,9 +18,8 @@
  * This CLSID is not is not published in an SDK header; define a new GUID constant in your application.
  * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nn-dvbsiparser-idvbsiparser2
  * @namespace Windows.Win32.Media.DirectShow.Tv
- * @version v4.0.30319
  */
-class IDvbSiParser2 extends IDvbSiParser{
+class IDvbSiParser2 extends IDvbSiParser {
 
     static sizeof => A_PtrSize
     /**

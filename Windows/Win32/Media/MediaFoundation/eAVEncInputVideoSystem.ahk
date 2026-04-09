@@ -5,9 +5,8 @@
  * Specifies the nominal range for a video source. This enumeration is used with the AVEncInputVideoSystem property.
  * @see https://learn.microsoft.com/windows/win32/api/codecapi/ne-codecapi-eavencinputvideosystem
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class eAVEncInputVideoSystem extends Win32Enum{
+class eAVEncInputVideoSystem extends Win32Enum {
 
     /**
      * The video system is not specified.

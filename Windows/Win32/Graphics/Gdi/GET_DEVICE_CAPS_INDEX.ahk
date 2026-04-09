@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Graphics.Gdi
- * @version v4.0.30319
  */
-class GET_DEVICE_CAPS_INDEX extends Win32Enum{
+class GET_DEVICE_CAPS_INDEX extends Win32Enum {
 
     /**
      * @type {Integer (UInt32)}

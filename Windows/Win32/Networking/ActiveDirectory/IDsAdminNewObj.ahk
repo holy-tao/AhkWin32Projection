@@ -7,9 +7,8 @@
  * The IDsAdminNewObj interface is used by a primary or secondary object creation wizard extension to obtain page count data and to control the command buttons in the wizard.
  * @see https://learn.microsoft.com/windows/win32/api/dsadmin/nn-dsadmin-idsadminnewobj
  * @namespace Windows.Win32.Networking.ActiveDirectory
- * @version v4.0.30319
  */
-class IDsAdminNewObj extends IUnknown{
+class IDsAdminNewObj extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

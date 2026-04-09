@@ -15,10 +15,8 @@
  * > An **InkRectangle** cannot be used if it is larger than LONG\_MAX (2^31 - 1) in either dimension.
  * @see https://learn.microsoft.com/windows/win32/tablet/inkrectangle-class
  * @namespace Windows.Win32.UI.TabletPC
- * @version v4.0.30319
  */
-class InkRectangle extends Win32Struct
-{
+class InkRectangle extends Win32Struct {
     static sizeof => 0
 
     static packingSize => 1

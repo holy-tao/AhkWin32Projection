@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
+#Include ..\..\..\Foundation\BSTR.ahk
 
 /**
  * Implements methods that get data from an Integrated Services Digital Broadcasting (ISDB) conditional access (CA) contract information descriptor.
  * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nn-dvbsiparser-iisdbcacontractinformationdescriptor
  * @namespace Windows.Win32.Media.DirectShow.Tv
- * @version v4.0.30319
  */
-class IIsdbCAContractInformationDescriptor extends IUnknown{
+class IIsdbCAContractInformationDescriptor extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -121,7 +120,7 @@ class IIsdbCAContractInformationDescriptor extends IUnknown{
 
     /**
      * Gets, in Unicode-text format, the value of the fee_name field from an Integrated Services Digital Broadcasting (ISDB) conditional access (CA) contract information descriptor. This field describes the fee for the ES group being described.
-     * @param {Integer} convMode 
+     * @param {DVB_STRCONV_MODE} convMode 
      * @returns {BSTR} Pointer to a buffer that receives the fee name. The caller is responsible for freeing this memory.
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbcacontractinformationdescriptor-getfeenamew
      */

@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw
- * @version v4.0.30319
  */
-class DDNONLOCALVIDMEMCAPS extends Win32Struct
-{
+class DDNONLOCALVIDMEMCAPS extends Win32Struct {
     static sizeof => 52
 
     static packingSize => 4
@@ -52,9 +50,9 @@ class DDNONLOCALVIDMEMCAPS extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    dwNLVBRops{
+    dwNLVBRops {
         get {
             if(!this.HasProp("__dwNLVBRopsProxyArray"))
                 this.__dwNLVBRopsProxyArray := Win32FixedArray(this.ptr + 20, 8, Primitive, "uint")

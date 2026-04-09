@@ -1,6 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include Common\DXGI_FORMAT.ahk
 #Include Common\DXGI_SAMPLE_DESC.ahk
+#Include .\DXGI_USAGE.ahk
+#Include .\DXGI_SCALING.ahk
+#Include .\DXGI_SWAP_EFFECT.ahk
+#Include Common\DXGI_ALPHA_MODE.ahk
 
 /**
  * Describes a swap chain. (DXGI_SWAP_CHAIN_DESC1)
@@ -34,10 +39,8 @@
  *      DXGI Flip Model.
  * @see https://learn.microsoft.com/windows/win32/api/dxgi1_2/ns-dxgi1_2-dxgi_swap_chain_desc1
  * @namespace Windows.Win32.Graphics.Dxgi
- * @version v4.0.30319
  */
-class DXGI_SWAP_CHAIN_DESC1 extends Win32Struct
-{
+class DXGI_SWAP_CHAIN_DESC1 extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 4
@@ -77,7 +80,7 @@ class DXGI_SWAP_CHAIN_DESC1 extends Win32Struct
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/dxgiformat/ne-dxgiformat-dxgi_format">DXGI_FORMAT</a> structure that describes the 
      *       display format.
-     * @type {Integer}
+     * @type {DXGI_FORMAT}
      */
     Format {
         get => NumGet(this, 8, "int")
@@ -103,7 +106,7 @@ class DXGI_SWAP_CHAIN_DESC1 extends Win32Struct
      *       chains.
      * @type {DXGI_SAMPLE_DESC}
      */
-    SampleDesc{
+    SampleDesc {
         get {
             if(!this.HasProp("__SampleDesc"))
                 this.__SampleDesc := DXGI_SAMPLE_DESC(16, this)
@@ -115,7 +118,7 @@ class DXGI_SWAP_CHAIN_DESC1 extends Win32Struct
      * A <a href="https://docs.microsoft.com/windows/desktop/direct3ddxgi/dxgi-usage">DXGI_USAGE</a>-typed value that describes the 
      *       surface usage and CPU access options for the back buffer. The back buffer can be used for shader input or 
      *       render-target output.
-     * @type {Integer}
+     * @type {DXGI_USAGE}
      */
     BufferUsage {
         get => NumGet(this, 24, "uint")
@@ -135,7 +138,7 @@ class DXGI_SWAP_CHAIN_DESC1 extends Win32Struct
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_2/ne-dxgi1_2-dxgi_scaling">DXGI_SCALING</a>-typed value that identifies 
      *       resize behavior if the size of the back buffer is not equal to the target output.
-     * @type {Integer}
+     * @type {DXGI_SCALING}
      */
     Scaling {
         get => NumGet(this, 32, "int")
@@ -151,7 +154,7 @@ class DXGI_SWAP_CHAIN_DESC1 extends Win32Struct
      *       <a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_2/nf-dxgi1_2-idxgifactory2-createswapchainforcomposition">IDXGIFactory2::CreateSwapChainForComposition</a> 
      *       method because this method supports only <a href="https://docs.microsoft.com/windows/desktop/direct3ddxgi/dxgi-flip-model">flip 
      *       presentation model</a>.
-     * @type {Integer}
+     * @type {DXGI_SWAP_EFFECT}
      */
     SwapEffect {
         get => NumGet(this, 36, "int")
@@ -161,7 +164,7 @@ class DXGI_SWAP_CHAIN_DESC1 extends Win32Struct
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_2/ne-dxgi1_2-dxgi_alpha_mode">DXGI_ALPHA_MODE</a>-typed value that 
      *       identifies the transparency behavior of the swap-chain back buffer.
-     * @type {Integer}
+     * @type {DXGI_ALPHA_MODE}
      */
     AlphaMode {
         get => NumGet(this, 40, "int")

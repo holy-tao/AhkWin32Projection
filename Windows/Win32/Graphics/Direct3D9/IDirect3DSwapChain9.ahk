@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\IDirect3DSurface9.ahk
 #Include .\IDirect3DDevice9.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * The IDirect3DSwapChain9 (d3d9.h) interface is used by applications to manipulate a swap chain.
@@ -29,9 +29,8 @@
  * Note the application should ensure that its associated device window is visible when its swapchain(s) is in fullscreen mode. Invisible windows cannot receive user mode events and invisible fullscreen windows will interfere with other windowed mode applications' presentation.
  * @see https://learn.microsoft.com/windows/win32/api/d3d9/nn-d3d9-idirect3dswapchain9
  * @namespace Windows.Win32.Graphics.Direct3D9
- * @version v4.0.30319
  */
-class IDirect3DSwapChain9 extends IUnknown{
+class IDirect3DSwapChain9 extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -122,7 +121,7 @@ class IDirect3DSwapChain9 extends IUnknown{
      * @param {Integer} iBackBuffer Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * Index of the back buffer object to return. Back buffers are numbered from 0 to the total number of back buffers - 1. A value of 0 returns the first back buffer, not the front buffer. The front buffer is not accessible through this method. Use <a href="https://docs.microsoft.com/windows/desktop/api/d3d9helper/nf-d3d9helper-idirect3dswapchain9-getfrontbufferdata">IDirect3DSwapChain9::GetFrontBufferData</a> to retrieve a copy of the front buffer.
-     * @param {Integer} Type Type: <b><a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3dbackbuffer-type">D3DBACKBUFFER_TYPE</a></b>
+     * @param {D3DBACKBUFFER_TYPE} Type Type: <b><a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3dbackbuffer-type">D3DBACKBUFFER_TYPE</a></b>
      * 
      * Stereo view is not supported in Direct3D 9, so the only valid value for this parameter is D3DBACKBUFFER_TYPE_MONO.
      * @returns {IDirect3DSurface9} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d9helper/nn-d3d9helper-idirect3dsurface9">IDirect3DSurface9</a>**</b>

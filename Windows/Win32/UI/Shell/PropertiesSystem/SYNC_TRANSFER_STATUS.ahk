@@ -5,9 +5,8 @@
  * Specifies possible status values used in the System.SyncTransferStatus property.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/ne-shobjidl_core-sync_transfer_status
  * @namespace Windows.Win32.UI.Shell.PropertiesSystem
- * @version v4.0.30319
  */
-class SYNC_TRANSFER_STATUS extends Win32BitflagEnum{
+class SYNC_TRANSFER_STATUS extends Win32BitflagEnum {
 
     /**
      * There is no current sync activity.
@@ -52,31 +51,26 @@ class SYNC_TRANSFER_STATUS extends Win32BitflagEnum{
     static STS_FETCHING_METADATA => 32
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static STS_USER_REQUESTED_REFRESH => 64
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static STS_HASWARNING => 128
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static STS_EXCLUDED => 256
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static STS_INCOMPLETE => 512
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static STS_PLACEHOLDER_IFEMPTY => 1024

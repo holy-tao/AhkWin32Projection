@@ -8,10 +8,8 @@
  * Contains information on the session user.
  * @see https://learn.microsoft.com/windows/win32/api/subauth/ns-subauth-user_all_information
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class USER_ALL_INFORMATION extends Win32Struct
-{
+class USER_ALL_INFORMATION extends Win32Struct {
     static sizeof => 320
 
     static packingSize => 8
@@ -75,7 +73,7 @@ class USER_ALL_INFORMATION extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/subauth/ns-subauth-unicode_string">UNICODE_STRING</a> containing the name of the user account.
      * @type {LSA_UNICODE_STRING}
      */
-    UserName{
+    UserName {
         get {
             if(!this.HasProp("__UserName"))
                 this.__UserName := LSA_UNICODE_STRING(48, this)
@@ -87,7 +85,7 @@ class USER_ALL_INFORMATION extends Win32Struct
      * Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/subauth/ns-subauth-unicode_string">UNICODE_STRING</a> containing the full name of the user or account.
      * @type {LSA_UNICODE_STRING}
      */
-    FullName{
+    FullName {
         get {
             if(!this.HasProp("__FullName"))
                 this.__FullName := LSA_UNICODE_STRING(64, this)
@@ -99,7 +97,7 @@ class USER_ALL_INFORMATION extends Win32Struct
      * Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/subauth/ns-subauth-unicode_string">UNICODE_STRING</a> containing the home directory of the user.
      * @type {LSA_UNICODE_STRING}
      */
-    HomeDirectory{
+    HomeDirectory {
         get {
             if(!this.HasProp("__HomeDirectory"))
                 this.__HomeDirectory := LSA_UNICODE_STRING(80, this)
@@ -111,7 +109,7 @@ class USER_ALL_INFORMATION extends Win32Struct
      * Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/subauth/ns-subauth-unicode_string">UNICODE_STRING</a> containing the home drive name.
      * @type {LSA_UNICODE_STRING}
      */
-    HomeDirectoryDrive{
+    HomeDirectoryDrive {
         get {
             if(!this.HasProp("__HomeDirectoryDrive"))
                 this.__HomeDirectoryDrive := LSA_UNICODE_STRING(96, this)
@@ -123,7 +121,7 @@ class USER_ALL_INFORMATION extends Win32Struct
      * Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/subauth/ns-subauth-unicode_string">UNICODE_STRING</a> containing the path to any logon script.
      * @type {LSA_UNICODE_STRING}
      */
-    ScriptPath{
+    ScriptPath {
         get {
             if(!this.HasProp("__ScriptPath"))
                 this.__ScriptPath := LSA_UNICODE_STRING(112, this)
@@ -135,7 +133,7 @@ class USER_ALL_INFORMATION extends Win32Struct
      * Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/subauth/ns-subauth-unicode_string">UNICODE_STRING</a> containing the path to the user's profile.
      * @type {LSA_UNICODE_STRING}
      */
-    ProfilePath{
+    ProfilePath {
         get {
             if(!this.HasProp("__ProfilePath"))
                 this.__ProfilePath := LSA_UNICODE_STRING(128, this)
@@ -147,7 +145,7 @@ class USER_ALL_INFORMATION extends Win32Struct
      * Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/subauth/ns-subauth-unicode_string">UNICODE_STRING</a> containing a comment associated with the user account. This string can be a null string, or it can have any number of characters before the terminating null character.
      * @type {LSA_UNICODE_STRING}
      */
-    AdminComment{
+    AdminComment {
         get {
             if(!this.HasProp("__AdminComment"))
                 this.__AdminComment := LSA_UNICODE_STRING(144, this)
@@ -159,7 +157,7 @@ class USER_ALL_INFORMATION extends Win32Struct
      * Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/subauth/ns-subauth-unicode_string">UNICODE_STRING</a> containing the name of the workstation in use by the account.
      * @type {LSA_UNICODE_STRING}
      */
-    WorkStations{
+    WorkStations {
         get {
             if(!this.HasProp("__WorkStations"))
                 this.__WorkStations := LSA_UNICODE_STRING(160, this)
@@ -171,7 +169,7 @@ class USER_ALL_INFORMATION extends Win32Struct
      * Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/subauth/ns-subauth-unicode_string">UNICODE_STRING</a> containing a user comment. This string can be a null string, or it can have any number of characters before the terminating null character.
      * @type {LSA_UNICODE_STRING}
      */
-    UserComment{
+    UserComment {
         get {
             if(!this.HasProp("__UserComment"))
                 this.__UserComment := LSA_UNICODE_STRING(176, this)
@@ -183,7 +181,7 @@ class USER_ALL_INFORMATION extends Win32Struct
      * Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/subauth/ns-subauth-unicode_string">UNICODE_STRING</a> reserved for use by applications. This string can be a null string, or it can have any number of characters before the terminating null character. Microsoft products use this member to store user configuration information. Do not modify this information.
      * @type {LSA_UNICODE_STRING}
      */
-    Parameters{
+    Parameters {
         get {
             if(!this.HasProp("__Parameters"))
                 this.__Parameters := LSA_UNICODE_STRING(192, this)
@@ -195,7 +193,7 @@ class USER_ALL_INFORMATION extends Win32Struct
      * Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/subauth/ns-subauth-unicode_string">UNICODE_STRING</a> containing a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/h-gly">hash</a> of the user's local machine password.
      * @type {LSA_UNICODE_STRING}
      */
-    LmPassword{
+    LmPassword {
         get {
             if(!this.HasProp("__LmPassword"))
                 this.__LmPassword := LSA_UNICODE_STRING(208, this)
@@ -207,7 +205,7 @@ class USER_ALL_INFORMATION extends Win32Struct
      * Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/subauth/ns-subauth-unicode_string">UNICODE_STRING</a> containing a hash of the user's Windows domain password.
      * @type {LSA_UNICODE_STRING}
      */
-    NtPassword{
+    NtPassword {
         get {
             if(!this.HasProp("__NtPassword"))
                 this.__NtPassword := LSA_UNICODE_STRING(224, this)
@@ -219,7 +217,7 @@ class USER_ALL_INFORMATION extends Win32Struct
      * Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/subauth/ns-subauth-unicode_string">UNICODE_STRING</a> containing supplemental private data associated with the user account. If <b>PrivateDataSensitive</b> is <b>TRUE</b>, this data is encrypted.
      * @type {LSA_UNICODE_STRING}
      */
-    PrivateData{
+    PrivateData {
         get {
             if(!this.HasProp("__PrivateData"))
                 this.__PrivateData := LSA_UNICODE_STRING(240, this)
@@ -231,7 +229,7 @@ class USER_ALL_INFORMATION extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/subauth/ns-subauth-sr_security_descriptor">SR_SECURITY_DESCRIPTOR</a> indicating the security <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">privileges</a> of the account.
      * @type {SR_SECURITY_DESCRIPTOR}
      */
-    SecurityDescriptor{
+    SecurityDescriptor {
         get {
             if(!this.HasProp("__SecurityDescriptor"))
                 this.__SecurityDescriptor := SR_SECURITY_DESCRIPTOR(256, this)
@@ -279,7 +277,7 @@ class USER_ALL_INFORMATION extends Win32Struct
      * Indicates the hours when the user can logon.
      * @type {LOGON_HOURS}
      */
-    LogonHours{
+    LogonHours {
         get {
             if(!this.HasProp("__LogonHours"))
                 this.__LogonHours := LOGON_HOURS(288, this)

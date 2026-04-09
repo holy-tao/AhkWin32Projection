@@ -10,9 +10,8 @@
  * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/gpedit/nn-gpedit-igrouppolicyobject">IGroupPolicyObject</a> interface.
  * @see https://learn.microsoft.com/windows/win32/api/gpedit/nn-gpedit-igpeinformation
  * @namespace Windows.Win32.System.GroupPolicy
- * @version v4.0.30319
  */
-class IGPEInformation extends IUnknown{
+class IGPEInformation extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -77,7 +76,8 @@ class IGPEInformation extends IUnknown{
      * When you have finished using the registry handle, call the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regclosekey">RegCloseKey</a> function to close the handle.
      * @param {Integer} dwSection 
-     * @param {Pointer<HKEY>} _hKey 
+     * @param {Pointer<HKEY>} _hKey Receives the handle to the registry key. This handle is opened with all access rights. For more information, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-key-security-and-access-rights">Registry Key Security and Access Rights</a>.
      * @returns {HRESULT} If the method succeeds, the return value is <b>S_OK</b>. Otherwise, the method returns one of the COM error codes defined in the Platform SDK header file WinError.h. If registry information is not loaded, the method returns <b>E_FAIL</b>.
      * @see https://learn.microsoft.com/windows/win32/api/gpedit/nf-gpedit-igpeinformation-getregistrykey
      */
@@ -140,7 +140,7 @@ class IGPEInformation extends IUnknown{
 
     /**
      * The GetType method retrieves type information for the GPO being edited. (IGPEInformation.GetType)
-     * @param {Pointer<Integer>} gpoType 
+     * @param {Pointer<GROUP_POLICY_OBJECT_TYPE>} gpoType 
      * @returns {HRESULT} If the method succeeds, the return value is <b>S_OK</b>. Otherwise, the method returns one of the COM error codes defined in the Platform SDK header file WinError.h.
      * @see https://learn.microsoft.com/windows/win32/api/gpedit/nf-gpedit-igpeinformation-gettype
      */
@@ -163,7 +163,7 @@ class IGPEInformation extends IUnknown{
      * <li>As a stand-alone MMC tool without a specific link.</li>
      * </ul>
      * You may want to customize your application's user interface based on the result of calling this method. However, use this method with caution because the returned value may indicate the wrong scope.
-     * @param {Pointer<Integer>} gpHint 
+     * @param {Pointer<GROUP_POLICY_HINT_TYPE>} gpHint 
      * @returns {HRESULT} If the method succeeds, the return value is <b>S_OK</b>. Otherwise, the method returns one of the COM error codes defined in the Platform SDK header file WinError.h.
      * @see https://learn.microsoft.com/windows/win32/api/gpedit/nf-gpedit-igpeinformation-gethint
      */

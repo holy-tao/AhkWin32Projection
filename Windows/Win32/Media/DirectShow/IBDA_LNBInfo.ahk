@@ -9,9 +9,8 @@
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IBDA_LNBInfo)</c>.
  * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nn-bdaiface-ibda_lnbinfo
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IBDA_LNBInfo extends IUnknown{
+class IBDA_LNBInfo extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -33,6 +32,7 @@ class IBDA_LNBInfo extends IUnknown{
     static VTableNames => ["put_LocalOscilatorFrequencyLowBand", "get_LocalOscilatorFrequencyLowBand", "put_LocalOscilatorFrequencyHighBand", "get_LocalOscilatorFrequencyHighBand", "put_HighLowSwitchFrequency", "get_HighLowSwitchFrequency"]
 
     /**
+     * @type {Integer} 
      */
     LocalOscilatorFrequencyLowBand {
         get => this.get_LocalOscilatorFrequencyLowBand()
@@ -40,6 +40,7 @@ class IBDA_LNBInfo extends IUnknown{
     }
 
     /**
+     * @type {Integer} 
      */
     LocalOscilatorFrequencyHighBand {
         get => this.get_LocalOscilatorFrequencyHighBand()
@@ -47,6 +48,7 @@ class IBDA_LNBInfo extends IUnknown{
     }
 
     /**
+     * @type {Integer} 
      */
     HighLowSwitchFrequency {
         get => this.get_HighLowSwitchFrequency()

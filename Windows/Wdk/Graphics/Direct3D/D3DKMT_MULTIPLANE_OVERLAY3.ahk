@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\D3DDDI_FLIPINTERVAL_TYPE.ahk
+#Include .\D3DKMT_MULTIPLANE_OVERLAY_ATTRIBUTES3.ahk
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
- * @version v4.0.30319
  */
-class D3DKMT_MULTIPLANE_OVERLAY3 extends Win32Struct
-{
+class D3DKMT_MULTIPLANE_OVERLAY3 extends Win32Struct {
     static sizeof => 88
 
     static packingSize => 8
@@ -20,7 +20,7 @@ class D3DKMT_MULTIPLANE_OVERLAY3 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<D3DKMT_PLANE_SPECIFIC_INPUT_FLAGS>}
+     * @type {Pointer}
      */
     InputFlags {
         get => NumGet(this, 8, "ptr")
@@ -28,7 +28,7 @@ class D3DKMT_MULTIPLANE_OVERLAY3 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {D3DDDI_FLIPINTERVAL_TYPE}
      */
     FlipInterval {
         get => NumGet(this, 16, "int")

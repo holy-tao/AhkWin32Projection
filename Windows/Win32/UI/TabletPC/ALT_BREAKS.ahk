@@ -7,9 +7,8 @@
  * Check the <a href="https://docs.microsoft.com/windows/desktop/api/rectypes/ns-rectypes-reco_attrs">dwRecoCapabilityFlags</a> member of the <b>RECO_ATTRS</b> structure to ensure the recognizer supports different alternate breaks.
  * @see https://learn.microsoft.com/windows/win32/api/rectypes/ne-rectypes-alt_breaks
  * @namespace Windows.Win32.UI.TabletPC
- * @version v4.0.30319
  */
-class ALT_BREAKS extends Win32Enum{
+class ALT_BREAKS extends Win32Enum {
 
     /**
      * An alternate must use the same segment breaks as the best result string. For example, if you ask for an alternate list for the best result string of "together", the recognizer may return "Tunisia" but not "to get her". This is because "to get her" involves different segment breaks.

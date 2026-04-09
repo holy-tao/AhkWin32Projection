@@ -5,10 +5,8 @@
  * Contains information to register a cloud backup provider with Windows Server Backup.
  * @see https://learn.microsoft.com/windows/win32/api/wsbonline/ns-wsbonline-wsb_ob_registration_info
  * @namespace Windows.Win32.System.ServerBackup
- * @version v4.0.30319
  */
-class WSB_OB_REGISTRATION_INFO extends Win32Struct
-{
+class WSB_OB_REGISTRATION_INFO extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -24,7 +22,7 @@ class WSB_OB_REGISTRATION_INFO extends Win32Struct
 
     /**
      * The snap-in identifier of the cloud backup provider to be registered with Windows Server Backup.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     m_guidSnapinId {
         get => NumGet(this, 8, "ptr")

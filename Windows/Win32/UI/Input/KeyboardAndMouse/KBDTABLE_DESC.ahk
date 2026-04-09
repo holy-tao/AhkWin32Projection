@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.UI.Input.KeyboardAndMouse
- * @version v4.0.30319
  */
-class KBDTABLE_DESC extends Win32Struct
-{
+class KBDTABLE_DESC extends Win32Struct {
     static sizeof => 72
 
     static packingSize => 4

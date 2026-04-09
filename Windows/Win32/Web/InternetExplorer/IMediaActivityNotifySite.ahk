@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Web.InternetExplorer
- * @version v4.0.30319
  */
-class IMediaActivityNotifySite extends IUnknown{
+class IMediaActivityNotifySite extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -30,7 +29,7 @@ class IMediaActivityNotifySite extends IUnknown{
 
     /**
      * 
-     * @param {Integer} mediaActivityType 
+     * @param {MEDIA_ACTIVITY_NOTIFY_TYPE} mediaActivityType 
      * @returns {HRESULT} 
      */
     OnMediaActivityStarted(mediaActivityType) {
@@ -40,7 +39,7 @@ class IMediaActivityNotifySite extends IUnknown{
 
     /**
      * 
-     * @param {Integer} mediaActivityType 
+     * @param {MEDIA_ACTIVITY_NOTIFY_TYPE} mediaActivityType 
      * @returns {HRESULT} 
      */
     OnMediaActivityStopped(mediaActivityType) {

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DRVFN.ahk
 
 /**
  * The DRVENABLEDATA structure contains a pointer to an array of DRVFN structures and the graphics DDI version number of an NT-based operating system.
@@ -70,16 +71,13 @@
  * <div> </div>
  * @see https://learn.microsoft.com/windows/win32/api/winddi/ns-winddi-drvenabledata
  * @namespace Windows.Win32.Devices.Display
- * @version v4.0.30319
  */
-class DRVENABLEDATA extends Win32Struct
-{
+class DRVENABLEDATA extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
 
     /**
-     * 
      * @type {Integer}
      */
     iDriverVersion {

@@ -3,16 +3,14 @@
 
 /**
  * @namespace Windows.Wdk.NetworkManagement.Ndis
- * @version v4.0.30319
  */
-class NDIS_WMI_TCP_CONNECTION_OFFLOAD extends Win32Struct
-{
+class NDIS_WMI_TCP_CONNECTION_OFFLOAD extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
 
     /**
-     * @type {Pointer<NDIS_OBJECT_HEADER>}
+     * @type {Pointer}
      */
     Header {
         get => NumGet(this, 0, "ptr")

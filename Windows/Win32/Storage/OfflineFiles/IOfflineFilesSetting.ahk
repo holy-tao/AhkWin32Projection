@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 
 /**
  * Represents a setting that controls the behavior the Offline Files service.
  * @see https://learn.microsoft.com/windows/win32/api/cscobj/nn-cscobj-iofflinefilessetting
  * @namespace Windows.Win32.Storage.OfflineFiles
- * @version v4.0.30319
  */
-class IOfflineFilesSetting extends IUnknown{
+class IOfflineFilesSetting extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -49,7 +48,7 @@ class IOfflineFilesSetting extends IUnknown{
 
     /**
      * Retrieves the data type of a particular Offline Files setting.
-     * @returns {Integer} Receives a value from the <a href="https://docs.microsoft.com/windows/desktop/api/cscobj/ne-cscobj-offlinefiles_setting_value_type">OFFLINEFILES_SETTING_VALUE_TYPE</a> enumeration that describes the data type of the setting value.
+     * @returns {OFFLINEFILES_SETTING_VALUE_TYPE} Receives a value from the <a href="https://docs.microsoft.com/windows/desktop/api/cscobj/ne-cscobj-offlinefiles_setting_value_type">OFFLINEFILES_SETTING_VALUE_TYPE</a> enumeration that describes the data type of the setting value.
      * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilessetting-getvaluetype
      */
     GetValueType() {

@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.ComponentServices
- * @version v4.0.30319
  */
-class ComSystemAppEventData extends Win32Struct
-{
+class ComSystemAppEventData extends Win32Struct {
     static sizeof => 0
 
     static packingSize => 1

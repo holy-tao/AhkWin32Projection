@@ -7,9 +7,8 @@
  * Exposes a method that presents a conflict to the user.
  * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nn-syncmgr-isyncmgrconflictpresenter
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class ISyncMgrConflictPresenter extends IUnknown{
+class ISyncMgrConflictPresenter extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

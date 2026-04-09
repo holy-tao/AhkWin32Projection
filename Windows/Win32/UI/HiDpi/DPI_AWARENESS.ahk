@@ -11,9 +11,8 @@
  * It is important to note that if your application has a <b>DPI_AWARENESS_PER_MONITOR_AWARE</b> window, you are responsible for keeping track of the DPI by responding to <a href="https://docs.microsoft.com/windows/desktop/hidpi/wm-dpichanged">WM_DPICHANGED</a> messages.
  * @see https://learn.microsoft.com/windows/win32/api/windef/ne-windef-dpi_awareness
  * @namespace Windows.Win32.UI.HiDpi
- * @version v4.0.30319
  */
-class DPI_AWARENESS extends Win32Enum{
+class DPI_AWARENESS extends Win32Enum {
 
     /**
      * Invalid DPI awareness. This is an invalid DPI awareness value.

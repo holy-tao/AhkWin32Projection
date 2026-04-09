@@ -9,10 +9,8 @@
  * and countries.)
  * @see https://learn.microsoft.com/windows/win32/api/aviriff/ns-aviriff-avimetaindex
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class AVIMETAINDEX extends Win32Struct
-{
+class AVIMETAINDEX extends Win32Struct {
     static sizeof => 36
 
     static packingSize => 4
@@ -128,9 +126,9 @@ class AVIMETAINDEX extends Win32Struct
 
     /**
      * The meaning of this member depends on the index type.
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    dwReserved{
+    dwReserved {
         get {
             if(!this.HasProp("__dwReservedProxyArray"))
                 this.__dwReservedProxyArray := Win32FixedArray(this.ptr + 20, 3, Primitive, "uint")
@@ -140,9 +138,9 @@ class AVIMETAINDEX extends Win32Struct
 
     /**
      * An array of index entries. The format of this data depends on the index type.
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    adwIndex{
+    adwIndex {
         get {
             if(!this.HasProp("__adwIndexProxyArray"))
                 this.__adwIndexProxyArray := Win32FixedArray(this.ptr + 32, 1, Primitive, "uint")

@@ -7,9 +7,8 @@
  * The ITfLanguageProfileNotifySink interface is implemented by an application to receive notifications when the language profile changes.
  * @see https://learn.microsoft.com/windows/win32/api/msctf/nn-msctf-itflanguageprofilenotifysink
  * @namespace Windows.Win32.UI.TextServices
- * @version v4.0.30319
  */
-class ITfLanguageProfileNotifySink extends IUnknown{
+class ITfLanguageProfileNotifySink extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

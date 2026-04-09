@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\FILE_STORAGE_TIER_MEDIA_TYPE.ahk
+#Include .\FILE_STORAGE_TIER_CLASS.ahk
 
 /**
  * Represents an identifier for the storage tier relative to the volume.
@@ -7,17 +9,15 @@
  * The storage tier ID for a particular volume has no relationship to the storage tier ID with the same value on a different volume.
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-file_storage_tier
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class FILE_STORAGE_TIER extends Win32Struct
-{
+class FILE_STORAGE_TIER extends Win32Struct {
     static sizeof => 1056
 
     static packingSize => 8
 
     /**
      * Tier ID.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     Id {
         get => NumGet(this, 0, "ptr")
@@ -43,7 +43,6 @@ class FILE_STORAGE_TIER extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     Flags {
@@ -62,7 +61,7 @@ class FILE_STORAGE_TIER extends Win32Struct
 
     /**
      * Media type of the tier.
-     * @type {Integer}
+     * @type {FILE_STORAGE_TIER_MEDIA_TYPE}
      */
     MediaType {
         get => NumGet(this, 1048, "int")
@@ -70,8 +69,7 @@ class FILE_STORAGE_TIER extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Integer}
+     * @type {FILE_STORAGE_TIER_CLASS}
      */
     Class {
         get => NumGet(this, 1052, "int")

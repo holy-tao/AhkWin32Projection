@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -38,9 +37,8 @@
  * For each of these statistics, the values represent time in milliseconds.
  * @see https://learn.microsoft.com/windows/win32/api/control/nn-control-iamstats
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IAMStats extends IDispatch{
+class IAMStats extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

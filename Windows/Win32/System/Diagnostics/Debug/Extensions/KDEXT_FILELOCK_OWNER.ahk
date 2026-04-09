@@ -3,11 +3,9 @@
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
- * @version v4.0.30319
  */
-class KDEXT_FILELOCK_OWNER extends Win32Struct
-{
-    static sizeof => 104
+class KDEXT_FILELOCK_OWNER extends Win32Struct {
+    static sizeof => 72
 
     static packingSize => 8
 
@@ -55,7 +53,7 @@ class KDEXT_FILELOCK_OWNER extends Win32Struct
      * @type {String}
      */
     BlockingDirver {
-        get => StrGet(this.ptr + 40, 31, "UTF-16")
-        set => StrPut(value, this.ptr + 40, 31, "UTF-16")
+        get => StrGet(this.ptr + 40, 31, "UTF-8")
+        set => StrPut(value, this.ptr + 40, 31, "UTF-8")
     }
 }

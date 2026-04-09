@@ -5,9 +5,8 @@
  * Indicates information about the explicit rating of the media file.
  * @see https://learn.microsoft.com/windows/win32/api/wpcevent/ne-wpcevent-wpc_media_explicit
  * @namespace Windows.Win32.System.ParentalControls
- * @version v4.0.30319
  */
-class WPC_MEDIA_EXPLICIT extends Win32Enum{
+class WPC_MEDIA_EXPLICIT extends Win32Enum {
 
     /**
      * The media file is not rated as explicit.

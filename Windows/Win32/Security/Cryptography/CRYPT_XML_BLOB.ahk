@@ -1,21 +1,20 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\CRYPT_XML_CHARSET.ahk
 
 /**
  * Contains an arbitrary array of bytes.
  * @see https://learn.microsoft.com/windows/win32/api/cryptxml/ns-cryptxml-crypt_xml_blob
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CRYPT_XML_BLOB extends Win32Struct
-{
+class CRYPT_XML_BLOB extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
 
     /**
      * Specifies the character set used to encode the signature.
-     * @type {Integer}
+     * @type {CRYPT_XML_CHARSET}
      */
     dwCharset {
         get => NumGet(this, 0, "int")

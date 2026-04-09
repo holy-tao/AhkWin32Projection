@@ -4,13 +4,11 @@
 
 /**
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class STORAGE_DEVICE_NUMBERS extends Win32Struct
-{
+class STORAGE_DEVICE_NUMBERS extends Win32Struct {
     static sizeof => 24
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}
@@ -37,12 +35,12 @@ class STORAGE_DEVICE_NUMBERS extends Win32Struct
     }
 
     /**
-     * @type {Array<STORAGE_DEVICE_NUMBER>}
+     * @type {STORAGE_DEVICE_NUMBER}
      */
-    Devices{
+    Devices {
         get {
             if(!this.HasProp("__DevicesProxyArray"))
-                this.__DevicesProxyArray := Win32FixedArray(this.ptr + 16, 1, STORAGE_DEVICE_NUMBER, "")
+                this.__DevicesProxyArray := Win32FixedArray(this.ptr + 12, 1, STORAGE_DEVICE_NUMBER, "")
             return this.__DevicesProxyArray
         }
     }

@@ -7,9 +7,8 @@
  * Represents a collection of IMFSourceBuffer objects.
  * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nn-mfmediaengine-imfsourcebufferlist
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFSourceBufferList extends IUnknown{
+class IMFSourceBufferList extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

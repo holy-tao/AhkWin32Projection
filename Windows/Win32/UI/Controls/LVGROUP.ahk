@@ -1,5 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\LVGROUP_MASK.ahk
+#Include .\LIST_VIEW_GROUP_STATE_FLAGS.ahk
+#Include .\LIST_VIEW_GROUP_ALIGN_FLAGS.ahk
 
 /**
  * Used to set and retrieve groups.
@@ -10,10 +13,8 @@
  * The creation of subsets is not currently supported, and <b>pszSubsetTitle</b> cannot be set by applications.
  * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-lvgroup
  * @namespace Windows.Win32.UI.Controls
- * @version v4.0.30319
  */
-class LVGROUP extends Win32Struct
-{
+class LVGROUP extends Win32Struct {
     static sizeof => 152
 
     static packingSize => 8
@@ -31,7 +32,7 @@ class LVGROUP extends Win32Struct
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
-     * @type {Integer}
+     * @type {LVGROUP_MASK}
      */
     mask {
         get => NumGet(this, 4, "uint")
@@ -97,7 +98,7 @@ class LVGROUP extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * Mask used with <a href="https://docs.microsoft.com/windows/desktop/Controls/lvm-getgroupinfo">LVM_GETGROUPINFO</a>  and <a href="https://docs.microsoft.com/windows/desktop/Controls/lvm-setgroupinfo">LVM_SETGROUPINFO</a> to specify which flags in the <b>state</b> value are being retrieved or set.
-     * @type {Integer}
+     * @type {LIST_VIEW_GROUP_STATE_FLAGS}
      */
     stateMask {
         get => NumGet(this, 40, "uint")
@@ -106,7 +107,7 @@ class LVGROUP extends Win32Struct
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
-     * @type {Integer}
+     * @type {LIST_VIEW_GROUP_STATE_FLAGS}
      */
     state {
         get => NumGet(this, 44, "uint")
@@ -115,7 +116,7 @@ class LVGROUP extends Win32Struct
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
-     * @type {Integer}
+     * @type {LIST_VIEW_GROUP_ALIGN_FLAGS}
      */
     uAlign {
         get => NumGet(this, 48, "uint")

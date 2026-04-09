@@ -1,15 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\Ndis\NDIS_OBJECT_HEADER.ahk
-#Include .\DOT11_SSID.ahk
 #Include .\DOT11_WFD_GROUP_ID.ahk
+#Include .\DOT11_SSID.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
- * @version v4.0.30319
  */
-class DOT11_SEND_GO_NEGOTIATION_CONFIRMATION_PARAMETERS extends Win32Struct
-{
+class DOT11_SEND_GO_NEGOTIATION_CONFIRMATION_PARAMETERS extends Win32Struct {
     static sizeof => 88
 
     static packingSize => 8
@@ -17,7 +15,7 @@ class DOT11_SEND_GO_NEGOTIATION_CONFIRMATION_PARAMETERS extends Win32Struct
     /**
      * @type {NDIS_OBJECT_HEADER}
      */
-    Header{
+    Header {
         get {
             if(!this.HasProp("__Header"))
                 this.__Header := NDIS_OBJECT_HEADER(0, this)
@@ -26,9 +24,9 @@ class DOT11_SEND_GO_NEGOTIATION_CONFIRMATION_PARAMETERS extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    PeerDeviceAddress{
+    PeerDeviceAddress {
         get {
             if(!this.HasProp("__PeerDeviceAddressProxyArray"))
                 this.__PeerDeviceAddressProxyArray := Win32FixedArray(this.ptr + 4, 6, Primitive, "char")
@@ -79,7 +77,7 @@ class DOT11_SEND_GO_NEGOTIATION_CONFIRMATION_PARAMETERS extends Win32Struct
     /**
      * @type {DOT11_WFD_GROUP_ID}
      */
-    GroupID{
+    GroupID {
         get {
             if(!this.HasProp("__GroupID"))
                 this.__GroupID := DOT11_WFD_GROUP_ID(32, this)

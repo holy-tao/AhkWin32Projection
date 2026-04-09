@@ -5,9 +5,8 @@
  * The events on the ITextInputPanel Interface that you can set attention for.
  * @see https://learn.microsoft.com/windows/win32/api/peninputpanel/ne-peninputpanel-eventmask
  * @namespace Windows.Win32.UI.TabletPC
- * @version v4.0.30319
  */
-class EventMask extends Win32Enum{
+class EventMask extends Win32Enum {
 
     /**
      * Occurs when the correction mode is about to change.

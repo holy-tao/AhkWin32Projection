@@ -13,9 +13,8 @@
  * An application may not need to use a timer with Windows Animation, depending on the graphics platform it is using. For example, an application drawing with Direct2D or Direct3D can synchronize to monitor's refresh rate, yielding very smooth animation. However, such applications may still find the <b>IUIAnimationTimer</b> interface useful for its <a href="https://docs.microsoft.com/windows/desktop/api/uianimation/nf-uianimation-iuianimationtimer-gettime">GetTime</a> method, which returns an accurate system time in <a href="https://docs.microsoft.com/windows/desktop/UIAnimation/ui-animation-seconds">UI_ANIMATION_SECONDS</a>, the units used throughout the Windows Animation API.
  * @see https://learn.microsoft.com/windows/win32/api/uianimation/nn-uianimation-iuianimationtimer
  * @namespace Windows.Win32.UI.Animation
- * @version v4.0.30319
  */
-class IUIAnimationTimer extends IUnknown{
+class IUIAnimationTimer extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -52,7 +51,7 @@ class IUIAnimationTimer extends IUnknown{
      * Passing <b>NULL</b> for the <i>updateHandler</i> parameter causes Windows Animation to release its reference to any handler object you passed in earlier. This technique can be essential for breaking reference cycles without having to call the <a href="https://docs.microsoft.com/windows/desktop/api/uianimation/nf-uianimation-iuianimationmanager-shutdown">IUIAnimationManager::Shutdown</a> method.
      * @param {IUIAnimationTimerUpdateHandler} updateHandler A timer update handler, or <b>NULL</b> (see Remarks).  The specified object must implement the
      *                <a href="https://docs.microsoft.com/windows/desktop/api/uianimation/nn-uianimation-iuianimationtimerupdatehandler">IUIAnimationTimerUpdateHandler</a> interface.
-     * @param {Integer} idleBehavior A member of 
+     * @param {UI_ANIMATION_IDLE_BEHAVIOR} idleBehavior A member of 
      *                <a href="https://docs.microsoft.com/windows/win32/api/uianimation/ne-uianimation-ui_animation_idle_behavior">UI_ANIMATION_IDLE_BEHAVIOR</a> 
      *                that specifies the behavior of the timer when it is idle.
      * @returns {HRESULT} If the method succeeds, it returns S_OK. If the update handler is already connected to a timer, this method returns <b>UI_E_TIMER_CLIENT_ALREADY_CONNECTED</b>. Otherwise, it returns an <b>HRESULT</b> error code. See <a href="https://docs.microsoft.com/windows/desktop/UIAnimation/uianimation-error-codes">Windows Animation Error Codes</a> for a list of error codes.

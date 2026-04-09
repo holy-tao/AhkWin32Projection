@@ -19,10 +19,8 @@
  * The <i>lParam1</i> and <i>lParam2</i> parameters correspond to the lParam member of the <a href="https://docs.microsoft.com/windows/desktop/api/commctrl/ns-commctrl-tvitema">TVITEM</a> structure for the two items being compared. The <i>lParamSort</i> parameter corresponds to the <b>lParam</b> member of this structure.
  * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-tvsortcb
  * @namespace Windows.Win32.UI.Controls
- * @version v4.0.30319
  */
-class TVSORTCB extends Win32Struct
-{
+class TVSORTCB extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

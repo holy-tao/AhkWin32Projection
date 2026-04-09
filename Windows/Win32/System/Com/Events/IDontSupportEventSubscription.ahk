@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.Com.Events
- * @version v4.0.30319
  */
-class IDontSupportEventSubscription extends IUnknown{
+class IDontSupportEventSubscription extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

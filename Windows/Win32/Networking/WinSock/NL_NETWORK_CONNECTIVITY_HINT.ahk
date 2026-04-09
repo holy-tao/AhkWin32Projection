@@ -1,16 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\NL_NETWORK_CONNECTIVITY_LEVEL_HINT.ahk
+#Include .\NL_NETWORK_CONNECTIVITY_COST_HINT.ahk
 
 /**
  * Describes a level of network connectivity, the usage charge for a network connection, and other members reflecting cost factors.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/nldef/ns-nldef-nl_network_connectivity_hint
  * @namespace Windows.Win32.Networking.WinSock
- * @version v4.0.30319
  */
-class NL_NETWORK_CONNECTIVITY_HINT extends Win32Struct
-{
+class NL_NETWORK_CONNECTIVITY_HINT extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4
@@ -19,7 +17,7 @@ class NL_NETWORK_CONNECTIVITY_HINT extends Win32Struct
      * Type: **[NL_NETWORK_CONNECTIVITY_LEVEL_HINT](./ne-nldef-nl_network_connectivity_level_hint.md)**
      * 
      * The level of network connectivity.
-     * @type {Integer}
+     * @type {NL_NETWORK_CONNECTIVITY_LEVEL_HINT}
      */
     ConnectivityLevel {
         get => NumGet(this, 0, "int")
@@ -30,7 +28,7 @@ class NL_NETWORK_CONNECTIVITY_HINT extends Win32Struct
      * Type: **[NL_NETWORK_CONNECTIVITY_COST_HINT](./ne-nldef-nl_network_connectivity_cost_hint.md)**
      * 
      * The usage charge for the network connection.
-     * @type {Integer}
+     * @type {NL_NETWORK_CONNECTIVITY_COST_HINT}
      */
     ConnectivityCost {
         get => NumGet(this, 4, "int")

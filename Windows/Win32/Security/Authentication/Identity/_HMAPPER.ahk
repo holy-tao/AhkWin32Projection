@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class _HMAPPER extends Win32Struct
-{
+class _HMAPPER extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 8

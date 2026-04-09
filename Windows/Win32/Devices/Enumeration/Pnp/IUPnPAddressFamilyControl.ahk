@@ -7,9 +7,8 @@
  * The IUPnPAddressFamilyControl interface accesses the address family flag of the Device Finder object.
  * @see https://learn.microsoft.com/windows/win32/api/upnp/nn-upnp-iupnpaddressfamilycontrol
  * @namespace Windows.Win32.Devices.Enumeration.Pnp
- * @version v4.0.30319
  */
-class IUPnPAddressFamilyControl extends IUnknown{
+class IUPnPAddressFamilyControl extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

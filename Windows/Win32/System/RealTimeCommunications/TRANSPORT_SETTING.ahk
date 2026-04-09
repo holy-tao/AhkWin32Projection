@@ -13,10 +13,8 @@
  * The only transport setting currently defines is for the <b>REAL_TIME_NOTIFICATION_CAPABILITY</b> capability on a TCP socket.
  * @see https://learn.microsoft.com/windows/win32/api/mstcpip/ns-mstcpip-transport_setting_id
  * @namespace Windows.Win32.System.RealTimeCommunications
- * @version v4.0.30319
  */
-class TRANSPORT_SETTING extends Win32Struct
-{
+class TRANSPORT_SETTING extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -24,7 +22,7 @@ class TRANSPORT_SETTING extends Win32Struct
     /**
      * @type {TRANSPORT_SETTING_ID}
      */
-    SettingId{
+    SettingId {
         get {
             if(!this.HasProp("__SettingId"))
                 this.__SettingId := TRANSPORT_SETTING_ID(0, this)

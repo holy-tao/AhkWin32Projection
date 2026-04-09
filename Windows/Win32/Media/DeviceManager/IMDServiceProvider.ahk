@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IMDSPEnumDevice.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\IMDSPEnumDevice.ahk
 
 /**
  * The IMDServiceProvider interface is the initial interface that Windows Media Device Manager uses to connect to your service provider.
  * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nn-mswmdm-imdserviceprovider
  * @namespace Windows.Win32.Media.DeviceManager
- * @version v4.0.30319
  */
-class IMDServiceProvider extends IUnknown{
+class IMDServiceProvider extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

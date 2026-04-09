@@ -3,11 +3,9 @@
 
 /**
  * @namespace Windows.Win32.System.RemoteDesktop
- * @version v4.0.30319
  * @charset Unicode
  */
-class PRODUCT_INFOW extends Win32Struct
-{
+class PRODUCT_INFOW extends Win32Struct {
     static sizeof => 520
 
     static packingSize => 2

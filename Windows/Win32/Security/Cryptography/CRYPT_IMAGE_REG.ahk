@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\CRYPT_INTERFACE_REG.ahk
 
 /**
  * Contains image registration information about a CNG provider.
  * @see https://learn.microsoft.com/windows/win32/api/bcrypt/ns-bcrypt-crypt_image_reg
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CRYPT_IMAGE_REG extends Win32Struct
-{
+class CRYPT_IMAGE_REG extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

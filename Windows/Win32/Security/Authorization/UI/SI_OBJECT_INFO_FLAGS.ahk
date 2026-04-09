@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Security.Authorization.UI
- * @version v4.0.30319
  */
-class SI_OBJECT_INFO_FLAGS extends Win32BitflagEnum{
+class SI_OBJECT_INFO_FLAGS extends Win32BitflagEnum {
 
     /**
      * @type {Integer (UInt32)}

@@ -5,9 +5,8 @@
  * Describes the type of property bag.
  * @see https://learn.microsoft.com/windows/win32/api/fsrmenums/ne-fsrmenums-fsrmpropertybagfield
  * @namespace Windows.Win32.Storage.FileServerResourceManager
- * @version v4.0.30319
  */
-class FsrmPropertyBagField extends Win32Enum{
+class FsrmPropertyBagField extends Win32Enum {
 
     /**
      * Indicates if the property bag should include the name of the volume being accessed, which may be a 

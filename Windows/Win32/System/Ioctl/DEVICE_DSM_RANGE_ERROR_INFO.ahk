@@ -4,11 +4,9 @@
 
 /**
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class DEVICE_DSM_RANGE_ERROR_INFO extends Win32Struct
-{
-    static sizeof => 24
+class DEVICE_DSM_RANGE_ERROR_INFO extends Win32Struct {
+    static sizeof => 32
 
     static packingSize => 8
 
@@ -45,9 +43,9 @@ class DEVICE_DSM_RANGE_ERROR_INFO extends Win32Struct
     }
 
     /**
-     * @type {Array<DEVICE_STORAGE_RANGE_ATTRIBUTES>}
+     * @type {DEVICE_STORAGE_RANGE_ATTRIBUTES}
      */
-    Ranges{
+    Ranges {
         get {
             if(!this.HasProp("__RangesProxyArray"))
                 this.__RangesProxyArray := Win32FixedArray(this.ptr + 16, 1, DEVICE_STORAGE_RANGE_ATTRIBUTES, "")

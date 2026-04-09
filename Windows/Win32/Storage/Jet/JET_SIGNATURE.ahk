@@ -6,10 +6,8 @@
  * Learn more about: JET_SIGNATURE Structure
  * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jet-signature-structure
  * @namespace Windows.Win32.Storage.Jet
- * @version v4.0.30319
  */
-class JET_SIGNATURE extends Win32Struct
-{
+class JET_SIGNATURE extends Win32Struct {
     static sizeof => 28
 
     static packingSize => 4
@@ -25,7 +23,7 @@ class JET_SIGNATURE extends Win32Struct
     /**
      * @type {JET_LOGTIME}
      */
-    logtimeCreate{
+    logtimeCreate {
         get {
             if(!this.HasProp("__logtimeCreate"))
                 this.__logtimeCreate := JET_LOGTIME(4, this)
@@ -34,9 +32,9 @@ class JET_SIGNATURE extends Win32Struct
     }
 
     /**
-     * @type {Array<SByte>}
+     * @type {Array<Integer>}
      */
-    szComputerName{
+    szComputerName {
         get {
             if(!this.HasProp("__szComputerNameProxyArray"))
                 this.__szComputerNameProxyArray := Win32FixedArray(this.ptr + 12, 16, Primitive, "char")

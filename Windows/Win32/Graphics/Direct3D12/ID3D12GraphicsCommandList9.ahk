@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D12
- * @version v4.0.30319
  */
-class ID3D12GraphicsCommandList9 extends ID3D12GraphicsCommandList8{
+class ID3D12GraphicsCommandList9 extends ID3D12GraphicsCommandList8 {
 
     static sizeof => A_PtrSize
     /**
@@ -41,7 +40,7 @@ class ID3D12GraphicsCommandList9 extends ID3D12GraphicsCommandList8{
 
     /**
      * 
-     * @param {Integer} IBStripCutValue 
+     * @param {D3D12_INDEX_BUFFER_STRIP_CUT_VALUE} IBStripCutValue 
      * @returns {String} Nothing - always returns an empty string
      */
     IASetIndexBufferStripCutValue(IBStripCutValue) {

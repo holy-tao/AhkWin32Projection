@@ -1,17 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
-#Include .\ISmimeCapabilities.ahk
 #Include .\IX509Extension.ahk
+#Include .\ISmimeCapabilities.ahk
 
 /**
  * Can be used to report the decryption capabilities of an email recipient to an email sender so that the sender can choose the most secure algorithm supported by both parties.
  * @see https://learn.microsoft.com/windows/win32/api/certenroll/nn-certenroll-ix509extensionsmimecapabilities
  * @namespace Windows.Win32.Security.Cryptography.Certificates
- * @version v4.0.30319
  */
-class IX509ExtensionSmimeCapabilities extends IX509Extension{
+class IX509ExtensionSmimeCapabilities extends IX509Extension {
 
     static sizeof => A_PtrSize
     /**
@@ -91,7 +89,7 @@ class IX509ExtensionSmimeCapabilities extends IX509Extension{
      * <li>The <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509extension-get_objectid">ObjectId</a> property retrieves the extension OID.</li>
      * <li>The <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509extensionsmimecapabilities-get_smimecapabilities">SmimeCapabilities</a> property retrieves the collection of capabilities (the raw extension data).</li>
      * </ul>
-     * @param {Integer} Encoding An <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/ne-certenroll-encodingtype">EncodingType</a> enumeration value that specifies the type of Unicode encoding applied to  the <i>strEncodedData</i> parameter.
+     * @param {EncodingType} Encoding An <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/ne-certenroll-encodingtype">EncodingType</a> enumeration value that specifies the type of Unicode encoding applied to  the <i>strEncodedData</i> parameter.
      * @param {BSTR} strEncodedData A <b>BSTR</b> variable that contains the DER-encoded extension.
      * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>.
      * 

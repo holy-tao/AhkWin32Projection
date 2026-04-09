@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.BiometricFramework
- * @version v4.0.30319
  */
-class WINBIO_PRIVATE_SENSOR_TYPE_INFO extends Win32Struct
-{
+class WINBIO_PRIVATE_SENSOR_TYPE_INFO extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4
@@ -31,7 +29,7 @@ class WINBIO_PRIVATE_SENSOR_TYPE_INFO extends Win32Struct
     /**
      * @type {WINBIO_DATA}
      */
-    PrivateSensorTypeInfo{
+    PrivateSensorTypeInfo {
         get {
             if(!this.HasProp("__PrivateSensorTypeInfo"))
                 this.__PrivateSensorTypeInfo := WINBIO_DATA(8, this)

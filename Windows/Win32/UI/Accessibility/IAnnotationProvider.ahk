@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\Foundation\BSTR.ahk
 #Include .\IRawElementProviderSimple.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Exposes the properties of an annotation in a document.
  * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nn-uiautomationcore-iannotationprovider
  * @namespace Windows.Win32.UI.Accessibility
- * @version v4.0.30319
  */
-class IAnnotationProvider extends IUnknown{
+class IAnnotationProvider extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -33,7 +32,7 @@ class IAnnotationProvider extends IUnknown{
     static VTableNames => ["get_AnnotationTypeId", "get_AnnotationTypeName", "get_Author", "get_DateTime", "get_Target"]
 
     /**
-     * @type {Integer} 
+     * @type {UIA_ANNOTATIONTYPE} 
      */
     AnnotationTypeId {
         get => this.get_AnnotationTypeId()
@@ -69,7 +68,7 @@ class IAnnotationProvider extends IUnknown{
 
     /**
      * The annotation type identifier of this annotation.
-     * @returns {Integer} 
+     * @returns {UIA_ANNOTATIONTYPE} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-iannotationprovider-get_annotationtypeid
      */
     get_AnnotationTypeId() {

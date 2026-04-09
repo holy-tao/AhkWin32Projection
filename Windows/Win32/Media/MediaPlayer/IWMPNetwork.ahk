@@ -1,16 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * The IWMPNetwork interface provides methods relating to the network connection used by Windows Media Player.
  * @see https://learn.microsoft.com/windows/win32/api/wmp/nn-wmp-iwmpnetwork
  * @namespace Windows.Win32.Media.MediaPlayer
- * @version v4.0.30319
  */
-class IWMPNetwork extends IDispatch{
+class IWMPNetwork extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -80,6 +78,7 @@ class IWMPNetwork extends IDispatch{
     }
 
     /**
+     * @type {Integer} 
      */
     bufferingTime {
         get => this.get_bufferingTime()
@@ -105,6 +104,7 @@ class IWMPNetwork extends IDispatch{
     }
 
     /**
+     * @type {Integer} 
      */
     maxBandwidth {
         get => this.get_maxBandwidth()

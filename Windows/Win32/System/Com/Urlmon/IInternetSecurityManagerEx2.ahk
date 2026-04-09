@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.Com.Urlmon
- * @version v4.0.30319
  */
-class IInternetSecurityManagerEx2 extends IInternetSecurityManagerEx{
+class IInternetSecurityManagerEx2 extends IInternetSecurityManagerEx {
 
     static sizeof => A_PtrSize
     /**

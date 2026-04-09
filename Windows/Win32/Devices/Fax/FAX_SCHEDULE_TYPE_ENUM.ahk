@@ -5,9 +5,8 @@
  * The FAX_SCHEDULE_TYPE_ENUM enumeration defines the types of scheduling for outbound faxes.
  * @see https://learn.microsoft.com/windows/win32/api/faxcomex/ne-faxcomex-fax_schedule_type_enum
  * @namespace Windows.Win32.Devices.Fax
- * @version v4.0.30319
  */
-class FAX_SCHEDULE_TYPE_ENUM extends Win32Enum{
+class FAX_SCHEDULE_TYPE_ENUM extends Win32Enum {
 
     /**
      * Send the fax as soon as a device is available.

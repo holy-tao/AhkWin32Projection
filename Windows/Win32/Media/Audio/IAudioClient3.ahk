@@ -7,9 +7,8 @@
  * The IAudioClient3 interface is derived from the IAudioClient2 interface, with a set of additional methods that enable a Windows Audio Session API (WASAPI) audio client to query for the audio engine's supported periodicities and current periodicity as well as request initialization of a shared audio stream with a specified periodicity.
  * @see https://learn.microsoft.com/windows/win32/api/audioclient/nn-audioclient-iaudioclient3
  * @namespace Windows.Win32.Media.Audio
- * @version v4.0.30319
  */
-class IAudioClient3 extends IAudioClient2{
+class IAudioClient3 extends IAudioClient2 {
 
     static sizeof => A_PtrSize
     /**

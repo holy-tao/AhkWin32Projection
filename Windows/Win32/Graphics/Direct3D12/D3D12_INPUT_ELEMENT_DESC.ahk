@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\Dxgi\Common\DXGI_FORMAT.ahk
+#Include .\D3D12_INPUT_CLASSIFICATION.ahk
 
 /**
  * Describes a single element for the input-assembler stage of the graphics pipeline.
@@ -7,10 +9,8 @@
  * This structure is a member of the <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ns-d3d12-d3d12_input_layout_desc">D3D12_INPUT_LAYOUT_DESC</a> structure. A pipeline state object contains a input-layout structure that defines one element being read from an input slot.
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_input_element_desc
  * @namespace Windows.Win32.Graphics.Direct3D12
- * @version v4.0.30319
  */
-class D3D12_INPUT_ELEMENT_DESC extends Win32Struct
-{
+class D3D12_INPUT_ELEMENT_DESC extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -37,7 +37,7 @@ class D3D12_INPUT_ELEMENT_DESC extends Win32Struct
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/dxgiformat/ne-dxgiformat-dxgi_format">DXGI_FORMAT</a>-typed value that specifies the format of the element data.
-     * @type {Integer}
+     * @type {DXGI_FORMAT}
      */
     Format {
         get => NumGet(this, 12, "int")
@@ -65,7 +65,7 @@ class D3D12_INPUT_ELEMENT_DESC extends Win32Struct
 
     /**
      * A value that identifies the input data class for a single input slot.
-     * @type {Integer}
+     * @type {D3D12_INPUT_CLASSIFICATION}
      */
     InputSlotClass {
         get => NumGet(this, 24, "int")

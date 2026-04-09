@@ -9,10 +9,8 @@
  * The <b>MaxStreamStates</b> member gives the maximum number of stream states that can be saved. The <b>MaxInputStreams</b> member gives the maximum number of streams that can be enabled during a blit. These two values can differ.
  * @see https://learn.microsoft.com/windows/win32/api/d3d11/ns-d3d11-d3d11_video_processor_caps
  * @namespace Windows.Win32.Graphics.Direct3D11
- * @version v4.0.30319
  */
-class D3D11_VIDEO_PROCESSOR_CAPS extends Win32Struct
-{
+class D3D11_VIDEO_PROCESSOR_CAPS extends Win32Struct {
     static sizeof => 36
 
     static packingSize => 4

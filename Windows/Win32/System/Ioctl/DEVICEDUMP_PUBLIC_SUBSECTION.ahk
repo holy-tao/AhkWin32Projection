@@ -4,13 +4,11 @@
 
 /**
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class DEVICEDUMP_PUBLIC_SUBSECTION extends Win32Struct
-{
-    static sizeof => 176
+class DEVICEDUMP_PUBLIC_SUBSECTION extends Win32Struct {
+    static sizeof => 88
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}
@@ -21,12 +19,12 @@ class DEVICEDUMP_PUBLIC_SUBSECTION extends Win32Struct
     }
 
     /**
-     * @type {Array<GP_LOG_PAGE_DESCRIPTOR>}
+     * @type {GP_LOG_PAGE_DESCRIPTOR}
      */
-    GPLogTable{
+    GPLogTable {
         get {
             if(!this.HasProp("__GPLogTableProxyArray"))
-                this.__GPLogTableProxyArray := Win32FixedArray(this.ptr + 8, 16, GP_LOG_PAGE_DESCRIPTOR, "")
+                this.__GPLogTableProxyArray := Win32FixedArray(this.ptr + 4, 16, GP_LOG_PAGE_DESCRIPTOR, "")
             return this.__GPLogTableProxyArray
         }
     }
@@ -35,17 +33,17 @@ class DEVICEDUMP_PUBLIC_SUBSECTION extends Win32Struct
      * @type {String}
      */
     szDescription {
-        get => StrGet(this.ptr + 136, 15, "UTF-16")
-        set => StrPut(value, this.ptr + 136, 15, "UTF-16")
+        get => StrGet(this.ptr + 68, 15, "UTF-8")
+        set => StrPut(value, this.ptr + 68, 15, "UTF-8")
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    bData{
+    bData {
         get {
             if(!this.HasProp("__bDataProxyArray"))
-                this.__bDataProxyArray := Win32FixedArray(this.ptr + 168, 1, Primitive, "char")
+                this.__bDataProxyArray := Win32FixedArray(this.ptr + 84, 1, Primitive, "char")
             return this.__bDataProxyArray
         }
     }

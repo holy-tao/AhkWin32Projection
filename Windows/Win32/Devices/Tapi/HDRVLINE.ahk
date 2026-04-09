@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.Tapi
- * @version v4.0.30319
  */
-class HDRVLINE extends Win32Struct
-{
+class HDRVLINE extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 8

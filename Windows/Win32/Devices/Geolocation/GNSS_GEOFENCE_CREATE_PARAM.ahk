@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\GNSS_GEOREGION_CIRCLE.ahk
+#Include .\GNSS_GEOFENCE_STATE.ahk
 #Include .\GNSS_GEOREGION.ahk
+#Include .\GNSS_GEOREGIONTYPE.ahk
+#Include .\GNSS_GEOREGION_CIRCLE.ahk
 
 /**
  * @namespace Windows.Win32.Devices.Geolocation
- * @version v4.0.30319
  */
-class GNSS_GEOFENCE_CREATE_PARAM extends Win32Struct
-{
+class GNSS_GEOFENCE_CREATE_PARAM extends Win32Struct {
     static sizeof => 1056
 
     static packingSize => 8
@@ -38,7 +38,7 @@ class GNSS_GEOFENCE_CREATE_PARAM extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {GNSS_GEOFENCE_STATE}
      */
     InitialState {
         get => NumGet(this, 12, "int")
@@ -48,7 +48,7 @@ class GNSS_GEOFENCE_CREATE_PARAM extends Win32Struct
     /**
      * @type {GNSS_GEOREGION}
      */
-    Boundary{
+    Boundary {
         get {
             if(!this.HasProp("__Boundary"))
                 this.__Boundary := GNSS_GEOREGION(16, this)
@@ -57,9 +57,9 @@ class GNSS_GEOFENCE_CREATE_PARAM extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Unused{
+    Unused {
         get {
             if(!this.HasProp("__UnusedProxyArray"))
                 this.__UnusedProxyArray := Win32FixedArray(this.ptr + 544, 512, Primitive, "char")

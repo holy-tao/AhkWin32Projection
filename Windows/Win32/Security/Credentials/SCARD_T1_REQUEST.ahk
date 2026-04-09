@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Security.Credentials
- * @version v4.0.30319
  */
-class SCARD_T1_REQUEST extends Win32Struct
-{
+class SCARD_T1_REQUEST extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4
@@ -15,7 +13,7 @@ class SCARD_T1_REQUEST extends Win32Struct
     /**
      * @type {SCARD_IO_REQUEST}
      */
-    ioRequest{
+    ioRequest {
         get {
             if(!this.HasProp("__ioRequest"))
                 this.__ioRequest := SCARD_IO_REQUEST(0, this)

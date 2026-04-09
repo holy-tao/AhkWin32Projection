@@ -7,9 +7,8 @@
  * Values from this enumeration are used in the **THSEL** field of the [NVME_CDW11_FEATURE_TEMPERATURE_THRESHOLD](ns-nvme-nvme_cdw11_feature_temperature_threshold.md) structure.
  * @see https://learn.microsoft.com/windows/win32/api/nvme/ne-nvme-nvme_temperature_threshold_types
  * @namespace Windows.Win32.Storage.Nvme
- * @version v4.0.30319
  */
-class NVME_TEMPERATURE_THRESHOLD_TYPES extends Win32Enum{
+class NVME_TEMPERATURE_THRESHOLD_TYPES extends Win32Enum {
 
     /**
      * Over Temperature Threshold

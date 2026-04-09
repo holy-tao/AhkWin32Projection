@@ -10,10 +10,8 @@
  * 				<b>lpCreateParams</b> member of this structure contains a pointer to a <b>CLIENTCREATESTRUCT</b> structure.
  * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-clientcreatestruct
  * @namespace Windows.Win32.UI.WindowsAndMessaging
- * @version v4.0.30319
  */
-class CLIENTCREATESTRUCT extends Win32Struct
-{
+class CLIENTCREATESTRUCT extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
@@ -24,7 +22,7 @@ class CLIENTCREATESTRUCT extends Win32Struct
      * A handle to the MDI application's window menu. An MDI application can retrieve this handle from the menu of the MDI frame window by using the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getsubmenu">GetSubMenu</a> function.
      * @type {HANDLE}
      */
-    hWindowMenu{
+    hWindowMenu {
         get {
             if(!this.HasProp("__hWindowMenu"))
                 this.__hWindowMenu := HANDLE(0, this)

@@ -5,13 +5,10 @@
 
 /**
  * Adds support for motion estimation.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/d3d12video/nn-d3d12video-id3d12videodevice1
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class ID3D12VideoDevice1 extends ID3D12VideoDevice{
+class ID3D12VideoDevice1 extends ID3D12VideoDevice {
 
     static sizeof => A_PtrSize
     /**

@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IMsmStrings.ahk
 #Include ..\Com\IDispatch.ahk
+#Include .\IMsmStrings.ahk
 
 /**
  * The IMsmError interface retrieves details about a single merge error.
  * @see https://learn.microsoft.com/windows/win32/api/mergemod/nn-mergemod-imsmerror
  * @namespace Windows.Win32.System.ApplicationInstallationAndServicing
- * @version v4.0.30319
  */
-class IMsmError extends IDispatch{
+class IMsmError extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -77,7 +76,7 @@ class IMsmError extends IDispatch{
 
     /**
      * The get_Type method retrieves the Type property of the Error object. This method returns a msmErrorType value indicating the type of error represented by this object.
-     * @param {Pointer<Integer>} ErrorType A pointer to a location in memory that receives the type of error.
+     * @param {Pointer<msmErrorType>} ErrorType A pointer to a location in memory that receives the type of error.
      * 					
      * 
      * <table>

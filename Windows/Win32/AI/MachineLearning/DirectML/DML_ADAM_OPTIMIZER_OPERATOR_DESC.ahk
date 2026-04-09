@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\DML_TENSOR_DESC.ahk
 
 /**
  * Computes updated weights (parameters) using the supplied gradients, based on the Adam (**ADA**ptive **M**oment estimation) algorithm. This operator is an optimizer, and is typically used in the weight update step of a training loop to perform gradient descent.
@@ -7,10 +8,8 @@
  * This operator supports in-place execution, meaning that each output tensor is permitted to alias an eligible input tensor during binding. For example, it's possible to bind the same resource for both the *InputParametersTensor* and *OutputParametersTensor* in order to effectively achieve an in-place update of the input parameters. All of this operator's input tensors, with the exception of the *TrainingStepTensor*, are eligible to be aliased in this way.
  * @see https://learn.microsoft.com/windows/win32/api/directml/ns-directml-dml_adam_optimizer_operator_desc
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
- * @version v4.0.30319
  */
-class DML_ADAM_OPTIMIZER_OPERATOR_DESC extends Win32Struct
-{
+class DML_ADAM_OPTIMIZER_OPERATOR_DESC extends Win32Struct {
     static sizeof => 80
 
     static packingSize => 8

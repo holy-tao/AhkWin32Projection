@@ -11,9 +11,8 @@
  * It is not necessary to recreate this object during a resolution change.
  * @see https://learn.microsoft.com/windows/win32/api/d3d12video/nn-d3d12video-id3d12videodecoder
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class ID3D12VideoDecoder extends ID3D12Pageable{
+class ID3D12VideoDecoder extends ID3D12Pageable {
 
     static sizeof => A_PtrSize
     /**

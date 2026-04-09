@@ -1,16 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Include ..\Com\IDispatch.ahk
 #Include ..\Com\IUnknown.ahk
 #Include .\DICounterItem.ahk
-#Include ..\Com\IDispatch.ahk
 
 /**
  * @namespace Windows.Win32.System.Performance
- * @version v4.0.30319
  */
-class ICounters extends IDispatch{
+class ICounters extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

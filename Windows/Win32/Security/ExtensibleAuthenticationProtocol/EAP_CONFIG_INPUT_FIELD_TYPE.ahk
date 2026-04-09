@@ -7,9 +7,8 @@
  * The <b>EAP_CONFIG_INPUT_FIELD_TYPE</b> enumeration can be employed to support Single-Sign-On (SSO).
  * @see https://learn.microsoft.com/windows/win32/api/eaptypes/ne-eaptypes-eap_config_input_field_type
  * @namespace Windows.Win32.Security.ExtensibleAuthenticationProtocol
- * @version v4.0.30319
  */
-class EAP_CONFIG_INPUT_FIELD_TYPE extends Win32Enum{
+class EAP_CONFIG_INPUT_FIELD_TYPE extends Win32Enum {
 
     /**
      * The input field contains a user's application logon name.

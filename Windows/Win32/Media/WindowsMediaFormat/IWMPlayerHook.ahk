@@ -9,9 +9,8 @@
  * To assign an implementation of the <b>IWMPlayerHook</b> interface to an output in the reader object, call <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nf-wmsdkidl-iwmreaderadvanced5-setplayerhook">IWMReaderAdvanced5::SetPlayerHook</a>.
  * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nn-wmsdkidl-iwmplayerhook
  * @namespace Windows.Win32.Media.WindowsMediaFormat
- * @version v4.0.30319
  */
-class IWMPlayerHook extends IUnknown{
+class IWMPlayerHook extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

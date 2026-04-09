@@ -5,9 +5,8 @@
  * Specifies watermark flags. Used by IVisualProperties::SetWatermark.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl/ne-shobjidl-vpwatermarkflags
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class VPWATERMARKFLAGS extends Win32BitflagEnum{
+class VPWATERMARKFLAGS extends Win32BitflagEnum {
 
     /**
      * Default Windows XP behavior.

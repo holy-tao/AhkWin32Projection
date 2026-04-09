@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.UI.WindowsAndMessaging
- * @version v4.0.30319
  */
-class FLASHWINFO_FLAGS extends Win32BitflagEnum{
+class FLASHWINFO_FLAGS extends Win32BitflagEnum {
 
     /**
      * @type {Integer (UInt32)}

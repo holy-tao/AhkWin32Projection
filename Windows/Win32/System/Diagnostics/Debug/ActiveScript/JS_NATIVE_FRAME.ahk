@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.ActiveScript
- * @version v4.0.30319
  */
-class JS_NATIVE_FRAME extends Win32Struct
-{
+class JS_NATIVE_FRAME extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8

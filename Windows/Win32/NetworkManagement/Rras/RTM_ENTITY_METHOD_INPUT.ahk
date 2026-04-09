@@ -5,10 +5,8 @@
  * The RTM_ENTITY_METHOD_INPUT structure is used to pass information to a client when invoking its method.
  * @see https://learn.microsoft.com/windows/win32/api/rtmv2/ns-rtmv2-rtm_entity_method_input
  * @namespace Windows.Win32.NetworkManagement.Rras
- * @version v4.0.30319
  */
-class RTM_ENTITY_METHOD_INPUT extends Win32Struct
-{
+class RTM_ENTITY_METHOD_INPUT extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4
@@ -33,9 +31,9 @@ class RTM_ENTITY_METHOD_INPUT extends Win32Struct
 
     /**
      * Buffer for input data for the method.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    InputData{
+    InputData {
         get {
             if(!this.HasProp("__InputDataProxyArray"))
                 this.__InputDataProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "char")

@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.UI.WindowsAndMessaging
- * @version v4.0.30319
  */
-class HDWP extends Win32Handle
-{
+class HDWP extends Win32Handle {
     static sizeof => 8
 
     static packingSize => 8

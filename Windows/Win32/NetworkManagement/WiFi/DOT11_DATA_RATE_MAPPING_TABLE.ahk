@@ -5,18 +5,16 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
- * @version v4.0.30319
  */
-class DOT11_DATA_RATE_MAPPING_TABLE extends Win32Struct
-{
-    static sizeof => 1016
+class DOT11_DATA_RATE_MAPPING_TABLE extends Win32Struct {
+    static sizeof => 512
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {NDIS_OBJECT_HEADER}
      */
-    Header{
+    Header {
         get {
             if(!this.HasProp("__Header"))
                 this.__Header := NDIS_OBJECT_HEADER(0, this)
@@ -33,9 +31,9 @@ class DOT11_DATA_RATE_MAPPING_TABLE extends Win32Struct
     }
 
     /**
-     * @type {Array<DOT11_DATA_RATE_MAPPING_ENTRY>}
+     * @type {DOT11_DATA_RATE_MAPPING_ENTRY}
      */
-    DataRateMappingEntries{
+    DataRateMappingEntries {
         get {
             if(!this.HasProp("__DataRateMappingEntriesProxyArray"))
                 this.__DataRateMappingEntriesProxyArray := Win32FixedArray(this.ptr + 8, 126, DOT11_DATA_RATE_MAPPING_ENTRY, "")

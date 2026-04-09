@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.Usb
- * @version v4.0.30319
  */
-class USBD_DEVICE_INFORMATION extends Win32Struct
-{
+class USBD_DEVICE_INFORMATION extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -31,7 +29,7 @@ class USBD_DEVICE_INFORMATION extends Win32Struct
     /**
      * @type {USB_DEVICE_DESCRIPTOR}
      */
-    DeviceDescriptor{
+    DeviceDescriptor {
         get {
             if(!this.HasProp("__DeviceDescriptor"))
                 this.__DeviceDescriptor := USB_DEVICE_DESCRIPTOR(16, this)

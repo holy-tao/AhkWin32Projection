@@ -3,14 +3,10 @@
 
 /**
  * Contains the identifiers of streams that are currently open.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/nvme/ns-nvme-nvme_directive_streams_get_status_data
  * @namespace Windows.Win32.Storage.Nvme
- * @version v4.0.30319
  */
-class NVME_DIRECTIVE_STREAMS_GET_STATUS_DATA extends Win32Struct
-{
+class NVME_DIRECTIVE_STREAMS_GET_STATUS_DATA extends Win32Struct {
     static sizeof => 131072
 
     static packingSize => 2
@@ -28,9 +24,9 @@ class NVME_DIRECTIVE_STREAMS_GET_STATUS_DATA extends Win32Struct
      * An array of stream IDs that indicate which streams are currently open.
      * 
      * The array is of size **NVME_STREAMS_GET_STATUS_MAX_IDS**.
-     * @type {Array<UInt16>}
+     * @type {Array<Integer>}
      */
-    StreamIdentifiers{
+    StreamIdentifiers {
         get {
             if(!this.HasProp("__StreamIdentifiersProxyArray"))
                 this.__StreamIdentifiersProxyArray := Win32FixedArray(this.ptr + 2, 65535, Primitive, "ushort")

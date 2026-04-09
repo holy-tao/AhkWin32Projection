@@ -3,16 +3,14 @@
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class PROCESS_SYSCALL_PROVIDER_INFORMATION extends Win32Struct
-{
+class PROCESS_SYSCALL_PROVIDER_INFORMATION extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     ProviderId {
         get => NumGet(this, 0, "ptr")

@@ -5,9 +5,8 @@
  * Audio line is a digital destination (for example, digital input to a DAT or CD audio device).
  * @see https://learn.microsoft.com/windows/win32/api/mmeapi/ns-mmeapi-mixerline
  * @namespace Windows.Win32.Media.Audio
- * @version v4.0.30319
  */
-class MIXERLINE_COMPONENTTYPE extends Win32Enum{
+class MIXERLINE_COMPONENTTYPE extends Win32Enum {
 
     /**
      * @type {Integer (UInt32)}

@@ -9,9 +9,8 @@
  * Include DShow.h and D3d9.h before Vmr9.h.
  * @see https://learn.microsoft.com/windows/win32/api/vmr9/nn-vmr9-ivmrimagecompositor9
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IVMRImageCompositor9 extends IUnknown{
+class IVMRImageCompositor9 extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -21,9 +21,8 @@
  * </ul>
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/ne-d3d12-d3d12_resource_heap_tier
  * @namespace Windows.Win32.Graphics.Direct3D12
- * @version v4.0.30319
  */
-class D3D12_RESOURCE_HEAP_TIER extends Win32Enum{
+class D3D12_RESOURCE_HEAP_TIER extends Win32Enum {
 
     /**
      * Indicates that heaps can only support resources from a single resource category.

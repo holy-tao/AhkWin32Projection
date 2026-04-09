@@ -1,15 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
-#Include .\IDebugHostType.ahk
-#Include .\ArrayDimension.ahk
 #Include .\IDebugHostSymbol.ahk
+#Include .\ArrayDimension.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
- * @version v4.0.30319
  */
-class IDebugHostType extends IDebugHostSymbol{
+class IDebugHostType extends IDebugHostSymbol {
 
     static sizeof => A_PtrSize
     /**
@@ -32,7 +30,7 @@ class IDebugHostType extends IDebugHostSymbol{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {TypeKind} 
      */
     GetTypeKind() {
         result := ComCall(10, this, "int*", &kind := 0, "HRESULT")
@@ -68,7 +66,7 @@ class IDebugHostType extends IDebugHostSymbol{
 
     /**
      * 
-     * @param {Pointer<Integer>} _intrinsicKind 
+     * @param {Pointer<IntrinsicKind>} _intrinsicKind 
      * @param {Pointer<Integer>} carrierType 
      * @returns {HRESULT} 
      */
@@ -96,7 +94,7 @@ class IDebugHostType extends IDebugHostSymbol{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {PointerKind} 
      */
     GetPointerKind() {
         result := ComCall(16, this, "int*", &_pointerKind := 0, "HRESULT")
@@ -114,7 +112,7 @@ class IDebugHostType extends IDebugHostSymbol{
 
     /**
      * 
-     * @param {Integer} kind 
+     * @param {PointerKind} kind 
      * @returns {IDebugHostType} 
      */
     CreatePointerTo(kind) {
@@ -155,7 +153,7 @@ class IDebugHostType extends IDebugHostSymbol{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {CallingConventionKind} 
      */
     GetFunctionCallingConvention() {
         result := ComCall(22, this, "int*", &conventionKind := 0, "HRESULT")

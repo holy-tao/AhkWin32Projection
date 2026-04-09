@@ -9,9 +9,8 @@
  * Client apps implement this handler to receive status and update events for viewports. Use <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/directmanipulation/nf-directmanipulation-idirectmanipulationviewport-addeventhandler">AddEventHandler</a> to set the handler for a viewport. Each viewport can have more than one handler.
  * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nn-directmanipulation-idirectmanipulationviewporteventhandler
  * @namespace Windows.Win32.Graphics.DirectManipulation
- * @version v4.0.30319
  */
-class IDirectManipulationViewportEventHandler extends IUnknown{
+class IDirectManipulationViewportEventHandler extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -37,8 +36,8 @@ class IDirectManipulationViewportEventHandler extends IUnknown{
      * @remarks
      * If you call <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/directmanipulation/nf-directmanipulation-idirectmanipulationviewport-getstatus">GetStatus</a> from within this handler, the status returned is not guaranteed to be the same as at the time of the call. This is because of the asynchronous nature of the notification.
      * @param {IDirectManipulationViewport} viewport The viewport for which status has changed.
-     * @param {Integer} current The new status of the viewport.
-     * @param {Integer} previous The previous status of the viewport.
+     * @param {DIRECTMANIPULATION_STATUS} current The new status of the viewport.
+     * @param {DIRECTMANIPULATION_STATUS} previous The previous status of the viewport.
      * @returns {HRESULT} If the method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nf-directmanipulation-idirectmanipulationviewporteventhandler-onviewportstatuschanged
      */

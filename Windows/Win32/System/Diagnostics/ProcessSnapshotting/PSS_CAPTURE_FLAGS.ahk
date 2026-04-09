@@ -7,9 +7,8 @@
  * If both <b>PSS_CREATE_FORCE_BREAKAWAY</b> and <b>PSS_CREATE_BREAKAWAY</b> are specified, then <b>PSS_CREATE_FORCE_BREAKAWAY</b> takes precedence.
  * @see https://learn.microsoft.com/windows/win32/api/processsnapshot/ne-processsnapshot-pss_capture_flags
  * @namespace Windows.Win32.System.Diagnostics.ProcessSnapshotting
- * @version v4.0.30319
  */
-class PSS_CAPTURE_FLAGS extends Win32BitflagEnum{
+class PSS_CAPTURE_FLAGS extends Win32BitflagEnum {
 
     /**
      * Capture nothing.
@@ -119,7 +118,6 @@ class PSS_CAPTURE_FLAGS extends Win32BitflagEnum{
     static PSS_CAPTURE_VA_SPACE_SECTION_INFORMATION => 4096
 
     /**
-     * 
      * @type {Integer (UInt32)}
      */
     static PSS_CAPTURE_IPT_TRACE => 8192

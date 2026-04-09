@@ -11,10 +11,8 @@
  * To specify version 1.2 (for Windows Server 2012 R2), set the <b>Major</b> member to 1 and the <b>Minor</b> member to 2.
  * @see https://learn.microsoft.com/windows/win32/api/ndkinfo/ns-ndkinfo-ndk_version
  * @namespace Windows.Win32.NetworkManagement.Ndis
- * @version v4.0.30319
  */
-class NDK_VERSION extends Win32Struct
-{
+class NDK_VERSION extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 2

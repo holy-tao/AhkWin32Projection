@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\EMR.ahk
+#Include .\ENHANCED_METAFILE_RECORD_TYPE.ahk
 
 /**
  * The EMRSETICMPROFILE structure contains members for the SetICMProfile enhanced metafile record.
@@ -8,10 +9,8 @@
  * This structure is to be used during metafile playback.
  * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-emrseticmprofile
  * @namespace Windows.Win32.Graphics.Gdi
- * @version v4.0.30319
  */
-class EMRSETICMPROFILE extends Win32Struct
-{
+class EMRSETICMPROFILE extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 4
@@ -20,7 +19,7 @@ class EMRSETICMPROFILE extends Win32Struct
      * The base structure for all record types.
      * @type {EMR}
      */
-    emr{
+    emr {
         get {
             if(!this.HasProp("__emr"))
                 this.__emr := EMR(0, this)
@@ -57,9 +56,9 @@ class EMRSETICMPROFILE extends Win32Struct
 
     /**
      * An array that contains the profile data. The length of this array is <b>cbName</b> plus <b>cbData</b>.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Data{
+    Data {
         get {
             if(!this.HasProp("__DataProxyArray"))
                 this.__DataProxyArray := Win32FixedArray(this.ptr + 20, 1, Primitive, "char")

@@ -5,9 +5,8 @@
  * Indicates the level of confidence the recognizer has in the recognition result.
  * @see https://learn.microsoft.com/windows/win32/api/rectypes/ne-rectypes-confidence_level
  * @namespace Windows.Win32.UI.TabletPC
- * @version v4.0.30319
  */
-class CONFIDENCE_LEVEL extends Win32Enum{
+class CONFIDENCE_LEVEL extends Win32Enum {
 
     /**
      * The recognizer is confident that the best alternate is correct.

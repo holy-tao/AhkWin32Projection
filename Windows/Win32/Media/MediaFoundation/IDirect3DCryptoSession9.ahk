@@ -7,9 +7,8 @@
  * Represents a cryptographic session.To get a pointer to this interface, call IDirect3DDevice9Video::CreateCryptoSession.
  * @see https://learn.microsoft.com/windows/win32/api/d3d9/nn-d3d9-idirect3dcryptosession9
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IDirect3DCryptoSession9 extends IUnknown{
+class IDirect3DCryptoSession9 extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

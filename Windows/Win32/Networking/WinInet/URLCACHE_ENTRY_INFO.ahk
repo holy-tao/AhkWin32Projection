@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Networking.WinInet
- * @version v4.0.30319
  */
-class URLCACHE_ENTRY_INFO extends Win32Struct
-{
+class URLCACHE_ENTRY_INFO extends Win32Struct {
     static sizeof => 104
 
     static packingSize => 8
@@ -71,7 +69,7 @@ class URLCACHE_ENTRY_INFO extends Win32Struct
     /**
      * @type {FILETIME}
      */
-    ftLastModifiedTime{
+    ftLastModifiedTime {
         get {
             if(!this.HasProp("__ftLastModifiedTime"))
                 this.__ftLastModifiedTime := FILETIME(36, this)
@@ -82,7 +80,7 @@ class URLCACHE_ENTRY_INFO extends Win32Struct
     /**
      * @type {FILETIME}
      */
-    ftExpireTime{
+    ftExpireTime {
         get {
             if(!this.HasProp("__ftExpireTime"))
                 this.__ftExpireTime := FILETIME(44, this)
@@ -93,7 +91,7 @@ class URLCACHE_ENTRY_INFO extends Win32Struct
     /**
      * @type {FILETIME}
      */
-    ftLastAccessTime{
+    ftLastAccessTime {
         get {
             if(!this.HasProp("__ftLastAccessTime"))
                 this.__ftLastAccessTime := FILETIME(52, this)
@@ -104,7 +102,7 @@ class URLCACHE_ENTRY_INFO extends Win32Struct
     /**
      * @type {FILETIME}
      */
-    ftLastSyncTime{
+    ftLastSyncTime {
         get {
             if(!this.HasProp("__ftLastSyncTime"))
                 this.__ftLastSyncTime := FILETIME(60, this)

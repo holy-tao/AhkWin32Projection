@@ -1,21 +1,19 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
+#Include .\ITextSelection.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
-#Include .\ITextRange2.ahk
 #Include .\ITextFont2.ahk
 #Include .\ITextPara2.ahk
 #Include .\ITextRow.ahk
-#Include .\ITextSelection.ahk
+#Include ..\..\..\Foundation\BSTR.ahk
 
 /**
  * The ITextRange2 interface is derived from ITextRange, and its objects are powerful editing and data-binding tools that enable a program to select text in a story and then examine or change that text.
  * @see https://learn.microsoft.com/windows/win32/api/tom/nn-tom-itextrange2
  * @namespace Windows.Win32.UI.Controls.RichEdit
- * @version v4.0.30319
  */
-class ITextRange2 extends ITextSelection{
+class ITextRange2 extends ITextSelection {
 
     static sizeof => A_PtrSize
     /**
@@ -411,7 +409,9 @@ class ITextRange2 extends ITextSelection{
      * </ul>
      * </li>
      * </ul>The text range be adjusted to different character positions after calling <b>SetURL</b>.
-     * @param {BSTR} _bstr 
+     * @param {BSTR} _bstr Type: <b>BSTR</b>
+     * 
+     * The text to use as a URL for the selected friendly name.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If the method succeeds, it returns <b>S_OK</b>. If the method fails, it returns one of the following COM error codes. For more information about COM error codes, see <a href="https://docs.microsoft.com/windows/desktop/com/error-handling-in-com">Error Handling in COM</a>.
@@ -1325,7 +1325,9 @@ class ITextRange2 extends ITextSelection{
      * 
      * This method is similar to <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextrange-settext">ITextRange:: SetText</a>, but lets the client specify flags that control various insertion options, including the special flag <b>tomLanguageTag</b> to get the BCP-47 language tag for the range. This is an industry standard language tag that may be preferable to <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextfont-setlanguageid">ITextFont::SetLanguageID</a>, which uses a language code identifier (LCID).
      * @param {Integer} Flags Type: <b>long</b>
-     * @param {BSTR} _bstr 
+     * @param {BSTR} _bstr Type: <b>BSTR</b>
+     * 
+     * The new text.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If the method succeeds, it returns <b>S_OK</b>. If the method fails, it returns one of the following COM error codes. For more information about COM error codes, see <a href="https://docs.microsoft.com/windows/desktop/com/error-handling-in-com">Error Handling in COM</a>.
@@ -1417,7 +1419,9 @@ class ITextRange2 extends ITextSelection{
      * @param {Integer} Align Type: <b>long</b>
      * 
      * The object alignment as defined in <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextrange2-getinlineobject">ITextRange2::GetInlineObject</a>.
-     * @param {Integer} _Char 
+     * @param {Integer} _Char Type: <b>long</b>
+     * 
+     * The object character as defined in <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextrange2-getinlineobject">ITextRange2::GetInlineObject</a>.
      * @param {Integer} Char1 Type: <b>long</b>
      * 
      * The closing bracket (<a href="https://docs.microsoft.com/windows/win32/api/tom/ne-tom-objecttype">tomBrackets</a>) character. See <a href="https://www.unicode.org/notes/tn28/">Unicode Technical Note 28</a> for a list of characters.
@@ -1443,7 +1447,9 @@ class ITextRange2 extends ITextSelection{
 
     /**
      * Retrieves the math function type associated with the specified math function name.
-     * @param {BSTR} _bstr 
+     * @param {BSTR} _bstr Type: <b>BSTR</b>
+     * 
+     * The math function name that is checked to determine the math function type.
      * @returns {Integer} Type: <b>long*</b>
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrange2-getmathfunctiontype
      */

@@ -1,16 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * This interface allows client applications to reassociate a File History configuration from a File History target with the current user.
  * @see https://learn.microsoft.com/windows/win32/api/fhcfg/nn-fhcfg-ifhreassociation
  * @namespace Windows.Win32.Storage.FileHistory
- * @version v4.0.30319
  */
-class IFhReassociation extends IUnknown{
+class IFhReassociation extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -44,7 +42,7 @@ class IFhReassociation extends IUnknown{
      * 
      * For network shares, the <i>TargetUrl</i> parameter contains the full path of the share.  This path must end with a trailing backslash (for example, "\\\\myserver\myshare\\").
      * @param {BSTR} TargetUrl Specifies the storage device or network share to be validated.
-     * @returns {Integer} On return, contains a value specifying the result of the device validation. See  the <a href="https://docs.microsoft.com/windows/desktop/api/fhcfg/ne-fhcfg-fh_device_validation_result">FH_DEVICE_VALIDATION_RESULT</a> enumeration for a detailed description of supported device validation results.
+     * @returns {FH_DEVICE_VALIDATION_RESULT} On return, contains a value specifying the result of the device validation. See  the <a href="https://docs.microsoft.com/windows/desktop/api/fhcfg/ne-fhcfg-fh_device_validation_result">FH_DEVICE_VALIDATION_RESULT</a> enumeration for a detailed description of supported device validation results.
      * @see https://learn.microsoft.com/windows/win32/api/fhcfg/nf-fhcfg-ifhreassociation-validatetarget
      */
     ValidateTarget(TargetUrl) {

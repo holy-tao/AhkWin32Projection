@@ -1,16 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
  * Exposes methods that notify Remote Desktop Gateway (RD Gateway) about authentication events.
  * @see https://learn.microsoft.com/windows/win32/api/tsgauthenticationengine/nn-tsgauthenticationengine-itsgauthenticateusersink
  * @namespace Windows.Win32.System.RemoteDesktop
- * @version v4.0.30319
  */
-class ITSGAuthenticateUserSink extends IUnknown{
+class ITSGAuthenticateUserSink extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -39,7 +37,7 @@ class ITSGAuthenticateUserSink extends IUnknown{
      * For a sample that uses the <b>OnUserAuthenticated</b> method, see the [Remote Desktop Gateway Pluggable Authentication and Authorization](https://github.com/microsoftarchive/msdn-code-gallery-community-m-r/tree/master/Remote%20Desktop%20Gateway%20Pluggable%20Authentication%20and%20Authorization%20Sample) sample.
      * @param {BSTR} userName The name of the user who initiated the connection.
      * @param {BSTR} userDomain The domain of the user who initiated the connection.
-     * @param {Pointer} _context 
+     * @param {Pointer} _context A pointer to  a <b>ULONG</b> that contains  a value that identifies this connection. Use the value that was passed by the <a href="https://docs.microsoft.com/windows/desktop/api/tsgauthenticationengine/nf-tsgauthenticationengine-itsgauthenticationengine-authenticateuser">AuthenticateUser</a> method.
      * @param {HANDLE_PTR} userToken A pointer to a <b>HANDLE</b> that specifies the user token of the user. If the user is not running Windows, set this parameter to <b>NULL</b>.
      * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/tsgauthenticationengine/nf-tsgauthenticationengine-itsgauthenticateusersink-onuserauthenticated
@@ -61,7 +59,7 @@ class ITSGAuthenticateUserSink extends IUnknown{
      *     authentication.
      * 
      * For a sample that uses the <b>OnUserAuthenticationFailed</b> method, see the [Remote Desktop Gateway Pluggable Authentication and Authorization](https://github.com/microsoftarchive/msdn-code-gallery-community-m-r/tree/master/Remote%20Desktop%20Gateway%20Pluggable%20Authentication%20and%20Authorization%20Sample) sample.
-     * @param {Pointer} _context 
+     * @param {Pointer} _context A pointer to  a <b>ULONG</b> that contains  a value that identifies this connection. Use the value that was passed by the <a href="https://docs.microsoft.com/windows/desktop/api/tsgauthenticationengine/nf-tsgauthenticationengine-itsgauthenticationengine-authenticateuser">AuthenticateUser</a> method.
      * @param {HRESULT} genericErrorCode A Windows error code that specifies the cause of the authentication failure.
      * @param {HRESULT} specificErrorCode This parameter is reserved. Always set this parameter to zero.
      * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
@@ -81,7 +79,10 @@ class ITSGAuthenticateUserSink extends IUnknown{
      * 
      * 
      * For a sample that uses the <b>ReauthenticateUser</b> method, see the [Remote Desktop Gateway Pluggable Authentication and Authorization](https://github.com/microsoftarchive/msdn-code-gallery-community-m-r/tree/master/Remote%20Desktop%20Gateway%20Pluggable%20Authentication%20and%20Authorization%20Sample) sample.
-     * @param {Pointer} _context 
+     * @param {Pointer} _context A pointer to  a <b>ULONG</b> that contains  a value specific to this connection. Use 
+     *        the value that was passed by the 
+     *        <a href="https://docs.microsoft.com/windows/desktop/api/tsgauthenticationengine/nf-tsgauthenticationengine-itsgauthenticationengine-authenticateuser">AuthenticateUser</a> 
+     *        method.
      * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/tsgauthenticationengine/nf-tsgauthenticationengine-itsgauthenticateusersink-reauthenticateuser
      */
@@ -94,7 +95,7 @@ class ITSGAuthenticateUserSink extends IUnknown{
      * Notifies Remote Desktop Gateway (RD Gateway) that it should disconnect the client.
      * @remarks
      * The authentication plug-in can use this method to disconnect the client as needed. For example, it can call this method if the client's cookie expires.
-     * @param {Pointer} _context 
+     * @param {Pointer} _context A pointer to  a <b>ULONG</b> that contains  a value that identifies the connection to disconnect. Use the value that was passed by the <a href="https://docs.microsoft.com/windows/desktop/api/tsgauthenticationengine/nf-tsgauthenticationengine-itsgauthenticationengine-authenticateuser">AuthenticateUser</a> method.
      * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/tsgauthenticationengine/nf-tsgauthenticationengine-itsgauthenticateusersink-disconnectuser
      */

@@ -18,10 +18,8 @@
  * Exclusive trust mode allows applications to specify trust anchors and peer-trusted certificates  for certificate chain validation. In the exclusive trust mode, the root store and the trusted people store on the system are ignored, and the anchors and certificates pointed to by the <b>hExclusiveRoot</b> and <b>hExclusiveTrustedPeople</b> members are used instead.
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cert_chain_engine_config
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CERT_CHAIN_ENGINE_CONFIG extends Win32Struct
-{
+class CERT_CHAIN_ENGINE_CONFIG extends Win32Struct {
     static sizeof => 88
 
     static packingSize => 8
@@ -39,7 +37,7 @@ class CERT_CHAIN_ENGINE_CONFIG extends Win32Struct
      * This configuration parameter can be used to restrict the root store. If used, it can be the handle of any HCERTSTORE containing only a proper subset of the certificates in the root store.
      * @type {HCERTSTORE}
      */
-    hRestrictedRoot{
+    hRestrictedRoot {
         get {
             if(!this.HasProp("__hRestrictedRoot"))
                 this.__hRestrictedRoot := HCERTSTORE(8, this)
@@ -51,7 +49,7 @@ class CERT_CHAIN_ENGINE_CONFIG extends Win32Struct
      * Store handle. If used, restricts the stores searched to find CTLs.
      * @type {HCERTSTORE}
      */
-    hRestrictedTrust{
+    hRestrictedTrust {
         get {
             if(!this.HasProp("__hRestrictedTrust"))
                 this.__hRestrictedTrust := HCERTSTORE(16, this)
@@ -63,7 +61,7 @@ class CERT_CHAIN_ENGINE_CONFIG extends Win32Struct
      * Store handle. If used, restricts the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">stores</a> searched for certificates and <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">CRLs</a>.
      * @type {HCERTSTORE}
      */
-    hRestrictedOther{
+    hRestrictedOther {
         get {
             if(!this.HasProp("__hRestrictedOther"))
                 this.__hRestrictedOther := HCERTSTORE(24, this)
@@ -209,7 +207,7 @@ class CERT_CHAIN_ENGINE_CONFIG extends Win32Struct
      * <b>Windows 7 and Windows Server 2008 R2:  </b>Support for this member begins.
      * @type {HCERTSTORE}
      */
-    hExclusiveRoot{
+    hExclusiveRoot {
         get {
             if(!this.HasProp("__hExclusiveRoot"))
                 this.__hExclusiveRoot := HCERTSTORE(64, this)
@@ -223,7 +221,7 @@ class CERT_CHAIN_ENGINE_CONFIG extends Win32Struct
      * <b>Windows 7 and Windows Server 2008 R2:  </b>Support for this member begins.
      * @type {HCERTSTORE}
      */
-    hExclusiveTrustedPeople{
+    hExclusiveTrustedPeople {
         get {
             if(!this.HasProp("__hExclusiveTrustedPeople"))
                 this.__hExclusiveTrustedPeople := HCERTSTORE(72, this)

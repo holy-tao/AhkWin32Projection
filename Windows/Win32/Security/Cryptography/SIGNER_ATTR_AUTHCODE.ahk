@@ -5,10 +5,8 @@
  * Specifies attributes for an Authenticode signature.
  * @see https://learn.microsoft.com/windows/win32/SecCrypto/signer-attr-authcode
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class SIGNER_ATTR_AUTHCODE extends Win32Struct
-{
+class SIGNER_ATTR_AUTHCODE extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -23,7 +21,6 @@ class SIGNER_ATTR_AUTHCODE extends Win32Struct
     }
 
     /**
-     * 
      * @type {BOOL}
      */
     fCommercial {
@@ -32,7 +29,6 @@ class SIGNER_ATTR_AUTHCODE extends Win32Struct
     }
 
     /**
-     * 
      * @type {BOOL}
      */
     fIndividual {

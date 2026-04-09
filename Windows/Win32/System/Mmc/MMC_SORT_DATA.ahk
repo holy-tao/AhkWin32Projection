@@ -5,10 +5,8 @@
  * Contains the column sort data of a single column in a column set.
  * @see https://learn.microsoft.com/windows/win32/api/mmc/ns-mmc-mmc_sort_data
  * @namespace Windows.Win32.System.Mmc
- * @version v4.0.30319
  */
-class MMC_SORT_DATA extends Win32Struct
-{
+class MMC_SORT_DATA extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

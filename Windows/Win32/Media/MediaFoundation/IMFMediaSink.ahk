@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\IMFStreamSink.ahk
 #Include .\IMFPresentationClock.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Implemented by media sink objects.
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imfmediasink
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFMediaSink extends IUnknown{
+class IMFMediaSink extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

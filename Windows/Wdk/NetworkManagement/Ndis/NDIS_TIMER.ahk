@@ -3,16 +3,14 @@
 
 /**
  * @namespace Windows.Wdk.NetworkManagement.Ndis
- * @version v4.0.30319
  */
-class NDIS_TIMER extends Win32Struct
-{
+class NDIS_TIMER extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
 
     /**
-     * @type {Pointer<KTIMER>}
+     * @type {Pointer}
      */
     Timer {
         get => NumGet(this, 0, "ptr")
@@ -20,7 +18,7 @@ class NDIS_TIMER extends Win32Struct
     }
 
     /**
-     * @type {Pointer<KDPC>}
+     * @type {Pointer}
      */
     Dpc {
         get => NumGet(this, 8, "ptr")

@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
- * @version v4.0.30319
  */
-class IPSEC_SA_BUNDLE_FLAGS extends Win32BitflagEnum{
+class IPSEC_SA_BUNDLE_FLAGS extends Win32BitflagEnum {
 
     /**
      * @type {Integer (UInt32)}

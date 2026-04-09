@@ -1,19 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Include ..\Com\IUnknown.ahk
 #Include .\ITsSbTarget.ahk
 #Include .\ITsSbSession.ahk
 #Include .\ITsSbEnvironment.ahk
-#Include ..\Com\IUnknown.ahk
 
 /**
  * Exposes methods that enable resource plug-ins to store objects such as sessions and targets.
  * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nn-sbtsv-itssbresourcepluginstore
  * @namespace Windows.Win32.System.RemoteDesktop
- * @version v4.0.30319
  */
-class ITsSbResourcePluginStore extends IUnknown{
+class ITsSbResourcePluginStore extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -230,8 +228,8 @@ class ITsSbResourcePluginStore extends IUnknown{
     /**
      * Sets the state of a target object.
      * @param {BSTR} targetName The name of the target.
-     * @param {Integer} newState The <a href="https://docs.microsoft.com/windows/desktop/api/sessdirpublictypes/ne-sessdirpublictypes-target_state">TARGET_STATE</a> value to set.
-     * @returns {Integer} The previous state of the target.
+     * @param {TARGET_STATE} newState The <a href="https://docs.microsoft.com/windows/desktop/api/sessdirpublictypes/ne-sessdirpublictypes-target_state">TARGET_STATE</a> value to set.
+     * @returns {TARGET_STATE} The previous state of the target.
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbresourcepluginstore-settargetstate
      */
     SetTargetState(targetName, newState) {
@@ -256,7 +254,7 @@ class ITsSbResourcePluginStore extends IUnknown{
      * Returns an array that contains the specified targets that are present in the resource plug-in store.
      * @param {BSTR} FarmName The farm name.
      * @param {BSTR} EnvName The environment name.
-     * @param {Integer} sortByFieldId Specifies sort order.
+     * @param {TS_SB_SORT_BY} sortByFieldId Specifies sort order.
      * @param {BSTR} sortyByPropName The property name to sort by if <i>sortByFieldId</i> is set to <b>TS_SB_SORT_BY_PROP</b>.
      * @param {Pointer<Integer>} pdwCount The number of targets retrieved.
      * @returns {Pointer<ITsSbTarget>} Pointer to the retrieved <a href="https://docs.microsoft.com/windows/desktop/api/sbtsv/nn-sbtsv-itssbtarget">ITsSbTarget</a> objects.
@@ -280,7 +278,7 @@ class ITsSbResourcePluginStore extends IUnknown{
      * @param {BSTR} userDomain The domain name of the user account.
      * @param {BSTR} poolName The name of the pool.
      * @param {BSTR} initialProgram The name of the published remote application.
-     * @param {Pointer<Integer>} pSessionState A pointer to the  <a href="https://docs.microsoft.com/windows/win32/api/sessdirpublictypes/ne-sessdirpublictypes-tssession_state">TSSESSION_STATE</a> value of the sessions to enumerate.
+     * @param {Pointer<TSSESSION_STATE>} pSessionState A pointer to the  <a href="https://docs.microsoft.com/windows/win32/api/sessdirpublictypes/ne-sessdirpublictypes-tssession_state">TSSESSION_STATE</a> value of the sessions to enumerate.
      * @param {Pointer<Integer>} pdwCount Returns a pointer to the number of sessions returned.
      * @returns {Pointer<ITsSbSession>} Returns the list of sessions requested.
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbresourcepluginstore-enumeratesessions
@@ -398,9 +396,9 @@ class ITsSbResourcePluginStore extends IUnknown{
      * Conditionally sets a new state on a server.
      * @param {BSTR} PoolName Name of the pool.
      * @param {BSTR} ServerFQDN Fully qualified domain name (FQDN) of the server.
-     * @param {Integer} NewState The state to set.
-     * @param {Integer} TestState If set to <b>TARGET_UNKNOWN</b> or the current state of the server, the  server will be set as specified in the <i>NewState</i> parameter.
-     * @returns {Integer} On return, points to the previous state of the server.
+     * @param {TARGET_STATE} NewState The state to set.
+     * @param {TARGET_STATE} TestState If set to <b>TARGET_UNKNOWN</b> or the current state of the server, the  server will be set as specified in the <i>NewState</i> parameter.
+     * @returns {TARGET_STATE} On return, points to the previous state of the server.
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbresourcepluginstore-testandsetserverstate
      */
     TestAndSetServerState(PoolName, ServerFQDN, NewState, TestState) {
@@ -430,7 +428,7 @@ class ITsSbResourcePluginStore extends IUnknown{
      * Retrieves the state of a specified server.
      * @param {BSTR} PoolName Name of the pool.
      * @param {BSTR} ServerFQDN Fully qualified domain name (FQDN) of the server.
-     * @returns {Integer} On return, points to the state of the server.
+     * @returns {TARGET_STATE} On return, points to the state of the server.
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbresourcepluginstore-getserverstate
      */
     GetServerState(PoolName, ServerFQDN) {

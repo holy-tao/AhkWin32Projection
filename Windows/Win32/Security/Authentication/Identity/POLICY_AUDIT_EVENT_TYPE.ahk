@@ -9,9 +9,8 @@
  * <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/ns-ntsecapi-policy_audit_events_info">POLICY_AUDIT_EVENTS_INFO</a> structure.
  * @see https://learn.microsoft.com/windows/win32/api/ntsecapi/ne-ntsecapi-policy_audit_event_type
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class POLICY_AUDIT_EVENT_TYPE extends Win32Enum{
+class POLICY_AUDIT_EVENT_TYPE extends Win32Enum {
 
     /**
      * Determines whether the operating system must audit any of the following attempts:

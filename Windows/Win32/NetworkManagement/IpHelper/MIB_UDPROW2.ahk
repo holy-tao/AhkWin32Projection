@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.IpHelper
- * @version v4.0.30319
  */
-class MIB_UDPROW2 extends Win32Struct
-{
+class MIB_UDPROW2 extends Win32Struct {
     static sizeof => 168
 
     static packingSize => 8
@@ -70,9 +68,9 @@ class MIB_UDPROW2 extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt64>}
+     * @type {Array<Integer>}
      */
-    OwningModuleInfo{
+    OwningModuleInfo {
         get {
             if(!this.HasProp("__OwningModuleInfoProxyArray"))
                 this.__OwningModuleInfoProxyArray := Win32FixedArray(this.ptr + 32, 16, Primitive, "uint")

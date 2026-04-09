@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ILocationReport.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\ILocationReport.ahk
 
 /**
  * IDefaultLocation provides methods used to specify or retrieve the default location.
@@ -11,9 +11,8 @@
  * <div> </div>
  * @see https://learn.microsoft.com/windows/win32/api/locationapi/nn-locationapi-idefaultlocation
  * @namespace Windows.Win32.Devices.Geolocation
- * @version v4.0.30319
  */
-class IDefaultLocation extends IUnknown{
+class IDefaultLocation extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

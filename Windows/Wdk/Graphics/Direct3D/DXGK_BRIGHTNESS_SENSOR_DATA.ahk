@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
- * @version v4.0.30319
  */
-class DXGK_BRIGHTNESS_SENSOR_DATA extends Win32Struct
-{
+class DXGK_BRIGHTNESS_SENSOR_DATA extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -35,7 +33,7 @@ class DXGK_BRIGHTNESS_SENSOR_DATA extends Win32Struct
             get => NumGet(this, 0, "uint")
             set => NumPut("uint", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -43,7 +41,7 @@ class DXGK_BRIGHTNESS_SENSOR_DATA extends Win32Struct
             get => (this._bitfield >> 0) & 0x1
             set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -51,7 +49,7 @@ class DXGK_BRIGHTNESS_SENSOR_DATA extends Win32Struct
             get => (this._bitfield >> 1) & 0x1
             set => this._bitfield := ((value & 0x1) << 1) | (this._bitfield & ~(0x1 << 1))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -59,16 +57,15 @@ class DXGK_BRIGHTNESS_SENSOR_DATA extends Win32Struct
             get => (this._bitfield >> 2) & 0x1
             set => this._bitfield := ((value & 0x1) << 2) | (this._bitfield & ~(0x1 << 2))
         }
-    
     }
 
     /**
      * @type {_Flags}
      */
-    Flags{
+    Flags {
         get {
             if(!this.HasProp("__Flags"))
-                this.__Flags := %this.__Class%._Flags(4, this)
+                this.__Flags := DXGK_BRIGHTNESS_SENSOR_DATA._Flags(4, this)
             return this.__Flags
         }
     }
@@ -90,7 +87,7 @@ class DXGK_BRIGHTNESS_SENSOR_DATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<DXGK_BRIGHTNESS_SENSOR_DATA_CHROMATICITY>}
+     * @type {Pointer}
      */
     Chromaticity {
         get => NumGet(this, 16, "ptr")

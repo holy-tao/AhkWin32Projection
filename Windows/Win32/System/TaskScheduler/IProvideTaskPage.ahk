@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\UI\Controls\HPROPSHEETPAGE.ahk
 #Include ..\Com\IUnknown.ahk
+#Include ..\..\UI\Controls\HPROPSHEETPAGE.ahk
 
 /**
  * Provides the methods to access the property sheet settings of a task.
@@ -12,9 +12,8 @@
  * <a href="https://docs.microsoft.com/windows/desktop/api/mstask/nf-mstask-itaskscheduler-newworkitem">ITaskScheduler::NewWorkItem</a> for new tasks.
  * @see https://learn.microsoft.com/windows/win32/api/mstask/nn-mstask-iprovidetaskpage
  * @namespace Windows.Win32.System.TaskScheduler
- * @version v4.0.30319
  */
-class IProvideTaskPage extends IUnknown{
+class IProvideTaskPage extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -42,7 +41,7 @@ class IProvideTaskPage extends IUnknown{
      * <a href="https://docs.microsoft.com/windows/desktop/api/mstask/nn-mstask-iprovidetaskpage">IProvideTaskPage</a> interface, call <b>ITask::QueryInterface</b>.
      * 
      * The following code shows the variable declaration and calling syntax for using this method and for calling <b>ITask::QueryInterface</b>.
-     * @param {Integer} tpType One of the following 
+     * @param {TASKPAGE} tpType One of the following 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mstask/ne-mstask-taskpage">TASKPAGE</a> enumeration values that specify the page to return.
      * @param {BOOL} fPersistChanges Specifies whether changes to the task object are made persistent automatically. If <b>TRUE</b>, the page updates the persistent task object automatically if there is a change made on release. If <b>FALSE</b>, the caller is responsible for making task object changes persistent by calling <b>IPersistFile::Save</b> on the task object.
      * @returns {HPROPSHEETPAGE} Handle to the returned property sheet page of the task object. This handle can then be used to display the page.

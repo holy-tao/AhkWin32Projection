@@ -1,17 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\STATSTG.ahk
-#Include .\IStream.ahk
 #Include .\ISequentialStream.ahk
+#Include .\STATSTG.ahk
 
 /**
  * The IStream interface lets you read and write data to stream objects.
  * @see https://learn.microsoft.com/windows/win32/api/objidl/nn-objidl-istream
  * @namespace Windows.Win32.System.Com
- * @version v4.0.30319
  */
-class IStream extends ISequentialStream{
+class IStream extends ISequentialStream {
 
     static sizeof => A_PtrSize
     /**
@@ -39,7 +37,7 @@ class IStream extends ISequentialStream{
      * 
      * You can also use this method to obtain the current value of the seek pointer by calling this method with the <i>dwOrigin</i> parameter set to <b>STREAM_SEEK_CUR</b> and the <i>dlibMove</i> parameter set to 0 so that the seek pointer is not changed. The current seek pointer is returned in the <i>plibNewPosition</i> parameter.
      * @param {Integer} dlibMove The displacement to be added to the location indicated by the <i>dwOrigin</i> parameter. If <i>dwOrigin</i> is <b>STREAM_SEEK_SET</b>, this is interpreted as an unsigned value rather than a signed value.
-     * @param {Integer} dwOrigin The origin for the displacement specified in <i>dlibMove</i>. The origin can be the beginning of the file (<b>STREAM_SEEK_SET</b>), the current seek pointer (<b>STREAM_SEEK_CUR</b>), or the end of the file (<b>STREAM_SEEK_END</b>). For more information about values, see the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/ne-objidl-stream_seek">STREAM_SEEK</a> enumeration.
+     * @param {STREAM_SEEK} dwOrigin The origin for the displacement specified in <i>dlibMove</i>. The origin can be the beginning of the file (<b>STREAM_SEEK_SET</b>), the current seek pointer (<b>STREAM_SEEK_CUR</b>), or the end of the file (<b>STREAM_SEEK_END</b>). For more information about values, see the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/ne-objidl-stream_seek">STREAM_SEEK</a> enumeration.
      * @returns {Integer} A pointer to the location where this method writes the value of the new seek pointer from the beginning of the stream. 
      * 
      * You can set this pointer to <b>NULL</b>. In this case, this method does not provide the new seek pointer.

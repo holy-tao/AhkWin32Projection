@@ -5,10 +5,8 @@
  * Describes a 4:4:4:4 Y'Cb'Cr' sample.
  * @see https://learn.microsoft.com/windows/win32/api/mfobjects/ns-mfobjects-mfayuvsample
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class MFAYUVSample extends Win32Struct
-{
+class MFAYUVSample extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 1

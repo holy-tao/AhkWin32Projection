@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class ENCRYPTED_DATA_INFO extends Win32Struct
-{
+class ENCRYPTED_DATA_INFO extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -92,9 +90,9 @@ class ENCRYPTED_DATA_INFO extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    DataBlockSize{
+    DataBlockSize {
         get {
             if(!this.HasProp("__DataBlockSizeProxyArray"))
                 this.__DataBlockSizeProxyArray := Win32FixedArray(this.ptr + 28, 1, Primitive, "uint")

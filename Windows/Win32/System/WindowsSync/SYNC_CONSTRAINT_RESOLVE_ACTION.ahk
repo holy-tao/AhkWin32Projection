@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.WindowsSync
- * @version v4.0.30319
  */
-class SYNC_CONSTRAINT_RESOLVE_ACTION extends Win32Enum{
+class SYNC_CONSTRAINT_RESOLVE_ACTION extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

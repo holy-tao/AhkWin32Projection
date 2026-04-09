@@ -5,9 +5,8 @@
  * Controls how a type library is registered.
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/ne-oleauto-regkind
  * @namespace Windows.Win32.System.Ole
- * @version v4.0.30319
  */
-class REGKIND extends Win32Enum{
+class REGKIND extends Win32Enum {
 
     /**
      * Use default register behavior.

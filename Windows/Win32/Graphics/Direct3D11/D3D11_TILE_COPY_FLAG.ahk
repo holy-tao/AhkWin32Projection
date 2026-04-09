@@ -5,9 +5,8 @@
  * Identifies how to copy a tile.
  * @see https://learn.microsoft.com/windows/win32/api/d3d11_2/ne-d3d11_2-d3d11_tile_copy_flag
  * @namespace Windows.Win32.Graphics.Direct3D11
- * @version v4.0.30319
  */
-class D3D11_TILE_COPY_FLAG extends Win32Enum{
+class D3D11_TILE_COPY_FLAG extends Win32Enum {
 
     /**
      * Indicates that the GPU isn't currently referencing any of the 

@@ -9,10 +9,8 @@
  * In this context, a data stream is a set of data in a minidump file.
  * @see https://learn.microsoft.com/windows/win32/api/minidumpapiset/ns-minidumpapiset-minidump_exception_stream
  * @namespace Windows.Win32.System.Diagnostics.Debug
- * @version v4.0.30319
  */
-class MINIDUMP_EXCEPTION_STREAM extends Win32Struct
-{
+class MINIDUMP_EXCEPTION_STREAM extends Win32Struct {
     static sizeof => 168
 
     static packingSize => 8
@@ -40,7 +38,7 @@ class MINIDUMP_EXCEPTION_STREAM extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/minidumpapiset/ns-minidumpapiset-minidump_exception">MINIDUMP_EXCEPTION</a> structure.
      * @type {MINIDUMP_EXCEPTION}
      */
-    ExceptionRecord{
+    ExceptionRecord {
         get {
             if(!this.HasProp("__ExceptionRecord"))
                 this.__ExceptionRecord := MINIDUMP_EXCEPTION(8, this)
@@ -53,7 +51,7 @@ class MINIDUMP_EXCEPTION_STREAM extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/win32/api/minidumpapiset/ns-minidumpapiset-minidump_location_descriptor">MINIDUMP_LOCATION_DESCRIPTOR</a> structure.
      * @type {MINIDUMP_LOCATION_DESCRIPTOR}
      */
-    ThreadContext{
+    ThreadContext {
         get {
             if(!this.HasProp("__ThreadContext"))
                 this.__ThreadContext := MINIDUMP_LOCATION_DESCRIPTOR(160, this)

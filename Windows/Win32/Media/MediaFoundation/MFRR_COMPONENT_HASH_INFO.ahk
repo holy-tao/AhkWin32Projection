@@ -5,10 +5,8 @@
  * Contains information about a revoked component.
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/ns-mfidl-mfrr_component_hash_info
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class MFRR_COMPONENT_HASH_INFO extends Win32Struct
-{
+class MFRR_COMPONENT_HASH_INFO extends Win32Struct {
     static sizeof => 696
 
     static packingSize => 4

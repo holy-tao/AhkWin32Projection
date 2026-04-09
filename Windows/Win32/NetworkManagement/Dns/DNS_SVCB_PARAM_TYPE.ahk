@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Dns
- * @version v4.0.30319
  */
-class DNS_SVCB_PARAM_TYPE extends Win32Enum{
+class DNS_SVCB_PARAM_TYPE extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

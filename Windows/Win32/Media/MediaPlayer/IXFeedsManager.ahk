@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IStream.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\System\Com\IStream.ahk
 
 /**
  * @namespace Windows.Win32.Media.MediaPlayer
- * @version v4.0.30319
  */
-class IXFeedsManager extends IUnknown{
+class IXFeedsManager extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -140,7 +139,7 @@ class IXFeedsManager extends IUnknown{
 
     /**
      * 
-     * @param {Integer} fbsa 
+     * @param {FEEDS_BACKGROUNDSYNC_ACTION} fbsa 
      * @returns {HRESULT} 
      */
     BackgroundSync(fbsa) {
@@ -150,7 +149,7 @@ class IXFeedsManager extends IUnknown{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {FEEDS_BACKGROUNDSYNC_STATUS} 
      */
     BackgroundSyncStatus() {
         result := ComCall(13, this, "int*", &pfbss := 0, "HRESULT")

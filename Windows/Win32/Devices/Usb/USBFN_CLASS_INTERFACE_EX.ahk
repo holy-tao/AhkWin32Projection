@@ -1,17 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\USB_ENDPOINT_DESCRIPTOR.ahk
 #Include .\USBFN_PIPE_INFORMATION.ahk
+#Include .\USB_ENDPOINT_DESCRIPTOR.ahk
 
 /**
  * @namespace Windows.Win32.Devices.Usb
- * @version v4.0.30319
  */
-class USBFN_CLASS_INTERFACE_EX extends Win32Struct
-{
-    static sizeof => 136
+class USBFN_CLASS_INTERFACE_EX extends Win32Struct {
+    static sizeof => 196
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}
@@ -38,12 +36,12 @@ class USBFN_CLASS_INTERFACE_EX extends Win32Struct
     }
 
     /**
-     * @type {Array<USBFN_PIPE_INFORMATION>}
+     * @type {USBFN_PIPE_INFORMATION}
      */
-    PipeArr{
+    PipeArr {
         get {
             if(!this.HasProp("__PipeArrProxyArray"))
-                this.__PipeArrProxyArray := Win32FixedArray(this.ptr + 8, 16, USBFN_PIPE_INFORMATION, "")
+                this.__PipeArrProxyArray := Win32FixedArray(this.ptr + 4, 16, USBFN_PIPE_INFORMATION, "")
             return this.__PipeArrProxyArray
         }
     }

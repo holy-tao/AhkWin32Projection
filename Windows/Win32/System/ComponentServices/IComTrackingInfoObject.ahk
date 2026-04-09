@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Variant\VARIANT.ahk
 #Include ..\Com\IUnknown.ahk
+#Include ..\Variant\VARIANT.ahk
 
 /**
  * Retrieves the properties of a tracking information object.
  * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nn-comsvcs-icomtrackinginfoobject
  * @namespace Windows.Win32.System.ComponentServices
- * @version v4.0.30319
  */
-class IComTrackingInfoObject extends IUnknown{
+class IComTrackingInfoObject extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\D3DLIGHTTYPE.ahk
 #Include .\D3DCOLORVALUE.ahk
 #Include ..\Direct3D\D3DVECTOR.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D9
- * @version v4.0.30319
  */
-class D3DLIGHT2 extends Win32Struct
-{
+class D3DLIGHT2 extends Win32Struct {
     static sizeof => 80
 
     static packingSize => 4
@@ -22,7 +21,7 @@ class D3DLIGHT2 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {D3DLIGHTTYPE}
      */
     dltType {
         get => NumGet(this, 4, "int")
@@ -32,7 +31,7 @@ class D3DLIGHT2 extends Win32Struct
     /**
      * @type {D3DCOLORVALUE}
      */
-    dcvColor{
+    dcvColor {
         get {
             if(!this.HasProp("__dcvColor"))
                 this.__dcvColor := D3DCOLORVALUE(8, this)
@@ -43,7 +42,7 @@ class D3DLIGHT2 extends Win32Struct
     /**
      * @type {D3DVECTOR}
      */
-    dvPosition{
+    dvPosition {
         get {
             if(!this.HasProp("__dvPosition"))
                 this.__dvPosition := D3DVECTOR(24, this)
@@ -54,7 +53,7 @@ class D3DLIGHT2 extends Win32Struct
     /**
      * @type {D3DVECTOR}
      */
-    dvDirection{
+    dvDirection {
         get {
             if(!this.HasProp("__dvDirection"))
                 this.__dvDirection := D3DVECTOR(36, this)

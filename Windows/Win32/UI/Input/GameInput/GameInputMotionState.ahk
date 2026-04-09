@@ -1,12 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\GameInputMotionAccuracy.ahk
 
 /**
  * @namespace Windows.Win32.UI.Input.GameInput
- * @version v4.0.30319
  */
-class GameInputMotionState extends Win32Struct
-{
+class GameInputMotionState extends Win32Struct {
     static sizeof => 68
 
     static packingSize => 4
@@ -116,7 +115,7 @@ class GameInputMotionState extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {GameInputMotionAccuracy}
      */
     accelerometerAccuracy {
         get => NumGet(this, 52, "int")
@@ -124,7 +123,7 @@ class GameInputMotionState extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {GameInputMotionAccuracy}
      */
     gyroscopeAccuracy {
         get => NumGet(this, 56, "int")
@@ -132,7 +131,7 @@ class GameInputMotionState extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {GameInputMotionAccuracy}
      */
     magnetometerAccuracy {
         get => NumGet(this, 60, "int")
@@ -140,7 +139,7 @@ class GameInputMotionState extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {GameInputMotionAccuracy}
      */
     orientationAccuracy {
         get => NumGet(this, 64, "int")

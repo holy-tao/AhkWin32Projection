@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Graphics.GdiPlus
- * @version v4.0.30319
  */
-class WmfPlaceableFileHeader extends Win32Struct
-{
+class WmfPlaceableFileHeader extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 4
@@ -31,7 +29,7 @@ class WmfPlaceableFileHeader extends Win32Struct
     /**
      * @type {PWMFRect16}
      */
-    BoundingBox{
+    BoundingBox {
         get {
             if(!this.HasProp("__BoundingBox"))
                 this.__BoundingBox := PWMFRect16(6, this)

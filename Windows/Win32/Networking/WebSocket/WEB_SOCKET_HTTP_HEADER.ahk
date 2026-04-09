@@ -5,10 +5,8 @@
  * Contains an HTTP header.
  * @see https://learn.microsoft.com/windows/win32/api/websocket/ns-websocket-web_socket_http_header
  * @namespace Windows.Win32.Networking.WebSocket
- * @version v4.0.30319
  */
-class WEB_SOCKET_HTTP_HEADER extends Win32Struct
-{
+class WEB_SOCKET_HTTP_HEADER extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8

@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.SystemServices
- * @version v4.0.30319
  */
-class PROCESSOR_IDLESTATE_INFO extends Win32Struct
-{
+class PROCESSOR_IDLESTATE_INFO extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4
@@ -36,9 +34,9 @@ class PROCESSOR_IDLESTATE_INFO extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Spare{
+    Spare {
         get {
             if(!this.HasProp("__SpareProxyArray"))
                 this.__SpareProxyArray := Win32FixedArray(this.ptr + 6, 2, Primitive, "char")

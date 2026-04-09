@@ -52,9 +52,8 @@
  * </table>
  * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/ne-xpsobjectmodel-xps_segment_type
  * @namespace Windows.Win32.Storage.Xps
- * @version v4.0.30319
  */
-class XPS_SEGMENT_TYPE extends Win32Enum{
+class XPS_SEGMENT_TYPE extends Win32Enum {
 
     /**
      * The line segment is an arc that covers more than 180 degrees and is drawn in a clockwise direction from the start point to the end point.

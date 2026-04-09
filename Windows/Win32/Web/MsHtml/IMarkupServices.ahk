@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\IMarkupPointer.ahk
 #Include .\IMarkupContainer.ahk
 #Include .\IHTMLElement.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
- * @version v4.0.30319
  */
-class IMarkupServices extends IUnknown{
+class IMarkupServices extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -52,7 +51,7 @@ class IMarkupServices extends IUnknown{
 
     /**
      * 
-     * @param {Integer} tagID 
+     * @param {ELEMENT_TAG_ID} tagID 
      * @param {PWSTR} pchAttributes 
      * @returns {IHTMLElement} 
      */
@@ -243,7 +242,7 @@ class IMarkupServices extends IUnknown{
     /**
      * 
      * @param {IHTMLElement} pElement 
-     * @returns {Integer} 
+     * @returns {ELEMENT_TAG_ID} 
      */
     GetElementTagId(pElement) {
         result := ComCall(16, this, "ptr", pElement, "int*", &ptagId := 0, "HRESULT")
@@ -253,7 +252,7 @@ class IMarkupServices extends IUnknown{
     /**
      * 
      * @param {BSTR} bstrName 
-     * @returns {Integer} 
+     * @returns {ELEMENT_TAG_ID} 
      */
     GetTagIDForName(bstrName) {
         bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
@@ -264,7 +263,7 @@ class IMarkupServices extends IUnknown{
 
     /**
      * 
-     * @param {Integer} tagId 
+     * @param {ELEMENT_TAG_ID} tagId 
      * @returns {BSTR} 
      */
     GetNameForTagID(tagId) {

@@ -18,9 +18,8 @@
  * Not all function instances can be associated using the <b>IPNPXDeviceAssociation</b> methods. The function instance must have its  PKEY_PNPX_GlobalIdentity key populated with the UUID supplied by the Function Discovery provider used to discover the device. For more information about property keys, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fundisc/pnp-x-provider-pkeys">PnP-X Provider PKEYs</a>.
  * @see https://learn.microsoft.com/windows/win32/api/pnpxassoc/nn-pnpxassoc-ipnpxdeviceassociation
  * @namespace Windows.Win32.Devices.FunctionDiscovery
- * @version v4.0.30319
  */
-class IPNPXDeviceAssociation extends IUnknown{
+class IPNPXDeviceAssociation extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

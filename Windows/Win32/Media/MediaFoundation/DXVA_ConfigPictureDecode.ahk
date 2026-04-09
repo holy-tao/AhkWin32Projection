@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class DXVA_ConfigPictureDecode extends Win32Struct
-{
+class DXVA_ConfigPictureDecode extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8
@@ -20,9 +18,9 @@ class DXVA_ConfigPictureDecode extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    dwReservedBits{
+    dwReservedBits {
         get {
             if(!this.HasProp("__dwReservedBitsProxyArray"))
                 this.__dwReservedBitsProxyArray := Win32FixedArray(this.ptr + 4, 3, Primitive, "uint")
@@ -31,7 +29,7 @@ class DXVA_ConfigPictureDecode extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     guidConfigBitstreamEncryption {
         get => NumGet(this, 16, "ptr")
@@ -39,7 +37,7 @@ class DXVA_ConfigPictureDecode extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     guidConfigMBcontrolEncryption {
         get => NumGet(this, 24, "ptr")
@@ -47,7 +45,7 @@ class DXVA_ConfigPictureDecode extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     guidConfigResidDiffEncryption {
         get => NumGet(this, 32, "ptr")

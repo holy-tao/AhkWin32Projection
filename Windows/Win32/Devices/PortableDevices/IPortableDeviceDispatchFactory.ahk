@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * Represents a factory that can instantiate a WPD Automation Device object.
@@ -17,9 +17,8 @@
  * ```
  * @see https://learn.microsoft.com/windows/win32/api/portabledeviceapi/nn-portabledeviceapi-iportabledevicedispatchfactory
  * @namespace Windows.Win32.Devices.PortableDevices
- * @version v4.0.30319
  */
-class IPortableDeviceDispatchFactory extends IUnknown{
+class IPortableDeviceDispatchFactory extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

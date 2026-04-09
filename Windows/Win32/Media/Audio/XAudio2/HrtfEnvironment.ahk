@@ -5,9 +5,8 @@
  * Indicates one of several stock environment types.
  * @see https://learn.microsoft.com/windows/win32/api/hrtfapoapi/ne-hrtfapoapi-hrtfenvironment
  * @namespace Windows.Win32.Media.Audio.XAudio2
- * @version v4.0.30319
  */
-class HrtfEnvironment extends Win32Enum{
+class HrtfEnvironment extends Win32Enum {
 
     /**
      * A small room.

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\CERT_STRONG_SIGN_FLAGS.ahk
 
 /**
  * Contains the signature algorithm/hash algorithm and public key algorithm/bit length pairs that can be used for strong signing.
@@ -41,17 +42,14 @@
  * </ul>
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cert_strong_sign_serialized_info
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CERT_STRONG_SIGN_SERIALIZED_INFO extends Win32Struct
-{
+class CERT_STRONG_SIGN_SERIALIZED_INFO extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
 
     /**
-     * 
-     * @type {Integer}
+     * @type {CERT_STRONG_SIGN_FLAGS}
      */
     dwFlags {
         get => NumGet(this, 0, "uint")

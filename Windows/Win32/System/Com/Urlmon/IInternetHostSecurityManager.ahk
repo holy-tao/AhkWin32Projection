@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.Com.Urlmon
- * @version v4.0.30319
  */
-class IInternetHostSecurityManager extends IUnknown{
+class IInternetHostSecurityManager extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

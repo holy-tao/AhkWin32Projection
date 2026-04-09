@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Media.DirectShow.Tv
- * @version v4.0.30319
  */
-class BfEnTvRat_Attributes_US_TV extends Win32Enum{
+class BfEnTvRat_Attributes_US_TV extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

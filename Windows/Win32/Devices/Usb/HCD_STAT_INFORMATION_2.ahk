@@ -5,10 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.Usb
- * @version v4.0.30319
  */
-class HCD_STAT_INFORMATION_2 extends Win32Struct
-{
+class HCD_STAT_INFORMATION_2 extends Win32Struct {
     static sizeof => 128
 
     static packingSize => 8
@@ -56,7 +54,7 @@ class HCD_STAT_INFORMATION_2 extends Win32Struct
     /**
      * @type {HCD_STAT_COUNTERS}
      */
-    Counters{
+    Counters {
         get {
             if(!this.HasProp("__Counters"))
                 this.__Counters := HCD_STAT_COUNTERS(28, this)
@@ -67,7 +65,7 @@ class HCD_STAT_INFORMATION_2 extends Win32Struct
     /**
      * @type {HCD_ISO_STAT_COUNTERS}
      */
-    IsoCounters{
+    IsoCounters {
         get {
             if(!this.HasProp("__IsoCounters"))
                 this.__IsoCounters := HCD_ISO_STAT_COUNTERS(52, this)

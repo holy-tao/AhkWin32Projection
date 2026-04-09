@@ -6,10 +6,8 @@
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
- * @version v4.0.30319
  */
-class KSCAMERA_METADATA_BACKGROUNDSEGMENTATIONMASK extends Win32Struct
-{
+class KSCAMERA_METADATA_BACKGROUNDSEGMENTATIONMASK extends Win32Struct {
     static sizeof => 52
 
     static packingSize => 4
@@ -17,7 +15,7 @@ class KSCAMERA_METADATA_BACKGROUNDSEGMENTATIONMASK extends Win32Struct
     /**
      * @type {KSCAMERA_METADATA_ITEMHEADER}
      */
-    Header{
+    Header {
         get {
             if(!this.HasProp("__Header"))
                 this.__Header := KSCAMERA_METADATA_ITEMHEADER(0, this)
@@ -28,7 +26,7 @@ class KSCAMERA_METADATA_BACKGROUNDSEGMENTATIONMASK extends Win32Struct
     /**
      * @type {RECT}
      */
-    MaskCoverageBoundingBox{
+    MaskCoverageBoundingBox {
         get {
             if(!this.HasProp("__MaskCoverageBoundingBox"))
                 this.__MaskCoverageBoundingBox := RECT(8, this)
@@ -39,7 +37,7 @@ class KSCAMERA_METADATA_BACKGROUNDSEGMENTATIONMASK extends Win32Struct
     /**
      * @type {SIZE}
      */
-    MaskResolution{
+    MaskResolution {
         get {
             if(!this.HasProp("__MaskResolution"))
                 this.__MaskResolution := SIZE(24, this)
@@ -50,7 +48,7 @@ class KSCAMERA_METADATA_BACKGROUNDSEGMENTATIONMASK extends Win32Struct
     /**
      * @type {RECT}
      */
-    ForegroundBoundingBox{
+    ForegroundBoundingBox {
         get {
             if(!this.HasProp("__ForegroundBoundingBox"))
                 this.__ForegroundBoundingBox := RECT(32, this)
@@ -59,9 +57,9 @@ class KSCAMERA_METADATA_BACKGROUNDSEGMENTATIONMASK extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    MaskData{
+    MaskData {
         get {
             if(!this.HasProp("__MaskDataProxyArray"))
                 this.__MaskDataProxyArray := Win32FixedArray(this.ptr + 48, 1, Primitive, "char")

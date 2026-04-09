@@ -9,10 +9,8 @@
  *     application that did not specify <b>FSCTL_INTEGRITY_FLAG_CHECKSUM_ENFORCEMENT_OFF</b>.
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-fsctl_set_integrity_information_buffer
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class FSCTL_SET_INTEGRITY_INFORMATION_BUFFER extends Win32Struct
-{
+class FSCTL_SET_INTEGRITY_INFORMATION_BUFFER extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4

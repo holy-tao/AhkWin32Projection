@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class NCRYPT_TPM_PLATFORM_ATTESTATION_STATEMENT extends Win32Struct
-{
+class NCRYPT_TPM_PLATFORM_ATTESTATION_STATEMENT extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 4

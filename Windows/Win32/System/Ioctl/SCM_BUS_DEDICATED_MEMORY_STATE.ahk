@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class SCM_BUS_DEDICATED_MEMORY_STATE extends Win32Struct
-{
+class SCM_BUS_DEDICATED_MEMORY_STATE extends Win32Struct {
     static sizeof => 1
 
     static packingSize => 1

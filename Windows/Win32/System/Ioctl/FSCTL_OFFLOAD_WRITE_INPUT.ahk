@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class FSCTL_OFFLOAD_WRITE_INPUT extends Win32Struct
-{
+class FSCTL_OFFLOAD_WRITE_INPUT extends Win32Struct {
     static sizeof => 544
 
     static packingSize => 8
@@ -52,9 +50,9 @@ class FSCTL_OFFLOAD_WRITE_INPUT extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Token{
+    Token {
         get {
             if(!this.HasProp("__TokenProxyArray"))
                 this.__TokenProxyArray := Win32FixedArray(this.ptr + 32, 512, Primitive, "char")

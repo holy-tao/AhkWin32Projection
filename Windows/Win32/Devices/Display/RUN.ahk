@@ -7,10 +7,8 @@
  * If the <a href="https://docs.microsoft.com/windows-hardware/drivers/">clip region</a> is complex, a single line segment can be broken into many RUNs. The same segment is returned as many times as necessary to list all of its RUNs.
  * @see https://learn.microsoft.com/windows/win32/api/winddi/ns-winddi-run
  * @namespace Windows.Win32.Devices.Display
- * @version v4.0.30319
  */
-class RUN extends Win32Struct
-{
+class RUN extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4

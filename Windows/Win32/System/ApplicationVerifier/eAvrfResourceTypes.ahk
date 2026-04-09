@@ -5,9 +5,8 @@
  * Specifies the types of resources that can be enumerated using the VerifierEnumerateResource function.
  * @see https://learn.microsoft.com/windows/win32/api/avrfsdk/ne-avrfsdk-eavrfresourcetypes
  * @namespace Windows.Win32.System.ApplicationVerifier
- * @version v4.0.30319
  */
-class eAvrfResourceTypes extends Win32Enum{
+class eAvrfResourceTypes extends Win32Enum {
 
     /**
      * Indicates heap-allocation information is being obtained.

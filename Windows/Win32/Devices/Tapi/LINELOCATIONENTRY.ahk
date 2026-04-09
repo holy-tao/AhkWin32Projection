@@ -15,10 +15,8 @@
  * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/ns-tapi-linetranslatecaps">LINETRANSLATECAPS</a> structure to be returned to the application.
  * @see https://learn.microsoft.com/windows/win32/api/tapi/ns-tapi-linelocationentry
  * @namespace Windows.Win32.Devices.Tapi
- * @version v4.0.30319
  */
-class LINELOCATIONENTRY extends Win32Struct
-{
+class LINELOCATIONENTRY extends Win32Struct {
     static sizeof => 68
 
     static packingSize => 4

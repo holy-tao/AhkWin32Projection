@@ -5,10 +5,8 @@
  * Contains the position and size of a rectangle, in screen coordinates.
  * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/ns-uiautomationcore-uiarect
  * @namespace Windows.Win32.UI.Accessibility
- * @version v4.0.30319
  */
-class UiaRect extends Win32Struct
-{
+class UiaRect extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8

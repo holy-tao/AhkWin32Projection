@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\EAP_ATTRIBUTES.ahk
 
 /**
  * Contains authentication results returned by an EAP authenticator method.
  * @see https://learn.microsoft.com/windows/win32/api/eapauthenticatoractiondefine/ns-eapauthenticatoractiondefine-eap_method_authenticator_result
  * @namespace Windows.Win32.Security.ExtensibleAuthenticationProtocol
- * @version v4.0.30319
  */
-class EAP_METHOD_AUTHENTICATOR_RESULT extends Win32Struct
-{
+class EAP_METHOD_AUTHENTICATOR_RESULT extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

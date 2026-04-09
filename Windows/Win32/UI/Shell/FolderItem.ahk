@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include .\FolderItemVerbs.ahk
 
 /**
  * Represents an item in a Shell folder. This object contains properties and methods that allow you to retrieve information about the item.
  * @see https://learn.microsoft.com/windows/win32/shell/folderitem
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class FolderItem extends IDispatch{
+class FolderItem extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

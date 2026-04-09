@@ -7,9 +7,8 @@
  * The optional, application-implemented IWMDMProgress allows an application to track the progress of operations, such as formatting media or file transfers.
  * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nn-mswmdm-iwmdmprogress
  * @namespace Windows.Win32.Media.DeviceManager
- * @version v4.0.30319
  */
-class IWMDMProgress extends IUnknown{
+class IWMDMProgress extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

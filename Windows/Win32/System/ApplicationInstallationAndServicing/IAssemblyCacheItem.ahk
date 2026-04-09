@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IStream.ahk
 #Include ..\Com\IUnknown.ahk
+#Include ..\Com\IStream.ahk
 
 /**
  * The IAssemblyCacheItem interface can be used to install side-by-side assemblies into the side-by-side store using a stream-based installation.
  * @see https://learn.microsoft.com/windows/win32/api/winsxs/nn-winsxs-iassemblycacheitem
  * @namespace Windows.Win32.System.ApplicationInstallationAndServicing
- * @version v4.0.30319
  */
-class IAssemblyCacheItem extends IUnknown{
+class IAssemblyCacheItem extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

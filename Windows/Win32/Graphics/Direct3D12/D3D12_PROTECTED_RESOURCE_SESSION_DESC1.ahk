@@ -1,16 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\D3D12_PROTECTED_RESOURCE_SESSION_FLAGS.ahk
 
 /**
  * Describes flags and protection type for a protected resource session, per adapter.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_protected_resource_session_desc1
  * @namespace Windows.Win32.Graphics.Direct3D12
- * @version v4.0.30319
  */
-class D3D12_PROTECTED_RESOURCE_SESSION_DESC1 extends Win32Struct
-{
+class D3D12_PROTECTED_RESOURCE_SESSION_DESC1 extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
@@ -30,7 +27,7 @@ class D3D12_PROTECTED_RESOURCE_SESSION_DESC1 extends Win32Struct
      * Type: **[D3D12_PROTECTED_RESOURCE_SESSION_FLAGS](./ne-d3d12-d3d12_protected_resource_session_flags.md)**
      * 
      * Specifies the supported crypto sessions options.
-     * @type {Integer}
+     * @type {D3D12_PROTECTED_RESOURCE_SESSION_FLAGS}
      */
     Flags {
         get => NumGet(this, 4, "int")
@@ -43,7 +40,7 @@ class D3D12_PROTECTED_RESOURCE_SESSION_DESC1 extends Win32Struct
      * The GUID that represents the protection type. Microsoft defines **D3D12_PROTECTED_RESOURCES_SESSION_HARDWARE_PROTECTED**.
      * 
      * Using the **D3D12_PROTECTED_RESOURCES_SESSION_HARDWARE_PROTECTED** GUID is equivalent to calling [**ID3D12Device4::CreateProtectedResourceSession**](./nf-d3d12-id3d12device4-createprotectedresourcesession.md).
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     ProtectionType {
         get => NumGet(this, 8, "ptr")

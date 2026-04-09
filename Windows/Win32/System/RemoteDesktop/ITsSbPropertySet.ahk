@@ -7,9 +7,8 @@
  * Can be used to define custom properties as appropriate.
  * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nn-sbtsv-itssbpropertyset
  * @namespace Windows.Win32.System.RemoteDesktop
- * @version v4.0.30319
  */
-class ITsSbPropertySet extends IPropertyBag{
+class ITsSbPropertySet extends IPropertyBag {
 
     static sizeof => A_PtrSize
     /**

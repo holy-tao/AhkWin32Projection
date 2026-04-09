@@ -1,21 +1,20 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\WS_PARAMETER_TYPE.ahk
 
 /**
  * The index of the parameters in the incoming/outgoing messages field descriptions.
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_parameter_description
  * @namespace Windows.Win32.Networking.WindowsWebServices
- * @version v4.0.30319
  */
-class WS_PARAMETER_DESCRIPTION extends Win32Struct
-{
+class WS_PARAMETER_DESCRIPTION extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4
 
     /**
      * The type of the parameter.
-     * @type {Integer}
+     * @type {WS_PARAMETER_TYPE}
      */
     parameterType {
         get => NumGet(this, 0, "int")

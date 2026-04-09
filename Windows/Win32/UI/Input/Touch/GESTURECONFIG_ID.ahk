@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.UI.Input.Touch
- * @version v4.0.30319
  */
-class GESTURECONFIG_ID extends Win32BitflagEnum{
+class GESTURECONFIG_ID extends Win32BitflagEnum {
 
     /**
      * @type {Integer (UInt32)}

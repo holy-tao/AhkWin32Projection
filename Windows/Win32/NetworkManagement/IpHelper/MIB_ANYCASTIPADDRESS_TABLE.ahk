@@ -1,13 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Networking\WinSock\IN_ADDR.ahk
+#Include .\MIB_ANYCASTIPADDRESS_ROW.ahk
+#Include ..\..\Networking\WinSock\SOCKADDR_INET.ahk
 #Include ..\..\Networking\WinSock\SOCKADDR_IN.ahk
+#Include ..\..\Networking\WinSock\ADDRESS_FAMILY.ahk
+#Include ..\..\Networking\WinSock\IN_ADDR.ahk
+#Include ..\..\Networking\WinSock\SOCKADDR_IN6.ahk
 #Include ..\..\Networking\WinSock\IN6_ADDR.ahk
 #Include ..\..\Networking\WinSock\SCOPE_ID.ahk
-#Include ..\..\Networking\WinSock\SOCKADDR_IN6.ahk
-#Include ..\..\Networking\WinSock\SOCKADDR_INET.ahk
 #Include ..\Ndis\NET_LUID_LH.ahk
-#Include .\MIB_ANYCASTIPADDRESS_ROW.ahk
 
 /**
  * Contains a table of anycast IP address entries.
@@ -25,11 +26,9 @@
  * Note that the <i>Netioapi.h</i> header file is automatically included in the <i>Iphlpapi.h</i> header file. The  <i>Netioapi.h</i> header file should never be used directly.
  * @see https://learn.microsoft.com/windows/win32/api/netioapi/ns-netioapi-mib_anycastipaddress_table
  * @namespace Windows.Win32.NetworkManagement.IpHelper
- * @version v4.0.30319
  */
-class MIB_ANYCASTIPADDRESS_TABLE extends Win32Struct
-{
-    static sizeof => 16
+class MIB_ANYCASTIPADDRESS_TABLE extends Win32Struct {
+    static sizeof => 80
 
     static packingSize => 8
 
@@ -45,9 +44,9 @@ class MIB_ANYCASTIPADDRESS_TABLE extends Win32Struct
     /**
      * An array of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/ns-netioapi-mib_anycastipaddress_row">MIB_ANYCASTIPADDRESS_ROW</a> structures containing anycast IP address entries.
-     * @type {Array<MIB_ANYCASTIPADDRESS_ROW>}
+     * @type {MIB_ANYCASTIPADDRESS_ROW}
      */
-    Table{
+    Table {
         get {
             if(!this.HasProp("__TableProxyArray"))
                 this.__TableProxyArray := Win32FixedArray(this.ptr + 8, 1, MIB_ANYCASTIPADDRESS_ROW, "")

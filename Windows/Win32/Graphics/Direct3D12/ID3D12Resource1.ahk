@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D12
- * @version v4.0.30319
  */
-class ID3D12Resource1 extends ID3D12Resource{
+class ID3D12Resource1 extends ID3D12Resource {
 
     static sizeof => A_PtrSize
     /**

@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include .\APOInitBaseStruct.ahk
+#Include ..\..\..\UI\Shell\PropertiesSystem\IPropertyStore.ahk
+#Include ..\IMMDeviceCollection.ahk
 
 /**
  * The APOInitSystemEffects structure gets passed to the system effects APO for initialization.
  * @see https://learn.microsoft.com/windows/win32/api/audioenginebaseapo/ns-audioenginebaseapo-apoinitsystemeffects
  * @namespace Windows.Win32.Media.Audio.Apo
- * @version v4.0.30319
  */
-class APOInitSystemEffects extends Win32Struct
-{
+class APOInitSystemEffects extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -18,7 +18,7 @@ class APOInitSystemEffects extends Win32Struct
      * An <a href="https://docs.microsoft.com/windows/desktop/api/audioenginebaseapo/ns-audioenginebaseapo-apoinitbasestruct">APOInitBaseStruct</a> structure.
      * @type {APOInitBaseStruct}
      */
-    APOInit{
+    APOInit {
         get {
             if(!this.HasProp("__APOInit"))
                 this.__APOInit := APOInitBaseStruct(0, this)

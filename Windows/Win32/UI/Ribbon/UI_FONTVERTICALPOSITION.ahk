@@ -12,9 +12,8 @@
  * The <b>Subscript</b> and <b>Superscript</b> buttons are toggled based on the <b>UI_FONTVERTICALPOSITION</b> value in <a href="https://docs.microsoft.com/windows/desktop/windowsribbon/windowsribbon-reference-properties-uipkey-fontproperties-verticalpositioning">UI_PKEY_FontProperties_VerticalPositioning</a>.
  * @see https://learn.microsoft.com/windows/win32/api/uiribbon/ne-uiribbon-ui_fontverticalposition
  * @namespace Windows.Win32.UI.Ribbon
- * @version v4.0.30319
  */
-class UI_FONTVERTICALPOSITION extends Win32Enum{
+class UI_FONTVERTICALPOSITION extends Win32Enum {
 
     /**
      * Vertical positioning is not enabled.

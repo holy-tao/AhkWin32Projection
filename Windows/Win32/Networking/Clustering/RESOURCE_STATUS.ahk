@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\CLUSTER_RESOURCE_STATE.ahk
 #Include ..\..\Foundation\HANDLE.ahk
 
 /**
@@ -28,10 +29,8 @@
  *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/implementing-resource-dlls">Implementing Resource DLLs</a>.
  * @see https://learn.microsoft.com/windows/win32/api/resapi/ns-resapi-resource_status
  * @namespace Windows.Win32.Networking.Clustering
- * @version v4.0.30319
  */
-class RESOURCE_STATUS extends Win32Struct
-{
+class RESOURCE_STATUS extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -39,7 +38,7 @@ class RESOURCE_STATUS extends Win32Struct
     /**
      * A value describing the state of a resource enumerated by the 
      *        <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/ne-clusapi-cluster_resource_state">CLUSTER_RESOURCE_STATE</a> enumeration.  The possible values for this member are as follows:
-     * @type {Integer}
+     * @type {CLUSTER_RESOURCE_STATE}
      */
     ResourceState {
         get => NumGet(this, 0, "int")
@@ -69,7 +68,7 @@ class RESOURCE_STATUS extends Win32Struct
      * Handle to an event that indicates when the resource has failed.
      * @type {HANDLE}
      */
-    EventHandle{
+    EventHandle {
         get {
             if(!this.HasProp("__EventHandle"))
                 this.__EventHandle := HANDLE(16, this)

@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class STORAGE_REINITIALIZE_MEDIA extends Win32Struct
-{
+class STORAGE_REINITIALIZE_MEDIA extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4
@@ -26,7 +24,7 @@ class STORAGE_REINITIALIZE_MEDIA extends Win32Struct
             get => NumGet(this, 0, "uint")
             set => NumPut("uint", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -34,7 +32,7 @@ class STORAGE_REINITIALIZE_MEDIA extends Win32Struct
             get => (this._bitfield >> 0) & 0xF
             set => this._bitfield := ((value & 0xF) << 0) | (this._bitfield & ~(0xF << 0))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -42,7 +40,6 @@ class STORAGE_REINITIALIZE_MEDIA extends Win32Struct
             get => (this._bitfield >> 4) & 0x1
             set => this._bitfield := ((value & 0x1) << 4) | (this._bitfield & ~(0x1 << 4))
         }
-    
     }
 
     /**
@@ -72,10 +69,10 @@ class STORAGE_REINITIALIZE_MEDIA extends Win32Struct
     /**
      * @type {_SanitizeOption}
      */
-    SanitizeOption{
+    SanitizeOption {
         get {
             if(!this.HasProp("__SanitizeOption"))
-                this.__SanitizeOption := %this.__Class%._SanitizeOption(12, this)
+                this.__SanitizeOption := STORAGE_REINITIALIZE_MEDIA._SanitizeOption(12, this)
             return this.__SanitizeOption
         }
     }

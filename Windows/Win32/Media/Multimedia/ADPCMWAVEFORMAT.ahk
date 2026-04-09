@@ -5,18 +5,16 @@
 
 /**
  * @namespace Windows.Win32.Media.Multimedia
- * @version v4.0.30319
  */
-class ADPCMWAVEFORMAT extends Win32Struct
-{
-    static sizeof => 32
+class ADPCMWAVEFORMAT extends Win32Struct {
+    static sizeof => 28
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {WAVEFORMATEX}
      */
-    wfx{
+    wfx {
         get {
             if(!this.HasProp("__wfx"))
                 this.__wfx := WAVEFORMATEX(0, this)
@@ -41,9 +39,9 @@ class ADPCMWAVEFORMAT extends Win32Struct
     }
 
     /**
-     * @type {Array<ADPCMCOEFSET>}
+     * @type {ADPCMCOEFSET}
      */
-    aCoef{
+    aCoef {
         get {
             if(!this.HasProp("__aCoefProxyArray"))
                 this.__aCoefProxyArray := Win32FixedArray(this.ptr + 24, 1, ADPCMCOEFSET, "")

@@ -7,9 +7,8 @@
  * Provides methods for the storage and retrieval of metadata information in tables.
  * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nn-rometadataapi-imetadatatables
  * @namespace Windows.Win32.System.WinRT.Metadata
- * @version v4.0.30319
  */
-class IMetaDataTables extends IUnknown{
+class IMetaDataTables extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -6,10 +6,8 @@
  * The SYSTEM_ALARM_OBJECT_ACE structure is reserved for future use.
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-system_alarm_object_ace
  * @namespace Windows.Win32.Security
- * @version v4.0.30319
  */
-class SYSTEM_ALARM_OBJECT_ACE extends Win32Struct
-{
+class SYSTEM_ALARM_OBJECT_ACE extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -17,7 +15,7 @@ class SYSTEM_ALARM_OBJECT_ACE extends Win32Struct
     /**
      * @type {ACE_HEADER}
      */
-    Header{
+    Header {
         get {
             if(!this.HasProp("__Header"))
                 this.__Header := ACE_HEADER(0, this)
@@ -42,7 +40,7 @@ class SYSTEM_ALARM_OBJECT_ACE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     ObjectType {
         get => NumGet(this, 16, "ptr")
@@ -50,7 +48,7 @@ class SYSTEM_ALARM_OBJECT_ACE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     InheritedObjectType {
         get => NumGet(this, 24, "ptr")

@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include .\IEnumAgentHandler.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * The ITTAPICallCenter interface (tapi3cc.h) provides an entry point into call center controls.
  * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/nn-tapi3cc-ittapicallcenter
  * @namespace Windows.Win32.Devices.Tapi
- * @version v4.0.30319
  */
-class ITTAPICallCenter extends IDispatch{
+class ITTAPICallCenter extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.Bluetooth
- * @version v4.0.30319
  */
-class SDP_ULARGE_INTEGER_16 extends Win32Struct
-{
+class SDP_ULARGE_INTEGER_16 extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

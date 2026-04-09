@@ -3,14 +3,10 @@
 
 /**
  * Contains dynamic exception handling continuation targets.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-process_dynamic_eh_continuation_target
  * @namespace Windows.Win32.System.Threading
- * @version v4.0.30319
  */
-class PROCESS_DYNAMIC_EH_CONTINUATION_TARGET extends Win32Struct
-{
+class PROCESS_DYNAMIC_EH_CONTINUATION_TARGET extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

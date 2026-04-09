@@ -7,10 +7,8 @@
  * The MCI\_STATUS\_ITEM flag must be set in the *fdwCommand* parameter of the [**mciSendCommand**](/previous-versions//dd757160(v=vs.85)) function to validate the **dwItem** member, which should contain one of the constants indicating what status information is being requested.
  * @see https://learn.microsoft.com/windows/win32/Multimedia/mci-status-parms
  * @namespace Windows.Win32.Media.Multimedia
- * @version v4.0.30319
  */
-class MCI_STATUS_PARMS extends Win32Struct
-{
+class MCI_STATUS_PARMS extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

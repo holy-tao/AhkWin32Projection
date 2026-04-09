@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\COPYFILE_FLAGS.ahk
+#Include .\COPYFILE2_V2_FLAGS.ahk
+#Include .\COPYFILE2_CREATE_OPLOCK_KEYS.ahk
 
 /**
  * @namespace Windows.Win32.Storage.FileSystem
- * @version v4.0.30319
  */
-class COPYFILE2_EXTENDED_PARAMETERS_V2 extends Win32Struct
-{
+class COPYFILE2_EXTENDED_PARAMETERS_V2 extends Win32Struct {
     static sizeof => 112
 
     static packingSize => 8
@@ -20,7 +21,7 @@ class COPYFILE2_EXTENDED_PARAMETERS_V2 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {COPYFILE_FLAGS}
      */
     dwCopyFlags {
         get => NumGet(this, 4, "uint")
@@ -52,7 +53,7 @@ class COPYFILE2_EXTENDED_PARAMETERS_V2 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {COPYFILE2_V2_FLAGS}
      */
     dwCopyFlagsV2 {
         get => NumGet(this, 32, "uint")
@@ -92,9 +93,9 @@ class COPYFILE2_EXTENDED_PARAMETERS_V2 extends Win32Struct
     }
 
     /**
-     * @type {Array<Void>}
+     * @type {Array<Pointer<Void>>}
      */
-    reserved{
+    reserved {
         get {
             if(!this.HasProp("__reservedProxyArray"))
                 this.__reservedProxyArray := Win32FixedArray(this.ptr + 64, 6, Primitive, "ptr")

@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem
- * @version v4.0.30319
  */
-class _LCN_WEAK_REFERENCE_STATE extends Win32Enum{
+class _LCN_WEAK_REFERENCE_STATE extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

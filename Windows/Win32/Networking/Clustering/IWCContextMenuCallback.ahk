@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -13,9 +12,8 @@
  *      method to call the <b>IWCContextMenuCallback</b> interface.
  * @see https://learn.microsoft.com/windows/win32/api/cluadmex/nn-cluadmex-iwccontextmenucallback
  * @namespace Windows.Win32.Networking.Clustering
- * @version v4.0.30319
  */
-class IWCContextMenuCallback extends IUnknown{
+class IWCContextMenuCallback extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

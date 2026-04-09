@@ -7,9 +7,8 @@
  * Extends the IAzAuthorizationStore2 interface with methods that manage business rule (BizRule) support and caching.
  * @see https://learn.microsoft.com/windows/win32/api/azroles/nn-azroles-iazauthorizationstore3
  * @namespace Windows.Win32.Security.Authorization
- * @version v4.0.30319
  */
-class IAzAuthorizationStore3 extends IAzAuthorizationStore2{
+class IAzAuthorizationStore3 extends IAzAuthorizationStore2 {
 
     static sizeof => A_PtrSize
     /**

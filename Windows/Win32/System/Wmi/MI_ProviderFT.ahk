@@ -5,10 +5,8 @@
  * A support structure used in the MI_ClassDecl and MI_Module structures.
  * @see https://learn.microsoft.com/windows/win32/api/mi/ns-mi-mi_providerft
  * @namespace Windows.Win32.System.Wmi
- * @version v4.0.30319
  */
-class MI_ProviderFT extends Win32Struct
-{
+class MI_ProviderFT extends Win32Struct {
     static sizeof => 112
 
     static packingSize => 8

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\EMR.ahk
+#Include .\ENHANCED_METAFILE_RECORD_TYPE.ahk
 #Include ..\..\Foundation\RECTL.ahk
 #Include ..\..\Foundation\POINTL.ahk
 
@@ -8,19 +9,17 @@
  * The EMRPOLYPOLYLINE and EMRPOLYPOLYGON structures contain members for the PolyPolyline and PolyPolygon enhanced metafile records.
  * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-emrpolypolyline
  * @namespace Windows.Win32.Graphics.Gdi
- * @version v4.0.30319
  */
-class EMRPOLYPOLYLINE extends Win32Struct
-{
-    static sizeof => 48
+class EMRPOLYPOLYLINE extends Win32Struct {
+    static sizeof => 44
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * The base structure for all record types.
      * @type {EMR}
      */
-    emr{
+    emr {
         get {
             if(!this.HasProp("__emr"))
                 this.__emr := EMR(0, this)
@@ -32,7 +31,7 @@ class EMRPOLYPOLYLINE extends Win32Struct
      * The bounding rectangle, in device units.
      * @type {RECTL}
      */
-    rclBounds{
+    rclBounds {
         get {
             if(!this.HasProp("__rclBounds"))
                 this.__rclBounds := RECTL(8, this)
@@ -60,9 +59,9 @@ class EMRPOLYPOLYLINE extends Win32Struct
 
     /**
      * An array of point counts for each poly.
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    aPolyCounts{
+    aPolyCounts {
         get {
             if(!this.HasProp("__aPolyCountsProxyArray"))
                 this.__aPolyCountsProxyArray := Win32FixedArray(this.ptr + 32, 1, Primitive, "uint")
@@ -72,12 +71,12 @@ class EMRPOLYPOLYLINE extends Win32Struct
 
     /**
      * An array of <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-pointl">POINTL</a> structures, representing the points in logical units.
-     * @type {Array<POINTL>}
+     * @type {POINTL}
      */
-    aptl{
+    aptl {
         get {
             if(!this.HasProp("__aptlProxyArray"))
-                this.__aptlProxyArray := Win32FixedArray(this.ptr + 40, 1, POINTL, "")
+                this.__aptlProxyArray := Win32FixedArray(this.ptr + 36, 1, POINTL, "")
             return this.__aptlProxyArray
         }
     }

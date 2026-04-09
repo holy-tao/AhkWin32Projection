@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Ndis
- * @version v4.0.30319
  */
-class IF_ADMINISTRATIVE_STATE extends Win32Enum{
+class IF_ADMINISTRATIVE_STATE extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

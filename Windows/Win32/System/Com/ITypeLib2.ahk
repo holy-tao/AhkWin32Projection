@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ITypeLib.ahk
 #Include ..\Variant\VARIANT.ahk
 #Include .\CUSTDATA.ahk
-#Include .\ITypeLib.ahk
 
 /**
  * Represents a type library, the data that describes a set of objects. (ITypeLib2)
  * @see https://learn.microsoft.com/windows/win32/api/oaidl/nn-oaidl-itypelib2
  * @namespace Windows.Win32.System.Com
- * @version v4.0.30319
  */
-class ITypeLib2 extends ITypeLib{
+class ITypeLib2 extends ITypeLib {
 
     static sizeof => A_PtrSize
     /**

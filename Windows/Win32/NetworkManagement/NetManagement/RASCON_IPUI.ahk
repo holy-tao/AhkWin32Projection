@@ -3,16 +3,14 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.NetManagement
- * @version v4.0.30319
  */
-class RASCON_IPUI extends Win32Struct
-{
+class RASCON_IPUI extends Win32Struct {
     static sizeof => 1096
 
     static packingSize => 8
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     guidConnection {
         get => NumGet(this, 0, "ptr")

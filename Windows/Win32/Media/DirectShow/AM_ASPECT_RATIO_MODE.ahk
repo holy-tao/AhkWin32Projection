@@ -7,9 +7,8 @@
  * The AM_ARMODE_STRETCHED member causes a video stream to occupy the entire region of the display window when the window is resized, possibly stretching the video. The AM_ARMODE_LETTER_BOX member eliminates video stretching and distortions by keeping the aspect ratio consistent and painting the excess areas of the window a background color. The AM_ARMODE_CROP member also prevents stretching, by cropping the image if necessary.
  * @see https://learn.microsoft.com/windows/win32/api/mpconfig/ne-mpconfig-am_aspect_ratio_mode
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class AM_ASPECT_RATIO_MODE extends Win32Enum{
+class AM_ASPECT_RATIO_MODE extends Win32Enum {
 
     /**
      * No aspect ratio correction.

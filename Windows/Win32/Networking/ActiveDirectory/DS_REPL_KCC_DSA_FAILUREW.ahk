@@ -6,10 +6,8 @@
  * The DS_REPL_KCC_DSA_FAILURE structure contains replication state data about a specific inbound replication partner, as returned by the DsReplicaGetInfo and DsReplicaGetInfo2 function.
  * @see https://learn.microsoft.com/windows/win32/api/ntdsapi/ns-ntdsapi-ds_repl_kcc_dsa_failurew
  * @namespace Windows.Win32.Networking.ActiveDirectory
- * @version v4.0.30319
  */
-class DS_REPL_KCC_DSA_FAILUREW extends Win32Struct
-{
+class DS_REPL_KCC_DSA_FAILUREW extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -25,7 +23,7 @@ class DS_REPL_KCC_DSA_FAILUREW extends Win32Struct
 
     /**
      * Contains the <b>objectGuid</b> of the directory system agent object represented by the <b>pszDsaDN</b> member.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     uuidDsaObjGuid {
         get => NumGet(this, 8, "ptr")
@@ -36,7 +34,7 @@ class DS_REPL_KCC_DSA_FAILUREW extends Win32Struct
      * Contains a <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> structure which the contents of depends on the value passed for the <i>InfoType</i> parameter when <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsreplicagetinfow">DsReplicaGetInfo</a> or <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsreplicagetinfo2w">DsReplicaGetInfo2</a> function was called.
      * @type {FILETIME}
      */
-    ftimeFirstFailure{
+    ftimeFirstFailure {
         get {
             if(!this.HasProp("__ftimeFirstFailure"))
                 this.__ftimeFirstFailure := FILETIME(16, this)

@@ -7,9 +7,8 @@
  * Provides device-related notifications to an instance of an IWSDDeviceHost object.
  * @see https://learn.microsoft.com/windows/win32/api/wsdhost/nn-wsdhost-iwsddevicehostnotify
  * @namespace Windows.Win32.Devices.WebServicesOnDevices
- * @version v4.0.30319
  */
-class IWSDDeviceHostNotify extends IUnknown{
+class IWSDDeviceHostNotify extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

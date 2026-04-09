@@ -6,10 +6,8 @@
  * Contains information for a specific link-layer filter.
  * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/ns-dhcpsapi-dhcp_filter_record
  * @namespace Windows.Win32.NetworkManagement.Dhcp
- * @version v4.0.30319
  */
-class DHCP_FILTER_RECORD extends Win32Struct
-{
+class DHCP_FILTER_RECORD extends Win32Struct {
     static sizeof => 280
 
     static packingSize => 8
@@ -18,7 +16,7 @@ class DHCP_FILTER_RECORD extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-dhcp_addr_pattern">DHCP_ADDR_PATTERN</a> structure that contains the address/pattern related information of the link-layer filter.
      * @type {DHCP_ADDR_PATTERN}
      */
-    AddrPatt{
+    AddrPatt {
         get {
             if(!this.HasProp("__AddrPatt"))
                 this.__AddrPatt := DHCP_ADDR_PATTERN(0, this)

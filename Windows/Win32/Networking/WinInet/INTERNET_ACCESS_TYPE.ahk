@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Networking.WinInet
- * @version v4.0.30319
  */
-class INTERNET_ACCESS_TYPE extends Win32Enum{
+class INTERNET_ACCESS_TYPE extends Win32Enum {
 
     /**
      * @type {Integer (UInt32)}

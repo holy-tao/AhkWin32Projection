@@ -5,9 +5,8 @@
  * Specifies how keys, extension values, and external properties are inherited when a new request is created from an existing certificate.
  * @see https://learn.microsoft.com/windows/win32/api/certenroll/ne-certenroll-x509requestinheritoptions
  * @namespace Windows.Win32.Security.Cryptography.Certificates
- * @version v4.0.30319
  */
-class X509RequestInheritOptions extends Win32Enum{
+class X509RequestInheritOptions extends Win32Enum {
 
     /**
      * Inheritance is not specified. For more information, see the  <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509certificaterequestpkcs10-initializefromcertificate">InitializeFromCertificate</a> method on the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-ix509certificaterequestpkcs10">IX509CertificateRequestPkcs10</a> interface.
@@ -107,7 +106,6 @@ class X509RequestInheritOptions extends Win32Enum{
     static InheritValidityPeriodFlag => 1024
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static InheritReserved80000000 => -2147483648

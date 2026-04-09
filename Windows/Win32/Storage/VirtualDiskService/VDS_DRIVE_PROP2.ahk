@@ -1,5 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\VDS_DRIVE_STATUS.ahk
+#Include .\VDS_HEALTH.ahk
+#Include .\VDS_STORAGE_BUS_TYPE.ahk
 
 /**
  * The VDS_DRIVE_PROP2 structure (vdshwprv.h) defines the properties of a drive object.
@@ -7,17 +10,15 @@
  * This structure is used by the <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/nf-vdshwprv-ivdsdrive2-getproperties2">IVdsDrive2::GetProperties2</a> method to return the properties for a <a href="https://docs.microsoft.com/windows/desktop/VDS/drive-object">drive object</a>.
  * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/ns-vdshwprv-vds_drive_prop2
  * @namespace Windows.Win32.Storage.VirtualDiskService
- * @version v4.0.30319
  */
-class VDS_DRIVE_PROP2 extends Win32Struct
-{
+class VDS_DRIVE_PROP2 extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 8
 
     /**
      * The GUID of the drive object.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     id {
         get => NumGet(this, 0, "ptr")
@@ -64,7 +65,7 @@ class VDS_DRIVE_PROP2 extends Win32Struct
     /**
      * A  
      *       <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ne-vdshwprv-vds_drive_status">VDS_DRIVE_STATUS</a> enumeration value that specifies the status of the drive.
-     * @type {Integer}
+     * @type {VDS_DRIVE_STATUS}
      */
     status {
         get => NumGet(this, 36, "int")
@@ -76,7 +77,7 @@ class VDS_DRIVE_PROP2 extends Win32Struct
      *       <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ne-vdshwprv-vds_health">VDS_HEALTH</a> enumeration value that specifies the health status of the drive. The following are the valid values for this member.
      * 
      * <b>Windows Server 2008, Windows Vista and Windows Server 2003:  </b><b>VDS_H_REPLACED</b> and <b>VDS_H_PENDING_FAILURE</b> are not supported.
-     * @type {Integer}
+     * @type {VDS_HEALTH}
      */
     health {
         get => NumGet(this, 40, "int")
@@ -112,7 +113,7 @@ class VDS_DRIVE_PROP2 extends Win32Struct
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/vdslun/ne-vdslun-vds_storage_bus_type">VDS_STORAGE_BUS_TYPE</a> value that specifies the bus type of the drive. A value of zero means that the bus type is unknown.
-     * @type {Integer}
+     * @type {VDS_STORAGE_BUS_TYPE}
      */
     busType {
         get => NumGet(this, 52, "int")

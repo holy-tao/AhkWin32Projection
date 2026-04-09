@@ -11,10 +11,8 @@
  * To configure an individual service, call [**QueryInterface**](/windows/desktop/api/unknwn/nf-unknwn-iunknown-queryinterface(q)) for the interface associated with the service and then call methods on that interface to establish the appropriate configuration.
  * @see https://learn.microsoft.com/windows/win32/cossdk/cserviceconfig
  * @namespace Windows.Win32.System.ComponentServices
- * @version v4.0.30319
  */
-class CServiceConfig extends Win32Struct
-{
+class CServiceConfig extends Win32Struct {
     static sizeof => 0
 
     static packingSize => 1

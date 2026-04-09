@@ -5,19 +5,17 @@
  * Contains extended package information used for NEGO2 negotiations.
  * @see https://learn.microsoft.com/windows/win32/api/ntsecpkg/ns-ntsecpkg-secpkg_nego2_info
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class SECPKG_NEGO2_INFO extends Win32Struct
-{
+class SECPKG_NEGO2_INFO extends Win32Struct {
     static sizeof => 20
 
     static packingSize => 4
 
     /**
      * The authentication identifier.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    AuthScheme{
+    AuthScheme {
         get {
             if(!this.HasProp("__AuthSchemeProxyArray"))
                 this.__AuthSchemeProxyArray := Win32FixedArray(this.ptr + 0, 16, Primitive, "char")

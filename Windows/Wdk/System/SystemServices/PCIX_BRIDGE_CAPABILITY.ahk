@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class PCIX_BRIDGE_CAPABILITY extends Win32Struct
-{
+class PCIX_BRIDGE_CAPABILITY extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -34,7 +32,7 @@ class PCIX_BRIDGE_CAPABILITY extends Win32Struct
             get => NumGet(this, 0, "ushort")
             set => NumPut("ushort", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -42,7 +40,7 @@ class PCIX_BRIDGE_CAPABILITY extends Win32Struct
             get => (this._bitfield >> 0) & 0x1
             set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -50,7 +48,7 @@ class PCIX_BRIDGE_CAPABILITY extends Win32Struct
             get => (this._bitfield >> 1) & 0x1
             set => this._bitfield := ((value & 0x1) << 1) | (this._bitfield & ~(0x1 << 1))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -58,7 +56,7 @@ class PCIX_BRIDGE_CAPABILITY extends Win32Struct
             get => (this._bitfield >> 2) & 0x1
             set => this._bitfield := ((value & 0x1) << 2) | (this._bitfield & ~(0x1 << 2))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -66,7 +64,7 @@ class PCIX_BRIDGE_CAPABILITY extends Win32Struct
             get => (this._bitfield >> 3) & 0x1
             set => this._bitfield := ((value & 0x1) << 3) | (this._bitfield & ~(0x1 << 3))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -74,7 +72,7 @@ class PCIX_BRIDGE_CAPABILITY extends Win32Struct
             get => (this._bitfield >> 4) & 0x1
             set => this._bitfield := ((value & 0x1) << 4) | (this._bitfield & ~(0x1 << 4))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -82,7 +80,7 @@ class PCIX_BRIDGE_CAPABILITY extends Win32Struct
             get => (this._bitfield >> 5) & 0x1
             set => this._bitfield := ((value & 0x1) << 5) | (this._bitfield & ~(0x1 << 5))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -90,7 +88,7 @@ class PCIX_BRIDGE_CAPABILITY extends Win32Struct
             get => (this._bitfield >> 6) & 0xF
             set => this._bitfield := ((value & 0xF) << 6) | (this._bitfield & ~(0xF << 6))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -98,7 +96,7 @@ class PCIX_BRIDGE_CAPABILITY extends Win32Struct
             get => (this._bitfield >> 10) & 0x3
             set => this._bitfield := ((value & 0x3) << 10) | (this._bitfield & ~(0x3 << 10))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -106,7 +104,7 @@ class PCIX_BRIDGE_CAPABILITY extends Win32Struct
             get => (this._bitfield >> 12) & 0x3
             set => this._bitfield := ((value & 0x3) << 12) | (this._bitfield & ~(0x3 << 12))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -114,7 +112,7 @@ class PCIX_BRIDGE_CAPABILITY extends Win32Struct
             get => (this._bitfield >> 14) & 0x1
             set => this._bitfield := ((value & 0x1) << 14) | (this._bitfield & ~(0x1 << 14))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -122,7 +120,7 @@ class PCIX_BRIDGE_CAPABILITY extends Win32Struct
             get => (this._bitfield >> 15) & 0x1
             set => this._bitfield := ((value & 0x1) << 15) | (this._bitfield & ~(0x1 << 15))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -130,7 +128,6 @@ class PCIX_BRIDGE_CAPABILITY extends Win32Struct
             get => NumGet(this, 0, "ushort")
             set => NumPut("ushort", value, this, 0)
         }
-    
     }
 
     class _BridgeStatus_e__Union extends Win32Struct {
@@ -158,7 +155,7 @@ class PCIX_BRIDGE_CAPABILITY extends Win32Struct
             get => NumGet(this, 0, "uint")
             set => NumPut("uint", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -166,7 +163,7 @@ class PCIX_BRIDGE_CAPABILITY extends Win32Struct
             get => (this._bitfield >> 0) & 0x7
             set => this._bitfield := ((value & 0x7) << 0) | (this._bitfield & ~(0x7 << 0))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -174,7 +171,7 @@ class PCIX_BRIDGE_CAPABILITY extends Win32Struct
             get => (this._bitfield >> 3) & 0x1F
             set => this._bitfield := ((value & 0x1F) << 3) | (this._bitfield & ~(0x1F << 3))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -182,7 +179,7 @@ class PCIX_BRIDGE_CAPABILITY extends Win32Struct
             get => (this._bitfield >> 8) & 0xFF
             set => this._bitfield := ((value & 0xFF) << 8) | (this._bitfield & ~(0xFF << 8))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -190,7 +187,7 @@ class PCIX_BRIDGE_CAPABILITY extends Win32Struct
             get => (this._bitfield >> 16) & 0x1
             set => this._bitfield := ((value & 0x1) << 16) | (this._bitfield & ~(0x1 << 16))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -198,7 +195,7 @@ class PCIX_BRIDGE_CAPABILITY extends Win32Struct
             get => (this._bitfield >> 17) & 0x1
             set => this._bitfield := ((value & 0x1) << 17) | (this._bitfield & ~(0x1 << 17))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -206,7 +203,7 @@ class PCIX_BRIDGE_CAPABILITY extends Win32Struct
             get => (this._bitfield >> 18) & 0x1
             set => this._bitfield := ((value & 0x1) << 18) | (this._bitfield & ~(0x1 << 18))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -214,7 +211,7 @@ class PCIX_BRIDGE_CAPABILITY extends Win32Struct
             get => (this._bitfield >> 19) & 0x1
             set => this._bitfield := ((value & 0x1) << 19) | (this._bitfield & ~(0x1 << 19))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -222,7 +219,7 @@ class PCIX_BRIDGE_CAPABILITY extends Win32Struct
             get => (this._bitfield >> 20) & 0x1
             set => this._bitfield := ((value & 0x1) << 20) | (this._bitfield & ~(0x1 << 20))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -230,7 +227,7 @@ class PCIX_BRIDGE_CAPABILITY extends Win32Struct
             get => (this._bitfield >> 21) & 0x1
             set => this._bitfield := ((value & 0x1) << 21) | (this._bitfield & ~(0x1 << 21))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -238,7 +235,7 @@ class PCIX_BRIDGE_CAPABILITY extends Win32Struct
             get => (this._bitfield >> 22) & 0x7F
             set => this._bitfield := ((value & 0x7F) << 22) | (this._bitfield & ~(0x7F << 22))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -246,7 +243,7 @@ class PCIX_BRIDGE_CAPABILITY extends Win32Struct
             get => (this._bitfield >> 29) & 0x1
             set => this._bitfield := ((value & 0x1) << 29) | (this._bitfield & ~(0x1 << 29))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -254,7 +251,7 @@ class PCIX_BRIDGE_CAPABILITY extends Win32Struct
             get => (this._bitfield >> 30) & 0x1
             set => this._bitfield := ((value & 0x1) << 30) | (this._bitfield & ~(0x1 << 30))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -262,7 +259,7 @@ class PCIX_BRIDGE_CAPABILITY extends Win32Struct
             get => (this._bitfield >> 31) & 0x1
             set => this._bitfield := ((value & 0x1) << 31) | (this._bitfield & ~(0x1 << 31))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -270,7 +267,6 @@ class PCIX_BRIDGE_CAPABILITY extends Win32Struct
             get => NumGet(this, 0, "uint")
             set => NumPut("uint", value, this, 0)
         }
-    
     }
 
     class _EccControlStatus_e__Union extends Win32Struct {
@@ -299,7 +295,7 @@ class PCIX_BRIDGE_CAPABILITY extends Win32Struct
             get => NumGet(this, 0, "uint")
             set => NumPut("uint", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -307,7 +303,7 @@ class PCIX_BRIDGE_CAPABILITY extends Win32Struct
             get => (this._bitfield >> 0) & 0x1
             set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -315,7 +311,7 @@ class PCIX_BRIDGE_CAPABILITY extends Win32Struct
             get => (this._bitfield >> 1) & 0x1
             set => this._bitfield := ((value & 0x1) << 1) | (this._bitfield & ~(0x1 << 1))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -323,7 +319,7 @@ class PCIX_BRIDGE_CAPABILITY extends Win32Struct
             get => (this._bitfield >> 2) & 0x1
             set => this._bitfield := ((value & 0x1) << 2) | (this._bitfield & ~(0x1 << 2))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -331,7 +327,7 @@ class PCIX_BRIDGE_CAPABILITY extends Win32Struct
             get => (this._bitfield >> 3) & 0x1
             set => this._bitfield := ((value & 0x1) << 3) | (this._bitfield & ~(0x1 << 3))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -339,7 +335,7 @@ class PCIX_BRIDGE_CAPABILITY extends Win32Struct
             get => (this._bitfield >> 4) & 0x7
             set => this._bitfield := ((value & 0x7) << 4) | (this._bitfield & ~(0x7 << 4))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -347,7 +343,7 @@ class PCIX_BRIDGE_CAPABILITY extends Win32Struct
             get => (this._bitfield >> 7) & 0x1
             set => this._bitfield := ((value & 0x1) << 7) | (this._bitfield & ~(0x1 << 7))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -355,7 +351,7 @@ class PCIX_BRIDGE_CAPABILITY extends Win32Struct
             get => (this._bitfield >> 8) & 0xFF
             set => this._bitfield := ((value & 0xFF) << 8) | (this._bitfield & ~(0xFF << 8))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -363,7 +359,7 @@ class PCIX_BRIDGE_CAPABILITY extends Win32Struct
             get => (this._bitfield >> 16) & 0xF
             set => this._bitfield := ((value & 0xF) << 16) | (this._bitfield & ~(0xF << 16))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -371,7 +367,7 @@ class PCIX_BRIDGE_CAPABILITY extends Win32Struct
             get => (this._bitfield >> 20) & 0xF
             set => this._bitfield := ((value & 0xF) << 20) | (this._bitfield & ~(0xF << 20))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -379,7 +375,7 @@ class PCIX_BRIDGE_CAPABILITY extends Win32Struct
             get => (this._bitfield >> 24) & 0xF
             set => this._bitfield := ((value & 0xF) << 24) | (this._bitfield & ~(0xF << 24))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -387,7 +383,7 @@ class PCIX_BRIDGE_CAPABILITY extends Win32Struct
             get => (this._bitfield >> 28) & 0x1
             set => this._bitfield := ((value & 0x1) << 28) | (this._bitfield & ~(0x1 << 28))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -395,7 +391,7 @@ class PCIX_BRIDGE_CAPABILITY extends Win32Struct
             get => (this._bitfield >> 29) & 0x1
             set => this._bitfield := ((value & 0x1) << 29) | (this._bitfield & ~(0x1 << 29))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -403,7 +399,7 @@ class PCIX_BRIDGE_CAPABILITY extends Win32Struct
             get => (this._bitfield >> 30) & 0x1
             set => this._bitfield := ((value & 0x1) << 30) | (this._bitfield & ~(0x1 << 30))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -411,7 +407,7 @@ class PCIX_BRIDGE_CAPABILITY extends Win32Struct
             get => (this._bitfield >> 31) & 0x1
             set => this._bitfield := ((value & 0x1) << 31) | (this._bitfield & ~(0x1 << 31))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -419,11 +415,10 @@ class PCIX_BRIDGE_CAPABILITY extends Win32Struct
             get => NumGet(this, 0, "uint")
             set => NumPut("uint", value, this, 0)
         }
-    
     }
 
     /**
-     * @type {Pointer<PCI_CAPABILITIES_HEADER>}
+     * @type {Pointer}
      */
     Header {
         get => NumGet(this, 0, "ptr")
@@ -433,10 +428,10 @@ class PCIX_BRIDGE_CAPABILITY extends Win32Struct
     /**
      * @type {_SecondaryStatus_e__Union}
      */
-    SecondaryStatus{
+    SecondaryStatus {
         get {
             if(!this.HasProp("__SecondaryStatus"))
-                this.__SecondaryStatus := %this.__Class%._SecondaryStatus_e__Union(8, this)
+                this.__SecondaryStatus := PCIX_BRIDGE_CAPABILITY._SecondaryStatus_e__Union(8, this)
             return this.__SecondaryStatus
         }
     }
@@ -444,10 +439,10 @@ class PCIX_BRIDGE_CAPABILITY extends Win32Struct
     /**
      * @type {_BridgeStatus_e__Union}
      */
-    BridgeStatus{
+    BridgeStatus {
         get {
             if(!this.HasProp("__BridgeStatus"))
-                this.__BridgeStatus := %this.__Class%._BridgeStatus_e__Union(12, this)
+                this.__BridgeStatus := PCIX_BRIDGE_CAPABILITY._BridgeStatus_e__Union(12, this)
             return this.__BridgeStatus
         }
     }
@@ -487,10 +482,10 @@ class PCIX_BRIDGE_CAPABILITY extends Win32Struct
     /**
      * @type {_EccControlStatus_e__Union}
      */
-    EccControlStatus{
+    EccControlStatus {
         get {
             if(!this.HasProp("__EccControlStatus"))
-                this.__EccControlStatus := %this.__Class%._EccControlStatus_e__Union(24, this)
+                this.__EccControlStatus := PCIX_BRIDGE_CAPABILITY._EccControlStatus_e__Union(24, this)
             return this.__EccControlStatus
         }
     }

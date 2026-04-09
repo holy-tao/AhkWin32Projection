@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\HINSTANCE.ahk
+#Include ..\WindowsAndMessaging\DLGTEMPLATE.ahk
 #Include ..\WindowsAndMessaging\HICON.ahk
 
 /**
  * @namespace Windows.Win32.UI.Controls
- * @version v4.0.30319
  */
-class PROPSHEETPAGEA_V1 extends Win32Struct
-{
+class PROPSHEETPAGEA_V1 extends Win32Struct {
     static sizeof => 72
 
     static packingSize => 8
@@ -32,7 +31,7 @@ class PROPSHEETPAGEA_V1 extends Win32Struct
     /**
      * @type {HINSTANCE}
      */
-    hInstance{
+    hInstance {
         get {
             if(!this.HasProp("__hInstance"))
                 this.__hInstance := HINSTANCE(8, this)
@@ -59,7 +58,7 @@ class PROPSHEETPAGEA_V1 extends Win32Struct
     /**
      * @type {HICON}
      */
-    hIcon{
+    hIcon {
         get {
             if(!this.HasProp("__hIcon"))
                 this.__hIcon := HICON(24, this)

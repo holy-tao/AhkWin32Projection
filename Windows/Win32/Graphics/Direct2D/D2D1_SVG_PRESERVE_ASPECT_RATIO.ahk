@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\D2D1_SVG_ASPECT_ALIGN.ahk
+#Include .\D2D1_SVG_ASPECT_SCALING.ahk
 
 /**
  * Represents all SVG preserveAspectRatio settings.
  * @see https://learn.microsoft.com/windows/win32/api/d2d1svg/ns-d2d1svg-d2d1_svg_preserve_aspect_ratio
  * @namespace Windows.Win32.Graphics.Direct2D
- * @version v4.0.30319
  */
-class D2D1_SVG_PRESERVE_ASPECT_RATIO extends Win32Struct
-{
+class D2D1_SVG_PRESERVE_ASPECT_RATIO extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4
@@ -25,7 +25,7 @@ class D2D1_SVG_PRESERVE_ASPECT_RATIO extends Win32Struct
 
     /**
      * Sets the align portion of the preserveAspectRatio settings.
-     * @type {Integer}
+     * @type {D2D1_SVG_ASPECT_ALIGN}
      */
     align {
         get => NumGet(this, 4, "int")
@@ -34,7 +34,7 @@ class D2D1_SVG_PRESERVE_ASPECT_RATIO extends Win32Struct
 
     /**
      * Sets the meetOrSlice portion of the preserveAspectRatio settings.
-     * @type {Integer}
+     * @type {D2D1_SVG_ASPECT_SCALING}
      */
     meetOrSlice {
         get => NumGet(this, 8, "int")

@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.System.Hypervisor
- * @version v4.0.30319
  */
-class WHV_SRIOV_RESOURCE_DESCRIPTOR extends Win32Struct
-{
+class WHV_SRIOV_RESOURCE_DESCRIPTOR extends Win32Struct {
     static sizeof => 412
 
     static packingSize => 4
@@ -23,7 +21,7 @@ class WHV_SRIOV_RESOURCE_DESCRIPTOR extends Win32Struct
     /**
      * @type {LUID}
      */
-    VirtualFunctionId{
+    VirtualFunctionId {
         get {
             if(!this.HasProp("__VirtualFunctionId"))
                 this.__VirtualFunctionId := LUID(400, this)

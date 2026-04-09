@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.Display
- * @version v4.0.30319
  */
-class HDEV extends Win32Handle
-{
+class HDEV extends Win32Handle {
     static sizeof => 8
 
     static packingSize => 8

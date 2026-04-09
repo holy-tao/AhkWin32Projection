@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Networking.HttpServer
- * @version v4.0.30319
  */
-class HTTP_TLS_SESSION_TICKET_KEYS_PARAM extends Win32Struct
-{
+class HTTP_TLS_SESSION_TICKET_KEYS_PARAM extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

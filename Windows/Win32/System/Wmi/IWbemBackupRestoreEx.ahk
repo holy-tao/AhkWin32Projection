@@ -15,9 +15,8 @@
  * Any local user can make these calls, but remote users must have the <b>WBEM_FULL_WRITE_REP</b> access right to the root namespace.
  * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nn-wbemcli-iwbembackuprestoreex
  * @namespace Windows.Win32.System.Wmi
- * @version v4.0.30319
  */
-class IWbemBackupRestoreEx extends IWbemBackupRestore{
+class IWbemBackupRestoreEx extends IWbemBackupRestore {
 
     static sizeof => A_PtrSize
     /**

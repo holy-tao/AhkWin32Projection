@@ -1,18 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\IX509CertificateRequestPkcs10V2.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
 #Include .\IObjectId.ahk
 #Include .\IX509NameValuePairs.ahk
-#Include .\IX509CertificateRequestPkcs10V2.ahk
 
 /**
  * The IX509CertificateRequestPkcs10V3 interface represents a PKCS
  * @see https://learn.microsoft.com/windows/win32/api/certenroll/nn-certenroll-ix509certificaterequestpkcs10v3
  * @namespace Windows.Win32.Security.Cryptography.Certificates
- * @version v4.0.30319
  */
-class IX509CertificateRequestPkcs10V3 extends IX509CertificateRequestPkcs10V2{
+class IX509CertificateRequestPkcs10V3 extends IX509CertificateRequestPkcs10V2 {
 
     static sizeof => A_PtrSize
     /**
@@ -95,7 +94,7 @@ class IX509CertificateRequestPkcs10V3 extends IX509CertificateRequestPkcs10V2{
 
     /**
      * The certificate used to encrypt the EKPUB and EKCERT values from the client. This property must be set to a valid certificate that chains to a trusted machine root. (Get)
-     * @param {Integer} Encoding 
+     * @param {EncodingType} Encoding 
      * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequestpkcs10v3-get_attestationencryptioncertificate
      */
@@ -107,7 +106,7 @@ class IX509CertificateRequestPkcs10V3 extends IX509CertificateRequestPkcs10V2{
 
     /**
      * The certificate used to encrypt the EKPUB and EKCERT values from the client. This property must be set to a valid certificate that chains to a trusted machine root. (Put)
-     * @param {Integer} Encoding 
+     * @param {EncodingType} Encoding 
      * @param {BSTR} Value 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequestpkcs10v3-put_attestationencryptioncertificate

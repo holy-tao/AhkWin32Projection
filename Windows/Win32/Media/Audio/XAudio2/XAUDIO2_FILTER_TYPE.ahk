@@ -10,9 +10,8 @@
  * Windows 10 (XAudio2.9); Windows 8, Windows Phone 8 (XAudio 2.8); DirectX SDK (XAudio 2.7)
  * @see https://learn.microsoft.com/windows/win32/api/xaudio2/ne-xaudio2-xaudio2_filter_type
  * @namespace Windows.Win32.Media.Audio.XAudio2
- * @version v4.0.30319
  */
-class XAUDIO2_FILTER_TYPE extends Win32Enum{
+class XAUDIO2_FILTER_TYPE extends Win32Enum {
 
     /**
      * Attenuates (reduces) frequencies above the cutoff frequency.

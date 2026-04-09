@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.Com.Marshal
- * @version v4.0.30319
  */
-class IMarshal2 extends IMarshal{
+class IMarshal2 extends IMarshal {
 
     static sizeof => A_PtrSize
     /**

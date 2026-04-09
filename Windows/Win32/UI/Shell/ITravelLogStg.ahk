@@ -1,15 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\ITravelLogEntry.ahk
 #Include .\IEnumTravelLogEntry.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class ITravelLogStg extends IUnknown{
+class ITravelLogStg extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -58,7 +57,7 @@ class ITravelLogStg extends IUnknown{
 
     /**
      * 
-     * @param {Integer} flags 
+     * @param {TLENUMF} flags 
      * @returns {IEnumTravelLogEntry} 
      */
     EnumEntries(flags) {
@@ -68,7 +67,7 @@ class ITravelLogStg extends IUnknown{
 
     /**
      * 
-     * @param {Integer} flags 
+     * @param {TLENUMF} flags 
      * @param {PWSTR} pszUrl 
      * @returns {IEnumTravelLogEntry} 
      */
@@ -85,7 +84,7 @@ class ITravelLogStg extends IUnknown{
      * This function will fail if *hProfile* is not a valid ICC profile.
      * 
      * This function does not support Windows Color System (WCS) profiles CAMP, DMP, and GMMP.
-     * @param {Integer} flags 
+     * @param {TLENUMF} flags 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/icm/nf-icm-getcountcolorprofileelements
      */

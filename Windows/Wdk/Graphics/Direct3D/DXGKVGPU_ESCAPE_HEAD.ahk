@@ -1,18 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DXGKVGPU_ESCAPE_TYPE.ahk
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
- * @version v4.0.30319
  */
-class DXGKVGPU_ESCAPE_HEAD extends Win32Struct
-{
+class DXGKVGPU_ESCAPE_HEAD extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
 
     /**
-     * @type {Pointer<GPUP_DRIVER_ESCAPE_INPUT>}
+     * @type {Pointer}
      */
     Luid {
         get => NumGet(this, 0, "ptr")
@@ -20,7 +19,7 @@ class DXGKVGPU_ESCAPE_HEAD extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {DXGKVGPU_ESCAPE_TYPE}
      */
     Type {
         get => NumGet(this, 8, "int")

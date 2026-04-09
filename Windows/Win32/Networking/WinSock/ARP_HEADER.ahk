@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Networking.WinSock
- * @version v4.0.30319
  */
-class ARP_HEADER extends Win32Struct
-{
+class ARP_HEADER extends Win32Struct {
     static sizeof => 10
 
     static packingSize => 2
@@ -52,9 +50,9 @@ class ARP_HEADER extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    SenderHardwareAddress{
+    SenderHardwareAddress {
         get {
             if(!this.HasProp("__SenderHardwareAddressProxyArray"))
                 this.__SenderHardwareAddressProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "char")

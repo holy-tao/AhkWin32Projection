@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Power
- * @version v4.0.30319
  */
-class POWER_PLATFORM_INFORMATION extends Win32Struct
-{
+class POWER_PLATFORM_INFORMATION extends Win32Struct {
     static sizeof => 1
 
     static packingSize => 1

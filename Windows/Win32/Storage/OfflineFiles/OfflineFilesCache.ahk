@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Storage.OfflineFiles
- * @version v4.0.30319
  */
-class OfflineFilesCache extends Win32Struct
-{
+class OfflineFilesCache extends Win32Struct {
     static sizeof => 0
 
     static packingSize => 1

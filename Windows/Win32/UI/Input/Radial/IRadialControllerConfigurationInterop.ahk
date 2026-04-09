@@ -7,9 +7,8 @@
  * Enables interoperability with a WinRT�RadialControllerConfiguration object and provides access to RadialControllerConfiguration members for customizing a RadialController menu.
  * @see https://learn.microsoft.com/windows/win32/api/radialcontrollerinterop/nn-radialcontrollerinterop-iradialcontrollerconfigurationinterop
  * @namespace Windows.Win32.UI.Input.Radial
- * @version v4.0.30319
  */
-class IRadialControllerConfigurationInterop extends IInspectable{
+class IRadialControllerConfigurationInterop extends IInspectable {
 
     static sizeof => A_PtrSize
     /**
@@ -32,7 +31,7 @@ class IRadialControllerConfigurationInterop extends IInspectable{
 
     /**
      * Retrieves a RadialControllerConfiguration object bound to the active application.
-     * @param {HWND} _hwnd 
+     * @param {HWND} _hwnd Handle to the window of the active application.
      * @param {Pointer<Guid>} riid The GUID of the <a href="https://docs.microsoft.com/uwp/api/windows.ui.input.radialcontrollerconfiguration">RadialControllerConfiguration</a> object.
      * @returns {Pointer<Void>} Address of a pointer to a <a href="https://docs.microsoft.com/uwp/api/windows.ui.input.radialcontrollerconfiguration">RadialControllerConfiguration</a> object.
      * @see https://learn.microsoft.com/windows/win32/api/radialcontrollerinterop/nf-radialcontrollerinterop-iradialcontrollerconfigurationinterop-getforwindow

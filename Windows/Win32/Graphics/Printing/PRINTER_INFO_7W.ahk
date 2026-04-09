@@ -9,11 +9,9 @@
  * For [**SetPrinter**](setprinter.md), *pszObjectGUID* should be set to **NULL**. For [**GetPrinter**](getprinter.md), *pszObjectGUID* returns the GUID of the directory services print queue object associated with a published printer. You can use this GUID with Active Directory Services Interface (ADSI) methods to retrieve published data for the printer. However, the recommended method for retrieving published data is to call the [**GetPrinterDataEx**](getprinterdataex.md) function.
  * @see https://learn.microsoft.com/windows/win32/printdocs/printer-info-7
  * @namespace Windows.Win32.Graphics.Printing
- * @version v4.0.30319
  * @charset Unicode
  */
-class PRINTER_INFO_7W extends Win32Struct
-{
+class PRINTER_INFO_7W extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

@@ -9,9 +9,8 @@
  * Implemented on a Microsoft UI Automation provider that must support the <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-implementingrangevalue">RangeValue</a> control pattern.
  * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nn-uiautomationcore-irangevalueprovider
  * @namespace Windows.Win32.UI.Accessibility
- * @version v4.0.30319
  */
-class IRangeValueProvider extends IUnknown{
+class IRangeValueProvider extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -78,7 +77,9 @@ class IRangeValueProvider extends IUnknown{
      * Sets the value of the control. (IRangeValueProvider.SetValue)
      * @remarks
      * The actual value set depends on the control implementation. The control may round the requested value up or down.
-     * @param {Float} _val 
+     * @param {Float} _val Type: <b>double</b>
+     * 
+     * The value to set.
      * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.

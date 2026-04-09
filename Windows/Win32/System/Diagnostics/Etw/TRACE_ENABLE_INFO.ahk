@@ -9,10 +9,8 @@
  * block contains one or more of these structures.
  * @see https://learn.microsoft.com/windows/win32/api/evntrace/ns-evntrace-trace_enable_info
  * @namespace Windows.Win32.System.Diagnostics.Etw
- * @version v4.0.30319
  */
-class TRACE_ENABLE_INFO extends Win32Struct
-{
+class TRACE_ENABLE_INFO extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8

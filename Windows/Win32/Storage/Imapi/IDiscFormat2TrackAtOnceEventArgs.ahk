@@ -7,9 +7,8 @@
  * Use this interface to retrieve information about the current write operation. (IDiscFormat2TrackAtOnceEventArgs)
  * @see https://learn.microsoft.com/windows/win32/api/imapi2/nn-imapi2-idiscformat2trackatonceeventargs
  * @namespace Windows.Win32.Storage.Imapi
- * @version v4.0.30319
  */
-class IDiscFormat2TrackAtOnceEventArgs extends IWriteEngine2EventArgs{
+class IDiscFormat2TrackAtOnceEventArgs extends IWriteEngine2EventArgs {
 
     static sizeof => A_PtrSize
     /**
@@ -38,7 +37,7 @@ class IDiscFormat2TrackAtOnceEventArgs extends IWriteEngine2EventArgs{
     }
 
     /**
-     * @type {Integer} 
+     * @type {IMAPI_FORMAT2_TAO_WRITE_ACTION} 
      */
     CurrentAction {
         get => this.get_CurrentAction()
@@ -70,7 +69,7 @@ class IDiscFormat2TrackAtOnceEventArgs extends IWriteEngine2EventArgs{
 
     /**
      * Retrieves the current write action being performed. (IDiscFormat2TrackAtOnceEventArgs.get_CurrentAction)
-     * @returns {Integer} Current write action being performed. For a list of possible actions, see  the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/ne-imapi2-imapi_format2_tao_write_action">IMAPI_FORMAT2_TAO_WRITE_ACTION</a> enumeration type.
+     * @returns {IMAPI_FORMAT2_TAO_WRITE_ACTION} Current write action being performed. For a list of possible actions, see  the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/ne-imapi2-imapi_format2_tao_write_action">IMAPI_FORMAT2_TAO_WRITE_ACTION</a> enumeration type.
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscformat2trackatonceeventargs-get_currentaction
      */
     get_CurrentAction() {

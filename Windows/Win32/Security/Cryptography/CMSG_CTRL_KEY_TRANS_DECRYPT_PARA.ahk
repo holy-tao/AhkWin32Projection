@@ -1,15 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\NCRYPT_KEY_HANDLE.ahk
+#Include .\CMSG_KEY_TRANS_RECIPIENT_INFO.ahk
 
 /**
  * Contains information about a key transport message recipient.
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cmsg_ctrl_key_trans_decrypt_para
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CMSG_CTRL_KEY_TRANS_DECRYPT_PARA extends Win32Struct
-{
+class CMSG_CTRL_KEY_TRANS_DECRYPT_PARA extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -34,7 +33,7 @@ class CMSG_CTRL_KEY_TRANS_DECRYPT_PARA extends Win32Struct
     /**
      * @type {NCRYPT_KEY_HANDLE}
      */
-    hNCryptKey{
+    hNCryptKey {
         get {
             if(!this.HasProp("__hNCryptKey"))
                 this.__hNCryptKey := NCRYPT_KEY_HANDLE(8, this)

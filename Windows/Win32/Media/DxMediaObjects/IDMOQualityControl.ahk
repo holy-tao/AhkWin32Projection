@@ -7,9 +7,8 @@
  * The IDMOQualityControl interface supports quality control on a Microsoft DirectX Media Object (DMO).
  * @see https://learn.microsoft.com/windows/win32/api/mediaobj/nn-mediaobj-idmoqualitycontrol
  * @namespace Windows.Win32.Media.DxMediaObjects
- * @version v4.0.30319
  */
-class IDMOQualityControl extends IUnknown{
+class IDMOQualityControl extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

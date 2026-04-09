@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.Sensors
- * @version v4.0.30319
  */
-class PEDOMETER_STEP_TYPE_COUNT extends Win32Enum{
+class PEDOMETER_STEP_TYPE_COUNT extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

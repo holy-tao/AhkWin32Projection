@@ -3,13 +3,10 @@
 
 /**
  * The WLAN_POWER_SETTING enumeration specifies the power setting of an interface.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/wlanapi/ne-wlanapi-wlan_power_setting~r1
  * @namespace Windows.Win32.NetworkManagement.WiFi
- * @version v4.0.30319
  */
-class WLAN_POWER_SETTING extends Win32Enum{
+class WLAN_POWER_SETTING extends Win32Enum {
 
     /**
      * Specifies no power-saving activity performed by the 802.11 station.

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\IOD_DESFLAGS.ahk
 
 /**
  * The IO_RANGE structure specifies a resource requirements list that describes I/O port usage for a device instance. For more information about resource requirements lists, see Hardware Resources.
@@ -7,10 +8,8 @@
  * The flags specified for <b>IOR_Alias</b> have the same interpretation as the address decoding flags specified for <b>IOD_DesFlags</b>. (However, the two sets of flags are not equivalent in assigned values and cannot be used interchangeably.) A resource requirements list can be specified using either set of flags, but using decode flags in <b>IOD_DesFlags</b> is recommended. If address decoding flags are specified using <i>both</i><b>IOD_DesFlags</b> and <b>IOR_Alias</b>, contents of the latter overrides the former.
  * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/ns-cfgmgr32-io_range
  * @namespace Windows.Win32.Devices.DeviceAndDriverInstallation
- * @version v4.0.30319
  */
-class IO_RANGE extends Win32Struct
-{
+class IO_RANGE extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -53,7 +52,7 @@ class IO_RANGE extends Win32Struct
 
     /**
      * One bit flag from [IO_DES](/windows/desktop/api/cfgmgr32/ns-cfgmgr32-io_des) structure. For more information, see the following <b>Remarks</b> section.
-     * @type {Integer}
+     * @type {IOD_DESFLAGS}
      */
     IOR_RangeFlags {
         get => NumGet(this, 32, "uint")

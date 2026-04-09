@@ -5,9 +5,8 @@
  * Specifies the type of Diffie Hellman group used for Internet Key Exchange (IKE) and Authenticated Internet Protocol (AuthIP) key generation.
  * @see https://learn.microsoft.com/windows/win32/api/iketypes/ne-iketypes-ikeext_dh_group
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
- * @version v4.0.30319
  */
-class IKEEXT_DH_GROUP extends Win32Enum{
+class IKEEXT_DH_GROUP extends Win32Enum {
 
     /**
      * Specifies no Diffie Hellman group. Available only for AuthIP.

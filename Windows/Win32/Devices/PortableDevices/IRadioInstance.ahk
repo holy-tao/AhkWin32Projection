@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * @namespace Windows.Win32.Devices.PortableDevices
- * @version v4.0.30319
  */
-class IRadioInstance extends IUnknown{
+class IRadioInstance extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -66,7 +66,7 @@ class IRadioInstance extends IUnknown{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {DEVICE_RADIO_STATE} 
      */
     GetRadioState() {
         result := ComCall(6, this, "int*", &pRadioState := 0, "HRESULT")
@@ -75,7 +75,7 @@ class IRadioInstance extends IUnknown{
 
     /**
      * 
-     * @param {Integer} radioState 
+     * @param {DEVICE_RADIO_STATE} radioState 
      * @param {Integer} uTimeoutSec 
      * @returns {HRESULT} 
      */

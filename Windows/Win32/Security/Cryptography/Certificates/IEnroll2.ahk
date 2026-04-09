@@ -7,9 +7,8 @@
  * Represents the Certificate Enrollment Control and is used primarily to generate certificate requests. (IEnroll2)
  * @see https://learn.microsoft.com/windows/win32/api/xenroll/nn-xenroll-ienroll2
  * @namespace Windows.Win32.Security.Cryptography.Certificates
- * @version v4.0.30319
  */
-class IEnroll2 extends IEnroll{
+class IEnroll2 extends IEnroll {
 
     static sizeof => A_PtrSize
     /**
@@ -31,6 +30,7 @@ class IEnroll2 extends IEnroll{
     static VTableNames => ["InstallPKCS7Blob", "Reset", "GetSupportedKeySpec", "GetKeyLen", "EnumAlgs", "GetAlgNameWStr", "put_ReuseHardwareKeyIfUnableToGenNew", "get_ReuseHardwareKeyIfUnableToGenNew", "put_HashAlgID", "get_HashAlgID", "SetHStoreMy", "SetHStoreCA", "SetHStoreROOT", "SetHStoreRequest", "put_LimitExchangeKeyToEncipherment", "get_LimitExchangeKeyToEncipherment", "put_EnableSMIMECapabilities", "get_EnableSMIMECapabilities"]
 
     /**
+     * @type {BOOL} 
      */
     ReuseHardwareKeyIfUnableToGenNew {
         get => this.get_ReuseHardwareKeyIfUnableToGenNew()
@@ -38,6 +38,7 @@ class IEnroll2 extends IEnroll{
     }
 
     /**
+     * @type {Integer} 
      */
     HashAlgID {
         get => this.get_HashAlgID()
@@ -45,6 +46,7 @@ class IEnroll2 extends IEnroll{
     }
 
     /**
+     * @type {BOOL} 
      */
     LimitExchangeKeyToEncipherment {
         get => this.get_LimitExchangeKeyToEncipherment()
@@ -52,6 +54,7 @@ class IEnroll2 extends IEnroll{
     }
 
     /**
+     * @type {BOOL} 
      */
     EnableSMIMECapabilities {
         get => this.get_EnableSMIMECapabilities()

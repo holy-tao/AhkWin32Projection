@@ -1,15 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\FILETIME.ahk
+#Include .\DS_REPL_OP_TYPE.ahk
 
 /**
  * The DS_REPL_OPW_BLOB structure describes a replication task currently executing or pending execution.
  * @see https://learn.microsoft.com/windows/win32/api/ntdsapi/ns-ntdsapi-ds_repl_opw_blob
  * @namespace Windows.Win32.Networking.ActiveDirectory
- * @version v4.0.30319
  */
-class DS_REPL_OPW_BLOB extends Win32Struct
-{
+class DS_REPL_OPW_BLOB extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8
@@ -18,7 +17,7 @@ class DS_REPL_OPW_BLOB extends Win32Struct
      * Contains a <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> structure that contains the date and time that this operation was added to the queue.
      * @type {FILETIME}
      */
-    ftimeEnqueued{
+    ftimeEnqueued {
         get {
             if(!this.HasProp("__ftimeEnqueued"))
                 this.__ftimeEnqueued := FILETIME(0, this)
@@ -46,7 +45,7 @@ class DS_REPL_OPW_BLOB extends Win32Struct
 
     /**
      * Contains one of the <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/ne-ntdsapi-ds_repl_op_type">DS_REPL_OP_TYPE</a> values that indicate the type of operation that this structure represents.
-     * @type {Integer}
+     * @type {DS_REPL_OP_TYPE}
      */
     OpType {
         get => NumGet(this, 16, "int")
@@ -101,7 +100,7 @@ class DS_REPL_OPW_BLOB extends Win32Struct
 
     /**
      * Contains the <b>objectGuid</b> of the naming context identified by <b>pszNamingContext</b>.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     uuidNamingContextObjGuid {
         get => NumGet(this, 40, "ptr")
@@ -110,7 +109,7 @@ class DS_REPL_OPW_BLOB extends Win32Struct
 
     /**
      * Contains the <b>objectGuid</b> of the directory system agent object identified by <b>pszDsaDN</b>.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     uuidDsaObjGuid {
         get => NumGet(this, 48, "ptr")

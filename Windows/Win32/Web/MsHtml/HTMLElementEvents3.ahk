@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
- * @version v4.0.30319
  */
-class HTMLElementEvents3 extends IDispatch{
+class HTMLElementEvents3 extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

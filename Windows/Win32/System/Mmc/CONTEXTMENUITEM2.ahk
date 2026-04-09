@@ -5,10 +5,8 @@
  * The CONTEXTMENUITEM2 structure is introduced in MMC 2.0.
  * @see https://learn.microsoft.com/windows/win32/api/mmc/ns-mmc-contextmenuitem2
  * @namespace Windows.Win32.System.Mmc
- * @version v4.0.30319
  */
-class CONTEXTMENUITEM2 extends Win32Struct
-{
+class CONTEXTMENUITEM2 extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8

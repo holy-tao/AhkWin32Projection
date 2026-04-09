@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\DML_TENSOR_DESC.ahk
 
 /**
  * Gathers elements from the input tensor along the given axis using the indices tensor to remap into the input.
  * @see https://learn.microsoft.com/windows/win32/api/directml/ns-directml-dml_gather_elements_operator_desc
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
- * @version v4.0.30319
  */
-class DML_GATHER_ELEMENTS_OPERATOR_DESC extends Win32Struct
-{
+class DML_GATHER_ELEMENTS_OPERATOR_DESC extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8

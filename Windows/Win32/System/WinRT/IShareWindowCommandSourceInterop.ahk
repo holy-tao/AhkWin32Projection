@@ -20,9 +20,8 @@
  * ```
  * @see https://learn.microsoft.com/windows/win32/api/sharewindowcommandsourceinterop/nn-sharewindowcommandsourceinterop-isharewindowcommandsourceinterop
  * @namespace Windows.Win32.System.WinRT
- * @version v4.0.30319
  */
-class IShareWindowCommandSourceInterop extends IUnknown{
+class IShareWindowCommandSourceInterop extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

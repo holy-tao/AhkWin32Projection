@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Com.StructuredStorage
- * @version v4.0.30319
  */
-class PIDMSI_STATUS_VALUE extends Win32Enum{
+class PIDMSI_STATUS_VALUE extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

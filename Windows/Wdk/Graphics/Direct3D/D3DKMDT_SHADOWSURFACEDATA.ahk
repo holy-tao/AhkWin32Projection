@@ -1,12 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\D3DDDIFORMAT.ahk
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
- * @version v4.0.30319
  */
-class D3DKMDT_SHADOWSURFACEDATA extends Win32Struct
-{
+class D3DKMDT_SHADOWSURFACEDATA extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4
@@ -28,7 +27,7 @@ class D3DKMDT_SHADOWSURFACEDATA extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {D3DDDIFORMAT}
      */
     Format {
         get => NumGet(this, 8, "uint")

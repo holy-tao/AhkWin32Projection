@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
 #Include ..\..\..\System\Com\IDispatch.ahk
+#Include ..\..\..\Foundation\BSTR.ahk
 
 /**
  * Provides communications between the Certificate Services server and an exit module.
@@ -56,9 +56,8 @@
  * Where <i>MyApp</i> is a specifier that identifies the application; further, the class implementing <b>ICertExit</b> must be named <b>"Exit"</b>.
  * @see https://learn.microsoft.com/windows/win32/api/certexit/nn-certexit-icertexit
  * @namespace Windows.Win32.Security.Cryptography.Certificates
- * @version v4.0.30319
  */
-class ICertExit extends IDispatch{
+class ICertExit extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -85,7 +84,7 @@ class ICertExit extends IDispatch{
      * When you write a custom exit module, implement this method.
      * @param {BSTR} strConfig Represents the name of the certification authority, as entered during Certificate Services setup. For information about the configuration string name, see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/certcli/nn-certcli-icertconfig2">ICertConfig2</a>.
-     * @returns {Integer} 
+     * @returns {CERT_EXIT_EVENT_MASK} 
      * @see https://learn.microsoft.com/windows/win32/api/certexit/nf-certexit-icertexit-initialize
      */
     Initialize(strConfig) {
@@ -180,7 +179,8 @@ class ICertExit extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @param {Integer} _Context 
+     * @param {Integer} _Context Specifies a context handle that can be used to get properties associated with the event from the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certif/nn-certif-icertserverexit">ICertServerExit</a> interface.
      * @returns {HRESULT} <h3>VB</h3>
      *  If the method succeeds, the method returns S_OK.
      * 

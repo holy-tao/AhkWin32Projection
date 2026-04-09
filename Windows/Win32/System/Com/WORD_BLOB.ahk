@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Com
- * @version v4.0.30319
  */
-class WORD_BLOB extends Win32Struct
-{
+class WORD_BLOB extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4
@@ -20,9 +18,9 @@ class WORD_BLOB extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt16>}
+     * @type {Array<Integer>}
      */
-    asData{
+    asData {
         get {
             if(!this.HasProp("__asDataProxyArray"))
                 this.__asDataProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "ushort")

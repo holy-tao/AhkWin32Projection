@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\OPM_RANDOM_NUMBER.ahk
+#Include .\DXVA2_SampleFormat.ahk
+#Include ..\..\Graphics\Direct3D9\D3DFORMAT.ahk
 
 /**
  * Contains the result of an OPM_GET_ACTUAL_OUTPUT_FORMAT query in Output Protection Manager (OPM).
@@ -10,10 +12,8 @@
  * The layout of this structure is identical to the <a href="https://docs.microsoft.com/windows/desktop/api/dxva9typ/ns-dxva9typ-dxva_coppstatusdisplaydata">DXVA_COPPStatusDisplayData</a> structure used in Certified Output Protection Protocol (COPP).
  * @see https://learn.microsoft.com/windows/win32/api/opmapi/ns-opmapi-opm_actual_output_format
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class OPM_ACTUAL_OUTPUT_FORMAT extends Win32Struct
-{
+class OPM_ACTUAL_OUTPUT_FORMAT extends Win32Struct {
     static sizeof => 44
 
     static packingSize => 4
@@ -22,7 +22,7 @@ class OPM_ACTUAL_OUTPUT_FORMAT extends Win32Struct
      * An <a href="https://docs.microsoft.com/windows/desktop/api/ksopmapi/ns-ksopmapi-opm_random_number">OPM_RANDOM_NUMBER</a> structure. This structure contains the same 128-bit random number that the application sent to the driver in the <a href="https://docs.microsoft.com/windows/desktop/api/ksopmapi/ns-ksopmapi-opm_get_info_parameters">OPM_GET_INFO_PARAMETERS</a> or <a href="https://docs.microsoft.com/windows/desktop/api/opmapi/nf-opmapi-iopmvideooutput-coppcompatiblegetinformation">OPM_COPP_COMPATIBLE_GET_INFO_PARAMETERS</a> structure.
      * @type {OPM_RANDOM_NUMBER}
      */
-    rnRandomNumber{
+    rnRandomNumber {
         get {
             if(!this.HasProp("__rnRandomNumber"))
                 this.__rnRandomNumber := OPM_RANDOM_NUMBER(0, this)
@@ -59,7 +59,7 @@ class OPM_ACTUAL_OUTPUT_FORMAT extends Win32Struct
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/dxva2api/ne-dxva2api-dxva2_sampleformat">DXVA2_SampleFormat</a> value that describes the interlace mode.
-     * @type {Integer}
+     * @type {DXVA2_SampleFormat}
      */
     dsfSampleInterleaveFormat {
         get => NumGet(this, 28, "int")
@@ -68,7 +68,7 @@ class OPM_ACTUAL_OUTPUT_FORMAT extends Win32Struct
 
     /**
      * A <b>D3DFORMAT</b> value that describes the video format.
-     * @type {Integer}
+     * @type {D3DFORMAT}
      */
     d3dFormat {
         get => NumGet(this, 32, "uint")

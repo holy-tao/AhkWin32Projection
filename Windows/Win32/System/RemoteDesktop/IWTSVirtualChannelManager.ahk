@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IWTSListener.ahk
 #Include ..\Com\IUnknown.ahk
+#Include .\IWTSListener.ahk
 
 /**
  * Manages all Remote Desktop Connection (RDC) client plug-ins and dynamic virtual channel (DVC) listeners.
  * @see https://learn.microsoft.com/windows/win32/api/tsvirtualchannels/nn-tsvirtualchannels-iwtsvirtualchannelmanager
  * @namespace Windows.Win32.System.RemoteDesktop
- * @version v4.0.30319
  */
-class IWTSVirtualChannelManager extends IUnknown{
+class IWTSVirtualChannelManager extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

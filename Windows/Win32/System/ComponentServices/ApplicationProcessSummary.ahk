@@ -1,21 +1,20 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\COMPLUS_APPTYPE.ahk
 
 /**
  * Represents summary information about a process hosting COM+ applications.
  * @see https://learn.microsoft.com/windows/win32/api/comsvcs/ns-comsvcs-applicationprocesssummary
  * @namespace Windows.Win32.System.ComponentServices
- * @version v4.0.30319
  */
-class ApplicationProcessSummary extends Win32Struct
-{
+class ApplicationProcessSummary extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8
 
     /**
      * The partition ID of the COM+ server application, for server application processes. For processes that are not hosting a COM+ server application, this is set to the partition ID of the first tracked component instantiated in the process.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     PartitionIdPrimaryApplication {
         get => NumGet(this, 0, "ptr")
@@ -24,7 +23,7 @@ class ApplicationProcessSummary extends Win32Struct
 
     /**
      * The application ID of the COM+ server application, for server application processes. For processes that are not hosting a COM+ server application, this is set to the application ID of the first tracked component instantiated in the process.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     ApplicationIdPrimaryApplication {
         get => NumGet(this, 8, "ptr")
@@ -33,7 +32,7 @@ class ApplicationProcessSummary extends Win32Struct
 
     /**
      * The application instance GUID uniquely identifying the tracked process.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     ApplicationInstanceId {
         get => NumGet(this, 16, "ptr")
@@ -51,7 +50,7 @@ class ApplicationProcessSummary extends Win32Struct
 
     /**
      * The type of application this process is hosting. For COM+ server application processes, this is set to APPTYPE_SERVER. For processes that are not hosting a COM+ server applications, this is set to either APPTYPE_LIBRARY or APPTYPE_SWC, based on the first tracked component instantiated in the process.
-     * @type {Integer}
+     * @type {COMPLUS_APPTYPE}
      */
     Type {
         get => NumGet(this, 28, "int")

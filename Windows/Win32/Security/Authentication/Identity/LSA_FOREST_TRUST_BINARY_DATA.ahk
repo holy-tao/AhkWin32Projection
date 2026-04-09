@@ -5,16 +5,13 @@
  * Contains binary data used in Local Security Authority forest trust operations.
  * @see https://learn.microsoft.com/windows/win32/api/ntsecapi/ns-ntsecapi-lsa_forest_trust_binary_data
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class LSA_FOREST_TRUST_BINARY_DATA extends Win32Struct
-{
+class LSA_FOREST_TRUST_BINARY_DATA extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
 
     /**
-     * 
      * @type {Integer}
      */
     Length {

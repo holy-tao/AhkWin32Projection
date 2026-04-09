@@ -1,12 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\Win32\Graphics\DirectDraw\DDRAWI_DDRAWSURFACE_LCL.ahk
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
- * @version v4.0.30319
  */
-class D3DHAL_DRAWPRIMITIVES2DATA extends Win32Struct
-{
+class D3DHAL_DRAWPRIMITIVES2DATA extends Win32Struct {
     static sizeof => 72
 
     static packingSize => 8

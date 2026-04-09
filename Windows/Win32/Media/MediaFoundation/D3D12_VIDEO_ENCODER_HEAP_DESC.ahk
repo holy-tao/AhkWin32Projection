@@ -1,7 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\D3D12_VIDEO_ENCODER_HEAP_FLAGS.ahk
+#Include .\D3D12_VIDEO_ENCODER_CODEC.ahk
 #Include .\D3D12_VIDEO_ENCODER_PROFILE_DESC.ahk
+#Include .\D3D12_VIDEO_ENCODER_PROFILE_H264.ahk
+#Include .\D3D12_VIDEO_ENCODER_PROFILE_HEVC.ahk
+#Include .\D3D12_VIDEO_ENCODER_AV1_PROFILE.ahk
 #Include .\D3D12_VIDEO_ENCODER_LEVEL_SETTING.ahk
+#Include .\D3D12_VIDEO_ENCODER_LEVELS_H264.ahk
+#Include .\D3D12_VIDEO_ENCODER_LEVEL_TIER_CONSTRAINTS_HEVC.ahk
+#Include .\D3D12_VIDEO_ENCODER_AV1_LEVEL_TIER_CONSTRAINTS.ahk
+#Include .\D3D12_VIDEO_ENCODER_PICTURE_RESOLUTION_DESC.ahk
 
 /**
  * Describes a ID3D12VideoEncoderHeap.
@@ -9,10 +18,8 @@
  * If support for resolution dynamic reconfiguration is not supported, specify only one resolution in *pResolutionList*, denoting the desired target resolution.
  * @see https://learn.microsoft.com/windows/win32/api/d3d12video/ns-d3d12video-d3d12_video_encoder_heap_desc
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class D3D12_VIDEO_ENCODER_HEAP_DESC extends Win32Struct
-{
+class D3D12_VIDEO_ENCODER_HEAP_DESC extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 8
@@ -28,7 +35,7 @@ class D3D12_VIDEO_ENCODER_HEAP_DESC extends Win32Struct
 
     /**
      * A bitwise or combination of values from the [D3D12_VIDEO_ENCODER_HEAP_FLAGS](ne-d3d12video-d3d12_video_encoder_heap_flags.md) enumeration specifying encoder heap creation options.
-     * @type {Integer}
+     * @type {D3D12_VIDEO_ENCODER_HEAP_FLAGS}
      */
     Flags {
         get => NumGet(this, 4, "int")
@@ -37,7 +44,7 @@ class D3D12_VIDEO_ENCODER_HEAP_DESC extends Win32Struct
 
     /**
      * A [D3D12_VIDEO_ENCODER_CODEC](ne-d3d12video-d3d12_video_encoder_codec.md) specifying the codec of the associated encoder object.
-     * @type {Integer}
+     * @type {D3D12_VIDEO_ENCODER_CODEC}
      */
     EncodeCodec {
         get => NumGet(this, 8, "int")
@@ -48,7 +55,7 @@ class D3D12_VIDEO_ENCODER_HEAP_DESC extends Win32Struct
      * A [D3D12_VIDEO_ENCODER_PROFILE_DESC](ns-d3d12video-d3d12_video_encoder_profile_desc.md) specifying the profile for the selected codec in the associated encoder object.
      * @type {D3D12_VIDEO_ENCODER_PROFILE_DESC}
      */
-    EncodeProfile{
+    EncodeProfile {
         get {
             if(!this.HasProp("__EncodeProfile"))
                 this.__EncodeProfile := D3D12_VIDEO_ENCODER_PROFILE_DESC(16, this)
@@ -60,7 +67,7 @@ class D3D12_VIDEO_ENCODER_HEAP_DESC extends Win32Struct
      * A [D3D12_VIDEO_ENCODER_LEVEL_SETTING](ns-d3d12video-d3d12_video_encoder_level_setting.md) specifying the level for the selected codec in the associated encoder object.
      * @type {D3D12_VIDEO_ENCODER_LEVEL_SETTING}
      */
-    EncodeLevel{
+    EncodeLevel {
         get {
             if(!this.HasProp("__EncodeLevel"))
                 this.__EncodeLevel := D3D12_VIDEO_ENCODER_LEVEL_SETTING(32, this)

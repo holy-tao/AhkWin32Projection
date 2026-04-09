@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D12
- * @version v4.0.30319
  */
-class D3D12_SET_GENERIC_PIPELINE_DESC extends Win32Struct
-{
+class D3D12_SET_GENERIC_PIPELINE_DESC extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -15,7 +13,7 @@ class D3D12_SET_GENERIC_PIPELINE_DESC extends Win32Struct
     /**
      * @type {D3D12_PROGRAM_IDENTIFIER}
      */
-    ProgramIdentifier{
+    ProgramIdentifier {
         get {
             if(!this.HasProp("__ProgramIdentifier"))
                 this.__ProgramIdentifier := D3D12_PROGRAM_IDENTIFIER(0, this)

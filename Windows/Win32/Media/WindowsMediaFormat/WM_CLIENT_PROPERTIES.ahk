@@ -5,10 +5,8 @@
  * The WM_CLIENT_PROPERTIES structure records information about the client.
  * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/ns-wmsdkidl-wm_client_properties
  * @namespace Windows.Win32.Media.WindowsMediaFormat
- * @version v4.0.30319
  */
-class WM_CLIENT_PROPERTIES extends Win32Struct
-{
+class WM_CLIENT_PROPERTIES extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4

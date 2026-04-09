@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Storage.Nvme
- * @version v4.0.30319
  */
-class NVME_ZONE_DESCRIPTOR extends Win32Struct
-{
+class NVME_ZONE_DESCRIPTOR extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 8
@@ -28,7 +26,7 @@ class NVME_ZONE_DESCRIPTOR extends Win32Struct
             get => NumGet(this, 0, "char")
             set => NumPut("char", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -36,7 +34,7 @@ class NVME_ZONE_DESCRIPTOR extends Win32Struct
             get => (this._bitfield >> 0) & 0x1
             set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -44,7 +42,7 @@ class NVME_ZONE_DESCRIPTOR extends Win32Struct
             get => (this._bitfield >> 1) & 0x1
             set => this._bitfield := ((value & 0x1) << 1) | (this._bitfield & ~(0x1 << 1))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -52,7 +50,7 @@ class NVME_ZONE_DESCRIPTOR extends Win32Struct
             get => (this._bitfield >> 2) & 0x1
             set => this._bitfield := ((value & 0x1) << 2) | (this._bitfield & ~(0x1 << 2))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -60,7 +58,6 @@ class NVME_ZONE_DESCRIPTOR extends Win32Struct
             get => (this._bitfield >> 7) & 0x1
             set => this._bitfield := ((value & 0x1) << 7) | (this._bitfield & ~(0x1 << 7))
         }
-    
     }
 
     /**
@@ -120,18 +117,18 @@ class NVME_ZONE_DESCRIPTOR extends Win32Struct
     /**
      * @type {_ZA}
      */
-    ZA{
+    ZA {
         get {
             if(!this.HasProp("__ZA"))
-                this.__ZA := %this.__Class%._ZA(2, this)
+                this.__ZA := NVME_ZONE_DESCRIPTOR._ZA(2, this)
             return this.__ZA
         }
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Reserved3{
+    Reserved3 {
         get {
             if(!this.HasProp("__Reserved3ProxyArray"))
                 this.__Reserved3ProxyArray := Win32FixedArray(this.ptr + 3, 5, Primitive, "char")
@@ -164,9 +161,9 @@ class NVME_ZONE_DESCRIPTOR extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Reserved4{
+    Reserved4 {
         get {
             if(!this.HasProp("__Reserved4ProxyArray"))
                 this.__Reserved4ProxyArray := Win32FixedArray(this.ptr + 32, 32, Primitive, "char")

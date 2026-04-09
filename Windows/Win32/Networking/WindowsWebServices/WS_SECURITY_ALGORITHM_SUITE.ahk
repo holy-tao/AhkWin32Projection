@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\WS_SECURITY_ALGORITHM_ID.ahk
+#Include .\WS_SECURITY_ALGORITHM_PROPERTY.ahk
 
 /**
  * Defines the security algorithms and key lengths to be used with WS-Security. This setting is relevant to message security bindings and mixed-mode security bindings.
@@ -9,10 +11,8 @@
  * token are derived.
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_security_algorithm_suite
  * @namespace Windows.Win32.Networking.WindowsWebServices
- * @version v4.0.30319
  */
-class WS_SECURITY_ALGORITHM_SUITE extends Win32Struct
-{
+class WS_SECURITY_ALGORITHM_SUITE extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 8
@@ -22,7 +22,7 @@ class WS_SECURITY_ALGORITHM_SUITE extends Win32Struct
      * canonicalization algorithm. 
      * Setting this value to <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_security_algorithm_id">WS_SECURITY_ALGORITHM_DEFAULT</a> will default to 
      * <b>WS_SECURITY_ALGORITHM_CANONICALIZATION_EXCLUSIVE</b>.
-     * @type {Integer}
+     * @type {WS_SECURITY_ALGORITHM_ID}
      */
     canonicalizationAlgorithm {
         get => NumGet(this, 0, "int")
@@ -34,7 +34,7 @@ class WS_SECURITY_ALGORITHM_SUITE extends Win32Struct
      * SHA-384, or SHA-512. 
      * Setting this value to <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_security_algorithm_id">WS_SECURITY_ALGORITHM_DEFAULT</a> will default to 
      * <b>WS_SECURITY_ALGORITHM_DIGEST_SHA1</b>.
-     * @type {Integer}
+     * @type {WS_SECURITY_ALGORITHM_ID}
      */
     digestAlgorithm {
         get => NumGet(this, 4, "int")
@@ -46,7 +46,7 @@ class WS_SECURITY_ALGORITHM_SUITE extends Win32Struct
      * or symmetric signatures) such as HMAC-SHA1, HMAC-SHA256, HMAC-SHA384, or HMAC-SHA512. 
      * Setting this value to <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_security_algorithm_id">WS_SECURITY_ALGORITHM_DEFAULT</a> will default to 
      * <b>WS_SECURITY_ALGORITHM_SYMMETRIC_SIGNATURE_HMAC_SHA1</b>.
-     * @type {Integer}
+     * @type {WS_SECURITY_ALGORITHM_ID}
      */
     symmetricSignatureAlgorithm {
         get => NumGet(this, 8, "int")
@@ -57,7 +57,7 @@ class WS_SECURITY_ALGORITHM_SUITE extends Win32Struct
      * Algorithm to use for asymmetric signatures. 
      * Setting this value to <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_security_algorithm_id">WS_SECURITY_ALGORITHM_DEFAULT</a> will default to 
      * <b>WS_SECURITY_ALGORITHM_ASYMMETRIC_SIGNATURE_RSA_SHA1</b>.
-     * @type {Integer}
+     * @type {WS_SECURITY_ALGORITHM_ID}
      */
     asymmetricSignatureAlgorithm {
         get => NumGet(this, 12, "int")
@@ -66,7 +66,7 @@ class WS_SECURITY_ALGORITHM_SUITE extends Win32Struct
 
     /**
      * Algorithm to use for message part encryption. Reserved for future use. Should be set to <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_security_algorithm_id">WS_SECURITY_ALGORITHM_DEFAULT</a>.
-     * @type {Integer}
+     * @type {WS_SECURITY_ALGORITHM_ID}
      */
     encryptionAlgorithm {
         get => NumGet(this, 16, "int")
@@ -77,7 +77,7 @@ class WS_SECURITY_ALGORITHM_SUITE extends Win32Struct
      * Algorithm to use for deriving keys from other symmetric keys. 
      * Setting this value to <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_security_algorithm_id">WS_SECURITY_ALGORITHM_DEFAULT</a> will default to 
      * <b>WS_SECURITY_ALGORITHM_KEY_DERIVATION_P_SHA1</b>.
-     * @type {Integer}
+     * @type {WS_SECURITY_ALGORITHM_ID}
      */
     keyDerivationAlgorithm {
         get => NumGet(this, 20, "int")
@@ -87,7 +87,7 @@ class WS_SECURITY_ALGORITHM_SUITE extends Win32Struct
     /**
      * Algorithm to use for encrypting symmetric keys with other symmetric
      * keys. Reserved for future use. Should be set to <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_security_algorithm_id">WS_SECURITY_ALGORITHM_DEFAULT</a>.
-     * @type {Integer}
+     * @type {WS_SECURITY_ALGORITHM_ID}
      */
     symmetricKeyWrapAlgorithm {
         get => NumGet(this, 24, "int")
@@ -98,7 +98,7 @@ class WS_SECURITY_ALGORITHM_SUITE extends Win32Struct
      * Algorithm to use for encrypting symmetric keys with asymmetric
      *                   keys. Setting this value to <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_security_algorithm_id">WS_SECURITY_ALGORITHM_DEFAULT</a> will default to
      *                   <b>WS_SECURITY_ALGORITHM_ASYMMETRIC_KEYWRAP_RSA_OAEP</b>.
-     * @type {Integer}
+     * @type {WS_SECURITY_ALGORITHM_ID}
      */
     asymmetricKeyWrapAlgorithm {
         get => NumGet(this, 28, "int")

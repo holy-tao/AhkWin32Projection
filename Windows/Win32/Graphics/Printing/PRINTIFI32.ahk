@@ -3,13 +3,21 @@
 #Include ..\..\Foundation\POINTL.ahk
 #Include ..\..\Foundation\RECTL.ahk
 #Include ..\Gdi\PANOSE.ahk
+#Include ..\Gdi\PAN_FAMILY_TYPE.ahk
+#Include ..\Gdi\PAN_SERIF_STYLE.ahk
+#Include ..\Gdi\PAN_WEIGHT.ahk
+#Include ..\Gdi\PAN_PROPORTION.ahk
+#Include ..\Gdi\PAN_CONTRAST.ahk
+#Include ..\Gdi\PAN_STROKE_VARIATION.ahk
+#Include ..\Gdi\PAN_ARM_STYLE.ahk
+#Include ..\Gdi\PAN_LETT_FORM.ahk
+#Include ..\Gdi\PAN_MIDLINE.ahk
+#Include ..\Gdi\PAN_XHEIGHT.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
- * @version v4.0.30319
  */
-class PRINTIFI32 extends Win32Struct
-{
+class PRINTIFI32 extends Win32Struct {
     static sizeof => 184
 
     static packingSize => 4
@@ -425,7 +433,7 @@ class PRINTIFI32 extends Win32Struct
     /**
      * @type {POINTL}
      */
-    ptlBaseline{
+    ptlBaseline {
         get {
             if(!this.HasProp("__ptlBaseline"))
                 this.__ptlBaseline := POINTL(120, this)
@@ -436,7 +444,7 @@ class PRINTIFI32 extends Win32Struct
     /**
      * @type {POINTL}
      */
-    ptlAspect{
+    ptlAspect {
         get {
             if(!this.HasProp("__ptlAspect"))
                 this.__ptlAspect := POINTL(128, this)
@@ -447,7 +455,7 @@ class PRINTIFI32 extends Win32Struct
     /**
      * @type {POINTL}
      */
-    ptlCaret{
+    ptlCaret {
         get {
             if(!this.HasProp("__ptlCaret"))
                 this.__ptlCaret := POINTL(136, this)
@@ -458,7 +466,7 @@ class PRINTIFI32 extends Win32Struct
     /**
      * @type {RECTL}
      */
-    rclFontBox{
+    rclFontBox {
         get {
             if(!this.HasProp("__rclFontBox"))
                 this.__rclFontBox := RECTL(144, this)
@@ -467,9 +475,9 @@ class PRINTIFI32 extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    achVendId{
+    achVendId {
         get {
             if(!this.HasProp("__achVendIdProxyArray"))
                 this.__achVendIdProxyArray := Win32FixedArray(this.ptr + 160, 4, Primitive, "char")
@@ -496,7 +504,7 @@ class PRINTIFI32 extends Win32Struct
     /**
      * @type {PANOSE}
      */
-    panose{
+    panose {
         get {
             if(!this.HasProp("__panose"))
                 this.__panose := PANOSE(172, this)

@@ -5,9 +5,8 @@
  * Identifiers for properties of the Highlights and Shadows effect.
  * @see https://learn.microsoft.com/windows/win32/api/d2d1effects_2/ne-d2d1effects_2-d2d1_highlightsandshadows_prop
  * @namespace Windows.Win32.Graphics.Direct2D
- * @version v4.0.30319
  */
-class D2D1_HIGHLIGHTSANDSHADOWS_PROP extends Win32Enum{
+class D2D1_HIGHLIGHTSANDSHADOWS_PROP extends Win32Enum {
 
     /**
      * The D2D1_HIGHLIGHTSANDSHADOWS_PROP_HIGHLIGHTS property is a float value indicating how much to increase or decrease highlights.  The allowed range is -1.0 to 1.0. The default value is 0.0.

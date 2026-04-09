@@ -3,16 +3,14 @@
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class PCI_EXPRESS_CXL_DVSEC_CAPABILITY_V11 extends Win32Struct
-{
+class PCI_EXPRESS_CXL_DVSEC_CAPABILITY_V11 extends Win32Struct {
     static sizeof => 136
 
     static packingSize => 8
 
     /**
-     * @type {Pointer<PCI_EXPRESS_ENHANCED_CAPABILITY_HEADER>}
+     * @type {Pointer}
      */
     Header {
         get => NumGet(this, 0, "ptr")
@@ -20,7 +18,7 @@ class PCI_EXPRESS_CXL_DVSEC_CAPABILITY_V11 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PCI_EXPRESS_DESIGNATED_VENDOR_SPECIFIC_HEADER_1>}
+     * @type {Pointer}
      */
     DvsecHeader1 {
         get => NumGet(this, 8, "ptr")
@@ -28,7 +26,7 @@ class PCI_EXPRESS_CXL_DVSEC_CAPABILITY_V11 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PCI_EXPRESS_DESIGNATED_VENDOR_SPECIFIC_HEADER_2>}
+     * @type {Pointer}
      */
     DvsecHeader2 {
         get => NumGet(this, 16, "ptr")
@@ -36,7 +34,7 @@ class PCI_EXPRESS_CXL_DVSEC_CAPABILITY_V11 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PCI_EXPRESS_CXL_DVSEC_CAPABILITY_REGISTER_V11>}
+     * @type {Pointer}
      */
     Capability {
         get => NumGet(this, 24, "ptr")
@@ -44,7 +42,7 @@ class PCI_EXPRESS_CXL_DVSEC_CAPABILITY_V11 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PCI_EXPRESS_CXL_DVSEC_CONTROL_REGISTER>}
+     * @type {Pointer}
      */
     Control {
         get => NumGet(this, 32, "ptr")
@@ -52,7 +50,7 @@ class PCI_EXPRESS_CXL_DVSEC_CAPABILITY_V11 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PCI_EXPRESS_CXL_DVSEC_STATUS_REGISTER>}
+     * @type {Pointer}
      */
     Status {
         get => NumGet(this, 40, "ptr")
@@ -76,7 +74,7 @@ class PCI_EXPRESS_CXL_DVSEC_CAPABILITY_V11 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PCI_EXPRESS_CXL_DVSEC_LOCK_REGISTER>}
+     * @type {Pointer}
      */
     Lock {
         get => NumGet(this, 56, "ptr")
@@ -92,7 +90,7 @@ class PCI_EXPRESS_CXL_DVSEC_CAPABILITY_V11 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PCI_EXPRESS_CXL_DVSEC_RANGE_SIZE_HIGH_REGISTER>}
+     * @type {Pointer}
      */
     Range1SizeHigh {
         get => NumGet(this, 72, "ptr")
@@ -100,7 +98,7 @@ class PCI_EXPRESS_CXL_DVSEC_CAPABILITY_V11 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PCI_EXPRESS_CXL_DVSEC_RANGE_SIZE_LOW_REGISTER_V11>}
+     * @type {Pointer}
      */
     Range1SizeLow {
         get => NumGet(this, 80, "ptr")
@@ -108,7 +106,7 @@ class PCI_EXPRESS_CXL_DVSEC_CAPABILITY_V11 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PCI_EXPRESS_CXL_DVSEC_RANGE_BASE_HIGH_REGISTER>}
+     * @type {Pointer}
      */
     Range1BaseHigh {
         get => NumGet(this, 88, "ptr")
@@ -116,7 +114,7 @@ class PCI_EXPRESS_CXL_DVSEC_CAPABILITY_V11 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PCI_EXPRESS_CXL_DVSEC_RANGE_BASE_LOW_REGISTER>}
+     * @type {Pointer}
      */
     Range1BaseLow {
         get => NumGet(this, 96, "ptr")
@@ -124,7 +122,7 @@ class PCI_EXPRESS_CXL_DVSEC_CAPABILITY_V11 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PCI_EXPRESS_CXL_DVSEC_RANGE_SIZE_HIGH_REGISTER>}
+     * @type {Pointer}
      */
     Range2SizeHigh {
         get => NumGet(this, 104, "ptr")
@@ -132,7 +130,7 @@ class PCI_EXPRESS_CXL_DVSEC_CAPABILITY_V11 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PCI_EXPRESS_CXL_DVSEC_RANGE_SIZE_LOW_REGISTER_V11>}
+     * @type {Pointer}
      */
     Range2SizeLow {
         get => NumGet(this, 112, "ptr")
@@ -140,7 +138,7 @@ class PCI_EXPRESS_CXL_DVSEC_CAPABILITY_V11 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PCI_EXPRESS_CXL_DVSEC_RANGE_BASE_HIGH_REGISTER>}
+     * @type {Pointer}
      */
     Range2BaseHigh {
         get => NumGet(this, 120, "ptr")
@@ -148,7 +146,7 @@ class PCI_EXPRESS_CXL_DVSEC_CAPABILITY_V11 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PCI_EXPRESS_CXL_DVSEC_RANGE_BASE_LOW_REGISTER>}
+     * @type {Pointer}
      */
     Range2BaseLow {
         get => NumGet(this, 128, "ptr")

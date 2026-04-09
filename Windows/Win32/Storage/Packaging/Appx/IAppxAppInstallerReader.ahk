@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Data\Xml\MsXml\IXMLDOMDocument.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
+#Include ..\..\..\Data\Xml\MsXml\IXMLDOMDocument.ahk
 
 /**
  * Provides access to the XML DOM for an App Installer file.
@@ -10,9 +10,8 @@
  * Get an instance of this interface by calling [IAppxFactory3::CreateAppInstallerReader](nf-appxpackaging-iappxfactory3-createappinstallerreader.md).
  * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nn-appxpackaging-iappxappinstallerreader
  * @namespace Windows.Win32.Storage.Packaging.Appx
- * @version v4.0.30319
  */
-class IAppxAppInstallerReader extends IUnknown{
+class IAppxAppInstallerReader extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

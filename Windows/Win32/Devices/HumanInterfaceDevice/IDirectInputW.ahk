@@ -1,15 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IDirectInputDeviceW.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\IDirectInputDeviceW.ahk
 
 /**
  * @namespace Windows.Win32.Devices.HumanInterfaceDevice
- * @version v4.0.30319
  * @charset Unicode
  */
-class IDirectInputW extends IUnknown{
+class IDirectInputW extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -85,9 +85,8 @@
  * First the system will load Filter 1, then load Filter 2, etc..
  * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nn-sbtsv-itssbplugin
  * @namespace Windows.Win32.System.RemoteDesktop
- * @version v4.0.30319
  */
-class ITsSbPlugin extends IUnknown{
+class ITsSbPlugin extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

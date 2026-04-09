@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\Direct3D\D3D_CBUFFER_TYPE.ahk
 
 /**
  * Describes a shader constant-buffer. (D3D11_SHADER_BUFFER_DESC)
@@ -7,10 +8,8 @@
  * Constants are supplied to shaders in a shader-constant buffer. Get the description of a shader-constant-buffer by calling <a href="https://docs.microsoft.com/windows/desktop/api/d3d11shader/nf-d3d11shader-id3d11shaderreflectionconstantbuffer-getdesc">ID3D11ShaderReflectionConstantBuffer::GetDesc</a>.
  * @see https://learn.microsoft.com/windows/win32/api/d3d11shader/ns-d3d11shader-d3d11_shader_buffer_desc
  * @namespace Windows.Win32.Graphics.Direct3D11
- * @version v4.0.30319
  */
-class D3D11_SHADER_BUFFER_DESC extends Win32Struct
-{
+class D3D11_SHADER_BUFFER_DESC extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -30,7 +29,7 @@ class D3D11_SHADER_BUFFER_DESC extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3dcommon/ne-d3dcommon-d3d_cbuffer_type">D3D_CBUFFER_TYPE</a></b>
      * 
      * A <a href="https://docs.microsoft.com/windows/desktop/api/d3dcommon/ne-d3dcommon-d3d_cbuffer_type">D3D_CBUFFER_TYPE</a>-typed value that indicates the intended use of the constant data.
-     * @type {Integer}
+     * @type {D3D_CBUFFER_TYPE}
      */
     Type {
         get => NumGet(this, 8, "int")

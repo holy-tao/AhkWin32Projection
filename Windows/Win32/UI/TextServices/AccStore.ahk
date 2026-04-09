@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.UI.TextServices
- * @version v4.0.30319
  */
-class AccStore extends Win32Struct
-{
+class AccStore extends Win32Struct {
     static sizeof => 0
 
     static packingSize => 1

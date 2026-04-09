@@ -32,10 +32,8 @@
  *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/nf-resapi-clres_v1_function_table">CLRES_V1_FUNCTION_TABLE</a> macro.
  * @see https://learn.microsoft.com/windows/win32/api/resapi/ns-resapi-clres_v1_functions
  * @namespace Windows.Win32.Networking.Clustering
- * @version v4.0.30319
  */
-class CLRES_V1_FUNCTIONS extends Win32Struct
-{
+class CLRES_V1_FUNCTIONS extends Win32Struct {
     static sizeof => 88
 
     static packingSize => 8

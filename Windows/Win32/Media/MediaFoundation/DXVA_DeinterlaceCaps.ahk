@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Graphics\Direct3D9\D3DFORMAT.ahk
+#Include .\DXVA_VideoProcessCaps.ahk
+#Include .\DXVA_DeinterlaceTech.ahk
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class DXVA_DeinterlaceCaps extends Win32Struct
-{
+class DXVA_DeinterlaceCaps extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 4
@@ -52,7 +53,7 @@ class DXVA_DeinterlaceCaps extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {D3DFORMAT}
      */
     d3dOutputFormat {
         get => NumGet(this, 20, "uint")
@@ -60,7 +61,7 @@ class DXVA_DeinterlaceCaps extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {DXVA_VideoProcessCaps}
      */
     VideoProcessingCaps {
         get => NumGet(this, 24, "int")
@@ -68,7 +69,7 @@ class DXVA_DeinterlaceCaps extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {DXVA_DeinterlaceTech}
      */
     DeinterlaceTechnology {
         get => NumGet(this, 28, "int")

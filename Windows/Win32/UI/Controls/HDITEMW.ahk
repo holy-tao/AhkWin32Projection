@@ -1,6 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\HDI_MASK.ahk
 #Include ..\..\Graphics\Gdi\HBITMAP.ahk
+#Include .\HEADER_CONTROL_FORMAT_FLAGS.ahk
+#Include .\HEADER_CONTROL_FORMAT_TYPE.ahk
+#Include .\HEADER_CONTROL_FORMAT_STATE.ahk
 
 /**
  * Contains information about an item in a header control. This structure supersedes the HD_ITEM structure. (Unicode)
@@ -14,18 +18,16 @@
  * > The commctrl.h header defines HDITEM as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
  * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-hditemw
  * @namespace Windows.Win32.UI.Controls
- * @version v4.0.30319
  * @charset Unicode
  */
-class HDITEMW extends Win32Struct
-{
+class HDITEMW extends Win32Struct {
     static sizeof => 72
 
     static packingSize => 8
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
-     * @type {Integer}
+     * @type {HDI_MASK}
      */
     mask {
         get => NumGet(this, 0, "uint")
@@ -60,7 +62,7 @@ class HDITEMW extends Win32Struct
      * A handle to the item bitmap.
      * @type {HBITMAP}
      */
-    hbm{
+    hbm {
         get {
             if(!this.HasProp("__hbm"))
                 this.__hbm := HBITMAP(16, this)
@@ -292,7 +294,7 @@ class HDITEMW extends Win32Struct
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
+     * @type {HEADER_CONTROL_FORMAT_FLAGS}
      */
     fmt {
         get => NumGet(this, 28, "int")
@@ -385,7 +387,7 @@ class HDITEMW extends Win32Struct
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
+     * @type {HEADER_CONTROL_FORMAT_TYPE}
      */
     type {
         get => NumGet(this, 48, "uint")
@@ -425,7 +427,7 @@ class HDITEMW extends Win32Struct
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
+     * @type {HEADER_CONTROL_FORMAT_STATE}
      */
     state {
         get => NumGet(this, 64, "uint")

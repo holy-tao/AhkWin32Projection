@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
 #Include .\IPBDA_EIT.ahk
 #Include .\IPBDA_Services.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
  * Implements methods that retrieve program and system information protocol (PSIP) and service information (SI) tables from a Protected Broadcast Driver Architecture (PBDA) transport stream.
  * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nn-dvbsiparser-ipbdasiparser
  * @namespace Windows.Win32.Media.DirectShow.Tv
- * @version v4.0.30319
  */
-class IPBDASiParser extends IUnknown{
+class IPBDASiParser extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

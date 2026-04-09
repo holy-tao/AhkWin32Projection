@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Storage.Nvme
- * @version v4.0.30319
  */
-class NVME_SGL_KEYDATABLOCK_DESC extends Win32Struct
-{
+class NVME_SGL_KEYDATABLOCK_DESC extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
@@ -25,7 +23,7 @@ class NVME_SGL_KEYDATABLOCK_DESC extends Win32Struct
             get => NumGet(this, 0, "char")
             set => NumPut("char", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -33,7 +31,7 @@ class NVME_SGL_KEYDATABLOCK_DESC extends Win32Struct
             get => (this._bitfield >> 0) & 0xF
             set => this._bitfield := ((value & 0xF) << 0) | (this._bitfield & ~(0xF << 0))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -41,7 +39,7 @@ class NVME_SGL_KEYDATABLOCK_DESC extends Win32Struct
             get => (this._bitfield >> 4) & 0xF
             set => this._bitfield := ((value & 0xF) << 4) | (this._bitfield & ~(0xF << 4))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -49,7 +47,6 @@ class NVME_SGL_KEYDATABLOCK_DESC extends Win32Struct
             get => NumGet(this, 0, "char")
             set => NumPut("char", value, this, 0)
         }
-    
     }
 
     /**
@@ -61,9 +58,9 @@ class NVME_SGL_KEYDATABLOCK_DESC extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Length{
+    Length {
         get {
             if(!this.HasProp("__LengthProxyArray"))
                 this.__LengthProxyArray := Win32FixedArray(this.ptr + 8, 3, Primitive, "char")
@@ -72,9 +69,9 @@ class NVME_SGL_KEYDATABLOCK_DESC extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Key{
+    Key {
         get {
             if(!this.HasProp("__KeyProxyArray"))
                 this.__KeyProxyArray := Win32FixedArray(this.ptr + 11, 4, Primitive, "char")
@@ -85,10 +82,10 @@ class NVME_SGL_KEYDATABLOCK_DESC extends Win32Struct
     /**
      * @type {_Identifier_e__Union}
      */
-    Identifier{
+    Identifier {
         get {
             if(!this.HasProp("__Identifier"))
-                this.__Identifier := %this.__Class%._Identifier_e__Union(15, this)
+                this.__Identifier := NVME_SGL_KEYDATABLOCK_DESC._Identifier_e__Union(15, this)
             return this.__Identifier
         }
     }

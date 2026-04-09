@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\CREDENTIAL_PROVIDER_FIELD_TYPE.ahk
 
 /**
  * Describes a single field in a credential. For example, a string or a user image.
@@ -7,10 +8,8 @@
  * Each UI element presented to the user on a tile is defined by the credential provider as a field. The <b>CREDENTIAL_PROVIDER_FIELD_DESCRIPTOR</b> is how the credential provider identifies the fields. Once a field has been defined for a particular usage scenario, it can not be added to or subtracted from. Credential providers need to fully define all of their fields before enumerating tiles. If fields are going to appear or disappear as part of the credential acquisition process, those fields still not to be defined ahead of time. Use <a href="https://docs.microsoft.com/windows/win32/api/credentialprovider/ne-credentialprovider-credential_provider_field_state">CREDENTIAL_PROVIDER_FIELD_STATE</a> to hide or display the fields as necessary.
  * @see https://learn.microsoft.com/windows/win32/api/credentialprovider/ns-credentialprovider-credential_provider_field_descriptor
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class CREDENTIAL_PROVIDER_FIELD_DESCRIPTOR extends Win32Struct
-{
+class CREDENTIAL_PROVIDER_FIELD_DESCRIPTOR extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -30,7 +29,7 @@ class CREDENTIAL_PROVIDER_FIELD_DESCRIPTOR extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/win32/api/credentialprovider/ne-credentialprovider-credential_provider_field_type">CREDENTIAL_PROVIDER_FIELD_TYPE</a></b>
      * 
      * The field type.
-     * @type {Integer}
+     * @type {CREDENTIAL_PROVIDER_FIELD_TYPE}
      */
     cpft {
         get => NumGet(this, 4, "int")
@@ -127,7 +126,7 @@ class CREDENTIAL_PROVIDER_FIELD_DESCRIPTOR extends Win32Struct
      * </td>
      * </tr>
      * </table>
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     guidFieldType {
         get => NumGet(this, 16, "ptr")

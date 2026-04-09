@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.System.Hypervisor
- * @version v4.0.30319
  */
-class MODULE_INFO extends Win32Struct
-{
+class MODULE_INFO extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -23,7 +21,7 @@ class MODULE_INFO extends Win32Struct
     /**
      * @type {DOS_IMAGE_INFO}
      */
-    Image{
+    Image {
         get {
             if(!this.HasProp("__Image"))
                 this.__Image := DOS_IMAGE_INFO(8, this)

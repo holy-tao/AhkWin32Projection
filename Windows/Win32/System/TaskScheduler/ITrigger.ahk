@@ -1,9 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\IRepetitionPattern.ahk
 #Include ..\Com\IDispatch.ahk
+#Include .\IRepetitionPattern.ahk
 
 /**
  * Provides the common properties that are inherited by all trigger objects.
@@ -50,9 +49,8 @@
  * When reading or writing XML, the triggers of a task are specified in the <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/taskschedulerschema-triggers-tasktype-element">Triggers</a> element of the Task Scheduler schema.
  * @see https://learn.microsoft.com/windows/win32/api/taskschd/nn-taskschd-itrigger
  * @namespace Windows.Win32.System.TaskScheduler
- * @version v4.0.30319
  */
-class ITrigger extends IDispatch{
+class ITrigger extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -80,6 +78,7 @@ class ITrigger extends IDispatch{
     }
 
     /**
+     * @type {BSTR} 
      */
     Id {
         get => this.get_Id()
@@ -95,6 +94,7 @@ class ITrigger extends IDispatch{
     }
 
     /**
+     * @type {BSTR} 
      */
     ExecutionTimeLimit {
         get => this.get_ExecutionTimeLimit()
@@ -102,6 +102,7 @@ class ITrigger extends IDispatch{
     }
 
     /**
+     * @type {BSTR} 
      */
     StartBoundary {
         get => this.get_StartBoundary()
@@ -109,6 +110,7 @@ class ITrigger extends IDispatch{
     }
 
     /**
+     * @type {BSTR} 
      */
     EndBoundary {
         get => this.get_EndBoundary()
@@ -116,6 +118,7 @@ class ITrigger extends IDispatch{
     }
 
     /**
+     * @type {VARIANT_BOOL} 
      */
     Enabled {
         get => this.get_Enabled()
@@ -124,7 +127,7 @@ class ITrigger extends IDispatch{
 
     /**
      * Gets the type of the trigger.
-     * @param {Pointer<Integer>} pType 
+     * @param {Pointer<TASK_TRIGGER_TYPE2>} pType 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-itrigger-get_type
      */

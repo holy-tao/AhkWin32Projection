@@ -26,10 +26,8 @@
  * This structure is defined in the <i>Ipexport.h</i> header file which is automatically included in the <i>Iphlpapi.h</i> header file. The <i>Ipexport.h</i> header file should never be used directly.
  * @see https://learn.microsoft.com/windows/win32/api/ipexport/ns-ipexport-icmpv6_echo_reply_lh
  * @namespace Windows.Win32.NetworkManagement.IpHelper
- * @version v4.0.30319
  */
-class ICMPV6_ECHO_REPLY_LH extends Win32Struct
-{
+class ICMPV6_ECHO_REPLY_LH extends Win32Struct {
     static sizeof => 36
 
     static packingSize => 4
@@ -40,7 +38,7 @@ class ICMPV6_ECHO_REPLY_LH extends Win32Struct
      * The replying IPv6 address, in the form of an <a href="https://docs.microsoft.com/windows/desktop/api/ipexport/ns-ipexport-ipv6_address_ex">IPV6_ADDRESS_EX</a> structure.
      * @type {IPV6_ADDRESS_EX}
      */
-    Address{
+    Address {
         get {
             if(!this.HasProp("__Address"))
                 this.__Address := IPV6_ADDRESS_EX(0, this)

@@ -3,13 +3,10 @@
 
 /**
  * Defines the type of an operator description.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/directml/ne-directml-dml_operator_type
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
- * @version v4.0.30319
  */
-class DML_OPERATOR_TYPE extends Win32Enum{
+class DML_OPERATOR_TYPE extends Win32Enum {
 
     /**
      * Indicates an unknown operator type, and is never valid. Using this value results in an error.

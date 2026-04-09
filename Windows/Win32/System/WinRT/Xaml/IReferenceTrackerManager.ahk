@@ -11,9 +11,8 @@
  * There is only one instance of <b>IReferenceTrackerManager</b> for a process, and it may be called from any thread.
  * @see https://learn.microsoft.com/windows/win32/api/windows.ui.xaml.hosting.referencetracker/nn-windows-ui-xaml-hosting-referencetracker-ireferencetrackermanager
  * @namespace Windows.Win32.System.WinRT.Xaml
- * @version v4.0.30319
  */
-class IReferenceTrackerManager extends IUnknown{
+class IReferenceTrackerManager extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

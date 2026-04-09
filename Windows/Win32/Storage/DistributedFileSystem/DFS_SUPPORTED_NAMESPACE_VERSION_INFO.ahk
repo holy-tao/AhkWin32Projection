@@ -5,10 +5,8 @@
  * Contains version information for a DFS namespace.
  * @see https://learn.microsoft.com/windows/win32/api/lmdfs/ns-lmdfs-dfs_supported_namespace_version_info
  * @namespace Windows.Win32.Storage.DistributedFileSystem
- * @version v4.0.30319
  */
-class DFS_SUPPORTED_NAMESPACE_VERSION_INFO extends Win32Struct
-{
+class DFS_SUPPORTED_NAMESPACE_VERSION_INFO extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8

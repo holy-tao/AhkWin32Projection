@@ -18,10 +18,8 @@
  * Windows 10 (XAudio2.9); Windows 8, Windows Phone 8 (XAudio 2.8); DirectX SDK (XAudio 2.7)
  * @see https://learn.microsoft.com/windows/win32/api/xaudio2fx/ns-xaudio2fx-xaudio2fx_volumemeter_levels
  * @namespace Windows.Win32.Media.Audio.XAudio2
- * @version v4.0.30319
  */
-class XAUDIO2FX_VOLUMEMETER_LEVELS extends Win32Struct
-{
+class XAUDIO2FX_VOLUMEMETER_LEVELS extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

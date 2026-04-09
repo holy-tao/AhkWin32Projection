@@ -5,10 +5,8 @@
  * Describes a connection within a graph of DirectML operators defined by [DML_GRAPH_DESC](/windows/desktop/api/directml/ns-directml-dml_graph_desc) and passed to [IDMLDevice1::CompileGraph](/windows/desktop/api/directml/nf-directml-idmldevice1-compilegraph). This structure is used to define a connection from a graph input to an input of an internal node.
  * @see https://learn.microsoft.com/windows/win32/api/directml/ns-directml-dml_input_graph_edge_desc
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
- * @version v4.0.30319
  */
-class DML_INPUT_GRAPH_EDGE_DESC extends Win32Struct
-{
+class DML_INPUT_GRAPH_EDGE_DESC extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

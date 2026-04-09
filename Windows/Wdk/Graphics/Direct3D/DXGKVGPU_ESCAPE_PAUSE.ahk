@@ -1,19 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Win32\Foundation\LUID.ahk
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
- * @version v4.0.30319
  */
-class DXGKVGPU_ESCAPE_PAUSE extends Win32Struct
-{
+class DXGKVGPU_ESCAPE_PAUSE extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
 
     /**
-     * @type {Pointer<DXGKVGPU_ESCAPE_HEAD>}
+     * @type {Pointer}
      */
     Header {
         get => NumGet(this, 0, "ptr")
@@ -21,14 +18,11 @@ class DXGKVGPU_ESCAPE_PAUSE extends Win32Struct
     }
 
     /**
-     * @type {LUID}
+     * @type {Pointer}
      */
-    DeviceLuid{
-        get {
-            if(!this.HasProp("__DeviceLuid"))
-                this.__DeviceLuid := LUID(8, this)
-            return this.__DeviceLuid
-        }
+    DeviceLuid {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**

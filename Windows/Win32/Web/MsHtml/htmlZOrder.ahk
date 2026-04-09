@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
- * @version v4.0.30319
  */
-class htmlZOrder extends Win32Enum{
+class htmlZOrder extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

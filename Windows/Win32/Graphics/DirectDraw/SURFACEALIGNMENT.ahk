@@ -5,10 +5,8 @@
  * The SURFACEALIGNMENT structure is used by a display driver to describe the alignment restrictions for a surface being allocated by HeapVidMemAllocAligned.
  * @see https://learn.microsoft.com/windows/win32/api/dmemmgr/ns-dmemmgr-surfacealignment
  * @namespace Windows.Win32.Graphics.DirectDraw
- * @version v4.0.30319
  */
-class SURFACEALIGNMENT extends Win32Struct
-{
+class SURFACEALIGNMENT extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4
@@ -24,7 +22,7 @@ class SURFACEALIGNMENT extends Win32Struct
             get => NumGet(this, 0, "uint")
             set => NumPut("uint", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -32,7 +30,7 @@ class SURFACEALIGNMENT extends Win32Struct
             get => NumGet(this, 4, "uint")
             set => NumPut("uint", value, this, 4)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -40,7 +38,7 @@ class SURFACEALIGNMENT extends Win32Struct
             get => NumGet(this, 8, "uint")
             set => NumPut("uint", value, this, 8)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -48,7 +46,6 @@ class SURFACEALIGNMENT extends Win32Struct
             get => NumGet(this, 12, "uint")
             set => NumPut("uint", value, this, 12)
         }
-    
     }
 
     class _Rectangular extends Win32Struct {
@@ -62,7 +59,7 @@ class SURFACEALIGNMENT extends Win32Struct
             get => NumGet(this, 0, "uint")
             set => NumPut("uint", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -70,7 +67,7 @@ class SURFACEALIGNMENT extends Win32Struct
             get => NumGet(this, 4, "uint")
             set => NumPut("uint", value, this, 4)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -78,7 +75,7 @@ class SURFACEALIGNMENT extends Win32Struct
             get => NumGet(this, 8, "uint")
             set => NumPut("uint", value, this, 8)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -86,16 +83,15 @@ class SURFACEALIGNMENT extends Win32Struct
             get => NumGet(this, 12, "uint")
             set => NumPut("uint", value, this, 12)
         }
-    
     }
 
     /**
      * @type {_Linear}
      */
-    Linear{
+    Linear {
         get {
             if(!this.HasProp("__Linear"))
-                this.__Linear := %this.__Class%._Linear(0, this)
+                this.__Linear := SURFACEALIGNMENT._Linear(0, this)
             return this.__Linear
         }
     }
@@ -103,10 +99,10 @@ class SURFACEALIGNMENT extends Win32Struct
     /**
      * @type {_Rectangular}
      */
-    Rectangular{
+    Rectangular {
         get {
             if(!this.HasProp("__Rectangular"))
-                this.__Rectangular := %this.__Class%._Rectangular(0, this)
+                this.__Rectangular := SURFACEALIGNMENT._Rectangular(0, this)
             return this.__Rectangular
         }
     }

@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Storage.Vss
- * @version v4.0.30319
  */
-class IVssAdminEx extends IVssAdmin{
+class IVssAdminEx extends IVssAdmin {
 
     static sizeof => A_PtrSize
     /**

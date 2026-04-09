@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.UI.Controls
- * @version v4.0.30319
  */
-class MONTH_CALDENDAR_MESSAGES_VIEW extends Win32Enum{
+class MONTH_CALDENDAR_MESSAGES_VIEW extends Win32Enum {
 
     /**
      * @type {Integer (UInt32)}

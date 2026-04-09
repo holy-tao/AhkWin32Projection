@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
 #Include .\IOpcSignatureRelationshipReference.ahk
 #Include .\IOpcRelationshipSelectorSet.ahk
 #Include .\IOpcSignatureRelationshipReferenceEnumerator.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
  * An unordered set of IOpcSignatureRelationshipReference interface pointers that represent references to Relationships parts that contain relationships to be signed.
@@ -18,9 +18,8 @@
  * When an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcsignaturerelationshipreference">IOpcSignatureRelationshipReference</a> interface pointer is deleted from the set, the reference it represents is not saved when the package is saved.
  * @see https://learn.microsoft.com/windows/win32/api/msopc/nn-msopc-iopcsignaturerelationshipreferenceset
  * @namespace Windows.Win32.Storage.Packaging.Opc
- * @version v4.0.30319
  */
-class IOpcSignatureRelationshipReferenceSet extends IUnknown{
+class IOpcSignatureRelationshipReferenceSet extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -85,7 +84,7 @@ class IOpcSignatureRelationshipReferenceSet extends IUnknown{
      * 
      * <div class="alert"><b>Important</b>  The default digest method must be set by calling the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nf-msopc-iopcsigningoptions-setdefaultdigestmethod">IOpcSigningOptions::SetDefaultDigestMethod</a> method before <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nf-msopc-iopcdigitalsignaturemanager-sign">IOpcDigitalSignatureManager::Sign</a> is called.</div>
      * <div> </div>
-     * @param {Integer} relationshipSigningOption A value that indicates whether the relationships selected for signing include    all or a subset of the relationships in the Relationships part to be referenced.
+     * @param {OPC_RELATIONSHIPS_SIGNING_OPTION} relationshipSigningOption A value that indicates whether the relationships selected for signing include    all or a subset of the relationships in the Relationships part to be referenced.
      * 
      * For information about the effect of <i>relationshipSigningOption</i> values on other parameters, see Remarks.
      * @param {IOpcRelationshipSelectorSet} selectorSet An <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcrelationshipselectorset">IOpcRelationshipSelectorSet</a> interface pointer that can be used to identify a subset of relationships in the Relationships part to be selected for signing.
@@ -93,7 +92,7 @@ class IOpcSignatureRelationshipReferenceSet extends IUnknown{
      * If <i>relationshipSigningOption</i> is  set to <b>OPC_RELATIONSHIP_SIGN_PART</b>, <i>selectorSet</i> is  <b>NULL</b>.
      * 
      * For information about <i>selectorSet</i> values, see Remarks.
-     * @param {Integer} transformMethod A value that describes the canonicalization method to be applied to the relationship markup of the selected relationships.
+     * @param {OPC_CANONICALIZATION_METHOD} transformMethod A value that describes the canonicalization method to be applied to the relationship markup of the selected relationships.
      * 
      * If <i>relationshipSigningOption</i> is set <b>OPC_RELATIONSHIP_SIGN_USING_SELECTORS</b>, the value of <i>transformMethod</i> is ignored.
      * 

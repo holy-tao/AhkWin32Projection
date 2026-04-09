@@ -1,19 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\IConnector.ahk
 #Include .\ISubunit.ahk
 #Include .\IPart.ahk
 #Include .\IPartsList.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * The IDeviceTopology interface provides access to the topology of an audio device.
  * @see https://learn.microsoft.com/windows/win32/api/devicetopology/nn-devicetopology-idevicetopology
  * @namespace Windows.Win32.Media.Audio
- * @version v4.0.30319
  */
-class IDeviceTopology extends IUnknown{
+class IDeviceTopology extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

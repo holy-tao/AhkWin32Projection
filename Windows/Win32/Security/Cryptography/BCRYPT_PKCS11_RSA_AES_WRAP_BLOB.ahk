@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class BCRYPT_PKCS11_RSA_AES_WRAP_BLOB extends Win32Struct
-{
+class BCRYPT_PKCS11_RSA_AES_WRAP_BLOB extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4

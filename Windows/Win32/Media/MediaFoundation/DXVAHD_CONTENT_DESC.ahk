@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DXVAHD_FRAME_FORMAT.ahk
 #Include .\DXVAHD_RATIONAL.ahk
 
 /**
@@ -11,17 +12,15 @@
  *  If the application will composite two or more input streams, use the largest stream for the values of <b>InputWidth</b> and <b>InputHeight</b>.
  * @see https://learn.microsoft.com/windows/win32/api/dxvahd/ns-dxvahd-dxvahd_content_desc
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class DXVAHD_CONTENT_DESC extends Win32Struct
-{
+class DXVAHD_CONTENT_DESC extends Win32Struct {
     static sizeof => 36
 
     static packingSize => 4
 
     /**
      * A member of the <a href="https://docs.microsoft.com/windows/desktop/api/dxvahd/ne-dxvahd-dxvahd_frame_format">DXVAHD_FRAME_FORMAT</a> enumeration that describes how the video stream is interlaced.
-     * @type {Integer}
+     * @type {DXVAHD_FRAME_FORMAT}
      */
     InputFrameFormat {
         get => NumGet(this, 0, "int")
@@ -32,7 +31,7 @@ class DXVAHD_CONTENT_DESC extends Win32Struct
      * The frame rate of the input video stream, specified as a <a href="https://docs.microsoft.com/windows/desktop/api/dxvahd/ns-dxvahd-dxvahd_rational">DXVAHD_RATIONAL</a> structure.
      * @type {DXVAHD_RATIONAL}
      */
-    InputFrameRate{
+    InputFrameRate {
         get {
             if(!this.HasProp("__InputFrameRate"))
                 this.__InputFrameRate := DXVAHD_RATIONAL(4, this)
@@ -62,7 +61,7 @@ class DXVAHD_CONTENT_DESC extends Win32Struct
      * The frame rate of the output video stream, specified as a <a href="https://docs.microsoft.com/windows/desktop/api/dxvahd/ns-dxvahd-dxvahd_rational">DXVAHD_RATIONAL</a> structure.
      * @type {DXVAHD_RATIONAL}
      */
-    OutputFrameRate{
+    OutputFrameRate {
         get {
             if(!this.HasProp("__OutputFrameRate"))
                 this.__OutputFrameRate := DXVAHD_RATIONAL(20, this)

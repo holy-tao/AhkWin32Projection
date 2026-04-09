@@ -5,9 +5,8 @@
  * Defines possible operational states for sensors.
  * @see https://learn.microsoft.com/windows/win32/api/sensorsapi/ne-sensorsapi-sensorstate
  * @namespace Windows.Win32.Devices.Sensors
- * @version v4.0.30319
  */
-class SensorState extends Win32Enum{
+class SensorState extends Win32Enum {
 
     /**
      * Minimum enumerated sensor state. Use <b>SENSOR_STATE_READY</b> instead.

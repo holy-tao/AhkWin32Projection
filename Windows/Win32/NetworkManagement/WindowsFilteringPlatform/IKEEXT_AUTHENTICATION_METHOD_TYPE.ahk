@@ -5,9 +5,8 @@
  * Specifies the type of authentication method used by Internet Key Exchange (IKE), Authenticated Internet Protocol (AuthIP), or IKEv2.
  * @see https://learn.microsoft.com/windows/win32/api/iketypes/ne-iketypes-ikeext_authentication_method_type
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
- * @version v4.0.30319
  */
-class IKEEXT_AUTHENTICATION_METHOD_TYPE extends Win32Enum{
+class IKEEXT_AUTHENTICATION_METHOD_TYPE extends Win32Enum {
 
     /**
      * Specifies pre-shared key authentication method. Available only for IKE.

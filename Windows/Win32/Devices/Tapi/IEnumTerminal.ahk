@@ -1,17 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ITTerminal.ahk
-#Include .\IEnumTerminal.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\ITTerminal.ahk
 
 /**
  * The IEnumTerminal interface provides COM-standard enumeration methods for the ITTerminal interface.
  * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nn-tapi3if-ienumterminal
  * @namespace Windows.Win32.Devices.Tapi
- * @version v4.0.30319
  */
-class IEnumTerminal extends IUnknown{
+class IEnumTerminal extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

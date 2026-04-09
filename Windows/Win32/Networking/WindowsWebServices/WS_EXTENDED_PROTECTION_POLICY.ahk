@@ -5,9 +5,8 @@
  * Defines if Extended Protection data should be validated.
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ne-webservices-ws_extended_protection_policy
  * @namespace Windows.Win32.Networking.WindowsWebServices
- * @version v4.0.30319
  */
-class WS_EXTENDED_PROTECTION_POLICY extends Win32Enum{
+class WS_EXTENDED_PROTECTION_POLICY extends Win32Enum {
 
     /**
      * Extended protection data is not validated.

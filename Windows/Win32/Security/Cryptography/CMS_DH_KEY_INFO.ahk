@@ -1,15 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\ALG_ID.ahk
 #Include .\CRYPT_INTEGER_BLOB.ahk
 
 /**
  * Used with the KP_CMS_DH_KEY_INFO parameter in the CryptSetKeyParam function to contain Diffie-Hellman key information.
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cms_dh_key_info
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CMS_DH_KEY_INFO extends Win32Struct
-{
+class CMS_DH_KEY_INFO extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -25,7 +24,7 @@ class CMS_DH_KEY_INFO extends Win32Struct
 
     /**
      * One of the <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/alg-id">ALG_ID</a> values that identifies the algorithm for the key to be converted.
-     * @type {Integer}
+     * @type {ALG_ID}
      */
     Algid {
         get => NumGet(this, 4, "uint")
@@ -45,7 +44,7 @@ class CMS_DH_KEY_INFO extends Win32Struct
      * A <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa381414(v=vs.85)">CRYPT_DATA_BLOB</a> structure that contains additional public information. This member is optional and the <b>cbData</b> member of this structure can be zero if this is not needed.
      * @type {CRYPT_INTEGER_BLOB}
      */
-    PubInfo{
+    PubInfo {
         get {
             if(!this.HasProp("__PubInfo"))
                 this.__PubInfo := CRYPT_INTEGER_BLOB(16, this)

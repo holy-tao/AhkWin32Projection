@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\RECT.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\RECT.ahk
 
 /**
  * The ITfLangBarEventSink interface is implemented by an application or text service and used by the language bar to supply notifications of certain events that occur in the language bar.
  * @see https://learn.microsoft.com/windows/win32/api/ctfutb/nn-ctfutb-itflangbareventsink
  * @namespace Windows.Win32.UI.TextServices
- * @version v4.0.30319
  */
-class ITfLangBarEventSink extends IUnknown{
+class ITfLangBarEventSink extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -68,8 +67,8 @@ class ITfLangBarEventSink extends IUnknown{
      * ITfLangBarEventSink::OnModalInput method
      * @param {Integer} dwThreadId Not currently used.
      * @param {Integer} uMsg Not currently used.
-     * @param {WPARAM} _wParam 
-     * @param {LPARAM} _lParam 
+     * @param {WPARAM} _wParam Not currently used.
+     * @param {LPARAM} _lParam Not currently used.
      * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/ctfutb/nf-ctfutb-itflangbareventsink-onmodalinput
      */

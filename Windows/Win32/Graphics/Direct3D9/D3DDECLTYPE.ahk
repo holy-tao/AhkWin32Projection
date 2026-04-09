@@ -9,9 +9,8 @@
  * Use the DirectX Caps Viewer Tool (DXCapsViewer.exe) to see which types are supported on your device. You can get this tool and learn about it from the DirectX SDK. For info about the DirectX SDK, see [Where is the DirectX SDK?](../directx-sdk--august-2009-.md).
  * @see https://learn.microsoft.com/windows/win32/direct3d9/d3ddecltype
  * @namespace Windows.Win32.Graphics.Direct3D9
- * @version v4.0.30319
  */
-class D3DDECLTYPE extends Win32Enum{
+class D3DDECLTYPE extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.SystemServices
- * @version v4.0.30319
  */
-class PROCESSOR_PERFSTATE_POLICY extends Win32Struct
-{
+class PROCESSOR_PERFSTATE_POLICY extends Win32Struct {
     static sizeof => 28
 
     static packingSize => 4
@@ -54,7 +52,7 @@ class PROCESSOR_PERFSTATE_POLICY extends Win32Struct
             get => NumGet(this, 0, "char")
             set => NumPut("char", value, this, 0)
         }
-    
+
         /**
          * This bitfield backs the following members:
          * - NoDomainAccounting
@@ -67,7 +65,7 @@ class PROCESSOR_PERFSTATE_POLICY extends Win32Struct
             get => NumGet(this, 0, "char")
             set => NumPut("char", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -75,7 +73,7 @@ class PROCESSOR_PERFSTATE_POLICY extends Win32Struct
             get => (this._bitfield >> 0) & 0x1
             set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -83,7 +81,7 @@ class PROCESSOR_PERFSTATE_POLICY extends Win32Struct
             get => (this._bitfield >> 1) & 0x3
             set => this._bitfield := ((value & 0x3) << 1) | (this._bitfield & ~(0x3 << 1))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -91,7 +89,6 @@ class PROCESSOR_PERFSTATE_POLICY extends Win32Struct
             get => (this._bitfield >> 3) & 0x3
             set => this._bitfield := ((value & 0x3) << 3) | (this._bitfield & ~(0x3 << 3))
         }
-    
     }
 
     /**
@@ -105,10 +102,10 @@ class PROCESSOR_PERFSTATE_POLICY extends Win32Struct
     /**
      * @type {_Flags_e__Union}
      */
-    Flags{
+    Flags {
         get {
             if(!this.HasProp("__Flags"))
-                this.__Flags := %this.__Class%._Flags_e__Union(7, this)
+                this.__Flags := PROCESSOR_PERFSTATE_POLICY._Flags_e__Union(7, this)
             return this.__Flags
         }
     }

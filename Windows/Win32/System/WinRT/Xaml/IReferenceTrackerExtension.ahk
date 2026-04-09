@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.WinRT.Xaml
- * @version v4.0.30319
  */
-class IReferenceTrackerExtension extends IUnknown{
+class IReferenceTrackerExtension extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

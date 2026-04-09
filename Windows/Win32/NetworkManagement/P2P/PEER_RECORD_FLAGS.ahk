@@ -5,9 +5,8 @@
  * The PEER_RECORD_FLAGS enumeration specifies a set of flags for peer record behaviors.
  * @see https://learn.microsoft.com/windows/win32/api/p2p/ne-p2p-peer_record_flags
  * @namespace Windows.Win32.NetworkManagement.P2P
- * @version v4.0.30319
  */
-class PEER_RECORD_FLAGS extends Win32Enum{
+class PEER_RECORD_FLAGS extends Win32Enum {
 
     /**
      * The peer record must be automatically refreshed any time an event for the record is raised.

@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Graphics.Gdi
- * @version v4.0.30319
  */
-class TTLOAD_EMBEDDED_FONT_STATUS extends Win32BitflagEnum{
+class TTLOAD_EMBEDDED_FONT_STATUS extends Win32BitflagEnum {
 
     /**
      * @type {Integer (UInt32)}

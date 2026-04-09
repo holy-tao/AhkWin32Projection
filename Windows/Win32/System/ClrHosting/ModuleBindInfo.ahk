@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.ClrHosting
- * @version v4.0.30319
  */
-class ModuleBindInfo extends Win32Struct
-{
+class ModuleBindInfo extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

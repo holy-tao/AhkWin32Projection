@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.PortableDevices
- * @version v4.0.30319
  */
-class IPortableDeviceServiceOpenCallback extends IUnknown{
+class IPortableDeviceServiceOpenCallback extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

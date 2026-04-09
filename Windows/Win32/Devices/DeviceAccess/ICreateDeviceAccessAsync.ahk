@@ -7,9 +7,8 @@
  * The ICreateDeviceAccessAsync interface is returned from a call to CreateDeviceAccessInstance.
  * @see https://learn.microsoft.com/windows/win32/api/deviceaccess/nn-deviceaccess-icreatedeviceaccessasync
  * @namespace Windows.Win32.Devices.DeviceAccess
- * @version v4.0.30319
  */
-class ICreateDeviceAccessAsync extends IUnknown{
+class ICreateDeviceAccessAsync extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

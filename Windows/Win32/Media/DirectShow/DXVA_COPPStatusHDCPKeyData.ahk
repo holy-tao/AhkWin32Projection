@@ -5,17 +5,15 @@
  * Contains the result from an HDCP Key Data query in Certified Output Protection Protocol (COPP). This query returns the device's HDCP key selection vector (KSV).
  * @see https://learn.microsoft.com/windows/win32/api/dxva9typ/ns-dxva9typ-dxva_coppstatushdcpkeydata
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class DXVA_COPPStatusHDCPKeyData extends Win32Struct
-{
+class DXVA_COPPStatusHDCPKeyData extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
 
     /**
      * A 128-bit random number that was passed by the application in the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/ns-strmif-amcoppstatusinput">AMCOPPStatusInput</a> structure.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     rApp {
         get => NumGet(this, 0, "ptr")
@@ -42,7 +40,7 @@ class DXVA_COPPStatusHDCPKeyData extends Win32Struct
 
     /**
      * Receives the HDCP key selection vector, B<sub>KSV</sub>, from the HDSCP device attached to the graphics adapter.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     BKey {
         get => NumGet(this, 16, "ptr")
@@ -51,7 +49,7 @@ class DXVA_COPPStatusHDCPKeyData extends Win32Struct
 
     /**
      * Reserved. Must be zero.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     Reserved1 {
         get => NumGet(this, 24, "ptr")
@@ -60,7 +58,7 @@ class DXVA_COPPStatusHDCPKeyData extends Win32Struct
 
     /**
      * Reserved. Must be zero.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     Reserved2 {
         get => NumGet(this, 32, "ptr")

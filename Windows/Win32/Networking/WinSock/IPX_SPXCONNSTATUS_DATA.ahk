@@ -5,10 +5,8 @@
  * The IPX_SPXCONNSTATUS_DATA structure provides information about a connected SPX socket.
  * @see https://learn.microsoft.com/windows/win32/api/wsnwlink/ns-wsnwlink-ipx_spxconnstatus_data
  * @namespace Windows.Win32.Networking.WinSock
- * @version v4.0.30319
  */
-class IPX_SPXCONNSTATUS_DATA extends Win32Struct
-{
+class IPX_SPXCONNSTATUS_DATA extends Win32Struct {
     static sizeof => 44
 
     static packingSize => 2
@@ -105,9 +103,9 @@ class IPX_SPXCONNSTATUS_DATA extends Win32Struct
 
     /**
      * Specifies the IPX address to which the local computer is attached.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    ImmediateAddress{
+    ImmediateAddress {
         get {
             if(!this.HasProp("__ImmediateAddressProxyArray"))
                 this.__ImmediateAddressProxyArray := Win32FixedArray(this.ptr + 18, 6, Primitive, "char")
@@ -117,9 +115,9 @@ class IPX_SPXCONNSTATUS_DATA extends Win32Struct
 
     /**
      * Specifies the network to which the remote host is attached.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    RemoteNetwork{
+    RemoteNetwork {
         get {
             if(!this.HasProp("__RemoteNetworkProxyArray"))
                 this.__RemoteNetworkProxyArray := Win32FixedArray(this.ptr + 24, 4, Primitive, "char")
@@ -129,9 +127,9 @@ class IPX_SPXCONNSTATUS_DATA extends Win32Struct
 
     /**
      * Specifies the remote node.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    RemoteNode{
+    RemoteNode {
         get {
             if(!this.HasProp("__RemoteNodeProxyArray"))
                 this.__RemoteNodeProxyArray := Win32FixedArray(this.ptr + 28, 6, Primitive, "char")

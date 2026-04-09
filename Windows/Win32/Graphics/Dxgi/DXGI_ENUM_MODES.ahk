@@ -9,9 +9,8 @@
  * These flag options are also used in [**IDXGIOutput1::GetDisplayModeList1**](/windows/desktop/api/DXGI1_2/nf-dxgi1_2-idxgioutput1-getdisplaymodelist1) to enumerate display modes.
  * @see https://learn.microsoft.com/windows/win32/direct3ddxgi/dxgi-enum-modes
  * @namespace Windows.Win32.Graphics.Dxgi
- * @version v4.0.30319
  */
-class DXGI_ENUM_MODES extends Win32BitflagEnum{
+class DXGI_ENUM_MODES extends Win32BitflagEnum {
 
     /**
      * @type {Integer (UInt32)}

@@ -7,9 +7,8 @@
  * Represents a callback to the media engine to notify key request data.
  * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nn-mfmediaengine-imfmediaengineneedkeynotify
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFMediaEngineNeedKeyNotify extends IUnknown{
+class IMFMediaEngineNeedKeyNotify extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -32,7 +31,7 @@ class IMFMediaEngineNeedKeyNotify extends IUnknown{
 
     /**
      * Notifies the application that a key or keys are needed along with any initialization data.
-     * @param {Pointer} initData The initialization data.
+     * @param {Integer} initData The initialization data.
      * @param {Integer} cb The count in bytes of <i>initData</i>.
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediaengineneedkeynotify-needkey

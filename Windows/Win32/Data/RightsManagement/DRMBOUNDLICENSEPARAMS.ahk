@@ -27,10 +27,8 @@
  * If there is more than one rights group in the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/adrms_sdk/e-gly">end-user license</a>, the <i>wszRightsGroup</i> parameter specifies the name of the rights group to use. By default, the first rights group found in the end-user license is chosen. If any one of the requested rights is not granted, the bind request (<a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrm/nf-msdrm-drmcreateboundlicense">DRMCreateBoundLicense</a>) will fail.
  * @see https://learn.microsoft.com/windows/win32/api/msdrmdefs/ns-msdrmdefs-drmboundlicenseparams
  * @namespace Windows.Win32.Data.RightsManagement
- * @version v4.0.30319
  */
-class DRMBOUNDLICENSEPARAMS extends Win32Struct
-{
+class DRMBOUNDLICENSEPARAMS extends Win32Struct {
     static sizeof => 88
 
     static packingSize => 8
@@ -84,7 +82,7 @@ class DRMBOUNDLICENSEPARAMS extends Win32Struct
      * A <a href="https://docs.microsoft.com/windows/desktop/api/msdrmdefs/ns-msdrmdefs-drmid">DRMID</a> structure that identifies the content to which you are trying to bind. You must set the <i>wszID</i> and <i>wszIDType</i> parameters of this structure to the  values you  specified in the <i>wszContentId</i> and <i>wszContentIdType</i> parameters, respectively, in the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrm/nf-msdrm-drmsetmetadata">DRMSetMetaData</a> function. If the values are <b>NULL</b> or they do not match the corresponding values in <b>DRMSetMetaData</b>,  the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrm/nf-msdrm-drmcreateboundlicense">DRMCreateBoundLicense</a> function returns an error.
      * @type {DRMID}
      */
-    idResource{
+    idResource {
         get {
             if(!this.HasProp("__idResource"))
                 this.__idResource := DRMID(32, this)

@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.Search
- * @version v4.0.30319
  */
-class ITableCreation extends ITableDefinition{
+class ITableCreation extends ITableDefinition {
 
     static sizeof => A_PtrSize
     /**

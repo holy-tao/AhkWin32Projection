@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Graphics.Gdi
- * @version v4.0.30319
  */
-class FONT_CLIP_PRECISION extends Win32BitflagEnum{
+class FONT_CLIP_PRECISION extends Win32BitflagEnum {
 
     /**
      * @type {Integer (Byte)}

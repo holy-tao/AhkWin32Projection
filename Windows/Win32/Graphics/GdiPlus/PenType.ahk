@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Graphics.GdiPlus
- * @version v4.0.30319
  */
-class PenType extends Win32Enum{
+class PenType extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

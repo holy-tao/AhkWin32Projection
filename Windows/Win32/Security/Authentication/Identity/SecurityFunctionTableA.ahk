@@ -8,11 +8,9 @@
  * > The sspi.h header defines SecurityFunctionTable as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
  * @see https://learn.microsoft.com/windows/win32/api/sspi/ns-sspi-securityfunctiontablea
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  * @charset ANSI
  */
-class SecurityFunctionTableA extends Win32Struct
-{
+class SecurityFunctionTableA extends Win32Struct {
     static sizeof => 256
 
     static packingSize => 8
@@ -27,7 +25,6 @@ class SecurityFunctionTableA extends Win32Struct
     }
 
     /**
-     * 
      * @type {Pointer<ENUMERATE_SECURITY_PACKAGES_FN_A>}
      */
     EnumerateSecurityPackagesA {
@@ -36,7 +33,6 @@ class SecurityFunctionTableA extends Win32Struct
     }
 
     /**
-     * 
      * @type {Pointer<QUERY_CREDENTIALS_ATTRIBUTES_FN_A>}
      */
     QueryCredentialsAttributesA {
@@ -45,7 +41,6 @@ class SecurityFunctionTableA extends Win32Struct
     }
 
     /**
-     * 
      * @type {Pointer<ACQUIRE_CREDENTIALS_HANDLE_FN_A>}
      */
     AcquireCredentialsHandleA {
@@ -71,7 +66,6 @@ class SecurityFunctionTableA extends Win32Struct
     }
 
     /**
-     * 
      * @type {Pointer<INITIALIZE_SECURITY_CONTEXT_FN_A>}
      */
     InitializeSecurityContextA {
@@ -116,7 +110,6 @@ class SecurityFunctionTableA extends Win32Struct
     }
 
     /**
-     * 
      * @type {Pointer<QUERY_CONTEXT_ATTRIBUTES_FN_A>}
      */
     QueryContextAttributesA {
@@ -170,7 +163,6 @@ class SecurityFunctionTableA extends Win32Struct
     }
 
     /**
-     * 
      * @type {Pointer<QUERY_SECURITY_PACKAGE_INFO_FN_A>}
      */
     QuerySecurityPackageInfoA {
@@ -206,7 +198,6 @@ class SecurityFunctionTableA extends Win32Struct
     }
 
     /**
-     * 
      * @type {Pointer<IMPORT_SECURITY_CONTEXT_FN_A>}
      */
     ImportSecurityContextA {
@@ -215,7 +206,6 @@ class SecurityFunctionTableA extends Win32Struct
     }
 
     /**
-     * 
      * @type {Pointer<ADD_CREDENTIALS_FN_A>}
      */
     AddCredentialsA {
@@ -260,7 +250,6 @@ class SecurityFunctionTableA extends Win32Struct
     }
 
     /**
-     * 
      * @type {Pointer<SET_CONTEXT_ATTRIBUTES_FN_A>}
      */
     SetContextAttributesA {
@@ -269,7 +258,6 @@ class SecurityFunctionTableA extends Win32Struct
     }
 
     /**
-     * 
      * @type {Pointer<SET_CREDENTIALS_ATTRIBUTES_FN_A>}
      */
     SetCredentialsAttributesA {
@@ -278,7 +266,6 @@ class SecurityFunctionTableA extends Win32Struct
     }
 
     /**
-     * 
      * @type {Pointer<CHANGE_PASSWORD_FN_A>}
      */
     ChangeAccountPasswordA {
@@ -287,7 +274,6 @@ class SecurityFunctionTableA extends Win32Struct
     }
 
     /**
-     * 
      * @type {Pointer<QUERY_CONTEXT_ATTRIBUTES_EX_FN_A>}
      */
     QueryContextAttributesExA {
@@ -296,7 +282,6 @@ class SecurityFunctionTableA extends Win32Struct
     }
 
     /**
-     * 
      * @type {Pointer<QUERY_CREDENTIALS_ATTRIBUTES_EX_FN_A>}
      */
     QueryCredentialsAttributesExA {

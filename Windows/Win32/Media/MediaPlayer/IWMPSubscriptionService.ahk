@@ -7,9 +7,8 @@
  * Note  This section describes functionality designed for use by online stores.
  * @see https://learn.microsoft.com/windows/win32/api/subscriptionservices/nn-subscriptionservices-iwmpsubscriptionservice
  * @namespace Windows.Win32.Media.MediaPlayer
- * @version v4.0.30319
  */
-class IWMPSubscriptionService extends IUnknown{
+class IWMPSubscriptionService extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -42,7 +41,7 @@ class IWMPSubscriptionService extends IUnknown{
      * The <b>allowPlay</b> method does not circumvent DRM. If the method returns <b>TRUE</b> and the license to play has not been renewed, Windows Media Player will not play the content.
      * 
      * The <b>allowPlay</b> method is not called when streaming protected content for which the user does not have a license.
-     * @param {HWND} _hwnd 
+     * @param {HWND} _hwnd A handle to a window in which the plug-in can display a user interface.
      * @param {IWMPMedia} pMedia Pointer to the media object Windows Media Player is attempting to play.
      * @param {Pointer<BOOL>} pfAllowPlay Pointer to a <b>BOOL</b>. If <b>true</b>, playback is allowed.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>.
@@ -69,7 +68,7 @@ class IWMPSubscriptionService extends IUnknown{
      * Note that Windows Media Player 11 ignores the playlist and the Boolean value that <b>allowCDBurn</b> returns in the <i>pPlaylist</i> and <i>pfAllowBurn</i> parameters. Also note that because of the way Windows Media Player 11 handles burn rights, you must not rely on <b>allowCDBurn</b> being called each time a track is burned to a CD.
      * 
      * Regardless of the Player version, there is no callback mechanism that the background thread can use to notify Windows Media Player that a license renewal is complete. However, if the license renewal for a media item succeeds, then the next time the user attempts to copy the item to a CD, the copy will succeed.
-     * @param {HWND} _hwnd 
+     * @param {HWND} _hwnd A handle to a window in which the plug-in can display a user interface.
      * @param {IWMPPlaylist} pPlaylist Pointer to a playlist object. The plug-in must remove from the playlist any media item that does not have a current license that includes burn rights.
      * @param {Pointer<BOOL>} pfAllowBurn Pointer to a <b>BOOL</b>. If true, copying to CD is allowed for the media items that remain in the playlist.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>.
@@ -98,7 +97,7 @@ class IWMPSubscriptionService extends IUnknown{
      * Windows Media Player 11 never calls <b>allowPDATransfer</b> automatically. That is, Windows Media Player 11 calls <b>allowPDATransfer</b> only when the user explicitly requests synchronization rights. For example, the user might request a synchronization rights by choosing a command from the context menu of an information icon.
      * 
      * Do not rely on <b>allowPDATransfer</b> being called each time a track is synchronized with a device. Instead, implement <a href="https://docs.microsoft.com/windows/desktop/api/subscriptionservices/nf-subscriptionservices-iwmpsubscriptionservice2-prepareforsync">IWMPSubscriptionService2::prepareForSync</a>.
-     * @param {HWND} _hwnd 
+     * @param {HWND} _hwnd A handle to a window in which the plug-in can display a user interface.
      * @param {IWMPPlaylist} pPlaylist Pointer to a playlist object.
      * @param {Pointer<BOOL>} pfAllowTransfer Pointer to a <b>BOOL</b>. If true, copying to a device is allowed.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>.
@@ -119,7 +118,7 @@ class IWMPSubscriptionService extends IUnknown{
      * Your code should not perform lengthy operations synchronously when Windows Media Player calls this method. Instead, you must perform time-consuming tasks on a separate worker thread.
      * 
      * Windows Media Player calls <b>startBackgroundProcessing</b> during idle time after the user selects the online store. This is useful for the online store to acquire play count data or renew expired licenses.
-     * @param {HWND} _hwnd 
+     * @param {HWND} _hwnd A handle to a window in which the plug-in can display a user interface.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>.
      * @see https://learn.microsoft.com/windows/win32/api/subscriptionservices/nf-subscriptionservices-iwmpsubscriptionservice-startbackgroundprocessing
      */

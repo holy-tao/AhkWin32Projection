@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include .\IFaxOutgoingJob.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * Describes an object that is used by a fax client application to retrieve information about an outgoing fax job in a fax server's queue.
@@ -10,9 +10,8 @@
  * A default implementation of <b>IFaxOutgoingJob2</b> is provided as the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxoutgoingjob">FaxOutgoingJob</a> object. On Windows XP and earlier, the <b>FaxOutgoingJob</b> object implements <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/nn-faxcomex-ifaxoutgoingjob">IFaxOutgoingJob</a>.
  * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nn-faxcomex-ifaxoutgoingjob2
  * @namespace Windows.Win32.Devices.Fax
- * @version v4.0.30319
  */
-class IFaxOutgoingJob2 extends IFaxOutgoingJob{
+class IFaxOutgoingJob2 extends IFaxOutgoingJob {
 
     static sizeof => A_PtrSize
     /**
@@ -48,7 +47,7 @@ class IFaxOutgoingJob2 extends IFaxOutgoingJob{
     }
 
     /**
-     * @type {Integer} 
+     * @type {FAX_SCHEDULE_TYPE_ENUM} 
      */
     ScheduleType {
         get => this.get_ScheduleType()
@@ -98,7 +97,7 @@ class IFaxOutgoingJob2 extends IFaxOutgoingJob{
      * Specifies the schedule type that was used for the transmission.
      * @remarks
      * This property can indicate the following: the fax should be transmitted right away, that it should be sent at a specified time, or that it should be sent during a period of discounted rates.
-     * @returns {Integer} 
+     * @returns {FAX_SCHEDULE_TYPE_ENUM} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutgoingjob2-get_scheduletype
      */
     get_ScheduleType() {

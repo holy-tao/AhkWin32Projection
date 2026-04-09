@@ -7,9 +7,8 @@
  * The IFillLockBytes interface enables downloading code to write data asynchronously to a structured storage byte array.
  * @see https://learn.microsoft.com/windows/win32/api/objidl/nn-objidl-ifilllockbytes
  * @namespace Windows.Win32.System.Com.StructuredStorage
- * @version v4.0.30319
  */
-class IFillLockBytes extends IUnknown{
+class IFillLockBytes extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -36,7 +35,7 @@ class IFillLockBytes extends IUnknown{
      * The 
      * <b>FillAppend</b> method is used for sequential downloading, where bytes are written to the end of the byte array in the order in which they are received. This method obtains the current size of the byte array (for example, lockbytes object) and writes a new block of data to the end of the array. As each block of data becomes available, the downloader calls this method to write it to the byte array. Subsequent calls by the compound file implementation to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-ilockbytes-readat">ILockBytes::ReadAt</a> return any available data or return E_PENDING if data is currently unavailable.
-     * @param {Pointer} pv Pointer to the data to be appended to the end of an existing byte array. This operation does not create a danger of a memory leak or a buffer overrun.
+     * @param {Integer} pv Pointer to the data to be appended to the end of an existing byte array. This operation does not create a danger of a memory leak or a buffer overrun.
      * @param {Integer} cb Size of <i>pv</i> in bytes.
      * @returns {Integer} Number of bytes that were successfully written.
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-ifilllockbytes-fillappend
@@ -58,7 +57,7 @@ class IFillLockBytes extends IUnknown{
      * <b>FillAt</b> and returns E_NOTIMPL.</div>
      * <div> </div>
      * @param {Integer} ulOffset The offset, expressed in number of bytes, from the first element of the byte array.
-     * @param {Pointer} pv Pointer to the data to be written at the location specified by <i>uIOffset</i>.
+     * @param {Integer} pv Pointer to the data to be written at the location specified by <i>uIOffset</i>.
      * @param {Integer} cb Size of <i>pv</i> in bytes.
      * @returns {Integer} Number of bytes that were successfully written.
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-ifilllockbytes-fillat

@@ -6,10 +6,8 @@
  * Holds an extra data block used by IShellLinkDataList. It holds the console's code page.
  * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/ns-shlobj_core-nt_fe_console_props
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class NT_FE_CONSOLE_PROPS extends Win32Struct
-{
+class NT_FE_CONSOLE_PROPS extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4
@@ -20,7 +18,7 @@ class NT_FE_CONSOLE_PROPS extends Win32Struct
      * The <a href="https://docs.microsoft.com/windows/win32/api/shlobj_core/ns-shlobj_core-datablock_header">DATABLOCK_HEADER</a> structure with the <b>NT_FE_CONSOLE_PROPS</b> structure's size and signature. The signature for an <b>NT_FE_CONSOLE_PROPS</b> structure is NT_FE_CONSOLE_PROPS_SIG.
      * @type {DATABLOCK_HEADER}
      */
-    dbh{
+    dbh {
         get {
             if(!this.HasProp("__dbh"))
                 this.__dbh := DATABLOCK_HEADER(0, this)

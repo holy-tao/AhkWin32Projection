@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IWbemUnboundObjectSink.ahk
 #Include ..\Com\IUnknown.ahk
+#Include .\IWbemUnboundObjectSink.ahk
 
 /**
  * Provides the primary interface for an event consumer provider. Through this interface and the FindConsumer method, an event consumer provider can indicate which event consumers should receive a given event.
  * @see https://learn.microsoft.com/windows/win32/api/wbemprov/nn-wbemprov-iwbemeventconsumerprovider
  * @namespace Windows.Win32.System.Wmi
- * @version v4.0.30319
  */
-class IWbemEventConsumerProvider extends IUnknown{
+class IWbemEventConsumerProvider extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

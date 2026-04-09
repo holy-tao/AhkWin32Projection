@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Security.Authorization
- * @version v4.0.30319
  */
-class ACTRL_ACCESS_ENTRY_ACCESS_FLAGS extends Win32Enum{
+class ACTRL_ACCESS_ENTRY_ACCESS_FLAGS extends Win32Enum {
 
     /**
      * @type {Integer (UInt32)}

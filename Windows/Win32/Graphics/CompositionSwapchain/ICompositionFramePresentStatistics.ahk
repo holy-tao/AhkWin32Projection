@@ -9,9 +9,8 @@
  * There may be many frames for which a present is on screen. Statistics are only reported for the first composition frame on which a present appears.
  * @see https://learn.microsoft.com/windows/win32/api/presentation/nn-presentation-icompositionframepresentstatistics
  * @namespace Windows.Win32.Graphics.CompositionSwapchain
- * @version v4.0.30319
  */
-class ICompositionFramePresentStatistics extends IPresentStatistics{
+class ICompositionFramePresentStatistics extends IPresentStatistics {
 
     static sizeof => A_PtrSize
     /**

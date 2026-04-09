@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Dns
- * @version v4.0.30319
  */
-class DNS_SVCB_PARAM_MANDATORY extends Win32Struct
-{
+class DNS_SVCB_PARAM_MANDATORY extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 2
@@ -20,9 +18,9 @@ class DNS_SVCB_PARAM_MANDATORY extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt16>}
+     * @type {Array<Integer>}
      */
-    rgwMandatoryKeys{
+    rgwMandatoryKeys {
         get {
             if(!this.HasProp("__rgwMandatoryKeysProxyArray"))
                 this.__rgwMandatoryKeysProxyArray := Win32FixedArray(this.ptr + 2, 1, Primitive, "ushort")

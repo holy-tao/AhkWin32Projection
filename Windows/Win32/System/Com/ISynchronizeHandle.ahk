@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\HANDLE.ahk
 #Include .\IUnknown.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * The ISynchronizeHandle (objidlbase.h) interface retrieves a handle associated with a synchronization object.
  * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nn-objidlbase-isynchronizehandle
  * @namespace Windows.Win32.System.Com
- * @version v4.0.30319
  */
-class ISynchronizeHandle extends IUnknown{
+class ISynchronizeHandle extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

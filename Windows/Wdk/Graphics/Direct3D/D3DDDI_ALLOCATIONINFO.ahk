@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
- * @version v4.0.30319
  */
-class D3DDDI_ALLOCATIONINFO extends Win32Struct
-{
+class D3DDDI_ALLOCATIONINFO extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -26,7 +24,7 @@ class D3DDDI_ALLOCATIONINFO extends Win32Struct
             get => NumGet(this, 0, "uint")
             set => NumPut("uint", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -34,7 +32,7 @@ class D3DDDI_ALLOCATIONINFO extends Win32Struct
             get => (this._bitfield >> 0) & 0x1
             set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -42,7 +40,7 @@ class D3DDDI_ALLOCATIONINFO extends Win32Struct
             get => (this._bitfield >> 1) & 0x1
             set => this._bitfield := ((value & 0x1) << 1) | (this._bitfield & ~(0x1 << 1))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -50,7 +48,6 @@ class D3DDDI_ALLOCATIONINFO extends Win32Struct
             get => NumGet(this, 0, "uint")
             set => NumPut("uint", value, this, 0)
         }
-    
     }
 
     /**
@@ -96,10 +93,10 @@ class D3DDDI_ALLOCATIONINFO extends Win32Struct
     /**
      * @type {_Flags_e__Union}
      */
-    Flags{
+    Flags {
         get {
             if(!this.HasProp("__Flags"))
-                this.__Flags := %this.__Class%._Flags_e__Union(32, this)
+                this.__Flags := D3DDDI_ALLOCATIONINFO._Flags_e__Union(32, this)
             return this.__Flags
         }
     }

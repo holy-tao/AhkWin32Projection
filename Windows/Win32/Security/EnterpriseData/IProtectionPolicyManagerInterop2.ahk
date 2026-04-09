@@ -7,9 +7,8 @@
  * Manages enterprise protection policy on protected content. (IProtectionPolicyManagerInterop2)
  * @see https://learn.microsoft.com/windows/win32/api/efswrtinterop/nn-efswrtinterop-iprotectionpolicymanagerinterop2
  * @namespace Windows.Win32.Security.EnterpriseData
- * @version v4.0.30319
  */
-class IProtectionPolicyManagerInterop2 extends IInspectable{
+class IProtectionPolicyManagerInterop2 extends IInspectable {
 
     static sizeof => A_PtrSize
     /**

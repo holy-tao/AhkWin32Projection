@@ -16,10 +16,8 @@
  * <a href="https://docs.microsoft.com/windows/desktop/SNMP/winsnmp-data-management-concepts">WinSNMP Data Management Concepts</a>.
  * @see https://learn.microsoft.com/windows/win32/api/winsnmp/ns-winsnmp-smioid
  * @namespace Windows.Win32.NetworkManagement.Snmp
- * @version v4.0.30319
  */
-class smiOID extends Win32Struct
-{
+class smiOID extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

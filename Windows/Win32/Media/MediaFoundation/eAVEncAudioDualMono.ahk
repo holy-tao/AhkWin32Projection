@@ -7,9 +7,8 @@
  * In dual mono encoding, each channel is encoded separately. In stereo encoding, both channels are encoded together.
  * @see https://learn.microsoft.com/windows/win32/api/codecapi/ne-codecapi-eavencaudiodualmono
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class eAVEncAudioDualMono extends Win32Enum{
+class eAVEncAudioDualMono extends Win32Enum {
 
     /**
      * Use the setting specified in the input media type.

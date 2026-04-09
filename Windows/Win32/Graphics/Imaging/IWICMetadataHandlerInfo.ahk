@@ -2,14 +2,14 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\IWICComponentInfo.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * Exposes methods that provide basic information about the registered metadata handler.
  * @see https://learn.microsoft.com/windows/win32/api/wincodecsdk/nn-wincodecsdk-iwicmetadatahandlerinfo
  * @namespace Windows.Win32.Graphics.Imaging
- * @version v4.0.30319
  */
-class IWICMetadataHandlerInfo extends IWICComponentInfo{
+class IWICMetadataHandlerInfo extends IWICComponentInfo {
 
     static sizeof => A_PtrSize
     /**

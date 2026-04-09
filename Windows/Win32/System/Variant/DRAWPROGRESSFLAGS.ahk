@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Variant
- * @version v4.0.30319
  */
-class DRAWPROGRESSFLAGS extends Win32BitflagEnum{
+class DRAWPROGRESSFLAGS extends Win32BitflagEnum {
 
     /**
      * @type {Integer (Int32)}

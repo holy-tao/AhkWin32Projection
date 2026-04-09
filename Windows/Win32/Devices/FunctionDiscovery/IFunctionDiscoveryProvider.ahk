@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\IFunctionInstanceCollection.ahk
 #Include ..\..\UI\Shell\PropertiesSystem\IPropertyStore.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * This is the main interface implemented by a discovery provider. It is the primary interface the Function Discovery infrastructure uses to communicate with the provider and its resources.
  * @see https://learn.microsoft.com/windows/win32/api/functiondiscoveryprovider/nn-functiondiscoveryprovider-ifunctiondiscoveryprovider
  * @namespace Windows.Win32.Devices.FunctionDiscovery
- * @version v4.0.30319
  */
-class IFunctionDiscoveryProvider extends IUnknown{
+class IFunctionDiscoveryProvider extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

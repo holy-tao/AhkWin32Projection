@@ -5,10 +5,8 @@
  * The SERVER_INFO_1513 structure contains the maximum size of pageable memory that the specified server can allocate at a particular time.
  * @see https://learn.microsoft.com/windows/win32/api/lmserver/ns-lmserver-server_info_1513
  * @namespace Windows.Win32.NetworkManagement.NetManagement
- * @version v4.0.30319
  */
-class SERVER_INFO_1513 extends Win32Struct
-{
+class SERVER_INFO_1513 extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 4

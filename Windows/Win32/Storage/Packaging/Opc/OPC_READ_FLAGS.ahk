@@ -12,9 +12,8 @@
  * <div> </div>
  * @see https://learn.microsoft.com/windows/win32/api/msopc/ne-msopc-opc_read_flags
  * @namespace Windows.Win32.Storage.Packaging.Opc
- * @version v4.0.30319
  */
-class OPC_READ_FLAGS extends Win32BitflagEnum{
+class OPC_READ_FLAGS extends Win32BitflagEnum {
 
     /**
      * Validate a package component against <i>OPC</i> conformance requirements when the  component is accessed. For more information about <i>OPC</i> conformance validation, see Remarks.

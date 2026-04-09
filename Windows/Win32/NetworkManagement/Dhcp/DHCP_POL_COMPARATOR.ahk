@@ -5,9 +5,8 @@
  * The DHCP_POL_COMPARATOR enumeration defines the comparison operator for a condition when building a DHCP server policy.
  * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/ne-dhcpsapi-dhcp_pol_comparator
  * @namespace Windows.Win32.NetworkManagement.Dhcp
- * @version v4.0.30319
  */
-class DHCP_POL_COMPARATOR extends Win32Enum{
+class DHCP_POL_COMPARATOR extends Win32Enum {
 
     /**
      * The DHCP client message field specified by the criterion must exactly match the value supplied in the condition.
@@ -34,13 +33,11 @@ class DHCP_POL_COMPARATOR extends Win32Enum{
     static DhcpCompNotBeginWith => 3
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static DhcpCompEndsWith => 4
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static DhcpCompNotEndWith => 5

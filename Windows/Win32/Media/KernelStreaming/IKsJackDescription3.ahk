@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\KSJACK_DESCRIPTION3.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\KSJACK_DESCRIPTION3.ahk
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
- * @version v4.0.30319
  */
-class IKsJackDescription3 extends IUnknown{
+class IKsJackDescription3 extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

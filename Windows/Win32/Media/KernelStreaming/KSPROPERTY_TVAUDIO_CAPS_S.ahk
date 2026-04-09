@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
- * @version v4.0.30319
  */
-class KSPROPERTY_TVAUDIO_CAPS_S extends Win32Struct
-{
+class KSPROPERTY_TVAUDIO_CAPS_S extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8
@@ -15,7 +13,7 @@ class KSPROPERTY_TVAUDIO_CAPS_S extends Win32Struct
     /**
      * @type {KSIDENTIFIER}
      */
-    Property{
+    Property {
         get {
             if(!this.HasProp("__Property"))
                 this.__Property := KSIDENTIFIER(0, this)
@@ -34,7 +32,7 @@ class KSPROPERTY_TVAUDIO_CAPS_S extends Win32Struct
     /**
      * @type {KSIDENTIFIER}
      */
-    InputMedium{
+    InputMedium {
         get {
             if(!this.HasProp("__InputMedium"))
                 this.__InputMedium := KSIDENTIFIER(24, this)
@@ -45,7 +43,7 @@ class KSPROPERTY_TVAUDIO_CAPS_S extends Win32Struct
     /**
      * @type {KSIDENTIFIER}
      */
-    OutputMedium{
+    OutputMedium {
         get {
             if(!this.HasProp("__OutputMedium"))
                 this.__OutputMedium := KSIDENTIFIER(40, this)

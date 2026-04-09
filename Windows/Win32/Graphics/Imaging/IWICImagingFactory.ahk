@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\IWICBitmapDecoder.ahk
 #Include .\IWICComponentInfo.ahk
 #Include .\IWICBitmapEncoder.ahk
@@ -16,15 +17,13 @@
 #Include ..\..\System\Com\IEnumUnknown.ahk
 #Include .\IWICFastMetadataEncoder.ahk
 #Include .\IWICMetadataQueryWriter.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Exposes methods used to create components for the Windows Imaging Component (WIC) such as decoders, encoders and pixel format converters.
  * @see https://learn.microsoft.com/windows/win32/api/wincodec/nn-wincodec-iwicimagingfactory
  * @namespace Windows.Win32.Graphics.Imaging
- * @version v4.0.30319
  */
-class IWICImagingFactory extends IUnknown{
+class IWICImagingFactory extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -53,7 +52,7 @@ class IWICImagingFactory extends IUnknown{
      * @param {Pointer<Guid>} pguidVendor Type: <b>const GUID*</b>
      * 
      * The GUID for the preferred decoder vendor. Use <b>NULL</b> if no preferred vendor.
-     * @param {Integer} dwDesiredAccess Type: <b>DWORD</b>
+     * @param {GENERIC_ACCESS_RIGHTS} dwDesiredAccess Type: <b>DWORD</b>
      * 
      * The access to the object, which can be read, write, or both.
      *                
@@ -89,7 +88,7 @@ class IWICImagingFactory extends IUnknown{
      *  
      * 
      * For more information, see <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/generic-access-rights">Generic Access Rights</a>.
-     * @param {Integer} metadataOptions Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ne-wincodec-wicdecodeoptions">WICDecodeOptions</a></b>
+     * @param {WICDecodeOptions} metadataOptions Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ne-wincodec-wicdecodeoptions">WICDecodeOptions</a></b>
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ne-wincodec-wicdecodeoptions">WICDecodeOptions</a> to use when creating the decoder.
      * @returns {IWICBitmapDecoder} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nn-wincodec-iwicbitmapdecoder">IWICBitmapDecoder</a>**</b>
@@ -112,7 +111,7 @@ class IWICImagingFactory extends IUnknown{
      * @param {Pointer<Guid>} pguidVendor Type: <b>const GUID*</b>
      * 
      * The GUID for the preferred decoder vendor. Use <b>NULL</b> if no preferred vendor.
-     * @param {Integer} metadataOptions Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ne-wincodec-wicdecodeoptions">WICDecodeOptions</a></b>
+     * @param {WICDecodeOptions} metadataOptions Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ne-wincodec-wicdecodeoptions">WICDecodeOptions</a></b>
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ne-wincodec-wicdecodeoptions">WICDecodeOptions</a> to use when creating the decoder.
      * @returns {IWICBitmapDecoder} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nn-wincodec-iwicbitmapdecoder">IWICBitmapDecoder</a>**</b>
@@ -135,7 +134,7 @@ class IWICImagingFactory extends IUnknown{
      * @param {Pointer<Guid>} pguidVendor Type: <b>const GUID*</b>
      * 
      * The GUID for the preferred decoder vendor. Use <b>NULL</b> if no preferred vendor.
-     * @param {Integer} metadataOptions Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ne-wincodec-wicdecodeoptions">WICDecodeOptions</a></b>
+     * @param {WICDecodeOptions} metadataOptions Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ne-wincodec-wicdecodeoptions">WICDecodeOptions</a></b>
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ne-wincodec-wicdecodeoptions">WICDecodeOptions</a> to use when creating the decoder.
      * @returns {IWICBitmapDecoder} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nn-wincodec-iwicbitmapdecoder">IWICBitmapDecoder</a>**</b>
@@ -560,7 +559,7 @@ class IWICImagingFactory extends IUnknown{
      * @param {Pointer<Guid>} pixelFormat Type: <b>REFWICPixelFormatGUID</b>
      * 
      * The pixel format of the new bitmap.
-     * @param {Integer} option Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ne-wincodec-wicbitmapcreatecacheoption">WICBitmapCreateCacheOption</a></b>
+     * @param {WICBitmapCreateCacheOption} option Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ne-wincodec-wicbitmapcreatecacheoption">WICBitmapCreateCacheOption</a></b>
      * 
      * The cache creation options of the new bitmap. This can be one of the values in the <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ne-wincodec-wicbitmapcreatecacheoption">WICBitmapCreateCacheOption</a> enumeration.
      * 
@@ -615,7 +614,7 @@ class IWICImagingFactory extends IUnknown{
      * @param {IWICBitmapSource} pIBitmapSource Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nn-wincodec-iwicbitmapsource">IWICBitmapSource</a>*</b>
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nn-wincodec-iwicbitmapsource">IWICBitmapSource</a> to create the bitmap from.
-     * @param {Integer} option Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ne-wincodec-wicbitmapcreatecacheoption">WICBitmapCreateCacheOption</a></b>
+     * @param {WICBitmapCreateCacheOption} option Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ne-wincodec-wicbitmapcreatecacheoption">WICBitmapCreateCacheOption</a></b>
      * 
      * The cache options of the new bitmap.  This can be one of the values in the <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ne-wincodec-wicbitmapcreatecacheoption">WICBitmapCreateCacheOption</a> enumeration.
      * 
@@ -741,9 +740,13 @@ class IWICImagingFactory extends IUnknown{
      * Creates an IWICBitmap from a bitmap handle.
      * @remarks
      * For a non-palletized bitmap, set NULL for the <i>hPalette</i> parameter.
-     * @param {HBITMAP} _hBitmap 
-     * @param {HPALETTE} _hPalette 
-     * @param {Integer} options Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ne-wincodec-wicbitmapalphachanneloption">WICBitmapAlphaChannelOption</a></b>
+     * @param {HBITMAP} _hBitmap Type: <b>HBITMAP</b>
+     * 
+     * A bitmap handle to create the bitmap from.
+     * @param {HPALETTE} _hPalette Type: <b>HPALETTE</b>
+     * 
+     * A palette handle used to create the bitmap.
+     * @param {WICBitmapAlphaChannelOption} options Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ne-wincodec-wicbitmapalphachanneloption">WICBitmapAlphaChannelOption</a></b>
      * 
      * The alpha channel options to create the bitmap.
      * @returns {IWICBitmap} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nn-wincodec-iwicbitmap">IWICBitmap</a>**</b>
@@ -761,7 +764,9 @@ class IWICImagingFactory extends IUnknown{
 
     /**
      * Creates an IWICBitmap from an icon handle.
-     * @param {HICON} _hIcon 
+     * @param {HICON} _hIcon Type: <b>HICON</b>
+     * 
+     * The icon handle to create the new bitmap from.
      * @returns {IWICBitmap} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nn-wincodec-iwicbitmap">IWICBitmap</a>**</b>
      * 
      * A pointer that receives a pointer to the new bitmap.
@@ -778,7 +783,9 @@ class IWICImagingFactory extends IUnknown{
      * Creates an IEnumUnknown object of the specified component types.
      * @remarks
      * Component types must be enumerated separately. Combinations of component types and <b>WICAllComponents</b> are unsupported.
-     * @param {Integer} _componentTypes 
+     * @param {Integer} _componentTypes Type: <b>DWORD</b>
+     * 
+     * The types of <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ne-wincodec-wiccomponenttype">WICComponentType</a> to enumerate.
      * @param {Integer} options Type: <b>DWORD</b>
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ne-wincodec-wiccomponentenumerateoptions">WICComponentEnumerateOptions</a> used to enumerate the given component types.

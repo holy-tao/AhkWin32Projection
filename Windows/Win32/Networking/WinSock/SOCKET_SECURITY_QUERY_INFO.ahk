@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\SOCKET_SECURITY_PROTOCOL.ahk
 
 /**
  * Contains security information returned by the WSAQuerySocketSecurity function.
@@ -9,17 +10,15 @@
  * The <b>SOCKET_SECURITY_QUERY_INFO</b> structure  is used by the <a href="https://docs.microsoft.com/windows/desktop/api/ws2tcpip/nf-ws2tcpip-wsaquerysocketsecurity">WSAQuerySocketSecurity</a> function to return information about the security applied to a connection on a socket.
  * @see https://learn.microsoft.com/windows/win32/api/mstcpip/ns-mstcpip-socket_security_query_info
  * @namespace Windows.Win32.Networking.WinSock
- * @version v4.0.30319
  */
-class SOCKET_SECURITY_QUERY_INFO extends Win32Struct
-{
+class SOCKET_SECURITY_QUERY_INFO extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/mstcpip/ne-mstcpip-socket_security_protocol">SOCKET_SECURITY_PROTOCOL</a> value that identifies the protocol used to secure the traffic.
-     * @type {Integer}
+     * @type {SOCKET_SECURITY_PROTOCOL}
      */
     SecurityProtocol {
         get => NumGet(this, 0, "int")

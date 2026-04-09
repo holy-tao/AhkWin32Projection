@@ -2,15 +2,14 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\CTL_USAGE.ahk
 #Include .\CRYPT_INTEGER_BLOB.ahk
+#Include .\CERT_INFO.ahk
 
 /**
  * A member of the CTL_FIND_SUBJECT_PARA structure and it is used by CertFindCTLInStore.
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-ctl_find_usage_para
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CTL_FIND_USAGE_PARA extends Win32Struct
-{
+class CTL_FIND_USAGE_PARA extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -35,7 +34,7 @@ class CTL_FIND_USAGE_PARA extends Win32Struct
      * If the <b>cUsageIdentifier</b> member of this structure is zero, a CTL with any usage can be a match.
      * @type {CTL_USAGE}
      */
-    SubjectUsage{
+    SubjectUsage {
         get {
             if(!this.HasProp("__SubjectUsage"))
                 this.__SubjectUsage := CTL_USAGE(8, this)
@@ -54,7 +53,7 @@ class CTL_FIND_USAGE_PARA extends Win32Struct
      * A CTL uses a <b>ListIdentifier</b> to distinguish among multiple CTLs created by the same issuer with the same <b>SubjectUsage</b>.
      * @type {CRYPT_INTEGER_BLOB}
      */
-    ListIdentifier{
+    ListIdentifier {
         get {
             if(!this.HasProp("__ListIdentifier"))
                 this.__ListIdentifier := CRYPT_INTEGER_BLOB(24, this)

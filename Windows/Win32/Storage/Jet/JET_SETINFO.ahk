@@ -5,10 +5,8 @@
  * Learn more about: JET_SETINFO class
  * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jet-setinfo-class
  * @namespace Windows.Win32.Storage.Jet
- * @version v4.0.30319
  */
-class JET_SETINFO extends Win32Struct
-{
+class JET_SETINFO extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4

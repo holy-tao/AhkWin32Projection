@@ -7,9 +7,8 @@
  * Fires an event to a single subscription.
  * @see https://learn.microsoft.com/windows/win32/api/eventsys/nn-eventsys-ifiringcontrol
  * @namespace Windows.Win32.System.Com.Events
- * @version v4.0.30319
  */
-class IFiringControl extends IDispatch{
+class IFiringControl extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

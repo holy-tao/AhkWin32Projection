@@ -11,9 +11,8 @@
  * This interface is implemented by the track Shell menu object. You can obtain that object by calling <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cocreateinstance">CoCreateInstance</a> with a class identifier (CLSID) of <c>CLSID_TrackShellMenu</c>. You can obtain interface pointers using standard Component Object Model (COM) procedures. The value of CLSID_TrackShellMenu is {8278F931-2A3E-11d2-838F-00C04FD918D0}.
  * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nn-shdeprecated-itrackshellmenu
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class ITrackShellMenu extends IShellMenu{
+class ITrackShellMenu extends IShellMenu {
 
     static sizeof => A_PtrSize
     /**
@@ -69,7 +68,9 @@ class ITrackShellMenu extends IShellMenu{
 
     /**
      * Displays a modal pop-up menu at a specific location.
-     * @param {HWND} _hwnd 
+     * @param {HWND} _hwnd Type: <b>HWND</b>
+     * 
+     * The handle of the parent window of the pop-up menu.
      * @param {Pointer<POINTL>} ppt Type: <b><a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-pointl">POINTL</a>*</b>
      * 
      * A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-pointl">POINTL</a> structure that specifies an initial point in screen coordinates. The pop-up menu is displayed in relation to this point as determined by the position flags set in <i>dwFlags</i>.

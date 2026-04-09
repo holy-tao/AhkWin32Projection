@@ -1,21 +1,20 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\COMPLUS_APPTYPE.ahk
 
 /**
  * Represents a COM+ application hosted in a particular process. It can also represent a pseudo-application entry for all Services Without Components (SWC) contexts in the process.
  * @see https://learn.microsoft.com/windows/win32/api/comsvcs/ns-comsvcs-applicationsummary
  * @namespace Windows.Win32.System.ComponentServices
- * @version v4.0.30319
  */
-class ApplicationSummary extends Win32Struct
-{
+class ApplicationSummary extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
 
     /**
      * The application instance GUID that uniquely identifies the process hosting the COM+ application.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     ApplicationInstanceId {
         get => NumGet(this, 0, "ptr")
@@ -24,7 +23,7 @@ class ApplicationSummary extends Win32Struct
 
     /**
      * The partition ID of the COM+ application.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     PartitionId {
         get => NumGet(this, 8, "ptr")
@@ -33,7 +32,7 @@ class ApplicationSummary extends Win32Struct
 
     /**
      * The application ID of the COM+ application. The special value {84ac4168-6fe5-4308-a2ed-03688a023c7a} is used for the SWC pseudo-application.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     ApplicationId {
         get => NumGet(this, 16, "ptr")
@@ -42,7 +41,7 @@ class ApplicationSummary extends Win32Struct
 
     /**
      * The type of COM+ application. For a list of values, see <a href="https://docs.microsoft.com/windows/desktop/api/comsvcs/ne-comsvcs-complus_apptype">COMPLUS_APPTYPE</a>.
-     * @type {Integer}
+     * @type {COMPLUS_APPTYPE}
      */
     Type {
         get => NumGet(this, 24, "int")

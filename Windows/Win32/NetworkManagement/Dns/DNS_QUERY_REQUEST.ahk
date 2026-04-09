@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DNS_ADDR_ARRAY.ahk
 
 /**
  * The DNS_QUERY_REQUEST structure contains the DNS query parameters used in a call to DnsQueryEx.
  * @see https://learn.microsoft.com/windows/win32/api/windns/ns-windns-dns_query_request
  * @namespace Windows.Win32.NetworkManagement.Dns
- * @version v4.0.30319
  */
-class DNS_QUERY_REQUEST extends Win32Struct
-{
+class DNS_QUERY_REQUEST extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 8

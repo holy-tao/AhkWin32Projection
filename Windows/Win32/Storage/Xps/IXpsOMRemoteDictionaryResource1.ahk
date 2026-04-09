@@ -7,9 +7,8 @@
  * Extends IXpsOMRemoteDictionaryResource to provide methods that support OpenXPS documents.
  * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel_1/nn-xpsobjectmodel_1-ixpsomremotedictionaryresource1
  * @namespace Windows.Win32.Storage.Xps
- * @version v4.0.30319
  */
-class IXpsOMRemoteDictionaryResource1 extends IXpsOMRemoteDictionaryResource{
+class IXpsOMRemoteDictionaryResource1 extends IXpsOMRemoteDictionaryResource {
 
     static sizeof => A_PtrSize
     /**
@@ -32,7 +31,7 @@ class IXpsOMRemoteDictionaryResource1 extends IXpsOMRemoteDictionaryResource{
 
     /**
      * Gets the XPS_DOCUMENT_TYPE of the resource.
-     * @returns {Integer} The <a href="https://docs.microsoft.com/windows/win32/api/xpsobjectmodel_1/ne-xpsobjectmodel_1-xps_document_type">XPS_DOCUMENT_TYPE</a> document type of the resource.
+     * @returns {XPS_DOCUMENT_TYPE} The <a href="https://docs.microsoft.com/windows/win32/api/xpsobjectmodel_1/ne-xpsobjectmodel_1-xps_document_type">XPS_DOCUMENT_TYPE</a> document type of the resource.
      * 
      * Returns <a href="https://docs.microsoft.com/windows/win32/api/xpsobjectmodel_1/ne-xpsobjectmodel_1-xps_document_type">XPS_DOCUMENT_TYPE_UNSPECIFIED</a> unless the <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomremotedictionaryresource">IXpsOMRemoteDictionaryResource</a> interface was created by loading a previously serialized remote dictionary.
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel_1/nf-xpsobjectmodel_1-ixpsomremotedictionaryresource1-getdocumenttype
@@ -45,7 +44,7 @@ class IXpsOMRemoteDictionaryResource1 extends IXpsOMRemoteDictionaryResource{
     /**
      * Serializes the remote dictionary resource to a stream.
      * @param {ISequentialStream} stream The stream that receives the serialized contents of the dictionary.
-     * @param {Integer} documentType The XPS data format to write to outputStream. The value of this parameter cannot be <b>XPS_DOCUMENT_TYPE_UNSPECIFIED</b>.
+     * @param {XPS_DOCUMENT_TYPE} documentType The XPS data format to write to outputStream. The value of this parameter cannot be <b>XPS_DOCUMENT_TYPE_UNSPECIFIED</b>.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>.
      * 
      * For information about  XPS document API return values, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dd372955(v=vs.85)">XPS Document Errors</a>.

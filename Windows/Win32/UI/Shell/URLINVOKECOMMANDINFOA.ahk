@@ -4,11 +4,9 @@
 
 /**
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  * @charset ANSI
  */
-class URLINVOKECOMMANDINFOA extends Win32Struct
-{
+class URLINVOKECOMMANDINFOA extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -32,7 +30,7 @@ class URLINVOKECOMMANDINFOA extends Win32Struct
     /**
      * @type {HWND}
      */
-    hwndParent{
+    hwndParent {
         get {
             if(!this.HasProp("__hwndParent"))
                 this.__hwndParent := HWND(8, this)

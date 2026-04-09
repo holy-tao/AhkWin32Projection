@@ -5,9 +5,8 @@
  * Identifies a type of tensor description.
  * @see https://learn.microsoft.com/windows/win32/api/directml/ne-directml-dml_tensor_type
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
- * @version v4.0.30319
  */
-class DML_TENSOR_TYPE extends Win32Enum{
+class DML_TENSOR_TYPE extends Win32Enum {
 
     /**
      * Indicates an unknown tensor description type. This value is never valid.

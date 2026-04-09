@@ -9,9 +9,8 @@
  * <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-shassocenumhandlers">SHAssocEnumHandlers</a> is the usual method of creating an IEnumAssocHandlers pointer.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-ienumassochandlers
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IEnumAssocHandlers extends IUnknown{
+class IEnumAssocHandlers extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

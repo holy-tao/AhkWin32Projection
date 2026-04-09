@@ -20,9 +20,8 @@
  * </ol>
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imfvideosampleallocatorex
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFVideoSampleAllocatorEx extends IMFVideoSampleAllocator{
+class IMFVideoSampleAllocatorEx extends IMFVideoSampleAllocator {
 
     static sizeof => A_PtrSize
     /**

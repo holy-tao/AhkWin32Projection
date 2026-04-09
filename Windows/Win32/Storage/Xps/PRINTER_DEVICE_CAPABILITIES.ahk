@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Storage.Xps
- * @version v4.0.30319
  */
-class PRINTER_DEVICE_CAPABILITIES extends Win32Enum{
+class PRINTER_DEVICE_CAPABILITIES extends Win32Enum {
 
     /**
      * @type {Integer (UInt16)}

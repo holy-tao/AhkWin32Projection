@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Media.Audio.DirectSound
- * @version v4.0.30319
  */
-class DSEFFECTDESC extends Win32Struct
-{
+class DSEFFECTDESC extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -28,7 +26,7 @@ class DSEFFECTDESC extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     guidDSFXClass {
         get => NumGet(this, 8, "ptr")

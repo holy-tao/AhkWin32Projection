@@ -15,9 +15,8 @@
  * Use this interface to uncovers a single level of aliasing. For instance, if you have the path of an item in the Documents library, this interface reveals the path of the item in the location that was added to the library. Whether this is the file system path depends on the nature of that original location. For a full recursion to the source item, use <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-iidentityname">IIdentityName</a>.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-idelegateitem
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IDelegateItem extends IRelatedItem{
+class IDelegateItem extends IRelatedItem {
 
     static sizeof => A_PtrSize
     /**

@@ -7,9 +7,8 @@
  * The IBasicAudio interface controls the volume and balance of the audio stream.This interface is implemented on the Audio Renderer (WaveOut) filter and the DirectSound Renderer filter, but is exposed to applications through the Filter Graph Manager.
  * @see https://learn.microsoft.com/windows/win32/api/control/nn-control-ibasicaudio
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IBasicAudio extends IDispatch{
+class IBasicAudio extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

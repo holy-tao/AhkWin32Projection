@@ -10,10 +10,8 @@
  * For more information about using the lighting engine to calculate specular lighting, see [Specular Lighting (Direct3D 9)](specular-lighting.md).
  * @see https://learn.microsoft.com/windows/win32/direct3d9/d3dmaterial9
  * @namespace Windows.Win32.Graphics.Direct3D9
- * @version v4.0.30319
  */
-class D3DMATERIAL9 extends Win32Struct
-{
+class D3DMATERIAL9 extends Win32Struct {
     static sizeof => 68
 
     static packingSize => 4
@@ -25,7 +23,7 @@ class D3DMATERIAL9 extends Win32Struct
      * Value specifying the diffuse color of the material. See [**D3DCOLORVALUE**](d3dcolorvalue.md).
      * @type {D3DCOLORVALUE}
      */
-    Diffuse{
+    Diffuse {
         get {
             if(!this.HasProp("__Diffuse"))
                 this.__Diffuse := D3DCOLORVALUE(0, this)
@@ -40,7 +38,7 @@ class D3DMATERIAL9 extends Win32Struct
      * Value specifying the ambient color of the material. See [**D3DCOLORVALUE**](d3dcolorvalue.md).
      * @type {D3DCOLORVALUE}
      */
-    Ambient{
+    Ambient {
         get {
             if(!this.HasProp("__Ambient"))
                 this.__Ambient := D3DCOLORVALUE(16, this)
@@ -55,7 +53,7 @@ class D3DMATERIAL9 extends Win32Struct
      * Value specifying the specular color of the material. See [**D3DCOLORVALUE**](d3dcolorvalue.md).
      * @type {D3DCOLORVALUE}
      */
-    Specular{
+    Specular {
         get {
             if(!this.HasProp("__Specular"))
                 this.__Specular := D3DCOLORVALUE(32, this)
@@ -70,7 +68,7 @@ class D3DMATERIAL9 extends Win32Struct
      * Value specifying the emissive color of the material. See [**D3DCOLORVALUE**](d3dcolorvalue.md).
      * @type {D3DCOLORVALUE}
      */
-    Emissive{
+    Emissive {
         get {
             if(!this.HasProp("__Emissive"))
                 this.__Emissive := D3DCOLORVALUE(48, this)

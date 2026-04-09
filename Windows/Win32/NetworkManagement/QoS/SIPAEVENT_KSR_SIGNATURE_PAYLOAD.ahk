@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.QoS
- * @version v4.0.30319
  */
-class SIPAEVENT_KSR_SIGNATURE_PAYLOAD extends Win32Struct
-{
+class SIPAEVENT_KSR_SIGNATURE_PAYLOAD extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4
@@ -28,9 +26,9 @@ class SIPAEVENT_KSR_SIGNATURE_PAYLOAD extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Signature{
+    Signature {
         get {
             if(!this.HasProp("__SignatureProxyArray"))
                 this.__SignatureProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "char")

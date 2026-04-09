@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * The ITForwardInformation interface provides methods for setup and implementation of call forwarding.
  * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nn-tapi3if-itforwardinformation
  * @namespace Windows.Win32.Devices.Tapi
- * @version v4.0.30319
  */
-class ITForwardInformation extends IDispatch{
+class ITForwardInformation extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

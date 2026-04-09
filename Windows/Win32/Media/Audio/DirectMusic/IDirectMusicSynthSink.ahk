@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\IReferenceClock.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
+#Include ..\..\IReferenceClock.ahk
 
 /**
  * The IDirectMusicSynthSink interface is now largely obsolete and is supported only by versions of DirectMusic before DirectX 8.
  * @see https://learn.microsoft.com/windows/win32/api/dmusics/nn-dmusics-idirectmusicsynthsink
  * @namespace Windows.Win32.Media.Audio.DirectMusic
- * @version v4.0.30319
  */
-class IDirectMusicSynthSink extends IUnknown{
+class IDirectMusicSynthSink extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

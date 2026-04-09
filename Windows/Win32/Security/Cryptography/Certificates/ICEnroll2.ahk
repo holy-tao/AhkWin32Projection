@@ -1,16 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
 #Include .\ICEnroll.ahk
 
 /**
  * The ICEnroll2 interface is one of several interfaces that represent the Certificate Enrollment Control.
  * @see https://learn.microsoft.com/windows/win32/api/xenroll/nn-xenroll-icenroll2
  * @namespace Windows.Win32.Security.Cryptography.Certificates
- * @version v4.0.30319
  */
-class ICEnroll2 extends ICEnroll{
+class ICEnroll2 extends ICEnroll {
 
     static sizeof => A_PtrSize
     /**

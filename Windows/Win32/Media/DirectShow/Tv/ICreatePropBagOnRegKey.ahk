@@ -9,9 +9,8 @@
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(ICreatePropBagOnRegKey)</c>.
  * @see https://learn.microsoft.com/windows/win32/api/regbag/nn-regbag-icreatepropbagonregkey
  * @namespace Windows.Win32.Media.DirectShow.Tv
- * @version v4.0.30319
  */
-class ICreatePropBagOnRegKey extends IUnknown{
+class ICreatePropBagOnRegKey extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -74,7 +73,7 @@ class ICreatePropBagOnRegKey extends IUnknown{
      *  
      * 
      * If you write a value of VT_EMPTY or VT_NULL the property is removed from the bag and the corresponding registry values are deleted.
-     * @param {HKEY} _hkey 
+     * @param {HKEY} _hkey Specifies a handle to the registry key.
      * @param {PWSTR} subkey Specifies the subkey.
      * @param {Integer} ulOptions Reserved; must be zero.
      * @param {Integer} samDesired Specifies the desired access rights to the key. The value can be any combination of flags from the <i>samDesired</i> parameter in the Win32 <b>RegOpenKeyEx</b> function.

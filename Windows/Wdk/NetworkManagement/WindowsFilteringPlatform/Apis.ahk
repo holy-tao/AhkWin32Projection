@@ -4,7 +4,6 @@
 
 /**
  * @namespace Windows.Wdk.NetworkManagement.WindowsFilteringPlatform
- * @version v4.0.30319
  */
 class WindowsFilteringPlatform {
 
@@ -36,7 +35,7 @@ class WindowsFilteringPlatform {
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {FWPM_SERVICE_STATE} 
      */
     static FwpmBfeStateGet0() {
         result := DllCall("fwpkclnt.sys\FwpmBfeStateGet0", "int")
@@ -247,7 +246,7 @@ class WindowsFilteringPlatform {
      * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
-     * @param {Integer} option Type: [FWPM_ENGINE_OPTION](/windows/desktop/api/fwpmtypes/ne-fwpmtypes-fwpm_engine_option)</b>
+     * @param {FWPM_ENGINE_OPTION} option Type: [FWPM_ENGINE_OPTION](/windows/desktop/api/fwpmtypes/ne-fwpmtypes-fwpm_engine_option)</b>
      * 
      * The option to be retrieved.
      * @param {Pointer<Pointer<FWP_VALUE0>>} value Type: [FWP_VALUE0](/windows/desktop/api/fwptypes/ns-fwptypes-fwp_value0)**</b>
@@ -379,7 +378,7 @@ class WindowsFilteringPlatform {
      * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
-     * @param {Integer} option Type: [FWPM_ENGINE_OPTION](/windows/desktop/api/fwpmtypes/ne-fwpmtypes-fwpm_engine_option)</b>
+     * @param {FWPM_ENGINE_OPTION} option Type: [FWPM_ENGINE_OPTION](/windows/desktop/api/fwpmtypes/ne-fwpmtypes-fwpm_engine_option)</b>
      * 
      * The option to be set.
      * @param {Pointer<FWP_VALUE0>} newValue Type: [FWP_VALUE0](/windows/desktop/api/fwptypes/ns-fwptypes-fwp_value0)*</b>
@@ -499,7 +498,9 @@ class WindowsFilteringPlatform {
      * @param {Pointer<Pointer<ACL>>} sacl Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-acl">PACL</a>*</b>
      * 
      * The system access control list (SACL) in the returned security descriptor.
-     * @param {Pointer<PSECURITY_DESCRIPTOR>} _securityDescriptor 
+     * @param {Pointer<PSECURITY_DESCRIPTOR>} _securityDescriptor Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">PSECURITY_DESCRIPTOR</a>*</b>
+     * 
+     * The returned security descriptor.
      * @returns {NTSTATUS} Type: <b>DWORD</b>
      * 
      * <table>
@@ -1573,7 +1574,9 @@ class WindowsFilteringPlatform {
      * @param {Pointer<Pointer<ACL>>} sacl Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-acl">PACL</a>*</b>
      * 
      * The system access control list (SACL) in the returned security descriptor.
-     * @param {Pointer<PSECURITY_DESCRIPTOR>} _securityDescriptor 
+     * @param {Pointer<PSECURITY_DESCRIPTOR>} _securityDescriptor Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">PSECURITY_DESCRIPTOR</a>*</b>
+     * 
+     * The returned security descriptor.
      * @returns {NTSTATUS} Type: <b>DWORD</b>
      * 
      * <table>
@@ -3062,7 +3065,9 @@ class WindowsFilteringPlatform {
      * @param {Pointer<Pointer<ACL>>} sacl Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-acl">PACL</a>*</b>
      * 
      * The system access control list (SACL) in the returned security descriptor.
-     * @param {Pointer<PSECURITY_DESCRIPTOR>} _securityDescriptor 
+     * @param {Pointer<PSECURITY_DESCRIPTOR>} _securityDescriptor Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">PSECURITY_DESCRIPTOR</a>*</b>
+     * 
+     * The returned security descriptor.
      * @returns {NTSTATUS} Type: <b>DWORD</b>
      * 
      * <table>
@@ -3685,7 +3690,9 @@ class WindowsFilteringPlatform {
      * @param {Pointer<Pointer<ACL>>} sacl Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-acl">PACL</a>*</b>
      * 
      * The system access control list (SACL) in the returned security descriptor.
-     * @param {Pointer<PSECURITY_DESCRIPTOR>} _securityDescriptor 
+     * @param {Pointer<PSECURITY_DESCRIPTOR>} _securityDescriptor Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">PSECURITY_DESCRIPTOR</a>*</b>
+     * 
+     * The returned security descriptor.
      * @returns {NTSTATUS} Type: <b>DWORD</b>
      * 
      * <table>
@@ -4233,7 +4240,9 @@ class WindowsFilteringPlatform {
      * @param {Pointer<Pointer<ACL>>} sacl Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-acl">PACL</a>*</b>
      * 
      * The system access control list (SACL) in the returned security descriptor.
-     * @param {Pointer<PSECURITY_DESCRIPTOR>} _securityDescriptor 
+     * @param {Pointer<PSECURITY_DESCRIPTOR>} _securityDescriptor Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">PSECURITY_DESCRIPTOR</a>*</b>
+     * 
+     * The returned security descriptor.
      * @returns {NTSTATUS} Type: <b>DWORD</b>
      * 
      * <table>
@@ -5032,7 +5041,9 @@ class WindowsFilteringPlatform {
      * @param {Pointer<Pointer<ACL>>} sacl Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-acl">PACL</a>*</b>
      * 
      * The system access control list (SACL) in the returned security descriptor.
-     * @param {Pointer<PSECURITY_DESCRIPTOR>} _securityDescriptor 
+     * @param {Pointer<PSECURITY_DESCRIPTOR>} _securityDescriptor Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">PSECURITY_DESCRIPTOR</a>*</b>
+     * 
+     * The returned security descriptor.
      * @returns {NTSTATUS} Type: <b>DWORD</b>
      * 
      * <table>
@@ -5796,7 +5807,9 @@ class WindowsFilteringPlatform {
      * @param {Pointer<Pointer<ACL>>} sacl Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-acl">PACL</a>*</b>
      * 
      * The system access control list (SACL) in the returned security descriptor.
-     * @param {Pointer<PSECURITY_DESCRIPTOR>} _securityDescriptor 
+     * @param {Pointer<PSECURITY_DESCRIPTOR>} _securityDescriptor Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">PSECURITY_DESCRIPTOR</a>*</b>
+     * 
+     * The returned security descriptor.
      * @returns {NTSTATUS} Type: <b>DWORD</b>
      * 
      * <table>
@@ -8217,7 +8230,9 @@ class WindowsFilteringPlatform {
      * @param {Pointer<Pointer<ACL>>} sacl Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-acl">PACL</a>*</b>
      * 
      * The system access control list (SACL) in the returned security descriptor.
-     * @param {Pointer<PSECURITY_DESCRIPTOR>} _securityDescriptor 
+     * @param {Pointer<PSECURITY_DESCRIPTOR>} _securityDescriptor Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">PSECURITY_DESCRIPTOR</a>*</b>
+     * 
+     * The returned security descriptor.
      * @returns {NTSTATUS} Type: <b>DWORD</b>
      * 
      * <table>
@@ -8671,7 +8686,9 @@ class WindowsFilteringPlatform {
      * @param {Pointer<Pointer<ACL>>} sacl Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-acl">PACL</a>*</b>
      * 
      * The system access control list (SACL) in the returned security descriptor.
-     * @param {Pointer<PSECURITY_DESCRIPTOR>} _securityDescriptor 
+     * @param {Pointer<PSECURITY_DESCRIPTOR>} _securityDescriptor Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">PSECURITY_DESCRIPTOR</a>*</b>
+     * 
+     * The returned security descriptor.
      * @returns {NTSTATUS} Type: <b>DWORD</b>
      * 
      * <table>
@@ -9633,7 +9650,9 @@ class WindowsFilteringPlatform {
      * @param {Pointer<Pointer<ACL>>} sacl Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-acl">PACL</a>*</b>
      * 
      * The system access control list (SACL) in the returned security descriptor.
-     * @param {Pointer<PSECURITY_DESCRIPTOR>} _securityDescriptor 
+     * @param {Pointer<PSECURITY_DESCRIPTOR>} _securityDescriptor Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">PSECURITY_DESCRIPTOR</a>*</b>
+     * 
+     * The returned security descriptor.
      * @returns {NTSTATUS} Type: <b>DWORD</b>
      * 
      * <table>
@@ -10356,7 +10375,9 @@ class WindowsFilteringPlatform {
      * @param {Pointer<Pointer<ACL>>} sacl Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-acl">PACL</a>*</b>
      * 
      * The system access control list (SACL) in the returned security descriptor.
-     * @param {Pointer<PSECURITY_DESCRIPTOR>} _securityDescriptor 
+     * @param {Pointer<PSECURITY_DESCRIPTOR>} _securityDescriptor Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">PSECURITY_DESCRIPTOR</a>*</b>
+     * 
+     * The returned security descriptor.
      * @returns {NTSTATUS} Type: <b>DWORD</b>
      * 
      * <table>
@@ -10512,7 +10533,9 @@ class WindowsFilteringPlatform {
      * @param {Integer} id Type: <b>UINT64</b>
      * 
      * The run-time identifier for the connection.
-     * @param {Pointer<Pointer<FWPM_CONNECTION0>>} _connection 
+     * @param {Pointer<Pointer<FWPM_CONNECTION0>>} _connection Type: [FWPM_CONNECTION0](/windows/desktop/api/fwpmtypes/ns-fwpmtypes-fwpm_connection0)**</b>
+     * 
+     * The connection information.
      * @returns {NTSTATUS} Type: <b>DWORD</b>
      * 
      * <table>
@@ -10808,7 +10831,9 @@ class WindowsFilteringPlatform {
      * @param {Pointer<Pointer<ACL>>} sacl Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-acl">PACL</a>*</b>
      * 
      * The system access control list (SACL) in the returned security descriptor.
-     * @param {Pointer<PSECURITY_DESCRIPTOR>} _securityDescriptor 
+     * @param {Pointer<PSECURITY_DESCRIPTOR>} _securityDescriptor Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">PSECURITY_DESCRIPTOR</a>*</b>
+     * 
+     * The returned security descriptor.
      * @returns {NTSTATUS} Type: <b>DWORD</b>
      * 
      * <table>
@@ -10976,7 +11001,9 @@ class WindowsFilteringPlatform {
      * @param {Pointer<Pointer<ACL>>} sacl Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-acl">PACL</a>*</b>
      * 
      * The system access control list (SACL) in the returned security descriptor.
-     * @param {Pointer<PSECURITY_DESCRIPTOR>} _securityDescriptor 
+     * @param {Pointer<PSECURITY_DESCRIPTOR>} _securityDescriptor Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">PSECURITY_DESCRIPTOR</a>*</b>
+     * 
+     * The returned security descriptor.
      * @returns {NTSTATUS} Type: <b>DWORD</b>
      * 
      * <table>

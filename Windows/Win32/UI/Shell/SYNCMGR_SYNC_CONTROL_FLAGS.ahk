@@ -7,9 +7,8 @@
  * Typically, sync requests are queued if a synchronization is currently in progress. An item might be in both the ongoing synchronization and the queued synchronization. These flags specify whether such an item should be resynched when the queued synchronization is performed.
  * @see https://learn.microsoft.com/windows/win32/api/syncmgr/ne-syncmgr-syncmgr_sync_control_flags
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class SYNCMGR_SYNC_CONTROL_FLAGS extends Win32Enum{
+class SYNCMGR_SYNC_CONTROL_FLAGS extends Win32Enum {
 
     /**
      * Sync all items, regardless of whether they were just synced.

@@ -5,9 +5,8 @@
  * Specifies the security context in which credentials are encrypted when using the CredProtect function.
  * @see https://learn.microsoft.com/windows/win32/api/wincred/ne-wincred-cred_protection_type
  * @namespace Windows.Win32.Security.Credentials
- * @version v4.0.30319
  */
-class CRED_PROTECTION_TYPE extends Win32Enum{
+class CRED_PROTECTION_TYPE extends Win32Enum {
 
     /**
      * The credentials are not encrypted.
@@ -28,7 +27,6 @@ class CRED_PROTECTION_TYPE extends Win32Enum{
     static CredTrustedProtection => 2
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static CredForSystemProtection => 3

@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
- * @version v4.0.30319
  */
-class OEMFONTINSTPARAM extends Win32Struct
-{
+class OEMFONTINSTPARAM extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -23,7 +21,7 @@ class OEMFONTINSTPARAM extends Win32Struct
     /**
      * @type {HANDLE}
      */
-    hPrinter{
+    hPrinter {
         get {
             if(!this.HasProp("__hPrinter"))
                 this.__hPrinter := HANDLE(8, this)
@@ -34,7 +32,7 @@ class OEMFONTINSTPARAM extends Win32Struct
     /**
      * @type {HANDLE}
      */
-    hModule{
+    hModule {
         get {
             if(!this.HasProp("__hModule"))
                 this.__hModule := HANDLE(16, this)
@@ -45,7 +43,7 @@ class OEMFONTINSTPARAM extends Win32Struct
     /**
      * @type {HANDLE}
      */
-    hHeap{
+    hHeap {
         get {
             if(!this.HasProp("__hHeap"))
                 this.__hHeap := HANDLE(24, this)

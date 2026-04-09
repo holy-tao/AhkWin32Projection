@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\JET_LOGTIME.ahk
 #Include .\JET_SIGNATURE.ahk
+#Include .\JET_LOGTIME.ahk
 
 /**
  * Learn more about: JET_COMMIT_ID class
  * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jet-commit-id-class
  * @namespace Windows.Win32.Storage.Jet
- * @version v4.0.30319
+ * @architecture X64, Arm64
  */
-class JET_COMMIT_ID extends Win32Struct
-{
+class JET_COMMIT_ID extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -18,7 +17,7 @@ class JET_COMMIT_ID extends Win32Struct
     /**
      * @type {JET_SIGNATURE}
      */
-    signLog{
+    signLog {
         get {
             if(!this.HasProp("__signLog"))
                 this.__signLog := JET_SIGNATURE(0, this)

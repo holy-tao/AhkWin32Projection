@@ -5,9 +5,8 @@
  * The type of the security binding, used as a selector for subtypes of WS_SECURITY_BINDING.
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ne-webservices-ws_security_binding_type
  * @namespace Windows.Win32.Networking.WindowsWebServices
- * @version v4.0.30319
  */
-class WS_SECURITY_BINDING_TYPE extends Win32Enum{
+class WS_SECURITY_BINDING_TYPE extends Win32Enum {
 
     /**
      * Type id for the security binding <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_ssl_transport_security_binding">WS_SSL_TRANSPORT_SECURITY_BINDING</a>.

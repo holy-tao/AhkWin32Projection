@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\System\Com\BYTE_BLOB.ahk
 
 /**
  * Describes conflict ID information structure.
  * @see https://learn.microsoft.com/windows/win32/api/syncmgr/ns-syncmgr-syncmgr_conflict_id_info
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class SYNCMGR_CONFLICT_ID_INFO extends Win32Struct
-{
+class SYNCMGR_CONFLICT_ID_INFO extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

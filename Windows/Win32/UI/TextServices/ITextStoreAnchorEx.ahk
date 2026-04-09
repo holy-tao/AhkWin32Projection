@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.UI.TextServices
- * @version v4.0.30319
  */
-class ITextStoreAnchorEx extends IUnknown{
+class ITextStoreAnchorEx extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

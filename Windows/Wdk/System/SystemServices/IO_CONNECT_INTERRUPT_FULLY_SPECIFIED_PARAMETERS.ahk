@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\DEVICE_OBJECT.ahk
+#Include .\KINTERRUPT_MODE.ahk
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class IO_CONNECT_INTERRUPT_FULLY_SPECIFIED_PARAMETERS extends Win32Struct
-{
+class IO_CONNECT_INTERRUPT_FULLY_SPECIFIED_PARAMETERS extends Win32Struct {
     static sizeof => 72
 
     static packingSize => 8
@@ -92,7 +92,7 @@ class IO_CONNECT_INTERRUPT_FULLY_SPECIFIED_PARAMETERS extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {KINTERRUPT_MODE}
      */
     InterruptMode {
         get => NumGet(this, 52, "int")

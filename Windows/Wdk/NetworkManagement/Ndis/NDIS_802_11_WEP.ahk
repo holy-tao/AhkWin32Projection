@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.NetworkManagement.Ndis
- * @version v4.0.30319
  */
-class NDIS_802_11_WEP extends Win32Struct
-{
+class NDIS_802_11_WEP extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4
@@ -36,9 +34,9 @@ class NDIS_802_11_WEP extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    KeyMaterial{
+    KeyMaterial {
         get {
             if(!this.HasProp("__KeyMaterialProxyArray"))
                 this.__KeyMaterialProxyArray := Win32FixedArray(this.ptr + 12, 1, Primitive, "char")

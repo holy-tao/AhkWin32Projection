@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Variant\VARIANT.ahk
 #Include ..\Com\IUnknown.ahk
+#Include ..\Variant\VARIANT.ahk
 
 /**
  * Monitors the individual log records maintained by a specific CRM clerk for a given transaction.
  * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nn-comsvcs-icrmmonitorlogrecords
  * @namespace Windows.Win32.System.ComponentServices
- * @version v4.0.30319
  */
-class ICrmMonitorLogRecords extends IUnknown{
+class ICrmMonitorLogRecords extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -39,7 +38,7 @@ class ICrmMonitorLogRecords extends IUnknown{
     }
 
     /**
-     * @type {Integer} 
+     * @type {CrmTransactionState} 
      */
     TransactionState {
         get => this.get_TransactionState()
@@ -64,7 +63,7 @@ class ICrmMonitorLogRecords extends IUnknown{
 
     /**
      * Retrieves the current state of the transaction.
-     * @returns {Integer} The current transaction state, represented by an <a href="https://docs.microsoft.com/windows/desktop/api/comsvcs/ne-comsvcs-crmtransactionstate">CrmTransactionState</a> enumeration value.
+     * @returns {CrmTransactionState} The current transaction state, represented by an <a href="https://docs.microsoft.com/windows/desktop/api/comsvcs/ne-comsvcs-crmtransactionstate">CrmTransactionState</a> enumeration value.
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icrmmonitorlogrecords-get_transactionstate
      */
     get_TransactionState() {

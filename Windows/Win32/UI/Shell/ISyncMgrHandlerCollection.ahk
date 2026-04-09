@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IEnumString.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\System\Com\IEnumString.ahk
 
 /**
  * Exposes methods that provide an enumerator of sync handler IDs and instantiate those sync handlers.
@@ -47,9 +47,8 @@
  * ```
  * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nn-syncmgr-isyncmgrhandlercollection
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class ISyncMgrHandlerCollection extends IUnknown{
+class ISyncMgrHandlerCollection extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

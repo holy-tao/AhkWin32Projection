@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Threading
- * @version v4.0.30319
  */
-class PROCESSOR_FEATURE_ID extends Win32Enum{
+class PROCESSOR_FEATURE_ID extends Win32Enum {
 
     /**
      * @type {Integer (UInt32)}

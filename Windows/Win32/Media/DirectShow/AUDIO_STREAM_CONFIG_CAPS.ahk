@@ -5,17 +5,15 @@
  * The AUDIO_STREAM_CONFIG_CAPS structure describes a range of audio formats. Audio compression and capture filters use this structure to describe the formats they can produce.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/ns-strmif-audio_stream_config_caps
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class AUDIO_STREAM_CONFIG_CAPS extends Win32Struct
-{
+class AUDIO_STREAM_CONFIG_CAPS extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
 
     /**
      * Will be set to MEDIATYPE_Audio to indicate an audio sample.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     guid {
         get => NumGet(this, 0, "ptr")

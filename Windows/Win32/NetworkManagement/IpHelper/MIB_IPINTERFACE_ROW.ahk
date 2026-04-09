@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Networking\WinSock\ADDRESS_FAMILY.ahk
 #Include ..\Ndis\NET_LUID_LH.ahk
+#Include ..\..\Networking\WinSock\NL_ROUTER_DISCOVERY_BEHAVIOR.ahk
+#Include ..\..\Networking\WinSock\NL_LINK_LOCAL_ADDRESS_BEHAVIOR.ahk
 #Include ..\..\Networking\WinSock\NL_INTERFACE_OFFLOAD_ROD.ahk
 
 /**
@@ -35,10 +38,8 @@
  * Note that the <i>Netioapi.h</i> header file is automatically included in the <i>Iphlpapi.h</i> header file. The  <i>Netioapi.h</i> header file should never be used directly.
  * @see https://learn.microsoft.com/windows/win32/api/netioapi/ns-netioapi-mib_ipinterface_row
  * @namespace Windows.Win32.NetworkManagement.IpHelper
- * @version v4.0.30319
  */
-class MIB_IPINTERFACE_ROW extends Win32Struct
-{
+class MIB_IPINTERFACE_ROW extends Win32Struct {
     static sizeof => 176
 
     static packingSize => 8
@@ -92,7 +93,7 @@ class MIB_IPINTERFACE_ROW extends Win32Struct
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
+     * @type {ADDRESS_FAMILY}
      */
     Family {
         get => NumGet(this, 0, "ushort")
@@ -105,7 +106,7 @@ class MIB_IPINTERFACE_ROW extends Win32Struct
      * The locally unique identifier (LUID) for the network interface.
      * @type {NET_LUID_LH}
      */
-    InterfaceLuid{
+    InterfaceLuid {
         get {
             if(!this.HasProp("__InterfaceLuid"))
                 this.__InterfaceLuid := NET_LUID_LH(8, this)
@@ -322,7 +323,7 @@ class MIB_IPINTERFACE_ROW extends Win32Struct
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
+     * @type {NL_ROUTER_DISCOVERY_BEHAVIOR}
      */
     RouterDiscoveryBehavior {
         get => NumGet(this, 60, "int")
@@ -435,7 +436,7 @@ class MIB_IPINTERFACE_ROW extends Win32Struct
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
+     * @type {NL_LINK_LOCAL_ADDRESS_BEHAVIOR}
      */
     LinkLocalAddressBehavior {
         get => NumGet(this, 80, "int")
@@ -457,9 +458,9 @@ class MIB_IPINTERFACE_ROW extends Win32Struct
      * Type: <b>ULONG[ScopeLevelCount]</b>
      * 
      * An array that specifies the zone part of scope IDs.
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    ZoneIndices{
+    ZoneIndices {
         get {
             if(!this.HasProp("__ZoneIndicesProxyArray"))
                 this.__ZoneIndicesProxyArray := Win32FixedArray(this.ptr + 88, 16, Primitive, "uint")
@@ -562,7 +563,7 @@ class MIB_IPINTERFACE_ROW extends Win32Struct
      * A set of flags that indicate the transmit offload capabilities for the IP interface. The <a href="https://docs.microsoft.com/windows/desktop/api/nldef/ns-nldef-nl_interface_offload_rod">NL_INTERFACE_OFFLOAD_ROD</a> structure is defined in the <i>Nldef.h</i> header file.
      * @type {NL_INTERFACE_OFFLOAD_ROD}
      */
-    TransmitOffload{
+    TransmitOffload {
         get {
             if(!this.HasProp("__TransmitOffload"))
                 this.__TransmitOffload := NL_INTERFACE_OFFLOAD_ROD(172, this)
@@ -576,7 +577,7 @@ class MIB_IPINTERFACE_ROW extends Win32Struct
      * A set of flags that indicate the receive offload capabilities for the IP interface. The <a href="https://docs.microsoft.com/windows/desktop/api/nldef/ns-nldef-nl_interface_offload_rod">NL_INTERFACE_OFFLOAD_ROD</a> structure is defined in the <i>Nldef.h</i> header file.
      * @type {NL_INTERFACE_OFFLOAD_ROD}
      */
-    ReceiveOffload{
+    ReceiveOffload {
         get {
             if(!this.HasProp("__ReceiveOffload"))
                 this.__ReceiveOffload := NL_INTERFACE_OFFLOAD_ROD(173, this)

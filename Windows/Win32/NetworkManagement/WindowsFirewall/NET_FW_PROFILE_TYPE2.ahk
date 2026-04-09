@@ -5,9 +5,8 @@
  * Specifies the type of profile. (NET_FW_PROFILE_TYPE2)
  * @see https://learn.microsoft.com/windows/win32/api/icftypes/ne-icftypes-net_fw_profile_type2
  * @namespace Windows.Win32.NetworkManagement.WindowsFirewall
- * @version v4.0.30319
  */
-class NET_FW_PROFILE_TYPE2 extends Win32Enum{
+class NET_FW_PROFILE_TYPE2 extends Win32Enum {
 
     /**
      * Profile type is domain.
@@ -28,7 +27,6 @@ class NET_FW_PROFILE_TYPE2 extends Win32Enum{
     static NET_FW_PROFILE2_PUBLIC => 4
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static NET_FW_PROFILE2_ALL => 2147483647

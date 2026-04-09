@@ -9,10 +9,8 @@
  * For more information about group types and scope, see <a href="https://docs.microsoft.com/windows/desktop/AD/group-objects">Group Objects</a>.
  * @see https://learn.microsoft.com/windows/win32/api/objsel/ns-objsel-dsop_uplevel_filter_flags
  * @namespace Windows.Win32.Networking.ActiveDirectory
- * @version v4.0.30319
  */
-class DSOP_UPLEVEL_FILTER_FLAGS extends Win32Struct
-{
+class DSOP_UPLEVEL_FILTER_FLAGS extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4

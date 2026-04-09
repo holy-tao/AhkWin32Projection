@@ -1,5 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\Direct3D\D3D_PRIMITIVE_TOPOLOGY.ahk
+#Include ..\Direct3D\D3D_PRIMITIVE.ahk
+#Include ..\Direct3D\D3D_TESSELLATOR_OUTPUT_PRIMITIVE.ahk
+#Include ..\Direct3D\D3D_TESSELLATOR_PARTITIONING.ahk
+#Include ..\Direct3D\D3D_TESSELLATOR_DOMAIN.ahk
 
 /**
  * Describes a shader. (D3D12_SHADER_DESC)
@@ -9,10 +14,8 @@
  *         To get a shader description, call <a href="https://docs.microsoft.com/windows/desktop/api/d3d12shader/nf-d3d12shader-id3d12shaderreflection-getdesc">ID3D12ShaderReflection::GetDesc</a>.
  * @see https://learn.microsoft.com/windows/win32/api/d3d12shader/ns-d3d12shader-d3d12_shader_desc
  * @namespace Windows.Win32.Graphics.Direct3D12
- * @version v4.0.30319
  */
-class D3D12_SHADER_DESC extends Win32Struct
-{
+class D3D12_SHADER_DESC extends Win32Struct {
     static sizeof => 160
 
     static packingSize => 8
@@ -263,7 +266,7 @@ class D3D12_SHADER_DESC extends Win32Struct
 
     /**
      * The <a href="https://docs.microsoft.com/windows/desktop/api/d3dcommon/ne-d3dcommon-d3d_primitive_topology">D3D_PRIMITIVE_TOPOLOGY</a>-typed value that represents the geometry shader output topology.
-     * @type {Integer}
+     * @type {D3D_PRIMITIVE_TOPOLOGY}
      */
     GSOutputTopology {
         get => NumGet(this, 112, "int")
@@ -281,7 +284,7 @@ class D3D12_SHADER_DESC extends Win32Struct
 
     /**
      * The <a href="https://docs.microsoft.com/windows/desktop/api/d3dcommon/ne-d3dcommon-d3d_primitive">D3D_PRIMITIVE</a>-typed value that represents the input primitive for a  geometry shader or hull shader.
-     * @type {Integer}
+     * @type {D3D_PRIMITIVE}
      */
     InputPrimitive {
         get => NumGet(this, 120, "int")
@@ -317,7 +320,7 @@ class D3D12_SHADER_DESC extends Win32Struct
 
     /**
      * The <a href="https://docs.microsoft.com/windows/desktop/api/d3dcommon/ne-d3dcommon-d3d_tessellator_output_primitive">D3D_TESSELLATOR_OUTPUT_PRIMITIVE</a>-typed value that represents the tessellator output-primitive type.
-     * @type {Integer}
+     * @type {D3D_TESSELLATOR_OUTPUT_PRIMITIVE}
      */
     HSOutputPrimitive {
         get => NumGet(this, 136, "int")
@@ -326,7 +329,7 @@ class D3D12_SHADER_DESC extends Win32Struct
 
     /**
      * The <a href="https://docs.microsoft.com/windows/desktop/api/d3dcommon/ne-d3dcommon-d3d_tessellator_partitioning">D3D_TESSELLATOR_PARTITIONING</a>-typed value that represents the tessellator partitioning mode.
-     * @type {Integer}
+     * @type {D3D_TESSELLATOR_PARTITIONING}
      */
     HSPartitioning {
         get => NumGet(this, 140, "int")
@@ -335,7 +338,7 @@ class D3D12_SHADER_DESC extends Win32Struct
 
     /**
      * The <a href="https://docs.microsoft.com/windows/desktop/api/d3dcommon/ne-d3dcommon-d3d_tessellator_domain">D3D_TESSELLATOR_DOMAIN</a>-typed value that represents the tessellator domain.
-     * @type {Integer}
+     * @type {D3D_TESSELLATOR_DOMAIN}
      */
     TessellatorDomain {
         get => NumGet(this, 144, "int")

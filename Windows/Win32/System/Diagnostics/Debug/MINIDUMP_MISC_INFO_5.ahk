@@ -1,16 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\SYSTEMTIME.ahk
 #Include ..\..\Time\TIME_ZONE_INFORMATION.ahk
-#Include .\XSTATE_FEATURE.ahk
+#Include ..\..\..\Foundation\SYSTEMTIME.ahk
 #Include .\XSTATE_CONFIG_FEATURE_MSC_INFO.ahk
+#Include .\XSTATE_FEATURE.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug
- * @version v4.0.30319
  */
-class MINIDUMP_MISC_INFO_5 extends Win32Struct
-{
+class MINIDUMP_MISC_INFO_5 extends Win32Struct {
     static sizeof => 1368
 
     static packingSize => 8
@@ -138,7 +136,7 @@ class MINIDUMP_MISC_INFO_5 extends Win32Struct
     /**
      * @type {TIME_ZONE_INFORMATION}
      */
-    TimeZone{
+    TimeZone {
         get {
             if(!this.HasProp("__TimeZone"))
                 this.__TimeZone := TIME_ZONE_INFORMATION(60, this)
@@ -165,7 +163,7 @@ class MINIDUMP_MISC_INFO_5 extends Win32Struct
     /**
      * @type {XSTATE_CONFIG_FEATURE_MSC_INFO}
      */
-    XStateData{
+    XStateData {
         get {
             if(!this.HasProp("__XStateData"))
                 this.__XStateData := XSTATE_CONFIG_FEATURE_MSC_INFO(832, this)

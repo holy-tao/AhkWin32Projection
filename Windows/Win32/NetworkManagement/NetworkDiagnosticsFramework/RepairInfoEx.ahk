@@ -1,17 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\ShellCommandInfo.ahk
-#Include .\UiInfo.ahk
 #Include .\RepairInfo.ahk
+#Include .\REPAIR_SCOPE.ahk
+#Include .\REPAIR_RISK.ahk
+#Include .\UiInfo.ahk
+#Include .\UI_INFO_TYPE.ahk
+#Include .\ShellCommandInfo.ahk
 
 /**
  * Contains detailed repair information that can be used to help resolve the root cause of an incident.
  * @see https://learn.microsoft.com/windows/win32/api/ndattrib/ns-ndattrib-repairinfoex
  * @namespace Windows.Win32.NetworkManagement.NetworkDiagnosticsFramework
- * @version v4.0.30319
  */
-class RepairInfoEx extends Win32Struct
-{
+class RepairInfoEx extends Win32Struct {
     static sizeof => 112
 
     static packingSize => 8
@@ -22,7 +23,7 @@ class RepairInfoEx extends Win32Struct
      * The detailed repair information.
      * @type {RepairInfo}
      */
-    repair{
+    repair {
         get {
             if(!this.HasProp("__repair"))
                 this.__repair := RepairInfo(0, this)

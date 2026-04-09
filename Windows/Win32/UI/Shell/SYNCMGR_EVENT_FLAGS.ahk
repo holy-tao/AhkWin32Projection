@@ -5,9 +5,8 @@
  * Specifies flags for a synchronization event.
  * @see https://learn.microsoft.com/windows/win32/api/syncmgr/ne-syncmgr-syncmgr_event_flags
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class SYNCMGR_EVENT_FLAGS extends Win32Enum{
+class SYNCMGR_EVENT_FLAGS extends Win32Enum {
 
     /**
      * No flags specified.

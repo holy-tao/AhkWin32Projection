@@ -7,9 +7,8 @@
  * The base interface for sharable interfaces.
  * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomshareable
  * @namespace Windows.Win32.Storage.Xps
- * @version v4.0.30319
  */
-class IXpsOMShareable extends IUnknown{
+class IXpsOMShareable extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -42,7 +41,7 @@ class IXpsOMShareable extends IUnknown{
 
     /**
      * Gets the object type of the interface.
-     * @returns {Integer} The <a href="https://docs.microsoft.com/windows/win32/api/xpsobjectmodel/ne-xpsobjectmodel-xps_object_type">XPS_OBJECT_TYPE</a> value that describes the interface that is derived from <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomshareable">IXpsOMShareable</a>.
+     * @returns {XPS_OBJECT_TYPE} The <a href="https://docs.microsoft.com/windows/win32/api/xpsobjectmodel/ne-xpsobjectmodel-xps_object_type">XPS_OBJECT_TYPE</a> value that describes the interface that is derived from <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomshareable">IXpsOMShareable</a>.
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomshareable-gettype
      */
     GetType() {

@@ -7,10 +7,8 @@
  * For a sample that uses this structure, see the [Effective access rights for files sample](https://github.com/microsoft/Windows-classic-samples/tree/master/Samples/Security/EffectiveAccessRights).
  * @see https://learn.microsoft.com/windows/win32/api/authz/ns-authz-authz_rpc_init_info_client
  * @namespace Windows.Win32.Security.Authorization
- * @version v4.0.30319
  */
-class AUTHZ_RPC_INIT_INFO_CLIENT extends Win32Struct
-{
+class AUTHZ_RPC_INIT_INFO_CLIENT extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8

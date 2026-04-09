@@ -21,10 +21,8 @@
  * </ul>
  * @see https://learn.microsoft.com/windows/win32/api/htmlhelp/ns-htmlhelp-hh_wintype
  * @namespace Windows.Win32.Data.HtmlHelp
- * @version v4.0.30319
  */
-class HH_WINTYPE extends Win32Struct
-{
+class HH_WINTYPE extends Win32Struct {
     static sizeof => 280
 
     static packingSize => 8
@@ -108,7 +106,7 @@ class HH_WINTYPE extends Win32Struct
      * <i>rcWindowPos</i> = {left, top, right, bottom};
      * @type {RECT}
      */
-    rcWindowPos{
+    rcWindowPos {
         get {
             if(!this.HasProp("__rcWindowPos"))
                 this.__rcWindowPos := RECT(40, this)
@@ -129,7 +127,7 @@ class HH_WINTYPE extends Win32Struct
      * Specifies the handle of the window if the window has been created.
      * @type {HWND}
      */
-    hwndHelp{
+    hwndHelp {
         get {
             if(!this.HasProp("__hwndHelp"))
                 this.__hwndHelp := HWND(64, this)
@@ -141,7 +139,7 @@ class HH_WINTYPE extends Win32Struct
      * Specifies the window that will receive HTML Help notification messages. <a href="https://docs.microsoft.com/previous-versions/windows/desktop/htmlhelp/about-notification-messages">Notification messages</a> are sent via Windows <b>WM_NOTIFY</b> messages.
      * @type {HWND}
      */
-    hwndCaller{
+    hwndCaller {
         get {
             if(!this.HasProp("__hwndCaller"))
                 this.__hwndCaller := HWND(72, this)
@@ -162,7 +160,7 @@ class HH_WINTYPE extends Win32Struct
      * Specifies the handle of the toolbar.
      * @type {HWND}
      */
-    hwndToolBar{
+    hwndToolBar {
         get {
             if(!this.HasProp("__hwndToolBar"))
                 this.__hwndToolBar := HWND(88, this)
@@ -174,7 +172,7 @@ class HH_WINTYPE extends Win32Struct
      * Specifies the handle of the Navigation pane.
      * @type {HWND}
      */
-    hwndNavigation{
+    hwndNavigation {
         get {
             if(!this.HasProp("__hwndNavigation"))
                 this.__hwndNavigation := HWND(96, this)
@@ -186,7 +184,7 @@ class HH_WINTYPE extends Win32Struct
      * Specifies the handle of the Topic pane, which hosts Shdocvw.dll.
      * @type {HWND}
      */
-    hwndHTML{
+    hwndHTML {
         get {
             if(!this.HasProp("__hwndHTML"))
                 this.__hwndHTML := HWND(104, this)
@@ -207,7 +205,7 @@ class HH_WINTYPE extends Win32Struct
      * Specifies the coordinates of the Topic pane.
      * @type {RECT}
      */
-    rcHTML{
+    rcHTML {
         get {
             if(!this.HasProp("__rcHTML"))
                 this.__rcHTML := RECT(116, this)
@@ -301,9 +299,9 @@ class HH_WINTYPE extends Win32Struct
 
     /**
      * Tab order: Contents, Index, Search, History, Favorites, Reserved 1-5, Custom tabs
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    tabOrder{
+    tabOrder {
         get {
             if(!this.HasProp("__tabOrderProxyArray"))
                 this.__tabOrderProxyArray := Win32FixedArray(this.ptr + 188, 20, Primitive, "char")
@@ -360,7 +358,7 @@ class HH_WINTYPE extends Win32Struct
      * Minimum size for window (ignored in version 1).
      * @type {RECT}
      */
-    rcMinSize{
+    rcMinSize {
         get {
             if(!this.HasProp("__rcMinSize"))
                 this.__rcMinSize := RECT(248, this)

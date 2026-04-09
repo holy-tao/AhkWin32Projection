@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D12
- * @version v4.0.30319
  */
-class ID3D12StateObjectDatabaseFactory extends IUnknown{
+class ID3D12StateObjectDatabaseFactory extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -31,7 +30,7 @@ class ID3D12StateObjectDatabaseFactory extends IUnknown{
     /**
      * 
      * @param {PWSTR} pDatabaseFile 
-     * @param {Integer} flags 
+     * @param {D3D12_STATE_OBJECT_DATABASE_FLAGS} flags 
      * @param {Pointer<Guid>} riid 
      * @returns {Pointer<Void>} 
      */

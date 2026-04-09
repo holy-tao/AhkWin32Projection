@@ -5,10 +5,8 @@
  * The AD_GENERAL_PARAMS structure contains the General Characterization Parameters contained in the RSVP Adspec object.
  * @see https://learn.microsoft.com/windows/win32/api/qossp/ns-qossp-ad_general_params
  * @namespace Windows.Win32.NetworkManagement.QoS
- * @version v4.0.30319
  */
-class AD_GENERAL_PARAMS extends Win32Struct
-{
+class AD_GENERAL_PARAMS extends Win32Struct {
     static sizeof => 20
 
     static packingSize => 4

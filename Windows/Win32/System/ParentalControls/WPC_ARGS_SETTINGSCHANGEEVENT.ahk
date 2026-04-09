@@ -5,9 +5,8 @@
  * Indicates information about the changes to settings being made by a user.
  * @see https://learn.microsoft.com/windows/win32/api/wpcevent/ne-wpcevent-wpc_args_settingschangeevent
  * @namespace Windows.Win32.System.ParentalControls
- * @version v4.0.30319
  */
-class WPC_ARGS_SETTINGSCHANGEEVENT extends Win32Enum{
+class WPC_ARGS_SETTINGSCHANGEEVENT extends Win32Enum {
 
     /**
      * The class of change made to the setting.

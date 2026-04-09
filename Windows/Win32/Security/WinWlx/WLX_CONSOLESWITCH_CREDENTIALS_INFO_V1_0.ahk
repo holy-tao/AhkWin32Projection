@@ -8,10 +8,8 @@
  * Contains the client credentials returned by a call to WlxGetConsoleSwitchCredentials.
  * @see https://learn.microsoft.com/windows/win32/api/winwlx/ns-winwlx-wlx_consoleswitch_credentials_info_v1_0
  * @namespace Windows.Win32.Security.WinWlx
- * @version v4.0.30319
  */
-class WLX_CONSOLESWITCH_CREDENTIALS_INFO_V1_0 extends Win32Struct
-{
+class WLX_CONSOLESWITCH_CREDENTIALS_INFO_V1_0 extends Win32Struct {
     static sizeof => 224
 
     static packingSize => 8
@@ -29,7 +27,7 @@ class WLX_CONSOLESWITCH_CREDENTIALS_INFO_V1_0 extends Win32Struct
      * Handle of the users token.
      * @type {HANDLE}
      */
-    UserToken{
+    UserToken {
         get {
             if(!this.HasProp("__UserToken"))
                 this.__UserToken := HANDLE(8, this)
@@ -41,7 +39,7 @@ class WLX_CONSOLESWITCH_CREDENTIALS_INFO_V1_0 extends Win32Struct
      * Unique logon identifier.
      * @type {LUID}
      */
-    LogonId{
+    LogonId {
         get {
             if(!this.HasProp("__LogonId"))
                 this.__LogonId := LUID(16, this)
@@ -53,7 +51,7 @@ class WLX_CONSOLESWITCH_CREDENTIALS_INFO_V1_0 extends Win32Struct
      * QUOTA_LIMITS structure containing information on the amount of system resources available to a user.
      * @type {QUOTA_LIMITS}
      */
-    Quotas{
+    Quotas {
         get {
             if(!this.HasProp("__Quotas"))
                 this.__Quotas := QUOTA_LIMITS(24, this)

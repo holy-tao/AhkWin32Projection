@@ -9,9 +9,8 @@
  * This interface also provides the methods of the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-iinputobject">IInputObject</a> interface, from which it inherits.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-iinputobject2
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IInputObject2 extends IInputObject{
+class IInputObject2 extends IInputObject {
 
     static sizeof => A_PtrSize
     /**

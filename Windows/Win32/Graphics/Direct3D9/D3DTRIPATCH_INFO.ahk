@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\D3DBASISTYPE.ahk
+#Include .\D3DDEGREETYPE.ahk
 
 /**
  * Describes a triangular high-order patch.
@@ -9,10 +11,8 @@
  * ![diagram of a triangular high-order patch with nine vertices](images/hop-tripatch-info.png)
  * @see https://learn.microsoft.com/windows/win32/direct3d9/d3dtripatch-info
  * @namespace Windows.Win32.Graphics.Direct3D9
- * @version v4.0.30319
  */
-class D3DTRIPATCH_INFO extends Win32Struct
-{
+class D3DTRIPATCH_INFO extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4
@@ -46,7 +46,7 @@ class D3DTRIPATCH_INFO extends Win32Struct
      * 
      * 
      * Member of the [**D3DBASISTYPE**](./d3dbasistype.md) enumerated type, which defines the basis type for the triangular high-order patch. The only valid value for this member is D3DBASIS\_BEZIER.
-     * @type {Integer}
+     * @type {D3DBASISTYPE}
      */
     Basis {
         get => NumGet(this, 8, "int")
@@ -73,7 +73,7 @@ class D3DTRIPATCH_INFO extends Win32Struct
      *  
      * 
      * N/A - Not available. Not supported.
-     * @type {Integer}
+     * @type {D3DDEGREETYPE}
      */
     Degree {
         get => NumGet(this, 12, "int")

@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Media.Speech
- * @version v4.0.30319
  */
-class ISpGrammarBuilder extends IUnknown{
+class ISpGrammarBuilder extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -85,7 +84,7 @@ class ISpGrammarBuilder extends IUnknown{
      * @param {SPSTATEHANDLE} hToState 
      * @param {PWSTR} psz 
      * @param {PWSTR} pszSeparators 
-     * @param {Integer} eWordType 
+     * @param {SPGRAMMARWORDTYPE} eWordType 
      * @param {Float} Weight 
      * @param {Pointer<SPPROPERTYINFO>} pPropInfo 
      * @returns {HRESULT} 

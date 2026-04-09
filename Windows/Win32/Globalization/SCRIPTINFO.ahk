@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Globalization
- * @version v4.0.30319
  */
-class SCRIPTINFO extends Win32Struct
-{
+class SCRIPTINFO extends Win32Struct {
     static sizeof => 232
 
     static packingSize => 4

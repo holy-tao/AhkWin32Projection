@@ -1,21 +1,20 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\BRIGHTNESS_INTERFACE_VERSION.ahk
 #Include .\BRIGHTNESS_LEVEL.ahk
-#Include .\BRIGHTNESS_NIT_RANGE.ahk
 #Include .\BRIGHTNESS_NIT_RANGES.ahk
+#Include .\BRIGHTNESS_NIT_RANGE.ahk
 
 /**
  * @namespace Windows.Win32.Devices.Display
- * @version v4.0.30319
  */
-class PANEL_QUERY_BRIGHTNESS_RANGES extends Win32Struct
-{
-    static sizeof => 152
+class PANEL_QUERY_BRIGHTNESS_RANGES extends Win32Struct {
+    static sizeof => 208
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
-     * @type {Integer}
+     * @type {BRIGHTNESS_INTERFACE_VERSION}
      */
     Version {
         get => NumGet(this, 0, "int")
@@ -25,10 +24,10 @@ class PANEL_QUERY_BRIGHTNESS_RANGES extends Win32Struct
     /**
      * @type {BRIGHTNESS_LEVEL}
      */
-    BrightnessLevel{
+    BrightnessLevel {
         get {
             if(!this.HasProp("__BrightnessLevel"))
-                this.__BrightnessLevel := BRIGHTNESS_LEVEL(8, this)
+                this.__BrightnessLevel := BRIGHTNESS_LEVEL(4, this)
             return this.__BrightnessLevel
         }
     }
@@ -36,10 +35,10 @@ class PANEL_QUERY_BRIGHTNESS_RANGES extends Win32Struct
     /**
      * @type {BRIGHTNESS_NIT_RANGES}
      */
-    NitRanges{
+    NitRanges {
         get {
             if(!this.HasProp("__NitRanges"))
-                this.__NitRanges := BRIGHTNESS_NIT_RANGES(8, this)
+                this.__NitRanges := BRIGHTNESS_NIT_RANGES(4, this)
             return this.__NitRanges
         }
     }

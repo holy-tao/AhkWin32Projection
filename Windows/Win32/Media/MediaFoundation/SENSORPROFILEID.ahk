@@ -5,17 +5,15 @@
  * Describes a sensor profile ID.
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/ns-mfidl-sensorprofileid
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class SENSORPROFILEID extends Win32Struct
-{
+class SENSORPROFILEID extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/medfound/sensor-profile-guids">Sensor Profile GUID</a> that describes the type of sensor profile.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     Type {
         get => NumGet(this, 0, "ptr")

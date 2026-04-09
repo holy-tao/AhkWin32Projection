@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IShellItem.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include .\IShellItem.ahk
 
 /**
  * Exposes methods for creating and managing libraries.
@@ -117,9 +118,8 @@
  * </table>
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-ishelllibrary
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IShellLibrary extends IUnknown{
+class IShellLibrary extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -232,7 +232,7 @@ class IShellLibrary extends IUnknown{
      * This method gets   an ordered list of folders. By default, this method only returns storage locations.
      * 
      * For best results, use the <b>IID_PPV_ARGS</b> macro, defined in Objbase.h,  for  the <i>riid</i> and <i>ppv</i> parameters. This macro provides the correct IID based on the interface pointed to by the value in <i>ppv</i>, which eliminates the possibility of a coding error.
-     * @param {Integer} lff Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-libraryfolderfilter">LIBRARYFOLDERFILTER</a></b>
+     * @param {LIBRARYFOLDERFILTER} lff Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-libraryfolderfilter">LIBRARYFOLDERFILTER</a></b>
      * 
      * One of the following <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-libraryfolderfilter">LIBRARYFOLDERFILTER</a>   values that determines the folders to get. These flags cannot be combined.
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
@@ -281,7 +281,7 @@ class IShellLibrary extends IUnknown{
      * Retrieves the default target folder that the library uses for save operations.
      * @remarks
      * For best results, use the <b>IID_PPV_ARGS</b> macro, defined in Objbase.h,  for  the <i>riid</i> and <i>ppv</i> parameters. This macro provides the correct IID based on the interface pointed to by the value in <i>ppv</i>, which eliminates the possibility of a coding error.
-     * @param {Integer} dsft Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-defaultsavefoldertype">DEFAULTSAVEFOLDERTYPE</a></b>
+     * @param {DEFAULTSAVEFOLDERTYPE} dsft Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-defaultsavefoldertype">DEFAULTSAVEFOLDERTYPE</a></b>
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-defaultsavefoldertype">DEFAULTSAVEFOLDERTYPE</a>  value that specifies the save folder to get.
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
@@ -303,7 +303,7 @@ class IShellLibrary extends IUnknown{
      * The default save location must be valid, have read/write access, and with either the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-ishellfolder-getattributesof">SFGAO_STREAM</a> or <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-ishellfolder-getattributesof">SFGAO_FILESYSTEM</a> attribute set.
      * 
      * If <i>psi</i> is not in the library, this method returns an error.
-     * @param {Integer} dsft Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-defaultsavefoldertype">DEFAULTSAVEFOLDERTYPE</a></b>
+     * @param {DEFAULTSAVEFOLDERTYPE} dsft Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-defaultsavefoldertype">DEFAULTSAVEFOLDERTYPE</a></b>
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-defaultsavefoldertype">DEFAULTSAVEFOLDERTYPE</a>  value  that specifies the default save location to set.
      * @param {IShellItem} psi Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a>*</b>
@@ -321,7 +321,7 @@ class IShellLibrary extends IUnknown{
 
     /**
      * Gets the library's options.
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-libraryoptionflags">LIBRARYOPTIONFLAGS</a>*</b>
+     * @returns {LIBRARYOPTIONFLAGS} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-libraryoptionflags">LIBRARYOPTIONFLAGS</a>*</b>
      * 
      * The library options for this library. <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-libraryoptionflags">LIBRARYOPTIONFLAGS</a> is a bitwise enumerator, which means that more than one flag could be set.
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishelllibrary-getoptions
@@ -337,10 +337,10 @@ class IShellLibrary extends IUnknown{
      * <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-libraryoptionflags">LIBRARYOPTIONFLAGS</a> is a bitwise enumerator, which means that more than one option flag can be set.
      * 
      * To change an option value, you must set the option value that you want to change in <i>lofMask</i> and then set or clear the value of the option in <i>lofOptions</i>.
-     * @param {Integer} lofMask Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-libraryoptionflags">LIBRARYOPTIONFLAGS</a></b>
+     * @param {LIBRARYOPTIONFLAGS} lofMask Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-libraryoptionflags">LIBRARYOPTIONFLAGS</a></b>
      * 
      * A bitmask  that specifies   the   <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-libraryoptionflags">LIBRARYOPTIONFLAGS</a> values  to change in  this call.
-     * @param {Integer} lofOptions Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-libraryoptionflags">LIBRARYOPTIONFLAGS</a></b>
+     * @param {LIBRARYOPTIONFLAGS} lofOptions Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-libraryoptionflags">LIBRARYOPTIONFLAGS</a></b>
      * 
      * A bitmask that specifies the new value of each  <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-libraryoptionflags">LIBRARYOPTIONFLAGS</a>  value to change. <b>LIBRARYOPTIONFLAGS</b>  values that are not set in <i>lofMask</i> are not changed by this call.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -492,7 +492,7 @@ class IShellLibrary extends IUnknown{
      * @param {PWSTR} pszLibraryName Type: <b>LPCWSTR</b>
      * 
      * The file name under which to save the library. The file name must not include the file name extension; the file name extension is added automatically.
-     * @param {Integer} lsf Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-librarysaveflags">LIBRARYSAVEFLAGS</a></b>
+     * @param {LIBRARYSAVEFLAGS} lsf Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-librarysaveflags">LIBRARYSAVEFLAGS</a></b>
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-librarysaveflags">LIBRARYSAVEFLAGS</a>  value that specifies how to handle a library name collision.
      * @returns {IShellItem} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a>**</b>
@@ -524,7 +524,7 @@ class IShellLibrary extends IUnknown{
      * @param {PWSTR} pszLibraryName Type: <b>LPCWSTR</b>
      * 
      * The file name under which to save the library. The file name must not include the file name extension; the file name extension is added automatically.
-     * @param {Integer} lsf Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-librarysaveflags">LIBRARYSAVEFLAGS</a></b>
+     * @param {LIBRARYSAVEFLAGS} lsf Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-librarysaveflags">LIBRARYSAVEFLAGS</a></b>
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-librarysaveflags">LIBRARYSAVEFLAGS</a>  value that specifies how to handle a library name collision.
      * @returns {IShellItem} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a>**</b>

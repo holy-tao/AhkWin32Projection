@@ -39,10 +39,8 @@
  * To improve your application's performance, dispose of your **InkCollector** object when it is no longer needed.
  * @see https://learn.microsoft.com/windows/win32/tablet/inkcollector-class
  * @namespace Windows.Win32.UI.TabletPC
- * @version v4.0.30319
  */
-class InkCollector extends Win32Struct
-{
+class InkCollector extends Win32Struct {
     static sizeof => 0
 
     static packingSize => 1

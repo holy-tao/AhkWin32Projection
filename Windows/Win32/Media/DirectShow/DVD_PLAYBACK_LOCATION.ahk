@@ -7,10 +7,8 @@
  * <b>TitleNum</b> and <b>ChapterNum</b> or <b>TitleNum</b> and <b>TimeCode</b> are sufficient to save the playback location for simple linear movies.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/ns-strmif-dvd_playback_location
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class DVD_PLAYBACK_LOCATION extends Win32Struct
-{
+class DVD_PLAYBACK_LOCATION extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4

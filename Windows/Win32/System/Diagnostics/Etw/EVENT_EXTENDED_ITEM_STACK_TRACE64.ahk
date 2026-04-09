@@ -7,10 +7,8 @@
  * The <b>DataSize</b> member of <a href="https://docs.microsoft.com/windows/desktop/api/evntcons/ns-evntcons-event_header_extended_data_item">EVENT_HEADER_EXTENDED_DATA_ITEM</a> contains the size of this structure. To determine the number of addresses in the array, subtract <c>sizeof(ULONG64)</code> from <b>DataSize</b> and then divide by <code>sizeof(ULONG64)</c>.
  * @see https://learn.microsoft.com/windows/win32/api/evntcons/ns-evntcons-event_extended_item_stack_trace64
  * @namespace Windows.Win32.System.Diagnostics.Etw
- * @version v4.0.30319
  */
-class EVENT_EXTENDED_ITEM_STACK_TRACE64 extends Win32Struct
-{
+class EVENT_EXTENDED_ITEM_STACK_TRACE64 extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
@@ -26,9 +24,9 @@ class EVENT_EXTENDED_ITEM_STACK_TRACE64 extends Win32Struct
 
     /**
      * An array of call addresses on the stack.
-     * @type {Array<UInt64>}
+     * @type {Array<Integer>}
      */
-    Address{
+    Address {
         get {
             if(!this.HasProp("__AddressProxyArray"))
                 this.__AddressProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "uint")

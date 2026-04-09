@@ -1,14 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3DRECT.ahk
 #Include .\D3DSTATUS.ahk
+#Include .\D3DRECT.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D9
- * @version v4.0.30319
  */
-class D3DEXECUTEDATA extends Win32Struct
-{
+class D3DEXECUTEDATA extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 4
@@ -64,7 +62,7 @@ class D3DEXECUTEDATA extends Win32Struct
     /**
      * @type {D3DSTATUS}
      */
-    dsStatus{
+    dsStatus {
         get {
             if(!this.HasProp("__dsStatus"))
                 this.__dsStatus := D3DSTATUS(24, this)

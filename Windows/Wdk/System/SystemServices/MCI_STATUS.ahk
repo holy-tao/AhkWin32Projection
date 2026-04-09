@@ -1116,16 +1116,14 @@
  * </dd> </dl>
  * @see https://learn.microsoft.com/windows/win32/Multimedia/mci-status
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class MCI_STATUS extends Win32Struct
-{
+class MCI_STATUS extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 1
 
     /**
-     * @type {Pointer<MCI_STATUS_BITS_COMMON>}
+     * @type {Pointer}
      */
     CommonBits {
         get => NumGet(this, 0, "ptr")
@@ -1133,7 +1131,7 @@ class MCI_STATUS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<MCI_STATUS_AMD_BITS>}
+     * @type {Pointer}
      */
     AmdBits {
         get => NumGet(this, 0, "ptr")
@@ -1141,7 +1139,7 @@ class MCI_STATUS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<MCI_STATUS_INTEL_BITS>}
+     * @type {Pointer}
      */
     IntelBits {
         get => NumGet(this, 0, "ptr")

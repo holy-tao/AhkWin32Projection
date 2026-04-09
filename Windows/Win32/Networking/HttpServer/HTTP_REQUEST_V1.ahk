@@ -1,10 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\HTTP_VERSION.ahk
+#Include .\HTTP_VERB.ahk
 #Include .\HTTP_COOKED_URL.ahk
 #Include .\HTTP_TRANSPORT_ADDRESS.ahk
-#Include .\HTTP_KNOWN_HEADER.ahk
+#Include ..\WinSock\SOCKADDR.ahk
 #Include .\HTTP_REQUEST_HEADERS.ahk
+#Include .\HTTP_UNKNOWN_HEADER.ahk
+#Include .\HTTP_KNOWN_HEADER.ahk
+#Include .\HTTP_DATA_CHUNK.ahk
+#Include .\HTTP_SSL_INFO.ahk
 
 /**
  * Uses the HTTP_REQUEST structure to return data associated with a specific request.
@@ -12,11 +17,9 @@
  * The unprocessed URL contained in the <b>pRawUrl</b> member is for tracking and statistical purposes only. For other purposes, use the processed, canonical URL contained in the <b>CookedUrl</b> member.
  * @see https://learn.microsoft.com/windows/win32/api/http/ns-http-http_request_v1
  * @namespace Windows.Win32.Networking.HttpServer
- * @version v4.0.30319
  */
-class HTTP_REQUEST_V1 extends Win32Struct
-{
-    static sizeof => 520
+class HTTP_REQUEST_V1 extends Win32Struct {
+    static sizeof => 848
 
     static packingSize => 8
 
@@ -110,7 +113,7 @@ class HTTP_REQUEST_V1 extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/http/ns-http-http_version">HTTP_VERSION</a> structure that contains the version of HTTP specified by this request.
      * @type {HTTP_VERSION}
      */
-    Version{
+    Version {
         get {
             if(!this.HasProp("__Version"))
                 this.__Version := HTTP_VERSION(32, this)
@@ -121,7 +124,7 @@ class HTTP_REQUEST_V1 extends Win32Struct
     /**
      * An HTTP verb associated with this request. This member can be one of the values from the  
      * <a href="https://docs.microsoft.com/windows/desktop/api/http/ne-http-http_verb">HTTP_VERB</a> enumeration.
-     * @type {Integer}
+     * @type {HTTP_VERB}
      */
     Verb {
         get => NumGet(this, 36, "int")
@@ -169,7 +172,7 @@ class HTTP_REQUEST_V1 extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/http/ns-http-http_cooked_url">HTTP_COOKED_URL</a> structure that contains a parsed canonical wide-character version of the URL targeted by this request. This is the version of the URL HTTP Listeners should act upon, rather than the raw URL.
      * @type {HTTP_COOKED_URL}
      */
-    CookedUrl{
+    CookedUrl {
         get {
             if(!this.HasProp("__CookedUrl"))
                 this.__CookedUrl := HTTP_COOKED_URL(64, this)
@@ -182,7 +185,7 @@ class HTTP_REQUEST_V1 extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/http/ns-http-http_transport_address">HTTP_TRANSPORT_ADDRESS</a> structure that contains the transport addresses for the connection for this request.
      * @type {HTTP_TRANSPORT_ADDRESS}
      */
-    Address{
+    Address {
         get {
             if(!this.HasProp("__Address"))
                 this.__Address := HTTP_TRANSPORT_ADDRESS(104, this)
@@ -195,7 +198,7 @@ class HTTP_REQUEST_V1 extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/http/ns-http-http_request_headers">HTTP_REQUEST_HEADERS</a> structure that contains the headers specified in this request.
      * @type {HTTP_REQUEST_HEADERS}
      */
-    Headers{
+    Headers {
         get {
             if(!this.HasProp("__Headers"))
                 this.__Headers := HTTP_REQUEST_HEADERS(120, this)
@@ -208,8 +211,8 @@ class HTTP_REQUEST_V1 extends Win32Struct
      * @type {Integer}
      */
     BytesReceived {
-        get => NumGet(this, 480, "uint")
-        set => NumPut("uint", value, this, 480)
+        get => NumGet(this, 808, "uint")
+        set => NumPut("uint", value, this, 808)
     }
 
     /**
@@ -217,8 +220,8 @@ class HTTP_REQUEST_V1 extends Win32Struct
      * @type {Integer}
      */
     EntityChunkCount {
-        get => NumGet(this, 488, "ushort")
-        set => NumPut("ushort", value, this, 488)
+        get => NumGet(this, 816, "ushort")
+        set => NumPut("ushort", value, this, 816)
     }
 
     /**
@@ -228,8 +231,8 @@ class HTTP_REQUEST_V1 extends Win32Struct
      * @type {Pointer<HTTP_DATA_CHUNK>}
      */
     pEntityChunks {
-        get => NumGet(this, 496, "ptr")
-        set => NumPut("ptr", value, this, 496)
+        get => NumGet(this, 824, "ptr")
+        set => NumPut("ptr", value, this, 824)
     }
 
     /**
@@ -237,8 +240,8 @@ class HTTP_REQUEST_V1 extends Win32Struct
      * @type {Integer}
      */
     RawConnectionId {
-        get => NumGet(this, 504, "uint")
-        set => NumPut("uint", value, this, 504)
+        get => NumGet(this, 832, "uint")
+        set => NumPut("uint", value, this, 832)
     }
 
     /**
@@ -247,7 +250,7 @@ class HTTP_REQUEST_V1 extends Win32Struct
      * @type {Pointer<HTTP_SSL_INFO>}
      */
     pSslInfo {
-        get => NumGet(this, 512, "ptr")
-        set => NumPut("ptr", value, this, 512)
+        get => NumGet(this, 840, "ptr")
+        set => NumPut("ptr", value, this, 840)
     }
 }

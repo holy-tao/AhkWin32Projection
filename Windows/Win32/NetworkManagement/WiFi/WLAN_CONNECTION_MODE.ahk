@@ -5,9 +5,8 @@
  * Defines the mode of connection.
  * @see https://learn.microsoft.com/windows/win32/api/wlanapi/ne-wlanapi-wlan_connection_mode
  * @namespace Windows.Win32.NetworkManagement.WiFi
- * @version v4.0.30319
  */
-class WLAN_CONNECTION_MODE extends Win32Enum{
+class WLAN_CONNECTION_MODE extends Win32Enum {
 
     /**
      * A profile will be used to make the connection.

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include Common\D2D_RECT_F.ahk
 #Include .\ID2D1Resource.ahk
+#Include Common\D2D_RECT_F.ahk
 
 /**
  * Represents a geometry resource and defines a set of helper methods for manipulating and measuring geometric shapes. Interfaces that inherit from ID2D1Geometry define specific shapes.
@@ -14,9 +14,8 @@
  * Direct2D geometries are immutable and device-independent resources created by <a href="https://docs.microsoft.com/windows/win32/api/d2d1/nn-d2d1-id2d1factory">ID2D1Factory</a>.  In general, you should create geometries once and retain them for the life of the application, or until they need to be modified. For more information about device-independent and device-dependent resources, see  the <a href="https://docs.microsoft.com/windows/win32/Direct2D/resources-and-resource-domains">Resources Overview</a>.
  * @see https://learn.microsoft.com/windows/win32/api/d2d1/nn-d2d1-id2d1geometry
  * @namespace Windows.Win32.Graphics.Direct2D
- * @version v4.0.30319
  */
-class ID2D1Geometry extends ID2D1Resource{
+class ID2D1Geometry extends ID2D1Resource {
 
     static sizeof => A_PtrSize
     /**
@@ -101,7 +100,7 @@ class ID2D1Geometry extends ID2D1Resource{
      * @param {ID2D1Geometry} inputGeometry 
      * @param {Pointer<D2D_MATRIX_3X2_F>} inputGeometryTransform 
      * @param {Float} flatteningTolerance 
-     * @returns {Integer} 
+     * @returns {D2D1_GEOMETRY_RELATION} 
      * @see https://learn.microsoft.com/windows/win32/Direct2D/id2d1geometry-comparewithgeometry
      */
     CompareWithGeometry(inputGeometry, inputGeometryTransform, flatteningTolerance) {
@@ -111,7 +110,7 @@ class ID2D1Geometry extends ID2D1Resource{
 
     /**
      * Creates a simplified version of the geometry that contains only lines and (optionally) cubic Bezier curves and writes the result to an ID2D1SimplifiedGeometrySink.
-     * @param {Integer} simplificationOption 
+     * @param {D2D1_GEOMETRY_SIMPLIFICATION_OPTION} simplificationOption 
      * @param {Pointer<D2D_MATRIX_3X2_F>} worldTransform 
      * @param {Float} flatteningTolerance 
      * @param {ID2D1SimplifiedGeometrySink} geometrySink 
@@ -139,7 +138,7 @@ class ID2D1Geometry extends ID2D1Resource{
     /**
      * Combines this geometry with the specified geometry and stores the result in an ID2D1SimplifiedGeometrySink.
      * @param {ID2D1Geometry} inputGeometry 
-     * @param {Integer} _combineMode 
+     * @param {D2D1_COMBINE_MODE} _combineMode 
      * @param {Pointer<D2D_MATRIX_3X2_F>} inputGeometryTransform 
      * @param {Float} flatteningTolerance 
      * @param {ID2D1SimplifiedGeometrySink} geometrySink 

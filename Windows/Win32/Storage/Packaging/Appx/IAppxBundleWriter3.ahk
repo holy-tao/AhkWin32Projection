@@ -7,9 +7,8 @@
  * Provides a write-only object model for bundle packages. (IAppxBundleWriter3)
  * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nn-appxpackaging-iappxbundlewriter3
  * @namespace Windows.Win32.Storage.Packaging.Appx
- * @version v4.0.30319
  */
-class IAppxBundleWriter3 extends IUnknown{
+class IAppxBundleWriter3 extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

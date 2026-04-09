@@ -8,10 +8,8 @@
  * To get more information on the device, use <b>hDevice</b> in a call to [GetRawInputDeviceInfo](nf-winuser-getrawinputdeviceinfoa.md). <b>hDevice</b> can be zero if an input is received from a precision touchpad.
  * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-rawinputheader
  * @namespace Windows.Win32.UI.Input
- * @version v4.0.30319
  */
-class RAWINPUTHEADER extends Win32Struct
-{
+class RAWINPUTHEADER extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -42,7 +40,7 @@ class RAWINPUTHEADER extends Win32Struct
      * A handle to the device generating the raw input data.
      * @type {HANDLE}
      */
-    hDevice{
+    hDevice {
         get {
             if(!this.HasProp("__hDevice"))
                 this.__hDevice := HANDLE(8, this)

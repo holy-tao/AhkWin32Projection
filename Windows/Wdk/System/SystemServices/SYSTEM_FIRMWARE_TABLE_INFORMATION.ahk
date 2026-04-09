@@ -1,12 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\SYSTEM_FIRMWARE_TABLE_ACTION.ahk
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class SYSTEM_FIRMWARE_TABLE_INFORMATION extends Win32Struct
-{
+class SYSTEM_FIRMWARE_TABLE_INFORMATION extends Win32Struct {
     static sizeof => 20
 
     static packingSize => 4
@@ -20,7 +19,7 @@ class SYSTEM_FIRMWARE_TABLE_INFORMATION extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {SYSTEM_FIRMWARE_TABLE_ACTION}
      */
     Action {
         get => NumGet(this, 4, "int")
@@ -44,9 +43,9 @@ class SYSTEM_FIRMWARE_TABLE_INFORMATION extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    TableBuffer{
+    TableBuffer {
         get {
             if(!this.HasProp("__TableBufferProxyArray"))
                 this.__TableBufferProxyArray := Win32FixedArray(this.ptr + 16, 1, Primitive, "char")

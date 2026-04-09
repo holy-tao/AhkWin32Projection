@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\ImgErrorInfo.ahk
 #Include ..\..\System\Com\IErrorInfo.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include .\ImgErrorInfo.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
- * @version v4.0.30319
  */
-class IImgErrorInfo extends IErrorInfo{
+class IImgErrorInfo extends IErrorInfo {
 
     static sizeof => A_PtrSize
     /**

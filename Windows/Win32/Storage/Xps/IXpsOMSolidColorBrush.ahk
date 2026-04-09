@@ -1,9 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IXpsOMColorProfileResource.ahk
-#Include .\IXpsOMSolidColorBrush.ahk
 #Include .\IXpsOMBrush.ahk
+#Include .\IXpsOMColorProfileResource.ahk
 
 /**
  * A single-color brush.
@@ -53,9 +52,8 @@
  * ```
  * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomsolidcolorbrush
  * @namespace Windows.Win32.Storage.Xps
- * @version v4.0.30319
  */
-class IXpsOMSolidColorBrush extends IXpsOMBrush{
+class IXpsOMSolidColorBrush extends IXpsOMBrush {
 
     static sizeof => A_PtrSize
     /**
@@ -78,7 +76,7 @@ class IXpsOMSolidColorBrush extends IXpsOMBrush{
 
     /**
      * Gets the color value and color profile of the brush.
-     * @param {Pointer<XPS_COLOR>} _color 
+     * @param {Pointer<XPS_COLOR>} _color The color value of the brush.
      * @returns {IXpsOMColorProfileResource} The color profile of the brush. 
      * 
      * If no color profile has been specified for the brush, a <b>NULL</b> pointer is returned.
@@ -91,7 +89,9 @@ class IXpsOMSolidColorBrush extends IXpsOMBrush{
 
     /**
      * Sets the color value and color profile of the brush.
-     * @param {Pointer<XPS_COLOR>} _color 
+     * @param {Pointer<XPS_COLOR>} _color The color value of the brush. 
+     * 
+     * If the value of the <b>colorType</b> field in the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dd372939(v=vs.85)">XPS_COLOR</a> structure that is passed in this parameter is <a href="https://docs.microsoft.com/windows/win32/api/xpsobjectmodel/ne-xpsobjectmodel-xps_color_type">XPS_COLOR_TYPE_CONTEXT</a>, a valid color profile must be provided in the <i>colorProfile</i> parameter.
      * @param {IXpsOMColorProfileResource} colorProfile The color profile to be used with <i>color</i>.
      * 
      * A color profile is required when the value of the <b>colorType</b> field in the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dd372939(v=vs.85)">XPS_COLOR</a> structure that is passed  in the <i>color</i> parameter is <a href="https://docs.microsoft.com/windows/win32/api/xpsobjectmodel/ne-xpsobjectmodel-xps_color_type">XPS_COLOR_TYPE_CONTEXT</a>. If the value of the <b>colorType</b> field is not <b>XPS_COLOR_TYPE_CONTEXT</b>, this parameter must be set to <b>NULL</b>.

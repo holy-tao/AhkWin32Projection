@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Security.Cryptography.UI
- * @version v4.0.30319
  */
-class CRYPTUI_VIEWCERTIFICATE_FLAGS extends Win32BitflagEnum{
+class CRYPTUI_VIEWCERTIFICATE_FLAGS extends Win32BitflagEnum {
 
     /**
      * @type {Integer (UInt32)}

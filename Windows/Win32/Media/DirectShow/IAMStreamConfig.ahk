@@ -12,9 +12,8 @@
  * If you are writing a capture filter or compression filter, implement this interface on the video or audio output pin. For more information, see <a href="https://docs.microsoft.com/windows/desktop/DirectShow/exposing-capture-and-compression-formats">Exposing Capture and Compression Formats</a>.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-iamstreamconfig
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IAMStreamConfig extends IUnknown{
+class IAMStreamConfig extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

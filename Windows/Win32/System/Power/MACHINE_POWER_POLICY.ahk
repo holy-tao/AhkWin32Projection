@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\SYSTEM_POWER_STATE.ahk
 #Include .\POWER_ACTION_POLICY.ahk
+#Include .\POWER_ACTION.ahk
+#Include .\POWER_ACTION_POLICY_EVENT_CODE.ahk
 
 /**
  * Contains computer power policy settings that are unique to each power scheme on the computer.
@@ -8,10 +11,8 @@
  * <b>DozeS4TimeoutAc</b> and <b>DozeS4TimeoutDc</b>  correspond to the <b>DozeS4Timeout</b> member of <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-system_power_policy">SYSTEM_POWER_POLICY</a>. These values are merged from the machine power policy to the system power policy when the <a href="https://docs.microsoft.com/windows/desktop/api/powrprof/nf-powrprof-setactivepwrscheme">SetActivePwrScheme</a> function is called to apply a power scheme.
  * @see https://learn.microsoft.com/windows/win32/api/powrprof/ns-powrprof-machine_power_policy
  * @namespace Windows.Win32.System.Power
- * @version v4.0.30319
  */
-class MACHINE_POWER_POLICY extends Win32Struct
-{
+class MACHINE_POWER_POLICY extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 4
@@ -28,7 +29,7 @@ class MACHINE_POWER_POLICY extends Win32Struct
     /**
      * The minimum system power state (lowest Sx value) to enter on a system sleep action when running on AC power. This member must be one of the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ne-winnt-system_power_state">SYSTEM_POWER_STATE</a> enumeration type values.
-     * @type {Integer}
+     * @type {SYSTEM_POWER_STATE}
      */
     MinSleepAc {
         get => NumGet(this, 4, "int")
@@ -38,7 +39,7 @@ class MACHINE_POWER_POLICY extends Win32Struct
     /**
      * The minimum system power state (lowest Sx value) to enter on a system sleep action when running on battery power. This member must be one of the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ne-winnt-system_power_state">SYSTEM_POWER_STATE</a> enumeration type values.
-     * @type {Integer}
+     * @type {SYSTEM_POWER_STATE}
      */
     MinSleepDc {
         get => NumGet(this, 8, "int")
@@ -49,7 +50,7 @@ class MACHINE_POWER_POLICY extends Win32Struct
      * The maximum system power state (highest Sx value) to enter on a system sleep action when running on AC power, and when there are outstanding latency requirements. This member must be one of the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ne-winnt-system_power_state">SYSTEM_POWER_STATE</a> enumeration type values. If an application calls 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-requestwakeuplatency">RequestWakeupLatency</a> with LT_LOWEST_LATENCY, <b>ReducedLatencySleepAc</b> is used in place of <b>MaxSleepAc</b>.
-     * @type {Integer}
+     * @type {SYSTEM_POWER_STATE}
      */
     ReducedLatencySleepAc {
         get => NumGet(this, 12, "int")
@@ -60,7 +61,7 @@ class MACHINE_POWER_POLICY extends Win32Struct
      * The maximum system power state (highest Sx value) to enter on a system sleep action when running on battery power, and when there are outstanding latency requirements. This member must be one of the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ne-winnt-system_power_state">SYSTEM_POWER_STATE</a> enumeration type values. If an application calls 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-requestwakeuplatency">RequestWakeupLatency</a> with LT_LOWEST_LATENCY, <b>ReducedLatencySleepAc</b> is used in place of <b>MaxSleepAc</b>.
-     * @type {Integer}
+     * @type {SYSTEM_POWER_STATE}
      */
     ReducedLatencySleepDc {
         get => NumGet(this, 16, "int")
@@ -123,9 +124,9 @@ class MACHINE_POWER_POLICY extends Win32Struct
 
     /**
      * Reserved.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    pad1{
+    pad1 {
         get {
             if(!this.HasProp("__pad1ProxyArray"))
                 this.__pad1ProxyArray := Win32FixedArray(this.ptr + 38, 2, Primitive, "char")
@@ -138,7 +139,7 @@ class MACHINE_POWER_POLICY extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-power_action_policy">POWER_ACTION_POLICY</a> structure that defines the action to take when a processor has become overthrottled (as defined by the <b>MinThrottleAc</b> member) when the system is running on AC power.
      * @type {POWER_ACTION_POLICY}
      */
-    OverThrottledAc{
+    OverThrottledAc {
         get {
             if(!this.HasProp("__OverThrottledAc"))
                 this.__OverThrottledAc := POWER_ACTION_POLICY(40, this)
@@ -151,7 +152,7 @@ class MACHINE_POWER_POLICY extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-power_action_policy">POWER_ACTION_POLICY</a> structure that defines the action to take when a processor has become overthrottled (as defined by the <b>MinThrottleDc</b> member) when the system is running on battery power.
      * @type {POWER_ACTION_POLICY}
      */
-    OverThrottledDc{
+    OverThrottledDc {
         get {
             if(!this.HasProp("__OverThrottledDc"))
                 this.__OverThrottledDc := POWER_ACTION_POLICY(52, this)

@@ -3,11 +3,9 @@
 
 /**
  * @namespace Windows.Win32.Media.Audio
- * @version v4.0.30319
  * @charset Unicode
  */
-class ACMDRVOPENDESCW extends Win32Struct
-{
+class ACMDRVOPENDESCW extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8

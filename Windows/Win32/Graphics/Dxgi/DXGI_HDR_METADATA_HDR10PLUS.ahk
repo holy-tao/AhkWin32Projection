@@ -3,18 +3,16 @@
 
 /**
  * @namespace Windows.Win32.Graphics.Dxgi
- * @version v4.0.30319
  */
-class DXGI_HDR_METADATA_HDR10PLUS extends Win32Struct
-{
+class DXGI_HDR_METADATA_HDR10PLUS extends Win32Struct {
     static sizeof => 72
 
     static packingSize => 1
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Data{
+    Data {
         get {
             if(!this.HasProp("__DataProxyArray"))
                 this.__DataProxyArray := Win32FixedArray(this.ptr + 0, 72, Primitive, "char")

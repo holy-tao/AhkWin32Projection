@@ -19,9 +19,8 @@
  * Use this interface to retrieve the current view settings for all of those options.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nn-shobjidl-ifolderviewoptions
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IFolderViewOptions extends IUnknown{
+class IFolderViewOptions extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -44,10 +43,10 @@ class IFolderViewOptions extends IUnknown{
 
     /**
      * Sets specified options for the view.
-     * @param {Integer} fvoMask Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl/ne-shobjidl-folderviewoptions">FOLDERVIEWOPTIONS</a></b>
+     * @param {FOLDERVIEWOPTIONS} fvoMask Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl/ne-shobjidl-folderviewoptions">FOLDERVIEWOPTIONS</a></b>
      * 
      * A bitmask made up of one or more of the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl/ne-shobjidl-folderviewoptions">FOLDERVIEWOPTIONS</a> flags to indicate which options' are being changed. Values in <i>fvoFlags</i> not included in this mask are ignored.
-     * @param {Integer} fvoFlags Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl/ne-shobjidl-folderviewoptions">FOLDERVIEWOPTIONS</a></b>
+     * @param {FOLDERVIEWOPTIONS} fvoFlags Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl/ne-shobjidl-folderviewoptions">FOLDERVIEWOPTIONS</a></b>
      * 
      * A bitmask that contains the new values for the options specified in <i>fvoMask</i>. To enable an option, the bitmask should include the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl/ne-shobjidl-folderviewoptions">FOLDERVIEWOPTIONS</a> flag for that option. To disable an option, the bit used for that <b>FOLDERVIEWOPTIONS</b> flag should be 0.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -62,7 +61,7 @@ class IFolderViewOptions extends IUnknown{
 
     /**
      * Retrieves the current set of options for the view.
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl/ne-shobjidl-folderviewoptions">FOLDERVIEWOPTIONS</a>*</b>
+     * @returns {FOLDERVIEWOPTIONS} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl/ne-shobjidl-folderviewoptions">FOLDERVIEWOPTIONS</a>*</b>
      * 
      * A bitmask that, when this method returns successfully, receives the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl/ne-shobjidl-folderviewoptions">FOLDERVIEWOPTIONS</a> values that are currently set.
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-ifolderviewoptions-getfolderviewoptions

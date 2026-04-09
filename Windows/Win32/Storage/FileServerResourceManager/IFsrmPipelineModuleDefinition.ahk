@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include .\IFsrmObject.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * Defines a module that is used to classify files or store and retrieve properties from files.
@@ -17,9 +17,8 @@
  *     during classification runs and the UI will reflect a module that is no longer available.
  * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nn-fsrmpipeline-ifsrmpipelinemoduledefinition
  * @namespace Windows.Win32.Storage.FileServerResourceManager
- * @version v4.0.30319
  */
-class IFsrmPipelineModuleDefinition extends IFsrmObject{
+class IFsrmPipelineModuleDefinition extends IFsrmObject {
 
     static sizeof => A_PtrSize
     /**
@@ -73,7 +72,7 @@ class IFsrmPipelineModuleDefinition extends IFsrmObject{
     }
 
     /**
-     * @type {Integer} 
+     * @type {FsrmPipelineModuleType} 
      */
     ModuleType {
         get => this.get_ModuleType()
@@ -96,7 +95,7 @@ class IFsrmPipelineModuleDefinition extends IFsrmObject{
     }
 
     /**
-     * @type {Integer} 
+     * @type {FsrmAccountType} 
      */
     Account {
         get => this.get_Account()
@@ -231,7 +230,7 @@ class IFsrmPipelineModuleDefinition extends IFsrmObject{
      * The type of module.
      * @remarks
      * The type is specified when you call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmpipeline/nf-fsrmpipeline-ifsrmclassificationmanager-createmoduledefinition">IFsrmClassificationModule::CreateModuleDefinition</a> method to create the module definition object.
-     * @returns {Integer} 
+     * @returns {FsrmPipelineModuleType} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpipelinemoduledefinition-get_moduletype
      */
     get_ModuleType() {
@@ -295,7 +294,7 @@ class IFsrmPipelineModuleDefinition extends IFsrmObject{
 
     /**
      * The account to use when running the module. (Get)
-     * @returns {Integer} 
+     * @returns {FsrmAccountType} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpipelinemoduledefinition-get_account
      */
     get_Account() {
@@ -305,7 +304,7 @@ class IFsrmPipelineModuleDefinition extends IFsrmObject{
 
     /**
      * The account to use when running the module. (Put)
-     * @param {Integer} retrievalAccount 
+     * @param {FsrmAccountType} retrievalAccount 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpipelinemoduledefinition-put_account
      */

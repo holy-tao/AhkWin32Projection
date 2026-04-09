@@ -2,23 +2,22 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\USB_HUB_DESCRIPTOR.ahk
 #Include .\USB_HUB_CAPABILITIES.ahk
-#Include .\USB_DEVICE_STATE.ahk
 #Include .\USB_HUB_PORT_INFORMATION.ahk
+#Include .\USB_DEVICE_STATE.ahk
+#Include .\USB_CONNECTION_STATUS.ahk
 
 /**
  * @namespace Windows.Win32.Devices.Usb
- * @version v4.0.30319
  */
-class USB_HUB_DEVICE_INFO extends Win32Struct
-{
-    static sizeof => 96
+class USB_HUB_DEVICE_INFO extends Win32Struct {
+    static sizeof => 104
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {USB_HUB_DESCRIPTOR}
      */
-    HubDescriptor{
+    HubDescriptor {
         get {
             if(!this.HasProp("__HubDescriptor"))
                 this.__HubDescriptor := USB_HUB_DESCRIPTOR(0, this)
@@ -61,7 +60,7 @@ class USB_HUB_DEVICE_INFO extends Win32Struct
     /**
      * @type {USB_HUB_CAPABILITIES}
      */
-    HubCapabilities{
+    HubCapabilities {
         get {
             if(!this.HasProp("__HubCapabilities"))
                 this.__HubCapabilities := USB_HUB_CAPABILITIES(80, this)
@@ -78,9 +77,9 @@ class USB_HUB_DEVICE_INFO extends Win32Struct
     }
 
     /**
-     * @type {Array<USB_HUB_PORT_INFORMATION>}
+     * @type {USB_HUB_PORT_INFORMATION}
      */
-    PortInfo{
+    PortInfo {
         get {
             if(!this.HasProp("__PortInfoProxyArray"))
                 this.__PortInfoProxyArray := Win32FixedArray(this.ptr + 88, 1, USB_HUB_PORT_INFORMATION, "")

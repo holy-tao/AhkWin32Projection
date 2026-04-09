@@ -1,14 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\Com\SAFEARRAY.ahk
+#Include .\GROUP_POLICY_OBJECTA.ahk
+#Include ..\Wmi\IWbemServices.ahk
 
 /**
  * The RSOP_TARGET structure contains computer and user information required by the GenerateGroupPolicy function.
  * @see https://learn.microsoft.com/windows/win32/api/userenv/ns-userenv-rsop_target
  * @namespace Windows.Win32.System.GroupPolicy
- * @version v4.0.30319
  */
-class RSOP_TARGET extends Win32Struct
-{
+class RSOP_TARGET extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8

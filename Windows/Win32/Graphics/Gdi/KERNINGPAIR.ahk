@@ -5,10 +5,8 @@
  * The KERNINGPAIR structure defines a kerning pair.
  * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-kerningpair
  * @namespace Windows.Win32.Graphics.Gdi
- * @version v4.0.30319
  */
-class KERNINGPAIR extends Win32Struct
-{
+class KERNINGPAIR extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4

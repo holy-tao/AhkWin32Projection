@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
- * @version v4.0.30319
  */
-class KSPROPERTY_STEPPING_LONGLONG extends Win32Struct
-{
+class KSPROPERTY_STEPPING_LONGLONG extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -23,7 +21,7 @@ class KSPROPERTY_STEPPING_LONGLONG extends Win32Struct
     /**
      * @type {KSPROPERTY_BOUNDS_LONGLONG}
      */
-    Bounds{
+    Bounds {
         get {
             if(!this.HasProp("__Bounds"))
                 this.__Bounds := KSPROPERTY_BOUNDS_LONGLONG(8, this)

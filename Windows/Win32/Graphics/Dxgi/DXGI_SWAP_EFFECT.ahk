@@ -25,9 +25,8 @@
  * For more info about the flip-model swap chain and optimizing presentation, see <a href="https://docs.microsoft.com/windows/win32/direct3ddxgi/dxgi-1-2-presentation-improvements">Enhancing presentation with the flip model, dirty rectangles, and scrolled areas</a>.
  * @see https://learn.microsoft.com/windows/win32/api/dxgi/ne-dxgi-dxgi_swap_effect
  * @namespace Windows.Win32.Graphics.Dxgi
- * @version v4.0.30319
  */
-class DXGI_SWAP_EFFECT extends Win32Enum{
+class DXGI_SWAP_EFFECT extends Win32Enum {
 
     /**
      * Use this flag to specify the bit-block transfer (bitblt) model and to specify that DXGI discard the contents of the back buffer after you call <a href="https://docs.microsoft.com/windows/win32/api/dxgi1_2/nf-dxgi1_2-idxgiswapchain1-present1">IDXGISwapChain1::Present1</a>.

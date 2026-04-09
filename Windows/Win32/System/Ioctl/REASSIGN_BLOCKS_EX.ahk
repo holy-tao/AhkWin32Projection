@@ -11,10 +11,8 @@
  *     supports devices with up to a 4-byte LBA should be used where possible.
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-reassign_blocks_ex
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class REASSIGN_BLOCKS_EX extends Win32Struct
-{
+class REASSIGN_BLOCKS_EX extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
@@ -42,9 +40,9 @@ class REASSIGN_BLOCKS_EX extends Win32Struct
 
     /**
      * An array of <b>Count</b> block numbers, one for each block to be reassigned.
-     * @type {Array<Int64>}
+     * @type {Array<Integer>}
      */
-    BlockNumber{
+    BlockNumber {
         get {
             if(!this.HasProp("__BlockNumberProxyArray"))
                 this.__BlockNumberProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "int64")

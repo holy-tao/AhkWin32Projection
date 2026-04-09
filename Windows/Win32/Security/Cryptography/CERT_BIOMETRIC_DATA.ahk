@@ -1,24 +1,22 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\CRYPT_INTEGER_BLOB.ahk
-#Include .\CRYPT_ALGORITHM_IDENTIFIER.ahk
+#Include .\CERT_BIOMETRIC_DATA_TYPE.ahk
 #Include .\CERT_HASHED_URL.ahk
+#Include .\CRYPT_ALGORITHM_IDENTIFIER.ahk
+#Include .\CRYPT_INTEGER_BLOB.ahk
 
 /**
  * Contains information about biometric data.
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cert_biometric_data
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CERT_BIOMETRIC_DATA extends Win32Struct
-{
+class CERT_BIOMETRIC_DATA extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 8
 
     /**
-     * 
-     * @type {Integer}
+     * @type {CERT_BIOMETRIC_DATA_TYPE}
      */
     dwTypeOfBiometricDataChoice {
         get => NumGet(this, 0, "uint")
@@ -45,7 +43,7 @@ class CERT_BIOMETRIC_DATA extends Win32Struct
      * A <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_hashed_url">CERT_HASHED_URL</a> structure that contains the hashed URL of the biometric data.
      * @type {CERT_HASHED_URL}
      */
-    HashedUrl{
+    HashedUrl {
         get {
             if(!this.HasProp("__HashedUrl"))
                 this.__HashedUrl := CERT_HASHED_URL(16, this)

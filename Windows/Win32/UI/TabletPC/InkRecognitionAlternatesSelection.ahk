@@ -5,9 +5,8 @@
  * Not implemented. (InkRecognitionAlternatesSelection)
  * @see https://learn.microsoft.com/windows/win32/api/msinkaut/ne-msinkaut-inkrecognitionalternatesselection
  * @namespace Windows.Win32.UI.TabletPC
- * @version v4.0.30319
  */
-class InkRecognitionAlternatesSelection extends Win32Enum{
+class InkRecognitionAlternatesSelection extends Win32Enum {
 
     /**
      * Reserved.

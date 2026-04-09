@@ -4,11 +4,9 @@
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class COUNTED_REASON_CONTEXT extends Win32Struct
-{
-    static sizeof => 40
+class COUNTED_REASON_CONTEXT extends Win32Struct {
+    static sizeof => 32
 
     static packingSize => 8
 
@@ -29,48 +27,42 @@ class COUNTED_REASON_CONTEXT extends Win32Struct
     }
 
     /**
-     * @type {UNICODE_STRING}
+     * @type {Pointer}
      */
-    ResourceFileName{
-        get {
-            if(!this.HasProp("__ResourceFileName"))
-                this.__ResourceFileName := UNICODE_STRING(8, this)
-            return this.__ResourceFileName
-        }
+    ResourceFileName {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * @type {Integer}
      */
     ResourceReasonId {
-        get => NumGet(this, 24, "ushort")
-        set => NumPut("ushort", value, this, 24)
+        get => NumGet(this, 16, "ushort")
+        set => NumPut("ushort", value, this, 16)
     }
 
     /**
      * @type {Integer}
      */
     StringCount {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
+        get => NumGet(this, 20, "uint")
+        set => NumPut("uint", value, this, 20)
     }
 
     /**
      * @type {Pointer<UNICODE_STRING>}
      */
     ReasonStrings {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
-     * @type {UNICODE_STRING}
+     * @type {Pointer}
      */
-    SimpleString{
-        get {
-            if(!this.HasProp("__SimpleString"))
-                this.__SimpleString := UNICODE_STRING(8, this)
-            return this.__SimpleString
-        }
+    SimpleString {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 }

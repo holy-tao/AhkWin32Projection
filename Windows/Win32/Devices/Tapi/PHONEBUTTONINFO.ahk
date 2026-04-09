@@ -16,10 +16,8 @@
  * New applications must be cognizant of the API version negotiated, and not examine the contents of fields in the fixed portion beyond the original end of the fixed portion of the structure for the negotiated API version.
  * @see https://learn.microsoft.com/windows/win32/api/tapi/ns-tapi-phonebuttoninfo
  * @namespace Windows.Win32.Devices.Tapi
- * @version v4.0.30319
  */
-class PHONEBUTTONINFO extends Win32Struct
-{
+class PHONEBUTTONINFO extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 4

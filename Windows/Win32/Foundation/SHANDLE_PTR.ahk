@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Foundation
- * @version v4.0.30319
  */
-class SHANDLE_PTR extends Win32Struct
-{
+class SHANDLE_PTR extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 8

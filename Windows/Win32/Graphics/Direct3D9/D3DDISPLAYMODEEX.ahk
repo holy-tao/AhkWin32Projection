@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\D3DFORMAT.ahk
+#Include .\D3DSCANLINEORDERING.ahk
 
 /**
  * Information about the properties of a display mode.
@@ -7,10 +9,8 @@
  * This structure is used in various methods to create and manage Direct3D 9Ex devices ([**IDirect3DDevice9Ex**](/windows/desktop/api/d3d9/nn-d3d9-idirect3ddevice9ex)) and swapchains ([**IDirect3DSwapChain9Ex**](/windows/desktop/api/d3d9/nn-d3d9-idirect3dswapchain9ex)).
  * @see https://learn.microsoft.com/windows/win32/direct3d9/d3ddisplaymodeex
  * @namespace Windows.Win32.Graphics.Direct3D9
- * @version v4.0.30319
  */
-class D3DDISPLAYMODEEX extends Win32Struct
-{
+class D3DDISPLAYMODEEX extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 4
@@ -68,7 +68,7 @@ class D3DDISPLAYMODEEX extends Win32Struct
      * 
      * 
      * Format of the display mode. See [D3DFORMAT](d3dformat.md).
-     * @type {Integer}
+     * @type {D3DFORMAT}
      */
     Format {
         get => NumGet(this, 16, "uint")
@@ -80,7 +80,7 @@ class D3DDISPLAYMODEEX extends Win32Struct
      * 
      * 
      * Indicates whether the scanline order is progressive or interlaced. See [**D3DSCANLINEORDERING**](./d3dscanlineordering.md).
-     * @type {Integer}
+     * @type {D3DSCANLINEORDERING}
      */
     ScanLineOrdering {
         get => NumGet(this, 20, "int")

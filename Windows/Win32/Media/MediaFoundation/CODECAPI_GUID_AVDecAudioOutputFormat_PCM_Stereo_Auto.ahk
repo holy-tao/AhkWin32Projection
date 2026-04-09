@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class CODECAPI_GUID_AVDecAudioOutputFormat_PCM_Stereo_Auto extends Win32Struct
-{
+class CODECAPI_GUID_AVDecAudioOutputFormat_PCM_Stereo_Auto extends Win32Struct {
     static sizeof => 0
 
     static packingSize => 1

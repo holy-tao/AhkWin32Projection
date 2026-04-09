@@ -1,9 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\IMFSourceBuffer.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\IMFSourceBuffer.ahk
 
 /**
  * Provides functionality for the Media Source Extension (MSE).
@@ -13,9 +12,8 @@
  * The MSE media source keeps track of the ready state of the of the source as well as a list of <a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/nn-mfmediaengine-imfsourcebuffer">IMFSourceBuffer</a> objects which provide media data for the source.
  * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nn-mfmediaengine-imfmediasourceextension
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFMediaSourceExtension extends IUnknown{
+class IMFMediaSourceExtension extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -58,7 +56,7 @@ class IMFMediaSourceExtension extends IUnknown{
 
     /**
      * Gets the ready state of the media source.
-     * @returns {Integer} The ready state of the media source.
+     * @returns {MF_MSE_READY} The ready state of the media source.
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediasourceextension-getreadystate
      */
     GetReadyState() {
@@ -114,12 +112,12 @@ class IMFMediaSourceExtension extends IUnknown{
 
     /**
      * Indicate that the end of the media stream has been reached.
-     * @param {Integer} error Used to pass error information.
+     * @param {MF_MSE_ERROR} _error Used to pass error information.
      * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediasourceextension-setendofstream
      */
-    SetEndOfStream(error) {
-        result := ComCall(10, this, "int", error, "HRESULT")
+    SetEndOfStream(_error) {
+        result := ComCall(10, this, "int", _error, "HRESULT")
         return result
     }
 

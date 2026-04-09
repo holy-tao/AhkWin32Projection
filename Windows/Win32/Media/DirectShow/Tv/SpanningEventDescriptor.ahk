@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Media.DirectShow.Tv
- * @version v4.0.30319
  */
-class SpanningEventDescriptor extends Win32Struct
-{
+class SpanningEventDescriptor extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 2
@@ -36,9 +34,9 @@ class SpanningEventDescriptor extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    bDescriptor{
+    bDescriptor {
         get {
             if(!this.HasProp("__bDescriptorProxyArray"))
                 this.__bDescriptorProxyArray := Win32FixedArray(this.ptr + 6, 1, Primitive, "char")

@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\WinSock\SOCKADDR.ahk
 
 /**
  * Serves as the key by which a given Secure Sockets Layer (SSL) certificate record is identified.
  * @see https://learn.microsoft.com/windows/win32/api/http/ns-http-http_service_config_ssl_key
  * @namespace Windows.Win32.Networking.HttpServer
- * @version v4.0.30319
  */
-class HTTP_SERVICE_CONFIG_SSL_KEY extends Win32Struct
-{
+class HTTP_SERVICE_CONFIG_SSL_KEY extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 8

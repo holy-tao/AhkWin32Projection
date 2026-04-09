@@ -7,9 +7,8 @@
  * Describes how a managed object is used in the COM+ object pool.
  * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nn-comsvcs-imanagedpooledobj
  * @namespace Windows.Win32.System.ComponentServices
- * @version v4.0.30319
  */
-class IManagedPooledObj extends IUnknown{
+class IManagedPooledObj extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

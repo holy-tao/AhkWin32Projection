@@ -7,10 +7,8 @@
  * Use this structure with <a href="https://docs.microsoft.com/windows/desktop/api/d3d11on12/nf-d3d11on12-id3d11on12device-createwrappedresource">CreateWrappedResource</a>.
  * @see https://learn.microsoft.com/windows/win32/api/d3d11on12/ns-d3d11on12-d3d11_resource_flags
  * @namespace Windows.Win32.Graphics.Direct3D11on12
- * @version v4.0.30319
  */
-class D3D11_RESOURCE_FLAGS extends Win32Struct
-{
+class D3D11_RESOURCE_FLAGS extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4

@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\SPWORDPRONUNCIATION.ahk
+#Include .\SPLEXICONTYPE.ahk
+#Include .\SPPARTOFSPEECH.ahk
 
 /**
  * @namespace Windows.Win32.Media.Speech
- * @version v4.0.30319
  */
-class SPWORDPRONUNCIATION extends Win32Struct
-{
+class SPWORDPRONUNCIATION extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -20,7 +21,7 @@ class SPWORDPRONUNCIATION extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {SPLEXICONTYPE}
      */
     eLexiconType {
         get => NumGet(this, 8, "int")
@@ -44,7 +45,7 @@ class SPWORDPRONUNCIATION extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {SPPARTOFSPEECH}
      */
     ePartOfSpeech {
         get => NumGet(this, 16, "int")
@@ -52,9 +53,9 @@ class SPWORDPRONUNCIATION extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt16>}
+     * @type {Array<Integer>}
      */
-    szPronunciation{
+    szPronunciation {
         get {
             if(!this.HasProp("__szPronunciationProxyArray"))
                 this.__szPronunciationProxyArray := Win32FixedArray(this.ptr + 20, 1, Primitive, "ushort")

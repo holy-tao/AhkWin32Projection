@@ -9,9 +9,8 @@
  * Windows Media Player 10 Mobile: This enumeration is not supported.
  * @see https://learn.microsoft.com/windows/win32/api/wmp/ne-wmp-wmpfolderscanstate
  * @namespace Windows.Win32.Media.MediaPlayer
- * @version v4.0.30319
  */
-class WMPFolderScanState extends Win32Enum{
+class WMPFolderScanState extends Win32Enum {
 
     /**
      * Not a valid state.

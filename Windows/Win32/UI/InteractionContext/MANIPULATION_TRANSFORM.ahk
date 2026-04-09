@@ -5,10 +5,8 @@
  * Defines the transformation data for a manipulation.
  * @see https://learn.microsoft.com/windows/win32/api/interactioncontext/ns-interactioncontext-manipulation_transform
  * @namespace Windows.Win32.UI.InteractionContext
- * @version v4.0.30319
  */
-class MANIPULATION_TRANSFORM extends Win32Struct
-{
+class MANIPULATION_TRANSFORM extends Win32Struct {
     static sizeof => 20
 
     static packingSize => 4

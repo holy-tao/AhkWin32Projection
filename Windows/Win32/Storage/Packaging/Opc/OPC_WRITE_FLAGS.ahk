@@ -5,9 +5,8 @@
  * Describes the encoding method that is used by the serialization object to produce the package.
  * @see https://learn.microsoft.com/windows/win32/api/msopc/ne-msopc-opc_write_flags
  * @namespace Windows.Win32.Storage.Packaging.Opc
- * @version v4.0.30319
  */
-class OPC_WRITE_FLAGS extends Win32BitflagEnum{
+class OPC_WRITE_FLAGS extends Win32BitflagEnum {
 
     /**
      * Use Zip64 encoding. The minimum software version for extracting a package with Zip64 encoding is 4.5.

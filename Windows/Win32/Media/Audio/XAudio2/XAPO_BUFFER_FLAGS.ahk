@@ -20,9 +20,8 @@
  * Windows 10 (XAudio2.9); Windows 8, Windows Phone 8 (XAudio 2.8); DirectX SDK (XAudio 2.7)
  * @see https://learn.microsoft.com/windows/win32/api/xapo/ne-xapo-xapo_buffer_flags
  * @namespace Windows.Win32.Media.Audio.XAudio2
- * @version v4.0.30319
  */
-class XAPO_BUFFER_FLAGS extends Win32Enum{
+class XAPO_BUFFER_FLAGS extends Win32Enum {
 
     /**
      * Stream buffer contains only silent samples.

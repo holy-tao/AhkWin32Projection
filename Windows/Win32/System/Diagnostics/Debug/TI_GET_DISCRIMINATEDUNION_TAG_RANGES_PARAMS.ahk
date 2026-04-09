@@ -4,13 +4,11 @@
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug
- * @version v4.0.30319
  */
-class TI_GET_DISCRIMINATEDUNION_TAG_RANGES_PARAMS extends Win32Struct
-{
-    static sizeof => 16
+class TI_GET_DISCRIMINATEDUNION_TAG_RANGES_PARAMS extends Win32Struct {
+    static sizeof => 28
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}
@@ -29,9 +27,9 @@ class TI_GET_DISCRIMINATEDUNION_TAG_RANGES_PARAMS extends Win32Struct
     }
 
     /**
-     * @type {Array<DISCRIMINATEDUNION_TAG_VALUE>}
+     * @type {DISCRIMINATEDUNION_TAG_VALUE}
      */
-    Range{
+    Range {
         get {
             if(!this.HasProp("__RangeProxyArray"))
                 this.__RangeProxyArray := Win32FixedArray(this.ptr + 8, 1, DISCRIMINATEDUNION_TAG_VALUE, "")

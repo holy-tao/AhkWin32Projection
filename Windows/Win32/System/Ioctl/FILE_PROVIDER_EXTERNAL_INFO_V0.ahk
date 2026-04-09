@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class FILE_PROVIDER_EXTERNAL_INFO_V0 extends Win32Struct
-{
+class FILE_PROVIDER_EXTERNAL_INFO_V0 extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4

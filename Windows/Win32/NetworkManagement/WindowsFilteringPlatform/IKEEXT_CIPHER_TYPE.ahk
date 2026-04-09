@@ -5,9 +5,8 @@
  * Specifies the type of encryption algorithm used for encrypting the Internet Key Exchange (IKE) and Authenticated Internet Protocol (AuthIP) messages.
  * @see https://learn.microsoft.com/windows/win32/api/iketypes/ne-iketypes-ikeext_cipher_type
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
- * @version v4.0.30319
  */
-class IKEEXT_CIPHER_TYPE extends Win32Enum{
+class IKEEXT_CIPHER_TYPE extends Win32Enum {
 
     /**
      * Specifies DES encryption.
@@ -40,13 +39,11 @@ class IKEEXT_CIPHER_TYPE extends Win32Enum{
     static IKEEXT_CIPHER_AES_256 => 4
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static IKEEXT_CIPHER_AES_GCM_128_16ICV => 5
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static IKEEXT_CIPHER_AES_GCM_256_16ICV => 6

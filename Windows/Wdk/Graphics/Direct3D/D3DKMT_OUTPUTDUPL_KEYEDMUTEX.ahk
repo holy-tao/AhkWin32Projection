@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
- * @version v4.0.30319
  */
-class D3DKMT_OUTPUTDUPL_KEYEDMUTEX extends Win32Struct
-{
+class D3DKMT_OUTPUTDUPL_KEYEDMUTEX extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 8
@@ -15,7 +13,7 @@ class D3DKMT_OUTPUTDUPL_KEYEDMUTEX extends Win32Struct
     /**
      * @type {HANDLE}
      */
-    hSharedSurfaceNt{
+    hSharedSurfaceNt {
         get {
             if(!this.HasProp("__hSharedSurfaceNt"))
                 this.__hSharedSurfaceNt := HANDLE(0, this)

@@ -11,9 +11,8 @@
  * When you implement the **IBuffer** interface, you must implement the **IBufferByteAccess** interface.
  * @see https://learn.microsoft.com/windows/win32/api/robuffer/ns-robuffer-ibufferbyteaccess
  * @namespace Windows.Win32.System.WinRT
- * @version v4.0.30319
  */
-class IBufferByteAccess extends IUnknown{
+class IBufferByteAccess extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

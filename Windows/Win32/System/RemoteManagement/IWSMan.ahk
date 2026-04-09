@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\Com\IDispatch.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * Provides methods and properties used to create a session, represented by a Session object.
  * @see https://learn.microsoft.com/windows/win32/api/wsmandisp/nn-wsmandisp-iwsman
  * @namespace Windows.Win32.System.RemoteManagement
- * @version v4.0.30319
  */
-class IWSMan extends IDispatch{
+class IWSMan extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -82,7 +81,7 @@ class IWSMan extends IDispatch{
      * 
      * </li>
      * </ul>
-     * @param {BSTR} _connection 
+     * @param {BSTR} _connection The protocol and service to connect to, including either IPv4 or IPv6. The format of the connection information is as follows: &lt;<i>Transport</i>&gt;&lt;<i>Address</i>&gt;&lt;<i>Suffix</i>&gt;. For examples, see Remarks. If no connection information is provided, the local computer is used.
      * @param {Integer} flags The session flags that specify the authentication method, such as 
      *      <a href="https://docs.microsoft.com/windows/desktop/WinRM/windows-remote-management-glossary">Negotiate authentication</a> 
      *      or 

@@ -11,10 +11,8 @@
  *     <b>StorageDeviceCopyOffloadProperty</b>.
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-device_copy_offload_descriptor
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class DEVICE_COPY_OFFLOAD_DESCRIPTOR extends Win32Struct
-{
+class DEVICE_COPY_OFFLOAD_DESCRIPTOR extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -114,9 +112,9 @@ class DEVICE_COPY_OFFLOAD_DESCRIPTOR extends Win32Struct
 
     /**
      * Reserved.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Reserved{
+    Reserved {
         get {
             if(!this.HasProp("__ReservedProxyArray"))
                 this.__ReservedProxyArray := Win32FixedArray(this.ptr + 46, 2, Primitive, "char")

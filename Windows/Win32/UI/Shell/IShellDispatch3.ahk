@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include .\IShellDispatch2.ahk
 
 /**
@@ -15,9 +14,8 @@
  * For a discussion of Windows services, see the [Services](../services/services.md) documentation.
  * @see https://learn.microsoft.com/windows/win32/shell/ishelldispatch3
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IShellDispatch3 extends IShellDispatch2{
+class IShellDispatch3 extends IShellDispatch2 {
 
     static sizeof => A_PtrSize
     /**

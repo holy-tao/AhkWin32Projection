@@ -7,9 +7,8 @@
  * The IRSOPInformation interface provides methods for Microsoft Management Console (MMC) extension snap-ins to communicate with the main Resultant Set of Policy (RSoP) snap-in. For more information about MMC, see the Microsoft Management Console.
  * @see https://learn.microsoft.com/windows/win32/api/gpedit/nn-gpedit-irsopinformation
  * @namespace Windows.Win32.System.GroupPolicy
- * @version v4.0.30319
  */
-class IRSOPInformation extends IUnknown{
+class IRSOPInformation extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

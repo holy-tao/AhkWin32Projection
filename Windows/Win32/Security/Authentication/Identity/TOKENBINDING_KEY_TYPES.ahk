@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\TOKENBINDING_KEY_PARAMETERS_TYPE.ahk
 
 /**
  * Contains all of the combinations of types of token binding keys that a client device or server supports.
  * @see https://learn.microsoft.com/windows/win32/api/tokenbinding/ns-tokenbinding-tokenbinding_key_types
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class TOKENBINDING_KEY_TYPES extends Win32Struct
-{
+class TOKENBINDING_KEY_TYPES extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
@@ -23,8 +22,7 @@ class TOKENBINDING_KEY_TYPES extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Pointer<Integer>}
+     * @type {Pointer<TOKENBINDING_KEY_PARAMETERS_TYPE>}
      */
     keyType {
         get => NumGet(this, 8, "ptr")

@@ -1,17 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\IWMPMedia.ahk
 #Include ..\..\System\Com\IDispatch.ahk
+#Include .\IWMPMedia.ahk
 
 /**
  * The IWMPPlaylist interface provides methods for manipulating lists of media items.
  * @see https://learn.microsoft.com/windows/win32/api/wmp/nn-wmp-iwmpplaylist
  * @namespace Windows.Win32.Media.MediaPlayer
- * @version v4.0.30319
  */
-class IWMPPlaylist extends IDispatch{
+class IWMPPlaylist extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -39,6 +37,7 @@ class IWMPPlaylist extends IDispatch{
     }
 
     /**
+     * @type {BSTR} 
      */
     name {
         get => this.get_name()

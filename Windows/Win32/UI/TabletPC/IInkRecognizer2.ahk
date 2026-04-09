@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * Adds members to the IInkWordList2 Interface.
  * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nn-msinkaut-iinkrecognizer2
  * @namespace Windows.Win32.UI.TabletPC
- * @version v4.0.30319
  */
-class IInkRecognizer2 extends IDispatch{
+class IInkRecognizer2 extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

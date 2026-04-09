@@ -5,9 +5,8 @@
  * The connection is using AppleTalk Remote Access Protocol (ARAP).
  * @see https://learn.microsoft.com/windows/win32/api/mprapi/ns-mprapi-ras_connection_0
  * @namespace Windows.Win32.NetworkManagement.Rras
- * @version v4.0.30319
  */
-class RAS_FLAGS extends Win32Enum{
+class RAS_FLAGS extends Win32Enum {
 
     /**
      * @type {Integer (UInt32)}

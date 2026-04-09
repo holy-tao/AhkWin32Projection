@@ -12,9 +12,8 @@
  *     be running Windows Server 2008 R2, and clients must use RDC 7.0.
  * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nn-sbtsv-itssbbasenotifysink
  * @namespace Windows.Win32.System.RemoteDesktop
- * @version v4.0.30319
  */
-class ITsSbBaseNotifySink extends IUnknown{
+class ITsSbBaseNotifySink extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -55,7 +54,7 @@ class ITsSbBaseNotifySink extends IUnknown{
      *     default status and error messages that Remote Desktop Connection Broker (RD Connection Broker) sends to the client.
      * 
      * The following error codes are defined by RD Connection Broker for use by plug-ins.
-     * @param {Integer} messageType 
+     * @param {CLIENT_MESSAGE_TYPE} messageType 
      * @param {Integer} messageID 
      * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbbasenotifysink-onreportstatus

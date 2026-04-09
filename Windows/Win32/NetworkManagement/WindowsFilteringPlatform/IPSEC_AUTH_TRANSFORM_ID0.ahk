@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\IPSEC_AUTH_TYPE.ahk
 
 /**
  * Is used to uniquely identify the hash algorithm used in an IPsec security association (SA).
@@ -7,17 +8,15 @@
  * <b>IPSEC_AUTH_TRANSFORM_ID0</b> is a specific implementation of IPSEC_AUTH_TRANSFORM_ID. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-version-independent-names-and-targeting-specific-versions-of-windows">WFP Version-Independent Names and Targeting Specific Versions of Windows</a>  for more information.
  * @see https://learn.microsoft.com/windows/win32/api/ipsectypes/ns-ipsectypes-ipsec_auth_transform_id0
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
- * @version v4.0.30319
  */
-class IPSEC_AUTH_TRANSFORM_ID0 extends Win32Struct
-{
+class IPSEC_AUTH_TRANSFORM_ID0 extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4
 
     /**
      * The type of the hash algorithm as specified by [IPSEC_AUTH_TYPE](/windows/desktop/api/ipsectypes/ne-ipsectypes-ipsec_auth_type).
-     * @type {Integer}
+     * @type {IPSEC_AUTH_TYPE}
      */
     authType {
         get => NumGet(this, 0, "int")

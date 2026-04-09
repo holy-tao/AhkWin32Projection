@@ -9,9 +9,8 @@
  * The presentation clock exposes this interface. To get a pointer to the interface, call <b>QueryInterface</b>.
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imftimer
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFTimer extends IUnknown{
+class IMFTimer extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

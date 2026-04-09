@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IStringCollection.ahk
 #Include .\IUpdate.ahk
+#Include .\IStringCollection.ahk
 
 /**
  * Contains the properties and methods that are available to an update. (IUpdate2)
  * @see https://learn.microsoft.com/windows/win32/api/wuapi/nn-wuapi-iupdate2
  * @namespace Windows.Win32.System.UpdateAgent
- * @version v4.0.30319
  */
-class IUpdate2 extends IUpdate{
+class IUpdate2 extends IUpdate {
 
     static sizeof => A_PtrSize
     /**

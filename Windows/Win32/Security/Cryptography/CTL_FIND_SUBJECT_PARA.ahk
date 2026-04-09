@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\CTL_FIND_USAGE_PARA.ahk
 
 /**
  * Contains data used by CertFindCTLInStore with a dwFindType parameter of CTL_FIND_SUBJECT to find a Certificate Trust List (CTL).
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-ctl_find_subject_para
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CTL_FIND_SUBJECT_PARA extends Win32Struct
-{
+class CTL_FIND_SUBJECT_PARA extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8

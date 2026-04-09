@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
- * @version v4.0.30319
  */
-class D3DKMT_QUERYSTATISTICS_ADAPTER_INFORMATION extends Win32Struct
-{
+class D3DKMT_QUERYSTATISTICS_ADAPTER_INFORMATION extends Win32Struct {
     static sizeof => 176
 
     static packingSize => 8
@@ -68,7 +66,7 @@ class D3DKMT_QUERYSTATISTICS_ADAPTER_INFORMATION extends Win32Struct
     }
 
     /**
-     * @type {Pointer<D3DKMT_QUERYSTATSTICS_REFERENCE_DMA_BUFFER>}
+     * @type {Pointer}
      */
     ReferenceDmaBuffer {
         get => NumGet(this, 40, "ptr")
@@ -76,7 +74,7 @@ class D3DKMT_QUERYSTATISTICS_ADAPTER_INFORMATION extends Win32Struct
     }
 
     /**
-     * @type {Pointer<D3DKMT_QUERYSTATSTICS_RENAMING>}
+     * @type {Pointer}
      */
     Renaming {
         get => NumGet(this, 48, "ptr")
@@ -84,7 +82,7 @@ class D3DKMT_QUERYSTATISTICS_ADAPTER_INFORMATION extends Win32Struct
     }
 
     /**
-     * @type {Pointer<D3DKMT_QUERYSTATSTICS_PREPRATION>}
+     * @type {Pointer}
      */
     Preparation {
         get => NumGet(this, 56, "ptr")
@@ -92,7 +90,7 @@ class D3DKMT_QUERYSTATISTICS_ADAPTER_INFORMATION extends Win32Struct
     }
 
     /**
-     * @type {Pointer<D3DKMT_QUERYSTATSTICS_PAGING_FAULT>}
+     * @type {Pointer}
      */
     PagingFault {
         get => NumGet(this, 64, "ptr")
@@ -100,7 +98,7 @@ class D3DKMT_QUERYSTATISTICS_ADAPTER_INFORMATION extends Win32Struct
     }
 
     /**
-     * @type {Pointer<D3DKMT_QUERYSTATSTICS_PAGING_TRANSFER>}
+     * @type {Pointer}
      */
     PagingTransfer {
         get => NumGet(this, 72, "ptr")
@@ -108,7 +106,7 @@ class D3DKMT_QUERYSTATISTICS_ADAPTER_INFORMATION extends Win32Struct
     }
 
     /**
-     * @type {Pointer<D3DKMT_QUERYSTATSTICS_SWIZZLING_RANGE>}
+     * @type {Pointer}
      */
     SwizzlingRange {
         get => NumGet(this, 80, "ptr")
@@ -116,7 +114,7 @@ class D3DKMT_QUERYSTATISTICS_ADAPTER_INFORMATION extends Win32Struct
     }
 
     /**
-     * @type {Pointer<D3DKMT_QUERYSTATSTICS_LOCKS>}
+     * @type {Pointer}
      */
     Locks {
         get => NumGet(this, 88, "ptr")
@@ -124,7 +122,7 @@ class D3DKMT_QUERYSTATISTICS_ADAPTER_INFORMATION extends Win32Struct
     }
 
     /**
-     * @type {Pointer<D3DKMT_QUERYSTATSTICS_ALLOCATIONS>}
+     * @type {Pointer}
      */
     Allocations {
         get => NumGet(this, 96, "ptr")
@@ -132,7 +130,7 @@ class D3DKMT_QUERYSTATISTICS_ADAPTER_INFORMATION extends Win32Struct
     }
 
     /**
-     * @type {Pointer<D3DKMT_QUERYSTATSTICS_TERMINATIONS>}
+     * @type {Pointer}
      */
     Terminations {
         get => NumGet(this, 104, "ptr")
@@ -140,7 +138,7 @@ class D3DKMT_QUERYSTATISTICS_ADAPTER_INFORMATION extends Win32Struct
     }
 
     /**
-     * @type {Pointer<D3DKMT_QUERYSTATISTICS_ADAPTER_INFORMATION_FLAGS>}
+     * @type {Pointer}
      */
     Flags {
         get => NumGet(this, 112, "ptr")
@@ -148,9 +146,9 @@ class D3DKMT_QUERYSTATISTICS_ADAPTER_INFORMATION extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt64>}
+     * @type {Array<Integer>}
      */
-    Reserved{
+    Reserved {
         get {
             if(!this.HasProp("__ReservedProxyArray"))
                 this.__ReservedProxyArray := Win32FixedArray(this.ptr + 120, 7, Primitive, "uint")

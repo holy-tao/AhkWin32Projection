@@ -5,9 +5,8 @@
  * HCS_EVENT_OPTIONS
  * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/HCS_EVENT_OPTIONS
  * @namespace Windows.Win32.System.HostComputeSystem
- * @version v4.0.30319
  */
-class HCS_EVENT_OPTIONS extends Win32BitflagEnum{
+class HCS_EVENT_OPTIONS extends Win32BitflagEnum {
 
     /**
      * @type {Integer (Int32)}

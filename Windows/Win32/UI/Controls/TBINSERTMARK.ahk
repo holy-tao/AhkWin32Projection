@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\TBINSERTMARK_FLAGS.ahk
 
 /**
  * Contains information on the insertion mark in a toolbar control.
  * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-tbinsertmark
  * @namespace Windows.Win32.UI.Controls
- * @version v4.0.30319
  */
-class TBINSERTMARK extends Win32Struct
-{
+class TBINSERTMARK extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4
@@ -28,7 +27,7 @@ class TBINSERTMARK extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
      * 
      * Defines where the insertion mark is in relation to
-     * @type {Integer}
+     * @type {TBINSERTMARK_FLAGS}
      */
     dwFlags {
         get => NumGet(this, 4, "uint")

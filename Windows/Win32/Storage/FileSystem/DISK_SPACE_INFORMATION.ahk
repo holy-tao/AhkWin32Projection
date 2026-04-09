@@ -3,14 +3,10 @@
 
 /**
  * The DISK_SPACE_INFORMATION structure contains information about the disk space for a particular volume.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/fileapi/ns-fileapi-disk_space_information
  * @namespace Windows.Win32.Storage.FileSystem
- * @version v4.0.30319
  */
-class DISK_SPACE_INFORMATION extends Win32Struct
-{
+class DISK_SPACE_INFORMATION extends Win32Struct {
     static sizeof => 96
 
     static packingSize => 8

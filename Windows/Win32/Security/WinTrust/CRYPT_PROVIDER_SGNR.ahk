@@ -1,15 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\FILETIME.ahk
+#Include .\CRYPT_PROVIDER_CERT.ahk
+#Include ..\Cryptography\CMSG_SIGNER_INFO.ahk
+#Include .\CRYPT_PROVIDER_SGNR.ahk
+#Include ..\Cryptography\CERT_CHAIN_CONTEXT.ahk
 
 /**
  * Provides information about a signer or countersigner.
  * @see https://learn.microsoft.com/windows/win32/api/wintrust/ns-wintrust-crypt_provider_sgnr
  * @namespace Windows.Win32.Security.WinTrust
- * @version v4.0.30319
  */
-class CRYPT_PROVIDER_SGNR extends Win32Struct
-{
+class CRYPT_PROVIDER_SGNR extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 8
@@ -27,7 +29,7 @@ class CRYPT_PROVIDER_SGNR extends Win32Struct
      * The current time, or the time stamp.
      * @type {FILETIME}
      */
-    sftVerifyAsOf{
+    sftVerifyAsOf {
         get {
             if(!this.HasProp("__sftVerifyAsOf"))
                 this.__sftVerifyAsOf := FILETIME(4, this)

@@ -1,26 +1,25 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\IMAGE_COR_ILMETHOD_SECT_EH_SMALL.ahk
 #Include .\IMAGE_COR_ILMETHOD_SECT_SMALL.ahk
 #Include .\IMAGE_COR_ILMETHOD_SECT_EH_CLAUSE_SMALL.ahk
-#Include .\IMAGE_COR_ILMETHOD_SECT_EH_SMALL.ahk
+#Include .\IMAGE_COR_ILMETHOD_SECT_EH_FAT.ahk
 #Include .\IMAGE_COR_ILMETHOD_SECT_FAT.ahk
 #Include .\IMAGE_COR_ILMETHOD_SECT_EH_CLAUSE_FAT.ahk
-#Include .\IMAGE_COR_ILMETHOD_SECT_EH_FAT.ahk
+#Include .\CorExceptionFlag.ahk
 
 /**
  * @namespace Windows.Win32.System.WinRT.Metadata
- * @version v4.0.30319
  */
-class IMAGE_COR_ILMETHOD_SECT_EH extends Win32Struct
-{
-    static sizeof => 32
+class IMAGE_COR_ILMETHOD_SECT_EH extends Win32Struct {
+    static sizeof => 44
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {IMAGE_COR_ILMETHOD_SECT_EH_SMALL}
      */
-    Small{
+    Small {
         get {
             if(!this.HasProp("__Small"))
                 this.__Small := IMAGE_COR_ILMETHOD_SECT_EH_SMALL(0, this)
@@ -31,7 +30,7 @@ class IMAGE_COR_ILMETHOD_SECT_EH extends Win32Struct
     /**
      * @type {IMAGE_COR_ILMETHOD_SECT_EH_FAT}
      */
-    Fat{
+    Fat {
         get {
             if(!this.HasProp("__Fat"))
                 this.__Fat := IMAGE_COR_ILMETHOD_SECT_EH_FAT(0, this)

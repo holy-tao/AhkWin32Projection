@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
- * @version v4.0.30319
  */
-class STACK_SRC_INFO extends Win32Struct
-{
+class STACK_SRC_INFO extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8

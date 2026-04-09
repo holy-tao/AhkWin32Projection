@@ -9,10 +9,8 @@
  * The glyph is the image that appears on the part of the button that activates the dropdown list. By default, this is an inverted triangle. Multiple images can be added to the image list to provide different glyphs for different states of the button, such as hot and pressed.
  * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-button_splitinfo
  * @namespace Windows.Win32.UI.Controls
- * @version v4.0.30319
  */
-class BUTTON_SPLITINFO extends Win32Struct
-{
+class BUTTON_SPLITINFO extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -81,7 +79,7 @@ class BUTTON_SPLITINFO extends Win32Struct
      * A handle to the image list. The provider retains ownership of the image list and is ultimately responsible for its disposal.
      * @type {HIMAGELIST}
      */
-    himlGlyph{
+    himlGlyph {
         get {
             if(!this.HasProp("__himlGlyph"))
                 this.__himlGlyph := HIMAGELIST(8, this)
@@ -153,7 +151,7 @@ class BUTTON_SPLITINFO extends Win32Struct
      * A <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-size">SIZE</a> structure that specifies the size of the glyph in <b>himlGlyph</b>.
      * @type {SIZE}
      */
-    size{
+    size {
         get {
             if(!this.HasProp("__size"))
                 this.__size := SIZE(20, this)

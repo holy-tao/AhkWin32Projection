@@ -5,10 +5,8 @@
  * The WM_USER_TEXT structure is used as the data item for the WM/Text complex metadata attribute.
  * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/ns-wmsdkidl-wm_user_text
  * @namespace Windows.Win32.Media.WindowsMediaFormat
- * @version v4.0.30319
  */
-class WM_USER_TEXT extends Win32Struct
-{
+class WM_USER_TEXT extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

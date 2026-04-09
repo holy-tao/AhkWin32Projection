@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
- * @version v4.0.30319
  */
-class D3DKMT_MULTIPLANE_OVERLAY_POST_COMPOSITION_WITH_SOURCE extends Win32Struct
-{
+class D3DKMT_MULTIPLANE_OVERLAY_POST_COMPOSITION_WITH_SOURCE extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
@@ -20,7 +18,7 @@ class D3DKMT_MULTIPLANE_OVERLAY_POST_COMPOSITION_WITH_SOURCE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<D3DKMT_MULTIPLANE_OVERLAY_POST_COMPOSITION>}
+     * @type {Pointer}
      */
     PostComposition {
         get => NumGet(this, 8, "ptr")

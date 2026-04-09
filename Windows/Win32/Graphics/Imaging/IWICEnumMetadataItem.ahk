@@ -1,16 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IWICEnumMetadataItem.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Exposes methods that provide enumeration services for individual metadata items.
  * @see https://learn.microsoft.com/windows/win32/api/wincodec/nn-wincodec-iwicenummetadataitem
  * @namespace Windows.Win32.Graphics.Imaging
- * @version v4.0.30319
  */
-class IWICEnumMetadataItem extends IUnknown{
+class IWICEnumMetadataItem extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

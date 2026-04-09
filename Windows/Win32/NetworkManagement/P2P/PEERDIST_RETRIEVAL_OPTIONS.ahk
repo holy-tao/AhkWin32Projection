@@ -5,10 +5,8 @@
  * The PEER_RETRIEVAL_OPTIONS structure contains version of the content information to retrieve.
  * @see https://learn.microsoft.com/windows/win32/api/peerdist/ns-peerdist-peerdist_retrieval_options
  * @namespace Windows.Win32.NetworkManagement.P2P
- * @version v4.0.30319
  */
-class PEERDIST_RETRIEVAL_OPTIONS extends Win32Struct
-{
+class PEERDIST_RETRIEVAL_OPTIONS extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4
@@ -23,7 +21,6 @@ class PEERDIST_RETRIEVAL_OPTIONS extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     dwContentInfoMinVersion {
@@ -32,7 +29,6 @@ class PEERDIST_RETRIEVAL_OPTIONS extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     dwContentInfoMaxVersion {

@@ -9,9 +9,8 @@
  * The <b>IWICBitmapSourceTransform</b> interface is implemented by codecs which can natively scale, flip, rotate, or format convert pixels during decoding. As the transformation is combined with the decoding process, native transformation will generally offer performance advantages over non-native transformations. The inbox <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nn-wincodec-iwicbitmapscaler">IWICBitmapScaler</a>, <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nn-wincodec-iwicbitmapfliprotator">IWICBitmapFlipRotator</a>, and <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nn-wincodec-iwicformatconverter">IWICFormatConverter</a> implementations all make use of the <a href="https://docs.microsoft.com/windows/desktop/wic/-wic-imp-iwicbitmapsourcetransform">IWICBitmapSourceTransform</a> interface when they are placed immediately after a supported <a href="https://docs.microsoft.com/windows/desktop/wic/-wic-imp-iwicbitmapframedecode">IWICBitmapFrameDecode</a>, so in the typical case an application will automatically receive this performance increase and does not need to directly use this interface. However, when chaining multiple transformations, or when implementing a custom transformation, there may be a performance advantage to using the IWICBitmapSourceTransform interface directly.
  * @see https://learn.microsoft.com/windows/win32/api/wincodec/nn-wincodec-iwicbitmapsourcetransform
  * @namespace Windows.Win32.Graphics.Imaging
- * @version v4.0.30319
  */
-class IWICBitmapSourceTransform extends IUnknown{
+class IWICBitmapSourceTransform extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -73,7 +72,7 @@ class IWICBitmapSourceTransform extends IUnknown{
      *                
      * 
      * This GUID must be a format obtained through an <a href="https://docs.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicbitmapsourcetransform-getclosestpixelformat">GetClosestPixelFormat</a> call.
-     * @param {Integer} dstTransform Type: <b><a href="https://docs.microsoft.com/windows/win32/api/wincodec/ne-wincodec-wicbitmaptransformoptions">WICBitmapTransformOptions</a></b>
+     * @param {WICBitmapTransformOptions} dstTransform Type: <b><a href="https://docs.microsoft.com/windows/win32/api/wincodec/ne-wincodec-wicbitmaptransformoptions">WICBitmapTransformOptions</a></b>
      * 
      * The desired rotation or flip to perform prior to the pixel copy.
      *                
@@ -162,7 +161,7 @@ class IWICBitmapSourceTransform extends IUnknown{
      * <li>JPEG-XR: Support for all transformation/rotations.
      * </li>
      * </ul>
-     * @param {Integer} dstTransform Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ne-wincodec-wicbitmaptransformoptions">WICBitmapTransformOptions</a></b>
+     * @param {WICBitmapTransformOptions} dstTransform Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ne-wincodec-wicbitmaptransformoptions">WICBitmapTransformOptions</a></b>
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ne-wincodec-wicbitmaptransformoptions">WICBitmapTransformOptions</a> to check if they are supported.
      * @returns {BOOL} Type: <b>BOOL*</b>

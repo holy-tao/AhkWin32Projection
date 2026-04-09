@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * The IFaxReceiptOptions interface defines a FaxReceiptOptions configuration object used by a fax client application to set and retrieve the receipt configuration that the fax service uses to send delivery receipts for fax transmissions.
@@ -10,9 +10,8 @@
  * A default implementation of <b>IFaxReceiptOptions</b> is provided as the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxreceiptoptions">FaxReceiptOptions</a> object.
  * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nn-faxcomex-ifaxreceiptoptions
  * @namespace Windows.Win32.Devices.Fax
- * @version v4.0.30319
  */
-class IFaxReceiptOptions extends IDispatch{
+class IFaxReceiptOptions extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -40,7 +39,7 @@ class IFaxReceiptOptions extends IDispatch{
     static VTableNames => ["get_AuthenticationType", "put_AuthenticationType", "get_SMTPServer", "put_SMTPServer", "get_SMTPPort", "put_SMTPPort", "get_SMTPSender", "put_SMTPSender", "get_SMTPUser", "put_SMTPUser", "get_AllowedReceipts", "put_AllowedReceipts", "get_SMTPPassword", "put_SMTPPassword", "Refresh", "Save", "get_UseForInboundRouting", "put_UseForInboundRouting"]
 
     /**
-     * @type {Integer} 
+     * @type {FAX_SMTP_AUTHENTICATION_TYPE_ENUM} 
      */
     AuthenticationType {
         get => this.get_AuthenticationType()
@@ -80,7 +79,7 @@ class IFaxReceiptOptions extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {FAX_RECEIPT_TYPE_ENUM} 
      */
     AllowedReceipts {
         get => this.get_AllowedReceipts()
@@ -107,7 +106,7 @@ class IFaxReceiptOptions extends IDispatch{
      * The IFaxReceiptOptions::get_AuthenticationType property specifies the type of authentication the fax service uses when connecting to an Simple Mail Transport Protocol (SMTP) server. (Get)
      * @remarks
      * To read or to write to this property, a user must have the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_access_rights_enum">farQUERY_CONFIG</a> access right.
-     * @returns {Integer} 
+     * @returns {FAX_SMTP_AUTHENTICATION_TYPE_ENUM} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxreceiptoptions-get_authenticationtype
      */
     get_AuthenticationType() {
@@ -119,7 +118,7 @@ class IFaxReceiptOptions extends IDispatch{
      * The IFaxReceiptOptions::get_AuthenticationType property specifies the type of authentication the fax service uses when connecting to an Simple Mail Transport Protocol (SMTP) server. (Put)
      * @remarks
      * To read or to write to this property, a user must have the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_access_rights_enum">farQUERY_CONFIG</a> access right.
-     * @param {Integer} Type 
+     * @param {FAX_SMTP_AUTHENTICATION_TYPE_ENUM} Type 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxreceiptoptions-put_authenticationtype
      */
@@ -241,7 +240,7 @@ class IFaxReceiptOptions extends IDispatch{
      * The IFaxReceiptOptions::get_AllowedReceipts property is a value that specifies the permitted types of delivery receipts. (Get)
      * @remarks
      * To read or to write to this property, a user must have the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_access_rights_enum">farQUERY_CONFIG</a> access right.
-     * @returns {Integer} 
+     * @returns {FAX_RECEIPT_TYPE_ENUM} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxreceiptoptions-get_allowedreceipts
      */
     get_AllowedReceipts() {
@@ -253,7 +252,7 @@ class IFaxReceiptOptions extends IDispatch{
      * The IFaxReceiptOptions::get_AllowedReceipts property is a value that specifies the permitted types of delivery receipts. (Put)
      * @remarks
      * To read or to write to this property, a user must have the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_access_rights_enum">farQUERY_CONFIG</a> access right.
-     * @param {Integer} AllowedReceipts 
+     * @param {FAX_RECEIPT_TYPE_ENUM} AllowedReceipts 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxreceiptoptions-put_allowedreceipts
      */

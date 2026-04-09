@@ -1,13 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\JET_UNICODEINDEX.ahk
+#Include .\JET_TUPLELIMITS.ahk
+#Include .\JET_CONDITIONALCOLUMN_A.ahk
 
 /**
  * @namespace Windows.Win32.Storage.Jet
- * @version v4.0.30319
  * @charset ANSI
  */
-class JET_INDEXCREATE_A extends Win32Struct
-{
+class JET_INDEXCREATE_A extends Win32Struct {
     static sizeof => 80
 
     static packingSize => 8

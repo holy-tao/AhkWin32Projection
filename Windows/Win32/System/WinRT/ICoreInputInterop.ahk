@@ -9,9 +9,8 @@
  * The <a href="https://docs.microsoft.com/uwp/api/windows.ui.core.coreindependentinputsource">CoreIndependentInputSource</a> or <a href="https://docs.microsoft.com/uwp/api/windows.ui.core.corecomponentinputsource">CoreComponentInputSource</a> object defines the basic keyboard and pointer input events  for a Windows Store app.
  * @see https://learn.microsoft.com/windows/win32/api/corewindow/nn-corewindow-icoreinputinterop
  * @namespace Windows.Win32.System.WinRT
- * @version v4.0.30319
  */
-class ICoreInputInterop extends IUnknown{
+class ICoreInputInterop extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -33,7 +32,7 @@ class ICoreInputInterop extends IUnknown{
     static VTableNames => ["SetInputSource", "put_MessageHandled"]
 
     /**
-     * @type {HRESULT} 
+     * @type {Integer} 
      */
     MessageHandled {
         set => this.put_MessageHandled(value)

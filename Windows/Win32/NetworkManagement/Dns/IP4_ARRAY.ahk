@@ -5,10 +5,8 @@
  * The IP4_ARRAY structure stores an array of IPv4 addresses.
  * @see https://learn.microsoft.com/windows/win32/api/windns/ns-windns-ip4_array
  * @namespace Windows.Win32.NetworkManagement.Dns
- * @version v4.0.30319
  */
-class IP4_ARRAY extends Win32Struct
-{
+class IP4_ARRAY extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4
@@ -24,9 +22,9 @@ class IP4_ARRAY extends Win32Struct
 
     /**
      * An array of <a href="https://docs.microsoft.com/windows/desktop/DNS/dns-data-types">IP4_ADDRESS</a> data types that contains a list of IPv4 address.
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    AddrArray{
+    AddrArray {
         get {
             if(!this.HasProp("__AddrArrayProxyArray"))
                 this.__AddrArrayProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "uint")

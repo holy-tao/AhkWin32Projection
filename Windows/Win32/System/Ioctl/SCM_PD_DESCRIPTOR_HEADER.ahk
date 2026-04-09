@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class SCM_PD_DESCRIPTOR_HEADER extends Win32Struct
-{
+class SCM_PD_DESCRIPTOR_HEADER extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4

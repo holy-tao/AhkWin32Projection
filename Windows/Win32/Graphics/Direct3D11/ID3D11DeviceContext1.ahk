@@ -7,9 +7,8 @@
  * The device context interface represents a device context; it is used to render commands. ID3D11DeviceContext1 adds new methods to those in ID3D11DeviceContext.
  * @see https://learn.microsoft.com/windows/win32/api/d3d11_1/nn-d3d11_1-id3d11devicecontext1
  * @namespace Windows.Win32.Graphics.Direct3D11
- * @version v4.0.30319
  */
-class ID3D11DeviceContext1 extends ID3D11DeviceContext{
+class ID3D11DeviceContext1 extends ID3D11DeviceContext {
 
     static sizeof => A_PtrSize
     /**
@@ -962,7 +961,7 @@ class ID3D11DeviceContext1 extends ID3D11DeviceContext{
      * </ul>
      * For video views with YUV or YCbBr formats, <b>ClearView</b> doesn't convert color values. In situations where the format name doesn’t indicate _UNORM,  _UINT, and so on, <b>ClearView</b> assumes _UINT. Therefore, 235.0f maps to 235 (rounds to zero, out of range/INF values clamp to target range, and NaN to 0).
      * @param {ID3D11View} pView A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nn-d3d11-id3d11view">ID3D11View</a> interface that represents the resource view to clear.
-     * @param {Pointer<Float>} _Color 
+     * @param {Pointer<Float>} _Color A 4-component array that represents the color to use to clear the resource view.
      * @param {Pointer<RECT>} pRect An array of <a href="https://docs.microsoft.com/windows/desktop/direct3d11/d3d11-rect">D3D11_RECT</a> structures for the rectangles in the resource view to clear. If <b>NULL</b>, <b>ClearView</b> clears the entire surface.
      * @param {Integer} NumRects Number of rectangles in the array that the  <i>pRect</i> parameter specifies.
      * @returns {String} Nothing - always returns an empty string

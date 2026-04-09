@@ -11,9 +11,8 @@
  * The <b>MF_MEDIA_ENGINE_EVENT_OPMINFO</b> <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfmediaevent">IMFMediaEvent</a> event is raised when there is a change in the OPM status.
  * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nn-mfmediaengine-imfmediaengineopminfo
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFMediaEngineOPMInfo extends IUnknown{
+class IMFMediaEngineOPMInfo extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -36,7 +35,7 @@ class IMFMediaEngineOPMInfo extends IUnknown{
 
     /**
      * Gets status information about the Output Protection Manager (OPM).
-     * @param {Pointer<Integer>} pStatus A pointer to a <a href="https://docs.microsoft.com/windows/desktop/medfound/mf-media-engine-opm-status">MF_MEDIA_ENGINE_OPM_STATUS</a> enum type that indicates the OPM status.
+     * @param {Pointer<MF_MEDIA_ENGINE_OPM_STATUS>} pStatus A pointer to a <a href="https://docs.microsoft.com/windows/desktop/medfound/mf-media-engine-opm-status">MF_MEDIA_ENGINE_OPM_STATUS</a> enum type that indicates the OPM status.
      * @param {Pointer<BOOL>} pConstricted A pointer to a <b>BOOL</b> type that indicates the constriction status.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 

@@ -9,9 +9,8 @@
  *             its edge traversal option  to <b>NET_FW_EDGE_TRAVERSAL_TYPE_DEFER_TO_APP</b> or <b>NET_FW_EDGE_TRAVERSAL_TYPE_DEFER_TO_USER</b>.
  * @see https://learn.microsoft.com/windows/win32/api/icftypes/ne-icftypes-net_fw_edge_traversal_type
  * @namespace Windows.Win32.NetworkManagement.WindowsFirewall
- * @version v4.0.30319
  */
-class NET_FW_EDGE_TRAVERSAL_TYPE extends Win32Enum{
+class NET_FW_EDGE_TRAVERSAL_TYPE extends Win32Enum {
 
     /**
      * Edge traversal traffic is always blocked.

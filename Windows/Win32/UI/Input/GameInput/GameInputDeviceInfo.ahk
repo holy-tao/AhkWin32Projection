@@ -3,13 +3,32 @@
 #Include .\GameInputUsage.ahk
 #Include .\GameInputVersion.ahk
 #Include ..\..\..\Foundation\APP_LOCAL_DEVICE_ID.ahk
+#Include .\GameInputDeviceFamily.ahk
+#Include .\GameInputDeviceCapabilities.ahk
+#Include .\GameInputKind.ahk
+#Include .\GameInputRumbleMotors.ahk
+#Include .\GameInputRawDeviceReportInfo.ahk
+#Include .\GameInputControllerAxisInfo.ahk
+#Include .\GameInputControllerButtonInfo.ahk
+#Include .\GameInputControllerSwitchInfo.ahk
+#Include .\GameInputKeyboardInfo.ahk
+#Include .\GameInputMouseInfo.ahk
+#Include .\GameInputTouchSensorInfo.ahk
+#Include .\GameInputMotionInfo.ahk
+#Include .\GameInputArcadeStickInfo.ahk
+#Include .\GameInputFlightStickInfo.ahk
+#Include .\GameInputGamepadInfo.ahk
+#Include .\GameInputRacingWheelInfo.ahk
+#Include .\GameInputUiNavigationInfo.ahk
+#Include .\GameInputForceFeedbackMotorInfo.ahk
+#Include .\GameInputHapticFeedbackMotorInfo.ahk
+#Include .\GameInputString.ahk
+#Include .\GameInputSystemButtons.ahk
 
 /**
  * @namespace Windows.Win32.UI.Input.GameInput
- * @version v4.0.30319
  */
-class GameInputDeviceInfo extends Win32Struct
-{
+class GameInputDeviceInfo extends Win32Struct {
     static sizeof => 328
 
     static packingSize => 8
@@ -65,7 +84,7 @@ class GameInputDeviceInfo extends Win32Struct
     /**
      * @type {GameInputUsage}
      */
-    usage{
+    usage {
         get {
             if(!this.HasProp("__usage"))
                 this.__usage := GameInputUsage(12, this)
@@ -76,7 +95,7 @@ class GameInputDeviceInfo extends Win32Struct
     /**
      * @type {GameInputVersion}
      */
-    hardwareVersion{
+    hardwareVersion {
         get {
             if(!this.HasProp("__hardwareVersion"))
                 this.__hardwareVersion := GameInputVersion(16, this)
@@ -87,7 +106,7 @@ class GameInputDeviceInfo extends Win32Struct
     /**
      * @type {GameInputVersion}
      */
-    firmwareVersion{
+    firmwareVersion {
         get {
             if(!this.HasProp("__firmwareVersion"))
                 this.__firmwareVersion := GameInputVersion(24, this)
@@ -98,7 +117,7 @@ class GameInputDeviceInfo extends Win32Struct
     /**
      * @type {APP_LOCAL_DEVICE_ID}
      */
-    deviceId{
+    deviceId {
         get {
             if(!this.HasProp("__deviceId"))
                 this.__deviceId := APP_LOCAL_DEVICE_ID(32, this)
@@ -109,7 +128,7 @@ class GameInputDeviceInfo extends Win32Struct
     /**
      * @type {APP_LOCAL_DEVICE_ID}
      */
-    deviceRootId{
+    deviceRootId {
         get {
             if(!this.HasProp("__deviceRootId"))
                 this.__deviceRootId := APP_LOCAL_DEVICE_ID(64, this)
@@ -118,7 +137,7 @@ class GameInputDeviceInfo extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {GameInputDeviceFamily}
      */
     deviceFamily {
         get => NumGet(this, 96, "int")
@@ -126,7 +145,7 @@ class GameInputDeviceInfo extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {GameInputDeviceCapabilities}
      */
     capabilities {
         get => NumGet(this, 100, "int")
@@ -134,7 +153,7 @@ class GameInputDeviceInfo extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {GameInputKind}
      */
     supportedInput {
         get => NumGet(this, 104, "int")
@@ -142,7 +161,7 @@ class GameInputDeviceInfo extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {GameInputRumbleMotors}
      */
     supportedRumbleMotors {
         get => NumGet(this, 108, "int")
@@ -406,7 +425,7 @@ class GameInputDeviceInfo extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {GameInputSystemButtons}
      */
     supportedSystemButtons {
         get => NumGet(this, 320, "int")

@@ -8,10 +8,8 @@
  * the <a href="https://docs.microsoft.com/windows/desktop/api/lmat/nf-lmat-netschedulejobadd">NetScheduleJobAdd</a> function.
  * @see https://learn.microsoft.com/windows/win32/api/lmat/ns-lmat-at_enum
  * @namespace Windows.Win32.NetworkManagement.NetManagement
- * @version v4.0.30319
  */
-class AT_ENUM extends Win32Struct
-{
+class AT_ENUM extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8

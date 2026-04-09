@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\DEVPROPKEY.ahk
 #Include .\DEVPROPCOMPKEY.ahk
+#Include ..\..\Foundation\DEVPROPKEY.ahk
+#Include .\DEVPROPSTORE.ahk
+#Include .\DEVPROPTYPE.ahk
 
 /**
  * @namespace Windows.Win32.Devices.Properties
- * @version v4.0.30319
  */
-class DEVPROPERTY extends Win32Struct
-{
+class DEVPROPERTY extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -16,7 +16,7 @@ class DEVPROPERTY extends Win32Struct
     /**
      * @type {DEVPROPCOMPKEY}
      */
-    CompKey{
+    CompKey {
         get {
             if(!this.HasProp("__CompKey"))
                 this.__CompKey := DEVPROPCOMPKEY(0, this)
@@ -25,7 +25,7 @@ class DEVPROPERTY extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {DEVPROPTYPE}
      */
     Type {
         get => NumGet(this, 32, "uint")

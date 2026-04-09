@@ -7,9 +7,8 @@
  * Note  This interface is deprecated.
  * @see https://learn.microsoft.com/windows/win32/api/mmstream/nn-mmstream-istreamsample
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IStreamSample extends IUnknown{
+class IStreamSample extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

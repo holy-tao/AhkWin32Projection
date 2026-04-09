@@ -5,10 +5,8 @@
  * Contains the clipboard format definition for CFSTR_FILE_ATTRIBUTES_ARRAY.
  * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/ns-shlobj_core-file_attributes_array
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class FILE_ATTRIBUTES_ARRAY extends Win32Struct
-{
+class FILE_ATTRIBUTES_ARRAY extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4
@@ -50,9 +48,9 @@ class FILE_ATTRIBUTES_ARRAY extends Win32Struct
      * Type: <b>DWORD[1]</b>
      * 
      * An array of file attributes.
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    rgdwFileAttributes{
+    rgdwFileAttributes {
         get {
             if(!this.HasProp("__rgdwFileAttributesProxyArray"))
                 this.__rgdwFileAttributesProxyArray := Win32FixedArray(this.ptr + 12, 1, Primitive, "uint")

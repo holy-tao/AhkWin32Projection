@@ -6,13 +6,11 @@
  * Stores an array of IPv4 or IPv6 addresses.
  * @see https://learn.microsoft.com/windows/win32/api/windns/ns-windns-dns_addr_array
  * @namespace Windows.Win32.NetworkManagement.Dns
- * @version v4.0.30319
  */
-class DNS_ADDR_ARRAY extends Win32Struct
-{
-    static sizeof => 40
+class DNS_ADDR_ARRAY extends Win32Struct {
+    static sizeof => 96
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Indicates, the size, in bytes,  of this structure.
@@ -124,9 +122,9 @@ class DNS_ADDR_ARRAY extends Win32Struct
 
     /**
      * An array of <a href="https://docs.microsoft.com/windows/win32/api/windns/ns-windns-dns_addr">DNS_ADDR</a> structures that each contain an IP address.
-     * @type {Array<DNS_ADDR>}
+     * @type {DNS_ADDR}
      */
-    AddrArray{
+    AddrArray {
         get {
             if(!this.HasProp("__AddrArrayProxyArray"))
                 this.__AddrArrayProxyArray := Win32FixedArray(this.ptr + 32, 1, DNS_ADDR, "")

@@ -5,9 +5,8 @@
  * The ID of the input message source.
  * @see https://learn.microsoft.com/windows/win32/api/winuser/ne-winuser-input_message_origin_id
  * @namespace Windows.Win32.UI.Input
- * @version v4.0.30319
  */
-class INPUT_MESSAGE_ORIGIN_ID extends Win32Enum{
+class INPUT_MESSAGE_ORIGIN_ID extends Win32Enum {
 
     /**
      * The source isn't identified.

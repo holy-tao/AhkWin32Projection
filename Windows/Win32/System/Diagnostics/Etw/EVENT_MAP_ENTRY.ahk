@@ -7,10 +7,8 @@
  * For maps defined in a manifest, the string will contain a space at the end of the string. For example, if the value is mapped to "Monday" in the manifest, the string is returned as "Monday ".
  * @see https://learn.microsoft.com/windows/win32/api/tdh/ns-tdh-event_map_entry
  * @namespace Windows.Win32.System.Diagnostics.Etw
- * @version v4.0.30319
  */
-class EVENT_MAP_ENTRY extends Win32Struct
-{
+class EVENT_MAP_ENTRY extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4

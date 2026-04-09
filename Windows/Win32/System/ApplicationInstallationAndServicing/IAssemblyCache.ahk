@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IAssemblyCacheItem.ahk
 #Include ..\Com\IUnknown.ahk
+#Include .\IAssemblyCacheItem.ahk
 
 /**
  * The IAssemblyCache interface can be used to install, uninstall, or query a side-by-side assembly. An instance of IAssemblyCache is obtained by calling the CreateAssemblyCache function.
  * @see https://learn.microsoft.com/windows/win32/api/winsxs/nn-winsxs-iassemblycache
  * @namespace Windows.Win32.System.ApplicationInstallationAndServicing
- * @version v4.0.30319
  */
-class IAssemblyCache extends IUnknown{
+class IAssemblyCache extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -39,7 +38,7 @@ class IAssemblyCache extends IUnknown{
      * 
      * <div class="alert"><b>Note</b>  The characters \, /, :, ;, *, &lt;, &gt;, and | are invalid in the reference ID.</div>
      * <div> </div>
-     * @param {Pointer<Integer>} pulDisposition A pointer to an integer value that describes the action performed.
+     * @param {Pointer<IASSEMBLYCACHE_UNINSTALL_DISPOSITION>} pulDisposition A pointer to an integer value that describes the action performed.
      * @returns {HRESULT} This method can return one of these values.
      * 
      * <table>
@@ -83,7 +82,7 @@ class IAssemblyCache extends IUnknown{
 
     /**
      * The QueryAssemblyInfo method queries the side-by-side assembly store for assembly information and validates the files in the side-by-side assembly store against the assembly manifest.
-     * @param {Integer} dwFlags Specifies the information to retrieve.
+     * @param {QUERYASMINFO_FLAGS} dwFlags Specifies the information to retrieve.
      * @param {PWSTR} pszAssemblyName Pointer to null-terminated string value containing the fully-specified strong name of the assembly to query. If the name is not fully specified, the result of the method is undefined.
      * @param {Pointer<ASSEMBLY_INFO>} pAsmInfo Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/winsxs/ns-winsxs-assembly_info">ASSEMBLY_INFO</a> structure that receives the information.
      * @returns {HRESULT} This method can return one of these values.

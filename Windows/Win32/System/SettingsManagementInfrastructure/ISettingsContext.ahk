@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IItemEnumerator.ahk
 #Include ..\Com\IUnknown.ahk
+#Include .\IItemEnumerator.ahk
 
 /**
  * An interface to a backing store that is used to store setting changes made through the other SMI APIs, and provides operations to serialize to and deserialize from a representation.
  * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nn-wcmconfig-isettingscontext
  * @namespace Windows.Win32.System.SettingsManagementInfrastructure
- * @version v4.0.30319
  */
-class ISettingsContext extends IUnknown{
+class ISettingsContext extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -1,17 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\DML_TENSOR_DESC.ahk
+#Include .\DML_TENSOR_DATA_TYPE.ahk
 #Include .\DML_SCALAR_UNION.ahk
 
 /**
  * Computes backpropagation gradients for [element-wise clip](/windows/win32/api/directml/ns-directml-dml_element_wise_clip1_operator_desc).
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/directml/ns-directml-dml_element_wise_clip_grad1_operator_desc
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
- * @version v4.0.30319
  */
-class DML_ELEMENT_WISE_CLIP_GRAD1_OPERATOR_DESC extends Win32Struct
-{
+class DML_ELEMENT_WISE_CLIP_GRAD1_OPERATOR_DESC extends Win32Struct {
     static sizeof => 144
 
     static packingSize => 8
@@ -53,7 +51,7 @@ class DML_ELEMENT_WISE_CLIP_GRAD1_OPERATOR_DESC extends Win32Struct
      * Type: [**DML_TENSOR_DATA_TYPE**](/windows/win32/api/directml/ne-directml-dml_tensor_data_type)
      * 
      * The data type of the *Min* and *Max* members, which must match *OutputTensor.DataType*.
-     * @type {Integer}
+     * @type {DML_TENSOR_DATA_TYPE}
      */
     MinMaxDataType {
         get => NumGet(this, 24, "int")
@@ -66,7 +64,7 @@ class DML_ELEMENT_WISE_CLIP_GRAD1_OPERATOR_DESC extends Win32Struct
      * The minimum value. If x is at or below this value, then the gradient result is 0. *MinMaxDataType* determines how to interpret the field.
      * @type {DML_SCALAR_UNION}
      */
-    Min{
+    Min {
         get {
             if(!this.HasProp("__Min"))
                 this.__Min := DML_SCALAR_UNION(32, this)
@@ -80,7 +78,7 @@ class DML_ELEMENT_WISE_CLIP_GRAD1_OPERATOR_DESC extends Win32Struct
      * The maximum value. If x is at or above this value, then the gradient result is 0. *MinMaxDataType* determines how to interpret the field.
      * @type {DML_SCALAR_UNION}
      */
-    Max{
+    Max {
         get {
             if(!this.HasProp("__Max"))
                 this.__Max := DML_SCALAR_UNION(88, this)

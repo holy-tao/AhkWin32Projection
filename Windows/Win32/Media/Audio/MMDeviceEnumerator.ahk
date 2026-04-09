@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Media.Audio
- * @version v4.0.30319
  */
-class MMDeviceEnumerator extends Win32Struct
-{
+class MMDeviceEnumerator extends Win32Struct {
     static sizeof => 0
 
     static packingSize => 1

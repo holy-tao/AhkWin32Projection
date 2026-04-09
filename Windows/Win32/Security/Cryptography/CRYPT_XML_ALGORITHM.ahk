@@ -1,15 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\CRYPT_XML_BLOB.ahk
+#Include .\CRYPT_XML_CHARSET.ahk
 
 /**
  * Specifies the algorithm used to sign or transform the message.
  * @see https://learn.microsoft.com/windows/win32/api/cryptxml/ns-cryptxml-crypt_xml_algorithm
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CRYPT_XML_ALGORITHM extends Win32Struct
-{
+class CRYPT_XML_ALGORITHM extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -38,7 +37,7 @@ class CRYPT_XML_ALGORITHM extends Win32Struct
      *     This member  is set when an element tag is present in the XML signature.
      * @type {CRYPT_XML_BLOB}
      */
-    Encoded{
+    Encoded {
         get {
             if(!this.HasProp("__Encoded"))
                 this.__Encoded := CRYPT_XML_BLOB(16, this)

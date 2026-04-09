@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class SSL_KEY_PIN_EXTRA_CERT_CHAIN_POLICY_STATUS extends Win32Struct
-{
+class SSL_KEY_PIN_EXTRA_CERT_CHAIN_POLICY_STATUS extends Win32Struct {
     static sizeof => 1032
 
     static packingSize => 4

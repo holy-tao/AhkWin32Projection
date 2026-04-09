@@ -5,10 +5,8 @@
  * Contains information about the size of an ACL structure.
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-acl_size_information
  * @namespace Windows.Win32.Security
- * @version v4.0.30319
  */
-class ACL_SIZE_INFORMATION extends Win32Struct
-{
+class ACL_SIZE_INFORMATION extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4

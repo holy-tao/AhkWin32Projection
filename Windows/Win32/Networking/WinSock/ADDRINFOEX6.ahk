@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\SOCKADDR.ahk
+#Include .\ADDRINFOEX5.ahk
 #Include ..\..\Foundation\HANDLE.ahk
+#Include .\ADDRINFO_DNS_SERVER.ahk
 
 /**
  * Used by the <a href="/windows/win32/api/ws2tcpip/nf-ws2tcpip-getaddrinfoexw">GetAddrInfoExW</a> function to hold host address information when a specific network interface has been requested. (ADDRINFOEX6)
@@ -12,10 +15,8 @@
  * If the *ai_numservers* and *ai_servers* members point to an array of valid <a href="https://docs.microsoft.com/windows/desktop/api/ws2def/ns-ws2def-addrinfo_dns_server">ADDRINFO_DNS_SERVER</a> objects, then the DNS query will add these servers as fallback to the system-configured DNS servers. If the <b>AI_EXCLUSIVE_CUSTOM_SERVERS</b> option is present in the *ai_flags* member, then the DNS query will use the custom servers exclusively.
  * @see https://learn.microsoft.com/windows/win32/api/ws2def/ns-ws2def-addrinfoex6
  * @namespace Windows.Win32.Networking.WinSock
- * @version v4.0.30319
  */
-class ADDRINFOEX6 extends Win32Struct
-{
+class ADDRINFOEX6 extends Win32Struct {
     static sizeof => 128
 
     static packingSize => 8
@@ -595,7 +596,7 @@ class ADDRINFOEX6 extends Win32Struct
      * Handle pointing to the fully qualified domain name for the host.
      * @type {HANDLE}
      */
-    ai_resolutionhandle{
+    ai_resolutionhandle {
         get {
             if(!this.HasProp("__ai_resolutionhandle"))
                 this.__ai_resolutionhandle := HANDLE(96, this)
@@ -631,7 +632,6 @@ class ADDRINFOEX6 extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     ai_responseflags {

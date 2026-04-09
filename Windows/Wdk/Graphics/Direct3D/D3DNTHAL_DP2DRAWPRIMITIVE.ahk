@@ -1,18 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\Win32\Graphics\Direct3D9\D3DPRIMITIVETYPE.ahk
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
- * @version v4.0.30319
  */
-class D3DNTHAL_DP2DRAWPRIMITIVE extends Win32Struct
-{
+class D3DNTHAL_DP2DRAWPRIMITIVE extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4
 
     /**
-     * @type {Integer}
+     * @type {D3DPRIMITIVETYPE}
      */
     primType {
         get => NumGet(this, 0, "int")

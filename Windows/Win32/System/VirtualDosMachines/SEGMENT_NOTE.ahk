@@ -3,11 +3,9 @@
 
 /**
  * @namespace Windows.Win32.System.VirtualDosMachines
- * @version v4.0.30319
  */
-class SEGMENT_NOTE extends Win32Struct
-{
-    static sizeof => 544
+class SEGMENT_NOTE extends Win32Struct {
+    static sizeof => 280
 
     static packingSize => 4
 
@@ -39,31 +37,31 @@ class SEGMENT_NOTE extends Win32Struct
      * @type {String}
      */
     Module {
-        get => StrGet(this.ptr + 6, 9, "UTF-16")
-        set => StrPut(value, this.ptr + 6, 9, "UTF-16")
+        get => StrGet(this.ptr + 6, 9, "UTF-8")
+        set => StrPut(value, this.ptr + 6, 9, "UTF-8")
     }
 
     /**
      * @type {String}
      */
     FileName {
-        get => StrGet(this.ptr + 26, 255, "UTF-16")
-        set => StrPut(value, this.ptr + 26, 255, "UTF-16")
+        get => StrGet(this.ptr + 16, 255, "UTF-8")
+        set => StrPut(value, this.ptr + 16, 255, "UTF-8")
     }
 
     /**
      * @type {Integer}
      */
     Type {
-        get => NumGet(this, 538, "ushort")
-        set => NumPut("ushort", value, this, 538)
+        get => NumGet(this, 272, "ushort")
+        set => NumPut("ushort", value, this, 272)
     }
 
     /**
      * @type {Integer}
      */
     Length {
-        get => NumGet(this, 540, "uint")
-        set => NumPut("uint", value, this, 540)
+        get => NumGet(this, 276, "uint")
+        set => NumPut("uint", value, this, 276)
     }
 }

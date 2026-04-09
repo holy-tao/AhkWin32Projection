@@ -7,9 +7,8 @@
  * The IWbemProviderInit interface is called by Windows Management to initialize providers. All providers are required to implement IWbemProviderInit.
  * @see https://learn.microsoft.com/windows/win32/api/wbemprov/nn-wbemprov-iwbemproviderinit
  * @namespace Windows.Win32.System.Wmi
- * @version v4.0.30319
  */
-class IWbemProviderInit extends IUnknown{
+class IWbemProviderInit extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

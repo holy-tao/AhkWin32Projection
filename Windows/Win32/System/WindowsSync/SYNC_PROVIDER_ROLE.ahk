@@ -7,9 +7,8 @@
  * Changes flow from the source provider to the destination provider in a synchronization session.
  * @see https://learn.microsoft.com/windows/win32/api/winsync/ne-winsync-sync_provider_role
  * @namespace Windows.Win32.System.WindowsSync
- * @version v4.0.30319
  */
-class SYNC_PROVIDER_ROLE extends Win32Enum{
+class SYNC_PROVIDER_ROLE extends Win32Enum {
 
     /**
      * The provider is the source provider.

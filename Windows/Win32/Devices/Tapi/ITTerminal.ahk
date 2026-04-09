@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * The ITTerminal interface is the base interface for a Terminal object.
  * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nn-tapi3if-itterminal
  * @namespace Windows.Win32.Devices.Tapi
- * @version v4.0.30319
  */
-class ITTerminal extends IDispatch{
+class ITTerminal extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -39,14 +38,14 @@ class ITTerminal extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {TERMINAL_STATE} 
      */
     State {
         get => this.get_State()
     }
 
     /**
-     * @type {Integer} 
+     * @type {TERMINAL_TYPE} 
      */
     TerminalType {
         get => this.get_TerminalType()
@@ -67,7 +66,7 @@ class ITTerminal extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {TERMINAL_DIRECTION} 
      */
     Direction {
         get => this.get_Direction()
@@ -89,7 +88,7 @@ class ITTerminal extends IDispatch{
 
     /**
      * The get_State method gets the current state of the terminal.
-     * @returns {Integer} Pointer to a 
+     * @returns {TERMINAL_STATE} Pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/ne-tapi3if-terminal_state">TERMINAL_STATE</a> enum member.
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itterminal-get_state
      */
@@ -100,7 +99,7 @@ class ITTerminal extends IDispatch{
 
     /**
      * The get_TerminalType method gets the TERMINAL_TYPE of the terminal.
-     * @returns {Integer} Pointer to a 
+     * @returns {TERMINAL_TYPE} Pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/ne-tapi3if-terminal_type">TERMINAL_TYPE</a>.
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itterminal-get_terminaltype
      */
@@ -137,7 +136,7 @@ class ITTerminal extends IDispatch{
 
     /**
      * The get_Direction method gets a TERMINAL_DIRECTION descriptor of the media stream direction for the terminal.
-     * @returns {Integer} <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/ne-tapi3if-terminal_direction">TERMINAL_DIRECTION</a> descriptor of the media stream direction for the terminal.
+     * @returns {TERMINAL_DIRECTION} <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/ne-tapi3if-terminal_direction">TERMINAL_DIRECTION</a> descriptor of the media stream direction for the terminal.
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itterminal-get_direction
      */
     get_Direction() {

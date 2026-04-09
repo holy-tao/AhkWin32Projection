@@ -1,20 +1,19 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\D3D12_VIDEO_DECODE_FRAME_ARGUMENT.ahk
+#Include .\D3D12_VIDEO_DECODE_ARGUMENT_TYPE.ahk
 #Include .\D3D12_VIDEO_DECODE_REFERENCE_FRAMES.ahk
+#Include ..\..\Graphics\Direct3D12\ID3D12Resource.ahk
+#Include .\ID3D12VideoDecoderHeap.ahk
 #Include .\D3D12_VIDEO_DECODE_COMPRESSED_BITSTREAM.ahk
 
 /**
  * Specifies the parameters for the input stream for a video decode operation.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/d3d12video/ns-d3d12video-d3d12_video_decode_input_stream_arguments
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class D3D12_VIDEO_DECODE_INPUT_STREAM_ARGUMENTS extends Win32Struct
-{
-    static sizeof => 152
+class D3D12_VIDEO_DECODE_INPUT_STREAM_ARGUMENTS extends Win32Struct {
+    static sizeof => 232
 
     static packingSize => 8
 
@@ -29,9 +28,9 @@ class D3D12_VIDEO_DECODE_INPUT_STREAM_ARGUMENTS extends Win32Struct
 
     /**
      * An array of [D3D12_VIDEO_DECODE_FRAME_ARGUMENT](ns-d3d12video-d3d12_video_decode_frame_argument.md) structures containing the parameters to decode a frame.
-     * @type {Array<D3D12_VIDEO_DECODE_FRAME_ARGUMENT>}
+     * @type {D3D12_VIDEO_DECODE_FRAME_ARGUMENT}
      */
-    FrameArguments{
+    FrameArguments {
         get {
             if(!this.HasProp("__FrameArgumentsProxyArray"))
                 this.__FrameArgumentsProxyArray := Win32FixedArray(this.ptr + 8, 10, D3D12_VIDEO_DECODE_FRAME_ARGUMENT, "")
@@ -43,10 +42,10 @@ class D3D12_VIDEO_DECODE_INPUT_STREAM_ARGUMENTS extends Win32Struct
      * A [D3D12_VIDEO_DECODE_REFERENCE_FRAMES](ns-d3d12video-d3d12_video_decode_reference_frames.md) structure containing the reference frames needed to decode a frame.
      * @type {D3D12_VIDEO_DECODE_REFERENCE_FRAMES}
      */
-    ReferenceFrames{
+    ReferenceFrames {
         get {
             if(!this.HasProp("__ReferenceFrames"))
-                this.__ReferenceFrames := D3D12_VIDEO_DECODE_REFERENCE_FRAMES(88, this)
+                this.__ReferenceFrames := D3D12_VIDEO_DECODE_REFERENCE_FRAMES(168, this)
             return this.__ReferenceFrames
         }
     }
@@ -55,10 +54,10 @@ class D3D12_VIDEO_DECODE_INPUT_STREAM_ARGUMENTS extends Win32Struct
      * A [D3D12_VIDEO_DECODE_COMPRESSED_BITSTREAM](ns-d3d12video-d3d12_video_decode_compressed_bitstream.md) structure representing the compressed bitstream in a single continuous buffer.
      * @type {D3D12_VIDEO_DECODE_COMPRESSED_BITSTREAM}
      */
-    CompressedBitstream{
+    CompressedBitstream {
         get {
             if(!this.HasProp("__CompressedBitstream"))
-                this.__CompressedBitstream := D3D12_VIDEO_DECODE_COMPRESSED_BITSTREAM(120, this)
+                this.__CompressedBitstream := D3D12_VIDEO_DECODE_COMPRESSED_BITSTREAM(200, this)
             return this.__CompressedBitstream
         }
     }
@@ -68,7 +67,7 @@ class D3D12_VIDEO_DECODE_INPUT_STREAM_ARGUMENTS extends Win32Struct
      * @type {ID3D12VideoDecoderHeap}
      */
     pHeap {
-        get => NumGet(this, 144, "ptr")
-        set => NumPut("ptr", value, this, 144)
+        get => NumGet(this, 224, "ptr")
+        set => NumPut("ptr", value, this, 224)
     }
 }

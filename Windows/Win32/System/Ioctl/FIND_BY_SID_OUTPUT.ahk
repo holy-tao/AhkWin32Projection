@@ -5,10 +5,8 @@
  * Represents a file name.
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-find_by_sid_output
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class FIND_BY_SID_OUTPUT extends Win32Struct
-{
+class FIND_BY_SID_OUTPUT extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4

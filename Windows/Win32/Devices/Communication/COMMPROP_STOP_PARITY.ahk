@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.Communication
- * @version v4.0.30319
  */
-class COMMPROP_STOP_PARITY extends Win32BitflagEnum{
+class COMMPROP_STOP_PARITY extends Win32BitflagEnum {
 
     /**
      * @type {Integer (UInt16)}

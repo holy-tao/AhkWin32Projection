@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class DEVICE_INTERNAL_STATUS_DATA extends Win32Struct
-{
+class DEVICE_INTERNAL_STATUS_DATA extends Win32Struct {
     static sizeof => 176
 
     static packingSize => 8
@@ -76,9 +74,9 @@ class DEVICE_INTERNAL_STATUS_DATA extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Reserved{
+    Reserved {
         get {
             if(!this.HasProp("__ReservedProxyArray"))
                 this.__ReservedProxyArray := Win32FixedArray(this.ptr + 33, 3, Primitive, "char")
@@ -87,9 +85,9 @@ class DEVICE_INTERNAL_STATUS_DATA extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    ReasonIdentifier{
+    ReasonIdentifier {
         get {
             if(!this.HasProp("__ReasonIdentifierProxyArray"))
                 this.__ReasonIdentifierProxyArray := Win32FixedArray(this.ptr + 36, 128, Primitive, "char")
@@ -106,9 +104,9 @@ class DEVICE_INTERNAL_STATUS_DATA extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    StatusData{
+    StatusData {
         get {
             if(!this.HasProp("__StatusDataProxyArray"))
                 this.__StatusDataProxyArray := Win32FixedArray(this.ptr + 168, 1, Primitive, "char")

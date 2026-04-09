@@ -1,15 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\DATE_TIME.ahk
+#Include .\SCOPE_MIB_INFO_V5.ahk
 
 /**
  * Contains statistical information about a DHCP server.
  * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/ns-dhcpsapi-dhcp_mib_info_v5
  * @namespace Windows.Win32.NetworkManagement.Dhcp
- * @version v4.0.30319
  */
-class DHCP_MIB_INFO_V5 extends Win32Struct
-{
+class DHCP_MIB_INFO_V5 extends Win32Struct {
     static sizeof => 88
 
     static packingSize => 8
@@ -81,7 +80,7 @@ class DHCP_MIB_INFO_V5 extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-date_time">DATE_TIME</a> structure that contains the most recent time the DHCP server was started.
      * @type {DATE_TIME}
      */
-    ServerStartTime{
+    ServerStartTime {
         get {
             if(!this.HasProp("__ServerStartTime"))
                 this.__ServerStartTime := DATE_TIME(28, this)

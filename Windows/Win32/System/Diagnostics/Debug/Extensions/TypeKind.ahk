@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
- * @version v4.0.30319
  */
-class TypeKind extends Win32Enum{
+class TypeKind extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

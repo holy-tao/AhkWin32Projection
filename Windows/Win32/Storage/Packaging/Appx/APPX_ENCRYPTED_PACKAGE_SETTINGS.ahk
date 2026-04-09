@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\System\Com\IUri.ahk
 
 /**
  * Settings for encrypted Windows app packages.
  * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/ns-appxpackaging-appx_encrypted_package_settings
  * @namespace Windows.Win32.Storage.Packaging.Appx
- * @version v4.0.30319
  */
-class APPX_ENCRYPTED_PACKAGE_SETTINGS extends Win32Struct
-{
+class APPX_ENCRYPTED_PACKAGE_SETTINGS extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8

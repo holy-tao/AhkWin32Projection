@@ -5,9 +5,8 @@
  * Specifies list placement.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/ne-shobjidl_core-fdap
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class FDAP extends Win32Enum{
+class FDAP extends Win32Enum {
 
     /**
      * The place is added to the bottom of the default list.

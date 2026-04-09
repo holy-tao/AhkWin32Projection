@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IUrlAccessor.ahk
 #Include ..\Com\IUnknown.ahk
+#Include .\IUrlAccessor.ahk
 
 /**
  * Provides methods for invoking, initializing, and managing IUrlAccessor objects. (ISearchProtocol)
  * @see https://learn.microsoft.com/windows/win32/api/searchapi/nn-searchapi-isearchprotocol
  * @namespace Windows.Win32.System.Search
- * @version v4.0.30319
  */
-class ISearchProtocol extends IUnknown{
+class ISearchProtocol extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

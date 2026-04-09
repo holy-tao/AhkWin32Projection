@@ -1,15 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\EAP_INTERACTIVE_UI_DATA_TYPE.ahk
 #Include .\EAP_UI_DATA_FORMAT.ahk
+#Include .\EAP_CONFIG_INPUT_FIELD_ARRAY.ahk
+#Include .\EAP_CRED_EXPIRY_REQ.ahk
 
 /**
  * Contains configuration information for interactive UI components raised on an EAP supplicant.
  * @see https://learn.microsoft.com/windows/win32/api/eaptypes/ns-eaptypes-eap_interactive_ui_data
  * @namespace Windows.Win32.Security.ExtensibleAuthenticationProtocol
- * @version v4.0.30319
  */
-class EAP_INTERACTIVE_UI_DATA extends Win32Struct
-{
+class EAP_INTERACTIVE_UI_DATA extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -52,7 +53,7 @@ class EAP_INTERACTIVE_UI_DATA extends Win32Struct
 
     /**
      * An <a href="https://docs.microsoft.com/windows/desktop/api/eaptypes/ne-eaptypes-eap_interactive_ui_data_type">EAP_INTERACTIVE_UI_DATA_TYPE</a> value that specifies the type of data pointed to by <i>pbUiData</i>.
-     * @type {Integer}
+     * @type {EAP_INTERACTIVE_UI_DATA_TYPE}
      */
     dwDataType {
         get => NumGet(this, 8, "int")
@@ -72,7 +73,7 @@ class EAP_INTERACTIVE_UI_DATA extends Win32Struct
      * A pointer to an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/eaptypes/ns-eaptypes-eap_ui_data_format">EAP_UI_DATA_FORMAT</a> union that contains information about specific user interface components that correspond to the type specified in <i>dwDataType</i>.
      * @type {EAP_UI_DATA_FORMAT}
      */
-    pbUiData{
+    pbUiData {
         get {
             if(!this.HasProp("__pbUiData"))
                 this.__pbUiData := EAP_UI_DATA_FORMAT(16, this)

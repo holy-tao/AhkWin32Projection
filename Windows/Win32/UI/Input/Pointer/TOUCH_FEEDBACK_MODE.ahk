@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.UI.Input.Pointer
- * @version v4.0.30319
  */
-class TOUCH_FEEDBACK_MODE extends Win32Enum{
+class TOUCH_FEEDBACK_MODE extends Win32Enum {
 
     /**
      * @type {Integer (UInt32)}

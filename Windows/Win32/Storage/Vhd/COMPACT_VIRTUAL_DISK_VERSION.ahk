@@ -5,18 +5,15 @@
  * Contains the version of the virtual hard disk (VHD) COMPACT_VIRTUAL_DISK_PARAMETERS structure to use in calls to VHD functions.
  * @see https://learn.microsoft.com/windows/win32/api/virtdisk/ne-virtdisk-compact_virtual_disk_version
  * @namespace Windows.Win32.Storage.Vhd
- * @version v4.0.30319
  */
-class COMPACT_VIRTUAL_DISK_VERSION extends Win32Enum{
+class COMPACT_VIRTUAL_DISK_VERSION extends Win32Enum {
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static COMPACT_VIRTUAL_DISK_VERSION_UNSPECIFIED => 0
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static COMPACT_VIRTUAL_DISK_VERSION_1 => 1

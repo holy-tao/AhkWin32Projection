@@ -2,22 +2,20 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\..\Win32\Foundation\HANDLE.ahk
 #Include ..\..\..\Win32\Foundation\HWND.ahk
-#Include ..\..\..\Win32\Foundation\LUID.ahk
+#Include .\D3DKMT_VIDPNSOURCEOWNER_TYPE.ahk
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
- * @version v4.0.30319
  */
-class D3DKMT_QUERYVIDPNEXCLUSIVEOWNERSHIP extends Win32Struct
-{
-    static sizeof => 32
+class D3DKMT_QUERYVIDPNEXCLUSIVEOWNERSHIP extends Win32Struct {
+    static sizeof => 40
 
     static packingSize => 8
 
     /**
      * @type {HANDLE}
      */
-    hProcess{
+    hProcess {
         get {
             if(!this.HasProp("__hProcess"))
                 this.__hProcess := HANDLE(0, this)
@@ -28,7 +26,7 @@ class D3DKMT_QUERYVIDPNEXCLUSIVEOWNERSHIP extends Win32Struct
     /**
      * @type {HWND}
      */
-    hWindow{
+    hWindow {
         get {
             if(!this.HasProp("__hWindow"))
                 this.__hWindow := HWND(8, this)
@@ -45,21 +43,18 @@ class D3DKMT_QUERYVIDPNEXCLUSIVEOWNERSHIP extends Win32Struct
     }
 
     /**
-     * @type {LUID}
+     * @type {Pointer}
      */
-    AdapterLuid{
-        get {
-            if(!this.HasProp("__AdapterLuid"))
-                this.__AdapterLuid := LUID(20, this)
-            return this.__AdapterLuid
-        }
+    AdapterLuid {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
-     * @type {Integer}
+     * @type {D3DKMT_VIDPNSOURCEOWNER_TYPE}
      */
     OwnerType {
-        get => NumGet(this, 28, "int")
-        set => NumPut("int", value, this, 28)
+        get => NumGet(this, 32, "int")
+        set => NumPut("int", value, this, 32)
     }
 }

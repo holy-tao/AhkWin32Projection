@@ -3,14 +3,10 @@
 
 /**
  * Represents a rate control structure definition for constant quality target with constrained bitrate.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/d3d12video/ns-d3d12video-d3d12_video_encoder_rate_control_qvbr
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class D3D12_VIDEO_ENCODER_RATE_CONTROL_QVBR extends Win32Struct
-{
+class D3D12_VIDEO_ENCODER_RATE_CONTROL_QVBR extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8

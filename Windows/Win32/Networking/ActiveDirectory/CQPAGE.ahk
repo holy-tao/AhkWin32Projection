@@ -6,10 +6,8 @@
  * Used to define a query page added to a form in the query dialog box with the CQAddPagesProc callback function.
  * @see https://learn.microsoft.com/windows/win32/api/cmnquery/ns-cmnquery-cqpage
  * @namespace Windows.Win32.Networking.ActiveDirectory
- * @version v4.0.30319
  */
-class CQPAGE extends Win32Struct
-{
+class CQPAGE extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -45,7 +43,7 @@ class CQPAGE extends Win32Struct
      * Contains the instance handle of the module that contains the resources identified by the <b>idPageName</b> and <b>idPageTemplate</b> members.
      * @type {HINSTANCE}
      */
-    hInstance{
+    hInstance {
         get {
             if(!this.HasProp("__hInstance"))
                 this.__hInstance := HINSTANCE(16, this)

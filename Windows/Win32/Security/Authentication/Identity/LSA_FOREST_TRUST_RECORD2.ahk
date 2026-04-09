@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\LSA_FOREST_TRUST_RECORD_TYPE.ahk
 #Include .\LSA_UNICODE_STRING.ahk
 #Include .\LSA_FOREST_TRUST_DOMAIN_INFO.ahk
 #Include .\LSA_FOREST_TRUST_BINARY_DATA.ahk
@@ -7,10 +8,8 @@
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class LSA_FOREST_TRUST_RECORD2 extends Win32Struct
-{
+class LSA_FOREST_TRUST_RECORD2 extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8
@@ -22,47 +21,46 @@ class LSA_FOREST_TRUST_RECORD2 extends Win32Struct
         /**
          * @type {LSA_UNICODE_STRING}
          */
-        TopLevelName{
+        TopLevelName {
             get {
                 if(!this.HasProp("__TopLevelName"))
                     this.__TopLevelName := LSA_UNICODE_STRING(0, this)
                 return this.__TopLevelName
             }
         }
-    
+
         /**
          * @type {LSA_FOREST_TRUST_DOMAIN_INFO}
          */
-        DomainInfo{
+        DomainInfo {
             get {
                 if(!this.HasProp("__DomainInfo"))
                     this.__DomainInfo := LSA_FOREST_TRUST_DOMAIN_INFO(0, this)
                 return this.__DomainInfo
             }
         }
-    
+
         /**
          * @type {LSA_FOREST_TRUST_BINARY_DATA}
          */
-        BinaryData{
+        BinaryData {
             get {
                 if(!this.HasProp("__BinaryData"))
                     this.__BinaryData := LSA_FOREST_TRUST_BINARY_DATA(0, this)
                 return this.__BinaryData
             }
         }
-    
+
         /**
          * @type {LSA_FOREST_TRUST_SCANNER_INFO}
          */
-        ScannerInfo{
+        ScannerInfo {
             get {
                 if(!this.HasProp("__ScannerInfo"))
                     this.__ScannerInfo := LSA_FOREST_TRUST_SCANNER_INFO(0, this)
                 return this.__ScannerInfo
             }
         }
-    
     }
 
     /**
@@ -74,7 +72,7 @@ class LSA_FOREST_TRUST_RECORD2 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {LSA_FOREST_TRUST_RECORD_TYPE}
      */
     ForestTrustType {
         get => NumGet(this, 4, "int")
@@ -92,10 +90,10 @@ class LSA_FOREST_TRUST_RECORD2 extends Win32Struct
     /**
      * @type {_ForestTrustData_e__Union}
      */
-    ForestTrustData{
+    ForestTrustData {
         get {
             if(!this.HasProp("__ForestTrustData"))
-                this.__ForestTrustData := %this.__Class%._ForestTrustData_e__Union(16, this)
+                this.__ForestTrustData := LSA_FOREST_TRUST_RECORD2._ForestTrustData_e__Union(16, this)
             return this.__ForestTrustData
         }
     }

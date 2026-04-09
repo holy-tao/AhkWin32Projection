@@ -12,10 +12,8 @@
  * ```cpp
  * @see https://learn.microsoft.com/windows/win32/api/dbghelp/ns-dbghelp-imagehlp_deferred_symbol_loadw64
  * @namespace Windows.Win32.System.Diagnostics.Debug
- * @version v4.0.30319
  */
-class IMAGEHLP_DEFERRED_SYMBOL_LOADW64 extends Win32Struct
-{
+class IMAGEHLP_DEFERRED_SYMBOL_LOADW64 extends Win32Struct {
     static sizeof => 568
 
     static packingSize => 8
@@ -78,7 +76,7 @@ class IMAGEHLP_DEFERRED_SYMBOL_LOADW64 extends Win32Struct
      * A handle to a file. This member is used with <b>CBA_DEFERRED_SYMBOL_LOAD_PARTIAL</b> and <b>IMAGEHLP_DEFERRED_SYMBOL_LOAD_FAILURE</b> callbacks.
      * @type {HANDLE}
      */
-    hFile{
+    hFile {
         get {
             if(!this.HasProp("__hFile"))
                 this.__hFile := HANDLE(552, this)
@@ -87,7 +85,6 @@ class IMAGEHLP_DEFERRED_SYMBOL_LOADW64 extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     Flags {

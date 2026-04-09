@@ -4,7 +4,6 @@
 
 /**
  * @namespace Windows.Win32.Storage.IscsiDisc
- * @version v4.0.30319
  */
 class IscsiDisc {
 
@@ -963,9 +962,9 @@ class IscsiDisc {
      * > The iscsidsc.h header defines GetIScsiTargetInformation as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PWSTR} TargetName The name of the target for which information is retrieved.
      * @param {PWSTR} DiscoveryMechanism A text description of the mechanism that was used to discover the target (for example, "iSNS:", "SendTargets:" or "HBA:"). A value of <b>null</b> indicates that no discovery mechanism is specified.
-     * @param {Integer} InfoClass A value of type <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/iscsidsc/ne-iscsidsc-target_information_class">TARGET_INFORMATION_CLASS</a> that indicates the type of information to retrieve.
+     * @param {TARGET_INFORMATION_CLASS} InfoClass A value of type <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/iscsidsc/ne-iscsidsc-target_information_class">TARGET_INFORMATION_CLASS</a> that indicates the type of information to retrieve.
      * @param {Pointer<Integer>} BufferSize A pointer to a location that, on input, contains the size (in bytes) of the buffer that <i>Buffer</i> points to. If the operation succeeds, the location receives the number of bytes retrieved. If the operation fails, the location receives the size of the buffer required to contain the output data.
-     * @param {Pointer<Void>} _Buffer 
+     * @param {Pointer<Void>} _Buffer The buffer that contains the output data. The output data consists in <b>null</b>-terminated strings, with a double <b>null</b> termination after the last string.
      * @returns {Integer} Returns ERROR_SUCCESS if successful and ERROR_INSUFFICIENT_BUFFER if the buffer size at Buffer was insufficient to contain the output data. Otherwise, <b>GetIscsiTargetInformation</b> returns the appropriate Win32 or iSCSI error code on failure.
      * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-getiscsitargetinformationw
      * @since windows6.0.6000
@@ -1000,9 +999,9 @@ class IscsiDisc {
      * > The iscsidsc.h header defines GetIScsiTargetInformation as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PSTR} TargetName The name of the target for which information is retrieved.
      * @param {PSTR} DiscoveryMechanism A text description of the mechanism that was used to discover the target (for example, "iSNS:", "SendTargets:" or "HBA:"). A value of <b>null</b> indicates that no discovery mechanism is specified.
-     * @param {Integer} InfoClass A value of type <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/iscsidsc/ne-iscsidsc-target_information_class">TARGET_INFORMATION_CLASS</a> that indicates the type of information to retrieve.
+     * @param {TARGET_INFORMATION_CLASS} InfoClass A value of type <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/iscsidsc/ne-iscsidsc-target_information_class">TARGET_INFORMATION_CLASS</a> that indicates the type of information to retrieve.
      * @param {Pointer<Integer>} BufferSize A pointer to a location that, on input, contains the size (in bytes) of the buffer that <i>Buffer</i> points to. If the operation succeeds, the location receives the number of bytes retrieved. If the operation fails, the location receives the size of the buffer required to contain the output data.
-     * @param {Pointer<Void>} _Buffer 
+     * @param {Pointer<Void>} _Buffer The buffer that contains the output data. The output data consists in <b>null</b>-terminated strings, with a double <b>null</b> termination after the last string.
      * @returns {Integer} Returns ERROR_SUCCESS if successful and ERROR_INSUFFICIENT_BUFFER if the buffer size at Buffer was insufficient to contain the output data. Otherwise, <b>GetIscsiTargetInformation</b> returns the appropriate Win32 or iSCSI error code on failure.
      * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-getiscsitargetinformationa
      * @since windows6.0.6000
@@ -1266,7 +1265,7 @@ class IscsiDisc {
      * > The iscsidsc.h header defines ReportIScsiTargets as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {BOOLEAN} ForceUpdate If <b>true</b>, the iSCSI initiator service updates the list of discovered targets before returning the target list data to the caller.
      * @param {Pointer<Integer>} BufferSize A <b>ULONG</b> value that specifies the number of list elements contained by the <i>Buffer</i> parameter.
-     * @param {PWSTR} _Buffer 
+     * @param {PWSTR} _Buffer Pointer to a buffer that receives and contains the list of targets. The list consists of <b>null</b>-terminated strings. The last string, however, is double <b>null</b>-terminated.
      * @returns {Integer} Returns ERROR_SUCCESS if the operation succeeds and ERROR_INSUFFICIENT_BUFFER if the buffer size is insufficient to contain  the output data. Otherwise, <b>ReportIscsiTargets</b> returns the appropriate Win32 or iSCSI error code on failure.
      * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-reportiscsitargetsw
      * @since windows6.0.6000
@@ -1287,7 +1286,7 @@ class IscsiDisc {
      * > The iscsidsc.h header defines ReportIScsiTargets as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {BOOLEAN} ForceUpdate If <b>true</b>, the iSCSI initiator service updates the list of discovered targets before returning the target list data to the caller.
      * @param {Pointer<Integer>} BufferSize A <b>ULONG</b> value that specifies the number of list elements contained by the <i>Buffer</i> parameter.
-     * @param {PSTR} _Buffer 
+     * @param {PSTR} _Buffer Pointer to a buffer that receives and contains the list of targets. The list consists of <b>null</b>-terminated strings. The last string, however, is double <b>null</b>-terminated.
      * @returns {Integer} Returns ERROR_SUCCESS if the operation succeeds and ERROR_INSUFFICIENT_BUFFER if the buffer size is insufficient to contain  the output data. Otherwise, <b>ReportIscsiTargets</b> returns the appropriate Win32 or iSCSI error code on failure.
      * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-reportiscsitargetsa
      * @since windows6.0.6000
@@ -2314,7 +2313,7 @@ class IscsiDisc {
      * > The iscsidsc.h header defines ReportIScsiInitiatorList as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Integer>} BufferSize A <b>ULONG</b> value that specifies the number of list elements contained by the <i>Buffer</i> parameter. 
      * If the operation succeeds, this location receives the size, represented by a number of elements, that corresponds to the retreived data.
-     * @param {PWSTR} _Buffer 
+     * @param {PWSTR} _Buffer A buffer that, on output, is filled with the list of initiator names. Each initiator name is a <b>null</b>-terminated string, except for the last initiator name, which is double-<b>null</b> terminated.
      * @returns {Integer} Returns ERROR_SUCCESS if the operation succeeds and ERROR_INSUFFICIENT_BUFFER if the buffer size of Buffer is insufficient to contain the output data.
      * 
      *  Otherwise, <b>ReportIscsiInitiatorList</b> returns the appropriate Win32 or iSCSI error code on failure.
@@ -2337,7 +2336,7 @@ class IscsiDisc {
      * > The iscsidsc.h header defines ReportIScsiInitiatorList as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Integer>} BufferSize A <b>ULONG</b> value that specifies the number of list elements contained by the <i>Buffer</i> parameter. 
      * If the operation succeeds, this location receives the size, represented by a number of elements, that corresponds to the retreived data.
-     * @param {PSTR} _Buffer 
+     * @param {PSTR} _Buffer A buffer that, on output, is filled with the list of initiator names. Each initiator name is a <b>null</b>-terminated string, except for the last initiator name, which is double-<b>null</b> terminated.
      * @returns {Integer} Returns ERROR_SUCCESS if the operation succeeds and ERROR_INSUFFICIENT_BUFFER if the buffer size of Buffer is insufficient to contain the output data.
      * 
      *  Otherwise, <b>ReportIscsiInitiatorList</b> returns the appropriate Win32 or iSCSI error code on failure.
@@ -2704,7 +2703,7 @@ class IscsiDisc {
      * 
      * > [!NOTE]
      * > The iscsidsc.h header defines AddISNSServer as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {PWSTR} _Address 
+     * @param {PWSTR} _Address IP address or the DNS name of the server.
      * @returns {Integer} Returns ERROR_SUCCESS if the operation succeeds. If the operation fails, because of a problem with a socket connection, <b>AddIsnsServer</b> returns a Winsock error code. If the Address parameter does not point to a valid iSNS server name, the <b>AddIsnsServer</b> routine returns ERROR_INVALID_PARAMETER.
      * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-addisnsserverw
      * @since windows6.0.6000
@@ -2729,7 +2728,7 @@ class IscsiDisc {
      * 
      * > [!NOTE]
      * > The iscsidsc.h header defines AddISNSServer as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {PSTR} _Address 
+     * @param {PSTR} _Address IP address or the DNS name of the server.
      * @returns {Integer} Returns ERROR_SUCCESS if the operation succeeds. If the operation fails, because of a problem with a socket connection, <b>AddIsnsServer</b> returns a Winsock error code. If the Address parameter does not point to a valid iSNS server name, the <b>AddIsnsServer</b> routine returns ERROR_INVALID_PARAMETER.
      * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-addisnsservera
      * @since windows6.0.6000
@@ -2754,7 +2753,7 @@ class IscsiDisc {
      * 
      * > [!NOTE]
      * > The iscsidsc.h header defines RemoveISNSServer as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {PWSTR} _Address 
+     * @param {PWSTR} _Address The DNS or IP Address of the server to remove.
      * @returns {Integer} Returns ERROR_SUCCESS if the operation succeeds. Otherwise, it returns the appropriate Win32 or iSCSI error code.
      * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-removeisnsserverw
      * @since windows6.0.6000
@@ -2779,7 +2778,7 @@ class IscsiDisc {
      * 
      * > [!NOTE]
      * > The iscsidsc.h header defines RemoveISNSServer as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {PSTR} _Address 
+     * @param {PSTR} _Address The DNS or IP Address of the server to remove.
      * @returns {Integer} Returns ERROR_SUCCESS if the operation succeeds. Otherwise, it returns the appropriate Win32 or iSCSI error code.
      * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-removeisnsservera
      * @since windows6.0.6000
@@ -2805,7 +2804,7 @@ class IscsiDisc {
      * 
      * > [!NOTE]
      * > The iscsidsc.h header defines RefreshISNSServer as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {PWSTR} _Address 
+     * @param {PWSTR} _Address The DNS or IP Address of the iSNS server.
      * @returns {Integer} Returns ERROR_SUCCESS if the operation succeeds. Otherwise, it returns the appropriate Win32 or iSCSI error code.
      * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-refreshisnsserverw
      * @since windows6.0.6000
@@ -2831,7 +2830,7 @@ class IscsiDisc {
      * 
      * > [!NOTE]
      * > The iscsidsc.h header defines RefreshISNSServer as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {PSTR} _Address 
+     * @param {PSTR} _Address The DNS or IP Address of the iSNS server.
      * @returns {Integer} Returns ERROR_SUCCESS if the operation succeeds. Otherwise, it returns the appropriate Win32 or iSCSI error code.
      * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-refreshisnsservera
      * @since windows6.0.6000
@@ -2850,7 +2849,7 @@ class IscsiDisc {
      * > The iscsidsc.h header defines ReportISNSServerList as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Integer>} BufferSizeInChar A <b>ULONG</b> value that specifies the number of list elements contained by the <i>Buffer</i> parameter. 
      * If the operation succeeds, this location receives the size, represented by a number of  elements, that corresponds to the number of retrieved iSNS servers.
-     * @param {PWSTR} _Buffer 
+     * @param {PWSTR} _Buffer The buffer that holds the list of iSNS servers on output. Each server name is <b>null</b> terminated, except for the last server name, which is double <b>null</b> terminated.
      * @returns {Integer} Returns ERROR_SUCCESS if the operation succeeds and ERROR_INSUFFICIENT_BUFFER if the buffer is too small to hold the output data. 
      * 
      * Otherwise, <b>ReportIsnsServerList</b> returns the appropriate Win32 or iSCSI error code on failure.
@@ -2873,7 +2872,7 @@ class IscsiDisc {
      * > The iscsidsc.h header defines ReportISNSServerList as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Integer>} BufferSizeInChar A <b>ULONG</b> value that specifies the number of list elements contained by the <i>Buffer</i> parameter. 
      * If the operation succeeds, this location receives the size, represented by a number of  elements, that corresponds to the number of retrieved iSNS servers.
-     * @param {PSTR} _Buffer 
+     * @param {PSTR} _Buffer The buffer that holds the list of iSNS servers on output. Each server name is <b>null</b> terminated, except for the last server name, which is double <b>null</b> terminated.
      * @returns {Integer} Returns ERROR_SUCCESS if the operation succeeds and ERROR_INSUFFICIENT_BUFFER if the buffer is too small to hold the output data. 
      * 
      * Otherwise, <b>ReportIsnsServerList</b> returns the appropriate Win32 or iSCSI error code on failure.
@@ -3180,7 +3179,7 @@ class IscsiDisc {
      * > [!NOTE]
      * > The iscsidsc.h header defines ReportPersistentIScsiDevices as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Integer>} BufferSizeInChar A <b>ULONG</b> value that specifies the number of list elements contained by the <i>Buffer</i> parameter.
-     * @param {PWSTR} _Buffer 
+     * @param {PWSTR} _Buffer Pointer to a buffer that receives the list of volumes and devices that are persistently bound. The list consists of <b>null</b>-terminated strings. The last string, however, is double <b>null</b>-terminated.
      * @returns {Integer} Returns ERROR_SUCCESS if the operation succeeds or ERROR_INSUFFICIENT_BUFFER if the buffer was insufficient to receive the output data. Otherwise, <b>ReportPersistentiScsiDevices</b> returns the appropriate Win32 or iSCSI error code on failure.
      * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-reportpersistentiscsidevicesw
      * @since windows6.0.6000
@@ -3200,7 +3199,7 @@ class IscsiDisc {
      * > [!NOTE]
      * > The iscsidsc.h header defines ReportPersistentIScsiDevices as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Integer>} BufferSizeInChar A <b>ULONG</b> value that specifies the number of list elements contained by the <i>Buffer</i> parameter.
-     * @param {PSTR} _Buffer 
+     * @param {PSTR} _Buffer Pointer to a buffer that receives the list of volumes and devices that are persistently bound. The list consists of <b>null</b>-terminated strings. The last string, however, is double <b>null</b>-terminated.
      * @returns {Integer} Returns ERROR_SUCCESS if the operation succeeds or ERROR_INSUFFICIENT_BUFFER if the buffer was insufficient to receive the output data. Otherwise, <b>ReportPersistentiScsiDevices</b> returns the appropriate Win32 or iSCSI error code on failure.
      * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-reportpersistentiscsidevicesa
      * @since windows6.0.6000
@@ -3275,7 +3274,7 @@ class IscsiDisc {
      * 
      * > [!NOTE]
      * > The iscsidsc.h header defines AddRadiusServer as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {PWSTR} _Address 
+     * @param {PWSTR} _Address A string that represents the IP address or DNS name associated with the RADIUS server.
      * @returns {Integer} Returns ERROR_SUCCESS if the operation is successful. If the operation fails due to a socket connection error, this function will return a Winsock error code. Other possible error values include:
      * 
      * <table>
@@ -3316,7 +3315,7 @@ class IscsiDisc {
      * 
      * > [!NOTE]
      * > The iscsidsc.h header defines AddRadiusServer as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {PSTR} _Address 
+     * @param {PSTR} _Address A string that represents the IP address or DNS name associated with the RADIUS server.
      * @returns {Integer} Returns ERROR_SUCCESS if the operation is successful. If the operation fails due to a socket connection error, this function will return a Winsock error code. Other possible error values include:
      * 
      * <table>
@@ -3351,7 +3350,7 @@ class IscsiDisc {
      * @remarks
      * > [!NOTE]
      * > The iscsidsc.h header defines RemoveRadiusServer as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {PWSTR} _Address 
+     * @param {PWSTR} _Address A string that represents the IP address or RADIUS server name.
      * @returns {Integer} Returns <b>ERROR_SUCCESS</b> if the operation is successful. If the operation fails due to a socket connection error, this function will return a Winsock error code.
      * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-removeradiusserverw
      * @since windows6.0.6000
@@ -3368,7 +3367,7 @@ class IscsiDisc {
      * @remarks
      * > [!NOTE]
      * > The iscsidsc.h header defines RemoveRadiusServer as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {PSTR} _Address 
+     * @param {PSTR} _Address A string that represents the IP address or RADIUS server name.
      * @returns {Integer} Returns <b>ERROR_SUCCESS</b> if the operation is successful. If the operation fails due to a socket connection error, this function will return a Winsock error code.
      * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-removeradiusservera
      * @since windows6.0.6000
@@ -3386,7 +3385,7 @@ class IscsiDisc {
      * > [!NOTE]
      * > The iscsidsc.h header defines ReportRadiusServerList as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Integer>} BufferSizeInChar A <b>ULONG</b> value that specifies the number of list elements contained by the <i>Buffer</i> parameter.
-     * @param {PWSTR} _Buffer 
+     * @param {PWSTR} _Buffer Pointer to a buffer that receives the list of Remote Authentication Dial-In Service (RADIUS) servers on output. Each server name is null terminated, except for the last server name, which is double null-terminated.
      * @returns {Integer} Returns <b>ERROR_SUCCESS</b> if the operation is successful. If the operation fails due to a socket connection error, this function will return a Winsock error code.
      * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-reportradiusserverlistw
      * @since windows6.0.6000
@@ -3406,7 +3405,7 @@ class IscsiDisc {
      * > [!NOTE]
      * > The iscsidsc.h header defines ReportRadiusServerList as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Integer>} BufferSizeInChar A <b>ULONG</b> value that specifies the number of list elements contained by the <i>Buffer</i> parameter.
-     * @param {PSTR} _Buffer 
+     * @param {PSTR} _Buffer Pointer to a buffer that receives the list of Remote Authentication Dial-In Service (RADIUS) servers on output. Each server name is null terminated, except for the last server name, which is double null-terminated.
      * @returns {Integer} Returns <b>ERROR_SUCCESS</b> if the operation is successful. If the operation fails due to a socket connection error, this function will return a Winsock error code.
      * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-reportradiusserverlista
      * @since windows6.0.6000

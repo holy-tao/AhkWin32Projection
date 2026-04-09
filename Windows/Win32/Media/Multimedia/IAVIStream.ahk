@@ -7,9 +7,8 @@
  * The IAVIStream interface supports creating and manipulating data streams within a file. Uses IUnknown::QueryInterface, IUnknown::AddRef, IUnknown::Release in addition to the following custom methods:\_
  * @see https://learn.microsoft.com/windows/win32/api/vfw/nn-vfw-iavistream
  * @namespace Windows.Win32.Media.Multimedia
- * @version v4.0.30319
  */
-class IAVIStream extends IUnknown{
+class IAVIStream extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -66,7 +65,7 @@ class IAVIStream extends IUnknown{
      *  
      * 
      * ```
-     * @param {Pointer} psi Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/vfw/ns-vfw-avistreaminfoa">AVISTREAMINFO</a> structure to contain stream information.
+     * @param {Integer} psi Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/vfw/ns-vfw-avistreaminfoa">AVISTREAMINFO</a> structure to contain stream information.
      * @param {Integer} lSize Size, in bytes, of the structure specified by <i>psi</i>.
      * @returns {HRESULT} Returns the HRESULT defined by OLE.
      * @see https://learn.microsoft.com/windows/win32/api/vfw/nf-vfw-iavistream-info
@@ -150,7 +149,7 @@ class IAVIStream extends IUnknown{
      * 
      * ```
      * @param {Integer} lPos Position of the sample or frame.
-     * @param {Pointer} lpFormat Pointer to the buffer for the format data. Specify <b>NULL</b> to request the required size of the buffer.
+     * @param {Integer} lpFormat Pointer to the buffer for the format data. Specify <b>NULL</b> to request the required size of the buffer.
      * @param {Pointer<Integer>} lpcbFormat Pointer to a buffer that receives the size, in bytes, of the buffer specified by <i>lpFormat</i>. When this method is called, the contents of this parameter indicates the size of the buffer specified by <i>lpFormat</i>. When this method returns control to the application, the contents of this parameter specifies the amount of data read or the required size of the buffer.
      * @returns {HRESULT} Returns the HRESULT defined by OLE.
      * @see https://learn.microsoft.com/windows/win32/api/vfw/nf-vfw-iavistream-readformat
@@ -177,7 +176,7 @@ class IAVIStream extends IUnknown{
      * 
      * ```
      * @param {Integer} lPos Pointer to the interface to a stream.
-     * @param {Pointer} lpFormat Pointer to the buffer for the format data.
+     * @param {Integer} lpFormat Pointer to the buffer for the format data.
      * @param {Integer} cbFormat Address containing the size, in bytes, of the buffer specified by <i>lpFormat</i>.
      * @returns {HRESULT} Returns the HRESULT defined by OLE.
      * @see https://learn.microsoft.com/windows/win32/api/vfw/nf-vfw-iavistream-setformat
@@ -203,7 +202,7 @@ class IAVIStream extends IUnknown{
      * ```
      * @param {Integer} lStart Starting sample or frame number to read.
      * @param {Integer} lSamples Number of samples to read.
-     * @param {Pointer} lpBuffer Pointer to the application-defined buffer to contain the stream data. You can also specify <b>NULL</b> to request the required size of the buffer. Many applications precede each read operation with a query for the buffer size to see how large a buffer is needed.
+     * @param {Integer} lpBuffer Pointer to the application-defined buffer to contain the stream data. You can also specify <b>NULL</b> to request the required size of the buffer. Many applications precede each read operation with a query for the buffer size to see how large a buffer is needed.
      * @param {Integer} cbBuffer Size, in bytes, of the buffer specified by <i>lpBuffer</i>.
      * @param {Pointer<Integer>} plBytes Pointer to a buffer that receives the number of bytes read.
      * @param {Pointer<Integer>} plSamples Pointer to a buffer that receives the number of samples read.
@@ -234,7 +233,7 @@ class IAVIStream extends IUnknown{
      * ```
      * @param {Integer} lStart Starting sample or frame number to write.
      * @param {Integer} lSamples Number of samples to write.
-     * @param {Pointer} lpBuffer Pointer to the buffer for the data.
+     * @param {Integer} lpBuffer Pointer to the buffer for the data.
      * @param {Integer} cbBuffer Size, in bytes, of the buffer specified by <i>lpBuffer</i>.
      * @param {Integer} dwFlags Applicable flags. The AVIF_KEYFRAME flag is defined and indicates that this frame contains all the information needed for a complete image.
      * @param {Pointer<Integer>} plSampWritten Pointer to a buffer used to contain the number of samples written.
@@ -285,7 +284,7 @@ class IAVIStream extends IUnknown{
      * 
      * ```
      * @param {Integer} fcc Four-character code of the stream header to read.
-     * @param {Pointer} lp Pointer to the buffer to contain the header data.
+     * @param {Integer} lp Pointer to the buffer to contain the header data.
      * @param {Pointer<Integer>} lpcb Size, in bytes, of the buffer specified by <i>lpBuffer</i>. When this method returns control to the application, the contents of this parameter specifies the amount of data read.
      * @returns {HRESULT} Returns the HRESULT defined by OLE.
      * @see https://learn.microsoft.com/windows/win32/api/vfw/nf-vfw-iavistream-readdata
@@ -310,7 +309,7 @@ class IAVIStream extends IUnknown{
      * 
      * ```
      * @param {Integer} fcc Four-character code of the stream header to write.
-     * @param {Pointer} lp Pointer to the buffer that contains the header data to write.
+     * @param {Integer} lp Pointer to the buffer that contains the header data to write.
      * @param {Integer} cb Size, in bytes, of the buffer specified by <i>lpBuffer</i>.
      * @returns {HRESULT} Returns the HRESULT defined by OLE.
      * @see https://learn.microsoft.com/windows/win32/api/vfw/nf-vfw-iavistream-writedata
@@ -340,7 +339,7 @@ class IAVIStream extends IUnknown{
      * To compile an application that uses this function, define _WIN32_WINNT as 0x0500 or later. For more 
      *     information, see 
      *     <a href="https://docs.microsoft.com/windows/desktop/WinProg/using-the-windows-headers">Using the Windows Headers</a>.
-     * @param {Pointer} lpInfo 
+     * @param {Integer} lpInfo 
      * @param {Integer} cbInfo 
      * @returns {HRESULT} If the function succeeds, the return value is nonzero.
      * 

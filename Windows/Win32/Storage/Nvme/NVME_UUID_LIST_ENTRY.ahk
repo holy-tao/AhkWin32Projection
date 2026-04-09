@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Storage.Nvme
- * @version v4.0.30319
  */
-class NVME_UUID_LIST_ENTRY extends Win32Struct
-{
+class NVME_UUID_LIST_ENTRY extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 1
@@ -31,9 +29,9 @@ class NVME_UUID_LIST_ENTRY extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Reserved1{
+    Reserved1 {
         get {
             if(!this.HasProp("__Reserved1ProxyArray"))
                 this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 1, 15, Primitive, "char")
@@ -42,9 +40,9 @@ class NVME_UUID_LIST_ENTRY extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    UUID{
+    UUID {
         get {
             if(!this.HasProp("__UUIDProxyArray"))
                 this.__UUIDProxyArray := Win32FixedArray(this.ptr + 16, 16, Primitive, "char")

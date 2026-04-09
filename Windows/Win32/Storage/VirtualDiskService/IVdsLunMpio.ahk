@@ -9,9 +9,8 @@
  * If your provider is an iSCSI provider, or if your provider does not support MPIO, you should not implement the <b>IVdsLunMpio</b> interface. If an iSCSI provider implements this interface, VDS will ignore it, because VDS uses the service's own routines to handle MPIO for iSCSI.
  * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nn-vdshwprv-ivdslunmpio
  * @namespace Windows.Win32.Storage.VirtualDiskService
- * @version v4.0.30319
  */
-class IVdsLunMpio extends IUnknown{
+class IVdsLunMpio extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -136,7 +135,7 @@ class IVdsLunMpio extends IUnknown{
      * @remarks
      * The number of paths returned by this method will match the number of paths returned by 
      *     the <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/nf-vdshwprv-ivdslunmpio-getpathinfo">IVdsLunMpio::GetPathInfo</a> method.
-     * @param {Pointer<Integer>} pPolicy A pointer to a variable that receives an <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ne-vdshwprv-vds_loadbalance_policy_enum">VDS_LOADBALANCE_POLICY_ENUM</a> enumeration value that specifies the load balance policy.
+     * @param {Pointer<VDS_LOADBALANCE_POLICY_ENUM>} pPolicy A pointer to a variable that receives an <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ne-vdshwprv-vds_loadbalance_policy_enum">VDS_LOADBALANCE_POLICY_ENUM</a> enumeration value that specifies the load balance policy.
      * @param {Pointer<Pointer<VDS_PATH_POLICY>>} ppPaths A pointer to the array of <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ns-vdshwprv-vds_path_policy">VDS_PATH_POLICY</a> structures passed in by the caller. Callers must free this array by using the <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a> function.
      * @param {Pointer<Integer>} plNumberOfPaths A pointer to a variable that receives the number of path-specific policy information structures returned in the 
      *       <i>ppPaths</i> parameter.
@@ -227,7 +226,7 @@ class IVdsLunMpio extends IUnknown{
 
     /**
      * The IVdsLunMpio::SetLoadBalancePolicy (vdshwprv.h) method sets the load balance policy on the LUN.
-     * @param {Integer} policy The load balance policy enumerated by the  
+     * @param {VDS_LOADBALANCE_POLICY_ENUM} policy The load balance policy enumerated by the  
      *       <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ne-vdshwprv-vds_loadbalance_policy_enum">VDS_LOADBALANCE_POLICY_ENUM</a> enumeration.
      * @param {Pointer<VDS_PATH_POLICY>} pPaths A 
      *       pointer to an array of members of the <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ns-vdshwprv-vds_path_policy">VDS_PATH_POLICY</a> structure 

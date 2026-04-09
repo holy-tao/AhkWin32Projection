@@ -5,10 +5,8 @@
  * Specifies a counted array of values that can be used to obtain the value corresponding to one of the predefined strings for a property.
  * @see https://learn.microsoft.com/windows/win32/api/ocidl/ns-ocidl-cadword
  * @namespace Windows.Win32.System.Ole
- * @version v4.0.30319
  */
-class CADWORD extends Win32Struct
-{
+class CADWORD extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

@@ -13,9 +13,8 @@
  * Don't implement the <b>IAppVisibility</b> interface. Instead, call the <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cocreateinstance">CoCreateInstance</a> function with <b>CLSID_AppVisibility</b>.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-iappvisibility
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IAppVisibility extends IUnknown{
+class IAppVisibility extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -44,8 +43,8 @@ class IAppVisibility extends IUnknown{
 
     /**
      * Queries the current mode of the specified monitor.
-     * @param {HMONITOR} _hMonitor 
-     * @returns {Integer} The current mode of <i>hMonitor</i>.
+     * @param {HMONITOR} _hMonitor The monitor to query.
+     * @returns {MONITOR_APP_VISIBILITY} The current mode of <i>hMonitor</i>.
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iappvisibility-getappvisibilityonmonitor
      */
     GetAppVisibilityOnMonitor(_hMonitor) {

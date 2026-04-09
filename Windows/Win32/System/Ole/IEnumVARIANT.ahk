@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IEnumVARIANT.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -10,9 +9,8 @@
  * To see how to implement a collection of objects using <b>IEnumVARIANT</b>, refer to the file Enumvar.cpp in the Lines sample code.
  * @see https://learn.microsoft.com/windows/win32/api/oaidl/nn-oaidl-ienumvariant
  * @namespace Windows.Win32.System.Ole
- * @version v4.0.30319
  */
-class IEnumVARIANT extends IUnknown{
+class IEnumVARIANT extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

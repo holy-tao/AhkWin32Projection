@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IDWriteFontFileLoader.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\IDWriteFontFileLoader.ahk
 
 /**
  * Represents a font file. Applications such as font managers or font viewers can call IDWriteFontFile::Analyze to find out if a particular file is a font file, and whether it is a font type that is supported by the font system.
  * @see https://learn.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritefontfile
  * @namespace Windows.Win32.Graphics.DirectWrite
- * @version v4.0.30319
  */
-class IDWriteFontFile extends IUnknown{
+class IDWriteFontFile extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -76,11 +75,11 @@ class IDWriteFontFile extends IUnknown{
      * @param {Pointer<BOOL>} isSupportedFontType Type: <b>BOOL*</b>
      * 
      * <b>TRUE</b> if the font type is supported by the font system; otherwise, <b>FALSE</b>.
-     * @param {Pointer<Integer>} fontFileType Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_font_file_type">DWRITE_FONT_FILE_TYPE</a>*</b>
+     * @param {Pointer<DWRITE_FONT_FILE_TYPE>} fontFileType Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_font_file_type">DWRITE_FONT_FILE_TYPE</a>*</b>
      * 
      * When this method returns, contains a value that indicates the type of the font file. Note that even if <i> isSupportedFontType</i> is <b>FALSE</b>,
      *      the <i>fontFileType</i> value may be different from <b>DWRITE_FONT_FILE_TYPE_UNKNOWN</b>.
-     * @param {Pointer<Integer>} fontFaceType Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_font_face_type">DWRITE_FONT_FACE_TYPE</a>*</b>
+     * @param {Pointer<DWRITE_FONT_FACE_TYPE>} fontFaceType Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_font_face_type">DWRITE_FONT_FACE_TYPE</a>*</b>
      * 
      * When this method returns, contains a value that indicates the type of the font face. If <i>fontFileType</i> is not equal to <b>DWRITE_FONT_FILE_TYPE_UNKNOWN</b>, then that can be constructed from the font file.
      * @param {Pointer<Integer>} numberOfFaces Type: <b>UINT32*</b>

@@ -9,9 +9,8 @@
  * **IMFContentDecryptionModuleSessionCallbacks** is based on the Encrypted Media Extension specification's  [keystatuseschange event](https://www.w3.org/TR/2017/REC-encrypted-media-20170918/#dom-evt-keystatuseschange).
  * @see https://learn.microsoft.com/windows/win32/api/mfcontentdecryptionmodule/nn-mfcontentdecryptionmodule-imfcontentdecryptionmodulesessioncallbacks
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFContentDecryptionModuleSessionCallbacks extends IUnknown{
+class IMFContentDecryptionModuleSessionCallbacks extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -36,7 +35,7 @@ class IMFContentDecryptionModuleSessionCallbacks extends IUnknown{
      * Called when the Content Decryption Module (CDM) has generated a message for the session.
      * @remarks
      * **KeyMessage** is based on the Encrypted Media Extension specification's [MediaKeyMessageEvent](https://www.w3.org/TR/2017/REC-encrypted-media-20170918/#dom-mediakeymessageevent).
-     * @param {Integer} messageType A value from the [MF_MEDIAKEYSESSION_MESSAGETYPE](../mfidl/ne-mfidl-mf_mediakeysession_messagetype.md) enumeration specifying the type of the message.
+     * @param {MF_MEDIAKEYSESSION_MESSAGETYPE} messageType A value from the [MF_MEDIAKEYSESSION_MESSAGETYPE](../mfidl/ne-mfidl-mf_mediakeysession_messagetype.md) enumeration specifying the type of the message.
      * @param {Pointer<Integer>} message A pointer to a **BYTE** array containing the message contents. Messages are Key System-specific.
      * @param {Integer} messageSize The size of the array in the *message* parameter.
      * @param {PWSTR} destinationURL A optional parameter containing the destination URL.

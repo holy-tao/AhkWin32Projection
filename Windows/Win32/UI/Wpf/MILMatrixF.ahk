@@ -5,10 +5,8 @@
  * Represents a 4x4 affine transformation matrix.
  * @see https://learn.microsoft.com/windows/win32/api/mileffects/ns-mileffects-milmatrixf
  * @namespace Windows.Win32.UI.Wpf
- * @version v4.0.30319
  */
-class MILMatrixF extends Win32Struct
-{
+class MILMatrixF extends Win32Struct {
     static sizeof => 128
 
     static packingSize => 8

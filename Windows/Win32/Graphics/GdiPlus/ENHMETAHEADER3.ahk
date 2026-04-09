@@ -5,10 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Graphics.GdiPlus
- * @version v4.0.30319
  */
-class ENHMETAHEADER3 extends Win32Struct
-{
+class ENHMETAHEADER3 extends Win32Struct {
     static sizeof => 88
 
     static packingSize => 4
@@ -32,7 +30,7 @@ class ENHMETAHEADER3 extends Win32Struct
     /**
      * @type {RECTL}
      */
-    rclBounds{
+    rclBounds {
         get {
             if(!this.HasProp("__rclBounds"))
                 this.__rclBounds := RECTL(8, this)
@@ -43,7 +41,7 @@ class ENHMETAHEADER3 extends Win32Struct
     /**
      * @type {RECTL}
      */
-    rclFrame{
+    rclFrame {
         get {
             if(!this.HasProp("__rclFrame"))
                 this.__rclFrame := RECTL(24, this)
@@ -126,7 +124,7 @@ class ENHMETAHEADER3 extends Win32Struct
     /**
      * @type {SIZE}
      */
-    szlDevice{
+    szlDevice {
         get {
             if(!this.HasProp("__szlDevice"))
                 this.__szlDevice := SIZE(72, this)
@@ -137,7 +135,7 @@ class ENHMETAHEADER3 extends Win32Struct
     /**
      * @type {SIZE}
      */
-    szlMillimeters{
+    szlMillimeters {
         get {
             if(!this.HasProp("__szlMillimeters"))
                 this.__szlMillimeters := SIZE(80, this)

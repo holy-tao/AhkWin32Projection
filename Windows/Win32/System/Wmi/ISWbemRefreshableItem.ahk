@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Com\IDispatch.ahk
 #Include .\ISWbemRefresher.ahk
 #Include .\ISWbemObjectEx.ahk
 #Include .\ISWbemObjectSet.ahk
-#Include ..\Com\IDispatch.ahk
 
 /**
  * @namespace Windows.Win32.System.Wmi
- * @version v4.0.30319
  */
-class ISWbemRefreshableItem extends IDispatch{
+class ISWbemRefreshableItem extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

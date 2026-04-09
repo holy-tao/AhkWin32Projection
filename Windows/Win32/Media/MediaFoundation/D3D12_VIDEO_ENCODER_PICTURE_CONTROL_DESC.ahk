@@ -1,7 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\D3D12_VIDEO_ENCODER_PICTURE_CONTROL_FLAGS.ahk
 #Include .\D3D12_VIDEO_ENCODER_PICTURE_CONTROL_CODEC_DATA.ahk
+#Include .\D3D12_VIDEO_ENCODER_PICTURE_CONTROL_CODEC_DATA_H264.ahk
+#Include .\D3D12_VIDEO_ENCODER_PICTURE_CONTROL_CODEC_DATA_HEVC.ahk
+#Include .\D3D12_VIDEO_ENCODER_PICTURE_CONTROL_CODEC_DATA_HEVC1.ahk
+#Include .\D3D12_VIDEO_ENCODER_AV1_PICTURE_CONTROL_CODEC_DATA.ahk
 #Include .\D3D12_VIDEO_ENCODE_REFERENCE_FRAMES.ahk
+#Include ..\..\Graphics\Direct3D12\ID3D12Resource.ahk
 
 /**
  * 06/30/2021
@@ -23,10 +29,8 @@
  * Note that a request for an IDR frame will act as a barrier between frame references and the DPB buffer and its state might need to be flushed accordingly by the host.
  * @see https://learn.microsoft.com/windows/win32/api/d3d12video/ns-d3d12video-d3d12_video_encoder_picture_control_desc
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class D3D12_VIDEO_ENCODER_PICTURE_CONTROL_DESC extends Win32Struct
-{
+class D3D12_VIDEO_ENCODER_PICTURE_CONTROL_DESC extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -42,7 +46,7 @@ class D3D12_VIDEO_ENCODER_PICTURE_CONTROL_DESC extends Win32Struct
 
     /**
      * A bitwise OR combination of values from the [D3D12_VIDEO_ENCODER_PICTURE_CONTROL_FLAGS](ne-d3d12video-d3d12_video_encoder_picture_control_flags.md) enumeration specifying the picture control descriptor flags.
-     * @type {Integer}
+     * @type {D3D12_VIDEO_ENCODER_PICTURE_CONTROL_FLAGS}
      */
     Flags {
         get => NumGet(this, 4, "int")
@@ -53,7 +57,7 @@ class D3D12_VIDEO_ENCODER_PICTURE_CONTROL_DESC extends Win32Struct
      * A [D3D12_VIDEO_ENCODER_PICTURE_CONTROL_CODEC_DATA](ns-d3d12video-d3d12_video_encoder_picture_control_codec_data.md) structure containing codec-specific picture control data. Depending of the selected rate control mode the QP values are interpreted differently.
      * @type {D3D12_VIDEO_ENCODER_PICTURE_CONTROL_CODEC_DATA}
      */
-    PictureControlCodecData{
+    PictureControlCodecData {
         get {
             if(!this.HasProp("__PictureControlCodecData"))
                 this.__PictureControlCodecData := D3D12_VIDEO_ENCODER_PICTURE_CONTROL_CODEC_DATA(8, this)
@@ -65,7 +69,7 @@ class D3D12_VIDEO_ENCODER_PICTURE_CONTROL_DESC extends Win32Struct
      * A [D3D12_VIDEO_ENCODE_REFERENCE_FRAMES](ns-d3d12video-d3d12_video_encode_reference_frames.md) structure containing the reconstructed pictures from the past encoding operations outputs.
      * @type {D3D12_VIDEO_ENCODE_REFERENCE_FRAMES}
      */
-    ReferenceFrames{
+    ReferenceFrames {
         get {
             if(!this.HasProp("__ReferenceFrames"))
                 this.__ReferenceFrames := D3D12_VIDEO_ENCODE_REFERENCE_FRAMES(24, this)

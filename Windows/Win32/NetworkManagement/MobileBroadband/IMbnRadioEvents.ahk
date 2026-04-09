@@ -18,9 +18,8 @@
  * To view some code that registers for COM notifications, see the Client section of the <a href="https://docs.microsoft.com/archive/msdn-magazine/2007/september/clr-inside-out-com-connection-points">COM Connection Points</a> article.
  * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nn-mbnapi-imbnradioevents
  * @namespace Windows.Win32.NetworkManagement.MobileBroadband
- * @version v4.0.30319
  */
-class IMbnRadioEvents extends IUnknown{
+class IMbnRadioEvents extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -58,7 +57,7 @@ class IMbnRadioEvents extends IUnknown{
      * Notification that a set software radio state operation has completed.
      * @param {IMbnRadio} newInterface Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nn-mbnapi-imbnradio">IMbnRadio</a> interface representing the device for which a set radio state operation has completed.
      * @param {Integer} requestID The request ID set by the Mobile Broadband service to identify the request.
-     * @param {HRESULT} _status 
+     * @param {HRESULT} _status A status code that indicates the outcome of the set radio state operation.
      * @returns {HRESULT} This method must return <b>S_OK</b>.
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnradioevents-onsetsoftwareradiostatecomplete
      */

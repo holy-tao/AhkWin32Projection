@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\WS_DATETIME_FORMAT.ahk
 
 /**
  * This structure is used to represent dates and times.
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_datetime
  * @namespace Windows.Win32.Networking.WindowsWebServices
- * @version v4.0.30319
  */
-class WS_DATETIME extends Win32Struct
-{
+class WS_DATETIME extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
@@ -26,7 +25,7 @@ class WS_DATETIME extends Win32Struct
 
     /**
      * The format that is used when representing this time as text.
-     * @type {Integer}
+     * @type {WS_DATETIME_FORMAT}
      */
     format {
         get => NumGet(this, 8, "int")

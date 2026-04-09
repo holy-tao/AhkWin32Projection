@@ -1,65 +1,60 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Win32\System\Kernel\LIST_ENTRY.ahk
+#Include .\KBUGCHECK_CALLBACK_REASON.ahk
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class KBUGCHECK_REASON_CALLBACK_RECORD extends Win32Struct
-{
-    static sizeof => 48
+class KBUGCHECK_REASON_CALLBACK_RECORD extends Win32Struct {
+    static sizeof => 40
 
     static packingSize => 8
 
     /**
-     * @type {LIST_ENTRY}
+     * @type {Pointer}
      */
-    Entry{
-        get {
-            if(!this.HasProp("__Entry"))
-                this.__Entry := LIST_ENTRY(0, this)
-            return this.__Entry
-        }
+    Entry {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
      * @type {Pointer<PKBUGCHECK_REASON_CALLBACK_ROUTINE>}
      */
     CallbackRoutine {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * @type {Pointer<Integer>}
      */
     Component {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
      * @type {Pointer}
      */
     Checksum {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
-     * @type {Integer}
+     * @type {KBUGCHECK_CALLBACK_REASON}
      */
     Reason {
-        get => NumGet(this, 40, "int")
-        set => NumPut("int", value, this, 40)
+        get => NumGet(this, 32, "int")
+        set => NumPut("int", value, this, 32)
     }
 
     /**
      * @type {Integer}
      */
     State {
-        get => NumGet(this, 44, "char")
-        set => NumPut("char", value, this, 44)
+        get => NumGet(this, 36, "char")
+        set => NumPut("char", value, this, 36)
     }
 }

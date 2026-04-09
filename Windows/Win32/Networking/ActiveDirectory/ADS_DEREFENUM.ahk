@@ -10,9 +10,8 @@
  * <div> </div>
  * @see https://learn.microsoft.com/windows/win32/api/iads/ne-iads-ads_derefenum
  * @namespace Windows.Win32.Networking.ActiveDirectory
- * @version v4.0.30319
  */
-class ADS_DEREFENUM extends Win32Enum{
+class ADS_DEREFENUM extends Win32Enum {
 
     /**
      * Does not dereference aliases when searching or locating the base object of the search.

@@ -5,9 +5,8 @@
  * The entire certificate  chain will be included in the signature.
  * @see https://learn.microsoft.com/windows/win32/api/cryptuiapi/ns-cryptuiapi-cryptui_wiz_digital_sign_info
  * @namespace Windows.Win32.Security.Cryptography.UI
- * @version v4.0.30319
  */
-class CRYPTUI_WIZ_DIGITAL_SIGN extends Win32Enum{
+class CRYPTUI_WIZ_DIGITAL_SIGN extends Win32Enum {
 
     /**
      * @type {Integer (UInt32)}

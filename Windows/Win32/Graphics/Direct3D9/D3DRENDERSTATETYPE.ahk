@@ -28,9 +28,8 @@
  * ```
  * @see https://learn.microsoft.com/windows/win32/direct3d9/d3drenderstatetype
  * @namespace Windows.Win32.Graphics.Direct3D9
- * @version v4.0.30319
  */
-class D3DRENDERSTATETYPE extends Win32Enum{
+class D3DRENDERSTATETYPE extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

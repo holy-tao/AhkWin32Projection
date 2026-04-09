@@ -5,10 +5,8 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
- * @version v4.0.30319
  */
-class DOT11EXT_IHV_DISCOVERY_PROFILE extends Win32Struct
-{
+class DOT11EXT_IHV_DISCOVERY_PROFILE extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -16,7 +14,7 @@ class DOT11EXT_IHV_DISCOVERY_PROFILE extends Win32Struct
     /**
      * @type {DOT11EXT_IHV_CONNECTIVITY_PROFILE}
      */
-    IhvConnectivityProfile{
+    IhvConnectivityProfile {
         get {
             if(!this.HasProp("__IhvConnectivityProfile"))
                 this.__IhvConnectivityProfile := DOT11EXT_IHV_CONNECTIVITY_PROFILE(0, this)
@@ -27,7 +25,7 @@ class DOT11EXT_IHV_DISCOVERY_PROFILE extends Win32Struct
     /**
      * @type {DOT11EXT_IHV_SECURITY_PROFILE}
      */
-    IhvSecurityProfile{
+    IhvSecurityProfile {
         get {
             if(!this.HasProp("__IhvSecurityProfile"))
                 this.__IhvSecurityProfile := DOT11EXT_IHV_SECURITY_PROFILE(8, this)

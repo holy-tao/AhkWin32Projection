@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DNS_PROXY_INFORMATION_TYPE.ahk
 
 /**
  * Contains the proxy information for a DNS server's name resolution policy table.
  * @see https://learn.microsoft.com/windows/win32/api/windns/ns-windns-dns_proxy_information
  * @namespace Windows.Win32.NetworkManagement.Dns
- * @version v4.0.30319
  */
-class DNS_PROXY_INFORMATION extends Win32Struct
-{
+class DNS_PROXY_INFORMATION extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
@@ -24,7 +23,7 @@ class DNS_PROXY_INFORMATION extends Win32Struct
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/windns/ne-windns-dns_proxy_information_type">DNS_PROXY_INFORMATION_TYPE</a> enumeration that contains the proxy information type.
-     * @type {Integer}
+     * @type {DNS_PROXY_INFORMATION_TYPE}
      */
     proxyInformationType {
         get => NumGet(this, 4, "int")

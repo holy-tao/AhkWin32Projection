@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class DISK_RECORD extends Win32Struct
-{
+class DISK_RECORD extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8

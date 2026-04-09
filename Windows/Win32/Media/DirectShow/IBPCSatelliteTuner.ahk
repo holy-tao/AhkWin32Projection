@@ -7,9 +7,8 @@
  * Note  This interface is not implemented and has been deprecated. The IBPCSatelliteTuner interface supports satellite television tuning.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-ibpcsatellitetuner
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IBPCSatelliteTuner extends IAMTuner{
+class IBPCSatelliteTuner extends IAMTuner {
 
     static sizeof => A_PtrSize
     /**

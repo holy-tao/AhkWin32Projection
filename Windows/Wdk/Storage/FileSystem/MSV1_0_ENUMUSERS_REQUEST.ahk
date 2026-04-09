@@ -1,18 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\Win32\Security\Authentication\Identity\MSV1_0_PROTOCOL_MESSAGE_TYPE.ahk
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem
- * @version v4.0.30319
  */
-class MSV1_0_ENUMUSERS_REQUEST extends Win32Struct
-{
+class MSV1_0_ENUMUSERS_REQUEST extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 4
 
     /**
-     * @type {Integer}
+     * @type {MSV1_0_PROTOCOL_MESSAGE_TYPE}
      */
     MessageType {
         get => NumGet(this, 0, "int")

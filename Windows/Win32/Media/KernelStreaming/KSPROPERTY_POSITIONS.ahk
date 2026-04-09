@@ -1,12 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\KS_SEEKING_FLAGS.ahk
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
- * @version v4.0.30319
  */
-class KSPROPERTY_POSITIONS extends Win32Struct
-{
+class KSPROPERTY_POSITIONS extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -28,7 +27,7 @@ class KSPROPERTY_POSITIONS extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {KS_SEEKING_FLAGS}
      */
     CurrentFlags {
         get => NumGet(this, 16, "int")
@@ -36,7 +35,7 @@ class KSPROPERTY_POSITIONS extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {KS_SEEKING_FLAGS}
      */
     StopFlags {
         get => NumGet(this, 20, "int")

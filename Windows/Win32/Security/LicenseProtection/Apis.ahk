@@ -3,7 +3,6 @@
 
 /**
  * @namespace Windows.Win32.Security.LicenseProtection
- * @version v4.0.30319
  */
 class LicenseProtection {
 
@@ -15,7 +14,7 @@ class LicenseProtection {
      * 
      * @param {PWSTR} licenseKey 
      * @param {Integer} validityInDays 
-     * @returns {Integer} 
+     * @returns {LicenseProtectionStatus} 
      */
     static RegisterLicenseKeyWithExpiration(licenseKey, validityInDays) {
         licenseKey := licenseKey is String ? StrPtr(licenseKey) : licenseKey
@@ -29,7 +28,7 @@ class LicenseProtection {
      * @param {PWSTR} licenseKey 
      * @param {Pointer<FILETIME>} notValidBefore 
      * @param {Pointer<FILETIME>} notValidAfter 
-     * @returns {Integer} 
+     * @returns {LicenseProtectionStatus} 
      */
     static ValidateLicenseKeyProtection(licenseKey, notValidBefore, notValidAfter) {
         licenseKey := licenseKey is String ? StrPtr(licenseKey) : licenseKey

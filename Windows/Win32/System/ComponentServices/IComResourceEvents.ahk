@@ -7,9 +7,8 @@
  * Notifies the subscriber if a resource is created, allocated, tracked, or destroyed.
  * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nn-comsvcs-icomresourceevents
  * @namespace Windows.Win32.System.ComponentServices
- * @version v4.0.30319
  */
-class IComResourceEvents extends IUnknown{
+class IComResourceEvents extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -33,7 +32,7 @@ class IComResourceEvents extends IUnknown{
     /**
      * Generated when a new resource is created and allocated.
      * @param {Pointer<COMSVCSEVENTINFO>} pInfo A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/comsvcs/ns-comsvcs-comsvcseventinfo">COMSVCSEVENTINFO</a> structure.
-     * @param {Integer} _ObjectID 
+     * @param {Integer} _ObjectID The just-in-time activated object.
      * @param {PWSTR} pszType A description of the resource.
      * @param {Integer} resId The unique identifier of the resource.
      * @param {BOOL} enlisted Indicates whether the resource is enlisted in a transaction.
@@ -50,7 +49,7 @@ class IComResourceEvents extends IUnknown{
     /**
      * Generated when an existing resource is allocated.
      * @param {Pointer<COMSVCSEVENTINFO>} pInfo A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/comsvcs/ns-comsvcs-comsvcseventinfo">COMSVCSEVENTINFO</a> structure.
-     * @param {Integer} _ObjectID 
+     * @param {Integer} _ObjectID The just-in-time activated object.
      * @param {PWSTR} pszType A description of the resource.
      * @param {Integer} resId The unique identifier for the resource.
      * @param {BOOL} enlisted Indicates whether the resource is enlisted in a transaction.
@@ -69,7 +68,7 @@ class IComResourceEvents extends IUnknown{
     /**
      * Generated when an object is finished with a resource.
      * @param {Pointer<COMSVCSEVENTINFO>} pInfo A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/comsvcs/ns-comsvcs-comsvcseventinfo">COMSVCSEVENTINFO</a> structure.
-     * @param {Integer} _ObjectID 
+     * @param {Integer} _ObjectID The just-in-time activated object.
      * @param {PWSTR} pszType A description of the resource.
      * @param {Integer} resId The unique identifier of the resource.
      * @returns {HRESULT} The user verifies the return values from this method.
@@ -85,7 +84,7 @@ class IComResourceEvents extends IUnknown{
     /**
      * Generated when a resource is destroyed.
      * @param {Pointer<COMSVCSEVENTINFO>} pInfo A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/comsvcs/ns-comsvcs-comsvcseventinfo">COMSVCSEVENTINFO</a> structure.
-     * @param {Integer} _ObjectID 
+     * @param {Integer} _ObjectID The just-in-time activated object.
      * @param {HRESULT} hr The result from resource dispensers destroy call.
      * @param {PWSTR} pszType A description of the resource.
      * @param {Integer} resId The unique identifier of the resource.
@@ -102,7 +101,7 @@ class IComResourceEvents extends IUnknown{
     /**
      * Generated when a resource is tracked.
      * @param {Pointer<COMSVCSEVENTINFO>} pInfo A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/comsvcs/ns-comsvcs-comsvcseventinfo">COMSVCSEVENTINFO</a> structure.
-     * @param {Integer} _ObjectID 
+     * @param {Integer} _ObjectID The just-in-time activated object.
      * @param {PWSTR} pszType A description of the resource.
      * @param {Integer} resId The unique identifier of the resource.
      * @param {BOOL} enlisted Indicates whether the resource is enlisted in a transaction.

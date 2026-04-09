@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ISyncFilter.ahk
 #Include .\ISyncFilterInfo.ahk
+#Include .\ISyncFilter.ahk
 
 /**
  * @namespace Windows.Win32.System.WindowsSync
- * @version v4.0.30319
  */
-class ICustomFilterInfo extends ISyncFilterInfo{
+class ICustomFilterInfo extends ISyncFilterInfo {
 
     static sizeof => A_PtrSize
     /**

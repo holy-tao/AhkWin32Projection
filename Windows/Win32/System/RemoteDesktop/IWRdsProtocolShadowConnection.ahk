@@ -7,9 +7,8 @@
  * Exposes methods that notify the protocol provider about the status of session shadowing.
  * @see https://learn.microsoft.com/windows/win32/api/wtsprotocol/nn-wtsprotocol-iwrdsprotocolshadowconnection
  * @namespace Windows.Win32.System.RemoteDesktop
- * @version v4.0.30319
  */
-class IWRdsProtocolShadowConnection extends IUnknown{
+class IWRdsProtocolShadowConnection extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -29,10 +29,8 @@
  * ```
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-exception_record64
  * @namespace Windows.Win32.System.Diagnostics.Debug
- * @version v4.0.30319
  */
-class EXCEPTION_RECORD64 extends Win32Struct
-{
+class EXCEPTION_RECORD64 extends Win32Struct {
     static sizeof => 152
 
     static packingSize => 8
@@ -297,7 +295,6 @@ class EXCEPTION_RECORD64 extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     __unusedAlignment {
@@ -349,9 +346,9 @@ class EXCEPTION_RECORD64 extends Win32Struct
      * </td>
      * </tr>
      * </table>
-     * @type {Array<UInt64>}
+     * @type {Array<Integer>}
      */
-    ExceptionInformation{
+    ExceptionInformation {
         get {
             if(!this.HasProp("__ExceptionInformationProxyArray"))
                 this.__ExceptionInformationProxyArray := Win32FixedArray(this.ptr + 32, 15, Primitive, "uint")

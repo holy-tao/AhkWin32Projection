@@ -23,10 +23,8 @@
  * Note that the value is clamped to the range [0...1] before multiplying by 255.
  * @see https://learn.microsoft.com/windows/win32/api/dxvahd/ns-dxvahd-dxvahd_stream_state_luma_key_data
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class DXVAHD_STREAM_STATE_LUMA_KEY_DATA extends Win32Struct
-{
+class DXVAHD_STREAM_STATE_LUMA_KEY_DATA extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4

@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\D3D11_TRACE_STATS.ahk
 #Include .\D3D11_TRACE_VALUE.ahk
 #Include .\D3D11_TRACE_STEP.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * An ID3D11ShaderTrace interface implements methods for obtaining traces of shader executions.
@@ -20,9 +20,8 @@
  * <div> </div>
  * @see https://learn.microsoft.com/windows/win32/api/d3d11shadertracing/nn-d3d11shadertracing-id3d11shadertrace
  * @namespace Windows.Win32.Graphics.Direct3D11
- * @version v4.0.30319
  */
-class ID3D11ShaderTrace extends IUnknown{
+class ID3D11ShaderTrace extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

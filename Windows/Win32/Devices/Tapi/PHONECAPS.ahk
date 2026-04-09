@@ -9,10 +9,8 @@
  * The members <b>dwDeviceClassesSize</b> through <b>dwMonitoredHeadsetHookSwitchModes</b> are available only to applications that open the phone device with an API version of 2.0 or later.
  * @see https://learn.microsoft.com/windows/win32/api/tapi/ns-tapi-phonecaps
  * @namespace Windows.Win32.Devices.Tapi
- * @version v4.0.30319
  */
-class PHONECAPS extends Win32Struct
-{
+class PHONECAPS extends Win32Struct {
     static sizeof => 192
 
     static packingSize => 8
@@ -456,7 +454,7 @@ class PHONECAPS extends Win32Struct
 
     /**
      * The GUID permanently associated with this phone.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     PermanentPhoneGuid {
         get => NumGet(this, 184, "ptr")

@@ -7,9 +7,8 @@
  * IDirectInputJoyConfig8 interface contains methods that allow hardware developers who are writing property sheets to write and read information to and from the registry.
  * @see https://learn.microsoft.com/windows/win32/api/dinputd/nn-dinputd-idirectinputjoyconfig8
  * @namespace Windows.Win32.Devices.HumanInterfaceDevice
- * @version v4.0.30319
  */
-class IDirectInputJoyConfig8 extends IUnknown{
+class IDirectInputJoyConfig8 extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

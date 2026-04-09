@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\STORAGE_PORT_CODE_SET.ahk
 
 /**
  * Reserved for system use. (STORAGE_MINIPORT_DESCRIPTOR)
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-storage_miniport_descriptor
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class STORAGE_MINIPORT_DESCRIPTOR extends Win32Struct
-{
+class STORAGE_MINIPORT_DESCRIPTOR extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 4
@@ -28,7 +27,7 @@ class STORAGE_MINIPORT_DESCRIPTOR extends Win32Struct
             get => NumGet(this, 0, "char")
             set => NumPut("char", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -36,7 +35,7 @@ class STORAGE_MINIPORT_DESCRIPTOR extends Win32Struct
             get => (this._bitfield >> 0) & 0x1
             set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -44,7 +43,7 @@ class STORAGE_MINIPORT_DESCRIPTOR extends Win32Struct
             get => (this._bitfield >> 1) & 0x1
             set => this._bitfield := ((value & 0x1) << 1) | (this._bitfield & ~(0x1 << 1))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -52,7 +51,6 @@ class STORAGE_MINIPORT_DESCRIPTOR extends Win32Struct
             get => NumGet(this, 0, "char")
             set => NumPut("char", value, this, 0)
         }
-    
     }
 
     /**
@@ -118,7 +116,7 @@ class STORAGE_MINIPORT_DESCRIPTOR extends Win32Struct
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
+     * @type {STORAGE_PORT_CODE_SET}
      */
     Portdriver {
         get => NumGet(this, 8, "int")
@@ -144,7 +142,6 @@ class STORAGE_MINIPORT_DESCRIPTOR extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     IoTimeoutValue {
@@ -153,7 +150,6 @@ class STORAGE_MINIPORT_DESCRIPTOR extends Win32Struct
     }
 
     /**
-     * 
      * @type {BOOLEAN}
      */
     ExtraIoInfoSupported {
@@ -164,19 +160,18 @@ class STORAGE_MINIPORT_DESCRIPTOR extends Win32Struct
     /**
      * @type {_Flags_e__Union}
      */
-    Flags{
+    Flags {
         get {
             if(!this.HasProp("__Flags"))
-                this.__Flags := %this.__Class%._Flags_e__Union(17, this)
+                this.__Flags := STORAGE_MINIPORT_DESCRIPTOR._Flags_e__Union(17, this)
             return this.__Flags
         }
     }
 
     /**
-     * 
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Reserved0{
+    Reserved0 {
         get {
             if(!this.HasProp("__Reserved0ProxyArray"))
                 this.__Reserved0ProxyArray := Win32FixedArray(this.ptr + 18, 2, Primitive, "char")
@@ -185,7 +180,6 @@ class STORAGE_MINIPORT_DESCRIPTOR extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     Reserved1 {

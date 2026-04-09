@@ -5,9 +5,8 @@
  * Specifies the manipulations that can be mapped to mouse wheel rotation.
  * @see https://learn.microsoft.com/windows/win32/api/interactioncontext/ne-interactioncontext-mouse_wheel_parameter
  * @namespace Windows.Win32.UI.InteractionContext
- * @version v4.0.30319
  */
-class MOUSE_WHEEL_PARAMETER extends Win32Enum{
+class MOUSE_WHEEL_PARAMETER extends Win32Enum {
 
     /**
      * Scrolling/panning distance along the x-axis.

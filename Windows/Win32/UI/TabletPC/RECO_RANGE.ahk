@@ -5,10 +5,8 @@
  * The structure is obsolete.
  * @see https://learn.microsoft.com/windows/win32/api/rectypes/ns-rectypes-reco_range
  * @namespace Windows.Win32.UI.TabletPC
- * @version v4.0.30319
  */
-class RECO_RANGE extends Win32Struct
-{
+class RECO_RANGE extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4

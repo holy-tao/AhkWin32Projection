@@ -5,9 +5,8 @@
  * Defines the possible states for an update service.
  * @see https://learn.microsoft.com/windows/win32/api/wuapi/ne-wuapi-updateserviceregistrationstate
  * @namespace Windows.Win32.System.UpdateAgent
- * @version v4.0.30319
  */
-class UpdateServiceRegistrationState extends Win32Enum{
+class UpdateServiceRegistrationState extends Win32Enum {
 
     /**
      * The service is not registered.

@@ -5,9 +5,8 @@
  * Specifies the network type of a vSwitch.
  * @see https://learn.microsoft.com/windows/win32/api/fwptypes/ne-fwptypes-fwp_vswitch_network_type
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
- * @version v4.0.30319
  */
-class FWP_VSWITCH_NETWORK_TYPE extends Win32Enum{
+class FWP_VSWITCH_NETWORK_TYPE extends Win32Enum {
 
     /**
      * Specifies an unknown network type.

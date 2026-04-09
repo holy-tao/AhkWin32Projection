@@ -5,9 +5,8 @@
  * Contains flags affecting the behavior of the ModifyVhdSet function.
  * @see https://learn.microsoft.com/windows/win32/api/virtdisk/ne-virtdisk-modify_vhdset_flag
  * @namespace Windows.Win32.Storage.Vhd
- * @version v4.0.30319
  */
-class MODIFY_VHDSET_FLAG extends Win32BitflagEnum{
+class MODIFY_VHDSET_FLAG extends Win32BitflagEnum {
 
     /**
      * No flag specified.
@@ -16,7 +15,6 @@ class MODIFY_VHDSET_FLAG extends Win32BitflagEnum{
     static MODIFY_VHDSET_FLAG_NONE => 0
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static MODIFY_VHDSET_FLAG_WRITEABLE_SNAPSHOT => 1

@@ -7,9 +7,8 @@
  * Allows a decryptor to manage hardware keys and decrypt hardware samples.
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imfcontentdecryptorcontext
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFContentDecryptorContext extends IUnknown{
+class IMFContentDecryptorContext extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

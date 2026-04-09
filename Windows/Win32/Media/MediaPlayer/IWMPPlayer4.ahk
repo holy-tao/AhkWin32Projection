@@ -1,17 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\IWMPPlayerApplication.ahk
 #Include .\IWMPCore3.ahk
+#Include .\IWMPPlayerApplication.ahk
 
 /**
  * The IWMPPlayer4 interface provides methods for modifying the basic behavior of the Windows Media Player control user interface.
  * @see https://learn.microsoft.com/windows/win32/api/wmp/nn-wmp-iwmpplayer4
  * @namespace Windows.Win32.Media.MediaPlayer
- * @version v4.0.30319
  */
-class IWMPPlayer4 extends IWMPCore3{
+class IWMPPlayer4 extends IWMPCore3 {
 
     static sizeof => A_PtrSize
     /**
@@ -33,6 +31,7 @@ class IWMPPlayer4 extends IWMPCore3{
     static VTableNames => ["get_enabled", "put_enabled", "get_fullScreen", "put_fullScreen", "get_enableContextMenu", "put_enableContextMenu", "put_uiMode", "get_uiMode", "get_stretchToFit", "put_stretchToFit", "get_windowlessVideo", "put_windowlessVideo", "get_isRemote", "get_playerApplication", "openPlayer"]
 
     /**
+     * @type {VARIANT_BOOL} 
      */
     enabled {
         get => this.get_enabled()
@@ -40,6 +39,7 @@ class IWMPPlayer4 extends IWMPCore3{
     }
 
     /**
+     * @type {VARIANT_BOOL} 
      */
     fullScreen {
         get => this.get_fullScreen()
@@ -47,6 +47,7 @@ class IWMPPlayer4 extends IWMPCore3{
     }
 
     /**
+     * @type {VARIANT_BOOL} 
      */
     enableContextMenu {
         get => this.get_enableContextMenu()
@@ -54,6 +55,7 @@ class IWMPPlayer4 extends IWMPCore3{
     }
 
     /**
+     * @type {BSTR} 
      */
     uiMode {
         get => this.get_uiMode()
@@ -61,6 +63,7 @@ class IWMPPlayer4 extends IWMPCore3{
     }
 
     /**
+     * @type {VARIANT_BOOL} 
      */
     stretchToFit {
         get => this.get_stretchToFit()
@@ -68,6 +71,7 @@ class IWMPPlayer4 extends IWMPCore3{
     }
 
     /**
+     * @type {VARIANT_BOOL} 
      */
     windowlessVideo {
         get => this.get_windowlessVideo()

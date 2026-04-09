@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Devices
- * @version v4.0.30319
  */
-class IEEE1394_API_REQUEST extends Win32Struct
-{
+class IEEE1394_API_REQUEST extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -19,25 +17,24 @@ class IEEE1394_API_REQUEST extends Win32Struct
         /**
          * @type {IEEE1394_VDEV_PNP_REQUEST}
          */
-        AddVirtualDevice{
+        AddVirtualDevice {
             get {
                 if(!this.HasProp("__AddVirtualDevice"))
                     this.__AddVirtualDevice := IEEE1394_VDEV_PNP_REQUEST(0, this)
                 return this.__AddVirtualDevice
             }
         }
-    
+
         /**
          * @type {IEEE1394_VDEV_PNP_REQUEST}
          */
-        RemoveVirtualDevice{
+        RemoveVirtualDevice {
             get {
                 if(!this.HasProp("__RemoveVirtualDevice"))
                     this.__RemoveVirtualDevice := IEEE1394_VDEV_PNP_REQUEST(0, this)
                 return this.__RemoveVirtualDevice
             }
         }
-    
     }
 
     /**
@@ -59,10 +56,10 @@ class IEEE1394_API_REQUEST extends Win32Struct
     /**
      * @type {_u_e__Union}
      */
-    u{
+    u {
         get {
             if(!this.HasProp("__u"))
-                this.__u := %this.__Class%._u_e__Union(8, this)
+                this.__u := IEEE1394_API_REQUEST._u_e__Union(8, this)
             return this.__u
         }
     }

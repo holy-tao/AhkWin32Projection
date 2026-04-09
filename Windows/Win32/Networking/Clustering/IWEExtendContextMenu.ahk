@@ -10,9 +10,8 @@
  *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/cluadmex/nn-cluadmex-iweinvokecommand">IWEInvokeCommand</a> interface.
  * @see https://learn.microsoft.com/windows/win32/api/cluadmex/nn-cluadmex-iweextendcontextmenu
  * @namespace Windows.Win32.Networking.Clustering
- * @version v4.0.30319
  */
-class IWEExtendContextMenu extends IUnknown{
+class IWEExtendContextMenu extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

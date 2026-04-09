@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class STREAMS_QUERY_ID_OUTPUT_BUFFER extends Win32Struct
-{
+class STREAMS_QUERY_ID_OUTPUT_BUFFER extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 4

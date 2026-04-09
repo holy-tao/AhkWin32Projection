@@ -11,10 +11,8 @@
  *     value.
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-csv_query_mds_path
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class CSV_QUERY_MDS_PATH extends Win32Struct
-{
+class CSV_QUERY_MDS_PATH extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4

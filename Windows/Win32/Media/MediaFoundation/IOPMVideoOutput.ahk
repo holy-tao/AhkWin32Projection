@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\OPM_REQUESTED_INFORMATION.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\OPM_REQUESTED_INFORMATION.ahk
 
 /**
  * Represents a video output for an Output Protection Manager (OPM) session.
  * @see https://learn.microsoft.com/windows/win32/api/opmapi/nn-opmapi-iopmvideooutput
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IOPMVideoOutput extends IUnknown{
+class IOPMVideoOutput extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -170,7 +169,7 @@ class IOPMVideoOutput extends IUnknown{
      * The <i>pbAdditionalParameters</i> parameter must be <b>NULL</b>, and <i>ulAdditionalParametersSize</i> must be zero.
      * @param {Pointer<OPM_CONFIGURE_PARAMETERS>} pParameters Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/opmapi/ns-opmapi-opm_configure_parameters">OPM_CONFIGURE_PARAMETERS</a> structure that contains the command. For a list of OPM commands, see <a href="https://docs.microsoft.com/windows/desktop/medfound/opm-commands">OPM Commands</a>.
      * @param {Integer} ulAdditionalParametersSize The size of the <i>pbAdditionalParameters</i> buffer, in bytes.
-     * @param {Pointer} pbAdditionalParameters Pointer to a buffer that contains additional information for the command.
+     * @param {Integer} pbAdditionalParameters Pointer to a buffer that contains additional information for the command.
      * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/opmapi/nf-opmapi-iopmvideooutput-configure
      */

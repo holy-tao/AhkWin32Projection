@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
-#Include .\Location.ahk
 #Include .\IDebugHostSymbol.ahk
+#Include .\Location.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
- * @version v4.0.30319
  */
-class IDebugHostPublic extends IDebugHostSymbol{
+class IDebugHostPublic extends IDebugHostSymbol {
 
     static sizeof => A_PtrSize
     /**
@@ -31,7 +30,7 @@ class IDebugHostPublic extends IDebugHostSymbol{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {LocationKind} 
      */
     GetLocationKind() {
         result := ComCall(10, this, "int*", &_locationKind := 0, "HRESULT")

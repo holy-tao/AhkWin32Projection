@@ -5,17 +5,15 @@
  * Describes a set of retrieved data disks that can be used as source sites for replication.
  * @see https://learn.microsoft.com/windows/win32/api/clusapi/ns-clusapi-sr_resource_type_query_eligible_source_datadisks
  * @namespace Windows.Win32.Networking.Clustering
- * @version v4.0.30319
  */
-class SR_RESOURCE_TYPE_QUERY_ELIGIBLE_SOURCE_DATADISKS extends Win32Struct
-{
+class SR_RESOURCE_TYPE_QUERY_ELIGIBLE_SOURCE_DATADISKS extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
 
     /**
      * The cluster resource identifier of the data disk.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     DataDiskGuid {
         get => NumGet(this, 0, "ptr")

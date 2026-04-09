@@ -1,16 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IEnumFullIDList.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Exposes a standard set of methods that enumerate the pointers to item identifier lists (PIDLs) of the items in a Shell folder.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-ienumfullidlist
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IEnumFullIDList extends IUnknown{
+class IEnumFullIDList extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

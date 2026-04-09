@@ -1,17 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\M128A.ahk
+#Include .\CONTEXT_FLAGS.ahk
 #Include .\XSAVE_FORMAT.ahk
+#Include .\M128A.ahk
 
 /**
  * Contains processor-specific register data. The system uses CONTEXT structures to perform various internal operations. (CONTEXT)
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-context
  * @namespace Windows.Win32.System.Diagnostics.Debug
- * @version v4.0.30319
+ * @architecture X64
  */
-class CONTEXT extends Win32Struct
-{
-    static sizeof => 848
+class CONTEXT extends Win32Struct {
+    static sizeof => 1232
 
     static packingSize => 8
 
@@ -64,7 +64,7 @@ class CONTEXT extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {CONTEXT_FLAGS}
      */
     ContextFlags {
         get => NumGet(this, 48, "uint")
@@ -322,7 +322,7 @@ class CONTEXT extends Win32Struct
     /**
      * @type {XSAVE_FORMAT}
      */
-    FltSave{
+    FltSave {
         get {
             if(!this.HasProp("__FltSave"))
                 this.__FltSave := XSAVE_FORMAT(256, this)
@@ -331,9 +331,9 @@ class CONTEXT extends Win32Struct
     }
 
     /**
-     * @type {Array<M128A>}
+     * @type {M128A}
      */
-    Header{
+    Header {
         get {
             if(!this.HasProp("__HeaderProxyArray"))
                 this.__HeaderProxyArray := Win32FixedArray(this.ptr + 256, 2, M128A, "")
@@ -342,12 +342,12 @@ class CONTEXT extends Win32Struct
     }
 
     /**
-     * @type {Array<M128A>}
+     * @type {M128A}
      */
-    Legacy{
+    Legacy {
         get {
             if(!this.HasProp("__LegacyProxyArray"))
-                this.__LegacyProxyArray := Win32FixedArray(this.ptr + 272, 8, M128A, "")
+                this.__LegacyProxyArray := Win32FixedArray(this.ptr + 288, 8, M128A, "")
             return this.__LegacyProxyArray
         }
     }
@@ -355,10 +355,10 @@ class CONTEXT extends Win32Struct
     /**
      * @type {M128A}
      */
-    Xmm0{
+    Xmm0 {
         get {
             if(!this.HasProp("__Xmm0"))
-                this.__Xmm0 := M128A(336, this)
+                this.__Xmm0 := M128A(416, this)
             return this.__Xmm0
         }
     }
@@ -366,10 +366,10 @@ class CONTEXT extends Win32Struct
     /**
      * @type {M128A}
      */
-    Xmm1{
+    Xmm1 {
         get {
             if(!this.HasProp("__Xmm1"))
-                this.__Xmm1 := M128A(352, this)
+                this.__Xmm1 := M128A(432, this)
             return this.__Xmm1
         }
     }
@@ -377,10 +377,10 @@ class CONTEXT extends Win32Struct
     /**
      * @type {M128A}
      */
-    Xmm2{
+    Xmm2 {
         get {
             if(!this.HasProp("__Xmm2"))
-                this.__Xmm2 := M128A(368, this)
+                this.__Xmm2 := M128A(448, this)
             return this.__Xmm2
         }
     }
@@ -388,10 +388,10 @@ class CONTEXT extends Win32Struct
     /**
      * @type {M128A}
      */
-    Xmm3{
+    Xmm3 {
         get {
             if(!this.HasProp("__Xmm3"))
-                this.__Xmm3 := M128A(384, this)
+                this.__Xmm3 := M128A(464, this)
             return this.__Xmm3
         }
     }
@@ -399,10 +399,10 @@ class CONTEXT extends Win32Struct
     /**
      * @type {M128A}
      */
-    Xmm4{
+    Xmm4 {
         get {
             if(!this.HasProp("__Xmm4"))
-                this.__Xmm4 := M128A(400, this)
+                this.__Xmm4 := M128A(480, this)
             return this.__Xmm4
         }
     }
@@ -410,10 +410,10 @@ class CONTEXT extends Win32Struct
     /**
      * @type {M128A}
      */
-    Xmm5{
+    Xmm5 {
         get {
             if(!this.HasProp("__Xmm5"))
-                this.__Xmm5 := M128A(416, this)
+                this.__Xmm5 := M128A(496, this)
             return this.__Xmm5
         }
     }
@@ -421,10 +421,10 @@ class CONTEXT extends Win32Struct
     /**
      * @type {M128A}
      */
-    Xmm6{
+    Xmm6 {
         get {
             if(!this.HasProp("__Xmm6"))
-                this.__Xmm6 := M128A(432, this)
+                this.__Xmm6 := M128A(512, this)
             return this.__Xmm6
         }
     }
@@ -432,10 +432,10 @@ class CONTEXT extends Win32Struct
     /**
      * @type {M128A}
      */
-    Xmm7{
+    Xmm7 {
         get {
             if(!this.HasProp("__Xmm7"))
-                this.__Xmm7 := M128A(448, this)
+                this.__Xmm7 := M128A(528, this)
             return this.__Xmm7
         }
     }
@@ -443,10 +443,10 @@ class CONTEXT extends Win32Struct
     /**
      * @type {M128A}
      */
-    Xmm8{
+    Xmm8 {
         get {
             if(!this.HasProp("__Xmm8"))
-                this.__Xmm8 := M128A(464, this)
+                this.__Xmm8 := M128A(544, this)
             return this.__Xmm8
         }
     }
@@ -454,10 +454,10 @@ class CONTEXT extends Win32Struct
     /**
      * @type {M128A}
      */
-    Xmm9{
+    Xmm9 {
         get {
             if(!this.HasProp("__Xmm9"))
-                this.__Xmm9 := M128A(480, this)
+                this.__Xmm9 := M128A(560, this)
             return this.__Xmm9
         }
     }
@@ -465,10 +465,10 @@ class CONTEXT extends Win32Struct
     /**
      * @type {M128A}
      */
-    Xmm10{
+    Xmm10 {
         get {
             if(!this.HasProp("__Xmm10"))
-                this.__Xmm10 := M128A(496, this)
+                this.__Xmm10 := M128A(576, this)
             return this.__Xmm10
         }
     }
@@ -476,10 +476,10 @@ class CONTEXT extends Win32Struct
     /**
      * @type {M128A}
      */
-    Xmm11{
+    Xmm11 {
         get {
             if(!this.HasProp("__Xmm11"))
-                this.__Xmm11 := M128A(512, this)
+                this.__Xmm11 := M128A(592, this)
             return this.__Xmm11
         }
     }
@@ -487,10 +487,10 @@ class CONTEXT extends Win32Struct
     /**
      * @type {M128A}
      */
-    Xmm12{
+    Xmm12 {
         get {
             if(!this.HasProp("__Xmm12"))
-                this.__Xmm12 := M128A(528, this)
+                this.__Xmm12 := M128A(608, this)
             return this.__Xmm12
         }
     }
@@ -498,10 +498,10 @@ class CONTEXT extends Win32Struct
     /**
      * @type {M128A}
      */
-    Xmm13{
+    Xmm13 {
         get {
             if(!this.HasProp("__Xmm13"))
-                this.__Xmm13 := M128A(544, this)
+                this.__Xmm13 := M128A(624, this)
             return this.__Xmm13
         }
     }
@@ -509,10 +509,10 @@ class CONTEXT extends Win32Struct
     /**
      * @type {M128A}
      */
-    Xmm14{
+    Xmm14 {
         get {
             if(!this.HasProp("__Xmm14"))
-                this.__Xmm14 := M128A(560, this)
+                this.__Xmm14 := M128A(640, this)
             return this.__Xmm14
         }
     }
@@ -520,21 +520,21 @@ class CONTEXT extends Win32Struct
     /**
      * @type {M128A}
      */
-    Xmm15{
+    Xmm15 {
         get {
             if(!this.HasProp("__Xmm15"))
-                this.__Xmm15 := M128A(576, this)
+                this.__Xmm15 := M128A(656, this)
             return this.__Xmm15
         }
     }
 
     /**
-     * @type {Array<M128A>}
+     * @type {M128A}
      */
-    VectorRegister{
+    VectorRegister {
         get {
             if(!this.HasProp("__VectorRegisterProxyArray"))
-                this.__VectorRegisterProxyArray := Win32FixedArray(this.ptr + 592, 26, M128A, "")
+                this.__VectorRegisterProxyArray := Win32FixedArray(this.ptr + 768, 26, M128A, "")
             return this.__VectorRegisterProxyArray
         }
     }
@@ -543,47 +543,47 @@ class CONTEXT extends Win32Struct
      * @type {Integer}
      */
     VectorControl {
-        get => NumGet(this, 800, "uint")
-        set => NumPut("uint", value, this, 800)
+        get => NumGet(this, 1184, "uint")
+        set => NumPut("uint", value, this, 1184)
     }
 
     /**
      * @type {Integer}
      */
     DebugControl {
-        get => NumGet(this, 808, "uint")
-        set => NumPut("uint", value, this, 808)
+        get => NumGet(this, 1192, "uint")
+        set => NumPut("uint", value, this, 1192)
     }
 
     /**
      * @type {Integer}
      */
     LastBranchToRip {
-        get => NumGet(this, 816, "uint")
-        set => NumPut("uint", value, this, 816)
+        get => NumGet(this, 1200, "uint")
+        set => NumPut("uint", value, this, 1200)
     }
 
     /**
      * @type {Integer}
      */
     LastBranchFromRip {
-        get => NumGet(this, 824, "uint")
-        set => NumPut("uint", value, this, 824)
+        get => NumGet(this, 1208, "uint")
+        set => NumPut("uint", value, this, 1208)
     }
 
     /**
      * @type {Integer}
      */
     LastExceptionToRip {
-        get => NumGet(this, 832, "uint")
-        set => NumPut("uint", value, this, 832)
+        get => NumGet(this, 1216, "uint")
+        set => NumPut("uint", value, this, 1216)
     }
 
     /**
      * @type {Integer}
      */
     LastExceptionFromRip {
-        get => NumGet(this, 840, "uint")
-        set => NumPut("uint", value, this, 840)
+        get => NumGet(this, 1224, "uint")
+        set => NumPut("uint", value, this, 1224)
     }
 }

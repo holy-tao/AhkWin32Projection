@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Networking\WinSock\ADDRESS_FAMILY.ahk
+#Include .\WNV_IP_ADDRESS.ahk
 #Include ..\..\Networking\WinSock\IN_ADDR.ahk
 #Include ..\..\Networking\WinSock\IN6_ADDR.ahk
-#Include .\WNV_IP_ADDRESS.ahk
+#Include ..\..\Networking\WinSock\NL_DAD_STATE.ahk
 
 /**
  * Specifies the provider address's DAD (duplicate address detection) status change, which causes the Windows Network Virtualization (WNV) driver to generate a WnvObjectChangeType notification that specifies the WnvProviderAddressType object type containing this structure.
@@ -10,10 +12,8 @@
  * For a detailed description of network virtualization concepts and terminology, refer to <a href="https://docs.microsoft.com/previous-versions/windows/it-pro/windows-server-2012-R2-and-2012/jj134230(v=ws.11)">Hyper-V Network Virtualization Overview</a>.
  * @see https://learn.microsoft.com/windows/win32/api/wnvapi/ns-wnvapi-wnv_provider_address_change_param
  * @namespace Windows.Win32.NetworkManagement.WindowsNetworkVirtualization
- * @version v4.0.30319
  */
-class WNV_PROVIDER_ADDRESS_CHANGE_PARAM extends Win32Struct
-{
+class WNV_PROVIDER_ADDRESS_CHANGE_PARAM extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 4
@@ -22,7 +22,7 @@ class WNV_PROVIDER_ADDRESS_CHANGE_PARAM extends Win32Struct
      * Type: <b>ADDRESS_FAMILY</b>
      * 
      * The address family (<b>AF_INET</b> or <b>AF_INET6</b>) for the provider address.
-     * @type {Integer}
+     * @type {ADDRESS_FAMILY}
      */
     PAFamily {
         get => NumGet(this, 0, "ushort")
@@ -35,7 +35,7 @@ class WNV_PROVIDER_ADDRESS_CHANGE_PARAM extends Win32Struct
      * The IP address object for the provider address, which is the matching IP address used on the physical network for the customer address.
      * @type {WNV_IP_ADDRESS}
      */
-    PA{
+    PA {
         get {
             if(!this.HasProp("__PA"))
                 this.__PA := WNV_IP_ADDRESS(4, this)
@@ -109,7 +109,7 @@ class WNV_PROVIDER_ADDRESS_CHANGE_PARAM extends Win32Struct
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
+     * @type {NL_DAD_STATE}
      */
     AddressState {
         get => NumGet(this, 20, "int")

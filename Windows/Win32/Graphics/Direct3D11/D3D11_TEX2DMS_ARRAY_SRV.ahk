@@ -7,10 +7,8 @@
  * This structure is one member of a shader-resource-view description (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ns-d3d11-d3d11_shader_resource_view_desc">D3D11_SHADER_RESOURCE_VIEW_DESC</a>).
  * @see https://learn.microsoft.com/windows/win32/api/d3d11/ns-d3d11-d3d11_tex2dms_array_srv
  * @namespace Windows.Win32.Graphics.Direct3D11
- * @version v4.0.30319
  */
-class D3D11_TEX2DMS_ARRAY_SRV extends Win32Struct
-{
+class D3D11_TEX2DMS_ARRAY_SRV extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4

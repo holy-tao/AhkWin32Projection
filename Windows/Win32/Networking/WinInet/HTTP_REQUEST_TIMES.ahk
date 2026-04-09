@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Networking.WinInet
- * @version v4.0.30319
  */
-class HTTP_REQUEST_TIMES extends Win32Struct
-{
+class HTTP_REQUEST_TIMES extends Win32Struct {
     static sizeof => 264
 
     static packingSize => 8
@@ -20,9 +18,9 @@ class HTTP_REQUEST_TIMES extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt64>}
+     * @type {Array<Integer>}
      */
-    rgTimes{
+    rgTimes {
         get {
             if(!this.HasProp("__rgTimesProxyArray"))
                 this.__rgTimesProxyArray := Win32FixedArray(this.ptr + 8, 32, Primitive, "uint")

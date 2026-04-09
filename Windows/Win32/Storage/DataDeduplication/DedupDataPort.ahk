@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Storage.DataDeduplication
- * @version v4.0.30319
  */
-class DedupDataPort extends Win32Struct
-{
+class DedupDataPort extends Win32Struct {
     static sizeof => 0
 
     static packingSize => 1

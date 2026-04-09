@@ -6,10 +6,8 @@
  * Contains exception information that can be used by a debugger.
  * @see https://learn.microsoft.com/windows/win32/api/minwinbase/ns-minwinbase-exception_debug_info
  * @namespace Windows.Win32.System.Diagnostics.Debug
- * @version v4.0.30319
  */
-class EXCEPTION_DEBUG_INFO extends Win32Struct
-{
+class EXCEPTION_DEBUG_INFO extends Win32Struct {
     static sizeof => 160
 
     static packingSize => 8
@@ -19,7 +17,7 @@ class EXCEPTION_DEBUG_INFO extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-exception_record">EXCEPTION_RECORD</a> structure with information specific to the exception. This includes the exception code, flags, address, a pointer to a related exception, extra parameters, and so on.
      * @type {EXCEPTION_RECORD}
      */
-    ExceptionRecord{
+    ExceptionRecord {
         get {
             if(!this.HasProp("__ExceptionRecord"))
                 this.__ExceptionRecord := EXCEPTION_RECORD(0, this)

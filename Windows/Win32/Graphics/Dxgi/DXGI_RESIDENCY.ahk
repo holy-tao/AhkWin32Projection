@@ -7,9 +7,8 @@
  * This enum is used by <a href="https://docs.microsoft.com/windows/desktop/api/dxgi/nf-dxgi-idxgidevice-queryresourceresidency">QueryResourceResidency</a>.
  * @see https://learn.microsoft.com/windows/win32/api/dxgi/ne-dxgi-dxgi_residency
  * @namespace Windows.Win32.Graphics.Dxgi
- * @version v4.0.30319
  */
-class DXGI_RESIDENCY extends Win32Enum{
+class DXGI_RESIDENCY extends Win32Enum {
 
     /**
      * The resource is located in video memory.

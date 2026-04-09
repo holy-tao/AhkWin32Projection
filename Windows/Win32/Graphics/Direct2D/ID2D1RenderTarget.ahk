@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ID2D1Resource.ahk
 #Include .\ID2D1Bitmap.ahk
 #Include .\ID2D1BitmapBrush.ahk
 #Include .\ID2D1SolidColorBrush.ahk
@@ -10,7 +11,6 @@
 #Include .\ID2D1BitmapRenderTarget.ahk
 #Include .\ID2D1Layer.ahk
 #Include .\ID2D1Mesh.ahk
-#Include .\ID2D1Resource.ahk
 
 /**
  * Represents an object that can receive drawing commands. Interfaces that inherit from ID2D1RenderTarget render the drawing commands they receive in different ways.
@@ -18,9 +18,8 @@
  * Your application should create render targets once and hold onto them for the life of the application or until the render target's  <a href="https://docs.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1rendertarget-enddraw">EndDraw</a> method returns the <a href="https://docs.microsoft.com/windows/win32/Direct2D/direct2d-error-codes">D2DERR_RECREATE_TARGET</a>  error. When you receive this error, you need to recreate the render target (and any resources it created).
  * @see https://learn.microsoft.com/windows/win32/api/d2d1/nn-d2d1-id2d1rendertarget
  * @namespace Windows.Win32.Graphics.Direct2D
- * @version v4.0.30319
  */
-class ID2D1RenderTarget extends ID2D1Resource{
+class ID2D1RenderTarget extends ID2D1Resource {
 
     static sizeof => A_PtrSize
     /**
@@ -103,7 +102,9 @@ class ID2D1RenderTarget extends ID2D1Resource{
      * @param {Pointer<D2D1_BITMAP_PROPERTIES>} bitmapProperties Type: <b><a href="https://docs.microsoft.com/windows/win32/api/d2d1/ns-d2d1-d2d1_bitmap_properties">D2D1_BITMAP_PROPERTIES</a>*</b>
      * 
      * The pixel format  and DPI of the bitmap to create . The <a href="https://docs.microsoft.com/windows/win32/api/dxgiformat/ne-dxgiformat-dxgi_format">DXGI_FORMAT</a> portion of the pixel format  must match the <a href="https://docs.microsoft.com/windows/win32/api/dxgiformat/ne-dxgiformat-dxgi_format">DXGI_FORMAT</a> of <i>data</i> or the method will fail, but the alpha modes don't have to match. To prevent a  mismatch, you can pass <b>NULL</b> or the value obtained from the <a href="https://docs.microsoft.com/windows/win32/api/d2d1helper/nf-d2d1helper-pixelformat">D2D1::PixelFormat</a> helper function. The DPI settings do not have to match those of <i>data</i>. If both <i>dpiX</i> and <i>dpiY</i> are  0.0f, the DPI of the render target is used.
-     * @returns {ID2D1Bitmap} 
+     * @returns {ID2D1Bitmap} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/d2d1/nn-d2d1-id2d1bitmap">ID2D1Bitmap</a>**</b>
+     * 
+     * When this method returns, contains the address of a pointer to the new bitmap. This parameter is passed uninitialized.
      * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1rendertarget-createsharedbitmap
      */
     CreateSharedBitmap(riid, data, bitmapProperties) {
@@ -142,8 +143,8 @@ class ID2D1RenderTarget extends ID2D1Resource{
      * Creates an ID2D1GradientStopCollection from the specified array of D2D1\_GRADIENT\_STOP structures.
      * @param {Pointer<D2D1_GRADIENT_STOP>} gradientStops 
      * @param {Integer} gradientStopsCount 
-     * @param {Integer} colorInterpolationGamma 
-     * @param {Integer} extendMode 
+     * @param {D2D1_GAMMA} colorInterpolationGamma 
+     * @param {D2D1_EXTEND_MODE} extendMode 
      * @returns {ID2D1GradientStopCollection} 
      * @see https://learn.microsoft.com/windows/win32/Direct2D/id2d1rendertarget-creategradientstopcollection
      */
@@ -183,7 +184,7 @@ class ID2D1RenderTarget extends ID2D1Resource{
      * @param {Pointer<D2D_SIZE_F>} desiredSize 
      * @param {Pointer<D2D_SIZE_U>} desiredPixelSize 
      * @param {Pointer<D2D1_PIXEL_FORMAT>} desiredFormat 
-     * @param {Integer} options 
+     * @param {D2D1_COMPATIBLE_RENDER_TARGET_OPTIONS} options 
      * @returns {ID2D1BitmapRenderTarget} 
      * @see https://learn.microsoft.com/windows/win32/Direct2D/id2d1rendertarget-createcompatiblerendertarget
      */
@@ -406,7 +407,7 @@ class ID2D1RenderTarget extends ID2D1Resource{
      * This method doesn't return an error code if it fails. To determine whether a drawing operation (such as **FillOpacityMask**) failed, check the result returned by the [**ID2D1RenderTarget::EndDraw**](/windows/win32/api/d2d1/nf-d2d1-id2d1rendertarget-enddraw) or [**ID2D1RenderTarget::Flush**](/windows/win32/api/d2d1/nf-d2d1-id2d1rendertarget-flush) methods.
      * @param {ID2D1Bitmap} opacityMask 
      * @param {ID2D1Brush} brush 
-     * @param {Integer} content 
+     * @param {D2D1_OPACITY_MASK_CONTENT} content 
      * @param {Pointer<D2D_RECT_F>} destinationRectangle 
      * @param {Pointer<D2D_RECT_F>} sourceRectangle 
      * @returns {String} Nothing - always returns an empty string
@@ -423,7 +424,7 @@ class ID2D1RenderTarget extends ID2D1Resource{
      * @param {ID2D1Bitmap} _bitmap 
      * @param {Pointer<D2D_RECT_F>} destinationRectangle 
      * @param {Float} opacity 
-     * @param {Integer} _interpolationMode 
+     * @param {D2D1_BITMAP_INTERPOLATION_MODE} _interpolationMode 
      * @param {Pointer<D2D_RECT_F>} sourceRectangle 
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/Direct2D/id2d1rendertarget-drawbitmap
@@ -443,8 +444,8 @@ class ID2D1RenderTarget extends ID2D1Resource{
      * @param {IDWriteTextFormat} textFormat 
      * @param {Pointer<D2D_RECT_F>} layoutRect 
      * @param {ID2D1Brush} defaultFillBrush 
-     * @param {Integer} options 
-     * @param {Integer} measuringMode 
+     * @param {D2D1_DRAW_TEXT_OPTIONS} options 
+     * @param {DWRITE_MEASURING_MODE} measuringMode 
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/Direct2D/id2d1rendertarget-drawtext
      */
@@ -469,7 +470,7 @@ class ID2D1RenderTarget extends ID2D1Resource{
      * @param {ID2D1Brush} defaultFillBrush Type: <b><a href="https://docs.microsoft.com/windows/win32/api/d2d1/nn-d2d1-id2d1brush">ID2D1Brush</a>*</b>
      * 
      * The brush used to paint any text in <i>textLayout</i> that does not already have a brush associated with it as a drawing effect (specified by the <a href="https://docs.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextlayout-setdrawingeffect">IDWriteTextLayout::SetDrawingEffect</a> method).
-     * @param {Integer} options Type: <b><a href="https://docs.microsoft.com/windows/win32/api/d2d1/ne-d2d1-d2d1_draw_text_options">D2D1_DRAW_TEXT_OPTIONS</a></b>
+     * @param {D2D1_DRAW_TEXT_OPTIONS} options Type: <b><a href="https://docs.microsoft.com/windows/win32/api/d2d1/ne-d2d1-d2d1_draw_text_options">D2D1_DRAW_TEXT_OPTIONS</a></b>
      * 
      * A value that indicates whether the text should be snapped to pixel boundaries and whether the text should be clipped to the layout rectangle. The default value is <a href="https://docs.microsoft.com/windows/win32/api/d2d1/ne-d2d1-d2d1_draw_text_options">D2D1_DRAW_TEXT_OPTIONS_NONE</a>, which indicates that text should be snapped to pixel boundaries and it should not be clipped to the layout rectangle.
      * @returns {String} Nothing - always returns an empty string
@@ -486,11 +487,13 @@ class ID2D1RenderTarget extends ID2D1Resource{
      * @param {D2D_POINT_2F} baselineOrigin Type: <b><a href="https://docs.microsoft.com/windows/win32/Direct2D/d2d1-point-2f">D2D1_POINT_2F</a></b>
      * 
      * The origin, in device-independent pixels, of the glyphs' baseline.
-     * @param {Pointer<DWRITE_GLYPH_RUN>} _glyphRun 
+     * @param {Pointer<DWRITE_GLYPH_RUN>} _glyphRun Type: <b>const <a href="https://docs.microsoft.com/windows/win32/api/dwrite/ns-dwrite-dwrite_glyph_run">DWRITE_GLYPH_RUN</a>*</b>
+     * 
+     * The glyphs to render.
      * @param {ID2D1Brush} foregroundBrush Type: <b><a href="https://docs.microsoft.com/windows/win32/api/d2d1/nn-d2d1-id2d1brush">ID2D1Brush</a>*</b>
      * 
      * The brush used to paint the specified glyphs.
-     * @param {Integer} measuringMode Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dcommon/ne-dcommon-dwrite_measuring_mode">DWRITE_MEASURING_MODE</a></b>
+     * @param {DWRITE_MEASURING_MODE} measuringMode Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dcommon/ne-dcommon-dwrite_measuring_mode">DWRITE_MEASURING_MODE</a></b>
      * 
      * A value that indicates how glyph metrics are used to measure text when it is formatted.  The default value is <a href="https://docs.microsoft.com/windows/win32/api/dcommon/ne-dcommon-dwrite_measuring_mode">DWRITE_MEASURING_MODE_NATURAL</a>.
      * @returns {String} Nothing - always returns an empty string
@@ -526,7 +529,7 @@ class ID2D1RenderTarget extends ID2D1Resource{
      * Sets the antialiasing mode of the render target. The antialiasing mode applies to all subsequent drawing operations, excluding text and glyph drawing operations.
      * @remarks
      * To specify the antialiasing mode for text and glyph operations, use the <a href="https://docs.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1rendertarget-settextantialiasmode">SetTextAntialiasMode</a> method.
-     * @param {Integer} antialiasMode Type: <b><a href="https://docs.microsoft.com/windows/win32/api/d2d1/ne-d2d1-d2d1_antialias_mode">D2D1_ANTIALIAS_MODE</a></b>
+     * @param {D2D1_ANTIALIAS_MODE} antialiasMode Type: <b><a href="https://docs.microsoft.com/windows/win32/api/d2d1/ne-d2d1-d2d1_antialias_mode">D2D1_ANTIALIAS_MODE</a></b>
      * 
      * The antialiasing mode for future drawing operations.
      * @returns {String} Nothing - always returns an empty string
@@ -538,7 +541,7 @@ class ID2D1RenderTarget extends ID2D1Resource{
 
     /**
      * Retrieves the current antialiasing mode for nontext drawing operations.
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/d2d1/ne-d2d1-d2d1_antialias_mode">D2D1_ANTIALIAS_MODE</a></b>
+     * @returns {D2D1_ANTIALIAS_MODE} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/d2d1/ne-d2d1-d2d1_antialias_mode">D2D1_ANTIALIAS_MODE</a></b>
      * 
      * The current antialiasing mode for nontext drawing operations.
      * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1rendertarget-getantialiasmode
@@ -550,7 +553,7 @@ class ID2D1RenderTarget extends ID2D1Resource{
 
     /**
      * Specifies the antialiasing mode to use for subsequent text and glyph drawing operations.
-     * @param {Integer} textAntialiasMode Type: <b><a href="https://docs.microsoft.com/windows/win32/api/d2d1/ne-d2d1-d2d1_text_antialias_mode">D2D1_TEXT_ANTIALIAS_MODE</a></b>
+     * @param {D2D1_TEXT_ANTIALIAS_MODE} textAntialiasMode Type: <b><a href="https://docs.microsoft.com/windows/win32/api/d2d1/ne-d2d1-d2d1_text_antialias_mode">D2D1_TEXT_ANTIALIAS_MODE</a></b>
      * 
      * The antialiasing mode to use for subsequent text and glyph drawing operations.
      * @returns {String} Nothing - always returns an empty string
@@ -562,7 +565,7 @@ class ID2D1RenderTarget extends ID2D1Resource{
 
     /**
      * Gets the current antialiasing mode for text and glyph drawing operations.
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/d2d1/ne-d2d1-d2d1_text_antialias_mode">D2D1_TEXT_ANTIALIAS_MODE</a></b>
+     * @returns {D2D1_TEXT_ANTIALIAS_MODE} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/d2d1/ne-d2d1-d2d1_text_antialias_mode">D2D1_TEXT_ANTIALIAS_MODE</a></b>
      * 
      * The current antialiasing mode for text and glyph drawing operations.
      * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1rendertarget-gettextantialiasmode
@@ -733,7 +736,7 @@ class ID2D1RenderTarget extends ID2D1Resource{
      * 
      * This method doesn't return an error code if it fails. To determine whether a drawing operation (such as **PushAxisAlignedClip**) failed, check the result returned by the [**ID2D1RenderTarget::EndDraw**](/windows/win32/api/d2d1/nf-d2d1-id2d1rendertarget-enddraw) or [**ID2D1RenderTarget::Flush**](/windows/win32/api/d2d1/nf-d2d1-id2d1rendertarget-flush) methods.
      * @param {Pointer<D2D_RECT_F>} clipRect 
-     * @param {Integer} antialiasMode 
+     * @param {D2D1_ANTIALIAS_MODE} antialiasMode 
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/Direct2D/id2d1rendertarget-pushaxisalignedclip
      */

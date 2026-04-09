@@ -7,9 +7,8 @@
  * The IWMPMetadataText interface provides methods for retrieving information about complex textual metadata attributes.
  * @see https://learn.microsoft.com/windows/win32/api/wmp/nn-wmp-iwmpmetadatatext
  * @namespace Windows.Win32.Media.MediaPlayer
- * @version v4.0.30319
  */
-class IWMPMetadataText extends IDispatch{
+class IWMPMetadataText extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

@@ -1,19 +1,19 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DNS_CONNECTION_PROXY_TYPE.ahk
 #Include .\DNS_CONNECTION_PROXY_INFO.ahk
+#Include .\DNS_CONNECTION_PROXY_INFO_SWITCH.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Dns
- * @version v4.0.30319
  */
-class DNS_CONNECTION_PROXY_ELEMENT extends Win32Struct
-{
+class DNS_CONNECTION_PROXY_ELEMENT extends Win32Struct {
     static sizeof => 80
 
     static packingSize => 8
 
     /**
-     * @type {Integer}
+     * @type {DNS_CONNECTION_PROXY_TYPE}
      */
     Type {
         get => NumGet(this, 0, "int")
@@ -23,7 +23,7 @@ class DNS_CONNECTION_PROXY_ELEMENT extends Win32Struct
     /**
      * @type {DNS_CONNECTION_PROXY_INFO}
      */
-    Info{
+    Info {
         get {
             if(!this.HasProp("__Info"))
                 this.__Info := DNS_CONNECTION_PROXY_INFO(8, this)

@@ -5,9 +5,8 @@
  * Used by ISearchCatalogManager::GetCatalogStatus to determine the current state of the catalog.
  * @see https://learn.microsoft.com/windows/win32/api/searchapi/ne-searchapi-catalogstatus
  * @namespace Windows.Win32.System.Search
- * @version v4.0.30319
  */
-class CatalogStatus extends Win32Enum{
+class CatalogStatus extends Win32Enum {
 
     /**
      * Index is current; no indexing needed. Queries can be processed.

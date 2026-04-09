@@ -5,9 +5,8 @@
  * The SECPKG_NAME_TYPE enumeration is used to describe the type of name specified for an account.The SECPKG_NAME_TYPE enumeration is used by the GetAuthDataForUser and OpenSamUser functions.
  * @see https://learn.microsoft.com/windows/win32/api/ntsecpkg/ne-ntsecpkg-secpkg_name_type
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class SECPKG_NAME_TYPE extends Win32Enum{
+class SECPKG_NAME_TYPE extends Win32Enum {
 
     /**
      * The account name is compatible with the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">Security Accounts Manager</a> (SAM). An example of a name in SAM-compatible format is <b>"</b><i>ExampleDomain</i><b>\\</b><i>UserName</i><b>"</b>.
@@ -34,7 +33,6 @@ class SECPKG_NAME_TYPE extends Win32Enum{
     static SecNameDN => 3
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static SecNameSPN => 4

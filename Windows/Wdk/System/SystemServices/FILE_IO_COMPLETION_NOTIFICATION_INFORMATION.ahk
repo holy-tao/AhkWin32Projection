@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class FILE_IO_COMPLETION_NOTIFICATION_INFORMATION extends Win32Struct
-{
+class FILE_IO_COMPLETION_NOTIFICATION_INFORMATION extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 4

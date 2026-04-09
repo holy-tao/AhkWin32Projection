@@ -7,9 +7,8 @@
  * The ITCallInfo2 interface is an extension of the ITCallInfo interface. ITCallInfo2 provides additional methods that allow an application to set event filtering on a per-call basis.
  * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nn-tapi3if-itcallinfo2
  * @namespace Windows.Win32.Devices.Tapi
- * @version v4.0.30319
  */
-class ITCallInfo2 extends ITCallInfo{
+class ITCallInfo2 extends ITCallInfo {
 
     static sizeof => A_PtrSize
     /**
@@ -32,7 +31,7 @@ class ITCallInfo2 extends ITCallInfo{
 
     /**
      * The get_EventFilter method gets the event filter information applicable to this call.
-     * @param {Integer} TapiEvent The 
+     * @param {TAPI_EVENT} TapiEvent The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/ne-tapi3if-tapi_event">TAPI_EVENT</a> descriptor of event type information being checked.
      * @param {Integer} lSubEvent Subevent descriptor.
      * @returns {VARIANT_BOOL} VARIANT_TRUE if notifications are being sent on this event type for this call.
@@ -45,7 +44,7 @@ class ITCallInfo2 extends ITCallInfo{
 
     /**
      * The put_EventFilter method sets an event filter for the current call.
-     * @param {Integer} TapiEvent The 
+     * @param {TAPI_EVENT} TapiEvent The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/ne-tapi3if-tapi_event">TAPI_EVENT</a> descriptor of the event type.
      * @param {Integer} lSubEvent Subevent descriptor.
      * @param {VARIANT_BOOL} bEnable VARIANT_TRUE if application requires notification of this event type. VARIANT_FALSE indicates the application does not require notifications for this event.

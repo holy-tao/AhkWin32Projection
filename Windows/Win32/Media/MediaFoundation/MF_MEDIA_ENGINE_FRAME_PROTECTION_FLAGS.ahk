@@ -5,9 +5,8 @@
  * Specifies the content protection requirements for a video frame.
  * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/ne-mfmediaengine-mf_media_engine_frame_protection_flags
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class MF_MEDIA_ENGINE_FRAME_PROTECTION_FLAGS extends Win32Enum{
+class MF_MEDIA_ENGINE_FRAME_PROTECTION_FLAGS extends Win32Enum {
 
     /**
      * The video frame should be protected.

@@ -4,7 +4,6 @@
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug
- * @version v4.0.30319
  */
 class Debug {
 
@@ -1783,7 +1782,7 @@ class Debug {
      * @param {Pointer<PGET_RUNTIME_FUNCTION_CALLBACK>} Callback A pointer to the callback function that is called to retrieve the function table entries for the functions 
      *       in the specified region of memory. For a definition of the 
      *       <b>PGET_RUNTIME_FUNCTION_CALLBACK</b> type, see WinNT.h.
-     * @param {Pointer<Void>} _Context 
+     * @param {Pointer<Void>} _Context A pointer to the user-defined data to be passed to the callback function.
      * @param {PWSTR} OutOfProcessCallbackDll An optional pointer to a string that specifies the path of a DLL that provides function table entries that 
      *        are outside the process.
      * 
@@ -1867,7 +1866,7 @@ class Debug {
      * <li>jmp qword ptr <i>imm32</i></li>
      * <li>rex.w jmp <i>reg</i></li>
      * </ul>
-     * @param {Integer} HandlerType 
+     * @param {RTL_VIRTUAL_UNWIND_HANDLER_TYPE} HandlerType 
      * @param {Pointer} ImageBase The base address of the module to which the function belongs.
      * @param {Pointer} ControlPc The virtual address where control left the specified function.
      * @param {Pointer<IMAGE_ARM64_RUNTIME_FUNCTION_ENTRY>} FunctionEntry The address of the function table entry for the specified function. To obtain the function table entry, call 
@@ -1903,7 +1902,7 @@ class Debug {
      * The entire area to be read must be accessible, and if it is not accessible, the function fails.
      * @param {HANDLE} hProcess A handle to the process with memory that is being read. The handle must have PROCESS_VM_READ access to the process.
      * @param {Pointer<Void>} lpBaseAddress A pointer to the base address in the specified process from which to read. Before any data transfer occurs, the system verifies that all data in the base address and memory of the specified size is accessible for read access, and if it is not accessible the function fails.
-     * @param {Pointer} lpBuffer A pointer to a buffer that receives the contents from the address space of the specified process.
+     * @param {Integer} lpBuffer A pointer to a buffer that receives the contents from the address space of the specified process.
      * @param {Pointer} nSize The number of bytes to be read from the specified process.
      * @param {Pointer<Pointer>} lpNumberOfBytesRead A pointer to a variable that receives the number of bytes transferred into the specified buffer. If *lpNumberOfBytesRead* is **NULL**, the parameter is ignored.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
@@ -1939,7 +1938,7 @@ class Debug {
      * The entire area to be written to must be accessible, and if it is not accessible, the function fails.
      * @param {HANDLE} hProcess A handle to the process memory to be modified. The handle must have PROCESS_VM_WRITE and PROCESS_VM_OPERATION access to the process.
      * @param {Pointer<Void>} lpBaseAddress A pointer to the base address in the specified process to which data is written. Before data transfer occurs, the system verifies that all data in the base address and memory of the specified size is accessible for write access, and if it is not accessible, the function fails.
-     * @param {Pointer} lpBuffer A pointer to the buffer that contains data to be written in  the address space of the specified process.
+     * @param {Integer} lpBuffer A pointer to the buffer that contains data to be written in  the address space of the specified process.
      * @param {Pointer} nSize The number of bytes to be written to the specified process.
      * @param {Pointer<Pointer>} lpNumberOfBytesWritten A pointer to a variable that receives the number of bytes transferred into the specified process. This parameter is optional. If <i>lpNumberOfBytesWritten</i> is <b>NULL</b>, the parameter is ignored.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
@@ -2043,7 +2042,7 @@ class Debug {
      * Applications should call 
      * <b>FlushInstructionCache</b> if they generate or modify code in memory. The CPU cannot detect the change, and may execute the old code it cached.
      * @param {HANDLE} hProcess A handle to a process whose instruction cache is to be flushed.
-     * @param {Pointer} lpBaseAddress A pointer to the base of the region to be flushed. This parameter can be <b>NULL</b>.
+     * @param {Integer} lpBaseAddress A pointer to the base of the region to be flushed. This parameter can be <b>NULL</b>.
      * @param {Pointer} dwSize The size of the region to be flushed if the <i>lpBaseAddress</i> parameter is not <b>NULL</b>, in bytes.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
@@ -3211,8 +3210,8 @@ class Debug {
      * <b>Visual Studio 2005:  </b>When declaring a pointer to a structure that may not have aligned data, you can use the <b>__unaligned</b> keyword to indicate that the type must be read one byte at a time. For more information, see <a href="https://msdn.microsoft.com/library/Aa290049.aspx">Windows Data Alignment</a>.
      * 
      * <b>Windows 7:  </b>Callers should favor <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-setthreaderrormode">SetThreadErrorMode</a> over <b>SetErrorMode</b> since it is less disruptive to the normal behavior of the system.
-     * @param {Integer} uMode 
-     * @returns {Integer} The return value is the previous state of the error-mode bit flags.
+     * @param {THREAD_ERROR_MODE} uMode 
+     * @returns {THREAD_ERROR_MODE} The return value is the previous state of the error-mode bit flags.
      * @see https://learn.microsoft.com/windows/win32/api/errhandlingapi/nf-errhandlingapi-seterrormode
      * @since windows5.1.2600
      */
@@ -3248,7 +3247,7 @@ class Debug {
      * Unregisters a vectored exception handler.
      * @remarks
      * To compile an application that uses this function, define the _WIN32_WINNT macro as 0x0500 or later. For more information, see [Using the Windows Headers](/windows/desktop/WinProg/using-the-windows-headers).
-     * @param {Pointer<Void>} _Handle 
+     * @param {Pointer<Void>} _Handle A handle to the vectored exception handler previously registered using the [AddVectoredExceptionHandler function](nf-errhandlingapi-addvectoredexceptionhandler.md).
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
@@ -3289,7 +3288,7 @@ class Debug {
      * Unregisters a vectored continue handler.
      * @remarks
      * To compile an application that uses this function, define the _WIN32_WINNT macro as 0x0500 or later. For more information, see [/windows/desktop/WinProg/using-the-windows-headers](Using the Windows Headers).
-     * @param {Pointer<Void>} _Handle 
+     * @param {Pointer<Void>} _Handle A pointer to a vectored exception handler previously registered using the [AddVectoredContinueHandler function](nf-errhandlingapi-addvectoredcontinuehandler.md).
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
@@ -3454,8 +3453,8 @@ class Debug {
      * Controls whether the system will handle the specified types of serious errors or whether the calling thread will handle them.
      * @remarks
      * Each process has an associated error mode that indicates to the system how the application is going to respond to serious errors. A thread inherits the error mode of the process in which it is running. To retrieve the process error mode, use the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-geterrormode">GetErrorMode</a> function. To retrieve the error mode of the calling thread, use the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getthreaderrormode">GetThreadErrorMode</a> function.
-     * @param {Integer} dwNewMode 
-     * @param {Pointer<Integer>} lpOldMode If the function succeeds, this parameter is set to the thread's previous error mode. This parameter can be <b>NULL</b>.
+     * @param {THREAD_ERROR_MODE} dwNewMode 
+     * @param {Pointer<THREAD_ERROR_MODE>} lpOldMode If the function succeeds, this parameter is set to the thread's previous error mode. This parameter can be <b>NULL</b>.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -3489,7 +3488,7 @@ class Debug {
      * Creates a new WCT session.
      * @remarks
      * When you have finished using the session, call the <a href="https://docs.microsoft.com/windows/desktop/api/wct/nf-wct-closethreadwaitchainsession">CloseThreadWaitChainSession</a> function.
-     * @param {Integer} Flags 
+     * @param {OPEN_THREAD_WAIT_CHAIN_SESSION_FLAGS} Flags 
      * @param {Pointer<PWAITCHAINCALLBACK>} callback If the session is asynchronous, this parameter can be a pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wct/nc-wct-pwaitchaincallback">WaitChainCallback</a> callback function.
      * @returns {Pointer<Void>} If the function succeeds, the return value is a handle to the newly created session.
      * 
@@ -3536,8 +3535,8 @@ class Debug {
      * 
      * Wait chain information is dynamic; it was correct when the function was called but may be out-of-date by the time it is reviewed by the caller.
      * @param {Pointer<Void>} WctHandle A handle to the WCT session created by the <a href="https://docs.microsoft.com/windows/desktop/api/wct/nf-wct-openthreadwaitchainsession">OpenThreadWaitChainSession</a> function.
-     * @param {Pointer} _Context 
-     * @param {Integer} Flags 
+     * @param {Pointer} _Context A pointer to an application-defined context structure to be passed to the callback function for an asynchronous session.
+     * @param {WAIT_CHAIN_THREAD_OPTIONS} Flags 
      * @param {Integer} ThreadId The identifier of the thread.
      * @param {Pointer<Integer>} NodeCount On input, a number from 1 to WCT_MAX_NODE_COUNT that specifies the number of nodes in the wait chain. On return, the number of nodes retrieved. If the array cannot contain all the nodes of the wait chain, the function fails, <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns ERROR_MORE_DATA, and this parameter receives the number of array elements required to contain all the nodes.
      * 
@@ -3706,7 +3705,8 @@ class Debug {
      *        <a href="https://docs.microsoft.com/windows/desktop/ProcThread/thread-security-and-access-rights">Thread Security and Access Rights</a>.
      * @param {Integer} ProcessId The identifier of the process for which the information is to be generated.
      * @param {HANDLE} hFile A handle to the file in which the information is to be written.
-     * @param {Integer} _DumpType 
+     * @param {MINIDUMP_TYPE} _DumpType The type of information to be generated. This parameter can be one or more of the values from the 
+     *       <a href="https://docs.microsoft.com/windows/desktop/api/minidumpapiset/ne-minidumpapiset-minidump_type">MINIDUMP_TYPE</a> enumeration.
      * @param {Pointer<MINIDUMP_EXCEPTION_INFORMATION>} ExceptionParam A pointer to a 
      *       <a href="https://docs.microsoft.com/windows/win32/api/minidumpapiset/ns-minidumpapiset-minidump_exception_information">MINIDUMP_EXCEPTION_INFORMATION</a> 
      *       structure describing the client exception that caused the minidump to be generated. If the value of this 
@@ -3860,7 +3860,9 @@ class Debug {
      * @param {Pointer<Pointer>} OldImageBase A pointer to a variable that receives the original image base.
      * @param {Pointer<Integer>} NewImageSize A pointer to a variable that receives the new image size after the rebase operation, in bytes.
      * @param {Pointer<Pointer>} NewImageBase The base address to use for rebasing the image. If the address is not available and the <i>fGoingDown</i> parameter is set to <b>TRUE</b>, the function finds a new base address and sets this parameter to the new base address. If <i>fGoingDown</i> is <b>FALSE</b>, the function finds a new base address but does not set this parameter to the new base address.
-     * @param {Integer} _TimeStamp 
+     * @param {Integer} _TimeStamp The new time date stamp for the image file header. The value must be represented in the number of seconds elapsed since midnight (00:00:00), January 1, 1970, Universal Coordinated Time, according to the system clock.
+     * 
+     * If this parameter is 0, the current file header time date stamp is incremented by 1 second.
      * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error information, call 
@@ -3909,7 +3911,9 @@ class Debug {
      * @param {Pointer<Integer>} OldImageBase A pointer to a variable that receives the original image base.
      * @param {Pointer<Integer>} NewImageSize A pointer to a variable that receives the new image size after the rebase operation, in bytes.
      * @param {Pointer<Integer>} NewImageBase The base address to use for rebasing the image. If the address is not available and the <i>fGoingDown</i> parameter is set to <b>TRUE</b>, the function finds a new base address and sets this parameter to the new base address. If <i>fGoingDown</i> is <b>FALSE</b>, the function finds a new base address but does not set this parameter to the new base address.
-     * @param {Integer} _TimeStamp 
+     * @param {Integer} _TimeStamp The new time date stamp for the image file header. The value must be represented in the number of seconds elapsed since midnight (00:00:00), January 1, 1970, Universal Coordinated Time, according to the system clock.
+     * 
+     * If this parameter is 0, the current file header time date stamp is incremented by 1 second.
      * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error information, call 
@@ -4863,10 +4867,10 @@ class Debug {
      * @param {Pointer<Void>} id The first of three identifying parameters (see Remarks).
      * @param {Integer} two The second of three identifying parameters (see Remarks).
      * @param {Integer} three The third of three identifying parameters (see Remarks).
-     * @param {Integer} flags 
+     * @param {SYM_FIND_ID_OPTION} flags 
      * @param {PSTR} FoundFile A pointer to a buffer that receives the fully qualified path to the symbol file. This buffer must be at least MAX_PATH characters.
      * @param {Pointer<PFINDFILEINPATHCALLBACK>} callback A <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nc-dbghelp-pfindfileinpathcallback">SymFindFileInPathProc</a> callback function.
-     * @param {Pointer<Void>} _context 
+     * @param {Pointer<Void>} _context A user-defined value or <b>NULL</b>. This value is simply passed to the callback function. This parameter is typically used by an application to pass a pointer to a data structure that provides some context for the callback function.
      * @returns {BOOL} If the server locates a valid symbol file, it returns <b>TRUE</b>; otherwise, it returns <b>FALSE</b> and 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns a value that indicates why the symbol file was not returned.
      * @see https://learn.microsoft.com/windows/win32/api/dbghelp/nf-dbghelp-symfindfileinpath
@@ -4926,10 +4930,10 @@ class Debug {
      * @param {Pointer<Void>} id The first of three identifying parameters (see Remarks).
      * @param {Integer} two The second of three identifying parameters (see Remarks).
      * @param {Integer} three The third of three identifying parameters (see Remarks).
-     * @param {Integer} flags 
+     * @param {SYM_FIND_ID_OPTION} flags 
      * @param {PWSTR} FoundFile A pointer to a buffer that receives the fully qualified path to the symbol file. This buffer must be at least MAX_PATH characters.
      * @param {Pointer<PFINDFILEINPATHCALLBACKW>} callback A <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nc-dbghelp-pfindfileinpathcallback">SymFindFileInPathProc</a> callback function.
-     * @param {Pointer<Void>} _context 
+     * @param {Pointer<Void>} _context A user-defined value or <b>NULL</b>. This value is simply passed to the callback function. This parameter is typically used by an application to pass a pointer to a data structure that provides some context for the callback function.
      * @returns {BOOL} If the server locates a valid symbol file, it returns <b>TRUE</b>; otherwise, it returns <b>FALSE</b> and 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns a value that indicates why the symbol file was not returned.
      * @see https://learn.microsoft.com/windows/win32/api/dbghelp/nf-dbghelp-symfindfileinpathw
@@ -5185,8 +5189,8 @@ class Debug {
      * @param {Pointer<Void>} Base The base address of the image or data file.
      * @param {BOOLEAN} MappedAsImage If the flag is <b>TRUE</b>, the file is mapped by the system as an image. If this flag is <b>FALSE</b>, the file is mapped as a data file by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/memoryapi/nf-memoryapi-mapviewoffile">MapViewOfFile</a> function.
-     * @param {Integer} DirectoryEntry 
-     * @param {Pointer<Integer>} _Size 
+     * @param {IMAGE_DIRECTORY_ENTRY} DirectoryEntry 
+     * @param {Pointer<Integer>} _Size A pointer to a variable that receives the size of the data for the directory entry that is located.
      * @param {Pointer<Pointer<IMAGE_SECTION_HEADER>>} FoundHeader A pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-image_section_header">IMAGE_SECTION_HEADER</a> structure that receives the data. If the section header does not exist, this parameter is <b>NULL</b>.
      * @returns {Pointer<Void>} If the function succeeds, the return value is a pointer to the data for the directory entry.
@@ -5222,8 +5226,8 @@ class Debug {
      * @param {Pointer<Void>} Base The base address of the image.
      * @param {BOOLEAN} MappedAsImage If this parameter is <b>TRUE</b>, the file is mapped by the system as an image. If the flag is <b>FALSE</b>, the file is mapped as a data file by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/memoryapi/nf-memoryapi-mapviewoffile">MapViewOfFile</a> function.
-     * @param {Integer} DirectoryEntry 
-     * @param {Pointer<Integer>} _Size 
+     * @param {IMAGE_DIRECTORY_ENTRY} DirectoryEntry 
+     * @param {Pointer<Integer>} _Size A pointer to a variable that receives the size of the data for the directory entry, in bytes.
      * @returns {Pointer<Void>} If the function succeeds, the return value is a pointer to the directory entry's data.
      * 
      * If the function fails, the return value is <b>NULL</b>. To retrieve extended error information, call 
@@ -6013,7 +6017,8 @@ class Debug {
      *      pointer for the <i>ReadMemoryRoutine</i> parameter, then this value does not have to be a 
      *      valid thread handle. It can be a token that is unique and consistently the same for all calls to the 
      *      <b>StackWalk64</b> function.
-     * @param {Pointer<STACKFRAME64>} _StackFrame 
+     * @param {Pointer<STACKFRAME64>} _StackFrame A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/ns-dbghelp-stackframe">STACKFRAME64</a> structure. This 
+     *       structure receives information for the next frame, if the function call succeeds.
      * @param {Pointer<Void>} ContextRecord A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-arm64_nt_context">CONTEXT</a> structure. This parameter is 
      *        required only when the <i>MachineType</i> parameter is not 
      *        <b>IMAGE_FILE_MACHINE_I386</b>. However, it is recommended that this parameter contain a 
@@ -6139,7 +6144,8 @@ class Debug {
      *       pointer for the <i>ReadMemoryRoutine</i> parameter, then this value does not have to be a 
      *       valid thread handle. It can be a token that is unique and consistently the same for all calls to the 
      *       <b>StackWalkEx</b> function.
-     * @param {Pointer<STACKFRAME_EX>} _StackFrame 
+     * @param {Pointer<STACKFRAME_EX>} _StackFrame A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/ns-dbghelp-stackframe_ex">STACKFRAME_EX</a> structure. This 
+     *       structure receives information for the next frame, if the function call succeeds.
      * @param {Pointer<Void>} ContextRecord A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-arm64_nt_context">CONTEXT</a> structure. This parameter is 
      *        required only when the <i>MachineType</i> parameter is not 
      *        <b>IMAGE_FILE_MACHINE_I386</b>. However, it is recommended that this parameter contain a 
@@ -6327,7 +6333,7 @@ class Debug {
      * Sets the window that the caller will use to display a user interface.
      * @remarks
      * All DbgHelp functions, such as this one, are single threaded. Therefore, calls from more than one thread to this function will likely result in unexpected behavior or memory corruption. To avoid this, you must synchronize all concurrent calls from more than one thread to this function.
-     * @param {HWND} _hwnd 
+     * @param {HWND} _hwnd A handle to the window.
      * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error information, call 
@@ -6436,7 +6442,7 @@ class Debug {
      * To call the Unicode version of this function, define DBGHELP_TRANSLATE_TCHAR.
      * @param {Integer} type 
      * @param {PSTR} dir A pointer to a string that receives the directory.
-     * @param {Pointer} _size 
+     * @param {Pointer} _size The size of the output buffer, in characters.
      * @returns {PSTR} If the function succeeds, the return value is a pointer to the <i>dir</i> parameter.
      * 
      * If the function fails, the return value is <b>NULL</b>. To retrieve extended error information, call 
@@ -6471,7 +6477,7 @@ class Debug {
      * > The dbghelp.h header defines SymGetHomeDirectory as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Integer} type 
      * @param {PWSTR} dir A pointer to a string that receives the directory.
-     * @param {Pointer} _size 
+     * @param {Pointer} _size The size of the output buffer, in characters.
      * @returns {PWSTR} If the function succeeds, the return value is a pointer to the <i>dir</i> parameter.
      * 
      * If the function fails, the return value is <b>NULL</b>. To retrieve extended error information, call 
@@ -6945,7 +6951,7 @@ class Debug {
 
     /**
      * Gets whether the specified extended symbol option on or off.
-     * @param {Integer} option The extended symbol option to check. The following are valid values.
+     * @param {IMAGEHLP_EXTENDED_OPTIONS} option The extended symbol option to check. The following are valid values.
      * 
      * <table>
      * <tr>
@@ -6974,7 +6980,7 @@ class Debug {
 
     /**
      * Turns the specified extended symbol option on or off.
-     * @param {Integer} option The extended symbol option to turn on or off. The following are valid values.
+     * @param {IMAGEHLP_EXTENDED_OPTIONS} option The extended symbol option to turn on or off. The following are valid values.
      * 
      * <table>
      * <tr>
@@ -7006,7 +7012,7 @@ class Debug {
      * The SymMatchString function (dbghelp.h) compares the specified string to the specified wildcard expression.
      * @remarks
      * All DbgHelp functions, such as this one, are single threaded. Therefore, calls from more than one thread to this function will likely result in unexpected behavior or memory corruption. To avoid this, you must synchronize all concurrent calls from more than one thread to this function.
-     * @param {PSTR} _string 
+     * @param {PSTR} _string The string, such as a symbol name, to be compared to the <i>expression</i> parameter.
      * @param {PSTR} expression The wildcard expression to compare to the <i>string</i> parameter.  The wildcard expression supports the inclusion of the * and ? characters.  * matches any string and ? matches any single character.
      * @param {BOOL} fCase A variable that indicates whether or not the comparison is to be case sensitive.
      * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
@@ -7037,7 +7043,7 @@ class Debug {
      * 
      * > [!NOTE]
      * > The dbghelp.h header defines SymMatchString as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {PSTR} _string 
+     * @param {PSTR} _string The string, such as a symbol name, to be compared to the <i>expression</i> parameter.
      * @param {PSTR} expression The wildcard expression to compare to the <i>string</i> parameter. The wildcard expression supports the inclusion of the * and ? characters. * matches any string and ? matches any single character.
      * @param {BOOL} fCase A variable that indicates whether or not the comparison is to be case sensitive.
      * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.  
@@ -7064,7 +7070,7 @@ class Debug {
      * 
      * > [!NOTE]
      * > The dbghelp.h header defines SymMatchString as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {PWSTR} _string 
+     * @param {PWSTR} _string The string, such as a symbol name, to be compared to the <i>expression</i> parameter.
      * @param {PWSTR} expression The wildcard expression to compare to the <i>string</i> parameter.  The wildcard expression supports the inclusion of the * and ? characters.  * matches any string and ? matches any single character.
      * @param {BOOL} fCase A variable that indicates whether or not the comparison is to be case sensitive.
      * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
@@ -7601,7 +7607,7 @@ class Debug {
      * 
      * @param {HANDLE} hProcess 
      * @param {Integer} _Address 
-     * @param {Pointer} _Buffer 
+     * @param {Integer} _Buffer 
      * @param {Pointer<Integer>} _Size 
      * @returns {BOOL} 
      */
@@ -7641,7 +7647,9 @@ class Debug {
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
      * @param {Integer} qwAddr The virtual address that is contained in one of the modules loaded by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-symloadmodule">SymLoadModule64</a> function.
-     * @param {Pointer<IMAGEHLP_MODULE64>} _ModuleInfo 
+     * @param {Pointer<IMAGEHLP_MODULE64>} _ModuleInfo A pointer to an 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/ns-dbghelp-imagehlp_module">IMAGEHLP_MODULE64</a> structure. The <b>SizeOfStruct</b> member must be set to the size of the 
+     * <b>IMAGEHLP_MODULE64</b> structure. An invalid value will result in an error.
      * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error information, call 
@@ -7688,7 +7696,9 @@ class Debug {
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
      * @param {Integer} qwAddr The virtual address that is contained in one of the modules loaded by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-symloadmodule">SymLoadModule64</a> function.
-     * @param {Pointer<IMAGEHLP_MODULEW64>} _ModuleInfo 
+     * @param {Pointer<IMAGEHLP_MODULEW64>} _ModuleInfo A pointer to an 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/ns-dbghelp-imagehlp_modulew64">IMAGEHLP_MODULEW64</a> structure. The <b>SizeOfStruct</b> member must be set to the size of the 
+     * <b>IMAGEHLP_MODULEW64</b> structure. An invalid value will result in an error.
      * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error information, call 
@@ -7735,7 +7745,9 @@ class Debug {
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
      * @param {Integer} dwAddr The virtual address that is contained in one of the modules loaded by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-symloadmodule">SymLoadModule64</a> function
-     * @param {Pointer<IMAGEHLP_MODULE>} _ModuleInfo 
+     * @param {Pointer<IMAGEHLP_MODULE>} _ModuleInfo A pointer to an 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/ns-dbghelp-imagehlp_module">IMAGEHLP_MODULE64</a> structure. The <b>SizeOfStruct</b> member must be set to the size of the 
+     * <b>IMAGEHLP_MODULE64</b> structure. An invalid value will result in an error.
      * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error information, call 
@@ -7782,7 +7794,9 @@ class Debug {
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
      * @param {Integer} dwAddr The virtual address that is contained in one of the modules loaded by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-symloadmodule">SymLoadModule64</a> function
-     * @param {Pointer<IMAGEHLP_MODULEW>} _ModuleInfo 
+     * @param {Pointer<IMAGEHLP_MODULEW>} _ModuleInfo A pointer to an 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/ns-dbghelp-imagehlp_module">IMAGEHLP_MODULE64</a> structure. The <b>SizeOfStruct</b> member must be set to the size of the 
+     * <b>IMAGEHLP_MODULE64</b> structure. An invalid value will result in an error.
      * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error information, call 
@@ -7884,7 +7898,7 @@ class Debug {
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
      * @param {Integer} Base The base address of the module.
      * @param {PSTR} Obj The name of an .obj file within the module. The scope of the enumeration is limited to this file. If this parameter is <b>NULL</b> or an empty string, all .obj files are searched.
-     * @param {PSTR} _File 
+     * @param {PSTR} _File A wildcard expression that indicates the names of the source files to be searched. If this parameter is <b>NULL</b> or an empty string, all files are searched.
      * @param {Pointer<PSYM_ENUMLINES_CALLBACK>} EnumLinesCallback A 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nc-dbghelp-psym_enumlines_callback">SymEnumLinesProc</a> callback function that receives the line information.
      * @param {Pointer<Void>} UserContext A user-defined value that is passed to the callback function, or <b>NULL</b>. This parameter is typically used by an application to pass a pointer to a data structure that provides context for the callback function.
@@ -7930,7 +7944,7 @@ class Debug {
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
      * @param {Integer} Base The base address of the module.
      * @param {PWSTR} Obj The name of an .obj file within the module. The scope of the enumeration is limited to this file. If this parameter is <b>NULL</b> or an empty string, all .obj files are searched.
-     * @param {PWSTR} _File 
+     * @param {PWSTR} _File A wildcard expression that indicates the names of the source files to be searched. If this parameter is <b>NULL</b> or an empty string, all files are searched.
      * @param {Pointer<PSYM_ENUMLINES_CALLBACKW>} EnumLinesCallback A 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nc-dbghelp-psym_enumlines_callback">SymEnumLinesProc</a> callback function that receives the line information.
      * @param {Pointer<Void>} UserContext A user-defined value that is passed to the callback function, or <b>NULL</b>. This parameter is typically used by an application to pass a pointer to a data structure that provides context for the callback function.
@@ -8205,7 +8219,7 @@ class Debug {
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
      * @param {Integer} Base The base address of the module.
      * @param {PSTR} Obj The name of an .obj file within the module. The scope of the enumeration is limited to this file. If this parameter is <b>NULL</b> or an empty string, all .obj files are searched.
-     * @param {PSTR} _File 
+     * @param {PSTR} _File A wildcard expression that indicates the names of the source files to be searched. If this parameter is <b>NULL</b> or an empty string, all files are searched.
      * @param {Integer} Line The line number of a line within the module. The scope of the enumeration is limited to this line. If this parameter is 0, all lines are searched.
      * @param {Integer} Flags If this parameter is ESLFLAG_FULLPATH, the function matches the full path in the <i>File</i> parameter.
      * @param {Pointer<PSYM_ENUMLINES_CALLBACK>} EnumLinesCallback A 
@@ -8250,7 +8264,7 @@ class Debug {
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
      * @param {Integer} Base The base address of the module.
      * @param {PWSTR} Obj The name of an .obj file within the module. The scope of the enumeration is limited to this file. If this parameter is <b>NULL</b> or an empty string, all .obj files are searched.
-     * @param {PWSTR} _File 
+     * @param {PWSTR} _File A wildcard expression that indicates the names of the source files to be searched. If this parameter is <b>NULL</b> or an empty string, all files are searched.
      * @param {Integer} Line The line number of a line within the module. The scope of the enumeration is limited to this line. If this parameter is 0, all lines are searched.
      * @param {Integer} Flags If this parameter is ESLFLAG_FULLPATH, the function matches the full path in the <i>File</i> parameter.
      * @param {Pointer<PSYM_ENUMLINES_CALLBACKW>} EnumLinesCallback A 
@@ -8284,7 +8298,7 @@ class Debug {
      * Indicates whether the specified address is within an inline frame.
      * @param {HANDLE} hProcess A handle to a process. This handle must have been previously passed to the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
-     * @param {Integer} _Address 
+     * @param {Integer} _Address The address.
      * @returns {Integer} Returns zero if the address is not within an inline frame.
      * @see https://learn.microsoft.com/windows/win32/api/dbghelp/nf-dbghelp-symaddrincludeinlinetrace
      */
@@ -8955,7 +8969,7 @@ class Debug {
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
      * @param {PSTR} ModuleName The name of the module in which  lines are to be located. If this parameter is <b>NULL</b>, the function searches all modules.
      * @param {PSTR} FileName The name of the file in which lines are to be located.
-     * @param {Pointer<Integer>} _Buffer 
+     * @param {Pointer<Integer>} _Buffer An array of offsets for each line. The offset for the line n is stored in element n-1. Array elements for lines that do not have line information are left unchanged.
      * @param {Integer} BufferLines The size of the <i>Buffer</i> array, in elements.
      * @returns {Integer} If the function succeeds, the return value is the highest line number found.
      * 						This value is zero if no line information was found.
@@ -9077,7 +9091,7 @@ class Debug {
      * @param {PSTR} FileSpec The name of the source file.
      * @param {PSTR} FilePath A pointer to a 
      * buffer that receives the fully qualified path of the source file.
-     * @param {Integer} _Size 
+     * @param {Integer} _Size The size of the <i>FilePath</i> buffer, in characters.
      * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 						
      * 
@@ -9123,7 +9137,7 @@ class Debug {
      * @param {PWSTR} FileSpec The name of the source file.
      * @param {PWSTR} FilePath A pointer to a 
      * buffer that receives the fully qualified path of the source file.
-     * @param {Integer} _Size 
+     * @param {Integer} _Size The size of the <i>FilePath</i> buffer, in characters.
      * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 						
      * 
@@ -9159,7 +9173,7 @@ class Debug {
      * @param {PSTR} FileSpec The name of the source file.
      * @param {Pointer<Pointer<Void>>} Token A pointer to a 
      * buffer that receives the token.
-     * @param {Pointer<Integer>} _Size 
+     * @param {Pointer<Integer>} _Size The size of the <i>Token</i> buffer, in bytes.
      * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 						
      * 
@@ -9297,7 +9311,7 @@ class Debug {
      * @param {PWSTR} FileSpec The name of the source file.
      * @param {Pointer<Pointer<Void>>} Token A pointer to a 
      * buffer that receives the token.
-     * @param {Pointer<Integer>} _Size 
+     * @param {Pointer<Integer>} _Size The size of the <i>Token</i> buffer, in bytes.
      * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 						
      * 
@@ -9358,7 +9372,7 @@ class Debug {
      * @param {PSTR} Params This parameter is unused.
      * @param {PSTR} FilePath A pointer to a 
      * buffer that receives the fully qualified path of the source file.
-     * @param {Integer} _Size 
+     * @param {Integer} _Size The size of the <i>FilePath</i> buffer, in characters.
      * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 						
      * 
@@ -9424,7 +9438,7 @@ class Debug {
      * @param {PWSTR} Params This parameter is unused.
      * @param {PWSTR} FilePath A pointer to a 
      * buffer that receives the fully qualified path of the source file.
-     * @param {Integer} _Size 
+     * @param {Integer} _Size The size of the <i>FilePath</i> buffer, in characters.
      * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 						
      * 
@@ -9484,7 +9498,7 @@ class Debug {
      * @param {PSTR} VarName The name of the variable token whose value you want to retrieve.
      * @param {PSTR} Value A pointer to a 
      * buffer that receives the value associated with the variable token specified in the <i>VarName</i> parameter.
-     * @param {Integer} _Size 
+     * @param {Integer} _Size The size of the <i>Value</i> buffer, in characters.
      * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error information, call 
@@ -9528,7 +9542,7 @@ class Debug {
      * @param {PWSTR} VarName The name of the variable token whose value you want to retrieve.
      * @param {PWSTR} Value A pointer to a 
      * buffer that receives the value associated with the variable token specified in the <i>VarName</i> parameter.
-     * @param {Integer} _Size 
+     * @param {Integer} _Size The size of the <i>Value</i> buffer, in characters.
      * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error information, call 
@@ -9879,7 +9893,7 @@ class Debug {
      * If the image is a .pdb file, this parameter cannot be zero.
      * @param {Pointer<MODLOAD_DATA>} Data A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/ns-dbghelp-modload_data">MODLOAD_DATA</a> structure that represents headers other than the standard PE header. This parameter is optional and can be <b>NULL</b>.
-     * @param {Integer} Flags 
+     * @param {SYM_LOAD_FLAGS} Flags 
      * @returns {Integer} If the function succeeds, the return value is the base address of the loaded module.
      * 
      * If the function fails, the return value is zero. To retrieve extended error information, call 
@@ -9928,7 +9942,7 @@ class Debug {
      * If the image is a .pdb file, this parameter cannot be zero.
      * @param {Pointer<MODLOAD_DATA>} Data A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/ns-dbghelp-modload_data">MODLOAD_DATA</a> structure that represents headers other than the standard PE header. This parameter is optional and can be <b>NULL</b>.
-     * @param {Integer} Flags 
+     * @param {SYM_LOAD_FLAGS} Flags 
      * @returns {Integer} If the function succeeds, the return value is the base address of the loaded module.
      * 
      * If the function fails, the return value is zero. To retrieve extended error information, call 
@@ -10297,8 +10311,9 @@ class Debug {
      *     all concurrent calls from more than one thread to this function.
      * @param {HANDLE} hProcess A handle to a process. This handle must have been previously passed to the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
-     * @param {Pointer<IMAGEHLP_STACK_FRAME>} _StackFrame 
-     * @param {Pointer<Void>} _Context 
+     * @param {Pointer<IMAGEHLP_STACK_FRAME>} _StackFrame A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/ns-dbghelp-imagehlp_stack_frame">IMAGEHLP_STACK_FRAME</a> 
+     *       structure that contains frame information.
+     * @param {Pointer<Void>} _Context This parameter is ignored.
      * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error 
@@ -10326,7 +10341,7 @@ class Debug {
      * All DbgHelp functions, such as this one, are single threaded. Therefore, calls from more than one thread to this function will likely result in unexpected behavior or memory corruption. To avoid this, you must synchronize all concurrent calls from more than one thread to this function.
      * @param {HANDLE} hProcess A handle to a process. This handle must have been previously passed to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
-     * @param {Integer} _Address 
+     * @param {Integer} _Address The address.
      * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 						
      * 
@@ -10351,7 +10366,7 @@ class Debug {
      * Sets the local scope to the symbol that matches the specified address and inline context.
      * @param {HANDLE} hProcess A handle to a process. This handle must have been previously passed to the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
-     * @param {Integer} _Address 
+     * @param {Integer} _Address The address.
      * @param {Integer} InlineContext The inline context.
      * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
@@ -10433,7 +10448,7 @@ class Debug {
      * To call the Unicode version of this function, define DBGHELP_TRANSLATE_TCHAR.
      * @param {HANDLE} hProcess A handle to a process. This handle must have been previously passed to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
-     * @param {Integer} _Address 
+     * @param {Integer} _Address The address for which a symbol should be located. The address does not have to be on a symbol boundary. If the address comes after the beginning of a symbol and before the end of the symbol, the symbol is found.
      * @param {Pointer<Integer>} Displacement The displacement from the beginning of the symbol, or zero.
      * @param {Pointer<SYMBOL_INFO>} Symbol A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/ns-dbghelp-symbol_info">SYMBOL_INFO</a> structure that provides information about the symbol. The symbol name is variable in length; therefore this buffer must be large enough to hold the name stored at the end of the 
@@ -10467,7 +10482,7 @@ class Debug {
      * To call the Unicode version of this function, define DBGHELP_TRANSLATE_TCHAR.
      * @param {HANDLE} hProcess A handle to a process. This handle must have been previously passed to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
-     * @param {Integer} _Address 
+     * @param {Integer} _Address The address for which a symbol should be located. The address does not have to be on a symbol boundary. If the address comes after the beginning of a symbol and before the end of the symbol, the symbol is found.
      * @param {Pointer<Integer>} Displacement The displacement from the beginning of the symbol, or zero.
      * @param {Pointer<SYMBOL_INFOW>} Symbol A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/ns-dbghelp-symbol_info">SYMBOL_INFO</a> structure that provides information about the symbol. The symbol name is variable in length; therefore this buffer must be large enough to hold the name stored at the end of the 
@@ -10497,7 +10512,8 @@ class Debug {
      * The SymFromInlineContext function (dbghelp.h) retrieves symbol information for the specified address and inline context.
      * @param {HANDLE} hProcess A handle to a process. This handle must have been previously passed to the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
-     * @param {Integer} _Address 
+     * @param {Integer} _Address The address for which a symbol should be located. The address does not have to be on a symbol boundary. If 
+     *       the address comes after the beginning of a symbol and before the end of the symbol, the symbol is found.
      * @param {Integer} InlineContext The inline context for which a symbol should be located.
      * @param {Pointer<Integer>} Displacement The displacement from the beginning of the symbol, or zero.
      * @param {Pointer<SYMBOL_INFO>} Symbol A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/ns-dbghelp-symbol_info">SYMBOL_INFO</a> structure that 
@@ -10533,7 +10549,8 @@ class Debug {
      * > The dbghelp.h header defines SymFromInlineContext as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HANDLE} hProcess A handle to a process. This handle must have been previously passed to the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
-     * @param {Integer} _Address 
+     * @param {Integer} _Address The address for which a symbol should be located. The address does not have to be on a symbol boundary. If 
+     *       the address comes after the beginning of a symbol and before the end of the symbol, the symbol is found.
      * @param {Integer} InlineContext The inline context for which a symbol should be located.
      * @param {Pointer<Integer>} Displacement The displacement from the beginning of the symbol, or zero.
      * @param {Pointer<SYMBOL_INFOW>} Symbol A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/ns-dbghelp-symbol_info">SYMBOL_INFO</a> structure that 
@@ -11352,7 +11369,7 @@ class Debug {
      * To call the Unicode version of this function, define DBGHELP_TRANSLATE_TCHAR.
      * @param {HANDLE} hProcess A handle to a process. This handle must have been previously passed to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
-     * @param {Integer} _Address 
+     * @param {Integer} _Address The address for which symbols are to be located. The address does not have to be on a symbol boundary. If the address comes after the beginning of a symbol and before the end of the symbol (the beginning of the symbol plus the symbol size), the function will find the symbol.
      * @param {Pointer<PSYM_ENUMERATESYMBOLS_CALLBACK>} EnumSymbolsCallback An application-defined callback function. This function is called for every symbol found at <i>Address</i>. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nc-dbghelp-psym_enumeratesymbols_callback">SymEnumSymbolsProc</a>.
      * @param {Pointer<Void>} UserContext Optional user-defined data. This value is passed to the callback function.
@@ -11392,7 +11409,7 @@ class Debug {
      * > The dbghelp.h header defines SymEnumSymbolsForAddr as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HANDLE} hProcess A handle to a process. This handle must have been previously passed to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
-     * @param {Integer} _Address 
+     * @param {Integer} _Address The address for which symbols are to be located. The address does not have to be on a symbol boundary. If the address comes after the beginning of a symbol and before the end of the symbol (the beginning of the symbol plus the symbol size), the function will find the symbol.
      * @param {Pointer<PSYM_ENUMERATESYMBOLS_CALLBACKW>} EnumSymbolsCallback An application-defined callback function. This function is called for every symbol found at <i>Address</i>. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nc-dbghelp-psym_enumeratesymbols_callback">SymEnumSymbolsProc</a>.
      * @param {Pointer<Void>} UserContext Optional user-defined data. This value is passed to the callback function.
@@ -11430,7 +11447,7 @@ class Debug {
      * @param {Integer} Index A unique value for the symbol.
      * @param {Integer} SymTag The PDB classification. These values are defined in Dbghelp.h in the <b>SymTagEnum</b> enumeration type. For  descriptions, see the PDB documentation.
      * @param {PSTR} Mask A wildcard expression that indicates the names of the symbols to be enumerated. To specify a module name, use the !<i>mod</i> syntax.
-     * @param {Integer} _Address 
+     * @param {Integer} _Address The address of the symbol.
      * @param {Pointer<PSYM_ENUMERATESYMBOLS_CALLBACK>} EnumSymbolsCallback A 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nc-dbghelp-psym_enumeratesymbols_callback">SymEnumSymbolsProc</a> callback function that receives the symbol information.
      * @param {Pointer<Void>} UserContext A user-defined value that is passed to the callback function, or <b>NULL</b>. This parameter is typically used by an application to pass a pointer to a data structure that provides context for the callback function.
@@ -11531,7 +11548,7 @@ class Debug {
      * @param {Integer} Index A unique value for the symbol.
      * @param {Integer} SymTag The PDB classification. These values are defined in Dbghelp.h in the <b>SymTagEnum</b> enumeration type. For  descriptions, see the PDB documentation.
      * @param {PWSTR} Mask A wildcard expression that indicates the names of the symbols to be enumerated. To specify a module name, use the !<i>mod</i> syntax.
-     * @param {Integer} _Address 
+     * @param {Integer} _Address The address of the symbol.
      * @param {Pointer<PSYM_ENUMERATESYMBOLS_CALLBACKW>} EnumSymbolsCallback A 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nc-dbghelp-psym_enumeratesymbols_callback">SymEnumSymbolsProc</a> callback function that receives the symbol information.
      * @param {Pointer<Void>} UserContext A user-defined value that is passed to the callback function, or <b>NULL</b>. This parameter is typically used by an application to pass a pointer to a data structure that provides context for the callback function.
@@ -11757,7 +11774,7 @@ class Debug {
      * @param {Integer} ModBase The base address of the module.
      * @param {Integer} TypeId The type index. (A number of functions return a type index in the <b>TypeIndex</b> member of the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/ns-dbghelp-symbol_info">SYMBOL_INFO</a> structure.)
-     * @param {Integer} GetType The information type. This parameter can be one of more of the values from the <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/ne-dbghelp-imagehlp_symbol_type_info">IMAGEHLP_SYMBOL_TYPE_INFO</a> enumeration type.
+     * @param {IMAGEHLP_SYMBOL_TYPE_INFO} GetType The information type. This parameter can be one of more of the values from the <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/ne-dbghelp-imagehlp_symbol_type_info">IMAGEHLP_SYMBOL_TYPE_INFO</a> enumeration type.
      * @param {Pointer<Void>} pInfo The data. The format of the data depends on the value of the <i>GetType</i> parameter.
      * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
@@ -12044,8 +12061,8 @@ class Debug {
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
      * @param {Integer} BaseOfDll The base address of the module.
      * @param {PSTR} Name The name of the symbol. The maximum size of a symbol name is MAX_SYM_NAME characters.
-     * @param {Integer} _Address 
-     * @param {Integer} _Size 
+     * @param {Integer} _Address The address of the symbol. This address must be within the address range of the specified module.
+     * @param {Integer} _Size The size of the symbol, in bytes. This parameter is optional.
      * @param {Integer} Flags This parameter is unused.
      * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
@@ -12084,8 +12101,8 @@ class Debug {
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
      * @param {Integer} BaseOfDll The base address of the module.
      * @param {PWSTR} Name The name of the symbol. The maximum size of a symbol name is MAX_SYM_NAME characters.
-     * @param {Integer} _Address 
-     * @param {Integer} _Size 
+     * @param {Integer} _Address The address of the symbol. This address must be within the address range of the specified module.
+     * @param {Integer} _Size The size of the symbol, in bytes. This parameter is optional.
      * @param {Integer} Flags This parameter is unused.
      * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
@@ -12117,7 +12134,7 @@ class Debug {
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
      * @param {Integer} BaseOfDll The base address of the module.
      * @param {PSTR} Name The name of the symbol.
-     * @param {Integer} _Address 
+     * @param {Integer} _Address The address of the symbol. This address must be within the address range of the specified module.
      * @param {Integer} Flags This parameter is unused.
      * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
@@ -12156,7 +12173,7 @@ class Debug {
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
      * @param {Integer} BaseOfDll The base address of the module.
      * @param {PWSTR} Name The name of the symbol.
-     * @param {Integer} _Address 
+     * @param {Integer} _Address The address of the symbol. This address must be within the address range of the specified module.
      * @param {Integer} Flags This parameter is unused.
      * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
@@ -12217,8 +12234,8 @@ class Debug {
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
      * @param {Integer} Base The base address of the module.
      * @param {PSTR} StreamFile A null-terminated string that contains the absolute or relative path to a file that contains the source indexing stream. Can be <b>NULL</b> if <i>Buffer</i> is not <b>NULL</b>.
-     * @param {Pointer} _Buffer 
-     * @param {Pointer} _Size 
+     * @param {Integer} _Buffer A buffer that contains the source indexing stream. Can be <b>NULL</b> if <i>StreamFile</i> is not <b>NULL</b>.
+     * @param {Pointer} _Size Size, in bytes, of the <i>Buffer</i> buffer.
      * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error information, call 
@@ -12251,8 +12268,8 @@ class Debug {
      * @param {HANDLE} hProcess A handle to a process. This handle must have been previously passed to the <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
      * @param {Integer} Base The base address of the module.
      * @param {PSTR} StreamFile A null-terminated string that contains the absolute or relative path to a file that contains the source indexing stream. Can be <b>NULL</b> if <i>Buffer</i> is not <b>NULL</b>.
-     * @param {Pointer} _Buffer 
-     * @param {Pointer} _Size 
+     * @param {Integer} _Buffer A buffer that contains the source indexing stream. Can be <b>NULL</b> if <i>StreamFile</i> is not <b>NULL</b>.
+     * @param {Pointer} _Size Size, in bytes, of the <i>Buffer</i> buffer.
      * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error information, call 
@@ -12283,8 +12300,8 @@ class Debug {
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
      * @param {Integer} Base The base address of the module.
      * @param {PWSTR} FileSpec A null-terminated string that contains the absolute or relative path to a file that contains the source indexing stream. Can be <b>NULL</b> if <i>Buffer</i> is not <b>NULL</b>.
-     * @param {Pointer} _Buffer 
-     * @param {Pointer} _Size 
+     * @param {Integer} _Buffer A buffer that contains the source indexing stream. Can be <b>NULL</b> if <i>StreamFile</i> is not <b>NULL</b>.
+     * @param {Pointer} _Size Size, in bytes, of the <i>Buffer</i> buffer.
      * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error information, call 
@@ -12324,7 +12341,7 @@ class Debug {
      * > The dbghelp.h header defines SymSrvIsStore as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HANDLE} hProcess The handle of a process that you previously passed to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function. If this parameter is set to  <b>NULL</b>, the function determines only whether the store exists; otherwise, the function determines whether the store exists and contains a process entry for the specified process handle.
-     * @param {PWSTR} _path 
+     * @param {PWSTR} _path The path to a symbol store. The path can specify the default symbol store (for example, SRV*), point to an HTTP or HTTPS symbol server, or specify a UNC, absolute, or relative path to the store.
      * @returns {BOOL} If the path specifies a symbol store, the function returns <b>TRUE</b>. Otherwise, it returns <b>FALSE</b>. To get extended error information, call the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
      * @see https://learn.microsoft.com/windows/win32/api/dbghelp/nf-dbghelp-symsrvisstorew
      */
@@ -12354,7 +12371,7 @@ class Debug {
      * To call the Unicode version of this function, define DBGHELP_TRANSLATE_TCHAR.
      * @param {HANDLE} hProcess The handle of a process that you previously passed to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function. If this parameter is set to  <b>NULL</b>, the function determines only whether the store exists; otherwise, the function determines whether the store exists and contains a process entry for the specified process handle.
-     * @param {PSTR} _path 
+     * @param {PSTR} _path The path to a symbol store. The path can specify the default symbol store (for example, SRV*), point to an HTTP or HTTPS symbol server, or specify a UNC, absolute, or relative path to the store.
      * @returns {BOOL} If the path specifies a symbol store, the function returns <b>TRUE</b>. Otherwise, it returns <b>FALSE</b>. To get extended error information, call the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
      * @see https://learn.microsoft.com/windows/win32/api/dbghelp/nf-dbghelp-symsrvisstore
      */
@@ -12479,8 +12496,8 @@ class Debug {
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
      * @param {PSTR} SymPath The symbol path. The function uses only the symbol stores described in standard syntax for symbol stores. All other paths are ignored. If this parameter is <b>NULL</b>, the function uses the symbol path set using the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> or <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-symsetsearchpath">SymSetSearchPath</a> function.
-     * @param {PSTR} _Node 
-     * @param {PSTR} _File 
+     * @param {PSTR} _Node The symbol file associated with the supplemental file.
+     * @param {PSTR} _File The name of the file.
      * @returns {PSTR} If the function succeeds, the return value is the fully qualified path for the supplemental file.
      * 						
      * 
@@ -12525,8 +12542,8 @@ class Debug {
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
      * @param {PWSTR} SymPath The symbol path. The function uses only the symbol stores described in standard syntax for symbol stores. All other paths are ignored. If this parameter is <b>NULL</b>, the function uses the symbol path set using the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> or <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-symsetsearchpath">SymSetSearchPath</a> function.
-     * @param {PWSTR} _Node 
-     * @param {PWSTR} _File 
+     * @param {PWSTR} _Node The symbol file associated with the supplemental file.
+     * @param {PWSTR} _File The name of the file.
      * @returns {PWSTR} If the function succeeds, the return value is the fully qualified path for the supplemental file.
      * 						
      * 
@@ -12556,7 +12573,7 @@ class Debug {
      * All DbgHelp functions, such as this one, are single threaded. Therefore, calls from more than one thread to this function will likely result in unexpected behavior or memory corruption. To avoid this, you must synchronize all concurrent calls from more than one thread to this function.
      * 
      * To call the Unicode version of this function, define DBGHELP_TRANSLATE_TCHAR.
-     * @param {PSTR} _File 
+     * @param {PSTR} _File The name of the file.
      * @param {Pointer<Guid>} Id The first of three identifying parameters.
      * @param {Pointer<Integer>} Val1 The second of three identifying parameters.
      * @param {Pointer<Integer>} Val2 The third of three identifying parameters.
@@ -12589,7 +12606,7 @@ class Debug {
      * All DbgHelp functions, such as this one, are single threaded. Therefore, calls from more than one thread to this function will likely result in unexpected behavior or memory corruption. To avoid this, you must synchronize all concurrent calls from more than one thread to this function.
      * 
      * To call the Unicode version of this function, define DBGHELP_TRANSLATE_TCHAR.
-     * @param {PWSTR} _File 
+     * @param {PWSTR} _File The name of the file.
      * @param {Pointer<Guid>} Id The first of three identifying parameters.
      * @param {Pointer<Integer>} Val1 The second of three identifying parameters.
      * @param {Pointer<Integer>} Val2 The third of three identifying parameters.
@@ -12634,10 +12651,11 @@ class Debug {
      * @param {HANDLE} hProcess A handle to a process. This handle must have been previously passed to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
      * @param {PWSTR} SrvPath The path to the symbol server.
-     * @param {PWSTR} _File 
+     * @param {PWSTR} _File The name of the file.
      * @param {PWSTR} Index A pointer to a 
      * buffer that receives the index string.
-     * @param {Pointer} _Size 
+     * @param {Pointer} _Size The size of 
+     * the <i>Index</i> buffer, in characters.
      * @param {Integer} Flags This parameter is reserved for future use.
      * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 						
@@ -12673,10 +12691,11 @@ class Debug {
      * @param {HANDLE} hProcess A handle to a process. This handle must have been previously passed to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
      * @param {PSTR} SrvPath The path to the symbol server.
-     * @param {PSTR} _File 
+     * @param {PSTR} _File The name of the file.
      * @param {PSTR} Index A pointer to a 
      * buffer that receives the index string.
-     * @param {Pointer} _Size 
+     * @param {Pointer} _Size The size of 
+     * the <i>Index</i> buffer, in characters.
      * @param {Integer} Flags This parameter is reserved for future use.
      * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 						
@@ -12709,7 +12728,7 @@ class Debug {
      * All DbgHelp functions, such as this one, are single threaded. Therefore, calls from more than one thread to this function will likely result in unexpected behavior or memory corruption. To avoid this, you must synchronize all concurrent calls from more than one thread to this function.
      * 
      * To call the Unicode version of this function, define DBGHELP_TRANSLATE_TCHAR.
-     * @param {PSTR} _File 
+     * @param {PSTR} _File The name of the file.
      * @param {Pointer<SYMSRV_INDEX_INFO>} Info A <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/ns-dbghelp-symsrv_index_info">SYMSRV_INDEX_INFO</a> structure that receives the index information.
      * @param {Integer} Flags This parameter is reserved for future use.
      * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
@@ -12747,7 +12766,7 @@ class Debug {
      * 
      * > [!NOTE]
      * > The dbghelp.h header defines SymSrvGetFileIndexInfo as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {PWSTR} _File 
+     * @param {PWSTR} _File The name of the file.
      * @param {Pointer<SYMSRV_INDEX_INFOW>} Info A <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/ns-dbghelp-symsrv_index_info">SYMSRV_INDEX_INFO</a> structure that receives the index information.
      * @param {Integer} Flags This parameter is reserved for future use.
      * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
@@ -12787,8 +12806,8 @@ class Debug {
      * @param {HANDLE} hProcess A handle to a process. This handle must have been previously passed to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
      * @param {PSTR} SrvPath The path to the symbol store.
-     * @param {PSTR} _Node 
-     * @param {PSTR} _File 
+     * @param {PSTR} _Node The symbol file associated with the supplemental file.
+     * @param {PSTR} _File The name of the file.
      * @param {Integer} Flags If this parameter is <b>SYMSTOREOPT_COMPRESS</b>, the file is compressed in the symbol store. Currently, there are no other supported values.
      * @returns {PSTR} If the function succeeds, the return value is the fully qualified path for the supplemental file.
      * 						
@@ -12837,8 +12856,8 @@ class Debug {
      * @param {HANDLE} hProcess A handle to a process. This handle must have been previously passed to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
      * @param {PWSTR} SymPath The path to the symbol store.
-     * @param {PWSTR} _Node 
-     * @param {PWSTR} _File 
+     * @param {PWSTR} _Node The symbol file associated with the supplemental file.
+     * @param {PWSTR} _File The name of the file.
      * @param {Integer} Flags If this parameter is <b>SYMSTOREOPT_COMPRESS</b>, the file is compressed in the symbol store. Currently, there are no other supported values.
      * @returns {PWSTR} If the function succeeds, the return value is the fully qualified path for the supplemental file.
      * 						
@@ -12874,8 +12893,8 @@ class Debug {
      * @param {HANDLE} hProcess A handle to a process. This handle must have been previously passed to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
      * @param {PSTR} SrvPath The symbol store.
-     * @param {PSTR} _File 
-     * @param {Integer} Flags The flags that control the function.
+     * @param {PSTR} _File The name of the file.
+     * @param {SYM_SRV_STORE_FILE_FLAGS} Flags The flags that control the function.
      * @returns {PSTR} If the function succeeds, the return value is a pointer to a null-terminated string that specifies the full-qualified path to the stored file.
      * 						
      * 
@@ -12916,8 +12935,8 @@ class Debug {
      * @param {HANDLE} hProcess A handle to a process. This handle must have been previously passed to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
      * @param {PWSTR} SrvPath The symbol store.
-     * @param {PWSTR} _File 
-     * @param {Integer} Flags The flags that control the function.
+     * @param {PWSTR} _File The name of the file.
+     * @param {SYM_SRV_STORE_FILE_FLAGS} Flags The flags that control the function.
      * @returns {PWSTR} If the function succeeds, the return value is a pointer to a null-terminated string that specifies the full-qualified path to the stored file.
      * 						
      * 
@@ -13240,7 +13259,6 @@ class Debug {
      * @param {Integer} flags 
      * @param {PSTR} FilePath 
      * @returns {BOOL} 
-     * @deprecated 
      */
     static FindFileInPath(hprocess, SearchPathA, FileName, id, two, three, flags, FilePath) {
         hprocess := hprocess is Win32Handle ? NumGet(hprocess, "ptr") : hprocess
@@ -13264,7 +13282,6 @@ class Debug {
      * @param {Integer} three 
      * @param {PSTR} FilePath 
      * @returns {BOOL} 
-     * @deprecated 
      */
     static FindFileInSearchPath(hprocess, SearchPathA, FileName, one, two, three, FilePath) {
         hprocess := hprocess is Win32Handle ? NumGet(hprocess, "ptr") : hprocess
@@ -13301,7 +13318,6 @@ class Debug {
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error 
      *        information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://learn.microsoft.com/windows/win32/api/dbghelp/nf-dbghelp-symenumsymbols
-     * @deprecated 
      */
     static SymEnumSym(hProcess, BaseOfDll, EnumSymbolsCallback, UserContext) {
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
@@ -13352,7 +13368,6 @@ class Debug {
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://learn.microsoft.com/windows/win32/api/dbghelp/nf-dbghelp-symenumeratesymbols64
-     * @deprecated 
      */
     static SymEnumerateSymbols64(hProcess, BaseOfDll, EnumSymbolsCallback, UserContext) {
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
@@ -13409,7 +13424,6 @@ class Debug {
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://learn.microsoft.com/windows/win32/api/dbghelp/nf-dbghelp-symenumeratesymbolsw64
-     * @deprecated 
      */
     static SymEnumerateSymbolsW64(hProcess, BaseOfDll, EnumSymbolsCallback, UserContext) {
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
@@ -13466,7 +13480,6 @@ class Debug {
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://learn.microsoft.com/windows/win32/api/dbghelp/nf-dbghelp-symenumeratesymbols
-     * @deprecated 
      */
     static SymEnumerateSymbols(hProcess, BaseOfDll, EnumSymbolsCallback, UserContext) {
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
@@ -13523,7 +13536,6 @@ class Debug {
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://learn.microsoft.com/windows/win32/api/dbghelp/nf-dbghelp-symenumeratesymbolsw
-     * @deprecated 
      */
     static SymEnumerateSymbolsW(hProcess, BaseOfDll, EnumSymbolsCallback, UserContext) {
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
@@ -13867,12 +13879,12 @@ class Debug {
 
     /**
      * Sets a symbol load error.
-     * @param {Integer} error A symbol load error.
+     * @param {Integer} _error A symbol load error.
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/dbghelp/nf-dbghelp-setsymloaderror
      */
-    static SetSymLoadError(error) {
-        DllCall("dbghelp.dll\SetSymLoadError", "uint", error)
+    static SetSymLoadError(_error) {
+        DllCall("dbghelp.dll\SetSymLoadError", "uint", _error)
     }
 
     /**
@@ -13925,7 +13937,7 @@ class Debug {
      * 
      * @param {Pointer<Void>} RmapHandle 
      * @param {PWSTR} ImageName 
-     * @param {Pointer} MappedImage 
+     * @param {Integer} MappedImage 
      * @param {Integer} MappingBytes 
      * @param {Integer} ImageBase 
      * @param {Integer} UserTag 
@@ -13958,7 +13970,7 @@ class Debug {
      * 
      * @param {Pointer<Void>} RmapHandle 
      * @param {Integer} Offset 
-     * @param {Pointer} _Buffer 
+     * @param {Integer} _Buffer 
      * @param {Integer} RequestBytes 
      * @param {Integer} Flags 
      * @param {Pointer<Integer>} DoneBytes 
@@ -13976,7 +13988,7 @@ class Debug {
      * 
      * @param {Pointer<Void>} RmapHandle 
      * @param {Integer} Offset 
-     * @param {Pointer} _Buffer 
+     * @param {Integer} _Buffer 
      * @param {Integer} RequestBytes 
      * @param {Integer} Flags 
      * @param {Pointer<Integer>} DoneBytes 
@@ -14006,7 +14018,7 @@ class Debug {
      * <b>Note</b>  To send a beep to a remote client, use the <a href="https://docs.microsoft.com/windows/desktop/api/utilapiset/nf-utilapiset-beep">Beep</a> function. 
      *      The <b>Beep</b> function is redirected to the client, whereas 
      *      <b>MessageBeep</b> is not.
-     * @param {Integer} uType The sound to be played. The sounds are set by the user through the Sound control panel application, and then 
+     * @param {MESSAGEBOX_STYLE} uType The sound to be played. The sounds are set by the user through the Sound control panel application, and then 
      *        stored in the registry.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
@@ -14276,7 +14288,7 @@ class Debug {
      *       unsafe to take an arbitrary system error code returned from an API and use 
      *       <b>FORMAT_MESSAGE_FROM_SYSTEM</b> without 
      *       <b>FORMAT_MESSAGE_IGNORE_INSERTS</b>.
-     * @param {Integer} dwFlags The formatting options, and how to interpret the <i>lpSource</i> parameter. The 
+     * @param {FORMAT_MESSAGE_OPTIONS} dwFlags The formatting options, and how to interpret the <i>lpSource</i> parameter. The 
      *        low-order byte of <i>dwFlags</i> specifies how the function handles line breaks in the output 
      *        buffer. The low-order byte can also specify the maximum width of a formatted output line.
      * @param {Pointer<Void>} lpSource The location of the message definition. The type of this parameter depends upon the settings in the 
@@ -14514,7 +14526,7 @@ class Debug {
      *       unsafe to take an arbitrary system error code returned from an API and use 
      *       <b>FORMAT_MESSAGE_FROM_SYSTEM</b> without 
      *       <b>FORMAT_MESSAGE_IGNORE_INSERTS</b>.
-     * @param {Integer} dwFlags The formatting options, and how to interpret the <i>lpSource</i> parameter. The 
+     * @param {FORMAT_MESSAGE_OPTIONS} dwFlags The formatting options, and how to interpret the <i>lpSource</i> parameter. The 
      *        low-order byte of <i>dwFlags</i> specifies how the function handles line breaks in the output 
      *        buffer. The low-order byte can also specify the maximum width of a formatted output line.
      * @param {Pointer<Void>} lpSource The location of the message definition. The type of this parameter depends upon the settings in the 
@@ -14662,7 +14674,7 @@ class Debug {
      *       <b>CONTEXT</b> structure should be initialized by calling 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-initializecontext">InitializeContext</a> before calling this 
      *       function.
-     * @param {Integer} ContextFlags Flags specifying the pieces of the <i>Source</i>
+     * @param {CONTEXT_FLAGS} ContextFlags Flags specifying the pieces of the <i>Source</i>
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-arm64_nt_context">CONTEXT</a> structure that will be copied into the 
      *       destination. This must be a subset of the <i>ContextFlags</i> specified when calling 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-initializecontext">InitializeContext</a> on the 
@@ -14718,15 +14730,26 @@ class Debug {
      *        <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-getprocaddress">GetProcAddress</a>. See 
      *        <a href="https://docs.microsoft.com/windows/desktop/Debug/working-with-xstate-context">Working with XState Context</a> for 
      *        details.
-     * @param {Pointer} _Buffer 
-     * @param {Integer} ContextFlags A value indicating which portions of the <i>Context</i> structure should be initialized. 
+     * @param {Integer} _Buffer A pointer to a buffer within which to initialize a 
+     *       <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-arm64_nt_context">CONTEXT</a> structure. This parameter can be 
+     *        <b>NULL</b> to determine the buffer size required to hold a context record with the 
+     *        specified <i>ContextFlags</i>.
+     * @param {CONTEXT_FLAGS} ContextFlags A value indicating which portions of the <i>Context</i> structure should be initialized. 
      *       This parameter influences the size of the initialized <i>Context</i> structure.
      *       
      * 
      * <div class="alert"><b>Note</b>  <b>CONTEXT_XSTATE</b> is not part of <b>CONTEXT_FULL</b> or 
      *        <b>CONTEXT_ALL</b>.  It must be specified separately if an XState context is desired.</div>
      * <div> </div>
-     * @param {Pointer<Pointer<CONTEXT>>} _Context 
+     * @param {Pointer<Pointer<CONTEXT>>} _Context A pointer to a variable which receives the address of the initialized 
+     *       <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-arm64_nt_context">CONTEXT</a> structure within the 
+     *       <i>Buffer</i>.
+     *       
+     * 
+     * <div class="alert"><b>Note</b>  Due to alignment requirements of <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-arm64_nt_context">CONTEXT</a> structures, 
+     *        the value returned in <i>Context</i> may not be at the beginning of the supplied 
+     *        buffer.</div>
+     * <div> </div>
      * @param {Pointer<Integer>} ContextLength On input, specifies the length of the buffer pointed to by <i>Buffer</i>, in bytes. If 
      *       the buffer is not large enough to contain the specified portions of the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-arm64_nt_context">CONTEXT</a>, the function fails, 
@@ -14792,15 +14815,26 @@ class Debug {
      * This is particularly useful if the system has many XState components enabled, but the <i>Context</i> will only be used to affect a small number of XState components.
      * The full set of enabled XState components can be obtained by calling <a href="https://docs.microsoft.com/windows/win32/api/winbase/nf-winbase-getenabledxstatefeatures">GetEnabledXStateFeatures</a>.
      * This function copies the specified XState compaction mask into the relevant location in the XState header.
-     * @param {Pointer} _Buffer 
-     * @param {Integer} ContextFlags A value indicating which portions of the <i>Context</i> structure should be initialized. 
+     * @param {Integer} _Buffer A pointer to a buffer within which to initialize a 
+     *       <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-arm64_nt_context">CONTEXT</a> structure. This parameter can be 
+     *        <b>NULL</b> to determine the buffer size required to hold a context record with the 
+     *        specified <i>ContextFlags</i>.
+     * @param {CONTEXT_FLAGS} ContextFlags A value indicating which portions of the <i>Context</i> structure should be initialized. 
      *       This parameter influences the size of the initialized <i>Context</i> structure.
      * 
      * 
      * <div class="alert"><b>Note</b>  <b>CONTEXT_XSTATE</b> is not part of <b>CONTEXT_FULL</b> or 
      *        <b>CONTEXT_ALL</b>.  It must be specified separately if an XState context is desired.</div>
      * <div> </div>
-     * @param {Pointer<Pointer<CONTEXT>>} _Context 
+     * @param {Pointer<Pointer<CONTEXT>>} _Context A pointer to a variable which receives the address of the initialized 
+     *       <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-arm64_nt_context">CONTEXT</a> structure within the 
+     *       <i>Buffer</i>.
+     * 
+     * 
+     * <div class="alert"><b>Note</b>  Due to alignment requirements of <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-arm64_nt_context">CONTEXT</a> structures, 
+     *        the value returned in <i>Context</i> may not be at the beginning of the supplied 
+     *        buffer.</div>
+     * <div> </div>
      * @param {Pointer<Integer>} ContextLength On input, specifies the length of the buffer pointed to by <i>Buffer</i>, in bytes. If 
      *       the buffer is not large enough to contain the specified portions of the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-arm64_nt_context">CONTEXT</a>, the function fails, 
@@ -14903,7 +14937,8 @@ class Debug {
      *        <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-getprocaddress">GetProcAddress</a>. See 
      *        <a href="https://docs.microsoft.com/windows/desktop/Debug/working-with-xstate-context">Working with XState Context</a> for 
      *        details.
-     * @param {Pointer<CONTEXT>} _Context 
+     * @param {Pointer<CONTEXT>} _Context A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-wow64_context">CONTEXT</a> structure that has been 
+     *       initialized with <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-initializecontext">InitializeContext</a>.
      * @param {Pointer<Integer>} FeatureMask A pointer to a variable that receives the mask of XState features which are present in the specified 
      *       <b>CONTEXT</b> structure.
      * @returns {BOOL} This function returns <b>TRUE</b> if successful, otherwise 
@@ -14951,7 +14986,11 @@ class Debug {
      *        <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-getprocaddress">GetProcAddress</a>. See 
      *        <a href="https://docs.microsoft.com/windows/desktop/Debug/working-with-xstate-context">Working with XState Context</a> for 
      *        details.
-     * @param {Pointer<CONTEXT>} _Context 
+     * @param {Pointer<CONTEXT>} _Context A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-arm64_nt_context">CONTEXT</a> structure containing the state 
+     *       to retrieve or set. This <b>CONTEXT</b> should have been 
+     *       initialized with <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-initializecontext">InitializeContext</a> with the 
+     *       <b>CONTEXT_XSTATE</b> flag set in the <i>ContextFlags</i> 
+     *       parameter.
      * @param {Integer} FeatureId The number of the feature to locate within the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-arm64_nt_context">CONTEXT</a> structure.
      * @param {Pointer<Integer>} Length A pointer to a variable which receives the length of the feature area in bytes. The contents of this 
@@ -14998,7 +15037,8 @@ class Debug {
      *        <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-getprocaddress">GetProcAddress</a>. See 
      *        <a href="https://docs.microsoft.com/windows/desktop/Debug/working-with-xstate-context">Working with XState Context</a> for 
      *        details.
-     * @param {Pointer<CONTEXT>} _Context 
+     * @param {Pointer<CONTEXT>} _Context A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-arm64_nt_context">CONTEXT</a> structure that has been 
+     *       initialized with <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-initializecontext">InitializeContext</a>.
      * @param {Integer} FeatureMask A mask of XState features to set in the specified 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-arm64_nt_context">CONTEXT</a> structure.
      * @returns {BOOL} This function returns <b>TRUE</b> if successful, otherwise 

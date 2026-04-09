@@ -4,13 +4,11 @@
 
 /**
  * @namespace Windows.Win32.Devices.Display
- * @version v4.0.30319
  */
-class MIPI_DSI_TRANSMISSION extends Win32Struct
-{
-    static sizeof => 24
+class MIPI_DSI_TRANSMISSION extends Win32Struct {
+    static sizeof => 32
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}
@@ -124,9 +122,9 @@ class MIPI_DSI_TRANSMISSION extends Win32Struct
     }
 
     /**
-     * @type {Array<MIPI_DSI_PACKET>}
+     * @type {MIPI_DSI_PACKET}
      */
-    Packets{
+    Packets {
         get {
             if(!this.HasProp("__PacketsProxyArray"))
                 this.__PacketsProxyArray := Win32FixedArray(this.ptr + 16, 1, MIPI_DSI_PACKET, "")

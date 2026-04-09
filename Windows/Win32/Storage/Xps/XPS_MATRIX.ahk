@@ -27,10 +27,8 @@
  * </table>
  * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/ns-xpsobjectmodel-xps_matrix
  * @namespace Windows.Win32.Storage.Xps
- * @version v4.0.30319
  */
-class XPS_MATRIX extends Win32Struct
-{
+class XPS_MATRIX extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 4

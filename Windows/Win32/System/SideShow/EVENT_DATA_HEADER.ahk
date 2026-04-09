@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.SideShow
- * @version v4.0.30319
  */
-class EVENT_DATA_HEADER extends Win32Struct
-{
+class EVENT_DATA_HEADER extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -20,7 +18,7 @@ class EVENT_DATA_HEADER extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     guidEventType {
         get => NumGet(this, 8, "ptr")

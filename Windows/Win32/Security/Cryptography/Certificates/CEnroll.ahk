@@ -26,10 +26,8 @@
  * <a href="https://docs.microsoft.com/windows/desktop/api/xenroll/nf-xenroll-icenroll-acceptpkcs7">acceptPKCS7</a> only in that a file supplies the certificate.
  * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll-acceptfilepkcs7
  * @namespace Windows.Win32.Security.Cryptography.Certificates
- * @version v4.0.30319
  */
-class CEnroll extends Win32Struct
-{
+class CEnroll extends Win32Struct {
     static sizeof => 0
 
     static packingSize => 1

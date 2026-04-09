@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\MI_Qualifier.ahk
+#Include .\MI_PropertyDecl.ahk
 
 /**
  * Contains properties common to the MI_ClassDecl and MI_PropertyDecl structures.
  * @see https://learn.microsoft.com/windows/win32/api/mi/ns-mi-mi_objectdecl
  * @namespace Windows.Win32.System.Wmi
- * @version v4.0.30319
  */
-class MI_ObjectDecl extends Win32Struct
-{
+class MI_ObjectDecl extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8

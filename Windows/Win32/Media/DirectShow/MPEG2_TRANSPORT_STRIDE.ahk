@@ -23,10 +23,8 @@
  * -   **dwStride**: 188
  * @see https://learn.microsoft.com/windows/win32/DirectShow/mpeg2-transport-stride
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class MPEG2_TRANSPORT_STRIDE extends Win32Struct
-{
+class MPEG2_TRANSPORT_STRIDE extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4

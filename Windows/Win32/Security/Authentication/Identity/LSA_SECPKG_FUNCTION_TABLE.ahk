@@ -5,10 +5,8 @@
  * Contains pointers to the LSA functions that a security package can call. The Local Security Authority (LSA) passes this structure to a security package when it calls the package's SpInitialize function.
  * @see https://learn.microsoft.com/windows/win32/api/ntsecpkg/ns-ntsecpkg-lsa_secpkg_function_table
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class LSA_SECPKG_FUNCTION_TABLE extends Win32Struct
-{
+class LSA_SECPKG_FUNCTION_TABLE extends Win32Struct {
     static sizeof => 528
 
     static packingSize => 8

@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ICreateDevEnum.ahk
 #Include .\IFilterMapper2.ahk
+#Include .\ICreateDevEnum.ahk
 
 /**
  * The IFilterMapper3 interface extends the IFilterMapper2 interface. The Filter Mapper object implements this interface.Note  This interface is deprecated. .
  * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-ifiltermapper3
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IFilterMapper3 extends IFilterMapper2{
+class IFilterMapper3 extends IFilterMapper2 {
 
     static sizeof => A_PtrSize
     /**

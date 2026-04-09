@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.Display
- * @version v4.0.30319
  */
-class VIDEO_MONITOR_DESCRIPTOR extends Win32Struct
-{
+class VIDEO_MONITOR_DESCRIPTOR extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4
@@ -20,9 +18,9 @@ class VIDEO_MONITOR_DESCRIPTOR extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Descriptor{
+    Descriptor {
         get {
             if(!this.HasProp("__DescriptorProxyArray"))
                 this.__DescriptorProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "char")

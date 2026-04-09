@@ -10,10 +10,8 @@
  * The <b>TimerResolution</b> of the <a href="https://docs.microsoft.com/windows/desktop/ETW/trace-logfile-header">TRACE_LOGFILE_HEADER</a> structure contains the resolution of the CPU usage timer in 100-nanosecond units. You can use the timer resolution with the kernel time and user time values to determine the amount of CPU time that the set of instructions used. For example, if the timer resolution is 156,250, then 25 CPU time units is 0.39 seconds (156,250 * 25 * 100 / 1,000,000,000). This is the amount of CPU time (not elapsed wall clock time) used by the set of instructions between events A and B.
  * @see https://learn.microsoft.com/windows/win32/api/evntcons/ns-evntcons-event_header
  * @namespace Windows.Win32.System.Diagnostics.Etw
- * @version v4.0.30319
  */
-class EVENT_HEADER extends Win32Struct
-{
+class EVENT_HEADER extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 8
@@ -207,7 +205,7 @@ class EVENT_HEADER extends Win32Struct
 
     /**
      * GUID that uniquely identifies the provider that logged the event.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     ProviderId {
         get => NumGet(this, 24, "ptr")
@@ -218,7 +216,7 @@ class EVENT_HEADER extends Win32Struct
      * Defines the information about the event such as the event identifier and severity level. For details, see <a href="https://docs.microsoft.com/windows/desktop/api/evntprov/ns-evntprov-event_descriptor">EVENT_DESCRIPTOR</a>.
      * @type {EVENT_DESCRIPTOR}
      */
-    EventDescriptor{
+    EventDescriptor {
         get {
             if(!this.HasProp("__EventDescriptor"))
                 this.__EventDescriptor := EVENT_DESCRIPTOR(32, this)
@@ -252,7 +250,7 @@ class EVENT_HEADER extends Win32Struct
 
     /**
      * Identifier that relates two events. For details, see <a href="https://docs.microsoft.com/windows/desktop/api/evntprov/nf-evntprov-eventwritetransfer">EventWriteTransfer</a>.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     ActivityId {
         get => NumGet(this, 56, "ptr")

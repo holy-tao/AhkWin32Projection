@@ -7,10 +7,8 @@
  * This structure is used by the driver to report the types of surfaces the driver supports. It is also filled in by an application to specify the type of surface to be created.
  * @see https://learn.microsoft.com/windows/win32/api/ddraw/ns-ddraw-ddscaps
  * @namespace Windows.Win32.Graphics.DirectDraw
- * @version v4.0.30319
  */
-class DDSCAPS extends Win32Struct
-{
+class DDSCAPS extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 4

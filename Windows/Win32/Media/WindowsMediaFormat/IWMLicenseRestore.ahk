@@ -7,9 +7,8 @@
  * The IWMLicenseRestore interface manages the restoring of licenses.This interface is obtained from another interface on the backup restorer object.
  * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nn-wmsdkidl-iwmlicenserestore
  * @namespace Windows.Win32.Media.WindowsMediaFormat
- * @version v4.0.30319
  */
-class IWMLicenseRestore extends IUnknown{
+class IWMLicenseRestore extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

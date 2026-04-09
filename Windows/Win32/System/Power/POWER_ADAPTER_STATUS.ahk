@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.System.Power
- * @version v4.0.30319
  */
-class POWER_ADAPTER_STATUS extends Win32Struct
-{
+class POWER_ADAPTER_STATUS extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -21,9 +19,9 @@ class POWER_ADAPTER_STATUS extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Reserved{
+    Reserved {
         get {
             if(!this.HasProp("__ReservedProxyArray"))
                 this.__ReservedProxyArray := Win32FixedArray(this.ptr + 1, 3, Primitive, "char")
@@ -34,7 +32,7 @@ class POWER_ADAPTER_STATUS extends Win32Struct
     /**
      * @type {POWER_ADAPTER_POWER_STATES}
      */
-    PowerState{
+    PowerState {
         get {
             if(!this.HasProp("__PowerState"))
                 this.__PowerState := POWER_ADAPTER_POWER_STATES(4, this)

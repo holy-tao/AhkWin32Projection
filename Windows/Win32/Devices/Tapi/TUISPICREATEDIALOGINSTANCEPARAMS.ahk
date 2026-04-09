@@ -5,10 +5,8 @@
  * The TUISPI data structure is defined below.
  * @see https://learn.microsoft.com/windows/win32/api/tspi/ns-tspi-tuispicreatedialoginstanceparams
  * @namespace Windows.Win32.Devices.Tapi
- * @version v4.0.30319
  */
-class TUISPICREATEDIALOGINSTANCEPARAMS extends Win32Struct
-{
+class TUISPICREATEDIALOGINSTANCEPARAMS extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8

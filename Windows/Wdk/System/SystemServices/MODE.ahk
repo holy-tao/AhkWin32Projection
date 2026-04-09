@@ -5,9 +5,8 @@
  * Contains information about the capabilities of a modem.
  * @see https://learn.microsoft.com/windows/win32/api/mcx/ns-mcx-modemdevcaps
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class MODE extends Win32Enum{
+class MODE extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

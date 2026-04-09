@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\D3D11_SHADER_TYPE.ahk
 #Include .\D3D11_VERTEX_SHADER_TRACE_DESC.ahk
 #Include .\D3D11_HULL_SHADER_TRACE_DESC.ahk
 #Include .\D3D11_DOMAIN_SHADER_TRACE_DESC.ahk
@@ -13,17 +14,15 @@
  * This API requires the Windows Software Development Kit (SDK) for Windows 8.
  * @see https://learn.microsoft.com/windows/win32/api/d3d11shadertracing/ns-d3d11shadertracing-d3d11_shader_trace_desc
  * @namespace Windows.Win32.Graphics.Direct3D11
- * @version v4.0.30319
  */
-class D3D11_SHADER_TRACE_DESC extends Win32Struct
-{
+class D3D11_SHADER_TRACE_DESC extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/d3d11shadertracing/ne-d3d11shadertracing-d3d11_shader_type">D3D11_SHADER_TYPE</a>-typed value that identifies the type of shader that the shader-trace object describes. This member also determines which shader-trace type to use in the following union.
-     * @type {Integer}
+     * @type {D3D11_SHADER_TYPE}
      */
     Type {
         get => NumGet(this, 0, "int")
@@ -57,7 +56,7 @@ class D3D11_SHADER_TRACE_DESC extends Win32Struct
     /**
      * @type {D3D11_VERTEX_SHADER_TRACE_DESC}
      */
-    VertexShaderTraceDesc{
+    VertexShaderTraceDesc {
         get {
             if(!this.HasProp("__VertexShaderTraceDesc"))
                 this.__VertexShaderTraceDesc := D3D11_VERTEX_SHADER_TRACE_DESC(8, this)
@@ -68,7 +67,7 @@ class D3D11_SHADER_TRACE_DESC extends Win32Struct
     /**
      * @type {D3D11_HULL_SHADER_TRACE_DESC}
      */
-    HullShaderTraceDesc{
+    HullShaderTraceDesc {
         get {
             if(!this.HasProp("__HullShaderTraceDesc"))
                 this.__HullShaderTraceDesc := D3D11_HULL_SHADER_TRACE_DESC(8, this)
@@ -79,7 +78,7 @@ class D3D11_SHADER_TRACE_DESC extends Win32Struct
     /**
      * @type {D3D11_DOMAIN_SHADER_TRACE_DESC}
      */
-    DomainShaderTraceDesc{
+    DomainShaderTraceDesc {
         get {
             if(!this.HasProp("__DomainShaderTraceDesc"))
                 this.__DomainShaderTraceDesc := D3D11_DOMAIN_SHADER_TRACE_DESC(8, this)
@@ -90,7 +89,7 @@ class D3D11_SHADER_TRACE_DESC extends Win32Struct
     /**
      * @type {D3D11_GEOMETRY_SHADER_TRACE_DESC}
      */
-    GeometryShaderTraceDesc{
+    GeometryShaderTraceDesc {
         get {
             if(!this.HasProp("__GeometryShaderTraceDesc"))
                 this.__GeometryShaderTraceDesc := D3D11_GEOMETRY_SHADER_TRACE_DESC(8, this)
@@ -101,7 +100,7 @@ class D3D11_SHADER_TRACE_DESC extends Win32Struct
     /**
      * @type {D3D11_PIXEL_SHADER_TRACE_DESC}
      */
-    PixelShaderTraceDesc{
+    PixelShaderTraceDesc {
         get {
             if(!this.HasProp("__PixelShaderTraceDesc"))
                 this.__PixelShaderTraceDesc := D3D11_PIXEL_SHADER_TRACE_DESC(8, this)
@@ -112,7 +111,7 @@ class D3D11_SHADER_TRACE_DESC extends Win32Struct
     /**
      * @type {D3D11_COMPUTE_SHADER_TRACE_DESC}
      */
-    ComputeShaderTraceDesc{
+    ComputeShaderTraceDesc {
         get {
             if(!this.HasProp("__ComputeShaderTraceDesc"))
                 this.__ComputeShaderTraceDesc := D3D11_COMPUTE_SHADER_TRACE_DESC(8, this)

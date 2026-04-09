@@ -5,10 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class DXVA2TraceVideoProcessBltData extends Win32Struct
-{
+class DXVA2TraceVideoProcessBltData extends Win32Struct {
     static sizeof => 88
 
     static packingSize => 8
@@ -16,7 +14,7 @@ class DXVA2TraceVideoProcessBltData extends Win32Struct
     /**
      * @type {EVENT_TRACE_HEADER}
      */
-    wmiHeader{
+    wmiHeader {
         get {
             if(!this.HasProp("__wmiHeader"))
                 this.__wmiHeader := EVENT_TRACE_HEADER(0, this)
@@ -51,7 +49,7 @@ class DXVA2TraceVideoProcessBltData extends Win32Struct
     /**
      * @type {RECT}
      */
-    TargetRect{
+    TargetRect {
         get {
             if(!this.HasProp("__TargetRect"))
                 this.__TargetRect := RECT(64, this)

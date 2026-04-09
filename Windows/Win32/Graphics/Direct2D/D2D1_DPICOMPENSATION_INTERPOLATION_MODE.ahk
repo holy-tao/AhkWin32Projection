@@ -5,9 +5,8 @@
  * The interpolation mode the DPI compensation effect uses to scale the image.
  * @see https://learn.microsoft.com/windows/win32/api/d2d1effects/ne-d2d1effects-d2d1_dpicompensation_interpolation_mode
  * @namespace Windows.Win32.Graphics.Direct2D
- * @version v4.0.30319
  */
-class D2D1_DPICOMPENSATION_INTERPOLATION_MODE extends Win32Enum{
+class D2D1_DPICOMPENSATION_INTERPOLATION_MODE extends Win32Enum {
 
     /**
      * Samples the nearest single point and uses that. This mode uses less processing time, but outputs the lowest quality image.

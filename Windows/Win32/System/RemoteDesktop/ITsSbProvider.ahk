@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Include ..\Com\IUnknown.ahk
 #Include .\ITsSbTarget.ahk
 #Include .\ITsSbLoadBalanceResult.ahk
 #Include .\ITsSbSession.ahk
@@ -12,15 +12,13 @@
 #Include .\ITsSbFilterPluginStore.ahk
 #Include .\ITsSbGlobalStore.ahk
 #Include .\ITsSbEnvironmentPropertySet.ahk
-#Include ..\Com\IUnknown.ahk
 
 /**
  * Exposes methods that create default implementations of objects that are used in Remote Desktop Virtualization.
  * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nn-sbtsv-itssbprovider
  * @namespace Windows.Win32.System.RemoteDesktop
- * @version v4.0.30319
  */
-class ITsSbProvider extends IUnknown{
+class ITsSbProvider extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

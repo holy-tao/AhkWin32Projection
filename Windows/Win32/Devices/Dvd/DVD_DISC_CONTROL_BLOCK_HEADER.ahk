@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.Dvd
- * @version v4.0.30319
  */
-class DVD_DISC_CONTROL_BLOCK_HEADER extends Win32Struct
-{
+class DVD_DISC_CONTROL_BLOCK_HEADER extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 1
@@ -16,16 +14,16 @@ class DVD_DISC_CONTROL_BLOCK_HEADER extends Win32Struct
         static packingSize => 1
 
         /**
-         * @type {Array<Byte>}
+         * @type {Array<Integer>}
          */
-        ReservedDoNotUse_UseAsByteInstead_0{
+        ReservedDoNotUse_UseAsByteInstead_0 {
             get {
                 if(!this.HasProp("__ReservedDoNotUse_UseAsByteInstead_0ProxyArray"))
                     this.__ReservedDoNotUse_UseAsByteInstead_0ProxyArray := Win32FixedArray(this.ptr + 0, 3, Primitive, "char")
                 return this.__ReservedDoNotUse_UseAsByteInstead_0ProxyArray
             }
         }
-    
+
         /**
          * This bitfield backs the following members:
          * - RecordingWithinTheUserDataArea
@@ -39,7 +37,7 @@ class DVD_DISC_CONTROL_BLOCK_HEADER extends Win32Struct
             get => NumGet(this, 3, "char")
             set => NumPut("char", value, this, 3)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -47,7 +45,7 @@ class DVD_DISC_CONTROL_BLOCK_HEADER extends Win32Struct
             get => (this._bitfield >> 0) & 0x1
             set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -55,7 +53,7 @@ class DVD_DISC_CONTROL_BLOCK_HEADER extends Win32Struct
             get => (this._bitfield >> 1) & 0x1
             set => this._bitfield := ((value & 0x1) << 1) | (this._bitfield & ~(0x1 << 1))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -63,7 +61,7 @@ class DVD_DISC_CONTROL_BLOCK_HEADER extends Win32Struct
             get => (this._bitfield >> 2) & 0x1
             set => this._bitfield := ((value & 0x1) << 2) | (this._bitfield & ~(0x1 << 2))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -71,7 +69,7 @@ class DVD_DISC_CONTROL_BLOCK_HEADER extends Win32Struct
             get => (this._bitfield >> 3) & 0x1
             set => this._bitfield := ((value & 0x1) << 3) | (this._bitfield & ~(0x1 << 3))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -79,24 +77,23 @@ class DVD_DISC_CONTROL_BLOCK_HEADER extends Win32Struct
             get => (this._bitfield >> 4) & 0xF
             set => this._bitfield := ((value & 0xF) << 4) | (this._bitfield & ~(0xF << 4))
         }
-    
+
         /**
-         * @type {Array<Byte>}
+         * @type {Array<Integer>}
          */
-        AsByte{
+        AsByte {
             get {
                 if(!this.HasProp("__AsByteProxyArray"))
                     this.__AsByteProxyArray := Win32FixedArray(this.ptr + 0, 4, Primitive, "char")
                 return this.__AsByteProxyArray
             }
         }
-    
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    ContentDescriptor{
+    ContentDescriptor {
         get {
             if(!this.HasProp("__ContentDescriptorProxyArray"))
                 this.__ContentDescriptorProxyArray := Win32FixedArray(this.ptr + 0, 4, Primitive, "char")
@@ -107,18 +104,18 @@ class DVD_DISC_CONTROL_BLOCK_HEADER extends Win32Struct
     /**
      * @type {_ProhibitedActions_e__Union}
      */
-    ProhibitedActions{
+    ProhibitedActions {
         get {
             if(!this.HasProp("__ProhibitedActions"))
-                this.__ProhibitedActions := %this.__Class%._ProhibitedActions_e__Union(4, this)
+                this.__ProhibitedActions := DVD_DISC_CONTROL_BLOCK_HEADER._ProhibitedActions_e__Union(4, this)
             return this.__ProhibitedActions
         }
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    VendorId{
+    VendorId {
         get {
             if(!this.HasProp("__VendorIdProxyArray"))
                 this.__VendorIdProxyArray := Win32FixedArray(this.ptr + 8, 32, Primitive, "char")

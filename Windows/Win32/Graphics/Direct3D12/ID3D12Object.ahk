@@ -7,9 +7,8 @@
  * An interface from which ID3D12Device and ID3D12DeviceChild inherit from. It provides methods to associate private data and annotate object names.
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/nn-d3d12-id3d12object
  * @namespace Windows.Win32.Graphics.Direct3D12
- * @version v4.0.30319
  */
-class ID3D12Object extends IUnknown{
+class ID3D12Object extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -40,7 +39,7 @@ class ID3D12Object extends IUnknown{
      * @param {Pointer<Integer>} pDataSize Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a>*</b>
      * 
      * A pointer to a variable that on input contains the size, in bytes, of the buffer that <i>pData</i> points to, and on output contains the size, in bytes, of the amount of data that <b>GetPrivateData</b> retrieved.
-     * @param {Pointer} pData Type: <b>void*</b>
+     * @param {Integer} pData Type: <b>void*</b>
      * 
      * A pointer to a memory block that receives the data from the device object if <i>pDataSize</i> points to a value that specifies a buffer large enough to hold the data.
      * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
@@ -66,7 +65,7 @@ class ID3D12Object extends IUnknown{
      * @param {Integer} DataSize Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * The size in bytes of the data.
-     * @param {Pointer} pData Type: <b>const void*</b>
+     * @param {Integer} pData Type: <b>const void*</b>
      * 
      * A pointer to a memory block that contains the data to be stored with this device object. If <i>pData</i> is <b>NULL</b>, <i>DataSize</i> must also be 0, and any data that was previously associated with the <b>GUID</b> specified in <i>guid</i> will be destroyed.
      * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>

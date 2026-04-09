@@ -5,9 +5,8 @@
  * The layout rules applied to the elements of the WS-Security security header. This setting is relevant to message security bindings and mixed-mode security bindings.
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ne-webservices-ws_security_header_layout
  * @namespace Windows.Win32.Networking.WindowsWebServices
- * @version v4.0.30319
  */
-class WS_SECURITY_HEADER_LAYOUT extends Win32Enum{
+class WS_SECURITY_HEADER_LAYOUT extends Win32Enum {
 
     /**
      * The elements of the security header must follow a 'declare before use'

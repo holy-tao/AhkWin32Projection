@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Globalization
- * @version v4.0.30319
  */
-class IEnumCodePage extends IUnknown{
+class IEnumCodePage extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

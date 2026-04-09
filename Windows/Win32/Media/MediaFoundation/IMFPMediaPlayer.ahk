@@ -1,19 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\System\Com\StructuredStorage\PROPVARIANT.ahk
 #Include .\IMFPMediaItem.ahk
 #Include .\MFVideoNormalizedRect.ahk
 #Include ..\..\Foundation\HWND.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Contains methods to play media files. (Deprecated.).
  * @see https://learn.microsoft.com/windows/win32/api/mfplay/nn-mfplay-imfpmediaplayer
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFPMediaPlayer extends IUnknown{
+class IMFPMediaPlayer extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -534,7 +533,7 @@ class IMFPMediaPlayer extends IUnknown{
      * This method can be called after the player object has been shut down.
      * 
      * Many of the <a href="https://docs.microsoft.com/windows/desktop/api/mfplay/nn-mfplay-imfpmediaplayer">IMFPMediaPlayer</a> methods complete asynchronously. While an asynchronous operation is pending, the current state is not updated until the operation completes. When the operation completes, the application receives an event callback, and the new state is given in the <a href="https://docs.microsoft.com/windows/desktop/api/mfplay/ns-mfplay-mfp_event_header">MFP_EVENT_HEADER</a> structure that is passed to the callback.
-     * @returns {Integer} Receives the playback state, as a member of the <a href="https://docs.microsoft.com/windows/desktop/api/mfplay/ne-mfplay-mfp_mediaplayer_state">MFP_MEDIAPLAYER_STATE</a> enumeration.
+     * @returns {MFP_MEDIAPLAYER_STATE} Receives the playback state, as a member of the <a href="https://docs.microsoft.com/windows/desktop/api/mfplay/ne-mfplay-mfp_mediaplayer_state">MFP_MEDIAPLAYER_STATE</a> enumeration.
      * @see https://learn.microsoft.com/windows/win32/api/mfplay/nf-mfplay-imfpmediaplayer-getstate
      */
     GetState() {

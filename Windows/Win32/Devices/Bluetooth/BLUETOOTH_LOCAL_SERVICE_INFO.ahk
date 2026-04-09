@@ -8,10 +8,8 @@
  * In the event  the service is not associated with a specific device, <b>btAddr</b> should be set to <b>BTH_ADDR_NULL</b>.
  * @see https://learn.microsoft.com/windows/win32/api/bluetoothapis/ns-bluetoothapis-bluetooth_local_service_info_struct
  * @namespace Windows.Win32.Devices.Bluetooth
- * @version v4.0.30319
  */
-class BLUETOOTH_LOCAL_SERVICE_INFO extends Win32Struct
-{
+class BLUETOOTH_LOCAL_SERVICE_INFO extends Win32Struct {
     static sizeof => 1048
 
     static packingSize => 8
@@ -29,7 +27,7 @@ class BLUETOOTH_LOCAL_SERVICE_INFO extends Win32Struct
      * A <a href="https://docs.microsoft.com/windows/win32/api/bluetoothapis/ns-bluetoothapis-bluetooth_address_struct">BLUETOOTH_ADDRESS</a> structure that contains the address of a remote device. This address is used when advertising services to a device.
      * @type {BLUETOOTH_ADDRESS}
      */
-    btAddr{
+    btAddr {
         get {
             if(!this.HasProp("__btAddr"))
                 this.__btAddr := BLUETOOTH_ADDRESS(8, this)

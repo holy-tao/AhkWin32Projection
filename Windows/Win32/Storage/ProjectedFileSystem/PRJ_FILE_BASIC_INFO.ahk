@@ -5,10 +5,8 @@
  * Basic information about an item.
  * @see https://learn.microsoft.com/windows/win32/api/projectedfslib/ns-projectedfslib-prj_file_basic_info
  * @namespace Windows.Win32.Storage.ProjectedFileSystem
- * @version v4.0.30319
  */
-class PRJ_FILE_BASIC_INFO extends Win32Struct
-{
+class PRJ_FILE_BASIC_INFO extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8

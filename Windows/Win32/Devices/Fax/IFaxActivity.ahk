@@ -11,9 +11,8 @@
  * You can configure whether the fax service logs information about incoming and outgoing fax jobs in an activity log database. The <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxactivitylogging">FaxActivityLogging</a> configuration object permits configuration of the activity logging options that the fax service uses.
  * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nn-faxcomex-ifaxactivity
  * @namespace Windows.Win32.Devices.Fax
- * @version v4.0.30319
  */
-class IFaxActivity extends IDispatch{
+class IFaxActivity extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

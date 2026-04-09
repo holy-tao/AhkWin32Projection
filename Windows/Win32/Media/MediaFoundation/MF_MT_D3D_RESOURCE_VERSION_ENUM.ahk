@@ -3,13 +3,10 @@
 
 /**
  * Specifies the Direct3D version of the resource used in the stream associated with a media type.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/mfd3d12/ne-mfd3d12-mf_mt_d3d_resource_version_enum
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class MF_MT_D3D_RESOURCE_VERSION_ENUM extends Win32Enum{
+class MF_MT_D3D_RESOURCE_VERSION_ENUM extends Win32Enum {
 
     /**
      * The version is Direct3D 11.

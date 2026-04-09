@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\XAUDIO2_FILTER_TYPE.ahk
 
 /**
  * Defines filter parameters for a source voice.
@@ -46,17 +47,15 @@
  * Windows 10 (XAudio2.9); Windows 8, Windows Phone 8 (XAudio 2.8); DirectX SDK (XAudio 2.7)
  * @see https://learn.microsoft.com/windows/win32/api/xaudio2/ns-xaudio2-xaudio2_filter_parameters
  * @namespace Windows.Win32.Media.Audio.XAudio2
- * @version v4.0.30319
  */
-class XAUDIO2_FILTER_PARAMETERS extends Win32Struct
-{
+class XAUDIO2_FILTER_PARAMETERS extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4
 
     /**
      * The <a href="https://docs.microsoft.com/windows/desktop/api/xaudio2/ne-xaudio2-xaudio2_filter_type">XAUDIO2_FILTER_TYPE</a>.
-     * @type {Integer}
+     * @type {XAUDIO2_FILTER_TYPE}
      */
     Type {
         get => NumGet(this, 0, "int")

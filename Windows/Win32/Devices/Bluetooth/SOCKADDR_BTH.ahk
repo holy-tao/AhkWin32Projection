@@ -9,10 +9,8 @@
  * When using the <a href="https://docs.microsoft.com/windows/desktop/Bluetooth/bluetooth-and-connect">connect</a> function when <b>serviceClassId</b> is not provided, the port should directly specify the remote port number to which a <b>connect</b> operation is requested. Using the <b>port</b> member instead of the <b>serviceClassId</b> member requires the application  to perform its own service (SDP) search before attempting the <b>connect</b> operation.
  * @see https://learn.microsoft.com/windows/win32/api/ws2bth/ns-ws2bth-sockaddr_bth
  * @namespace Windows.Win32.Devices.Bluetooth
- * @version v4.0.30319
  */
-class SOCKADDR_BTH extends Win32Struct
-{
+class SOCKADDR_BTH extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -40,7 +38,7 @@ class SOCKADDR_BTH extends Win32Struct
 
     /**
      * Service Class Identifier of the socket. When used with the <a href="https://docs.microsoft.com/windows/desktop/Bluetooth/bluetooth-and-bind">bind</a> function, <i>serviceClassId</i> is ignored. Also ignored if the port is specified. For the <a href="https://docs.microsoft.com/windows/desktop/Bluetooth/bluetooth-and-connect">connect</a> function, specifies the unique Bluetooth service class ID of the service to which it wants to connect. If the peer device has more than one port that corresponds to the service class identifier, the <b>connect</b> function attempts to connect to the first valid service; this mechanism can be used without prior SDP queries.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     serviceClassId {
         get => NumGet(this, 16, "ptr")

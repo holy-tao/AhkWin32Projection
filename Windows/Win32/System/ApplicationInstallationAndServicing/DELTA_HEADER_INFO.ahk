@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\FILETIME.ahk
+#Include ..\..\Security\Cryptography\ALG_ID.ahk
 #Include .\DELTA_HASH.ahk
 
 /**
  * @namespace Windows.Win32.System.ApplicationInstallationAndServicing
- * @version v4.0.30319
  */
-class DELTA_HEADER_INFO extends Win32Struct
-{
+class DELTA_HEADER_INFO extends Win32Struct {
     static sizeof => 80
 
     static packingSize => 8
@@ -48,7 +47,7 @@ class DELTA_HEADER_INFO extends Win32Struct
     /**
      * @type {FILETIME}
      */
-    TargetFileTime{
+    TargetFileTime {
         get {
             if(!this.HasProp("__TargetFileTime"))
                 this.__TargetFileTime := FILETIME(32, this)
@@ -57,7 +56,7 @@ class DELTA_HEADER_INFO extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {ALG_ID}
      */
     TargetHashAlgId {
         get => NumGet(this, 40, "uint")
@@ -67,7 +66,7 @@ class DELTA_HEADER_INFO extends Win32Struct
     /**
      * @type {DELTA_HASH}
      */
-    TargetHash{
+    TargetHash {
         get {
             if(!this.HasProp("__TargetHash"))
                 this.__TargetHash := DELTA_HASH(44, this)

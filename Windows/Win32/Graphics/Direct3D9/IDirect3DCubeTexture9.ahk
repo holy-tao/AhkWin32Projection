@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IDirect3DSurface9.ahk
 #Include .\IDirect3DBaseTexture9.ahk
+#Include .\IDirect3DSurface9.ahk
 
 /**
  * The IDirect3DCubeTexture9 (d3d9.h) interface applications use the methods of the IDirect3DCubeTexture9 interface to manipulate a cube texture resource.
@@ -26,9 +26,8 @@
  * ```
  * @see https://learn.microsoft.com/windows/win32/api/d3d9/nn-d3d9-idirect3dcubetexture9
  * @namespace Windows.Win32.Graphics.Direct3D9
- * @version v4.0.30319
  */
-class IDirect3DCubeTexture9 extends IDirect3DBaseTexture9{
+class IDirect3DCubeTexture9 extends IDirect3DBaseTexture9 {
 
     static sizeof => A_PtrSize
     /**
@@ -73,7 +72,7 @@ class IDirect3DCubeTexture9 extends IDirect3DBaseTexture9{
      * The IDirect3DCubeTexture9::GetCubeMapSurface method (d3d9.h) retrieves a cube texture map surface.
      * @remarks
      * Calling this method will increase the internal reference count on the <a href="https://docs.microsoft.com/windows/desktop/api/d3d9helper/nn-d3d9helper-idirect3dsurface9">IDirect3DSurface9</a> interface. Failure to call <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">IUnknown::Release</a> when finished using this <b>IDirect3DSurface9</b> interface results in a memory leak.
-     * @param {Integer} FaceType Type: <b><a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3dcubemap-faces">D3DCUBEMAP_FACES</a></b>
+     * @param {D3DCUBEMAP_FACES} FaceType Type: <b><a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3dcubemap-faces">D3DCUBEMAP_FACES</a></b>
      * 
      * Member of the <a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3dcubemap-faces">D3DCUBEMAP_FACES</a> enumerated type, identifying a cube map face.
      * @param {Integer} Level Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
@@ -97,7 +96,7 @@ class IDirect3DCubeTexture9 extends IDirect3DBaseTexture9{
      * Cube textures created with D3DPOOL_DEFAULT are not lockable. Cube textures created in video memory are lockable when created with <a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3dusage">USAGE_DYNAMIC</a>.
      * 
      * The only lockable format for a depth-stencil texture is <a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3dformat">D3DFMT_D16_LOCKABLE</a>.
-     * @param {Integer} FaceType Type: <b><a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3dcubemap-faces">D3DCUBEMAP_FACES</a></b>
+     * @param {D3DCUBEMAP_FACES} FaceType Type: <b><a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3dcubemap-faces">D3DCUBEMAP_FACES</a></b>
      * 
      * Member of the <a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3dcubemap-faces">D3DCUBEMAP_FACES</a> enumerated type, identifying a cube map face.
      * @param {Integer} Level Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
@@ -134,7 +133,7 @@ class IDirect3DCubeTexture9 extends IDirect3DBaseTexture9{
 
     /**
      * The IDirect3DCubeTexture9::UnlockRect method (d3d9.h) unlocks a rectangle on a cube texture resource.
-     * @param {Integer} FaceType Type: <b><a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3dcubemap-faces">D3DCUBEMAP_FACES</a></b>
+     * @param {D3DCUBEMAP_FACES} FaceType Type: <b><a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3dcubemap-faces">D3DCUBEMAP_FACES</a></b>
      * 
      * Member of the <a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3dcubemap-faces">D3DCUBEMAP_FACES</a> enumerated type, identifying a cube map face.
      * @param {Integer} Level Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
@@ -156,7 +155,7 @@ class IDirect3DCubeTexture9 extends IDirect3DBaseTexture9{
      * For performance reasons, dirty regions are only recorded for level zero of a texture. For sublevels, it is assumed that the corresponding (scaled) rectangle or box is also dirty. Dirty regions are automatically recorded when <a href="https://docs.microsoft.com/windows/desktop/api/d3d9/nf-d3d9-idirect3dcubetexture9-lockrect">IDirect3DCubeTexture9::LockRect</a> is called without <a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3dlock">D3DLOCK_NO_DIRTY_UPDATE</a> or <a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3dlock">D3DLOCK_READONLY</a>. The destination surface of <a href="https://docs.microsoft.com/windows/desktop/api/d3d9/nf-d3d9-idirect3ddevice9-updatesurface">IDirect3DDevice9::UpdateSurface</a> is also marked dirty automatically.
      * 
      * Using <a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3dlock">D3DLOCK_NO_DIRTY_UPDATE</a> and explicitly specifying dirty regions can be used to increase the efficiency of <a href="https://docs.microsoft.com/windows/desktop/api/d3d9/nf-d3d9-idirect3ddevice9-updatetexture">IDirect3DDevice9::UpdateTexture</a>. Using this method, applications can optimize what subset of a resource is copied by specifying dirty regions on the resource. However, the dirty regions may be expanded to optimize alignment.
-     * @param {Integer} FaceType Type: <b><a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3dcubemap-faces">D3DCUBEMAP_FACES</a></b>
+     * @param {D3DCUBEMAP_FACES} FaceType Type: <b><a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3dcubemap-faces">D3DCUBEMAP_FACES</a></b>
      * 
      * Member of the <a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3dcubemap-faces">D3DCUBEMAP_FACES</a> enumerated type, identifying the cube map face.
      * @param {Pointer<RECT>} pDirtyRect Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a>*</b>

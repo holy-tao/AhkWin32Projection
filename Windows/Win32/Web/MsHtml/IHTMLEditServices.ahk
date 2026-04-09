@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ISelectionServices.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\ISelectionServices.ahk
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
- * @version v4.0.30319
  */
-class IHTMLEditServices extends IUnknown{
+class IHTMLEditServices extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -83,7 +82,7 @@ class IHTMLEditServices extends IUnknown{
      * 
      * @param {IMarkupPointer} pStart 
      * @param {IMarkupPointer} pEnd 
-     * @param {Integer} eType 
+     * @param {SELECTION_TYPE} eType 
      * @returns {HRESULT} 
      */
     SelectRange(pStart, pEnd, eType) {

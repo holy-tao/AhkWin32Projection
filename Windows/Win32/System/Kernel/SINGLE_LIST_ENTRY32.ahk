@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Kernel
- * @version v4.0.30319
  */
-class SINGLE_LIST_ENTRY32 extends Win32Struct
-{
+class SINGLE_LIST_ENTRY32 extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 4

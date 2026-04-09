@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IUIAutomationEventHandlerGroup.ahk
 #Include .\IUIAutomation5.ahk
+#Include .\IUIAutomationEventHandlerGroup.ahk
 
 /**
  * Extends the IUIAutomation5 interface to expose additional methods for controlling Microsoft UI Automation functionality.
  * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nn-uiautomationclient-iuiautomation6
  * @namespace Windows.Win32.UI.Accessibility
- * @version v4.0.30319
  */
-class IUIAutomation6 extends IUIAutomation5{
+class IUIAutomation6 extends IUIAutomation5 {
 
     static sizeof => A_PtrSize
     /**
@@ -32,7 +31,7 @@ class IUIAutomation6 extends IUIAutomation5{
     static VTableNames => ["CreateEventHandlerGroup", "AddEventHandlerGroup", "RemoveEventHandlerGroup", "get_ConnectionRecoveryBehavior", "put_ConnectionRecoveryBehavior", "get_CoalesceEvents", "put_CoalesceEvents", "AddActiveTextPositionChangedEventHandler", "RemoveActiveTextPositionChangedEventHandler"]
 
     /**
-     * @type {Integer} 
+     * @type {ConnectionRecoveryBehaviorOptions} 
      */
     ConnectionRecoveryBehavior {
         get => this.get_ConnectionRecoveryBehavior()
@@ -40,7 +39,7 @@ class IUIAutomation6 extends IUIAutomation5{
     }
 
     /**
-     * @type {Integer} 
+     * @type {CoalesceEventsOptions} 
      */
     CoalesceEvents {
         get => this.get_CoalesceEvents()
@@ -101,7 +100,7 @@ class IUIAutomation6 extends IUIAutomation5{
      * > Type: **ConnectionRecoveryBehaviorOptions**
      * >
      * > Value indicating whether provider request timeouts are adjusted. The default is [ConnectionRecoveryBehaviorOptions_Disabled](ne-uiautomationclient-connectionrecoverybehavioroptions.md).
-     * @returns {Integer} 
+     * @returns {ConnectionRecoveryBehaviorOptions} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomation6-get_connectionrecoverybehavior
      */
     get_ConnectionRecoveryBehavior() {
@@ -119,7 +118,7 @@ class IUIAutomation6 extends IUIAutomation5{
      * > Type: **ConnectionRecoveryBehaviorOptions**
      * >
      * > Value indicating whether provider request timeouts are adjusted. The default is [ConnectionRecoveryBehaviorOptions_Disabled](ne-uiautomationclient-connectionrecoverybehavioroptions.md).
-     * @param {Integer} _connectionRecoveryBehaviorOptions 
+     * @param {ConnectionRecoveryBehaviorOptions} _connectionRecoveryBehaviorOptions 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomation6-put_connectionrecoverybehavior
      */
@@ -138,7 +137,7 @@ class IUIAutomation6 extends IUIAutomation5{
      * > Type: **CoalesceEventsOptions**
      * >
      * > Value indicating whether events are filtered. The default is [CoalesceEventsOptions_Disabled](ne-uiautomationclient-coalesceeventsoptions.md).
-     * @returns {Integer} 
+     * @returns {CoalesceEventsOptions} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomation6-get_coalesceevents
      */
     get_CoalesceEvents() {
@@ -156,7 +155,7 @@ class IUIAutomation6 extends IUIAutomation5{
      * > Type: **CoalesceEventsOptions**
      * >
      * > Value indicating whether events are filtered. The default is [CoalesceEventsOptions_Disabled](ne-uiautomationclient-coalesceeventsoptions.md).
-     * @param {Integer} _coalesceEventsOptions 
+     * @param {CoalesceEventsOptions} _coalesceEventsOptions 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomation6-put_coalesceevents
      */
@@ -187,7 +186,7 @@ class IUIAutomation6 extends IUIAutomation5{
      * 
      * It is possible for an event to be delivered to an event handler after the handler has been unsubscribed, if the event is received simultaneously with the request to unsubscribe the event. The best practice is to follow the Component Object Model (COM) standard and avoid destroying the event handler object until its reference count has reached zero. Destroying an event handler immediately after unsubscribing for events may result in an access violation if an event is delivered late.
      * @param {IUIAutomationElement} element A pointer to the UI Automation element associated with the event handler.
-     * @param {Integer} scope 
+     * @param {TreeScope} scope 
      * @param {IUIAutomationCacheRequest} cacheRequest A pointer to a cache request, or NULL if no caching is wanted.
      * @param {IUIAutomationActiveTextPositionChangedEventHandler} handler A pointer to the object that handles the active text position changed event.
      * @returns {HRESULT} If this method succeeds, it returns S_OK. Otherwise, it returns an HRESULT error code.

@@ -1,18 +1,19 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\D3D12_VIDEO_ENCODER_AV1_COMP_PREDICTION_TYPE.ahk
+#Include .\D3D12_VIDEO_ENCODER_AV1_FRAME_TYPE_FLAGS.ahk
+#Include .\D3D12_VIDEO_ENCODER_AV1_REFERENCE_WARPED_MOTION_TRANSFORMATION_FLAGS.ahk
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class D3D12_VIDEO_ENCODER_CODEC_AV1_PICTURE_CONTROL_SUPPORT extends Win32Struct
-{
+class D3D12_VIDEO_ENCODER_CODEC_AV1_PICTURE_CONTROL_SUPPORT extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4
 
     /**
-     * @type {Integer}
+     * @type {D3D12_VIDEO_ENCODER_AV1_COMP_PREDICTION_TYPE}
      */
     PredictionMode {
         get => NumGet(this, 0, "int")
@@ -28,7 +29,7 @@ class D3D12_VIDEO_ENCODER_CODEC_AV1_PICTURE_CONTROL_SUPPORT extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {D3D12_VIDEO_ENCODER_AV1_FRAME_TYPE_FLAGS}
      */
     SupportedFrameTypes {
         get => NumGet(this, 8, "int")
@@ -36,7 +37,7 @@ class D3D12_VIDEO_ENCODER_CODEC_AV1_PICTURE_CONTROL_SUPPORT extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {D3D12_VIDEO_ENCODER_AV1_REFERENCE_WARPED_MOTION_TRANSFORMATION_FLAGS}
      */
     SupportedReferenceWarpedMotionFlags {
         get => NumGet(this, 12, "int")

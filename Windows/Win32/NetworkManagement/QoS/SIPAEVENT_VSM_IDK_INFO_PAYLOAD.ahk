@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.QoS
- * @version v4.0.30319
  */
-class SIPAEVENT_VSM_IDK_INFO_PAYLOAD extends Win32Struct
-{
+class SIPAEVENT_VSM_IDK_INFO_PAYLOAD extends Win32Struct {
     static sizeof => 20
 
     static packingSize => 4
@@ -23,7 +21,7 @@ class SIPAEVENT_VSM_IDK_INFO_PAYLOAD extends Win32Struct
     /**
      * @type {SIPAEVENT_VSM_IDK_RSA_INFO}
      */
-    RsaKeyInfo{
+    RsaKeyInfo {
         get {
             if(!this.HasProp("__RsaKeyInfo"))
                 this.__RsaKeyInfo := SIPAEVENT_VSM_IDK_RSA_INFO(4, this)

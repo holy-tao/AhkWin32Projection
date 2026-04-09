@@ -7,9 +7,8 @@
  * Represents the progress of the print job.
  * @see https://learn.microsoft.com/windows/win32/api/documenttarget/nn-documenttarget-iprintdocumentpackagestatusevent
  * @namespace Windows.Win32.Storage.Xps.Printing
- * @version v4.0.30319
  */
-class IPrintDocumentPackageStatusEvent extends IDispatch{
+class IPrintDocumentPackageStatusEvent extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

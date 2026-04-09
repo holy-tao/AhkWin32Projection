@@ -41,9 +41,8 @@
  * <b>Windows 7 and later</b>. CExplorerBrowser can support in-place navigation by using <a href="https://docs.microsoft.com/previous-versions/windows/internet-explorer/ie-developer/platform-apis/cc678966(v=vs.85)">IServiceProvider::QueryService</a> with the Service ID SID_SlnPlaceBrowser. When using SID_SInPlaceBrowser, the CExplorerBrowser state cannot be set to EBO_NAVIGATEONCE.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-iexplorerbrowser
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IExplorerBrowser extends IUnknown{
+class IExplorerBrowser extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -256,7 +255,7 @@ class IExplorerBrowser extends IUnknown{
      * <li>EP_Ribbon</li>
      * </ul>
      * See <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-iexplorerpanevisibility-getpanestate">IExplorerPaneVisibility::GetPaneState</a> for more information.
-     * @param {Integer} dwFlag Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-explorer_browser_options">EXPLORER_BROWSER_OPTIONS</a></b>
+     * @param {EXPLORER_BROWSER_OPTIONS} dwFlag Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-explorer_browser_options">EXPLORER_BROWSER_OPTIONS</a></b>
      * 
      * One or more <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-explorer_browser_options">EXPLORER_BROWSER_OPTIONS</a> flags to be set.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -271,7 +270,7 @@ class IExplorerBrowser extends IUnknown{
 
     /**
      * Gets the current browser options.
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-explorer_browser_options">EXPLORER_BROWSER_OPTIONS</a>*</b>
+     * @returns {EXPLORER_BROWSER_OPTIONS} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-explorer_browser_options">EXPLORER_BROWSER_OPTIONS</a>*</b>
      * 
      * When this method returns, contains the current <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-explorer_browser_options">EXPLORER_BROWSER_OPTIONS</a> for the browser.
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iexplorerbrowser-getoptions
@@ -340,7 +339,7 @@ class IExplorerBrowser extends IUnknown{
      * @param {IUnknown} punk Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>*</b>
      * 
      * An interface pointer on the source object that will fill the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl/nn-shobjidl-iresultsfolder">IResultsFolder</a>. This can be an <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-idataobject">IDataObject</a> or any object that can be used with <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-inamespacewalk">INamespaceWalk</a>.
-     * @param {Integer} dwFlags Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-explorer_browser_fill_flags">EXPLORER_BROWSER_FILL_FLAGS</a></b>
+     * @param {EXPLORER_BROWSER_FILL_FLAGS} dwFlags Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-explorer_browser_fill_flags">EXPLORER_BROWSER_FILL_FLAGS</a></b>
      * 
      * One of the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-explorer_browser_fill_flags">EXPLORER_BROWSER_FILL_FLAGS</a> values.
      * @returns {HRESULT} Type: <b>HRESULT</b>

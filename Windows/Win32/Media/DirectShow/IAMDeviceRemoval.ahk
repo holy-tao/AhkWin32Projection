@@ -7,9 +7,8 @@
  * The IAMDeviceRemoval interface provides a way for the Filter Graph Manager to register for device removal events for a capture device.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-iamdeviceremoval
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IAMDeviceRemoval extends IUnknown{
+class IAMDeviceRemoval extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

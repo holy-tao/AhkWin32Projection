@@ -9,10 +9,8 @@
  * An MTS identifier has the same format as a MAPI entry identifier or a binary property value. MTS identifiers can be particularly useful for canceling deferred messages.
  * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/mtsid
  * @namespace Windows.Win32.System.AddressBook
- * @version v4.0.30319
  */
-class MTSID extends Win32Struct
-{
+class MTSID extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4
@@ -27,9 +25,9 @@ class MTSID extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    ab{
+    ab {
         get {
             if(!this.HasProp("__abProxyArray"))
                 this.__abProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "char")

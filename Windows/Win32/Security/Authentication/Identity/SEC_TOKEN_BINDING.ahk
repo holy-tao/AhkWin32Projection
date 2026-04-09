@@ -3,14 +3,10 @@
 
 /**
  * Stores the token binding information.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/sspi/ns-sspi-sec_token_binding
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class SEC_TOKEN_BINDING extends Win32Struct
-{
+class SEC_TOKEN_BINDING extends Win32Struct {
     static sizeof => 6
 
     static packingSize => 2
@@ -44,9 +40,9 @@ class SEC_TOKEN_BINDING extends Win32Struct
 
     /**
      * The Token Binding key parameter IDs, most preferred first.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    KeyParameters{
+    KeyParameters {
         get {
             if(!this.HasProp("__KeyParametersProxyArray"))
                 this.__KeyParametersProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "char")

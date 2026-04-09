@@ -1,18 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
 #Include .\IEnumBstr.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * The ITAddressCapabilities interface is used to obtain information about an address's capabilities. It is on the Address object, and an application can access it by calling QueryInterface on the Address object.
  * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nn-tapi3if-itaddresscapabilities
  * @namespace Windows.Win32.Devices.Tapi
- * @version v4.0.30319
  */
-class ITAddressCapabilities extends IDispatch{
+class ITAddressCapabilities extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -56,7 +55,7 @@ class ITAddressCapabilities extends IDispatch{
 
     /**
      * The get_AddressCapability method gets the capability value for a given ADDRESS_CAPABILITY.
-     * @param {Integer} AddressCap Descriptor for desired address capability.
+     * @param {ADDRESS_CAPABILITY} AddressCap Descriptor for desired address capability.
      * @returns {Integer} Value of address capability.
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itaddresscapabilities-get_addresscapability
      */
@@ -70,7 +69,7 @@ class ITAddressCapabilities extends IDispatch{
      * @remarks
      * The application must use 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysfreestring">SysFreeString</a> to free the memory allocated for the <i>ppCapabilityString</i> parameter.
-     * @param {Integer} AddressCapString Descriptor for desired address capability string.
+     * @param {ADDRESS_CAPABILITY_STRING} AddressCapString Descriptor for desired address capability string.
      * @returns {BSTR} Pointer to <b>BSTR</b> value of address capability. <b>NULL</b> is a possible return value if the TSP does not provide a value for <i>AddressCapString</i>.
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itaddresscapabilities-get_addresscapabilitystring
      */

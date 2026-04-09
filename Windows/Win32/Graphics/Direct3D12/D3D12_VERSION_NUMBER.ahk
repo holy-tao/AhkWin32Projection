@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D12
- * @version v4.0.30319
  */
-class D3D12_VERSION_NUMBER extends Win32Struct
-{
+class D3D12_VERSION_NUMBER extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
@@ -20,9 +18,9 @@ class D3D12_VERSION_NUMBER extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt16>}
+     * @type {Array<Integer>}
      */
-    VersionParts{
+    VersionParts {
         get {
             if(!this.HasProp("__VersionPartsProxyArray"))
                 this.__VersionPartsProxyArray := Win32FixedArray(this.ptr + 0, 4, Primitive, "ushort")

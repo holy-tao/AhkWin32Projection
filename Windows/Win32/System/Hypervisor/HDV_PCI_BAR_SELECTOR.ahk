@@ -5,9 +5,8 @@
  * HDV_PCI_BAR_SELECTOR Enumeration
  * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/hdv/HdvPciBarSelector
  * @namespace Windows.Win32.System.Hypervisor
- * @version v4.0.30319
  */
-class HDV_PCI_BAR_SELECTOR extends Win32Enum{
+class HDV_PCI_BAR_SELECTOR extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

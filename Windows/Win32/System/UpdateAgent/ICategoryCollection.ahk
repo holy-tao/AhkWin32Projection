@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Com\IDispatch.ahk
 #Include .\ICategory.ahk
 #Include ..\Com\IUnknown.ahk
-#Include ..\Com\IDispatch.ahk
 
 /**
  * Represents an ordered read-only list of ICategory interfaces.
  * @see https://learn.microsoft.com/windows/win32/api/wuapi/nn-wuapi-icategorycollection
  * @namespace Windows.Win32.System.UpdateAgent
- * @version v4.0.30319
  */
-class ICategoryCollection extends IDispatch{
+class ICategoryCollection extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

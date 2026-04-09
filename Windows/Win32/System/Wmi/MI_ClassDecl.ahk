@@ -1,14 +1,19 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\MI_Qualifier.ahk
+#Include .\MI_PropertyDecl.ahk
+#Include .\MI_ClassDecl.ahk
+#Include .\MI_MethodDecl.ahk
+#Include .\MI_SchemaDecl.ahk
+#Include .\MI_ProviderFT.ahk
+#Include .\MI_Class.ahk
 
 /**
  * This structure outlines the class declaration. It contains class name and hierarchy, properties, qualifiers, and methods.
  * @see https://learn.microsoft.com/windows/win32/api/mi/ns-mi-mi_classdecl
  * @namespace Windows.Win32.System.Wmi
- * @version v4.0.30319
  */
-class MI_ClassDecl extends Win32Struct
-{
+class MI_ClassDecl extends Win32Struct {
     static sizeof => 104
 
     static packingSize => 8

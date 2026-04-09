@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\SOCKADDR_IN6.ahk
 
 /**
  * Contains pointers to a pair of IP addresses that represent a source and destination address pair.
@@ -13,10 +14,8 @@
  * Note that the <i>Ws2ipdef.h</i> header file is automatically included in <i>Ws2tcpip.h</i> header file, and should never be used directly.
  * @see https://learn.microsoft.com/windows/win32/api/ws2ipdef/ns-ws2ipdef-sockaddr_in6_pair
  * @namespace Windows.Win32.Networking.WinSock
- * @version v4.0.30319
  */
-class SOCKADDR_IN6_PAIR extends Win32Struct
-{
+class SOCKADDR_IN6_PAIR extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

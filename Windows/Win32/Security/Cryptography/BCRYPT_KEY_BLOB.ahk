@@ -5,10 +5,8 @@
  * Is the base structure for all CNG key BLOBs.
  * @see https://learn.microsoft.com/windows/win32/api/bcrypt/ns-bcrypt-bcrypt_key_blob
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class BCRYPT_KEY_BLOB extends Win32Struct
-{
+class BCRYPT_KEY_BLOB extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 4

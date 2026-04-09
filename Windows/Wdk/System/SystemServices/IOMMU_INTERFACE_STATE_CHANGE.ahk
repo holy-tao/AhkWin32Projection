@@ -3,16 +3,14 @@
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class IOMMU_INTERFACE_STATE_CHANGE extends Win32Struct
-{
+class IOMMU_INTERFACE_STATE_CHANGE extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
 
     /**
-     * @type {Pointer<IOMMU_INTERFACE_STATE_CHANGE_FIELDS>}
+     * @type {Pointer}
      */
     PresentFields {
         get => NumGet(this, 0, "ptr")

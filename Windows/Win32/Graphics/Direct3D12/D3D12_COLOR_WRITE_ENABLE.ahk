@@ -7,9 +7,8 @@
  * This enum is used by the <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ns-d3d12-d3d12_render_target_blend_desc">D3D12_RENDER_TARGET_BLEND_DESC</a> structure.
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/ne-d3d12-d3d12_color_write_enable
  * @namespace Windows.Win32.Graphics.Direct3D12
- * @version v4.0.30319
  */
-class D3D12_COLOR_WRITE_ENABLE extends Win32Enum{
+class D3D12_COLOR_WRITE_ENABLE extends Win32Enum {
 
     /**
      * Allow data to be stored in the red component.

@@ -23,9 +23,8 @@
  * Server applications should return <b>TRUE</b> for <a href="https://docs.microsoft.com/windows/desktop/Shutdown/wm-queryendsession">WM_QUERYENDSESSION</a> without prompting the user. On receipt of a <a href="https://docs.microsoft.com/windows/desktop/Shutdown/wm-endsession">WM_ENDSESSION</a> message, all COM applications should execute the normal close sequence for each application's documents and objects. At the same time, you should ignore any errors resulting from any cross-process calls or calls to <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">IUnknown::Release</a>. All storage pointers (<a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istorage">IStorage</a> and <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a> interface pointers) must be released to properly flush any temporary files maintained by the compound file implementation of structured storage.
  * @see https://learn.microsoft.com/windows/win32/api/objidl/nn-objidl-imessagefilter
  * @namespace Windows.Win32.Media.Audio
- * @version v4.0.30319
  */
-class IMessageFilter extends IUnknown{
+class IMessageFilter extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

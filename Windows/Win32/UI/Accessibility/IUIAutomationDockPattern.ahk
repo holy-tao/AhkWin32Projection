@@ -9,9 +9,8 @@
  * Microsoft UI Automation client applications use this interface to access the dock properties of UI Automation elements that function as controls within a docking container. A docking container is a control that allows the arrangement of child elements, both horizontally and vertically, relative to the boundaries of the docking container and other elements within the container. Controls are docked relative to each other based on their current z-order; the higher their z-order placement the farther they are placed from the specified edge of the docking container.
  * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nn-uiautomationclient-iuiautomationdockpattern
  * @namespace Windows.Win32.UI.Accessibility
- * @version v4.0.30319
  */
-class IUIAutomationDockPattern extends IUnknown{
+class IUIAutomationDockPattern extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -33,14 +32,14 @@ class IUIAutomationDockPattern extends IUnknown{
     static VTableNames => ["SetDockPosition", "get_CurrentDockPosition", "get_CachedDockPosition"]
 
     /**
-     * @type {Integer} 
+     * @type {DockPosition} 
      */
     CurrentDockPosition {
         get => this.get_CurrentDockPosition()
     }
 
     /**
-     * @type {Integer} 
+     * @type {DockPosition} 
      */
     CachedDockPosition {
         get => this.get_CachedDockPosition()
@@ -48,7 +47,7 @@ class IUIAutomationDockPattern extends IUnknown{
 
     /**
      * Sets the dock position of this element.
-     * @param {Integer} dockPos 
+     * @param {DockPosition} dockPos 
      * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
@@ -61,7 +60,7 @@ class IUIAutomationDockPattern extends IUnknown{
 
     /**
      * Retrieves the dock position of this element within its docking container.
-     * @returns {Integer} 
+     * @returns {DockPosition} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationdockpattern-get_currentdockposition
      */
     get_CurrentDockPosition() {
@@ -71,7 +70,7 @@ class IUIAutomationDockPattern extends IUnknown{
 
     /**
      * Retrieves the cached dock position of this element within its docking container.
-     * @returns {Integer} 
+     * @returns {DockPosition} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationdockpattern-get_cacheddockposition
      */
     get_CachedDockPosition() {

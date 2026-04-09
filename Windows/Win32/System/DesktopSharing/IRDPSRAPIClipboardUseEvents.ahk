@@ -7,9 +7,8 @@
  * Implement this interface on the sharer side to track or control use of the clipboard. If you do not enable clipboard sharing, this interface has no effect. You need to set a value for the SetClipboardRedirectCallback property described in Property.
  * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nn-rdpencomapi-irdpsrapiclipboarduseevents
  * @namespace Windows.Win32.System.DesktopSharing
- * @version v4.0.30319
  */
-class IRDPSRAPIClipboardUseEvents extends IUnknown{
+class IRDPSRAPIClipboardUseEvents extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -32,7 +31,7 @@ class IRDPSRAPIClipboardUseEvents extends IUnknown{
 
     /**
      * This callback is issued when an attempt to copy data from the sharer computer is made.
-     * @param {Integer} _clipboardFormat 
+     * @param {Integer} _clipboardFormat A clipboard format identifier. For more information about clipboard formats, see <a href="https://docs.microsoft.com/windows/desktop/dataxchg/clipboard-formats">Clipboard Formats</a>. For a list of clipboard format identifiers, see <a href="https://docs.microsoft.com/windows/desktop/dataxchg/standard-clipboard-formats">Standard Clipboard Formats</a>.
      * @param {IDispatch} pAttendee A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/rdpencomapi/nn-rdpencomapi-irdpsrapiattendee">IRDPSRAPIAttendee</a> instance for the attendee who attempted the clipboard copy.
      * @returns {VARIANT_BOOL} The return value for this attempt.
      * 

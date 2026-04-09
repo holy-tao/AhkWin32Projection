@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
 #Include .\IUpdateCollection.ahk
 #Include .\IDownloadJob.ahk
 #Include .\IDownloadResult.ahk
-#Include ..\Com\IDispatch.ahk
 
 /**
  * Downloads updates from the server.
@@ -13,9 +13,8 @@
  * You can create an instance of this interface by using the UpdateDownloader coclass. Use the Microsoft.Update.Downloader program identifier to create the object.
  * @see https://learn.microsoft.com/windows/win32/api/wuapi/nn-wuapi-iupdatedownloader
  * @namespace Windows.Win32.System.UpdateAgent
- * @version v4.0.30319
  */
-class IUpdateDownloader extends IDispatch{
+class IUpdateDownloader extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -59,7 +58,7 @@ class IUpdateDownloader extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {DownloadPriority} 
      */
     Priority {
         get => this.get_Priority()
@@ -129,7 +128,7 @@ class IUpdateDownloader extends IDispatch{
 
     /**
      * Gets and sets the priority level of the download. (Get)
-     * @returns {Integer} 
+     * @returns {DownloadPriority} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatedownloader-get_priority
      */
     get_Priority() {
@@ -139,7 +138,7 @@ class IUpdateDownloader extends IDispatch{
 
     /**
      * Gets and sets the priority level of the download. (Put)
-     * @param {Integer} value 
+     * @param {DownloadPriority} value 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatedownloader-put_priority
      */

@@ -1,13 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\IMAGE_DELAYLOAD_DESCRIPTOR.ahk
+#Include .\IMAGE_THUNK_DATA64.ahk
 #Include .\DELAYLOAD_PROC_DESCRIPTOR.ahk
 
 /**
  * @namespace Windows.Win32.System.WindowsProgramming
- * @version v4.0.30319
+ * @architecture X64, Arm64
  */
-class DELAYLOAD_INFO extends Win32Struct
-{
+class DELAYLOAD_INFO extends Win32Struct {
     static sizeof => 80
 
     static packingSize => 8
@@ -47,7 +48,7 @@ class DELAYLOAD_INFO extends Win32Struct
     /**
      * @type {DELAYLOAD_PROC_DESCRIPTOR}
      */
-    TargetApiDescriptor{
+    TargetApiDescriptor {
         get {
             if(!this.HasProp("__TargetApiDescriptor"))
                 this.__TargetApiDescriptor := DELAYLOAD_PROC_DESCRIPTOR(32, this)

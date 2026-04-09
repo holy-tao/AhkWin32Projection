@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\Com\IUnknown.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * Identifies a namespace to open or use.
  * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nn-wcmconfig-isettingsidentity
  * @namespace Windows.Win32.System.SettingsManagementInfrastructure
- * @version v4.0.30319
  */
-class ISettingsIdentity extends IUnknown{
+class ISettingsIdentity extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

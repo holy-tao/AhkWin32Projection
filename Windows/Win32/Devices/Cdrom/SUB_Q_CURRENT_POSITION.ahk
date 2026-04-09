@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.Cdrom
- * @version v4.0.30319
  */
-class SUB_Q_CURRENT_POSITION extends Win32Struct
-{
+class SUB_Q_CURRENT_POSITION extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 1
@@ -15,7 +13,7 @@ class SUB_Q_CURRENT_POSITION extends Win32Struct
     /**
      * @type {SUB_Q_HEADER}
      */
-    Header{
+    Header {
         get {
             if(!this.HasProp("__Header"))
                 this.__Header := SUB_Q_HEADER(0, this)
@@ -75,9 +73,9 @@ class SUB_Q_CURRENT_POSITION extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    AbsoluteAddress{
+    AbsoluteAddress {
         get {
             if(!this.HasProp("__AbsoluteAddressProxyArray"))
                 this.__AbsoluteAddressProxyArray := Win32FixedArray(this.ptr + 8, 4, Primitive, "char")
@@ -86,9 +84,9 @@ class SUB_Q_CURRENT_POSITION extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    TrackRelativeAddress{
+    TrackRelativeAddress {
         get {
             if(!this.HasProp("__TrackRelativeAddressProxyArray"))
                 this.__TrackRelativeAddressProxyArray := Win32FixedArray(this.ptr + 12, 4, Primitive, "char")

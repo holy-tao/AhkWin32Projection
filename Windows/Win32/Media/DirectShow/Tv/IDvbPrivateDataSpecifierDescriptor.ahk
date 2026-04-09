@@ -7,9 +7,8 @@
  * Implements methods that get data from a Digital Video Broadcast (DVB) private data descriptor. The private data descriptor describes broadcaster-specific data that is not part of the official MPEG-2 standard for broadcast streams.
  * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nn-dvbsiparser-idvbprivatedataspecifierdescriptor
  * @namespace Windows.Win32.Media.DirectShow.Tv
- * @version v4.0.30319
  */
-class IDvbPrivateDataSpecifierDescriptor extends IUnknown{
+class IDvbPrivateDataSpecifierDescriptor extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

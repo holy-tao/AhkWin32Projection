@@ -1,14 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\IPSEC_FAILURE_POINT.ahk
+#Include .\IKEEXT_KEY_MODULE_TYPE.ahk
+#Include .\IKEEXT_MM_SA_STATE.ahk
+#Include .\IKEEXT_SA_ROLE.ahk
+#Include .\IKEEXT_AUTHENTICATION_METHOD_TYPE.ahk
 
 /**
  * Contains information that describes an IKE/AuthIP Main Mode (MM) failure. (FWPM_NET_EVENT_IKEEXT_MM_FAILURE0)
  * @see https://learn.microsoft.com/windows/win32/api/fwpmtypes/ns-fwpmtypes-fwpm_net_event_ikeext_mm_failure0
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
- * @version v4.0.30319
  */
-class FWPM_NET_EVENT_IKEEXT_MM_FAILURE0 extends Win32Struct
-{
+class FWPM_NET_EVENT_IKEEXT_MM_FAILURE0 extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 8
@@ -24,7 +27,7 @@ class FWPM_NET_EVENT_IKEEXT_MM_FAILURE0 extends Win32Struct
 
     /**
      * An [IPSEC_FAILURE_POINT](../ipsectypes/ne-ipsectypes-ipsec_failure_point.md) value that indicates the IPsec state when the failure occurred.
-     * @type {Integer}
+     * @type {IPSEC_FAILURE_POINT}
      */
     failurePoint {
         get => NumGet(this, 4, "int")
@@ -47,7 +50,7 @@ class FWPM_NET_EVENT_IKEEXT_MM_FAILURE0 extends Win32Struct
 
     /**
      * An [IKEEXT_KEY_MODULE_TYPE](../iketypes/ne-iketypes-ikeext_key_module_type.md) value that specifies the type of keying module.
-     * @type {Integer}
+     * @type {IKEEXT_KEY_MODULE_TYPE}
      */
     keyingModuleType {
         get => NumGet(this, 12, "int")
@@ -56,7 +59,7 @@ class FWPM_NET_EVENT_IKEEXT_MM_FAILURE0 extends Win32Struct
 
     /**
      * An [IKEEXT_MM_SA_STATE](../iketypes/ne-iketypes-ikeext_mm_sa_state.md) value that indicates the Main Mode state when the failure occurred.
-     * @type {Integer}
+     * @type {IKEEXT_MM_SA_STATE}
      */
     mmState {
         get => NumGet(this, 16, "int")
@@ -65,7 +68,7 @@ class FWPM_NET_EVENT_IKEEXT_MM_FAILURE0 extends Win32Struct
 
     /**
      * An [IKEEXT_SA_ROLE](../iketypes/ne-iketypes-ikeext_sa_role.md) value that specifies the security association (SA) role when the failure occurred.
-     * @type {Integer}
+     * @type {IKEEXT_SA_ROLE}
      */
     saRole {
         get => NumGet(this, 20, "int")
@@ -74,7 +77,7 @@ class FWPM_NET_EVENT_IKEEXT_MM_FAILURE0 extends Win32Struct
 
     /**
      * An [IKEEXT_AUTHENTICATION_METHOD_TYPE](../iketypes/ne-iketypes-ikeext_authentication_method_type.md) value that specifies the authentication method.
-     * @type {Integer}
+     * @type {IKEEXT_AUTHENTICATION_METHOD_TYPE}
      */
     mmAuthMethod {
         get => NumGet(this, 24, "int")
@@ -85,9 +88,9 @@ class FWPM_NET_EVENT_IKEEXT_MM_FAILURE0 extends Win32Struct
      * SHA thumbprint hash of the end certificate corresponding to the failures that happen during building or validating certificate chains.
      * 
      * **IKEEXT_CERT_HASH_LEN** maps to 20.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    endCertHash{
+    endCertHash {
         get {
             if(!this.HasProp("__endCertHashProxyArray"))
                 this.__endCertHashProxyArray := Win32FixedArray(this.ptr + 28, 20, Primitive, "char")

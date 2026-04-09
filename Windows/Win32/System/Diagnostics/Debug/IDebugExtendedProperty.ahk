@@ -1,15 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\IDebugProperty.ahk
 #Include .\ExtendedDebugPropertyInfo.ahk
 #Include .\IEnumDebugExtendedPropertyInfo.ahk
-#Include .\IDebugProperty.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug
- * @version v4.0.30319
  */
-class IDebugExtendedProperty extends IDebugProperty{
+class IDebugExtendedProperty extends IDebugProperty {
 
     static sizeof => A_PtrSize
     /**

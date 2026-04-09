@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class PROCESS_ACCESS_TOKEN extends Win32Struct
-{
+class PROCESS_ACCESS_TOKEN extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
@@ -15,7 +13,7 @@ class PROCESS_ACCESS_TOKEN extends Win32Struct
     /**
      * @type {HANDLE}
      */
-    Token{
+    Token {
         get {
             if(!this.HasProp("__Token"))
                 this.__Token := HANDLE(0, this)
@@ -26,7 +24,7 @@ class PROCESS_ACCESS_TOKEN extends Win32Struct
     /**
      * @type {HANDLE}
      */
-    Thread{
+    Thread {
         get {
             if(!this.HasProp("__Thread"))
                 this.__Thread := HANDLE(8, this)

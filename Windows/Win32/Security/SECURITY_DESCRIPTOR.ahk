@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\Win32Struct.ahk
+#Include .\SECURITY_DESCRIPTOR_CONTROL.ahk
+#Include .\ACL.ahk
 
 /**
  * Contains the security information associated with an object.
@@ -16,10 +18,8 @@
  * Several functions that use the <b>SECURITY_DESCRIPTOR</b> structure require that this structure be aligned on a valid pointer boundary in memory. These boundaries vary depending on the type of processor used. Memory allocation functions such as <b>malloc</b> and <b>LocalAlloc</b> return properly aligned pointers.
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-security_descriptor
  * @namespace Windows.Win32.Security
- * @version v4.0.30319
  */
-class SECURITY_DESCRIPTOR extends Win32Struct
-{
+class SECURITY_DESCRIPTOR extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -41,7 +41,7 @@ class SECURITY_DESCRIPTOR extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {SECURITY_DESCRIPTOR_CONTROL}
      */
     Control {
         get => NumGet(this, 2, "ushort")

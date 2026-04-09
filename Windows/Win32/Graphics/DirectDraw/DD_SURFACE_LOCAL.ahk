@@ -1,17 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DD_SURFACE_GLOBAL.ahk
 #Include .\DDSCAPS.ahk
 #Include .\DDCOLORKEY.ahk
+#Include .\DD_SURFACE_MORE.ahk
+#Include .\DD_ATTACHLIST.ahk
 #Include ..\..\Foundation\RECT.ahk
 
 /**
  * The DD_SURFACE_LOCAL structure contains surface-related data that is unique to an individual surface object.
  * @see https://learn.microsoft.com/windows/win32/api/ddrawint/ns-ddrawint-dd_surface_local
  * @namespace Windows.Win32.Graphics.DirectDraw
- * @version v4.0.30319
  */
-class DD_SURFACE_LOCAL extends Win32Struct
-{
+class DD_SURFACE_LOCAL extends Win32Struct {
     static sizeof => 80
 
     static packingSize => 8
@@ -26,7 +27,6 @@ class DD_SURFACE_LOCAL extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     dwFlags {
@@ -38,7 +38,7 @@ class DD_SURFACE_LOCAL extends Win32Struct
      * Specifies a <a href="https://docs.microsoft.com/previous-versions/windows/hardware/drivers/ff550286(v=vs.85)">DDSCAPS</a> structure that describes the capabilities of the surface.
      * @type {DDSCAPS}
      */
-    ddsCaps{
+    ddsCaps {
         get {
             if(!this.HasProp("__ddsCaps"))
                 this.__ddsCaps := DDSCAPS(12, this)
@@ -58,7 +58,7 @@ class DD_SURFACE_LOCAL extends Win32Struct
     /**
      * @type {DDCOLORKEY}
      */
-    ddckCKSrcOverlay{
+    ddckCKSrcOverlay {
         get {
             if(!this.HasProp("__ddckCKSrcOverlay"))
                 this.__ddckCKSrcOverlay := DDCOLORKEY(24, this)
@@ -69,7 +69,7 @@ class DD_SURFACE_LOCAL extends Win32Struct
     /**
      * @type {DDCOLORKEY}
      */
-    ddckCKSrcBlt{
+    ddckCKSrcBlt {
         get {
             if(!this.HasProp("__ddckCKSrcBlt"))
                 this.__ddckCKSrcBlt := DDCOLORKEY(24, this)
@@ -80,7 +80,7 @@ class DD_SURFACE_LOCAL extends Win32Struct
     /**
      * @type {DDCOLORKEY}
      */
-    ddckCKDestOverlay{
+    ddckCKDestOverlay {
         get {
             if(!this.HasProp("__ddckCKDestOverlay"))
                 this.__ddckCKDestOverlay := DDCOLORKEY(32, this)
@@ -91,7 +91,7 @@ class DD_SURFACE_LOCAL extends Win32Struct
     /**
      * @type {DDCOLORKEY}
      */
-    ddckCKDestBlt{
+    ddckCKDestBlt {
         get {
             if(!this.HasProp("__ddckCKDestBlt"))
                 this.__ddckCKDestBlt := DDCOLORKEY(32, this)
@@ -130,7 +130,7 @@ class DD_SURFACE_LOCAL extends Win32Struct
      * Reserved for system use and should be ignored by the driver.
      * @type {RECT}
      */
-    rcOverlaySrc{
+    rcOverlaySrc {
         get {
             if(!this.HasProp("__rcOverlaySrc"))
                 this.__rcOverlaySrc := RECT(64, this)

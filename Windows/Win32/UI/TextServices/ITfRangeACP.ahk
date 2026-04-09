@@ -7,9 +7,8 @@
  * The ITfRangeACP interface is implemented by the TSF manager and is used by an application character position (ACP)-based application to access and manipulate range objects.
  * @see https://learn.microsoft.com/windows/win32/api/msctf/nn-msctf-itfrangeacp
  * @namespace Windows.Win32.UI.TextServices
- * @version v4.0.30319
  */
-class ITfRangeACP extends ITfRange{
+class ITfRangeACP extends ITfRange {
 
     static sizeof => A_PtrSize
     /**

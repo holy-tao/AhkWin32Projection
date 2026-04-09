@@ -12,10 +12,8 @@
  * If the swap chain draws in windowed mode, these values are based on when the swap chain is created.
  * @see https://learn.microsoft.com/windows/win32/api/dxgi/ns-dxgi-dxgi_frame_statistics
  * @namespace Windows.Win32.Graphics.Dxgi
- * @version v4.0.30319
  */
-class DXGI_FRAME_STATISTICS extends Win32Struct
-{
+class DXGI_FRAME_STATISTICS extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8

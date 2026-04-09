@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ITransactionResourcePool.ahk
 #Include ..\Com\IUnknown.ahk
+#Include .\ITransactionResourcePool.ahk
 
 /**
  * Used to get the transaction resource pool.
  * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nn-comsvcs-itransactionproperty
  * @namespace Windows.Win32.System.ComponentServices
- * @version v4.0.30319
  */
-class ITransactionProperty extends IUnknown{
+class ITransactionProperty extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Web.InternetExplorer
- * @version v4.0.30319
  */
-class ITargetNotify2 extends ITargetNotify{
+class ITargetNotify2 extends ITargetNotify {
 
     static sizeof => A_PtrSize
     /**

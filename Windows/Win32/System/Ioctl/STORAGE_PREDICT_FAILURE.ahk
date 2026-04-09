@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class STORAGE_PREDICT_FAILURE extends Win32Struct
-{
+class STORAGE_PREDICT_FAILURE extends Win32Struct {
     static sizeof => 516
 
     static packingSize => 4
@@ -20,9 +18,9 @@ class STORAGE_PREDICT_FAILURE extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    VendorSpecific{
+    VendorSpecific {
         get {
             if(!this.HasProp("__VendorSpecificProxyArray"))
                 this.__VendorSpecificProxyArray := Win32FixedArray(this.ptr + 4, 512, Primitive, "char")

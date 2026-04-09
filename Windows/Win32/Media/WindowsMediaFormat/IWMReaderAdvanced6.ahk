@@ -7,9 +7,8 @@
  * The IWMReaderAdvanced6 interface enables sample protection.An IWMReaderAdvanced6 interface exists for every reader object.
  * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nn-wmsdkidl-iwmreaderadvanced6
  * @namespace Windows.Win32.Media.WindowsMediaFormat
- * @version v4.0.30319
  */
-class IWMReaderAdvanced6 extends IWMReaderAdvanced5{
+class IWMReaderAdvanced6 extends IWMReaderAdvanced5 {
 
     static sizeof => A_PtrSize
     /**

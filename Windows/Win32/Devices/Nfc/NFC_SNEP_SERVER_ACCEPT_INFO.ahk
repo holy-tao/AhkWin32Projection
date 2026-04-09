@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.Nfc
- * @version v4.0.30319
  */
-class NFC_SNEP_SERVER_ACCEPT_INFO extends Win32Struct
-{
+class NFC_SNEP_SERVER_ACCEPT_INFO extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -31,7 +29,7 @@ class NFC_SNEP_SERVER_ACCEPT_INFO extends Win32Struct
     /**
      * @type {NFC_LLCP_SOCKET_OPTION}
      */
-    sSocketOption{
+    sSocketOption {
         get {
             if(!this.HasProp("__sSocketOption"))
                 this.__sSocketOption := NFC_LLCP_SOCKET_OPTION(16, this)

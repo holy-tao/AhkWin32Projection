@@ -5,9 +5,8 @@
  * Defines the type of the value.
  * @see https://learn.microsoft.com/windows/win32/api/pla/ne-pla-valuemaptype
  * @namespace Windows.Win32.System.Performance
- * @version v4.0.30319
  */
-class ValueMapType extends Win32Enum{
+class ValueMapType extends Win32Enum {
 
     /**
      * Only one item in the collection can be enabled. The enabled item is the value of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-ivaluemap-get_value">IValueMap::Value</a> property. If more than one item is enabled, the first enabled item is used as the value.

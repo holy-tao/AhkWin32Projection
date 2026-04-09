@@ -3,16 +3,14 @@
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem
- * @version v4.0.30319
  */
-class MCB extends Win32Struct
-{
+class MCB extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 8
 
     /**
-     * @type {Pointer<LARGE_MCB>}
+     * @type {Pointer}
      */
     DummyFieldThatSizesThisStructureCorrectly {
         get => NumGet(this, 0, "ptr")

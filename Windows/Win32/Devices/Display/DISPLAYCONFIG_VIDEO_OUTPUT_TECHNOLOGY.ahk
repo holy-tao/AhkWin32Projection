@@ -9,9 +9,8 @@
  * An embedded display port or UDI is also known as an integrated display port or UDI.
  * @see https://learn.microsoft.com/windows/win32/api/wingdi/ne-wingdi-displayconfig_video_output_technology
  * @namespace Windows.Win32.Devices.Display
- * @version v4.0.30319
  */
-class DISPLAYCONFIG_VIDEO_OUTPUT_TECHNOLOGY extends Win32Enum{
+class DISPLAYCONFIG_VIDEO_OUTPUT_TECHNOLOGY extends Win32Enum {
 
     /**
      * Indicates a connector that is not one of the types that is indicated by the following enumerators in this enumeration.
@@ -112,13 +111,11 @@ class DISPLAYCONFIG_VIDEO_OUTPUT_TECHNOLOGY extends Win32Enum{
     static DISPLAYCONFIG_OUTPUT_TECHNOLOGY_MIRACAST => 15
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static DISPLAYCONFIG_OUTPUT_TECHNOLOGY_INDIRECT_WIRED => 16
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static DISPLAYCONFIG_OUTPUT_TECHNOLOGY_INDIRECT_VIRTUAL => 17

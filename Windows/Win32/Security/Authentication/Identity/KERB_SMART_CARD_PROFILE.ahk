@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\LSA_UNICODE_STRING.ahk
 #Include .\KERB_INTERACTIVE_PROFILE.ahk
+#Include .\KERB_PROFILE_BUFFER_TYPE.ahk
+#Include .\LSA_UNICODE_STRING.ahk
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class KERB_SMART_CARD_PROFILE extends Win32Struct
-{
+class KERB_SMART_CARD_PROFILE extends Win32Struct {
     static sizeof => 176
 
     static packingSize => 8
@@ -16,7 +15,7 @@ class KERB_SMART_CARD_PROFILE extends Win32Struct
     /**
      * @type {KERB_INTERACTIVE_PROFILE}
      */
-    Profile{
+    Profile {
         get {
             if(!this.HasProp("__Profile"))
                 this.__Profile := KERB_INTERACTIVE_PROFILE(0, this)

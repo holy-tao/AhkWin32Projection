@@ -1,19 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Com\IUnknown.ahk
 #Include ..\..\Foundation\BSTR.ahk
 #Include ..\Variant\VARIANT.ahk
 #Include .\IItemEnumerator.ahk
-#Include .\ISettingsItem.ahk
-#Include ..\Com\IUnknown.ahk
 
 /**
  * Navigates the settings tree, retrieves the metadata for a particular setting, and retrieves or modify its value.
  * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nn-wcmconfig-isettingsitem
  * @namespace Windows.Win32.System.SettingsManagementInfrastructure
- * @version v4.0.30319
  */
-class ISettingsItem extends IUnknown{
+class ISettingsItem extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -109,7 +107,7 @@ class ISettingsItem extends IUnknown{
 
     /**
      * Gets the setting type for the item.
-     * @returns {Integer} A <a href="https://docs.microsoft.com/windows/win32/api/wcmconfig/ne-wcmconfig-wcmsettingtype">WcmSettingType</a> value that contains the setting type of the item.
+     * @returns {WcmSettingType} A <a href="https://docs.microsoft.com/windows/win32/api/wcmconfig/ne-wcmconfig-wcmsettingtype">WcmSettingType</a> value that contains the setting type of the item.
      * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-isettingsitem-getsettingtype
      */
     GetSettingType() {
@@ -119,7 +117,7 @@ class ISettingsItem extends IUnknown{
 
     /**
      * Gets the type information for the item.
-     * @returns {Integer} A <a href="https://docs.microsoft.com/windows/win32/api/wcmconfig/ne-wcmconfig-wcmdatatype">WcmDataType</a> value that indicates the data type of the item.
+     * @returns {WcmDataType} A <a href="https://docs.microsoft.com/windows/win32/api/wcmconfig/ne-wcmconfig-wcmdatatype">WcmDataType</a> value that indicates the data type of the item.
      * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-isettingsitem-getdatatype
      */
     GetDataType() {
@@ -230,7 +228,7 @@ class ISettingsItem extends IUnknown{
 
     /**
      * Gets a setting based on the given path.
-     * @param {PWSTR} _Path 
+     * @param {PWSTR} _Path Path of the list element or attribute to retrieve. The path is relative to the current setting.
      * @returns {ISettingsItem} An <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/wcmconfig/nn-wcmconfig-isettingsitem">ISettingsItem</a> interface pointer used to access the item.
      * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-isettingsitem-getsettingbypath
      */
@@ -246,7 +244,7 @@ class ISettingsItem extends IUnknown{
      * @remarks
      * <div class="alert"><b>Note</b>  When creating a scalar list item, you must set a value on the resulting <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/wcmconfig/nn-wcmconfig-isettingsitem">ISettingsItem</a> before releasing it, or it will not be persisted.</div>
      * <div> </div>
-     * @param {PWSTR} _Path 
+     * @param {PWSTR} _Path A pointer to the path.
      * @returns {ISettingsItem} A pointer to the newly created <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/wcmconfig/nn-wcmconfig-isettingsitem">ISettingsItem</a> item.
      * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-isettingsitem-createsettingbypath
      */
@@ -259,7 +257,7 @@ class ISettingsItem extends IUnknown{
 
     /**
      * Removes a setting object specified by its path.
-     * @param {PWSTR} _Path 
+     * @param {PWSTR} _Path The path of the item to remove. The path is relative to the current item.
      * @returns {HRESULT} This method can return one of these values.
      * 
      * <table>
@@ -357,7 +355,7 @@ class ISettingsItem extends IUnknown{
     /**
      * Gets the list information for this item.
      * @param {Pointer<BSTR>} KeyName The name of the key.
-     * @returns {Integer} A <a href="https://docs.microsoft.com/windows/win32/api/wcmconfig/ne-wcmconfig-wcmdatatype">WcmDataType</a> value that indicates the data type of the item.
+     * @returns {WcmDataType} A <a href="https://docs.microsoft.com/windows/win32/api/wcmconfig/ne-wcmconfig-wcmdatatype">WcmDataType</a> value that indicates the data type of the item.
      * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-isettingsitem-getlistkeyinformation
      */
     GetListKeyInformation(KeyName) {
@@ -502,7 +500,7 @@ class ISettingsItem extends IUnknown{
 
     /**
      * Gets the path for the item.
-     * @returns {BSTR} 
+     * @returns {BSTR} The path to the current setting. This path should be handled as opaque, and should be used only for invocations of <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/wcmconfig/nf-wcmconfig-isettingsitem-createsettingbypath">CreateSettingByPath</a>, <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/wcmconfig/nf-wcmconfig-isettingsitem-getsettingbypath">GetSettingByPath</a>, or <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/wcmconfig/nf-wcmconfig-isettingsitem-removesettingbypath">RemoveSettingByPath</a>.
      * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-isettingsitem-getpath
      */
     GetPath() {
@@ -513,7 +511,7 @@ class ISettingsItem extends IUnknown{
 
     /**
      * Gets the restrictions defined for this item.
-     * @returns {Integer} A bitmask of  the <a href="https://docs.microsoft.com/windows/win32/api/wcmconfig/ne-wcmconfig-wcmrestrictionfacets">WcmRestrictionFacets</a> values that are defined for this item.
+     * @returns {WcmRestrictionFacets} A bitmask of  the <a href="https://docs.microsoft.com/windows/win32/api/wcmconfig/ne-wcmconfig-wcmrestrictionfacets">WcmRestrictionFacets</a> values that are defined for this item.
      * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-isettingsitem-getrestrictionfacets
      */
     GetRestrictionFacets() {
@@ -523,7 +521,7 @@ class ISettingsItem extends IUnknown{
 
     /**
      * Gets the information for a given restriction.
-     * @param {Integer} RestrictionFacet A <a href="https://docs.microsoft.com/windows/win32/api/wcmconfig/ne-wcmconfig-wcmrestrictionfacets">WcmRestrictionFacets</a> value that indicates the type of restriction facet.
+     * @param {WcmRestrictionFacets} RestrictionFacet A <a href="https://docs.microsoft.com/windows/win32/api/wcmconfig/ne-wcmconfig-wcmrestrictionfacets">WcmRestrictionFacets</a> value that indicates the type of restriction facet.
      * @returns {VARIANT} A pointer to the facet data.
      * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-isettingsitem-getrestriction
      */

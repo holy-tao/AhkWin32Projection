@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.Mmc
- * @version v4.0.30319
  */
-class _AppEvents extends IDispatch{
+class _AppEvents extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

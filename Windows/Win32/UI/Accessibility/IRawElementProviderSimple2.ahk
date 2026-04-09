@@ -15,9 +15,8 @@
  *  If no context menu is available directly on the element on which <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nf-uiautomationcore-irawelementprovidersimple2-showcontextmenu">ShowContextMenu</a>  was invoked, the provider should attempt to invoke a context menu on the UI Automation parent of the current item.
  * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nn-uiautomationcore-irawelementprovidersimple2
  * @namespace Windows.Win32.UI.Accessibility
- * @version v4.0.30319
  */
-class IRawElementProviderSimple2 extends IRawElementProviderSimple{
+class IRawElementProviderSimple2 extends IRawElementProviderSimple {
 
     static sizeof => A_PtrSize
     /**

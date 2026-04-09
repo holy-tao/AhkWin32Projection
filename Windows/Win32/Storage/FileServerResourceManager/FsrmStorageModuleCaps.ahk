@@ -5,9 +5,8 @@
  * Flags that define the capabilities of the storage module.
  * @see https://learn.microsoft.com/windows/win32/api/fsrmenums/ne-fsrmenums-fsrmstoragemodulecaps
  * @namespace Windows.Win32.Storage.FileServerResourceManager
- * @version v4.0.30319
  */
-class FsrmStorageModuleCaps extends Win32Enum{
+class FsrmStorageModuleCaps extends Win32Enum {
 
     /**
      * The storage module's capabilities are unknown. Do not use this value.

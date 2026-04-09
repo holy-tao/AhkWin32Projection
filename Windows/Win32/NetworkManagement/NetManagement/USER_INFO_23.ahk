@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\USER_ACCOUNT_FLAGS.ahk
 
 /**
  * Contains information about a user account, including the account name, the user's full name, a comment associated with the account, and the user's security identifier (SID).
  * @see https://learn.microsoft.com/windows/win32/api/lmaccess/ns-lmaccess-user_info_23
  * @namespace Windows.Win32.NetworkManagement.NetManagement
- * @version v4.0.30319
  */
-class USER_INFO_23 extends Win32Struct
-{
+class USER_INFO_23 extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -49,7 +48,7 @@ class USER_INFO_23 extends Win32Struct
 
     /**
      * Type: <b>DWORD</b>
-     * @type {Integer}
+     * @type {USER_ACCOUNT_FLAGS}
      */
     usri23_flags {
         get => NumGet(this, 24, "uint")

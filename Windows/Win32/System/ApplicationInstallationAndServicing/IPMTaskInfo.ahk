@@ -2,12 +2,12 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\Com\IUnknown.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * @namespace Windows.Win32.System.ApplicationInstallationAndServicing
- * @version v4.0.30319
  */
-class IPMTaskInfo extends IUnknown{
+class IPMTaskInfo extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -48,28 +48,28 @@ class IPMTaskInfo extends IUnknown{
     }
 
     /**
-     * @type {Integer} 
+     * @type {PM_TASK_TRANSITION} 
      */
     TaskTransition {
         get => this.get_TaskTransition()
     }
 
     /**
-     * @type {Integer} 
+     * @type {PACKMAN_RUNTIME} 
      */
     RuntimeType {
         get => this.get_RuntimeType()
     }
 
     /**
-     * @type {Integer} 
+     * @type {PM_ACTIVATION_POLICY} 
      */
     ActivationPolicy {
         get => this.get_ActivationPolicy()
     }
 
     /**
-     * @type {Integer} 
+     * @type {PM_TASK_TYPE} 
      */
     TaskType {
         get => this.get_TaskType()
@@ -114,14 +114,14 @@ class IPMTaskInfo extends IUnknown{
     }
 
     /**
-     * @type {Integer} 
+     * @type {PM_APPLICATION_STATE} 
      */
     ApplicationState {
         get => this.get_ApplicationState()
     }
 
     /**
-     * @type {Integer} 
+     * @type {PM_APPLICATION_INSTALL_TYPE} 
      */
     InstallType {
         get => this.get_InstallType()
@@ -186,7 +186,7 @@ class IPMTaskInfo extends IUnknown{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {PM_TASK_TRANSITION} 
      */
     get_TaskTransition() {
         result := ComCall(6, this, "int*", &pTaskTransition := 0, "HRESULT")
@@ -195,7 +195,7 @@ class IPMTaskInfo extends IUnknown{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {PACKMAN_RUNTIME} 
      */
     get_RuntimeType() {
         result := ComCall(7, this, "int*", &pRuntimetype := 0, "HRESULT")
@@ -204,7 +204,7 @@ class IPMTaskInfo extends IUnknown{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {PM_ACTIVATION_POLICY} 
      */
     get_ActivationPolicy() {
         result := ComCall(8, this, "int*", &pActivationPolicy := 0, "HRESULT")
@@ -213,7 +213,7 @@ class IPMTaskInfo extends IUnknown{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {PM_TASK_TYPE} 
      */
     get_TaskType() {
         result := ComCall(9, this, "int*", &pTaskType := 0, "HRESULT")
@@ -291,7 +291,7 @@ class IPMTaskInfo extends IUnknown{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {PM_APPLICATION_STATE} 
      */
     get_ApplicationState() {
         result := ComCall(17, this, "int*", &pApplicationState := 0, "HRESULT")
@@ -300,7 +300,7 @@ class IPMTaskInfo extends IUnknown{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {PM_APPLICATION_INSTALL_TYPE} 
      */
     get_InstallType() {
         result := ComCall(18, this, "int*", &pInstallType := 0, "HRESULT")

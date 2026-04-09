@@ -22,9 +22,8 @@
  * ```
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-icontextmenusite
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IContextMenuSite extends IUnknown{
+class IContextMenuSite extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

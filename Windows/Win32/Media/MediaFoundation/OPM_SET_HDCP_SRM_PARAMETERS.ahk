@@ -5,10 +5,8 @@
  * Contains parameters for the OPM_SET_HDCP_SRM command.
  * @see https://learn.microsoft.com/windows/win32/api/opmapi/ns-opmapi-opm_set_hdcp_srm_parameters
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class OPM_SET_HDCP_SRM_PARAMETERS extends Win32Struct
-{
+class OPM_SET_HDCP_SRM_PARAMETERS extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 4

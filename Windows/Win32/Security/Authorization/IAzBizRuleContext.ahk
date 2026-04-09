@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * Contains information about a Business Rule (BizRule) operation.
@@ -11,9 +11,8 @@
  * The <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nf-azroles-iazclientcontext-accesscheck">IAzClientContext::AccessCheck</a> method creates an <b>AzBizRuleContext</b> object before it calls a BizRule script.
  * @see https://learn.microsoft.com/windows/win32/api/azroles/nn-azroles-iazbizrulecontext
  * @namespace Windows.Win32.Security.Authorization
- * @version v4.0.30319
  */
-class IAzBizRuleContext extends IDispatch{
+class IAzBizRuleContext extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -41,7 +40,7 @@ class IAzBizRuleContext extends IDispatch{
     static VTableNames => ["put_BusinessRuleResult", "put_BusinessRuleString", "get_BusinessRuleString", "GetParameter"]
 
     /**
-     * @type {HRESULT} 
+     * @type {BOOL} 
      */
     BusinessRuleResult {
         set => this.put_BusinessRuleResult(value)

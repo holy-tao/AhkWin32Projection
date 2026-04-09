@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\KERB_LOGON_SUBMIT_TYPE.ahk
 #Include .\LSA_UNICODE_STRING.ahk
 
 /**
@@ -10,17 +11,14 @@
  * The pointers stored in the members of <b>UNICODE_STRING</b> type are relative to the beginning of the structure and are not absolute memory pointers.
  * @see https://learn.microsoft.com/windows/win32/api/ntsecapi/ns-ntsecapi-kerb_certificate_logon
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class KERB_CERTIFICATE_LOGON extends Win32Struct
-{
+class KERB_CERTIFICATE_LOGON extends Win32Struct {
     static sizeof => 72
 
     static packingSize => 8
 
     /**
-     * 
-     * @type {Integer}
+     * @type {KERB_LOGON_SUBMIT_TYPE}
      */
     MessageType {
         get => NumGet(this, 0, "int")
@@ -31,7 +29,7 @@ class KERB_CERTIFICATE_LOGON extends Win32Struct
      * The domain name of the user to authenticate. The value of this member can be empty. If the value is not empty, <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/nf-ntsecapi-lsalogonuser">LsaLogonUser</a> uses the value to locate the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/k-gly">Key Distribution Center</a> (KDC). If the value is empty, <b>LsaLogonUser</b> attempts to authenticate against the domain to which the computer is joined.  The pointer is relative to the beginning of the structure and is not an absolute memory pointer.
      * @type {LSA_UNICODE_STRING}
      */
-    DomainName{
+    DomainName {
         get {
             if(!this.HasProp("__DomainName"))
                 this.__DomainName := LSA_UNICODE_STRING(8, this)
@@ -43,7 +41,7 @@ class KERB_CERTIFICATE_LOGON extends Win32Struct
      * The user name of the user to authenticate. The value of this member can be empty. If the value is not empty, <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/nf-ntsecapi-lsalogonuser">LsaLogonUser</a> uses the value to locate the user account to authenticate.  The pointer is relative to the beginning of the structure and is not an absolute memory pointer.
      * @type {LSA_UNICODE_STRING}
      */
-    UserName{
+    UserName {
         get {
             if(!this.HasProp("__UserName"))
                 this.__UserName := LSA_UNICODE_STRING(24, this)
@@ -57,7 +55,7 @@ class KERB_CERTIFICATE_LOGON extends Win32Struct
      * The PIN can be protected by using the <a href="https://docs.microsoft.com/windows/desktop/api/wincred/nf-wincred-credprotecta">CredProtect</a> function.
      * @type {LSA_UNICODE_STRING}
      */
-    Pin{
+    Pin {
         get {
             if(!this.HasProp("__Pin"))
                 this.__Pin := LSA_UNICODE_STRING(40, this)

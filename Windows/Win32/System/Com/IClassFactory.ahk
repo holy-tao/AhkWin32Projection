@@ -7,9 +7,8 @@
  * The IClassFactory interface enables a class of objects to be created.
  * @see https://learn.microsoft.com/windows/win32/api/unknwn/nn-unknwn-iclassfactory
  * @namespace Windows.Win32.System.Com
- * @version v4.0.30319
  */
-class IClassFactory extends IUnknown{
+class IClassFactory extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

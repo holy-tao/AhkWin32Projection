@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem
- * @version v4.0.30319
  */
-class VOLUME_REFS_INFO_BUFFER extends Win32Struct
-{
+class VOLUME_REFS_INFO_BUFFER extends Win32Struct {
     static sizeof => 376
 
     static packingSize => 8

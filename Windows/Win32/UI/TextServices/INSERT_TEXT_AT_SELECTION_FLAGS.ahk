@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.UI.TextServices
- * @version v4.0.30319
  */
-class INSERT_TEXT_AT_SELECTION_FLAGS extends Win32Enum{
+class INSERT_TEXT_AT_SELECTION_FLAGS extends Win32Enum {
 
     /**
      * @type {Integer (UInt32)}

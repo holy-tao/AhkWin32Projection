@@ -8,13 +8,11 @@
  * This structure is used with an <a href="https://docs.microsoft.com/windows/desktop/api/ntddkbd/ni-ntddkbd-ioctl_keyboard_query_indicator_translation">IOCTL_KEYBOARD_QUERY_INDICATOR_TRANSLATION</a> request to obtain indicator translation information.
  * @see https://learn.microsoft.com/windows/win32/api/ntddkbd/ns-ntddkbd-keyboard_indicator_translation
  * @namespace Windows.Win32.Devices.HumanInterfaceDevice
- * @version v4.0.30319
  */
-class KEYBOARD_INDICATOR_TRANSLATION extends Win32Struct
-{
-    static sizeof => 16
+class KEYBOARD_INDICATOR_TRANSLATION extends Win32Struct {
+    static sizeof => 6
 
-    static packingSize => 8
+    static packingSize => 2
 
     /**
      * Specifies the number of elements in the <b>IndicatorList</b> array.
@@ -35,12 +33,12 @@ class KEYBOARD_INDICATOR_TRANSLATION extends Win32Struct
      *   USHORT  IndicatorFlags;
      * } INDICATOR_LIST, *PINDICATOR_LIST;
      * ```
-     * @type {Array<INDICATOR_LIST>}
+     * @type {INDICATOR_LIST}
      */
-    IndicatorList{
+    IndicatorList {
         get {
             if(!this.HasProp("__IndicatorListProxyArray"))
-                this.__IndicatorListProxyArray := Win32FixedArray(this.ptr + 8, 1, INDICATOR_LIST, "")
+                this.__IndicatorListProxyArray := Win32FixedArray(this.ptr + 2, 1, INDICATOR_LIST, "")
             return this.__IndicatorListProxyArray
         }
     }

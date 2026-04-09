@@ -7,9 +7,8 @@
  * Represents a collection of style properties to be used by methods like ID2D1DeviceContext2::DrawInk when rendering ink. The ink style defines the nib (pen tip) shape and transform.
  * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nn-d2d1_3-id2d1inkstyle
  * @namespace Windows.Win32.Graphics.Direct2D
- * @version v4.0.30319
  */
-class ID2D1InkStyle extends ID2D1Resource{
+class ID2D1InkStyle extends ID2D1Resource {
 
     static sizeof => A_PtrSize
     /**
@@ -56,7 +55,7 @@ class ID2D1InkStyle extends ID2D1Resource{
 
     /**
      * Sets the pre-transform nib shape for this style.
-     * @param {Integer} nibShape Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1_3/ne-d2d1_3-d2d1_ink_nib_shape">D2D1_INK_NIB_SHAPE</a></b>
+     * @param {D2D1_INK_NIB_SHAPE} nibShape Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1_3/ne-d2d1_3-d2d1_ink_nib_shape">D2D1_INK_NIB_SHAPE</a></b>
      * 
      * The pre-transform nib shape to use in this style.
      * @returns {String} Nothing - always returns an empty string
@@ -68,7 +67,7 @@ class ID2D1InkStyle extends ID2D1Resource{
 
     /**
      * Retrieves the pre-transform nib shape for this style.
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1_3/ne-d2d1_3-d2d1_ink_nib_shape">D2D1_INK_NIB_SHAPE</a></b>
+     * @returns {D2D1_INK_NIB_SHAPE} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1_3/ne-d2d1_3-d2d1_ink_nib_shape">D2D1_INK_NIB_SHAPE</a></b>
      * 
      * Returns the pre-transform nib shape for this style.
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nf-d2d1_3-id2d1inkstyle-getnibshape

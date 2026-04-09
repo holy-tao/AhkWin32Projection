@@ -7,9 +7,8 @@
  * The IMediaEvent interface contains methods for retrieving event notifications and for overriding the Filter Graph Manager's default handling of events.
  * @see https://learn.microsoft.com/windows/win32/api/control/nn-control-imediaevent
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IMediaEvent extends IDispatch{
+class IMediaEvent extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

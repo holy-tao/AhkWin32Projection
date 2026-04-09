@@ -7,9 +7,8 @@
  * The IWMPSyncDevice3 interface provides methods for estimating the size required to synchronize a playlist to a device.
  * @see https://learn.microsoft.com/windows/win32/api/wmp/nn-wmp-iwmpsyncdevice3
  * @namespace Windows.Win32.Media.MediaPlayer
- * @version v4.0.30319
  */
-class IWMPSyncDevice3 extends IWMPSyncDevice2{
+class IWMPSyncDevice3 extends IWMPSyncDevice2 {
 
     static sizeof => A_PtrSize
     /**

@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
- * @version v4.0.30319
  */
-class IDebugOutputCallbacksWide extends IUnknown{
+class IDebugOutputCallbacksWide extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

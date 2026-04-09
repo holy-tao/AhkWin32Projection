@@ -1,20 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Include ..\Com\IDispatch.ahk
 #Include ..\Variant\VARIANT.ahk
 #Include ..\Com\IUnknown.ahk
 #Include .\SecurityProperty.ahk
 #Include .\ContextInfo.ahk
-#Include ..\Com\IDispatch.ahk
 
 /**
  * Provides access to the current object's context. An object's context is primarily used when working with transactions or dealing with the security of an object. (ObjectContext)
  * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nn-comsvcs-objectcontext
  * @namespace Windows.Win32.System.ComponentServices
- * @version v4.0.30319
  */
-class ObjectContext extends IDispatch{
+class ObjectContext extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

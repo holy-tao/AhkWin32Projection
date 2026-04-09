@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\HINSTANCE.ahk
+#Include ..\WindowsAndMessaging\DLGTEMPLATE.ahk
 #Include ..\WindowsAndMessaging\HICON.ahk
 #Include ..\..\Foundation\HANDLE.ahk
 #Include ..\..\Graphics\Gdi\HBITMAP.ahk
@@ -11,11 +12,9 @@
  * Comctl32.dll version 6 and later are not redistributable. To use Comctl32.dll version 6 or later, specify the .dll file in a manifest. For more information on manifests, see <a href="https://docs.microsoft.com/windows/desktop/Controls/cookbook-overview">Enabling Visual Styles</a>.
  * @see https://learn.microsoft.com/windows/win32/api/prsht/ns-prsht-propsheetpagea_v2
  * @namespace Windows.Win32.UI.Controls
- * @version v4.0.30319
  * @charset ANSI
  */
-class PROPSHEETPAGEA extends Win32Struct
-{
+class PROPSHEETPAGEA extends Win32Struct {
     static sizeof => 104
 
     static packingSize => 8
@@ -39,7 +38,7 @@ class PROPSHEETPAGEA extends Win32Struct
     /**
      * @type {HINSTANCE}
      */
-    hInstance{
+    hInstance {
         get {
             if(!this.HasProp("__hInstance"))
                 this.__hInstance := HINSTANCE(8, this)
@@ -66,7 +65,7 @@ class PROPSHEETPAGEA extends Win32Struct
     /**
      * @type {HICON}
      */
-    hIcon{
+    hIcon {
         get {
             if(!this.HasProp("__hIcon"))
                 this.__hIcon := HICON(24, this)
@@ -167,7 +166,7 @@ class PROPSHEETPAGEA extends Win32Struct
     /**
      * @type {HANDLE}
      */
-    hActCtx{
+    hActCtx {
         get {
             if(!this.HasProp("__hActCtx"))
                 this.__hActCtx := HANDLE(88, this)
@@ -178,7 +177,7 @@ class PROPSHEETPAGEA extends Win32Struct
     /**
      * @type {HBITMAP}
      */
-    hbmHeader{
+    hbmHeader {
         get {
             if(!this.HasProp("__hbmHeader"))
                 this.__hbmHeader := HBITMAP(96, this)

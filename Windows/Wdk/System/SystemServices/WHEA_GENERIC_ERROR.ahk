@@ -1,18 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\WHEA_ERROR_SEVERITY.ahk
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class WHEA_GENERIC_ERROR extends Win32Struct
-{
+class WHEA_GENERIC_ERROR extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
 
     /**
-     * @type {Pointer<WHEA_GENERIC_ERROR_BLOCKSTATUS>}
+     * @type {Pointer}
      */
     BlockStatus {
         get => NumGet(this, 0, "ptr")
@@ -44,7 +43,7 @@ class WHEA_GENERIC_ERROR extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {WHEA_ERROR_SEVERITY}
      */
     ErrorSeverity {
         get => NumGet(this, 20, "int")
@@ -52,9 +51,9 @@ class WHEA_GENERIC_ERROR extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Data{
+    Data {
         get {
             if(!this.HasProp("__DataProxyArray"))
                 this.__DataProxyArray := Win32FixedArray(this.ptr + 24, 1, Primitive, "char")

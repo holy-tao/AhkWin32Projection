@@ -5,10 +5,8 @@
  * The LOCALGROUP_MEMBERS_INFO_0 structure contains the security identifier (SID) associated with a local group member. The member can be a user account or a global group account.
  * @see https://learn.microsoft.com/windows/win32/api/lmaccess/ns-lmaccess-localgroup_members_info_0
  * @namespace Windows.Win32.NetworkManagement.NetManagement
- * @version v4.0.30319
  */
-class LOCALGROUP_MEMBERS_INFO_0 extends Win32Struct
-{
+class LOCALGROUP_MEMBERS_INFO_0 extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 8

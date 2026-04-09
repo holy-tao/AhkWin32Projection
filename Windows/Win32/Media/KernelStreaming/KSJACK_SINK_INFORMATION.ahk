@@ -1,22 +1,21 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\KSJACK_SINK_CONNECTIONTYPE.ahk
 #Include ..\..\Foundation\LUID.ahk
 
 /**
  * The KSJACK_SINK_INFORMATION structure stores information about an audio jack sink.
  * @see https://learn.microsoft.com/windows/win32/api/devicetopology/ns-devicetopology-ksjack_sink_information
  * @namespace Windows.Win32.Media.KernelStreaming
- * @version v4.0.30319
  */
-class KSJACK_SINK_INFORMATION extends Win32Struct
-{
+class KSJACK_SINK_INFORMATION extends Win32Struct {
     static sizeof => 96
 
     static packingSize => 4
 
     /**
      * Specifies the type of connection. The connection type values are defined in the  <a href="https://docs.microsoft.com/windows/win32/api/devicetopology/ne-devicetopology-ksjack_sink_connectiontype">KSJACK_SINK_CONNECTIONTYPE</a> enumeration.
-     * @type {Integer}
+     * @type {KSJACK_SINK_CONNECTIONTYPE}
      */
     ConnType {
         get => NumGet(this, 0, "int")
@@ -90,7 +89,7 @@ class KSJACK_SINK_INFORMATION extends Win32Struct
      * Specifies the video port identifier in a <a href="https://docs.microsoft.com/windows/desktop/api/devicetopology/ns-devicetopology-luid">LUID</a> structure.
      * @type {LUID}
      */
-    PortId{
+    PortId {
         get {
             if(!this.HasProp("__PortId"))
                 this.__PortId := LUID(88, this)

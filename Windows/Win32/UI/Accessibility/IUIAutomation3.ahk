@@ -7,9 +7,8 @@
  * Extends the IUIAutomation2 interface to expose additional methods for controlling Microsoft UI Automation functionality.
  * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nn-uiautomationclient-iuiautomation3
  * @namespace Windows.Win32.UI.Accessibility
- * @version v4.0.30319
  */
-class IUIAutomation3 extends IUIAutomation2{
+class IUIAutomation3 extends IUIAutomation2 {
 
     static sizeof => A_PtrSize
     /**
@@ -37,8 +36,8 @@ class IUIAutomation3 extends IUIAutomation2{
      * @param {IUIAutomationElement} element Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationelement">IUIAutomationElement</a>*</b>
      * 
      * A pointer to the UI Automation element associated with the event handler.
-     * @param {Integer} scope 
-     * @param {Integer} _textEditChangeType 
+     * @param {TreeScope} scope 
+     * @param {TextEditChangeType} _textEditChangeType 
      * @param {IUIAutomationCacheRequest} cacheRequest Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationcacherequest">IUIAutomationCacheRequest</a>*</b>
      * 
      * A pointer to a cache request, or <b>NULL</b> if no caching is wanted.

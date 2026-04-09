@@ -6,7 +6,6 @@
 
 /**
  * @namespace Windows.Win32.Storage.InstallableFileSystems
- * @version v4.0.30319
  */
 class InstallableFileSystems {
 
@@ -566,7 +565,7 @@ class InstallableFileSystems {
      * 
      * To close a filter handle returned by <b>FilterCreate</b>, call <a href="https://docs.microsoft.com/windows/desktop/api/fltuser/nf-fltuser-filterclose">FilterClose</a>.
      * @param {PWSTR} lpFilterName Pointer to a null-terminated wide-character string containing the name of the minifilter. This parameter is required and cannot be <b>NULL</b>.
-     * @returns {HFILTER} 
+     * @returns {HFILTER} Pointer to a caller-allocated variable that receives a handle for the minifilter if the call to <b>FilterCreate</b> succeeds; otherwise, it receives INVALID_HANDLE_VALUE.
      * @see https://learn.microsoft.com/windows/win32/api/fltuser/nf-fltuser-filtercreate
      */
     static FilterCreate(lpFilterName) {
@@ -585,7 +584,7 @@ class InstallableFileSystems {
      * Use <b>FilterClose</b> to close open minifilter handles returned by calls to <a href="https://docs.microsoft.com/windows/desktop/api/fltuser/nf-fltuser-filtercreate">FilterCreate</a>. Use <a href="https://docs.microsoft.com/windows/desktop/api/fltuser/nf-fltuser-filterfindclose">FilterFindClose</a> to close handles returned by calls to <a href="https://docs.microsoft.com/windows/desktop/api/fltuser/nf-fltuser-filterfindfirst">FilterFindFirst</a>. 
      * 
      * To close a connection port handle that was opened by calling <a href="https://docs.microsoft.com/windows/desktop/api/fltuser/nf-fltuser-filterconnectcommunicationport">FilterConnectCommunicationPort</a>, use <a href="https://docs.microsoft.com/windows/win32/api/handleapi/nf-handleapi-closehandle">CloseHandle</a>.
-     * @param {HFILTER} _hFilter 
+     * @param {HFILTER} _hFilter Minifilter handle returned by a previous call to <a href="https://docs.microsoft.com/windows/desktop/api/fltuser/nf-fltuser-filtercreate">FilterCreate</a>.
      * @returns {HRESULT} <b>FilterClose</b> returns S_OK if successful. Otherwise, it returns an error value.
      * @see https://learn.microsoft.com/windows/win32/api/fltuser/nf-fltuser-filterclose
      */
@@ -626,7 +625,7 @@ class InstallableFileSystems {
      * </li>
      * </ul>
      * @param {PWSTR} lpInstanceName Pointer to a null-terminated wide-character string containing the instance name for the instance. This parameter is optional and can be <b>NULL</b>. If it is <b>NULL</b>, the first instance found for this minifilter on this volume is returned.
-     * @returns {HFILTER_INSTANCE} 
+     * @returns {HFILTER_INSTANCE} Pointer to a caller-allocated variable that receives an opaque handle for the minifilter instance if the call to <b>FilterInstanceCreate</b> succeeds; otherwise, it receives INVALID_HANDLE_VALUE.
      * @see https://learn.microsoft.com/windows/win32/api/fltuser/nf-fltuser-filterinstancecreate
      */
     static FilterInstanceCreate(lpFilterName, lpVolumeName, lpInstanceName) {
@@ -645,7 +644,7 @@ class InstallableFileSystems {
      * After the <b>FilterInstanceClose</b> function is called, the minifilter instance handle specified by the <i>hFilterInstanceFind</i> parameter is no longer valid and cannot safely be used. 
      * 
      * Use <b>FilterInstanceClose</b> to close handles returned by calls to <a href="https://docs.microsoft.com/windows/desktop/api/fltuser/nf-fltuser-filterinstancecreate">FilterInstanceCreate</a>. Use <a href="https://docs.microsoft.com/windows/desktop/api/fltuser/nf-fltuser-filterinstancefindclose">FilterInstanceFindClose</a> to close handles returned by calls to <a href="https://docs.microsoft.com/windows/desktop/api/fltuser/nf-fltuser-filterinstancefindfirst">FilterInstanceFindFirst</a>.
-     * @param {HFILTER_INSTANCE} _hInstance 
+     * @param {HFILTER_INSTANCE} _hInstance Minifilter instance handle returned by a previous call to <a href="https://docs.microsoft.com/windows/desktop/api/fltuser/nf-fltuser-filterinstancecreate">FilterInstanceCreate</a>.
      * @returns {HRESULT} <b>FilterInstanceClose</b> returns S_OK if successful. Otherwise, it returns an error value.
      * @see https://learn.microsoft.com/windows/win32/api/fltuser/nf-fltuser-filterinstanceclose
      */
@@ -692,7 +691,7 @@ class InstallableFileSystems {
      * The <i>lpVolumeName</i> parameter is required and cannot be <b>NULL</b>.
      * @param {PWSTR} lpInstanceName Pointer to a null-terminated wide-character string containing the instance name for the new instance. This parameter is optional and can be <b>NULL</b>. If this parameter is <b>NULL</b>, the new instance receives the minifilter's default instance name as described in the Remarks section for <a href="https://docs.microsoft.com/windows-hardware/drivers/ddi/content/fltkernel/nf-fltkernel-fltattachvolume">FltAttachVolume</a>.
      * @param {Integer} dwCreatedInstanceNameLength Length, in bytes, of the buffer that <i>lpCreatedInstanceName </i> points to. This parameter is optional and can be zero.
-     * @param {Pointer} lpCreatedInstanceName Pointer to a caller-allocated variable that receives the instance name for the new instance if the instance is successfully attached to the volume. This parameter is optional and can be <b>NULL</b>. If it is not <b>NULL</b>, the buffer must be large enough to hold INSTANCE_NAME_MAX_CHARS characters plus a NULL terminator.
+     * @param {Integer} lpCreatedInstanceName Pointer to a caller-allocated variable that receives the instance name for the new instance if the instance is successfully attached to the volume. This parameter is optional and can be <b>NULL</b>. If it is not <b>NULL</b>, the buffer must be large enough to hold INSTANCE_NAME_MAX_CHARS characters plus a NULL terminator.
      * @returns {HRESULT} <b>FilterAttach</b> returns S_OK if successful. Otherwise, it returns an error value such as one of the following. 
      * 
      * <table>
@@ -788,7 +787,7 @@ class InstallableFileSystems {
      * @param {PWSTR} lpAltitude Pointer to a null-terminated wide-character string that contains a numeric value specifying the target position that the minifilter instance should occupy in the stack for the volume. The higher the number, the higher the relative position in the stack. An altitude string consists of one or more digits in the range from 0 through 9, and it can include a single decimal point. The decimal point is optional. For example, "100.123456" is a valid altitude string. This parameter is required and cannot be <b>NULL</b>.
      * @param {PWSTR} lpInstanceName Pointer to a null-terminated wide-character string containing the instance name for the new instance. This parameter is optional and can be <b>NULL</b>. If this parameter is <b>NULL</b>, the new instance receives the minifilter's default instance name as described in the Remarks section for <a href="https://docs.microsoft.com/windows-hardware/drivers/ddi/content/fltkernel/nf-fltkernel-fltattachvolume">FltAttachVolume</a>.
      * @param {Integer} dwCreatedInstanceNameLength Length, in bytes, of the buffer that <i>lpCreatedInstanceName </i> points to. This parameter is optional and can be zero.
-     * @param {Pointer} lpCreatedInstanceName Pointer to a caller-allocated variable that receives the instance name for the new instance if the instance is successfully attached to the volume. This parameter is optional and can be <b>NULL</b>. If it is not <b>NULL</b>, the buffer must be large enough to hold INSTANCE_NAME_MAX_CHARS characters plus a NULL terminator.
+     * @param {Integer} lpCreatedInstanceName Pointer to a caller-allocated variable that receives the instance name for the new instance if the instance is successfully attached to the volume. This parameter is optional and can be <b>NULL</b>. If it is not <b>NULL</b>, the buffer must be large enough to hold INSTANCE_NAME_MAX_CHARS characters plus a NULL terminator.
      * @returns {HRESULT} <b>FilterAttachAtAltitude</b> returns S_OK if successful. Otherwise, it returns an error value such as one of the following. 
      * 
      * <table>
@@ -886,8 +885,8 @@ class InstallableFileSystems {
      * <b>FilterFindFirst</b> and <a href="https://docs.microsoft.com/windows/desktop/api/fltuser/nf-fltuser-filterfindnext">FilterFindNext</a> return information about filter drivers in order of decreasing distance from the base file system. Information about the filter farthest from the base file system is returned first.  Information about the second-farthest filter is returned second.  Information about the filter closest to the base file system is returned last.
      * 
      * If the input <i>dwBufferSize</i> is too small, <i>lpFilterFind</i> receives INVALID_HANDLE_VALUE, and <i>lpBytesReturned</i> receives the number of bytes required to store the requested information.
-     * @param {Integer} dwInformationClass 
-     * @param {Pointer} lpBuffer Pointer to a caller-allocated buffer that receives the requested information. The type of the information returned in the buffer is defined by the <i>dwInformationClass</i> parameter.
+     * @param {FILTER_INFORMATION_CLASS} dwInformationClass 
+     * @param {Integer} lpBuffer Pointer to a caller-allocated buffer that receives the requested information. The type of the information returned in the buffer is defined by the <i>dwInformationClass</i> parameter.
      * @param {Integer} dwBufferSize Size, in bytes, of the buffer that the <i>lpBuffer</i> parameter points to. The caller should set this parameter according to the given <i>dwInformationClass</i>.
      * @param {Pointer<Integer>} lpBytesReturned Pointer to a caller-allocated variable that receives the number of bytes returned in the buffer that <i>lpBuffer</i> points to if the call to <b>FilterFindFirst</b> succeeds. This parameter is required and cannot be <b>NULL</b>.
      * @param {Pointer<HANDLE>} lpFilterFind Pointer to a caller-allocated variable that receives a search handle for the filter driver if the call to <b>FilterFindFirst</b> succeeds; otherwise, it receives INVALID_HANDLE_VALUE. This search handle can be used in subsequent calls to <a href="https://docs.microsoft.com/windows/desktop/api/fltuser/nf-fltuser-filterfindnext">FilterFindNext</a> and <a href="https://docs.microsoft.com/windows/desktop/api/fltuser/nf-fltuser-filterfindclose">FilterFindClose</a>.
@@ -954,8 +953,8 @@ class InstallableFileSystems {
      * 
      * <a href="https://docs.microsoft.com/windows/desktop/api/fltuser/nf-fltuser-filterfindfirst">FilterFindFirst</a> and <b>FilterFindNext</b> return information about filter drivers in order of decreasing distance from the base file system. Information about the filter farthest from the base file system is returned first.  Information about the second-farthest filter is returned second.  Information about the filter closest to the base file system is returned last.
      * @param {HANDLE} hFilterFind Filter search handle returned by a previous call to <a href="https://docs.microsoft.com/windows/desktop/api/fltuser/nf-fltuser-filterfindfirst">FilterFindFirst</a>.
-     * @param {Integer} dwInformationClass 
-     * @param {Pointer} lpBuffer Pointer to a caller-allocated buffer that receives the requested information. The type of the information returned is defined by the <i>dwInformationClass</i> parameter.
+     * @param {FILTER_INFORMATION_CLASS} dwInformationClass 
+     * @param {Integer} lpBuffer Pointer to a caller-allocated buffer that receives the requested information. The type of the information returned is defined by the <i>dwInformationClass</i> parameter.
      * @param {Integer} dwBufferSize Size, in bytes, of the buffer that the <i>lpBuffer</i> parameter points to. The caller should set this parameter according to the given <i>dwInformationClass</i>.
      * @returns {Integer} Pointer to a caller-allocated variable that receives the number of bytes returned in the buffer that <i>lpBuffer</i> points to if the call to <b>FilterFindNext</b> succeeds. This parameter is required and cannot be <b>NULL</b>.
      * @see https://learn.microsoft.com/windows/win32/api/fltuser/nf-fltuser-filterfindnext
@@ -992,8 +991,8 @@ class InstallableFileSystems {
      * <b>FilterVolumeFindFirst</b> opens a search handle and returns information about the first volume found in the list of volumes known to the filter manager. After the search handle has been established, use the <a href="https://docs.microsoft.com/windows/desktop/api/fltuser/nf-fltuser-filtervolumefindnext">FilterVolumeFindNext</a> function to search for other volumes in the filter manager's list. When the search handle is no longer required, close it by calling <a href="https://docs.microsoft.com/windows/desktop/api/fltuser/nf-fltuser-filtervolumefindclose">FilterVolumeFindClose</a>.
      * 
      * Note that when using <b>FilterVolumeFindFirst</b> and <a href="https://docs.microsoft.com/windows/desktop/api/fltuser/nf-fltuser-filtervolumefindnext">FilterVolumeFindNext</a> to enumerate the list of volumes known to the filter manager, it is possible for two or more volumes in the list to have the same name.  For more information, see <a href="https://docs.microsoft.com/windows-hardware/drivers/ifs/understanding-volume-enumerations-with-duplicate-volume-names">Understanding Volume Enumerations with Duplicate Volume Names</a>.
-     * @param {Integer} dwInformationClass 
-     * @param {Pointer} lpBuffer Pointer to a caller-allocated buffer that receives the requested information. The type of the information returned in the buffer is defined by the <i>dwInformationClass</i> parameter.
+     * @param {FILTER_VOLUME_INFORMATION_CLASS} dwInformationClass 
+     * @param {Integer} lpBuffer Pointer to a caller-allocated buffer that receives the requested information. The type of the information returned in the buffer is defined by the <i>dwInformationClass</i> parameter.
      * @param {Integer} dwBufferSize Size, in bytes, of the buffer that the <i>lpBuffer</i> parameter points to. The caller should set this parameter according to the given <i>dwInformationClass</i>.
      * @param {Pointer<Integer>} lpBytesReturned Pointer to a caller-allocated variable that receives the number of bytes returned in the buffer that <i>lpBuffer</i> points to if the call to <b>FilterVolumeFindFirst</b> succeeds. This parameter is required and cannot be <b>NULL</b>.
      * @param {Pointer<HANDLE>} lpVolumeFind Pointer to a caller-allocated variable that receives a search handle for the minifilter if the call to <b>FilterVolumeFindFirst</b> succeeds; otherwise, it receives INVALID_HANDLE_VALUE. This search handle can be used in subsequent calls to <a href="https://docs.microsoft.com/windows/desktop/api/fltuser/nf-fltuser-filtervolumefindnext">FilterVolumeFindNext</a> and <a href="https://docs.microsoft.com/windows/desktop/api/fltuser/nf-fltuser-filtervolumefindclose">FilterVolumeFindClose</a>.
@@ -1054,8 +1053,8 @@ class InstallableFileSystems {
      * 
      * Note that when using <a href="https://docs.microsoft.com/windows/desktop/api/fltuser/nf-fltuser-filtervolumefindfirst">FilterVolumeFindFirst</a> and <b>FilterVolumeFindNext</b> to enumerate the list of volumes known to the filter manager, it is possible for two or more of the volumes in the list to have the same name.  For more information, see <a href="https://docs.microsoft.com/windows-hardware/drivers/ifs/understanding-volume-enumerations-with-duplicate-volume-names">Understanding Volume Enumerations with Duplicate Volume Names</a>.
      * @param {HANDLE} hVolumeFind Volume search handle returned by a previous call to <a href="https://docs.microsoft.com/windows/desktop/api/fltuser/nf-fltuser-filtervolumefindfirst">FilterVolumeFindFirst</a>.
-     * @param {Integer} dwInformationClass 
-     * @param {Pointer} lpBuffer Pointer to a caller-allocated buffer that receives the requested information. The type of the information returned in the buffer is defined by the <i>dwInformationClass</i> parameter.
+     * @param {FILTER_VOLUME_INFORMATION_CLASS} dwInformationClass 
+     * @param {Integer} lpBuffer Pointer to a caller-allocated buffer that receives the requested information. The type of the information returned in the buffer is defined by the <i>dwInformationClass</i> parameter.
      * @param {Integer} dwBufferSize Size, in bytes, of the buffer that the <i>lpBuffer</i> parameter points to. The caller should set this parameter according to the given <i>dwInformationClass</i>.
      * @returns {Integer} Pointer to a caller-allocated variable that receives the number of bytes returned in the buffer that <i>lpBuffer</i> points to if the call to <b>FilterVolumeFindNext</b> succeeds. This parameter is required and cannot be <b>NULL</b>.
      * @see https://learn.microsoft.com/windows/win32/api/fltuser/nf-fltuser-filtervolumefindnext
@@ -1087,8 +1086,8 @@ class InstallableFileSystems {
      * @remarks
      * The <b>FilterInstanceFindFirst</b> function opens a search handle and returns information about an instance for the minifilter named by <i>lpFilterName</i>. After the search handle has been established, call <a href="https://docs.microsoft.com/windows/desktop/api/fltuser/nf-fltuser-filterinstancefindnext">FilterInstanceFindNext</a> to search for other instances of the same minifilter. When the search handle is no longer needed, close it by calling <a href="https://docs.microsoft.com/windows/desktop/api/fltuser/nf-fltuser-filterinstancefindclose">FilterInstanceFindClose</a>.
      * @param {PWSTR} lpFilterName Pointer to a null-terminated wide-character string that contains the name of the minifilter driver that owns the instance.
-     * @param {Integer} dwInformationClass 
-     * @param {Pointer} lpBuffer Pointer to a caller-allocated buffer that receives the requested information. The type of the information returned in the buffer is defined by the <i>dwInformationClass</i> parameter.
+     * @param {INSTANCE_INFORMATION_CLASS} dwInformationClass 
+     * @param {Integer} lpBuffer Pointer to a caller-allocated buffer that receives the requested information. The type of the information returned in the buffer is defined by the <i>dwInformationClass</i> parameter.
      * @param {Integer} dwBufferSize Size, in bytes, of the buffer that the <i>lpBuffer</i> parameter points to. The caller should set this parameter according to the given <i>dwInformationClass</i>.
      * @param {Pointer<Integer>} lpBytesReturned Pointer to a caller-allocated variable that receives the number of bytes returned in the buffer that <i>lpBuffer</i> points to, if the call to <b>FilterInstanceFindFirst</b> succeeds. This parameter is required and cannot be <b>NULL</b>.
      * @param {Pointer<HANDLE>} lpFilterInstanceFind Pointer to a caller-allocated variable that receives a search handle for the minifilter if the call to <b>FilterInstanceFindFirst</b> succeeds; otherwise, it receives INVALID_HANDLE_VALUE. This search handle can be used in subsequent calls to <a href="https://docs.microsoft.com/windows/desktop/api/fltuser/nf-fltuser-filterinstancefindnext">FilterInstanceFindNext</a> and <a href="https://docs.microsoft.com/windows/desktop/api/fltuser/nf-fltuser-filterinstancefindclose">FilterInstanceFindClose</a>.
@@ -1151,8 +1150,8 @@ class InstallableFileSystems {
      * 
      * <b>FilterInstanceFindNext</b> finds one instance per call.
      * @param {HANDLE} hFilterInstanceFind Minifilter instance search handle returned by a previous call to <a href="https://docs.microsoft.com/windows/desktop/api/fltuser/nf-fltuser-filterinstancefindfirst">FilterInstanceFindFirst</a>.
-     * @param {Integer} dwInformationClass 
-     * @param {Pointer} lpBuffer Pointer to a caller-allocated buffer that receives the requested information. The type of the information returned in the buffer is defined by the <i>dwInformationClass</i> parameter.
+     * @param {INSTANCE_INFORMATION_CLASS} dwInformationClass 
+     * @param {Integer} lpBuffer Pointer to a caller-allocated buffer that receives the requested information. The type of the information returned in the buffer is defined by the <i>dwInformationClass</i> parameter.
      * @param {Integer} dwBufferSize Size, in bytes, of the buffer that the <i>lpBuffer</i> parameter points to. The caller should set this parameter according to the given <i>dwInformationClass</i>.
      * @returns {Integer} Pointer to a caller-allocated variable that receives the number of bytes returned in the buffer that <i>lpBuffer</i> points to if the call to <b>FilterInstanceFindNext</b> succeeds. This parameter is required and cannot be <b>NULL</b>.
      * @see https://learn.microsoft.com/windows/win32/api/fltuser/nf-fltuser-filterinstancefindnext
@@ -1209,8 +1208,8 @@ class InstallableFileSystems {
      * 
      * </li>
      * </ul>
-     * @param {Integer} dwInformationClass 
-     * @param {Pointer} lpBuffer Pointer to a caller-allocated buffer that receives the requested information. The type of the information returned in the buffer is defined by the <i>dwInformationClass</i> parameter.
+     * @param {INSTANCE_INFORMATION_CLASS} dwInformationClass 
+     * @param {Integer} lpBuffer Pointer to a caller-allocated buffer that receives the requested information. The type of the information returned in the buffer is defined by the <i>dwInformationClass</i> parameter.
      * @param {Integer} dwBufferSize Size, in bytes, of the buffer that the <i>lpBuffer</i> parameter points to. The caller should set this parameter according to the given <i>dwInformationClass</i>.
      * @param {Pointer<Integer>} lpBytesReturned Pointer to a caller-allocated variable that receives the number of bytes returned in the buffer that <i>lpBuffer</i> points to if the call to <b>FilterVolumeInstanceFindFirst</b> succeeds. This parameter is required and cannot be <b>NULL</b>.
      * @param {Pointer<HANDLE>} lpVolumeInstanceFind Pointer to a caller-allocated variable that receives a search handle for the minifilter instance or legacy filter (only when <b>InstanceAggregateStandardInformation</b> is specified) if the call to <b>FilterVolumeInstanceFindFirst</b> succeeds. Otherwise, <i>lpVolumeInstanceFind</i> receives INVALID_HANDLE_VALUE. This search handle can be used in subsequent calls to <a href="https://docs.microsoft.com/windows/desktop/api/fltuser/nf-fltuser-filtervolumeinstancefindnext">FilterVolumeInstanceFindNext</a> and <a href="https://docs.microsoft.com/windows/desktop/api/fltuser/nf-fltuser-filtervolumeinstancefindclose">FilterVolumeInstanceFindClose</a>.
@@ -1275,8 +1274,8 @@ class InstallableFileSystems {
      * 
      * Starting with Windows Vista, this routine can return both legacy filter driver information and minifilter driver instance information when the value of the <i>dwInformationClass</i> parameter is <b>InstanceAggregateStandardInformation</b>.  For earlier operating systems, this routine cannot return legacy filter information because the INSTANCE_AGGREGATE_STANDARD_INFORMATION structure is not available.
      * @param {HANDLE} hVolumeInstanceFind Volume filter driver search handle returned by a previous call to <a href="https://docs.microsoft.com/windows/desktop/api/fltuser/nf-fltuser-filtervolumeinstancefindfirst">FilterVolumeInstanceFindFirst</a>.
-     * @param {Integer} dwInformationClass 
-     * @param {Pointer} lpBuffer Pointer to a caller-allocated buffer that receives the requested information. The type of the information returned in the buffer is defined by the <i>dwInformationClass</i> parameter.
+     * @param {INSTANCE_INFORMATION_CLASS} dwInformationClass 
+     * @param {Integer} lpBuffer Pointer to a caller-allocated buffer that receives the requested information. The type of the information returned in the buffer is defined by the <i>dwInformationClass</i> parameter.
      * @param {Integer} dwBufferSize Size, in bytes, of the buffer that the <i>lpBuffer</i> parameter points to. The caller should set this parameter according to the given <i>dwInformationClass</i>.
      * @returns {Integer} Pointer to a caller-allocated variable that receives the number of bytes returned in the buffer that <i>lpBuffer</i> points to if the call to <b>FilterVolumeInstanceFindNext</b> succeeds. This parameter is required and cannot be <b>NULL</b>.
      * @see https://learn.microsoft.com/windows/win32/api/fltuser/nf-fltuser-filtervolumeinstancefindnext
@@ -1307,9 +1306,9 @@ class InstallableFileSystems {
      * The FilterGetInformation function returns various kinds of information about a minifilter.
      * @remarks
      * <b>FilterGetInformation</b> is the Win32 equivalent of <a href="https://docs.microsoft.com/windows-hardware/drivers/ddi/content/fltkernel/nf-fltkernel-fltgetfilterinformation">FltGetFilterInformation</a>.
-     * @param {HFILTER} _hFilter 
-     * @param {Integer} dwInformationClass 
-     * @param {Pointer} lpBuffer Pointer to a caller-allocated buffer that receives the requested information. The type of the information returned in the buffer is defined by the <i>dwInformationClass</i> parameter.
+     * @param {HFILTER} _hFilter Handle returned by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/fltuser/nf-fltuser-filtercreate">FilterCreate</a> function.
+     * @param {FILTER_INFORMATION_CLASS} dwInformationClass 
+     * @param {Integer} lpBuffer Pointer to a caller-allocated buffer that receives the requested information. The type of the information returned in the buffer is defined by the <i>dwInformationClass</i> parameter.
      * @param {Integer} dwBufferSize Size, in bytes, of the buffer that the <i>lpBuffer</i> parameter points to. The caller should set this parameter according to the given <i>dwInformationClass</i>.
      * @returns {Integer} Pointer to a caller-allocated variable that receives the number of bytes returned in the buffer that <i>lpBuffer</i> points to if the call to <b>FilterGetInformation</b> succeeds. This parameter is required and cannot be <b>NULL</b>.
      * @see https://learn.microsoft.com/windows/win32/api/fltuser/nf-fltuser-filtergetinformation
@@ -1327,9 +1326,9 @@ class InstallableFileSystems {
      * Given a handle to a minifilter instance, this routine returns information about the minifilter instance.  The type of instance information returned is determined by the <i>dwInformationClass</i> parameter.
      * 
      * <b>FilterInstanceGetInformation</b> is the Win32 equivalent of <a href="https://docs.microsoft.com/windows-hardware/drivers/ddi/content/fltkernel/nf-fltkernel-fltgetinstanceinformation">FltGetInstanceInformation</a>.
-     * @param {HFILTER_INSTANCE} _hInstance 
-     * @param {Integer} dwInformationClass 
-     * @param {Pointer} lpBuffer Pointer to a caller-allocated buffer that receives the requested information. The type of the information returned in the buffer is defined by the <i>dwInformationClass</i> parameter.
+     * @param {HFILTER_INSTANCE} _hInstance Handle returned by a previous call to <a href="https://docs.microsoft.com/windows/desktop/api/fltuser/nf-fltuser-filterinstancecreate">FilterInstanceCreate</a>.
+     * @param {INSTANCE_INFORMATION_CLASS} dwInformationClass 
+     * @param {Integer} lpBuffer Pointer to a caller-allocated buffer that receives the requested information. The type of the information returned in the buffer is defined by the <i>dwInformationClass</i> parameter.
      * @param {Integer} dwBufferSize Size, in bytes, of the buffer that the <i>lpBuffer</i> parameter points to. The caller should set this parameter according to the given <i>dwInformationClass</i>.
      * @returns {Integer} Pointer to a caller-allocated variable that receives the number of bytes returned in the buffer that <i>lpBuffer</i> points to if the call to <b>FilterInstanceGetInformation</b> succeeds. This parameter is required and cannot be <b>NULL</b>.
      * @see https://learn.microsoft.com/windows/win32/api/fltuser/nf-fltuser-filterinstancegetinformation
@@ -1368,7 +1367,7 @@ class InstallableFileSystems {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer} lpContext Pointer to caller-supplied context information to be passed to the kernel-mode minifilter's connect notification routine. (See the <i>ConnectNotifyCallback</i> parameter in the reference page for <a href="https://docs.microsoft.com/windows-hardware/drivers/ddi/content/fltkernel/nf-fltkernel-fltcreatecommunicationport">FltCreateCommunicationPort</a>.) This parameter is optional and can be <b>NULL</b>.
+     * @param {Integer} lpContext Pointer to caller-supplied context information to be passed to the kernel-mode minifilter's connect notification routine. (See the <i>ConnectNotifyCallback</i> parameter in the reference page for <a href="https://docs.microsoft.com/windows-hardware/drivers/ddi/content/fltkernel/nf-fltkernel-fltcreatecommunicationport">FltCreateCommunicationPort</a>.) This parameter is optional and can be <b>NULL</b>.
      * @param {Integer} wSizeOfContext Size, in bytes, of the structure that the <i>lpContext</i> parameter points to. If the value of <i>lpContext</i> is non-<b>NULL</b>, this parameter must be nonzero. If <i>lpContext</i> is <b>NULL</b>, this parameter must be zero.
      * @param {Pointer<SECURITY_ATTRIBUTES>} lpSecurityAttributes Pointer to a SECURITY_ATTRIBUTES structure that determines whether the returned handle can be inherited by child processes. For more information about the SECURITY_ATTRIBUTES structure, see the Microsoft Windows SDK documentation. This parameter is optional and can be <b>NULL</b>. If this parameter is <b>NULL</b>, the handle cannot be inherited.
      * @returns {HANDLE} Pointer to a caller-allocated variable that receives a handle for the newly created connection port if the call to <b>FilterConnectCommunicationPort</b> succeeds; otherwise, it receives INVALID_HANDLE_VALUE.
@@ -1397,9 +1396,9 @@ class InstallableFileSystems {
      * 
      * A minifilter sends a message to a user-mode application by calling <a href="https://docs.microsoft.com/windows-hardware/drivers/ddi/content/fltkernel/nf-fltkernel-fltsendmessage">FltSendMessage</a>.
      * @param {HANDLE} hPort Communication port handle returned by a previous call to <a href="https://docs.microsoft.com/windows/desktop/api/fltuser/nf-fltuser-filterconnectcommunicationport">FilterConnectCommunicationPort</a>. This parameter is required and cannot be <b>NULL</b>.
-     * @param {Pointer} lpInBuffer Pointer to a caller-allocated buffer containing the message to be sent to the minifilter. The message format is caller-defined. This parameter is required and cannot be <b>NULL</b>.
+     * @param {Integer} lpInBuffer Pointer to a caller-allocated buffer containing the message to be sent to the minifilter. The message format is caller-defined. This parameter is required and cannot be <b>NULL</b>.
      * @param {Integer} dwInBufferSize Size, in bytes, of the buffer pointed to by <i>lpInBuffer</i>.
-     * @param {Pointer} lpOutBuffer Pointer to a caller-allocated buffer that receives the reply (if any) from the minifilter.
+     * @param {Integer} lpOutBuffer Pointer to a caller-allocated buffer that receives the reply (if any) from the minifilter.
      * @param {Integer} dwOutBufferSize Size, in bytes, of the buffer pointed to by <i>lpOutBuffer</i>. This value is ignored if <i>lpOutBuffer</i> is <b>NULL</b>.
      * @returns {Integer} Pointer to a caller-allocated variable that receives the number of bytes returned in the buffer that <i>lpOutBuffer</i> points to if the call to <b>FilterSendMessage</b> succeeds. This parameter is required and cannot be <b>NULL</b>.
      * @see https://learn.microsoft.com/windows/win32/api/fltuser/nf-fltuser-filtersendmessage
@@ -1424,7 +1423,7 @@ class InstallableFileSystems {
      * 
      * A minifilter or instance sends a message to a user-mode application by calling <a href="https://docs.microsoft.com/windows-hardware/drivers/ddi/content/fltkernel/nf-fltkernel-fltsendmessage">FltSendMessage</a>.
      * @param {HANDLE} hPort Communication port handle returned by a previous call to <a href="https://docs.microsoft.com/windows/desktop/api/fltuser/nf-fltuser-filterconnectcommunicationport">FilterConnectCommunicationPort</a>. This parameter is required and cannot be <b>NULL</b>.
-     * @param {Pointer} lpMessageBuffer Pointer to a caller-allocated buffer that receives the message from the minifilter. The message must contain a <a href="https://docs.microsoft.com/windows-hardware/drivers/ddi/content/fltuserstructures/ns-fltuserstructures-_filter_message_header">FILTER_MESSAGE_HEADER</a> structure, but otherwise its format is caller-defined. This parameter is required and cannot be <b>NULL</b>.
+     * @param {Integer} lpMessageBuffer Pointer to a caller-allocated buffer that receives the message from the minifilter. The message must contain a <a href="https://docs.microsoft.com/windows-hardware/drivers/ddi/content/fltuserstructures/ns-fltuserstructures-_filter_message_header">FILTER_MESSAGE_HEADER</a> structure, but otherwise its format is caller-defined. This parameter is required and cannot be <b>NULL</b>.
      * @param {Integer} dwMessageBufferSize Size, in bytes, of the buffer that the <i>lpMessageBuffer</i> parameter points to.
      * @param {Pointer<OVERLAPPED>} lpOverlapped Pointer to an OVERLAPPED structure. This parameter is optional and can be <b>NULL</b>. If it is not <b>NULL</b>, the caller must initialize the <b>hEvent</b> member of the OVERLAPPED structure to a valid event handle or <b>NULL</b>.
      * @returns {HRESULT} <b>FilterGetMessage</b> returns S_OK if successful. Otherwise, it returns an error value.
@@ -1467,7 +1466,7 @@ class InstallableFileSystems {
      * </div>
      * <div> </div>
      * @param {HANDLE} hPort Communication port handle returned by a previous call to <a href="https://docs.microsoft.com/windows/desktop/api/fltuser/nf-fltuser-filterconnectcommunicationport">FilterConnectCommunicationPort</a>. This parameter is required and cannot be <b>NULL</b>.
-     * @param {Pointer} lpReplyBuffer A pointer to a caller-allocated buffer containing the reply to be sent to the minifilter. The reply must contain a <a href="https://docs.microsoft.com/windows-hardware/drivers/ddi/content/fltuserstructures/ns-fltuserstructures-_filter_reply_header">FILTER_REPLY_HEADER</a> structure, but otherwise, its format is caller-defined. This parameter is required and cannot be <b>NULL</b>.
+     * @param {Integer} lpReplyBuffer A pointer to a caller-allocated buffer containing the reply to be sent to the minifilter. The reply must contain a <a href="https://docs.microsoft.com/windows-hardware/drivers/ddi/content/fltuserstructures/ns-fltuserstructures-_filter_reply_header">FILTER_REPLY_HEADER</a> structure, but otherwise, its format is caller-defined. This parameter is required and cannot be <b>NULL</b>.
      * @param {Integer} dwReplyBufferSize Size, in bytes, of the buffer that the <i>lpReplyBuffer</i> parameter points to. See the Remarks section.
      * @returns {HRESULT} <b>FilterReplyMessage</b> returns S_OK if successful. Otherwise, it returns an error value.
      * @see https://learn.microsoft.com/windows/win32/api/fltuser/nf-fltuser-filterreplymessage

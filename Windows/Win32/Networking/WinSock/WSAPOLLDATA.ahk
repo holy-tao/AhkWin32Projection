@@ -1,15 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\SOCKET.ahk
 #Include .\WSAPOLLFD.ahk
+#Include .\SOCKET.ahk
+#Include .\WSAPOLL_EVENT_FLAGS.ahk
 
 /**
  * @namespace Windows.Win32.Networking.WinSock
- * @version v4.0.30319
  */
-class WSAPOLLDATA extends Win32Struct
-{
-    static sizeof => 24
+class WSAPOLLDATA extends Win32Struct {
+    static sizeof => 32
 
     static packingSize => 8
 
@@ -38,9 +37,9 @@ class WSAPOLLDATA extends Win32Struct
     }
 
     /**
-     * @type {Array<WSAPOLLFD>}
+     * @type {WSAPOLLFD}
      */
-    fdArray{
+    fdArray {
         get {
             if(!this.HasProp("__fdArrayProxyArray"))
                 this.__fdArrayProxyArray := Win32FixedArray(this.ptr + 16, 1, WSAPOLLFD, "")

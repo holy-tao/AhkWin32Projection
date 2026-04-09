@@ -1,14 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DRT_SECURITY_PROVIDER.ahk
+#Include .\DRT_BOOTSTRAP_PROVIDER.ahk
+#Include .\DRT_SECURITY_MODE.ahk
 
 /**
  * DRT_SETTINGS structure contains the settings utilized by the local Distributed Routing Table.
  * @see https://learn.microsoft.com/windows/win32/api/drt/ns-drt-drt_settings
  * @namespace Windows.Win32.NetworkManagement.P2P
- * @version v4.0.30319
  */
-class DRT_SETTINGS extends Win32Struct
-{
+class DRT_SETTINGS extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8
@@ -97,7 +98,7 @@ class DRT_SETTINGS extends Win32Struct
 
     /**
      * Specifies the security mode that the DRT should operate under. All nodes participating in a DRT mesh must use the same security mode.
-     * @type {Integer}
+     * @type {DRT_SECURITY_MODE}
      */
     eSecurityMode {
         get => NumGet(this, 48, "int")

@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IUpdateDownloadResult.ahk
 #Include ..\Com\IDispatch.ahk
+#Include .\IUpdateDownloadResult.ahk
 
 /**
  * Represents the result of a download operation.
  * @see https://learn.microsoft.com/windows/win32/api/wuapi/nn-wuapi-idownloadresult
  * @namespace Windows.Win32.System.UpdateAgent
- * @version v4.0.30319
  */
-class IDownloadResult extends IDispatch{
+class IDownloadResult extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -39,7 +38,7 @@ class IDownloadResult extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {OperationResultCode} 
      */
     ResultCode {
         get => this.get_ResultCode()
@@ -57,7 +56,7 @@ class IDownloadResult extends IDispatch{
 
     /**
      * Gets an OperationResultCodeenumeration that specifies the result of the download.
-     * @returns {Integer} 
+     * @returns {OperationResultCode} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-idownloadresult-get_resultcode
      */
     get_ResultCode() {

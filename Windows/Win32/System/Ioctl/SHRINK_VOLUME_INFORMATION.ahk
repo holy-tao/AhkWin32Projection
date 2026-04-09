@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\SHRINK_VOLUME_REQUEST_TYPES.ahk
 
 /**
  * Specifies the volume shrink operation to perform.
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-shrink_volume_information
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class SHRINK_VOLUME_INFORMATION extends Win32Struct
-{
+class SHRINK_VOLUME_INFORMATION extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -52,7 +51,7 @@ class SHRINK_VOLUME_INFORMATION extends Win32Struct
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
+     * @type {SHRINK_VOLUME_REQUEST_TYPES}
      */
     ShrinkRequestType {
         get => NumGet(this, 0, "int")

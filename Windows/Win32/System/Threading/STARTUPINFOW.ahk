@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\STARTUPINFOW_FLAGS.ahk
 #Include ..\..\Foundation\HANDLE.ahk
 
 /**
@@ -20,11 +21,9 @@
  * The <b>STARTF_UNTRUSTEDSOURCE</b> flag is supported starting in Windows Vista, but it is not defined in the SDK header files prior to the Windows 10 SDK. To use the flag in versions prior to Windows 10, you can define it manually in your program.
  * @see https://learn.microsoft.com/windows/win32/api/processthreadsapi/ns-processthreadsapi-startupinfow
  * @namespace Windows.Win32.System.Threading
- * @version v4.0.30319
  * @charset Unicode
  */
-class STARTUPINFOW extends Win32Struct
-{
+class STARTUPINFOW extends Win32Struct {
     static sizeof => 104
 
     static packingSize => 8
@@ -152,7 +151,7 @@ class STARTUPINFOW extends Win32Struct
 
     /**
      * A bitfield that determines whether certain
-     * @type {Integer}
+     * @type {STARTUPINFOW_FLAGS}
      */
     dwFlags {
         get => NumGet(this, 60, "uint")
@@ -200,7 +199,7 @@ class STARTUPINFOW extends Win32Struct
      * Otherwise, this member is ignored.
      * @type {HANDLE}
      */
-    hStdInput{
+    hStdInput {
         get {
             if(!this.HasProp("__hStdInput"))
                 this.__hStdInput := HANDLE(80, this)
@@ -214,7 +213,7 @@ class STARTUPINFOW extends Win32Struct
      * If a process is launched from the taskbar or jump list, the system sets <b>hStdOutput</b> to a handle to the monitor that contains the taskbar or jump list used to launch the process. For more information, see Remarks.<b>Windows 7, Windows Server 2008 R2, Windows Vista, Windows Server 2008, Windows XP and Windows Server 2003:  </b>This behavior was introduced in Windows 8 and Windows Server 2012.
      * @type {HANDLE}
      */
-    hStdOutput{
+    hStdOutput {
         get {
             if(!this.HasProp("__hStdOutput"))
                 this.__hStdOutput := HANDLE(88, this)
@@ -226,7 +225,7 @@ class STARTUPINFOW extends Win32Struct
      * If <b>dwFlags</b> specifies STARTF_USESTDHANDLES, this member is the standard error handle for the process. Otherwise, this member is ignored and the default for standard error is the console window's buffer.
      * @type {HANDLE}
      */
-    hStdError{
+    hStdError {
         get {
             if(!this.HasProp("__hStdError"))
                 this.__hStdError := HANDLE(96, this)

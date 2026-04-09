@@ -5,13 +5,10 @@
 
 /**
  * The ID3D12VideoDecoderHeap1 interface (d3d12video.h) inherits from ID3D12VideoDecoderHeap and introduces support for protected resources.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/d3d12video/nn-d3d12video-id3d12videodecoderheap1
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class ID3D12VideoDecoderHeap1 extends ID3D12VideoDecoderHeap{
+class ID3D12VideoDecoderHeap1 extends ID3D12VideoDecoderHeap {
 
     static sizeof => A_PtrSize
     /**

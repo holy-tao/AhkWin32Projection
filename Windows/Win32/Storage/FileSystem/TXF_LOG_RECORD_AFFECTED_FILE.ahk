@@ -6,10 +6,8 @@
  * Contains information for a file that was affected by a transaction.
  * @see https://learn.microsoft.com/windows/win32/api/txfw32/ns-txfw32-txf_log_record_affected_file
  * @namespace Windows.Win32.Storage.FileSystem
- * @version v4.0.30319
  */
-class TXF_LOG_RECORD_AFFECTED_FILE extends Win32Struct
-{
+class TXF_LOG_RECORD_AFFECTED_FILE extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -45,7 +43,7 @@ class TXF_LOG_RECORD_AFFECTED_FILE extends Win32Struct
      * The TxF file identifier for the file associated with this record. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/txfw32/ns-txfw32-txf_id">TXF_ID</a>.
      * @type {TXF_ID}
      */
-    TxfFileId{
+    TxfFileId {
         get {
             if(!this.HasProp("__TxfFileId"))
                 this.__TxfFileId := TXF_ID(16, this)
@@ -55,7 +53,7 @@ class TXF_LOG_RECORD_AFFECTED_FILE extends Win32Struct
 
     /**
      * The KTM transaction GUID for this update.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     KtmGuid {
         get => NumGet(this, 32, "ptr")

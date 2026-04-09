@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Variant\VARIANT.ahk
 #Include ..\Com\IDispatch.ahk
+#Include ..\Variant\VARIANT.ahk
 
 /**
  * Retrieves information about the version of Windows Update Agent (WUA).
@@ -12,9 +12,8 @@
  * You can create an instance of this interface by using the WindowsUpdateAgentInfo coclass. Use the Microsoft.Update.AgentInfo program identifier to create the object.
  * @see https://learn.microsoft.com/windows/win32/api/wuapi/nn-wuapi-iwindowsupdateagentinfo
  * @namespace Windows.Win32.System.UpdateAgent
- * @version v4.0.30319
  */
-class IWindowsUpdateAgentInfo extends IDispatch{
+class IWindowsUpdateAgentInfo extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

@@ -7,9 +7,8 @@
  * Gets the tokens that result from using a word breaker.
  * @see https://learn.microsoft.com/windows/win32/api/structuredquery/nn-structuredquery-itokencollection
  * @namespace Windows.Win32.System.Search
- * @version v4.0.30319
  */
-class ITokenCollection extends IUnknown{
+class ITokenCollection extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

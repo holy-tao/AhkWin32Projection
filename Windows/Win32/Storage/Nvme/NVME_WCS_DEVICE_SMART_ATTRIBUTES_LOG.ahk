@@ -3,18 +3,16 @@
 
 /**
  * @namespace Windows.Win32.Storage.Nvme
- * @version v4.0.30319
  */
-class NVME_WCS_DEVICE_SMART_ATTRIBUTES_LOG extends Win32Struct
-{
+class NVME_WCS_DEVICE_SMART_ATTRIBUTES_LOG extends Win32Struct {
     static sizeof => 504
 
     static packingSize => 8
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    VersionSpecificData{
+    VersionSpecificData {
         get {
             if(!this.HasProp("__VersionSpecificDataProxyArray"))
                 this.__VersionSpecificDataProxyArray := Win32FixedArray(this.ptr + 0, 494, Primitive, "char")
@@ -31,7 +29,7 @@ class NVME_WCS_DEVICE_SMART_ATTRIBUTES_LOG extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     LogPageGUID {
         get => NumGet(this, 496, "ptr")

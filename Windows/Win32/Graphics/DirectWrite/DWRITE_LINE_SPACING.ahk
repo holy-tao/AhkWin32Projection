@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DWRITE_LINE_SPACING_METHOD.ahk
+#Include .\DWRITE_FONT_LINE_GAP_USAGE.ahk
 
 /**
  * Sets the vertical spacing between lines of text.
  * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/ns-dwrite_3-dwrite_line_spacing
  * @namespace Windows.Win32.Graphics.DirectWrite
- * @version v4.0.30319
  */
-class DWRITE_LINE_SPACING extends Win32Struct
-{
+class DWRITE_LINE_SPACING extends Win32Struct {
     static sizeof => 20
 
     static packingSize => 4
@@ -17,7 +17,7 @@ class DWRITE_LINE_SPACING extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_line_spacing_method">DWRITE_LINE_SPACING_METHOD</a></b>
      * 
      * Method used to determine line spacing.
-     * @type {Integer}
+     * @type {DWRITE_LINE_SPACING_METHOD}
      */
     method {
         get => NumGet(this, 0, "int")
@@ -79,7 +79,7 @@ class DWRITE_LINE_SPACING extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite_3/ne-dwrite_3-dwrite_font_line_gap_usage">DWRITE_FONT_LINE_GAP_USAGE</a></b>
      * 
      * Specify whether <a href="https://docs.microsoft.com/windows/win32/api/dwrite/ns-dwrite-dwrite_font_metrics">DWRITE_FONT_METRICS</a>::lineGap value should be part of the line metrics.
-     * @type {Integer}
+     * @type {DWRITE_FONT_LINE_GAP_USAGE}
      */
     fontLineGapUsage {
         get => NumGet(this, 16, "int")

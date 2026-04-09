@@ -7,9 +7,8 @@
  * The IMenuButton interface enables the user to add and manage menu buttons for a snap-in.
  * @see https://learn.microsoft.com/windows/win32/api/mmc/nn-mmc-imenubutton
  * @namespace Windows.Win32.System.Mmc
- * @version v4.0.30319
  */
-class IMenuButton extends IUnknown{
+class IMenuButton extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -71,7 +70,7 @@ class IMenuButton extends IUnknown{
     /**
      * The IMenuButton::SetButtonState method enables a user to change the state of a menu button.
      * @param {Integer} idCommand A value that specifies a user-supplied value that uniquely identifies the menu button in which the state is being changed.
-     * @param {Integer} nState 
+     * @param {MMC_BUTTON_STATE} nState 
      * @param {BOOL} bState A value that specifies whether the state is to be turned on or off. <b>TRUE</b> indicates that the  button state is on; otherwise, set to <b>FALSE</b>.
      * @returns {HRESULT} This method can return one of these values.
      * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-imenubutton-setbuttonstate

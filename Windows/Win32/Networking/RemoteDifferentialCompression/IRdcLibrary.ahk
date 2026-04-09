@@ -1,19 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\IRdcGeneratorParameters.ahk
 #Include .\IRdcGenerator.ahk
 #Include .\IRdcComparator.ahk
 #Include .\IRdcSignatureReader.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Is the primary interface for using RDC.
  * @see https://learn.microsoft.com/windows/win32/api/msrdc/nn-msrdc-irdclibrary
  * @namespace Windows.Win32.Networking.RemoteDifferentialCompression
- * @version v4.0.30319
  */
-class IRdcLibrary extends IUnknown{
+class IRdcLibrary extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -54,7 +53,7 @@ class IRdcLibrary extends IUnknown{
 
     /**
      * Returns an IRdcGeneratorParameters interface pointer initialized with the parameters necessary for a signature generator.
-     * @param {Integer} parametersType Specifies the type of signature generator for the created parameters, enumerated by the 
+     * @param {GeneratorParametersType} parametersType Specifies the type of signature generator for the created parameters, enumerated by the 
      *     <a href="https://docs.microsoft.com/windows/win32/api/msrdc/ne-msrdc-generatorparameterstype">GeneratorParametersType</a> enumeration. The initial 
      *   release of RDC only supports one type, <b>RDCGENTYPE_FilterMax</b>.
      * @param {Integer} level The recursion level for this parameter block. A parameter block is needed for each level of generated 
@@ -74,7 +73,7 @@ class IRdcLibrary extends IUnknown{
      * Opens an existing serialized parameter block and returns an IRdcGeneratorParameters interface pointer initialized with the data.
      * @remarks
      * To create a serialized parameter block, use the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msrdc/nf-msrdc-irdcgeneratorparameters-serialize">IRdcGeneratorParameters::Serialize</a> method.
-     * @param {Integer} _size 
+     * @param {Integer} _size The size, in bytes, of the serialized parameter block.
      * @param {Pointer<Integer>} parametersBlob Pointer to a serialized parameter block.
      * @returns {IRdcGeneratorParameters} Pointer to a location that will receive the returned 
      *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msrdc/nn-msrdc-irdcgeneratorparameters">IRdcGeneratorParameters</a> interface pointer. Callers 

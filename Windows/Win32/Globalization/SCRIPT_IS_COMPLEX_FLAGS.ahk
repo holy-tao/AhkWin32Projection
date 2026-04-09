@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Globalization
- * @version v4.0.30319
  */
-class SCRIPT_IS_COMPLEX_FLAGS extends Win32Enum{
+class SCRIPT_IS_COMPLEX_FLAGS extends Win32Enum {
 
     /**
      * @type {Integer (UInt32)}

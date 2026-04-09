@@ -6,10 +6,8 @@
 
 /**
  * @namespace Windows.Win32.System.Rpc
- * @version v4.0.30319
  */
-class NDR64_BINDINGS extends Win32Struct
-{
+class NDR64_BINDINGS extends Win32Struct {
     static sizeof => 18
 
     static packingSize => 2
@@ -17,7 +15,7 @@ class NDR64_BINDINGS extends Win32Struct
     /**
      * @type {NDR64_BIND_PRIMITIVE}
      */
-    Primitive{
+    Primitive {
         get {
             if(!this.HasProp("__Primitive"))
                 this.__Primitive := NDR64_BIND_PRIMITIVE(0, this)
@@ -28,7 +26,7 @@ class NDR64_BINDINGS extends Win32Struct
     /**
      * @type {NDR64_BIND_GENERIC}
      */
-    Generic{
+    Generic {
         get {
             if(!this.HasProp("__Generic"))
                 this.__Generic := NDR64_BIND_GENERIC(0, this)
@@ -39,7 +37,7 @@ class NDR64_BINDINGS extends Win32Struct
     /**
      * @type {NDR64_BIND_CONTEXT}
      */
-    Context{
+    Context {
         get {
             if(!this.HasProp("__Context"))
                 this.__Context := NDR64_BIND_CONTEXT(0, this)

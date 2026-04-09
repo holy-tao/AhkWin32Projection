@@ -7,9 +7,8 @@
  * This interface is not supported. (IEVRVideoStreamControl)
  * @see https://learn.microsoft.com/windows/win32/api/evr9/nn-evr9-ievrvideostreamcontrol
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IEVRVideoStreamControl extends IUnknown{
+class IEVRVideoStreamControl extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

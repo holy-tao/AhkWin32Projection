@@ -7,9 +7,8 @@
  * Implements an advise sink object for handling notification. A pointer to an advise sink object is passed in a call to a service provider's Advise method.
  * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/imapiadvisesinkiunknown
  * @namespace Windows.Win32.System.AddressBook
- * @version v4.0.30319
  */
-class IMAPIAdviseSink extends IUnknown{
+class IMAPIAdviseSink extends IUnknown {
 
     static sizeof => A_PtrSize
 

@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.Dvd
- * @version v4.0.30319
  */
-class DVD_DUAL_LAYER_MIDDLE_ZONE_START_ADDRESS extends Win32Struct
-{
+class DVD_DUAL_LAYER_MIDDLE_ZONE_START_ADDRESS extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 1
@@ -39,9 +37,9 @@ class DVD_DUAL_LAYER_MIDDLE_ZONE_START_ADDRESS extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Reserved1{
+    Reserved1 {
         get {
             if(!this.HasProp("__Reserved1ProxyArray"))
                 this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 1, 3, Primitive, "char")
@@ -50,9 +48,9 @@ class DVD_DUAL_LAYER_MIDDLE_ZONE_START_ADDRESS extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    ShiftedMiddleAreaStartAddress{
+    ShiftedMiddleAreaStartAddress {
         get {
             if(!this.HasProp("__ShiftedMiddleAreaStartAddressProxyArray"))
                 this.__ShiftedMiddleAreaStartAddressProxyArray := Win32FixedArray(this.ptr + 4, 4, Primitive, "char")

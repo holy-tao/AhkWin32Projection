@@ -5,9 +5,8 @@
  * The interpolation mode the Point-diffuse lighting effect uses to scale the image to the corresponding kernel unit length. There are six scale modes that range in quality and speed.
  * @see https://learn.microsoft.com/windows/win32/api/d2d1effects/ne-d2d1effects-d2d1_pointdiffuse_scale_mode
  * @namespace Windows.Win32.Graphics.Direct2D
- * @version v4.0.30319
  */
-class D2D1_POINTDIFFUSE_SCALE_MODE extends Win32Enum{
+class D2D1_POINTDIFFUSE_SCALE_MODE extends Win32Enum {
 
     /**
      * Samples the nearest single point and uses that. This mode uses less processing time, but outputs the lowest quality image.

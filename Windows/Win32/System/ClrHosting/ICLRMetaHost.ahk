@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IEnumUnknown.ahk
 #Include ..\Com\IUnknown.ahk
+#Include ..\Com\IEnumUnknown.ahk
 
 /**
  * @namespace Windows.Win32.System.ClrHosting
- * @version v4.0.30319
  */
-class ICLRMetaHost extends IUnknown{
+class ICLRMetaHost extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

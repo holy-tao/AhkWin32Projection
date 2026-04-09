@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Storage.FileSystem
- * @version v4.0.30319
  */
-class NtmsInjectOperation extends Win32Enum{
+class NtmsInjectOperation extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

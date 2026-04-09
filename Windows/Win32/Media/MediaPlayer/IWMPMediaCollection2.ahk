@@ -1,19 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Include .\IWMPMediaCollection.ahk
 #Include .\IWMPQuery.ahk
 #Include .\IWMPPlaylist.ahk
 #Include .\IWMPStringCollection.ahk
-#Include .\IWMPMediaCollection.ahk
 
 /**
  * The IWMPMediaCollection2 interface provides methods that supplement the IWMPMediaCollection interface.
  * @see https://learn.microsoft.com/windows/win32/api/wmp/nn-wmp-iwmpmediacollection2
  * @namespace Windows.Win32.Media.MediaPlayer
- * @version v4.0.30319
  */
-class IWMPMediaCollection2 extends IWMPMediaCollection{
+class IWMPMediaCollection2 extends IWMPMediaCollection {
 
     static sizeof => A_PtrSize
     /**

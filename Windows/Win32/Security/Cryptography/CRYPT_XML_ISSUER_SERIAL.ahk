@@ -5,10 +5,8 @@
  * Contains an X.509 issued distinguished name�serial number pair.
  * @see https://learn.microsoft.com/windows/win32/api/cryptxml/ns-cryptxml-crypt_xml_issuer_serial
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CRYPT_XML_ISSUER_SERIAL extends Win32Struct
-{
+class CRYPT_XML_ISSUER_SERIAL extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

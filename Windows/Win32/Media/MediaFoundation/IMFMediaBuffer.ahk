@@ -66,9 +66,8 @@
  * </ul>
  * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nn-mfobjects-imfmediabuffer
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFMediaBuffer extends IUnknown{
+class IMFMediaBuffer extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

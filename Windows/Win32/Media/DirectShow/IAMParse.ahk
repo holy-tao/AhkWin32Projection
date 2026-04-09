@@ -7,9 +7,8 @@
  * The IAMParse interface sets and retrieves the parse time for an MPEG-2 stream.
  * @see https://learn.microsoft.com/windows/win32/api/amparse/nn-amparse-iamparse
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IAMParse extends IUnknown{
+class IAMParse extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

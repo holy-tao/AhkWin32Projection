@@ -14,9 +14,8 @@
  * The combined size of all registered dictionary files must be less than 1 MB by default. This can be increased to 2 MB by setting the registry key HKEY_CURRENT_USER\Software\Microsoft\Spelling\Dictionaries\AllowBiggerUD to the value 1. For more information about the Windows registry, see <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry">Registry</a>.
  * @see https://learn.microsoft.com/windows/win32/api/spellcheck/nn-spellcheck-iuserdictionariesregistrar
  * @namespace Windows.Win32.Globalization
- * @version v4.0.30319
  */
-class IUserDictionariesRegistrar extends IUnknown{
+class IUserDictionariesRegistrar extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

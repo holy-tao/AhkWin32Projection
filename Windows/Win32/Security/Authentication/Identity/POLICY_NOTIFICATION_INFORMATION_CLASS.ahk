@@ -5,9 +5,8 @@
  * The POLICY_NOTIFICATION_INFORMATION_CLASS enumeration defines the types of policy information and policy domain information for which your application can request notification of changes.
  * @see https://learn.microsoft.com/windows/win32/api/ntsecapi/ne-ntsecapi-policy_notification_information_class
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class POLICY_NOTIFICATION_INFORMATION_CLASS extends Win32Enum{
+class POLICY_NOTIFICATION_INFORMATION_CLASS extends Win32Enum {
 
     /**
      * Notify when any of the audited categories are changed.
@@ -52,13 +51,11 @@ class POLICY_NOTIFICATION_INFORMATION_CLASS extends Win32Enum{
     static PolicyNotifyMachineAccountPasswordInformation => 7
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static PolicyNotifyGlobalSaclInformation => 8
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static PolicyNotifyMax => 9

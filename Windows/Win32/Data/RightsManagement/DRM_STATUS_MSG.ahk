@@ -7,9 +7,8 @@
  * The callback function can use this message, together with the <i>hr</i> parameter, to determine the status of a request to a server.
  * @see https://learn.microsoft.com/windows/win32/api/msdrmdefs/ne-msdrmdefs-drm_status_msg
  * @namespace Windows.Win32.Data.RightsManagement
- * @version v4.0.30319
  */
-class DRM_STATUS_MSG extends Win32Enum{
+class DRM_STATUS_MSG extends Win32Enum {
 
     /**
      * AD RMS is attempting to activate the machine. For more information, see the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/adrms_sdk/drm-msg-activate-machine">DRM_MSG_ACTIVATE_MACHINE</a> message.

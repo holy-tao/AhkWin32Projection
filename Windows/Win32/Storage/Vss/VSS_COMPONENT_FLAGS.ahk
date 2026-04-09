@@ -5,9 +5,8 @@
  * Used by writers to indicate support for auto-recovery.
  * @see https://learn.microsoft.com/windows/win32/api/vswriter/ne-vswriter-vss_component_flags
  * @namespace Windows.Win32.Storage.Vss
- * @version v4.0.30319
  */
-class VSS_COMPONENT_FLAGS extends Win32Enum{
+class VSS_COMPONENT_FLAGS extends Win32Enum {
 
     /**
      * The writer will need write access to this component after the shadow copy has been created.

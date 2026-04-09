@@ -9,9 +9,8 @@
  * This interface also provides the methods of the <a href="https://docs.microsoft.com/windows/desktop/api/shdeprecated/nn-shdeprecated-ibrowserservice">IBrowserService</a> and <a href="https://docs.microsoft.com/windows/desktop/api/shdeprecated/nn-shdeprecated-ibrowserservice2">IBrowserService2</a> interfaces, from which it inherits.
  * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nn-shdeprecated-ibrowserservice3
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IBrowserService3 extends IBrowserService2{
+class IBrowserService3 extends IBrowserService2 {
 
     static sizeof => A_PtrSize
     /**
@@ -34,7 +33,9 @@ class IBrowserService3 extends IBrowserService2{
 
     /**
      * Deprecated. Used in view size negotiations. This method is called by _UpdateViewRectSize after determining the available dimensions.
-     * @param {HWND} _hwnd 
+     * @param {HWND} _hwnd Type: <b>HWND</b>
+     * 
+     * The handle of the view window.
      * @param {Pointer<RECT>} prc Type: <b>LPRECT</b>
      * 
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure that contains the available dimensions.

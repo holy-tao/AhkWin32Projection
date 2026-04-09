@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.UI.Input.GameInput
- * @version v4.0.30319
  */
-class IGameInputForceFeedbackEffect extends IUnknown{
+class IGameInputForceFeedbackEffect extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -135,7 +134,7 @@ class IGameInputForceFeedbackEffect extends IUnknown{
      * Gets current Interaction Context state and the time when the context will return to idle state.
      * @remarks
      * After interaction ends, the interaction context might still be busy reporting inertia, or expecting second tap in a double tap gesture (in general, if multi-stroke gesture is possible). This function allows the caller to find out when it is safe to treat the Interaction Context object as idle. The main purpose of this function is management of pools of interaction contexts.
-     * @returns {Integer} If this function succeeds, it returns S_OK.
+     * @returns {GameInputFeedbackEffectState} If this function succeeds, it returns S_OK.
      *  
      * Otherwise, it returns an HRESULT error code.
      * @see https://learn.microsoft.com/windows/win32/api/interactioncontext/nf-interactioncontext-getstateinteractioncontext
@@ -147,7 +146,7 @@ class IGameInputForceFeedbackEffect extends IUnknown{
 
     /**
      * 
-     * @param {Integer} state 
+     * @param {GameInputFeedbackEffectState} state 
      * @returns {String} Nothing - always returns an empty string
      */
     SetState(state) {

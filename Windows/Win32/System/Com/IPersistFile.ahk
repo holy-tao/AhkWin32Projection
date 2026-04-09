@@ -7,9 +7,8 @@
  * Enables an object to be loaded from or saved to a disk file, rather than a storage object or stream.
  * @see https://learn.microsoft.com/windows/win32/api/objidl/nn-objidl-ipersistfile
  * @namespace Windows.Win32.System.Com
- * @version v4.0.30319
  */
-class IPersistFile extends IPersist{
+class IPersistFile extends IPersist {
 
     static sizeof => A_PtrSize
     /**
@@ -69,7 +68,7 @@ class IPersistFile extends IPersist{
      * 
      * When the object has been loaded, your implementation should register the object in the running object table (see <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-irunningobjecttable-register">IRunningObjectTable::Register</a>).
      * @param {PWSTR} pszFileName The absolute path of the file to be opened.
-     * @param {Integer} dwMode The access mode to be used when opening the file. Possible values are taken from the <a href="https://docs.microsoft.com/windows/desktop/Stg/stgm-constants">STGM</a> enumeration. The method can treat this value as a suggestion, adding more restrictive permissions if necessary. If <i>dwMode</i> is 0, the implementation should open the file using whatever default permissions are used when a user opens the file.
+     * @param {STGM} dwMode The access mode to be used when opening the file. Possible values are taken from the <a href="https://docs.microsoft.com/windows/desktop/Stg/stgm-constants">STGM</a> enumeration. The method can treat this value as a suggestion, adding more restrictive permissions if necessary. If <i>dwMode</i> is 0, the implementation should open the file using whatever default permissions are used when a user opens the file.
      * @returns {HRESULT} This method can return the following values.
      * 
      * <table>

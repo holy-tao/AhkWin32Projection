@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\Com\IDispatch.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * @namespace Windows.Win32.System.Wmi
- * @version v4.0.30319
  */
-class ISWbemDateTime extends IDispatch{
+class ISWbemDateTime extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

@@ -7,9 +7,8 @@
  * Exposes a method that enables a client application to create a helper object in the server context.
  * @see https://learn.microsoft.com/windows/win32/api/msaatext/nn-msaatext-icocreatelocally
  * @namespace Windows.Win32.UI.TextServices
- * @version v4.0.30319
  */
-class ICoCreateLocally extends IUnknown{
+class ICoCreateLocally extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

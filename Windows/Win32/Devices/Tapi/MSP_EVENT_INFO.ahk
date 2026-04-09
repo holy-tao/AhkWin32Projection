@@ -1,14 +1,22 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\MSP_EVENT.ahk
+#Include .\MSP_ADDRESS_EVENT.ahk
+#Include .\ITTerminal.ahk
+#Include .\MSP_CALL_EVENT.ahk
+#Include .\MSP_CALL_EVENT_CAUSE.ahk
+#Include .\ITStream.ahk
+#Include ..\..\System\Com\IDispatch.ahk
+#Include .\ITFileTrack.ahk
+#Include .\TERMINAL_MEDIA_STATE.ahk
+#Include .\FT_STATE_EVENT_CAUSE.ahk
 
 /**
  * The MSP_EVENT_INFO (msp.h) structure defines the type of event returned by the GetEvent method.
  * @see https://learn.microsoft.com/windows/win32/api/msp/ns-msp-msp_event_info
  * @namespace Windows.Win32.Devices.Tapi
- * @version v4.0.30319
  */
-class MSP_EVENT_INFO extends Win32Struct
-{
+class MSP_EVENT_INFO extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -23,8 +31,7 @@ class MSP_EVENT_INFO extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Integer}
+     * @type {MSP_EVENT}
      */
     Event {
         get => NumGet(this, 4, "int")
@@ -45,13 +52,13 @@ class MSP_EVENT_INFO extends Win32Struct
         static packingSize => 8
 
         /**
-         * @type {Integer}
+         * @type {MSP_ADDRESS_EVENT}
          */
         Type {
             get => NumGet(this, 0, "int")
             set => NumPut("int", value, this, 0)
         }
-    
+
         /**
          * @type {ITTerminal}
          */
@@ -59,7 +66,6 @@ class MSP_EVENT_INFO extends Win32Struct
             get => NumGet(this, 8, "ptr")
             set => NumPut("ptr", value, this, 8)
         }
-    
     }
 
     class _MSP_CALL_EVENT_INFO extends Win32Struct {
@@ -67,21 +73,21 @@ class MSP_EVENT_INFO extends Win32Struct
         static packingSize => 8
 
         /**
-         * @type {Integer}
+         * @type {MSP_CALL_EVENT}
          */
         Type {
             get => NumGet(this, 0, "int")
             set => NumPut("int", value, this, 0)
         }
-    
+
         /**
-         * @type {Integer}
+         * @type {MSP_CALL_EVENT_CAUSE}
          */
         Cause {
             get => NumGet(this, 4, "int")
             set => NumPut("int", value, this, 4)
         }
-    
+
         /**
          * @type {ITStream}
          */
@@ -89,7 +95,7 @@ class MSP_EVENT_INFO extends Win32Struct
             get => NumGet(this, 8, "ptr")
             set => NumPut("ptr", value, this, 8)
         }
-    
+
         /**
          * @type {ITTerminal}
          */
@@ -97,7 +103,7 @@ class MSP_EVENT_INFO extends Win32Struct
             get => NumGet(this, 16, "ptr")
             set => NumPut("ptr", value, this, 16)
         }
-    
+
         /**
          * @type {HRESULT}
          */
@@ -105,7 +111,6 @@ class MSP_EVENT_INFO extends Win32Struct
             get => NumGet(this, 24, "int")
             set => NumPut("int", value, this, 24)
         }
-    
     }
 
     class _MSP_TSP_DATA extends Win32Struct {
@@ -119,18 +124,17 @@ class MSP_EVENT_INFO extends Win32Struct
             get => NumGet(this, 0, "uint")
             set => NumPut("uint", value, this, 0)
         }
-    
+
         /**
-         * @type {Array<Byte>}
+         * @type {Array<Integer>}
          */
-        pBuffer{
+        pBuffer {
             get {
                 if(!this.HasProp("__pBufferProxyArray"))
                     this.__pBufferProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "char")
                 return this.__pBufferProxyArray
             }
         }
-    
     }
 
     class _MSP_PRIVATE_EVENT_INFO extends Win32Struct {
@@ -144,7 +148,7 @@ class MSP_EVENT_INFO extends Win32Struct
             get => NumGet(this, 0, "ptr")
             set => NumPut("ptr", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -152,7 +156,6 @@ class MSP_EVENT_INFO extends Win32Struct
             get => NumGet(this, 8, "int")
             set => NumPut("int", value, this, 8)
         }
-    
     }
 
     class _MSP_FILE_TERMINAL_EVENT_INFO extends Win32Struct {
@@ -166,7 +169,7 @@ class MSP_EVENT_INFO extends Win32Struct
             get => NumGet(this, 0, "ptr")
             set => NumPut("ptr", value, this, 0)
         }
-    
+
         /**
          * @type {ITFileTrack}
          */
@@ -174,23 +177,23 @@ class MSP_EVENT_INFO extends Win32Struct
             get => NumGet(this, 8, "ptr")
             set => NumPut("ptr", value, this, 8)
         }
-    
+
         /**
-         * @type {Integer}
+         * @type {TERMINAL_MEDIA_STATE}
          */
         TerminalMediaState {
             get => NumGet(this, 16, "int")
             set => NumPut("int", value, this, 16)
         }
-    
+
         /**
-         * @type {Integer}
+         * @type {FT_STATE_EVENT_CAUSE}
          */
         ftecEventCause {
             get => NumGet(this, 20, "int")
             set => NumPut("int", value, this, 20)
         }
-    
+
         /**
          * @type {HRESULT}
          */
@@ -198,7 +201,6 @@ class MSP_EVENT_INFO extends Win32Struct
             get => NumGet(this, 24, "int")
             set => NumPut("int", value, this, 24)
         }
-    
     }
 
     class _MSP_ASR_TERMINAL_EVENT_INFO extends Win32Struct {
@@ -212,7 +214,7 @@ class MSP_EVENT_INFO extends Win32Struct
             get => NumGet(this, 0, "ptr")
             set => NumPut("ptr", value, this, 0)
         }
-    
+
         /**
          * @type {HRESULT}
          */
@@ -220,7 +222,6 @@ class MSP_EVENT_INFO extends Win32Struct
             get => NumGet(this, 8, "int")
             set => NumPut("int", value, this, 8)
         }
-    
     }
 
     class _MSP_TTS_TERMINAL_EVENT_INFO extends Win32Struct {
@@ -234,7 +235,7 @@ class MSP_EVENT_INFO extends Win32Struct
             get => NumGet(this, 0, "ptr")
             set => NumPut("ptr", value, this, 0)
         }
-    
+
         /**
          * @type {HRESULT}
          */
@@ -242,7 +243,6 @@ class MSP_EVENT_INFO extends Win32Struct
             get => NumGet(this, 8, "int")
             set => NumPut("int", value, this, 8)
         }
-    
     }
 
     class _MSP_TONE_TERMINAL_EVENT_INFO extends Win32Struct {
@@ -256,7 +256,7 @@ class MSP_EVENT_INFO extends Win32Struct
             get => NumGet(this, 0, "ptr")
             set => NumPut("ptr", value, this, 0)
         }
-    
+
         /**
          * @type {HRESULT}
          */
@@ -264,16 +264,15 @@ class MSP_EVENT_INFO extends Win32Struct
             get => NumGet(this, 8, "int")
             set => NumPut("int", value, this, 8)
         }
-    
     }
 
     /**
      * @type {_MSP_ADDRESS_EVENT_INFO}
      */
-    MSP_ADDRESS_EVENT_INFO{
+    MSP_ADDRESS_EVENT_INFO {
         get {
             if(!this.HasProp("__MSP_ADDRESS_EVENT_INFO"))
-                this.__MSP_ADDRESS_EVENT_INFO := %this.__Class%._MSP_ADDRESS_EVENT_INFO(16, this)
+                this.__MSP_ADDRESS_EVENT_INFO := MSP_EVENT_INFO._MSP_ADDRESS_EVENT_INFO(16, this)
             return this.__MSP_ADDRESS_EVENT_INFO
         }
     }
@@ -281,10 +280,10 @@ class MSP_EVENT_INFO extends Win32Struct
     /**
      * @type {_MSP_CALL_EVENT_INFO}
      */
-    MSP_CALL_EVENT_INFO{
+    MSP_CALL_EVENT_INFO {
         get {
             if(!this.HasProp("__MSP_CALL_EVENT_INFO"))
-                this.__MSP_CALL_EVENT_INFO := %this.__Class%._MSP_CALL_EVENT_INFO(16, this)
+                this.__MSP_CALL_EVENT_INFO := MSP_EVENT_INFO._MSP_CALL_EVENT_INFO(16, this)
             return this.__MSP_CALL_EVENT_INFO
         }
     }
@@ -292,10 +291,10 @@ class MSP_EVENT_INFO extends Win32Struct
     /**
      * @type {_MSP_TSP_DATA}
      */
-    MSP_TSP_DATA{
+    MSP_TSP_DATA {
         get {
             if(!this.HasProp("__MSP_TSP_DATA"))
-                this.__MSP_TSP_DATA := %this.__Class%._MSP_TSP_DATA(16, this)
+                this.__MSP_TSP_DATA := MSP_EVENT_INFO._MSP_TSP_DATA(16, this)
             return this.__MSP_TSP_DATA
         }
     }
@@ -303,10 +302,10 @@ class MSP_EVENT_INFO extends Win32Struct
     /**
      * @type {_MSP_PRIVATE_EVENT_INFO}
      */
-    MSP_PRIVATE_EVENT_INFO{
+    MSP_PRIVATE_EVENT_INFO {
         get {
             if(!this.HasProp("__MSP_PRIVATE_EVENT_INFO"))
-                this.__MSP_PRIVATE_EVENT_INFO := %this.__Class%._MSP_PRIVATE_EVENT_INFO(16, this)
+                this.__MSP_PRIVATE_EVENT_INFO := MSP_EVENT_INFO._MSP_PRIVATE_EVENT_INFO(16, this)
             return this.__MSP_PRIVATE_EVENT_INFO
         }
     }
@@ -314,10 +313,10 @@ class MSP_EVENT_INFO extends Win32Struct
     /**
      * @type {_MSP_FILE_TERMINAL_EVENT_INFO}
      */
-    MSP_FILE_TERMINAL_EVENT_INFO{
+    MSP_FILE_TERMINAL_EVENT_INFO {
         get {
             if(!this.HasProp("__MSP_FILE_TERMINAL_EVENT_INFO"))
-                this.__MSP_FILE_TERMINAL_EVENT_INFO := %this.__Class%._MSP_FILE_TERMINAL_EVENT_INFO(16, this)
+                this.__MSP_FILE_TERMINAL_EVENT_INFO := MSP_EVENT_INFO._MSP_FILE_TERMINAL_EVENT_INFO(16, this)
             return this.__MSP_FILE_TERMINAL_EVENT_INFO
         }
     }
@@ -325,10 +324,10 @@ class MSP_EVENT_INFO extends Win32Struct
     /**
      * @type {_MSP_ASR_TERMINAL_EVENT_INFO}
      */
-    MSP_ASR_TERMINAL_EVENT_INFO{
+    MSP_ASR_TERMINAL_EVENT_INFO {
         get {
             if(!this.HasProp("__MSP_ASR_TERMINAL_EVENT_INFO"))
-                this.__MSP_ASR_TERMINAL_EVENT_INFO := %this.__Class%._MSP_ASR_TERMINAL_EVENT_INFO(16, this)
+                this.__MSP_ASR_TERMINAL_EVENT_INFO := MSP_EVENT_INFO._MSP_ASR_TERMINAL_EVENT_INFO(16, this)
             return this.__MSP_ASR_TERMINAL_EVENT_INFO
         }
     }
@@ -336,10 +335,10 @@ class MSP_EVENT_INFO extends Win32Struct
     /**
      * @type {_MSP_TTS_TERMINAL_EVENT_INFO}
      */
-    MSP_TTS_TERMINAL_EVENT_INFO{
+    MSP_TTS_TERMINAL_EVENT_INFO {
         get {
             if(!this.HasProp("__MSP_TTS_TERMINAL_EVENT_INFO"))
-                this.__MSP_TTS_TERMINAL_EVENT_INFO := %this.__Class%._MSP_TTS_TERMINAL_EVENT_INFO(16, this)
+                this.__MSP_TTS_TERMINAL_EVENT_INFO := MSP_EVENT_INFO._MSP_TTS_TERMINAL_EVENT_INFO(16, this)
             return this.__MSP_TTS_TERMINAL_EVENT_INFO
         }
     }
@@ -347,10 +346,10 @@ class MSP_EVENT_INFO extends Win32Struct
     /**
      * @type {_MSP_TONE_TERMINAL_EVENT_INFO}
      */
-    MSP_TONE_TERMINAL_EVENT_INFO{
+    MSP_TONE_TERMINAL_EVENT_INFO {
         get {
             if(!this.HasProp("__MSP_TONE_TERMINAL_EVENT_INFO"))
-                this.__MSP_TONE_TERMINAL_EVENT_INFO := %this.__Class%._MSP_TONE_TERMINAL_EVENT_INFO(16, this)
+                this.__MSP_TONE_TERMINAL_EVENT_INFO := MSP_EVENT_INFO._MSP_TONE_TERMINAL_EVENT_INFO(16, this)
             return this.__MSP_TONE_TERMINAL_EVENT_INFO
         }
     }

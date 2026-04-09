@@ -7,7 +7,6 @@
 
 /**
  * @namespace Windows.Win32.System.LibraryLoader
- * @version v4.0.30319
  */
 class LibraryLoader {
 
@@ -182,7 +181,9 @@ class LibraryLoader {
      * For example, an application can use the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-loadiconw">LoadIcon</a> function to load an icon for display on the screen. However, the application should use <b>FindResourceEx</b> and <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadresource">LoadResource</a> if it is loading the icon to copy its data to another application.
      * 
      * String resources are stored in sections of up to 16 strings per section. The strings in each section are stored as a sequence of counted (not necessarily null-terminated) Unicode strings. The <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-loadstringw">LoadString</a> function will extract the string resource from its corresponding section.
-     * @param {HMODULE} _hModule 
+     * @param {HMODULE} _hModule Type: <b>HMODULE</b>
+     * 
+     * A handle to the module whose portable executable file or an accompanying MUI file contains the resource. If this parameter is <b>NULL</b>, the function searches the module used to create the current process.
      * @param {PWSTR} lpType Type: <b>LPCTSTR</b>
      * 
      * The resource type. Alternately, rather than a pointer, this parameter can be <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-makeintresourcew">MAKEINTRESOURCE</a>(ID), where ID is the integer identifier of the given resource type. For standard resource types, see <a href="https://docs.microsoft.com/windows/desktop/menurc/resource-types">Resource Types</a>. For more information, see the Remarks section below.
@@ -305,7 +306,10 @@ class LibraryLoader {
      * If a DLL is loaded in two processes, its file name in one process may differ in case from its file name in the other process.
      * 
      * The global variable <c>_pgmptr</c> is automatically initialized to the full path of the executable file, and can be used to retrieve the full path name of an executable file.
-     * @param {HMODULE} _hModule 
+     * @param {HMODULE} _hModule A handle to the loaded module whose path is being requested. If this parameter is <b>NULL</b>, 
+     * <b>GetModuleFileName</b> retrieves the path of the executable file of the current process.
+     * 
+     * The <b>GetModuleFileName</b> function does not retrieve the path for modules  that were loaded using the <b>LOAD_LIBRARY_AS_DATAFILE</b> flag. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadlibraryexa">LoadLibraryEx</a>.
      * @param {PSTR} lpFilename A pointer to a buffer that receives the fully qualified path of the module. If the length of the path is less than the size that the <i>nSize</i> parameter specifies, the function succeeds and the path is returned as a null-terminated string. 
      * 
      * If the length of the path exceeds the size that  the <i>nSize</i> parameter specifies, the function succeeds and the string is truncated to <i>nSize</i>  characters including the terminating null character.
@@ -344,7 +348,10 @@ class LibraryLoader {
      * If a DLL is loaded in two processes, its file name in one process may differ in case from its file name in the other process.
      * 
      * The global variable <c>_pgmptr</c> is automatically initialized to the full path of the executable file, and can be used to retrieve the full path name of an executable file.
-     * @param {HMODULE} _hModule 
+     * @param {HMODULE} _hModule A handle to the loaded module whose path is being requested. If this parameter is <b>NULL</b>, 
+     * <b>GetModuleFileName</b> retrieves the path of the executable file of the current process.
+     * 
+     * The <b>GetModuleFileName</b> function does not retrieve the path for modules  that were loaded using the <b>LOAD_LIBRARY_AS_DATAFILE</b> flag. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadlibraryexa">LoadLibraryEx</a>.
      * @param {PWSTR} lpFilename A pointer to a buffer that receives the fully qualified path of the module. If the length of the path is less than the size that the <i>nSize</i> parameter specifies, the function succeeds and the path is returned as a null-terminated string. 
      * 
      * If the length of the path exceeds the size that  the <i>nSize</i> parameter specifies, the function succeeds and the string is truncated to <i>nSize</i>  characters including the terminating null character.
@@ -609,7 +616,11 @@ class LibraryLoader {
      * 
      * 
      * For the complete example that contains this code fragment, see <a href="https://docs.microsoft.com/windows/desktop/SysInfo/getting-the-system-version">Getting the System Version</a>.
-     * @param {HMODULE} _hModule 
+     * @param {HMODULE} _hModule A handle to the DLL module that contains the function or variable. The 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadlibrarya">LoadLibrary</a>, <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadlibraryexa">LoadLibraryEx</a>, <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-loadpackagedlibrary">LoadPackagedLibrary</a>, or 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-getmodulehandlea">GetModuleHandle</a> function returns this handle. 
+     * 
+     * The <b>GetProcAddress</b> function does not retrieve addresses from modules that were loaded using the <b>LOAD_LIBRARY_AS_DATAFILE</b> flag. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadlibraryexa">LoadLibraryEx</a>.
      * @param {PSTR} lpProcName The function or variable name, or the function's ordinal value. If this parameter is an ordinal value, it must be in the low-order word; the high-order word must be zero.
      * @returns {Pointer<FARPROC>} If the function succeeds, the return value is the address of the exported function or variable.
      * 
@@ -741,7 +752,7 @@ class LibraryLoader {
      *        information, see Remarks.
      * 
      * If the function cannot find the  module or one of its dependencies, the function fails.
-     * @param {Integer} dwFlags The action to be taken when loading the module. If no flags are specified, the behavior of this function is
+     * @param {LOAD_LIBRARY_FLAGS} dwFlags The action to be taken when loading the module. If no flags are specified, the behavior of this function is
      *       identical to that of the <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadlibrarya">LoadLibrary</a> function. This
      * @returns {HMODULE} If the function succeeds, the return value is a handle to the loaded module.
      * 
@@ -876,7 +887,7 @@ class LibraryLoader {
      *        information, see Remarks.
      * 
      * If the function cannot find the  module or one of its dependencies, the function fails.
-     * @param {Integer} dwFlags The action to be taken when loading the module. If no flags are specified, the behavior of this function is
+     * @param {LOAD_LIBRARY_FLAGS} dwFlags The action to be taken when loading the module. If no flags are specified, the behavior of this function is
      *       identical to that of the <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadlibrarya">LoadLibrary</a> function. This
      * @returns {HMODULE} If the function succeeds, the return value is a handle to the loaded module.
      * 
@@ -979,7 +990,9 @@ class LibraryLoader {
      *  
      * 
      * For example, an application can use the <a href="https://docs.microsoft.com/windows/win32/api/winuser/nf-winuser-loadicona">LoadIcon</a> function to load an icon for display on the screen, followed by <a href="https://docs.microsoft.com/windows/win32/api/winuser/nf-winuser-destroyicon">DestroyIcon</a> when done.
-     * @param {HMODULE} _hModule 
+     * @param {HMODULE} _hModule Type: <b>HMODULE</b>
+     * 
+     * A handle to the module whose executable file contains the resource. If <i>hModule</i> is <b>NULL</b>, the system loads the resource from the module that was used to create the current process.
      * @param {HRSRC} hResInfo Type: <b>HRSRC</b>
      * 
      * A handle to the resource to be loaded. This handle is returned by the <a href="https://docs.microsoft.com/windows/win32/api/winbase/nf-winbase-findresourcea">FindResource</a> or <a href="https://docs.microsoft.com/windows/win32/api/winbase/nf-winbase-findresourceexa">FindResourceEx</a> function.
@@ -1033,7 +1046,9 @@ class LibraryLoader {
 
     /**
      * Retrieves the size, in bytes, of the specified resource.
-     * @param {HMODULE} _hModule 
+     * @param {HMODULE} _hModule Type: <b>HMODULE</b>
+     * 
+     * A handle to the module whose executable file contains the resource. Default is the module used to create the current process.
      * @param {HRSRC} hResInfo Type: <b>HRSRC</b>
      * 
      * A handle to the resource. This handle must be created by using the <a href="https://docs.microsoft.com/windows/win32/api/winbase/nf-winbase-findresourcea">FindResource</a> or <a href="https://docs.microsoft.com/windows/win32/api/winbase/nf-winbase-findresourceexa">FindResourceEx</a> function.
@@ -1192,7 +1207,7 @@ class LibraryLoader {
      *       Kernel32.dll. 
      *       <a href="https://support.microsoft.com/kb/2533623">KB2533623</a> must be 
      *       installed on the target platform.
-     * @param {Integer} DirectoryFlags 
+     * @param {LOAD_LIBRARY_FLAGS} DirectoryFlags 
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -1237,7 +1252,13 @@ class LibraryLoader {
      * If the <i>LangId</i> is nonzero, then only the .mui file corresponding to that language identifier will be searched. Language fallbacks will not be used. If an .mui file for that language does not exist, the enumeration will be empty (unless resources for that language exist in the LN file, and the flag is set to search the LN file as well).
      * 
      * The enumeration never includes duplicates: if resources for a particular language are contained in both the LN file and in an .mui file, the type will only be enumerated once.
-     * @param {HMODULE} _hModule 
+     * @param {HMODULE} _hModule Type: <b>HMODULE</b>
+     * 
+     * The handle to a module to search. Typically this is a <a href="https://docs.microsoft.com/windows/desktop/Intl/mui-resource-management">language-neutral Portable Executable</a> (LN file), and if flag <b>RESOURCE_ENUM_MUI</b> is set, then appropriate .mui files are included in the search. Alternately, this can be a handle to an .mui file or other LN file. If this is a specific .mui file, only that file is searched for resources.
+     *     
+     *                     
+     * 
+     * If this parameter is <b>NULL</b>, it is equivalent to passing in a handle to the module used to create the current process.
      * @param {PSTR} lpType Type: <b>LPCTSTR</b>
      * 
      * The type of the resource for which the language is being enumerated. Alternately, rather than a pointer, this parameter can be <a href="https://docs.microsoft.com/windows/win32/api/winuser/nf-winuser-makeintresourcea">MAKEINTRESOURCE</a>(ID), where ID is an integer value representing a predefined resource type. For a list of predefined resource types, see <a href="https://docs.microsoft.com/windows/desktop/menurc/resource-types">Resource Types</a>. For more 
@@ -1249,7 +1270,9 @@ class LibraryLoader {
      * @param {Pointer<ENUMRESLANGPROCA>} lpEnumFunc Type: <b>ENUMRESLANGPROC</b>
      * 
      * A pointer to the callback function to be called for each enumerated resource language. For more information, see <a href="https://msdn.microsoft.com/58c1a42d-15d2-4157-8c57-f9b1d389b917">EnumResLangProc</a>.
-     * @param {Pointer} _lParam 
+     * @param {Pointer} _lParam Type: <b>LONG_PTR</b>
+     * 
+     * An application-defined value passed to the callback function. This parameter can be used in error checking.
      * @param {Integer} dwFlags Type: <b>DWORD</b>
      * 
      * The type of file to be searched. The following values are supported. Note that if <i>dwFlags</i> is zero, then the <b>RESOURCE_ENUM_LN</b> and <b>RESOURCE_ENUM_MUI</b> flags are assumed to be specified.
@@ -1354,7 +1377,13 @@ class LibraryLoader {
      * If the <i>LangId</i> is nonzero, then only the .mui file corresponding to that language identifier will be searched. Language fallbacks will not be used. If an .mui file for that language does not exist, the enumeration will be empty (unless resources for that language exist in the LN file, and the flag is set to search the LN file as well).
      * 
      * The enumeration never includes duplicates: if resources for a particular language are contained in both the LN file and in an .mui file, the type will only be enumerated once.
-     * @param {HMODULE} _hModule 
+     * @param {HMODULE} _hModule Type: <b>HMODULE</b>
+     * 
+     * The handle to a module to search. Typically this is a <a href="https://docs.microsoft.com/windows/desktop/Intl/mui-resource-management">language-neutral Portable Executable</a> (LN file), and if flag <b>RESOURCE_ENUM_MUI</b> is set, then appropriate .mui files are included in the search. Alternately, this can be a handle to an .mui file or other LN file. If this is a specific .mui file, only that file is searched for resources.
+     *     
+     *                     
+     * 
+     * If this parameter is <b>NULL</b>, it is equivalent to passing in a handle to the module used to create the current process.
      * @param {PWSTR} lpType Type: <b>LPCTSTR</b>
      * 
      * The type of the resource for which the language is being enumerated. Alternately, rather than a pointer, this parameter can be <a href="https://docs.microsoft.com/windows/win32/api/winuser/nf-winuser-makeintresourcea">MAKEINTRESOURCE</a>(ID), where ID is an integer value representing a predefined resource type. For a list of predefined resource types, see <a href="https://docs.microsoft.com/windows/desktop/menurc/resource-types">Resource Types</a>. For more 
@@ -1366,7 +1395,9 @@ class LibraryLoader {
      * @param {Pointer<ENUMRESLANGPROCW>} lpEnumFunc Type: <b>ENUMRESLANGPROC</b>
      * 
      * A pointer to the callback function to be called for each enumerated resource language. For more information, see <a href="https://msdn.microsoft.com/58c1a42d-15d2-4157-8c57-f9b1d389b917">EnumResLangProc</a>.
-     * @param {Pointer} _lParam 
+     * @param {Pointer} _lParam Type: <b>LONG_PTR</b>
+     * 
+     * An application-defined value passed to the callback function. This parameter can be used in error checking.
      * @param {Integer} dwFlags Type: <b>DWORD</b>
      * 
      * The type of file to be searched. The following values are supported. Note that if <i>dwFlags</i> is zero, then the <b>RESOURCE_ENUM_LN</b> and <b>RESOURCE_ENUM_MUI</b> flags are assumed to be specified.
@@ -1467,14 +1498,20 @@ class LibraryLoader {
      * If <i>LangId</i> is nonzero, then only the .mui file corresponding to that Language identifier will be searched. Language fallbacks will not be used. If an .mui file for that language does not exist, the enumeration will be empty (unless resources for that language exist in the LN file, and the flag is set to search the LN file as well).
      * 
      * The enumeration never includes duplicates: if resources for a particular language are contained in both the LN file and in an .mui file, the name will only be enumerated once.
-     * @param {HMODULE} _hModule 
+     * @param {HMODULE} _hModule Type: <b>HMODULE</b>
+     * 
+     * The handle to a module to search. Typically this is an LN file, and if flag <b>RESOURCE_ENUM_MUI</b> is set, then appropriate .mui files are included in the search. Alternately, this can be a handle to an .mui file or other LN file.
+     * 
+     * If this parameter is <b>NULL</b>, it is equivalent to passing in a handle to the module used to create the current process.
      * @param {PSTR} lpType Type: <b>LPCSTR</b>
      * 
      * The type of the resource for which the name is being enumerated. Alternately, rather than a pointer, this parameter can be <a href="https://docs.microsoft.com/windows/win32/api/winuser/nf-winuser-makeintresourcea">MAKEINTRESOURCE</a>(ID), where ID is an integer value representing a predefined resource type. For a list of predefined resource types, see <a href="https://msdn.microsoft.com/8d27f79a-8165-4565-a975-f25b2344efdc">Resource Types</a>. For more information, see the Remarks section below.
      * @param {Pointer<ENUMRESNAMEPROCA>} lpEnumFunc Type: <b>ENUMRESNAMEPROC</b>
      * 
      * A pointer to the callback function to be called for each enumerated resource name. For more information, see <a href="https://docs.microsoft.com/windows/win32/api/libloaderapi/nc-libloaderapi-enumresnameproca">EnumResNameProc</a>.
-     * @param {Pointer} _lParam 
+     * @param {Pointer} _lParam Type: <b>LONG_PTR</b>
+     * 
+     * An application-defined value passed to the callback function. This parameter can be used in error checking.
      * @param {Integer} dwFlags Type: <b>DWORD</b>
      * 
      * The type of file to search. The following values are supported. Note that if <i>dwFlags</i> is zero, then the <b>RESOURCE_ENUM_LN</b> and <b>RESOURCE_ENUM_MUI</b>  flags are assumed to be specified.
@@ -1563,14 +1600,20 @@ class LibraryLoader {
      * If <i>LangId</i> is nonzero, then only the .mui file corresponding to that Language identifier will be searched. Language fallbacks will not be used. If an .mui file for that language does not exist, the enumeration will be empty (unless resources for that language exist in the LN file, and the flag is set to search the LN file as well).
      * 
      * The enumeration never includes duplicates: if resources for a particular language are contained in both the LN file and in an .mui file, the name will only be enumerated once.
-     * @param {HMODULE} _hModule 
+     * @param {HMODULE} _hModule Type: <b>HMODULE</b>
+     * 
+     * The handle to a module to search. Typically this is an LN file, and if flag <b>RESOURCE_ENUM_MUI</b> is set, then appropriate .mui files are included in the search. Alternately, this can be a handle to an .mui file or other LN file.
+     * 
+     * If this parameter is <b>NULL</b>, it is equivalent to passing in a handle to the module used to create the current process.
      * @param {PWSTR} lpType Type: <b>LPCTSTR</b>
      * 
      * The type of the resource for which the name is being enumerated. Alternately, rather than a pointer, this parameter can be <a href="https://docs.microsoft.com/windows/win32/api/winuser/nf-winuser-makeintresourcea">MAKEINTRESOURCE</a>(ID), where ID is an integer value representing a predefined resource type. For a list of predefined resource types, see <a href="https://msdn.microsoft.com/8d27f79a-8165-4565-a975-f25b2344efdc">Resource Types</a>. For more information, see the Remarks section below.
      * @param {Pointer<ENUMRESNAMEPROCW>} lpEnumFunc Type: <b>ENUMRESNAMEPROC</b>
      * 
      * A pointer to the callback function to be called for each enumerated resource name. For more information, see <a href="https://docs.microsoft.com/windows/win32/api/libloaderapi/nc-libloaderapi-enumresnameproca">EnumResNameProc</a>.
-     * @param {Pointer} _lParam 
+     * @param {Pointer} _lParam Type: <b>LONG_PTR</b>
+     * 
+     * An application-defined value passed to the callback function. This parameter can be used in error checking.
      * @param {Integer} dwFlags Type: <b>DWORD</b>
      * 
      * The type of file to search. The following values are supported. Note that if <i>dwFlags</i> is zero, then the <b>RESOURCE_ENUM_LN</b> and <b>RESOURCE_ENUM_MUI</b>  flags are assumed to be specified.
@@ -1649,11 +1692,17 @@ class LibraryLoader {
      * If <i>LangId</i> is nonzero, then only the .mui file corresponding to that language identifier will be searched. Language fallbacks will not be used. If an .mui file for that language does not exist, the enumeration will be empty (unless resources for that language exist in the LN file, and the flag is set to search the LN file as well).
      * 
      * The enumeration never includes duplicates: if resources for a particular language are contained in both the LN file and in an .mui file, the type will only be enumerated once.
-     * @param {HMODULE} _hModule 
+     * @param {HMODULE} _hModule Type: <b>HMODULE</b>
+     * 
+     * The handle to a module to be searched. Typically this is an LN file, and if flag <b>RESOURCE_ENUM_MUI</b> is set, then appropriate .mui files can be included in the search. Alternately, this can be a handle to an .mui file or other LN file.
+     * 
+     * If this parameter is <b>NULL</b>, it is equivalent to passing in a handle to the module used to create the current process.
      * @param {Pointer<ENUMRESTYPEPROCA>} lpEnumFunc Type: <b>ENUMRESTYPEPROC</b>
      * 
      * A pointer to the callback function to be called for each enumerated resource type. For more information, see <a href="https://docs.microsoft.com/windows/win32/api/libloaderapi/nc-libloaderapi-enumrestypeproca">EnumResTypeProc</a>.
-     * @param {Pointer} _lParam 
+     * @param {Pointer} _lParam Type: <b>LONG_PTR</b>
+     * 
+     * An application-defined value passed to the callback function.
      * @param {Integer} dwFlags Type: <b>DWORD</b>
      * 
      * The type of file to be searched. The following values are supported. Note that if <i>dwFlags</i> is zero, then the <b>RESOURCE_ENUM_LN</b> and <b>RESOURCE_ENUM_MUI</b>  flags are assumed to be specified.
@@ -1731,11 +1780,17 @@ class LibraryLoader {
      * If <i>LangId</i> is nonzero, then only the .mui file corresponding to that language identifier will be searched. Language fallbacks will not be used. If an .mui file for that language does not exist, the enumeration will be empty (unless resources for that language exist in the LN file, and the flag is set to search the LN file as well).
      * 
      * The enumeration never includes duplicates: if resources for a particular language are contained in both the LN file and in an .mui file, the type will only be enumerated once.
-     * @param {HMODULE} _hModule 
+     * @param {HMODULE} _hModule Type: <b>HMODULE</b>
+     * 
+     * The handle to a module to be searched. Typically this is an LN file, and if flag <b>RESOURCE_ENUM_MUI</b> is set, then appropriate .mui files can be included in the search. Alternately, this can be a handle to an .mui file or other LN file.
+     * 
+     * If this parameter is <b>NULL</b>, it is equivalent to passing in a handle to the module used to create the current process.
      * @param {Pointer<ENUMRESTYPEPROCW>} lpEnumFunc Type: <b>ENUMRESTYPEPROC</b>
      * 
      * A pointer to the callback function to be called for each enumerated resource type. For more information, see <a href="https://docs.microsoft.com/windows/win32/api/libloaderapi/nc-libloaderapi-enumrestypeproca">EnumResTypeProc</a>.
-     * @param {Pointer} _lParam 
+     * @param {Pointer} _lParam Type: <b>LONG_PTR</b>
+     * 
+     * An application-defined value passed to the callback function.
      * @param {Integer} dwFlags Type: <b>DWORD</b>
      * 
      * The type of file to be searched. The following values are supported. Note that if <i>dwFlags</i> is zero, then the <b>RESOURCE_ENUM_LN</b> and <b>RESOURCE_ENUM_MUI</b>  flags are assumed to be specified.
@@ -1864,7 +1919,9 @@ class LibraryLoader {
      * For example, an application can use the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-loadiconw">LoadIcon</a> function to load an icon for display on the screen. However, the application should use <b>FindResource</b> and <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadresource">LoadResource</a> if it is loading the icon to copy its data to another application.
      * 
      * String resources are stored in sections of up to 16 strings per section. The strings in each section are stored as a sequence of counted (not necessarily null-terminated) Unicode strings. The <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-loadstringw">LoadString</a> function will extract the string resource from its corresponding section.
-     * @param {HMODULE} _hModule 
+     * @param {HMODULE} _hModule Type: <b>HMODULE</b>
+     * 
+     * A handle to the module whose portable executable file or an accompanying MUI file contains the resource. If this parameter is <b>NULL</b>, the function searches the module used to create the current process.
      * @param {PWSTR} lpName Type: <b>LPCTSTR</b>
      * 
      * The name of the resource. Alternately, rather than a pointer, this parameter can be <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-makeintresourcea">MAKEINTRESOURCE</a>(ID), where ID is the integer identifier of the resource. For more information, see the Remarks section below.
@@ -2210,14 +2267,20 @@ class LibraryLoader {
      * Starting with Windows Vista, if *hModule* specifies an LN file, then the resources enumerated can reside either in the LN file or in a .mui file associated with it. If no .mui files are found, only resources from the LN file are returned. The order in which .mui files are searched is the usual Resource Loader search order; see [User Interface Language Management](/windows/desktop/Intl/user-interface-language-management) for details. Once one appropriate .mui file is found, the .mui file search stops. Because all .mui files that correspond to a single LN file have the same resource types, only the resources in the found .mui file need to be enumerated.
      * 
      * The enumeration never includes duplicates: if resources with the same name are contained in both the LN file and in an .mui file, the resource will only be enumerated once.
-     * @param {HMODULE} _hModule 
+     * @param {HMODULE} _hModule Type: **HMODULE**
+     * 
+     * A handle to a module to be searched. Starting with Windows Vista, if this is an LN file, then appropriate .mui files (if any exist) are included in the search.
+     * 
+     * If this parameter is **NULL**, that is equivalent to passing in a handle to the module used to create the current process.
      * @param {PWSTR} lpType Type: **LPCTSTR**
      * 
      * The type of the resource for which the name is being enumerated. Alternately, rather than a pointer, this parameter can be [MAKEINTRESOURCE](/windows/desktop/api/winuser/nf-winuser-makeintresourcea)(ID), where ID is an integer value representing a predefined resource type. For a list of predefined resource types, see [Resource Types](/windows/win32/menurc/resource-types). For more information, see the [Remarks](#remarks) section below.
      * @param {Pointer<ENUMRESNAMEPROCW>} lpEnumFunc Type: **ENUMRESNAMEPROC**
      * 
      * A pointer to the callback function to be called for each enumerated resource name or ID. For more information, see [ENUMRESNAMEPROC](/windows/win32/api/libloaderapi/nc-libloaderapi-enumresnameprocw).
-     * @param {Pointer} _lParam 
+     * @param {Pointer} _lParam Type: **LONG_PTR**
+     * 
+     * An application-defined value passed to the callback function. This parameter can be used in error checking.
      * @returns {BOOL} Type: **BOOL**
      * 
      * The return value is **TRUE** if the function succeeds or **FALSE** if the function does not find a resource of the type specified, or if the function fails for another reason. To get extended error information, call [GetLastError](/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror).
@@ -2247,14 +2310,20 @@ class LibraryLoader {
      * Starting with Windows Vista, if *hModule* specifies an LN file, then the resources enumerated can reside either in the LN file or in a .mui file associated with it. If no .mui files are found, only resources from the LN file are returned. The order in which .mui files are searched is the usual Resource Loader search order; see [User Interface Language Management](/windows/desktop/Intl/user-interface-language-management) for details. Once one appropriate .mui file is found, the .mui file search stops. Because all .mui files that correspond to a single LN file have the same resource types, only the resources in the found .mui file need to be enumerated.
      * 
      * The enumeration never includes duplicates: if resources with the same name are contained in both the LN file and in an .mui file, the resource will only be enumerated once.
-     * @param {HMODULE} _hModule 
+     * @param {HMODULE} _hModule Type: **HMODULE**
+     * 
+     * A handle to a module to be searched. Starting with Windows Vista, if this is an LN file, then appropriate .mui files (if any exist) are included in the search.
+     * 
+     * If this parameter is **NULL**, that is equivalent to passing in a handle to the module used to create the current process.
      * @param {PSTR} lpType Type: **LPCTSTR**
      * 
      * The type of the resource for which the name is being enumerated. Alternately, rather than a pointer, this parameter can be [MAKEINTRESOURCE](/windows/desktop/api/winuser/nf-winuser-makeintresourcea)(ID), where ID is an integer value representing a predefined resource type. For a list of predefined resource types, see [Resource Types](/windows/win32/menurc/resource-types). For more information, see the [Remarks](#remarks) section below.
      * @param {Pointer<ENUMRESNAMEPROCA>} lpEnumFunc Type: **ENUMRESNAMEPROC**
      * 
      * A pointer to the callback function to be called for each enumerated resource name or ID. For more information, see [ENUMRESNAMEPROC](/windows/win32/api/libloaderapi/nc-libloaderapi-enumresnameproca).
-     * @param {Pointer} _lParam 
+     * @param {Pointer} _lParam Type: **LONG_PTR**
+     * 
+     * An application-defined value passed to the callback function. This parameter can be used in error checking.
      * @returns {BOOL} Type: **BOOL**
      * 
      * The return value is **TRUE** if the function succeeds or **FALSE** if the function does not find a resource of the type specified, or if the function fails for another reason. To get extended error information, call [GetLastError](/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror).
@@ -2621,7 +2690,9 @@ class LibraryLoader {
      * For example, an application can use the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-loadicona">LoadIcon</a> function to load an icon for display on the screen. However, the application should use <b>FindResource</b> and <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadresource">LoadResource</a> if it is loading the icon to copy its data to another application. 
      * 
      * String resources are stored in sections of up to 16 strings per section. The strings in each section are stored as a sequence of counted (not necessarily null-terminated) Unicode strings. The <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-loadstringa">LoadString</a> function will extract the string resource from its corresponding section.
-     * @param {HMODULE} _hModule 
+     * @param {HMODULE} _hModule Type: <b>HMODULE</b>
+     * 
+     * A handle to the module whose portable executable file or an accompanying MUI file contains the resource. If this parameter is <b>NULL</b>, the function searches the module used to create the current process.
      * @param {PSTR} lpName Type: <b>LPCTSTR</b>
      * 
      * The name of the resource. Alternately, rather than a pointer, this parameter can be <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-makeintresourcea">MAKEINTRESOURCE</a>(ID), where ID is the integer identifier of the resource. For more information, see the Remarks section below.
@@ -2716,7 +2787,9 @@ class LibraryLoader {
      * For example, an application can use the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-loadicona">LoadIcon</a> function to load an icon for display on the screen. However, the application should use <b>FindResourceEx</b> and <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadresource">LoadResource</a> if it is loading the icon to copy its data to another application. 
      * 
      * String resources are stored in sections of up to 16 strings per section. The strings in each section are stored as a sequence of counted (not necessarily null-terminated) Unicode strings. The <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-loadstringa">LoadString</a> function will extract the string resource from its corresponding section.
-     * @param {HMODULE} _hModule 
+     * @param {HMODULE} _hModule Type: <b>HMODULE</b>
+     * 
+     * A handle to the module whose portable executable file or an accompanying MUI file contains the resource. If this parameter is <b>NULL</b>, the function searches the module used to create the current process.
      * @param {PSTR} lpType Type: <b>LPCTSTR</b>
      * 
      * The resource type. Alternately, rather than a pointer, this parameter can be <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-makeintresourcea">MAKEINTRESOURCE</a>(ID), where ID is the integer identifier of the given 
@@ -2766,11 +2839,19 @@ class LibraryLoader {
      * Starting with Windows Vista, if <i>hModule</i> specifies an LN file, then the types enumerated correspond to resources that reside in the LN file and in the .mui file associated with it. If no .mui files are found, only types from the LN file are returned. The order in which .mui files are searched is the usual Resource Loader search order; see <a href="https://docs.microsoft.com/windows/desktop/Intl/user-interface-language-management">User Interface Language Management</a> for details. After one appropriate .mui file is found, the search does not continue further to other .mui files associated with the LN file, because all .mui files that correspond to a single LN file have the same set of resource types.
      * 
      * The enumeration never includes duplicates: if a given resource type is contained in both the LN file and in an .mui file, the type is enumerated only once.
-     * @param {HMODULE} _hModule 
+     * @param {HMODULE} _hModule Type: <b>HMODULE</b>
+     * 
+     * A handle to a module to be searched. This handle must be obtained through <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadlibrarya">LoadLibrary</a> or <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadlibraryexa">LoadLibraryEx</a>.
+     * 					
+     * See Remarks for more information.
+     * 
+     * If this parameter is <b>NULL</b>, that is equivalent to passing in a handle to the module used to create the current process.
      * @param {Pointer<ENUMRESTYPEPROCA>} lpEnumFunc Type: <b>ENUMRESTYPEPROC</b>
      * 
      * A pointer to the callback function to be called for each enumerated resource type. For more information, see the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms648041(v=vs.85)">EnumResTypeProc</a> function.
-     * @param {Pointer} _lParam 
+     * @param {Pointer} _lParam Type: <b>LONG_PTR</b>
+     * 
+     * An application-defined value passed to the callback function.
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if successful; otherwise, <b>FALSE</b>. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -2800,11 +2881,19 @@ class LibraryLoader {
      * Starting with Windows Vista, if <i>hModule</i> specifies an LN file, then the types enumerated correspond to resources that reside in the LN file and in the .mui file associated with it. If no .mui files are found, only types from the LN file are returned. The order in which .mui files are searched is the usual Resource Loader search order; see <a href="https://docs.microsoft.com/windows/desktop/Intl/user-interface-language-management">User Interface Language Management</a> for details. After one appropriate .mui file is found, the search does not continue further to other .mui files associated with the LN file, because all .mui files that correspond to a single LN file have the same set of resource types.
      * 
      * The enumeration never includes duplicates: if a given resource type is contained in both the LN file and in an .mui file, the type is enumerated only once.
-     * @param {HMODULE} _hModule 
+     * @param {HMODULE} _hModule Type: <b>HMODULE</b>
+     * 
+     * A handle to a module to be searched. This handle must be obtained through <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadlibrarya">LoadLibrary</a> or <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadlibraryexa">LoadLibraryEx</a>.
+     * 					
+     * See Remarks for more information.
+     * 
+     * If this parameter is <b>NULL</b>, that is equivalent to passing in a handle to the module used to create the current process.
      * @param {Pointer<ENUMRESTYPEPROCW>} lpEnumFunc Type: <b>ENUMRESTYPEPROC</b>
      * 
      * A pointer to the callback function to be called for each enumerated resource type. For more information, see the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms648041(v=vs.85)">EnumResTypeProc</a> function.
-     * @param {Pointer} _lParam 
+     * @param {Pointer} _lParam Type: <b>LONG_PTR</b>
+     * 
+     * An application-defined value passed to the callback function.
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if successful; otherwise, <b>FALSE</b>. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -2842,7 +2931,13 @@ class LibraryLoader {
      * In Windows Vista and later, if  <i>hModule</i> specifies an LN file, then the resources enumerated can reside either in the LN file or in an .mui file associated with it.  If no .mui files are found, only resources from the LN file are returned.  Unlike <a href="https://docs.microsoft.com/windows/win32/api/libloaderapi/nf-libloaderapi-enumresourcenamesa">EnumResourceNames</a> and <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-enumresourcetypesa">EnumResourceTypes</a>, this search will look at multiple .mui files. The enumeration begins with .mui files in the folders associated with <a href="https://docs.microsoft.com/windows/desktop/api/winnls/nf-winnls-enumuilanguagesa">EnumUILanguages</a>. These are followed by any other .mui files whose paths conform to the scheme described at <a href="https://docs.microsoft.com/windows/desktop/Intl/mui-resource-management">MUI Resource Management</a>. Finally, the file designated by <i>hModule</i> is also searched.
      * 
      * The enumeration never includes duplicates: if a resource with the same name, type, and language is contained in both the LN file and in an .mui file, the resource will only be enumerated once.
-     * @param {HMODULE} _hModule 
+     * @param {HMODULE} _hModule Type: <b>HMODULE</b>
+     * 
+     * The handle to a module to be searched. Starting with Windows Vista, if this is a <a href="https://docs.microsoft.com/windows/desktop/Intl/mui-resource-management">language-neutral Portable Executable</a> (LN file), then appropriate .mui files (if any exist) are included in the search. If this is a specific .mui file, only that file is searched for resources.
+     * 				
+     *                     
+     * 
+     * If this parameter is <b>NULL</b>, that is equivalent to passing in a handle to the module used to create the current process.
      * @param {PSTR} lpType Type: <b>LPCTSTR</b>
      * 
      * The type of resource for which the language is being enumerated. Alternately, rather than a pointer, this parameter can be <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-makeintresourcea">MAKEINTRESOURCE</a>(ID), where ID is an integer value representing a predefined resource type. For a list of predefined resource types, see <a href="https://docs.microsoft.com/windows/desktop/direct3d10/d3d10-graphics-programming-guide-resources-types">Resource Types</a>. For more information, see the Remarks section below.
@@ -2852,7 +2947,9 @@ class LibraryLoader {
      * @param {Pointer<ENUMRESLANGPROCA>} lpEnumFunc Type: <b>ENUMRESLANGPROC</b>
      * 
      * A pointer to the callback function to be called for each enumerated resource language. For more information, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms648033(v=vs.85)">EnumResLangProc</a>.
-     * @param {Pointer} _lParam 
+     * @param {Pointer} _lParam Type: <b>LONG_PTR</b>
+     * 
+     * An application-defined value passed to the callback function. This parameter can be used in error checking.
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if successful or <b>FALSE</b> otherwise. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -2892,7 +2989,13 @@ class LibraryLoader {
      * In Windows Vista and later, if  <i>hModule</i> specifies an LN file, then the resources enumerated can reside either in the LN file or in an .mui file associated with it.  If no .mui files are found, only resources from the LN file are returned.  Unlike <a href="https://docs.microsoft.com/windows/win32/api/libloaderapi/nf-libloaderapi-enumresourcenamesa">EnumResourceNames</a> and <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-enumresourcetypesa">EnumResourceTypes</a>, this search will look at multiple .mui files. The enumeration begins with .mui files in the folders associated with <a href="https://docs.microsoft.com/windows/desktop/api/winnls/nf-winnls-enumuilanguagesa">EnumUILanguages</a>. These are followed by any other .mui files whose paths conform to the scheme described at <a href="https://docs.microsoft.com/windows/desktop/Intl/mui-resource-management">MUI Resource Management</a>. Finally, the file designated by <i>hModule</i> is also searched.
      * 
      * The enumeration never includes duplicates: if a resource with the same name, type, and language is contained in both the LN file and in an .mui file, the resource will only be enumerated once.
-     * @param {HMODULE} _hModule 
+     * @param {HMODULE} _hModule Type: <b>HMODULE</b>
+     * 
+     * The handle to a module to be searched. Starting with Windows Vista, if this is a <a href="https://docs.microsoft.com/windows/desktop/Intl/mui-resource-management">language-neutral Portable Executable</a> (LN file), then appropriate .mui files (if any exist) are included in the search. If this is a specific .mui file, only that file is searched for resources.
+     * 				
+     *                     
+     * 
+     * If this parameter is <b>NULL</b>, that is equivalent to passing in a handle to the module used to create the current process.
      * @param {PWSTR} lpType Type: <b>LPCTSTR</b>
      * 
      * The type of resource for which the language is being enumerated. Alternately, rather than a pointer, this parameter can be <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-makeintresourcea">MAKEINTRESOURCE</a>(ID), where ID is an integer value representing a predefined resource type. For a list of predefined resource types, see <a href="https://docs.microsoft.com/windows/desktop/direct3d10/d3d10-graphics-programming-guide-resources-types">Resource Types</a>. For more information, see the Remarks section below.
@@ -2902,7 +3005,9 @@ class LibraryLoader {
      * @param {Pointer<ENUMRESLANGPROCW>} lpEnumFunc Type: <b>ENUMRESLANGPROC</b>
      * 
      * A pointer to the callback function to be called for each enumerated resource language. For more information, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms648033(v=vs.85)">EnumResLangProc</a>.
-     * @param {Pointer} _lParam 
+     * @param {Pointer} _lParam Type: <b>LONG_PTR</b>
+     * 
+     * An application-defined value passed to the callback function. This parameter can be used in error checking.
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if successful or <b>FALSE</b> otherwise. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -3066,7 +3171,7 @@ class LibraryLoader {
      * @param {Integer} wLanguage Type: <b>WORD</b>
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/Intl/language-identifiers">language identifier</a> of the resource to be updated. For a list of the primary language identifiers and sublanguage identifiers that make up a language identifier, see the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/nf-winnt-makelangid">MAKELANGID</a>  macro.
-     * @param {Pointer} lpData Type: <b>LPVOID</b>
+     * @param {Integer} lpData Type: <b>LPVOID</b>
      * 
      * The resource data to be inserted into the file indicated by <i>hUpdate</i>. If the resource is one of the predefined types, the data must be valid and properly aligned. Note that this is the raw binary data to be stored in the file indicated by <i>hUpdate</i>, not the data provided by <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-loadicona">LoadIcon</a>, <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-loadstringa">LoadString</a>, or other resource-specific load functions. All data containing strings or text must be in Unicode format. <i>lpData</i> must not point to ANSI data.
      * 
@@ -3171,7 +3276,7 @@ class LibraryLoader {
      * @param {Integer} wLanguage Type: <b>WORD</b>
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/Intl/language-identifiers">language identifier</a> of the resource to be updated. For a list of the primary language identifiers and sublanguage identifiers that make up a language identifier, see the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/nf-winnt-makelangid">MAKELANGID</a>  macro.
-     * @param {Pointer} lpData Type: <b>LPVOID</b>
+     * @param {Integer} lpData Type: <b>LPVOID</b>
      * 
      * The resource data to be inserted into the file indicated by <i>hUpdate</i>. If the resource is one of the predefined types, the data must be valid and properly aligned. Note that this is the raw binary data to be stored in the file indicated by <i>hUpdate</i>, not the data provided by <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-loadicona">LoadIcon</a>, <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-loadstringa">LoadString</a>, or other resource-specific load functions. All data containing strings or text must be in Unicode format. <i>lpData</i> must not point to ANSI data.
      * 
@@ -3456,6 +3561,50 @@ class LibraryLoader {
 
         result := DllCall("KERNEL32.dll\GetDllDirectoryW", "uint", nBufferLength, "ptr", lpBuffer, "uint")
         if(A_LastError) {
+            throw OSError(A_LastError)
+        }
+
+        return result
+    }
+
+    /**
+     * Frees the loaded dynamic-link library (DLL) module and, if necessary, decrements its reference count.
+     * @remarks
+     * The system maintains a per-process reference count for each loaded module. A  module that was loaded at process initialization due to load-time dynamic linking has a reference count of one. The reference count for a module is incremented each time the  module is loaded by a call to 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadlibrarya">LoadLibrary</a>. The reference count is also incremented by a call to <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadlibraryexa">LoadLibraryEx</a> unless the  module  is being loaded for the first time and is being loaded as   a data or image file. 
+     * 
+     * The reference count is decremented each time 
+     * the <b>FreeLibrary</b> or <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-freelibraryandexitthread">FreeLibraryAndExitThread</a> function is called for the module. When a  module's reference count reaches zero or the process terminates, the system unloads the module from the address space of the  process. Before unloading a library module, the system enables the module to detach from the process by calling the module's 
+     * <a href="https://docs.microsoft.com/windows/desktop/Dlls/dllmain">DllMain</a> function, if it has one, with the DLL_PROCESS_DETACH value. Doing so gives the library module an opportunity to clean up resources allocated on behalf of the current process. After the entry-point function returns, the library module is removed from the address space of the current process.
+     * 
+     * It is not safe to call 
+     * <b>FreeLibrary</b> from 
+     * <a href="https://docs.microsoft.com/windows/desktop/Dlls/dllmain">DllMain</a>. For more information, see the Remarks section in 
+     * <a href="https://docs.microsoft.com/windows/desktop/Dlls/dllmain">DllMain</a>.
+     * 
+     * Calling 
+     * <b>FreeLibrary</b> does not affect other processes that are using the same module.
+     * 
+     * Use caution when calling <b>FreeLibrary</b> with a handle returned by <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-getmodulehandlea">GetModuleHandle</a>. The <b>GetModuleHandle</b> function does not increment a module's reference count, so passing this handle to <b>FreeLibrary</b> can cause a module to be unloaded prematurely.
+     * 
+     * A thread that must unload the DLL in which it is executing and then terminate itself should call <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-freelibraryandexitthread">FreeLibraryAndExitThread</a> instead of calling <b>FreeLibrary</b> and <b>ExitThread</b> separately. Otherwise, a race condition can occur. For details, see the Remarks section of <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-freelibraryandexitthread">FreeLibraryAndExitThread</a>.
+     * @param {HMODULE} hLibModule A handle to the loaded library module. The 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadlibrarya">LoadLibrary</a>, <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadlibraryexa">LoadLibraryEx</a>,  
+     * <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-getmodulehandlea">GetModuleHandle</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-getmodulehandleexa">GetModuleHandleEx</a> function returns this handle.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
+     * 
+     * If the function fails, the return value is zero. To get extended error information, call 
+     * the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
+     * @see https://learn.microsoft.com/windows/win32/api/libloaderapi/nf-libloaderapi-freelibrary
+     * @since windows5.1.2600
+     */
+    static FreeLibrary(hLibModule) {
+        hLibModule := hLibModule is Win32Handle ? NumGet(hLibModule, "ptr") : hLibModule
+
+        A_LastError := 0
+
+        result := DllCall("KERNEL32.dll\FreeLibrary", "ptr", hLibModule, "int")
+        if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
 

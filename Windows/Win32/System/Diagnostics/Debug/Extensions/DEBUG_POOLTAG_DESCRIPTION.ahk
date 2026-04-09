@@ -3,11 +3,9 @@
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
- * @version v4.0.30319
  */
-class DEBUG_POOLTAG_DESCRIPTION extends Win32Struct
-{
-    static sizeof => 656
+class DEBUG_POOLTAG_DESCRIPTION extends Win32Struct {
+    static sizeof => 332
 
     static packingSize => 4
 
@@ -31,23 +29,23 @@ class DEBUG_POOLTAG_DESCRIPTION extends Win32Struct
      * @type {String}
      */
     Description {
-        get => StrGet(this.ptr + 8, 259, "UTF-16")
-        set => StrPut(value, this.ptr + 8, 259, "UTF-16")
+        get => StrGet(this.ptr + 8, 259, "UTF-8")
+        set => StrPut(value, this.ptr + 8, 259, "UTF-8")
     }
 
     /**
      * @type {String}
      */
     Binary {
-        get => StrGet(this.ptr + 528, 31, "UTF-16")
-        set => StrPut(value, this.ptr + 528, 31, "UTF-16")
+        get => StrGet(this.ptr + 268, 31, "UTF-8")
+        set => StrPut(value, this.ptr + 268, 31, "UTF-8")
     }
 
     /**
      * @type {String}
      */
     Owner {
-        get => StrGet(this.ptr + 592, 31, "UTF-16")
-        set => StrPut(value, this.ptr + 592, 31, "UTF-16")
+        get => StrGet(this.ptr + 300, 31, "UTF-8")
+        set => StrPut(value, this.ptr + 300, 31, "UTF-8")
     }
 }

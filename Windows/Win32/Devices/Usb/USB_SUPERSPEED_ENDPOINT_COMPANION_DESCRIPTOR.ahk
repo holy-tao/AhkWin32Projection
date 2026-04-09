@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.Usb
- * @version v4.0.30319
  */
-class USB_SUPERSPEED_ENDPOINT_COMPANION_DESCRIPTOR extends Win32Struct
-{
+class USB_SUPERSPEED_ENDPOINT_COMPANION_DESCRIPTOR extends Win32Struct {
     static sizeof => 6
 
     static packingSize => 2
@@ -18,7 +16,7 @@ class USB_SUPERSPEED_ENDPOINT_COMPANION_DESCRIPTOR extends Win32Struct
         class _Bulk extends Win32Struct {
             static sizeof => 1
             static packingSize => 1
-    
+
             /**
              * This bitfield backs the following members:
              * - MaxStreams
@@ -29,7 +27,7 @@ class USB_SUPERSPEED_ENDPOINT_COMPANION_DESCRIPTOR extends Win32Struct
                 get => NumGet(this, 0, "char")
                 set => NumPut("char", value, this, 0)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -37,7 +35,7 @@ class USB_SUPERSPEED_ENDPOINT_COMPANION_DESCRIPTOR extends Win32Struct
                 get => (this._bitfield >> 0) & 0x1F
                 set => this._bitfield := ((value & 0x1F) << 0) | (this._bitfield & ~(0x1F << 0))
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -45,13 +43,12 @@ class USB_SUPERSPEED_ENDPOINT_COMPANION_DESCRIPTOR extends Win32Struct
                 get => (this._bitfield >> 5) & 0x7
                 set => this._bitfield := ((value & 0x7) << 5) | (this._bitfield & ~(0x7 << 5))
             }
-        
         }
-    
+
         class _Isochronous extends Win32Struct {
             static sizeof => 1
             static packingSize => 1
-    
+
             /**
              * This bitfield backs the following members:
              * - Mult
@@ -63,7 +60,7 @@ class USB_SUPERSPEED_ENDPOINT_COMPANION_DESCRIPTOR extends Win32Struct
                 get => NumGet(this, 0, "char")
                 set => NumPut("char", value, this, 0)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -71,7 +68,7 @@ class USB_SUPERSPEED_ENDPOINT_COMPANION_DESCRIPTOR extends Win32Struct
                 get => (this._bitfield >> 0) & 0x3
                 set => this._bitfield := ((value & 0x3) << 0) | (this._bitfield & ~(0x3 << 0))
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -79,7 +76,7 @@ class USB_SUPERSPEED_ENDPOINT_COMPANION_DESCRIPTOR extends Win32Struct
                 get => (this._bitfield >> 2) & 0x1F
                 set => this._bitfield := ((value & 0x1F) << 2) | (this._bitfield & ~(0x1F << 2))
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -87,9 +84,8 @@ class USB_SUPERSPEED_ENDPOINT_COMPANION_DESCRIPTOR extends Win32Struct
                 get => (this._bitfield >> 7) & 0x1
                 set => this._bitfield := ((value & 0x1) << 7) | (this._bitfield & ~(0x1 << 7))
             }
-        
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -97,29 +93,28 @@ class USB_SUPERSPEED_ENDPOINT_COMPANION_DESCRIPTOR extends Win32Struct
             get => NumGet(this, 0, "char")
             set => NumPut("char", value, this, 0)
         }
-    
+
         /**
          * @type {_Bulk}
          */
-        Bulk{
+        Bulk {
             get {
                 if(!this.HasProp("__Bulk"))
-                    this.__Bulk := %this.__Class%._Bulk(0, this)
+                    this.__Bulk := USB_SUPERSPEED_ENDPOINT_COMPANION_DESCRIPTOR._bmAttributes_e__Union._Bulk(0, this)
                 return this.__Bulk
             }
         }
-    
+
         /**
          * @type {_Isochronous}
          */
-        Isochronous{
+        Isochronous {
             get {
                 if(!this.HasProp("__Isochronous"))
-                    this.__Isochronous := %this.__Class%._Isochronous(0, this)
+                    this.__Isochronous := USB_SUPERSPEED_ENDPOINT_COMPANION_DESCRIPTOR._bmAttributes_e__Union._Isochronous(0, this)
                 return this.__Isochronous
             }
         }
-    
     }
 
     /**
@@ -149,10 +144,10 @@ class USB_SUPERSPEED_ENDPOINT_COMPANION_DESCRIPTOR extends Win32Struct
     /**
      * @type {_bmAttributes_e__Union}
      */
-    bmAttributes{
+    bmAttributes {
         get {
             if(!this.HasProp("__bmAttributes"))
-                this.__bmAttributes := %this.__Class%._bmAttributes_e__Union(3, this)
+                this.__bmAttributes := USB_SUPERSPEED_ENDPOINT_COMPANION_DESCRIPTOR._bmAttributes_e__Union(3, this)
             return this.__bmAttributes
         }
     }

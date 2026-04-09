@@ -1,20 +1,20 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\SPVACTIONS.ahk
 #Include .\SPVPITCH.ahk
+#Include .\SPPARTOFSPEECH.ahk
 #Include .\SPVCONTEXT.ahk
 
 /**
  * @namespace Windows.Win32.Media.Speech
- * @version v4.0.30319
  */
-class SPVSTATE extends Win32Struct
-{
+class SPVSTATE extends Win32Struct {
     static sizeof => 72
 
     static packingSize => 8
 
     /**
-     * @type {Integer}
+     * @type {SPVACTIONS}
      */
     eAction {
         get => NumGet(this, 0, "int")
@@ -64,7 +64,7 @@ class SPVSTATE extends Win32Struct
     /**
      * @type {SPVPITCH}
      */
-    PitchAdj{
+    PitchAdj {
         get {
             if(!this.HasProp("__PitchAdj"))
                 this.__PitchAdj := SPVPITCH(20, this)
@@ -89,7 +89,7 @@ class SPVSTATE extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {SPPARTOFSPEECH}
      */
     ePartOfSpeech {
         get => NumGet(this, 40, "int")
@@ -99,7 +99,7 @@ class SPVSTATE extends Win32Struct
     /**
      * @type {SPVCONTEXT}
      */
-    Context{
+    Context {
         get {
             if(!this.HasProp("__Context"))
                 this.__Context := SPVCONTEXT(48, this)

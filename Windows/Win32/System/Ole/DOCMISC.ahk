@@ -11,9 +11,8 @@
  * If an object requires none of these flags, it must write a zero to the <i>pdwStatus</i> parameter.
  * @see https://learn.microsoft.com/windows/win32/api/docobj/ne-docobj-docmisc
  * @namespace Windows.Win32.System.Ole
- * @version v4.0.30319
  */
-class DOCMISC extends Win32Enum{
+class DOCMISC extends Win32Enum {
 
     /**
      * Object supports multiple views.

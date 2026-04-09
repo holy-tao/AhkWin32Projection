@@ -5,9 +5,8 @@
  * Defines constants that specify a primitive type for numeric representation of a WIC pixel format.
  * @see https://learn.microsoft.com/windows/win32/api/wincodec/ne-wincodec-wicpixelformatnumericrepresentation
  * @namespace Windows.Win32.Graphics.Imaging
- * @version v4.0.30319
  */
-class WICPixelFormatNumericRepresentation extends Win32Enum{
+class WICPixelFormatNumericRepresentation extends Win32Enum {
 
     /**
      * The format is not specified.

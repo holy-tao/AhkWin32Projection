@@ -7,19 +7,17 @@
  * If information about the IPX network is in the computer's IPX cache, the call will return immediately. If not, RIP requests are used to resolve the information.
  * @see https://learn.microsoft.com/windows/win32/api/wsnwlink/ns-wsnwlink-ipx_netnum_data
  * @namespace Windows.Win32.Networking.WinSock
- * @version v4.0.30319
  */
-class IPX_NETNUM_DATA extends Win32Struct
-{
+class IPX_NETNUM_DATA extends Win32Struct {
     static sizeof => 20
 
     static packingSize => 4
 
     /**
      * IPX network number for which information is being requested.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    netnum{
+    netnum {
         get {
             if(!this.HasProp("__netnumProxyArray"))
                 this.__netnumProxyArray := Win32FixedArray(this.ptr + 0, 4, Primitive, "char")
@@ -56,9 +54,9 @@ class IPX_NETNUM_DATA extends Win32Struct
 
     /**
      * Media Access Control (MAC) address of the next-hop router in the path between the computer and the IPX network. This value is zero if the computer is directly attached to the IPX network.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    router{
+    router {
         get {
             if(!this.HasProp("__routerProxyArray"))
                 this.__routerProxyArray := Win32FixedArray(this.ptr + 12, 6, Primitive, "char")

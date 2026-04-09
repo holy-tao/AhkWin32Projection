@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Graphics.Gdi
- * @version v4.0.30319
  */
-class MONITOR_FROM_FLAGS extends Win32Enum{
+class MONITOR_FROM_FLAGS extends Win32Enum {
 
     /**
      * @type {Integer (UInt32)}

@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IMFMetadata.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\IMFMetadata.ahk
 
 /**
  * Gets metadata from a media source or other object.
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imfmetadataprovider
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFMetadataProvider extends IUnknown{
+class IMFMetadataProvider extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

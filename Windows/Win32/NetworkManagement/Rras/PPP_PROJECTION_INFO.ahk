@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\PPP_LCP.ahk
+#Include .\PPP_LCP_INFO_AUTH_DATA.ahk
 
 /**
  * Contains information obtained during Point-to-Point (PPP) negotiation for Secure Socket Tunneling Protocol (SSTP), Point-to-Point Tunneling Protocol (PPTP), and Layer 2 Tunneling Protocol (L2TP). (PPP_PROJECTION_INFO)
  * @see https://learn.microsoft.com/windows/win32/api/mprapi/ns-mprapi-ppp_projection_info
  * @namespace Windows.Win32.NetworkManagement.Rras
- * @version v4.0.30319
  */
-class PPP_PROJECTION_INFO extends Win32Struct
-{
+class PPP_PROJECTION_INFO extends Win32Struct {
     static sizeof => 192
 
     static packingSize => 8
@@ -112,9 +112,9 @@ class PPP_PROJECTION_INFO extends Win32Struct
 
     /**
      * An array that specifies the 64-bit IPv6 interface identifier of the client. The last 64 bits of a 128-bit IPv6 internet address are considered the "interface identifier," which provides a strong level of uniqueness for the preceding 64-bits. <b>bInterfaceIdentifier</b> is valid only if <b>dwIPv6NegotiationError</b> is zero and must not be zero.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    bInterfaceIdentifier{
+    bInterfaceIdentifier {
         get {
             if(!this.HasProp("__bInterfaceIdentifierProxyArray"))
                 this.__bInterfaceIdentifierProxyArray := Win32FixedArray(this.ptr + 92, 8, Primitive, "char")
@@ -124,9 +124,9 @@ class PPP_PROJECTION_INFO extends Win32Struct
 
     /**
      * An array that specifies the 64-bit IPv6 interface identifier of the server. The last 64 bits of a 128-bit IPv6 internet address are considered the "interface identifier," which provides a strong level of uniqueness for the preceding 64-bits. <b>bInterfaceIdentifier</b> is valid only if <b>dwIPv6NegotiationError</b> is zero and must not be zero.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    bRemoteInterfaceIdentifier{
+    bRemoteInterfaceIdentifier {
         get {
             if(!this.HasProp("__bRemoteInterfaceIdentifierProxyArray"))
                 this.__bRemoteInterfaceIdentifierProxyArray := Win32FixedArray(this.ptr + 100, 8, Primitive, "char")
@@ -136,9 +136,9 @@ class PPP_PROJECTION_INFO extends Win32Struct
 
     /**
      * A value that specifies the client interface IPv6  address prefix.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    bPrefix{
+    bPrefix {
         get {
             if(!this.HasProp("__bPrefixProxyArray"))
                 this.__bPrefixProxyArray := Win32FixedArray(this.ptr + 108, 8, Primitive, "char")
@@ -174,8 +174,7 @@ class PPP_PROJECTION_INFO extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Integer}
+     * @type {PPP_LCP}
      */
     dwAuthenticationProtocol {
         get => NumGet(this, 132, "uint")
@@ -183,8 +182,7 @@ class PPP_PROJECTION_INFO extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Integer}
+     * @type {PPP_LCP_INFO_AUTH_DATA}
      */
     dwAuthenticationData {
         get => NumGet(this, 136, "uint")
@@ -192,8 +190,7 @@ class PPP_PROJECTION_INFO extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Integer}
+     * @type {PPP_LCP}
      */
     dwRemoteAuthenticationProtocol {
         get => NumGet(this, 140, "uint")
@@ -201,8 +198,7 @@ class PPP_PROJECTION_INFO extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Integer}
+     * @type {PPP_LCP_INFO_AUTH_DATA}
      */
     dwRemoteAuthenticationData {
         get => NumGet(this, 144, "uint")

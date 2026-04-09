@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IFsrmFileCondition.ahk
 #Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
-#Include .\IFsrmFileCondition.ahk
 
 /**
  * Defines a file condition property.
  * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nn-fsrmreports-ifsrmfileconditionproperty
  * @namespace Windows.Win32.Storage.FileServerResourceManager
- * @version v4.0.30319
  */
-class IFsrmFileConditionProperty extends IFsrmFileCondition{
+class IFsrmFileConditionProperty extends IFsrmFileCondition {
 
     static sizeof => A_PtrSize
     /**
@@ -41,7 +40,7 @@ class IFsrmFileConditionProperty extends IFsrmFileCondition{
     }
 
     /**
-     * @type {Integer} 
+     * @type {FsrmFileSystemPropertyId} 
      */
     PropertyId {
         get => this.get_PropertyId()
@@ -49,7 +48,7 @@ class IFsrmFileConditionProperty extends IFsrmFileCondition{
     }
 
     /**
-     * @type {Integer} 
+     * @type {FsrmPropertyConditionType} 
      */
     Operator {
         get => this.get_Operator()
@@ -57,7 +56,7 @@ class IFsrmFileConditionProperty extends IFsrmFileCondition{
     }
 
     /**
-     * @type {Integer} 
+     * @type {FsrmPropertyValueType} 
      */
     ValueType {
         get => this.get_ValueType()
@@ -98,7 +97,7 @@ class IFsrmFileConditionProperty extends IFsrmFileCondition{
 
     /**
      * Specifies the predefined file property, as enumerated by the FsrmFileSystemPropertyId enumeration. (Get)
-     * @returns {Integer} 
+     * @returns {FsrmFileSystemPropertyId} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmfileconditionproperty-get_propertyid
      */
     get_PropertyId() {
@@ -108,7 +107,7 @@ class IFsrmFileConditionProperty extends IFsrmFileCondition{
 
     /**
      * Specifies the predefined file property, as enumerated by the FsrmFileSystemPropertyId enumeration. (Put)
-     * @param {Integer} newVal 
+     * @param {FsrmFileSystemPropertyId} newVal 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmfileconditionproperty-put_propertyid
      */
@@ -119,7 +118,7 @@ class IFsrmFileConditionProperty extends IFsrmFileCondition{
 
     /**
      * Specifies the comparison operator, as enumerated by the FsrmPropertyConditionType enumeration. (Get)
-     * @returns {Integer} 
+     * @returns {FsrmPropertyConditionType} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmfileconditionproperty-get_operator
      */
     get_Operator() {
@@ -129,7 +128,7 @@ class IFsrmFileConditionProperty extends IFsrmFileCondition{
 
     /**
      * Specifies the comparison operator, as enumerated by the FsrmPropertyConditionType enumeration. (Put)
-     * @param {Integer} newVal 
+     * @param {FsrmPropertyConditionType} newVal 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmfileconditionproperty-put_operator
      */
@@ -140,7 +139,7 @@ class IFsrmFileConditionProperty extends IFsrmFileCondition{
 
     /**
      * Specifies the type of the file condition property value, as enumerated by the FsrmPropertyValueType enumeration. (Get)
-     * @returns {Integer} 
+     * @returns {FsrmPropertyValueType} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmfileconditionproperty-get_valuetype
      */
     get_ValueType() {
@@ -150,7 +149,7 @@ class IFsrmFileConditionProperty extends IFsrmFileCondition{
 
     /**
      * Specifies the type of the file condition property value, as enumerated by the FsrmPropertyValueType enumeration. (Put)
-     * @param {Integer} newVal 
+     * @param {FsrmPropertyValueType} newVal 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmfileconditionproperty-put_valuetype
      */

@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Media.Audio.DirectMusic
- * @version v4.0.30319
  */
-class IDirectMusicDownload extends IUnknown{
+class IDirectMusicDownload extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

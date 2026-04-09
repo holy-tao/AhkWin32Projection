@@ -5,9 +5,8 @@
  * The MMC_VIEW_TYPE enumeration specifies a result view type and is used in the RESULT_VIEW_TYPE_INFO structure.
  * @see https://learn.microsoft.com/windows/win32/api/mmc/ne-mmc-mmc_view_type
  * @namespace Windows.Win32.System.Mmc
- * @version v4.0.30319
  */
-class MMC_VIEW_TYPE extends Win32Enum{
+class MMC_VIEW_TYPE extends Win32Enum {
 
     /**
      * The view type is a list view.

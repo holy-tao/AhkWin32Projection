@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\IDvbSiParser2.ahk
 #Include .\IISDB_SDT.ahk
 #Include .\IISDB_BIT.ahk
 #Include .\IISDB_NBIT.ahk
@@ -8,15 +9,13 @@
 #Include .\IISDB_SDTT.ahk
 #Include .\IISDB_CDT.ahk
 #Include .\IISDB_EMM.ahk
-#Include .\IDvbSiParser2.ahk
 
 /**
  * Implements methods that retrieve program specific information (PSI) tables and service information tables from an Integrated Services Digital Broadcast (ISDB) transport stream.
  * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nn-dvbsiparser-iisdbsiparser2
  * @namespace Windows.Win32.Media.DirectShow.Tv
- * @version v4.0.30319
  */
-class IIsdbSiParser2 extends IDvbSiParser2{
+class IIsdbSiParser2 extends IDvbSiParser2 {
 
     static sizeof => A_PtrSize
     /**

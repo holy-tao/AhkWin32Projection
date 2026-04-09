@@ -5,9 +5,8 @@
  * Identifies the type of handle operation that has occurred.
  * @see https://learn.microsoft.com/windows/win32/api/avrfsdk/ne-avrfsdk-ehandle_trace_operations
  * @namespace Windows.Win32.System.ApplicationVerifier
- * @version v4.0.30319
  */
-class eHANDLE_TRACE_OPERATIONS extends Win32Enum{
+class eHANDLE_TRACE_OPERATIONS extends Win32Enum {
 
     /**
      * Not used at this time.

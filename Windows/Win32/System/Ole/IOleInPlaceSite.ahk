@@ -7,9 +7,8 @@
  * Manages the interaction between the container and the object's in-place client site. Recall that the client site is the display site for embedded objects, and provides position and conceptual information about the object.
  * @see https://learn.microsoft.com/windows/win32/api/oleidl/nn-oleidl-ioleinplacesite
  * @namespace Windows.Win32.System.Ole
- * @version v4.0.30319
  */
-class IOleInPlaceSite extends IOleWindow{
+class IOleInPlaceSite extends IOleWindow {
 
     static sizeof => A_PtrSize
     /**

@@ -3,11 +3,9 @@
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug
- * @version v4.0.30319
  */
-class IMAGEHLP_SYMBOL_SRC extends Win32Struct
-{
-    static sizeof => 528
+class IMAGEHLP_SYMBOL_SRC extends Win32Struct {
+    static sizeof => 268
 
     static packingSize => 4
 
@@ -31,7 +29,7 @@ class IMAGEHLP_SYMBOL_SRC extends Win32Struct
      * @type {String}
      */
     file {
-        get => StrGet(this.ptr + 8, 259, "UTF-16")
-        set => StrPut(value, this.ptr + 8, 259, "UTF-16")
+        get => StrGet(this.ptr + 8, 259, "UTF-8")
+        set => StrPut(value, this.ptr + 8, 259, "UTF-8")
     }
 }

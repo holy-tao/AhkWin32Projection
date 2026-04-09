@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem.Minifilters
- * @version v4.0.30319
  */
-class FLT_RELATED_CONTEXTS_EX extends Win32Struct
-{
+class FLT_RELATED_CONTEXTS_EX extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8

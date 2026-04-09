@@ -5,7 +5,6 @@
 
 /**
  * @namespace Windows.Win32.System.GroupPolicy
- * @version v4.0.30319
  */
 class GroupPolicy {
 
@@ -1065,7 +1064,7 @@ class GroupPolicy {
      * @param {Integer} ObjectTypeListLength Specifies the number of elements in the <i>pObjectTypeList</i> array.
      * @param {Pointer<GENERIC_MAPPING>} pGenericMapping Pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-generic_mapping">GENERIC_MAPPING</a> structure associated with the object for which access is being checked.
-     * @param {Pointer} pPrivilegeSet This parameter is currently unused.
+     * @param {Integer} pPrivilegeSet This parameter is currently unused.
      * @param {Pointer<Integer>} pdwPrivilegeSetLength This parameter is currently unused.
      * @param {Pointer<Integer>} pdwGrantedAccessMask Pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/access-rights-and-access-masks">access mask</a> that receives the granted access rights.

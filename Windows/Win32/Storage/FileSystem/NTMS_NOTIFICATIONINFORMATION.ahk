@@ -5,16 +5,13 @@
  * The NTMS_NOTIFICATIONINFORMATION structure defines an object and operation that occurred in the RSM database.
  * @see https://learn.microsoft.com/windows/win32/api/ntmsapi/ns-ntmsapi-ntms_notificationinformation
  * @namespace Windows.Win32.Storage.FileSystem
- * @version v4.0.30319
  */
-class NTMS_NOTIFICATIONINFORMATION extends Win32Struct
-{
+class NTMS_NOTIFICATIONINFORMATION extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
 
     /**
-     * 
      * @type {Integer}
      */
     dwOperation {
@@ -24,7 +21,7 @@ class NTMS_NOTIFICATIONINFORMATION extends Win32Struct
 
     /**
      * Object Identifier.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     ObjectId {
         get => NumGet(this, 8, "ptr")

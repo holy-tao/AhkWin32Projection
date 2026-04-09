@@ -1,18 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\WHV_X64_PENDING_INTERRUPTION_TYPE.ahk
 
 /**
  * @namespace Windows.Win32.System.Hypervisor
- * @version v4.0.30319
  */
-class WHV_X64_INTERRUPTION_DELIVERABLE_CONTEXT extends Win32Struct
-{
+class WHV_X64_INTERRUPTION_DELIVERABLE_CONTEXT extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 4
 
     /**
-     * @type {Integer}
+     * @type {WHV_X64_PENDING_INTERRUPTION_TYPE}
      */
     DeliverableType {
         get => NumGet(this, 0, "int")

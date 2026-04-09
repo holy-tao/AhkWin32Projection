@@ -7,9 +7,8 @@
  * The IWMDMStorage2 interface extends IWMDMStorage by making it possible to get a child storage by name, and to get and set extended attributes. IWMDMStorage3 interface extends this interface by supporting metadata.
  * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nn-mswmdm-iwmdmstorage2
  * @namespace Windows.Win32.Media.DeviceManager
- * @version v4.0.30319
  */
-class IWMDMStorage2 extends IWMDMStorage{
+class IWMDMStorage2 extends IWMDMStorage {
 
     static sizeof => A_PtrSize
     /**

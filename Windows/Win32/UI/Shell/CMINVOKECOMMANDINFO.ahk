@@ -9,10 +9,8 @@
  * Although the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-icontextmenu-invokecommand">IContextMenu::InvokeCommand</a> declaration specifies a <b>CMINVOKECOMMANDINFO</b> structure for the <i>pici</i> parameter, it can also accept a <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ns-shobjidl_core-cminvokecommandinfoex">CMINVOKECOMMANDINFOEX</a> structure. If you are implementing this method, you must inspect <b>cbSize</b> to determine which structure has been passed.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/ns-shobjidl_core-cminvokecommandinfo
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class CMINVOKECOMMANDINFO extends Win32Struct
-{
+class CMINVOKECOMMANDINFO extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8
@@ -45,7 +43,7 @@ class CMINVOKECOMMANDINFO extends Win32Struct
      * A handle to the window that is the owner of the shortcut menu. An extension can also use this handle as the owner of any message boxes or dialog boxes it displays.
      * @type {HWND}
      */
-    hwnd{
+    hwnd {
         get {
             if(!this.HasProp("__hwnd"))
                 this.__hwnd := HWND(8, this)
@@ -144,7 +142,7 @@ class CMINVOKECOMMANDINFO extends Win32Struct
      * An icon to use for any application activated by the command. If the <b>fMask</b> member does not specify <b>CMIC_MASK_ICON</b>, this member is ignored.
      * @type {HANDLE}
      */
-    hIcon{
+    hIcon {
         get {
             if(!this.HasProp("__hIcon"))
                 this.__hIcon := HANDLE(48, this)

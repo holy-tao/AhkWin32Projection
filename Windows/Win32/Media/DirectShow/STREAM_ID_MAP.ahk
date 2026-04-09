@@ -5,10 +5,8 @@
  * The STREAM_ID_MAP structure describes an elementary stream within an MPEG-2 program stream. Used with the IEnumStreamIdMap interface methods.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/ns-strmif-stream_id_map
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class STREAM_ID_MAP extends Win32Struct
-{
+class STREAM_ID_MAP extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4
@@ -23,7 +21,6 @@ class STREAM_ID_MAP extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     dwMediaSampleContent {

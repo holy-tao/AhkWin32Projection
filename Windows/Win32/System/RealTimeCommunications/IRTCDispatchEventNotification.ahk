@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.RealTimeCommunications
- * @version v4.0.30319
  */
-class IRTCDispatchEventNotification extends IDispatch{
+class IRTCDispatchEventNotification extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

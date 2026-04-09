@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Storage.Xps.Printing
- * @version v4.0.30319
  */
-class IPrintDocumentPackageTarget2 extends IUnknown{
+class IPrintDocumentPackageTarget2 extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -5,10 +5,8 @@
  * The HistogramBlobHeader structure describes the blob size and the number of histograms in the blob for the MF_CAPTURE_METADATA_HISTOGRAM attribute.
  * @see https://learn.microsoft.com/windows/win32/api/mfapi/ns-mfapi-histogramblobheader
  * @namespace Windows.Win32.Media.Streaming
- * @version v4.0.30319
  */
-class HistogramBlobHeader extends Win32Struct
-{
+class HistogramBlobHeader extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4

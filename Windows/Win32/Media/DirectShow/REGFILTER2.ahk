@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\REGFILTERPINS.ahk
+#Include .\REGFILTERPINS2.ahk
 
 /**
  * The REGFILTER2 structure contains information for registering a filter.
@@ -9,10 +11,8 @@
  * If you need to register pin mediums or pin categories, set <b>dwVersion</b> to 2 and use the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/ns-strmif-regfilterpins2">REGFILTERPINS2</a> structure.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/ns-strmif-regfilter2
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class REGFILTER2 extends Win32Struct
-{
+class REGFILTER2 extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

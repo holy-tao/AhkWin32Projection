@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
- * @version v4.0.30319
  */
-class DEVPROP_PCIEXPRESSDEVICE_PAYLOADORREQUESTSIZE extends Win32Enum{
+class DEVPROP_PCIEXPRESSDEVICE_PAYLOADORREQUESTSIZE extends Win32Enum {
 
     /**
      * @type {Integer (UInt32)}

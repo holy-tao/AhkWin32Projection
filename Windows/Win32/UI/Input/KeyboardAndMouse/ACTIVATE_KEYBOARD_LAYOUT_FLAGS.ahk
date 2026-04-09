@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.UI.Input.KeyboardAndMouse
- * @version v4.0.30319
  */
-class ACTIVATE_KEYBOARD_LAYOUT_FLAGS extends Win32Enum{
+class ACTIVATE_KEYBOARD_LAYOUT_FLAGS extends Win32Enum {
 
     /**
      * @type {Integer (UInt32)}

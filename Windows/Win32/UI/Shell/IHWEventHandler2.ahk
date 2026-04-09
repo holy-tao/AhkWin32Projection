@@ -11,9 +11,8 @@
  * Handlers that implement this interface should return quickly from calls to <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl/nf-shobjidl-ihweventhandler-handleevent">IHWEventHandler::HandleEvent</a> and <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl/nf-shobjidl-ihweventhandler2-handleeventwithhwnd">IHWEventHandler2::HandleEventWithHWND</a> so they do not block the AutoPlay dialog from closing. Also, if a local server must be launched for the creation of this handler, it should not block the CreateInstance call; it should return as soon as possible.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nn-shobjidl-ihweventhandler2
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IHWEventHandler2 extends IHWEventHandler{
+class IHWEventHandler2 extends IHWEventHandler {
 
     static sizeof => A_PtrSize
     /**

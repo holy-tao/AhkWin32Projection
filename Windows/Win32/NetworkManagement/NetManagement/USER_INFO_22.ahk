@@ -1,5 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\USER_PRIV.ahk
+#Include .\USER_ACCOUNT_FLAGS.ahk
+#Include .\AF_OP.ahk
 
 /**
  * The USER_INFO_22 structure contains information about a user account, including the account name, privilege level, the path to the user's home directory, a one-way encrypted LAN Manager 2.x-compatible password, and other user-related network statistics.
@@ -7,10 +10,8 @@
  * User account names are limited to 20 characters and group names are limited to 256 characters. In addition, account names cannot be terminated by a period and they cannot include commas or any of the following printable characters: ", /, \, [, ], :, |, &lt;, &gt;, +, =, ;, ?, *. Names also cannot include characters in the range 1-31, which are nonprintable.
  * @see https://learn.microsoft.com/windows/win32/api/lmaccess/ns-lmaccess-user_info_22
  * @namespace Windows.Win32.NetworkManagement.NetManagement
- * @version v4.0.30319
  */
-class USER_INFO_22 extends Win32Struct
-{
+class USER_INFO_22 extends Win32Struct {
     static sizeof => 160
 
     static packingSize => 8
@@ -31,9 +32,9 @@ class USER_INFO_22 extends Win32Struct
      * Type: <b>BYTE[ENCRYPTED_PWLEN]</b>
      * 
      * A one-way encrypted LAN Manager 2.<i>x</i>-compatible password.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    usri22_password{
+    usri22_password {
         get {
             if(!this.HasProp("__usri22_passwordProxyArray"))
                 this.__usri22_passwordProxyArray := Win32FixedArray(this.ptr + 8, 16, Primitive, "char")
@@ -61,7 +62,7 @@ class USER_INFO_22 extends Win32Struct
      * <b>NetUserAdd</b> function must specify USER_PRIV_USER. When you call the 
      * <b>NetUserSetInfo</b> function this member must be the value returned from the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/nf-lmaccess-netusergetinfo">NetUserGetInfo</a> or the
-     * @type {Integer}
+     * @type {USER_PRIV}
      */
     usri22_priv {
         get => NumGet(this, 28, "uint")
@@ -92,7 +93,7 @@ class USER_INFO_22 extends Win32Struct
 
     /**
      * Type: <b>DWORD</b>
-     * @type {Integer}
+     * @type {USER_ACCOUNT_FLAGS}
      */
     usri22_flags {
         get => NumGet(this, 48, "uint")
@@ -132,7 +133,7 @@ class USER_INFO_22 extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/nf-lmaccess-netusergetinfo">NetUserGetInfo</a> or to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/nf-lmaccess-netuserenum">NetUserEnum</a>.</li>
      * </ul>
-     * @type {Integer}
+     * @type {AF_OP}
      */
     usri22_auth_flags {
         get => NumGet(this, 64, "uint")

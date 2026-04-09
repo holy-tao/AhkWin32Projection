@@ -5,9 +5,8 @@
  * Contains values that specify the type of information being assigned to or retrieved from an access token.
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ne-winnt-token_information_class
  * @namespace Windows.Win32.Security
- * @version v4.0.30319
  */
-class TOKEN_INFORMATION_CLASS extends Win32Enum{
+class TOKEN_INFORMATION_CLASS extends Win32Enum {
 
     /**
      * The buffer receives a 
@@ -274,37 +273,31 @@ class TOKEN_INFORMATION_CLASS extends Win32Enum{
     static TokenIsRestricted => 40
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static TokenProcessTrustLevel => 41
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static TokenPrivateNameSpace => 42
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static TokenSingletonAttributes => 43
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static TokenBnoIsolation => 44
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static TokenChildProcessFlags => 45
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static TokenIsLessPrivilegedAppContainer => 46

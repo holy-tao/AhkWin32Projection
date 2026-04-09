@@ -5,11 +5,9 @@
  * The DOC\_INFO\_1 structure describes a document that will be printed.
  * @see https://learn.microsoft.com/windows/win32/printdocs/doc-info-1
  * @namespace Windows.Win32.Graphics.Printing
- * @version v4.0.30319
  * @charset ANSI
  */
-class DOC_INFO_1A extends Win32Struct
-{
+class DOC_INFO_1A extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

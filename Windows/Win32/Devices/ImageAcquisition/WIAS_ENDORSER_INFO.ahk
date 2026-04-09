@@ -1,12 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\WIAS_ENDORSER_VALUE.ahk
 
 /**
  * @namespace Windows.Win32.Devices.ImageAcquisition
- * @version v4.0.30319
  */
-class WIAS_ENDORSER_INFO extends Win32Struct
-{
+class WIAS_ENDORSER_INFO extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

@@ -33,10 +33,8 @@
  * <div> </div>
  * @see https://learn.microsoft.com/windows/win32/api/wininet/ns-wininet-internet_async_result
  * @namespace Windows.Win32.Networking.WinInet
- * @version v4.0.30319
  */
-class INTERNET_ASYNC_RESULT extends Win32Struct
-{
+class INTERNET_ASYNC_RESULT extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

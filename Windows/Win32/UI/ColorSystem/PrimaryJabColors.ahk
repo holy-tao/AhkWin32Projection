@@ -6,10 +6,8 @@
  * This structure contains eight primary colors in Jab coordinates.
  * @see https://learn.microsoft.com/windows/win32/api/wcsplugin/ns-wcsplugin-primaryjabcolors
  * @namespace Windows.Win32.UI.ColorSystem
- * @version v4.0.30319
  */
-class PrimaryJabColors extends Win32Struct
-{
+class PrimaryJabColors extends Win32Struct {
     static sizeof => 96
 
     static packingSize => 4
@@ -18,7 +16,7 @@ class PrimaryJabColors extends Win32Struct
      * Red primary.
      * @type {JabColorF}
      */
-    red{
+    red {
         get {
             if(!this.HasProp("__red"))
                 this.__red := JabColorF(0, this)
@@ -30,7 +28,7 @@ class PrimaryJabColors extends Win32Struct
      * Yellow primary.
      * @type {JabColorF}
      */
-    yellow{
+    yellow {
         get {
             if(!this.HasProp("__yellow"))
                 this.__yellow := JabColorF(12, this)
@@ -42,7 +40,7 @@ class PrimaryJabColors extends Win32Struct
      * Green primary.
      * @type {JabColorF}
      */
-    green{
+    green {
         get {
             if(!this.HasProp("__green"))
                 this.__green := JabColorF(24, this)
@@ -54,7 +52,7 @@ class PrimaryJabColors extends Win32Struct
      * Cyan primary.
      * @type {JabColorF}
      */
-    cyan{
+    cyan {
         get {
             if(!this.HasProp("__cyan"))
                 this.__cyan := JabColorF(36, this)
@@ -66,7 +64,7 @@ class PrimaryJabColors extends Win32Struct
      * Blue primary.
      * @type {JabColorF}
      */
-    blue{
+    blue {
         get {
             if(!this.HasProp("__blue"))
                 this.__blue := JabColorF(48, this)
@@ -78,7 +76,7 @@ class PrimaryJabColors extends Win32Struct
      * Magenta primary.
      * @type {JabColorF}
      */
-    magenta{
+    magenta {
         get {
             if(!this.HasProp("__magenta"))
                 this.__magenta := JabColorF(60, this)
@@ -90,7 +88,7 @@ class PrimaryJabColors extends Win32Struct
      * Black primary.
      * @type {JabColorF}
      */
-    black{
+    black {
         get {
             if(!this.HasProp("__black"))
                 this.__black := JabColorF(72, this)
@@ -102,7 +100,7 @@ class PrimaryJabColors extends Win32Struct
      * White primary.
      * @type {JabColorF}
      */
-    white{
+    white {
         get {
             if(!this.HasProp("__white"))
                 this.__white := JabColorF(84, this)

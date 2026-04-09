@@ -15,10 +15,8 @@
  * The **ExtendedProperty** object can be created, and it is not safe for scripting. The ProgID for the **ExtendedProperty** object is CAPICOM.ExtendedProperty.1.
  * @see https://learn.microsoft.com/windows/win32/SecCrypto/extendedproperty
  * @namespace Windows.Win32.UI.Accessibility
- * @version v4.0.30319
  */
-class ExtendedProperty extends Win32Struct
-{
+class ExtendedProperty extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
@@ -26,7 +24,7 @@ class ExtendedProperty extends Win32Struct
     /**
      * @type {BSTR}
      */
-    PropertyName{
+    PropertyName {
         get {
             if(!this.HasProp("__PropertyName"))
                 this.__PropertyName := BSTR(0, this)
@@ -37,7 +35,7 @@ class ExtendedProperty extends Win32Struct
     /**
      * @type {BSTR}
      */
-    PropertyValue{
+    PropertyValue {
         get {
             if(!this.HasProp("__PropertyValue"))
                 this.__PropertyValue := BSTR(8, this)

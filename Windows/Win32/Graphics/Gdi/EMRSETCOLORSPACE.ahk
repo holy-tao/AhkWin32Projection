@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\EMR.ahk
+#Include .\ENHANCED_METAFILE_RECORD_TYPE.ahk
 
 /**
  * The EMRSETCOLORSPACE, EMRSELECTCOLORSPACE, and EMRDELETECOLORSPACE structures contain members for the SetColorSpace and DeleteColorSpace enhanced metafile records.
@@ -8,10 +9,8 @@
  * There is no function that generates an enhanced metafile record with the <b>EMRSELECTCOLORSPACE</b> structure.
  * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-emrsetcolorspace
  * @namespace Windows.Win32.Graphics.Gdi
- * @version v4.0.30319
  */
-class EMRSETCOLORSPACE extends Win32Struct
-{
+class EMRSETCOLORSPACE extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4
@@ -20,7 +19,7 @@ class EMRSETCOLORSPACE extends Win32Struct
      * Base structure for all record types.
      * @type {EMR}
      */
-    emr{
+    emr {
         get {
             if(!this.HasProp("__emr"))
                 this.__emr := EMR(0, this)

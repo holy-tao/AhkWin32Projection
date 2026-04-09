@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ISyncMgrEnumItems.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -14,9 +13,8 @@
  * The synchronization manager obtains a pointer to this interface and calls each method during the synchronization process.
  * @see https://learn.microsoft.com/windows/win32/api/mobsync/nn-mobsync-isyncmgrenumitems
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class ISyncMgrEnumItems extends IUnknown{
+class ISyncMgrEnumItems extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -5,9 +5,8 @@
  * Defines constants that are used by SWbemServices.ExecQuery, SWbemServices.ExecQueryAsync, SWbemServices.SubclassesOf, and SWbemServices.InstancesOf.
  * @see https://learn.microsoft.com/windows/win32/api/wbemdisp/ne-wbemdisp-wbemflagenum
  * @namespace Windows.Win32.System.Wmi
- * @version v4.0.30319
  */
-class WbemFlagEnum extends Win32Enum{
+class WbemFlagEnum extends Win32Enum {
 
     /**
      * Causes the call to return immediately.
@@ -73,19 +72,16 @@ class WbemFlagEnum extends Win32Enum{
     static wbemFlagDontSendStatus => 0
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static wbemFlagEnsureLocatable => 256
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static wbemFlagDirectRead => 512
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static wbemFlagSendOnlySelected => 0
@@ -99,19 +95,16 @@ class WbemFlagEnum extends Win32Enum{
     static wbemFlagUseAmendedQualifiers => 131072
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static wbemFlagGetDefault => 0
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static wbemFlagSpawnInstance => 1
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static wbemFlagUseCurrentTime => 1

@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Security.WinTrust
- * @version v4.0.30319
  */
-class CONFIG_CI_PROV_INFO_RESULT extends Win32Struct
-{
+class CONFIG_CI_PROV_INFO_RESULT extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4

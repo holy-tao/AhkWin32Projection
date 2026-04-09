@@ -1,19 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include .\IWMPMedia.ahk
 #Include .\IWMPPlaylist.ahk
 #Include .\IWMPStringCollection.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * The IWMPMediaCollection interface provides methods that can be used to organize a large collection of media items.
  * @see https://learn.microsoft.com/windows/win32/api/wmp/nn-wmp-iwmpmediacollection
  * @namespace Windows.Win32.Media.MediaPlayer
- * @version v4.0.30319
  */
-class IWMPMediaCollection extends IDispatch{
+class IWMPMediaCollection extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

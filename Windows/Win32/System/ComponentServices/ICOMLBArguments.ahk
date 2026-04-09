@@ -7,9 +7,8 @@
  * Used to activate the COM+ component load balancing service.
  * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nn-comsvcs-icomlbarguments
  * @namespace Windows.Win32.System.ComponentServices
- * @version v4.0.30319
  */
-class ICOMLBArguments extends IUnknown{
+class ICOMLBArguments extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

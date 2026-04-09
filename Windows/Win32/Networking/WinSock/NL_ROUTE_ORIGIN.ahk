@@ -5,9 +5,8 @@
  * The NL_ROUTE_ORIGIN enumeration type defines the origin of the IP route.
  * @see https://learn.microsoft.com/windows/win32/api/nldef/ne-nldef-nl_route_origin
  * @namespace Windows.Win32.Networking.WinSock
- * @version v4.0.30319
  */
-class NL_ROUTE_ORIGIN extends Win32Enum{
+class NL_ROUTE_ORIGIN extends Win32Enum {
 
     /**
      * The route is a result of manual configuration.

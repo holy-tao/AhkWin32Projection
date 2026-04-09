@@ -5,7 +5,6 @@
 
 /**
  * @namespace Windows.Win32.System.ErrorReporting
- * @version v4.0.30319
  */
 class ErrorReporting {
 
@@ -257,7 +256,7 @@ class ErrorReporting {
      * 
      * To view the reports submitted by your application, go to Windows Quality Online Services.
      * @param {PWSTR} pwzEventType A pointer to a Unicode string that specifies the name of the event.
-     * @param {Integer} repType 
+     * @param {WER_REPORT_TYPE} repType 
      * @param {Pointer<WER_REPORT_INFORMATION>} pReportInformation A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/werapi/ns-werapi-wer_report_information">WER_REPORT_INFORMATION</a> structure that specifies information for the report.
      * @returns {HREPORT} A handle to the report. If the function fails, this handle is <b>NULL</b>.
      * @see https://learn.microsoft.com/windows/win32/api/werapi/nf-werapi-werreportcreate
@@ -327,8 +326,8 @@ class ErrorReporting {
      * Although this function can also be used to add memory dumps (using specific flags) to the error report, the preferred function to use for adding memory dumps is <a href="https://docs.microsoft.com/windows/desktop/api/werapi/nf-werapi-werreportadddump">WerReportAddDump</a>. You should use this function only if you want to collect the dump yourself and then add it to the report.
      * @param {HREPORT} hReportHandle A handle to the report. This handle is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/werapi/nf-werapi-werreportcreate">WerReportCreate</a> function.
      * @param {PWSTR} pwzPath A pointer to a Unicode string that contains the full path to the file to be added. This path can use environment variables. The maximum length of this path is MAX_PATH characters.
-     * @param {Integer} repFileType 
-     * @param {Integer} dwFileFlags 
+     * @param {WER_FILE_TYPE} repFileType 
+     * @param {WER_FILE} dwFileFlags 
      * @returns {HRESULT} This function returns <b>S_OK</b> on success or an error code on failure, including the following error code.
      * 
      * <table>
@@ -373,7 +372,7 @@ class ErrorReporting {
     /**
      * Sets the user interface options for the specified report.
      * @param {HREPORT} hReportHandle A handle to the report. This handle is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/werapi/nf-werapi-werreportcreate">WerReportCreate</a> function.
-     * @param {Integer} repUITypeID 
+     * @param {WER_REPORT_UI} repUITypeID 
      * @param {PWSTR} pwzValue A pointer to a Unicode string that specifies the custom text. For more information, see the description of <i>repUITypeID</i>.
      * @returns {HRESULT} This function returns <b>S_OK</b> on success or an error code on failure.
      * @see https://learn.microsoft.com/windows/win32/api/werapi/nf-werapi-werreportsetuioption
@@ -402,9 +401,9 @@ class ErrorReporting {
      * </ul>
      * To view the reports submitted by your application, go to Windows Quality Online Services.
      * @param {HREPORT} hReportHandle A handle to the report. This handle is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/werapi/nf-werapi-werreportcreate">WerReportCreate</a> function.
-     * @param {Integer} consent 
-     * @param {Integer} dwFlags 
-     * @returns {Integer} 
+     * @param {WER_CONSENT} consent 
+     * @param {WER_SUBMIT_FLAGS} dwFlags 
+     * @returns {WER_SUBMIT_RESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/werapi/nf-werapi-werreportsubmit
      * @since windows6.0.6000
      */
@@ -424,7 +423,7 @@ class ErrorReporting {
      * @param {HREPORT} hReportHandle A handle to the report. This handle is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/werapi/nf-werapi-werreportcreate">WerReportCreate</a> function.
      * @param {HANDLE} hProcess A handle to the process for which the report is being generated. This handle must have the STANDARD_RIGHTS_READ and PROCESS_QUERY_INFORMATION access rights.
      * @param {HANDLE} hThread A handle to the thread of <i>hProcess</i> for which the report is being generated. If <i>dumpType</i> is WerDumpTypeMicro, this parameter is required. For other dump types, this parameter may be <b>NULL</b>.
-     * @param {Integer} _dumpType 
+     * @param {WER_DUMP_TYPE} _dumpType 
      * @param {Pointer<WER_EXCEPTION_INFORMATION>} pExceptionParam A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/werapi/ns-werapi-wer_exception_information">WER_EXCEPTION_INFORMATION</a> structure that specifies exception information.
      * @param {Pointer<WER_DUMP_CUSTOM_OPTIONS>} pDumpCustomOptions A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/werapi/ns-werapi-wer_dump_custom_options">WER_DUMP_CUSTOM_OPTIONS</a> structure that specifies custom minidump options. If this parameter is <b>NULL</b>, the standard minidump information is collected.
      * @param {Integer} dwFlags This parameter can be 0 or the following value.
@@ -485,8 +484,8 @@ class ErrorReporting {
      * 
      * To remove the file from the list, call the <a href="https://docs.microsoft.com/windows/desktop/api/werapi/nf-werapi-werunregisterfile">WerUnregisterFile</a> function.
      * @param {PWSTR} pwzFile The full path to the file. The maximum length of this path is MAX_PATH characters.
-     * @param {Integer} regFileType 
-     * @param {Integer} dwFlags 
+     * @param {WER_REGISTER_FILE_TYPE} regFileType 
+     * @param {WER_FILE} dwFlags 
      * @returns {HRESULT} This function returns <b>S_OK</b> on success or an error code on failure, including the following error codes.
      * 
      * <table>
@@ -670,8 +669,8 @@ class ErrorReporting {
      * Marks a memory block (that is normally included by default in error reports) to be excluded from the error report.
      * @remarks
      * This mechanism is intended for applications that hold large amounts of data in memory that aren't useful for root cause debugging and increase the size of the dump file unnecessarily.  For example, some Xbox One games hold large amounts of texture data in memory that is included in error dumps by default.
-     * @param {Pointer<Void>} _address 
-     * @param {Integer} _size 
+     * @param {Pointer<Void>} _address The starting address of the memory block.
+     * @param {Integer} _size The size of the memory block, in bytes.
      * @returns {HRESULT} This function returns <b>S_OK</b> on success or an error code on failure, including the following error codes.
      * 
      * <table>
@@ -736,7 +735,7 @@ class ErrorReporting {
 
     /**
      * Removes a memory block that was previously marked as excluded (it will again be included in error reports).
-     * @param {Pointer<Void>} _address 
+     * @param {Pointer<Void>} _address The starting address of the memory block. This memory block must have been registered using the <a href="https://docs.microsoft.com/windows/desktop/api/werapi/nf-werapi-werregisterexcludedmemoryblock">WerRegisterExcludedMemoryBlock</a> function.
      * @returns {HRESULT} This function returns <b>S_OK</b> on success or an error code on failure, including the following error code.
      * 
      * <table>
@@ -1045,7 +1044,7 @@ class ErrorReporting {
 
     /**
      * Sets the fault reporting settings for the current process.
-     * @param {Integer} dwFlags 
+     * @param {WER_FAULT_REPORTING} dwFlags 
      * @returns {HRESULT} This function returns <b>S_OK</b> on success or an error code on failure.
      * @see https://learn.microsoft.com/windows/win32/api/werapi/nf-werapi-wersetflags
      * @since windows6.0.6000
@@ -1058,7 +1057,7 @@ class ErrorReporting {
     /**
      * Retrieves the fault reporting settings for the specified process.
      * @param {HANDLE} hProcess A handle to the process. This handle must have the PROCESS_VM_READ or PROCESS_QUERY_INFORMATION access right.
-     * @returns {Integer} 
+     * @returns {WER_FAULT_REPORTING} 
      * @see https://learn.microsoft.com/windows/win32/api/werapi/nf-werapi-wergetflags
      * @since windows6.0.6000
      */
@@ -1272,7 +1271,7 @@ class ErrorReporting {
      * A <i>storeType</i> value of <b>E_STORE_MACHINE_QUEUE</b> opens the queue of all error reports on the machine that have not yet been sent to Microsoft. A value of  <b>E_STORE_MACHINE_ARCHIVE</b> opens the store of error reports that have already been sent.
      * 
      * The Windows Error Report (WER) Store is the queue of error reports that have been marked to be sent to Microsoft but have not yet been uploaded. The upload of an error report can be postponed under a number of circumstances. The WerStore functions allow developers to access the stored reports and query the status of each one.
-     * @param {Integer} repStoreType The type of report store to open. See Remarks for details.
+     * @param {REPORT_STORE_TYPES} repStoreType The type of report store to open. See Remarks for details.
      * @returns {HREPORTSTORE} A pointer to a report store. On a successful call, this will point to the retrieved report store.
      * @see https://learn.microsoft.com/windows/win32/api/werapi/nf-werapi-werstoreopen
      * @since windows10.0.15063
@@ -1285,7 +1284,7 @@ class ErrorReporting {
 
     /**
      * Closes the collection of stored reports.
-     * @param {HREPORTSTORE} _hReportStore 
+     * @param {HREPORTSTORE} _hReportStore The error report store to close (previously retrieved with <a href="https://docs.microsoft.com/windows/desktop/api/werapi/nf-werapi-werstoreopen">WerStoreOpen</a>).
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/werapi/nf-werapi-werstoreclose
      * @since windows10.0.15063
@@ -1298,7 +1297,7 @@ class ErrorReporting {
 
     /**
      * Gets a reference to the first report in the report store.
-     * @param {HREPORTSTORE} _hReportStore 
+     * @param {HREPORTSTORE} _hReportStore The error report store (previously retrieved with <a href="https://docs.microsoft.com/windows/desktop/api/werapi/nf-werapi-werstoreopen">WerStoreOpen</a>).
      * @returns {PWSTR} A pointer to the report key string. On a successful call, this will point to the retrieved report key.
      * @see https://learn.microsoft.com/windows/win32/api/werapi/nf-werapi-werstoregetfirstreportkey
      * @since windows10.0.15063
@@ -1312,7 +1311,7 @@ class ErrorReporting {
 
     /**
      * Gets a reference to the next report in the error report store.
-     * @param {HREPORTSTORE} _hReportStore 
+     * @param {HREPORTSTORE} _hReportStore The error report store (previously retrieved with <a href="https://docs.microsoft.com/windows/desktop/api/werapi/nf-werapi-werstoreopen">WerStoreOpen</a>).
      * @returns {PWSTR} A pointer to the report key string. On a successful call, this will point to the retrieved report key.
      * @see https://learn.microsoft.com/windows/win32/api/werapi/nf-werapi-werstoregetnextreportkey
      * @since windows10.0.15063
@@ -1326,7 +1325,7 @@ class ErrorReporting {
 
     /**
      * Retrieves metadata about a report in the store.
-     * @param {HREPORTSTORE} _hReportStore 
+     * @param {HREPORTSTORE} _hReportStore The error report store (previously retrieved with <a href="https://docs.microsoft.com/windows/desktop/api/werapi/nf-werapi-werstoreopen">WerStoreOpen</a>).
      * @param {PWSTR} pszReportKey The string identifying which report is being queried (previously retrieved with <a href="https://docs.microsoft.com/windows/desktop/api/werapi/nf-werapi-werstoregetfirstreportkey">WerStoreGetFirstReportKey</a> or <a href="https://docs.microsoft.com/windows/desktop/api/werapi/nf-werapi-werstoregetnextreportkey">WerStoreGetNextReportKey</a>).
      * @param {Pointer<WER_REPORT_METADATA_V2>} pReportMetadata A pointer to the report store metadata in the form of a <a href="https://docs.microsoft.com/windows/desktop/api/werapi/ns-werapi-wer_report_metadata_v2">WER_REPORT_METADATA_V2</a> structure. The field <b>SizeOfFileNames</b> should be set to 0 during the first call. The function updates this field with the required size to hold the file names associated with the report. The field <b>FileNames</b> should then be allocated with <b>SizeOfFileNames</b> bytes and the function should be called again to get all of the file names.
      * @returns {HRESULT} This function returns <b>S_OK</b> on success or an error code on failure, including the following error code.
@@ -1451,7 +1450,7 @@ class ErrorReporting {
      * @param {HREPORTSTORE} _hReportStore 
      * @param {PWSTR} pszReportKey 
      * @param {Integer} dwFlags 
-     * @returns {Integer} 
+     * @returns {WER_SUBMIT_RESULT} 
      */
     static WerStoreUploadReport(_hReportStore, pszReportKey, dwFlags) {
         _hReportStore := _hReportStore is Win32Handle ? NumGet(_hReportStore, "ptr") : _hReportStore
@@ -1468,7 +1467,7 @@ class ErrorReporting {
      * @param {Pointer<EXCEPTION_POINTERS>} pep A pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-exception_pointers">EXCEPTION_POINTERS</a> structure.
      * @param {Integer} dwOpt This parameter is reserved for system use and should be set to zero.
-     * @returns {Integer} This function returns one of the following values.
+     * @returns {EFaultRepRetVal} This function returns one of the following values.
      * 
      * <table>
      * <tr>

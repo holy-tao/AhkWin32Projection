@@ -7,9 +7,8 @@
  * Implements methods that get data from the default authority descriptor for a content reference identifier (CRID). The default authority descriptor is the first part of the CRID and identifies the body that created the CRID.
  * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nn-dvbsiparser-idvbdefaultauthoritydescriptor
  * @namespace Windows.Win32.Media.DirectShow.Tv
- * @version v4.0.30319
  */
-class IDvbDefaultAuthorityDescriptor extends IUnknown{
+class IDvbDefaultAuthorityDescriptor extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
- * @version v4.0.30319
  */
-class KSDS3D_LISTENER_ALL extends Win32Struct
-{
+class KSDS3D_LISTENER_ALL extends Win32Struct {
     static sizeof => 60
 
     static packingSize => 4
@@ -15,7 +13,7 @@ class KSDS3D_LISTENER_ALL extends Win32Struct
     /**
      * @type {DS3DVECTOR}
      */
-    Position{
+    Position {
         get {
             if(!this.HasProp("__Position"))
                 this.__Position := DS3DVECTOR(0, this)
@@ -26,7 +24,7 @@ class KSDS3D_LISTENER_ALL extends Win32Struct
     /**
      * @type {DS3DVECTOR}
      */
-    Velocity{
+    Velocity {
         get {
             if(!this.HasProp("__Velocity"))
                 this.__Velocity := DS3DVECTOR(12, this)
@@ -37,7 +35,7 @@ class KSDS3D_LISTENER_ALL extends Win32Struct
     /**
      * @type {DS3DVECTOR}
      */
-    OrientFront{
+    OrientFront {
         get {
             if(!this.HasProp("__OrientFront"))
                 this.__OrientFront := DS3DVECTOR(24, this)
@@ -48,7 +46,7 @@ class KSDS3D_LISTENER_ALL extends Win32Struct
     /**
      * @type {DS3DVECTOR}
      */
-    OrientTop{
+    OrientTop {
         get {
             if(!this.HasProp("__OrientTop"))
                 this.__OrientTop := DS3DVECTOR(36, this)

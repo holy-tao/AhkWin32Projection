@@ -5,10 +5,8 @@
  * Contains information used by the CreateMappedBitmap function to map the colors of the bitmap.
  * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-colormap
  * @namespace Windows.Win32.UI.Controls
- * @version v4.0.30319
  */
-class COLORMAP extends Win32Struct
-{
+class COLORMAP extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4

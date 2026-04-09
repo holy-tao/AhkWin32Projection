@@ -3,13 +3,10 @@
 
 /**
  * Defines constants that indicate the entry point of a web search.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/commctrl/ne-commctrl-ec_searchweb_entrypoint
  * @namespace Windows.Win32.UI.Controls
- * @version v4.0.30319
  */
-class EC_SEARCHWEB_ENTRYPOINT extends Win32Enum{
+class EC_SEARCHWEB_ENTRYPOINT extends Win32Enum {
 
     /**
      * Entry point is external.

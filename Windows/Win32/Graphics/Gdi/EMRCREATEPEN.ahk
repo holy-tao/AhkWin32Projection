@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\EMR.ahk
-#Include ..\..\Foundation\POINT.ahk
+#Include .\ENHANCED_METAFILE_RECORD_TYPE.ahk
 #Include .\LOGPEN.ahk
+#Include ..\..\Foundation\POINT.ahk
 
 /**
  * The EMRCREATEPEN structure contains members for the CreatePen enhanced metafile record.
  * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-emrcreatepen
  * @namespace Windows.Win32.Graphics.Gdi
- * @version v4.0.30319
  */
-class EMRCREATEPEN extends Win32Struct
-{
+class EMRCREATEPEN extends Win32Struct {
     static sizeof => 28
 
     static packingSize => 4
@@ -20,7 +19,7 @@ class EMRCREATEPEN extends Win32Struct
      * The base structure for all record types.
      * @type {EMR}
      */
-    emr{
+    emr {
         get {
             if(!this.HasProp("__emr"))
                 this.__emr := EMR(0, this)
@@ -41,7 +40,7 @@ class EMRCREATEPEN extends Win32Struct
      * Logical pen.
      * @type {LOGPEN}
      */
-    lopn{
+    lopn {
         get {
             if(!this.HasProp("__lopn"))
                 this.__lopn := LOGPEN(12, this)

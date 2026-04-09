@@ -7,9 +7,8 @@
  * The IWMDMLogger interface is used by Windows Media Device Manager applications and service providers to log entries in a common log file.
  * @see https://learn.microsoft.com/windows/win32/api/wmdmlog/nn-wmdmlog-iwmdmlogger
  * @namespace Windows.Win32.Media.DeviceManager
- * @version v4.0.30319
  */
-class IWMDMLogger extends IUnknown{
+class IWMDMLogger extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

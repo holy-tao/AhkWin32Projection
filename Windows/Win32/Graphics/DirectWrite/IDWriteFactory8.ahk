@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IDWriteColorGlyphRunEnumerator1.ahk
 #Include .\IDWriteFactory7.ahk
+#Include .\IDWriteColorGlyphRunEnumerator1.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.DirectWrite
- * @version v4.0.30319
  */
-class IDWriteFactory8 extends IDWriteFactory7{
+class IDWriteFactory8 extends IDWriteFactory7 {
 
     static sizeof => A_PtrSize
     /**
@@ -34,9 +33,9 @@ class IDWriteFactory8 extends IDWriteFactory7{
      * @param {D2D_POINT_2F} baselineOrigin 
      * @param {Pointer<DWRITE_GLYPH_RUN>} _glyphRun 
      * @param {Pointer<DWRITE_GLYPH_RUN_DESCRIPTION>} glyphRunDescription 
-     * @param {Integer} desiredGlyphImageFormats 
-     * @param {Integer} paintFeatureLevel 
-     * @param {Integer} measuringMode 
+     * @param {DWRITE_GLYPH_IMAGE_FORMATS} desiredGlyphImageFormats 
+     * @param {DWRITE_PAINT_FEATURE_LEVEL} paintFeatureLevel 
+     * @param {DWRITE_MEASURING_MODE} measuringMode 
      * @param {Pointer<DWRITE_MATRIX>} worldAndDpiTransform 
      * @param {Integer} colorPaletteIndex 
      * @returns {IDWriteColorGlyphRunEnumerator1} 

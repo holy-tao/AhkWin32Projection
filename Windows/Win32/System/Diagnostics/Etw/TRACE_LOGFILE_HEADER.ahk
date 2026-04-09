@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\SYSTEMTIME.ahk
 #Include ..\..\Time\TIME_ZONE_INFORMATION.ahk
+#Include ..\..\..\Foundation\SYSTEMTIME.ahk
 
 /**
  * The TRACE_LOGFILE_HEADER structure contains information about an event tracing session and its events.
@@ -20,10 +20,8 @@
  * member.
  * @see https://learn.microsoft.com/windows/win32/api/evntrace/ns-evntrace-trace_logfile_header
  * @namespace Windows.Win32.System.Diagnostics.Etw
- * @version v4.0.30319
  */
-class TRACE_LOGFILE_HEADER extends Win32Struct
-{
+class TRACE_LOGFILE_HEADER extends Win32Struct {
     static sizeof => 280
 
     static packingSize => 8
@@ -48,7 +46,7 @@ class TRACE_LOGFILE_HEADER extends Win32Struct
             get => NumGet(this, 0, "char")
             set => NumPut("char", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -56,7 +54,7 @@ class TRACE_LOGFILE_HEADER extends Win32Struct
             get => NumGet(this, 1, "char")
             set => NumPut("char", value, this, 1)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -64,7 +62,7 @@ class TRACE_LOGFILE_HEADER extends Win32Struct
             get => NumGet(this, 2, "char")
             set => NumPut("char", value, this, 2)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -72,7 +70,6 @@ class TRACE_LOGFILE_HEADER extends Win32Struct
             get => NumGet(this, 3, "char")
             set => NumPut("char", value, this, 3)
         }
-    
     }
 
     /**
@@ -86,10 +83,10 @@ class TRACE_LOGFILE_HEADER extends Win32Struct
     /**
      * @type {_VersionDetail}
      */
-    VersionDetail{
+    VersionDetail {
         get {
             if(!this.HasProp("__VersionDetail"))
-                this.__VersionDetail := %this.__Class%._VersionDetail(4, this)
+                this.__VersionDetail := TRACE_LOGFILE_HEADER._VersionDetail(4, this)
             return this.__VersionDetail
         }
     }
@@ -163,7 +160,7 @@ class TRACE_LOGFILE_HEADER extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     LogInstanceGuid {
         get => NumGet(this, 40, "ptr")
@@ -233,7 +230,7 @@ class TRACE_LOGFILE_HEADER extends Win32Struct
      * **StartTime** members.
      * @type {TIME_ZONE_INFORMATION}
      */
-    TimeZone{
+    TimeZone {
         get {
             if(!this.HasProp("__TimeZone"))
                 this.__TimeZone := TIME_ZONE_INFORMATION(72, this)

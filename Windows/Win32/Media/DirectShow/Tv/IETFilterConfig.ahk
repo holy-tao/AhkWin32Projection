@@ -9,9 +9,8 @@
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IETFilterConfig)</c>.
  * @see https://learn.microsoft.com/windows/win32/api/encdec/nn-encdec-ietfilterconfig
  * @namespace Windows.Win32.Media.DirectShow.Tv
- * @version v4.0.30319
  */
-class IETFilterConfig extends IUnknown{
+class IETFilterConfig extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

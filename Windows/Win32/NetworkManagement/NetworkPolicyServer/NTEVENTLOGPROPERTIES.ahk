@@ -5,9 +5,8 @@
  * The values of the NTEVENTLOGPROPERTIES enumeration type enumerate what types of events should be logged in the NT Event Log.
  * @see https://learn.microsoft.com/windows/win32/api/sdoias/ne-sdoias-nteventlogproperties
  * @namespace Windows.Win32.NetworkManagement.NetworkPolicyServer
- * @version v4.0.30319
  */
-class NTEVENTLOGPROPERTIES extends Win32Enum{
+class NTEVENTLOGPROPERTIES extends Win32Enum {
 
     /**
      * Specifies how the reporting of NPS Error events occurs in the Windows event log. In Windows XP, there is no UI element that corresponds to this property

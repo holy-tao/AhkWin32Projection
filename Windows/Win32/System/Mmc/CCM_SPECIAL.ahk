@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Mmc
- * @version v4.0.30319
  */
-class CCM_SPECIAL extends Win32Enum{
+class CCM_SPECIAL extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

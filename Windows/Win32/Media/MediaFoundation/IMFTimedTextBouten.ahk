@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\MFARGB.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\MFARGB.ahk
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFTimedTextBouten extends IUnknown{
+class IMFTimedTextBouten extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -31,7 +30,7 @@ class IMFTimedTextBouten extends IUnknown{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {MF_TIMED_TEXT_BOUTEN_TYPE} 
      */
     GetBoutenType() {
         result := ComCall(3, this, "int*", &value := 0, "HRESULT")
@@ -50,7 +49,7 @@ class IMFTimedTextBouten extends IUnknown{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {MF_TIMED_TEXT_BOUTEN_POSITION} 
      */
     GetBoutenPosition() {
         result := ComCall(5, this, "int*", &value := 0, "HRESULT")

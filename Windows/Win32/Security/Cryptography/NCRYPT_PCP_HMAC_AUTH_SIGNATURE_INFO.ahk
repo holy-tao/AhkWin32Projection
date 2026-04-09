@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class NCRYPT_PCP_HMAC_AUTH_SIGNATURE_INFO extends Win32Struct
-{
+class NCRYPT_PCP_HMAC_AUTH_SIGNATURE_INFO extends Win32Struct {
     static sizeof => 104
 
     static packingSize => 4
@@ -28,9 +26,9 @@ class NCRYPT_PCP_HMAC_AUTH_SIGNATURE_INFO extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    pabNonce{
+    pabNonce {
         get {
             if(!this.HasProp("__pabNonceProxyArray"))
                 this.__pabNonceProxyArray := Win32FixedArray(this.ptr + 8, 32, Primitive, "char")
@@ -39,9 +37,9 @@ class NCRYPT_PCP_HMAC_AUTH_SIGNATURE_INFO extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    pabPolicyRef{
+    pabPolicyRef {
         get {
             if(!this.HasProp("__pabPolicyRefProxyArray"))
                 this.__pabPolicyRefProxyArray := Win32FixedArray(this.ptr + 40, 32, Primitive, "char")
@@ -50,9 +48,9 @@ class NCRYPT_PCP_HMAC_AUTH_SIGNATURE_INFO extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    pabHMAC{
+    pabHMAC {
         get {
             if(!this.HasProp("__pabHMACProxyArray"))
                 this.__pabHMACProxyArray := Win32FixedArray(this.ptr + 72, 32, Primitive, "char")

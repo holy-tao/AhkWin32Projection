@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\BCRYPT_RSAKEY_BLOB_MAGIC.ahk
 
 /**
  * Used as a header for an RSA public key or private key BLOB in memory.
@@ -48,17 +49,14 @@
  * ```
  * @see https://learn.microsoft.com/windows/win32/api/bcrypt/ns-bcrypt-bcrypt_rsakey_blob
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class BCRYPT_RSAKEY_BLOB extends Win32Struct
-{
+class BCRYPT_RSAKEY_BLOB extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 4
 
     /**
-     * 
-     * @type {Integer}
+     * @type {BCRYPT_RSAKEY_BLOB_MAGIC}
      */
     Magic {
         get => NumGet(this, 0, "uint")

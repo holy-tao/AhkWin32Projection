@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.UI.Controls
- * @version v4.0.30319
  */
-class TA_PROPERTY_FLAG extends Win32BitflagEnum{
+class TA_PROPERTY_FLAG extends Win32BitflagEnum {
 
     /**
      * @type {Integer (Int32)}

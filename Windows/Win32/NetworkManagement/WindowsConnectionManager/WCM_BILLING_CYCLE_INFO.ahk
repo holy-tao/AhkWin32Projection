@@ -7,10 +7,8 @@
  * Specifies information about the billing cycle.
  * @see https://learn.microsoft.com/windows/win32/api/wcmapi/ns-wcmapi-wcm_billing_cycle_info
  * @namespace Windows.Win32.NetworkManagement.WindowsConnectionManager
- * @version v4.0.30319
  */
-class WCM_BILLING_CYCLE_INFO extends Win32Struct
-{
+class WCM_BILLING_CYCLE_INFO extends Win32Struct {
     static sizeof => 28
 
     static packingSize => 4
@@ -21,7 +19,7 @@ class WCM_BILLING_CYCLE_INFO extends Win32Struct
      * Specifies the start date of the cycle.
      * @type {FILETIME}
      */
-    StartDate{
+    StartDate {
         get {
             if(!this.HasProp("__StartDate"))
                 this.__StartDate := FILETIME(0, this)
@@ -35,7 +33,7 @@ class WCM_BILLING_CYCLE_INFO extends Win32Struct
      * Specifies the billing cycle duration.
      * @type {WCM_TIME_INTERVAL}
      */
-    Duration{
+    Duration {
         get {
             if(!this.HasProp("__Duration"))
                 this.__Duration := WCM_TIME_INTERVAL(8, this)

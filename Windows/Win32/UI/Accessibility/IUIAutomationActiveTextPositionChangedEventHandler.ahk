@@ -9,9 +9,8 @@
  * Before implementing an event handler, you should be familiar with the threading issues described in <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-threading">Understanding Threading Issues</a>.
  * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nn-uiautomationclient-iuiautomationactivetextpositionchangedeventhandler
  * @namespace Windows.Win32.UI.Accessibility
- * @version v4.0.30319
  */
-class IUIAutomationActiveTextPositionChangedEventHandler extends IUnknown{
+class IUIAutomationActiveTextPositionChangedEventHandler extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

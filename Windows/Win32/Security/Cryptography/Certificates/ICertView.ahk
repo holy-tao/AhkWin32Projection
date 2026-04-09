@@ -1,18 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
+#Include ..\..\..\System\Com\IDispatch.ahk
 #Include .\IEnumCERTVIEWCOLUMN.ahk
 #Include .\IEnumCERTVIEWROW.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
 
 /**
  * Allows properly authorized clients to create a customized or complete view of the Certificate Services database.
  * @see https://learn.microsoft.com/windows/win32/api/certview/nn-certview-icertview
  * @namespace Windows.Win32.Security.Cryptography.Certificates
- * @version v4.0.30319
  */
-class ICertView extends IDispatch{
+class ICertView extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -60,7 +58,7 @@ class ICertView extends IDispatch{
      * @remarks
      * The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/certview/nn-certview-ienumcertviewcolumn">IEnumCERTVIEWCOLUMN</a> object can be used to enumerate the view's columns and retrieve each column's information.
-     * @param {Integer} fResultColumn 
+     * @param {CVRC_COLUMN} fResultColumn 
      * @returns {IEnumCERTVIEWCOLUMN} A pointer to a pointer of <a href="https://docs.microsoft.com/windows/desktop/api/certview/nn-certview-ienumcertviewcolumn">IEnumCERTVIEWCOLUMN</a> type. This method fails if the <i>ppenum</i> parameter is <b>NULL</b>.
      * @see https://learn.microsoft.com/windows/win32/api/certview/nf-certview-icertview-enumcertviewcolumn
      */
@@ -73,7 +71,7 @@ class ICertView extends IDispatch{
      * Retrieves the number of columns in the view of the Certificate Services database.
      * @remarks
      * This method is used to determine the number of columns in the view. The returned number  represents the count of a result set's columns if <i>fResultColumn</i> is <b>TRUE</b> or the count of the full database schema's columns if <i>fResultColumn</i> is <b>FALSE</b>.
-     * @param {Integer} fResultColumn 
+     * @param {CVRC_COLUMN} fResultColumn 
      * @param {Pointer<Integer>} pcColumn A pointer to a variable that contains the number of columns in the view. This function will fail if the <i>pcColumn</i> parameter is <b>NULL</b>.
      * @returns {HRESULT} <h3>C++</h3>
      *  If the method succeeds, the method returns S_OK, and the <i>pcColumn</i> parameter is set to the number of columns in the view.
@@ -95,7 +93,7 @@ class ICertView extends IDispatch{
      * Retrieves the zero-based index of a column.
      * @remarks
      * This method is used to determine the index of the column specified by the <i>strColumnName</i> parameter. The column indices are zero-based (the first column is index zero).
-     * @param {Integer} fResultColumn 
+     * @param {CVRC_COLUMN} fResultColumn 
      * @param {BSTR} strColumnName A string that contains the nonlocalized name of a column in the view.
      * @param {Pointer<Integer>} pColumnIndex The address of a variable that will contain the index of the column specified in the <i>strColumnName</i> parameter. This method fails if <i>pColumnIndex</i> is <b>NULL</b>.
      * @returns {HRESULT} <h3>C++</h3>
@@ -214,8 +212,8 @@ class ICertView extends IDispatch{
      * 
      * Before the <b>SetRestriction</b> method is called, it is necessary to establish a connection with the Certificate Service server by calling the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/certview/nf-certview-icertview-openconnection">ICertView::OpenConnection</a> method.
-     * @param {Integer} ColumnIndex A valid column index number for the view or a predefined column specifier. If the <i>ColumnIndex</i> parameter is not negative, this value represents the zero-based index of the column that is receiving the restriction.
-     * @param {Integer} SeekOperator 
+     * @param {CERT_VIEW_COLUMN_INDEX} ColumnIndex A valid column index number for the view or a predefined column specifier. If the <i>ColumnIndex</i> parameter is not negative, this value represents the zero-based index of the column that is receiving the restriction.
+     * @param {CERT_VIEW_SEEK_OPERATOR_FLAGS} SeekOperator 
      * @param {Integer} SortOrder Specifies the sort order for the column. Indexed columns with zero or one restriction can include a sort order of  CVR_SORT_ASCEND or CVR_SORT_DESCEND. Nonindexed columns or columns with two or more restrictions  must use CVR_SORT_NONE.
      * 
      * <table>

@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\WSD_DURATION.ahk
+#Include .\WSD_DATETIME.ahk
 
 /**
  * Represents the expiration time of a WS-Eventing message.
  * @see https://learn.microsoft.com/windows/win32/api/wsdtypes/ns-wsdtypes-wsd_eventing_expires
  * @namespace Windows.Win32.Devices.WebServicesOnDevices
- * @version v4.0.30319
  */
-class WSD_EVENTING_EXPIRES extends Win32Struct
-{
+class WSD_EVENTING_EXPIRES extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

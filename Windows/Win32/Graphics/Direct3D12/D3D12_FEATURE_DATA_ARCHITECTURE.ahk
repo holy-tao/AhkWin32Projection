@@ -53,10 +53,8 @@
  *             Multi-adapter applications likely need to understand adapter architecture properties well enough to choose the optimal custom heap properties to efficiently move data between adapters.
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_feature_data_architecture
  * @namespace Windows.Win32.Graphics.Direct3D12
- * @version v4.0.30319
  */
-class D3D12_FEATURE_DATA_ARCHITECTURE extends Win32Struct
-{
+class D3D12_FEATURE_DATA_ARCHITECTURE extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4

@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
- * @version v4.0.30319
  */
-class DXGK_DISPLAY_TECHNOLOGY extends Win32Enum{
+class DXGK_DISPLAY_TECHNOLOGY extends Win32Enum {
 
     /**
      * @type {Integer (Byte)}

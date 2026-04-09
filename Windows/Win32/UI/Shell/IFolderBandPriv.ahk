@@ -7,9 +7,8 @@
  * IFolderBandPriv is available for use in the operating systems specified in the Requirements section. It may be altered or unavailable in subsequent versions.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nn-shobjidl-ifolderbandpriv
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IFolderBandPriv extends IUnknown{
+class IFolderBandPriv extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

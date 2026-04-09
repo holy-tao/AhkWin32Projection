@@ -18,10 +18,8 @@
  * <a href="https://docs.microsoft.com/windows/desktop/shell/objects">SHCOLUMNID</a> can be considered a legacy structure with <a href="https://docs.microsoft.com/windows/desktop/api/wtypes/ns-wtypes-propertykey">PROPERTYKEY</a> being the new, preferred form. <b>PROPERTYKEY</b> has a broader purpose than <b>SHCOLUMNID</b>, and the new name is more descriptive of its uses.
  * @see https://learn.microsoft.com/windows/win32/api/wtypes/ns-wtypes-propertykey
  * @namespace Windows.Win32.Foundation
- * @version v4.0.30319
  */
-class PROPERTYKEY extends Win32Struct
-{
+class PROPERTYKEY extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
@@ -30,7 +28,7 @@ class PROPERTYKEY extends Win32Struct
      * Type: <b>GUID</b>
      * 
      * A unique GUID for the property.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     fmtid {
         get => NumGet(this, 0, "ptr")

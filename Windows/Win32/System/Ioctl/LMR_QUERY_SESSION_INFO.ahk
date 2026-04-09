@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class LMR_QUERY_SESSION_INFO extends Win32Struct
-{
+class LMR_QUERY_SESSION_INFO extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 8

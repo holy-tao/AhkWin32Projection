@@ -14,10 +14,8 @@
  * The members <b>dwCallFeatures2</b> and <b>tStateEntryTime</b> are available only to applications that open the line device with an API version of 2.0 or later.
  * @see https://learn.microsoft.com/windows/win32/api/tapi/ns-tapi-linecallstatus
  * @namespace Windows.Win32.Devices.Tapi
- * @version v4.0.30319
  */
-class LINECALLSTATUS extends Win32Struct
-{
+class LINECALLSTATUS extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 4
@@ -201,7 +199,7 @@ class LINECALLSTATUS extends Win32Struct
      * Coordinated Universal Time at which the current call state was entered.
      * @type {SYSTEMTIME}
      */
-    tStateEntryTime{
+    tStateEntryTime {
         get {
             if(!this.HasProp("__tStateEntryTime"))
                 this.__tStateEntryTime := SYSTEMTIME(40, this)

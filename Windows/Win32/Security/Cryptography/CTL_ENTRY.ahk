@@ -1,15 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\CRYPT_INTEGER_BLOB.ahk
+#Include .\CRYPT_ATTRIBUTE.ahk
 
 /**
  * An element of a certificate trust list (CTL).
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-ctl_entry
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CTL_ENTRY extends Win32Struct
-{
+class CTL_ENTRY extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -18,7 +17,7 @@ class CTL_ENTRY extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/SecGloss/b-gly">BLOB</a> containing a unique identifier of a subject. It can be a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/h-gly">hash</a> or any unique byte sequence.
      * @type {CRYPT_INTEGER_BLOB}
      */
-    SubjectIdentifier{
+    SubjectIdentifier {
         get {
             if(!this.HasProp("__SubjectIdentifier"))
                 this.__SubjectIdentifier := CRYPT_INTEGER_BLOB(0, this)

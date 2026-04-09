@@ -5,10 +5,8 @@
  * Indicates whether the event log is full.
  * @see https://learn.microsoft.com/windows/win32/api/winbase/ns-winbase-eventlog_full_information
  * @namespace Windows.Win32.System.EventLog
- * @version v4.0.30319
  */
-class EVENTLOG_FULL_INFORMATION extends Win32Struct
-{
+class EVENTLOG_FULL_INFORMATION extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 4

@@ -10,11 +10,9 @@
  * > The wincred.h header defines CREDUI_INFO as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
  * @see https://learn.microsoft.com/windows/win32/api/wincred/ns-wincred-credui_infow
  * @namespace Windows.Win32.Security.Credentials
- * @version v4.0.30319
  * @charset Unicode
  */
-class CREDUI_INFOW extends Win32Struct
-{
+class CREDUI_INFOW extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -32,7 +30,7 @@ class CREDUI_INFOW extends Win32Struct
      * Specifies the handle to the parent window of the dialog box. The dialog box is modal with respect to the parent window. If this member is <b>NULL</b>, the desktop is the parent window of the dialog box.
      * @type {HWND}
      */
-    hwndParent{
+    hwndParent {
         get {
             if(!this.HasProp("__hwndParent"))
                 this.__hwndParent := HWND(8, this)
@@ -62,7 +60,7 @@ class CREDUI_INFOW extends Win32Struct
      * Bitmap to display in the dialog box. If this member is <b>NULL</b>, a default bitmap is used. The bitmap size is limited to 320x60 pixels.
      * @type {HBITMAP}
      */
-    hbmBanner{
+    hbmBanner {
         get {
             if(!this.HasProp("__hbmBanner"))
                 this.__hbmBanner := HBITMAP(32, this)

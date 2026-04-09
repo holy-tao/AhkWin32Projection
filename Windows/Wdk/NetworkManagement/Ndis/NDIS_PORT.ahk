@@ -1,12 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\NDIS_PORT.ahk
 
 /**
  * @namespace Windows.Wdk.NetworkManagement.Ndis
- * @version v4.0.30319
  */
-class NDIS_PORT extends Win32Struct
-{
+class NDIS_PORT extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -44,7 +43,7 @@ class NDIS_PORT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<NDIS_PORT_CHARACTERISTICS>}
+     * @type {Pointer}
      */
     PortCharacteristics {
         get => NumGet(this, 32, "ptr")

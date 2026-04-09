@@ -5,9 +5,8 @@
  * The FAX_PRIORITY_TYPE_ENUM enumeration defines the types of priorities for outbound faxes.
  * @see https://learn.microsoft.com/windows/win32/api/faxcomex/ne-faxcomex-fax_priority_type_enum
  * @namespace Windows.Win32.Devices.Fax
- * @version v4.0.30319
  */
-class FAX_PRIORITY_TYPE_ENUM extends Win32Enum{
+class FAX_PRIORITY_TYPE_ENUM extends Win32Enum {
 
     /**
      * The fax will be sent with a low priority. All faxes that have a normal or a high priority will be sent before a fax that has a low priority.

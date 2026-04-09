@@ -7,9 +7,8 @@
  * Can be used to define custom plug-in properties as appropriate.
  * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nn-sbtsv-itssbpluginpropertyset
  * @namespace Windows.Win32.System.RemoteDesktop
- * @version v4.0.30319
  */
-class ITsSbPluginPropertySet extends ITsSbPropertySet{
+class ITsSbPluginPropertySet extends ITsSbPropertySet {
 
     static sizeof => A_PtrSize
     /**

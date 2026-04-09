@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.ClrProfiling
- * @version v4.0.30319
  */
-class COR_DEBUG_IL_TO_NATIVE_MAP extends Win32Struct
-{
+class COR_DEBUG_IL_TO_NATIVE_MAP extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4

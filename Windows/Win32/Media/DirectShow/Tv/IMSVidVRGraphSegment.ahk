@@ -1,15 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\IMSVidGraphSegment.ahk
 #Include ..\..\..\Foundation\HWND.ahk
 #Include ..\..\..\Foundation\RECT.ahk
-#Include .\IMSVidGraphSegment.ahk
 
 /**
  * @namespace Windows.Win32.Media.DirectShow.Tv
- * @version v4.0.30319
  */
-class IMSVidVRGraphSegment extends IMSVidGraphSegment{
+class IMSVidVRGraphSegment extends IMSVidGraphSegment {
 
     static sizeof => A_PtrSize
     /**
@@ -31,7 +30,7 @@ class IMSVidVRGraphSegment extends IMSVidGraphSegment{
     static VTableNames => ["put__VMRendererMode", "put_Owner", "get_Owner", "get_UseOverlay", "put_UseOverlay", "get_Visible", "put_Visible", "get_ColorKey", "put_ColorKey", "get_Source", "put_Source", "get_Destination", "put_Destination", "get_NativeSize", "get_BorderColor", "put_BorderColor", "get_MaintainAspectRatio", "put_MaintainAspectRatio", "Refresh", "DisplayChange", "RePaint"]
 
     /**
-     * @type {HRESULT} 
+     * @type {Integer} 
      */
     _VMRendererMode {
         set => this.put__VMRendererMode(value)

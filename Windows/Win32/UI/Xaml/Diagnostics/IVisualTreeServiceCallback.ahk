@@ -7,9 +7,8 @@
  * Communicates the state of the visual tree.
  * @see https://learn.microsoft.com/windows/win32/api/xamlom/nn-xamlom-ivisualtreeservicecallback
  * @namespace Windows.Win32.UI.Xaml.Diagnostics
- * @version v4.0.30319
  */
-class IVisualTreeServiceCallback extends IUnknown{
+class IVisualTreeServiceCallback extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -34,7 +33,7 @@ class IVisualTreeServiceCallback extends IUnknown{
      * Communicates the state of the visual tree when it changes.
      * @param {ParentChildRelation} relation The association of  a parent object with a child object.
      * @param {VisualElement} element The XAML element in the visual tree.
-     * @param {Integer} mutationType A value that indicates whether the change was an add or remove.
+     * @param {VisualMutationType} mutationType A value that indicates whether the change was an add or remove.
      * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/xamlom/nf-xamlom-ivisualtreeservicecallback-onvisualtreechange
      */

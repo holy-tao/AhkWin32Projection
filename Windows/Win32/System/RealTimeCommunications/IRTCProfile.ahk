@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\Com\IUnknown.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * @namespace Windows.Win32.System.RealTimeCommunications
- * @version v4.0.30319
  */
-class IRTCProfile extends IUnknown{
+class IRTCProfile extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -135,7 +134,7 @@ class IRTCProfile extends IUnknown{
     }
 
     /**
-     * @type {Integer} 
+     * @type {RTC_REGISTRATION_STATE} 
      */
     State {
         get => this.get_State()
@@ -183,7 +182,7 @@ class IRTCProfile extends IUnknown{
 
     /**
      * 
-     * @param {Integer} enURI 
+     * @param {RTC_PROVIDER_URI} enURI 
      * @returns {BSTR} 
      */
     get_ProviderURI(enURI) {
@@ -364,7 +363,7 @@ class IRTCProfile extends IUnknown{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {RTC_REGISTRATION_STATE} 
      */
     get_State() {
         result := ComCall(20, this, "int*", &penState := 0, "HRESULT")

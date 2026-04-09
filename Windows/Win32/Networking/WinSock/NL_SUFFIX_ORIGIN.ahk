@@ -9,42 +9,35 @@
  * On the Microsoft Windows Software Development Kit (SDK) released for Windows Vista and later, the organization of header files has changed and the <b>IP_SUFFIX_ORIGIN</b> enumeration is defined in the <i>Nldef.h</i> header file which is automatically included by the <i>Iptypes.h</i> header file. In order to use the <b>IP_SUFFIX_ORIGIN</b> enumeration, the <i>Winsock2.h</i> header file must be included before the <i>Iptypes.h</i> header file.
  * @see https://learn.microsoft.com/windows/win32/api/nldef/ne-nldef-nl_suffix_origin
  * @namespace Windows.Win32.Networking.WinSock
- * @version v4.0.30319
  */
-class NL_SUFFIX_ORIGIN extends Win32Enum{
+class NL_SUFFIX_ORIGIN extends Win32Enum {
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static NlsoOther => 0
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static NlsoManual => 1
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static NlsoWellKnown => 2
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static NlsoDhcp => 3
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static NlsoLinkLayerAddress => 4
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static NlsoRandom => 5

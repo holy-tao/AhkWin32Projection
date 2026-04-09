@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\ITextRange2.ahk
 #Include .\ITextStoryRanges.ahk
+#Include .\ITextRange2.ahk
 
 /**
  * The ITextStoryRanges2 interface enumerates the stories in an ITextDocument.
  * @see https://learn.microsoft.com/windows/win32/api/tom/nn-tom-itextstoryranges2
  * @namespace Windows.Win32.UI.Controls.RichEdit
- * @version v4.0.30319
  */
-class ITextStoryRanges2 extends ITextStoryRanges{
+class ITextStoryRanges2 extends ITextStoryRanges {
 
     static sizeof => A_PtrSize
     /**

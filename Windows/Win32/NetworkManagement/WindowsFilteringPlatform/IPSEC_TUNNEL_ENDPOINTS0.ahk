@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\FWP_IP_VERSION.ahk
 
 /**
  * Is used to store end points of a tunnel mode SA. (IPSEC_TUNNEL_ENDPOINTS0)
@@ -7,10 +8,8 @@
  * For the unnamed union containing the local tunnel end point address, switch_type(FWP_IP_VERSION), switch_is(ipVersion).
  * @see https://learn.microsoft.com/windows/win32/api/ipsectypes/ns-ipsectypes-ipsec_tunnel_endpoints0
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
- * @version v4.0.30319
  */
-class IPSEC_TUNNEL_ENDPOINTS0 extends Win32Struct
-{
+class IPSEC_TUNNEL_ENDPOINTS0 extends Win32Struct {
     static sizeof => 36
 
     static packingSize => 4
@@ -19,7 +18,7 @@ class IPSEC_TUNNEL_ENDPOINTS0 extends Win32Struct
      * IP version of the addresses.
      * 
      * See [FWP_IP_VERSION](/windows/desktop/api/fwptypes/ne-fwptypes-fwp_ip_version) for more information.
-     * @type {Integer}
+     * @type {FWP_IP_VERSION}
      */
     ipVersion {
         get => NumGet(this, 0, "int")
@@ -35,9 +34,9 @@ class IPSEC_TUNNEL_ENDPOINTS0 extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    localV6Address{
+    localV6Address {
         get {
             if(!this.HasProp("__localV6AddressProxyArray"))
                 this.__localV6AddressProxyArray := Win32FixedArray(this.ptr + 4, 16, Primitive, "char")
@@ -54,9 +53,9 @@ class IPSEC_TUNNEL_ENDPOINTS0 extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    remoteV6Address{
+    remoteV6Address {
         get {
             if(!this.HasProp("__remoteV6AddressProxyArray"))
                 this.__remoteV6AddressProxyArray := Win32FixedArray(this.ptr + 20, 16, Primitive, "char")

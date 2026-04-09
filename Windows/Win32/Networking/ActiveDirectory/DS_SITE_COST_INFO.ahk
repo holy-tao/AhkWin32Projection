@@ -5,16 +5,13 @@
  * The DS_SITE_COST_INFO structure is used with the DsQuerySitesByCost function to contain communication cost data.
  * @see https://learn.microsoft.com/windows/win32/api/ntdsapi/ns-ntdsapi-ds_site_cost_info
  * @namespace Windows.Win32.Networking.ActiveDirectory
- * @version v4.0.30319
  */
-class DS_SITE_COST_INFO extends Win32Struct
-{
+class DS_SITE_COST_INFO extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4
 
     /**
-     * 
      * @type {Integer}
      */
     errorCode {

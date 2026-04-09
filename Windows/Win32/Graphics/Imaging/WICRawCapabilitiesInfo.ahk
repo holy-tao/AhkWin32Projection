@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\WICRawCapabilities.ahk
+#Include .\WICRawRotationCapabilities.ahk
 
 /**
  * Defines raw codec capabilities.
  * @see https://learn.microsoft.com/windows/win32/api/wincodec/ns-wincodec-wicrawcapabilitiesinfo
  * @namespace Windows.Win32.Graphics.Imaging
- * @version v4.0.30319
  */
-class WICRawCapabilitiesInfo extends Win32Struct
-{
+class WICRawCapabilitiesInfo extends Win32Struct {
     static sizeof => 72
 
     static packingSize => 4
@@ -50,7 +50,7 @@ class WICRawCapabilitiesInfo extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ne-wincodec-wicrawcapabilities">WICRawCapabilities</a></b>
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ne-wincodec-wicrawcapabilities">WICRawCapabilities</a> of exposure compensation support.
-     * @type {Integer}
+     * @type {WICRawCapabilities}
      */
     ExposureCompensationSupport {
         get => NumGet(this, 12, "int")
@@ -61,7 +61,7 @@ class WICRawCapabilitiesInfo extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ne-wincodec-wicrawcapabilities">WICRawCapabilities</a></b>
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ne-wincodec-wicrawcapabilities">WICRawCapabilities</a> of contrast support.
-     * @type {Integer}
+     * @type {WICRawCapabilities}
      */
     ContrastSupport {
         get => NumGet(this, 16, "int")
@@ -72,7 +72,7 @@ class WICRawCapabilitiesInfo extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ne-wincodec-wicrawcapabilities">WICRawCapabilities</a></b>
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ne-wincodec-wicrawcapabilities">WICRawCapabilities</a> of RGB white point support.
-     * @type {Integer}
+     * @type {WICRawCapabilities}
      */
     RGBWhitePointSupport {
         get => NumGet(this, 20, "int")
@@ -83,7 +83,7 @@ class WICRawCapabilitiesInfo extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ne-wincodec-wicrawcapabilities">WICRawCapabilities</a></b>
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ne-wincodec-wicrawcapabilities">WICRawCapabilities</a> of <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ne-wincodec-wicnamedwhitepoint">WICNamedWhitePoint</a> support.
-     * @type {Integer}
+     * @type {WICRawCapabilities}
      */
     NamedWhitePointSupport {
         get => NumGet(this, 24, "int")
@@ -105,7 +105,7 @@ class WICRawCapabilitiesInfo extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ne-wincodec-wicrawcapabilities">WICRawCapabilities</a></b>
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ne-wincodec-wicrawcapabilities">WICRawCapabilities</a> of kelvin white point support.
-     * @type {Integer}
+     * @type {WICRawCapabilities}
      */
     KelvinWhitePointSupport {
         get => NumGet(this, 32, "int")
@@ -116,7 +116,7 @@ class WICRawCapabilitiesInfo extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ne-wincodec-wicrawcapabilities">WICRawCapabilities</a></b>
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ne-wincodec-wicrawcapabilities">WICRawCapabilities</a> of gamma support.
-     * @type {Integer}
+     * @type {WICRawCapabilities}
      */
     GammaSupport {
         get => NumGet(this, 36, "int")
@@ -127,7 +127,7 @@ class WICRawCapabilitiesInfo extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ne-wincodec-wicrawcapabilities">WICRawCapabilities</a></b>
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ne-wincodec-wicrawcapabilities">WICRawCapabilities</a> of tint support.
-     * @type {Integer}
+     * @type {WICRawCapabilities}
      */
     TintSupport {
         get => NumGet(this, 40, "int")
@@ -138,7 +138,7 @@ class WICRawCapabilitiesInfo extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ne-wincodec-wicrawcapabilities">WICRawCapabilities</a></b>
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ne-wincodec-wicrawcapabilities">WICRawCapabilities</a> of saturation support.
-     * @type {Integer}
+     * @type {WICRawCapabilities}
      */
     SaturationSupport {
         get => NumGet(this, 44, "int")
@@ -149,7 +149,7 @@ class WICRawCapabilitiesInfo extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ne-wincodec-wicrawcapabilities">WICRawCapabilities</a></b>
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ne-wincodec-wicrawcapabilities">WICRawCapabilities</a> of sharpness support.
-     * @type {Integer}
+     * @type {WICRawCapabilities}
      */
     SharpnessSupport {
         get => NumGet(this, 48, "int")
@@ -160,7 +160,7 @@ class WICRawCapabilitiesInfo extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ne-wincodec-wicrawcapabilities">WICRawCapabilities</a></b>
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ne-wincodec-wicrawcapabilities">WICRawCapabilities</a> of noise reduction support.
-     * @type {Integer}
+     * @type {WICRawCapabilities}
      */
     NoiseReductionSupport {
         get => NumGet(this, 52, "int")
@@ -171,7 +171,7 @@ class WICRawCapabilitiesInfo extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ne-wincodec-wicrawcapabilities">WICRawCapabilities</a></b>
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ne-wincodec-wicrawcapabilities">WICRawCapabilities</a> of destination color profile support.
-     * @type {Integer}
+     * @type {WICRawCapabilities}
      */
     DestinationColorProfileSupport {
         get => NumGet(this, 56, "int")
@@ -182,7 +182,7 @@ class WICRawCapabilitiesInfo extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ne-wincodec-wicrawcapabilities">WICRawCapabilities</a></b>
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ne-wincodec-wicrawcapabilities">WICRawCapabilities</a> of tone curve support.
-     * @type {Integer}
+     * @type {WICRawCapabilities}
      */
     ToneCurveSupport {
         get => NumGet(this, 60, "int")
@@ -193,7 +193,7 @@ class WICRawCapabilitiesInfo extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ne-wincodec-wicrawrotationcapabilities">WICRawRotationCapabilities</a></b>
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ne-wincodec-wicrawrotationcapabilities">WICRawRotationCapabilities</a> of rotation support.
-     * @type {Integer}
+     * @type {WICRawRotationCapabilities}
      */
     RotationSupport {
         get => NumGet(this, 64, "int")
@@ -204,7 +204,7 @@ class WICRawCapabilitiesInfo extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ne-wincodec-wicrawcapabilities">WICRawCapabilities</a></b>
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ne-wincodec-wicrawcapabilities">WICRawCapabilities</a> of <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ne-wincodec-wicrawrendermode">WICRawRenderMode</a> support.
-     * @type {Integer}
+     * @type {WICRawCapabilities}
      */
     RenderModeSupport {
         get => NumGet(this, 68, "int")

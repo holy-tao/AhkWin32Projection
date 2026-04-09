@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Audio\WAVEFORMATEX.ahk
 #Include .\IMemoryData.ahk
+#Include ..\Audio\WAVEFORMATEX.ahk
 
 /**
  * Note  This interface is deprecated.
  * @see https://learn.microsoft.com/windows/win32/api/austream/nn-austream-iaudiodata
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IAudioData extends IMemoryData{
+class IAudioData extends IMemoryData {
 
     static sizeof => A_PtrSize
     /**

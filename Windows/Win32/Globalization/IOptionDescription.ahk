@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\Guid.ahk
-#Include ..\System\Com\IEnumString.ahk
 #Include ..\System\Com\IUnknown.ahk
+#Include ..\System\Com\IEnumString.ahk
 
 /**
  * Represents the description of a spell checker option.
  * @see https://learn.microsoft.com/windows/win32/api/spellcheck/nn-spellcheck-ioptiondescription
  * @namespace Windows.Win32.Globalization
- * @version v4.0.30319
  */
-class IOptionDescription extends IUnknown{
+class IOptionDescription extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -3,14 +3,10 @@
 
 /**
  * Holds the negotiated security package keys.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/sspi/ns-sspi-secpkgcontext_negokeys
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class SecPkgContext_NegoKeys extends Win32Struct
-{
+class SecPkgContext_NegoKeys extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8

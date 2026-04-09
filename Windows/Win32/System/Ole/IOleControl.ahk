@@ -7,9 +7,8 @@
  * Provides the features for supporting keyboard mnemonics, ambient properties, and events in control objects.
  * @see https://learn.microsoft.com/windows/win32/api/ocidl/nn-ocidl-iolecontrol
  * @namespace Windows.Win32.System.Ole
- * @version v4.0.30319
  */
-class IOleControl extends IUnknown{
+class IOleControl extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Com\IDispatch.ahk
 #Include .\IRTCSession.ahk
 #Include .\IRTCParticipant.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include ..\Com\IDispatch.ahk
 
 /**
  * @namespace Windows.Win32.System.RealTimeCommunications
- * @version v4.0.30319
  */
-class IRTCMessagingEvent extends IDispatch{
+class IRTCMessagingEvent extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -46,7 +45,7 @@ class IRTCMessagingEvent extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {RTC_MESSAGING_EVENT_TYPE} 
      */
     EventType {
         get => this.get_EventType()
@@ -67,7 +66,7 @@ class IRTCMessagingEvent extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {RTC_MESSAGING_USER_STATUS} 
      */
     UserStatus {
         get => this.get_UserStatus()
@@ -93,7 +92,7 @@ class IRTCMessagingEvent extends IDispatch{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {RTC_MESSAGING_EVENT_TYPE} 
      */
     get_EventType() {
         result := ComCall(9, this, "int*", &penEventType := 0, "HRESULT")
@@ -122,7 +121,7 @@ class IRTCMessagingEvent extends IDispatch{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {RTC_MESSAGING_USER_STATUS} 
      */
     get_UserStatus() {
         result := ComCall(12, this, "int*", &penUserStatus := 0, "HRESULT")

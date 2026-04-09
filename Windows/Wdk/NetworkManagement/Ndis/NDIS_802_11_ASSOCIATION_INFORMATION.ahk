@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.NetworkManagement.Ndis
- * @version v4.0.30319
  */
-class NDIS_802_11_ASSOCIATION_INFORMATION extends Win32Struct
-{
+class NDIS_802_11_ASSOCIATION_INFORMATION extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -28,7 +26,7 @@ class NDIS_802_11_ASSOCIATION_INFORMATION extends Win32Struct
     }
 
     /**
-     * @type {Pointer<NDIS_802_11_AI_REQFI>}
+     * @type {Pointer}
      */
     RequestFixedIEs {
         get => NumGet(this, 8, "ptr")
@@ -60,7 +58,7 @@ class NDIS_802_11_ASSOCIATION_INFORMATION extends Win32Struct
     }
 
     /**
-     * @type {Pointer<NDIS_802_11_AI_RESFI>}
+     * @type {Pointer}
      */
     ResponseFixedIEs {
         get => NumGet(this, 32, "ptr")

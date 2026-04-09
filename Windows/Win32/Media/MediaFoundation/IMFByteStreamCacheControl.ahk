@@ -7,9 +7,8 @@
  * Controls how a network byte stream transfers data to a local cache. (IMFByteStreamCacheControl)
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imfbytestreamcachecontrol
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFByteStreamCacheControl extends IUnknown{
+class IMFByteStreamCacheControl extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -1,7 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\RECTL.ahk
 #Include .\CLIPOBJ.ahk
+#Include ..\..\Foundation\RECTL.ahk
+#Include .\SURFOBJ.ahk
 
 /**
  * The WNDOBJ structure allows the driver to keep track of the position, size, and visible client region changes of a window.
@@ -15,10 +16,8 @@
  * The driver should use the SURFOBJ to which <b>psoOwner</b> points to retrieve driver-specific state relevant to the WNDOBJ, such as the driver's <a href="https://docs.microsoft.com/windows-hardware/drivers/">PDEV</a> handle, rather than maintain global variables.
  * @see https://learn.microsoft.com/windows/win32/api/winddi/ns-winddi-wndobj
  * @namespace Windows.Win32.Devices.Display
- * @version v4.0.30319
  */
-class WNDOBJ extends Win32Struct
-{
+class WNDOBJ extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8
@@ -27,7 +26,7 @@ class WNDOBJ extends Win32Struct
      * Specifies a <a href="https://docs.microsoft.com/windows/desktop/api/winddi/ns-winddi-clipobj">CLIPOBJ</a> structure that describes the client region of the window. If <b>iDComplexity</b> is DC_RECT and the left edge in <b>rclBounds</b> is greater than or equal to the right edge, or the top edge is greater than or equal to the bottom edge, the client region is invisible.
      * @type {CLIPOBJ}
      */
-    coClient{
+    coClient {
         get {
             if(!this.HasProp("__coClient"))
                 this.__coClient := CLIPOBJ(0, this)
@@ -48,7 +47,7 @@ class WNDOBJ extends Win32Struct
      * Specifies a <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rectl">RECTL</a> structure that describes the client area of the window in screen coordinates. This rectangle is lower-right exclusive, which means that the lower and right-hand edges of this region are not included.
      * @type {RECTL}
      */
-    rclClient{
+    rclClient {
         get {
             if(!this.HasProp("__rclClient"))
                 this.__rclClient := RECTL(32, this)

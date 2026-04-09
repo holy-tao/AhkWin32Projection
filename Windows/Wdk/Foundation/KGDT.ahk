@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.Foundation
- * @version v4.0.30319
  */
-class KGDT extends Win32Struct
-{
+class KGDT extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 8

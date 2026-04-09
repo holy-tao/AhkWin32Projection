@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Graphics\Direct3D9\IDirect3DSurface9.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Graphics\Direct3D9\IDirect3DSurface9.ahk
 
 /**
  * The IVMRSurfaceAllocatorNotify9 interface is implemented by the Video Mixing Renderer Filter 9 (VMR-9).
@@ -12,9 +12,8 @@
  * Include DShow.h and D3d9.h before Vmr9.h.
  * @see https://learn.microsoft.com/windows/win32/api/vmr9/nn-vmr9-ivmrsurfaceallocatornotify9
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IVMRSurfaceAllocatorNotify9 extends IUnknown{
+class IVMRSurfaceAllocatorNotify9 extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -76,7 +75,7 @@ class IVMRSurfaceAllocatorNotify9 extends IUnknown{
      * @remarks
      * Include DShow.h and D3d9.h before Vmr9.h.
      * @param {IDirect3DDevice9} lpD3DDevice Pointer to the <b>IDirect3DDevice9</b> interface of the device.
-     * @param {HMONITOR} _hMonitor 
+     * @param {HMONITOR} _hMonitor Handle to a monitor.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include those in the following table.
      * 
      * <table>
@@ -110,7 +109,7 @@ class IVMRSurfaceAllocatorNotify9 extends IUnknown{
      * @remarks
      * Include DShow.h and D3d9.h before Vmr9.h.
      * @param {IDirect3DDevice9} lpD3DDevice Pointer to the <b>IDirect3DDevice9</b> interface of the new device.
-     * @param {HMONITOR} _hMonitor 
+     * @param {HMONITOR} _hMonitor Handle to the monitor associated with the new device.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include those in the following table.
      * 
      * <table>

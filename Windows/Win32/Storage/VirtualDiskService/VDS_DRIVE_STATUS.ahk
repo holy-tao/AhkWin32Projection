@@ -12,9 +12,8 @@
  * <div> </div>
  * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/ne-vdshwprv-vds_drive_status
  * @namespace Windows.Win32.Storage.VirtualDiskService
- * @version v4.0.30319
  */
-class VDS_DRIVE_STATUS extends Win32Enum{
+class VDS_DRIVE_STATUS extends Win32Enum {
 
     /**
      * The status of the drive cannot be determined.

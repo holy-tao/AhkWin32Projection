@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
- * @version v4.0.30319
  */
-class INTERLEAVED_AUDIO_FORMAT_INFORMATION extends Win32Struct
-{
+class INTERLEAVED_AUDIO_FORMAT_INFORMATION extends Win32Struct {
     static sizeof => 28
 
     static packingSize => 4

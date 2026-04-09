@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D9
- * @version v4.0.30319
  */
-class D3DSTATUS extends Win32Struct
-{
+class D3DSTATUS extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 4
@@ -31,7 +29,7 @@ class D3DSTATUS extends Win32Struct
     /**
      * @type {D3DRECT}
      */
-    drExtent{
+    drExtent {
         get {
             if(!this.HasProp("__drExtent"))
                 this.__drExtent := D3DRECT(8, this)

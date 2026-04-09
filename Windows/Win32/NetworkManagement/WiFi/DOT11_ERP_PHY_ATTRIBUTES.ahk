@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
- * @version v4.0.30319
  */
-class DOT11_ERP_PHY_ATTRIBUTES extends Win32Struct
-{
+class DOT11_ERP_PHY_ATTRIBUTES extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4
@@ -15,7 +13,7 @@ class DOT11_ERP_PHY_ATTRIBUTES extends Win32Struct
     /**
      * @type {DOT11_HRDSSS_PHY_ATTRIBUTES}
      */
-    HRDSSSAttributes{
+    HRDSSSAttributes {
         get {
             if(!this.HasProp("__HRDSSSAttributes"))
                 this.__HRDSSSAttributes := DOT11_HRDSSS_PHY_ATTRIBUTES(0, this)

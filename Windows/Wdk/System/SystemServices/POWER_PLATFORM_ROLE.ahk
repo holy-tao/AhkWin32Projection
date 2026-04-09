@@ -5,9 +5,8 @@
  * Indicates the OEM's preferred power management profile.
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ne-winnt-power_platform_role
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class POWER_PLATFORM_ROLE extends Win32Enum{
+class POWER_PLATFORM_ROLE extends Win32Enum {
 
     /**
      * The OEM did not specify a specific role.

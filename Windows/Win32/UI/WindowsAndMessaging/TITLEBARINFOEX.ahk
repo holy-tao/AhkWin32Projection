@@ -6,13 +6,11 @@
  * Expands on the information described in the TITLEBARINFO structure by including the coordinates of each element of the title bar.
  * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-titlebarinfoex
  * @namespace Windows.Win32.UI.WindowsAndMessaging
- * @version v4.0.30319
  */
-class TITLEBARINFOEX extends Win32Struct
-{
-    static sizeof => 96
+class TITLEBARINFOEX extends Win32Struct {
+    static sizeof => 140
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Type: <b>DWORD</b>
@@ -31,7 +29,7 @@ class TITLEBARINFOEX extends Win32Struct
      * The bounding rectangle of the title bar. The rectangle is expressed in screen coordinates and includes all titlebar elements except the window menu.
      * @type {RECT}
      */
-    rcTitleBar{
+    rcTitleBar {
         get {
             if(!this.HasProp("__rcTitleBar"))
                 this.__rcTitleBar := RECT(4, this)
@@ -74,9 +72,9 @@ class TITLEBARINFOEX extends Win32Struct
      * <td>Close button.</td>
      * </tr>
      * </table>
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    rgstate{
+    rgstate {
         get {
             if(!this.HasProp("__rgstateProxyArray"))
                 this.__rgstateProxyArray := Win32FixedArray(this.ptr + 20, 6, Primitive, "uint")
@@ -119,18 +117,18 @@ class TITLEBARINFOEX extends Win32Struct
      * <td>Close button.</td>
      * </tr>
      * </table>
-     * @type {Array<RECT>}
+     * @type {RECT}
      */
-    rgrect{
+    rgrect {
         get {
             if(!this.HasProp("__rgrectProxyArray"))
-                this.__rgrectProxyArray := Win32FixedArray(this.ptr + 48, 6, RECT, "")
+                this.__rgrectProxyArray := Win32FixedArray(this.ptr + 44, 6, RECT, "")
             return this.__rgrectProxyArray
         }
     }
 
     __New(ptrOrObj := 0, parent := ""){
         super.__New(ptrOrObj, parent)
-        this.cbSize := 96
+        this.cbSize := 140
     }
 }

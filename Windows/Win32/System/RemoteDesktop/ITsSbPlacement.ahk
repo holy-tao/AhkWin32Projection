@@ -7,9 +7,8 @@
  * Exposes methods that prepare the environment (the computer that hosts the virtual machine).
  * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nn-sbtsv-itssbplacement
  * @namespace Windows.Win32.System.RemoteDesktop
- * @version v4.0.30319
  */
-class ITsSbPlacement extends ITsSbPlugin{
+class ITsSbPlacement extends ITsSbPlugin {
 
     static sizeof => A_PtrSize
     /**

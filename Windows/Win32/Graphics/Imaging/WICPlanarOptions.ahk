@@ -5,9 +5,8 @@
  * Specifies additional options to an IWICPlanarBitmapSourceTransform implementation.
  * @see https://learn.microsoft.com/windows/win32/api/wincodec/ne-wincodec-wicplanaroptions
  * @namespace Windows.Win32.Graphics.Imaging
- * @version v4.0.30319
  */
-class WICPlanarOptions extends Win32Enum{
+class WICPlanarOptions extends Win32Enum {
 
     /**
      * No options specified.  

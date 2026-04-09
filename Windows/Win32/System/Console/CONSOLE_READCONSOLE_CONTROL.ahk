@@ -5,10 +5,8 @@
  * See reference information about the CONSOLE_READCONSOLE_CONTROL structure, which contains information for a console read operation.
  * @see https://learn.microsoft.com/windows/console/console-readconsole-control
  * @namespace Windows.Win32.System.Console
- * @version v4.0.30319
  */
-class CONSOLE_READCONSOLE_CONTROL extends Win32Struct
-{
+class CONSOLE_READCONSOLE_CONTROL extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4

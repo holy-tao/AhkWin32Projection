@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\DRT_DATA.ahk
+#Include .\DRT_MATCH_TYPE.ahk
 #Include .\DRT_REGISTRATION.ahk
+#Include .\DRT_DATA.ahk
 
 /**
  * DRT_SEARCH_RESULT.
  * @see https://learn.microsoft.com/windows/win32/api/drt/ns-drt-drt_search_result
  * @namespace Windows.Win32.NetworkManagement.P2P
- * @version v4.0.30319
  */
-class DRT_SEARCH_RESULT extends Win32Struct
-{
+class DRT_SEARCH_RESULT extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -26,7 +25,7 @@ class DRT_SEARCH_RESULT extends Win32Struct
 
     /**
      * Specifies  the exactness of the search. This member corresponds to the <a href="https://docs.microsoft.com/windows/desktop/api/drt/ne-drt-drt_match_type">DRT_MATCH_TYPE</a> enumeration.
-     * @type {Integer}
+     * @type {DRT_MATCH_TYPE}
      */
     type {
         get => NumGet(this, 4, "int")
@@ -46,7 +45,7 @@ class DRT_SEARCH_RESULT extends Win32Struct
      * Contains the registration result.
      * @type {DRT_REGISTRATION}
      */
-    registration{
+    registration {
         get {
             if(!this.HasProp("__registration"))
                 this.__registration := DRT_REGISTRATION(16, this)

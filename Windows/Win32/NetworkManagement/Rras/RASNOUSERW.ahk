@@ -3,11 +3,9 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Rras
- * @version v4.0.30319
  * @charset Unicode
  */
-class RASNOUSERW extends Win32Struct
-{
+class RASNOUSERW extends Win32Struct {
     static sizeof => 1072
 
     static packingSize => 4

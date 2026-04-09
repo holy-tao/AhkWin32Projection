@@ -7,9 +7,8 @@
  * Use these flags with the <a href="https://docs.microsoft.com/windows/desktop/medfound/mf-mt-pad-control-flags-attribute">MF_MT_PAD_CONTROL_FLAGS</a> attribute.
  * @see https://learn.microsoft.com/windows/win32/api/mfapi/ne-mfapi-mfvideopadflags
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class MFVideoPadFlags extends Win32Enum{
+class MFVideoPadFlags extends Win32Enum {
 
     /**
      * Do not pad the image.

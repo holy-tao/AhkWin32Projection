@@ -12,9 +12,8 @@
  * Stemmer components for Windows Search run in the Local Security context. They should be written to manage buffers and the stack correctly. All string copies must have explicit checks to guard against buffer overruns. You should always verify the allocated size of the buffer and test the size of the data against the size of the buffer.
  * @see https://learn.microsoft.com/windows/win32/api/indexsrv/nn-indexsrv-istemmer
  * @namespace Windows.Win32.System.Search
- * @version v4.0.30319
  */
-class IStemmer extends IUnknown{
+class IStemmer extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

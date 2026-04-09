@@ -356,9 +356,8 @@
  * <b>VT_BSTR_BLOB</b> is reserved for system use.
  * @see https://learn.microsoft.com/windows/win32/api/wtypes/ne-wtypes-varenum
  * @namespace Windows.Win32.System.Variant
- * @version v4.0.30319
  */
-class VARENUM extends Win32BitflagEnum{
+class VARENUM extends Win32BitflagEnum {
 
     /**
      * Not specified.
@@ -649,25 +648,21 @@ class VARENUM extends Win32BitflagEnum{
     static VT_BYREF => 16384
 
     /**
-     * 
      * @type {Integer (UInt16)}
      */
     static VT_RESERVED => 32768
 
     /**
-     * 
      * @type {Integer (UInt16)}
      */
     static VT_ILLEGAL => 65535
 
     /**
-     * 
      * @type {Integer (UInt16)}
      */
     static VT_ILLEGALMASKED => 4095
 
     /**
-     * 
      * @type {Integer (UInt16)}
      */
     static VT_TYPEMASK => 4095

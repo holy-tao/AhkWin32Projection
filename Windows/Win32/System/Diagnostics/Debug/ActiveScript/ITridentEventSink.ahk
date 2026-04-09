@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.ActiveScript
- * @version v4.0.30319
  */
-class ITridentEventSink extends IUnknown{
+class ITridentEventSink extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

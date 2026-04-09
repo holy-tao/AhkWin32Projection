@@ -6,13 +6,11 @@
  * Provides the DHCPV6 relay message.
  * @see https://learn.microsoft.com/windows/win32/api/wdspxe/ns-wdspxe-pxe_dhcpv6_relay_message
  * @namespace Windows.Win32.System.DeploymentServices
- * @version v4.0.30319
  */
-class PXE_DHCPV6_RELAY_MESSAGE extends Win32Struct
-{
-    static sizeof => 48
+class PXE_DHCPV6_RELAY_MESSAGE extends Win32Struct {
+    static sizeof => 40
 
-    static packingSize => 8
+    static packingSize => 2
 
     /**
      * The message type
@@ -34,9 +32,9 @@ class PXE_DHCPV6_RELAY_MESSAGE extends Win32Struct
 
     /**
      * The link address
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    LinkAddress{
+    LinkAddress {
         get {
             if(!this.HasProp("__LinkAddressProxyArray"))
                 this.__LinkAddressProxyArray := Win32FixedArray(this.ptr + 2, 16, Primitive, "char")
@@ -46,9 +44,9 @@ class PXE_DHCPV6_RELAY_MESSAGE extends Win32Struct
 
     /**
      * The peer address
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    PeerAddress{
+    PeerAddress {
         get {
             if(!this.HasProp("__PeerAddressProxyArray"))
                 this.__PeerAddressProxyArray := Win32FixedArray(this.ptr + 18, 16, Primitive, "char")
@@ -58,12 +56,12 @@ class PXE_DHCPV6_RELAY_MESSAGE extends Win32Struct
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/wdspxe/ns-wdspxe-pxe_dhcpv6_option">PXE_DHCPV6_OPTION</a> structure and see RFC 3315 section 7.
-     * @type {Array<PXE_DHCPV6_OPTION>}
+     * @type {PXE_DHCPV6_OPTION}
      */
-    Options{
+    Options {
         get {
             if(!this.HasProp("__OptionsProxyArray"))
-                this.__OptionsProxyArray := Win32FixedArray(this.ptr + 40, 1, PXE_DHCPV6_OPTION, "")
+                this.__OptionsProxyArray := Win32FixedArray(this.ptr + 34, 1, PXE_DHCPV6_OPTION, "")
             return this.__OptionsProxyArray
         }
     }

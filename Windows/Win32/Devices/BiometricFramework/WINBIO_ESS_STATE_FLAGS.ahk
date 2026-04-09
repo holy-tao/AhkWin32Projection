@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.BiometricFramework
- * @version v4.0.30319
  */
-class WINBIO_ESS_STATE_FLAGS extends Win32Enum{
+class WINBIO_ESS_STATE_FLAGS extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

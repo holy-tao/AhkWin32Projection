@@ -8,9 +8,8 @@
  * <div> </div>
  * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/ne-vdshwprv-vds_iscsi_login_type
  * @namespace Windows.Win32.Storage.VirtualDiskService
- * @version v4.0.30319
  */
-class VDS_ISCSI_LOGIN_TYPE extends Win32Enum{
+class VDS_ISCSI_LOGIN_TYPE extends Win32Enum {
 
     /**
      * A manual, one-time login is performed.

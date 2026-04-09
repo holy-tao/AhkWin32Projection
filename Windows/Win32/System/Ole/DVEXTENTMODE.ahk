@@ -5,9 +5,8 @@
  * Indicates whether the sizing mode is content or integral sizing.
  * @see https://learn.microsoft.com/windows/win32/api/ocidl/ne-ocidl-dvextentmode
  * @namespace Windows.Win32.System.Ole
- * @version v4.0.30319
  */
-class DVEXTENTMODE extends Win32Enum{
+class DVEXTENTMODE extends Win32Enum {
 
     /**
      * Indicates that the container will ask the object how big it wants to be to exactly fit its content, for example, in snap-to-size operations.

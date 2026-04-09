@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.UI.Input.Ime
- * @version v4.0.30319
  */
-class IMESTRINGCANDIDATE extends Win32Struct
-{
+class IMESTRINGCANDIDATE extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
@@ -22,10 +20,10 @@ class IMESTRINGCANDIDATE extends Win32Struct
     /**
      * @type {Array<PWSTR>}
      */
-    lpwstr{
+    lpwstr {
         get {
             if(!this.HasProp("__lpwstrProxyArray"))
-                this.__lpwstrProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "char*")
+                this.__lpwstrProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "ptr")
             return this.__lpwstrProxyArray
         }
     }

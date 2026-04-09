@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\SCANINFO.ahk
 #Include ..\..\Foundation\HGLOBAL.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * Contains information about a registry value. The RegQueryMultipleValues function uses this structure. (Unicode)
@@ -9,11 +11,9 @@
  * > The winreg.h header defines VALENT as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
  * @see https://learn.microsoft.com/windows/win32/api/winreg/ns-winreg-valentw
  * @namespace Windows.Win32.Devices.ImageAcquisition
- * @version v4.0.30319
  */
-class VAL extends Win32Struct
-{
-    static sizeof => 576
+class VAL extends Win32Struct {
+    static sizeof => 320
 
     static packingSize => 8
 
@@ -52,7 +52,7 @@ class VAL extends Win32Struct
     /**
      * @type {HGLOBAL}
      */
-    handle{
+    handle {
         get {
             if(!this.HasProp("__handle"))
                 this.__handle := HGLOBAL(32, this)
@@ -88,7 +88,7 @@ class VAL extends Win32Struct
      * @type {String}
      */
     szVal {
-        get => StrGet(this.ptr + 60, 254, "UTF-16")
-        set => StrPut(value, this.ptr + 60, 254, "UTF-16")
+        get => StrGet(this.ptr + 60, 254, "UTF-8")
+        set => StrPut(value, this.ptr + 60, 254, "UTF-8")
     }
 }

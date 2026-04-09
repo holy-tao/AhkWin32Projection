@@ -14,9 +14,8 @@
  * <a href="https://docs.microsoft.com/windows/desktop/api/indexsrv/nn-indexsrv-istemmer">IStemmer</a> implementations receive a pointer to the <b>IWordFormSink</b> object in the <a href="https://docs.microsoft.com/windows/desktop/api/indexsrv/nf-indexsrv-istemmer-generatewordforms">GenerateWordForms</a> method.
  * @see https://learn.microsoft.com/windows/win32/api/indexsrv/nn-indexsrv-iwordformsink
  * @namespace Windows.Win32.System.Search
- * @version v4.0.30319
  */
-class IWordFormSink extends IUnknown{
+class IWordFormSink extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

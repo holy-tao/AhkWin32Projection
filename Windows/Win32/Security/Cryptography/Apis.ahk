@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\BCRYPT_ALG_HANDLE.ahk
 #Include ..\..\Foundation\NTSTATUS.ahk
 #Include .\NCRYPT_PROV_HANDLE.ahk
 #Include .\NCRYPT_KEY_HANDLE.ahk
@@ -10,11 +11,9 @@
 #Include ..\NCRYPT_STREAM_HANDLE.ahk
 #Include .\BCRYPT_KEY_HANDLE.ahk
 #Include .\NCRYPT_HASH_HANDLE.ahk
-#Include .\BCRYPT_ALG_HANDLE.ahk
 
 /**
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
 class Cryptography {
 
@@ -16784,7 +16783,7 @@ class Cryptography {
 ;@region Methods
     /**
      * Retrieves a specified number of random bytes from the system random number generator.
-     * @param {Pointer} pbRandomData A pointer to a buffer that receives the retrieved bytes.
+     * @param {Integer} pbRandomData A pointer to a buffer that receives the retrieved bytes.
      * @param {Pointer} cbRandomData The number of bytes to retrieve.
      * @returns {BOOL} Always returns **TRUE**.
      * @see https://learn.microsoft.com/windows/win32/SecCNG/systemprng
@@ -16796,7 +16795,7 @@ class Cryptography {
 
     /**
      * Retrieves a specified number of random bytes from the user-mode per-processor random number generator.
-     * @param {Pointer} pbData A pointer to a buffer that receives the retrieved bytes.
+     * @param {Integer} pbData A pointer to a buffer that receives the retrieved bytes.
      * @param {Pointer} cbData The number of bytes to retrieve.
      * @returns {BOOL} Always returns **TRUE**.
      * @see https://learn.microsoft.com/windows/win32/SecCNG/processprng
@@ -17768,7 +17767,7 @@ class Cryptography {
      * </ul>
      * @param {Pointer} hProv A handle to a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">cryptographic service provider</a> (CSP) created by a call to 
      * 					<a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptacquirecontexta">CryptAcquireContext</a>.
-     * @param {Integer} Algid An 
+     * @param {ALG_ID} Algid An 
      * 						<a href="https://docs.microsoft.com/windows/desktop/SecCrypto/alg-id">ALG_ID</a> value that identifies the algorithm for which the key is to be generated. Values for this parameter vary depending on the CSP used.
      * 
      * For <b>ALG_ID</b> values to use with the Microsoft Base Cryptographic Provider, see 
@@ -17776,7 +17775,7 @@ class Cryptography {
      * 
      * For <b>ALG_ID</b> values to use with the Microsoft Strong Cryptographic Provider or the Microsoft Enhanced Cryptographic Provider, see 
      * 			<a href="https://docs.microsoft.com/windows/desktop/SecCrypto/enhanced-provider-algorithms">Enhanced Provider Algorithms</a>.
-     * @param {Integer} dwFlags Specifies the type of key generated. The sizes of a session key, RSA signature key, and RSA key <a href="https://docs.microsoft.com/windows/desktop/SecGloss/e-gly">exchange keys</a> can be set when the key is generated. The key size, representing the length of the key modulus in bits, is set with the upper 16 bits of this parameter. Thus, if a 2,048-bit RSA signature key is to be generated, the value 0x08000000 is combined with any other <i>dwFlags</i> predefined value with a bitwise-<b>OR</b> operation. The upper 16 bits of 0x08000000 is 0x0800, or decimal 2,048. The <b>RSA1024BIT_KEY</b> value can be used to specify a 1024-bit RSA key.
+     * @param {CRYPT_KEY_FLAGS} dwFlags Specifies the type of key generated. The sizes of a session key, RSA signature key, and RSA key <a href="https://docs.microsoft.com/windows/desktop/SecGloss/e-gly">exchange keys</a> can be set when the key is generated. The key size, representing the length of the key modulus in bits, is set with the upper 16 bits of this parameter. Thus, if a 2,048-bit RSA signature key is to be generated, the value 0x08000000 is combined with any other <i>dwFlags</i> predefined value with a bitwise-<b>OR</b> operation. The upper 16 bits of 0x08000000 is 0x0800, or decimal 2,048. The <b>RSA1024BIT_KEY</b> value can be used to specify a 1024-bit RSA key.
      * 
      * Due to changing export control restrictions, the default CSP and default <a href="https://docs.microsoft.com/windows/desktop/SecGloss/k-gly">key length</a> may change between operating system versions. It is important that both the encryption and decryption use the same CSP and that the key length be explicitly set using the <i>dwFlags</i> parameter to ensure interoperability on different operating system platforms.
      * 
@@ -18236,7 +18235,7 @@ class Cryptography {
      * </table>
      * @param {Pointer} hProv A <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/hcryptprov">HCRYPTPROV</a> handle of a CSP created by a call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptacquirecontexta">CryptAcquireContext</a>.
-     * @param {Integer} Algid An 
+     * @param {ALG_ID} Algid An 
      * 						<a href="https://docs.microsoft.com/windows/desktop/SecCrypto/alg-id">ALG_ID</a> structure that identifies the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">symmetric encryption</a> algorithm for which the key is to be generated. The algorithms available will most likely be different for each CSP. For more information about which algorithm identifier is used by the different providers for the key specs AT_KEYEXCHANGE and AT_SIGNATURE, see 
      * <b>ALG_ID</b>.
      * 
@@ -18465,7 +18464,7 @@ class Cryptography {
      * Keys take up both operating system's memory space and the CSP's memory space. Some CSPs are implemented in hardware with limited memory resources. Applications must destroy all keys with the <b>CryptDestroyKey</b> function when they are finished with them.
      * 
      * All key handles that have been created or imported by using a specific CSP must be destroyed before that CSP handle is released with the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptreleasecontext">CryptReleaseContext</a> function.
-     * @param {Pointer} _hKey 
+     * @param {Pointer} _hKey The handle of the key to be destroyed.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. For extended error information, call 
@@ -18552,8 +18551,8 @@ class Cryptography {
      * Customizes various aspects of a session key's operations.
      * @remarks
      * If the KP_Q, KP_P, or KP_X parameters are set on a PREGEN Diffie-Hellman or DSS key, the key lengths must be compatible with the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/k-gly">key length</a> set using the upper 16 bits of the <i>dwFlags</i> parameter when the key was created using <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptgenkey">CryptGenKey</a>. If no key length was set in <b>CryptGenKey</b>, the default key length was used. This will create an error if a nondefault key length is used to set P, Q, or X.
-     * @param {Pointer} _hKey 
-     * @param {Integer} dwParam The following tables contain predefined values that can be used.
+     * @param {Pointer} _hKey A handle to the key for which values are to be set.
+     * @param {CRYPT_KEY_PARAM_ID} dwParam The following tables contain predefined values that can be used.
      * @param {Pointer<Integer>} pbData A pointer to a buffer initialized with the value to be set before calling <b>CryptSetKeyParam</b>. The form of this data varies depending on the value of <i>dwParam</i>.
      * @param {Integer} dwFlags Used only when <i>dwParam</i> is KP_ALGID. The <i>dwFlags</i> parameter is used to pass in flag values for the enabled key. The <i>dwFlags</i> parameter can hold values such as the key size and the other flag values allowed when generating the same type of key with <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptgenkey">CryptGenKey</a>. For information about allowable flag values, see 
      * <b>CryptGenKey</b>.
@@ -18676,9 +18675,9 @@ class Cryptography {
 
     /**
      * Retrieves data that governs the operations of a key.
-     * @param {Pointer} _hKey 
-     * @param {Integer} dwParam Specifies the type of query being made.
-     * @param {Pointer} pbData A pointer to a buffer that receives the data. The form of this data depends on the value of <i>dwParam</i>.
+     * @param {Pointer} _hKey The handle of the key being queried.
+     * @param {CRYPT_KEY_PARAM_ID} dwParam Specifies the type of query being made.
+     * @param {Integer} pbData A pointer to a buffer that receives the data. The form of this data depends on the value of <i>dwParam</i>.
      * 
      * If the size of  this buffer is not known, the required size can be retrieved at run time by passing <b>NULL</b> for this parameter and setting the value pointed to by <i>pdwDataLen</i> to zero. This function will place the required size of the buffer, in bytes, in the value pointed to by <i>pdwDataLen</i>. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/retrieving-data-of-unknown-length">Retrieving Data of Unknown Length</a>.
@@ -18808,7 +18807,7 @@ class Cryptography {
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptdestroyhash">CryptDestroyHash</a>.</li>
      * </ol>
      * @param {Pointer} hHash A handle to the hash object on which to set parameters.
-     * @param {Integer} dwParam 
+     * @param {CRYPT_SET_HASH_PARAM} dwParam 
      * @param {Pointer<Integer>} pbData A value data buffer. Place the value data in this buffer before calling <b>CryptSetHashParam</b>. The form of this data varies, depending on the value number.
      * @param {Integer} dwFlags This parameter is reserved for future use and must be set to zero.
      * @returns {BOOL} If the function succeeds, the function returns <b>TRUE</b>.
@@ -18984,7 +18983,7 @@ class Cryptography {
      * 
      * <div class="alert"><b>Note</b>  CSPs can add more values that this function can query.</div>
      * <div> </div>
-     * @param {Pointer} pbData A pointer to a buffer that receives the specified value data. The form of this data varies, depending on the value number. 
+     * @param {Integer} pbData A pointer to a buffer that receives the specified value data. The form of this data varies, depending on the value number. 
      * 
      * 
      * This parameter can be <b>NULL</b> to determine the memory size required.
@@ -19106,7 +19105,7 @@ class Cryptography {
      * Customizes the operations of a cryptographic service provider (CSP). This function is commonly used to set a security descriptor on the key container associated with a CSP to control access to the private keys in that key container.
      * @param {Pointer} hProv The handle of a CSP for which to set values. This handle must have already been created by using 
      * the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptacquirecontexta">CryptAcquireContext</a> function.
-     * @param {Integer} dwParam 
+     * @param {CRYPT_SET_PROV_PARAM_ID} dwParam 
      * @param {Pointer<Integer>} pbData A pointer to a data buffer that contains the value to be set as a provider parameter. The form of this data varies depending on the <i>dwParam</i> value. If <i>dwParam</i> contains <b>PP_USE_HARDWARE_RNG</b>, this parameter must be <b>NULL</b>.
      * @param {Integer} dwFlags If <i>dwParam</i> contains <b>PP_KEYSET_SEC_DESCR</b>, <i>dwFlags</i> contains the <b>SECURITY_INFORMATION</b> applicable bit flags, as defined in the Platform SDK. Key-container security is handled by using 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-setfilesecuritya">SetFileSecurity</a> and 
@@ -19776,7 +19775,7 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer} pbData A pointer to a buffer to receive the data. The form of this data varies depending on the value of <i>dwParam</i>. When <i>dwParam</i> is set to PP_USE_HARDWARE_RNG, <i>pbData</i> must be set to <b>NULL</b>.
+     * @param {Integer} pbData A pointer to a buffer to receive the data. The form of this data varies depending on the value of <i>dwParam</i>. When <i>dwParam</i> is set to PP_USE_HARDWARE_RNG, <i>pbData</i> must be set to <b>NULL</b>.
      * 
      * This parameter can be <b>NULL</b> to set the size of this information for memory allocation purposes. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/retrieving-data-of-unknown-length">Retrieving Data of Unknown Length</a>.
@@ -20030,7 +20029,7 @@ class Cryptography {
      * @param {Pointer} hProv Handle of a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">cryptographic service provider</a> (CSP) created by a call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptacquirecontexta">CryptAcquireContext</a>.
      * @param {Integer} dwLen Number of bytes of random data to be generated.
-     * @param {Pointer} pbBuffer Buffer to receive the returned data. This buffer must be at least <i>dwLen</i> bytes in length. 
+     * @param {Integer} pbBuffer Buffer to receive the returned data. This buffer must be at least <i>dwLen</i> bytes in length. 
      * 
      * 
      * 
@@ -20226,7 +20225,7 @@ class Cryptography {
      * <td>192 bits</td>
      * </tr>
      * </table>
-     * @param {Pointer} _hKey 
+     * @param {Pointer} _hKey A handle to the key to be exported.
      * @param {Pointer} hExpKey A handle to a cryptographic key of the destination user. The key data within the exported <a href="https://docs.microsoft.com/windows/desktop/SecGloss/k-gly">key BLOB</a> is encrypted using this key. This ensures that only the destination user is able to make use of the key BLOB.  Both <i>hExpKey</i> and <i>hKey</i> must come from the same CSP.
      * 
      * 
@@ -20310,8 +20309,8 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @param {Integer} dwFlags 
-     * @param {Pointer} pbData A pointer to a buffer that receives the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/k-gly">key BLOB</a> data. The format of this BLOB varies depending on the BLOB type requested in the <i>dwBlobType</i> parameter. For the format for PRIVATEKEYBLOBs, PUBLICKEYBLOBs, and SIMPLEBLOBs, see 
+     * @param {CRYPT_KEY_FLAGS} dwFlags 
+     * @param {Integer} pbData A pointer to a buffer that receives the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/k-gly">key BLOB</a> data. The format of this BLOB varies depending on the BLOB type requested in the <i>dwBlobType</i> parameter. For the format for PRIVATEKEYBLOBs, PUBLICKEYBLOBs, and SIMPLEBLOBs, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/base-provider-key-blobs">Base Provider Key BLOBs</a>.
      * 
      * If this parameter is <b>NULL</b>, the required buffer size is placed in the value pointed to by the <i>pdwDataLen</i> parameter. For more information, see 
@@ -20522,7 +20521,7 @@ class Cryptography {
      * </tr>
      * </table>
      * @param {Pointer} hProv The handle of a CSP obtained with the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptacquirecontexta">CryptAcquireContext</a> function.
-     * @param {Pointer} pbData A <b>BYTE</b> array that contains a 
+     * @param {Integer} pbData A <b>BYTE</b> array that contains a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-publickeystruc">PUBLICKEYSTRUC</a> BLOB header followed by the encrypted key. This key BLOB is created by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptexportkey">CryptExportKey</a> function, either in this application or by another application possibly running on a different computer.
      * @param {Integer} dwDataLen Contains the length, in bytes, of the key BLOB.
@@ -20536,7 +20535,7 @@ class Cryptography {
      * </ul>
      * <div class="alert"><b>Note</b>  Some CSPs may modify this parameter as a result of the operation. Applications that subsequently use this key for other purposes should call the  <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptduplicatekey">CryptDuplicateKey</a> function to create a duplicate key handle.  When the application has finished using the handle, release it by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptdestroykey">CryptDestroyKey</a> function.</div>
      * <div> </div>
-     * @param {Integer} dwFlags Currently used only when a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">public/private key pair</a> in the form of a <b>PRIVATEKEYBLOB</b> is imported into the CSP.
+     * @param {CRYPT_KEY_FLAGS} dwFlags Currently used only when a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">public/private key pair</a> in the form of a <b>PRIVATEKEYBLOB</b> is imported into the CSP.
      * @param {Pointer<Pointer>} phKey A pointer to a <b>HCRYPTKEY</b> value that receives the handle of the imported key. When you have finished using the key, release the handle by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptdestroykey">CryptDestroyKey</a> function.
      * @returns {BOOL} If the function succeeds, the function returns nonzero.
      * 
@@ -20707,7 +20706,11 @@ class Cryptography {
      * ```
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/microsoft-enhanced-cryptographic-provider">Microsoft Enhanced Cryptographic Provider</a> supports direct encryption with <a href="https://docs.microsoft.com/windows/desktop/SecGloss/r-gly">RSA</a> <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">public keys</a> and decryption with RSA <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">private keys</a>. The encryption uses PKCS #1 <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">padding</a>. On decryption, this padding is verified. The length of plaintext data that can be encrypted with a call to <b>CryptEncrypt</b> with an RSA key is the length of the key modulus minus eleven bytes. The eleven bytes is the chosen minimum for PKCS #1 padding. The ciphertext is returned in <a href="https://docs.microsoft.com/windows/desktop/SecGloss/l-gly">little-endian</a> format.
-     * @param {Pointer} _hKey 
+     * @param {Pointer} _hKey A handle to the encryption key. An application obtains this handle by using either the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptgenkey">CryptGenKey</a> or the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptimportkey">CryptImportKey</a> function.
+     * 
+     * The key specifies the encryption algorithm used.
      * @param {Pointer} hHash A handle to a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/h-gly">hash object</a>. If data is to be hashed and encrypted simultaneously, a handle to a hash object can be passed in the <i>hHash</i> parameter. The hash value is updated with the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">plaintext</a> passed in. This option is useful when generating signed and encrypted text.
      * 
      * Before calling <b>CryptEncrypt</b>, the application must obtain a handle to the hash object by calling the 
@@ -20735,7 +20738,7 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer} pbData A pointer to a buffer that contains the plaintext to be encrypted.  The plaintext in this buffer is overwritten with the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">ciphertext</a> created by this function.
+     * @param {Integer} pbData A pointer to a buffer that contains the plaintext to be encrypted.  The plaintext in this buffer is overwritten with the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">ciphertext</a> created by this function.
      * 
      * The <i>pdwDataLen</i> parameter points to a variable that contains the length, in bytes, of the plaintext. The <i>dwBufLen</i> parameter contains the total size, in bytes, of this buffer.
      * 
@@ -20967,7 +20970,14 @@ class Cryptography {
      * ```
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/microsoft-enhanced-cryptographic-provider">Microsoft Enhanced Cryptographic Provider</a> supports direct encryption with <a href="https://docs.microsoft.com/windows/desktop/SecGloss/r-gly">RSA</a> <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">public keys</a> and decryption with RSA <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">private keys</a>. The encryption uses PKCS #1 <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">padding</a>. On decryption, this padding is verified. The length of <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">ciphertext</a> data to be decrypted must be the same length as the modulus of the RSA key used to decrypt the data. If the ciphertext has zeros in the most significant bytes, these bytes must be included in the input data buffer and in the input buffer length. The ciphertext must be in <a href="https://docs.microsoft.com/windows/desktop/SecGloss/l-gly">little-endian</a> format.
-     * @param {Pointer} _hKey 
+     * @param {Pointer} _hKey A handle to the key to use for the decryption. An application obtains this handle by using either the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptgenkey">CryptGenKey</a> or 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptimportkey">CryptImportKey</a> function. 
+     * 
+     * 
+     * 
+     * 
+     * This key specifies the decryption algorithm to be used.
      * @param {Pointer} hHash A handle to a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/h-gly">hash object</a>. If data is to be decrypted and hashed simultaneously, a handle to a hash object is passed in this parameter. The hash value is updated with the decrypted <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">plaintext</a>. This option is useful when simultaneously decrypting and verifying a signature. 
      * 
      * 
@@ -21011,7 +21021,7 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer} pbData A pointer to a buffer that contains the data to be decrypted. After the decryption has been performed, the plaintext is placed back into this same buffer. 
+     * @param {Integer} pbData A pointer to a buffer that contains the data to be decrypted. After the decryption has been performed, the plaintext is placed back into this same buffer. 
      * 
      * 
      * 
@@ -21198,10 +21208,12 @@ class Cryptography {
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-crypthashsessionkey">CryptHashSessionKey</a> cannot be called.
      * @param {Pointer} hProv A handle to a CSP created by a call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptacquirecontexta">CryptAcquireContext</a>.
-     * @param {Integer} Algid An <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/alg-id">ALG_ID</a> value that identifies  the hash algorithm to use.
+     * @param {ALG_ID} Algid An <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/alg-id">ALG_ID</a> value that identifies  the hash algorithm to use.
      * 
      * Valid values for this parameter vary, depending on the CSP that is used. For a list of default algorithms, see  Remarks.
-     * @param {Pointer} _hKey 
+     * @param {Pointer} _hKey If the type of hash algorithm is a keyed hash, such as the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/h-gly">Hash-Based Message Authentication Code</a> (HMAC) or <a href="https://docs.microsoft.com/windows/desktop/SecGloss/m-gly">Message Authentication Code</a> (MAC) algorithm, the key for the hash is passed in this parameter. For nonkeyed algorithms, this parameter must be set to zero.
+     * 
+     * For keyed algorithms, the key must be to a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/b-gly">block cipher</a> key, such as RC2, that has a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">cipher mode</a> of <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">Cipher Block Chaining</a> (CBC).
      * @param {Integer} dwFlags The following flag value is defined.
      * 
      * <table>
@@ -21331,7 +21343,7 @@ class Cryptography {
     /**
      * Adds data to a specified hash object.
      * @param {Pointer} hHash Handle of the hash object.
-     * @param {Pointer} pbData A pointer to a buffer that contains the data to be added to the hash object.
+     * @param {Integer} pbData A pointer to a buffer that contains the data to be added to the hash object.
      * @param {Integer} dwDataLen Number of bytes of data to be added. This must be zero if the CRYPT_USERDATA flag is set.
      * @param {Integer} dwFlags The following flag values are defined.
      * 
@@ -21514,7 +21526,7 @@ class Cryptography {
     /**
      * Computes the cryptographic hash of a session key object.
      * @param {Pointer} hHash A handle to the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/h-gly">hash object</a>.
-     * @param {Pointer} _hKey 
+     * @param {Pointer} _hKey A handle to the key object to be hashed.
      * @param {Integer} dwFlags The following flag value is defined. 
      * 
      * 
@@ -21856,7 +21868,7 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer} pbSignature A pointer to a buffer receiving the signature data. 
+     * @param {Integer} pbSignature A pointer to a buffer receiving the signature data. 
      * 
      * 
      * 
@@ -22088,7 +22100,7 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer} pbSignature A pointer to a buffer receiving the signature data. 
+     * @param {Integer} pbSignature A pointer to a buffer receiving the signature data. 
      * 
      * 
      * 
@@ -22244,7 +22256,7 @@ class Cryptography {
      * 
      * The native cryptography API uses little-endian byte order while the .NET Framework API uses big-endian byte order. If you are verifying a  signature generated by using a .NET Framework API, you must swap the order of signature bytes before calling the <b>CryptVerifySignature</b> function to verify the signature.
      * @param {Pointer} hHash A handle to the hash object to verify.
-     * @param {Pointer} pbSignature The address of the signature data to be verified.
+     * @param {Integer} pbSignature The address of the signature data to be verified.
      * @param {Integer} dwSigLen The number of bytes in the <i>pbSignature</i> signature data.
      * @param {Pointer} hPubKey A handle to the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">public key</a> to use to authenticate the signature. This public key must belong to the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/k-gly">key pair</a> that was originally used to create the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/d-gly">digital signature</a>.
      * @param {PSTR} szDescription This parameter should no longer be used and must be set to <b>NULL</b> to prevent security vulnerabilities. However, it is still supported for backward compatibility in the Microsoft Base Cryptographic Provider.
@@ -22429,7 +22441,7 @@ class Cryptography {
      * 
      * The native cryptography API uses little-endian byte order while the .NET Framework API uses big-endian byte order. If you are verifying a  signature generated by using a .NET Framework API, you must swap the order of signature bytes before calling the <b>CryptVerifySignature</b> function to verify the signature.
      * @param {Pointer} hHash A handle to the hash object to verify.
-     * @param {Pointer} pbSignature The address of the signature data to be verified.
+     * @param {Integer} pbSignature The address of the signature data to be verified.
      * @param {Integer} dwSigLen The number of bytes in the <i>pbSignature</i> signature data.
      * @param {Pointer} hPubKey A handle to the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">public key</a> to use to authenticate the signature. This public key must belong to the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/k-gly">key pair</a> that was originally used to create the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/d-gly">digital signature</a>.
      * @param {PWSTR} szDescription This parameter should no longer be used and must be set to <b>NULL</b> to prevent security vulnerabilities. However, it is still supported for backward compatibility in the Microsoft Base Cryptographic Provider.
@@ -23043,7 +23055,7 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer} pszProvName A pointer to a null-terminated character string buffer to receive the name of the default CSP.
+     * @param {Integer} pszProvName A pointer to a null-terminated character string buffer to receive the name of the default CSP.
      * 
      * To find the size of the buffer for memory allocation purposes, this parameter can be <b>NULL</b>. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/retrieving-data-of-unknown-length">Retrieving Data of Unknown Length</a>.
@@ -23194,7 +23206,7 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer} pszProvName A pointer to a null-terminated character string buffer to receive the name of the default CSP.
+     * @param {Integer} pszProvName A pointer to a null-terminated character string buffer to receive the name of the default CSP.
      * 
      * To find the size of the buffer for memory allocation purposes, this parameter can be <b>NULL</b>. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/retrieving-data-of-unknown-length">Retrieving Data of Unknown Length</a>.
@@ -23286,7 +23298,7 @@ class Cryptography {
      * @param {Integer} dwIndex Index of the next provider type to be enumerated.
      * @param {Integer} dwFlags Reserved for future use and must be zero.
      * @param {Pointer<Integer>} pdwProvType Address of the <b>DWORD</b> value designating the enumerated provider type.
-     * @param {Pointer} szTypeName A pointer to a buffer that receives the data from the enumerated provider type. This is a string including the terminating <b>NULL</b> character. Some provider types do not have display names, and in this case no name is returned and the returned value pointed to by <i>pcbTypeName</i> is zero. 
+     * @param {Integer} szTypeName A pointer to a buffer that receives the data from the enumerated provider type. This is a string including the terminating <b>NULL</b> character. Some provider types do not have display names, and in this case no name is returned and the returned value pointed to by <i>pcbTypeName</i> is zero. 
      * 
      * 
      * 
@@ -23384,7 +23396,7 @@ class Cryptography {
      * @param {Integer} dwIndex Index of the next provider type to be enumerated.
      * @param {Integer} dwFlags Reserved for future use and must be zero.
      * @param {Pointer<Integer>} pdwProvType Address of the <b>DWORD</b> value designating the enumerated provider type.
-     * @param {Pointer} szTypeName A pointer to a buffer that receives the data from the enumerated provider type. This is a string including the terminating <b>NULL</b> character. Some provider types do not have display names, and in this case no name is returned and the returned value pointed to by <i>pcbTypeName</i> is zero. 
+     * @param {Integer} szTypeName A pointer to a buffer that receives the data from the enumerated provider type. This is a string including the terminating <b>NULL</b> character. Some provider types do not have display names, and in this case no name is returned and the returned value pointed to by <i>pcbTypeName</i> is zero. 
      * 
      * 
      * 
@@ -23482,7 +23494,7 @@ class Cryptography {
      * @param {Integer} dwIndex Index of the next provider to be enumerated.
      * @param {Integer} dwFlags Reserved for future use and must be zero.
      * @param {Pointer<Integer>} pdwProvType Address of the <b>DWORD</b> value designating the type of the enumerated provider.
-     * @param {Pointer} szProvName A pointer to a buffer that receives the data from the enumerated provider. This is a string including the terminating null character.
+     * @param {Integer} szProvName A pointer to a buffer that receives the data from the enumerated provider. This is a string including the terminating null character.
      * 
      * This parameter can be <b>NULL</b> to set the size of the name for memory allocation purposes. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/retrieving-data-of-unknown-length">Retrieving Data of Unknown Length</a>.
@@ -23585,7 +23597,7 @@ class Cryptography {
      * @param {Integer} dwIndex Index of the next provider to be enumerated.
      * @param {Integer} dwFlags Reserved for future use and must be zero.
      * @param {Pointer<Integer>} pdwProvType Address of the <b>DWORD</b> value designating the type of the enumerated provider.
-     * @param {Pointer} szProvName A pointer to a buffer that receives the data from the enumerated provider. This is a string including the terminating null character.
+     * @param {Integer} szProvName A pointer to a buffer that receives the data from the enumerated provider. This is a string including the terminating null character.
      * 
      * This parameter can be <b>NULL</b> to set the size of the name for memory allocation purposes. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/retrieving-data-of-unknown-length">Retrieving Data of Unknown Length</a>.
@@ -23735,7 +23747,7 @@ class Cryptography {
      * 
      * 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptdestroykey">CryptDestroyKey</a> must be called to destroy any keys that are created by using <b>CryptDuplicateKey</b>. Destroying the original key does not cause the duplicate key to be destroyed. After a duplicate key is made, it is separate from the original key. There is no shared state between the two keys.
-     * @param {Pointer} _hKey 
+     * @param {Pointer} _hKey A handle to the key to be duplicated.
      * @param {Integer} dwFlags Reserved for future use and must be zero.
      * @param {Pointer<Pointer>} phKey Address of the handle to the duplicated key. When you have finished using the key, release the handle by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptdestroykey">CryptDestroyKey</a> function.
      * @returns {BOOL} If the function succeeds, the return value is nonzero (TRUE).
@@ -23931,7 +23943,7 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @param {Integer} dwFlags 
+     * @param {BCRYPT_OPEN_ALGORITHM_PROVIDER_FLAGS} dwFlags 
      * @returns {NTSTATUS} Returns a status code that indicates the success or failure of the function.
      * 
      * 
@@ -24005,7 +24017,7 @@ class Cryptography {
      * Gets a list of the registered algorithm identifiers.
      * @remarks
      * <b>BCryptEnumAlgorithms</b> can be called either from user mode or kernel mode. Kernel mode callers must be executing at <b>PASSIVE_LEVEL</b> <a href="https://docs.microsoft.com/windows/desktop/SecGloss/i-gly">IRQL</a>.
-     * @param {Integer} dwAlgOperations 
+     * @param {BCRYPT_OPERATION} dwAlgOperations 
      * @param {Pointer<Integer>} pAlgCount A pointer to a <b>ULONG</b> variable to receive the number of elements in the <i>ppAlgList</i> array.
      * @param {Pointer<Pointer<BCRYPT_ALGORITHM_IDENTIFIER>>} ppAlgList The address of a <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/ns-bcrypt-bcrypt_algorithm_identifier">BCRYPT_ALGORITHM_IDENTIFIER</a> structure pointer to receive the array of registered algorithm identifiers. This pointer must be passed to the <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptfreebuffer">BCryptFreeBuffer</a> function when it is no longer needed.
      * @param {Integer} dwFlags A set of flags that modify the behavior of this function. No flags are defined for this function.
@@ -24145,7 +24157,7 @@ class Cryptography {
      * To call this function in kernel mode, use Cng.lib, which is part of the Driver Development Kit (DDK). <b>Windows Server 2008 and Windows Vista:  </b>To call this function in kernel mode, use Ksecdd.lib.
      * @param {BCRYPT_HANDLE} hObject A handle that represents the CNG object to obtain the property value for.
      * @param {PWSTR} pszProperty A pointer to a null-terminated Unicode string that contains the name of the property to retrieve. This can be one of the predefined <a href="https://docs.microsoft.com/windows/desktop/SecCNG/cng-property-identifiers">Cryptography Primitive Property Identifiers</a> or a custom property identifier.
-     * @param {Pointer} pbOutput The address of a buffer that receives the property value. The <i>cbOutput</i> parameter contains the size of this buffer.
+     * @param {Integer} pbOutput The address of a buffer that receives the property value. The <i>cbOutput</i> parameter contains the size of this buffer.
      * @param {Integer} cbOutput The size, in bytes, of the <i>pbOutput</i> buffer.
      * @param {Pointer<Integer>} pcbResult A pointer to a <b>ULONG</b> variable that receives the number of bytes that were copied to the <i>pbOutput</i> buffer. If the <i>pbOutput</i> parameter is <b>NULL</b>, this function will place the required size, in bytes, in the location pointed to by this parameter.
      * @param {Integer} dwFlags A set of flags that modify the behavior of this function. No flags are defined for this function.
@@ -24239,7 +24251,7 @@ class Cryptography {
      * To call this function in kernel mode, use Cng.lib, which is part of the Driver Development Kit (DDK). <b>Windows Server 2008 and Windows Vista:  </b>To call this function in kernel mode, use Ksecdd.lib.
      * @param {BCRYPT_HANDLE} hObject A handle that represents the CNG object to set the property value for.
      * @param {PWSTR} pszProperty A pointer to a null-terminated Unicode string that contains the name of the property to set. This can be one of the predefined <a href="https://docs.microsoft.com/windows/desktop/SecCNG/cng-property-identifiers">Cryptography Primitive Property Identifiers</a> or a custom property identifier.
-     * @param {Pointer} pbInput The address of a buffer that contains the new property value. The <i>cbInput</i> parameter contains the size of this buffer.
+     * @param {Integer} pbInput The address of a buffer that contains the new property value. The <i>cbInput</i> parameter contains the size of this buffer.
      * @param {Integer} cbInput The size, in bytes, of the <i>pbInput</i> buffer.
      * @param {Integer} dwFlags A set of flags that modify the behavior of this function. No flags are defined for this function.
      * @returns {NTSTATUS} Returns a status code that indicates the success or failure of the function.
@@ -24318,7 +24330,6 @@ class Cryptography {
      * 
      * To call this function in kernel mode, use Cng.lib, which is part of the Driver Development Kit (DDK). For more information, see <a href="https://www.microsoft.com/?ref=go">WDK and Developer Tools</a>.<b>Windows Server 2008 and Windows Vista:  </b>To call this function in kernel mode, use Ksecdd.lib.
      * @param {BCRYPT_ALG_HANDLE} hAlgorithm A handle that represents the algorithm provider to close. This handle is obtained by calling the <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptopenalgorithmprovider">BCryptOpenAlgorithmProvider</a> function.
-     * @param {Integer} dwFlags A set of flags that modify the behavior of this function. No flags are defined for this function.
      * @returns {NTSTATUS} Returns a status code that indicates the success or failure of the function.
      * 
      * 
@@ -24357,7 +24368,9 @@ class Cryptography {
      * @see https://learn.microsoft.com/windows/win32/api/bcrypt/nf-bcrypt-bcryptclosealgorithmprovider
      * @since windows6.0.6000
      */
-    static BCryptCloseAlgorithmProvider(hAlgorithm, dwFlags) {
+    static BCryptCloseAlgorithmProvider(hAlgorithm) {
+        static dwFlags := 0 ;Reserved parameters must always be NULL
+
         hAlgorithm := hAlgorithm is Win32Handle ? NumGet(hAlgorithm, "ptr") : hAlgorithm
 
         result := DllCall("bcrypt.dll\BCryptCloseAlgorithmProvider", "ptr", hAlgorithm, "uint", dwFlags, "int")
@@ -24390,7 +24403,7 @@ class Cryptography {
      * To call this function in kernel mode, use Cng.lib, which is part of the Driver Development Kit (DDK). <b>Windows Server 2008 and Windows Vista:  </b>To call this function in kernel mode, use Ksecdd.lib.
      * @param {BCRYPT_ALG_HANDLE} hAlgorithm The handle of an algorithm provider created with the <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptopenalgorithmprovider">BCryptOpenAlgorithmProvider</a> function. The algorithm specified when the provider was created must support symmetric key encryption.
      * @param {Pointer<BCRYPT_KEY_HANDLE>} phKey A pointer to a <b>BCRYPT_KEY_HANDLE</b> that receives the handle of the key. This handle is used in subsequent functions that require a key, such as <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptencrypt">BCryptEncrypt</a>. This handle must be released when it is no longer needed by passing it to the <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptdestroykey">BCryptDestroyKey</a> function.
-     * @param {Pointer} pbKeyObject A pointer to a buffer that receives the key object. The <i>cbKeyObject</i> parameter contains the size of this buffer. The required size of this buffer can be obtained by calling the <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptgetproperty">BCryptGetProperty</a> function to get the <b>BCRYPT_OBJECT_LENGTH</b> property. This will provide the size of the key object for the specified algorithm.
+     * @param {Integer} pbKeyObject A pointer to a buffer that receives the key object. The <i>cbKeyObject</i> parameter contains the size of this buffer. The required size of this buffer can be obtained by calling the <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptgetproperty">BCryptGetProperty</a> function to get the <b>BCRYPT_OBJECT_LENGTH</b> property. This will provide the size of the key object for the specified algorithm.
      * 
      * This memory can only be freed after the <i>phKey</i> key handle is destroyed.
      * 
@@ -24398,7 +24411,7 @@ class Cryptography {
      * @param {Integer} cbKeyObject The size, in bytes, of the <i>pbKeyObject</i> buffer.
      * 
      * If the value of this parameter is zero and the value of the <i>pbKeyObject</i> parameter is <b>NULL</b>, the memory for the key object is allocated and freed by this function.<b>Windows 7:  </b>This memory management functionality is available beginning with Windows 7.
-     * @param {Pointer} pbSecret Pointer to a buffer that contains the key from which to create the key object. The <i>cbSecret</i> parameter contains the size of this buffer. This is normally a hash of a password or some other reproducible data. If the data passed in exceeds the target key size, the data will be truncated and the excess will be ignored.
+     * @param {Integer} pbSecret Pointer to a buffer that contains the key from which to create the key object. The <i>cbSecret</i> parameter contains the size of this buffer. This is normally a hash of a password or some other reproducible data. If the data passed in exceeds the target key size, the data will be truncated and the excess will be ignored.
      * 
      * <div class="alert"><b>Note</b>  We strongly recommended that applications pass in the exact number of bytes required by the target key.</div>
      * <div> </div>
@@ -24657,24 +24670,24 @@ class Cryptography {
      * Depending on what processor modes a provider supports, <b>BCryptEncrypt</b> can be called either from user mode or kernel mode. Kernel mode callers can execute either at <b>PASSIVE_LEVEL</b> <a href="https://docs.microsoft.com/windows/desktop/SecGloss/i-gly">IRQL</a> or <b>DISPATCH_LEVEL</b> IRQL. If the current IRQL level is <b>DISPATCH_LEVEL</b>, the handle provided in the <i>hKey</i> parameter must be derived from an algorithm handle returned by a provider that was opened with the <b>BCRYPT_PROV_DISPATCH</b> flag, and any pointers passed to the <b>BCryptEncrypt</b> function must refer to nonpaged (or locked) memory.
      * 
      * To call this function in kernel mode, use Cng.lib, which is part of the Driver Development Kit (DDK). <b>Windows Server 2008 and Windows Vista:  </b>To call this function in kernel mode, use Ksecdd.lib.
-     * @param {BCRYPT_KEY_HANDLE} _hKey 
-     * @param {Pointer} pbInput The address of a buffer that contains the plaintext to be encrypted. The <i>cbInput</i> parameter contains the size of the plaintext to encrypt. For more information, see Remarks.
+     * @param {BCRYPT_KEY_HANDLE} _hKey The handle of the key to use to encrypt the data. This handle is obtained from one of the key creation functions, such as <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptgeneratesymmetrickey">BCryptGenerateSymmetricKey</a>, <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptgeneratekeypair">BCryptGenerateKeyPair</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptimportkey">BCryptImportKey</a>.
+     * @param {Integer} pbInput The address of a buffer that contains the plaintext to be encrypted. The <i>cbInput</i> parameter contains the size of the plaintext to encrypt. For more information, see Remarks.
      * @param {Integer} cbInput The number of bytes in the <i>pbInput</i> buffer to encrypt.
      * @param {Pointer<Void>} pPaddingInfo A pointer to a structure that contains padding information. This parameter is only used with asymmetric keys and authenticated encryption modes. If an  authenticated encryption mode is used, this parameter must point to a <a href="https://docs.microsoft.com/windows/win32/api/bcrypt/ns-bcrypt-bcrypt_authenticated_cipher_mode_info">BCRYPT_AUTHENTICATED_CIPHER_MODE_INFO</a> structure. If asymmetric keys are used, the type of structure this parameter points to is determined by the value of the <i>dwFlags</i> parameter. Otherwise, the parameter  must be set to <b>NULL</b>.
-     * @param {Pointer} pbIV The address of a buffer that contains the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/i-gly">initialization vector</a> (IV) to use during encryption. The <i>cbIV</i> parameter contains the size of this buffer. This function will modify the contents of this buffer. If you need to reuse the IV later, make sure you make a copy of this buffer before calling this function.
+     * @param {Integer} pbIV The address of a buffer that contains the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/i-gly">initialization vector</a> (IV) to use during encryption. The <i>cbIV</i> parameter contains the size of this buffer. This function will modify the contents of this buffer. If you need to reuse the IV later, make sure you make a copy of this buffer before calling this function.
      * 
      * This parameter is optional and can be <b>NULL</b> if no IV is used.
      * 
      *  The required size of the IV can be obtained by calling the <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptgetproperty">BCryptGetProperty</a> function to get the <b>BCRYPT_BLOCK_LENGTH</b> property. This will provide the size of a block for the algorithm, which is also the size of the IV.
      * @param {Integer} cbIV The size, in bytes, of the <i>pbIV</i> buffer.
-     * @param {Pointer} pbOutput The address of the buffer that receives the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">ciphertext</a> produced by this function. The <i>cbOutput</i> parameter contains the size of this buffer. For more information, see Remarks.
+     * @param {Integer} pbOutput The address of the buffer that receives the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">ciphertext</a> produced by this function. The <i>cbOutput</i> parameter contains the size of this buffer. For more information, see Remarks.
      * 
      * If this parameter is <b>NULL</b>, the <b>BCryptEncrypt</b> function calculates the size needed for the ciphertext of the data passed in the <i>pbInput</i> parameter. In this case, the location pointed to by the <i>pcbResult</i> parameter contains this size, and the  function returns <b>STATUS_SUCCESS</b>. The <i>pPaddingInfo</i> parameter is not modified.
      * 
      * If the values of both the <i>pbOutput</i> and <i>pbInput</i> parameters are <b>NULL</b>, an error is returned unless  an authenticated encryption algorithm is in use. In the latter case, the call is treated as an authenticated encryption call with zero length data, and the authentication tag is returned in the <i>pPaddingInfo</i> parameter.
      * @param {Integer} cbOutput The size, in bytes, of the <i>pbOutput</i> buffer. This parameter is ignored if the <i>pbOutput</i> parameter is <b>NULL</b>.
      * @param {Pointer<Integer>} pcbResult A pointer to a <b>ULONG</b> variable that receives the number of bytes copied to the <i>pbOutput</i> buffer. If <i>pbOutput</i> is <b>NULL</b>, this receives the size, in bytes, required for the ciphertext.
-     * @param {Integer} dwFlags A set of flags that modify the behavior of this function. The allowed set of flags depends on the type of key specified by the <i>hKey</i> parameter.
+     * @param {BCRYPT_FLAGS} dwFlags A set of flags that modify the behavior of this function. The allowed set of flags depends on the type of key specified by the <i>hKey</i> parameter.
      * 
      * 
      * If the key is a symmetric key, this can be zero or the following value. 
@@ -24802,24 +24815,24 @@ class Cryptography {
      * Depending on what processor modes a provider supports, <b>BCryptDecrypt</b> can be called either from user mode or kernel mode. Kernel mode callers can execute either at <b>PASSIVE_LEVEL</b> <a href="https://docs.microsoft.com/windows/desktop/SecGloss/i-gly">IRQL</a> or <b>DISPATCH_LEVEL</b> IRQL. If the current IRQL level is <b>DISPATCH_LEVEL</b>, the handle provided in the <i>hKey</i> parameter must be derived from an algorithm handle returned by a provider that was opened with the <b>BCRYPT_PROV_DISPATCH</b> flag, and any pointers passed to the <b>BCryptDecrypt</b> function must refer to nonpaged (or locked) memory.
      * 
      * To call this function in kernel mode, use Cng.lib, which is part of the Driver Development Kit (DDK). <b>Windows Server 2008 and Windows Vista:  </b>To call this function in kernel mode, use Ksecdd.lib.
-     * @param {BCRYPT_KEY_HANDLE} _hKey 
-     * @param {Pointer} pbInput The address of a buffer that contains the ciphertext to be decrypted. The <i>cbInput</i> parameter contains the size of the ciphertext to decrypt. For more information, see Remarks.
+     * @param {BCRYPT_KEY_HANDLE} _hKey The handle of the key to use to decrypt the data. This handle is obtained from one of the key creation functions, such as <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptgeneratesymmetrickey">BCryptGenerateSymmetricKey</a>, <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptgeneratekeypair">BCryptGenerateKeyPair</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptimportkey">BCryptImportKey</a>.
+     * @param {Integer} pbInput The address of a buffer that contains the ciphertext to be decrypted. The <i>cbInput</i> parameter contains the size of the ciphertext to decrypt. For more information, see Remarks.
      * @param {Integer} cbInput The number of bytes in the <i>pbInput</i> buffer to decrypt.
      * @param {Pointer<Void>} pPaddingInfo A pointer to a structure that contains padding information. This parameter is only used with asymmetric keys and authenticated encryption modes. If an  authenticated encryption mode is used, this parameter must point to a <a href="https://docs.microsoft.com/windows/win32/api/bcrypt/ns-bcrypt-bcrypt_authenticated_cipher_mode_info">BCRYPT_AUTHENTICATED_CIPHER_MODE_INFO</a> structure. If asymmetric keys are used, the type of structure this parameter points to is determined by the value of the <i>dwFlags</i> parameter. Otherwise, the parameter  must be set to <b>NULL</b>.
-     * @param {Pointer} pbIV The address of a buffer that contains the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/i-gly">initialization vector</a> (IV) to use during decryption. The <i>cbIV</i> parameter contains the size of this buffer. This function will modify the contents of this buffer. If you need to reuse the IV later, make sure you make a copy of this buffer before calling this function.
+     * @param {Integer} pbIV The address of a buffer that contains the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/i-gly">initialization vector</a> (IV) to use during decryption. The <i>cbIV</i> parameter contains the size of this buffer. This function will modify the contents of this buffer. If you need to reuse the IV later, make sure you make a copy of this buffer before calling this function.
      * 
      * This parameter is optional and can be <b>NULL</b> if no IV is used.
      * 
      *  The required size of the IV can be obtained by calling the <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptgetproperty">BCryptGetProperty</a> function to get the <b>BCRYPT_BLOCK_LENGTH</b> property. This will provide the size of a block for the algorithm, which is also the size of the IV.
      * @param {Integer} cbIV The size, in bytes, of the <i>pbIV</i> buffer.
-     * @param {Pointer} pbOutput The address of a buffer to receive the plaintext produced by this function. The <i>cbOutput</i> parameter contains the size of this buffer. For more information, see Remarks.
+     * @param {Integer} pbOutput The address of a buffer to receive the plaintext produced by this function. The <i>cbOutput</i> parameter contains the size of this buffer. For more information, see Remarks.
      * 
      * If this parameter is <b>NULL</b>, the <b>BCryptDecrypt</b>  function calculates the size required for the plaintext of the encrypted data passed in the <i>pbInput</i> parameter. In this case, the location pointed to by the <i>pcbResult</i> parameter contains this size, and the function returns <b>STATUS_SUCCESS</b>.
      * 
      * If the values of both the <i>pbOutput</i> and <i>pbInput</i> parameters are <b>NULL</b>, an error is returned unless  an authenticated encryption algorithm is in use. In the latter case, the call is treated as an authenticated encryption call with zero length data, and the authentication tag, passed in the <i>pPaddingInfo</i> parameter, is verified.
      * @param {Integer} cbOutput The size, in bytes, of the <i>pbOutput</i> buffer. This parameter is ignored if the <i>pbOutput</i> parameter is <b>NULL</b>.
      * @param {Pointer<Integer>} pcbResult A pointer to a <b>ULONG</b> variable to receive the number of bytes copied to the <i>pbOutput</i> buffer. If <i>pbOutput</i> is <b>NULL</b>, this receives the size, in bytes, required for the plaintext.
-     * @param {Integer} dwFlags A set of flags that modify the behavior of this function. The allowed set of flags depends on the type of key specified by the <i>hKey</i> parameter.
+     * @param {BCRYPT_FLAGS} dwFlags A set of flags that modify the behavior of this function. The allowed set of flags depends on the type of key specified by the <i>hKey</i> parameter.
      * 
      * 
      * If the key is a symmetric key, this can be zero or the following value. 
@@ -24952,14 +24965,14 @@ class Cryptography {
      * Depending on what processor modes a provider supports, <b>BCryptExportKey</b> can be called either from user mode or kernel mode. Kernel mode callers can execute either at <b>PASSIVE_LEVEL</b> <a href="https://docs.microsoft.com/windows/desktop/SecGloss/i-gly">IRQL</a> or <b>DISPATCH_LEVEL</b> IRQL. If the current IRQL level is <b>DISPATCH_LEVEL</b>, the handle provided in the <i>hKey</i> parameter must be derived from an algorithm handle returned by a provider that was opened with the <b>BCRYPT_PROV_DISPATCH</b> flag, and any pointers passed to the <b>BCryptExportKey</b> function must refer to nonpaged (or locked) memory.
      * 
      * To call this function in kernel mode, use Cng.lib, which is part of the Driver Development Kit (DDK). <b>Windows Server 2008 and Windows Vista:  </b>To call this function in kernel mode, use Ksecdd.lib.
-     * @param {BCRYPT_KEY_HANDLE} _hKey 
+     * @param {BCRYPT_KEY_HANDLE} _hKey The handle of the key to export.
      * @param {BCRYPT_KEY_HANDLE} hExportKey The handle of the key with which to wrap the exported key. Use this parameter when exporting BLOBs of type <b>BCRYPT_AES_WRAP_KEY_BLOB</b>; otherwise, set it to <b>NULL</b>.<div class="alert"><b>Note</b>  The <i>hExportKey</i> handle must be supplied by the same provider that supplied the <i>hKey</i> handle, and <i>hExportKey</i> must be a handle to a symmetric key that can be used in the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">Advanced Encryption Standard</a> (AES) key wrap algorithm. When the <i>hKey</i> handle is from the Microsoft provider, <i>hExportKey</i> must be an AES key handle.</div>
      * <div> </div>
      * 
      * 
      * <b>Windows Server 2008 and Windows Vista:  </b>This parameter is not used and should be set to <b>NULL</b>.
      * @param {PWSTR} pszBlobType 
-     * @param {Pointer} pbOutput The address of a buffer that receives the key BLOB. The <i>cbOutput</i> parameter contains the size of this buffer. If this parameter is <b>NULL</b>, this function will place the required size, in bytes, in the <b>ULONG</b> pointed to by the <i>pcbResult</i> parameter.
+     * @param {Integer} pbOutput The address of a buffer that receives the key BLOB. The <i>cbOutput</i> parameter contains the size of this buffer. If this parameter is <b>NULL</b>, this function will place the required size, in bytes, in the <b>ULONG</b> pointed to by the <i>pcbResult</i> parameter.
      * @param {Integer} cbOutput Contains the size, in bytes, of the <i>pbOutput</i> buffer.
      * @param {Pointer<Integer>} pcbResult A pointer to a <b>ULONG</b> that receives the number of bytes that were copied to the <i>pbOutput</i> buffer. If the <i>pbOutput</i> parameter is <b>NULL</b>, this function will place the required size, in bytes, in the <b>ULONG</b> pointed to by this parameter.
      * @param {Integer} dwFlags A set of flags that modify the behavior of this function. No flags are defined for this function.
@@ -25060,11 +25073,11 @@ class Cryptography {
      * <b>Windows Server 2008 and Windows Vista:  </b>This parameter is not used and should be set to <b>NULL</b>.
      * @param {PWSTR} pszBlobType 
      * @param {Pointer<BCRYPT_KEY_HANDLE>} phKey A pointer to a <b>BCRYPT_KEY_HANDLE</b> that receives the handle of the imported key. This handle is used in subsequent functions that require a key, such as <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptencrypt">BCryptEncrypt</a>. This handle must be released when it is no longer needed by passing it to the <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptdestroykey">BCryptDestroyKey</a> function.
-     * @param {Pointer} pbKeyObject A pointer to a buffer that receives the imported key object. The <i>cbKeyObject</i> parameter contains the size of this buffer. The required size of this buffer can be obtained by calling the <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptgetproperty">BCryptGetProperty</a> function to get the <b>BCRYPT_OBJECT_LENGTH</b> property. This will provide the size of the key object for the specified algorithm.
+     * @param {Integer} pbKeyObject A pointer to a buffer that receives the imported key object. The <i>cbKeyObject</i> parameter contains the size of this buffer. The required size of this buffer can be obtained by calling the <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptgetproperty">BCryptGetProperty</a> function to get the <b>BCRYPT_OBJECT_LENGTH</b> property. This will provide the size of the key object for the specified algorithm.
      * 
      * This memory can only be freed after the <i>phKey</i> key handle is destroyed.
      * @param {Integer} cbKeyObject The size, in bytes, of the <i>pbKeyObject</i> buffer.
-     * @param {Pointer} pbInput The address of a buffer that contains the key BLOB to import. The <i>cbInput</i> parameter contains the size of this buffer. The <i>pszBlobType</i> parameter specifies the type of key BLOB this buffer contains.
+     * @param {Integer} pbInput The address of a buffer that contains the key BLOB to import. The <i>cbInput</i> parameter contains the size of this buffer. The <i>pszBlobType</i> parameter specifies the type of key BLOB this buffer contains.
      * @param {Integer} cbInput The size, in bytes, of the <i>pbInput</i> buffer.
      * @param {Integer} dwFlags A set of flags that modify the behavior of this function. No flags are currently defined, so this parameter should be zero.
      * @returns {NTSTATUS} Returns a status code that indicates the success or failure of the function.
@@ -25158,7 +25171,7 @@ class Cryptography {
      * @param {BCRYPT_KEY_HANDLE} hImportKey This parameter is not currently used and should be <b>NULL</b>.
      * @param {PWSTR} pszBlobType 
      * @param {Pointer<BCRYPT_KEY_HANDLE>} phKey A pointer to a <b>BCRYPT_KEY_HANDLE</b> that receives the handle of the imported key. This handle is used in subsequent functions that require a key, such as <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptsignhash">BCryptSignHash</a>. This handle must be released when it is no longer needed by passing it to the <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptdestroykey">BCryptDestroyKey</a> function.
-     * @param {Pointer} pbInput The address of a buffer that contains the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/k-gly">key BLOB</a> to import. The <i>cbInput</i> parameter contains the size of this buffer. The <i>pszBlobType</i> parameter specifies the type of key BLOB this buffer contains.
+     * @param {Integer} pbInput The address of a buffer that contains the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/k-gly">key BLOB</a> to import. The <i>cbInput</i> parameter contains the size of this buffer. The <i>pszBlobType</i> parameter specifies the type of key BLOB this buffer contains.
      * @param {Integer} cbInput The size, in bytes, of the <i>pbInput</i> buffer.
      * @param {Integer} dwFlags A set of flags that modify the behavior of this function. This can be zero or the following value.
      * 
@@ -25254,9 +25267,9 @@ class Cryptography {
      * Depending on what processor modes a provider supports, <b>BCryptDuplicateKey</b> can be called either from user mode or kernel mode. Kernel mode callers can execute either at <b>PASSIVE_LEVEL</b> <a href="https://docs.microsoft.com/windows/desktop/SecGloss/i-gly">IRQL</a> or <b>DISPATCH_LEVEL</b> IRQL. If the current IRQL level is <b>DISPATCH_LEVEL</b>, the handle provided in the <i>hKey</i> parameter must be derived from an algorithm handle returned by a provider that was opened with the <b>BCRYPT_PROV_DISPATCH</b> flag, and any pointers passed to the <b>BCryptDuplicateKey</b> function must refer to nonpaged (or locked) memory.
      * 
      * To call this function in kernel mode, use Cng.lib, which is part of the Driver Development Kit (DDK). <b>Windows Server 2008 and Windows Vista:  </b>To call this function in kernel mode, use Ksecdd.lib.
-     * @param {BCRYPT_KEY_HANDLE} _hKey 
+     * @param {BCRYPT_KEY_HANDLE} _hKey The handle of the key to duplicate. This must be a handle to a symmetric key.
      * @param {Pointer<BCRYPT_KEY_HANDLE>} phNewKey A pointer to a <b>BCRYPT_KEY_HANDLE</b> variable that receives the handle of the duplicate key. This handle is used in subsequent functions that require a key, such as <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptencrypt">BCryptEncrypt</a>. This handle must be released when it is no longer needed by passing it to the <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptdestroykey">BCryptDestroyKey</a> function.
-     * @param {Pointer} pbKeyObject A pointer to a buffer that receives the duplicate key object. The <i>cbKeyObject</i> parameter contains the size of this buffer. The required size of this buffer can be obtained by calling the <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptgetproperty">BCryptGetProperty</a> function to get the <b>BCRYPT_OBJECT_LENGTH</b> property. This will provide the size of the key object for the specified algorithm.
+     * @param {Integer} pbKeyObject A pointer to a buffer that receives the duplicate key object. The <i>cbKeyObject</i> parameter contains the size of this buffer. The required size of this buffer can be obtained by calling the <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptgetproperty">BCryptGetProperty</a> function to get the <b>BCRYPT_OBJECT_LENGTH</b> property. This will provide the size of the key object for the specified algorithm.
      * 
      * This memory can only be freed after the <i>phNewKey</i> key handle is destroyed.
      * @param {Integer} cbKeyObject The size, in bytes, of the <i>pbKeyObject</i> buffer.
@@ -25335,7 +25348,7 @@ class Cryptography {
      * Depending on what processor modes a provider supports, <b>BCryptFinalizeKeyPair</b> can be called either from user mode or kernel mode. Kernel mode callers can execute either at <b>PASSIVE_LEVEL</b> <a href="https://docs.microsoft.com/windows/desktop/SecGloss/i-gly">IRQL</a> or <b>DISPATCH_LEVEL</b> IRQL. If the current IRQL level is <b>DISPATCH_LEVEL</b>, the handle provided in the <i>hKey</i> parameter must be derived from an algorithm handle returned by a provider that was opened with the <b>BCRYPT_PROV_DISPATCH</b> flag.
      * 
      * To call this function in kernel mode, use Cng.lib, which is part of the Driver Development Kit (DDK). <b>Windows Server 2008 and Windows Vista:  </b>To call this function in kernel mode, use Ksecdd.lib.
-     * @param {BCRYPT_KEY_HANDLE} _hKey 
+     * @param {BCRYPT_KEY_HANDLE} _hKey The handle of the key to complete. This handle is obtained by calling the <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptgeneratekeypair">BCryptGenerateKeyPair</a> function.
      * @param {Integer} dwFlags A set of flags that modify the behavior of this function. No flags are currently defined, so this parameter should be zero.
      * @returns {NTSTATUS} Returns a status code that indicates the success or failure of the function.
      * 
@@ -25411,7 +25424,7 @@ class Cryptography {
      * Depending on what processor modes a provider supports, <b>BCryptDestroyKey</b> can be called either from user mode or kernel mode. Kernel mode callers can execute either at <b>PASSIVE_LEVEL</b> <a href="https://docs.microsoft.com/windows/desktop/SecGloss/i-gly">IRQL</a> or <b>DISPATCH_LEVEL</b> IRQL. If the current IRQL level is <b>DISPATCH_LEVEL</b>, the handle provided in the <i>hKey</i> parameter must be derived from an algorithm handle returned by a provider that was opened with the <b>BCRYPT_PROV_DISPATCH</b> flag.
      * 
      * To call this function in kernel mode, use Cng.lib, which is part of the Driver Development Kit (DDK). <b>Windows Server 2008 and Windows Vista:  </b>To call this function in kernel mode, use Ksecdd.lib.
-     * @param {BCRYPT_KEY_HANDLE} _hKey 
+     * @param {BCRYPT_KEY_HANDLE} _hKey The handle of the key to destroy.
      * @returns {NTSTATUS} Returns a status code that indicates the success or failure of the function.
      * 
      * 
@@ -25521,18 +25534,18 @@ class Cryptography {
      * Depending on what processor modes a provider supports, <b>BCryptSignHash</b> can be called either from user mode or kernel mode. Kernel mode callers can execute either at <b>PASSIVE_LEVEL</b> <a href="https://docs.microsoft.com/windows/desktop/SecGloss/i-gly">IRQL</a> or <b>DISPATCH_LEVEL</b> IRQL. If the current IRQL level is <b>DISPATCH_LEVEL</b>, the handle provided in the <i>hKey</i> parameter must be derived from an algorithm handle returned by a provider that was opened with the <b>BCRYPT_PROV_DISPATCH</b> flag, and any pointers passed to the <b>BCryptSignHash</b> function must refer to nonpaged (or locked) memory.
      * 
      * To call this function in kernel mode, use Cng.lib, which is part of the Driver Development Kit (DDK). <b>Windows Server 2008 and Windows Vista:  </b>To call this function in kernel mode, use Ksecdd.lib.
-     * @param {BCRYPT_KEY_HANDLE} _hKey 
+     * @param {BCRYPT_KEY_HANDLE} _hKey The handle of the key to use to sign the hash.
      * @param {Pointer<Void>} pPaddingInfo A pointer to a structure that contains padding information. The actual type of structure this parameter points to depends on the value of the <i>dwFlags</i> parameter. This parameter is only used with asymmetric keys and must be <b>NULL</b> otherwise.
-     * @param {Pointer} pbInput A pointer to a buffer that contains the hash value to sign. The <i>cbInput</i> parameter contains the size of this buffer.
+     * @param {Integer} pbInput A pointer to a buffer that contains the hash value to sign. The <i>cbInput</i> parameter contains the size of this buffer.
      * @param {Integer} cbInput The number of bytes in the <i>pbInput</i> buffer to sign.
-     * @param {Pointer} pbOutput The address of a buffer to receive the signature produced by this function. The <i>cbOutput</i> parameter contains the size of this buffer.
+     * @param {Integer} pbOutput The address of a buffer to receive the signature produced by this function. The <i>cbOutput</i> parameter contains the size of this buffer.
      * 
      * If this parameter is <b>NULL</b>, this function will calculate the size required for the signature and return the size in the location pointed to by the <i>pcbResult</i> parameter.
      * @param {Integer} cbOutput The size, in bytes, of the <i>pbOutput</i> buffer. This parameter is ignored if the <i>pbOutput</i> parameter is <b>NULL</b>.
      * @param {Pointer<Integer>} pcbResult A pointer to a <b>ULONG</b> variable that receives the number of bytes copied to the <i>pbOutput</i> buffer. 
      * 
      * If <i>pbOutput</i> is <b>NULL</b>, this receives the size, in bytes, required for the signature.
-     * @param {Integer} dwFlags A set of flags that modify the behavior of this function. The allowed set of flags depends on the type of key specified by the <i>hKey</i> parameter.
+     * @param {BCRYPT_FLAGS} dwFlags A set of flags that modify the behavior of this function. The allowed set of flags depends on the type of key specified by the <i>hKey</i> parameter.
      * @returns {NTSTATUS} Returns a status code that indicates the success or failure of the function.
      * 
      * 
@@ -25625,13 +25638,13 @@ class Cryptography {
      * Depending on what processor modes a provider supports, <b>BCryptVerifySignature</b> can be called either from user mode or kernel mode. Kernel mode callers can execute either at <b>PASSIVE_LEVEL</b> <a href="https://docs.microsoft.com/windows/desktop/SecGloss/i-gly">IRQL</a> or <b>DISPATCH_LEVEL</b> IRQL. If the current IRQL level is <b>DISPATCH_LEVEL</b>, the handle provided in the <i>hKey</i> parameter must be derived from an algorithm handle returned by a provider that was opened by using the <b>BCRYPT_PROV_DISPATCH</b> flag, and any pointers passed to the <b>BCryptVerifySignature</b> function must refer to nonpaged (or locked) memory.
      * 
      * To call this function in kernel mode, use Cng.lib, which is part of the Driver Development Kit (DDK). <b>Windows Server 2008 and Windows Vista:  </b>To call this function in kernel mode, use Ksecdd.lib.
-     * @param {BCRYPT_KEY_HANDLE} _hKey 
+     * @param {BCRYPT_KEY_HANDLE} _hKey The handle of the key to use to decrypt the signature. This must be an identical key or the public key portion of the key pair used to sign the data with the <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptsignhash">BCryptSignHash</a> function.
      * @param {Pointer<Void>} pPaddingInfo A pointer to a structure that contains padding information. The actual type of structure this parameter points to depends on the value of the <i>dwFlags</i> parameter. This parameter is only used with asymmetric keys and must be <b>NULL</b> otherwise.
-     * @param {Pointer} pbHash The address of a buffer that contains the hash of the data. The <i>cbHash</i> parameter contains the size of this buffer.
+     * @param {Integer} pbHash The address of a buffer that contains the hash of the data. The <i>cbHash</i> parameter contains the size of this buffer.
      * @param {Integer} cbHash The size, in bytes, of the <i>pbHash</i> buffer.
-     * @param {Pointer} pbSignature The address of a buffer that contains the signed hash of the data. The <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptsignhash">BCryptSignHash</a> function is used to create the signature. The <i>cbSignature</i> parameter contains the size of this buffer.
+     * @param {Integer} pbSignature The address of a buffer that contains the signed hash of the data. The <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptsignhash">BCryptSignHash</a> function is used to create the signature. The <i>cbSignature</i> parameter contains the size of this buffer.
      * @param {Integer} cbSignature The size, in bytes, of the <i>pbSignature</i> buffer. The <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptsignhash">BCryptSignHash</a> function is used to create the signature.
-     * @param {Integer} dwFlags A set of flags that modify the behavior of this function. The allowed set of flags depends on the type of key specified by the <i>hKey</i> parameter.
+     * @param {BCRYPT_FLAGS} dwFlags A set of flags that modify the behavior of this function. The allowed set of flags depends on the type of key specified by the <i>hKey</i> parameter.
      * 
      * If the key is a symmetric key, this parameter is not used and should be zero.
      * @returns {NTSTATUS} Returns a status code that indicates the success or failure of the function.
@@ -25855,7 +25868,7 @@ class Cryptography {
      * @param {BCRYPT_SECRET_HANDLE} hSharedSecret The secret agreement handle to create the key from. This handle is obtained from the <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptsecretagreement">BCryptSecretAgreement</a> function.
      * @param {PWSTR} pwszKDF A pointer to a null-terminated Unicode string that identifies the <i>key derivation function</i> (KDF) to use to derive the key. This can be one of the following strings.
      * @param {Pointer<BCryptBufferDesc>} pParameterList The address of a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa375370(v=vs.85)">BCryptBufferDesc</a> structure that contains the KDF parameters. This parameter is optional and can be <b>NULL</b> if it is not needed.
-     * @param {Pointer} pbDerivedKey The address of a buffer that receives the key. The <i>cbDerivedKey</i> parameter contains the size of this buffer. If this parameter is <b>NULL</b>, this function will place the required size, in bytes, in the <b>ULONG</b> pointed to by the <i>pcbResult</i> parameter.
+     * @param {Integer} pbDerivedKey The address of a buffer that receives the key. The <i>cbDerivedKey</i> parameter contains the size of this buffer. If this parameter is <b>NULL</b>, this function will place the required size, in bytes, in the <b>ULONG</b> pointed to by the <i>pcbResult</i> parameter.
      * @param {Integer} cbDerivedKey The size, in bytes, of the <i>pbDerivedKey</i> buffer.
      * @param {Pointer<Integer>} pcbResult A pointer to a <b>ULONG</b> that receives the number of bytes that were copied to the <i>pbDerivedKey</i> buffer. If the <i>pbDerivedKey</i> parameter is <b>NULL</b>, this function will place the required size, in bytes, in the <b>ULONG</b> pointed to by this parameter.
      * @param {Integer} dwFlags A set of flags that modify the behavior of this function. This can be zero or the following value.
@@ -25959,7 +25972,7 @@ class Cryptography {
      * <li><b>BCRYPT_PBKDF2_ALGORITHM</b></li>
      * </ul>
      * To call this function in kernel mode, use Cng.lib, which is part of the Driver Development Kit (DDK). <b>Windows Server 2008 and Windows Vista:  </b>To call this function in kernel mode, use Ksecdd.lib.
-     * @param {BCRYPT_KEY_HANDLE} _hKey 
+     * @param {BCRYPT_KEY_HANDLE} _hKey Handle of the input key.
      * @param {Pointer<BCryptBufferDesc>} pParameterList Pointer to a  <b>BCryptBufferDesc</b> structure that contains the KDF parameters. This parameter is optional and can be <b>NULL</b> if it is not needed. 
      * The parameters can be specific to a key derivation function (KDF) or generic. The following table shows the required and optional parameters for specific KDFs implemented by the Microsoft Primitive provider.
      * 
@@ -26060,7 +26073,7 @@ class Cryptography {
      * CAPI_KDF<ul>
      * <li>KDF_GENERIC_PARAMETER = Not Used </li>
      * </ul>
-     * @param {Pointer} pbDerivedKey Address of a buffer that receives the key. The <i>cbDerivedKey</i> parameter contains the size of this buffer.
+     * @param {Integer} pbDerivedKey Address of a buffer that receives the key. The <i>cbDerivedKey</i> parameter contains the size of this buffer.
      * @param {Integer} cbDerivedKey Size, in bytes, of the buffer pointed to by the <i>pbDerivedKey</i> parameter.
      * @param {Pointer<Integer>} pcbResult Pointer to a variable that receives the number of bytes that were copied to the buffer pointed to by the <i>pbDerivedKey</i> parameter.
      * @param {Integer} dwFlags Flags that modify the behavior of this function. The following value can be used with the Microsoft Primitive provider.
@@ -26105,7 +26118,7 @@ class Cryptography {
      * To call this function in kernel mode, use Cng.lib, which is part of the Driver Development Kit (DDK). For more information, see <a href="https://www.microsoft.com/?ref=go">WDK and Developer Tools</a>.<b>Windows Server 2008 and Windows Vista:  </b>To call this function in kernel mode, use Ksecdd.lib.
      * @param {BCRYPT_ALG_HANDLE} hAlgorithm The handle of an algorithm provider created by using the <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptopenalgorithmprovider">BCryptOpenAlgorithmProvider</a> function. The algorithm that was specified when the provider was created must support the hash interface.
      * @param {Pointer<BCRYPT_HASH_HANDLE>} phHash A pointer to a <b>BCRYPT_HASH_HANDLE</b> value that receives a handle that represents the hash or MAC object. This handle is used in subsequent hashing or MAC functions, such as the <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcrypthashdata">BCryptHashData</a> function. When you have finished using this handle, release it by passing it to the <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptdestroyhash">BCryptDestroyHash</a> function.
-     * @param {Pointer} pbHashObject A pointer to a buffer that receives the hash or MAC object. The <i>cbHashObject</i> parameter contains the size of this buffer. The required size of this buffer can be obtained by calling the <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptgetproperty">BCryptGetProperty</a> function to get the <b>BCRYPT_OBJECT_LENGTH</b> property. This will provide the size of the hash or MAC object for the specified algorithm.
+     * @param {Integer} pbHashObject A pointer to a buffer that receives the hash or MAC object. The <i>cbHashObject</i> parameter contains the size of this buffer. The required size of this buffer can be obtained by calling the <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptgetproperty">BCryptGetProperty</a> function to get the <b>BCRYPT_OBJECT_LENGTH</b> property. This will provide the size of the hash or MAC object for the specified algorithm.
      * 
      * This memory can only be freed after the handle pointed to by the <i>phHash</i> parameter is destroyed.
      * 
@@ -26113,7 +26126,7 @@ class Cryptography {
      * @param {Integer} cbHashObject The size, in bytes, of the <i>pbHashObject</i> buffer.
      * 
      * If the value of this parameter is zero and the value of the <i>pbHashObject</i> parameter is <b>NULL</b>, the memory for the key object is allocated and freed by this function. <b>Windows 7:</b> This memory management functionality is available beginning with Windows 7.</p>
-     * @param {Pointer} pbSecret A pointer to a buffer that contains the key to use for the hash or MAC. The <i>cbSecret</i> parameter contains the size of this buffer. This key only applies to hash algorithms opened by the <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptopenalgorithmprovider">BCryptOpenAlgorithmProvider</a> function by using the <b>BCRYPT_ALG_HANDLE_HMAC</b> flag.  Otherwise, set this parameter to <b>NULL</b>.
+     * @param {Integer} pbSecret A pointer to a buffer that contains the key to use for the hash or MAC. The <i>cbSecret</i> parameter contains the size of this buffer. This key only applies to hash algorithms opened by the <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptopenalgorithmprovider">BCryptOpenAlgorithmProvider</a> function by using the <b>BCRYPT_ALG_HANDLE_HMAC</b> flag.  Otherwise, set this parameter to <b>NULL</b>.
      * @param {Integer} cbSecret The size, in bytes, of the <i>pbSecret</i> buffer. If no key is used, set this parameter to zero.
      * @param {Integer} dwFlags Flags that modify the behavior of the function. This can be zero or the following value.
      * 
@@ -26223,7 +26236,7 @@ class Cryptography {
      * 
      * To call this function in kernel mode, use Cng.lib, which is part of the Driver Development Kit (DDK). <b>Windows Server 2008 and Windows Vista:  </b>To call this function in kernel mode, use Ksecdd.lib.
      * @param {BCRYPT_HASH_HANDLE} hHash The handle of the hash or MAC object to use to perform the operation. This handle is obtained by calling the <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptcreatehash">BCryptCreateHash</a> function.
-     * @param {Pointer} pbInput A pointer to a buffer that contains the data to process. The <i>cbInput</i> parameter contains the number of bytes in this buffer. This function does not modify the contents of this buffer.
+     * @param {Integer} pbInput A pointer to a buffer that contains the data to process. The <i>cbInput</i> parameter contains the number of bytes in this buffer. This function does not modify the contents of this buffer.
      * @param {Integer} cbInput The number of bytes in the <i>pbInput</i> buffer.
      * @param {Integer} dwFlags A set of flags that modify the behavior of this function. No flags are currently defined, so this parameter should be zero.
      * @returns {NTSTATUS} Returns a status code that indicates the success or failure of the function.
@@ -26290,7 +26303,7 @@ class Cryptography {
      * 
      * To call this function in kernel mode, use Cng.lib, which is part of the Driver Development Kit (DDK). <b>Windows Server 2008 and Windows Vista:  </b>To call this function in kernel mode, use Ksecdd.lib.
      * @param {BCRYPT_HASH_HANDLE} hHash The handle of the hash or MAC object to use to compute the hash or MAC. This handle is obtained by calling the <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptcreatehash">BCryptCreateHash</a> function. After this function has been called, the hash handle passed to this function cannot be used again except in a call to <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptdestroyhash">BCryptDestroyHash</a>.
-     * @param {Pointer} pbOutput A pointer to a buffer that receives the hash or MAC value. The <i>cbOutput</i> parameter contains the size of this buffer.
+     * @param {Integer} pbOutput A pointer to a buffer that receives the hash or MAC value. The <i>cbOutput</i> parameter contains the size of this buffer.
      * @param {Integer} cbOutput The size, in bytes, of the <i>pbOutput</i> buffer. This size must exactly match the size of the hash or MAC value.
      * 
      * The size can be obtained by calling the <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptgetproperty">BCryptGetProperty</a> function to get the <b>BCRYPT_HASH_LENGTH</b> property. This will provide the size of the hash or MAC value for the specified algorithm.
@@ -26369,7 +26382,7 @@ class Cryptography {
      * @param {Integer} nHashes *ULONG* `[in]`
      * 
      * The number of elements in the array. The multi-hash state that this function creates is able to perform parallel computations on *nHashes* different hash states.
-     * @param {Pointer} pbHashObject *PUCHAR* `[out]`
+     * @param {Integer} pbHashObject *PUCHAR* `[out]`
      * 
      * A pointer to a buffer that receives the multi-hash state.
      * 
@@ -26379,7 +26392,7 @@ class Cryptography {
      * @param {Integer} cbHashObject *ULONG* `[in]`
      * 
      * The size of the *pbHashObject* buffer, or zero (`0`) if *pbHashObject* is `NULL`.
-     * @param {Pointer} pbSecret *PUCHAR* `[in]`
+     * @param {Integer} pbSecret *PUCHAR* `[in]`
      * 
      * A pointer to a buffer that contains the key to use for the hash or MAC. The *cbSecret* parameter contains the size of this buffer. This key only applies to hash algorithms opened by the [BCryptOpenAlgorithmProvider](nf-bcrypt-bcryptopenalgorithmprovider.md) function by using the **BCRYPT_ALG_HANDLE_HMAC** flag. Otherwise, set this parameter to `NULL`.
      * 
@@ -26415,10 +26428,10 @@ class Cryptography {
      * @param {BCRYPT_HANDLE} hObject *BCRYPT_HANDLE* `[in, out]`
      * 
      * A handle to a multi-object state, such as one created by the [BCryptCreateMultiHash](nf-bcrypt-bcryptcreatemultihash.md) function.
-     * @param {Integer} operationType *BCRYPT_MULTI_OPERATION_TYPE* `[in]`
+     * @param {BCRYPT_MULTI_OPERATION_TYPE} operationType *BCRYPT_MULTI_OPERATION_TYPE* `[in]`
      * 
      * One of the **BCRYPT_OPERATION_TYPE_**\* values. Currently the only defined value is **BCRYPT_OPERATION_TYPE_HASH**. This value identifies the *hObject* parameter as a multi-hash object and the *pOperations* pointer as pointing to an array of [BCRYPT_MULTI_HASH_OPERATION](ns-bcrypt-bcrypt_multi_hash_operation.md) elements.
-     * @param {Pointer} pOperations *PVOID* `[in]`
+     * @param {Integer} pOperations *PVOID* `[in]`
      * 
      * A pointer to an array of operation command structures. For hashing, it is a pointer to an array of [BCRYPT_MULTI_HASH_OPERATION](ns-bcrypt-bcrypt_multi_hash_operation.md) structures.
      * @param {Integer} cbOperations *ULONG* `[in]`
@@ -26449,7 +26462,7 @@ class Cryptography {
      * To call this function in kernel mode, use Cng.lib, which is part of the Driver Development Kit (DDK). <b>Windows Server 2008 and Windows Vista:  </b>To call this function in kernel mode, use Ksecdd.lib.
      * @param {BCRYPT_HASH_HANDLE} hHash The handle of the hash or MAC object to duplicate.
      * @param {Pointer<BCRYPT_HASH_HANDLE>} phNewHash A pointer to a <b>BCRYPT_HASH_HANDLE</b> value that receives the handle that represents the duplicate hash or MAC object.
-     * @param {Pointer} pbHashObject A pointer to a buffer that receives the duplicate hash or MAC object. The <i>cbHashObject</i> parameter contains the size of this buffer. The required size of this buffer can be obtained by calling the <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptgetproperty">BCryptGetProperty</a> function to get the <b>BCRYPT_OBJECT_LENGTH</b> property. This will provide the size of the hash object for the specified algorithm.
+     * @param {Integer} pbHashObject A pointer to a buffer that receives the duplicate hash or MAC object. The <i>cbHashObject</i> parameter contains the size of this buffer. The required size of this buffer can be obtained by calling the <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptgetproperty">BCryptGetProperty</a> function to get the <b>BCRYPT_OBJECT_LENGTH</b> property. This will provide the size of the hash object for the specified algorithm.
      * 
      * When the duplicate hash handle is released, free this memory.
      * @param {Integer} cbHashObject The size, in bytes, of the <i>pbHashObject</i> buffer.
@@ -26578,11 +26591,11 @@ class Cryptography {
     /**
      * Performs a single hash computation. This is a convenience function that wraps calls to BCryptCreateHash, BCryptHashData, BCryptFinishHash, and BCryptDestroyHash.
      * @param {BCRYPT_ALG_HANDLE} hAlgorithm The handle of an algorithm provider created by using the <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptopenalgorithmprovider">BCryptOpenAlgorithmProvider</a> function. The algorithm that was specified when the provider was created must support the hash interface.
-     * @param {Pointer} pbSecret A pointer to a buffer that contains the key to use for the hash or MAC. The <i>cbSecret</i> parameter contains the size of this buffer. This key only applies to hash algorithms opened by the <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptopenalgorithmprovider">BCryptOpenAlgorithmProvider</a> function by using the <b>BCRYPT_ALG_HANDLE_HMAC</b> flag.  Otherwise, set this parameter to <b>NULL</b>
+     * @param {Integer} pbSecret A pointer to a buffer that contains the key to use for the hash or MAC. The <i>cbSecret</i> parameter contains the size of this buffer. This key only applies to hash algorithms opened by the <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptopenalgorithmprovider">BCryptOpenAlgorithmProvider</a> function by using the <b>BCRYPT_ALG_HANDLE_HMAC</b> flag.  Otherwise, set this parameter to <b>NULL</b>
      * @param {Integer} cbSecret The size, in bytes, of the <i>pbSecret</i> buffer. If no key is used, set this parameter to zero.
-     * @param {Pointer} pbInput A pointer to a buffer that contains the data to process. The <i>cbInput</i> parameter contains the number of bytes in this buffer. This function does not modify the contents of this buffer.
+     * @param {Integer} pbInput A pointer to a buffer that contains the data to process. The <i>cbInput</i> parameter contains the number of bytes in this buffer. This function does not modify the contents of this buffer.
      * @param {Integer} cbInput The number of bytes in the <i>pbInput</i> buffer.
-     * @param {Pointer} pbOutput A pointer to a buffer that receives the hash or MAC value. The <i>cbOutput</i> parameter contains the size of this buffer.
+     * @param {Integer} pbOutput A pointer to a buffer that receives the hash or MAC value. The <i>cbOutput</i> parameter contains the size of this buffer.
      * @param {Integer} cbOutput The size, in bytes, of the <i>pbOutput</i> buffer. This size must exactly match the size of the hash or MAC value.
      * 
      * The size can be obtained by calling the <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptgetproperty">BCryptGetProperty</a> function to get the <b>BCRYPT_HASH_LENGTH</b> property. This will provide the size of the hash or MAC value for the specified algorithm.
@@ -26611,9 +26624,9 @@ class Cryptography {
      * 
      * To call this function in kernel mode, use Cng.lib, which is part of the Driver Development Kit (DDK). <b>Windows Server 2008 and Windows Vista:  </b>To call this function in kernel mode, use Ksecdd.lib.
      * @param {BCRYPT_ALG_HANDLE} hAlgorithm The handle of an algorithm provider created by using the <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptopenalgorithmprovider">BCryptOpenAlgorithmProvider</a> function. The algorithm that was specified when the provider was created must support the random number generator interface.
-     * @param {Pointer} pbBuffer The address of a buffer that receives the random number. The size of this buffer is specified by the <i>cbBuffer</i> parameter.
+     * @param {Integer} pbBuffer The address of a buffer that receives the random number. The size of this buffer is specified by the <i>cbBuffer</i> parameter.
      * @param {Integer} cbBuffer The size, in bytes, of the <i>pbBuffer</i> buffer.
-     * @param {Integer} dwFlags A set of flags that modify the behavior of this function. This parameter can be zero or the following value.
+     * @param {BCRYPTGENRANDOM_FLAGS} dwFlags A set of flags that modify the behavior of this function. This parameter can be zero or the following value.
      * 
      * <table>
      * <tr>
@@ -26715,7 +26728,7 @@ class Cryptography {
      * 
      * <div class="alert"><b>Note</b>  Limitations in CAPI and key expansion prevent the use of any hash algorithm that generates an output that is larger than 512 bits.</div>
      * <div> </div>
-     * @param {Pointer} pbDerivedKey A pointer to the buffer that receives the derived key.
+     * @param {Integer} pbDerivedKey A pointer to the buffer that receives the derived key.
      * @param {Integer} cbDerivedKey The size, in characters, of the derived key pointed to by the <i>pbDerivedKey</i> parameter.
      * @param {Integer} dwFlags This parameter is reserved and must be set to zero.
      * @returns {NTSTATUS} Returns a status code that indicates the success or failure of the function.
@@ -26794,16 +26807,16 @@ class Cryptography {
      * 
      * <div class="alert"><b>Note</b>  Only algorithms that implement the BCRYPT_IS_KEYED_HASH  property can be used to populate this parameter.</div>
      * <div> </div>
-     * @param {Pointer} pbPassword A pointer to a buffer that contains the password parameter for the PBKDF2 key derivation algorithm. <div class="alert"><b>Note</b>  Any secret information used in the key derivation should be passed in this buffer.</div>
+     * @param {Integer} pbPassword A pointer to a buffer that contains the password parameter for the PBKDF2 key derivation algorithm. <div class="alert"><b>Note</b>  Any secret information used in the key derivation should be passed in this buffer.</div>
      * <div> </div>
      * @param {Integer} cbPassword The length, in bytes, of the data in the buffer pointed to by the <i>pbPassword</i> parameter.
-     * @param {Pointer} pbSalt A pointer to a buffer that contains the salt argument  for the PBKDF2 key derivation algorithm.
+     * @param {Integer} pbSalt A pointer to a buffer that contains the salt argument  for the PBKDF2 key derivation algorithm.
      * 
      * <div class="alert"><b>Note</b>  Any information that is not secret and that is used in the key derivation should be passed in this buffer.</div>
      * <div> </div>
      * @param {Integer} cbSalt The length, in bytes, of the salt argument pointed to by the <i>pbSalt</i> parameter.
      * @param {Integer} cIterations The iteration count for the PBKDF2 key derivation algorithm.
-     * @param {Pointer} pbDerivedKey A pointer to a buffer that receives the derived key.
+     * @param {Integer} pbDerivedKey A pointer to a buffer that receives the derived key.
      * @param {Integer} cbDerivedKey The length, in bytes, of the derived key returned in the buffer pointed to by the <i>pbDerivedKey</i> parameter.
      * @param {Integer} dwFlags This parameter is reserved and must be set to zero.
      * @returns {NTSTATUS} Returns a status code that indicates the success or failure of the function.
@@ -26878,10 +26891,10 @@ class Cryptography {
     /**
      * 
      * @param {BCRYPT_KEY_HANDLE} _hKey 
-     * @param {Pointer} pbSecretKey 
+     * @param {Integer} pbSecretKey 
      * @param {Integer} cbSecretKey 
      * @param {Pointer<Integer>} pcbSecretKey 
-     * @param {Pointer} pbCipherText 
+     * @param {Integer} pbCipherText 
      * @param {Integer} cbCipherText 
      * @param {Pointer<Integer>} pcbCipherText 
      * @param {Integer} dwFlags 
@@ -26901,9 +26914,9 @@ class Cryptography {
     /**
      * 
      * @param {BCRYPT_KEY_HANDLE} _hKey 
-     * @param {Pointer} pbCipherText 
+     * @param {Integer} pbCipherText 
      * @param {Integer} cbCipherText 
-     * @param {Pointer} pbSecretKey 
+     * @param {Integer} pbSecretKey 
      * @param {Integer} cbSecretKey 
      * @param {Pointer<Integer>} pcbSecretKey 
      * @param {Integer} dwFlags 
@@ -26924,8 +26937,8 @@ class Cryptography {
      * @remarks
      * <b>BCryptQueryProviderRegistration</b> can be called only in user mode.
      * @param {PWSTR} pszProvider A pointer to a null-terminated Unicode string that contains the name of the provider to obtain information about.
-     * @param {Integer} dwMode 
-     * @param {Integer} dwInterface 
+     * @param {BCRYPT_QUERY_PROVIDER_MODE} dwMode 
+     * @param {BCRYPT_INTERFACE} dwInterface 
      * @param {Pointer<Integer>} pcbBuffer A pointer to a <b>ULONG</b> value that, on entry, contains the size, in bytes, of the buffer pointed to by the <i>ppBuffer</i> parameter. On exit, this value receives either the number of bytes copied to the buffer or the required size, in bytes, of the buffer.
      * 
      * 
@@ -27110,7 +27123,7 @@ class Cryptography {
      * Creates a new CNG configuration context.
      * @remarks
      * <b>BCryptCreateContext</b> can be called only in user mode.
-     * @param {Integer} dwTable 
+     * @param {BCRYPT_TABLE} dwTable 
      * @param {PWSTR} pszContext A pointer to a null-terminated Unicode string that contains the identifier of the context to create.
      * @param {Pointer<CRYPT_CONTEXT_CONFIG>} pConfig A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/ns-bcrypt-crypt_context_config">CRYPT_CONTEXT_CONFIG</a> structure that contains additional configuration data for the new context. This parameter can be <b>NULL</b> if it is not needed.
      * @returns {NTSTATUS} Returns a status code that indicates the success or failure of the function.
@@ -27174,7 +27187,7 @@ class Cryptography {
      * Deletes an existing CNG configuration context.
      * @remarks
      * <b>BCryptDeleteContext</b> can be called only in user mode.
-     * @param {Integer} dwTable 
+     * @param {BCRYPT_TABLE} dwTable 
      * @param {PWSTR} pszContext A pointer to a null-terminated Unicode string that contains the identifier of the context to delete.
      * @returns {NTSTATUS} Returns a status code that indicates the success or failure of the function.
      * 
@@ -27237,7 +27250,7 @@ class Cryptography {
      * Obtains the identifiers of the contexts in the specified configuration table.
      * @remarks
      * <b>BCryptEnumContexts</b> can be called only in user mode.
-     * @param {Integer} dwTable 
+     * @param {BCRYPT_TABLE} dwTable 
      * @param {Pointer<Integer>} pcbBuffer The address of a <b>ULONG</b> variable that, on entry, contains the size, in bytes, of the buffer pointed to by <i>ppBuffer</i>. If this size is not large enough to hold the set of context identifiers, this function will fail with <b>STATUS_BUFFER_TOO_SMALL</b>.
      * 
      * After this function returns, this value contains the number of bytes that were copied to the <i>ppBuffer</i> buffer.
@@ -27319,7 +27332,7 @@ class Cryptography {
      * Sets the configuration information for an existing CNG context.
      * @remarks
      * <b>BCryptConfigureContext</b> can be called only in user mode.
-     * @param {Integer} dwTable 
+     * @param {BCRYPT_TABLE} dwTable 
      * @param {PWSTR} pszContext A pointer to a null-terminated Unicode string that contains the identifier of the context to set the configuration information for.
      * @param {Pointer<CRYPT_CONTEXT_CONFIG>} pConfig The address of a <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/ns-bcrypt-crypt_context_config">CRYPT_CONTEXT_CONFIG</a> structure that contains the new context configuration information.
      * @returns {NTSTATUS} Returns a status code that indicates the success or failure of the function.
@@ -27400,7 +27413,7 @@ class Cryptography {
      * 
      * 
      * <b>BCryptQueryContextConfiguration</b> can be called only in user mode.
-     * @param {Integer} dwTable 
+     * @param {BCRYPT_TABLE} dwTable 
      * @param {PWSTR} pszContext A pointer to a null-terminated Unicode string that contains the identifier of the context to obtain the configuration information for.
      * @param {Pointer<Integer>} pcbBuffer The address of a <b>ULONG</b> variable that, on entry, contains the size, in bytes, of the buffer pointed to by <i>ppBuffer</i>. If this size is not large enough to hold the context information, this function will fail with <b>STATUS_BUFFER_TOO_SMALL</b>.
      * 
@@ -27500,9 +27513,9 @@ class Cryptography {
      * If the function added is already in the list, it will be removed and inserted at the new position.
      * 
      * <b>BCryptAddContextFunction</b> can be called only in user mode.
-     * @param {Integer} dwTable 
+     * @param {BCRYPT_TABLE} dwTable 
      * @param {PWSTR} pszContext A pointer to a null-terminated Unicode string that contains the identifier of the context to add the function to.
-     * @param {Integer} dwInterface 
+     * @param {BCRYPT_INTERFACE} dwInterface 
      * @param {PWSTR} pszFunction A pointer to a null-terminated Unicode string that contains the identifier of the cryptographic function to add.
      * @param {Integer} dwPosition Specifies the position in the list at which to insert this function. The function is inserted at this position ahead of any existing functions. The <b>CRYPT_PRIORITY_TOP</b> value is used to insert the function at the top of the list. The <b>CRYPT_PRIORITY_BOTTOM</b> value is used to insert the function at the end of the list.
      * @returns {NTSTATUS} Returns a status code that indicates the success or failure of the function.
@@ -27578,9 +27591,9 @@ class Cryptography {
      * Removes a cryptographic function from the list of functions that are supported by an existing CNG context.
      * @remarks
      * <b>BCryptRemoveContextFunction</b> can be called only in user mode.
-     * @param {Integer} dwTable 
+     * @param {BCRYPT_TABLE} dwTable 
      * @param {PWSTR} pszContext A pointer to a null-terminated Unicode string that contains the identifier of the context to remove the function from.
-     * @param {Integer} dwInterface 
+     * @param {BCRYPT_INTERFACE} dwInterface 
      * @param {PWSTR} pszFunction A pointer to a null-terminated Unicode string that contains the identifier of the cryptographic function to remove.
      * @returns {NTSTATUS} Returns a status code that indicates the success or failure of the function.
      * 
@@ -27644,9 +27657,9 @@ class Cryptography {
      * Obtains the cryptographic functions for a context in the specified configuration table.
      * @remarks
      * <b>BCryptEnumContextFunctions</b> can be called only in user mode.
-     * @param {Integer} dwTable 
+     * @param {BCRYPT_TABLE} dwTable 
      * @param {PWSTR} pszContext A pointer to a null-terminated Unicode string that contains the identifier of the context to enumerate the functions for.
-     * @param {Integer} dwInterface 
+     * @param {BCRYPT_INTERFACE} dwInterface 
      * @param {Pointer<Integer>} pcbBuffer The address of a <b>ULONG</b> variable that, on entry, contains the size, in bytes, of the buffer pointed to by <i>ppBuffer</i>. If this size is not large enough to hold the set of context identifiers, this function will fail with <b>STATUS_BUFFER_TOO_SMALL</b>.
      * 
      * After this function returns, this value contains the number of bytes that were copied to the <i>ppBuffer</i> buffer.
@@ -27741,9 +27754,9 @@ class Cryptography {
      * Sets the configuration information for the cryptographic function of an existing CNG context.
      * @remarks
      * <b>BCryptConfigureContextFunction</b> can be called only in user mode.
-     * @param {Integer} dwTable 
+     * @param {BCRYPT_TABLE} dwTable 
      * @param {PWSTR} pszContext A pointer to a null-terminated Unicode string that contains the identifier of the context to set the cryptographic function configuration information for.
-     * @param {Integer} dwInterface 
+     * @param {BCRYPT_INTERFACE} dwInterface 
      * @param {PWSTR} pszFunction A pointer to a null-terminated Unicode string that contains the identifier of the cryptographic function to set the configuration information for.
      * @param {Pointer<CRYPT_CONTEXT_FUNCTION_CONFIG>} pConfig The address of a <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/ns-bcrypt-crypt_context_function_config">CRYPT_CONTEXT_FUNCTION_CONFIG</a> structure that contains the new function configuration information.
      * @returns {NTSTATUS} Returns a status code that indicates the success or failure of the function.
@@ -27827,9 +27840,9 @@ class Cryptography {
      * 
      * 
      * <b>BCryptQueryContextFunctionConfiguration</b> can be called only in user mode.
-     * @param {Integer} dwTable 
+     * @param {BCRYPT_TABLE} dwTable 
      * @param {PWSTR} pszContext A pointer to a null-terminated Unicode string that contains the identifier of the context to obtain the function configuration information for.
-     * @param {Integer} dwInterface 
+     * @param {BCRYPT_INTERFACE} dwInterface 
      * @param {PWSTR} pszFunction A pointer to a null-terminated Unicode string that contains the identifier of the cryptographic function to obtain the configuration information for.
      * @param {Pointer<Integer>} pcbBuffer The address of a <b>ULONG</b> variable that, on entry, contains the size, in bytes, of the buffer pointed to by <i>ppBuffer</i>. If this size is not large enough to hold the context information, this function will fail with <b>STATUS_BUFFER_TOO_SMALL</b>.
      * 
@@ -27928,9 +27941,9 @@ class Cryptography {
      * Obtains the providers for the cryptographic functions for a context in the specified configuration table.
      * @remarks
      * <b>BCryptEnumContextFunctionProviders</b> can be called only in user mode.
-     * @param {Integer} dwTable 
+     * @param {BCRYPT_TABLE} dwTable 
      * @param {PWSTR} pszContext A pointer to a null-terminated Unicode string that contains the identifier of the context to enumerate the function providers for.
-     * @param {Integer} dwInterface 
+     * @param {BCRYPT_INTERFACE} dwInterface 
      * @param {PWSTR} pszFunction A pointer to a null-terminated Unicode string that contains the identifier of the function to enumerate the providers for.
      * @param {Pointer<Integer>} pcbBuffer The address of a <b>ULONG</b> variable that, on entry, contains the size, in bytes, of the buffer pointed to by <i>ppBuffer</i>. If this size is not large enough to hold the set of context identifiers, this function will fail with <b>STATUS_BUFFER_TOO_SMALL</b>.
      * 
@@ -28027,13 +28040,13 @@ class Cryptography {
      * Sets the value of a named property for a cryptographic function in an existing CNG context.
      * @remarks
      * <b>BCryptSetContextFunctionProperty</b> can be called only in user mode.
-     * @param {Integer} dwTable 
+     * @param {BCRYPT_TABLE} dwTable 
      * @param {PWSTR} pszContext A pointer to a null-terminated Unicode string that contains the identifier of the context to set the function property in.
-     * @param {Integer} dwInterface 
+     * @param {BCRYPT_INTERFACE} dwInterface 
      * @param {PWSTR} pszFunction A pointer to a null-terminated Unicode string that contains the identifier of the cryptographic function to set the property for.
      * @param {PWSTR} pszProperty A pointer to a null-terminated Unicode string that contains the identifier of the property to set.
      * @param {Integer} cbValue Contains the size, in bytes, of the <i>pbValue</i> buffer. This is the exact number of bytes that will be stored. If the property value is a string, you should add the size of one character to also store the terminating null character, if needed.
-     * @param {Pointer} pbValue The address of a buffer that contains the new property value.
+     * @param {Integer} pbValue The address of a buffer that contains the new property value.
      * @returns {NTSTATUS} Returns a status code that indicates the success or failure of the function.
      * 
      * 
@@ -28119,9 +28132,9 @@ class Cryptography {
      * Obtains the value of a named property for a cryptographic function in an existing CNG context.
      * @remarks
      * <b>BCryptQueryContextFunctionProperty</b> can be called only in user mode.
-     * @param {Integer} dwTable 
+     * @param {BCRYPT_TABLE} dwTable 
      * @param {PWSTR} pszContext A pointer to a null-terminated Unicode string that contains the identifier of the context to obtain the function property from.
-     * @param {Integer} dwInterface 
+     * @param {BCRYPT_INTERFACE} dwInterface 
      * @param {PWSTR} pszFunction A pointer to a null-terminated Unicode string that contains the identifier of the cryptographic function to obtain the property for.
      * @param {PWSTR} pszProperty A pointer to a null-terminated Unicode string that contains the identifier of the property to obtain.
      * @param {Pointer<Integer>} pcbValue The address of a <b>ULONG</b> variable that, on entry, contains the size, in bytes, of the buffer pointed to by <i>ppbValue</i>. If this size is not large enough to hold the property value, this function will fail with <b>STATUS_BUFFER_TOO_SMALL</b>.
@@ -28350,8 +28363,8 @@ class Cryptography {
      * @param {PWSTR} pszProvider A pointer to a null-terminated Unicode string that contains the name of the provider to retrieve. If this parameter is <b>NULL</b>, then all providers will be included.
      * 
      * This parameter allows you to specify a specific provider to retrieve in the event that more than one provider meets the other criteria.
-     * @param {Integer} dwMode 
-     * @param {Integer} dwFlags A set of flags that modify the behavior of this function.
+     * @param {BCRYPT_QUERY_PROVIDER_MODE} dwMode 
+     * @param {BCRYPT_RESOLVE_PROVIDERS_FLAGS} dwFlags A set of flags that modify the behavior of this function.
      * @param {Pointer<Integer>} pcbBuffer A pointer to a <b>DWORD</b> value that, on entry, contains the size, in bytes, of the buffer pointed to by the <i>ppBuffer</i> parameter. On exit, this value receives either the number of bytes copied to the buffer or the required size, in bytes, of the buffer.
      * @param {Pointer<Pointer<CRYPT_PROVIDER_REFS>>} ppBuffer The address of a <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/ns-bcrypt-crypt_provider_refs">CRYPT_PROVIDER_REFS</a> pointer that receives the collection of providers that meet the specified criteria.
      * 
@@ -28548,8 +28561,8 @@ class Cryptography {
      * Obtains the names of the algorithms that are supported by the specified key storage provider.
      * @remarks
      * A service must not call this function from its <a href="https://docs.microsoft.com/windows/win32/api/winsvc/nf-winsvc-startservicea">StartService Function</a>. If a service calls this function from its StartService function, a deadlock can occur, and the service may stop responding.
-     * @param {NCRYPT_PROV_HANDLE} _hProvider 
-     * @param {Integer} dwAlgOperations 
+     * @param {NCRYPT_PROV_HANDLE} _hProvider The handle of the key storage provider to enumerate the algorithms for. This handle is obtained with the <a href="https://docs.microsoft.com/windows/desktop/api/ncrypt/nf-ncrypt-ncryptopenstorageprovider">NCryptOpenStorageProvider</a> function.
+     * @param {NCRYPT_OPERATION} dwAlgOperations 
      * @param {Pointer<Integer>} pdwAlgCount The address of a <b>DWORD</b> that receives the number of elements in the <i>ppAlgList</i> array.
      * @param {Pointer<Pointer<NCryptAlgorithmName>>} ppAlgList The address of an <a href="https://docs.microsoft.com/windows/desktop/api/ncrypt/ns-ncrypt-ncryptalgorithmname">NCryptAlgorithmName</a> structure pointer that receives an array of the registered algorithm names. The variable pointed to by the <i>pdwAlgCount</i> parameter receives the number of elements in this array.
      * 
@@ -28659,7 +28672,7 @@ class Cryptography {
      * If the provider supports the algorithm, this function returns <b>ERROR_SUCCESS</b>. If the provider does not support the algorithm, and no other errors occurred, this function returns <b>NTE_NOT_SUPPORTED</b>.
      * 
      * A service must not call this function from its <a href="https://docs.microsoft.com/windows/win32/api/winsvc/nf-winsvc-startservicea">StartService Function</a>. If a service calls this function from its StartService function, a deadlock can occur, and the service may stop responding.
-     * @param {NCRYPT_PROV_HANDLE} _hProvider 
+     * @param {NCRYPT_PROV_HANDLE} _hProvider The handle of the key storage provider. This handle is obtained with the <a href="https://docs.microsoft.com/windows/desktop/api/ncrypt/nf-ncrypt-ncryptopenstorageprovider">NCryptOpenStorageProvider</a> function.
      * @param {PWSTR} pszAlgId A pointer to a null-terminated Unicode string that identifies the cryptographic algorithm in question. This can be one of the standard <a href="https://docs.microsoft.com/windows/desktop/SecCNG/cng-algorithm-identifiers">CNG Algorithm Identifiers</a> or the identifier for another registered algorithm.
      * @param {Integer} dwFlags Flags that modify function behavior. This can be zero (0) or the following value.
      * 
@@ -28764,12 +28777,12 @@ class Cryptography {
      * This function retrieves only one item each time it is called. The state of the enumeration is stored in the variable pointed to by the <i>ppEnumState</i> parameter, so this must be preserved between calls to this function. When the last key stored by the provider has been retrieved, this function will return <b>NTE_NO_MORE_ITEMS</b> the next time it is called. To start the enumeration over, set the variable pointed to by the <i>ppEnumState</i> parameter to <b>NULL</b>, free the memory pointed to by the <i>ppKeyName</i> parameter, if it is not <b>NULL</b>, and call this function again.
      * 
      * A service must not call this function from its <a href="https://docs.microsoft.com/windows/win32/api/winsvc/nf-winsvc-startservicea">StartService Function</a>. If a service calls this function from its StartService function, a deadlock can occur, and the service may stop responding.
-     * @param {NCRYPT_PROV_HANDLE} _hProvider 
+     * @param {NCRYPT_PROV_HANDLE} _hProvider The handle of the key storage provider to enumerate the keys for. This handle is obtained with the <a href="https://docs.microsoft.com/windows/desktop/api/ncrypt/nf-ncrypt-ncryptopenstorageprovider">NCryptOpenStorageProvider</a> function.
      * @param {PWSTR} pszScope This parameter is not currently used and must be <b>NULL</b>.
      * @param {Pointer<Pointer<Void>>} ppEnumState The address of a <b>VOID</b> pointer that receives enumeration state information that is used in subsequent calls to this function. This information only has meaning to the key storage provider and is opaque to the caller. The key storage provider uses this information to determine which item is next in the enumeration. If the variable pointed to by this parameter contains <b>NULL</b>, the enumeration is started from the beginning.
      * 
      * When this memory is no longer needed, it must be freed by passing this pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/ncrypt/nf-ncrypt-ncryptfreebuffer">NCryptFreeBuffer</a> function.
-     * @param {Integer} dwFlags 
+     * @param {NCRYPT_FLAGS} dwFlags 
      * @returns {Pointer<NCryptKeyName>} The address of a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/ncrypt/ns-ncrypt-ncryptkeyname">NCryptKeyName</a> structure that receives the name of the retrieved key. When the application has finished using this memory, free it by calling the <a href="https://docs.microsoft.com/windows/desktop/api/ncrypt/nf-ncrypt-ncryptfreebuffer">NCryptFreeBuffer</a> function.
      * @see https://learn.microsoft.com/windows/win32/api/ncrypt/nf-ncrypt-ncryptenumkeys
      * @since windows6.0.6000
@@ -28934,10 +28947,10 @@ class Cryptography {
      * A service must not call this function from its <a href="https://docs.microsoft.com/windows/win32/api/winsvc/nf-winsvc-startservicea">StartService Function</a>. If a service calls this function from its StartService function, a deadlock can occur, and the service may stop responding.
      * 
      * For performance reasons, Microsoft software-based KSPs cache private key material in the Local Security Authority (LSA) for as long as a handle to the key is open. The LSA is a privileged system process. Therefore, other users cannot access this cached copy of the key unless the user possesses administrator privileges on the system. This behavior cannot be altered through configuration.
-     * @param {NCRYPT_PROV_HANDLE} _hProvider 
+     * @param {NCRYPT_PROV_HANDLE} _hProvider The handle of the key storage provider to open the key from.
      * @param {PWSTR} pszKeyName A pointer to a null-terminated Unicode string that contains the name of the key to retrieve.
-     * @param {Integer} dwLegacyKeySpec 
-     * @param {Integer} dwFlags 
+     * @param {CERT_KEY_SPEC} dwLegacyKeySpec 
+     * @param {NCRYPT_FLAGS} dwFlags 
      * @returns {NCRYPT_KEY_HANDLE} A pointer to a <b>NCRYPT_KEY_HANDLE</b> variable that receives the key handle. When you have finished using this handle, release it by passing it to the <a href="https://docs.microsoft.com/windows/desktop/api/ncrypt/nf-ncrypt-ncryptfreeobject">NCryptFreeObject</a> function.
      * @see https://learn.microsoft.com/windows/win32/api/ncrypt/nf-ncrypt-ncryptopenkey
      * @since windows6.0.6000
@@ -28957,11 +28970,11 @@ class Cryptography {
      * If you are creating an RSA key pair, you can also have the key stored in legacy storage so that it can be used with the CryptoAPI by passing the <b>NCRYPT_WRITE_KEY_TO_LEGACY_STORE_FLAG</b> flag to the <a href="https://docs.microsoft.com/windows/desktop/api/ncrypt/nf-ncrypt-ncryptfinalizekey">NCryptFinalizeKey</a> function when the key is finalized.
      * 
      * A service must not call this function from its <a href="https://docs.microsoft.com/windows/win32/api/winsvc/nf-winsvc-startservicea">StartService Function</a>. If a service calls this function from its StartService function, a deadlock can occur, and the service may stop responding.
-     * @param {NCRYPT_PROV_HANDLE} _hProvider 
+     * @param {NCRYPT_PROV_HANDLE} _hProvider The handle of the key storage provider to create the key in. This handle is obtained by using the <a href="https://docs.microsoft.com/windows/desktop/api/ncrypt/nf-ncrypt-ncryptopenstorageprovider">NCryptOpenStorageProvider</a> function.
      * @param {PWSTR} pszAlgId A pointer to a null-terminated Unicode string that contains the identifier of the cryptographic algorithm to create the key. This can be one of the standard <a href="https://docs.microsoft.com/windows/desktop/SecCNG/cng-algorithm-identifiers">CNG Algorithm Identifiers</a> or the identifier for another registered algorithm.
      * @param {PWSTR} pszKeyName A pointer to a null-terminated Unicode string that contains the name of the key. If this parameter is <b>NULL</b>, this function will create an ephemeral key that is not persisted.
-     * @param {Integer} dwLegacyKeySpec 
-     * @param {Integer} dwFlags 
+     * @param {CERT_KEY_SPEC} dwLegacyKeySpec 
+     * @param {NCRYPT_FLAGS} dwFlags 
      * @returns {NCRYPT_KEY_HANDLE} The address of an <b>NCRYPT_KEY_HANDLE</b> variable that receives the handle of the key. When you have finished using this handle, release it by passing it to the <a href="https://docs.microsoft.com/windows/desktop/api/ncrypt/nf-ncrypt-ncryptfreeobject">NCryptFreeObject</a> function. To delete the key file on disk, pass the handle to the <a href="https://docs.microsoft.com/windows/desktop/api/ncrypt/nf-ncrypt-ncryptdeletekey">NCryptDeleteKey</a> function. This will also release the handle. So applications may pass the handle to either <b>NCryptFreeObject</b> or <b>NCryptDeleteKey</b>, but not both.
      * @see https://learn.microsoft.com/windows/win32/api/ncrypt/nf-ncrypt-ncryptcreatepersistedkey
      * @since windows6.0.6000
@@ -28982,11 +28995,11 @@ class Cryptography {
      * A service must not call this function from its [StartService](/windows/win32/api/winsvc/nf-winsvc-startservicea) function. If a service calls this function from its `StartService` function, a deadlock can occur, and the service may stop responding.
      * @param {NCRYPT_HANDLE} hObject The handle of the object to get the property for. This can be a provider handle (**NCRYPT_PROV_HANDLE**) or a key handle (**NCRYPT_KEY_HANDLE**).
      * @param {PWSTR} pszProperty A pointer to a null-terminated Unicode string that contains the name of the property to retrieve. This can be one of the predefined [Key Storage Property Identifiers](/windows/win32/SecCNG/key-storage-property-identifiers) or a custom property identifier.
-     * @param {Pointer} pbOutput The address of a buffer that receives the property value. The _cbOutput_ parameter contains the size of this buffer.
+     * @param {Integer} pbOutput The address of a buffer that receives the property value. The _cbOutput_ parameter contains the size of this buffer.
      * 
      *  To calculate the size required for the buffer, set this parameter to **NULL**. The size, in bytes, required is returned in the location pointed to by the _pcbResult_ parameter.
      * @param {Integer} cbOutput The size, in bytes, of the _pbOutput_ buffer.
-     * @param {Integer} dwFlags Flags that modify function behavior. This can be zero or the following value.
+     * @param {OBJECT_SECURITY_INFORMATION} dwFlags Flags that modify function behavior. This can be zero or the following value.
      * 
      * <table>
      * <tr>
@@ -29032,9 +29045,9 @@ class Cryptography {
      * A service must not call this function from its <a href="https://docs.microsoft.com/windows/win32/api/winsvc/nf-winsvc-startservicea">StartService Function</a>. If a service calls this function from its StartService function, a deadlock can occur, and the service may stop responding.
      * @param {NCRYPT_HANDLE} hObject The handle of the key storage object to set the property for.
      * @param {PWSTR} pszProperty A pointer to a null-terminated Unicode string that contains the name of the property to set. This can be one of the predefined <a href="https://docs.microsoft.com/windows/desktop/SecCNG/key-storage-property-identifiers">Key Storage Property Identifiers</a> or a custom property identifier.
-     * @param {Pointer} pbInput The address of a buffer that contains the new property value. The <i>cbInput</i> parameter contains the size of this buffer.
+     * @param {Integer} pbInput The address of a buffer that contains the new property value. The <i>cbInput</i> parameter contains the size of this buffer.
      * @param {Integer} cbInput The size, in bytes, of the <i>pbInput</i> buffer.
-     * @param {Integer} dwFlags 
+     * @param {NCRYPT_FLAGS} dwFlags 
      * @returns {HRESULT} Returns a status code that indicates the success or failure of the function.
      * 
      * 
@@ -29129,8 +29142,8 @@ class Cryptography {
      * Completes a CNG key storage key.
      * @remarks
      * A service must not call this function from its <a href="https://docs.microsoft.com/windows/win32/api/winsvc/nf-winsvc-startservicea">StartService Function</a>. If a service calls this function from its StartService function, a deadlock can occur, and the service may stop responding.
-     * @param {NCRYPT_KEY_HANDLE} _hKey 
-     * @param {Integer} dwFlags 
+     * @param {NCRYPT_KEY_HANDLE} _hKey The handle of the key to complete. This handle is obtained by calling the <a href="https://docs.microsoft.com/windows/desktop/api/ncrypt/nf-ncrypt-ncryptcreatepersistedkey">NCryptCreatePersistedKey</a> function.
+     * @param {NCRYPT_FLAGS} dwFlags 
      * @returns {HRESULT} Returns a status code that indicates the success or failure of the function.
      * 
      * 
@@ -29193,15 +29206,15 @@ class Cryptography {
      * The <i>pbInput</i> and <i>pbOutput</i> parameters can point to the same buffer. In this case, this function will perform the encryption in place. It is possible that the encrypted data size will be larger than the unencrypted data size, so the buffer must be large enough to hold the encrypted data.
      * 
      * A service must not call this function from its <a href="https://docs.microsoft.com/windows/win32/api/winsvc/nf-winsvc-startservicea">StartService Function</a>. If a service calls this function from its StartService function, a deadlock can occur, and the service may stop responding.
-     * @param {NCRYPT_KEY_HANDLE} _hKey 
-     * @param {Pointer} pbInput The address of a buffer that contains the data to be encrypted. The <i>cbInput</i> parameter contains the size of the data to encrypt. For more information, see Remarks.
+     * @param {NCRYPT_KEY_HANDLE} _hKey The handle of the key to use to encrypt the data.
+     * @param {Integer} pbInput The address of a buffer that contains the data to be encrypted. The <i>cbInput</i> parameter contains the size of the data to encrypt. For more information, see Remarks.
      * @param {Integer} cbInput The number of bytes in the <i>pbInput</i> buffer to encrypt.
      * @param {Pointer<Void>} pPaddingInfo A pointer to a structure that contains padding information. The actual type of structure this parameter points to depends on the value of the <i>dwFlags</i> parameter. This parameter is only used with asymmetric keys and must be <b>NULL</b> otherwise.
-     * @param {Pointer} pbOutput The address of a buffer that will receive the encrypted data produced by this function. The <i>cbOutput</i> parameter contains the size of this buffer. For more information, see Remarks.
+     * @param {Integer} pbOutput The address of a buffer that will receive the encrypted data produced by this function. The <i>cbOutput</i> parameter contains the size of this buffer. For more information, see Remarks.
      * 
      * If this parameter is <b>NULL</b>, this function will calculate the size needed for the encrypted data and return the size in the location pointed to by the <i>pcbResult</i> parameter.
      * @param {Integer} cbOutput The size, in bytes, of the <i>pbOutput</i> buffer. This parameter is ignored if the <i>pbOutput</i> parameter is <b>NULL</b>.
-     * @param {Integer} dwFlags Flags that modify function behavior. The allowed set of flags depends on the type of key specified by the <i>hKey</i> parameter.
+     * @param {NCRYPT_FLAGS} dwFlags Flags that modify function behavior. The allowed set of flags depends on the type of key specified by the <i>hKey</i> parameter.
      * @returns {Integer} A pointer to a <b>DWORD</b> variable that receives the number of bytes copied to the <i>pbOutput</i> buffer. If <i>pbOutput</i> is <b>NULL</b>, this receives the size, in bytes, required for the ciphertext.
      * @see https://learn.microsoft.com/windows/win32/api/ncrypt/nf-ncrypt-ncryptencrypt
      * @since windows6.0.6000
@@ -29221,15 +29234,15 @@ class Cryptography {
      * The <i>pbInput</i> and <i>pbOutput</i> parameters can point to the same buffer. In this case, this function will perform the decryption in place.
      * 
      * A service must not call this function from its <a href="https://docs.microsoft.com/windows/win32/api/winsvc/nf-winsvc-startservicea">StartService Function</a>. If a service calls this function from its StartService function, a deadlock can occur, and the service may stop responding.
-     * @param {NCRYPT_KEY_HANDLE} _hKey 
-     * @param {Pointer} pbInput The address of a buffer that contains the data to be decrypted. The <i>cbInput</i> parameter contains the size of the data to decrypt. For more information, see Remarks.
+     * @param {NCRYPT_KEY_HANDLE} _hKey The handle of the key to use to decrypt the data.
+     * @param {Integer} pbInput The address of a buffer that contains the data to be decrypted. The <i>cbInput</i> parameter contains the size of the data to decrypt. For more information, see Remarks.
      * @param {Integer} cbInput The number of bytes in the <i>pbInput</i> buffer to decrypt.
      * @param {Pointer<Void>} pPaddingInfo A pointer to a structure that contains padding information. The actual type of structure this parameter points to depends on the value of the <i>dwFlags</i> parameter. This parameter is only used with asymmetric keys and must be <b>NULL</b> otherwise.
-     * @param {Pointer} pbOutput The address of a buffer that will receive the decrypted data produced by this function. The <i>cbOutput</i> parameter contains the size of this buffer. For more information, see Remarks.
+     * @param {Integer} pbOutput The address of a buffer that will receive the decrypted data produced by this function. The <i>cbOutput</i> parameter contains the size of this buffer. For more information, see Remarks.
      * 
      * If this parameter is <b>NULL</b>, this function will calculate the size needed for the decrypted data and return the size in the location pointed to by the <i>pcbResult</i> parameter.
      * @param {Integer} cbOutput The size, in bytes, of the <i>pbOutput</i> buffer. This parameter is ignored if the <i>pbOutput</i> parameter is <b>NULL</b>.
-     * @param {Integer} dwFlags Flags that modify function behavior. The allowed set of flags depends on the type of key specified by the <i>hKey</i> parameter.
+     * @param {NCRYPT_FLAGS} dwFlags Flags that modify function behavior. The allowed set of flags depends on the type of key specified by the <i>hKey</i> parameter.
      * @returns {Integer} A pointer to a <b>DWORD</b> variable that receives the number of bytes copied to the <i>pbOutput</i> buffer. If <i>pbOutput</i> is <b>NULL</b>, this receives the size, in bytes, required for the decrypted data.
      * @see https://learn.microsoft.com/windows/win32/api/ncrypt/nf-ncrypt-ncryptdecrypt
      * @since windows6.0.6000
@@ -29246,10 +29259,10 @@ class Cryptography {
     /**
      * 
      * @param {NCRYPT_KEY_HANDLE} _hKey 
-     * @param {Pointer} pbSecretKey 
+     * @param {Integer} pbSecretKey 
      * @param {Integer} cbSecretKey 
      * @param {Pointer<Integer>} pcbSecretKey 
-     * @param {Pointer} pbCipherText 
+     * @param {Integer} pbCipherText 
      * @param {Integer} cbCipherText 
      * @param {Pointer<Integer>} pcbCipherText 
      * @param {Integer} dwFlags 
@@ -29268,9 +29281,9 @@ class Cryptography {
     /**
      * 
      * @param {NCRYPT_KEY_HANDLE} _hKey 
-     * @param {Pointer} pbCipherText 
+     * @param {Integer} pbCipherText 
      * @param {Integer} cbCipherText 
-     * @param {Pointer} pbSecretKey 
+     * @param {Integer} pbSecretKey 
      * @param {Integer} cbSecretKey 
      * @param {Integer} dwFlags 
      * @returns {Integer} 
@@ -29291,13 +29304,13 @@ class Cryptography {
      * 
      * - **Microsoft Software KSP**
      * - **Microsoft Smart Card KSP**
-     * @param {NCRYPT_PROV_HANDLE} _hProvider 
+     * @param {NCRYPT_PROV_HANDLE} _hProvider The handle of the key storage provider.
      * @param {NCRYPT_KEY_HANDLE} hImportKey The handle of the [cryptographic key](/windows/win32/SecGloss/c-gly) with which the key data within the imported [key BLOB](/windows/win32/SecGloss/k-gly) was encrypted. This must be a handle to the same key that was passed in the _hExportKey_ parameter of the [NCryptExportKey](/windows/win32/api/ncrypt/nf-ncrypt-ncryptexportkey) function. If this parameter is **NULL**, the key BLOB is assumed to not be encrypted.
      * @param {PWSTR} pszBlobType A null-terminated Unicode string that contains an identifier that specifies the format of the key BLOB. These formats are specific to a particular key storage provider. For the BLOB formats supported by Microsoft providers, see Remarks.
      * @param {Pointer<BCryptBufferDesc>} pParameterList The address of an [NCryptBufferDesc](/windows/win32/api/bcrypt/ns-bcrypt-bcryptbufferdesc) structure that points to an array of buffers that contain parameter information for the key.
-     * @param {Pointer} pbData The address of a buffer that contains the key BLOB to be imported. The _cbData_ parameter contains the size of this buffer.
+     * @param {Integer} pbData The address of a buffer that contains the key BLOB to be imported. The _cbData_ parameter contains the size of this buffer.
      * @param {Integer} cbData The size, in bytes, of the _pbData_ buffer.
-     * @param {Integer} dwFlags 
+     * @param {NCRYPT_FLAGS} dwFlags 
      * @returns {NCRYPT_KEY_HANDLE} The address of an **NCRYPT_KEY_HANDLE** variable that receives the handle of the key. When you have finished using this handle, release it by passing it to the [NCryptFreeObject](/windows/win32/api/ncrypt/nf-ncrypt-ncryptfreeobject) function.
      * @see https://learn.microsoft.com/windows/win32/api/ncrypt/nf-ncrypt-ncryptimportkey
      * @since windows6.0.6000
@@ -29316,13 +29329,13 @@ class Cryptography {
      * Exports a CNG key to a memory BLOB.
      * @remarks
      * A service must not call this function from its [StartService Function](/windows/win32/api/winsvc/nf-winsvc-startservicea). If a service calls this function from its **StartService** function, a deadlock can occur, and the service may stop responding.
-     * @param {NCRYPT_KEY_HANDLE} _hKey 
+     * @param {NCRYPT_KEY_HANDLE} _hKey A handle of the key to export.
      * @param {NCRYPT_KEY_HANDLE} hExportKey A handle to a cryptographic key of the destination user. The key data within the exported key BLOB is encrypted by using this key. This ensures that only the destination user is able to make use of the key BLOB.
      * @param {PWSTR} pszBlobType 
      * @param {Pointer<BCryptBufferDesc>} pParameterList The address of an [NCryptBufferDesc](/windows/win32/api/bcrypt/ns-bcrypt-bcryptbufferdesc) structure that receives parameter information for the key. This parameter can be **NULL** if this information is not needed.
-     * @param {Pointer} pbOutput The address of a buffer that receives the key BLOB. The _cbOutput_ parameter contains the size of this buffer. If this parameter is **NULL**, this function will place the required size, in bytes, in the **DWORD** pointed to by the _pcbResult_ parameter.
+     * @param {Integer} pbOutput The address of a buffer that receives the key BLOB. The _cbOutput_ parameter contains the size of this buffer. If this parameter is **NULL**, this function will place the required size, in bytes, in the **DWORD** pointed to by the _pcbResult_ parameter.
      * @param {Integer} cbOutput The size, in bytes, of the _pbOutput_ buffer.
-     * @param {Integer} dwFlags 
+     * @param {NCRYPT_FLAGS} dwFlags 
      * @returns {Integer} The address of a **DWORD** variable that receives the number of bytes copied to the _pbOutput_ buffer. If the _pbOutput_ parameter is **NULL**, this function will place the required size, in bytes, in the **DWORD** pointed to by this parameter.
      * @see https://learn.microsoft.com/windows/win32/api/ncrypt/nf-ncrypt-ncryptexportkey
      * @since windows6.0.6000
@@ -29340,15 +29353,15 @@ class Cryptography {
      * Creates a signature of a hash value. (NCryptSignHash)
      * @remarks
      * A service must not call this function from its <a href="https://docs.microsoft.com/windows/win32/api/winsvc/nf-winsvc-startservicea">StartService Function</a>. If a service calls this function from its StartService function, a deadlock can occur, and the service may stop responding.
-     * @param {NCRYPT_KEY_HANDLE} _hKey 
+     * @param {NCRYPT_KEY_HANDLE} _hKey The handle of the key to use to sign the hash.
      * @param {Pointer<Void>} pPaddingInfo A pointer to a structure that contains padding information. The actual type of structure this parameter points to depends on the value of the <i>dwFlags</i> parameter. This parameter is only used with asymmetric keys and must be <b>NULL</b> otherwise.
-     * @param {Pointer} pbHashValue A pointer to a buffer that contains the hash value to sign. The <i>cbInput</i> parameter contains the size of this buffer.
+     * @param {Integer} pbHashValue A pointer to a buffer that contains the hash value to sign. The <i>cbInput</i> parameter contains the size of this buffer.
      * @param {Integer} cbHashValue The number of bytes in the <i>pbHashValue</i> buffer to sign.
-     * @param {Pointer} pbSignature The address of a buffer to receive the signature produced by this function. The <i>cbSignature</i> parameter contains the size of this buffer.
+     * @param {Integer} pbSignature The address of a buffer to receive the signature produced by this function. The <i>cbSignature</i> parameter contains the size of this buffer.
      * 
      * If this parameter is <b>NULL</b>, this function will calculate the size required for the signature and return the size in the location pointed to by the <i>pcbResult</i> parameter.
      * @param {Integer} cbSignature The size, in bytes, of the <i>pbSignature</i> buffer. This parameter is ignored if the <i>pbSignature</i> parameter is <b>NULL</b>.
-     * @param {Integer} dwFlags Flags that modify function behavior. The allowed set of flags depends on the type of key specified by the <i>hKey</i> parameter.
+     * @param {NCRYPT_FLAGS} dwFlags Flags that modify function behavior. The allowed set of flags depends on the type of key specified by the <i>hKey</i> parameter.
      * 
      * If the key is a symmetric key, this parameter is not used and should be set to zero.
      * @returns {Integer} A pointer to a <b>DWORD</b> variable that receives the number of bytes copied to the <i>pbSignature</i> buffer. 
@@ -29370,13 +29383,13 @@ class Cryptography {
      * Verifies that the specified signature matches the specified hash. (NCryptVerifySignature)
      * @remarks
      * A service must not call this function from its <a href="https://docs.microsoft.com/windows/win32/api/winsvc/nf-winsvc-startservicea">StartService Function</a>. If a service calls this function from its StartService function, a deadlock can occur, and the service may stop responding.
-     * @param {NCRYPT_KEY_HANDLE} _hKey 
+     * @param {NCRYPT_KEY_HANDLE} _hKey The handle of the key to use to decrypt the signature. This must be an identical key or the public key portion of the key pair used to sign the data with the <a href="https://docs.microsoft.com/windows/desktop/api/ncrypt/nf-ncrypt-ncryptsignhash">NCryptSignHash</a> function.
      * @param {Pointer<Void>} pPaddingInfo A pointer to a structure that contains padding information. The actual type of structure this parameter points to depends on the value of the <i>dwFlags</i> parameter. This parameter is only used with asymmetric keys and must be <b>NULL</b> otherwise.
-     * @param {Pointer} pbHashValue The address of a buffer that contains the hash of the data. The <i>cbHash</i> parameter contains the size of this buffer.
+     * @param {Integer} pbHashValue The address of a buffer that contains the hash of the data. The <i>cbHash</i> parameter contains the size of this buffer.
      * @param {Integer} cbHashValue The size, in bytes, of the <i>pbHash</i> buffer.
-     * @param {Pointer} pbSignature The address of a buffer that contains the signed hash of the data. The <a href="https://docs.microsoft.com/windows/desktop/api/ncrypt/nf-ncrypt-ncryptsignhash">NCryptSignHash</a> function is used to create the signature. The <i>cbSignature</i> parameter contains the size of this buffer.
+     * @param {Integer} pbSignature The address of a buffer that contains the signed hash of the data. The <a href="https://docs.microsoft.com/windows/desktop/api/ncrypt/nf-ncrypt-ncryptsignhash">NCryptSignHash</a> function is used to create the signature. The <i>cbSignature</i> parameter contains the size of this buffer.
      * @param {Integer} cbSignature The size, in bytes, of the <i>pbSignature</i> buffer. The <a href="https://docs.microsoft.com/windows/desktop/api/ncrypt/nf-ncrypt-ncryptsignhash">NCryptSignHash</a> function is used to create the signature.
-     * @param {Integer} dwFlags Flags that modify function behavior. The allowed set of flags depends on the type of key specified by the <i>hKey</i> parameter.
+     * @param {NCRYPT_FLAGS} dwFlags Flags that modify function behavior. The allowed set of flags depends on the type of key specified by the <i>hKey</i> parameter.
      * 
      * If the key is a symmetric key, this parameter is not used and should be zero.
      * @returns {HRESULT} Returns a status code that indicates the success or failure of the function.
@@ -29463,7 +29476,10 @@ class Cryptography {
      * Deletes a CNG key.
      * @remarks
      * A service must not call this function from its <a href="https://docs.microsoft.com/windows/win32/api/winsvc/nf-winsvc-startservicea">StartService Function</a>. If a service calls this function from its StartService function, a deadlock can occur, and the service may stop responding.
-     * @param {NCRYPT_KEY_HANDLE} _hKey 
+     * @param {NCRYPT_KEY_HANDLE} _hKey The handle of the key to delete. This handle is obtained by using the <a href="https://docs.microsoft.com/windows/desktop/api/ncrypt/nf-ncrypt-ncryptopenkey">NCryptOpenKey</a> function.
+     * 
+     * <div class="alert"><b>Note</b>  The <b>NCryptDeleteKey</b> function frees the handle. Applications must not use the handle or attempt to call the <a href="https://docs.microsoft.com/windows/desktop/api/ncrypt/nf-ncrypt-ncryptfreeobject">NCryptFreeObject</a> function on it after calling the <b>NCryptDeleteKey</b> function.</div>
+     * <div> </div>
      * @param {Integer} dwFlags Flags that modify function behavior. This can be zero or a combination of values that is specific to each key storage provider.
      * 
      * <table>
@@ -29592,7 +29608,7 @@ class Cryptography {
      * Determines if the specified handle is a CNG key handle.
      * @remarks
      * A service must not call this function from its <a href="https://docs.microsoft.com/windows/win32/api/winsvc/nf-winsvc-startservicea">StartService Function</a>. If a service calls this function from its StartService function, a deadlock can occur, and the service may stop responding.
-     * @param {NCRYPT_KEY_HANDLE} _hKey 
+     * @param {NCRYPT_KEY_HANDLE} _hKey The handle of the key to test.
      * @returns {BOOL} Returns a nonzero value if the handle is a key handle or zero otherwise.
      * @see https://learn.microsoft.com/windows/win32/api/ncrypt/nf-ncrypt-ncryptiskeyhandle
      * @since windows6.0.6000
@@ -29626,7 +29642,7 @@ class Cryptography {
      * @param {Pointer} hLegacyKey The handle of a CryptoAPI key to use to help determine the key specification for the returned key. This parameter is ignored if the <i>dwLegacyKeySpec</i> parameter contains a value other than zero.
      * 
      * If <i>hLegacyKey</i> is <b>NULL</b> and <i>dwLegacyKeySpec</i> is zero, this function will attempt to determine the key specification from the <i>hLegacyProv</i> handle.
-     * @param {Integer} dwLegacyKeySpec 
+     * @param {CERT_KEY_SPEC} dwLegacyKeySpec 
      * @param {Integer} dwFlags A set of flags that modify the behavior of this function. No flags are defined for this function.
      * @returns {HRESULT} Returns a status code that indicates the success or failure of the function.
      * 
@@ -29697,9 +29713,9 @@ class Cryptography {
      * Creates or removes a key change notification.
      * @remarks
      * A service must not call this function from its <a href="https://docs.microsoft.com/windows/win32/api/winsvc/nf-winsvc-startservicea">StartService Function</a>. If a service calls this function from its StartService function, a deadlock can occur, and the service may stop responding.
-     * @param {NCRYPT_PROV_HANDLE} _hProvider 
+     * @param {NCRYPT_PROV_HANDLE} _hProvider The handle of the key storage provider. This handle is obtained by using the <a href="https://docs.microsoft.com/windows/desktop/api/ncrypt/nf-ncrypt-ncryptopenstorageprovider">NCryptOpenStorageProvider</a> function.
      * @param {Pointer<HANDLE>} phEvent The address of a <b>HANDLE</b> variable that either receives or contains the key change notification event handle. This is the same handle that is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-findfirstchangenotificationa">FindFirstChangeNotification</a> function. For more information, see the <i>dwFlags</i> parameter description.
-     * @param {Integer} dwFlags 
+     * @param {NCRYPT_FLAGS} dwFlags 
      * @returns {HRESULT} Returns a status code that indicates the success or failure of the function.
      * 
      * 
@@ -29773,7 +29789,7 @@ class Cryptography {
      * A service must not call this function from its <a href="https://docs.microsoft.com/windows/win32/api/winsvc/nf-winsvc-startservicea">StartService Function</a>. If a service calls this function from its StartService function, a deadlock can occur, and the service may stop responding.
      * @param {NCRYPT_KEY_HANDLE} hPrivKey The handle of the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">private key</a> to use to create the secret agreement value. This key and the <i>hPubKey</i> key must come from the same key storage provider.
      * @param {NCRYPT_KEY_HANDLE} hPubKey The handle of the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">public key</a> to use to create the secret agreement value. This key and the <i>hPrivKey</i> key must come from the same key storage provider.
-     * @param {Integer} dwFlags 
+     * @param {NCRYPT_FLAGS} dwFlags 
      * @returns {NCRYPT_SECRET_HANDLE} A pointer to an <b>NCRYPT_SECRET_HANDLE</b> variable that receives a handle that represents the secret agreement value. When this handle is no longer needed, release it by passing it to the <a href="https://docs.microsoft.com/windows/desktop/api/ncrypt/nf-ncrypt-ncryptfreeobject">NCryptFreeObject</a> function.
      * @see https://learn.microsoft.com/windows/win32/api/ncrypt/nf-ncrypt-ncryptsecretagreement
      * @since windows6.0.6000
@@ -29831,7 +29847,7 @@ class Cryptography {
      * @param {NCRYPT_SECRET_HANDLE} hSharedSecret The secret agreement handle to create the key from. This handle is obtained from the <a href="https://docs.microsoft.com/windows/desktop/api/ncrypt/nf-ncrypt-ncryptsecretagreement">NCryptSecretAgreement</a> function.
      * @param {PWSTR} pwszKDF A pointer to a null-terminated Unicode string that identifies the <i>key derivation function</i> (KDF) to use to derive the key. This can be one of the following strings.
      * @param {Pointer<BCryptBufferDesc>} pParameterList The address of a <a href="https://docs.microsoft.com/windows/win32/api/bcrypt/ns-bcrypt-bcryptbufferdesc">NCryptBufferDesc</a> structure that contains the KDF parameters. This parameter is optional and can be <b>NULL</b> if it is not needed.
-     * @param {Pointer} pbDerivedKey The address of a buffer that receives the key. The <i>cbDerivedKey</i> parameter contains the size of this buffer. If this parameter is <b>NULL</b>, this function will place the required size, in bytes, in the <b>DWORD</b> pointed to by the <i>pcbResult</i> parameter.
+     * @param {Integer} pbDerivedKey The address of a buffer that receives the key. The <i>cbDerivedKey</i> parameter contains the size of this buffer. If this parameter is <b>NULL</b>, this function will place the required size, in bytes, in the <b>DWORD</b> pointed to by the <i>pcbResult</i> parameter.
      * @param {Integer} cbDerivedKey The size, in bytes, of the <i>pbDerivedKey</i> buffer.
      * @param {Integer} dwFlags A set of flags that modify the behavior of this function. This can be zero or the following value.
      * 
@@ -29874,7 +29890,7 @@ class Cryptography {
      * <li><b>BCRYPT_SP80056A_CONCAT_ALGORITHM</b></li>
      * <li><b>BCRYPT_PBKDF2_ALGORITHM</b></li>
      * </ul>
-     * @param {NCRYPT_KEY_HANDLE} _hKey 
+     * @param {NCRYPT_KEY_HANDLE} _hKey Handle of the key derivation function (KDF) key.
      * @param {Pointer<BCryptBufferDesc>} pParameterList The address of a <a href="https://docs.microsoft.com/windows/win32/api/bcrypt/ns-bcrypt-bcryptbufferdesc">NCryptBufferDesc</a> structure that contains the KDF parameters. The parameters can be specific to a KDF or generic. The following table shows the required and optional parameters for specific KDFs implemented by the Microsoft software key storage provider.
      * 
      * <table>
@@ -29974,7 +29990,7 @@ class Cryptography {
      * CAPI_KDF<ul>
      * <li>KDF_GENERIC_PARAMETER = Not Used </li>
      * </ul>
-     * @param {Pointer} pbDerivedKey Address of a buffer that receives the key. The <i>cbDerivedKey</i> parameter contains the size, in bytes, of the key buffer.
+     * @param {Integer} pbDerivedKey Address of a buffer that receives the key. The <i>cbDerivedKey</i> parameter contains the size, in bytes, of the key buffer.
      * @param {Integer} cbDerivedKey Size, in bytes, of the buffer pointed to by the <i>pbDerivedKey</i> parameter.
      * @param {Integer} dwFlags Flags that modify function behavior. The following value can be used with the Microsoft software key storage provider.
      * 
@@ -30022,7 +30038,7 @@ class Cryptography {
      * @param {NCRYPT_KEY_HANDLE} hAuthorityKey The authority key handle that the claim is based on.
      * @param {Integer} dwClaimType The type of claim.
      * @param {Pointer<BCryptBufferDesc>} pParameterList An optional parameter list.
-     * @param {Pointer} pbClaimBlob Output of the created claim blob.
+     * @param {Integer} pbClaimBlob Output of the created claim blob.
      * @param {Integer} cbClaimBlob 
      * @param {Integer} dwFlags As of Windows 10, no  flags are defined. This parameter should be set to 0.
      * @returns {Integer} The output of the created claim blob.
@@ -30043,7 +30059,7 @@ class Cryptography {
      * @param {NCRYPT_KEY_HANDLE} hAuthorityKey The authority key handle to use when verifying the claim. This parameter is optional because the authority key is self-contained for certain claim types.
      * @param {Integer} dwClaimType The type of claim.
      * @param {Pointer<BCryptBufferDesc>} pParameterList An optional parameter list.
-     * @param {Pointer} pbClaimBlob The input claim blob.
+     * @param {Integer} pbClaimBlob The input claim blob.
      * @param {Integer} cbClaimBlob 
      * @param {Pointer<BCryptBufferDesc>} pOutput The output blob.
      * @param {Integer} dwFlags As of Windows 10, no  flags are defined. This parameter should be set to 0.
@@ -30066,7 +30082,7 @@ class Cryptography {
      * 
      * If there is no formatting routine installed or registered for the <i>lpszStructType</i> parameter, the hexadecimal dump of the encoded 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa381414(v=vs.85)">CRYPT_INTEGER_BLOB</a> will be returned. A user can set the CRYPT_FORMAT_STR_NO_HEX flag to disable the hexadecimal dump.
-     * @param {Integer} dwCertEncodingType Type of encoding used on the certificate. The currently defined certificate encoding type used is X509_ASN_ENCODING.
+     * @param {CERT_QUERY_ENCODING_TYPE} dwCertEncodingType Type of encoding used on the certificate. The currently defined certificate encoding type used is X509_ASN_ENCODING.
      * @param {Integer} dwFormatType Format type values. Not used. Set to zero.
      * @param {Integer} dwFormatStrType Structure format type values. This parameter can be zero, or you can specify one or more of the following flags by using the bitwise-<b>OR</b> operator to combine them.
      * 					
@@ -30293,9 +30309,9 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer} pbEncoded A pointer to the encoded data to be formatted. If <i>lpszStructType</i> is one of the OIDs listed above, the <i>pbEncoded</i> is the encoded extension.
+     * @param {Integer} pbEncoded A pointer to the encoded data to be formatted. If <i>lpszStructType</i> is one of the OIDs listed above, the <i>pbEncoded</i> is the encoded extension.
      * @param {Integer} cbEncoded The size, in bytes, of the <i>pbEncoded</i> structure.
-     * @param {Pointer} pbFormat A pointer to a buffer that receives the formatted string. When the buffer that is specified is not large enough to receive the decoded structure, the function sets ERROR_MORE_DATA and stores the required buffer size, in bytes, into the variable pointed to by <i>pcbFormat</i>. This parameter can be <b>NULL</b> to set the size of this information for memory allocation purposes. For more information, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/retrieving-data-of-unknown-length">Retrieving Data of Unknown Length</a>.
+     * @param {Integer} pbFormat A pointer to a buffer that receives the formatted string. When the buffer that is specified is not large enough to receive the decoded structure, the function sets ERROR_MORE_DATA and stores the required buffer size, in bytes, into the variable pointed to by <i>pcbFormat</i>. This parameter can be <b>NULL</b> to set the size of this information for memory allocation purposes. For more information, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/retrieving-data-of-unknown-length">Retrieving Data of Unknown Length</a>.
      * @param {Pointer<Integer>} pcbFormat A pointer to a variable that specifies the size, in bytes, of the buffer pointed to by the <i>pbFormat</i> parameter. When the function returns, the variable pointed to by the <i>pcbFormat</i> parameter contains the number of bytes stored in the buffer. This parameter can be <b>NULL</b>, only if <i>pbFormat</i> is <b>NULL</b>. 
      * 
      * 
@@ -30414,13 +30430,13 @@ class Cryptography {
      * If the <i>pszObjId</i> member of the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_rdn_attr">CERT_RDN_ATTR</a> structure is set to <b>szOID_RSA_emailAddr</b> and the email address in the <b>Value</b> member contains Unicode characters outside of the ASCII character set, the host name portion of the email address is encoded in Punycode. Then the resultant email address is then  encoded as an <a href="https://docs.microsoft.com/windows/desktop/SecCertEnroll/about-ia5string">IA5String</a> string.
      * 
      * In all cases, the Punycode encoding of the host name is performed on a label-by-label basis.
-     * @param {Integer} dwCertEncodingType 
+     * @param {CERT_QUERY_ENCODING_TYPE} dwCertEncodingType 
      * @param {PSTR} lpszStructType A pointer to an <a href="https://docs.microsoft.com/windows/desktop/SecGloss/o-gly">object identifier</a> (OID) that defines the structure type. If the high-order word of the <i>lpszStructType</i> parameter is zero, the low-order word specifies an integer identifier for the type of the specified structure. Otherwise, this parameter is a pointer to a null-terminated string that contains the string representation of the OID.
      * 
      * For more information about object identifier strings, their predefined constants and corresponding structures, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/constants-for-cryptencodeobject-and-cryptdecodeobject">Constants for CryptEncodeObject and CryptDecodeObject</a>.
      * @param {Pointer<Void>} pvStructInfo A pointer to the structure to be encoded. The structure must be of the type specified by <i>lpszStructType</i>.
-     * @param {Integer} dwFlags 
+     * @param {CRYPT_ENCODE_OBJECT_FLAGS} dwFlags 
      * @param {Pointer<CRYPT_ENCODE_PARA>} pEncodePara A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-crypt_encode_para">CRYPT_ENCODE_PARA</a> structure that contains encoding information. This parameter can be <b>NULL</b>.
      * 
@@ -30511,7 +30527,7 @@ class Cryptography {
      * The CryptEncodeObject function encodes a structure of the type indicated by the value of the lpszStructType parameter. The use of CryptEncodeObjectEx is recommended as an API that performs the same function with significant performance improvements.
      * @remarks
      * When encoding a cryptographic object using the preferred <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptencodeobjectex">CryptEncodeObjectEx</a> function, the terminating <b>NULL</b> character is included. When decoding, using the preferred <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptdecodeobjectex">CryptDecodeObjectEx</a> function, the terminating <b>NULL</b> character is not retained.
-     * @param {Integer} dwCertEncodingType Type of encoding used. It is always acceptable to specify both the certificate and <a href="https://docs.microsoft.com/windows/desktop/SecGloss/m-gly">message encoding types</a> by combining them with a bitwise-<b>OR</b> operation as shown in the following example:
+     * @param {CERT_QUERY_ENCODING_TYPE} dwCertEncodingType Type of encoding used. It is always acceptable to specify both the certificate and <a href="https://docs.microsoft.com/windows/desktop/SecGloss/m-gly">message encoding types</a> by combining them with a bitwise-<b>OR</b> operation as shown in the following example:
      * 
      * X509_ASN_ENCODING | PKCS_7_ASN_ENCODING
      * 
@@ -30528,7 +30544,7 @@ class Cryptography {
      * For more information about object identifier strings, their predefined constants and corresponding structures, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/constants-for-cryptencodeobject-and-cryptdecodeobject">Constants for CryptEncodeObject and CryptDecodeObject</a>.
      * @param {Pointer<Void>} pvStructInfo A pointer to the structure to be encoded. The structure must be of a type specified by <i>lpszStructType</i>.
-     * @param {Pointer} pbEncoded A pointer to a buffer to receive the encoded structure. When the buffer that is specified is not large enough to receive the decoded structure, the function sets the ERROR_MORE_DATA code and stores the required buffer size, in bytes, in the variable pointed to by <i>pcbEncoded</i>.
+     * @param {Integer} pbEncoded A pointer to a buffer to receive the encoded structure. When the buffer that is specified is not large enough to receive the decoded structure, the function sets the ERROR_MORE_DATA code and stores the required buffer size, in bytes, in the variable pointed to by <i>pcbEncoded</i>.
      * 
      * This parameter can be <b>NULL</b> to retrieve the size of this information for memory allocation purposes. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/retrieving-data-of-unknown-length">Retrieving Data of Unknown Length</a>.
@@ -30689,7 +30705,7 @@ class Cryptography {
      * <li>X509_UNICODE_NAME</li>
      * </ul>
      * If the <i>pszObjId</i> member of the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_rdn_attr">CERT_RDN_ATTR</a> structure is set to <b>szOID_RSA_emailAddr</b> and the email address in the <b>Value</b> member contains Punycode encoded string, it is converted to the Unicode equivalent.
-     * @param {Integer} dwCertEncodingType The type of encoding used. It is always acceptable to specify both the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate</a> and <a href="https://docs.microsoft.com/windows/desktop/SecGloss/m-gly">message encoding types</a> by combining them with a bitwise-<b>OR</b> operation as shown in the following example:
+     * @param {CERT_QUERY_ENCODING_TYPE} dwCertEncodingType The type of encoding used. It is always acceptable to specify both the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate</a> and <a href="https://docs.microsoft.com/windows/desktop/SecGloss/m-gly">message encoding types</a> by combining them with a bitwise-<b>OR</b> operation as shown in the following example:
      * 
      * X509_ASN_ENCODING | PKCS_7_ASN_ENCODING
      * 
@@ -30705,7 +30721,7 @@ class Cryptography {
      * 
      * For more information about object identifier strings, their predefined constants, and corresponding structures, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/constants-for-cryptencodeobject-and-cryptdecodeobject">Constants for CryptEncodeObject and CryptDecodeObject</a>.
-     * @param {Pointer} pbEncoded A pointer to the data to be decoded. The structure must be of the type specified by <i>lpszStructType</i>.
+     * @param {Integer} pbEncoded A pointer to the data to be decoded. The structure must be of the type specified by <i>lpszStructType</i>.
      * @param {Integer} cbEncoded The number of bytes pointed to by <i>pbEncoded</i>. This is the number of bytes to be decoded.
      * @param {Integer} dwFlags This parameter can be one or more of the following flags. The flags can be combined by using a bitwise-<b>OR</b> operation.
      * 
@@ -30877,7 +30893,7 @@ class Cryptography {
      * The CryptDecodeObject function decodes a structure of the type indicated by the lpszStructType parameter. The use of CryptDecodeObjectEx is recommended as an API that performs the same function with significant performance improvements.
      * @remarks
      * When encoding a cryptographic object using the preferred <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptencodeobjectex">CryptEncodeObjectEx</a> function, the terminating <b>NULL</b> character is included. When decoding, using the preferred <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptdecodeobjectex">CryptDecodeObjectEx</a> function, the terminating <b>NULL</b> character is not retained.
-     * @param {Integer} dwCertEncodingType Type of encoding used. It is always acceptable to specify both the certificate and <a href="https://docs.microsoft.com/windows/desktop/SecGloss/m-gly">message encoding types</a> by combining them with a bitwise-<b>OR</b> operation as shown in the following example:
+     * @param {CERT_QUERY_ENCODING_TYPE} dwCertEncodingType Type of encoding used. It is always acceptable to specify both the certificate and <a href="https://docs.microsoft.com/windows/desktop/SecGloss/m-gly">message encoding types</a> by combining them with a bitwise-<b>OR</b> operation as shown in the following example:
      * 
      * X509_ASN_ENCODING | PKCS_7_ASN_ENCODING
      * 
@@ -30893,7 +30909,7 @@ class Cryptography {
      * 
      * For more information about object identifier strings, their predefined constants and corresponding structures, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/constants-for-cryptencodeobject-and-cryptdecodeobject">Constants for CryptEncodeObject and CryptDecodeObject</a>.
-     * @param {Pointer} pbEncoded A pointer to the encoded structure to be decoded.
+     * @param {Integer} pbEncoded A pointer to the encoded structure to be decoded.
      * @param {Integer} cbEncoded Number of bytes pointed to by <i>pbEncoded</i>.
      * @param {Integer} dwFlags The following flags are defined. They can be combined with a bitwise-<b>OR</b> operation.
      * 
@@ -30953,7 +30969,7 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer} pvStructInfo A pointer to a buffer to receive the decoded structure. When the buffer that is specified is not large enough to receive the decoded structure, the function sets the ERROR_MORE_DATA code and stores the required buffer size, in bytes, in the variable pointed to by <i>pcbStructInfo</i>.
+     * @param {Integer} pvStructInfo A pointer to a buffer to receive the decoded structure. When the buffer that is specified is not large enough to receive the decoded structure, the function sets the ERROR_MORE_DATA code and stores the required buffer size, in bytes, in the variable pointed to by <i>pcbStructInfo</i>.
      * 
      * This parameter can be <b>NULL</b> to retrieve the size of this information for memory allocation purposes. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/retrieving-data-of-unknown-length">Retrieving Data of Unknown Length</a>.
@@ -31032,7 +31048,10 @@ class Cryptography {
 
     /**
      * The CryptInstallOIDFunctionAddress function installs a set of callable object identifier (OID) function addresses.
-     * @param {HMODULE} _hModule 
+     * @param {HMODULE} _hModule This parameter is updated with the <i>hModule</i> parameter passed to <b>DllMain</b> to prevent the DLL that contains the function addresses from being unloaded by 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptgetoidfunctionaddress">CryptGetOIDFunctionAddress</a> or
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptfreeoidfunctionaddress">CryptFreeOIDFunctionAddress</a>. This would be the case when the DLL has also registered OID functions through 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptregisteroidfunction">CryptRegisterOIDFunction</a>.
      * @param {Integer} dwEncodingType Specifies the encoding type to be matched. Currently, only X509_ASN_ENCODING and PKCS_7_ASN_ENCODING are being used; however, additional encoding types may be added in the future. To match both current encoding types, use:
      * 
      * X509_ASN_ENCODING | PKCS_7_ASN_ENCODING
@@ -31378,8 +31397,8 @@ class Cryptography {
      * @param {PSTR} pszFuncName Name of the function for which the encoding type, OID, and value name is being updated.
      * @param {PSTR} pszOID If the high-order word of the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/o-gly">object identifier</a> (OID) is nonzero, <i>pszOID</i> is a pointer to either an OID string such as "2.5.29.1" or an <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">ASCII</a> string such as "file". If the high-order word of the OID is zero, the low-order word specifies the integer identifier to be used as the object identifier.
      * @param {PWSTR} pwszValueName A pointer to a Unicode string containing the name of the value to set. If a value with this name is not already present, the function creates it.
-     * @param {Integer} dwValueType 
-     * @param {Pointer} pbValueData Points to a buffer containing the data to be stored for the specified value name.
+     * @param {REG_VALUE_TYPE} dwValueType 
+     * @param {Integer} pbValueData Points to a buffer containing the data to be stored for the specified value name.
      * @param {Integer} cbValueData Specifies the size, in bytes, of the information pointed to by the <i>pbValueData</i> parameter. If the data is of type REG_SZ, REG_EXPAND_SZ, or REG_MULTI_SZ, the size must include the terminating <b>NULL</b> wide character.
      * @returns {BOOL} If the function succeeds, the return value is nonzero (<b>TRUE</b>).
      * 
@@ -31453,7 +31472,7 @@ class Cryptography {
      *  
      * 
      * The <i>pdwValueType</i> parameter can be <b>NULL</b> if a returned type is not required.
-     * @param {Pointer} pbValueData A pointer to a buffer to receive the value associated with the <i>pwszValueName</i> parameter. The buffer must be big enough to contain the terminating <b>NULL</b> character. This parameter can be <b>NULL</b> if returned data is not required.
+     * @param {Integer} pbValueData A pointer to a buffer to receive the value associated with the <i>pwszValueName</i> parameter. The buffer must be big enough to contain the terminating <b>NULL</b> character. This parameter can be <b>NULL</b> if returned data is not required.
      * 
      * This parameter can also be <b>NULL</b> to find the size of the buffer for memory allocation purposes. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/retrieving-data-of-unknown-length">Retrieving Data of Unknown Length</a>.
@@ -31876,7 +31895,7 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @param {Integer} dwMsgType 
+     * @param {CRYPT_MSG_TYPE} dwMsgType 
      * @param {Pointer<Void>} pvMsgEncodeInfo The address of a structure that contains the encoding information. The type of data depends on the value of the <i>dwMsgType</i> parameter. For details, see <i>dwMsgType</i>.
      * @param {PSTR} pszInnerContentObjID If <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptmsgcalculateencodedlength">CryptMsgCalculateEncodedLength</a> is called and the data for 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptmsgupdate">CryptMsgUpdate</a> has already been message encoded, the appropriate <a href="https://docs.microsoft.com/windows/desktop/SecGloss/o-gly">object identifier</a> (OID) is passed in <i>pszInnerContentObjID</i>. If <i>pszInnerContentObjID</i> is <b>NULL</b>, then the inner content type is assumed not to have been previously encoded and is therefore encoded as an octet string and given the type CMSG_DATA.
@@ -32462,7 +32481,7 @@ class Cryptography {
     /**
      * Adds contents to a cryptographic message.
      * @param {Pointer<Void>} hCryptMsg Cryptographic message handle of the message to be updated.
-     * @param {Pointer} pbData A pointer to the buffer holding the data to be encoded or decoded.
+     * @param {Integer} pbData A pointer to the buffer holding the data to be encoded or decoded.
      * @param {Integer} cbData Number of bytes of data in the <i>pbData</i> buffer.
      * @param {BOOL} fFinal Indicates that the last block of data for encoding or decoding is being processed. Correct usage of this flag is dependent upon whether the message being processed has detached data. The inclusion of detached data in a message is indicated by setting <i>dwFlags</i> to CMSG_DETACHED_FLAG in the call to the function that opened the message. 
      * 
@@ -33101,7 +33120,7 @@ class Cryptography {
      * </tr>
      * </table>
      * @param {Integer} dwIndex Index for the parameter being retrieved, where applicable. When a parameter is not being retrieved, this parameter is ignored and is set to zero.
-     * @param {Pointer} pvData A pointer to a buffer that receives the data retrieved. The form of this data will vary depending on the value of the <i>dwParamType</i> parameter. 
+     * @param {Integer} pvData A pointer to a buffer that receives the data retrieved. The form of this data will vary depending on the value of the <i>dwParamType</i> parameter. 
      * 
      * 
      * 
@@ -33812,9 +33831,9 @@ class Cryptography {
      * 
      * 
      * X509_ASN_ENCODING | PKCS_7_ASN_ENCODING.
-     * @param {Pointer} pbSignerInfo A pointer to the encoded <a href="https://docs.microsoft.com/windows/desktop/SecGloss/b-gly">BLOB</a> that contains the signer of the contents of a message to be countersigned.
+     * @param {Integer} pbSignerInfo A pointer to the encoded <a href="https://docs.microsoft.com/windows/desktop/SecGloss/b-gly">BLOB</a> that contains the signer of the contents of a message to be countersigned.
      * @param {Integer} cbSignerInfo Count, in bytes, of the encoded BLOB for the signer of the contents.
-     * @param {Pointer} pbSignerInfoCountersignature A pointer to the encoded BLOB containing the countersigner information.
+     * @param {Integer} pbSignerInfoCountersignature A pointer to the encoded BLOB containing the countersigner information.
      * @param {Integer} cbSignerInfoCountersignature Count, in bytes, of the encoded BLOB for the countersigner of the message.
      * @param {Pointer<CERT_INFO>} pciCountersigner A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_info">CERT_INFO</a> that includes with the issuer and serial number of the countersigner. For more information, see Remarks.
@@ -33951,9 +33970,9 @@ class Cryptography {
      * 
      * 
      * X509_ASN_ENCODING | PKCS_7_ASN_ENCODING.
-     * @param {Pointer} pbSignerInfo A pointer to the encoded <a href="https://docs.microsoft.com/windows/desktop/SecGloss/b-gly">BLOB</a> that contains the signer of the contents of a message to be countersigned.
+     * @param {Integer} pbSignerInfo A pointer to the encoded <a href="https://docs.microsoft.com/windows/desktop/SecGloss/b-gly">BLOB</a> that contains the signer of the contents of a message to be countersigned.
      * @param {Integer} cbSignerInfo The count, in bytes, of the encoded BLOB for the signer of the contents.
-     * @param {Pointer} pbSignerInfoCountersignature A pointer to the encoded BLOB containing the countersigner information.
+     * @param {Integer} pbSignerInfoCountersignature A pointer to the encoded BLOB containing the countersigner information.
      * @param {Integer} cbSignerInfoCountersignature The count, in bytes, of the encoded BLOB for the countersigner of the message.
      * @param {Integer} dwSignerType The structure that contains the signer information. The following table shows the predefined values and the structures indicated.
      * 
@@ -34226,12 +34245,12 @@ class Cryptography {
      * 
      * 
      * X509_ASN_ENCODING | PKCS_7_ASN_ENCODING.
-     * @param {Pointer} pbSignerInfo A pointer to the encoded SignerInfo that is to be countersigned.
+     * @param {Integer} pbSignerInfo A pointer to the encoded SignerInfo that is to be countersigned.
      * @param {Integer} cbSignerInfo Count, in bytes, of the encoded SignerInfo data.
      * @param {Integer} cCountersigners Number of countersigners in the <i>rgCountersigners</i> array.
      * @param {Pointer<CMSG_SIGNER_ENCODE_INFO>} rgCountersigners Array of countersigners' 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cmsg_signer_encode_info">CMSG_SIGNER_ENCODE_INFO</a> structures.
-     * @param {Pointer} pbCountersignature A pointer to a buffer to receive an encoded PKCS #9 <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">countersignature</a> attribute.
+     * @param {Integer} pbCountersignature A pointer to a buffer to receive an encoded PKCS #9 <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">countersignature</a> attribute.
      * 
      * On input, this parameter can be <b>NULL</b> to set the size of this information for memory allocation purposes. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/retrieving-data-of-unknown-length">Retrieving Data of Unknown Length</a>.
@@ -34641,10 +34660,10 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @param {Integer} dwEncodingType Specifies the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate encoding type</a> and <a href="https://docs.microsoft.com/windows/desktop/SecGloss/m-gly">message encoding type</a>. Encoding is used only when the <i>dwSaveAs</i> parameter of  the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certsavestore">CertSaveStore</a> function contains <b>CERT_STORE_SAVE_AS_PKCS7</b>. Otherwise, the <i>dwMsgAndCertEncodingType</i> parameter is not used.
+     * @param {CERT_QUERY_ENCODING_TYPE} dwEncodingType Specifies the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate encoding type</a> and <a href="https://docs.microsoft.com/windows/desktop/SecGloss/m-gly">message encoding type</a>. Encoding is used only when the <i>dwSaveAs</i> parameter of  the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certsavestore">CertSaveStore</a> function contains <b>CERT_STORE_SAVE_AS_PKCS7</b>. Otherwise, the <i>dwMsgAndCertEncodingType</i> parameter is not used.
      * 
      * This parameter is only applicable  when the <b>CERT_STORE_PROV_MSG</b>, <b>CERT_STORE_PROV_PKCS7</b>, or <b>CERT_STORE_PROV_FILENAME</b> provider type is specified in the <i>lpszStoreProvider</i> parameter. For all other provider types, this parameter is unused and should be set to zero.
-     * @param {Integer} dwFlags These values consist of high-word and low-word values combined by using a bitwise-<b>OR</b> operation.
+     * @param {CERT_OPEN_STORE_FLAGS} dwFlags These values consist of high-word and low-word values combined by using a bitwise-<b>OR</b> operation.
      * @param {Pointer<Void>} pvPara A 32-bit value that can contain additional information for this function. The contents of this parameter depends on the value of the <i>lpszStoreProvider</i> and other parameters.
      * @returns {HCERTSTORE} If the function succeeds, the function returns a handle to the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate store</a>. When you have finished using the store, release the handle by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certclosestore">CertCloseStore</a> function.
      * 
@@ -34677,7 +34696,7 @@ class Cryptography {
 
     /**
      * Duplicates a store handle by incrementing the store's reference count.
-     * @param {HCERTSTORE} _hCertStore 
+     * @param {HCERTSTORE} _hCertStore A handle of the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate store</a> for which the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/r-gly">reference count</a> is being incremented.
      * @returns {HCERTSTORE} Currently, a copy is not made of the handle, and the returned handle is the same as the handle that was input. If <b>NULL</b> is passed in, the called function will raise an access violation exception.
      * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-certduplicatestore
      * @since windows5.1.2600
@@ -34692,10 +34711,10 @@ class Cryptography {
 
     /**
      * Saves the certificate store to a file or to a memory BLOB.
-     * @param {HCERTSTORE} _hCertStore 
-     * @param {Integer} dwEncodingType Specifies the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate encoding type</a> and <a href="https://docs.microsoft.com/windows/desktop/SecGloss/m-gly">message encoding type</a>. Encoding is used only when <i>dwSaveAs</i> contains <b>CERT_STORE_SAVE_AS_PKCS7</b>. Otherwise, the <i>dwMsgAndCertEncodingType</i> parameter is not used.
-     * @param {Integer} dwSaveAs Specifies how to save the certificate store.
-     * @param {Integer} dwSaveTo Specifies where and how to save the certificate store. The contents of this parameter determines the format of the <i>pvSaveToPara</i> parameter.
+     * @param {HCERTSTORE} _hCertStore The handle of the certificate store to be saved.
+     * @param {CERT_QUERY_ENCODING_TYPE} dwEncodingType Specifies the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate encoding type</a> and <a href="https://docs.microsoft.com/windows/desktop/SecGloss/m-gly">message encoding type</a>. Encoding is used only when <i>dwSaveAs</i> contains <b>CERT_STORE_SAVE_AS_PKCS7</b>. Otherwise, the <i>dwMsgAndCertEncodingType</i> parameter is not used.
+     * @param {CERT_STORE_SAVE_AS} dwSaveAs Specifies how to save the certificate store.
+     * @param {CERT_STORE_SAVE_TO} dwSaveTo Specifies where and how to save the certificate store. The contents of this parameter determines the format of the <i>pvSaveToPara</i> parameter.
      * @param {Pointer<Void>} pvSaveToPara A pointer that represents where the store should be saved to. The contents of this parameter depends on the value of the <i>dwSaveTo</i> parameter.
      * @param {Integer} dwFlags This parameter is reserved for future use and must be set to zero.
      * @returns {BOOL} If the function succeeds, the function returns nonzero.
@@ -34738,7 +34757,7 @@ class Cryptography {
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns CRYPT_E_PENDING_CLOSE. Note that the store is still closed when <b>FALSE</b> is returned and the memory for any active contexts is not freed.
      * 
      * If CERT_STORE_NO_CRYPT_RELEASE_FLAG was not set when the store was opened, closing a store releases its CSP handle.
-     * @param {HCERTSTORE} _hCertStore 
+     * @param {HCERTSTORE} _hCertStore Handle of the certificate store to be closed.
      * @param {Integer} dwFlags Typically, this parameter uses the default value zero. The default is to close the store with memory remaining allocated for contexts that have not been freed. In this case, no check is made to determine whether memory for contexts remains allocated. 
      * 
      * 
@@ -34803,8 +34822,8 @@ class Cryptography {
      * Returns from a certificate store a subject certificate context uniquely identified by its issuer and serial number.
      * @remarks
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certduplicatecertificatecontext">CertDuplicateCertificateContext</a> can be called to make a duplicate certificate.
-     * @param {HCERTSTORE} _hCertStore 
-     * @param {Integer} dwCertEncodingType The type of encoding used. It is always acceptable to specify both the certificate and <a href="https://docs.microsoft.com/windows/desktop/SecGloss/m-gly">message encoding types</a> by combining them with a bitwise-<b>OR</b> operation as shown in the following example:
+     * @param {HCERTSTORE} _hCertStore A handle of a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate store</a>.
+     * @param {CERT_QUERY_ENCODING_TYPE} dwCertEncodingType The type of encoding used. It is always acceptable to specify both the certificate and <a href="https://docs.microsoft.com/windows/desktop/SecGloss/m-gly">message encoding types</a> by combining them with a bitwise-<b>OR</b> operation as shown in the following example:
      * 
      * X509_ASN_ENCODING | PKCS_7_ASN_ENCODING Currently defined encoding types are:
      * 
@@ -34864,7 +34883,7 @@ class Cryptography {
      * 
      * A duplicate of the currently enumerated certificate can be made by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certduplicatecertificatecontext">CertDuplicateCertificateContext</a>.
-     * @param {HCERTSTORE} _hCertStore 
+     * @param {HCERTSTORE} _hCertStore A handle of a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate store</a>.
      * @param {Pointer<CERT_CONTEXT>} pPrevCertContext A pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_context">CERT_CONTEXT</a> of the previous <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate context</a> found.
      * 
@@ -34951,8 +34970,8 @@ class Cryptography {
      * 
      * The returned pointer is freed when passed as the <i>pPrevCertContext</i> parameter on a subsequent call to the function. Otherwise, the pointer must be explicitly freed by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certfreecertificatecontext">CertFreeCertificateContext</a>. A <i>pPrevCertContext</i> that is not <b>NULL</b> is always freed by <b>CertFindCertificateInStore</b> using a call to <b>CertFreeCertificateContext</b>, even if there is an error in the function.
-     * @param {HCERTSTORE} _hCertStore 
-     * @param {Integer} dwCertEncodingType Specifies the type of encoding used. Both the certificate and <a href="https://docs.microsoft.com/windows/desktop/SecGloss/m-gly">message encoding types</a> must be specified by combining them with a bitwise-<b>OR</b> operation as shown in the following example:
+     * @param {HCERTSTORE} _hCertStore A handle of the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate store</a> to be searched.
+     * @param {CERT_QUERY_ENCODING_TYPE} dwCertEncodingType Specifies the type of encoding used. Both the certificate and <a href="https://docs.microsoft.com/windows/desktop/SecGloss/m-gly">message encoding types</a> must be specified by combining them with a bitwise-<b>OR</b> operation as shown in the following example:
      * 
      * X509_ASN_ENCODING | PKCS_7_ASN_ENCODING Currently defined encoding types are:
      * 
@@ -34961,7 +34980,7 @@ class Cryptography {
      * <li>PKCS_7_ASN_ENCODING</li>
      * </ul>
      * @param {Integer} dwFindFlags Used with some <i>dwFindType</i> values to modify the search criteria. For most <i>dwFindType</i> values, <i>dwFindFlags</i> is not used and should be set to zero. For detailed information, see  Remarks.
-     * @param {Integer} dwFindType 
+     * @param {CERT_FIND_FLAGS} dwFindType 
      * @param {Pointer<Void>} pvFindPara Points to a data item or structure used with <i>dwFindType</i>.
      * @param {Pointer<CERT_CONTEXT>} pPrevCertContext A pointer to the last 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_context">CERT_CONTEXT</a> structure returned by this function. This parameter must be <b>NULL</b> on the first call of the function. To find successive certificates meeting the search criteria,  set <i>pPrevCertContext</i> to the pointer returned by the previous call to the function. This function frees the <b>CERT_CONTEXT</b> referenced by non-<b>NULL</b> values of this parameter.
@@ -35031,7 +35050,7 @@ class Cryptography {
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certduplicatecertificatecontext">CertDuplicateCertificateContext</a> can be called to make a duplicate of the issuer certificate.
      * 
      * The hexadecimal values for <i>dwFlags</i> can be combined using a bitwise-<b>OR</b> operation to enable multiple verifications. For example, to enable both signature and time validity, the value 0x00000003 is passed in <i>dwFlags</i> on input. In this case, if CERT_STORE_SIGNATURE_FLAG verification succeeds but CERT_STORE_TIME_VALIDITY_FLAG verification fails, <i>dwFlags</i> returns as 0x00000002 on output.
-     * @param {HCERTSTORE} _hCertStore 
+     * @param {HCERTSTORE} _hCertStore Handle of a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate store</a>.
      * @param {Pointer<CERT_CONTEXT>} pSubjectContext A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_context">CERT_CONTEXT</a> structure that contains the subject information. This parameter can be obtained from any certificate store or can be created by the calling application using the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certcreatecertificatecontext">CertCreateCertificateContext</a> function.
@@ -35302,7 +35321,7 @@ class Cryptography {
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certduplicatecertificatecontext">CertDuplicateCertificateContext</a> can be called to make a duplicate. 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certsetcertificatecontextproperty">CertSetCertificateContextProperty</a> and 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certgetcertificatecontextproperty">CertGetCertificateContextProperty</a> can be called to store and read properties for the certificate.
-     * @param {Integer} dwCertEncodingType Specifies the type of encoding used. It is always acceptable to specify both the certificate and <a href="https://docs.microsoft.com/windows/desktop/SecGloss/m-gly">message encoding types</a> by combining them with a bitwise-<b>OR</b> operation as shown in the following example:
+     * @param {CERT_QUERY_ENCODING_TYPE} dwCertEncodingType Specifies the type of encoding used. It is always acceptable to specify both the certificate and <a href="https://docs.microsoft.com/windows/desktop/SecGloss/m-gly">message encoding types</a> by combining them with a bitwise-<b>OR</b> operation as shown in the following example:
      * 
      * X509_ASN_ENCODING | PKCS_7_ASN_ENCODING Currently defined encoding types are:
      * 
@@ -35310,7 +35329,7 @@ class Cryptography {
      * <li>X509_ASN_ENCODING</li>
      * <li>PKCS_7_ASN_ENCODING</li>
      * </ul>
-     * @param {Pointer} pbCertEncoded A pointer to a buffer that contains the encoded certificate from which the context is to be created.
+     * @param {Integer} pbCertEncoded A pointer to a buffer that contains the encoded certificate from which the context is to be created.
      * @param {Integer} cbCertEncoded The size, in bytes, of the <i>pbCertEncoded</i> buffer.
      * @returns {Pointer<CERT_CONTEXT>} If the function succeeds, the function returns a pointer to a read-only 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_context">CERT_CONTEXT</a>. When you have finished using the certificate context, free it by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certfreecertificatecontext">CertFreeCertificateContext</a> function.
@@ -35503,7 +35522,7 @@ class Cryptography {
      * 			 Currently defined identifiers and the data type to be 
      * 			 returned in <i>pvData</i> are listed in the 
      * 			 following table.
-     * @param {Pointer} pvData A pointer to a buffer to receive the data as determined by <i>dwPropId</i>. Structures pointed to by members of a structure returned are also returned following the base structure. Therefore, the size contained in <i>pcbData</i> often exceeds the size of the base structure.
+     * @param {Integer} pvData A pointer to a buffer to receive the data as determined by <i>dwPropId</i>. Structures pointed to by members of a structure returned are also returned following the base structure. Therefore, the size contained in <i>pcbData</i> often exceeds the size of the base structure.
      * 
      * This parameter can be <b>NULL</b> to set the size of the information for memory allocation purposes. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/retrieving-data-of-unknown-length">Retrieving Data of Unknown Length</a>.
@@ -35597,7 +35616,7 @@ class Cryptography {
      * @param {Integer} cOptAttr A <b>DWORD</b> that specifies the number of additional attributes to be added.
      * @param {Pointer<CRYPT_ATTRIBUTE>} rgOptAttr A pointer to any array of <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-crypt_attribute">CRYPT_ATTRIBUTE</a> attributes to be added to the CTL.
      * @param {Integer} dwFlags A <b>DWORD</b>. Can be set to CTL_ENTRY_FROM_PROP_CHAIN_FLAG to force the inclusion of the chain building hash properties as attributes.
-     * @param {Pointer} pCtlEntry Address of a pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-ctl_entry">CTL_ENTRY</a> structure. Call this function twice to retrieve a CTL entry. Set this parameter to <b>NULL</b> on the first call. When the function returns, use the number of bytes retrieved from the <i>pcbCtlEntry</i> parameter to allocate memory. Call the function again, setting this parameter to the address of the allocated memory.
+     * @param {Integer} pCtlEntry Address of a pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-ctl_entry">CTL_ENTRY</a> structure. Call this function twice to retrieve a CTL entry. Set this parameter to <b>NULL</b> on the first call. When the function returns, use the number of bytes retrieved from the <i>pcbCtlEntry</i> parameter to allocate memory. Call the function again, setting this parameter to the address of the allocated memory.
      * @param {Pointer<Integer>} pcbCtlEntry Pointer to a <b>DWORD</b> that contains the number of bytes that must be allocated for the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-ctl_entry">CTL_ENTRY</a> structure.  Call this function twice to retrieve the number of bytes. For the first call, set this parameter to the address of a <b>DWORD</b> value that contains zero and set the <i>pCtlEntry</i> parameter to <b>NULL</b>. If the first call succeeds, the <b>DWORD</b> value will contain the number of bytes that you must allocate for the <b>CTL_ENTRY</b> structure. Allocate the required memory and call the function again, supplying the address of the memory in the <i>pCtlEntry</i> parameter.
      * @returns {BOOL} If the function succeeds, the function returns nonzero (<b>TRUE</b>).
      * 
@@ -35650,7 +35669,7 @@ class Cryptography {
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certduplicatecrlcontext">CertDuplicateCRLContext</a> can be called to make a duplicate CRL.
      * 
      * The hexadecimal values of the flags can be combined using a bitwise-<b>OR</b> operation to enable both verifications. For example, to enable both verifications, the <b>DWORD</b> value pointed to by <i>pdwFlags</i> is set to value CERT_STORE_SIGNATURE_FLAG | CERT_STORE_TIME_VALIDITY_FLAG. If the CERT_STORE_SIGNATURE_FLAG verification succeeded, but CERT_STORE_TIME_VALIDITY_FLAG verification failed, the <b>DWORD</b> value pointed to by <i>pdwFlags</i> is set to CERT_STORE_TIME_VALIDITY_FLAG when the function returns.
-     * @param {HCERTSTORE} _hCertStore 
+     * @param {HCERTSTORE} _hCertStore Handle of a certificate store.
      * @param {Pointer<CERT_CONTEXT>} pIssuerContext A pointer to an issuer 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_context">CERT_CONTEXT</a>. The <i>pIssuerContext</i> pointer can come from this store or another store, or could have been created by the calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certcreatecertificatecontext">CertCreateCertificateContext</a>. If <b>NULL</b> is passed for this parameter, all the CRLs in the store are found.
@@ -35785,7 +35804,7 @@ class Cryptography {
      * 
      * A duplicate of the CRL <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">context</a> returned by this function can be made by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certduplicatecrlcontext">CertDuplicateCRLContext</a>.
-     * @param {HCERTSTORE} _hCertStore 
+     * @param {HCERTSTORE} _hCertStore Handle of a certificate store.
      * @param {Pointer<CRL_CONTEXT>} pPrevCrlContext A pointer to the previous 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-crl_context">CRL_CONTEXT</a> structure found. The <i>pPrevCrlContext</i> parameter must be <b>NULL</b> to get the first CRL in the store. Successive CRLs are enumerated by setting <i>pPrevCrlContext</i> to the pointer returned by a previous call to the function.  This function frees the <b>CRL_CONTEXT</b> referenced by non-<b>NULL</b> values of this parameter. The enumeration skips any CRLs previously deleted by 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certdeletecrlfromstore">CertDeleteCRLFromStore</a>.
@@ -35849,8 +35868,8 @@ class Cryptography {
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certduplicatecrlcontext">CertDuplicateCRLContext</a> can be called to make a duplicate of the returned context. The returned CRL context can be added to a different certificate store by using 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certaddcrlcontexttostore">CertAddCRLContextToStore</a>, or a link to that CRL context can be added to a noncollection store by using 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certaddcrllinktostore">CertAddCRLLinkToStore</a>.
-     * @param {HCERTSTORE} _hCertStore 
-     * @param {Integer} dwCertEncodingType This parameter is not currently used. It must be set to zero.
+     * @param {HCERTSTORE} _hCertStore A handle of the certificate store to be searched.
+     * @param {CERT_QUERY_ENCODING_TYPE} dwCertEncodingType This parameter is not currently used. It must be set to zero.
      * @param {Integer} dwFindFlags If <i>dwFindType</i> is CRL_FIND_ISSUED_BY, by default, only issuer name matching is done. The following flags can be used to do additional filtering.
      * 
      * <table>
@@ -36058,7 +36077,7 @@ class Cryptography {
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certduplicatecrlcontext">CertDuplicateCRLContext</a> can be called to make a duplicate. 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certsetcrlcontextproperty">CertSetCRLContextProperty</a> and 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certgetcrlcontextproperty">CertGetCRLContextProperty</a> can be called to store and read properties for the CRL.
-     * @param {Integer} dwCertEncodingType Specifies the type of encoding used. It is always acceptable to specify both the certificate and <a href="https://docs.microsoft.com/windows/desktop/SecGloss/m-gly">message encoding types</a> by combining them with a bitwise-<b>OR</b> operation as shown in the following example:
+     * @param {CERT_QUERY_ENCODING_TYPE} dwCertEncodingType Specifies the type of encoding used. It is always acceptable to specify both the certificate and <a href="https://docs.microsoft.com/windows/desktop/SecGloss/m-gly">message encoding types</a> by combining them with a bitwise-<b>OR</b> operation as shown in the following example:
      * 
      * X509_ASN_ENCODING | PKCS_7_ASN_ENCODING Currently defined encoding types are:
      * 
@@ -36066,7 +36085,7 @@ class Cryptography {
      * <li>X509_ASN_ENCODING</li>
      * <li>PKCS_7_ASN_ENCODING</li>
      * </ul>
-     * @param {Pointer} pbCrlEncoded A pointer to a buffer containing the encoded <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">CRL</a> from which the context is to be created.
+     * @param {Integer} pbCrlEncoded A pointer to a buffer containing the encoded <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">CRL</a> from which the context is to be created.
      * @param {Integer} cbCrlEncoded The size, in bytes, of the <i>pbCrlEncoded</i> buffer.
      * @returns {Pointer<CRL_CONTEXT>} If the function succeeds, the return value is a pointer to a read-only 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-crl_context">CRL_CONTEXT</a>.
@@ -36893,7 +36912,7 @@ class Cryptography {
      * 
      * For more information about each property identifier, see the documentation on the <i>dwPropId</i> parameter in 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certsetcertificatecontextproperty">CertSetCertificateContextProperty</a>.
-     * @param {Pointer} pvData A pointer to a buffer to receive the data as determined by <i>dwPropId</i>. Structures pointed to by members of a structure returned are also returned following the base structure. Therefore, the size contained in <i>pcbData</i> often exceed the size of the base structure. 
+     * @param {Integer} pvData A pointer to a buffer to receive the data as determined by <i>dwPropId</i>. Structures pointed to by members of a structure returned are also returned following the base structure. Therefore, the size contained in <i>pcbData</i> often exceed the size of the base structure. 
      * 
      * 
      * 
@@ -37020,8 +37039,8 @@ class Cryptography {
 
     /**
      * Creates a certificate context from an encoded certificate and adds it to the certificate store.
-     * @param {HCERTSTORE} _hCertStore 
-     * @param {Integer} dwCertEncodingType Specifies the type of encoding used. It is always acceptable to specify both the certificate and <a href="https://docs.microsoft.com/windows/desktop/SecGloss/m-gly">message encoding types</a> by combining them with a bitwise-<b>OR</b> operation as shown in the following example:
+     * @param {HCERTSTORE} _hCertStore A handle to the certificate store.
+     * @param {CERT_QUERY_ENCODING_TYPE} dwCertEncodingType Specifies the type of encoding used. It is always acceptable to specify both the certificate and <a href="https://docs.microsoft.com/windows/desktop/SecGloss/m-gly">message encoding types</a> by combining them with a bitwise-<b>OR</b> operation as shown in the following example:
      * 
      * X509_ASN_ENCODING | PKCS_7_ASN_ENCODING Currently defined encoding types are:
      * 
@@ -37029,7 +37048,7 @@ class Cryptography {
      * <li>X509_ASN_ENCODING</li>
      * <li>PKCS_7_ASN_ENCODING</li>
      * </ul>
-     * @param {Pointer} pbCertEncoded A pointer to a buffer containing the encoded certificate that is to be added to the certificate store.
+     * @param {Integer} pbCertEncoded A pointer to a buffer containing the encoded certificate that is to be added to the certificate store.
      * @param {Integer} cbCertEncoded The size, in bytes, of the <i>pbCertEncoded</i> buffer.
      * @param {Integer} dwAddDisposition Specifies the action to take if a matching certificate or link to a matching certificate exists in the store. Currently defined disposition values and their uses are as follows.
      * 
@@ -37161,7 +37180,7 @@ class Cryptography {
      * <div class="alert"><b>Note</b>  The order of the certificate context may not be preserved within the store. 
      * To access a specific certificate you must iterate across the certificates in the store.</div>
      * <div> </div>
-     * @param {HCERTSTORE} _hCertStore 
+     * @param {HCERTSTORE} _hCertStore Handle of a certificate store.
      * @param {Pointer<CERT_CONTEXT>} pCertContext A pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_context">CERT_CONTEXT</a> structure to be added to the store.
      * @param {Integer} dwAddDisposition Specifies the action to take if a matching certificate or a link to a matching certificate already exists in the store. Currently defined disposition values and their uses are as follows. 
@@ -37334,8 +37353,8 @@ class Cryptography {
 
     /**
      * Adds a serialized certificate, certificate revocation list (CRL), or certificate trust list (CTL) element to the store.
-     * @param {HCERTSTORE} _hCertStore 
-     * @param {Pointer} pbElement A pointer to a buffer that contains the certificate, CRL, or CTL information to be serialized and added to the certificate store.
+     * @param {HCERTSTORE} _hCertStore The handle of a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate store</a> where the created certificate will be stored. If <i>hCertStore</i> is <b>NULL</b>, the function creates a copy of a certificate, CRL, or CTL context with its extended properties, but the certificate, CRL, or CTL is not persisted in any store.
+     * @param {Integer} pbElement A pointer to a buffer that contains the certificate, CRL, or CTL information to be serialized and added to the certificate store.
      * @param {Integer} cbElement The size, in bytes, of the <i>pbElement</i> buffer.
      * @param {Integer} dwAddDisposition Specifies the action to take if the certificate, CRL, or CTL already exists in the store. Currently defined disposition values are shown in the following table.
      * 
@@ -37624,8 +37643,8 @@ class Cryptography {
 
     /**
      * Creates a certificate revocation list (CRL) context from an encoded CRL and adds it to the certificate store.
-     * @param {HCERTSTORE} _hCertStore 
-     * @param {Integer} dwCertEncodingType Specifies the type of encoding used. It is always acceptable to specify both the certificate and <a href="https://docs.microsoft.com/windows/desktop/SecGloss/m-gly">message encoding types</a> by combining them with a bitwise-<b>OR</b> operation as shown in the following example:
+     * @param {HCERTSTORE} _hCertStore Handle of a certificate store.
+     * @param {CERT_QUERY_ENCODING_TYPE} dwCertEncodingType Specifies the type of encoding used. It is always acceptable to specify both the certificate and <a href="https://docs.microsoft.com/windows/desktop/SecGloss/m-gly">message encoding types</a> by combining them with a bitwise-<b>OR</b> operation as shown in the following example:
      * 
      * X509_ASN_ENCODING | PKCS_7_ASN_ENCODING Currently defined encoding types are:
      * 
@@ -37633,7 +37652,7 @@ class Cryptography {
      * <li>X509_ASN_ENCODING</li>
      * <li>PKCS_7_ASN_ENCODING</li>
      * </ul>
-     * @param {Pointer} pbCrlEncoded A pointer to a buffer containing the encoded CRL to be added to the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate store</a>.
+     * @param {Integer} pbCrlEncoded A pointer to a buffer containing the encoded CRL to be added to the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate store</a>.
      * @param {Integer} cbCrlEncoded The size, in bytes, of the <i>pbCrlEncoded</i> buffer.
      * @param {Integer} dwAddDisposition Specifies the action to take if a matching CRL or a link to a matching CRL already exists in the store. Currently defined disposition values and their uses are as follows.
      * 
@@ -37787,7 +37806,7 @@ class Cryptography {
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certduplicatecrlcontext">CertDuplicateCRLContext</a>. Instead, a new copy is created and added to the store. In addition to copying the encoded CRL, the function copies the context's properties.
      * 
      * To remove the CRL context from the certificate store, use the  <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certdeletecrlfromstore">CertDeleteCRLFromStore</a> function.
-     * @param {HCERTSTORE} _hCertStore 
+     * @param {HCERTSTORE} _hCertStore Handle of a certificate store.
      * @param {Pointer<CRL_CONTEXT>} pCrlContext A pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-crl_context">CRL_CONTEXT</a> structure to be added.
      * @param {Integer} dwAddDisposition Specifies the action to take if a matching CRL or a link to a matching CRL already exists in the store. Currently defined disposition values and their uses are as follows.
@@ -37984,7 +38003,7 @@ class Cryptography {
      * @param {Pointer<CERT_CONTEXT>} pCertContext A pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_context">CERT_CONTEXT</a> to be serialized.
      * @param {Integer} dwFlags Reserved for future use and must be zero.
-     * @param {Pointer} pbElement A pointer to a buffer that receives the serialized output, including the encoded certificate and possibly its properties. 
+     * @param {Integer} pbElement A pointer to a buffer that receives the serialized output, including the encoded certificate and possibly its properties. 
      * 
      * 
      * 
@@ -38023,7 +38042,7 @@ class Cryptography {
      * @param {Pointer<CRL_CONTEXT>} pCrlContext A pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-crl_context">CRL_CONTEXT</a> structure being serialized.
      * @param {Integer} dwFlags Reserved for future use and must be zero.
-     * @param {Pointer} pbElement A pointer to a buffer to receive the serialized output, including the encoded CRL, and possibly its properties. 
+     * @param {Integer} pbElement A pointer to a buffer to receive the serialized output, including the encoded CRL, and possibly its properties. 
      * 
      * 
      * 
@@ -38087,7 +38106,7 @@ class Cryptography {
      * <li>X509_ASN_ENCODING</li>
      * <li>PKCS_7_ASN_ENCODING</li>
      * </ul>
-     * @param {Pointer} pbCtlEncoded A pointer to a buffer containing the encoded CTL from which the context is to be created.
+     * @param {Integer} pbCtlEncoded A pointer to a buffer containing the encoded CTL from which the context is to be created.
      * @param {Integer} cbCtlEncoded The size, in bytes, of the <i>pbCtlEncoded</i> buffer.
      * @returns {Pointer<CTL_CONTEXT>} If the function succeeds, the return value is a pointer to a read-only 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-ctl_context">CTL_CONTEXT</a>.
@@ -38705,7 +38724,7 @@ class Cryptography {
      * 
      * For more information about each property identifier, see the documentation on the <i>dwPropId</i> parameter in 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certsetcertificatecontextproperty">CertSetCertificateContextProperty</a>. CERT_SHA1_HASH_PROP_ID and CERT_NEXT_UPDATE_LOCATION_PROP_ID are the predefined properties of most interest.
-     * @param {Pointer} pvData A pointer to a buffer to receive the data as determined by <i>dwPropId</i>. Structures pointed to by members of a structure returned are also returned following the base structure. Therefore, the size contained in <i>pcbData</i> often exceed the size of the base structure. 
+     * @param {Integer} pvData A pointer to a buffer to receive the data as determined by <i>dwPropId</i>. Structures pointed to by members of a structure returned are also returned following the base structure. Therefore, the size contained in <i>pcbData</i> often exceed the size of the base structure. 
      * 
      * 
      * 
@@ -38802,7 +38821,7 @@ class Cryptography {
      * 
      * A duplicate can be made by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certduplicatectlcontext">CertDuplicateCTLContext</a>.
-     * @param {HCERTSTORE} _hCertStore 
+     * @param {HCERTSTORE} _hCertStore Handle of a certificate store.
      * @param {Pointer<CTL_CONTEXT>} pPrevCtlContext A pointer to the previous 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-ctl_context">CTL_CONTEXT</a> structure found. It must be <b>NULL</b> to get the first CTL in the store. Successive CTLs are enumerated by setting <i>pPrevCtlContext</i> to the pointer returned by a previous call. This function frees the <b>CTL_CONTEXT</b> referenced by non-<b>NULL</b> values of this parameter. The enumeration skips any CTLs previously deleted by 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certdeletectlfromstore">CertDeleteCTLFromStore</a>.
@@ -38978,7 +38997,7 @@ class Cryptography {
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certduplicatectlcontext">CertDuplicateCTLContext</a> can be called to make a duplicate of the returned context. The returned CTL context can be added to a different certificate store using 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certaddctlcontexttostore">CertAddCTLContextToStore</a>, or a link to that CTL context can be added to a noncollection store using 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certaddctllinktostore">CertAddCTLLinkToStore</a>. If a CTL matching the search criteria is not found, <b>NULL</b> is returned.
-     * @param {HCERTSTORE} _hCertStore 
+     * @param {HCERTSTORE} _hCertStore Handle of the certificate store to be searched.
      * @param {Integer} dwMsgAndCertEncodingType Specifies the type of encoding used on the CTL. It is always acceptable to specify both the certificate and <a href="https://docs.microsoft.com/windows/desktop/SecGloss/m-gly">message encoding types</a> by combining them with a bitwise-<b>OR</b> operation as shown in the following example:
      * 
      * X509_ASN_ENCODING | PKCS_7_ASN_ENCODING Currently defined encoding types are:
@@ -38991,7 +39010,7 @@ class Cryptography {
      * 
      * This parameter is used only when the <i>dwFindType</i> parameter is set to CTL_FIND_USAGE.
      * @param {Integer} dwFindFlags Can be set when <i>dwFindType</i> is set to CTL_FIND_USAGE. For details, see the comments under CTL_FIND_USAGE, following.
-     * @param {Integer} dwFindType 
+     * @param {CERT_FIND_TYPE} dwFindType 
      * @param {Pointer<Void>} pvFindPara A pointer to the search value associated with the <i>dwFindType</i> parameter.
      * @param {Pointer<CTL_CONTEXT>} pPrevCtlContext A pointer to the last 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-ctl_context">CTL_CONTEXT</a> returned by this function. It must be <b>NULL</b> to get the first CTL in the store. Successive CTLs are retrieved by setting <i>pPrevCtlContext</i> to the pointer to the <b>CTL_CONTEXT</b> returned by a previous function call. Any certificates that do not meet the search criteria or that have been previously deleted by 
@@ -39049,8 +39068,8 @@ class Cryptography {
 
     /**
      * Creates a certificate trust list (CTL) context from an encoded CTL and adds it to the certificate store.
-     * @param {HCERTSTORE} _hCertStore 
-     * @param {Integer} dwMsgAndCertEncodingType Specifies the type of encoding used. Both the certificate and <a href="https://docs.microsoft.com/windows/desktop/SecGloss/m-gly">message encoding types</a> must be specified by combining them with a bitwise-<b>OR</b> operation as shown in the following example:
+     * @param {HCERTSTORE} _hCertStore Handle of a certificate store.
+     * @param {CERT_QUERY_ENCODING_TYPE} dwMsgAndCertEncodingType Specifies the type of encoding used. Both the certificate and <a href="https://docs.microsoft.com/windows/desktop/SecGloss/m-gly">message encoding types</a> must be specified by combining them with a bitwise-<b>OR</b> operation as shown in the following example:
      * 
      * X509_ASN_ENCODING | PKCS_7_ASN_ENCODING
      * 
@@ -39058,7 +39077,7 @@ class Cryptography {
      * <li>X509_ASN_ENCODING</li>
      * <li>PKCS_7_ASN_ENCODING</li>
      * </ul>
-     * @param {Pointer} pbCtlEncoded A pointer to a buffer containing the encoded CTL to be added to the certificate store.
+     * @param {Integer} pbCtlEncoded A pointer to a buffer containing the encoded CTL to be added to the certificate store.
      * @param {Integer} cbCtlEncoded The size, in bytes, of the <i>pbCtlEncoded</i> buffer.
      * @param {Integer} dwAddDisposition Specifies the action to take if a matching CTL or a link to a matching CTL already exists in the store. Currently defined disposition values and their uses are as follows 
      * 
@@ -39224,7 +39243,7 @@ class Cryptography {
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certduplicatectlcontext">CertDuplicateCTLContext</a>. Instead, a new copy is created and added to the store. In addition to the encoded CTL, the context's properties are copied.
      * 
      * To remove the CTL context from the certificate store, use the  <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certdeletectlfromstore">CertDeleteCTLFromStore</a> function.
-     * @param {HCERTSTORE} _hCertStore 
+     * @param {HCERTSTORE} _hCertStore Handle of a certificate store.
      * @param {Pointer<CTL_CONTEXT>} pCtlContext A pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-ctl_context">CTL_CONTEXT</a> structure to be added to the store.
      * @param {Integer} dwAddDisposition Specifies the action to take if a matching CTL or a link to a matching CTL already exists in the store. Currently defined disposition values and their uses are as follows.
@@ -39373,7 +39392,7 @@ class Cryptography {
      * @param {Pointer<CTL_CONTEXT>} pCtlContext A pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-ctl_context">CTL_CONTEXT</a> structure being serialized.
      * @param {Integer} dwFlags Reserved for future use and must be zero.
-     * @param {Pointer} pbElement A pointer to a buffer that receives the serialized output, including the encoded CTL and, possibly, its properties. 
+     * @param {Integer} pbElement A pointer to a buffer that receives the serialized output, including the encoded CTL and, possibly, its properties. 
      * 
      * 
      * 
@@ -39466,7 +39485,7 @@ class Cryptography {
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certclosestore">CertCloseStore</a> is called with CERT_CLOSE_STORE_FORCE_FLAG, the store that uses links must be closed before the store that contains the original contexts is closed. If CERT_CLOSE_STORE_FORCE_FLAG is not used, the two stores can be closed in either order.
      * 
      * To remove the certificate context link from the certificate store, use the  <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certdeletecertificatefromstore">CertDeleteCertificateFromStore</a> function.
-     * @param {HCERTSTORE} _hCertStore 
+     * @param {HCERTSTORE} _hCertStore A handle to the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate store</a> where the link is to be added.
      * @param {Pointer<CERT_CONTEXT>} pCertContext A pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_context">CERT_CONTEXT</a> structure to be linked.
      * @param {Integer} dwAddDisposition Specifies the action if a matching certificate or a link to a matching certificate already exists in the store. Currently defined disposition values and their uses are as follows. 
@@ -39590,7 +39609,7 @@ class Cryptography {
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certclosestore">CertCloseStore</a> is called with CERT_CLOSE_STORE_FORCE_FLAG, the store using links must be closed before the store containing the original contexts can be closed. If CERT_CLOSE_STORE_FORCE_FLAG is not used, the two stores can be closed in either order.
      * 
      * To remove the CRL context link from the certificate store, use the  <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certdeletecrlfromstore">CertDeleteCRLFromStore</a> function.
-     * @param {HCERTSTORE} _hCertStore 
+     * @param {HCERTSTORE} _hCertStore Handle of a certificate store where the link is to be added.
      * @param {Pointer<CRL_CONTEXT>} pCrlContext A pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-crl_context">CRL_CONTEXT</a> structure to be linked.
      * @param {Integer} dwAddDisposition Specifies the action to take if a matching CRL or a link to a matching CRL exists in the store. Currently defined disposition values and their uses are as follows.
@@ -39725,7 +39744,7 @@ class Cryptography {
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certclosestore">CertCloseStore</a> is called with CERT_CLOSE_STORE_FORCE_FLAG, the store using links must be closed before the store containing the original contexts is closed. If CERT_CLOSE_STORE_FORCE_FLAG is not used, the two stores can be closed in either order.
      * 
      * To remove the CTL context link from the certificate store, use the  <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certdeletectlfromstore">CertDeleteCTLFromStore</a> function.
-     * @param {HCERTSTORE} _hCertStore 
+     * @param {HCERTSTORE} _hCertStore Handle of the certificate store where the link is to be added.
      * @param {Pointer<CTL_CONTEXT>} pCtlContext A pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-ctl_context">CTL_CONTEXT</a> structure to be linked.
      * @param {Integer} dwAddDisposition Specifies the action to take if a matching CTL or a link to a matching CTL already exists in the store. Currently defined disposition values and their uses are as follows.
@@ -39919,8 +39938,8 @@ class Cryptography {
      * CERT_STORE_CTRL_NOTIFY_CHANGE is supported on registry-based store providers by using the <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regnotifychangekeyvalue">RegNotifyChangeKeyValue</a> function.
      * 
      * <b>CertControlStore</b> using CERT_STORE_CTRL_NOTIFY_CHANGE is called once for each event handle to be passed with CERT_STORE_CTRL_RESYNC. These calls using CERT_STORE_CTRL_NOTIFY_CHANGE must be made after each event is created and not after an event has been signaled.
-     * @param {HCERTSTORE} _hCertStore 
-     * @param {Integer} dwFlags 
+     * @param {HCERTSTORE} _hCertStore Handle of the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate store</a>.
+     * @param {CERT_CONTROL_STORE_FLAGS} dwFlags 
      * @param {Integer} dwCtrlType Control action to be taken by <b>CertControlStore</b>. The interpretations of <i>pvCtrlPara</i> and <i>dwFlags</i> depend on the value of <i>dwCtrlType</i>. Currently, the following  actions are defined.
      * 
      * <table>
@@ -40024,7 +40043,7 @@ class Cryptography {
      * The CertSetStoreProperty function sets a store property.
      * @remarks
      * Store property identifiers are properties applicable to an entire store. They are not properties for an individual <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate</a>, <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">CRL</a>, or <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">CTL</a> context. Currently, no store properties are persisted.
-     * @param {HCERTSTORE} _hCertStore 
+     * @param {HCERTSTORE} _hCertStore Handle for the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate store</a>.
      * @param {Integer} dwPropId Indicates one of a range of store properties. Values for user-defined properties must be outside the current range of predefined context property values. Currently, user-defined <i>dwPropId</i> values begin at 4,096. There is one predefined store property, CERT_STORE_LOCALIZED_NAME_PROP_ID, the localized name of the store.
      * @param {Integer} dwFlags Reserved for future use and must be zero.
      * @param {Pointer<Void>} pvData The type definition for <i>pvData</i> depends on the <i>dwPropId</i> value. If <i>dwPropId</i> is CERT_STORE_LOCALIZED_NAME_PROP_ID, <i>pvData</i> points to a 
@@ -40059,11 +40078,11 @@ class Cryptography {
      * Store property identifiers are properties applicable to an entire store. They are not properties on an individual <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate</a>, <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate revocation list</a> (CRL), or <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate trust list</a> (CTL) context. Currently, no store properties are persisted.
      * 
      * To find the localized name of a store, you can also use the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptfindlocalizedname">CryptFindLocalizedName</a> function.
-     * @param {HCERTSTORE} _hCertStore 
+     * @param {HCERTSTORE} _hCertStore A handle of an open <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate store</a>.
      * @param {Integer} dwPropId Indicates one of a range of store properties. There is one predefined store property, CERT_STORE_LOCALIZED_NAME_PROP_ID, the localized name of the store.
      * 
      * User defined properties must be outside the current range of values for predefined context properties. Currently, user defined <i>dwPropId</i> values begin at 4,096.
-     * @param {Pointer} pvData A pointer to a buffer that receives the data as determined by <i>dwPropId</i>. For CERT_STORE_LOCALIZED_NAME_PROP_ID, this is the localized name of the store, and <i>pvData</i> points to a null-terminated Unicode wide-character string. For other <i>dwPropId</i>s, <i>pvData</i> points to an array of bytes.
+     * @param {Integer} pvData A pointer to a buffer that receives the data as determined by <i>dwPropId</i>. For CERT_STORE_LOCALIZED_NAME_PROP_ID, this is the localized name of the store, and <i>pvData</i> points to a null-terminated Unicode wide-character string. For other <i>dwPropId</i>s, <i>pvData</i> points to an array of bytes.
      * 
      * This parameter can be <b>NULL</b> to set the size of this information for memory allocation purposes. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/retrieving-data-of-unknown-length">Retrieving Data of Unknown Length</a>.
@@ -40139,7 +40158,7 @@ class Cryptography {
      * 
      * 
      * X509_ASN_ENCODING | PKCS_7_ASN_ENCODING.
-     * @param {Pointer} pbEncoded A pointer to a buffer that contains the existing encoded context content to be copied.
+     * @param {Integer} pbEncoded A pointer to a buffer that contains the existing encoded context content to be copied.
      * @param {Integer} cbEncoded The size, in bytes, of the <i>pbEncoded</i> buffer.
      * @param {Integer} dwFlags The following flag values are defined and can be combined by using a bitwise-<b>OR</b> operation.
      * 
@@ -40706,7 +40725,7 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer} pUsage A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-ctl_usage">CERT_ENHKEY_USAGE</a> structure (<b>CERT_ENHKEY_USAGE</b> is an alternate typedef name for the <b>CTL_USAGE</b> structure) that receives the valid uses of the certificate. 
+     * @param {Integer} pUsage A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-ctl_usage">CERT_ENHKEY_USAGE</a> structure (<b>CERT_ENHKEY_USAGE</b> is an alternate typedef name for the <b>CTL_USAGE</b> structure) that receives the valid uses of the certificate. 
      * 
      * 
      * 
@@ -40812,7 +40831,7 @@ class Cryptography {
      * @param {Integer} cCerts The number of certificates in the array to be checked.
      * @param {Pointer<Pointer<CERT_CONTEXT>>} rghCerts An array of certificates to be checked for valid usage.
      * @param {Pointer<Integer>} cNumOIDs The number of valid usages found as the intersection of the valid usages of all certificates in the array. If all of the certificates are valid for all usages, <i>cNumOIDs</i> is set to negative one (–1).
-     * @param {Pointer} rghOIDs An array of the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/o-gly">object identifiers</a> (OIDs) of the valid usages that are shared by all of the certificates in the <i>rghCerts</i> array. This parameter can be <b>NULL</b> to set the size of this structure for memory allocation purposes. For more information, see 
+     * @param {Integer} rghOIDs An array of the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/o-gly">object identifiers</a> (OIDs) of the valid usages that are shared by all of the certificates in the <i>rghCerts</i> array. This parameter can be <b>NULL</b> to set the size of this structure for memory allocation purposes. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/retrieving-data-of-unknown-length">Retrieving Data of Unknown Length</a>.
      * @param {Pointer<Integer>} pcbOIDs A pointer to a <b>DWORD</b> value that specifies the size, in bytes, of the <i>rghOIDs</i> array and the strings pointed to. When the function returns, the <b>DWORD</b> value contains the number of bytes needed for the array.
      * @returns {BOOL} If the function succeeds, the return value is nonzero. If the function fails, the return value is zero. For extended error information, call 
@@ -40919,7 +40938,7 @@ class Cryptography {
      * <li>X509_ASN_ENCODING</li>
      * <li>PKCS_7_ASN_ENCODING</li>
      * </ul>
-     * @param {Pointer} pbCtlContent The encoded 
+     * @param {Integer} pbCtlContent The encoded 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-ctl_info">CTL_INFO</a> that can be a member of a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-ctl_context">CTL_CONTEXT</a> structure or can be created using the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptencodeobject">CryptEncodeObject</a> function.
@@ -40930,7 +40949,7 @@ class Cryptography {
      * 
      * The message can be encoded without signers if the <b>cbSize</b> member of the structure is set to the size of the structure and all of the other members are set to zero.
      * @param {Integer} dwFlags If CMS_PKCS7 is defined, can be set to CMSG_CMS_ENCAPSULATED_CTL_FLAG to encode a CMS compatible V3 SignedData message.
-     * @param {Pointer} pbEncoded A pointer to a buffer to receives the encoded message.
+     * @param {Integer} pbEncoded A pointer to a buffer to receives the encoded message.
      * 
      * This parameter can be <b>NULL</b> to get the size of this information for memory allocation purposes. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/retrieving-data-of-unknown-length">Retrieving Data of Unknown Length</a>.
@@ -40982,7 +41001,7 @@ class Cryptography {
      * CMSG_ENCODE_HASHED_SUBJECT_IDENTIFIER_FLAG is set if CMSG_ENCODE_SORTED_CTL_FLAG is set, and the identifier for the TrustedSubjects is a hash, such as MD5 or SHA1.
      * 
      * If CMS_PKCS7 is defined, <i>dwFlags</i> can be set to CMSG_CMS_ENCAPSULATED_CTL_FLAG to encode a CMS compatible V3 SignedData message.
-     * @param {Pointer} pbEncoded A pointer to a buffer that receives the encoded, signed message created.
+     * @param {Integer} pbEncoded A pointer to a buffer that receives the encoded, signed message created.
      * 
      * This parameter can be <b>NULL</b> to set the size of this information for memory allocation purposes. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/retrieving-data-of-unknown-length">Retrieving Data of Unknown Length</a>.
@@ -41417,7 +41436,7 @@ class Cryptography {
 
     /**
      * Determines whether two certificates are identical by comparing the issuer name and serial number of the certificates.
-     * @param {Integer} dwCertEncodingType Specifies the encoding type used. It is always acceptable to specify both the certificate and <a href="https://docs.microsoft.com/windows/desktop/SecGloss/m-gly">message encoding types</a> by combining them with a bitwise-<b>OR</b> operation as shown in the following example:
+     * @param {CERT_QUERY_ENCODING_TYPE} dwCertEncodingType Specifies the encoding type used. It is always acceptable to specify both the certificate and <a href="https://docs.microsoft.com/windows/desktop/SecGloss/m-gly">message encoding types</a> by combining them with a bitwise-<b>OR</b> operation as shown in the following example:
      * 
      * X509_ASN_ENCODING | PKCS_7_ASN_ENCODING Currently defined encoding types are:
      * 
@@ -41441,7 +41460,7 @@ class Cryptography {
 
     /**
      * The CertCompareCertificateName function compares two certificate CERT_NAME_BLOB structures to determine whether they are identical. The CERT_NAME_BLOB structures are used for the subject and the issuer of certificates.
-     * @param {Integer} dwCertEncodingType Specifies the encoding type used. It is always acceptable to specify both the certificate and <a href="https://docs.microsoft.com/windows/desktop/SecGloss/m-gly">message encoding types</a> by combining them with a bitwise-<b>OR</b> operation as shown in the following example:
+     * @param {CERT_QUERY_ENCODING_TYPE} dwCertEncodingType Specifies the encoding type used. It is always acceptable to specify both the certificate and <a href="https://docs.microsoft.com/windows/desktop/SecGloss/m-gly">message encoding types</a> by combining them with a bitwise-<b>OR</b> operation as shown in the following example:
      * 
      * X509_ASN_ENCODING | PKCS_7_ASN_ENCODING Currently defined encoding types are:
      * 
@@ -41467,7 +41486,7 @@ class Cryptography {
      * The CertIsRDNAttrsInCertificateName function compares the attributes in the certificate name with the specified CERT_RDN to determine whether all attributes are included there.
      * @remarks
      * Currently, only an exact, case-sensitive match is supported.
-     * @param {Integer} dwCertEncodingType Specifies the encoding type used. It is always acceptable to specify both the certificate and <a href="https://docs.microsoft.com/windows/desktop/SecGloss/m-gly">message encoding types</a> by combining them with a bitwise-<b>OR</b> operation as shown in the following example:
+     * @param {CERT_QUERY_ENCODING_TYPE} dwCertEncodingType Specifies the encoding type used. It is always acceptable to specify both the certificate and <a href="https://docs.microsoft.com/windows/desktop/SecGloss/m-gly">message encoding types</a> by combining them with a bitwise-<b>OR</b> operation as shown in the following example:
      * 
      * X509_ASN_ENCODING | PKCS_7_ASN_ENCODING
      * 
@@ -41547,7 +41566,7 @@ class Cryptography {
 
     /**
      * The CertComparePublicKeyInfo function compares two encoded public keys to determine whether they are identical.
-     * @param {Integer} dwCertEncodingType Specifies the encoding type used. It is always acceptable to specify both the certificate and <a href="https://docs.microsoft.com/windows/desktop/SecGloss/m-gly">message encoding types</a> by combining them with a bitwise-<b>OR</b> operation as shown in the following example:
+     * @param {CERT_QUERY_ENCODING_TYPE} dwCertEncodingType Specifies the encoding type used. It is always acceptable to specify both the certificate and <a href="https://docs.microsoft.com/windows/desktop/SecGloss/m-gly">message encoding types</a> by combining them with a bitwise-<b>OR</b> operation as shown in the following example:
      * 
      * X509_ASN_ENCODING | PKCS_7_ASN_ENCODING Currently defined encoding types are:
      * 
@@ -41571,7 +41590,7 @@ class Cryptography {
 
     /**
      * The CertGetPublicKeyLength function acquires the bit length of public/private keys from a public key BLOB.
-     * @param {Integer} dwCertEncodingType Specifies the encoding type used. It is always acceptable to specify both the certificate and <a href="https://docs.microsoft.com/windows/desktop/SecGloss/m-gly">message encoding types</a> by combining them with a bitwise-<b>OR</b> operation as shown in the following example:
+     * @param {CERT_QUERY_ENCODING_TYPE} dwCertEncodingType Specifies the encoding type used. It is always acceptable to specify both the certificate and <a href="https://docs.microsoft.com/windows/desktop/SecGloss/m-gly">message encoding types</a> by combining them with a bitwise-<b>OR</b> operation as shown in the following example:
      * 
      * X509_ASN_ENCODING | PKCS_7_ASN_ENCODING Currently defined encoding types are:
      * 
@@ -41607,7 +41626,7 @@ class Cryptography {
      * <b>Windows Server 2003 and Windows XP:  </b>A handle to the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">cryptographic service provider</a> (CSP) used to verify the signature.This parameter's data type is <b>HCRYPTPROV</b>.
      * 
      * <b>NULL</b> is passed unless there is a strong reason for passing in a specific cryptographic provider. Passing in <b>NULL</b> causes the default RSA or DSS provider to be acquired.
-     * @param {Integer} dwCertEncodingType The <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate encoding type</a> that was used to encrypt the subject. The <a href="https://docs.microsoft.com/windows/desktop/SecGloss/m-gly">message encoding type</a> identifier, contained in the high <b>WORD</b> of this value, is ignored by this function.
+     * @param {CERT_QUERY_ENCODING_TYPE} dwCertEncodingType The <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate encoding type</a> that was used to encrypt the subject. The <a href="https://docs.microsoft.com/windows/desktop/SecGloss/m-gly">message encoding type</a> identifier, contained in the high <b>WORD</b> of this value, is ignored by this function.
      * 
      * 
      * This parameter can be the following currently defined certificate encoding type.
@@ -41631,7 +41650,7 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer} pbEncoded A pointer to an encoded <a href="https://docs.microsoft.com/windows/desktop/SecGloss/b-gly">BLOB</a> of <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_signed_content_info">CERT_SIGNED_CONTENT_INFO</a> content on which the signature is to be verified.
+     * @param {Integer} pbEncoded A pointer to an encoded <a href="https://docs.microsoft.com/windows/desktop/SecGloss/b-gly">BLOB</a> of <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_signed_content_info">CERT_SIGNED_CONTENT_INFO</a> content on which the signature is to be verified.
      * @param {Integer} cbEncoded The size, in bytes, of the encoded content in <i>pbEncoded</i>.
      * @param {Pointer<CERT_PUBLIC_KEY_INFO>} pPublicKey A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_public_key_info">CERT_PUBLIC_KEY_INFO</a> structure that contains the public key to use when verifying the signature.
@@ -41717,7 +41736,7 @@ class Cryptography {
      * <b>Windows Server 2003 and Windows XP:  </b>A handle to the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">cryptographic service provider</a> used to verify the signature.This parameter's data type is <b>HCRYPTPROV</b>.
      * 
      * <b>NULL</b> is passed unless there is a strong reason for passing in a specific cryptographic provider. Passing in <b>NULL</b> causes the default RSA or DSS provider to be acquired.
-     * @param {Integer} dwCertEncodingType The <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate encoding type</a>   that was used to encrypt the subject.
+     * @param {CERT_QUERY_ENCODING_TYPE} dwCertEncodingType The <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate encoding type</a>   that was used to encrypt the subject.
      * 					 The <a href="https://docs.microsoft.com/windows/desktop/SecGloss/m-gly">message encoding type</a> identifier, contained in the high <b>WORD</b> of this value, is ignored by this function.
      * 
      * 
@@ -41854,7 +41873,7 @@ class Cryptography {
      * <div class="alert"><b>Note</b>  If <i>dwIssuerType</i> is <b>CRYPT_VERIFY_CERT_SIGN_ISSUER_NULL</b> and the signature algorithm is a hashing algorithm, the signature is expected to contain only unencrypted hash octets. Only <b>CRYPT_VERIFY_CERT_SIGN_ISSUER_NULL</b> can be specified in this nonencrypted signature case. If any other <i>dwIssuerType</i> is specified, verification fails and <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns E_INVALIDARG.</div>
      * <div> </div>
      * @param {Pointer<Void>} pvIssuer A pointer to a structure of the type indicated by the value of <i>dwIssuerType</i>. The structure contains access to the public key needed to verify the signature.
-     * @param {Integer} dwFlags 
+     * @param {CRYPT_VERIFY_CERT_FLAGS} dwFlags 
      * @param {Pointer<Void>} pvExtra Pointer to a <a href="https://docs.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-crypt_verify_cert_sign_strong_properties_info">CRYPT_VERIFY_CERT_SIGN_STRONG_PROPERTIES_INFO</a> structure if the <i>dwFlags</i> parameter is set to <b>CRYPT_VERIFY_CERT_SIGN_RETURN_STRONG_PROPERTIES_FLAG</b>.
      * 
      * You must call <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptmemfree">CryptMemFree</a> to free the structure.
@@ -42014,7 +42033,7 @@ class Cryptography {
      * <b>Windows Server 2003 and Windows XP:  </b>A handle of the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">cryptographic service provider</a> (CSP) to use to compute the hash.This parameter's data type is <b>HCRYPTPROV</b>.
      * 
      * Unless there is a strong reason for passing in a specific cryptographic provider in <i>hCryptProv</i>, zero is passed in. Passing in zero causes the default <a href="https://docs.microsoft.com/windows/desktop/SecGloss/r-gly">RSA</a> or <a href="https://docs.microsoft.com/windows/desktop/SecGloss/d-gly">Digital Signature Standard</a> (DSS) provider to be acquired before doing hash, <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">signature verification</a>, or recipient <a href="https://docs.microsoft.com/windows/desktop/SecGloss/e-gly">encryption</a> operations.
-     * @param {Integer} dwCertEncodingType Specifies the encoding type used. It is always acceptable to specify both the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate</a> and <a href="https://docs.microsoft.com/windows/desktop/SecGloss/m-gly">message encoding types</a> by combining them with a bitwise-<b>OR</b> operation as shown in the following example:
+     * @param {CERT_QUERY_ENCODING_TYPE} dwCertEncodingType Specifies the encoding type used. It is always acceptable to specify both the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate</a> and <a href="https://docs.microsoft.com/windows/desktop/SecGloss/m-gly">message encoding types</a> by combining them with a bitwise-<b>OR</b> operation as shown in the following example:
      * 
      * X509_ASN_ENCODING | PKCS_7_ASN_ENCODING
      * 
@@ -42024,10 +42043,10 @@ class Cryptography {
      * <li>X509_ASN_ENCODING</li>
      * <li>PKCS_7_ASN_ENCODING</li>
      * </ul>
-     * @param {Pointer} pbEncoded Address of a buffer that contains the content to be hashed. This is the encoded form of a 
+     * @param {Integer} pbEncoded Address of a buffer that contains the content to be hashed. This is the encoded form of a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_signed_content_info">CERT_SIGNED_CONTENT_INFO</a>.
      * @param {Integer} cbEncoded The size, in bytes, of the buffer.
-     * @param {Pointer} pbComputedHash A pointer to a buffer to receive the computed hash.
+     * @param {Integer} pbComputedHash A pointer to a buffer to receive the computed hash.
      * 
      * This parameter can be <b>NULL</b> to set the size of this information for memory allocation purposes. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/retrieving-data-of-unknown-length">Retrieving Data of Unknown Length</a>.
@@ -42117,13 +42136,13 @@ class Cryptography {
      * This parameter's data type is <b>HCRYPTPROV</b>.
      * 
      * Unless there is a strong reason for passing in a specific CSP in <i>hCryptProv</i>, zero is passed in. Passing in zero causes the default <a href="https://docs.microsoft.com/windows/desktop/SecGloss/r-gly">RSA</a> or <a href="https://docs.microsoft.com/windows/desktop/SecGloss/d-gly">Digital Signature Standard</a> (DSS) provider to be acquired before doing hash, signature verification, or recipient encryption operations.
-     * @param {Integer} Algid An 
+     * @param {ALG_ID} Algid An 
      * 						<a href="https://docs.microsoft.com/windows/desktop/SecCrypto/alg-id">ALG_ID</a> structure that specifies the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/h-gly">hash algorithm</a> to use. If <i>Algid</i> is zero, the default hash algorithm, SHA1, is used.
      * @param {Integer} dwFlags Value to be passed to the hash API. For details, see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptcreatehash">CryptCreateHash</a>.
-     * @param {Pointer} pbEncoded Address of the encoded content to be hashed.
+     * @param {Integer} pbEncoded Address of the encoded content to be hashed.
      * @param {Integer} cbEncoded The size, in bytes, of the encoded content.
-     * @param {Pointer} pbComputedHash A pointer to a buffer to receive the computed hash. 
+     * @param {Integer} pbComputedHash A pointer to a buffer to receive the computed hash. 
      * 
      * 
      * 
@@ -42169,9 +42188,9 @@ class Cryptography {
      * Hashes a block of data by using a CNG hash provider.
      * @param {PWSTR} pwszCNGHashAlgid The address of a null-terminated Unicode string that contains the CNG hash algorithm identifier of the hash algorithm to use to hash the certificate. This can be one of the <a href="https://docs.microsoft.com/windows/desktop/SecCNG/cng-algorithm-identifiers">CNG Algorithm Identifiers</a> that represents a hash algorithm or any other registered hash algorithm identifier.
      * @param {Integer} dwFlags A set of flags that modify the behavior of this function. No flags are defined for this function.
-     * @param {Pointer} pbEncoded The address of an array of bytes to be hashed. The <i>cbEncoded</i> parameter contains the size of this array.
+     * @param {Integer} pbEncoded The address of an array of bytes to be hashed. The <i>cbEncoded</i> parameter contains the size of this array.
      * @param {Integer} cbEncoded The number of elements in the <i>pbEncoded</i> array.
-     * @param {Pointer} pbComputedHash The address of a buffer that receives the computed hash. The variable pointed to by the <i>pcbComputedHash</i> parameter contains the size of this buffer.
+     * @param {Integer} pbComputedHash The address of a buffer that receives the computed hash. The variable pointed to by the <i>pcbComputedHash</i> parameter contains the size of this buffer.
      * @param {Pointer<Integer>} pcbComputedHash The address of a <b>DWORD</b> variable that, on entry, contains the size, in bytes, of the  <i>pbComputedHash</i> buffer. After this function returns, this variable contains the number of bytes copied to the <i>pbComputedHash</i> buffer.
      * @returns {BOOL} If the function succeeds, the function returns nonzero (<b>TRUE</b>).
      * 
@@ -42217,7 +42236,7 @@ class Cryptography {
      * The CryptSignCertificate function signs the &quot;to be signed&quot; information in the encoded signed content.
      * @param {HCRYPTPROV_OR_NCRYPT_KEY_HANDLE} hCryptProvOrNCryptKey 
      * @param {Integer} dwKeySpec Identifies the private key to use from the provider's container. It can be AT_KEYEXCHANGE or AT_SIGNATURE. This parameter is ignored if an <b>NCRYPT_KEY_HANDLE</b> is used in the <i>hCryptProvOrNCryptKey</i> parameter.
-     * @param {Integer} dwCertEncodingType Specifies the encoding type used. It is always acceptable to specify both the certificate and <a href="https://docs.microsoft.com/windows/desktop/SecGloss/m-gly">message encoding types</a> by combining them with a bitwise-<b>OR</b> operation as shown in the following example:
+     * @param {CERT_QUERY_ENCODING_TYPE} dwCertEncodingType Specifies the encoding type used. It is always acceptable to specify both the certificate and <a href="https://docs.microsoft.com/windows/desktop/SecGloss/m-gly">message encoding types</a> by combining them with a bitwise-<b>OR</b> operation as shown in the following example:
      * 
      * X509_ASN_ENCODING | PKCS_7_ASN_ENCODING
      * 
@@ -42227,7 +42246,7 @@ class Cryptography {
      * <li>X509_ASN_ENCODING</li>
      * <li>PKCS_7_ASN_ENCODING</li>
      * </ul>
-     * @param {Pointer} pbEncodedToBeSigned A pointer to the encoded content to be signed.
+     * @param {Integer} pbEncodedToBeSigned A pointer to the encoded content to be signed.
      * @param {Integer} cbEncodedToBeSigned The size, in bytes, of the encoded content, <i>pbEncodedToBeSigned</i>.
      * @param {Pointer<CRYPT_ALGORITHM_IDENTIFIER>} pSignatureAlgorithm A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-crypt_algorithm_identifier">CRYPT_ALGORITHM_IDENTIFIER</a> structure with a <b>pszObjId</b> member set to one of the following:
@@ -42241,7 +42260,7 @@ class Cryptography {
      * </ul>
      * If the signature algorithm is a hash algorithm, the signature contains only the un-encrypted hash octets. A private key is not used to encrypt the hash. <i>dwKeySpec</i> is not used and <i>hCryptProvOrNCryptKey</i> can be <b>NULL</b> if an appropriate default CSP can be used for hashing.
      * @param {Pointer<Void>} pvHashAuxInfo Not currently used. Must be <b>NULL</b>.
-     * @param {Pointer} pbSignature A pointer to a buffer to receive the signed <a href="https://docs.microsoft.com/windows/desktop/SecGloss/h-gly">hash</a> of the content.
+     * @param {Integer} pbSignature A pointer to a buffer to receive the signed <a href="https://docs.microsoft.com/windows/desktop/SecGloss/h-gly">hash</a> of the content.
      * 
      * This parameter can be <b>NULL</b> to set the size of this information for memory allocation purposes. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/retrieving-data-of-unknown-length">Retrieving Data of Unknown Length</a>.
@@ -42311,8 +42330,8 @@ class Cryptography {
     /**
      * Encodes and signs a certificate, certificate revocation list (CRL), certificate trust list (CTL), or certificate request.
      * @param {HCRYPTPROV_OR_NCRYPT_KEY_HANDLE} hCryptProvOrNCryptKey 
-     * @param {Integer} dwKeySpec 
-     * @param {Integer} dwCertEncodingType Specifies the encoding type used. This can be the following value.
+     * @param {CERT_KEY_SPEC} dwKeySpec 
+     * @param {CERT_QUERY_ENCODING_TYPE} dwCertEncodingType Specifies the encoding type used. This can be the following value.
      * 					
      * 
      * <table>
@@ -42390,7 +42409,7 @@ class Cryptography {
      * </ul>
      * If the signature algorithm is a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/h-gly">hash</a> algorithm, the signature contains only the unencrypted hash octets. A private key is not used to encrypt the hash. <i>dwKeySpec</i> is not used and <i>hCryptProvOrNCryptKey</i> can be <b>NULL</b> if an appropriate default CSP can be used for hashing.
      * @param {Pointer<Void>} pvHashAuxInfo Reserved. Must be <b>NULL</b>.
-     * @param {Pointer} pbEncoded A pointer to a buffer to receive the signed and encoded output.
+     * @param {Integer} pbEncoded A pointer to a buffer to receive the signed and encoded output.
      * 
      * This parameter can be <b>NULL</b> to set the size of this information for memory allocation purposes. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/retrieving-data-of-unknown-length">Retrieving Data of Unknown Length</a>.
@@ -42533,7 +42552,7 @@ class Cryptography {
 
     /**
      * Check a certificate revocation list (CRL) to determine whether a subject's certificate has or has not been revoked.
-     * @param {Integer} dwCertEncodingType Specifies the encoding type used. It is always acceptable to specify both the certificate and <a href="https://docs.microsoft.com/windows/desktop/SecGloss/m-gly">message encoding types</a> by combining them with a bitwise-<b>OR</b> operation as shown in the following example:
+     * @param {CERT_QUERY_ENCODING_TYPE} dwCertEncodingType Specifies the encoding type used. It is always acceptable to specify both the certificate and <a href="https://docs.microsoft.com/windows/desktop/SecGloss/m-gly">message encoding types</a> by combining them with a bitwise-<b>OR</b> operation as shown in the following example:
      * 
      * X509_ASN_ENCODING | PKCS_7_ASN_ENCODING
      * 
@@ -42643,7 +42662,7 @@ class Cryptography {
 
     /**
      * Acquires the intended key usage bytes from a certificate.
-     * @param {Integer} dwCertEncodingType Specifies the encoding type used. It is always acceptable to specify both the certificate and <a href="https://docs.microsoft.com/windows/desktop/SecGloss/m-gly">message encoding types</a> by combining them with a bitwise-<b>OR</b> operation as shown in the following example:
+     * @param {CERT_QUERY_ENCODING_TYPE} dwCertEncodingType Specifies the encoding type used. It is always acceptable to specify both the certificate and <a href="https://docs.microsoft.com/windows/desktop/SecGloss/m-gly">message encoding types</a> by combining them with a bitwise-<b>OR</b> operation as shown in the following example:
      * 
      * X509_ASN_ENCODING | PKCS_7_ASN_ENCODING Currently defined encoding types are:
      * 
@@ -42653,7 +42672,7 @@ class Cryptography {
      * </ul>
      * @param {Pointer<CERT_INFO>} pCertInfo A pointer to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_info">CERT_INFO</a> structure of the specified certificate.
-     * @param {Pointer} pbKeyUsage A pointer to a buffer to receive the intended key usage. The following list shows currently defined values. These can be combined by using bitwise-<b>OR</b> operations.
+     * @param {Integer} pbKeyUsage A pointer to a buffer to receive the intended key usage. The following list shows currently defined values. These can be combined by using bitwise-<b>OR</b> operations.
      * 
      * <ul>
      * <li>CERT_DATA_ENCIPHERMENT_KEY_USAGE</li>
@@ -42694,9 +42713,9 @@ class Cryptography {
      * The installed provider handle must remain available for use until <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptuninstalldefaultcontext">CryptUninstallDefaultContext</a> is called, or the thread or <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">process</a> exits.
      * @param {Pointer} hCryptProv The handle of the cryptographic service provider to be used as the default context. This handle is obtained by using the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptacquirecontexta">CryptAcquireContext</a> function.
-     * @param {Integer} dwDefaultType 
+     * @param {CRYPT_DEFAULT_CONTEXT_TYPE} dwDefaultType 
      * @param {Pointer<Void>} pvDefaultPara Specifies the object or objects to install the default context provider for. The format of this parameter depends on the contents of the <i>dwDefaultType</i> parameter.
-     * @param {Integer} dwFlags 
+     * @param {CRYPT_DEFAULT_CONTEXT_FLAGS} dwFlags 
      * @param {Pointer<Pointer<Void>>} phDefaultContext The address of an <b>HCRYPTDEFAULTCONTEXT</b> variable that receives the default context handle. This handle is passed to the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptuninstalldefaultcontext">CryptUninstallDefaultContext</a> function to uninstall the default context provider.
      * @returns {BOOL} If the function succeeds, the return value is nonzero (TRUE). If the function fails, the return value is zero (FALSE). For extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -42748,7 +42767,7 @@ class Cryptography {
      * @param {HCRYPTPROV_OR_NCRYPT_KEY_HANDLE} hCryptProvOrNCryptKey Handle of the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">cryptographic service provider</a> (CSP) to use when exporting the public key information. This handle must be an <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/hcryptprov">HCRYPTPROV</a> handle that has been created by using the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptacquirecontexta">CryptAcquireContext</a> function or an <b>NCRYPT_KEY_HANDLE</b> handle that has been created by using the <a href="https://docs.microsoft.com/windows/desktop/api/ncrypt/nf-ncrypt-ncryptopenkey">NCryptOpenKey</a> function. New applications should always pass in the <b>NCRYPT_KEY_HANDLE</b> handle of a CNG CSP.
      * @param {Integer} dwKeySpec Identifies the private key to use from the container of the provider. It can be AT_KEYEXCHANGE or AT_SIGNATURE. This parameter is ignored if an <b>NCRYPT_KEY_HANDLE</b> is used in the <i>hCryptProvOrNCryptKey</i> parameter.
-     * @param {Integer} dwCertEncodingType Specifies the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/e-gly">encoding type</a> used. It is always acceptable to specify both the certificate and <a href="https://docs.microsoft.com/windows/desktop/SecGloss/m-gly">message encoding types</a> by combining them with a bitwise-<b>OR</b> operation as shown in the following example:
+     * @param {CERT_QUERY_ENCODING_TYPE} dwCertEncodingType Specifies the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/e-gly">encoding type</a> used. It is always acceptable to specify both the certificate and <a href="https://docs.microsoft.com/windows/desktop/SecGloss/m-gly">message encoding types</a> by combining them with a bitwise-<b>OR</b> operation as shown in the following example:
      * 
      * X509_ASN_ENCODING | PKCS_7_ASN_ENCODING
      * 
@@ -42758,7 +42777,7 @@ class Cryptography {
      * <li>X509_ASN_ENCODING</li>
      * <li>PKCS_7_ASN_ENCODING</li>
      * </ul>
-     * @param {Pointer} pInfo A pointer to a 
+     * @param {Integer} pInfo A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_public_key_info">CERT_PUBLIC_KEY_INFO</a>  structure to receive the public key information to be exported.
      * 
      * To set the size of this information for memory allocation purposes, this parameter can be <b>NULL</b>. For more information, see 
@@ -42833,7 +42852,7 @@ class Cryptography {
      * @param {HCRYPTPROV_OR_NCRYPT_KEY_HANDLE} hCryptProvOrNCryptKey A handle of the CSP to use when exporting the public key information. This handle must be an <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/hcryptprov">HCRYPTPROV</a> handle that has been created by using the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptacquirecontexta">CryptAcquireContext</a> function or an <b>NCRYPT_KEY_HANDLE</b> handle that has been created by using the <a href="https://docs.microsoft.com/windows/desktop/api/ncrypt/nf-ncrypt-ncryptopenkey">NCryptOpenKey</a> function. New applications should always pass in the <b>NCRYPT_KEY_HANDLE</b> handle of a CNG CSP.
      * @param {Integer} dwKeySpec Identifies the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">private key</a> to use from the provider's container. It can be AT_KEYEXCHANGE or AT_SIGNATURE. This parameter is ignored if an <b>NCRYPT_KEY_HANDLE</b> is used in the <i>hCryptProvOrNCryptKey</i> parameter.
-     * @param {Integer} dwCertEncodingType Specifies the encoding type used. It is always acceptable to specify both the certificate and <a href="https://docs.microsoft.com/windows/desktop/SecGloss/m-gly">message encoding types</a> by combining them with a bitwise-<b>OR</b> operation as shown in the following example:
+     * @param {CERT_QUERY_ENCODING_TYPE} dwCertEncodingType Specifies the encoding type used. It is always acceptable to specify both the certificate and <a href="https://docs.microsoft.com/windows/desktop/SecGloss/m-gly">message encoding types</a> by combining them with a bitwise-<b>OR</b> operation as shown in the following example:
      * 
      * X509_ASN_ENCODING | PKCS_7_ASN_ENCODING
      * 
@@ -42878,7 +42897,7 @@ class Cryptography {
      * </tr>
      * </table>
      * @param {Pointer<Void>} pvAuxInfo This parameter is reserved for future use and  must be set to <b>NULL</b>.
-     * @param {Pointer} pInfo A pointer to a 
+     * @param {Integer} pInfo A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_public_key_info">CERT_PUBLIC_KEY_INFO</a>  structure to receive the public key information to be exported.
      * 
      * This parameter can be <b>NULL</b> to set the size of this information for memory allocation purposes. For more information, see 
@@ -42956,7 +42975,7 @@ class Cryptography {
      * If the <b>CryptExportPublicKeyInfoFromBCryptKeyHandle</b> function is unable to find an installable OID function for the OID specified by the <i>pszPublicKeyObjId</i> parameter, it attempts to export the key as a RSA Public Key (<b>szOID_RSA_RSA</b>).
      *  If the key is exported as a RSA Public Key, the values of the <i>dwFlags</i> and <i>pvAuxInfo</i> parameters are not used.
      * @param {BCRYPT_KEY_HANDLE} hBCryptKey The handle of the key from which to export the public key information.
-     * @param {Integer} dwCertEncodingType Specifies the encoding type to be matched.  
+     * @param {CERT_QUERY_ENCODING_TYPE} dwCertEncodingType Specifies the encoding type to be matched.  
      * 
      * 
      * 
@@ -43002,7 +43021,7 @@ class Cryptography {
      * </tr>
      * </table>
      * @param {Pointer<Void>} pvAuxInfo This parameter is reserved for future use and  must be set to <b>NULL</b>.
-     * @param {Pointer} pInfo A pointer to a 
+     * @param {Integer} pInfo A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_public_key_info">CERT_PUBLIC_KEY_INFO</a>  structure to receive the public key information to be exported.
      * 
      * This parameter can be <b>NULL</b> to set the size of this information for memory allocation purposes. For more information, see 
@@ -43050,7 +43069,7 @@ class Cryptography {
      * ```
      * @param {Pointer} hCryptProv The handle of the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">cryptographic service provider</a> (CSP) to use when importing the public key. This handle must have already been created using 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptacquirecontexta">CryptAcquireContext</a>.
-     * @param {Integer} dwCertEncodingType Specifies the encoding type used. It is always acceptable to specify both the certificate and <a href="https://docs.microsoft.com/windows/desktop/SecGloss/m-gly">message encoding types</a> by combining them with a bitwise-<b>OR</b> operation as shown in the following example:
+     * @param {CERT_QUERY_ENCODING_TYPE} dwCertEncodingType Specifies the encoding type used. It is always acceptable to specify both the certificate and <a href="https://docs.microsoft.com/windows/desktop/SecGloss/m-gly">message encoding types</a> by combining them with a bitwise-<b>OR</b> operation as shown in the following example:
      * 
      * X509_ASN_ENCODING | PKCS_7_ASN_ENCODING
      * 
@@ -43137,7 +43156,7 @@ class Cryptography {
      * ```
      * @param {Pointer} hCryptProv The handle of the CSP to receive the imported public key. This handle must have already been created using 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptacquirecontexta">CryptAcquireContext</a>.
-     * @param {Integer} dwCertEncodingType Specifies the encoding type used. It is always acceptable to specify both the certificate and <a href="https://docs.microsoft.com/windows/desktop/SecGloss/m-gly">message encoding types</a> by combining them with a bitwise-<b>OR</b> operation as shown in the following example:
+     * @param {CERT_QUERY_ENCODING_TYPE} dwCertEncodingType Specifies the encoding type used. It is always acceptable to specify both the certificate and <a href="https://docs.microsoft.com/windows/desktop/SecGloss/m-gly">message encoding types</a> by combining them with a bitwise-<b>OR</b> operation as shown in the following example:
      * 
      * X509_ASN_ENCODING | PKCS_7_ASN_ENCODING
      * 
@@ -43152,7 +43171,7 @@ class Cryptography {
      * 
      * <div class="alert"><b>Note</b>  The <b>pzObjId</b> member of the <b>Algorithm</b> member pointed to by the <i>pInfo</i>  and <i>dwCertEncodingType</i> parameters determine an installable <b>CRYPT_OID_IMPORT_PUBLIC_KEY_INFO_FUNC</b> callback function. If an installable function is not found, an attempt is made to import the key as an RSA Public Key (szOID_RSA_RSA).</div>
      * <div> </div>
-     * @param {Integer} aiKeyAlg An <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/alg-id">ALG_ID</a> structure that contains a CSP-specific algorithm to override the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">CALG_RSA_KEYX</a> default algorithm.
+     * @param {ALG_ID} aiKeyAlg An <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/alg-id">ALG_ID</a> structure that contains a CSP-specific algorithm to override the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">CALG_RSA_KEYX</a> default algorithm.
      * @param {Integer} dwFlags Reserved for future use and must be zero.
      * @param {Pointer<Void>} pvAuxInfo Reserved for future use and must be <b>NULL</b>.
      * @param {Pointer<Pointer>} phKey The address of an <b>HCRYPTKEY</b> variable that receives the handle of the imported public key. When you have finished using the public key, release the handle by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptdestroykey">CryptDestroyKey</a> function.
@@ -43205,7 +43224,7 @@ class Cryptography {
 
     /**
      * Imports a public key into the CNG asymmetric provider that corresponds to the public key object identifier (OID) and returns a CNG handle to the key.
-     * @param {Integer} dwCertEncodingType The <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate encoding type</a> that was used to encrypt the subject. The <a href="https://docs.microsoft.com/windows/desktop/SecGloss/m-gly">message encoding type</a> identifier, contained in the high <b>WORD</b> of this value, is ignored by this function.
+     * @param {CERT_QUERY_ENCODING_TYPE} dwCertEncodingType The <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate encoding type</a> that was used to encrypt the subject. The <a href="https://docs.microsoft.com/windows/desktop/SecGloss/m-gly">message encoding type</a> identifier, contained in the high <b>WORD</b> of this value, is ignored by this function.
      * 
      * 
      * This parameter can be the following currently defined certificate encoding type.
@@ -43230,7 +43249,7 @@ class Cryptography {
      * </tr>
      * </table>
      * @param {Pointer<CERT_PUBLIC_KEY_INFO>} pInfo The address of a <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_public_key_info">CERT_PUBLIC_KEY_INFO</a> structure that contains the public key information to import into the provider.
-     * @param {Integer} dwFlags 
+     * @param {CRYPT_IMPORT_PUBLIC_KEY_FLAGS} dwFlags 
      * @param {Pointer<Void>} pvAuxInfo This parameter is reserved for future use and must be set to <b>NULL</b>.
      * @param {Pointer<BCRYPT_KEY_HANDLE>} phKey The address of a <b>BCRYPT_KEY_HANDLE</b> variable that receives the handle of the imported key.
      * 
@@ -43290,7 +43309,7 @@ class Cryptography {
      * When <b>CRYPT_ACQUIRE_WINDOW_HANDLE_FLAG</b> is set, the caller must ensure the <b>HWND</b> is valid. If the <b>HWND</b> is no longer valid, for CSP the caller should call <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptsetprovparam">CryptSetProvParam</a> using flag PP_CLIENT_HWND with <b>NULL</b> for the <b>HWND</b> and <b>NULL</b>  for the HCRYPTPROV. For KSP, the caller should set the  NCRYPT_WINDOW_HANDLE_PROPERTY of the ncrypt key to be <b>NULL</b>. When <b>CRYPT_ACQUIRE_WINDOW_HANDLE_FLAG</b> flag is set for KSP, the NCRYPT_WINDOW_HANDLE_PROPERTY is set on the storage provider and the key. If both calls fail, then the function fails. If only one fails, the function succeeds. Note that setting <b>HWND</b> to <b>NULL</b>  effectively removes <b>HWND</b> from the HCRYPTPROV or ncrypt key.
      * @param {Pointer<CERT_CONTEXT>} pCert The address of a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_context">CERT_CONTEXT</a> structure that contains the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate context</a> for which a private key will be obtained.
-     * @param {Integer} dwFlags 
+     * @param {CRYPT_ACQUIRE_FLAGS} dwFlags 
      * @param {Pointer<Void>} pvParameters If the <b>CRYPT_ACQUIRE_WINDOW_HANDLE_FLAG</b>  is set, then this is the address of an <b>HWND</b>. If the <b>CRYPT_ACQUIRE_WINDOW_HANDLE_FLAG</b> is not set, then this parameter must be <b>NULL</b>.
      * 
      * 
@@ -43298,7 +43317,7 @@ class Cryptography {
      * @param {Pointer<HCRYPTPROV_OR_NCRYPT_KEY_HANDLE>} phCryptProvOrNCryptKey The address of an <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/hcryptprov-or-ncrypt-key-handle">HCRYPTPROV_OR_NCRYPT_KEY_HANDLE</a> variable that receives the handle of either the CryptoAPI provider or the CNG key. If the <i>pdwKeySpec</i> variable receives the <b>CERT_NCRYPT_KEY_SPEC</b> flag, this is a CNG key handle of type <b>NCRYPT_KEY_HANDLE</b>; otherwise, this is a CryptoAPI provider handle of type <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/hcryptprov">HCRYPTPROV</a>.
      * 
      * For more information about when and how to release this handle, see the description of the <i>pfCallerFreeProvOrNCryptKey</i> parameter.
-     * @param {Pointer<Integer>} pdwKeySpec 
+     * @param {Pointer<CERT_KEY_SPEC>} pdwKeySpec 
      * @param {Pointer<BOOL>} pfCallerFreeProvOrNCryptKey The address of a <b>BOOL</b> variable that receives a value that indicates whether the caller must free the handle returned in the <i>phCryptProvOrNCryptKey</i> variable. This receives <b>FALSE</b> if any of the following is true:
      * 
      * <ul>
@@ -43366,7 +43385,7 @@ class Cryptography {
      * This function enumerates the cryptographic providers and their containers to find the private key that corresponds to the certificate's <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">public key</a>. For a match, the function updates the certificate's <b>CERT_KEY_PROV_INFO_PROP_ID</b> property. If the <b>CERT_KEY_PROV_INFO_PROP_ID</b> is already set, it is checked to determine whether it matches the provider's public key. For a match, the function skips the previously mentioned enumeration.
      * @param {Pointer<CERT_CONTEXT>} pCert A pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_context">CERT_CONTEXT</a> structure of the certificate to use when exporting public key information.
-     * @param {Integer} dwFlags 
+     * @param {CRYPT_FIND_FLAGS} dwFlags 
      * @returns {BOOL} <b>TRUE</b> if the function finds a private key that corresponds to the certificate's public key within a searched <a href="https://docs.microsoft.com/windows/desktop/SecGloss/k-gly">container</a>; <b>FALSE</b> if the function fails to find a container or a private key within a container.
      * 
      * 
@@ -43412,7 +43431,7 @@ class Cryptography {
      * 
      * This function is only supported for asymmetric keys.
      * @param {CRYPT_PKCS8_IMPORT_PARAMS} sPrivateKeyAndParams A <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-crypt_pkcs8_import_params">CRYPT_PKCS8_IMPORT_PARAMS</a> structure that contains the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">private key BLOB</a> and corresponding parameters.
-     * @param {Integer} dwFlags 
+     * @param {CRYPT_KEY_FLAGS} dwFlags 
      * @param {Pointer<Pointer>} phCryptProv A pointer to the <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/hcryptprov">HCRYPTPROV</a>  to receive the handle of the provider into which the key is
      * imported by calling the <b>CryptImportPKCS8</b> function.  
      * 
@@ -43502,7 +43521,7 @@ class Cryptography {
      * @param {PSTR} pszPrivateKeyObjId An  <b>LPSTR</b>  variable that contains  the private key <a href="https://docs.microsoft.com/windows/desktop/SecGloss/o-gly"> object identifier</a> (OID).
      * @param {Integer} dwFlags This parameter should be zero if <i>pbPrivateKeyBlob</i> is <b>NULL</b> and 0x8000 otherwise.
      * @param {Pointer<Void>} pvAuxInfo This parameter must be set to <b>NULL</b>.
-     * @param {Pointer} pbPrivateKeyBlob A pointer to an 
+     * @param {Integer} pbPrivateKeyBlob A pointer to an 
      * array of <b>BYTE</b> structures to receive the private key  to be exported. 
      * 
      * 
@@ -43577,10 +43596,10 @@ class Cryptography {
      * <b>Windows Server 2003 and Windows XP:  </b>A handle of the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">cryptographic service provider</a> (CSP) to use to compute the hash.This parameter's data type is <b>HCRYPTPROV</b>.
      * 
      * Unless there is a strong reason for passing in a specific cryptographic provider in <i>hCryptProv</i>, zero is passed in. Passing in zero causes the default <a href="https://docs.microsoft.com/windows/desktop/SecGloss/r-gly">RSA</a> or <a href="https://docs.microsoft.com/windows/desktop/SecGloss/d-gly">Digital Signature Standard</a> (DSS) provider to be acquired before doing hash, <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">signature verification</a>, or recipient <a href="https://docs.microsoft.com/windows/desktop/SecGloss/e-gly">encryption</a> operations.
-     * @param {Integer} Algid An <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/alg-id">ALG_ID</a> structure that specifies the CryptoAPI hash algorithm to use. If <i>Algid</i> is zero, the default hash algorithm, MD5, is used.
+     * @param {ALG_ID} Algid An <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/alg-id">ALG_ID</a> structure that specifies the CryptoAPI hash algorithm to use. If <i>Algid</i> is zero, the default hash algorithm, MD5, is used.
      * @param {Integer} dwFlags Values to be passed on to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptcreatehash">CryptCreateHash</a>.
-     * @param {Integer} dwCertEncodingType Specifies the encoding type used. It is always acceptable to specify both the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate</a> and <a href="https://docs.microsoft.com/windows/desktop/SecGloss/m-gly">message encoding types</a> by combining them with a bitwise-<b>OR</b> operation as shown in the following example:
+     * @param {CERT_QUERY_ENCODING_TYPE} dwCertEncodingType Specifies the encoding type used. It is always acceptable to specify both the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate</a> and <a href="https://docs.microsoft.com/windows/desktop/SecGloss/m-gly">message encoding types</a> by combining them with a bitwise-<b>OR</b> operation as shown in the following example:
      * 
      * X509_ASN_ENCODING | PKCS_7_ASN_ENCODING
      * 
@@ -43592,7 +43611,7 @@ class Cryptography {
      * </ul>
      * @param {Pointer<CERT_PUBLIC_KEY_INFO>} pInfo A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_public_key_info">CERT_PUBLIC_KEY_INFO</a> structure that contains the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">public key</a> information to be encoded and hashed.
-     * @param {Pointer} pbComputedHash A pointer to a buffer to receive the computed hash.
+     * @param {Integer} pbComputedHash A pointer to a buffer to receive the computed hash.
      * 
      * To set the size of this information for memory allocation purposes, this parameter can be <b>NULL</b>. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/retrieving-data-of-unknown-length">Retrieving Data of Unknown Length</a>.
@@ -43801,7 +43820,7 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @param {Integer} dwCertEncodingType The <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate encoding type</a>   that was used to encode the name. The <a href="https://docs.microsoft.com/windows/desktop/SecGloss/m-gly">message encoding type</a> identifier, contained in the high <b>WORD</b> of this value, is ignored by this function.
+     * @param {CERT_QUERY_ENCODING_TYPE} dwCertEncodingType The <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate encoding type</a>   that was used to encode the name. The <a href="https://docs.microsoft.com/windows/desktop/SecGloss/m-gly">message encoding type</a> identifier, contained in the high <b>WORD</b> of this value, is ignored by this function.
      * 
      * 
      * This parameter can be the following currently defined certificate encoding type.
@@ -43827,7 +43846,7 @@ class Cryptography {
      * </table>
      * @param {Pointer<CRYPT_INTEGER_BLOB>} pName A pointer to the 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa381414(v=vs.85)">CERT_NAME_BLOB</a> structure to be converted.
-     * @param {Integer} dwStrType This parameter specifies the format of the output string. This parameter also specifies other options for the contents of the string.
+     * @param {CERT_STRING_TYPE} dwStrType This parameter specifies the format of the output string. This parameter also specifies other options for the contents of the string.
      * @param {PSTR} psz A pointer to a character buffer that receives the returned string. The size of this buffer is specified in the <i>csz</i> parameter.
      * @param {Integer} csz The size, in characters, of the <i>psz</i> buffer. The size must include the terminating null character.
      * @returns {Integer} Returns the number of characters converted, including the terminating null character. 
@@ -43930,7 +43949,7 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @param {Integer} dwCertEncodingType The <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate encoding type</a>   that was used to encode the name. The <a href="https://docs.microsoft.com/windows/desktop/SecGloss/m-gly">message encoding type</a> identifier, contained in the high <b>WORD</b> of this value, is ignored by this function.
+     * @param {CERT_QUERY_ENCODING_TYPE} dwCertEncodingType The <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate encoding type</a>   that was used to encode the name. The <a href="https://docs.microsoft.com/windows/desktop/SecGloss/m-gly">message encoding type</a> identifier, contained in the high <b>WORD</b> of this value, is ignored by this function.
      * 
      * 
      * This parameter can be the following currently defined certificate encoding type.
@@ -43956,7 +43975,7 @@ class Cryptography {
      * </table>
      * @param {Pointer<CRYPT_INTEGER_BLOB>} pName A pointer to the 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa381414(v=vs.85)">CERT_NAME_BLOB</a> structure to be converted.
-     * @param {Integer} dwStrType This parameter specifies the format of the output string. This parameter also specifies other options for the contents of the string.
+     * @param {CERT_STRING_TYPE} dwStrType This parameter specifies the format of the output string. This parameter also specifies other options for the contents of the string.
      * @param {PWSTR} psz A pointer to a character buffer that receives the returned string. The size of this buffer is specified in the <i>csz</i> parameter.
      * @param {Integer} csz The size, in characters, of the <i>psz</i> buffer. The size must include the terminating null character.
      * @returns {Integer} Returns the number of characters converted, including the terminating null character. 
@@ -44265,7 +44284,7 @@ class Cryptography {
      * 
      * 
      * The T61 types are UTF8 encoded.
-     * @param {Integer} dwCertEncodingType The <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate encoding type</a>   that was used to encode the string. The <a href="https://docs.microsoft.com/windows/desktop/SecGloss/m-gly">message encoding type</a> identifier, contained in the high <b>WORD</b> of this value, is ignored by this function.
+     * @param {CERT_QUERY_ENCODING_TYPE} dwCertEncodingType The <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate encoding type</a>   that was used to encode the string. The <a href="https://docs.microsoft.com/windows/desktop/SecGloss/m-gly">message encoding type</a> identifier, contained in the high <b>WORD</b> of this value, is ignored by this function.
      * 
      * 
      * This parameter can be the following currently defined certificate encoding type.
@@ -44293,7 +44312,7 @@ class Cryptography {
      * 
      * This string is expected to be formatted the same as the output from 
      * the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certnametostra">CertNameToStr</a> function.
-     * @param {Integer} dwStrType This parameter specifies the type of the string. This parameter also specifies other options for the contents of the string. 
+     * @param {CERT_STRING_TYPE} dwStrType This parameter specifies the type of the string. This parameter also specifies other options for the contents of the string. 
      * 
      * If no flags are combined with the string type specifier, the string can contain a comma (,) or a semicolon (;) as separators in the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/r-gly">relative distinguished name</a> (RDN) and a plus sign (+) as the separator in multiple RDN values.
      * 
@@ -44302,7 +44321,7 @@ class Cryptography {
      * A value that starts with a number sign (#) is treated as <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">ASCII</a> hexadecimal and converted to a <b>CERT_RDN_OCTET_STRING</b>. Embedded white space is ignored. For example, 1.2.3 = # AB CD 01 is the same as 1.2.3=#ABCD01.
      * 
      * White space that surrounds the keys, object identifiers, and values is ignored.
-     * @param {Pointer} pbEncoded A pointer to a buffer that receives the encoded structure. 
+     * @param {Integer} pbEncoded A pointer to a buffer that receives the encoded structure. 
      * 
      * 
      * The size of this buffer is specified in the <i>pcbEncoded</i> parameter.
@@ -44646,7 +44665,7 @@ class Cryptography {
      * 
      * 
      * The T61 types are UTF8 encoded.
-     * @param {Integer} dwCertEncodingType The <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate encoding type</a>   that was used to encode the string. The <a href="https://docs.microsoft.com/windows/desktop/SecGloss/m-gly">message encoding type</a> identifier, contained in the high <b>WORD</b> of this value, is ignored by this function.
+     * @param {CERT_QUERY_ENCODING_TYPE} dwCertEncodingType The <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate encoding type</a>   that was used to encode the string. The <a href="https://docs.microsoft.com/windows/desktop/SecGloss/m-gly">message encoding type</a> identifier, contained in the high <b>WORD</b> of this value, is ignored by this function.
      * 
      * 
      * This parameter can be the following currently defined certificate encoding type.
@@ -44674,7 +44693,7 @@ class Cryptography {
      * 
      * This string is expected to be formatted the same as the output from 
      * the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certnametostra">CertNameToStr</a> function.
-     * @param {Integer} dwStrType This parameter specifies the type of the string. This parameter also specifies other options for the contents of the string. 
+     * @param {CERT_STRING_TYPE} dwStrType This parameter specifies the type of the string. This parameter also specifies other options for the contents of the string. 
      * 
      * If no flags are combined with the string type specifier, the string can contain a comma (,) or a semicolon (;) as separators in the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/r-gly">relative distinguished name</a> (RDN) and a plus sign (+) as the separator in multiple RDN values.
      * 
@@ -44683,7 +44702,7 @@ class Cryptography {
      * A value that starts with a number sign (#) is treated as <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">ASCII</a> hexadecimal and converted to a <b>CERT_RDN_OCTET_STRING</b>. Embedded white space is ignored. For example, 1.2.3 = # AB CD 01 is the same as 1.2.3=#ABCD01.
      * 
      * White space that surrounds the keys, object identifiers, and values is ignored.
-     * @param {Pointer} pbEncoded A pointer to a buffer that receives the encoded structure. 
+     * @param {Integer} pbEncoded A pointer to a buffer that receives the encoded structure. 
      * 
      * 
      * The size of this buffer is specified in the <i>pcbEncoded</i> parameter.
@@ -45156,7 +45175,7 @@ class Cryptography {
      * @param {Integer} cToBeSigned Count of the number of array elements in <i>rgpbToBeSigned</i> and <i>rgcbToBeSigned</i>. This parameter must be set to one unless <i>fDetachedSignature</i> is set to <b>TRUE</b>.
      * @param {Pointer<Pointer<Integer>>} rgpbToBeSigned Array of pointers to buffers that contain the contents to be signed.
      * @param {Pointer<Integer>} rgcbToBeSigned Array of sizes, in bytes, of the content buffers pointed to in <i>rgpbToBeSigned</i>.
-     * @param {Pointer} pbSignedBlob A pointer to a buffer to receive the encoded signed hash, if <i>fDetachedSignature</i> is <b>TRUE</b>, or to both the encoded content and signed hash if <i>fDetachedSignature</i> is <b>FALSE</b>. 
+     * @param {Integer} pbSignedBlob A pointer to a buffer to receive the encoded signed hash, if <i>fDetachedSignature</i> is <b>TRUE</b>, or to both the encoded content and signed hash if <i>fDetachedSignature</i> is <b>FALSE</b>. 
      * 
      * 
      * 
@@ -45257,9 +45276,9 @@ class Cryptography {
      * @param {Pointer<CRYPT_VERIFY_MESSAGE_PARA>} pVerifyPara A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-crypt_verify_message_para">CRYPT_VERIFY_MESSAGE_PARA</a> structure that contains verification parameters.
      * @param {Integer} dwSignerIndex The index of the desired signature. There can be more than one signature. <b>CryptVerifyMessageSignature</b> can be called repeatedly, incrementing <i>dwSignerIndex</i> each time. Set this parameter to zero for the first signer, or if there is only one signer. If the function returns <b>FALSE</b>, and <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns CRYPT_E_NO_SIGNER, the previous call processed the last signer of the message.
-     * @param {Pointer} pbSignedBlob A pointer to a buffer that contains the signed message.
+     * @param {Integer} pbSignedBlob A pointer to a buffer that contains the signed message.
      * @param {Integer} cbSignedBlob The size, in bytes, of the signed message buffer.
-     * @param {Pointer} pbDecoded A pointer to a buffer to receive the decoded message. 
+     * @param {Integer} pbDecoded A pointer to a buffer to receive the decoded message. 
      * 
      * 
      * 
@@ -45394,7 +45413,7 @@ class Cryptography {
      * <li>X509_ASN_ENCODING</li>
      * <li>PKCS_7_ASN_ENCODING</li>
      * </ul>
-     * @param {Pointer} pbSignedBlob A pointer to a buffer containing the signed message.
+     * @param {Integer} pbSignedBlob A pointer to a buffer containing the signed message.
      * @param {Integer} cbSignedBlob The size, in bytes, of the signed message.
      * @returns {Integer} Returns the number of signers of a signed message, zero when there are no signers, and minus one (–1) for an error.
      * 
@@ -45460,7 +45479,7 @@ class Cryptography {
      * This parameter's data type is <b>HCRYPTPROV</b>.
      * @param {Integer} dwFlags Flags passed to <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certopenstore">CertOpenStore</a>. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certopenstore">CertOpenStore</a>.
-     * @param {Pointer} pbSignedBlob A pointer to a buffered 
+     * @param {Integer} pbSignedBlob A pointer to a buffered 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa381414(v=vs.85)">CRYPT_INTEGER_BLOB</a> structure that contains the signed message.
      * @param {Integer} cbSignedBlob The size, in bytes, of the signed message.
      * @returns {HCERTSTORE} Returns the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate store</a> containing the message's certificates and CRLs. For an error, <b>NULL</b> is returned.
@@ -45511,7 +45530,7 @@ class Cryptography {
      * @param {Pointer<CRYPT_VERIFY_MESSAGE_PARA>} pVerifyPara A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-crypt_verify_message_para">CRYPT_VERIFY_MESSAGE_PARA</a> structure containing the verification parameters.
      * @param {Integer} dwSignerIndex Index of the signature to be verified. A message might have several signers and this function can be called repeatedly, changing <i>dwSignerIndex</i> to verify other signatures. If the function returns FALSE, and <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns CRYPT_E_NO_SIGNER, the previous call received the last signer of the message.
-     * @param {Pointer} pbDetachedSignBlob A pointer to a BLOB containing the encoded message signatures.
+     * @param {Integer} pbDetachedSignBlob A pointer to a BLOB containing the encoded message signatures.
      * @param {Integer} cbDetachedSignBlob The size, in bytes, of the detached signature.
      * @param {Integer} cToBeSigned Number of array elements in <i>rgpbToBeSigned</i> and <i>rgcbToBeSigned</i>.
      * @param {Pointer<Pointer<Integer>>} rgpbToBeSigned Array of pointers to buffers containing the contents to be <a href="https://docs.microsoft.com/windows/desktop/SecGloss/h-gly">hashed</a>.
@@ -45627,9 +45646,9 @@ class Cryptography {
      * @param {Integer} cRecipientCert Number of elements in the <i>rgpRecipientCert</i> array.
      * @param {Pointer<Pointer<CERT_CONTEXT>>} rgpRecipientCert Array of pointers to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_context">CERT_CONTEXT</a> structures that contain the certificates of intended recipients of the message.
-     * @param {Pointer} pbToBeEncrypted A pointer to a buffer that contains the message that is to be encrypted.
+     * @param {Integer} pbToBeEncrypted A pointer to a buffer that contains the message that is to be encrypted.
      * @param {Integer} cbToBeEncrypted The size, in bytes, of the message that is to be encrypted.
-     * @param {Pointer} pbEncryptedBlob A pointer to <a href="https://docs.microsoft.com/windows/desktop/SecGloss/b-gly">BLOB</a> that contains a buffer that receives the encrypted and encoded message. 
+     * @param {Integer} pbEncryptedBlob A pointer to <a href="https://docs.microsoft.com/windows/desktop/SecGloss/b-gly">BLOB</a> that contains a buffer that receives the encrypted and encoded message. 
      * 
      * 
      * 
@@ -45713,9 +45732,9 @@ class Cryptography {
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certfreecertificatecontext">CertFreeCertificateContext</a>. If the function fails, the value at <i>ppXchgCert</i> is set to <b>NULL</b>.
      * @param {Pointer<CRYPT_DECRYPT_MESSAGE_PARA>} pDecryptPara A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-crypt_decrypt_message_para">CRYPT_DECRYPT_MESSAGE_PARA</a> structure that contains decryption parameters.
-     * @param {Pointer} pbEncryptedBlob A pointer to a buffer that contains the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/e-gly">encoded</a> and <a href="https://docs.microsoft.com/windows/desktop/SecGloss/e-gly">encrypted</a> message to be decrypted.
+     * @param {Integer} pbEncryptedBlob A pointer to a buffer that contains the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/e-gly">encoded</a> and <a href="https://docs.microsoft.com/windows/desktop/SecGloss/e-gly">encrypted</a> message to be decrypted.
      * @param {Integer} cbEncryptedBlob The size, in bytes, of the encoded and encrypted message.
-     * @param {Pointer} pbDecrypted A pointer to a buffer that receives the decrypted message. 
+     * @param {Integer} pbDecrypted A pointer to a buffer that receives the decrypted message. 
      * 
      * 
      * 
@@ -45831,9 +45850,9 @@ class Cryptography {
      * @param {Integer} cRecipientCert Number of array elements in <i>rgpRecipientCert</i>.
      * @param {Pointer<Pointer<CERT_CONTEXT>>} rgpRecipientCert Array of pointers to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_context">CERT_CONTEXT</a> structures. Each structure is the certificate of an intended recipients of the message.
-     * @param {Pointer} pbToBeSignedAndEncrypted A pointer to a buffer containing the content to be signed and encrypted.
+     * @param {Integer} pbToBeSignedAndEncrypted A pointer to a buffer containing the content to be signed and encrypted.
      * @param {Integer} cbToBeSignedAndEncrypted The size, in bytes, of the <i>pbToBeSignedAndEncrypted</i> buffer.
-     * @param {Pointer} pbSignedAndEncryptedBlob A pointer to a buffer to receive the encrypted and encoded message. 
+     * @param {Integer} pbSignedAndEncryptedBlob A pointer to a buffer to receive the encrypted and encoded message. 
      * 
      * 
      * 
@@ -45909,9 +45928,9 @@ class Cryptography {
      * @param {Pointer<CRYPT_VERIFY_MESSAGE_PARA>} pVerifyPara A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-crypt_verify_message_para">CRYPT_VERIFY_MESSAGE_PARA</a> structure that contains  verification parameters.
      * @param {Integer} dwSignerIndex Identifies a particular signer of the message. A message can be signed by more than one signer and this function can be called multiple times changing this parameter to check for several signers. It is set to zero for the first signer. If the function returns <b>FALSE</b>, and <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns CRYPT_E_NO_SIGNER, the previous call received the last signer of the message.
-     * @param {Pointer} pbEncryptedBlob A pointer to the signed, encoded, and encrypted message to be decrypted and verified.
+     * @param {Integer} pbEncryptedBlob A pointer to the signed, encoded, and encrypted message to be decrypted and verified.
      * @param {Integer} cbEncryptedBlob The size, in bytes, of the encrypted message.
-     * @param {Pointer} pbDecrypted A pointer to a buffer to receive the decrypted message. 
+     * @param {Integer} pbDecrypted A pointer to a buffer to receive the decrypted message. 
      * 
      * 
      * 
@@ -46004,7 +46023,7 @@ class Cryptography {
      * 
      * 
      * <i>dwSignerIndex</i> is set to zero for the first signer. If the function returns <b>FALSE</b>, and <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns CRYPT_E_NO_SIGNER, the previous call returned the last signer of the message. This parameter is used only with messages of types CMSG_SIGNED_AND_ENVELOPED or CMSG_SIGNED. For all other message types, it should be set to zero.
-     * @param {Pointer} pbEncodedBlob A pointer to the encoded <a href="https://docs.microsoft.com/windows/desktop/SecGloss/b-gly">BLOB</a> that is to be decoded.
+     * @param {Integer} pbEncodedBlob A pointer to the encoded <a href="https://docs.microsoft.com/windows/desktop/SecGloss/b-gly">BLOB</a> that is to be decoded.
      * @param {Integer} cbEncodedBlob The size, in bytes, of the encoded BLOB.
      * @param {Integer} dwPrevInnerContentType Only applicable when processing nested cryptographic messages. When processing an outer cryptographic message, it must be set to zero. When decoding a nested cryptographic message, it is set to the value returned at <i>pdwInnerContentType</i> by a previous calling of 
      * <b>CryptDecodeMessage</b> for the outer message. It can be any of the CMSG types listed in <i>pdwMsgType</i>. For backward compatibility, set <i>dwPrevInnerContentType</i> to zero.
@@ -46023,7 +46042,7 @@ class Cryptography {
      * 
      * 
      * If there is no cryptographic nesting, CMSG_DATA is returned.
-     * @param {Pointer} pbDecoded A pointer to a buffer to receive the decoded message. 
+     * @param {Integer} pbDecoded A pointer to a buffer to receive the decoded message. 
      * 
      * 
      * 
@@ -46098,7 +46117,7 @@ class Cryptography {
      * @param {Integer} cToBeHashed The number of array elements in <i>rgpbToBeHashed</i> and <i>rgcbToBeHashed</i>. This parameter can only be one unless <i>fDetachedHash</i> is set to <b>TRUE</b>.
      * @param {Pointer<Pointer<Integer>>} rgpbToBeHashed An array of pointers to buffers that contain the contents to be hashed.
      * @param {Pointer<Integer>} rgcbToBeHashed An array of sizes, in bytes, of the buffers pointed to by <i>rgpbToBeHashed</i>.
-     * @param {Pointer} pbHashedBlob A pointer to a buffer to receive the hashed message encoded for transmission. 
+     * @param {Integer} pbHashedBlob A pointer to a buffer to receive the hashed message encoded for transmission. 
      * 
      * 
      * 
@@ -46112,7 +46131,7 @@ class Cryptography {
      * 
      * <div class="alert"><b>Note</b>  When processing the data returned, applications must use the actual size of the data returned. The actual size can be slightly smaller than the size of the buffer specified on input. On input, buffer sizes are usually specified large enough to ensure that the largest possible output data will fit in the buffer. On output, the variable pointed to by this parameter is updated to reflect the actual size of the data copied to the buffer.</div>
      * <div> </div>
-     * @param {Pointer} pbComputedHash A pointer to a buffer to receive the newly created hash value. This parameter can be <b>NULL</b> if the newly created hash is not needed for additional processing, or to set the size of the hash for memory allocation purposes. For more information, see 
+     * @param {Integer} pbComputedHash A pointer to a buffer to receive the newly created hash value. This parameter can be <b>NULL</b> if the newly created hash is not needed for additional processing, or to set the size of the hash for memory allocation purposes. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/retrieving-data-of-unknown-length">Retrieving Data of Unknown Length</a>.
      * @param {Pointer<Integer>} pcbComputedHash A pointer to a <b>DWORD</b> that specifies the size, in bytes, of the buffer pointed to by the <i>pbComputedHash</i> parameter. When the function returns, this <b>DWORD</b> contains the size, in bytes, of the newly created hash that was copied to <i>pbComputedHash</i>. 
      * 
@@ -46188,9 +46207,9 @@ class Cryptography {
      * The CryptVerifyMessageHash function verifies the hash of specified content.
      * @param {Pointer<CRYPT_HASH_MESSAGE_PARA>} pHashPara A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-crypt_hash_message_para">CRYPT_HASH_MESSAGE_PARA</a> structure containing hash parameters.
-     * @param {Pointer} pbHashedBlob A pointer to a buffer containing original content and its hash.
+     * @param {Integer} pbHashedBlob A pointer to a buffer containing original content and its hash.
      * @param {Integer} cbHashedBlob The size, in bytes, of the original hash buffer.
-     * @param {Pointer} pbToBeHashed A pointer to a buffer to receive the original content that was hashed. 
+     * @param {Integer} pbToBeHashed A pointer to a buffer to receive the original content that was hashed. 
      * 
      * 
      * 
@@ -46204,7 +46223,7 @@ class Cryptography {
      * 
      * <div class="alert"><b>Note</b>  When processing the data returned, applications must use the actual size of the data returned. The actual size can be slightly smaller than the size of the buffer specified on input. (On input, buffer sizes are usually specified large enough to ensure that the largest possible output data will fit in the buffer.) On output, the variable pointed to by this parameter is updated to reflect the actual size of the data copied to the buffer.</div>
      * <div> </div>
-     * @param {Pointer} pbComputedHash A pointer to a buffer to receive the computed hash. This parameter can be <b>NULL</b> if the created hash is not needed for additional processing, or to set the size of the original content for memory allocation purposes. For more information, see 
+     * @param {Integer} pbComputedHash A pointer to a buffer to receive the computed hash. This parameter can be <b>NULL</b> if the created hash is not needed for additional processing, or to set the size of the original content for memory allocation purposes. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/retrieving-data-of-unknown-length">Retrieving Data of Unknown Length</a>.
      * @param {Pointer<Integer>} pcbComputedHash A pointer to a <b>DWORD</b> specifying the size, in bytes, of the <i>pbComputedHash</i> buffer. When the function returns, this variable contains the size, in bytes, of the created hash. The hash is not returned if this parameter is <b>NULL</b>. 
      * 
@@ -46293,12 +46312,12 @@ class Cryptography {
      * The CryptVerifyDetachedMessageHash function verifies a detached hash.
      * @param {Pointer<CRYPT_HASH_MESSAGE_PARA>} pHashPara A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-crypt_hash_message_para">CRYPT_HASH_MESSAGE_PARA</a> structure containing the hash parameters.
-     * @param {Pointer} pbDetachedHashBlob A pointer to the encoded, detached hash.
+     * @param {Integer} pbDetachedHashBlob A pointer to the encoded, detached hash.
      * @param {Integer} cbDetachedHashBlob The size, in bytes, of the detached hash.
      * @param {Integer} cToBeHashed Number of elements in the <i>rgpbToBeHashed</i> and <i>rgcbToBeHashed</i> arrays.
      * @param {Pointer<Pointer<Integer>>} rgpbToBeHashed Array of pointers to content buffers to be hashed.
      * @param {Pointer<Integer>} rgcbToBeHashed Array of sizes, in bytes, for the content buffers pointed to by the elements of the <i>rgcbToBeHashed</i> array.
-     * @param {Pointer} pbComputedHash A pointer to a buffer to receive the computed hash. 
+     * @param {Integer} pbComputedHash A pointer to a buffer to receive the computed hash. 
      * 
      * 
      * 
@@ -46393,9 +46412,9 @@ class Cryptography {
      * Signs a message by using a CSP's private key specified in the parameters.
      * @param {Pointer<CRYPT_KEY_SIGN_MESSAGE_PARA>} pSignPara A pointer to 
      * a <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-crypt_key_sign_message_para">CRYPT_KEY_SIGN_MESSAGE_PARA</a> structure that contains the signature parameters.
-     * @param {Pointer} pbToBeSigned A pointer to a buffer array that contains the message to be signed.
+     * @param {Integer} pbToBeSigned A pointer to a buffer array that contains the message to be signed.
      * @param {Integer} cbToBeSigned The number of array elements in the <i>pbToBeSigned</i> buffer array.
-     * @param {Pointer} pbSignedBlob A pointer to a buffer to receive the encoded signed message. 
+     * @param {Integer} pbSignedBlob A pointer to a buffer to receive the encoded signed message. 
      * 
      * 
      * 
@@ -46480,9 +46499,9 @@ class Cryptography {
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-crypt_key_verify_message_para">CRYPT_KEY_VERIFY_MESSAGE_PARA</a> structure that contains verification parameters.
      * @param {Pointer<CERT_PUBLIC_KEY_INFO>} pPublicKeyInfo A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_public_key_info">CERT_PUBLIC_KEY_INFO</a> structure that contains the public key that is used to verify the signed
      * message. If <b>NULL</b>, the signature is not verified.
-     * @param {Pointer} pbSignedBlob A pointer to a buffer that contains the signed message.
+     * @param {Integer} pbSignedBlob A pointer to a buffer that contains the signed message.
      * @param {Integer} cbSignedBlob The size, in bytes, of the signed message buffer.
-     * @param {Pointer} pbDecoded A pointer to a buffer to receive the decoded message. 
+     * @param {Integer} pbDecoded A pointer to a buffer to receive the decoded message. 
      * 
      * 
      * 
@@ -46815,7 +46834,7 @@ class Cryptography {
      * > [!NOTE]
      * > The wincrypt.h header defines CertAddEncodedCertificateToSystemStore as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PSTR} szCertStoreName A null-terminated string that contains the name of the system store for the encoded certificate.
-     * @param {Pointer} pbCertEncoded A pointer to a buffer that contains the encoded certificate to add.
+     * @param {Integer} pbCertEncoded A pointer to a buffer that contains the encoded certificate to add.
      * @param {Integer} cbCertEncoded The size, in bytes, of the <i>pbCertEncoded</i> buffer.
      * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
@@ -46889,7 +46908,7 @@ class Cryptography {
      * > [!NOTE]
      * > The wincrypt.h header defines CertAddEncodedCertificateToSystemStore as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PWSTR} szCertStoreName A null-terminated string that contains the name of the system store for the encoded certificate.
-     * @param {Pointer} pbCertEncoded A pointer to a buffer that contains the encoded certificate to add.
+     * @param {Integer} pbCertEncoded A pointer to a buffer that contains the encoded certificate to add.
      * @param {Integer} cbCertEncoded The size, in bytes, of the <i>pbCertEncoded</i> buffer.
      * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
@@ -46912,9 +46931,9 @@ class Cryptography {
 
     /**
      * 
-     * @param {Pointer} pCertChains 
+     * @param {Integer} pCertChains 
      * @param {Pointer<Integer>} pcbCertChains 
-     * @param {Pointer} pbEncodedIssuerName 
+     * @param {Integer} pbEncodedIssuerName 
      * @param {Integer} cbEncodedIssuerName 
      * @param {PWSTR} pwszPurpose 
      * @param {Integer} dwKeySpec 
@@ -46931,7 +46950,7 @@ class Cryptography {
 
     /**
      * Retrieves information about the contents of a cryptography API object, such as a certificate, a certificate revocation list, or a certificate trust list.
-     * @param {Integer} dwObjectType 
+     * @param {CERT_QUERY_OBJECT_TYPE} dwObjectType 
      * @param {Pointer<Void>} pvObject A pointer to the object to be queried. 
      * 					The type of data pointer depends on the contents of the <i>dwObjectType</i> parameter.
      * 
@@ -46961,12 +46980,12 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @param {Integer} dwExpectedContentTypeFlags 
-     * @param {Integer} dwExpectedFormatTypeFlags 
+     * @param {CERT_QUERY_CONTENT_TYPE_FLAGS} dwExpectedContentTypeFlags 
+     * @param {CERT_QUERY_FORMAT_TYPE_FLAGS} dwExpectedFormatTypeFlags 
      * @param {Integer} dwFlags This parameter is reserved for future use and must be set to zero.
-     * @param {Pointer<Integer>} pdwMsgAndCertEncodingType A pointer to a <b>DWORD</b> value that receives the type of encoding used in the message. If this information is not needed, set this parameter to <b>NULL</b>.
-     * @param {Pointer<Integer>} pdwContentType 
-     * @param {Pointer<Integer>} pdwFormatType 
+     * @param {Pointer<CERT_QUERY_ENCODING_TYPE>} pdwMsgAndCertEncodingType A pointer to a <b>DWORD</b> value that receives the type of encoding used in the message. If this information is not needed, set this parameter to <b>NULL</b>.
+     * @param {Pointer<CERT_QUERY_CONTENT_TYPE>} pdwContentType 
+     * @param {Pointer<CERT_QUERY_FORMAT_TYPE>} pdwFormatType 
      * @param {Pointer<HCERTSTORE>} phCertStore A pointer to an <b>HCERTSTORE</b> value that receives a handle to a certificate store that includes all of the certificates, CRLs, and CTLs in the object.
      * @param {Pointer<Pointer<Void>>} phMsg A pointer to an <b>HCRYPTMSG</b> value that receives the handle of an opened message.
      * @param {Pointer<Pointer<Void>>} ppvContext A pointer to a pointer that receives additional information about the object.
@@ -47127,7 +47146,7 @@ class Cryptography {
      * @param {HCRYPTASYNC} hAsync An async handle.
      * @param {PSTR} pszParamOid The parameter ID.
      * @param {Pointer<Void>} pvParam The parameter value.
-     * @param {Pointer<PFN_CRYPT_ASYNC_PARAM_FREE_FUNC>} _pfnFree 
+     * @param {Pointer<PFN_CRYPT_ASYNC_PARAM_FREE_FUNC>} _pfnFree A callback function called when the parameter is freed.
      * @returns {BOOL} S_OK on success.
      * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-cryptsetasyncparam
      */
@@ -47723,14 +47742,14 @@ class Cryptography {
      * Acquires the URL of the remote object from a certificate, certificate trust list (CTL), or certificate revocation list (CRL).
      * @param {PSTR} pszUrlOid A pointer to an <a href="https://docs.microsoft.com/windows/desktop/SecGloss/o-gly">object identifier</a> (OID) that identifies the URL being requested. If the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms632657(v=vs.85)">HIWORD</a> of the <i>pszUrlOid</i> parameter is zero, the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms632659(v=vs.85)">LOWORD</a> specifies the integer identifier for the type of the specified structure.
      * @param {Pointer<Void>} pvPara A structure determined by the value of <i>pszUrlOid</i>. For details, see the description for the <i>pszUrlOid</i> parameter.
-     * @param {Integer} dwFlags 
-     * @param {Pointer} pUrlArray A pointer to a buffer to receive the data for the value entry. This parameter can be <b>NULL</b> to find the length of the buffer required to hold the data. 
+     * @param {CRYPT_GET_URL_FLAGS} dwFlags 
+     * @param {Integer} pUrlArray A pointer to a buffer to receive the data for the value entry. This parameter can be <b>NULL</b> to find the length of the buffer required to hold the data. 
      * 
      * 
      * For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/retrieving-data-of-unknown-length">Retrieving Data of Unknown Length</a>.
      * @param {Pointer<Integer>} pcbUrlArray A pointer to a <b>DWORD</b> that specifies the size, in bytes, of the buffer pointed to by the <i>pUrlArray</i> parameter. When the function returns, the <b>DWORD</b> contains the number of bytes stored in the buffer. This parameter can be <b>NULL</b> only if <i>pUrlArray</i> is <b>NULL</b>.
-     * @param {Pointer} pUrlInfo An optional pointer to a 
+     * @param {Integer} pUrlInfo An optional pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-crypt_url_info">CRYPT_URL_INFO</a> structure that receives the data for the value entry.
      * @param {Pointer<Integer>} pcbUrlInfo A pointer to a <b>DWORD</b> that specifies the size, in bytes, of the buffer pointed to by the <i>pUrlArray</i> parameter. When the function returns, the <b>DWORD</b> contains the number of bytes stored in the buffer. 
      * 
@@ -47776,7 +47795,7 @@ class Cryptography {
      * @param {Pointer<CRYPT_INTEGER_BLOB>} pSubjectIssuerBlob A pointer to a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/b-gly">BLOB</a> that contains the distinguished name (DN) for the certificate subject. This parameter cannot be <b>NULL</b>. Minimally, a pointer to an empty DN must be provided. This BLOB is normally created by using the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certstrtonamea">CertStrToName</a> function. It can also be created by using the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptencodeobject">CryptEncodeObject</a> function and specifying either the X509_NAME or X509_UNICODE_NAME <i>StructType</i>.
-     * @param {Integer} dwFlags 
+     * @param {CERT_CREATE_SELFSIGN_FLAGS} dwFlags 
      * @param {Pointer<CRYPT_KEY_PROV_INFO>} pKeyProvInfo A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-crypt_key_prov_info">CRYPT_KEY_PROV_INFO</a> structure. Before a certificate is created, the CSP is queried for the key provider, key provider type, and the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/k-gly">key container</a> name. If the CSP queried does not support these queries, the function fails. If the default provider does not support these queries, a <i>pKeyProvInfo</i> value must be specified. The RSA BASE does support these queries.
      * 
      * If the <i>pKeyProvInfo</i> parameter is not <b>NULL</b>, the corresponding values are set in the <b>CERT_KEY_PROV_INFO_PROP_ID</b> value of the generated certificate. You must ensure that all parameters of the supplied structure are correctly specified.
@@ -47841,7 +47860,7 @@ class Cryptography {
      * </tr>
      * </table>
      * @param {PWSTR} pwszComputerName A pointer to the name of a remote computer to be searched. If CRYPT_KEYID_MACHINE_FLAG flag is set, searches the remote computer for a list of key identifiers. If the local computer is to be searched and not a remote computer, set <i>pwszComputerName</i> to <b>NULL</b>.
-     * @param {Pointer} pvData A pointer to a buffer to receive the data as determined by <i>dwPropId</i>. Elements pointed to by fields in the <i>pvData</i> structure follow the structure. Therefore, the size contained in <i>pcbData</i> can exceed the size of the structure. 
+     * @param {Integer} pvData A pointer to a buffer to receive the data as determined by <i>dwPropId</i>. Elements pointed to by fields in the <i>pvData</i> structure follow the structure. Therefore, the size contained in <i>pcbData</i> can exceed the size of the structure. 
      * 
      * 
      * 
@@ -48027,7 +48046,7 @@ class Cryptography {
 
     /**
      * Important  This API is deprecated. (CryptCreateKeyIdentifierFromCSP)
-     * @param {Integer} dwCertEncodingType Specifies the encoding type used. It is always acceptable to specify both the certificate and <a href="https://docs.microsoft.com/windows/desktop/SecGloss/m-gly">message encoding types</a> by combining them with a bitwise-<b>OR</b> operation as shown in the following example:
+     * @param {CERT_QUERY_ENCODING_TYPE} dwCertEncodingType Specifies the encoding type used. It is always acceptable to specify both the certificate and <a href="https://docs.microsoft.com/windows/desktop/SecGloss/m-gly">message encoding types</a> by combining them with a bitwise-<b>OR</b> operation as shown in the following example:
      * 
      * X509_ASN_ENCODING | PKCS_7_ASN_ENCODING
      * 
@@ -48038,11 +48057,11 @@ class Cryptography {
      * <li>PKCS_7_ASN_ENCODING</li>
      * </ul>
      * @param {PSTR} pszPubKeyOID A pointer to the public key <a href="https://docs.microsoft.com/windows/desktop/SecGloss/o-gly">object identifier</a> (OID). A value that is not <b>NULL</b> overrides the default OID obtained from the <b>aiKeyAlg</b> member of the structure pointed to by <i>pPubKeyStruc</i>. To use the default OID, set <i>pszPubKeyOID</i> to <b>NULL</b>.
-     * @param {Pointer} pPubKeyStruc A pointer to a 
+     * @param {Integer} pPubKeyStruc A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-publickeystruc">PUBLICKEYSTRUC</a> structure. In the default case, the <b>aiKeyAlg</b> member of the structure pointed to by <i>pPubKeyStruc</i> is used to find the public key OID. When the value of <i>pszPubKeyOID</i> is not <b>NULL</b>, it overrides the default.
      * @param {Integer} cbPubKeyStruc The size, in bytes, of the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-publickeystruc">PUBLICKEYSTRUC</a>.
      * @param {Integer} dwFlags Reserved for future use and must be zero.
-     * @param {Pointer} pbHash A pointer to a buffer to receive the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/h-gly">hash</a> of the public key and the key identifier.
+     * @param {Integer} pbHash A pointer to a buffer to receive the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/h-gly">hash</a> of the public key and the key identifier.
      * 
      * To get the size of this information for memory allocation purposes, set this parameter to <b>NULL</b>. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/retrieving-data-of-unknown-length">Retrieving Data of Unknown Length</a>.
@@ -48435,8 +48454,9 @@ class Cryptography {
      * Finds the first or next certificate in a store that meets the specified criteria.
      * @remarks
      * The <i>pPrevChainContext</i> parameter must be <b>NULL</b> on the first call to build the chain context. To build the next chain context, the <i>pPrevChainContext</i> is set to the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_chain_context">CERT_CHAIN_CONTEXT</a> structure returned by a previous call. If <i>pPrevChainContext</i> is not <b>NULL</b>, the structure is always freed by this function by using the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certfreecertificatechain">CertFreeCertificateChain</a> function, even if an error occurs.
-     * @param {HCERTSTORE} _hCertStore 
-     * @param {Integer} dwCertEncodingType The <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate encoding type</a>   that was used to encode the store. The <a href="https://docs.microsoft.com/windows/desktop/SecGloss/m-gly">message encoding type</a> identifier, contained in the high <b>WORD</b> of this value, is ignored by this function.
+     * @param {HCERTSTORE} _hCertStore The handle of the store to be searched for a certificate upon which a chain is built. This handle is passed as an additional store to 
+     * the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certgetcertificatechain">CertGetCertificateChain</a> function as the chain is built.
+     * @param {CERT_QUERY_ENCODING_TYPE} dwCertEncodingType The <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate encoding type</a>   that was used to encode the store. The <a href="https://docs.microsoft.com/windows/desktop/SecGloss/m-gly">message encoding type</a> identifier, contained in the high <b>WORD</b> of this value, is ignored by this function.
      * 
      * 
      * This parameter can be the following currently defined certificate encoding type.
@@ -48460,7 +48480,7 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @param {Integer} dwFindFlags Contains additional options for the search. The possible values for this parameter depend on the value of the <i>dwFindType</i> parameter.
+     * @param {CERT_FIND_CHAIN_IN_STORE_FLAGS} dwFindFlags Contains additional options for the search. The possible values for this parameter depend on the value of the <i>dwFindType</i> parameter.
      * @param {Integer} dwFindType Determines what criteria to use to find a certificate in the store.
      * 
      * 
@@ -48690,8 +48710,8 @@ class Cryptography {
      * > The wincrypt.h header defines CryptStringToBinary as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PSTR} pszString A pointer to a string that contains the formatted string to be converted.
      * @param {Integer} cchString The number of characters of the formatted string to be converted, not including the terminating <b>NULL</b> character. If this parameter is zero,  <i>pszString</i> is considered to be a null-terminated string.
-     * @param {Integer} dwFlags 
-     * @param {Pointer} pbBinary A pointer to a buffer that receives the returned sequence of bytes. If this parameter is <b>NULL</b>, the function calculates the length of the buffer needed and returns the size, in bytes, of required memory in the <b>DWORD</b> pointed to by <i>pcbBinary</i>.
+     * @param {CRYPT_STRING} dwFlags 
+     * @param {Integer} pbBinary A pointer to a buffer that receives the returned sequence of bytes. If this parameter is <b>NULL</b>, the function calculates the length of the buffer needed and returns the size, in bytes, of required memory in the <b>DWORD</b> pointed to by <i>pcbBinary</i>.
      * @param {Pointer<Integer>} pcbBinary A pointer to a <b>DWORD</b> variable that, on entry, contains the size, in bytes, of the <i>pbBinary</i> buffer. After the function returns, this variable contains the number of bytes copied to the buffer. If this value is not large enough to contain all of the data, the function fails and <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns <b>ERROR_MORE_DATA</b>.
      * 
      * If <i>pbBinary</i> is <b>NULL</b>, the <b>DWORD</b> pointed to by <i>pcbBinary</i> is ignored.
@@ -48763,8 +48783,8 @@ class Cryptography {
      * > The wincrypt.h header defines CryptStringToBinary as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PWSTR} pszString A pointer to a string that contains the formatted string to be converted.
      * @param {Integer} cchString The number of characters of the formatted string to be converted, not including the terminating <b>NULL</b> character. If this parameter is zero,  <i>pszString</i> is considered to be a null-terminated string.
-     * @param {Integer} dwFlags 
-     * @param {Pointer} pbBinary A pointer to a buffer that receives the returned sequence of bytes. If this parameter is <b>NULL</b>, the function calculates the length of the buffer needed and returns the size, in bytes, of required memory in the <b>DWORD</b> pointed to by <i>pcbBinary</i>.
+     * @param {CRYPT_STRING} dwFlags 
+     * @param {Integer} pbBinary A pointer to a buffer that receives the returned sequence of bytes. If this parameter is <b>NULL</b>, the function calculates the length of the buffer needed and returns the size, in bytes, of required memory in the <b>DWORD</b> pointed to by <i>pcbBinary</i>.
      * @param {Pointer<Integer>} pcbBinary A pointer to a <b>DWORD</b> variable that, on entry, contains the size, in bytes, of the <i>pbBinary</i> buffer. After the function returns, this variable contains the number of bytes copied to the buffer. If this value is not large enough to contain all of the data, the function fails and <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns <b>ERROR_MORE_DATA</b>.
      * 
      * If <i>pbBinary</i> is <b>NULL</b>, the <b>DWORD</b> pointed to by <i>pcbBinary</i> is ignored.
@@ -48819,9 +48839,9 @@ class Cryptography {
      * 
      * > [!NOTE]
      * > The wincrypt.h header defines CryptBinaryToString as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer} pbBinary A pointer to the array of bytes to be converted into a string.
+     * @param {Integer} pbBinary A pointer to the array of bytes to be converted into a string.
      * @param {Integer} cbBinary The number of elements in the <i>pbBinary</i> array.
-     * @param {Integer} dwFlags 
+     * @param {CRYPT_STRING} dwFlags 
      * @param {PSTR} pszString A pointer to a buffer that receives the converted string. To calculate the number of characters that must be allocated to hold the returned string, set this parameter to <b>NULL</b>. The function will place the required number of characters, including the terminating <b>NULL</b> character, in the value pointed to by <i>pcchString</i>.
      * @param {Pointer<Integer>} pcchString A pointer to a <b>DWORD</b> variable that contains the size, in <b>TCHAR</b>s, of the <i>pszString</i> buffer. If <i>pszString</i> is <b>NULL</b>, the function calculates the length of the return string (including the terminating null character) in <b>TCHAR</b>s and returns it in this parameter. If <i>pszString</i> is not <b>NULL</b> and big enough, the function converts the binary data into a specified string format including the terminating null character, but <i>pcchString</i> receives the length in <b>TCHAR</b>s, not including the terminating null character.
      * @returns {BOOL} If the function succeeds, the function returns nonzero (<b>TRUE</b>).
@@ -48850,9 +48870,9 @@ class Cryptography {
      * 
      * > [!NOTE]
      * > The wincrypt.h header defines CryptBinaryToString as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer} pbBinary A pointer to the array of bytes to be converted into a string.
+     * @param {Integer} pbBinary A pointer to the array of bytes to be converted into a string.
      * @param {Integer} cbBinary The number of elements in the <i>pbBinary</i> array.
-     * @param {Integer} dwFlags 
+     * @param {CRYPT_STRING} dwFlags 
      * @param {PWSTR} pszString A pointer to a buffer that receives the converted string. To calculate the number of characters that must be allocated to hold the returned string, set this parameter to <b>NULL</b>. The function will place the required number of characters, including the terminating <b>NULL</b> character, in the value pointed to by <i>pcchString</i>.
      * @param {Pointer<Integer>} pcchString A pointer to a <b>DWORD</b> variable that contains the size, in <b>TCHAR</b>s, of the <i>pszString</i> buffer. If <i>pszString</i> is <b>NULL</b>, the function calculates the length of the return string (including the terminating null character) in <b>TCHAR</b>s and returns it in this parameter. If <i>pszString</i> is not <b>NULL</b> and big enough, the function converts the binary data into a specified string format including the terminating null character, but <i>pcchString</i> receives the length in <b>TCHAR</b>s, not including the terminating null character.
      * @returns {BOOL} If the function succeeds, the function returns nonzero (<b>TRUE</b>).
@@ -48941,7 +48961,7 @@ class Cryptography {
      * Beginning with Windows 8 and Windows Server 2012, if the PFX packet was created in the [PFXExportCertStoreEx](nf-wincrypt-pfxexportcertstoreex.md) function by using the **PKCS12_PROTECT_TO_DOMAIN_SIDS** flag, the **PFXImportCertStore** function attempts to decrypt the password by using the Active Directory (AD) principal that was used to encrypt it. The AD principal is specified in the *pvPara* parameter. If the *szPassword* parameter in the **PFXExportCertStoreEx** function was an empty string or **NULL** and the *dwFlags* parameter was set to **PKCS12_PROTECT_TO_DOMAIN_SIDS**, that function randomly generated a password and encrypted it to the AD principal specified in the *pvPara* parameter. In that case you should set the password to the value, empty string or **NULL**, that was used when the PFX packet was created. The **PFXImportCertStore** function will use the AD principal to decrypt the random password, and the randomly generated password will be used to decrypt the PFX certificate.
      * 
      * When you have finished using the password, clear it from memory by calling the [SecureZeroMemory](/previous-versions/windows/desktop/legacy/aa366877(v=vs.85)) function. For more information about protecting passwords, see [Handling Passwords](/windows/win32/SecBP/handling-passwords).
-     * @param {Integer} dwFlags 
+     * @param {CRYPT_KEY_FLAGS} dwFlags 
      * @returns {HCERTSTORE} If the function succeeds, the function returns a handle to a certificate store that contains the imported certificates, including available private keys.
      * 
      * If the function fails, that is, if the password parameter does not contain an exact match with the password used to encrypt the exported packet or if there were any other problems decoding the PFX BLOB, the function returns **NULL**, and an error code can be found by calling the [GetLastError](/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror) function.
@@ -49841,7 +49861,7 @@ class Cryptography {
      * @param {Integer} dwTimeout A <b>DWORD</b> value that specifies the maximum number of milliseconds to wait for retrieval. If this parameter is set to zero, this function does not time out.
      * @param {PSTR} pszHashId A pointer to a null-terminated character string that contains the hash algorithm <a href="https://docs.microsoft.com/windows/desktop/SecGloss/o-gly">object identifier</a> (OID).
      * @param {Pointer<CRYPT_TIMESTAMP_PARA>} pPara A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-crypt_timestamp_para">CRYPT_TIMESTAMP_PARA</a> structure that contains additional parameters for the request.
-     * @param {Pointer} pbData A pointer to an array of bytes to be time stamped.
+     * @param {Integer} pbData A pointer to an array of bytes to be time stamped.
      * @param {Integer} cbData The size, in bytes, of the array pointed to by the <i>pbData</i> parameter.
      * @param {Pointer<Pointer<CRYPT_TIMESTAMP_CONTEXT>>} ppTsContext A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-crypt_timestamp_context">PCRYPT_TIMESTAMP_CONTEXT</a> structure. When you have finished using the context, you must free it by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptmemfree">CryptMemFree</a> function.
      * @param {Pointer<Pointer<CERT_CONTEXT>>} ppTsSigner A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_context">PCERT_CONTEXT</a> that
@@ -49880,9 +49900,9 @@ class Cryptography {
      * @remarks
      * The caller should validate the <b>pszTSAPolicyId</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-crypt_timestamp_info">CRYPT_TIMESTAMP_INFO</a> structure when it is returned by the   <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptretrievetimestamp">CryptRetrieveTimeStamp</a> function. If a TSA policy was specified in the request 
      *      and the <b>ftTime</b> member contains a valid value, the caller should build a certificate context chain with which to populate the <i>ppTsSigner</i> parameter and validate the trust.
-     * @param {Pointer} pbTSContentInfo A pointer to a buffer that contains time stamp content.
+     * @param {Integer} pbTSContentInfo A pointer to a buffer that contains time stamp content.
      * @param {Integer} cbTSContentInfo The size, in bytes, of the buffer pointed to by the <i>pbTSContentInfo</i> parameter.
-     * @param {Pointer} pbData A pointer to an array of bytes on which to validate the time stamp signature.
+     * @param {Integer} pbData A pointer to an array of bytes on which to validate the time stamp signature.
      * @param {Integer} cbData The size, in bytes, of the array pointed to by the <i>pbData</i> parameter.
      * @param {HCERTSTORE} hAdditionalStore The handle of an additional store to search for supporting
      * Time Stamping Authority (TSA) signing certificates and <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate trust lists</a> (CTLs).
@@ -50589,10 +50609,10 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer} pbData Pointer to the byte array to be protected.
+     * @param {Integer} pbData Pointer to the byte array to be protected.
      * @param {Integer} cbData Number of bytes in the binary array specified by the <i>pbData</i> parameter.
      * @param {Pointer<NCRYPT_ALLOC_PARA>} pMemPara Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/ncrypt/ns-ncrypt-ncrypt_alloc_para">NCRYPT_ALLOC_PARA</a> structure that you can use to specify custom memory management functions. If you set this argument to <b>NULL</b>, the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localalloc">LocalAlloc</a> function is used internally to allocate memory and your application must call <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a> to release memory pointed to by the <i>ppbProtectedBlob</i> parameter.
-     * @param {HWND} _hWnd 
+     * @param {HWND} _hWnd Handle to the parent window of the user interface, if any, to be displayed.
      * @param {Pointer<Pointer<Integer>>} ppbProtectedBlob Address of a variable that receives a pointer to the encrypted data.
      * @param {Pointer<Integer>} pcbProtectedBlob Pointer to a <b>ULONG</b> variable that contains the size, in bytes, of the encrypted data pointed to by the <i>ppbProtectedBlob</i> variable.
      * @returns {HRESULT} Returns a status code that indicates the success or failure of the function. Possible return codes include, but are not limited to, the following.
@@ -50668,11 +50688,11 @@ class Cryptography {
      * @remarks
      * Use the <b>NCryptUnprotectSecret</b> function to decrypt keys, key material, and passwords. Use the <a href="https://docs.microsoft.com/windows/desktop/api/ncryptprotect/nf-ncryptprotect-ncryptstreamopentounprotect">NCryptStreamOpenToUnprotect</a>  and the <a href="https://docs.microsoft.com/windows/desktop/api/ncryptprotect/nf-ncryptprotect-ncryptstreamupdate">NCryptStreamUpdate</a> functions to decrypt larger messages.
      * @param {Pointer<NCRYPT_DESCRIPTOR_HANDLE>} phDescriptor Pointer to the protection descriptor handle.
-     * @param {Integer} dwFlags 
-     * @param {Pointer} pbProtectedBlob Pointer to an array of bytes that contains the data to decrypt.
+     * @param {NCRYPT_FLAGS} dwFlags 
+     * @param {Integer} pbProtectedBlob Pointer to an array of bytes that contains the data to decrypt.
      * @param {Integer} cbProtectedBlob The number of bytes in the array pointed to by the <i>pbProtectedBlob</i> parameter.
      * @param {Pointer<NCRYPT_ALLOC_PARA>} pMemPara Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/ncrypt/ns-ncrypt-ncrypt_alloc_para">NCRYPT_ALLOC_PARA</a> structure that you can use to specify custom memory management functions. If you set this argument to <b>NULL</b>, the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localalloc">LocalAlloc</a> function is used internally to allocate memory and your application must call <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a> to release memory pointed to by the <i>ppbData</i> parameter.
-     * @param {HWND} _hWnd 
+     * @param {HWND} _hWnd Handle to the parent window of the user interface, if any, to be displayed.
      * @param {Pointer<Pointer<Integer>>} ppbData Address of a variable that receives a pointer to the decrypted data.
      * @param {Pointer<Integer>} pcbData Pointer to a <b>ULONG</b> variable that contains the size, in bytes, of the decrypted data pointed to by the <i>ppbData</i> variable.
      * @returns {HRESULT} Returns a status code that indicates the success or failure of the function. Possible return codes include, but are not limited to, the following.
@@ -50758,7 +50778,7 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @param {HWND} _hWnd 
+     * @param {HWND} _hWnd Handle to the parent window of the user interface, if any, to be displayed.
      * @param {Pointer<NCRYPT_PROTECT_STREAM_INFO>} pStreamInfo Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/ncryptprotect/ns-ncryptprotect-ncrypt_protect_stream_info">NCRYPT_PROTECT_STREAM_INFO</a> structure that contains the address of a user defined callback function to receive the encrypted data and a pointer to user-defined context data.
      * @returns {NCRYPT_STREAM_HANDLE} Pointer to the stream object handle.
      * @see https://learn.microsoft.com/windows/win32/api/ncryptprotect/nf-ncryptprotect-ncryptstreamopentoprotect
@@ -50800,7 +50820,7 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @param {HWND} _hWnd 
+     * @param {HWND} _hWnd Handle to the parent window of the user interface, if any, to be displayed.
      * @returns {NCRYPT_STREAM_HANDLE} Pointer to the handle of the decrypted stream of data.
      * @see https://learn.microsoft.com/windows/win32/api/ncryptprotect/nf-ncryptprotect-ncryptstreamopentounprotect
      * @since windows8.0
@@ -50817,7 +50837,8 @@ class Cryptography {
      * Opens a stream object that can be used to decrypt large amounts of data to the same protection descriptor used for encryption. (NCryptStreamOpenToUnprotectEx)
      * @param {Pointer<NCRYPT_PROTECT_STREAM_INFO_EX>} pStreamInfo A pointer to NCRYPT_PROTECT_STREAM_INFO_EX.
      * @param {Integer} dwFlags Only the NCRYPT_SILENT_FLAG is supported.
-     * @param {HWND} _hWnd 
+     * @param {HWND} _hWnd A window handle to be used as the parent of any user
+     *         interface that is displayed.
      * @returns {NCRYPT_STREAM_HANDLE} Receives a pointer to a stream handle.
      * @see https://learn.microsoft.com/windows/win32/api/ncryptprotect/nf-ncryptprotect-ncryptstreamopentounprotectex
      */
@@ -50891,7 +50912,7 @@ class Cryptography {
      *     }
      * ```
      * @param {NCRYPT_STREAM_HANDLE} hStream Handle to the stream object created by calling <a href="https://docs.microsoft.com/windows/desktop/api/ncryptprotect/nf-ncryptprotect-ncryptstreamopentoprotect">NCryptStreamOpenToProtect</a> or <a href="https://docs.microsoft.com/windows/desktop/api/ncryptprotect/nf-ncryptprotect-ncryptstreamopentounprotect">NCryptStreamOpenToUnprotect</a>.
-     * @param {Pointer} pbData Pointer to the byte array to be processed.
+     * @param {Integer} pbData Pointer to the byte array to be processed.
      * @param {Pointer} cbData Number of bytes in the binary array specified by the <i>pbData</i> parameter.
      * @param {BOOL} fFinal A Boolean value that specifies whether the last block of data has been processed.
      * @returns {HRESULT} Returns a status code that indicates the success or failure of the function. Possible return codes include, but are not limited to, the following.
@@ -51054,7 +51075,7 @@ class Cryptography {
 
     /**
      * Signs the specified file and returns a pointer to the signed data.
-     * @param {Integer} dwFlags Modifies the behavior of this function.
+     * @param {SIGNER_SIGN_FLAGS} dwFlags Modifies the behavior of this function.
      * 
      * If the file to be signed is a portable executable (PE) file, this can be zero or a combination of one or more of the following values. These identifiers are defined in Mssip.h.
      * 
@@ -51090,7 +51111,7 @@ class Cryptography {
 
     /**
      * Signs and time stamps the specified file, allowing multiple nested signatures.
-     * @param {Integer} dwFlags Modifies the behavior of this function.
+     * @param {SIGNER_SIGN_FLAGS} dwFlags Modifies the behavior of this function.
      * 
      * If the file to be signed is a portable executable (PE) file, this can be zero or a combination of one or more of the following values.
      * 
@@ -51110,7 +51131,7 @@ class Cryptography {
      * @param {Pointer<SIGNER_PROVIDER_INFO>} pProviderInfo Pointer to a [**SIGNER\_PROVIDER\_INFO**](signer-provider-info.md) structure that specifies the [*cryptographic service provider*](../secgloss/c-gly.md) (CSP) and private key information used to create the digital signature.
      * 
      * If the value of this parameter is **NULL**, the *pSignerCert* parameter must specify a certificate that is associated with a CSP.
-     * @param {Integer} dwTimestampFlags Flags that will be passed to [**SignerTimeStampEx3**](signertimestampex3.md) if the *pwszHttpTimeStamp* parameter is not **NULL**. This can be one of the following values.
+     * @param {SIGNER_TIMESTAMP_FLAGS} dwTimestampFlags Flags that will be passed to [**SignerTimeStampEx3**](signertimestampex3.md) if the *pwszHttpTimeStamp* parameter is not **NULL**. This can be one of the following values.
      * 
      * 
      * 
@@ -51146,7 +51167,7 @@ class Cryptography {
 
     /**
      * Signs and time stamps the specified file to allow multiple nested signatures.
-     * @param {Integer} dwFlags Modifies the behavior of this function.
+     * @param {SIGNER_SIGN_FLAGS} dwFlags Modifies the behavior of this function.
      * 
      * If the file to be signed is a portable executable (PE) file, this can be zero or a combination of one or more of the following values.
      * 
@@ -51166,7 +51187,7 @@ class Cryptography {
      * @param {Pointer<SIGNER_PROVIDER_INFO>} pProviderInfo Pointer to a [**SIGNER\_PROVIDER\_INFO**](signer-provider-info.md) structure that specifies the [*cryptographic service provider*](../secgloss/c-gly.md) (CSP) and private key information used to create the digital signature.
      * 
      * If the value of this parameter is **NULL**, the *pSignerCert* parameter must specify a certificate that is associated with a CSP.
-     * @param {Integer} dwTimestampFlags Flags that will be passed to [**SignerTimeStampEx3**](signertimestampex3.md) if the *pwszHttpTimeStamp* parameter is not **NULL**. This can be one of the following values.
+     * @param {SIGNER_TIMESTAMP_FLAGS} dwTimestampFlags Flags that will be passed to [**SignerTimeStampEx3**](signertimestampex3.md) if the *pwszHttpTimeStamp* parameter is not **NULL**. This can be one of the following values.
      * 
      * | Value                                                                                                                                                                                                          | Meaning                                                        |
      * |----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------|
@@ -51251,7 +51272,7 @@ class Cryptography {
      * Time stamps the specified subject and optionally returns a pointer to a SIGNER\_CONTEXT structure that contains a pointer to a BLOB. This function can be used to perform X.509 Public Key Infrastructure, RFC 3161&\#8211;compliant, time stamps.
      * @param {Pointer<SIGNER_SUBJECT_INFO>} pSubjectInfo The address of a [**SIGNER\_SUBJECT\_INFO**](signer-subject-info.md) structure that represents the subject to be time stamped.
      * @param {PWSTR} pwszHttpTimeStamp The address of a null-terminated Unicode string that contains the URL of a time stamp server.
-     * @param {Integer} dwAlgId Specifies a hash algorithm to be used for performing RFC 3161–compliant time stamps. This parameter is ignored for Authenticode time stamps.
+     * @param {ALG_ID} dwAlgId Specifies a hash algorithm to be used for performing RFC 3161–compliant time stamps. This parameter is ignored for Authenticode time stamps.
      * @param {Pointer<CRYPT_ATTRIBUTES>} psRequest Optional. The address of a [**CRYPT\_ATTRIBUTES**](/windows/desktop/api/Wincrypt/ns-wincrypt-crypt_attributes) structure that contains additional attributes that are added to the time stamp request.
      * 
      * This parameter is optional and can be **NULL** if it is not included.
@@ -51274,7 +51295,7 @@ class Cryptography {
 
     /**
      * Time stamps the specified subject and supports setting time stamps on multiple signatures.
-     * @param {Integer} dwFlags Flag that specifies the type of time stamp to generate. This parameter can be one of the following values. The values are mutually exclusive.
+     * @param {SIGNER_TIMESTAMP_FLAGS} dwFlags Flag that specifies the type of time stamp to generate. This parameter can be one of the following values. The values are mutually exclusive.
      * 
      * 
      * 
@@ -51341,11 +51362,11 @@ class Cryptography {
     /**
      * Opens an XML digital signature to encode and returns a handle of the opened Signature element. The handle encapsulates a document context with a single CRYPT_XML_SIGNATURE structure and remains open until the CryptXmlClose function is called.
      * @param {Pointer<CRYPT_XML_TRANSFORM_CHAIN_CONFIG>} pConfig The handle of the transform chain engine. If this parameter is <b>NULL</b>, then a default engine is used to apply transforms.
-     * @param {Integer} dwFlags 
+     * @param {CRYPT_XML_FLAGS} dwFlags 
      * @param {PWSTR} wszId A pointer to a null-terminated Unicode string that contains the <b>Id</b> attribute of the <b>Signature</b> element.
      * If this parameter is <b>NULL</b>, then a new GUID is generated. If this parameter is an empty string, then no <b>Id</b> attribute is produced.
      * @param {Pointer<CRYPT_XML_PROPERTY>} rgProperty A pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/cryptxml/ns-cryptxml-crypt_xml_property">CRYPT_XML_PROPERTY</a> structures that specify additional properties.
-     * @param {Integer} _cProperty 
+     * @param {Integer} _cProperty The number of elements in the array pointed to by the <i>rgProperty</i> parameter.
      * @param {Pointer<CRYPT_XML_BLOB>} pEncoded A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/cryptxml/ns-cryptxml-crypt_xml_blob">CRYPT_XML_BLOB</a> structure that contains the signature to encode.
      * @returns {Pointer<Void>} The handle to the <b>Signature</b> element.
      * @see https://learn.microsoft.com/windows/win32/api/cryptxml/nf-cryptxml-cryptxmlopentoencode
@@ -51363,9 +51384,9 @@ class Cryptography {
      * @param {Pointer<CRYPT_XML_TRANSFORM_CHAIN_CONFIG>} pConfig The handle of the transform chain engine. 
      *     If this parameter is <b>NULL</b>, then a default engine will be 
      *     used to apply transforms.
-     * @param {Integer} dwFlags 
+     * @param {CRYPT_XML_FLAGS} dwFlags 
      * @param {Pointer<CRYPT_XML_PROPERTY>} rgProperty A pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/cryptxml/ns-cryptxml-crypt_xml_property">CRYPT_XML_PROPERTY</a> structures that contain additional properties.
-     * @param {Integer} _cProperty 
+     * @param {Integer} _cProperty The number of items in the array pointed to by the <i>rgProperty</i> parameter.
      * @param {Pointer<CRYPT_XML_BLOB>} pEncoded A pointer to <a href="https://docs.microsoft.com/windows/desktop/api/cryptxml/ns-cryptxml-crypt_xml_blob">CRYPT_XML_BLOB</a> structure that contains the signature to decode.
      * @returns {Pointer<Void>} The handle of a Document Context object.  When you have finished using the handle, release it by passing it to the <a href="https://docs.microsoft.com/windows/desktop/api/cryptxml/nf-cryptxml-cryptxmlclose">CryptXmlClose</a> function.
      * @see https://learn.microsoft.com/windows/win32/api/cryptxml/nf-cryptxml-cryptxmlopentodecode
@@ -51410,7 +51431,7 @@ class Cryptography {
      * </tr>
      * </table>
      * @param {Pointer<CRYPT_XML_PROPERTY>} rgProperty A pointer to  a  <a href="https://docs.microsoft.com/windows/desktop/api/cryptxml/ns-cryptxml-crypt_xml_property">CRYPT_XML_PROPERTY</a> structure that specifies additional properties used to decode the <b>Object</b> element.
-     * @param {Integer} _cProperty 
+     * @param {Integer} _cProperty The number of elements in the array pointed to by the <i>rgProperty</i> property.
      * @param {Pointer<CRYPT_XML_BLOB>} pEncoded A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/cryptxml/ns-cryptxml-crypt_xml_blob">CRYPT_XML_BLOB</a> structure that contains the <b>Object</b> element.
      * @returns {Pointer<CRYPT_XML_OBJECT>} A pointer to  a pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/cryptxml/ns-cryptxml-crypt_xml_object">CRYPT_XML_OBJECT</a> structure to receive the decoded structure.
      *     This parameter must be <b>NULL</b> when the <i>hSignatureOrObject</i> parameter contains a handle to the Object.
@@ -51533,7 +51554,7 @@ class Cryptography {
     /**
      * Sets the HMAC secret on the handle before calling the CryptXmlSign or CryptXmlVerify function.
      * @param {Pointer<Void>} hSignature The handle of the XML <b>Signature</b> element.
-     * @param {Pointer} pbSecret A pointer to a buffer that contains a block of bytes. 
+     * @param {Integer} pbSecret A pointer to a buffer that contains a block of bytes. 
      *     The pointer must be valid during the call to the <a href="https://docs.microsoft.com/windows/desktop/api/cryptxml/nf-cryptxml-cryptxmlsign">CryptXmlSign</a> or <a href="https://docs.microsoft.com/windows/desktop/api/cryptxml/nf-cryptxml-cryptxmlverifysignature">CryptXmlVerify</a> function.
      * @param {Integer} cbSecret The size, in bytes, of the buffer pointed to by the <i>pbSecret</i> parameter.
      * @returns {HRESULT} If the function succeeds, the function returns zero.
@@ -51554,10 +51575,11 @@ class Cryptography {
      * @remarks
      * If a certificate cannot be found CryptXmlSign will create a UI for certificate selection. If this window is generated from a process running in [session 0](https://techcommunity.microsoft.com/t5/ask-the-performance-team/application-compatibility-session-0-isolation/ba-p/372361), the application may unexpectedly terminate.
      * @param {Pointer<Void>} hSignature The handle to a <a href="https://docs.microsoft.com/windows/desktop/api/cryptxml/ns-cryptxml-crypt_xml_signature">CRYPT_XML_SIGNATURE</a> structure.
-     * @param {HCRYPTPROV_OR_NCRYPT_KEY_HANDLE} _hKey 
-     * @param {Integer} dwKeySpec 
-     * @param {Integer} dwFlags 
-     * @param {Integer} dwKeyInfoSpec The type of data structure pointed to by the <i>pvKeyInfoSpec</i> parameter. Here are some possible combinations.
+     * @param {HCRYPTPROV_OR_NCRYPT_KEY_HANDLE} _hKey The handle of a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">private key</a> used to sign the <b>SignedInfo</b> element.
+     *     This parameter must be <b>NULL</b> for HMAC-based signature algorithms.
+     * @param {CERT_KEY_SPEC} dwKeySpec 
+     * @param {CRYPT_XML_FLAGS} dwFlags 
+     * @param {CRYPT_XML_KEYINFO_SPEC} dwKeyInfoSpec The type of data structure pointed to by the <i>pvKeyInfoSpec</i> parameter. Here are some possible combinations.
      * 
      * <table>
      * <tr>
@@ -51616,7 +51638,7 @@ class Cryptography {
 
     /**
      * Imports the public key specified by the supplied handle.
-     * @param {Integer} dwFlags 
+     * @param {CRYPT_XML_FLAGS} dwFlags 
      * @param {Pointer<CRYPT_XML_KEY_VALUE>} pKeyValue A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/cryptxml/ns-cryptxml-crypt_xml_key_value">CRYPT_XML_KEY_VALUE</a> structure to receive the imported key.
      * @returns {BCRYPT_KEY_HANDLE} A pointer to the handle of the key to import.
      * @see https://learn.microsoft.com/windows/win32/api/cryptxml/nf-cryptxml-cryptxmlimportpublickey
@@ -51631,8 +51653,10 @@ class Cryptography {
     /**
      * Performs a cryptographic signature validation of a SignedInfo element.
      * @param {Pointer<Void>} hSignature The handle of a <b>Signature</b> element.
-     * @param {BCRYPT_KEY_HANDLE} _hKey 
-     * @param {Integer} dwFlags 
+     * @param {BCRYPT_KEY_HANDLE} _hKey The handle of the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">public key</a> to use to verify the signature value on 
+     *     the <b>SignedInfo</b> element.
+     *     This parameter must be <b>NULL</b> for HMAC-based signature algorithms.
+     * @param {CRYPT_XML_FLAGS} dwFlags 
      * @returns {HRESULT} If the function succeeds, the function returns zero.
      * 
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error.
@@ -51711,11 +51735,11 @@ class Cryptography {
     /**
      * Encodes signature data by using the supplied XML writer callback function.
      * @param {Pointer<Void>} hCryptXml The handle of the object to be serialized. The handle can be of <b>Signature</b>, <b>Object</b>, or <b>Reference</b> types.
-     * @param {Integer} dwCharset A value of the <a href="https://docs.microsoft.com/windows/desktop/api/cryptxml/ne-cryptxml-crypt_xml_charset">CRYPT_XML_CHARSET</a> enumeration that specifies the character set of the encoded XML.
+     * @param {CRYPT_XML_CHARSET} dwCharset A value of the <a href="https://docs.microsoft.com/windows/desktop/api/cryptxml/ne-cryptxml-crypt_xml_charset">CRYPT_XML_CHARSET</a> enumeration that specifies the character set of the encoded XML.
      * @param {Pointer<CRYPT_XML_PROPERTY>} rgProperty A pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/cryptxml/ns-cryptxml-crypt_xml_property">CRYPT_XML_PROPERTY</a> structures that contain additional properties.
-     * @param {Integer} _cProperty 
+     * @param {Integer} _cProperty A <b>ULONG</b> value that specifies the number of entries in the array pointed to by the <i>rgProperty</i> parameter.
      * @param {Pointer<Void>} pvCallbackState A pointer to an application defined argument that is passed to the XML writer callback function pointed to by the <i>pfnWrite</i> parameter.
-     * @param {Pointer<PFN_CRYPT_XML_WRITE_CALLBACK>} _pfnWrite 
+     * @param {Pointer<PFN_CRYPT_XML_WRITE_CALLBACK>} _pfnWrite An XML writer callback function to receive the application defined argument pointed to by the <i>pvCallbackState</i> parameter.
      * @returns {HRESULT} If the function succeeds, the function returns zero.
      * 
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error.
@@ -51733,7 +51757,7 @@ class Cryptography {
     /**
      * Decodes the CRYPT_XML_ALGORITHM structure and returns information about the algorithm.
      * @param {Pointer<CRYPT_XML_ALGORITHM>} pXmlAlgorithm A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/cryptxml/ns-cryptxml-crypt_xml_algorithm">CRYPT_XML_ALGORITHM</a> structure that specifies the algorithm about which to return information.
-     * @param {Integer} dwFlags 
+     * @param {CRYPT_XML_FLAGS} dwFlags 
      * @returns {Pointer<CRYPT_XML_ALGORITHM_INFO>} A pointer to a pointer to a  <a href="https://docs.microsoft.com/windows/desktop/api/cryptxml/ns-cryptxml-crypt_xml_algorithm_info">CRYPT_XML_ALGORITHM_INFO</a> structure. When you have finished using the memory pointed to by the <i>ppAlgInfo</i> parameter, free it by calling the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a> function.
      * @see https://learn.microsoft.com/windows/win32/api/cryptxml/nf-cryptxml-cryptxmlgetalgorithminfo
      * @since windows6.1
@@ -51827,8 +51851,8 @@ class Cryptography {
      * @param {Pointer<INFORMATIONCARD_CRYPTO_HANDLE>} hCrypto 
      * @param {BOOL} fOAEP 
      * @param {Integer} cbInData 
-     * @param {Pointer} pInData 
-     * @param {Pointer} ppOutData 
+     * @param {Integer} pInData 
+     * @param {Integer} ppOutData 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/SecProv/encrypt-win32-encryptablevolume
      */
@@ -51850,8 +51874,8 @@ class Cryptography {
      * @param {Pointer<INFORMATIONCARD_CRYPTO_HANDLE>} hCrypto 
      * @param {BOOL} fOAEP 
      * @param {Integer} cbInData 
-     * @param {Pointer} pInData 
-     * @param {Pointer} ppOutData 
+     * @param {Integer} pInData 
+     * @param {Integer} ppOutData 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/SecProv/decrypt-win32-encryptablevolume
      */
@@ -51864,9 +51888,9 @@ class Cryptography {
      * 
      * @param {Pointer<INFORMATIONCARD_CRYPTO_HANDLE>} hCrypto 
      * @param {Integer} cbHash 
-     * @param {Pointer} pHash 
+     * @param {Integer} pHash 
      * @param {PWSTR} hashAlgOid 
-     * @param {Pointer} ppSig 
+     * @param {Integer} ppSig 
      * @returns {Integer} 
      */
     static SignHash(hCrypto, cbHash, pHash, hashAlgOid, ppSig) {
@@ -51880,10 +51904,10 @@ class Cryptography {
      * 
      * @param {Pointer<INFORMATIONCARD_CRYPTO_HANDLE>} hCrypto 
      * @param {Integer} cbHash 
-     * @param {Pointer} pHash 
+     * @param {Integer} pHash 
      * @param {PWSTR} hashAlgOid 
      * @param {Integer} cbSig 
-     * @param {Pointer} pSig 
+     * @param {Integer} pSig 
      * @returns {BOOL} 
      */
     static VerifyHash(hCrypto, cbHash, pHash, hashAlgOid, cbSig, pSig) {
@@ -51897,11 +51921,11 @@ class Cryptography {
      * 
      * @param {Pointer<INFORMATIONCARD_CRYPTO_HANDLE>} hSymmetricCrypto 
      * @param {Integer} _mode 
-     * @param {Integer} padding 
+     * @param {PaddingMode} padding 
      * @param {Integer} feedbackSize 
-     * @param {Integer} _direction 
+     * @param {Direction} _direction 
      * @param {Integer} cbIV 
-     * @param {Pointer} pIV 
+     * @param {Integer} pIV 
      * @returns {Pointer<INFORMATIONCARD_CRYPTO_HANDLE>} 
      */
     static GetCryptoTransform(hSymmetricCrypto, _mode, padding, feedbackSize, _direction, cbIV, pIV) {
@@ -51923,8 +51947,8 @@ class Cryptography {
      * 
      * @param {Pointer<INFORMATIONCARD_CRYPTO_HANDLE>} hCrypto 
      * @param {Integer} cbInData 
-     * @param {Pointer} pInData 
-     * @param {Pointer} ppOutData 
+     * @param {Integer} pInData 
+     * @param {Integer} ppOutData 
      * @returns {Integer} 
      */
     static TransformBlock(hCrypto, cbInData, pInData, ppOutData) {
@@ -51936,8 +51960,8 @@ class Cryptography {
      * 
      * @param {Pointer<INFORMATIONCARD_CRYPTO_HANDLE>} hCrypto 
      * @param {Integer} cbInData 
-     * @param {Pointer} pInData 
-     * @param {Pointer} ppOutData 
+     * @param {Integer} pInData 
+     * @param {Integer} ppOutData 
      * @returns {Integer} 
      */
     static TransformFinalBlock(hCrypto, cbInData, pInData, ppOutData) {
@@ -51949,7 +51973,7 @@ class Cryptography {
      * 
      * @param {Pointer<INFORMATIONCARD_CRYPTO_HANDLE>} hCrypto 
      * @param {Integer} cbInData 
-     * @param {Pointer} pInData 
+     * @param {Integer} pInData 
      * @returns {HRESULT} 
      */
     static HashCore(hCrypto, cbInData, pInData) {
@@ -51961,8 +51985,8 @@ class Cryptography {
      * 
      * @param {Pointer<INFORMATIONCARD_CRYPTO_HANDLE>} hCrypto 
      * @param {Integer} cbInData 
-     * @param {Pointer} pInData 
-     * @param {Pointer} ppOutData 
+     * @param {Integer} pInData 
+     * @param {Integer} ppOutData 
      * @returns {Integer} 
      */
     static HashFinal(hCrypto, cbInData, pInData, ppOutData) {
@@ -51994,13 +52018,13 @@ class Cryptography {
      * 
      * @param {Pointer<INFORMATIONCARD_CRYPTO_HANDLE>} hCrypto 
      * @param {Integer} cbLabel 
-     * @param {Pointer} pLabel 
+     * @param {Integer} pLabel 
      * @param {Integer} cbNonce 
-     * @param {Pointer} pNonce 
+     * @param {Integer} pNonce 
      * @param {Integer} derivedKeyLength 
      * @param {Integer} offset 
      * @param {PWSTR} algId 
-     * @param {Pointer} ppKey 
+     * @param {Integer} ppKey 
      * @returns {Integer} 
      */
     static GenerateDerivedKey(hCrypto, cbLabel, pLabel, cbNonce, pNonce, derivedKeyLength, offset, algId, ppKey) {
@@ -52014,7 +52038,7 @@ class Cryptography {
      * 
      * @param {Integer} dwParamType 
      * @param {Pointer<Void>} pParam 
-     * @param {Pointer} ppToken 
+     * @param {Integer} ppToken 
      * @returns {Integer} 
      */
     static GetBrowserToken(dwParamType, pParam, ppToken) {
@@ -52268,7 +52292,7 @@ class Cryptography {
      * @param {NCRYPT_KEY_HANDLE} hMasterKey The handle of the [*master key*](/windows/desktop/SecGloss/m-gly) object.
      * @param {NCRYPT_HASH_HANDLE} hHandshakeHash The handle of the hash of the handshake computed so far.
      * @param {PWSTR} pszAlgId A pointer to a null-terminated Unicode string that identifies the requested [*cryptographic algorithm*](/windows/desktop/SecGloss/c-gly). This can be one of the standard [**CNG Algorithm Identifiers**](cng-algorithm-identifiers.md) or the identifier for another registered algorithm.
-     * @param {Pointer} pbOutput The address of a buffer that receives the [*key BLOB*](/windows/desktop/SecGloss/k-gly). The *cbOutput* parameter contains the size of this buffer. If this parameter is **NULL**, this function will place the required size, in bytes, in the **DWORD** pointed to by the *pcbResult* parameter.
+     * @param {Integer} pbOutput The address of a buffer that receives the [*key BLOB*](/windows/desktop/SecGloss/k-gly). The *cbOutput* parameter contains the size of this buffer. If this parameter is **NULL**, this function will place the required size, in bytes, in the **DWORD** pointed to by the *pcbResult* parameter.
      * @param {Integer} cbOutput The length, in bytes, of the *pbOutput* buffer.
      * @param {Integer} dwFlags This parameter is reserved for future use.
      * @returns {Integer} A pointer to a **DWORD** value that specifies the length, in bytes, of the hash written to the *pbOutput* buffer.
@@ -52288,9 +52312,9 @@ class Cryptography {
      * Computes the key block used by the Extensible Authentication Protocol (EAP).
      * @param {NCRYPT_PROV_HANDLE} hSslProvider The handle of the [*Secure Sockets Layer protocol*](/windows/desktop/SecGloss/s-gly) (SSL) protocol provider instance.
      * @param {NCRYPT_KEY_HANDLE} hMasterKey The handle of the [*master key*](/windows/desktop/SecGloss/m-gly) object.
-     * @param {Pointer} pbRandoms A pointer to a buffer that contains a concatenation of the client\_random and server\_random values of the SSL session.
+     * @param {Integer} pbRandoms A pointer to a buffer that contains a concatenation of the client\_random and server\_random values of the SSL session.
      * @param {Integer} cbRandoms The length, in bytes, of the *pbRandoms* buffer.
-     * @param {Pointer} pbOutput The address of a buffer that receives the key BLOB. The *cbOutput* parameter contains the size of this buffer. If this parameter is **NULL**, this function will place the required size, in bytes, in the **DWORD** pointed to by the *pcbResult* parameter.
+     * @param {Integer} pbOutput The address of a buffer that receives the key BLOB. The *cbOutput* parameter contains the size of this buffer. If this parameter is **NULL**, this function will place the required size, in bytes, in the **DWORD** pointed to by the *pcbResult* parameter.
      * @param {Integer} cbOutput The length, in bytes, of the *pbOutput* buffer.
      * @param {Integer} dwFlags Set to **NCRYPT\_SSL\_SERVER\_FLAG** to indicate that this is a server call.
      * @returns {Integer} A pointer to a **DWORD** value that specifies the length, in bytes, of the hash written to the *pbOutput* buffer.
@@ -52319,7 +52343,7 @@ class Cryptography {
      * @param {NCRYPT_PROV_HANDLE} hSslProvider The handle of the SSL protocol provider instance.
      * @param {NCRYPT_KEY_HANDLE} hMasterKey The handle of the [*master key*](/windows/desktop/SecGloss/m-gly) object.
      * @param {NCRYPT_HASH_HANDLE} hHandshakeHash The handle of the hash of the handshake messages.
-     * @param {Pointer} pbOutput A pointer to a buffer that receives the hash for the finish message.
+     * @param {Integer} pbOutput A pointer to a buffer that receives the hash for the finish message.
      * @param {Integer} cbOutput The length, in bytes, of the *pbOutput* buffer.
      * @param {Integer} dwFlags One of the following constants.
      * 
@@ -52360,7 +52384,7 @@ class Cryptography {
      * @param {Integer} dwCipherSuite One of the [**CNG SSL Provider Cipher Suite Identifier**](https://msdn.microsoft.com/library/Hh971253(v=VS.85).aspx) values.
      * @param {Integer} dwKeyType One of the [**CNG SSL Provider Key Type Identifier**](https://msdn.microsoft.com/library/Hh971256(v=VS.85).aspx) values. Set this parameter to zero for key types that are not [*elliptic curve cryptography*](/windows/desktop/SecGloss/e-gly) (ECC).
      * @param {Integer} dwKeyBitLen The length, in bits, of the key.
-     * @param {Pointer} pbParams A pointer to a buffer to contain parameters for the key that is to be created. If a [*Diffie-Hellman (ephemeral) key-exchange algorithm*](/windows/desktop/SecGloss/d-gly) (DHE) cipher suite is not used, set the *pbParams* parameter to **NULL** and the *cbParams* parameter to zero.
+     * @param {Integer} pbParams A pointer to a buffer to contain parameters for the key that is to be created. If a [*Diffie-Hellman (ephemeral) key-exchange algorithm*](/windows/desktop/SecGloss/d-gly) (DHE) cipher suite is not used, set the *pbParams* parameter to **NULL** and the *cbParams* parameter to zero.
      * @param {Integer} cbParams The length, in bytes, of the data in the *pbParams* buffer.
      * @param {Integer} dwFlags This parameter is reserved for future use.
      * @returns {NCRYPT_KEY_HANDLE} The handle of the ephemeral key.
@@ -52405,10 +52429,10 @@ class Cryptography {
      * @remarks
      * The length of the packet can be zero, such as when a "HelloRequest" message is decrypted.
      * @param {NCRYPT_PROV_HANDLE} hSslProvider The handle of the SSL protocol provider instance.
-     * @param {NCRYPT_KEY_HANDLE} _hKey 
-     * @param {Pointer} pbInput A pointer to the buffer that contains the packet to be decrypted.
+     * @param {NCRYPT_KEY_HANDLE} _hKey The handle to the key that is used to decrypt the packet.
+     * @param {Integer} pbInput A pointer to the buffer that contains the packet to be decrypted.
      * @param {Integer} cbInput The length, in bytes, of the *pbInput* buffer.
-     * @param {Pointer} pbOutput A pointer to a buffer to contain the decrypted packet.
+     * @param {Integer} pbOutput A pointer to a buffer to contain the decrypted packet.
      * @param {Integer} cbOutput The length, bytes, of the *pbOutput* buffer.
      * @param {Integer} SequenceNumber The sequence number that corresponds to this packet.
      * @param {Integer} dwFlags This parameter is reserved for future use.
@@ -52426,10 +52450,10 @@ class Cryptography {
     /**
      * Encrypts a single Secure Sockets Layer protocol (SSL) packet.
      * @param {NCRYPT_PROV_HANDLE} hSslProvider The handle of the SSL protocol provider instance.
-     * @param {NCRYPT_KEY_HANDLE} _hKey 
-     * @param {Pointer} pbInput A pointer to the buffer that contains the packet to be encrypted.
+     * @param {NCRYPT_KEY_HANDLE} _hKey The handle to the key that is used to encrypt the packet.
+     * @param {Integer} pbInput A pointer to the buffer that contains the packet to be encrypted.
      * @param {Integer} cbInput The length, in bytes, of the *pbInput* buffer.
-     * @param {Pointer} pbOutput A pointer to a buffer to receive the encrypted packet.
+     * @param {Integer} pbOutput A pointer to a buffer to receive the encrypted packet.
      * @param {Integer} cbOutput The length, bytes, of the *pbOutput* buffer.
      * @param {Integer} SequenceNumber The sequence number that corresponds to this packet.
      * @param {Integer} dwContentType The content type that corresponds to this packet, which specifies the higher level protocol used to process the enclosed packet.
@@ -52559,7 +52583,12 @@ class Cryptography {
      * 
      * When exporting the public portion of an ephemeral key the BLOB type must be the appropriate type, such as **NCRYPT\_DH\_PUBLIC\_BLOB** or **NCRYPT\_ECCPUBLIC\_BLOB**.
      * @param {NCRYPT_PROV_HANDLE} hSslProvider The handle of the SSL protocol provider instance.
-     * @param {NCRYPT_KEY_HANDLE} _hKey 
+     * @param {NCRYPT_KEY_HANDLE} _hKey The handle of the key to export.
+     * 
+     * When you are not specifying a key, set this parameter to **NULL**.
+     * 
+     * > [!Note]  
+     * > A *hKey* handle is obtained by calling the [**SslOpenPrivateKey**](sslopenprivatekey.md) function. Handles obtained from the [**NCryptOpenKey**](/windows/desktop/api/Ncrypt/nf-ncrypt-ncryptopenkey) function are not supported.
      * @param {PWSTR} pszBlobType A null-terminated Unicode string that contains an identifier that specifies the type of BLOB to export. This can be one of the following values.
      * 
      * 
@@ -52570,7 +52599,7 @@ class Cryptography {
      * | <span id="BCRYPT_ECCPUBLIC_BLOB"></span><span id="bcrypt_eccpublic_blob"></span><dl> <dt>**BCRYPT\_ECCPUBLIC\_BLOB**</dt> </dl>     | Export an [*elliptic curve cryptography*](/windows/desktop/SecGloss/e-gly) (ECC) public key. The *pbOutput* buffer receives a [**BCRYPT\_ECCKEY\_BLOB**](/windows/desktop/api/Bcrypt/ns-bcrypt-bcrypt_ecckey_blob) structure immediately followed by the key data.<br/>                                                          |
      * | <span id="BCRYPT_OPAQUE_KEY_BLOB"></span><span id="bcrypt_opaque_key_blob"></span><dl> <dt>**BCRYPT\_OPAQUE\_KEY\_BLOB**</dt> </dl> | Export a symmetric key in a format that is specific to a single [*cryptographic service provider*](/windows/desktop/SecGloss/c-gly) (CSP). Opaque BLOBs are not transferable and must be imported by using the same *cryptographic service provider* (CSP) that generated the BLOB.<br/> |
      * | <span id="BCRYPT_RSAPUBLIC_BLOB"></span><span id="bcrypt_rsapublic_blob"></span><dl> <dt>**BCRYPT\_RSAPUBLIC\_BLOB**</dt> </dl>     | Export an RSA public key. The *pbOutput* buffer receives a [**BCRYPT\_RSAKEY\_BLOB**](/windows/desktop/api/Bcrypt/ns-bcrypt-bcrypt_rsakey_blob) structure immediately followed by the key data.<br/>                                                                                                                                                                                                |
-     * @param {Pointer} pbOutput The address of a buffer that receives the [*key BLOB*](/windows/desktop/SecGloss/k-gly). The *cbOutput* parameter contains the size of this buffer. If this parameter is **NULL**, this function will place the required size, in bytes, in the **DWORD** pointed to by the *pcbResult* parameter.
+     * @param {Integer} pbOutput The address of a buffer that receives the [*key BLOB*](/windows/desktop/SecGloss/k-gly). The *cbOutput* parameter contains the size of this buffer. If this parameter is **NULL**, this function will place the required size, in bytes, in the **DWORD** pointed to by the *pcbResult* parameter.
      * @param {Integer} cbOutput The size, in bytes, of the *pbOutput* buffer.
      * @param {Integer} dwFlags Reserved for future use.
      * @returns {Integer} The address of a **DWORD** variable that receives the number of bytes copied to the *pbOutput* buffer. If the *pbOutput* parameter is set to **NULL** when the function is called, the required size for the *pbOutput* buffer, in bytes, is returned in the **DWORD** pointed to by this parameter.
@@ -52642,7 +52671,7 @@ class Cryptography {
      * @param {Integer} dwProtocol One of the [**CNG SSL Provider Protocol Identifier**](https://msdn.microsoft.com/library/Hh971257(v=VS.85).aspx) values.
      * @param {Integer} dwCipherSuite One of the [**CNG SSL Provider Cipher Suite Identifier**](https://msdn.microsoft.com/library/Hh971253(v=VS.85).aspx) values.
      * @param {Pointer<BCryptBufferDesc>} pParameterList A pointer to an array of **NCryptBuffer** buffers that contain information used as part of the key exchange operation. The precise set of buffers is dependent on the protocol and cipher suite that is used. At the minimum, the list will contain buffers that contain the client and server supplied random values.
-     * @param {Pointer} pbOutput The address of a buffer that receives the premaster secret encrypted with the public key of the server. The *cbOutput* parameter contains the size of this buffer. If this parameter is **NULL**, this function returns the required size, in bytes, in the **DWORD** pointed to by the *pcbResult* parameter.
+     * @param {Integer} pbOutput The address of a buffer that receives the premaster secret encrypted with the public key of the server. The *cbOutput* parameter contains the size of this buffer. If this parameter is **NULL**, this function returns the required size, in bytes, in the **DWORD** pointed to by the *pcbResult* parameter.
      * 
      * > [!Note]  
      * > This buffer is used when performing a RSA key exchange.
@@ -52715,7 +52744,7 @@ class Cryptography {
 
     /**
      * Retrieves the value of a named property for a Secure Sockets Layer protocol (SSL) provider key object.
-     * @param {NCRYPT_KEY_HANDLE} _hKey 
+     * @param {NCRYPT_KEY_HANDLE} _hKey The handle of the SSL provider.
      * @param {PWSTR} pszProperty A pointer to a null-terminated Unicode string that contains the name of the property to retrieve. This can be one of the predefined [**Key Storage Property Identifiers**](key-storage-property-identifiers.md) or a custom property identifier.
      * @param {Pointer<Pointer<Integer>>} ppbOutput A pointer to a buffer that receives the property value. The caller of the function must free this buffer by calling the [**SslFreeBuffer**](sslfreebuffer.md) function.
      * @param {Pointer<Integer>} pcbOutput The size, in bytes, of the *pbOutput* buffer.
@@ -52794,7 +52823,7 @@ class Cryptography {
      * 3.  The [**SslComputeFinishedHash**](sslcomputefinishedhash.md) function is called with the hash handle to obtain the digest of the hashed data.
      * @param {NCRYPT_PROV_HANDLE} hSslProvider The handle to the [*Secure Sockets Layer protocol*](/windows/desktop/SecGloss/s-gly) (SSL) protocol provider instance.
      * @param {NCRYPT_HASH_HANDLE} hHandshakeHash The handle to the hash object.
-     * @param {Pointer} pbInput The address of a buffer that contains the data to be hashed.
+     * @param {Integer} pbInput The address of a buffer that contains the data to be hashed.
      * @param {Integer} cbInput The size, in bytes, of the *pbInput* buffer.
      * @param {Integer} dwFlags This parameter is reserved for future use.
      * @returns {HRESULT} If the function succeeds, it returns zero.
@@ -52823,7 +52852,7 @@ class Cryptography {
      * | <span id="BCRYPT_ECCPUBLIC_BLOB"></span><span id="bcrypt_eccpublic_blob"></span><dl> <dt>**BCRYPT\_ECCPUBLIC\_BLOB**</dt> </dl>     | Export an [*elliptic curve cryptography*](/windows/desktop/SecGloss/e-gly) (ECC) [*public key*](/windows/desktop/SecGloss/p-gly). The *pbOutput* buffer receives a [**BCRYPT\_ECCKEY\_BLOB**](/windows/desktop/api/Bcrypt/ns-bcrypt-bcrypt_ecckey_blob) structure immediately followed by the key data.<br/>                             |
      * | <span id="BCRYPT_OPAQUE_KEY_BLOB"></span><span id="bcrypt_opaque_key_blob"></span><dl> <dt>**BCRYPT\_OPAQUE\_KEY\_BLOB**</dt> </dl> | Export a [*symmetric key*](/windows/desktop/SecGloss/s-gly) in a format that is specific to a single [*cryptographic service provider*](/windows/desktop/SecGloss/c-gly) (CSP). Opaque BLOBs are not transferable and must be imported by using the same CSP that generated the BLOB.<br/> |
      * | <span id="BCRYPT_RSAPUBLIC_BLOB"></span><span id="bcrypt_rsapublic_blob"></span><dl> <dt>**BCRYPT\_RSAPUBLIC\_BLOB**</dt> </dl>     | Export an [*RSA*](/windows/desktop/SecGloss/r-gly) public key. The *pbOutput* buffer receives a [**BCRYPT\_RSAKEY\_BLOB**](/windows/desktop/api/Bcrypt/ns-bcrypt-bcrypt_rsakey_blob) structure immediately followed by the key data.<br/>                                                                                                                                                                                 |
-     * @param {Pointer} pbKeyBlob A pointer to the buffer that contains the [*key BLOB*](/windows/desktop/SecGloss/k-gly).
+     * @param {Integer} pbKeyBlob A pointer to the buffer that contains the [*key BLOB*](/windows/desktop/SecGloss/k-gly).
      * @param {Integer} cbKeyBlob The size, in bytes, of the *pbKeyBlob* buffer.
      * @param {Integer} dwFlags This parameter is reserved for future use.
      * @returns {NCRYPT_KEY_HANDLE} A pointer to the handle of the [*cryptographic key*](/windows/desktop/SecGloss/c-gly) to receive the imported key.
@@ -52850,7 +52879,7 @@ class Cryptography {
      * @param {Integer} dwProtocol One of the [**CNG SSL Provider Protocol Identifier**](https://msdn.microsoft.com/library/Hh971257(v=VS.85).aspx) values.
      * @param {Integer} dwCipherSuite One of the [**CNG SSL Provider Cipher Suite Identifiers**](https://msdn.microsoft.com/library/Hh971253(v=VS.85).aspx) values.
      * @param {Pointer<BCryptBufferDesc>} pParameterList A pointer to an array of **NCryptBuffer** buffers that contain information used as part of the key exchange operation. The precise set of buffers is dependent on the protocol and cipher suite that is used. At the minimum, the list will contain buffers that contain the client and server supplied random values.
-     * @param {Pointer} pbEncryptedKey A pointer to a buffer that contains the encrypted premaster secret key encrypted with the [*public key*](/windows/desktop/SecGloss/p-gly) of the server.
+     * @param {Integer} pbEncryptedKey A pointer to a buffer that contains the encrypted premaster secret key encrypted with the [*public key*](/windows/desktop/SecGloss/p-gly) of the server.
      * @param {Integer} cbEncryptedKey The size, in bytes, of the *pbEncryptedKey* buffer.
      * @param {Integer} dwFlags Set this parameter to **NCRYPT\_SSL\_SERVER\_FLAG** to indicate that this is a server call.
      * @returns {NCRYPT_KEY_HANDLE} A pointer to the handle to receive the [*master key*](/windows/desktop/SecGloss/m-gly).
@@ -52934,9 +52963,9 @@ class Cryptography {
      * Signs a hash by using the specified private key.
      * @param {NCRYPT_PROV_HANDLE} hSslProvider The handle to the [*Secure Sockets Layer protocol*](/windows/desktop/SecGloss/s-gly) (SSL) protocol provider instance.
      * @param {NCRYPT_KEY_HANDLE} hPrivateKey The handle to the private key to use to sign the hash.
-     * @param {Pointer} pbHashValue A pointer to a buffer that contains the hash to sign.
+     * @param {Integer} pbHashValue A pointer to a buffer that contains the hash to sign.
      * @param {Integer} cbHashValue The size, in bytes, of the *pbHashValue* buffer.
-     * @param {Pointer} pbSignature The address of a buffer that receives the signature of the hash. The *cbSignature* parameter contains the size of this buffer. To determine the required sized size of the buffer, set the *pbSignature* parameter to **NULL**. The required size of the buffer will be returned in the *pcbResult* parameter.
+     * @param {Integer} pbSignature The address of a buffer that receives the signature of the hash. The *cbSignature* parameter contains the size of this buffer. To determine the required sized size of the buffer, set the *pbSignature* parameter to **NULL**. The required size of the buffer will be returned in the *pcbResult* parameter.
      * @param {Integer} cbSignature The size, in bytes, of the *pbSignature* buffer.
      * @param {Integer} dwFlags This parameter is reserved for future use.
      * @returns {Integer} A pointer to a value that, upon completion, contains the actual number of bytes written to the *pbSignature* buffer.
@@ -52958,9 +52987,9 @@ class Cryptography {
      * Current implementations of the server side of the [*Transport Layer Security protocol*](/windows/desktop/SecGloss/t-gly) (TLS) connection call the [**NCryptVerifySignature**](/windows/desktop/api/Ncrypt/nf-ncrypt-ncryptverifysignature) function during the client authentication to process the certificate verify message.
      * @param {NCRYPT_PROV_HANDLE} hSslProvider The handle to the [*Secure Sockets Layer protocol*](/windows/desktop/SecGloss/s-gly) (SSL) protocol provider instance.
      * @param {NCRYPT_KEY_HANDLE} hPublicKey The handle to the public key.
-     * @param {Pointer} pbHashValue A pointer to a buffer that contains the hash to use to verify the signature.
+     * @param {Integer} pbHashValue A pointer to a buffer that contains the hash to use to verify the signature.
      * @param {Integer} cbHashValue The size, in bytes, of the *pbHashValue* buffer.
-     * @param {Pointer} pbSignature A pointer to a buffer that contains the signature to verify.
+     * @param {Integer} pbSignature A pointer to a buffer that contains the signature to verify.
      * @param {Integer} cbSignature The size, in bytes, of the *pbSignature* buffer.
      * @param {Integer} dwFlags This parameter is reserved for future use.
      * @returns {HRESULT} If the function succeeds, it returns zero.
@@ -52992,7 +53021,7 @@ class Cryptography {
      * @param {Integer} dwProtocol One of the [**CNG SSL Provider Protocol Identifier**](https://msdn.microsoft.com/library/Hh971257(v=VS.85).aspx) values.
      * @param {Integer} dwCipherSuite One of the [**CNG SSL Provider Cipher Suite Identifier**](https://msdn.microsoft.com/library/Hh971253(v=VS.85).aspx) values.
      * @param {Integer} dwKeyType One of the [**CNG SSL Provider Key Type Identifier**](https://msdn.microsoft.com/library/Hh971256(v=VS.85).aspx) values. For key types that are not [*elliptic curve cryptography*](/windows/desktop/SecGloss/e-gly) (ECC), set this parameter to zero.
-     * @param {Pointer} pCipherLengths A pointer to a buffer to receive the [**NCRYPT\_SSL\_CIPHER\_LENGTHS**](https://www.bing.com/search?q=**NCRYPT\_SSL\_CIPHER\_LENGTHS**) structure.
+     * @param {Integer} pCipherLengths A pointer to a buffer to receive the [**NCRYPT\_SSL\_CIPHER\_LENGTHS**](https://www.bing.com/search?q=**NCRYPT\_SSL\_CIPHER\_LENGTHS**) structure.
      * @param {Integer} cbCipherLengths The length, in bytes, of the buffer pointed to by the *pCipherLengths* parameter.
      * @param {Integer} dwFlags This parameter is reserved for future use and must be set to zero.
      * @returns {HRESULT} If the function succeeds, it returns zero.
@@ -53077,7 +53106,7 @@ class Cryptography {
      * @param {NCRYPT_PROV_HANDLE} hSslProvider 
      * @param {NCRYPT_HASH_HANDLE} hHandshakeHash 
      * @param {Integer} dwProtocol 
-     * @param {Pointer} pbOutput 
+     * @param {Integer} pbOutput 
      * @param {Integer} cbOutput 
      * @param {Integer} dwFlags 
      * @returns {Integer} 
@@ -53098,7 +53127,7 @@ class Cryptography {
      * @param {Integer} dwProtocol 
      * @param {Integer} dwCipherSuite 
      * @param {Pointer<BCryptBufferDesc>} pParameterList 
-     * @param {Pointer} pbOutput 
+     * @param {Integer} pbOutput 
      * @param {Integer} cbOutput 
      * @param {Pointer<Integer>} pcbResult 
      * @param {Integer} dwFlags 
@@ -53119,11 +53148,11 @@ class Cryptography {
      * @param {NCRYPT_PROV_HANDLE} hSslProvider The handle of the TLS protocol provider instance.
      * @param {NCRYPT_KEY_HANDLE} hMasterKey The handle of the master key object that will be used to create the keying material to br exported.
      * @param {PSTR} sLabel a NUL-terminated ASCII label string. Schannel will remove the terminating NUL character before passing it to the pseudorandom function.
-     * @param {Pointer} pbRandoms A pointer to a buffer that contains a concatenation of the *client\_random* and *server\_random* values of the TLS connection.
+     * @param {Integer} pbRandoms A pointer to a buffer that contains a concatenation of the *client\_random* and *server\_random* values of the TLS connection.
      * @param {Integer} cbRandoms The length, in bytes, of the *pbRandoms* buffer.
-     * @param {Pointer} pbContextValue A pointer to a buffer that contains the application context. If *pbContextValue* is **NULL**, *cbContextValue* must be zero.
+     * @param {Integer} pbContextValue A pointer to a buffer that contains the application context. If *pbContextValue* is **NULL**, *cbContextValue* must be zero.
      * @param {Integer} cbContextValue The length, in bytes, of the *pbContextValue* buffer.
-     * @param {Pointer} pbOutput The address of a buffer that receives the exported keying material. The *cbOutput* parameter contains the size of this buffer. This value cannot be **NULL**.
+     * @param {Integer} pbOutput The address of a buffer that receives the exported keying material. The *cbOutput* parameter contains the size of this buffer. This value cannot be **NULL**.
      * @param {Integer} cbOutput The length, in bytes, of the *pbOutput* buffer. Must be greater than zero.
      * @param {Integer} dwFlags Not used. Must be set to zero.
      * @returns {HRESULT} If the function succeeds, it returns zero.
@@ -53317,7 +53346,7 @@ class Cryptography {
      * 
      * @param {NCRYPT_PROV_HANDLE} hSslProvider 
      * @param {NCRYPT_KEY_HANDLE} hResumptionMasterKey 
-     * @param {Pointer} pbTicketNonce 
+     * @param {Integer} pbTicketNonce 
      * @param {Integer} cbTicketNonce 
      * @param {Pointer<BCryptBufferDesc>} pParameterList 
      * @param {Integer} dwFlags 

@@ -1,12 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\Foundation\FILE_OBJECT.ahk
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem.Minifilters
- * @version v4.0.30319
  */
-class FLT_IO_PARAMETER_BLOCK extends Win32Struct
-{
+class FLT_IO_PARAMETER_BLOCK extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -68,7 +67,7 @@ class FLT_IO_PARAMETER_BLOCK extends Win32Struct
     }
 
     /**
-     * @type {Pointer<FLT_PARAMETERS>}
+     * @type {Pointer}
      */
     Parameters {
         get => NumGet(this, 24, "ptr")

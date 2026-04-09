@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class POLICY_REPLICA_SOURCE_INFO extends Win32Struct
-{
+class POLICY_REPLICA_SOURCE_INFO extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -15,7 +13,7 @@ class POLICY_REPLICA_SOURCE_INFO extends Win32Struct
     /**
      * @type {LSA_UNICODE_STRING}
      */
-    ReplicaSource{
+    ReplicaSource {
         get {
             if(!this.HasProp("__ReplicaSource"))
                 this.__ReplicaSource := LSA_UNICODE_STRING(0, this)
@@ -26,7 +24,7 @@ class POLICY_REPLICA_SOURCE_INFO extends Win32Struct
     /**
      * @type {LSA_UNICODE_STRING}
      */
-    ReplicaAccountName{
+    ReplicaAccountName {
         get {
             if(!this.HasProp("__ReplicaAccountName"))
                 this.__ReplicaAccountName := LSA_UNICODE_STRING(16, this)

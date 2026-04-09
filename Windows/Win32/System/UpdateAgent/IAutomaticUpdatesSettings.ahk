@@ -12,9 +12,8 @@
  * <div> </div>
  * @see https://learn.microsoft.com/windows/win32/api/wuapi/nn-wuapi-iautomaticupdatessettings
  * @namespace Windows.Win32.System.UpdateAgent
- * @version v4.0.30319
  */
-class IAutomaticUpdatesSettings extends IDispatch{
+class IAutomaticUpdatesSettings extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -36,7 +35,7 @@ class IAutomaticUpdatesSettings extends IDispatch{
     static VTableNames => ["get_NotificationLevel", "put_NotificationLevel", "get_ReadOnly", "get_Required", "get_ScheduledInstallationDay", "put_ScheduledInstallationDay", "get_ScheduledInstallationTime", "put_ScheduledInstallationTime", "Refresh", "Save"]
 
     /**
-     * @type {Integer} 
+     * @type {AutomaticUpdatesNotificationLevel} 
      */
     NotificationLevel {
         get => this.get_NotificationLevel()
@@ -58,7 +57,7 @@ class IAutomaticUpdatesSettings extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {AutomaticUpdatesScheduledInstallationDay} 
      */
     ScheduledInstallationDay {
         get => this.get_ScheduledInstallationDay()
@@ -75,7 +74,7 @@ class IAutomaticUpdatesSettings extends IDispatch{
 
     /**
      * Gets and sets how users are notified about Automatic Update events. (Get)
-     * @returns {Integer} 
+     * @returns {AutomaticUpdatesNotificationLevel} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iautomaticupdatessettings-get_notificationlevel
      */
     get_NotificationLevel() {
@@ -85,7 +84,7 @@ class IAutomaticUpdatesSettings extends IDispatch{
 
     /**
      * Gets and sets how users are notified about Automatic Update events. (Put)
-     * @param {Integer} value 
+     * @param {AutomaticUpdatesNotificationLevel} value 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iautomaticupdatessettings-put_notificationlevel
      */
@@ -132,7 +131,7 @@ class IAutomaticUpdatesSettings extends IDispatch{
      * 
      * <div class="alert"><b>Note</b>  Starting with Windows 8 and Windows Server 2012, <b>ScheduledInstallationDay</b> is not supported and will return unreliable values. If you try to modify <b>ScheduledInstallationDay</b>, the operation will appear to succeed but will have no effect.</div>
      * <div> </div>
-     * @returns {Integer} 
+     * @returns {AutomaticUpdatesScheduledInstallationDay} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iautomaticupdatessettings-get_scheduledinstallationday
      */
     get_ScheduledInstallationDay() {
@@ -147,7 +146,7 @@ class IAutomaticUpdatesSettings extends IDispatch{
      * 
      * <div class="alert"><b>Note</b>  Starting with Windows 8 and Windows Server 2012, <b>ScheduledInstallationDay</b> is not supported and will return unreliable values. If you try to modify <b>ScheduledInstallationDay</b>, the operation will appear to succeed but will have no effect.</div>
      * <div> </div>
-     * @param {Integer} value 
+     * @param {AutomaticUpdatesScheduledInstallationDay} value 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iautomaticupdatessettings-put_scheduledinstallationday
      */

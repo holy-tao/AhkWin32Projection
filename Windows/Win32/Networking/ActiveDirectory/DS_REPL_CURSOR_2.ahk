@@ -6,17 +6,15 @@
  * The DS_REPL_CURSOR_2 structure contains inbound replication state data with respect to all replicas of a given naming context, as returned by the DsReplicaGetInfo2 function. This structure is an enhanced version of the DS_REPL_CURSOR structure.
  * @see https://learn.microsoft.com/windows/win32/api/ntdsapi/ns-ntdsapi-ds_repl_cursor_2
  * @namespace Windows.Win32.Networking.ActiveDirectory
- * @version v4.0.30319
  */
-class DS_REPL_CURSOR_2 extends Win32Struct
-{
+class DS_REPL_CURSOR_2 extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
 
     /**
      * Contains the invocation identifier of the originating server to which the <b>usnAttributeFilter</b> corresponds.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     uuidSourceDsaInvocationID {
         get => NumGet(this, 0, "ptr")
@@ -36,7 +34,7 @@ class DS_REPL_CURSOR_2 extends Win32Struct
      * Contains a <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> structure that contains the date and time of the last successful synchronization operation.
      * @type {FILETIME}
      */
-    ftimeLastSyncSuccess{
+    ftimeLastSyncSuccess {
         get {
             if(!this.HasProp("__ftimeLastSyncSuccess"))
                 this.__ftimeLastSyncSuccess := FILETIME(16, this)

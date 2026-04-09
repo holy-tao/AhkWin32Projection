@@ -5,9 +5,8 @@
  * Specifies the type of palette used for an indexed image format.
  * @see https://learn.microsoft.com/windows/win32/api/wincodec/ne-wincodec-wicbitmappalettetype
  * @namespace Windows.Win32.Graphics.Imaging
- * @version v4.0.30319
  */
-class WICBitmapPaletteType extends Win32Enum{
+class WICBitmapPaletteType extends Win32Enum {
 
     /**
      * An arbitrary custom palette provided by caller.

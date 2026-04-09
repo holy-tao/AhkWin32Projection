@@ -7,9 +7,8 @@
  * The constants  of <b>RM_APP_STATUS</b> can be combined with OR operators. The combination describes the history of actions taken by Restart Manager on the application.
  * @see https://learn.microsoft.com/windows/win32/api/restartmanager/ne-restartmanager-rm_app_status
  * @namespace Windows.Win32.System.RestartManager
- * @version v4.0.30319
  */
-class RM_APP_STATUS extends Win32Enum{
+class RM_APP_STATUS extends Win32Enum {
 
     /**
      * The application is in a state that is not described by any other enumerated state.

@@ -13,9 +13,8 @@
  * This method requires Windows Vista Service Pack 1.
  * @see https://learn.microsoft.com/windows/win32/api/d3d10_1/nn-d3d10_1-id3d10blendstate1
  * @namespace Windows.Win32.Graphics.Direct3D10
- * @version v4.0.30319
  */
-class ID3D10BlendState1 extends ID3D10BlendState{
+class ID3D10BlendState1 extends ID3D10BlendState {
 
     static sizeof => A_PtrSize
     /**

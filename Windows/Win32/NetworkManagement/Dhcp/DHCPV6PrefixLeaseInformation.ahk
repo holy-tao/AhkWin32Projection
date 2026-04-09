@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DHCPV6Prefix.ahk
+#Include .\StatusCode.ahk
 
 /**
  * Information about a prefix lease.
@@ -7,10 +9,8 @@
  * In a prefix delegation scenario, the validation of lease lifetime values (specific status codes, <b>T1</b>, <b>T2</b>, <b>MaxLeaseExpirationTime</b>, and <b>LastRenewalTime</b>) are performed by the calling API, rather than the application consuming the data, as the latter might interpret these values differently.
  * @see https://learn.microsoft.com/windows/win32/api/dhcpv6csdk/ns-dhcpv6csdk-dhcpv6prefixleaseinformation
  * @namespace Windows.Win32.NetworkManagement.Dhcp
- * @version v4.0.30319
  */
-class DHCPV6PrefixLeaseInformation extends Win32Struct
-{
+class DHCPV6PrefixLeaseInformation extends Win32Struct {
     static sizeof => 80
 
     static packingSize => 8
@@ -131,7 +131,7 @@ class DHCPV6PrefixLeaseInformation extends Win32Struct
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
+     * @type {StatusCode}
      */
     status {
         get => NumGet(this, 56, "int")

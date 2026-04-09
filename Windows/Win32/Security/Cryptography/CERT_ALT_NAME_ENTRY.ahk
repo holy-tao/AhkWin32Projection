@@ -1,15 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\CERT_OTHER_NAME.ahk
 #Include .\CRYPT_INTEGER_BLOB.ahk
 
 /**
  * Contains an alternative name in one of a variety of name forms.
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cert_alt_name_entry
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CERT_ALT_NAME_ENTRY extends Win32Struct
-{
+class CERT_ALT_NAME_ENTRY extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -50,7 +49,7 @@ class CERT_ALT_NAME_ENTRY extends Win32Struct
     /**
      * @type {CRYPT_INTEGER_BLOB}
      */
-    DirectoryName{
+    DirectoryName {
         get {
             if(!this.HasProp("__DirectoryName"))
                 this.__DirectoryName := CRYPT_INTEGER_BLOB(8, this)
@@ -69,7 +68,7 @@ class CERT_ALT_NAME_ENTRY extends Win32Struct
     /**
      * @type {CRYPT_INTEGER_BLOB}
      */
-    IPAddress{
+    IPAddress {
         get {
             if(!this.HasProp("__IPAddress"))
                 this.__IPAddress := CRYPT_INTEGER_BLOB(8, this)

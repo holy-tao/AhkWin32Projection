@@ -9,11 +9,10 @@
  * > The setupapi.h header defines SP_DEVINFO_LIST_DETAIL_DATA as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
  * @see https://learn.microsoft.com/windows/win32/api/setupapi/ns-setupapi-sp_devinfo_list_detail_data_a
  * @namespace Windows.Win32.Devices.DeviceAndDriverInstallation
- * @version v4.0.30319
  * @charset ANSI
+ * @architecture X64, Arm64
  */
-class SP_DEVINFO_LIST_DETAIL_DATA_A extends Win32Struct
-{
+class SP_DEVINFO_LIST_DETAIL_DATA_A extends Win32Struct {
     static sizeof => 288
 
     static packingSize => 8
@@ -29,7 +28,7 @@ class SP_DEVINFO_LIST_DETAIL_DATA_A extends Win32Struct
 
     /**
      * The setup class GUID that is associated with the device information set or GUID_NULL if there is no associated setup class.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     ClassGuid {
         get => NumGet(this, 8, "ptr")
@@ -42,7 +41,7 @@ class SP_DEVINFO_LIST_DETAIL_DATA_A extends Win32Struct
      * This is typically the parameter that components use to access the remote computer. The <b>RemoteMachineName</b> contains a string, in case the component requires the name of the remote computer.
      * @type {HANDLE}
      */
-    RemoteMachineHandle{
+    RemoteMachineHandle {
         get {
             if(!this.HasProp("__RemoteMachineHandle"))
                 this.__RemoteMachineHandle := HANDLE(16, this)

@@ -9,9 +9,8 @@
  * The forgotten knowledge tracks the maximum version of tombstones that have been cleaned up. When an item is deleted from the item store, the metadata for that item is kept, but the item is marked as deleted. Metadata for a deleted item is called a tombstone. Tombstones must be periodically cleaned up or they will eventually use too much space in the item store. When a tombstone is removed from the metadata, the forgotten knowledge must be updated to contain the version of the removed tombstone. Be aware that forgotten knowledge is an overestimation of which items have had their metadata removed. Therefore, the forgotten knowledge might also contain items that still have active entries in the metadata.
  * @see https://learn.microsoft.com/windows/win32/api/winsync/nn-winsync-iforgottenknowledge
  * @namespace Windows.Win32.System.WindowsSync
- * @version v4.0.30319
  */
-class IForgottenKnowledge extends ISyncKnowledge{
+class IForgottenKnowledge extends ISyncKnowledge {
 
     static sizeof => A_PtrSize
     /**

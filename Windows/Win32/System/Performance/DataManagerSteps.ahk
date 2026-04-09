@@ -7,9 +7,8 @@
  * Specify one or more actions. The data manager applies the actions in the order in which they are defined in this enumeration.
  * @see https://learn.microsoft.com/windows/win32/api/pla/ne-pla-datamanagersteps
  * @namespace Windows.Win32.System.Performance
- * @version v4.0.30319
  */
-class DataManagerSteps extends Win32Enum{
+class DataManagerSteps extends Win32Enum {
 
     /**
      * Runs TraceRpt.exe using as input all the binary performance files (.blg) or event trace files (.etl) in the collection. You can use the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-idatamanager-get_reportschema">IDataManager::ReportSchema</a> property to customize the report.

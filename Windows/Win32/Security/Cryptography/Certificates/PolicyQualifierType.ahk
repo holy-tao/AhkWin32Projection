@@ -5,9 +5,8 @@
  * Specifies the type of qualifier applied to a certificate policy.
  * @see https://learn.microsoft.com/windows/win32/api/certenroll/ne-certenroll-policyqualifiertype
  * @namespace Windows.Win32.Security.Cryptography.Certificates
- * @version v4.0.30319
  */
-class PolicyQualifierType extends Win32Enum{
+class PolicyQualifierType extends Win32Enum {
 
     /**
      * The qualifier type is not specified.
@@ -28,7 +27,6 @@ class PolicyQualifierType extends Win32Enum{
     static PolicyQualifierTypeUserNotice => 2
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static PolicyQualifierTypeFlags => 3

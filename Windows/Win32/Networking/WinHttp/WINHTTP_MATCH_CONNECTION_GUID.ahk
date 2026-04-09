@@ -3,14 +3,11 @@
 
 /**
  * Represents the GUID of a connection, for purposes of connection-matching.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/winhttp/ns-winhttp-winhttp_match_connection_guid
  * @namespace Windows.Win32.Networking.WinHttp
- * @version v4.0.30319
+ * @architecture X64, Arm64
  */
-class WINHTTP_MATCH_CONNECTION_GUID extends Win32Struct
-{
+class WINHTTP_MATCH_CONNECTION_GUID extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
@@ -21,7 +18,7 @@ class WINHTTP_MATCH_CONNECTION_GUID extends Win32Struct
      * A connection's **GUID**.
      * 
      * When **WINHTTP_OPTION_MATCH_CONNECTION_GUID** is set on a request, WinHttp attempts to serve the request on a connection matching *ConnectionGuid*.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     ConnectionGuid {
         get => NumGet(this, 0, "ptr")

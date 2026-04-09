@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\MCGRIDINFO_PART.ahk
+#Include .\MCGRIDINFO_FLAGS.ahk
 #Include ..\..\Foundation\SYSTEMTIME.ahk
 #Include ..\..\Foundation\RECT.ahk
 
@@ -7,10 +9,8 @@
  * Contains information about part of a calendar control.
  * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-mcgridinfo
  * @namespace Windows.Win32.UI.Controls
- * @version v4.0.30319
  */
-class MCGRIDINFO extends Win32Struct
-{
+class MCGRIDINFO extends Win32Struct {
     static sizeof => 96
 
     static packingSize => 8
@@ -28,7 +28,7 @@ class MCGRIDINFO extends Win32Struct
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
-     * @type {Integer}
+     * @type {MCGRIDINFO_PART}
      */
     dwPart {
         get => NumGet(this, 4, "uint")
@@ -37,7 +37,7 @@ class MCGRIDINFO extends Win32Struct
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
-     * @type {Integer}
+     * @type {MCGRIDINFO_FLAGS}
      */
     dwFlags {
         get => NumGet(this, 8, "uint")
@@ -94,7 +94,7 @@ class MCGRIDINFO extends Win32Struct
      * Returns the start date specified by iCalendar. Used only when <b>dwFlags</b> contains MCGIF_DATE.
      * @type {SYSTEMTIME}
      */
-    stStart{
+    stStart {
         get {
             if(!this.HasProp("__stStart"))
                 this.__stStart := SYSTEMTIME(28, this)
@@ -108,7 +108,7 @@ class MCGRIDINFO extends Win32Struct
      * Returns the end date specified by iCalendar. Used only when <b>dwFlags</b> contains MCGIF_DATE.
      * @type {SYSTEMTIME}
      */
-    stEnd{
+    stEnd {
         get {
             if(!this.HasProp("__stEnd"))
                 this.__stEnd := SYSTEMTIME(44, this)
@@ -122,7 +122,7 @@ class MCGRIDINFO extends Win32Struct
      * Returns the rectangle of the part specified in <b>dwPart</b>. Set only if <b>dwFlags</b> contains MCGIF_RECT.
      * @type {RECT}
      */
-    rc{
+    rc {
         get {
             if(!this.HasProp("__rc"))
                 this.__rc := RECT(60, this)

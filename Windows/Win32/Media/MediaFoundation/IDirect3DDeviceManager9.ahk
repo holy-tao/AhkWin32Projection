@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\Foundation\HANDLE.ahk
 #Include ..\..\Graphics\Direct3D9\IDirect3DDevice9.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Enables two threads to share the same Direct3D 9 device, and provides access to the DirectX Video Acceleration (DXVA) features of the device.
@@ -17,9 +17,8 @@
  * Windows Store apps must use <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfdxgidevicemanager">IMFDXGIDeviceManager</a> and <a href="https://docs.microsoft.com/windows/desktop/medfound/direct3d-11-video-apis">Direct3D 11 Video APIs</a>.
  * @see https://learn.microsoft.com/windows/win32/api/dxva2api/nn-dxva2api-idirect3ddevicemanager9
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IDirect3DDeviceManager9 extends IUnknown{
+class IDirect3DDeviceManager9 extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

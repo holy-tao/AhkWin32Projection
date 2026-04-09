@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Graphics.DirectComposition
- * @version v4.0.30319
  */
-class IDCompositionTexture extends IUnknown{
+class IDCompositionTexture extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -40,7 +39,7 @@ class IDCompositionTexture extends IUnknown{
 
     /**
      * The SetColorSpace function defines the input color space for a given device context.
-     * @param {Integer} colorSpace 
+     * @param {DXGI_COLOR_SPACE_TYPE} colorSpace 
      * @returns {HRESULT} If this function succeeds, the return value is a handle to the <i>hColorSpace</i> being replaced.
      * 
      * If this function fails, the return value is <b>NULL</b>.
@@ -53,7 +52,7 @@ class IDCompositionTexture extends IUnknown{
 
     /**
      * 
-     * @param {Integer} alphaMode 
+     * @param {DXGI_ALPHA_MODE} alphaMode 
      * @returns {HRESULT} 
      */
     SetAlphaMode(alphaMode) {

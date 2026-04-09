@@ -5,9 +5,8 @@
  * Specifies the type of information to be retrieved from an existing AuthzClientContext. This enumeration is used by the AuthzGetInformationFromContext function.
  * @see https://learn.microsoft.com/windows/win32/api/authz/ne-authz-authz_context_information_class
  * @namespace Windows.Win32.Security.Authorization
- * @version v4.0.30319
  */
-class AUTHZ_CONTEXT_INFORMATION_CLASS extends Win32Enum{
+class AUTHZ_CONTEXT_INFORMATION_CLASS extends Win32Enum {
 
     /**
      * Retrieves a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-token_user">TOKEN_USER</a> structure that contains a user <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security identifier</a> (SID) and its attribute.

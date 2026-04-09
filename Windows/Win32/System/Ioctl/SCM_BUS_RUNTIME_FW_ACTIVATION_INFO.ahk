@@ -1,12 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\SCM_BUS_FIRMWARE_ACTIVATION_STATE.ahk
 
 /**
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class SCM_BUS_RUNTIME_FW_ACTIVATION_INFO extends Win32Struct
-{
+class SCM_BUS_RUNTIME_FW_ACTIVATION_INFO extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8
@@ -27,7 +26,7 @@ class SCM_BUS_RUNTIME_FW_ACTIVATION_INFO extends Win32Struct
             get => NumGet(this, 0, "uint")
             set => NumPut("uint", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -35,7 +34,7 @@ class SCM_BUS_RUNTIME_FW_ACTIVATION_INFO extends Win32Struct
             get => (this._bitfield >> 0) & 0x1
             set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -43,7 +42,7 @@ class SCM_BUS_RUNTIME_FW_ACTIVATION_INFO extends Win32Struct
             get => (this._bitfield >> 1) & 0x1
             set => this._bitfield := ((value & 0x1) << 1) | (this._bitfield & ~(0x1 << 1))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -51,7 +50,6 @@ class SCM_BUS_RUNTIME_FW_ACTIVATION_INFO extends Win32Struct
             get => (this._bitfield >> 2) & 0x1
             set => this._bitfield := ((value & 0x1) << 2) | (this._bitfield & ~(0x1 << 2))
         }
-    
     }
 
     /**
@@ -79,7 +77,7 @@ class SCM_BUS_RUNTIME_FW_ACTIVATION_INFO extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {SCM_BUS_FIRMWARE_ACTIVATION_STATE}
      */
     FirmwareActivationState {
         get => NumGet(this, 12, "int")
@@ -89,10 +87,10 @@ class SCM_BUS_RUNTIME_FW_ACTIVATION_INFO extends Win32Struct
     /**
      * @type {_FirmwareActivationCapability}
      */
-    FirmwareActivationCapability{
+    FirmwareActivationCapability {
         get {
             if(!this.HasProp("__FirmwareActivationCapability"))
-                this.__FirmwareActivationCapability := %this.__Class%._FirmwareActivationCapability(16, this)
+                this.__FirmwareActivationCapability := SCM_BUS_RUNTIME_FW_ACTIVATION_INFO._FirmwareActivationCapability(16, this)
             return this.__FirmwareActivationCapability
         }
     }

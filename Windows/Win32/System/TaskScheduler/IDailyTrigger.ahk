@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include .\ITrigger.ahk
 
 /**
@@ -14,9 +13,8 @@
  * When reading or writing your own XML for a task, a daily trigger is specified using the <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/taskschedulerschema-schedulebyday-calendartriggertype-element">ScheduleByDay</a> element of the Task Scheduler schema.
  * @see https://learn.microsoft.com/windows/win32/api/taskschd/nn-taskschd-idailytrigger
  * @namespace Windows.Win32.System.TaskScheduler
- * @version v4.0.30319
  */
-class IDailyTrigger extends ITrigger{
+class IDailyTrigger extends ITrigger {
 
     static sizeof => A_PtrSize
     /**
@@ -38,6 +36,7 @@ class IDailyTrigger extends ITrigger{
     static VTableNames => ["get_DaysInterval", "put_DaysInterval", "get_RandomDelay", "put_RandomDelay"]
 
     /**
+     * @type {Integer} 
      */
     DaysInterval {
         get => this.get_DaysInterval()
@@ -45,6 +44,7 @@ class IDailyTrigger extends ITrigger{
     }
 
     /**
+     * @type {BSTR} 
      */
     RandomDelay {
         get => this.get_RandomDelay()

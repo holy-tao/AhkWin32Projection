@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\Dxgi\Common\DXGI_FORMAT.ahk
+#Include ..\Dxgi\Common\DXGI_COLOR_SPACE_TYPE.ahk
 
 /**
  * Describes a video sample.
  * @see https://learn.microsoft.com/windows/win32/api/d3d11_1/ns-d3d11_1-d3d11_video_sample_desc
  * @namespace Windows.Win32.Graphics.Direct3D11
- * @version v4.0.30319
  */
-class D3D11_VIDEO_SAMPLE_DESC extends Win32Struct
-{
+class D3D11_VIDEO_SAMPLE_DESC extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4
@@ -33,7 +33,7 @@ class D3D11_VIDEO_SAMPLE_DESC extends Win32Struct
 
     /**
      * The format of the video sample.
-     * @type {Integer}
+     * @type {DXGI_FORMAT}
      */
     Format {
         get => NumGet(this, 8, "int")
@@ -42,7 +42,7 @@ class D3D11_VIDEO_SAMPLE_DESC extends Win32Struct
 
     /**
      * The colorspace of the sample.
-     * @type {Integer}
+     * @type {DXGI_COLOR_SPACE_TYPE}
      */
     ColorSpace {
         get => NumGet(this, 12, "int")

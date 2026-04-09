@@ -9,9 +9,8 @@
  * Similar to <a href="https://docs.microsoft.com/previous-versions/windows/internet-explorer/ie-developer/platform-apis/cc678965(v=vs.85)">IServiceProvider</a>, except that this method does not imply that unhandled or unknown requests should be forwarded.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-iobjectprovider
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IObjectProvider extends IUnknown{
+class IObjectProvider extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

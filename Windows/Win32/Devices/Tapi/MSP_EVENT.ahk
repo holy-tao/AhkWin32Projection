@@ -5,9 +5,8 @@
  * The MSP_EVENT (msp.h) enumerator defines the type of event information contained in MSP_EVENT_INFO.
  * @see https://learn.microsoft.com/windows/win32/api/msp/ne-msp-msp_event
  * @namespace Windows.Win32.Devices.Tapi
- * @version v4.0.30319
  */
-class MSP_EVENT extends Win32Enum{
+class MSP_EVENT extends Win32Enum {
 
     /**
      * The event buffer is an 
@@ -38,25 +37,21 @@ class MSP_EVENT extends Win32Enum{
     static ME_PRIVATE_EVENT => 3
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static ME_ASR_TERMINAL_EVENT => 4
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static ME_TTS_TERMINAL_EVENT => 5
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static ME_FILE_TERMINAL_EVENT => 6
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static ME_TONE_TERMINAL_EVENT => 7

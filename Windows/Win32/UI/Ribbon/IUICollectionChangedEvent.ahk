@@ -17,9 +17,8 @@
  * In the case of the Ribbon,  <b>IUICollectionChangedEvent</b> is the outgoing interface defined by the framework and implemented by the application. The Ribbon triggers the <a href="https://docs.microsoft.com/windows/desktop/api/uiribbon/nf-uiribbon-iuicollectionchangedevent-onchanged">IUICollectionChangedEvent::OnChanged</a> event in the client by sending an outgoing notification when a collection changes, for example, adding a Command to the Quick Access Toolbar (QAT).
  * @see https://learn.microsoft.com/windows/win32/api/uiribbon/nn-uiribbon-iuicollectionchangedevent
  * @namespace Windows.Win32.UI.Ribbon
- * @version v4.0.30319
  */
-class IUICollectionChangedEvent extends IUnknown{
+class IUICollectionChangedEvent extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -46,7 +45,7 @@ class IUICollectionChangedEvent extends IUnknown{
      * The <b>IUICollectionChangedEvent::OnChanged</b> interface is implemented by the Ribbon host application 
      * 				(the client connection sink) as a listener for collection changed 
      * 				events that are fired by the Ribbon (the connectable object).
-     * @param {Integer} action Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiribbon/ne-uiribbon-ui_collectionchange">UI_COLLECTIONCHANGE</a></b>
+     * @param {UI_COLLECTIONCHANGE} action Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiribbon/ne-uiribbon-ui_collectionchange">UI_COLLECTIONCHANGE</a></b>
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/api/uiribbon/ne-uiribbon-ui_collectionchange">action</a> performed on the 
      * 					<a href="https://docs.microsoft.com/windows/desktop/api/uiribbon/nn-uiribbon-iuicollection">IUICollection</a>.

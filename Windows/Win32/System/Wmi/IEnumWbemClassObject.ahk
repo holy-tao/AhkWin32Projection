@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IEnumWbemClassObject.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -10,9 +9,8 @@
  * <b>IEnumWbemClassObject</b> is the object returned from a WMI query, and is used to enumerate through the returned values. For more information on how to use this class, see <a href="https://docs.microsoft.com/windows/desktop/WmiSdk/querying-wmi">Querying WMI</a> and <a href="https://docs.microsoft.com/windows/desktop/WmiSdk/enumerating-wmi">Enumerating WMI</a>.
  * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nn-wbemcli-ienumwbemclassobject
  * @namespace Windows.Win32.System.Wmi
- * @version v4.0.30319
  */
-class IEnumWbemClassObject extends IUnknown{
+class IEnumWbemClassObject extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

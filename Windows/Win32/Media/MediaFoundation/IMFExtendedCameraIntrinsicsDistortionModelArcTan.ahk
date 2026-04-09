@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\MFCameraIntrinsic_DistortionModelArcTan.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\MFCameraIntrinsic_DistortionModelArcTan.ahk
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFExtendedCameraIntrinsicsDistortionModelArcTan extends IUnknown{
+class IMFExtendedCameraIntrinsicsDistortionModelArcTan extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

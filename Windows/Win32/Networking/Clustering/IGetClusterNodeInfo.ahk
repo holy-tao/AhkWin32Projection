@@ -34,9 +34,8 @@
  *      <b>IGetClusterNodeInfo</b> methods.
  * @see https://learn.microsoft.com/windows/win32/api/cluadmex/nn-cluadmex-igetclusternodeinfo
  * @namespace Windows.Win32.Networking.Clustering
- * @version v4.0.30319
  */
-class IGetClusterNodeInfo extends IUnknown{
+class IGetClusterNodeInfo extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

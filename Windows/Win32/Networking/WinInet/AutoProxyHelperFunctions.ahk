@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\AutoProxyHelperVtbl.ahk
 
 /**
  * The AutoProxyHelperFunctions structure is used create a v-table of Proxy Auto-Config functions that can be passed to InternetInitializeAutoProxyDll.
@@ -10,10 +11,8 @@
  * <div> </div>
  * @see https://learn.microsoft.com/windows/win32/api/wininet/ns-wininet-autoproxyhelperfunctions
  * @namespace Windows.Win32.Networking.WinInet
- * @version v4.0.30319
  */
-class AutoProxyHelperFunctions extends Win32Struct
-{
+class AutoProxyHelperFunctions extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 8

@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
 #Include .\ICertProperty.ahk
+#Include ..\..\..\Foundation\BSTR.ahk
 
 /**
  * Represents an external certificate property that contains information about a certificate enrollment policy (CEP) server and a certificate enrollment server (CES).
  * @see https://learn.microsoft.com/windows/win32/api/certenroll/nn-certenroll-icertpropertyenrollmentpolicyserver
  * @namespace Windows.Win32.Security.Cryptography.Certificates
- * @version v4.0.30319
  */
-class ICertPropertyEnrollmentPolicyServer extends ICertProperty{
+class ICertPropertyEnrollmentPolicyServer extends ICertProperty {
 
     static sizeof => A_PtrSize
     /**
@@ -33,10 +32,10 @@ class ICertPropertyEnrollmentPolicyServer extends ICertProperty{
 
     /**
      * Initializes an ICertPropertyEnrollmentPolicyServer object.
-     * @param {Integer} PropertyFlags 
-     * @param {Integer} AuthFlags 
-     * @param {Integer} EnrollmentServerAuthFlags An <a href="https://docs.microsoft.com/windows/desktop/api/certcli/ne-certcli-x509enrollmentauthflags">X509EnrollmentAuthFlags</a> enumeration value that specifies the authentication type used by the client to authenticate itself to the CES. See the <i>AuthFlags</i> parameter for the possible values of the enumeration type. For Windows 7, only <b>X509AuthCertificate</b> can be specified.
-     * @param {Integer} UrlFlags 
+     * @param {EnrollmentPolicyServerPropertyFlags} PropertyFlags 
+     * @param {X509EnrollmentAuthFlags} AuthFlags 
+     * @param {X509EnrollmentAuthFlags} EnrollmentServerAuthFlags An <a href="https://docs.microsoft.com/windows/desktop/api/certcli/ne-certcli-x509enrollmentauthflags">X509EnrollmentAuthFlags</a> enumeration value that specifies the authentication type used by the client to authenticate itself to the CES. See the <i>AuthFlags</i> parameter for the possible values of the enumeration type. For Windows 7, only <b>X509AuthCertificate</b> can be specified.
+     * @param {PolicyServerUrlFlags} UrlFlags 
      * @param {BSTR} strRequestId A <b>BSTR</b> variable that contains a unique string identifier for the certificate request to be sent to the certification authority during enrollment. The string can contain any information that uniquely identifies the request.
      * @param {BSTR} strUrl A <b>BSTR</b> variable that contains the URL for the certificate enrollment policy (CEP) server.
      * @param {BSTR} strId A <b>BSTR</b> variable that contains the ID of the CEP server.
@@ -124,7 +123,7 @@ class ICertPropertyEnrollmentPolicyServer extends ICertProperty{
 
     /**
      * Retrieves a value that specifies the default policy server URL.
-     * @returns {Integer} 
+     * @returns {EnrollmentPolicyServerPropertyFlags} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icertpropertyenrollmentpolicyserver-getpropertyflags
      */
     GetPropertyFlags() {
@@ -134,7 +133,7 @@ class ICertPropertyEnrollmentPolicyServer extends ICertProperty{
 
     /**
      * Retrieves a set of flags that contain miscellaneous policy information about the certificate enrollment policy (CEP) server.
-     * @returns {Integer} 
+     * @returns {PolicyServerUrlFlags} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icertpropertyenrollmentpolicyserver-geturlflags
      */
     GetUrlFlags() {
@@ -144,7 +143,7 @@ class ICertPropertyEnrollmentPolicyServer extends ICertProperty{
 
     /**
      * The GetAuthentication method retrieves a value that specifies the type of authentication used by the certificate enrollment policy (CEP) server to authenticate a client. This value is set by the Initialize method.
-     * @returns {Integer} 
+     * @returns {X509EnrollmentAuthFlags} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icertpropertyenrollmentpolicyserver-getauthentication
      */
     GetAuthentication() {
@@ -154,7 +153,7 @@ class ICertPropertyEnrollmentPolicyServer extends ICertProperty{
 
     /**
      * The GetEnrollmentServerAuthentication method retrieves a value that specifies the type of authentication used by the certificate enrollment server (CES) to authenticate a client. This value is set by the Initialize method.
-     * @returns {Integer} 
+     * @returns {X509EnrollmentAuthFlags} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icertpropertyenrollmentpolicyserver-getenrollmentserverauthentication
      */
     GetEnrollmentServerAuthentication() {

@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Include ..\Com\IUnknown.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\IPMTilePropertyInfo.ahk
 #Include .\IPMTilePropertyEnumerator.ahk
-#Include ..\Com\IUnknown.ahk
 
 /**
  * @namespace Windows.Win32.System.ApplicationInstallationAndServicing
- * @version v4.0.30319
  */
-class IPMTileInfo extends IUnknown{
+class IPMTileInfo extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -45,7 +44,7 @@ class IPMTileInfo extends IUnknown{
     }
 
     /**
-     * @type {Integer} 
+     * @type {TILE_TEMPLATE_TYPE} 
      */
     TemplateType {
         get => this.get_TemplateType()
@@ -72,7 +71,7 @@ class IPMTileInfo extends IUnknown{
     }
 
     /**
-     * @type {Integer} 
+     * @type {PM_STARTTILE_TYPE} 
      */
     TileType {
         get => this.get_TileType()
@@ -139,7 +138,7 @@ class IPMTileInfo extends IUnknown{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {TILE_TEMPLATE_TYPE} 
      */
     get_TemplateType() {
         result := ComCall(5, this, "int*", &pTemplateType := 0, "HRESULT")
@@ -148,7 +147,7 @@ class IPMTileInfo extends IUnknown{
 
     /**
      * 
-     * @param {Integer} HubType 
+     * @param {PM_TILE_HUBTYPE} HubType 
      * @returns {BOOL} 
      */
     get_HubPinnedState(HubType) {
@@ -158,7 +157,7 @@ class IPMTileInfo extends IUnknown{
 
     /**
      * 
-     * @param {Integer} HubType 
+     * @param {PM_TILE_HUBTYPE} HubType 
      * @returns {Integer} 
      */
     get_HubPosition(HubType) {
@@ -196,7 +195,7 @@ class IPMTileInfo extends IUnknown{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {PM_STARTTILE_TYPE} 
      */
     get_TileType() {
         result := ComCall(11, this, "int*", &pStartTileType := 0, "HRESULT")
@@ -244,8 +243,8 @@ class IPMTileInfo extends IUnknown{
 
     /**
      * 
-     * @param {Integer} HubType 
-     * @returns {Integer} 
+     * @param {PM_TILE_HUBTYPE} HubType 
+     * @returns {PM_TILE_SIZE} 
      */
     get_HubTileSize(HubType) {
         result := ComCall(16, this, "int", HubType, "int*", &pSize := 0, "HRESULT")
@@ -254,7 +253,7 @@ class IPMTileInfo extends IUnknown{
 
     /**
      * 
-     * @param {Integer} HubType 
+     * @param {PM_TILE_HUBTYPE} HubType 
      * @param {Integer} Position 
      * @returns {HRESULT} 
      */
@@ -275,7 +274,7 @@ class IPMTileInfo extends IUnknown{
 
     /**
      * 
-     * @param {Integer} HubType 
+     * @param {PM_TILE_HUBTYPE} HubType 
      * @param {BOOL} Pinned 
      * @returns {HRESULT} 
      */
@@ -286,8 +285,8 @@ class IPMTileInfo extends IUnknown{
 
     /**
      * 
-     * @param {Integer} HubType 
-     * @param {Integer} _Size 
+     * @param {PM_TILE_HUBTYPE} HubType 
+     * @param {PM_TILE_SIZE} _Size 
      * @returns {HRESULT} 
      */
     set_HubTileSize(HubType, _Size) {

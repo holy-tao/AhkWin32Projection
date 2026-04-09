@@ -1,13 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32Struct.ahk
+#Include .\CKCL_DATA.ahk
 #Include ..\..\..\..\Foundation\HANDLE.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
- * @version v4.0.30319
  */
-class CKCL_LISTHEAD extends Win32Struct
-{
+class CKCL_LISTHEAD extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
@@ -23,7 +22,7 @@ class CKCL_LISTHEAD extends Win32Struct
     /**
      * @type {HANDLE}
      */
-    Heap{
+    Heap {
         get {
             if(!this.HasProp("__Heap"))
                 this.__Heap := HANDLE(8, this)

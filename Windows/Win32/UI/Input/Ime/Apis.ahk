@@ -8,7 +8,6 @@
 
 /**
  * @namespace Windows.Win32.UI.Input.Ime
- * @version v4.0.30319
  */
 class Ime {
 
@@ -3325,7 +3324,7 @@ class Ime {
     /**
      * The ImmSimulateHotKey function (immdev.h) simulates the specified IME hot key, causing the same response as if the user presses the hot key in the specified window.
      * @param {HWND} param0 
-     * @param {Integer} param1 
+     * @param {IME_HOTKEY_IDENTIFIER} param1 
      * @returns {BOOL} Returns a nonzero value if successful, or 0 otherwise.
      * @see https://learn.microsoft.com/windows/win32/api/immdev/nf-immdev-immsimulatehotkey
      * @since windows5.1.2600
@@ -3454,8 +3453,8 @@ class Ime {
      * > [!NOTE]
      * > The immdev.h header defines ImmGetCompositionString as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HIMC} param0 
-     * @param {Integer} param1 
-     * @param {Pointer} lpBuf Pointer to a buffer in which the function retrieves the composition string information.
+     * @param {IME_COMPOSITION_STRING} param1 
+     * @param {Integer} lpBuf Pointer to a buffer in which the function retrieves the composition string information.
      * @param {Integer} dwBufLen Size, in bytes, of the output buffer, even if the output is a Unicode string. The application sets this parameter to 0 if the function is to return the size of the required output buffer.
      * @returns {Integer} Returns the number of bytes copied to the output buffer. If <i>dwBufLen</i> is set to 0, the function returns the buffer size, in bytes, required to receive all requested information, excluding the terminating null character. The return value is always the size, in bytes, even if the requested data is a Unicode string.
      * 
@@ -3490,8 +3489,8 @@ class Ime {
      * > [!NOTE]
      * > The immdev.h header defines ImmGetCompositionString as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HIMC} param0 
-     * @param {Integer} param1 
-     * @param {Pointer} lpBuf Pointer to a buffer in which the function retrieves the composition string information.
+     * @param {IME_COMPOSITION_STRING} param1 
+     * @param {Integer} lpBuf Pointer to a buffer in which the function retrieves the composition string information.
      * @param {Integer} dwBufLen Size, in bytes, of the output buffer, even if the output is a Unicode string. The application sets this parameter to 0 if the function is to return the size of the required output buffer.
      * @returns {Integer} Returns the number of bytes copied to the output buffer. If <i>dwBufLen</i> is set to 0, the function returns the buffer size, in bytes, required to receive all requested information, excluding the terminating null character. The return value is always the size, in bytes, even if the requested data is a Unicode string.
      * 
@@ -3538,10 +3537,10 @@ class Ime {
      * > [!NOTE]
      * > The immdev.h header defines ImmSetCompositionString as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HIMC} param0 
-     * @param {Integer} dwIndex 
-     * @param {Pointer} lpComp Pointer to a buffer containing the information to set for the composition string, as specified by the value of <i>dwIndex</i>.
+     * @param {SET_COMPOSITION_STRING_TYPE} dwIndex 
+     * @param {Integer} lpComp Pointer to a buffer containing the information to set for the composition string, as specified by the value of <i>dwIndex</i>.
      * @param {Integer} dwCompLen Size, in bytes, of the information buffer for the composition string, even if SCS_SETSTR is specified and the buffer contains a Unicode string.
-     * @param {Pointer} lpRead Pointer to a buffer containing the information to set for the reading string, as specified by the value of <i>dwIndex</i>. The application can set this parameter to <b>NULL</b>.
+     * @param {Integer} lpRead Pointer to a buffer containing the information to set for the reading string, as specified by the value of <i>dwIndex</i>. The application can set this parameter to <b>NULL</b>.
      * @param {Integer} dwReadLen Size, in bytes, of the information buffer for the reading string, even if SCS_SETSTR is specified and the buffer contains a Unicode string.
      * @returns {BOOL} Returns a nonzero value if successful, or 0 otherwise.
      * @see https://learn.microsoft.com/windows/win32/api/immdev/nf-immdev-immsetcompositionstringa
@@ -3580,10 +3579,10 @@ class Ime {
      * > [!NOTE]
      * > The immdev.h header defines ImmSetCompositionString as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HIMC} param0 
-     * @param {Integer} dwIndex 
-     * @param {Pointer} lpComp Pointer to a buffer containing the information to set for the composition string, as specified by the value of <i>dwIndex</i>.
+     * @param {SET_COMPOSITION_STRING_TYPE} dwIndex 
+     * @param {Integer} lpComp Pointer to a buffer containing the information to set for the composition string, as specified by the value of <i>dwIndex</i>.
      * @param {Integer} dwCompLen Size, in bytes, of the information buffer for the composition string, even if SCS_SETSTR is specified and the buffer contains a Unicode string.
-     * @param {Pointer} lpRead Pointer to a buffer containing the information to set for the reading string, as specified by the value of <i>dwIndex</i>. The application can set this parameter to <b>NULL</b>.
+     * @param {Integer} lpRead Pointer to a buffer containing the information to set for the reading string, as specified by the value of <i>dwIndex</i>. The application can set this parameter to <b>NULL</b>.
      * @param {Integer} dwReadLen Size, in bytes, of the information buffer for the reading string, even if SCS_SETSTR is specified and the buffer contains a Unicode string.
      * @returns {BOOL} Returns a nonzero value if successful, or 0 otherwise.
      * @see https://learn.microsoft.com/windows/win32/api/immdev/nf-immdev-immsetcompositionstringw
@@ -3655,7 +3654,7 @@ class Ime {
      * > The immdev.h header defines ImmGetCandidateList as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HIMC} param0 
      * @param {Integer} deIndex Zero-based index of the candidate list.
-     * @param {Pointer} lpCandList Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/imm/ns-imm-candidatelist">CANDIDATELIST</a> structure in which the function retrieves the candidate list.
+     * @param {Integer} lpCandList Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/imm/ns-imm-candidatelist">CANDIDATELIST</a> structure in which the function retrieves the candidate list.
      * @param {Integer} dwBufLen Size, in bytes, of the buffer to receive the candidate list. The application can specify 0 for this parameter if the function is to return the required size of the output buffer only.
      * @returns {Integer} Returns the number of bytes copied to the candidate list buffer if successful. If the application has supplied 0 for the <i>dwBufLen</i> parameter, the function returns the size required for the candidate list buffer.
      * 
@@ -3677,7 +3676,7 @@ class Ime {
      * > The immdev.h header defines ImmGetCandidateList as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HIMC} param0 
      * @param {Integer} deIndex Zero-based index of the candidate list.
-     * @param {Pointer} lpCandList Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/imm/ns-imm-candidatelist">CANDIDATELIST</a> structure in which the function retrieves the candidate list.
+     * @param {Integer} lpCandList Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/imm/ns-imm-candidatelist">CANDIDATELIST</a> structure in which the function retrieves the candidate list.
      * @param {Integer} dwBufLen Size, in bytes, of the buffer to receive the candidate list. The application can specify 0 for this parameter if the function is to return the required size of the output buffer only.
      * @returns {Integer} Returns the number of bytes copied to the candidate list buffer if successful. If the application has supplied 0 for the <i>dwBufLen</i> parameter, the function returns the size required for the candidate list buffer.
      * 
@@ -3704,8 +3703,8 @@ class Ime {
      * > [!NOTE]
      * > The immdev.h header defines ImmGetGuideLine as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HIMC} param0 
-     * @param {Integer} dwIndex 
-     * @param {Pointer} lpBuf Pointer to a buffer in which the function retrieves the error message string. This parameter contains <b>NULL</b> if <i>dwIndex</i> is not GGL_STRING or GGL_PRIVATE or if <i>dwBufLen</i> is set to 0.
+     * @param {GET_GUIDE_LINE_TYPE} dwIndex 
+     * @param {Integer} lpBuf Pointer to a buffer in which the function retrieves the error message string. This parameter contains <b>NULL</b> if <i>dwIndex</i> is not GGL_STRING or GGL_PRIVATE or if <i>dwBufLen</i> is set to 0.
      * @param {Integer} dwBufLen Size, in bytes, of the output buffer. The application sets this parameter to 0 if the function is to return the buffer size needed to receive the error message string, not including the terminating null character.
      * @returns {Integer} Returns an error level, an error index, or the size of an error message string, depending on the value of the <i>dwIndex</i> parameter. If <i>dwIndex</i> is GGL_LEVEL, the return is one of the following values.
      * 
@@ -3824,8 +3823,8 @@ class Ime {
      * > [!NOTE]
      * > The immdev.h header defines ImmGetGuideLine as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HIMC} param0 
-     * @param {Integer} dwIndex 
-     * @param {Pointer} lpBuf Pointer to a buffer in which the function retrieves the error message string. This parameter contains <b>NULL</b> if <i>dwIndex</i> is not GGL_STRING or GGL_PRIVATE or if <i>dwBufLen</i> is set to 0.
+     * @param {GET_GUIDE_LINE_TYPE} dwIndex 
+     * @param {Integer} lpBuf Pointer to a buffer in which the function retrieves the error message string. This parameter contains <b>NULL</b> if <i>dwIndex</i> is not GGL_STRING or GGL_PRIVATE or if <i>dwBufLen</i> is set to 0.
      * @param {Integer} dwBufLen Size, in bytes, of the output buffer. The application sets this parameter to 0 if the function is to return the buffer size needed to receive the error message string, not including the terminating null character.
      * @returns {Integer} Returns an error level, an error index, or the size of an error message string, depending on the value of the <i>dwIndex</i> parameter. If <i>dwIndex</i> is GGL_LEVEL, the return is one of the following values.
      * 
@@ -3937,8 +3936,8 @@ class Ime {
      * @remarks
      * Conversion and sentence mode values are set only if the IME supports those modes.
      * @param {HIMC} param0 
-     * @param {Pointer<Integer>} lpfdwConversion Pointer to a variable in which the function retrieves a combination of conversion mode values. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Intl/ime-conversion-mode-values">IME Conversion Mode Values</a>.
-     * @param {Pointer<Integer>} lpfdwSentence Pointer to a variable in which the function retrieves a sentence mode value. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Intl/ime-sentence-mode-values">IME Sentence Mode Values</a>.
+     * @param {Pointer<IME_CONVERSION_MODE>} lpfdwConversion Pointer to a variable in which the function retrieves a combination of conversion mode values. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Intl/ime-conversion-mode-values">IME Conversion Mode Values</a>.
+     * @param {Pointer<IME_SENTENCE_MODE>} lpfdwSentence Pointer to a variable in which the function retrieves a sentence mode value. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Intl/ime-sentence-mode-values">IME Sentence Mode Values</a>.
      * @returns {BOOL} Returns a nonzero value if successful, or 0 otherwise.
      * @see https://learn.microsoft.com/windows/win32/api/immdev/nf-immdev-immgetconversionstatus
      * @since windows5.1.2600
@@ -3962,8 +3961,8 @@ class Ime {
      * The Microsoft IME (Japanese) respects the mode globally, and therefore  <b>ImmSetConversionStatus</b> fails when getting focus.</div>
      * <div> </div>
      * @param {HIMC} param0 
-     * @param {Integer} param1 
-     * @param {Integer} param2 
+     * @param {IME_CONVERSION_MODE} param1 
+     * @param {IME_SENTENCE_MODE} param2 
      * @returns {BOOL} Returns a nonzero value if successful, or 0 otherwise.
      * @see https://learn.microsoft.com/windows/win32/api/immdev/nf-immdev-immsetconversionstatus
      * @since windows5.1.2600
@@ -4160,7 +4159,7 @@ class Ime {
      * > The immdev.h header defines ImmEscape as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HKL} param0 
      * @param {HIMC} param1 
-     * @param {Integer} param2 
+     * @param {IME_ESCAPE} param2 
      * @param {Pointer<Void>} param3 
      * @returns {LRESULT} Returns an operation-specific value if successful, or 0 otherwise.
      * @see https://learn.microsoft.com/windows/win32/api/immdev/nf-immdev-immescapea
@@ -4200,7 +4199,7 @@ class Ime {
      * > The immdev.h header defines ImmEscape as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HKL} param0 
      * @param {HIMC} param1 
-     * @param {Integer} param2 
+     * @param {IME_ESCAPE} param2 
      * @param {Pointer<Void>} param3 
      * @returns {LRESULT} Returns an operation-specific value if successful, or 0 otherwise.
      * @see https://learn.microsoft.com/windows/win32/api/immdev/nf-immdev-immescapew
@@ -4224,9 +4223,9 @@ class Ime {
      * @param {HKL} param0 
      * @param {HIMC} param1 
      * @param {PSTR} lpSrc Pointer to a null-terminated character string specifying the source of the list.
-     * @param {Pointer} lpDst Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/imm/ns-imm-candidatelist">CANDIDATELIST</a> structure in which the function retrieves the list.
+     * @param {Integer} lpDst Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/imm/ns-imm-candidatelist">CANDIDATELIST</a> structure in which the function retrieves the list.
      * @param {Integer} dwBufLen Size, in bytes, of the output buffer. The application sets this parameter to 0 if the function is to return the buffer size required for the complete conversion result list.
-     * @param {Integer} uFlag 
+     * @param {GET_CONVERSION_LIST_FLAG} uFlag 
      * @returns {Integer} Returns the number of bytes copied to the output buffer. If the application sets the <i>dwBufLen</i> parameter to 0, the function returns the size, in bytes, of the required output buffer.
      * @see https://learn.microsoft.com/windows/win32/api/immdev/nf-immdev-immgetconversionlista
      * @since windows5.1.2600
@@ -4248,9 +4247,9 @@ class Ime {
      * @param {HKL} param0 
      * @param {HIMC} param1 
      * @param {PWSTR} lpSrc Pointer to a null-terminated character string specifying the source of the list.
-     * @param {Pointer} lpDst Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/imm/ns-imm-candidatelist">CANDIDATELIST</a> structure in which the function retrieves the list.
+     * @param {Integer} lpDst Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/imm/ns-imm-candidatelist">CANDIDATELIST</a> structure in which the function retrieves the list.
      * @param {Integer} dwBufLen Size, in bytes, of the output buffer. The application sets this parameter to 0 if the function is to return the buffer size required for the complete conversion result list.
-     * @param {Integer} uFlag 
+     * @param {GET_CONVERSION_LIST_FLAG} uFlag 
      * @returns {Integer} Returns the number of bytes copied to the output buffer. If the application sets the <i>dwBufLen</i> parameter to 0, the function returns the size, in bytes, of the required output buffer.
      * @see https://learn.microsoft.com/windows/win32/api/immdev/nf-immdev-immgetconversionlistw
      * @since windows5.1.2600
@@ -4267,8 +4266,8 @@ class Ime {
     /**
      * The ImmNotifyIME function (immdev.h) notifies the IME about changes to the status of the input context.
      * @param {HIMC} param0 
-     * @param {Integer} dwAction 
-     * @param {Integer} dwIndex 
+     * @param {NOTIFY_IME_ACTION} dwAction 
+     * @param {NOTIFY_IME_INDEX} dwIndex 
      * @param {Integer} dwValue Index of a candidate string. The application can set this parameter or ignore it, depending on the value of the <i>dwAction</i> parameter.
      * @returns {BOOL} Returns nonzero if successful, or 0 otherwise.
      * @see https://learn.microsoft.com/windows/win32/api/immdev/nf-immdev-immnotifyime
@@ -4665,7 +4664,7 @@ class Ime {
      * This function calls the application callback function for each enumerated input context, and passes the specified <i>lParam</i> value.
      * @param {Integer} idThread 
      * @param {Pointer<IMCENUMPROC>} lpfn Pointer to the enumeration callback function. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/imm/nc-imm-imcenumproc">EnumInputContext</a>.
-     * @param {LPARAM} _lParam 
+     * @param {LPARAM} _lParam Application-supplied data. The function passes this data to the callback function.
      * @returns {BOOL} Returns <b>TRUE</b> if successful or <b>FALSE</b> otherwise.
      * @see https://learn.microsoft.com/windows/win32/api/immdev/nf-immdev-immenuminputcontext
      * @since windows5.1.2600
@@ -4684,7 +4683,7 @@ class Ime {
      * @param {Integer} param1 
      * @param {Integer} param2 
      * @param {Pointer<IMEMENUITEMINFOA>} lpImeParentMenu Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/imm/ns-imm-imemenuiteminfoa">IMEMENUITEMINFO</a> structure in which the function retrieves parent menu information. To retrieve information about the submenu items of this parent menu, the application sets the <b>fType</b> member to MFT_SUBMENU. This parameter contains <b>NULL</b> if the function retrieves only top-level menu items.
-     * @param {Pointer} lpImeMenu Pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/imm/ns-imm-imemenuiteminfoa">IMEMENUITEMINFO</a> structures in which the function retrieves information about the menu items. This parameter contains <b>NULL</b> if the function retrieves the number of registered menu items.
+     * @param {Integer} lpImeMenu Pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/imm/ns-imm-imemenuiteminfoa">IMEMENUITEMINFO</a> structures in which the function retrieves information about the menu items. This parameter contains <b>NULL</b> if the function retrieves the number of registered menu items.
      * @param {Integer} dwSize Size of the buffer to receive the <a href="https://docs.microsoft.com/windows/desktop/api/imm/ns-imm-imemenuiteminfoa">IMEMENUITEMINFO</a> structure.
      * @returns {Integer} Returns the number of menu items copied into <i>lpImeMenu</i>. If <i>lpImeMenu</i> specifies <b>NULL</b>, the function returns the number of registered menu items in the specified input context.
      * @see https://learn.microsoft.com/windows/win32/api/immdev/nf-immdev-immgetimemenuitemsa
@@ -4706,7 +4705,7 @@ class Ime {
      * @param {Integer} param1 
      * @param {Integer} param2 
      * @param {Pointer<IMEMENUITEMINFOW>} lpImeParentMenu Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/imm/ns-imm-imemenuiteminfoa">IMEMENUITEMINFO</a> structure in which the function retrieves parent menu information. To retrieve information about the submenu items of this parent menu, the application sets the <b>fType</b> member to MFT_SUBMENU. This parameter contains <b>NULL</b> if the function retrieves only top-level menu items.
-     * @param {Pointer} lpImeMenu Pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/imm/ns-imm-imemenuiteminfoa">IMEMENUITEMINFO</a> structures in which the function retrieves information about the menu items. This parameter contains <b>NULL</b> if the function retrieves the number of registered menu items.
+     * @param {Integer} lpImeMenu Pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/imm/ns-imm-imemenuiteminfoa">IMEMENUITEMINFO</a> structures in which the function retrieves information about the menu items. This parameter contains <b>NULL</b> if the function retrieves the number of registered menu items.
      * @param {Integer} dwSize Size of the buffer to receive the <a href="https://docs.microsoft.com/windows/desktop/api/imm/ns-imm-imemenuiteminfoa">IMEMENUITEMINFO</a> structure.
      * @returns {Integer} Returns the number of menu items copied into <i>lpImeMenu</i>. If <i>lpImeMenu</i> specifies <b>NULL</b>, the function returns the number of registered menu items in the specified input context.
      * @see https://learn.microsoft.com/windows/win32/api/immdev/nf-immdev-immgetimemenuitemsw

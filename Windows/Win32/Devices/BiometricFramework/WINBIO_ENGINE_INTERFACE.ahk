@@ -6,10 +6,8 @@
  * Contains pointers to your custom engine adapter functions.
  * @see https://learn.microsoft.com/windows/win32/api/winbio_adapter/ns-winbio_adapter-winbio_engine_interface
  * @namespace Windows.Win32.Devices.BiometricFramework
- * @version v4.0.30319
  */
-class WINBIO_ENGINE_INTERFACE extends Win32Struct
-{
+class WINBIO_ENGINE_INTERFACE extends Win32Struct {
     static sizeof => 352
 
     static packingSize => 8
@@ -24,7 +22,7 @@ class WINBIO_ENGINE_INTERFACE extends Win32Struct
      * <b>Windows Server 2008 R2 and Windows 7:  </b>The version number must be <b>WINBIO_ENGINE_INTERFACE_VERSION_1</b>.
      * @type {WINBIO_ADAPTER_INTERFACE_VERSION}
      */
-    Version{
+    Version {
         get {
             if(!this.HasProp("__Version"))
                 this.__Version := WINBIO_ADAPTER_INTERFACE_VERSION(0, this)
@@ -52,7 +50,7 @@ class WINBIO_ENGINE_INTERFACE extends Win32Struct
 
     /**
      * A GUID that uniquely identifies the engine adapter. You must generate this value.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     AdapterId {
         get => NumGet(this, 16, "ptr")
@@ -402,7 +400,6 @@ class WINBIO_ENGINE_INTERFACE extends Win32Struct
     }
 
     /**
-     * 
      * @type {Pointer<PIBIO_ENGINE_ACCEPT_PRIVATE_SENSOR_TYPE_INFO_FN>}
      */
     AcceptPrivateSensorTypeInfo {
@@ -411,7 +408,6 @@ class WINBIO_ENGINE_INTERFACE extends Win32Struct
     }
 
     /**
-     * 
      * @type {Pointer<PIBIO_ENGINE_CREATE_ENROLLMENT_AUTHENTICATED_FN>}
      */
     CreateEnrollmentAuthenticated {
@@ -420,7 +416,6 @@ class WINBIO_ENGINE_INTERFACE extends Win32Struct
     }
 
     /**
-     * 
      * @type {Pointer<PIBIO_ENGINE_IDENTIFY_FEATURE_SET_AUTHENTICATED_FN>}
      */
     IdentifyFeatureSetAuthenticated {

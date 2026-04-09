@@ -5,17 +5,15 @@
  * The DS_REPL_CURSOR structure contains inbound replication state data with respect to all replicas of a given naming context, as returned by the DsReplicaGetInfo and DsReplicaGetInfo2 functions.
  * @see https://learn.microsoft.com/windows/win32/api/ntdsapi/ns-ntdsapi-ds_repl_cursor
  * @namespace Windows.Win32.Networking.ActiveDirectory
- * @version v4.0.30319
  */
-class DS_REPL_CURSOR extends Win32Struct
-{
+class DS_REPL_CURSOR extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
 
     /**
      * Contains the invocation identifier of the originating server to which the <b>usnAttributeFilter</b> corresponds.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     uuidSourceDsaInvocationID {
         get => NumGet(this, 0, "ptr")

@@ -9,10 +9,8 @@
  * This structure is identical to the <b>VIDEOINFOHEADER2</b> structure defined in Dvdmedia.h. For more information, see the DirectShow documentation in the DirectX SDK.
  * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/ns-wmsdkidl-wmvideoinfoheader2
  * @namespace Windows.Win32.Media.WindowsMediaFormat
- * @version v4.0.30319
  */
-class WMVIDEOINFOHEADER2 extends Win32Struct
-{
+class WMVIDEOINFOHEADER2 extends Win32Struct {
     static sizeof => 112
 
     static packingSize => 8
@@ -21,7 +19,7 @@ class WMVIDEOINFOHEADER2 extends Win32Struct
      * <b>RECT</b> structure that specifies what part of the source stream should be used to fill the destination buffer. Renderers can use this field to ask the decoders to stretch or clip.
      * @type {RECT}
      */
-    rcSource{
+    rcSource {
         get {
             if(!this.HasProp("__rcSource"))
                 this.__rcSource := RECT(0, this)
@@ -33,7 +31,7 @@ class WMVIDEOINFOHEADER2 extends Win32Struct
      * <b>RECT</b> structure that specifies that specifies what part of the destination buffer should be used
      * @type {RECT}
      */
-    rcTarget{
+    rcTarget {
         get {
             if(!this.HasProp("__rcTarget"))
                 this.__rcTarget := RECT(16, this)
@@ -126,7 +124,7 @@ class WMVIDEOINFOHEADER2 extends Win32Struct
      * <b>BITMAPINFOHEADER</b> structure that contains color and dimension information for the video image bitmap.
      * @type {BITMAPINFOHEADER}
      */
-    bmiHeader{
+    bmiHeader {
         get {
             if(!this.HasProp("__bmiHeader"))
                 this.__bmiHeader := BITMAPINFOHEADER(72, this)

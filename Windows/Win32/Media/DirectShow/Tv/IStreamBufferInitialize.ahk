@@ -9,9 +9,8 @@
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IStreamBufferInitialize)</c>.
  * @see https://learn.microsoft.com/windows/win32/api/sbe/nn-sbe-istreambufferinitialize
  * @namespace Windows.Win32.Media.DirectShow.Tv
- * @version v4.0.30319
  */
-class IStreamBufferInitialize extends IUnknown{
+class IStreamBufferInitialize extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

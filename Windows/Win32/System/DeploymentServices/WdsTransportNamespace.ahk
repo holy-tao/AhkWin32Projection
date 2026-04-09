@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.DeploymentServices
- * @version v4.0.30319
  */
-class WdsTransportNamespace extends Win32Struct
-{
+class WdsTransportNamespace extends Win32Struct {
     static sizeof => 0
 
     static packingSize => 1

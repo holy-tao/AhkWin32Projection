@@ -5,10 +5,8 @@
  * Contains information used to set a disk partition's type.
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-set_partition_information
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class SET_PARTITION_INFORMATION extends Win32Struct
-{
+class SET_PARTITION_INFORMATION extends Win32Struct {
     static sizeof => 1
 
     static packingSize => 1

@@ -7,18 +7,16 @@
 
 /**
  * @namespace Windows.Win32.Media.Audio.DirectMusic
- * @version v4.0.30319
  */
-class DMUS_REGION extends Win32Struct
-{
-    static sizeof => 64
+class DMUS_REGION extends Win32Struct {
+    static sizeof => 72
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {RGNRANGE}
      */
-    RangeKey{
+    RangeKey {
         get {
             if(!this.HasProp("__RangeKey"))
                 this.__RangeKey := RGNRANGE(0, this)
@@ -29,7 +27,7 @@ class DMUS_REGION extends Win32Struct
     /**
      * @type {RGNRANGE}
      */
-    RangeVelocity{
+    RangeVelocity {
         get {
             if(!this.HasProp("__RangeVelocity"))
                 this.__RangeVelocity := RGNRANGE(4, this)
@@ -80,7 +78,7 @@ class DMUS_REGION extends Win32Struct
     /**
      * @type {WAVELINK}
      */
-    WaveLink{
+    WaveLink {
         get {
             if(!this.HasProp("__WaveLink"))
                 this.__WaveLink := WAVELINK(24, this)
@@ -91,7 +89,7 @@ class DMUS_REGION extends Win32Struct
     /**
      * @type {WSMPL}
      */
-    WSMP{
+    WSMP {
         get {
             if(!this.HasProp("__WSMP"))
                 this.__WSMP := WSMPL(36, this)
@@ -100,9 +98,9 @@ class DMUS_REGION extends Win32Struct
     }
 
     /**
-     * @type {Array<WLOOP>}
+     * @type {WLOOP}
      */
-    WLOOP{
+    WLOOP {
         get {
             if(!this.HasProp("__WLOOPProxyArray"))
                 this.__WLOOPProxyArray := Win32FixedArray(this.ptr + 56, 1, WLOOP, "")

@@ -1,16 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\BCryptBuffer.ahk
 
 /**
  * Describes how the BCryptBufferDesc structure contains a set of generic Cryptography API: Next Generation (CNG) buffers.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/bcrypt/ns-bcrypt-bcryptbufferdesc
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class BCryptBufferDesc extends Win32Struct
-{
+class BCryptBufferDesc extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\DWRITE_MATRIX.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\DWRITE_MATRIX.ahk
 
 /**
  * Defines the pixel snapping properties such as pixels per DIP(device-independent pixel) and the current transform matrix of a text renderer.
  * @see https://learn.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritepixelsnapping
  * @namespace Windows.Win32.Graphics.DirectWrite
- * @version v4.0.30319
  */
-class IDWritePixelSnapping extends IUnknown{
+class IDWritePixelSnapping extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.WindowsProgramming
- * @version v4.0.30319
  */
-class IMAGE_THUNK_DATA32 extends Win32Struct
-{
+class IMAGE_THUNK_DATA32 extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 4
@@ -22,7 +20,7 @@ class IMAGE_THUNK_DATA32 extends Win32Struct
             get => NumGet(this, 0, "uint")
             set => NumPut("uint", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -30,7 +28,7 @@ class IMAGE_THUNK_DATA32 extends Win32Struct
             get => NumGet(this, 0, "uint")
             set => NumPut("uint", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -38,7 +36,7 @@ class IMAGE_THUNK_DATA32 extends Win32Struct
             get => NumGet(this, 0, "uint")
             set => NumPut("uint", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -46,16 +44,15 @@ class IMAGE_THUNK_DATA32 extends Win32Struct
             get => NumGet(this, 0, "uint")
             set => NumPut("uint", value, this, 0)
         }
-    
     }
 
     /**
      * @type {_u1_e__Union}
      */
-    u1{
+    u1 {
         get {
             if(!this.HasProp("__u1"))
-                this.__u1 := %this.__Class%._u1_e__Union(0, this)
+                this.__u1 := IMAGE_THUNK_DATA32._u1_e__Union(0, this)
             return this.__u1
         }
     }

@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Media.Audio.DirectSound
- * @version v4.0.30319
  */
-class DSBPOSITIONNOTIFY extends Win32Struct
-{
+class DSBPOSITIONNOTIFY extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
@@ -23,7 +21,7 @@ class DSBPOSITIONNOTIFY extends Win32Struct
     /**
      * @type {HANDLE}
      */
-    hEventNotify{
+    hEventNotify {
         get {
             if(!this.HasProp("__hEventNotify"))
                 this.__hEventNotify := HANDLE(8, this)

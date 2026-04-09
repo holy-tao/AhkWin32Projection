@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Networking.WinInet
- * @version v4.0.30319
  */
-class HTTP_WEB_SOCKET_CLOSE_STATUS extends Win32Enum{
+class HTTP_WEB_SOCKET_CLOSE_STATUS extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

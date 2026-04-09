@@ -3,7 +3,6 @@
 
 /**
  * @namespace Windows.Win32.System.WinRT.Graphics.Direct2D
- * @version v4.0.30319
  */
 class Direct2D {
 

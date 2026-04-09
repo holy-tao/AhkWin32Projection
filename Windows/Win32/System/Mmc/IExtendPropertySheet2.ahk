@@ -7,9 +7,8 @@
  * The IExtendPropertySheet2 interface is introduced in MMC 1.1.
  * @see https://learn.microsoft.com/windows/win32/api/mmc/nn-mmc-iextendpropertysheet2
  * @namespace Windows.Win32.System.Mmc
- * @version v4.0.30319
  */
-class IExtendPropertySheet2 extends IExtendPropertySheet{
+class IExtendPropertySheet2 extends IExtendPropertySheet {
 
     static sizeof => A_PtrSize
     /**

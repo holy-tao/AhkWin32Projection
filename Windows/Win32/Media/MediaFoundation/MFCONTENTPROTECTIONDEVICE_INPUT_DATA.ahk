@@ -5,10 +5,8 @@
  * Contains information about the data that you want to provide as input to a protection system function.
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/ns-mfidl-mfcontentprotectiondevice_input_data
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class MFCONTENTPROTECTIONDEVICE_INPUT_DATA extends Win32Struct
-{
+class MFCONTENTPROTECTIONDEVICE_INPUT_DATA extends Win32Struct {
     static sizeof => 20
 
     static packingSize => 4
@@ -55,9 +53,9 @@ class MFCONTENTPROTECTIONDEVICE_INPUT_DATA extends Win32Struct
      * If the value of the <b>PrivateDataByteCount</b> member is greater than 0, bytes 0 through <b>PrivateDataByteCount</b> - 1 are reserved for use by the independent hardware vendor (IHV). Bytes <b>PrivateDataByteCount</b> through <b>HWProtectionDataByteCount</b> + <b>PrivateDataByteCount</b> - 1 contain the input data for the protection system function.   
      * 
      * The protection system specification defines the format and size of the DRM function.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    InputData{
+    InputData {
         get {
             if(!this.HasProp("__InputDataProxyArray"))
                 this.__InputDataProxyArray := Win32FixedArray(this.ptr + 16, 4, Primitive, "char")

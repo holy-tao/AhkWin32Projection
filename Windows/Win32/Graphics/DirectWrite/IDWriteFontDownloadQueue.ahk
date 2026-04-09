@@ -7,9 +7,8 @@
  * Interface that enqueues download requests for remote fonts, characters, glyphs, and font fragments.
  * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nn-dwrite_3-idwritefontdownloadqueue
  * @namespace Windows.Win32.Graphics.DirectWrite
- * @version v4.0.30319
  */
-class IDWriteFontDownloadQueue extends IUnknown{
+class IDWriteFontDownloadQueue extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -82,7 +81,12 @@ class IDWriteFontDownloadQueue extends IUnknown{
      *       to a background download operation. If any previous downloads are still ongoing     
      *       when BeginDownload is called again, the new download does not complete until     
      *       the previous downloads have finished.
-     * @param {IUnknown} _context 
+     * @param {IUnknown} _context Type: <b>IUnknown*</b>
+     * 
+     * Optional context object that is passed back to the     
+     *           download notification handler's DownloadCompleted method. If the context object  
+     *           implements IDWriteFontDownloadListener, its DownloadCompleted will be called    
+     *           when done.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      *  Returns S_OK if a download was successfully begun, S_FALSE if the queue was 

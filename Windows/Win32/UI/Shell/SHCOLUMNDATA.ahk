@@ -5,10 +5,8 @@
  * Contains information that identifies a particular file. It is used by IColumnProvider::GetItemData when requesting data for a particular file.
  * @see https://learn.microsoft.com/windows/win32/api/shlobj/ns-shlobj-shcolumndata
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class SHCOLUMNDATA extends Win32Struct
-{
+class SHCOLUMNDATA extends Win32Struct {
     static sizeof => 544
 
     static packingSize => 8

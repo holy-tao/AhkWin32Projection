@@ -7,9 +7,8 @@
  * This enumeration is reserved.
  * @see https://learn.microsoft.com/windows/win32/api/fwptypes/ne-fwptypes-fwp_ether_encap_method
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
- * @version v4.0.30319
  */
-class FWP_ETHER_ENCAP_METHOD extends Win32Enum{
+class FWP_ETHER_ENCAP_METHOD extends Win32Enum {
 
     /**
      * Specifies Ethernet V2 encapsulation.

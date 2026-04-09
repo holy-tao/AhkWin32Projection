@@ -1,25 +1,27 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\HTTP_SSL_SERVICE_CONFIG_EX_PARAM_TYPE.ahk
 #Include .\HTTP2_WINDOW_SIZE_PARAM.ahk
 #Include .\HTTP2_SETTINGS_LIMITS_PARAM.ahk
 #Include .\HTTP_PERFORMANCE_PARAM.ahk
+#Include .\HTTP_PERFORMANCE_PARAM_TYPE.ahk
 #Include .\HTTP_TLS_RESTRICTIONS_PARAM.ahk
 #Include .\HTTP_ERROR_HEADERS_PARAM.ahk
+#Include .\HTTP_UNKNOWN_HEADER.ahk
 #Include .\HTTP_TLS_SESSION_TICKET_KEYS_PARAM.ahk
 #Include .\HTTP_CERT_CONFIG_PARAM.ahk
+#Include .\HTTP_CERT_CONFIG_ENTRY.ahk
 
 /**
  * @namespace Windows.Win32.Networking.HttpServer
- * @version v4.0.30319
  */
-class HTTP_SERVICE_CONFIG_SSL_PARAM_EX extends Win32Struct
-{
+class HTTP_SERVICE_CONFIG_SSL_PARAM_EX extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
 
     /**
-     * @type {Integer}
+     * @type {HTTP_SSL_SERVICE_CONFIG_EX_PARAM_TYPE}
      */
     ParamType {
         get => NumGet(this, 0, "int")
@@ -37,7 +39,7 @@ class HTTP_SERVICE_CONFIG_SSL_PARAM_EX extends Win32Struct
     /**
      * @type {HTTP2_WINDOW_SIZE_PARAM}
      */
-    Http2WindowSizeParam{
+    Http2WindowSizeParam {
         get {
             if(!this.HasProp("__Http2WindowSizeParam"))
                 this.__Http2WindowSizeParam := HTTP2_WINDOW_SIZE_PARAM(16, this)
@@ -48,7 +50,7 @@ class HTTP_SERVICE_CONFIG_SSL_PARAM_EX extends Win32Struct
     /**
      * @type {HTTP2_SETTINGS_LIMITS_PARAM}
      */
-    Http2SettingsLimitsParam{
+    Http2SettingsLimitsParam {
         get {
             if(!this.HasProp("__Http2SettingsLimitsParam"))
                 this.__Http2SettingsLimitsParam := HTTP2_SETTINGS_LIMITS_PARAM(16, this)
@@ -59,7 +61,7 @@ class HTTP_SERVICE_CONFIG_SSL_PARAM_EX extends Win32Struct
     /**
      * @type {HTTP_PERFORMANCE_PARAM}
      */
-    HttpPerformanceParam{
+    HttpPerformanceParam {
         get {
             if(!this.HasProp("__HttpPerformanceParam"))
                 this.__HttpPerformanceParam := HTTP_PERFORMANCE_PARAM(16, this)
@@ -70,7 +72,7 @@ class HTTP_SERVICE_CONFIG_SSL_PARAM_EX extends Win32Struct
     /**
      * @type {HTTP_TLS_RESTRICTIONS_PARAM}
      */
-    HttpTlsRestrictionsParam{
+    HttpTlsRestrictionsParam {
         get {
             if(!this.HasProp("__HttpTlsRestrictionsParam"))
                 this.__HttpTlsRestrictionsParam := HTTP_TLS_RESTRICTIONS_PARAM(16, this)
@@ -81,7 +83,7 @@ class HTTP_SERVICE_CONFIG_SSL_PARAM_EX extends Win32Struct
     /**
      * @type {HTTP_ERROR_HEADERS_PARAM}
      */
-    HttpErrorHeadersParam{
+    HttpErrorHeadersParam {
         get {
             if(!this.HasProp("__HttpErrorHeadersParam"))
                 this.__HttpErrorHeadersParam := HTTP_ERROR_HEADERS_PARAM(16, this)
@@ -92,7 +94,7 @@ class HTTP_SERVICE_CONFIG_SSL_PARAM_EX extends Win32Struct
     /**
      * @type {HTTP_TLS_SESSION_TICKET_KEYS_PARAM}
      */
-    HttpTlsSessionTicketKeysParam{
+    HttpTlsSessionTicketKeysParam {
         get {
             if(!this.HasProp("__HttpTlsSessionTicketKeysParam"))
                 this.__HttpTlsSessionTicketKeysParam := HTTP_TLS_SESSION_TICKET_KEYS_PARAM(16, this)
@@ -103,7 +105,7 @@ class HTTP_SERVICE_CONFIG_SSL_PARAM_EX extends Win32Struct
     /**
      * @type {HTTP_CERT_CONFIG_PARAM}
      */
-    HttpCertConfigParam{
+    HttpCertConfigParam {
         get {
             if(!this.HasProp("__HttpCertConfigParam"))
                 this.__HttpCertConfigParam := HTTP_CERT_CONFIG_PARAM(16, this)

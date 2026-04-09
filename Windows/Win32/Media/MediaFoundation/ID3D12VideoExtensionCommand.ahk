@@ -9,9 +9,8 @@
  * Create an instance of this interface by calling [ID3D12VideoDevice2::CreateVideoExtensionCommand](nf-d3d12video-id3d12videodevice2-createvideoextensioncommand.md).
  * @see https://learn.microsoft.com/windows/win32/api/d3d12video/nn-d3d12video-id3d12videoextensioncommand
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class ID3D12VideoExtensionCommand extends ID3D12Pageable{
+class ID3D12VideoExtensionCommand extends ID3D12Pageable {
 
     static sizeof => A_PtrSize
     /**

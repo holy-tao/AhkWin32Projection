@@ -1,18 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\RATING_ATTRIBUTE.ahk
 
 /**
  * @namespace Windows.Win32.Media.DirectShow.Tv
- * @version v4.0.30319
  */
-class RATING_SYSTEM extends Win32Struct
-{
+class RATING_SYSTEM extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     rating_system_id {
         get => NumGet(this, 0, "ptr")
@@ -47,9 +46,9 @@ class RATING_SYSTEM extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    country_code{
+    country_code {
         get {
             if(!this.HasProp("__country_codeProxyArray"))
                 this.__country_codeProxyArray := Win32FixedArray(this.ptr + 9, 3, Primitive, "char")

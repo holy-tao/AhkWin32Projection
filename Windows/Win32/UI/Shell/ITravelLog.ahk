@@ -1,17 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ITravelEntry.ahk
-#Include .\ITravelLog.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\ITravelEntry.ahk
 
 /**
  * Deprecated. Exposes methods that maintain and manipulate a record of travel in the browser.
  * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nn-shdeprecated-itravellog
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class ITravelLog extends IUnknown{
+class ITravelLog extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -178,7 +176,9 @@ class ITravelLog extends IUnknown{
      * @param {IUnknown} punk Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>*</b>
      * 
      * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> representing the nearest browser or frame within which the travel generating the log is taking place.
-     * @param {HMENU} _hmenu 
+     * @param {HMENU} _hmenu Type: <b>HMENU</b>
+     * 
+     * The handle of the menu.
      * @param {Integer} nPos Type: <b>int</b>
      * 
      * The position in the menu to insert the entries.

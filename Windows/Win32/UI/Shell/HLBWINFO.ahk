@@ -5,10 +5,8 @@
 
 /**
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class HLBWINFO extends Win32Struct
-{
+class HLBWINFO extends Win32Struct {
     static sizeof => 60
 
     static packingSize => 4
@@ -32,7 +30,7 @@ class HLBWINFO extends Win32Struct
     /**
      * @type {RECT}
      */
-    rcFramePos{
+    rcFramePos {
         get {
             if(!this.HasProp("__rcFramePos"))
                 this.__rcFramePos := RECT(8, this)
@@ -43,7 +41,7 @@ class HLBWINFO extends Win32Struct
     /**
      * @type {RECT}
      */
-    rcDocPos{
+    rcDocPos {
         get {
             if(!this.HasProp("__rcDocPos"))
                 this.__rcDocPos := RECT(24, this)
@@ -54,7 +52,7 @@ class HLBWINFO extends Win32Struct
     /**
      * @type {HLTBINFO}
      */
-    hltbinfo{
+    hltbinfo {
         get {
             if(!this.HasProp("__hltbinfo"))
                 this.__hltbinfo := HLTBINFO(40, this)

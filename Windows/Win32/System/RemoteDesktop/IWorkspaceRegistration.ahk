@@ -7,9 +7,8 @@
  * Exposes methods that add and remove references to custom clients in RemoteApp and Desktop Connection. (IWorkspaceRegistration)
  * @see https://learn.microsoft.com/windows/win32/api/workspaceruntime/nn-workspaceruntime-iworkspaceregistration
  * @namespace Windows.Win32.System.RemoteDesktop
- * @version v4.0.30319
  */
-class IWorkspaceRegistration extends IUnknown{
+class IWorkspaceRegistration extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

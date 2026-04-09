@@ -3,10 +3,9 @@
 
 /**
  * @namespace Windows.Win32.Storage.IscsiDisc
- * @version v4.0.30319
+ * @architecture X64, Arm64
  */
-class SCSI_PASS_THROUGH32 extends Win32Struct
-{
+class SCSI_PASS_THROUGH32 extends Win32Struct {
     static sizeof => 44
 
     static packingSize => 4
@@ -108,9 +107,9 @@ class SCSI_PASS_THROUGH32 extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Cdb{
+    Cdb {
         get {
             if(!this.HasProp("__CdbProxyArray"))
                 this.__CdbProxyArray := Win32FixedArray(this.ptr + 28, 16, Primitive, "char")

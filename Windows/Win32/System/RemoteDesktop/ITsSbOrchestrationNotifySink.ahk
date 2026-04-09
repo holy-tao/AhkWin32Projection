@@ -9,9 +9,8 @@
  * Plug-ins should use this interface to return an <a href="https://docs.microsoft.com/windows/desktop/api/sbtsv/nn-sbtsv-itssbtarget">ITsSbTarget</a> object to RD Connection Broker after the plug-in has successfully prepared ("orchestrated") the target.
  * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nn-sbtsv-itssborchestrationnotifysink
  * @namespace Windows.Win32.System.RemoteDesktop
- * @version v4.0.30319
  */
-class ITsSbOrchestrationNotifySink extends ITsSbBaseNotifySink{
+class ITsSbOrchestrationNotifySink extends ITsSbBaseNotifySink {
 
     static sizeof => A_PtrSize
     /**

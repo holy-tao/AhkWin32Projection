@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
- * @version v4.0.30319
  */
-class EXT_FIND_FILE extends Win32Struct
-{
+class EXT_FIND_FILE extends Win32Struct {
     static sizeof => 80
 
     static packingSize => 8
@@ -87,7 +85,7 @@ class EXT_FIND_FILE extends Win32Struct
     /**
      * @type {HANDLE}
      */
-    FileHandle{
+    FileHandle {
         get {
             if(!this.HasProp("__FileHandle"))
                 this.__FileHandle := HANDLE(56, this)

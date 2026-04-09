@@ -7,10 +7,8 @@
  * The <b>DFS_INFO_200</b> structure is used to enumerate domain-based DFS namespaces in a domain.
  * @see https://learn.microsoft.com/windows/win32/api/lmdfs/ns-lmdfs-dfs_info_200
  * @namespace Windows.Win32.Storage.DistributedFileSystem
- * @version v4.0.30319
  */
-class DFS_INFO_200 extends Win32Struct
-{
+class DFS_INFO_200 extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 8

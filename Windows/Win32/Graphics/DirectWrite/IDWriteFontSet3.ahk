@@ -7,9 +7,8 @@
  * Represents a font set. (IDWriteFontSet3)
  * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nn-dwrite_3-idwritefontset3
  * @namespace Windows.Win32.Graphics.DirectWrite
- * @version v4.0.30319
  */
-class IDWriteFontSet3 extends IDWriteFontSet2{
+class IDWriteFontSet3 extends IDWriteFontSet2 {
 
     static sizeof => A_PtrSize
     /**
@@ -35,7 +34,7 @@ class IDWriteFontSet3 extends IDWriteFontSet2{
      * @param {Integer} fontIndex Type: **[UINT32](/windows/win32/winprog/windows-data-types)**
      * 
      * Zero-based index of the font.
-     * @returns {Integer} Type: **[DWRITE_FONT_SOURCE_TYPE](./ne-dwrite_3-dwrite_font_source_type.md)**
+     * @returns {DWRITE_FONT_SOURCE_TYPE} Type: **[DWRITE_FONT_SOURCE_TYPE](./ne-dwrite_3-dwrite_font_source_type.md)**
      * 
      * The font source type of the specified font.
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontset3-getfontsourcetype

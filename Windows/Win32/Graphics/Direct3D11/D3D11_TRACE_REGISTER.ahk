@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\D3D11_TRACE_REGISTER_TYPE.ahk
 
 /**
  * Describes a trace register.
@@ -22,17 +23,15 @@
  * <div> </div>
  * @see https://learn.microsoft.com/windows/win32/api/d3d11shadertracing/ns-d3d11shadertracing-d3d11_trace_register
  * @namespace Windows.Win32.Graphics.Direct3D11
- * @version v4.0.30319
  */
-class D3D11_TRACE_REGISTER extends Win32Struct
-{
+class D3D11_TRACE_REGISTER extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/d3d11shadertracing/ne-d3d11shadertracing-d3d11_trace_register_type">D3D11_TRACE_REGISTER_TYPE</a>-typed value that identifies the type of register that the shader-trace object uses.
-     * @type {Integer}
+     * @type {D3D11_TRACE_REGISTER_TYPE}
      */
     RegType {
         get => NumGet(this, 0, "int")
@@ -48,9 +47,9 @@ class D3D11_TRACE_REGISTER extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt16>}
+     * @type {Array<Integer>}
      */
-    Index2D{
+    Index2D {
         get {
             if(!this.HasProp("__Index2DProxyArray"))
                 this.__Index2DProxyArray := Win32FixedArray(this.ptr + 4, 2, Primitive, "ushort")

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * Represents general information about a button on a tablet pointing and selecting device.
@@ -20,9 +20,8 @@
  * If you define a class that implements this interface, the new class will not interact correctly with the Tablet PC application programming interfaces (APIs).
  * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nn-msinkaut-iinkcursorbutton
  * @namespace Windows.Win32.UI.TabletPC
- * @version v4.0.30319
  */
-class IInkCursorButton extends IDispatch{
+class IInkCursorButton extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -58,7 +57,7 @@ class IInkCursorButton extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {InkCursorButtonState} 
      */
     State {
         get => this.get_State()
@@ -97,7 +96,7 @@ class IInkCursorButton extends IDispatch{
      * Gets the state of a cursor button, such as whether the button is unavailable, up, or down.
      * @remarks
      * For a detailed list of state values that you can use, see the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/ne-msinkaut-inkcursorbuttonstate">InkCursorButtonState</a> enumeration.
-     * @returns {Integer} 
+     * @returns {InkCursorButtonState} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkcursorbutton-get_state
      */
     get_State() {

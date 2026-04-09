@@ -1,21 +1,28 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\PAN_FAMILY_TYPE.ahk
+#Include .\PAN_SERIF_STYLE.ahk
+#Include .\PAN_WEIGHT.ahk
+#Include .\PAN_PROPORTION.ahk
+#Include .\PAN_CONTRAST.ahk
+#Include .\PAN_STROKE_VARIATION.ahk
+#Include .\PAN_ARM_STYLE.ahk
+#Include .\PAN_LETT_FORM.ahk
+#Include .\PAN_MIDLINE.ahk
+#Include .\PAN_XHEIGHT.ahk
 
 /**
  * The PANOSE structure describes the PANOSE font-classification values for a TrueType font. These characteristics are then used to associate the font with other fonts of similar appearance but different names.
  * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-panose
  * @namespace Windows.Win32.Graphics.Gdi
- * @version v4.0.30319
  */
-class PANOSE extends Win32Struct
-{
+class PANOSE extends Win32Struct {
     static sizeof => 10
 
     static packingSize => 1
 
     /**
-     * 
-     * @type {Integer}
+     * @type {PAN_FAMILY_TYPE}
      */
     bFamilyType {
         get => NumGet(this, 0, "char")
@@ -23,8 +30,7 @@ class PANOSE extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Integer}
+     * @type {PAN_SERIF_STYLE}
      */
     bSerifStyle {
         get => NumGet(this, 1, "char")
@@ -32,8 +38,7 @@ class PANOSE extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Integer}
+     * @type {PAN_WEIGHT}
      */
     bWeight {
         get => NumGet(this, 2, "char")
@@ -41,8 +46,7 @@ class PANOSE extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Integer}
+     * @type {PAN_PROPORTION}
      */
     bProportion {
         get => NumGet(this, 3, "char")
@@ -50,8 +54,7 @@ class PANOSE extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Integer}
+     * @type {PAN_CONTRAST}
      */
     bContrast {
         get => NumGet(this, 4, "char")
@@ -59,8 +62,7 @@ class PANOSE extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Integer}
+     * @type {PAN_STROKE_VARIATION}
      */
     bStrokeVariation {
         get => NumGet(this, 5, "char")
@@ -68,8 +70,7 @@ class PANOSE extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Integer}
+     * @type {PAN_ARM_STYLE}
      */
     bArmStyle {
         get => NumGet(this, 6, "char")
@@ -77,8 +78,7 @@ class PANOSE extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Integer}
+     * @type {PAN_LETT_FORM}
      */
     bLetterform {
         get => NumGet(this, 7, "char")
@@ -86,8 +86,7 @@ class PANOSE extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Integer}
+     * @type {PAN_MIDLINE}
      */
     bMidline {
         get => NumGet(this, 8, "char")
@@ -95,8 +94,7 @@ class PANOSE extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Integer}
+     * @type {PAN_XHEIGHT}
      */
     bXHeight {
         get => NumGet(this, 9, "char")

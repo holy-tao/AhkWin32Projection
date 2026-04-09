@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\NDR_USER_MARSHAL_INFO_LEVEL1.ahk
+#Include ..\Com\IRpcChannelBuffer.ahk
 
 /**
  * The NDR_USER_MARSHAL_INFO structure holds information about the state of an RPC call that can be passed to wire_marshal and user_marshal helper functions.
@@ -12,10 +13,8 @@
  * <b>NdrGetUserMarshalInfo</b> is called from &lt;type&gt;_UserMarshal or &lt;type&gt;_UserUnmarshal.
  * @see https://learn.microsoft.com/windows/win32/api/rpcndr/ns-rpcndr-ndr_user_marshal_info
  * @namespace Windows.Win32.System.Rpc
- * @version v4.0.30319
  */
-class NDR_USER_MARSHAL_INFO extends Win32Struct
-{
+class NDR_USER_MARSHAL_INFO extends Win32Struct {
     static sizeof => 88
 
     static packingSize => 8
@@ -32,7 +31,7 @@ class NDR_USER_MARSHAL_INFO extends Win32Struct
     /**
      * @type {NDR_USER_MARSHAL_INFO_LEVEL1}
      */
-    Level1{
+    Level1 {
         get {
             if(!this.HasProp("__Level1"))
                 this.__Level1 := NDR_USER_MARSHAL_INFO_LEVEL1(8, this)

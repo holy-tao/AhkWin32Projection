@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\WMDMID.ahk
 #Include .\IWMDMEnumStorage.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * The IWMDMDevice interface provides methods to examine and explore a single portable device. The interface can be used to get information about a device and enumerate its storages. IWMDMDevice2 extends the capabilities of this interface.
  * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nn-mswmdm-iwmdmdevice
  * @namespace Windows.Win32.Media.DeviceManager
- * @version v4.0.30319
  */
-class IWMDMDevice extends IUnknown{
+class IWMDMDevice extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -228,7 +227,7 @@ class IWMDMDevice extends IUnknown{
      * The GetDeviceIcon method retrieves a handle to the icon that the device manufacturer wants to display when the device is connected.
      * @remarks
      * When the application is finished with the icon, it must call the Win32 <b>DestroyIcon</b> function to free the memory.
-     * @returns {Integer} 
+     * @returns {Integer} Handle to an icon object.
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iwmdmdevice-getdeviceicon
      */
     GetDeviceIcon() {

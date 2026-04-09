@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ISimilarityTraitsMappedView.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\ISimilarityTraitsMappedView.ahk
 
 /**
  * Provides methods that an RDC application can implement for creating and manipulating a file mapping object for a similarity traits table file.
  * @see https://learn.microsoft.com/windows/win32/api/msrdc/nn-msrdc-isimilaritytraitsmapping
  * @namespace Windows.Win32.Networking.RemoteDifferentialCompression
- * @version v4.0.30319
  */
-class ISimilarityTraitsMapping extends IUnknown{
+class ISimilarityTraitsMapping extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -71,7 +70,7 @@ class ISimilarityTraitsMapping extends IUnknown{
 
     /**
      * Opens the file mapping object for a similarity traits table file.
-     * @param {Integer} accessMode <a href="https://docs.microsoft.com/windows/win32/api/msrdc/ne-msrdc-rdcmappingaccessmode">RdcMappingAccessMode</a> enumeration value that specifies the desired access to the file mapping object.
+     * @param {RdcMappingAccessMode} accessMode <a href="https://docs.microsoft.com/windows/win32/api/msrdc/ne-msrdc-rdcmappingaccessmode">RdcMappingAccessMode</a> enumeration value that specifies the desired access to the file mapping object.
      * @param {Integer} begin File offset, in bytes, where the file mapping is to begin.
      * @param {Integer} end File offset, in bytes, where the file mapping is to end.
      * @returns {Integer} Pointer to a location that receives the file offset, in bytes, of the actual end of the file mapping, rounded up to the nearest block size.
@@ -84,7 +83,7 @@ class ISimilarityTraitsMapping extends IUnknown{
 
     /**
      * Resizes the file mapping object for a similarity traits table file.
-     * @param {Integer} accessMode <a href="https://docs.microsoft.com/windows/win32/api/msrdc/ne-msrdc-rdcmappingaccessmode">RdcMappingAccessMode</a> enumeration value that specifies the desired access to the file mapping object.
+     * @param {RdcMappingAccessMode} accessMode <a href="https://docs.microsoft.com/windows/win32/api/msrdc/ne-msrdc-rdcmappingaccessmode">RdcMappingAccessMode</a> enumeration value that specifies the desired access to the file mapping object.
      * @param {Integer} begin File offset, in bytes, where the file mapping is to begin.
      * @param {Integer} end File offset, in bytes, where the file mapping is to end.
      * @returns {Integer} Pointer to a location that receives the file offset, in bytes, of the actual end of the file mapping, rounded up to the nearest block size.
@@ -112,7 +111,7 @@ class ISimilarityTraitsMapping extends IUnknown{
      * @remarks
      * Data accessed through read-only views will never be modified.
      * @param {Integer} minimumMappedPages Minimum number of pages of the file mapping to map to the view.
-     * @param {Integer} accessMode <a href="https://docs.microsoft.com/windows/win32/api/msrdc/ne-msrdc-rdcmappingaccessmode">RdcMappingAccessMode</a> enumeration value that specifies the desired access to the file mapping object.
+     * @param {RdcMappingAccessMode} accessMode <a href="https://docs.microsoft.com/windows/win32/api/msrdc/ne-msrdc-rdcmappingaccessmode">RdcMappingAccessMode</a> enumeration value that specifies the desired access to the file mapping object.
      * @returns {ISimilarityTraitsMappedView} Pointer to a location that will receive the returned <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msrdc/nn-msrdc-isimilaritytraitsmappedview">ISimilarityTraitsMappedView</a> interface pointer. Callers must release the interface.
      * @see https://learn.microsoft.com/windows/win32/api/msrdc/nf-msrdc-isimilaritytraitsmapping-createview
      */

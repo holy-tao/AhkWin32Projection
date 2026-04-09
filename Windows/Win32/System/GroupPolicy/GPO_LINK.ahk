@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.GroupPolicy
- * @version v4.0.30319
  */
-class GPO_LINK extends Win32Enum{
+class GPO_LINK extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

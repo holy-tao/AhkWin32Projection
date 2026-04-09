@@ -7,11 +7,9 @@
  * The DI\_MEMORYMAP\_WRITE setting in **DOC\_INFO\_3** is an optimization. This allows GDI to map spool files in the application and speed up the recording.
  * @see https://learn.microsoft.com/windows/win32/printdocs/doc-info-3
  * @namespace Windows.Win32.Graphics.Printing
- * @version v4.0.30319
  * @charset Unicode
  */
-class DOC_INFO_3W extends Win32Struct
-{
+class DOC_INFO_3W extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8

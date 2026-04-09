@@ -1,12 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DNS_SVCB_PARAM.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Dns
- * @version v4.0.30319
  */
-class DNS_SVCB_DATA extends Win32Struct
-{
+class DNS_SVCB_DATA extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8

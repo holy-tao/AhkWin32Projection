@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.ClrHosting
- * @version v4.0.30319
  */
-class COR_GC_THREAD_STATS extends Win32Struct
-{
+class COR_GC_THREAD_STATS extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

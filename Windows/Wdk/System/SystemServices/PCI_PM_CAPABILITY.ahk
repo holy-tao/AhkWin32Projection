@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class PCI_PM_CAPABILITY extends Win32Struct
-{
+class PCI_PM_CAPABILITY extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8
@@ -16,13 +14,13 @@ class PCI_PM_CAPABILITY extends Win32Struct
         static packingSize => 8
 
         /**
-         * @type {Pointer<PCI_PMC>}
+         * @type {Pointer}
          */
         Capabilities {
             get => NumGet(this, 0, "ptr")
             set => NumPut("ptr", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -30,7 +28,6 @@ class PCI_PM_CAPABILITY extends Win32Struct
             get => NumGet(this, 0, "ushort")
             set => NumPut("ushort", value, this, 0)
         }
-    
     }
 
     class _PMCSR_e__Union extends Win32Struct {
@@ -38,13 +35,13 @@ class PCI_PM_CAPABILITY extends Win32Struct
         static packingSize => 8
 
         /**
-         * @type {Pointer<PCI_PMCSR>}
+         * @type {Pointer}
          */
         ControlStatus {
             get => NumGet(this, 0, "ptr")
             set => NumPut("ptr", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -52,7 +49,6 @@ class PCI_PM_CAPABILITY extends Win32Struct
             get => NumGet(this, 0, "ushort")
             set => NumPut("ushort", value, this, 0)
         }
-    
     }
 
     class _PMCSR_BSE_e__Union extends Win32Struct {
@@ -60,13 +56,13 @@ class PCI_PM_CAPABILITY extends Win32Struct
         static packingSize => 8
 
         /**
-         * @type {Pointer<PCI_PMCSR_BSE>}
+         * @type {Pointer}
          */
         BridgeSupport {
             get => NumGet(this, 0, "ptr")
             set => NumPut("ptr", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -74,11 +70,10 @@ class PCI_PM_CAPABILITY extends Win32Struct
             get => NumGet(this, 0, "char")
             set => NumPut("char", value, this, 0)
         }
-    
     }
 
     /**
-     * @type {Pointer<PCI_CAPABILITIES_HEADER>}
+     * @type {Pointer}
      */
     Header {
         get => NumGet(this, 0, "ptr")
@@ -88,10 +83,10 @@ class PCI_PM_CAPABILITY extends Win32Struct
     /**
      * @type {_PMC_e__Union}
      */
-    PMC{
+    PMC {
         get {
             if(!this.HasProp("__PMC"))
-                this.__PMC := %this.__Class%._PMC_e__Union(8, this)
+                this.__PMC := PCI_PM_CAPABILITY._PMC_e__Union(8, this)
             return this.__PMC
         }
     }
@@ -99,10 +94,10 @@ class PCI_PM_CAPABILITY extends Win32Struct
     /**
      * @type {_PMCSR_e__Union}
      */
-    PMCSR{
+    PMCSR {
         get {
             if(!this.HasProp("__PMCSR"))
-                this.__PMCSR := %this.__Class%._PMCSR_e__Union(24, this)
+                this.__PMCSR := PCI_PM_CAPABILITY._PMCSR_e__Union(24, this)
             return this.__PMCSR
         }
     }
@@ -110,10 +105,10 @@ class PCI_PM_CAPABILITY extends Win32Struct
     /**
      * @type {_PMCSR_BSE_e__Union}
      */
-    PMCSR_BSE{
+    PMCSR_BSE {
         get {
             if(!this.HasProp("__PMCSR_BSE"))
-                this.__PMCSR_BSE := %this.__Class%._PMCSR_BSE_e__Union(40, this)
+                this.__PMCSR_BSE := PCI_PM_CAPABILITY._PMCSR_BSE_e__Union(40, this)
             return this.__PMCSR_BSE
         }
     }

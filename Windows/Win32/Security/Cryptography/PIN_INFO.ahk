@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\SECRET_TYPE.ahk
+#Include .\SECRET_PURPOSE.ahk
 #Include .\PIN_CACHE_POLICY.ahk
+#Include .\PIN_CACHE_POLICY_TYPE.ahk
 
 /**
  * The PIN_INFO structure contains information about a pin.
@@ -12,10 +15,8 @@
  * The <b>pFilter</b> member has an outstanding reference count. The application must release the interface.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/ns-strmif-pin_info
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class PIN_INFO extends Win32Struct
-{
+class PIN_INFO extends Win32Struct {
     static sizeof => 36
 
     static packingSize => 4
@@ -29,7 +30,7 @@ class PIN_INFO extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {SECRET_TYPE}
      */
     PinType {
         get => NumGet(this, 4, "int")
@@ -37,7 +38,7 @@ class PIN_INFO extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {SECRET_PURPOSE}
      */
     PinPurpose {
         get => NumGet(this, 8, "int")
@@ -63,7 +64,7 @@ class PIN_INFO extends Win32Struct
     /**
      * @type {PIN_CACHE_POLICY}
      */
-    PinCachePolicy{
+    PinCachePolicy {
         get {
             if(!this.HasProp("__PinCachePolicy"))
                 this.__PinCachePolicy := PIN_CACHE_POLICY(20, this)

@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IWeakReference.ahk
 #Include ..\Com\IUnknown.ahk
+#Include .\IWeakReference.ahk
 
 /**
  * Represents a source object to which a weak reference can be retrieved.
  * @see https://learn.microsoft.com/windows/win32/api/weakreference/nn-weakreference-iweakreferencesource
  * @namespace Windows.Win32.System.WinRT
- * @version v4.0.30319
  */
-class IWeakReferenceSource extends IUnknown{
+class IWeakReferenceSource extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

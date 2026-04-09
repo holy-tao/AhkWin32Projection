@@ -5,9 +5,8 @@
  * Specifies the MPEG audio layer. This enumeration is used with the AVEncMPALayer property.
  * @see https://learn.microsoft.com/windows/win32/api/codecapi/ne-codecapi-eavencmpalayer
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class eAVEncMPALayer extends Win32Enum{
+class eAVEncMPALayer extends Win32Enum {
 
     /**
      * MPEG Audio Layer-1.

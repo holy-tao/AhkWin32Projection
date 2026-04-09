@@ -1,12 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\Win32Struct.ahk
+#Include .\SECURITY_IMPERSONATION_LEVEL.ahk
 
 /**
  * @namespace Windows.Win32.Security
- * @version v4.0.30319
  */
-class SE_IMPERSONATION_STATE extends Win32Struct
-{
+class SE_IMPERSONATION_STATE extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
@@ -36,7 +35,7 @@ class SE_IMPERSONATION_STATE extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {SECURITY_IMPERSONATION_LEVEL}
      */
     Level {
         get => NumGet(this, 12, "int")

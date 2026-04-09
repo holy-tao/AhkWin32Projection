@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Globalization
- * @version v4.0.30319
  */
-class HSAVEDUILANGUAGES extends Win32Handle
-{
+class HSAVEDUILANGUAGES extends Win32Handle {
     static sizeof => 8
 
     static packingSize => 8

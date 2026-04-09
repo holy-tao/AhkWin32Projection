@@ -7,9 +7,8 @@
  * Exposes provider state methods that are implemented by third parties.
  * @see https://learn.microsoft.com/windows/win32/api/wpcapi/nn-wpcapi-iwpcproviderstate
  * @namespace Windows.Win32.System.ParentalControls
- * @version v4.0.30319
  */
-class IWPCProviderState extends IUnknown{
+class IWPCProviderState extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

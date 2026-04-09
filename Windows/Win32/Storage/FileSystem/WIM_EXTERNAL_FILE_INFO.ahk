@@ -5,10 +5,8 @@
  * Defines metadata specific to files provided by WOF_PROVIDER_WIM.
  * @see https://learn.microsoft.com/windows/win32/api/wofapi/ns-wofapi-wim_external_file_info
  * @namespace Windows.Win32.Storage.FileSystem
- * @version v4.0.30319
  */
-class WIM_EXTERNAL_FILE_INFO extends Win32Struct
-{
+class WIM_EXTERNAL_FILE_INFO extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -24,9 +22,9 @@ class WIM_EXTERNAL_FILE_INFO extends Win32Struct
 
     /**
      * Specifies the identifier of the file within the WIM file.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    ResourceHash{
+    ResourceHash {
         get {
             if(!this.HasProp("__ResourceHashProxyArray"))
                 this.__ResourceHashProxyArray := Win32FixedArray(this.ptr + 8, 20, Primitive, "char")

@@ -1,15 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
+#Include ..\..\..\Com\IUnknown.ahk
 #Include .\DEBUG_MODULE_PARAMETERS.ahk
 #Include .\IDebugSymbolGroup.ahk
-#Include ..\..\..\Com\IUnknown.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
- * @version v4.0.30319
  */
-class IDebugSymbols extends IUnknown{
+class IDebugSymbols extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -357,7 +356,7 @@ class IDebugSymbols extends IUnknown{
      * @param {Integer} Offset 
      * @param {Integer} Module 
      * @param {Integer} TypeId 
-     * @param {Pointer} _Buffer 
+     * @param {Integer} _Buffer 
      * @param {Integer} BufferSize 
      * @returns {Integer} 
      */
@@ -371,7 +370,7 @@ class IDebugSymbols extends IUnknown{
      * @param {Integer} Offset 
      * @param {Integer} Module 
      * @param {Integer} TypeId 
-     * @param {Pointer} _Buffer 
+     * @param {Integer} _Buffer 
      * @param {Integer} BufferSize 
      * @returns {Integer} 
      */
@@ -399,7 +398,7 @@ class IDebugSymbols extends IUnknown{
      * @param {Integer} Offset 
      * @param {Integer} Module 
      * @param {Integer} TypeId 
-     * @param {Pointer} _Buffer 
+     * @param {Integer} _Buffer 
      * @param {Integer} BufferSize 
      * @returns {Integer} 
      */
@@ -413,7 +412,7 @@ class IDebugSymbols extends IUnknown{
      * @param {Integer} Offset 
      * @param {Integer} Module 
      * @param {Integer} TypeId 
-     * @param {Pointer} _Buffer 
+     * @param {Integer} _Buffer 
      * @param {Integer} BufferSize 
      * @returns {Integer} 
      */
@@ -440,7 +439,7 @@ class IDebugSymbols extends IUnknown{
      * 
      * @param {Pointer<Integer>} InstructionOffset 
      * @param {Pointer<DEBUG_STACK_FRAME>} ScopeFrame 
-     * @param {Pointer} ScopeContext 
+     * @param {Integer} ScopeContext 
      * @param {Integer} ScopeContextSize 
      * @returns {HRESULT} 
      */
@@ -455,7 +454,7 @@ class IDebugSymbols extends IUnknown{
      * 
      * @param {Integer} InstructionOffset 
      * @param {Pointer<DEBUG_STACK_FRAME>} ScopeFrame 
-     * @param {Pointer} ScopeContext 
+     * @param {Integer} ScopeContext 
      * @param {Integer} ScopeContextSize 
      * @returns {HRESULT} 
      */

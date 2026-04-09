@@ -5,9 +5,8 @@
  * Identifies the version of the specification used for the addressing headers.
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ne-webservices-ws_addressing_version
  * @namespace Windows.Win32.Networking.WindowsWebServices
- * @version v4.0.30319
  */
-class WS_ADDRESSING_VERSION extends Win32Enum{
+class WS_ADDRESSING_VERSION extends Win32Enum {
 
     /**
      * The message addressing headers correspond to version 0.9 (August 2004)

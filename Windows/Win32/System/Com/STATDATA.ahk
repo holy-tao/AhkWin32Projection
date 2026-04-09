@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\FORMATETC.ahk
+#Include .\DVTARGETDEVICE.ahk
+#Include .\IAdviseSink.ahk
 
 /**
  * Contains information used to specify each advisory connection.
  * @see https://learn.microsoft.com/windows/win32/api/objidl/ns-objidl-statdata
  * @namespace Windows.Win32.System.Com
- * @version v4.0.30319
  */
-class STATDATA extends Win32Struct
-{
+class STATDATA extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8
@@ -18,7 +18,7 @@ class STATDATA extends Win32Struct
      * The <a href="https://docs.microsoft.com/windows/desktop/api/objidl/ns-objidl-formatetc">FORMATETC</a> structure for the data of interest to the advise sink. The advise sink receives notification of changes to the data specified by this <b>FORMATETC</b> structure.
      * @type {FORMATETC}
      */
-    formatetc{
+    formatetc {
         get {
             if(!this.HasProp("__formatetc"))
                 this.__formatetc := FORMATETC(0, this)

@@ -9,9 +9,8 @@
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IBDAComparable)</c>.
  * @see https://learn.microsoft.com/windows/win32/api/tuner/nn-tuner-ibdacomparable
  * @namespace Windows.Win32.Media.DirectShow.Tv
- * @version v4.0.30319
  */
-class IBDAComparable extends IUnknown{
+class IBDAComparable extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

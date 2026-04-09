@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Networking.WinSock
- * @version v4.0.30319
  */
-class ATM_CAUSE_IE extends Win32Struct
-{
+class ATM_CAUSE_IE extends Win32Struct {
     static sizeof => 7
 
     static packingSize => 1
@@ -36,9 +34,9 @@ class ATM_CAUSE_IE extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Diagnostics{
+    Diagnostics {
         get {
             if(!this.HasProp("__DiagnosticsProxyArray"))
                 this.__DiagnosticsProxyArray := Win32FixedArray(this.ptr + 3, 4, Primitive, "char")

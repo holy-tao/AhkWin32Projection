@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Security\Cryptography\CERT_CONTEXT.ahk
 #Include ..\..\Security\Cryptography\HCERTSTORE.ahk
 
 /**
@@ -22,10 +23,8 @@
  * An application already built using Windows 7 SDK will use the old version of this structure. It will run fine on Windows 8 since <b>wsdapi.dll</b> on Windows 8 can handle both versions.
  * @see https://learn.microsoft.com/windows/win32/api/wsdbase/ns-wsdbase-wsd_security_cert_validation_v1
  * @namespace Windows.Win32.Devices.WebServicesOnDevices
- * @version v4.0.30319
  */
-class WSD_SECURITY_CERT_VALIDATION_V1 extends Win32Struct
-{
+class WSD_SECURITY_CERT_VALIDATION_V1 extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -52,7 +51,7 @@ class WSD_SECURITY_CERT_VALIDATION_V1 extends Win32Struct
      * A handle to a certificate store that contains certificates to be matched against those provided by the HTTPS server or client.  Only one matching certificate is required for validation.  This parameter can be NULL.
      * @type {HCERTSTORE}
      */
-    hCertMatchStore{
+    hCertMatchStore {
         get {
             if(!this.HasProp("__hCertMatchStore"))
                 this.__hCertMatchStore := HCERTSTORE(16, this)
@@ -64,7 +63,7 @@ class WSD_SECURITY_CERT_VALIDATION_V1 extends Win32Struct
      * A handle to a certificate store that contains root certificates against which a certificate from the HTTPS server or client should chain to.  Validation succeeds as long as the certificate chains up to at least one root certificate.  This parameter can be NULL.
      * @type {HCERTSTORE}
      */
-    hCertIssuerStore{
+    hCertIssuerStore {
         get {
             if(!this.HasProp("__hCertIssuerStore"))
                 this.__hCertIssuerStore := HCERTSTORE(24, this)

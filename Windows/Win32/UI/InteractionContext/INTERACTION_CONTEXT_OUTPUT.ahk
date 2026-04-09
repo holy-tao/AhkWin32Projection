@@ -1,19 +1,22 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\INTERACTION_ID.ahk
+#Include .\INTERACTION_FLAGS.ahk
+#Include ..\WindowsAndMessaging\POINTER_INPUT_TYPE.ahk
+#Include .\INTERACTION_ARGUMENTS_MANIPULATION.ahk
 #Include .\MANIPULATION_TRANSFORM.ahk
 #Include .\MANIPULATION_VELOCITY.ahk
-#Include .\INTERACTION_ARGUMENTS_MANIPULATION.ahk
+#Include .\MANIPULATION_RAILS_STATE.ahk
 #Include .\INTERACTION_ARGUMENTS_TAP.ahk
 #Include .\INTERACTION_ARGUMENTS_CROSS_SLIDE.ahk
+#Include .\CROSS_SLIDE_FLAGS.ahk
 
 /**
  * Defines the output of the Interaction Context object.
  * @see https://learn.microsoft.com/windows/win32/api/interactioncontext/ns-interactioncontext-interaction_context_output
  * @namespace Windows.Win32.UI.InteractionContext
- * @version v4.0.30319
  */
-class INTERACTION_CONTEXT_OUTPUT extends Win32Struct
-{
+class INTERACTION_CONTEXT_OUTPUT extends Win32Struct {
     static sizeof => 80
 
     static packingSize => 4
@@ -25,41 +28,40 @@ class INTERACTION_CONTEXT_OUTPUT extends Win32Struct
         /**
          * @type {INTERACTION_ARGUMENTS_MANIPULATION}
          */
-        manipulation{
+        manipulation {
             get {
                 if(!this.HasProp("__manipulation"))
                     this.__manipulation := INTERACTION_ARGUMENTS_MANIPULATION(0, this)
                 return this.__manipulation
             }
         }
-    
+
         /**
          * @type {INTERACTION_ARGUMENTS_TAP}
          */
-        tap{
+        tap {
             get {
                 if(!this.HasProp("__tap"))
                     this.__tap := INTERACTION_ARGUMENTS_TAP(0, this)
                 return this.__tap
             }
         }
-    
+
         /**
          * @type {INTERACTION_ARGUMENTS_CROSS_SLIDE}
          */
-        crossSlide{
+        crossSlide {
             get {
                 if(!this.HasProp("__crossSlide"))
                     this.__crossSlide := INTERACTION_ARGUMENTS_CROSS_SLIDE(0, this)
                 return this.__crossSlide
             }
         }
-    
     }
 
     /**
      * ID of the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/input_intcontext/interaction-context-portal">Interaction Context</a> object.
-     * @type {Integer}
+     * @type {INTERACTION_ID}
      */
     interactionId {
         get => NumGet(this, 0, "int")
@@ -68,7 +70,7 @@ class INTERACTION_CONTEXT_OUTPUT extends Win32Struct
 
     /**
      * One of the constants from <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/interactioncontext/ne-interactioncontext-interaction_flags">INTERACTION_FLAGS</a>.
-     * @type {Integer}
+     * @type {INTERACTION_FLAGS}
      */
     interactionFlags {
         get => NumGet(this, 4, "uint")
@@ -77,7 +79,7 @@ class INTERACTION_CONTEXT_OUTPUT extends Win32Struct
 
     /**
      * One of the constants from <a href="https://docs.microsoft.com/windows/win32/api/winuser/ne-winuser-tagpointer_input_type">POINTER_INPUT_TYPE</a>.
-     * @type {Integer}
+     * @type {POINTER_INPUT_TYPE}
      */
     inputType {
         get => NumGet(this, 8, "int")
@@ -103,13 +105,12 @@ class INTERACTION_CONTEXT_OUTPUT extends Win32Struct
     }
 
     /**
-     * 
      * @type {_arguments_e__Union}
      */
-    arguments{
+    arguments {
         get {
             if(!this.HasProp("__arguments"))
-                this.__arguments := %this.__Class%._arguments_e__Union(20, this)
+                this.__arguments := INTERACTION_CONTEXT_OUTPUT._arguments_e__Union(20, this)
             return this.__arguments
         }
     }

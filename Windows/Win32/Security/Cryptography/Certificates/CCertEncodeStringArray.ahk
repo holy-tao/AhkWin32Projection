@@ -7,10 +7,8 @@
  * This method will place the decoded contents of <i>strBinary</i> into the object's array of strings. If the object's array already contains strings, this existing content will be freed, and the array will be loaded with the decoded values.
  * @see https://learn.microsoft.com/windows/win32/api/certenc/nf-certenc-icertencodestringarray-decode
  * @namespace Windows.Win32.Security.Cryptography.Certificates
- * @version v4.0.30319
  */
-class CCertEncodeStringArray extends Win32Struct
-{
+class CCertEncodeStringArray extends Win32Struct {
     static sizeof => 0
 
     static packingSize => 1

@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Storage.IscsiDisc
- * @version v4.0.30319
  */
-class MP_DEVICE_DATA_SET_RANGE extends Win32Struct
-{
+class MP_DEVICE_DATA_SET_RANGE extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

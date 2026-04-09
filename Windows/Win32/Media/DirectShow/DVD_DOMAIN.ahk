@@ -9,9 +9,8 @@
  * A domain is a logical space on a DVD disc. When the DVD Navigator is displaying the disc's main menu, it is said to be in the Video Manager domain. When it is displaying a menu specific to a title, it is in the Video Title Set domain. When it is playing video, it is the Title domain. When the user issues a Stop command, the Navigator goes into the Stop domain.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/ne-strmif-dvd_domain
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class DVD_DOMAIN extends Win32Enum{
+class DVD_DOMAIN extends Win32Enum {
 
     /**
      * Performing default initialization of a DVD disc.

@@ -5,10 +5,8 @@
  * Contains information about a Dynamic Data Exchange (DDE) message, and provides read access to the data referenced by the message. This structure is intended to be used by a Dynamic Data Exchange Management Library (DDEML) monitoring application.
  * @see https://learn.microsoft.com/windows/win32/api/ddeml/ns-ddeml-ddeml_msg_hook_data
  * @namespace Windows.Win32.System.DataExchange
- * @version v4.0.30319
  */
-class DDEML_MSG_HOOK_DATA extends Win32Struct
-{
+class DDEML_MSG_HOOK_DATA extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8
@@ -50,9 +48,9 @@ class DDEML_MSG_HOOK_DATA extends Win32Struct
      * Type: <b>DWORD[8]</b>
      * 
      * The first 32 bytes of data being passed with the message (<c>8 * sizeof(DWORD)</c>).
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    Data{
+    Data {
         get {
             if(!this.HasProp("__DataProxyArray"))
                 this.__DataProxyArray := Win32FixedArray(this.ptr + 20, 8, Primitive, "uint")

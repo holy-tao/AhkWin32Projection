@@ -1,12 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\GNSS_DRIVERCOMMAND_TYPE.ahk
 
 /**
  * @namespace Windows.Win32.Devices.Geolocation
- * @version v4.0.30319
  */
-class GNSS_DRIVERCOMMAND_PARAM extends Win32Struct
-{
+class GNSS_DRIVERCOMMAND_PARAM extends Win32Struct {
     static sizeof => 536
 
     static packingSize => 4
@@ -28,7 +27,7 @@ class GNSS_DRIVERCOMMAND_PARAM extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {GNSS_DRIVERCOMMAND_TYPE}
      */
     CommandType {
         get => NumGet(this, 8, "int")
@@ -52,9 +51,9 @@ class GNSS_DRIVERCOMMAND_PARAM extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Unused{
+    Unused {
         get {
             if(!this.HasProp("__UnusedProxyArray"))
                 this.__UnusedProxyArray := Win32FixedArray(this.ptr + 20, 512, Primitive, "char")
@@ -63,9 +62,9 @@ class GNSS_DRIVERCOMMAND_PARAM extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    CommandData{
+    CommandData {
         get {
             if(!this.HasProp("__CommandDataProxyArray"))
                 this.__CommandDataProxyArray := Win32FixedArray(this.ptr + 532, 1, Primitive, "char")

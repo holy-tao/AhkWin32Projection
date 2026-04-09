@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class PCI_AGP_CAPABILITY extends Win32Struct
-{
+class PCI_AGP_CAPABILITY extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -37,7 +35,7 @@ class PCI_AGP_CAPABILITY extends Win32Struct
             get => NumGet(this, 0, "uint")
             set => NumPut("uint", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -45,7 +43,7 @@ class PCI_AGP_CAPABILITY extends Win32Struct
             get => (this._bitfield >> 0) & 0x7
             set => this._bitfield := ((value & 0x7) << 0) | (this._bitfield & ~(0x7 << 0))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -53,7 +51,7 @@ class PCI_AGP_CAPABILITY extends Win32Struct
             get => (this._bitfield >> 3) & 0x1
             set => this._bitfield := ((value & 0x1) << 3) | (this._bitfield & ~(0x1 << 3))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -61,7 +59,7 @@ class PCI_AGP_CAPABILITY extends Win32Struct
             get => (this._bitfield >> 4) & 0x1
             set => this._bitfield := ((value & 0x1) << 4) | (this._bitfield & ~(0x1 << 4))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -69,7 +67,7 @@ class PCI_AGP_CAPABILITY extends Win32Struct
             get => (this._bitfield >> 5) & 0x1
             set => this._bitfield := ((value & 0x1) << 5) | (this._bitfield & ~(0x1 << 5))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -77,7 +75,7 @@ class PCI_AGP_CAPABILITY extends Win32Struct
             get => (this._bitfield >> 6) & 0x1
             set => this._bitfield := ((value & 0x1) << 6) | (this._bitfield & ~(0x1 << 6))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -85,7 +83,7 @@ class PCI_AGP_CAPABILITY extends Win32Struct
             get => (this._bitfield >> 7) & 0x1
             set => this._bitfield := ((value & 0x1) << 7) | (this._bitfield & ~(0x1 << 7))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -93,7 +91,7 @@ class PCI_AGP_CAPABILITY extends Win32Struct
             get => (this._bitfield >> 8) & 0x1
             set => this._bitfield := ((value & 0x1) << 8) | (this._bitfield & ~(0x1 << 8))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -101,7 +99,7 @@ class PCI_AGP_CAPABILITY extends Win32Struct
             get => (this._bitfield >> 9) & 0x1
             set => this._bitfield := ((value & 0x1) << 9) | (this._bitfield & ~(0x1 << 9))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -109,7 +107,7 @@ class PCI_AGP_CAPABILITY extends Win32Struct
             get => (this._bitfield >> 10) & 0x7
             set => this._bitfield := ((value & 0x7) << 10) | (this._bitfield & ~(0x7 << 10))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -117,7 +115,7 @@ class PCI_AGP_CAPABILITY extends Win32Struct
             get => (this._bitfield >> 13) & 0x7
             set => this._bitfield := ((value & 0x7) << 13) | (this._bitfield & ~(0x7 << 13))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -125,7 +123,7 @@ class PCI_AGP_CAPABILITY extends Win32Struct
             get => (this._bitfield >> 16) & 0x1
             set => this._bitfield := ((value & 0x1) << 16) | (this._bitfield & ~(0x1 << 16))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -133,7 +131,7 @@ class PCI_AGP_CAPABILITY extends Win32Struct
             get => (this._bitfield >> 17) & 0x1
             set => this._bitfield := ((value & 0x1) << 17) | (this._bitfield & ~(0x1 << 17))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -141,7 +139,7 @@ class PCI_AGP_CAPABILITY extends Win32Struct
             get => (this._bitfield >> 18) & 0x3F
             set => this._bitfield := ((value & 0x3F) << 18) | (this._bitfield & ~(0x3F << 18))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -149,7 +147,6 @@ class PCI_AGP_CAPABILITY extends Win32Struct
             get => (this._bitfield >> 24) & 0xFF
             set => this._bitfield := ((value & 0xFF) << 24) | (this._bitfield & ~(0xFF << 24))
         }
-    
     }
 
     class _PCI_AGP_COMMAND extends Win32Struct {
@@ -176,7 +173,7 @@ class PCI_AGP_CAPABILITY extends Win32Struct
             get => NumGet(this, 0, "uint")
             set => NumPut("uint", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -184,7 +181,7 @@ class PCI_AGP_CAPABILITY extends Win32Struct
             get => (this._bitfield >> 0) & 0x7
             set => this._bitfield := ((value & 0x7) << 0) | (this._bitfield & ~(0x7 << 0))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -192,7 +189,7 @@ class PCI_AGP_CAPABILITY extends Win32Struct
             get => (this._bitfield >> 3) & 0x1
             set => this._bitfield := ((value & 0x1) << 3) | (this._bitfield & ~(0x1 << 3))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -200,7 +197,7 @@ class PCI_AGP_CAPABILITY extends Win32Struct
             get => (this._bitfield >> 4) & 0x1
             set => this._bitfield := ((value & 0x1) << 4) | (this._bitfield & ~(0x1 << 4))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -208,7 +205,7 @@ class PCI_AGP_CAPABILITY extends Win32Struct
             get => (this._bitfield >> 5) & 0x1
             set => this._bitfield := ((value & 0x1) << 5) | (this._bitfield & ~(0x1 << 5))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -216,7 +213,7 @@ class PCI_AGP_CAPABILITY extends Win32Struct
             get => (this._bitfield >> 6) & 0x1
             set => this._bitfield := ((value & 0x1) << 6) | (this._bitfield & ~(0x1 << 6))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -224,7 +221,7 @@ class PCI_AGP_CAPABILITY extends Win32Struct
             get => (this._bitfield >> 7) & 0x1
             set => this._bitfield := ((value & 0x1) << 7) | (this._bitfield & ~(0x1 << 7))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -232,7 +229,7 @@ class PCI_AGP_CAPABILITY extends Win32Struct
             get => (this._bitfield >> 8) & 0x1
             set => this._bitfield := ((value & 0x1) << 8) | (this._bitfield & ~(0x1 << 8))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -240,7 +237,7 @@ class PCI_AGP_CAPABILITY extends Win32Struct
             get => (this._bitfield >> 9) & 0x1
             set => this._bitfield := ((value & 0x1) << 9) | (this._bitfield & ~(0x1 << 9))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -248,7 +245,7 @@ class PCI_AGP_CAPABILITY extends Win32Struct
             get => (this._bitfield >> 10) & 0x7
             set => this._bitfield := ((value & 0x7) << 10) | (this._bitfield & ~(0x7 << 10))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -256,7 +253,7 @@ class PCI_AGP_CAPABILITY extends Win32Struct
             get => (this._bitfield >> 13) & 0x7
             set => this._bitfield := ((value & 0x7) << 13) | (this._bitfield & ~(0x7 << 13))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -264,7 +261,7 @@ class PCI_AGP_CAPABILITY extends Win32Struct
             get => (this._bitfield >> 16) & 0xFF
             set => this._bitfield := ((value & 0xFF) << 16) | (this._bitfield & ~(0xFF << 16))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -272,11 +269,10 @@ class PCI_AGP_CAPABILITY extends Win32Struct
             get => (this._bitfield >> 24) & 0xFF
             set => this._bitfield := ((value & 0xFF) << 24) | (this._bitfield & ~(0xFF << 24))
         }
-    
     }
 
     /**
-     * @type {Pointer<PCI_CAPABILITIES_HEADER>}
+     * @type {Pointer}
      */
     Header {
         get => NumGet(this, 0, "ptr")
@@ -322,10 +318,10 @@ class PCI_AGP_CAPABILITY extends Win32Struct
     /**
      * @type {_PCI_AGP_STATUS}
      */
-    AGPStatus{
+    AGPStatus {
         get {
             if(!this.HasProp("__AGPStatus"))
-                this.__AGPStatus := %this.__Class%._PCI_AGP_STATUS(12, this)
+                this.__AGPStatus := PCI_AGP_CAPABILITY._PCI_AGP_STATUS(12, this)
             return this.__AGPStatus
         }
     }
@@ -333,10 +329,10 @@ class PCI_AGP_CAPABILITY extends Win32Struct
     /**
      * @type {_PCI_AGP_COMMAND}
      */
-    AGPCommand{
+    AGPCommand {
         get {
             if(!this.HasProp("__AGPCommand"))
-                this.__AGPCommand := %this.__Class%._PCI_AGP_COMMAND(16, this)
+                this.__AGPCommand := PCI_AGP_CAPABILITY._PCI_AGP_COMMAND(16, this)
             return this.__AGPCommand
         }
     }

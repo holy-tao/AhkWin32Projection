@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.IpHelper
- * @version v4.0.30319
  */
-class GET_ADAPTERS_ADDRESSES_FLAGS extends Win32BitflagEnum{
+class GET_ADAPTERS_ADDRESSES_FLAGS extends Win32BitflagEnum {
 
     /**
      * @type {Integer (UInt32)}

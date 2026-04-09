@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\CERT_ALT_NAME_INFO.ahk
 
 /**
  * Provides information used to update dynamic cross certificates.
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cross_cert_dist_points_info
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CROSS_CERT_DIST_POINTS_INFO extends Win32Struct
-{
+class CROSS_CERT_DIST_POINTS_INFO extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

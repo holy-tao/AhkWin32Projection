@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
- * @version v4.0.30319
  */
-class D3DKMT_QUERYSTATISTICS_SEGMENT_INFORMATION extends Win32Struct
-{
+class D3DKMT_QUERYSTATISTICS_SEGMENT_INFORMATION extends Win32Struct {
     static sizeof => 144
 
     static packingSize => 8
@@ -27,7 +25,7 @@ class D3DKMT_QUERYSTATISTICS_SEGMENT_INFORMATION extends Win32Struct
             get => NumGet(this, 0, "uint")
             set => NumPut("uint", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -35,7 +33,7 @@ class D3DKMT_QUERYSTATISTICS_SEGMENT_INFORMATION extends Win32Struct
             get => (this._bitfield >> 0) & 0x1
             set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -43,7 +41,7 @@ class D3DKMT_QUERYSTATISTICS_SEGMENT_INFORMATION extends Win32Struct
             get => (this._bitfield >> 1) & 0x1
             set => this._bitfield := ((value & 0x1) << 1) | (this._bitfield & ~(0x1 << 1))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -51,7 +49,6 @@ class D3DKMT_QUERYSTATISTICS_SEGMENT_INFORMATION extends Win32Struct
             get => (this._bitfield >> 2) & 0x1
             set => this._bitfield := ((value & 0x1) << 2) | (this._bitfield & ~(0x1 << 2))
         }
-    
     }
 
     class _SegmentProperties extends Win32Struct {
@@ -70,7 +67,7 @@ class D3DKMT_QUERYSTATISTICS_SEGMENT_INFORMATION extends Win32Struct
             get => NumGet(this, 0, "uint")
             set => NumPut("uint", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -78,7 +75,7 @@ class D3DKMT_QUERYSTATISTICS_SEGMENT_INFORMATION extends Win32Struct
             get => (this._bitfield >> 0) & 0x1
             set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -86,7 +83,7 @@ class D3DKMT_QUERYSTATISTICS_SEGMENT_INFORMATION extends Win32Struct
             get => (this._bitfield >> 1) & 0x1
             set => this._bitfield := ((value & 0x1) << 1) | (this._bitfield & ~(0x1 << 1))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -94,7 +91,6 @@ class D3DKMT_QUERYSTATISTICS_SEGMENT_INFORMATION extends Win32Struct
             get => (this._bitfield >> 2) & 0xF
             set => this._bitfield := ((value & 0xF) << 2) | (this._bitfield & ~(0xF << 2))
         }
-    
     }
 
     /**
@@ -122,7 +118,7 @@ class D3DKMT_QUERYSTATISTICS_SEGMENT_INFORMATION extends Win32Struct
     }
 
     /**
-     * @type {Pointer<D3DKMT_QUERYSTATISTICS_MEMORY>}
+     * @type {Pointer}
      */
     Memory {
         get => NumGet(this, 24, "ptr")
@@ -138,9 +134,9 @@ class D3DKMT_QUERYSTATISTICS_SEGMENT_INFORMATION extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt64>}
+     * @type {Array<Integer>}
      */
-    TotalBytesEvictedByPriority{
+    TotalBytesEvictedByPriority {
         get {
             if(!this.HasProp("__TotalBytesEvictedByPriorityProxyArray"))
                 this.__TotalBytesEvictedByPriorityProxyArray := Win32FixedArray(this.ptr + 40, 5, Primitive, "uint")
@@ -159,10 +155,10 @@ class D3DKMT_QUERYSTATISTICS_SEGMENT_INFORMATION extends Win32Struct
     /**
      * @type {_PowerFlags}
      */
-    PowerFlags{
+    PowerFlags {
         get {
             if(!this.HasProp("__PowerFlags"))
-                this.__PowerFlags := %this.__Class%._PowerFlags(88, this)
+                this.__PowerFlags := D3DKMT_QUERYSTATISTICS_SEGMENT_INFORMATION._PowerFlags(88, this)
             return this.__PowerFlags
         }
     }
@@ -170,18 +166,18 @@ class D3DKMT_QUERYSTATISTICS_SEGMENT_INFORMATION extends Win32Struct
     /**
      * @type {_SegmentProperties}
      */
-    SegmentProperties{
+    SegmentProperties {
         get {
             if(!this.HasProp("__SegmentProperties"))
-                this.__SegmentProperties := %this.__Class%._SegmentProperties(96, this)
+                this.__SegmentProperties := D3DKMT_QUERYSTATISTICS_SEGMENT_INFORMATION._SegmentProperties(96, this)
             return this.__SegmentProperties
         }
     }
 
     /**
-     * @type {Array<UInt64>}
+     * @type {Array<Integer>}
      */
-    Reserved{
+    Reserved {
         get {
             if(!this.HasProp("__ReservedProxyArray"))
                 this.__ReservedProxyArray := Win32FixedArray(this.ptr + 104, 5, Primitive, "uint")

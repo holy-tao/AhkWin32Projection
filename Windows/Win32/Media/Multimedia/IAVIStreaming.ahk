@@ -7,9 +7,8 @@
  * The IAVIStreaming interface supports preparing open data streams for playback in streaming operations. Uses IUnknown::QueryInterface, IUnknown::AddRef, IUnknown::Release in addition to the following custom methods:\_
  * @see https://learn.microsoft.com/windows/win32/api/vfw/nn-vfw-iavistreaming
  * @namespace Windows.Win32.Media.Multimedia
- * @version v4.0.30319
  */
-class IAVIStreaming extends IUnknown{
+class IAVIStreaming extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

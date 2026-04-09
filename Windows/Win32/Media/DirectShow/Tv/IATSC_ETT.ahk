@@ -7,9 +7,8 @@
  * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005 and later.
  * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nn-atscpsipparser-iatsc_ett
  * @namespace Windows.Win32.Media.DirectShow.Tv
- * @version v4.0.30319
  */
-class IATSC_ETT extends IUnknown{
+class IATSC_ETT extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

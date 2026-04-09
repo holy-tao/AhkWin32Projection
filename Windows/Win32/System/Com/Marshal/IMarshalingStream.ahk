@@ -9,9 +9,8 @@
  * Implement <b>IMarshalingStream</b> interface if you have <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a> implementations that call the marshaling APIs and provide the correct value of any of the attributes. This is essential only for <b>IStream</b> implementations that are used in hybrid policy processes.
  * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nn-objidlbase-imarshalingstream
  * @namespace Windows.Win32.System.Com.Marshal
- * @version v4.0.30319
  */
-class IMarshalingStream extends IStream{
+class IMarshalingStream extends IStream {
 
     static sizeof => A_PtrSize
     /**
@@ -56,7 +55,7 @@ class IMarshalingStream extends IStream{
      * </td>
      * </tr>
      * </table>
-     * @param {Integer} attribute The attribute to query.
+     * @param {CO_MARSHALING_CONTEXT_ATTRIBUTES} attribute The attribute to query.
      * @returns {Pointer} The value of <i>attribute</i>.
      * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nf-objidlbase-imarshalingstream-getmarshalingcontextattribute
      */

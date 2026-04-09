@@ -5,9 +5,8 @@
  * Defines the running states a for a report job.
  * @see https://learn.microsoft.com/windows/win32/api/fsrmenums/ne-fsrmenums-fsrmreportrunningstatus
  * @namespace Windows.Win32.Storage.FileServerResourceManager
- * @version v4.0.30319
  */
-class FsrmReportRunningStatus extends Win32Enum{
+class FsrmReportRunningStatus extends Win32Enum {
 
     /**
      * The report job status in unknown.

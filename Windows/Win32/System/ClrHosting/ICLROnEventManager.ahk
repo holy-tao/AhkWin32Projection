@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.ClrHosting
- * @version v4.0.30319
  */
-class ICLROnEventManager extends IUnknown{
+class ICLROnEventManager extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -30,7 +29,7 @@ class ICLROnEventManager extends IUnknown{
 
     /**
      * 
-     * @param {Integer} event 
+     * @param {EClrEvent} event 
      * @param {IActionOnCLREvent} pAction 
      * @returns {HRESULT} 
      */
@@ -41,7 +40,7 @@ class ICLROnEventManager extends IUnknown{
 
     /**
      * 
-     * @param {Integer} event 
+     * @param {EClrEvent} event 
      * @param {IActionOnCLREvent} pAction 
      * @returns {HRESULT} 
      */

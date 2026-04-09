@@ -34,10 +34,8 @@
  * ```
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-image_load_config_directory64
  * @namespace Windows.Win32.System.Diagnostics.Debug
- * @version v4.0.30319
  */
-class IMAGE_LOAD_CONFIG_DIRECTORY64 extends Win32Struct
-{
+class IMAGE_LOAD_CONFIG_DIRECTORY64 extends Win32Struct {
     static sizeof => 328
 
     static packingSize => 8
@@ -224,7 +222,6 @@ class IMAGE_LOAD_CONFIG_DIRECTORY64 extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     GuardCFCheckFunctionPointer {
@@ -233,7 +230,6 @@ class IMAGE_LOAD_CONFIG_DIRECTORY64 extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     GuardCFDispatchFunctionPointer {
@@ -242,7 +238,6 @@ class IMAGE_LOAD_CONFIG_DIRECTORY64 extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     GuardCFFunctionTable {
@@ -251,7 +246,6 @@ class IMAGE_LOAD_CONFIG_DIRECTORY64 extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     GuardCFFunctionCount {
@@ -260,7 +254,6 @@ class IMAGE_LOAD_CONFIG_DIRECTORY64 extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     GuardFlags {
@@ -269,10 +262,9 @@ class IMAGE_LOAD_CONFIG_DIRECTORY64 extends Win32Struct
     }
 
     /**
-     * 
      * @type {IMAGE_LOAD_CONFIG_CODE_INTEGRITY}
      */
-    CodeIntegrity{
+    CodeIntegrity {
         get {
             if(!this.HasProp("__CodeIntegrity"))
                 this.__CodeIntegrity := IMAGE_LOAD_CONFIG_CODE_INTEGRITY(148, this)
@@ -281,7 +273,6 @@ class IMAGE_LOAD_CONFIG_DIRECTORY64 extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     GuardAddressTakenIatEntryTable {
@@ -290,7 +281,6 @@ class IMAGE_LOAD_CONFIG_DIRECTORY64 extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     GuardAddressTakenIatEntryCount {
@@ -299,7 +289,6 @@ class IMAGE_LOAD_CONFIG_DIRECTORY64 extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     GuardLongJumpTargetTable {
@@ -308,7 +297,6 @@ class IMAGE_LOAD_CONFIG_DIRECTORY64 extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     GuardLongJumpTargetCount {
@@ -317,7 +305,6 @@ class IMAGE_LOAD_CONFIG_DIRECTORY64 extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     DynamicValueRelocTable {
@@ -326,7 +313,6 @@ class IMAGE_LOAD_CONFIG_DIRECTORY64 extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     CHPEMetadataPointer {
@@ -335,7 +321,6 @@ class IMAGE_LOAD_CONFIG_DIRECTORY64 extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     GuardRFFailureRoutine {
@@ -344,7 +329,6 @@ class IMAGE_LOAD_CONFIG_DIRECTORY64 extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     GuardRFFailureRoutineFunctionPointer {
@@ -353,7 +337,6 @@ class IMAGE_LOAD_CONFIG_DIRECTORY64 extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     DynamicValueRelocTableOffset {
@@ -362,7 +345,6 @@ class IMAGE_LOAD_CONFIG_DIRECTORY64 extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     DynamicValueRelocTableSection {
@@ -371,7 +353,6 @@ class IMAGE_LOAD_CONFIG_DIRECTORY64 extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     Reserved2 {
@@ -380,7 +361,6 @@ class IMAGE_LOAD_CONFIG_DIRECTORY64 extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     GuardRFVerifyStackPointerFunctionPointer {
@@ -389,7 +369,6 @@ class IMAGE_LOAD_CONFIG_DIRECTORY64 extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     HotPatchTableOffset {
@@ -398,7 +377,6 @@ class IMAGE_LOAD_CONFIG_DIRECTORY64 extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     Reserved3 {
@@ -407,7 +385,6 @@ class IMAGE_LOAD_CONFIG_DIRECTORY64 extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     EnclaveConfigurationPointer {
@@ -416,7 +393,6 @@ class IMAGE_LOAD_CONFIG_DIRECTORY64 extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     VolatileMetadataPointer {

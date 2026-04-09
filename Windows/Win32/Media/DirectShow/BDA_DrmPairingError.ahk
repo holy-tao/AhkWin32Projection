@@ -5,9 +5,8 @@
  * Specifies the status of a DRM handshake between a tuner and the user's computer.
  * @see https://learn.microsoft.com/windows/win32/api/bdaiface/ne-bdaiface-bda_drmpairingerror
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class BDA_DrmPairingError extends Win32Enum{
+class BDA_DrmPairingError extends Win32Enum {
 
     /**
      * The handshake was successful.
@@ -58,13 +57,11 @@ class BDA_DrmPairingError extends Win32Enum{
     static BDA_DrmPairing_DrmRePairSoon => 7
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static BDA_DrmPairing_Aborted => 8
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static BDA_DrmPairing_NeedSDKUpdate => 9

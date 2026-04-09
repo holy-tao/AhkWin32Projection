@@ -7,9 +7,8 @@
  * For a description of each channel type, see the <b>type</b> attribute of the <a href="https://docs.microsoft.com/windows/desktop/WES/eventmanifestschema-channeltype-complextype">ChannelType</a> complex type.
  * @see https://learn.microsoft.com/windows/win32/api/winevt/ne-winevt-evt_channel_type
  * @namespace Windows.Win32.System.EventLog
- * @version v4.0.30319
  */
-class EVT_CHANNEL_TYPE extends Win32Enum{
+class EVT_CHANNEL_TYPE extends Win32Enum {
 
     /**
      * The channel's type is Admin.

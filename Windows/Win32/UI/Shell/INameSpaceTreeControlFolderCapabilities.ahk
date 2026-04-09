@@ -11,9 +11,8 @@
  * Use this interface to retrieve the filtering support status of a shell folder.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-inamespacetreecontrolfoldercapabilities
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class INameSpaceTreeControlFolderCapabilities extends IUnknown{
+class INameSpaceTreeControlFolderCapabilities extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -36,10 +35,10 @@ class INameSpaceTreeControlFolderCapabilities extends IUnknown{
 
     /**
      * Gets a folder's capability to be filtered through the System.IsPinnedToNameSpaceTree property key value and change notification registration status.
-     * @param {Integer} nfcMask Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-nstcfoldercapabilities">NSTCFOLDERCAPABILITIES</a></b>
+     * @param {NSTCFOLDERCAPABILITIES} nfcMask Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-nstcfoldercapabilities">NSTCFOLDERCAPABILITIES</a></b>
      * 
      * The capabilities for which this method should retrieve values. Specify one or both of the following:
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-nstcfoldercapabilities">NSTCFOLDERCAPABILITIES</a>*</b>
+     * @returns {NSTCFOLDERCAPABILITIES} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-nstcfoldercapabilities">NSTCFOLDERCAPABILITIES</a>*</b>
      * 
      * Pointer to a value that, when this method returns successfully, receives the capabilities requested in <i>nfcMask</i>. Except in the case of NSTCFC_NONE, bit values in positions not specifically requested in <i>nfcMask</i> do not necessarily reflect the capabilities and should not be used.
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-inamespacetreecontrolfoldercapabilities-getfoldercapabilities

@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\Com\IUnknown.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * @namespace Windows.Win32.System.RealTimeCommunications
- * @version v4.0.30319
  */
-class IRTCPresenceDevice extends IUnknown{
+class IRTCPresenceDevice extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -30,7 +29,7 @@ class IRTCPresenceDevice extends IUnknown{
     static VTableNames => ["get_Status", "get_Notes", "get_PresenceProperty", "GetPresenceData"]
 
     /**
-     * @type {Integer} 
+     * @type {RTC_PRESENCE_STATUS} 
      */
     Status {
         get => this.get_Status()
@@ -45,7 +44,7 @@ class IRTCPresenceDevice extends IUnknown{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {RTC_PRESENCE_STATUS} 
      */
     get_Status() {
         result := ComCall(3, this, "int*", &penStatus := 0, "HRESULT")
@@ -64,7 +63,7 @@ class IRTCPresenceDevice extends IUnknown{
 
     /**
      * 
-     * @param {Integer} enProperty 
+     * @param {RTC_PRESENCE_PROPERTY} enProperty 
      * @returns {BSTR} 
      */
     get_PresenceProperty(enProperty) {

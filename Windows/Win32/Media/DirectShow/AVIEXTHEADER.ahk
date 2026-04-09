@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class AVIEXTHEADER extends Win32Struct
-{
+class AVIEXTHEADER extends Win32Struct {
     static sizeof => 256
 
     static packingSize => 4
@@ -36,9 +34,9 @@ class AVIEXTHEADER extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    dwFuture{
+    dwFuture {
         get {
             if(!this.HasProp("__dwFutureProxyArray"))
                 this.__dwFutureProxyArray := Win32FixedArray(this.ptr + 12, 61, Primitive, "uint")

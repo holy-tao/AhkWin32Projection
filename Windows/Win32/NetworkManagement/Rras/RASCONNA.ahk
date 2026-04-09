@@ -5,11 +5,10 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Rras
- * @version v4.0.30319
  * @charset ANSI
+ * @architecture X64, Arm64
  */
-class RASCONNA extends Win32Struct
-{
+class RASCONNA extends Win32Struct {
     static sizeof => 720
 
     static packingSize => 8
@@ -25,7 +24,7 @@ class RASCONNA extends Win32Struct
     /**
      * @type {HRASCONN}
      */
-    hrasconn{
+    hrasconn {
         get {
             if(!this.HasProp("__hrasconn"))
                 this.__hrasconn := HRASCONN(8, this)
@@ -74,7 +73,7 @@ class RASCONNA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     guidEntry {
         get => NumGet(this, 688, "ptr")
@@ -92,7 +91,7 @@ class RASCONNA extends Win32Struct
     /**
      * @type {LUID}
      */
-    luid{
+    luid {
         get {
             if(!this.HasProp("__luid"))
                 this.__luid := LUID(700, this)
@@ -101,7 +100,7 @@ class RASCONNA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     guidCorrelationId {
         get => NumGet(this, 712, "ptr")

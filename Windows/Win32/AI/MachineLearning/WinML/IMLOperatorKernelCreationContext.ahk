@@ -1,15 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\IMLOperatorAttributes.ahk
 #Include .\MLOperatorEdgeDescription.ahk
 #Include .\IMLOperatorTensorShapeDescription.ahk
-#Include .\IMLOperatorAttributes.ahk
 
 /**
  * @namespace Windows.Win32.AI.MachineLearning.WinML
- * @version v4.0.30319
  */
-class IMLOperatorKernelCreationContext extends IMLOperatorAttributes{
+class IMLOperatorKernelCreationContext extends IMLOperatorAttributes {
 
     static sizeof => A_PtrSize
     /**

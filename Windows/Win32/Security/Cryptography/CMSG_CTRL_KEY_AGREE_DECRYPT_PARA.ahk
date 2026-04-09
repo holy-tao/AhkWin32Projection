@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\NCRYPT_KEY_HANDLE.ahk
+#Include .\CMSG_KEY_AGREE_RECIPIENT_INFO.ahk
 #Include .\CRYPT_BIT_BLOB.ahk
 
 /**
  * Contains information about a key agreement recipient.
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cmsg_ctrl_key_agree_decrypt_para
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CMSG_CTRL_KEY_AGREE_DECRYPT_PARA extends Win32Struct
-{
+class CMSG_CTRL_KEY_AGREE_DECRYPT_PARA extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 8
@@ -35,7 +34,7 @@ class CMSG_CTRL_KEY_AGREE_DECRYPT_PARA extends Win32Struct
     /**
      * @type {NCRYPT_KEY_HANDLE}
      */
-    hNCryptKey{
+    hNCryptKey {
         get {
             if(!this.HasProp("__hNCryptKey"))
                 this.__hNCryptKey := NCRYPT_KEY_HANDLE(8, this)
@@ -83,7 +82,7 @@ class CMSG_CTRL_KEY_AGREE_DECRYPT_PARA extends Win32Struct
      * A <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-crypt_bit_blob">CRYPT_BIT_BLOB</a> structure that contains the sender's public key information.
      * @type {CRYPT_BIT_BLOB}
      */
-    OriginatorPublicKey{
+    OriginatorPublicKey {
         get {
             if(!this.HasProp("__OriginatorPublicKey"))
                 this.__OriginatorPublicKey := CRYPT_BIT_BLOB(40, this)

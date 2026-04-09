@@ -5,10 +5,8 @@
  * Defines a data type used by the Desktop Window Manager (DWM) APIs. It represents a generic ratio and is used for different purposes and units even within a single API.
  * @see https://learn.microsoft.com/windows/win32/api/dwmapi/ns-dwmapi-unsigned_ratio
  * @namespace Windows.Win32.Graphics.Dwm
- * @version v4.0.30319
  */
-class UNSIGNED_RATIO extends Win32Struct
-{
+class UNSIGNED_RATIO extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4

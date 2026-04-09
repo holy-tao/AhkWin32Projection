@@ -7,10 +7,8 @@
  * Data Deduplication needs to read only the portions of a container file that back the restore target file.
  * @see https://learn.microsoft.com/windows/win32/api/ddpbackup/ns-ddpbackup-ddp_file_extent
  * @namespace Windows.Win32.Storage.DataDeduplication
- * @version v4.0.30319
  */
-class DDP_FILE_EXTENT extends Win32Struct
-{
+class DDP_FILE_EXTENT extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

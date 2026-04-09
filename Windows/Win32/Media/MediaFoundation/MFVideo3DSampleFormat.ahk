@@ -22,9 +22,8 @@
  * </ul>
  * @see https://learn.microsoft.com/windows/win32/api/mfapi/ne-mfapi-mfvideo3dsampleformat
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class MFVideo3DSampleFormat extends Win32Enum{
+class MFVideo3DSampleFormat extends Win32Enum {
 
     /**
      * Each view is stored in a separate buffer. The sample contains one buffer per view.

@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\D3D12_DRED_ALLOCATION_TYPE.ahk
+#Include .\D3D12_DRED_ALLOCATION_NODE1.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D12
- * @version v4.0.30319
  */
-class D3D12_DRED_ALLOCATION_NODE1 extends Win32Struct
-{
+class D3D12_DRED_ALLOCATION_NODE1 extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -28,7 +29,7 @@ class D3D12_DRED_ALLOCATION_NODE1 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {D3D12_DRED_ALLOCATION_TYPE}
      */
     AllocationType {
         get => NumGet(this, 16, "int")

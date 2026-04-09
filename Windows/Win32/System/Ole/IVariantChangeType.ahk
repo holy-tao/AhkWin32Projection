@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.Ole
- * @version v4.0.30319
  */
-class IVariantChangeType extends IUnknown{
+class IVariantChangeType extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -33,7 +32,7 @@ class IVariantChangeType extends IUnknown{
      * @param {Pointer<VARIANT>} pvarDst 
      * @param {Pointer<VARIANT>} pvarSrc 
      * @param {Integer} lcid 
-     * @param {Integer} vtNew 
+     * @param {VARENUM} vtNew 
      * @returns {HRESULT} 
      */
     ChangeType(pvarDst, pvarSrc, lcid, vtNew) {

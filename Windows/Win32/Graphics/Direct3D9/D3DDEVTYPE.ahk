@@ -11,9 +11,8 @@
  * If D3dref9.dll is installed, Direct3D will use the reference rasterizer to create a D3DDEVTYPE\_REF device type, even if D3DDEVTYPE\_NULLREF is specified. If D3dref9.dll is not available and D3DDEVTYPE\_NULLREF is specified, Direct3D will neither render nor present the scene.
  * @see https://learn.microsoft.com/windows/win32/direct3d9/d3ddevtype
  * @namespace Windows.Win32.Graphics.Direct3D9
- * @version v4.0.30319
  */
-class D3DDEVTYPE extends Win32Enum{
+class D3DDEVTYPE extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class PNP_REPLACE_PROCESSOR_LIST_V1 extends Win32Struct
-{
+class PNP_REPLACE_PROCESSOR_LIST_V1 extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -36,9 +34,9 @@ class PNP_REPLACE_PROCESSOR_LIST_V1 extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    ApicIds{
+    ApicIds {
         get {
             if(!this.HasProp("__ApicIdsProxyArray"))
                 this.__ApicIdsProxyArray := Win32FixedArray(this.ptr + 16, 1, Primitive, "uint")

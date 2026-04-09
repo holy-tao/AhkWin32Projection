@@ -5,9 +5,8 @@
  * Defines the options for how to apply the rule to the file.
  * @see https://learn.microsoft.com/windows/win32/api/fsrmenums/ne-fsrmenums-fsrmexecutionoption
  * @namespace Windows.Win32.Storage.FileServerResourceManager
- * @version v4.0.30319
  */
-class FsrmExecutionOption extends Win32Enum{
+class FsrmExecutionOption extends Win32Enum {
 
     /**
      * The execution option is unknown. Do not use this value.

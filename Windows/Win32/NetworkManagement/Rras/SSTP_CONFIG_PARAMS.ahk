@@ -1,16 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Security\Cryptography\CRYPT_INTEGER_BLOB.ahk
 #Include .\SSTP_CERT_INFO.ahk
+#Include ..\..\Security\Cryptography\CRYPT_INTEGER_BLOB.ahk
 
 /**
  * Used to get and set the device configuration for Secure Socket Tunneling Protocol (SSTP) on a RAS Server.
  * @see https://learn.microsoft.com/windows/win32/api/mprapi/ns-mprapi-sstp_config_params
  * @namespace Windows.Win32.NetworkManagement.Rras
- * @version v4.0.30319
  */
-class SSTP_CONFIG_PARAMS extends Win32Struct
-{
+class SSTP_CONFIG_PARAMS extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -133,7 +131,7 @@ class SSTP_CONFIG_PARAMS extends Win32Struct
      * An <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ns-mprapi-sstp_cert_info">SSTP_CERT_INFO</a> structure that contains the SSTP based certificate hash.
      * @type {SSTP_CERT_INFO}
      */
-    sstpCertDetails{
+    sstpCertDetails {
         get {
             if(!this.HasProp("__sstpCertDetails"))
                 this.__sstpCertDetails := SSTP_CERT_INFO(16, this)

@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.UI.WindowsAndMessaging
- * @version v4.0.30319
  */
-class LAYERED_WINDOW_ATTRIBUTES_FLAGS extends Win32BitflagEnum{
+class LAYERED_WINDOW_ATTRIBUTES_FLAGS extends Win32BitflagEnum {
 
     /**
      * @type {Integer (UInt32)}

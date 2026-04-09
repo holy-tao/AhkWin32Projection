@@ -1,21 +1,20 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\WS_SECURITY_PROPERTY_ID.ahk
 
 /**
  * Specifies a channel-wide security setting.
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_security_property
  * @namespace Windows.Win32.Networking.WindowsWebServices
- * @version v4.0.30319
  */
-class WS_SECURITY_PROPERTY extends Win32Struct
-{
+class WS_SECURITY_PROPERTY extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
 
     /**
      * Identifies the <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_security_property_id">WS_SECURITY_PROPERTY_ID</a>.
-     * @type {Integer}
+     * @type {WS_SECURITY_PROPERTY_ID}
      */
     id {
         get => NumGet(this, 0, "int")

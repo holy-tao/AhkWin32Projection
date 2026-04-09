@@ -7,10 +7,8 @@
  * A physical monitor description is always an array of 128 characters.
  * @see https://learn.microsoft.com/windows/win32/api/physicalmonitorenumerationapi/ns-physicalmonitorenumerationapi-physical_monitor
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
- * @version v4.0.30319
  */
-class PHYSICAL extends Win32Struct
-{
+class PHYSICAL extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
@@ -32,9 +30,9 @@ class PHYSICAL extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Buf{
+    Buf {
         get {
             if(!this.HasProp("__BufProxyArray"))
                 this.__BufProxyArray := Win32FixedArray(this.ptr + 12, 1, Primitive, "char")

@@ -14,9 +14,8 @@
  * You must include Ks.h before Ksproxy.h.
  * @see https://learn.microsoft.com/windows/win32/DirectShow/ikspin
  * @namespace Windows.Win32.Media.KernelStreaming
- * @version v4.0.30319
  */
-class IKsPin extends IUnknown{
+class IKsPin extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -75,7 +74,7 @@ class IKsPin extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} Communication 
+     * @param {Pointer<KSPIN_COMMUNICATION>} Communication 
      * @param {Pointer<KSIDENTIFIER>} _Interface 
      * @param {Pointer<KSIDENTIFIER>} Medium 
      * @returns {HRESULT} 
@@ -119,7 +118,7 @@ class IKsPin extends IUnknown{
 
     /**
      * 
-     * @param {Integer} Operation 
+     * @param {KSPEEKOPERATION} Operation 
      * @returns {IMemAllocator} 
      */
     KsPeekAllocator(Operation) {

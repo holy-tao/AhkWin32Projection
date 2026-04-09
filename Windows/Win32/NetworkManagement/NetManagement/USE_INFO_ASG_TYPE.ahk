@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.NetManagement
- * @version v4.0.30319
  */
-class USE_INFO_ASG_TYPE extends Win32Enum{
+class USE_INFO_ASG_TYPE extends Win32Enum {
 
     /**
      * @type {Integer (UInt32)}

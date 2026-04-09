@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.UI.WindowsAndMessaging
- * @version v4.0.30319
  */
-class SYSTEM_METRICS_INDEX extends Win32Enum{
+class SYSTEM_METRICS_INDEX extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Networking.WinSock
- * @version v4.0.30319
  */
-class IPV4_ROUTING_HEADER extends Win32Struct
-{
+class IPV4_ROUTING_HEADER extends Win32Struct {
     static sizeof => 3
 
     static packingSize => 1
@@ -15,7 +13,7 @@ class IPV4_ROUTING_HEADER extends Win32Struct
     /**
      * @type {IPV4_OPTION_HEADER}
      */
-    OptionHeader{
+    OptionHeader {
         get {
             if(!this.HasProp("__OptionHeader"))
                 this.__OptionHeader := IPV4_OPTION_HEADER(0, this)

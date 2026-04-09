@@ -8,11 +8,9 @@
  * The <b>modBaseAddr</b> and <b>hModule</b> members are valid only in the context of the process specified by <i>th32ProcessID</i>.
  * @see https://learn.microsoft.com/windows/win32/api/tlhelp32/ns-tlhelp32-moduleentry32
  * @namespace Windows.Win32.System.VirtualDosMachines
- * @version v4.0.30319
  */
-class MODULEENTRY extends Win32Struct
-{
-    static sizeof => 552
+class MODULEENTRY extends Win32Struct {
+    static sizeof => 288
 
     static packingSize => 8
 
@@ -32,18 +30,18 @@ class MODULEENTRY extends Win32Struct
      * @type {String}
      */
     szModule {
-        get => StrGet(this.ptr + 4, 9, "UTF-16")
-        set => StrPut(value, this.ptr + 4, 9, "UTF-16")
+        get => StrGet(this.ptr + 4, 9, "UTF-8")
+        set => StrPut(value, this.ptr + 4, 9, "UTF-8")
     }
 
     /**
      * A handle to the module in the context of the owning process.
      * @type {HANDLE}
      */
-    hModule{
+    hModule {
         get {
             if(!this.HasProp("__hModule"))
-                this.__hModule := HANDLE(24, this)
+                this.__hModule := HANDLE(16, this)
             return this.__hModule
         }
     }
@@ -52,8 +50,8 @@ class MODULEENTRY extends Win32Struct
      * @type {Integer}
      */
     wcUsage {
-        get => NumGet(this, 32, "ushort")
-        set => NumPut("ushort", value, this, 32)
+        get => NumGet(this, 24, "ushort")
+        set => NumPut("ushort", value, this, 24)
     }
 
     /**
@@ -61,15 +59,15 @@ class MODULEENTRY extends Win32Struct
      * @type {String}
      */
     szExePath {
-        get => StrGet(this.ptr + 34, 255, "UTF-16")
-        set => StrPut(value, this.ptr + 34, 255, "UTF-16")
+        get => StrGet(this.ptr + 26, 255, "UTF-8")
+        set => StrPut(value, this.ptr + 26, 255, "UTF-8")
     }
 
     /**
      * @type {Integer}
      */
     wNext {
-        get => NumGet(this, 546, "ushort")
-        set => NumPut("ushort", value, this, 546)
+        get => NumGet(this, 282, "ushort")
+        set => NumPut("ushort", value, this, 282)
     }
 }

@@ -8,9 +8,8 @@
  * <div> </div>
  * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/ne-wcmconfig-wcmnamespaceenumerationflags
  * @namespace Windows.Win32.System.SettingsManagementInfrastructure
- * @version v4.0.30319
  */
-class WcmNamespaceEnumerationFlags extends Win32Enum{
+class WcmNamespaceEnumerationFlags extends Win32Enum {
 
     /**
      * Describes a shared enumeration. It enumerates all namespaces that have been compiled for the machine space.

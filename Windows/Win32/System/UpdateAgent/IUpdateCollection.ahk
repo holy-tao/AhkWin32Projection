@@ -1,10 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Com\IDispatch.ahk
 #Include .\IUpdate.ahk
 #Include ..\Com\IUnknown.ahk
-#Include .\IUpdateCollection.ahk
-#Include ..\Com\IDispatch.ahk
 
 /**
  * Represents an ordered list of updates.
@@ -12,9 +11,8 @@
  * You can create an instance of this interface by using the UpdateCollection coclass. Use the Microsoft.Update.UpdateColl program identifier to create the object.
  * @see https://learn.microsoft.com/windows/win32/api/wuapi/nn-wuapi-iupdatecollection
  * @namespace Windows.Win32.System.UpdateAgent
- * @version v4.0.30319
  */
-class IUpdateCollection extends IDispatch{
+class IUpdateCollection extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

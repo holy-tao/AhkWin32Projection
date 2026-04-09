@@ -14,10 +14,8 @@
  * DirectDraw requests additional driver capabilities by calling the <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/nc-ddrawint-pdd_getdriverinfo">DdGetDriverInfo</a> function that is also returned in the DD_HALINFO structure.
  * @see https://learn.microsoft.com/windows/win32/api/ddrawi/ns-ddrawi-ddcorecaps
  * @namespace Windows.Win32.Graphics.DirectDraw
- * @version v4.0.30319
  */
-class DDCORECAPS extends Win32Struct
-{
+class DDCORECAPS extends Win32Struct {
     static sizeof => 316
 
     static packingSize => 4
@@ -1239,7 +1237,6 @@ class DDCORECAPS extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     dwZBufferBitDepths {
@@ -1339,9 +1336,9 @@ class DDCORECAPS extends Win32Struct
 
     /**
      * Specifies an array of DD_ROP_SPACE DWORDs that together can hold flags to indicate the ROPs that the driver supports. The driver should set the bitfield for every corresponding ROP that it supports. See the Microsoft Windows SDK documentation for information about ROPs.
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    dwRops{
+    dwRops {
         get {
             if(!this.HasProp("__dwRopsProxyArray"))
                 this.__dwRopsProxyArray := Win32FixedArray(this.ptr + 100, 8, Primitive, "uint")
@@ -1353,7 +1350,7 @@ class DDCORECAPS extends Win32Struct
      * Specifies a <a href="https://docs.microsoft.com/previous-versions/windows/hardware/drivers/ff550286(v=vs.85)">DDSCAPS</a> structure that describes the types of surfaces the driver supports.
      * @type {DDSCAPS}
      */
-    ddsCaps{
+    ddsCaps {
         get {
             if(!this.HasProp("__ddsCaps"))
                 this.__ddsCaps := DDSCAPS(132, this)
@@ -1471,9 +1468,9 @@ class DDCORECAPS extends Win32Struct
 
     /**
      * Specifies an array of DD_ROP_SPACE DWORDs that together can hold flags to indicate the ROPs that the driver supports when performing system-memory-to-display-memory blits. The driver should set the bitfield for every corresponding ROP that it supports. See the Microsoft Windows SDK documentation for information about ROPs.
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    dwSVBRops{
+    dwSVBRops {
         get {
             if(!this.HasProp("__dwSVBRopsProxyArray"))
                 this.__dwSVBRopsProxyArray := Win32FixedArray(this.ptr + 184, 8, Primitive, "uint")
@@ -1510,9 +1507,9 @@ class DDCORECAPS extends Win32Struct
 
     /**
      * Specifies an array of DD_ROP_SPACE DWORDs that together can hold flags to indicate the ROPs that the driver supports when performing display-memory-to-system-memory blits. The driver should set the bitfield for every corresponding ROP that it supports. See the Windows SDK documentation for information about ROPs.
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    dwVSBRops{
+    dwVSBRops {
         get {
             if(!this.HasProp("__dwVSBRopsProxyArray"))
                 this.__dwVSBRopsProxyArray := Win32FixedArray(this.ptr + 228, 8, Primitive, "uint")
@@ -1549,9 +1546,9 @@ class DDCORECAPS extends Win32Struct
 
     /**
      * Specifies an array of DD_ROP_SPACE DWORDs that together can hold flags to indicate the ROPs that the driver supports when performing system-memory-to-system-memory blits. The driver should set the bitfield for every corresponding ROP that it supports. See the Windows SDK documentation for information about ROPs.
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    dwSSBRops{
+    dwSSBRops {
         get {
             if(!this.HasProp("__dwSSBRopsProxyArray"))
                 this.__dwSSBRopsProxyArray := Win32FixedArray(this.ptr + 272, 8, Primitive, "uint")

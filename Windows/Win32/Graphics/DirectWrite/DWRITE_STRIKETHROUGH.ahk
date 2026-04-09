@@ -1,14 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DWRITE_READING_DIRECTION.ahk
+#Include .\DWRITE_FLOW_DIRECTION.ahk
+#Include .\DWRITE_MEASURING_MODE.ahk
 
 /**
  * Contains information regarding the size and placement of strikethroughs.
  * @see https://learn.microsoft.com/windows/win32/api/dwrite/ns-dwrite-dwrite_strikethrough
  * @namespace Windows.Win32.Graphics.DirectWrite
- * @version v4.0.30319
  */
-class DWRITE_STRIKETHROUGH extends Win32Struct
-{
+class DWRITE_STRIKETHROUGH extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -54,7 +55,7 @@ class DWRITE_STRIKETHROUGH extends Win32Struct
      * Reading direction of the text associated with the strikethrough. 
      * 	  This value is used to interpret whether the width value runs horizontally 
      * 	  or vertically.
-     * @type {Integer}
+     * @type {DWRITE_READING_DIRECTION}
      */
     readingDirection {
         get => NumGet(this, 12, "int")
@@ -67,7 +68,7 @@ class DWRITE_STRIKETHROUGH extends Win32Struct
      * Flow direction of the text associated with the strikethrough. 
      * 	  This value is used to interpret whether the thickness value advances top to 
      * 	  bottom, left to right, or right to left.
-     * @type {Integer}
+     * @type {DWRITE_FLOW_DIRECTION}
      */
     flowDirection {
         get => NumGet(this, 16, "int")
@@ -89,7 +90,7 @@ class DWRITE_STRIKETHROUGH extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dcommon/ne-dcommon-dwrite_measuring_mode">DWRITE_MEASURING_MODE</a></b>
      * 
      * The measuring mode can be useful to the renderer to determine how underlines are rendered, such as rounding the thickness to a whole pixel in GDI-compatible modes.
-     * @type {Integer}
+     * @type {DWRITE_MEASURING_MODE}
      */
     measuringMode {
         get => NumGet(this, 32, "int")

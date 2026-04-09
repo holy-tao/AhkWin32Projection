@@ -1,14 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include .\IRTCSession.ahk
 
 /**
  * @namespace Windows.Win32.System.RealTimeCommunications
- * @version v4.0.30319
  */
-class IRTCSession2 extends IRTCSession{
+class IRTCSession2 extends IRTCSession {
 
     static sizeof => A_PtrSize
     /**
@@ -46,8 +44,8 @@ class IRTCSession2 extends IRTCSession{
 
     /**
      * 
-     * @param {Integer} enSecurityType 
-     * @param {Integer} enSecurityLevel 
+     * @param {RTC_SECURITY_TYPE} enSecurityType 
+     * @param {RTC_SECURITY_LEVEL} enSecurityLevel 
      * @returns {HRESULT} 
      */
     put_PreferredSecurityLevel(enSecurityType, enSecurityLevel) {
@@ -57,8 +55,8 @@ class IRTCSession2 extends IRTCSession{
 
     /**
      * 
-     * @param {Integer} enSecurityType 
-     * @returns {Integer} 
+     * @param {RTC_SECURITY_TYPE} enSecurityType 
+     * @returns {RTC_SECURITY_LEVEL} 
      */
     get_PreferredSecurityLevel(enSecurityType) {
         result := ComCall(25, this, "int", enSecurityType, "int*", &penSecurityLevel := 0, "HRESULT")
@@ -67,7 +65,7 @@ class IRTCSession2 extends IRTCSession{
 
     /**
      * 
-     * @param {Integer} enSecurityType 
+     * @param {RTC_SECURITY_TYPE} enSecurityType 
      * @returns {VARIANT_BOOL} 
      */
     IsSecurityEnabled(enSecurityType) {

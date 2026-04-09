@@ -9,11 +9,9 @@
  * > The dsclient.h header defines DSBROWSEINFO as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
  * @see https://learn.microsoft.com/windows/win32/api/dsclient/ns-dsclient-dsbrowseinfoa
  * @namespace Windows.Win32.Networking.ActiveDirectory
- * @version v4.0.30319
  * @charset ANSI
  */
-class DSBROWSEINFOA extends Win32Struct
-{
+class DSBROWSEINFOA extends Win32Struct {
     static sizeof => 112
 
     static packingSize => 8
@@ -31,7 +29,7 @@ class DSBROWSEINFOA extends Win32Struct
      * Handle of the window used as the parent of the container browser dialog box.
      * @type {HWND}
      */
-    hwndOwner{
+    hwndOwner {
         get {
             if(!this.HasProp("__hwndOwner"))
                 this.__hwndOwner := HWND(8, this)
@@ -85,7 +83,6 @@ class DSBROWSEINFOA extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     dwFlags {

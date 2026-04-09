@@ -1,19 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\IDODownload.ahk
 #Include ..\..\System\Com\IEnumUnknown.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Used to create a new download, and to enumerate existing downloads.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/deliveryoptimization/nn-deliveryoptimization-idomanager
  * @namespace Windows.Win32.Networking.DeliveryOptimization
- * @version v4.0.30319
  */
-class IDOManager extends IUnknown{
+class IDOManager extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

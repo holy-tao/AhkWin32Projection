@@ -5,10 +5,8 @@
  * The SERVER_INFO_100 structure contains information about the specified server, including the name and platform.
  * @see https://learn.microsoft.com/windows/win32/api/lmserver/ns-lmserver-server_info_100
  * @namespace Windows.Win32.NetworkManagement.NetManagement
- * @version v4.0.30319
  */
-class SERVER_INFO_100 extends Win32Struct
-{
+class SERVER_INFO_100 extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

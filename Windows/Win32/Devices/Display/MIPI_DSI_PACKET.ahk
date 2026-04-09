@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.Display
- * @version v4.0.30319
  */
-class MIPI_DSI_PACKET extends Win32Struct
-{
+class MIPI_DSI_PACKET extends Win32Struct {
     static sizeof => 14
 
     static packingSize => 2
@@ -79,9 +77,9 @@ class MIPI_DSI_PACKET extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Payload{
+    Payload {
         get {
             if(!this.HasProp("__PayloadProxyArray"))
                 this.__PayloadProxyArray := Win32FixedArray(this.ptr + 5, 8, Primitive, "char")

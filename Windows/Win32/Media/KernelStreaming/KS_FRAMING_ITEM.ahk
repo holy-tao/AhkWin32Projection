@@ -5,16 +5,14 @@
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
- * @version v4.0.30319
  */
-class KS_FRAMING_ITEM extends Win32Struct
-{
+class KS_FRAMING_ITEM extends Win32Struct {
     static sizeof => 72
 
     static packingSize => 8
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     MemoryType {
         get => NumGet(this, 0, "ptr")
@@ -22,7 +20,7 @@ class KS_FRAMING_ITEM extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     BusType {
         get => NumGet(this, 8, "ptr")
@@ -88,7 +86,7 @@ class KS_FRAMING_ITEM extends Win32Struct
     /**
      * @type {KS_FRAMING_RANGE}
      */
-    PhysicalRange{
+    PhysicalRange {
         get {
             if(!this.HasProp("__PhysicalRange"))
                 this.__PhysicalRange := KS_FRAMING_RANGE(40, this)
@@ -99,7 +97,7 @@ class KS_FRAMING_ITEM extends Win32Struct
     /**
      * @type {KS_FRAMING_RANGE_WEIGHTED}
      */
-    FramingRange{
+    FramingRange {
         get {
             if(!this.HasProp("__FramingRange"))
                 this.__FramingRange := KS_FRAMING_RANGE_WEIGHTED(52, this)

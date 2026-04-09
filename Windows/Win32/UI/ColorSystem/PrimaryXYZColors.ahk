@@ -6,10 +6,8 @@
  * This structure contains eight primary colors in XYZ coordinates.
  * @see https://learn.microsoft.com/windows/win32/api/wcsplugin/ns-wcsplugin-primaryxyzcolors
  * @namespace Windows.Win32.UI.ColorSystem
- * @version v4.0.30319
  */
-class PrimaryXYZColors extends Win32Struct
-{
+class PrimaryXYZColors extends Win32Struct {
     static sizeof => 96
 
     static packingSize => 4
@@ -18,7 +16,7 @@ class PrimaryXYZColors extends Win32Struct
      * Red primary.
      * @type {XYZColorF}
      */
-    red{
+    red {
         get {
             if(!this.HasProp("__red"))
                 this.__red := XYZColorF(0, this)
@@ -30,7 +28,7 @@ class PrimaryXYZColors extends Win32Struct
      * Yellow primary.
      * @type {XYZColorF}
      */
-    yellow{
+    yellow {
         get {
             if(!this.HasProp("__yellow"))
                 this.__yellow := XYZColorF(12, this)
@@ -42,7 +40,7 @@ class PrimaryXYZColors extends Win32Struct
      * Green primary.
      * @type {XYZColorF}
      */
-    green{
+    green {
         get {
             if(!this.HasProp("__green"))
                 this.__green := XYZColorF(24, this)
@@ -54,7 +52,7 @@ class PrimaryXYZColors extends Win32Struct
      * Cyan primary.
      * @type {XYZColorF}
      */
-    cyan{
+    cyan {
         get {
             if(!this.HasProp("__cyan"))
                 this.__cyan := XYZColorF(36, this)
@@ -66,7 +64,7 @@ class PrimaryXYZColors extends Win32Struct
      * Blue primary.
      * @type {XYZColorF}
      */
-    blue{
+    blue {
         get {
             if(!this.HasProp("__blue"))
                 this.__blue := XYZColorF(48, this)
@@ -78,7 +76,7 @@ class PrimaryXYZColors extends Win32Struct
      * Magenta primary.
      * @type {XYZColorF}
      */
-    magenta{
+    magenta {
         get {
             if(!this.HasProp("__magenta"))
                 this.__magenta := XYZColorF(60, this)
@@ -90,7 +88,7 @@ class PrimaryXYZColors extends Win32Struct
      * Black primary.
      * @type {XYZColorF}
      */
-    black{
+    black {
         get {
             if(!this.HasProp("__black"))
                 this.__black := XYZColorF(72, this)
@@ -102,7 +100,7 @@ class PrimaryXYZColors extends Win32Struct
      * White primary.
      * @type {XYZColorF}
      */
-    white{
+    white {
         get {
             if(!this.HasProp("__white"))
                 this.__white := XYZColorF(84, this)

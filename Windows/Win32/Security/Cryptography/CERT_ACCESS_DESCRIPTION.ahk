@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\CRYPT_INTEGER_BLOB.ahk
 #Include .\CERT_ALT_NAME_ENTRY.ahk
+#Include .\CERT_OTHER_NAME.ahk
+#Include .\CRYPT_INTEGER_BLOB.ahk
 
 /**
  * The CERT_ACCESS_DESCRIPTION structure is a member of a CERT_AUTHORITY_INFO_ACCESS structure.
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cert_access_description
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CERT_ACCESS_DESCRIPTION extends Win32Struct
-{
+class CERT_ACCESS_DESCRIPTION extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -47,7 +46,7 @@ class CERT_ACCESS_DESCRIPTION extends Win32Struct
      * For the szOID_PKIX_CA_REPOSITORY method, <b>AccessLocation</b> specifies either the URI, directory name, or email address of the certificate and <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate revocation list</a> (CRL) repository for a  subject that is a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certification authority</a> (CA).
      * @type {CERT_ALT_NAME_ENTRY}
      */
-    AccessLocation{
+    AccessLocation {
         get {
             if(!this.HasProp("__AccessLocation"))
                 this.__AccessLocation := CERT_ALT_NAME_ENTRY(8, this)

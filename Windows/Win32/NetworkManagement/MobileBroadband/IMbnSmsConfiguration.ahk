@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * Provides access to the SMS configuration of a device.
@@ -10,9 +10,8 @@
  * This interface is acquired by a call to the <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nf-mbnapi-imbnsms-getsmsconfiguration">GetSmsConfiguration</a> method of the <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nn-mbnapi-imbnsms">IMbnSms</a> interface.
  * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nn-mbnapi-imbnsmsconfiguration
  * @namespace Windows.Win32.NetworkManagement.MobileBroadband
- * @version v4.0.30319
  */
-class IMbnSmsConfiguration extends IUnknown{
+class IMbnSmsConfiguration extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -56,7 +55,7 @@ class IMbnSmsConfiguration extends IUnknown{
     }
 
     /**
-     * @type {Integer} 
+     * @type {MBN_SMS_FORMAT} 
      */
     SmsFormat {
         get => this.get_SmsFormat()
@@ -123,7 +122,7 @@ class IMbnSmsConfiguration extends IUnknown{
 
     /**
      * Format in which newly received SMS should be reported by the device. (Get)
-     * @returns {Integer} 
+     * @returns {MBN_SMS_FORMAT} 
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnsmsconfiguration-get_smsformat
      */
     get_SmsFormat() {
@@ -133,7 +132,7 @@ class IMbnSmsConfiguration extends IUnknown{
 
     /**
      * Format in which newly received SMS should be reported by the device. (Put)
-     * @param {Integer} smsFormat 
+     * @param {MBN_SMS_FORMAT} smsFormat 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnsmsconfiguration-put_smsformat
      */

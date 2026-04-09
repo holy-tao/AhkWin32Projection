@@ -1,15 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\IShellItem.ahk
 #Include ..\Controls\HIMAGELIST.ahk
 
 /**
  * Custom draw structure used by INameSpaceTreeControlCustomDraw methods.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl/ns-shobjidl-nstccustomdraw
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class NSTCCUSTOMDRAW extends Win32Struct
-{
+class NSTCCUSTOMDRAW extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -75,7 +74,7 @@ class NSTCCUSTOMDRAW extends Win32Struct
      * A handle to an image list.
      * @type {HIMAGELIST}
      */
-    himl{
+    himl {
         get {
             if(!this.HasProp("__himl"))
                 this.__himl := HIMAGELIST(32, this)

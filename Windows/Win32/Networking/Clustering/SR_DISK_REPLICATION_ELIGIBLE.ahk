@@ -5,9 +5,8 @@
  * Specifies the various reasons a disk on a cluster node can be eligible or ineligible for replication.
  * @see https://learn.microsoft.com/windows/win32/api/clusapi/ne-clusapi-sr_disk_replication_eligible
  * @namespace Windows.Win32.Networking.Clustering
- * @version v4.0.30319
  */
-class SR_DISK_REPLICATION_ELIGIBLE extends Win32Enum{
+class SR_DISK_REPLICATION_ELIGIBLE extends Win32Enum {
 
     /**
      * None of the disks on the node are eligible for replication.

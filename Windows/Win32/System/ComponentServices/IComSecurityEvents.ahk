@@ -7,9 +7,8 @@
  * Notifies the subscriber if the authentication of a method call succeeded or failed.
  * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nn-comsvcs-icomsecurityevents
  * @namespace Windows.Win32.System.ComponentServices
- * @version v4.0.30319
  */
-class IComSecurityEvents extends IUnknown{
+class IComSecurityEvents extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -34,7 +33,7 @@ class IComSecurityEvents extends IUnknown{
      * Generated when a method call level authentication succeeds.
      * @param {Pointer<COMSVCSEVENTINFO>} pInfo A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/comsvcs/ns-comsvcs-comsvcseventinfo">COMSVCSEVENTINFO</a> structure.
      * @param {Pointer<Guid>} guidActivity The identifier of the activity in which the object is created.
-     * @param {Integer} _ObjectID 
+     * @param {Integer} _ObjectID The just-in-time activated object.
      * @param {Pointer<Guid>} guidIID The IID of the method.
      * @param {Integer} iMeth The v-table index of the method.
      * @param {Integer} cbByteOrig The number of bytes in the security identifier for the original caller.
@@ -57,7 +56,7 @@ class IComSecurityEvents extends IUnknown{
      * Generated when a method call level authentication fails.
      * @param {Pointer<COMSVCSEVENTINFO>} pInfo A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/comsvcs/ns-comsvcs-comsvcseventinfo">COMSVCSEVENTINFO</a> structure.
      * @param {Pointer<Guid>} guidActivity The identifier of the activity in which the object is created.
-     * @param {Integer} _ObjectID 
+     * @param {Integer} _ObjectID The just-in-time activated object.
      * @param {Pointer<Guid>} guidIID The IID of the method.
      * @param {Integer} iMeth The v-table index of the method.
      * @param {Integer} cbByteOrig The number of bytes in the security identifier for the original caller.

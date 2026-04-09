@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ITfPropertyStore.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\ITfPropertyStore.ahk
 
 /**
  * The ITfCreatePropertyStore interface is implemented by a text service to support persistence of property store data.
@@ -10,9 +10,8 @@
  * When a property store is unserialized, the TSF manager creates an object from the CLSID obtained from <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nf-msctf-itfpropertystore-gettype">ITfPropertyStore::GetPropertyRangeCreator</a> and obtain an <b>ITfCreatePropertyStore</b> interface pointer from it. The manager then uses <b>ITfCreatePropertyStore::CreatePropertyStore</b> to create the property store object.
  * @see https://learn.microsoft.com/windows/win32/api/msctf/nn-msctf-itfcreatepropertystore
  * @namespace Windows.Win32.UI.TextServices
- * @version v4.0.30319
  */
-class ITfCreatePropertyStore extends IUnknown{
+class ITfCreatePropertyStore extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

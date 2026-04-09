@@ -17,11 +17,9 @@
  * > The ntmsapi.h header defines NTMS_DRIVEINFORMATION as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
  * @see https://learn.microsoft.com/windows/win32/api/ntmsapi/ns-ntmsapi-ntms_driveinformationw
  * @namespace Windows.Win32.Storage.FileSystem
- * @version v4.0.30319
  * @charset Unicode
  */
-class NTMS_DRIVEINFORMATIONW extends Win32Struct
-{
+class NTMS_DRIVEINFORMATIONW extends Win32Struct {
     static sizeof => 336
 
     static packingSize => 8
@@ -36,7 +34,6 @@ class NTMS_DRIVEINFORMATIONW extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     State {
@@ -46,7 +43,7 @@ class NTMS_DRIVEINFORMATIONW extends Win32Struct
 
     /**
      * Unique identifier of the drive type object containing the attributes for the drive.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     DriveType {
         get => NumGet(this, 8, "ptr")
@@ -129,7 +126,7 @@ class NTMS_DRIVEINFORMATIONW extends Win32Struct
      * Last time the drive was cleaned.
      * @type {SYSTEMTIME}
      */
-    LastCleanedTs{
+    LastCleanedTs {
         get {
             if(!this.HasProp("__LastCleanedTs"))
                 this.__LastCleanedTs := SYSTEMTIME(284, this)
@@ -139,7 +136,7 @@ class NTMS_DRIVEINFORMATIONW extends Win32Struct
 
     /**
      * Partition identifier of the medium that is in the drive. If this value is NULL and the drive is found to be full, the media was loaded by a user and needs to be classified.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     SavedPartitionId {
         get => NumGet(this, 304, "ptr")
@@ -148,7 +145,7 @@ class NTMS_DRIVEINFORMATIONW extends Win32Struct
 
     /**
      * Unique identifier of the library that contains the drive.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     Library {
         get => NumGet(this, 312, "ptr")
@@ -157,7 +154,7 @@ class NTMS_DRIVEINFORMATIONW extends Win32Struct
 
     /**
      * Reserved.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     Reserved {
         get => NumGet(this, 320, "ptr")

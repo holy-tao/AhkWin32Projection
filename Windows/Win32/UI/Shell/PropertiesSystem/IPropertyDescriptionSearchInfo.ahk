@@ -7,9 +7,8 @@
  * Exposes search-related information for a property.
  * @see https://learn.microsoft.com/windows/win32/api/propsys/nn-propsys-ipropertydescriptionsearchinfo
  * @namespace Windows.Win32.UI.Shell.PropertiesSystem
- * @version v4.0.30319
  */
-class IPropertyDescriptionSearchInfo extends IPropertyDescription{
+class IPropertyDescriptionSearchInfo extends IPropertyDescription {
 
     static sizeof => A_PtrSize
     /**
@@ -32,7 +31,7 @@ class IPropertyDescriptionSearchInfo extends IPropertyDescription{
 
     /**
      * Gets the PROPDESC_SEARCHINFO_FLAGS associated with the property.
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/propsys/ne-propsys-propdesc_searchinfo_flags">PROPDESC_SEARCHINFO_FLAGS</a>*</b>
+     * @returns {PROPDESC_SEARCHINFO_FLAGS} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/propsys/ne-propsys-propdesc_searchinfo_flags">PROPDESC_SEARCHINFO_FLAGS</a>*</b>
      * 
      * When this method returns successfully, contains a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/propsys/ne-propsys-propdesc_searchinfo_flags">PROPDESC_SEARCHINFO_FLAGS</a> associated with the property.
      * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-ipropertydescriptionsearchinfo-getsearchinfoflags
@@ -44,7 +43,7 @@ class IPropertyDescriptionSearchInfo extends IPropertyDescription{
 
     /**
      * Determines the how the current property is indexed.
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/propsys/ne-propsys-propdesc_columnindex_type">PROPDESC_COLUMNINDEX_TYPE</a>*</b>
+     * @returns {PROPDESC_COLUMNINDEX_TYPE} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/propsys/ne-propsys-propdesc_columnindex_type">PROPDESC_COLUMNINDEX_TYPE</a>*</b>
      * 
      * When this method returns successfully, contains a pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/propsys/ne-propsys-propdesc_columnindex_type">PROPDESC_COLUMNINDEX_TYPE</a> constant. This constant describes whether the property is indexed and if so, if it is indexed in memory or on disk.
      * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-ipropertydescriptionsearchinfo-getcolumnindextype

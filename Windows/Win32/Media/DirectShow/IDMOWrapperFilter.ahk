@@ -7,9 +7,8 @@
  * The IDMOWrapperFilter interface enables an application to use a DirectX Media Object (DMO) inside a filter graph.
  * @see https://learn.microsoft.com/windows/win32/api/dmodshow/nn-dmodshow-idmowrapperfilter
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IDMOWrapperFilter extends IUnknown{
+class IDMOWrapperFilter extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

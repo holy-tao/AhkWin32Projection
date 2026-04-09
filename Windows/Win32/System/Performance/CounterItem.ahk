@@ -13,10 +13,8 @@
  * [**Value**](counteritem-value.md) is the default property of **CounterItem**.
  * @see https://learn.microsoft.com/windows/win32/SysMon/counteritem
  * @namespace Windows.Win32.System.Performance
- * @version v4.0.30319
  */
-class CounterItem extends Win32Struct
-{
+class CounterItem extends Win32Struct {
     static sizeof => 0
 
     static packingSize => 1

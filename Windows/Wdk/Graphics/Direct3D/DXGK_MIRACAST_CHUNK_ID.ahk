@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
- * @version v4.0.30319
  */
-class DXGK_MIRACAST_CHUNK_ID extends Win32Struct
-{
+class DXGK_MIRACAST_CHUNK_ID extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

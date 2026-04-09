@@ -9,10 +9,8 @@
  * The [**ColorF**](/windows/win32/api/d2d1helper/nl-d2d1helper-colorf) class provides a set of predefined colors and helper functions for defining colors. For more information, see the [**ColorF**](/windows/win32/api/d2d1helper/nl-d2d1helper-colorf) reference.
  * @see https://learn.microsoft.com/windows/win32/Direct2D/d2d1-color-f
  * @namespace Windows.Win32.Graphics.Direct2D.Common
- * @version v4.0.30319
  */
-class D2D1_COLOR_F extends Win32Struct
-{
+class D2D1_COLOR_F extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4

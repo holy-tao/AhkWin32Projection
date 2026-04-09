@@ -5,10 +5,8 @@
  * Used with the NCRYPT_UI_POLICY_PROPERTY property to contain strong key user interface information for a key.
  * @see https://learn.microsoft.com/windows/win32/api/ncrypt/ns-ncrypt-ncrypt_ui_policy
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class NCRYPT_UI_POLICY extends Win32Struct
-{
+class NCRYPT_UI_POLICY extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8

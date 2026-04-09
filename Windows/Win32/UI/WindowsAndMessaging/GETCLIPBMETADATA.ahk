@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.UI.WindowsAndMessaging
- * @version v4.0.30319
  */
-class GETCLIPBMETADATA extends Win32Struct
-{
+class GETCLIPBMETADATA extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4

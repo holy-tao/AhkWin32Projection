@@ -7,9 +7,8 @@
  * Implement this interface to receive notifications when events occur.
  * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nn-rdpencomapi-_irdpsessionevents
  * @namespace Windows.Win32.System.DesktopSharing
- * @version v4.0.30319
  */
-class _IRDPSessionEvents extends IDispatch{
+class _IRDPSessionEvents extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

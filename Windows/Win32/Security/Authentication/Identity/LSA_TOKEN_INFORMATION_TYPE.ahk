@@ -5,9 +5,8 @@
  * Specifies the levels of information that can be included in a logon token.
  * @see https://learn.microsoft.com/windows/win32/api/ntsecpkg/ne-ntsecpkg-lsa_token_information_type
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class LSA_TOKEN_INFORMATION_TYPE extends Win32Enum{
+class LSA_TOKEN_INFORMATION_TYPE extends Win32Enum {
 
     /**
      * The token information is stored in an 
@@ -32,13 +31,11 @@ class LSA_TOKEN_INFORMATION_TYPE extends Win32Enum{
     static LsaTokenInformationV1 => 1
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static LsaTokenInformationV2 => 2
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static LsaTokenInformationV3 => 3

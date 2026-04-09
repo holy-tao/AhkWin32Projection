@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.NetworkManagement.Ndis
- * @version v4.0.30319
  */
-class NDIS_PHYSICAL_ADDRESS_UNIT extends Win32Struct
-{
+class NDIS_PHYSICAL_ADDRESS_UNIT extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

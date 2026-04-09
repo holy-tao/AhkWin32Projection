@@ -15,9 +15,8 @@
  * This interface is available on Windows Vista if Platform Update Supplement for Windows Vista is installed.
  * @see https://learn.microsoft.com/windows/win32/api/mfreadwrite/nn-mfreadwrite-imfsinkwritercallback
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFSinkWriterCallback extends IUnknown{
+class IMFSinkWriterCallback extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

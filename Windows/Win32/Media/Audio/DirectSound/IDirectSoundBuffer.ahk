@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\DSBCAPS.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
+#Include .\DSBCAPS.ahk
 
 /**
  * @namespace Windows.Win32.Media.Audio.DirectSound
- * @version v4.0.30319
  */
-class IDirectSoundBuffer extends IUnknown{
+class IDirectSoundBuffer extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -58,7 +57,7 @@ class IDirectSoundBuffer extends IUnknown{
 
     /**
      * For current documentation on Windows Media codecs and digital signal processors, see Windows Media Audio and Video Codec and DSP APIs. | GetFormatProp
-     * @param {Pointer} pwfxFormat 
+     * @param {Integer} pwfxFormat 
      * @param {Integer} dwSizeAllocated 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/wmformat/iwmcodecprops-getformatprop
@@ -504,9 +503,9 @@ class IDirectSoundBuffer extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer} pvAudioPtr1 
+     * @param {Integer} pvAudioPtr1 
      * @param {Integer} dwAudioBytes1 
-     * @param {Pointer} pvAudioPtr2 
+     * @param {Integer} pvAudioPtr2 
      * @param {Integer} dwAudioBytes2 
      * @returns {HRESULT} If the function succeeds, the return value is nonzero.
      * 

@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\MI_QualifierSetFT.ahk
 
 /**
  * Allows the developer to view the qualifiers of a class definition.
  * @see https://learn.microsoft.com/windows/win32/api/mi/ns-mi-mi_qualifierset
  * @namespace Windows.Win32.System.Wmi
- * @version v4.0.30319
  */
-class MI_QualifierSet extends Win32Struct
-{
+class MI_QualifierSet extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class WIM_PROVIDER_OVERLAY_ENTRY extends Win32Struct
-{
+class WIM_PROVIDER_OVERLAY_ENTRY extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -28,7 +26,7 @@ class WIM_PROVIDER_OVERLAY_ENTRY extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     WimGuid {
         get => NumGet(this, 16, "ptr")

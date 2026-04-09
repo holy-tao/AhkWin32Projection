@@ -5,9 +5,8 @@
  * Defines the different ready states of the Media Source Extension.
  * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/ne-mfmediaengine-mf_mse_ready
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class MF_MSE_READY extends Win32Enum{
+class MF_MSE_READY extends Win32Enum {
 
     /**
      * The media source is closed.

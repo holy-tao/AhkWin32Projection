@@ -1,16 +1,21 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\CF_HYDRATION_POLICY.ahk
+#Include .\CF_HYDRATION_POLICY_PRIMARY.ahk
+#Include .\CF_HYDRATION_POLICY_MODIFIER.ahk
 #Include .\CF_POPULATION_POLICY.ahk
+#Include .\CF_POPULATION_POLICY_PRIMARY.ahk
+#Include .\CF_POPULATION_POLICY_MODIFIER.ahk
+#Include .\CF_INSYNC_POLICY.ahk
+#Include .\CF_HARDLINK_POLICY.ahk
+#Include .\CF_PLACEHOLDER_MANAGEMENT_POLICY.ahk
 
 /**
  * Defines the sync policies used by a sync root.
  * @see https://learn.microsoft.com/windows/win32/api/cfapi/ns-cfapi-cf_sync_policies
  * @namespace Windows.Win32.Storage.CloudFilters
- * @version v4.0.30319
  */
-class CF_SYNC_POLICIES extends Win32Struct
-{
+class CF_SYNC_POLICIES extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 4
@@ -46,7 +51,7 @@ class CF_SYNC_POLICIES extends Win32Struct
      * | ALLOW_FULL_RESTART_HYDRATION | This policy modifier grants the platform permission to fully hydrate a file synchronously when it intercepts an attempt by an AV Filter to scan the file. Sync providers that wish to use **RestartHydration** to change the `fileSize` from a **FetchData** callback must opt-in for the `ALLOW_FULL_RESTART_HYDRATION` policy to avoid possible deadlocks with anti-virus and anti-malware software trying to scan the file and the provider trying to change `fileSize` using **RestartHydration**.<br/><br/> **Note:** This modifier is supported only if the `PlatformVersion.IntegrationNumber` obtained from [CfGetPlatformInfo](nf-cfapi-cfgetplatforminfo.md) is `0x500` or higher. |
      * @type {CF_HYDRATION_POLICY}
      */
-    Hydration{
+    Hydration {
         get {
             if(!this.HasProp("__Hydration"))
                 this.__Hydration := CF_HYDRATION_POLICY(4, this)
@@ -64,7 +69,7 @@ class CF_SYNC_POLICIES extends Win32Struct
      * | PARTIAL | With the `PARTIAL` population policy, when the platform detects access on a not fully populated directory, it will request only the entries required by the user application from the sync provider. |
      * @type {CF_POPULATION_POLICY}
      */
-    Population{
+    Population {
         get {
             if(!this.HasProp("__Population"))
                 this.__Population := CF_POPULATION_POLICY(8, this)
@@ -74,7 +79,7 @@ class CF_SYNC_POLICIES extends Win32Struct
 
     /**
      * The `InSync` policy allows a sync provider to control when the platform should clear the in-sync state on a placeholder. In addition to always clearing in-sync on any data modification, the platform can currently clear in-sync on changes of any combinations of three file attributes (_ReadOnly_, _System_, and _Hidden_) and two file times (_CreateTime_ and _LastWriteTime_). These policies can be applied to files and directories separately.
-     * @type {Integer}
+     * @type {CF_INSYNC_POLICY}
      */
     InSync {
         get => NumGet(this, 12, "uint")
@@ -83,7 +88,7 @@ class CF_SYNC_POLICIES extends Win32Struct
 
     /**
      * By default, the platform does not allow hard links to be created on any placeholder. However, sync providers that are capable of handling hard links can instruct the platform to enable the support via the `ALLOWED` policy. With this policy, applications can create as many hard links as the file system supports so long as the links are under either the same sync root or no sync root. The platform will force a placeholder to be hydrated when the first out-of-sync-root link is introduced and revert a placeholder to normal file when its last in-sync-root link is removed. Hardlink creation that is not compatible with the policy will fail with HRESULT `ERROR_CLOUD_FILES_INCOMPATIBLE_HARDLINKS`. Placeholder operations that are not compatible with the policy will also fail with `ERROR_CLOUD_FILES_INCOMPATIBLE_HARDLINKS`.
-     * @type {Integer}
+     * @type {CF_HARDLINK_POLICY}
      */
     HardLink {
         get => NumGet(this, 16, "int")
@@ -101,7 +106,7 @@ class CF_SYNC_POLICIES extends Win32Struct
      * 
      * > [!NOTE]
      * > These flags are supported only if the `PlatformVersion.IntegrationNumber` obtained from [CfGetPlatformInfo](nf-cfapi-cfgetplatforminfo.md) is `0x310` or higher.
-     * @type {Integer}
+     * @type {CF_PLACEHOLDER_MANAGEMENT_POLICY}
      */
     PlaceholderManagement {
         get => NumGet(this, 20, "int")

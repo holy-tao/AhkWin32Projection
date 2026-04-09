@@ -7,10 +7,8 @@
  * The pitch for DXTn formats is different from what was returned in DirectX 7. It now refers to the number of bytes in a row of blocks. For example, if you have a width of 16, then you will have a pitch of 4 blocks (4\*8 for DXT1, 4\*16 for DXT2-5.)
  * @see https://learn.microsoft.com/windows/win32/direct3d9/d3dlocked-rect
  * @namespace Windows.Win32.Graphics.Direct3D9
- * @version v4.0.30319
  */
-class D3DLOCKED_RECT extends Win32Struct
-{
+class D3DLOCKED_RECT extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

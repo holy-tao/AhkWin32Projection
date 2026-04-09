@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class DXVAHDETW_DESTROYVIDEOPROCESSOR extends Win32Struct
-{
+class DXVAHDETW_DESTROYVIDEOPROCESSOR extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 8

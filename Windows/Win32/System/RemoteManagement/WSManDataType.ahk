@@ -5,9 +5,8 @@
  * Specifies the current data type of the union in the WSMAN_DATA structure.
  * @see https://learn.microsoft.com/windows/win32/api/wsman/ne-wsman-wsmandatatype
  * @namespace Windows.Win32.System.RemoteManagement
- * @version v4.0.30319
  */
-class WSManDataType extends Win32Enum{
+class WSManDataType extends Win32Enum {
 
     /**
      * The structure is not valid yet.

@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
- * @version v4.0.30319
  */
-class D3DKMT_OPENSYNCOBJECTFROMNTHANDLE2 extends Win32Struct
-{
+class D3DKMT_OPENSYNCOBJECTFROMNTHANDLE2 extends Win32Struct {
     static sizeof => 96
 
     static packingSize => 8
@@ -15,7 +13,7 @@ class D3DKMT_OPENSYNCOBJECTFROMNTHANDLE2 extends Win32Struct
     /**
      * @type {HANDLE}
      */
-    hNtHandle{
+    hNtHandle {
         get {
             if(!this.HasProp("__hNtHandle"))
                 this.__hNtHandle := HANDLE(0, this)
@@ -32,7 +30,7 @@ class D3DKMT_OPENSYNCOBJECTFROMNTHANDLE2 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<D3DDDI_SYNCHRONIZATIONOBJECT_FLAGS>}
+     * @type {Pointer}
      */
     Flags {
         get => NumGet(this, 16, "ptr")
@@ -58,7 +56,7 @@ class D3DKMT_OPENSYNCOBJECTFROMNTHANDLE2 extends Win32Struct
             get => NumGet(this, 0, "ptr")
             set => NumPut("ptr", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -66,7 +64,7 @@ class D3DKMT_OPENSYNCOBJECTFROMNTHANDLE2 extends Win32Struct
             get => NumGet(this, 8, "uint")
             set => NumPut("uint", value, this, 8)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -74,24 +72,23 @@ class D3DKMT_OPENSYNCOBJECTFROMNTHANDLE2 extends Win32Struct
             get => NumGet(this, 16, "uint")
             set => NumPut("uint", value, this, 16)
         }
-    
     }
 
     /**
      * @type {_MonitoredFence}
      */
-    MonitoredFence{
+    MonitoredFence {
         get {
             if(!this.HasProp("__MonitoredFence"))
-                this.__MonitoredFence := %this.__Class%._MonitoredFence(32, this)
+                this.__MonitoredFence := D3DKMT_OPENSYNCOBJECTFROMNTHANDLE2._MonitoredFence(32, this)
             return this.__MonitoredFence
         }
     }
 
     /**
-     * @type {Array<UInt64>}
+     * @type {Array<Integer>}
      */
-    Reserved{
+    Reserved {
         get {
             if(!this.HasProp("__ReservedProxyArray"))
                 this.__ReservedProxyArray := Win32FixedArray(this.ptr + 32, 8, Primitive, "uint")

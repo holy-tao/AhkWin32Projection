@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
- * @version v4.0.30319
  */
-class IKsDataTypeCompletion extends IUnknown{
+class IKsDataTypeCompletion extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

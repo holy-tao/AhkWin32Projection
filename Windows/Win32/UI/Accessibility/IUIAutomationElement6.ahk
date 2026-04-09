@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include .\IUIAutomationElement5.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * Extends the IUIAutomationElement5 interface to provide access to current and cached full descriptions.
  * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nn-uiautomationclient-iuiautomationelement6
  * @namespace Windows.Win32.UI.Accessibility
- * @version v4.0.30319
  */
-class IUIAutomationElement6 extends IUIAutomationElement5{
+class IUIAutomationElement6 extends IUIAutomationElement5 {
 
     static sizeof => A_PtrSize
     /**

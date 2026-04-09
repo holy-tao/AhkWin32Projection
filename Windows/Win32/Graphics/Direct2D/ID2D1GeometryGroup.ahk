@@ -14,9 +14,8 @@
  * Direct2D geometries are immutable and device-independent resources created by <a href="https://docs.microsoft.com/windows/win32/api/d2d1/nn-d2d1-id2d1factory">ID2D1Factory</a>.  In general, you should create geometries once and retain them for the life of the application, or until they need to be modified. For more information about device-independent and device-dependent resources, see  the <a href="https://docs.microsoft.com/windows/win32/Direct2D/resources-and-resource-domains">Resources Overview</a>.
  * @see https://learn.microsoft.com/windows/win32/api/d2d1/nn-d2d1-id2d1geometrygroup
  * @namespace Windows.Win32.Graphics.Direct2D
- * @version v4.0.30319
  */
-class ID2D1GeometryGroup extends ID2D1Geometry{
+class ID2D1GeometryGroup extends ID2D1Geometry {
 
     static sizeof => A_PtrSize
     /**
@@ -39,7 +38,7 @@ class ID2D1GeometryGroup extends ID2D1Geometry{
 
     /**
      * Indicates how the intersecting areas of the geometries contained in this geometry group are combined.
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/d2d1/ne-d2d1-d2d1_fill_mode">D2D1_FILL_MODE</a></b>
+     * @returns {D2D1_FILL_MODE} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/d2d1/ne-d2d1-d2d1_fill_mode">D2D1_FILL_MODE</a></b>
      * 
      *  A value that indicates how the intersecting areas of the geometries contained in this geometry group are combined.
      * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1geometrygroup-getfillmode

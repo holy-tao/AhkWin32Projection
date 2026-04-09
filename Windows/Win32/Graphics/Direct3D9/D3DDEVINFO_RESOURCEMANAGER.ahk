@@ -8,22 +8,20 @@
  * D3DRTYPECOUNT refers to the number of enumerations in [**D3DRESOURCETYPE**](./d3dresourcetype.md).
  * @see https://learn.microsoft.com/windows/win32/direct3d9/d3ddevinfo-resourcemanager
  * @namespace Windows.Win32.Graphics.Direct3D9
- * @version v4.0.30319
  */
-class D3DDEVINFO_RESOURCEMANAGER extends Win32Struct
-{
-    static sizeof => 64
+class D3DDEVINFO_RESOURCEMANAGER extends Win32Struct {
+    static sizeof => 352
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Type: **[**D3DRESOURCESTATS**](d3dresourcestats.md)**
      * 
      * 
      * Array of resource statistics elements. See [**D3DRESOURCESTATS**](d3dresourcestats.md).
-     * @type {Array<D3DRESOURCESTATS>}
+     * @type {D3DRESOURCESTATS}
      */
-    stats{
+    stats {
         get {
             if(!this.HasProp("__statsProxyArray"))
                 this.__statsProxyArray := Win32FixedArray(this.ptr + 0, 8, D3DRESOURCESTATS, "")

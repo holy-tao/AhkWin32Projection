@@ -3,6 +3,7 @@
 #Include ..\..\..\Foundation\HWND.ahk
 #Include ..\..\..\Foundation\HGLOBAL.ahk
 #Include ..\..\..\Graphics\Gdi\HDC.ahk
+#Include .\PRINTDLGEX_FLAGS.ahk
 #Include ..\..\..\Foundation\HINSTANCE.ahk
 
 /**
@@ -23,11 +24,10 @@
  * > The commdlg.h header defines PRINTDLG as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
  * @see https://learn.microsoft.com/windows/win32/api/commdlg/ns-commdlg-printdlgw
  * @namespace Windows.Win32.UI.Controls.Dialogs
- * @version v4.0.30319
  * @charset Unicode
+ * @architecture X64, Arm64
  */
-class PRINTDLGW extends Win32Struct
-{
+class PRINTDLGW extends Win32Struct {
     static sizeof => 120
 
     static packingSize => 8
@@ -49,7 +49,7 @@ class PRINTDLGW extends Win32Struct
      * A handle to the window that owns the dialog box. This member can be any valid window handle, or it can be <b>NULL</b> if the dialog box has no owner.
      * @type {HWND}
      */
-    hwndOwner{
+    hwndOwner {
         get {
             if(!this.HasProp("__hwndOwner"))
                 this.__hwndOwner := HWND(8, this)
@@ -71,7 +71,7 @@ class PRINTDLGW extends Win32Struct
      * For more information about the <b>hDevMode</b> and <b>hDevNames</b> members, see the Remarks section at the end of this topic.
      * @type {HGLOBAL}
      */
-    hDevMode{
+    hDevMode {
         get {
             if(!this.HasProp("__hDevMode"))
                 this.__hDevMode := HGLOBAL(16, this)
@@ -89,7 +89,7 @@ class PRINTDLGW extends Win32Struct
      * For more information about the <b>hDevMode</b> and <b>hDevNames</b> members, see the Remarks section at the end of this topic.
      * @type {HGLOBAL}
      */
-    hDevNames{
+    hDevNames {
         get {
             if(!this.HasProp("__hDevNames"))
                 this.__hDevNames := HGLOBAL(24, this)
@@ -103,7 +103,7 @@ class PRINTDLGW extends Win32Struct
      * A handle to a device context or an information context, depending on whether the <b>Flags</b> member specifies the <b>PD_RETURNDC</b> or <b>PC_RETURNIC</b> flag. If neither flag is specified, the value of this member is undefined. If both flags are specified, <b>PD_RETURNDC</b> has priority.
      * @type {HDC}
      */
-    hDC{
+    hDC {
         get {
             if(!this.HasProp("__hDC"))
                 this.__hDC := HDC(32, this)
@@ -113,7 +113,7 @@ class PRINTDLGW extends Win32Struct
 
     /**
      * Type: <b>DWORD</b>
-     * @type {Integer}
+     * @type {PRINTDLGEX_FLAGS}
      */
     Flags {
         get => NumGet(this, 40, "uint")
@@ -185,7 +185,7 @@ class PRINTDLGW extends Win32Struct
      * If the <b>PD_ENABLEPRINTTEMPLATE</b> or <b>PD_ENABLESETUPTEMPLATE</b> flag is set in the <b>Flags</b> member, <b>hInstance</b> is a handle to the application or module instance that contains the dialog box template named by the <b>lpPrintTemplateName</b> or <b>lpSetupTemplateName</b> member.
      * @type {HINSTANCE}
      */
-    hInstance{
+    hInstance {
         get {
             if(!this.HasProp("__hInstance"))
                 this.__hInstance := HINSTANCE(56, this)
@@ -254,7 +254,7 @@ class PRINTDLGW extends Win32Struct
      * If the <b>PD_ENABLEPRINTTEMPLATEHANDLE</b> flag is set in the <b>Flags</b> member, <b>hPrintTemplate</b> is a handle to a memory object containing a dialog box template. This template replaces the default <b>Print</b> dialog box template.
      * @type {HGLOBAL}
      */
-    hPrintTemplate{
+    hPrintTemplate {
         get {
             if(!this.HasProp("__hPrintTemplate"))
                 this.__hPrintTemplate := HGLOBAL(104, this)
@@ -268,7 +268,7 @@ class PRINTDLGW extends Win32Struct
      * If the <b>PD_ENABLESETUPTEMPLATEHANDLE</b> flag is set in the <b>Flags</b> member, <b>hSetupTemplate</b> is a handle to a memory object containing a dialog box template. This template replaces the default <b>Print Setup</b> dialog box template.
      * @type {HGLOBAL}
      */
-    hSetupTemplate{
+    hSetupTemplate {
         get {
             if(!this.HasProp("__hSetupTemplate"))
                 this.__hSetupTemplate := HGLOBAL(112, this)

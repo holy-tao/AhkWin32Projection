@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
- * @version v4.0.30319
  */
-class VRAM_SURFACE_INFO extends Win32Struct
-{
+class VRAM_SURFACE_INFO extends Win32Struct {
     static sizeof => 168
 
     static packingSize => 8
@@ -68,9 +66,9 @@ class VRAM_SURFACE_INFO extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt64>}
+     * @type {Array<Integer>}
      */
-    ullReserved{
+    ullReserved {
         get {
             if(!this.HasProp("__ullReservedProxyArray"))
                 this.__ullReservedProxyArray := Win32FixedArray(this.ptr + 40, 16, Primitive, "uint")

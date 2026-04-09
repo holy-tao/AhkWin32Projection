@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\WLAN_CONNECTION_MODE.ahk
 #Include .\DOT11_SSID.ahk
+#Include .\DOT11_BSS_TYPE.ahk
+#Include .\WLAN_CONNECTION_NOTIFICATION_FLAGS.ahk
 
 /**
  * Contains information about connection related notifications.
@@ -14,10 +17,8 @@
  * For more information on these notifications, see the <a href="https://docs.microsoft.com/windows/win32/api/wlanapi/ne-wlanapi-wlan_notification_acm-r1">WLAN_NOTIFICATION_ACM</a> enumeration reference.
  * @see https://learn.microsoft.com/windows/win32/api/wlanapi/ns-wlanapi-wlan_connection_notification_data
  * @namespace Windows.Win32.NetworkManagement.WiFi
- * @version v4.0.30319
  */
-class WLAN_CONNECTION_NOTIFICATION_DATA extends Win32Struct
-{
+class WLAN_CONNECTION_NOTIFICATION_DATA extends Win32Struct {
     static sizeof => 572
 
     static packingSize => 4
@@ -26,7 +27,7 @@ class WLAN_CONNECTION_NOTIFICATION_DATA extends Win32Struct
      * A <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/ne-wlanapi-wlan_connection_mode">WLAN_CONNECTION_MODE</a> value that specifies the mode of the connection.
      * 
      * <b>Windows XP with SP3 and Wireless LAN API for Windows XP with SP2:  </b>Only the <b>wlan_connection_mode_profile</b>  value is supported.
-     * @type {Integer}
+     * @type {WLAN_CONNECTION_MODE}
      */
     wlanConnectionMode {
         get => NumGet(this, 0, "int")
@@ -46,7 +47,7 @@ class WLAN_CONNECTION_NOTIFICATION_DATA extends Win32Struct
      * A <a href="https://docs.microsoft.com/windows/desktop/NativeWiFi/dot11-ssid">DOT11_SSID</a> structure that contains the SSID of the association.
      * @type {DOT11_SSID}
      */
-    dot11Ssid{
+    dot11Ssid {
         get {
             if(!this.HasProp("__dot11Ssid"))
                 this.__dot11Ssid := DOT11_SSID(516, this)
@@ -56,7 +57,7 @@ class WLAN_CONNECTION_NOTIFICATION_DATA extends Win32Struct
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/NativeWiFi/dot11-bss-type">DOT11_BSS_TYPE</a> value that indicates the BSS network type.
-     * @type {Integer}
+     * @type {DOT11_BSS_TYPE}
      */
     dot11BssType {
         get => NumGet(this, 552, "int")
@@ -83,7 +84,7 @@ class WLAN_CONNECTION_NOTIFICATION_DATA extends Win32Struct
 
     /**
      * A set of flags that provide additional information for the network connection.
-     * @type {Integer}
+     * @type {WLAN_CONNECTION_NOTIFICATION_FLAGS}
      */
     dwFlags {
         get => NumGet(this, 564, "uint")

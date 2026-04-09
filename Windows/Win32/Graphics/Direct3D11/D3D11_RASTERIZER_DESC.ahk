@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\D3D11_FILL_MODE.ahk
+#Include .\D3D11_CULL_MODE.ahk
 
 /**
  * Describes rasterizer state. (D3D11_RASTERIZER_DESC)
@@ -93,10 +95,8 @@
  * The settings of the <b>MultisampleEnable</b> and <b>AntialiasedLineEnable</b> members apply only to multisample antialiasing (MSAA) render targets (that is, render targets with sample counts greater than 1). Because of the differences in <a href="https://docs.microsoft.com/windows/desktop/direct3d11/overviews-direct3d-11-devices-downlevel-intro">feature-level</a> behavior and as long as you aren’t performing any line drawing or don’t mind that lines render as quadrilaterals, we recommend that you always set <b>MultisampleEnable</b> to <b>TRUE</b> whenever you render on MSAA render targets.
  * @see https://learn.microsoft.com/windows/win32/api/d3d11/ns-d3d11-d3d11_rasterizer_desc
  * @namespace Windows.Win32.Graphics.Direct3D11
- * @version v4.0.30319
  */
-class D3D11_RASTERIZER_DESC extends Win32Struct
-{
+class D3D11_RASTERIZER_DESC extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 4
@@ -105,7 +105,7 @@ class D3D11_RASTERIZER_DESC extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ne-d3d11-d3d11_fill_mode">D3D11_FILL_MODE</a></b>
      * 
      * Determines the fill mode to use when rendering (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ne-d3d11-d3d11_fill_mode">D3D11_FILL_MODE</a>).
-     * @type {Integer}
+     * @type {D3D11_FILL_MODE}
      */
     FillMode {
         get => NumGet(this, 0, "int")
@@ -116,7 +116,7 @@ class D3D11_RASTERIZER_DESC extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ne-d3d11-d3d11_cull_mode">D3D11_CULL_MODE</a></b>
      * 
      * Indicates triangles facing the specified direction are not drawn (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ne-d3d11-d3d11_cull_mode">D3D11_CULL_MODE</a>).
-     * @type {Integer}
+     * @type {D3D11_CULL_MODE}
      */
     CullMode {
         get => NumGet(this, 4, "int")

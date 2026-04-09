@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.System.Rpc
- * @version v4.0.30319
  */
-class NDR64_VAR_ARRAY_HEADER_FORMAT extends Win32Struct
-{
+class NDR64_VAR_ARRAY_HEADER_FORMAT extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -31,7 +29,7 @@ class NDR64_VAR_ARRAY_HEADER_FORMAT extends Win32Struct
     /**
      * @type {NDR64_ARRAY_FLAGS}
      */
-    Flags{
+    Flags {
         get {
             if(!this.HasProp("__Flags"))
                 this.__Flags := NDR64_ARRAY_FLAGS(2, this)

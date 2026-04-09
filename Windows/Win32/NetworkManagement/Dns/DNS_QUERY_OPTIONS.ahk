@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Dns
- * @version v4.0.30319
  */
-class DNS_QUERY_OPTIONS extends Win32BitflagEnum{
+class DNS_QUERY_OPTIONS extends Win32BitflagEnum {
 
     /**
      * @type {Integer (UInt32)}

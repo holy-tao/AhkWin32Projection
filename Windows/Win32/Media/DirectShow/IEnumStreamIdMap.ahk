@@ -1,16 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IEnumStreamIdMap.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * The IEnumStreamIdMap interface is implemented on a standard COM collection of Stream ID maps that have been created by the MPEG-2 Demultiplexer's IMPEG2StreamIdMap::MapStreamId method.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-ienumstreamidmap
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IEnumStreamIdMap extends IUnknown{
+class IEnumStreamIdMap extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

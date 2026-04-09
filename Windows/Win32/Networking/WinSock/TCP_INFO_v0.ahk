@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\TCPSTATE.ahk
 
 /**
  * Contains the Transmission Control Protocol (TCP) statistics that were collected for a socket.
@@ -9,17 +10,15 @@
  *    control code. Specify 0 for the *lpvInBuffer* field to retrieve the v0 version of this structure.
  * @see https://learn.microsoft.com/windows/win32/api/mstcpip/ns-mstcpip-tcp_info_v0
  * @namespace Windows.Win32.Networking.WinSock
- * @version v4.0.30319
  */
-class TCP_INFO_v0 extends Win32Struct
-{
+class TCP_INFO_v0 extends Win32Struct {
     static sizeof => 88
 
     static packingSize => 8
 
     /**
      * A value from the <a href="https://docs.microsoft.com/windows/desktop/api/mstcpip/ne-mstcpip-tcpstate">TCPSTATE</a> enumeration that indicates the  state of the TCP connection.
-     * @type {Integer}
+     * @type {TCPSTATE}
      */
     State {
         get => NumGet(this, 0, "int")

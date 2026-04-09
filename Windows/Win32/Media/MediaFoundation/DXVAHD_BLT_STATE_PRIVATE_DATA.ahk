@@ -9,17 +9,15 @@
  * The caller allocates the <b>pData</b> array. Set the  <b>DataSize</b> member to the size of the array in bytes. When retrieving the state data, you can set <b>pData</b> to <b>NULL</b> to get the size of the data. The device will return the size in the <b>DataSize</b> member.
  * @see https://learn.microsoft.com/windows/win32/api/dxvahd/ns-dxvahd-dxvahd_blt_state_private_data
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class DXVAHD_BLT_STATE_PRIVATE_DATA extends Win32Struct
-{
+class DXVAHD_BLT_STATE_PRIVATE_DATA extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
 
     /**
      * A GUID that identifies the private state. The meaning of this value is defined by the device.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     Guid {
         get => NumGet(this, 0, "ptr")

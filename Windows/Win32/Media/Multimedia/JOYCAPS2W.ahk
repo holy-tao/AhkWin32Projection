@@ -3,11 +3,9 @@
 
 /**
  * @namespace Windows.Win32.Media.Multimedia
- * @version v4.0.30319
  * @charset Unicode
  */
-class JOYCAPS2W extends Win32Struct
-{
+class JOYCAPS2W extends Win32Struct {
     static sizeof => 752
 
     static packingSize => 8
@@ -205,7 +203,7 @@ class JOYCAPS2W extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     ManufacturerGuid {
         get => NumGet(this, 728, "ptr")
@@ -213,7 +211,7 @@ class JOYCAPS2W extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     ProductGuid {
         get => NumGet(this, 736, "ptr")
@@ -221,7 +219,7 @@ class JOYCAPS2W extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     NameGuid {
         get => NumGet(this, 744, "ptr")

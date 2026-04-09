@@ -6,10 +6,8 @@
  * Contains information about a hardware message sent to the system message queue. This structure is used to store message information for the JournalPlaybackProc callback function.
  * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-eventmsg
  * @namespace Windows.Win32.UI.WindowsAndMessaging
- * @version v4.0.30319
  */
-class EVENTMSG extends Win32Struct
-{
+class EVENTMSG extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -66,7 +64,7 @@ class EVENTMSG extends Win32Struct
      * A handle to the window to which the message was posted.
      * @type {HWND}
      */
-    hwnd{
+    hwnd {
         get {
             if(!this.HasProp("__hwnd"))
                 this.__hwnd := HWND(16, this)

@@ -6,10 +6,8 @@
  * Provides job-related time stamps.
  * @see https://learn.microsoft.com/windows/win32/api/bits/ns-bits-bg_job_times
  * @namespace Windows.Win32.Networking.BackgroundIntelligentTransferService
- * @version v4.0.30319
  */
-class BG_JOB_TIMES extends Win32Struct
-{
+class BG_JOB_TIMES extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 4
@@ -19,7 +17,7 @@ class BG_JOB_TIMES extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/win32/api/minwinbase/ns-minwinbase-filetime">FILETIME</a>.
      * @type {FILETIME}
      */
-    CreationTime{
+    CreationTime {
         get {
             if(!this.HasProp("__CreationTime"))
                 this.__CreationTime := FILETIME(0, this)
@@ -37,7 +35,7 @@ class BG_JOB_TIMES extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/win32/api/minwinbase/ns-minwinbase-filetime">FILETIME</a>.
      * @type {FILETIME}
      */
-    ModificationTime{
+    ModificationTime {
         get {
             if(!this.HasProp("__ModificationTime"))
                 this.__ModificationTime := FILETIME(8, this)
@@ -50,7 +48,7 @@ class BG_JOB_TIMES extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/win32/api/minwinbase/ns-minwinbase-filetime">FILETIME</a>.
      * @type {FILETIME}
      */
-    TransferCompletionTime{
+    TransferCompletionTime {
         get {
             if(!this.HasProp("__TransferCompletionTime"))
                 this.__TransferCompletionTime := FILETIME(16, this)

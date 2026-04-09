@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\MOUSE_EVENT_FLAGS.ahk
 
 /**
  * Contains information about a simulated mouse event.
@@ -17,10 +18,8 @@
  * The system applies two tests to the specified relative mouse movement. If the specified distance along either the x or y axis is greater than the first mouse threshold value, and the mouse speed is not zero, the system doubles the distance. If the specified distance along either the x or y axis is greater than the second mouse threshold value, and the mouse speed is equal to two, the system doubles the distance that resulted from applying the first threshold test. It is thus possible for the system to multiply specified relative mouse movement along the x or y axis by up to four times.
  * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-mouseinput
  * @namespace Windows.Win32.UI.Input.KeyboardAndMouse
- * @version v4.0.30319
  */
-class MOUSEINPUT extends Win32Struct
-{
+class MOUSEINPUT extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -71,7 +70,7 @@ class MOUSEINPUT extends Win32Struct
 
     /**
      * Type: **DWORD**
-     * @type {Integer}
+     * @type {MOUSE_EVENT_FLAGS}
      */
     dwFlags {
         get => NumGet(this, 12, "uint")

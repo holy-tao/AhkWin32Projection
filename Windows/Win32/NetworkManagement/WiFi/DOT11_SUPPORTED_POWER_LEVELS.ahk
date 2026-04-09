@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
- * @version v4.0.30319
  */
-class DOT11_SUPPORTED_POWER_LEVELS extends Win32Struct
-{
+class DOT11_SUPPORTED_POWER_LEVELS extends Win32Struct {
     static sizeof => 36
 
     static packingSize => 4
@@ -20,9 +18,9 @@ class DOT11_SUPPORTED_POWER_LEVELS extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    uTxPowerLevelValues{
+    uTxPowerLevelValues {
         get {
             if(!this.HasProp("__uTxPowerLevelValuesProxyArray"))
                 this.__uTxPowerLevelValuesProxyArray := Win32FixedArray(this.ptr + 4, 8, Primitive, "uint")

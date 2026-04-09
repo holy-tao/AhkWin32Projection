@@ -5,10 +5,8 @@
  * Represents a timestamp.
  * @see https://learn.microsoft.com/windows/win32/api/wsdxml/ns-wsdxml-wsd_datetime
  * @namespace Windows.Win32.Devices.WebServicesOnDevices
- * @version v4.0.30319
  */
-class WSD_DATETIME extends Win32Struct
-{
+class WSD_DATETIME extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 4

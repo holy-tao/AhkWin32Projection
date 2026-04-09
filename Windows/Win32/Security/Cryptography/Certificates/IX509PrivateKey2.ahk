@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
 #Include .\IX509PrivateKey.ahk
+#Include ..\..\..\Foundation\BSTR.ahk
 
 /**
  * @namespace Windows.Win32.Security.Cryptography.Certificates
- * @version v4.0.30319
  */
-class IX509PrivateKey2 extends IX509PrivateKey{
+class IX509PrivateKey2 extends IX509PrivateKey {
 
     static sizeof => A_PtrSize
     /**
@@ -30,7 +29,7 @@ class IX509PrivateKey2 extends IX509PrivateKey{
     static VTableNames => ["get_HardwareKeyUsage", "put_HardwareKeyUsage", "get_AlternateStorageLocation", "put_AlternateStorageLocation", "get_AlgorithmName", "put_AlgorithmName", "get_AlgorithmParameters", "put_AlgorithmParameters", "get_ParametersExportType", "put_ParametersExportType"]
 
     /**
-     * @type {Integer} 
+     * @type {X509HardwareKeyUsageFlags} 
      */
     HardwareKeyUsage {
         get => this.get_HardwareKeyUsage()
@@ -54,7 +53,7 @@ class IX509PrivateKey2 extends IX509PrivateKey{
     }
 
     /**
-     * @type {Integer} 
+     * @type {X509KeyParametersExportType} 
      */
     ParametersExportType {
         get => this.get_ParametersExportType()
@@ -63,7 +62,7 @@ class IX509PrivateKey2 extends IX509PrivateKey{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {X509HardwareKeyUsageFlags} 
      */
     get_HardwareKeyUsage() {
         result := ComCall(65, this, "int*", &pValue := 0, "HRESULT")
@@ -72,7 +71,7 @@ class IX509PrivateKey2 extends IX509PrivateKey{
 
     /**
      * 
-     * @param {Integer} Value 
+     * @param {X509HardwareKeyUsageFlags} Value 
      * @returns {HRESULT} 
      */
     put_HardwareKeyUsage(Value) {
@@ -126,7 +125,7 @@ class IX509PrivateKey2 extends IX509PrivateKey{
 
     /**
      * 
-     * @param {Integer} Encoding 
+     * @param {EncodingType} Encoding 
      * @returns {BSTR} 
      */
     get_AlgorithmParameters(Encoding) {
@@ -137,7 +136,7 @@ class IX509PrivateKey2 extends IX509PrivateKey{
 
     /**
      * 
-     * @param {Integer} Encoding 
+     * @param {EncodingType} Encoding 
      * @param {BSTR} Value 
      * @returns {HRESULT} 
      */
@@ -150,7 +149,7 @@ class IX509PrivateKey2 extends IX509PrivateKey{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {X509KeyParametersExportType} 
      */
     get_ParametersExportType() {
         result := ComCall(73, this, "int*", &pValue := 0, "HRESULT")
@@ -159,7 +158,7 @@ class IX509PrivateKey2 extends IX509PrivateKey{
 
     /**
      * 
-     * @param {Integer} Value 
+     * @param {X509KeyParametersExportType} Value 
      * @returns {HRESULT} 
      */
     put_ParametersExportType(Value) {

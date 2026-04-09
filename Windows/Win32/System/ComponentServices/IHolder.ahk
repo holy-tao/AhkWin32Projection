@@ -7,9 +7,8 @@
  * Allocates or frees resources for an installed Resource Dispenser.
  * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nn-comsvcs-iholder
  * @namespace Windows.Win32.System.ComponentServices
- * @version v4.0.30319
  */
-class IHolder extends IUnknown{
+class IHolder extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IDirect3DSurface9.ahk
 #Include .\IDirect3DBaseTexture9.ahk
+#Include .\IDirect3DSurface9.ahk
 
 /**
  * The IDirect3DTexture9 (d3d9.h) interface is used by applications to manipulate a texture resource.
@@ -26,9 +26,8 @@
  * ```
  * @see https://learn.microsoft.com/windows/win32/api/d3d9/nn-d3d9-idirect3dtexture9
  * @namespace Windows.Win32.Graphics.Direct3D9
- * @version v4.0.30319
  */
-class IDirect3DTexture9 extends IDirect3DBaseTexture9{
+class IDirect3DTexture9 extends IDirect3DBaseTexture9 {
 
     static sizeof => A_PtrSize
     /**

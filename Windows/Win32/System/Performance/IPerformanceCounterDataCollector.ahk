@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include .\IDataCollector.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * Specifies the performance counters to query and the log file to which the counter data is written.To create this data collector, call the IDataCollectorCollection::CreateDataCollector or IDataCollectorCollection::CreateDataCollectorFromXml method.
@@ -28,9 +28,8 @@
  * When you specify the XML to create the collector, you can specify only the elements for the properties that you want to set. If you do not specify a property, PLA provides a default value. When you retrieve the XML for the collector, the XML provides all elements, including those from <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nn-pla-idatacollector">IDataCollector</a>.
  * @see https://learn.microsoft.com/windows/win32/api/pla/nn-pla-iperformancecounterdatacollector
  * @namespace Windows.Win32.System.Performance
- * @version v4.0.30319
  */
-class IPerformanceCounterDataCollector extends IDataCollector{
+class IPerformanceCounterDataCollector extends IDataCollector {
 
     static sizeof => A_PtrSize
     /**
@@ -68,7 +67,7 @@ class IPerformanceCounterDataCollector extends IDataCollector{
     }
 
     /**
-     * @type {Integer} 
+     * @type {FileFormat} 
      */
     LogFileFormat {
         get => this.get_LogFileFormat()
@@ -142,7 +141,7 @@ class IPerformanceCounterDataCollector extends IDataCollector{
 
     /**
      * Retrieves or sets the format of the log file. (Get)
-     * @returns {Integer} 
+     * @returns {FileFormat} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-iperformancecounterdatacollector-get_logfileformat
      */
     get_LogFileFormat() {
@@ -152,7 +151,7 @@ class IPerformanceCounterDataCollector extends IDataCollector{
 
     /**
      * Retrieves or sets the format of the log file. (Put)
-     * @param {Integer} format 
+     * @param {FileFormat} format 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-iperformancecounterdatacollector-put_logfileformat
      */

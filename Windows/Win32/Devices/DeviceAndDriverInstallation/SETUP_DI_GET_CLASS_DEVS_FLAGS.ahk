@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.DeviceAndDriverInstallation
- * @version v4.0.30319
  */
-class SETUP_DI_GET_CLASS_DEVS_FLAGS extends Win32BitflagEnum{
+class SETUP_DI_GET_CLASS_DEVS_FLAGS extends Win32BitflagEnum {
 
     /**
      * @type {Integer (UInt32)}

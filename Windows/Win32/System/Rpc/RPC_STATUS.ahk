@@ -7,9 +7,8 @@
  * The **RPC\_STATUS** type is returned by most RPC functions and is part of the [**RPC\_OBJECT\_INQ\_FN**](/windows/desktop/api/Rpcdce/nc-rpcdce-rpc_object_inq_fn) function type definition.
  * @see https://learn.microsoft.com/windows/win32/Rpc/rpc-status
  * @namespace Windows.Win32.System.Rpc
- * @version v4.0.30319
  */
-class RPC_STATUS extends Win32Enum{
+class RPC_STATUS extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

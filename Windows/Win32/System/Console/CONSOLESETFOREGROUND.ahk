@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.System.Console
- * @version v4.0.30319
  */
-class CONSOLESETFOREGROUND extends Win32Struct
-{
+class CONSOLESETFOREGROUND extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
@@ -15,7 +13,7 @@ class CONSOLESETFOREGROUND extends Win32Struct
     /**
      * @type {HANDLE}
      */
-    hProcess{
+    hProcess {
         get {
             if(!this.HasProp("__hProcess"))
                 this.__hProcess := HANDLE(0, this)

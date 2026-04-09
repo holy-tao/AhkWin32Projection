@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
 #Include .\IDTFilter.ahk
+#Include ..\..\..\Foundation\BSTR.ahk
 
 /**
  * The IDTFilter2 interface extends the IDTFilter interface and is exposed by the Decrypter/Detagger filter.
@@ -10,9 +10,8 @@
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IDTFilter2)</c>.
  * @see https://learn.microsoft.com/windows/win32/api/encdec/nn-encdec-idtfilter2
  * @namespace Windows.Win32.Media.DirectShow.Tv
- * @version v4.0.30319
  */
-class IDTFilter2 extends IDTFilter{
+class IDTFilter2 extends IDTFilter {
 
     static sizeof => A_PtrSize
     /**
@@ -53,7 +52,7 @@ class IDTFilter2 extends IDTFilter{
 
     /**
      * Not implemented in this release.
-     * @param {Pointer<Integer>} _protType 
+     * @param {Pointer<ProtType>} _protType Reserved.
      * @returns {Integer} Reserved.
      * @see https://learn.microsoft.com/windows/win32/api/encdec/nf-encdec-idtfilter2-getcurrlicenseexpdate
      */

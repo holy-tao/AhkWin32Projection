@@ -9,9 +9,8 @@
  * For more information about the collection methods, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dd372931(v=vs.85)">Working with XPS OM Collection Interfaces</a>.
  * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomnamecollection
  * @namespace Windows.Win32.Storage.Xps
- * @version v4.0.30319
  */
-class IXpsOMNameCollection extends IUnknown{
+class IXpsOMNameCollection extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class MPEGLAYER3WAVEFORMAT_FLAGS extends Win32Enum{
+class MPEGLAYER3WAVEFORMAT_FLAGS extends Win32Enum {
 
     /**
      * @type {Integer (UInt32)}

@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\XPS_JOB_STATUS.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
+#Include .\XPS_JOB_STATUS.ahk
 
 /**
  * Provides access to a print job that is currently in progress.
  * @see https://learn.microsoft.com/windows/win32/api/xpsprint/nn-xpsprint-ixpsprintjob
  * @namespace Windows.Win32.Storage.Xps.Printing
- * @version v4.0.30319
  */
-class IXpsPrintJob extends IUnknown{
+class IXpsPrintJob extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -36,9 +36,8 @@
  * Autocompletion is enabled by default. Applications need only to call <a href="https://docs.microsoft.com/windows/desktop/api/shldisp/nf-shldisp-iautocomplete-enable">IAutoComplete::Enable</a> to disable autocompletion or to reenable it if it has been disabled.
  * @see https://learn.microsoft.com/windows/win32/api/shldisp/nn-shldisp-iautocomplete
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IAutoComplete extends IUnknown{
+class IAutoComplete extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

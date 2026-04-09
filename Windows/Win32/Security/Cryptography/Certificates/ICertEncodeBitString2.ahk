@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
 #Include .\ICertEncodeBitString.ahk
+#Include ..\..\..\Foundation\BSTR.ahk
 
 /**
  * @namespace Windows.Win32.Security.Cryptography.Certificates
- * @version v4.0.30319
  */
-class ICertEncodeBitString2 extends ICertEncodeBitString{
+class ICertEncodeBitString2 extends ICertEncodeBitString {
 
     static sizeof => A_PtrSize
     /**
@@ -32,7 +31,7 @@ class ICertEncodeBitString2 extends ICertEncodeBitString{
     /**
      * 
      * @param {BSTR} strEncodedData 
-     * @param {Integer} Encoding 
+     * @param {EncodingType} Encoding 
      * @returns {HRESULT} 
      */
     DecodeBlob(strEncodedData, Encoding) {
@@ -46,8 +45,8 @@ class ICertEncodeBitString2 extends ICertEncodeBitString{
      * 
      * @param {Integer} BitCount 
      * @param {BSTR} strBitString 
-     * @param {Integer} EncodingIn 
-     * @param {Integer} Encoding 
+     * @param {EncodingType} EncodingIn 
+     * @param {EncodingType} Encoding 
      * @returns {BSTR} 
      */
     EncodeBlob(BitCount, strBitString, EncodingIn, Encoding) {
@@ -60,7 +59,7 @@ class ICertEncodeBitString2 extends ICertEncodeBitString{
 
     /**
      * 
-     * @param {Integer} Encoding 
+     * @param {EncodingType} Encoding 
      * @returns {BSTR} 
      */
     GetBitStringBlob(Encoding) {

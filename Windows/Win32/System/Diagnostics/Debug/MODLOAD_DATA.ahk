@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\MODLOAD_DATA_TYPE.ahk
 
 /**
  * Contains module data.
  * @see https://learn.microsoft.com/windows/win32/api/dbghelp/ns-dbghelp-modload_data
  * @namespace Windows.Win32.System.Diagnostics.Debug
- * @version v4.0.30319
  */
-class MODLOAD_DATA extends Win32Struct
-{
+class MODLOAD_DATA extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -23,8 +22,7 @@ class MODLOAD_DATA extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Integer}
+     * @type {MODLOAD_DATA_TYPE}
      */
     ssig {
         get => NumGet(this, 4, "uint")

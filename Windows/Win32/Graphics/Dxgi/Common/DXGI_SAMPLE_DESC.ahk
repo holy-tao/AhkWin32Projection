@@ -26,10 +26,8 @@
  * </table>
  * @see https://learn.microsoft.com/windows/win32/api/dxgicommon/ns-dxgicommon-dxgi_sample_desc
  * @namespace Windows.Win32.Graphics.Dxgi.Common
- * @version v4.0.30319
  */
-class DXGI_SAMPLE_DESC extends Win32Struct
-{
+class DXGI_SAMPLE_DESC extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4

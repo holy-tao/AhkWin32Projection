@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\IGenericDescriptor.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
+#Include .\IGenericDescriptor.ahk
 
 /**
  * Implements methods that get information from an Integrated Services Digital Broadcasting (ISDB) common data table (CDT). A CDT contains data, such as company logos, that is needed for receivers and stored in nonvolatile memory.
  * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nn-dvbsiparser-iisdb_cdt
  * @namespace Windows.Win32.Media.DirectShow.Tv
- * @version v4.0.30319
  */
-class IISDB_CDT extends IUnknown{
+class IISDB_CDT extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\LOGICAL_PROCESSOR_RELATIONSHIP.ahk
 #Include .\CACHE_DESCRIPTOR.ahk
+#Include .\PROCESSOR_CACHE_TYPE.ahk
 
 /**
  * Describes the relationship between the specified processor set. This structure is used with the GetLogicalProcessorInformation function.
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-system_logical_processor_information
  * @namespace Windows.Win32.System.SystemInformation
- * @version v4.0.30319
  */
-class SYSTEM_LOGICAL_PROCESSOR_INFORMATION extends Win32Struct
-{
+class SYSTEM_LOGICAL_PROCESSOR_INFORMATION extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -85,7 +85,7 @@ class SYSTEM_LOGICAL_PROCESSOR_INFORMATION extends Win32Struct
      *  
      * 
      * Future versions of Windows may support additional values for the <b>Relationship</b> member.
-     * @type {Integer}
+     * @type {LOGICAL_PROCESSOR_RELATIONSHIP}
      */
     Relationship {
         get => NumGet(this, 8, "int")
@@ -103,7 +103,6 @@ class SYSTEM_LOGICAL_PROCESSOR_INFORMATION extends Win32Struct
             get => NumGet(this, 0, "char")
             set => NumPut("char", value, this, 0)
         }
-    
     }
 
     class _NumaNode extends Win32Struct {
@@ -117,16 +116,15 @@ class SYSTEM_LOGICAL_PROCESSOR_INFORMATION extends Win32Struct
             get => NumGet(this, 0, "uint")
             set => NumPut("uint", value, this, 0)
         }
-    
     }
 
     /**
      * @type {_ProcessorCore}
      */
-    ProcessorCore{
+    ProcessorCore {
         get {
             if(!this.HasProp("__ProcessorCore"))
-                this.__ProcessorCore := %this.__Class%._ProcessorCore(16, this)
+                this.__ProcessorCore := SYSTEM_LOGICAL_PROCESSOR_INFORMATION._ProcessorCore(16, this)
             return this.__ProcessorCore
         }
     }
@@ -134,10 +132,10 @@ class SYSTEM_LOGICAL_PROCESSOR_INFORMATION extends Win32Struct
     /**
      * @type {_NumaNode}
      */
-    NumaNode{
+    NumaNode {
         get {
             if(!this.HasProp("__NumaNode"))
-                this.__NumaNode := %this.__Class%._NumaNode(16, this)
+                this.__NumaNode := SYSTEM_LOGICAL_PROCESSOR_INFORMATION._NumaNode(16, this)
             return this.__NumaNode
         }
     }
@@ -145,7 +143,7 @@ class SYSTEM_LOGICAL_PROCESSOR_INFORMATION extends Win32Struct
     /**
      * @type {CACHE_DESCRIPTOR}
      */
-    Cache{
+    Cache {
         get {
             if(!this.HasProp("__Cache"))
                 this.__Cache := CACHE_DESCRIPTOR(16, this)
@@ -154,9 +152,9 @@ class SYSTEM_LOGICAL_PROCESSOR_INFORMATION extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt64>}
+     * @type {Array<Integer>}
      */
-    Reserved{
+    Reserved {
         get {
             if(!this.HasProp("__ReservedProxyArray"))
                 this.__ReservedProxyArray := Win32FixedArray(this.ptr + 16, 2, Primitive, "uint")

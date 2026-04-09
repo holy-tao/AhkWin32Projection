@@ -44,9 +44,8 @@
  * </table>
  * @see https://learn.microsoft.com/windows/win32/api/shellscalingapi/ne-shellscalingapi-process_dpi_awareness
  * @namespace Windows.Win32.UI.HiDpi
- * @version v4.0.30319
  */
-class PROCESS_DPI_AWARENESS extends Win32Enum{
+class PROCESS_DPI_AWARENESS extends Win32Enum {
 
     /**
      * DPI unaware. This app does not scale for DPI changes and is always assumed to have a scale factor of 100% (96 DPI). It will be automatically scaled by the system on any other DPI setting.

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IMAPITable.ahk
 #Include ..\Com\IUnknown.ahk
+#Include .\IMAPITable.ahk
 
 /**
  * Provides utility methods for working with tables. MAPI provides objects that implement ITableData to help service providers perform table maintenance.
@@ -14,9 +14,8 @@
  * Table data objects generate a single notification regardless of the number of rows affected by a change or deletion. If a target row in an operation does not exist, a row is added.
  * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/itabledataiunknown
  * @namespace Windows.Win32.System.AddressBook
- * @version v4.0.30319
  */
-class ITableData extends IUnknown{
+class ITableData extends IUnknown {
 
     static sizeof => A_PtrSize
 

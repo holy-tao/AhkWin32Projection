@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WNet
- * @version v4.0.30319
  */
-class NP_PROPERTY_DIALOG_SELECTION extends Win32Enum{
+class NP_PROPERTY_DIALOG_SELECTION extends Win32Enum {
 
     /**
      * @type {Integer (UInt32)}

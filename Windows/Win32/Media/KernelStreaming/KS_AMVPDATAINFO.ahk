@@ -1,14 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\RECT.ahk
 #Include .\KS_AMVPDIMINFO.ahk
+#Include ..\..\Foundation\RECT.ahk
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
- * @version v4.0.30319
  */
-class KS_AMVPDATAINFO extends Win32Struct
-{
+class KS_AMVPDATAINFO extends Win32Struct {
     static sizeof => 80
 
     static packingSize => 4
@@ -32,7 +30,7 @@ class KS_AMVPDATAINFO extends Win32Struct
     /**
      * @type {KS_AMVPDIMINFO}
      */
-    amvpDimInfo{
+    amvpDimInfo {
         get {
             if(!this.HasProp("__amvpDimInfo"))
                 this.__amvpDimInfo := KS_AMVPDIMINFO(8, this)

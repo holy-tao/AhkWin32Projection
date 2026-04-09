@@ -18,9 +18,8 @@
  * <b>IShellIcon</b> allows an application to obtain the icon for any object within a folder by using only one instance of the interface. <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/nn-shlobj_core-iextracticona">IExtractIcon</a>, on the other hand, requires that a separate instance of the interface be created for each object.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-ishellicon
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IShellIcon extends IUnknown{
+class IShellIcon extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

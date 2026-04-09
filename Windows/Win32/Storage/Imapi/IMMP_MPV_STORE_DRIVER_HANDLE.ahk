@@ -3,16 +3,14 @@
 
 /**
  * @namespace Windows.Win32.Storage.Imapi
- * @version v4.0.30319
  */
-class IMMP_MPV_STORE_DRIVER_HANDLE extends Win32Struct
-{
+class IMMP_MPV_STORE_DRIVER_HANDLE extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 8
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     guidSignature {
         get => NumGet(this, 0, "ptr")

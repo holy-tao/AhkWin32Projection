@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\Dxgi\Common\DXGI_FORMAT.ahk
+#Include .\D3D10_USAGE.ahk
 
 /**
  * Describes a 3D texture. (D3D10_TEXTURE3D_DESC)
@@ -9,10 +11,8 @@
  * The device restricts the size of subsampled, block compressed (see <a href="https://docs.microsoft.com/windows/desktop/direct3d10/d3d10-graphics-programming-guide-resources-block-compression">Block Compression (Direct3D 10)</a>), and bit format resources to be multiples of sizes specific to each format.
  * @see https://learn.microsoft.com/windows/win32/api/d3d10/ns-d3d10-d3d10_texture3d_desc
  * @namespace Windows.Win32.Graphics.Direct3D10
- * @version v4.0.30319
  */
-class D3D10_TEXTURE3D_DESC extends Win32Struct
-{
+class D3D10_TEXTURE3D_DESC extends Win32Struct {
     static sizeof => 36
 
     static packingSize => 4
@@ -65,7 +65,7 @@ class D3D10_TEXTURE3D_DESC extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dxgiformat/ne-dxgiformat-dxgi_format">DXGI_FORMAT</a></b>
      * 
      * Texture format (see <a href="https://docs.microsoft.com/windows/desktop/api/dxgiformat/ne-dxgiformat-dxgi_format">DXGI_FORMAT</a>).
-     * @type {Integer}
+     * @type {DXGI_FORMAT}
      */
     Format {
         get => NumGet(this, 16, "int")
@@ -76,7 +76,7 @@ class D3D10_TEXTURE3D_DESC extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ne-d3d10-d3d10_usage">D3D10_USAGE</a></b>
      * 
      * Value that identifies how the texture is to be read from and written to. The most common value is D3D10_USAGE-DEFAULT; see <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ne-d3d10-d3d10_usage">D3D10_USAGE</a> for all possible values.
-     * @type {Integer}
+     * @type {D3D10_USAGE}
      */
     Usage {
         get => NumGet(this, 20, "int")

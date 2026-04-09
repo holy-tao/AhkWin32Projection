@@ -1,9 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\IBITSExtensionSetup.ahk
 #Include ..\..\System\Com\IDispatch.ahk
+#Include .\IBITSExtensionSetup.ahk
 
 /**
  * Use the IBITSExtensionSetupFactory interface to get a pointer to the IBITSExtensionSetup interface.
@@ -13,9 +12,8 @@
  * On Windows Server 2003, use the <b>Windows Components Wizard</b> to install the BITS server extension. From  <b>Control Panel</b>, select <b>Add or Remove Programs</b>. Then, select <b>Add/Remove Windows Components</b> to display the <b>Windows Components Wizard</b>. The BITS server extension is a sub-component of Internet Information Services (IIS) which is a sub-component of Web Application Server.
  * @see https://learn.microsoft.com/windows/win32/api/bitscfg/nn-bitscfg-ibitsextensionsetupfactory
  * @namespace Windows.Win32.Networking.BackgroundIntelligentTransferService
- * @version v4.0.30319
  */
-class IBITSExtensionSetupFactory extends IDispatch{
+class IBITSExtensionSetupFactory extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -44,7 +42,7 @@ class IBITSExtensionSetupFactory extends IDispatch{
 
     /**
      * Use the GetObject method to retrieve a pointer to the IBITSExtensionSetup interface. This method performs the same binding that the ADsGetObject ADSI function performs.
-     * @param {BSTR} _Path 
+     * @param {BSTR} _Path Null-terminated string containing the path to the directory service. For example, "IIS://&lt;machine name&gt;/w3svc/1/<i>virtual directory</i>".
      * @returns {IBITSExtensionSetup} Use the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/bitscfg/nn-bitscfg-ibitsextensionsetup">IBITSExtensionSetup</a> interface to enable and disable BITS upload for the given virtual directory.
      * @see https://learn.microsoft.com/windows/win32/api/bitscfg/nf-bitscfg-ibitsextensionsetupfactory-getobject

@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Media.DirectShow.Tv
- * @version v4.0.30319
  */
-class KSEVENTSETID_BdaTunerEvent extends Win32Struct
-{
+class KSEVENTSETID_BdaTunerEvent extends Win32Struct {
     static sizeof => 0
 
     static packingSize => 1

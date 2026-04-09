@@ -9,9 +9,8 @@
  * Create an instance of this interface with the <a href="https://docs.microsoft.com/windows/desktop/api/msime/nf-msime-createifedictionaryinstance">CreateIFEDictionaryInstance</a> function.
  * @see https://learn.microsoft.com/windows/win32/api/msime/nn-msime-ifedictionary
  * @namespace Windows.Win32.UI.Input.Ime
- * @version v4.0.30319
  */
-class IFEDictionary extends IUnknown{
+class IFEDictionary extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -69,7 +68,7 @@ class IFEDictionary extends IUnknown{
      * Gets a dictionary header from a dictionary file without opening the dictionary.
      * @param {PSTR} pchDictPath A <b>NULL</b>-terminated string containing the path and name of the dictionary file.
      * @param {Pointer<IMESHF>} pshf The <a href="https://docs.microsoft.com/windows/desktop/api/msime/ns-msime-imeshf">IMESHF</a> header of the file. Can be <b>NULL</b>.
-     * @param {Pointer<Integer>} pjfmt 
+     * @param {Pointer<IMEFMT>} pjfmt 
      * @param {Pointer<Integer>} pulType The dictionary type. This is a combination of one or more of the following flags:
      * 
      * <table>
@@ -169,7 +168,7 @@ class IFEDictionary extends IUnknown{
 
     /**
      * This method is obsolete starting with Windows 8, and is no longer supported.
-     * @param {HWND} _hwnd 
+     * @param {HWND} _hwnd The parent window handle.
      * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/msime/nf-msime-ifedictionary-displayproperty
      */
@@ -520,7 +519,7 @@ class IFEDictionary extends IUnknown{
 
     /**
      * Registers a new word or deletes an existing word in the IFEDictionary.
-     * @param {Integer} reg 
+     * @param {IMEREG} reg 
      * @param {Pointer<IMEWRD>} pwrd An <a href="https://docs.microsoft.com/windows/desktop/api/msime/ns-msime-imewrd">IMEWRD</a> structure specifying the word to register or delete.
      * @returns {HRESULT} This method can return one of these values.
      * 
@@ -605,7 +604,7 @@ class IFEDictionary extends IUnknown{
 
     /**
      * 
-     * @param {Integer} reg 
+     * @param {IMEREG} reg 
      * @param {Pointer<IMEDP>} pdp 
      * @returns {HRESULT} 
      */
@@ -622,7 +621,7 @@ class IFEDictionary extends IUnknown{
      * @param {PWSTR} pwchUkeReading 
      * @param {PWSTR} pwchUkeDisplay 
      * @param {Integer} ulUkePos 
-     * @param {Integer} jrel 
+     * @param {IMEREL} jrel 
      * @param {Integer} ulWordSrc 
      * @param {Pointer<Integer>} pchBuffer 
      * @param {Integer} cbBuffer 
@@ -661,7 +660,7 @@ class IFEDictionary extends IUnknown{
      * 
      * @param {PSTR} pchDic 
      * @param {Pointer<PFNLOG>} _pfnLog 
-     * @param {Integer} reg 
+     * @param {IMEREG} reg 
      * @returns {HRESULT} 
      */
     ConvertFromOldMSIME(pchDic, _pfnLog, reg) {

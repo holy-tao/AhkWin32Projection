@@ -9,10 +9,8 @@
  * <b>QOS_FRIENDLY_NAME</b> traffic control object to associate flows with their applications. This approach enables management applications to identify and associate enumerated flows with corresponding applications.
  * @see https://learn.microsoft.com/windows/win32/api/qosobjs/ns-qosobjs-qos_friendly_name
  * @namespace Windows.Win32.NetworkManagement.QoS
- * @version v4.0.30319
  */
-class QOS_FRIENDLY_NAME extends Win32Struct
-{
+class QOS_FRIENDLY_NAME extends Win32Struct {
     static sizeof => 520
 
     static packingSize => 4
@@ -23,7 +21,7 @@ class QOS_FRIENDLY_NAME extends Win32Struct
      * <b>QOS_OBJECT_FRIENDLY_NAME</b>.
      * @type {QOS_OBJECT_HDR}
      */
-    ObjectHdr{
+    ObjectHdr {
         get {
             if(!this.HasProp("__ObjectHdr"))
                 this.__ObjectHdr := QOS_OBJECT_HDR(0, this)

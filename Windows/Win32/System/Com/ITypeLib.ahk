@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IUnknown.ahk
 #Include .\ITypeInfo.ahk
 #Include .\ITypeComp.ahk
-#Include .\IUnknown.ahk
 
 /**
  * Represents a type library, the data that describes a set of objects. (ITypeLib)
@@ -30,9 +30,8 @@
  * </ul>
  * @see https://learn.microsoft.com/windows/win32/api/oaidl/nn-oaidl-itypelib
  * @namespace Windows.Win32.System.Com
- * @version v4.0.30319
  */
-class ITypeLib extends IUnknown{
+class ITypeLib extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -79,7 +78,7 @@ class ITypeLib extends IUnknown{
     /**
      * Retrieves the type of a type description.
      * @param {Integer} index The index of the type description within the type library.
-     * @returns {Integer} The <a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ne-oaidl-typekind">TYPEKIND</a> enumeration value for the type description.
+     * @returns {TYPEKIND} The <a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ne-oaidl-typekind">TYPEKIND</a> enumeration value for the type description.
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-itypelib-gettypeinfotype
      */
     GetTypeInfoType(index) {

@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Media.Multimedia
- * @version v4.0.30319
  */
-class KSDATAFORMAT_SUBTYPE_IEEE_FLOAT extends Win32Struct
-{
+class KSDATAFORMAT_SUBTYPE_IEEE_FLOAT extends Win32Struct {
     static sizeof => 0
 
     static packingSize => 1

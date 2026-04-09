@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\STORAGE_PROTOCOL_TYPE.ahk
 
 /**
  * This structure is used as an input buffer when using the pass-through mechanism to issue a vendor-specific command to a storage device (via IOCTL_STORAGE_PROTOCOL_COMMAND).
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-storage_protocol_command
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class STORAGE_PROTOCOL_COMMAND extends Win32Struct
-{
+class STORAGE_PROTOCOL_COMMAND extends Win32Struct {
     static sizeof => 84
 
     static packingSize => 4
@@ -33,7 +32,7 @@ class STORAGE_PROTOCOL_COMMAND extends Win32Struct
 
     /**
      * The protocol type, of type <a href="https://docs.microsoft.com/windows/desktop/api/winioctl/ne-winioctl-storage_protocol_type">STORAGE_PROTOCOL_TYPE</a>.
-     * @type {Integer}
+     * @type {STORAGE_PROTOCOL_TYPE}
      */
     ProtocolType {
         get => NumGet(this, 8, "int")
@@ -230,9 +229,9 @@ class STORAGE_PROTOCOL_COMMAND extends Win32Struct
 
     /**
      * Reserved for future use.
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    Reserved1{
+    Reserved1 {
         get {
             if(!this.HasProp("__Reserved1ProxyArray"))
                 this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 72, 2, Primitive, "uint")
@@ -242,9 +241,9 @@ class STORAGE_PROTOCOL_COMMAND extends Win32Struct
 
     /**
      * The vendor-specific command that is to be passed-through to the device.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Command{
+    Command {
         get {
             if(!this.HasProp("__CommandProxyArray"))
                 this.__CommandProxyArray := Win32FixedArray(this.ptr + 80, 1, Primitive, "char")

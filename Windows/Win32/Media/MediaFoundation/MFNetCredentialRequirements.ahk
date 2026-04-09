@@ -9,9 +9,8 @@
  * The credential cache object sets the <b>REQUIRE_PROMPT</b> flag if the cache does not yet contain valid credentials. It also sets this flag if the credentials will be sent as plain text, unless the credential manager previously set the <b>MFNET_CREDENTIAL_ALLOW_CLEAR_TEXT</b> option. (See <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-imfnetcredentialcache-setuseroptions">IMFNetCredentialCache::SetUserOptions</a>.)
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/ne-mfidl-mfnetcredentialrequirements
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class MFNetCredentialRequirements extends Win32Enum{
+class MFNetCredentialRequirements extends Win32Enum {
 
     /**
      * The credential manager should prompt the user to provide the credentials.

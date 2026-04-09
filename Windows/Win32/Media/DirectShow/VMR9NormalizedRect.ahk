@@ -7,10 +7,8 @@
  * This structure is used in methods involving "composition space," which refers to the visible video rectangle, as well as the "offscreen" space necessary to contain rectangles from secondary streams. See <a href="https://docs.microsoft.com/windows/desktop/DirectShow/using-the-video-mixing-renderer">Using the Video Mixing Renderer</a> for more information.
  * @see https://learn.microsoft.com/windows/win32/api/vmr9/ns-vmr9-vmr9normalizedrect
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class VMR9NormalizedRect extends Win32Struct
-{
+class VMR9NormalizedRect extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4

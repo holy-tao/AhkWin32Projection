@@ -7,9 +7,8 @@
  * These capability flags indicate support for the image filters defined by the <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ne-d3d11-d3d11_video_processor_filter">D3D11_VIDEO_PROCESSOR_FILTER</a> enumeration. To apply a particular filter, call the <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11videocontext-videoprocessorsetstreamfilter">ID3D11VideoContext::VideoProcessorSetStreamFilter</a> method.
  * @see https://learn.microsoft.com/windows/win32/api/d3d11/ne-d3d11-d3d11_video_processor_filter_caps
  * @namespace Windows.Win32.Graphics.Direct3D11
- * @version v4.0.30319
  */
-class D3D11_VIDEO_PROCESSOR_FILTER_CAPS extends Win32Enum{
+class D3D11_VIDEO_PROCESSOR_FILTER_CAPS extends Win32Enum {
 
     /**
      * The video processor can adjust the brightness level.

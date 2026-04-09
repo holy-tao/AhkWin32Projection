@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\IUIAutomationProxyFactory.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Represents a proxy factory in the table maintained by Microsoft UI Automation, and exposes properties and methods that can be used by client applications to interact with IUIAutomationProxyFactory objects.
  * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nn-uiautomationclient-iuiautomationproxyfactoryentry
  * @namespace Windows.Win32.UI.Accessibility
- * @version v4.0.30319
  */
-class IUIAutomationProxyFactoryEntry extends IUnknown{
+class IUIAutomationProxyFactoryEntry extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -204,10 +203,10 @@ class IUIAutomationProxyFactoryEntry extends IUnknown{
      * Maps Microsoft UI Automation events to WinEvents.
      * @remarks
      * When a client application subscribes to a UI Automation event, the UI Automation core also listens for WinEvents that map to this event. For example, suppose that <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-event-ids">UIA_Invoke_InvokedEventId</a> is mapped to <a href="https://docs.microsoft.com/windows/desktop/WinAuto/event-constants">EVENT_OBJECT_INVOKED</a>. When <b>EVENT_OBJECT_INVOKED</b> is raised, the client instantiates the proxy and calls <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nf-uiautomationcore-iproxyproviderwineventhandler-respondtowinevent">RespondToWinEvent</a> on that proxy. In the implementation of <b>RespondToWinEvent</b>, the proxy calls <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nf-uiautomationcore-iproxyproviderwineventsink-addautomationevent">AddAutomationEvent</a>. The core then raises the corresponding UI Automation event.
-     * @param {Integer} eventId Type: <b>EVENTID</b>
+     * @param {UIA_EVENT_ID} eventId Type: <b>EVENTID</b>
      * 
      * The event identifier. For a list of event identifiers, see <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-event-ids">Event Identifiers</a>.
-     * @param {Integer} propertyId Type: <b>PROPERTYID</b>
+     * @param {UIA_PROPERTY_ID} propertyId Type: <b>PROPERTYID</b>
      * 
      * The property identifier. For a list of property IDs, see <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-entry-propids">Property Identifiers</a>.
      * @param {Pointer<SAFEARRAY>} winEvents Type: <b><a href="https://docs.microsoft.com/windows/win32/api/oaidl/ns-oaidl-safearray">SAFEARRAY</a>*</b>
@@ -225,10 +224,10 @@ class IUIAutomationProxyFactoryEntry extends IUnknown{
 
     /**
      * Retrieves the list of WinEvents that are mapped to a specific Microsoft UI Automation event. If an element represented by this proxy raises one the listed WinEvents, the proxy handles it.
-     * @param {Integer} eventId Type: <b>EVENTID</b>
+     * @param {UIA_EVENT_ID} eventId Type: <b>EVENTID</b>
      * 
      * The event identifier. For a list of event identifiers, see <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-event-ids">Event Identifiers</a>.
-     * @param {Integer} propertyId Type: <b>PROPERTYID</b>
+     * @param {UIA_PROPERTY_ID} propertyId Type: <b>PROPERTYID</b>
      * 
      * The property identifier. For a list of property IDs, see <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-entry-propids">Property Identifiers</a>.
      * @returns {Pointer<SAFEARRAY>} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/oaidl/ns-oaidl-safearray">SAFEARRAY</a>**</b>

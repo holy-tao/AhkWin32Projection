@@ -5,9 +5,8 @@
  * Specifies the level of private key protection supported by a cryptographic provider.
  * @see https://learn.microsoft.com/windows/win32/api/certenroll/ne-certenroll-x509privatekeyprotection
  * @namespace Windows.Win32.Security.Cryptography.Certificates
- * @version v4.0.30319
  */
-class X509PrivateKeyProtection extends Win32Enum{
+class X509PrivateKeyProtection extends Win32Enum {
 
     /**
      * The protection level is not specified.
@@ -28,13 +27,11 @@ class X509PrivateKeyProtection extends Win32Enum{
     static XCN_NCRYPT_UI_FORCE_HIGH_PROTECTION_FLAG => 2
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static XCN_NCRYPT_UI_FINGERPRINT_PROTECTION_FLAG => 4
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static XCN_NCRYPT_UI_APPCONTAINER_ACCESS_MEDIUM_FLAG => 8

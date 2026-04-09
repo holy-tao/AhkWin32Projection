@@ -5,9 +5,8 @@
  * Specifies the status of a subscription or an event source with respect to a subscription.
  * @see https://learn.microsoft.com/windows/win32/api/evcoll/ne-evcoll-ec_subscription_runtime_status_active_status
  * @namespace Windows.Win32.System.EventCollector
- * @version v4.0.30319
  */
-class EC_SUBSCRIPTION_RUNTIME_STATUS_ACTIVE_STATUS extends Win32Enum{
+class EC_SUBSCRIPTION_RUNTIME_STATUS_ACTIVE_STATUS extends Win32Enum {
 
     /**
      * The subscription or event source is disabled.

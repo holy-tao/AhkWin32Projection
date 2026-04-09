@@ -1,18 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DXGK_ENGINE_TYPE.ahk
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
- * @version v4.0.30319
  */
-class DXGK_NODEMETADATA extends Win32Struct
-{
+class DXGK_NODEMETADATA extends Win32Struct {
     static sizeof => 88
 
     static packingSize => 8
 
     /**
-     * @type {Integer}
+     * @type {DXGK_ENGINE_TYPE}
      */
     EngineType {
         get => NumGet(this, 0, "int")
@@ -28,7 +27,7 @@ class DXGK_NODEMETADATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<DXGK_NODEMETADATA_FLAGS>}
+     * @type {Pointer}
      */
     Flags {
         get => NumGet(this, 72, "ptr")

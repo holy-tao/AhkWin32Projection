@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IRawElementProviderSimple.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\IRawElementProviderSimple.ahk
 
 /**
  * Provides access to individual child controls of containers that implement IGridProvider.
@@ -14,9 +14,8 @@
  *             (that is, a UI Automation client can move to adjacent controls) by using the keyboard.
  * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nn-uiautomationcore-igriditemprovider
  * @namespace Windows.Win32.UI.Accessibility
- * @version v4.0.30319
  */
-class IGridItemProvider extends IUnknown{
+class IGridItemProvider extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -1,19 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include .\ISClusProperties.ahk
 #Include ..\..\Foundation\BSTR.ahk
 #Include .\ISCluster.ahk
 #Include .\ISClusResTypeResources.ahk
 #Include .\ISClusResTypePossibleOwnerNodes.ahk
 #Include .\ISClusDisks.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * @namespace Windows.Win32.Networking.Clustering
- * @version v4.0.30319
  */
-class ISClusResType extends IDispatch{
+class ISClusResType extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

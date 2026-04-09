@@ -5,10 +5,8 @@
  * The CERT_BASIC_CONSTRAINTS2_INFO structure contains information indicating whether the certified subject can act as a CA or an end entity. If the subject can act as a CA, a certification path length constraint can also be specified.
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cert_basic_constraints2_info
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CERT_BASIC_CONSTRAINTS2_INFO extends Win32Struct
-{
+class CERT_BASIC_CONSTRAINTS2_INFO extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4

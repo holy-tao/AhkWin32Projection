@@ -5,9 +5,8 @@
  * Specifies the call types used by IMessageFilter::HandleInComingCall.
  * @see https://learn.microsoft.com/windows/win32/api/objidl/ne-objidl-calltype
  * @namespace Windows.Win32.System.Com
- * @version v4.0.30319
  */
-class CALLTYPE extends Win32Enum{
+class CALLTYPE extends Win32Enum {
 
     /**
      * A top-level call has arrived and the object is not currently waiting for a reply from a previous outgoing call. Calls of this type should always be handled.

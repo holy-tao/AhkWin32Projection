@@ -9,9 +9,8 @@
  * <img alt="An illustration that shows examples of the spread method" src="./images/XPS_Spread_Method.png"/>
  * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/ne-xpsobjectmodel-xps_spread_method
  * @namespace Windows.Win32.Storage.Xps
- * @version v4.0.30319
  */
-class XPS_SPREAD_METHOD extends Win32Enum{
+class XPS_SPREAD_METHOD extends Win32Enum {
 
     /**
      * The spread region is filled with the color whose value equals the color  at the end of the gradient region.

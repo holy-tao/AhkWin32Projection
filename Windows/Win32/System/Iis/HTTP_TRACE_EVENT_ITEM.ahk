@@ -1,12 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\HTTP_TRACE_TYPE.ahk
 
 /**
  * @namespace Windows.Win32.System.Iis
- * @version v4.0.30319
  */
-class HTTP_TRACE_EVENT_ITEM extends Win32Struct
-{
+class HTTP_TRACE_EVENT_ITEM extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -20,7 +19,7 @@ class HTTP_TRACE_EVENT_ITEM extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {HTTP_TRACE_TYPE}
      */
     dwDataType {
         get => NumGet(this, 8, "int")

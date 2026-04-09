@@ -5,9 +5,8 @@
  * These values are returned by IInterval::GetLimits as pairs to specify a range with an upper and lower limit.
  * @see https://learn.microsoft.com/windows/win32/api/structuredquery/ne-structuredquery-interval_limit_kind
  * @namespace Windows.Win32.System.Search
- * @version v4.0.30319
  */
-class INTERVAL_LIMIT_KIND extends Win32Enum{
+class INTERVAL_LIMIT_KIND extends Win32Enum {
 
     /**
      * The value is included in the range. For example, an integer range of numbers that is equal to or greater than 3 and less than or equal to 6 includes both 3 and 6. So the values 3 and 6 would both be returned with <b>ILK_EXPLICIT_INCLUDED</b>.

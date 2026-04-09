@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\D3D12_VIEW_INSTANCE_LOCATION.ahk
+#Include .\D3D12_VIEW_INSTANCING_FLAGS.ahk
 
 /**
  * Specifies parameters used during view instancing configuration.
@@ -13,10 +15,8 @@
  * For shaders that dynamically select the viewport or render target indices, an application can set all the view instance locations declared in the PSO to a single value (such as 0) to act as a uniform base index to which the dynamically-selected SV_RenderTargetArrayIndex and SV_ViewportArrayIndex values are added.
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_view_instancing_desc
  * @namespace Windows.Win32.Graphics.Direct3D12
- * @version v4.0.30319
  */
-class D3D12_VIEW_INSTANCING_DESC extends Win32Struct
-{
+class D3D12_VIEW_INSTANCING_DESC extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -41,7 +41,7 @@ class D3D12_VIEW_INSTANCING_DESC extends Win32Struct
 
     /**
      * Configures view instancing with additional options.
-     * @type {Integer}
+     * @type {D3D12_VIEW_INSTANCING_FLAGS}
      */
     Flags {
         get => NumGet(this, 16, "int")

@@ -1,13 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Graphics\Gdi\BITMAPINFO.ahk
 #Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * @namespace Windows.Win32.System.Console
- * @version v4.0.30319
  */
-class CONSOLE_GRAPHICS_BUFFER_INFO extends Win32Struct
-{
+class CONSOLE_GRAPHICS_BUFFER_INFO extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -39,7 +38,7 @@ class CONSOLE_GRAPHICS_BUFFER_INFO extends Win32Struct
     /**
      * @type {HANDLE}
      */
-    hMutex{
+    hMutex {
         get {
             if(!this.HasProp("__hMutex"))
                 this.__hMutex := HANDLE(24, this)

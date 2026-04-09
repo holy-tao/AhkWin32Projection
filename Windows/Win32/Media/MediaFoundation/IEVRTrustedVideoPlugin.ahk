@@ -7,9 +7,8 @@
  * Enables a plug-in component for the enhanced video renderer (EVR) to work with protected media.
  * @see https://learn.microsoft.com/windows/win32/api/evr/nn-evr-ievrtrustedvideoplugin
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IEVRTrustedVideoPlugin extends IUnknown{
+class IEVRTrustedVideoPlugin extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

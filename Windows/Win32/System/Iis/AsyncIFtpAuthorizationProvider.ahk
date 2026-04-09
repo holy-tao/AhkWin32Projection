@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.Iis
- * @version v4.0.30319
  */
-class AsyncIFtpAuthorizationProvider extends IUnknown{
+class AsyncIFtpAuthorizationProvider extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -54,7 +53,7 @@ class AsyncIFtpAuthorizationProvider extends IUnknown{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {FTP_ACCESS} 
      */
     Finish_GetUserAccessPermission() {
         result := ComCall(4, this, "int*", &pFtpAccess := 0, "HRESULT")

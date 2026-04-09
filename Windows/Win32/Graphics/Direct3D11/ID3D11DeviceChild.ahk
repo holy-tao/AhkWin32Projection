@@ -12,9 +12,8 @@
  *         </b> This API is supported.
  * @see https://learn.microsoft.com/windows/win32/api/d3d11/nn-d3d11-id3d11devicechild
  * @namespace Windows.Win32.Graphics.Direct3D11
- * @version v4.0.30319
  */
-class ID3D11DeviceChild extends IUnknown{
+class ID3D11DeviceChild extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -65,7 +64,7 @@ class ID3D11DeviceChild extends IUnknown{
      * 
      * A pointer to a variable that on input contains the size, in bytes, of the buffer that <i>pData</i> points to, and on output contains the size, in bytes, of the amount of data that
      *            <b>GetPrivateData</b> retrieved.
-     * @param {Pointer} pData Type: <b>void*</b>
+     * @param {Integer} pData Type: <b>void*</b>
      * 
      * A pointer to a buffer that
      *            <b>GetPrivateData</b> fills with data from the device child if <i>pDataSize</i> points to a value that specifies a buffer large enough to hold the data.
@@ -102,7 +101,7 @@ class ID3D11DeviceChild extends IUnknown{
      * @param {Integer} DataSize Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * Size of the data.
-     * @param {Pointer} pData Type: <b>const void*</b>
+     * @param {Integer} pData Type: <b>const void*</b>
      * 
      * Pointer to the data to be stored with this device child. If pData is <b>NULL</b>, DataSize must also be 0, and any data previously associated with the specified guid will be destroyed.
      * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>

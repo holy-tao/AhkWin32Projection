@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Media.DirectShow.Tv
- * @version v4.0.30319
  */
-class VA_TRANSFER_CHARACTERISTICS extends Win32Enum{
+class VA_TRANSFER_CHARACTERISTICS extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

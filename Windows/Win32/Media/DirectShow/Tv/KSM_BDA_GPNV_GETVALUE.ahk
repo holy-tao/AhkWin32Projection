@@ -4,18 +4,16 @@
 
 /**
  * @namespace Windows.Win32.Media.DirectShow.Tv
- * @version v4.0.30319
  */
-class KSM_BDA_GPNV_GETVALUE extends Win32Struct
-{
-    static sizeof => 48
+class KSM_BDA_GPNV_GETVALUE extends Win32Struct {
+    static sizeof => 40
 
     static packingSize => 8
 
     /**
      * @type {KSIDENTIFIER}
      */
-    Method{
+    Method {
         get {
             if(!this.HasProp("__Method"))
                 this.__Method := KSIDENTIFIER(0, this)
@@ -35,17 +33,17 @@ class KSM_BDA_GPNV_GETVALUE extends Win32Struct
      * @type {String}
      */
     cLanguage {
-        get => StrGet(this.ptr + 20, 11, "UTF-16")
-        set => StrPut(value, this.ptr + 20, 11, "UTF-16")
+        get => StrGet(this.ptr + 20, 11, "UTF-8")
+        set => StrPut(value, this.ptr + 20, 11, "UTF-8")
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    argbData{
+    argbData {
         get {
             if(!this.HasProp("__argbDataProxyArray"))
-                this.__argbDataProxyArray := Win32FixedArray(this.ptr + 44, 1, Primitive, "char")
+                this.__argbDataProxyArray := Win32FixedArray(this.ptr + 32, 1, Primitive, "char")
             return this.__argbDataProxyArray
         }
     }

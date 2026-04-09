@@ -5,9 +5,8 @@
  * Identifies the type of event produced by the session layer.
  * @see https://learn.microsoft.com/windows/win32/api/wsdtypes/ne-wsdtypes-wsdeventtype
  * @namespace Windows.Win32.Devices.WebServicesOnDevices
- * @version v4.0.30319
  */
-class WSDEventType extends Win32Enum{
+class WSDEventType extends Win32Enum {
 
     /**
      * No events were detected.

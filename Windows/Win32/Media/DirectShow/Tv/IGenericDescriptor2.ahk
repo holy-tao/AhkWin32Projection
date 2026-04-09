@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Media.DirectShow.Tv
- * @version v4.0.30319
  */
-class IGenericDescriptor2 extends IGenericDescriptor{
+class IGenericDescriptor2 extends IGenericDescriptor {
 
     static sizeof => A_PtrSize
     /**

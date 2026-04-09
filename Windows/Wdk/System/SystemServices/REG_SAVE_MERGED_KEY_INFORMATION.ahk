@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class REG_SAVE_MERGED_KEY_INFORMATION extends Win32Struct
-{
+class REG_SAVE_MERGED_KEY_INFORMATION extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8
@@ -23,7 +21,7 @@ class REG_SAVE_MERGED_KEY_INFORMATION extends Win32Struct
     /**
      * @type {HANDLE}
      */
-    FileHandle{
+    FileHandle {
         get {
             if(!this.HasProp("__FileHandle"))
                 this.__FileHandle := HANDLE(8, this)

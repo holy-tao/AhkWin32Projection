@@ -8,10 +8,8 @@
  * The values here are independent of the surface dimensions.  Even if the surface is smaller than what would fit in a tile, the full tile dimensions are reported here.
  * @see https://learn.microsoft.com/windows/win32/api/d3d11_2/ns-d3d11_2-d3d11_tile_shape
  * @namespace Windows.Win32.Graphics.Direct3D11
- * @version v4.0.30319
  */
-class D3D11_TILE_SHAPE extends Win32Struct
-{
+class D3D11_TILE_SHAPE extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4

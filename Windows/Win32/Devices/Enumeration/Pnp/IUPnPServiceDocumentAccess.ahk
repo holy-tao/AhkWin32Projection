@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
+#Include ..\..\..\Foundation\BSTR.ahk
 
 /**
  * Use this interface to retrieve and provide the Service Control Protocol Description (SCPD) document to a UPnP control point application to expose actions supported by the service and provide information about state variables.
  * @see https://learn.microsoft.com/windows/win32/api/upnp/nn-upnp-iupnpservicedocumentaccess
  * @namespace Windows.Win32.Devices.Enumeration.Pnp
- * @version v4.0.30319
  */
-class IUPnPServiceDocumentAccess extends IUnknown{
+class IUPnPServiceDocumentAccess extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -10,10 +10,8 @@
  * The relevant members differ for each potential type of surface. This structure is typically created and initialized by an application.
  * @see https://learn.microsoft.com/windows/win32/api/ddraw/ns-ddraw-ddsurfacedesc
  * @namespace Windows.Win32.Graphics.DirectDraw
- * @version v4.0.30319
  */
-class DDSURFACEDESC extends Win32Struct
-{
+class DDSURFACEDESC extends Win32Struct {
     static sizeof => 120
 
     static packingSize => 8
@@ -213,7 +211,7 @@ class DDSURFACEDESC extends Win32Struct
      * Specifies the color key for destination overlay use.
      * @type {DDCOLORKEY}
      */
-    ddckCKDestOverlay{
+    ddckCKDestOverlay {
         get {
             if(!this.HasProp("__ddckCKDestOverlay"))
                 this.__ddckCKDestOverlay := DDCOLORKEY(48, this)
@@ -225,7 +223,7 @@ class DDSURFACEDESC extends Win32Struct
      * Specifies the color key for destination blt use.
      * @type {DDCOLORKEY}
      */
-    ddckCKDestBlt{
+    ddckCKDestBlt {
         get {
             if(!this.HasProp("__ddckCKDestBlt"))
                 this.__ddckCKDestBlt := DDCOLORKEY(56, this)
@@ -237,7 +235,7 @@ class DDSURFACEDESC extends Win32Struct
      * Specifies the color key for source overlay use.
      * @type {DDCOLORKEY}
      */
-    ddckCKSrcOverlay{
+    ddckCKSrcOverlay {
         get {
             if(!this.HasProp("__ddckCKSrcOverlay"))
                 this.__ddckCKSrcOverlay := DDCOLORKEY(64, this)
@@ -249,7 +247,7 @@ class DDSURFACEDESC extends Win32Struct
      * Specifies the color key for source blt use.
      * @type {DDCOLORKEY}
      */
-    ddckCKSrcBlt{
+    ddckCKSrcBlt {
         get {
             if(!this.HasProp("__ddckCKSrcBlt"))
                 this.__ddckCKSrcBlt := DDCOLORKEY(72, this)
@@ -261,7 +259,7 @@ class DDSURFACEDESC extends Win32Struct
      * Specifies a [DDPIXELFORMAT](/windows/win32/api/ddraw/ns-ddraw-ddpixelformat) structure that describes the pixel format of the surface.
      * @type {DDPIXELFORMAT}
      */
-    ddpfPixelFormat{
+    ddpfPixelFormat {
         get {
             if(!this.HasProp("__ddpfPixelFormat"))
                 this.__ddpfPixelFormat := DDPIXELFORMAT(80, this)
@@ -273,7 +271,7 @@ class DDSURFACEDESC extends Win32Struct
      * Specifies a [DDSCAPS](ns-ddraw-ddscaps.md) structure that contains the Microsoft DirectDrawMicrosoft surface capabilities.
      * @type {DDSCAPS}
      */
-    ddsCaps{
+    ddsCaps {
         get {
             if(!this.HasProp("__ddsCaps"))
                 this.__ddsCaps := DDSCAPS(112, this)

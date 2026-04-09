@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw
- * @version v4.0.30319
  */
-class IDirectDrawVideoPortNotify extends IUnknown{
+class IDirectDrawVideoPortNotify extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

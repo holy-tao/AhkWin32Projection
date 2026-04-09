@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IWSDXMLContext.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\IWSDXMLContext.ahk
 
 /**
  * Provides methods for announcing hosts and managing incoming queries to hosts.
@@ -10,9 +10,8 @@
  * This interface represents the "server" or "host" side of <a href="https://specs.xmlsoap.org/ws/2005/04/discovery/ws-discovery.pdf">WS-Discovery</a>.
  * @see https://learn.microsoft.com/windows/win32/api/wsddisco/nn-wsddisco-iwsdiscoverypublisher
  * @namespace Windows.Win32.Devices.WebServicesOnDevices
- * @version v4.0.30319
  */
-class IWSDiscoveryPublisher extends IUnknown{
+class IWSDiscoveryPublisher extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -5,10 +5,8 @@
  * Contains information passed to the IUrlAccessor object about the current item; for example, the application name and catalog name.
  * @see https://learn.microsoft.com/windows/win32/api/searchapi/ns-searchapi-item_info
  * @namespace Windows.Win32.System.Search
- * @version v4.0.30319
  */
-class ITEM_INFO extends Win32Struct
-{
+class ITEM_INFO extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8

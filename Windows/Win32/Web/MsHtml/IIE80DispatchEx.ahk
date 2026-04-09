@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
- * @version v4.0.30319
  */
-class IIE80DispatchEx extends IDispatchEx{
+class IIE80DispatchEx extends IDispatchEx {
 
     static sizeof => A_PtrSize
     /**

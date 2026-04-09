@@ -5,9 +5,8 @@
  * Specifies how to flip a video image.
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/ne-mfidl-mf_video_processor_mirror
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class MF_VIDEO_PROCESSOR_MIRROR extends Win32Enum{
+class MF_VIDEO_PROCESSOR_MIRROR extends Win32Enum {
 
     /**
      * Do not flip the image.

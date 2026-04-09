@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -10,9 +9,8 @@
  * To use this interface, set the <a href="https://docs.microsoft.com/windows/desktop/medfound/mf-media-engine-extension">MF_MEDIA_ENGINE_EXTENSION</a> attribute when you call the <a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/nf-mfmediaengine-imfmediaengineclassfactory-createinstance">IMFMediaEngineClassFactory::CreateInstance</a> method.
  * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nn-mfmediaengine-imfmediaengineextension
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFMediaEngineExtension extends IUnknown{
+class IMFMediaEngineExtension extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -39,7 +37,7 @@ class IMFMediaEngineExtension extends IUnknown{
      * Implement this method if your Media Engine extension supports one or more MIME types.
      * @param {BOOL} AudioOnly If <b>TRUE</b>, the Media Engine is set to audio-only mode. Otherwise, the Media Engine is set to audio-video mode.
      * @param {BSTR} MimeType A string that contains a MIME type with an optional codecs parameter, as defined in RFC 4281.
-     * @returns {Integer} Receives a member of the <a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/ne-mfmediaengine-mf_media_engine_canplay">MF_MEDIA_ENGINE_CANPLAY</a> enumeration.
+     * @returns {MF_MEDIA_ENGINE_CANPLAY} Receives a member of the <a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/ne-mfmediaengine-mf_media_engine_canplay">MF_MEDIA_ENGINE_CANPLAY</a> enumeration.
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediaengineextension-canplaytype
      */
     CanPlayType(AudioOnly, MimeType) {
@@ -94,7 +92,7 @@ class IMFMediaEngineExtension extends IUnknown{
      * If the <i>type</i> parameter equals  <b>MF_OBJECT_BYTESTREAM</b>, this parameter is <b>NULL</b>. 
      * 
      * If <i>type</i> equals <b>MF_OBJECT_MEDIASOURCE</b>, this parameter either contains a pointer to a byte stream or is <b>NULL</b>. See Remarks for more information.
-     * @param {Integer} type A member of the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/ne-mfidl-mf_object_type">MF_OBJECT_TYPE</a> enumeration that specifies which type of object to create.
+     * @param {MF_OBJECT_TYPE} type A member of the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/ne-mfidl-mf_object_type">MF_OBJECT_TYPE</a> enumeration that specifies which type of object to create.
      * 
      * <table>
      * <tr>

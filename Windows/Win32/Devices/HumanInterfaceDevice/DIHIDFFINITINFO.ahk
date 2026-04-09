@@ -5,10 +5,8 @@
  * The DIHIDFFINITINFO structure is used by DirectInput to provide information to a HID force-feedback driver about the device it is being asked to control.
  * @see https://learn.microsoft.com/windows/win32/api/dinputd/ns-dinputd-dihidffinitinfo
  * @namespace Windows.Win32.Devices.HumanInterfaceDevice
- * @version v4.0.30319
  */
-class DIHIDFFINITINFO extends Win32Struct
-{
+class DIHIDFFINITINFO extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -33,7 +31,7 @@ class DIHIDFFINITINFO extends Win32Struct
 
     /**
      * Specifies a device instance GUID for this device.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     GuidInstance {
         get => NumGet(this, 16, "ptr")

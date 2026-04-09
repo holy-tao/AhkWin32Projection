@@ -6,10 +6,8 @@
  * Used to define a query form added to the query dialog box with the CQAddFormsProc callback function.
  * @see https://learn.microsoft.com/windows/win32/api/cmnquery/ns-cmnquery-cqform
  * @namespace Windows.Win32.Networking.ActiveDirectory
- * @version v4.0.30319
  */
-class CQFORM extends Win32Struct
-{
+class CQFORM extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -24,7 +22,6 @@ class CQFORM extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     dwFlags {
@@ -34,7 +31,7 @@ class CQFORM extends Win32Struct
 
     /**
      * Contains  the class identifier used to identify the query form.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     clsid {
         get => NumGet(this, 8, "ptr")
@@ -45,7 +42,7 @@ class CQFORM extends Win32Struct
      * Contains the  handle of the icon to be displayed with the query form.
      * @type {HICON}
      */
-    hIcon{
+    hIcon {
         get {
             if(!this.HasProp("__hIcon"))
                 this.__hIcon := HICON(16, this)

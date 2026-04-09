@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\WSDXML_PREFIX_MAPPING.ahk
+#Include .\WSDXML_NAMESPACE.ahk
 
 /**
  * Describes an XML namespace prefix.
  * @see https://learn.microsoft.com/windows/win32/api/wsdxmldom/ns-wsdxmldom-wsdxml_prefix_mapping
  * @namespace Windows.Win32.Devices.WebServicesOnDevices
- * @version v4.0.30319
  */
-class WSDXML_PREFIX_MAPPING extends Win32Struct
-{
+class WSDXML_PREFIX_MAPPING extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8

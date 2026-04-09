@@ -31,11 +31,9 @@
  * > The minwinbase.h header defines WIN32_FIND_DATA as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
  * @see https://learn.microsoft.com/windows/win32/api/minwinbase/ns-minwinbase-win32_find_dataa
  * @namespace Windows.Win32.Storage.FileSystem
- * @version v4.0.30319
  * @charset ANSI
  */
-class WIN32_FIND_DATAA extends Win32Struct
-{
+class WIN32_FIND_DATAA extends Win32Struct {
     static sizeof => 320
 
     static packingSize => 4
@@ -62,7 +60,7 @@ class WIN32_FIND_DATAA extends Win32Struct
      * If the underlying file system does not support creation time, this member is zero.
      * @type {FILETIME}
      */
-    ftCreationTime{
+    ftCreationTime {
         get {
             if(!this.HasProp("__ftCreationTime"))
                 this.__ftCreationTime := FILETIME(4, this)
@@ -83,7 +81,7 @@ class WIN32_FIND_DATAA extends Win32Struct
      *        always set to midnight.
      * @type {FILETIME}
      */
-    ftLastAccessTime{
+    ftLastAccessTime {
         get {
             if(!this.HasProp("__ftLastAccessTime"))
                 this.__ftLastAccessTime := FILETIME(12, this)
@@ -103,7 +101,7 @@ class WIN32_FIND_DATAA extends Win32Struct
      *        not support last write time, this member is zero.
      * @type {FILETIME}
      */
-    ftLastWriteTime{
+    ftLastWriteTime {
         get {
             if(!this.HasProp("__ftLastWriteTime"))
                 this.__ftLastWriteTime := FILETIME(20, this)

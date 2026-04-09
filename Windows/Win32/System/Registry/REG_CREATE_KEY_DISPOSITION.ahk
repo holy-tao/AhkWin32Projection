@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Registry
- * @version v4.0.30319
  */
-class REG_CREATE_KEY_DISPOSITION extends Win32Enum{
+class REG_CREATE_KEY_DISPOSITION extends Win32Enum {
 
     /**
      * @type {Integer (UInt32)}

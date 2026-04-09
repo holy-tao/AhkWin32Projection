@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.SerialCommunication
- * @version v4.0.30319
  */
-class SERIAL_QUEUE_SIZE extends Win32Struct
-{
+class SERIAL_QUEUE_SIZE extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4

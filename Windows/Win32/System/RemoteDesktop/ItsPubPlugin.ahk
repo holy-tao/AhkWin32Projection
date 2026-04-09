@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Com\IUnknown.ahk
 #Include .\pluginResource.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include ..\Com\IUnknown.ahk
 
 /**
  * Exposes properties and methods that provide information about resources available to users of RemoteApp and Desktop Connections.
@@ -25,9 +25,8 @@
  * </ol>
  * @see https://learn.microsoft.com/windows/win32/api/tspubplugincom/nn-tspubplugincom-itspubplugin
  * @namespace Windows.Win32.System.RemoteDesktop
- * @version v4.0.30319
  */
-class ItsPubPlugin extends IUnknown{
+class ItsPubPlugin extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -9,9 +9,8 @@
  * To get a pointer to this interface, call <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-queryinterface(q)">QueryInterface</a> with an <a href="https://docs.microsoft.com/windows/desktop/api/d3d11_1/nn-d3d11_1-id3d11devicecontext1">ID3D11DeviceContext1</a>  interface pointer.
  * @see https://learn.microsoft.com/windows/win32/api/d3d11_1/nn-d3d11_1-id3d11videocontext1
  * @namespace Windows.Win32.Graphics.Direct3D11
- * @version v4.0.30319
  */
-class ID3D11VideoContext1 extends ID3D11VideoContext{
+class ID3D11VideoContext1 extends ID3D11VideoContext {
 
     static sizeof => A_PtrSize
     /**
@@ -85,7 +84,7 @@ class ID3D11VideoContext1 extends ID3D11VideoContext{
      * @param {ID3D11CryptoSession} pCryptoSession Type: <b>ID3D11CryptoSession*</b>
      * 
      * Specifies a <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nn-d3d11-id3d11cryptosession">ID3D11CryptoSession</a> for which status is checked.
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d11_1/ne-d3d11_1-d3d11_crypto_session_status">D3D11_CRYPTO_SESSION_STATUS</a>*</b>
+     * @returns {D3D11_CRYPTO_SESSION_STATUS} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d11_1/ne-d3d11_1-d3d11_crypto_session_status">D3D11_CRYPTO_SESSION_STATUS</a>*</b>
      * 
      * A D3D11_CRYPTO_SESSION_STATUS that is populated with the crypto session status upon completion.
      * @see https://learn.microsoft.com/windows/win32/api/d3d11_1/nf-d3d11_1-id3d11videocontext1-checkcryptosessionstatus
@@ -102,7 +101,7 @@ class ID3D11VideoContext1 extends ID3D11VideoContext{
      * @param {ID3D11VideoDecoder} pDecoder Type: <b>ID3D11VideoDecoder*</b>
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nn-d3d11-id3d11videodecoder">ID3D11VideoDecoder</a> interface.
-     * @param {Integer} InputColorSpace Type: <b>DXGI_COLOR_SPACE_TYPE</b>
+     * @param {DXGI_COLOR_SPACE_TYPE} InputColorSpace Type: <b>DXGI_COLOR_SPACE_TYPE</b>
      * 
      * The color space information of the reference frame data.
      * @param {Pointer<D3D11_VIDEO_SAMPLE_DESC>} pOutputDesc Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/d3d11_1/ns-d3d11_1-d3d11_video_sample_desc">D3D11_VIDEO_SAMPLE_DESC</a>*</b>
@@ -176,7 +175,7 @@ class ID3D11VideoContext1 extends ID3D11VideoContext{
      * @param {ID3D11VideoProcessor} pVideoProcessor Type: <b>ID3D11VideoProcessor*</b>
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nn-d3d11-id3d11videoprocessor">ID3D11VideoProcessor</a> interface.
-     * @param {Integer} ColorSpace Type: <b>DXGI_COLOR_SPACE_TYPE</b>
+     * @param {DXGI_COLOR_SPACE_TYPE} ColorSpace Type: <b>DXGI_COLOR_SPACE_TYPE</b>
      * 
      * A  <a href="https://docs.microsoft.com/windows/desktop/api/dxgicommon/ne-dxgicommon-dxgi_color_space_type">DXGI_COLOR_SPACE_TYPE</a> value that specifies the colorspace for the video processor output surface.
      * @returns {String} Nothing - always returns an empty string
@@ -206,7 +205,7 @@ class ID3D11VideoContext1 extends ID3D11VideoContext{
      * @param {ID3D11VideoProcessor} pVideoProcessor Type: <b>ID3D11VideoProcessor*</b>
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nn-d3d11-id3d11videoprocessor">ID3D11VideoProcessor</a> interface.
-     * @param {Pointer<Integer>} pColorSpace Type: <b>DXGI_COLOR_SPACE_TYPE*</b>
+     * @param {Pointer<DXGI_COLOR_SPACE_TYPE>} pColorSpace Type: <b>DXGI_COLOR_SPACE_TYPE*</b>
      * 
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/dxgicommon/ne-dxgicommon-dxgi_color_space_type">DXGI_COLOR_SPACE_TYPE</a> value that indicates the colorspace for the video processor output surface.
      * @returns {String} Nothing - always returns an empty string
@@ -243,7 +242,7 @@ class ID3D11VideoContext1 extends ID3D11VideoContext{
      * @param {Integer} StreamIndex Type: <b>UINT</b>
      * 
      * An index identifying the input stream.
-     * @param {Integer} ColorSpace Type: <b>DXGI_COLOR_SPACE_TYPE</b>
+     * @param {DXGI_COLOR_SPACE_TYPE} ColorSpace Type: <b>DXGI_COLOR_SPACE_TYPE</b>
      * 
      * A  <a href="https://docs.microsoft.com/windows/desktop/api/dxgicommon/ne-dxgicommon-dxgi_color_space_type">DXGI_COLOR_SPACE_TYPE</a> value that specifies the colorspace for the video processor input stream.
      * @returns {String} Nothing - always returns an empty string
@@ -293,7 +292,7 @@ class ID3D11VideoContext1 extends ID3D11VideoContext{
      * @param {Integer} StreamIndex Type: <b>UINT</b>
      * 
      * An index identifying the input stream.
-     * @param {Pointer<Integer>} pColorSpace Type: <b>DXGI_COLOR_SPACE_TYPE*</b>
+     * @param {Pointer<DXGI_COLOR_SPACE_TYPE>} pColorSpace Type: <b>DXGI_COLOR_SPACE_TYPE*</b>
      * 
      * A pointer to a  <a href="https://docs.microsoft.com/windows/desktop/api/dxgicommon/ne-dxgicommon-dxgi_color_space_type">DXGI_COLOR_SPACE_TYPE</a> value that specifies the colorspace for the video processor input stream.
      * @returns {String} Nothing - always returns an empty string
@@ -346,7 +345,7 @@ class ID3D11VideoContext1 extends ID3D11VideoContext{
      * @param {Integer} OutputHeight Type: <b>UINT</b>
      * 
      * The height of the output stream.
-     * @param {Integer} OutputFormat Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dxgiformat/ne-dxgiformat-dxgi_format">DXGI_FORMAT</a></b>
+     * @param {DXGI_FORMAT} OutputFormat Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dxgiformat/ne-dxgiformat-dxgi_format">DXGI_FORMAT</a></b>
      * 
      * The format of the output stream.
      * @param {Integer} StreamCount Type: <b>UINT</b>

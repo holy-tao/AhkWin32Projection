@@ -5,9 +5,8 @@
  * The FAX_RECEIPT_TYPE_ENUM enumeration defines the types of delivery reports (delivery receipt formats) for outbound faxes. The members of this enumeration are bit values and can be used in combination.
  * @see https://learn.microsoft.com/windows/win32/api/faxcomex/ne-faxcomex-fax_receipt_type_enum
  * @namespace Windows.Win32.Devices.Fax
- * @version v4.0.30319
  */
-class FAX_RECEIPT_TYPE_ENUM extends Win32Enum{
+class FAX_RECEIPT_TYPE_ENUM extends Win32Enum {
 
     /**
      * Do not send a delivery report.

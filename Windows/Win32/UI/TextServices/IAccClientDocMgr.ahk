@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IEnumUnknown.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\System\Com\IEnumUnknown.ahk
 
 /**
  * Exposes methods for client applications to retrieve documents.
  * @see https://learn.microsoft.com/windows/win32/api/msaatext/nn-msaatext-iaccclientdocmgr
  * @namespace Windows.Win32.UI.TextServices
- * @version v4.0.30319
  */
-class IAccClientDocMgr extends IUnknown{
+class IAccClientDocMgr extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -55,7 +54,9 @@ class IAccClientDocMgr extends IUnknown{
      * Clients call IAccClientDocMgr::LookupByHWND to get a document by providing the HWND for the document.
      * @remarks
      * Servers might need to poll this method more than once before they receive a document. There can be a limited time lapse (approximately second) between when a document appears in the system and when it is registered with document services.
-     * @param {HWND} _hWnd 
+     * @param {HWND} _hWnd Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
+     * 
+     * The <b>HWND</b> of the document to be returned.
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * IID of the document being requested. This is usually IID_ITextStoreAnchor.

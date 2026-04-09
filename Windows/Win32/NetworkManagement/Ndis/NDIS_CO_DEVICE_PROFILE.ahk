@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Ndis
- * @version v4.0.30319
  */
-class NDIS_CO_DEVICE_PROFILE extends Win32Struct
-{
+class NDIS_CO_DEVICE_PROFILE extends Win32Struct {
     static sizeof => 136
 
     static packingSize => 8
@@ -15,7 +13,7 @@ class NDIS_CO_DEVICE_PROFILE extends Win32Struct
     /**
      * @type {NDIS_VAR_DATA_DESC}
      */
-    DeviceDescription{
+    DeviceDescription {
         get {
             if(!this.HasProp("__DeviceDescription"))
                 this.__DeviceDescription := NDIS_VAR_DATA_DESC(0, this)
@@ -26,7 +24,7 @@ class NDIS_CO_DEVICE_PROFILE extends Win32Struct
     /**
      * @type {NDIS_VAR_DATA_DESC}
      */
-    DevSpecificInfo{
+    DevSpecificInfo {
         get {
             if(!this.HasProp("__DevSpecificInfo"))
                 this.__DevSpecificInfo := NDIS_VAR_DATA_DESC(16, this)

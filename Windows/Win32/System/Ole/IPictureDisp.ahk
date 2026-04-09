@@ -103,9 +103,8 @@
  * The OLE-provided picture object implements the complete semantics of the <a href="https://docs.microsoft.com/windows/desktop/api/ocidl/nn-ocidl-ipicture">IPicture</a> and <b>IPictureDisp</b> interfaces.
  * @see https://learn.microsoft.com/windows/win32/api/ocidl/nn-ocidl-ipicturedisp
  * @namespace Windows.Win32.System.Ole
- * @version v4.0.30319
  */
-class IPictureDisp extends IDispatch{
+class IPictureDisp extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

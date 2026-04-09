@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.SideShow
- * @version v4.0.30319
  */
-class ISideShowContent extends IUnknown{
+class ISideShowContent extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

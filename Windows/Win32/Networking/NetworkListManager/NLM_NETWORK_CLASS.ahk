@@ -5,9 +5,8 @@
  * NLM_NETWORK_CLASS enumeration defines a set of flags that specify if a network has been identified.
  * @see https://learn.microsoft.com/windows/win32/api/netlistmgr/ne-netlistmgr-nlm_network_class
  * @namespace Windows.Win32.Networking.NetworkListManager
- * @version v4.0.30319
  */
-class NLM_NETWORK_CLASS extends Win32Enum{
+class NLM_NETWORK_CLASS extends Win32Enum {
 
     /**
      * The network is being identified.

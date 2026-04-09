@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\RECT.ahk
+#Include ..\WindowsAndMessaging\WINDOWPOS.ahk
 
 /**
  * Contains information used to set the size and position of a header control. HDLAYOUT is used with the HDM_LAYOUT message. This structure supersedes the HD_LAYOUT structure.
  * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-hdlayout
  * @namespace Windows.Win32.UI.Controls
- * @version v4.0.30319
  */
-class HDLAYOUT extends Win32Struct
-{
+class HDLAYOUT extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

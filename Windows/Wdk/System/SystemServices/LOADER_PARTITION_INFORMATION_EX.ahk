@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class LOADER_PARTITION_INFORMATION_EX extends Win32Struct
-{
+class LOADER_PARTITION_INFORMATION_EX extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -36,7 +34,7 @@ class LOADER_PARTITION_INFORMATION_EX extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     DeviceId {
         get => NumGet(this, 8, "ptr")

@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
-#Include ..\..\..\..\Foundation\BSTR.ahk
 #Include ..\..\..\Com\IServiceProvider.ahk
+#Include ..\..\..\..\Foundation\BSTR.ahk
 
 /**
  * Provides the full local path to the authoring binary to be loaded into the WWAHost process.
  * @see https://learn.microsoft.com/windows/win32/api/webapplication/nn-webapplication-iwebapplicationauthoringmode
  * @namespace Windows.Win32.System.Diagnostics.Debug.WebApp
- * @version v4.0.30319
  */
-class IWebApplicationAuthoringMode extends IServiceProvider{
+class IWebApplicationAuthoringMode extends IServiceProvider {
 
     static sizeof => A_PtrSize
     /**

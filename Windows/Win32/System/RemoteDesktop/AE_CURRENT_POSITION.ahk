@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\AE_POSITION_FLAGS.ahk
 
 /**
  * Reports the current frame position from the device to the clients.
@@ -7,10 +8,8 @@
  * The Remote Desktop Services AudioEndpoint API is for use in Remote Desktop scenarios; it is not for client applications.
  * @see https://learn.microsoft.com/windows/win32/api/audioengineendpoint/ns-audioengineendpoint-ae_current_position
  * @namespace Windows.Win32.System.RemoteDesktop
- * @version v4.0.30319
  */
-class AE_CURRENT_POSITION extends Win32Struct
-{
+class AE_CURRENT_POSITION extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -62,7 +61,7 @@ class AE_CURRENT_POSITION extends Win32Struct
 
     /**
      * A value of the <a href="https://docs.microsoft.com/windows/desktop/api/audioengineendpoint/ne-audioengineendpoint-ae_position_flags">AE_POSITION_FLAGS</a> enumeration that indicates the validity of the position information.
-     * @type {Integer}
+     * @type {AE_POSITION_FLAGS}
      */
     Flag {
         get => NumGet(this, 36, "int")

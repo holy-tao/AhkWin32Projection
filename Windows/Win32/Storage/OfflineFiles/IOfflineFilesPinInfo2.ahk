@@ -7,9 +7,8 @@
  * Defines a method to determine whether an item in the Offline Files cache is partly pinned.
  * @see https://learn.microsoft.com/windows/win32/api/cscobj/nn-cscobj-iofflinefilespininfo2
  * @namespace Windows.Win32.Storage.OfflineFiles
- * @version v4.0.30319
  */
-class IOfflineFilesPinInfo2 extends IOfflineFilesPinInfo{
+class IOfflineFilesPinInfo2 extends IOfflineFilesPinInfo {
 
     static sizeof => A_PtrSize
     /**

@@ -1,17 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\IORING_REF_KIND.ahk
 #Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * Represents a reference to a file handle used in an I/O ring operation.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/ioringapi/ns-ioringapi-ioring_handle_ref
  * @namespace Windows.Win32.Storage.FileSystem
- * @version v4.0.30319
  */
-class IORING_HANDLE_REF extends Win32Struct
-{
+class IORING_HANDLE_REF extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -23,14 +20,14 @@ class IORING_HANDLE_REF extends Win32Struct
         /**
          * @type {HANDLE}
          */
-        Handle{
+        Handle {
             get {
                 if(!this.HasProp("__Handle"))
                     this.__Handle := HANDLE(0, this)
                 return this.__Handle
             }
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -38,12 +35,11 @@ class IORING_HANDLE_REF extends Win32Struct
             get => NumGet(this, 0, "uint")
             set => NumPut("uint", value, this, 0)
         }
-    
     }
 
     /**
      * A value from the [IORING_REF_KIND](ne-ioringapi-ioring_ref_kind.md) enumeration specifying the kind of handle represented by the structure.
-     * @type {Integer}
+     * @type {IORING_REF_KIND}
      */
     Kind {
         get => NumGet(this, 0, "int")
@@ -54,10 +50,10 @@ class IORING_HANDLE_REF extends Win32Struct
      * The handle to a file if the *Kind* value is IORING_REF_RAW.
      * @type {HandleUnion}
      */
-    Handle{
+    Handle {
         get {
             if(!this.HasProp("__Handle"))
-                this.__Handle := %this.__Class%.HandleUnion(8, this)
+                this.__Handle := IORING_HANDLE_REF.HandleUnion(8, this)
             return this.__Handle
         }
     }

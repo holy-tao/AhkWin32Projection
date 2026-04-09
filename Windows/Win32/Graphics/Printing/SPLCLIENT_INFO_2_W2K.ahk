@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
- * @version v4.0.30319
  */
-class SPLCLIENT_INFO_2_W2K extends Win32Struct
-{
+class SPLCLIENT_INFO_2_W2K extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 8

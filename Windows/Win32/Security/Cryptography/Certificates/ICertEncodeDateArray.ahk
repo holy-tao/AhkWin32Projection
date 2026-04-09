@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
 #Include ..\..\..\System\Com\IDispatch.ahk
+#Include ..\..\..\Foundation\BSTR.ahk
 
 /**
  * Provides methods for handling Date arrays used in certificate extensions.
  * @see https://learn.microsoft.com/windows/win32/api/certenc/nn-certenc-icertencodedatearray
  * @namespace Windows.Win32.Security.Cryptography.Certificates
- * @version v4.0.30319
  */
-class ICertEncodeDateArray extends IDispatch{
+class ICertEncodeDateArray extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

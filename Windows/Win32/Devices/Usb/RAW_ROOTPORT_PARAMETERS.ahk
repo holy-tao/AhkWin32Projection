@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.Usb
- * @version v4.0.30319
  */
-class RAW_ROOTPORT_PARAMETERS extends Win32Struct
-{
+class RAW_ROOTPORT_PARAMETERS extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 2

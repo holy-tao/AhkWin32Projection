@@ -7,9 +7,8 @@
  * The IWMPLibrarySharingServices interface provides methods to manage library sharing.To use this interface, you must create a remoted instance of the Windows Media Player control.
  * @see https://learn.microsoft.com/windows/win32/api/wmp/nn-wmp-iwmplibrarysharingservices
  * @namespace Windows.Win32.Media.MediaPlayer
- * @version v4.0.30319
  */
-class IWMPLibrarySharingServices extends IUnknown{
+class IWMPLibrarySharingServices extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

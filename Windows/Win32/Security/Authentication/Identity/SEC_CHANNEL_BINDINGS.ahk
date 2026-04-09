@@ -15,10 +15,8 @@
  * If the value of the <i>ulAttribute</i> parameter of the <a href="https://docs.microsoft.com/windows/desktop/api/sspi/nf-sspi-querycontextattributesw">QueryContextAttributes (Schannel)</a> function is <b>SECPKG_ATTR_ENDPOINT_BINDINGS</b>, the channel binding data specified by this structure begins with "tls-server-end-point:".
  * @see https://learn.microsoft.com/windows/win32/api/sspi/ns-sspi-sec_channel_bindings
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class SEC_CHANNEL_BINDINGS extends Win32Struct
-{
+class SEC_CHANNEL_BINDINGS extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 4

@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.RealTimeCommunications
- * @version v4.0.30319
  */
-class IRTCIntensityEvent extends IDispatch{
+class IRTCIntensityEvent extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -50,7 +49,7 @@ class IRTCIntensityEvent extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {RTC_AUDIO_DEVICE} 
      */
     Direction {
         get => this.get_Direction()
@@ -85,7 +84,7 @@ class IRTCIntensityEvent extends IDispatch{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {RTC_AUDIO_DEVICE} 
      */
     get_Direction() {
         result := ComCall(10, this, "int*", &penDirection := 0, "HRESULT")

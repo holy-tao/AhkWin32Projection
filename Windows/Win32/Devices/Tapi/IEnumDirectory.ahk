@@ -1,17 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ITDirectory.ahk
-#Include .\IEnumDirectory.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\ITDirectory.ahk
 
 /**
  * The IEnumDirectory interface provides COM-standard enumeration methods for the ITDirectory interface. The ITRendezvous::EnumerateDefaultDirectories method returns a pointer to IEnumDirectory.
  * @see https://learn.microsoft.com/windows/win32/api/rend/nn-rend-ienumdirectory
  * @namespace Windows.Win32.Devices.Tapi
- * @version v4.0.30319
  */
-class IEnumDirectory extends IUnknown{
+class IEnumDirectory extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

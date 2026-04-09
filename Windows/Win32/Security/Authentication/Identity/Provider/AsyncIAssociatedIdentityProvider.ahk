@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
-#Include ..\..\..\..\UI\Shell\PropertiesSystem\IPropertyStore.ahk
 #Include ..\..\..\..\System\Com\IUnknown.ahk
+#Include ..\..\..\..\UI\Shell\PropertiesSystem\IPropertyStore.ahk
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity.Provider
- * @version v4.0.30319
  */
-class AsyncIAssociatedIdentityProvider extends IUnknown{
+class AsyncIAssociatedIdentityProvider extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

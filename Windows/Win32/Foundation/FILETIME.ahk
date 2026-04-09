@@ -9,10 +9,8 @@
  * The definition of the **FILETIME** structure is in the _Win32 Programmer's Reference_ and in the MAPI header file Mapidefs.h. MAPI defines the structure conditionally to make sure that it is defined when the Win32 definition is unavailable.
  * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/filetime
  * @namespace Windows.Win32.Foundation
- * @version v4.0.30319
  */
-class FILETIME extends Win32Struct
-{
+class FILETIME extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4

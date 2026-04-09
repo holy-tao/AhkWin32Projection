@@ -1,6 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Graphics\Gdi\LOGFONTA.ahk
+#Include ..\..\Graphics\Gdi\FONT_CHARSET.ahk
+#Include ..\..\Graphics\Gdi\FONT_OUTPUT_PRECISION.ahk
+#Include ..\..\Graphics\Gdi\FONT_CLIP_PRECISION.ahk
+#Include ..\..\Graphics\Gdi\FONT_QUALITY.ahk
 
 /**
  * Contains the scalable metrics associated with the nonclient area of a nonminimized window. (ANSI)
@@ -17,11 +21,9 @@
  * > The winuser.h header defines NONCLIENTMETRICS as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
  * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-nonclientmetricsa
  * @namespace Windows.Win32.UI.WindowsAndMessaging
- * @version v4.0.30319
  * @charset ANSI
  */
-class NONCLIENTMETRICSA extends Win32Struct
-{
+class NONCLIENTMETRICSA extends Win32Struct {
     static sizeof => 344
 
     static packingSize => 4
@@ -84,7 +86,7 @@ class NONCLIENTMETRICSA extends Win32Struct
      * A <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-logfonta">LOGFONT</a> structure that contains information about the caption font.
      * @type {LOGFONTA}
      */
-    lfCaptionFont{
+    lfCaptionFont {
         get {
             if(!this.HasProp("__lfCaptionFont"))
                 this.__lfCaptionFont := LOGFONTA(24, this)
@@ -114,7 +116,7 @@ class NONCLIENTMETRICSA extends Win32Struct
      * A <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-logfonta">LOGFONT</a> structure that contains information about the small caption font.
      * @type {LOGFONTA}
      */
-    lfSmCaptionFont{
+    lfSmCaptionFont {
         get {
             if(!this.HasProp("__lfSmCaptionFont"))
                 this.__lfSmCaptionFont := LOGFONTA(92, this)
@@ -144,7 +146,7 @@ class NONCLIENTMETRICSA extends Win32Struct
      * A <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-logfonta">LOGFONT</a> structure that contains information about the font used in menu bars.
      * @type {LOGFONTA}
      */
-    lfMenuFont{
+    lfMenuFont {
         get {
             if(!this.HasProp("__lfMenuFont"))
                 this.__lfMenuFont := LOGFONTA(160, this)
@@ -156,7 +158,7 @@ class NONCLIENTMETRICSA extends Win32Struct
      * A <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-logfonta">LOGFONT</a> structure that contains information about the font used in status bars and tooltips.
      * @type {LOGFONTA}
      */
-    lfStatusFont{
+    lfStatusFont {
         get {
             if(!this.HasProp("__lfStatusFont"))
                 this.__lfStatusFont := LOGFONTA(220, this)
@@ -168,7 +170,7 @@ class NONCLIENTMETRICSA extends Win32Struct
      * A <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-logfonta">LOGFONT</a> structure that contains information about the font used in message boxes.
      * @type {LOGFONTA}
      */
-    lfMessageFont{
+    lfMessageFont {
         get {
             if(!this.HasProp("__lfMessageFont"))
                 this.__lfMessageFont := LOGFONTA(280, this)

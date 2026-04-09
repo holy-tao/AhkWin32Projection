@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\HWND.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\HWND.ahk
 
 /**
  * Exposes methods that can be called to get information on or close a file that is in use by another application.
@@ -37,9 +37,8 @@
  * See the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ee330722(v=vs.85)">File Is in Use</a> sample, which demonstrates how to implement <b>IFileIsInUse</b> and register a file with the ROT. It then shows how to customize the <b>File In Use</b> dialog to display additional information and options for files currently opened in an application.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-ifileisinuse
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IFileIsInUse extends IUnknown{
+class IFileIsInUse extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -76,7 +75,7 @@ class IFileIsInUse extends IUnknown{
 
     /**
      * Gets a value that indicates how the file in use is being used.
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-file_usage_type">FILE_USAGE_TYPE</a>*</b>
+     * @returns {FILE_USAGE_TYPE} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-file_usage_type">FILE_USAGE_TYPE</a>*</b>
      * 
      * Pointer to a value that, when this method returns successfully, receives one of the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-file_usage_type">FILE_USAGE_TYPE</a> values.
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifileisinuse-getusage

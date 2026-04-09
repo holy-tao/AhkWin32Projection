@@ -1,21 +1,19 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\TAPEMARK_TYPE.ahk
 
 /**
  * Describes the type and number of tapemarks to write.
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-tape_write_marks
  * @namespace Windows.Win32.Storage.FileSystem
- * @version v4.0.30319
  */
-class TAPE_WRITE_MARKS extends Win32Struct
-{
+class TAPE_WRITE_MARKS extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4
 
     /**
-     * 
-     * @type {Integer}
+     * @type {TAPEMARK_TYPE}
      */
     Type {
         get => NumGet(this, 0, "uint")

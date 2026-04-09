@@ -5,9 +5,8 @@
  * Specifies how text is aligned with the display.
  * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/ne-mfmediaengine-mf_timed_text_display_alignment
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class MF_TIMED_TEXT_DISPLAY_ALIGNMENT extends Win32Enum{
+class MF_TIMED_TEXT_DISPLAY_ALIGNMENT extends Win32Enum {
 
     /**
      * Text is aligned before an element.

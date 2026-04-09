@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.Display
- * @version v4.0.30319
  */
-class FONT_IMAGE_INFO extends Win32Struct
-{
+class FONT_IMAGE_INFO extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
@@ -15,7 +13,7 @@ class FONT_IMAGE_INFO extends Win32Struct
     /**
      * @type {COORD}
      */
-    FontSize{
+    FontSize {
         get {
             if(!this.HasProp("__FontSize"))
                 this.__FontSize := COORD(0, this)

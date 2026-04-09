@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.Foundation
- * @version v4.0.30319
  */
-class FAST_IO_DISPATCH extends Win32Struct
-{
+class FAST_IO_DISPATCH extends Win32Struct {
     static sizeof => 224
 
     static packingSize => 8

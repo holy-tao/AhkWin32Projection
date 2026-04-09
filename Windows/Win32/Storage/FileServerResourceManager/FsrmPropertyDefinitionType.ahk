@@ -5,9 +5,8 @@
  * Defines the types of file classification properties that you can define.
  * @see https://learn.microsoft.com/windows/win32/api/fsrmenums/ne-fsrmenums-fsrmpropertydefinitiontype
  * @namespace Windows.Win32.Storage.FileServerResourceManager
- * @version v4.0.30319
  */
-class FsrmPropertyDefinitionType extends Win32Enum{
+class FsrmPropertyDefinitionType extends Win32Enum {
 
     /**
      * The type is unknown. Do not use this value.

@@ -11,9 +11,8 @@
  * <div> </div>
  * @see https://learn.microsoft.com/windows/win32/api/vdslun/ne-vdslun-vds_storage_identifier_code_set
  * @namespace Windows.Win32.Storage.VirtualDiskService
- * @version v4.0.30319
  */
-class VDS_STORAGE_IDENTIFIER_CODE_SET extends Win32Enum{
+class VDS_STORAGE_IDENTIFIER_CODE_SET extends Win32Enum {
 
     /**
      * This value is reserved.

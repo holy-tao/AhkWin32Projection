@@ -5,10 +5,8 @@
  * Defines an individual network binding for the DHCP server. A single DHCP server can contain multiple bindings and serve multiple networks.
  * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/ns-dhcpsapi-dhcp_bind_element
  * @namespace Windows.Win32.NetworkManagement.Dhcp
- * @version v4.0.30319
  */
-class DHCP_BIND_ELEMENT extends Win32Struct
-{
+class DHCP_BIND_ELEMENT extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8

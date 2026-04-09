@@ -10,9 +10,8 @@
  * <div> </div>
  * @see https://learn.microsoft.com/windows/win32/api/vds/ne-vds-vds_disk_status
  * @namespace Windows.Win32.Storage.VirtualDiskService
- * @version v4.0.30319
  */
-class VDS_DISK_STATUS extends Win32Enum{
+class VDS_DISK_STATUS extends Win32Enum {
 
     /**
      * The provider failed to get the disk properties from the driver (unknown status, unknown health), or the provider cannot access the disk (unknown status, healthy).

@@ -7,9 +7,8 @@
  * The IManipulationProcessor provides functionality for monitoring and responding to multitouch input.
  * @see https://learn.microsoft.com/windows/win32/api/manipulations/nn-manipulations-imanipulationprocessor
  * @namespace Windows.Win32.UI.Input.Touch
- * @version v4.0.30319
  */
-class IManipulationProcessor extends IUnknown{
+class IManipulationProcessor extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -37,7 +36,7 @@ class IManipulationProcessor extends IUnknown{
     static VTableNames => ["get_SupportedManipulations", "put_SupportedManipulations", "get_PivotPointX", "put_PivotPointX", "get_PivotPointY", "put_PivotPointY", "get_PivotRadius", "put_PivotRadius", "CompleteManipulation", "ProcessDown", "ProcessMove", "ProcessUp", "ProcessDownWithTime", "ProcessMoveWithTime", "ProcessUpWithTime", "GetVelocityX", "GetVelocityY", "GetExpansionVelocity", "GetAngularVelocity", "get_MinimumScaleRotateRadius", "put_MinimumScaleRotateRadius"]
 
     /**
-     * @type {Integer} 
+     * @type {MANIPULATION_PROCESSOR_MANIPULATIONS} 
      */
     SupportedManipulations {
         get => this.get_SupportedManipulations()
@@ -81,7 +80,7 @@ class IManipulationProcessor extends IUnknown{
      * @remarks
      * With this property you can control which manipulations the supports and which it does not. 
      * 	 For example, you can block all y-translation manipulations while supporting x-translation manipulations.
-     * @returns {Integer} 
+     * @returns {MANIPULATION_PROCESSOR_MANIPULATIONS} 
      * @see https://learn.microsoft.com/windows/win32/api/manipulations/nf-manipulations-imanipulationprocessor-get_supportedmanipulations
      */
     get_SupportedManipulations() {
@@ -94,7 +93,7 @@ class IManipulationProcessor extends IUnknown{
      * @remarks
      * With this property you can control which manipulations the supports and which it does not. 
      * 	 For example, you can block all y-translation manipulations while supporting x-translation manipulations.
-     * @param {Integer} manipulations 
+     * @param {MANIPULATION_PROCESSOR_MANIPULATIONS} manipulations 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/manipulations/nf-manipulations-imanipulationprocessor-put_supportedmanipulations
      */
@@ -247,7 +246,7 @@ class IManipulationProcessor extends IUnknown{
      * @param {Integer} manipulatorId The identifier for the touch contact to be processed.
      * @param {Float} x The horizontal coordinate data associated with the target.
      * @param {Float} y The vertical coordinate data associated with the target.
-     * @param {Integer} _timestamp 
+     * @param {Integer} _timestamp The time of the data event.
      * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an HRESULT error code such as <b>E_FAIL</b>.
      * @see https://learn.microsoft.com/windows/win32/api/manipulations/nf-manipulations-imanipulationprocessor-processdownwithtime
      */
@@ -264,7 +263,7 @@ class IManipulationProcessor extends IUnknown{
      * @param {Integer} manipulatorId The identifier for the touch contact to be processed.
      * @param {Float} x The horizontal coordinate data associated with the target.
      * @param {Float} y The vertical coordinate data associated with the target.
-     * @param {Integer} _timestamp 
+     * @param {Integer} _timestamp The time of the data event.
      * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an HRESULT error code such as <b>E_FAIL</b>.
      * @see https://learn.microsoft.com/windows/win32/api/manipulations/nf-manipulations-imanipulationprocessor-processmovewithtime
      */
@@ -281,7 +280,7 @@ class IManipulationProcessor extends IUnknown{
      * @param {Integer} manipulatorId The identifier for the touch contact to be processed.
      * @param {Float} x The horizontal coordinate data associated with the target.
      * @param {Float} y The vertical coordinate data associated with the target.
-     * @param {Integer} _timestamp 
+     * @param {Integer} _timestamp The time of the data event.
      * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an HRESULT error code such as <b>E_FAIL</b>.
      * @see https://learn.microsoft.com/windows/win32/api/manipulations/nf-manipulations-imanipulationprocessor-processupwithtime
      */

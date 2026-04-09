@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Graphics.GdiPlus
- * @version v4.0.30319
  */
-class ColorPalette extends Win32Struct
-{
+class ColorPalette extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4
@@ -28,9 +26,9 @@ class ColorPalette extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    Entries{
+    Entries {
         get {
             if(!this.HasProp("__EntriesProxyArray"))
                 this.__EntriesProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "uint")

@@ -37,9 +37,8 @@
  *     <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/access-control">Access Control</a>.
  * @see https://learn.microsoft.com/windows/win32/api/iads/ne-iads-ads_rights_enum
  * @namespace Windows.Win32.Networking.ActiveDirectory
- * @version v4.0.30319
  */
-class ADS_RIGHTS_ENUM extends Win32Enum{
+class ADS_RIGHTS_ENUM extends Win32Enum {
 
     /**
      * The right to delete the object.

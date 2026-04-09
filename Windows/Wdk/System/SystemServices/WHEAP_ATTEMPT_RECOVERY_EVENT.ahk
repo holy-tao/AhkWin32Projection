@@ -3,16 +3,14 @@
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class WHEAP_ATTEMPT_RECOVERY_EVENT extends Win32Struct
-{
+class WHEAP_ATTEMPT_RECOVERY_EVENT extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
 
     /**
-     * @type {Pointer<WHEA_EVENT_LOG_ENTRY>}
+     * @type {Pointer}
      */
     WheaEventLogEntry {
         get => NumGet(this, 0, "ptr")
@@ -20,7 +18,7 @@ class WHEAP_ATTEMPT_RECOVERY_EVENT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<WHEA_ERROR_RECORD_HEADER>}
+     * @type {Pointer}
      */
     ErrorHeader {
         get => NumGet(this, 8, "ptr")

@@ -9,9 +9,8 @@
  * To write data to media, you need to attach this recorder to the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/nn-imapi2-iwriteengine2">IWriteEngine2</a> data writer, using the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/nf-imapi2-iwriteengine2-put_recorder">IWriteEngine2::put_Recorder</a> method.
  * @see https://learn.microsoft.com/windows/win32/api/imapi2/nn-imapi2-idiscrecorder2ex
  * @namespace Windows.Win32.Storage.Imapi
- * @version v4.0.30319
  */
-class IDiscRecorder2Ex extends IUnknown{
+class IDiscRecorder2Ex extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -170,7 +169,7 @@ class IDiscRecorder2Ex extends IUnknown{
      * @param {Pointer<Integer>} Cdb Command packet to send to the device.
      * @param {Integer} CdbSize Size, in bytes, of the command packet to send. Must be between 6 and 16 bytes.
      * @param {Integer} Timeout Time limit, in seconds, allowed for the send command to receive a result.
-     * @param {Pointer<Integer>} _Buffer 
+     * @param {Pointer<Integer>} _Buffer Buffer containing data associated with the send command. Must not be <b>NULL</b>.
      * @param {Integer} BufferSize Size, in bytes, of the data buffer to send. Must not be zero.
      * @returns {Integer} Sense data returned by the recording device.
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscrecorder2ex-sendcommandsenddatatodevice
@@ -248,7 +247,7 @@ class IDiscRecorder2Ex extends IUnknown{
      * @param {Integer} CdbSize Size, in bytes, of the command packet to send. Must be between 6 and 16 bytes.
      * @param {Pointer<Integer>} SenseBuffer Sense data returned by the recording device.
      * @param {Integer} Timeout Time limit, in seconds, allowed for the send command to receive a result.
-     * @param {Pointer<Integer>} _Buffer 
+     * @param {Pointer<Integer>} _Buffer Application-allocated data buffer that will receive data associated with the send command. Must not be <b>NULL</b>.
      * @param {Integer} BufferSize Size, in bytes, of the <i>Buffer</i> data buffer. Must not be zero.
      * @param {Pointer<Integer>} BufferFetched Size, in bytes, of the data returned in the <i>Buffer</i> data buffer.
      * @returns {HRESULT} S_OK or one of the following values can be returned on success, but other success codes may be returned as a result of implementation:
@@ -599,7 +598,7 @@ class IDiscRecorder2Ex extends IUnknown{
      * 
      * <div class="alert"><b>Note</b>  This value is truncated to <b>UCHAR</b>.</div>
      * <div> </div>
-     * @param {Integer} _address 
+     * @param {Integer} _address Address field of the command packet.
      * @param {Integer} layer Layer field of the command packet.
      * @param {Integer} agid Authentication grant ID (AGID) field of the command packet.
      * @param {Pointer<Pointer<Integer>>} data Data buffer that contains the DVD structure. For details of the contents of the data buffer, see the READ DISC STRUCTURE command in the latest revision of the MMC specification at <a href="https://www.microsoft.com/?ref=go">ftp://ftp.t10.org/t10/drafts/mmc5</a>.
@@ -1662,8 +1661,8 @@ class IDiscRecorder2Ex extends IUnknown{
 
     /**
      * Retrieves the track information from the media.
-     * @param {Integer} _address 
-     * @param {Integer} addressType Type of address specified in the <i>address</i> parameter, for example, if this is an LBA address or a track number. For possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/ne-imapi2-imapi_read_track_address_type">IMAPI_READ_TRACK_ADDRESS_TYPE</a> enumeration type.
+     * @param {Integer} _address Address field. The <i>addressType</i> parameter provides additional context for this parameter.
+     * @param {IMAPI_READ_TRACK_ADDRESS_TYPE} addressType Type of address specified in the <i>address</i> parameter, for example, if this is an LBA address or a track number. For possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/ne-imapi2-imapi_read_track_address_type">IMAPI_READ_TRACK_ADDRESS_TYPE</a> enumeration type.
      * @param {Pointer<Pointer<Integer>>} trackInformation Data buffer that contains the track information. For details of the contents of the data buffer, see the READ TRACK INFORMATION command in the latest revision of the MMC specification at ftp://ftp.t10.org/t10/drafts/mmc5.
      * 
      * When done, call the <b>CoTaskMemFree</b> function to free the memory.
@@ -1987,7 +1986,7 @@ class IDiscRecorder2Ex extends IUnknown{
 
     /**
      * Retrieves the specified feature page from the device.
-     * @param {Integer} requestedFeature Feature page to retrieve. For possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/ne-imapi2-imapi_feature_page_type">IMAPI_FEATURE_PAGE_TYPE</a> enumeration type.
+     * @param {IMAPI_FEATURE_PAGE_TYPE} requestedFeature Feature page to retrieve. For possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/ne-imapi2-imapi_feature_page_type">IMAPI_FEATURE_PAGE_TYPE</a> enumeration type.
      * @param {BOOLEAN} currentFeatureOnly Set to True to retrieve the feature page only when it is the current feature page. Otherwise, False to retrieve the feature page regardless of it being the current feature page.
      * @param {Pointer<Pointer<Integer>>} featureData Data buffer that contains the feature page. For details of the contents of the data buffer, see the GET CONFIGURATION command in the latest revision of the MMC specification at ftp://ftp.t10.org/t10/drafts/mmc5.
      * 
@@ -2314,8 +2313,8 @@ class IDiscRecorder2Ex extends IUnknown{
 
     /**
      * Retrieves the specified mode page from the device.
-     * @param {Integer} requestedModePage Mode page to retrieve. For possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/ne-imapi2-imapi_mode_page_type">IMAPI_MODE_PAGE_TYPE</a> enumeration type.
-     * @param {Integer} requestType Type of mode page data to retrieve, for example, the current settings or the settings that are write enabled. For possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/ne-imapi2-imapi_mode_page_request_type">IMAPI_MODE_PAGE_REQUEST_TYPE</a> enumeration type.
+     * @param {IMAPI_MODE_PAGE_TYPE} requestedModePage Mode page to retrieve. For possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/ne-imapi2-imapi_mode_page_type">IMAPI_MODE_PAGE_TYPE</a> enumeration type.
+     * @param {IMAPI_MODE_PAGE_REQUEST_TYPE} requestType Type of mode page data to retrieve, for example, the current settings or the settings that are write enabled. For possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/ne-imapi2-imapi_mode_page_request_type">IMAPI_MODE_PAGE_REQUEST_TYPE</a> enumeration type.
      * @param {Pointer<Pointer<Integer>>} modePageData Data buffer that contains the mode page. For details of the contents of the data buffer, see the MODE SENSE (10) command in the latest revision of the MMC specification at ftp://ftp.t10.org/t10/drafts/mmc5.
      * 
      * This method removes header information and other non-page data before returning the buffer.
@@ -2628,7 +2627,7 @@ class IDiscRecorder2Ex extends IUnknown{
 
     /**
      * Sets the mode page data for the device.
-     * @param {Integer} requestType Type of mode page data to send. For possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/ne-imapi2-imapi_mode_page_request_type">IMAPI_MODE_PAGE_REQUEST_TYPE</a> enumeration type.
+     * @param {IMAPI_MODE_PAGE_REQUEST_TYPE} requestType Type of mode page data to send. For possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/ne-imapi2-imapi_mode_page_request_type">IMAPI_MODE_PAGE_REQUEST_TYPE</a> enumeration type.
      * @param {Pointer<Integer>} data Data buffer that contains the mode page data to send to the media. Do not include a header; this method generates and prepends a header to the mode page data.
      * 
      * For details on specifying the fields of  the mode page data, see the MODE SELECT (10) command in the latest revision of the MMC specification at ftp://ftp.t10.org/t10/drafts/mmc5.
@@ -2952,7 +2951,7 @@ class IDiscRecorder2Ex extends IUnknown{
     /**
      * Retrieves the list of supported feature pages or the current feature pages of the device.
      * @param {BOOLEAN} currentFeatureOnly Set to True to retrieve only current feature pages. Otherwise, False to retrieve all feature pages that the device supports.
-     * @param {Pointer<Pointer<Integer>>} featureData Data buffer that contains one or more feature page types. For possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/ne-imapi2-imapi_feature_page_type">IMAPI_FEATURE_PAGE_TYPE</a> enumeration type. 
+     * @param {Pointer<Pointer<IMAPI_FEATURE_PAGE_TYPE>>} featureData Data buffer that contains one or more feature page types. For possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/ne-imapi2-imapi_feature_page_type">IMAPI_FEATURE_PAGE_TYPE</a> enumeration type. 
      * 
      * To get the feature page data associated with the feature page type, call the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/nf-imapi2-idiscrecorder2ex-getfeaturepage">IDiscRecorder2Ex::GetFeaturePage</a> method.
      * 
@@ -3278,7 +3277,7 @@ class IDiscRecorder2Ex extends IUnknown{
     /**
      * Retrieves the supported profiles or the current profiles of the device.
      * @param {BOOLEAN} currentOnly Set to True to retrieve the current profiles. Otherwise, False to return all supported profiles of the device.
-     * @param {Pointer<Pointer<Integer>>} profileTypes Data buffer that contains one or more profile types. For possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/ne-imapi2-imapi_profile_type">IMAPI_PROFILE_TYPE</a> enumeration type. 
+     * @param {Pointer<Pointer<IMAPI_PROFILE_TYPE>>} profileTypes Data buffer that contains one or more profile types. For possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/ne-imapi2-imapi_profile_type">IMAPI_PROFILE_TYPE</a> enumeration type. 
      * 
      * When done, call the <b>CoTaskMemFree</b> function to free the memory.
      * @param {Pointer<Integer>} validProfiles Number of supported profiles in the <i>profileTypes</i> data buffer.
@@ -3601,8 +3600,8 @@ class IDiscRecorder2Ex extends IUnknown{
 
     /**
      * Retrieves the supported mode pages for the device.
-     * @param {Integer} requestType Type of mode page data to retrieve, for example, the current settings or the settings that are write enabled. For possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/ne-imapi2-imapi_mode_page_request_type">IMAPI_MODE_PAGE_REQUEST_TYPE</a> enumeration type.
-     * @param {Pointer<Pointer<Integer>>} modePageTypes Data buffer that contains one or more mode page types. For possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/ne-imapi2-imapi_mode_page_type">IMAPI_MODE_PAGE_TYPE</a> enumeration type.
+     * @param {IMAPI_MODE_PAGE_REQUEST_TYPE} requestType Type of mode page data to retrieve, for example, the current settings or the settings that are write enabled. For possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/ne-imapi2-imapi_mode_page_request_type">IMAPI_MODE_PAGE_REQUEST_TYPE</a> enumeration type.
+     * @param {Pointer<Pointer<IMAPI_MODE_PAGE_TYPE>>} modePageTypes Data buffer that contains one or more mode page types. For possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/ne-imapi2-imapi_mode_page_type">IMAPI_MODE_PAGE_TYPE</a> enumeration type.
      * 
      * To get the mode page data associated with the mode page type, call the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/nf-imapi2-idiscrecorder2ex-getmodepage">IDiscRecorder2Ex::GetModePage</a> method.
      * 

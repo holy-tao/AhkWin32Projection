@@ -1,20 +1,19 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ID3D10EffectVariable.ahk
 #Include .\D3D10_EFFECT_SHADER_DESC.ahk
 #Include .\ID3D10VertexShader.ahk
 #Include .\ID3D10GeometryShader.ahk
 #Include .\ID3D10PixelShader.ahk
 #Include .\D3D10_SIGNATURE_PARAMETER_DESC.ahk
-#Include .\ID3D10EffectVariable.ahk
 
 /**
  * A shader-variable interface accesses a shader variable.
  * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nn-d3d10effect-id3d10effectshadervariable
  * @namespace Windows.Win32.Graphics.Direct3D10
- * @version v4.0.30319
  */
-class ID3D10EffectShaderVariable extends ID3D10EffectVariable{
+class ID3D10EffectShaderVariable extends ID3D10EffectVariable {
 
     static sizeof => A_PtrSize
     /**

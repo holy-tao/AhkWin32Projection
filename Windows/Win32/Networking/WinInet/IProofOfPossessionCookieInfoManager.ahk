@@ -7,9 +7,8 @@
  * Supports the creation of proof of possession cookies.
  * @see https://learn.microsoft.com/windows/win32/api/proofofpossessioncookieinfo/nn-proofofpossessioncookieinfo-iproofofpossessioncookieinfomanager
  * @namespace Windows.Win32.Networking.WinInet
- * @version v4.0.30319
  */
-class IProofOfPossessionCookieInfoManager extends IUnknown{
+class IProofOfPossessionCookieInfoManager extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

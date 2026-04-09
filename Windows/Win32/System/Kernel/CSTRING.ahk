@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Kernel
- * @version v4.0.30319
  */
-class CSTRING extends Win32Struct
-{
+class CSTRING extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

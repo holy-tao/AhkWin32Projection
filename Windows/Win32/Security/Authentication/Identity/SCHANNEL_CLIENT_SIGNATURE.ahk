@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\Cryptography\ALG_ID.ahk
 
 /**
  * Specifies a client signature when a call to the InitializeSecurityContext (Schannel) function cannot access the private key for a client certificate (in this case, the function returns SEC_I_SIGNATURE_NEEDED).
@@ -7,10 +8,8 @@
  * Add a client signature to a client context by using this structure as the value of the <i>pInput</i> parameter in a call to the <a href="https://docs.microsoft.com/windows/desktop/api/sspi/nf-sspi-applycontroltoken">ApplyControlToken</a> function.
  * @see https://learn.microsoft.com/windows/win32/api/schannel/ns-schannel-schannel_client_signature
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class SCHANNEL_CLIENT_SIGNATURE extends Win32Struct
-{
+class SCHANNEL_CLIENT_SIGNATURE extends Win32Struct {
     static sizeof => 68
 
     static packingSize => 4
@@ -26,7 +25,7 @@ class SCHANNEL_CLIENT_SIGNATURE extends Win32Struct
 
     /**
      * The ID of the algorithm used to compute the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/h-gly">hash</a> of the certificate.
-     * @type {Integer}
+     * @type {ALG_ID}
      */
     aiHash {
         get => NumGet(this, 4, "uint")
@@ -44,9 +43,9 @@ class SCHANNEL_CLIENT_SIGNATURE extends Win32Struct
 
     /**
      * An array of byte values that specify the hash of the certificate.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    HashValue{
+    HashValue {
         get {
             if(!this.HasProp("__HashValueProxyArray"))
                 this.__HashValueProxyArray := Win32FixedArray(this.ptr + 12, 36, Primitive, "char")
@@ -56,9 +55,9 @@ class SCHANNEL_CLIENT_SIGNATURE extends Win32Struct
 
     /**
      * An array of byte values that specify the certificate thumbprint.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    CertThumbprint{
+    CertThumbprint {
         get {
             if(!this.HasProp("__CertThumbprintProxyArray"))
                 this.__CertThumbprintProxyArray := Win32FixedArray(this.ptr + 48, 20, Primitive, "char")

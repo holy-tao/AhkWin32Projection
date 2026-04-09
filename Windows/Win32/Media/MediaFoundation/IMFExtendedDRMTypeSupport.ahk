@@ -1,18 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Provides methods for querying whether a specified content type is supported for a specified key system.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nn-mfmediaengine-imfextendeddrmtypesupport
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFExtendedDRMTypeSupport extends IUnknown{
+class IMFExtendedDRMTypeSupport extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -117,7 +113,7 @@ class IMFExtendedDRMTypeSupport extends IUnknown{
      * 
      * Note that the terms content type and type are well known historically as MIME type.
      * @param {BSTR} keySystem A **BSTR** identifying the PlayReady namespace to check query against, specifying hardware or software protection. Use "com.microsoft.playready.recommendation.3000" for hardware queries (PlayReady must have support for hardware offload), "com.microsoft.playready.recommendation.2000" for explicitly querying for software protection support, and "com.microsoft.playready.recommendation" for general queries (must answer for software protection support to guarantee backward compatibility).
-     * @returns {Integer} A value from the [MF_MEDIA_ENGINE_CANPLAY](ne-mfmediaengine-mf_media_engine_canplay) enumeration indicating if the queried capabilities are likely supported, are possibly supported, or are unsupported.
+     * @returns {MF_MEDIA_ENGINE_CANPLAY} A value from the [MF_MEDIA_ENGINE_CANPLAY](ne-mfmediaengine-mf_media_engine_canplay) enumeration indicating if the queried capabilities are likely supported, are possibly supported, or are unsupported.
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfextendeddrmtypesupport-istypesupportedex
      */
     IsTypeSupportedEx(type, keySystem) {

@@ -7,9 +7,8 @@
  * The ITCustomTone interface exposes methods that allow detailed control over the custom tones that are available with some phone sets.
  * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nn-tapi3if-itcustomtone
  * @namespace Windows.Win32.Devices.Tapi
- * @version v4.0.30319
  */
-class ITCustomTone extends IDispatch{
+class ITCustomTone extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

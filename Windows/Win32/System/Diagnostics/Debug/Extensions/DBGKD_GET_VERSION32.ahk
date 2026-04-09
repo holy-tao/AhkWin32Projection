@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
- * @version v4.0.30319
  */
-class DBGKD_GET_VERSION32 extends Win32Struct
-{
+class DBGKD_GET_VERSION32 extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 4

@@ -7,9 +7,8 @@
  * The INATNumberOfEntriesCallback interface provides a method that the system calls if the number of port mappings changes.
  * @see https://learn.microsoft.com/windows/win32/api/natupnp/nn-natupnp-inatnumberofentriescallback
  * @namespace Windows.Win32.NetworkManagement.WindowsFirewall
- * @version v4.0.30319
  */
-class INATNumberOfEntriesCallback extends IUnknown{
+class INATNumberOfEntriesCallback extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

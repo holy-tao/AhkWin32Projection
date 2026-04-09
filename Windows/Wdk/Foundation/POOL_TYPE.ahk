@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.Foundation
- * @version v4.0.30319
  */
-class POOL_TYPE extends Win32Enum{
+class POOL_TYPE extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

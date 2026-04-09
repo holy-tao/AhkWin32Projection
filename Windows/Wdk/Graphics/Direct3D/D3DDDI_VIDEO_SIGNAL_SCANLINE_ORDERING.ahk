@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
- * @version v4.0.30319
  */
-class D3DDDI_VIDEO_SIGNAL_SCANLINE_ORDERING extends Win32Enum{
+class D3DDDI_VIDEO_SIGNAL_SCANLINE_ORDERING extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

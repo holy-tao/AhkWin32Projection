@@ -5,10 +5,8 @@
  * Specifies the byte vector information.
  * @see https://learn.microsoft.com/windows/win32/api/ntsecpkg/ns-ntsecpkg-secpkg_byte_vector
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class SECPKG_BYTE_VECTOR extends Win32Struct
-{
+class SECPKG_BYTE_VECTOR extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4

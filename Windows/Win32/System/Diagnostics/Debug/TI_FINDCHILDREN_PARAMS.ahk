@@ -5,10 +5,8 @@
  * Contains type index information. It is used by the SymGetTypeInfo function.
  * @see https://learn.microsoft.com/windows/win32/api/dbghelp/ns-dbghelp-ti_findchildren_params
  * @namespace Windows.Win32.System.Diagnostics.Debug
- * @version v4.0.30319
  */
-class TI_FINDCHILDREN_PARAMS extends Win32Struct
-{
+class TI_FINDCHILDREN_PARAMS extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4
@@ -33,9 +31,9 @@ class TI_FINDCHILDREN_PARAMS extends Win32Struct
 
     /**
      * An array of type indexes. There is one index per child.
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    ChildId{
+    ChildId {
         get {
             if(!this.HasProp("__ChildIdProxyArray"))
                 this.__ChildIdProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "uint")

@@ -1,21 +1,19 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Include .\IAzApplication2.ahk
 #Include .\IAzScope2.ahk
 #Include .\IAzRoleDefinitions.ahk
 #Include .\IAzRoleDefinition.ahk
 #Include .\IAzRoleAssignments.ahk
 #Include .\IAzRoleAssignment.ahk
-#Include .\IAzApplication2.ahk
 
 /**
  * Provides methods to manage IAzRoleAssignment, IAzRoleDefinition, and IAzScope2 objects.
  * @see https://learn.microsoft.com/windows/win32/api/azroles/nn-azroles-iazapplication3
  * @namespace Windows.Win32.Security.Authorization
- * @version v4.0.30319
  */
-class IAzApplication3 extends IAzApplication2{
+class IAzApplication3 extends IAzApplication2 {
 
     static sizeof => A_PtrSize
     /**

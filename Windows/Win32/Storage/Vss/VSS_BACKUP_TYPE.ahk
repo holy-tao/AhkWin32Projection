@@ -28,9 +28,8 @@
  *     backup type.
  * @see https://learn.microsoft.com/windows/win32/api/vss/ne-vss-vss_backup_type
  * @namespace Windows.Win32.Storage.Vss
- * @version v4.0.30319
  */
-class VSS_BACKUP_TYPE extends Win32Enum{
+class VSS_BACKUP_TYPE extends Win32Enum {
 
     /**
      * The backup type is not known. 

@@ -8,10 +8,8 @@
  * To obtain ID parameters, both providers are queried through a call to <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winsync/nf-winsync-isyncprovider-getidparameters">ISyncProvider::GetIdParameters</a>. These ID parameters are then compared to verify that both providers use the same ID schema. If this verification fails, the synchronization session is not created, and an error code is returned.
  * @see https://learn.microsoft.com/windows/win32/api/winsync/ns-winsync-id_parameters
  * @namespace Windows.Win32.System.WindowsSync
- * @version v4.0.30319
  */
-class ID_PARAMETERS extends Win32Struct
-{
+class ID_PARAMETERS extends Win32Struct {
     static sizeof => 28
 
     static packingSize => 4
@@ -29,7 +27,7 @@ class ID_PARAMETERS extends Win32Struct
      * The ID format that is expected for replica IDs.
      * @type {ID_PARAMETER_PAIR}
      */
-    replicaId{
+    replicaId {
         get {
             if(!this.HasProp("__replicaId"))
                 this.__replicaId := ID_PARAMETER_PAIR(4, this)
@@ -41,7 +39,7 @@ class ID_PARAMETERS extends Win32Struct
      * The ID format that is expected for item IDs.
      * @type {ID_PARAMETER_PAIR}
      */
-    itemId{
+    itemId {
         get {
             if(!this.HasProp("__itemId"))
                 this.__itemId := ID_PARAMETER_PAIR(12, this)
@@ -53,7 +51,7 @@ class ID_PARAMETERS extends Win32Struct
      * The ID format that is expected for change unit IDs.
      * @type {ID_PARAMETER_PAIR}
      */
-    changeUnitId{
+    changeUnitId {
         get {
             if(!this.HasProp("__changeUnitId"))
                 this.__changeUnitId := ID_PARAMETER_PAIR(20, this)

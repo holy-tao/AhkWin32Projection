@@ -126,9 +126,8 @@
  * </table>
  * @see https://learn.microsoft.com/windows/win32/api/ntmsapi/ne-ntmsapi-ntmsobjectstypes
  * @namespace Windows.Win32.Storage.FileSystem
- * @version v4.0.30319
  */
-class NtmsObjectsTypes extends Win32Enum{
+class NtmsObjectsTypes extends Win32Enum {
 
     /**
      * Unknown  object.
@@ -245,7 +244,6 @@ class NtmsObjectsTypes extends Win32Enum{
     static NTMS_UI_DESTINATION => 18
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static NTMS_NUMBER_OF_OBJECT_TYPES => 19

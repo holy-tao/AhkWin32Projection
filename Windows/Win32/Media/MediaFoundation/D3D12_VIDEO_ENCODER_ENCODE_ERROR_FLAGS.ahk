@@ -3,13 +3,10 @@
 
 /**
  * Specifies errors encountered during the ID3D12VideoEncodeCommandList2::EncodeFrame operation.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/d3d12video/ne-d3d12video-d3d12_video_encoder_encode_error_flags
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class D3D12_VIDEO_ENCODER_ENCODE_ERROR_FLAGS extends Win32BitflagEnum{
+class D3D12_VIDEO_ENCODER_ENCODE_ERROR_FLAGS extends Win32BitflagEnum {
 
     /**
      * No error.

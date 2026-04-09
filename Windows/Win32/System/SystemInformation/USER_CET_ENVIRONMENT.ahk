@@ -5,9 +5,8 @@
  * The Intel Software Guard Extensions 2 (SGX2) enclave environment.
  * @see https://learn.microsoft.com/windows/win32/api/sysinfoapi/nf-sysinfoapi-isusercetavailableinenvironment
  * @namespace Windows.Win32.System.SystemInformation
- * @version v4.0.30319
  */
-class USER_CET_ENVIRONMENT extends Win32Enum{
+class USER_CET_ENVIRONMENT extends Win32Enum {
 
     /**
      * @type {Integer (UInt32)}

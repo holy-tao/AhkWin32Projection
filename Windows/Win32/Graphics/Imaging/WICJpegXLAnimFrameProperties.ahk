@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Graphics.Imaging
- * @version v4.0.30319
  */
-class WICJpegXLAnimFrameProperties extends Win32Enum{
+class WICJpegXLAnimFrameProperties extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

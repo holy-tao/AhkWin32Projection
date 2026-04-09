@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.RemoteDesktop
- * @version v4.0.30319
  */
-class CLIENT_MESSAGE_TYPE extends Win32Enum{
+class CLIENT_MESSAGE_TYPE extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\Com\IUnknown.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * Enables a user interface control for a camera device..
  * @see https://learn.microsoft.com/windows/win32/api/camerauicontrol/nn-camerauicontrol-icamerauicontrol
  * @namespace Windows.Win32.System.WindowsProgramming
- * @version v4.0.30319
  */
-class ICameraUIControl extends IUnknown{
+class ICameraUIControl extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -40,11 +39,11 @@ class ICameraUIControl extends IUnknown{
     /**
      * Displays the user interface control for the camera.
      * @param {IUnknown} pWindow Pointer to the user interface window.
-     * @param {Integer} _mode 
-     * @param {Integer} selectionMode Specifies the selection mode.
-     * @param {Integer} captureMode Specifies whether the user interface that will be shown allows the user to capture a photo, capture a video, or either.
-     * @param {Integer} photoFormat Provides the format for capturing photos. The available formats include JPEG, PNG, and JPEG XR.
-     * @param {Integer} videoFormat Provides the format for capturing videos. The available formats include MP4 and WMV.
+     * @param {CameraUIControlMode} _mode Specifies whether the user interface will be presented in a browseable or linear manner.
+     * @param {CameraUIControlLinearSelectionMode} selectionMode Specifies the selection mode.
+     * @param {CameraUIControlCaptureMode} captureMode Specifies whether the user interface that will be shown allows the user to capture a photo, capture a video, or either.
+     * @param {CameraUIControlPhotoFormat} photoFormat Provides the format for capturing photos. The available formats include JPEG, PNG, and JPEG XR.
+     * @param {CameraUIControlVideoFormat} videoFormat Provides the format for capturing videos. The available formats include MP4 and WMV.
      * @param {BOOL} bHasCloseButton TRUE if the user interface has a close button, otherwise, FALSE.
      * @param {ICameraUIControlEventCallback} pEventCallback Pointer to an event callback for the dialog. The callback is invoked if an item is captured or deleted, and when the dialog starts, or is closed or suspended.
      * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
@@ -87,7 +86,7 @@ class ICameraUIControl extends IUnknown{
 
     /**
      * Gets the type of the current view.
-     * @returns {Integer} A value that indicates whether the UI presents single items or lists of items.
+     * @returns {CameraUIControlViewType} A value that indicates whether the UI presents single items or lists of items.
      * @see https://learn.microsoft.com/windows/win32/api/camerauicontrol/nf-camerauicontrol-icamerauicontrol-getcurrentviewtype
      */
     GetCurrentViewType() {

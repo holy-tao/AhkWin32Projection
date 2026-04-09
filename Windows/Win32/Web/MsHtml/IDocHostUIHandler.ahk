@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\System\Ole\IDropTarget.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\System\Com\IDataObject.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
- * @version v4.0.30319
  */
-class IDocHostUIHandler extends IUnknown{
+class IDocHostUIHandler extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

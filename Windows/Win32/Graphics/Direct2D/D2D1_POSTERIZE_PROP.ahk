@@ -5,9 +5,8 @@
  * Identifiers for properties of the Posterize effect.
  * @see https://learn.microsoft.com/windows/win32/api/d2d1effects_2/ne-d2d1effects_2-d2d1_posterize_prop
  * @namespace Windows.Win32.Graphics.Direct2D
- * @version v4.0.30319
  */
-class D2D1_POSTERIZE_PROP extends Win32Enum{
+class D2D1_POSTERIZE_PROP extends Win32Enum {
 
     /**
      * The D2D1_POSTERIZE_PROP_RED_VALUE_COUNT property is an integer value specifying how many evenly spaced steps to divide the red channel range of 0.0 to 1.0 into.  

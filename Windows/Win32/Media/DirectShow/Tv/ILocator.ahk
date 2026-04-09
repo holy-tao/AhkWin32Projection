@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\ILocator.ahk
 #Include ..\..\..\System\Com\IDispatch.ahk
 
 /**
@@ -10,9 +9,8 @@
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(ILocator)</c>.
  * @see https://learn.microsoft.com/windows/win32/api/tuner/nn-tuner-ilocator
  * @namespace Windows.Win32.Media.DirectShow.Tv
- * @version v4.0.30319
  */
-class ILocator extends IDispatch{
+class ILocator extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -48,7 +46,7 @@ class ILocator extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {FECMethod} 
      */
     InnerFEC {
         get => this.get_InnerFEC()
@@ -56,7 +54,7 @@ class ILocator extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {BinaryConvolutionCodeRate} 
      */
     InnerFECRate {
         get => this.get_InnerFECRate()
@@ -64,7 +62,7 @@ class ILocator extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {FECMethod} 
      */
     OuterFEC {
         get => this.get_OuterFEC()
@@ -72,7 +70,7 @@ class ILocator extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {BinaryConvolutionCodeRate} 
      */
     OuterFECRate {
         get => this.get_OuterFECRate()
@@ -80,7 +78,7 @@ class ILocator extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {ModulationType} 
      */
     Modulation {
         get => this.get_Modulation()
@@ -118,7 +116,7 @@ class ILocator extends IDispatch{
 
     /**
      * The get_InnerFEC method gets the type of inner FEC that is used.
-     * @returns {Integer} Pointer to a variable of type <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mstv/fecmethod">FECMethod</a> that receives the type of inner FEC.
+     * @returns {FECMethod} Pointer to a variable of type <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mstv/fecmethod">FECMethod</a> that receives the type of inner FEC.
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ilocator-get_innerfec
      */
     get_InnerFEC() {
@@ -128,7 +126,7 @@ class ILocator extends IDispatch{
 
     /**
      * The put_InnerFEC method sets the type of inner FEC to use.
-     * @param {Integer} FEC Specifies the inner FEC. This parameter is a value of type <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mstv/fecmethod">FECMethod</a>.
+     * @param {FECMethod} FEC Specifies the inner FEC. This parameter is a value of type <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mstv/fecmethod">FECMethod</a>.
      * @returns {HRESULT} Returns S_OK if successful. If the method fails, error information can be retrieved using the standard COM <b>IErrorInfo</b> interface.
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ilocator-put_innerfec
      */
@@ -139,7 +137,7 @@ class ILocator extends IDispatch{
 
     /**
      * The get_InnerFECRate method gets the inner FEC rate.
-     * @returns {Integer} Pointer to a variable of type <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mstv/binaryconvolutioncoderate">BinaryConvolutionCodeRate</a> that receives the inner FEC rate.
+     * @returns {BinaryConvolutionCodeRate} Pointer to a variable of type <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mstv/binaryconvolutioncoderate">BinaryConvolutionCodeRate</a> that receives the inner FEC rate.
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ilocator-get_innerfecrate
      */
     get_InnerFECRate() {
@@ -149,7 +147,7 @@ class ILocator extends IDispatch{
 
     /**
      * The put_InnerFECRate method sets the inner FEC rate.
-     * @param {Integer} FEC Specifies the inner FEC rate. This parameter is a value of type <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mstv/binaryconvolutioncoderate">BinaryConvolutionCodeRate</a>.
+     * @param {BinaryConvolutionCodeRate} FEC Specifies the inner FEC rate. This parameter is a value of type <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mstv/binaryconvolutioncoderate">BinaryConvolutionCodeRate</a>.
      * @returns {HRESULT} Returns S_OK if successful. If the method fails, error information can be retrieved using the standard COM <b>IErrorInfo</b> interface.
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ilocator-put_innerfecrate
      */
@@ -160,7 +158,7 @@ class ILocator extends IDispatch{
 
     /**
      * The get_OuterFEC method gets the type of outer FEC that is used.
-     * @returns {Integer} Pointer to a variable of type <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mstv/fecmethod">FECMethod</a> that receives the type of outer FEC.
+     * @returns {FECMethod} Pointer to a variable of type <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mstv/fecmethod">FECMethod</a> that receives the type of outer FEC.
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ilocator-get_outerfec
      */
     get_OuterFEC() {
@@ -170,7 +168,7 @@ class ILocator extends IDispatch{
 
     /**
      * The put_OuterFEC method sets the type of outer FEC to use.
-     * @param {Integer} FEC Specifies the outer FEC. This parameter is a value of type <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mstv/fecmethod">FECMethod</a>.
+     * @param {FECMethod} FEC Specifies the outer FEC. This parameter is a value of type <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mstv/fecmethod">FECMethod</a>.
      * @returns {HRESULT} Returns S_OK if successful. If the method fails, error information can be retrieved using the standard COM <b>IErrorInfo</b> interface.
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ilocator-put_outerfec
      */
@@ -181,7 +179,7 @@ class ILocator extends IDispatch{
 
     /**
      * The get_OuterFECRate method gets the outer FEC rate.
-     * @returns {Integer} Pointer to a variable of type <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mstv/binaryconvolutioncoderate">BinaryConvolutionCodeRate</a> that receives the outer FEC rate.
+     * @returns {BinaryConvolutionCodeRate} Pointer to a variable of type <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mstv/binaryconvolutioncoderate">BinaryConvolutionCodeRate</a> that receives the outer FEC rate.
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ilocator-get_outerfecrate
      */
     get_OuterFECRate() {
@@ -191,7 +189,7 @@ class ILocator extends IDispatch{
 
     /**
      * The put_OuterFECRate method sets the outer FEC rate.
-     * @param {Integer} FEC Specifies the outer FEC rate. This parameter is a value of type <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mstv/binaryconvolutioncoderate">BinaryConvolutionCodeRate</a>.
+     * @param {BinaryConvolutionCodeRate} FEC Specifies the outer FEC rate. This parameter is a value of type <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mstv/binaryconvolutioncoderate">BinaryConvolutionCodeRate</a>.
      * @returns {HRESULT} Returns S_OK if successful. If the method fails, error information can be retrieved using the standard COM <b>IErrorInfo</b> interface.
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ilocator-put_outerfecrate
      */
@@ -204,7 +202,7 @@ class ILocator extends IDispatch{
      * The get_Modulation method gets the modulation type.
      * @remarks
      * See <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/tuner/nf-tuner-ilocator-put_modulation">put_Modulation</a> for the definition of <b>ModulationType</b>.
-     * @returns {Integer} Receives the modulation type, as a member of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mstv/modulationtype">ModulationType</a> enumeration.
+     * @returns {ModulationType} Receives the modulation type, as a member of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mstv/modulationtype">ModulationType</a> enumeration.
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ilocator-get_modulation
      */
     get_Modulation() {
@@ -214,7 +212,7 @@ class ILocator extends IDispatch{
 
     /**
      * The put_Modulation method sets the modulation type.
-     * @param {Integer} Modulation The modulation type, as a member of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mstv/modulationtype">ModulationType</a> enumeration.
+     * @param {ModulationType} Modulation The modulation type, as a member of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mstv/modulationtype">ModulationType</a> enumeration.
      * @returns {HRESULT} Returns S_OK if successful. If the method fails, error information can be retrieved using the standard COM <b>IErrorInfo</b> interface.
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ilocator-put_modulation
      */

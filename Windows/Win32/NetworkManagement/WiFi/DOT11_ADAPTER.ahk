@@ -4,16 +4,14 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
- * @version v4.0.30319
  */
-class DOT11_ADAPTER extends Win32Struct
-{
+class DOT11_ADAPTER extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     gAdapterId {
         get => NumGet(this, 0, "ptr")
@@ -31,7 +29,7 @@ class DOT11_ADAPTER extends Win32Struct
     /**
      * @type {DOT11_CURRENT_OPERATION_MODE}
      */
-    Dot11CurrentOpMode{
+    Dot11CurrentOpMode {
         get {
             if(!this.HasProp("__Dot11CurrentOpMode"))
                 this.__Dot11CurrentOpMode := DOT11_CURRENT_OPERATION_MODE(16, this)

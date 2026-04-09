@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Memory
- * @version v4.0.30319
  */
-class OFFER_PRIORITY extends Win32Enum{
+class OFFER_PRIORITY extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

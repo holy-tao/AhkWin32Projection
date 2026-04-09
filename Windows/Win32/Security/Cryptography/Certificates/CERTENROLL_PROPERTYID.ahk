@@ -5,9 +5,8 @@
  * Contains predefined object identifiers for external properties that can be associated with a certificate in the certificate store.
  * @see https://learn.microsoft.com/windows/win32/api/certenroll/ne-certenroll-certenroll_propertyid
  * @namespace Windows.Win32.Security.Cryptography.Certificates
- * @version v4.0.30319
  */
-class CERTENROLL_PROPERTYID extends Win32Enum{
+class CERTENROLL_PROPERTYID extends Win32Enum {
 
     /**
      * No property is identified.
@@ -368,73 +367,61 @@ class CERTENROLL_PROPERTYID extends Win32Enum{
     static XCN_CERT_NEW_KEY_PROP_ID => 74
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static XCN_CERT_OCSP_CACHE_PREFIX_PROP_ID => 75
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static XCN_CERT_SMART_CARD_ROOT_INFO_PROP_ID => 76
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static XCN_CERT_NO_AUTO_EXPIRE_CHECK_PROP_ID => 77
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static XCN_CERT_NCRYPT_KEY_HANDLE_PROP_ID => 78
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static XCN_CERT_HCRYPTPROV_OR_NCRYPT_KEY_HANDLE_PROP_ID => 79
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static XCN_CERT_SUBJECT_INFO_ACCESS_PROP_ID => 80
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static XCN_CERT_CA_OCSP_AUTHORITY_INFO_ACCESS_PROP_ID => 81
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static XCN_CERT_CA_DISABLE_CRL_PROP_ID => 82
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static XCN_CERT_ROOT_PROGRAM_CERT_POLICIES_PROP_ID => 83
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static XCN_CERT_ROOT_PROGRAM_NAME_CONSTRAINTS_PROP_ID => 84
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static XCN_CERT_SUBJECT_OCSP_AUTHORITY_INFO_ACCESS_PROP_ID => 85
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static XCN_CERT_SUBJECT_DISABLE_CRL_PROP_ID => 86
@@ -456,229 +443,191 @@ class CERTENROLL_PROPERTYID extends Win32Enum{
     static XCN_CERT_CEP_PROP_ID => 87
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static XCN_CERT_SIGN_HASH_CNG_ALG_PROP_ID => 89
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static XCN_CERT_SCARD_PIN_ID_PROP_ID => 90
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static XCN_CERT_SCARD_PIN_INFO_PROP_ID => 91
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static XCN_CERT_SUBJECT_PUB_KEY_BIT_LENGTH_PROP_ID => 92
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static XCN_CERT_PUB_KEY_CNG_ALG_BIT_LENGTH_PROP_ID => 93
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static XCN_CERT_ISSUER_PUB_KEY_BIT_LENGTH_PROP_ID => 94
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static XCN_CERT_ISSUER_CHAIN_SIGN_HASH_CNG_ALG_PROP_ID => 95
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static XCN_CERT_ISSUER_CHAIN_PUB_KEY_CNG_ALG_BIT_LENGTH_PROP_ID => 96
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static XCN_CERT_NO_EXPIRE_NOTIFICATION_PROP_ID => 97
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static XCN_CERT_AUTH_ROOT_SHA256_HASH_PROP_ID => 98
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static XCN_CERT_NCRYPT_KEY_HANDLE_TRANSFER_PROP_ID => 99
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static XCN_CERT_HCRYPTPROV_TRANSFER_PROP_ID => 100
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static XCN_CERT_SMART_CARD_READER_PROP_ID => 101
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static XCN_CERT_SEND_AS_TRUSTED_ISSUER_PROP_ID => 102
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static XCN_CERT_KEY_REPAIR_ATTEMPTED_PROP_ID => 103
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static XCN_CERT_DISALLOWED_FILETIME_PROP_ID => 104
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static XCN_CERT_ROOT_PROGRAM_CHAIN_POLICIES_PROP_ID => 105
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static XCN_CERT_SMART_CARD_READER_NON_REMOVABLE_PROP_ID => 106
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static XCN_CERT_SHA256_HASH_PROP_ID => 107
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static XCN_CERT_SCEP_SERVER_CERTS_PROP_ID => 108
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static XCN_CERT_SCEP_RA_SIGNATURE_CERT_PROP_ID => 109
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static XCN_CERT_SCEP_RA_ENCRYPTION_CERT_PROP_ID => 110
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static XCN_CERT_SCEP_CA_CERT_PROP_ID => 111
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static XCN_CERT_SCEP_SIGNER_CERT_PROP_ID => 112
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static XCN_CERT_SCEP_NONCE_PROP_ID => 113
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static XCN_CERT_SCEP_ENCRYPT_HASH_CNG_ALG_PROP_ID => 114
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static XCN_CERT_SCEP_FLAGS_PROP_ID => 115
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static XCN_CERT_SCEP_GUID_PROP_ID => 116
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static XCN_CERT_SERIALIZABLE_KEY_CONTEXT_PROP_ID => 117
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static XCN_CERT_ISOLATED_KEY_PROP_ID => 118
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static XCN_CERT_SERIAL_CHAIN_PROP_ID => 119
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static XCN_CERT_KEY_CLASSIFICATION_PROP_ID => 120
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static XCN_CERT_DISALLOWED_ENHKEY_USAGE_PROP_ID => 122
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static XCN_CERT_NONCOMPLIANT_ROOT_URL_PROP_ID => 123
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static XCN_CERT_PIN_SHA256_HASH_PROP_ID => 124
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static XCN_CERT_CLR_DELETE_KEY_PROP_ID => 125
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static XCN_CERT_NOT_BEFORE_FILETIME_PROP_ID => 126
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static XCN_CERT_CERT_NOT_BEFORE_ENHKEY_USAGE_PROP_ID => 127

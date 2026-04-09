@@ -5,10 +5,8 @@
  * DRT_SECURITY_PROVIDER structure defines the DRT interface that must be implemented by a security provider.
  * @see https://learn.microsoft.com/windows/win32/api/drt/ns-drt-drt_security_provider
  * @namespace Windows.Win32.NetworkManagement.P2P
- * @version v4.0.30319
  */
-class DRT_SECURITY_PROVIDER extends Win32Struct
-{
+class DRT_SECURITY_PROVIDER extends Win32Struct {
     static sizeof => 112
 
     static packingSize => 8

@@ -1,20 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include .\ITAddressTranslationInfo.ahk
 #Include .\IEnumLocation.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
 #Include .\IEnumCallingCard.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * The ITAddressTranslation interface provides methods that allow translation of a calling address into a different format. For example, an application may need to translate an address from canonical to dialable prior to making a call.
  * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nn-tapi3if-itaddresstranslation
  * @namespace Windows.Win32.Devices.Tapi
- * @version v4.0.30319
  */
-class ITAddressTranslation extends IDispatch{
+class ITAddressTranslation extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

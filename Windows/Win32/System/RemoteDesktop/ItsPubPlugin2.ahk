@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\pluginResource2.ahk
 #Include .\ItsPubPlugin.ahk
+#Include .\pluginResource2.ahk
 
 /**
  * Specifies methods that provide information about resources available to users of RemoteApp and Desktop Connections.
  * @see https://learn.microsoft.com/windows/win32/api/tspubplugin2com/nn-tspubplugin2com-itspubplugin2
  * @namespace Windows.Win32.System.RemoteDesktop
- * @version v4.0.30319
  */
-class ItsPubPlugin2 extends ItsPubPlugin{
+class ItsPubPlugin2 extends ItsPubPlugin {
 
     static sizeof => A_PtrSize
     /**
@@ -72,9 +71,9 @@ class ItsPubPlugin2 extends ItsPubPlugin{
      * <c>#define MAX_ENDPOINT_SIZE 256</c>
      * @param {PWSTR} userId A null-terminated string that contains the security identifier (SID) of the user.
      * @param {PWSTR} poolId A null-terminated string that contains the identifier of the collection to obtain the personal desktop from or create the personal desktop in.
-     * @param {Integer} ePdResolutionType A value of the <a href="https://docs.microsoft.com/windows/win32/api/tspubplugin2com/ne-tspubplugin2com-tspub_plugin_pd_resolution_type">TSPUB_PLUGIN_PD_RESOLUTION_TYPE</a> enumeration that specifies the type of resolution being requested.
+     * @param {TSPUB_PLUGIN_PD_RESOLUTION_TYPE} ePdResolutionType A value of the <a href="https://docs.microsoft.com/windows/win32/api/tspubplugin2com/ne-tspubplugin2com-tspub_plugin_pd_resolution_type">TSPUB_PLUGIN_PD_RESOLUTION_TYPE</a> enumeration that specifies the type of resolution being requested.
      * @param {PWSTR} endPointName A null-terminated string that receives the name of the end point for the desktop. The length of this string is limited to <b>MAX_ENDPOINT_SIZE</b> characters, including the terminating <b>NULL</b> character.
-     * @returns {Integer} A value of the <a href="https://docs.microsoft.com/windows/win32/api/tspubplugin2com/ne-tspubplugin2com-tspub_plugin_pd_assignment_type">TSPUB_PLUGIN_PD_ASSIGNMENT_TYPE</a> enumeration that specifies what type of assignment was made for the personal desktop.
+     * @returns {TSPUB_PLUGIN_PD_ASSIGNMENT_TYPE} A value of the <a href="https://docs.microsoft.com/windows/win32/api/tspubplugin2com/ne-tspubplugin2com-tspub_plugin_pd_assignment_type">TSPUB_PLUGIN_PD_ASSIGNMENT_TYPE</a> enumeration that specifies what type of assignment was made for the personal desktop.
      * @see https://learn.microsoft.com/windows/win32/api/tspubplugin2com/nf-tspubplugin2com-itspubplugin2-resolvepersonaldesktop
      */
     ResolvePersonalDesktop(userId, poolId, ePdResolutionType, endPointName) {

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\WMDM_PROP_DESC.ahk
 
 /**
  * The WMDM\_PROP\_CONFIG structure describes a set of compatible property values across all the properties supported by the device for a particular format. This structure contains a number of property descriptions in an array of WMDM\_PROP\_DESC structures.
@@ -11,10 +12,8 @@
  * The caller is required to free the memory used by **pPropDesc**. For an example of how to do this, see [**WMDM\_FORMAT\_CAPABILITY**](wmdm-format-capability.md).
  * @see https://learn.microsoft.com/windows/win32/WMDM/wmdm-prop-config
  * @namespace Windows.Win32.Media.DeviceManager
- * @version v4.0.30319
  */
-class WMDM_PROP_CONFIG extends Win32Struct
-{
+class WMDM_PROP_CONFIG extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

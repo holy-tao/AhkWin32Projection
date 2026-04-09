@@ -9,9 +9,8 @@
  * For more details, refer to <a href="https://docs.microsoft.com/windows/desktop/direct3d12/memory-management">Memory Management in Direct3D 12</a> and the <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nf-d3d12-id3d12device-makeresident">MakeResident</a> method reference.
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/nn-d3d12-id3d12pageable
  * @namespace Windows.Win32.Graphics.Direct3D12
- * @version v4.0.30319
  */
-class ID3D12Pageable extends ID3D12DeviceChild{
+class ID3D12Pageable extends ID3D12DeviceChild {
 
     static sizeof => A_PtrSize
     /**

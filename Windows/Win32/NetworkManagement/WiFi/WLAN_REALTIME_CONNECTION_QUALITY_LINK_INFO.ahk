@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
- * @version v4.0.30319
  */
-class WLAN_REALTIME_CONNECTION_QUALITY_LINK_INFO extends Win32Struct
-{
+class WLAN_REALTIME_CONNECTION_QUALITY_LINK_INFO extends Win32Struct {
     static sizeof => 272
 
     static packingSize => 4
@@ -47,7 +45,7 @@ class WLAN_REALTIME_CONNECTION_QUALITY_LINK_INFO extends Win32Struct
     /**
      * @type {WLAN_RATE_SET}
      */
-    wlanRateSet{
+    wlanRateSet {
         get {
             if(!this.HasProp("__wlanRateSet"))
                 this.__wlanRateSet := WLAN_RATE_SET(16, this)

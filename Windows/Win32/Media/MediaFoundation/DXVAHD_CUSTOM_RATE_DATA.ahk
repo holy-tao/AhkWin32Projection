@@ -35,10 +35,8 @@
  * </ul>
  * @see https://learn.microsoft.com/windows/win32/api/dxvahd/ns-dxvahd-dxvahd_custom_rate_data
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class DXVAHD_CUSTOM_RATE_DATA extends Win32Struct
-{
+class DXVAHD_CUSTOM_RATE_DATA extends Win32Struct {
     static sizeof => 20
 
     static packingSize => 4
@@ -47,7 +45,7 @@ class DXVAHD_CUSTOM_RATE_DATA extends Win32Struct
      * The ratio of the output frame rate to the input frame rate, expressed as a <a href="https://docs.microsoft.com/windows/desktop/api/dxvahd/ns-dxvahd-dxvahd_rational">DXVAHD_RATIONAL</a> structure that holds a rational number.
      * @type {DXVAHD_RATIONAL}
      */
-    CustomRate{
+    CustomRate {
         get {
             if(!this.HasProp("__CustomRate"))
                 this.__CustomRate := DXVAHD_RATIONAL(0, this)

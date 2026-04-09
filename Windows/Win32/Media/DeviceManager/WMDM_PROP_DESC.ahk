@@ -1,10 +1,21 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\WMDM_ENUM_PROP_VALID_VALUES_FORM.ahk
+#Include .\WMDM_PROP_VALUES_RANGE.ahk
+#Include ..\..\System\Com\StructuredStorage\PROPVARIANT.ahk
+#Include ..\..\System\Variant\VARENUM.ahk
 #Include ..\..\System\Com\CY.ahk
 #Include ..\..\Foundation\FILETIME.ahk
+#Include ..\..\System\Com\StructuredStorage\CLIPDATA.ahk
 #Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\StructuredStorage\BSTRBLOB.ahk
 #Include ..\..\System\Com\BLOB.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\System\Com\IStream.ahk
+#Include ..\..\System\Com\StructuredStorage\IStorage.ahk
+#Include ..\..\System\Com\StructuredStorage\VERSIONEDSTREAM.ahk
+#Include ..\..\System\Com\SAFEARRAY.ahk
 #Include ..\..\System\Com\StructuredStorage\CAC.ahk
 #Include ..\..\System\Com\StructuredStorage\CAUB.ahk
 #Include ..\..\System\Com\StructuredStorage\CAI.ahk
@@ -28,8 +39,6 @@
 #Include ..\..\System\Com\StructuredStorage\CALPWSTR.ahk
 #Include ..\..\System\Com\StructuredStorage\CAPROPVARIANT.ahk
 #Include ..\..\Foundation\DECIMAL.ahk
-#Include ..\..\System\Com\StructuredStorage\PROPVARIANT.ahk
-#Include .\WMDM_PROP_VALUES_RANGE.ahk
 #Include .\WMDM_PROP_VALUES_ENUM.ahk
 
 /**
@@ -40,10 +49,8 @@
  * The caller is required to free the memory used by **ValidValuesRange** or **EnumeratedValues**. For an example of how to do this, see [**WMDM\_FORMAT\_CAPABILITY**](wmdm-format-capability.md).
  * @see https://learn.microsoft.com/windows/win32/WMDM/wmdm-prop-desc
  * @namespace Windows.Win32.Media.DeviceManager
- * @version v4.0.30319
  */
-class WMDM_PROP_DESC extends Win32Struct
-{
+class WMDM_PROP_DESC extends Win32Struct {
     static sizeof => 88
 
     static packingSize => 8
@@ -55,25 +62,24 @@ class WMDM_PROP_DESC extends Win32Struct
         /**
          * @type {WMDM_PROP_VALUES_RANGE}
          */
-        ValidValuesRange{
+        ValidValuesRange {
             get {
                 if(!this.HasProp("__ValidValuesRange"))
                     this.__ValidValuesRange := WMDM_PROP_VALUES_RANGE(0, this)
                 return this.__ValidValuesRange
             }
         }
-    
+
         /**
          * @type {WMDM_PROP_VALUES_ENUM}
          */
-        EnumeratedValidValues{
+        EnumeratedValidValues {
             get {
                 if(!this.HasProp("__EnumeratedValidValues"))
                     this.__EnumeratedValidValues := WMDM_PROP_VALUES_ENUM(0, this)
                 return this.__EnumeratedValidValues
             }
         }
-    
     }
 
     /**
@@ -87,7 +93,7 @@ class WMDM_PROP_DESC extends Win32Struct
 
     /**
      * An [**WMDM\_ENUM\_PROP\_VALID\_VALUES\_FORM**](wmdm-enum-prop-valid-values-form.md) enumeration value describing the type of values, such as a range or list. The value of this enumeration determines which member variable is used.
-     * @type {Integer}
+     * @type {WMDM_ENUM_PROP_VALID_VALUES_FORM}
      */
     ValidValuesForm {
         get => NumGet(this, 8, "int")
@@ -98,10 +104,10 @@ class WMDM_PROP_DESC extends Win32Struct
      * Holds the valid values of the property in a particular property configuration. This member holds one of three items: the enumeration value WMDM\_ENUM\_PROP\_VALID\_VALUES\_ANY; the member **ValidValuesRange**; or the member **EnumeratedValidValues**. The value or member is indicated by **ValidValuesForm**.
      * @type {_ValidValues_e__Union}
      */
-    ValidValues{
+    ValidValues {
         get {
             if(!this.HasProp("__ValidValues"))
-                this.__ValidValues := %this.__Class%._ValidValues_e__Union(16, this)
+                this.__ValidValues := WMDM_PROP_DESC._ValidValues_e__Union(16, this)
             return this.__ValidValues
         }
     }

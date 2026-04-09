@@ -7,9 +7,8 @@
  * Represents a fence. This interface extends ID3D12Fence, and supports the retrieval of the flags used to create the original fence.
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/nn-d3d12-id3d12fence1
  * @namespace Windows.Win32.Graphics.Direct3D12
- * @version v4.0.30319
  */
-class ID3D12Fence1 extends ID3D12Fence{
+class ID3D12Fence1 extends ID3D12Fence {
 
     static sizeof => A_PtrSize
     /**
@@ -34,7 +33,7 @@ class ID3D12Fence1 extends ID3D12Fence{
      * Gets the flags used to create the fence represented by the current instance.
      * @remarks
      * The flags returned by <b>GetCreationFlags</b> are used mainly for opening a shared fence.
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/d3d12/ne-d3d12-d3d12_fence_flags">D3D12_FENCE_FLAGS</a></b>
+     * @returns {D3D12_FENCE_FLAGS} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/d3d12/ne-d3d12-d3d12_fence_flags">D3D12_FENCE_FLAGS</a></b>
      * 
      * The flags used to create the fence.
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12fence1-getcreationflags

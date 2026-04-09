@@ -7,9 +7,8 @@
  * Retrieves property information for file based queries.
  * @see https://learn.microsoft.com/windows/win32/api/indexsrv/nn-indexsrv-icolumnmapper
  * @namespace Windows.Win32.System.Search
- * @version v4.0.30319
  */
-class IColumnMapper extends IUnknown{
+class IColumnMapper extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

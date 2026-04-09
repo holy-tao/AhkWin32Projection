@@ -1,19 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\OUTPUTDUPL_CONTEXT_DEBUG_STATUS.ahk
 #Include ..\..\..\Win32\Foundation\HANDLE.ahk
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
- * @version v4.0.30319
  */
-class OUTPUTDUPL_CONTEXT_DEBUG_INFO extends Win32Struct
-{
-    static sizeof => 72
+class OUTPUTDUPL_CONTEXT_DEBUG_INFO extends Win32Struct {
+    static sizeof => 56
 
     static packingSize => 8
 
     /**
-     * @type {Integer}
+     * @type {OUTPUTDUPL_CONTEXT_DEBUG_STATUS}
      */
     Status {
         get => NumGet(this, 0, "int")
@@ -23,7 +22,7 @@ class OUTPUTDUPL_CONTEXT_DEBUG_INFO extends Win32Struct
     /**
      * @type {HANDLE}
      */
-    ProcessID{
+    ProcessID {
         get {
             if(!this.HasProp("__ProcessID"))
                 this.__ProcessID := HANDLE(8, this)
@@ -59,7 +58,7 @@ class OUTPUTDUPL_CONTEXT_DEBUG_INFO extends Win32Struct
      * @type {String}
      */
     ProcessName {
-        get => StrGet(this.ptr + 40, 15, "UTF-16")
-        set => StrPut(value, this.ptr + 40, 15, "UTF-16")
+        get => StrGet(this.ptr + 40, 15, "UTF-8")
+        set => StrPut(value, this.ptr + 40, 15, "UTF-8")
     }
 }

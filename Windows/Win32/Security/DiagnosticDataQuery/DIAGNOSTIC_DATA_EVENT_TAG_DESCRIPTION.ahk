@@ -7,10 +7,8 @@
  * For more details, see our [**privacy statement**](/windows/privacy/windows-diagnostic-data).
  * @see https://learn.microsoft.com/windows/win32/api/diagnosticdataquerytypes/ns-diagnosticdataquerytypes-diagnostic_data_event_tag_description
  * @namespace Windows.Win32.Security.DiagnosticDataQuery
- * @version v4.0.30319
  */
-class DIAGNOSTIC_DATA_EVENT_TAG_DESCRIPTION extends Win32Struct
-{
+class DIAGNOSTIC_DATA_EVENT_TAG_DESCRIPTION extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

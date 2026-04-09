@@ -16,10 +16,8 @@
  *     <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-createcluster">CreateCluster</a> function.
  * @see https://learn.microsoft.com/windows/win32/api/clusapi/ns-clusapi-cluster_ip_entry
  * @namespace Windows.Win32.Networking.Clustering
- * @version v4.0.30319
  */
-class CLUSTER_IP_ENTRY extends Win32Struct
-{
+class CLUSTER_IP_ENTRY extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

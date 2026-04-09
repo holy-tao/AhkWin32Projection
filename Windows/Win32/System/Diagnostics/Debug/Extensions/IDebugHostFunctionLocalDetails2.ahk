@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
-#Include .\IDebugHostSymbol.ahk
 #Include .\IDebugHostFunctionLocalDetails.ahk
+#Include .\IDebugHostSymbol.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
- * @version v4.0.30319
  */
-class IDebugHostFunctionLocalDetails2 extends IDebugHostFunctionLocalDetails{
+class IDebugHostFunctionLocalDetails2 extends IDebugHostFunctionLocalDetails {
 
     static sizeof => A_PtrSize
     /**

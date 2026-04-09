@@ -5,7 +5,6 @@
 
 /**
  * @namespace Windows.Win32.Devices.Properties
- * @version v4.0.30319
  */
 class Properties {
 

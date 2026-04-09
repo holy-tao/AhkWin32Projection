@@ -7,10 +7,8 @@
  * The left motor is the low-frequency rumble motor. The right motor is the high-frequency rumble motor. The two motors are not the same, and they create different vibration effects.
  * @see https://learn.microsoft.com/windows/win32/api/xinput/ns-xinput-xinput_vibration
  * @namespace Windows.Win32.UI.Input.XboxController
- * @version v4.0.30319
  */
-class XINPUT_VIBRATION extends Win32Struct
-{
+class XINPUT_VIBRATION extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 2

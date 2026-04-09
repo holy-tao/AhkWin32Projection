@@ -1,22 +1,21 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\KERB_LOGON_SUBMIT_TYPE.ahk
 #Include .\LSA_UNICODE_STRING.ahk
 
 /**
  * Contains information about the certificate for a service for user (S4U) logon.
  * @see https://learn.microsoft.com/windows/win32/api/ntsecapi/ns-ntsecapi-kerb_certificate_s4u_logon
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class KERB_CERTIFICATE_S4U_LOGON extends Win32Struct
-{
+class KERB_CERTIFICATE_S4U_LOGON extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8
 
     /**
      * A value of the <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/ne-ntsecapi-kerb_logon_submit_type">KERB_LOGON_SUBMIT_TYPE</a> enumeration that identifies the type of logon request being made. This member must be set to <b>KerbCertificateS4ULogon</b>.
-     * @type {Integer}
+     * @type {KERB_LOGON_SUBMIT_TYPE}
      */
     MessageType {
         get => NumGet(this, 0, "int")
@@ -89,7 +88,7 @@ class KERB_CERTIFICATE_S4U_LOGON extends Win32Struct
      * The user principal name of the client to authenticate. The value of this member can be <b>NULL</b>.   If the value is not <b>NULL</b>, the <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/nf-ntsecapi-lsalogonuser">LsaLogonUser</a> function uses the value to locate the user name.
      * @type {LSA_UNICODE_STRING}
      */
-    UserPrincipalName{
+    UserPrincipalName {
         get {
             if(!this.HasProp("__UserPrincipalName"))
                 this.__UserPrincipalName := LSA_UNICODE_STRING(8, this)
@@ -101,7 +100,7 @@ class KERB_CERTIFICATE_S4U_LOGON extends Win32Struct
      * The domain name of the user to authenticate. The value of this member can be <b>NULL</b>. If the value is not <b>NULL</b>, the <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/nf-ntsecapi-lsalogonuser">LsaLogonUser</a> function uses the value to locate the KDC. If the value is <b>NULL</b>, the <b>LsaLogonUser</b> function attempts to authenticate against the domain to which the computer is joined.
      * @type {LSA_UNICODE_STRING}
      */
-    DomainName{
+    DomainName {
         get {
             if(!this.HasProp("__DomainName"))
                 this.__DomainName := LSA_UNICODE_STRING(24, this)

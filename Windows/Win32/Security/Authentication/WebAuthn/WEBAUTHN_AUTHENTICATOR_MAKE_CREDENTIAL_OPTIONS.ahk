@@ -1,18 +1,19 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include .\WEBAUTHN_CREDENTIALS.ahk
+#Include .\WEBAUTHN_CREDENTIAL.ahk
 #Include .\WEBAUTHN_EXTENSIONS.ahk
+#Include .\WEBAUTHN_EXTENSION.ahk
+#Include .\WEBAUTHN_CREDENTIAL_LIST.ahk
+#Include .\CTAPCBOR_HYBRID_STORAGE_LINKED_DATA.ahk
+#Include .\WEBAUTHN_HMAC_SECRET_SALT.ahk
 
 /**
  * The options for the WebAuthNAuthenticatorMakeCredential operation.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/webauthn/ns-webauthn-webauthn_authenticator_make_credential_options
  * @namespace Windows.Win32.Security.Authentication.WebAuthn
- * @version v4.0.30319
  */
-class WEBAUTHN_AUTHENTICATOR_MAKE_CREDENTIAL_OPTIONS extends Win32Struct
-{
+class WEBAUTHN_AUTHENTICATOR_MAKE_CREDENTIAL_OPTIONS extends Win32Struct {
     static sizeof => 200
 
     static packingSize => 8
@@ -39,7 +40,7 @@ class WEBAUTHN_AUTHENTICATOR_MAKE_CREDENTIAL_OPTIONS extends Win32Struct
      * Credentials used for exclusion.
      * @type {WEBAUTHN_CREDENTIALS}
      */
-    CredentialList{
+    CredentialList {
         get {
             if(!this.HasProp("__CredentialList"))
                 this.__CredentialList := WEBAUTHN_CREDENTIALS(8, this)
@@ -51,7 +52,7 @@ class WEBAUTHN_AUTHENTICATOR_MAKE_CREDENTIAL_OPTIONS extends Win32Struct
      * _Optional_ extensions to parse when performing the operation.
      * @type {WEBAUTHN_EXTENSIONS}
      */
-    Extensions{
+    Extensions {
         get {
             if(!this.HasProp("__Extensions"))
                 this.__Extensions := WEBAUTHN_EXTENSIONS(24, this)

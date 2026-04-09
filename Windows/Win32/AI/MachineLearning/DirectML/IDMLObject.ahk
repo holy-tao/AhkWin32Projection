@@ -7,9 +7,8 @@
  * An interface from which IDMLDevice and IDMLDeviceChild inherit directly (and all other interfaces, indirectly).
  * @see https://learn.microsoft.com/windows/win32/api/directml/nn-directml-idmlobject
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
- * @version v4.0.30319
  */
-class IDMLObject extends IUnknown{
+class IDMLObject extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -40,7 +39,7 @@ class IDMLObject extends IUnknown{
      * @param {Pointer<Integer>} dataSize Type: <b>[UINT](/windows/desktop/winprog/windows-data-types)*</b>
      * 
      * A pointer to a variable that on input contains the size, in bytes, of the buffer that <i>data</i> points to, and on output contains the size, in bytes, of the amount of data that <b>GetPrivateData</b> retrieved.
-     * @param {Pointer} data Type: <b>void*</b>
+     * @param {Integer} data Type: <b>void*</b>
      * 
      * A pointer to a memory block that receives the data from the device object if <i>dataSize</i> points to a value that specifies a buffer large enough to hold the data.
      * @returns {HRESULT} Type: [**HRESULT**](/windows/desktop/winprog/windows-data-types)
@@ -63,7 +62,7 @@ class IDMLObject extends IUnknown{
      * @param {Integer} dataSize Type: [**UINT**](/windows/desktop/winprog/windows-data-types)
      * 
      * The size in bytes of the data.
-     * @param {Pointer} data Type: <b>const void*</b>
+     * @param {Integer} data Type: <b>const void*</b>
      * 
      * A pointer to a memory block that contains the data to be stored with this DirectML device object. If <i>data</i> is <b>NULL</b>, then <i>dataSize</i> must be 0, and any data that was previously associated with the <b>GUID</b> specified in <i>guid</i> will be destroyed.
      * @returns {HRESULT} Type: [**HRESULT**](/windows/desktop/winprog/windows-data-types)

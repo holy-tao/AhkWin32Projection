@@ -7,10 +7,8 @@
  * Used for enabling clients to bypass Point-to-Point (PPP) authentication during Secure Socket Tunneling Protocol (SSTP) connection establishment.
  * @see https://learn.microsoft.com/windows/win32/api/mprapi/ns-mprapi-auth_validation_ex
  * @namespace Windows.Win32.NetworkManagement.Rras
- * @version v4.0.30319
  */
-class AUTH_VALIDATION_EX extends Win32Struct
-{
+class AUTH_VALIDATION_EX extends Win32Struct {
     static sizeof => 576
 
     static packingSize => 8
@@ -22,7 +20,7 @@ class AUTH_VALIDATION_EX extends Win32Struct
      * <div> </div>
      * @type {MPRAPI_OBJECT_HEADER}
      */
-    Header{
+    Header {
         get {
             if(!this.HasProp("__Header"))
                 this.__Header := MPRAPI_OBJECT_HEADER(0, this)
@@ -36,7 +34,7 @@ class AUTH_VALIDATION_EX extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasenumconnectionsa">RasEnumConnections</a> function.
      * @type {HANDLE}
      */
-    hRasConnection{
+    hRasConnection {
         get {
             if(!this.HasProp("__hRasConnection"))
                 this.__hRasConnection := HANDLE(8, this)
@@ -73,9 +71,9 @@ class AUTH_VALIDATION_EX extends Win32Struct
 
     /**
      * A <b>BYTE</b> array that contains the user authentication information required to bypass PPP authentication during SSTP connection negotiation.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    AuthInfo{
+    AuthInfo {
         get {
             if(!this.HasProp("__AuthInfoProxyArray"))
                 this.__AuthInfoProxyArray := Win32FixedArray(this.ptr + 568, 1, Primitive, "char")

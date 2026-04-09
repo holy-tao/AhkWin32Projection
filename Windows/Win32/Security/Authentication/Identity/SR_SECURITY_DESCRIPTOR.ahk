@@ -5,10 +5,8 @@
  * The SR_SECURITY_DESCRIPTOR structure contains information about the security privileges of the user.
  * @see https://learn.microsoft.com/windows/win32/api/subauth/ns-subauth-sr_security_descriptor
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class SR_SECURITY_DESCRIPTOR extends Win32Struct
-{
+class SR_SECURITY_DESCRIPTOR extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

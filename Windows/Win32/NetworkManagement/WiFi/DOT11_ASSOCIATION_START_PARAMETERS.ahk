@@ -5,10 +5,8 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
- * @version v4.0.30319
  */
-class DOT11_ASSOCIATION_START_PARAMETERS extends Win32Struct
-{
+class DOT11_ASSOCIATION_START_PARAMETERS extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 4
@@ -16,7 +14,7 @@ class DOT11_ASSOCIATION_START_PARAMETERS extends Win32Struct
     /**
      * @type {NDIS_OBJECT_HEADER}
      */
-    Header{
+    Header {
         get {
             if(!this.HasProp("__Header"))
                 this.__Header := NDIS_OBJECT_HEADER(0, this)
@@ -25,9 +23,9 @@ class DOT11_ASSOCIATION_START_PARAMETERS extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    MacAddr{
+    MacAddr {
         get {
             if(!this.HasProp("__MacAddrProxyArray"))
                 this.__MacAddrProxyArray := Win32FixedArray(this.ptr + 4, 6, Primitive, "char")
@@ -38,7 +36,7 @@ class DOT11_ASSOCIATION_START_PARAMETERS extends Win32Struct
     /**
      * @type {DOT11_SSID}
      */
-    SSID{
+    SSID {
         get {
             if(!this.HasProp("__SSID"))
                 this.__SSID := DOT11_SSID(12, this)

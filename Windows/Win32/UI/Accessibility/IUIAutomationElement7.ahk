@@ -1,18 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IUIAutomationElement6.ahk
 #Include .\IUIAutomationElement.ahk
 #Include .\IUIAutomationElementArray.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
-#Include .\IUIAutomationElement6.ahk
 
 /**
  * Extends the IUIAutomationElement6 interface.
  * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nn-uiautomationclient-iuiautomationelement7
  * @namespace Windows.Win32.UI.Accessibility
- * @version v4.0.30319
  */
-class IUIAutomationElement7 extends IUIAutomationElement6{
+class IUIAutomationElement7 extends IUIAutomationElement6 {
 
     static sizeof => A_PtrSize
     /**
@@ -35,9 +34,9 @@ class IUIAutomationElement7 extends IUIAutomationElement6{
 
     /**
      * Finds the first matching element in the specified order.
-     * @param {Integer} scope 
+     * @param {TreeScope} scope 
      * @param {IUIAutomationCondition} condition A pointer to a condition that represents the criteria to match.
-     * @param {Integer} traversalOptions 
+     * @param {TreeTraversalOptions} traversalOptions 
      * @param {IUIAutomationElement} root A pointer to the element with which to begin the search.
      * @returns {IUIAutomationElement} Receives a pointer to the element. <b>NULL</b> is returned if no matching element is found.
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement7-findfirstwithoptions
@@ -49,9 +48,9 @@ class IUIAutomationElement7 extends IUIAutomationElement6{
 
     /**
      * Find all matching elements in the specified order.
-     * @param {Integer} scope 
+     * @param {TreeScope} scope 
      * @param {IUIAutomationCondition} condition A pointer to a condition that represents the criteria to match.
-     * @param {Integer} traversalOptions 
+     * @param {TreeTraversalOptions} traversalOptions 
      * @param {IUIAutomationElement} root A pointer to the element with which to begin the search.
      * @returns {IUIAutomationElementArray} Receives a pointer to an array of matching elements. Returns an empty array if no matching element is found.
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement7-findallwithoptions
@@ -63,10 +62,10 @@ class IUIAutomationElement7 extends IUIAutomationElement6{
 
     /**
      * Finds the first matching element in the specified order, but also caches its properties and pattern.
-     * @param {Integer} scope 
+     * @param {TreeScope} scope 
      * @param {IUIAutomationCondition} condition A pointer to a condition that represents the criteria to match.
      * @param {IUIAutomationCacheRequest} cacheRequest A pointer to a cache request that specifies the control patterns and properties to include in the cache.
-     * @param {Integer} traversalOptions 
+     * @param {TreeTraversalOptions} traversalOptions 
      * @param {IUIAutomationElement} root A pointer to the element with which to begin the search.
      * @returns {IUIAutomationElement} Receives a pointer to the element. <b>NULL</b> is returned if no matching element is found.
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement7-findfirstwithoptionsbuildcache
@@ -78,7 +77,7 @@ class IUIAutomationElement7 extends IUIAutomationElement6{
 
     /**
      * Finds all matching elements in the specified order, but also caches their properties and patterns.
-     * @param {Integer} scope Type: <b>[TreeScope](ne-uiautomationclient-treescope.md)</b>
+     * @param {TreeScope} scope Type: <b>[TreeScope](ne-uiautomationclient-treescope.md)</b>
      * 
      * The scope of the request.
      * 
@@ -89,7 +88,7 @@ class IUIAutomationElement7 extends IUIAutomationElement6{
      * @param {IUIAutomationCacheRequest} cacheRequest Type: <b>[IUIAutomationCacheRequest](nn-uiautomationclient-iuiautomationcacherequest.md)</b>
      * 
      * A pointer to a cache request that specifies the control patterns and properties to include in the cache.
-     * @param {Integer} traversalOptions Type: <b>[TreeTraversalOptions](ne-uiautomationclient-treetraversaloptions.md)</b>
+     * @param {TreeTraversalOptions} traversalOptions Type: <b>[TreeTraversalOptions](ne-uiautomationclient-treetraversaloptions.md)</b>
      * 
      * The tree navigation order.
      * @param {IUIAutomationElement} root Type: <b>[IUIAutomationElement](nn-uiautomationclient-iuiautomationelement.md)</b>
@@ -106,7 +105,7 @@ class IUIAutomationElement7 extends IUIAutomationElement6{
     /**
      * Gets metadata from the UI Automation element that indicates how the information should be interpreted. (IUIAutomationElement7.GetCurrentMetadataValue)
      * @param {Integer} targetId The ID of the property to retrieve.
-     * @param {Integer} metadataId Specifies the type of metadata to retrieve.
+     * @param {UIA_METADATA_ID} metadataId Specifies the type of metadata to retrieve.
      * @returns {VARIANT} The metadata.
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement7-getcurrentmetadatavalue
      */

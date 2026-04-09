@@ -7,9 +7,8 @@
  * The IWMWriterFileSink interface is used to open a file to which the writer can write data. The file sink object exposes this interface. To create the file sink object, call the WMCreateWriterFileSink function.
  * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nn-wmsdkidl-iwmwriterfilesink
  * @namespace Windows.Win32.Media.WindowsMediaFormat
- * @version v4.0.30319
  */
-class IWMWriterFileSink extends IWMWriterSink{
+class IWMWriterFileSink extends IWMWriterSink {
 
     static sizeof => A_PtrSize
     /**

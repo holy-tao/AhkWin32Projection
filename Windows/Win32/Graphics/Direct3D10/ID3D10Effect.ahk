@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\ID3D10Device.ahk
 #Include .\D3D10_EFFECT_DESC.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * An ID3D10Effect interface manages a set of state objects, resources, and shaders for implementing a rendering effect.
@@ -26,9 +26,8 @@
  * <div> </div>
  * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nn-d3d10effect-id3d10effect
  * @namespace Windows.Win32.Graphics.Direct3D10
- * @version v4.0.30319
  */
-class ID3D10Effect extends IUnknown{
+class ID3D10Effect extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

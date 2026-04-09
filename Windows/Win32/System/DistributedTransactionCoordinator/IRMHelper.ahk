@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.DistributedTransactionCoordinator
- * @version v4.0.30319
  */
-class IRMHelper extends IUnknown{
+class IRMHelper extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

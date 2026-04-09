@@ -9,9 +9,8 @@
  * To create non-Wizard97 pages, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/cluadmex/nn-cluadmex-iweextendwizard">IWEExtendWizard</a>.
  * @see https://learn.microsoft.com/windows/win32/api/cluadmex/nn-cluadmex-iweextendwizard97
  * @namespace Windows.Win32.Networking.Clustering
- * @version v4.0.30319
  */
-class IWEExtendWizard97 extends IUnknown{
+class IWEExtendWizard97 extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

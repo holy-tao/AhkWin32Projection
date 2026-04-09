@@ -1,13 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\EMR.ahk
+#Include .\ENHANCED_METAFILE_RECORD_TYPE.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Gdi
- * @version v4.0.30319
  */
-class EMRNAMEDESCAPE extends Win32Struct
-{
+class EMRNAMEDESCAPE extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 4
@@ -15,7 +14,7 @@ class EMRNAMEDESCAPE extends Win32Struct
     /**
      * @type {EMR}
      */
-    emr{
+    emr {
         get {
             if(!this.HasProp("__emr"))
                 this.__emr := EMR(0, this)
@@ -48,9 +47,9 @@ class EMRNAMEDESCAPE extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    EscData{
+    EscData {
         get {
             if(!this.HasProp("__EscDataProxyArray"))
                 this.__EscDataProxyArray := Win32FixedArray(this.ptr + 20, 1, Primitive, "char")

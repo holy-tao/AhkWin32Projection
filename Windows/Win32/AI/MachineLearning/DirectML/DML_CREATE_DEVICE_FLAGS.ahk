@@ -5,9 +5,8 @@
  * Supplies additional device creation options to DMLCreateDevice. Values can be bitwise OR'd together.
  * @see https://learn.microsoft.com/windows/win32/api/directml/ne-directml-dml_create_device_flags
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
- * @version v4.0.30319
  */
-class DML_CREATE_DEVICE_FLAGS extends Win32BitflagEnum{
+class DML_CREATE_DEVICE_FLAGS extends Win32BitflagEnum {
 
     /**
      * No creation options are specified.

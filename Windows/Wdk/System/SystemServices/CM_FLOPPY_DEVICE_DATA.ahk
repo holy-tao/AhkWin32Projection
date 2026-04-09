@@ -3,11 +3,9 @@
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class CM_FLOPPY_DEVICE_DATA extends Win32Struct
-{
-    static sizeof => 44
+class CM_FLOPPY_DEVICE_DATA extends Win32Struct {
+    static sizeof => 36
 
     static packingSize => 4
 
@@ -31,30 +29,94 @@ class CM_FLOPPY_DEVICE_DATA extends Win32Struct
      * @type {String}
      */
     Size {
-        get => StrGet(this.ptr + 4, 7, "UTF-16")
-        set => StrPut(value, this.ptr + 4, 7, "UTF-16")
+        get => StrGet(this.ptr + 4, 7, "UTF-8")
+        set => StrPut(value, this.ptr + 4, 7, "UTF-8")
     }
 
     /**
      * @type {Integer}
      */
     MaxDensity {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
+        get => NumGet(this, 12, "uint")
+        set => NumPut("uint", value, this, 12)
     }
 
     /**
      * @type {Integer}
      */
     MountDensity {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
+        get => NumGet(this, 16, "uint")
+        set => NumPut("uint", value, this, 16)
     }
 
     /**
      * @type {Integer}
      */
     StepRateHeadUnloadTime {
+        get => NumGet(this, 20, "char")
+        set => NumPut("char", value, this, 20)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    HeadLoadTime {
+        get => NumGet(this, 21, "char")
+        set => NumPut("char", value, this, 21)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    MotorOffTime {
+        get => NumGet(this, 22, "char")
+        set => NumPut("char", value, this, 22)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    SectorLengthCode {
+        get => NumGet(this, 23, "char")
+        set => NumPut("char", value, this, 23)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    SectorPerTrack {
+        get => NumGet(this, 24, "char")
+        set => NumPut("char", value, this, 24)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    ReadWriteGapLength {
+        get => NumGet(this, 25, "char")
+        set => NumPut("char", value, this, 25)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    DataTransferLength {
+        get => NumGet(this, 26, "char")
+        set => NumPut("char", value, this, 26)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    FormatGapLength {
+        get => NumGet(this, 27, "char")
+        set => NumPut("char", value, this, 27)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    FormatFillCharacter {
         get => NumGet(this, 28, "char")
         set => NumPut("char", value, this, 28)
     }
@@ -62,7 +124,7 @@ class CM_FLOPPY_DEVICE_DATA extends Win32Struct
     /**
      * @type {Integer}
      */
-    HeadLoadTime {
+    HeadSettleTime {
         get => NumGet(this, 29, "char")
         set => NumPut("char", value, this, 29)
     }
@@ -70,7 +132,7 @@ class CM_FLOPPY_DEVICE_DATA extends Win32Struct
     /**
      * @type {Integer}
      */
-    MotorOffTime {
+    MotorSettleTime {
         get => NumGet(this, 30, "char")
         set => NumPut("char", value, this, 30)
     }
@@ -78,7 +140,7 @@ class CM_FLOPPY_DEVICE_DATA extends Win32Struct
     /**
      * @type {Integer}
      */
-    SectorLengthCode {
+    MaximumTrackValue {
         get => NumGet(this, 31, "char")
         set => NumPut("char", value, this, 31)
     }
@@ -86,72 +148,8 @@ class CM_FLOPPY_DEVICE_DATA extends Win32Struct
     /**
      * @type {Integer}
      */
-    SectorPerTrack {
+    DataTransferRate {
         get => NumGet(this, 32, "char")
         set => NumPut("char", value, this, 32)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    ReadWriteGapLength {
-        get => NumGet(this, 33, "char")
-        set => NumPut("char", value, this, 33)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    DataTransferLength {
-        get => NumGet(this, 34, "char")
-        set => NumPut("char", value, this, 34)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    FormatGapLength {
-        get => NumGet(this, 35, "char")
-        set => NumPut("char", value, this, 35)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    FormatFillCharacter {
-        get => NumGet(this, 36, "char")
-        set => NumPut("char", value, this, 36)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    HeadSettleTime {
-        get => NumGet(this, 37, "char")
-        set => NumPut("char", value, this, 37)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    MotorSettleTime {
-        get => NumGet(this, 38, "char")
-        set => NumPut("char", value, this, 38)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    MaximumTrackValue {
-        get => NumGet(this, 39, "char")
-        set => NumPut("char", value, this, 39)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    DataTransferRate {
-        get => NumGet(this, 40, "char")
-        set => NumPut("char", value, this, 40)
     }
 }

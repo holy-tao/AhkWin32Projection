@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\CERT_CONTEXT.ahk
 
 /**
  * Supports the CRYPTUI_VIEWCERTIFICATE_STRUCT structure.
  * @see https://learn.microsoft.com/windows/win32/api/cryptuiapi/ns-cryptuiapi-cryptui_initdialog_struct
  * @namespace Windows.Win32.Security.Cryptography.UI
- * @version v4.0.30319
  */
-class CRYPTUI_INITDIALOG_STRUCT extends Win32Struct
-{
+class CRYPTUI_INITDIALOG_STRUCT extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

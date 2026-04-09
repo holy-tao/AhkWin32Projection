@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\WS_XML_STRING.ahk
 
 /**
  * An array of XML prefixes that should be treated as inclusive prefixes during exclusive XML canonicalization. The treatment of inclusive prefixes is defined in RFC 3741.
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_xml_canonicalization_inclusive_prefixes
  * @namespace Windows.Win32.Networking.WindowsWebServices
- * @version v4.0.30319
  */
-class WS_XML_CANONICALIZATION_INCLUSIVE_PREFIXES extends Win32Struct
-{
+class WS_XML_CANONICALIZATION_INCLUSIVE_PREFIXES extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

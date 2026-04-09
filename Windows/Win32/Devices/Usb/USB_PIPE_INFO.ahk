@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.Usb
- * @version v4.0.30319
  */
-class USB_PIPE_INFO extends Win32Struct
-{
+class USB_PIPE_INFO extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4
@@ -15,7 +13,7 @@ class USB_PIPE_INFO extends Win32Struct
     /**
      * @type {USB_ENDPOINT_DESCRIPTOR}
      */
-    EndpointDescriptor{
+    EndpointDescriptor {
         get {
             if(!this.HasProp("__EndpointDescriptor"))
                 this.__EndpointDescriptor := USB_ENDPOINT_DESCRIPTOR(0, this)

@@ -15,10 +15,8 @@
  *      appears.
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-mark_handle_info
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class MARK_HANDLE_INFO extends Win32Struct
-{
+class MARK_HANDLE_INFO extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -49,7 +47,7 @@ class MARK_HANDLE_INFO extends Win32Struct
      *        <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/privileges">Privileges</a>.
      * @type {HANDLE}
      */
-    VolumeHandle{
+    VolumeHandle {
         get {
             if(!this.HasProp("__VolumeHandle"))
                 this.__VolumeHandle := HANDLE(8, this)

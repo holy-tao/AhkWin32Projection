@@ -1,15 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\IDedupDataPort.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\IDedupDataPort.ahk
 
 /**
  * @namespace Windows.Win32.Storage.DataDeduplication
- * @version v4.0.30319
  */
-class IDedupDataPortManager extends IUnknown{
+class IDedupDataPortManager extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -34,9 +32,9 @@ class IDedupDataPortManager extends IUnknown{
      * Read the active configuration of the collector.
      * @param {Pointer<Integer>} pMinChunkSize 
      * @param {Pointer<Integer>} pMaxChunkSize 
-     * @param {Pointer<Integer>} pChunkingAlgorithm 
-     * @param {Pointer<Integer>} pHashingAlgorithm 
-     * @param {Pointer<Integer>} pCompressionAlgorithm 
+     * @param {Pointer<DedupChunkingAlgorithm>} pChunkingAlgorithm 
+     * @param {Pointer<DedupHashingAlgorithm>} pHashingAlgorithm 
+     * @param {Pointer<DedupCompressionAlgorithm>} pCompressionAlgorithm 
      * @returns {HRESULT} <dl> <dt>
      * 
      * 
@@ -73,7 +71,7 @@ class IDedupDataPortManager extends IUnknown{
      * 
      * @param {Integer} Options 
      * @param {BSTR} _Path 
-     * @returns {Integer} 
+     * @returns {DedupDataPortVolumeStatus} 
      */
     GetVolumeStatus(Options, _Path) {
         _Path := _Path is String ? BSTR.Alloc(_Path).Value : _Path

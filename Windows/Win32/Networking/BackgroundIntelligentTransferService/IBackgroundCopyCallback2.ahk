@@ -9,9 +9,8 @@
  * For more details on implementing this interface, see the <a href="https://docs.microsoft.com/windows/desktop/api/bits/nn-bits-ibackgroundcopycallback">IBackgroundCopyCallback</a> interface.
  * @see https://learn.microsoft.com/windows/win32/api/bits3_0/nn-bits3_0-ibackgroundcopycallback2
  * @namespace Windows.Win32.Networking.BackgroundIntelligentTransferService
- * @version v4.0.30319
  */
-class IBackgroundCopyCallback2 extends IBackgroundCopyCallback{
+class IBackgroundCopyCallback2 extends IBackgroundCopyCallback {
 
     static sizeof => A_PtrSize
     /**

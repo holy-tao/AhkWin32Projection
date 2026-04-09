@@ -7,9 +7,8 @@
  * The optional output buffer returned through the *lpOutBuffer* parameter of the [IOCTL_STORAGE_QUERY_PROPERTY](ni-winioctl-ioctl_storage_query_property.md) control code request can be one of several structures depending on the value of the **PropertyId** member of the [STORAGE_PROPERTY_QUERY](ns-winioctl-storage_property_query.md) structure pointed to by the *lpInBuffer* parameter. If the **QueryType** member of the **STORAGE_PROPERTY_QUERY** is set to **PropertyExistsQuery**, then no structure is returned.
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ne-winioctl-storage_property_id
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class STORAGE_PROPERTY_ID extends Win32Enum{
+class STORAGE_PROPERTY_ID extends Win32Enum {
 
     /**
      * Indicates that the caller is querying for the device descriptor, [STORAGE_DEVICE_DESCRIPTOR](ns-winioctl-storage_device_descriptor.md).

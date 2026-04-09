@@ -5,9 +5,8 @@
  * Simple progress and error handling.
  * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msisetinternalui
  * @namespace Windows.Win32.System.ApplicationInstallationAndServicing
- * @version v4.0.30319
  */
-class INSTALLUILEVEL extends Win32Enum{
+class INSTALLUILEVEL extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

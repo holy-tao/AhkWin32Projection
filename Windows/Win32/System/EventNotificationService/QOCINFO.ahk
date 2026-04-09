@@ -5,10 +5,8 @@
  * The QOCINFO structure is returned by the IsDestinationReachable function and provides Quality of Connection information to the caller.
  * @see https://learn.microsoft.com/windows/win32/api/sensapi/ns-sensapi-qocinfo
  * @namespace Windows.Win32.System.EventNotificationService
- * @version v4.0.30319
  */
-class QOCINFO extends Win32Struct
-{
+class QOCINFO extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4

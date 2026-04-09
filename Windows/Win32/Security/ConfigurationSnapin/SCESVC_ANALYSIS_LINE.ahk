@@ -5,10 +5,8 @@
  * The SCESVC_ANALYSIS_LINE structure contains the key, value, and value length for a specific line specified by an SCESVC_ANALYSIS_INFO structure.
  * @see https://learn.microsoft.com/windows/win32/api/scesvc/ns-scesvc-scesvc_analysis_line
  * @namespace Windows.Win32.Security.ConfigurationSnapin
- * @version v4.0.30319
  */
-class SCESVC_ANALYSIS_LINE extends Win32Struct
-{
+class SCESVC_ANALYSIS_LINE extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

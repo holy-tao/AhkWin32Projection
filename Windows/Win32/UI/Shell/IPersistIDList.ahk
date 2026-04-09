@@ -7,9 +7,8 @@
  * Exposes methods that are used to persist item identifier lists.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-ipersistidlist
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IPersistIDList extends IPersist{
+class IPersistIDList extends IPersist {
 
     static sizeof => A_PtrSize
     /**

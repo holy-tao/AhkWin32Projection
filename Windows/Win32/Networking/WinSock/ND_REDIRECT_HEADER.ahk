@@ -1,15 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\ICMP_HEADER.ahk
 #Include .\ICMP_MESSAGE.ahk
+#Include .\ICMP_HEADER.ahk
 #Include .\IN6_ADDR.ahk
 
 /**
  * @namespace Windows.Win32.Networking.WinSock
- * @version v4.0.30319
  */
-class ND_REDIRECT_HEADER extends Win32Struct
-{
+class ND_REDIRECT_HEADER extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 4
@@ -17,7 +15,7 @@ class ND_REDIRECT_HEADER extends Win32Struct
     /**
      * @type {ICMP_MESSAGE}
      */
-    nd_rd_hdr{
+    nd_rd_hdr {
         get {
             if(!this.HasProp("__nd_rd_hdr"))
                 this.__nd_rd_hdr := ICMP_MESSAGE(0, this)
@@ -28,7 +26,7 @@ class ND_REDIRECT_HEADER extends Win32Struct
     /**
      * @type {IN6_ADDR}
      */
-    nd_rd_target{
+    nd_rd_target {
         get {
             if(!this.HasProp("__nd_rd_target"))
                 this.__nd_rd_target := IN6_ADDR(8, this)
@@ -39,7 +37,7 @@ class ND_REDIRECT_HEADER extends Win32Struct
     /**
      * @type {IN6_ADDR}
      */
-    nd_rd_dst{
+    nd_rd_dst {
         get {
             if(!this.HasProp("__nd_rd_dst"))
                 this.__nd_rd_dst := IN6_ADDR(24, this)

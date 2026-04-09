@@ -1,12 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\IPSEC_TRAFFIC_SELECTOR0.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
- * @version v4.0.30319
  */
-class IPSEC_TRAFFIC_SELECTOR_POLICY0 extends Win32Struct
-{
+class IPSEC_TRAFFIC_SELECTOR_POLICY0 extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8

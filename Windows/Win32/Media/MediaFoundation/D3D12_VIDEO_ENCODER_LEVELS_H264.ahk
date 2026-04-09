@@ -7,9 +7,8 @@
  * Use this enumeration to specify the encoder level in a [D3D12_VIDEO_ENCODER_LEVEL_SETTING](ns-d3d12video-d3d12_video_encoder_level_setting.md) structure.
  * @see https://learn.microsoft.com/windows/win32/api/d3d12video/ne-d3d12video-d3d12_video_encoder_levels_h264
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class D3D12_VIDEO_ENCODER_LEVELS_H264 extends Win32Enum{
+class D3D12_VIDEO_ENCODER_LEVELS_H264 extends Win32Enum {
 
     /**
      * Level 1.

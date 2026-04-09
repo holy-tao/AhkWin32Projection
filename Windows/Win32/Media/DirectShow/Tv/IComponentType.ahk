@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
-#Include ..\..\MediaFoundation\AM_MEDIA_TYPE.ahk
-#Include .\IComponentType.ahk
 #Include ..\..\..\System\Com\IDispatch.ahk
+#Include ..\..\..\Foundation\BSTR.ahk
+#Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\MediaFoundation\AM_MEDIA_TYPE.ahk
 
 /**
  * The IComponentType interface is implemented on ComponentType objects, and contains methods for setting and retrieving various properties for a Component.
@@ -12,9 +12,8 @@
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IComponentType)</c>.
  * @see https://learn.microsoft.com/windows/win32/api/tuner/nn-tuner-icomponenttype
  * @namespace Windows.Win32.Media.DirectShow.Tv
- * @version v4.0.30319
  */
-class IComponentType extends IDispatch{
+class IComponentType extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -42,7 +41,7 @@ class IComponentType extends IDispatch{
     static VTableNames => ["get_Category", "put_Category", "get_MediaMajorType", "put_MediaMajorType", "get__MediaMajorType", "put__MediaMajorType", "get_MediaSubType", "put_MediaSubType", "get__MediaSubType", "put__MediaSubType", "get_MediaFormatType", "put_MediaFormatType", "get__MediaFormatType", "put__MediaFormatType", "get_MediaType", "put_MediaType", "Clone"]
 
     /**
-     * @type {Integer} 
+     * @type {ComponentCategory} 
      */
     Category {
         get => this.get_Category()
@@ -107,7 +106,7 @@ class IComponentType extends IDispatch{
 
     /**
      * The get_Category method retrieves the component category.
-     * @returns {Integer} Pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mstv/componentcategory">ComponentCategory</a> data type that will receive the category.
+     * @returns {ComponentCategory} Pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mstv/componentcategory">ComponentCategory</a> data type that will receive the category.
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-icomponenttype-get_category
      */
     get_Category() {
@@ -117,7 +116,7 @@ class IComponentType extends IDispatch{
 
     /**
      * The put_Category method sets the component category.
-     * @param {Integer} Category A <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mstv/componentcategory">ComponentCategory</a> value that specifies the new category for this component type.
+     * @param {ComponentCategory} Category A <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mstv/componentcategory">ComponentCategory</a> value that specifies the new category for this component type.
      * @returns {HRESULT} Returns S_OK if successful. If the method fails, error information can be retrieved using the standard COM <b>IErrorInfo</b> interface.
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-icomponenttype-put_category
      */
@@ -278,7 +277,7 @@ class IComponentType extends IDispatch{
 
     /**
      * The get_MediaType method retrieves the DirectShow AM_MEDIA_TYPE structure for the component.
-     * @returns {AM_MEDIA_TYPE} 
+     * @returns {AM_MEDIA_TYPE} Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/strmif/ns-strmif-am_media_type">AM_MEDIA_TYPE</a> structure that will be filled in with the values associated with the current <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/dd693036(v=vs.85)">ComponentType</a>.
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-icomponenttype-get_mediatype
      */
     get_MediaType() {
@@ -289,7 +288,7 @@ class IComponentType extends IDispatch{
 
     /**
      * The put_MediaType method sets the DirectShow AM_MEDIA_TYPE structure for the component.
-     * @param {Pointer<AM_MEDIA_TYPE>} _MediaType 
+     * @param {Pointer<AM_MEDIA_TYPE>} _MediaType An <a href="https://docs.microsoft.com/windows/desktop/api/strmif/ns-strmif-am_media_type">AM_MEDIA_TYPE</a> structure that specifies the major type, subtype, format, and so on.
      * @returns {HRESULT} Returns S_OK if successful. If the method fails, error information can be retrieved using the standard COM <b>IErrorInfo</b> interface.
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-icomponenttype-put_mediatype
      */

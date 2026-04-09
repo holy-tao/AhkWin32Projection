@@ -4,7 +4,6 @@
 
 /**
  * @namespace Windows.Wdk.NetworkManagement.Ndis
- * @version v4.0.30319
  */
 class Ndis {
 
@@ -10127,7 +10126,7 @@ class Ndis {
      * @param {Pointer<Pointer<NDIS_CONFIGURATION_PARAMETER>>} ParameterValue 
      * @param {Pointer<Void>} ConfigurationHandle 
      * @param {Pointer<UNICODE_STRING>} Keyword 
-     * @param {Integer} ParameterType 
+     * @param {NDIS_PARAMETER_TYPE} ParameterType 
      * @returns {String} Nothing - always returns an empty string
      */
     static NdisReadConfiguration(_Status, ParameterValue, ConfigurationHandle, Keyword, ParameterType) {
@@ -10216,7 +10215,7 @@ class Ndis {
 
     /**
      * 
-     * @param {Pointer} VirtualAddress 
+     * @param {Integer} VirtualAddress 
      * @param {Integer} Length 
      * @param {Integer} MemoryFlags 
      * @returns {String} Nothing - always returns an empty string
@@ -10456,7 +10455,7 @@ class Ndis {
      * @param {Integer} NumStrings 
      * @param {Pointer<Void>} StringsList 
      * @param {Integer} DataSize 
-     * @param {Pointer} Data 
+     * @param {Integer} Data 
      * @returns {Integer} 
      */
     static NdisWriteEventLogEntry(LogHandle, EventCode, UniqueEventValue, NumStrings, StringsList, DataSize, Data) {
@@ -10689,7 +10688,7 @@ class Ndis {
     /**
      * 
      * @param {Pointer<Void>} MiniportAdapterHandle 
-     * @param {Pointer} VirtualAddress 
+     * @param {Integer} VirtualAddress 
      * @param {Integer} Length 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -10779,7 +10778,7 @@ class Ndis {
      * @param {Pointer<Void>} MiniportAdapterHandle 
      * @param {Integer} Length 
      * @param {BOOLEAN} Cached 
-     * @param {Pointer} VirtualAddress 
+     * @param {Integer} VirtualAddress 
      * @param {Integer} PhysicalAddress 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -10882,7 +10881,7 @@ class Ndis {
     /**
      * 
      * @param {Pointer<Void>} LogHandle 
-     * @param {Pointer} LogBuffer 
+     * @param {Integer} LogBuffer 
      * @param {Integer} LogBufferSize 
      * @returns {Integer} 
      */
@@ -11156,7 +11155,7 @@ class Ndis {
      * 
      * @param {Pointer<Void>} NdisVcHandle 
      * @param {Pointer<Void>} NdisPartyHandle 
-     * @param {Pointer} _Buffer 
+     * @param {Integer} _Buffer 
      * @param {Integer} _Size 
      * @returns {Integer} 
      */
@@ -11217,7 +11216,7 @@ class Ndis {
     /**
      * 
      * @param {Pointer<Void>} NdisPartyHandle 
-     * @param {Pointer} _Buffer 
+     * @param {Integer} _Buffer 
      * @param {Integer} _Size 
      * @returns {Integer} 
      */
@@ -11437,7 +11436,7 @@ class Ndis {
      * 
      * @param {Integer} CloseStatus 
      * @param {Pointer<Void>} NdisVcHandle 
-     * @param {Pointer} _Buffer 
+     * @param {Integer} _Buffer 
      * @param {Integer} _Size 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -11451,7 +11450,7 @@ class Ndis {
      * 
      * @param {Integer} DropStatus 
      * @param {Pointer<Void>} NdisPartyHandle 
-     * @param {Pointer} _Buffer 
+     * @param {Integer} _Buffer 
      * @param {Integer} _Size 
      * @returns {String} Nothing - always returns an empty string
      */

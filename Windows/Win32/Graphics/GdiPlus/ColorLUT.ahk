@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Graphics.GdiPlus
- * @version v4.0.30319
  */
-class ColorLUT extends Win32Struct
-{
+class ColorLUT extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -15,7 +13,7 @@ class ColorLUT extends Win32Struct
     /**
      * @type {Effect}
      */
-    Base{
+    Base {
         get {
             if(!this.HasProp("__Base"))
                 this.__Base := Effect(0, this)

@@ -3,10 +3,9 @@
 
 /**
  * @namespace Windows.Win32.System.SystemServices
- * @version v4.0.30319
+ * @architecture X64, Arm64
  */
-class REARRANGE_FILE_DATA32 extends Win32Struct
-{
+class REARRANGE_FILE_DATA32 extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8

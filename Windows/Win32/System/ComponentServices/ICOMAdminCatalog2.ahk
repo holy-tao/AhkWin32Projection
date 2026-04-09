@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include ..\Com\IDispatch.ahk
 #Include .\ICOMAdminCatalog.ahk
+#Include ..\Com\IDispatch.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * An extension of the ICOMAdminCatalog interface.
  * @see https://learn.microsoft.com/windows/win32/api/comadmin/nn-comadmin-icomadmincatalog2
  * @namespace Windows.Win32.System.ComponentServices
- * @version v4.0.30319
  */
-class ICOMAdminCatalog2 extends ICOMAdminCatalog{
+class ICOMAdminCatalog2 extends ICOMAdminCatalog {
 
     static sizeof => A_PtrSize
     /**
@@ -40,7 +39,7 @@ class ICOMAdminCatalog2 extends ICOMAdminCatalog{
     }
 
     /**
-     * @type {HRESULT} 
+     * @type {BSTR} 
      */
     CurrentPartition {
         set => this.put_CurrentPartition(value)
@@ -584,7 +583,7 @@ class ICOMAdminCatalog2 extends ICOMAdminCatalog{
     /**
      * Determines whether the specified DLL is in use by the COM+ catalog or the registry.
      * @param {BSTR} bstrDllName The full path to the DLL to be tested.
-     * @returns {Integer} 
+     * @returns {COMAdminInUse} 
      * @see https://learn.microsoft.com/windows/win32/api/comadmin/nf-comadmin-icomadmincatalog2-issafetodelete
      */
     IsSafeToDelete(bstrDllName) {
@@ -653,7 +652,7 @@ class ICOMAdminCatalog2 extends ICOMAdminCatalog{
      * Exports a partition to a file.
      * @param {BSTR} bstrPartitionIDOrName The partition GUID or name of the partition.
      * @param {BSTR} bstrPartitionFileName The file to which the specified partition is exported. If no path is specified, the current directory is used. If no file name is specified, the application name is used.
-     * @param {Integer} lOptions 
+     * @param {COMAdminApplicationExportOptions} lOptions 
      * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, and E_FAIL, as well as the following values.
      * 
      * <table>
@@ -698,7 +697,7 @@ class ICOMAdminCatalog2 extends ICOMAdminCatalog{
      * Imports a partition from a file.
      * @param {BSTR} bstrFileName The file from which the partition is to be imported.
      * @param {BSTR} bstrDestDirectory The path to the directory in which to install the partition components.
-     * @param {Integer} lOptions 
+     * @param {COMAdminApplicationInstallOptions} lOptions 
      * @param {BSTR} bstrUserID The user ID under which to install the partition.
      * @param {BSTR} bstrPassword The password for the specified user.
      * @param {BSTR} bstrRSN The name of a remote server to use as a proxy.

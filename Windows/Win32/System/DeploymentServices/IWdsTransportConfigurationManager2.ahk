@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IWdsTransportMulticastSessionPolicy.ahk
 #Include .\IWdsTransportConfigurationManager.ahk
+#Include .\IWdsTransportMulticastSessionPolicy.ahk
 
 /**
  * This interface inherits from the IWdsTransportConfigurationManager interface and extends it with configuration settings, such as multicast session policy, that are available beginning with Windows Server 2008 R2.
  * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nn-wdstptmgmt-iwdstransportconfigurationmanager2
  * @namespace Windows.Win32.System.DeploymentServices
- * @version v4.0.30319
  */
-class IWdsTransportConfigurationManager2 extends IWdsTransportConfigurationManager{
+class IWdsTransportConfigurationManager2 extends IWdsTransportConfigurationManager {
 
     static sizeof => A_PtrSize
     /**

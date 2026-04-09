@@ -5,9 +5,8 @@
  * Provides information about the parent undo unit.
  * @see https://learn.microsoft.com/windows/win32/api/ocidl/ne-ocidl-uasflags
  * @namespace Windows.Win32.System.Ole
- * @version v4.0.30319
  */
-class UASFLAGS extends Win32Enum{
+class UASFLAGS extends Win32Enum {
 
     /**
      * The currently open parent undo unit is in a normal, unblocked state and can accept any new units added through calls to its <a href="https://docs.microsoft.com/windows/desktop/api/ocidl/nf-ocidl-ioleparentundounit-open">Open</a> or <a href="https://docs.microsoft.com/windows/desktop/api/ocidl/nf-ocidl-ioleparentundounit-add">Add</a> methods.

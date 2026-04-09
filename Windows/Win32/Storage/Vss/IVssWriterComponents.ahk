@@ -7,9 +7,8 @@
  * Contains methods used to obtain and modify component information.
  * @see https://learn.microsoft.com/windows/win32/api/vswriter/nl-vswriter-ivsswritercomponents
  * @namespace Windows.Win32.Storage.Vss
- * @version v4.0.30319
  */
-class IVssWriterComponents extends Win32ComInterface{
+class IVssWriterComponents extends Win32ComInterface {
 
     static sizeof => A_PtrSize
 
@@ -147,7 +146,9 @@ class IVssWriterComponents extends Win32ComInterface{
      * @remarks
      * The caller is responsible for calling <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">IUnknown::Release</a> to release system resources held by the returned 
      * <a href="https://docs.microsoft.com/windows/desktop/api/vswriter/nl-vswriter-ivsscomponent">IVssComponent</a> object.
-     * @param {Integer} _iComponent 
+     * @param {Integer} _iComponent Number of the component. The value of this parameter is an integer from 0 
+     *       to <i>n</i>–1 inclusive, where <i>n</i> is the total number of components returned by 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/vswriter/nf-vswriter-ivsswritercomponents-getcomponentcount">IVssWriterComponents::GetComponentCount</a>.
      * @returns {IVssComponent} Doubly indirect pointer to an instance of the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/vswriter/nl-vswriter-ivsscomponent">IVssComponent</a> object that contains component information.
      * @see https://learn.microsoft.com/windows/win32/api/vswriter/nf-vswriter-ivsswritercomponents-getcomponent

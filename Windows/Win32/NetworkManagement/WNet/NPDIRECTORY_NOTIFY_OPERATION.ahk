@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WNet
- * @version v4.0.30319
  */
-class NPDIRECTORY_NOTIFY_OPERATION extends Win32Enum{
+class NPDIRECTORY_NOTIFY_OPERATION extends Win32Enum {
 
     /**
      * @type {Integer (UInt32)}

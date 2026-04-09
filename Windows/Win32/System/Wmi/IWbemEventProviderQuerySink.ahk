@@ -16,9 +16,8 @@
  * <b>IWbemEventProviderQuerySink</b> and optimize processing without addressing all parts of the WMI Query Language (WQL). For instance, if a provider does not specifically handle a particular query, the provider can generate all possible events for the query.
  * @see https://learn.microsoft.com/windows/win32/api/wbemprov/nn-wbemprov-iwbemeventproviderquerysink
  * @namespace Windows.Win32.System.Wmi
- * @version v4.0.30319
  */
-class IWbemEventProviderQuerySink extends IUnknown{
+class IWbemEventProviderQuerySink extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

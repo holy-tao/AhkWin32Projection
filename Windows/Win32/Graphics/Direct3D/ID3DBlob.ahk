@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D
- * @version v4.0.30319
  */
-class ID3DBlob extends IUnknown{
+class ID3DBlob extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

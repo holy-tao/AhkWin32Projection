@@ -3,16 +3,14 @@
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class PCI_EXPRESS_RESIZABLE_BAR_ENTRY extends Win32Struct
-{
+class PCI_EXPRESS_RESIZABLE_BAR_ENTRY extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
 
     /**
-     * @type {Pointer<PCI_EXPRESS_RESIZABLE_BAR_CAPABILITY_REGISTER>}
+     * @type {Pointer}
      */
     Capability {
         get => NumGet(this, 0, "ptr")
@@ -20,7 +18,7 @@ class PCI_EXPRESS_RESIZABLE_BAR_ENTRY extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PCI_EXPRESS_RESIZABLE_BAR_CONTROL_REGISTER>}
+     * @type {Pointer}
      */
     Control {
         get => NumGet(this, 8, "ptr")

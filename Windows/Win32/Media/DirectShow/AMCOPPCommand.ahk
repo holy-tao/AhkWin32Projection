@@ -22,17 +22,15 @@
  * For more information, see the Windows DDK documentation.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/ns-strmif-amcoppcommand
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class AMCOPPCommand extends Win32Struct
-{
+class AMCOPPCommand extends Win32Struct {
     static sizeof => 4080
 
     static packingSize => 8
 
     /**
      * Message Authentication Code (MAC) of the command data. Use AES-based one-key CBC MAC (OMAC) to calculate this value.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     macKDI {
         get => NumGet(this, 0, "ptr")
@@ -41,7 +39,7 @@ class AMCOPPCommand extends Win32Struct
 
     /**
      * GUID that specifies the command.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     guidCommandID {
         get => NumGet(this, 8, "ptr")
@@ -68,9 +66,9 @@ class AMCOPPCommand extends Win32Struct
 
     /**
      * Data for the command. The meaning of the data depends on the command.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    CommandData{
+    CommandData {
         get {
             if(!this.HasProp("__CommandDataProxyArray"))
                 this.__CommandDataProxyArray := Win32FixedArray(this.ptr + 24, 4056, Primitive, "char")

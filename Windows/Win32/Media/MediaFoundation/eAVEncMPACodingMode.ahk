@@ -5,9 +5,8 @@
  * Specifies the MPEG audio encoding mode. This enumeration is used with the AVEncMPACodingMode property.
  * @see https://learn.microsoft.com/windows/win32/api/codecapi/ne-codecapi-eavencmpacodingmode
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class eAVEncMPACodingMode extends Win32Enum{
+class eAVEncMPACodingMode extends Win32Enum {
 
     /**
      * Single channel.

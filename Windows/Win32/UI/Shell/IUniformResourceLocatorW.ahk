@@ -5,10 +5,9 @@
 
 /**
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  * @charset Unicode
  */
-class IUniformResourceLocatorW extends IUnknown{
+class IUniformResourceLocatorW extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

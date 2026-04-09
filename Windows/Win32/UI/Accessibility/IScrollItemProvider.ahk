@@ -10,9 +10,8 @@
  *             support the <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-implementingscrollitem">ScrollItem</a> control pattern.
  * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nn-uiautomationcore-iscrollitemprovider
  * @namespace Windows.Win32.UI.Accessibility
- * @version v4.0.30319
  */
-class IScrollItemProvider extends IUnknown{
+class IScrollItemProvider extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

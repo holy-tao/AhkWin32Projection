@@ -5,17 +5,15 @@
  * Describes a component category.
  * @see https://learn.microsoft.com/windows/win32/api/comcat/ns-comcat-categoryinfo
  * @namespace Windows.Win32.System.Com
- * @version v4.0.30319
  */
-class CATEGORYINFO extends Win32Struct
-{
+class CATEGORYINFO extends Win32Struct {
     static sizeof => 272
 
     static packingSize => 8
 
     /**
      * The category identifier for the component.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     catid {
         get => NumGet(this, 0, "ptr")

@@ -6,10 +6,8 @@
  * Specifies parameters for the offload write operation.
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-device_dsm_offload_write_parameters
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class DEVICE_DSM_OFFLOAD_WRITE_PARAMETERS extends Win32Struct
-{
+class DEVICE_DSM_OFFLOAD_WRITE_PARAMETERS extends Win32Struct {
     static sizeof => 528
 
     static packingSize => 8
@@ -46,7 +44,7 @@ class DEVICE_DSM_OFFLOAD_WRITE_PARAMETERS extends Win32Struct
      *       the token returned from the offload read operation.
      * @type {STORAGE_OFFLOAD_TOKEN}
      */
-    Token{
+    Token {
         get {
             if(!this.HasProp("__Token"))
                 this.__Token := STORAGE_OFFLOAD_TOKEN(16, this)

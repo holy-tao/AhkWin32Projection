@@ -25,9 +25,8 @@
  *         </b> This API is supported.
  * @see https://learn.microsoft.com/windows/win32/api/dxgi1_3/nn-dxgi1_3-idxgidevice3
  * @namespace Windows.Win32.Graphics.Dxgi
- * @version v4.0.30319
  */
-class IDXGIDevice3 extends IDXGIDevice2{
+class IDXGIDevice3 extends IDXGIDevice2 {
 
     static sizeof => A_PtrSize
     /**

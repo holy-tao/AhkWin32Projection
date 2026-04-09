@@ -7,9 +7,8 @@
  * The ITPluggableTerminalEventSink (msp.h) interface provides a method that fires a message to notify client applications about a change in a pluggable terminal.
  * @see https://learn.microsoft.com/windows/win32/api/msp/nn-msp-itpluggableterminaleventsink
  * @namespace Windows.Win32.Devices.Tapi
- * @version v4.0.30319
  */
-class ITPluggableTerminalEventSink extends IUnknown{
+class ITPluggableTerminalEventSink extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

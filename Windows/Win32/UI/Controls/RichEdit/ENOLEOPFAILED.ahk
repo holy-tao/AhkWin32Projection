@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\HWND.ahk
 #Include ..\NMHDR.ahk
+#Include ..\..\..\Foundation\HWND.ahk
 
 /**
  * Contains information about a failed operation.
  * @see https://learn.microsoft.com/windows/win32/api/richedit/ns-richedit-enoleopfailed
  * @namespace Windows.Win32.UI.Controls.RichEdit
- * @version v4.0.30319
+ * @architecture X64, Arm64
  */
-class ENOLEOPFAILED extends Win32Struct
-{
+class ENOLEOPFAILED extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -22,7 +21,7 @@ class ENOLEOPFAILED extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/win32/api/richedit/ns-richedit-nmhdr">NMHDR</a> notification header.
      * @type {NMHDR}
      */
-    nmhdr{
+    nmhdr {
         get {
             if(!this.HasProp("__nmhdr"))
                 this.__nmhdr := NMHDR(0, this)

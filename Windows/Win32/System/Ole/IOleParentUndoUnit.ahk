@@ -7,9 +7,8 @@
  * Enables undo units to contain child undo units.
  * @see https://learn.microsoft.com/windows/win32/api/ocidl/nn-ocidl-ioleparentundounit
  * @namespace Windows.Win32.System.Ole
- * @version v4.0.30319
  */
-class IOleParentUndoUnit extends IOleUndoUnit{
+class IOleParentUndoUnit extends IOleUndoUnit {
 
     static sizeof => A_PtrSize
     /**

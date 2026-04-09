@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Security.Authentication.WebAuthn
- * @version v4.0.30319
  */
-class EXPERIMENTAL_PLUGIN_AUTHENTICATOR_STATE extends Win32Enum{
+class EXPERIMENTAL_PLUGIN_AUTHENTICATOR_STATE extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

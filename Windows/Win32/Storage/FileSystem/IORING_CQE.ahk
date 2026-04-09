@@ -3,14 +3,10 @@
 
 /**
  * Represents a completed I/O ring queue entry.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/ioringapi/ns-ioringapi-ioring_cqe
  * @namespace Windows.Win32.Storage.FileSystem
- * @version v4.0.30319
  */
-class IORING_CQE extends Win32Struct
-{
+class IORING_CQE extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

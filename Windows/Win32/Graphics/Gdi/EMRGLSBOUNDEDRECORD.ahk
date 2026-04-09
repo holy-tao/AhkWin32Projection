@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\EMR.ahk
+#Include .\ENHANCED_METAFILE_RECORD_TYPE.ahk
 #Include ..\..\Foundation\RECTL.ahk
 
 /**
@@ -10,10 +11,8 @@
  * 		For example, if the <a href="https://docs.microsoft.com/windows/desktop/OpenGL/glbitmap">glBitmap</a> function has width1 and height1, the bounds will be 0, 0, width1, height1.
  * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-emrglsboundedrecord
  * @namespace Windows.Win32.Graphics.Gdi
- * @version v4.0.30319
  */
-class EMRGLSBOUNDEDRECORD extends Win32Struct
-{
+class EMRGLSBOUNDEDRECORD extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 4
@@ -22,7 +21,7 @@ class EMRGLSBOUNDEDRECORD extends Win32Struct
      * The base structure for all record types.
      * @type {EMR}
      */
-    emr{
+    emr {
         get {
             if(!this.HasProp("__emr"))
                 this.__emr := EMR(0, this)
@@ -34,7 +33,7 @@ class EMRGLSBOUNDEDRECORD extends Win32Struct
      * Bounds of the rectangle, in device coordinates, within which to perform the OpenGL function. For more information, see Remarks.
      * @type {RECTL}
      */
-    rclBounds{
+    rclBounds {
         get {
             if(!this.HasProp("__rclBounds"))
                 this.__rclBounds := RECTL(8, this)
@@ -53,9 +52,9 @@ class EMRGLSBOUNDEDRECORD extends Win32Struct
 
     /**
      * Array of data representing the OpenGL function to be performed.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Data{
+    Data {
         get {
             if(!this.HasProp("__DataProxyArray"))
                 this.__DataProxyArray := Win32FixedArray(this.ptr + 28, 1, Primitive, "char")

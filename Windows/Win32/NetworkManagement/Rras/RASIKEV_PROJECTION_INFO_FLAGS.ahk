@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Rras
- * @version v4.0.30319
  */
-class RASIKEV_PROJECTION_INFO_FLAGS extends Win32BitflagEnum{
+class RASIKEV_PROJECTION_INFO_FLAGS extends Win32BitflagEnum {
 
     /**
      * @type {Integer (UInt32)}

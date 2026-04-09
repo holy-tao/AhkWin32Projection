@@ -1,15 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\EMR.ahk
+#Include .\ENHANCED_METAFILE_RECORD_TYPE.ahk
 
 /**
  * The EMRCREATEMONOBRUSH structure contains members for the CreatePatternBrush (when passed a monochrome bitmap) or CreateDIBPatternBrush (when passed a monochrome DIB) enhanced metafile records.
  * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-emrcreatemonobrush
  * @namespace Windows.Win32.Graphics.Gdi
- * @version v4.0.30319
  */
-class EMRCREATEMONOBRUSH extends Win32Struct
-{
+class EMRCREATEMONOBRUSH extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 4
@@ -18,7 +17,7 @@ class EMRCREATEMONOBRUSH extends Win32Struct
      * The base structure for all record types.
      * @type {EMR}
      */
-    emr{
+    emr {
         get {
             if(!this.HasProp("__emr"))
                 this.__emr := EMR(0, this)

@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D.Dxc
- * @version v4.0.30319
  */
-class DxcShaderHash extends Win32Struct
-{
+class DxcShaderHash extends Win32Struct {
     static sizeof => 20
 
     static packingSize => 4
@@ -20,9 +18,9 @@ class DxcShaderHash extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    HashDigest{
+    HashDigest {
         get {
             if(!this.HasProp("__HashDigestProxyArray"))
                 this.__HashDigestProxyArray := Win32FixedArray(this.ptr + 4, 16, Primitive, "char")

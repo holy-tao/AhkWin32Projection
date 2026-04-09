@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\IDxcOperationResult.ahk
 #Include .\IDxcValidator.ahk
+#Include .\IDxcOperationResult.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D.Dxc
- * @version v4.0.30319
  */
-class IDxcValidator2 extends IDxcValidator{
+class IDxcValidator2 extends IDxcValidator {
 
     static sizeof => A_PtrSize
     /**

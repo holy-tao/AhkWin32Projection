@@ -7,9 +7,8 @@
  * Exposes a method that initializes a handler, such as a property handler, thumbnail handler, or preview handler, with a stream.
  * @see https://learn.microsoft.com/windows/win32/api/propsys/nn-propsys-iinitializewithstream
  * @namespace Windows.Win32.UI.Shell.PropertiesSystem
- * @version v4.0.30319
  */
-class IInitializeWithStream extends IUnknown{
+class IInitializeWithStream extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -3,18 +3,16 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
- * @version v4.0.30319
  */
-class DOT11_KEY_ALGO_BIP_GMAC_256 extends Win32Struct
-{
+class DOT11_KEY_ALGO_BIP_GMAC_256 extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    ucIPN{
+    ucIPN {
         get {
             if(!this.HasProp("__ucIPNProxyArray"))
                 this.__ucIPNProxyArray := Win32FixedArray(this.ptr + 0, 6, Primitive, "char")
@@ -31,9 +29,9 @@ class DOT11_KEY_ALGO_BIP_GMAC_256 extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    ucBIPGmac256Key{
+    ucBIPGmac256Key {
         get {
             if(!this.HasProp("__ucBIPGmac256KeyProxyArray"))
                 this.__ucBIPGmac256KeyProxyArray := Win32FixedArray(this.ptr + 12, 1, Primitive, "char")

@@ -5,9 +5,8 @@
  * Do not use encryption.
  * @see https://learn.microsoft.com/windows/win32/api/mprapi/ns-mprapi-mpr_interface_2
  * @namespace Windows.Win32.NetworkManagement.Rras
- * @version v4.0.30319
  */
-class MPR_ET extends Win32Enum{
+class MPR_ET extends Win32Enum {
 
     /**
      * @type {Integer (UInt32)}

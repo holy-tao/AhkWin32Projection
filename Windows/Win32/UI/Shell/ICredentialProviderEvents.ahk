@@ -13,9 +13,8 @@
  * Outside parties do not need to implement <b>ICredentialProviderEvents</b> themselves.
  * @see https://learn.microsoft.com/windows/win32/api/credentialprovider/nn-credentialprovider-icredentialproviderevents
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class ICredentialProviderEvents extends IUnknown{
+class ICredentialProviderEvents extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -14,10 +14,8 @@
  * On the Microsoft Windows Software Development Kit (SDK) released for Windows Vista and later, the organization of header files has changed and the <b>in_pktinfo</b> structure is defined in the <i>Ws2ipdef.h</i> header file which is automatically included in the <i>Ws2tcpip.h</i> header file. The  <i>Ws2ipdef.h</i>  header files should never be used directly.
  * @see https://learn.microsoft.com/windows/win32/api/ws2ipdef/ns-ws2ipdef-in_pktinfo
  * @namespace Windows.Win32.Networking.WinSock
- * @version v4.0.30319
  */
-class IN_PKTINFO extends Win32Struct
-{
+class IN_PKTINFO extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4
@@ -26,7 +24,7 @@ class IN_PKTINFO extends Win32Struct
      * The destination IPv4 address from the IP header of the received packet when used with the <a href="https://docs.microsoft.com/windows/win32/api/mswsock/nc-mswsock-lpfn_wsarecvmsg">LPFN_WSARECVMSG (WSARecvMsg)</a> function. The local source IPv4 address to set in the IP header when used with the <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/nf-winsock2-wsasendmsg">WSASendMsg</a> function.
      * @type {IN_ADDR}
      */
-    ipi_addr{
+    ipi_addr {
         get {
             if(!this.HasProp("__ipi_addr"))
                 this.__ipi_addr := IN_ADDR(0, this)

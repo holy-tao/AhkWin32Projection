@@ -7,10 +7,8 @@
  * When assigning data to the members of this structure, set the corresponding flags in the <i>fdwCommand</i> parameter of the <a href="https://docs.microsoft.com/previous-versions/dd757160(v=vs.85)">mciSendCommand</a> function to validate the members.
  * @see https://learn.microsoft.com/windows/win32/api/digitalv/ns-digitalv-mci_dgv_signal_parms
  * @namespace Windows.Win32.Media.Multimedia
- * @version v4.0.30319
  */
-class MCI_DGV_SIGNAL_PARMS extends Win32Struct
-{
+class MCI_DGV_SIGNAL_PARMS extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

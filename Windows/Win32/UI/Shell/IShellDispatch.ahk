@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 #Include .\Folder.ahk
 
@@ -9,9 +8,8 @@
  * Represents an object in the Shell.
  * @see https://learn.microsoft.com/windows/win32/shell/ishelldispatch
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IShellDispatch extends IDispatch{
+class IShellDispatch extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -83,7 +81,9 @@ class IShellDispatch extends IDispatch{
      * IShellDispatch.BrowseForFolder method - Creates a dialog box that enables the user to select a folder and then returns the selected folder's Folder object.
      * @remarks
      * This method is implemented and accessed through the [**Shell.BrowseForFolder**](shell-browseforfolder.md) method.
-     * @param {Integer} _Hwnd 
+     * @param {Integer} _Hwnd Type: **Integer**
+     * 
+     * The handle to the parent window of the dialog box. This value can be zero.
      * @param {BSTR} Title 
      * @param {Integer} Options 
      * @param {VARIANT} RootFolder 

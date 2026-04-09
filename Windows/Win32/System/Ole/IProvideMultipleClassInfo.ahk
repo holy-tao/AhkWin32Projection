@@ -7,9 +7,8 @@
  * An extension to IProvideClassInfo2 that makes it faster and easier to retrieve type information from a component that may have multiple coclasses that determine its behavior.
  * @see https://learn.microsoft.com/windows/win32/api/ocidl/nn-ocidl-iprovidemultipleclassinfo
  * @namespace Windows.Win32.System.Ole
- * @version v4.0.30319
  */
-class IProvideMultipleClassInfo extends IProvideClassInfo2{
+class IProvideMultipleClassInfo extends IProvideClassInfo2 {
 
     static sizeof => A_PtrSize
     /**
@@ -43,7 +42,7 @@ class IProvideMultipleClassInfo extends IProvideClassInfo2{
     /**
      * Retrieves the type information from the specified index.
      * @param {Integer} iti The index of the type information for which you want to obtain information. Index 0 is the default interface of the extender object; index *pcti-1 is the index of the base object.
-     * @param {Integer} dwFlags 
+     * @param {MULTICLASSINFO_FLAGS} dwFlags 
      * @param {Pointer<ITypeInfo>} pptiCoClass The <a href="https://msdn.microsoft.com/">coclass</a> type information for the requested contributor. See <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nn-oaidl-itypeinfo">ITypeInfo</a>.
      * @param {Pointer<Integer>} pdwTIFlags The bitfield flag.
      * @param {Pointer<Integer>} pcdispidReserved The number of DISPIDs the default interface of <i>pptiCoClass</i> reserves for its own use. This number can be used to calculate the amount to offset DISPIDs in the reserved range implemented by the object this class is extending.

@@ -7,9 +7,8 @@
  * Exposes methods that determine whether a system has hardware for writing to CD, the drive letter of a CD writer device, and programmatically initiate a CD writing session.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nn-shobjidl-icdburn
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class ICDBurn extends IUnknown{
+class ICDBurn extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -65,7 +64,9 @@ class ICDBurn extends IUnknown{
      * Instructs data to be copied from the staging area to a writable CD.
      * @remarks
      * The <i>staging area</i> has a default location of %userprofile%\Local Settings\Application Data\Microsoft\CD Burning. Its actual path can be retrieved through <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/nf-shlobj_core-shgetfolderpatha">SHGetFolderPath</a>, <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/nf-shlobj_core-shgetspecialfolderpatha">SHGetSpecialFolderPath</a>, <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/nf-shlobj_core-shgetfolderlocation">SHGetFolderLocation</a>, <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/nf-shlobj_core-shgetspecialfolderlocation">SHGetSpecialFolderLocation</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/nf-shlobj_core-shgetfolderpathandsubdira">SHGetFolderPathAndSubDir</a> by using the CSIDL_CDBURN_AREA value.
-     * @param {HWND} _hwnd 
+     * @param {HWND} _hwnd Type: <b>HWND</b>
+     * 
+     * The handle of the parent window of the UI.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.

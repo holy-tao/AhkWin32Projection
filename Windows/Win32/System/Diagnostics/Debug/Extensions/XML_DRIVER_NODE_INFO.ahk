@@ -3,11 +3,9 @@
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
- * @version v4.0.30319
  */
-class XML_DRIVER_NODE_INFO extends Win32Struct
-{
-    static sizeof => 2352
+class XML_DRIVER_NODE_INFO extends Win32Struct {
+    static sizeof => 1184
 
     static packingSize => 8
 
@@ -15,63 +13,63 @@ class XML_DRIVER_NODE_INFO extends Win32Struct
      * @type {String}
      */
     FileName {
-        get => StrGet(this.ptr + 0, 63, "UTF-16")
-        set => StrPut(value, this.ptr + 0, 63, "UTF-16")
+        get => StrGet(this.ptr + 0, 63, "UTF-8")
+        set => StrPut(value, this.ptr + 0, 63, "UTF-8")
     }
 
     /**
      * @type {Integer}
      */
     FileSize {
-        get => NumGet(this, 128, "uint")
-        set => NumPut("uint", value, this, 128)
+        get => NumGet(this, 64, "uint")
+        set => NumPut("uint", value, this, 64)
     }
 
     /**
      * @type {Integer}
      */
     CreationDate {
-        get => NumGet(this, 136, "uint")
-        set => NumPut("uint", value, this, 136)
+        get => NumGet(this, 72, "uint")
+        set => NumPut("uint", value, this, 72)
     }
 
     /**
      * @type {String}
      */
     Version {
-        get => StrGet(this.ptr + 144, 63, "UTF-16")
-        set => StrPut(value, this.ptr + 144, 63, "UTF-16")
+        get => StrGet(this.ptr + 80, 63, "UTF-8")
+        set => StrPut(value, this.ptr + 80, 63, "UTF-8")
     }
 
     /**
      * @type {String}
      */
     Manufacturer {
-        get => StrGet(this.ptr + 272, 259, "UTF-16")
-        set => StrPut(value, this.ptr + 272, 259, "UTF-16")
+        get => StrGet(this.ptr + 144, 259, "UTF-8")
+        set => StrPut(value, this.ptr + 144, 259, "UTF-8")
     }
 
     /**
      * @type {String}
      */
     ProductName {
-        get => StrGet(this.ptr + 792, 259, "UTF-16")
-        set => StrPut(value, this.ptr + 792, 259, "UTF-16")
+        get => StrGet(this.ptr + 404, 259, "UTF-8")
+        set => StrPut(value, this.ptr + 404, 259, "UTF-8")
     }
 
     /**
      * @type {String}
      */
     Group {
-        get => StrGet(this.ptr + 1312, 259, "UTF-16")
-        set => StrPut(value, this.ptr + 1312, 259, "UTF-16")
+        get => StrGet(this.ptr + 664, 259, "UTF-8")
+        set => StrPut(value, this.ptr + 664, 259, "UTF-8")
     }
 
     /**
      * @type {String}
      */
     Altitude {
-        get => StrGet(this.ptr + 1832, 259, "UTF-16")
-        set => StrPut(value, this.ptr + 1832, 259, "UTF-16")
+        get => StrGet(this.ptr + 924, 259, "UTF-8")
+        set => StrPut(value, this.ptr + 924, 259, "UTF-8")
     }
 }

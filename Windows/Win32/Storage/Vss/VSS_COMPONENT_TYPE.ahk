@@ -27,9 +27,8 @@
  * </ol>
  * @see https://learn.microsoft.com/windows/win32/api/vswriter/ne-vswriter-vss_component_type
  * @namespace Windows.Win32.Storage.Vss
- * @version v4.0.30319
  */
-class VSS_COMPONENT_TYPE extends Win32Enum{
+class VSS_COMPONENT_TYPE extends Win32Enum {
 
     /**
      * Undefined component type. 

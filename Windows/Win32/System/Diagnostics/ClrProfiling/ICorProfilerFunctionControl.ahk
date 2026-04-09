@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.ClrProfiling
- * @version v4.0.30319
  */
-class ICorProfilerFunctionControl extends IUnknown{
+class ICorProfilerFunctionControl extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

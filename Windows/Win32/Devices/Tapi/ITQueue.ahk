@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * The ITQueue interface (tapi3cc.h) gets and sets information concerning a queue.
  * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/nn-tapi3cc-itqueue
  * @namespace Windows.Win32.Devices.Tapi
- * @version v4.0.30319
  */
-class ITQueue extends IDispatch{
+class ITQueue extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

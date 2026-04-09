@@ -9,9 +9,8 @@
  * The <b>IDownloadCompletedCallbackArgs</b> interface is reserved for future use. It has no properties or methods.
  * @see https://learn.microsoft.com/windows/win32/api/wuapi/nn-wuapi-idownloadcompletedcallbackargs
  * @namespace Windows.Win32.System.UpdateAgent
- * @version v4.0.30319
  */
-class IDownloadCompletedCallbackArgs extends IDispatch{
+class IDownloadCompletedCallbackArgs extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.Fax
- * @version v4.0.30319
  */
-class _ERROR_INFOW extends Win32Struct
-{
+class _ERROR_INFOW extends Win32Struct {
     static sizeof => 524
 
     static packingSize => 4

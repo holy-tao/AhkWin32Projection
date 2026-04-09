@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.UI.WindowsAndMessaging
- * @version v4.0.30319
  */
-class FRAME_MARGIN extends Win32Struct
-{
+class FRAME_MARGIN extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 2

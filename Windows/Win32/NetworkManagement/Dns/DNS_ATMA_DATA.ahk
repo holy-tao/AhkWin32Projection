@@ -9,10 +9,8 @@
  * <a href="https://docs.microsoft.com/windows/win32/api/windns/ns-windns-dns_recorda">DNS_RECORD</a> structure to programmatically manage DNS entries.
  * @see https://learn.microsoft.com/windows/win32/api/windns/ns-windns-dns_atma_data
  * @namespace Windows.Win32.NetworkManagement.Dns
- * @version v4.0.30319
  */
-class DNS_ATMA_DATA extends Win32Struct
-{
+class DNS_ATMA_DATA extends Win32Struct {
     static sizeof => 21
 
     static packingSize => 1
@@ -56,9 +54,9 @@ class DNS_ATMA_DATA extends Win32Struct
 
     /**
      * A <b>BYTE</b> array that contains the ATM address whose format is specified by <b>AddressType</b>.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Address{
+    Address {
         get {
             if(!this.HasProp("__AddressProxyArray"))
                 this.__AddressProxyArray := Win32FixedArray(this.ptr + 1, 20, Primitive, "char")

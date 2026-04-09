@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * The ICertificateEnrollmentServerSetup interface represents the Certificate Enrollment Web Service (CES) within Active Directory Certificate Services (ADCS).
  * @see https://learn.microsoft.com/windows/win32/api/casetup/nn-casetup-icertificateenrollmentserversetup
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class ICertificateEnrollmentServerSetup extends IDispatch{
+class ICertificateEnrollmentServerSetup extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -198,7 +197,7 @@ class ICertificateEnrollmentServerSetup extends IDispatch{
      * </li>
      * <li>The <b>ENUM_CESSETUPPROP_RENEWALONLY</b> property is a <b>VT_BOOL</b> value that specifies whether CES can process only certificate renewals.</li>
      * </ul>
-     * @param {Integer} propertyId A <a href="https://docs.microsoft.com/windows/win32/api/casetup/ne-casetup-cessetupproperty">CESSetupProperty</a> enumeration value that specifies the property value to retrieve. For more information, see Remarks.
+     * @param {CESSetupProperty} propertyId A <a href="https://docs.microsoft.com/windows/win32/api/casetup/ne-casetup-cessetupproperty">CESSetupProperty</a> enumeration value that specifies the property value to retrieve. For more information, see Remarks.
      * @returns {VARIANT} A pointer to a <b>VARIANT</b> variable that contains the property value.
      * @see https://learn.microsoft.com/windows/win32/api/casetup/nf-casetup-icertificateenrollmentserversetup-getproperty
      */
@@ -227,7 +226,7 @@ class ICertificateEnrollmentServerSetup extends IDispatch{
      * You cannot set the ENUM_CESSETUPPROP_CACONFIG property if the target server is a standalone certification authority. The <a href="https://docs.microsoft.com/windows/desktop/api/casetup/nf-casetup-icertificateenrollmentserversetup-get_errorstring">ErrorString</a> property will be set to "The Certificate Enrollment Web Service cannot be used with a standalone certification authority (CA). It can only be used with an enterprise CA."
      * 
      * .
-     * @param {Integer} propertyId A <a href="https://docs.microsoft.com/windows/win32/api/casetup/ne-casetup-cessetupproperty">CESSetupProperty</a> enumeration value that specifies the property value to retrieve.
+     * @param {CESSetupProperty} propertyId A <a href="https://docs.microsoft.com/windows/win32/api/casetup/ne-casetup-cessetupproperty">CESSetupProperty</a> enumeration value that specifies the property value to retrieve.
      * @param {Pointer<VARIANT>} pPropertyValue A pointer to a <b>VARIANT</b> variable that contains the property value.
      * @returns {HRESULT} <table>
      * <tr>

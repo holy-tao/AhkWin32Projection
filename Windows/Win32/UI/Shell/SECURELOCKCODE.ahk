@@ -5,9 +5,8 @@
  * Deprecated. This enumeration is used by the BASEBROWSERDATA structure to indicate the base browser's lock icon status.
  * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/ne-shdeprecated-securelockcode
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class SECURELOCKCODE extends Win32Enum{
+class SECURELOCKCODE extends Win32Enum {
 
     /**
      * No change in security encryption status.

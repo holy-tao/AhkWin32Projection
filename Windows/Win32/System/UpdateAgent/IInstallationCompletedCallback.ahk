@@ -7,9 +7,8 @@
  * Handles the notification that indicates that an asynchronous installation or uninstallation is complete.
  * @see https://learn.microsoft.com/windows/win32/api/wuapi/nn-wuapi-iinstallationcompletedcallback
  * @namespace Windows.Win32.System.UpdateAgent
- * @version v4.0.30319
  */
-class IInstallationCompletedCallback extends IUnknown{
+class IInstallationCompletedCallback extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

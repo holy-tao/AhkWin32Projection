@@ -5,9 +5,8 @@
  * The DNS_CONFIG_TYPE enumeration provides DNS configuration type information.
  * @see https://learn.microsoft.com/windows/win32/api/windns/ne-windns-dns_config_type
  * @namespace Windows.Win32.NetworkManagement.Dns
- * @version v4.0.30319
  */
-class DNS_CONFIG_TYPE extends Win32Enum{
+class DNS_CONFIG_TYPE extends Win32Enum {
 
     /**
      * For use with Unicode on Windows 2000.
@@ -118,7 +117,6 @@ class DNS_CONFIG_TYPE extends Win32Enum{
     static DnsConfigFullHostName_UTF8 => 17
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static DnsConfigNameServer => 18

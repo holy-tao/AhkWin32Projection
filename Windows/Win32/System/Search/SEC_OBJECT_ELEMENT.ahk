@@ -4,16 +4,15 @@
 
 /**
  * @namespace Windows.Win32.System.Search
- * @version v4.0.30319
+ * @architecture X64, Arm64
  */
-class SEC_OBJECT_ELEMENT extends Win32Struct
-{
+class SEC_OBJECT_ELEMENT extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     guidObjectType {
         get => NumGet(this, 0, "ptr")
@@ -23,7 +22,7 @@ class SEC_OBJECT_ELEMENT extends Win32Struct
     /**
      * @type {DBID}
      */
-    ObjectID{
+    ObjectID {
         get {
             if(!this.HasProp("__ObjectID"))
                 this.__ObjectID := DBID(8, this)

@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * Implements a generic event interface that can deliver and encapsulate events that are raised by devices that work with the Protected Broadcast Driver Interface (PBDA).
@@ -10,9 +11,8 @@
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IESEvent)</c>.
  * @see https://learn.microsoft.com/windows/win32/api/tuner/nn-tuner-iesevent
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IESEvent extends IUnknown{
+class IESEvent extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\WS_SECURITY_BINDING_TYPE.ahk
+#Include .\WS_SECURITY_BINDING_PROPERTY.ahk
 
 /**
  * The abstract base type for all security bindings.
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_security_binding
  * @namespace Windows.Win32.Networking.WindowsWebServices
- * @version v4.0.30319
  */
-class WS_SECURITY_BINDING extends Win32Struct
-{
+class WS_SECURITY_BINDING extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -17,7 +17,7 @@ class WS_SECURITY_BINDING extends Win32Struct
      * The<a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_security_binding_type"> WS_SECURITY_BINDING_TYPE</a> of the security binding being described.  The type value
      * indicates how to obtain the security token corresponding to this
      * security binding.
-     * @type {Integer}
+     * @type {WS_SECURITY_BINDING_TYPE}
      */
     bindingType {
         get => NumGet(this, 0, "int")

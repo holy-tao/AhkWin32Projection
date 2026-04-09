@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IMFNetCredential.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\IMFNetCredential.ahk
 
 /**
  * Implemented by applications to provide user credentials for a network source.
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imfnetcredentialmanager
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFNetCredentialManager extends IUnknown{
+class IMFNetCredentialManager extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

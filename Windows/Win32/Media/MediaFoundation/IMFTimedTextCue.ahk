@@ -1,19 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\IMFTimedTextBinary.ahk
 #Include .\IMFTimedTextRegion.ahk
 #Include .\IMFTimedTextStyle.ahk
 #Include .\IMFTimedTextFormattedText.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Represents the timed-text-cue object.
  * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nn-mfmediaengine-imftimedtextcue
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFTimedTextCue extends IUnknown{
+class IMFTimedTextCue extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -65,7 +64,7 @@ class IMFTimedTextCue extends IUnknown{
 
     /**
      * Gets the kind of timed-text cue.
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/ne-mfmediaengine-mf_timed_text_track_kind">MF_TIMED_TEXT_TRACK_KIND</a></b>
+     * @returns {MF_TIMED_TEXT_TRACK_KIND} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/ne-mfmediaengine-mf_timed_text_track_kind">MF_TIMED_TEXT_TRACK_KIND</a></b>
      * 
      * Returns a <a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/ne-mfmediaengine-mf_timed_text_track_kind">MF_TIMED_TEXT_TRACK_KIND</a>-typed value that specifies the kind of timed-text cue.
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtextcue-getcuekind
@@ -125,7 +124,9 @@ class IMFTimedTextCue extends IUnknown{
 
     /**
      * Gets info about the display region of the timed-text cue.
-     * @returns {IMFTimedTextRegion} 
+     * @returns {IMFTimedTextRegion} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/nn-mfmediaengine-imftimedtextregion">IMFTimedTextRegion</a>**</b>
+     * 
+     * A pointer to a memory block that receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/nn-mfmediaengine-imftimedtextregion">IMFTimedTextRegion</a> interface for the timed-text region. This parameter can be <b>NULL</b>.
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtextcue-getregion
      */
     GetRegion() {

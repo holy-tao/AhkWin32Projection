@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
 #Include .\IFsrmCollection.ahk
 #Include .\IFsrmPropertyDefinition.ahk
 #Include .\IFsrmRule.ahk
 #Include .\IFsrmPipelineModuleDefinition.ahk
 #Include .\IFsrmProperty.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * Manages file classification. Use this interface to define properties to use in classification, add classification rules for classifying files, define classification and storage modules, and enable classification reporting. (IFsrmClassificationManager)
@@ -49,9 +49,8 @@
  *      to FSRM) and enabled. If reporting is enabled, FSRM also generates the classification reports.
  * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nn-fsrmpipeline-ifsrmclassificationmanager
  * @namespace Windows.Win32.Storage.FileServerResourceManager
- * @version v4.0.30319
  */
-class IFsrmClassificationManager extends IDispatch{
+class IFsrmClassificationManager extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -125,7 +124,7 @@ class IFsrmClassificationManager extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {FsrmReportRunningStatus} 
      */
     ClassificationRunningStatus {
         get => this.get_ClassificationRunningStatus()
@@ -328,7 +327,7 @@ class IFsrmClassificationManager extends IDispatch{
      * @remarks
      * Used regardless of whether classification was scheduled (using the Task Scheduler) or run on demand (using 
      *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmpipeline/nf-fsrmpipeline-ifsrmclassificationmanager-runclassification">IFsrmClassificationManager::RunClassification</a>).
-     * @returns {Integer} 
+     * @returns {FsrmReportRunningStatus} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmclassificationmanager-get_classificationrunningstatus
      */
     get_ClassificationRunningStatus() {
@@ -338,7 +337,7 @@ class IFsrmClassificationManager extends IDispatch{
 
     /**
      * Enumerates the property definitions.
-     * @param {Integer} options One or more options for enumerating the property definitions. For possible values, see the 
+     * @param {FsrmEnumOptions} options One or more options for enumerating the property definitions. For possible values, see the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/fsrmenums/ne-fsrmenums-fsrmenumoptions">FsrmEnumOptions</a> enumeration.
      * @returns {IFsrmCollection} An <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrm/nn-fsrm-ifsrmcollection">IFsrmCollection</a> interface that contains a 
      *        collection of property definitions. Each item in the collection is a <b>VARIANT</b> of 
@@ -389,12 +388,12 @@ class IFsrmClassificationManager extends IDispatch{
 
     /**
      * Enumerates the rules of the specified type.
-     * @param {Integer} ruleType The type of rules to enumerate. For possible values, see the 
+     * @param {FsrmRuleType} ruleType The type of rules to enumerate. For possible values, see the 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/fsrmenums/ne-fsrmenums-fsrmruletype">FsrmRuleType</a> enumeration.
      * 
      * <div class="alert"><b>Note</b>  The <b>FsrmRuleType_Generic</b> type is not a valid type for this method.</div>
      * <div> </div>
-     * @param {Integer} options One or more options for enumerating the property definitions. For possible values, see the 
+     * @param {FsrmEnumOptions} options One or more options for enumerating the property definitions. For possible values, see the 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/fsrmenums/ne-fsrmenums-fsrmenumoptions">FsrmEnumOptions</a> enumeration.
      * 
      * <div class="alert"><b>Note</b>  The <b>FsrmEnumOptions_Asynchronous</b> option is not supported for this 
@@ -429,7 +428,7 @@ class IFsrmClassificationManager extends IDispatch{
      * 
      * FSRM cannot guarantee the order in which the rules 
      *     are run.
-     * @param {Integer} ruleType The type of rule to create, set this parameter to <b>FsrmRuleType_Classification</b>. 
+     * @param {FsrmRuleType} ruleType The type of rule to create, set this parameter to <b>FsrmRuleType_Classification</b>. 
      *       For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/fsrmenums/ne-fsrmenums-fsrmruletype">FsrmRuleType</a>.
      * @returns {IFsrmRule} An <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmpipeline/nn-fsrmpipeline-ifsrmrule">IFsrmRule</a> interface to the new rule. Query the 
      *        <b>IFsrmRule</b> interface to get the interface to get the 
@@ -447,7 +446,7 @@ class IFsrmClassificationManager extends IDispatch{
     /**
      * Retrieves the specified rule.
      * @param {BSTR} ruleName The name of the rule to retrieve. Must not exceed 100 characters in length.
-     * @param {Integer} ruleType The type of the rule to retrieve. For possible types, see the 
+     * @param {FsrmRuleType} ruleType The type of the rule to retrieve. For possible types, see the 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/fsrmenums/ne-fsrmenums-fsrmruletype">FsrmRuleType</a> enumeration.
      * 
      * <div class="alert"><b>Note</b>  The <b>FsrmRuleType_Generic</b> type is not supported by this method.</div>
@@ -469,9 +468,9 @@ class IFsrmClassificationManager extends IDispatch{
 
     /**
      * Enumerates the module definitions of the specified type.
-     * @param {Integer} moduleType Type of module to enumerate. For possible values, see the 
+     * @param {FsrmPipelineModuleType} moduleType Type of module to enumerate. For possible values, see the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/fsrmenums/ne-fsrmenums-fsrmpipelinemoduletype">FsrmPipelineModuleType</a> enumeration.
-     * @param {Integer} options One or more options for enumerating the modules. For possible values, see the 
+     * @param {FsrmEnumOptions} options One or more options for enumerating the modules. For possible values, see the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/fsrmenums/ne-fsrmenums-fsrmenumoptions">FsrmEnumOptions</a> enumeration.
      * 
      * <div class="alert"><b>Note</b>  The <b>FsrmEnumOptions_Asynchronous</b> option is not supported by this method.</div>
@@ -525,7 +524,7 @@ class IFsrmClassificationManager extends IDispatch{
      * <li>Office 2007 In-File Storage Module—stores properties within a Microsoft Office 
      *       2007 (or later) file.</li>
      * </ul>
-     * @param {Integer} moduleType The type of module to create (for example, a classifier or storage module). For possible types, see the 
+     * @param {FsrmPipelineModuleType} moduleType The type of module to create (for example, a classifier or storage module). For possible types, see the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/fsrmenums/ne-fsrmenums-fsrmpipelinemoduletype">FsrmPipelineModuleType</a> enumeration.
      * @returns {IFsrmPipelineModuleDefinition} An <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmpipeline/nn-fsrmpipeline-ifsrmpipelinemoduledefinition">IFsrmPipelineModuleDefinition</a> 
      *        interface to the new module definition. Query the 
@@ -548,7 +547,7 @@ class IFsrmClassificationManager extends IDispatch{
     /**
      * Retrieves the specified module definition.
      * @param {BSTR} moduleName The name of the module to retrieve. Must not exceed 100 characters in length.
-     * @param {Integer} moduleType The type of the module to retrieve. For possible types, see the 
+     * @param {FsrmPipelineModuleType} moduleType The type of the module to retrieve. For possible types, see the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/fsrmenums/ne-fsrmenums-fsrmpipelinemoduletype">FsrmPipelineModuleType</a> enumeration.
      * @returns {IFsrmPipelineModuleDefinition} An <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmpipeline/nn-fsrmpipeline-ifsrmpipelinemoduledefinition">IFsrmPipelineModuleDefinition</a> 
      *       interface to  the retrieved module definition. Query the 
@@ -590,7 +589,11 @@ class IFsrmClassificationManager extends IDispatch{
      *     <b>FsrmReportGenerationContext_ScheduledReport</b> reporting context.
      * 
      * FSRM does not apply the classification rule if the rule, file, and cache are valid and have not changed.
-     * @param {Integer} _context 
+     * @param {FsrmReportGenerationContext} _context Specifies the report subdirectory to which the classification report is written. For possible values, see 
+     *       the <a href="https://docs.microsoft.com/windows/desktop/api/fsrmenums/ne-fsrmenums-fsrmreportgenerationcontext">FsrmReportGenerationContext</a> enumeration. 
+     *       To set the report directory, call the 
+     *       <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmreports/nf-fsrmreports-ifsrmreportmanager-setoutputdirectory">IFsrmReportManager::SetOutputDirectory</a> 
+     *       method.
      * @param {BSTR} reserved Must be <b>NULL</b>.
      * @returns {HRESULT} The method returns the following return values.
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmclassificationmanager-runclassification
@@ -654,7 +657,7 @@ class IFsrmClassificationManager extends IDispatch{
      *     correct value is returned.
      * @param {BSTR} filePath The file that contains the properties that you want to enumerate. You must specify an absolute path to the 
      *       file. You cannot specify a file share.
-     * @param {Integer} options The option to use for enumerating the file's properties. For possible values, see the 
+     * @param {FsrmGetFilePropertyOptions} options The option to use for enumerating the file's properties. For possible values, see the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/fsrmenums/ne-fsrmenums-fsrmgetfilepropertyoptions">FsrmGetFilePropertyOptions</a> enumeration.
      * @returns {IFsrmCollection} An <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrm/nn-fsrm-ifsrmcollection">IFsrmCollection</a> interface that contains a 
      *       collection of file properties. Each item in the collection is a <b>VARIANT</b> of type 
@@ -679,9 +682,10 @@ class IFsrmClassificationManager extends IDispatch{
      * @param {BSTR} filePath The file that contains the property that you want to retrieve. You must specify an absolute path to the 
      *       file. You cannot specify a file share.
      * @param {BSTR} propertyName The name of the property to retrieve. Must not exceed 100 characters in length.
-     * @param {Integer} options The option to use for retrieving the file's property. For possible values, see the 
+     * @param {FsrmGetFilePropertyOptions} options The option to use for retrieving the file's property. For possible values, see the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/fsrmenums/ne-fsrmenums-fsrmgetfilepropertyoptions">FsrmGetFilePropertyOptions</a> enumeration.
-     * @returns {IFsrmProperty} 
+     * @returns {IFsrmProperty} An <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmpipeline/nn-fsrmpipeline-ifsrmproperty">IFsrmProperty</a> interface to  the retrieved 
+     *       property.
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmclassificationmanager-getfileproperty
      */
     GetFileProperty(filePath, propertyName, options) {
@@ -707,7 +711,7 @@ class IFsrmClassificationManager extends IDispatch{
      * @param {BSTR} filePath The file that contains the property that you want to set. You must specify an absolute path to the file. You 
      *       cannot specify a file share.
      * @param {BSTR} propertyName The name of the property whose value you want to set.
-     * @param {BSTR} _propertyValue 
+     * @param {BSTR} _propertyValue The value to set the specified property to.
      * @returns {HRESULT} The method returns the following return values.
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmclassificationmanager-setfileproperty
      */
@@ -770,7 +774,7 @@ class IFsrmClassificationManager extends IDispatch{
      * </table>
      * @param {BSTR} filePath The file that contains the property that you want to remove. You must specify an absolute path to the file. 
      *       You cannot specify a file share.
-     * @param {BSTR} _property 
+     * @param {BSTR} _property The name of the property to remove from the file.
      * @returns {HRESULT} The method returns the following return values.
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmclassificationmanager-clearfileproperty
      */

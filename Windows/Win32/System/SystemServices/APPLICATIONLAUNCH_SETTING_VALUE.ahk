@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.SystemServices
- * @version v4.0.30319
  */
-class APPLICATIONLAUNCH_SETTING_VALUE extends Win32Struct
-{
+class APPLICATIONLAUNCH_SETTING_VALUE extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class ID3D12VideoEncodeCommandList4 extends ID3D12VideoEncodeCommandList3{
+class ID3D12VideoEncodeCommandList4 extends ID3D12VideoEncodeCommandList3 {
 
     static sizeof => A_PtrSize
     /**

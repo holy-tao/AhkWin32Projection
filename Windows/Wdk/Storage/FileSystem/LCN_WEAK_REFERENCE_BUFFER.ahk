@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem
- * @version v4.0.30319
  */
-class LCN_WEAK_REFERENCE_BUFFER extends Win32Struct
-{
+class LCN_WEAK_REFERENCE_BUFFER extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ITfCandidateList.ahk
 #Include .\ITfFunction.ahk
+#Include .\ITfCandidateList.ahk
 
 /**
  * The ITfFnGetLinguisticAlternates interface is implemented by a text service and/or by the TSF manager to provide linguistic alternates for the text within a given range passed as a parameter.
  * @see https://learn.microsoft.com/windows/win32/api/ctffunc/nn-ctffunc-itffngetlinguisticalternates
  * @namespace Windows.Win32.UI.TextServices
- * @version v4.0.30319
  */
-class ITfFnGetLinguisticAlternates extends ITfFunction{
+class ITfFnGetLinguisticAlternates extends ITfFunction {
 
     static sizeof => A_PtrSize
     /**

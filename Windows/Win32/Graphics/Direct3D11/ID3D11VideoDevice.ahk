@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\ID3D11VideoDecoder.ahk
 #Include .\ID3D11VideoProcessor.ahk
 #Include .\ID3D11AuthenticatedChannel.ahk
@@ -9,9 +10,9 @@
 #Include .\ID3D11VideoProcessorInputView.ahk
 #Include .\ID3D11VideoProcessorOutputView.ahk
 #Include .\ID3D11VideoProcessorEnumerator.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\D3D11_VIDEO_DECODER_CONFIG.ahk
 #Include .\D3D11_VIDEO_CONTENT_PROTECTION_CAPS.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Provides the video decoding and video processing capabilities of a Microsoft Direct3D 11 device. (ID3D11VideoDevice)
@@ -21,9 +22,8 @@
  * If you query an <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nn-d3d11-id3d11device">ID3D11Device</a> for <b>ID3D11VideoDevice</b> and the Direct3D 11 device created is using the reference rasterizer or WARP, or is a hardware device and you are using the Microsoft Basic Display Adapter, <b>E_NOINTERFACE</b> is returned.
  * @see https://learn.microsoft.com/windows/win32/api/d3d11/nn-d3d11-id3d11videodevice
  * @namespace Windows.Win32.Graphics.Direct3D11
- * @version v4.0.30319
  */
-class ID3D11VideoDevice extends IUnknown{
+class ID3D11VideoDevice extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -80,7 +80,7 @@ class ID3D11VideoDevice extends IUnknown{
      * If the <i>ChannelType</i> parameter is <b>D3D11_AUTHENTICATED_CHANNEL_D3D11</b>, the method creates a channel with the Direct3D device. This type of channel does not support authentication.
      * 
      * If <i>ChannelType</i> is <b>D3D11_AUTHENTICATED_CHANNEL_DRIVER_SOFTWARE</b> or <b>D3D11_AUTHENTICATED_CHANNEL_DRIVER_HARDWARE</b>, the method creates an authenticated channel with the graphics driver.
-     * @param {Integer} _ChannelType 
+     * @param {D3D11_AUTHENTICATED_CHANNEL_TYPE} _ChannelType Specifies the type of channel, as a member of the <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ne-d3d11-d3d11_authenticated_channel_type">D3D11_AUTHENTICATED_CHANNEL_TYPE</a> enumeration.
      * @returns {ID3D11AuthenticatedChannel} Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nn-d3d11-id3d11authenticatedchannel">ID3D11AuthenticatedChannel</a> interface. The caller must release the interface.
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11videodevice-createauthenticatedchannel
      */
@@ -263,7 +263,7 @@ class ID3D11VideoDevice extends IUnknown{
      * @remarks
      * If the driver does not support the profile given in <i>pDecoderProfile</i>, the method returns <b>E_INVALIDARG</b>. If the driver supports the profile, but the DXGI format is not compatible with the profile, the method succeeds but returns the value <b>FALSE</b> in <i>pSupported</i>.
      * @param {Pointer<Guid>} pDecoderProfile A pointer to a GUID that identifies the profile. To get the list of supported profiles, call <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11videodevice-getvideodecoderprofile">ID3D11VideoDevice::GetVideoDecoderProfile</a>.
-     * @param {Integer} Format A <a href="https://docs.microsoft.com/windows/desktop/api/dxgiformat/ne-dxgiformat-dxgi_format">DXGI_FORMAT</a> value that specifies the output format. Typical values include <b>DXGI_FORMAT_NV12</b> and <b>DXGI_FORMAT_420_OPAQUE</b>.
+     * @param {DXGI_FORMAT} Format A <a href="https://docs.microsoft.com/windows/desktop/api/dxgiformat/ne-dxgiformat-dxgi_format">DXGI_FORMAT</a> value that specifies the output format. Typical values include <b>DXGI_FORMAT_NV12</b> and <b>DXGI_FORMAT_420_OPAQUE</b>.
      * @returns {BOOL} Receives the value <b>TRUE</b> if the format is supported, or <b>FALSE</b> otherwise.
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11videodevice-checkvideodecoderformat
      */
@@ -370,7 +370,7 @@ class ID3D11VideoDevice extends IUnknown{
      * Sets private data on the video device and associates that data with a GUID.
      * @param {Pointer<Guid>} guid The GUID associated with the data.
      * @param {Integer} DataSize The size of the data, in bytes.
-     * @param {Pointer} pData A pointer to the data.
+     * @param {Integer} pData A pointer to the data.
      * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11videodevice-setprivatedata
      */

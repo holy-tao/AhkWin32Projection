@@ -5,9 +5,8 @@
  * Flags that defines how classification properties associated with a file are retrieved.
  * @see https://learn.microsoft.com/windows/win32/api/fsrmenums/ne-fsrmenums-fsrmgetfilepropertyoptions
  * @namespace Windows.Win32.Storage.FileServerResourceManager
- * @version v4.0.30319
  */
-class FsrmGetFilePropertyOptions extends Win32Enum{
+class FsrmGetFilePropertyOptions extends Win32Enum {
 
     /**
      * Retrieve the most up-to-date classification properties. Using this value may require more time than the 

@@ -6,10 +6,8 @@
  * Contains title bar information.
  * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-titlebarinfo
  * @namespace Windows.Win32.UI.WindowsAndMessaging
- * @version v4.0.30319
  */
-class TITLEBARINFO extends Win32Struct
-{
+class TITLEBARINFO extends Win32Struct {
     static sizeof => 44
 
     static packingSize => 4
@@ -31,7 +29,7 @@ class TITLEBARINFO extends Win32Struct
      * The coordinates of the title bar. These coordinates include all title-bar elements except the window menu.
      * @type {RECT}
      */
-    rcTitleBar{
+    rcTitleBar {
         get {
             if(!this.HasProp("__rcTitleBar"))
                 this.__rcTitleBar := RECT(4, this)
@@ -76,9 +74,9 @@ class TITLEBARINFO extends Win32Struct
      * <td>Close button.</td>
      * </tr>
      * </table>
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    rgstate{
+    rgstate {
         get {
             if(!this.HasProp("__rgstateProxyArray"))
                 this.__rgstateProxyArray := Win32FixedArray(this.ptr + 20, 6, Primitive, "uint")

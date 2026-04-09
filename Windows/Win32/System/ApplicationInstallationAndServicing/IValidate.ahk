@@ -7,9 +7,8 @@
  * The IValidate interface enables authoring tools to validate a Windows Installer package against a set of Internal Consistency Evaluators.
  * @see https://learn.microsoft.com/windows/win32/api/evalcom2/nn-evalcom2-ivalidate
  * @namespace Windows.Win32.System.ApplicationInstallationAndServicing
- * @version v4.0.30319
  */
-class IValidate extends IUnknown{
+class IValidate extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -1,20 +1,19 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\System\Com\IDispatch.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
 #Include .\IX509PublicKey.ahk
 #Include .\ICspInformations.ahk
 #Include .\ICspStatus.ahk
 #Include .\IObjectId.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
 
 /**
  * Represents an asymmetric private key that can be used for encryption, signing, and key agreement.
  * @see https://learn.microsoft.com/windows/win32/api/certenroll/nn-certenroll-ix509privatekey
  * @namespace Windows.Win32.Security.Cryptography.Certificates
- * @version v4.0.30319
  */
-class IX509PrivateKey extends IDispatch{
+class IX509PrivateKey extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -84,7 +83,7 @@ class IX509PrivateKey extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {X509ProviderType} 
      */
     ProviderType {
         get => this.get_ProviderType()
@@ -108,7 +107,7 @@ class IX509PrivateKey extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {X509KeySpec} 
      */
     KeySpec {
         get => this.get_KeySpec()
@@ -124,7 +123,7 @@ class IX509PrivateKey extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {X509PrivateKeyExportFlags} 
      */
     ExportPolicy {
         get => this.get_ExportPolicy()
@@ -132,7 +131,7 @@ class IX509PrivateKey extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {X509PrivateKeyUsageFlags} 
      */
     KeyUsage {
         get => this.get_KeyUsage()
@@ -140,7 +139,7 @@ class IX509PrivateKey extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {X509PrivateKeyProtection} 
      */
     KeyProtection {
         get => this.get_KeyProtection()
@@ -217,7 +216,7 @@ class IX509PrivateKey extends IDispatch{
     }
 
     /**
-     * @type {HRESULT} 
+     * @type {BSTR} 
      */
     Pin {
         set => this.put_Pin(value)
@@ -496,7 +495,7 @@ class IX509PrivateKey extends IDispatch{
      * Verifies that a private key exists and can be used by the client but does not open the key.
      * @remarks
      * If <b>VerifySilent</b> or <b>VerifySmartCardSilent</b> values are set and the cryptographic provider specifies that a user interface is necessary, the key will not be opened, but the method returns <b>S_OK</b>.
-     * @param {Integer} VerifyType 
+     * @param {X509PrivateKeyVerify} VerifyType 
      * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>.
      * 
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table. Also, this method calls the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptgetuserkey">CryptGetUserKey</a> and <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptacquirecontexta">CryptAcquireContext</a> CryptoAPI functions and can return errors identified in that documentation. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
@@ -567,7 +566,7 @@ class IX509PrivateKey extends IDispatch{
      * </tr>
      * </table>
      * @param {BSTR} strEncodedKey A <b>BSTR</b> variable that contains the key to import.
-     * @param {Integer} Encoding An <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/ne-certenroll-encodingtype">EncodingType</a> enumeration value that specifies the type of Unicode encoding to be applied to the string contained in the <i>strEncodedKey</i> parameter. The default value is XCN_CRYPT_STRING_BASE64.
+     * @param {EncodingType} Encoding An <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/ne-certenroll-encodingtype">EncodingType</a> enumeration value that specifies the type of Unicode encoding to be applied to the string contained in the <i>strEncodedKey</i> parameter. The default value is XCN_CRYPT_STRING_BASE64.
      * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>.
      * 
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
@@ -615,7 +614,7 @@ class IX509PrivateKey extends IDispatch{
      * @param {BSTR} strExportType A <b>BSTR</b> value that specifies how the private key is exported. 
      * 
      * If the key was created by using a CNG KSP (Key Storage Provider), you can specify one of the values allowed by the <i>pszBlobType</i> parameter in the <a href="https://docs.microsoft.com/windows/desktop/api/ncrypt/nf-ncrypt-ncryptexportkey">NCryptExportKey</a> function.
-     * @param {Integer} Encoding An <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/ne-certenroll-encodingtype">EncodingType</a> enumeration value that specifies the type of Unicode encoding to be applied to the string contained in the <i>pstrEncodedKey</i> parameter. The default value is XCN_CRYPT_STRING_BASE64.
+     * @param {EncodingType} Encoding An <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/ne-certenroll-encodingtype">EncodingType</a> enumeration value that specifies the type of Unicode encoding to be applied to the string contained in the <i>pstrEncodedKey</i> parameter. The default value is XCN_CRYPT_STRING_BASE64.
      * @returns {BSTR} Pointer to a <b>BSTR</b> variable that contains the private key.
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509privatekey-export
      */
@@ -887,7 +886,7 @@ class IX509PrivateKey extends IDispatch{
      * </li>
      * </ul>
      * Because  a previously specified <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509privatekey-get_providername">ProviderName</a> is not affected by setting the <b>ProviderType</b> property, setting a <b>ProviderType</b> that is inconsistent with the <b>ProviderName</b> property will result in undefined behavior, likely a failure when creating or opening a private key. We recommend that you set the <b>ProviderType</b> property only when attempting to force the use of the default provider for the specified type as discussed above.
-     * @returns {Integer} 
+     * @returns {X509ProviderType} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509privatekey-get_providertype
      */
     get_ProviderType() {
@@ -925,7 +924,7 @@ class IX509PrivateKey extends IDispatch{
      * </li>
      * </ul>
      * Because  a previously specified <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509privatekey-get_providername">ProviderName</a> is not affected by setting the <b>ProviderType</b> property, setting a <b>ProviderType</b> that is inconsistent with the <b>ProviderName</b> property will result in undefined behavior, likely a failure when creating or opening a private key. We recommend that you set the <b>ProviderType</b> property only when attempting to force the use of the default provider for the specified type as discussed above.
-     * @param {Integer} Value 
+     * @param {X509ProviderType} Value 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509privatekey-put_providertype
      */
@@ -1037,7 +1036,7 @@ class IX509PrivateKey extends IDispatch{
      * @remarks
      * If you specify a value of XCN_AT_SIGNATURE, the <b>KeySpec</b> property automatically sets the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509privatekey-get_keyusage">KeyUsage</a> property to XCN_NCRYPT_ALLOW_SIGNING_FLAG. If you specify XCN_AT_KEYEXCHANGE, the <b>KeyUsage</b> property is set to XCN_NCRYPT_ALLOW_DECRYPT_FLAG |
      * 				 XCN_NCRYPT_ALLOW_KEY_AGREEMENT_FLAG. The <b>KeySpec</b> property only applies to [legacy] providers created by using CryptoAPI.
-     * @returns {Integer} 
+     * @returns {X509KeySpec} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509privatekey-get_keyspec
      */
     get_KeySpec() {
@@ -1050,7 +1049,7 @@ class IX509PrivateKey extends IDispatch{
      * @remarks
      * If you specify a value of XCN_AT_SIGNATURE, the <b>KeySpec</b> property automatically sets the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509privatekey-get_keyusage">KeyUsage</a> property to XCN_NCRYPT_ALLOW_SIGNING_FLAG. If you specify XCN_AT_KEYEXCHANGE, the <b>KeyUsage</b> property is set to XCN_NCRYPT_ALLOW_DECRYPT_FLAG |
      * 				 XCN_NCRYPT_ALLOW_KEY_AGREEMENT_FLAG. The <b>KeySpec</b> property only applies to [legacy] providers created by using CryptoAPI.
-     * @param {Integer} Value 
+     * @param {X509KeySpec} Value 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509privatekey-put_keyspec
      */
@@ -1082,7 +1081,7 @@ class IX509PrivateKey extends IDispatch{
 
     /**
      * Specifies or retrieves export constraints for a private key. (Get)
-     * @returns {Integer} 
+     * @returns {X509PrivateKeyExportFlags} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509privatekey-get_exportpolicy
      */
     get_ExportPolicy() {
@@ -1092,7 +1091,7 @@ class IX509PrivateKey extends IDispatch{
 
     /**
      * Specifies or retrieves export constraints for a private key. (Put)
-     * @param {Integer} Value 
+     * @param {X509PrivateKeyExportFlags} Value 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509privatekey-put_exportpolicy
      */
@@ -1106,7 +1105,7 @@ class IX509PrivateKey extends IDispatch{
      * @remarks
      * If you set the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509privatekey-get_keyspec">KeySpec</a> property for a  legacy CSP to XCN_NCRYPT_ALLOW_SIGNING_FLAG, the <b>KeyUsage</b> property to XCN_NCRYPT_ALLOW_SIGNING_FLAG. If you specify XCN_AT_KEYEXCHANGE, the <b>KeyUsage</b> property is automatically set to XCN_NCRYPT_ALLOW_DECRYPT_FLAG |
      *              XCN_NCRYPT_ALLOW_KEY_AGREEMENT_FLAG.
-     * @returns {Integer} 
+     * @returns {X509PrivateKeyUsageFlags} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509privatekey-get_keyusage
      */
     get_KeyUsage() {
@@ -1119,7 +1118,7 @@ class IX509PrivateKey extends IDispatch{
      * @remarks
      * If you set the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509privatekey-get_keyspec">KeySpec</a> property for a  legacy CSP to XCN_NCRYPT_ALLOW_SIGNING_FLAG, the <b>KeyUsage</b> property to XCN_NCRYPT_ALLOW_SIGNING_FLAG. If you specify XCN_AT_KEYEXCHANGE, the <b>KeyUsage</b> property is automatically set to XCN_NCRYPT_ALLOW_DECRYPT_FLAG |
      *              XCN_NCRYPT_ALLOW_KEY_AGREEMENT_FLAG.
-     * @param {Integer} Value 
+     * @param {X509PrivateKeyUsageFlags} Value 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509privatekey-put_keyusage
      */
@@ -1130,7 +1129,7 @@ class IX509PrivateKey extends IDispatch{
 
     /**
      * Specifies or retrieves a value that indicates how a private key is protected before use. (Get)
-     * @returns {Integer} 
+     * @returns {X509PrivateKeyProtection} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509privatekey-get_keyprotection
      */
     get_KeyProtection() {
@@ -1140,7 +1139,7 @@ class IX509PrivateKey extends IDispatch{
 
     /**
      * Specifies or retrieves a value that indicates how a private key is protected before use. (Put)
-     * @param {Integer} Value 
+     * @param {X509PrivateKeyProtection} Value 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509privatekey-put_keyprotection
      */
@@ -1220,7 +1219,7 @@ class IX509PrivateKey extends IDispatch{
      * If the key is not open when you specify a  certificate, the certificate will be set when the key is opened. For more information, see the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509privatekey-open">Open</a> method.
      * 
      * The <b>Certificate</b> property compares the public key associated with the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-ix509privatekey">IX509PrivateKey</a> object to the public key included in the certificate. The two keys must match.
-     * @param {Integer} Encoding 
+     * @param {EncodingType} Encoding 
      * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509privatekey-get_certificate
      */
@@ -1236,7 +1235,7 @@ class IX509PrivateKey extends IDispatch{
      * If the key is not open when you specify a  certificate, the certificate will be set when the key is opened. For more information, see the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509privatekey-open">Open</a> method.
      * 
      * The <b>Certificate</b> property compares the public key associated with the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-ix509privatekey">IX509PrivateKey</a> object to the public key included in the certificate. The two keys must match.
-     * @param {Integer} Encoding 
+     * @param {EncodingType} Encoding 
      * @param {BSTR} Value 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509privatekey-put_certificate

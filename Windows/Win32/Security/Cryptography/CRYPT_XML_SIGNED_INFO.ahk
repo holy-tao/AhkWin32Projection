@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\CRYPT_XML_BLOB.ahk
 #Include .\CRYPT_XML_ALGORITHM.ahk
+#Include .\CRYPT_XML_BLOB.ahk
+#Include .\CRYPT_XML_CHARSET.ahk
+#Include .\CRYPT_XML_REFERENCE.ahk
 
 /**
  * Describes an XML encoded SignedInfo element.
  * @see https://learn.microsoft.com/windows/win32/api/cryptxml/ns-cryptxml-crypt_xml_signed_info
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CRYPT_XML_SIGNED_INFO extends Win32Struct
-{
+class CRYPT_XML_SIGNED_INFO extends Win32Struct {
     static sizeof => 112
 
     static packingSize => 8
@@ -37,7 +37,7 @@ class CRYPT_XML_SIGNED_INFO extends Win32Struct
      * A <a href="https://docs.microsoft.com/windows/desktop/api/cryptxml/ns-cryptxml-crypt_xml_algorithm">CRYPT_XML_ALGORITHM</a> structure that specifies the canonicalization algorithm.
      * @type {CRYPT_XML_ALGORITHM}
      */
-    Canonicalization{
+    Canonicalization {
         get {
             if(!this.HasProp("__Canonicalization"))
                 this.__Canonicalization := CRYPT_XML_ALGORITHM(16, this)
@@ -49,7 +49,7 @@ class CRYPT_XML_SIGNED_INFO extends Win32Struct
      * A <a href="https://docs.microsoft.com/windows/desktop/api/cryptxml/ns-cryptxml-crypt_xml_algorithm">CRYPT_XML_ALGORITHM</a> structure that specifies the signature algorithm.
      * @type {CRYPT_XML_ALGORITHM}
      */
-    SignatureMethod{
+    SignatureMethod {
         get {
             if(!this.HasProp("__SignatureMethod"))
                 this.__SignatureMethod := CRYPT_XML_ALGORITHM(48, this)
@@ -79,7 +79,7 @@ class CRYPT_XML_SIGNED_INFO extends Win32Struct
      * A  <a href="https://docs.microsoft.com/windows/desktop/api/cryptxml/ns-cryptxml-crypt_xml_blob">CRYPT_XML_BLOB</a> structure that contains the XML encoded <b>SignedInfo</b> element.
      * @type {CRYPT_XML_BLOB}
      */
-    Encoded{
+    Encoded {
         get {
             if(!this.HasProp("__Encoded"))
                 this.__Encoded := CRYPT_XML_BLOB(96, this)

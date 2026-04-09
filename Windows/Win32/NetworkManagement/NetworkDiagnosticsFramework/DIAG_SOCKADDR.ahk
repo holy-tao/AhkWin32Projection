@@ -8,11 +8,9 @@
  *     <b>SOCKADDR</b> structure.
  * @see https://learn.microsoft.com/windows/win32/api/ndattrib/ns-ndattrib-diag_sockaddr
  * @namespace Windows.Win32.NetworkManagement.NetworkDiagnosticsFramework
- * @version v4.0.30319
  */
-class DIAG_SOCKADDR extends Win32Struct
-{
-    static sizeof => 254
+class DIAG_SOCKADDR extends Win32Struct {
+    static sizeof => 128
 
     static packingSize => 2
 
@@ -34,7 +32,7 @@ class DIAG_SOCKADDR extends Win32Struct
      * @type {String}
      */
     data {
-        get => StrGet(this.ptr + 2, 125, "UTF-16")
-        set => StrPut(value, this.ptr + 2, 125, "UTF-16")
+        get => StrGet(this.ptr + 2, 125, "UTF-8")
+        set => StrPut(value, this.ptr + 2, 125, "UTF-8")
     }
 }

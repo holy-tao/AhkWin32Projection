@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class AM_DVD_ChangeRate extends Win32Struct
-{
+class AM_DVD_ChangeRate extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

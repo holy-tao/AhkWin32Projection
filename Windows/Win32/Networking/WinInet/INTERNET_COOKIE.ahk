@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\FILETIME.ahk
 
 /**
  * Enables the retrieval of cookies that are marked as "HTTPOnly".  
@@ -12,10 +13,8 @@
   * <b>Version:  </b>Requires Internet Explorer 8.0 or later.
  * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetgetcookieexa
  * @namespace Windows.Win32.Networking.WinInet
- * @version v4.0.30319
  */
-class INTERNET_COOKIE extends Win32Struct
-{
+class INTERNET_COOKIE extends Win32Struct {
     static sizeof => 72
 
     static packingSize => 8

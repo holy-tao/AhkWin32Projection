@@ -1,19 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
+#Include ..\IDispatch.ahk
 #Include ..\IUnknown.ahk
 #Include ..\..\Variant\VARIANT.ahk
 #Include .\IEnumEventObject.ahk
-#Include ..\IDispatch.ahk
 
 /**
  * Manages objects in an event objects collection.
  * @see https://learn.microsoft.com/windows/win32/api/eventsys/nn-eventsys-ieventobjectcollection
  * @namespace Windows.Win32.System.Com.Events
- * @version v4.0.30319
  */
-class IEventObjectCollection extends IDispatch{
+class IEventObjectCollection extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -102,7 +100,7 @@ class IEventObjectCollection extends IDispatch{
     /**
      * Adds an event object to the collection.
      * @param {Pointer<VARIANT>} item A pointer to the event object to be added to the collection. This parameter cannot be <b>NULL</b>.
-     * @param {BSTR} _objectID 
+     * @param {BSTR} _objectID The ID property of the event object to be added. For example, if the collection consists of subscription objects, this parameter would contain the SubscriptionID property of the event subscription object to be added to the collection.
      * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, E_FAIL, and S_OK.
      * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventobjectcollection-add
      */
@@ -115,7 +113,7 @@ class IEventObjectCollection extends IDispatch{
 
     /**
      * Removes an event object from the collection.
-     * @param {BSTR} _objectID 
+     * @param {BSTR} _objectID The ID property of the event object to be removed. For example, if the collection consists of subscription objects, this parameter would contain the SubscriptionID property of the event subscription object to be removed from the collection.
      * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, E_FAIL, and S_OK.
      * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventobjectcollection-remove
      */

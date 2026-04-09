@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.Ole
- * @version v4.0.30319
  */
-class IProtectFocus extends IUnknown{
+class IProtectFocus extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

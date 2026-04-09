@@ -5,10 +5,8 @@
  * Contains additional properties related to those in DWRITE_GLYPH_RUN.
  * @see https://learn.microsoft.com/windows/win32/api/dwrite/ns-dwrite-dwrite_glyph_run_description
  * @namespace Windows.Win32.Graphics.DirectWrite
- * @version v4.0.30319
  */
-class DWRITE_GLYPH_RUN_DESCRIPTION extends Win32Struct
-{
+class DWRITE_GLYPH_RUN_DESCRIPTION extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8

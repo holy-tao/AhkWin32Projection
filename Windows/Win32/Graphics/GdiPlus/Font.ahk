@@ -13,10 +13,8 @@
  * Any attempt to select a color swatch from the color picker of a [Font Control](windowsribbon-controls-fontcontrol.md) may result in an access violation if no Command handler is associated with the control.
  * @see https://learn.microsoft.com/windows/win32/windowsribbon/windowsribbon-element-fontcontrol
  * @namespace Windows.Win32.Graphics.GdiPlus
- * @version v4.0.30319
  */
-class Font extends Win32Struct
-{
+class Font extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 8

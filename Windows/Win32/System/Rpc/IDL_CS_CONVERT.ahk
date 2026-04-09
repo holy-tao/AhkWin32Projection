@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Rpc
- * @version v4.0.30319
  */
-class IDL_CS_CONVERT extends Win32Enum{
+class IDL_CS_CONVERT extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

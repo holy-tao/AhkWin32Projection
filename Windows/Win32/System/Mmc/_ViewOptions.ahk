@@ -5,9 +5,8 @@
  * The ViewOptions enumeration is used by the Views.Add method and specifies the visibility of the view, scope tree, and toolbars, as well as the persistence state of the view.
  * @see https://learn.microsoft.com/windows/win32/api/mmcobj/ne-mmcobj-_viewoptions
  * @namespace Windows.Win32.System.Mmc
- * @version v4.0.30319
  */
-class _ViewOptions extends Win32Enum{
+class _ViewOptions extends Win32Enum {
 
     /**
      * The view is added with default settings.
@@ -34,7 +33,6 @@ class _ViewOptions extends Win32Enum{
     static ViewOption_NotPersistable => 4
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static ViewOption_ActionPaneHidden => 8

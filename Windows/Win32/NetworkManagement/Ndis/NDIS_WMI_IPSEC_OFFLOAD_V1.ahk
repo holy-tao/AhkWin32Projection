@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Ndis
- * @version v4.0.30319
  */
-class NDIS_WMI_IPSEC_OFFLOAD_V1 extends Win32Struct
-{
+class NDIS_WMI_IPSEC_OFFLOAD_V1 extends Win32Struct {
     static sizeof => 76
 
     static packingSize => 4
@@ -22,7 +20,7 @@ class NDIS_WMI_IPSEC_OFFLOAD_V1 extends Win32Struct
             get => NumGet(this, 0, "uint")
             set => NumPut("uint", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -30,7 +28,7 @@ class NDIS_WMI_IPSEC_OFFLOAD_V1 extends Win32Struct
             get => NumGet(this, 4, "uint")
             set => NumPut("uint", value, this, 4)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -38,7 +36,7 @@ class NDIS_WMI_IPSEC_OFFLOAD_V1 extends Win32Struct
             get => NumGet(this, 8, "uint")
             set => NumPut("uint", value, this, 8)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -46,7 +44,7 @@ class NDIS_WMI_IPSEC_OFFLOAD_V1 extends Win32Struct
             get => NumGet(this, 12, "uint")
             set => NumPut("uint", value, this, 12)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -54,7 +52,6 @@ class NDIS_WMI_IPSEC_OFFLOAD_V1 extends Win32Struct
             get => NumGet(this, 16, "uint")
             set => NumPut("uint", value, this, 16)
         }
-    
     }
 
     class _IPv4AH extends Win32Struct {
@@ -68,7 +65,7 @@ class NDIS_WMI_IPSEC_OFFLOAD_V1 extends Win32Struct
             get => NumGet(this, 0, "uint")
             set => NumPut("uint", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -76,7 +73,7 @@ class NDIS_WMI_IPSEC_OFFLOAD_V1 extends Win32Struct
             get => NumGet(this, 4, "uint")
             set => NumPut("uint", value, this, 4)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -84,7 +81,7 @@ class NDIS_WMI_IPSEC_OFFLOAD_V1 extends Win32Struct
             get => NumGet(this, 8, "uint")
             set => NumPut("uint", value, this, 8)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -92,7 +89,7 @@ class NDIS_WMI_IPSEC_OFFLOAD_V1 extends Win32Struct
             get => NumGet(this, 12, "uint")
             set => NumPut("uint", value, this, 12)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -100,7 +97,7 @@ class NDIS_WMI_IPSEC_OFFLOAD_V1 extends Win32Struct
             get => NumGet(this, 16, "uint")
             set => NumPut("uint", value, this, 16)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -108,7 +105,6 @@ class NDIS_WMI_IPSEC_OFFLOAD_V1 extends Win32Struct
             get => NumGet(this, 20, "uint")
             set => NumPut("uint", value, this, 20)
         }
-    
     }
 
     class _IPv4ESP extends Win32Struct {
@@ -122,7 +118,7 @@ class NDIS_WMI_IPSEC_OFFLOAD_V1 extends Win32Struct
             get => NumGet(this, 0, "uint")
             set => NumPut("uint", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -130,7 +126,7 @@ class NDIS_WMI_IPSEC_OFFLOAD_V1 extends Win32Struct
             get => NumGet(this, 4, "uint")
             set => NumPut("uint", value, this, 4)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -138,7 +134,7 @@ class NDIS_WMI_IPSEC_OFFLOAD_V1 extends Win32Struct
             get => NumGet(this, 8, "uint")
             set => NumPut("uint", value, this, 8)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -146,7 +142,7 @@ class NDIS_WMI_IPSEC_OFFLOAD_V1 extends Win32Struct
             get => NumGet(this, 12, "uint")
             set => NumPut("uint", value, this, 12)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -154,7 +150,7 @@ class NDIS_WMI_IPSEC_OFFLOAD_V1 extends Win32Struct
             get => NumGet(this, 16, "uint")
             set => NumPut("uint", value, this, 16)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -162,7 +158,7 @@ class NDIS_WMI_IPSEC_OFFLOAD_V1 extends Win32Struct
             get => NumGet(this, 20, "uint")
             set => NumPut("uint", value, this, 20)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -170,7 +166,7 @@ class NDIS_WMI_IPSEC_OFFLOAD_V1 extends Win32Struct
             get => NumGet(this, 24, "uint")
             set => NumPut("uint", value, this, 24)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -178,16 +174,15 @@ class NDIS_WMI_IPSEC_OFFLOAD_V1 extends Win32Struct
             get => NumGet(this, 28, "uint")
             set => NumPut("uint", value, this, 28)
         }
-    
     }
 
     /**
      * @type {_Supported}
      */
-    Supported{
+    Supported {
         get {
             if(!this.HasProp("__Supported"))
-                this.__Supported := %this.__Class%._Supported(0, this)
+                this.__Supported := NDIS_WMI_IPSEC_OFFLOAD_V1._Supported(0, this)
             return this.__Supported
         }
     }
@@ -195,10 +190,10 @@ class NDIS_WMI_IPSEC_OFFLOAD_V1 extends Win32Struct
     /**
      * @type {_IPv4AH}
      */
-    IPv4AH{
+    IPv4AH {
         get {
             if(!this.HasProp("__IPv4AH"))
-                this.__IPv4AH := %this.__Class%._IPv4AH(20, this)
+                this.__IPv4AH := NDIS_WMI_IPSEC_OFFLOAD_V1._IPv4AH(20, this)
             return this.__IPv4AH
         }
     }
@@ -206,10 +201,10 @@ class NDIS_WMI_IPSEC_OFFLOAD_V1 extends Win32Struct
     /**
      * @type {_IPv4ESP}
      */
-    IPv4ESP{
+    IPv4ESP {
         get {
             if(!this.HasProp("__IPv4ESP"))
-                this.__IPv4ESP := %this.__Class%._IPv4ESP(44, this)
+                this.__IPv4ESP := NDIS_WMI_IPSEC_OFFLOAD_V1._IPv4ESP(44, this)
             return this.__IPv4ESP
         }
     }

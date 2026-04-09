@@ -11,9 +11,8 @@
  * For more information on location settings in Windows 8 see <a href="https://docs.microsoft.com/previous-versions/windows">Location settings</a>.
  * @see https://learn.microsoft.com/windows/win32/api/sensorsapi/nn-sensorsapi-ilocationpermissions
  * @namespace Windows.Win32.Devices.Sensors
- * @version v4.0.30319
  */
-class ILocationPermissions extends IUnknown{
+class ILocationPermissions extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

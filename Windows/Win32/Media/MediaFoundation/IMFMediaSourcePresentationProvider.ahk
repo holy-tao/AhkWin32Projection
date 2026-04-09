@@ -7,9 +7,8 @@
  * Provides notifications to the sequencer source.
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imfmediasourcepresentationprovider
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFMediaSourcePresentationProvider extends IUnknown{
+class IMFMediaSourcePresentationProvider extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

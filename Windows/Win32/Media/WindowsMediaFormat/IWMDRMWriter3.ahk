@@ -7,9 +7,8 @@
  * The IWMDRMWriter3 interface enables writing of encrypted stream samples for importing protected content.An IWMDRMWriter3 interface exists for every writer object when linking to WMStubDRM.lib.
  * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nn-wmsdkidl-iwmdrmwriter3
  * @namespace Windows.Win32.Media.WindowsMediaFormat
- * @version v4.0.30319
  */
-class IWMDRMWriter3 extends IWMDRMWriter2{
+class IWMDRMWriter3 extends IWMDRMWriter2 {
 
     static sizeof => A_PtrSize
     /**

@@ -15,14 +15,12 @@
  * > The winineti.h header defines INTERNET_CACHE_CONFIG_INFO as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
  * @see https://learn.microsoft.com/windows/win32/api/winineti/ns-winineti-internet_cache_config_infow
  * @namespace Windows.Win32.Networking.WinInet
- * @version v4.0.30319
  * @charset Unicode
  */
-class INTERNET_CACHE_CONFIG_INFOW extends Win32Struct
-{
-    static sizeof => 568
+class INTERNET_CACHE_CONFIG_INFOW extends Win32Struct {
+    static sizeof => 560
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Size of this structure, in bytes. This value can be used to help determine the version of the cache system.
@@ -91,25 +89,25 @@ class INTERNET_CACHE_CONFIG_INFOW extends Win32Struct
      * @type {String}
      */
     CachePath {
-        get => StrGet(this.ptr + 32, 259, "UTF-16")
-        set => StrPut(value, this.ptr + 32, 259, "UTF-16")
+        get => StrGet(this.ptr + 28, 259, "UTF-16")
+        set => StrPut(value, this.ptr + 28, 259, "UTF-16")
     }
 
     /**
      * @type {Integer}
      */
     dwCacheSize {
-        get => NumGet(this, 552, "uint")
-        set => NumPut("uint", value, this, 552)
+        get => NumGet(this, 548, "uint")
+        set => NumPut("uint", value, this, 548)
     }
 
     /**
-     * @type {Array<INTERNET_CACHE_CONFIG_PATH_ENTRYW>}
+     * @type {INTERNET_CACHE_CONFIG_PATH_ENTRYW}
      */
-    CachePaths{
+    CachePaths {
         get {
             if(!this.HasProp("__CachePathsProxyArray"))
-                this.__CachePathsProxyArray := Win32FixedArray(this.ptr + 32, 1, INTERNET_CACHE_CONFIG_PATH_ENTRYW, "")
+                this.__CachePathsProxyArray := Win32FixedArray(this.ptr + 28, 1, INTERNET_CACHE_CONFIG_PATH_ENTRYW, "")
             return this.__CachePathsProxyArray
         }
     }
@@ -119,8 +117,8 @@ class INTERNET_CACHE_CONFIG_INFOW extends Win32Struct
      * @type {Integer}
      */
     dwNormalUsage {
-        get => NumGet(this, 556, "uint")
-        set => NumPut("uint", value, this, 556)
+        get => NumGet(this, 552, "uint")
+        set => NumPut("uint", value, this, 552)
     }
 
     /**
@@ -128,7 +126,7 @@ class INTERNET_CACHE_CONFIG_INFOW extends Win32Struct
      * @type {Integer}
      */
     dwExemptUsage {
-        get => NumGet(this, 560, "uint")
-        set => NumPut("uint", value, this, 560)
+        get => NumGet(this, 556, "uint")
+        set => NumPut("uint", value, this, 556)
     }
 }

@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IDCompositionDelegatedInkTrail.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\IDCompositionDelegatedInkTrail.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.DirectComposition
- * @version v4.0.30319
  */
-class IDCompositionInkTrailDevice extends IUnknown{
+class IDCompositionInkTrailDevice extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

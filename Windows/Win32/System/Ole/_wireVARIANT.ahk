@@ -1,14 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\Com\CY.ahk
+#Include ..\Com\FLAGGED_WORD_BLOB.ahk
+#Include ..\Com\IUnknown.ahk
+#Include ..\Com\IDispatch.ahk
+#Include .\_wireSAFEARRAY.ahk
+#Include .\_wireBRECORD.ahk
+#Include .\_wireVARIANT.ahk
 #Include ..\..\Foundation\DECIMAL.ahk
 
 /**
  * @namespace Windows.Win32.System.Ole
- * @version v4.0.30319
  */
-class _wireVARIANT extends Win32Struct
-{
+class _wireVARIANT extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -128,7 +132,7 @@ class _wireVARIANT extends Win32Struct
     /**
      * @type {CY}
      */
-    cyVal{
+    cyVal {
         get {
             if(!this.HasProp("__cyVal"))
                 this.__cyVal := CY(16, this)
@@ -355,7 +359,7 @@ class _wireVARIANT extends Win32Struct
     /**
      * @type {DECIMAL}
      */
-    decVal{
+    decVal {
         get {
             if(!this.HasProp("__decVal"))
                 this.__decVal := DECIMAL(16, this)

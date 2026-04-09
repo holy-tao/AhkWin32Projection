@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Direct3D12\ID3D12Fence.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\Direct3D12\ID3D12Fence.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D9on12
- * @version v4.0.30319
  */
-class IDirect3DDevice9On12 extends IUnknown{
+class IDirect3DDevice9On12 extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

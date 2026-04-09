@@ -24,14 +24,10 @@
 
 /**
  * Contains parameters for the Get Features and Set Features commands that retrieve or set the attributes of the specified feature.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/nvme/ns-nvme-nvme_cdw11_features
  * @namespace Windows.Win32.Storage.Nvme
- * @version v4.0.30319
  */
-class NVME_CDW11_FEATURES extends Win32Struct
-{
+class NVME_CDW11_FEATURES extends Win32Struct {
     static sizeof => 160
 
     static packingSize => 4
@@ -42,7 +38,7 @@ class NVME_CDW11_FEATURES extends Win32Struct
      * When a Set Features or Get Features command is submitted for the Number of Queues Feature, the **NVME_CDW11_FEATURE_NUMBER_OF_QUEUES** structure is returned in the Dword 0 (**DW0**) field of the [Completion Queue entry](ns-nvme-nvme_completion_entry.md) for that command.
      * @type {NVME_CDW11_FEATURE_NUMBER_OF_QUEUES}
      */
-    NumberOfQueues{
+    NumberOfQueues {
         get {
             if(!this.HasProp("__NumberOfQueues"))
                 this.__NumberOfQueues := NVME_CDW11_FEATURE_NUMBER_OF_QUEUES(0, this)
@@ -56,7 +52,7 @@ class NVME_CDW11_FEATURES extends Win32Struct
      * When a Get Features command is submitted for the Interrupt Coalescing Feature, the values specified in the **TIME** and **THR** fields of the **NVME_CDW11_FEATURE_INTERRUPT_COALESCING** structure are returned in the **DW0** field of the [Completion Queue Entry](ns-nvme-nvme_completion_entry.md) for that command.
      * @type {NVME_CDW11_FEATURE_INTERRUPT_COALESCING}
      */
-    InterruptCoalescing{
+    InterruptCoalescing {
         get {
             if(!this.HasProp("__InterruptCoalescing"))
                 this.__InterruptCoalescing := NVME_CDW11_FEATURE_INTERRUPT_COALESCING(0, this)
@@ -72,7 +68,7 @@ class NVME_CDW11_FEATURES extends Win32Struct
      * Prior to issuing this feature, the host should configure the specified Interrupt Vector with a valid I/O Completion Queue. If the I/O Completion Queue or Interrupt Vector specified is invalid, the controller will return a status of [NVME_STATUS_INVALID_FIELD_IN_COMMAND](ne-nvme-nvme_status_generic_command_codes.md).
      * @type {NVME_CDW11_FEATURE_INTERRUPT_VECTOR_CONFIG}
      */
-    InterruptVectorConfig{
+    InterruptVectorConfig {
         get {
             if(!this.HasProp("__InterruptVectorConfig"))
                 this.__InterruptVectorConfig := NVME_CDW11_FEATURE_INTERRUPT_VECTOR_CONFIG(0, this)
@@ -90,7 +86,7 @@ class NVME_CDW11_FEATURES extends Win32Struct
      * When a Get Features command is submitted for the LBA Range Type feature, the value specified in the **NUM** field of the **NVME_CDW11_FEATURE_LBA_RANGE_TYPE** structure is returned in the **DW0** field of the [Completion Queue entry](ns-nvme-nvme_completion_entry.md), and the LBA Range Type [NVME_LBA_RANGET_TYPE_ENTRY](ns-nvme-nvme_lba_ranget_type_entry.md) data structure is returned in the data buffer for that command.
      * @type {NVME_CDW11_FEATURE_LBA_RANGE_TYPE}
      */
-    LbaRangeType{
+    LbaRangeType {
         get {
             if(!this.HasProp("__LbaRangeType"))
                 this.__LbaRangeType := NVME_CDW11_FEATURE_LBA_RANGE_TYPE(0, this)
@@ -104,7 +100,7 @@ class NVME_CDW11_FEATURES extends Win32Struct
      * When a Get Features command is submitted for the Arbitration feature, the structure specified in this field is returned in the **DW0** field of the [Completion Queue entry](ns-nvme-nvme_completion_entry.md) for that command.
      * @type {NVME_CDW11_FEATURE_ARBITRATION}
      */
-    Arbitration{
+    Arbitration {
         get {
             if(!this.HasProp("__Arbitration"))
                 this.__Arbitration := NVME_CDW11_FEATURE_ARBITRATION(0, this)
@@ -118,7 +114,7 @@ class NVME_CDW11_FEATURES extends Win32Struct
      * When a Get Features command is submitted for the Volatile Write Cache Feature, the value specified in the **WCE** field of the **NVME_CDW11_FEATURE_VOLATILE_WRITE_CACHE** is returned in the **DW0** field of the [Completion Queue Entry](ns-nvme-nvme_completion_entry.md) for that command.
      * @type {NVME_CDW11_FEATURE_VOLATILE_WRITE_CACHE}
      */
-    VolatileWriteCache{
+    VolatileWriteCache {
         get {
             if(!this.HasProp("__VolatileWriteCache"))
                 this.__VolatileWriteCache := NVME_CDW11_FEATURE_VOLATILE_WRITE_CACHE(0, this)
@@ -132,7 +128,7 @@ class NVME_CDW11_FEATURES extends Win32Struct
      * When a Get Features command is submitted for the Asynchronous Event Configuration Feature, the values specified in The **NVME_CDW11_FEATURE_ASYNC_EVENT_CONFIG** structure are returned in the **DW0** field of the [Completion Queue Entry](ns-nvme-nvme_completion_entry.md) structure for that command.
      * @type {NVME_CDW11_FEATURE_ASYNC_EVENT_CONFIG}
      */
-    AsyncEventConfig{
+    AsyncEventConfig {
         get {
             if(!this.HasProp("__AsyncEventConfig"))
                 this.__AsyncEventConfig := NVME_CDW11_FEATURE_ASYNC_EVENT_CONFIG(0, this)
@@ -146,7 +142,7 @@ class NVME_CDW11_FEATURES extends Win32Struct
      * When a Get Features command is submitted for the Power Management feature, the **NVME_CDW11_FEATURE_POWER_MANAGEMENT** structure is returned in the **DW0** field of the [Completion Queue entry](ns-nvme-nvme_completion_entry.md) for that command.
      * @type {NVME_CDW11_FEATURE_POWER_MANAGEMENT}
      */
-    PowerManagement{
+    PowerManagement {
         get {
             if(!this.HasProp("__PowerManagement"))
                 this.__PowerManagement := NVME_CDW11_FEATURE_POWER_MANAGEMENT(0, this)
@@ -162,7 +158,7 @@ class NVME_CDW11_FEATURES extends Win32Struct
      * When a Get Features command is submitted for the Autonomous Power State Transition Feature, the value specified in The **APSTE** field of the **NVME_CDW11_FEATURE_AUTO_POWER_STATE_TRANSITION** structure is returned in the **DW0** field of the [Completion Queue Entry](ns-nvme-nvme_completion_entry.md), and the [NVME_AUTO_POWER_STATE_TRANSITION_ENTRY](ns-nvme-nvme_auto_power_state_transition_entry.md) data structure is returned in the data buffer for that command.
      * @type {NVME_CDW11_FEATURE_AUTO_POWER_STATE_TRANSITION}
      */
-    AutoPowerStateTransition{
+    AutoPowerStateTransition {
         get {
             if(!this.HasProp("__AutoPowerStateTransition"))
                 this.__AutoPowerStateTransition := NVME_CDW11_FEATURE_AUTO_POWER_STATE_TRANSITION(0, this)
@@ -174,7 +170,7 @@ class NVME_CDW11_FEATURES extends Win32Struct
      * Specifies an [NVME_CDW11_FEATURE_TEMPERATURE_THRESHOLD](ns-nvme-nvme_cdw11_feature_temperature_threshold.md) structure containing values that are used to set or retrieve temperature threshold values for the controller.
      * @type {NVME_CDW11_FEATURE_TEMPERATURE_THRESHOLD}
      */
-    TemperatureThreshold{
+    TemperatureThreshold {
         get {
             if(!this.HasProp("__TemperatureThreshold"))
                 this.__TemperatureThreshold := NVME_CDW11_FEATURE_TEMPERATURE_THRESHOLD(0, this)
@@ -185,7 +181,7 @@ class NVME_CDW11_FEATURES extends Win32Struct
     /**
      * @type {NVME_CDW11_FEATURE_ERROR_RECOVERY}
      */
-    ErrorRecovery{
+    ErrorRecovery {
         get {
             if(!this.HasProp("__ErrorRecovery"))
                 this.__ErrorRecovery := NVME_CDW11_FEATURE_ERROR_RECOVERY(0, this)
@@ -206,7 +202,7 @@ class NVME_CDW11_FEATURES extends Win32Struct
      * - The fields for an entry in the Host Memory Descriptor List are specified in the [NVME_HOST_MEMORY_BUFFER_DESCRIPTOR_ENTRY](ns-nvme-nvme_host_memory_buffer_descriptor_entry.md) structure.
      * @type {NVME_CDW11_FEATURE_HOST_MEMORY_BUFFER}
      */
-    HostMemoryBuffer{
+    HostMemoryBuffer {
         get {
             if(!this.HasProp("__HostMemoryBuffer"))
                 this.__HostMemoryBuffer := NVME_CDW11_FEATURE_HOST_MEMORY_BUFFER(0, this)
@@ -220,7 +216,7 @@ class NVME_CDW11_FEATURES extends Win32Struct
      * When a Get Features command is submitted for the Write Atomicity Normal Feature, the values specified in The **NVME_CDW11_FEATURE_WRITE_ATOMICITY_NORMAL** structure are returned in the **DW0** field of the [Completion Queue Entry](ns-nvme-nvme_completion_entry.md) structure for that command.
      * @type {NVME_CDW11_FEATURE_WRITE_ATOMICITY_NORMAL}
      */
-    WriteAtomicityNormal{
+    WriteAtomicityNormal {
         get {
             if(!this.HasProp("__WriteAtomicityNormal"))
                 this.__WriteAtomicityNormal := NVME_CDW11_FEATURE_WRITE_ATOMICITY_NORMAL(0, this)
@@ -232,7 +228,7 @@ class NVME_CDW11_FEATURES extends Win32Struct
      * Specifies an [NVME_CDW11_FEATURE_NON_OPERATIONAL_POWER_STATE](ns-nvme-nvme_cdw11_feature_non_operational_power_state.md) structure containing values for the Non-Operational Power State Feature that indicates whether permissive mode is enabled for a non-operational power state.
      * @type {NVME_CDW11_FEATURE_NON_OPERATIONAL_POWER_STATE}
      */
-    NonOperationalPowerState{
+    NonOperationalPowerState {
         get {
             if(!this.HasProp("__NonOperationalPowerState"))
                 this.__NonOperationalPowerState := NVME_CDW11_FEATURE_NON_OPERATIONAL_POWER_STATE(0, this)
@@ -243,7 +239,7 @@ class NVME_CDW11_FEATURES extends Win32Struct
     /**
      * @type {NVME_CDW11_FEATURE_IO_COMMAND_SET_PROFILE}
      */
-    IoCommandSetProfile{
+    IoCommandSetProfile {
         get {
             if(!this.HasProp("__IoCommandSetProfile"))
                 this.__IoCommandSetProfile := NVME_CDW11_FEATURE_IO_COMMAND_SET_PROFILE(0, this)
@@ -254,7 +250,7 @@ class NVME_CDW11_FEATURES extends Win32Struct
     /**
      * @type {NVME_CDW0_FEATURE_ERROR_INJECTION}
      */
-    ErrorInjection{
+    ErrorInjection {
         get {
             if(!this.HasProp("__ErrorInjection"))
                 this.__ErrorInjection := NVME_CDW0_FEATURE_ERROR_INJECTION(0, this)
@@ -265,7 +261,7 @@ class NVME_CDW11_FEATURES extends Win32Struct
     /**
      * @type {NVME_CDW11_FEATURE_HOST_IDENTIFIER}
      */
-    HostIdentifier{
+    HostIdentifier {
         get {
             if(!this.HasProp("__HostIdentifier"))
                 this.__HostIdentifier := NVME_CDW11_FEATURE_HOST_IDENTIFIER(0, this)
@@ -276,7 +272,7 @@ class NVME_CDW11_FEATURES extends Win32Struct
     /**
      * @type {NVME_CDW11_FEATURE_RESERVATION_PERSISTENCE}
      */
-    ReservationPersistence{
+    ReservationPersistence {
         get {
             if(!this.HasProp("__ReservationPersistence"))
                 this.__ReservationPersistence := NVME_CDW11_FEATURE_RESERVATION_PERSISTENCE(0, this)
@@ -287,7 +283,7 @@ class NVME_CDW11_FEATURES extends Win32Struct
     /**
      * @type {NVME_CDW11_FEATURE_RESERVATION_NOTIFICATION_MASK}
      */
-    ReservationNotificationMask{
+    ReservationNotificationMask {
         get {
             if(!this.HasProp("__ReservationNotificationMask"))
                 this.__ReservationNotificationMask := NVME_CDW11_FEATURE_RESERVATION_NOTIFICATION_MASK(0, this)
@@ -298,7 +294,7 @@ class NVME_CDW11_FEATURES extends Win32Struct
     /**
      * @type {NVME_CDW11_FEATURE_GET_HOST_METADATA}
      */
-    GetHostMetadata{
+    GetHostMetadata {
         get {
             if(!this.HasProp("__GetHostMetadata"))
                 this.__GetHostMetadata := NVME_CDW11_FEATURE_GET_HOST_METADATA(0, this)
@@ -309,7 +305,7 @@ class NVME_CDW11_FEATURES extends Win32Struct
     /**
      * @type {NVME_CDW11_FEATURE_SET_HOST_METADATA}
      */
-    SetHostMetadata{
+    SetHostMetadata {
         get {
             if(!this.HasProp("__SetHostMetadata"))
                 this.__SetHostMetadata := NVME_CDW11_FEATURE_SET_HOST_METADATA(0, this)
@@ -318,7 +314,6 @@ class NVME_CDW11_FEATURES extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     AsUlong {

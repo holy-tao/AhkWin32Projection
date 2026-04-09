@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Networking.WinSock
- * @version v4.0.30319
  */
-class IPV6_ROUTING_HEADER extends Win32Struct
-{
+class IPV6_ROUTING_HEADER extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 1
@@ -44,9 +42,9 @@ class IPV6_ROUTING_HEADER extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Reserved{
+    Reserved {
         get {
             if(!this.HasProp("__ReservedProxyArray"))
                 this.__ReservedProxyArray := Win32FixedArray(this.ptr + 4, 4, Primitive, "char")

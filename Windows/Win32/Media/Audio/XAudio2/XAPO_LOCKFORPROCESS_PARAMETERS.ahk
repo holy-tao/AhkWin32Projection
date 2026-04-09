@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\WAVEFORMATEX.ahk
 
 /**
  * Defines stream buffer parameters that remain constant while an XAPO is locked. Used with the IXAPO::LockForProcess method.
@@ -12,10 +13,8 @@
  * Windows 10 (XAudio2.9); Windows 8, Windows Phone 8 (XAudio 2.8); DirectX SDK (XAudio 2.7)
  * @see https://learn.microsoft.com/windows/win32/api/xapo/ns-xapo-xapo_lockforprocess_parameters
  * @namespace Windows.Win32.Media.Audio.XAudio2
- * @version v4.0.30319
  */
-class XAPO_LOCKFORPROCESS_PARAMETERS extends Win32Struct
-{
+class XAPO_LOCKFORPROCESS_PARAMETERS extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

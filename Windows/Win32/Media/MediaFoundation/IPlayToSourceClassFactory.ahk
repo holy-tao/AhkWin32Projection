@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\WinRT\IInspectable.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\System\WinRT\IInspectable.ahk
 
 /**
  * Creates an instance of the PlayToSource object.
@@ -10,9 +10,8 @@
  * To get a pointer to this interface, call <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cocreateinstance">CoCreateInstance</a>. The CLSID is <b>CLSID_PlayToSourceClassFactory</b>.
  * @see https://learn.microsoft.com/windows/win32/api/mfsharingengine/nn-mfsharingengine-iplaytosourceclassfactory
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IPlayToSourceClassFactory extends IUnknown{
+class IPlayToSourceClassFactory extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

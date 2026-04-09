@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IEnumStreamIdMap.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\IEnumStreamIdMap.ahk
 
 /**
  * This interface is implemented on each output pin of the MPEG-2 Demultiplexer filter (Demux) and is used in program stream mode only.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-impeg2streamidmap
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IMPEG2StreamIdMap extends IUnknown{
+class IMPEG2StreamIdMap extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

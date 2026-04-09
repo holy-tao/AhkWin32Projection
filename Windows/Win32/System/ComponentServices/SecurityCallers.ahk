@@ -9,10 +9,8 @@
  * To use this class from Microsoft Visual Basic, add a reference to the COM+ Services Type Library. You cannot directly create a SecurityCallers object. To use its properties, you must obtain a refernece to its implementation using [**GetSecurityCallContext**](/windows/desktop/api/ComSvcs/nf-comsvcs-igetsecuritycallcontext-getsecuritycallcontext). Next, get the Item property of the object, requesting a security call context item that is a security identity collection (such as "DirectCaller" or "OriginalCaller").
  * @see https://learn.microsoft.com/windows/win32/cossdk/securitycallers
  * @namespace Windows.Win32.System.ComponentServices
- * @version v4.0.30319
  */
-class SecurityCallers extends Win32Struct
-{
+class SecurityCallers extends Win32Struct {
     static sizeof => 0
 
     static packingSize => 1

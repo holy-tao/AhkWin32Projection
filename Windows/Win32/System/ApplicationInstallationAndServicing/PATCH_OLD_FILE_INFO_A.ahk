@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\PATCH_IGNORE_RANGE.ahk
+#Include .\PATCH_RETAIN_RANGE.ahk
 
 /**
  * @namespace Windows.Win32.System.ApplicationInstallationAndServicing
- * @version v4.0.30319
  * @charset ANSI
  */
-class PATCH_OLD_FILE_INFO_A extends Win32Struct
-{
+class PATCH_OLD_FILE_INFO_A extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8

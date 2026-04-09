@@ -7,9 +7,8 @@
  * The IAudioSystemEffects2 interface was introduced with Windows 8.1 for retrieving information about the processing objects in a given mode.
  * @see https://learn.microsoft.com/windows/win32/api/audioenginebaseapo/nn-audioenginebaseapo-iaudiosystemeffects2
  * @namespace Windows.Win32.Media.Audio.Apo
- * @version v4.0.30319
  */
-class IAudioSystemEffects2 extends IAudioSystemEffects{
+class IAudioSystemEffects2 extends IAudioSystemEffects {
 
     static sizeof => A_PtrSize
     /**

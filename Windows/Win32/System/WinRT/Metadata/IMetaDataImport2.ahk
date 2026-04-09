@@ -7,9 +7,8 @@
  * Extends the IMetaDataImport interface to provide the capability of working with generic types.
  * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nn-rometadataapi-imetadataimport2
  * @namespace Windows.Win32.System.WinRT.Metadata
- * @version v4.0.30319
  */
-class IMetaDataImport2 extends IMetaDataImport{
+class IMetaDataImport2 extends IMetaDataImport {
 
     static sizeof => A_PtrSize
     /**

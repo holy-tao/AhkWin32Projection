@@ -5,9 +5,8 @@
  * The VMRPresentationFlags enumeration type is a member of the VMRPRESENTATIONINFO structure .
  * @see https://learn.microsoft.com/windows/win32/api/strmif/ne-strmif-vmrpresentationflags
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class VMRPresentationFlags extends Win32Enum{
+class VMRPresentationFlags extends Win32Enum {
 
     /**
      * Indicates that the sample is a sync point.
@@ -34,7 +33,6 @@ class VMRPresentationFlags extends Win32Enum{
     static VMRSample_TimeValid => 8
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static VMRSample_SrcDstRectsValid => 16

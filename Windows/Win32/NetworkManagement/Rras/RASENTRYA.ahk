@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\RASIPADDR.ahk
+#Include .\RASENTRY_DIAL_MODE.ahk
 #Include ..\..\Networking\WinSock\IN6_ADDR.ahk
+#Include .\IKEV2_ID_PAYLOAD_TYPE.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Rras
- * @version v4.0.30319
  * @charset ANSI
  */
-class RASENTRYA extends Win32Struct
-{
+class RASENTRYA extends Win32Struct {
     static sizeof => 3472
 
     static packingSize => 8
@@ -73,7 +73,7 @@ class RASENTRYA extends Win32Struct
     /**
      * @type {RASIPADDR}
      */
-    ipaddr{
+    ipaddr {
         get {
             if(!this.HasProp("__ipaddr"))
                 this.__ipaddr := RASIPADDR(160, this)
@@ -84,7 +84,7 @@ class RASENTRYA extends Win32Struct
     /**
      * @type {RASIPADDR}
      */
-    ipaddrDns{
+    ipaddrDns {
         get {
             if(!this.HasProp("__ipaddrDns"))
                 this.__ipaddrDns := RASIPADDR(164, this)
@@ -95,7 +95,7 @@ class RASENTRYA extends Win32Struct
     /**
      * @type {RASIPADDR}
      */
-    ipaddrDnsAlt{
+    ipaddrDnsAlt {
         get {
             if(!this.HasProp("__ipaddrDnsAlt"))
                 this.__ipaddrDnsAlt := RASIPADDR(168, this)
@@ -106,7 +106,7 @@ class RASENTRYA extends Win32Struct
     /**
      * @type {RASIPADDR}
      */
-    ipaddrWins{
+    ipaddrWins {
         get {
             if(!this.HasProp("__ipaddrWins"))
                 this.__ipaddrWins := RASIPADDR(172, this)
@@ -117,7 +117,7 @@ class RASENTRYA extends Win32Struct
     /**
      * @type {RASIPADDR}
      */
-    ipaddrWinsAlt{
+    ipaddrWinsAlt {
         get {
             if(!this.HasProp("__ipaddrWinsAlt"))
                 this.__ipaddrWinsAlt := RASIPADDR(176, this)
@@ -254,7 +254,7 @@ class RASENTRYA extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {RASENTRY_DIAL_MODE}
      */
     dwDialMode {
         get => NumGet(this, 1772, "uint")
@@ -326,7 +326,7 @@ class RASENTRYA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     guidId {
         get => NumGet(this, 1808, "ptr")
@@ -416,7 +416,7 @@ class RASENTRYA extends Win32Struct
     /**
      * @type {IN6_ADDR}
      */
-    ipv6addrDns{
+    ipv6addrDns {
         get {
             if(!this.HasProp("__ipv6addrDns"))
                 this.__ipv6addrDns := IN6_ADDR(2876, this)
@@ -427,7 +427,7 @@ class RASENTRYA extends Win32Struct
     /**
      * @type {IN6_ADDR}
      */
-    ipv6addrDnsAlt{
+    ipv6addrDnsAlt {
         get {
             if(!this.HasProp("__ipv6addrDnsAlt"))
                 this.__ipv6addrDnsAlt := IN6_ADDR(2892, this)
@@ -454,7 +454,7 @@ class RASENTRYA extends Win32Struct
     /**
      * @type {IN6_ADDR}
      */
-    ipv6addr{
+    ipv6addr {
         get {
             if(!this.HasProp("__ipv6addr"))
                 this.__ipv6addr := IN6_ADDR(2916, this)
@@ -503,7 +503,7 @@ class RASENTRYA extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {IKEV2_ID_PAYLOAD_TYPE}
      */
     IdiType {
         get => NumGet(this, 3460, "int")
@@ -511,7 +511,7 @@ class RASENTRYA extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {IKEV2_ID_PAYLOAD_TYPE}
      */
     IdrType {
         get => NumGet(this, 3464, "int")

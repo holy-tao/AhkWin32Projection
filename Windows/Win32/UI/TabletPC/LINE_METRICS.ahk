@@ -12,9 +12,8 @@
  * For East Asian languages written vertically, the descender line is the leftmost edge, the ascender line is the rightmost edge, and baseline is between the descender and ascender lines. The midline for Komoji characters is the leftmost edge and the location for punctuation characters depends on the character.
  * @see https://learn.microsoft.com/windows/win32/api/rectypes/ne-rectypes-line_metrics
  * @namespace Windows.Win32.UI.TabletPC
- * @version v4.0.30319
  */
-class LINE_METRICS extends Win32Enum{
+class LINE_METRICS extends Win32Enum {
 
     /**
      * Requests baseline metrics. For an example that shows the baseline of a segment, see the Remarks section.

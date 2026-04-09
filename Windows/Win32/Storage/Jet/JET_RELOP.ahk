@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Storage.Jet
- * @version v4.0.30319
  */
-class JET_RELOP extends Win32Enum{
+class JET_RELOP extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

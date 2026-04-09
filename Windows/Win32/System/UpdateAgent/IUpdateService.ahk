@@ -1,18 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
 #Include ..\Variant\VARIANT.ahk
 #Include .\IStringCollection.ahk
-#Include ..\Com\IDispatch.ahk
 
 /**
  * Contains information about a service that is registered with Windows Update Agent (WUA) or with Automatic Updates. (IUpdateService)
  * @see https://learn.microsoft.com/windows/win32/api/wuapi/nn-wuapi-iupdateservice
  * @namespace Windows.Win32.System.UpdateAgent
- * @version v4.0.30319
  */
-class IUpdateService extends IDispatch{
+class IUpdateService extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

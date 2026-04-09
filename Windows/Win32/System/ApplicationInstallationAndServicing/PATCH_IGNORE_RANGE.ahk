@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.ApplicationInstallationAndServicing
- * @version v4.0.30319
  */
-class PATCH_IGNORE_RANGE extends Win32Struct
-{
+class PATCH_IGNORE_RANGE extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4

@@ -7,9 +7,8 @@
  * Is called by the holder of the COM+ Resource Dispenser to create, enlist, evaluate, prepare, and destroy a resource.
  * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nn-comsvcs-idispenserdriver
  * @namespace Windows.Win32.System.ComponentServices
- * @version v4.0.30319
  */
-class IDispenserDriver extends IUnknown{
+class IDispenserDriver extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

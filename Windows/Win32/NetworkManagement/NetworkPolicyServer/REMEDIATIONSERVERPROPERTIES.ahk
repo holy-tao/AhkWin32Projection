@@ -5,9 +5,8 @@
  * The values of the REMEDIATIONSERVERPROPERTIES enumeration type enumerate the properties of a remediation server.
  * @see https://learn.microsoft.com/windows/win32/api/sdoias/ne-sdoias-remediationserverproperties
  * @namespace Windows.Win32.NetworkManagement.NetworkPolicyServer
- * @version v4.0.30319
  */
-class REMEDIATIONSERVERPROPERTIES extends Win32Enum{
+class REMEDIATIONSERVERPROPERTIES extends Win32Enum {
 
     /**
      * IP address value for a Remediation Server. Used in Network Policy Server (NPS) user interface.

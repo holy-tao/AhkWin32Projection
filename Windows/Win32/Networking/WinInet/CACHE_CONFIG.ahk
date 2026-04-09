@@ -10,9 +10,8 @@
   *          <b>CACHE_CONFIG_COOKIES_PATHS_FC</b>.
  * @see https://learn.microsoft.com/windows/win32/api/winineti/nf-winineti-geturlcacheconfiginfoa
  * @namespace Windows.Win32.Networking.WinInet
- * @version v4.0.30319
  */
-class CACHE_CONFIG extends Win32Enum{
+class CACHE_CONFIG extends Win32Enum {
 
     /**
      * @type {Integer (UInt32)}

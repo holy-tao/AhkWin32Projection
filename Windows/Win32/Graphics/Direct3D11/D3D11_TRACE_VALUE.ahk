@@ -7,10 +7,8 @@
  * This API requires the Windows Software Development Kit (SDK) for Windows 8.
  * @see https://learn.microsoft.com/windows/win32/api/d3d11shadertracing/ns-d3d11shadertracing-d3d11_trace_value
  * @namespace Windows.Win32.Graphics.Direct3D11
- * @version v4.0.30319
  */
-class D3D11_TRACE_VALUE extends Win32Struct
-{
+class D3D11_TRACE_VALUE extends Win32Struct {
     static sizeof => 20
 
     static packingSize => 4
@@ -24,9 +22,9 @@ class D3D11_TRACE_VALUE extends Win32Struct
      *               If the bits are displayed, they can be interpreted as <b>float</b> at the last moment.
      *             </div>
      * <div> </div>
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    Bits{
+    Bits {
         get {
             if(!this.HasProp("__BitsProxyArray"))
                 this.__BitsProxyArray := Win32FixedArray(this.ptr + 0, 4, Primitive, "uint")

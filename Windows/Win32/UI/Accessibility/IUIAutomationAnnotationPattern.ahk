@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\Foundation\BSTR.ahk
 #Include .\IUIAutomationElement.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Provides access to the properties of an annotation in a document.
  * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nn-uiautomationclient-iuiautomationannotationpattern
  * @namespace Windows.Win32.UI.Accessibility
- * @version v4.0.30319
  */
-class IUIAutomationAnnotationPattern extends IUnknown{
+class IUIAutomationAnnotationPattern extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -33,7 +32,7 @@ class IUIAutomationAnnotationPattern extends IUnknown{
     static VTableNames => ["get_CurrentAnnotationTypeId", "get_CurrentAnnotationTypeName", "get_CurrentAuthor", "get_CurrentDateTime", "get_CurrentTarget", "get_CachedAnnotationTypeId", "get_CachedAnnotationTypeName", "get_CachedAuthor", "get_CachedDateTime", "get_CachedTarget"]
 
     /**
-     * @type {Integer} 
+     * @type {UIA_ANNOTATIONTYPE} 
      */
     CurrentAnnotationTypeId {
         get => this.get_CurrentAnnotationTypeId()
@@ -68,7 +67,7 @@ class IUIAutomationAnnotationPattern extends IUnknown{
     }
 
     /**
-     * @type {Integer} 
+     * @type {UIA_ANNOTATIONTYPE} 
      */
     CachedAnnotationTypeId {
         get => this.get_CachedAnnotationTypeId()
@@ -104,7 +103,7 @@ class IUIAutomationAnnotationPattern extends IUnknown{
 
     /**
      * Retrieves a value that identifies the annotation's type.
-     * @returns {Integer} 
+     * @returns {UIA_ANNOTATIONTYPE} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationannotationpattern-get_currentannotationtypeid
      */
     get_CurrentAnnotationTypeId() {
@@ -159,7 +158,7 @@ class IUIAutomationAnnotationPattern extends IUnknown{
 
     /**
      * Retrieves a cached value that identifies this annotation's type.
-     * @returns {Integer} 
+     * @returns {UIA_ANNOTATIONTYPE} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationannotationpattern-get_cachedannotationtypeid
      */
     get_CachedAnnotationTypeId() {

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\IMFMediaType.ahk
 
 /**
  * Contains information about the audio and video streams for the transcode sink activation object.
@@ -7,10 +8,8 @@
  * The <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-imftranscodesinkinfoprovider-getsinkinfo">IMFTranscodeSinkInfoProvider::GetSinkInfo</a> method assigns <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfmediatype">IMFMediaType</a> pointers to the <b>pAudioMediaType</b> and <b>pVideoMediaType</b> members of this structure. The method might set either member to <b>NULL</b>. If either member is non-<b>NULL</b> after the method returns, the caller must release the <b>IMFMediaType</b> pointers.
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/ns-mfidl-mf_transcode_sink_info
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class MF_TRANSCODE_SINK_INFO extends Win32Struct
-{
+class MF_TRANSCODE_SINK_INFO extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8

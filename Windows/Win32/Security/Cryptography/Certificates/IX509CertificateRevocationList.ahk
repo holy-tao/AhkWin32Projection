@@ -1,21 +1,20 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
+#Include ..\..\..\System\Com\IDispatch.ahk
 #Include .\IX500DistinguishedName.ahk
 #Include .\IX509CertificateRevocationListEntries.ahk
 #Include .\IX509Extensions.ahk
 #Include .\IObjectIds.ahk
 #Include .\ISignerCertificate.ahk
+#Include ..\..\..\Foundation\BSTR.ahk
 #Include .\IObjectId.ahk
 #Include .\IX509SignatureInformation.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
 
 /**
  * @namespace Windows.Win32.Security.Cryptography.Certificates
- * @version v4.0.30319
  */
-class IX509CertificateRevocationList extends IDispatch{
+class IX509CertificateRevocationList extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -170,7 +169,7 @@ class IX509CertificateRevocationList extends IDispatch{
     /**
      * 
      * @param {BSTR} strEncodedData 
-     * @param {Integer} Encoding 
+     * @param {EncodingType} Encoding 
      * @returns {HRESULT} 
      */
     InitializeDecode(strEncodedData, Encoding) {
@@ -340,7 +339,7 @@ class IX509CertificateRevocationList extends IDispatch{
 
     /**
      * 
-     * @param {Integer} Encoding 
+     * @param {EncodingType} Encoding 
      * @returns {BSTR} 
      */
     get_CRLNumber(Encoding) {
@@ -351,7 +350,7 @@ class IX509CertificateRevocationList extends IDispatch{
 
     /**
      * 
-     * @param {Integer} Encoding 
+     * @param {EncodingType} Encoding 
      * @param {BSTR} Value 
      * @returns {HRESULT} 
      */
@@ -448,7 +447,7 @@ class IX509CertificateRevocationList extends IDispatch{
 
     /**
      * 
-     * @param {Integer} Encoding 
+     * @param {EncodingType} Encoding 
      * @returns {BSTR} 
      */
     get_RawData(Encoding) {
@@ -459,7 +458,7 @@ class IX509CertificateRevocationList extends IDispatch{
 
     /**
      * 
-     * @param {Integer} Encoding 
+     * @param {EncodingType} Encoding 
      * @returns {BSTR} 
      */
     get_RawDataToBeSigned(Encoding) {
@@ -470,7 +469,7 @@ class IX509CertificateRevocationList extends IDispatch{
 
     /**
      * 
-     * @param {Integer} Encoding 
+     * @param {EncodingType} Encoding 
      * @returns {BSTR} 
      */
     get_Signature(Encoding) {

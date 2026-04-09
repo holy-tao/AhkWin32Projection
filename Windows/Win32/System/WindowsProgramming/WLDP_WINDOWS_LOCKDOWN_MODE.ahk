@@ -3,13 +3,10 @@
 
 /**
  * Describes the secure modes (S modes) for a Windows device.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/wldp/ne-wldp-wldp_windows_lockdown_mode
  * @namespace Windows.Win32.System.WindowsProgramming
- * @version v4.0.30319
  */
-class WLDP_WINDOWS_LOCKDOWN_MODE extends Win32Enum{
+class WLDP_WINDOWS_LOCKDOWN_MODE extends Win32Enum {
 
     /**
      * Unlocked. Used primarily for Windows devices without the S mode.

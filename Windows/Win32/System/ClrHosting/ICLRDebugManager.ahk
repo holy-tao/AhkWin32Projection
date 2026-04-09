@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.ClrHosting
- * @version v4.0.30319
  */
-class ICLRDebugManager extends IUnknown{
+class ICLRDebugManager extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -93,7 +92,7 @@ class ICLRDebugManager extends IUnknown{
 
     /**
      * 
-     * @param {Integer} policy 
+     * @param {ESymbolReadingPolicy} policy 
      * @returns {HRESULT} 
      */
     SetSymbolReadingPolicy(policy) {

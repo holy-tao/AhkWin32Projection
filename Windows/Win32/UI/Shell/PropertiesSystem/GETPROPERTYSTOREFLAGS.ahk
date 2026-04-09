@@ -18,9 +18,8 @@
  * <div> </div>
  * @see https://learn.microsoft.com/windows/win32/api/propsys/ne-propsys-getpropertystoreflags
  * @namespace Windows.Win32.UI.Shell.PropertiesSystem
- * @version v4.0.30319
  */
-class GETPROPERTYSTOREFLAGS extends Win32BitflagEnum{
+class GETPROPERTYSTOREFLAGS extends Win32BitflagEnum {
 
     /**
      * Meaning to a calling process: Return a read-only property store that contains all properties. Slow items (offline files) are not opened. 
@@ -157,13 +156,11 @@ class GETPROPERTYSTOREFLAGS extends Win32BitflagEnum{
     static GPS_EXTRINSICPROPERTIESONLY => 1024
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static GPS_VOLATILEPROPERTIES => 2048
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static GPS_VOLATILEPROPERTIESONLY => 4096

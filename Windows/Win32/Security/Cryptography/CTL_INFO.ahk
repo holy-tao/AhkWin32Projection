@@ -4,15 +4,15 @@
 #Include .\CRYPT_INTEGER_BLOB.ahk
 #Include ..\..\Foundation\FILETIME.ahk
 #Include .\CRYPT_ALGORITHM_IDENTIFIER.ahk
+#Include .\CTL_ENTRY.ahk
+#Include .\CERT_EXTENSION.ahk
 
 /**
  * Contains the information stored in a Certificate Trust List (CTL).
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-ctl_info
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CTL_INFO extends Win32Struct
-{
+class CTL_INFO extends Win32Struct {
     static sizeof => 128
 
     static packingSize => 8
@@ -52,7 +52,7 @@ class CTL_INFO extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-ctl_usage">CTL_USAGE</a> structure identifying the intended usage of the list as a sequence of object identifiers. This is the same as in the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/e-gly">Enhanced Key Usage</a> extension.
      * @type {CTL_USAGE}
      */
-    SubjectUsage{
+    SubjectUsage {
         get {
             if(!this.HasProp("__SubjectUsage"))
                 this.__SubjectUsage := CTL_USAGE(8, this)
@@ -65,7 +65,7 @@ class CTL_INFO extends Win32Struct
      * 						<a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa381414(v=vs.85)">CRYPT_DATA_BLOB</a> structure that includes a byte string that uniquely identifies the list. This member is used to augment the <b>SubjectUsage</b> and further specifies the list when desired.
      * @type {CRYPT_INTEGER_BLOB}
      */
-    ListIdentifier{
+    ListIdentifier {
         get {
             if(!this.HasProp("__ListIdentifier"))
                 this.__ListIdentifier := CRYPT_INTEGER_BLOB(24, this)
@@ -77,7 +77,7 @@ class CTL_INFO extends Win32Struct
      * A <a href="https://docs.microsoft.com/windows/desktop/SecGloss/b-gly">BLOB</a> that contains a monotonically increasing number for each update of the CTL.
      * @type {CRYPT_INTEGER_BLOB}
      */
-    SequenceNumber{
+    SequenceNumber {
         get {
             if(!this.HasProp("__SequenceNumber"))
                 this.__SequenceNumber := CRYPT_INTEGER_BLOB(40, this)
@@ -89,7 +89,7 @@ class CTL_INFO extends Win32Struct
      * Indication of the date and time of the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate revocation lists</a> (CRLs) published. If the time is after 1950 and before 2050, it is UTC-time encoded as an 8-byte date/time precise to seconds with a 2-digit year (that is, YYMMDDHHMMSS plus 2 bytes). Otherwise, it is generalized-time encoded as an 8-byte year precise to milliseconds with a 4-byte year.
      * @type {FILETIME}
      */
-    ThisUpdate{
+    ThisUpdate {
         get {
             if(!this.HasProp("__ThisUpdate"))
                 this.__ThisUpdate := FILETIME(56, this)
@@ -101,7 +101,7 @@ class CTL_INFO extends Win32Struct
      * Indication of the date and time for the CRL's next available scheduled update. If the time is after 1950 and before 2050, it is UTC-time encoded as an 8-byte date/time precise to seconds with a 2-digit year (that is, YYMMDDHHMMSS plus 2 bytes). Otherwise, it is generalized-time encoded as an 8-byte date time precise to milliseconds with a 4-byte year.
      * @type {FILETIME}
      */
-    NextUpdate{
+    NextUpdate {
         get {
             if(!this.HasProp("__NextUpdate"))
                 this.__NextUpdate := FILETIME(64, this)
@@ -113,7 +113,7 @@ class CTL_INFO extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-crypt_algorithm_identifier">CRYPT_ALGORITHM_IDENTIFIER</a> structure that contains the algorithm type of the <b>SubjectIdentifier</b> in <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-ctl_entry">CTL_ENTRY</a> members of the <b>rgCTLEntry</b> member array. The structure also includes additional parameters used by the algorithm.
      * @type {CRYPT_ALGORITHM_IDENTIFIER}
      */
-    SubjectAlgorithm{
+    SubjectAlgorithm {
         get {
             if(!this.HasProp("__SubjectAlgorithm"))
                 this.__SubjectAlgorithm := CRYPT_ALGORITHM_IDENTIFIER(72, this)

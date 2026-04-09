@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IMFAttributes.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 #Include .\IMFMediaType.ahk
-#Include .\IMFAttributes.ahk
 
 /**
  * Represents a node in a topology.
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imftopologynode
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFTopologyNode extends IMFAttributes{
+class IMFTopologyNode extends IMFAttributes {
 
     static sizeof => A_PtrSize
     /**
@@ -103,7 +102,7 @@ class IMFTopologyNode extends IMFAttributes{
 
     /**
      * Retrieves the node type.
-     * @returns {Integer} Receives the node type, specified as a member of the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/ne-mfidl-mf_topology_type">MF_TOPOLOGY_TYPE</a> enumeration.
+     * @returns {MF_TOPOLOGY_TYPE} Receives the node type, specified as a member of the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/ne-mfidl-mf_topology_type">MF_TOPOLOGY_TYPE</a> enumeration.
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imftopologynode-getnodetype
      */
     GetNodeType() {

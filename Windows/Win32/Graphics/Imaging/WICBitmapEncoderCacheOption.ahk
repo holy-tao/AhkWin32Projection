@@ -5,9 +5,8 @@
  * Specifies the cache options available for an encoder.
  * @see https://learn.microsoft.com/windows/win32/api/wincodec/ne-wincodec-wicbitmapencodercacheoption
  * @namespace Windows.Win32.Graphics.Imaging
- * @version v4.0.30319
  */
-class WICBitmapEncoderCacheOption extends Win32Enum{
+class WICBitmapEncoderCacheOption extends Win32Enum {
 
     /**
      * The encoder is cached in memory. This option is not supported.

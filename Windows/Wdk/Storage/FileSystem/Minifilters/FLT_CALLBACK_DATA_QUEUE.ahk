@@ -1,18 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\FLT_CALLBACK_DATA_QUEUE_FLAGS.ahk
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem.Minifilters
- * @version v4.0.30319
  */
-class FLT_CALLBACK_DATA_QUEUE extends Win32Struct
-{
+class FLT_CALLBACK_DATA_QUEUE extends Win32Struct {
     static sizeof => 72
 
     static packingSize => 8
 
     /**
-     * @type {Pointer<IO_CSQ>}
+     * @type {Pointer}
      */
     Csq {
         get => NumGet(this, 0, "ptr")
@@ -20,7 +19,7 @@ class FLT_CALLBACK_DATA_QUEUE extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {FLT_CALLBACK_DATA_QUEUE_FLAGS}
      */
     Flags {
         get => NumGet(this, 8, "int")

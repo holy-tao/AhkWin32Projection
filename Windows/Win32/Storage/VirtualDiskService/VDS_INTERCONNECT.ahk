@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\VDS_INTERCONNECT_ADDRESS_TYPE.ahk
 
 /**
  * Defines the address data of a physical interconnect.
@@ -8,10 +9,8 @@
  *     structure as a member to specify an interconnect by which a LUN can be accessed.
  * @see https://learn.microsoft.com/windows/win32/api/vdslun/ns-vdslun-vds_interconnect
  * @namespace Windows.Win32.Storage.VirtualDiskService
- * @version v4.0.30319
  */
-class VDS_INTERCONNECT extends Win32Struct
-{
+class VDS_INTERCONNECT extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -19,7 +18,7 @@ class VDS_INTERCONNECT extends Win32Struct
     /**
      * The interconnect address type enumerated by 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/vdslun/ne-vdslun-vds_interconnect_address_type">VDS_INTERCONNECT_ADDRESS_TYPE</a>.
-     * @type {Integer}
+     * @type {VDS_INTERCONNECT_ADDRESS_TYPE}
      */
     m_addressType {
         get => NumGet(this, 0, "int")

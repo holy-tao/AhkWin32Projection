@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\SOCKADDR.ahk
+#Include .\ADDRINFOEX2W.ahk
 
 /**
  * Used by the GetAddrInfoEx function to hold host address information when both a canonical name and a fully qualified domain name have been requested. (Unicode)
@@ -28,11 +30,9 @@
  * <b>addrinfoex2</b> structure points to a filled-in socket address structure, the length of which is specified in its <b>ai_addrlen</b> member.
  * @see https://learn.microsoft.com/windows/win32/api/ws2def/ns-ws2def-addrinfoex2w
  * @namespace Windows.Win32.Networking.WinSock
- * @version v4.0.30319
  * @charset Unicode
  */
-class ADDRINFOEX2W extends Win32Struct
-{
+class ADDRINFOEX2W extends Win32Struct {
     static sizeof => 88
 
     static packingSize => 8

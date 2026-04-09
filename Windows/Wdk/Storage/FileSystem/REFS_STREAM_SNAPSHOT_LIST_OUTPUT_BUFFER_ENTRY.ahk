@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem
- * @version v4.0.30319
  */
-class REFS_STREAM_SNAPSHOT_LIST_OUTPUT_BUFFER_ENTRY extends Win32Struct
-{
+class REFS_STREAM_SNAPSHOT_LIST_OUTPUT_BUFFER_ENTRY extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8
@@ -52,9 +50,9 @@ class REFS_STREAM_SNAPSHOT_LIST_OUTPUT_BUFFER_ENTRY extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt64>}
+     * @type {Array<Integer>}
      */
-    Reserved{
+    Reserved {
         get {
             if(!this.HasProp("__ReservedProxyArray"))
                 this.__ReservedProxyArray := Win32FixedArray(this.ptr + 32, 2, Primitive, "uint")

@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Networking.WinSock
- * @version v4.0.30319
  */
-class ATM_CALLING_PARTY_NUMBER_IE extends Win32Struct
-{
+class ATM_CALLING_PARTY_NUMBER_IE extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 4
@@ -15,7 +13,7 @@ class ATM_CALLING_PARTY_NUMBER_IE extends Win32Struct
     /**
      * @type {ATM_ADDRESS}
      */
-    ATM_Number{
+    ATM_Number {
         get {
             if(!this.HasProp("__ATM_Number"))
                 this.__ATM_Number := ATM_ADDRESS(0, this)

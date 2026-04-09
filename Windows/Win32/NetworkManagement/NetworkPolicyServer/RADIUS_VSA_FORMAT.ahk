@@ -13,19 +13,17 @@
  * <a href="https://www.ietf.org/rfc/rfc2548.txt">RFC 2548</a> for examples of RADIUS vendor-specific attributes used by Microsoft.
  * @see https://learn.microsoft.com/windows/win32/api/authif/ns-authif-radius_vsa_format
  * @namespace Windows.Win32.NetworkManagement.NetworkPolicyServer
- * @version v4.0.30319
  */
-class RADIUS_VSA_FORMAT extends Win32Struct
-{
+class RADIUS_VSA_FORMAT extends Win32Struct {
     static sizeof => 7
 
     static packingSize => 1
 
     /**
      * The SMI Network Management Private Enterprise Code of the vendor for this attribute.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    VendorId{
+    VendorId {
         get {
             if(!this.HasProp("__VendorIdProxyArray"))
                 this.__VendorIdProxyArray := Win32FixedArray(this.ptr + 0, 4, Primitive, "char")
@@ -53,9 +51,9 @@ class RADIUS_VSA_FORMAT extends Win32Struct
 
     /**
      * Array of bytes that contains information for this attribute.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    AttributeSpecific{
+    AttributeSpecific {
         get {
             if(!this.HasProp("__AttributeSpecificProxyArray"))
                 this.__AttributeSpecificProxyArray := Win32FixedArray(this.ptr + 6, 1, Primitive, "char")

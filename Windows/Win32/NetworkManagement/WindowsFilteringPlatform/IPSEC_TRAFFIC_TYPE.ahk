@@ -5,9 +5,8 @@
  * Specifies the type of IPsec traffic being described.
  * @see https://learn.microsoft.com/windows/win32/api/ipsectypes/ne-ipsectypes-ipsec_traffic_type
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
- * @version v4.0.30319
  */
-class IPSEC_TRAFFIC_TYPE extends Win32Enum{
+class IPSEC_TRAFFIC_TYPE extends Win32Enum {
 
     /**
      * Specifies transport traffic.

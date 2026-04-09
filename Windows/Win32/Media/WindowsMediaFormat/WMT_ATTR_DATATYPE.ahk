@@ -5,9 +5,8 @@
  * The WMT_ATTR_DATATYPE enumeration defines the data type for a variably typed property.
  * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/ne-wmsdkidl-wmt_attr_datatype
  * @namespace Windows.Win32.Media.WindowsMediaFormat
- * @version v4.0.30319
  */
-class WMT_ATTR_DATATYPE extends Win32Enum{
+class WMT_ATTR_DATATYPE extends Win32Enum {
 
     /**
      * The property is a 4-byte <b>DWORD</b> value.

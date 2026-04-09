@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\Com\IDispatch.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * Specifies the actions that the data manager is to take on each folder under the data collector set's root path if both conditions (age and size) are met. To get this interface, call the IFolderActionCollection::CreateFolderAction method.
@@ -12,9 +12,8 @@
  * For an example that shows the XML that you can use to initialize this object if you call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-idatacollectorset-setxml">IDataCollectorSet::SetXml</a> method, see the Remarks section of <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nn-pla-idatacollectorset">IDataCollectorSet</a>.  When you specify the XML to create the object, you can specify only the elements for the properties that you want to set. If you do not specify a property, PLA provides a default value. When you retrieve the XML for the set, the XML includes all elements.
  * @see https://learn.microsoft.com/windows/win32/api/pla/nn-pla-ifolderaction
  * @namespace Windows.Win32.System.Performance
- * @version v4.0.30319
  */
-class IFolderAction extends IDispatch{
+class IFolderAction extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -52,7 +51,7 @@ class IFolderAction extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {FolderActionSteps} 
      */
     Actions {
         get => this.get_Actions()
@@ -115,7 +114,7 @@ class IFolderAction extends IDispatch{
 
     /**
      * Retrieves or sets the actions that the data manager is to take if both conditions (age and size) are met. (Get)
-     * @returns {Integer} 
+     * @returns {FolderActionSteps} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-ifolderaction-get_actions
      */
     get_Actions() {
@@ -125,7 +124,7 @@ class IFolderAction extends IDispatch{
 
     /**
      * Retrieves or sets the actions that the data manager is to take if both conditions (age and size) are met. (Put)
-     * @param {Integer} Steps 
+     * @param {FolderActionSteps} Steps 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-ifolderaction-put_actions
      */

@@ -7,9 +7,8 @@
  * This interface is implemented by a Microsoft UI Automation provider when the provider is the root of an accessibility tree that includes windowless controls that support Microsoft Active Accessibility.
  * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nn-uiautomationcore-irawelementproviderhostingaccessibles
  * @namespace Windows.Win32.UI.Accessibility
- * @version v4.0.30319
  */
-class IRawElementProviderHostingAccessibles extends IUnknown{
+class IRawElementProviderHostingAccessibles extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class SECPKG_CALL_PACKAGE_TRANSFER_CRED_REQUEST extends Win32Struct
-{
+class SECPKG_CALL_PACKAGE_TRANSFER_CRED_REQUEST extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 4
@@ -23,7 +21,7 @@ class SECPKG_CALL_PACKAGE_TRANSFER_CRED_REQUEST extends Win32Struct
     /**
      * @type {LUID}
      */
-    OriginLogonId{
+    OriginLogonId {
         get {
             if(!this.HasProp("__OriginLogonId"))
                 this.__OriginLogonId := LUID(4, this)
@@ -34,7 +32,7 @@ class SECPKG_CALL_PACKAGE_TRANSFER_CRED_REQUEST extends Win32Struct
     /**
      * @type {LUID}
      */
-    DestinationLogonId{
+    DestinationLogonId {
         get {
             if(!this.HasProp("__DestinationLogonId"))
                 this.__DestinationLogonId := LUID(12, this)

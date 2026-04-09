@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\ADSTYPE.ahk
 
 /**
  * The ADS_ATTR_DEF structure is used only as a part of IDirectorySchemaMgmt, which is an obsolete interface.
@@ -7,10 +8,8 @@
  * In ADSI, attributes and properties are used interchangeably.
  * @see https://learn.microsoft.com/windows/win32/api/iads/ns-iads-ads_attr_def
  * @namespace Windows.Win32.Networking.ActiveDirectory
- * @version v4.0.30319
  */
-class ADS_ATTR_DEF extends Win32Struct
-{
+class ADS_ATTR_DEF extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -26,7 +25,7 @@ class ADS_ATTR_DEF extends Win32Struct
 
     /**
      * Data type of the attribute as defined by  <a href="https://docs.microsoft.com/windows/win32/api/iads/ne-iads-adstypeenum">ADSTYPEENUM</a>.
-     * @type {Integer}
+     * @type {ADSTYPE}
      */
     dwADsType {
         get => NumGet(this, 8, "int")

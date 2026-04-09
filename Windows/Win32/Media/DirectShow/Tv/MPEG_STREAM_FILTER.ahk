@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Media.DirectShow.Tv
- * @version v4.0.30319
  */
-class MPEG_STREAM_FILTER extends Win32Struct
-{
+class MPEG_STREAM_FILTER extends Win32Struct {
     static sizeof => 44
 
     static packingSize => 4
@@ -36,9 +34,9 @@ class MPEG_STREAM_FILTER extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    rgchFilter{
+    rgchFilter {
         get {
             if(!this.HasProp("__rgchFilterProxyArray"))
                 this.__rgchFilterProxyArray := Win32FixedArray(this.ptr + 12, 16, Primitive, "char")
@@ -47,9 +45,9 @@ class MPEG_STREAM_FILTER extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    rgchMask{
+    rgchMask {
         get {
             if(!this.HasProp("__rgchMaskProxyArray"))
                 this.__rgchMaskProxyArray := Win32FixedArray(this.ptr + 28, 16, Primitive, "char")

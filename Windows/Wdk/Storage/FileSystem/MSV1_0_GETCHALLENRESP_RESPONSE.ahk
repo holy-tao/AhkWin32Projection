@@ -1,20 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Win32\System\Kernel\STRING.ahk
-#Include ..\..\..\Win32\Foundation\UNICODE_STRING.ahk
+#Include ..\..\..\Win32\Security\Authentication\Identity\MSV1_0_PROTOCOL_MESSAGE_TYPE.ahk
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem
- * @version v4.0.30319
  */
-class MSV1_0_GETCHALLENRESP_RESPONSE extends Win32Struct
-{
-    static sizeof => 96
+class MSV1_0_GETCHALLENRESP_RESPONSE extends Win32Struct {
+    static sizeof => 64
 
     static packingSize => 8
 
     /**
-     * @type {Integer}
+     * @type {MSV1_0_PROTOCOL_MESSAGE_TYPE}
      */
     MessageType {
         get => NumGet(this, 0, "int")
@@ -22,67 +19,55 @@ class MSV1_0_GETCHALLENRESP_RESPONSE extends Win32Struct
     }
 
     /**
-     * @type {Win32STRING}
+     * @type {Pointer}
      */
-    CaseSensitiveChallengeResponse{
-        get {
-            if(!this.HasProp("__CaseSensitiveChallengeResponse"))
-                this.__CaseSensitiveChallengeResponse := Win32STRING(8, this)
-            return this.__CaseSensitiveChallengeResponse
-        }
+    CaseSensitiveChallengeResponse {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
-     * @type {Win32STRING}
+     * @type {Pointer}
      */
-    CaseInsensitiveChallengeResponse{
-        get {
-            if(!this.HasProp("__CaseInsensitiveChallengeResponse"))
-                this.__CaseInsensitiveChallengeResponse := Win32STRING(24, this)
-            return this.__CaseInsensitiveChallengeResponse
-        }
+    CaseInsensitiveChallengeResponse {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
-     * @type {UNICODE_STRING}
+     * @type {Pointer}
      */
-    UserName{
-        get {
-            if(!this.HasProp("__UserName"))
-                this.__UserName := UNICODE_STRING(40, this)
-            return this.__UserName
-        }
+    UserName {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
-     * @type {UNICODE_STRING}
+     * @type {Pointer}
      */
-    LogonDomainName{
-        get {
-            if(!this.HasProp("__LogonDomainName"))
-                this.__LogonDomainName := UNICODE_STRING(56, this)
-            return this.__LogonDomainName
-        }
+    LogonDomainName {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    UserSessionKey{
+    UserSessionKey {
         get {
             if(!this.HasProp("__UserSessionKeyProxyArray"))
-                this.__UserSessionKeyProxyArray := Win32FixedArray(this.ptr + 72, 16, Primitive, "char")
+                this.__UserSessionKeyProxyArray := Win32FixedArray(this.ptr + 40, 16, Primitive, "char")
             return this.__UserSessionKeyProxyArray
         }
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    LanmanSessionKey{
+    LanmanSessionKey {
         get {
             if(!this.HasProp("__LanmanSessionKeyProxyArray"))
-                this.__LanmanSessionKeyProxyArray := Win32FixedArray(this.ptr + 88, 8, Primitive, "char")
+                this.__LanmanSessionKeyProxyArray := Win32FixedArray(this.ptr + 56, 8, Primitive, "char")
             return this.__LanmanSessionKeyProxyArray
         }
     }

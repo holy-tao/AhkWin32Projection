@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Security.Authorization
- * @version v4.0.30319
  */
-class AUTHZ_AUDIT_EVENT_INFORMATION_CLASS extends Win32Enum{
+class AUTHZ_AUDIT_EVENT_INFORMATION_CLASS extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

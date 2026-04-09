@@ -4,13 +4,11 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
- * @version v4.0.30319
  */
-class DOT11_SUPPORTED_ANTENNA_LIST extends Win32Struct
-{
+class DOT11_SUPPORTED_ANTENNA_LIST extends Win32Struct {
     static sizeof => 16
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}
@@ -29,9 +27,9 @@ class DOT11_SUPPORTED_ANTENNA_LIST extends Win32Struct
     }
 
     /**
-     * @type {Array<DOT11_SUPPORTED_ANTENNA>}
+     * @type {DOT11_SUPPORTED_ANTENNA}
      */
-    dot11SupportedAntenna{
+    dot11SupportedAntenna {
         get {
             if(!this.HasProp("__dot11SupportedAntennaProxyArray"))
                 this.__dot11SupportedAntennaProxyArray := Win32FixedArray(this.ptr + 8, 1, DOT11_SUPPORTED_ANTENNA, "")

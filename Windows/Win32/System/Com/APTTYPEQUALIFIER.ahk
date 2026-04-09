@@ -5,9 +5,8 @@
  * The APTTYPEQUALIFIER (objidlbase.h) enumeration specifies the set of possible COM apartment type qualifiers.
  * @see https://learn.microsoft.com/windows/win32/api/objidlbase/ne-objidlbase-apttypequalifier
  * @namespace Windows.Win32.System.Com
- * @version v4.0.30319
  */
-class APTTYPEQUALIFIER extends Win32Enum{
+class APTTYPEQUALIFIER extends Win32Enum {
 
     /**
      * No qualifier information for the current COM apartment type is available.
@@ -46,13 +45,11 @@ class APTTYPEQUALIFIER extends Win32Enum{
     static APTTYPEQUALIFIER_NA_ON_MAINSTA => 5
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static APTTYPEQUALIFIER_APPLICATION_STA => 6
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static APTTYPEQUALIFIER_RESERVED_1 => 7

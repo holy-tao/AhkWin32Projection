@@ -11,9 +11,8 @@
  * If a handler implements this interface prior to showing the handler,  AutoPlay will first call <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl/nf-shobjidl-idynamichwhandler-getdynamicinfo">IDynamicHWHandler::GetDynamicInfo</a> to determine if this handler is to be presented to the user. If you want to show the handler, you may specify a different action string than the one supplied by the static handler registration under <b>HKLM</b>.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nn-shobjidl-idynamichwhandler
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IDynamicHWHandler extends IUnknown{
+class IDynamicHWHandler extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

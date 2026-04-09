@@ -1,17 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\HWND.ahk
 #Include ..\NMHDR.ahk
+#Include ..\..\..\Foundation\HWND.ahk
 #Include .\CHARRANGE.ahk
+#Include .\RICH_EDIT_GET_CONTEXT_MENU_SEL_TYPE.ahk
 
 /**
  * Contains information associated with an EN_SELCHANGE notification code. A rich edit control sends this notification to its parent window when the current selection changes.
  * @see https://learn.microsoft.com/windows/win32/api/richedit/ns-richedit-selchange
  * @namespace Windows.Win32.UI.Controls.RichEdit
- * @version v4.0.30319
+ * @architecture X64, Arm64
  */
-class SELCHANGE extends Win32Struct
-{
+class SELCHANGE extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -22,7 +22,7 @@ class SELCHANGE extends Win32Struct
      * Notification header.
      * @type {NMHDR}
      */
-    nmhdr{
+    nmhdr {
         get {
             if(!this.HasProp("__nmhdr"))
                 this.__nmhdr := NMHDR(0, this)
@@ -36,7 +36,7 @@ class SELCHANGE extends Win32Struct
      * New selection range.
      * @type {CHARRANGE}
      */
-    chrg{
+    chrg {
         get {
             if(!this.HasProp("__chrg"))
                 this.__chrg := CHARRANGE(24, this)
@@ -46,7 +46,7 @@ class SELCHANGE extends Win32Struct
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">WORD</a></b>
-     * @type {Integer}
+     * @type {RICH_EDIT_GET_CONTEXT_MENU_SEL_TYPE}
      */
     seltyp {
         get => NumGet(this, 32, "ushort")

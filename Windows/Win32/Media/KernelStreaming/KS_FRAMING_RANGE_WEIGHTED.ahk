@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
- * @version v4.0.30319
  */
-class KS_FRAMING_RANGE_WEIGHTED extends Win32Struct
-{
+class KS_FRAMING_RANGE_WEIGHTED extends Win32Struct {
     static sizeof => 20
 
     static packingSize => 4
@@ -15,7 +13,7 @@ class KS_FRAMING_RANGE_WEIGHTED extends Win32Struct
     /**
      * @type {KS_FRAMING_RANGE}
      */
-    Range{
+    Range {
         get {
             if(!this.HasProp("__Range"))
                 this.__Range := KS_FRAMING_RANGE(0, this)

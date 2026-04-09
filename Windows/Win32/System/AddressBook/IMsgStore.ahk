@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IMAPITable.ahk
 #Include .\IMAPIProp.ahk
+#Include .\IMAPITable.ahk
 
 /**
  * Describes the properties and vtable order of members for IMsgStore IMAPIProp, which provides access to message store information and to messages and folders.
  * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/imsgstoreimapiprop
  * @namespace Windows.Win32.System.AddressBook
- * @version v4.0.30319
  */
-class IMsgStore extends IMAPIProp{
+class IMsgStore extends IMAPIProp {
 
     static sizeof => A_PtrSize
 
@@ -33,7 +32,7 @@ class IMsgStore extends IMAPIProp{
      *   
      * To send a notification, either the message store provider or MAPI calls the registered advise sink's [IMAPIAdviseSink::OnNotify](imapiadvisesink-onnotify.md) method. One of the parameters to **OnNotify**, a notification structure, contains information that describes the specific event.
      * @param {Integer} cbEntryID > [in] The byte count in the entry identifier pointed to by the  _lpEntryID_ parameter.
-     * @param {Pointer} lpEntryID > [in] A pointer to the entry identifier of the folder or message about which notifications should be generated, or **null**. If  _lpEntryID_ is set to NULL, **Advise** registers for notifications on the entire message store.
+     * @param {Integer} lpEntryID > [in] A pointer to the entry identifier of the folder or message about which notifications should be generated, or **null**. If  _lpEntryID_ is set to NULL, **Advise** registers for notifications on the entire message store.
      * @param {Integer} ulEventMask > [in] A mask of values that indicate the types of notification events that the caller is interested in and should be included in the registration. There is a corresponding [NOTIFICATION](notification.md) structure associated with each type of event that holds information about the event. The following are valid values for the  _ulEventMask_ parameter:
      * @param {IMAPIAdviseSink} lpAdviseSink > [in] A pointer to an advise sink object to receive the subsequent notifications. This advise sink object must have already been allocated.
      * @returns {Integer} > [out] A pointer to a nonzero number that represents the connection between the caller's advise sink object and the session.
@@ -66,9 +65,9 @@ class IMsgStore extends IMAPIProp{
      * @remarks
      * The **IMsgStore::CompareEntryIDs** method compares two entry identifiers that belong to the message store to determine whether they refer to the same object.
      * @param {Integer} cbEntryID1 > [in] The byte count in the entry identifier pointed to by the  _lpEntryID1_ parameter  _._
-     * @param {Pointer} lpEntryID1 > [in] A pointer to the first entry identifier to be compared.
+     * @param {Integer} lpEntryID1 > [in] A pointer to the first entry identifier to be compared.
      * @param {Integer} cbEntryID2 > [in] The byte count in the entry identifier pointed to by the  _lpEntryID2_ parameter  _._
-     * @param {Pointer} lpEntryID2 > [in] A pointer to the second entry identifier to be compared.
+     * @param {Integer} lpEntryID2 > [in] A pointer to the second entry identifier to be compared.
      * @param {Integer} ulFlags > [in] Reserved; must be zero.
      * @returns {Integer} > [out] A pointer to the result of the comparison. TRUE if the two entry identifiers refer to the same object; otherwise, FALSE.
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/imsgstore-compareentryids
@@ -86,7 +85,7 @@ class IMsgStore extends IMAPIProp{
      * > [!IMPORTANT]
      * > When opening folder entries on a public store, such as folders and messages, use **IMsgStore::OpenEntry** instead of [IMAPISession::OpenEntry](imapisession-openentry.md). This ensures that public folders function correctly when multiple Exchange accounts are defined in a profile.
      * @param {Integer} cbEntryID > [in] The byte count in the entry identifier pointed to by the  _lpEntryID_ parameter  _._
-     * @param {Pointer} lpEntryID > [in] A pointer to the entry identifier of the object to open, or NULL. If  _lpEntryID_ is set to NULL, **OpenEntry** opens the root folder for the message store.
+     * @param {Integer} lpEntryID > [in] A pointer to the entry identifier of the object to open, or NULL. If  _lpEntryID_ is set to NULL, **OpenEntry** opens the root folder for the message store.
      * @param {Pointer<Guid>} lpInterface > [in] A pointer to the interface identifier (IID) that represents the interface to be used to access the opened object. Passing NULL results in the object's standard interface ([IMAPIFolder](imapifolderimapicontainer.md) for folders and [IMessage](imessageimapiprop.md) for messages) being returned.
      * @param {Integer} ulFlags > [in] A bitmask of flags that controls how the object is opened. The following flags can be used:
      *     
@@ -138,7 +137,7 @@ class IMsgStore extends IMAPIProp{
      *   
      * > The message class string is in Unicode format. If the MAPI_UNICODE flag is not set, the message class string is in ANSI format.
      * @param {Integer} cbEntryID > [in] The byte count in the entry identifier pointed to by the  _lpEntryID_ parameter.
-     * @param {Pointer} lpEntryID > [in] A pointer to the entry identifier of the folder to establish as the receive folder. If the  _lpEntryID_ parameter is set to NULL, **SetReceiveFolder** replaces the current receive folder with the message store's default.
+     * @param {Integer} lpEntryID > [in] A pointer to the entry identifier of the folder to establish as the receive folder. If the  _lpEntryID_ parameter is set to NULL, **SetReceiveFolder** replaces the current receive folder with the message store's default.
      * @returns {HRESULT} S_OK 
      *   
      * > A receive folder was successfully established.
@@ -268,7 +267,7 @@ class IMsgStore extends IMAPIProp{
      * @remarks
      * The **IMsgStore::AbortSubmit** method attempts to remove a submitted message from the message store's outgoing queue.
      * @param {Integer} cbEntryID > [in] The byte count in the entry identifier pointed to by the  _lpEntryID_ parameter.
-     * @param {Pointer} lpEntryID > [in] A pointer to the entry identifier of the message to remove from the outgoing queue.
+     * @param {Integer} lpEntryID > [in] A pointer to the entry identifier of the message to remove from the outgoing queue.
      * @param {Integer} ulFlags > [in] Reserved; must be zero.
      * @returns {HRESULT} S_OK 
      *   
@@ -333,7 +332,7 @@ class IMsgStore extends IMAPIProp{
      * The **IMsgStore::FinishedMsg** method performs processing on a sent message. This processing can involve deleting the message, moving it to a different folder, or both actions. The type of processing depends on whether the **PR_DELETE_AFTER_SUBMIT** ([PidTagDeleteAfterSubmit](pidtagdeleteaftersubmit-canonical-property.md)) and **PR_SENTMAIL_ENTRYID** ([PidTagSentMailEntryId](pidtagsentmailentryid-canonical-property.md)) properties are set.
      * @param {Integer} ulFlags > [in] Reserved; must be zero.
      * @param {Integer} cbEntryID > [in] The byte count in the entry identifier pointed to by the  _lpEntryID_ parameter.
-     * @param {Pointer} lpEntryID > [in] A pointer to the entry identifier of the message to be processed.
+     * @param {Integer} lpEntryID > [in] A pointer to the entry identifier of the message to be processed.
      * @returns {HRESULT} S_OK 
      *   
      * > Processing on the sent message was successful.

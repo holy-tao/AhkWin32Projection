@@ -5,10 +5,8 @@
  * The VIDEOHDR structure is used by the capVideoStreamCallback function.
  * @see https://learn.microsoft.com/windows/win32/api/vfw/ns-vfw-videohdr
  * @namespace Windows.Win32.Media.Multimedia
- * @version v4.0.30319
  */
-class VIDEOHDR extends Win32Struct
-{
+class VIDEOHDR extends Win32Struct {
     static sizeof => 72
 
     static packingSize => 8
@@ -92,9 +90,9 @@ class VIDEOHDR extends Win32Struct
 
     /**
      * Reserved for driver.
-     * @type {Array<UIntPtr>}
+     * @type {Array<Pointer>}
      */
-    dwReserved{
+    dwReserved {
         get {
             if(!this.HasProp("__dwReservedProxyArray"))
                 this.__dwReservedProxyArray := Win32FixedArray(this.ptr + 40, 4, Primitive, "ptr")

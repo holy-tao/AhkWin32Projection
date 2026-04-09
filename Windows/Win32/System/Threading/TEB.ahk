@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\PEB.ahk
 
 /**
  * The Thread Environment Block (TEB structure) describes the state of a thread.
@@ -30,18 +31,16 @@
  * </table>
  * @see https://learn.microsoft.com/windows/win32/api/winternl/ns-winternl-teb
  * @namespace Windows.Win32.System.Threading
- * @version v4.0.30319
  */
-class TEB extends Win32Struct
-{
+class TEB extends Win32Struct {
     static sizeof => 6024
 
     static packingSize => 8
 
     /**
-     * @type {Array<Void>}
+     * @type {Array<Pointer<Void>>}
      */
-    Reserved1{
+    Reserved1 {
         get {
             if(!this.HasProp("__Reserved1ProxyArray"))
                 this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 0, 12, Primitive, "ptr")
@@ -58,9 +57,9 @@ class TEB extends Win32Struct
     }
 
     /**
-     * @type {Array<Void>}
+     * @type {Array<Pointer<Void>>}
      */
-    Reserved2{
+    Reserved2 {
         get {
             if(!this.HasProp("__Reserved2ProxyArray"))
                 this.__Reserved2ProxyArray := Win32FixedArray(this.ptr + 104, 399, Primitive, "ptr")
@@ -69,9 +68,9 @@ class TEB extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Reserved3{
+    Reserved3 {
         get {
             if(!this.HasProp("__Reserved3ProxyArray"))
                 this.__Reserved3ProxyArray := Win32FixedArray(this.ptr + 3296, 1952, Primitive, "char")
@@ -80,9 +79,9 @@ class TEB extends Win32Struct
     }
 
     /**
-     * @type {Array<Void>}
+     * @type {Array<Pointer<Void>>}
      */
-    TlsSlots{
+    TlsSlots {
         get {
             if(!this.HasProp("__TlsSlotsProxyArray"))
                 this.__TlsSlotsProxyArray := Win32FixedArray(this.ptr + 5248, 64, Primitive, "ptr")
@@ -91,9 +90,9 @@ class TEB extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Reserved4{
+    Reserved4 {
         get {
             if(!this.HasProp("__Reserved4ProxyArray"))
                 this.__Reserved4ProxyArray := Win32FixedArray(this.ptr + 5760, 8, Primitive, "char")
@@ -102,9 +101,9 @@ class TEB extends Win32Struct
     }
 
     /**
-     * @type {Array<Void>}
+     * @type {Array<Pointer<Void>>}
      */
-    Reserved5{
+    Reserved5 {
         get {
             if(!this.HasProp("__Reserved5ProxyArray"))
                 this.__Reserved5ProxyArray := Win32FixedArray(this.ptr + 5768, 26, Primitive, "ptr")
@@ -121,9 +120,9 @@ class TEB extends Win32Struct
     }
 
     /**
-     * @type {Array<Void>}
+     * @type {Array<Pointer<Void>>}
      */
-    Reserved6{
+    Reserved6 {
         get {
             if(!this.HasProp("__Reserved6ProxyArray"))
                 this.__Reserved6ProxyArray := Win32FixedArray(this.ptr + 5984, 4, Primitive, "ptr")

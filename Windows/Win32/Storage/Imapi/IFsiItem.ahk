@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * Base interface containing properties common to both file and directory items.
  * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nn-imapi2fs-ifsiitem
  * @namespace Windows.Win32.Storage.Imapi
- * @version v4.0.30319
  */
-class IFsiItem extends IDispatch{
+class IFsiItem extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -347,7 +346,7 @@ class IFsiItem extends IDispatch{
 
     /**
      * Retrieves the name of the item as modified to conform to the specified file system.
-     * @param {Integer} fileSystem File system to which the name should conform. For possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2fs/ne-imapi2fs-fsifilesystems">FsiFileSystems</a> enumeration type.
+     * @param {FsiFileSystems} fileSystem File system to which the name should conform. For possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2fs/ne-imapi2fs-fsifilesystems">FsiFileSystems</a> enumeration type.
      * @returns {BSTR} String that contains the name of the item as it conforms to the specified file system. The name in the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2fs/nf-imapi2fs-ifsiitem-get_name">IFsiItem::get_Name</a> property is modified if the characters used and its length do not meet the requirements of the specified file system type.
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifsiitem-filesystemname
      */
@@ -359,7 +358,7 @@ class IFsiItem extends IDispatch{
 
     /**
      * Retrieves the full path of the item as modified to conform to the specified file system.
-     * @param {Integer} fileSystem File system to which the path should conform. For possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2fs/ne-imapi2fs-fsifilesystems">FsiFileSystems</a> enumeration type.
+     * @param {FsiFileSystems} fileSystem File system to which the path should conform. For possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2fs/ne-imapi2fs-fsifilesystems">FsiFileSystems</a> enumeration type.
      * @returns {BSTR} String that contains the full path of the item as it conforms to the specified file system. The path in the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2fs/nf-imapi2fs-ifsiitem-get_fullpath">IFsiItem::get_FullPath</a> property is modified if the characters used and its length do not meet the requirements of the specified file system type.
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifsiitem-filesystempath
      */

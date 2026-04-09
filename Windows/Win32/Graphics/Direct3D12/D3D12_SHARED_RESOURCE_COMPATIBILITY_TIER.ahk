@@ -3,13 +3,10 @@
 
 /**
  * Defines constants that specify a cross-API sharing support tier.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/ne-d3d12-d3d12_shared_resource_compatibility_tier
  * @namespace Windows.Win32.Graphics.Direct3D12
- * @version v4.0.30319
  */
-class D3D12_SHARED_RESOURCE_COMPATIBILITY_TIER extends Win32Enum{
+class D3D12_SHARED_RESOURCE_COMPATIBILITY_TIER extends Win32Enum {
 
     /**
      * Related to [D3D11_SHARED_RESOURCE_TIER::D3D11_SHARED_RESOURCE_TIER_1](/windows/win32/api/d3d11/ne-d3d11-d3d11_shared_resource_tier).

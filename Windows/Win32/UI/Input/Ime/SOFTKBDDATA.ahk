@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.UI.Input.Ime
- * @version v4.0.30319
  */
-class SOFTKBDDATA extends Win32Struct
-{
+class SOFTKBDDATA extends Win32Struct {
     static sizeof => 516
 
     static packingSize => 4
@@ -20,9 +18,9 @@ class SOFTKBDDATA extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt16>}
+     * @type {Array<Integer>}
      */
-    wCode{
+    wCode {
         get {
             if(!this.HasProp("__wCodeProxyArray"))
                 this.__wCodeProxyArray := Win32FixedArray(this.ptr + 4, 256, Primitive, "ushort")

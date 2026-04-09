@@ -1,18 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\WINHTTP_FAST_FORWARDING_STATE.ahk
 
 /**
  * @namespace Windows.Win32.Networking.WinHttp
- * @version v4.0.30319
+ * @architecture X64, Arm64
  */
-class WINHTTP_FAST_FORWARDING_STATUS extends Win32Struct
-{
+class WINHTTP_FAST_FORWARDING_STATUS extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
 
     /**
-     * @type {Integer}
+     * @type {WINHTTP_FAST_FORWARDING_STATE}
      */
     TransferState {
         get => NumGet(this, 0, "int")

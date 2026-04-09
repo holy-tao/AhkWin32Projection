@@ -1,14 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\IPSEC_FAILURE_POINT.ahk
+#Include .\IKEEXT_EM_SA_STATE.ahk
+#Include .\IKEEXT_SA_ROLE.ahk
+#Include .\IKEEXT_AUTHENTICATION_METHOD_TYPE.ahk
+#Include .\IPSEC_TRAFFIC_TYPE.ahk
 
 /**
  * The FWPM_NET_EVENT_IKEEXT_EM_FAILURE1 structure contains information that describes an IKE Extended mode (EM) failure.Note  FWPM_NET_EVENT_IKEEXT_EM_FAILURE1 is the specific implementation of FWPM_NET_EVENT_IKEEXT_EM_FAILURE used in Windows 7 and later.
  * @see https://learn.microsoft.com/windows/win32/api/fwpmtypes/ns-fwpmtypes-fwpm_net_event_ikeext_em_failure1
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
- * @version v4.0.30319
  */
-class FWPM_NET_EVENT_IKEEXT_EM_FAILURE1 extends Win32Struct
-{
+class FWPM_NET_EVENT_IKEEXT_EM_FAILURE1 extends Win32Struct {
     static sizeof => 120
 
     static packingSize => 8
@@ -24,7 +27,7 @@ class FWPM_NET_EVENT_IKEEXT_EM_FAILURE1 extends Win32Struct
 
     /**
      * An [IPSEC_FAILURE_POINT](../ipsectypes/ne-ipsectypes-ipsec_failure_point.md) value that indicates the IPsec state when the failure occurred.
-     * @type {Integer}
+     * @type {IPSEC_FAILURE_POINT}
      */
     failurePoint {
         get => NumGet(this, 4, "int")
@@ -47,7 +50,7 @@ class FWPM_NET_EVENT_IKEEXT_EM_FAILURE1 extends Win32Struct
 
     /**
      * An [IKEEXT_EM_SA_STATE](../iketypes/ne-iketypes-ikeext_em_sa_state.md) value that indicates the EM state when the failure occurred.
-     * @type {Integer}
+     * @type {IKEEXT_EM_SA_STATE}
      */
     emState {
         get => NumGet(this, 12, "int")
@@ -56,7 +59,7 @@ class FWPM_NET_EVENT_IKEEXT_EM_FAILURE1 extends Win32Struct
 
     /**
      * An [IKEEXT_SA_ROLE](../iketypes/ne-iketypes-ikeext_sa_role.md) value that specifies the SA role when the failure occurred.
-     * @type {Integer}
+     * @type {IKEEXT_SA_ROLE}
      */
     saRole {
         get => NumGet(this, 16, "int")
@@ -65,7 +68,7 @@ class FWPM_NET_EVENT_IKEEXT_EM_FAILURE1 extends Win32Struct
 
     /**
      * An [IKEEXT_AUTHENTICATION_METHOD_TYPE](../iketypes/ne-iketypes-ikeext_authentication_method_type.md) value that specifies the authentication method.
-     * @type {Integer}
+     * @type {IKEEXT_AUTHENTICATION_METHOD_TYPE}
      */
     emAuthMethod {
         get => NumGet(this, 20, "int")
@@ -76,9 +79,9 @@ class FWPM_NET_EVENT_IKEEXT_EM_FAILURE1 extends Win32Struct
      * SHA thumbprint hash of the end certificate corresponding to the failures that happen during building or validating certificate chains.
      * 
      * **IKEEXT_CERT_HASH_LEN** maps to 20.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    endCertHash{
+    endCertHash {
         get {
             if(!this.HasProp("__endCertHashProxyArray"))
                 this.__endCertHashProxyArray := Win32FixedArray(this.ptr + 24, 20, Primitive, "char")
@@ -160,7 +163,7 @@ class FWPM_NET_EVENT_IKEEXT_EM_FAILURE1 extends Win32Struct
 
     /**
      * Type of traffic for which the embedded quick mode was being negotiated.
-     * @type {Integer}
+     * @type {IPSEC_TRAFFIC_TYPE}
      */
     saTrafficType {
         get => NumGet(this, 112, "int")

@@ -7,9 +7,8 @@
  * Enables the presenter for the enhanced video renderer (EVR) to request a specific frame from the video mixer.
  * @see https://learn.microsoft.com/windows/win32/api/evr/nn-evr-imfdesiredsample
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFDesiredSample extends IUnknown{
+class IMFDesiredSample extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

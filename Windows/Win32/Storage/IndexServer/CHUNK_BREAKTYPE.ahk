@@ -7,9 +7,8 @@
  * A change in attributes implies a word, sentence, paragraph, or chapter break.
  * @see https://learn.microsoft.com/windows/win32/api/filter/ne-filter-chunk_breaktype
  * @namespace Windows.Win32.Storage.IndexServer
- * @version v4.0.30319
  */
-class CHUNK_BREAKTYPE extends Win32Enum{
+class CHUNK_BREAKTYPE extends Win32Enum {
 
     /**
      * No break is placed between the current chunk and the previous chunk. The chunks are glued together.

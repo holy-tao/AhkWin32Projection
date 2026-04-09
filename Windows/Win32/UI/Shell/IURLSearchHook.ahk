@@ -22,9 +22,8 @@
  * You do not typically use this interface; it is called by the browser.
  * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nn-shlobj_core-iurlsearchhook
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IURLSearchHook extends IUnknown{
+class IURLSearchHook extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

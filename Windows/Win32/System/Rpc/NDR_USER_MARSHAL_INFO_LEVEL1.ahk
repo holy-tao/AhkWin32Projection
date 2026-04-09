@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\Com\IRpcChannelBuffer.ahk
 
 /**
  * The NDR_USER_MARSHAL_INFO_LEVEL1 structure holds information about the state of an RPC call that can be passed to wire_marshal and user_marshal helper functions.
  * @see https://learn.microsoft.com/windows/win32/api/rpcndr/ns-rpcndr-ndr_user_marshal_info_level1
  * @namespace Windows.Win32.System.Rpc
- * @version v4.0.30319
  */
-class NDR_USER_MARSHAL_INFO_LEVEL1 extends Win32Struct
-{
+class NDR_USER_MARSHAL_INFO_LEVEL1 extends Win32Struct {
     static sizeof => 80
 
     static packingSize => 8
@@ -60,9 +59,9 @@ class NDR_USER_MARSHAL_INFO_LEVEL1 extends Win32Struct
 
     /**
      * Reserved for future use.
-     * @type {Array<UIntPtr>}
+     * @type {Array<Pointer>}
      */
-    Reserved{
+    Reserved {
         get {
             if(!this.HasProp("__ReservedProxyArray"))
                 this.__ReservedProxyArray := Win32FixedArray(this.ptr + 40, 5, Primitive, "ptr")

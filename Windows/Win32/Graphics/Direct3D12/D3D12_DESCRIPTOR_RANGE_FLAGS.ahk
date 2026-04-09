@@ -9,9 +9,8 @@
  * To specify the volatility of just the data referenced by descriptors, refer to <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_root_descriptor_flags">D3D12_ROOT_DESCRIPTOR_FLAGS</a>.
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/ne-d3d12-d3d12_descriptor_range_flags
  * @namespace Windows.Win32.Graphics.Direct3D12
- * @version v4.0.30319
  */
-class D3D12_DESCRIPTOR_RANGE_FLAGS extends Win32BitflagEnum{
+class D3D12_DESCRIPTOR_RANGE_FLAGS extends Win32BitflagEnum {
 
     /**
      * Default behavior. Descriptors are static, and default assumptions are made for data (for SRV/CBV: DATA_STATIC_WHILE_SET_AT_EXECUTE, and for UAV: DATA_VOLATILE).

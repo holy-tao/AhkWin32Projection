@@ -5,9 +5,8 @@
  * Contains values that specify units of text for the purposes of navigation.
  * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/ne-uiautomationcore-textunit
  * @namespace Windows.Win32.UI.Accessibility
- * @version v4.0.30319
  */
-class TextUnit extends Win32Enum{
+class TextUnit extends Win32Enum {
 
     /**
      * Character.

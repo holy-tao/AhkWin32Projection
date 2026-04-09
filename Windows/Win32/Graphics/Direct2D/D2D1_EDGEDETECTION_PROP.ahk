@@ -5,9 +5,8 @@
  * Identifiers for properties of the Edge Detection effect.
  * @see https://learn.microsoft.com/windows/win32/api/d2d1effects_2/ne-d2d1effects_2-d2d1_edgedetection_prop
  * @namespace Windows.Win32.Graphics.Direct2D
- * @version v4.0.30319
  */
-class D2D1_EDGEDETECTION_PROP extends Win32Enum{
+class D2D1_EDGEDETECTION_PROP extends Win32Enum {
 
     /**
      * The D2D1_EDGEDETECTION_PROP_STRENGTH property is a float value modulating the response of the edge detection filter. A low strength value means that weaker edges will get filtered out, 

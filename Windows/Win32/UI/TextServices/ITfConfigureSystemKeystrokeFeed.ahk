@@ -7,9 +7,8 @@
  * The ITfConfigureSystemKeystrokeFeed interface is implemented by the TSF manager to enable and disable the processing of keystrokes.
  * @see https://learn.microsoft.com/windows/win32/api/msctf/nn-msctf-itfconfiguresystemkeystrokefeed
  * @namespace Windows.Win32.UI.TextServices
- * @version v4.0.30319
  */
-class ITfConfigureSystemKeystrokeFeed extends IUnknown{
+class ITfConfigureSystemKeystrokeFeed extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

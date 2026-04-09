@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ISVGPathSegList.ahk
 #Include ..\..\System\Com\IDispatch.ahk
+#Include .\ISVGPathSegList.ahk
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
- * @version v4.0.30319
  */
-class ISVGAnimatedPathData extends IDispatch{
+class ISVGAnimatedPathData extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

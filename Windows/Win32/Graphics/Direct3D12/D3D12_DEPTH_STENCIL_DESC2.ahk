@@ -1,13 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\D3D12_DEPTH_WRITE_MASK.ahk
+#Include .\D3D12_COMPARISON_FUNC.ahk
 #Include .\D3D12_DEPTH_STENCILOP_DESC1.ahk
+#Include .\D3D12_STENCIL_OP.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D12
- * @version v4.0.30319
  */
-class D3D12_DEPTH_STENCIL_DESC2 extends Win32Struct
-{
+class D3D12_DEPTH_STENCIL_DESC2 extends Win32Struct {
     static sizeof => 60
 
     static packingSize => 4
@@ -21,7 +22,7 @@ class D3D12_DEPTH_STENCIL_DESC2 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {D3D12_DEPTH_WRITE_MASK}
      */
     DepthWriteMask {
         get => NumGet(this, 4, "int")
@@ -29,7 +30,7 @@ class D3D12_DEPTH_STENCIL_DESC2 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {D3D12_COMPARISON_FUNC}
      */
     DepthFunc {
         get => NumGet(this, 8, "int")
@@ -47,7 +48,7 @@ class D3D12_DEPTH_STENCIL_DESC2 extends Win32Struct
     /**
      * @type {D3D12_DEPTH_STENCILOP_DESC1}
      */
-    FrontFace{
+    FrontFace {
         get {
             if(!this.HasProp("__FrontFace"))
                 this.__FrontFace := D3D12_DEPTH_STENCILOP_DESC1(16, this)
@@ -58,7 +59,7 @@ class D3D12_DEPTH_STENCIL_DESC2 extends Win32Struct
     /**
      * @type {D3D12_DEPTH_STENCILOP_DESC1}
      */
-    BackFace{
+    BackFace {
         get {
             if(!this.HasProp("__BackFace"))
                 this.__BackFace := D3D12_DEPTH_STENCILOP_DESC1(36, this)

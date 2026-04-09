@@ -7,9 +7,8 @@
  * Provides methods the Search service uses to send updates on catalog and index status to notification providers.
  * @see https://learn.microsoft.com/windows/win32/api/searchapi/nn-searchapi-isearchnotifyinlinesite
  * @namespace Windows.Win32.System.Search
- * @version v4.0.30319
  */
-class ISearchNotifyInlineSite extends IUnknown{
+class ISearchNotifyInlineSite extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -32,7 +31,7 @@ class ISearchNotifyInlineSite extends IUnknown{
 
     /**
      * Called by the search service to notify the client when the status of a particular document or item changes.
-     * @param {Integer} sipStatus Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/searchapi/ne-searchapi-search_indexing_phase">SEARCH_INDEXING_PHASE</a></b>
+     * @param {SEARCH_INDEXING_PHASE} sipStatus Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/searchapi/ne-searchapi-search_indexing_phase">SEARCH_INDEXING_PHASE</a></b>
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/api/searchapi/ne-searchapi-search_indexing_phase">SEARCH_INDEXING_PHASE</a> status of each document in the array being sent.
      * @param {Integer} dwNumEntries Type: <b>DWORD</b>

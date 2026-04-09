@@ -12,9 +12,8 @@
  * [IXpsOMPage interface](/windows/win32/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsompage)
  * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel_1/nn-xpsobjectmodel_1-ixpsompage1
  * @namespace Windows.Win32.Storage.Xps
- * @version v4.0.30319
  */
-class IXpsOMPage1 extends IXpsOMPage{
+class IXpsOMPage1 extends IXpsOMPage {
 
     static sizeof => A_PtrSize
     /**
@@ -39,7 +38,7 @@ class IXpsOMPage1 extends IXpsOMPage{
      * Gets the type of FixedPage markup that was used to initialize this page. This method is used to determine whether a document is the XPS or OpenXPS type. For more information, see XPS Documents.
      * @remarks
      * If the <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel_1/nn-xpsobjectmodel_1-ixpsompage1">IXpsOMPage1</a> instance was not loaded from a stream or a  file, the document type is unspecified (XPS_DOCUMENT_TYPE_UNSPECIFIED). Otherwise, the document type returned is that of the stream or file used to initialize the <b>IXpsOMPage1</b> instance.
-     * @returns {Integer} [out, retval] The document type of the source data used to initialize this package. A document type value of XPS_DOCUMENT_TYPE_UNSPECIFIED is returned if the package was created in memory.
+     * @returns {XPS_DOCUMENT_TYPE} [out, retval] The document type of the source data used to initialize this package. A document type value of XPS_DOCUMENT_TYPE_UNSPECIFIED is returned if the package was created in memory.
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel_1/nf-xpsobjectmodel_1-ixpsompage1-getdocumenttype
      */
     GetDocumentType() {
@@ -51,7 +50,7 @@ class IXpsOMPage1 extends IXpsOMPage{
      * 
      * @param {ISequentialStream} stream 
      * @param {BOOL} optimizeMarkupSize 
-     * @param {Integer} documentType 
+     * @param {XPS_DOCUMENT_TYPE} documentType 
      * @returns {HRESULT} 
      */
     Write1(stream, optimizeMarkupSize, documentType) {

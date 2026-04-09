@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.NetManagement
- * @version v4.0.30319
  */
-class INetCfgPnpReconfigCallback extends IUnknown{
+class INetCfgPnpReconfigCallback extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -30,10 +29,10 @@ class INetCfgPnpReconfigCallback extends IUnknown{
 
     /**
      * 
-     * @param {Integer} Layer 
+     * @param {NCPNP_RECONFIG_LAYER} Layer 
      * @param {PWSTR} pszwUpper 
      * @param {PWSTR} pszwLower 
-     * @param {Pointer} pvData 
+     * @param {Integer} pvData 
      * @param {Integer} dwSizeOfData 
      * @returns {HRESULT} 
      */

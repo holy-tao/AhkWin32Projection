@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Media.DirectShow.Tv
- * @version v4.0.30319
  */
-class DSHOW_STREAM_DESC extends Win32Struct
-{
+class DSHOW_STREAM_DESC extends Win32Struct {
     static sizeof => 20
 
     static packingSize => 4

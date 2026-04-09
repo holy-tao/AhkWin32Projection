@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\StructuredStorage\PROPVARIANT.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\System\Com\StructuredStorage\PROPVARIANT.ahk
 
 /**
  * The IUIFramework interface is implemented by the Windows Ribbon framework and defines the methods that provide the core functionality for the framework.
@@ -16,9 +16,8 @@
  * 			create a COM object with the class identifier (CLSID) of CLSID_UIRibbonFramework.
  * @see https://learn.microsoft.com/windows/win32/api/uiribbon/nn-uiribbon-iuiframework
  * @namespace Windows.Win32.UI.Ribbon
- * @version v4.0.30319
  */
-class IUIFramework extends IUnknown{
+class IUIFramework extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -63,7 +62,9 @@ class IUIFramework extends IUnknown{
      * @param {HWND} frameWnd Type: <b>HWND</b>
      * 
      * Handle to the top-level window that will contain the Ribbon.
-     * @param {IUIApplication} _application 
+     * @param {IUIApplication} _application Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiribbon/nn-uiribbon-iuiapplication">IUIApplication</a>*</b>
+     * 
+     * Pointer to the IUIApplication implementation of the host application.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Returns S_OK if successful; otherwise, an error value from the following list.
@@ -265,7 +266,7 @@ class IUIFramework extends IUnknown{
      * @param {Integer} commandId Type: <b>UINT32</b>
      * 
      * The ID for the Command, which is specified in the markup resource file.
-     * @param {Integer} flags Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiribbon/ne-uiribbon-ui_invalidations">UI_INVALIDATIONS</a></b>
+     * @param {UI_INVALIDATIONS} flags Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiribbon/ne-uiribbon-ui_invalidations">UI_INVALIDATIONS</a></b>
      * 
      * Identifies which <a href="https://docs.microsoft.com/windows/desktop/api/uiribbon/ne-uiribbon-ui_invalidations">aspect</a> of a command to invalidate.
      * 					

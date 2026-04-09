@@ -5,9 +5,8 @@
  * Flags used by the DwmSetPresentParameters function to specify the frame sampling type.
  * @see https://learn.microsoft.com/windows/win32/api/dwmapi/ne-dwmapi-dwm_source_frame_sampling
  * @namespace Windows.Win32.Graphics.Dwm
- * @version v4.0.30319
  */
-class DWM_SOURCE_FRAME_SAMPLING extends Win32Enum{
+class DWM_SOURCE_FRAME_SAMPLING extends Win32Enum {
 
     /**
      * Use the first source frame that includes the first refresh of the output frame.

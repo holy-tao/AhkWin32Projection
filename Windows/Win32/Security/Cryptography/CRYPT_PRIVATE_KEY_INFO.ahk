@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\CRYPT_INTEGER_BLOB.ahk
 #Include .\CRYPT_ALGORITHM_IDENTIFIER.ahk
+#Include .\CRYPT_INTEGER_BLOB.ahk
+#Include .\CRYPT_ATTRIBUTES.ahk
 
 /**
  * Contains a clear-text private key in the PrivateKey field (DER encoded). CRYPT_PRIVATE_KEY_INFO contains the information in a PKCS
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-crypt_private_key_info
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CRYPT_PRIVATE_KEY_INFO extends Win32Struct
-{
+class CRYPT_PRIVATE_KEY_INFO extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8
@@ -28,7 +27,7 @@ class CRYPT_PRIVATE_KEY_INFO extends Win32Struct
      * A  <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-crypt_algorithm_identifier">CRYPT_ALGORITHM_IDENTIFIER</a>  structure that indicates the algorithm in which the private key (RSA or DSA) is to be used.
      * @type {CRYPT_ALGORITHM_IDENTIFIER}
      */
-    Algorithm{
+    Algorithm {
         get {
             if(!this.HasProp("__Algorithm"))
                 this.__Algorithm := CRYPT_ALGORITHM_IDENTIFIER(8, this)
@@ -40,7 +39,7 @@ class CRYPT_PRIVATE_KEY_INFO extends Win32Struct
      * A <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa381414(v=vs.85)">CRYPT_DER_BLOB</a> structure that contains the key data.
      * @type {CRYPT_INTEGER_BLOB}
      */
-    PrivateKey{
+    PrivateKey {
         get {
             if(!this.HasProp("__PrivateKey"))
                 this.__PrivateKey := CRYPT_INTEGER_BLOB(32, this)

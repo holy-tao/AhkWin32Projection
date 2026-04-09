@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Security.Authentication.WebAuthn
- * @version v4.0.30319
  */
-class WEBAUTHN_PLUGIN_USER_VERIFICATION_REQUEST extends Win32Struct
-{
+class WEBAUTHN_PLUGIN_USER_VERIFICATION_REQUEST extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -15,7 +13,7 @@ class WEBAUTHN_PLUGIN_USER_VERIFICATION_REQUEST extends Win32Struct
     /**
      * @type {HWND}
      */
-    hwnd{
+    hwnd {
         get {
             if(!this.HasProp("__hwnd"))
                 this.__hwnd := HWND(0, this)

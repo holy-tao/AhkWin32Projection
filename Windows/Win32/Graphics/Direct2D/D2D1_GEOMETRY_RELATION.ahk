@@ -5,9 +5,8 @@
  * Describes how one geometry object is spatially related to another geometry object.
  * @see https://learn.microsoft.com/windows/win32/api/d2d1/ne-d2d1-d2d1_geometry_relation
  * @namespace Windows.Win32.Graphics.Direct2D
- * @version v4.0.30319
  */
-class D2D1_GEOMETRY_RELATION extends Win32Enum{
+class D2D1_GEOMETRY_RELATION extends Win32Enum {
 
     /**
      * The relationship between the two geometries cannot be determined. This value is never returned by any D2D method.

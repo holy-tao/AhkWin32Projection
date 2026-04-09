@@ -1,18 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IFsrmObject.ahk
 #Include .\IFsrmMutableCollection.ahk
 #Include .\IFsrmAction.ahk
 #Include .\IFsrmCollection.ahk
-#Include .\IFsrmObject.ahk
 
 /**
  * Base class for all file screen interfaces.
  * @see https://learn.microsoft.com/windows/win32/api/fsrmscreen/nn-fsrmscreen-ifsrmfilescreenbase
  * @namespace Windows.Win32.Storage.FileServerResourceManager
- * @version v4.0.30319
  */
-class IFsrmFileScreenBase extends IFsrmObject{
+class IFsrmFileScreenBase extends IFsrmObject {
 
     static sizeof => A_PtrSize
     /**
@@ -101,7 +100,7 @@ class IFsrmFileScreenBase extends IFsrmObject{
      * You can specify up to four unique actions for each file screen.
      * 
      * The action is deleted if the file screen is deleted.
-     * @param {Integer} actionType The type of action to create. For possible values, see the 
+     * @param {FsrmActionType} actionType The type of action to create. For possible values, see the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/fsrmenums/ne-fsrmenums-fsrmactiontype">FsrmActionType</a> enumeration.
      * @returns {IFsrmAction} An <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrm/nn-fsrm-ifsrmaction">IFsrmAction</a> interface to the newly created action. 
      *       Query the interface for the specific action specified. For example, if <i>actionType</i> is 

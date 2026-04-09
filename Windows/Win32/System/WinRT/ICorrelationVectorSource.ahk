@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\HSTRING.ahk
 #Include ..\Com\IUnknown.ahk
+#Include .\HSTRING.ahk
 
 /**
  * @namespace Windows.Win32.System.WinRT
- * @version v4.0.30319
  */
-class ICorrelationVectorSource extends IUnknown{
+class ICorrelationVectorSource extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

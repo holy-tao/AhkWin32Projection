@@ -1,17 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IBitsPeer.ahk
-#Include .\IEnumBitsPeers.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\IBitsPeer.ahk
 
 /**
  * Use IEnumBitsPeers to enumerate the list of peers that BITS has discovered.
  * @see https://learn.microsoft.com/windows/win32/api/bits3_0/nn-bits3_0-ienumbitspeers
  * @namespace Windows.Win32.Networking.BackgroundIntelligentTransferService
- * @version v4.0.30319
  */
-class IEnumBitsPeers extends IUnknown{
+class IEnumBitsPeers extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

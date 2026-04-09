@@ -1,7 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\System\Com\StructuredStorage\PROPSPEC.ahk
+#Include .\CHUNK_BREAKTYPE.ahk
+#Include .\CHUNKSTATE.ahk
 #Include .\FULLPROPSPEC.ahk
+#Include ..\..\System\Com\StructuredStorage\PROPSPEC.ahk
+#Include ..\..\System\Com\StructuredStorage\PROPSPEC_KIND.ahk
 
 /**
  * Describes the characteristics of a chunk.
@@ -89,10 +92,8 @@
  * Information provided by <b>idChunkSource</b>, <b>cwcStartSource</b>, and <b>cwcLenSource</b> is useful for a search engine that highlights hits. If the query is done for an internal value-type property, the search engine will highlight the original text from which the text of the internal value-type property has been derived. For instance, in a C++ code filter, the browser, when searching for MyFunction in internal value-type property "function definitions," will highlight the function header in the file.
  * @see https://learn.microsoft.com/windows/win32/api/filter/ns-filter-stat_chunk
  * @namespace Windows.Win32.Storage.IndexServer
- * @version v4.0.30319
  */
-class STAT_CHUNK extends Win32Struct
-{
+class STAT_CHUNK extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8
@@ -108,7 +109,7 @@ class STAT_CHUNK extends Win32Struct
 
     /**
      * The type of break that separates the previous chunk from the current chunk. Values are from the <a href="https://docs.microsoft.com/windows/desktop/api/filter/ne-filter-chunk_breaktype">CHUNK_BREAKTYPE</a> enumeration.
-     * @type {Integer}
+     * @type {CHUNK_BREAKTYPE}
      */
     breakType {
         get => NumGet(this, 4, "int")
@@ -117,7 +118,7 @@ class STAT_CHUNK extends Win32Struct
 
     /**
      * Indicates whether this chunk contains a text-type or a value-type property. Flag values are taken from the <a href="https://docs.microsoft.com/windows/desktop/api/filter/ne-filter-chunkstate">CHUNKSTATE</a> enumeration. If the CHUNK_TEXT flag is set, <a href="https://docs.microsoft.com/windows/desktop/api/filter/nf-filter-ifilter-gettext">IFilter::GetText</a> should be used to retrieve the contents of the chunk as a series of words. If the CHUNK_VALUE flag is set, <a href="https://docs.microsoft.com/windows/desktop/api/filter/nf-filter-ifilter-getvalue">IFilter::GetValue</a> should be used to retrieve the value and treat it as a single property value. If the filter dictates that the same content be treated as both text and as a value, the chunk should be emitted twice in two different chunks, each with one flag set.
-     * @type {Integer}
+     * @type {CHUNKSTATE}
      */
     flags {
         get => NumGet(this, 8, "int")
@@ -137,7 +138,7 @@ class STAT_CHUNK extends Win32Struct
      * The property to be applied to the chunk. See <a href="https://docs.microsoft.com/windows/desktop/api/filter/ns-filter-fullpropspec">FULLPROPSPEC</a>. If a filter requires that the same text have more than one property, it needs to emit the text once for each property in separate chunks.
      * @type {FULLPROPSPEC}
      */
-    attribute{
+    attribute {
         get {
             if(!this.HasProp("__attribute"))
                 this.__attribute := FULLPROPSPEC(16, this)

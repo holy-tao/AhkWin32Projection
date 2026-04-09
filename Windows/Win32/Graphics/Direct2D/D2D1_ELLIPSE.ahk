@@ -6,10 +6,8 @@
  * Contains the center point, x-radius, and y-radius of an ellipse.
  * @see https://learn.microsoft.com/windows/win32/api/d2d1/ns-d2d1-d2d1_ellipse
  * @namespace Windows.Win32.Graphics.Direct2D
- * @version v4.0.30319
  */
-class D2D1_ELLIPSE extends Win32Struct
-{
+class D2D1_ELLIPSE extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4
@@ -20,7 +18,7 @@ class D2D1_ELLIPSE extends Win32Struct
      * The center point of the ellipse.
      * @type {D2D_POINT_2F}
      */
-    point{
+    point {
         get {
             if(!this.HasProp("__point"))
                 this.__point := D2D_POINT_2F(0, this)

@@ -7,9 +7,8 @@
  * Enables clients to subscribe to type change notifications on objects that implement the ITypeInfo, ITypeInfo2, ICreateTypeInfo, and ICreateTypeInfo2 interfaces.
  * @see https://learn.microsoft.com/windows/win32/api/oaidl/nn-oaidl-itypechangeevents
  * @namespace Windows.Win32.System.Ole
- * @version v4.0.30319
  */
-class ITypeChangeEvents extends IUnknown{
+class ITypeChangeEvents extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -32,7 +31,10 @@ class ITypeChangeEvents extends IUnknown{
 
     /**
      * Raised when a request has been made to change a type. The change can be disallowed.
-     * @param {Integer} _changeKind 
+     * @param {CHANGEKIND} _changeKind The type of change.
+     * 
+     * <a id="CHANGEKIND_ADDMEMBER"></a>
+     * <a id="changekind_addmember"></a>
      * @param {ITypeInfo} pTInfoBefore An object that implements the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nn-oaidl-itypeinfo">ITypeInfo</a>, <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nn-oaidl-itypeinfo2">ITypeInfo2</a>, <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nn-oaidl-icreatetypeinfo">ICreateTypeInfo</a>, or <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nn-oaidl-icreatetypeinfo2">ICreateTypeInfo2</a> interface and that contains the type information before the change was made. The client subscribes to this object to receive notifications about any changes.
      * @param {PWSTR} pStrName The name of the change. This value may be null.
      * @returns {Integer} False to disallow the change; otherwise, true.
@@ -47,7 +49,10 @@ class ITypeChangeEvents extends IUnknown{
 
     /**
      * Raised after a type has been changed.
-     * @param {Integer} _changeKind 
+     * @param {CHANGEKIND} _changeKind The type of change.
+     * 
+     * <a id="CHANGEKIND_ADDMEMBER"></a>
+     * <a id="changekind_addmember"></a>
      * @param {ITypeInfo} pTInfoAfter An object that implements the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nn-oaidl-itypeinfo">ITypeInfo</a>, <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nn-oaidl-itypeinfo2">ITypeInfo2</a>, <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nn-oaidl-icreatetypeinfo">ICreateTypeInfo</a>, or <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nn-oaidl-icreatetypeinfo2">ICreateTypeInfo2</a> interface and that contains the type information before the change was made. The client subscribes to this object to receive notifications about any changes.
      * @param {PWSTR} pStrName The name of the change. This value may be null.
      * @returns {HRESULT} This method can return one of these values.

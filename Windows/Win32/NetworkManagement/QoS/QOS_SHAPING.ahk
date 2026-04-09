@@ -5,9 +5,8 @@
  * The QOS_SHAPING enumeration defines the shaping behavior of a flow.
  * @see https://learn.microsoft.com/windows/win32/api/qos2/ne-qos2-qos_shaping
  * @namespace Windows.Win32.NetworkManagement.QoS
- * @version v4.0.30319
  */
-class QOS_SHAPING extends Win32Enum{
+class QOS_SHAPING extends Win32Enum {
 
     /**
      * Indicates that the Windows packet scheduler (Pacer) will be used to enforce the requested flow rate. Data packets that exceed the rate are delayed until appropriate in order to maintain the specified flow rate.  If the network supports prioritization, packets will always receive conformant priority values when QOSShapeFlow is specified.

@@ -1,12 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\SECPKG_FAILURE_SPECIAL_REASON.ahk
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class SECPKG_FAILURE_REASON extends Win32Struct
-{
+class SECPKG_FAILURE_REASON extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4
@@ -20,7 +19,7 @@ class SECPKG_FAILURE_REASON extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {SECPKG_FAILURE_SPECIAL_REASON}
      */
     Reason {
         get => NumGet(this, 4, "int")

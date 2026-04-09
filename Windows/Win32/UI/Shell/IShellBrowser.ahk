@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Ole\IOleWindow.ahk
 #Include ..\..\System\Com\IStream.ahk
 #Include ..\..\Foundation\HWND.ahk
 #Include .\IShellView.ahk
-#Include ..\..\System\Ole\IOleWindow.ahk
 
 /**
  * Implemented by hosts of Shell views (objects that implement IShellView). Exposes methods that provide services for the view it is hosting and other objects that run in the context of the Explorer window.
@@ -18,9 +18,8 @@
  * <b>Windows 7 and later</b>.  Windows Explorer context menus  can support in-place navigation by using  <a href="https://docs.microsoft.com/previous-versions/windows/internet-explorer/ie-developer/platform-apis/cc678966(v=vs.85)">IServiceProvider::QueryService</a> with the Service ID SID_SlnPlaceBrowser.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-ishellbrowser
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IShellBrowser extends IOleWindow{
+class IShellBrowser extends IOleWindow {
 
     static sizeof => A_PtrSize
     /**
@@ -267,8 +266,12 @@ class IShellBrowser extends IOleWindow{
      * @param {Integer} uMsg Type: <b>UINT</b>
      * 
      * The message to be sent to the control.
-     * @param {WPARAM} _wParam 
-     * @param {LPARAM} _lParam 
+     * @param {WPARAM} _wParam Type: <b>WPARAM</b>
+     * 
+     * The value depends on the message specified in the <i>uMsg</i> parameter.
+     * @param {LPARAM} _lParam Type: <b>LPARAM</b>
+     * 
+     * The value depends on the message specified in the <i>uMsg</i> parameter.
      * @returns {LRESULT} Type: <b>LRESULT*</b>
      * 
      * The address of the return value of the 

@@ -16,11 +16,9 @@
  * > The windns.h header defines DNS_NXT_DATA as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
  * @see https://learn.microsoft.com/windows/win32/api/windns/ns-windns-dns_nxt_dataa
  * @namespace Windows.Win32.NetworkManagement.Dns
- * @version v4.0.30319
  * @charset ANSI
  */
-class DNS_NXT_DATAA extends Win32Struct
-{
+class DNS_NXT_DATAA extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
@@ -45,9 +43,9 @@ class DNS_NXT_DATAA extends Win32Struct
 
     /**
      * A <b>BYTE</b> array that contains a bitmap which specifies the RR types that are present  in the next domain. Each bit in the array corresponds to a <a href="https://docs.microsoft.com/windows/desktop/DNS/dns-constants">DNS Record Type</a> as defined in section 5.2 of <a href="https://www.ietf.org/rfc/rfc2535.txt">RFC 2535</a>.
-     * @type {Array<UInt16>}
+     * @type {Array<Integer>}
      */
-    wTypes{
+    wTypes {
         get {
             if(!this.HasProp("__wTypesProxyArray"))
                 this.__wTypesProxyArray := Win32FixedArray(this.ptr + 10, 1, Primitive, "ushort")

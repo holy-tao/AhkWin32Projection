@@ -1,18 +1,24 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\D3D12_VIDEO_ENCODER_PICTURE_CONTROL_FLAGS.ahk
 #Include .\D3D12_VIDEO_ENCODER_PICTURE_CONTROL_CODEC_DATA1.ahk
+#Include .\D3D12_VIDEO_ENCODER_PICTURE_CONTROL_CODEC_DATA_H264.ahk
+#Include .\D3D12_VIDEO_ENCODER_PICTURE_CONTROL_CODEC_DATA_HEVC2.ahk
+#Include .\D3D12_VIDEO_ENCODER_AV1_PICTURE_CONTROL_CODEC_DATA.ahk
 #Include .\D3D12_VIDEO_ENCODE_REFERENCE_FRAMES.ahk
+#Include ..\..\Graphics\Direct3D12\ID3D12Resource.ahk
 #Include .\D3D12_VIDEO_ENCODER_FRAME_MOTION_VECTORS.ahk
+#Include .\D3D12_VIDEO_ENCODER_INPUT_MAP_SOURCE.ahk
+#Include .\D3D12_VIDEO_ENCODER_MOVEREGION_INFO.ahk
 #Include .\D3D12_VIDEO_ENCODER_DIRTY_REGIONS.ahk
+#Include .\D3D12_VIDEO_ENCODER_DIRTY_RECT_INFO.ahk
 #Include .\D3D12_VIDEO_ENCODER_QUANTIZATION_OPAQUE_MAP.ahk
 #Include .\D3D12_VIDEO_ENCODER_FRAME_ANALYSIS.ahk
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class D3D12_VIDEO_ENCODER_PICTURE_CONTROL_DESC1 extends Win32Struct
-{
+class D3D12_VIDEO_ENCODER_PICTURE_CONTROL_DESC1 extends Win32Struct {
     static sizeof => 128
 
     static packingSize => 8
@@ -26,7 +32,7 @@ class D3D12_VIDEO_ENCODER_PICTURE_CONTROL_DESC1 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {D3D12_VIDEO_ENCODER_PICTURE_CONTROL_FLAGS}
      */
     Flags {
         get => NumGet(this, 4, "int")
@@ -36,7 +42,7 @@ class D3D12_VIDEO_ENCODER_PICTURE_CONTROL_DESC1 extends Win32Struct
     /**
      * @type {D3D12_VIDEO_ENCODER_PICTURE_CONTROL_CODEC_DATA1}
      */
-    PictureControlCodecData{
+    PictureControlCodecData {
         get {
             if(!this.HasProp("__PictureControlCodecData"))
                 this.__PictureControlCodecData := D3D12_VIDEO_ENCODER_PICTURE_CONTROL_CODEC_DATA1(8, this)
@@ -47,7 +53,7 @@ class D3D12_VIDEO_ENCODER_PICTURE_CONTROL_DESC1 extends Win32Struct
     /**
      * @type {D3D12_VIDEO_ENCODE_REFERENCE_FRAMES}
      */
-    ReferenceFrames{
+    ReferenceFrames {
         get {
             if(!this.HasProp("__ReferenceFrames"))
                 this.__ReferenceFrames := D3D12_VIDEO_ENCODE_REFERENCE_FRAMES(24, this)
@@ -58,7 +64,7 @@ class D3D12_VIDEO_ENCODER_PICTURE_CONTROL_DESC1 extends Win32Struct
     /**
      * @type {D3D12_VIDEO_ENCODER_FRAME_MOTION_VECTORS}
      */
-    MotionVectors{
+    MotionVectors {
         get {
             if(!this.HasProp("__MotionVectors"))
                 this.__MotionVectors := D3D12_VIDEO_ENCODER_FRAME_MOTION_VECTORS(48, this)
@@ -69,7 +75,7 @@ class D3D12_VIDEO_ENCODER_PICTURE_CONTROL_DESC1 extends Win32Struct
     /**
      * @type {D3D12_VIDEO_ENCODER_DIRTY_REGIONS}
      */
-    DirtyRects{
+    DirtyRects {
         get {
             if(!this.HasProp("__DirtyRects"))
                 this.__DirtyRects := D3D12_VIDEO_ENCODER_DIRTY_REGIONS(64, this)
@@ -80,7 +86,7 @@ class D3D12_VIDEO_ENCODER_PICTURE_CONTROL_DESC1 extends Win32Struct
     /**
      * @type {D3D12_VIDEO_ENCODER_QUANTIZATION_OPAQUE_MAP}
      */
-    QuantizationTextureMap{
+    QuantizationTextureMap {
         get {
             if(!this.HasProp("__QuantizationTextureMap"))
                 this.__QuantizationTextureMap := D3D12_VIDEO_ENCODER_QUANTIZATION_OPAQUE_MAP(80, this)
@@ -91,7 +97,7 @@ class D3D12_VIDEO_ENCODER_PICTURE_CONTROL_DESC1 extends Win32Struct
     /**
      * @type {D3D12_VIDEO_ENCODER_FRAME_ANALYSIS}
      */
-    FrameAnalysis{
+    FrameAnalysis {
         get {
             if(!this.HasProp("__FrameAnalysis"))
                 this.__FrameAnalysis := D3D12_VIDEO_ENCODER_FRAME_ANALYSIS(88, this)

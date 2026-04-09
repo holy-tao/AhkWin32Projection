@@ -7,9 +7,8 @@
  * The IFilterGraph3 interface extends the IFilterGraph2 interface, which contains methods for building filter graphs.The Filter Graph Manager implements this interface.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-ifiltergraph3
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IFilterGraph3 extends IFilterGraph2{
+class IFilterGraph3 extends IFilterGraph2 {
 
     static sizeof => A_PtrSize
     /**

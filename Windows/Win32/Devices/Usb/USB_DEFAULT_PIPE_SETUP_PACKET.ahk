@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.Usb
- * @version v4.0.30319
  */
-class USB_DEFAULT_PIPE_SETUP_PACKET extends Win32Struct
-{
+class USB_DEFAULT_PIPE_SETUP_PACKET extends Win32Struct {
     static sizeof => 14
 
     static packingSize => 2
@@ -23,7 +21,7 @@ class USB_DEFAULT_PIPE_SETUP_PACKET extends Win32Struct
             get => NumGet(this, 0, "char")
             set => NumPut("char", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -31,7 +29,7 @@ class USB_DEFAULT_PIPE_SETUP_PACKET extends Win32Struct
             get => NumGet(this, 1, "char")
             set => NumPut("char", value, this, 1)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -39,7 +37,6 @@ class USB_DEFAULT_PIPE_SETUP_PACKET extends Win32Struct
             get => NumGet(this, 0, "ushort")
             set => NumPut("ushort", value, this, 0)
         }
-    
     }
 
     class _wIndex extends Win32Struct {
@@ -53,7 +50,7 @@ class USB_DEFAULT_PIPE_SETUP_PACKET extends Win32Struct
             get => NumGet(this, 0, "char")
             set => NumPut("char", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -61,7 +58,7 @@ class USB_DEFAULT_PIPE_SETUP_PACKET extends Win32Struct
             get => NumGet(this, 1, "char")
             set => NumPut("char", value, this, 1)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -69,13 +66,12 @@ class USB_DEFAULT_PIPE_SETUP_PACKET extends Win32Struct
             get => NumGet(this, 0, "ushort")
             set => NumPut("ushort", value, this, 0)
         }
-    
     }
 
     /**
      * @type {BM_REQUEST_TYPE}
      */
-    bmRequestType{
+    bmRequestType {
         get {
             if(!this.HasProp("__bmRequestType"))
                 this.__bmRequestType := BM_REQUEST_TYPE(0, this)
@@ -94,10 +90,10 @@ class USB_DEFAULT_PIPE_SETUP_PACKET extends Win32Struct
     /**
      * @type {_wValue}
      */
-    wValue{
+    wValue {
         get {
             if(!this.HasProp("__wValue"))
-                this.__wValue := %this.__Class%._wValue(3, this)
+                this.__wValue := USB_DEFAULT_PIPE_SETUP_PACKET._wValue(3, this)
             return this.__wValue
         }
     }
@@ -105,10 +101,10 @@ class USB_DEFAULT_PIPE_SETUP_PACKET extends Win32Struct
     /**
      * @type {_wIndex}
      */
-    wIndex{
+    wIndex {
         get {
             if(!this.HasProp("__wIndex"))
-                this.__wIndex := %this.__Class%._wIndex(7, this)
+                this.__wIndex := USB_DEFAULT_PIPE_SETUP_PACKET._wIndex(7, this)
             return this.__wIndex
         }
     }

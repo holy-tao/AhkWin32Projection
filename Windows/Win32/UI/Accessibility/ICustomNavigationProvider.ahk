@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IRawElementProviderSimple.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\IRawElementProviderSimple.ahk
 
 /**
  * @namespace Windows.Win32.UI.Accessibility
- * @version v4.0.30319
  */
-class ICustomNavigationProvider extends IUnknown{
+class ICustomNavigationProvider extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -31,7 +30,7 @@ class ICustomNavigationProvider extends IUnknown{
 
     /**
      * Note This section describes functionality designed for use by online stores. Use of this functionality outside the context of an online store is not supported. The Navigate element specifies a URL used by calls to External.NavigateTaskPaneURL.
-     * @param {Integer} _direction 
+     * @param {NavigateDirection} _direction 
      * @returns {IRawElementProviderSimple} 
      * @see https://learn.microsoft.com/windows/win32/WMP/navigate-element
      */

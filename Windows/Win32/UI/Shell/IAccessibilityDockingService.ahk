@@ -7,9 +7,8 @@
  * Docks an application window to the bottom of a monitor when a Windows Store app is visible and not snapped, or when the launcher is visible.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nn-shobjidl-iaccessibilitydockingservice
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IAccessibilityDockingService extends IUnknown{
+class IAccessibilityDockingService extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -40,7 +39,7 @@ class IAccessibilityDockingService extends IUnknown{
      * Gets the dimensions available for docking an accessibility window on a monitor.
      * @remarks
      * Accessibility windows can only be docked to a monitor that has at least 768 vertical screen pixels. This API will not allow such windows to be docked with a height that would cause Windows Store apps to have less than 768 vertical screen pixels.
-     * @param {HMONITOR} _hMonitor 
+     * @param {HMONITOR} _hMonitor Specifies the monitor for which the available docking size will be retrieved.
      * @param {Pointer<Integer>} pcxFixed 
      * @param {Pointer<Integer>} pcyMax 
      * @returns {HRESULT} | Return code                                                                                                                          | Description                                                                      |
@@ -67,8 +66,8 @@ class IAccessibilityDockingService extends IUnknown{
 
     /**
      * Docks the specified window handle to the specified monitor handle.
-     * @param {HWND} _hwnd 
-     * @param {HMONITOR} _hMonitor 
+     * @param {HWND} _hwnd The accessibility application window that will be docked on the passed monitor handle.
+     * @param {HMONITOR} _hMonitor The monitor on which the accessibility application window will be docked.
      * @param {Integer} cyRequested TBD
      * @param {IAccessibilityDockingServiceCallback} pCallback The callback pointer on which the accessibility application will receive the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl/nf-shobjidl-iaccessibilitydockingservice-undockwindow">Undock</a> notification.
      * @returns {HRESULT} This method can return one of these values.
@@ -159,7 +158,7 @@ class IAccessibilityDockingService extends IUnknown{
      * Undocks the specified window handle if it is currently docked.
      * @remarks
      * This method can only be used to undock windows that belong to the calling process.
-     * @param {HWND} _hwnd 
+     * @param {HWND} _hwnd TBD
      * @returns {HRESULT} This method can return one of these values.
      * 
      * <table>

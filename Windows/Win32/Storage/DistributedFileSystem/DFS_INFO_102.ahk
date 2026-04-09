@@ -5,10 +5,8 @@
  * Contains a time-out value to associate with a Distributed File System (DFS) root or a link in a named DFS root.
  * @see https://learn.microsoft.com/windows/win32/api/lmdfs/ns-lmdfs-dfs_info_102
  * @namespace Windows.Win32.Storage.DistributedFileSystem
- * @version v4.0.30319
  */
-class DFS_INFO_102 extends Win32Struct
-{
+class DFS_INFO_102 extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 4

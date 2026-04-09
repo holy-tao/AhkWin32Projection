@@ -14,9 +14,8 @@
  * A solid color brush is a device-dependent resource. (For more information about resources, see <a href="https://docs.microsoft.com/windows/win32/Direct2D/resources-and-resource-domains">Resources Overview</a>.)
  * @see https://learn.microsoft.com/windows/win32/api/d2d1/nn-d2d1-id2d1solidcolorbrush
  * @namespace Windows.Win32.Graphics.Direct2D
- * @version v4.0.30319
  */
-class ID2D1SolidColorBrush extends ID2D1Brush{
+class ID2D1SolidColorBrush extends ID2D1Brush {
 
     static sizeof => A_PtrSize
     /**

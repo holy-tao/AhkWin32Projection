@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D12
- * @version v4.0.30319
  */
-class ID3D12DeviceRemovedExtendedDataSettings1 extends ID3D12DeviceRemovedExtendedDataSettings{
+class ID3D12DeviceRemovedExtendedDataSettings1 extends ID3D12DeviceRemovedExtendedDataSettings {
 
     static sizeof => A_PtrSize
     /**
@@ -30,7 +29,7 @@ class ID3D12DeviceRemovedExtendedDataSettings1 extends ID3D12DeviceRemovedExtend
 
     /**
      * 
-     * @param {Integer} Enablement 
+     * @param {D3D12_DRED_ENABLEMENT} Enablement 
      * @returns {String} Nothing - always returns an empty string
      */
     SetBreadcrumbContextEnablement(Enablement) {

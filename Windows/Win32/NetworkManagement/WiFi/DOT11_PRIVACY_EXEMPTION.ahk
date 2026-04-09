@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
- * @version v4.0.30319
  */
-class DOT11_PRIVACY_EXEMPTION extends Win32Struct
-{
+class DOT11_PRIVACY_EXEMPTION extends Win32Struct {
     static sizeof => 6
 
     static packingSize => 2

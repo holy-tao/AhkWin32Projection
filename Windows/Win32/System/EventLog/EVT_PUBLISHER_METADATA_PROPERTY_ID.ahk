@@ -33,9 +33,8 @@
  * The handle points to an array of objects that contain the metadata for child type that the provider defines. To determine how many objects are in the array, call the <a href="https://docs.microsoft.com/windows/desktop/api/winevt/nf-winevt-evtgetobjectarraysize">EvtGetObjectArraySize</a> function. To access a property of one of the objects, call the <a href="https://docs.microsoft.com/windows/desktop/api/winevt/nf-winevt-evtgetobjectarrayproperty">EvtGetObjectArrayProperty</a> function and specify the identifier of the property that you want to retrieve.
  * @see https://learn.microsoft.com/windows/win32/api/winevt/ne-winevt-evt_publisher_metadata_property_id
  * @namespace Windows.Win32.System.EventLog
- * @version v4.0.30319
  */
-class EVT_PUBLISHER_METADATA_PROPERTY_ID extends Win32Enum{
+class EVT_PUBLISHER_METADATA_PROPERTY_ID extends Win32Enum {
 
     /**
      * Identifies the <b>guid</b> attribute of the provider. The variant type for this property is <b>EvtVarTypeGuid</b>.

@@ -4,16 +4,14 @@
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
- * @version v4.0.30319
  */
-class KS_VIDEO_STREAM_CONFIG_CAPS extends Win32Struct
-{
+class KS_VIDEO_STREAM_CONFIG_CAPS extends Win32Struct {
     static sizeof => 120
 
     static packingSize => 8
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     guid {
         get => NumGet(this, 0, "ptr")
@@ -31,7 +29,7 @@ class KS_VIDEO_STREAM_CONFIG_CAPS extends Win32Struct
     /**
      * @type {SIZE}
      */
-    InputSize{
+    InputSize {
         get {
             if(!this.HasProp("__InputSize"))
                 this.__InputSize := SIZE(12, this)
@@ -42,7 +40,7 @@ class KS_VIDEO_STREAM_CONFIG_CAPS extends Win32Struct
     /**
      * @type {SIZE}
      */
-    MinCroppingSize{
+    MinCroppingSize {
         get {
             if(!this.HasProp("__MinCroppingSize"))
                 this.__MinCroppingSize := SIZE(20, this)
@@ -53,7 +51,7 @@ class KS_VIDEO_STREAM_CONFIG_CAPS extends Win32Struct
     /**
      * @type {SIZE}
      */
-    MaxCroppingSize{
+    MaxCroppingSize {
         get {
             if(!this.HasProp("__MaxCroppingSize"))
                 this.__MaxCroppingSize := SIZE(28, this)
@@ -96,7 +94,7 @@ class KS_VIDEO_STREAM_CONFIG_CAPS extends Win32Struct
     /**
      * @type {SIZE}
      */
-    MinOutputSize{
+    MinOutputSize {
         get {
             if(!this.HasProp("__MinOutputSize"))
                 this.__MinOutputSize := SIZE(52, this)
@@ -107,7 +105,7 @@ class KS_VIDEO_STREAM_CONFIG_CAPS extends Win32Struct
     /**
      * @type {SIZE}
      */
-    MaxOutputSize{
+    MaxOutputSize {
         get {
             if(!this.HasProp("__MaxOutputSize"))
                 this.__MaxOutputSize := SIZE(60, this)

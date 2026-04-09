@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IEnumRegFilters.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include .\IEnumRegFilters.ahk
 
 /**
  * Note  This interface has been deprecated. (IFilterMapper)
  * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-ifiltermapper
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IFilterMapper extends IUnknown{
+class IFilterMapper extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

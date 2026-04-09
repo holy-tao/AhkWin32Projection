@@ -1,13 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\..\Win32\Foundation\HANDLE.ahk
+#Include .\RTL_SEGMENT_HEAP_VA_CALLBACKS.ahk
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem
- * @version v4.0.30319
  */
-class RTL_SEGMENT_HEAP_MEMORY_SOURCE extends Win32Struct
-{
+class RTL_SEGMENT_HEAP_MEMORY_SOURCE extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -39,7 +38,7 @@ class RTL_SEGMENT_HEAP_MEMORY_SOURCE extends Win32Struct
     /**
      * @type {HANDLE}
      */
-    PartitionHandle{
+    PartitionHandle {
         get {
             if(!this.HasProp("__PartitionHandle"))
                 this.__PartitionHandle := HANDLE(16, this)
@@ -56,9 +55,9 @@ class RTL_SEGMENT_HEAP_MEMORY_SOURCE extends Win32Struct
     }
 
     /**
-     * @type {Array<UIntPtr>}
+     * @type {Array<Pointer>}
      */
-    Reserved{
+    Reserved {
         get {
             if(!this.HasProp("__ReservedProxyArray"))
                 this.__ReservedProxyArray := Win32FixedArray(this.ptr + 24, 2, Primitive, "ptr")

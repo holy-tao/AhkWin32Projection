@@ -2,14 +2,14 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * Exposes methods that retrieve information about a specific input or output connector pin.
  * @see https://learn.microsoft.com/windows/win32/api/mileffects/nn-mileffects-imilbitmapeffectconnectorinfo
  * @namespace Windows.Win32.UI.Wpf
- * @version v4.0.30319
  */
-class IMILBitmapEffectConnectorInfo extends IUnknown{
+class IMILBitmapEffectConnectorInfo extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

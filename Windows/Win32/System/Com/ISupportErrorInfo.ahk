@@ -7,9 +7,8 @@
  * Ensures that error information can be propagated up the call chain correctly. Automation objects that use the error handling interfaces must implement ISupportErrorInfo.
  * @see https://learn.microsoft.com/windows/win32/api/oaidl/nn-oaidl-isupporterrorinfo
  * @namespace Windows.Win32.System.Com
- * @version v4.0.30319
  */
-class ISupportErrorInfo extends IUnknown{
+class ISupportErrorInfo extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

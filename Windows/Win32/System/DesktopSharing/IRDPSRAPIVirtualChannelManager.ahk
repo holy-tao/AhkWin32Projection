@@ -1,18 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Include ..\Com\IDispatch.ahk
 #Include ..\Com\IUnknown.ahk
 #Include .\IRDPSRAPIVirtualChannel.ahk
-#Include ..\Com\IDispatch.ahk
 
 /**
  * Manages the list of virtual channels.
  * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nn-rdpencomapi-irdpsrapivirtualchannelmanager
  * @namespace Windows.Win32.System.DesktopSharing
- * @version v4.0.30319
  */
-class IRDPSRAPIVirtualChannelManager extends IDispatch{
+class IRDPSRAPIVirtualChannelManager extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -70,7 +68,7 @@ class IRDPSRAPIVirtualChannelManager extends IDispatch{
      * @param {BSTR} bstrChannelName Type: <b>BSTR</b>
      * 
      * The name of the channel. The maximum length is 8 characters, including the null-terminating character. Legacy channel names are limited to 32 characters.
-     * @param {Integer} _Priority 
+     * @param {CHANNEL_PRIORITY} _Priority Type: <b>CHANNEL_PRIORITY</b>
      * @param {Integer} ChannelFlags Type: <b>unsigned long</b>
      * 
      * Flags that determine how data is sent on the channel. This parameter can be 0 or <a href="https://docs.microsoft.com/windows/win32/api/rdpencomapi/ne-rdpencomapi-channel_flags">CHANNEL_FLAGS_UNCOMPRESSED</a>.

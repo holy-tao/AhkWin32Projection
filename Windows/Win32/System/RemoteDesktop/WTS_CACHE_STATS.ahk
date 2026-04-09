@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\WTS_PROTOCOL_CACHE.ahk
 #Include .\WTS_CACHE_STATS_UN.ahk
+#Include .\WTS_PROTOCOL_CACHE.ahk
 
 /**
  * Contains protocol cache statistics.
@@ -9,16 +9,13 @@
  * This structure is a member of the <a href="https://docs.microsoft.com/windows/desktop/api/wtsdefs/ns-wtsdefs-wts_protocol_status">WTS_PROTOCOL_STATUS</a> structure.
  * @see https://learn.microsoft.com/windows/win32/api/wtsdefs/ns-wtsdefs-wts_cache_stats
  * @namespace Windows.Win32.System.RemoteDesktop
- * @version v4.0.30319
  */
-class WTS_CACHE_STATS extends Win32Struct
-{
-    static sizeof => 136
+class WTS_CACHE_STATS extends Win32Struct {
+    static sizeof => 124
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
-     * 
      * @type {Integer}
      */
     Specific {
@@ -30,10 +27,10 @@ class WTS_CACHE_STATS extends Win32Struct
      * A <a href="https://docs.microsoft.com/windows/desktop/api/wtsdefs/ns-wtsdefs-wts_cache_stats_un">WTS_CACHE_STATS_UN</a> union that contains the cache statistics.
      * @type {WTS_CACHE_STATS_UN}
      */
-    Data{
+    Data {
         get {
             if(!this.HasProp("__Data"))
-                this.__Data := WTS_CACHE_STATS_UN(8, this)
+                this.__Data := WTS_CACHE_STATS_UN(4, this)
             return this.__Data
         }
     }
@@ -43,8 +40,8 @@ class WTS_CACHE_STATS extends Win32Struct
      * @type {Integer}
      */
     ProtocolType {
-        get => NumGet(this, 128, "ushort")
-        set => NumPut("ushort", value, this, 128)
+        get => NumGet(this, 120, "ushort")
+        set => NumPut("ushort", value, this, 120)
     }
 
     /**
@@ -52,7 +49,7 @@ class WTS_CACHE_STATS extends Win32Struct
      * @type {Integer}
      */
     Length {
-        get => NumGet(this, 130, "ushort")
-        set => NumPut("ushort", value, this, 130)
+        get => NumGet(this, 122, "ushort")
+        set => NumPut("ushort", value, this, 122)
     }
 }

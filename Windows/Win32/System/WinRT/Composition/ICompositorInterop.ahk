@@ -9,9 +9,8 @@
  * See <a href="https://docs.microsoft.com/windows/desktop/api/windows.ui.composition.interop/nn-windows-ui-composition-interop-icompositiondrawingsurfaceinterop">ICompositionDrawingSurfaceInterop</a> for usage examples.
  * @see https://learn.microsoft.com/windows/win32/api/windows.ui.composition.interop/nn-windows-ui-composition-interop-icompositorinterop
  * @namespace Windows.Win32.System.WinRT.Composition
- * @version v4.0.30319
  */
-class ICompositorInterop extends IUnknown{
+class ICompositorInterop extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -37,7 +36,7 @@ class ICompositorInterop extends IUnknown{
      * @param {HANDLE} swapChain Type: <b>HANDLE*</b>
      * 
      * The handle of the swap chain to create the CompositionSurface for.
-     * @returns {Pointer<ICompositionSurface>} Type: <b>ICompositionSurface**</b>
+     * @returns {Pointer} Type: <b>ICompositionSurface**</b>
      * 
      * The created CompositionSurface.
      * @see https://learn.microsoft.com/windows/win32/api/windows.ui.composition.interop/nf-windows-ui-composition-interop-icompositorinterop-createcompositionsurfaceforhandle
@@ -54,7 +53,7 @@ class ICompositorInterop extends IUnknown{
      * @param {IUnknown} swapChain Type: <b>IUnknown*</b>
      * 
      * The swap chain to create the CompositionSurface for.
-     * @returns {Pointer<ICompositionSurface>} Type: <b>ICompositionSurface**</b>
+     * @returns {Pointer} Type: <b>ICompositionSurface**</b>
      * 
      * The created CompositionSurface.
      * @see https://learn.microsoft.com/windows/win32/api/windows.ui.composition.interop/nf-windows-ui-composition-interop-icompositorinterop-createcompositionsurfaceforswapchain
@@ -69,7 +68,7 @@ class ICompositorInterop extends IUnknown{
      * @param {IUnknown} renderingDevice Type: <b>IUnknown*</b>
      * 
      * The rendering device to back the CompositionGraphicsDevice.
-     * @returns {Pointer<CompositionGraphicsDevice>} Type: <b>ICompositionGraphicsDevice**</b>
+     * @returns {Pointer} Type: <b>ICompositionGraphicsDevice**</b>
      * 
      * The created CompositionGraphicsDevice.
      * @see https://learn.microsoft.com/windows/win32/api/windows.ui.composition.interop/nf-windows-ui-composition-interop-icompositorinterop-creategraphicsdevice

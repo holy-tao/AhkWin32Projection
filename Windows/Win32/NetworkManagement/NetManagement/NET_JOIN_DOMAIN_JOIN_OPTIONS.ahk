@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.NetManagement
- * @version v4.0.30319
  */
-class NET_JOIN_DOMAIN_JOIN_OPTIONS extends Win32BitflagEnum{
+class NET_JOIN_DOMAIN_JOIN_OPTIONS extends Win32BitflagEnum {
 
     /**
      * @type {Integer (UInt32)}

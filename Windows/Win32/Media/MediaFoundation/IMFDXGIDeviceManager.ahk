@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\HANDLE.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * Enables two threads to share the same Microsoft Direct3D 11 device.
@@ -16,9 +16,8 @@
  * Windows Store apps must use <b>IMFDXGIDeviceManager</b> and <a href="https://docs.microsoft.com/windows/desktop/medfound/direct3d-11-video-apis">Direct3D 11 Video APIs</a>.
  * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nn-mfobjects-imfdxgidevicemanager
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFDXGIDeviceManager extends IUnknown{
+class IMFDXGIDeviceManager extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -6,11 +6,10 @@
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
+ * @architecture X64, Arm64
  */
-class DXVA_DeinterlaceBltEx32 extends Win32Struct
-{
-    static sizeof => 304
+class DXVA_DeinterlaceBltEx32 extends Win32Struct {
+    static sizeof => 4144
 
     static packingSize => 8
 
@@ -25,7 +24,7 @@ class DXVA_DeinterlaceBltEx32 extends Win32Struct
     /**
      * @type {DXVA_AYUVsample2}
      */
-    BackgroundColor{
+    BackgroundColor {
         get {
             if(!this.HasProp("__BackgroundColor"))
                 this.__BackgroundColor := DXVA_AYUVsample2(4, this)
@@ -36,7 +35,7 @@ class DXVA_DeinterlaceBltEx32 extends Win32Struct
     /**
      * @type {RECT}
      */
-    rcTarget{
+    rcTarget {
         get {
             if(!this.HasProp("__rcTarget"))
                 this.__rcTarget := RECT(8, this)
@@ -69,9 +68,9 @@ class DXVA_DeinterlaceBltEx32 extends Win32Struct
     }
 
     /**
-     * @type {Array<DXVA_VideoSample32>}
+     * @type {DXVA_VideoSample32}
      */
-    Source{
+    Source {
         get {
             if(!this.HasProp("__SourceProxyArray"))
                 this.__SourceProxyArray := Win32FixedArray(this.ptr + 40, 32, DXVA_VideoSample32, "")
@@ -83,15 +82,15 @@ class DXVA_DeinterlaceBltEx32 extends Win32Struct
      * @type {Integer}
      */
     DestinationFormat {
-        get => NumGet(this, 296, "uint")
-        set => NumPut("uint", value, this, 296)
+        get => NumGet(this, 4136, "uint")
+        set => NumPut("uint", value, this, 4136)
     }
 
     /**
      * @type {Integer}
      */
     DestinationFlags {
-        get => NumGet(this, 300, "uint")
-        set => NumPut("uint", value, this, 300)
+        get => NumGet(this, 4140, "uint")
+        set => NumPut("uint", value, this, 4140)
     }
 }

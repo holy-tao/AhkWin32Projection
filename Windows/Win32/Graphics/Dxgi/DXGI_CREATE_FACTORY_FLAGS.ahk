@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Graphics.Dxgi
- * @version v4.0.30319
  */
-class DXGI_CREATE_FACTORY_FLAGS extends Win32BitflagEnum{
+class DXGI_CREATE_FACTORY_FLAGS extends Win32BitflagEnum {
 
     /**
      * @type {Integer (UInt32)}

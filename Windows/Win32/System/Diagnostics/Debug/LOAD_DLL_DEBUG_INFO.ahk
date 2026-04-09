@@ -6,10 +6,8 @@
  * Contains information about a dynamic-link library (DLL) that has just been loaded.
  * @see https://learn.microsoft.com/windows/win32/api/minwinbase/ns-minwinbase-load_dll_debug_info
  * @namespace Windows.Win32.System.Diagnostics.Debug
- * @version v4.0.30319
  */
-class LOAD_DLL_DEBUG_INFO extends Win32Struct
-{
+class LOAD_DLL_DEBUG_INFO extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -20,7 +18,7 @@ class LOAD_DLL_DEBUG_INFO extends Win32Struct
      * When the debugger is finished with this file, it should close the handle using the <a href="https://docs.microsoft.com/windows/desktop/api/handleapi/nf-handleapi-closehandle">CloseHandle</a> function.
      * @type {HANDLE}
      */
-    hFile{
+    hFile {
         get {
             if(!this.HasProp("__hFile"))
                 this.__hFile := HANDLE(0, this)

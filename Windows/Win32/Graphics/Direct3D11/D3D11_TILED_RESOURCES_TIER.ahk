@@ -5,9 +5,8 @@
  * Indicates the tier level at which tiled resources are supported.
  * @see https://learn.microsoft.com/windows/win32/api/d3d11/ne-d3d11-d3d11_tiled_resources_tier
  * @namespace Windows.Win32.Graphics.Direct3D11
- * @version v4.0.30319
  */
-class D3D11_TILED_RESOURCES_TIER extends Win32Enum{
+class D3D11_TILED_RESOURCES_TIER extends Win32Enum {
 
     /**
      * Tiled resources are not supported.

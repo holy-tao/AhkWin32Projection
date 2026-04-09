@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
+#Include ..\..\..\Com\IUnknown.ahk
+#Include ..\..\..\..\Foundation\BSTR.ahk
 #Include .\IDataModelScriptDebugStack.ahk
 #Include .\IDataModelScriptDebugBreakpoint.ahk
 #Include .\IDataModelScriptDebugBreakpointEnumerator.ahk
-#Include ..\..\..\Com\IUnknown.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
- * @version v4.0.30319
  */
-class IDataModelScriptDebug extends IUnknown{
+class IDataModelScriptDebug extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -33,7 +33,7 @@ class IDataModelScriptDebug extends IUnknown{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {ScriptDebugState} 
      */
     GetDebugState() {
         result := ComCall(3, this, "int")
@@ -96,7 +96,7 @@ class IDataModelScriptDebug extends IUnknown{
 
     /**
      * 
-     * @param {Integer} eventFilter 
+     * @param {ScriptDebugEventFilter} eventFilter 
      * @returns {Boolean} 
      */
     GetEventFilter(eventFilter) {
@@ -106,7 +106,7 @@ class IDataModelScriptDebug extends IUnknown{
 
     /**
      * 
-     * @param {Integer} eventFilter 
+     * @param {ScriptDebugEventFilter} eventFilter 
      * @param {Integer} isBreakEnabled 
      * @returns {HRESULT} 
      */

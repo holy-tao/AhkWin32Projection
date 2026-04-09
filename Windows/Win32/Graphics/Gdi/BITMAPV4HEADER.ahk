@@ -1,7 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\CIEXYZ.ahk
+#Include .\BI_COMPRESSION.ahk
 #Include .\CIEXYZTRIPLE.ahk
+#Include .\CIEXYZ.ahk
 
 /**
  * The BITMAPV4HEADER structure is the bitmap information header file. It is an extended version of the BITMAPINFOHEADER structure.Applications can use the BITMAPV5HEADER structure for added functionality.
@@ -9,10 +10,8 @@
  * The <b>BITMAPV4HEADER</b> structure is extended to allow a JPEG or PNG image to be passed as the source image to <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-stretchdibits">StretchDIBits</a>.
  * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-bitmapv4header
  * @namespace Windows.Win32.Graphics.Gdi
- * @version v4.0.30319
  */
-class BITMAPV4HEADER extends Win32Struct
-{
+class BITMAPV4HEADER extends Win32Struct {
     static sizeof => 108
 
     static packingSize => 4
@@ -60,7 +59,6 @@ class BITMAPV4HEADER extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     bV4BitCount {
@@ -69,8 +67,7 @@ class BITMAPV4HEADER extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Integer}
+     * @type {BI_COMPRESSION}
      */
     bV4V4Compression {
         get => NumGet(this, 16, "uint")
@@ -192,7 +189,7 @@ class BITMAPV4HEADER extends Win32Struct
      * <div> </div>
      * @type {CIEXYZTRIPLE}
      */
-    bV4Endpoints{
+    bV4Endpoints {
         get {
             if(!this.HasProp("__bV4Endpoints"))
                 this.__bV4Endpoints := CIEXYZTRIPLE(60, this)

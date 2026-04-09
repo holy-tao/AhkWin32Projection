@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\D3DDDIFORMAT.ahk
 #Include ..\..\..\Win32\Graphics\Gdi\HDC.ahk
+#Include ..\..\..\Win32\Graphics\Gdi\PALETTEENTRY.ahk
 #Include ..\..\..\Win32\Foundation\HANDLE.ahk
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
- * @version v4.0.30319
  */
-class D3DKMT_CREATEDCFROMMEMORY extends Win32Struct
-{
+class D3DKMT_CREATEDCFROMMEMORY extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8
@@ -22,7 +22,7 @@ class D3DKMT_CREATEDCFROMMEMORY extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {D3DDDIFORMAT}
      */
     Format {
         get => NumGet(this, 8, "uint")
@@ -56,7 +56,7 @@ class D3DKMT_CREATEDCFROMMEMORY extends Win32Struct
     /**
      * @type {HDC}
      */
-    hDeviceDc{
+    hDeviceDc {
         get {
             if(!this.HasProp("__hDeviceDc"))
                 this.__hDeviceDc := HDC(24, this)
@@ -75,7 +75,7 @@ class D3DKMT_CREATEDCFROMMEMORY extends Win32Struct
     /**
      * @type {HDC}
      */
-    hDc{
+    hDc {
         get {
             if(!this.HasProp("__hDc"))
                 this.__hDc := HDC(40, this)
@@ -86,7 +86,7 @@ class D3DKMT_CREATEDCFROMMEMORY extends Win32Struct
     /**
      * @type {HANDLE}
      */
-    hBitmap{
+    hBitmap {
         get {
             if(!this.HasProp("__hBitmap"))
                 this.__hBitmap := HANDLE(48, this)

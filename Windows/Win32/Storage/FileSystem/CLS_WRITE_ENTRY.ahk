@@ -5,10 +5,8 @@
  * Contains a user buffer, which is to become part of a log record, and its length.
  * @see https://learn.microsoft.com/windows/win32/api/clfs/ns-clfs-cls_write_entry
  * @namespace Windows.Win32.Storage.FileSystem
- * @version v4.0.30319
  */
-class CLS_WRITE_ENTRY extends Win32Struct
-{
+class CLS_WRITE_ENTRY extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

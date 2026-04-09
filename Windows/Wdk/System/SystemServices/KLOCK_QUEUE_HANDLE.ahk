@@ -3,16 +3,14 @@
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class KLOCK_QUEUE_HANDLE extends Win32Struct
-{
+class KLOCK_QUEUE_HANDLE extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
 
     /**
-     * @type {Pointer<KSPIN_LOCK_QUEUE>}
+     * @type {Pointer}
      */
     LockQueue {
         get => NumGet(this, 0, "ptr")

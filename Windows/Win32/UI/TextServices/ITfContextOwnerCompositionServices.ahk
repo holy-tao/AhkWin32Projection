@@ -11,9 +11,8 @@
  * Obtain this interface by calling <b>ITfContext::QueryInterface</b> with IID_ITfContextOwnerCompositionServices.
  * @see https://learn.microsoft.com/windows/win32/api/msctf/nn-msctf-itfcontextownercompositionservices
  * @namespace Windows.Win32.UI.TextServices
- * @version v4.0.30319
  */
-class ITfContextOwnerCompositionServices extends ITfContextComposition{
+class ITfContextOwnerCompositionServices extends ITfContextComposition {
 
     static sizeof => A_PtrSize
     /**

@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IMFTimedTextCueList.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include .\IMFTimedTextCueList.ahk
 
 /**
  * Represents a track of timed text.
  * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nn-mfmediaengine-imftimedtexttrack
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFTimedTextTrack extends IUnknown{
+class IMFTimedTextTrack extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -86,7 +86,7 @@ class IMFTimedTextTrack extends IUnknown{
 
     /**
      * Gets the kind of timed-text track.
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/ne-mfmediaengine-mf_timed_text_track_kind">MF_TIMED_TEXT_TRACK_KIND</a></b>
+     * @returns {MF_TIMED_TEXT_TRACK_KIND} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/ne-mfmediaengine-mf_timed_text_track_kind">MF_TIMED_TEXT_TRACK_KIND</a></b>
      * 
      * Returns a <a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/ne-mfmediaengine-mf_timed_text_track_kind">MF_TIMED_TEXT_TRACK_KIND</a>-typed value that specifies the kind of timed-text track.
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtexttrack-gettrackkind
@@ -134,7 +134,7 @@ class IMFTimedTextTrack extends IUnknown{
 
     /**
      * Gets a value indicating the error type of the latest error associated with the track.
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/ne-mfmediaengine-mf_timed_text_error_code">MF_TIMED_TEXT_ERROR_CODE</a></b>
+     * @returns {MF_TIMED_TEXT_ERROR_CODE} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/ne-mfmediaengine-mf_timed_text_error_code">MF_TIMED_TEXT_ERROR_CODE</a></b>
      * 
      * A value indicating the error type of the latest error associated with the track.
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtexttrack-geterrorcode
@@ -173,7 +173,7 @@ class IMFTimedTextTrack extends IUnknown{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {MF_TIMED_TEXT_TRACK_READY_STATE} 
      */
     GetReadyState() {
         result := ComCall(14, this, "int")

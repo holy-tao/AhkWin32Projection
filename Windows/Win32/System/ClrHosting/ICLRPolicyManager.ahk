@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.ClrHosting
- * @version v4.0.30319
  */
-class ICLRPolicyManager extends IUnknown{
+class ICLRPolicyManager extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -30,8 +29,8 @@ class ICLRPolicyManager extends IUnknown{
 
     /**
      * 
-     * @param {Integer} operation 
-     * @param {Integer} action 
+     * @param {EClrOperation} operation 
+     * @param {EPolicyAction} action 
      * @returns {HRESULT} 
      */
     SetDefaultAction(operation, action) {
@@ -41,7 +40,7 @@ class ICLRPolicyManager extends IUnknown{
 
     /**
      * 
-     * @param {Integer} operation 
+     * @param {EClrOperation} operation 
      * @param {Integer} dwMilliseconds 
      * @returns {HRESULT} 
      */
@@ -52,8 +51,8 @@ class ICLRPolicyManager extends IUnknown{
 
     /**
      * 
-     * @param {Integer} operation 
-     * @param {Integer} action 
+     * @param {EClrOperation} operation 
+     * @param {EPolicyAction} action 
      * @returns {HRESULT} 
      */
     SetActionOnTimeout(operation, action) {
@@ -63,9 +62,9 @@ class ICLRPolicyManager extends IUnknown{
 
     /**
      * 
-     * @param {Integer} operation 
+     * @param {EClrOperation} operation 
      * @param {Integer} dwMilliseconds 
-     * @param {Integer} action 
+     * @param {EPolicyAction} action 
      * @returns {HRESULT} 
      */
     SetTimeoutAndAction(operation, dwMilliseconds, action) {
@@ -75,8 +74,8 @@ class ICLRPolicyManager extends IUnknown{
 
     /**
      * 
-     * @param {Integer} failure 
-     * @param {Integer} action 
+     * @param {EClrFailure} failure 
+     * @param {EPolicyAction} action 
      * @returns {HRESULT} 
      */
     SetActionOnFailure(failure, action) {
@@ -86,7 +85,7 @@ class ICLRPolicyManager extends IUnknown{
 
     /**
      * 
-     * @param {Integer} policy 
+     * @param {EClrUnhandledException} policy 
      * @returns {HRESULT} 
      */
     SetUnhandledExceptionPolicy(policy) {

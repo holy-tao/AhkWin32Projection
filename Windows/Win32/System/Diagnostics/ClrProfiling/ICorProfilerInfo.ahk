@@ -1,15 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Foundation\HANDLE.ahk
 #Include ..\..\Com\IUnknown.ahk
+#Include ..\..\..\Foundation\HANDLE.ahk
 #Include .\IMethodMalloc.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.ClrProfiling
- * @version v4.0.30319
  */
-class ICorProfilerInfo extends IUnknown{
+class ICorProfilerInfo extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -122,7 +121,7 @@ class ICorProfilerInfo extends IUnknown{
     /**
      * 
      * @param {Pointer} classId 
-     * @param {Pointer<Integer>} pBaseElemType 
+     * @param {Pointer<CorElementType>} pBaseElemType 
      * @param {Pointer<Pointer>} pBaseClassId 
      * @param {Pointer<Integer>} pcRank 
      * @returns {HRESULT} 
@@ -471,13 +470,13 @@ class ICorProfilerInfo extends IUnknown{
      * @param {Pointer} functionId 
      * @param {Integer} cMap 
      * @param {Pointer<Integer>} pcMap 
-     * @param {Pointer<COR_DEBUG_IL_TO_NATIVE_MAP>} map 
+     * @param {Pointer<COR_DEBUG_IL_TO_NATIVE_MAP>} _map 
      * @returns {HRESULT} 
      */
-    GetILToNativeMapping(functionId, cMap, pcMap, map) {
+    GetILToNativeMapping(functionId, cMap, pcMap, _map) {
         pcMapMarshal := pcMap is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(35, this, "ptr", functionId, "uint", cMap, pcMapMarshal, pcMap, "ptr", map, "HRESULT")
+        result := ComCall(35, this, "ptr", functionId, "uint", cMap, pcMapMarshal, pcMap, "ptr", _map, "HRESULT")
         return result
     }
 }

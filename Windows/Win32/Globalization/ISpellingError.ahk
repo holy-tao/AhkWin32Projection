@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\Guid.ahk
-#Include ..\System\Com\Apis.ahk
 #Include ..\System\Com\IUnknown.ahk
+#Include ..\System\Com\Apis.ahk
 
 /**
  * Provides information about a spelling error.
  * @see https://learn.microsoft.com/windows/win32/api/spellcheck/nn-spellcheck-ispellingerror
  * @namespace Windows.Win32.Globalization
- * @version v4.0.30319
  */
-class ISpellingError extends IUnknown{
+class ISpellingError extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -46,7 +45,7 @@ class ISpellingError extends IUnknown{
     }
 
     /**
-     * @type {Integer} 
+     * @type {CORRECTIVE_ACTION} 
      */
     CorrectiveAction {
         get => this.get_CorrectiveAction()
@@ -81,7 +80,7 @@ class ISpellingError extends IUnknown{
 
     /**
      * Indicates which corrective action should be taken for the spelling error.
-     * @returns {Integer} 
+     * @returns {CORRECTIVE_ACTION} 
      * @see https://learn.microsoft.com/windows/win32/api/spellcheck/nf-spellcheck-ispellingerror-get_correctiveaction
      */
     get_CorrectiveAction() {

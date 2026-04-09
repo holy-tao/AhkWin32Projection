@@ -24,9 +24,8 @@
  *     <a href="https://docs.microsoft.com/windows/desktop/api/vsbackup/nf-vsbackup-ivssbackupcomponents-disablewriterinstances">IVssBackupComponents::DisableWriterInstances</a>).
  * @see https://learn.microsoft.com/windows/win32/api/vss/ne-vss-vss_backup_schema
  * @namespace Windows.Win32.Storage.Vss
- * @version v4.0.30319
  */
-class VSS_BACKUP_SCHEMA extends Win32Enum{
+class VSS_BACKUP_SCHEMA extends Win32Enum {
 
     /**
      * The writer supports a simple full backup and restoration of entire files (as defined by a 

@@ -5,9 +5,8 @@
  * The VMR9MixerPrefs enumeration type contains flags that specify how the Video Mixing Render 9 filter (VMR-9) mixes the video streams. Settings include decimation, filtering, and render target preferences.
  * @see https://learn.microsoft.com/windows/win32/api/vmr9/ne-vmr9-vmr9mixerprefs
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class VMR9MixerPrefs extends Win32Enum{
+class VMR9MixerPrefs extends Win32Enum {
 
     /**
      * No decimation. The video will be rendered onto the surface in its native size.

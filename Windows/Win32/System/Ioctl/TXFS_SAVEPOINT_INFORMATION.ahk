@@ -6,10 +6,8 @@
  * The FSCTL_TXFS_SAVEPOINT_INFORMATION structure specifies the action to perform, and on which transaction.
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-txfs_savepoint_information
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class TXFS_SAVEPOINT_INFORMATION extends Win32Struct
-{
+class TXFS_SAVEPOINT_INFORMATION extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
@@ -18,7 +16,7 @@ class TXFS_SAVEPOINT_INFORMATION extends Win32Struct
      * Handle to the transaction on which to perform the savepoint operation.
      * @type {HANDLE}
      */
-    KtmTransaction{
+    KtmTransaction {
         get {
             if(!this.HasProp("__KtmTransaction"))
                 this.__KtmTransaction := HANDLE(0, this)

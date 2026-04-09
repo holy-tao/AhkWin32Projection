@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\BRUSH_STYLE.ahk
 
 /**
  * The LOGBRUSH structure defines the style, color, and pattern of a physical brush. It is used by the CreateBrushIndirect and ExtCreatePen functions.
@@ -7,10 +8,8 @@
  * Although <b>lbColor</b> controls the foreground color of a hatch brush, the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-setbkmode">SetBkMode</a> and <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-setbkcolor">SetBkColor</a> functions control the background color.
  * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-logbrush
  * @namespace Windows.Win32.Graphics.Gdi
- * @version v4.0.30319
  */
-class LOGBRUSH extends Win32Struct
-{
+class LOGBRUSH extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
@@ -60,7 +59,7 @@ class LOGBRUSH extends Win32Struct
      * <td>Solid brush.</td>
      * </tr>
      * </table>
-     * @type {Integer}
+     * @type {BRUSH_STYLE}
      */
     lbStyle {
         get => NumGet(this, 0, "uint")

@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.Cdrom
- * @version v4.0.30319
  */
-class SUB_Q_TRACK_ISRC extends Win32Struct
-{
+class SUB_Q_TRACK_ISRC extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 1
@@ -15,7 +13,7 @@ class SUB_Q_TRACK_ISRC extends Win32Struct
     /**
      * @type {SUB_Q_HEADER}
      */
-    Header{
+    Header {
         get {
             if(!this.HasProp("__Header"))
                 this.__Header := SUB_Q_HEADER(0, this)
@@ -83,9 +81,9 @@ class SUB_Q_TRACK_ISRC extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    TrackIsrc{
+    TrackIsrc {
         get {
             if(!this.HasProp("__TrackIsrcProxyArray"))
                 this.__TrackIsrcProxyArray := Win32FixedArray(this.ptr + 9, 15, Primitive, "char")

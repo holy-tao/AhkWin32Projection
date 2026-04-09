@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.Foundation
- * @version v4.0.30319
  */
-class OBJECT_INFORMATION_CLASS extends Win32Enum{
+class OBJECT_INFORMATION_CLASS extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

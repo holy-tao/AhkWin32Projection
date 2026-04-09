@@ -7,9 +7,8 @@
  * The ISCPSecureExchange2 interface extends ISCPSecureExchange by providing a new version of the TransferContainerData method.
  * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nn-mswmdm-iscpsecureexchange2
  * @namespace Windows.Win32.Media.DeviceManager
- * @version v4.0.30319
  */
-class ISCPSecureExchange2 extends ISCPSecureExchange{
+class ISCPSecureExchange2 extends ISCPSecureExchange {
 
     static sizeof => A_PtrSize
     /**

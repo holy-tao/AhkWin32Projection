@@ -1,17 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\FILETIME.ahk
 #Include .\DS_REPL_NEIGHBORW.ahk
+#Include ..\..\Foundation\FILETIME.ahk
 
 /**
  * The DS_REPL_NEIGHBORS structure is used with the DsReplicaGetInfo and DsReplicaGetInfo2 functions to provide inbound replication state data for naming context and source server pairs.
  * @see https://learn.microsoft.com/windows/win32/api/ntdsapi/ns-ntdsapi-ds_repl_neighborsw
  * @namespace Windows.Win32.Networking.ActiveDirectory
- * @version v4.0.30319
  */
-class DS_REPL_NEIGHBORSW extends Win32Struct
-{
-    static sizeof => 16
+class DS_REPL_NEIGHBORSW extends Win32Struct {
+    static sizeof => 120
 
     static packingSize => 8
 
@@ -35,9 +33,9 @@ class DS_REPL_NEIGHBORSW extends Win32Struct
 
     /**
      * Contains an array of <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/ns-ntdsapi-ds_repl_neighborw">DS_REPL_NEIGHBOR</a> structures that contain the requested replication data. The <b>cNumNeighbors</b> member contains the number of elements in this array.
-     * @type {Array<DS_REPL_NEIGHBORW>}
+     * @type {DS_REPL_NEIGHBORW}
      */
-    rgNeighbor{
+    rgNeighbor {
         get {
             if(!this.HasProp("__rgNeighborProxyArray"))
                 this.__rgNeighborProxyArray := Win32FixedArray(this.ptr + 8, 1, DS_REPL_NEIGHBORW, "")

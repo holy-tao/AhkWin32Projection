@@ -7,10 +7,8 @@
  * For info about the virtual machine generation identifier, see <a href="https://docs.microsoft.com/windows/desktop/HyperV_v2/virtual-machine-generation-identifier">Virtual machine generation identifier</a>.
  * @see https://learn.microsoft.com/windows/win32/api/vmgenerationcounter/ns-vmgenerationcounter-vm_gencounter
  * @namespace Windows.Win32.System.Hypervisor
- * @version v4.0.30319
  */
-class VM_GENCOUNTER extends Win32Struct
-{
+class VM_GENCOUNTER extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

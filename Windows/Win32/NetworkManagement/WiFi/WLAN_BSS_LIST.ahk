@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\DOT11_SSID.ahk
-#Include .\WLAN_RATE_SET.ahk
 #Include .\WLAN_BSS_ENTRY.ahk
+#Include .\DOT11_SSID.ahk
+#Include .\DOT11_BSS_TYPE.ahk
+#Include .\DOT11_PHY_TYPE.ahk
+#Include .\WLAN_RATE_SET.ahk
 
 /**
  * Contains a list of basic service set (BSS) entries.
@@ -21,11 +23,9 @@
  * Since the information is returned by the access point for an infrastructure BSS network or by the network peer for an independent BSS network (ad hoc network), the information returned should not be trusted. The <b>ulIeOffset</b> and <b>ulIeSize</b>  members in the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/ns-wlanapi-wlan_bss_entry">WLAN_BSS_ENTRY</a> structure should be used to determine the maximum size of the information element data blob in the <b>WLAN_BSS_ENTRY</b> structure, not the data in the information element data blob.
  * @see https://learn.microsoft.com/windows/win32/api/wlanapi/ns-wlanapi-wlan_bss_list
  * @namespace Windows.Win32.NetworkManagement.WiFi
- * @version v4.0.30319
  */
-class WLAN_BSS_LIST extends Win32Struct
-{
-    static sizeof => 16
+class WLAN_BSS_LIST extends Win32Struct {
+    static sizeof => 368
 
     static packingSize => 8
 
@@ -49,9 +49,9 @@ class WLAN_BSS_LIST extends Win32Struct
 
     /**
      * An array of <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/ns-wlanapi-wlan_bss_entry">WLAN_BSS_ENTRY</a> structures that contains information about a BSS.
-     * @type {Array<WLAN_BSS_ENTRY>}
+     * @type {WLAN_BSS_ENTRY}
      */
-    wlanBssEntries{
+    wlanBssEntries {
         get {
             if(!this.HasProp("__wlanBssEntriesProxyArray"))
                 this.__wlanBssEntriesProxyArray := Win32FixedArray(this.ptr + 8, 1, WLAN_BSS_ENTRY, "")

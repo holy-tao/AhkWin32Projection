@@ -10,9 +10,8 @@
  * For more information about canonicalization and packages, see the <i>ECMA-376 OpenXML, 1st Edition, Part 2: Open Packaging Conventions (OPC)</i>.
  * @see https://learn.microsoft.com/windows/win32/api/msopc/ne-msopc-opc_canonicalization_method
  * @namespace Windows.Win32.Storage.Packaging.Opc
- * @version v4.0.30319
  */
-class OPC_CANONICALIZATION_METHOD extends Win32Enum{
+class OPC_CANONICALIZATION_METHOD extends Win32Enum {
 
     /**
      * No canonicalization method is applied.

@@ -3,16 +3,14 @@
 
 /**
  * @namespace Windows.Win32.Storage.FileSystem
- * @version v4.0.30319
  */
-class COPYFILE2_CREATE_OPLOCK_KEYS extends Win32Struct
-{
+class COPYFILE2_CREATE_OPLOCK_KEYS extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     ParentOplockKey {
         get => NumGet(this, 0, "ptr")
@@ -20,7 +18,7 @@ class COPYFILE2_CREATE_OPLOCK_KEYS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     TargetOplockKey {
         get => NumGet(this, 8, "ptr")

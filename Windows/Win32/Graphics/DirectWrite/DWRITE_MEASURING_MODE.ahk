@@ -5,9 +5,8 @@
  * Indicates the measuring method used for text layout.
  * @see https://learn.microsoft.com/windows/win32/api/dcommon/ne-dcommon-dwrite_measuring_mode
  * @namespace Windows.Win32.Graphics.DirectWrite
- * @version v4.0.30319
  */
-class DWRITE_MEASURING_MODE extends Win32Enum{
+class DWRITE_MEASURING_MODE extends Win32Enum {
 
     /**
      * Specifies that text is measured using glyph ideal metrics whose values are independent to the current display resolution.

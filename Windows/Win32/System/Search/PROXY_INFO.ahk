@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\PROXY_ACCESS.ahk
 
 /**
  * Stores information about a proxy. Used by ISearchProtocol.
  * @see https://learn.microsoft.com/windows/win32/api/searchapi/ns-searchapi-proxy_info
  * @namespace Windows.Win32.System.Search
- * @version v4.0.30319
  */
-class PROXY_INFO extends Win32Struct
-{
+class PROXY_INFO extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -39,7 +38,7 @@ class PROXY_INFO extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/searchapi/ne-searchapi-proxy_access">PROXY_ACCESS</a></b>
      * 
      * The proxy type to use.
-     * @type {Integer}
+     * @type {PROXY_ACCESS}
      */
     paUseProxy {
         get => NumGet(this, 16, "int")

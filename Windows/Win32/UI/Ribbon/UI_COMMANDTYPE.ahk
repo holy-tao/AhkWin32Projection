@@ -5,9 +5,8 @@
  * Specifies values that identify the type of Command associated with a Ribbon control.
  * @see https://learn.microsoft.com/windows/win32/api/uiribbon/ne-uiribbon-ui_commandtype
  * @namespace Windows.Win32.UI.Ribbon
- * @version v4.0.30319
  */
-class UI_COMMANDTYPE extends Win32Enum{
+class UI_COMMANDTYPE extends Win32Enum {
 
     /**
      * The type of command is not known.

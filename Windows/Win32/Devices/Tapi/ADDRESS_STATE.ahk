@@ -5,9 +5,8 @@
  * The ADDRESS_STATE enum is used by the ITAddress::get_State method to check the address state.
  * @see https://learn.microsoft.com/windows/win32/api/tapi3if/ne-tapi3if-address_state
  * @namespace Windows.Win32.Devices.Tapi
- * @version v4.0.30319
  */
-class ADDRESS_STATE extends Win32Enum{
+class ADDRESS_STATE extends Win32Enum {
 
     /**
      * Normal state; the address can be used.

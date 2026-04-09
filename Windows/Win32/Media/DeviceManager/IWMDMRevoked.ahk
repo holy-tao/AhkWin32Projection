@@ -7,9 +7,8 @@
  * The IWMDMRevoked interface retrieves the URL from which updated components can be downloaded, if a transfer fails with a revocation error.
  * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nn-mswmdm-iwmdmrevoked
  * @namespace Windows.Win32.Media.DeviceManager
- * @version v4.0.30319
  */
-class IWMDMRevoked extends IUnknown{
+class IWMDMRevoked extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

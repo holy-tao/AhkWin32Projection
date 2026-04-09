@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\DCB.ahk
+#Include .\DCB_PARITY.ahk
+#Include .\DCB_STOP_BITS.ahk
 
 /**
  * Contains information about the configuration state of a communications device.
@@ -9,10 +11,8 @@
  * <a href="https://docs.microsoft.com/windows/desktop/api/mcx/ns-mcx-modemsettings">MODEMSETTINGS</a> structure.
  * @see https://learn.microsoft.com/windows/win32/api/winbase/ns-winbase-commconfig
  * @namespace Windows.Win32.Devices.Communication
- * @version v4.0.30319
  */
-class COMMCONFIG extends Win32Struct
-{
+class COMMCONFIG extends Win32Struct {
     static sizeof => 52
 
     static packingSize => 4
@@ -50,7 +50,7 @@ class COMMCONFIG extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/ns-winbase-commprop">COMMPROP</a> structure.
      * @type {DCB}
      */
-    dcb{
+    dcb {
         get {
             if(!this.HasProp("__dcb"))
                 this.__dcb := DCB(8, this)

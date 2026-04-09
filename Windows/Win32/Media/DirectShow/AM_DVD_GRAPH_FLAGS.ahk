@@ -17,9 +17,8 @@
  * To use the VMR-9, the decoder's <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nf-strmif-iamdecodercaps-getdecodercaps">IAMDecoderCaps::GetDecoderCaps</a> method must return the <b>AM_GETDECODERCAP_QUERY_VMR9_SUPPORT</b> flag. To use the EVR, the decoder's <b>GetDecoderCaps</b> method must return the <b>AM_GETDECODERCAP_QUERY_EVR_SUPPORT</b> flag.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/ne-strmif-am_dvd_graph_flags
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class AM_DVD_GRAPH_FLAGS extends Win32Enum{
+class AM_DVD_GRAPH_FLAGS extends Win32Enum {
 
     /**
      * Use a hardware decoder if possible. If none is available, use a software decoder. This is the default setting. Hardware DVD decoders are registered under the CLSID_DVDHWDecodersCategory filter category. See <a href="https://docs.microsoft.com/windows/desktop/DirectShow/filter-categories">Filter Categories</a>.
@@ -72,19 +71,16 @@ class AM_DVD_GRAPH_FLAGS extends Win32Enum{
     static AM_DVD_EVR_ONLY => 4096
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static AM_DVD_EVR_QOS => 8192
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static AM_DVD_ADAPT_GRAPH => 16384
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static AM_DVD_MASK => 65535

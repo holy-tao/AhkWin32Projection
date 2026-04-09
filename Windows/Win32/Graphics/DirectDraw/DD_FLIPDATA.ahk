@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DD_DIRECTDRAW_GLOBAL.ahk
+#Include .\DD_SURFACE_LOCAL.ahk
 
 /**
  * The DD_FLIPDATA structure contains information needed to do a flip.
  * @see https://learn.microsoft.com/windows/win32/api/ddrawint/ns-ddrawint-dd_flipdata
  * @namespace Windows.Win32.Graphics.DirectDraw
- * @version v4.0.30319
  */
-class DD_FLIPDATA extends Win32Struct
-{
+class DD_FLIPDATA extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8

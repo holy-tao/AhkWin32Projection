@@ -1,5 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\USER_PRIV.ahk
+#Include .\USER_ACCOUNT_FLAGS.ahk
+#Include .\AF_OP.ahk
 
 /**
  * The USER_INFO_3 structure contains information about a user account, including the account name, password data, privilege level, the path to the user's home directory, relative identifiers (RIDs), and other user-related network statistics.
@@ -20,10 +23,8 @@
  * 			<a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/nf-lmaccess-netusergetinfo">NetUserGetInfo</a> functions on Windows XP and later.
  * @see https://learn.microsoft.com/windows/win32/api/lmaccess/ns-lmaccess-user_info_3
  * @namespace Windows.Win32.NetworkManagement.NetManagement
- * @version v4.0.30319
  */
-class USER_INFO_3 extends Win32Struct
-{
+class USER_INFO_3 extends Win32Struct {
     static sizeof => 184
 
     static packingSize => 8
@@ -76,7 +77,7 @@ class USER_INFO_3 extends Win32Struct
      * 
      * The level of privilege assigned to the <b>usri3_name</b> member. The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/nf-lmaccess-netuseradd">NetUserAdd</a> and
-     * @type {Integer}
+     * @type {USER_PRIV}
      */
     usri3_priv {
         get => NumGet(this, 20, "uint")
@@ -107,7 +108,7 @@ class USER_INFO_3 extends Win32Struct
 
     /**
      * Type: <b>DWORD</b>
-     * @type {Integer}
+     * @type {USER_ACCOUNT_FLAGS}
      */
     usri3_flags {
         get => NumGet(this, 40, "uint")
@@ -140,7 +141,7 @@ class USER_INFO_3 extends Win32Struct
      * The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/nf-lmaccess-netuseradd">NetUserAdd</a> and 
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/nf-lmaccess-netusersetinfo">NetUserSetInfo</a> functions ignore this member.
-     * @type {Integer}
+     * @type {AF_OP}
      */
     usri3_auth_flags {
         get => NumGet(this, 56, "uint")

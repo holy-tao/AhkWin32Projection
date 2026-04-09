@@ -1,15 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ID3D12DeviceRemovedExtendedData.ahk
 #Include .\D3D12_DRED_AUTO_BREADCRUMBS_OUTPUT1.ahk
 #Include .\D3D12_DRED_PAGE_FAULT_OUTPUT1.ahk
-#Include .\ID3D12DeviceRemovedExtendedData.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D12
- * @version v4.0.30319
  */
-class ID3D12DeviceRemovedExtendedData1 extends ID3D12DeviceRemovedExtendedData{
+class ID3D12DeviceRemovedExtendedData1 extends ID3D12DeviceRemovedExtendedData {
 
     static sizeof => A_PtrSize
     /**

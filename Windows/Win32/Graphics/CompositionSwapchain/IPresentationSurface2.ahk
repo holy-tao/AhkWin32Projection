@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Graphics.CompositionSwapchain
- * @version v4.0.30319
  */
-class IPresentationSurface2 extends IPresentationSurface{
+class IPresentationSurface2 extends IPresentationSurface {
 
     static sizeof => A_PtrSize
     /**

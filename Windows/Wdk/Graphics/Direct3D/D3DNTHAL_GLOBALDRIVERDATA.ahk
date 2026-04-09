@@ -1,12 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\Win32\Graphics\DirectDraw\DDSURFACEDESC.ahk
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
- * @version v4.0.30319
  */
-class D3DNTHAL_GLOBALDRIVERDATA extends Win32Struct
-{
+class D3DNTHAL_GLOBALDRIVERDATA extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -20,7 +19,7 @@ class D3DNTHAL_GLOBALDRIVERDATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<D3DNTHALDEVICEDESC_V1>}
+     * @type {Pointer}
      */
     hwCaps {
         get => NumGet(this, 8, "ptr")

@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\CERT_CHAIN_POLICY_FLAGS.ahk
 
 /**
  * Contains information used in CertVerifyCertificateChainPolicy to establish policy criteria for the verification of certificate chains.
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cert_chain_policy_para
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CERT_CHAIN_POLICY_PARA extends Win32Struct
-{
+class CERT_CHAIN_POLICY_PARA extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
@@ -24,7 +23,7 @@ class CERT_CHAIN_POLICY_PARA extends Win32Struct
 
     /**
      * A set of flags that indicate conditions that could potentially be not valid and that are to be ignored in building certificate chains.
-     * @type {Integer}
+     * @type {CERT_CHAIN_POLICY_FLAGS}
      */
     dwFlags {
         get => NumGet(this, 4, "uint")

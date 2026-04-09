@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CARD_CHANGE_AUTHENTICATOR extends Win32Struct
-{
+class CARD_CHANGE_AUTHENTICATOR extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 4
@@ -68,9 +66,9 @@ class CARD_CHANGE_AUTHENTICATOR extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    pbData{
+    pbData {
         get {
             if(!this.HasProp("__pbDataProxyArray"))
                 this.__pbDataProxyArray := Win32FixedArray(this.ptr + 28, 1, Primitive, "char")

@@ -33,9 +33,8 @@
  * For store apps, use the <a href="https://docs.microsoft.com/uwp/api/windows.ui.viewmanagement.inputpane.getforcurrentview">InputPane.GetForCurrentView</a> method to get an <a href="https://docs.microsoft.com/uwp/api/windows.ui.viewmanagement.inputpane">InputPane</a> object.
  * @see https://learn.microsoft.com/windows/win32/api/inputpaneinterop/nn-inputpaneinterop-iinputpaneinterop
  * @namespace Windows.Win32.System.WinRT
- * @version v4.0.30319
  */
-class IInputPaneInterop extends IInspectable{
+class IInputPaneInterop extends IInspectable {
 
     static sizeof => A_PtrSize
     /**

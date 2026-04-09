@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class POLICY_MACHINE_ACCT_INFO2 extends Win32Struct
-{
+class POLICY_MACHINE_ACCT_INFO2 extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -28,7 +26,7 @@ class POLICY_MACHINE_ACCT_INFO2 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     ObjectGuid {
         get => NumGet(this, 16, "ptr")

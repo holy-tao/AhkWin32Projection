@@ -1,12 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\VA_VIDEO_FORMAT.ahk
+#Include .\VA_COLOR_PRIMARIES.ahk
+#Include .\VA_TRANSFER_CHARACTERISTICS.ahk
+#Include .\VA_MATRIX_COEFFICIENTS.ahk
 
 /**
  * @namespace Windows.Win32.Media.DirectShow.Tv
- * @version v4.0.30319
  */
-class VA_OPTIONAL_VIDEO_PROPERTIES extends Win32Struct
-{
+class VA_OPTIONAL_VIDEO_PROPERTIES extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 4
@@ -44,7 +46,7 @@ class VA_OPTIONAL_VIDEO_PROPERTIES extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {VA_VIDEO_FORMAT}
      */
     VAVideoFormat {
         get => NumGet(this, 8, "int")
@@ -52,7 +54,7 @@ class VA_OPTIONAL_VIDEO_PROPERTIES extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {VA_COLOR_PRIMARIES}
      */
     VAColorPrimaries {
         get => NumGet(this, 12, "int")
@@ -60,7 +62,7 @@ class VA_OPTIONAL_VIDEO_PROPERTIES extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {VA_TRANSFER_CHARACTERISTICS}
      */
     VATransferCharacteristics {
         get => NumGet(this, 16, "int")
@@ -68,7 +70,7 @@ class VA_OPTIONAL_VIDEO_PROPERTIES extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {VA_MATRIX_COEFFICIENTS}
      */
     VAMatrixCoefficients {
         get => NumGet(this, 20, "int")

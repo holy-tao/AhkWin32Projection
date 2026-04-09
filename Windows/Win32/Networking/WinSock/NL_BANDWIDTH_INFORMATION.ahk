@@ -7,10 +7,8 @@
  * The  <b>NL_BANDWIDTH_INFORMATION</b> structure is defined in the <i>Nldef.h</i> header file which is automatically included by the <i>Iptypes.h</i> header file which is automatically included in the <i>Iphlpapi.h</i> header file. The  <i>Nldef.h</i> and <i>Iptypes.h</i> header files should never be used directly.
  * @see https://learn.microsoft.com/windows/win32/api/nldef/ns-nldef-nl_bandwidth_information
  * @namespace Windows.Win32.Networking.WinSock
- * @version v4.0.30319
  */
-class NL_BANDWIDTH_INFORMATION extends Win32Struct
-{
+class NL_BANDWIDTH_INFORMATION extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.MessageQueuing
- * @version v4.0.30319
  */
-class XACT_STATUS extends Win32Enum{
+class XACT_STATUS extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

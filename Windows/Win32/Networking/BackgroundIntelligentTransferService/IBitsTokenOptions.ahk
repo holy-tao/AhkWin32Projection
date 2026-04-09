@@ -7,9 +7,8 @@
  * Use IBitsTokenOptions to associate and manage a pair of security tokens for a Background Intelligent Transfer Service (BITS) transfer job.
  * @see https://learn.microsoft.com/windows/win32/api/bits4_0/nn-bits4_0-ibitstokenoptions
  * @namespace Windows.Win32.Networking.BackgroundIntelligentTransferService
- * @version v4.0.30319
  */
-class IBitsTokenOptions extends IUnknown{
+class IBitsTokenOptions extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -40,7 +39,7 @@ class IBitsTokenOptions extends IUnknown{
      * Older implementations effectively required that BITS users have  administrator privileges in order to set helper token usage flags with this method. Starting with Windows 10, version 1607, non-administrator BITS users can use this method to set non-administrator helper token usage flags on BITS jobs they own. This change enables non-administrator BITS users (such as background downloader services running under the <a href="https://docs.microsoft.com/windows/desktop/Services/networkservice-account">NetworkService account</a>) to use helper tokens effectively. 
      * 
      * Specifically, the implementation has been changed to allow users without administrator privileges to set helper token usage flags, as long as the SID of the  caller's thread's token is the same as the SID of the job owner's user account during the <a href="https://docs.microsoft.com/windows/desktop/api/bits/nn-bits-ibackgroundcopyjob">IBackgroundCopyJob::QueryInterface</a> call, and the helper token that is currently set (if any) does not have the administrator SID (<b>DOMAIN_ALIAS_RID_ADMINS</b>) enabled.
-     * @param {Integer} UsageFlags 
+     * @param {BG_TOKEN} UsageFlags 
      * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/bits4_0/nf-bits4_0-ibitstokenoptions-sethelpertokenflags
      */
@@ -55,7 +54,7 @@ class IBitsTokenOptions extends IUnknown{
      * Older implementations effectively required that BITS users have  administrator privileges in order to get helper token flags with this method. Starting with Windows 10, version 1607, non-administrator BITS users can use this method to get helper token usage flags on BITS jobs they own. This change enables non-administrator BITS users (such as background downloader services running under the <a href="https://docs.microsoft.com/windows/desktop/Services/networkservice-account">NetworkService account</a>) to use helper tokens effectively. 
      * 
      * Specifically, the implementation has been changed to allow users without administrator privileges to get helper token flags, as long as the SID of the  caller's thread's token is the same as the SID of the job owner's user account during the <a href="https://docs.microsoft.com/windows/desktop/api/bits/nn-bits-ibackgroundcopyjob">IBackgroundCopyJob::QueryInterface</a> call.
-     * @returns {Integer} 
+     * @returns {BG_TOKEN} 
      * @see https://learn.microsoft.com/windows/win32/api/bits4_0/nf-bits4_0-ibitstokenoptions-gethelpertokenflags
      */
     GetHelperTokenFlags() {
@@ -137,7 +136,7 @@ class IBitsTokenOptions extends IUnknown{
      * Older implementations effectively required that BITS users have  administrator privileges in order to get the helper token SID with this method. Starting with Windows 10, version 1607, non-administrator BITS users can use this method to get the helper token SID on BITS jobs they own. This change enables non-administrator BITS users (such as background downloader services running under the <a href="https://docs.microsoft.com/windows/desktop/Services/networkservice-account">NetworkService account</a>) to use helper tokens effectively. 
      * 
      * Specifically, the implementation has been changed to allow users without administrator privileges to get the helper token SID, as long as the SID of the  caller's thread's token is the same as the SID of the job owner's user account during the <a href="https://docs.microsoft.com/windows/desktop/api/bits/nn-bits-ibackgroundcopyjob">IBackgroundCopyJob::QueryInterface</a> call.
-     * @returns {PWSTR} 
+     * @returns {PWSTR} Returns the SID that is retrieved from the <i>TokenInformation</i> parameter of the <a href="https://docs.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-gettokeninformation">GetTokenInformation</a> function.  If no SID is retrieved, this parameter is set to <b>NULL</b>.
      * @see https://learn.microsoft.com/windows/win32/api/bits4_0/nf-bits4_0-ibitstokenoptions-gethelpertokensid
      */
     GetHelperTokenSid() {

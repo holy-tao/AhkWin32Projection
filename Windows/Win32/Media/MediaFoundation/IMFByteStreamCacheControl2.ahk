@@ -9,9 +9,8 @@
  * Byte streams object in Microsoft Media Foundation can optionally implement this interface. To get a pointer to this interface, call <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-queryinterface(q)">QueryInterface</a> on the byte stream object.
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imfbytestreamcachecontrol2
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFByteStreamCacheControl2 extends IMFByteStreamCacheControl{
+class IMFByteStreamCacheControl2 extends IMFByteStreamCacheControl {
 
     static sizeof => A_PtrSize
     /**

@@ -5,9 +5,8 @@
  * The NL_ADDRESS_TYPE enumeration type specifies the IP address type of the network layer.
  * @see https://learn.microsoft.com/windows/win32/api/nldef/ne-nldef-nl_address_type
  * @namespace Windows.Win32.Networking.WinSock
- * @version v4.0.30319
  */
-class NL_ADDRESS_TYPE extends Win32Enum{
+class NL_ADDRESS_TYPE extends Win32Enum {
 
     /**
      * The unspecified IP address. For example, for IPv4, this address is 0.0.0.0.

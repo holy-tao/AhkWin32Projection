@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.Dvd
- * @version v4.0.30319
  */
-class DVD_SET_RPC_KEY extends Win32Struct
-{
+class DVD_SET_RPC_KEY extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 1
@@ -20,9 +18,9 @@ class DVD_SET_RPC_KEY extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Reserved{
+    Reserved {
         get {
             if(!this.HasProp("__ReservedProxyArray"))
                 this.__ReservedProxyArray := Win32FixedArray(this.ptr + 1, 3, Primitive, "char")

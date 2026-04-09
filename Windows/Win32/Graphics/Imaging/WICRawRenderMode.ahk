@@ -5,9 +5,8 @@
  * Specifies the render intent of the next CopyPixels call.
  * @see https://learn.microsoft.com/windows/win32/api/wincodec/ne-wincodec-wicrawrendermode
  * @namespace Windows.Win32.Graphics.Imaging
- * @version v4.0.30319
  */
-class WICRawRenderMode extends Win32Enum{
+class WICRawRenderMode extends Win32Enum {
 
     /**
      * Use speed priority mode.

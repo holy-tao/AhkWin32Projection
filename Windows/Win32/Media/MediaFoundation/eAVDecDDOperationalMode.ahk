@@ -5,9 +5,8 @@
  * Specifies the compression control mode for a Dolby AC-3 audio stream. This enumeration is used with the AVDecDDOperationalMode property.
  * @see https://learn.microsoft.com/windows/win32/api/codecapi/ne-codecapi-eavdecddoperationalmode
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class eAVDecDDOperationalMode extends Win32Enum{
+class eAVDecDDOperationalMode extends Win32Enum {
 
     /**
      * No dynamic range control or dialogue normalization (dialnorm). This mode should be used only for signal tests.

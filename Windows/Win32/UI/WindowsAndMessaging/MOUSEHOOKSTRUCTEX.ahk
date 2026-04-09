@@ -1,17 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\MOUSEHOOKSTRUCT.ahk
 #Include ..\..\Foundation\POINT.ahk
 #Include ..\..\Foundation\HWND.ahk
-#Include .\MOUSEHOOKSTRUCT.ahk
 
 /**
  * Contains information about a mouse event passed to a WH_MOUSE hook procedure, MouseProc. This is an extension of the MOUSEHOOKSTRUCT structure that includes information about wheel movement or the use of the X button.
  * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-mousehookstructex
  * @namespace Windows.Win32.UI.WindowsAndMessaging
- * @version v4.0.30319
  */
-class MOUSEHOOKSTRUCTEX extends Win32Struct
-{
+class MOUSEHOOKSTRUCTEX extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -19,7 +17,7 @@ class MOUSEHOOKSTRUCTEX extends Win32Struct
     /**
      * @type {MOUSEHOOKSTRUCT}
      */
-    Base{
+    Base {
         get {
             if(!this.HasProp("__Base"))
                 this.__Base := MOUSEHOOKSTRUCT(0, this)

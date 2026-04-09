@@ -3,18 +3,16 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
- * @version v4.0.30319
  */
-class DOT11_QOS_TX_MEDIUM_TIME extends Win32Struct
-{
+class DOT11_QOS_TX_MEDIUM_TIME extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    dot11PeerAddress{
+    dot11PeerAddress {
         get {
             if(!this.HasProp("__dot11PeerAddressProxyArray"))
                 this.__dot11PeerAddressProxyArray := Win32FixedArray(this.ptr + 0, 6, Primitive, "char")

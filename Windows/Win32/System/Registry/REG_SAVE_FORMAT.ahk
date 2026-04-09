@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Registry
- * @version v4.0.30319
  */
-class REG_SAVE_FORMAT extends Win32Enum{
+class REG_SAVE_FORMAT extends Win32Enum {
 
     /**
      * @type {Integer (UInt32)}

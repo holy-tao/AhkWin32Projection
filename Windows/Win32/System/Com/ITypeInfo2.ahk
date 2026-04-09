@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ITypeInfo.ahk
 #Include ..\Variant\VARIANT.ahk
 #Include .\CUSTDATA.ahk
-#Include .\ITypeInfo.ahk
 
 /**
  * Used for reading information about objects. (ITypeInfo2)
  * @see https://learn.microsoft.com/windows/win32/api/oaidl/nn-oaidl-itypeinfo2
  * @namespace Windows.Win32.System.Com
- * @version v4.0.30319
  */
-class ITypeInfo2 extends ITypeInfo{
+class ITypeInfo2 extends ITypeInfo {
 
     static sizeof => A_PtrSize
     /**
@@ -34,7 +33,7 @@ class ITypeInfo2 extends ITypeInfo{
 
     /**
      * Returns the TYPEKIND enumeration quickly, without doing any allocations.
-     * @returns {Integer} A TYPEKIND value.
+     * @returns {TYPEKIND} A TYPEKIND value.
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-itypeinfo2-gettypekind
      */
     GetTypeKind() {
@@ -55,7 +54,7 @@ class ITypeInfo2 extends ITypeInfo{
     /**
      * Binds to a specific member based on a known DISPID, where the member name is not known (for example, when binding to a default member). (ITypeInfo2.GetFuncIndexOfMemId)
      * @param {Integer} memid The member identifier.
-     * @param {Integer} invKind The invoke kind.
+     * @param {INVOKEKIND} invKind The invoke kind.
      * @returns {Integer} An index into the function.
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-itypeinfo2-getfuncindexofmemid
      */

@@ -5,10 +5,8 @@
  * Specifies attributes for a user-mode scheduling (UMS) scheduler thread.
  * @see https://learn.microsoft.com/windows/win32/api/winbase/ns-winbase-ums_scheduler_startup_info
  * @namespace Windows.Win32.System.Threading
- * @version v4.0.30319
  */
-class UMS_SCHEDULER_STARTUP_INFO extends Win32Struct
-{
+class UMS_SCHEDULER_STARTUP_INFO extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8

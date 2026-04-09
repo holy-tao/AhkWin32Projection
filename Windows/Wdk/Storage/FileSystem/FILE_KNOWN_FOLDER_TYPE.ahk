@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem
- * @version v4.0.30319
  */
-class FILE_KNOWN_FOLDER_TYPE extends Win32Enum{
+class FILE_KNOWN_FOLDER_TYPE extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

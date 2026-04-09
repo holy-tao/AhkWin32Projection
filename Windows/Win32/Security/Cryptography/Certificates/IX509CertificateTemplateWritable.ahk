@@ -1,18 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
+#Include ..\..\..\System\Com\IDispatch.ahk
 #Include ..\..\..\System\Variant\VARIANT.ahk
 #Include .\IX509CertificateTemplate.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
 
 /**
  * The IX509CertificateTemplateWritable interface enables you to add a template to or delete it from a template store. Currently, Active Directory is the only available store.
  * @see https://learn.microsoft.com/windows/win32/api/certenroll/nn-certenroll-ix509certificatetemplatewritable
  * @namespace Windows.Win32.Security.Cryptography.Certificates
- * @version v4.0.30319
  */
-class IX509CertificateTemplateWritable extends IDispatch{
+class IX509CertificateTemplateWritable extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -104,7 +102,7 @@ class IX509CertificateTemplateWritable extends IDispatch{
      * <li>Launching the Certtmpl.msc snap-in.</li>
      * <li>Using the <b>Certutil.exe -installDefaultTemplates</b> command to install the default templates.</li>
      * </ul>
-     * @param {Integer} commitFlags 
+     * @param {CommitTemplateFlags} commitFlags 
      * @param {BSTR} strServerContext A <b>BSTR</b> variable that contains the DNS name of the Active Directory server to which the changes will be applied. If this value is <b>NULL</b>, the changes will be applied to the default domain controller.
      * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>.
      * 
@@ -206,7 +204,7 @@ class IX509CertificateTemplateWritable extends IDispatch{
      * Specifies or retrieves a property value for the IX509CertificateTemplateWritable object. (Get)
      * @remarks
      * Currently, TemplatePropSecurityDescriptor is the only property that you can set. The property value must be a <b>VARIANT</b> of type <b>VT_BSTR</b> or <b>VT_BYREF|VT_BSTR</b> and must be a valid SDDL string.
-     * @param {Integer} _property 
+     * @param {EnrollmentTemplateProperty} _property 
      * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificatetemplatewritable-get_property
      */
@@ -220,7 +218,7 @@ class IX509CertificateTemplateWritable extends IDispatch{
      * Specifies or retrieves a property value for the IX509CertificateTemplateWritable object. (Put)
      * @remarks
      * Currently, TemplatePropSecurityDescriptor is the only property that you can set. The property value must be a <b>VARIANT</b> of type <b>VT_BSTR</b> or <b>VT_BYREF|VT_BSTR</b> and must be a valid SDDL string.
-     * @param {Integer} _property 
+     * @param {EnrollmentTemplateProperty} _property 
      * @param {VARIANT} value 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificatetemplatewritable-put_property

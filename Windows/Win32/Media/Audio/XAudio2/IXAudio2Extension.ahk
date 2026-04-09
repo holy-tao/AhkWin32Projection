@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Media.Audio.XAudio2
- * @version v4.0.30319
  */
-class IXAudio2Extension extends IUnknown{
+class IXAudio2Extension extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

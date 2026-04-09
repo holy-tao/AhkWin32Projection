@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\D3DKMDT_VIDPN_PRESENT_PATH_IMPORTANCE.ahk
+#Include .\D3DKMDT_COLOR_BASIS.ahk
+#Include .\D3DKMDT_VIDPN_PRESENT_PATH_CONTENT.ahk
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
- * @version v4.0.30319
  */
-class D3DKMDT_VIDPN_PRESENT_PATH extends Win32Struct
-{
+class D3DKMDT_VIDPN_PRESENT_PATH extends Win32Struct {
     static sizeof => 80
 
     static packingSize => 8
@@ -28,7 +29,7 @@ class D3DKMDT_VIDPN_PRESENT_PATH extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {D3DKMDT_VIDPN_PRESENT_PATH_IMPORTANCE}
      */
     ImportanceOrdinal {
         get => NumGet(this, 8, "int")
@@ -36,7 +37,7 @@ class D3DKMDT_VIDPN_PRESENT_PATH extends Win32Struct
     }
 
     /**
-     * @type {Pointer<D3DKMDT_VIDPN_PRESENT_PATH_TRANSFORMATION>}
+     * @type {Pointer}
      */
     ContentTransformation {
         get => NumGet(this, 16, "ptr")
@@ -44,7 +45,7 @@ class D3DKMDT_VIDPN_PRESENT_PATH extends Win32Struct
     }
 
     /**
-     * @type {Pointer<D3DKMDT_2DREGION>}
+     * @type {Pointer}
      */
     VisibleFromActiveTLOffset {
         get => NumGet(this, 24, "ptr")
@@ -52,7 +53,7 @@ class D3DKMDT_VIDPN_PRESENT_PATH extends Win32Struct
     }
 
     /**
-     * @type {Pointer<D3DKMDT_2DREGION>}
+     * @type {Pointer}
      */
     VisibleFromActiveBROffset {
         get => NumGet(this, 32, "ptr")
@@ -60,7 +61,7 @@ class D3DKMDT_VIDPN_PRESENT_PATH extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {D3DKMDT_COLOR_BASIS}
      */
     VidPnTargetColorBasis {
         get => NumGet(this, 40, "int")
@@ -68,7 +69,7 @@ class D3DKMDT_VIDPN_PRESENT_PATH extends Win32Struct
     }
 
     /**
-     * @type {Pointer<D3DKMDT_COLOR_COEFF_DYNAMIC_RANGES>}
+     * @type {Pointer}
      */
     VidPnTargetColorCoeffDynamicRanges {
         get => NumGet(this, 48, "ptr")
@@ -76,7 +77,7 @@ class D3DKMDT_VIDPN_PRESENT_PATH extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {D3DKMDT_VIDPN_PRESENT_PATH_CONTENT}
      */
     Content {
         get => NumGet(this, 56, "int")
@@ -84,7 +85,7 @@ class D3DKMDT_VIDPN_PRESENT_PATH extends Win32Struct
     }
 
     /**
-     * @type {Pointer<D3DKMDT_VIDPN_PRESENT_PATH_COPYPROTECTION>}
+     * @type {Pointer}
      */
     CopyProtection {
         get => NumGet(this, 64, "ptr")
@@ -92,7 +93,7 @@ class D3DKMDT_VIDPN_PRESENT_PATH extends Win32Struct
     }
 
     /**
-     * @type {Pointer<D3DKMDT_GAMMA_RAMP>}
+     * @type {Pointer}
      */
     GammaRamp {
         get => NumGet(this, 72, "ptr")

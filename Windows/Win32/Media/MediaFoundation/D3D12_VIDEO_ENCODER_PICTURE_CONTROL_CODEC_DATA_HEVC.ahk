@@ -1,5 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\D3D12_VIDEO_ENCODER_PICTURE_CONTROL_CODEC_DATA_HEVC_FLAGS.ahk
+#Include .\D3D12_VIDEO_ENCODER_FRAME_TYPE_HEVC.ahk
+#Include .\D3D12_VIDEO_ENCODER_REFERENCE_PICTURE_DESCRIPTOR_HEVC.ahk
 
 /**
  * Represents the picture level control elements for the associated EncodeFrame command for HEVC encoding.
@@ -7,17 +10,15 @@
  * The following tables list the expected VPS, SPS and PPS Values for HEVC encoding.
  * @see https://learn.microsoft.com/windows/win32/api/d3d12video/ns-d3d12video-d3d12_video_encoder_picture_control_codec_data_hevc
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class D3D12_VIDEO_ENCODER_PICTURE_CONTROL_CODEC_DATA_HEVC extends Win32Struct
-{
+class D3D12_VIDEO_ENCODER_PICTURE_CONTROL_CODEC_DATA_HEVC extends Win32Struct {
     static sizeof => 112
 
     static packingSize => 8
 
     /**
      * A bitwise OR combination of values from the [D3D12_VIDEO_ENCODER_PICTURE_CONTROL_CODEC_DATA_HEVC_FLAGS](ne-d3d12video-d3d12_video_encoder_picture_control_codec_data_hevc_flags.md) enumeration specifying configuration flags for the frame being encoded.
-     * @type {Integer}
+     * @type {D3D12_VIDEO_ENCODER_PICTURE_CONTROL_CODEC_DATA_HEVC_FLAGS}
      */
     Flags {
         get => NumGet(this, 0, "int")
@@ -26,7 +27,7 @@ class D3D12_VIDEO_ENCODER_PICTURE_CONTROL_CODEC_DATA_HEVC extends Win32Struct
 
     /**
      * A value from the [D3D12_VIDEO_ENCODER_FRAME_TYPE_HEVC](ne-d3d12video-d3d12_video_encoder_frame_type_hevc.md) enumeration specifying the picture type. Make sure that the codec-specific flags support the specified type. This selection must be kept in sync with the GOP structure configuration set by the host. Note that the GOP is defined in display order and this pic type selection must follow the GOP, but in encode order.
-     * @type {Integer}
+     * @type {D3D12_VIDEO_ENCODER_FRAME_TYPE_HEVC}
      */
     FrameType {
         get => NumGet(this, 4, "int")

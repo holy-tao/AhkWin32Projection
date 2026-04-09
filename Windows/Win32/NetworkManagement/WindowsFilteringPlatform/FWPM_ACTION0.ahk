@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\FWP_ACTION_TYPE.ahk
 
 /**
  * Specifies the action taken if all the filter conditions are true.
@@ -7,10 +8,8 @@
  * <b>FWPM_ACTION0</b> is a specific implementation of FWPM_ACTION. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-version-independent-names-and-targeting-specific-versions-of-windows">WFP Version-Independent Names and Targeting Specific Versions of Windows</a>  for more information.
  * @see https://learn.microsoft.com/windows/win32/api/fwpmtypes/ns-fwpmtypes-fwpm_action0
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
- * @version v4.0.30319
  */
-class FWPM_ACTION0 extends Win32Struct
-{
+class FWPM_ACTION0 extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
@@ -86,7 +85,7 @@ class FWPM_ACTION0 extends Win32Struct
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
+     * @type {FWP_ACTION_TYPE}
      */
     type {
         get => NumGet(this, 0, "uint")
@@ -94,7 +93,7 @@ class FWPM_ACTION0 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     filterType {
         get => NumGet(this, 8, "ptr")
@@ -102,7 +101,7 @@ class FWPM_ACTION0 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     calloutKey {
         get => NumGet(this, 8, "ptr")

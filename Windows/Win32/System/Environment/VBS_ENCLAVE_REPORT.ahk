@@ -23,10 +23,8 @@
  * </ul>
  * @see https://learn.microsoft.com/windows/win32/api/ntenclv/ns-ntenclv-vbs_enclave_report
  * @namespace Windows.Win32.System.Environment
- * @version v4.0.30319
  */
-class VBS_ENCLAVE_REPORT extends Win32Struct
-{
+class VBS_ENCLAVE_REPORT extends Win32Struct {
     static sizeof => 224
 
     static packingSize => 4
@@ -51,9 +49,9 @@ class VBS_ENCLAVE_REPORT extends Win32Struct
 
     /**
      * The 64 bytes that were provided in <i>EnclaveData</i> parameter of the <a href="https://docs.microsoft.com/windows/desktop/api/winenclaveapi/nf-winenclaveapi-enclavegetattestationreport">EnclaveGetAttestationReport</a> function.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    EnclaveData{
+    EnclaveData {
         get {
             if(!this.HasProp("__EnclaveDataProxyArray"))
                 this.__EnclaveDataProxyArray := Win32FixedArray(this.ptr + 8, 64, Primitive, "char")
@@ -65,7 +63,7 @@ class VBS_ENCLAVE_REPORT extends Win32Struct
      * An <a href="https://docs.microsoft.com/windows/desktop/api/ntenclv/ns-ntenclv-enclave_identity">ENCLAVE_IDENTITY</a> structure that describes the identity of the primary module of the enclave.
      * @type {ENCLAVE_IDENTITY}
      */
-    EnclaveIdentity{
+    EnclaveIdentity {
         get {
             if(!this.HasProp("__EnclaveIdentity"))
                 this.__EnclaveIdentity := ENCLAVE_IDENTITY(72, this)

@@ -3,7 +3,6 @@
 
 /**
  * @namespace Windows.Win32.Management.MobileDeviceManagementRegistration
- * @version v4.0.30319
  */
 class MobileDeviceManagementRegistration {
 
@@ -350,7 +349,7 @@ class MobileDeviceManagementRegistration {
      * Retrieves the device registration information.
      * @remarks
      * The caller of this function must be running as an elevated process.
-     * @param {Integer} DeviceInformationClass Contains the maximum length that can be returned through the <i>pszHyperlink</i> 
+     * @param {REGISTRATION_INFORMATION_CLASS} DeviceInformationClass Contains the maximum length that can be returned through the <i>pszHyperlink</i> 
      *       parameter.
      * @returns {Pointer<Void>} Details of the device registration.
      * @see https://learn.microsoft.com/windows/win32/api/mdmregistration/nf-mdmregistration-getdeviceregistrationinfo

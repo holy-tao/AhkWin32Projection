@@ -1,15 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\SAFER_IDENTIFICATION_TYPES.ahk
 #Include ..\..\Foundation\FILETIME.ahk
 
 /**
  * SAFER_IDENTIFICATION_HEADER structure is used as the header for the SAFER_PATHNAME_IDENTIFICATION, SAFER_HASH_IDENTIFICATION, and SAFER_URLZONE_IDENTIFICATION structures.
  * @see https://learn.microsoft.com/windows/win32/api/winsafer/ns-winsafer-safer_identification_header
  * @namespace Windows.Win32.Security.AppLocker
- * @version v4.0.30319
  */
-class SAFER_IDENTIFICATION_HEADER extends Win32Struct
-{
+class SAFER_IDENTIFICATION_HEADER extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -73,7 +72,7 @@ class SAFER_IDENTIFICATION_HEADER extends Win32Struct
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
+     * @type {SAFER_IDENTIFICATION_TYPES}
      */
     dwIdentificationType {
         get => NumGet(this, 0, "int")
@@ -93,7 +92,7 @@ class SAFER_IDENTIFICATION_HEADER extends Win32Struct
 
     /**
      * The GUID of the identification.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     IdentificationGuid {
         get => NumGet(this, 8, "ptr")
@@ -101,10 +100,9 @@ class SAFER_IDENTIFICATION_HEADER extends Win32Struct
     }
 
     /**
-     * 
      * @type {FILETIME}
      */
-    lastModified{
+    lastModified {
         get {
             if(!this.HasProp("__lastModified"))
                 this.__lastModified := FILETIME(16, this)

@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.System.SystemServices
- * @version v4.0.30319
  */
-class QUOTA_LIMITS_EX extends Win32Struct
-{
+class QUOTA_LIMITS_EX extends Win32Struct {
     static sizeof => 96
 
     static packingSize => 8
@@ -103,7 +101,7 @@ class QUOTA_LIMITS_EX extends Win32Struct
     /**
      * @type {RATE_QUOTA_LIMIT}
      */
-    CpuRateLimit{
+    CpuRateLimit {
         get {
             if(!this.HasProp("__CpuRateLimit"))
                 this.__CpuRateLimit := RATE_QUOTA_LIMIT(84, this)

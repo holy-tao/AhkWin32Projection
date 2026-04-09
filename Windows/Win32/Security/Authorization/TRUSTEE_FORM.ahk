@@ -5,9 +5,8 @@
  * Values that indicate the type of data pointed to by the ptstrName member of the TRUSTEE structure.
  * @see https://learn.microsoft.com/windows/win32/api/accctrl/ne-accctrl-trustee_form
  * @namespace Windows.Win32.Security.Authorization
- * @version v4.0.30319
  */
-class TRUSTEE_FORM extends Win32Enum{
+class TRUSTEE_FORM extends Win32Enum {
 
     /**
      * The <b>ptstrName</b> member is a pointer to a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security identifier</a> (SID) that identifies the trustee.

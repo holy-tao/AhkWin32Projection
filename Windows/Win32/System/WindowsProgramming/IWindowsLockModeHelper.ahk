@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.WindowsProgramming
- * @version v4.0.30319
  */
-class IWindowsLockModeHelper extends IUnknown{
+class IWindowsLockModeHelper extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

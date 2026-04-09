@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.Com
- * @version v4.0.30319
  */
-class ISupportActivationFromPackage extends IUnknown{
+class ISupportActivationFromPackage extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

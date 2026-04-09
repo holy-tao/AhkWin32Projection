@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
- * @version v4.0.30319
  */
-class IDebugHostErrorSink extends IUnknown{
+class IDebugHostErrorSink extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -30,7 +29,7 @@ class IDebugHostErrorSink extends IUnknown{
 
     /**
      * 
-     * @param {Integer} errClass 
+     * @param {ErrorClass} errClass 
      * @param {HRESULT} hrError 
      * @param {PWSTR} message 
      * @returns {HRESULT} 

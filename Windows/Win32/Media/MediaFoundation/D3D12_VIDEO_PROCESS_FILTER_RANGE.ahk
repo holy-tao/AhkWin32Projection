@@ -15,10 +15,8 @@
  * The device should use a multiplier that can be represented exactly as a base-2 fraction.
  * @see https://learn.microsoft.com/windows/win32/api/d3d12video/ns-d3d12video-d3d12_video_process_filter_range
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class D3D12_VIDEO_PROCESS_FILTER_RANGE extends Win32Struct
-{
+class D3D12_VIDEO_PROCESS_FILTER_RANGE extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4

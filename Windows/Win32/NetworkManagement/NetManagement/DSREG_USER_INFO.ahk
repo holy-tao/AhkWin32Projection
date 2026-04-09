@@ -5,10 +5,8 @@
  * Contains information about a user account that is used to join a device to Microsoft Azure Active Directory.
  * @see https://learn.microsoft.com/windows/win32/api/lmjoin/ns-lmjoin-dsreg_user_info
  * @namespace Windows.Win32.NetworkManagement.NetManagement
- * @version v4.0.30319
  */
-class DSREG_USER_INFO extends Win32Struct
-{
+class DSREG_USER_INFO extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

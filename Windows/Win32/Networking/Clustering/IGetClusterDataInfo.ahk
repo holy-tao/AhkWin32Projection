@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -33,9 +32,8 @@
  *      <b>IGetClusterDataInfo</b> methods.
  * @see https://learn.microsoft.com/windows/win32/api/cluadmex/nn-cluadmex-igetclusterdatainfo
  * @namespace Windows.Win32.Networking.Clustering
- * @version v4.0.30319
  */
-class IGetClusterDataInfo extends IUnknown{
+class IGetClusterDataInfo extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

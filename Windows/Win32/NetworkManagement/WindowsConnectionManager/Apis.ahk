@@ -4,7 +4,6 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WindowsConnectionManager
- * @version v4.0.30319
  */
 class WindowsConnectionManager {
 
@@ -99,7 +98,9 @@ class WindowsConnectionManager {
      * @param {PWSTR} strProfileName Type: <b>LPCWSTR</b>
      * 
      * The name of the profile. If querying a non-global property (<b>connection_cost</b>, <b>dataplan_status</b>, or <b>hotspot_profile</b>), the profile must be specified or the call will fail.
-     * @param {Integer} _Property 
+     * @param {WCM_PROPERTY} _Property Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wcmapi/ne-wcmapi-wcm_property">WCM_PROPERTY</a></b>
+     * 
+     * The WCM property to query.
      * @param {Pointer<Integer>} pdwDataSize Type: <b>PDWORD</b>
      * 
      * The size of the returned property value.
@@ -181,7 +182,9 @@ class WindowsConnectionManager {
      * @param {PWSTR} strProfileName Type: <b>LPCWSTR</b>
      * 
      * The profile name.
-     * @param {Integer} _Property 
+     * @param {WCM_PROPERTY} _Property Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wcmapi/ne-wcmapi-wcm_property">WCM_PROPERTY</a></b>
+     * 
+     * The WCM property to set.
      * @param {Integer} dwDataSize Type: <b>DWORD</b>
      * 
      * The size of the new property value.
@@ -336,7 +339,7 @@ class WindowsConnectionManager {
      * <td>Indicates whether the underlying connection should be activated or not.</td>
      * </tr>
      * </table>
-     * @param {Pointer} ConnectionProfileFilterRawData The connection profile filter blog which is a byte cast of wcm_selection_filters.
+     * @param {Integer} ConnectionProfileFilterRawData The connection profile filter blog which is a byte cast of wcm_selection_filters.
      * @param {Integer} ConnectionProfileFilterRawDataSize The size of the <i>ConnectionProfileFilterRawData</i> in bytes.
      * @returns {Pointer<NET_INTERFACE_CONTEXT_TABLE>} This is set to the list of <a href="https://docs.microsoft.com/windows/win32/api/ondemandconnroutehelper/ns-ondemandconnroutehelper-net_interface_context">NET_INTERFACE_CONTEXT</a> structures containing the interface indices and configuration names that can be used for the hostname and filter.
      * @see https://learn.microsoft.com/windows/win32/api/ondemandconnroutehelper/nf-ondemandconnroutehelper-getinterfacecontexttableforhostname

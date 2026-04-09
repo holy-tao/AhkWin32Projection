@@ -21,10 +21,8 @@
  * <a href="https://docs.microsoft.com/previous-versions/ms688270(v=vs.85)">GetResponse</a>.
  * @see https://learn.microsoft.com/windows/win32/api/authif/ns-authif-radius_attribute_array
  * @namespace Windows.Win32.NetworkManagement.NetworkPolicyServer
- * @version v4.0.30319
  */
-class RADIUS_ATTRIBUTE_ARRAY extends Win32Struct
-{
+class RADIUS_ATTRIBUTE_ARRAY extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8

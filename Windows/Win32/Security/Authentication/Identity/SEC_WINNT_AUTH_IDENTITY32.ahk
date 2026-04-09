@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class SEC_WINNT_AUTH_IDENTITY32 extends Win32Struct
-{
+class SEC_WINNT_AUTH_IDENTITY32 extends Win32Struct {
     static sizeof => 28
 
     static packingSize => 4

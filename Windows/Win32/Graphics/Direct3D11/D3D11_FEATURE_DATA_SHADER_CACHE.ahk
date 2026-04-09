@@ -9,10 +9,8 @@
  * See the enumeration constant D3D11_FEATURE_SHADER_CACHE in the <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ne-d3d11-d3d11_feature">D3D11_FEATURE</a> enumeration.
  * @see https://learn.microsoft.com/windows/win32/api/d3d11/ns-d3d11-d3d11_feature_data_shader_cache
  * @namespace Windows.Win32.Graphics.Direct3D11
- * @version v4.0.30319
  */
-class D3D11_FEATURE_DATA_SHADER_CACHE extends Win32Struct
-{
+class D3D11_FEATURE_DATA_SHADER_CACHE extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 4

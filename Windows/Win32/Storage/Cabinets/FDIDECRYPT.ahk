@@ -1,18 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\FDIDECRYPTTYPE.ahk
 
 /**
  * @namespace Windows.Win32.Storage.Cabinets
- * @version v4.0.30319
  */
-class FDIDECRYPT extends Win32Struct
-{
+class FDIDECRYPT extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8
 
     /**
-     * @type {Integer}
+     * @type {FDIDECRYPTTYPE}
      */
     fdidt {
         get => NumGet(this, 0, "int")
@@ -38,7 +37,7 @@ class FDIDECRYPT extends Win32Struct
             get => NumGet(this, 0, "ptr")
             set => NumPut("ptr", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -46,7 +45,7 @@ class FDIDECRYPT extends Win32Struct
             get => NumGet(this, 8, "ushort")
             set => NumPut("ushort", value, this, 8)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -54,7 +53,7 @@ class FDIDECRYPT extends Win32Struct
             get => NumGet(this, 10, "ushort")
             set => NumPut("ushort", value, this, 10)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -62,7 +61,6 @@ class FDIDECRYPT extends Win32Struct
             get => NumGet(this, 12, "int")
             set => NumPut("int", value, this, 12)
         }
-    
     }
 
     class _folder extends Win32Struct {
@@ -76,7 +74,7 @@ class FDIDECRYPT extends Win32Struct
             get => NumGet(this, 0, "ptr")
             set => NumPut("ptr", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -84,7 +82,7 @@ class FDIDECRYPT extends Win32Struct
             get => NumGet(this, 8, "ushort")
             set => NumPut("ushort", value, this, 8)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -92,7 +90,6 @@ class FDIDECRYPT extends Win32Struct
             get => NumGet(this, 10, "ushort")
             set => NumPut("ushort", value, this, 10)
         }
-    
     }
 
     class _decrypt extends Win32Struct {
@@ -106,7 +103,7 @@ class FDIDECRYPT extends Win32Struct
             get => NumGet(this, 0, "ptr")
             set => NumPut("ptr", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -114,7 +111,7 @@ class FDIDECRYPT extends Win32Struct
             get => NumGet(this, 8, "ushort")
             set => NumPut("ushort", value, this, 8)
         }
-    
+
         /**
          * @type {Pointer<Void>}
          */
@@ -122,7 +119,7 @@ class FDIDECRYPT extends Win32Struct
             get => NumGet(this, 16, "ptr")
             set => NumPut("ptr", value, this, 16)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -130,7 +127,7 @@ class FDIDECRYPT extends Win32Struct
             get => NumGet(this, 24, "ushort")
             set => NumPut("ushort", value, this, 24)
         }
-    
+
         /**
          * @type {BOOL}
          */
@@ -138,7 +135,7 @@ class FDIDECRYPT extends Win32Struct
             get => NumGet(this, 28, "int")
             set => NumPut("int", value, this, 28)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -146,16 +143,15 @@ class FDIDECRYPT extends Win32Struct
             get => NumGet(this, 32, "ushort")
             set => NumPut("ushort", value, this, 32)
         }
-    
     }
 
     /**
      * @type {_cabinet}
      */
-    cabinet{
+    cabinet {
         get {
             if(!this.HasProp("__cabinet"))
-                this.__cabinet := %this.__Class%._cabinet(16, this)
+                this.__cabinet := FDIDECRYPT._cabinet(16, this)
             return this.__cabinet
         }
     }
@@ -163,10 +159,10 @@ class FDIDECRYPT extends Win32Struct
     /**
      * @type {_folder}
      */
-    folder{
+    folder {
         get {
             if(!this.HasProp("__folder"))
-                this.__folder := %this.__Class%._folder(16, this)
+                this.__folder := FDIDECRYPT._folder(16, this)
             return this.__folder
         }
     }
@@ -174,10 +170,10 @@ class FDIDECRYPT extends Win32Struct
     /**
      * @type {_decrypt}
      */
-    decrypt{
+    decrypt {
         get {
             if(!this.HasProp("__decrypt"))
-                this.__decrypt := %this.__Class%._decrypt(16, this)
+                this.__decrypt := FDIDECRYPT._decrypt(16, this)
             return this.__decrypt
         }
     }

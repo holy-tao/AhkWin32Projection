@@ -9,9 +9,8 @@
  * Either call <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cocreateinstance">CoCreateInstance</a> with a class identifier (CLSID) of <b>CLSID_PropertyChangeArray</b> or call <a href="https://docs.microsoft.com/windows/desktop/api/propsys/nf-propsys-pscreatepropertychangearray">PSCreatePropertyChangeArray</a> to obtain a standard implementation of this interface. This is a container interface that allows multiple changes to be passed to a single file operation to prevent accessing a file multiple times.
  * @see https://learn.microsoft.com/windows/win32/api/propsys/nn-propsys-ipropertychangearray
  * @namespace Windows.Win32.UI.Shell.PropertiesSystem
- * @version v4.0.30319
  */
-class IPropertyChangeArray extends IUnknown{
+class IPropertyChangeArray extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * The IWMPRemoteMediaServices interface includes methods that provide services to Windows Media Player from a program that hosts the Player control. These methods are designed to be used with C++, and some methods can only be used with remoting.
  * @see https://learn.microsoft.com/windows/win32/api/wmp/nn-wmp-iwmpremotemediaservices
  * @namespace Windows.Win32.Media.MediaPlayer
- * @version v4.0.30319
  */
-class IWMPRemoteMediaServices extends IUnknown{
+class IWMPRemoteMediaServices extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

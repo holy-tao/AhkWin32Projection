@@ -1,18 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\IDot11AdHocNetwork.ahk
 #Include .\IEnumDot11AdHocSecuritySettings.ahk
 #Include .\IEnumDot11AdHocNetworks.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Represents a wireless network interface card (NIC).
  * @see https://learn.microsoft.com/windows/win32/api/adhoc/nn-adhoc-idot11adhocinterface
  * @namespace Windows.Win32.NetworkManagement.WiFi
- * @version v4.0.30319
  */
-class IDot11AdHocInterface extends IUnknown{
+class IDot11AdHocInterface extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -384,7 +383,7 @@ class IDot11AdHocInterface extends IUnknown{
 
     /**
      * Gets the connection status of the active network associated with this NIC.
-     * @param {Pointer<Integer>} pState A pointer to a  <a href="https://docs.microsoft.com/windows/win32/api/adhoc/ne-adhoc-dot11_adhoc_network_connection_status">DOT11_ADHOC_NETWORK_CONNECTION_STATUS</a> value that specifies the connection state.
+     * @param {Pointer<DOT11_ADHOC_NETWORK_CONNECTION_STATUS>} pState A pointer to a  <a href="https://docs.microsoft.com/windows/win32/api/adhoc/ne-adhoc-dot11_adhoc_network_connection_status">DOT11_ADHOC_NETWORK_CONNECTION_STATUS</a> value that specifies the connection state.
      * @returns {HRESULT} Possible return values include, but are not limited to, the following.
      * 
      * <table>

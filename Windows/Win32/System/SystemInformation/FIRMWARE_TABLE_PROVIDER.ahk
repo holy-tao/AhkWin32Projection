@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.SystemInformation
- * @version v4.0.30319
  */
-class FIRMWARE_TABLE_PROVIDER extends Win32Enum{
+class FIRMWARE_TABLE_PROVIDER extends Win32Enum {
 
     /**
      * @type {Integer (UInt32)}

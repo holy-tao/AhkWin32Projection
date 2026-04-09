@@ -9,9 +9,8 @@
  * If a media sink exposes this interface, the Media Session will call <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-imffinalizablemediasink-beginfinalize">BeginFinalize</a> on the sink before the session closes.
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imffinalizablemediasink
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFFinalizableMediaSink extends IMFMediaSink{
+class IMFFinalizableMediaSink extends IMFMediaSink {
 
     static sizeof => A_PtrSize
     /**

@@ -11,17 +11,15 @@
  * If a maximum partition count of less than 128 is specified, it will be reset to 128. This is in compliance with the EFI specification.
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-create_disk_gpt
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class CREATE_DISK_GPT extends Win32Struct
-{
+class CREATE_DISK_GPT extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
 
     /**
      * The disk identifier (GUID) of the GPT disk to be initialized.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     DiskId {
         get => NumGet(this, 0, "ptr")

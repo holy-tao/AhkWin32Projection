@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Com\IDispatch.ahk
 #Include .\IRDPSRAPIApplicationList.ahk
 #Include .\IRDPSRAPIWindowList.ahk
-#Include ..\Com\IDispatch.ahk
 
 /**
  * Manages the shared desktop area at the window and process level. Applications can use the enumerators to display lists of objects in the session that can be shared.
  * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nn-rdpencomapi-irdpsrapiapplicationfilter
  * @namespace Windows.Win32.System.DesktopSharing
- * @version v4.0.30319
  */
-class IRDPSRAPIApplicationFilter extends IDispatch{
+class IRDPSRAPIApplicationFilter extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

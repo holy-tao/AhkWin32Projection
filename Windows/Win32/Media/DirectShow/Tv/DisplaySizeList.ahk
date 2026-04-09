@@ -5,9 +5,8 @@
  * This topic applies to Windows XP or later.
  * @see https://learn.microsoft.com/windows/win32/api/msvidctl/ne-msvidctl-displaysizelist
  * @namespace Windows.Win32.Media.DirectShow.Tv
- * @version v4.0.30319
  */
-class DisplaySizeList extends Win32Enum{
+class DisplaySizeList extends Win32Enum {
 
     /**
      * Display the video rectangle at the native size.

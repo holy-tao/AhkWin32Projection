@@ -9,7 +9,6 @@
 
 /**
  * @namespace Windows.Win32.UI.Accessibility
- * @version v4.0.30319
  */
 class Accessibility {
 
@@ -2683,7 +2682,9 @@ class Accessibility {
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * Reference identifier of the interface provided to the client. This parameter is IID_IAccessible.
-     * @param {WPARAM} _wParam 
+     * @param {WPARAM} _wParam Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">WPARAM</a></b>
+     * 
+     * Value sent by the associated [WM_GETOBJECT](/windows/win32/winauto/wm-getobject) message in its <i>wParam</i> parameter.
      * @param {IUnknown} punk Type: <b>LPUNKNOWN</b>
      * 
      * Address of the <a href="https://docs.microsoft.com/windows/desktop/api/oleacc/nn-oleacc-iaccessible">IAccessible</a> interface to the object that corresponds to the [WM_GETOBJECT](/windows/win32/winauto/wm-getobject) message.
@@ -2753,11 +2754,15 @@ class Accessibility {
 
     /**
      * Retrieves a requested interface pointer for an accessible object based on a previously generated object reference.
-     * @param {LRESULT} _lResult 
+     * @param {LRESULT} _lResult Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LRESULT</a></b>
+     * 
+     * A 32-bit value returned by a previous successful call to the <a href="https://docs.microsoft.com/windows/desktop/api/oleacc/nf-oleacc-lresultfromobject">LresultFromObject</a> function.
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * Reference identifier of the interface to be retrieved. This is IID_IAccessible.
-     * @param {WPARAM} _wParam 
+     * @param {WPARAM} _wParam Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">WPARAM</a></b>
+     * 
+     * Value sent by the associated [WM_GETOBJECT](/windows/win32/winauto/wm-getobject) message in its <i>wParam</i> parameter.
      * @returns {Pointer<Void>} Type: <b>void**</b>
      * 
      * Receives the address of the <a href="https://docs.microsoft.com/windows/desktop/api/oleacc/nn-oleacc-iaccessible">IAccessible</a> interface on the object that corresponds to the [WM_GETOBJECT](/windows/win32/winauto/wm-getobject) message.
@@ -2825,7 +2830,9 @@ class Accessibility {
      *  
      * 
      * Note that the above window classes correspond to the innermost document window or pane window. For more information about the Office object model, see the <a href="https://docs.microsoft.com/previous-versions/office/developer/office2000/aa141393(v=office.10)">Microsoft Office 2000/Visual Basic Programmer's Guide</a>.
-     * @param {HWND} _hwnd 
+     * @param {HWND} _hwnd Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
+     * 
+     * Specifies the handle of a window for which an object is to be retrieved. To retrieve an interface pointer to the cursor or caret object, specify <b>NULL</b> and use the appropriate object ID in <i>dwObjectID</i>.
      * @param {Integer} dwId Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
      * 
      * Specifies the object ID. This value is one of the standard <a href="https://docs.microsoft.com/windows/desktop/WinAuto/object-identifiers">object identifier</a> constants or a custom object ID such as <a href="https://docs.microsoft.com/windows/desktop/WinAuto/object-identifiers">OBJID_NATIVEOM</a>, which is the object ID for the Office native object model. For more information about <b>OBJID_NATIVEOM</b>, see the Remarks section in this topic.
@@ -2855,7 +2862,9 @@ class Accessibility {
      * As with other <a href="https://docs.microsoft.com/windows/desktop/api/oleacc/nn-oleacc-iaccessible">IAccessible</a> methods and functions, clients might receive errors for <b>IAccessible</b> interface pointers because of a user action. For more information, see <a href="https://docs.microsoft.com/windows/desktop/WinAuto/receiving-errors-for-iaccessible-interface-pointers">Receiving Errors for IAccessible Interface Pointers</a>.
      * 
      * This function fails if called in response to <a href="https://docs.microsoft.com/windows/desktop/WinAuto/event-constants">EVENT_OBJECT_CREATE</a> because the object is not fully initialized. Similarly, clients should not call this in response to <a href="https://docs.microsoft.com/windows/desktop/WinAuto/event-constants">EVENT_OBJECT_DESTROY</a> because the object is no longer available and cannot respond. Clients watch for <a href="https://docs.microsoft.com/windows/desktop/WinAuto/event-constants">EVENT_OBJECT_SHOW</a> and <a href="https://docs.microsoft.com/windows/desktop/WinAuto/event-constants">EVENT_OBJECT_HIDE</a> events rather than for <b>EVENT_OBJECT_CREATE</b> and <b>EVENT_OBJECT_DESTROY</b>.
-     * @param {HWND} _hwnd 
+     * @param {HWND} _hwnd Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
+     * 
+     * Specifies the window handle of the window that generated the event. This value must be the window handle that is sent to the event hook function.
      * @param {Integer} dwId Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
      * 
      * Specifies the object ID of the object that generated the event. This value must be the object ID that is sent to the event hook function.
@@ -3127,7 +3136,9 @@ class Accessibility {
      * Server applications call this function when they contain a custom UI object that is similar to a system-provided object. Server developers can call <b>CreateStdAccessibleObject</b> to override the <a href="https://docs.microsoft.com/windows/desktop/api/oleacc/nn-oleacc-iaccessible">IAccessible</a> methods and properties as required to match their custom objects. Alternatively, server developers can use Dynamic Annotation to override specific properties without having to use difficult subclassing techniques that <b>CreateStdAccessibleObject</b> requires. Server developers should still use <b>CreateStdAccessibleObject</b> for structural changes, such as hiding a child element or creating a placeholder child element. This approach saves server developers the work of fully implementing all of the <b>IAccessible</b> properties and methods.
      * 
      * This function is similar to <a href="https://docs.microsoft.com/windows/desktop/api/oleacc/nf-oleacc-createstdaccessibleproxya">CreateStdAccessibleProxy</a>, except that <b>CreateStdAccessibleProxy</b> allows you to specify the class name as a parameter whereas <b>CreateStdAccessibleObject</b> uses the class name associated with the <i>hwnd</i> parameter.
-     * @param {HWND} _hwnd 
+     * @param {HWND} _hwnd Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
+     * 
+     * Window handle of the system-provided user interface element (a control) for which an accessible object is created.
      * @param {Integer} idObject Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LONG</a></b>
      * 
      * Object ID. This value is usually <a href="https://docs.microsoft.com/windows/desktop/WinAuto/object-identifiers">OBJID_CLIENT</a>, but it may be another object identifier.
@@ -3162,7 +3173,9 @@ class Accessibility {
      * 
      * > [!NOTE]
      * > The oleacc.h header defines CreateStdAccessibleProxy as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HWND} _hwnd 
+     * @param {HWND} _hwnd Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
+     * 
+     * Window handle of the system-provided user interface element (a control) for which an accessible object is created.
      * @param {PSTR} pClassName Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCTSTR</a></b>
      * 
      * Pointer to a null-terminated string of the class name of a system-provided user interface element for which an accessible object is created. The window class name is one of the common controls (defined in Comctl32.dll), predefined controls (defined in User32.dll), or window elements.
@@ -3201,7 +3214,9 @@ class Accessibility {
      * 
      * > [!NOTE]
      * > The oleacc.h header defines CreateStdAccessibleProxy as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HWND} _hwnd 
+     * @param {HWND} _hwnd Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
+     * 
+     * Window handle of the system-provided user interface element (a control) for which an accessible object is created.
      * @param {PWSTR} pClassName Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCTSTR</a></b>
      * 
      * Pointer to a null-terminated string of the class name of a system-provided user interface element for which an accessible object is created. The window class name is one of the common controls (defined in Comctl32.dll), predefined controls (defined in User32.dll), or window elements.
@@ -3238,7 +3253,7 @@ class Accessibility {
      * 
      * 
      * A
-     * @param {Integer} dwUtilityState Type: <b>DWORD</b>
+     * @param {ACC_UTILITY_STATE_FLAGS} dwUtilityState Type: <b>DWORD</b>
      * @returns {HRESULT} Type: <b>STDAPI</b>
      * 
      * If successful, returns S_OK.
@@ -3355,7 +3370,9 @@ class Accessibility {
 
     /**
      * Deletes a node from memory.
-     * @param {HUIANODE} _hnode 
+     * @param {HUIANODE} _hnode Type: <b>HUIANODE</b>
+     * 
+     * The node to be deleted.
      * @returns {BOOL} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * <b>TRUE</b> if the node was successfully deleted; otherwise <b>FALSE</b>.
@@ -3371,7 +3388,9 @@ class Accessibility {
 
     /**
      * Retrieves the value of a UI Automation property.
-     * @param {HUIANODE} _hnode 
+     * @param {HUIANODE} _hnode Type: <b>HUIANODE</b>
+     * 
+     * The element that the property is being requested from.
      * @param {Integer} propertyId Type: <b>PROPERTYID</b>
      * 
      * The property identifier. For a list of property IDs, see <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-entry-propids">Property Identifiers</a>.
@@ -3394,7 +3413,9 @@ class Accessibility {
 
     /**
      * Retrieves a control pattern.
-     * @param {HUIANODE} _hnode 
+     * @param {HUIANODE} _hnode Type: <b>HUIANODE</b>
+     * 
+     * The element that implements the pattern.
      * @param {Integer} patternId Type: <b>PATTERNID</b>
      * 
      * The identifier of the control pattern being requested. For a list of control pattern IDs, see <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-controlpattern-ids">Control Pattern Identifiers</a>.
@@ -3419,7 +3440,9 @@ class Accessibility {
      * Retrieves the runtime identifier of a UI Automation node.
      * @remarks
      * The runtime identifier should be treated as an opaque value and used only for comparison.
-     * @param {HUIANODE} _hnode 
+     * @param {HUIANODE} _hnode Type: <b>HUIANODE</b>
+     * 
+     * The node for which the identifier is being requested.
      * @param {Pointer<Pointer<SAFEARRAY>>} pruntimeId Type: <b><a href="https://docs.microsoft.com/windows/win32/api/oaidl/ns-oaidl-safearray">SAFEARRAY</a>**</b>
      * 
      * The address of a variable that receives a pointer to a <a href="https://docs.microsoft.com/windows/win32/api/oaidl/ns-oaidl-safearray">SAFEARRAY</a> that contains the runtime identifier of the type VT_I4. This parameter is passed uninitialized.
@@ -3440,7 +3463,9 @@ class Accessibility {
 
     /**
      * Sets the input focus to the specified element in the UI.
-     * @param {HUIANODE} _hnode 
+     * @param {HUIANODE} _hnode Type: <b>HUIANODE</b>
+     * 
+     * The element that receives focus.
      * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * Returns S_OK if successful or an error value otherwise.
@@ -3466,8 +3491,12 @@ class Accessibility {
      * 			(UI Automation element). When one "p" directly follows another, the second node is a child of the first.
      * 			A ")" represents a step back up the tree. For example, "pp)p" represents a node followed
      * 			by two child nodes that are siblings of one another. In "pp))p", the last node is a sibling of the first one.
-     * @param {HUIANODE} _hnode 
-     * @param {Integer} _direction 
+     * @param {HUIANODE} _hnode Type: <b>HUIANODE</b>
+     * 
+     * The element on which the navigation begins.
+     * @param {NavigateDirection} _direction Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/ne-uiautomationcore-navigatedirection">NavigateDirection</a></b>
+     * 
+     * A value from the <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/ne-uiautomationcore-navigatedirection">NavigateDirection</a> enumerated type indicating the direction to navigate from <i>hnode</i>.
      * @param {Pointer<UiaCondition>} pCondition Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcoreapi/ns-uiautomationcoreapi-uiacondition">UiaCondition</a>*</b>
      * 
      * The address of a <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcoreapi/ns-uiautomationcoreapi-uiacondition">UiaCondition</a> structure that specifies the condition that the element being navigated to must match. Use this parameter to skip elements that are not of interest.
@@ -3508,11 +3537,15 @@ class Accessibility {
      * 			(UI Automation element). When one "p" directly follows another, the second node is a child of the first.
      * 			A ")" represents a step back up the tree. For example, "pp)p" represents a node followed
      * 			by two child nodes that are siblings of one another. In "pp))p", the last node is a sibling of the first one.
-     * @param {HUIANODE} _hnode 
+     * @param {HUIANODE} _hnode Type: <b>HUIANODE</b>
+     * 
+     * The element that updated information is being requested for.
      * @param {Pointer<UiaCacheRequest>} pRequest Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcoreapi/ns-uiautomationcoreapi-uiacacherequest">UiaCacheRequest</a>*</b>
      * 
      * The address of a <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcoreapi/ns-uiautomationcoreapi-uiacacherequest">UiaCacheRequest</a> structure that specifies the cached information to update.
-     * @param {Integer} _normalizeState 
+     * @param {NormalizeState} _normalizeState Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcoreapi/ne-uiautomationcoreapi-normalizestate">NormalizeState</a></b>
+     * 
+     * A value from the <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcoreapi/ne-uiautomationcoreapi-normalizestate">NormalizeState</a> enumerated type specifying the type of normalization.
      * @param {Pointer<UiaCondition>} pNormalizeCondition Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcoreapi/ns-uiautomationcoreapi-uiacondition">UiaCondition</a>*</b>
      * 
      * The address of a <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcoreapi/ns-uiautomationcoreapi-uiacondition">UiaCondition</a> structure that specifies a condition against which the information can be normalized, if <i>normalizeState</i> is <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcoreapi/ne-uiautomationcoreapi-normalizestate">NormalizeState_Custom</a>.
@@ -3550,7 +3583,9 @@ class Accessibility {
      * 			(UI Automation element). When one "p" directly follows another, the second node is a child of the first.
      * 			A ")" represents a step back up the tree. For example, "pp)p" represents a node followed
      * 			by two child nodes that are siblings of one another. In "pp))p", the last node is a sibling of the first one.
-     * @param {HUIANODE} _hnode 
+     * @param {HUIANODE} _hnode Type: <b>HUIANODE</b>
+     * 
+     * The node to use as starting-point of the search.
      * @param {Pointer<UiaFindParams>} pParams Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcoreapi/ns-uiautomationcoreapi-uiafindparams">UiaFindParams</a>*</b>
      * 
      * The address of a <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcoreapi/ns-uiautomationcoreapi-uiafindparams">UiaFindParams</a> structure that contains the search parameters.
@@ -3664,7 +3699,9 @@ class Accessibility {
 
     /**
      * Retrieves the UI Automation node associated with a window.
-     * @param {HWND} _hwnd 
+     * @param {HWND} _hwnd Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
+     * 
+     * The handle of the window.
      * @param {Pointer<HUIANODE>} phnode Type: <b>HUIANODE*</b>
      * 
      * The address of a variable that receives the handle of the node.
@@ -3736,7 +3773,7 @@ class Accessibility {
 
     /**
      * Gets the integer identifier that can be used in methods that require a PROPERTYID, PATTERNID, CONTROLTYPEID, TEXTATTRIBUTEID, or EVENTID.
-     * @param {Integer} type Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcoreapi/ne-uiautomationcoreapi-automationidentifiertype">AutomationIdentifierType</a></b>
+     * @param {AutomationIdentifierType} type Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcoreapi/ne-uiautomationcoreapi-automationidentifiertype">AutomationIdentifierType</a></b>
      * 
      * A value from the <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcoreapi/ne-uiautomationcoreapi-automationidentifiertype">AutomationIdentifierType</a> enumerated type that specifies the type of identifier to look up.
      * @param {Pointer<Guid>} pGuid Type: <b>GUID*</b>
@@ -3801,7 +3838,7 @@ class Accessibility {
      * @param {IRawElementProviderSimple} pProvider Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nn-uiautomationcore-irawelementprovidersimple">IRawElementProviderSimple</a>*</b>
      * 
      * The provider node where the property change event occurred.
-     * @param {Integer} id Type: <b>PROPERTYID</b>
+     * @param {UIA_PROPERTY_ID} id Type: <b>PROPERTYID</b>
      * 
      * The identifier for the property that changed. For a list of property IDs, see <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-entry-propids">Property Identifiers</a>.
      * @param {VARIANT} oldValue Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinAuto/variant-structure">VARIANT</a></b>
@@ -3828,7 +3865,7 @@ class Accessibility {
      * @param {IRawElementProviderSimple} pProvider Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nn-uiautomationcore-irawelementprovidersimple">IRawElementProviderSimple</a>*</b>
      * 
      * The provider element where the event occurred.
-     * @param {Integer} id Type: <b>EVENTID</b>
+     * @param {UIA_EVENT_ID} id Type: <b>EVENTID</b>
      * 
      * The identifier of the event to be raised. For a list of event IDs, see <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-event-ids">Event Identifiers</a>.
      * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
@@ -3849,7 +3886,9 @@ class Accessibility {
      * @param {IRawElementProviderSimple} pProvider Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nn-uiautomationcore-irawelementprovidersimple">IRawElementProviderSimple</a>*</b>
      * 
      * The provider node where the tree change occurred.
-     * @param {Integer} _structureChangeType 
+     * @param {StructureChangeType} _structureChangeType Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/ne-uiautomationcore-structurechangetype">StructureChangeType</a></b>
+     * 
+     * The type of change that occurred in the tree.
      * @param {Pointer<Integer>} pRuntimeId Type: <b>int*</b>
      * 
      * The runtime IDs for the child elements of the provider node where the tree change occurred. This parameter is used only when <i>structureChangeType</i> is <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/ne-uiautomationcore-structurechangetype">StructureChangeType_ChildRemoved</a>; it is <b>NULL</b> for all other structure-change events.
@@ -3876,7 +3915,9 @@ class Accessibility {
      * @param {IRawElementProviderSimple} pProvider Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nn-uiautomationcore-irawelementprovidersimple">IRawElementProviderSimple</a>*</b>
      * 
      * The provider node where the content is being loaded.
-     * @param {Integer} _asyncContentLoadedState 
+     * @param {AsyncContentLoadedState} _asyncContentLoadedState Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcoreapi/ne-uiautomationcoreapi-asynccontentloadedstate">AsyncContentLoadedState</a></b>
+     * 
+     * The current state of loading.
      * @param {Float} percentComplete Type: <b>double</b>
      * 
      * The percentage of content that has been loaded.
@@ -3908,7 +3949,9 @@ class Accessibility {
      * @param {IRawElementProviderSimple} pProvider Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nn-uiautomationcore-irawelementprovidersimple">IRawElementProviderSimple</a>*</b>
      * 
      * The provider node where the text change occurred.
-     * @param {Integer} _textEditChangeType 
+     * @param {TextEditChangeType} _textEditChangeType Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/ne-uiautomationcore-texteditchangetype">TextEditChangeType</a></b>
+     * 
+     * The type of text-edit change that occurred.
      * @param {Pointer<SAFEARRAY>} pChangedData Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-workingwithsafearrays">SAFEARRAY</a>*</b>
      * 
      * The event data. Should be assignable as a <b>VAR</b> of type <b>VT_BSTR</b>.
@@ -3946,8 +3989,8 @@ class Accessibility {
      * @remarks
      * If your window uses the [`WS_POPUP`](/windows/win32/winmsg/window-styles) style, it must also implement the [Window Control Pattern](/windows/win32/winauto/uiauto-implementingwindow) and handle the [WM_GETOBJECT](/windows/win32/winauto/wm-getobject) message (see [How to Expose a Server-Side UI Automation Provider](/windows/win32/winauto/uiauto-howto-expose-serverside-uiautomation-provider) for more details).
      * @param {IRawElementProviderSimple} provider The provider node where the notification event occurred.
-     * @param {Integer} _notificationKind 
-     * @param {Integer} _notificationProcessing 
+     * @param {NotificationKind} _notificationKind The type of notification, as a [NotificationKind enumeration](../uiautomationcore/ne-uiautomationcore-notificationkind.md) value.
+     * @param {NotificationProcessing} _notificationProcessing The preferred way to process a notification, as a [NotificationProcessing enumeration](../uiautomationcore/ne-uiautomationcore-notificationprocessing.md) value.
      * @param {BSTR} displayString A string to display in the notification message.
      * @param {BSTR} activityId A unique non-localized string to identify an action or group of actions. Use this to pass additional information to the event handler.
      * @returns {HRESULT} If this function succeeds, it returns S_OK. Otherwise, it returns an HRESULT error code.
@@ -3983,14 +4026,16 @@ class Accessibility {
 
     /**
      * Adds a listener for events on a node in the UI Automation tree.
-     * @param {HUIANODE} _hnode 
+     * @param {HUIANODE} _hnode Type: <b>HUIANODE</b>
+     * 
+     * The node to add an event listener to.
      * @param {Integer} eventId Type: <b>EVENTID</b>
      * 
      * The identifier of the event to listen for. For a list of event IDs, see <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-event-ids">Event Identifiers</a>.
      * @param {Pointer<Pointer<UiaEventCallback>>} pCallback Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcoreapi/nc-uiautomationcoreapi-uiaeventcallback">UiaEventCallback</a>*</b>
      * 
      * The address of the application-defined <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcoreapi/nc-uiautomationcoreapi-uiaeventcallback">UiaEventCallback</a> callback function that is called when the event is raised.
-     * @param {Integer} scope Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/ne-uiautomationclient-treescope">TreeScope</a>*</b>
+     * @param {TreeScope} scope Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/ne-uiautomationclient-treescope">TreeScope</a>*</b>
      * 
      * A value from the <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/ne-uiautomationclient-treescope">TreeScope</a> enumerated type indicating the scope of events to be handled; that is, whether they are on the element itself, 
      * 				or on its ancestors and children.
@@ -4050,7 +4095,9 @@ class Accessibility {
      * @param {HUIAEVENT} hEvent Type: <b>HUIAEVENT</b>
      * 
      * The event being listened for. This event was retrieved from <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcoreapi/nf-uiautomationcoreapi-uiaaddevent">UiaAddEvent</a>.
-     * @param {HWND} _hwnd 
+     * @param {HWND} _hwnd Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
+     * 
+     * The handle of the window to add.
      * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * Returns S_OK if successful or an error value otherwise.
@@ -4070,7 +4117,9 @@ class Accessibility {
      * @param {HUIAEVENT} hEvent Type: <b>HUIAEVENT</b>
      * 
      * The event being listened for. This event was retrieved from <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcoreapi/nf-uiautomationcoreapi-uiaaddevent">UiaAddEvent</a>.
-     * @param {HWND} _hwnd 
+     * @param {HWND} _hwnd Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
+     * 
+     * The handle of the window to remove.
      * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * Returns S_OK if successful or an error value otherwise.
@@ -4090,7 +4139,9 @@ class Accessibility {
      * @param {HUIAPATTERNOBJECT} hobj Type: <b>HUIAPATTERNOBJECT</b>
      * 
      * The <i>control pattern</i> object.
-     * @param {Integer} _dockPosition 
+     * @param {DockPosition} _dockPosition Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/ne-uiautomationcore-dockposition">DockPosition</a></b>
+     * 
+     * The location to dock the control to.
      * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * Returns S_OK if successful or an error value otherwise.
@@ -4150,7 +4201,9 @@ class Accessibility {
      * @param {Integer} row Type: <b>int</b>
      * 
      * The row of the node being requested.
-     * @param {Integer} _column 
+     * @param {Integer} _column Type: <b>int</b>
+     * 
+     * The column of the node being requested.
      * @param {Pointer<HUIANODE>} pResult Type: <b>HUIANODE*</b>
      * 
      * When this function returns, contains a pointer to the node for the cell 
@@ -4237,7 +4290,9 @@ class Accessibility {
      * @param {HUIAPATTERNOBJECT} hobj Type: <b>HUIAPATTERNOBJECT</b>
      * 
      * The control pattern object.
-     * @param {Float} _val 
+     * @param {Float} _val Type: <b>double</b>
+     * 
+     * The value to set.
      * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * Returns S_OK if successful or an error value otherwise.
@@ -4277,10 +4332,10 @@ class Accessibility {
      * @param {HUIAPATTERNOBJECT} hobj Type: <b>HUIAPATTERNOBJECT</b>
      * 
      * The control pattern object.
-     * @param {Integer} horizontalAmount Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/ne-uiautomationcore-scrollamount">ScrollAmount</a></b>
+     * @param {ScrollAmount} horizontalAmount Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/ne-uiautomationcore-scrollamount">ScrollAmount</a></b>
      * 
      * The amount to scroll the container on the horizontal axis, as a percentage.
-     * @param {Integer} verticalAmount Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/ne-uiautomationcore-scrollamount">ScrollAmount</a></b>
+     * @param {ScrollAmount} verticalAmount Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/ne-uiautomationcore-scrollamount">ScrollAmount</a></b>
      * 
      * The amount to scroll the container on the vertical axis, as a percentage.
      * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
@@ -4521,7 +4576,7 @@ class Accessibility {
      * @param {HUIAPATTERNOBJECT} hobj Type: <b>HUIAPATTERNOBJECT</b>
      * 
      * The control pattern object.
-     * @param {Integer} state Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/ne-uiautomationcore-windowvisualstate">WindowVisualState</a></b>
+     * @param {WindowVisualState} state Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/ne-uiautomationcore-windowvisualstate">WindowVisualState</a></b>
      * 
      * The visual state to set the window to.
      * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
@@ -4658,7 +4713,9 @@ class Accessibility {
      * @param {HUIAPATTERNOBJECT} hobj Type: <b>HUIAPATTERNOBJECT</b>
      * 
      * A control pattern object.
-     * @param {UiaPoint} _point 
+     * @param {UiaPoint} _point Type: <b>HiaPoint</b>
+     * 
+     * A <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/ns-uiautomationcore-uiapoint">UiaPoint</a> structure that contains the location in screen coordinates.
      * @param {Pointer<HUIATEXTRANGE>} pRetVal Type: <b>HUIATEXTRANGE*</b>
      * 
      * When this function returns, contains the text range that the node spans. 
@@ -4704,7 +4761,7 @@ class Accessibility {
      * @param {HUIAPATTERNOBJECT} hobj Type: <b>HUIAPATTERNOBJECT</b>
      * 
      * A control pattern object.
-     * @param {Pointer<Integer>} pRetVal Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a>*</b>
+     * @param {Pointer<SupportedTextSelection>} pRetVal Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a>*</b>
      * 
      * When this function returns, contains a value indicating whether the text container can have its contents selected and deselected.
      * 
@@ -4787,13 +4844,13 @@ class Accessibility {
      * @param {HUIATEXTRANGE} hobj Type: <b>HUIATEXTRANGE</b>
      * 
      * A text range object.
-     * @param {Integer} endpoint Type: <b>TextPatternRangeEndpoint</b>
+     * @param {TextPatternRangeEndpoint} endpoint Type: <b>TextPatternRangeEndpoint</b>
      * 
      * The starting or ending endpoint of <i>hobj</i>.
      * @param {HUIATEXTRANGE} targetRange Type: <b>ITextRangeInteropProvider*</b>
      * 
      * The text range that is being compared against.
-     * @param {Integer} targetEndpoint Type: <b>TextPatternRangeEndpoint</b>
+     * @param {TextPatternRangeEndpoint} targetEndpoint Type: <b>TextPatternRangeEndpoint</b>
      * 
      * The starting or ending endpoint of <i>targetRange</i>.
      * @param {Pointer<Integer>} pRetVal Type: <b>int*</b>
@@ -4835,7 +4892,9 @@ class Accessibility {
      * @param {HUIATEXTRANGE} hobj Type: <b>HUIATEXTRANGE</b>
      * 
      * A text range object.
-     * @param {Integer} _unit 
+     * @param {TextUnit} _unit Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/ne-uiautomationcore-textunit">TextUnit</a></b>
+     * 
+     * The unit that the provider must expand the text range to.
      * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * Returns S_OK if successful or an error value otherwise.
@@ -4854,7 +4913,9 @@ class Accessibility {
      * @param {HUIATEXTRANGE} hobj Type: <b>HUIATEXTRANGE</b>
      * 
      * A text range object.
-     * @param {Integer} _attributeId 
+     * @param {Integer} _attributeId Type: <b>TEXTATTRIBUTEID</b>
+     * 
+     * The text attribute whose value is wanted. For a list of text attribute IDs, see <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-textattribute-ids">Text Attribute Identifiers</a>.
      * @param {Pointer<VARIANT>} pRetVal Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinAuto/variant-structure">VARIANT</a>*</b>
      * 
      * When this function returns, contains 
@@ -4878,8 +4939,12 @@ class Accessibility {
      * @param {HUIATEXTRANGE} hobj Type: <b>HUIATEXTRANGE</b>
      * 
      * The text range to search.
-     * @param {Integer} _attributeId 
-     * @param {VARIANT} _val 
+     * @param {Integer} _attributeId Type: <b>TEXTATTRIBUTEID</b>
+     * 
+     * The text attribute to search for. For a list of text attribute IDs, see <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-textattribute-ids">Text Attribute Identifiers</a>.
+     * @param {VARIANT} _val Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinAuto/variant-structure">VARIANT</a></b>
+     * 
+     * The value of the attribute that the client wants to find.
      * @param {BOOL} backward Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * <b>TRUE</b> to search backward, otherwise <b>FALSE</b>.
@@ -5022,7 +5087,9 @@ class Accessibility {
      * @param {HUIATEXTRANGE} hobj Type: <b>HUIATEXTRANGE</b>
      * 
      * A text range object.
-     * @param {Integer} _unit 
+     * @param {TextUnit} _unit Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/ne-uiautomationcore-textunit">TextUnit</a></b>
+     * 
+     * The unit, such as Page, Line, or Word.
      * @param {Integer} count Type: <b>int</b>
      * 
      * The number of units to move. Positive numbers move the range forward, 
@@ -5052,10 +5119,12 @@ class Accessibility {
      * @param {HUIATEXTRANGE} hobj Type: <b>HUIATEXTRANGE</b>
      * 
      * A text range object.
-     * @param {Integer} endpoint Type: <b>TextPatternRangeEndpoint</b>
+     * @param {TextPatternRangeEndpoint} endpoint Type: <b>TextPatternRangeEndpoint</b>
      * 
      * The endpoint to move (either the start or the end).
-     * @param {Integer} _unit 
+     * @param {TextUnit} _unit Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/ne-uiautomationcore-textunit">TextUnit</a></b>
+     * 
+     * The unit, such as Page, Line, or Word.
      * @param {Integer} count Type: <b>int</b>
      * 
      * The number of units to move. A positive value moves the range forward; a negative value
@@ -5085,13 +5154,13 @@ class Accessibility {
      * @param {HUIATEXTRANGE} hobj Type: <b>HUIATEXTRANGE</b>
      * 
      * The text range object whose endpoint is to move.
-     * @param {Integer} endpoint Type: <b>TextPatternRangeEndpoint</b>
+     * @param {TextPatternRangeEndpoint} endpoint Type: <b>TextPatternRangeEndpoint</b>
      * 
      * The endpoint to move (either the start or the end).
      * @param {HUIATEXTRANGE} targetRange Type: <b>HUIATEXTRANGE</b>
      * 
      * The text range that contains the target endpoint.
-     * @param {Integer} targetEndpoint Type: <b>TextPatternRangeEndpoint</b>
+     * @param {TextPatternRangeEndpoint} targetEndpoint Type: <b>TextPatternRangeEndpoint</b>
      * 
      * The target endpoint to move to (either the start or the end).
      * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
@@ -5329,7 +5398,7 @@ class Accessibility {
      * @param {HUIAPATTERNOBJECT} hobj Type: <b>HUIAPATTERNOBJECT</b>
      * 
      * The <i>control pattern</i> object.
-     * @param {Integer} inputType Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/ne-uiautomationcore-synchronizedinputtype">SynchronizedInputType</a></b>
+     * @param {SynchronizedInputType} inputType Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/ne-uiautomationcore-synchronizedinputtype">SynchronizedInputType</a></b>
      * 
      * A combination of values from the <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/ne-uiautomationcore-synchronizedinputtype">SynchronizedInputType</a> enumerated type specifying the type of input for which to listen.
      * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
@@ -5423,9 +5492,15 @@ class Accessibility {
      * This function is called by a control when it receives the [WM_GETOBJECT](/windows/win32/winauto/wm-getobject) message, to provide UI Automation with the UI Automation provider for the control. The control should pass the <i>wParam</i> and <i>lParam</i> parameters to the <b>UiaReturnRawElementProvider</b> function without filtering them first, because filtering can cause problems with Microsoft Active Accessibility clients. The control's window procedure should return the result of calling <b>UiaReturnRawElementProvider</b>.
      * 
      * When Microsoft Active Accessibility clients are listening to events raised by a UI Automation provider, UI Automation maintains a map of the providers that have raised events. When the Microsoft Active Accessibility clients request further information, UI Automation uses the map to route the requests to the appropriate providers. When a window that previously returned providers has been destroyed, you should notify UI Automation by calling the <b>UiaReturnRawElementProvider</b> function as follows: <c>UiaReturnRawElementProvider(hwnd, 0, 0, NULL)</c>. This call tells UI Automation that it can safely remove all map entries that refer to the specified window. This call can save memory because it releases references to the providers being held by the raised-event map. The function returns zero when called with these special parameters. Microsoft recommends making this call from the <a href="https://docs.microsoft.com/windows/desktop/winmsg/wm-destroy">WM_DESTROY</a> message handler of the window that returns the UI Automation providers.
-     * @param {HWND} _hwnd 
-     * @param {WPARAM} _wParam 
-     * @param {LPARAM} _lParam 
+     * @param {HWND} _hwnd Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
+     * 
+     * The handle of the window containing the element served by the provider.
+     * @param {WPARAM} _wParam Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">WPARAM</a></b>
+     * 
+     * The <i>wParam</i> argument of the [WM_GETOBJECT](/windows/win32/winauto/wm-getobject) message.
+     * @param {LPARAM} _lParam Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPARAM</a></b>
+     * 
+     * The <i>lParam</i> argument of the [WM_GETOBJECT](/windows/win32/winauto/wm-getobject) message.
      * @param {IRawElementProviderSimple} el Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nn-uiautomationcore-irawelementprovidersimple">IRawElementProviderSimple</a>*</b>
      * 
      * The UI Automation provider.
@@ -5448,7 +5523,9 @@ class Accessibility {
      * Gets the host provider for a window.
      * @remarks
      * The object retrieved by this function is useful only for responding to calls to the <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nf-uiautomationcore-irawelementprovidersimple-get_hostrawelementprovider">IRawElementProviderSimple::get_HostRawElementProvider</a> method. You cannot use the object to raise events, provide properties, and so on.  If you need to raise events or provide properties, you must create a provider object that fully implements the <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nn-uiautomationcore-irawelementprovidersimple">IRawElementProviderSimple</a> interface.
-     * @param {HWND} _hwnd 
+     * @param {HWND} _hwnd Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
+     * 
+     * The window containing the element served by the provider.
      * @returns {IRawElementProviderSimple} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nn-uiautomationcore-irawelementprovidersimple">IRawElementProviderSimple</a>**</b>
      * 
      * The host provider for the window.
@@ -5472,7 +5549,9 @@ class Accessibility {
      * 
      * 
      * The supported object IDs for controls in the non-client area include <a href="https://docs.microsoft.com/windows/desktop/WinAuto/object-identifiers">OBJID_WINDOW</a><a href="https://docs.microsoft.com/windows/desktop/WinAuto/object-identifiers">, OBJID_VSCROLL</a>, <a href="https://docs.microsoft.com/windows/desktop/WinAuto/object-identifiers">OBJID_HSCROLL</a>, <a href="https://docs.microsoft.com/windows/desktop/WinAuto/object-identifiers">OBJID_TITLEBAR</a>, <a href="https://docs.microsoft.com/windows/desktop/WinAuto/object-identifiers">OBJID_MENU</a>, and <a href="https://docs.microsoft.com/windows/desktop/WinAuto/object-identifiers">OBJID_SIZEGRIP</a>.  For <b>OBJID_TITLEBAR</b>, use the child ID to distinguish between the entire title bar and the buttons that it contains.
-     * @param {HWND} _hwnd 
+     * @param {HWND} _hwnd Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
+     * 
+     * The window that owns the non-client area or non-client control.
      * @param {Integer} idObject Type: <b>long</b>
      * 
      * The object identifier of the non-client control, or <a href="https://docs.microsoft.com/windows/desktop/WinAuto/object-identifiers">OBJID_WINDOW</a> for the entire non-client area. For a list of possible values, see <b>Object Identifiers</b>.
@@ -5586,7 +5665,9 @@ class Accessibility {
 
     /**
      * Ascertains whether a window has a Microsoft UI Automation provider implementation.
-     * @param {HWND} _hwnd 
+     * @param {HWND} _hwnd Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
+     * 
+     * Handle of the window.
      * @returns {BOOL} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * <b>TRUE</b> if the window has a UI Automation provider implementation; otherwise <b>FALSE</b>.
@@ -5616,8 +5697,10 @@ class Accessibility {
      * If the calling thread does not own the specified window, this function fails with the last error set to <b>ERROR_ACCESS_DENIED</b>.
      * 
      * If the specified window’s desktop already has a registered global redirection target for the specified pointer input type, this function fails with the last error set to <b>ERROR_ACCESS_DENIED</b>.
-     * @param {HWND} _hwnd 
-     * @param {Integer} pointerType Type of pointer input to be redirected to the specified  window. This is any valid and supported value from the <a href="https://docs.microsoft.com/windows/win32/api/winuser/ne-winuser-tagpointer_input_type">POINTER_INPUT_TYPE</a> enumeration. Note that the generic <b>PT_POINTER</b> type and the <b>PT_MOUSE</b> type are not valid in this parameter.
+     * @param {HWND} _hwnd The window to register as a global redirection target.
+     * 
+     * Redirection can cause the foreground window to lose activation (focus). To avoid this, ensure the window is a message-only window or has the <a href="https://docs.microsoft.com/windows/desktop/winmsg/extended-window-styles">WS_EX_NOACTIVATE</a> style set.
+     * @param {POINTER_INPUT_TYPE} pointerType Type of pointer input to be redirected to the specified  window. This is any valid and supported value from the <a href="https://docs.microsoft.com/windows/win32/api/winuser/ne-winuser-tagpointer_input_type">POINTER_INPUT_TYPE</a> enumeration. Note that the generic <b>PT_POINTER</b> type and the <b>PT_MOUSE</b> type are not valid in this parameter.
      * @returns {BOOL} If the function succeeds, the return value is non-zero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -5651,8 +5734,8 @@ class Accessibility {
      * If the calling thread does not own the specified window, this function fails with the last error set to <b>ERROR_ACCESS_DENIED</b>.
      * 
      * If the specified window is not the registered global redirection target for the specified pointer input type on its desktop, this function takes no action and returns success.
-     * @param {HWND} _hwnd 
-     * @param {Integer} pointerType Type of pointer input to no longer be redirected to the specified window. This is any valid and supported value from the <a href="https://docs.microsoft.com/windows/win32/api/winuser/ne-winuser-tagpointer_input_type">POINTER_INPUT_TYPE </a> enumeration. Note that the generic <b>PT_POINTER</b> type and the<b> PT_MOUSE</b> type are not valid in this parameter.
+     * @param {HWND} _hwnd Window to be un-registered as a global redirection target on its desktop.
+     * @param {POINTER_INPUT_TYPE} pointerType Type of pointer input to no longer be redirected to the specified window. This is any valid and supported value from the <a href="https://docs.microsoft.com/windows/win32/api/winuser/ne-winuser-tagpointer_input_type">POINTER_INPUT_TYPE </a> enumeration. Note that the generic <b>PT_POINTER</b> type and the<b> PT_MOUSE</b> type are not valid in this parameter.
      * @returns {BOOL} If the function succeeds, the return value is non-zero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -5674,8 +5757,8 @@ class Accessibility {
 
     /**
      * RegisterPointerInputTargetEx may be altered or unavailable. Instead, use RegisterPointerInputTarget.
-     * @param {HWND} _hwnd 
-     * @param {Integer} pointerType Not supported.
+     * @param {HWND} _hwnd Not supported.
+     * @param {POINTER_INPUT_TYPE} pointerType Not supported.
      * @param {BOOL} fObserve Not supported.
      * @returns {BOOL} Not supported.
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-registerpointerinputtargetex
@@ -5690,8 +5773,8 @@ class Accessibility {
 
     /**
      * UnregisterPointerInputTargetEx may be altered or unavailable. Instead, use UnregisterPointerInputTarget.
-     * @param {HWND} _hwnd 
-     * @param {Integer} pointerType Not supported.
+     * @param {HWND} _hwnd Not supported.
+     * @param {POINTER_INPUT_TYPE} pointerType Not supported.
      * @returns {BOOL} Not supported.
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-unregisterpointerinputtargetex
      * @since windows10.0.10240
@@ -5722,7 +5805,9 @@ class Accessibility {
      * @param {Integer} event Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
      * 
      * Specifies the event that occurred. This value must be one of the <a href="https://docs.microsoft.com/windows/desktop/WinAuto/event-constants">event constants</a>.
-     * @param {HWND} _hwnd 
+     * @param {HWND} _hwnd Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
+     * 
+     * Handle to the window that contains the object that generated the event.
      * @param {Integer} idObject Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LONG</a></b>
      * 
      * Identifies the object that generated the event. This value is either one of the predefined <a href="https://docs.microsoft.com/windows/desktop/WinAuto/object-identifiers">object identifiers</a> or a custom object ID value.
@@ -5892,7 +5977,9 @@ class Accessibility {
      * Call this function from the same thread that installed the event hook. <b>UnhookWinEvent</b> fails if called from a thread different from the call that corresponds to <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-setwineventhook">SetWinEventHook</a>.
      * 
      * If WINEVENT_INCONTEXT was specified when this event hook was installed, the system attempts to unload the corresponding DLL from all processes that loaded it. Although unloading does not occur immediately, the hook function is not called after <b>UnhookWinEvent</b> returns. For more information on WINEVENT_INCONTEXT, see <a href="https://docs.microsoft.com/windows/desktop/WinAuto/in-context-hook-functions">In-Context Hook Functions</a>.
-     * @param {HWINEVENTHOOK} _hWinEventHook 
+     * @param {HWINEVENTHOOK} _hWinEventHook Type: <b>HWINEVENTHOOK</b>
+     * 
+     * Handle to the event hook returned in the previous call to <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-setwineventhook">SetWinEventHook</a>.
      * @returns {BOOL} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * If successful, returns <b>TRUE</b>; otherwise, returns <b>FALSE</b>.

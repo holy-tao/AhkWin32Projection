@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\Graphics\Gdi\HBITMAP.ahk
 #Include ..\..\Foundation\SIZE.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Exposes memory-efficient methods for accessing bitmaps. This interface is used as a thin wrapper around HBITMAP objects, allowing those objects to be reference counted and protected from having their underlying data changed.
@@ -15,9 +15,8 @@
  * The underlying data of the memory-mapped bitmap is protected while the client is accessing it.
  * @see https://learn.microsoft.com/windows/win32/api/thumbcache/nn-thumbcache-isharedbitmap
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class ISharedBitmap extends IUnknown{
+class ISharedBitmap extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -74,7 +73,7 @@ class ISharedBitmap extends IUnknown{
 
     /**
      * Retrieves the alpha type of the bitmap image.
-     * @returns {Integer} Type: <b>WTS_ALPHATYPE*</b>
+     * @returns {WTS_ALPHATYPE} Type: <b>WTS_ALPHATYPE*</b>
      * @see https://learn.microsoft.com/windows/win32/api/thumbcache/nf-thumbcache-isharedbitmap-getformat
      */
     GetFormat() {
@@ -86,8 +85,10 @@ class ISharedBitmap extends IUnknown{
      * Initializes a new ISharedBitmap object with a given bitmap.
      * @remarks
      * When an <a href="https://docs.microsoft.com/windows/desktop/api/thumbcache/nn-thumbcache-isharedbitmap">ISharedBitmap</a> object is instantiated by the client (as opposed to being returned by the <a href="https://docs.microsoft.com/windows/desktop/api/thumbcache/nf-thumbcache-ithumbnailcache-getthumbnailbyid">IThumbnailCache::GetThumbnailByID</a> or <a href="https://docs.microsoft.com/windows/desktop/api/thumbcache/nf-thumbcache-ithumbnailcache-getthumbnail">IThumbnailCache::GetThumbnail</a> methods), the underlying bitmap will not reside in shared memory.
-     * @param {HBITMAP} _hbm 
-     * @param {Integer} wtsAT Type: <b>WTS_ALPHATYPE</b>
+     * @param {HBITMAP} _hbm Type: <b>HBITMAP</b>
+     * 
+     * A handle to the bitmap with which to initialize a new <a href="https://docs.microsoft.com/windows/desktop/api/thumbcache/nn-thumbcache-isharedbitmap">ISharedBitmap</a> object. The bitmap must be a DIB.
+     * @param {WTS_ALPHATYPE} wtsAT Type: <b>WTS_ALPHATYPE</b>
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.

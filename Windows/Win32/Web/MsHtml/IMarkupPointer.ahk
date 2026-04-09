@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\IHTMLDocument2.ahk
 #Include .\IMarkupContainer.ahk
 #Include .\IHTMLElement.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
- * @version v4.0.30319
  */
-class IMarkupPointer extends IUnknown{
+class IMarkupPointer extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -42,7 +41,7 @@ class IMarkupPointer extends IUnknown{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {POINTER_GRAVITY} 
      */
     Gravity() {
         result := ComCall(4, this, "int*", &pGravity := 0, "HRESULT")
@@ -51,7 +50,7 @@ class IMarkupPointer extends IUnknown{
 
     /**
      * 
-     * @param {Integer} Gravity 
+     * @param {POINTER_GRAVITY} Gravity 
      * @returns {HRESULT} 
      */
     SetGravity(Gravity) {
@@ -108,7 +107,7 @@ class IMarkupPointer extends IUnknown{
     /**
      * 
      * @param {IHTMLElement} pElement 
-     * @param {Integer} eAdj 
+     * @param {ELEMENT_ADJACENCY} eAdj 
      * @returns {HRESULT} 
      */
     MoveAdjacentToElement(pElement, eAdj) {
@@ -140,7 +139,7 @@ class IMarkupPointer extends IUnknown{
     /**
      * If the LeftUnit property is set, the unit is placed to the left of the number instead of the typical right side.
      * @param {BOOL} fMove 
-     * @param {Pointer<Integer>} pContext 
+     * @param {Pointer<MARKUP_CONTEXT_TYPE>} pContext 
      * @param {Pointer<IHTMLElement>} ppElement 
      * @param {Pointer<Integer>} pcch 
      * @param {PWSTR} pchText 
@@ -160,7 +159,7 @@ class IMarkupPointer extends IUnknown{
     /**
      * 
      * @param {BOOL} fMove 
-     * @param {Pointer<Integer>} pContext 
+     * @param {Pointer<MARKUP_CONTEXT_TYPE>} pContext 
      * @param {Pointer<IHTMLElement>} ppElement 
      * @param {Pointer<Integer>} pcch 
      * @param {PWSTR} pchText 
@@ -237,7 +236,7 @@ class IMarkupPointer extends IUnknown{
 
     /**
      * 
-     * @param {Integer} muAction 
+     * @param {MOVEUNIT_ACTION} muAction 
      * @returns {HRESULT} 
      */
     MoveUnit(muAction) {

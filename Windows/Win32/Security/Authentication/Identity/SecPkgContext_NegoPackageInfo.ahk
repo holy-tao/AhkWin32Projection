@@ -3,14 +3,10 @@
 
 /**
  * Holds information about the negotiated application package.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/sspi/ns-sspi-secpkgcontext_negopackageinfo
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class SecPkgContext_NegoPackageInfo extends Win32Struct
-{
+class SecPkgContext_NegoPackageInfo extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 4

@@ -42,10 +42,8 @@
  * Call the [**WindowsPreallocateStringBuffer**](/windows/win32/api/winstring/nf-winstring-windowspreallocatestringbuffer) function to allocate a mutable string buffer that you can use to create an immutable **HSTRING**. When you have finished populating the buffer, you call the [**WindowsPromoteStringBuffer**](/windows/win32/api/winstring/nf-winstring-windowspromotestringbuffer) function to create the **HSTRING**. This two-phase construction pattern enables functionality that is similar to a "string builder."
  * @see https://learn.microsoft.com/windows/win32/WinRT/hstring
  * @namespace Windows.Win32.System.WinRT
- * @version v4.0.30319
  */
-class HSTRING extends Win32Handle
-{
+class HSTRING extends Win32Handle {
     static sizeof => 8
 
     static packingSize => 8

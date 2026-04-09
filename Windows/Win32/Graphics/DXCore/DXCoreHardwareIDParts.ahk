@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Graphics.DXCore
- * @version v4.0.30319
  */
-class DXCoreHardwareIDParts extends Win32Struct
-{
+class DXCoreHardwareIDParts extends Win32Struct {
     static sizeof => 20
 
     static packingSize => 4

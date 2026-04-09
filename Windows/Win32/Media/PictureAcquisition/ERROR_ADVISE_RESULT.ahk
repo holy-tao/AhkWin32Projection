@@ -7,9 +7,8 @@
  * The type of response allowed is of type <a href="https://docs.microsoft.com/windows/win32/api/photoacquire/ne-photoacquire-error_advise_message_type">ERROR_ADVISE_MESSAGE_TYPE</a>, and indicated by the <i>nMessageType</i> parameter of <a href="https://docs.microsoft.com/windows/desktop/api/photoacquire/nf-photoacquire-iphotoacquireprogresscb-erroradvise">IPhotoAcquireProgressCB::ErrorAdvise</a>.
  * @see https://learn.microsoft.com/windows/win32/api/photoacquire/ne-photoacquire-error_advise_result
  * @namespace Windows.Win32.Media.PictureAcquisition
- * @version v4.0.30319
  */
-class ERROR_ADVISE_RESULT extends Win32Enum{
+class ERROR_ADVISE_RESULT extends Win32Enum {
 
     /**
      * Specifies a Yes response to an error dialog. Valid only if the <i>nMessageType</i> parameter to <a href="https://docs.microsoft.com/windows/desktop/api/photoacquire/nf-photoacquire-iphotoacquireprogresscb-erroradvise">IPhotoAcquireProgressCB::ErrorAdvise</a> is PHOTOACQUIRE_ERROR_YESNO.

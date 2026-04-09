@@ -7,9 +7,8 @@
  * Represents a software bitmap.
  * @see https://learn.microsoft.com/windows/win32/api/windows.graphics.imaging.interop/nn-windows-graphics-imaging-interop-isoftwarebitmapnative
  * @namespace Windows.Win32.System.WinRT.Graphics.Imaging
- * @version v4.0.30319
  */
-class ISoftwareBitmapNative extends IInspectable{
+class ISoftwareBitmapNative extends IInspectable {
 
     static sizeof => A_PtrSize
     /**

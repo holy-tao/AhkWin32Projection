@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.UI.Controls.Dialogs
- * @version v4.0.30319
  */
-class COMMON_DLG_ERRORS extends Win32Enum{
+class COMMON_DLG_ERRORS extends Win32Enum {
 
     /**
      * @type {Integer (UInt32)}

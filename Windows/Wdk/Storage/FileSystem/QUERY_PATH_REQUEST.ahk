@@ -1,12 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\IO_SECURITY_CONTEXT.ahk
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem
- * @version v4.0.30319
  */
-class QUERY_PATH_REQUEST extends Win32Struct
-{
+class QUERY_PATH_REQUEST extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

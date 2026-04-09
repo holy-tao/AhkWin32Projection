@@ -1,20 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\IMFCdmSuspendNotify.ahk
 #Include .\IMFContentDecryptionModuleSession.ahk
 #Include .\IMFTrustedInput.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Represents a Content Decryption Module (CDM) for a DRM key system.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/mfcontentdecryptionmodule/nn-mfcontentdecryptionmodule-imfcontentdecryptionmodule
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFContentDecryptionModule extends IUnknown{
+class IMFContentDecryptionModule extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -74,7 +71,7 @@ class IMFContentDecryptionModule extends IUnknown{
      * The IMFContentDecryptionModule::CreateSession function creates a IMFContentDecryptionModuleSession object representing a Content Decryption Module (CDM) session.
      * @remarks
      * **CreateSession** is based on the Encrypted Media Extension specification's [createSession](https://www.w3.org/TR/2017/REC-encrypted-media-20170918/#dom-mediakeys-createsession).
-     * @param {Integer} sessionType A member of the [MF_MEDIAKEYSESSION_TYPE](../mfidl/ne-mfidl-mf_mediakeysession_type.md) that specifies the type of CDM session to create.
+     * @param {MF_MEDIAKEYSESSION_TYPE} sessionType A member of the [MF_MEDIAKEYSESSION_TYPE](../mfidl/ne-mfidl-mf_mediakeysession_type.md) that specifies the type of CDM session to create.
      * @param {IMFContentDecryptionModuleSessionCallbacks} callbacks An [IMFContentDecryptionModuleSessionCallbacks](nn-mfcontentdecryptionmodule-imfcontentdecryptionmodulesessioncallbacks.md) object for receiving key status change updates.
      * @returns {IMFContentDecryptionModuleSession} Receives the created **IMFContentDecryptionModuleSession** object.
      * @see https://learn.microsoft.com/windows/win32/api/mfcontentdecryptionmodule/nf-mfcontentdecryptionmodule-imfcontentdecryptionmodule-createsession

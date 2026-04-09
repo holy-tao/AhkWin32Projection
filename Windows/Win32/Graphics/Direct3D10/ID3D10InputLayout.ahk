@@ -9,9 +9,8 @@
  * This interface is created by calling <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nf-d3d10-id3d10device-createinputlayout">ID3D10Device::CreateInputLayout</a>; use <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nf-d3d10-id3d10device-iasetinputlayout">ID3D10Device::IASetInputLayout</a> to bind it to the graphics pipeline.
  * @see https://learn.microsoft.com/windows/win32/api/d3d10/nn-d3d10-id3d10inputlayout
  * @namespace Windows.Win32.Graphics.Direct3D10
- * @version v4.0.30319
  */
-class ID3D10InputLayout extends ID3D10DeviceChild{
+class ID3D10InputLayout extends ID3D10DeviceChild {
 
     static sizeof => A_PtrSize
     /**

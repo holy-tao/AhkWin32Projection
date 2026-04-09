@@ -1,21 +1,19 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\WIN_STREAM_ID.ahk
 
 /**
  * Contains stream data.
  * @see https://learn.microsoft.com/windows/win32/api/winbase/ns-winbase-win32_stream_id
  * @namespace Windows.Win32.Storage.FileSystem
- * @version v4.0.30319
  */
-class WIN32_STREAM_ID extends Win32Struct
-{
+class WIN32_STREAM_ID extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
 
     /**
-     * 
-     * @type {Integer}
+     * @type {WIN_STREAM_ID}
      */
     dwStreamId {
         get => NumGet(this, 0, "uint")

@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Web.InternetExplorer
- * @version v4.0.30319
  */
-class STATURL extends Win32Struct
-{
+class STATURL extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8
@@ -39,7 +37,7 @@ class STATURL extends Win32Struct
     /**
      * @type {FILETIME}
      */
-    ftLastVisited{
+    ftLastVisited {
         get {
             if(!this.HasProp("__ftLastVisited"))
                 this.__ftLastVisited := FILETIME(24, this)
@@ -50,7 +48,7 @@ class STATURL extends Win32Struct
     /**
      * @type {FILETIME}
      */
-    ftLastUpdated{
+    ftLastUpdated {
         get {
             if(!this.HasProp("__ftLastUpdated"))
                 this.__ftLastUpdated := FILETIME(32, this)
@@ -61,7 +59,7 @@ class STATURL extends Win32Struct
     /**
      * @type {FILETIME}
      */
-    ftExpires{
+    ftExpires {
         get {
             if(!this.HasProp("__ftExpires"))
                 this.__ftExpires := FILETIME(40, this)

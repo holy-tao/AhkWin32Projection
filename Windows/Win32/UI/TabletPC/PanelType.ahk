@@ -7,9 +7,8 @@
  * The end user can change the handwriting panel between lined and boxed input modes using buttons on the Tablet PC Input Panel user interface (UI). There is no programmatic way to get or set lined or boxed mode. By default, western languages use lined input and East Asian languages use boxed input, but the user is free to change between these modes.
  * @see https://learn.microsoft.com/windows/win32/api/peninputpanel/ne-peninputpanel-paneltype
  * @namespace Windows.Win32.UI.TabletPC
- * @version v4.0.30319
  */
-class PanelType extends Win32Enum{
+class PanelType extends Win32Enum {
 
     /**
      * The <a href="https://docs.microsoft.com/windows/desktop/tablet/peninputpanel-class">PenInputPanel</a> object displays the last panel type used for any pen input panel in any application. If all previous references to the pen input panel have been destroyed in all active applications, a new pen input panel will use the handwriting panel type.

@@ -9,9 +9,8 @@
  * Examples of controls that support this control pattern include top-level application windows, multiple-document interface (MDI) child windows, and modal dialog boxes.
  * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nn-uiautomationclient-iuiautomationwindowpattern
  * @namespace Windows.Win32.UI.Accessibility
- * @version v4.0.30319
  */
-class IUIAutomationWindowPattern extends IUnknown{
+class IUIAutomationWindowPattern extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -61,14 +60,14 @@ class IUIAutomationWindowPattern extends IUnknown{
     }
 
     /**
-     * @type {Integer} 
+     * @type {WindowVisualState} 
      */
     CurrentWindowVisualState {
         get => this.get_CurrentWindowVisualState()
     }
 
     /**
-     * @type {Integer} 
+     * @type {WindowInteractionState} 
      */
     CurrentWindowInteractionState {
         get => this.get_CurrentWindowInteractionState()
@@ -103,14 +102,14 @@ class IUIAutomationWindowPattern extends IUnknown{
     }
 
     /**
-     * @type {Integer} 
+     * @type {WindowVisualState} 
      */
     CachedWindowVisualState {
         get => this.get_CachedWindowVisualState()
     }
 
     /**
-     * @type {Integer} 
+     * @type {WindowInteractionState} 
      */
     CachedWindowInteractionState {
         get => this.get_CachedWindowInteractionState()
@@ -147,7 +146,7 @@ class IUIAutomationWindowPattern extends IUnknown{
 
     /**
      * Minimizes, maximizes, or restores the window.
-     * @param {Integer} state 
+     * @param {WindowVisualState} state 
      * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
@@ -200,7 +199,7 @@ class IUIAutomationWindowPattern extends IUnknown{
 
     /**
      * Retrieves the visual state of the window; that is, whether it is in the normal, maximized, or minimized state.
-     * @returns {Integer} 
+     * @returns {WindowVisualState} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationwindowpattern-get_currentwindowvisualstate
      */
     get_CurrentWindowVisualState() {
@@ -210,7 +209,7 @@ class IUIAutomationWindowPattern extends IUnknown{
 
     /**
      * Retrieves the current state of the window for the purposes of user interaction.
-     * @returns {Integer} 
+     * @returns {WindowInteractionState} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationwindowpattern-get_currentwindowinteractionstate
      */
     get_CurrentWindowInteractionState() {
@@ -260,7 +259,7 @@ class IUIAutomationWindowPattern extends IUnknown{
 
     /**
      * Retrieves a cached value that indicates the visual state of the window; that is, whether it is in the normal, maximized, or minimized state.
-     * @returns {Integer} 
+     * @returns {WindowVisualState} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationwindowpattern-get_cachedwindowvisualstate
      */
     get_CachedWindowVisualState() {
@@ -270,7 +269,7 @@ class IUIAutomationWindowPattern extends IUnknown{
 
     /**
      * Retrieves a cached value that indicates the current state of the window for the purposes of user interaction.
-     * @returns {Integer} 
+     * @returns {WindowInteractionState} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationwindowpattern-get_cachedwindowinteractionstate
      */
     get_CachedWindowInteractionState() {

@@ -7,9 +7,8 @@
  * A contextual tab  is displayed based on the <b>UI_CONTEXTAVAILABILITY</b> value in <a href="https://docs.microsoft.com/windows/desktop/windowsribbon/windowsribbon-reference-properties-uipkey-contextavailable">UI_PKEY_ContextAvailable</a>.
  * @see https://learn.microsoft.com/windows/win32/api/uiribbon/ne-uiribbon-ui_contextavailability
  * @namespace Windows.Win32.UI.Ribbon
- * @version v4.0.30319
  */
-class UI_CONTEXTAVAILABILITY extends Win32Enum{
+class UI_CONTEXTAVAILABILITY extends Win32Enum {
 
     /**
      * A contextual tab is not available for the selected object.

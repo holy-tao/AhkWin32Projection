@@ -1,18 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\CRYPT_INTEGER_BLOB.ahk
-#Include .\CERT_ISSUER_SERIAL_NUMBER.ahk
 #Include .\CERT_ID.ahk
+#Include .\CERT_ID_OPTION.ahk
+#Include .\CERT_ISSUER_SERIAL_NUMBER.ahk
+#Include .\CRYPT_INTEGER_BLOB.ahk
 #Include .\CRYPT_ALGORITHM_IDENTIFIER.ahk
 
 /**
  * The CMSG_KEY_TRANS_RECIPIENT_INFO structure contains information used in key transport algorithms.
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cmsg_key_trans_recipient_info
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CMSG_KEY_TRANS_RECIPIENT_INFO extends Win32Struct
-{
+class CMSG_KEY_TRANS_RECIPIENT_INFO extends Win32Struct {
     static sizeof => 88
 
     static packingSize => 8
@@ -30,7 +29,7 @@ class CMSG_KEY_TRANS_RECIPIENT_INFO extends Win32Struct
      * A <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_id">CERT_ID</a> that identifies the recipient. Currently, only ISSUER_SERIAL_NUMBER or KEYID choices in the <b>CERT_ID</b> are valid.
      * @type {CERT_ID}
      */
-    RecipientId{
+    RecipientId {
         get {
             if(!this.HasProp("__RecipientId"))
                 this.__RecipientId := CERT_ID(8, this)
@@ -43,7 +42,7 @@ class CMSG_KEY_TRANS_RECIPIENT_INFO extends Win32Struct
      * 						<a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-crypt_algorithm_identifier">CRYPT_ALGORITHM_IDENTIFIER</a> that identifies the key-encryption algorithm and any associated parameters used to encrypt the content encryption key.
      * @type {CRYPT_ALGORITHM_IDENTIFIER}
      */
-    KeyEncryptionAlgorithm{
+    KeyEncryptionAlgorithm {
         get {
             if(!this.HasProp("__KeyEncryptionAlgorithm"))
                 this.__KeyEncryptionAlgorithm := CRYPT_ALGORITHM_IDENTIFIER(48, this)
@@ -55,7 +54,7 @@ class CMSG_KEY_TRANS_RECIPIENT_INFO extends Win32Struct
      * A <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa381414(v=vs.85)">CRYPT_DATA_BLOB</a> that contains the bytes of the encrypted session key.
      * @type {CRYPT_INTEGER_BLOB}
      */
-    EncryptedKey{
+    EncryptedKey {
         get {
             if(!this.HasProp("__EncryptedKey"))
                 this.__EncryptedKey := CRYPT_INTEGER_BLOB(72, this)

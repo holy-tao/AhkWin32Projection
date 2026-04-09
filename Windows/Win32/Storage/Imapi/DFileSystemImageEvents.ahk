@@ -1,16 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * Implement this interface to receive notifications of the current write operation. (DFileSystemImageEvents)
  * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nn-imapi2fs-dfilesystemimageevents
  * @namespace Windows.Win32.Storage.Imapi
- * @version v4.0.30319
  */
-class DFileSystemImageEvents extends IDispatch{
+class DFileSystemImageEvents extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -70,7 +68,9 @@ class DFileSystemImageEvents extends IDispatch{
      * <li>For every megabyte that is written</li>
      * <li>Once after the final write if the file did not end on a megabyte boundary</li>
      * </ul>
-     * @param {IDispatch} _object 
+     * @param {IDispatch} _object An <a href="https://docs.microsoft.com/windows/desktop/api/imapi2fs/nn-imapi2fs-ifilesystemimage">IFileSystemImage</a> interface of the file system image that is being written. 
+     * 
+     * This parameter is a <b>CFileSystemImage</b> object in a script.
      * @param {BSTR} currentFile String that contains the full path of the file being written.
      * @param {Integer} copiedSectors Number of sectors copied.
      * @param {Integer} totalSectors Total number of sectors in the file.

@@ -4,11 +4,9 @@
 
 /**
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class SCM_LD_INTERLEAVE_SET_INFO extends Win32Struct
-{
-    static sizeof => 24
+class SCM_LD_INTERLEAVE_SET_INFO extends Win32Struct {
+    static sizeof => 32
 
     static packingSize => 8
 
@@ -37,9 +35,9 @@ class SCM_LD_INTERLEAVE_SET_INFO extends Win32Struct
     }
 
     /**
-     * @type {Array<SCM_INTERLEAVED_PD_INFO>}
+     * @type {SCM_INTERLEAVED_PD_INFO}
      */
-    InterleaveSet{
+    InterleaveSet {
         get {
             if(!this.HasProp("__InterleaveSetProxyArray"))
                 this.__InterleaveSetProxyArray := Win32FixedArray(this.ptr + 16, 1, SCM_INTERLEAVED_PD_INFO, "")

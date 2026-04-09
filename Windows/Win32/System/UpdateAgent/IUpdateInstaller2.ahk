@@ -9,9 +9,8 @@
  * You can create an instance of this interface by using the UpdateInstaller coclass. Use the Microsoft.Update.Installer program identifier to create the object.
  * @see https://learn.microsoft.com/windows/win32/api/wuapi/nn-wuapi-iupdateinstaller2
  * @namespace Windows.Win32.System.UpdateAgent
- * @version v4.0.30319
  */
-class IUpdateInstaller2 extends IUpdateInstaller{
+class IUpdateInstaller2 extends IUpdateInstaller {
 
     static sizeof => A_PtrSize
     /**

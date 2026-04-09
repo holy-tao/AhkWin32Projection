@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\HSTRING.ahk
 #Include ..\Com\IUnknown.ahk
+#Include .\HSTRING.ahk
 
 /**
  * Provides functionality required for all Windows Runtime classes.
@@ -10,9 +10,8 @@
  * <b>IInspectable</b> methods have no effect on COM apartments and are safe to call from user interface threads.
  * @see https://learn.microsoft.com/windows/win32/api/inspectable/nn-inspectable-iinspectable
  * @namespace Windows.Win32.System.WinRT
- * @version v4.0.30319
  */
-class IInspectable extends IUnknown{
+class IInspectable extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -141,7 +140,9 @@ class IInspectable extends IUnknown{
 
     /**
      * Gets the trust level of the current Windows Runtime object.
-     * @returns {Integer} 
+     * @returns {TrustLevel} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/inspectable/ne-inspectable-trustlevel">TrustLevel</a>*</b>
+     * 
+     * The trust level of the current Windows Runtime object. The default is <b>BaseLevel</b>.
      * @see https://learn.microsoft.com/windows/win32/api/inspectable/nf-inspectable-iinspectable-gettrustlevel
      */
     GetTrustLevel() {

@@ -10,10 +10,8 @@
  * Is the top-level of the IPsec statistics structures. (IPSEC_STATISTICS0)
  * @see https://learn.microsoft.com/windows/win32/api/ipsectypes/ns-ipsectypes-ipsec_statistics0
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
- * @version v4.0.30319
  */
-class IPSEC_STATISTICS0 extends Win32Struct
-{
+class IPSEC_STATISTICS0 extends Win32Struct {
     static sizeof => 200
 
     static packingSize => 8
@@ -22,7 +20,7 @@ class IPSEC_STATISTICS0 extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/win32/api/ipsectypes/ns-ipsectypes-ipsec_aggregate_sa_statistics0">IPSEC_AGGREGATE_SA_STATISTICS0</a> structure containing IPsec aggregate SA statistics.
      * @type {IPSEC_AGGREGATE_SA_STATISTICS0}
      */
-    aggregateSaStatistics{
+    aggregateSaStatistics {
         get {
             if(!this.HasProp("__aggregateSaStatistics"))
                 this.__aggregateSaStatistics := IPSEC_AGGREGATE_SA_STATISTICS0(0, this)
@@ -34,7 +32,7 @@ class IPSEC_STATISTICS0 extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/win32/api/ipsectypes/ns-ipsectypes-ipsec_esp_drop_packet_statistics0">IPSEC_ESP_DROP_PACKET_STATISTICS0</a> structure containing IPsec ESP drop packet statistics.
      * @type {IPSEC_ESP_DROP_PACKET_STATISTICS0}
      */
-    espDropPacketStatistics{
+    espDropPacketStatistics {
         get {
             if(!this.HasProp("__espDropPacketStatistics"))
                 this.__espDropPacketStatistics := IPSEC_ESP_DROP_PACKET_STATISTICS0(28, this)
@@ -46,7 +44,7 @@ class IPSEC_STATISTICS0 extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/win32/api/ipsectypes/ns-ipsectypes-ipsec_ah_drop_packet_statistics0">IPSEC_AH_DROP_PACKET_STATISTICS0</a> structure containing IPsec AH drop packet statistics.
      * @type {IPSEC_AH_DROP_PACKET_STATISTICS0}
      */
-    ahDropPacketStatistics{
+    ahDropPacketStatistics {
         get {
             if(!this.HasProp("__ahDropPacketStatistics"))
                 this.__ahDropPacketStatistics := IPSEC_AH_DROP_PACKET_STATISTICS0(48, this)
@@ -58,7 +56,7 @@ class IPSEC_STATISTICS0 extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/win32/api/ipsectypes/ns-ipsectypes-ipsec_aggregate_drop_packet_statistics0">IPSEC_AGGREGATE_DROP_PACKET_STATISTICS0</a> structure containing IPsec aggregate drop packet statistics.
      * @type {IPSEC_AGGREGATE_DROP_PACKET_STATISTICS0}
      */
-    aggregateDropPacketStatistics{
+    aggregateDropPacketStatistics {
         get {
             if(!this.HasProp("__aggregateDropPacketStatistics"))
                 this.__aggregateDropPacketStatistics := IPSEC_AGGREGATE_DROP_PACKET_STATISTICS0(64, this)
@@ -70,7 +68,7 @@ class IPSEC_STATISTICS0 extends Win32Struct
      * [IPSEC_TRAFFIC_STATISTICS0](/windows/desktop/api/ipsectypes/ns-ipsectypes-ipsec_traffic_statistics0) structure containing IPsec inbound traffic statistics.
      * @type {IPSEC_TRAFFIC_STATISTICS0}
      */
-    inboundTrafficStatistics{
+    inboundTrafficStatistics {
         get {
             if(!this.HasProp("__inboundTrafficStatistics"))
                 this.__inboundTrafficStatistics := IPSEC_TRAFFIC_STATISTICS0(104, this)
@@ -82,7 +80,7 @@ class IPSEC_STATISTICS0 extends Win32Struct
      * [IPSEC_TRAFFIC_STATISTICS0](/windows/desktop/api/ipsectypes/ns-ipsectypes-ipsec_traffic_statistics0) structure containing IPsec outbound traffic statistics.
      * @type {IPSEC_TRAFFIC_STATISTICS0}
      */
-    outboundTrafficStatistics{
+    outboundTrafficStatistics {
         get {
             if(!this.HasProp("__outboundTrafficStatistics"))
                 this.__outboundTrafficStatistics := IPSEC_TRAFFIC_STATISTICS0(152, this)

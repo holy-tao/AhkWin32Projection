@@ -35,10 +35,8 @@
  * Streaming consumption is more efficient if you call [**ExtEscape**](/windows/desktop/api/Wingdi/nf-wingdi-extescape) with **MXDCOP\_SET\_S0PAGE\_RESOURCE** as **opCode** for each resource on the page before you call it with **MXDCOP\_SET\_S0PAGE**.
  * @see https://learn.microsoft.com/windows/win32/printdocs/mxdcs0pagepassthroughescape
  * @namespace Windows.Win32.Graphics.Printing
- * @version v4.0.30319
  */
-class MXDC_S0PAGE_PASSTHROUGH_ESCAPE_T extends Win32Struct
-{
+class MXDC_S0PAGE_PASSTHROUGH_ESCAPE_T extends Win32Struct {
     static sizeof => 20
 
     static packingSize => 4
@@ -47,7 +45,7 @@ class MXDC_S0PAGE_PASSTHROUGH_ESCAPE_T extends Win32Struct
      * An [**MXDC\_ESCAPE\_HEADER\_T**](mxdcescapeheader.md) structure with its **opCode** member set to **MXDCOP\_SET\_S0PAGE**.
      * @type {MXDC_ESCAPE_HEADER_T}
      */
-    mxdcEscape{
+    mxdcEscape {
         get {
             if(!this.HasProp("__mxdcEscape"))
                 this.__mxdcEscape := MXDC_ESCAPE_HEADER_T(0, this)
@@ -59,7 +57,7 @@ class MXDC_S0PAGE_PASSTHROUGH_ESCAPE_T extends Win32Struct
      * An [**MxdcS0PageData**](mxdcs0pagedata.md) structure that represents an XPS-document page.
      * @type {MXDC_S0PAGE_DATA_T}
      */
-    xpsS0PageData{
+    xpsS0PageData {
         get {
             if(!this.HasProp("__xpsS0PageData"))
                 this.__xpsS0PageData := MXDC_S0PAGE_DATA_T(12, this)

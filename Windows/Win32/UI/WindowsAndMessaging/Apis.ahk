@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\HDEVNOTIFY.ahk
 #Include ..\..\Foundation\HWND.ahk
+#Include ..\..\Graphics\Gdi\HBITMAP.ahk
+#Include .\HDEVNOTIFY.ahk
 #Include .\HDWP.ahk
 #Include .\HACCEL.ahk
 #Include .\HMENU.ahk
@@ -10,12 +11,9 @@
 #Include .\HCURSOR.ahk
 #Include .\HHOOK.ahk
 #Include .\HICON.ahk
-#Include ..\..\Graphics\Gdi\Apis.ahk
-#Include ..\..\Graphics\Gdi\HBITMAP.ahk
 
 /**
  * @namespace Windows.Win32.UI.WindowsAndMessaging
- * @version v4.0.30319
  */
 class WindowsAndMessaging {
 
@@ -7090,7 +7088,9 @@ class WindowsAndMessaging {
      * 
      * <h3><a id="Security_Remarks"></a><a id="security_remarks"></a><a id="SECURITY_REMARKS"></a>Security Remarks</h3>
      * Using this function incorrectly can compromise the security of your application. Incorrect use includes specifying the wrong size in the <i>nBufferMax</i> parameter. For example, if <i>lpBuffer</i> points to a buffer <i>szBuffer</i> which is declared as <c>TCHAR szBuffer[100]</code>, then sizeof(szBuffer) gives the size of the buffer in bytes, which could lead to a buffer overflow for the Unicode version of the function. Buffer overflow situations are the cause of many security problems in applications. In this case, using <code>sizeof(szBuffer)/sizeof(TCHAR)</code> or <code>sizeof(szBuffer)/sizeof(szBuffer[0])</c> would give the proper size of the buffer.
-     * @param {HINSTANCE} _hInstance 
+     * @param {HINSTANCE} _hInstance Type: <b>HINSTANCE</b>
+     * 
+     * A handle to an instance of the module whose executable file contains the string resource. To get the handle to the application itself, call the <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-getmodulehandlea">GetModuleHandle</a> function with <b>NULL</b>.
      * @param {Integer} uID Type: <b>UINT</b>
      * 
      * The identifier of the string to be loaded.
@@ -7133,7 +7133,9 @@ class WindowsAndMessaging {
      * 
      * <h3><a id="Security_Remarks"></a><a id="security_remarks"></a><a id="SECURITY_REMARKS"></a>Security Remarks</h3>
      * Using this function incorrectly can compromise the security of your application. Incorrect use includes specifying the wrong size in the <i>nBufferMax</i> parameter. For example, if <i>lpBuffer</i> points to a buffer <i>szBuffer</i> which is declared as <c>TCHAR szBuffer[100]</code>, then sizeof(szBuffer) gives the size of the buffer in bytes, which could lead to a buffer overflow for the Unicode version of the function. Buffer overflow situations are the cause of many security problems in applications. In this case, using <code>sizeof(szBuffer)/sizeof(TCHAR)</code> or <code>sizeof(szBuffer)/sizeof(szBuffer[0])</c> would give the proper size of the buffer.
-     * @param {HINSTANCE} _hInstance 
+     * @param {HINSTANCE} _hInstance Type: <b>HINSTANCE</b>
+     * 
+     * A handle to an instance of the module whose executable file contains the string resource. To get the handle to the application itself, call the <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-getmodulehandlea">GetModuleHandle</a> function with <b>NULL</b>.
      * @param {Integer} uID Type: <b>UINT</b>
      * 
      * The identifier of the string to be loaded.
@@ -7181,8 +7183,10 @@ class WindowsAndMessaging {
      * 
      * > [!NOTE]
      * > The winuser.h header defines GetWindowLongPtr as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HWND} _hWnd 
-     * @param {Integer} nIndex Type: <b>int</b>
+     * @param {HWND} _hWnd Type: <b>HWND</b>
+     * 
+     * A handle to the window and, indirectly, the class to which the window belongs.
+     * @param {WINDOW_LONG_PTR_INDEX} nIndex Type: <b>int</b>
      * @returns {Pointer} Type: <b>LONG_PTR</b>
      * 
      * If the function succeeds, the return value is the requested value.
@@ -7218,8 +7222,10 @@ class WindowsAndMessaging {
      * 
      * > [!NOTE]
      * > The winuser.h header defines GetWindowLongPtr as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HWND} _hWnd 
-     * @param {Integer} nIndex Type: <b>int</b>
+     * @param {HWND} _hWnd Type: <b>HWND</b>
+     * 
+     * A handle to the window and, indirectly, the class to which the window belongs.
+     * @param {WINDOW_LONG_PTR_INDEX} nIndex Type: <b>int</b>
      * @returns {Pointer} Type: <b>LONG_PTR</b>
      * 
      * If the function succeeds, the return value is the requested value.
@@ -7269,8 +7275,12 @@ class WindowsAndMessaging {
      * 
      * > [!NOTE]
      * > The winuser.h header defines SetWindowLongPtr as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HWND} _hWnd 
-     * @param {Integer} nIndex Type: <b>int</b>
+     * @param {HWND} _hWnd Type: <b>HWND</b>
+     * 
+     * A handle to the window and, indirectly, the class to which the window belongs. The <b>SetWindowLongPtr</b> function fails if the process that owns the window specified by the <i>hWnd</i> parameter is at a higher process privilege in the UIPI hierarchy than the process the calling thread resides in.
+     * 
+     * <b>Windows XP/2000:  </b> The <b>SetWindowLongPtr</b> function fails if the window specified by the <i>hWnd</i> parameter does not belong to the same process as the calling thread.
+     * @param {WINDOW_LONG_PTR_INDEX} nIndex Type: <b>int</b>
      * @param {Pointer} dwNewLong Type: <b>LONG_PTR</b>
      * 
      * The replacement value.
@@ -7323,8 +7333,12 @@ class WindowsAndMessaging {
      * 
      * > [!NOTE]
      * > The winuser.h header defines SetWindowLongPtr as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HWND} _hWnd 
-     * @param {Integer} nIndex Type: <b>int</b>
+     * @param {HWND} _hWnd Type: <b>HWND</b>
+     * 
+     * A handle to the window and, indirectly, the class to which the window belongs. The <b>SetWindowLongPtr</b> function fails if the process that owns the window specified by the <i>hWnd</i> parameter is at a higher process privilege in the UIPI hierarchy than the process the calling thread resides in.
+     * 
+     * <b>Windows XP/2000:  </b> The <b>SetWindowLongPtr</b> function fails if the window specified by the <i>hWnd</i> parameter does not belong to the same process as the calling thread.
+     * @param {WINDOW_LONG_PTR_INDEX} nIndex Type: <b>int</b>
      * @param {Pointer} dwNewLong Type: <b>LONG_PTR</b>
      * 
      * The replacement value.
@@ -7363,8 +7377,10 @@ class WindowsAndMessaging {
      * 
      * > [!NOTE]
      * > The winuser.h header defines GetClassLongPtr as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HWND} _hWnd 
-     * @param {Integer} nIndex Type: <b>int</b>
+     * @param {HWND} _hWnd Type: <b>HWND</b>
+     * 
+     * A handle to the window and, indirectly, the class to which the window belongs.
+     * @param {GET_CLASS_LONG_INDEX} nIndex Type: <b>int</b>
      * @returns {Pointer} Type: <b>ULONG_PTR</b>
      * 
      * If the function succeeds, the return value is the requested value.
@@ -7398,8 +7414,10 @@ class WindowsAndMessaging {
      * 
      * > [!NOTE]
      * > The winuser.h header defines GetClassLongPtr as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HWND} _hWnd 
-     * @param {Integer} nIndex Type: <b>int</b>
+     * @param {HWND} _hWnd Type: <b>HWND</b>
+     * 
+     * A handle to the window and, indirectly, the class to which the window belongs.
+     * @param {GET_CLASS_LONG_INDEX} nIndex Type: <b>int</b>
      * @returns {Pointer} Type: <b>ULONG_PTR</b>
      * 
      * If the function succeeds, the return value is the requested value.
@@ -7439,8 +7457,10 @@ class WindowsAndMessaging {
      * 
      * > [!NOTE]
      * > The winuser.h header defines SetClassLongPtr as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HWND} _hWnd 
-     * @param {Integer} nIndex Type: <b>int</b>
+     * @param {HWND} _hWnd Type: <b>HWND</b>
+     * 
+     * A handle to the window and, indirectly, the class to which the window belongs.
+     * @param {GET_CLASS_LONG_INDEX} nIndex Type: <b>int</b>
      * @param {Pointer} dwNewLong Type: <b>LONG_PTR</b>
      * 
      * The replacement value.
@@ -7483,8 +7503,10 @@ class WindowsAndMessaging {
      * 
      * > [!NOTE]
      * > The winuser.h header defines SetClassLongPtr as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HWND} _hWnd 
-     * @param {Integer} nIndex Type: <b>int</b>
+     * @param {HWND} _hWnd Type: <b>HWND</b>
+     * 
+     * A handle to the window and, indirectly, the class to which the window belongs.
+     * @param {GET_CLASS_LONG_INDEX} nIndex Type: <b>int</b>
      * @param {Pointer} dwNewLong Type: <b>LONG_PTR</b>
      * 
      * The replacement value.
@@ -8007,7 +8029,9 @@ class WindowsAndMessaging {
      * The Windows timeout criteria of 5 seconds is subject to change.
      * 
      * This function was not included in the SDK headers and libraries until Windows XP Service Pack 1 (SP1) and Windows Server 2003. If you do not have a header file and import library for this function, you can call the function using <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadlibrarya">LoadLibrary</a> and <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-getprocaddress">GetProcAddress</a>.
-     * @param {HWND} _hwnd 
+     * @param {HWND} _hwnd Type: <b>HWND</b>
+     * 
+     * A handle to the window to be tested.
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * The return value is <b>TRUE</b> if the window stops responding; otherwise, it is <b>FALSE</b>.  Ghost windows always return
@@ -8131,7 +8155,14 @@ class WindowsAndMessaging {
      * @param {Pointer<MSG>} lpMsg Type: <b>LPMSG</b>
      * 
      * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-msg">MSG</a> structure that receives message information from the thread's message queue.
-     * @param {HWND} _hWnd 
+     * @param {HWND} _hWnd Type: <b>HWND</b>
+     * 
+     * A handle to the window whose messages are to be retrieved. The window must belong to the current thread. 
+     * 
+     * 
+     * If <i>hWnd</i> is <b>NULL</b>, <b>GetMessage</b> retrieves messages for any window that belongs to the current thread, and any messages on the current thread's message queue whose <b>hwnd</b> value is <b>NULL</b> (see the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-msg">MSG</a> structure). Therefore if hWnd is <b>NULL</b>, both window messages and thread messages are processed.
+     * 
+     *  If <i>hWnd</i> is -1, <b>GetMessage</b> retrieves only messages on the current thread's message queue whose <b>hwnd</b> value is <b>NULL</b>,  that is, thread messages as posted by  <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-postmessagea">PostMessage</a> (when the <i>hWnd</i> parameter is <b>NULL</b>) or <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-postthreadmessagea">PostThreadMessage</a>.
      * @param {Integer} wMsgFilterMin Type: <b>UINT</b>
      * 
      * The integer value of the lowest message value to be retrieved. Use <b>WM_KEYFIRST</b> (0x0100) to specify the first keyboard message or <b>WM_MOUSEFIRST</b> (0x0200) to specify the first mouse message. 
@@ -8231,7 +8262,14 @@ class WindowsAndMessaging {
      * @param {Pointer<MSG>} lpMsg Type: <b>LPMSG</b>
      * 
      * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-msg">MSG</a> structure that receives message information from the thread's message queue.
-     * @param {HWND} _hWnd 
+     * @param {HWND} _hWnd Type: <b>HWND</b>
+     * 
+     * A handle to the window whose messages are to be retrieved. The window must belong to the current thread. 
+     * 
+     * 
+     * If <i>hWnd</i> is <b>NULL</b>, <b>GetMessage</b> retrieves messages for any window that belongs to the current thread, and any messages on the current thread's message queue whose <b>hwnd</b> value is <b>NULL</b> (see the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-msg">MSG</a> structure). Therefore if hWnd is <b>NULL</b>, both window messages and thread messages are processed.
+     * 
+     *  If <i>hWnd</i> is -1, <b>GetMessage</b> retrieves only messages on the current thread's message queue whose <b>hwnd</b> value is <b>NULL</b>,  that is, thread messages as posted by  <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-postmessagea">PostMessage</a> (when the <i>hWnd</i> parameter is <b>NULL</b>) or <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-postthreadmessagea">PostThreadMessage</a>.
      * @param {Integer} wMsgFilterMin Type: <b>UINT</b>
      * 
      * The integer value of the lowest message value to be retrieved. Use <b>WM_KEYFIRST</b> (0x0100) to specify the first keyboard message or <b>WM_MOUSEFIRST</b> (0x0200) to specify the first mouse message. 
@@ -8407,7 +8445,15 @@ class WindowsAndMessaging {
      * @param {Pointer<MSG>} lpMsg Type: <b>LPMSG</b>
      * 
      * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-msg">MSG</a> structure that receives message information.
-     * @param {HWND} _hWnd 
+     * @param {HWND} _hWnd Type: <b>HWND</b>
+     * 
+     * A handle to the window whose messages are to be retrieved. The window must belong to the current thread. 
+     * 
+     * 
+     * 
+     * If <i>hWnd</i> is <b>NULL</b>, <b>PeekMessage</b> retrieves messages for any window that belongs to the current thread, and any messages on the current thread's message queue whose <b>hwnd</b> value is <b>NULL</b> (see the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-msg">MSG</a> structure). Therefore if hWnd is <b>NULL</b>, both window messages and thread messages are processed.
+     * 
+     *  If <i>hWnd</i> is -1, <b>PeekMessage</b> retrieves only messages on the current thread's message queue whose <b>hwnd</b> value is <b>NULL</b>, that is, thread messages as posted by  <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-postmessagea">PostMessage</a> (when the <i>hWnd</i> parameter is <b>NULL</b>) or <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-postthreadmessagea">PostThreadMessage</a>.
      * @param {Integer} wMsgFilterMin Type: <b>UINT</b>
      * 
      * The value of the first message in the range of messages to be examined. Use <b>WM_KEYFIRST</b> (0x0100) to specify the first keyboard message or <b>WM_MOUSEFIRST</b> (0x0200) to specify the first mouse message.
@@ -8418,7 +8464,7 @@ class WindowsAndMessaging {
      * The value of the last message in the range of messages to be examined. Use <b>WM_KEYLAST</b> to specify the last keyboard message or <b>WM_MOUSELAST</b> to specify the last mouse message.
      * 
      * If <i>wMsgFilterMin</i> and <i>wMsgFilterMax</i> are both zero, <b>PeekMessage</b> returns all available messages (that is, no range filtering is performed).
-     * @param {Integer} wRemoveMsg Type: <b>UINT</b>
+     * @param {PEEK_MESSAGE_REMOVE_TYPE} wRemoveMsg Type: <b>UINT</b>
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If a message is available, the return value is nonzero.
@@ -8464,7 +8510,15 @@ class WindowsAndMessaging {
      * @param {Pointer<MSG>} lpMsg Type: <b>LPMSG</b>
      * 
      * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-msg">MSG</a> structure that receives message information.
-     * @param {HWND} _hWnd 
+     * @param {HWND} _hWnd Type: <b>HWND</b>
+     * 
+     * A handle to the window whose messages are to be retrieved. The window must belong to the current thread. 
+     * 
+     * 
+     * 
+     * If <i>hWnd</i> is <b>NULL</b>, <b>PeekMessage</b> retrieves messages for any window that belongs to the current thread, and any messages on the current thread's message queue whose <b>hwnd</b> value is <b>NULL</b> (see the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-msg">MSG</a> structure). Therefore if hWnd is <b>NULL</b>, both window messages and thread messages are processed.
+     * 
+     *  If <i>hWnd</i> is -1, <b>PeekMessage</b> retrieves only messages on the current thread's message queue whose <b>hwnd</b> value is <b>NULL</b>, that is, thread messages as posted by  <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-postmessagea">PostMessage</a> (when the <i>hWnd</i> parameter is <b>NULL</b>) or <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-postthreadmessagea">PostThreadMessage</a>.
      * @param {Integer} wMsgFilterMin Type: <b>UINT</b>
      * 
      * The value of the first message in the range of messages to be examined. Use <b>WM_KEYFIRST</b> (0x0100) to specify the first keyboard message or <b>WM_MOUSEFIRST</b> (0x0200) to specify the first mouse message.
@@ -8475,7 +8529,7 @@ class WindowsAndMessaging {
      * The value of the last message in the range of messages to be examined. Use <b>WM_KEYLAST</b> to specify the last keyboard message or <b>WM_MOUSELAST</b> to specify the last mouse message.
      * 
      * If <i>wMsgFilterMin</i> and <i>wMsgFilterMax</i> are both zero, <b>PeekMessage</b> returns all available messages (that is, no range filtering is performed).
-     * @param {Integer} wRemoveMsg Type: <b>UINT</b>
+     * @param {PEEK_MESSAGE_REMOVE_TYPE} wRemoveMsg Type: <b>UINT</b>
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If a message is available, the return value is nonzero.
@@ -8556,7 +8610,9 @@ class WindowsAndMessaging {
 
     /**
      * Sets the extra message information for the current thread.
-     * @param {LPARAM} _lParam 
+     * @param {LPARAM} _lParam Type: <b>LPARAM</b>
+     * 
+     * The value to be associated with the current thread.
      * @returns {LPARAM} Type: <b>LPARAM</b>
      * 
      * The return value is the previous value associated with the current thread.
@@ -8580,10 +8636,22 @@ class WindowsAndMessaging {
      * If the specified window was created by the calling thread, the window procedure is called immediately as a subroutine. If the specified window was created by a different thread, the system switches to that thread and calls the appropriate window procedure. Messages sent between threads are processed only when the receiving thread executes message retrieval code. The sending thread is blocked until the receiving thread processes the message. However, the sending thread will process incoming nonqueued messages while waiting for its message to be processed. To prevent this, use <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-sendmessagetimeouta">SendMessageTimeout</a> with SMTO_BLOCK set. For more information on nonqueued messages, see <a href="https://docs.microsoft.com/windows/desktop/winmsg/about-messages-and-message-queues">Nonqueued Messages</a>.
      * 
      *  An accessibility application can use <b>SendMessage</b> to send <a href="https://docs.microsoft.com/windows/desktop/inputdev/wm-appcommand">WM_APPCOMMAND</a> messages  to the shell to launch applications. This  functionality is not guaranteed to work for other types of applications.
-     * @param {HWND} _hWnd 
-     * @param {Integer} _Msg 
-     * @param {WPARAM} _wParam 
-     * @param {LPARAM} _lParam 
+     * @param {HWND} _hWnd Type: <b>HWND</b>
+     * 
+     * A handle to the window whose window procedure will receive the message. If this parameter is <b>HWND_BROADCAST</b> ((HWND)0xffff), the message is sent to all top-level windows in the system, including disabled or invisible unowned windows, overlapped windows, and pop-up windows; but the message is not sent to child windows.
+     * 
+     *  Message sending is subject to UIPI. The thread of a process can send messages only to message queues of threads in processes of lesser or equal integrity level.
+     * @param {Integer} _Msg Type: <b>UINT</b>
+     * 
+     * The message to be sent.
+     * 
+     * For lists of the system-provided messages, see <a href="https://docs.microsoft.com/windows/desktop/winmsg/about-messages-and-message-queues">System-Defined Messages</a>.
+     * @param {WPARAM} _wParam Type: <b>WPARAM</b>
+     * 
+     * Additional message-specific information.
+     * @param {LPARAM} _lParam Type: <b>LPARAM</b>
+     * 
+     * Additional message-specific information.
      * @returns {LRESULT} Type: <b>LRESULT</b>
      * 
      * The return value specifies the result of the message processing; it depends on the message sent.
@@ -8615,10 +8683,22 @@ class WindowsAndMessaging {
      * If the specified window was created by the calling thread, the window procedure is called immediately as a subroutine. If the specified window was created by a different thread, the system switches to that thread and calls the appropriate window procedure. Messages sent between threads are processed only when the receiving thread executes message retrieval code. The sending thread is blocked until the receiving thread processes the message. However, the sending thread will process incoming nonqueued messages while waiting for its message to be processed. To prevent this, use <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-sendmessagetimeouta">SendMessageTimeout</a> with SMTO_BLOCK set. For more information on nonqueued messages, see <a href="https://docs.microsoft.com/windows/desktop/winmsg/about-messages-and-message-queues">Nonqueued Messages</a>.
      * 
      *  An accessibility application can use <b>SendMessage</b> to send <a href="https://docs.microsoft.com/windows/desktop/inputdev/wm-appcommand">WM_APPCOMMAND</a> messages  to the shell to launch applications. This  functionality is not guaranteed to work for other types of applications.
-     * @param {HWND} _hWnd 
-     * @param {Integer} _Msg 
-     * @param {WPARAM} _wParam 
-     * @param {LPARAM} _lParam 
+     * @param {HWND} _hWnd Type: <b>HWND</b>
+     * 
+     * A handle to the window whose window procedure will receive the message. If this parameter is <b>HWND_BROADCAST</b> ((HWND)0xffff), the message is sent to all top-level windows in the system, including disabled or invisible unowned windows, overlapped windows, and pop-up windows; but the message is not sent to child windows.
+     * 
+     *  Message sending is subject to UIPI. The thread of a process can send messages only to message queues of threads in processes of lesser or equal integrity level.
+     * @param {Integer} _Msg Type: <b>UINT</b>
+     * 
+     * The message to be sent.
+     * 
+     * For lists of the system-provided messages, see <a href="https://docs.microsoft.com/windows/desktop/winmsg/about-messages-and-message-queues">System-Defined Messages</a>.
+     * @param {WPARAM} _wParam Type: <b>WPARAM</b>
+     * 
+     * Additional message-specific information.
+     * @param {LPARAM} _lParam Type: <b>LPARAM</b>
+     * 
+     * Additional message-specific information.
      * @returns {LRESULT} Type: <b>LRESULT</b>
      * 
      * The return value specifies the result of the message processing; it depends on the message sent.
@@ -8653,11 +8733,23 @@ class WindowsAndMessaging {
      * 
      * > [!NOTE]
      * > The winuser.h header defines SendMessageTimeout as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HWND} _hWnd 
-     * @param {Integer} _Msg 
-     * @param {WPARAM} _wParam 
-     * @param {LPARAM} _lParam 
-     * @param {Integer} fuFlags Type: <b>UINT</b>
+     * @param {HWND} _hWnd Type: <b>HWND</b>
+     * 
+     * A handle to the window whose window procedure will receive the message.
+     * 
+     * If this parameter is <b>HWND_BROADCAST</b> ((HWND)0xffff), the message is sent to all top-level windows in the system, including disabled or invisible unowned windows. The function does not return until each window has timed out. Therefore, the total wait time can be up to the value of <i>uTimeout</i> multiplied by the number of top-level windows.
+     * @param {Integer} _Msg Type: <b>UINT</b>
+     * 
+     * The message to be sent.
+     * 
+     * For lists of the system-provided messages, see <a href="https://docs.microsoft.com/windows/desktop/winmsg/about-messages-and-message-queues">System-Defined Messages</a>.
+     * @param {WPARAM} _wParam Type: <b>WPARAM</b>
+     * 
+     * Any additional message-specific information.
+     * @param {LPARAM} _lParam Type: <b>LPARAM</b>
+     * 
+     * Any additional message-specific information.
+     * @param {SEND_MESSAGE_TIMEOUT_FLAGS} fuFlags Type: <b>UINT</b>
      * @param {Integer} uTimeout Type: <b>UINT</b>
      * 
      * The duration of the time-out period, in milliseconds. If the message is a broadcast message, each window can use the full time-out period. For example, if you specify a five second time-out period and there are three top-level windows that fail to process the message, you could have up to a 15 second delay.
@@ -8704,11 +8796,23 @@ class WindowsAndMessaging {
      * 
      * > [!NOTE]
      * > The winuser.h header defines SendMessageTimeout as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HWND} _hWnd 
-     * @param {Integer} _Msg 
-     * @param {WPARAM} _wParam 
-     * @param {LPARAM} _lParam 
-     * @param {Integer} fuFlags Type: <b>UINT</b>
+     * @param {HWND} _hWnd Type: <b>HWND</b>
+     * 
+     * A handle to the window whose window procedure will receive the message.
+     * 
+     * If this parameter is <b>HWND_BROADCAST</b> ((HWND)0xffff), the message is sent to all top-level windows in the system, including disabled or invisible unowned windows. The function does not return until each window has timed out. Therefore, the total wait time can be up to the value of <i>uTimeout</i> multiplied by the number of top-level windows.
+     * @param {Integer} _Msg Type: <b>UINT</b>
+     * 
+     * The message to be sent.
+     * 
+     * For lists of the system-provided messages, see <a href="https://docs.microsoft.com/windows/desktop/winmsg/about-messages-and-message-queues">System-Defined Messages</a>.
+     * @param {WPARAM} _wParam Type: <b>WPARAM</b>
+     * 
+     * Any additional message-specific information.
+     * @param {LPARAM} _lParam Type: <b>LPARAM</b>
+     * 
+     * Any additional message-specific information.
+     * @param {SEND_MESSAGE_TIMEOUT_FLAGS} fuFlags Type: <b>UINT</b>
      * @param {Integer} uTimeout Type: <b>UINT</b>
      * 
      * The duration of the time-out period, in milliseconds. If the message is a broadcast message, each window can use the full time-out period. For example, if you specify a five second time-out period and there are three top-level windows that fail to process the message, you could have up to a 15 second delay.
@@ -8755,10 +8859,20 @@ class WindowsAndMessaging {
      * 
      * > [!NOTE]
      * > The winuser.h header defines SendNotifyMessage as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HWND} _hWnd 
-     * @param {Integer} _Msg 
-     * @param {WPARAM} _wParam 
-     * @param {LPARAM} _lParam 
+     * @param {HWND} _hWnd Type: <b>HWND</b>
+     * 
+     * A handle to the window whose window procedure will receive the message. If this parameter is <b>HWND_BROADCAST</b> ((HWND)0xffff), the message is sent to all top-level windows in the system, including disabled or invisible unowned windows, overlapped windows, and pop-up windows; but the message is not sent to child windows.
+     * @param {Integer} _Msg Type: <b>UINT</b>
+     * 
+     * The message to be sent.
+     * 
+     * For lists of the system-provided messages, see <a href="https://docs.microsoft.com/windows/desktop/winmsg/about-messages-and-message-queues">System-Defined Messages</a>.
+     * @param {WPARAM} _wParam Type: <b>WPARAM</b>
+     * 
+     * Additional message-specific information.
+     * @param {LPARAM} _lParam Type: <b>LPARAM</b>
+     * 
+     * Additional message-specific information.
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
@@ -8795,10 +8909,20 @@ class WindowsAndMessaging {
      * 
      * > [!NOTE]
      * > The winuser.h header defines SendNotifyMessage as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HWND} _hWnd 
-     * @param {Integer} _Msg 
-     * @param {WPARAM} _wParam 
-     * @param {LPARAM} _lParam 
+     * @param {HWND} _hWnd Type: <b>HWND</b>
+     * 
+     * A handle to the window whose window procedure will receive the message. If this parameter is <b>HWND_BROADCAST</b> ((HWND)0xffff), the message is sent to all top-level windows in the system, including disabled or invisible unowned windows, overlapped windows, and pop-up windows; but the message is not sent to child windows.
+     * @param {Integer} _Msg Type: <b>UINT</b>
+     * 
+     * The message to be sent.
+     * 
+     * For lists of the system-provided messages, see <a href="https://docs.microsoft.com/windows/desktop/winmsg/about-messages-and-message-queues">System-Defined Messages</a>.
+     * @param {WPARAM} _wParam Type: <b>WPARAM</b>
+     * 
+     * Additional message-specific information.
+     * @param {LPARAM} _lParam Type: <b>LPARAM</b>
+     * 
+     * Additional message-specific information.
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
@@ -8837,10 +8961,20 @@ class WindowsAndMessaging {
      * 
      * > [!NOTE]
      * > The winuser.h header defines SendMessageCallback as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HWND} _hWnd 
-     * @param {Integer} _Msg 
-     * @param {WPARAM} _wParam 
-     * @param {LPARAM} _lParam 
+     * @param {HWND} _hWnd Type: <b>HWND</b>
+     * 
+     * A handle to the window whose window procedure will receive the message. If this parameter is <b>HWND_BROADCAST</b> ((HWND)0xffff), the message is sent to all top-level windows in the system, including disabled or invisible unowned windows, overlapped windows, and pop-up windows; but the message is not sent to child windows.
+     * @param {Integer} _Msg Type: <b>UINT</b>
+     * 
+     * The message to be sent.
+     * 
+     * For lists of the system-provided messages, see <a href="https://docs.microsoft.com/windows/desktop/winmsg/about-messages-and-message-queues">System-Defined Messages</a>.
+     * @param {WPARAM} _wParam Type: <b>WPARAM</b>
+     * 
+     * Additional message-specific information.
+     * @param {LPARAM} _lParam Type: <b>LPARAM</b>
+     * 
+     * Additional message-specific information.
      * @param {Pointer<SENDASYNCPROC>} lpResultCallBack Type: <b>SENDASYNCPROC</b>
      * 
      * A pointer to a callback function that the system calls after the window procedure processes the message. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nc-winuser-sendasyncproc">SendAsyncProc</a>. 
@@ -8889,10 +9023,20 @@ class WindowsAndMessaging {
      * 
      * > [!NOTE]
      * > The winuser.h header defines SendMessageCallback as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HWND} _hWnd 
-     * @param {Integer} _Msg 
-     * @param {WPARAM} _wParam 
-     * @param {LPARAM} _lParam 
+     * @param {HWND} _hWnd Type: <b>HWND</b>
+     * 
+     * A handle to the window whose window procedure will receive the message. If this parameter is <b>HWND_BROADCAST</b> ((HWND)0xffff), the message is sent to all top-level windows in the system, including disabled or invisible unowned windows, overlapped windows, and pop-up windows; but the message is not sent to child windows.
+     * @param {Integer} _Msg Type: <b>UINT</b>
+     * 
+     * The message to be sent.
+     * 
+     * For lists of the system-provided messages, see <a href="https://docs.microsoft.com/windows/desktop/winmsg/about-messages-and-message-queues">System-Defined Messages</a>.
+     * @param {WPARAM} _wParam Type: <b>WPARAM</b>
+     * 
+     * Additional message-specific information.
+     * @param {LPARAM} _lParam Type: <b>LPARAM</b>
+     * 
+     * Additional message-specific information.
      * @param {Pointer<SENDASYNCPROC>} lpResultCallBack Type: <b>SENDASYNCPROC</b>
      * 
      * A pointer to a callback function that the system calls after the window procedure processes the message. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nc-winuser-sendasyncproc">SendAsyncProc</a>. 
@@ -8973,7 +9117,7 @@ class WindowsAndMessaging {
      *       <b>dbch_devicetype</b> member, which can be 
      *       <b>DBT_DEVTYP_DEVICEINTERFACE</b> or <b>DBT_DEVTYP_HANDLE</b>. For more 
      *       information, see Remarks.
-     * @param {Integer} Flags 
+     * @param {REGISTER_NOTIFICATION_FLAGS} Flags 
      * @returns {HDEVNOTIFY} If the function succeeds, the return value is a device notification handle.
      * 
      * If the function fails, the return value is <b>NULL</b>. To get extended error information, 
@@ -9046,7 +9190,7 @@ class WindowsAndMessaging {
      *       <b>dbch_devicetype</b> member, which can be 
      *       <b>DBT_DEVTYP_DEVICEINTERFACE</b> or <b>DBT_DEVTYP_HANDLE</b>. For more 
      *       information, see Remarks.
-     * @param {Integer} Flags 
+     * @param {REGISTER_NOTIFICATION_FLAGS} Flags 
      * @returns {HDEVNOTIFY} If the function succeeds, the return value is a device notification handle.
      * 
      * If the function fails, the return value is <b>NULL</b>. To get extended error information, 
@@ -9072,7 +9216,8 @@ class WindowsAndMessaging {
 
     /**
      * Closes the specified device notification handle.
-     * @param {HDEVNOTIFY} _Handle 
+     * @param {HDEVNOTIFY} _Handle Device notification handle returned by the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-registerdevicenotificationa">RegisterDeviceNotification</a> function.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -9123,10 +9268,52 @@ class WindowsAndMessaging {
      * If the function fails, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> to get extended error information. <b>GetLastError</b> returns <b>ERROR_NOT_ENOUGH_QUOTA</b> when the limit is hit.
      * 
      * The minimum acceptable value is 4000.
-     * @param {HWND} _hWnd 
-     * @param {Integer} _Msg 
-     * @param {WPARAM} _wParam 
-     * @param {LPARAM} _lParam 
+     * @param {HWND} _hWnd Type: <b>HWND</b>
+     * 
+     * A handle to the window whose window procedure is to receive the message. The following values have special meanings.
+     * 
+     * <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="HWND_BROADCAST"></a><a id="hwnd_broadcast"></a><dl>
+     * <dt><b>HWND_BROADCAST</b></dt>
+     * <dt>((HWND)0xffff)</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The message is posted to all top-level windows in the system, including disabled or invisible unowned windows, overlapped windows, and pop-up windows. The message is not posted to child windows.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt>NULL</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The function behaves like a call to <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-postthreadmessagea">PostThreadMessage</a> with the <i>dwThreadId</i> parameter set to the identifier of the current thread.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * Starting with Windows Vista, message posting is subject to UIPI. The thread of a process can post messages only to message queues of threads in processes of lesser or equal integrity level.
+     * @param {Integer} _Msg Type: <b>UINT</b>
+     * 
+     * The message to be posted.
+     * 
+     * For lists of the system-provided messages, see <a href="https://docs.microsoft.com/windows/desktop/winmsg/about-messages-and-message-queues">System-Defined Messages</a>.
+     * @param {WPARAM} _wParam Type: <b>WPARAM</b>
+     * 
+     * Additional message-specific information.
+     * @param {LPARAM} _lParam Type: <b>LPARAM</b>
+     * 
+     * Additional message-specific information.
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
@@ -9178,10 +9365,52 @@ class WindowsAndMessaging {
      * If the function fails, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> to get extended error information. <b>GetLastError</b> returns <b>ERROR_NOT_ENOUGH_QUOTA</b> when the limit is hit.
      * 
      * The minimum acceptable value is 4000.
-     * @param {HWND} _hWnd 
-     * @param {Integer} _Msg 
-     * @param {WPARAM} _wParam 
-     * @param {LPARAM} _lParam 
+     * @param {HWND} _hWnd Type: <b>HWND</b>
+     * 
+     * A handle to the window whose window procedure is to receive the message. The following values have special meanings.
+     * 
+     * <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="HWND_BROADCAST"></a><a id="hwnd_broadcast"></a><dl>
+     * <dt><b>HWND_BROADCAST</b></dt>
+     * <dt>((HWND)0xffff)</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The message is posted to all top-level windows in the system, including disabled or invisible unowned windows, overlapped windows, and pop-up windows. The message is not posted to child windows.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt>NULL</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The function behaves like a call to <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-postthreadmessagea">PostThreadMessage</a> with the <i>dwThreadId</i> parameter set to the identifier of the current thread.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * Starting with Windows Vista, message posting is subject to UIPI. The thread of a process can post messages only to message queues of threads in processes of lesser or equal integrity level.
+     * @param {Integer} _Msg Type: <b>UINT</b>
+     * 
+     * The message to be posted.
+     * 
+     * For lists of the system-provided messages, see <a href="https://docs.microsoft.com/windows/desktop/winmsg/about-messages-and-message-queues">System-Defined Messages</a>.
+     * @param {WPARAM} _wParam Type: <b>WPARAM</b>
+     * 
+     * Additional message-specific information.
+     * @param {LPARAM} _lParam Type: <b>LPARAM</b>
+     * 
+     * Additional message-specific information.
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
@@ -9270,9 +9499,15 @@ class WindowsAndMessaging {
      *  This thread must have the <b>SE_TCB_NAME</b> privilege to post a message to a thread that belongs to a process with the same locally unique identifier (LUID) but is in a different desktop. Otherwise, the function fails and returns <b>ERROR_INVALID_THREAD_ID</b>.
      * 
      *  This thread must either belong to the same desktop as the calling thread or to a process with the same LUID. Otherwise, the function fails and returns <b>ERROR_INVALID_THREAD_ID</b>.
-     * @param {Integer} _Msg 
-     * @param {WPARAM} _wParam 
-     * @param {LPARAM} _lParam 
+     * @param {Integer} _Msg Type: <b>UINT</b>
+     * 
+     * The type of message to be posted.
+     * @param {WPARAM} _wParam Type: <b>WPARAM</b>
+     * 
+     * Additional message-specific information.
+     * @param {LPARAM} _lParam Type: <b>LPARAM</b>
+     * 
+     * Additional message-specific information.
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
@@ -9359,9 +9594,15 @@ class WindowsAndMessaging {
      *  This thread must have the <b>SE_TCB_NAME</b> privilege to post a message to a thread that belongs to a process with the same locally unique identifier (LUID) but is in a different desktop. Otherwise, the function fails and returns <b>ERROR_INVALID_THREAD_ID</b>.
      * 
      *  This thread must either belong to the same desktop as the calling thread or to a process with the same LUID. Otherwise, the function fails and returns <b>ERROR_INVALID_THREAD_ID</b>.
-     * @param {Integer} _Msg 
-     * @param {WPARAM} _wParam 
-     * @param {LPARAM} _lParam 
+     * @param {Integer} _Msg Type: <b>UINT</b>
+     * 
+     * The type of message to be posted.
+     * @param {WPARAM} _wParam Type: <b>WPARAM</b>
+     * 
+     * Additional message-specific information.
+     * @param {LPARAM} _lParam Type: <b>LPARAM</b>
+     * 
+     * Additional message-specific information.
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
@@ -9387,7 +9628,9 @@ class WindowsAndMessaging {
      * By calling this function, the window procedure that receives the message allows the thread that called <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-sendmessage">SendMessage</a> to continue to run as though the thread receiving the message had returned control. The thread that calls the <b>ReplyMessage</b> function also continues to run. 
      * 
      * If the message was not sent through <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-sendmessage">SendMessage</a> or if the message was sent by the same thread, <b>ReplyMessage</b> has no effect.
-     * @param {LRESULT} _lResult 
+     * @param {LRESULT} _lResult Type: <b>LRESULT</b>
+     * 
+     * The result of the message processing. The possible values are based on the message sent.
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the calling thread was processing a message sent from another thread or process, the return value is nonzero.
@@ -9429,10 +9672,18 @@ class WindowsAndMessaging {
      * @remarks
      * > [!NOTE]
      * > The winuser.h header defines DefWindowProc as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HWND} _hWnd 
-     * @param {Integer} _Msg 
-     * @param {WPARAM} _wParam 
-     * @param {LPARAM} _lParam 
+     * @param {HWND} _hWnd Type: <b>HWND</b>
+     * 
+     * A handle to the window procedure that received the message.
+     * @param {Integer} _Msg Type: <b>UINT</b>
+     * 
+     * The message.
+     * @param {WPARAM} _wParam Type: <b>WPARAM</b>
+     * 
+     * Additional message information. The content of this parameter depends on the value of the <i>Msg</i> parameter.
+     * @param {LPARAM} _lParam Type: <b>LPARAM</b>
+     * 
+     * Additional message information. The content of this parameter depends on the value of the <i>Msg</i> parameter.
      * @returns {LRESULT} Type: <b>LRESULT</b>
      * 
      * The return value is the result of the message processing and depends on the message.
@@ -9451,10 +9702,18 @@ class WindowsAndMessaging {
      * @remarks
      * > [!NOTE]
      * > The winuser.h header defines DefWindowProc as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HWND} _hWnd 
-     * @param {Integer} _Msg 
-     * @param {WPARAM} _wParam 
-     * @param {LPARAM} _lParam 
+     * @param {HWND} _hWnd Type: <b>HWND</b>
+     * 
+     * A handle to the window procedure that received the message.
+     * @param {Integer} _Msg Type: <b>UINT</b>
+     * 
+     * The message.
+     * @param {WPARAM} _wParam Type: <b>WPARAM</b>
+     * 
+     * Additional message information. The content of this parameter depends on the value of the <i>Msg</i> parameter.
+     * @param {LPARAM} _lParam Type: <b>LPARAM</b>
+     * 
+     * Additional message information. The content of this parameter depends on the value of the <i>Msg</i> parameter.
      * @returns {LRESULT} Type: <b>LRESULT</b>
      * 
      * The return value is the result of the message processing and depends on the message.
@@ -9513,10 +9772,18 @@ class WindowsAndMessaging {
      * @param {Pointer<WNDPROC>} lpPrevWndFunc Type: <b>WNDPROC</b>
      * 
      * The previous window procedure. If this value is obtained by calling the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getwindowlonga">GetWindowLong</a> function with the <i>nIndex</i> parameter set to <b>GWL_WNDPROC</b> or <b>DWL_DLGPROC</b>, it is actually either the address of a window or dialog box procedure, or a special internal value meaningful only to <b>CallWindowProc</b>.
-     * @param {HWND} _hWnd 
-     * @param {Integer} _Msg 
-     * @param {WPARAM} _wParam 
-     * @param {LPARAM} _lParam 
+     * @param {HWND} _hWnd Type: <b>HWND</b>
+     * 
+     * A handle to the window procedure to receive the message.
+     * @param {Integer} _Msg Type: <b>UINT</b>
+     * 
+     * The message.
+     * @param {WPARAM} _wParam Type: <b>WPARAM</b>
+     * 
+     * Additional message-specific information. The contents of this parameter depend on the value of the <i>Msg</i> parameter.
+     * @param {LPARAM} _lParam Type: <b>LPARAM</b>
+     * 
+     * Additional message-specific information. The contents of this parameter depend on the value of the <i>Msg</i> parameter.
      * @returns {LRESULT} Type: <b>LRESULT</b>
      * 
      * The return value specifies the result of the message processing and depends on the message sent.
@@ -9558,10 +9825,18 @@ class WindowsAndMessaging {
      * @param {Pointer<WNDPROC>} lpPrevWndFunc Type: <b>WNDPROC</b>
      * 
      * The previous window procedure. If this value is obtained by calling the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getwindowlonga">GetWindowLong</a> function with the <i>nIndex</i> parameter set to <b>GWL_WNDPROC</b> or <b>DWL_DLGPROC</b>, it is actually either the address of a window or dialog box procedure, or a special internal value meaningful only to <b>CallWindowProc</b>.
-     * @param {HWND} _hWnd 
-     * @param {Integer} _Msg 
-     * @param {WPARAM} _wParam 
-     * @param {LPARAM} _lParam 
+     * @param {HWND} _hWnd Type: <b>HWND</b>
+     * 
+     * A handle to the window procedure to receive the message.
+     * @param {Integer} _Msg Type: <b>UINT</b>
+     * 
+     * The message.
+     * @param {WPARAM} _wParam Type: <b>WPARAM</b>
+     * 
+     * Additional message-specific information. The contents of this parameter depend on the value of the <i>Msg</i> parameter.
+     * @param {LPARAM} _lParam Type: <b>LPARAM</b>
+     * 
+     * Additional message-specific information. The contents of this parameter depend on the value of the <i>Msg</i> parameter.
      * @returns {LRESULT} Type: <b>LRESULT</b>
      * 
      * The return value specifies the result of the message processing and depends on the message sent.
@@ -9748,7 +10023,9 @@ class WindowsAndMessaging {
      * @param {PSTR} lpClassName Type: <b>LPCTSTR</b>
      * 
      * A null-terminated string or a class atom. If <i>lpClassName</i> is a string, it specifies the window class name. This class name must have been registered by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-registerclassa">RegisterClass</a> or <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-registerclassexa">RegisterClassEx</a> function. System classes, such as dialog box controls, cannot be unregistered. If this parameter is an atom, it must be a class atom created by a previous call to the <b>RegisterClass</b> or <b>RegisterClassEx</b> function. The atom must be in the low-order word of <i>lpClassName</i>; the high-order word must be zero.
-     * @param {HINSTANCE} _hInstance 
+     * @param {HINSTANCE} _hInstance Type: <b>HINSTANCE</b>
+     * 
+     * A handle to the instance of the module that created the class.
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero. 
@@ -9791,7 +10068,9 @@ class WindowsAndMessaging {
      * @param {PWSTR} lpClassName Type: <b>LPCTSTR</b>
      * 
      * A null-terminated string or a class atom. If <i>lpClassName</i> is a string, it specifies the window class name. This class name must have been registered by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-registerclassa">RegisterClass</a> or <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-registerclassexa">RegisterClassEx</a> function. System classes, such as dialog box controls, cannot be unregistered. If this parameter is an atom, it must be a class atom created by a previous call to the <b>RegisterClass</b> or <b>RegisterClassEx</b> function. The atom must be in the low-order word of <i>lpClassName</i>; the high-order word must be zero.
-     * @param {HINSTANCE} _hInstance 
+     * @param {HINSTANCE} _hInstance Type: <b>HINSTANCE</b>
+     * 
+     * A handle to the instance of the module that created the class.
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero. 
@@ -9819,7 +10098,9 @@ class WindowsAndMessaging {
      * @remarks
      * > [!NOTE]
      * > The winuser.h header defines GetClassInfo as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HINSTANCE} _hInstance 
+     * @param {HINSTANCE} _hInstance Type: <b>HINSTANCE</b>
+     * 
+     * A handle to the instance of the application that created the class. To retrieve information about classes defined by the system (such as buttons or list boxes), set this parameter to <b>NULL</b>.
      * @param {PSTR} lpClassName Type: <b>LPCTSTR</b>
      * 
      * The class name. The name must be that of a preregistered class or a class registered by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-registerclassa">RegisterClass</a> or <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-registerclassexa">RegisterClassEx</a> function. 
@@ -9856,7 +10137,9 @@ class WindowsAndMessaging {
      * @remarks
      * > [!NOTE]
      * > The winuser.h header defines GetClassInfo as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HINSTANCE} _hInstance 
+     * @param {HINSTANCE} _hInstance Type: <b>HINSTANCE</b>
+     * 
+     * A handle to the instance of the application that created the class. To retrieve information about classes defined by the system (such as buttons or list boxes), set this parameter to <b>NULL</b>.
      * @param {PWSTR} lpClassName Type: <b>LPCTSTR</b>
      * 
      * The class name. The name must be that of a preregistered class or a class registered by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-registerclassa">RegisterClass</a> or <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-registerclassexa">RegisterClassEx</a> function. 
@@ -9960,7 +10243,9 @@ class WindowsAndMessaging {
      * 
      * > [!NOTE]
      * > The winuser.h header defines GetClassInfoEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HINSTANCE} _hInstance 
+     * @param {HINSTANCE} _hInstance Type: <b>HINSTANCE</b>
+     * 
+     * A handle to the instance of the application that created the class. To retrieve information about classes defined by the system (such as buttons or list boxes), set this parameter to <b>NULL</b>.
      * @param {PSTR} lpszClass Type: <b>LPCTSTR</b>
      * 
      * The class name. The name must be that of a preregistered class or a class registered by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-registerclassa">RegisterClass</a> or <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-registerclassexa">RegisterClassEx</a> function. Alternatively, this parameter can be a class atom created by a previous call to <b>RegisterClass</b> or <b>RegisterClassEx</b>. The atom must be in the low-order word of 
@@ -10002,7 +10287,9 @@ class WindowsAndMessaging {
      * 
      * > [!NOTE]
      * > The winuser.h header defines GetClassInfoEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HINSTANCE} _hInstance 
+     * @param {HINSTANCE} _hInstance Type: <b>HINSTANCE</b>
+     * 
+     * A handle to the instance of the application that created the class. To retrieve information about classes defined by the system (such as buttons or list boxes), set this parameter to <b>NULL</b>.
      * @param {PWSTR} lpszClass Type: <b>LPCTSTR</b>
      * 
      * The class name. The name must be that of a preregistered class or a class registered by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-registerclassa">RegisterClass</a> or <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-registerclassexa">RegisterClassEx</a> function. Alternatively, this parameter can be a class atom created by a previous call to <b>RegisterClass</b> or <b>RegisterClassEx</b>. The atom must be in the low-order word of 
@@ -10132,7 +10419,7 @@ class WindowsAndMessaging {
      * The <b>WS_EX_NOACTIVATE</b> value for <i>dwExStyle</i> prevents foreground activation by the system. To prevent queue activation when the user clicks on the window, you must process the <a href="https://docs.microsoft.com/windows/desktop/inputdev/wm-mouseactivate">WM_MOUSEACTIVATE</a> message appropriately. To bring the window to the foreground or to activate it programmatically, use <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-setforegroundwindow">SetForegroundWindow</a> or <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-setactivewindow">SetActiveWindow</a>. Returning <b>FALSE</b> to <a href="https://docs.microsoft.com/windows/desktop/winmsg/wm-ncactivate">WM_NCACTIVATE</a> prevents the window from losing queue activation. However, the return value is ignored at activation time.
      * 
      *  With <b>WS_EX_COMPOSITED</b> set, all descendants of a window get bottom-to-top painting order using double-buffering. Bottom-to-top painting order allows a descendent window to have translucency (alpha) and transparency (color-key) effects, but only if the descendent window also has the <b>WS_EX_TRANSPARENT</b> bit set. Double-buffering allows the window and its descendents to be painted without flicker.
-     * @param {Integer} dwExStyle Type: <b>DWORD</b>
+     * @param {WINDOW_EX_STYLE} dwExStyle Type: <b>DWORD</b>
      * 
      * The extended window style of the window being created. For a list of possible values, see  <a href="https://docs.microsoft.com/windows/desktop/winmsg/extended-window-styles">Extended Window Styles</a>.
      * @param {PSTR} lpClassName Type: <b>LPCTSTR</b>
@@ -10141,7 +10428,7 @@ class WindowsAndMessaging {
      * @param {PSTR} lpWindowName Type: <b>LPCTSTR</b>
      * 
      * The window name. If the window style specifies a title bar, the window title pointed to by <i>lpWindowName</i> is displayed in the title bar. When using <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-createwindowa">CreateWindow</a> to create controls, such as buttons, check boxes, and static controls, use <i>lpWindowName</i> to specify the text of the control. When creating a static control with the <b>SS_ICON</b> style, use <i>lpWindowName</i> to specify the icon name or identifier. To specify an identifier, use the syntax "#<i>num</i>".
-     * @param {Integer} dwStyle Type: <b>DWORD</b>
+     * @param {WINDOW_STYLE} dwStyle Type: <b>DWORD</b>
      * 
      * The style of the window being created. This parameter can be a combination of the <a href="https://docs.microsoft.com/windows/desktop/winmsg/window-styles">window style values</a>, plus the control styles indicated in the Remarks section.
      * @param {Integer} X Type: <b>int</b>
@@ -10164,8 +10451,12 @@ class WindowsAndMessaging {
      * A handle to the parent or owner window of the window being created. To create a child window or an owned window, supply a valid window handle. This parameter is optional for pop-up windows.
      * 
      *  To create a <a href="https://docs.microsoft.com/windows/desktop/winmsg/window-features">message-only window</a>, supply <b>HWND_MESSAGE</b> or a handle to an existing message-only window.
-     * @param {HMENU} _hMenu 
-     * @param {HINSTANCE} _hInstance 
+     * @param {HMENU} _hMenu Type: <b>HMENU</b>
+     * 
+     * A handle to a menu, or specifies a child-window identifier, depending on the window style. For an overlapped or pop-up window, <i>hMenu</i> identifies the menu to be used with the window; it can be <b>NULL</b> if the class menu is to be used. For a child window, <i>hMenu</i> specifies the child-window identifier, an integer value used by a dialog box control to notify its parent about events. The application determines the child-window identifier; it must be unique for all child windows with the same parent window.
+     * @param {HINSTANCE} _hInstance Type: <b>HINSTANCE</b>
+     * 
+     * A handle to the instance of the module to be associated with the window.
      * @param {Pointer<Void>} lpParam Type: <b>LPVOID</b>
      * 
      * Pointer to a value to be passed to the window through the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-createstructa">CREATESTRUCT</a> structure (<b>lpCreateParams</b> member) pointed to by the <i>lParam</i> param of the <b>WM_CREATE</b> message.  This message is sent to the created window by this function before it returns.
@@ -10309,7 +10600,7 @@ class WindowsAndMessaging {
      * The <b>WS_EX_NOACTIVATE</b> value for <i>dwExStyle</i> prevents foreground activation by the system. To prevent queue activation when the user clicks on the window, you must process the <a href="https://docs.microsoft.com/windows/desktop/inputdev/wm-mouseactivate">WM_MOUSEACTIVATE</a> message appropriately. To bring the window to the foreground or to activate it programmatically, use <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-setforegroundwindow">SetForegroundWindow</a> or <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-setactivewindow">SetActiveWindow</a>. Returning <b>FALSE</b> to <a href="https://docs.microsoft.com/windows/desktop/winmsg/wm-ncactivate">WM_NCACTIVATE</a> prevents the window from losing queue activation. However, the return value is ignored at activation time.
      * 
      *  With <b>WS_EX_COMPOSITED</b> set, all descendants of a window get bottom-to-top painting order using double-buffering. Bottom-to-top painting order allows a descendent window to have translucency (alpha) and transparency (color-key) effects, but only if the descendent window also has the <b>WS_EX_TRANSPARENT</b> bit set. Double-buffering allows the window and its descendents to be painted without flicker.
-     * @param {Integer} dwExStyle Type: <b>DWORD</b>
+     * @param {WINDOW_EX_STYLE} dwExStyle Type: <b>DWORD</b>
      * 
      * The extended window style of the window being created. For a list of possible values, see  <a href="https://docs.microsoft.com/windows/desktop/winmsg/extended-window-styles">Extended Window Styles</a>.
      * @param {PWSTR} lpClassName Type: <b>LPCTSTR</b>
@@ -10318,7 +10609,7 @@ class WindowsAndMessaging {
      * @param {PWSTR} lpWindowName Type: <b>LPCTSTR</b>
      * 
      * The window name. If the window style specifies a title bar, the window title pointed to by <i>lpWindowName</i> is displayed in the title bar. When using <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-createwindowa">CreateWindow</a> to create controls, such as buttons, check boxes, and static controls, use <i>lpWindowName</i> to specify the text of the control. When creating a static control with the <b>SS_ICON</b> style, use <i>lpWindowName</i> to specify the icon name or identifier. To specify an identifier, use the syntax "#<i>num</i>".
-     * @param {Integer} dwStyle Type: <b>DWORD</b>
+     * @param {WINDOW_STYLE} dwStyle Type: <b>DWORD</b>
      * 
      * The style of the window being created. This parameter can be a combination of the <a href="https://docs.microsoft.com/windows/desktop/winmsg/window-styles">window style values</a>, plus the control styles indicated in the Remarks section.
      * @param {Integer} X Type: <b>int</b>
@@ -10341,8 +10632,12 @@ class WindowsAndMessaging {
      * A handle to the parent or owner window of the window being created. To create a child window or an owned window, supply a valid window handle. This parameter is optional for pop-up windows.
      * 
      *  To create a <a href="https://docs.microsoft.com/windows/desktop/winmsg/window-features">message-only window</a>, supply <b>HWND_MESSAGE</b> or a handle to an existing message-only window.
-     * @param {HMENU} _hMenu 
-     * @param {HINSTANCE} _hInstance 
+     * @param {HMENU} _hMenu Type: <b>HMENU</b>
+     * 
+     * A handle to a menu, or specifies a child-window identifier, depending on the window style. For an overlapped or pop-up window, <i>hMenu</i> identifies the menu to be used with the window; it can be <b>NULL</b> if the class menu is to be used. For a child window, <i>hMenu</i> specifies the child-window identifier, an integer value used by a dialog box control to notify its parent about events. The application determines the child-window identifier; it must be unique for all child windows with the same parent window.
+     * @param {HINSTANCE} _hInstance Type: <b>HINSTANCE</b>
+     * 
+     * A handle to the instance of the module to be associated with the window.
      * @param {Pointer<Void>} lpParam Type: <b>LPVOID</b>
      * 
      * Pointer to a value to be passed to the window through the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-createstructa">CREATESTRUCT</a> structure (<b>lpCreateParams</b> member) pointed to by the <i>lParam</i> param of the <b>WM_CREATE</b> message.  This message is sent to the created window by this function before it returns.
@@ -10390,7 +10685,9 @@ class WindowsAndMessaging {
      * Determines whether the specified window handle identifies an existing window.
      * @remarks
      * A thread should not use <b>IsWindow</b> for a window that it did not create because the window could be destroyed after this function was called. Further, because window handles are recycled the handle could even point to a different window.
-     * @param {HWND} _hWnd 
+     * @param {HWND} _hWnd Type: <b>HWND</b>
+     * 
+     * A handle to the window to be tested.
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the window handle identifies an existing window, the return value is nonzero.
@@ -10408,7 +10705,9 @@ class WindowsAndMessaging {
 
     /**
      * Determines whether a handle is a menu handle.
-     * @param {HMENU} _hMenu 
+     * @param {HMENU} _hMenu Type: <b>HMENU</b>
+     * 
+     * A handle to be tested.
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the handle is a menu handle, the return value is nonzero. 
@@ -10429,7 +10728,9 @@ class WindowsAndMessaging {
      * @param {HWND} hWndParent Type: <b>HWND</b>
      * 
      * A handle to the parent window.
-     * @param {HWND} _hWnd 
+     * @param {HWND} _hWnd Type: <b>HWND</b>
+     * 
+     * A handle to the window to be tested.
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the window is a child or descendant window of the specified parent window, the return value is nonzero.
@@ -10452,7 +10753,9 @@ class WindowsAndMessaging {
      * A thread cannot use <b>DestroyWindow</b> to destroy a window created by a different thread. 
      * 
      * If the window being destroyed is a child window that does not have the <b>WS_EX_NOPARENTNOTIFY</b> style, a <a href="https://docs.microsoft.com/windows/win32/inputmsg/wm-parentnotify">WM_PARENTNOTIFY</a> message is sent to the parent.
-     * @param {HWND} _hWnd 
+     * @param {HWND} _hWnd Type: <b>HWND</b>
+     * 
+     * A handle to the window to be destroyed.
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
@@ -10487,8 +10790,10 @@ class WindowsAndMessaging {
      * <li>Applications create their main window by calling <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-createwindowa">CreateWindow</a> with the <b>WS_VISIBLE</b> flag set. </li>
      * <li>Applications create their main window by calling <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-createwindowa">CreateWindow</a> with the <b>WS_VISIBLE</b> flag cleared, and later call <b>ShowWindow</b> with the <b>SW_SHOW</b> flag set to make it visible. </li>
      * </ul>
-     * @param {HWND} _hWnd 
-     * @param {Integer} nCmdShow Type: <b>int</b>
+     * @param {HWND} _hWnd Type: <b>HWND</b>
+     * 
+     * A handle to the window.
+     * @param {SHOW_WINDOW_CMD} nCmdShow Type: <b>int</b>
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the window was previously visible, the return value is nonzero. 
@@ -10520,11 +10825,13 @@ class WindowsAndMessaging {
      * <b>AnimateWindow</b> supports RTL windows.
      * 
      * Avoid animating a window that has a drop shadow because it produces visually distracting, jerky animations.
-     * @param {HWND} _hWnd 
+     * @param {HWND} _hWnd Type: <b>HWND</b>
+     * 
+     * A handle to the window to animate. The calling thread must own this window.
      * @param {Integer} dwTime Type: <b>DWORD</b>
      * 
      * The time it takes to play the animation, in milliseconds. Typically, an animation takes 200 milliseconds to play.
-     * @param {Integer} dwFlags Type: <b>DWORD</b>
+     * @param {ANIMATE_WINDOW_FLAGS} dwFlags Type: <b>DWORD</b>
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
@@ -10569,7 +10876,11 @@ class WindowsAndMessaging {
      * For best drawing performance by the layered window and any underlying windows, the layered window should be as small as possible. An application should also process the  message and re-create its layered windows when the display's color depth changes.
      * 
      * For more information, see <a href="https://docs.microsoft.com/windows/desktop/winmsg/window-features">Layered Windows</a>.
-     * @param {HWND} _hWnd 
+     * @param {HWND} _hWnd Type: <b>HWND</b>
+     * 
+     * A handle to a layered window. A layered window is created by specifying <b>WS_EX_LAYERED</b> when creating the window with the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-createwindowexa">CreateWindowEx</a> function. 
+     * 
+     * <b>Windows 8:  </b>The <b>WS_EX_LAYERED</b> style is supported for top-level windows and child windows. Previous Windows versions support <b>WS_EX_LAYERED</b> only for top-level windows.
      * @param {HDC} hdcDst Type: <b>HDC</b>
      * 
      * A handle to a DC for the screen. This handle is obtained by specifying <b>NULL</b> when calling the <a href="https://docs.microsoft.com/windows/win32/api/winuser/nf-winuser-getdc">GetDC</a> function. It is used for palette color matching when the window contents are updated. If <i>hdcDst</i> is <b>NULL</b>, the default palette will be used.
@@ -10593,7 +10904,7 @@ class WindowsAndMessaging {
      * @param {Pointer<BLENDFUNCTION>} pblend Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-blendfunction">BLENDFUNCTION</a>*</b>
      * 
      * A pointer to a structure that specifies the transparency value to be used when composing the layered window.
-     * @param {Integer} dwFlags Type: <b>DWORD</b>
+     * @param {UPDATE_LAYERED_WINDOW_FLAGS} dwFlags Type: <b>DWORD</b>
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
@@ -10636,14 +10947,16 @@ class WindowsAndMessaging {
      * <b>GetLayeredWindowAttributes</b> can be called only if the application has previously called <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-setlayeredwindowattributes">SetLayeredWindowAttributes</a> on the window. The function will fail if the layered window was setup with <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-updatelayeredwindow">UpdateLayeredWindow</a>.
      * 
      * For more information, see <a href="https://docs.microsoft.com/windows/desktop/winmsg/using-windows">Using Layered Windows</a>.
-     * @param {HWND} _hwnd 
+     * @param {HWND} _hwnd Type: <b>HWND</b>
+     * 
+     * A handle to the layered window. A layered window is created by specifying <b>WS_EX_LAYERED</b> when creating the window with the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-createwindowexa">CreateWindowEx</a> function or by setting <b>WS_EX_LAYERED</b> using <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-setwindowlonga">SetWindowLong</a> after the window has been created.
      * @param {Pointer<COLORREF>} pcrKey Type: <b><a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a>*</b>
      * 
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a> value that receives the transparency color key to be used when composing the layered window. All pixels painted by the window in this color will be transparent. This can be <b>NULL</b> if the argument is not needed.
      * @param {Pointer<Integer>} pbAlpha Type: <b>BYTE*</b>
      * 
      * The Alpha value used to describe the opacity of the layered window. Similar to the <b>SourceConstantAlpha</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-blendfunction">BLENDFUNCTION</a> structure. When the variable referred to by <i>pbAlpha</i> is 0, the window is completely transparent. When the variable referred to by <i>pbAlpha</i> is 255, the window is opaque. This can be <b>NULL</b> if the argument is not needed.
-     * @param {Pointer<Integer>} pdwFlags Type: <b>DWORD*</b>
+     * @param {Pointer<LAYERED_WINDOW_ATTRIBUTES_FLAGS>} pdwFlags Type: <b>DWORD*</b>
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
@@ -10675,14 +10988,18 @@ class WindowsAndMessaging {
      * Note that once <b>SetLayeredWindowAttributes</b> has been called for a layered window, subsequent <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-updatelayeredwindow">UpdateLayeredWindow</a> calls will fail until the layering style bit is cleared and set again.
      * 
      * For more information, see <a href="https://docs.microsoft.com/windows/desktop/winmsg/using-windows">Using Layered Windows</a>.
-     * @param {HWND} _hwnd 
+     * @param {HWND} _hwnd Type: <b>HWND</b>
+     * 
+     * A handle to the layered window. A layered window is created by specifying <b>WS_EX_LAYERED</b> when creating the window with the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-createwindowexa">CreateWindowEx</a> function or by setting <b>WS_EX_LAYERED</b> via <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-setwindowlonga">SetWindowLong</a> after the window has been created.
+     * 
+     * <b>Windows 8:  </b>The <b>WS_EX_LAYERED</b> style is supported for top-level windows and child windows. Previous Windows versions support <b>WS_EX_LAYERED</b> only for top-level windows.
      * @param {COLORREF} crKey Type: <b><a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a></b>
      * 
      * A <a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a> structure that specifies the transparency color key to be used when composing the layered window. All pixels painted by the window in this color will be transparent. To generate a <b>COLORREF</b>, use the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-rgb">RGB</a> macro.
      * @param {Integer} bAlpha Type: <b>BYTE</b>
      * 
      * Alpha value used to describe the opacity of the layered window. Similar to the <b>SourceConstantAlpha</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-blendfunction">BLENDFUNCTION</a> structure. When <i>bAlpha</i> is 0, the window is completely transparent. When <i>bAlpha</i> is 255, the window is opaque.
-     * @param {Integer} dwFlags Type: <b>DWORD</b>
+     * @param {LAYERED_WINDOW_ATTRIBUTES_FLAGS} dwFlags Type: <b>DWORD</b>
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
@@ -10710,8 +11027,10 @@ class WindowsAndMessaging {
      * Sets the show state of a window without waiting for the operation to complete.
      * @remarks
      * This function posts a show-window event to the message queue of the given window. An application can use this function to avoid becoming nonresponsive while waiting for a nonresponsive application to finish processing a show-window event.
-     * @param {HWND} _hWnd 
-     * @param {Integer} nCmdShow Type: <b>int</b>
+     * @param {HWND} _hWnd Type: <b>HWND</b>
+     * 
+     * A handle to the window.
+     * @param {SHOW_WINDOW_CMD} nCmdShow Type: <b>int</b>
      * 
      * Controls how the window is to be shown. For a list of possible values, see the description of the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-showwindow">ShowWindow</a> function.
      * @returns {BOOL} Type: <b>BOOL</b>
@@ -10736,7 +11055,7 @@ class WindowsAndMessaging {
      * 
      * The 
      * <b>FlashWindow</b> function flashes the window only once; for repeated flashing, the application should create a system timer.
-     * @param {HWND} _hWnd 
+     * @param {HWND} _hWnd A handle to the window to be flashed. The window can be either open or minimized.
      * @param {BOOL} bInvert If this parameter is <b>TRUE</b>, the window is flashed from one state to the other. If it is <b>FALSE</b>, the window is returned to its original state (either active or inactive). 
      * 
      * 
@@ -10775,7 +11094,9 @@ class WindowsAndMessaging {
      * Shows or hides all pop-up windows owned by the specified window.
      * @remarks
      * <b>ShowOwnedPopups</b> shows only windows hidden by a previous call to <b>ShowOwnedPopups</b>. For example, if a pop-up window is hidden by using the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-showwindow">ShowWindow</a> function, subsequently calling <b>ShowOwnedPopups</b> with the <i>fShow</i> parameter set to <b>TRUE</b> does not cause the window to be shown.
-     * @param {HWND} _hWnd 
+     * @param {HWND} _hWnd Type: <b>HWND</b>
+     * 
+     * A handle to the window that owns the pop-up windows to be shown or hidden.
      * @param {BOOL} fShow Type: <b>BOOL</b>
      * 
      * If this parameter is <b>TRUE</b>, all hidden pop-up windows are shown. If this parameter is <b>FALSE</b>, all visible pop-up windows are hidden.
@@ -10804,7 +11125,9 @@ class WindowsAndMessaging {
      * Restores a minimized (iconic) window to its previous size and position; it then activates the window.
      * @remarks
      * <b>OpenIcon</b> sends a <a href="https://docs.microsoft.com/windows/desktop/winmsg/wm-queryopen">WM_QUERYOPEN</a> message to the given window.
-     * @param {HWND} _hWnd 
+     * @param {HWND} _hWnd Type: <b>HWND</b>
+     * 
+     * A handle to the window to be restored and activated.
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
@@ -10830,7 +11153,9 @@ class WindowsAndMessaging {
      * Minimizes (but does not destroy) the specified window.
      * @remarks
      * To destroy a window, an application must use the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-destroywindow">DestroyWindow</a> function.
-     * @param {HWND} _hWnd 
+     * @param {HWND} _hWnd Type: <b>HWND</b>
+     * 
+     * A handle to the window to be minimized.
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
@@ -10858,7 +11183,9 @@ class WindowsAndMessaging {
      * If the <i>bRepaint</i> parameter is <b>TRUE</b>, the system sends the <a href="https://docs.microsoft.com/windows/desktop/gdi/wm-paint">WM_PAINT</a> message to the window procedure immediately after moving the window (that is, the <b>MoveWindow</b> function calls the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-updatewindow">UpdateWindow</a> function). If <i>bRepaint</i> is <b>FALSE</b>, the application must explicitly invalidate or redraw any parts of the window and parent window that need redrawing.
      * 
      * <b>MoveWindow</b> sends the <a href="https://docs.microsoft.com/windows/desktop/winmsg/wm-windowposchanging">WM_WINDOWPOSCHANGING</a>, <a href="https://docs.microsoft.com/windows/desktop/winmsg/wm-windowposchanged">WM_WINDOWPOSCHANGED</a>, <a href="https://docs.microsoft.com/windows/desktop/winmsg/wm-move">WM_MOVE</a>, <a href="https://docs.microsoft.com/windows/desktop/winmsg/wm-size">WM_SIZE</a>, and <a href="https://docs.microsoft.com/windows/desktop/winmsg/wm-nccalcsize">WM_NCCALCSIZE</a> messages to the window.
-     * @param {HWND} _hWnd 
+     * @param {HWND} _hWnd Type: <b>HWND</b>
+     * 
+     * A handle to the window.
      * @param {Integer} X Type: <b>int</b>
      * 
      * The new position of the left side of the window.
@@ -10919,7 +11246,9 @@ class WindowsAndMessaging {
      * If an application is not in the foreground, and should be in the foreground, it must call the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-setforegroundwindow">SetForegroundWindow</a> function. 
      * 
      * To use <b>SetWindowPos</b> to bring a window to the top, the process that owns the window must have <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-setforegroundwindow">SetForegroundWindow</a> permission.
-     * @param {HWND} _hWnd 
+     * @param {HWND} _hWnd Type: <b>HWND</b>
+     * 
+     * A handle to the window.
      * @param {HWND} hWndInsertAfter Type: <b>HWND</b>
      * @param {Integer} X Type: <b>int</b>
      * 
@@ -10930,8 +11259,10 @@ class WindowsAndMessaging {
      * @param {Integer} cx Type: <b>int</b>
      * 
      * The new width of the window, in pixels.
-     * @param {Integer} _cy 
-     * @param {Integer} uFlags Type: <b>UINT</b>
+     * @param {Integer} _cy Type: <b>int</b>
+     * 
+     * The new height of the window, in pixels.
+     * @param {SET_WINDOW_POS_FLAGS} uFlags Type: <b>UINT</b>
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
@@ -10960,7 +11291,9 @@ class WindowsAndMessaging {
      * The <b>flags</b> member of <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-windowplacement">WINDOWPLACEMENT</a> retrieved by this function is always zero. If the window identified by the <i>hWnd</i> parameter is maximized, the <b>showCmd</b> member is SW_SHOWMAXIMIZED. If the window is minimized, <b>showCmd</b> is SW_SHOWMINIMIZED. Otherwise, it is SW_SHOWNORMAL. 
      * 
      * The <b>length</b> member of <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-windowplacement">WINDOWPLACEMENT</a> must be set to sizeof(<b>WINDOWPLACEMENT</b>). If this member is not set correctly, the function returns <b>FALSE</b>. For additional remarks on the proper use of window placement coordinates, see <b>WINDOWPLACEMENT</b>.
-     * @param {HWND} _hWnd 
+     * @param {HWND} _hWnd Type: <b>HWND</b>
+     * 
+     * A handle to the window.
      * @param {Pointer<WINDOWPLACEMENT>} lpwndpl Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-windowplacement">WINDOWPLACEMENT</a>*</b>
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-windowplacement">WINDOWPLACEMENT</a> structure that receives the show state and position information. Before calling <b>GetWindowPlacement</b>, set the <b>length</b> member to <c>sizeof(WINDOWPLACEMENT)</c>. <b>GetWindowPlacement</b> fails if <i>lpwndpl</i>-&gt; <i>length</i> is not set correctly.
@@ -10991,7 +11324,9 @@ class WindowsAndMessaging {
      * If the information specified in <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-windowplacement">WINDOWPLACEMENT</a> would result in a window that is completely off the screen, the system will automatically adjust the coordinates so that the window is visible, taking into account changes in screen resolution and multiple monitor configuration. 
      * 
      * The <b>length</b> member of <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-windowplacement">WINDOWPLACEMENT</a> must be set to <c>sizeof(WINDOWPLACEMENT)</c>. If this member is not set correctly, the function returns <b>FALSE</b>. For additional remarks on the proper use of window placement coordinates, see <b>WINDOWPLACEMENT</b>.
-     * @param {HWND} _hWnd 
+     * @param {HWND} _hWnd Type: <b>HWND</b>
+     * 
+     * A handle to the window.
      * @param {Pointer<WINDOWPLACEMENT>} lpwndpl Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-windowplacement">WINDOWPLACEMENT</a>*</b>
      * 
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-windowplacement">WINDOWPLACEMENT</a> structure that specifies the new show state and window positions.
@@ -11029,7 +11364,9 @@ class WindowsAndMessaging {
      * It is important to note that unlike a security feature or an implementation of Digital Rights Management (DRM), there is no guarantee that 
      * 		 using <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-setwindowdisplayaffinity">SetWindowDisplayAffinity</a> 
      * 		and <b>GetWindowDisplayAffinity</b>, and other necessary functions such as <a href="https://docs.microsoft.com/windows/desktop/api/dwmapi/nf-dwmapi-dwmiscompositionenabled">DwmIsCompositionEnabled</a>, will strictly protect windowed content, as in the case where someone takes a photograph of the screen.
-     * @param {HWND} _hWnd 
+     * @param {HWND} _hWnd Type: <b>HWND</b>
+     * 
+     * A handle to the window.
      * @param {Pointer<Integer>} pdwAffinity Type: <b>DWORD*</b>
      * 
      * A pointer to a variable that receives the display affinity setting.
@@ -11065,8 +11402,10 @@ class WindowsAndMessaging {
      * It is important to note that unlike a security feature or an implementation of Digital Rights Management (DRM), there is no guarantee that using <b>SetWindowDisplayAffinity</b> and <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getwindowdisplayaffinity">GetWindowDisplayAffinity</a>, and other necessary functions such as <a href="https://docs.microsoft.com/windows/desktop/api/dwmapi/nf-dwmapi-dwmiscompositionenabled">DwmIsCompositionEnabled</a>, will strictly protect windowed content, for example where someone takes a photograph of the screen.
      * 
      * Starting in Windows 10 Version 2004, WDA_EXCLUDEFROMCAPTURE is a supported value. Setting the display affinity to WDA_EXCLUDEFROMCAPTURE on previous version of Windows will behave as if WDA_MONITOR is applied.
-     * @param {HWND} _hWnd 
-     * @param {Integer} dwAffinity Type: <b>DWORD</b>
+     * @param {HWND} _hWnd Type: <b>HWND</b>
+     * 
+     * A handle to the top-level window. The window must belong to the current process.
+     * @param {WINDOW_DISPLAY_AFFINITY} dwAffinity Type: <b>DWORD</b>
      * 
      * The display affinity setting that specifies where the content of the window can be displayed.
      * @returns {BOOL} Type: <b>BOOL</b>
@@ -11144,7 +11483,10 @@ class WindowsAndMessaging {
      * 
      * A handle to a multiple-window 
      * 					– position structure that contains size and position information for one or more windows. This structure is returned by <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-begindeferwindowpos">BeginDeferWindowPos</a> or by the most recent call to <b>DeferWindowPos</b>.
-     * @param {HWND} _hWnd 
+     * @param {HWND} _hWnd Type: <b>HWND</b>
+     * 
+     * A handle to the window for which update information is stored in the structure. All windows in a multiple-window 
+     * 					– position structure must have the same parent.
      * @param {HWND} hWndInsertAfter Type: <b>HWND</b>
      * @param {Integer} x Type: <b>int</b>
      * 
@@ -11155,8 +11497,10 @@ class WindowsAndMessaging {
      * @param {Integer} cx Type: <b>int</b>
      * 
      * The window's new width, in pixels.
-     * @param {Integer} _cy 
-     * @param {Integer} uFlags Type: <b>UINT</b>
+     * @param {Integer} _cy Type: <b>int</b>
+     * 
+     * The window's new height, in pixels.
+     * @param {SET_WINDOW_POS_FLAGS} uFlags Type: <b>UINT</b>
      * @returns {HDWP} Type: <b>HDWP</b>
      * 
      * The return value identifies the updated multiple-window 
@@ -11217,7 +11561,9 @@ class WindowsAndMessaging {
      * The visibility state of a window is indicated by the <b>WS_VISIBLE</b> style bit. When <b>WS_VISIBLE</b> is set, the window is displayed and subsequent drawing into it is displayed as long as the window has the <b>WS_VISIBLE</b> style. 
      * 
      * Any drawing to a window with the <b>WS_VISIBLE</b> style will not be displayed if the window is obscured by other windows or is clipped by its parent window.
-     * @param {HWND} _hWnd 
+     * @param {HWND} _hWnd Type: <b>HWND</b>
+     * 
+     * A handle to the window to be tested.
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the specified window, its parent window, its parent's parent window, and so forth, have the <b>WS_VISIBLE</b> style, the return value is nonzero. Otherwise, the return value is zero. 
@@ -11235,7 +11581,9 @@ class WindowsAndMessaging {
 
     /**
      * Determines whether the specified window is minimized (iconic).
-     * @param {HWND} _hWnd 
+     * @param {HWND} _hWnd Type: <b>HWND</b>
+     * 
+     * A handle to the window to be tested.
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the window is iconic, the return value is nonzero.
@@ -11274,7 +11622,9 @@ class WindowsAndMessaging {
      * Use the <b>BringWindowToTop</b> function to uncover any window that is partially or completely obscured by other windows. 
      * 
      * Calling this function is similar to calling the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-setwindowpos">SetWindowPos</a> function to change a window's position in the Z order. <b>BringWindowToTop</b> does not make a window a top-level window.
-     * @param {HWND} _hWnd 
+     * @param {HWND} _hWnd Type: <b>HWND</b>
+     * 
+     * A handle to the window to bring to the top of the Z order.
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
@@ -11298,7 +11648,9 @@ class WindowsAndMessaging {
 
     /**
      * Determines whether a window is maximized.
-     * @param {HWND} _hWnd 
+     * @param {HWND} _hWnd Type: <b>HWND</b>
+     * 
+     * A handle to the window to be tested.
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the window is zoomed, the return value is nonzero.
@@ -11327,7 +11679,9 @@ class WindowsAndMessaging {
      * 
      * > [!NOTE]
      * > The winuser.h header defines CreateDialogParam as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HINSTANCE} _hInstance 
+     * @param {HINSTANCE} _hInstance Type: <b>HINSTANCE</b>
+     * 
+     * A handle to the module which contains the dialog box template. If this parameter is NULL, then the current executable is used.
      * @param {PSTR} lpTemplateName Type: <b>LPCTSTR</b>
      * 
      * The dialog box template. This parameter is either the pointer to a null-terminated character string that specifies the name of the dialog box template or an integer value that specifies the resource identifier of the dialog box template. If the parameter specifies a resource identifier, its high-order word must be zero and low-order word must contain the identifier. You can use the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-makeintresourcea">MAKEINTRESOURCE</a> macro to create this value.
@@ -11377,7 +11731,9 @@ class WindowsAndMessaging {
      * 
      * > [!NOTE]
      * > The winuser.h header defines CreateDialogParam as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HINSTANCE} _hInstance 
+     * @param {HINSTANCE} _hInstance Type: <b>HINSTANCE</b>
+     * 
+     * A handle to the module which contains the dialog box template. If this parameter is NULL, then the current executable is used.
      * @param {PWSTR} lpTemplateName Type: <b>LPCTSTR</b>
      * 
      * The dialog box template. This parameter is either the pointer to a null-terminated character string that specifies the name of the dialog box template or an integer value that specifies the resource identifier of the dialog box template. If the parameter specifies a resource identifier, its high-order word must be zero and low-order word must contain the identifier. You can use the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-makeintresourcea">MAKEINTRESOURCE</a> macro to create this value.
@@ -11433,7 +11789,9 @@ class WindowsAndMessaging {
      * 
      * > [!NOTE]
      * > The winuser.h header defines CreateDialogIndirectParam as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HINSTANCE} _hInstance 
+     * @param {HINSTANCE} _hInstance Type: <b>HINSTANCE</b>
+     * 
+     * A handle to the module which contains the dialog box template. If this parameter is NULL, then the current executable is used.
      * @param {Pointer<DLGTEMPLATE>} lpTemplate Type: <b>LPCDLGTEMPLATE</b>
      * 
      * The template <b>CreateDialogIndirectParam</b> uses to create the dialog box. A dialog box template consists of a header that describes the dialog box, followed by one or more additional blocks of data that describe each of the controls in the dialog box. The template can use either the standard format or the extended format. 
@@ -11495,7 +11853,9 @@ class WindowsAndMessaging {
      * 
      * > [!NOTE]
      * > The winuser.h header defines CreateDialogIndirectParam as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HINSTANCE} _hInstance 
+     * @param {HINSTANCE} _hInstance Type: <b>HINSTANCE</b>
+     * 
+     * A handle to the module which contains the dialog box template. If this parameter is NULL, then the current executable is used.
      * @param {Pointer<DLGTEMPLATE>} lpTemplate Type: <b>LPCDLGTEMPLATE</b>
      * 
      * The template <b>CreateDialogIndirectParam</b> uses to create the dialog box. A dialog box template consists of a header that describes the dialog box, followed by one or more additional blocks of data that describe each of the controls in the dialog box. The template can use either the standard format or the extended format. 
@@ -11551,7 +11911,9 @@ class WindowsAndMessaging {
      * 
      * > [!NOTE]
      * > The winuser.h header defines DialogBoxParam as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HINSTANCE} _hInstance 
+     * @param {HINSTANCE} _hInstance Type: <b>HINSTANCE</b>
+     * 
+     * A handle to the module which contains the dialog box template. If this parameter is NULL, then the current executable is used.
      * @param {PSTR} lpTemplateName Type: <b>LPCTSTR</b>
      * 
      * The dialog box template. This parameter is either the pointer to a null-terminated character string that specifies the name of the dialog box template or an integer value that specifies the resource identifier of the dialog box template. If the parameter specifies a resource identifier, its high-order word must be zero and its low-order word must contain the identifier. You can use the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-makeintresourcea">MAKEINTRESOURCE</a> macro to create this value.
@@ -11600,7 +11962,9 @@ class WindowsAndMessaging {
      * 
      * > [!NOTE]
      * > The winuser.h header defines DialogBoxParam as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HINSTANCE} _hInstance 
+     * @param {HINSTANCE} _hInstance Type: <b>HINSTANCE</b>
+     * 
+     * A handle to the module which contains the dialog box template. If this parameter is NULL, then the current executable is used.
      * @param {PWSTR} lpTemplateName Type: <b>LPCTSTR</b>
      * 
      * The dialog box template. This parameter is either the pointer to a null-terminated character string that specifies the name of the dialog box template or an integer value that specifies the resource identifier of the dialog box template. If the parameter specifies a resource identifier, its high-order word must be zero and its low-order word must contain the identifier. You can use the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-makeintresourcea">MAKEINTRESOURCE</a> macro to create this value.
@@ -11655,7 +12019,9 @@ class WindowsAndMessaging {
      * 
      * > [!NOTE]
      * > The winuser.h header defines DialogBoxIndirectParam as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HINSTANCE} _hInstance 
+     * @param {HINSTANCE} _hInstance Type: <b>HINSTANCE</b>
+     * 
+     * A handle to the module that creates the dialog box.
      * @param {Pointer<DLGTEMPLATE>} hDialogTemplate Type: <b>LPCDLGTEMPLATE</b>
      * 
      * The template that <b>DialogBoxIndirectParam</b> uses to create the dialog box. A dialog box template consists of a header that describes the dialog box, followed by one or more additional blocks of data that describe each of the controls in the dialog box. The template can use either the standard format or the extended format. 
@@ -11714,7 +12080,9 @@ class WindowsAndMessaging {
      * 
      * > [!NOTE]
      * > The winuser.h header defines DialogBoxIndirectParam as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HINSTANCE} _hInstance 
+     * @param {HINSTANCE} _hInstance Type: <b>HINSTANCE</b>
+     * 
+     * A handle to the module that creates the dialog box.
      * @param {Pointer<DLGTEMPLATE>} hDialogTemplate Type: <b>LPCDLGTEMPLATE</b>
      * 
      * The template that <b>DialogBoxIndirectParam</b> uses to create the dialog box. A dialog box template consists of a header that describes the dialog box, followed by one or more additional blocks of data that describe each of the controls in the dialog box. The template can use either the standard format or the extended format. 
@@ -12069,9 +12437,17 @@ class WindowsAndMessaging {
      * @param {Integer} nIDDlgItem Type: <b>int</b>
      * 
      * The identifier of the control that receives the message.
-     * @param {Integer} _Msg 
-     * @param {WPARAM} _wParam 
-     * @param {LPARAM} _lParam 
+     * @param {Integer} _Msg Type: <b>UINT</b>
+     * 
+     * The message to be sent.
+     * 
+     * For lists of the system-provided messages, see <a href="https://docs.microsoft.com/windows/desktop/winmsg/about-messages-and-message-queues">System-Defined Messages</a>.
+     * @param {WPARAM} _wParam Type: <b>WPARAM</b>
+     * 
+     * Additional message-specific information.
+     * @param {LPARAM} _lParam Type: <b>LPARAM</b>
+     * 
+     * Additional message-specific information.
      * @returns {LRESULT} Type: <b>LRESULT</b>
      * 
      * The return value specifies the result of the message processing and depends on the message sent.
@@ -12097,9 +12473,17 @@ class WindowsAndMessaging {
      * @param {Integer} nIDDlgItem Type: <b>int</b>
      * 
      * The identifier of the control that receives the message.
-     * @param {Integer} _Msg 
-     * @param {WPARAM} _wParam 
-     * @param {LPARAM} _lParam 
+     * @param {Integer} _Msg Type: <b>UINT</b>
+     * 
+     * The message to be sent.
+     * 
+     * For lists of the system-provided messages, see <a href="https://docs.microsoft.com/windows/desktop/winmsg/about-messages-and-message-queues">System-Defined Messages</a>.
+     * @param {WPARAM} _wParam Type: <b>WPARAM</b>
+     * 
+     * Additional message-specific information.
+     * @param {LPARAM} _lParam Type: <b>LPARAM</b>
+     * 
+     * Additional message-specific information.
      * @returns {LRESULT} Type: <b>LRESULT</b>
      * 
      * The return value specifies the result of the message processing and depends on the message sent.
@@ -12206,7 +12590,9 @@ class WindowsAndMessaging {
      * <b>GetDlgCtrlID</b> accepts child window handles as well as handles of controls in dialog boxes. An application sets the identifier for a child window when it creates the window by assigning the identifier value to the <i>hmenu</i> parameter when calling the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-createwindowa">CreateWindow</a> or <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-createwindowexa">CreateWindowEx</a> function. 
      * 
      * Although <b>GetDlgCtrlID</b> may return a value if <i>hwndCtl</i> is a handle to a top-level window, top-level windows cannot have identifiers and such a return value is never valid.
-     * @param {HWND} _hWnd 
+     * @param {HWND} _hWnd Type: <b>HWND</b>
+     * 
+     * A handle to the control.
      * @returns {Integer} Type: <b>int</b>
      * 
      * If the function succeeds, the return value is the identifier of the control.
@@ -12282,9 +12668,15 @@ class WindowsAndMessaging {
      * @param {HWND} hDlg Type: <b>HWND</b>
      * 
      * A handle to the dialog box.
-     * @param {Integer} _Msg 
-     * @param {WPARAM} _wParam 
-     * @param {LPARAM} _lParam 
+     * @param {Integer} _Msg Type: <b>UINT</b>
+     * 
+     * The message.
+     * @param {WPARAM} _wParam Type: <b>WPARAM</b>
+     * 
+     * Additional message-specific information.
+     * @param {LPARAM} _lParam Type: <b>LPARAM</b>
+     * 
+     * Additional message-specific information.
      * @returns {LRESULT} Type: <b>LRESULT</b>
      * 
      * The return value specifies the result of the message processing and depends on the message sent.
@@ -12308,9 +12700,15 @@ class WindowsAndMessaging {
      * @param {HWND} hDlg Type: <b>HWND</b>
      * 
      * A handle to the dialog box.
-     * @param {Integer} _Msg 
-     * @param {WPARAM} _wParam 
-     * @param {LPARAM} _lParam 
+     * @param {Integer} _Msg Type: <b>UINT</b>
+     * 
+     * The message.
+     * @param {WPARAM} _wParam Type: <b>WPARAM</b>
+     * 
+     * Additional message-specific information.
+     * @param {LPARAM} _lParam Type: <b>LPARAM</b>
+     * 
+     * Additional message-specific information.
      * @returns {LRESULT} Type: <b>LRESULT</b>
      * 
      * The return value specifies the result of the message processing and depends on the message sent.
@@ -13512,7 +13910,7 @@ class WindowsAndMessaging {
      * The presence of a QS_ flag in the return value does not guarantee that a subsequent call to the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getmessage">GetMessage</a> or <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-peekmessagea">PeekMessage</a> function will return a message. <b>GetMessage</b> and <b>PeekMessage</b> perform some internal filtering that may cause the message to be processed internally. For this reason, the return value from <b>GetQueueStatus</b> should be considered only a hint as to whether <b>GetMessage</b> or <b>PeekMessage</b> should be called. 
      * 
      * The <b>QS_ALLPOSTMESSAGE</b> and <b>QS_POSTMESSAGE</b> flags differ in when they are cleared. <b>QS_POSTMESSAGE</b> is cleared when you call <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getmessage">GetMessage</a> or <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-peekmessagea">PeekMessage</a>, whether or not you are filtering messages. <b>QS_ALLPOSTMESSAGE</b> is cleared when you call <b>GetMessage</b> or <b>PeekMessage</b> without filtering messages (<i>wMsgFilterMin</i> and <i>wMsgFilterMax</i> are 0). This can be useful when you call <b>PeekMessage</b> multiple times to get messages in different ranges.
-     * @param {Integer} flags Type: <b>UINT</b>
+     * @param {QUEUE_STATUS_FLAGS} flags Type: <b>UINT</b>
      * @returns {Integer} Type: <b>DWORD</b>
      * 
      * The high-order word of the return value indicates the types of messages currently in the queue. The low-order word indicates the types of messages that have been added to the queue and that are still in the queue since the last call to the <b>GetQueueStatus</b>, <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getmessage">GetMessage</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-peekmessagea">PeekMessage</a> function.
@@ -13576,8 +13974,8 @@ class WindowsAndMessaging {
      * <b>Windows XP, Windows Server 2003, Windows Vista, Windows 7, Windows Server 2008 and Windows Server 2008 R2:  </b>The <i>dwMilliseconds</i> value does include time spent in low-power states. For example, the timeout does keep counting down while the computer is asleep.
      * 
      * <b>Windows 8, Windows Server 2012, Windows 8.1, Windows Server 2012 R2, Windows 10 and Windows Server 2016:  </b>The <i>dwMilliseconds</i> value does not include time spent in low-power states. For example, the timeout does not keep counting down while the computer is asleep.
-     * @param {Integer} dwWakeMask The input types for which an input event object handle will be added to the array of object handles. This parameter can be any combination of the values listed in [GetQueueStatus](/windows/win32/api/winuser/nf-winuser-getqueuestatus) *flags* parameter.
-     * @returns {Integer} If the function succeeds, the return value indicates the event that caused the function to return. It can be one of the following values. (Note that <b>WAIT_OBJECT_0</b> is defined as 0 and <b>WAIT_ABANDONED_0</b> is defined as 0x00000080L.)
+     * @param {QUEUE_STATUS_FLAGS} dwWakeMask The input types for which an input event object handle will be added to the array of object handles. This parameter can be any combination of the values listed in [GetQueueStatus](/windows/win32/api/winuser/nf-winuser-getqueuestatus) *flags* parameter.
+     * @returns {WAIT_EVENT} If the function succeeds, the return value indicates the event that caused the function to return. It can be one of the following values. (Note that <b>WAIT_OBJECT_0</b> is defined as 0 and <b>WAIT_ABANDONED_0</b> is defined as 0x00000080L.)
      * 
      * <table>
      * <tr>
@@ -13718,9 +14116,9 @@ class WindowsAndMessaging {
      * <b>Windows XP, Windows Server 2003, Windows Vista, Windows 7, Windows Server 2008 and Windows Server 2008 R2:  </b>The <i>dwMilliseconds</i> value does include time spent in low-power states. For example, the timeout does keep counting down while the computer is asleep.
      * 
      * <b>Windows 8, Windows Server 2012, Windows 8.1, Windows Server 2012 R2, Windows 10 and Windows Server 2016:  </b>The <i>dwMilliseconds</i> value does not include time spent in low-power states. For example, the timeout does not keep counting down while the computer is asleep.
-     * @param {Integer} dwWakeMask The input types for which an input event object handle will be added to the array of object handles. This parameter can be any combination of the values listed in [GetQueueStatus](/windows/win32/api/winuser/nf-winuser-getqueuestatus) *flags* parameter.
-     * @param {Integer} dwFlags 
-     * @returns {Integer} If the function succeeds, the return value indicates the event that caused the function to return. It can be one of the following values. (Note that <b>WAIT_OBJECT_0</b> is defined as 0 and <b>WAIT_ABANDONED_0</b> is defined as 0x00000080L.)
+     * @param {QUEUE_STATUS_FLAGS} dwWakeMask The input types for which an input event object handle will be added to the array of object handles. This parameter can be any combination of the values listed in [GetQueueStatus](/windows/win32/api/winuser/nf-winuser-getqueuestatus) *flags* parameter.
+     * @param {MSG_WAIT_FOR_MULTIPLE_OBJECTS_EX_FLAGS} dwFlags 
+     * @returns {WAIT_EVENT} If the function succeeds, the return value indicates the event that caused the function to return. It can be one of the following values. (Note that <b>WAIT_OBJECT_0</b> is defined as 0 and <b>WAIT_ABANDONED_0</b> is defined as 0x00000080L.)
      * 
      * <table>
      * <tr>
@@ -13841,7 +14239,9 @@ class WindowsAndMessaging {
      * <b>SetTimer</b> can reuse timer IDs in the case where <i>hWnd</i> is <b>NULL</b>. 
      * 	
      * Before using **SetTimer** or other timer-related functions, it is recommended to set the **UOI_TIMERPROC_EXCEPTION_SUPPRESSION** flag to **false** through the **SetUserObjectInformationW** function, otherwise the application could behave unpredictably and could be vulnerable to security exploits. For more info, see <a href="https://docs.microsoft.com/windows/win32/api/winuser/nf-winuser-setuserobjectinformationw">SetUserObjectInformationW</a>.
-     * @param {HWND} _hWnd 
+     * @param {HWND} _hWnd Type: <b>HWND</b>
+     * 
+     * A handle to the window to be associated with the timer. This window must be owned by the calling thread. If a <b>NULL</b> value for <i>hWnd</i> is passed in along with an <i>nIDEvent</i> of an existing timer, that timer will be replaced in the same way that an existing non-NULL <i>hWnd</i> timer will be.
      * @param {Pointer} nIDEvent Type: <b>UINT_PTR</b>
      * 
      * A nonzero timer identifier. If the <i>hWnd</i> parameter is <b>NULL</b>, and the <i>nIDEvent</i> does not match an existing timer then it is ignored and a new timer ID is generated. If the <i>hWnd</i> parameter is not <b>NULL</b> and the window specified by <i>hWnd</i> already has a timer with the value <i>nIDEvent</i>, then the existing timer is replaced by the new timer. When <b>SetTimer</b> replaces a timer, the timer is reset. Therefore, a message will be sent after the current time-out value elapses, but the previously set time-out value is ignored. If the call is not intended to replace an existing timer, <i>nIDEvent</i> should be 0 if the <i>hWnd</i> is <b>NULL</b>.
@@ -13892,7 +14292,9 @@ class WindowsAndMessaging {
      * When <i>uToleranceDelay</i> is set to 0, the system default timer coalescing is used and   <b>SetCoalescableTimer</b>  behaves the same as <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-settimer">SetTimer</a>.
      * 
      * Before using **SetCoalescableTimer** or other timer-related functions, it is recommended to set the **UOI_TIMERPROC_EXCEPTION_SUPPRESSION** flag to **false** through the **SetUserObjectInformationW** function, otherwise the application could behave unpredictably and could be vulnerable to security exploits. For more info, see <a href="https://docs.microsoft.com/windows/win32/api/winuser/nf-winuser-setuserobjectinformationw">SetUserObjectInformationW</a>.
-     * @param {HWND} _hWnd 
+     * @param {HWND} _hWnd Type: <b>HWND</b>
+     * 
+     * A handle to the window to be associated with the timer. This window must be owned by the calling thread. If a <b>NULL</b> value for <i>hWnd</i> is passed in along with an <i>nIDEvent</i> of an existing timer, that timer will be replaced in the same way that an existing non-NULL <i>hWnd</i> timer will be.
      * @param {Pointer} nIDEvent Type: <b>UINT_PTR</b>
      * 
      * A timer identifier. If the <i>hWnd</i> parameter is <b>NULL</b>, and the <i>nIDEvent</i> does not match an existing timer, then the <i>nIDEvent</i> is ignored and a new timer ID is generated. If the <i>hWnd</i> parameter is not <b>NULL</b> and the window specified by <i>hWnd</i> already has a timer with the value <i>nIDEvent</i>, then the existing timer is replaced by the new timer. When <b>SetCoalescableTimer</b> replaces a timer, the timer is reset. Therefore, a message will be sent after the current time-out value elapses, but the previously set time-out value is ignored. If the call is not intended to replace an existing timer, <i>nIDEvent</i> should be 0 if the <i>hWnd</i> is <b>NULL</b>.
@@ -13934,7 +14336,10 @@ class WindowsAndMessaging {
      * Destroys the specified timer.
      * @remarks
      * The <b>KillTimer</b> function does not remove <a href="https://docs.microsoft.com/windows/desktop/winmsg/wm-timer">WM_TIMER</a> messages already posted to the message queue.
-     * @param {HWND} _hWnd 
+     * @param {HWND} _hWnd Type: <b>HWND</b>
+     * 
+     * A handle to the window associated with the specified timer. This value must be the same as the 
+     * 					<i>hWnd</i> value passed to the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-settimer">SetTimer</a> function that created the timer.
      * @param {Pointer} uIDEvent Type: <b>UINT_PTR</b>
      * 
      * The timer to be destroyed. If the window handle passed to <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-settimer">SetTimer</a> is valid, this parameter must be the same as the
@@ -13969,7 +14374,9 @@ class WindowsAndMessaging {
      * The character set of a window is determined by the use of the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-registerclassa">RegisterClass</a> function. If the window class was registered with the ANSI version of <b>RegisterClass</b> (<b>RegisterClassA</b>), the character set of the window is ANSI. If the window class was registered with the Unicode version of <b>RegisterClass</b> (<b>RegisterClassW</b>), the character set of the window is Unicode. 
      * 
      * The system does automatic two-way translation (Unicode to ANSI) for window messages. For example, if an ANSI window message is sent to a window that uses the Unicode character set, the system translates that message into a Unicode message before calling the window procedure. The system calls <b>IsWindowUnicode</b> to determine whether to translate the message.
-     * @param {HWND} _hWnd 
+     * @param {HWND} _hWnd Type: <b>HWND</b>
+     * 
+     * A handle to the window to be tested.
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the window is a native Unicode window, the return value is nonzero.
@@ -13991,7 +14398,9 @@ class WindowsAndMessaging {
      * If the accelerator table has not yet been loaded, the function loads it from the specified executable file.
      * 
      * Accelerator tables loaded from resources are freed automatically when the application terminates.
-     * @param {HINSTANCE} _hInstance 
+     * @param {HINSTANCE} _hInstance Type: <b>HINSTANCE</b>
+     * 
+     * A handle to the module whose executable file contains the accelerator table to be loaded.
      * @param {PSTR} lpTableName Type: <b>LPCTSTR</b>
      * 
      * The name of the accelerator table to be loaded. Alternatively, this parameter can specify the resource identifier of an accelerator-table resource in the low-order word and zero in the high-order word. To create this value, use the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-makeintresourcea">MAKEINTRESOURCE</a> macro.
@@ -14024,7 +14433,9 @@ class WindowsAndMessaging {
      * If the accelerator table has not yet been loaded, the function loads it from the specified executable file.
      * 
      * Accelerator tables loaded from resources are freed automatically when the application terminates.
-     * @param {HINSTANCE} _hInstance 
+     * @param {HINSTANCE} _hInstance Type: <b>HINSTANCE</b>
+     * 
+     * A handle to the module whose executable file contains the accelerator table to be loaded.
      * @param {PWSTR} lpTableName Type: <b>LPCTSTR</b>
      * 
      * The name of the accelerator table to be loaded. Alternatively, this parameter can specify the resource identifier of an accelerator-table resource in the low-order word and zero in the high-order word. To create this value, use the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-makeintresourcea">MAKEINTRESOURCE</a> macro.
@@ -14109,7 +14520,9 @@ class WindowsAndMessaging {
 
     /**
      * Destroys an accelerator table.
-     * @param {HACCEL} _hAccel 
+     * @param {HACCEL} _hAccel Type: <b>HACCEL</b>
+     * 
+     * A handle to the accelerator table to be destroyed. This handle must have been created by a call to the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-createacceleratortablea">CreateAcceleratorTable</a> or <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-loadacceleratorsa">LoadAccelerators</a> function.
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero. However, if the table has been loaded more than one call to <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-loadacceleratorsa">LoadAccelerators</a>, the function will return a nonzero value only when <b>DestroyAcceleratorTable</b> has been called an equal number of times.
@@ -14209,7 +14622,9 @@ class WindowsAndMessaging {
      * 
      * If an accelerator keystroke occurs that corresponds to a menu item when the window that owns the menu is minimized, <b>TranslateAccelerator</b> does not send a <a href="https://docs.microsoft.com/windows/desktop/menurc/wm-command">WM_COMMAND</a> message. However, if an accelerator keystroke occurs that does not match any of the items in the window's menu or in the
      *         <b>window</b> menu, the function sends a <b>WM_COMMAND</b> message, even if the window is minimized.
-     * @param {HWND} _hWnd 
+     * @param {HWND} _hWnd Type: <b>HWND</b>
+     * 
+     * A handle to the window whose messages are to be translated.
      * @param {HACCEL} hAccTable Type: <b>HACCEL</b>
      * 
      * A handle to the accelerator table. The accelerator table must have been loaded by a call to the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-loadacceleratorsa">LoadAccelerators</a> function or created by a call to the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-createacceleratortablea">CreateAcceleratorTable</a> function.
@@ -14264,7 +14679,9 @@ class WindowsAndMessaging {
      * 
      * If an accelerator keystroke occurs that corresponds to a menu item when the window that owns the menu is minimized, <b>TranslateAccelerator</b> does not send a <a href="https://docs.microsoft.com/windows/desktop/menurc/wm-command">WM_COMMAND</a> message. However, if an accelerator keystroke occurs that does not match any of the items in the window's menu or in the
      *         <b>window</b> menu, the function sends a <b>WM_COMMAND</b> message, even if the window is minimized.
-     * @param {HWND} _hWnd 
+     * @param {HWND} _hWnd Type: <b>HWND</b>
+     * 
+     * A handle to the window whose messages are to be translated.
      * @param {HACCEL} hAccTable Type: <b>HACCEL</b>
      * 
      * A handle to the accelerator table. The accelerator table must have been loaded by a call to the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-loadacceleratorsa">LoadAccelerators</a> function or created by a call to the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-createacceleratortablea">CreateAcceleratorTable</a> function.
@@ -14444,7 +14861,7 @@ class WindowsAndMessaging {
      *  
      * 
      * This API is not DPI aware, and should not be used if the calling thread is per-monitor DPI aware. For the DPI-aware version of this API, see <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getsystemmetricsfordpi">GetSystemMetricsForDPI</a>. For more information on DPI awareness, see <a href="https://docs.microsoft.com/windows/desktop/hidpi/high-dpi-desktop-application-development-on-windows">the Windows High DPI documentation.</a>
-     * @param {Integer} nIndex Type: <b>int</b>
+     * @param {SYSTEM_METRICS_INDEX} nIndex Type: <b>int</b>
      * @returns {Integer} Type: <b>int</b>
      * 
      * If the function succeeds, the return value is the requested system metric or configuration setting.
@@ -14463,7 +14880,9 @@ class WindowsAndMessaging {
      * Loads the specified menu resource from the executable (.exe) file associated with an application instance. (ANSI)
      * @remarks
      * The <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-destroymenu">DestroyMenu</a> function is used, before an application closes, to destroy the menu and free memory that the loaded menu occupied.
-     * @param {HINSTANCE} _hInstance 
+     * @param {HINSTANCE} _hInstance Type: <b>HINSTANCE</b>
+     * 
+     * A handle to the module containing the menu resource to be loaded.
      * @param {PSTR} lpMenuName Type: <b>LPCTSTR</b>
      * 
      * The name of the menu resource. Alternatively, this parameter can consist of the resource identifier in the low-order word and zero in the high-order word. To create this value, use the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-makeintresourcea">MAKEINTRESOURCE</a> macro.
@@ -14494,7 +14913,9 @@ class WindowsAndMessaging {
      * Loads the specified menu resource from the executable (.exe) file associated with an application instance. (Unicode)
      * @remarks
      * The <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-destroymenu">DestroyMenu</a> function is used, before an application closes, to destroy the menu and free memory that the loaded menu occupied.
-     * @param {HINSTANCE} _hInstance 
+     * @param {HINSTANCE} _hInstance Type: <b>HINSTANCE</b>
+     * 
+     * A handle to the module containing the menu resource to be loaded.
      * @param {PWSTR} lpMenuName Type: <b>LPCTSTR</b>
      * 
      * The name of the menu resource. Alternatively, this parameter can consist of the resource identifier in the low-order word and zero in the high-order word. To create this value, use the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-makeintresourcea">MAKEINTRESOURCE</a> macro.
@@ -14597,7 +15018,9 @@ class WindowsAndMessaging {
      * Retrieves a handle to the menu assigned to the specified window.
      * @remarks
      * <b>GetMenu</b> does not work on floating menu bars. Floating menu bars are custom controls that mimic standard menus; they are not menus. To get the handle on a floating menu bar, use the <a href="https://docs.microsoft.com/previous-versions/ms971350(v=msdn.10)">Active Accessibility</a> APIs.
-     * @param {HWND} _hWnd 
+     * @param {HWND} _hWnd Type: <b>HWND</b>
+     * 
+     * A handle to the window whose menu handle is to be retrieved.
      * @returns {HMENU} Type: <b>HMENU</b>
      * 
      * The return value is a handle to the menu. If the specified window has no menu, the return value is <b>NULL</b>. If the window is a child window, the return value is undefined.
@@ -14618,8 +15041,12 @@ class WindowsAndMessaging {
      * The window is redrawn to reflect the menu change. A menu can be assigned to any window that is not a child window.
      * 
      * The <b>SetMenu</b> function replaces the previous menu, if any, but it does not destroy it. An application should call the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-destroymenu">DestroyMenu</a> function to accomplish this task.
-     * @param {HWND} _hWnd 
-     * @param {HMENU} _hMenu 
+     * @param {HWND} _hWnd Type: <b>HWND</b>
+     * 
+     * A handle to the window to which the menu is to be assigned.
+     * @param {HMENU} _hMenu Type: <b>HMENU</b>
+     * 
+     * A handle to the new menu. If this parameter is <b>NULL</b>, the window's current menu is removed.
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
@@ -14680,8 +15107,12 @@ class WindowsAndMessaging {
      * Adds or removes highlighting from an item in a menu bar.
      * @remarks
      * The <b>MF_HILITE</b> and <b>MF_UNHILITE</b> flags can be used only with the <b>HiliteMenuItem</b> function; they cannot be used with the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-modifymenua">ModifyMenu</a> function.
-     * @param {HWND} _hWnd 
-     * @param {HMENU} _hMenu 
+     * @param {HWND} _hWnd Type: <b>HWND</b>
+     * 
+     * A handle to the window that contains the menu.
+     * @param {HMENU} _hMenu Type: <b>HMENU</b>
+     * 
+     * A handle to the menu bar that contains the item.
      * @param {Integer} uIDHiliteItem Type: <b>UINT</b>
      * 
      * The menu item. This parameter is either the identifier of the menu item or the offset of the menu item in the menu bar, depending on the value of the <i>uHilite</i> parameter.
@@ -14764,7 +15195,9 @@ class WindowsAndMessaging {
      * 
      * <h3><a id="Security_Warning"></a><a id="security_warning"></a><a id="SECURITY_WARNING"></a>Security Warning</h3>
      * The <i>lpString</i> parameter is a <b>TCHAR</b> buffer, and <i>nMaxCount</i> is the length of the menu string in characters. Sizing these parameters incorrectly can cause truncation of the string, leading to possible loss of data.
-     * @param {HMENU} _hMenu 
+     * @param {HMENU} _hMenu Type: <b>HMENU</b>
+     * 
+     * A handle to the menu.
      * @param {Integer} uIDItem Type: <b>UINT</b>
      * 
      * The menu item to be changed, as determined by the <i>uFlag</i> parameter.
@@ -14774,7 +15207,7 @@ class WindowsAndMessaging {
      * @param {Integer} cchMax Type: <b>int</b>
      * 
      * The maximum length, in characters, of the string to be copied. If the string is longer than the maximum specified in the <i>nMaxCount</i> parameter, the extra characters are truncated. If <i>nMaxCount</i> is 0, the function returns the length of the menu string.
-     * @param {Integer} flags Type: <b>UINT</b>
+     * @param {MENU_ITEM_FLAGS} flags Type: <b>UINT</b>
      * @returns {Integer} Type: <b>int</b>
      * 
      * If the function succeeds, the return value specifies the number of characters copied to the buffer, not including the terminating null character.
@@ -14802,7 +15235,9 @@ class WindowsAndMessaging {
      * 
      * <h3><a id="Security_Warning"></a><a id="security_warning"></a><a id="SECURITY_WARNING"></a>Security Warning</h3>
      * The <i>lpString</i> parameter is a <b>TCHAR</b> buffer, and <i>nMaxCount</i> is the length of the menu string in characters. Sizing these parameters incorrectly can cause truncation of the string, leading to possible loss of data.
-     * @param {HMENU} _hMenu 
+     * @param {HMENU} _hMenu Type: <b>HMENU</b>
+     * 
+     * A handle to the menu.
      * @param {Integer} uIDItem Type: <b>UINT</b>
      * 
      * The menu item to be changed, as determined by the <i>uFlag</i> parameter.
@@ -14812,7 +15247,7 @@ class WindowsAndMessaging {
      * @param {Integer} cchMax Type: <b>int</b>
      * 
      * The maximum length, in characters, of the string to be copied. If the string is longer than the maximum specified in the <i>nMaxCount</i> parameter, the extra characters are truncated. If <i>nMaxCount</i> is 0, the function returns the length of the menu string.
-     * @param {Integer} flags Type: <b>UINT</b>
+     * @param {MENU_ITEM_FLAGS} flags Type: <b>UINT</b>
      * @returns {Integer} Type: <b>int</b>
      * 
      * If the function succeeds, the return value specifies the number of characters copied to the buffer, not including the terminating null character.
@@ -14860,11 +15295,13 @@ class WindowsAndMessaging {
      * <td><c>! (Flag&amp;HILITE)</c></td>
      * </tr>
      * </table>
-     * @param {HMENU} _hMenu 
+     * @param {HMENU} _hMenu Type: <b>HMENU</b>
+     * 
+     * A handle to the menu that contains the menu item whose flags are to be retrieved.
      * @param {Integer} uId Type: <b>UINT</b>
      * 
      * The menu item for which the menu flags are to be retrieved, as determined by the <i>uFlags</i> parameter.
-     * @param {Integer} uFlags Type: <b>UINT</b>
+     * @param {MENU_ITEM_FLAGS} uFlags Type: <b>UINT</b>
      * @returns {Integer} Type: <b>UINT</b>
      * 
      * If the specified item does not exist, the return value is -1.
@@ -14999,7 +15436,9 @@ class WindowsAndMessaging {
 
     /**
      * Redraws the menu bar of the specified window. If the menu bar changes after the system has created the window, this function must be called to draw the changed menu bar.
-     * @param {HWND} _hWnd 
+     * @param {HWND} _hWnd Type: <b>HWND</b>
+     * 
+     * A handle to the window whose menu bar is to be redrawn.
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
@@ -15033,7 +15472,9 @@ class WindowsAndMessaging {
      * All predefined window menu items have identifier numbers greater than 0xF000. If an application adds commands to the window menu, it should use identifier numbers less than 0xF000. 
      * 
      * The system automatically grays items on the standard window menu, depending on the situation. The application can perform its own checking or graying by responding to the <a href="https://docs.microsoft.com/windows/desktop/menurc/wm-initmenu">WM_INITMENU</a> message that is sent before any menu is displayed.
-     * @param {HWND} _hWnd 
+     * @param {HWND} _hWnd Type: <b>HWND</b>
+     * 
+     * A handle to the window that will own a copy of the window menu.
      * @param {BOOL} bRevert Type: <b>BOOL</b>
      * 
      * The action to be taken. If this parameter is <b>FALSE</b>, <b>GetSystemMenu</b> returns a handle to the copy of the window menu currently in use. The copy is initially identical to the window menu, but it can be modified. If this parameter is <b>TRUE</b>, <b>GetSystemMenu</b> resets the window menu back to the default state. The previous window menu, if any, is destroyed.
@@ -15107,7 +15548,9 @@ class WindowsAndMessaging {
      * Before closing, an application must use the <b>DestroyMenu</b> function to destroy a menu not assigned to a window. A menu that is assigned to a window is automatically destroyed when the application closes.
      * 
      * <b>DestroyMenu</b> is recursive, that is, it will destroy the menu and all its submenus.
-     * @param {HMENU} _hMenu 
+     * @param {HMENU} _hMenu Type: <b>HMENU</b>
+     * 
+     * A handle to the menu to be destroyed.
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
@@ -15135,7 +15578,9 @@ class WindowsAndMessaging {
      * An item in a menu bar cannot have a check mark. 
      * 
      * The <i>uIDCheckItem</i> parameter identifies a item that opens a submenu or a command item. For a item that opens a submenu, the <i>uIDCheckItem</i> parameter must specify the position of the item. For a command item, the <i>uIDCheckItem</i> parameter can specify either the item's position or its identifier.
-     * @param {HMENU} _hMenu 
+     * @param {HMENU} _hMenu Type: <b>HMENU</b>
+     * 
+     * A handle to the menu of interest.
      * @param {Integer} uIDCheckItem Type: <b>UINT</b>
      * 
      * The menu item whose check-mark attribute is to be set, as determined by the <i>uCheck</i> parameter.
@@ -15216,11 +15661,13 @@ class WindowsAndMessaging {
      * The <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-insertmenua">InsertMenu</a>, <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-insertmenuitema">InsertMenuItem</a>, <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-loadmenuindirecta">LoadMenuIndirect</a>, <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-modifymenua">ModifyMenu</a>, and <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-setmenuiteminfoa">SetMenuItemInfo</a> functions can also set the state (enabled, disabled, or grayed) of a menu item.
      * 
      * When you change a window menu, the menu bar is not immediately updated. To force the update, call <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-drawmenubar">DrawMenuBar</a>.
-     * @param {HMENU} _hMenu 
+     * @param {HMENU} _hMenu Type: <b>HMENU</b>
+     * 
+     * A handle to the menu.
      * @param {Integer} uIDEnableItem Type: <b>UINT</b>
      * 
      * The menu item to be enabled, disabled, or grayed, as determined by the <i>uEnable</i> parameter. This parameter specifies an item in a menu bar, menu, or submenu.
-     * @param {Integer} uEnable Type: <b>UINT</b>
+     * @param {MENU_ITEM_FLAGS} uEnable Type: <b>UINT</b>
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * The return value specifies the previous state of the menu item (it is either <b>MF_DISABLED</b>, <b>MF_ENABLED</b>, or <b>MF_GRAYED</b>). If the menu item does not exist, the return value is -1.
@@ -15236,7 +15683,9 @@ class WindowsAndMessaging {
 
     /**
      * Retrieves a handle to the drop-down menu or submenu activated by the specified menu item.
-     * @param {HMENU} _hMenu 
+     * @param {HMENU} _hMenu Type: <b>HMENU</b>
+     * 
+     * A handle to the menu.
      * @param {Integer} nPos Type: <b>int</b>
      * 
      * The zero-based relative position in the specified menu of an item that activates a drop-down menu or submenu.
@@ -15256,7 +15705,9 @@ class WindowsAndMessaging {
 
     /**
      * Retrieves the menu item identifier of a menu item located at the specified position in a menu.
-     * @param {HMENU} _hMenu 
+     * @param {HMENU} _hMenu Type: <b>HMENU</b>
+     * 
+     * A handle to the menu that contains the item whose identifier is to be retrieved.
      * @param {Integer} nPos Type: <b>int</b>
      * 
      * The zero-based relative position of the menu item whose identifier is to be retrieved.
@@ -15275,7 +15726,9 @@ class WindowsAndMessaging {
 
     /**
      * Determines the number of items in the specified menu.
-     * @param {HMENU} _hMenu 
+     * @param {HMENU} _hMenu Type: <b>HMENU</b>
+     * 
+     * A handle to the menu to be examined.
      * @returns {Integer} Type: <b>int</b>
      * 
      * If the function succeeds, the return value specifies the number of items in the menu.
@@ -15317,11 +15770,13 @@ class WindowsAndMessaging {
      * 
      * > [!NOTE]
      * > The winuser.h header defines InsertMenu as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HMENU} _hMenu 
+     * @param {HMENU} _hMenu Type: <b>HMENU</b>
+     * 
+     * A handle to the menu to be changed.
      * @param {Integer} uPosition Type: <b>UINT</b>
      * 
      * The menu item before which the new menu item is to be inserted, as determined by the <i>uFlags</i> parameter.
-     * @param {Integer} uFlags Type: <b>UINT</b>
+     * @param {MENU_ITEM_FLAGS} uFlags Type: <b>UINT</b>
      * 
      * Controls the interpretation of the <i>uPosition</i> parameter and the content, appearance, and behavior of the new menu item. This parameter must include one of the following required values. 
      * 
@@ -15441,11 +15896,13 @@ class WindowsAndMessaging {
      * 
      * > [!NOTE]
      * > The winuser.h header defines InsertMenu as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HMENU} _hMenu 
+     * @param {HMENU} _hMenu Type: <b>HMENU</b>
+     * 
+     * A handle to the menu to be changed.
      * @param {Integer} uPosition Type: <b>UINT</b>
      * 
      * The menu item before which the new menu item is to be inserted, as determined by the <i>uFlags</i> parameter.
-     * @param {Integer} uFlags Type: <b>UINT</b>
+     * @param {MENU_ITEM_FLAGS} uFlags Type: <b>UINT</b>
      * 
      * Controls the interpretation of the <i>uPosition</i> parameter and the content, appearance, and behavior of the new menu item. This parameter must include one of the following required values. 
      * 
@@ -15560,8 +16017,10 @@ class WindowsAndMessaging {
      * <li><b>MF_DISABLED</b>, <b>MF_ENABLED</b>, and <b>MF_GRAYED</b></li>
      * <li><b>MF_MENUBARBREAK</b> and <b>MF_MENUBREAK</b></li>
      * </ul>
-     * @param {HMENU} _hMenu 
-     * @param {Integer} uFlags Type: <b>UINT</b>
+     * @param {HMENU} _hMenu Type: <b>HMENU</b>
+     * 
+     * A handle to the menu bar, drop-down menu, submenu, or shortcut menu to be changed.
+     * @param {MENU_ITEM_FLAGS} uFlags Type: <b>UINT</b>
      * @param {Pointer} uIDNewItem Type: <b>UINT_PTR</b>
      * 
      * The identifier of the new menu item or, if the <i>uFlags</i> parameter is set to <b>MF_POPUP</b>, a handle to the drop-down menu or submenu.
@@ -15643,8 +16102,10 @@ class WindowsAndMessaging {
      * <li><b>MF_DISABLED</b>, <b>MF_ENABLED</b>, and <b>MF_GRAYED</b></li>
      * <li><b>MF_MENUBARBREAK</b> and <b>MF_MENUBREAK</b></li>
      * </ul>
-     * @param {HMENU} _hMenu 
-     * @param {Integer} uFlags Type: <b>UINT</b>
+     * @param {HMENU} _hMenu Type: <b>HMENU</b>
+     * 
+     * A handle to the menu bar, drop-down menu, submenu, or shortcut menu to be changed.
+     * @param {MENU_ITEM_FLAGS} uFlags Type: <b>UINT</b>
      * @param {Pointer} uIDNewItem Type: <b>UINT_PTR</b>
      * 
      * The identifier of the new menu item or, if the <i>uFlags</i> parameter is set to <b>MF_POPUP</b>, a handle to the drop-down menu or submenu.
@@ -15737,7 +16198,7 @@ class WindowsAndMessaging {
      * @param {Integer} uPosition Type: <b>UINT</b>
      * 
      * The menu item to be changed, as determined by the <i>uFlags</i> parameter.
-     * @param {Integer} uFlags Type: <b>UINT</b>
+     * @param {MENU_ITEM_FLAGS} uFlags Type: <b>UINT</b>
      * 
      * Controls the interpretation of the <i>uPosition</i> parameter and the content, appearance, and behavior of the menu item. This parameter must include one of the following required values. 
      * 
@@ -15864,7 +16325,7 @@ class WindowsAndMessaging {
      * @param {Integer} uPosition Type: <b>UINT</b>
      * 
      * The menu item to be changed, as determined by the <i>uFlags</i> parameter.
-     * @param {Integer} uFlags Type: <b>UINT</b>
+     * @param {MENU_ITEM_FLAGS} uFlags Type: <b>UINT</b>
      * 
      * Controls the interpretation of the <i>uPosition</i> parameter and the content, appearance, and behavior of the menu item. This parameter must include one of the following required values. 
      * 
@@ -15969,11 +16430,13 @@ class WindowsAndMessaging {
      * Deletes a menu item or detaches a submenu from the specified menu.
      * @remarks
      * The application must call the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-drawmenubar">DrawMenuBar</a> function whenever a menu changes, whether the menu is in a displayed window.
-     * @param {HMENU} _hMenu 
+     * @param {HMENU} _hMenu Type: <b>HMENU</b>
+     * 
+     * A handle to the menu to be changed.
      * @param {Integer} uPosition Type: <b>UINT</b>
      * 
      * The menu item to be deleted, as determined by the <i>uFlags</i> parameter.
-     * @param {Integer} uFlags Type: <b>UINT</b>
+     * @param {MENU_ITEM_FLAGS} uFlags Type: <b>UINT</b>
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
@@ -15999,11 +16462,13 @@ class WindowsAndMessaging {
      * Deletes an item from the specified menu. If the menu item opens a menu or submenu, this function destroys the handle to the menu or submenu and frees the memory used by the menu or submenu.
      * @remarks
      * The application must call the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-drawmenubar">DrawMenuBar</a> function whenever a menu changes, whether the menu is in a displayed window.
-     * @param {HMENU} _hMenu 
+     * @param {HMENU} _hMenu Type: <b>HMENU</b>
+     * 
+     * A handle to the menu to be changed.
      * @param {Integer} uPosition Type: <b>UINT</b>
      * 
      * The menu item to be deleted, as determined by the <i>uFlags</i> parameter.
-     * @param {Integer} uFlags Type: <b>UINT</b>
+     * @param {MENU_ITEM_FLAGS} uFlags Type: <b>UINT</b>
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
@@ -16036,11 +16501,13 @@ class WindowsAndMessaging {
      * The selected and clear bitmaps should be monochrome. The system uses the Boolean AND operator to combine bitmaps with the menu so that the white part becomes transparent and the black part becomes the menu-item color. If you use color bitmaps, the results may be undesirable.
      * 
      * Use the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getsystemmetrics">GetSystemMetrics</a> function with the <b>SM_CXMENUCHECK</b> and <b>SM_CYMENUCHECK</b> values to retrieve the bitmap dimensions.
-     * @param {HMENU} _hMenu 
+     * @param {HMENU} _hMenu Type: <b>HMENU</b>
+     * 
+     * A handle to the menu containing the item to receive new check-mark bitmaps.
      * @param {Integer} uPosition Type: <b>UINT</b>
      * 
      * The menu item to be changed, as determined by the <i>uFlags</i> parameter.
-     * @param {Integer} uFlags Type: <b>UINT</b>
+     * @param {MENU_ITEM_FLAGS} uFlags Type: <b>UINT</b>
      * @param {HBITMAP} hBitmapUnchecked Type: <b>HBITMAP</b>
      * 
      * A handle to the bitmap displayed when the menu item is not selected.
@@ -16113,8 +16580,10 @@ class WindowsAndMessaging {
      *    PostMessage(hDlg, WM_NULL, 0, 0);
      *  
      * ```
-     * @param {HMENU} _hMenu 
-     * @param {Integer} uFlags Type: <b>UINT</b>
+     * @param {HMENU} _hMenu Type: <b>HMENU</b>
+     * 
+     * A handle to the shortcut menu to be displayed. The handle can be obtained by calling <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-createpopupmenu">CreatePopupMenu</a> to create a new shortcut menu, or by calling <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getsubmenu">GetSubMenu</a> to retrieve a handle to a submenu associated with an existing menu item.
+     * @param {TRACK_POPUP_MENU_FLAGS} uFlags Type: <b>UINT</b>
      * 
      * Use zero of more of these flags to specify function options. 
      * 
@@ -16359,7 +16828,9 @@ class WindowsAndMessaging {
      * @param {Integer} y Type: <b>int</b>
      * 
      * The vertical location of the shortcut menu, in screen coordinates.
-     * @param {HWND} _hWnd 
+     * @param {HWND} _hWnd Type: <b>HWND</b>
+     * 
+     * A handle to the window that owns the shortcut menu. This window receives all messages from the menu. The window does not receive a <a href="https://docs.microsoft.com/windows/desktop/menurc/wm-command">WM_COMMAND</a> message from the menu until the function returns. If you specify TPM_NONOTIFY in the <i>uFlags</i> parameter, the function does not send messages to the window identified by <i>hWnd</i>. However, you must still pass a window handle in <i>hWnd</i>. It can be any window handle from your application.
      * @param {Pointer<RECT>} prcRect Type: <b>const RECT*</b>
      * 
      * Ignored.
@@ -16393,7 +16864,9 @@ class WindowsAndMessaging {
      * Call <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getsystemmetrics">GetSystemMetrics</a> with <b>SM_MENUDROPALIGNMENT</b> to determine the correct horizontal alignment flag (<b>TPM_LEFTALIGN</b> or <b>TPM_RIGHTALIGN</b>) and/or horizontal animation direction flag (<b>TPM_HORPOSANIMATION</b> or <b>TPM_HORNEGANIMATION</b>) to pass to <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-trackpopupmenu">TrackPopupMenu</a> or <b>TrackPopupMenuEx</b>. This is essential for creating an optimal user experience, especially when developing Microsoft Tablet PC applications.
      * 
      * To display a context menu for a notification icon, the current window must be the foreground window before the application calls <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-trackpopupmenu">TrackPopupMenu</a> or <b>TrackPopupMenuEx</b>. Otherwise, the menu will not disappear when the user clicks outside of the menu or the window that created the menu (if it is visible). If the current window is a child window, you must set the (top-level) parent window as the foreground window.
-     * @param {HMENU} _hMenu 
+     * @param {HMENU} _hMenu Type: <b>HMENU</b>
+     * 
+     * A handle to the shortcut menu to be displayed. This handle can be obtained by calling the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-createpopupmenu">CreatePopupMenu</a> function to create a new shortcut menu or by calling the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getsubmenu">GetSubMenu</a> function to retrieve a handle to a submenu associated with an existing menu item.
      * @param {Integer} uFlags Type: <b>UINT</b>
      * 
      * Specifies function options. 
@@ -16673,7 +17146,9 @@ class WindowsAndMessaging {
      * @param {Integer} y Type: <b>int</b>
      * 
      * The vertical location of the shortcut menu, in screen coordinates.
-     * @param {HWND} _hwnd 
+     * @param {HWND} _hwnd Type: <b>HWND</b>
+     * 
+     * A handle to the window that owns the shortcut menu. This window receives all messages from the menu. The window does not receive a <a href="https://docs.microsoft.com/windows/desktop/menurc/wm-command">WM_COMMAND</a> message from the menu until the function returns. If you specify TPM_NONOTIFY in the <i>fuFlags</i> parameter, the function does not send messages to the window identified by <i>hwnd</i>. However, you must still pass a window handle in <i>hwnd</i>. It can be any window handle from your application.
      * @param {Pointer<TPMPARAMS>} lptpm Type: <b>LPTPMPARAMS</b>
      * 
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-tpmparams">TPMPARAMS</a> structure that specifies an area of the screen the menu should not overlap. This parameter can be <b>NULL</b>.
@@ -16996,7 +17471,9 @@ class WindowsAndMessaging {
      * The application must call the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-drawmenubar">DrawMenuBar</a> function whenever a menu changes, whether the menu is in a displayed window.
      * 
      * In order for keyboard accelerators to work with bitmap or owner-drawn menu items, the owner of the menu must process the <a href="https://docs.microsoft.com/windows/desktop/menurc/wm-menuchar">WM_MENUCHAR</a> message. See <a href="https://docs.microsoft.com/windows/desktop/menurc/using-menus">Owner-Drawn Menus and the WM_MENUCHAR Message</a> for more information.
-     * @param {HMENU} _hmenu 
+     * @param {HMENU} _hmenu Type: <b>HMENU</b>
+     * 
+     * A handle to the menu in which the new menu item is inserted.
      * @param {Integer} item Type: <b>UINT</b>
      * 
      * The identifier or position of the menu item before which to insert the new item. The meaning of this parameter depends on the value of <i>fByPosition</i>.
@@ -17033,7 +17510,9 @@ class WindowsAndMessaging {
      * The application must call the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-drawmenubar">DrawMenuBar</a> function whenever a menu changes, whether the menu is in a displayed window.
      * 
      * In order for keyboard accelerators to work with bitmap or owner-drawn menu items, the owner of the menu must process the <a href="https://docs.microsoft.com/windows/desktop/menurc/wm-menuchar">WM_MENUCHAR</a> message. See <a href="https://docs.microsoft.com/windows/desktop/menurc/using-menus">Owner-Drawn Menus and the WM_MENUCHAR Message</a> for more information.
-     * @param {HMENU} _hmenu 
+     * @param {HMENU} _hmenu Type: <b>HMENU</b>
+     * 
+     * A handle to the menu in which the new menu item is inserted.
      * @param {Integer} item Type: <b>UINT</b>
      * 
      * The identifier or position of the menu item before which to insert the new item. The meaning of this parameter depends on the value of <i>fByPosition</i>.
@@ -17070,7 +17549,9 @@ class WindowsAndMessaging {
      * To retrieve a menu item of type <b>MFT_STRING</b>, first find the size of the string by setting the <b>dwTypeData</b> member of <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-menuiteminfoa">MENUITEMINFO</a> to <b>NULL</b> and then calling <b>GetMenuItemInfo</b>. The value of <b>cch</b>+1 is the size needed. Then allocate a buffer of this size, place the pointer to the buffer in <b>dwTypeData</b>, increment <b>cch</b> by one, and then call <b>GetMenuItemInfo</b> once again to fill the buffer with the string.
      * 
      * If the retrieved menu item is of some other type, then <b>GetMenuItemInfo</b> sets the <b>dwTypeData</b> member to a value whose type is specified by the <b>fType</b><b>fType</b> member and sets <b>cch</b> to 0.
-     * @param {HMENU} _hmenu 
+     * @param {HMENU} _hmenu Type: <b>HMENU</b>
+     * 
+     * A handle to the menu that contains the menu item.
      * @param {Integer} item Type: <b>UINT</b>
      * 
      * The identifier or position of the menu item to get information about. The meaning of this parameter depends on the value of <i>fByPosition</i>.
@@ -17107,7 +17588,9 @@ class WindowsAndMessaging {
      * To retrieve a menu item of type <b>MFT_STRING</b>, first find the size of the string by setting the <b>dwTypeData</b> member of <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-menuiteminfoa">MENUITEMINFO</a> to <b>NULL</b> and then calling <b>GetMenuItemInfo</b>. The value of <b>cch</b>+1 is the size needed. Then allocate a buffer of this size, place the pointer to the buffer in <b>dwTypeData</b>, increment <b>cch</b> by one, and then call <b>GetMenuItemInfo</b> once again to fill the buffer with the string.
      * 
      * If the retrieved menu item is of some other type, then <b>GetMenuItemInfo</b> sets the <b>dwTypeData</b> member to a value whose type is specified by the <b>fType</b><b>fType</b> member and sets <b>cch</b> to 0.
-     * @param {HMENU} _hmenu 
+     * @param {HMENU} _hmenu Type: <b>HMENU</b>
+     * 
+     * A handle to the menu that contains the menu item.
      * @param {Integer} item Type: <b>UINT</b>
      * 
      * The identifier or position of the menu item to get information about. The meaning of this parameter depends on the value of <i>fByPosition</i>.
@@ -17144,7 +17627,9 @@ class WindowsAndMessaging {
      * The application must call the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-drawmenubar">DrawMenuBar</a> function whenever a menu changes, whether the menu is in a displayed window.
      * 
      * In order for keyboard accelerators to work with bitmap or owner-drawn menu items, the owner of the menu must process the <a href="https://docs.microsoft.com/windows/desktop/menurc/wm-menuchar">WM_MENUCHAR</a> message. See <a href="https://docs.microsoft.com/windows/desktop/menurc/using-menus">Owner-Drawn Menus and the WM_MENUCHAR Message</a> for more information.
-     * @param {HMENU} _hmenu 
+     * @param {HMENU} _hmenu Type: <b>HMENU</b>
+     * 
+     * A handle to the menu that contains the menu item.
      * @param {Integer} item Type: <b>UINT</b>
      * 
      * The identifier or position of the menu item to change. The meaning of this parameter depends on the value of <i>fByPosition</i>.
@@ -17179,7 +17664,9 @@ class WindowsAndMessaging {
      * The application must call the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-drawmenubar">DrawMenuBar</a> function whenever a menu changes, whether the menu is in a displayed window.
      * 
      * In order for keyboard accelerators to work with bitmap or owner-drawn menu items, the owner of the menu must process the <a href="https://docs.microsoft.com/windows/desktop/menurc/wm-menuchar">WM_MENUCHAR</a> message. See <a href="https://docs.microsoft.com/windows/desktop/menurc/using-menus">Owner-Drawn Menus and the WM_MENUCHAR Message</a> for more information.
-     * @param {HMENU} _hmenu 
+     * @param {HMENU} _hmenu Type: <b>HMENU</b>
+     * 
+     * A handle to the menu that contains the menu item.
      * @param {Integer} item Type: <b>UINT</b>
      * 
      * The identifier or position of the menu item to change. The meaning of this parameter depends on the value of <i>fByPosition</i>.
@@ -17210,11 +17697,13 @@ class WindowsAndMessaging {
 
     /**
      * Determines the default menu item on the specified menu.
-     * @param {HMENU} _hMenu 
+     * @param {HMENU} _hMenu Type: <b>HMENU</b>
+     * 
+     * A handle to the menu for which to retrieve the default menu item.
      * @param {Integer} fByPos Type: <b>UINT</b>
      * 
      * Indicates whether to retrieve the menu item's identifier or its position. If this parameter is <b>FALSE</b>, the identifier is returned. Otherwise, the position is returned.
-     * @param {Integer} gmdiFlags Type: <b>UINT</b>
+     * @param {GET_MENU_DEFAULT_ITEM_FLAGS} gmdiFlags Type: <b>UINT</b>
      * @returns {Integer} Type: <b>UINT</b>
      * 
      * If the function succeeds, the return value is the identifier or position of the menu item.
@@ -17238,7 +17727,9 @@ class WindowsAndMessaging {
 
     /**
      * Sets the default menu item for the specified menu.
-     * @param {HMENU} _hMenu 
+     * @param {HMENU} _hMenu Type: <b>HMENU</b>
+     * 
+     * A handle to the menu to set the default item for.
      * @param {Integer} uItem Type: <b>UINT</b>
      * 
      * The identifier or position of the new default menu item or -1 for no default item. The meaning of this parameter depends on the value of 
@@ -17273,8 +17764,15 @@ class WindowsAndMessaging {
      * In order for the returned rectangle to be meaningful, the menu must be popped 
      * 		up if a popup menu or attached to a window if a menu bar. Menu item positions are not 
      * 		determined until the menu is displayed.
-     * @param {HWND} _hWnd 
-     * @param {HMENU} _hMenu 
+     * @param {HWND} _hWnd Type: <b>HWND</b>
+     * 
+     * A handle to the window containing the menu.
+     * 
+     * If this value is <b>NULL</b> and the <i>hMenu</i> 
+     * 						parameter represents a popup menu, the function will find the menu window.
+     * @param {HMENU} _hMenu Type: <b>HMENU</b>
+     * 
+     * A handle to a menu.
      * @param {Integer} uItem Type: <b>UINT</b>
      * 
      * The zero-based position of the menu item.
@@ -17307,8 +17805,12 @@ class WindowsAndMessaging {
 
     /**
      * Determines which menu item, if any, is at the specified location.
-     * @param {HWND} _hWnd 
-     * @param {HMENU} _hMenu 
+     * @param {HWND} _hWnd Type: <b>HWND</b>
+     * 
+     * A handle to the window containing the menu. If this value is <b>NULL</b> and the <i>hMenu</i> parameter represents a popup menu, the function will find the menu window.
+     * @param {HMENU} _hMenu Type: <b>HMENU</b>
+     * 
+     * A handle to the menu containing the menu items to hit test.
      * @param {POINT} ptScreen Type: <b><a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a></b>
      * 
      * A structure that specifies the location to test. If <i>hMenu</i> specifies a menu bar, this parameter is in window coordinates. Otherwise, it is in client coordinates.
@@ -17350,14 +17852,18 @@ class WindowsAndMessaging {
      * <b>DrawIcon</b> places the icon's upper-left corner at the location specified by the <i>X</i> and <i>Y</i> parameters. The location is subject to the current mapping mode of the device context. 
      * 
      * <b>DrawIcon</b> draws the icon or cursor using the width and height specified by the system metric values for icons; for more information, see <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getsystemmetrics">GetSystemMetrics</a>.
-     * @param {HDC} _hDC 
+     * @param {HDC} _hDC Type: <b>HDC</b>
+     * 
+     * A handle to the device context into which the icon or cursor will be drawn.
      * @param {Integer} X Type: <b>int</b>
      * 
      * The logical x-coordinate of the upper-left corner of the icon.
      * @param {Integer} Y Type: <b>int</b>
      * 
      * The logical y-coordinate of the upper-left corner of the icon.
-     * @param {HICON} _hIcon 
+     * @param {HICON} _hIcon Type: <b>HICON</b>
+     * 
+     * A handle to the icon to be drawn.
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
@@ -17400,7 +17906,9 @@ class WindowsAndMessaging {
      * This function is typically called to maintain window z-ordering. 
      * 
      * This function was not included in the SDK headers and libraries until Windows XP with Service Pack 1 (SP1) and Windows Server 2003. If you do not have a header file and import library for this function, you can call the function using <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadlibrarya">LoadLibrary</a> and <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-getprocaddress">GetProcAddress</a>.
-     * @param {HWND} _hwnd 
+     * @param {HWND} _hwnd Type: <b>HWND</b>
+     * 
+     * A handle to the window.
      * @param {BOOL} fUnknown Type: <b>BOOL</b>
      * 
      * A <b>TRUE</b> for this parameter indicates that the window
@@ -17440,7 +17948,9 @@ class WindowsAndMessaging {
      * A process that can set the foreground window can enable another process to set the foreground window by calling the [**AllowSetForegroundWindow**](nf-winuser-allowsetforegroundwindow.md) function. The process specified by the *dwProcessId* parameter to **AllowSetForegroundWindow** loses the ability to set the foreground window the next time that either the user generates input, unless the input is directed at that process, or the next time a process calls **AllowSetForegroundWindow**, unless the same process is specified as in the previous call to **AllowSetForegroundWindow**.
      * 
      * The foreground process can disable calls to <b>SetForegroundWindow</b> by calling the [**LockSetForegroundWindow**](nf-winuser-locksetforegroundwindow.md) function.
-     * @param {HWND} _hWnd 
+     * @param {HWND} _hWnd Type: <b>HWND</b>
+     * 
+     * A handle to the window that should be activated and brought to the foreground.
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the window was brought to the foreground, the return value is nonzero.
@@ -17507,7 +18017,7 @@ class WindowsAndMessaging {
      * The system automatically enables calls to <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-setforegroundwindow">SetForegroundWindow</a> if the user presses the ALT key or takes some action that causes the system itself to change the foreground window (for example, clicking a background window).
      * 
      * This function is provided so applications can prevent other applications from making a foreground change that can interrupt its interaction with the user.
-     * @param {Integer} uLockCode Type: <b>UINT</b>
+     * @param {FOREGROUND_WINDOW_LOCK_CODE} uLockCode Type: <b>UINT</b>
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
@@ -17544,7 +18054,9 @@ class WindowsAndMessaging {
      * 				<i>lpRect</i> is not <b>NULL</b>, the positions of child windows are not changed and invalid areas in the window are not offset. To prevent updating problems when 
      * 				<i>lpRect</i> is not <b>NULL</b>, call 
      * 				<a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-updatewindow">UpdateWindow</a> to repaint the window before calling <b>ScrollWindow</b>.
-     * @param {HWND} _hWnd 
+     * @param {HWND} _hWnd Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
+     * 
+     * Handle to the window where the client area is to be scrolled.
      * @param {Integer} XAmount Type: <b>int</b>
      * 
      * Specifies the amount, in device units, of horizontal scrolling. If the window being scrolled has the <a href="https://docs.microsoft.com/windows/desktop/winmsg/window-class-styles">CS_OWNDC</a> or <a href="https://docs.microsoft.com/windows/desktop/winmsg/window-class-styles">CS_CLASSDC</a> style, then this parameter uses logical units rather than device units. This parameter must be a negative value to scroll the content of the window to the left.
@@ -17589,7 +18101,9 @@ class WindowsAndMessaging {
      * 				<i>hrgnUpdate</i> is not <b>NULL</b>, the system proceeds as though it contains a valid handle to the region uncovered by the scrolling process (defined by <b>ScrollDC</b>). 
      * 
      * When you must scroll the entire client area of a window, use the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-scrollwindowex">ScrollWindowEx</a> function.
-     * @param {HDC} _hDC 
+     * @param {HDC} _hDC Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HDC</a></b>
+     * 
+     * Handle to the device context that contains the bits to be scrolled.
      * @param {Integer} dx Type: <b>int</b>
      * 
      * Specifies the amount, in device units, of horizontal scrolling. This parameter must be a negative value to scroll to the left.
@@ -17654,7 +18168,9 @@ class WindowsAndMessaging {
      * 				<i>hrgnUpdate</i>) are determined as client coordinates, regardless of whether the window has the <a href="https://docs.microsoft.com/windows/desktop/winmsg/window-class-styles">CS_OWNDC</a> or <a href="https://docs.microsoft.com/windows/desktop/winmsg/window-class-styles">CS_CLASSDC</a> class style. Use the 
      * 				<a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-lptodp">LPtoDP</a> and 
      * 				<a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-dptolp">DPtoLP</a> functions to convert to and from logical coordinates, if necessary.
-     * @param {HWND} _hWnd 
+     * @param {HWND} _hWnd Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
+     * 
+     * Handle to the window where the client area is to be scrolled.
      * @param {Integer} dx Type: <b>int</b>
      * 
      * Specifies the amount, in device units, of horizontal scrolling. This parameter must be a negative value to scroll to the left.
@@ -17674,7 +18190,7 @@ class WindowsAndMessaging {
      * @param {Pointer<RECT>} prcUpdate Type: <b>LPRECT</b>
      * 
      * Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure that receives the boundaries of the rectangle invalidated by scrolling. This parameter may be <b>NULL</b>.
-     * @param {Integer} flags Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
+     * @param {SCROLL_WINDOW_FLAGS} flags Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * @returns {Integer} Type: <b>int</b>
      * 
      * If the function succeeds, the return value is SIMPLEREGION (rectangular invalidated region), COMPLEXREGION (nonrectangular invalidated region; overlapping rectangles), or NULLREGION (no invalidated region). 
@@ -17705,8 +18221,11 @@ class WindowsAndMessaging {
      * To get the 32-bit position of the scroll box (thumb) during a SB_THUMBTRACK request code in a <a href="https://docs.microsoft.com/windows/desktop/Controls/wm-hscroll">WM_HSCROLL</a> or <a href="https://docs.microsoft.com/windows/desktop/Controls/wm-vscroll">WM_VSCROLL</a> message, use the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getscrollinfo">GetScrollInfo</a> function.
      * 
      * If the <i>nBar</i> parameter is SB_CTL and the window specified by the <i>hWnd</i> parameter is not a system scroll bar control, the system sends the <a href="https://docs.microsoft.com/windows/desktop/Controls/sbm-getpos">SBM_GETPOS</a> message to the window to obtain scroll bar information.  This allows <b>GetScrollPos</b> to operate on a custom control that mimics a scroll bar.  If the window does not handle the <b>SBM_GETPOS</b> message, the <b>GetScrollPos</b> function fails.
-     * @param {HWND} _hWnd 
-     * @param {Integer} nBar Type: <b>int</b>
+     * @param {HWND} _hWnd Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
+     * 
+     * Handle to a scroll bar control or a window with a standard scroll bar, depending on the value of the 
+     * 					<i>nBar</i> parameter.
+     * @param {SCROLLBAR_CONSTANTS} nBar Type: <b>int</b>
      * @returns {Integer} Type: <b>int</b>
      * 
      * If the function succeeds, the return value is the current position of the scroll box.
@@ -17740,8 +18259,11 @@ class WindowsAndMessaging {
      * The messages that indicate scroll bar position, <a href="https://docs.microsoft.com/windows/desktop/Controls/wm-hscroll">WM_HSCROLL</a> and <a href="https://docs.microsoft.com/windows/desktop/Controls/wm-vscroll">WM_VSCROLL</a>, are limited to 16 bits of position data. However, because <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-setscrollinfo">SetScrollInfo</a>, <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-setscrollpos">SetScrollPos</a>, <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-setscrollrange">SetScrollRange</a>, <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getscrollinfo">GetScrollInfo</a>, <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getscrollpos">GetScrollPos</a>, and <b>GetScrollRange</b> support 32-bit scroll bar position data, there is a way to circumvent the 16-bit barrier of the <b>WM_HSCROLL</b> and <b>WM_VSCROLL</b> messages. See the <b>GetScrollInfo</b> function for a description of the technique. 
      * 
      * If the <i>nBar</i> parameter is SB_CTL and the window specified by the <i>hWnd</i> parameter is not a system scroll bar control, the system sends the <a href="https://docs.microsoft.com/windows/desktop/Controls/sbm-getrange">SBM_GETRANGE</a> message to the window to obtain scroll bar information.  This allows <b>GetScrollRange</b> to operate on a custom control that mimics a scroll bar.  If the window does not handle the <b>SBM_GETRANGE</b> message, the <b>GetScrollRange</b> function fails.
-     * @param {HWND} _hWnd 
-     * @param {Integer} nBar Type: <b>int</b>
+     * @param {HWND} _hWnd Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
+     * 
+     * Handle to a scroll bar control or a window with a standard scroll bar, depending on the value of the 
+     * 					<i>nBar</i> parameter.
+     * @param {SCROLLBAR_CONSTANTS} nBar Type: <b>int</b>
      * @param {Pointer<Integer>} lpMinPos Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPINT</a></b>
      * 
      * Pointer to the integer variable that receives the minimum position.
@@ -17778,7 +18300,9 @@ class WindowsAndMessaging {
      * Before a window is destroyed (that is, before it returns from processing the <a href="https://docs.microsoft.com/windows/desktop/winmsg/wm-ncdestroy">WM_NCDESTROY</a> message), an application must remove all entries it has added to the property list. The application must use the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-removepropa">RemoveProp</a> function to remove the entries. 
      * 
      * <b>SetProp</b> is subject to the restrictions of User Interface Privilege Isolation (UIPI). A process can only call this function on a window belonging to a process of lesser or equal integrity level. When UIPI blocks property changes, <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> will return 5.
-     * @param {HWND} _hWnd 
+     * @param {HWND} _hWnd Type: <b>HWND</b>
+     * 
+     * A handle to the window whose property list receives the new entry.
      * @param {PSTR} lpString Type: <b>LPCTSTR</b>
      * 
      * A null-terminated string or an atom that identifies a string. If this parameter is an atom, it must be a global atom created by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-globaladdatoma">GlobalAddAtom</a> function. The atom must be placed in the low-order word of <i>lpString</i>; the high-order word must be zero.
@@ -17814,7 +18338,9 @@ class WindowsAndMessaging {
      * Before a window is destroyed (that is, before it returns from processing the <a href="https://docs.microsoft.com/windows/desktop/winmsg/wm-ncdestroy">WM_NCDESTROY</a> message), an application must remove all entries it has added to the property list. The application must use the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-removepropa">RemoveProp</a> function to remove the entries. 
      * 
      * <b>SetProp</b> is subject to the restrictions of User Interface Privilege Isolation (UIPI). A process can only call this function on a window belonging to a process of lesser or equal integrity level. When UIPI blocks property changes, <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> will return 5.
-     * @param {HWND} _hWnd 
+     * @param {HWND} _hWnd Type: <b>HWND</b>
+     * 
+     * A handle to the window whose property list receives the new entry.
      * @param {PWSTR} lpString Type: <b>LPCTSTR</b>
      * 
      * A null-terminated string or an atom that identifies a string. If this parameter is an atom, it must be a global atom created by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-globaladdatoma">GlobalAddAtom</a> function. The atom must be placed in the low-order word of <i>lpString</i>; the high-order word must be zero.
@@ -17849,7 +18375,9 @@ class WindowsAndMessaging {
      * @remarks
      * > [!NOTE]
      * > The winuser.h header defines GetProp as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HWND} _hWnd 
+     * @param {HWND} _hWnd Type: <b>HWND</b>
+     * 
+     * A handle to the window whose property list is to be searched.
      * @param {PSTR} lpString Type: <b>LPCTSTR</b>
      * 
      * An atom that identifies a string. If this parameter is an atom, it must have been created by using the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-globaladdatoma">GlobalAddAtom</a> function. The atom, a 16-bit value, must be placed in the low-order word of the <i>lpString</i> parameter; the high-order word must be zero.
@@ -17873,7 +18401,9 @@ class WindowsAndMessaging {
      * @remarks
      * > [!NOTE]
      * > The winuser.h header defines GetProp as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HWND} _hWnd 
+     * @param {HWND} _hWnd Type: <b>HWND</b>
+     * 
+     * A handle to the window whose property list is to be searched.
      * @param {PWSTR} lpString Type: <b>LPCTSTR</b>
      * 
      * An atom that identifies a string. If this parameter is an atom, it must have been created by using the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-globaladdatoma">GlobalAddAtom</a> function. The atom, a 16-bit value, must be placed in the low-order word of the <i>lpString</i> parameter; the high-order word must be zero.
@@ -17900,7 +18430,9 @@ class WindowsAndMessaging {
      * The <b>RemoveProp</b> function returns the data handle associated with the string so that the application can free the data associated with the handle.
      * 
      * Starting with Windows Vista, <b>RemoveProp</b> is subject to the restrictions of User Interface Privilege Isolation (UIPI). A process can only call this function on a window belonging to a process of lesser or equal integrity level. When UIPI blocks property changes, <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> will return <b>5</b>.
-     * @param {HWND} _hWnd 
+     * @param {HWND} _hWnd Type: <b>HWND</b>
+     * 
+     * A handle to the window whose property list is to be changed.
      * @param {PSTR} lpString Type: <b>LPCTSTR</b>
      * 
      * A null-terminated character string or an atom that identifies a string. If this parameter is an atom, it must have been created using the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-globaladdatoma">GlobalAddAtom</a> function. The atom, a 16-bit value, must be placed in the low-order word of <i>lpString</i>; the high-order word must be zero.
@@ -17933,7 +18465,9 @@ class WindowsAndMessaging {
      * The <b>RemoveProp</b> function returns the data handle associated with the string so that the application can free the data associated with the handle.
      * 
      * Starting with Windows Vista, <b>RemoveProp</b> is subject to the restrictions of User Interface Privilege Isolation (UIPI). A process can only call this function on a window belonging to a process of lesser or equal integrity level. When UIPI blocks property changes, <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> will return <b>5</b>.
-     * @param {HWND} _hWnd 
+     * @param {HWND} _hWnd Type: <b>HWND</b>
+     * 
+     * A handle to the window whose property list is to be changed.
      * @param {PWSTR} lpString Type: <b>LPCTSTR</b>
      * 
      * A null-terminated character string or an atom that identifies a string. If this parameter is an atom, it must have been created using the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-globaladdatoma">GlobalAddAtom</a> function. The atom, a 16-bit value, must be placed in the low-order word of <i>lpString</i>; the high-order word must be zero.
@@ -17962,11 +18496,15 @@ class WindowsAndMessaging {
      * Enumerates all entries in the property list of a window by passing them, one by one, to the specified callback function. EnumPropsEx continues until the last entry is enumerated or the callback function returns FALSE. (ANSI)
      * @remarks
      * An application can remove only those properties it has added. It must not remove properties added by other applications or by the system itself.
-     * @param {HWND} _hWnd 
+     * @param {HWND} _hWnd Type: <b>HWND</b>
+     * 
+     * A handle to the window whose property list is to be enumerated.
      * @param {Pointer<PROPENUMPROCEXA>} lpEnumFunc Type: <b>PROPENUMPROCEX</b>
      * 
      * A pointer to the callback function. For more information about the callback function, see the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nc-winuser-propenumprocexa">PropEnumProcEx</a> function.
-     * @param {LPARAM} _lParam 
+     * @param {LPARAM} _lParam Type: <b>LPARAM</b>
+     * 
+     * Application-defined data to be passed to the callback function.
      * @returns {Integer} Type: <b>int</b>
      * 
      * The return value specifies the last value returned by the callback function. It is -1 if the function did not find a property for enumeration.
@@ -17984,11 +18522,15 @@ class WindowsAndMessaging {
      * Enumerates all entries in the property list of a window by passing them, one by one, to the specified callback function. EnumPropsEx continues until the last entry is enumerated or the callback function returns FALSE. (Unicode)
      * @remarks
      * An application can remove only those properties it has added. It must not remove properties added by other applications or by the system itself.
-     * @param {HWND} _hWnd 
+     * @param {HWND} _hWnd Type: <b>HWND</b>
+     * 
+     * A handle to the window whose property list is to be enumerated.
      * @param {Pointer<PROPENUMPROCEXW>} lpEnumFunc Type: <b>PROPENUMPROCEX</b>
      * 
      * A pointer to the callback function. For more information about the callback function, see the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nc-winuser-propenumprocexw">PropEnumProcEx</a> function.
-     * @param {LPARAM} _lParam 
+     * @param {LPARAM} _lParam Type: <b>LPARAM</b>
+     * 
+     * Application-defined data to be passed to the callback function.
      * @returns {Integer} Type: <b>int</b>
      * 
      * The return value specifies the last value returned by the callback function. It is -1 if the function did not find a property for enumeration.
@@ -18013,7 +18555,9 @@ class WindowsAndMessaging {
      * 
      * > [!NOTE]
      * > The winuser.h header defines EnumProps as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HWND} _hWnd 
+     * @param {HWND} _hWnd Type: <b>HWND</b>
+     * 
+     * A handle to the window whose property list is to be enumerated.
      * @param {Pointer<PROPENUMPROCA>} lpEnumFunc Type: <b>PROPENUMPROC</b>
      * 
      * A pointer to the callback function. For more information about the callback function, see the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nc-winuser-propenumproca">PropEnumProc</a> function.
@@ -18041,7 +18585,9 @@ class WindowsAndMessaging {
      * 
      * > [!NOTE]
      * > The winuser.h header defines EnumProps as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HWND} _hWnd 
+     * @param {HWND} _hWnd Type: <b>HWND</b>
+     * 
+     * A handle to the window whose property list is to be enumerated.
      * @param {Pointer<PROPENUMPROCW>} lpEnumFunc Type: <b>PROPENUMPROC</b>
      * 
      * A pointer to the callback function. For more information about the callback function, see the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nc-winuser-propenumproca">PropEnumProc</a> function.
@@ -18066,7 +18612,9 @@ class WindowsAndMessaging {
      * To set the text of a control in another process, send the <a href="https://docs.microsoft.com/windows/desktop/winmsg/wm-settext">WM_SETTEXT</a> message directly instead of calling <b>SetWindowText</b>. 
      * 
      * The <b>SetWindowText</b> function does not expand tab characters (ASCII code 0x09). Tab characters are displayed as vertical bar (|) characters.
-     * @param {HWND} _hWnd 
+     * @param {HWND} _hWnd Type: <b>HWND</b>
+     * 
+     * A handle to the window or control whose text is to be changed.
      * @param {PSTR} lpString Type: <b>LPCTSTR</b>
      * 
      * The new title or control text.
@@ -18100,7 +18648,9 @@ class WindowsAndMessaging {
      * To set the text of a control in another process, send the <a href="https://docs.microsoft.com/windows/desktop/winmsg/wm-settext">WM_SETTEXT</a> message directly instead of calling <b>SetWindowText</b>. 
      * 
      * The <b>SetWindowText</b> function does not expand tab characters (ASCII code 0x09). Tab characters are displayed as vertical bar (|) characters.
-     * @param {HWND} _hWnd 
+     * @param {HWND} _hWnd Type: <b>HWND</b>
+     * 
+     * A handle to the window or control whose text is to be changed.
      * @param {PWSTR} lpString Type: <b>LPCWSTR</b>
      * 
      * The new title or control text.
@@ -18132,7 +18682,9 @@ class WindowsAndMessaging {
      * If the target window is owned by the current process, <b>GetWindowText</b> causes a <a href="https://docs.microsoft.com/windows/desktop/winmsg/wm-gettext">WM_GETTEXT</a> message to be sent to the specified window or control. If the target window is owned by another process and has a caption, <b>GetWindowText</b> retrieves the window caption text. If the window does not have a caption, the return value is a null string. This behavior is by design. It allows applications to call <b>GetWindowText</b> without becoming unresponsive if the process that owns the target window is not responding. However, if the target window is not responding and it belongs to the calling application, <b>GetWindowText</b> will cause the calling application to become unresponsive. 
      * 
      * To retrieve the text of a control in another process, send a <a href="https://docs.microsoft.com/windows/desktop/winmsg/wm-gettext">WM_GETTEXT</a> message directly instead of calling <b>GetWindowText</b>.
-     * @param {HWND} _hWnd 
+     * @param {HWND} _hWnd Type: <b>HWND</b>
+     * 
+     * A handle to the window or control containing the text.
      * @param {PSTR} lpString Type: <b>LPTSTR</b>
      * 
      * The buffer that will receive the text. If the string is as long or longer than the buffer, the string is truncated and terminated with a null character.
@@ -18167,7 +18719,9 @@ class WindowsAndMessaging {
      * If the target window is owned by the current process, <b>GetWindowText</b> causes a <a href="https://docs.microsoft.com/windows/desktop/winmsg/wm-gettext">WM_GETTEXT</a> message to be sent to the specified window or control. If the target window is owned by another process and has a caption, <b>GetWindowText</b> retrieves the window caption text. If the window does not have a caption, the return value is a null string. This behavior is by design. It allows applications to call <b>GetWindowText</b> without becoming unresponsive if the process that owns the target window is not responding. However, if the target window is not responding and it belongs to the calling application, <b>GetWindowText</b> will cause the calling application to become unresponsive. 
      * 
      * To retrieve the text of a control in another process, send a <a href="https://docs.microsoft.com/windows/desktop/winmsg/wm-gettext">WM_GETTEXT</a> message directly instead of calling <b>GetWindowText</b>.
-     * @param {HWND} _hWnd 
+     * @param {HWND} _hWnd Type: <b>HWND</b>
+     * 
+     * A handle to the window or control containing the text.
      * @param {PWSTR} lpString Type: <b>LPTSTR</b>
      * 
      * The buffer that will receive the text. If the string is as long or longer than the buffer, the string is truncated and terminated with a null character.
@@ -18211,7 +18765,9 @@ class WindowsAndMessaging {
      * 
      * > [!NOTE]
      * > The winuser.h header defines GetWindowTextLength as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HWND} _hWnd 
+     * @param {HWND} _hWnd Type: <b>HWND</b>
+     * 
+     * A handle to the window or control.
      * @returns {Integer} Type: <b>int</b>
      * 
      * If the function succeeds, the return value is the length, in characters, of the text. Under certain conditions, this value might be greater than the length of the text (see Remarks).
@@ -18253,7 +18809,9 @@ class WindowsAndMessaging {
      * 
      * > [!NOTE]
      * > The winuser.h header defines GetWindowTextLength as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HWND} _hWnd 
+     * @param {HWND} _hWnd Type: <b>HWND</b>
+     * 
+     * A handle to the window or control.
      * @returns {Integer} Type: <b>int</b>
      * 
      * If the function succeeds, the return value is the length, in characters, of the text. Under certain conditions, this value might be greater than the length of the text (see Remarks).
@@ -18284,7 +18842,9 @@ class WindowsAndMessaging {
      * Retrieves the coordinates of a window's client area.
      * @remarks
      * In conformance with conventions for the <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure, the bottom-right coordinates of the returned rectangle are exclusive. In other words, the pixel at (<b>right</b>, <b>bottom</b>) lies immediately outside the rectangle.
-     * @param {HWND} _hWnd 
+     * @param {HWND} _hWnd Type: <b>HWND</b>
+     * 
+     * A handle to the window whose client coordinates are to be retrieved.
      * @param {Pointer<RECT>} lpRect Type: <b>LPRECT</b>
      * 
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure that receives the client coordinates. The <b>left</b> and <b>top</b> members are zero. The <b>right</b> and <b>bottom</b> members contain the width and height of the window.
@@ -18321,7 +18881,9 @@ class WindowsAndMessaging {
      * Calling GetWindowRect will have different behavior depending on whether the window has ever been shown or not.  If the window has not been shown before, GetWindowRect will not include the area of the drop shadow.
      * 
      * To get the window bounds excluding the drop shadow, use <a href="https://docs.microsoft.com/windows/win32/api/dwmapi/nf-dwmapi-dwmgetwindowattribute">DwmGetWindowAttribute</a>, specifying <b>DWMWA_EXTENDED_FRAME_BOUNDS</b>.  Note that unlike the Window Rect, the DWM Extended Frame Bounds are not adjusted for DPI.  Getting the extended frame bounds can only be done after the window has been shown at least once.
-     * @param {HWND} _hWnd 
+     * @param {HWND} _hWnd Type: <b>HWND</b>
+     * 
+     * A handle to the window.
      * @param {Pointer<RECT>} lpRect Type: <b>LPRECT</b>
      * 
      * A pointer to a  <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure that receives the screen coordinates of the upper-left and lower-right corners of the window.
@@ -18357,7 +18919,7 @@ class WindowsAndMessaging {
      * @param {Pointer<RECT>} lpRect Type: <b>LPRECT</b>
      * 
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure that contains the coordinates of the top-left and bottom-right corners of the desired client area. When the function returns, the structure contains the coordinates of the top-left and bottom-right corners of the window to accommodate the desired client area.
-     * @param {Integer} dwStyle Type: <b>DWORD</b>
+     * @param {WINDOW_STYLE} dwStyle Type: <b>DWORD</b>
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/winmsg/window-styles">window style</a> of the window whose required size is to be calculated. Note that you cannot specify the <b>WS_OVERLAPPED</b> style.
      * @param {BOOL} bMenu Type: <b>BOOL</b>
@@ -18395,13 +18957,13 @@ class WindowsAndMessaging {
      * @param {Pointer<RECT>} lpRect Type: <b>LPRECT</b>
      * 
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure that contains the coordinates of the top-left and bottom-right corners of the desired client area. When the function returns, the structure contains the coordinates of the top-left and bottom-right corners of the window to accommodate the desired client area.
-     * @param {Integer} dwStyle Type: <b>DWORD</b>
+     * @param {WINDOW_STYLE} dwStyle Type: <b>DWORD</b>
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/winmsg/window-styles">window style</a> of the window whose required size is to be calculated. Note that you cannot specify the <b>WS_OVERLAPPED</b> style.
      * @param {BOOL} bMenu Type: <b>BOOL</b>
      * 
      * Indicates whether the window has a menu.
-     * @param {Integer} dwExStyle Type: <b>DWORD</b>
+     * @param {WINDOW_EX_STYLE} dwExStyle Type: <b>DWORD</b>
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/winmsg/extended-window-styles">extended window style</a> of the window whose required size is to be calculated.
      * @returns {BOOL} Type: <b>BOOL</b>
@@ -18457,17 +19019,19 @@ class WindowsAndMessaging {
      * When you use a system-modal message box to indicate that the system is low on memory, the strings pointed to by the <i>lpText</i> and <i>lpCaption</i> parameters should not be taken from a resource file because an attempt to load the resource may fail.
      * 
      * If you create a message box while a dialog box is present, use a handle to the dialog box as the <i>hWnd</i> parameter. The <i>hWnd</i> parameter should not identify a child window, such as a control in a dialog box.
-     * @param {HWND} _hWnd 
+     * @param {HWND} _hWnd Type: <b>HWND</b>
+     * 
+     * A handle to the owner window of the message box to be created. If this parameter is <b>NULL</b>, the message box has no owner window.
      * @param {PSTR} lpText Type: <b>LPCTSTR</b>
      * 
      * The message to be displayed. If the string consists of more than one line, you can separate the lines using a carriage return and/or linefeed character between each line.
      * @param {PSTR} lpCaption Type: <b>LPCTSTR</b>
      * 
      * The dialog box title. If this parameter is <b>NULL</b>, the default title is <b>Error</b>.
-     * @param {Integer} uType Type: <b>UINT</b>
+     * @param {MESSAGEBOX_STYLE} uType Type: <b>UINT</b>
      * 
      * The contents and behavior of the dialog box. This parameter can be a combination of flags from the following groups of flags.
-     * @returns {Integer} Type: <b>int</b>
+     * @returns {MESSAGEBOX_RESULT} Type: <b>int</b>
      * 
      * If a message box has a <b>Cancel</b> button, the function returns the <b>IDCANCEL</b> value if either the ESC key is pressed or the <b>Cancel</b> button is selected. If the message box has no <b>Cancel</b> button, pressing ESC will no effect - unless an MB_OK button is present. If an MB_OK button is displayed and the user presses ESC, the return value will be <b>IDOK</b>.
      * 
@@ -18641,17 +19205,19 @@ class WindowsAndMessaging {
      * When you use a system-modal message box to indicate that the system is low on memory, the strings pointed to by the <i>lpText</i> and <i>lpCaption</i> parameters should not be taken from a resource file because an attempt to load the resource may fail.
      * 
      * If you create a message box while a dialog box is present, use a handle to the dialog box as the <i>hWnd</i> parameter. The <i>hWnd</i> parameter should not identify a child window, such as a control in a dialog box.
-     * @param {HWND} _hWnd 
+     * @param {HWND} _hWnd Type: <b>HWND</b>
+     * 
+     * A handle to the owner window of the message box to be created. If this parameter is <b>NULL</b>, the message box has no owner window.
      * @param {PWSTR} lpText Type: <b>LPCTSTR</b>
      * 
      * The message to be displayed. If the string consists of more than one line, you can separate the lines using a carriage return and/or linefeed character between each line.
      * @param {PWSTR} lpCaption Type: <b>LPCTSTR</b>
      * 
      * The dialog box title. If this parameter is <b>NULL</b>, the default title is <b>Error</b>.
-     * @param {Integer} uType Type: <b>UINT</b>
+     * @param {MESSAGEBOX_STYLE} uType Type: <b>UINT</b>
      * 
      * The contents and behavior of the dialog box. This parameter can be a combination of flags from the following groups of flags.
-     * @returns {Integer} Type: <b>int</b>
+     * @returns {MESSAGEBOX_RESULT} Type: <b>int</b>
      * 
      * If a message box has a <b>Cancel</b> button, the function returns the <b>IDCANCEL</b> value if either the ESC key is pressed or the <b>Cancel</b> button is selected. If the message box has no <b>Cancel</b> button, pressing ESC will no effect - unless an MB_OK button is present. If an MB_OK button is displayed and the user presses ESC, the return value will be <b>IDOK</b>.
      * 
@@ -18804,14 +19370,16 @@ class WindowsAndMessaging {
      * 
      * > [!NOTE]
      * > The winuser.h header defines MessageBoxEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HWND} _hWnd 
+     * @param {HWND} _hWnd Type: <b>HWND</b>
+     * 
+     * A handle to the owner window of the message box to be created. If this parameter is <b>NULL</b>, the message box has no owner window.
      * @param {PSTR} lpText Type: <b>LPCTSTR</b>
      * 
      * The message to be displayed.
      * @param {PSTR} lpCaption Type: <b>LPCTSTR</b>
      * 
      * The dialog box title. If this parameter is <b>NULL</b>, the default title <b>Error</b> is used.
-     * @param {Integer} uType Type: <b>UINT</b>
+     * @param {MESSAGEBOX_STYLE} uType Type: <b>UINT</b>
      * 
      * The contents and behavior of the dialog box. For information on the supported flags, see <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-messagebox">MessageBox</a>.
      * @param {Integer} wLanguageId Type: <b>WORD</b>
@@ -18820,7 +19388,7 @@ class WindowsAndMessaging {
      *            
      * 
      * To specify a language other than the current language, use the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/nf-winnt-makelangid">MAKELANGID</a> macro to create this parameter. For more information, see <b>MAKELANGID</b>.
-     * @returns {Integer} Type: <b>int</b>
+     * @returns {MESSAGEBOX_RESULT} Type: <b>int</b>
      * 
      * If a message box has a <b>Cancel</b> button, the function returns the <b>IDCANCEL</b> value if either the ESC key is pressed or the <b>Cancel</b> button is selected. If the message box has no <b>Cancel</b> button, pressing ESC will no effect - unless an MB_OK button is present. If an MB_OK button is displayed and the user presses ESC, the return value will be <b>IDOK</b>.
      * 
@@ -18973,14 +19541,16 @@ class WindowsAndMessaging {
      * 
      * > [!NOTE]
      * > The winuser.h header defines MessageBoxEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HWND} _hWnd 
+     * @param {HWND} _hWnd Type: <b>HWND</b>
+     * 
+     * A handle to the owner window of the message box to be created. If this parameter is <b>NULL</b>, the message box has no owner window.
      * @param {PWSTR} lpText Type: <b>LPCTSTR</b>
      * 
      * The message to be displayed.
      * @param {PWSTR} lpCaption Type: <b>LPCTSTR</b>
      * 
      * The dialog box title. If this parameter is <b>NULL</b>, the default title <b>Error</b> is used.
-     * @param {Integer} uType Type: <b>UINT</b>
+     * @param {MESSAGEBOX_STYLE} uType Type: <b>UINT</b>
      * 
      * The contents and behavior of the dialog box. For information on the supported flags, see <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-messagebox">MessageBox</a>.
      * @param {Integer} wLanguageId Type: <b>WORD</b>
@@ -18989,7 +19559,7 @@ class WindowsAndMessaging {
      *            
      * 
      * To specify a language other than the current language, use the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/nf-winnt-makelangid">MAKELANGID</a> macro to create this parameter. For more information, see <b>MAKELANGID</b>.
-     * @returns {Integer} Type: <b>int</b>
+     * @returns {MESSAGEBOX_RESULT} Type: <b>int</b>
      * 
      * If a message box has a <b>Cancel</b> button, the function returns the <b>IDCANCEL</b> value if either the ESC key is pressed or the <b>Cancel</b> button is selected. If the message box has no <b>Cancel</b> button, pressing ESC will no effect - unless an MB_OK button is present. If an MB_OK button is displayed and the user presses ESC, the return value will be <b>IDOK</b>.
      * 
@@ -19145,7 +19715,7 @@ class WindowsAndMessaging {
      * @param {Pointer<MSGBOXPARAMSA>} lpmbp Type: <b>const LPMSGBOXPARAMS</b>
      * 
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-msgboxparamsa">MSGBOXPARAMS</a> structure that contains information used to display the message box.
-     * @returns {Integer} Type: <b>int</b>
+     * @returns {MESSAGEBOX_RESULT} Type: <b>int</b>
      * 
      * If the function succeeds, the return value is one of the following menu-item values.
      * 
@@ -19291,7 +19861,7 @@ class WindowsAndMessaging {
      * @param {Pointer<MSGBOXPARAMSW>} lpmbp Type: <b>const LPMSGBOXPARAMS</b>
      * 
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-msgboxparamsa">MSGBOXPARAMS</a> structure that contains information used to display the message box.
-     * @returns {Integer} Type: <b>int</b>
+     * @returns {MESSAGEBOX_RESULT} Type: <b>int</b>
      * 
      * If the function succeeds, the return value is one of the following menu-item values.
      * 
@@ -19513,7 +20083,13 @@ class WindowsAndMessaging {
      * If your application must set the cursor while it is in a window, make sure the class cursor for the specified window's class is set to <b>NULL</b>. If the class cursor is not <b>NULL</b>, the system restores the class cursor each time the mouse is moved. 
      * 
      * The cursor is not shown on the screen if the internal cursor display count is less than zero. This occurs if the application uses the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-showcursor">ShowCursor</a> function to hide the cursor more times than to show the cursor.
-     * @param {HCURSOR} _hCursor 
+     * @param {HCURSOR} _hCursor Type: <b>HCURSOR</b>
+     * 
+     * A handle to the cursor.
+     * 
+     * The cursor must have been created by either the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-createcursor">CreateCursor</a> or the <a href="https://docs.microsoft.com/win32/api/winuser/nf-winuser-createiconindirect">CreateIconIndirect</a> function, or loaded by either the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-loadcursora">LoadCursor</a> or the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-loadimagea">LoadImage</a> function.
+     * 
+     * If this parameter is <b>NULL</b>, the cursor is removed from the screen.
      * @returns {HCURSOR} Type: <b>HCURSOR</b>
      * 
      * The return value is the handle to the previous cursor, if there was one. 
@@ -19638,8 +20214,14 @@ class WindowsAndMessaging {
      * 
      * <h3><a id="DPI_Virtualization"></a><a id="dpi_virtualization"></a><a id="DPI_VIRTUALIZATION"></a>DPI Virtualization</h3>
      * This API does not participate in DPI virtualization. The width and height parameters are interpreted as logical sizes in terms of the window in question. The calling thread is not taken into consideration.
-     * @param {HWND} _hWnd 
-     * @param {HBITMAP} _hBitmap 
+     * @param {HWND} _hWnd Type: <b>HWND</b>
+     * 
+     * A handle to the window that owns the caret.
+     * @param {HBITMAP} _hBitmap Type: <b>HBITMAP</b>
+     * 
+     * A handle to the bitmap that defines the caret shape. If this parameter is <b>NULL</b>, the caret is solid. If this parameter is <c>(HBITMAP) 1</c>, the caret is gray. If this parameter is a bitmap handle, the caret is the specified bitmap. The bitmap handle must have been created by the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-createbitmap">CreateBitmap</a>, <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-createdibitmap">CreateDIBitmap</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-loadbitmapa">LoadBitmap</a> function.
+     * 
+     * If <i>hBitmap</i> is a bitmap handle, <b>CreateCaret</b> ignores the <i>nWidth</i> and <i>nHeight</i> parameters; the bitmap defines its own width and height.
      * @param {Integer} nWidth Type: <b>int</b>
      * 
      * The width of the caret, in logical units. If this parameter is zero, the width is set to the system-defined window border width. If <i>hBitmap</i> is a bitmap handle, <b>CreateCaret</b> ignores this parameter.
@@ -19757,7 +20339,9 @@ class WindowsAndMessaging {
      * Hiding is cumulative. If your application calls <b>HideCaret</b> five times in a row, it must also call <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-showcaret">ShowCaret</a> five times before the caret is displayed. 
      * 
      * For an example, see <a href="https://docs.microsoft.com/windows/desktop/menurc/using-carets">Hiding a Caret</a>.
-     * @param {HWND} _hWnd 
+     * @param {HWND} _hWnd Type: <b>HWND</b>
+     * 
+     * A handle to the window that owns the caret. If this parameter is <b>NULL</b>, <b>HideCaret</b> searches the current task for the window that owns the caret.
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
@@ -19787,7 +20371,9 @@ class WindowsAndMessaging {
      * Hiding is cumulative. If your application calls <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-hidecaret">HideCaret</a> five times in a row, it must also call <b>ShowCaret</b> five times before the caret reappears. 
      * 
      * The system provides one caret per queue. A window should create a caret only when it has the keyboard focus or is active. The window should destroy the caret before losing the keyboard focus or becoming inactive.
-     * @param {HWND} _hWnd 
+     * @param {HWND} _hWnd Type: <b>HWND</b>
+     * 
+     * A handle to the window that owns the caret. If this parameter is <b>NULL</b>, <b>ShowCaret</b> searches the current task for the window that owns the caret.
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
@@ -19887,7 +20473,9 @@ class WindowsAndMessaging {
      * In Windows 8, system–DPI aware applications translate between physical and logical space using PhysicalToLogicalPoint and LogicalToPhysicalPoint. In Windows 8.1, the additional virtualization of the system and inter-process communications means that for the majority of applications, you do not need these APIs. As a result, in Windows 8.1, PhysicalToLogicalPoint and LogicalToPhysicalPoint no longer transform points. The system returns all points to an application in its own coordinate space. 
      * This behavior preserves functionality for the majority of applications, but there are some exceptions in which you must make changes to ensure that the application works as expected.
      * In those cases, use <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-physicaltologicalpointforpermonitordpi">PhysicalToLogicalPointForPerMonitorDPI</a> and <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-logicaltophysicalpointforpermonitordpi">LogicalToPhysicalPointForPerMonitorDPI.</a>
-     * @param {HWND} _hWnd 
+     * @param {HWND} _hWnd Type: <b>HWND</b>
+     * 
+     * A handle to the window whose transform is used for the conversion. Top level windows are fully supported. In the case of child windows, only the area of overlap between the parent and the child window is converted.
      * @param {Pointer<POINT>} lpPoint Type: <b>LPPOINT</b>
      * 
      * A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a> structure that specifies the logical coordinates to be converted. The new physical coordinates are copied into this structure if the function succeeds.
@@ -19916,7 +20504,9 @@ class WindowsAndMessaging {
      * In Windows 8, system–DPI aware applications translate between physical and logical space using PhysicalToLogicalPoint and LogicalToPhysicalPoint. In Windows 8.1, the additional virtualization of the system and inter-process communications means that for the majority of applications, you do not need these APIs. As a result, in Windows 8.1, PhysicalToLogicalPoint and LogicalToPhysicalPoint no longer transform points. The system returns all points to an application in its own coordinate space. 
      * This behavior preserves functionality for the majority of applications, but there are some exceptions in which you must make changes to ensure that the application works as expected.
      * In those cases, use <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-physicaltologicalpointforpermonitordpi">PhysicalToLogicalPointForPerMonitorDPI</a> and <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-logicaltophysicalpointforpermonitordpi">LogicalToPhysicalPointForPerMonitorDPI.</a>
-     * @param {HWND} _hWnd 
+     * @param {HWND} _hWnd Type: <b>HWND</b>
+     * 
+     * A handle to the window whose transform is used for the conversion. Top level windows are fully supported. In the case of child windows, only the area of overlap between the parent and the child window is converted.
      * @param {Pointer<POINT>} lpPoint Type: <b>LPPOINT</b>
      * 
      * A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a> structure that specifies the physical/screen coordinates to be converted. The new logical coordinates are copied into this structure if the function succeeds.
@@ -19935,7 +20525,9 @@ class WindowsAndMessaging {
      * Retrieves a handle to the window that contains the specified point.
      * @remarks
      * The <b>WindowFromPoint</b> function does not retrieve a handle to a hidden or disabled window, even if the point is within the window. An application should use the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-childwindowfrompoint">ChildWindowFromPoint</a> function for a nonrestrictive search.
-     * @param {POINT} _Point 
+     * @param {POINT} _Point Type: <b><a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a></b>
+     * 
+     * The point to be checked.
      * @returns {HWND} Type: <b>HWND</b>
      * 
      * The return value is a handle to the window that contains the point. If no window exists at the given point, the return value is <b>NULL</b>. If the point is over a static text control, the return value is a handle to the window under the static text control.
@@ -19952,7 +20544,9 @@ class WindowsAndMessaging {
      * Retrieves a handle to the window that contains the specified physical point.
      * @remarks
      * The <b>WindowFromPhysicalPoint</b> function does not retrieve a handle to a hidden or disabled window, even if the point is within the window.
-     * @param {POINT} _Point 
+     * @param {POINT} _Point Type: <b><a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a></b>
+     * 
+     * The physical coordinates of the point.
      * @returns {HWND} Type: <b>HWND</b>
      * 
      * A handle to the window that contains the given physical point. If no window exists at the point, this value is <b>NULL</b>.
@@ -19984,7 +20578,11 @@ class WindowsAndMessaging {
      * @param {HWND} hWndParent Type: <b>HWND</b>
      * 
      * A handle to the parent window.
-     * @param {POINT} _Point 
+     * @param {POINT} _Point Type: <b><a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a></b>
+     * 
+     * A structure that defines the client 
+     * 				coordinates, relative to <i>hWndParent</i>, 
+     * 				of the point to be checked.
      * @returns {HWND} Type: <b>HWND</b>
      * 
      * The return value is a handle to the child window that contains the point, 
@@ -20040,13 +20638,15 @@ class WindowsAndMessaging {
      * 			contains the specified point, the system returns a handle to the first window 
      * 			in the list that contains the point and meets the criteria specified by 
      * 			<i>uFlags</i>.
-     * @param {HWND} _hwnd 
+     * @param {HWND} _hwnd Type: <b>HWND</b>
+     * 
+     * A handle to the parent window.
      * @param {POINT} pt Type: <b><a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a></b>
      * 
      * A structure that defines the 
      * 				client coordinates (relative to <i>hwndParent</i>) 
      * 				of the point to be checked.
-     * @param {Integer} flags Type: <b>UINT</b>
+     * @param {CWP_FLAGS} flags Type: <b>UINT</b>
      * 
      * The child windows to be skipped. This parameter can be one or more of the 
      * 				following values. 
@@ -20124,7 +20724,7 @@ class WindowsAndMessaging {
      * Retrieves the 16-bit (**DWORD**) value at the specified offset into the extra window memor
      * @remarks
      * Reserve extra window memory by specifying a nonzero value in the <b>cbWndExtra</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-wndclassexa">WNDCLASSEX</a> structure used with the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-registerclassexa">RegisterClassEx</a> function.
-     * @param {HWND} _hWnd 
+     * @param {HWND} _hWnd A handle to the window and, indirectly, the class to which the window belongs.
      * @param {Integer} nIndex 
      * @returns {Integer} If the function succeeds, the return value is the requested value.
      * 
@@ -20157,8 +20757,10 @@ class WindowsAndMessaging {
      * @remarks
      * Reserve extra window memory by specifying a nonzero value in the 
      * 				<b>cbWndExtra</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-wndclassexa">WNDCLASSEX</a> structure used with the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-registerclassexa">RegisterClassEx</a> function.
-     * @param {HWND} _hWnd 
-     * @param {Integer} nIndex Type: <b>int</b>
+     * @param {HWND} _hWnd Type: <b>HWND</b>
+     * 
+     * A handle to the window and, indirectly, the class to which the window belongs.
+     * @param {WINDOW_LONG_PTR_INDEX} nIndex Type: <b>int</b>
      * @returns {Integer} Type: <b>LONG</b>
      * 
      * If the function succeeds, the return value is the requested value.
@@ -20187,8 +20789,10 @@ class WindowsAndMessaging {
      * @remarks
      * Reserve extra window memory by specifying a nonzero value in the 
      * 				<b>cbWndExtra</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-wndclassexa">WNDCLASSEX</a> structure used with the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-registerclassexa">RegisterClassEx</a> function.
-     * @param {HWND} _hWnd 
-     * @param {Integer} nIndex Type: <b>int</b>
+     * @param {HWND} _hWnd Type: <b>HWND</b>
+     * 
+     * A handle to the window and, indirectly, the class to which the window belongs.
+     * @param {WINDOW_LONG_PTR_INDEX} nIndex Type: <b>int</b>
      * @returns {Integer} Type: <b>LONG</b>
      * 
      * If the function succeeds, the return value is the requested value.
@@ -20231,8 +20835,10 @@ class WindowsAndMessaging {
      * If the window has a class style of <b>CS_CLASSDC</b> or <b>CS_OWNDC</b>, do not set the extended window styles <b>WS_EX_COMPOSITED</b> or <b>WS_EX_LAYERED</b>.
      * 
      * Calling <b>SetWindowLong</b> to set the style on a progressbar will reset its position.
-     * @param {HWND} _hWnd 
-     * @param {Integer} nIndex Type: <b>int</b>
+     * @param {HWND} _hWnd Type: <b>HWND</b>
+     * 
+     * A handle to the window and, indirectly, the class to which the window belongs.
+     * @param {WINDOW_LONG_PTR_INDEX} nIndex Type: <b>int</b>
      * @param {Integer} dwNewLong Type: <b>LONG</b>
      * 
      * The replacement value.
@@ -20278,8 +20884,10 @@ class WindowsAndMessaging {
      * If the window has a class style of <b>CS_CLASSDC</b> or <b>CS_OWNDC</b>, do not set the extended window styles <b>WS_EX_COMPOSITED</b> or <b>WS_EX_LAYERED</b>.
      * 
      * Calling <b>SetWindowLong</b> to set the style on a progressbar will reset its position.
-     * @param {HWND} _hWnd 
-     * @param {Integer} nIndex Type: <b>int</b>
+     * @param {HWND} _hWnd Type: <b>HWND</b>
+     * 
+     * A handle to the window and, indirectly, the class to which the window belongs.
+     * @param {WINDOW_LONG_PTR_INDEX} nIndex Type: <b>int</b>
      * @param {Integer} dwNewLong Type: <b>LONG</b>
      * 
      * The replacement value.
@@ -20311,7 +20919,9 @@ class WindowsAndMessaging {
      * @remarks
      * Reserve extra class memory by specifying a nonzero value in the 
      * 				<b>cbClsExtra</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-wndclassa">WNDCLASS</a> structure used with the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-registerclassa">RegisterClass</a> function.
-     * @param {HWND} _hWnd 
+     * @param {HWND} _hWnd Type: <b>HWND</b>
+     * 
+     * A handle to the window and, indirectly, the class to which the window belongs.
      * @param {Integer} nIndex Type: <b>int</b>
      * 
      * The zero-based byte offset of the value to be retrieved. Valid values are in the range zero through the number of bytes of class memory, minus two; for example, if you specified 10 or more bytes of extra class memory, a value of eight would be an index to the fifth 16-bit integer. There is an additional valid value as shown in the following table. 
@@ -20359,7 +20969,9 @@ class WindowsAndMessaging {
      * @remarks
      * Reserve extra class memory by specifying a nonzero value in the 
      * 				<b>cbClsExtra</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-wndclassa">WNDCLASS</a> structure used with the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-registerclassa">RegisterClass</a> function.
-     * @param {HWND} _hWnd 
+     * @param {HWND} _hWnd Type: <b>HWND</b>
+     * 
+     * A handle to the window and, indirectly, the class to which the window belongs.
      * @param {Integer} nIndex Type: <b>int</b>
      * 
      * The zero-based byte offset of the value to be replaced. Valid values are in the range zero through the number of bytes of class memory minus two; for example, if you specified 10 or more bytes of extra class memory, a value of 8 would be an index to the fifth 16-bit integer.
@@ -20399,8 +21011,10 @@ class WindowsAndMessaging {
      * 
      * > [!NOTE]
      * > The winuser.h header defines GetClassLong as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HWND} _hWnd 
-     * @param {Integer} nIndex Type: <b>int</b>
+     * @param {HWND} _hWnd Type: <b>HWND</b>
+     * 
+     * A handle to the window and, indirectly, the class to which the window belongs.
+     * @param {GET_CLASS_LONG_INDEX} nIndex Type: <b>int</b>
      * @returns {Integer} Type: <b>DWORD</b>
      * 
      * If the function succeeds, the return value is the requested value.
@@ -20434,8 +21048,10 @@ class WindowsAndMessaging {
      * 
      * > [!NOTE]
      * > The winuser.h header defines GetClassLong as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HWND} _hWnd 
-     * @param {Integer} nIndex Type: <b>int</b>
+     * @param {HWND} _hWnd Type: <b>HWND</b>
+     * 
+     * A handle to the window and, indirectly, the class to which the window belongs.
+     * @param {GET_CLASS_LONG_INDEX} nIndex Type: <b>int</b>
      * @returns {Integer} Type: <b>DWORD</b>
      * 
      * If the function succeeds, the return value is the requested value.
@@ -20467,8 +21083,10 @@ class WindowsAndMessaging {
      * Reserve extra class memory by specifying a nonzero value in the <b>cbClsExtra</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-wndclassexa">WNDCLASSEX</a> structure used with the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-registerclassexa">RegisterClassEx</a> function. 
      * 
      * Use the <b>SetClassLong</b> function with care. For example, it is possible to change the background color for a class by using <b>SetClassLong</b>, but this change does not immediately repaint all windows belonging to the class.
-     * @param {HWND} _hWnd 
-     * @param {Integer} nIndex Type: <b>int</b>
+     * @param {HWND} _hWnd Type: <b>HWND</b>
+     * 
+     * A handle to the window and, indirectly, the class to which the window belongs.
+     * @param {GET_CLASS_LONG_INDEX} nIndex Type: <b>int</b>
      * @param {Integer} dwNewLong Type: <b>LONG</b>
      * 
      * The replacement value.
@@ -20503,8 +21121,10 @@ class WindowsAndMessaging {
      * Reserve extra class memory by specifying a nonzero value in the <b>cbClsExtra</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-wndclassexa">WNDCLASSEX</a> structure used with the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-registerclassexa">RegisterClassEx</a> function. 
      * 
      * Use the <b>SetClassLong</b> function with care. For example, it is possible to change the background color for a class by using <b>SetClassLong</b>, but this change does not immediately repaint all windows belonging to the class.
-     * @param {HWND} _hWnd 
-     * @param {Integer} nIndex Type: <b>int</b>
+     * @param {HWND} _hWnd Type: <b>HWND</b>
+     * 
+     * A handle to the window and, indirectly, the class to which the window belongs.
+     * @param {GET_CLASS_LONG_INDEX} nIndex Type: <b>int</b>
      * @param {Integer} dwNewLong Type: <b>LONG</b>
      * 
      * The replacement value.
@@ -20659,7 +21279,9 @@ class WindowsAndMessaging {
      * Retrieves a handle to the specified window's parent or owner.
      * @remarks
      * To obtain a window's owner window, instead of using <b>GetParent</b>, use <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getwindow">GetWindow</a> with the <b>GW_OWNER</b> flag. To obtain the parent window and not the owner, instead of using <b>GetParent</b>, use <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getancestor">GetAncestor</a> with the <b>GA_PARENT</b> flag.
-     * @param {HWND} _hWnd 
+     * @param {HWND} _hWnd Type: <b>HWND</b>
+     * 
+     * A handle to the window whose parent window handle is to be retrieved.
      * @returns {HWND} Type: <b>HWND</b>
      * 
      * If the window is a child window, the return value is a handle to the parent window. If the window is a top-level window with the <b>WS_POPUP</b> style, the return value is a handle to the owner window. 
@@ -20773,7 +21395,9 @@ class WindowsAndMessaging {
      * @param {Pointer<WNDENUMPROC>} lpEnumFunc Type: <b>WNDENUMPROC</b>
      * 
      * A pointer to an application-defined callback function. For more information, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms633493(v=vs.85)">EnumChildProc</a>.
-     * @param {LPARAM} _lParam 
+     * @param {LPARAM} _lParam Type: <b>LPARAM</b>
+     * 
+     * An application-defined value to be passed to the callback function.
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * The return value is not used.
@@ -21086,7 +21710,9 @@ class WindowsAndMessaging {
      *  
      * 
      * This function was not included in the SDK headers and libraries until Windows XP with Service Pack 1 (SP1) and Windows Server 2003. If you do not have a header file and import library for this function, you can call the function using <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadlibrarya">LoadLibrary</a> and <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-getprocaddress">GetProcAddress</a>.
-     * @param {HWND} _hwnd 
+     * @param {HWND} _hwnd Type: <b>HWND</b>
+     * 
+     * A handle to the window to register for Shell hook messages.
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * <b>TRUE</b> if the function succeeds; otherwise, <b>FALSE</b>.
@@ -21104,7 +21730,10 @@ class WindowsAndMessaging {
      * Unregisters a specified Shell window that is registered to receive Shell hook messages.
      * @remarks
      * This function was not included in the SDK headers and libraries until Windows XP with Service Pack 1 (SP1) and Windows Server 2003. If you do not have a header file and import library for this function, you can call the function using <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadlibrarya">LoadLibrary</a> and <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-getprocaddress">GetProcAddress</a>.
-     * @param {HWND} _hwnd 
+     * @param {HWND} _hwnd Type: <b>HWND</b>
+     * 
+     * A handle to the window to be unregistered. The window was registered with a call to the
+     * 		<a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-registershellhookwindow">RegisterShellHookWindow</a> function.
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * <b>TRUE</b> if the function succeeds; <b>FALSE</b> if the
@@ -21131,7 +21760,9 @@ class WindowsAndMessaging {
      * @param {Pointer<WNDENUMPROC>} lpEnumFunc Type: <b>WNDENUMPROC</b>
      * 
      * A pointer to an application-defined callback function. For more information, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms633498(v=vs.85)">EnumWindowsProc</a>.
-     * @param {LPARAM} _lParam 
+     * @param {LPARAM} _lParam Type: <b>LPARAM</b>
+     * 
+     * An application-defined value to be passed to the callback function.
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
@@ -21161,7 +21792,9 @@ class WindowsAndMessaging {
      * @param {Pointer<WNDENUMPROC>} lpfn Type: <b>WNDENUMPROC</b>
      * 
      * A pointer to an application-defined callback function. For more information, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms633496(v=vs.85)">EnumThreadWndProc</a>.
-     * @param {LPARAM} _lParam 
+     * @param {LPARAM} _lParam Type: <b>LPARAM</b>
+     * 
+     * An application-defined value to be passed to the callback function.
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the callback function returns <b>TRUE</b> for all windows in the thread specified by <i>dwThreadId</i>, the return value is <b>TRUE</b>. If the callback function returns <b>FALSE</b> on any enumerated window, or if there are no windows found in the thread specified by <i>dwThreadId</i>, the return value is <b>FALSE</b>.
@@ -21178,7 +21811,9 @@ class WindowsAndMessaging {
      * @remarks
      * > [!NOTE]
      * > The winuser.h header defines GetClassName as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HWND} _hWnd 
+     * @param {HWND} _hWnd Type: <b>HWND</b>
+     * 
+     * A handle to the window and, indirectly, the class to which the window belongs.
      * @param {PSTR} lpClassName Type: <b>LPTSTR</b>
      * 
      * The class name string.
@@ -21213,7 +21848,9 @@ class WindowsAndMessaging {
      * @remarks
      * > [!NOTE]
      * > The winuser.h header defines GetClassName as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HWND} _hWnd 
+     * @param {HWND} _hWnd Type: <b>HWND</b>
+     * 
+     * A handle to the window and, indirectly, the class to which the window belongs.
      * @param {PWSTR} lpClassName Type: <b>LPTSTR</b>
      * 
      * The class name string.
@@ -21245,7 +21882,9 @@ class WindowsAndMessaging {
 
     /**
      * Examines the Z order of the child windows associated with the specified parent window and retrieves a handle to the child window at the top of the Z order.
-     * @param {HWND} _hWnd 
+     * @param {HWND} _hWnd Type: <b>HWND</b>
+     * 
+     * A handle to the parent window whose child windows are to be examined. If this parameter is <b>NULL</b>, the function returns a handle to the window at the top of the Z order.
      * @returns {HWND} Type: <b>HWND</b>
      * 
      * If the function succeeds, the return value is a handle to the child window at the top of the Z order. If the specified window has no child windows, the return value is <b>NULL</b>. To get extended error information, use the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
@@ -21268,7 +21907,9 @@ class WindowsAndMessaging {
 
     /**
      * Retrieves the identifier of the thread that created the specified window and, optionally, the identifier of the process that created the window.
-     * @param {HWND} _hWnd 
+     * @param {HWND} _hWnd Type: <b>HWND</b>
+     * 
+     * A handle to the window.
      * @param {Pointer<Integer>} lpdwProcessId Type: <b>LPDWORD</b>
      * 
      * A pointer to a variable that receives the process identifier. If this parameter is not <b>NULL</b>, <b>GetWindowThreadProcessId</b> copies the identifier of the process to the variable; otherwise, it does not. If the function fails, the value of the variable is unchanged.
@@ -21313,7 +21954,9 @@ class WindowsAndMessaging {
 
     /**
      * Determines which pop-up window owned by the specified window was most recently active.
-     * @param {HWND} _hWnd 
+     * @param {HWND} _hWnd Type: <b>HWND</b>
+     * 
+     * A handle to the owner window.
      * @returns {HWND} Type: <b>HWND</b>
      * 
      * The return value identifies the most recently active pop-up window. The return value is the same as the <i>hWnd</i> parameter, if any of the following conditions are met: 
@@ -21338,8 +21981,10 @@ class WindowsAndMessaging {
      * Retrieves a handle to a window that has the specified relationship (Z-Order or owner) to the specified window.
      * @remarks
      * The <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-enumchildwindows">EnumChildWindows</a> function is more reliable than calling <b>GetWindow</b> in a loop. An application that calls <b>GetWindow</b> to perform this task risks being caught in an infinite loop or referencing a handle to a window that has been destroyed.
-     * @param {HWND} _hWnd 
-     * @param {Integer} uCmd Type: <b>UINT</b>
+     * @param {HWND} _hWnd Type: <b>HWND</b>
+     * 
+     * A handle to a window. The window handle retrieved is relative to this window, based on the value of the <i>uCmd</i> parameter.
+     * @param {GET_WINDOW_CMD} uCmd Type: <b>UINT</b>
      * @returns {HWND} Type: <b>HWND</b>
      * 
      * If the function succeeds, the return value is a window handle. If no window exists with the specified relationship to the specified window, the return value is <b>NULL</b>. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -21520,7 +22165,7 @@ class WindowsAndMessaging {
      * </li>
      * </ul>
      * This behavior is similar to what happens when there is an architecture mismatch between the hook DLL and the target application process, for example, when the hook DLL is 32-bit and the application process 64-bit.
-     * @param {Integer} idHook Type: <b>int</b>
+     * @param {WINDOWS_HOOK_ID} idHook Type: <b>int</b>
      * @param {Pointer<HOOKPROC>} lpfn Type: <b>HOOKPROC</b>
      * 
      * A pointer to the hook procedure. If the <i>dwThreadId</i> parameter is zero or specifies the identifier of a thread created by a different process, the <i>lpfn</i> parameter must point to a hook procedure in a DLL. Otherwise, <i>lpfn</i> can point to a hook procedure in the code associated with the current process.
@@ -21670,7 +22315,7 @@ class WindowsAndMessaging {
      * </li>
      * </ul>
      * This behavior is similar to what happens when there is an architecture mismatch between the hook DLL and the target application process, for example, when the hook DLL is 32-bit and the application process 64-bit.
-     * @param {Integer} idHook Type: <b>int</b>
+     * @param {WINDOWS_HOOK_ID} idHook Type: <b>int</b>
      * @param {Pointer<HOOKPROC>} lpfn Type: <b>HOOKPROC</b>
      * 
      * A pointer to the hook procedure. If the <i>dwThreadId</i> parameter is zero or specifies the identifier of a thread created by a different process, the <i>lpfn</i> parameter must point to a hook procedure in a DLL. Otherwise, <i>lpfn</i> can point to a hook procedure in the code associated with the current process.
@@ -21742,8 +22387,12 @@ class WindowsAndMessaging {
      * @param {Integer} nCode Type: <b>int</b>
      * 
      * The hook code passed to the current hook procedure. The next hook procedure uses this code to determine how to process the hook information.
-     * @param {WPARAM} _wParam 
-     * @param {LPARAM} _lParam 
+     * @param {WPARAM} _wParam Type: <b>WPARAM</b>
+     * 
+     * The <i>wParam</i> value passed to the current hook procedure. The meaning of this parameter depends on the type of hook associated with the current hook chain.
+     * @param {LPARAM} _lParam Type: <b>LPARAM</b>
+     * 
+     * The <i>lParam</i> value passed to the current hook procedure. The meaning of this parameter depends on the type of hook associated with the current hook chain.
      * @returns {LRESULT} Type: <b>LRESULT</b>
      * 
      * This value is returned by the next hook procedure in the chain. The current hook procedure must also return this value. The meaning of the return value depends on the hook type. For more information, see the descriptions of the individual hook procedures.
@@ -21763,7 +22412,9 @@ class WindowsAndMessaging {
      * The <b>CheckMenuRadioItem</b> function sets the <b>MFT_RADIOCHECK</b> type flag and the <b>MFS_CHECKED</b> state for the item specified by <i>idCheck</i> and, at the same time, clears both flags for all other items in the group. The selected item is displayed using a bullet bitmap instead of a check-mark bitmap.
      * 
      * For more information about menu item type and state flags, see the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-menuiteminfoa">MENUITEMINFO</a> structure.
-     * @param {HMENU} _hmenu 
+     * @param {HMENU} _hmenu Type: <b>HMENU</b>
+     * 
+     * A handle to the menu that contains the group of menu items.
      * @param {Integer} first Type: <b>UINT</b>
      * 
      * The identifier or position of the first menu item in the group.
@@ -21806,7 +22457,9 @@ class WindowsAndMessaging {
      * 
      * <h3><a id="DPI_Virtualization"></a><a id="dpi_virtualization"></a><a id="DPI_VIRTUALIZATION"></a>DPI Virtualization</h3>
      * This API does not participate in DPI virtualization. The output returned is not affected by the DPI of the calling thread.
-     * @param {HINSTANCE} _hInstance 
+     * @param {HINSTANCE} _hInstance Type: <b>HINSTANCE</b>
+     * 
+     * A handle to an instance of the module whose executable file contains the cursor to be loaded.
      * @param {PSTR} lpCursorName Type: <b>LPCTSTR</b>
      * 
      * The name of the cursor resource to be loaded. Alternatively, this parameter can consist of the resource identifier in the low-order word and zero in the high-order word. The <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-makeintresourcea">MAKEINTRESOURCE</a> macro can also be used to create this value. To use one of the predefined cursors, the application must set the <i>hInstance</i> parameter to <b>NULL</b> and the <i>lpCursorName</i> parameter to one the following values.
@@ -22025,7 +22678,9 @@ class WindowsAndMessaging {
      * 
      * <h3><a id="DPI_Virtualization"></a><a id="dpi_virtualization"></a><a id="DPI_VIRTUALIZATION"></a>DPI Virtualization</h3>
      * This API does not participate in DPI virtualization. The output returned is not affected by the DPI of the calling thread.
-     * @param {HINSTANCE} _hInstance 
+     * @param {HINSTANCE} _hInstance Type: <b>HINSTANCE</b>
+     * 
+     * A handle to an instance of the module whose executable file contains the cursor to be loaded.
      * @param {PWSTR} lpCursorName Type: <b>LPCTSTR</b>
      * 
      * The name of the cursor resource to be loaded. Alternatively, this parameter can consist of the resource identifier in the low-order word and zero in the high-order word. The <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-makeintresourcea">MAKEINTRESOURCE</a> macro can also be used to create this value. To use one of the predefined cursors, the application must set the <i>hInstance</i> parameter to <b>NULL</b> and the <i>lpCursorName</i> parameter to one the following values.
@@ -22423,7 +23078,9 @@ class WindowsAndMessaging {
      * <li>
      * <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-copyimage">CopyImage</a> (if you use the <b>LR_COPYRETURNORG</b> flag and the <i>hImage</i> parameter is a shared cursor) </li>
      * </ul>
-     * @param {HCURSOR} _hCursor 
+     * @param {HCURSOR} _hCursor Type: <b>HCURSOR</b>
+     * 
+     * A handle to the cursor to be destroyed. The cursor must not be in use.
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
@@ -22454,7 +23111,7 @@ class WindowsAndMessaging {
      * A handle to the cursor. The function replaces the contents of the system cursor specified by <i>id</i> with the contents of the cursor handled by <i>hcur</i>.
      * 
      * The system destroys <i>hcur</i> by calling the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-destroycursor">DestroyCursor</a> function. Therefore, <i>hcur</i> cannot be a cursor loaded using the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-loadcursora">LoadCursor</a> function. To specify a cursor loaded from a resource, copy the cursor using the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-copycursor">CopyCursor</a> function, then pass the copy to <b>SetSystemCursor</b>.
-     * @param {Integer} id Type: <b>DWORD</b>
+     * @param {SYSTEM_CURSOR_ID} id Type: <b>DWORD</b>
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
@@ -22489,7 +23146,9 @@ class WindowsAndMessaging {
      * 
      * > [!NOTE]
      * > The winuser.h header defines LoadIcon as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HINSTANCE} _hInstance 
+     * @param {HINSTANCE} _hInstance Type: <b>HINSTANCE</b>
+     * 
+     * A handle to an instance of the module whose executable file contains the icon to be loaded. This parameter must be <b>NULL</b> when a standard icon is being loaded.
      * @param {PSTR} lpIconName Type: <b>LPCTSTR</b>
      * 
      * The name of the icon resource to be loaded. Alternatively, this parameter can contain the resource identifier in the low-order word and zero in the high-order word. Use the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-makeintresourcea">MAKEINTRESOURCE</a> macro to create this value.
@@ -22529,7 +23188,9 @@ class WindowsAndMessaging {
      * 
      * > [!NOTE]
      * > The winuser.h header defines LoadIcon as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HINSTANCE} _hInstance 
+     * @param {HINSTANCE} _hInstance Type: <b>HINSTANCE</b>
+     * 
+     * A handle to an instance of the module whose executable file contains the icon to be loaded. This parameter must be <b>NULL</b> when a standard icon is being loaded.
      * @param {PWSTR} lpIconName Type: <b>LPCTSTR</b>
      * 
      * The name of the icon resource to be loaded. Alternatively, this parameter can contain the resource identifier in the low-order word and zero in the high-order word. Use the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-makeintresourcea">MAKEINTRESOURCE</a> macro to create this value.
@@ -22750,7 +23411,9 @@ class WindowsAndMessaging {
      * </table>
      * 
      * When you are finished using the icon, destroy it using the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-destroyicon">DestroyIcon</a> function.
-     * @param {HINSTANCE} _hInstance 
+     * @param {HINSTANCE} _hInstance Type: <b>HINSTANCE</b>
+     * 
+     * A handle to the instance of the module creating the icon.
      * @param {Integer} nWidth Type: <b>int</b>
      * 
      * The width, in pixels, of the icon.
@@ -22814,7 +23477,9 @@ class WindowsAndMessaging {
      * <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-createiconfromresourceex">CreateIconFromResourceEx</a> (if you use the <b>LR_SHARED</b> flag)
      * 					</li>
      * </ul>
-     * @param {HICON} _hIcon 
+     * @param {HICON} _hIcon Type: <b>HICON</b>
+     * 
+     * A handle to the icon to be destroyed. The icon must not be in use.
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
@@ -22891,7 +23556,7 @@ class WindowsAndMessaging {
      * @param {Integer} cyDesired Type: <b>int</b>
      * 
      * The desired height, in pixels, of the icon. If this parameter is zero, the function uses the <b>SM_CYICON</b> or <b>SM_CYCURSOR</b> system metric value.
-     * @param {Integer} Flags Type: <b>UINT</b>
+     * @param {IMAGE_FLAGS} Flags Type: <b>UINT</b>
      * @returns {Integer} Type: <b>int</b>
      * 
      * If the function succeeds, the return value is an integer resource identifier for the icon or cursor that best fits the current display device. 
@@ -22921,7 +23586,7 @@ class WindowsAndMessaging {
      * The <b>CreateIconFromResource</b> function calls <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-createiconfromresourceex">CreateIconFromResourceEx</a> passing <c>LR_DEFAULTSIZE|LR_SHARED</c> as flags.
      * 
      * When you are finished using the icon, destroy it using the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-destroyicon">DestroyIcon</a> function.
-     * @param {Pointer} presbits Type: <b>PBYTE</b>
+     * @param {Integer} presbits Type: <b>PBYTE</b>
      * 
      * The buffer containing the icon or cursor resource bits. These bits are typically loaded by calls to the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-lookupiconidfromdirectory">LookupIconIdFromDirectory</a>, <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-lookupiconidfromdirectoryex">LookupIconIdFromDirectoryEx</a>, and <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadresource">LoadResource</a> functions.
      * @param {Integer} dwResSize Type: <b>DWORD</b>
@@ -22959,7 +23624,7 @@ class WindowsAndMessaging {
      * The <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-createiconfromresource">CreateIconFromResource</a>, <b>CreateIconFromResourceEx</b>, <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-createiconindirect">CreateIconIndirect</a>, <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-geticoninfo">GetIconInfo</a>, and <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-lookupiconidfromdirectoryex">LookupIconIdFromDirectoryEx</a> functions allow shell applications and icon browsers to examine and use resources throughout the system. 
      * 
      * You should call <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-destroyicon">DestroyIcon</a> for icons created with <b>CreateIconFromResourceEx</b>.
-     * @param {Pointer} presbits Type: <b>PBYTE</b>
+     * @param {Integer} presbits Type: <b>PBYTE</b>
      * 
      * The icon or cursor resource bits. These bits are typically loaded by calls to the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-lookupiconidfromdirectoryex">LookupIconIdFromDirectoryEx</a> and <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadresource">LoadResource</a> functions.
      * @param {Integer} dwResSize Type: <b>DWORD</b>
@@ -22977,7 +23642,7 @@ class WindowsAndMessaging {
      * @param {Integer} cyDesired Type: <b>int</b>
      * 
      * The desired height, in pixels, of the icon or cursor. If this parameter is zero, the function uses the <b>SM_CYICON</b> or <b>SM_CYCURSOR</b> system metric value to set the height.
-     * @param {Integer} Flags Type: <b>UINT</b>
+     * @param {IMAGE_FLAGS} Flags Type: <b>UINT</b>
      * @returns {HICON} Type: <b>HICON</b>
      * 
      * If the function succeeds, the return value is a handle to the icon or cursor.
@@ -23076,12 +23741,14 @@ class WindowsAndMessaging {
      * To pass these constants to the <b>LoadImage</b> function, use the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-makeintresourcea">MAKEINTRESOURCE</a> macro. For example, to load the <b>OCR_NORMAL</b> cursor, pass <c>MAKEINTRESOURCE(OCR_NORMAL)</c> as the <i>lpszName</i> parameter, <b>NULL</b> as the <i>hinst</i> parameter, and <b>LR_SHARED</b> as one of the flags to the <i>fuLoad</i> parameter.
      * 
      * If the <i>fuLoad</i> parameter includes the <b>LR_LOADFROMFILE</b> value, <i>lpszName</i> is the name of the file that contains the  stand-alone resource (icon, cursor, or bitmap file). Therefore, set <i>hinst</i> to <b>NULL</b>.
-     * @param {Integer} type Type: <b>UINT</b>
+     * @param {GDI_IMAGE_TYPE} type Type: <b>UINT</b>
      * @param {Integer} cx Type: <b>int</b>
      * 
      * The width, in pixels, of the icon or cursor. If this parameter is zero and the <i>fuLoad</i> parameter is <b>LR_DEFAULTSIZE</b>, the function uses the <b>SM_CXICON</b> or <b>SM_CXCURSOR</b> system metric value to set the width. If this parameter is zero and <b>LR_DEFAULTSIZE</b> is not used, the function uses the actual resource width.
-     * @param {Integer} _cy 
-     * @param {Integer} fuLoad Type: <b>UINT</b>
+     * @param {Integer} _cy Type: <b>int</b>
+     * 
+     * The height, in pixels, of the icon or cursor. If this parameter is zero and the <i>fuLoad</i> parameter is <b>LR_DEFAULTSIZE</b>, the function uses the <b>SM_CYICON</b> or <b>SM_CYCURSOR</b> system metric value to set the height. If this parameter is zero and <b>LR_DEFAULTSIZE</b> is not used, the function uses the actual resource height.
+     * @param {IMAGE_FLAGS} fuLoad Type: <b>UINT</b>
      * @returns {HANDLE} Type: <b>HANDLE</b>
      * 
      * If the function succeeds, the return value is the handle of the newly loaded image.
@@ -23185,12 +23852,14 @@ class WindowsAndMessaging {
      * To pass these constants to the <b>LoadImage</b> function, use the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-makeintresourcea">MAKEINTRESOURCE</a> macro. For example, to load the <b>OCR_NORMAL</b> cursor, pass <c>MAKEINTRESOURCE(OCR_NORMAL)</c> as the <i>lpszName</i> parameter, <b>NULL</b> as the <i>hinst</i> parameter, and <b>LR_SHARED</b> as one of the flags to the <i>fuLoad</i> parameter.
      * 
      * If the <i>fuLoad</i> parameter includes the <b>LR_LOADFROMFILE</b> value, <i>lpszName</i> is the name of the file that contains the  stand-alone resource (icon, cursor, or bitmap file). Therefore, set <i>hinst</i> to <b>NULL</b>.
-     * @param {Integer} type Type: <b>UINT</b>
+     * @param {GDI_IMAGE_TYPE} type Type: <b>UINT</b>
      * @param {Integer} cx Type: <b>int</b>
      * 
      * The width, in pixels, of the icon or cursor. If this parameter is zero and the <i>fuLoad</i> parameter is <b>LR_DEFAULTSIZE</b>, the function uses the <b>SM_CXICON</b> or <b>SM_CXCURSOR</b> system metric value to set the width. If this parameter is zero and <b>LR_DEFAULTSIZE</b> is not used, the function uses the actual resource width.
-     * @param {Integer} _cy 
-     * @param {Integer} fuLoad Type: <b>UINT</b>
+     * @param {Integer} _cy Type: <b>int</b>
+     * 
+     * The height, in pixels, of the icon or cursor. If this parameter is zero and the <i>fuLoad</i> parameter is <b>LR_DEFAULTSIZE</b>, the function uses the <b>SM_CYICON</b> or <b>SM_CYCURSOR</b> system metric value to set the height. If this parameter is zero and <b>LR_DEFAULTSIZE</b> is not used, the function uses the actual resource height.
+     * @param {IMAGE_FLAGS} fuLoad Type: <b>UINT</b>
      * @returns {HANDLE} Type: <b>HANDLE</b>
      * 
      * If the function succeeds, the return value is the handle of the newly loaded image.
@@ -23249,12 +23918,14 @@ class WindowsAndMessaging {
      * @param {HANDLE} h Type: <b>HANDLE</b>
      * 
      * A handle to the image to be copied.
-     * @param {Integer} type Type: <b>UINT</b>
+     * @param {GDI_IMAGE_TYPE} type Type: <b>UINT</b>
      * @param {Integer} cx Type: <b>int</b>
      * 
      * The desired width, in pixels, of the image. If this is zero, then the returned image will have the same width as the original <i>hImage</i>.
-     * @param {Integer} _cy 
-     * @param {Integer} flags Type: <b>UINT</b>
+     * @param {Integer} _cy Type: <b>int</b>
+     * 
+     * The desired height, in pixels, of the image. If this is zero, then the returned image will have the same height as the original <i>hImage</i>.
+     * @param {IMAGE_FLAGS} flags Type: <b>UINT</b>
      * @returns {HANDLE} Type: <b>HANDLE</b>
      * 
      * If the function succeeds, the return value is the handle to the newly created image.
@@ -23293,14 +23964,18 @@ class WindowsAndMessaging {
      * ``` syntax
      * DrawIconEx (hDC, X, Y, hIcon, 0, 0, 0, NULL, DI_NORMAL | DI_COMPAT | DI_DEFAULTSIZE); 
      * ```
-     * @param {HDC} _hdc 
+     * @param {HDC} _hdc Type: <b>HDC</b>
+     * 
+     * A handle to the device context into which the icon or cursor will be drawn.
      * @param {Integer} xLeft Type: <b>int</b>
      * 
      * The logical x-coordinate of the upper-left corner of the icon or cursor.
      * @param {Integer} yTop Type: <b>int</b>
      * 
      * The logical y-coordinate of the upper-left corner of the icon or cursor.
-     * @param {HICON} _hIcon 
+     * @param {HICON} _hIcon Type: <b>HICON</b>
+     * 
+     * A handle to the icon or cursor to be drawn. This parameter can identify an animated cursor.
      * @param {Integer} cxWidth Type: <b>int</b>
      * 
      * The logical width of the icon or cursor. If this parameter is zero and the <i>diFlags</i> parameter is <b>DI_DEFAULTSIZE</b>, the function uses the <b>SM_CXICON</b> system metric value to set the width. If this parameter is zero and <b>DI_DEFAULTSIZE</b> is not used, the function uses the actual resource width.
@@ -23313,7 +23988,7 @@ class WindowsAndMessaging {
      * @param {HBRUSH} hbrFlickerFreeDraw Type: <b>HBRUSH</b>
      * 
      * A handle to a brush that the system uses for flicker-free drawing. If <i>hbrFlickerFreeDraw</i> is a valid brush handle, the system creates an offscreen bitmap using the specified brush for the background color, draws the icon or cursor into the bitmap, and then copies the bitmap into the device context identified by <i>hdc</i>. If <i>hbrFlickerFreeDraw</i> is <b>NULL</b>, the system draws the icon or cursor directly into the device context.
-     * @param {Integer} diFlags Type: <b>UINT</b>
+     * @param {DI_FLAGS} diFlags Type: <b>UINT</b>
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
@@ -23372,7 +24047,9 @@ class WindowsAndMessaging {
      * The <b>CopyIcon</b> function enables an application or DLL to get its own handle to an icon owned by another module. If the other module is freed, the application icon will still be able to use the icon. 
      * 
      * Before closing, an application must call the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-destroyicon">DestroyIcon</a> function to free any system resources associated with the icon.
-     * @param {HICON} _hIcon 
+     * @param {HICON} _hIcon Type: <b>HICON</b>
+     * 
+     * A handle to the icon to be copied.
      * @returns {HICON} Type: <b>HICON</b>
      * 
      * If the function succeeds, the return value is a handle to the duplicate icon.
@@ -23402,7 +24079,7 @@ class WindowsAndMessaging {
      * 
      * <h3><a id="DPI_Virtualization"></a><a id="dpi_virtualization"></a><a id="DPI_VIRTUALIZATION"></a>DPI Virtualization</h3>
      * This API does not participate in DPI virtualization. The output returned is not affected by the DPI of the calling thread.
-     * @param {HICON} _hIcon 
+     * @param {HICON} _hIcon Type: <b>HICON</b>
      * @param {Pointer<ICONINFO>} piconinfo Type: <b>PICONINFO</b>
      * 
      * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-iconinfo">ICONINFO</a> structure. The function fills in the structure's members.
@@ -23437,7 +24114,7 @@ class WindowsAndMessaging {
      * 
      * > [!NOTE]
      * > The winuser.h header defines GetIconInfoEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HICON} _hicon 
+     * @param {HICON} _hicon Type: <b>HICON</b>
      * @param {Pointer<ICONINFOEXA>} piconinfo Type: <b>PICONINFOEX</b>
      * 
      * When this method returns, contains a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-iconinfoexa">ICONINFOEX</a> structure. The function fills in the structure's members.
@@ -23464,7 +24141,7 @@ class WindowsAndMessaging {
      * 
      * > [!NOTE]
      * > The winuser.h header defines GetIconInfoEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HICON} _hicon 
+     * @param {HICON} _hicon Type: <b>HICON</b>
      * @param {Pointer<ICONINFOEXW>} piconinfo Type: <b>PICONINFOEX</b>
      * 
      * When this method returns, contains a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-iconinfoexa">ICONINFOEX</a> structure. The function fills in the structure's members.
@@ -23640,8 +24317,11 @@ class WindowsAndMessaging {
      * 
      * 
      * If the <i>fnBar</i> parameter is SB_CTL and the window specified by the <i>hwnd</i> parameter is not a system scroll bar control, the system sends the <a href="https://docs.microsoft.com/windows/desktop/Controls/sbm-getscrollinfo">SBM_GETSCROLLINFO</a> message to the window to obtain scroll bar information. This allows <b>GetScrollInfo</b> to operate on a custom control that mimics a scroll bar. If the window does not handle the <b>SBM_GETSCROLLINFO</b> message, the <b>GetScrollInfo</b> function fails.
-     * @param {HWND} _hwnd 
-     * @param {Integer} nBar Type: <b>int</b>
+     * @param {HWND} _hwnd Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
+     * 
+     * Handle to a scroll bar control or a window with a standard scroll bar, depending on the value of the 
+     * 					<i>fnBar</i> parameter.
+     * @param {SCROLLBAR_CONSTANTS} nBar Type: <b>int</b>
      * @param {Pointer<SCROLLINFO>} lpsi Type: <b>LPSCROLLINFO</b>
      * 
      * Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-scrollinfo">SCROLLINFO</a> structure. Before calling <b>GetScrollInfo</b>, set the 
@@ -23716,15 +24396,21 @@ class WindowsAndMessaging {
      * 
      * > [!NOTE]
      * > The winuser.h header defines DefFrameProc as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HWND} _hWnd 
+     * @param {HWND} _hWnd Type: <b>HWND</b>
+     * 
+     * A handle to the MDI frame window.
      * @param {HWND} hWndMDIClient Type: <b>HWND</b>
      * 
      * A handle to the MDI client window.
      * @param {Integer} uMsg Type: <b>UINT</b>
      * 
      * The message to be processed.
-     * @param {WPARAM} _wParam 
-     * @param {LPARAM} _lParam 
+     * @param {WPARAM} _wParam Type: <b>WPARAM</b>
+     * 
+     * Additional message-specific information.
+     * @param {LPARAM} _lParam Type: <b>LPARAM</b>
+     * 
+     * Additional message-specific information.
      * @returns {LRESULT} Type: <b>LRESULT</b>
      * 
      * The return value specifies the result of the message processing and depends on the message. If the <i>hWndMDIClient</i> parameter is <b>NULL</b>, the return value is the same as for the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-defwindowproca">DefWindowProc</a> function.
@@ -23784,15 +24470,21 @@ class WindowsAndMessaging {
      * 
      * > [!NOTE]
      * > The winuser.h header defines DefFrameProc as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HWND} _hWnd 
+     * @param {HWND} _hWnd Type: <b>HWND</b>
+     * 
+     * A handle to the MDI frame window.
      * @param {HWND} hWndMDIClient Type: <b>HWND</b>
      * 
      * A handle to the MDI client window.
      * @param {Integer} uMsg Type: <b>UINT</b>
      * 
      * The message to be processed.
-     * @param {WPARAM} _wParam 
-     * @param {LPARAM} _lParam 
+     * @param {WPARAM} _wParam Type: <b>WPARAM</b>
+     * 
+     * Additional message-specific information.
+     * @param {LPARAM} _lParam Type: <b>LPARAM</b>
+     * 
+     * Additional message-specific information.
      * @returns {LRESULT} Type: <b>LRESULT</b>
      * 
      * The return value specifies the result of the message processing and depends on the message. If the <i>hWndMDIClient</i> parameter is <b>NULL</b>, the return value is the same as for the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-defwindowproca">DefWindowProc</a> function.
@@ -23872,12 +24564,18 @@ class WindowsAndMessaging {
      * 
      * > [!NOTE]
      * > The winuser.h header defines DefMDIChildProc as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HWND} _hWnd 
+     * @param {HWND} _hWnd Type: <b>HWND</b>
+     * 
+     * A handle to the MDI child window.
      * @param {Integer} uMsg Type: <b>UINT</b>
      * 
      * The message to be processed.
-     * @param {WPARAM} _wParam 
-     * @param {LPARAM} _lParam 
+     * @param {WPARAM} _wParam Type: <b>WPARAM</b>
+     * 
+     * Additional message-specific information.
+     * @param {LPARAM} _lParam Type: <b>LPARAM</b>
+     * 
+     * Additional message-specific information.
      * @returns {LRESULT} Type: <b>LRESULT</b>
      * 
      * The return value specifies the result of the message processing and depends on the message.
@@ -23956,12 +24654,18 @@ class WindowsAndMessaging {
      * 
      * > [!NOTE]
      * > The winuser.h header defines DefMDIChildProc as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HWND} _hWnd 
+     * @param {HWND} _hWnd Type: <b>HWND</b>
+     * 
+     * A handle to the MDI child window.
      * @param {Integer} uMsg Type: <b>UINT</b>
      * 
      * The message to be processed.
-     * @param {WPARAM} _wParam 
-     * @param {LPARAM} _lParam 
+     * @param {WPARAM} _wParam Type: <b>WPARAM</b>
+     * 
+     * Additional message-specific information.
+     * @param {LPARAM} _lParam Type: <b>LPARAM</b>
+     * 
+     * Additional message-specific information.
      * @returns {LRESULT} Type: <b>LRESULT</b>
      * 
      * The return value specifies the result of the message processing and depends on the message.
@@ -24004,7 +24708,9 @@ class WindowsAndMessaging {
      * An application that maintains its own minimized child windows can use the <b>ArrangeIconicWindows</b> function to arrange icons in a parent window. This function can also arrange icons on the desktop. To retrieve the window handle to the desktop window, use the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getdesktopwindow">GetDesktopWindow</a> function. 
      * 
      * An application sends the <a href="https://docs.microsoft.com/windows/desktop/winmsg/wm-mdiiconarrange">WM_MDIICONARRANGE</a> message to the multiple-document interface (MDI) client window to prompt the client window to arrange its minimized MDI child windows.
-     * @param {HWND} _hWnd 
+     * @param {HWND} _hWnd Type: <b>HWND</b>
+     * 
+     * A handle to the parent window.
      * @returns {Integer} Type: <b>UINT</b>
      * 
      * If the function succeeds, the return value is the height of one row of icons. 
@@ -24037,7 +24743,7 @@ class WindowsAndMessaging {
      * @param {PSTR} lpWindowName Type: <b>LPCTSTR</b>
      * 
      * The window name. The system displays the name in the title bar of the child window.
-     * @param {Integer} dwStyle Type: <b>DWORD</b>
+     * @param {WINDOW_STYLE} dwStyle Type: <b>DWORD</b>
      * @param {Integer} X Type: <b>int</b>
      * 
      * The initial horizontal position, in client coordinates, of the MDI child window. If this parameter is <b>CW_USEDEFAULT</b> ((int)0x80000000), the MDI child window is assigned the default horizontal position.
@@ -24053,8 +24759,12 @@ class WindowsAndMessaging {
      * @param {HWND} hWndParent Type: <b>HWND</b>
      * 
      * A handle to the MDI client window that will be the parent of the new MDI child window.
-     * @param {HINSTANCE} _hInstance 
-     * @param {LPARAM} _lParam 
+     * @param {HINSTANCE} _hInstance Type: <b>HINSTANCE</b>
+     * 
+     * A handle to the instance of the application creating the MDI child window.
+     * @param {LPARAM} _lParam Type: <b>LPARAM</b>
+     * 
+     * An application-defined value.
      * @returns {HWND} Type: <b>HWND</b>
      * 
      * If the function succeeds, the return value is the handle to the created window.
@@ -24091,7 +24801,7 @@ class WindowsAndMessaging {
      * @param {PWSTR} lpWindowName Type: <b>LPCTSTR</b>
      * 
      * The window name. The system displays the name in the title bar of the child window.
-     * @param {Integer} dwStyle Type: <b>DWORD</b>
+     * @param {WINDOW_STYLE} dwStyle Type: <b>DWORD</b>
      * @param {Integer} X Type: <b>int</b>
      * 
      * The initial horizontal position, in client coordinates, of the MDI child window. If this parameter is <b>CW_USEDEFAULT</b> ((int)0x80000000), the MDI child window is assigned the default horizontal position.
@@ -24107,8 +24817,12 @@ class WindowsAndMessaging {
      * @param {HWND} hWndParent Type: <b>HWND</b>
      * 
      * A handle to the MDI client window that will be the parent of the new MDI child window.
-     * @param {HINSTANCE} _hInstance 
-     * @param {LPARAM} _lParam 
+     * @param {HINSTANCE} _hInstance Type: <b>HINSTANCE</b>
+     * 
+     * A handle to the instance of the application creating the MDI child window.
+     * @param {LPARAM} _lParam Type: <b>LPARAM</b>
+     * 
+     * An application-defined value.
      * @returns {HWND} Type: <b>HWND</b>
      * 
      * If the function succeeds, the return value is the handle to the created window.
@@ -24141,7 +24855,7 @@ class WindowsAndMessaging {
      * @param {HWND} hwndParent Type: <b>HWND</b>
      * 
      * A handle to the parent window. If this parameter is <b>NULL</b>, the desktop window is assumed.
-     * @param {Integer} wHow Type: <b>UINT</b>
+     * @param {TILE_WINDOWS_HOW} wHow Type: <b>UINT</b>
      * @param {Pointer<RECT>} lpRect Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a>*</b>
      * 
      * A pointer to a structure that specifies the rectangular area, in client coordinates, within which the windows are arranged. If this parameter is <b>NULL</b>, the client area of the parent window is used.
@@ -24181,7 +24895,7 @@ class WindowsAndMessaging {
      * @param {HWND} hwndParent Type: <b>HWND</b>
      * 
      * A handle to the parent window. If this parameter is <b>NULL</b>, the desktop window is assumed.
-     * @param {Integer} wHow Type: <b>UINT</b>
+     * @param {CASCADE_WINDOWS_HOW} wHow Type: <b>UINT</b>
      * @param {Pointer<RECT>} lpRect Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a>*</b>
      * 
      * A pointer to a structure that specifies the rectangular area, in client coordinates, within which the windows are arranged. This parameter can be <b>NULL</b>, in which case the client area of the parent window is used.
@@ -24225,7 +24939,7 @@ class WindowsAndMessaging {
      * During the time that the primary button is held down to activate the Mouse ClickLock feature, the user can move the mouse. After the primary button is locked down, releasing the primary button does not result in a <b>WM_LBUTTONUP</b> message. Thus, it will appear to an application that the primary button is still down. Any subsequent button message releases the primary button, sending a <b>WM_LBUTTONUP</b> message to the application, thus the button can be unlocked programmatically or through the user clicking any button.
      * 
      * This API is not DPI aware, and should not be used if the calling thread is per-monitor DPI aware. For the DPI-aware version of this API, see <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-systemparametersinfofordpi">SystemParametersInfoForDPI</a>. For more information on DPI awareness, see <a href="https://docs.microsoft.com/windows/desktop/hidpi/high-dpi-desktop-application-development-on-windows">the Windows High DPI documentation.</a>
-     * @param {Integer} uiAction Type: <b>UINT</b>
+     * @param {SYSTEM_PARAMETERS_INFO_ACTION} uiAction Type: <b>UINT</b>
      * 
      * The system-wide parameter to be retrieved or set. The possible values are organized in the following tables of related parameters:
      * 
@@ -27058,7 +27772,7 @@ class WindowsAndMessaging {
      * @param {Pointer<Void>} pvParam Type: <b>PVOID</b>
      * 
      * A parameter whose usage and format depends on the system parameter being queried or set. For more information about system-wide parameters, see the <i>uiAction</i> parameter. If not otherwise indicated, you must specify <b>NULL</b> for this parameter. For information on the <b>PVOID</b> datatype, see <a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">Windows Data Types</a>.
-     * @param {Integer} fWinIni Type: <b>UINT</b>
+     * @param {SYSTEM_PARAMETERS_INFO_UPDATE_FLAGS} fWinIni Type: <b>UINT</b>
      * 
      * If a system parameter is being set, specifies whether the user profile is to be updated, and if so, whether the <a href="https://docs.microsoft.com/windows/desktop/winmsg/wm-settingchange">WM_SETTINGCHANGE</a> message is to be broadcast to all top-level windows to notify them of the change.
      * @returns {BOOL} Type: <b>BOOL</b>
@@ -27094,7 +27808,7 @@ class WindowsAndMessaging {
      * During the time that the primary button is held down to activate the Mouse ClickLock feature, the user can move the mouse. After the primary button is locked down, releasing the primary button does not result in a <b>WM_LBUTTONUP</b> message. Thus, it will appear to an application that the primary button is still down. Any subsequent button message releases the primary button, sending a <b>WM_LBUTTONUP</b> message to the application, thus the button can be unlocked programmatically or through the user clicking any button.
      * 
      * This API is not DPI aware, and should not be used if the calling thread is per-monitor DPI aware. For the DPI-aware version of this API, see <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-systemparametersinfofordpi">SystemParametersInfoForDPI</a>. For more information on DPI awareness, see <a href="https://docs.microsoft.com/windows/desktop/hidpi/high-dpi-desktop-application-development-on-windows">the Windows High DPI documentation.</a>
-     * @param {Integer} uiAction Type: <b>UINT</b>
+     * @param {SYSTEM_PARAMETERS_INFO_ACTION} uiAction Type: <b>UINT</b>
      * 
      * The system-wide parameter to be retrieved or set. The possible values are organized in the following tables of related parameters:                            
      * 
@@ -29924,7 +30638,7 @@ class WindowsAndMessaging {
      * @param {Pointer<Void>} pvParam Type: <b>PVOID</b>
      * 
      * A parameter whose usage and format depends on the system parameter being queried or set. For more information about system-wide parameters, see the <i>uiAction</i> parameter. If not otherwise indicated, you must specify <b>NULL</b> for this parameter. For information on the <b>PVOID</b> datatype, see <a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">Windows Data Types</a>.
-     * @param {Integer} fWinIni Type: <b>UINT</b>
+     * @param {SYSTEM_PARAMETERS_INFO_UPDATE_FLAGS} fWinIni Type: <b>UINT</b>
      * 
      * If a system parameter is being set, specifies whether the user profile is to be updated, and if so, whether the <a href="https://docs.microsoft.com/windows/desktop/winmsg/wm-settingchange">WM_SETTINGCHANGE</a> message is to be broadcast to all top-level windows to notify them of the change.
      * @returns {BOOL} Type: <b>BOOL</b>
@@ -30005,7 +30719,9 @@ class WindowsAndMessaging {
      * Copies the text of the specified window's title bar (if it has one) into a buffer.
      * @remarks
      * This function was not included in the SDK headers and libraries until Windows XP with Service Pack 1 (SP1) and Windows Server 2003. If you do not have a header file and import library for this function, you can call the function using <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadlibrarya">LoadLibrary</a> and <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-getprocaddress">GetProcAddress</a>.
-     * @param {HWND} _hWnd 
+     * @param {HWND} _hWnd Type: <b>HWND</b>
+     * 
+     * A handle to the window or control containing the text.
      * @param {PWSTR} pString Type: <b>LPWSTR</b>
      * 
      * The buffer that is to receive the text.
@@ -30169,7 +30885,9 @@ class WindowsAndMessaging {
      * @remarks
      * > [!NOTE]
      * > The winuser.h header defines GetWindowModuleFileName as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HWND} _hwnd 
+     * @param {HWND} _hwnd Type: <b>HWND</b>
+     * 
+     * A handle to the window whose module file name is to be retrieved.
      * @param {PSTR} pszFileName Type: <b>LPTSTR</b>
      * 
      * The path and file name.
@@ -30195,7 +30913,9 @@ class WindowsAndMessaging {
      * @remarks
      * > [!NOTE]
      * > The winuser.h header defines GetWindowModuleFileName as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HWND} _hwnd 
+     * @param {HWND} _hwnd Type: <b>HWND</b>
+     * 
+     * A handle to the window whose module file name is to be retrieved.
      * @param {PWSTR} pszFileName Type: <b>LPTSTR</b>
      * 
      * The path and file name.
@@ -30242,7 +30962,9 @@ class WindowsAndMessaging {
 
     /**
      * Retrieves information about the specified window. (GetWindowInfo)
-     * @param {HWND} _hwnd 
+     * @param {HWND} _hwnd Type: <b>HWND</b>
+     * 
+     * A handle to the window whose information is to be retrieved.
      * @param {Pointer<WINDOWINFO>} pwi Type: <b>PWINDOWINFO</b>
      * 
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-windowinfo">WINDOWINFO</a> structure to receive the information. Note that you must set the <b>cbSize</b> member to <c>sizeof(WINDOWINFO)</c> before calling this function.
@@ -30271,7 +30993,9 @@ class WindowsAndMessaging {
 
     /**
      * Retrieves information about the specified title bar.
-     * @param {HWND} _hwnd 
+     * @param {HWND} _hwnd Type: <b>HWND</b>
+     * 
+     * A handle to the title bar whose information is to be retrieved.
      * @param {Pointer<TITLEBARINFO>} pti Type: <b>PTITLEBARINFO</b>
      * 
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-titlebarinfo">TITLEBARINFO</a> structure to receive the information. Note that you must set the <b>cbSize</b> member to <c>sizeof(TITLEBARINFO)</c> before calling this function.
@@ -30298,8 +31022,10 @@ class WindowsAndMessaging {
 
     /**
      * Retrieves information about the specified menu bar.
-     * @param {HWND} _hwnd 
-     * @param {Integer} idObject Type: <b>LONG</b>
+     * @param {HWND} _hwnd Type: <b>HWND</b>
+     * 
+     * A handle to the window (menu bar) whose information is to be retrieved.
+     * @param {OBJECT_IDENTIFIER} idObject Type: <b>LONG</b>
      * @param {Integer} idItem Type: <b>LONG</b>
      * 
      * The item for which to retrieve information. If this parameter is zero, the function retrieves information about the menu itself. If this parameter is 1, the function retrieves information about the first item on the menu, and so on.
@@ -30331,8 +31057,13 @@ class WindowsAndMessaging {
      * The GetScrollBarInfo function retrieves information about the specified scroll bar.
      * @remarks
      * If <i>idObject</i> is OBJID_CLIENT and the window specified by <i>hwnd</i> is not a system scroll bar control, the system sends the <a href="https://docs.microsoft.com/windows/desktop/Controls/sbm-getscrollbarinfo">SBM_GETSCROLLBARINFO</a> message to the window to obtain scroll bar information.  This allows <b>GetScrollBarInfo</b> to operate on a custom control that mimics a scroll bar.  If the window does not handle the <b>SBM_GETSCROLLBARINFO</b> message, the <b>GetScrollBarInfo</b> function fails.
-     * @param {HWND} _hwnd 
-     * @param {Integer} idObject Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LONG</a></b>
+     * @param {HWND} _hwnd Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
+     * 
+     * Handle to a window associated with the scroll bar whose information is to be retrieved. If the 
+     * 					<i>idObject</i> parameter is OBJID_CLIENT, 
+     * 					<i>hwnd</i> is a handle to a scroll bar control. Otherwise, 
+     * 					<i>hwnd</i> is a handle to a window created with <a href="https://docs.microsoft.com/windows/desktop/winmsg/window-styles">WS_VSCROLL</a> and/or <a href="https://docs.microsoft.com/windows/desktop/winmsg/window-styles">WS_HSCROLL</a> style.
+     * @param {OBJECT_IDENTIFIER} idObject Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LONG</a></b>
      * @param {Pointer<SCROLLBARINFO>} psbi Type: <b>PSCROLLBARINFO</b>
      * 
      * Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-scrollbarinfo">SCROLLBARINFO</a> structure to receive the information. Before calling <b>GetScrollBarInfo</b>, set the 
@@ -30361,8 +31092,10 @@ class WindowsAndMessaging {
 
     /**
      * Retrieves the handle to the ancestor of the specified window.
-     * @param {HWND} _hwnd 
-     * @param {Integer} gaFlags Type: <b>UINT</b>
+     * @param {HWND} _hwnd Type: <b>HWND</b>
+     * 
+     * A handle to the window whose ancestor is to be retrieved. If this parameter is the desktop window, the function returns <b>NULL</b>.
+     * @param {GET_ANCESTOR_FLAGS} gaFlags Type: <b>UINT</b>
      * @returns {HWND} Type: <b>HWND</b>
      * 
      * The return value is the handle to the ancestor window.
@@ -30403,7 +31136,9 @@ class WindowsAndMessaging {
 
     /**
      * Retrieves a string that specifies the window type. (ANSI)
-     * @param {HWND} _hwnd 
+     * @param {HWND} _hwnd Type: <b>HWND</b>
+     * 
+     * A handle to the window whose type will be retrieved.
      * @param {PSTR} ptszClassName Type: <b>LPTSTR</b>
      * 
      * A pointer to a string that receives the window type.
@@ -30427,7 +31162,9 @@ class WindowsAndMessaging {
 
     /**
      * Retrieves a string that specifies the window type. (Unicode)
-     * @param {HWND} _hwnd 
+     * @param {HWND} _hwnd Type: <b>HWND</b>
+     * 
+     * A handle to the window whose type will be retrieved.
      * @param {PWSTR} ptszClassName Type: <b>LPTSTR</b>
      * 
      * A pointer to a string that receives the window type.
@@ -30467,7 +31204,9 @@ class WindowsAndMessaging {
      * 
      * > [!NOTE]
      * > The winuser.h header defines GetAltTabInfo as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HWND} _hwnd 
+     * @param {HWND} _hwnd Type: <b>HWND</b>
+     * 
+     * A handle to the window for which status information will be retrieved. This window must be the application-switching window.
      * @param {Integer} iItem Type: <b>int</b>
      * 
      * The index of the icon in the application-switching window. If the <i>pszItemText</i> parameter is not <b>NULL</b>, the name of the item is copied to the <i>pszItemText</i> string. If this parameter is –1, the name of the item is not copied.
@@ -30513,7 +31252,9 @@ class WindowsAndMessaging {
      * 
      * > [!NOTE]
      * > The winuser.h header defines GetAltTabInfo as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HWND} _hwnd 
+     * @param {HWND} _hwnd Type: <b>HWND</b>
+     * 
+     * A handle to the window for which status information will be retrieved. This window must be the application-switching window.
      * @param {Integer} iItem Type: <b>int</b>
      * 
      * The index of the icon in the application-switching window. If the <i>pszItemText</i> parameter is not <b>NULL</b>, the name of the item is copied to the <i>pszItemText</i> string. If this parameter is –1, the name of the item is not copied.
@@ -30561,7 +31302,7 @@ class WindowsAndMessaging {
      * @param {Integer} message Type: <b>UINT</b>
      * 
      * The message to add to or remove from the filter.
-     * @param {Integer} dwFlag Type: <b>DWORD</b>
+     * @param {CHANGE_WINDOW_MESSAGE_FILTER_FLAGS} dwFlag Type: <b>DWORD</b>
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * <b>TRUE</b> if successful; otherwise, <b>FALSE</b>. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -30606,11 +31347,13 @@ class WindowsAndMessaging {
      * Certain messages whose value is smaller than <b>WM_USER</b> are required to be passed through the filter, 
      * 		regardless of the filter setting. There will be no effect when you attempt to use this function to 
      * 		allow or block such messages.
-     * @param {HWND} _hwnd 
+     * @param {HWND} _hwnd Type: <b>HWND</b>
+     * 
+     * A handle to the window whose UIPI message filter is to be modified.
      * @param {Integer} message Type: <b>UINT</b>
      * 
      * The message that the message filter allows through or blocks.
-     * @param {Integer} action Type: <b>DWORD</b>
+     * @param {WINDOW_MESSAGE_FILTER_ACTION} action Type: <b>DWORD</b>
      * @param {Pointer<CHANGEFILTERSTRUCT>} pChangeFilterStruct Type: <b>PCHANGEFILTERSTRUCT</b>
      * 
      * Optional pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-changefilterstruct">CHANGEFILTERSTRUCT</a> structure.
@@ -30724,8 +31467,10 @@ class WindowsAndMessaging {
      * Tooltip or app windows are expected to call the function to register each time tooltips are shown. Registered windows are automatically unregistered upon posting **WM_TOOLTIPDISMISS**.
      * 
      * The **TDF_UNREGISTER** flag is used to explicitly unregister a window when a tooltip window is dismissed by application or framework prerogative (such as moving the cursor out of the "safe zone"). If an app or framework calls `RegisterForTooltipDismissNotification` with **TDF_UNREGISTER** after the window has been automatically unregistered, the function returns **FALSE**. There is no impact on future registrations.
-     * @param {HWND} _hWnd 
-     * @param {Integer} tdFlags Type: **[TOOLTIP_DISMISS_FLAGS](ne-winuser-tooltip_dismiss_flags.md)**
+     * @param {HWND} _hWnd Type: **HWND**
+     * 
+     * The handle of the window to receive the **WM_TOOLTIPDISMISS** message.
+     * @param {TOOLTIP_DISMISS_FLAGS} tdFlags Type: **[TOOLTIP_DISMISS_FLAGS](ne-winuser-tooltip_dismiss_flags.md)**
      * 
      * A value of the enumeration that specifies whether the function registers or unregisters the window. **TDF_REGISTER** to register; **TDF_UNREGISTER** to unregister.
      * @returns {BOOL} **TRUE** if the window was successfully registered or unregistered; otherwise, **FALSE**. (See Remarks.)
@@ -30753,7 +31498,9 @@ class WindowsAndMessaging {
      * At this time, this function does not have an associated header file or library file. Your application can call [**LoadLibrary**](/windows/win32/api/libloaderapi/nf-libloaderapi-loadlibrarya) with the DLL name (`User32.dll`) to obtain a module handle. It can then call [**GetProcAddress**](/windows/win32/api/libloaderapi/nf-libloaderapi-getprocaddress) with the module handle and the name of this function to get the function address.
      * 
      * A snapped window (see [Snap your windows](https://support.microsoft.com/windows/snap-your-windows-885a9b1e-a983-a3b1-16cd-c531795e6241)) is considered to be arranged. You should treat arrange as a window state similar to maximize. Arranged, maximize, and minimize are mutually exclusive states. An arranged window can be restored to its original size and position. Restoring a window from minimize can make a window arranged if the window was arranged before it was minimized. When calling [GetWindowPlacement](/windows/win32/api/winuser/nf-winuser-getwindowplacement), keep in mind that the *showCmd* member on the returned [WINDOWPLACEMENT](/windows/win32/api/winuser/ns-winuser-windowplacement) can have a value of **SW_SHOWNORMAL** even if the window is arranged.
-     * @param {HWND} _hwnd 
+     * @param {HWND} _hwnd Type: **HWND**
+     * 
+     * A handle to the window to be tested.
      * @returns {BOOL} Type: **BOOL**
      * 
      * A nonzero value if the window is arranged; otherwise, zero.
@@ -30792,7 +31539,7 @@ class WindowsAndMessaging {
      * 
      * @param {HWND} _hwnd 
      * @param {POINT} ptCursor 
-     * @param {Integer} moveSizeCode 
+     * @param {MOVESIZE_OPERATION} moveSizeCode 
      * @returns {BOOL} 
      */
     static EnterMoveSizeLoop(_hwnd, ptCursor, moveSizeCode) {
@@ -30877,7 +31624,7 @@ class WindowsAndMessaging {
      * @param {PWSTR} projectRoot Type: **PCWSTR**
      * 
      * The project root of the UWP app for which you will be generating PRI files. In other words, the path to that app's resource files. You specify this so that you can then specify paths relative to that root in subsequent API calls to the same resource indexer.
-     * @param {Integer} platformVersion Type: **[**MrmPlatformVersion**](mrmplatformversion.md)**
+     * @param {MrmPlatformVersion} platformVersion Type: **[**MrmPlatformVersion**](mrmplatformversion.md)**
      * 
      * The target platform version for the resource indexer.
      * @param {PWSTR} defaultQualifiers Type: **PCWSTR**
@@ -30905,7 +31652,7 @@ class WindowsAndMessaging {
      * @param {PWSTR} projectRoot Type: **PCWSTR**
      * 
      * The project root of the UWP app for which you will be generating PRI files. In other words, the path to that app's resource files. You specify this so that you can then specify paths relative to that root in subsequent API calls to the same resource indexer.
-     * @param {Integer} platformVersion Type: **[**MrmPlatformVersion**](mrmplatformversion.md)**
+     * @param {MrmPlatformVersion} platformVersion Type: **[**MrmPlatformVersion**](mrmplatformversion.md)**
      * 
      * The target platform version for the resource indexer.
      * @param {PWSTR} defaultQualifiers Type: **PCWSTR**
@@ -30936,7 +31683,7 @@ class WindowsAndMessaging {
      * @param {PWSTR} projectRoot Type: **PCWSTR**
      * 
      * The project root of the UWP app for which you will be generating PRI files. In other words, the path to that app's resource files. You specify this so that you can then specify paths relative to that root in subsequent API calls to the same resource indexer.
-     * @param {Integer} platformVersion Type: **[**MrmPlatformVersion**](mrmplatformversion.md)**
+     * @param {MrmPlatformVersion} platformVersion Type: **[**MrmPlatformVersion**](mrmplatformversion.md)**
      * 
      * The target platform version for the resource indexer.
      * @param {PWSTR} defaultQualifiers Type: **PCWSTR**
@@ -30969,13 +31716,13 @@ class WindowsAndMessaging {
      * @param {PWSTR} projectRoot Type: **PCWSTR**
      * 
      * The project root of the UWP app for which you will be generating PRI files. In other words, the path to that app's resource files. You specify this so that you can then specify paths relative to that root in subsequent API calls to the same resource indexer.
-     * @param {Integer} platformVersion Type: **[**MrmPlatformVersion**](mrmplatformversion.md)**
+     * @param {MrmPlatformVersion} platformVersion Type: **[**MrmPlatformVersion**](mrmplatformversion.md)**
      * 
      * The target platform version for the resource indexer.
      * @param {PWSTR} defaultQualifiers Type: **PCWSTR**
      * 
      * A list of default resource qualifiers. For example, L"language-en-US\_scale-100\_contrast-standard"
-     * @param {Pointer} schemaXmlData Type: **BYTE\***
+     * @param {Integer} schemaXmlData Type: **BYTE\***
      * 
      * A pointer to schema data created by a previous call to either [**MrmDumpPriFileInMemory**](mrmdumpprifileinmemory.md) or [**MrmDumpPriDataInMemory**](mrmdumppridatainmemory.md). Don't free *schemaXmlData* until after you've finished using the resource indexer created by this function.
      * @param {Integer} schemaXmlSize Type: **ULONG**
@@ -31004,13 +31751,13 @@ class WindowsAndMessaging {
      * @param {PWSTR} projectRoot Type: **PCWSTR**
      * 
      * The project root of the UWP app for which you will be generating PRI files. In other words, the path to that app's resource files. You specify this so that you can then specify paths relative to that root in subsequent API calls to the same resource indexer.
-     * @param {Integer} platformVersion Type: **[**MrmPlatformVersion**](mrmplatformversion.md)**
+     * @param {MrmPlatformVersion} platformVersion Type: **[**MrmPlatformVersion**](mrmplatformversion.md)**
      * 
      * The target platform version for the resource indexer.
      * @param {PWSTR} defaultQualifiers Type: **PCWSTR**
      * 
      * A list of default resource qualifiers. For example, L"language-en-US\_scale-100\_contrast-standard"
-     * @param {Pointer} priData Type: **BYTE\***
+     * @param {Integer} priData Type: **BYTE\***
      * 
      * A pointer to PRI data created by a previous call to [**MrmCreateResourceFileInMemory**](mrmcreateresourcefileinmemory.md). Don't free *priData* until after you've finished using the resource indexer created by this function.
      * @param {Integer} priSize Type: **ULONG**
@@ -31036,9 +31783,9 @@ class WindowsAndMessaging {
      * 
      * @param {PWSTR} packageFamilyName 
      * @param {PWSTR} projectRoot 
-     * @param {Integer} platformVersion 
+     * @param {MrmPlatformVersion} platformVersion 
      * @param {PWSTR} defaultQualifiers 
-     * @param {Integer} flags 
+     * @param {MrmIndexerFlags} flags 
      * @param {Pointer<MrmResourceIndexerHandle>} indexer 
      * @returns {HRESULT} 
      */
@@ -31095,7 +31842,7 @@ class WindowsAndMessaging {
      * @param {PWSTR} resourceUri Type: **PCWSTR**
      * 
      * The resource URI to assign to the resource. The path will be used as the resource map subtree name for this resource when you later generate a PRI file from this resource indexer.
-     * @param {Pointer} embeddedData Type: **const BYTE\***
+     * @param {Integer} embeddedData Type: **const BYTE\***
      * 
      * A pointer to the data of the resource that you want to index.
      * @param {Integer} embeddedDataSize Type: **ULONG**
@@ -31202,10 +31949,10 @@ class WindowsAndMessaging {
      * @param {MrmResourceIndexerHandle} indexer Type: **[**MrmResourceIndexerHandle**](mrmresourceindexerhandle.md)**
      * 
      * A handle identifying the resource indexer from which to create the PRI file.
-     * @param {Integer} packagingMode Type: **[**MrmPackagingMode**](mrmpackagingmode.md)**
+     * @param {MrmPackagingMode} packagingMode Type: **[**MrmPackagingMode**](mrmpackagingmode.md)**
      * 
      * Specifies whether the PRI file should be standalone, be automatically split by resource qualifier, or be a resource pack.
-     * @param {Integer} packagingOptions Type: **[**MrmPackagingOptions**](mrmpackagingoptions.md)**
+     * @param {MrmPackagingOptions} packagingOptions Type: **[**MrmPackagingOptions**](mrmpackagingoptions.md)**
      * 
      * Specifies additional options about the PRI file.
      * @param {PWSTR} outputDirectory Type: **PCWSTR**
@@ -31226,8 +31973,8 @@ class WindowsAndMessaging {
     /**
      * 
      * @param {MrmResourceIndexerHandle} indexer 
-     * @param {Integer} packagingMode 
-     * @param {Integer} packagingOptions 
+     * @param {MrmPackagingMode} packagingMode 
+     * @param {MrmPackagingOptions} packagingOptions 
      * @param {Integer} checksum 
      * @param {PWSTR} outputDirectory 
      * @returns {HRESULT} 
@@ -31246,10 +31993,10 @@ class WindowsAndMessaging {
      * @param {MrmResourceIndexerHandle} indexer Type: **[**MrmResourceIndexerHandle**](mrmresourceindexerhandle.md)**
      * 
      * A handle identifying the resource indexer from which to create the PRI info.
-     * @param {Integer} packagingMode Type: **[**MrmPackagingMode**](mrmpackagingmode.md)**
+     * @param {MrmPackagingMode} packagingMode Type: **[**MrmPackagingMode**](mrmpackagingmode.md)**
      * 
      * Specifies whether the PRI info should be standalone, or be a resource pack. **MrmPackagingModeAutoSplit** is not supported.
-     * @param {Integer} packagingOptions Type: **[**MrmPackagingOptions**](mrmpackagingoptions.md)**
+     * @param {MrmPackagingOptions} packagingOptions Type: **[**MrmPackagingOptions**](mrmpackagingoptions.md)**
      * 
      * Specifies additional options about the PRI info.
      * @param {Pointer<Pointer<Integer>>} outputPriData Type: **BYTE\*\***
@@ -31337,7 +32084,9 @@ class WindowsAndMessaging {
      * @param {PWSTR} schemaPriFile Type: **PCWSTR**
      * 
      * An optional full file path to a schema file (or to a PRI file representing a schema; see Remarks).
-     * @param {Integer} _dumpType 
+     * @param {MrmDumpType} _dumpType Type: **[**MrmDumpType**](mrmdumptype.md)**
+     * 
+     * Specifies how detailed the XML dump should be, or whether a schema should be dumped.
      * @param {PWSTR} outputXmlFile Type: **PCWSTR**
      * 
      * The path of an XML file to create.
@@ -31365,7 +32114,9 @@ class WindowsAndMessaging {
      * @param {PWSTR} schemaPriFile Type: **PCWSTR**
      * 
      * An optional full file path to a schema file (or to a PRI file representing a schema; see Remarks).
-     * @param {Integer} _dumpType 
+     * @param {MrmDumpType} _dumpType Type: **[**MrmDumpType**](mrmdumptype.md)**
+     * 
+     * Specifies how detailed the XML dump should be, or whether a schema should be dumped.
      * @param {Pointer<Pointer<Integer>>} outputXmlData Type: **BYTE\*\***
      * 
      * The address of a pointer to BYTE. The function allocates memory and returns a pointer to that memory in *outputXmlData*. Call [**MrmFreeMemory**](mrmfreememory.md) with your pointer to BYTE to free that memory.
@@ -31392,19 +32143,21 @@ class WindowsAndMessaging {
      * Dumps PRI info (as a blob in memory, created by a previous call to MrmCreateResourceFileInMemory) to its XML equivalent (as in-memory data), in order to make it more easily readable.
      * @remarks
      * A schema-free resource pack is one that was created with the [**MrmPackagingOptionsOmitSchemaFromResourcePacks**](mrmpackagingoptions.md) argument passed to [**MrmCreateResourceFile**](mrmcreateresourcefile.md) or [**MrmCreateResourceFileInMemory**](mrmcreateresourcefileinmemory.md) (or with the *omitSchemaFromResourcePacks* switch in the PRI config file). To dump a schema-free resource pack, pass the path to your main package PRI data as the argument for the *schemaPriData* parameter.
-     * @param {Pointer} inputPriData Type: **BYTE\***
+     * @param {Integer} inputPriData Type: **BYTE\***
      * 
      * A pointer to PRI data created by a previous call to [**MrmCreateResourceFileInMemory**](mrmcreateresourcefileinmemory.md).
      * @param {Integer} inputPriSize Type: **ULONG**
      * 
      * The size of the data pointed to by *inputPriData*.
-     * @param {Pointer} schemaPriData Type: **BYTE\***
+     * @param {Integer} schemaPriData Type: **BYTE\***
      * 
      * An optional pointer to PRI info (as a blob in memory) representing schema data created by a previous call to [**MrmCreateResourceFileInMemory**](mrmcreateresourcefileinmemory.md). Don't free *schemaPriData* until after you've finished using the resource indexer. Also see Remarks.
      * @param {Integer} schemaPriSize Type: **ULONG**
      * 
      * The size of the data pointed to by *schemaPriData*.
-     * @param {Integer} _dumpType 
+     * @param {MrmDumpType} _dumpType Type: **[**MrmDumpType**](mrmdumptype.md)**
+     * 
+     * Specifies how detailed the XML dump should be, or whether a schema should be dumped.
      * @param {Pointer<Pointer<Integer>>} outputXmlData Type: **BYTE\*\***
      * 
      * The address of a pointer to BYTE. The function allocates memory and returns a pointer to that memory in *outputXmlData*. Call [**MrmFreeMemory**](mrmfreememory.md) with your pointer to BYTE to free that memory.
@@ -31426,7 +32179,7 @@ class WindowsAndMessaging {
 
     /**
      * Creates a new, initialized PRI config file defining the qualifier defaults that you specify. For more info, and scenario-based walkthroughs of how to use these APIs, see Package resource indexing (PRI) APIs and custom build systems.
-     * @param {Integer} platformVersion Type: **[**MrmPlatformVersion**](mrmplatformversion.md)**
+     * @param {MrmPlatformVersion} platformVersion Type: **[**MrmPlatformVersion**](mrmplatformversion.md)**
      * 
      * The platform version (*targetOsVersion*) to use for the generated configuration file.
      * @param {PWSTR} defaultQualifiers Type: **PCWSTR**
@@ -31450,7 +32203,7 @@ class WindowsAndMessaging {
 
     /**
      * Creates new, initialized PRI configuration info (as in-memory data, not as a file) defining the qualifier defaults that you specify.
-     * @param {Integer} platformVersion Type: **[**MrmPlatformVersion**](mrmplatformversion.md)**
+     * @param {MrmPlatformVersion} platformVersion Type: **[**MrmPlatformVersion**](mrmplatformversion.md)**
      * 
      * The platform version (*targetOsVersion*) to use for the generated configuration info.
      * @param {PWSTR} defaultQualifiers Type: **PCWSTR**

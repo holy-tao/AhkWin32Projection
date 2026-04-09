@@ -3,11 +3,9 @@
 
 /**
  * @namespace Windows.Win32.Devices.HumanInterfaceDevice
- * @version v4.0.30319
  * @charset Unicode
  */
-class DIEFFECTINFOW extends Win32Struct
-{
+class DIEFFECTINFOW extends Win32Struct {
     static sizeof => 552
 
     static packingSize => 8
@@ -21,7 +19,7 @@ class DIEFFECTINFOW extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     guid {
         get => NumGet(this, 8, "ptr")

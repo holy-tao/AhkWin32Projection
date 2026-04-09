@@ -10,9 +10,8 @@
  * ``` syntax
  * @see https://learn.microsoft.com/windows/win32/api/clusapi/ne-clusapi-fileshare_change_enum
  * @namespace Windows.Win32.Networking.Clustering
- * @version v4.0.30319
  */
-class FILESHARE_CHANGE_ENUM extends Win32Enum{
+class FILESHARE_CHANGE_ENUM extends Win32Enum {
 
     /**
      * This is a place holder value and is not a valid event.

@@ -28,17 +28,15 @@
  * To access the <b>ActivateAudioIntefaceAsync</b>, you will need to link to mmdevapi.lib.
  * @see https://learn.microsoft.com/windows/win32/api/spatialaudioclient/ns-spatialaudioclient-spatialaudioclientactivationparams
  * @namespace Windows.Win32.Media.Audio
- * @version v4.0.30319
  */
-class SpatialAudioClientActivationParams extends Win32Struct
-{
+class SpatialAudioClientActivationParams extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
 
     /**
      * An app-defined context identifier, used for event logging.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     tracingContextId {
         get => NumGet(this, 0, "ptr")
@@ -47,7 +45,7 @@ class SpatialAudioClientActivationParams extends Win32Struct
 
     /**
      * An identifier for the client app, used for event logging.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     appId {
         get => NumGet(this, 8, "ptr")
@@ -55,7 +53,6 @@ class SpatialAudioClientActivationParams extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     majorVersion {
@@ -64,7 +61,6 @@ class SpatialAudioClientActivationParams extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     minorVersion1 {
@@ -73,7 +69,6 @@ class SpatialAudioClientActivationParams extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     minorVersion2 {
@@ -82,7 +77,6 @@ class SpatialAudioClientActivationParams extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     minorVersion3 {

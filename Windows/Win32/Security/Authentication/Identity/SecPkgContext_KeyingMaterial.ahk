@@ -5,10 +5,8 @@
  * The SecPkgContext_KeyingMaterial structure.
  * @see https://learn.microsoft.com/windows/win32/api/schannel/ns-schannel-secpkgcontext_keyingmaterial
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class SecPkgContext_KeyingMaterial extends Win32Struct
-{
+class SecPkgContext_KeyingMaterial extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

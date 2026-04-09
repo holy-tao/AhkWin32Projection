@@ -5,17 +5,15 @@
  * Contains information about a drive's GUID partition table (GPT) partitions.
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-drive_layout_information_gpt
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class DRIVE_LAYOUT_INFORMATION_GPT extends Win32Struct
-{
+class DRIVE_LAYOUT_INFORMATION_GPT extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
 
     /**
      * The <b>GUID</b> of the disk.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     DiskId {
         get => NumGet(this, 0, "ptr")

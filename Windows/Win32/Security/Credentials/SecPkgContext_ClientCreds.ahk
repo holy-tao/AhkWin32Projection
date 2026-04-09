@@ -5,10 +5,8 @@
  * Specifies client credentials when calling the QueryContextAttributes (CredSSP) function.
  * @see https://learn.microsoft.com/windows/win32/api/credssp/ns-credssp-secpkgcontext_clientcreds
  * @namespace Windows.Win32.Security.Credentials
- * @version v4.0.30319
  */
-class SecPkgContext_ClientCreds extends Win32Struct
-{
+class SecPkgContext_ClientCreds extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

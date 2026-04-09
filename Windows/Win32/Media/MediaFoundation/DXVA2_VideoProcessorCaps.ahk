@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Graphics\Direct3D9\D3DPOOL.ahk
 
 /**
  * Describes the capabilities of a DirectX Video Acceleration (DVXA) video processor mode.
  * @see https://learn.microsoft.com/windows/win32/api/dxva2api/ns-dxva2api-dxva2_videoprocessorcaps
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class DXVA2_VideoProcessorCaps extends Win32Struct
-{
+class DXVA2_VideoProcessorCaps extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 4
@@ -61,7 +60,7 @@ class DXVA2_VideoProcessorCaps extends Win32Struct
 
     /**
      * The Direct3D memory pool used by the device.
-     * @type {Integer}
+     * @type {D3DPOOL}
      */
     InputPool {
         get => NumGet(this, 4, "int")

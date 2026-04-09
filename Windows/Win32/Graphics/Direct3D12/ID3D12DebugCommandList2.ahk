@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D12
- * @version v4.0.30319
  */
-class ID3D12DebugCommandList2 extends ID3D12DebugCommandList{
+class ID3D12DebugCommandList2 extends ID3D12DebugCommandList {
 
     static sizeof => A_PtrSize
     /**
@@ -30,8 +29,8 @@ class ID3D12DebugCommandList2 extends ID3D12DebugCommandList{
 
     /**
      * 
-     * @param {Integer} Type 
-     * @param {Pointer} pData 
+     * @param {D3D12_DEBUG_COMMAND_LIST_PARAMETER_TYPE} Type 
+     * @param {Integer} pData 
      * @param {Integer} DataSize 
      * @returns {HRESULT} 
      */
@@ -42,8 +41,8 @@ class ID3D12DebugCommandList2 extends ID3D12DebugCommandList{
 
     /**
      * 
-     * @param {Integer} Type 
-     * @param {Pointer} pData 
+     * @param {D3D12_DEBUG_COMMAND_LIST_PARAMETER_TYPE} Type 
+     * @param {Integer} pData 
      * @param {Integer} DataSize 
      * @returns {HRESULT} 
      */

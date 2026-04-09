@@ -5,9 +5,8 @@
  * Defines types of sensor device connections.
  * @see https://learn.microsoft.com/windows/win32/api/sensorsapi/ne-sensorsapi-sensorconnectiontype
  * @namespace Windows.Win32.Devices.Sensors
- * @version v4.0.30319
  */
-class SensorConnectionType extends Win32Enum{
+class SensorConnectionType extends Win32Enum {
 
     /**
      * The sensor device is built into the computer.

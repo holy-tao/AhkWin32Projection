@@ -18,10 +18,8 @@
 
 /**
  * @namespace Windows.Win32.System.AddressBook
- * @version v4.0.30319
  */
-class __UPV extends Win32Struct
-{
+class __UPV extends Win32Struct {
     static sizeof => 312
 
     static packingSize => 8
@@ -77,7 +75,7 @@ class __UPV extends Win32Struct
     /**
      * @type {CY}
      */
-    cur{
+    cur {
         get {
             if(!this.HasProp("__cur"))
                 this.__cur := CY(0, this)
@@ -96,7 +94,7 @@ class __UPV extends Win32Struct
     /**
      * @type {FILETIME}
      */
-    ft{
+    ft {
         get {
             if(!this.HasProp("__ft"))
                 this.__ft := FILETIME(0, this)
@@ -115,7 +113,7 @@ class __UPV extends Win32Struct
     /**
      * @type {SBinary}
      */
-    bin{
+    bin {
         get {
             if(!this.HasProp("__bin"))
                 this.__bin := SBinary(0, this)
@@ -150,7 +148,7 @@ class __UPV extends Win32Struct
     /**
      * @type {SShortArray}
      */
-    MVi{
+    MVi {
         get {
             if(!this.HasProp("__MVi"))
                 this.__MVi := SShortArray(0, this)
@@ -161,7 +159,7 @@ class __UPV extends Win32Struct
     /**
      * @type {SLongArray}
      */
-    MVl{
+    MVl {
         get {
             if(!this.HasProp("__MVl"))
                 this.__MVl := SLongArray(0, this)
@@ -172,7 +170,7 @@ class __UPV extends Win32Struct
     /**
      * @type {SRealArray}
      */
-    MVflt{
+    MVflt {
         get {
             if(!this.HasProp("__MVflt"))
                 this.__MVflt := SRealArray(0, this)
@@ -183,7 +181,7 @@ class __UPV extends Win32Struct
     /**
      * @type {SDoubleArray}
      */
-    MVdbl{
+    MVdbl {
         get {
             if(!this.HasProp("__MVdbl"))
                 this.__MVdbl := SDoubleArray(0, this)
@@ -194,7 +192,7 @@ class __UPV extends Win32Struct
     /**
      * @type {SCurrencyArray}
      */
-    MVcur{
+    MVcur {
         get {
             if(!this.HasProp("__MVcur"))
                 this.__MVcur := SCurrencyArray(0, this)
@@ -205,7 +203,7 @@ class __UPV extends Win32Struct
     /**
      * @type {SAppTimeArray}
      */
-    MVat{
+    MVat {
         get {
             if(!this.HasProp("__MVat"))
                 this.__MVat := SAppTimeArray(0, this)
@@ -216,7 +214,7 @@ class __UPV extends Win32Struct
     /**
      * @type {SDateTimeArray}
      */
-    MVft{
+    MVft {
         get {
             if(!this.HasProp("__MVft"))
                 this.__MVft := SDateTimeArray(0, this)
@@ -227,7 +225,7 @@ class __UPV extends Win32Struct
     /**
      * @type {SBinaryArray}
      */
-    MVbin{
+    MVbin {
         get {
             if(!this.HasProp("__MVbin"))
                 this.__MVbin := SBinaryArray(0, this)
@@ -238,7 +236,7 @@ class __UPV extends Win32Struct
     /**
      * @type {SLPSTRArray}
      */
-    MVszA{
+    MVszA {
         get {
             if(!this.HasProp("__MVszA"))
                 this.__MVszA := SLPSTRArray(0, this)
@@ -249,7 +247,7 @@ class __UPV extends Win32Struct
     /**
      * @type {SWStringArray}
      */
-    MVszW{
+    MVszW {
         get {
             if(!this.HasProp("__MVszW"))
                 this.__MVszW := SWStringArray(0, this)
@@ -260,7 +258,7 @@ class __UPV extends Win32Struct
     /**
      * @type {SGuidArray}
      */
-    MVguid{
+    MVguid {
         get {
             if(!this.HasProp("__MVguid"))
                 this.__MVguid := SGuidArray(0, this)
@@ -271,7 +269,7 @@ class __UPV extends Win32Struct
     /**
      * @type {SLargeIntegerArray}
      */
-    MVli{
+    MVli {
         get {
             if(!this.HasProp("__MVli"))
                 this.__MVli := SLargeIntegerArray(0, this)

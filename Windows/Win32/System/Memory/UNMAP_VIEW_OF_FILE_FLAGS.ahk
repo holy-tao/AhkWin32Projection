@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Memory
- * @version v4.0.30319
  */
-class UNMAP_VIEW_OF_FILE_FLAGS extends Win32Enum{
+class UNMAP_VIEW_OF_FILE_FLAGS extends Win32Enum {
 
     /**
      * @type {Integer (UInt32)}

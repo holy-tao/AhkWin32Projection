@@ -1,18 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\MOVE_RECT.ahk
 #Include ..\..\Foundation\POINT.ahk
 #Include ..\..\Foundation\RECT.ahk
-#Include .\MOVE_RECT.ahk
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class MOVEREGION_INFO extends Win32Struct
-{
-    static sizeof => 16
+class MOVEREGION_INFO extends Win32Struct {
+    static sizeof => 32
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}
@@ -31,9 +29,9 @@ class MOVEREGION_INFO extends Win32Struct
     }
 
     /**
-     * @type {Array<MOVE_RECT>}
+     * @type {MOVE_RECT}
      */
-    MoveRegions{
+    MoveRegions {
         get {
             if(!this.HasProp("__MoveRegionsProxyArray"))
                 this.__MoveRegionsProxyArray := Win32FixedArray(this.ptr + 8, 1, MOVE_RECT, "")

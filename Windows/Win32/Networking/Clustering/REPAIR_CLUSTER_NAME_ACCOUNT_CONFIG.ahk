@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Networking.Clustering
- * @version v4.0.30319
  */
-class REPAIR_CLUSTER_NAME_ACCOUNT_CONFIG extends Win32Struct
-{
+class REPAIR_CLUSTER_NAME_ACCOUNT_CONFIG extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8

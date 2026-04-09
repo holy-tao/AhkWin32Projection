@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Networking.WinSock
- * @version v4.0.30319
  */
-class IPV6_OPTION_ROUTER_ALERT extends Win32Struct
-{
+class IPV6_OPTION_ROUTER_ALERT extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 1
@@ -15,7 +13,7 @@ class IPV6_OPTION_ROUTER_ALERT extends Win32Struct
     /**
      * @type {IPV6_OPTION_HEADER}
      */
-    Header{
+    Header {
         get {
             if(!this.HasProp("__Header"))
                 this.__Header := IPV6_OPTION_HEADER(0, this)
@@ -24,9 +22,9 @@ class IPV6_OPTION_ROUTER_ALERT extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Value{
+    Value {
         get {
             if(!this.HasProp("__ValueProxyArray"))
                 this.__ValueProxyArray := Win32FixedArray(this.ptr + 2, 2, Primitive, "char")

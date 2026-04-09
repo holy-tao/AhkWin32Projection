@@ -5,9 +5,8 @@
  * Defines values that indicate how a notification should be processed.
  * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/ne-uiautomationcore-notificationprocessing
  * @namespace Windows.Win32.UI.Accessibility
- * @version v4.0.30319
  */
-class NotificationProcessing extends Win32Enum{
+class NotificationProcessing extends Win32Enum {
 
     /**
      * These notifications should be presented to the user as soon as possible and 

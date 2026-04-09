@@ -14,17 +14,15 @@
  * The lifetime of a peer object is tied to the lifetime of the application that registered it.
  * @see https://learn.microsoft.com/windows/win32/api/p2p/ns-p2p-peer_object
  * @namespace Windows.Win32.NetworkManagement.P2P
- * @version v4.0.30319
  */
-class PEER_OBJECT extends Win32Struct
-{
+class PEER_OBJECT extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
 
     /**
      * GUID value under which the peer object is uniquely registered.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     id {
         get => NumGet(this, 0, "ptr")
@@ -33,10 +31,10 @@ class PEER_OBJECT extends Win32Struct
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/api/p2p/ns-p2p-peer_data">PEER_DATA</a> structure that contains information which describes the peer object.
-     * @deprecated 
+     * @deprecated
      * @type {PEER_DATA}
      */
-    data{
+    data {
         get {
             if(!this.HasProp("__data"))
                 this.__data := PEER_DATA(8, this)

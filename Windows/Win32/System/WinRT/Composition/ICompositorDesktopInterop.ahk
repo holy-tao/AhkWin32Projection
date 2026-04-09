@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.WinRT.Composition
- * @version v4.0.30319
  */
-class ICompositorDesktopInterop extends IUnknown{
+class ICompositorDesktopInterop extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -32,7 +31,7 @@ class ICompositorDesktopInterop extends IUnknown{
      * 
      * @param {HWND} hwndTarget 
      * @param {BOOL} isTopmost 
-     * @returns {Pointer<DesktopWindowTarget>} 
+     * @returns {Pointer} 
      */
     CreateDesktopWindowTarget(hwndTarget, isTopmost) {
         hwndTarget := hwndTarget is Win32Handle ? NumGet(hwndTarget, "ptr") : hwndTarget

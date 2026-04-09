@@ -4,11 +4,9 @@
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
- * @version v4.0.30319
  */
-class KSAUDIO_PACKETSIZE_CONSTRAINTS extends Win32Struct
-{
-    static sizeof => 24
+class KSAUDIO_PACKETSIZE_CONSTRAINTS extends Win32Struct {
+    static sizeof => 32
 
     static packingSize => 8
 
@@ -45,9 +43,9 @@ class KSAUDIO_PACKETSIZE_CONSTRAINTS extends Win32Struct
     }
 
     /**
-     * @type {Array<KSAUDIO_PACKETSIZE_PROCESSINGMODE_CONSTRAINT>}
+     * @type {KSAUDIO_PACKETSIZE_PROCESSINGMODE_CONSTRAINT}
      */
-    ProcessingModeConstraints{
+    ProcessingModeConstraints {
         get {
             if(!this.HasProp("__ProcessingModeConstraintsProxyArray"))
                 this.__ProcessingModeConstraintsProxyArray := Win32FixedArray(this.ptr + 16, 1, KSAUDIO_PACKETSIZE_PROCESSINGMODE_CONSTRAINT, "")

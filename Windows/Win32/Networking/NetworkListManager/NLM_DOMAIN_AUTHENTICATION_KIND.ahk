@@ -3,13 +3,10 @@
 
 /**
  * Defines constants that specify a domain authentication method.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/netlistmgr/ne-netlistmgr-nlm_domain_authentication_kind
  * @namespace Windows.Win32.Networking.NetworkListManager
- * @version v4.0.30319
  */
-class NLM_DOMAIN_AUTHENTICATION_KIND extends Win32Enum{
+class NLM_DOMAIN_AUTHENTICATION_KIND extends Win32Enum {
 
     /**
      * Specifies no domain authentication method; and/or that the network couldn't be domain-authenticated.

@@ -1,12 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\WHV_CACHE_TYPE.ahk
 
 /**
  * @namespace Windows.Win32.System.Hypervisor
- * @version v4.0.30319
  */
-class WHV_ACCESS_GPA_CONTROLS extends Win32Struct
-{
+class WHV_ACCESS_GPA_CONTROLS extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
@@ -20,7 +19,7 @@ class WHV_ACCESS_GPA_CONTROLS extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {WHV_CACHE_TYPE}
      */
     CacheType {
         get => NumGet(this, 0, "int")

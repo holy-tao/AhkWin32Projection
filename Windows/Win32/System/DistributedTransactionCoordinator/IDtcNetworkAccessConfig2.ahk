@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.DistributedTransactionCoordinator
- * @version v4.0.30319
  */
-class IDtcNetworkAccessConfig2 extends IDtcNetworkAccessConfig{
+class IDtcNetworkAccessConfig2 extends IDtcNetworkAccessConfig {
 
     static sizeof => A_PtrSize
     /**
@@ -68,7 +67,7 @@ class IDtcNetworkAccessConfig2 extends IDtcNetworkAccessConfig{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {AUTHENTICATION_LEVEL} 
      */
     GetAuthenticationLevel() {
         result := ComCall(20, this, "int*", &pAuthLevel := 0, "HRESULT")
@@ -77,7 +76,7 @@ class IDtcNetworkAccessConfig2 extends IDtcNetworkAccessConfig{
 
     /**
      * 
-     * @param {Integer} AuthLevel 
+     * @param {AUTHENTICATION_LEVEL} AuthLevel 
      * @returns {HRESULT} 
      */
     SetAuthenticationLevel(AuthLevel) {

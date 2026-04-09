@@ -5,10 +5,8 @@
  * Represents the status of a Distributed Network Name (DNN) resource for a Scale-Out File Server.
  * @see https://learn.microsoft.com/windows/win32/api/clusapi/ns-clusapi-clus_dnn_leader_status
  * @namespace Windows.Win32.Networking.Clustering
- * @version v4.0.30319
  */
-class CLUS_DNN_LEADER_STATUS extends Win32Struct
-{
+class CLUS_DNN_LEADER_STATUS extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4

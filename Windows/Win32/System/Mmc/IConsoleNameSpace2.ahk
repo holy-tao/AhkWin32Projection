@@ -7,9 +7,8 @@
  * The IConsoleNameSpace2 interface is introduced in MMC 1.1.
  * @see https://learn.microsoft.com/windows/win32/api/mmc/nn-mmc-iconsolenamespace2
  * @namespace Windows.Win32.System.Mmc
- * @version v4.0.30319
  */
-class IConsoleNameSpace2 extends IConsoleNameSpace{
+class IConsoleNameSpace2 extends IConsoleNameSpace {
 
     static sizeof => A_PtrSize
     /**

@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Data.Xml.MsXml
- * @version v4.0.30319
  */
-class SXH_PROXY_SETTING extends Win32Enum{
+class SXH_PROXY_SETTING extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

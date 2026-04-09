@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\DSFXParamEq.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
+#Include .\DSFXParamEq.ahk
 
 /**
  * @namespace Windows.Win32.Media.Audio.DirectSound
- * @version v4.0.30319
  */
-class IDirectSoundFXParamEq extends IUnknown{
+class IDirectSoundFXParamEq extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

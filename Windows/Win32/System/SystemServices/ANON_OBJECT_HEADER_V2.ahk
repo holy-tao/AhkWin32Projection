@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.SystemServices
- * @version v4.0.30319
  */
-class ANON_OBJECT_HEADER_V2 extends Win32Struct
-{
+class ANON_OBJECT_HEADER_V2 extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -52,7 +50,7 @@ class ANON_OBJECT_HEADER_V2 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     ClassID {
         get => NumGet(this, 16, "ptr")

@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Variant\VARIANT.ahk
 #Include ..\..\..\System\Com\IDispatch.ahk
+#Include ..\..\..\System\Variant\VARIANT.ahk
 
 /**
  * The ICertificationAuthority interface represents a single certification authority. A collection of certification authorities is represented by the ICertificationAuthorities interface.
  * @see https://learn.microsoft.com/windows/win32/api/certenroll/nn-certenroll-icertificationauthority
  * @namespace Windows.Win32.Security.Cryptography.Certificates
- * @version v4.0.30319
  */
-class ICertificationAuthority extends IDispatch{
+class ICertificationAuthority extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -33,7 +32,7 @@ class ICertificationAuthority extends IDispatch{
 
     /**
      * Retrieves a certification authority property value.
-     * @param {Integer} _property 
+     * @param {EnrollmentCAProperty} _property 
      * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icertificationauthority-get_property
      */

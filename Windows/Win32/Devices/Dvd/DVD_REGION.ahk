@@ -7,10 +7,8 @@
  * The AM_PROPERTY_DVDCOPY_REGION property uses this structure.
  * @see https://learn.microsoft.com/windows/win32/api/dvdmedia/ns-dvdmedia-dvd_region
  * @namespace Windows.Win32.Devices.Dvd
- * @version v4.0.30319
  */
-class DVD_REGION extends Win32Struct
-{
+class DVD_REGION extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 1

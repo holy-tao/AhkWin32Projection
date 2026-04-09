@@ -5,9 +5,8 @@
  * Contains values that specify the type of a security identifier (SID).
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ne-winnt-sid_name_use
  * @namespace Windows.Win32.Security
- * @version v4.0.30319
  */
-class SID_NAME_USE extends Win32Enum{
+class SID_NAME_USE extends Win32Enum {
 
     /**
      * A user SID.
@@ -70,7 +69,6 @@ class SID_NAME_USE extends Win32Enum{
     static SidTypeLabel => 10
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static SidTypeLogonSession => 11

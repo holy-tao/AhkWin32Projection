@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Networking.WinInet
- * @version v4.0.30319
  */
-class INTERNET_PREFETCH_STATUS extends Win32Struct
-{
+class INTERNET_PREFETCH_STATUS extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4

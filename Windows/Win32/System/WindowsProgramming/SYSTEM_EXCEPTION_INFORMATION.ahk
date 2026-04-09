@@ -3,18 +3,16 @@
 
 /**
  * @namespace Windows.Win32.System.WindowsProgramming
- * @version v4.0.30319
  */
-class SYSTEM_EXCEPTION_INFORMATION extends Win32Struct
-{
+class SYSTEM_EXCEPTION_INFORMATION extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 1
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Reserved1{
+    Reserved1 {
         get {
             if(!this.HasProp("__Reserved1ProxyArray"))
                 this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 0, 16, Primitive, "char")

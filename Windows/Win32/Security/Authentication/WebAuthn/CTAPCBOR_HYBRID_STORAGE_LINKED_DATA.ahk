@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Security.Authentication.WebAuthn
- * @version v4.0.30319
  */
-class CTAPCBOR_HYBRID_STORAGE_LINKED_DATA extends Win32Struct
-{
+class CTAPCBOR_HYBRID_STORAGE_LINKED_DATA extends Win32Struct {
     static sizeof => 80
 
     static packingSize => 8

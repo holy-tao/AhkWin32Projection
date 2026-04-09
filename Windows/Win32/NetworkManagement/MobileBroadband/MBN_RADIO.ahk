@@ -5,9 +5,8 @@
  * The MBN_RADIO enumerated type indicates whether the device radio is on or off.
  * @see https://learn.microsoft.com/windows/win32/api/mbnapi/ne-mbnapi-mbn_radio
  * @namespace Windows.Win32.NetworkManagement.MobileBroadband
- * @version v4.0.30319
  */
-class MBN_RADIO extends Win32Enum{
+class MBN_RADIO extends Win32Enum {
 
     /**
      * The device radio is off.

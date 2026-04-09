@@ -5,9 +5,8 @@
  * Defines the data source for a data chunk.
  * @see https://learn.microsoft.com/windows/win32/api/http/ne-http-http_data_chunk_type
  * @namespace Windows.Win32.Networking.HttpServer
- * @version v4.0.30319
  */
-class HTTP_DATA_CHUNK_TYPE extends Win32Enum{
+class HTTP_DATA_CHUNK_TYPE extends Win32Enum {
 
     /**
      * The data source is a memory data block. The union should be interpreted as a <b>FromMemory</b> structure.
@@ -49,7 +48,6 @@ class HTTP_DATA_CHUNK_TYPE extends Win32Enum{
     static HttpDataChunkFromWinHttpFastForwarding => 5
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static HttpDataChunkMaximum => 6

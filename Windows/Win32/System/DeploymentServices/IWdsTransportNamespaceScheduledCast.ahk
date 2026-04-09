@@ -7,9 +7,8 @@
  * Represents a base interface to the derived interfaces:\_IWdsTransportNamespaceScheduledCastManualStart and IWdsTransportNamespaceScheduledCastAutoStart.
  * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nn-wdstptmgmt-iwdstransportnamespacescheduledcast
  * @namespace Windows.Win32.System.DeploymentServices
- * @version v4.0.30319
  */
-class IWdsTransportNamespaceScheduledCast extends IWdsTransportNamespace{
+class IWdsTransportNamespaceScheduledCast extends IWdsTransportNamespace {
 
     static sizeof => A_PtrSize
     /**

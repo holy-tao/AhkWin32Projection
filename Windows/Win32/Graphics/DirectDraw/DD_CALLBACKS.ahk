@@ -7,10 +7,8 @@
  * Entries that the display driver does not use should be set to <b>NULL</b>. GDI allocates the memory for this structure and calls the driver's <a href="https://docs.microsoft.com/windows/desktop/api/winddi/nf-winddi-drvenabledirectdraw">DrvEnableDirectDraw</a> function to initialize it.
  * @see https://learn.microsoft.com/windows/win32/api/ddrawint/ns-ddrawint-dd_callbacks
  * @namespace Windows.Win32.Graphics.DirectDraw
- * @version v4.0.30319
  */
-class DD_CALLBACKS extends Win32Struct
-{
+class DD_CALLBACKS extends Win32Struct {
     static sizeof => 80
 
     static packingSize => 8

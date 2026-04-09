@@ -7,10 +7,8 @@
  * To obtain the object data, non-Automation clients call the  <a href="https://docs.microsoft.com/windows/desktop/api/iads/nf-iads-idirectoryobject-getobjectinformation">IDirectoryObject::GetObjectInformation</a> method, which takes an out parameter, a pointer to an <b>ADS_OBJECT_INFO</b> structure allocated in the heap. Automation clients can accomplish the same task by calling  <a href="https://docs.microsoft.com/windows/desktop/api/iads/nf-iads-iads-getinfo">IADs::GetInfo</a>.
  * @see https://learn.microsoft.com/windows/win32/api/iads/ns-iads-ads_object_info
  * @namespace Windows.Win32.Networking.ActiveDirectory
- * @version v4.0.30319
  */
-class ADS_OBJECT_INFO extends Win32Struct
-{
+class ADS_OBJECT_INFO extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8

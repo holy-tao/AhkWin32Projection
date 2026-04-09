@@ -4,13 +4,11 @@
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw
- * @version v4.0.30319
  */
-class DDMORESURFACECAPS extends Win32Struct
-{
-    static sizeof => 24
+class DDMORESURFACECAPS extends Win32Struct {
+    static sizeof => 40
 
-    static packingSize => 8
+    static packingSize => 4
 
     class ExtendedHeapRestrictions extends Win32Struct {
         static sizeof => 24
@@ -19,25 +17,24 @@ class DDMORESURFACECAPS extends Win32Struct
         /**
          * @type {DDSCAPSEX}
          */
-        ddsCapsEx{
+        ddsCapsEx {
             get {
                 if(!this.HasProp("__ddsCapsEx"))
                     this.__ddsCapsEx := DDSCAPSEX(0, this)
                 return this.__ddsCapsEx
             }
         }
-    
+
         /**
          * @type {DDSCAPSEX}
          */
-        ddsCapsExAlt{
+        ddsCapsExAlt {
             get {
                 if(!this.HasProp("__ddsCapsExAlt"))
                     this.__ddsCapsExAlt := DDSCAPSEX(12, this)
                 return this.__ddsCapsExAlt
             }
         }
-    
     }
 
     /**
@@ -51,7 +48,7 @@ class DDMORESURFACECAPS extends Win32Struct
     /**
      * @type {DDSCAPSEX}
      */
-    ddsCapsMore{
+    ddsCapsMore {
         get {
             if(!this.HasProp("__ddsCapsMore"))
                 this.__ddsCapsMore := DDSCAPSEX(4, this)
@@ -60,12 +57,12 @@ class DDMORESURFACECAPS extends Win32Struct
     }
 
     /**
-     * @type {Array<ExtendedHeapRestrictions>}
+     * @type {ExtendedHeapRestrictions}
      */
-    ddsExtendedHeapRestrictions{
+    ddsExtendedHeapRestrictions {
         get {
             if(!this.HasProp("__ddsExtendedHeapRestrictionsProxyArray"))
-                this.__ddsExtendedHeapRestrictionsProxyArray := Win32FixedArray(this.ptr + 16, 1, %this.__Class%.ExtendedHeapRestrictions, "")
+                this.__ddsExtendedHeapRestrictionsProxyArray := Win32FixedArray(this.ptr + 16, 1, DDMORESURFACECAPS.ExtendedHeapRestrictions, "")
             return this.__ddsExtendedHeapRestrictionsProxyArray
         }
     }

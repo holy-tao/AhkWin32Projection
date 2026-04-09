@@ -5,19 +5,17 @@
  * Contains the similarity data for a file.
  * @see https://learn.microsoft.com/windows/win32/api/msrdc/ns-msrdc-similaritydata
  * @namespace Windows.Win32.Networking.RemoteDifferentialCompression
- * @version v4.0.30319
  */
-class SimilarityData extends Win32Struct
-{
+class SimilarityData extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 1
 
     /**
      * The similarity data for the file.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    m_Data{
+    m_Data {
         get {
             if(!this.HasProp("__m_DataProxyArray"))
                 this.__m_DataProxyArray := Win32FixedArray(this.ptr + 0, 16, Primitive, "char")

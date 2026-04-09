@@ -7,9 +7,8 @@
  * Implemented by a client and called by Microsoft Media Foundation to get the client Secure Sockets Layer (SSL) certificate requested by the server.
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imfsslcertificatemanager
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFSSLCertificateManager extends IUnknown{
+class IMFSSLCertificateManager extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -107,7 +106,7 @@ class IMFSSLCertificateManager extends IUnknown{
     /**
      * Called by Media Foundation when the server SSL certificate has been received; indicates whether the server certificate is accepted.
      * @param {PWSTR} pszURL Pointer to a string that contains the URL used to send the request to the server, and for which a server-side SSL certificate has been received.
-     * @param {Pointer} pbData Pointer to a buffer that contains the server SSL certificate.
+     * @param {Integer} pbData Pointer to a buffer that contains the server SSL certificate.
      * @param {Integer} cbData Pointer to a <b>DWORD</b> variable that indicates the size of <i>pbData</i> in bytes.
      * @returns {BOOL} Pointer to a <b>BOOL</b> variable that indicates whether the certificate is accepted.
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsslcertificatemanager-onservercertificate

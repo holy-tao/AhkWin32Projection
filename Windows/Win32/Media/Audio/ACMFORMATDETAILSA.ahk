@@ -1,13 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\WAVEFORMATEX.ahk
 
 /**
  * @namespace Windows.Win32.Media.Audio
- * @version v4.0.30319
  */
-class ACMFORMATDETAILSA extends Win32Struct
-{
-    static sizeof => 288
+class ACMFORMATDETAILSA extends Win32Struct {
+    static sizeof => 160
 
     static packingSize => 8
 
@@ -63,7 +62,7 @@ class ACMFORMATDETAILSA extends Win32Struct
      * @type {String}
      */
     szFormat {
-        get => StrGet(this.ptr + 28, 127, "UTF-16")
-        set => StrPut(value, this.ptr + 28, 127, "UTF-16")
+        get => StrGet(this.ptr + 28, 127, "UTF-8")
+        set => StrPut(value, this.ptr + 28, 127, "UTF-8")
     }
 }

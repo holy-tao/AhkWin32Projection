@@ -5,9 +5,8 @@
  * Specifies the category of settings being stored in a WRDS_SETTINGS structure.
  * @see https://learn.microsoft.com/windows/win32/api/wtsdefs/ne-wtsdefs-wrds_setting_type
  * @namespace Windows.Win32.System.RemoteDesktop
- * @version v4.0.30319
  */
-class WRDS_SETTING_TYPE extends Win32Enum{
+class WRDS_SETTING_TYPE extends Win32Enum {
 
     /**
      * The setting type is not defined.

@@ -5,13 +5,10 @@
 
 /**
  * Describes an `IPresentationContent` with a single bound buffer, that can be shared with the system compositor and displayed as content in the global visual tree.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/presentation/nn-presentation-ipresentationsurface
  * @namespace Windows.Win32.Graphics.CompositionSwapchain
- * @version v4.0.30319
  */
-class IPresentationSurface extends IPresentationContent{
+class IPresentationSurface extends IPresentationContent {
 
     static sizeof => A_PtrSize
     /**
@@ -49,7 +46,7 @@ class IPresentationSurface extends IPresentationContent{
 
     /**
      * Sets the type of color space used by the presentation surface.
-     * @param {Integer} colorSpace Type: **[DXGI_COLOR_SPACE_TYPE](/windows/win32/api/dxgicommon/ne-dxgicommon-dxgi_color_space_type)**
+     * @param {DXGI_COLOR_SPACE_TYPE} colorSpace Type: **[DXGI_COLOR_SPACE_TYPE](/windows/win32/api/dxgicommon/ne-dxgicommon-dxgi_color_space_type)**
      * 
      * The type of color space used by the presentation surface.
      * @returns {HRESULT} Type: **[HRESULT](/windows/desktop/winprog/windows-data-types)**
@@ -64,7 +61,7 @@ class IPresentationSurface extends IPresentationContent{
 
     /**
      * Sets the transparency behavior of the presentation surface.
-     * @param {Integer} alphaMode Type: **[DXGI_ALPHA_MODE](/windows/win32/api/dxgi1_2/ne-dxgi1_2-dxgi_alpha_mode)**
+     * @param {DXGI_ALPHA_MODE} alphaMode Type: **[DXGI_ALPHA_MODE](/windows/win32/api/dxgi1_2/ne-dxgi1_2-dxgi_alpha_mode)**
      * 
      * The transparency behavior of the presentation surface.
      * @returns {HRESULT} Type: **[HRESULT](/windows/desktop/winprog/windows-data-types)**

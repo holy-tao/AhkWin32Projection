@@ -7,10 +7,8 @@
  * The lists are returned by <a href="https://docs.microsoft.com/windows/desktop/api/uxtheme/nf-uxtheme-getthemeintlist">GetThemeIntList</a>.
  * @see https://learn.microsoft.com/windows/win32/api/uxtheme/ns-uxtheme-intlist
  * @namespace Windows.Win32.UI.Controls
- * @version v4.0.30319
  */
-class INTLIST extends Win32Struct
-{
+class INTLIST extends Win32Struct {
     static sizeof => 1612
 
     static packingSize => 4
@@ -30,9 +28,9 @@ class INTLIST extends Win32Struct
      * Type: <b>int[MAX_INTLIST_COUNT]</b>
      * 
      * List of integers. The constant MAX_INTLIST_COUNT, by definition, is equal to 402 under Windows Vista, but only 10 under earlier versions of Windows.
-     * @type {Array<Int32>}
+     * @type {Array<Integer>}
      */
-    iValues{
+    iValues {
         get {
             if(!this.HasProp("__iValuesProxyArray"))
                 this.__iValuesProxyArray := Win32FixedArray(this.ptr + 4, 402, Primitive, "int")

@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\System\Com\IStream.ahk
 #Include .\IProgressItems.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * Use this interface to get information about the burn image, the image data stream, and progress information.
@@ -12,9 +12,8 @@
  * This is an <b>FileSystemImageResult</b> object in script.
  * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nn-imapi2fs-ifilesystemimageresult
  * @namespace Windows.Win32.Storage.Imapi
- * @version v4.0.30319
  */
-class IFileSystemImageResult extends IDispatch{
+class IFileSystemImageResult extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

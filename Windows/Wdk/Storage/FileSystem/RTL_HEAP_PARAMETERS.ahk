@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem
- * @version v4.0.30319
  */
-class RTL_HEAP_PARAMETERS extends Win32Struct
-{
+class RTL_HEAP_PARAMETERS extends Win32Struct {
     static sizeof => 96
 
     static packingSize => 8
@@ -92,9 +90,9 @@ class RTL_HEAP_PARAMETERS extends Win32Struct
     }
 
     /**
-     * @type {Array<UIntPtr>}
+     * @type {Array<Pointer>}
      */
-    Reserved{
+    Reserved {
         get {
             if(!this.HasProp("__ReservedProxyArray"))
                 this.__ReservedProxyArray := Win32FixedArray(this.ptr + 80, 2, Primitive, "ptr")

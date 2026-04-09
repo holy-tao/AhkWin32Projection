@@ -2,6 +2,7 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\Com\IUnknown.ahk
+#Include ..\..\..\Graphics\Dxgi\IDXGISurface.ahk
 
 /**
  * Provides the implementation of a shared fixed-size surface for Direct2D drawing.
@@ -19,9 +20,8 @@
  * ```
  * @see https://learn.microsoft.com/windows/win32/api/windows.ui.xaml.media.dxinterop/nn-windows-ui-xaml-media-dxinterop-isurfaceimagesourcenative
  * @namespace Windows.Win32.System.WinRT.Xaml
- * @version v4.0.30319
  */
-class ISurfaceImageSourceNative extends IUnknown{
+class ISurfaceImageSourceNative extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

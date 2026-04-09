@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Etw
- * @version v4.0.30319
  */
-class ETW_PMC_COUNTER_OWNER_TYPE extends Win32Enum{
+class ETW_PMC_COUNTER_OWNER_TYPE extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

@@ -5,10 +5,8 @@
  * Learn more about: JET_SPACEHINTS class
  * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jet-spacehints-class
  * @namespace Windows.Win32.Storage.Jet
- * @version v4.0.30319
  */
-class JET_SPACEHINTS extends Win32Struct
-{
+class JET_SPACEHINTS extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 4

@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem
- * @version v4.0.30319
  */
-class FILE_GET_EA_INFORMATION extends Win32Struct
-{
+class FILE_GET_EA_INFORMATION extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4
@@ -31,7 +29,7 @@ class FILE_GET_EA_INFORMATION extends Win32Struct
      * @type {String}
      */
     EaName {
-        get => StrGet(this.ptr + 6, 0, "UTF-16")
-        set => StrPut(value, this.ptr + 6, 0, "UTF-16")
+        get => StrGet(this.ptr + 6, 0, "UTF-8")
+        set => StrPut(value, this.ptr + 6, 0, "UTF-8")
     }
 }

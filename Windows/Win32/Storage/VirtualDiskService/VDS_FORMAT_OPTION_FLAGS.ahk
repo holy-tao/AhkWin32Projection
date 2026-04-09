@@ -8,9 +8,8 @@
  * <div> </div>
  * @see https://learn.microsoft.com/windows/win32/api/vds/ne-vds-vds_format_option_flags
  * @namespace Windows.Win32.Storage.VirtualDiskService
- * @version v4.0.30319
  */
-class VDS_FORMAT_OPTION_FLAGS extends Win32Enum{
+class VDS_FORMAT_OPTION_FLAGS extends Win32Enum {
 
     /**
      * No options are specified.

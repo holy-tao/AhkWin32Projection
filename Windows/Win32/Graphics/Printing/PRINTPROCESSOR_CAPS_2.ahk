@@ -9,10 +9,8 @@
  * When an application calls [**GetPrinterData**](getprinterdata.md), the spooler calls a print processor's **GetPrintProcessorCapabilities** function and specifies a value name that has a format of **PrintProcCaps\_***datatype*, where *datatype* is the name of an input data type.
  * @see https://learn.microsoft.com/windows/win32/printdocs/printprocessor-caps-2
  * @namespace Windows.Win32.Graphics.Printing
- * @version v4.0.30319
  */
-class PRINTPROCESSOR_CAPS_2 extends Win32Struct
-{
+class PRINTPROCESSOR_CAPS_2 extends Win32Struct {
     static sizeof => 36
 
     static packingSize => 4

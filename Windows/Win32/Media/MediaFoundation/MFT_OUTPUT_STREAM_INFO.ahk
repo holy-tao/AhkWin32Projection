@@ -9,10 +9,8 @@
  * After you set a media type on all of the input and output streams (not including optional streams), all of the values returned by the <a href="https://docs.microsoft.com/windows/desktop/api/mftransform/nf-mftransform-imftransform-getoutputstreaminfo">GetOutputStreamInfo</a> method are valid. They might change if you set different media types.
  * @see https://learn.microsoft.com/windows/win32/api/mftransform/ns-mftransform-mft_output_stream_info
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class MFT_OUTPUT_STREAM_INFO extends Win32Struct
-{
+class MFT_OUTPUT_STREAM_INFO extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4

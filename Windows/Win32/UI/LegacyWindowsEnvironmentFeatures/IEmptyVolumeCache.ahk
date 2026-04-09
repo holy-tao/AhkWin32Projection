@@ -9,9 +9,8 @@
  * This interface must be implemented by disk cleanup handlers running on Windows 98. Handlers running on Windows 2000 should also expose <a href="https://docs.microsoft.com/windows/desktop/api/emptyvc/nn-emptyvc-iemptyvolumecache2">IEmptyVolumeCache2</a>.
  * @see https://learn.microsoft.com/windows/win32/api/emptyvc/nn-emptyvc-iemptyvolumecache
  * @namespace Windows.Win32.UI.LegacyWindowsEnvironmentFeatures
- * @version v4.0.30319
  */
-class IEmptyVolumeCache extends IUnknown{
+class IEmptyVolumeCache extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -50,7 +49,7 @@ class IEmptyVolumeCache extends IUnknown{
      * @param {Pointer<PWSTR>} ppwszDescription Type: <b>LPWSTR*</b>
      * 
      * A pointer to a null-terminated Unicode string that will be displayed when this object is selected from the disk cleanup manager's list of available disk cleanup handlers. If no value is assigned, the registry value will be used.
-     * @param {Pointer<Integer>} pdwFlags Type: <b>DWORD*</b>
+     * @param {Pointer<EMPTY_VOLUME_CACHE_FLAGS>} pdwFlags Type: <b>DWORD*</b>
      * 
      * The flags that are used to pass information to the handler and back to the disk cleanup manager.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -196,7 +195,9 @@ class IEmptyVolumeCache extends IUnknown{
      * Notifies the handler to display its UI.
      * @remarks
      * A handler can display a UI, which is typically used to allow the user to select which files are to be cleaned up and how. To do so, the handler sets the <b>EVCF_HASSETTINGS</b> flag in the <i>pdwFlags</i> parameter when <a href="https://docs.microsoft.com/windows/desktop/api/emptyvc/nf-emptyvc-iemptyvolumecache-initialize">Initialize</a> is called. The disk cleanup manager will then display a <b>Settings</b> button. When that button is clicked, the disk cleanup manager calls <b>ShowProperties</b> to notify the handler to display its UI.
-     * @param {HWND} _hwnd 
+     * @param {HWND} _hwnd Type: <b>HWND</b>
+     * 
+     * The parent window to be used when displaying the UI.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * This method can return one of these values.
@@ -242,7 +243,7 @@ class IEmptyVolumeCache extends IUnknown{
      * Notifies the handler that the disk cleanup manager is shutting down.
      * @remarks
      * If the <b>EVCF_REMOVEFROMLIST</b> flag is set, the handler will not be run again unless the registry entries are reestablished. This flag is typically used for a handler that will only run once.
-     * @returns {Integer} Type: <b>DWORD*</b>
+     * @returns {EMPTY_VOLUME_CACHE_FLAGS} Type: <b>DWORD*</b>
      * 
      * A flag that can be set to return information to the disk cleanup manager. It can have the following value.
      * @see https://learn.microsoft.com/windows/win32/api/emptyvc/nf-emptyvc-iemptyvolumecache-deactivate

@@ -2,14 +2,14 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * Configures the audio session that is associated with the streaming audio renderer (SAR).
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imfaudiopolicy
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFAudioPolicy extends IUnknown{
+class IMFAudioPolicy extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

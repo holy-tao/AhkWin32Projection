@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IPrintReadStream.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\IPrintReadStream.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
- * @version v4.0.30319
  */
-class IPrintReadStreamFactory extends IUnknown{
+class IPrintReadStreamFactory extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

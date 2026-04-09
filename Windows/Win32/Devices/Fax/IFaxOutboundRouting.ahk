@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include .\IFaxOutboundRoutingGroups.ahk
 #Include .\IFaxOutboundRoutingRules.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * The IFaxOutboundRouting interface defines a configuration object that is used by a fax client application to configure the outbound routing groups (IFaxOutboundRoutingGroups interfaces) and outbound routing rules (IFaxOutboundRoutingRules interfaces).
@@ -11,9 +11,8 @@
  * A default implementation of <b>IFaxOutboundRouting</b> is provided as the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxoutboundrouting">FaxOutboundRouting</a> object.
  * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nn-faxcomex-ifaxoutboundrouting
  * @namespace Windows.Win32.Devices.Fax
- * @version v4.0.30319
  */
-class IFaxOutboundRouting extends IDispatch{
+class IFaxOutboundRouting extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

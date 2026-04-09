@@ -16,9 +16,8 @@
  * If the initial instance of a task with an idle trigger is still running, then the task is only launched once with no repetitions, even if multiple repetition is defined in the <a href="https://docs.microsoft.com/windows/desktop/api/taskschd/nf-taskschd-itrigger-get_repetition">Repetition</a> property. This behavior does not occur if the task stops by itself.
  * @see https://learn.microsoft.com/windows/win32/api/taskschd/nn-taskschd-iidletrigger
  * @namespace Windows.Win32.System.TaskScheduler
- * @version v4.0.30319
  */
-class IIdleTrigger extends ITrigger{
+class IIdleTrigger extends ITrigger {
 
     static sizeof => A_PtrSize
     /**

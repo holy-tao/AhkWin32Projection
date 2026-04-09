@@ -5,9 +5,8 @@
  * Options to use when updating an app package.
  * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/ne-appxpackaging-appx_package_editor_update_package_option
  * @namespace Windows.Win32.Storage.Packaging.Appx
- * @version v4.0.30319
  */
-class APPX_PACKAGE_EDITOR_UPDATE_PACKAGE_OPTION extends Win32Enum{
+class APPX_PACKAGE_EDITOR_UPDATE_PACKAGE_OPTION extends Win32Enum {
 
     /**
      * Appends the delta (difference) of the baseline package and the updated package.

@@ -7,9 +7,8 @@
  * Allows you to access fallback fonts from the font list.
  * @see https://learn.microsoft.com/windows/win32/api/dwrite_2/nn-dwrite_2-idwritefontfallback
  * @namespace Windows.Win32.Graphics.DirectWrite
- * @version v4.0.30319
  */
-class IDWriteFontFallback extends IUnknown{
+class IDWriteFontFallback extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -45,13 +44,13 @@ class IDWriteFontFallback extends IUnknown{
      * @param {PWSTR} baseFamilyName Type: **const wchar\_t\***
      * 
      * Family name of the base font. If you pass null, no matching will be done against the family.
-     * @param {Integer} baseWeight Type: **[**DWRITE\_FONT\_WEIGHT**](/windows/win32/api/dwrite/ne-dwrite-dwrite_font_weight)**
+     * @param {DWRITE_FONT_WEIGHT} baseWeight Type: **[**DWRITE\_FONT\_WEIGHT**](/windows/win32/api/dwrite/ne-dwrite-dwrite_font_weight)**
      * 
      * The desired weight.
-     * @param {Integer} baseStyle Type: **[**DWRITE\_FONT\_STYLE**](/windows/win32/api/dwrite/ne-dwrite-dwrite_font_style)**
+     * @param {DWRITE_FONT_STYLE} baseStyle Type: **[**DWRITE\_FONT\_STYLE**](/windows/win32/api/dwrite/ne-dwrite-dwrite_font_style)**
      * 
      * The desired style.
-     * @param {Integer} baseStretch Type: **[**DWRITE\_FONT\_STRETCH**](/windows/win32/api/dwrite/ne-dwrite-dwrite_font_stretch)**
+     * @param {DWRITE_FONT_STRETCH} baseStretch Type: **[**DWRITE\_FONT\_STRETCH**](/windows/win32/api/dwrite/ne-dwrite-dwrite_font_stretch)**
      * 
      * The desired stretch.
      * @param {Pointer<Integer>} mappedLength Type: **UINT32\***

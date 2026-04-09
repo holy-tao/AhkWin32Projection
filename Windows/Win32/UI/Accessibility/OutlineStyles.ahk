@@ -5,9 +5,8 @@
  * Contains values for the OutlineStyle text attribute.
  * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/ne-uiautomationcore-outlinestyles
  * @namespace Windows.Win32.UI.Accessibility
- * @version v4.0.30319
  */
-class OutlineStyles extends Win32Enum{
+class OutlineStyles extends Win32Enum {
 
     /**
      * No outline style.

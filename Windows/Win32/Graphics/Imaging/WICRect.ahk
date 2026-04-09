@@ -5,10 +5,8 @@
  * Represents a rectangle for Windows Imaging Component (WIC) API.
  * @see https://learn.microsoft.com/windows/win32/api/wincodec/ns-wincodec-wicrect
  * @namespace Windows.Win32.Graphics.Imaging
- * @version v4.0.30319
  */
-class WICRect extends Win32Struct
-{
+class WICRect extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4

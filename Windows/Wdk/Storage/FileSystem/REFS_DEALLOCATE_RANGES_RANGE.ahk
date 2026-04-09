@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem
- * @version v4.0.30319
  */
-class REFS_DEALLOCATE_RANGES_RANGE extends Win32Struct
-{
+class REFS_DEALLOCATE_RANGES_RANGE extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

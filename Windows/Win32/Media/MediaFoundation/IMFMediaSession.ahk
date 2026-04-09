@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IMFMediaEventGenerator.ahk
 #Include .\IMFClock.ahk
 #Include .\IMFTopology.ahk
-#Include .\IMFMediaEventGenerator.ahk
 
 /**
  * Provides playback controls for protected and unprotected content.
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imfmediasession
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFMediaSession extends IMFMediaEventGenerator{
+class IMFMediaSession extends IMFMediaEventGenerator {
 
     static sizeof => A_PtrSize
     /**

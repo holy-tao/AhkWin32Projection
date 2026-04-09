@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IDWriteFactory2.ahk
 #Include .\IDWriteGlyphRunAnalysis.ahk
 #Include .\IDWriteRenderingParams3.ahk
 #Include .\IDWriteFontFaceReference.ahk
@@ -8,15 +9,13 @@
 #Include .\IDWriteFontSetBuilder.ahk
 #Include .\IDWriteFontCollection1.ahk
 #Include .\IDWriteFontDownloadQueue.ahk
-#Include .\IDWriteFactory2.ahk
 
 /**
  * The root factory interface for all DirectWrite objects. (IDWriteFactory3)
  * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nn-dwrite_3-idwritefactory3
  * @namespace Windows.Win32.Graphics.DirectWrite
- * @version v4.0.30319
  */
-class IDWriteFactory3 extends IDWriteFactory2{
+class IDWriteFactory3 extends IDWriteFactory2 {
 
     static sizeof => A_PtrSize
     /**
@@ -39,20 +38,22 @@ class IDWriteFactory3 extends IDWriteFactory2{
 
     /**
      * Creates a glyph-run-analysis object that encapsulates info that DirectWrite uses to render a glyph run.
-     * @param {Pointer<DWRITE_GLYPH_RUN>} _glyphRun 
+     * @param {Pointer<DWRITE_GLYPH_RUN>} _glyphRun Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ns-dwrite-dwrite_glyph_run">DWRITE_GLYPH_RUN</a></b>
+     * 
+     * A <a href="https://docs.microsoft.com/windows/win32/api/dwrite/ns-dwrite-dwrite_glyph_run">DWRITE_GLYPH_RUN</a> structure that contains the properties of the glyph run.
      * @param {Pointer<DWRITE_MATRIX>} transform Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ns-dwrite-dwrite_matrix">DWRITE_MATRIX</a></b>
      * 
      * A <a href="https://docs.microsoft.com/windows/win32/api/dwrite/ns-dwrite-dwrite_matrix">DWRITE_MATRIX</a> structure that describes the optional transform to be applied to glyphs and their positions.
-     * @param {Integer} renderingMode Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite_3/ne-dwrite_3-dwrite_rendering_mode1">DWRITE_RENDERING_MODE1</a></b>
+     * @param {DWRITE_RENDERING_MODE1} renderingMode Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite_3/ne-dwrite_3-dwrite_rendering_mode1">DWRITE_RENDERING_MODE1</a></b>
      * 
      * A <a href="https://docs.microsoft.com/windows/win32/api/dwrite_3/ne-dwrite_3-dwrite_rendering_mode1">DWRITE_RENDERING_MODE1</a>-typed value that specifies the rendering mode, which must be one of the raster rendering modes (that is, not default and not outline).
-     * @param {Integer} measuringMode Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dcommon/ne-dcommon-dwrite_measuring_mode">DWRITE_MEASURING_MODE</a></b>
+     * @param {DWRITE_MEASURING_MODE} measuringMode Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dcommon/ne-dcommon-dwrite_measuring_mode">DWRITE_MEASURING_MODE</a></b>
      * 
      * A <a href="https://docs.microsoft.com/windows/win32/api/dcommon/ne-dcommon-dwrite_measuring_mode">DWRITE_MEASURING_MODE</a>-typed value that specifies the measuring method for glyphs in the run. This method uses this value with the other properties to determine the rendering mode.
-     * @param {Integer} gridFitMode Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite_2/ne-dwrite_2-dwrite_grid_fit_mode">DWRITE_GRID_FIT_MODE</a></b>
+     * @param {DWRITE_GRID_FIT_MODE} gridFitMode Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite_2/ne-dwrite_2-dwrite_grid_fit_mode">DWRITE_GRID_FIT_MODE</a></b>
      * 
      * A <a href="https://docs.microsoft.com/windows/win32/api/dwrite_2/ne-dwrite_2-dwrite_grid_fit_mode">DWRITE_GRID_FIT_MODE</a>-typed value that specifies how to grid-fit glyph outlines. This value must be non-default.
-     * @param {Integer} antialiasMode Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite_1/ne-dwrite_1-dwrite_text_antialias_mode">DWRITE_TEXT_ANTIALIAS_MODE</a></b>
+     * @param {DWRITE_TEXT_ANTIALIAS_MODE} antialiasMode Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite_1/ne-dwrite_1-dwrite_text_antialias_mode">DWRITE_TEXT_ANTIALIAS_MODE</a></b>
      * 
      * A <a href="https://docs.microsoft.com/windows/win32/api/dwrite_1/ne-dwrite_1-dwrite_text_antialias_mode">DWRITE_TEXT_ANTIALIAS_MODE</a>-typed value that specifies the type of antialiasing to use for text when the rendering mode calls for antialiasing.
      * @param {Float} baselineOriginX Type: <b>FLOAT</b>
@@ -85,13 +86,13 @@ class IDWriteFactory3 extends IDWriteFactory2{
      * @param {Float} clearTypeLevel Type: <b>FLOAT</b>
      * 
      * The degree of ClearType level, from 0.0f (no ClearType) to 1.0f (full ClearType).
-     * @param {Integer} pixelGeometry Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_pixel_geometry">DWRITE_PIXEL_GEOMETRY</a></b>
+     * @param {DWRITE_PIXEL_GEOMETRY} pixelGeometry Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_pixel_geometry">DWRITE_PIXEL_GEOMETRY</a></b>
      * 
      * A <a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_pixel_geometry">DWRITE_PIXEL_GEOMETRY</a>-typed value that specifies the internal structure of a device pixel (that is, the physical arrangement of red, green, and blue color components) that is assumed for purposes of rendering text.
-     * @param {Integer} renderingMode Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite_3/ne-dwrite_3-dwrite_rendering_mode1">DWRITE_RENDERING_MODE1</a></b>
+     * @param {DWRITE_RENDERING_MODE1} renderingMode Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite_3/ne-dwrite_3-dwrite_rendering_mode1">DWRITE_RENDERING_MODE1</a></b>
      * 
      * A <a href="https://docs.microsoft.com/windows/win32/api/dwrite_3/ne-dwrite_3-dwrite_rendering_mode1">DWRITE_RENDERING_MODE1</a>-typed value that specifies the method (for example, ClearType natural quality) for rendering glyphs. In most cases, specify <b>DWRITE_RENDERING_MODE1_DEFAULT</b> to automatically use an appropriate mode.
-     * @param {Integer} gridFitMode Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite_2/ne-dwrite_2-dwrite_grid_fit_mode">DWRITE_GRID_FIT_MODE</a></b>
+     * @param {DWRITE_GRID_FIT_MODE} gridFitMode Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite_2/ne-dwrite_2-dwrite_grid_fit_mode">DWRITE_GRID_FIT_MODE</a></b>
      * 
      * A <a href="https://docs.microsoft.com/windows/win32/api/dwrite_2/ne-dwrite_2-dwrite_grid_fit_mode">DWRITE_GRID_FIT_MODE</a>-typed value that specifies how to grid-fit glyph outlines. In most cases, specify <b>DWRITE_GRID_FIT_DEFAULT</b> to automatically choose an appropriate mode.
      * @returns {IDWriteRenderingParams3} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite_3/nn-dwrite_3-idwriterenderingparams3">IDWriteRenderingParams3</a>**</b>
@@ -111,7 +112,7 @@ class IDWriteFactory3 extends IDWriteFactory2{
      * 
      * The zero based index of a font face in cases when the font files contain a collection of font faces.      
      * If the font files contain a single face, this value should be zero.
-     * @param {Integer} fontSimulations Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_font_simulations">DWRITE_FONT_SIMULATIONS</a></b>
+     * @param {DWRITE_FONT_SIMULATIONS} fontSimulations Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_font_simulations">DWRITE_FONT_SIMULATIONS</a></b>
      * 
      * Font face simulation flags for algorithmic emboldening and italicization.
      * @returns {IDWriteFontFaceReference} Type: [out] <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite_3/nn-dwrite_3-idwritefontfacereference">IDWriteFontFaceReference</a>**</b>
@@ -139,7 +140,7 @@ class IDWriteFactory3 extends IDWriteFactory2{
      * 
      * The zero based index of a font face in cases when the font files contain a collection of font faces.      
      * If the font files contain a single face, this value should be zero.
-     * @param {Integer} fontSimulations Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_font_simulations">DWRITE_FONT_SIMULATIONS</a></b>
+     * @param {DWRITE_FONT_SIMULATIONS} fontSimulations Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_font_simulations">DWRITE_FONT_SIMULATIONS</a></b>
      * 
      * Font face simulation flags for algorithmic emboldening and italicization.
      * @returns {IDWriteFontFaceReference} Type: [out] <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite_3/nn-dwrite_3-idwritefontfacereference">IDWriteFontFaceReference</a>**</b>
@@ -183,7 +184,9 @@ class IDWriteFactory3 extends IDWriteFactory2{
      * @param {IDWriteFontSet} fontSet Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite_3/nn-dwrite_3-idwritefontset">IDWriteFontSet</a>*</b>
      * 
      * A set of fonts to use to build the collection.
-     * @returns {IDWriteFontCollection1} 
+     * @returns {IDWriteFontCollection1} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite_3/nn-dwrite_3-idwritefontcollection1">IDWriteFontCollection1</a>**</b>
+     * 
+     * Holds the newly created font collection object, or NULL in case of failure.
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefactory3-createfontcollectionfromfontset
      */
     CreateFontCollectionFromFontSet(fontSet) {
@@ -202,7 +205,9 @@ class IDWriteFactory3 extends IDWriteFactory2{
      *            to the set of system fonts. If this parameter is FALSE, the function will still detect changes if the font      
      *            cache service is running, but there may be some latency. For example, an application might specify TRUE if      
      *            it has just installed a font and wants to be sure the font collection contains that font.
-     * @returns {IDWriteFontCollection1} 
+     * @returns {IDWriteFontCollection1} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite_3/nn-dwrite_3-idwritefontcollection1">IDWriteFontCollection1</a>**</b>
+     * 
+     * Holds the newly created font collection object, or NULL in case of failure.
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefactory3-getsystemfontcollection
      */
     GetSystemFontCollection(includeDownloadableFonts, checkForUpdates) {

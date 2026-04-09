@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
- * @version v4.0.30319
  */
-class D3DKMDT_DISPLAYMODE_FLAGS extends Win32Struct
-{
+class D3DKMDT_DISPLAYMODE_FLAGS extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4

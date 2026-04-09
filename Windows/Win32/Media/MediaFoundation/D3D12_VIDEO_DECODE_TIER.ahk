@@ -3,13 +3,10 @@
 
 /**
  * Specifies the decoding tier of a hardware video decoder, which determines the required format of application-defined textures and buffers.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/d3d12video/ne-d3d12video-d3d12_video_decode_tier
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class D3D12_VIDEO_DECODE_TIER extends Win32Enum{
+class D3D12_VIDEO_DECODE_TIER extends Win32Enum {
 
     /**
      * Video decoding is not supported.

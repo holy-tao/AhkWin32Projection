@@ -2,14 +2,14 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * Returns the device identifier supported by a video renderer component.
  * @see https://learn.microsoft.com/windows/win32/api/evr/nn-evr-imfvideodeviceid
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFVideoDeviceID extends IUnknown{
+class IMFVideoDeviceID extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

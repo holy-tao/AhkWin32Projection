@@ -5,9 +5,8 @@
  * Used by IQueryAssociations::GetString to define the type of string that is to be returned.
  * @see https://learn.microsoft.com/windows/win32/api/shlwapi/ne-shlwapi-assocstr
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class ASSOCSTR extends Win32Enum{
+class ASSOCSTR extends Win32Enum {
 
     /**
      * A command string associated with a Shell verb.

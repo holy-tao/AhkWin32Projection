@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IDirect3DDevice9.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\IDirect3DDevice9.ahk
 
 /**
  * The IDirect3DResource9 (d3d9.h) interface is used by applications to query and prepare resources.
@@ -45,9 +45,8 @@
  * ```
  * @see https://learn.microsoft.com/windows/win32/api/d3d9/nn-d3d9-idirect3dresource9
  * @namespace Windows.Win32.Graphics.Direct3D9
- * @version v4.0.30319
  */
-class IDirect3DResource9 extends IUnknown{
+class IDirect3DResource9 extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -264,7 +263,7 @@ class IDirect3DResource9 extends IUnknown{
 
     /**
      * The IDirect3DResource9::GetType (d3d9.h) method returns the type of the resource.
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3dresourcetype">D3DRESOURCETYPE</a></b>
+     * @returns {D3DRESOURCETYPE} Type: <b><a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3dresourcetype">D3DRESOURCETYPE</a></b>
      * 
      * Returns a member of the <a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3dresourcetype">D3DRESOURCETYPE</a> enumerated type, identifying the type of the resource.
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3dresource9-gettype

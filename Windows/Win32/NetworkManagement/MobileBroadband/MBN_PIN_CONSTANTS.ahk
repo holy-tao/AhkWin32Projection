@@ -5,9 +5,8 @@
  * The MBN_PIN_CONSTANTS enumerated type defines constant values used by the MBN_PIN_INFO structure.
  * @see https://learn.microsoft.com/windows/win32/api/mbnapi/ne-mbnapi-mbn_pin_constants
  * @namespace Windows.Win32.NetworkManagement.MobileBroadband
- * @version v4.0.30319
  */
-class MBN_PIN_CONSTANTS extends Win32Enum{
+class MBN_PIN_CONSTANTS extends Win32Enum {
 
     /**
      * Indicates that there is no available information available on the number of attempts remaining to enter a valid PIN.

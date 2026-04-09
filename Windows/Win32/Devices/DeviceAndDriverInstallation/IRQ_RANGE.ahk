@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\IRQD_FLAGS.ahk
 
 /**
  * The IRQ_RANGE structure specifies a resource requirements list that describes IRQ line usage for a device instance. For more information about resource requirements lists, see Hardware Resources.
  * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/ns-cfgmgr32-irq_range
  * @namespace Windows.Win32.Devices.DeviceAndDriverInstallation
- * @version v4.0.30319
  */
-class IRQ_RANGE extends Win32Struct
-{
+class IRQ_RANGE extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4
@@ -33,7 +32,7 @@ class IRQ_RANGE extends Win32Struct
 
     /**
      * One bit flag from [IRQ_DES](/windows/desktop/api/cfgmgr32/ns-cfgmgr32-irq_des_32) structure.
-     * @type {Integer}
+     * @type {IRQD_FLAGS}
      */
     IRQR_Flags {
         get => NumGet(this, 8, "uint")

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\WNDCLASS_STYLES.ahk
 #Include ..\..\Foundation\HINSTANCE.ahk
 #Include .\HICON.ahk
 #Include .\HCURSOR.ahk
@@ -12,11 +13,9 @@
  * > The winuser.h header defines WNDCLASSEX as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
  * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-wndclassexw
  * @namespace Windows.Win32.UI.WindowsAndMessaging
- * @version v4.0.30319
  * @charset Unicode
  */
-class WNDCLASSEXW extends Win32Struct
-{
+class WNDCLASSEXW extends Win32Struct {
     static sizeof => 80
 
     static packingSize => 8
@@ -36,7 +35,7 @@ class WNDCLASSEXW extends Win32Struct
      * Type: <b>UINT</b>
      * 
      * The class style(s). This member can be any combination of the <a href="https://docs.microsoft.com/windows/win32/winmsg/window-class-styles">Class Styles</a>.
-     * @type {Integer}
+     * @type {WNDCLASS_STYLES}
      */
     style {
         get => NumGet(this, 4, "uint")
@@ -83,7 +82,7 @@ class WNDCLASSEXW extends Win32Struct
      * A handle to the instance that contains the window procedure for the class.
      * @type {HINSTANCE}
      */
-    hInstance{
+    hInstance {
         get {
             if(!this.HasProp("__hInstance"))
                 this.__hInstance := HINSTANCE(24, this)
@@ -97,7 +96,7 @@ class WNDCLASSEXW extends Win32Struct
      * A handle to the class icon. This member must be a handle to an icon resource. If this member is <b>NULL</b>, the system provides a default icon.
      * @type {HICON}
      */
-    hIcon{
+    hIcon {
         get {
             if(!this.HasProp("__hIcon"))
                 this.__hIcon := HICON(32, this)
@@ -111,7 +110,7 @@ class WNDCLASSEXW extends Win32Struct
      * A handle to the class cursor. This member must be a handle to a cursor resource. If this member is <b>NULL</b>, an application must explicitly set the cursor shape whenever the mouse moves into the application's window.
      * @type {HCURSOR}
      */
-    hCursor{
+    hCursor {
         get {
             if(!this.HasProp("__hCursor"))
                 this.__hCursor := HCURSOR(40, this)
@@ -153,7 +152,7 @@ class WNDCLASSEXW extends Win32Struct
      * 						<b>fErase</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-paintstruct">PAINTSTRUCT</a> structure filled by the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-beginpaint">BeginPaint</a> function.
      * @type {HBRUSH}
      */
-    hbrBackground{
+    hbrBackground {
         get {
             if(!this.HasProp("__hbrBackground"))
                 this.__hbrBackground := HBRUSH(48, this)
@@ -196,7 +195,7 @@ class WNDCLASSEXW extends Win32Struct
      * 					<b>hIcon</b> member for an icon of the appropriate size to use as the small icon.
      * @type {HICON}
      */
-    hIconSm{
+    hIconSm {
         get {
             if(!this.HasProp("__hIconSm"))
                 this.__hIconSm := HICON(72, this)

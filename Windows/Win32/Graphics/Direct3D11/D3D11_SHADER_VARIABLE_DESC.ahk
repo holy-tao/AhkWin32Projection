@@ -10,10 +10,8 @@
  * As of the June 2010 update, <b>DefaultValue</b> emits default values for reflection.
  * @see https://learn.microsoft.com/windows/win32/api/d3d11shader/ns-d3d11shader-d3d11_shader_variable_desc
  * @namespace Windows.Win32.Graphics.Direct3D11
- * @version v4.0.30319
  */
-class D3D11_SHADER_VARIABLE_DESC extends Win32Struct
-{
+class D3D11_SHADER_VARIABLE_DESC extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8

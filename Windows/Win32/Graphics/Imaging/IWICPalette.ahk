@@ -16,9 +16,8 @@
  * Traditionally the basic operation of the palette is to provide a translation from a byte (or smaller) index into a 32bpp color value. This is often accomplished by a 256 entry table of color values.
  * @see https://learn.microsoft.com/windows/win32/api/wincodec/nn-wincodec-iwicpalette
  * @namespace Windows.Win32.Graphics.Imaging
- * @version v4.0.30319
  */
-class IWICPalette extends IUnknown{
+class IWICPalette extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -43,7 +42,7 @@ class IWICPalette extends IUnknown{
      * Initializes the palette to one of the pre-defined palettes specified by WICBitmapPaletteType and optionally adds a transparent color.
      * @remarks
      * If a transparent color is added to a palette, the palette is no longer predefined and is returned as <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ne-wincodec-wicbitmappalettetype">WICBitmapPaletteTypeCustom</a>. For palettes with less than 256 entries, the transparent entry is added to the end of the palette (that is, a 16-color palette becomes a 17-color palette). For palettes with 256 colors, the transparent palette entry will replace the last entry in the pre-defined palette.
-     * @param {Integer} ePaletteType Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ne-wincodec-wicbitmappalettetype">WICBitmapPaletteType</a></b>
+     * @param {WICBitmapPaletteType} ePaletteType Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ne-wincodec-wicbitmappalettetype">WICBitmapPaletteType</a></b>
      * 
      * The desired pre-defined palette type.
      * @param {BOOL} fAddTransparentColor Type: <b>BOOL</b>
@@ -126,7 +125,7 @@ class IWICPalette extends IUnknown{
      * Retrieves the WICBitmapPaletteType that describes the palette.
      * @remarks
      * <b>WICBitmapPaletteCustom</b> is used for palettes initialized from both <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nf-wincodec-iwicpalette-initializecustom">InitializeCustom</a> and <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nf-wincodec-iwicpalette-initializefrombitmap">InitializeFromBitmap</a>. There is no distinction is made between optimized and custom palettes.
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ne-wincodec-wicbitmappalettetype">WICBitmapPaletteType</a>*</b>
+     * @returns {WICBitmapPaletteType} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ne-wincodec-wicbitmappalettetype">WICBitmapPaletteType</a>*</b>
      * 
      * Pointer that receives the palette type of the bimtap.
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicpalette-gettype

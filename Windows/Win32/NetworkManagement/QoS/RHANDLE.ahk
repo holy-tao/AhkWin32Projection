@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.QoS
- * @version v4.0.30319
  */
-class RHANDLE extends Win32Handle
-{
+class RHANDLE extends Win32Handle {
     static sizeof => 8
 
     static packingSize => 8

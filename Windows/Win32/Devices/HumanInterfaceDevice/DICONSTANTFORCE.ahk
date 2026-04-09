@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.HumanInterfaceDevice
- * @version v4.0.30319
  */
-class DICONSTANTFORCE extends Win32Struct
-{
+class DICONSTANTFORCE extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 4

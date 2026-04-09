@@ -9,9 +9,8 @@
  *   This enumeration can help an application decide how aggressive to be about reducing latency in the UI. For example, if the application returns true when the effect is UI_ANIMATION_PRIORITY_EFFECT_DELAY, then other animations might get canceled or compressed even though doing so was not strictly necessary to play a new animation within the application-specified longest acceptable delay.
  * @see https://learn.microsoft.com/windows/win32/api/uianimation/ne-uianimation-ui_animation_priority_effect
  * @namespace Windows.Win32.UI.Animation
- * @version v4.0.30319
  */
-class UI_ANIMATION_PRIORITY_EFFECT extends Win32Enum{
+class UI_ANIMATION_PRIORITY_EFFECT extends Win32Enum {
 
     /**
      * This storyboard might not be successfully scheduled.

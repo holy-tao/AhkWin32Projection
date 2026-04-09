@@ -1,16 +1,20 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\Variant\VARENUM.ahk
+#Include ..\Variant\VARIANT.ahk
 #Include ..\Com\CY.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\Com\IUnknown.ahk
+#Include ..\Com\IDispatch.ahk
+#Include ..\Com\SAFEARRAY.ahk
 #Include ..\..\Foundation\DECIMAL.ahk
-#Include ..\Variant\VARIANT.ahk
+#Include ..\Ole\IRecordInfo.ahk
 
 /**
  * @namespace Windows.Win32.System.Search
- * @version v4.0.30319
+ * @architecture X64, Arm64
  */
-class DBPROPINFO extends Win32Struct
-{
+class DBPROPINFO extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -40,7 +44,7 @@ class DBPROPINFO extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {VARENUM}
      */
     vtType {
         get => NumGet(this, 16, "ushort")
@@ -50,7 +54,7 @@ class DBPROPINFO extends Win32Struct
     /**
      * @type {VARIANT}
      */
-    vValues{
+    vValues {
         get {
             if(!this.HasProp("__vValues"))
                 this.__vValues := VARIANT(24, this)

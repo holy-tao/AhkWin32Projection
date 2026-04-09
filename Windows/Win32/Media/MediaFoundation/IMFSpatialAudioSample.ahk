@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IMFSpatialAudioObjectBuffer.ahk
 #Include .\IMFSample.ahk
+#Include .\IMFSpatialAudioObjectBuffer.ahk
 
 /**
  * Represents a multimedia sample with spatial sound information. Every IMFSpatialAudioSample contains one or more IMFSpatialAudioObjectBuffer objects.
  * @see https://learn.microsoft.com/windows/win32/api/mfspatialaudio/nn-mfspatialaudio-imfspatialaudiosample
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFSpatialAudioSample extends IMFSample{
+class IMFSpatialAudioSample extends IMFSample {
 
     static sizeof => A_PtrSize
     /**

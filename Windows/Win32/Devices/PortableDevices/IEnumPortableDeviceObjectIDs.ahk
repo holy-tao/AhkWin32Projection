@@ -1,16 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IEnumPortableDeviceObjectIDs.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * The IEnumPortableDeviceObjectIDs interface enumerates the objects on a portable device. Get this interface initially by calling IPortableDeviceContent::EnumObjects on a device.
  * @see https://learn.microsoft.com/windows/win32/api/portabledeviceapi/nn-portabledeviceapi-ienumportabledeviceobjectids
  * @namespace Windows.Win32.Devices.PortableDevices
- * @version v4.0.30319
  */
-class IEnumPortableDeviceObjectIDs extends IUnknown{
+class IEnumPortableDeviceObjectIDs extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

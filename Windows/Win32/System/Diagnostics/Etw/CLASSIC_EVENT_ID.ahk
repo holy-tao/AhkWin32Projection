@@ -9,17 +9,15 @@
  * `3d6fa8d4-fe05-11d0-9dda-00c04fd7ba7c` and **Type** to 10.
  * @see https://learn.microsoft.com/windows/win32/api/evntrace/ns-evntrace-classic_event_id
  * @namespace Windows.Win32.System.Diagnostics.Etw
- * @version v4.0.30319
  */
-class CLASSIC_EVENT_ID extends Win32Struct
-{
+class CLASSIC_EVENT_ID extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
 
     /**
      * The GUID that identifies the kernel event class.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     EventGuid {
         get => NumGet(this, 0, "ptr")
@@ -38,9 +36,9 @@ class CLASSIC_EVENT_ID extends Win32Struct
 
     /**
      * Reserved.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Reserved{
+    Reserved {
         get {
             if(!this.HasProp("__ReservedProxyArray"))
                 this.__ReservedProxyArray := Win32FixedArray(this.ptr + 9, 7, Primitive, "char")

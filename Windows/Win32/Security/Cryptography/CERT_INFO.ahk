@@ -3,17 +3,16 @@
 #Include .\CRYPT_INTEGER_BLOB.ahk
 #Include .\CRYPT_ALGORITHM_IDENTIFIER.ahk
 #Include ..\..\Foundation\FILETIME.ahk
-#Include .\CRYPT_BIT_BLOB.ahk
 #Include .\CERT_PUBLIC_KEY_INFO.ahk
+#Include .\CRYPT_BIT_BLOB.ahk
+#Include .\CERT_EXTENSION.ahk
 
 /**
  * Contains the information of a certificate.
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cert_info
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CERT_INFO extends Win32Struct
-{
+class CERT_INFO extends Win32Struct {
     static sizeof => 208
 
     static packingSize => 8
@@ -68,7 +67,7 @@ class CERT_INFO extends Win32Struct
      * A <a href="https://docs.microsoft.com/windows/desktop/SecGloss/b-gly">BLOB</a> that contains the serial number of a certificate. The least significant byte is the zero byte of the <b>pbData</b> member of <i>SerialNumber</i>. The index for the last byte of <b>pbData</b>, is one less than the value of the <b>cbData</b> member of <i>SerialNumber</i>. The most significant byte is the last byte of <b>pbData</b>. Leading 0x00 or 0xFF bytes are removed. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certcompareintegerblob">CertCompareIntegerBlob</a>.
      * @type {CRYPT_INTEGER_BLOB}
      */
-    SerialNumber{
+    SerialNumber {
         get {
             if(!this.HasProp("__SerialNumber"))
                 this.__SerialNumber := CRYPT_INTEGER_BLOB(8, this)
@@ -80,7 +79,7 @@ class CERT_INFO extends Win32Struct
      * A <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-crypt_algorithm_identifier">CRYPT_ALGORITHM_IDENTIFIER</a> structure that contains the signature algorithm type and encoded additional encryption parameters.
      * @type {CRYPT_ALGORITHM_IDENTIFIER}
      */
-    SignatureAlgorithm{
+    SignatureAlgorithm {
         get {
             if(!this.HasProp("__SignatureAlgorithm"))
                 this.__SignatureAlgorithm := CRYPT_ALGORITHM_IDENTIFIER(24, this)
@@ -92,7 +91,7 @@ class CERT_INFO extends Win32Struct
      * The name, in encoded form, of the issuer of the certificate.
      * @type {CRYPT_INTEGER_BLOB}
      */
-    Issuer{
+    Issuer {
         get {
             if(!this.HasProp("__Issuer"))
                 this.__Issuer := CRYPT_INTEGER_BLOB(48, this)
@@ -104,7 +103,7 @@ class CERT_INFO extends Win32Struct
      * Date and time before which the certificate is not valid. For dates between 1950 and 2049 inclusive, the date and time is encoded Coordinated Universal Time (Greenwich Mean Time) format in the form YYMMDDHHMMSS. This member uses a two-digit year and is precise to seconds. For dates before 1950 or after 2049, encoded generalized time is used. Encoded generalized time is in the form YYYYMMDDHHMMSSMMM, using a four-digit year, and is precise to milliseconds. Even though generalized time supports millisecond resolution, the <b>NotBefore</b> time is only precise to seconds.
      * @type {FILETIME}
      */
-    NotBefore{
+    NotBefore {
         get {
             if(!this.HasProp("__NotBefore"))
                 this.__NotBefore := FILETIME(64, this)
@@ -116,7 +115,7 @@ class CERT_INFO extends Win32Struct
      * Date and time after which the certificate is not valid. For dates between 1950 and 2049 inclusive, the date and time is encoded Coordinated Universal Time format in the form YYMMDDHHMMSS. This member uses a two-digit year and is precise to seconds. For dates before 1950 or after 2049, encoded generalized time is used. Encoded generalized time is in the form YYYYMMDDHHMMSSMMM, using a four-digit year, and is precise to milliseconds. Even though generalized time supports millisecond resolution, the <b>NotAfter</b> time is only precise to seconds.
      * @type {FILETIME}
      */
-    NotAfter{
+    NotAfter {
         get {
             if(!this.HasProp("__NotAfter"))
                 this.__NotAfter := FILETIME(72, this)
@@ -128,7 +127,7 @@ class CERT_INFO extends Win32Struct
      * The encoded name of the subject of the certificate.
      * @type {CRYPT_INTEGER_BLOB}
      */
-    Subject{
+    Subject {
         get {
             if(!this.HasProp("__Subject"))
                 this.__Subject := CRYPT_INTEGER_BLOB(80, this)
@@ -140,7 +139,7 @@ class CERT_INFO extends Win32Struct
      * A <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_public_key_info">CERT_PUBLIC_KEY_INFO</a> structure that contains the encoded public key and its algorithm. The <b>PublicKey</b> member of the <b>CERT_PUBLIC_KEY_INFO</b> structure contains the encoded public key as a <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-crypt_bit_blob">CRYPT_BIT_BLOB</a>, and the <b>Algorithm</b> member contains the encoded algorithm as a <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-crypt_algorithm_identifier">CRYPT_ALGORITHM_IDENTIFIER</a>.
      * @type {CERT_PUBLIC_KEY_INFO}
      */
-    SubjectPublicKeyInfo{
+    SubjectPublicKeyInfo {
         get {
             if(!this.HasProp("__SubjectPublicKeyInfo"))
                 this.__SubjectPublicKeyInfo := CERT_PUBLIC_KEY_INFO(96, this)
@@ -152,7 +151,7 @@ class CERT_INFO extends Win32Struct
      * A BLOB that contains a unique identifier of the issuer.
      * @type {CRYPT_BIT_BLOB}
      */
-    IssuerUniqueId{
+    IssuerUniqueId {
         get {
             if(!this.HasProp("__IssuerUniqueId"))
                 this.__IssuerUniqueId := CRYPT_BIT_BLOB(144, this)
@@ -164,7 +163,7 @@ class CERT_INFO extends Win32Struct
      * A BLOB that contains a unique identifier of the subject.
      * @type {CRYPT_BIT_BLOB}
      */
-    SubjectUniqueId{
+    SubjectUniqueId {
         get {
             if(!this.HasProp("__SubjectUniqueId"))
                 this.__SubjectUniqueId := CRYPT_BIT_BLOB(168, this)

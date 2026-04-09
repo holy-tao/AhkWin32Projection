@@ -200,10 +200,8 @@
  * | JOB\_NOTIFY\_FIELD\_BYTES\_PRINTED       | **adwData** \[0\] specifies the number of bytes that have been printed on this job. For this field, the change notification object is signaled when bytes are sent to the printer.                                                                      | 0x17  |
  * @see https://learn.microsoft.com/windows/win32/printdocs/printer-notify-info-data
  * @namespace Windows.Win32.Graphics.Printing
- * @version v4.0.30319
  */
-class PRINTER_NOTIFY_INFO_DATA extends Win32Struct
-{
+class PRINTER_NOTIFY_INFO_DATA extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -215,7 +213,7 @@ class PRINTER_NOTIFY_INFO_DATA extends Win32Struct
         class _Data extends Win32Struct {
             static sizeof => 16
             static packingSize => 8
-    
+
             /**
              * @type {Integer}
              */
@@ -223,7 +221,7 @@ class PRINTER_NOTIFY_INFO_DATA extends Win32Struct
                 get => NumGet(this, 0, "uint")
                 set => NumPut("uint", value, this, 0)
             }
-        
+
             /**
              * @type {Pointer<Void>}
              */
@@ -231,31 +229,29 @@ class PRINTER_NOTIFY_INFO_DATA extends Win32Struct
                 get => NumGet(this, 8, "ptr")
                 set => NumPut("ptr", value, this, 8)
             }
-        
         }
-    
+
         /**
-         * @type {Array<UInt32>}
+         * @type {Array<Integer>}
          */
-        adwData{
+        adwData {
             get {
                 if(!this.HasProp("__adwDataProxyArray"))
                     this.__adwDataProxyArray := Win32FixedArray(this.ptr + 0, 2, Primitive, "uint")
                 return this.__adwDataProxyArray
             }
         }
-    
+
         /**
          * @type {_Data}
          */
-        Data{
+        Data {
             get {
                 if(!this.HasProp("__Data"))
-                    this.__Data := %this.__Class%._Data(0, this)
+                    this.__Data := PRINTER_NOTIFY_INFO_DATA._NotifyData_e__Union._Data(0, this)
                 return this.__Data
             }
         }
-    
     }
 
     /**
@@ -310,10 +306,10 @@ class PRINTER_NOTIFY_INFO_DATA extends Win32Struct
      * An array of two **DWORD** values. For information fields that use only a single **DWORD**, the data is in **adwData** \[0\].
      * @type {_NotifyData_e__Union}
      */
-    NotifyData{
+    NotifyData {
         get {
             if(!this.HasProp("__NotifyData"))
-                this.__NotifyData := %this.__Class%._NotifyData_e__Union(16, this)
+                this.__NotifyData := PRINTER_NOTIFY_INFO_DATA._NotifyData_e__Union(16, this)
             return this.__NotifyData
         }
     }

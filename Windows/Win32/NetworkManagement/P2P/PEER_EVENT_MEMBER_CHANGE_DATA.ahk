@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\PEER_MEMBER_CHANGE_TYPE.ahk
 
 /**
  * The PEER_EVENT_MEMBER_CHANGE_DATA structure contains data that describes a change in the status of a peer group member.
  * @see https://learn.microsoft.com/windows/win32/api/p2p/ns-p2p-peer_event_member_change_data
  * @namespace Windows.Win32.NetworkManagement.P2P
- * @version v4.0.30319
  */
-class PEER_EVENT_MEMBER_CHANGE_DATA extends Win32Struct
-{
+class PEER_EVENT_MEMBER_CHANGE_DATA extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
@@ -24,8 +23,8 @@ class PEER_EVENT_MEMBER_CHANGE_DATA extends Win32Struct
 
     /**
      * <b>PEER_MEMBER_CHANGE_TYPE</b> enumeration value that specifies the change event that occurred, such as a member joining or leaving.
-     * @deprecated 
-     * @type {Integer}
+     * @deprecated
+     * @type {PEER_MEMBER_CHANGE_TYPE}
      */
     changeType {
         get => NumGet(this, 4, "int")

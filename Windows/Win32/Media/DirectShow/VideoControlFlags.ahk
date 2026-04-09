@@ -9,9 +9,8 @@
  * Multiple capture buffers are queued to a capture driver and are filled at a fixed rate once the stream is put into the "run" state. If the VideoControlFlag_ExternalTriggerEnable flag is set, a filled buffer is not passed up from the WDM capture driver for compression, display, or writing to a file until the external event happens.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/ne-strmif-videocontrolflags
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class VideoControlFlags extends Win32Enum{
+class VideoControlFlags extends Win32Enum {
 
     /**
      * Specifies that the picture is flipped horizontally.

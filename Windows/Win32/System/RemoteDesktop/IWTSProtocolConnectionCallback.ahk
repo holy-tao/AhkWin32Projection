@@ -7,9 +7,8 @@
  * IWTSProtocolConnectionCallback is no longer available. Instead, use IWRdsProtocolConnectionCallback.
  * @see https://learn.microsoft.com/windows/win32/api/wtsprotocol/nn-wtsprotocol-iwtsprotocolconnectioncallback
  * @namespace Windows.Win32.System.RemoteDesktop
- * @version v4.0.30319
  */
-class IWTSProtocolConnectionCallback extends IUnknown{
+class IWTSProtocolConnectionCallback extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -88,7 +87,7 @@ class IWTSProtocolConnectionCallback extends IUnknown{
      * <li>Create a separate thread on which to make the call. Do not make the call from inside of any protocol method that you are implementing.</li>
      * <li>Do not block on this method before replying to another call by the Remote Desktop Services service.</li>
      * </ul>
-     * @param {Pointer<WTS_SMALL_RECT>} _rect 
+     * @param {Pointer<WTS_SMALL_RECT>} _rect A <a href="https://docs.microsoft.com/windows/desktop/api/wtsdefs/ns-wtsdefs-wts_small_rect">WTS_SMALL_RECT</a> structure that contains the x and y coordinates of the screen to redraw. A value of <b>NULL</b> requests that the entire screen be redrawn.
      * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>.
      * 
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following list. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.

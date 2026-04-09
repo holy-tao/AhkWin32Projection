@@ -1,15 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\WEBAUTHN_ASSERTION.ahk
 #Include .\WEBAUTHN_CREDENTIAL.ahk
 #Include .\WEBAUTHN_EXTENSIONS.ahk
-#Include .\WEBAUTHN_ASSERTION.ahk
+#Include .\WEBAUTHN_EXTENSION.ahk
+#Include .\WEBAUTHN_HMAC_SECRET_SALT.ahk
+#Include .\WEBAUTHN_USER_ENTITY_INFORMATION.ahk
 
 /**
  * @namespace Windows.Win32.Security.Authentication.WebAuthn
- * @version v4.0.30319
  */
-class WEBAUTHN_CTAPCBOR_GET_ASSERTION_RESPONSE extends Win32Struct
-{
+class WEBAUTHN_CTAPCBOR_GET_ASSERTION_RESPONSE extends Win32Struct {
     static sizeof => 216
 
     static packingSize => 8
@@ -17,7 +18,7 @@ class WEBAUTHN_CTAPCBOR_GET_ASSERTION_RESPONSE extends Win32Struct
     /**
      * @type {WEBAUTHN_ASSERTION}
      */
-    WebAuthNAssertion{
+    WebAuthNAssertion {
         get {
             if(!this.HasProp("__WebAuthNAssertion"))
                 this.__WebAuthNAssertion := WEBAUTHN_ASSERTION(0, this)

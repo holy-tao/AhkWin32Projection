@@ -1,12 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\USBD_ENDPOINT_OFFLOAD_MODE.ahk
 
 /**
  * @namespace Windows.Win32.Devices.Usb
- * @version v4.0.30319
  */
-class USBD_ENDPOINT_OFFLOAD_INFORMATION_V1 extends Win32Struct
-{
+class USBD_ENDPOINT_OFFLOAD_INFORMATION_V1 extends Win32Struct {
     static sizeof => 88
 
     static packingSize => 8
@@ -36,7 +35,7 @@ class USBD_ENDPOINT_OFFLOAD_INFORMATION_V1 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {USBD_ENDPOINT_OFFLOAD_MODE}
      */
     Mode {
         get => NumGet(this, 12, "int")

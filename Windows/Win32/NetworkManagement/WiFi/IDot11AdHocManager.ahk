@@ -1,18 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\IDot11AdHocNetwork.ahk
 #Include .\IEnumDot11AdHocNetworks.ahk
 #Include .\IEnumDot11AdHocInterfaces.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Creates and manages 802.11 ad hoc networks.
  * @see https://learn.microsoft.com/windows/win32/api/adhoc/nn-adhoc-idot11adhocmanager
  * @namespace Windows.Win32.NetworkManagement.WiFi
- * @version v4.0.30319
  */
-class IDot11AdHocManager extends IUnknown{
+class IDot11AdHocManager extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Media.Speech
- * @version v4.0.30319
  */
-class SpeechRuleAttributes extends Win32Enum{
+class SpeechRuleAttributes extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\DEVPROPKEY.ahk
 #Include ..\..\Foundation\HANDLE.ahk
 #Include ..\..\Graphics\Gdi\HBITMAP.ahk
 #Include .\HSURF.ahk
 #Include ..\..\Graphics\Gdi\HPALETTE.ahk
 #Include .\HSEMAPHORE.ahk
-#Include ..\..\Foundation\DEVPROPKEY.ahk
 
 /**
  * @namespace Windows.Win32.Devices.Display
- * @version v4.0.30319
  */
 class Display {
 
@@ -3837,7 +3836,7 @@ class Display {
 ;@region Methods
     /**
      * Retrieves the number of physical monitors associated with an HMONITOR monitor handle.
-     * @param {HMONITOR} _hMonitor 
+     * @param {HMONITOR} _hMonitor A monitor handle. Monitor handles are returned by several Multiple Display Monitor functions, including <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-enumdisplaymonitors">EnumDisplayMonitors</a> and <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-monitorfromwindow">MonitorFromWindow</a>, which are part of the graphics device interface (GDI).
      * @param {Pointer<Integer>} pdwNumberOfPhysicalMonitors Receives the number of physical monitors associated with the monitor handle.
      * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>. If the function fails, the return value is <b>FALSE</b>. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://learn.microsoft.com/windows/win32/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getnumberofphysicalmonitorsfromhmonitor
@@ -3877,7 +3876,7 @@ class Display {
      *       
      * 
      * When you are done using the monitor handles, close them by passing the <i>pPhysicalMonitorArray</i> array to the <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-destroyphysicalmonitors">DestroyPhysicalMonitors</a> function.
-     * @param {HMONITOR} _hMonitor 
+     * @param {HMONITOR} _hMonitor A monitor handle. Monitor handles are returned by several Multiple Display Monitor functions, including <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-enumdisplaymonitors">EnumDisplayMonitors</a> and <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-monitorfromwindow">MonitorFromWindow</a>, which are part of the graphics device interface (GDI).
      * @param {Integer} dwPhysicalMonitorArraySize Number of elements in <i>pPhysicalMonitorArray</i>. To get the required size of the array, call <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getnumberofphysicalmonitorsfromhmonitor">GetNumberOfPhysicalMonitorsFromHMONITOR</a>.
      * @param {Pointer<PHYSICAL_MONITOR>} pPhysicalMonitorArray Pointer to an array of <a href="https://docs.microsoft.com/windows/win32/api/physicalmonitorenumerationapi/ns-physicalmonitorenumerationapi-physical_monitor">PHYSICAL_MONITOR</a> structures. The caller must allocate the array.
      * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>. If the function fails, the return value is <b>FALSE</b>. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -3918,7 +3917,7 @@ class Display {
 
     /**
      * Closes a handle to a physical monitor.
-     * @param {HANDLE} _hMonitor 
+     * @param {HANDLE} _hMonitor Handle to a physical monitor.
      * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>. If the function fails, the return value is <b>FALSE</b>. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://learn.microsoft.com/windows/win32/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-destroyphysicalmonitor
      * @since windows6.0.6000
@@ -3962,9 +3961,9 @@ class Display {
      *       
      * 
      * This function takes about 40 milliseconds to return.
-     * @param {HANDLE} _hMonitor 
+     * @param {HANDLE} _hMonitor Handle to a physical monitor. To get the monitor handle, call <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromhmonitor">GetPhysicalMonitorsFromHMONITOR</a> or <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromidirect3ddevice9">GetPhysicalMonitorsFromIDirect3DDevice9</a>.
      * @param {Integer} bVCPCode VCP code to query. The VCP codes are Include the VESA Monitor Control Command Set (MCCS) standard, versions 1.0 and 2.0. This parameter must specify a continuous or non-continuous VCP, or a vendor-specific code. It should not be a table control code.
-     * @param {Pointer<Integer>} pvct Receives the VCP code type, as a member of the <a href="https://docs.microsoft.com/windows/win32/api/lowlevelmonitorconfigurationapi/ne-lowlevelmonitorconfigurationapi-mc_vcp_code_type">MC_VCP_CODE_TYPE</a> enumeration. This parameter can be <b>NULL</b>.
+     * @param {Pointer<MC_VCP_CODE_TYPE>} pvct Receives the VCP code type, as a member of the <a href="https://docs.microsoft.com/windows/win32/api/lowlevelmonitorconfigurationapi/ne-lowlevelmonitorconfigurationapi-mc_vcp_code_type">MC_VCP_CODE_TYPE</a> enumeration. This parameter can be <b>NULL</b>.
      * @param {Pointer<Integer>} pdwCurrentValue Receives the current value of the VCP code. This parameter can be <b>NULL</b>.
      * @param {Pointer<Integer>} pdwMaximumValue If <i>bVCPCode</i> specifies a continuous VCP code, this parameter receives the maximum value of the VCP code. If <i>bVCPCode</i> specifies a non-continuous VCP code, the value received in this parameter is undefined. This parameter can be <b>NULL</b>.
      * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>. If the function fails, the return value is <b>FALSE</b>. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -3995,7 +3994,7 @@ class Display {
      *       
      * 
      * This function takes about 50 milliseconds to return.
-     * @param {HANDLE} _hMonitor 
+     * @param {HANDLE} _hMonitor Handle to a physical monitor. To get the monitor handle, call <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromhmonitor">GetPhysicalMonitorsFromHMONITOR</a> or <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromidirect3ddevice9">GetPhysicalMonitorsFromIDirect3DDevice9</a>.
      * @param {Integer} bVCPCode VCP code to set. The VCP codes are defined in the VESA Monitor Control Command Set (MCCS) standard, version 1.0 and 2.0. This parameter must specify a continuous or non-continuous VCP, or a vendor-specific code. It should not be a table control code.
      * @param {Integer} dwNewValue Value of the VCP code.
      * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>. If the function fails, the return value is <b>FALSE</b>. To get extended error information, call GetLastError.
@@ -4019,7 +4018,7 @@ class Display {
      *       
      * 
      * This low-level function is identical to the high-level function <a href="https://docs.microsoft.com/windows/desktop/api/highlevelmonitorconfigurationapi/nf-highlevelmonitorconfigurationapi-savecurrentmonitorsettings">SaveCurrentMonitorSettings</a>.
-     * @param {HANDLE} _hMonitor 
+     * @param {HANDLE} _hMonitor Handle to a physical monitor. To get the monitor handle, call <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromhmonitor">GetPhysicalMonitorsFromHMONITOR</a> or <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromidirect3ddevice9">GetPhysicalMonitorsFromIDirect3DDevice9</a>.
      * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>. If the function fails, the return value is <b>FALSE</b>. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://learn.microsoft.com/windows/win32/api/lowlevelmonitorconfigurationapi/nf-lowlevelmonitorconfigurationapi-savecurrentsettings
      * @since windows6.0.6000
@@ -4041,7 +4040,7 @@ class Display {
      * Retrieves the length of a monitor's capabilities string.
      * @remarks
      * This function usually returns quickly, but sometimes it can take several seconds to complete.
-     * @param {HANDLE} _hMonitor 
+     * @param {HANDLE} _hMonitor Handle to a physical monitor. To get the monitor handle, call <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromhmonitor">GetPhysicalMonitorsFromHMONITOR</a> or <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromidirect3ddevice9">GetPhysicalMonitorsFromIDirect3DDevice9</a>.
      * @param {Pointer<Integer>} pdwCapabilitiesStringLengthInCharacters Receives the length of the capabilities string, in characters, including the terminating null character.
      * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>. If the function fails, the return value is <b>FALSE</b>. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://learn.microsoft.com/windows/win32/api/lowlevelmonitorconfigurationapi/nf-lowlevelmonitorconfigurationapi-getcapabilitiesstringlength
@@ -4081,7 +4080,7 @@ class Display {
      * 
      * <div class="alert"><b>Warning</b>  Do not modify a monitor's INF file unless you are familiar with the layout of INF files and also understand the DDC/CI standard.</div>
      * <div> </div>
-     * @param {HANDLE} _hMonitor 
+     * @param {HANDLE} _hMonitor Handle to a physical monitor. To get the monitor handle, call <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromhmonitor">GetPhysicalMonitorsFromHMONITOR</a> or <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromidirect3ddevice9">GetPhysicalMonitorsFromIDirect3DDevice9</a>.
      * @param {PSTR} pszASCIICapabilitiesString Pointer to a buffer that receives the monitor's capabilities string. The caller must allocate this buffer. To get the size of the string, call <a href="https://docs.microsoft.com/windows/desktop/api/lowlevelmonitorconfigurationapi/nf-lowlevelmonitorconfigurationapi-getcapabilitiesstringlength">GetCapabilitiesStringLength</a>. The capabilities string is always an ASCII string. The buffer must include space for the terminating null character.
      * @param {Integer} dwCapabilitiesStringLengthInCharacters Size of <i>pszASCIICapabilitiesString</i> in characters, including the terminating null character.
      * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>. If the function fails, the return value is <b>FALSE</b>. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -4109,7 +4108,7 @@ class Display {
      *       
      * 
      * This function takes about 50 milliseconds to return.
-     * @param {HANDLE} _hMonitor 
+     * @param {HANDLE} _hMonitor Handle to a physical monitor. To get the monitor handle, call <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromhmonitor">GetPhysicalMonitorsFromHMONITOR</a> or <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromidirect3ddevice9">GetPhysicalMonitorsFromIDirect3DDevice9</a>.
      * @param {Pointer<MC_TIMING_REPORT>} pmtrMonitorTimingReport Pointer to an <a href="https://docs.microsoft.com/windows/win32/api/lowlevelmonitorconfigurationapi/ns-lowlevelmonitorconfigurationapi-mc_timing_report">MC_TIMING_REPORT</a> structure that receives the timing information.
      * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>. If the function fails, the return value is <b>FALSE</b>. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://learn.microsoft.com/windows/win32/api/lowlevelmonitorconfigurationapi/nf-lowlevelmonitorconfigurationapi-gettimingreport
@@ -4240,7 +4239,7 @@ class Display {
      * <td>The monitor supports 11,500 K color temperature.</td>
      * </tr>
      * </table>
-     * @param {HANDLE} _hMonitor 
+     * @param {HANDLE} _hMonitor Handle to a physical monitor. To get the monitor handle, call <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromhmonitor">GetPhysicalMonitorsFromHMONITOR</a> or <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromidirect3ddevice9">GetPhysicalMonitorsFromIDirect3DDevice9</a>.
      * @param {Pointer<Integer>} pdwMonitorCapabilities Receives a bitwise <b>OR</b> of capabilities flags. See Remarks.
      * @param {Pointer<Integer>} pdwSupportedColorTemperatures Receives a bitwise <b>OR</b> of color temperature flags. See Remarks.
      * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>. If the function fails, the return value is <b>FALSE</b>. To get extended error information, call <b>GetLastError</b>.
@@ -4266,7 +4265,7 @@ class Display {
      *       
      * 
      * This high-level function is identical to the low-level function <a href="https://docs.microsoft.com/windows/desktop/api/lowlevelmonitorconfigurationapi/nf-lowlevelmonitorconfigurationapi-savecurrentsettings">SaveCurrentSettings</a>.
-     * @param {HANDLE} _hMonitor 
+     * @param {HANDLE} _hMonitor Handle to a physical monitor. To get the monitor handle, call <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromhmonitor">GetPhysicalMonitorsFromHMONITOR</a> or <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromidirect3ddevice9">GetPhysicalMonitorsFromIDirect3DDevice9</a>.
      * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>. If the function fails, the return value is <b>FALSE</b>. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://learn.microsoft.com/windows/win32/api/highlevelmonitorconfigurationapi/nf-highlevelmonitorconfigurationapi-savecurrentmonitorsettings
      * @since windows6.0.6000
@@ -4291,8 +4290,8 @@ class Display {
      *       
      * 
      * Some monitor technologies do not support certain monitor configuration functions. For example, the <a href="https://docs.microsoft.com/windows/desktop/api/highlevelmonitorconfigurationapi/nf-highlevelmonitorconfigurationapi-degaussmonitor">DegaussMonitor</a> function is supported only for cathode ray tube (CRT) monitors. To find out whether a specific function is supported, call <a href="https://docs.microsoft.com/windows/desktop/api/highlevelmonitorconfigurationapi/nf-highlevelmonitorconfigurationapi-getmonitorcapabilities">GetMonitorCapabilities</a>.
-     * @param {HANDLE} _hMonitor 
-     * @param {Pointer<Integer>} pdtyDisplayTechnologyType Receives the technology type, specified as a member of the <a href="https://docs.microsoft.com/windows/win32/api/highlevelmonitorconfigurationapi/ne-highlevelmonitorconfigurationapi-mc_display_technology_type">MC_DISPLAY_TECHNOLOGY_TYPE</a> enumeration.
+     * @param {HANDLE} _hMonitor Handle to a physical monitor. To get the monitor handle, call <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromhmonitor">GetPhysicalMonitorsFromHMONITOR</a> or <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromidirect3ddevice9">GetPhysicalMonitorsFromIDirect3DDevice9</a>.
+     * @param {Pointer<MC_DISPLAY_TECHNOLOGY_TYPE>} pdtyDisplayTechnologyType Receives the technology type, specified as a member of the <a href="https://docs.microsoft.com/windows/win32/api/highlevelmonitorconfigurationapi/ne-highlevelmonitorconfigurationapi-mc_display_technology_type">MC_DISPLAY_TECHNOLOGY_TYPE</a> enumeration.
      * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>. If the function fails, the return value is <b>FALSE</b>. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://learn.microsoft.com/windows/win32/api/highlevelmonitorconfigurationapi/nf-highlevelmonitorconfigurationapi-getmonitortechnologytype
      * @since windows6.0.6000
@@ -4322,7 +4321,7 @@ class Display {
      *       
      * 
      * The brightness setting is a continuous monitor setting. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Monitor/using-the-high-level-monitor-configuration-functions">Using the High-Level Monitor Configuration Functions</a>.
-     * @param {HANDLE} _hMonitor 
+     * @param {HANDLE} _hMonitor Handle to a physical monitor. To get the monitor handle, call <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromhmonitor">GetPhysicalMonitorsFromHMONITOR</a> or <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromidirect3ddevice9">GetPhysicalMonitorsFromIDirect3DDevice9</a>.
      * @param {Pointer<Integer>} pdwMinimumBrightness Receives the monitor's minimum brightness.
      * @param {Pointer<Integer>} pdwCurrentBrightness Receives the monitor's current brightness.
      * @param {Pointer<Integer>} pdwMaximumBrightness Receives the monitor's maximum brightness.
@@ -4357,7 +4356,7 @@ class Display {
      *       
      * 
      * The brightness setting is a continuous monitor setting. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Monitor/using-the-high-level-monitor-configuration-functions">Using the High-Level Monitor Configuration Functions</a>.
-     * @param {HANDLE} _hMonitor 
+     * @param {HANDLE} _hMonitor Handle to a physical monitor. To get the monitor handle, call <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromhmonitor">GetPhysicalMonitorsFromHMONITOR</a> or <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromidirect3ddevice9">GetPhysicalMonitorsFromIDirect3DDevice9</a>.
      * @param {Pointer<Integer>} pdwMinimumContrast Receives the monitor's minimum contrast.
      * @param {Pointer<Integer>} pdwCurrentContrast Receives the monitor's current contrast.
      * @param {Pointer<Integer>} pdwMaximumContrast Receives the monitor's maximum contrast.
@@ -4389,8 +4388,8 @@ class Display {
      *       
      * 
      * This function takes between 0 and 80 milliseconds to return.
-     * @param {HANDLE} _hMonitor 
-     * @param {Pointer<Integer>} pctCurrentColorTemperature Receives the monitor's current color temperature, specified as a member of the <a href="https://docs.microsoft.com/windows/win32/api/highlevelmonitorconfigurationapi/ne-highlevelmonitorconfigurationapi-mc_color_temperature">MC_COLOR_TEMPERATURE</a> enumeration.
+     * @param {HANDLE} _hMonitor Handle to a physical monitor. To get the monitor handle, call <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromhmonitor">GetPhysicalMonitorsFromHMONITOR</a> or <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromidirect3ddevice9">GetPhysicalMonitorsFromIDirect3DDevice9</a>.
+     * @param {Pointer<MC_COLOR_TEMPERATURE>} pctCurrentColorTemperature Receives the monitor's current color temperature, specified as a member of the <a href="https://docs.microsoft.com/windows/win32/api/highlevelmonitorconfigurationapi/ne-highlevelmonitorconfigurationapi-mc_color_temperature">MC_COLOR_TEMPERATURE</a> enumeration.
      * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>. If the function fails, the return value is <b>FALSE</b>. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://learn.microsoft.com/windows/win32/api/highlevelmonitorconfigurationapi/nf-highlevelmonitorconfigurationapi-getmonitorcolortemperature
      * @since windows6.0.6000
@@ -4420,8 +4419,8 @@ class Display {
      *       
      * 
      * The drive settings are continuous monitor settings. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Monitor/using-the-high-level-monitor-configuration-functions">Using the High-Level Monitor Configuration Functions</a>.
-     * @param {HANDLE} _hMonitor 
-     * @param {Integer} dtDriveType A member of the <a href="https://docs.microsoft.com/windows/win32/api/highlevelmonitorconfigurationapi/ne-highlevelmonitorconfigurationapi-mc_drive_type">MC_DRIVE_TYPE</a> enumeration, specifying whether to retrieve the red, green, or blue drive value.
+     * @param {HANDLE} _hMonitor Handle to a physical monitor. To get the monitor handle, call <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromhmonitor">GetPhysicalMonitorsFromHMONITOR</a> or <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromidirect3ddevice9">GetPhysicalMonitorsFromIDirect3DDevice9</a>.
+     * @param {MC_DRIVE_TYPE} dtDriveType A member of the <a href="https://docs.microsoft.com/windows/win32/api/highlevelmonitorconfigurationapi/ne-highlevelmonitorconfigurationapi-mc_drive_type">MC_DRIVE_TYPE</a> enumeration, specifying whether to retrieve the red, green, or blue drive value.
      * @param {Pointer<Integer>} pdwMinimumDrive Receives the minimum red, green, or blue drive value.
      * @param {Pointer<Integer>} pdwCurrentDrive Receives the current red, green, or blue drive value.
      * @param {Pointer<Integer>} pdwMaximumDrive Receives the maximum red, green, or blue drive value.
@@ -4459,8 +4458,8 @@ class Display {
      *       
      * 
      * The gain settings are continuous monitor settings. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Monitor/using-the-high-level-monitor-configuration-functions">Using the High-Level Monitor Configuration Functions</a>.
-     * @param {HANDLE} _hMonitor 
-     * @param {Integer} gtGainType A member of the <a href="https://docs.microsoft.com/windows/win32/api/highlevelmonitorconfigurationapi/ne-highlevelmonitorconfigurationapi-mc_gain_type">MC_GAIN_TYPE</a> enumeration, specifying whether to retrieve the red, green, or blue gain value.
+     * @param {HANDLE} _hMonitor Handle to a physical monitor. To get the monitor handle, call <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromhmonitor">GetPhysicalMonitorsFromHMONITOR</a> or <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromidirect3ddevice9">GetPhysicalMonitorsFromIDirect3DDevice9</a>.
+     * @param {MC_GAIN_TYPE} gtGainType A member of the <a href="https://docs.microsoft.com/windows/win32/api/highlevelmonitorconfigurationapi/ne-highlevelmonitorconfigurationapi-mc_gain_type">MC_GAIN_TYPE</a> enumeration, specifying whether to retrieve the red, green, or blue gain value.
      * @param {Pointer<Integer>} pdwMinimumGain Receives the minimum red, green, or blue gain value.
      * @param {Pointer<Integer>} pdwCurrentGain Receives the current red, green, or blue gain value.
      * @param {Pointer<Integer>} pdwMaximumGain Receives the maximum red, green, or blue gain value.
@@ -4495,7 +4494,7 @@ class Display {
      *       
      * 
      * The brightness setting is a continuous monitor setting. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Monitor/using-the-high-level-monitor-configuration-functions">Using the High-Level Monitor Configuration Functions</a>.
-     * @param {HANDLE} _hMonitor 
+     * @param {HANDLE} _hMonitor Handle to a physical monitor. To get the monitor handle, call <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromhmonitor">GetPhysicalMonitorsFromHMONITOR</a> or <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromidirect3ddevice9">GetPhysicalMonitorsFromIDirect3DDevice9</a>.
      * @param {Integer} dwNewBrightness Brightness value. To get the monitor's minimum and maximum brightness values, call <a href="https://docs.microsoft.com/windows/desktop/api/highlevelmonitorconfigurationapi/nf-highlevelmonitorconfigurationapi-getmonitorbrightness">GetMonitorBrightness</a>.
      * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>. If the function fails, the return value is <b>FALSE</b>. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://learn.microsoft.com/windows/win32/api/highlevelmonitorconfigurationapi/nf-highlevelmonitorconfigurationapi-setmonitorbrightness
@@ -4524,7 +4523,7 @@ class Display {
      *       
      * 
      * The brightness setting is a continuous monitor setting. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Monitor/using-the-high-level-monitor-configuration-functions">Using the High-Level Monitor Configuration Functions</a>.
-     * @param {HANDLE} _hMonitor 
+     * @param {HANDLE} _hMonitor Handle to a physical monitor. To get the monitor handle, call <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromhmonitor">GetPhysicalMonitorsFromHMONITOR</a> or <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromidirect3ddevice9">GetPhysicalMonitorsFromIDirect3DDevice9</a>.
      * @param {Integer} dwNewContrast Contrast value. To get the monitor's minimum and maximum contrast values, call, call <a href="https://docs.microsoft.com/windows/desktop/api/highlevelmonitorconfigurationapi/nf-highlevelmonitorconfigurationapi-getmonitorcontrast">GetMonitorContrast</a>.
      * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>. If the function fails, the return value is <b>FALSE</b>. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://learn.microsoft.com/windows/win32/api/highlevelmonitorconfigurationapi/nf-highlevelmonitorconfigurationapi-setmonitorcontrast
@@ -4553,8 +4552,8 @@ class Display {
      *       
      * 
      * This function takes from 50 to 90 milliseconds to return.
-     * @param {HANDLE} _hMonitor 
-     * @param {Integer} ctCurrentColorTemperature Color temperature, specified as a member of the <a href="https://docs.microsoft.com/windows/win32/api/highlevelmonitorconfigurationapi/ne-highlevelmonitorconfigurationapi-mc_color_temperature">MC_COLOR_TEMPERATURE</a> enumeration.
+     * @param {HANDLE} _hMonitor Handle to a physical monitor. To get the monitor handle, call <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromhmonitor">GetPhysicalMonitorsFromHMONITOR</a> or <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromidirect3ddevice9">GetPhysicalMonitorsFromIDirect3DDevice9</a>.
+     * @param {MC_COLOR_TEMPERATURE} ctCurrentColorTemperature Color temperature, specified as a member of the <a href="https://docs.microsoft.com/windows/win32/api/highlevelmonitorconfigurationapi/ne-highlevelmonitorconfigurationapi-mc_color_temperature">MC_COLOR_TEMPERATURE</a> enumeration.
      * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>. If the function fails, the return value is <b>FALSE</b>. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://learn.microsoft.com/windows/win32/api/highlevelmonitorconfigurationapi/nf-highlevelmonitorconfigurationapi-setmonitorcolortemperature
      * @since windows6.0.6000
@@ -4588,8 +4587,8 @@ class Display {
      *       
      * 
      * The drive settings are continuous monitor settings. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Monitor/using-the-high-level-monitor-configuration-functions">Using the High-Level Monitor Configuration Functions</a>.
-     * @param {HANDLE} _hMonitor 
-     * @param {Integer} dtDriveType A member of the <a href="https://docs.microsoft.com/windows/win32/api/highlevelmonitorconfigurationapi/ne-highlevelmonitorconfigurationapi-mc_drive_type">MC_DRIVE_TYPE</a> enumeration, specifying whether to set the red, green, or blue drive value.
+     * @param {HANDLE} _hMonitor Handle to a physical monitor. To get the monitor handle, call <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromhmonitor">GetPhysicalMonitorsFromHMONITOR</a> or <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromidirect3ddevice9">GetPhysicalMonitorsFromIDirect3DDevice9</a>.
+     * @param {MC_DRIVE_TYPE} dtDriveType A member of the <a href="https://docs.microsoft.com/windows/win32/api/highlevelmonitorconfigurationapi/ne-highlevelmonitorconfigurationapi-mc_drive_type">MC_DRIVE_TYPE</a> enumeration, specifying whether to set the red, green, or blue drive value.
      * @param {Integer} dwNewDrive Red, green, or blue drive value. To get the monitor's minimum and maximum drive values, call <a href="https://docs.microsoft.com/windows/desktop/api/highlevelmonitorconfigurationapi/nf-highlevelmonitorconfigurationapi-getmonitorredgreenorbluedrive">GetMonitorRedGreenOrBlueDrive</a>.
      * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>. If the function fails, the return value is <b>FALSE</b>. To get extended error information, call GetLastError.
      * @see https://learn.microsoft.com/windows/win32/api/highlevelmonitorconfigurationapi/nf-highlevelmonitorconfigurationapi-setmonitorredgreenorbluedrive
@@ -4618,8 +4617,8 @@ class Display {
      *       
      * 
      * The gain settings are continuous monitor settings. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Monitor/using-the-high-level-monitor-configuration-functions">Using the High-Level Monitor Configuration Functions</a>.
-     * @param {HANDLE} _hMonitor 
-     * @param {Integer} gtGainType A member of the <a href="https://docs.microsoft.com/windows/win32/api/highlevelmonitorconfigurationapi/ne-highlevelmonitorconfigurationapi-mc_gain_type">MC_GAIN_TYPE</a> enumeration, specifying whether to set the red, green, or blue gain.
+     * @param {HANDLE} _hMonitor Handle to a physical monitor. To get the monitor handle, call <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromhmonitor">GetPhysicalMonitorsFromHMONITOR</a> or <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromidirect3ddevice9">GetPhysicalMonitorsFromIDirect3DDevice9</a>.
+     * @param {MC_GAIN_TYPE} gtGainType A member of the <a href="https://docs.microsoft.com/windows/win32/api/highlevelmonitorconfigurationapi/ne-highlevelmonitorconfigurationapi-mc_gain_type">MC_GAIN_TYPE</a> enumeration, specifying whether to set the red, green, or blue gain.
      * @param {Integer} dwNewGain Red, green, or blue gain value. To get the monitor's minimum and maximum gain values, call <a href="https://docs.microsoft.com/windows/desktop/api/highlevelmonitorconfigurationapi/nf-highlevelmonitorconfigurationapi-getmonitorredgreenorbluegain">GetMonitorRedGreenOrBlueGain</a>.
      * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>. If the function fails, the return value is <b>FALSE</b>. To get extended error information, call GetLastError.
      * @see https://learn.microsoft.com/windows/win32/api/highlevelmonitorconfigurationapi/nf-highlevelmonitorconfigurationapi-setmonitorredgreenorbluegain
@@ -4642,7 +4641,7 @@ class Display {
      *       
      * 
      * This function should not be called frequently, because calling it frequently will not noticeably improve the monitor's image quality or color fidelity.
-     * @param {HANDLE} _hMonitor 
+     * @param {HANDLE} _hMonitor Handle to a physical monitor. To get the monitor handle, call <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromhmonitor">GetPhysicalMonitorsFromHMONITOR</a> or <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromidirect3ddevice9">GetPhysicalMonitorsFromIDirect3DDevice9</a>.
      * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>. If the function fails, the return value is <b>FALSE</b>. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://learn.microsoft.com/windows/win32/api/highlevelmonitorconfigurationapi/nf-highlevelmonitorconfigurationapi-degaussmonitor
      * @since windows6.0.6000
@@ -4670,8 +4669,8 @@ class Display {
      *       
      * 
      * The width and height settings are continuous monitor settings. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Monitor/using-the-high-level-monitor-configuration-functions">Using the High-Level Monitor Configuration Functions</a>.
-     * @param {HANDLE} _hMonitor 
-     * @param {Integer} stSizeType A member of the <a href="https://docs.microsoft.com/windows/win32/api/highlevelmonitorconfigurationapi/ne-highlevelmonitorconfigurationapi-mc_size_type">MC_SIZE_TYPE</a> enumeration, specifying whether to retrieve the width or the height.
+     * @param {HANDLE} _hMonitor Handle to a physical monitor. To get the monitor handle, call <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromhmonitor">GetPhysicalMonitorsFromHMONITOR</a> or <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromidirect3ddevice9">GetPhysicalMonitorsFromIDirect3DDevice9</a>.
+     * @param {MC_SIZE_TYPE} stSizeType A member of the <a href="https://docs.microsoft.com/windows/win32/api/highlevelmonitorconfigurationapi/ne-highlevelmonitorconfigurationapi-mc_size_type">MC_SIZE_TYPE</a> enumeration, specifying whether to retrieve the width or the height.
      * @param {Pointer<Integer>} pdwMinimumWidthOrHeight Receives the minimum width or height.
      * @param {Pointer<Integer>} pdwCurrentWidthOrHeight Receives the current width or height.
      * @param {Pointer<Integer>} pdwMaximumWidthOrHeight Receives the maximum width or height.
@@ -4706,8 +4705,8 @@ class Display {
      *       
      * 
      * The horizontal and vertical position are continuous monitor settings. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Monitor/using-the-high-level-monitor-configuration-functions">Using the High-Level Monitor Configuration Functions</a>.
-     * @param {HANDLE} _hMonitor 
-     * @param {Integer} ptPositionType A member of the <a href="https://docs.microsoft.com/windows/win32/api/highlevelmonitorconfigurationapi/ne-highlevelmonitorconfigurationapi-mc_position_type">MC_POSITION_TYPE</a> enumeration, specifying whether to retrieve the horizontal position or the vertical position.
+     * @param {HANDLE} _hMonitor Handle to a physical monitor. To get the monitor handle, call <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromhmonitor">GetPhysicalMonitorsFromHMONITOR</a> or <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromidirect3ddevice9">GetPhysicalMonitorsFromIDirect3DDevice9</a>.
+     * @param {MC_POSITION_TYPE} ptPositionType A member of the <a href="https://docs.microsoft.com/windows/win32/api/highlevelmonitorconfigurationapi/ne-highlevelmonitorconfigurationapi-mc_position_type">MC_POSITION_TYPE</a> enumeration, specifying whether to retrieve the horizontal position or the vertical position.
      * @param {Pointer<Integer>} pdwMinimumPosition Receives the minimum horizontal or vertical position.
      * @param {Pointer<Integer>} pdwCurrentPosition Receives the current horizontal or vertical position.
      * @param {Pointer<Integer>} pdwMaximumPosition Receives the maximum horizontal or vertical position.
@@ -4742,8 +4741,8 @@ class Display {
      *       
      * 
      * The width and height settings are continuous monitor settings. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Monitor/using-the-high-level-monitor-configuration-functions">Using the High-Level Monitor Configuration Functions</a>.
-     * @param {HANDLE} _hMonitor 
-     * @param {Integer} stSizeType A member of the <a href="https://docs.microsoft.com/windows/win32/api/highlevelmonitorconfigurationapi/ne-highlevelmonitorconfigurationapi-mc_size_type">MC_SIZE_TYPE</a> enumeration, specifying whether to set the width or the height.
+     * @param {HANDLE} _hMonitor Handle to a physical monitor. To get the monitor handle, call <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromhmonitor">GetPhysicalMonitorsFromHMONITOR</a> or <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromidirect3ddevice9">GetPhysicalMonitorsFromIDirect3DDevice9</a>.
+     * @param {MC_SIZE_TYPE} stSizeType A member of the <a href="https://docs.microsoft.com/windows/win32/api/highlevelmonitorconfigurationapi/ne-highlevelmonitorconfigurationapi-mc_size_type">MC_SIZE_TYPE</a> enumeration, specifying whether to set the width or the height.
      * @param {Integer} dwNewDisplayAreaWidthOrHeight Display area width or height. To get the minimum and maximum width and height, call <a href="https://docs.microsoft.com/windows/desktop/api/highlevelmonitorconfigurationapi/nf-highlevelmonitorconfigurationapi-getmonitordisplayareasize">GetMonitorDisplayAreaSize</a>.
      * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>. If the function fails, the return value is <b>FALSE</b>. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://learn.microsoft.com/windows/win32/api/highlevelmonitorconfigurationapi/nf-highlevelmonitorconfigurationapi-setmonitordisplayareasize
@@ -4772,8 +4771,8 @@ class Display {
      *       
      * 
      * The horizontal and vertical position are continuous monitor settings. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Monitor/using-the-high-level-monitor-configuration-functions">Using the High-Level Monitor Configuration Functions</a>.
-     * @param {HANDLE} _hMonitor 
-     * @param {Integer} ptPositionType A member of the <a href="https://docs.microsoft.com/windows/win32/api/highlevelmonitorconfigurationapi/ne-highlevelmonitorconfigurationapi-mc_position_type">MC_POSITION_TYPE</a> enumeration, specifying whether to set the horizontal position or the vertical position.
+     * @param {HANDLE} _hMonitor Handle to a physical monitor. To get the monitor handle, call <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromhmonitor">GetPhysicalMonitorsFromHMONITOR</a> or <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromidirect3ddevice9">GetPhysicalMonitorsFromIDirect3DDevice9</a>.
+     * @param {MC_POSITION_TYPE} ptPositionType A member of the <a href="https://docs.microsoft.com/windows/win32/api/highlevelmonitorconfigurationapi/ne-highlevelmonitorconfigurationapi-mc_position_type">MC_POSITION_TYPE</a> enumeration, specifying whether to set the horizontal position or the vertical position.
      * @param {Integer} dwNewPosition Horizontal or vertical position. To get the minimum and maximum position, call <a href="https://docs.microsoft.com/windows/desktop/api/highlevelmonitorconfigurationapi/nf-highlevelmonitorconfigurationapi-getmonitordisplayareaposition">GetMonitorDisplayAreaPosition</a>.
      * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>. If the function fails, the return value is <b>FALSE</b>. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://learn.microsoft.com/windows/win32/api/highlevelmonitorconfigurationapi/nf-highlevelmonitorconfigurationapi-setmonitordisplayareaposition
@@ -4811,7 +4810,7 @@ class Display {
      * <li>Display area position</li>
      * <li>Capabilities flags</li>
      * </ul>
-     * @param {HANDLE} _hMonitor 
+     * @param {HANDLE} _hMonitor Handle to a physical monitor. To get the monitor handle, call <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromhmonitor">GetPhysicalMonitorsFromHMONITOR</a> or <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromidirect3ddevice9">GetPhysicalMonitorsFromIDirect3DDevice9</a>.
      * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>. If the function fails, the return value is <b>FALSE</b>. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://learn.microsoft.com/windows/win32/api/highlevelmonitorconfigurationapi/nf-highlevelmonitorconfigurationapi-restoremonitorfactorycolordefaults
      * @since windows6.0.6000
@@ -4842,7 +4841,7 @@ class Display {
      *       
      * 
      * If <a href="https://docs.microsoft.com/windows/desktop/api/highlevelmonitorconfigurationapi/nf-highlevelmonitorconfigurationapi-getmonitorcapabilities">GetMonitorCapabilities</a> returns the MC_RESTORE_FACTORY_DEFAULTS_ENABLES_MONITOR_SETTINGS flag, this function also enables all of the monitor settings that are supported by the high-level functions. It is sometimes possible for an application to disable certain settings by calling the low-level functions. It is also possible for the user to disable certain settings by adjusting settings on the monitor's physical control panel. If that happens, the setting can only be re-enabled through the control panel or by calling <b>RestoreMonitorFactoryDefaults</b>. It is not possible to disable any settings by using the high-level functions.
-     * @param {HANDLE} _hMonitor 
+     * @param {HANDLE} _hMonitor Handle to a physical monitor. To get the monitor handle, call <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromhmonitor">GetPhysicalMonitorsFromHMONITOR</a> or <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromidirect3ddevice9">GetPhysicalMonitorsFromIDirect3DDevice9</a>.
      * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>. If the function fails, the return value is <b>FALSE</b>. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://learn.microsoft.com/windows/win32/api/highlevelmonitorconfigurationapi/nf-highlevelmonitorconfigurationapi-restoremonitorfactorydefaults
      * @since windows6.0.6000
@@ -5632,7 +5631,7 @@ class Display {
      * The EngCreateDeviceSurface function creates and returns a handle for a device surface that the driver will manage.
      * @remarks
      * The storage space for the surface can optionally be provided by the driver. The surface should be associated by using <a href="https://docs.microsoft.com/windows/desktop/api/winddi/nf-winddi-engassociatesurface">EngAssociateSurface</a>. The surface should be deleted when it is no longer needed by using <a href="https://docs.microsoft.com/windows/desktop/api/winddi/nf-winddi-engdeletesurface">EngDeleteSurface</a>.
-     * @param {DHSURF} _dhsurf 
+     * @param {DHSURF} _dhsurf Device handle to the surface to be managed by the device. This handle is passed to the driver when a <a href="https://docs.microsoft.com/windows/desktop/api/winddi/ns-winddi-surfobj">SURFOBJ</a> structure is passed for input or output.
      * @param {SIZE} sizl Specifies a SIZEL structure that contains the width and height of the surface to be created. The <b>cx</b> and <b>cy</b> members of this structure contain respectively, the surface's width and height, in pixels. A SIZEL structure is identical to a <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-size">SIZE</a> structure.
      * @param {Integer} iFormatCompat Specifies the compatible engine format of the device surface being created. This is used by GDI if a temporary buffer is needed to simulate a complicated drawing call.
      * @returns {HSURF} The return value is a handle that identifies the surface if the function is successful. Otherwise, it is zero, and an error code is logged.
@@ -5651,7 +5650,7 @@ class Display {
      * The EngCreateDeviceBitmap function requests GDI to create a handle for a device bitmap.
      * @remarks
      * The surface should be associated by using <a href="https://docs.microsoft.com/windows/desktop/api/winddi/nf-winddi-engassociatesurface">EngAssociateSurface</a>. The bitmap should be deleted by calling <a href="https://docs.microsoft.com/windows/desktop/api/winddi/nf-winddi-engdeletesurface">EngDeleteSurface</a> when it is no longer needed.
-     * @param {DHSURF} _dhsurf 
+     * @param {DHSURF} _dhsurf Device handle to the device bitmap to be created.
      * @param {SIZE} sizl Specifies a SIZEL structure that contains the width and height of the bitmap to be created. The <b>cx</b> and <b>cy</b> members of this structure contain respectively, the bitmap's width and height, in pixels. A SIZEL structure is identical to a <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-size">SIZE</a> structure.
      * @param {Integer} iFormatCompat Specifies the compatible engine format of the device surface being created. This is used by GDI if a temporary buffer is needed to simulate a complicated drawing call. The allowable values for <i>iFormatCompat</i> are BMF_1BPP, BMF_4BPP, BMF_8BPP, BMF_16BPP, BMF_24BPP, and BMF_32BPP.
      * @returns {HBITMAP} The return value is a handle that identifies the bitmap if the function is successful. Otherwise, it is zero, and an error code is logged.
@@ -5668,7 +5667,7 @@ class Display {
 
     /**
      * The EngDeleteSurface function deletes the specified surface.
-     * @param {HSURF} _hsurf 
+     * @param {HSURF} _hsurf Handle to the surface to delete. This handle can be an HSURF or HBM.
      * @returns {BOOL} <b>EngDeleteSurface</b> returns <b>TRUE</b> if it is successful in deleting the surface. Otherwise, it returns <b>FALSE</b> and an error code is logged.
      * @see https://learn.microsoft.com/windows/win32/api/winddi/nf-winddi-engdeletesurface
      * @since windows5.0
@@ -5688,7 +5687,7 @@ class Display {
      * The driver is responsible for unlocking the surface when it no longer needs it. Surfaces should be locked only for very short periods of time.
      * 
      * Use the <a href="https://docs.microsoft.com/windows/desktop/api/winddi/nf-winddi-engunlocksurface">EngUnlockSurface</a> function to unlock the surface.
-     * @param {HSURF} _hsurf 
+     * @param {HSURF} _hsurf Handle to the surface to be locked.
      * @returns {Pointer<SURFOBJ>} <b>EngLockSurface</b> returns a pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winddi/ns-winddi-surfobj">SURFOBJ</a> structure if the function is successful. Otherwise, this function returns <b>NULL</b>.
      * @see https://learn.microsoft.com/windows/win32/api/winddi/nf-winddi-englocksurface
      * @since windows5.0
@@ -5739,8 +5738,8 @@ class Display {
      * By default, when a driver supports device bitmaps by implementing <a href="https://docs.microsoft.com/windows/desktop/api/winddi/nf-winddi-drvcreatedevicebitmap">DrvCreateDeviceBitmap</a>/<a href="https://docs.microsoft.com/windows/desktop/api/winddi/nf-winddi-drvdeletedevicebitmap">DrvDeleteDeviceBitmap</a>, GDI does not automatically synchronize drawing calls to the device bitmap and to the primary surface. For example, GDI can call the driver's <a href="https://docs.microsoft.com/windows/desktop/api/winddi/nf-winddi-drvbitblt">DrvBitBlt</a> function to draw to a device bitmap, while another thread is drawing to the primary surface by executing the driver's implementation of <a href="https://docs.microsoft.com/windows/desktop/api/winddi/nf-winddi-drvtextout">DrvTextOut</a>. The driver can even be called to draw to multiple device bitmaps at the same time.
      * 
      * After <a href="https://docs.microsoft.com/windows/desktop/api/winddi/nf-winddi-drvenablesurface">DrvEnableSurface</a> returns a handle to a primary surface, do not call <b>EngAssociateSurface</b> on that handle. Doing so can cause a bug check in certain circumstances. For more information, see <a href="https://support.microsoft.com/?kbid&amp;ID=330248">Microsoft Knowledge Base article 330248</a>.
-     * @param {HSURF} _hsurf 
-     * @param {HDEV} _hdev 
+     * @param {HSURF} _hsurf Handle to the surface or bitmap to be associated with <i>hdev</i>. This handle was returned by <a href="https://docs.microsoft.com/windows/desktop/api/winddi/nf-winddi-engcreatebitmap">EngCreateBitmap</a> or <a href="https://docs.microsoft.com/windows/desktop/api/winddi/nf-winddi-engcreatedevicebitmap">EngCreateDeviceBitmap</a>.
+     * @param {HDEV} _hdev Handle to the device with which the surface is to be associated. This is the GDI-created handle that was passed to the driver's <a href="https://docs.microsoft.com/windows/desktop/api/winddi/nf-winddi-drvcompletepdev">DrvCompletePDEV</a> function.
      * @param {Integer} flHooks 
      * @returns {BOOL} The return value is <b>TRUE</b> if the function is successful. Otherwise, the driver should send the information to the GDI function it is implementing, and return GDI's return value.
      * @see https://learn.microsoft.com/windows/win32/api/winddi/nf-winddi-engassociatesurface
@@ -5762,7 +5761,7 @@ class Display {
      * The handle supplied for <i>hsurf</i> must be a bitmap handle returned by <b>EngCreateBitmap</b>.
      * 
      * If a printer graphics DLL calls <b>EngMarkBandingSurface</b>, it must define <a href="https://docs.microsoft.com/windows/desktop/api/winddi/nf-winddi-drvstartbanding">DrvStartBanding</a> and <a href="https://docs.microsoft.com/windows/desktop/api/winddi/nf-winddi-drvnextband">DrvNextBand</a> functions.
-     * @param {HSURF} _hsurf 
+     * @param {HSURF} _hsurf Caller-supplied handle to the surface to mark as a banding surface.
      * @returns {BOOL} <b>EngMarkBandingSurface</b> returns <b>TRUE</b> upon success; otherwise it returns <b>FALSE</b>.
      * @see https://learn.microsoft.com/windows/win32/api/winddi/nf-winddi-engmarkbandingsurface
      * @since windows5.0
@@ -6495,7 +6494,7 @@ class Display {
 
     /**
      * The EngGetPrinterDataFileName function retrieves the string name of the printer's data file.
-     * @param {HDEV} _hdev 
+     * @param {HDEV} _hdev Handle to the device. This is the GDI handle received by the driver as the <i>hdev</i> parameter for <a href="https://docs.microsoft.com/windows/desktop/api/winddi/nf-winddi-drvcompletepdev">DrvCompletePDEV</a>.
      * @returns {PWSTR} <b>EngGetPrinterDataFileName</b> returns a pointer to the null-terminated string buffer in which the name of the printer's data file is specified. The system obtains and stores the printer's data file name from the DRIVER_INFO_2 structure (described in the Microsoft Windows SDK documentation) when the driver is first installed through the Microsoft Win32 <b>AddPrinterDriver</b> routine.
      * @see https://learn.microsoft.com/windows/win32/api/winddi/nf-winddi-enggetprinterdatafilename
      * @since windows5.0
@@ -6509,7 +6508,7 @@ class Display {
 
     /**
      * The EngGetDriverName function returns the name of the driver's DLL.
-     * @param {HDEV} _hdev 
+     * @param {HDEV} _hdev Handle to the device. This is the GDI handle received by the driver as the <i>hdev</i> parameter for <a href="https://docs.microsoft.com/windows/desktop/api/winddi/nf-winddi-drvcompletepdev">DrvCompletePDEV</a>.
      * @returns {PWSTR} <b>EngGetDriverName</b> returns a pointer to the null-terminated string buffer in which the name of the driver's DLL is specified. The system obtains and stores the driver's name from the DRIVER_INFO_2 structure when the driver is first installed through the Win32 <b>AddPrinterDriver</b> routine.
      * @see https://learn.microsoft.com/windows/win32/api/winddi/nf-winddi-enggetdrivername
      * @since windows5.0
@@ -6652,10 +6651,10 @@ class Display {
 
     /**
      * The EngMultiByteToUnicodeN function converts the specified ANSI source string into a Unicode string using the current ANSI code page.
-     * @param {Pointer} UnicodeString Pointer to the buffer that receives the resultant Unicode string.
+     * @param {Integer} UnicodeString Pointer to the buffer that receives the resultant Unicode string.
      * @param {Integer} MaxBytesInUnicodeString Supplies the maximum number of bytes to be written to <i>UnicodeString. </i>If this value is too small, causing <i>UnicodeString</i> to be a truncated equivalent of <i>MultiByteString</i>, no error condition results.
      * @param {Pointer<Integer>} BytesInUnicodeString Pointer to a ULONG that receives the number of bytes written to <i>UnicodeString</i>.
-     * @param {Pointer} MultiByteString Pointer to the ANSI source string that is to be converted to Unicode.
+     * @param {Integer} MultiByteString Pointer to the ANSI source string that is to be converted to Unicode.
      * @param {Integer} BytesInMultiByteString Specifies the number of bytes in <i>MultiByteString.</i>
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/winddi/nf-winddi-engmultibytetounicoden
@@ -6669,10 +6668,10 @@ class Display {
 
     /**
      * The EngUnicodeToMultiByteN function converts the specified Unicode string into an ANSI string using the current ANSI code page.
-     * @param {Pointer} MultiByteString Pointer to the buffer that receives the resultant ANSI string.
+     * @param {Integer} MultiByteString Pointer to the buffer that receives the resultant ANSI string.
      * @param {Integer} MaxBytesInMultiByteString Specifies the maximum number of bytes to be written to <i>MultiByteString. </i>If this value is too small, causing <i>MultiByteString</i> to be a truncated equivalent of <i>UnicodeString</i>, then no error condition results.
      * @param {Pointer<Integer>} BytesInMultiByteString Pointer to a ULONG that receives the number of bytes written to <i>MultiByteString</i>.
-     * @param {Pointer} UnicodeString Pointer to the Unicode source string that is to be converted to ANSI.
+     * @param {Integer} UnicodeString Pointer to the Unicode source string that is to be converted to ANSI.
      * @param {Integer} BytesInUnicodeString Specifies the number of bytes in <i>UnicodeString.</i>
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/winddi/nf-winddi-engunicodetomultibyten
@@ -6718,9 +6717,9 @@ class Display {
     /**
      * The EngMultiByteToWideChar function converts an ANSI source string into a wide character string using the specified code page.
      * @param {Integer} CodePage Specifies the code page to use to perform the translation.
-     * @param {Pointer} WideCharString Pointer to the buffer into which the translated character string is copied.
+     * @param {Integer} WideCharString Pointer to the buffer into which the translated character string is copied.
      * @param {Integer} BytesInWideCharString Specifies the size, in bytes, of <i>WideCharString</i>. If <i>WideCharString</i> is not large enough to contain the translation, <b>EngMultiByteToWideChar</b> truncates the string, and does not report an error.
-     * @param {Pointer} MultiByteString Pointer to the buffer containing the multibyte string to be translated.
+     * @param {Integer} MultiByteString Pointer to the buffer containing the multibyte string to be translated.
      * @param {Integer} BytesInMultiByteString Specifies the number of bytes in <i>MultiByteString.</i>
      * @returns {Integer} The <b>EngMultiByteToWideChar</b> function returns the number of bytes it converted to wide character form, if successful. Otherwise, the function returns -1.
      * @see https://learn.microsoft.com/windows/win32/api/winddi/nf-winddi-engmultibytetowidechar
@@ -6734,9 +6733,9 @@ class Display {
     /**
      * The EngWideCharToMultiByte function converts a wide character string into an ANSI source string using the specified code page.
      * @param {Integer} CodePage Specifies the code page to use to perform the translation.
-     * @param {Pointer} WideCharString Pointer to a buffer containing the wide character string to be translated.
+     * @param {Integer} WideCharString Pointer to a buffer containing the wide character string to be translated.
      * @param {Integer} BytesInWideCharString Specifies the size, in bytes, of <i>WideCharString</i>.
-     * @param {Pointer} MultiByteString Pointer to a buffer into which the translated character string is to be copied
+     * @param {Integer} MultiByteString Pointer to a buffer into which the translated character string is to be copied
      * @param {Integer} BytesInMultiByteString Specifies the number of bytes in <i>MultiByteString</i>. If <i>MultiByteString</i> is not large enough to contain the translation, <b>EngWideCharToMultiByte</b> truncates the string, and does not report an error.
      * @returns {Integer} <b>EngWideCharToMultiByte</b> returns the number of bytes converted into multibyte form, if successful. Otherwise, it returns -1.
      * @see https://learn.microsoft.com/windows/win32/api/winddi/nf-winddi-engwidechartomultibyte
@@ -6785,10 +6784,10 @@ class Display {
      * As <b>GetDisplayConfigBufferSizes</b> can only determine the required array size of that moment in time, it is possible that between calls to <b>GetDisplayConfigBufferSizes</b> and <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-querydisplayconfig">QueryDisplayConfig</a> the system configuration has changed and the provided array sizes are no longer sufficient to store the new path data. 
      * 
      * If a caller is aware that it must enable additional sources and targets, the caller can allocate a larger mode information array than is returned from <b>GetDisplayConfigBufferSizes</b> so that it has the space to add the additional source and target modes after calling <b>QueryDisplayConfig</b> and before calling <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-setdisplayconfig">SetDisplayConfig</a>.
-     * @param {Integer} flags 
+     * @param {QUERY_DISPLAY_CONFIG_FLAGS} flags 
      * @param {Pointer<Integer>} numPathArrayElements Pointer to a variable that receives the number of elements in the path information table. The <i>pNumPathArrayElements</i> parameter value is then used by a subsequent call to the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-querydisplayconfig">QueryDisplayConfig</a> function. This parameter cannot be <b>NULL</b>.
      * @param {Pointer<Integer>} numModeInfoArrayElements Pointer to a variable that receives the number of elements in the mode information table. The <i>pNumModeInfoArrayElements</i> parameter value is then used by a subsequent call to the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-querydisplayconfig">QueryDisplayConfig</a> function. This parameter cannot be <b>NULL</b>.
-     * @returns {Integer} The function returns one of the following return codes.
+     * @returns {WIN32_ERROR} The function returns one of the following return codes.
      * 
      * <table>
      * <tr>
@@ -6981,7 +6980,7 @@ class Display {
      * @param {Pointer<DISPLAYCONFIG_PATH_INFO>} pathArray Array of all display paths that are to be set. Only the paths within this array that have the DISPLAYCONFIG_PATH_ACTIVE flag set in the <b>flags</b> member of <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-displayconfig_path_info">DISPLAYCONFIG_PATH_INFO</a> are set. This parameter can be <b>NULL</b>. The order in which active paths appear in this array determines the path priority. For more information about path priority order, see <a href="https://docs.microsoft.com/windows-hardware/drivers/display/path-priority-order">Path Priority Order</a>.
      * @param {Integer} numModeInfoArrayElements Number of elements in <i>modeInfoArray</i>.
      * @param {Pointer<DISPLAYCONFIG_MODE_INFO>} modeInfoArray Array of display source and target mode information (<a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-displayconfig_mode_info">DISPLAYCONFIG_MODE_INFO</a>) that is referenced by the <b>modeInfoIdx</b> member of DISPLAYCONFIG_PATH_SOURCE_INFO and DISPLAYCONFIG_PATH_TARGET_INFO element of path information from <i>pathArray</i>. This parameter can be <b>NULL</b>.
-     * @param {Integer} flags 
+     * @param {SET_DISPLAY_CONFIG_FLAGS} flags 
      * @returns {Integer} The function returns one of the following return codes.
      * 
      * <table>
@@ -7084,17 +7083,17 @@ class Display {
      * If a caller calls <b>QueryDisplayConfig</b> with the QDC_DATABASE_CURRENT flag set in the <i>Flags</i> parameter, <b>QueryDisplayConfig</b> initializes the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-displayconfig_2dregion">DISPLAYCONFIG_2DREGION</a> structure that is specified in the <b>totalSize</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-displayconfig_video_signal_info">DISPLAYCONFIG_VIDEO_SIGNAL_INFO</a> structure to zeros and does not complete DISPLAYCONFIG_2DREGION.
      * 
      * The DEVMODE structure that is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-enumdisplaysettingsa">EnumDisplaySettings</a> Win32 function (described in the Windows SDK documentation) contains information that relates to both the source and target modes. However, the <a href="https://docs.microsoft.com/windows-hardware/drivers/display/ccd-apis">CCD APIs</a> explicitly separate the source and target mode components.
-     * @param {Integer} flags 
+     * @param {QUERY_DISPLAY_CONFIG_FLAGS} flags 
      * @param {Pointer<Integer>} numPathArrayElements Pointer to a variable that contains the number of elements in <i>pPathInfoArray</i>. This parameter cannot be <b>NULL</b>. If <b>QueryDisplayConfig</b> returns ERROR_SUCCESS, <i>pNumPathInfoElements</i> is updated with the number of valid entries in <i>pPathInfoArray</i>.
      * @param {Pointer<DISPLAYCONFIG_PATH_INFO>} pathArray Pointer to a variable that contains an array of <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-displayconfig_path_info">DISPLAYCONFIG_PATH_INFO</a> elements. Each element in <i>pPathInfoArray</i> describes a single path from a source to a target. The source and target mode information indexes are only valid in combination with the <i>pmodeInfoArray</i> tables that are returned for the API at the same time. This parameter cannot be <b>NULL</b>. The <i>pPathInfoArray</i> is always returned in path priority order. For more information about path priority order, see <a href="https://docs.microsoft.com/windows-hardware/drivers/display/path-priority-order">Path Priority Order</a>.
      * @param {Pointer<Integer>} numModeInfoArrayElements Pointer to a variable that specifies the number in element of the mode information table. This parameter cannot be <b>NULL</b>. If <b>QueryDisplayConfig</b> returns ERROR_SUCCESS, <i>pNumModeInfoArrayElements</i> is updated with the number of valid entries in <i>pModeInfoArray</i>.
      * @param {Pointer<DISPLAYCONFIG_MODE_INFO>} modeInfoArray Pointer to a variable that contains an array of <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-displayconfig_mode_info">DISPLAYCONFIG_MODE_INFO</a> elements. This parameter cannot be <b>NULL</b>.
-     * @param {Pointer<Integer>} currentTopologyId Pointer to a variable that receives the identifier of the currently active topology in the CCD database. For a list of possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ne-wingdi-displayconfig_topology_id">DISPLAYCONFIG_TOPOLOGY_ID</a> enumerated type.
+     * @param {Pointer<DISPLAYCONFIG_TOPOLOGY_ID>} currentTopologyId Pointer to a variable that receives the identifier of the currently active topology in the CCD database. For a list of possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ne-wingdi-displayconfig_topology_id">DISPLAYCONFIG_TOPOLOGY_ID</a> enumerated type.
      * 
      * The <i>pCurrentTopologyId</i> parameter is only set when the <i>Flags</i> parameter value is QDC_DATABASE_CURRENT.
      * 
      * If the <i>Flags</i> parameter value is set to QDC_DATABASE_CURRENT, the <i>pCurrentTopologyId</i> parameter must not be <b>NULL</b>. If the <i>Flags</i> parameter value is not set to QDC_DATABASE_CURRENT, the <i>pCurrentTopologyId</i> parameter value must be <b>NULL</b>.
-     * @returns {Integer} The function returns one of the following return codes.
+     * @returns {WIN32_ERROR} The function returns one of the following return codes.
      * 
      * <table>
      * <tr>
@@ -7360,7 +7359,7 @@ class Display {
 
     /**
      * Retrieves an AR_STATE value containing the state of screen auto-rotation for the system, for example whether auto-rotation is supported, and whether it is enabled by the user.
-     * @param {Pointer<Integer>} pState Pointer to a location in memory that will receive the current state of auto-rotation for the system.
+     * @param {Pointer<AR_STATE>} pState Pointer to a location in memory that will receive the current state of auto-rotation for the system.
      * @returns {BOOL} TRUE if the method succeeds, otherwise FALSE.
      * 
      * See <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getdisplayautorotationpreferences">GetDisplayAutoRotationPreferences</a> for an example of using this function.
@@ -7375,7 +7374,7 @@ class Display {
 
     /**
      * Retrieves the screen auto-rotation preferences for the current process.
-     * @param {Pointer<Integer>} pOrientation Pointer to a location in memory that will receive the current orientation preference setting for the calling process.
+     * @param {Pointer<ORIENTATION_PREFERENCE>} pOrientation Pointer to a location in memory that will receive the current orientation preference setting for the calling process.
      * @returns {BOOL} TRUE if the method succeeds, otherwise FALSE.
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getdisplayautorotationpreferences
      */
@@ -7388,7 +7387,7 @@ class Display {
 
     /**
      * Sets the screen auto-rotation preferences for the current process.
-     * @param {Integer} orientation Pointer to a location in memory with the screen orientation preferences to set for the calling process.
+     * @param {ORIENTATION_PREFERENCE} orientation Pointer to a location in memory with the screen orientation preferences to set for the calling process.
      * @returns {BOOL} TRUE if the method succeeds, otherwise FALSE.
      * 
      * See <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getdisplayautorotationpreferences">GetDisplayAutoRotationPreferences</a> for an example of using this function.

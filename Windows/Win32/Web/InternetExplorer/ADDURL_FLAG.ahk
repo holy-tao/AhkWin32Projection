@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Web.InternetExplorer
- * @version v4.0.30319
  */
-class ADDURL_FLAG extends Win32Enum{
+class ADDURL_FLAG extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

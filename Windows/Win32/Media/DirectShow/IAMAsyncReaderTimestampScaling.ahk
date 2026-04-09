@@ -11,9 +11,8 @@
  * By default, the time stamp uses the following formula: Time = byte offset × 10000000. This scaling factor limits the effective file size to about 860 GB. To support larger file sizes, call <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nf-strmif-iamasyncreadertimestampscaling-settimestampmode">SetTimestampMode</a> with the value <b>TRUE</b>. This call sets the scaling factor to 1, so the formula becomes: Time = byte offset.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-iamasyncreadertimestampscaling
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IAMAsyncReaderTimestampScaling extends IUnknown{
+class IAMAsyncReaderTimestampScaling extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

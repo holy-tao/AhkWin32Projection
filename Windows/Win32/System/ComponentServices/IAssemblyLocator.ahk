@@ -1,16 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
  * Retrieves information about an assembly when using managed code in the .NET Framework common language runtime.
  * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nn-comsvcs-iassemblylocator
  * @namespace Windows.Win32.System.ComponentServices
- * @version v4.0.30319
  */
-class IAssemblyLocator extends IDispatch{
+class IAssemblyLocator extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

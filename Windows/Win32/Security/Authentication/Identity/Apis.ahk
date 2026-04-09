@@ -5,7 +5,6 @@
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
 class Identity {
 
@@ -7287,7 +7286,7 @@ class Identity {
      * Generates a pseudo-random number.
      * @remarks
      * When you have finished using the random number, free the <i>RandomBuffer</i> buffer by calling the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa366877(v=vs.85)">SecureZeroMemory</a> function.
-     * @param {Pointer} RandomBuffer A pointer to a buffer that receives the random number as binary data. The size of this buffer is specified by the <i>RandomBufferLength</i> parameter.
+     * @param {Integer} RandomBuffer A pointer to a buffer that receives the random number as binary data. The size of this buffer is specified by the <i>RandomBufferLength</i> parameter.
      * @param {Integer} RandomBufferLength The length, in bytes, of the <i>RandomBuffer</i> buffer.
      * @returns {BOOLEAN} If the function succeeds, the function returns <b>TRUE</b>.
      * 
@@ -7301,7 +7300,7 @@ class Identity {
 
     /**
      * Encrypts memory contents.
-     * @param {Pointer} Memory A pointer to the memory to encrypt. The size of the memory must be a multiple of the RTL_ENCRYPT_MEMORY_SIZE constant.
+     * @param {Integer} Memory A pointer to the memory to encrypt. The size of the memory must be a multiple of the RTL_ENCRYPT_MEMORY_SIZE constant.
      * @param {Integer} MemorySize Number of bytes to which <i>Memory</i> points. The number of bytes must be a multiple of the RTL_ENCRYPT_MEMORY_SIZE constant.
      * @param {Integer} OptionFlags 
      * @returns {NTSTATUS} If the function is successful, the return value is STATUS_SUCCESS.
@@ -7317,7 +7316,7 @@ class Identity {
 
     /**
      * Decrypts memory contents previously encrypted by the RtlEncryptMemory function.
-     * @param {Pointer} Memory A pointer to the memory to encrypt. The size of the memory must be a multiple of the RTL_ENCRYPT_MEMORY_SIZE constant.
+     * @param {Integer} Memory A pointer to the memory to encrypt. The size of the memory must be a multiple of the RTL_ENCRYPT_MEMORY_SIZE constant.
      * @param {Integer} MemorySize Number of bytes to which <i>Memory</i> points. The number of bytes must be a multiple of the RTL_ENCRYPT_MEMORY_SIZE constant.
      * @param {Integer} OptionFlags 
      * @returns {NTSTATUS} If the function is successful, the return value is STATUS_SUCCESS.
@@ -7424,11 +7423,11 @@ class Identity {
      * </ul>
      *  If <b>SeTcbPrivilege</b> is not required, call <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/nf-ntsecapi-lsaconnectuntrusted">LsaConnectUntrusted</a> to obtain the handle.
      * @param {Pointer<LSA_STRING>} OriginName A string that identifies the origin of the logon attempt. For more information, see Remarks.
-     * @param {Integer} LogonType A 
+     * @param {SECURITY_LOGON_TYPE} LogonType A 
      * value of the <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/ne-ntsecapi-security_logon_type">SECURITY_LOGON_TYPE</a> enumeration that specifies the type of logon requested. If <i>LogonType</i> is Interactive or Batch, a primary token is generated to represent the new user. If <i>LogonType</i> is Network, an impersonation token is generated.
      * @param {Integer} AuthenticationPackage An identifier of the authentication package to use for the authentication. You can obtain this value by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/nf-ntsecapi-lsalookupauthenticationpackage">LsaLookupAuthenticationPackage</a>.
-     * @param {Pointer} AuthenticationInformation A pointer to an input buffer that contains authentication information, such as user name and password. The format and content of this buffer are determined by the authentication package.
+     * @param {Integer} AuthenticationInformation A pointer to an input buffer that contains authentication information, such as user name and password. The format and content of this buffer are determined by the authentication package.
      * 
      * This parameter can be one of the following input buffer structures for the MSV1_0 and Kerberos authentication packages.
      * 
@@ -7933,7 +7932,7 @@ class Identity {
      * Some of the LSA authentication functions allocate memory buffers to hold returned information, for example, 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/nf-ntsecapi-lsalogonuser">LsaLogonUser</a> and 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/nf-ntsecapi-lsacallauthenticationpackage">LsaCallAuthenticationPackage</a>. Your application should call <b>LsaFreeReturnBuffer</b> to free these buffers when they are no longer needed.
-     * @param {Pointer<Void>} _Buffer 
+     * @param {Pointer<Void>} _Buffer Pointer to the buffer to be freed.
      * @returns {NTSTATUS} If the function succeeds, the return value is STATUS_SUCCESS.
      * 
      * If the function fails, the return value is an NTSTATUS code. For more information, see 
@@ -7969,7 +7968,7 @@ class Identity {
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/nf-ntsecapi-lsaconnectuntrusted">LsaConnectUntrusted</a>.
      * @param {Integer} AuthenticationPackage Supplies the identifier of the authentication package. This value is obtained by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/nf-ntsecapi-lsalookupauthenticationpackage">LsaLookupAuthenticationPackage</a>.
-     * @param {Pointer} ProtocolSubmitBuffer An authentication package–specific message buffer passed to the authentication package.
+     * @param {Integer} ProtocolSubmitBuffer An authentication package–specific message buffer passed to the authentication package.
      * 
      * For information about the format and content of this buffer, see the documentation for the individual authentication package.
      * @param {Integer} SubmitBufferLength Indicates the length, in bytes, of the <i>ProtocolSubmitBuffer</i> buffer.
@@ -8112,7 +8111,7 @@ class Identity {
 
     /**
      * The LsaFreeMemory function frees memory allocated for an output buffer by an LSA function call.
-     * @param {Pointer<Void>} _Buffer 
+     * @param {Pointer<Void>} _Buffer Pointer to memory buffer that was allocated by an LSA function call. If <b>LsaFreeMemory</b> is successful, this buffer is freed.
      * @returns {NTSTATUS} If the function succeeds, the return value is STATUS_SUCCESS.
      * 
      * If the function fails, the return value is an NTSTATUS code, which can be the following value or one of the 
@@ -8319,8 +8318,14 @@ class Identity {
      * <a href="https://docs.microsoft.com/windows/desktop/SecMgmt/managing-policy-information">Managing Policy Information</a>.
      * @param {LSA_HANDLE} PolicyHandle A handle to a <a href="https://docs.microsoft.com/windows/desktop/SecMgmt/policy-object">Policy</a> object. The required access rights for this handle depend on the value of the <i>InformationClass</i> parameter. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecMgmt/opening-a-policy-object-handle">Opening a Policy Object Handle</a>.
-     * @param {Integer} InformationClass 
-     * @param {Pointer<Pointer<Void>>} _Buffer 
+     * @param {POLICY_INFORMATION_CLASS} InformationClass 
+     * @param {Pointer<Pointer<Void>>} _Buffer Pointer to a variable that receives a pointer to a structure containing the requested information. The type of structure depends on the value of the <i>InformationClass</i> parameter. 
+     * 
+     * 
+     * 
+     * 
+     * When you no longer need the information, pass the returned pointer to 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/nf-ntsecapi-lsafreememory">LsaFreeMemory</a>.
      * @returns {NTSTATUS} If the <b>LsaQueryInformationPolicy</b> function succeeds, the return value is STATUS_SUCCESS.
      * 
      * If the function fails, the return value is an NTSTATUS code. For more information, see 
@@ -8345,8 +8350,8 @@ class Identity {
      * Modifies information in a Policy object.
      * @param {LSA_HANDLE} PolicyHandle A handle to a <a href="https://docs.microsoft.com/windows/desktop/SecMgmt/policy-object">Policy</a> object. The required access rights for this handle depend on the value of the <i>InformationClass</i> parameter. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecMgmt/opening-a-policy-object-handle">Opening a Policy Object Handle</a>.
-     * @param {Integer} InformationClass 
-     * @param {Pointer<Void>} _Buffer 
+     * @param {POLICY_INFORMATION_CLASS} InformationClass 
+     * @param {Pointer<Void>} _Buffer Pointer to a structure containing the information to set. The type of structure depends on the value of the <i>InformationClass</i> parameter.
      * @returns {NTSTATUS} If the function succeeds, the return value is STATUS_SUCCESS.
      * 
      * If the function fails, the return value is an NTSTATUS code. For more information, see 
@@ -8372,7 +8377,7 @@ class Identity {
      * @remarks
      * The POLICY_VIEW_LOCAL_INFORMATION access type is required to retrieve domain information from the  <a href="https://docs.microsoft.com/windows/desktop/SecMgmt/policy-object">Policy</a> object. For more information, see <a href="https://docs.microsoft.com/windows/desktop/SecMgmt/policy-object-access-rights">Policy Object Access Rights</a>.
      * @param {LSA_HANDLE} PolicyHandle A handle to the <a href="https://docs.microsoft.com/windows/desktop/SecMgmt/policy-object">Policy</a> object for the system.
-     * @param {Integer} InformationClass <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/ne-ntsecapi-policy_domain_information_class">POLICY_DOMAIN_INFORMATION_CLASS</a> enumeration that specifies the information to be returned from the  <a href="https://docs.microsoft.com/windows/desktop/SecMgmt/policy-object">Policy</a> object. The following table shows the possible values.
+     * @param {POLICY_DOMAIN_INFORMATION_CLASS} InformationClass <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/ne-ntsecapi-policy_domain_information_class">POLICY_DOMAIN_INFORMATION_CLASS</a> enumeration that specifies the information to be returned from the  <a href="https://docs.microsoft.com/windows/desktop/SecMgmt/policy-object">Policy</a> object. The following table shows the possible values.
      * 
      * <table>
      * <tr>
@@ -8400,7 +8405,7 @@ class Identity {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Pointer<Void>>} _Buffer 
+     * @param {Pointer<Pointer<Void>>} _Buffer Pointer to a buffer that receives the requested information.
      * @returns {NTSTATUS} If the function succeeds, the return value is STATUS_SUCCESS.
      * 
      * If the function fails, the return value is an NTSTATUS code, which can be the following value or one of the <a href="https://docs.microsoft.com/windows/desktop/SecMgmt/management-return-values">LSA Policy Function Return Values</a>.
@@ -8443,7 +8448,7 @@ class Identity {
      * @remarks
      * The POLICY_TRUST_ADMIN access type is required to set domain information to the  <a href="https://docs.microsoft.com/windows/desktop/SecMgmt/policy-object">Policy</a> object. For more information, see <a href="https://docs.microsoft.com/windows/desktop/SecMgmt/policy-object-access-rights">Policy Object Access Rights</a>.
      * @param {LSA_HANDLE} PolicyHandle A handle to the <a href="https://docs.microsoft.com/windows/desktop/SecMgmt/policy-object">Policy</a> object for the system.
-     * @param {Integer} InformationClass <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/ne-ntsecapi-policy_domain_information_class">POLICY_DOMAIN_INFORMATION_CLASS</a> enumeration that specifies the information to be set to the  <a href="https://docs.microsoft.com/windows/desktop/SecMgmt/policy-object">Policy</a> object. The following table shows the possible values.
+     * @param {POLICY_DOMAIN_INFORMATION_CLASS} InformationClass <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/ne-ntsecapi-policy_domain_information_class">POLICY_DOMAIN_INFORMATION_CLASS</a> enumeration that specifies the information to be set to the  <a href="https://docs.microsoft.com/windows/desktop/SecMgmt/policy-object">Policy</a> object. The following table shows the possible values.
      * 
      * <table>
      * <tr>
@@ -8471,7 +8476,7 @@ class Identity {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Void>} _Buffer 
+     * @param {Pointer<Void>} _Buffer Pointer to a buffer that contains  the  information to set to the  <a href="https://docs.microsoft.com/windows/desktop/SecMgmt/policy-object">Policy</a> object.
      * @returns {NTSTATUS} If the function succeeds, the return value is STATUS_SUCCESS.
      * 
      * If the function fails, the return value is an NTSTATUS code, which can be the following value or one of the <a href="https://docs.microsoft.com/windows/desktop/SecMgmt/management-return-values">LSA Policy Function Return Values</a>.
@@ -8516,7 +8521,7 @@ class Identity {
      * 
      * For an example that demonstrates calling this function, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecMgmt/receiving-policy-change-events">Receiving Policy Change Events</a>.
-     * @param {Integer} InformationClass A
+     * @param {POLICY_NOTIFICATION_INFORMATION_CLASS} InformationClass A
      * @param {HANDLE} NotificationEventHandle A handle to an event obtained by calling the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/synchapi/nf-synchapi-createeventa">CreateEvent</a> function. The event can be either named or unnamed.
      * @returns {NTSTATUS} If the function succeeds, the return value is STATUS_SUCCESS.
@@ -8542,7 +8547,7 @@ class Identity {
      * @remarks
      * For an example that demonstrates calling this function see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecMgmt/receiving-policy-change-events">Receiving Policy Change Events</a>.
-     * @param {Integer} InformationClass A
+     * @param {POLICY_NOTIFICATION_INFORMATION_CLASS} InformationClass A
      * @param {HANDLE} NotificationEventHandle A handle to the notification event to unregister.
      * @returns {NTSTATUS} If the function succeeds, the return value is STATUS_SUCCESS.
      * 
@@ -8575,7 +8580,14 @@ class Identity {
      * @param {LSA_HANDLE} PolicyHandle A handle to a <a href="https://docs.microsoft.com/windows/desktop/SecMgmt/policy-object">Policy</a> object. The handle must have the POLICY_VIEW_LOCAL_INFORMATION access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecMgmt/opening-a-policy-object-handle">Opening a Policy Object Handle</a>.
      * @param {Pointer<Integer>} EnumerationContext Pointer to an enumeration handle that enables you to make multiple calls to enumerate all the trusted domains. On the first call to <b>LsaEnumerateTrustedDomains</b>, <i>EnumerationContext</i> must point to a variable that has been initialized to zero. On subsequent calls to <b>LsaEnumerateTrustedDomains</b>, <i>EnumerationContext</i> must point to the enumeration handle returned by the previous call.
-     * @param {Pointer<Pointer<Void>>} _Buffer 
+     * @param {Pointer<Pointer<Void>>} _Buffer Receives a pointer to an array of 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/lsalookup/ns-lsalookup-lsa_trust_information">LSA_TRUST_INFORMATION</a> structures that contain the names and SIDs of one or more trusted domains. 
+     * 
+     * 
+     * 
+     * 
+     * When you no longer need the information, pass the returned pointer to 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/nf-ntsecapi-lsafreememory">LsaFreeMemory</a>.
      * @param {Integer} PreferedMaximumLength Specifies the preferred maximum size, in bytes, of the returned buffer. This information is approximate; the actual number of bytes returned may be greater than this value.
      * @param {Pointer<Integer>} CountReturned Pointer to a variable that receives the number of elements returned in the <i>Buffer</i> parameter.
      * @returns {NTSTATUS} If the function is successful, the return value is one of the following NTSTATUS values.
@@ -9200,7 +9212,14 @@ class Identity {
      * 
      * 
      * If this parameter is <b>NULL</b>, the function enumerates all accounts in the LSA database of the system associated with the <a href="https://docs.microsoft.com/windows/desktop/SecMgmt/policy-object">Policy</a> object.
-     * @param {Pointer<Pointer<Void>>} _Buffer 
+     * @param {Pointer<Pointer<Void>>} _Buffer Pointer to a variable that receives a pointer to an array of 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/ns-ntsecapi-lsa_enumeration_information">LSA_ENUMERATION_INFORMATION</a> structures. The <b>Sid</b> member of each structure is a pointer to the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security identifier</a> (SID) of an account that holds the specified privilege. 
+     * 
+     * 
+     * 
+     * 
+     * When you no longer need the information, free the memory by passing the returned pointer to 
+     * the <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/nf-ntsecapi-lsafreememory">LsaFreeMemory</a> function.
      * @param {Pointer<Integer>} CountReturned Pointer to a variable that receives the number of entries returned in the <i>EnumerationBuffer</i> parameter.
      * @returns {NTSTATUS} If the function succeeds, the function returns STATUS_SUCCESS.
      * 
@@ -9460,8 +9479,14 @@ class Identity {
      * @param {LSA_HANDLE} PolicyHandle A handle to the <a href="https://docs.microsoft.com/windows/desktop/SecMgmt/policy-object">Policy</a> object of a domain controller that has a trust relationship with the domain identified by the <i>TrustedDomainSid</i> parameter. The handle must have the POLICY_VIEW_LOCAL_INFORMATION access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecMgmt/opening-a-policy-object-handle">Opening a Policy Object Handle</a>.
      * @param {PSID} TrustedDomainSid Pointer to the SID of the trusted domain to query.
-     * @param {Integer} InformationClass 
-     * @param {Pointer<Pointer<Void>>} _Buffer 
+     * @param {TRUSTED_INFORMATION_CLASS} InformationClass 
+     * @param {Pointer<Pointer<Void>>} _Buffer A pointer to a buffer that receives a pointer to a structure that contains the requested information. The type of structure depends on the value of the <i>InformationClass</i> parameter. 
+     * 
+     * 
+     * 
+     * 
+     * When you have finished using the information, free the returned pointer by passing it to 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/nf-ntsecapi-lsafreememory">LsaFreeMemory</a>.
      * @returns {NTSTATUS} If the function succeeds, the function returns STATUS_SUCCESS.
      * 
      * If the function fails, it returns an <b>NTSTATUS</b> value that indicates the error. For more information, see 
@@ -9487,8 +9512,8 @@ class Identity {
      * @param {LSA_HANDLE} PolicyHandle A handle to the <a href="https://docs.microsoft.com/windows/desktop/SecMgmt/policy-object">Policy</a> object of a domain controller. The required user rights for this handle depend on the value of the <i>InformationClass</i> parameter. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecMgmt/opening-a-policy-object-handle">Opening a Policy Object Handle</a>.
      * @param {PSID} TrustedDomainSid Pointer to the SID of the trusted domain whose information is modified. If the <i>InformationClass</i> parameter is set to TrustedDomainNameInformation, this parameter must point to the SID of the domain to add to the list of trusted domains.
-     * @param {Integer} InformationClass 
-     * @param {Pointer<Void>} _Buffer 
+     * @param {TRUSTED_INFORMATION_CLASS} InformationClass 
+     * @param {Pointer<Void>} _Buffer Pointer to a structure containing the information to set. The type of structure depends on the value of the <i>InformationClass</i> parameter.
      * @returns {NTSTATUS} If the function succeeds, the return value is STATUS_SUCCESS.
      * 
      * If the function fails, the return value is an NTSTATUS code. For more information, see 
@@ -9537,8 +9562,15 @@ class Identity {
      * @param {LSA_HANDLE} PolicyHandle A handle to a <a href="https://docs.microsoft.com/windows/desktop/SecMgmt/policy-object">Policy</a> object. This handle must have the POLICY_VIEW_LOCAL_INFORMATION access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecMgmt/opening-a-policy-object-handle">Opening a Policy Object Handle</a>.
      * @param {Pointer<LSA_UNICODE_STRING>} TrustedDomainName String that contains the name of the trusted domain. This can either be the domain name or the flat name.
-     * @param {Integer} InformationClass 
-     * @param {Pointer<Pointer<Void>>} _Buffer 
+     * @param {TRUSTED_INFORMATION_CLASS} InformationClass 
+     * @param {Pointer<Pointer<Void>>} _Buffer Receives a pointer to the returned buffer that contains the requested information. The format and content of this buffer depend on the information class. For example, if <i>InformationClass</i> is set to TrustedDomainInformationEx, <i>Buffer</i> receives a pointer to a 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/ns-ntsecapi-trusted_domain_information_ex">TRUSTED_DOMAIN_INFORMATION_EX</a> structure. For more information, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/ne-ntsecapi-trusted_information_class">TRUSTED_INFORMATION_CLASS</a>. 
+     * 
+     * 
+     * 
+     * 
+     * When you have finished using the buffer, free it by calling the <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/nf-ntsecapi-lsafreememory">LsaFreeMemory</a> function.
      * @returns {NTSTATUS} If the function succeeds, the function returns STATUS_SUCCESS.
      * 
      * If the function fails, it returns an <b>NTSTATUS</b> value, which can be one of the following values or one of the 
@@ -9595,8 +9627,8 @@ class Identity {
      * @param {LSA_HANDLE} PolicyHandle A handle to a <a href="https://docs.microsoft.com/windows/desktop/SecMgmt/policy-object">Policy</a> object. The <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security descriptor</a> of the trusted domain object determines whether the caller's changes are accepted. For information about policy object handles, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecMgmt/opening-a-policy-object-handle">Opening a Policy Object Handle</a>.
      * @param {Pointer<LSA_UNICODE_STRING>} TrustedDomainName Name of the trusted domain to set values for. This can either be the domain name or the flat name.
-     * @param {Integer} InformationClass 
-     * @param {Pointer<Void>} _Buffer 
+     * @param {TRUSTED_INFORMATION_CLASS} InformationClass 
+     * @param {Pointer<Void>} _Buffer Pointer to a structure that contains the information to set. The type of structure depends on the value of the <i>InformationClass</i> parameter.
      * @returns {NTSTATUS} If the function succeeds, the return value is STATUS_SUCCESS.
      * 
      * If the function fails, the return value is an NTSTATUS code. For more information, see 
@@ -9633,7 +9665,14 @@ class Identity {
      * <a href="https://docs.microsoft.com/windows/desktop/SecMgmt/opening-a-policy-object-handle">Opening a Policy Object Handle</a>.
      * @param {Pointer<Integer>} EnumerationContext A pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/SecMgmt/lsa-enumeration-handle">LSA_ENUMERATION_HANDLE</a> that you can use to make multiple calls to <b>LsaEnumerateTrustedDomainsEx</b>  to retrieve all of the trusted domain information. For more information, see Remarks.
-     * @param {Pointer<Pointer<Void>>} _Buffer 
+     * @param {Pointer<Pointer<Void>>} _Buffer Pointer to a buffer that receives a list of 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/ns-ntsecapi-trusted_domain_information_ex">TRUSTED_DOMAIN_INFORMATION_EX</a> structures that contain information about the enumerated trusted domains. 
+     * 
+     * 
+     * 
+     * 
+     * Your application should free this buffer when it is no longer needed by calling 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/nf-ntsecapi-lsafreememory">LsaFreeMemory</a>.
      * @param {Integer} PreferedMaximumLength Preferred maximum length, in bytes, of returned data. This is not a hard upper limit, but serves as a guide. Due to data conversion between systems with different natural data sizes, the actual amount of data returned may be greater than this value.
      * @param {Pointer<Integer>} CountReturned Pointer to a <b>LONG</b> that receives the number of trusted domain objects returned.
      * @returns {NTSTATUS} If the function succeeds, the function returns STATUS_SUCCESS.
@@ -9922,7 +9961,9 @@ class Identity {
      * <a href="https://docs.microsoft.com/windows/desktop/SecMgmt/opening-a-policy-object-handle">Opening a Policy Object Handle</a>.
      * @param {Pointer<LSA_UNICODE_STRING>} KeyName Pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/lsalookup/ns-lsalookup-lsa_unicode_string">LSA_UNICODE_STRING</a> structure containing the name of the key under which the private data is stored.
-     * @param {Pointer<LSA_UNICODE_STRING>} _PrivateData 
+     * @param {Pointer<LSA_UNICODE_STRING>} _PrivateData Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/lsalookup/ns-lsalookup-lsa_unicode_string">LSA_UNICODE_STRING</a> structure containing the private data to store. The function encrypts this data before storing it.
+     * 
+     * If this parameter is <b>NULL</b>, the function deletes any private data stored under the key and deletes the key. Subsequent attempts to retrieve data from the key will return the STATUS_OBJECT_NAME_NOT_FOUND error code.
      * @returns {NTSTATUS} If the function succeeds, the return value is STATUS_SUCCESS.
      * 
      * If the function fails, the return value is an NTSTATUS code. For more information, see 
@@ -9995,7 +10036,10 @@ class Identity {
      * 
      * If you are not creating one of these specialized types, you do not need to specify a key name prefix. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecMgmt/private-data-object">Private Data Object</a>.
-     * @param {Pointer<Pointer<LSA_UNICODE_STRING>>} _PrivateData 
+     * @param {Pointer<Pointer<LSA_UNICODE_STRING>>} _PrivateData Pointer to a variable that receives a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/lsalookup/ns-lsalookup-lsa_unicode_string">LSA_UNICODE_STRING</a> structure that contains the private data.
+     * 
+     * When you no longer need the information, pass the returned pointer to 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/nf-ntsecapi-lsafreememory">LsaFreeMemory</a>.
      * @returns {NTSTATUS} If the function succeeds, the function returns STATUS_SUCCESS.
      * 
      * If the function fails, it returns an <b>NTSTATUS</b> value, which can be the following value or one of the 
@@ -10038,7 +10082,8 @@ class Identity {
 
     /**
      * The LsaNtStatusToWinError function converts an NTSTATUS code returned by an LSA function to a Windows error code.
-     * @param {NTSTATUS} _Status 
+     * @param {NTSTATUS} _Status An NTSTATUS code returned by an LSA function call. This value will be converted to a 
+     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System error code</a>.
      * @returns {Integer} The return value is the Windows error code that corresponds to the <i>Status</i> parameter. If there is no corresponding Windows error code, the return value is ERROR_MR_MID_NOT_FOUND.
      * @see https://learn.microsoft.com/windows/win32/api/ntsecapi/nf-ntsecapi-lsantstatustowinerror
      * @since windows5.1.2600
@@ -10052,7 +10097,7 @@ class Identity {
      * 
      * @param {LSA_HANDLE} PolicyHandle 
      * @param {Pointer<LSA_UNICODE_STRING>} TrustedDomainName 
-     * @param {Integer} HighestRecordType 
+     * @param {LSA_FOREST_TRUST_RECORD_TYPE} HighestRecordType 
      * @param {Pointer<Pointer<LSA_FOREST_TRUST_INFORMATION2>>} ForestTrustInfo 
      * @returns {NTSTATUS} 
      */
@@ -10070,7 +10115,7 @@ class Identity {
      * 
      * @param {LSA_HANDLE} PolicyHandle 
      * @param {Pointer<LSA_UNICODE_STRING>} TrustedDomainName 
-     * @param {Integer} HighestRecordType 
+     * @param {LSA_FOREST_TRUST_RECORD_TYPE} HighestRecordType 
      * @param {Pointer<LSA_FOREST_TRUST_INFORMATION2>} ForestTrustInfo 
      * @param {BOOLEAN} CheckOnly 
      * @param {Pointer<Pointer<LSA_FOREST_TRUST_COLLISION_INFORMATION>>} CollisionInfo 
@@ -10147,7 +10192,7 @@ class Identity {
      * Sets per-user audit policy in one or more audit subcategories for the specified principal.
      * @remarks
      * To successfully call this function, the caller must have <b>SeSecurityPrivilege</b> or have <b>AUDIT_SET_USER_POLICY</b> access on the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">Audit security object</a>.
-     * @param {PSID} _pSid 
+     * @param {PSID} _pSid A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure associated with the principal for which to set  audit policy. Per-user policy for group SIDs is not currently supported.
      * @param {Pointer<AUDIT_POLICY_INFORMATION>} pAuditPolicy A pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/ns-ntsecapi-audit_policy_information">AUDIT_POLICY_INFORMATION</a> structures. Each structure specifies per-user audit policy for one audit subcategory.
      * 
      * The <b>AuditCategoryGuid</b> member of these structures is ignored.
@@ -10289,7 +10334,7 @@ class Identity {
      * Retrieves per-user audit policy in one or more audit-policy subcategories for the specified principal.
      * @remarks
      * To successfully call this function, the caller must have <b>SeSecurityPrivilege</b> or have <b>AUDIT_QUERY_USER_POLICY</b> access on the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">Audit security object</a>.
-     * @param {PSID} _pSid 
+     * @param {PSID} _pSid A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure associated with the principal for which to query  audit policy. Per-user policy for group SIDs is not currently supported.
      * @param {Pointer<Guid>} pSubCategoryGuids A pointer to an array of <b>GUID</b> values that specify the subcategories for which to query audit policy. For a list of defined audit-policy subcategories, see <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/auditing-constants">Auditing Constants</a>.
      * @param {Integer} dwPolicyCount The number of elements in each of the <i>pSubCategoryGuids</i> and <i>ppAuditPolicy</i> arrays.
      * @param {Pointer<Pointer<AUDIT_POLICY_INFORMATION>>} ppAuditPolicy A pointer to a single buffer that contains both an array of pointers to <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/ns-ntsecapi-audit_policy_information">AUDIT_POLICY_INFORMATION</a> structures and the structures themselves. The <b>AUDIT_POLICY_INFORMATION</b> structures specify the per-user audit policy for the subcategories specified by the <i>pSubCategoryGuids</i> array. 
@@ -10420,7 +10465,7 @@ class Identity {
      * Computes the effective audit policy for one or more subcategories for the specified security principal. The function computes effective audit policy by combining system audit policy with per-user policy.
      * @remarks
      * To successfully call this function, the caller must have <b>SeSecurityPrivilege</b> or have <b>AUDIT_QUERY_SYSTEM_POLICY</b> and <b>AUDIT_QUERY_USER_POLICY</b> access on the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">Audit security object</a>.
-     * @param {PSID} _pSid 
+     * @param {PSID} _pSid A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure associated with the principal for which to compute effective audit policy. Per-user policy for group SIDs is not currently supported.
      * @param {Pointer<Guid>} pSubCategoryGuids A pointer to an array of <b>GUID</b> values that specify the subcategories for which to compute effective audit policy. For a list of defined subcategories, see <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/auditing-constants">Auditing Constants</a>.
      * @param {Integer} dwPolicyCount The number of elements in each of the <i>pSubCategoryGuids</i> and <i>ppAuditPolicy</i> arrays.
      * @param {Pointer<Pointer<AUDIT_POLICY_INFORMATION>>} ppAuditPolicy A pointer to a single buffer that contains both an array of pointers to <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/ns-ntsecapi-audit_policy_information">AUDIT_POLICY_INFORMATION</a> structures and the structures themselves. The <b>AUDIT_POLICY_INFORMATION</b> structures specify the effective audit policy for the subcategories specified by the <i>pSubCategoryGuids</i> array. 
@@ -10739,7 +10784,7 @@ class Identity {
     /**
      * Retrieves an element of the POLICY_AUDIT_EVENT_TYPE enumeration that represents the specified audit-policy category.
      * @param {Pointer<Guid>} pAuditCategoryGuid A pointer to a <b>GUID</b> structure that specifies an audit-policy category.
-     * @param {Pointer<Integer>} pAuditCategoryId A pointer to an element of the <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/ne-ntsecapi-policy_audit_event_type">POLICY_AUDIT_EVENT_TYPE</a> enumeration that represents the audit-policy category specified by the <i>pAuditCategoryGuid</i> parameter.
+     * @param {Pointer<POLICY_AUDIT_EVENT_TYPE>} pAuditCategoryId A pointer to an element of the <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/ne-ntsecapi-policy_audit_event_type">POLICY_AUDIT_EVENT_TYPE</a> enumeration that represents the audit-policy category specified by the <i>pAuditCategoryGuid</i> parameter.
      * @returns {BOOLEAN} If the function succeeds, it returns <b>TRUE</b>.
      * 
      * If the function fails, it returns <b>FALSE</b>. To get extended error information, call 
@@ -10762,7 +10807,7 @@ class Identity {
 
     /**
      * Retrieves a GUID structure that represents the specified audit-policy category.
-     * @param {Integer} AuditCategoryId An element of the <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/ne-ntsecapi-policy_audit_event_type">POLICY_AUDIT_EVENT_TYPE</a> enumeration that specifies an audit-policy category.
+     * @param {POLICY_AUDIT_EVENT_TYPE} AuditCategoryId An element of the <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/ne-ntsecapi-policy_audit_event_type">POLICY_AUDIT_EVENT_TYPE</a> enumeration that specifies an audit-policy category.
      * @param {Pointer<Guid>} pAuditCategoryGuid A pointer to a <b>GUID</b> structure that represents the audit-policy category specified by the  <i>AuditCategoryId</i>
      * @returns {BOOLEAN} If the function succeeds, it returns <b>TRUE</b>.
      * 
@@ -10786,7 +10831,7 @@ class Identity {
      * Sets a security descriptor that delegates access to audit policy.
      * @remarks
      * To successfully call this function, the caller must have <b>SeSecurityPrivilege</b>.
-     * @param {Integer} SecurityInformation A <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-information">SECURITY_INFORMATION</a> value that specifies which parts of the security descriptor this function sets. Only <b>SACL_SECURITY_INFORMATION</b> and <b>DACL_SECURITY_INFORMATION</b> are supported. Any other values are ignored. If neither <b>SACL_SECURITY_INFORMATION</b> nor <b>DACL_SECURITY_INFORMATION</b> is specified, this function fails and returns <b>ERROR_INVALID_PARAMETER</b>.
+     * @param {OBJECT_SECURITY_INFORMATION} SecurityInformation A <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-information">SECURITY_INFORMATION</a> value that specifies which parts of the security descriptor this function sets. Only <b>SACL_SECURITY_INFORMATION</b> and <b>DACL_SECURITY_INFORMATION</b> are supported. Any other values are ignored. If neither <b>SACL_SECURITY_INFORMATION</b> nor <b>DACL_SECURITY_INFORMATION</b> is specified, this function fails and returns <b>ERROR_INVALID_PARAMETER</b>.
      * @param {PSECURITY_DESCRIPTOR} pSecurityDescriptor A pointer to a well-formed <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> structure that controls access to the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">Audit security object</a>. If this parameter is <b>NULL</b>, the function fails and returns <b>ERROR_INVALID_PARAMETER</b>.
      * @returns {BOOLEAN} If the function succeeds, it returns <b>TRUE</b>.
      * 
@@ -10843,7 +10888,7 @@ class Identity {
      * Retrieves security descriptor that delegates access to audit policy.
      * @remarks
      * To successfully call this function, the caller must have <b>SeSecurityPrivilege</b>.
-     * @param {Integer} SecurityInformation A <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-information">SECURITY_INFORMATION</a> value that specifies which parts of the security descriptor this function sets. Only <b>SACL_SECURITY_INFORMATION</b> and <b>DACL_SECURITY_INFORMATION</b> are supported. Any other values are ignored. If neither <b>SACL_SECURITY_INFORMATION</b> nor <b>DACL_SECURITY_INFORMATION</b> is specified, this function fails and returns <b>ERROR_INVALID_PARAMETER</b>.
+     * @param {OBJECT_SECURITY_INFORMATION} SecurityInformation A <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-information">SECURITY_INFORMATION</a> value that specifies which parts of the security descriptor this function sets. Only <b>SACL_SECURITY_INFORMATION</b> and <b>DACL_SECURITY_INFORMATION</b> are supported. Any other values are ignored. If neither <b>SACL_SECURITY_INFORMATION</b> nor <b>DACL_SECURITY_INFORMATION</b> is specified, this function fails and returns <b>ERROR_INVALID_PARAMETER</b>.
      * @param {Pointer<PSECURITY_DESCRIPTOR>} ppSecurityDescriptor The address of a pointer to a well-formed <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> structure that controls access to the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">Audit security object</a>.
      * @returns {BOOLEAN} If the function succeeds, it returns <b>TRUE</b>.
      * 
@@ -10905,7 +10950,7 @@ class Identity {
      * > [!NOTE]
      * > The ntsecapi.h header defines AuditSetGlobalSacl as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PWSTR} ObjectTypeName A pointer to a null-terminated string specifying the type of object being created or accessed. For setting the global SACL on files, this should be set to "File" and  for setting the global SACL on registry, this should be set to "Key". This string appears in any audit message that the function generates.
-     * @param {Pointer<ACL>} _Acl 
+     * @param {Pointer<ACL>} _Acl A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-acl">ACL</a> structure.
      * @returns {BOOLEAN} If the function succeeds, it returns <b>TRUE</b>.
      * 
      * If the function fails, it returns <b>FALSE</b>. To get extended error information, call 
@@ -10968,7 +11013,7 @@ class Identity {
      * > [!NOTE]
      * > The ntsecapi.h header defines AuditSetGlobalSacl as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PSTR} ObjectTypeName A pointer to a null-terminated string specifying the type of object being created or accessed. For setting the global SACL on files, this should be set to "File" and  for setting the global SACL on registry, this should be set to "Key". This string appears in any audit message that the function generates.
-     * @param {Pointer<ACL>} _Acl 
+     * @param {Pointer<ACL>} _Acl A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-acl">ACL</a> structure.
      * @returns {BOOLEAN} If the function succeeds, it returns <b>TRUE</b>.
      * 
      * If the function fails, it returns <b>FALSE</b>. To get extended error information, call 
@@ -11031,7 +11076,7 @@ class Identity {
      * > [!NOTE]
      * > The ntsecapi.h header defines AuditQueryGlobalSacl as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PWSTR} ObjectTypeName A pointer to a null-terminated string specifying the type of object being accessed. This parameter must be either "File" or "Key", depending on whether the object is a file or registry. This string appears in any audit message that the function generates.
-     * @param {Pointer<Pointer<ACL>>} _Acl 
+     * @param {Pointer<Pointer<ACL>>} _Acl A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-acl">ACL</a> structure that contains the SACL information.  This should be freed later by calling the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a> function.
      * @returns {BOOLEAN} If the function succeeds, it returns <b>TRUE</b>.
      * 
      * If the function fails, it returns <b>FALSE</b>. To get extended error information, call 
@@ -11096,7 +11141,7 @@ class Identity {
      * > [!NOTE]
      * > The ntsecapi.h header defines AuditQueryGlobalSacl as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PSTR} ObjectTypeName A pointer to a null-terminated string specifying the type of object being accessed. This parameter must be either "File" or "Key", depending on whether the object is a file or registry. This string appears in any audit message that the function generates.
-     * @param {Pointer<Pointer<ACL>>} _Acl 
+     * @param {Pointer<Pointer<ACL>>} _Acl A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-acl">ACL</a> structure that contains the SACL information.  This should be freed later by calling the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a> function.
      * @returns {BOOLEAN} If the function succeeds, it returns <b>TRUE</b>.
      * 
      * If the function fails, it returns <b>FALSE</b>. To get extended error information, call 
@@ -11152,7 +11197,7 @@ class Identity {
 
     /**
      * Frees the memory allocated by audit functions for the specified buffer.
-     * @param {Pointer<Void>} _Buffer 
+     * @param {Pointer<Void>} _Buffer A pointer to the buffer to free.
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/ntsecapi/nf-ntsecapi-auditfree
      * @since windows6.0.6000
@@ -11191,7 +11236,7 @@ class Identity {
      * > The sspi.h header defines AcquireCredentialsHandle as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PWSTR} pszPrincipal 
      * @param {PWSTR} pszPackage 
-     * @param {Integer} fCredentialUse 
+     * @param {SECPKG_CRED} fCredentialUse 
      * @param {Pointer<Void>} pvLogonId A pointer to a  <a href="https://docs.microsoft.com/windows/desktop/SecGloss/l-gly">locally unique identifier</a> (LUID) that identifies the user. This parameter is provided for file-system processes such as network redirectors. This parameter can be <b>NULL</b>.
      * @param {Pointer<Void>} pAuthData A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/credssp/ns-credssp-credssp_cred">CREDSSP_CRED</a> structure that specifies authentication data for both Schannel and Negotiate packages.
      * @param {Pointer<SEC_GET_KEY_FN>} pGetKeyFn Reserved. This parameter is not used and should be set to <b>NULL</b>.
@@ -11247,7 +11292,7 @@ class Identity {
      * <a href="https://docs.microsoft.com/windows/desktop/api/sspi/ns-sspi-secpkginfoa">SecPkgInfo</a> structure returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/sspi/nf-sspi-enumeratesecuritypackagesa">EnumerateSecurityPackages</a> function. After a context is established, 
      * <a href="https://docs.microsoft.com/windows/desktop/api/sspi/nf-sspi-querycontextattributesa">QueryContextAttributes (CredSSP)</a> can be called with <i>ulAttribute</i> set to <b>SECPKG_ATTR_PACKAGE_INFO</b> to return information on the security package in use.
-     * @param {Integer} fCredentialUse 
+     * @param {SECPKG_CRED} fCredentialUse 
      * @param {Pointer<Void>} pvLogonId A pointer to a  <a href="https://docs.microsoft.com/windows/desktop/SecGloss/l-gly">locally unique identifier</a> (LUID) that identifies the user. This parameter is provided for file-system processes such as network redirectors. This parameter can be <b>NULL</b>.
      * @param {Pointer<Void>} pAuthData A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/credssp/ns-credssp-credssp_cred">CREDSSP_CRED</a> structure that specifies authentication data for both Schannel and Negotiate packages.
      * @param {Pointer<SEC_GET_KEY_FN>} pGetKeyFn Reserved. This parameter is not used and should be set to <b>NULL</b>.
@@ -11478,7 +11523,7 @@ class Identity {
      * 
      * When using the Schannel SSP, on the first call to <b>InitializeSecurityContext (General)</b>, specify <b>NULL</b>. On future calls, specify the token received in the <i>phNewContext</i> parameter after the first call to this function.
      * @param {Pointer<Integer>} pszTargetName 
-     * @param {Integer} fContextReq Bit flags that indicate requests for the context. Not all packages can support all requirements. Flags used for this parameter are prefixed with ISC_REQ_, for example,  ISC_REQ_DELEGATE. This parameter can be one or more of the following attributes flags.
+     * @param {ISC_REQ_FLAGS} fContextReq Bit flags that indicate requests for the context. Not all packages can support all requirements. Flags used for this parameter are prefixed with ISC_REQ_, for example,  ISC_REQ_DELEGATE. This parameter can be one or more of the following attributes flags.
      * 
      * <table>
      * <tr>
@@ -11961,7 +12006,7 @@ class Identity {
      * 
      * When using the Schannel SSP, on the first call to <b>InitializeSecurityContext (General)</b>, specify <b>NULL</b>. On future calls, specify the token received in the <i>phNewContext</i> parameter after the first call to this function.
      * @param {Pointer<Integer>} pszTargetName TBD
-     * @param {Integer} fContextReq Bit flags that indicate requests for the context. Not all packages can support all requirements. Flags used for this parameter are prefixed with ISC_REQ_, for example,  ISC_REQ_DELEGATE. This parameter can be one or more of the following attributes flags.
+     * @param {ISC_REQ_FLAGS} fContextReq Bit flags that indicate requests for the context. Not all packages can support all requirements. Flags used for this parameter are prefixed with ISC_REQ_, for example,  ISC_REQ_DELEGATE. This parameter can be one or more of the following attributes flags.
      * 
      * <table>
      * <tr>
@@ -12399,7 +12444,7 @@ class Identity {
      * <a href="https://docs.microsoft.com/windows/desktop/api/sspi/nf-sspi-initializesecuritycontexta">InitializeSecurityContext (CredSSP)</a>. The structure contains the input buffer descriptor.
      * 
      * The first buffer must be of type <b>SECBUFFER_TOKEN</b> and contain the security token received from the client. The second buffer should be of type <b>SECBUFFER_EMPTY</b>.
-     * @param {Integer} fContextReq 
+     * @param {ASC_REQ_FLAGS} fContextReq 
      * @param {Integer} TargetDataRep The data representation, such as byte ordering, on the target. This parameter can be either <b>SECURITY_NATIVE_DREP</b> or <b>SECURITY_NETWORK_DREP</b>.
      * @param {Pointer<SecHandle>} phNewContext A pointer to a <a href="https://docs.microsoft.com/windows/desktop/SecAuthN/sspi-handles">CtxtHandle</a> structure. On the first call to <b>AcceptSecurityContext (CredSSP)</b>, this pointer receives the new context handle. On subsequent calls, <i>phNewContext</i> can be the same as the handle specified in the <i>phContext</i> parameter.
      * @param {Pointer<SecBufferDesc>} pOutput A pointer to a 
@@ -12903,7 +12948,7 @@ class Identity {
      * > [!NOTE]
      * > The sspi.h header defines QueryContextAttributes as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<SecHandle>} phContext A  handle to the security context to be queried.
-     * @param {Integer} ulAttribute 
+     * @param {SECPKG_ATTR} ulAttribute 
      * @returns {Void} A pointer to a structure that receives the attributes. The structure type depends on the value of the <i>ulAttribute</i> parameter.
      * @see https://learn.microsoft.com/windows/win32/api/sspi/nf-sspi-querycontextattributesw
      * @since windows6.0.6000
@@ -12919,8 +12964,8 @@ class Identity {
      * > [!NOTE]
      * > The sspi.h header defines QueryContextAttributesEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<SecHandle>} phContext A handle to the security context to be queried.
-     * @param {Integer} ulAttribute 
-     * @param {Pointer} pBuffer A pointer to a structure that receives the attributes. The type of structure pointed to depends on the value specified in the <i>ulAttribute</i> parameter.
+     * @param {SECPKG_ATTR} ulAttribute 
+     * @param {Integer} pBuffer A pointer to a structure that receives the attributes. The type of structure pointed to depends on the value specified in the <i>ulAttribute</i> parameter.
      * @param {Integer} cbBuffer The size, in bytes, of the <i>pBuffer</i> parameter.
      * @returns {HRESULT} If the function succeeds, the return value is SEC_E_OK.
      * 
@@ -12947,7 +12992,7 @@ class Identity {
      * > [!NOTE]
      * > The sspi.h header defines QueryContextAttributes as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<SecHandle>} phContext A  handle to the security context to be queried.
-     * @param {Integer} ulAttribute 
+     * @param {SECPKG_ATTR} ulAttribute 
      * @returns {Void} A pointer to a structure that receives the attributes. The structure type depends on the value of the <i>ulAttribute</i> parameter.
      * @see https://learn.microsoft.com/windows/win32/api/sspi/nf-sspi-querycontextattributesa
      * @since windows6.0.6000
@@ -12963,8 +13008,8 @@ class Identity {
      * > [!NOTE]
      * > The sspi.h header defines QueryContextAttributesEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<SecHandle>} phContext A handle to the security context to be queried.
-     * @param {Integer} ulAttribute 
-     * @param {Pointer} pBuffer A pointer to a structure that receives the attributes. The type of structure pointed to depends on the value specified in the <i>ulAttribute</i> parameter.
+     * @param {SECPKG_ATTR} ulAttribute 
+     * @param {Integer} pBuffer A pointer to a structure that receives the attributes. The type of structure pointed to depends on the value specified in the <i>ulAttribute</i> parameter.
      * @param {Integer} cbBuffer The size, in bytes, of the <i>pBuffer</i> parameter.
      * @returns {HRESULT} If the function succeeds, the return value is SEC_E_OK.
      * 
@@ -12983,8 +13028,8 @@ class Identity {
      * > [!NOTE]
      * > The sspi.h header defines SetContextAttributes as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<SecHandle>} phContext A handle to the security context to be set.
-     * @param {Integer} ulAttribute 
-     * @param {Pointer} pBuffer A pointer to a structure that contains  values to set  the attributes to. The type of structure pointed to depends on the value specified in the <i>ulAttribute</i> parameter.
+     * @param {SECPKG_ATTR} ulAttribute 
+     * @param {Integer} pBuffer A pointer to a structure that contains  values to set  the attributes to. The type of structure pointed to depends on the value specified in the <i>ulAttribute</i> parameter.
      * @param {Integer} cbBuffer The size, in bytes, of the <i>pBuffer</i> parameter.
      * @returns {HRESULT} If the function succeeds, the function returns SEC_E_OK.
      * 
@@ -13021,8 +13066,8 @@ class Identity {
      * > [!NOTE]
      * > The sspi.h header defines SetContextAttributes as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<SecHandle>} phContext A handle to the security context to be set.
-     * @param {Integer} ulAttribute 
-     * @param {Pointer} pBuffer A pointer to a structure that contains  values to set  the attributes to. The type of structure pointed to depends on the value specified in the <i>ulAttribute</i> parameter.
+     * @param {SECPKG_ATTR} ulAttribute 
+     * @param {Integer} pBuffer A pointer to a structure that contains  values to set  the attributes to. The type of structure pointed to depends on the value specified in the <i>ulAttribute</i> parameter.
      * @param {Integer} cbBuffer The size, in bytes, of the <i>pBuffer</i> parameter.
      * @returns {HRESULT} If the function succeeds, the function returns SEC_E_OK.
      * 
@@ -13219,7 +13264,7 @@ class Identity {
      * Query the attributes of a security context.
      * @param {Pointer<SecHandle>} phCredential The credential to query.
      * @param {Integer} ulAttribute The attribute to query.
-     * @param {Pointer} pBuffer The buffer to receive the attributes.
+     * @param {Integer} pBuffer The buffer to receive the attributes.
      * @param {Integer} cbBuffer The length of the buffer.
      * @returns {HRESULT} Returns **TRUE** if the function succeeds, **FALSE** otherwise.
      * @see https://learn.microsoft.com/windows/win32/api/sspi/nf-sspi-querycredentialsattributesexw
@@ -13395,7 +13440,7 @@ class Identity {
      * Query the attributes of a security context.
      * @param {Pointer<SecHandle>} phCredential The credential to query.
      * @param {Integer} ulAttribute The attribute to query.
-     * @param {Pointer} pBuffer The buffer to receive the attributes.
+     * @param {Integer} pBuffer The buffer to receive the attributes.
      * @param {Integer} cbBuffer The length of the buffer.
      * @returns {HRESULT} Returns **TRUE** if the function succeeds, **FALSE** otherwise.
      * @see https://learn.microsoft.com/windows/win32/api/sspi/nf-sspi-querycredentialsattributesexa
@@ -13484,7 +13529,7 @@ class Identity {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer} pBuffer A pointer to a buffer that contains the new attribute value. The type of structure returned depends on the value of <i>ulAttribute</i>.
+     * @param {Integer} pBuffer A pointer to a buffer that contains the new attribute value. The type of structure returned depends on the value of <i>ulAttribute</i>.
      * @param {Integer} cbBuffer The size, in bytes, of the <i>pBuffer</i> buffer.
      * @returns {HRESULT} If the function succeeds, the return value is SEC_E_OK.
      * 
@@ -13616,7 +13661,7 @@ class Identity {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer} pBuffer A pointer to a buffer that contains the new attribute value. The type of structure returned depends on the value of <i>ulAttribute</i>.
+     * @param {Integer} pBuffer A pointer to a buffer that contains the new attribute value. The type of structure returned depends on the value of <i>ulAttribute</i>.
      * @param {Integer} cbBuffer The size, in bytes, of the <i>pBuffer</i> buffer.
      * @returns {HRESULT} If the function succeeds, the return value is SEC_E_OK.
      * 
@@ -13691,7 +13736,7 @@ class Identity {
 
     /**
      * 
-     * @param {Pointer} lpIpAddress 
+     * @param {Integer} lpIpAddress 
      * @param {Integer} cchIpAddress 
      * @returns {Integer} 
      */
@@ -13702,7 +13747,7 @@ class Identity {
 
     /**
      * 
-     * @param {Pointer} lpIpAddress 
+     * @param {Integer} lpIpAddress 
      * @param {Integer} cchIpAddress 
      * @param {PWSTR} TargetName 
      * @returns {Integer} 
@@ -14410,7 +14455,7 @@ class Identity {
     /**
      * The ExportSecurityContext function creates a serialized representation of a security context that can later be imported into a different process by calling ImportSecurityContext.
      * @param {Pointer<SecHandle>} phContext A handle of the security context to be exported.
-     * @param {Integer} fFlags 
+     * @param {EXPORT_SECURITY_CONTEXT_FLAGS} fFlags 
      * @param {Pointer<SecBuffer>} pPackedContext A pointer to a buffer of type <b>SECBUFFER_EMPTY</b> that receives the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">serialized</a> security context. When you have finished using this context,  free it by calling the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/sspi/nf-sspi-freecontextbuffer">FreeContextBuffer</a> function.
      * @returns {Pointer<Void>} A pointer to receive the handle of the context's token.
@@ -14770,7 +14815,7 @@ class Identity {
      * <a href="https://docs.microsoft.com/windows/desktop/api/sspi/nf-sspi-acquirecredentialshandlea">AcquireCredentialsHandle</a> function used to build the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security context</a>. Using the <b>SaslInitializeSecurityContext</b> function requires at least OUTBOUND credentials.
      * @param {Pointer<SecHandle>} phContext Pointer to a <b>CtxtHandle</b> structure. On the first call to the <b>SaslInitializeSecurityContext</b> function, this pointer is <b>NULL</b>. On the second call, this parameter is a pointer to the handle to the partially formed context returned in the <i>phNewContext</i> parameter by the first call.
      * @param {PWSTR} pszTargetName Pointer to a Unicode or ANSI string that indicates the target of the context.
-     * @param {Integer} fContextReq Bit flags that indicate the requirements of the context.  Flags used for this parameter are prefixed with ISC_REQ_; for example:  ISC_REQ_DELEGATE. Specify  combinations of the following attributes flags.
+     * @param {ISC_REQ_FLAGS} fContextReq Bit flags that indicate the requirements of the context.  Flags used for this parameter are prefixed with ISC_REQ_; for example:  ISC_REQ_DELEGATE. Specify  combinations of the following attributes flags.
      * 
      * <table>
      * <tr>
@@ -14950,7 +14995,7 @@ class Identity {
      * <a href="https://docs.microsoft.com/windows/desktop/api/sspi/nf-sspi-acquirecredentialshandlea">AcquireCredentialsHandle</a> function used to build the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security context</a>. Using the <b>SaslInitializeSecurityContext</b> function requires at least OUTBOUND credentials.
      * @param {Pointer<SecHandle>} phContext Pointer to a <b>CtxtHandle</b> structure. On the first call to the <b>SaslInitializeSecurityContext</b> function, this pointer is <b>NULL</b>. On the second call, this parameter is a pointer to the handle to the partially formed context returned in the <i>phNewContext</i> parameter by the first call.
      * @param {PSTR} pszTargetName Pointer to a Unicode or ANSI string that indicates the target of the context.
-     * @param {Integer} fContextReq Bit flags that indicate the requirements of the context.  Flags used for this parameter are prefixed with ISC_REQ_; for example:  ISC_REQ_DELEGATE. Specify  combinations of the following attributes flags.
+     * @param {ISC_REQ_FLAGS} fContextReq Bit flags that indicate the requirements of the context.  Flags used for this parameter are prefixed with ISC_REQ_; for example:  ISC_REQ_DELEGATE. Specify  combinations of the following attributes flags.
      * 
      * <table>
      * <tr>
@@ -15134,7 +15179,7 @@ class Identity {
      * the <a href="https://docs.microsoft.com/windows/desktop/api/sspi/nf-sspi-initializesecuritycontexta">InitializeSecurityContext (General)</a> function that contains the input buffer descriptor.
      * 
      * SASL requires a single buffer of type <b>SECBUFFER_TOKEN</b>. The buffer is empty for the first call to the <a href="https://docs.microsoft.com/windows/desktop/api/sspi/nf-sspi-acceptsecuritycontext">AcceptSecurityContext (General)</a> function and contains the challenge response received from the client for the second call.
-     * @param {Integer} fContextReq Bit flags that specify the attributes required by the server to establish the context. Bit flags can be combined using bitwise-<b>OR</b> operations. The following table shows the possible values.
+     * @param {ASC_REQ_FLAGS} fContextReq Bit flags that specify the attributes required by the server to establish the context. Bit flags can be combined using bitwise-<b>OR</b> operations. The following table shows the possible values.
      * 
      * <table>
      * <tr>
@@ -15291,7 +15336,7 @@ class Identity {
      * </tr>
      * </table>
      * @param {Pointer<Void>} Value A pointer to a buffer that contains the value to set to  the requested property. For the data type of the buffer for each value of the <i>Option</i> parameter, see the <i>Option</i> parameter.
-     * @param {Integer} _Size 
+     * @param {Integer} _Size The size, in bytes, of the buffer specified by the <i>Value</i> parameter.
      * @returns {HRESULT} If the call is completed successfully, this function returns SEC_E_OK. The following table shows some possible error return values.
      * 
      * <table>
@@ -15403,7 +15448,7 @@ class Identity {
      * </tr>
      * </table>
      * @param {Pointer<Void>} Value A pointer to a buffer that receives the requested property. For the data type of the buffer for each value of the <i>Option</i> parameter, see the <i>Option</i> parameter.
-     * @param {Integer} _Size 
+     * @param {Integer} _Size The size, in bytes, of the buffer specified by the <i>Value</i> parameter.
      * @param {Pointer<Integer>} Needed A pointer to an unsigned <b>LONG</b> value that returns the value if the buffer specified by the <i>Value</i> parameter is not large enough to contain the data value of the property specified by the <i>Option</i> parameter.
      * @returns {HRESULT} If the call is completed successfully, this function returns SEC_E_OK. The following table shows some possible error return values.
      * 
@@ -15925,7 +15970,7 @@ class Identity {
     /**
      * Deserializes the specified array of byte values into an identity structure.
      * @param {Integer} AuthIdentityLength The size, in bytes, of the <i>AuthIdentityByteArray</i> array.
-     * @param {Pointer} AuthIdentityByteArray The array of byte values to deserialize.
+     * @param {Integer} AuthIdentityByteArray The array of byte values to deserialize.
      * @returns {Pointer<Void>} The deserialized identity structure.
      * @see https://learn.microsoft.com/windows/win32/api/sspi/nf-sspi-sspiunmarshalauthidentity
      * @since windows6.1
@@ -16070,7 +16115,7 @@ class Identity {
     /**
      * Serializes the specified target into an array of byte values.
      * @param {Pointer<CREDENTIAL_TARGET_INFORMATIONW>} InTargetInfo A pointer to a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/u-gly">Unicode</a> version of the <a href="https://docs.microsoft.com/windows/desktop/api/wincred/ns-wincred-credential_target_informationa">CREDENTIAL_TARGET_INFORMATION</a> structure that specifies the target to serialize.
-     * @param {Pointer<Pointer<Integer>>} _Buffer 
+     * @param {Pointer<Pointer<Integer>>} _Buffer The serialized array of byte values that represents the target specified by the <i>InTargetInfo</i> parameter.
      * @param {Pointer<Integer>} BufferSize The size, in bytes, of the <i>Buffer</i> array.
      * @returns {NTSTATUS} If the function succeeds, it returns <b>STATUS_SUCCESS</b>.
      * 
@@ -16089,7 +16134,7 @@ class Identity {
 
     /**
      * 
-     * @param {Pointer} _Buffer 
+     * @param {Integer} _Buffer 
      * @param {Integer} BufferSize 
      * @param {Pointer<Pointer<CREDENTIAL_TARGET_INFORMATIONW>>} RetTargetInfo 
      * @param {Pointer<Integer>} RetActualSize 
@@ -16195,7 +16240,7 @@ class Identity {
 
     /**
      * Gets the identity of the server.
-     * @param {Pointer} ClientHello The message from the client.
+     * @param {Integer} ClientHello The message from the client.
      * @param {Integer} ClientHelloSize The size of the client message.
      * @param {Pointer<Pointer<Integer>>} ServerIdentity The pointer inside the message where the server name starts.
      * @param {Pointer<Integer>} ServerIdentitySize The length of the server name.
@@ -16258,7 +16303,7 @@ class Identity {
      * @param {Integer} clientHelloByteSize 
      * @param {Pointer<SCH_EXTENSION_DATA>} genericExtensions 
      * @param {Integer} genericExtensionsCount 
-     * @param {Integer} flags 
+     * @param {SchGetExtensionsOptions} flags 
      * @returns {Integer} 
      */
     static SslGetExtensions(clientHello, clientHelloByteSize, genericExtensions, genericExtensionsCount, flags) {
@@ -16282,12 +16327,12 @@ class Identity {
      * Constructs one token binding that contains the exported public key and signature by using the specified key type for the token binding, a target identifier string for creating and retrieving the token binding key, and the unique data.
      * @remarks
      * You can call <b>TokenBindingGenerateBinding</b> from user mode.
-     * @param {Integer} keyType The negotiated key type to use. Use a value from the list of key types that you retrieved by calling the <a href="https://docs.microsoft.com/windows/desktop/api/tokenbinding/nf-tokenbinding-tokenbindinggetkeytypesclient">TokenBindingGetKeyTypesClient</a> function.
+     * @param {TOKENBINDING_KEY_PARAMETERS_TYPE} keyType The negotiated key type to use. Use a value from the list of key types that you retrieved by calling the <a href="https://docs.microsoft.com/windows/desktop/api/tokenbinding/nf-tokenbinding-tokenbindinggetkeytypesclient">TokenBindingGetKeyTypesClient</a> function.
      * @param {PWSTR} targetURL The target string to use in conjunction with the key type  to generate or retrieve a token binding key for the NCrypt operations that build the buffer for the <i>tokenBinding</i> parameter.
-     * @param {Integer} bindingType The type of token binding that <b>TokenBindingGenerateBinding</b> should generate.
-     * @param {Pointer} tlsEKM A pointer to the buffer that contains unique data.
+     * @param {TOKENBINDING_TYPE} bindingType The type of token binding that <b>TokenBindingGenerateBinding</b> should generate.
+     * @param {Integer} tlsEKM A pointer to the buffer that contains unique data.
      * @param {Integer} tlsEKMSize The size of the buffer that the <i>tlsUnique</i> parameter points to, in bytes.
-     * @param {Integer} extensionFormat The format to use to interpret the data in the <i>extensionData</i> parameter. This value must be <b>TOKENBINDING_EXTENSION_FORMAT_UNDEFINED</b>.
+     * @param {TOKENBINDING_EXTENSION_FORMAT} extensionFormat The format to use to interpret the data in the <i>extensionData</i> parameter. This value must be <b>TOKENBINDING_EXTENSION_FORMAT_UNDEFINED</b>.
      * @param {Pointer<Void>} extensionData A pointer to a buffer that contains extension data. The value of the <i>extensionFormat</i> parameter determines how to interpret this data.
      * @param {Pointer<Pointer<Void>>} tokenBinding A pointer that receives the address of the token binding buffer. Use the <a href="https://docs.microsoft.com/windows/desktop/api/heapapi/nf-heapapi-heapalloc">HeapAlloc</a> function to allocate the memory for this buffer, and the <a href="https://docs.microsoft.com/windows/desktop/api/heapapi/nf-heapapi-heapfree">HeapFree</a> function to free that memory.
      * @param {Pointer<Integer>} tokenBindingSize Pointer to a variable that receives the size of the buffer allocated for the <i>tokenBinding</i> parameter, in bytes.
@@ -16335,10 +16380,10 @@ class Identity {
      * Validates the token binding message and verifies the token bindings that the message contains.
      * @remarks
      * You can call <b>TokenBindingVerifyMessage</b> from both user mode and kernel mode. o call this function in kernel mode,  link to Ksecdd.sys, and use the functions mentioned in the description for the <i>resultList</i> parameter for allocating and freeing memory.
-     * @param {Pointer} tokenBindingMessage A pointer to the buffer that contains the token binding message.
+     * @param {Integer} tokenBindingMessage A pointer to the buffer that contains the token binding message.
      * @param {Integer} tokenBindingMessageSize The size of the buffer that the <i>tokenBindingMessage</i> parameter points to, in bytes.
-     * @param {Integer} keyType The negotiated key algorithm to use. Use a value from the list of key types that you retrieved by calling the <a href="https://docs.microsoft.com/windows/desktop/api/tokenbinding/nf-tokenbinding-tokenbindinggetkeytypesserver">TokenBindingGetKeyTypesServer</a> function.
-     * @param {Pointer} tlsEKM A pointer to a buffer that contains unique data.
+     * @param {TOKENBINDING_KEY_PARAMETERS_TYPE} keyType The negotiated key algorithm to use. Use a value from the list of key types that you retrieved by calling the <a href="https://docs.microsoft.com/windows/desktop/api/tokenbinding/nf-tokenbinding-tokenbindinggetkeytypesserver">TokenBindingGetKeyTypesServer</a> function.
+     * @param {Integer} tlsEKM A pointer to a buffer that contains unique data.
      * @param {Integer} tlsEKMSize The size of the buffer that the <i>tlsUnique</i> parameter points to, in bytes.
      * @returns {Pointer<TOKENBINDING_RESULT_LIST>} A pointer that receives the address for the buffer that contains the results for each of the token bindings that <b>TokenBindingVerifyMessage</b>   verifies.
      * 
@@ -16412,8 +16457,8 @@ class Identity {
      * Constructs the token binding identifier by extracting the signature algorithm from the key type and copying the exported public key.
      * @remarks
      * You can call <b>TokenBindingGenerateID</b> from user mode.
-     * @param {Integer} keyType The negotiated key type to use. Use a value from the list of key types that you retrieved by calling the <a href="https://docs.microsoft.com/windows/desktop/api/tokenbinding/nf-tokenbinding-tokenbindinggetkeytypesclient">TokenBindingGetKeyTypesClient</a> function.
-     * @param {Pointer} publicKey An exported public key blob.
+     * @param {TOKENBINDING_KEY_PARAMETERS_TYPE} keyType The negotiated key type to use. Use a value from the list of key types that you retrieved by calling the <a href="https://docs.microsoft.com/windows/desktop/api/tokenbinding/nf-tokenbinding-tokenbindinggetkeytypesclient">TokenBindingGetKeyTypesClient</a> function.
+     * @param {Integer} publicKey An exported public key blob.
      * @param {Integer} publicKeySize The size of the exported public key blob.
      * @returns {Pointer<TOKENBINDING_RESULT_DATA>} A pointer that receives the address of the buffer that is allocated for the token binding result data.  The token binding result data contains the token binding identifier. 
      * 
@@ -16428,7 +16473,7 @@ class Identity {
 
     /**
      * 
-     * @param {Integer} keyType 
+     * @param {TOKENBINDING_KEY_PARAMETERS_TYPE} keyType 
      * @param {PWSTR} targetUri 
      * @returns {Pointer<TOKENBINDING_RESULT_DATA>} 
      */
@@ -16458,7 +16503,7 @@ class Identity {
      * @remarks
      * > [!NOTE]
      * > The secext.h header defines GetUserNameEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Integer} NameFormat The format of the name. This parameter is a value from the 
+     * @param {EXTENDED_NAME_FORMAT} NameFormat The format of the name. This parameter is a value from the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/secext/ne-secext-extended_name_format">EXTENDED_NAME_FORMAT</a> enumeration type. It cannot be <b>NameUnknown</b>. If the user account is not in a domain, only <b>NameSamCompatible</b> is supported.
      * @param {PSTR} lpNameBuffer A pointer to a buffer that receives the name in the specified format. The buffer must include space for the terminating null character.
      * @param {Pointer<Integer>} nSize On input, this variable specifies the size of the <i>lpNameBuffer</i> buffer, in <b>TCHARs</b>. If the function is successful, the variable receives the number of <b>TCHARs</b> copied to the buffer, not including the terminating null character. 
@@ -16534,7 +16579,7 @@ class Identity {
      * @remarks
      * > [!NOTE]
      * > The secext.h header defines GetUserNameEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Integer} NameFormat The format of the name. This parameter is a value from the 
+     * @param {EXTENDED_NAME_FORMAT} NameFormat The format of the name. This parameter is a value from the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/secext/ne-secext-extended_name_format">EXTENDED_NAME_FORMAT</a> enumeration type. It cannot be <b>NameUnknown</b>. If the user account is not in a domain, only <b>NameSamCompatible</b> is supported.
      * @param {PWSTR} lpNameBuffer A pointer to a buffer that receives the name in the specified format. The buffer must include space for the terminating null character.
      * @param {Pointer<Integer>} nSize On input, this variable specifies the size of the <i>lpNameBuffer</i> buffer, in <b>TCHARs</b>. If the function is successful, the variable receives the number of <b>TCHARs</b> copied to the buffer, not including the terminating null character. 
@@ -16610,7 +16655,7 @@ class Identity {
      * @remarks
      * > [!NOTE]
      * > The secext.h header defines GetComputerObjectName as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Integer} NameFormat The format for the name. This parameter is a value from the 
+     * @param {EXTENDED_NAME_FORMAT} NameFormat The format for the name. This parameter is a value from the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/secext/ne-secext-extended_name_format">EXTENDED_NAME_FORMAT</a> enumeration type. It cannot be NameUnknown.
      * @param {PSTR} lpNameBuffer A pointer to a buffer that receives the name in the specified format. 
      * 
@@ -16646,7 +16691,7 @@ class Identity {
      * @remarks
      * > [!NOTE]
      * > The secext.h header defines GetComputerObjectName as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Integer} NameFormat The format for the name. This parameter is a value from the 
+     * @param {EXTENDED_NAME_FORMAT} NameFormat The format for the name. This parameter is a value from the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/secext/ne-secext-extended_name_format">EXTENDED_NAME_FORMAT</a> enumeration type. It cannot be NameUnknown.
      * @param {PWSTR} lpNameBuffer A pointer to a buffer that receives the name in the specified format. 
      * 
@@ -16689,9 +16734,9 @@ class Identity {
      * > [!NOTE]
      * > The secext.h header defines TranslateName as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PSTR} lpAccountName The name to be translated.
-     * @param {Integer} AccountNameFormat The format of the name to be translated. This parameter is a value from the 
+     * @param {EXTENDED_NAME_FORMAT} AccountNameFormat The format of the name to be translated. This parameter is a value from the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/secext/ne-secext-extended_name_format">EXTENDED_NAME_FORMAT</a> enumeration type.
-     * @param {Integer} DesiredNameFormat The format of the converted name. This parameter is a value from the 
+     * @param {EXTENDED_NAME_FORMAT} DesiredNameFormat The format of the converted name. This parameter is a value from the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/secext/ne-secext-extended_name_format">EXTENDED_NAME_FORMAT</a> enumeration type. It cannot be NameUnknown.
      * @param {PSTR} lpTranslatedName A pointer to a buffer that receives the converted name.
      * @param {Pointer<Integer>} nSize On input, the variable indicates the size of the <i>lpTranslatedName</i> buffer, in <b>TCHARs</b>. On output, the variable returns the size of the returned string, in <b>TCHARs</b>, including the terminating <b>null</b> character. 
@@ -16737,9 +16782,9 @@ class Identity {
      * > [!NOTE]
      * > The secext.h header defines TranslateName as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PWSTR} lpAccountName The name to be translated.
-     * @param {Integer} AccountNameFormat The format of the name to be translated. This parameter is a value from the 
+     * @param {EXTENDED_NAME_FORMAT} AccountNameFormat The format of the name to be translated. This parameter is a value from the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/secext/ne-secext-extended_name_format">EXTENDED_NAME_FORMAT</a> enumeration type.
-     * @param {Integer} DesiredNameFormat The format of the converted name. This parameter is a value from the 
+     * @param {EXTENDED_NAME_FORMAT} DesiredNameFormat The format of the converted name. This parameter is a value from the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/secext/ne-secext-extended_name_format">EXTENDED_NAME_FORMAT</a> enumeration type. It cannot be NameUnknown.
      * @param {PWSTR} lpTranslatedName A pointer to a buffer that receives the converted name.
      * @param {Pointer<Integer>} nSize On input, the variable indicates the size of the <i>lpTranslatedName</i> buffer, in <b>TCHARs</b>. On output, the variable returns the size of the returned string, in <b>TCHARs</b>, including the terminating <b>null</b> character. 
@@ -16837,7 +16882,7 @@ class Identity {
      * @param {Integer} cbPKeySpecificData Type: <b>UINT</b>
      * 
      * The size, in bytes, of product key specific data. If there is no PKey specific data, set <i>cbPKeySpecificData</i> to 0.
-     * @param {Pointer} pbPKeySpecificData Type: <b>PBYTE</b>
+     * @param {Integer} pbPKeySpecificData Type: <b>PBYTE</b>
      * 
      * A pointer to the product key specific data. If there is no PKey specific data, set <i>pbPKeySpecificData</i> to <b>NULL</b>.
      * @param {Pointer<Guid>} pPkeyId Type: <b>SLID*</b>
@@ -17022,7 +17067,7 @@ class Identity {
      * @param {Integer} cbLicenseBlob Type: <b>UINT</b>
      * 
      * Size of license BLOB.
-     * @param {Pointer} pbLicenseBlob Type: <b>const BYTE*</b>
+     * @param {Integer} pbLicenseBlob Type: <b>const BYTE*</b>
      * 
      * A pointer to the licenses in the BLOB.
      * @param {Pointer<Guid>} pLicenseFileId Type: <b>SLID*</b>
@@ -17299,7 +17344,7 @@ class Identity {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Integer>} peDataType Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/slpublic/ne-slpublic-sldatatype">SLDATATYPE</a>*</b>
+     * @param {Pointer<SLDATATYPE>} peDataType Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/slpublic/ne-slpublic-sldatatype">SLDATATYPE</a>*</b>
      * 
      * A pointer to a value of the <a href="https://docs.microsoft.com/windows/desktop/api/slpublic/ne-slpublic-sldatatype">SLDATATYPE</a> enumeration that specifies the type of data in the <i>ppbValue</i> buffer.
      * 
@@ -17471,7 +17516,7 @@ class Identity {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Integer>} peDataType Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/slpublic/ne-slpublic-sldatatype">SLDATATYPE</a>*</b>
+     * @param {Pointer<SLDATATYPE>} peDataType Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/slpublic/ne-slpublic-sldatatype">SLDATATYPE</a>*</b>
      * 
      * The data type.
      * 
@@ -17633,7 +17678,7 @@ class Identity {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Integer>} peDataType Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/slpublic/ne-slpublic-sldatatype">SLDATATYPE</a>*</b>
+     * @param {Pointer<SLDATATYPE>} peDataType Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/slpublic/ne-slpublic-sldatatype">SLDATATYPE</a>*</b>
      * 
      * A pointer to a value of the <a href="https://docs.microsoft.com/windows/desktop/api/slpublic/ne-slpublic-sldatatype">SLDATATYPE</a> enumeration that specifies the type of data in the <i>ppbValue</i> buffer. Acceptable values are:
      * 
@@ -17938,7 +17983,7 @@ class Identity {
      * @param {PWSTR} pwszValueName Type: <b>PCWSTR</b>
      * 
      * The policy name.
-     * @param {Pointer<Integer>} peDataType Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/slpublic/ne-slpublic-sldatatype">SLDATATYPE</a>*</b>
+     * @param {Pointer<SLDATATYPE>} peDataType Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/slpublic/ne-slpublic-sldatatype">SLDATATYPE</a>*</b>
      * 
      * A pointer to a value of the <a href="https://docs.microsoft.com/windows/desktop/api/slpublic/ne-slpublic-sldatatype">SLDATATYPE</a> enumeration that specifies the type of data in the <i>ppbValue</i> buffer.
      * 
@@ -18143,7 +18188,7 @@ class Identity {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Integer>} peDataType Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/slpublic/ne-slpublic-sldatatype">SLDATATYPE</a>*</b>
+     * @param {Pointer<SLDATATYPE>} peDataType Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/slpublic/ne-slpublic-sldatatype">SLDATATYPE</a>*</b>
      * 
      * A pointer to a value of the <a href="https://docs.microsoft.com/windows/desktop/api/slpublic/ne-slpublic-sldatatype">SLDATATYPE</a> enumeration that specifies the type of data in the <i>ppbValue</i> buffer.
      * 
@@ -18390,7 +18435,7 @@ class Identity {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Integer>} peDataType Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/slpublic/ne-slpublic-sldatatype">SLDATATYPE</a>*</b>
+     * @param {Pointer<SLDATATYPE>} peDataType Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/slpublic/ne-slpublic-sldatatype">SLDATATYPE</a>*</b>
      * 
      * A pointer to a value of the <a href="https://docs.microsoft.com/windows/desktop/api/slpublic/ne-slpublic-sldatatype">SLDATATYPE</a> enumeration that specifies the type of data in the ppbValue buffer.  The following values are valid.
      * 
@@ -18820,7 +18865,7 @@ class Identity {
      * @param {PWSTR} pwszPKeyAlgorithm The product key algorithm.
      * @param {PWSTR} pwszPKeyString The product key string.
      * @param {Integer} cbPKeySpecificData The size, in bytes, of the product key specific data. If there is no PKey specific data, set <i>cbPKeySpecificData</i> to 0.
-     * @param {Pointer} pbPKeySpecificData A pointer to the product key specific data. If there is no PKey specific data, set <i>pbPKeySpecificData</i> to <b>NULL</b>.
+     * @param {Integer} pbPKeySpecificData A pointer to the product key specific data. If there is no PKey specific data, set <i>pbPKeySpecificData</i> to <b>NULL</b>.
      * @param {Pointer<Guid>} pPKeyId A pointer to the product key ID.
      * @returns {HRESULT} If this function succeeds, it return <b>S_OK</b>.  Otherwise,  it returns an <b>HRESULT</b> error code.
      * 
@@ -19185,13 +19230,13 @@ class Identity {
      * @param {Pointer<Void>} hSLC Type: <b>HSLC</b>
      * 
      * The handle to the current SLC context.
-     * @param {Integer} eQueryIdType Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/slpublic/ne-slpublic-slidtype">SLIDTYPE</a></b>
+     * @param {SLIDTYPE} eQueryIdType Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/slpublic/ne-slpublic-slidtype">SLIDTYPE</a></b>
      * 
      * The type of input ID.
      * @param {Pointer<Guid>} pQueryId Type: <b>const SLID*</b>
      * 
      * A pointer to the input ID.
-     * @param {Integer} eReturnIdType Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/slpublic/ne-slpublic-slidtype">SLIDTYPE</a></b>
+     * @param {SLIDTYPE} eReturnIdType Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/slpublic/ne-slpublic-slidtype">SLIDTYPE</a></b>
      * 
      * The type of returned IDs.
      * @param {Pointer<Integer>} pnReturnIds Type: <b>UINT*</b>
@@ -19262,7 +19307,7 @@ class Identity {
      * Checks if the license BLOB has been installed already.
      * @param {Pointer<Void>} hSLC The handle to the current SLC context.
      * @param {Integer} cbLicenseBlob The size, in bytes, of the license BLOB.
-     * @param {Pointer} pbLicenseBlob A pointer to the number of licenses in the BLOB.
+     * @param {Integer} pbLicenseBlob A pointer to the number of licenses in the BLOB.
      * @param {Pointer<Guid>} pLicenseFileId A pointer to the license file ID.
      * @returns {HRESULT} If the License has been previously installed, it returns a <b>SLID</b>.  Otherwise,  it returns an <b>HRESULT</b> error code.
      * 
@@ -19572,7 +19617,7 @@ class Identity {
     /**
      * Retrieves the value portion of a name-value pair from the licensing policy of a software component.
      * @param {PWSTR} pwszValueName A pointer to a null-terminated string that contains the name associated with the value to retrieve.
-     * @param {Pointer<Integer>} peDataType A pointer to a value of the <a href="https://docs.microsoft.com/windows/desktop/api/slpublic/ne-slpublic-sldatatype">SLDATATYPE</a> enumeration that specifies the type of data in the <i>ppbValue</i> buffer.
+     * @param {Pointer<SLDATATYPE>} peDataType A pointer to a value of the <a href="https://docs.microsoft.com/windows/desktop/api/slpublic/ne-slpublic-sldatatype">SLDATATYPE</a> enumeration that specifies the type of data in the <i>ppbValue</i> buffer.
      * @param {Pointer<Integer>} pcbValue A pointer to the size, in bytes, of the <i>ppbValue</i> buffer.
      * @param {Pointer<Pointer<Integer>>} ppbValue A pointer to an array of <b>BYTE</b> pointers that specifies the value associated with the name specified by the <i>pwszValueName</i> parameter.
      * 
@@ -19647,7 +19692,7 @@ class Identity {
      * This function checks the <b>Tampered</b> flag of the license associated with the specified application. If the license is not valid, or if the <b>Tampered</b> flag of the license is set, the installation is not considered valid.
      * @param {Pointer<Guid>} pAppId A pointer to an <b>SLID</b> structure that specifies the application to check.
      * @param {Pointer<SL_NONGENUINE_UI_OPTIONS>} pUIOptions A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/slpublic/ns-slpublic-sl_nongenuine_ui_options">SL_NONGENUINE_UI_OPTIONS</a> structure that specifies a dialog box to display if the installation is not genuine. If the value of this parameter is <b>NULL</b>, no dialog box is displayed.
-     * @returns {Integer} A pointer to a value of the <a href="https://docs.microsoft.com/windows/desktop/api/slpublic/ne-slpublic-sl_genuine_state">SL_GENUINE_STATE</a> enumeration that specifies the state of the installation.
+     * @returns {SL_GENUINE_STATE} A pointer to a value of the <a href="https://docs.microsoft.com/windows/desktop/api/slpublic/ne-slpublic-sl_genuine_state">SL_GENUINE_STATE</a> enumeration that specifies the state of the installation.
      * @see https://learn.microsoft.com/windows/win32/api/slpublic/nf-slpublic-slisgenuinelocal
      * @since windows6.0.6000
      */
@@ -19712,9 +19757,9 @@ class Identity {
      * </td>
      * </tr>
      * </table>
-     * @param {Integer} eDataType A pointer to a value of the <a href="https://docs.microsoft.com/windows/desktop/api/slpublic/ne-slpublic-sldatatype">SLDATATYPE</a> enumeration that specifies the type of data in the <i>pbValue</i> buffer.
+     * @param {SLDATATYPE} eDataType A pointer to a value of the <a href="https://docs.microsoft.com/windows/desktop/api/slpublic/ne-slpublic-sldatatype">SLDATATYPE</a> enumeration that specifies the type of data in the <i>pbValue</i> buffer.
      * @param {Integer} cbValue A pointer to the size, in bytes, of the <i>pbValue</i> buffer.
-     * @param {Pointer} pbValue A pointer to an array of <b>BYTE</b> values that specify the value associated with the name specified by the <i>pwszValueName</i> parameter.
+     * @param {Integer} pbValue A pointer to an array of <b>BYTE</b> values that specify the value associated with the name specified by the <i>pwszValueName</i> parameter.
      * 
      * Some name-value pairs allow this parameter to be <b>NULL</b>. In this case, the existing value of the name-value pair is deleted.
      * 
@@ -19818,7 +19863,7 @@ class Identity {
      * @param {Pointer<Void>} hSLC Type: <b>HSLC</b>
      * 
      * The handle retrieved by previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/slpublic/nf-slpublic-slopen">SLOpen</a> function.
-     * @param {Integer} eReferralType Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/slpublic/ne-slpublic-slreferraltype">SLREFERRALTYPE</a></b>
+     * @param {SLREFERRALTYPE} eReferralType Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/slpublic/ne-slpublic-slreferraltype">SLREFERRALTYPE</a></b>
      * 
      * The referral type.
      * @param {Pointer<Guid>} pSkuOrAppId Type: <b>const SLID*</b>
@@ -20010,7 +20055,7 @@ class Identity {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Integer>} peDataType A pointer to a value of the <a href="https://docs.microsoft.com/windows/desktop/api/slpublic/ne-slpublic-sldatatype">SLDATATYPE</a> enumeration that specifies the type of data in the <i>ppbValue</i> buffer.
+     * @param {Pointer<SLDATATYPE>} peDataType A pointer to a value of the <a href="https://docs.microsoft.com/windows/desktop/api/slpublic/ne-slpublic-sldatatype">SLDATATYPE</a> enumeration that specifies the type of data in the <i>ppbValue</i> buffer.
      * @param {Pointer<Integer>} pcbValue A pointer to the size, in bytes, of the <i>ppbValue</i> buffer.
      * @param {Pointer<Pointer<Integer>>} ppbValue The address of a pointer to an array of <b>BYTE</b> pointers that specifies the value associated with the name specified by the <i>pwszValueName</i> parameter.
      * 
@@ -20069,7 +20114,7 @@ class Identity {
      * Gets the value for the specified component policy.
      * @remarks
      * Your app must have the restricted slapiQueryLicenseValue capability to call the <b>SLQueryLicenseValueFromApp</b> function.
-     * @param {PWSTR} _valueName 
+     * @param {PWSTR} _valueName The name of the policy for which you want to get information.
      * @param {Pointer<Integer>} valueType The data type of the policy value. The following table describes the values that this parameter can 
      *        receive.
      * 
@@ -20092,7 +20137,7 @@ class Identity {
      * <td>A wide-character, null-terminated string, including the last null character.</td>
      * </tr>
      * </table>
-     * @param {Pointer} dataBuffer A buffer that receives the value of the component policy.
+     * @param {Integer} dataBuffer A buffer that receives the value of the component policy.
      * @param {Integer} dataSize The size of the supplied buffer, in bytes.
      * @param {Pointer<Integer>} resultDataSize The actual size of the data received for the policy value, in bytes.
      * @returns {HRESULT} If this function succeeds, it return <b>S_OK</b>.  Otherwise, it returns an 

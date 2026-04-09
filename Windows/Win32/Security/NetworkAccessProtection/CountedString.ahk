@@ -5,10 +5,8 @@
  * Defines a null-terminated string with a defined length.
  * @see https://learn.microsoft.com/windows/win32/api/naptypes/ns-naptypes-countedstring
  * @namespace Windows.Win32.Security.NetworkAccessProtection
- * @version v4.0.30319
  */
-class CountedString extends Win32Struct
-{
+class CountedString extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

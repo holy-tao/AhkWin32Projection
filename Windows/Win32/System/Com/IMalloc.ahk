@@ -7,9 +7,8 @@
  * The IMalloc (objidlbase.h) interface allocates, frees, and manages memory.
  * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nn-objidlbase-imalloc
  * @namespace Windows.Win32.System.Com
- * @version v4.0.30319
  */
-class IMalloc extends IUnknown{
+class IMalloc extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

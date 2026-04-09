@@ -1,18 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\ISchemaParticle.ahk
 #Include .\ISchemaType.ahk
 #Include .\ISchemaComplexType.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
 #Include .\ISchemaItemCollection.ahk
-#Include .\ISchemaElement.ahk
-#Include .\ISchemaParticle.ahk
 
 /**
  * @namespace Windows.Win32.Data.Xml.MsXml
- * @version v4.0.30319
  */
-class ISchemaElement extends ISchemaParticle{
+class ISchemaElement extends ISchemaParticle {
 
     static sizeof => A_PtrSize
     /**
@@ -83,14 +81,14 @@ class ISchemaElement extends ISchemaParticle{
     }
 
     /**
-     * @type {Integer} 
+     * @type {SCHEMADERIVATIONMETHOD} 
      */
     substitutionGroupExclusions {
         get => this.get_substitutionGroupExclusions()
     }
 
     /**
-     * @type {Integer} 
+     * @type {SCHEMADERIVATIONMETHOD} 
      */
     disallowedSubstitutions {
         get => this.get_disallowedSubstitutions()
@@ -177,7 +175,7 @@ class ISchemaElement extends ISchemaParticle{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {SCHEMADERIVATIONMETHOD} 
      */
     get_substitutionGroupExclusions() {
         result := ComCall(23, this, "int*", &exclusions := 0, "HRESULT")
@@ -186,7 +184,7 @@ class ISchemaElement extends ISchemaParticle{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {SCHEMADERIVATIONMETHOD} 
      */
     get_disallowedSubstitutions() {
         result := ComCall(24, this, "int*", &disallowed := 0, "HRESULT")

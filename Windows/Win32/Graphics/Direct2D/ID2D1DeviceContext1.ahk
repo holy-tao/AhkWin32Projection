@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ID2D1GeometryRealization.ahk
 #Include .\ID2D1DeviceContext.ahk
+#Include .\ID2D1GeometryRealization.ahk
 
 /**
  * Enables creation and drawing of geometry realization objects.
  * @see https://learn.microsoft.com/windows/win32/api/d2d1_2/nn-d2d1_2-id2d1devicecontext1
  * @namespace Windows.Win32.Graphics.Direct2D
- * @version v4.0.30319
  */
-class ID2D1DeviceContext1 extends ID2D1DeviceContext{
+class ID2D1DeviceContext1 extends ID2D1DeviceContext {
 
     static sizeof => A_PtrSize
     /**

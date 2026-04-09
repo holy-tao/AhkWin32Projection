@@ -1,14 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\WSD_ENDPOINT_REFERENCE.ahk
+#Include .\WSD_EVENTING_EXPIRES.ahk
+#Include .\WSDXML_ELEMENT.ahk
 
 /**
  * Represents a WS-Eventing Subscribe response message.
  * @see https://learn.microsoft.com/windows/win32/api/wsdtypes/ns-wsdtypes-responsebody_subscribe
  * @namespace Windows.Win32.Devices.WebServicesOnDevices
- * @version v4.0.30319
  */
-class RESPONSEBODY_Subscribe extends Win32Struct
-{
+class RESPONSEBODY_Subscribe extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -32,7 +33,6 @@ class RESPONSEBODY_Subscribe extends Win32Struct
     }
 
     /**
-     * 
      * @type {Pointer<WSDXML_ELEMENT>}
      */
     any {

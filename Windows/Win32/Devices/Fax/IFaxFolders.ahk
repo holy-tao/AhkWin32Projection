@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include .\IFaxOutgoingQueue.ahk
 #Include .\IFaxIncomingQueue.ahk
 #Include .\IFaxIncomingArchive.ahk
 #Include .\IFaxOutgoingArchive.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * The IFaxFolders interface defines a configuration object used by a fax client application to access the folders, queued jobs, and archived messages on a fax server.
@@ -13,9 +13,8 @@
  * A default implementation of <b>IFaxFolders</b> is provided as the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxfolders">FaxFolders</a> object.
  * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nn-faxcomex-ifaxfolders
  * @namespace Windows.Win32.Devices.Fax
- * @version v4.0.30319
  */
-class IFaxFolders extends IDispatch{
+class IFaxFolders extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

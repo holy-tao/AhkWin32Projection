@@ -5,9 +5,8 @@
  * Enumeration of Error states returned by the function KeyCredentialManagerGetOperationErrorStates as flags.
  * @see https://learn.microsoft.com/windows/win32/api/keycredmgr/ne-keycredmgr-keycredentialmanageroperationerrorstates
  * @namespace Windows.Win32.Security.Credentials
- * @version v4.0.30319
  */
-class KeyCredentialManagerOperationErrorStates extends Win32BitflagEnum{
+class KeyCredentialManagerOperationErrorStates extends Win32BitflagEnum {
 
     /**
      * No Error  equivalent to ERROR_SUCCESS.

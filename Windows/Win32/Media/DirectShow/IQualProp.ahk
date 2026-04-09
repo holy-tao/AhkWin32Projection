@@ -7,9 +7,8 @@
  * The IQualProp interface provides methods for retrieving performance information from video renderers.
  * @see https://learn.microsoft.com/windows/win32/api/amvideo/nn-amvideo-iqualprop
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IQualProp extends IUnknown{
+class IQualProp extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

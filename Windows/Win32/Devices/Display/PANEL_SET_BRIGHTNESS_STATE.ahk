@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.Display
- * @version v4.0.30319
  */
-class PANEL_SET_BRIGHTNESS_STATE extends Win32Struct
-{
+class PANEL_SET_BRIGHTNESS_STATE extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 4

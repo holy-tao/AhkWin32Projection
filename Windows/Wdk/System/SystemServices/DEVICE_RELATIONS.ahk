@@ -1,12 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\DEVICE_OBJECT.ahk
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class DEVICE_RELATIONS extends Win32Struct
-{
+class DEVICE_RELATIONS extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
@@ -20,9 +19,9 @@ class DEVICE_RELATIONS extends Win32Struct
     }
 
     /**
-     * @type {Array<DEVICE_OBJECT>}
+     * @type {Array<Pointer<DEVICE_OBJECT>>}
      */
-    Objects{
+    Objects {
         get {
             if(!this.HasProp("__ObjectsProxyArray"))
                 this.__ObjectsProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "ptr")

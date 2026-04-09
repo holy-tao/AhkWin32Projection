@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IHTMLElementDefaults.ahk
 #Include .\IElementBehaviorSiteOM.ahk
+#Include .\IHTMLElementDefaults.ahk
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
- * @version v4.0.30319
  */
-class IElementBehaviorSiteOM2 extends IElementBehaviorSiteOM{
+class IElementBehaviorSiteOM2 extends IElementBehaviorSiteOM {
 
     static sizeof => A_PtrSize
     /**

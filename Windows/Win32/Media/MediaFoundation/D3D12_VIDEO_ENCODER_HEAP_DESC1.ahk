@@ -1,14 +1,21 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\D3D12_VIDEO_ENCODER_HEAP_FLAGS.ahk
+#Include .\D3D12_VIDEO_ENCODER_CODEC.ahk
 #Include .\D3D12_VIDEO_ENCODER_PROFILE_DESC.ahk
+#Include .\D3D12_VIDEO_ENCODER_PROFILE_H264.ahk
+#Include .\D3D12_VIDEO_ENCODER_PROFILE_HEVC.ahk
+#Include .\D3D12_VIDEO_ENCODER_AV1_PROFILE.ahk
 #Include .\D3D12_VIDEO_ENCODER_LEVEL_SETTING.ahk
+#Include .\D3D12_VIDEO_ENCODER_LEVELS_H264.ahk
+#Include .\D3D12_VIDEO_ENCODER_LEVEL_TIER_CONSTRAINTS_HEVC.ahk
+#Include .\D3D12_VIDEO_ENCODER_AV1_LEVEL_TIER_CONSTRAINTS.ahk
+#Include .\D3D12_VIDEO_ENCODER_PICTURE_RESOLUTION_DESC.ahk
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class D3D12_VIDEO_ENCODER_HEAP_DESC1 extends Win32Struct
-{
+class D3D12_VIDEO_ENCODER_HEAP_DESC1 extends Win32Struct {
     static sizeof => 72
 
     static packingSize => 8
@@ -22,7 +29,7 @@ class D3D12_VIDEO_ENCODER_HEAP_DESC1 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {D3D12_VIDEO_ENCODER_HEAP_FLAGS}
      */
     Flags {
         get => NumGet(this, 4, "int")
@@ -30,7 +37,7 @@ class D3D12_VIDEO_ENCODER_HEAP_DESC1 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {D3D12_VIDEO_ENCODER_CODEC}
      */
     EncodeCodec {
         get => NumGet(this, 8, "int")
@@ -40,7 +47,7 @@ class D3D12_VIDEO_ENCODER_HEAP_DESC1 extends Win32Struct
     /**
      * @type {D3D12_VIDEO_ENCODER_PROFILE_DESC}
      */
-    EncodeProfile{
+    EncodeProfile {
         get {
             if(!this.HasProp("__EncodeProfile"))
                 this.__EncodeProfile := D3D12_VIDEO_ENCODER_PROFILE_DESC(16, this)
@@ -51,7 +58,7 @@ class D3D12_VIDEO_ENCODER_HEAP_DESC1 extends Win32Struct
     /**
      * @type {D3D12_VIDEO_ENCODER_LEVEL_SETTING}
      */
-    EncodeLevel{
+    EncodeLevel {
         get {
             if(!this.HasProp("__EncodeLevel"))
                 this.__EncodeLevel := D3D12_VIDEO_ENCODER_LEVEL_SETTING(32, this)

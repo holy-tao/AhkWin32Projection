@@ -20,9 +20,8 @@
  * so that a thumbnail may be extracted.
  * @see https://learn.microsoft.com/windows/win32/api/thumbcache/nn-thumbcache-ithumbnailcache
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IThumbnailCache extends IUnknown{
+class IThumbnailCache extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -83,13 +82,13 @@ class IThumbnailCache extends IUnknown{
      * @param {Integer} cxyRequestedThumbSize Type: <b>UINT</b>
      * 
      * The requested thumbnail size in pixels. The maximum value is 1024.
-     * @param {Integer} flags Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/thumbcache/ne-thumbcache-wts_flags">WTS_FLAGS</a></b>
+     * @param {WTS_FLAGS} flags Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/thumbcache/ne-thumbcache-wts_flags">WTS_FLAGS</a></b>
      * 
      * A combination of values from the <a href="https://docs.microsoft.com/windows/desktop/api/thumbcache/ne-thumbcache-wts_flags">WTS_FLAGS</a> enumeration. See the Remarks section for rules and a list of possible combinations.
      * @param {Pointer<ISharedBitmap>} ppvThumb Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/thumbcache/nn-thumbcache-isharedbitmap">ISharedBitmap</a>**</b>
      * 
      * The address of an <a href="https://docs.microsoft.com/windows/desktop/api/thumbcache/nn-thumbcache-isharedbitmap">ISharedBitmap</a> pointer that, when this method returns successfully, receives the object used to access the thumbnail. This parameter may be <b>NULL</b>.
-     * @param {Pointer<Integer>} pOutFlags Type: <b>WTS_CACHEFLAGS*</b>
+     * @param {Pointer<WTS_CACHEFLAGS>} pOutFlags Type: <b>WTS_CACHEFLAGS*</b>
      * 
      * A pointer to a value that, when this method returns successfully, receives a combination of the following flags from the WTS_CACHEFLAGS enumeration.
      * @param {Pointer<WTS_THUMBNAILID>} pThumbnailID Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/thumbcache/ns-thumbcache-wts_thumbnailid">WTS_THUMBNAILID</a>*</b>
@@ -182,7 +181,7 @@ class IThumbnailCache extends IUnknown{
      * @param {Pointer<ISharedBitmap>} ppvThumb Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/thumbcache/nn-thumbcache-isharedbitmap">ISharedBitmap</a>**</b>
      * 
      * The address of a <a href="https://docs.microsoft.com/windows/desktop/api/thumbcache/nn-thumbcache-isharedbitmap">ISharedBitmap</a> interface pointer that, when this method returns successfully, receives the object for accessing the requested thumbnail. This parameter can be <b>NULL</b>.
-     * @param {Pointer<Integer>} pOutFlags Type: <b>WTS_CACHEFLAGS*</b>
+     * @param {Pointer<WTS_CACHEFLAGS>} pOutFlags Type: <b>WTS_CACHEFLAGS*</b>
      * 
      * A pointer to a value that, when this method returns successfully, receives a combination of the following flags. This value can be set to <b>NULL</b> if this information is not needed.
      * @returns {HRESULT} Type: <b>HRESULT</b>

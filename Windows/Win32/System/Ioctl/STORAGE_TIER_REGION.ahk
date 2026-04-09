@@ -3,16 +3,14 @@
 
 /**
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class STORAGE_TIER_REGION extends Win32Struct
-{
+class STORAGE_TIER_REGION extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     TierId {
         get => NumGet(this, 0, "ptr")

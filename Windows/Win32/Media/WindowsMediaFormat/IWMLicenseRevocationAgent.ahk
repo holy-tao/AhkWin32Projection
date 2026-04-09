@@ -9,9 +9,8 @@
  * License revocation enables a license issuer to remove licenses from a computer.
  * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nn-wmsdkidl-iwmlicenserevocationagent
  * @namespace Windows.Win32.Media.WindowsMediaFormat
- * @version v4.0.30319
  */
-class IWMLicenseRevocationAgent extends IUnknown{
+class IWMLicenseRevocationAgent extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

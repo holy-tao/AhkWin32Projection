@@ -9,9 +9,8 @@
  * Use <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nf-d3d12-d3d12createdevice">D3D12CreateDevice</a> to create a device.
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/nn-d3d12-id3d12device1
  * @namespace Windows.Win32.Graphics.Direct3D12
- * @version v4.0.30319
  */
-class ID3D12Device1 extends ID3D12Device{
+class ID3D12Device1 extends ID3D12Device {
 
     static sizeof => A_PtrSize
     /**
@@ -81,7 +80,7 @@ class ID3D12Device1 extends ID3D12Device{
      * @param {Integer} NumFences Type: <b>UINT</b>
      * 
      * Specifies the number of fences to be included.
-     * @param {Integer} Flags Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_multiple_fence_wait_flags">D3D12_MULTIPLE_FENCE_WAIT_FLAGS</a></b>
+     * @param {D3D12_MULTIPLE_FENCE_WAIT_FLAGS} Flags Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_multiple_fence_wait_flags">D3D12_MULTIPLE_FENCE_WAIT_FLAGS</a></b>
      * 
      * Specifies one  of the <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_multiple_fence_wait_flags">D3D12_MULTIPLE_FENCE_WAIT_FLAGS</a> that determines how to proceed.
      * @param {HANDLE} hEvent Type: <b>HANDLE</b>
@@ -111,7 +110,7 @@ class ID3D12Device1 extends ID3D12Device{
      * @param {Pointer<ID3D12Pageable>} ppObjects Type: <b>ID3D12Pageable*</b>
      * 
      * Specifies an array, of length <i>NumObjects</i>, containing references to <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nn-d3d12-id3d12pageable">ID3D12Pageable</a> objects.
-     * @param {Pointer<Integer>} pPriorities Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_residency_priority">D3D12_RESIDENCY_PRIORITY</a>*</b>
+     * @param {Pointer<D3D12_RESIDENCY_PRIORITY>} pPriorities Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_residency_priority">D3D12_RESIDENCY_PRIORITY</a>*</b>
      * 
      * Specifies an array, of length <i>NumObjects</i>, of <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_residency_priority">D3D12_RESIDENCY_PRIORITY</a> values for the list of objects.
      * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>

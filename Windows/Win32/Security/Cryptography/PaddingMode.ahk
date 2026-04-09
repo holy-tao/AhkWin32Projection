@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class PaddingMode extends Win32Enum{
+class PaddingMode extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

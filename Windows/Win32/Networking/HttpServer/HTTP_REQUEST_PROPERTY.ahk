@@ -7,9 +7,8 @@
  * The **HTTP\_REQUEST\_PROPERTY** enumeration types are used to set or query the configurations on a request. A member of this enumeration together with the associated configuration structure is used by [HttpSetRequestProperty](/windows/desktop/api/http/nf-http-httpsetrequestproperty) to define the configuration parameters.
  * @see https://learn.microsoft.com/windows/win32/api/http/ne-http-http_request_property
  * @namespace Windows.Win32.Networking.HttpServer
- * @version v4.0.30319
  */
-class HTTP_REQUEST_PROPERTY extends Win32Enum{
+class HTTP_REQUEST_PROPERTY extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

@@ -1,10 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\IEnumWIA_DEV_INFO.ahk
 #Include .\IWiaItem2.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * The IWiaDevMgr2 interface is used to create and manage image acquisition devices and to register to receive device events.
@@ -25,9 +24,8 @@
  * | [IUnknown::Release](/windows/win32/api/unknwn/nf-unknwn-iunknown-release)               | Decrements reference count.               |
  * @see https://learn.microsoft.com/windows/win32/wia/-wia-iwiadevmgr2
  * @namespace Windows.Win32.Devices.ImageAcquisition
- * @version v4.0.30319
  */
-class IWiaDevMgr2 extends IUnknown{
+class IWiaDevMgr2 extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

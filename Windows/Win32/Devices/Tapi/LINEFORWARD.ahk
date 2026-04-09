@@ -10,10 +10,8 @@
  * <b>LINEFORWARD</b> structure specifies a forwarding request.
  * @see https://learn.microsoft.com/windows/win32/api/tapi/ns-tapi-lineforward
  * @namespace Windows.Win32.Devices.Tapi
- * @version v4.0.30319
  */
-class LINEFORWARD extends Win32Struct
-{
+class LINEFORWARD extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 4
@@ -38,7 +36,6 @@ class LINEFORWARD extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     dwCallerAddressOffset {

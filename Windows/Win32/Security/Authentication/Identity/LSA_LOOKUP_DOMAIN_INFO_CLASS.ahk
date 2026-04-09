@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class LSA_LOOKUP_DOMAIN_INFO_CLASS extends Win32Enum{
+class LSA_LOOKUP_DOMAIN_INFO_CLASS extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

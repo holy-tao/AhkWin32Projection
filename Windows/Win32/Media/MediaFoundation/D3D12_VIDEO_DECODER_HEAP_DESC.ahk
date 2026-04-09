@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\D3D12_VIDEO_DECODE_CONFIGURATION.ahk
+#Include .\D3D12_BITSTREAM_ENCRYPTION_TYPE.ahk
+#Include .\D3D12_VIDEO_FRAME_CODED_INTERLACE_TYPE.ahk
+#Include ..\..\Graphics\Dxgi\Common\DXGI_FORMAT.ahk
 #Include ..\..\Graphics\Dxgi\Common\DXGI_RATIONAL.ahk
 
 /**
@@ -11,10 +14,8 @@
  * The *BitRate* and *FrameRate* parameters may also be set to zero.  Drivers make worst-case assumptions when these values are used which may result in higher memory consumption with some adapters.
  * @see https://learn.microsoft.com/windows/win32/api/d3d12video/ns-d3d12video-d3d12_video_decoder_heap_desc
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class D3D12_VIDEO_DECODER_HEAP_DESC extends Win32Struct
-{
+class D3D12_VIDEO_DECODER_HEAP_DESC extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8
@@ -32,7 +33,7 @@ class D3D12_VIDEO_DECODER_HEAP_DESC extends Win32Struct
      * A [D3D12_VIDEO_DECODE_CONFIGURATION](ns-d3d12video-d3d12_video_decode_configuration.md) structure specifying the configuration of the video decoder.
      * @type {D3D12_VIDEO_DECODE_CONFIGURATION}
      */
-    Configuration{
+    Configuration {
         get {
             if(!this.HasProp("__Configuration"))
                 this.__Configuration := D3D12_VIDEO_DECODE_CONFIGURATION(8, this)
@@ -60,7 +61,7 @@ class D3D12_VIDEO_DECODER_HEAP_DESC extends Win32Struct
 
     /**
      * A [DXGI_FORMAT](/windows/desktop/api/dxgiformat/ne-dxgiformat-dxgi_format) structure specifying the format of the bitstream to be decoded.
-     * @type {Integer}
+     * @type {DXGI_FORMAT}
      */
     Format {
         get => NumGet(this, 32, "int")
@@ -71,7 +72,7 @@ class D3D12_VIDEO_DECODER_HEAP_DESC extends Win32Struct
      * The frame rate of the input video stream.  For more information, see the Remarks section.
      * @type {DXGI_RATIONAL}
      */
-    FrameRate{
+    FrameRate {
         get {
             if(!this.HasProp("__FrameRate"))
                 this.__FrameRate := DXGI_RATIONAL(36, this)

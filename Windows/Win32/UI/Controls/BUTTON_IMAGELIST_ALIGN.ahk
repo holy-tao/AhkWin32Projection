@@ -5,9 +5,8 @@
  * Align the image with the bottom margin
  * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-button_imagelist
  * @namespace Windows.Win32.UI.Controls
- * @version v4.0.30319
  */
-class BUTTON_IMAGELIST_ALIGN extends Win32Enum{
+class BUTTON_IMAGELIST_ALIGN extends Win32Enum {
 
     /**
      * @type {Integer (UInt32)}

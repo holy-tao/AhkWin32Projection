@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
 #Include .\ITextRange.ahk
 
 /**
@@ -76,9 +75,8 @@
  * Applications can retrieve an <b>ITextSelection</b> pointer by calling the <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextdocument-getselection">GetSelection</a> method.
  * @see https://learn.microsoft.com/windows/win32/api/tom/nn-tom-itextselection
  * @namespace Windows.Win32.UI.Controls.RichEdit
- * @version v4.0.30319
  */
-class ITextSelection extends ITextRange{
+class ITextSelection extends ITextRange {
 
     static sizeof => A_PtrSize
     /**
@@ -340,7 +338,32 @@ class ITextSelection extends ITextRange{
      * 				<i>Extend</i> has the default value of zero. This example corresponds to pressing the Left Arrow key. 
      * 				<b>MoveLeft</b> and 
      * 				<a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextselection-moveright">MoveRight</a> are related to the <a href="https://docs.microsoft.com/windows/desktop/api/tom/nn-tom-itextrange">ITextRange</a> move methods, but differ in that they explicitly use the active end (the end moved by pressing the Shift key).
-     * @param {Integer} _Unit 
+     * @param {Integer} _Unit Type: <b>long</b>
+     * 
+     * Unit to use. It can be one of the following. 
+     * 					
+     * 
+     * <table class="clsStd">
+     * <tr>
+     * <th>Value</th>
+     * <th>Corresponding key combination</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td><b>tomCharacter</b></td>
+     * <td>Left Arrow</td>
+     * <td>Move one character position to the left. This is the default.</td>
+     * </tr>
+     * <tr>
+     * <td><b>tomWord</b></td>
+     * <td>Ctrl+Left Arrow</td>
+     * <td>Move one word to the left.</td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * Note: If 
+     * 					<i>Count</i> is less than zero, movement is to the right.
      * @param {Integer} Count Type: <b>long</b>
      * 
      * Number of Units to move past. The default value is 1. If 
@@ -411,7 +434,32 @@ class ITextSelection extends ITextRange{
      * 				<i>Extend</i> is <b>tomExtend</b> (or is nonzero), <b>MoveRight</b> moves only the active end of the selection, leaving the other end where it is. However, if 
      * 				<i>Extend</i> equals zero and the selection starts as a nondegenerate range, <c>MoveRight(Unit, Count)</code> where <code>Count</code> is greater than zero moves the active end <code>Count</c> - 1 units right, and then moves the other end to the active end. In other words, it makes an insertion point at the active end. Collapsing the range counts as one 
      * 				unit. Thus, <c>MoveRight(tomCharacter)</c> converts a nondegenerate selection into a degenerate one at the selection's right end. Here, <i>Count</i> has the default value of 1 and <i>Extend</i> has the default value of zero. This example corresponds to pressing the Right Arrow key. <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextselection-moveleft">MoveLeft</a> and <b>MoveRight</b> are related to the <a href="https://docs.microsoft.com/windows/desktop/api/tom/nn-tom-itextrange">ITextRange</a> move methods, but differ in that they explicitly use the active end (the end moved by pressing the Shift key).
-     * @param {Integer} _Unit 
+     * @param {Integer} _Unit Type: <b>long</b>
+     * 
+     * Unit to use. It can be one of the following. 
+     * 					
+     * 
+     * <table class="clsStd">
+     * <tr>
+     * <th>Value</th>
+     * <th>Corresponding key combination</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td><b>tomCharacter</b></td>
+     * <td>Right Arrow</td>
+     * <td>Move one character position to the right. This is the default.</td>
+     * </tr>
+     * <tr>
+     * <td><b>tomWord</b></td>
+     * <td>Ctrl+Right Arrow</td>
+     * <td>Move one word to the right.</td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * Note, if 
+     * 					<i>Count</i> is less than zero, movement is to the left.
      * @param {Integer} Count Type: <b>long</b>
      * 
      * Number of Units to move past. The default value is 1. If <i>Count</i> is less than zero, movement is to the left.
@@ -433,7 +481,38 @@ class ITextSelection extends ITextRange{
      * Mimics the functionality of the Up Arrow and Page Up keys.
      * @remarks
      * The <b>MoveUp</b> and <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextselection-movedown">MoveDown</a> methods are similar to the <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextselection-moveleft">MoveLeft</a> and <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextselection-moveright">MoveRight</a> methods, except that they reflect the behavior of the Up Arrow, Down Arrow, Page Up, and Page Down keys on the cursor-keypad.
-     * @param {Integer} _Unit 
+     * @param {Integer} _Unit Type: <b>long</b>
+     * 
+     * Unit to use in the operation. It can be one of the following. 
+     * 					
+     * 
+     * <table class="clsStd">
+     * <tr>
+     * <th>Value</th>
+     * <th>Corresponding key combination</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td><b>tomLine</b></td>
+     * <td>Up Arrow</td>
+     * <td>Moves up one line. This is the default.</td>
+     * </tr>
+     * <tr>
+     * <td><b>tomParagraph</b></td>
+     * <td>Ctrl+Up Arrow</td>
+     * <td>Moves up one paragraph.</td>
+     * </tr>
+     * <tr>
+     * <td><b>tomScreen</b></td>
+     * <td>Page Up</td>
+     * <td>Moves up one screen.</td>
+     * </tr>
+     * <tr>
+     * <td><b>tomWindow</b></td>
+     * <td>Ctrl+Page Up</td>
+     * <td>Moves to first character in window.</td>
+     * </tr>
+     * </table>
      * @param {Integer} Count Type: <b>long</b>
      * 
      * Number of <i>Units</i> to move past. The default value is 1.
@@ -456,7 +535,38 @@ class ITextSelection extends ITextRange{
      * Mimics the functionality of the Down Arrow and Page Down keys.
      * @remarks
      * The <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextselection-moveup">ITextSelection::MoveUp</a> and <b>ITextSelection::MoveDown</b> methods are similar to the <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextselection-moveleft">ITextSelection::MoveLeft</a> and <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextselection-moveright">ITextSelection::MoveRight</a> methods, except that they reflect the behavior of the Up Arrow, Down Arrow, Page Up, and Page Down keys on the cursor-keypad.
-     * @param {Integer} _Unit 
+     * @param {Integer} _Unit Type: <b>long</b>
+     * 
+     * Unit to use in the operation. It can be one of the following. 
+     * 					
+     * 
+     * <table class="clsStd">
+     * <tr>
+     * <th>Value</th>
+     * <th>Corresponding key combination</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td><b>tomLine</b></td>
+     * <td>Down Arrow</td>
+     * <td>Moves down one line. This is the default.</td>
+     * </tr>
+     * <tr>
+     * <td><b>tomParagraph</b></td>
+     * <td>Ctrl+Down Arrow</td>
+     * <td>Moves down one paragraph.</td>
+     * </tr>
+     * <tr>
+     * <td><b>tomScreen</b></td>
+     * <td>Page Down</td>
+     * <td>Moves down one screen.</td>
+     * </tr>
+     * <tr>
+     * <td><b>tomWindow</b></td>
+     * <td>Ctrl+Page Down</td>
+     * <td>Moves to last character in window.</td>
+     * </tr>
+     * </table>
      * @param {Integer} Count Type: <b>long</b>
      * 
      * Number of Units to move past. The default value is 1.
@@ -496,7 +606,7 @@ class ITextSelection extends ITextRange{
      * 				<b>EndKey</b> also differ from the <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextrange-startof">StartOf</a> and <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextrange-endof">EndOf</a> methods in that they extend from the active end, whereas 
      * 				<b>StartOf</b> extends from Start and 
      * 				<b>EndOf</b> extends from End.
-     * @param {Integer} _Unit 
+     * @param {tomConstants} _Unit Type: <b>long</b>
      * @param {Integer} Extend Type: <b>long</b>
      * 
      * Flag that indicates how to change the selection. If 
@@ -536,7 +646,61 @@ class ITextSelection extends ITextRange{
      * 				<b>HomeKey</b> and <b>EndKey</b> also differ from the <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextrange-startof">StartOf</a> and <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextrange-endof">EndOf</a> methods in that they extend from the active end, whereas 
      * 				<b>StartOf</b> extends from Start and 
      * 				<b>EndOf</b> extends from End.
-     * @param {Integer} _Unit 
+     * @param {Integer} _Unit Type: <b>long</b>
+     * 
+     * Unit to use. It can be one of the following.
+     * 
+     * <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="tomLine"></a><a id="tomline"></a><a id="TOMLINE"></a><dl>
+     * <dt><b>tomLine</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Depending on 
+     * 								<i>Extend</i>, it moves either the insertion point or the active end to the end of the last line in the selection. This is the default.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="tomStory"></a><a id="tomstory"></a><a id="TOMSTORY"></a><dl>
+     * <dt><b>tomStory</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Depending on 
+     * 								<i>Extend</i>, it moves either the insertion point or the active end to the end of the last line in the story.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="tomColumn"></a><a id="tomcolumn"></a><a id="TOMCOLUMN"></a><dl>
+     * <dt><b>tomColumn</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Depending on 
+     * 								<i>Extend</i>, it moves either the insertion point or the active end to the end of the last column in the selection. This is available only if the TOM engine supports tables.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="tomRow"></a><a id="tomrow"></a><a id="TOMROW"></a><dl>
+     * <dt><b>tomRow</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Depending on 
+     * 								<i>Extend</i>, it moves either the insertion point or the active end to the end of the last row in the selection. This is available only if the TOM engine supports tables.
+     * 						
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @param {Integer} Extend Type: <b>long</b>
      * 
      * Flag that indicates how to change the selection. If 
@@ -558,7 +722,9 @@ class ITextSelection extends ITextRange{
      * This method types the string given by <i>bstr</i> at this selection as if someone typed it. Using <b>TypeText</b> is faster than sending characters through the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-sendmessage">SendMessage</a> function, but it is slower than using <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextrange-settext">SetText</a>. 
      * 
      * <b>TypeText</b> is similar to the underlying <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextrange-settext">SetText</a> method, however, it is sensitive to the Insert/Overtype key state and UI settings like AutoCorrect and smart quotes. For example, it deletes any nondegenerate selection and then inserts or overtypes (depending on the Insert/Overtype key state—see the <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextselection-setflags">SetFlags</a> method) the string <i>bstr</i> at the insertion point, leaving this selection as an insertion point following the inserted text.
-     * @param {BSTR} _bstr 
+     * @param {BSTR} _bstr Type: <b>BSTR</b>
+     * 
+     * String to type into this selection.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * The method returns an 

@@ -1,10 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Include ..\Com\IDispatch.ahk
 #Include .\ITraceDataProvider.ahk
 #Include ..\Com\IUnknown.ahk
-#Include ..\Com\IDispatch.ahk
 
 /**
  * Manages a collection of TraceDataProvider objects.To get this interface, access the ITraceDataCollector::TraceDataProviders property.You can also call the CoCreateInstance function to create a new instance of the TraceDataProviderCollection object.
@@ -12,9 +11,8 @@
  * To create the object from a script, use the Pla.TraceDataProviderCollection program identifier.
  * @see https://learn.microsoft.com/windows/win32/api/pla/nn-pla-itracedataprovidercollection
  * @namespace Windows.Win32.System.Performance
- * @version v4.0.30319
  */
-class ITraceDataProviderCollection extends IDispatch{
+class ITraceDataProviderCollection extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

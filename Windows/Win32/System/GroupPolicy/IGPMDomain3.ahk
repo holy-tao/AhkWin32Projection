@@ -1,15 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\IGPMResult.ahk
 #Include .\IGPMDomain2.ahk
+#Include .\IGPMResult.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * @namespace Windows.Win32.System.GroupPolicy
- * @version v4.0.30319
  */
-class IGPMDomain3 extends IGPMDomain2{
+class IGPMDomain3 extends IGPMDomain2 {
 
     static sizeof => A_PtrSize
     /**
@@ -39,7 +38,7 @@ class IGPMDomain3 extends IGPMDomain2{
     }
 
     /**
-     * @type {HRESULT} 
+     * @type {Integer} 
      */
     InfrastructureFlags {
         set => this.put_InfrastructureFlags(value)
@@ -47,7 +46,7 @@ class IGPMDomain3 extends IGPMDomain2{
 
     /**
      * 
-     * @param {Integer} _gpmReportType 
+     * @param {GPMReportType} _gpmReportType 
      * @param {Pointer<VARIANT>} pvarGPMProgress 
      * @param {Pointer<VARIANT>} pvarGPMCancel 
      * @returns {IGPMResult} 

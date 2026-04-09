@@ -1,7 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\Ndis\NET_LUID_LH.ahk
 #Include .\MIB_IF_ROW2.ahk
+#Include ..\Ndis\NET_LUID_LH.ahk
+#Include ..\Ndis\TUNNEL_TYPE.ahk
+#Include ..\Ndis\NDIS_MEDIUM.ahk
+#Include ..\Ndis\NDIS_PHYSICAL_MEDIUM.ahk
+#Include ..\Ndis\NET_IF_ACCESS_TYPE.ahk
+#Include ..\Ndis\NET_IF_DIRECTION_TYPE.ahk
+#Include ..\Ndis\IF_OPER_STATUS.ahk
+#Include ..\Ndis\NET_IF_ADMIN_STATUS.ahk
+#Include ..\Ndis\NET_IF_MEDIA_CONNECT_STATE.ahk
+#Include ..\Ndis\NET_IF_CONNECTION_TYPE.ahk
 
 /**
  * Contains a table of logical and physical interface entries.
@@ -19,11 +28,9 @@
  * Note that the <i>Netioapi.h</i> header file is automatically included in the <i>Iphlpapi.h</i> header file. The  <i>Netioapi.h</i> header file should never be used directly.
  * @see https://learn.microsoft.com/windows/win32/api/netioapi/ns-netioapi-mib_if_table2
  * @namespace Windows.Win32.NetworkManagement.IpHelper
- * @version v4.0.30319
  */
-class MIB_IF_TABLE2 extends Win32Struct
-{
-    static sizeof => 16
+class MIB_IF_TABLE2 extends Win32Struct {
+    static sizeof => 1360
 
     static packingSize => 8
 
@@ -39,9 +46,9 @@ class MIB_IF_TABLE2 extends Win32Struct
     /**
      * An array of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/ns-netioapi-mib_if_row2">MIB_IF_ROW2</a> structures containing interface entries.
-     * @type {Array<MIB_IF_ROW2>}
+     * @type {MIB_IF_ROW2}
      */
-    Table{
+    Table {
         get {
             if(!this.HasProp("__TableProxyArray"))
                 this.__TableProxyArray := Win32FixedArray(this.ptr + 8, 1, MIB_IF_ROW2, "")

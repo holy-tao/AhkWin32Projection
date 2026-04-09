@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\NDK_VERSION.ahk
+#Include .\NDK_RDMA_TECHNOLOGY.ahk
 
 /**
  * The NDK_ADAPTER_INFO structure specifies information about limits and capabilities of an NDK adapter.
@@ -8,10 +9,8 @@
  * The <a href="https://docs.microsoft.com/windows-hardware/drivers/ddi/content/ndkpi/nc-ndkpi-ndk_fn_query_adapter_info">NDK_FN_QUERY_ADAPTER_INFO</a> function retrieves the <b>NDK_ADAPTER_INFO</b>, which contains information on various limits and capabilities of the adapter.
  * @see https://learn.microsoft.com/windows/win32/api/ndkinfo/ns-ndkinfo-ndk_adapter_info
  * @namespace Windows.Win32.NetworkManagement.Ndis
- * @version v4.0.30319
  */
-class NDK_ADAPTER_INFO extends Win32Struct
-{
+class NDK_ADAPTER_INFO extends Win32Struct {
     static sizeof => 104
 
     static packingSize => 8
@@ -20,7 +19,7 @@ class NDK_ADAPTER_INFO extends Win32Struct
      * The  major and minor versions of the NDK interface (<a href="https://docs.microsoft.com/windows/desktop/api/ndkinfo/ns-ndkinfo-ndk_version">NDK_VERSION</a>).
      * @type {NDK_VERSION}
      */
-    Version{
+    Version {
         get {
             if(!this.HasProp("__Version"))
                 this.__Version := NDK_VERSION(0, this)
@@ -301,8 +300,7 @@ class NDK_ADAPTER_INFO extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Integer}
+     * @type {NDK_RDMA_TECHNOLOGY}
      */
     RdmaTechnology {
         get => NumGet(this, 96, "int")

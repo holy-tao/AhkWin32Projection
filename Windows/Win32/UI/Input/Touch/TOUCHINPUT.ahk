@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include ..\..\..\Foundation\HANDLE.ahk
+#Include .\TOUCHEVENTF_FLAGS.ahk
+#Include .\TOUCHINPUTMASKF_MASK.ahk
 
 /**
  * Encapsulates data for touch input.
@@ -110,10 +112,8 @@
  * ```
  * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-touchinput
  * @namespace Windows.Win32.UI.Input.Touch
- * @version v4.0.30319
  */
-class TOUCHINPUT extends Win32Struct
-{
+class TOUCHINPUT extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -140,7 +140,7 @@ class TOUCHINPUT extends Win32Struct
      * A device handle for the source input device.  Each device is given a unique provider at run time by the touch input provider. See **Examples** section below.
      * @type {HANDLE}
      */
-    hSource{
+    hSource {
         get {
             if(!this.HasProp("__hSource"))
                 this.__hSource := HANDLE(8, this)
@@ -159,7 +159,7 @@ class TOUCHINPUT extends Win32Struct
 
     /**
      * A set of bit flags that specify various aspects of touch point press, release, and motion. The bits in this member can be any reasonable combination of the values in the Remarks section.
-     * @type {Integer}
+     * @type {TOUCHEVENTF_FLAGS}
      */
     dwFlags {
         get => NumGet(this, 20, "uint")
@@ -168,7 +168,7 @@ class TOUCHINPUT extends Win32Struct
 
     /**
      * A set of bit flags that specify which of the optional fields in the structure contain valid values. The availability of valid information in the optional fields is device-specific. Applications should use an optional field value only when the corresponding bit is set in <i>dwMask</i>. This field may contain a combination of the <i>dwMask</i> flags mentioned in the Remarks section.
-     * @type {Integer}
+     * @type {TOUCHINPUTMASKF_MASK}
      */
     dwMask {
         get => NumGet(this, 24, "uint")

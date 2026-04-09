@@ -1,19 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\Foundation\RECT.ahk
 #Include .\TS_STATUS.ahk
 #Include ..\..\Foundation\HWND.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * The ITfContextOwner interface is implemented by an application or a text service to receive text input without having a text store. An instance of this interface is obtained when the application calls the ITfSource::AdviseSink method.
  * @see https://learn.microsoft.com/windows/win32/api/msctf/nn-msctf-itfcontextowner
  * @namespace Windows.Win32.UI.TextServices
- * @version v4.0.30319
  */
-class ITfContextOwner extends IUnknown{
+class ITfContextOwner extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

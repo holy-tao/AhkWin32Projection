@@ -5,10 +5,8 @@
  * The DEVICE_POWER_DESCRIPTOR structure describes the power capabilities of a storage device.
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-device_power_descriptor
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class DEVICE_POWER_DESCRIPTOR extends Win32Struct
-{
+class DEVICE_POWER_DESCRIPTOR extends Win32Struct {
     static sizeof => 20
 
     static packingSize => 4
@@ -81,7 +79,6 @@ class DEVICE_POWER_DESCRIPTOR extends Win32Struct
     }
 
     /**
-     * 
      * @type {BOOLEAN}
      */
     NoVerifyDuringIdlePower {
@@ -91,9 +88,9 @@ class DEVICE_POWER_DESCRIPTOR extends Win32Struct
 
     /**
      * Reserved.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Reserved{
+    Reserved {
         get {
             if(!this.HasProp("__ReservedProxyArray"))
                 this.__ReservedProxyArray := Win32FixedArray(this.ptr + 14, 2, Primitive, "char")

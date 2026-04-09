@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\Com\IUnknown.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * Describes the stub for a managed object.
  * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nn-comsvcs-imanagedobjectinfo
  * @namespace Windows.Win32.System.ClrHosting
- * @version v4.0.30319
  */
-class IManagedObject extends IUnknown{
+class IManagedObject extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

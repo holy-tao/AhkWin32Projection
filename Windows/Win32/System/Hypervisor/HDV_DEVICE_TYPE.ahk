@@ -5,9 +5,8 @@
  * HDV_DEVICE_TYPE
  * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/hdv/HdvDeviceType
  * @namespace Windows.Win32.System.Hypervisor
- * @version v4.0.30319
  */
-class HDV_DEVICE_TYPE extends Win32Enum{
+class HDV_DEVICE_TYPE extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

@@ -17,9 +17,8 @@
  * A failed asynchronous operation is treated as a completed asynchronous operation. Error or fault information can be retrieved from the <a href="https://docs.microsoft.com/windows/desktop/api/wsdclient/nn-wsdclient-iwsdasynccallback">IWSDAsyncCallback</a> interface using the <a href="https://docs.microsoft.com/windows/desktop/api/wsdclient/nf-wsdclient-iwsdasynccallback-asyncoperationcomplete">IWSDAsyncCallback::AsyncOperationComplete</a> method.
  * @see https://learn.microsoft.com/windows/win32/api/wsdclient/nn-wsdclient-iwsdasyncresult
  * @namespace Windows.Win32.Devices.WebServicesOnDevices
- * @version v4.0.30319
  */
-class IWSDAsyncResult extends IUnknown{
+class IWSDAsyncResult extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

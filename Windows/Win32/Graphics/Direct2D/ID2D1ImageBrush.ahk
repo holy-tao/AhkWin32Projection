@@ -7,9 +7,8 @@
  * Represents a brush based on an ID2D1Image.
  * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nn-d2d1_1-id2d1imagebrush
  * @namespace Windows.Win32.Graphics.Direct2D
- * @version v4.0.30319
  */
-class ID2D1ImageBrush extends ID2D1Brush{
+class ID2D1ImageBrush extends ID2D1Brush {
 
     static sizeof => A_PtrSize
     /**
@@ -32,7 +31,9 @@ class ID2D1ImageBrush extends ID2D1Brush{
 
     /**
      * Sets the image associated with the provided image brush.
-     * @param {ID2D1Image} _image 
+     * @param {ID2D1Image} _image Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1/nn-d2d1-id2d1image">ID2D1Image</a>*</b>
+     * 
+     * The image to be associated with the image brush.
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1imagebrush-setimage
      */
@@ -42,7 +43,7 @@ class ID2D1ImageBrush extends ID2D1Brush{
 
     /**
      * Sets how the content inside the source rectangle in the image brush will be extended on the x-axis.
-     * @param {Integer} extendModeX Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1/ne-d2d1-d2d1_extend_mode">D2D1_EXTEND_MODE</a></b>
+     * @param {D2D1_EXTEND_MODE} extendModeX Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1/ne-d2d1-d2d1_extend_mode">D2D1_EXTEND_MODE</a></b>
      * 
      * The extend mode on the x-axis of the image.
      * @returns {String} Nothing - always returns an empty string
@@ -54,7 +55,7 @@ class ID2D1ImageBrush extends ID2D1Brush{
 
     /**
      * Sets the extend mode on the y-axis.
-     * @param {Integer} extendModeY Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1/ne-d2d1-d2d1_extend_mode">D2D1_EXTEND_MODE</a></b>
+     * @param {D2D1_EXTEND_MODE} extendModeY Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1/ne-d2d1-d2d1_extend_mode">D2D1_EXTEND_MODE</a></b>
      * 
      * The extend mode on the y-axis of the image.
      * @returns {String} Nothing - always returns an empty string
@@ -66,7 +67,9 @@ class ID2D1ImageBrush extends ID2D1Brush{
 
     /**
      * Sets the interpolation mode for the image brush.
-     * @param {Integer} _interpolationMode 
+     * @param {D2D1_INTERPOLATION_MODE} _interpolationMode Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1_1/ne-d2d1_1-d2d1_interpolation_mode">D2D1_INTERPOLATION_MODE</a></b>
+     * 
+     * How the contents of the image will be interpolated to handle the brush transform.
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1imagebrush-setinterpolationmode
      */
@@ -100,7 +103,9 @@ class ID2D1ImageBrush extends ID2D1Brush{
 
     /**
      * Gets the image associated with the image brush.
-     * @param {Pointer<ID2D1Image>} _image 
+     * @param {Pointer<ID2D1Image>} _image Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1/nn-d2d1-id2d1image">ID2D1Image</a>**</b>
+     * 
+     * When this method returns, contains the address of a pointer to the image associated with  this brush.
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1imagebrush-getimage
      */
@@ -110,7 +115,7 @@ class ID2D1ImageBrush extends ID2D1Brush{
 
     /**
      * Gets the extend mode of the image brush on the x-axis.
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1/ne-d2d1-d2d1_extend_mode">D2D1_EXTEND_MODE</a></b>
+     * @returns {D2D1_EXTEND_MODE} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1/ne-d2d1-d2d1_extend_mode">D2D1_EXTEND_MODE</a></b>
      * 
      * This method returns the x-extend mode.
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1imagebrush-getextendmodex
@@ -122,7 +127,7 @@ class ID2D1ImageBrush extends ID2D1Brush{
 
     /**
      * Gets the extend mode of the image brush on the y-axis of the image.
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1/ne-d2d1-d2d1_extend_mode">D2D1_EXTEND_MODE</a></b>
+     * @returns {D2D1_EXTEND_MODE} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1/ne-d2d1-d2d1_extend_mode">D2D1_EXTEND_MODE</a></b>
      * 
      * This method returns the  y-extend mode.
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1imagebrush-getextendmodey
@@ -134,7 +139,7 @@ class ID2D1ImageBrush extends ID2D1Brush{
 
     /**
      * Gets the interpolation mode of the image brush.
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1_1/ne-d2d1_1-d2d1_interpolation_mode">D2D1_INTERPOLATION_MODE</a></b>
+     * @returns {D2D1_INTERPOLATION_MODE} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1_1/ne-d2d1_1-d2d1_interpolation_mode">D2D1_INTERPOLATION_MODE</a></b>
      * 
      * This method returns the  interpolation mode.
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1imagebrush-getinterpolationmode

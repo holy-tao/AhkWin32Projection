@@ -7,10 +7,8 @@
  * If the <b>IPSEC_KEY_MANAGER_FLAG_DICTATE_KEY</b> flag is set, all three callbacks must be specified; otherwise, only the <b>keyNotify</b> callback should be specified.
  * @see https://learn.microsoft.com/windows/win32/api/fwpmu/ns-fwpmu-ipsec_key_manager_callbacks0
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
- * @version v4.0.30319
  */
-class IPSEC_KEY_MANAGER_CALLBACKS0 extends Win32Struct
-{
+class IPSEC_KEY_MANAGER_CALLBACKS0 extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -19,7 +17,7 @@ class IPSEC_KEY_MANAGER_CALLBACKS0 extends Win32Struct
      * Type: <b>GUID</b>
      * 
      * Reserved for system use.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     reserved {
         get => NumGet(this, 0, "ptr")

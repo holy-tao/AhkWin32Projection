@@ -5,9 +5,8 @@
  * Scan opcodes.
  * @see https://learn.microsoft.com/windows/win32/api/d3dcsx/ne-d3dcsx-d3dx11_scan_opcode
  * @namespace Windows.Win32.Graphics.Direct3D11
- * @version v4.0.30319
  */
-class D3DX11_SCAN_OPCODE extends Win32Enum{
+class D3DX11_SCAN_OPCODE extends Win32Enum {
 
     /**
      * Add values.

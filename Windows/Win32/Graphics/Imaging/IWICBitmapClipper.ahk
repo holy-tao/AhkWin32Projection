@@ -7,9 +7,8 @@
  * Exposes methods that produce a clipped version of the input bitmap for a specified rectangular region of interest.
  * @see https://learn.microsoft.com/windows/win32/api/wincodec/nn-wincodec-iwicbitmapclipper
  * @namespace Windows.Win32.Graphics.Imaging
- * @version v4.0.30319
  */
-class IWICBitmapClipper extends IWICBitmapSource{
+class IWICBitmapClipper extends IWICBitmapSource {
 
     static sizeof => A_PtrSize
     /**

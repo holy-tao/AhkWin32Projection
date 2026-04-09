@@ -9,9 +9,8 @@
  * To instantiate an object that implements this interface, call <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cocreateinstance">CoCreateInstance</a> using the class identifier (CLSID) CLSID_ProgressDialog.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-iactionprogressdialog
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IActionProgressDialog extends IUnknown{
+class IActionProgressDialog extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

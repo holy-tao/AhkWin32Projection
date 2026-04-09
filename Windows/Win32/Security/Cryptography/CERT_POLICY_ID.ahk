@@ -5,10 +5,8 @@
  * The CERT_POLICY_ID structure contains a list of certificate policies that the certificate expressly supports, together with optional qualifier information pertaining to these policies.
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cert_policy_id
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CERT_POLICY_ID extends Win32Struct
-{
+class CERT_POLICY_ID extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

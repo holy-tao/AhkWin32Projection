@@ -23,9 +23,8 @@
  * ```
  * @see https://learn.microsoft.com/windows/win32/api/mftransform/ne-mftransform-_mft_output_data_buffer_flags
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class _MFT_OUTPUT_DATA_BUFFER_FLAGS extends Win32Enum{
+class _MFT_OUTPUT_DATA_BUFFER_FLAGS extends Win32Enum {
 
     /**
      * The MFT can still generate output from this stream without receiving any more input. Call <a href="https://docs.microsoft.com/windows/desktop/api/mftransform/nf-mftransform-imftransform-processoutput">ProcessOutput</a> again to process the next batch of input data.

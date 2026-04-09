@@ -12,10 +12,8 @@
  * <a href="https://docs.microsoft.com/windows/desktop/api/winnls/ns-winnls-cpinfoexa">CPINFOEX</a>, used by the <a href="https://docs.microsoft.com/windows/desktop/api/winnls/nf-winnls-getcpinfoexa">GetCPInfoEx</a> function, provides an extended version of this structure.
  * @see https://learn.microsoft.com/windows/win32/api/winnls/ns-winnls-cpinfo
  * @namespace Windows.Win32.Globalization
- * @version v4.0.30319
  */
-class CPINFO extends Win32Struct
-{
+class CPINFO extends Win32Struct {
     static sizeof => 20
 
     static packingSize => 4
@@ -31,9 +29,9 @@ class CPINFO extends Win32Struct
 
     /**
      * Default character used when translating character strings to the specific code page. This character is used by the <a href="https://docs.microsoft.com/windows/desktop/api/stringapiset/nf-stringapiset-widechartomultibyte">WideCharToMultiByte</a> function if an explicit default character is not specified. The default is usually the "?" character for the code page.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    DefaultChar{
+    DefaultChar {
         get {
             if(!this.HasProp("__DefaultCharProxyArray"))
                 this.__DefaultCharProxyArray := Win32FixedArray(this.ptr + 4, 2, Primitive, "char")
@@ -46,9 +44,9 @@ class CPINFO extends Win32Struct
      * 
      * <div class="alert"><b>Note</b>   Some code pages use lead bytes and a combination of other encoding mechanisms. This member is usually only populated for a subset of the code pages that use lead bytes in some form. For more information, see the Remarks section.</div>
      * <div> </div>
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    LeadByte{
+    LeadByte {
         get {
             if(!this.HasProp("__LeadByteProxyArray"))
                 this.__LeadByteProxyArray := Win32FixedArray(this.ptr + 6, 12, Primitive, "char")

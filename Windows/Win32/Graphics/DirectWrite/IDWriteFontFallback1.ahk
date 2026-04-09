@@ -5,13 +5,10 @@
 
 /**
  * Allows you to access fallback fonts from the font list.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nn-dwrite_3-idwritefontfallback1
  * @namespace Windows.Win32.Graphics.DirectWrite
- * @version v4.0.30319
  */
-class IDWriteFontFallback1 extends IDWriteFontFallback{
+class IDWriteFontFallback1 extends IDWriteFontFallback {
 
     static sizeof => A_PtrSize
     /**

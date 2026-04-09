@@ -7,9 +7,8 @@
  * Do not use. This interface is used for content tables of Windows Address Book (WAB) containers and distribution lists.
  * @see https://learn.microsoft.com/windows/win32/api/wabdefs/nn-wabdefs-imapitable
  * @namespace Windows.Win32.System.AddressBook
- * @version v4.0.30319
  */
-class IMAPITable extends IUnknown{
+class IMAPITable extends IUnknown {
 
     static sizeof => A_PtrSize
 
@@ -29,7 +28,7 @@ class IMAPITable extends IUnknown{
      * 
      * @remarks
      * The **IMAPITable::GetLastError** method returns detailed information, if available, about a prior method call that failed. This information can be displayed in a message or a dialog box.
-     * @param {HRESULT} _hResult 
+     * @param {HRESULT} _hResult > [in] HRESULT containing the error generated in the previous method call.
      * @param {Integer} ulFlags > [in] Bitmask of flags that controls the type of the returned strings. The following flag can be set:
      *     
      * MAPI_UNICODE 

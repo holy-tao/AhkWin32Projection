@@ -7,9 +7,8 @@
  * Retrieves a list of valid and invalid characters or the maximum length of a name in the namespace. Use this interface for validation parsing and translation.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-iitemnamelimits
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IItemNameLimits extends IUnknown{
+class IItemNameLimits extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

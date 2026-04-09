@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\VS_FIXEDFILEINFO_FILE_FLAGS.ahk
+#Include .\VS_FIXEDFILEINFO_FILE_OS.ahk
 
 /**
  * Contains version information for a file. This information is language and code page independent.
  * @see https://learn.microsoft.com/windows/win32/api/verrsrc/ns-verrsrc-vs_fixedfileinfo
  * @namespace Windows.Win32.Storage.FileSystem
- * @version v4.0.30319
  */
-class VS_FIXEDFILEINFO extends Win32Struct
-{
+class VS_FIXEDFILEINFO extends Win32Struct {
     static sizeof => 52
 
     static packingSize => 4
@@ -98,7 +98,7 @@ class VS_FIXEDFILEINFO extends Win32Struct
 
     /**
      * Type: <b>DWORD</b>
-     * @type {Integer}
+     * @type {VS_FIXEDFILEINFO_FILE_FLAGS}
      */
     dwFileFlags {
         get => NumGet(this, 28, "uint")
@@ -107,7 +107,7 @@ class VS_FIXEDFILEINFO extends Win32Struct
 
     /**
      * Type: <b>DWORD</b>
-     * @type {Integer}
+     * @type {VS_FIXEDFILEINFO_FILE_OS}
      */
     dwFileOS {
         get => NumGet(this, 32, "uint")

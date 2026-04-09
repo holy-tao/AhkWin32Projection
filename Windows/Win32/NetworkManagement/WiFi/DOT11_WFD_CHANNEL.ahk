@@ -3,18 +3,16 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
- * @version v4.0.30319
  */
-class DOT11_WFD_CHANNEL extends Win32Struct
-{
+class DOT11_WFD_CHANNEL extends Win32Struct {
     static sizeof => 5
 
     static packingSize => 1
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    CountryRegionString{
+    CountryRegionString {
         get {
             if(!this.HasProp("__CountryRegionStringProxyArray"))
                 this.__CountryRegionStringProxyArray := Win32FixedArray(this.ptr + 0, 3, Primitive, "char")

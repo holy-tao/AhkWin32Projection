@@ -7,9 +7,8 @@
  * Enables interoperability with a WinRT HolographicSpace object and provides access to HolographicSpace members for representing a holographic scene.
  * @see https://learn.microsoft.com/windows/win32/api/holographicspaceinterop/nn-holographicspaceinterop-iholographicspaceinterop
  * @namespace Windows.Win32.System.WinRT
- * @version v4.0.30319
  */
-class IHolographicSpaceInterop extends IInspectable{
+class IHolographicSpaceInterop extends IInspectable {
 
     static sizeof => A_PtrSize
     /**

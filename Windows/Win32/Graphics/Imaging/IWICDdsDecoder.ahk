@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\WICDdsParameters.ahk
 #Include .\IWICBitmapFrameDecode.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Provides information and functionality specific to the DDS image format.
@@ -11,9 +11,8 @@
  * This interface is implemented by the WIC DDS codec. To obtain this interface, create an <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nn-wincodec-iwicbitmapdecoder">IWICBitmapDecoder</a> using the DDS codec and QueryInterface for <b>IWICDdsDecoder</b>.
  * @see https://learn.microsoft.com/windows/win32/api/wincodec/nn-wincodec-iwicddsdecoder
  * @namespace Windows.Win32.Graphics.Imaging
- * @version v4.0.30319
  */
-class IWICDdsDecoder extends IUnknown{
+class IWICDdsDecoder extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -7,9 +7,8 @@
  * The IWMPMetadataPicture interface provides methods for retrieving information about the WM/Picture metadata attribute.
  * @see https://learn.microsoft.com/windows/win32/api/wmp/nn-wmp-iwmpmetadatapicture
  * @namespace Windows.Win32.Media.MediaPlayer
- * @version v4.0.30319
  */
-class IWMPMetadataPicture extends IDispatch{
+class IWMPMetadataPicture extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

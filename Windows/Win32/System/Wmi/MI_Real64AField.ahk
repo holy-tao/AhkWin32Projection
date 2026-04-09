@@ -8,10 +8,8 @@
  * This type cannot be a key. This differs from the DMTF CIM specification. For more information on keys, see <a href="https://docs.microsoft.com/windows/win32/wmisdk/key-qualifier">https://go.microsoft.com/fwlink/p/?linkid=259738</a>.
  * @see https://learn.microsoft.com/windows/win32/api/mi/ns-mi-mi_real64afield
  * @namespace Windows.Win32.System.Wmi
- * @version v4.0.30319
  */
-class MI_Real64AField extends Win32Struct
-{
+class MI_Real64AField extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -20,7 +18,7 @@ class MI_Real64AField extends Win32Struct
      * A field of type <a href="https://docs.microsoft.com/windows/desktop/api/mi/ns-mi-mi_real64a">MI_Real64A</a>.
      * @type {MI_Real64A}
      */
-    value{
+    value {
         get {
             if(!this.HasProp("__value"))
                 this.__value := MI_Real64A(0, this)

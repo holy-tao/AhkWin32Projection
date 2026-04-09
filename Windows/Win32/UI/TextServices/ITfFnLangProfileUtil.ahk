@@ -7,9 +7,8 @@
  * The ITfFnLangProfileUtil interface is implemented by the speech text service and used to provide utility methods for the speech text service.
  * @see https://learn.microsoft.com/windows/win32/api/ctffunc/nn-ctffunc-itffnlangprofileutil
  * @namespace Windows.Win32.UI.TextServices
- * @version v4.0.30319
  */
-class ITfFnLangProfileUtil extends ITfFunction{
+class ITfFnLangProfileUtil extends ITfFunction {
 
     static sizeof => A_PtrSize
     /**

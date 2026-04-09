@@ -3,16 +3,14 @@
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
- * @version v4.0.30319
  */
-class DDNT_DEFERRED_AGP_AWARE_DATA extends Win32Struct
-{
+class DDNT_DEFERRED_AGP_AWARE_DATA extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 8
 
     /**
-     * @type {Pointer<DDNT_GETDRIVERINFO2DATA>}
+     * @type {Pointer}
      */
     gdi2 {
         get => NumGet(this, 0, "ptr")

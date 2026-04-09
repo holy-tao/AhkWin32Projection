@@ -1,20 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Include .\IGPMDomain.ahk
 #Include .\IGPMStarterGPO.ahk
 #Include .\IGPMGPO.ahk
 #Include .\IGPMStarterGPOCollection.ahk
 #Include .\IGPMResult.ahk
-#Include .\IGPMDomain.ahk
 
 /**
  * Represents a given domain and supports methods that allow you to query scope of management (SOM) objects, create, restore and query Starter GPOs, and create and query WMI filters when you are using the Group Policy Management Console (GPMC) interfaces.
  * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nn-gpmgmt-igpmdomain2
  * @namespace Windows.Win32.System.GroupPolicy
- * @version v4.0.30319
  */
-class IGPMDomain2 extends IGPMDomain{
+class IGPMDomain2 extends IGPMDomain {
 
     static sizeof => A_PtrSize
     /**

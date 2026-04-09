@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 #Include .\IFaxAccount.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * Represents the collection of fax accounts on the fax server. It provides methods and properties for enumerating the accounts, retrieving a particular account, and reporting the total number of accounts.
@@ -11,9 +11,8 @@
  * A default implementation of <b>IFaxAccounts</b> is provided as the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxaccounts">FaxAccounts</a> object. The interface and the object are supported only on Windows Vista or later.
  * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nn-faxcomex-ifaxaccounts
  * @namespace Windows.Win32.Devices.Fax
- * @version v4.0.30319
  */
-class IFaxAccounts extends IDispatch{
+class IFaxAccounts extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

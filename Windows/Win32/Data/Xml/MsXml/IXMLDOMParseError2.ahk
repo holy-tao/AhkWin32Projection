@@ -1,15 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\IXMLDOMParseError.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
 #Include .\IXMLDOMParseErrorCollection.ahk
-#Include .\IXMLDOMParseError.ahk
 
 /**
  * @namespace Windows.Win32.Data.Xml.MsXml
- * @version v4.0.30319
  */
-class IXMLDOMParseError2 extends IXMLDOMParseError{
+class IXMLDOMParseError2 extends IXMLDOMParseError {
 
     static sizeof => A_PtrSize
     /**

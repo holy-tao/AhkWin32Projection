@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Networking.HttpServer
- * @version v4.0.30319
  */
-class HTTP_QUIC_STREAM_REQUEST_STATS extends Win32Struct
-{
+class HTTP_QUIC_STREAM_REQUEST_STATS extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 8

@@ -5,10 +5,8 @@
  * The CryptoAPI CRYPT_INTEGER_BLOB (dpapi.h) structure is used for an arbitrary array of bytes. It is declared in Wincrypt.h and provides flexibility for objects that can contain various data types. (CRYPT_INTEGER_BLOB)
  * @see https://learn.microsoft.com/windows/win32/api/dpapi/ns-dpapi-crypt_integer_blob
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CRYPT_INTEGER_BLOB extends Win32Struct
-{
+class CRYPT_INTEGER_BLOB extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

@@ -5,10 +5,8 @@
  * Used to delete an unauthenticated attribute of a signer of a signed message.
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cmsg_ctrl_del_signer_unauth_attr_para
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CMSG_CTRL_DEL_SIGNER_UNAUTH_ATTR_PARA extends Win32Struct
-{
+class CMSG_CTRL_DEL_SIGNER_UNAUTH_ATTR_PARA extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4

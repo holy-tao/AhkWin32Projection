@@ -7,9 +7,8 @@
  * This enumeration is used with the <a href="https://docs.microsoft.com/windows/desktop/api/d3d12sdklayers/nf-d3d12sdklayers-id3d12debug2-setgpubasedvalidationflags">ID3D12Debug2::SetGPUBasedValidationFlags</a> method to configure the amount of runtime validation that will occur.
  * @see https://learn.microsoft.com/windows/win32/api/d3d12sdklayers/ne-d3d12sdklayers-d3d12_gpu_based_validation_flags
  * @namespace Windows.Win32.Graphics.Direct3D12
- * @version v4.0.30319
  */
-class D3D12_GPU_BASED_VALIDATION_FLAGS extends Win32BitflagEnum{
+class D3D12_GPU_BASED_VALIDATION_FLAGS extends Win32BitflagEnum {
 
     /**
      * Default behavior; resource states, descriptors, and descriptor tables are all validated.

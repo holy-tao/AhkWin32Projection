@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFFaceDetectionTransformCallback extends IUnknown{
+class IMFFaceDetectionTransformCallback extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

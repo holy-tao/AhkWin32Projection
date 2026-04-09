@@ -5,10 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.ProcessSnapshotting
- * @version v4.0.30319
  */
-class HPSSWALK extends Win32Handle
-{
+class HPSSWALK extends Win32Handle {
     static sizeof => 8
 
     static packingSize => 8

@@ -1,16 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IDirectDrawSurface2.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\IDirectDrawClipper.ahk
 #Include .\IDirectDrawPalette.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw
- * @version v4.0.30319
  */
-class IDirectDrawSurface2 extends IUnknown{
+class IDirectDrawSurface2 extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

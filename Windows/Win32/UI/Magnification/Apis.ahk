@@ -3,7 +3,6 @@
 
 /**
  * @namespace Windows.Win32.UI.Magnification
- * @version v4.0.30319
  */
 class Magnification {
 
@@ -69,8 +68,12 @@ class Magnification {
 
     /**
      * Sets the source rectangle for the magnification window.
-     * @param {HWND} _hwnd 
-     * @param {RECT} _rect 
+     * @param {HWND} _hwnd Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
+     * 
+     * The magnification window.
+     * @param {RECT} _rect Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a></b>
+     * 
+     * The rectangle to be magnified, in desktop coordinates.
      * @returns {BOOL} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise.
@@ -86,7 +89,9 @@ class Magnification {
 
     /**
      * Gets the rectangle of the area that is being magnified.
-     * @param {HWND} _hwnd 
+     * @param {HWND} _hwnd Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
+     * 
+     * The magnification window.
      * @param {Pointer<RECT>} pRect Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a>*</b>
      * 
      * The rectangle that is being magnified, in desktop coordinates.
@@ -107,7 +112,9 @@ class Magnification {
      * Sets the transformation matrix for a magnifier control.
      * @remarks
      * The transformation matrix specifies the magnification factor that the magnifier control applies to the contents of the source rectangle.
-     * @param {HWND} _hwnd 
+     * @param {HWND} _hwnd Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
+     * 
+     * The magnification window.
      * @param {Pointer<MAGTRANSFORM>} pTransform Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/magnification/ns-magnification-magtransform">PMAGTRANSFORM</a></b>
      * 
      * A transformation matrix.
@@ -128,7 +135,9 @@ class Magnification {
      * Retrieves the transformation matrix associated with a magnifier control.
      * @remarks
      * The transformation matrix specifies the magnification factor that the magnifier control applies to the contents of the source rectangle.
-     * @param {HWND} _hwnd 
+     * @param {HWND} _hwnd Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
+     * 
+     * The magnification window.
      * @param {Pointer<MAGTRANSFORM>} pTransform Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/magnification/ns-magnification-magtransform">PMAGTRANSFORM</a></b>
      * 
      * The transformation matrix.
@@ -154,8 +163,10 @@ class Magnification {
      * 		depending on whether it is more convenient to list included windows or excluded windows.
      * 
      * The magnification window itself is automatically excluded.
-     * @param {HWND} _hwnd 
-     * @param {Integer} dwFilterMode Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
+     * @param {HWND} _hwnd Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
+     * 
+     * The handle of the magnification window.
+     * @param {MW_FILTERMODE} dwFilterMode Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
      * @param {Integer} count Type: <b>int</b>
      * 
      * The number of window handles in the list.
@@ -182,8 +193,10 @@ class Magnification {
      * 			sufficient memory for the retrieved list of window handles.
      * 
      * This function requires Windows Display Driver Model (WDDM)-capable video cards.
-     * @param {HWND} _hwnd 
-     * @param {Pointer<Integer>} pdwFilterMode Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a>*</b>
+     * @param {HWND} _hwnd Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
+     * 
+     * The magnification window.
+     * @param {Pointer<MW_FILTERMODE>} pdwFilterMode Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a>*</b>
      * 
      * The filter mode, as set by <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/magnification/nf-magnification-magsetwindowfilterlist">MagSetWindowFilterList</a>.
      * @param {Integer} count Type: <b>int</b>
@@ -236,7 +249,9 @@ class Magnification {
      * 
      * Windows Presentation Foundation (WPF) bitmaps can be scaled automatically using flat, bilinear, bicubic filtering and 
      * consequently do not use this callback mechanism.
-     * @param {HWND} _hwnd 
+     * @param {HWND} _hwnd Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
+     * 
+     * The handle of the magnification window.
      * @param {Pointer<MagImageScalingCallback>} callback Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/magnification/nc-magnification-magimagescalingcallback">MagImageScalingCallback</a></b>
      * 
      * The callback function, or <b>NULL</b> to remove a callback that was previously set.
@@ -259,7 +274,9 @@ class Magnification {
      * This function returns <b>NULL</b> if Windows Display Driver Model (WDDM) is not supported.
      * 
      * This function works only when <a href="https://docs.microsoft.com/windows/desktop/dwm/dwm-overview">Desktop Window Manager</a> (DWM) is off.
-     * @param {HWND} _hwnd 
+     * @param {HWND} _hwnd Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
+     * 
+     * The magnification window.
      * @returns {Pointer<MagImageScalingCallback>} Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/magnification/nc-magnification-magimagescalingcallback">MagImageScalingCallback</a></b>
      * 
      * Returns the registered <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/magnification/nc-magnification-magimagescalingcallback">MagImageScalingCallback</a> callback function, or <b>NULL</b> if no callback is registered.
@@ -279,7 +296,9 @@ class Magnification {
      * The magnifier control uses the color transformation matrix to apply a color effect to the entire magnifier window. If the function is called multiple times, the most recent color transform is used.
      * 
      * This function requires Windows Display Driver Model (WDDM)-capable video cards.
-     * @param {HWND} _hwnd 
+     * @param {HWND} _hwnd Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
+     * 
+     * The magnification window.
      * @param {Pointer<MAGCOLOREFFECT>} pEffect Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/magnification/ns-magnification-magcoloreffect">PMAGCOLOREFFECT</a></b>
      * 
      * The color transformation matrix, or <b>NULL</b> to remove the current color effect, if any.
@@ -302,7 +321,9 @@ class Magnification {
      * The magnifier control uses the color transformation matrix to apply a color effect to the entire magnifier window. 
      * 
      * This function requires Windows Display Driver Model (WDDM)-capable video cards.
-     * @param {HWND} _hwnd 
+     * @param {HWND} _hwnd Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
+     * 
+     * The magnification window.
      * @param {Pointer<MAGCOLOREFFECT>} pEffect Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/magnification/ns-magnification-magcoloreffect">PMAGCOLOREFFECT</a></b>
      * 
      * The color transformation matrix, or <b>NULL</b> if no color effect has been set.

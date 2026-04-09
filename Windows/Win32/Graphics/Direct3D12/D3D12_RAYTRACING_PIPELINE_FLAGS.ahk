@@ -3,13 +3,10 @@
 
 /**
  * Defines constants that specify configuration flags for a raytracing pipeline.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/ne-d3d12-d3d12_raytracing_pipeline_flags
  * @namespace Windows.Win32.Graphics.Direct3D12
- * @version v4.0.30319
  */
-class D3D12_RAYTRACING_PIPELINE_FLAGS extends Win32BitflagEnum{
+class D3D12_RAYTRACING_PIPELINE_FLAGS extends Win32BitflagEnum {
 
     /**
      * Specifies no option.

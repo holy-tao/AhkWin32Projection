@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
- * @version v4.0.30319
  */
-class DOT11_AVAILABLE_CHANNEL_LIST extends Win32Struct
-{
+class DOT11_AVAILABLE_CHANNEL_LIST extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4
@@ -15,7 +13,7 @@ class DOT11_AVAILABLE_CHANNEL_LIST extends Win32Struct
     /**
      * @type {NDIS_OBJECT_HEADER}
      */
-    Header{
+    Header {
         get {
             if(!this.HasProp("__Header"))
                 this.__Header := NDIS_OBJECT_HEADER(0, this)
@@ -40,9 +38,9 @@ class DOT11_AVAILABLE_CHANNEL_LIST extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    uChannelNumber{
+    uChannelNumber {
         get {
             if(!this.HasProp("__uChannelNumberProxyArray"))
                 this.__uChannelNumberProxyArray := Win32FixedArray(this.ptr + 12, 1, Primitive, "uint")

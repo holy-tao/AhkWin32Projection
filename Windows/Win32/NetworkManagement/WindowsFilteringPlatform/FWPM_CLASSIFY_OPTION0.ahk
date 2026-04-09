@@ -1,6 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\FWP_CLASSIFY_OPTION_TYPE.ahk
 #Include .\FWP_VALUE0.ahk
+#Include .\FWP_DATA_TYPE.ahk
+#Include .\FWP_BYTE_ARRAY16.ahk
+#Include .\FWP_BYTE_BLOB.ahk
+#Include ..\..\Security\SID.ahk
+#Include .\FWP_TOKEN_INFORMATION.ahk
+#Include .\FWP_BYTE_ARRAY6.ahk
 
 /**
  * The FWPM_CLASSIFY_OPTION0 structure.
@@ -63,17 +70,15 @@
  * <b>FWPM_CLASSIFY_OPTION0</b> is a specific implementation of FWPM_CLASSIFY_OPTION. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-version-independent-names-and-targeting-specific-versions-of-windows">WFP Version-Independent Names and Targeting Specific Versions of Windows</a>  for more information.
  * @see https://learn.microsoft.com/windows/win32/api/fwpmtypes/ns-fwpmtypes-fwpm_classify_option0
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
- * @version v4.0.30319
  */
-class FWPM_CLASSIFY_OPTION0 extends Win32Struct
-{
+class FWPM_CLASSIFY_OPTION0 extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
 
     /**
      * An [FWP_CLASSIFY_OPTION_TYPE](/windows/desktop/api/fwptypes/ne-fwptypes-fwp_classify_option_type) value.
-     * @type {Integer}
+     * @type {FWP_CLASSIFY_OPTION_TYPE}
      */
     type {
         get => NumGet(this, 0, "int")
@@ -84,7 +89,7 @@ class FWPM_CLASSIFY_OPTION0 extends Win32Struct
      * An [FWP_VALUE0](/windows/desktop/api/fwptypes/ns-fwptypes-fwp_value0) structure.
      * @type {FWP_VALUE0}
      */
-    value{
+    value {
         get {
             if(!this.HasProp("__value"))
                 this.__value := FWP_VALUE0(8, this)

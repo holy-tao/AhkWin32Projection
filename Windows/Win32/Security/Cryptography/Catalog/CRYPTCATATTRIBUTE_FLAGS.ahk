@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Security.Cryptography.Catalog
- * @version v4.0.30319
  */
-class CRYPTCATATTRIBUTE_FLAGS extends Win32BitflagEnum{
+class CRYPTCATATTRIBUTE_FLAGS extends Win32BitflagEnum {
 
     /**
      * @type {Integer (UInt32)}

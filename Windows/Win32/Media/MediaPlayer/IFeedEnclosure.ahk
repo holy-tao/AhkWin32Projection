@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * @namespace Windows.Win32.Media.MediaPlayer
- * @version v4.0.30319
  */
-class IFeedEnclosure extends IDispatch{
+class IFeedEnclosure extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -51,14 +50,14 @@ class IFeedEnclosure extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {FEEDS_DOWNLOAD_STATUS} 
      */
     DownloadStatus {
         get => this.get_DownloadStatus()
     }
 
     /**
-     * @type {Integer} 
+     * @type {FEEDS_DOWNLOAD_ERROR} 
      */
     LastDownloadError {
         get => this.get_LastDownloadError()
@@ -141,7 +140,7 @@ class IFeedEnclosure extends IDispatch{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {FEEDS_DOWNLOAD_STATUS} 
      */
     get_DownloadStatus() {
         result := ComCall(12, this, "int*", &_status := 0, "HRESULT")
@@ -150,11 +149,11 @@ class IFeedEnclosure extends IDispatch{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {FEEDS_DOWNLOAD_ERROR} 
      */
     get_LastDownloadError() {
-        result := ComCall(13, this, "int*", &error := 0, "HRESULT")
-        return error
+        result := ComCall(13, this, "int*", &_error := 0, "HRESULT")
+        return _error
     }
 
     /**

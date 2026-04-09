@@ -1,16 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * The IWMPAudioRenderConfig interface provides methods for setting and retrieving the audio output device used by the Windows Media Player ActiveX control.
  * @see https://learn.microsoft.com/windows/win32/api/wmprealestate/nn-wmprealestate-iwmpaudiorenderconfig
  * @namespace Windows.Win32.Media.MediaPlayer
- * @version v4.0.30319
  */
-class IWMPAudioRenderConfig extends IUnknown{
+class IWMPAudioRenderConfig extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -32,6 +30,7 @@ class IWMPAudioRenderConfig extends IUnknown{
     static VTableNames => ["get_audioOutputDevice", "put_audioOutputDevice"]
 
     /**
+     * @type {BSTR} 
      */
     audioOutputDevice {
         get => this.get_audioOutputDevice()

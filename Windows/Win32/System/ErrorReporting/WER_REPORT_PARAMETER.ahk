@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.ErrorReporting
- * @version v4.0.30319
  */
-class WER_REPORT_PARAMETER extends Win32Struct
-{
+class WER_REPORT_PARAMETER extends Win32Struct {
     static sizeof => 778
 
     static packingSize => 2

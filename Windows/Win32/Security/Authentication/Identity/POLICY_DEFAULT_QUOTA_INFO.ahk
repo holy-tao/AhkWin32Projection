@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class POLICY_DEFAULT_QUOTA_INFO extends Win32Struct
-{
+class POLICY_DEFAULT_QUOTA_INFO extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -15,7 +13,7 @@ class POLICY_DEFAULT_QUOTA_INFO extends Win32Struct
     /**
      * @type {QUOTA_LIMITS}
      */
-    QuotaLimits{
+    QuotaLimits {
         get {
             if(!this.HasProp("__QuotaLimits"))
                 this.__QuotaLimits := QUOTA_LIMITS(0, this)

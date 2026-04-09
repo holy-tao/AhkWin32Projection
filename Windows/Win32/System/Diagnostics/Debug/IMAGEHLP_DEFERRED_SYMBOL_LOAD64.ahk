@@ -12,11 +12,9 @@
  * ```cpp
  * @see https://learn.microsoft.com/windows/win32/api/dbghelp/ns-dbghelp-imagehlp_deferred_symbol_load64
  * @namespace Windows.Win32.System.Diagnostics.Debug
- * @version v4.0.30319
  */
-class IMAGEHLP_DEFERRED_SYMBOL_LOAD64 extends Win32Struct
-{
-    static sizeof => 568
+class IMAGEHLP_DEFERRED_SYMBOL_LOAD64 extends Win32Struct {
+    static sizeof => 304
 
     static packingSize => 8
 
@@ -61,8 +59,8 @@ class IMAGEHLP_DEFERRED_SYMBOL_LOAD64 extends Win32Struct
      * @type {String}
      */
     FileName {
-        get => StrGet(this.ptr + 24, 259, "UTF-16")
-        set => StrPut(value, this.ptr + 24, 259, "UTF-16")
+        get => StrGet(this.ptr + 24, 259, "UTF-8")
+        set => StrPut(value, this.ptr + 24, 259, "UTF-8")
     }
 
     /**
@@ -70,28 +68,27 @@ class IMAGEHLP_DEFERRED_SYMBOL_LOAD64 extends Win32Struct
      * @type {BOOLEAN}
      */
     Reparse {
-        get => NumGet(this, 544, "char")
-        set => NumPut("char", value, this, 544)
+        get => NumGet(this, 284, "char")
+        set => NumPut("char", value, this, 284)
     }
 
     /**
      * A handle to a file. This member is used with <b>CBA_DEFERRED_SYMBOL_LOAD_PARTIAL</b> and <b>IMAGEHLP_DEFERRED_SYMBOL_LOAD_FAILURE</b> callbacks.
      * @type {HANDLE}
      */
-    hFile{
+    hFile {
         get {
             if(!this.HasProp("__hFile"))
-                this.__hFile := HANDLE(552, this)
+                this.__hFile := HANDLE(288, this)
             return this.__hFile
         }
     }
 
     /**
-     * 
      * @type {Integer}
      */
     Flags {
-        get => NumGet(this, 560, "uint")
-        set => NumPut("uint", value, this, 560)
+        get => NumGet(this, 296, "uint")
+        set => NumPut("uint", value, this, 296)
     }
 }

@@ -7,9 +7,8 @@
  * The ITCollection2 interface is an extension of the ITCollection interface. ITCollection2 exposes additional methods for modifying the collection.
  * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nn-tapi3if-itcollection2
  * @namespace Windows.Win32.Devices.Tapi
- * @version v4.0.30319
  */
-class ITCollection2 extends ITCollection{
+class ITCollection2 extends ITCollection {
 
     static sizeof => A_PtrSize
     /**

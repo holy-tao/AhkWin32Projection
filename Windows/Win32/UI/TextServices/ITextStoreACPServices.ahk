@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\TF_PERSISTENT_PROPERTY_HEADER_ACP.ahk
 #Include .\ITfRangeACP.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * The ITextStoreACPServices interface is implemented by the TSF manager to provide various services to an ACP-based application.
  * @see https://learn.microsoft.com/windows/win32/api/msctf/nn-msctf-itextstoreacpservices
  * @namespace Windows.Win32.UI.TextServices
- * @version v4.0.30319
  */
-class ITextStoreACPServices extends IUnknown{
+class ITextStoreACPServices extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

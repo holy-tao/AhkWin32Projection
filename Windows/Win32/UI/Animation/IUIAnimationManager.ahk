@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\IUIAnimationVariable.ahk
 #Include .\IUIAnimationStoryboard.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Defines the animation manager, which provides a central interface for creating and managing animations.
@@ -18,9 +18,8 @@
  * Use <b>IUIAnimationManager</b> to create and manage these components.
  * @see https://learn.microsoft.com/windows/win32/api/uianimation/nn-uianimation-iuianimationmanager
  * @namespace Windows.Win32.UI.Animation
- * @version v4.0.30319
  */
-class IUIAnimationManager extends IUnknown{
+class IUIAnimationManager extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -123,7 +122,7 @@ class IUIAnimationManager extends IUnknown{
      * @remarks
      * Calling this method advances the animation manager to <i>timeNow</i>, changing statuses of storyboards as necessary and updating any animation variables to appropriate interpolated values. If the animation manager is paused, no storyboards or variables are updated. If the animation  mode is <b>UI_ANIMATION_MODE_DISABLED</b>, all scheduled storyboards finish playing immediately. If the values of any variables change during this call, the value of <i>updateResult</i> is <b>UI_ANIMATION_UPDATE_VARIABLES_CHANGED</b>; otherwise, it is <b>UI_ANIMATION_UPDATE_NO_CHANGE</b>.
      * @param {Float} timeNow The current system time. This parameter must be greater than or equal to 0.0.
-     * @returns {Integer} The result of the update.
+     * @returns {UI_ANIMATION_UPDATE_RESULT} The result of the update.
      *             This parameter can be omitted from calls to this method.
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationmanager-update
      */
@@ -138,7 +137,8 @@ class IUIAnimationManager extends IUnknown{
      * A tag is a pairing of an integer identifier (<i>id</i>) with a COM object (<i>object</i>). An application can use tags to identify animation variables and storyboards. <b>NULL</b> is a valid object component of a tag; therefore, the <i>object</i> parameter can be <b>NULL</b>.
      * 
      * Tags are not necessarily unique; this method returns <b>UI_E_AMBIGUOUS_MATCH</b> if more than one animation variable exists with the specified tag.
-     * @param {IUnknown} _object 
+     * @param {IUnknown} _object The object portion of the tag.
+     *             This parameter can be <b>NULL</b>.
      * @param {Integer} id The identifier portion of the tag.
      * @returns {IUIAnimationVariable} The animation variable that matches the specified tag, or <b>NULL</b> if no match is found.
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationmanager-getvariablefromtag
@@ -154,7 +154,8 @@ class IUIAnimationManager extends IUnknown{
      * A tag is a pairing of an integer identifier (<i>id</i>) with a COM object (<i>object</i>). An application can use tags to identify animation variables and storyboards. <b>NULL</b> is a valid object component of a tag; therefore, the <i>object</i> parameter can be <b>NULL</b>.
      * 
      * Tags are not necessarily unique; this method returns UI_E_AMBIGUOUS_MATCH if more than one storyboard exists with the specified tag.
-     * @param {IUnknown} _object 
+     * @param {IUnknown} _object The object portion of the tag.
+     *             This parameter can be <b>NULL</b>.
      * @param {Integer} id The identifier portion of the tag.
      * @returns {IUIAnimationStoryboard} The storyboard that matches the specified tag, or <b>NULL</b> if no match is found.
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationmanager-getstoryboardfromtag
@@ -166,7 +167,7 @@ class IUIAnimationManager extends IUnknown{
 
     /**
      * Gets the status of the animation manager. (IUIAnimationManager.GetStatus)
-     * @returns {Integer} 
+     * @returns {UI_ANIMATION_MANAGER_STATUS} The status.
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationmanager-getstatus
      */
     GetStatus() {
@@ -178,7 +179,7 @@ class IUIAnimationManager extends IUnknown{
      * Sets the animation mode. (IUIAnimationManager.SetAnimationMode)
      * @remarks
      * This method is used to enable or disable animation globally. While animation is disabled, all storyboards finish immediately when they are scheduled. The default mode is <b>UI_ANIMATION_MODE_SYSTEM_DEFAULT</b>, which lets Windows decide when to enable or disable animation in the application.
-     * @param {Integer} _mode 
+     * @param {UI_ANIMATION_MODE} _mode The animation mode.
      * @returns {HRESULT} If the method succeeds, it returns S_OK. Otherwise, it returns an <b>HRESULT</b> error code. See <a href="https://docs.microsoft.com/windows/desktop/UIAnimation/uianimation-error-codes">Windows Animation Error Codes</a> for a list of error codes.
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationmanager-setanimationmode
      */

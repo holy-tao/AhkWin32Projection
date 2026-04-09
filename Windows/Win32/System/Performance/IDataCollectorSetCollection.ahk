@@ -1,10 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Include ..\Com\IDispatch.ahk
 #Include .\IDataCollectorSet.ahk
 #Include ..\Com\IUnknown.ahk
-#Include ..\Com\IDispatch.ahk
 
 /**
  * Manages a collection of DataCollectorSet objects.To get this interface, call the CoCreateInstance function, passing __uuidof(DataCollectorSetCollection) as the class identifier and __uuidof(IDataCollectorSetCollection) as the interface identifier.Then, to populate the collection, call the IDataCollectorSetCollection::GetDataCollectorSets method.
@@ -12,9 +11,8 @@
  * To create the object from a script, use the Pla.DataCollectorSetCollection program identifier.
  * @see https://learn.microsoft.com/windows/win32/api/pla/nn-pla-idatacollectorsetcollection
  * @namespace Windows.Win32.System.Performance
- * @version v4.0.30319
  */
-class IDataCollectorSetCollection extends IDispatch{
+class IDataCollectorSetCollection extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

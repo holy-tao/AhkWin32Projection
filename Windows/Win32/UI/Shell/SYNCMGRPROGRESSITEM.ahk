@@ -5,10 +5,8 @@
  * Provides status information while a synchronization is in progress. This structure is used with the ISyncMgrSynchronizeCallback::Progress method and corresponds to a single synchronization item.
  * @see https://learn.microsoft.com/windows/win32/api/mobsync/ns-mobsync-syncmgrprogressitem
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class SYNCMGRPROGRESSITEM extends Win32Struct
-{
+class SYNCMGRPROGRESSITEM extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8

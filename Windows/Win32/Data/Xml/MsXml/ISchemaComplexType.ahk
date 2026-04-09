@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\ISchemaType.ahk
 #Include .\ISchemaAny.ahk
 #Include .\ISchemaItemCollection.ahk
 #Include .\ISchemaModelGroup.ahk
-#Include .\ISchemaType.ahk
 
 /**
  * @namespace Windows.Win32.Data.Xml.MsXml
- * @version v4.0.30319
  */
-class ISchemaComplexType extends ISchemaType{
+class ISchemaComplexType extends ISchemaType {
 
     static sizeof => A_PtrSize
     /**
@@ -53,7 +52,7 @@ class ISchemaComplexType extends ISchemaType{
     }
 
     /**
-     * @type {Integer} 
+     * @type {SCHEMACONTENTTYPE} 
      */
     contentType {
         get => this.get_contentType()
@@ -67,7 +66,7 @@ class ISchemaComplexType extends ISchemaType{
     }
 
     /**
-     * @type {Integer} 
+     * @type {SCHEMADERIVATIONMETHOD} 
      */
     prohibitedSubstitutions {
         get => this.get_prohibitedSubstitutions()
@@ -102,7 +101,7 @@ class ISchemaComplexType extends ISchemaType{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {SCHEMACONTENTTYPE} 
      */
     get_contentType() {
         result := ComCall(34, this, "int*", &contentType := 0, "HRESULT")
@@ -120,7 +119,7 @@ class ISchemaComplexType extends ISchemaType{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {SCHEMADERIVATIONMETHOD} 
      */
     get_prohibitedSubstitutions() {
         result := ComCall(36, this, "int*", &prohibited := 0, "HRESULT")

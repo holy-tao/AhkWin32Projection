@@ -5,10 +5,8 @@
  * The CLUSTER_RESOURCE_ENUM_ITEM structure represents the properties of a cluster resource and is used to enumerate cluster resources in the ClusterResourceEnumEx function.
  * @see https://learn.microsoft.com/windows/win32/api/msclus/ns-msclus-cluster_resource_enum_item
  * @namespace Windows.Win32.Networking.Clustering
- * @version v4.0.30319
  */
-class CLUSTER_RESOURCE_ENUM_ITEM extends Win32Struct
-{
+class CLUSTER_RESOURCE_ENUM_ITEM extends Win32Struct {
     static sizeof => 96
 
     static packingSize => 8

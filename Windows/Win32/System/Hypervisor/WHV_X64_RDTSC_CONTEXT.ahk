@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.System.Hypervisor
- * @version v4.0.30319
  */
-class WHV_X64_RDTSC_CONTEXT extends Win32Struct
-{
+class WHV_X64_RDTSC_CONTEXT extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -47,7 +45,7 @@ class WHV_X64_RDTSC_CONTEXT extends Win32Struct
     /**
      * @type {WHV_X64_RDTSC_INFO}
      */
-    RdtscInfo{
+    RdtscInfo {
         get {
             if(!this.HasProp("__RdtscInfo"))
                 this.__RdtscInfo := WHV_X64_RDTSC_INFO(32, this)

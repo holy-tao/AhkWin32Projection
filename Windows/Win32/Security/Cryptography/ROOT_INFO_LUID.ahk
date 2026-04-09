@@ -5,10 +5,8 @@
  * Contains a locally unique identifier (LUID) for Cryptographic Smart Card Root Information.
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-root_info_luid
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class ROOT_INFO_LUID extends Win32Struct
-{
+class ROOT_INFO_LUID extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4

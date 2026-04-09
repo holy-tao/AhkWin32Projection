@@ -7,9 +7,8 @@
  * The callback interface for receiving sensor manager events.
  * @see https://learn.microsoft.com/windows/win32/api/sensorsapi/nn-sensorsapi-isensormanagerevents
  * @namespace Windows.Win32.Devices.Sensors
- * @version v4.0.30319
  */
-class ISensorManagerEvents extends IUnknown{
+class ISensorManagerEvents extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -35,7 +34,7 @@ class ISensorManagerEvents extends IUnknown{
      * @remarks
      * To know when a sensor is disconnected, subscribe to the <a href="https://docs.microsoft.com/windows/desktop/api/sensorsapi/nf-sensorsapi-isensorevents-onleave">ISensorEvents::OnLeave</a> event.
      * @param {ISensor} pSensor A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/sensorsapi/nn-sensorsapi-isensor">ISensor</a> interface of the sensor that was connected.
-     * @param {Integer} state <a href="https://docs.microsoft.com/windows/win32/api/sensorsapi/ne-sensorsapi-sensorstate">SensorState</a> indicating the current state of the sensor.
+     * @param {SensorState} state <a href="https://docs.microsoft.com/windows/win32/api/sensorsapi/ne-sensorsapi-sensorstate">SensorState</a> indicating the current state of the sensor.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>

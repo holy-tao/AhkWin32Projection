@@ -7,9 +7,8 @@
  * The ITfDisplayAttributeNotifySink interface is implemented by an application to receive a notification when display attribute information is updated.
  * @see https://learn.microsoft.com/windows/win32/api/msctf/nn-msctf-itfdisplayattributenotifysink
  * @namespace Windows.Win32.UI.TextServices
- * @version v4.0.30319
  */
-class ITfDisplayAttributeNotifySink extends IUnknown{
+class ITfDisplayAttributeNotifySink extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

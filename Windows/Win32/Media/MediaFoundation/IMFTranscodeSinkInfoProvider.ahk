@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\MF_TRANSCODE_SINK_INFO.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\MF_TRANSCODE_SINK_INFO.ahk
 
 /**
  * Implemented by the transcode sink activation object.
@@ -34,9 +34,8 @@
  * </ol>
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imftranscodesinkinfoprovider
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFTranscodeSinkInfoProvider extends IUnknown{
+class IMFTranscodeSinkInfoProvider extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

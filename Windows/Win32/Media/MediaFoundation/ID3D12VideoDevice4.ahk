@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class ID3D12VideoDevice4 extends ID3D12VideoDevice3{
+class ID3D12VideoDevice4 extends ID3D12VideoDevice3 {
 
     static sizeof => A_PtrSize
     /**

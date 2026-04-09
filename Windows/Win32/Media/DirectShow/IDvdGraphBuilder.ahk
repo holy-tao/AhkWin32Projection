@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\IGraphBuilder.ahk
 #Include .\AM_DVD_RENDERSTATUS.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * The IDvdGraphBuilder interface builds a filter graph for DVD-Video playback.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-idvdgraphbuilder
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IDvdGraphBuilder extends IUnknown{
+class IDvdGraphBuilder extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

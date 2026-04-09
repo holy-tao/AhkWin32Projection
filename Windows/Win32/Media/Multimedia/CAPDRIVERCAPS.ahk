@@ -6,10 +6,8 @@
  * The CAPDRIVERCAPS structure defines the capabilities of the capture driver.An application should use the WM_CAP_DRIVER_GET_CAPS message or capDriverGetCaps macro to place a copy of the driver capabilities in a CAPDRIVERCAPS structure whenever the application connects a capture window to a capture driver.
  * @see https://learn.microsoft.com/windows/win32/api/vfw/ns-vfw-capdrivercaps
  * @namespace Windows.Win32.Media.Multimedia
- * @version v4.0.30319
  */
-class CAPDRIVERCAPS extends Win32Struct
-{
+class CAPDRIVERCAPS extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 8
@@ -81,7 +79,7 @@ class CAPDRIVERCAPS extends Win32Struct
      * Not used in Win32 applications.
      * @type {HANDLE}
      */
-    hVideoIn{
+    hVideoIn {
         get {
             if(!this.HasProp("__hVideoIn"))
                 this.__hVideoIn := HANDLE(32, this)
@@ -93,7 +91,7 @@ class CAPDRIVERCAPS extends Win32Struct
      * Not used in Win32 applications.
      * @type {HANDLE}
      */
-    hVideoOut{
+    hVideoOut {
         get {
             if(!this.HasProp("__hVideoOut"))
                 this.__hVideoOut := HANDLE(40, this)
@@ -105,7 +103,7 @@ class CAPDRIVERCAPS extends Win32Struct
      * Not used in Win32 applications.
      * @type {HANDLE}
      */
-    hVideoExtIn{
+    hVideoExtIn {
         get {
             if(!this.HasProp("__hVideoExtIn"))
                 this.__hVideoExtIn := HANDLE(48, this)
@@ -117,7 +115,7 @@ class CAPDRIVERCAPS extends Win32Struct
      * Not used in Win32 applications.
      * @type {HANDLE}
      */
-    hVideoExtOut{
+    hVideoExtOut {
         get {
             if(!this.HasProp("__hVideoExtOut"))
                 this.__hVideoExtOut := HANDLE(56, this)

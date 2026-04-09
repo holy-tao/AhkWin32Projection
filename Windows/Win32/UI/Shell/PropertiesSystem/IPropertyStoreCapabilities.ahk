@@ -12,9 +12,8 @@
  * The Shell user interfaces that allow property editing, such as the <b>Details Pane</b> and <b>Details Tab</b> of the Properties dialog, call this method as part of determining whether to allow editing of a specific property. This allows the Shell property editing UI to disable controls rather than showing errors when the property handler fails to set or commit the property value.
  * @see https://learn.microsoft.com/windows/win32/api/propsys/nn-propsys-ipropertystorecapabilities
  * @namespace Windows.Win32.UI.Shell.PropertiesSystem
- * @version v4.0.30319
  */
-class IPropertyStoreCapabilities extends IUnknown{
+class IPropertyStoreCapabilities extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

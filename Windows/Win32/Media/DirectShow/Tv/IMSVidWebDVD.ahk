@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\IMSVidPlayback.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
 #Include ..\..\..\System\Com\IDispatch.ahk
 #Include .\IMSVidRect.ahk
-#Include .\IMSVidPlayback.ahk
 
 /**
  * Contains methods that save and load the current location and state for DVD playback.
@@ -12,9 +12,8 @@
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IMSVidWebDVD2)</c>.
  * @see https://learn.microsoft.com/windows/win32/api/segment/nn-segment-imsvidwebdvd2
  * @namespace Windows.Win32.Media.DirectShow.Tv
- * @version v4.0.30319
  */
-class IMSVidWebDVD extends IMSVidPlayback{
+class IMSVidWebDVD extends IMSVidPlayback {
 
     static sizeof => A_PtrSize
     /**
@@ -244,7 +243,7 @@ class IMSVidWebDVD extends IMSVidPlayback{
     }
 
     /**
-     * @type {Integer} 
+     * @type {DVDSPExt} 
      */
     DefaultSubpictureLanguageExt {
         get => this.get_DefaultSubpictureLanguageExt()
@@ -511,7 +510,7 @@ class IMSVidWebDVD extends IMSVidPlayback{
      * The ShowMenu method displays the specified menu on the screen.
      * @remarks
      * DVD menu names can be somewhat confusing. The title menu is another name for the Video Manager Menu, the main menu for the entire disc; it generally lists all the video title sets available on the disc. The root menu is the menu for one video title set, which can contain one title or a group of titles. All the titles in a title set share the same Subpicture, Audio, and Angle menus.
-     * @param {Integer} MenuID 
+     * @param {DVDMenuIDConstants} MenuID 
      * @returns {HRESULT} <span id="iMenuID"></span><span id="imenuid"></span><span id="IMENUID"></span>*iMenuID*
      * 
      * Specifies the menu ID as an Integer.
@@ -1204,7 +1203,7 @@ class IMSVidWebDVD extends IMSVidPlayback{
      * 
      * @param {Integer} lLangIndex 
      * @param {Integer} lStringIndex 
-     * @returns {Integer} 
+     * @returns {DVDTextStringType} 
      */
     get_DVDTextStringType(lLangIndex, lStringIndex) {
         result := ComCall(99, this, "int", lLangIndex, "int", lStringIndex, "int*", &pType := 0, "HRESULT")
@@ -1349,7 +1348,7 @@ class IMSVidWebDVD extends IMSVidPlayback{
      * @remarks
      * The subpicture language extension provides further information about the subpicture.
      * @param {Integer} lang 
-     * @param {Integer} ext 
+     * @param {DVDSPExt} ext 
      * @returns {HRESULT} <span id="iLang"></span><span id="ilang"></span><span id="ILANG"></span>*iLang*
      * 
      * Specifies the language as an Integer.
@@ -1437,7 +1436,7 @@ class IMSVidWebDVD extends IMSVidPlayback{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {DVDSPExt} 
      */
     get_DefaultSubpictureLanguageExt() {
         result := ComCall(116, this, "int*", &ext := 0, "HRESULT")

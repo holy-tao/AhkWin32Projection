@@ -4,13 +4,11 @@
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
- * @version v4.0.30319
  */
-class PORT_DATA_LIST_1 extends Win32Struct
-{
-    static sizeof => 16
+class PORT_DATA_LIST_1 extends Win32Struct {
+    static sizeof => 1076
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}
@@ -29,9 +27,9 @@ class PORT_DATA_LIST_1 extends Win32Struct
     }
 
     /**
-     * @type {Array<PORT_DATA_2>}
+     * @type {PORT_DATA_2}
      */
-    pPortData{
+    pPortData {
         get {
             if(!this.HasProp("__pPortDataProxyArray"))
                 this.__pPortDataProxyArray := Win32FixedArray(this.ptr + 8, 1, PORT_DATA_2, "")

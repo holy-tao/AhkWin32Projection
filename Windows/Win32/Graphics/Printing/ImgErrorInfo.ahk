@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
- * @version v4.0.30319
  */
-class ImgErrorInfo extends Win32Struct
-{
+class ImgErrorInfo extends Win32Struct {
     static sizeof => 88
 
     static packingSize => 8
@@ -15,7 +13,7 @@ class ImgErrorInfo extends Win32Struct
     /**
      * @type {BSTR}
      */
-    description{
+    description {
         get {
             if(!this.HasProp("__description"))
                 this.__description := BSTR(0, this)
@@ -24,7 +22,7 @@ class ImgErrorInfo extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     guid {
         get => NumGet(this, 8, "ptr")
@@ -42,7 +40,7 @@ class ImgErrorInfo extends Win32Struct
     /**
      * @type {BSTR}
      */
-    helpFile{
+    helpFile {
         get {
             if(!this.HasProp("__helpFile"))
                 this.__helpFile := BSTR(24, this)
@@ -53,7 +51,7 @@ class ImgErrorInfo extends Win32Struct
     /**
      * @type {BSTR}
      */
-    source{
+    source {
         get {
             if(!this.HasProp("__source"))
                 this.__source := BSTR(32, this)
@@ -64,7 +62,7 @@ class ImgErrorInfo extends Win32Struct
     /**
      * @type {BSTR}
      */
-    devDescription{
+    devDescription {
         get {
             if(!this.HasProp("__devDescription"))
                 this.__devDescription := BSTR(40, this)
@@ -73,7 +71,7 @@ class ImgErrorInfo extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     errorID {
         get => NumGet(this, 48, "ptr")
@@ -99,7 +97,7 @@ class ImgErrorInfo extends Win32Struct
     /**
      * @type {BSTR}
      */
-    userFallback{
+    userFallback {
         get {
             if(!this.HasProp("__userFallback"))
                 this.__userFallback := BSTR(72, this)

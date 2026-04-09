@@ -5,10 +5,8 @@
 
 /**
  * @namespace Windows.Win32.UI.Accessibility
- * @version v4.0.30319
  */
-class HUIAEVENT extends Win32Handle
-{
+class HUIAEVENT extends Win32Handle {
     static sizeof => 8
 
     static packingSize => 8

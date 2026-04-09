@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.ActiveScript
- * @version v4.0.30319
  */
-class IActiveScriptSiteTraceInfo extends IUnknown{
+class IActiveScriptSiteTraceInfo extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -30,7 +29,7 @@ class IActiveScriptSiteTraceInfo extends IUnknown{
 
     /**
      * 
-     * @param {Integer} stiEventType 
+     * @param {SCRIPTTRACEINFO} stiEventType 
      * @param {Guid} guidContextID 
      * @param {Integer} dwScriptContextCookie 
      * @param {Integer} lScriptStatementStart 

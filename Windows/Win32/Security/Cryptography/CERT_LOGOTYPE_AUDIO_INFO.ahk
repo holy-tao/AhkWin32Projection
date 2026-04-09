@@ -5,10 +5,8 @@
  * Contains more detailed information about an audio logotype.
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cert_logotype_audio_info
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CERT_LOGOTYPE_AUDIO_INFO extends Win32Struct
-{
+class CERT_LOGOTYPE_AUDIO_INFO extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -32,7 +30,6 @@ class CERT_LOGOTYPE_AUDIO_INFO extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     dwChannels {

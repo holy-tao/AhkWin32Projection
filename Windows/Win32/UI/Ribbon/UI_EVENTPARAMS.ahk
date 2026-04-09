@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\UI_EVENTTYPE.ahk
 #Include .\UI_EVENTPARAMS_COMMAND.ahk
+#Include .\UI_EVENTLOCATION.ahk
 
 /**
  * Contains information about a Ribbon event.
@@ -16,17 +18,15 @@
  * For all other events, <b>Params</b> contains additional data about the event.
  * @see https://learn.microsoft.com/windows/win32/api/uiribbon/ns-uiribbon-ui_eventparams
  * @namespace Windows.Win32.UI.Ribbon
- * @version v4.0.30319
  */
-class UI_EVENTPARAMS extends Win32Struct
-{
+class UI_EVENTPARAMS extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
 
     /**
      * One of the values from <a href="https://docs.microsoft.com/windows/desktop/api/uiribbon/ne-uiribbon-ui_eventtype">UI_EVENTTYPE</a>.
-     * @type {Integer}
+     * @type {UI_EVENTTYPE}
      */
     EventType {
         get => NumGet(this, 0, "int")
@@ -44,7 +44,7 @@ class UI_EVENTPARAMS extends Win32Struct
     /**
      * @type {UI_EVENTPARAMS_COMMAND}
      */
-    Params{
+    Params {
         get {
             if(!this.HasProp("__Params"))
                 this.__Params := UI_EVENTPARAMS_COMMAND(8, this)

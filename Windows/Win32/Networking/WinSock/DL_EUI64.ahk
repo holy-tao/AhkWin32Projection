@@ -6,18 +6,16 @@
 
 /**
  * @namespace Windows.Win32.Networking.WinSock
- * @version v4.0.30319
  */
-class DL_EUI64 extends Win32Struct
-{
+class DL_EUI64 extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Byte{
+    Byte {
         get {
             if(!this.HasProp("__ByteProxyArray"))
                 this.__ByteProxyArray := Win32FixedArray(this.ptr + 0, 8, Primitive, "char")
@@ -36,7 +34,7 @@ class DL_EUI64 extends Win32Struct
     /**
      * @type {DL_OUI}
      */
-    Oui{
+    Oui {
         get {
             if(!this.HasProp("__Oui"))
                 this.__Oui := DL_OUI(0, this)
@@ -47,7 +45,7 @@ class DL_EUI64 extends Win32Struct
     /**
      * @type {DL_EI64}
      */
-    Ei64{
+    Ei64 {
         get {
             if(!this.HasProp("__Ei64"))
                 this.__Ei64 := DL_EI64(4, this)
@@ -74,7 +72,7 @@ class DL_EUI64 extends Win32Struct
     /**
      * @type {DL_EI48}
      */
-    Ei48{
+    Ei48 {
         get {
             if(!this.HasProp("__Ei48"))
                 this.__Ei48 := DL_EI48(6, this)

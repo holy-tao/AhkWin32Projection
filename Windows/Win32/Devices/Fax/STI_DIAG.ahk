@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.Fax
- * @version v4.0.30319
  */
-class STI_DIAG extends Win32Struct
-{
+class STI_DIAG extends Win32Struct {
     static sizeof => 540
 
     static packingSize => 4
@@ -47,7 +45,7 @@ class STI_DIAG extends Win32Struct
     /**
      * @type {_ERROR_INFOW}
      */
-    sErrorInfo{
+    sErrorInfo {
         get {
             if(!this.HasProp("__sErrorInfo"))
                 this.__sErrorInfo := _ERROR_INFOW(16, this)

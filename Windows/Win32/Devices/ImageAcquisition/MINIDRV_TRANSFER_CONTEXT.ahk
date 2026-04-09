@@ -1,12 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\IWiaMiniDrvCallBack.ahk
 
 /**
  * @namespace Windows.Win32.Devices.ImageAcquisition
- * @version v4.0.30319
  */
-class MINIDRV_TRANSFER_CONTEXT extends Win32Struct
-{
+class MINIDRV_TRANSFER_CONTEXT extends Win32Struct {
     static sizeof => 144
 
     static packingSize => 8
@@ -68,7 +67,7 @@ class MINIDRV_TRANSFER_CONTEXT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     guidFormatID {
         get => NumGet(this, 32, "ptr")

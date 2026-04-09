@@ -3,7 +3,6 @@
 
 /**
  * @namespace Windows.Win32.Security.Authorization
- * @version v4.0.30319
  */
 class Authorization {
 
@@ -1439,7 +1438,7 @@ class Authorization {
      * Security attribute variables must be present in the client context if referred to in a conditional expression, otherwise the conditional expression term referencing them will evaluate to unknown. For more information, see the <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-descriptor-definition-language-for-conditional-aces-">Security Descriptor Definition Language for Conditional ACEs</a> topic.
      * 
      * For more information, see the <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/how-dacls-control-access-to-an-object">How AccessCheck Works</a> and <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/centralized-authorization-policy">Centralized Authorization Policy</a> overviews.
-     * @param {Integer} Flags 
+     * @param {AUTHZ_ACCESS_CHECK_FLAGS} Flags 
      * @param {AUTHZ_CLIENT_CONTEXT_HANDLE} hAuthzClientContext A handle to a structure that represents the client.
      * 					
      * 
@@ -1728,7 +1727,7 @@ class Authorization {
      * The LSA and the central access policy callback can indicate that CAPs are not supported, in which case <a href="https://docs.microsoft.com/windows/desktop/api/authz/nf-authz-authzaccesscheck">AuthzAccessCheck</a> and <a href="https://docs.microsoft.com/windows/desktop/api/authz/nf-authz-authzcachedaccesscheck">AuthzCachedAccessCheck</a> ignore CAPID ACEs and will not evaluate CAPs.
      * 
      * The LSA and the central access policy callback may fail to return a CAP that corresponds to a particular CAPID, in which case <b>AuthzAccessCheck</b> and <b>AuthzCachedAccessCheck</b> use the same default CAP as the kernel AccessCheck.
-     * @param {Integer} Flags 
+     * @param {AUTHZ_RESOURCE_MANAGER_FLAGS} Flags 
      * @param {Pointer<AUTHZ_INIT_INFO>} pAuthzInitInfo A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/authz/ns-authz-authz_init_info">AUTHZ_INIT_INFO</a> structure that contains the authorization resource manager initialization information.
      * @param {Pointer<AUTHZ_RESOURCE_MANAGER_HANDLE>} phAuthzResourceManager A pointer to the returned resource manager handle. When you have finished using the handle, free it by using the <a href="https://docs.microsoft.com/windows/desktop/api/authz/nf-authz-authzfreeresourcemanager">AuthzFreeResourceManager</a> function.
      * @returns {BOOL} If the function succeeds, the function returns a value of <b>TRUE</b>. 
@@ -2025,7 +2024,7 @@ class Authorization {
     /**
      * Modifies the security attribute information in the specified client context.
      * @param {AUTHZ_CLIENT_CONTEXT_HANDLE} hAuthzClientContext A handle to the client context to be modified.
-     * @param {Pointer<Integer>} pOperations A pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/authz/ne-authz-authz_security_attribute_operation">AUTHZ_SECURITY_ATTRIBUTE_OPERATION</a> enumeration values that specify the types of modifications to make.
+     * @param {Pointer<AUTHZ_SECURITY_ATTRIBUTE_OPERATION>} pOperations A pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/authz/ne-authz-authz_security_attribute_operation">AUTHZ_SECURITY_ATTRIBUTE_OPERATION</a> enumeration values that specify the types of modifications to make.
      * 
      * This array must have only one element if the value of that element is <b>AUTHZ_SECURITY_ATTRIBUTE_OPERATION_REPLACE_ALL</b>. Otherwise, the array has the same number of elements as the <i>pAttributes</i> array.
      * @param {Pointer<AUTHZ_SECURITY_ATTRIBUTES_INFORMATION>} pAttributes A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/authz/ns-authz-authz_security_attributes_information">AUTHZ_SECURITY_ATTRIBUTES_INFORMATION</a> structure that specifies the attributes to modify.
@@ -2062,8 +2061,8 @@ class Authorization {
      * 
      * If the <a href="https://docs.microsoft.com/windows/desktop/api/authz/ne-authz-authz_security_attribute_operation">AUTHZ_SECURITY_ATTRIBUTE_OPERATION</a> enumeration is AUTHZ_SECURITY_ATTRIBUTE_OPERATION_REPLACE and the function fails, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. If the error code is ERROR_ALREADY_EXISTS, the claim's values have duplicate entries.
      * @param {AUTHZ_CLIENT_CONTEXT_HANDLE} hAuthzClientContext A handle to the client context to be modified.
-     * @param {Integer} ClaimClass Type of information to be modified. The caller can specify AuthzContextInfoUserClaims or AuthzContextInfoDeviceClaims.
-     * @param {Pointer<Integer>} pClaimOperations A pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/authz/ne-authz-authz_security_attribute_operation">AUTHZ_SECURITY_ATTRIBUTE_OPERATION</a> enumeration values that specify the type of claim modification to make.
+     * @param {AUTHZ_CONTEXT_INFORMATION_CLASS} ClaimClass Type of information to be modified. The caller can specify AuthzContextInfoUserClaims or AuthzContextInfoDeviceClaims.
+     * @param {Pointer<AUTHZ_SECURITY_ATTRIBUTE_OPERATION>} pClaimOperations A pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/authz/ne-authz-authz_security_attribute_operation">AUTHZ_SECURITY_ATTRIBUTE_OPERATION</a> enumeration values that specify the type of claim modification to make.
      * @param {Pointer<AUTHZ_SECURITY_ATTRIBUTES_INFORMATION>} pClaims A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/authz/ns-authz-authz_security_attributes_information">AUTHZ_SECURITY_ATTRIBUTES_INFORMATION</a> structure that specifies the claims to modify.
      * @returns {BOOL} If the function succeeds, it returns <b>TRUE</b>.
      * 
@@ -2096,8 +2095,8 @@ class Authorization {
      * 
      * When you want to use <b>AuthzModifySids</b> to delete, the SIDs are matched but not the SID flags. If no matching SID is found, no modifications are done and the call fails.
      * @param {AUTHZ_CLIENT_CONTEXT_HANDLE} hAuthzClientContext A handle to the client context to be modified.
-     * @param {Integer} SidClass Type of information to be modified. The caller can specify AuthzContextInfoGroupsSids, AuthzContextInfoRestrictedSids, or AuthzContextInfoDeviceSids.
-     * @param {Pointer<Integer>} pSidOperations A pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/authz/ne-authz-authz_sid_operation">AUTHZ_SID_OPERATION</a> enumeration values that specify the group modifications to make.
+     * @param {AUTHZ_CONTEXT_INFORMATION_CLASS} SidClass Type of information to be modified. The caller can specify AuthzContextInfoGroupsSids, AuthzContextInfoRestrictedSids, or AuthzContextInfoDeviceSids.
+     * @param {Pointer<AUTHZ_SID_OPERATION>} pSidOperations A pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/authz/ne-authz-authz_sid_operation">AUTHZ_SID_OPERATION</a> enumeration values that specify the group modifications to make.
      * @param {Pointer<TOKEN_GROUPS>} pSids A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-token_groups">TOKEN_GROUPS</a> structure that specifies the groups to modify.
      * @returns {BOOL} If the function succeeds, it returns <b>TRUE</b>.
      * 
@@ -2150,10 +2149,10 @@ class Authorization {
     /**
      * Returns information about an Authz context.
      * @param {AUTHZ_CLIENT_CONTEXT_HANDLE} hAuthzClientContext A handle to the context.
-     * @param {Integer} InfoClass A value of the <a href="https://docs.microsoft.com/windows/desktop/api/authz/ne-authz-authz_context_information_class">AUTHZ_CONTEXT_INFORMATION_CLASS</a> enumeration that indicates the type of information to be returned.
+     * @param {AUTHZ_CONTEXT_INFORMATION_CLASS} InfoClass A value of the <a href="https://docs.microsoft.com/windows/desktop/api/authz/ne-authz-authz_context_information_class">AUTHZ_CONTEXT_INFORMATION_CLASS</a> enumeration that indicates the type of information to be returned.
      * @param {Integer} BufferSize Size of the buffer passed.
      * @param {Pointer<Integer>} pSizeRequired A pointer to a <b>DWORD</b> of  the buffer size required for returning the structure.
-     * @param {Pointer<Void>} _Buffer 
+     * @param {Pointer<Void>} _Buffer A pointer to memory that can receive the information. The structure returned depends on the information requested in the <i>InfoClass</i> parameter.
      * @returns {BOOL} If the function succeeds, it returns <b>TRUE</b>.
      * 
      * If the function fails, it returns <b>FALSE</b>. To get extended error information, call 
@@ -2202,7 +2201,7 @@ class Authorization {
 
     /**
      * Initializes auditing for an object.
-     * @param {Integer} Flags 
+     * @param {AUTHZ_INITIALIZE_OBJECT_ACCESS_AUDIT_EVENT_FLAGS} Flags 
      * @param {AUTHZ_AUDIT_EVENT_TYPE_HANDLE} hAuditEventType Reserved. This parameter should be set to <b>NULL</b>.
      * @param {PWSTR} szOperationType String that indicates the operation that is to be audited.
      * @param {PWSTR} szObjectType String that indicates the type of object being accessed.
@@ -2415,7 +2414,7 @@ class Authorization {
     /**
      * Retrieves the registered security event sources that are not installed by default.
      * @param {Integer} dwFlags Reserved for future use; set this parameter to zero.
-     * @param {Pointer<AUTHZ_SOURCE_SCHEMA_REGISTRATION>} _Buffer 
+     * @param {Pointer<AUTHZ_SOURCE_SCHEMA_REGISTRATION>} _Buffer A pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/authz/ns-authz-authz_source_schema_registration">AUTHZ_SOURCE_SCHEMA_REGISTRATION</a> structures that returns the registered security event sources.
      * @param {Pointer<Integer>} pdwCount A pointer to a  variable that receives the number of event sources found.
      * @param {Pointer<Integer>} pdwLength A pointer to a variable that specifies the length of the <i>Buffer</i> parameter in bytes. On output, this parameter receives the number of bytes used or required.
      * @returns {BOOL} If the function succeeds, it returns <b>TRUE</b>.
@@ -2690,7 +2689,7 @@ class Authorization {
      * @param {Pointer<ACL>} OldAcl A pointer to the existing ACL. This parameter can be <b>NULL</b>, in which case, the function creates a new ACL based on the <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-explicit_access_a">EXPLICIT_ACCESS</a> entries.
      * @param {Pointer<Pointer<ACL>>} NewAcl A pointer to a variable that receives a pointer to the new ACL. If the function succeeds, you must call the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a> function to free the returned buffer.
-     * @returns {Integer} If the function succeeds, the function returns ERROR_SUCCESS.
+     * @returns {WIN32_ERROR} If the function succeeds, the function returns ERROR_SUCCESS.
      * 
      * If the function fails, it returns a nonzero error code defined in WinError.h.
      * @see https://learn.microsoft.com/windows/win32/api/aclapi/nf-aclapi-setentriesinacla
@@ -2742,7 +2741,7 @@ class Authorization {
      * @param {Pointer<ACL>} OldAcl A pointer to the existing ACL. This parameter can be <b>NULL</b>, in which case, the function creates a new ACL based on the <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-explicit_access_a">EXPLICIT_ACCESS</a> entries.
      * @param {Pointer<Pointer<ACL>>} NewAcl A pointer to a variable that receives a pointer to the new ACL. If the function succeeds, you must call the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a> function to free the returned buffer.
-     * @returns {Integer} If the function succeeds, the function returns ERROR_SUCCESS.
+     * @returns {WIN32_ERROR} If the function succeeds, the function returns ERROR_SUCCESS.
      * 
      * If the function fails, it returns a nonzero error code defined in WinError.h.
      * @see https://learn.microsoft.com/windows/win32/api/aclapi/nf-aclapi-setentriesinaclw
@@ -2780,7 +2779,7 @@ class Authorization {
      * @param {Pointer<Integer>} pcCountOfExplicitEntries A pointer to a variable that receives the number of <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-explicit_access_a">EXPLICIT_ACCESS</a> structures returned in the <i>pListOfExplicitEntries</i> array.
      * @param {Pointer<Pointer<EXPLICIT_ACCESS_A>>} pListOfExplicitEntries A pointer to a variable that receives a pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-explicit_access_a">EXPLICIT_ACCESS</a> structures that describe the ACEs in the ACL. If the function succeeds, you must call the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a> function to free the returned buffer.
-     * @returns {Integer} If the function succeeds, the function returns ERROR_SUCCESS.
+     * @returns {WIN32_ERROR} If the function succeeds, the function returns ERROR_SUCCESS.
      * 
      * If the function fails, it returns a nonzero error code defined in WinError.h.
      * @see https://learn.microsoft.com/windows/win32/api/aclapi/nf-aclapi-getexplicitentriesfromacla
@@ -2819,7 +2818,7 @@ class Authorization {
      * @param {Pointer<Integer>} pcCountOfExplicitEntries A pointer to a variable that receives the number of <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-explicit_access_a">EXPLICIT_ACCESS</a> structures returned in the <i>pListOfExplicitEntries</i> array.
      * @param {Pointer<Pointer<EXPLICIT_ACCESS_W>>} pListOfExplicitEntries A pointer to a variable that receives a pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-explicit_access_a">EXPLICIT_ACCESS</a> structures that describe the ACEs in the ACL. If the function succeeds, you must call the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a> function to free the returned buffer.
-     * @returns {Integer} If the function succeeds, the function returns ERROR_SUCCESS.
+     * @returns {WIN32_ERROR} If the function succeeds, the function returns ERROR_SUCCESS.
      * 
      * If the function fails, it returns a nonzero error code defined in WinError.h.
      * @see https://learn.microsoft.com/windows/win32/api/aclapi/nf-aclapi-getexplicitentriesfromaclw
@@ -2855,7 +2854,7 @@ class Authorization {
      * <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-trustee_a">TRUSTEE</a> structure that identifies the trustee. A trustee can be a user, group, or program (such as a Windows service). You can use a name or a security identifier (<a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a>) to identify a trustee.
      * @param {Pointer<Integer>} pAccessRights A pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/access-mask">ACCESS_MASK</a> variable that receives the effective access rights of the trustee.
-     * @returns {Integer} If the function succeeds, the function returns ERROR_SUCCESS.
+     * @returns {WIN32_ERROR} If the function succeeds, the function returns ERROR_SUCCESS.
      * 
      * If the function fails, it returns a nonzero error code defined in WinError.h.
      * @see https://learn.microsoft.com/windows/win32/api/aclapi/nf-aclapi-geteffectiverightsfromacla
@@ -2890,7 +2889,7 @@ class Authorization {
      * <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-trustee_a">TRUSTEE</a> structure that identifies the trustee. A trustee can be a user, group, or program (such as a Windows service). You can use a name or a security identifier (<a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a>) to identify a trustee.
      * @param {Pointer<Integer>} pAccessRights A pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/access-mask">ACCESS_MASK</a> variable that receives the effective access rights of the trustee.
-     * @returns {Integer} If the function succeeds, the function returns ERROR_SUCCESS.
+     * @returns {WIN32_ERROR} If the function succeeds, the function returns ERROR_SUCCESS.
      * 
      * If the function fails, it returns a nonzero error code defined in WinError.h.
      * @see https://learn.microsoft.com/windows/win32/api/aclapi/nf-aclapi-geteffectiverightsfromaclw
@@ -2921,7 +2920,7 @@ class Authorization {
      * @param {Pointer<Integer>} pSuccessfulAuditedRights A pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/access-mask">ACCESS_MASK</a> structure that receives the successful audit mask for rights audited for the trustee specified by the <i>pTrustee</i> parameter. The system generates an audit record when the trustee successfully uses any of these access rights.
      * @param {Pointer<Integer>} pFailedAuditRights A pointer to an <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/access-mask">ACCESS_MASK</a> structure that receives the failed audit mask for rights audited for the trustee specified by the <i>pTrustee</i> parameter. The system generates an audit record when the trustee fails in an attempt to use any of these rights.
-     * @returns {Integer} If the function succeeds, the function returns ERROR_SUCCESS.
+     * @returns {WIN32_ERROR} If the function succeeds, the function returns ERROR_SUCCESS.
      * 
      * If the function fails, it returns a nonzero error code defined in WinError.h.
      * @see https://learn.microsoft.com/windows/win32/api/aclapi/nf-aclapi-getauditedpermissionsfromacla
@@ -2953,7 +2952,7 @@ class Authorization {
      * @param {Pointer<Integer>} pSuccessfulAuditedRights A pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/access-mask">ACCESS_MASK</a> structure that receives the successful audit mask for rights audited for the trustee specified by the <i>pTrustee</i> parameter. The system generates an audit record when the trustee successfully uses any of these access rights.
      * @param {Pointer<Integer>} pFailedAuditRights A pointer to an <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/access-mask">ACCESS_MASK</a> structure that receives the failed audit mask for rights audited for the trustee specified by the <i>pTrustee</i> parameter. The system generates an audit record when the trustee fails in an attempt to use any of these rights.
-     * @returns {Integer} If the function succeeds, the function returns ERROR_SUCCESS.
+     * @returns {WIN32_ERROR} If the function succeeds, the function returns ERROR_SUCCESS.
      * 
      * If the function fails, it returns a nonzero error code defined in WinError.h.
      * @see https://learn.microsoft.com/windows/win32/api/aclapi/nf-aclapi-getauditedpermissionsfromaclw
@@ -2995,8 +2994,8 @@ class Authorization {
      * For more information about controlling access to objects through user accounts, group  accounts, or logon sessions,  see <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/how-dacls-control-access-to-an-object">How DACLs Control Access to an Object</a>.
      * @param {PSTR} pObjectName A pointer to a null-terminated string that specifies the name of the object from which to retrieve security information. For descriptions of the string formats for the different object types, see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ne-accctrl-se_object_type">SE_OBJECT_TYPE</a>.
-     * @param {Integer} _ObjectType 
-     * @param {Integer} SecurityInfo A set of 
+     * @param {SE_OBJECT_TYPE} _ObjectType Specifies a value from the <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ne-accctrl-se_object_type">SE_OBJECT_TYPE</a> enumeration that indicates the type of object named by the <i>pObjectName</i> parameter.
+     * @param {OBJECT_SECURITY_INFORMATION} SecurityInfo A set of 
      * bit flags that indicate the type of security information to retrieve. This parameter can be a combination of the 
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-information">SECURITY_INFORMATION</a> bit flags.
      * @param {Pointer<PSID>} ppsidOwner A pointer to a variable that receives a pointer to the owner SID in the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security descriptor</a> returned in <i>ppSecurityDescriptor</i> or <b>NULL</b> if the security descriptor has no owner SID. The returned pointer is valid only if you set the OWNER_SECURITY_INFORMATION flag. Also, this parameter can be <b>NULL</b> if you do not need the owner SID.
@@ -3007,7 +3006,7 @@ class Authorization {
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a> function.
      * 
      * This parameter is required if any one of the <i>ppsidOwner</i>, <i>ppsidGroup</i>, <i>ppDacl</i>, or <i>ppSacl</i> parameters is not <b>NULL</b>.
-     * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
+     * @returns {WIN32_ERROR} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value is a nonzero error code defined in WinError.h.
      * @see https://learn.microsoft.com/windows/win32/api/aclapi/nf-aclapi-getnamedsecurityinfoa
@@ -3053,8 +3052,8 @@ class Authorization {
      * For more information about controlling access to objects through user accounts, group  accounts, or logon sessions,  see <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/how-dacls-control-access-to-an-object">How DACLs Control Access to an Object</a>.
      * @param {PWSTR} pObjectName A pointer to a null-terminated string that specifies the name of the object from which to retrieve security information. For descriptions of the string formats for the different object types, see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ne-accctrl-se_object_type">SE_OBJECT_TYPE</a>.
-     * @param {Integer} _ObjectType 
-     * @param {Integer} SecurityInfo A set of 
+     * @param {SE_OBJECT_TYPE} _ObjectType Specifies a value from the <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ne-accctrl-se_object_type">SE_OBJECT_TYPE</a> enumeration that indicates the type of object named by the <i>pObjectName</i> parameter.
+     * @param {OBJECT_SECURITY_INFORMATION} SecurityInfo A set of 
      * bit flags that indicate the type of security information to retrieve. This parameter can be a combination of the 
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-information">SECURITY_INFORMATION</a> bit flags.
      * @param {Pointer<PSID>} ppsidOwner A pointer to a variable that receives a pointer to the owner SID in the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security descriptor</a> returned in <i>ppSecurityDescriptor</i> or <b>NULL</b> if the security descriptor has no owner SID. The returned pointer is valid only if you set the OWNER_SECURITY_INFORMATION flag. Also, this parameter can be <b>NULL</b> if you do not need the owner SID.
@@ -3065,7 +3064,7 @@ class Authorization {
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a> function.
      * 
      * This parameter is required if any one of the <i>ppsidOwner</i>, <i>ppsidGroup</i>, <i>ppDacl</i>, or <i>ppSacl</i> parameters is not <b>NULL</b>.
-     * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
+     * @returns {WIN32_ERROR} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value is a nonzero error code defined in WinError.h.
      * @see https://learn.microsoft.com/windows/win32/api/aclapi/nf-aclapi-getnamedsecurityinfow
@@ -3107,9 +3106,9 @@ class Authorization {
      * <li>Directory service objects</li>
      * </ul>
      * This function does not handle race conditions. If your thread calls this function at the approximate time that another thread changes the object's security descriptor, then this function could fail.
-     * @param {HANDLE} _handle 
-     * @param {Integer} _ObjectType 
-     * @param {Integer} SecurityInfo A set of 
+     * @param {HANDLE} _handle A handle to the object from which to retrieve security information.
+     * @param {SE_OBJECT_TYPE} _ObjectType <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ne-accctrl-se_object_type">SE_OBJECT_TYPE</a> enumeration value that indicates the type of object.
+     * @param {OBJECT_SECURITY_INFORMATION} SecurityInfo A set of 
      * bit flags that indicate the type of security information to retrieve. This parameter can be a combination of the 
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-information">SECURITY_INFORMATION</a> bit flags.
      * @param {Pointer<PSID>} ppsidOwner A pointer to a variable that receives a pointer to the owner SID in the security descriptor returned in <i>ppSecurityDescriptor</i>. The returned pointer is valid only if you set the OWNER_SECURITY_INFORMATION flag. This parameter can be <b>NULL</b> if you do not need the owner SID.
@@ -3120,7 +3119,7 @@ class Authorization {
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a> function.
      * 
      * This parameter is required if any one of the <i>ppsidOwner</i>, <i>ppsidGroup</i>, <i>ppDacl</i>, or <i>ppSacl</i> parameters is not <b>NULL</b>.
-     * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
+     * @returns {WIN32_ERROR} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value is a nonzero error code defined in WinError.h.
      * @see https://learn.microsoft.com/windows/win32/api/aclapi/nf-aclapi-getsecurityinfo
@@ -3168,8 +3167,8 @@ class Authorization {
      * 
      * For descriptions of the string formats for the different object types, see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ne-accctrl-se_object_type">SE_OBJECT_TYPE</a>.
-     * @param {Integer} _ObjectType 
-     * @param {Integer} SecurityInfo A set of 
+     * @param {SE_OBJECT_TYPE} _ObjectType A value of the <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ne-accctrl-se_object_type">SE_OBJECT_TYPE</a> enumeration that indicates the type of object named by the <i>pObjectName</i> parameter.
+     * @param {OBJECT_SECURITY_INFORMATION} SecurityInfo A set of 
      * bit flags that indicate the type of security information to set. This parameter can be a combination of the <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-information">SECURITY_INFORMATION</a> bit flags.
      * @param {PSID} psidOwner A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure that identifies the owner of the object. If the caller does not have the <b>SeRestorePrivilege</b> constant (see <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/privilege-constants">Privilege Constants</a>), this <b>SID</b> must be contained in the caller's token, and must have the <b>SE_GROUP_OWNER</b> permission enabled. The <i>SecurityInfo</i> parameter must include the OWNER_SECURITY_INFORMATION flag. To set the owner, the caller must have WRITE_OWNER access to the object or have the SE_TAKE_OWNERSHIP_NAME privilege enabled. If you are not setting the owner <b>SID</b>, this parameter can be <b>NULL</b>.
      * @param {PSID} psidGroup A pointer to a SID that identifies the primary group of the object. The <i>SecurityInfo</i> parameter must include the GROUP_SECURITY_INFORMATION flag. If you are not setting the primary group SID, this parameter can be <b>NULL</b>.
@@ -3179,7 +3178,7 @@ class Authorization {
      * 
      * 
      * If setting SACL_SECURITY_INFORMATION or SCOPE_SECURITY_INFORMATION, the caller must have the SE_SECURITY_NAME privilege enabled. If you are not setting the SACL, this parameter can be <b>NULL</b>.
-     * @returns {Integer} If the function succeeds, the function returns ERROR_SUCCESS.
+     * @returns {WIN32_ERROR} If the function succeeds, the function returns ERROR_SUCCESS.
      * 
      * If the function fails, it returns a nonzero error code defined in WinError.h.
      * @see https://learn.microsoft.com/windows/win32/api/aclapi/nf-aclapi-setnamedsecurityinfoa
@@ -3222,8 +3221,8 @@ class Authorization {
      * 
      * For descriptions of the string formats for the different object types, see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ne-accctrl-se_object_type">SE_OBJECT_TYPE</a>.
-     * @param {Integer} _ObjectType 
-     * @param {Integer} SecurityInfo A set of 
+     * @param {SE_OBJECT_TYPE} _ObjectType A value of the <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ne-accctrl-se_object_type">SE_OBJECT_TYPE</a> enumeration that indicates the type of object named by the <i>pObjectName</i> parameter.
+     * @param {OBJECT_SECURITY_INFORMATION} SecurityInfo A set of 
      * bit flags that indicate the type of security information to set. This parameter can be a combination of the <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-information">SECURITY_INFORMATION</a> bit flags.
      * @param {PSID} psidOwner A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure that identifies the owner of the object. If the caller does not have the <b>SeRestorePrivilege</b> constant (see <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/privilege-constants">Privilege Constants</a>), this <b>SID</b> must be contained in the caller's token, and must have the <b>SE_GROUP_OWNER</b> permission enabled. The <i>SecurityInfo</i> parameter must include the OWNER_SECURITY_INFORMATION flag. To set the owner, the caller must have WRITE_OWNER access to the object or have the SE_TAKE_OWNERSHIP_NAME privilege enabled. If you are not setting the owner <b>SID</b>, this parameter can be <b>NULL</b>.
      * @param {PSID} psidGroup A pointer to a SID that identifies the primary group of the object. The <i>SecurityInfo</i> parameter must include the GROUP_SECURITY_INFORMATION flag. If you are not setting the primary group SID, this parameter can be <b>NULL</b>.
@@ -3233,7 +3232,7 @@ class Authorization {
      * 
      * 
      * If setting SACL_SECURITY_INFORMATION or SCOPE_SECURITY_INFORMATION, the caller must have the SE_SECURITY_NAME privilege enabled. If you are not setting the SACL, this parameter can be <b>NULL</b>.
-     * @returns {Integer} If the function succeeds, the function returns ERROR_SUCCESS.
+     * @returns {WIN32_ERROR} If the function succeeds, the function returns ERROR_SUCCESS.
      * 
      * If the function fails, it returns a nonzero error code defined in WinError.h.
      * @see https://learn.microsoft.com/windows/win32/api/aclapi/nf-aclapi-setnamedsecurityinfow
@@ -3275,16 +3274,17 @@ class Authorization {
      * <div> </div>
      * <div class="alert"><b>Warning</b>  If the supplied <i>handle</i> was opened with an <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/access-mask">ACCESS_MASK</a> value of <b>MAXIMUM_ALLOWED</b>, then the <b>SetSecurityInfo</b> function will not propagate ACEs to children.</div>
      * <div> </div>
-     * @param {HANDLE} _handle 
-     * @param {Integer} _ObjectType 
-     * @param {Integer} SecurityInfo A set of 
+     * @param {HANDLE} _handle A handle to the object for which to set security information.
+     * @param {SE_OBJECT_TYPE} _ObjectType A member of the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ne-accctrl-se_object_type">SE_OBJECT_TYPE</a> enumeration that indicates the type of object identified by the <i>handle</i> parameter.
+     * @param {OBJECT_SECURITY_INFORMATION} SecurityInfo A set of 
      * bit flags that indicate the type of security information to set. This parameter can be a combination of the 
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-information">SECURITY_INFORMATION</a> bit flags.
      * @param {PSID} psidOwner A pointer to a SID that identifies the owner of the object. The SID must be one that can be assigned as the owner SID of a security descriptor. The <i>SecurityInfo</i> parameter must include the OWNER_SECURITY_INFORMATION flag. This parameter can be <b>NULL</b> if you are not setting the owner SID.
      * @param {PSID} psidGroup A pointer to a SID that identifies the primary group of the object. The <i>SecurityInfo</i> parameter must include the GROUP_SECURITY_INFORMATION flag. This parameter can be <b>NULL</b> if you are not setting the primary group SID.
      * @param {Pointer<ACL>} pDacl A pointer to the new DACL for the object. This parameter is ignored unless the value of the <i>SecurityInfo</i> parameter includes the <b>DACL_SECURITY_INFORMATION</b> flag.  If the value of the <i>SecurityInfo</i> parameter includes the <b>DACL_SECURITY_INFORMATION</b> flag and the value of this parameter is set to <b>NULL</b>, full access to the object is granted to everyone. For information about <b>null</b> DACLs, see <a href="https://docs.microsoft.com/windows/desktop/SecBP/creating-a-dacl">Creating a DACL</a>.
      * @param {Pointer<ACL>} pSacl A pointer to the new SACL for the object. The <i>SecurityInfo</i> parameter must include any of the following flags: SACL_SECURITY_INFORMATION, LABEL_SECURITY_INFORMATION, ATTRIBUTE_SECURITY_INFORMATION, SCOPE_SECURITY_INFORMATION, or BACKUP_SECURITY_INFORMATION. If setting SACL_SECURITY_INFORMATION or SCOPE_SECURITY_INFORMATION, the caller must have the SE_SECURITY_NAME privilege enabled. This parameter can be <b>NULL</b> if you are not setting the SACL.
-     * @returns {Integer} If the function succeeds, the function returns ERROR_SUCCESS.
+     * @returns {WIN32_ERROR} If the function succeeds, the function returns ERROR_SUCCESS.
      * 
      * If the function fails, it returns a nonzero error code defined in WinError.h.
      * @see https://learn.microsoft.com/windows/win32/api/aclapi/nf-aclapi-setsecurityinfo
@@ -3312,8 +3312,8 @@ class Authorization {
      * > [!NOTE]
      * > The aclapi.h header defines GetInheritanceSource as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PSTR} pObjectName A pointer to the name of the object that uses the ACL to be checked.
-     * @param {Integer} _ObjectType 
-     * @param {Integer} SecurityInfo The type of ACL used with the object. The possible values are DACL_SECURITY_INFORMATION or SACL_SECURITY_INFORMATION.
+     * @param {SE_OBJECT_TYPE} _ObjectType The type of object indicated by <i>pObjectName</i>. The possible values are SE_FILE_OBJECT, SE_REGISTRY_KEY, SE_DS_OBJECT, and SE_DS_OBJECT_ALL.
+     * @param {OBJECT_SECURITY_INFORMATION} SecurityInfo The type of ACL used with the object. The possible values are DACL_SECURITY_INFORMATION or SACL_SECURITY_INFORMATION.
      * @param {BOOL} Container <b>TRUE</b> if the object is a container object or <b>FALSE</b> if the object is a leaf object. Note that the only leaf object is SE_FILE_OBJECT.
      * @param {Pointer<Pointer<Guid>>} pObjectClassGuids Optional list of GUIDs that identify the object types or names associated with <i>pObjectName</i>. This may be <b>NULL</b> if the object manager only supports one object class or has no GUID associated with the object class.
      * @param {Integer} GuidCount Number of GUIDs pointed to by <i>pObjectClassGuids</i>.
@@ -3321,7 +3321,7 @@ class Authorization {
      * @param {Pointer<FN_OBJECT_MGR_FUNCTS>} pfnArray Reserved. Set this parameter to <b>NULL</b>.
      * @param {Pointer<GENERIC_MAPPING>} pGenericMapping The mapping of generic rights to specific rights for the object.
      * @param {Pointer<INHERITED_FROMA>} pInheritArray A pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-inherited_froma">INHERITED_FROM</a> structures that the <b>GetInheritanceSource</b> function fills with the inheritance information. The caller must allocate enough memory for an entry for each ACE in the ACL.
-     * @returns {Integer} If the function succeeds, the function returns ERROR_SUCCESS.
+     * @returns {WIN32_ERROR} If the function succeeds, the function returns ERROR_SUCCESS.
      * 
      * If the function fails, it returns a nonzero error code defined in WinError.h.
      * @see https://learn.microsoft.com/windows/win32/api/aclapi/nf-aclapi-getinheritancesourcea
@@ -3351,8 +3351,8 @@ class Authorization {
      * > [!NOTE]
      * > The aclapi.h header defines GetInheritanceSource as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PWSTR} pObjectName A pointer to the name of the object that uses the ACL to be checked.
-     * @param {Integer} _ObjectType 
-     * @param {Integer} SecurityInfo The type of ACL used with the object. The possible values are DACL_SECURITY_INFORMATION or SACL_SECURITY_INFORMATION.
+     * @param {SE_OBJECT_TYPE} _ObjectType The type of object indicated by <i>pObjectName</i>. The possible values are SE_FILE_OBJECT, SE_REGISTRY_KEY, SE_DS_OBJECT, and SE_DS_OBJECT_ALL.
+     * @param {OBJECT_SECURITY_INFORMATION} SecurityInfo The type of ACL used with the object. The possible values are DACL_SECURITY_INFORMATION or SACL_SECURITY_INFORMATION.
      * @param {BOOL} Container <b>TRUE</b> if the object is a container object or <b>FALSE</b> if the object is a leaf object. Note that the only leaf object is SE_FILE_OBJECT.
      * @param {Pointer<Pointer<Guid>>} pObjectClassGuids Optional list of GUIDs that identify the object types or names associated with <i>pObjectName</i>. This may be <b>NULL</b> if the object manager only supports one object class or has no GUID associated with the object class.
      * @param {Integer} GuidCount Number of GUIDs pointed to by <i>pObjectClassGuids</i>.
@@ -3360,7 +3360,7 @@ class Authorization {
      * @param {Pointer<FN_OBJECT_MGR_FUNCTS>} pfnArray Reserved. Set this parameter to <b>NULL</b>.
      * @param {Pointer<GENERIC_MAPPING>} pGenericMapping The mapping of generic rights to specific rights for the object.
      * @param {Pointer<INHERITED_FROMW>} pInheritArray A pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-inherited_froma">INHERITED_FROM</a> structures that the <b>GetInheritanceSource</b> function fills with the inheritance information. The caller must allocate enough memory for an entry for each ACE in the ACL.
-     * @returns {Integer} If the function succeeds, the function returns ERROR_SUCCESS.
+     * @returns {WIN32_ERROR} If the function succeeds, the function returns ERROR_SUCCESS.
      * 
      * If the function fails, it returns a nonzero error code defined in WinError.h.
      * @see https://learn.microsoft.com/windows/win32/api/aclapi/nf-aclapi-getinheritancesourcew
@@ -3380,7 +3380,7 @@ class Authorization {
      * @param {Pointer<INHERITED_FROMW>} pInheritArray A pointer to the array of <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-inherited_froma">INHERITED_FROM</a> structures returned by <a href="https://docs.microsoft.com/windows/desktop/api/aclapi/nf-aclapi-getinheritancesourcea">GetInheritanceSource</a>.
      * @param {Integer} AceCnt Number of entries in <i>pInheritArray</i>.
      * @param {Pointer<FN_OBJECT_MGR_FUNCTS>} pfnArray Unused. Set to <b>NULL</b>.
-     * @returns {Integer} If the function succeeds, the function returns ERROR_SUCCESS.
+     * @returns {WIN32_ERROR} If the function succeeds, the function returns ERROR_SUCCESS.
      * 
      * If the function fails, it returns a nonzero error code defined in WinError.h.
      * @see https://learn.microsoft.com/windows/win32/api/aclapi/nf-aclapi-freeinheritedfromarray
@@ -3411,8 +3411,8 @@ class Authorization {
      * > The aclapi.h header defines TreeResetNamedSecurityInfo as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PSTR} pObjectName Pointer to a <b>null</b>-terminated string that specifies the name of the root node object for the objects  that are to receive updated security information. Supported objects are registry keys and file objects. For descriptions of the string formats for the different object types, see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ne-accctrl-se_object_type">SE_OBJECT_TYPE</a>.
-     * @param {Integer} _ObjectType 
-     * @param {Integer} SecurityInfo A set of 
+     * @param {SE_OBJECT_TYPE} _ObjectType A value of the <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ne-accctrl-se_object_type">SE_OBJECT_TYPE</a>  enumeration  that indicates the type of object named by the <i>pObjectName</i> parameter. The supported values are SE_REGISTRY_KEY and SE_FILE_OBJECT, for registry keys and file objects, respectively.
+     * @param {OBJECT_SECURITY_INFORMATION} SecurityInfo A set of 
      * bit flags that indicate the type of security information to reset. This parameter can be a combination of the 
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-information">SECURITY_INFORMATION</a> bit flags.
      * @param {PSID} pOwner A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure that identifies the owner of the object. The SID must be one that can be assigned as the owner SID of a security descriptor. The <i>SecurityInfo</i> parameter must include the OWNER_SECURITY_INFORMATION flag. To set the owner, the caller must have WRITE_OWNER access to each object, including the root object. If you are not setting the owner SID, this parameter can be <b>NULL</b>.
@@ -3424,9 +3424,9 @@ class Authorization {
      * 
      * 
      * ```cpp
-     * @param {Integer} ProgressInvokeSetting A value of the <a href="https://docs.microsoft.com/windows/win32/api/accctrl/ne-accctrl-prog_invoke_setting">PROG_INVOKE_SETTING</a> enumeration that specifies the initial setting for the progress function.
+     * @param {PROG_INVOKE_SETTING} ProgressInvokeSetting A value of the <a href="https://docs.microsoft.com/windows/win32/api/accctrl/ne-accctrl-prog_invoke_setting">PROG_INVOKE_SETTING</a> enumeration that specifies the initial setting for the progress function.
      * @param {Pointer<Void>} Args A pointer to a <b>VOID</b> for progress function arguments specified by the caller.
-     * @returns {Integer} If the function succeeds, the function returns ERROR_SUCCESS.
+     * @returns {WIN32_ERROR} If the function succeeds, the function returns ERROR_SUCCESS.
      * 
      * If the function fails, it returns an error code defined in WinError.h.
      * @see https://learn.microsoft.com/windows/win32/api/aclapi/nf-aclapi-treeresetnamedsecurityinfoa
@@ -3461,8 +3461,8 @@ class Authorization {
      * > The aclapi.h header defines TreeResetNamedSecurityInfo as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PWSTR} pObjectName Pointer to a <b>null</b>-terminated string that specifies the name of the root node object for the objects  that are to receive updated security information. Supported objects are registry keys and file objects. For descriptions of the string formats for the different object types, see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ne-accctrl-se_object_type">SE_OBJECT_TYPE</a>.
-     * @param {Integer} _ObjectType 
-     * @param {Integer} SecurityInfo A set of 
+     * @param {SE_OBJECT_TYPE} _ObjectType A value of the <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ne-accctrl-se_object_type">SE_OBJECT_TYPE</a>  enumeration  that indicates the type of object named by the <i>pObjectName</i> parameter. The supported values are SE_REGISTRY_KEY and SE_FILE_OBJECT, for registry keys and file objects, respectively.
+     * @param {OBJECT_SECURITY_INFORMATION} SecurityInfo A set of 
      * bit flags that indicate the type of security information to reset. This parameter can be a combination of the 
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-information">SECURITY_INFORMATION</a> bit flags.
      * @param {PSID} pOwner A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure that identifies the owner of the object. The SID must be one that can be assigned as the owner SID of a security descriptor. The <i>SecurityInfo</i> parameter must include the OWNER_SECURITY_INFORMATION flag. To set the owner, the caller must have WRITE_OWNER access to each object, including the root object. If you are not setting the owner SID, this parameter can be <b>NULL</b>.
@@ -3474,9 +3474,9 @@ class Authorization {
      * 
      * 
      * ```cpp
-     * @param {Integer} ProgressInvokeSetting A value of the <a href="https://docs.microsoft.com/windows/win32/api/accctrl/ne-accctrl-prog_invoke_setting">PROG_INVOKE_SETTING</a> enumeration that specifies the initial setting for the progress function.
+     * @param {PROG_INVOKE_SETTING} ProgressInvokeSetting A value of the <a href="https://docs.microsoft.com/windows/win32/api/accctrl/ne-accctrl-prog_invoke_setting">PROG_INVOKE_SETTING</a> enumeration that specifies the initial setting for the progress function.
      * @param {Pointer<Void>} Args A pointer to a <b>VOID</b> for progress function arguments specified by the caller.
-     * @returns {Integer} If the function succeeds, the function returns ERROR_SUCCESS.
+     * @returns {WIN32_ERROR} If the function succeeds, the function returns ERROR_SUCCESS.
      * 
      * If the function fails, it returns an error code defined in WinError.h.
      * @see https://learn.microsoft.com/windows/win32/api/aclapi/nf-aclapi-treeresetnamedsecurityinfow
@@ -3513,22 +3513,22 @@ class Authorization {
      * > The aclapi.h header defines TreeSetNamedSecurityInfo as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PSTR} pObjectName Pointer to a <b>null</b>-terminated string that specifies the name of the root node object for the objects  that are to receive updated security information. Supported objects are registry keys and file objects. For descriptions of the string formats for the different object types, see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ne-accctrl-se_object_type">SE_OBJECT_TYPE</a>.
-     * @param {Integer} _ObjectType 
-     * @param {Integer} SecurityInfo A set of 
+     * @param {SE_OBJECT_TYPE} _ObjectType A value of the <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ne-accctrl-se_object_type">SE_OBJECT_TYPE</a>  enumeration  that indicates the type of object named by the <i>pObjectName</i> parameter. The supported values are SE_REGISTRY_KEY and SE_FILE_OBJECT, for registry keys and file objects, respectively.
+     * @param {OBJECT_SECURITY_INFORMATION} SecurityInfo A set of 
      * bit flags that indicate the type of security information to set. This parameter can be a combination of the 
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-information">SECURITY_INFORMATION</a> bit flags.
      * @param {PSID} pOwner A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure that identifies the owner of the object. The SID must be one that can be assigned as the owner SID of a security descriptor. The <i>SecurityInfo</i> parameter must include the OWNER_SECURITY_INFORMATION flag. To set the owner, the caller must have WRITE_OWNER access to each object, including the root object. If you are not setting the owner SID, this parameter can be <b>NULL</b>.
      * @param {PSID} pGroup A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure that identifies the primary group of the object. The <i>SecurityInfo</i> parameter must include the GROUP_SECURITY_INFORMATION flag.  To set the group, the caller must have WRITE_OWNER access to each object, including the root object. If you are not setting the primary group SID, this parameter can be <b>NULL</b>.
      * @param {Pointer<ACL>} pDacl A pointer to an <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">access control list</a> (ACL) structure that represents the new DACL for the objects being reset. The <i>SecurityInfo</i> parameter must include the DACL_SECURITY_INFORMATION flag. The caller must have READ_CONTROL and WRITE_DAC access to each  object, including the root object. If you are not setting the DACL, this parameter can be <b>NULL</b>.
      * @param {Pointer<ACL>} pSacl A pointer to an ACL structure that represents the new SACL for the objects being reset. The <i>SecurityInfo</i> parameter must include any of the following flags: SACL_SECURITY_INFORMATION, LABEL_SECURITY_INFORMATION, ATTRIBUTE_SECURITY_INFORMATION, SCOPE_SECURITY_INFORMATION, or BACKUP_SECURITY_INFORMATION. If setting SACL_SECURITY_INFORMATION or SCOPE_SECURITY_INFORMATION, the caller must have the SE_SECURITY_NAME privilege enabled. If you are not setting the SACL, this parameter can be <b>NULL</b>.
-     * @param {Integer} dwAction 
+     * @param {TREE_SEC_INFO} dwAction 
      * @param {Pointer<FN_PROGRESS>} fnProgress A pointer to the function used to track the progress of the <b>TreeSetNamedSecurityInfo</b> function. The prototype of the progress function is:
      * 
      * 
      * ```cpp
-     * @param {Integer} ProgressInvokeSetting A value of the <a href="https://docs.microsoft.com/windows/win32/api/accctrl/ne-accctrl-prog_invoke_setting">PROG_INVOKE_SETTING</a> enumeration that specifies the initial setting for the progress function.
+     * @param {PROG_INVOKE_SETTING} ProgressInvokeSetting A value of the <a href="https://docs.microsoft.com/windows/win32/api/accctrl/ne-accctrl-prog_invoke_setting">PROG_INVOKE_SETTING</a> enumeration that specifies the initial setting for the progress function.
      * @param {Pointer<Void>} Args A pointer to a <b>VOID</b> for progress function arguments specified by the caller.
-     * @returns {Integer} If the function succeeds, the function returns <b>ERROR_SUCCESS</b>.
+     * @returns {WIN32_ERROR} If the function succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the function fails, it returns an error code defined in WinError.h.
      * @see https://learn.microsoft.com/windows/win32/api/aclapi/nf-aclapi-treesetnamedsecurityinfoa
@@ -3565,22 +3565,22 @@ class Authorization {
      * > The aclapi.h header defines TreeSetNamedSecurityInfo as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PWSTR} pObjectName Pointer to a <b>null</b>-terminated string that specifies the name of the root node object for the objects  that are to receive updated security information. Supported objects are registry keys and file objects. For descriptions of the string formats for the different object types, see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ne-accctrl-se_object_type">SE_OBJECT_TYPE</a>.
-     * @param {Integer} _ObjectType 
-     * @param {Integer} SecurityInfo A set of 
+     * @param {SE_OBJECT_TYPE} _ObjectType A value of the <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ne-accctrl-se_object_type">SE_OBJECT_TYPE</a>  enumeration  that indicates the type of object named by the <i>pObjectName</i> parameter. The supported values are SE_REGISTRY_KEY and SE_FILE_OBJECT, for registry keys and file objects, respectively.
+     * @param {OBJECT_SECURITY_INFORMATION} SecurityInfo A set of 
      * bit flags that indicate the type of security information to set. This parameter can be a combination of the 
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-information">SECURITY_INFORMATION</a> bit flags.
      * @param {PSID} pOwner A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure that identifies the owner of the object. The SID must be one that can be assigned as the owner SID of a security descriptor. The <i>SecurityInfo</i> parameter must include the OWNER_SECURITY_INFORMATION flag. To set the owner, the caller must have WRITE_OWNER access to each object, including the root object. If you are not setting the owner SID, this parameter can be <b>NULL</b>.
      * @param {PSID} pGroup A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure that identifies the primary group of the object. The <i>SecurityInfo</i> parameter must include the GROUP_SECURITY_INFORMATION flag.  To set the group, the caller must have WRITE_OWNER access to each object, including the root object. If you are not setting the primary group SID, this parameter can be <b>NULL</b>.
      * @param {Pointer<ACL>} pDacl A pointer to an <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">access control list</a> (ACL) structure that represents the new DACL for the objects being reset. The <i>SecurityInfo</i> parameter must include the DACL_SECURITY_INFORMATION flag. The caller must have READ_CONTROL and WRITE_DAC access to each  object, including the root object. If you are not setting the DACL, this parameter can be <b>NULL</b>.
      * @param {Pointer<ACL>} pSacl A pointer to an ACL structure that represents the new SACL for the objects being reset. The <i>SecurityInfo</i> parameter must include any of the following flags: SACL_SECURITY_INFORMATION, LABEL_SECURITY_INFORMATION, ATTRIBUTE_SECURITY_INFORMATION, SCOPE_SECURITY_INFORMATION, or BACKUP_SECURITY_INFORMATION. If setting SACL_SECURITY_INFORMATION or SCOPE_SECURITY_INFORMATION, the caller must have the SE_SECURITY_NAME privilege enabled. If you are not setting the SACL, this parameter can be <b>NULL</b>.
-     * @param {Integer} dwAction 
+     * @param {TREE_SEC_INFO} dwAction 
      * @param {Pointer<FN_PROGRESS>} fnProgress A pointer to the function used to track the progress of the <b>TreeSetNamedSecurityInfo</b> function. The prototype of the progress function is:
      * 
      * 
      * ```cpp
-     * @param {Integer} ProgressInvokeSetting A value of the <a href="https://docs.microsoft.com/windows/win32/api/accctrl/ne-accctrl-prog_invoke_setting">PROG_INVOKE_SETTING</a> enumeration that specifies the initial setting for the progress function.
+     * @param {PROG_INVOKE_SETTING} ProgressInvokeSetting A value of the <a href="https://docs.microsoft.com/windows/win32/api/accctrl/ne-accctrl-prog_invoke_setting">PROG_INVOKE_SETTING</a> enumeration that specifies the initial setting for the progress function.
      * @param {Pointer<Void>} Args A pointer to a <b>VOID</b> for progress function arguments specified by the caller.
-     * @returns {Integer} If the function succeeds, the function returns <b>ERROR_SUCCESS</b>.
+     * @returns {WIN32_ERROR} If the function succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the function fails, it returns an error code defined in WinError.h.
      * @see https://learn.microsoft.com/windows/win32/api/aclapi/nf-aclapi-treesetnamedsecurityinfow
@@ -3643,7 +3643,7 @@ class Authorization {
      * @param {Pointer<Integer>} pSizeNewSD A pointer to a variable that receives the size, in bytes, of the security descriptor.
      * @param {Pointer<PSECURITY_DESCRIPTOR>} pNewSD A pointer to a variable that receives a pointer to the new security descriptor. The function allocates memory for the new security descriptor. You must call the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a> function to free the returned buffer.
-     * @returns {Integer} If the function succeeds, the function returns ERROR_SUCCESS.
+     * @returns {WIN32_ERROR} If the function succeeds, the function returns ERROR_SUCCESS.
      * 						
      * 
      * If the function fails, it returns a nonzero error code defined in WinError.h.
@@ -3707,7 +3707,7 @@ class Authorization {
      * @param {Pointer<Integer>} pSizeNewSD A pointer to a variable that receives the size, in bytes, of the security descriptor.
      * @param {Pointer<PSECURITY_DESCRIPTOR>} pNewSD A pointer to a variable that receives a pointer to the new security descriptor. The function allocates memory for the new security descriptor. You must call the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a> function to free the returned buffer.
-     * @returns {Integer} If the function succeeds, the function returns ERROR_SUCCESS.
+     * @returns {WIN32_ERROR} If the function succeeds, the function returns ERROR_SUCCESS.
      * 						
      * 
      * If the function fails, it returns a nonzero error code defined in WinError.h.
@@ -3763,7 +3763,7 @@ class Authorization {
      * @param {Pointer<Integer>} pcCountOfAuditEntries A pointer to a <b>ULONG</b> that receives the number of <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-explicit_access_a">EXPLICIT_ACCESS</a> structures returned in the <i>pListOfAuditEntries</i> array. This parameter can be <b>NULL</b> only if the <i>pListOfAuditEntries</i> parameter is also <b>NULL</b>.
      * @param {Pointer<Pointer<EXPLICIT_ACCESS_A>>} ppListOfAuditEntries A pointer to a variable that receives a pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-explicit_access_a">EXPLICIT_ACCESS</a> structures that describe the ACEs in the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">system access control list</a> (SACL) of the security descriptor. The <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-trustee_a">TRUSTEE</a> structure in these <b>EXPLICIT_ACCESS</b> structures uses the TRUSTEE_IS_NAME form. If this parameter is <b>NULL</b>, the <i>cCountOfAuditEntries</i> parameter must also be <b>NULL</b>.
      * @param {PSECURITY_DESCRIPTOR} pSD A pointer to an existing <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">self-relative security descriptor</a> from which the function retrieves security information.
-     * @returns {Integer} If the function succeeds, the function returns ERROR_SUCCESS.
+     * @returns {WIN32_ERROR} If the function succeeds, the function returns ERROR_SUCCESS.
      * 
      * If the function fails, it returns a nonzero error code defined in WinError.h.
      * @see https://learn.microsoft.com/windows/win32/api/aclapi/nf-aclapi-lookupsecuritydescriptorpartsa
@@ -3823,7 +3823,7 @@ class Authorization {
      * @param {Pointer<Integer>} pcCountOfAuditEntries A pointer to a <b>ULONG</b> that receives the number of <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-explicit_access_a">EXPLICIT_ACCESS</a> structures returned in the <i>pListOfAuditEntries</i> array. This parameter can be <b>NULL</b> only if the <i>pListOfAuditEntries</i> parameter is also <b>NULL</b>.
      * @param {Pointer<Pointer<EXPLICIT_ACCESS_W>>} ppListOfAuditEntries A pointer to a variable that receives a pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-explicit_access_a">EXPLICIT_ACCESS</a> structures that describe the ACEs in the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">system access control list</a> (SACL) of the security descriptor. The <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-trustee_a">TRUSTEE</a> structure in these <b>EXPLICIT_ACCESS</b> structures uses the TRUSTEE_IS_NAME form. If this parameter is <b>NULL</b>, the <i>cCountOfAuditEntries</i> parameter must also be <b>NULL</b>.
      * @param {PSECURITY_DESCRIPTOR} pSD A pointer to an existing <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">self-relative security descriptor</a> from which the function retrieves security information.
-     * @returns {Integer} If the function succeeds, the function returns ERROR_SUCCESS.
+     * @returns {WIN32_ERROR} If the function succeeds, the function returns ERROR_SUCCESS.
      * 
      * If the function fails, it returns a nonzero error code defined in WinError.h.
      * @see https://learn.microsoft.com/windows/win32/api/aclapi/nf-aclapi-lookupsecuritydescriptorpartsw
@@ -3906,9 +3906,9 @@ class Authorization {
      * @param {Integer} AccessPermissions Specifies an <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">access mask</a> for the <b>grfAccessPermissions</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-explicit_access_a">EXPLICIT_ACCESS</a> structure. The mask is a set of bit flags that use the 
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/access-mask">ACCESS_MASK</a> format to specify the access rights that an 
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/ace">ACE</a> allows, denies, or audits for the trustee. The functions that use the <b>EXPLICIT_ACCESS</b> structure do not convert, interpret, or validate the bits in this mask.
-     * @param {Integer} AccessMode Specifies an access mode for the <b>grfAccessMode</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-explicit_access_a">EXPLICIT_ACCESS</a> structure. The access mode indicates whether the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">access control entry</a> (ACE) allows, denies, or audits the specified rights. For a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/d-gly">discretionary access control list</a> (DACL), this parameter can be one of the values from the 
+     * @param {ACCESS_MODE} AccessMode Specifies an access mode for the <b>grfAccessMode</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-explicit_access_a">EXPLICIT_ACCESS</a> structure. The access mode indicates whether the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">access control entry</a> (ACE) allows, denies, or audits the specified rights. For a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/d-gly">discretionary access control list</a> (DACL), this parameter can be one of the values from the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ne-accctrl-access_mode">ACCESS_MODE</a> enumeration. For a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">system access control list</a> (SACL), this parameter can be a combination of <b>ACCESS_MODE</b> values.
-     * @param {Integer} Inheritance Specifies an inheritance type for the <b>grfInheritance</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-explicit_access_a">EXPLICIT_ACCESS</a> structure. This value is a set of bit flags that determine whether other containers or objects can inherit the ACE from the primary object to which the 
+     * @param {ACE_FLAGS} Inheritance Specifies an inheritance type for the <b>grfInheritance</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-explicit_access_a">EXPLICIT_ACCESS</a> structure. This value is a set of bit flags that determine whether other containers or objects can inherit the ACE from the primary object to which the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-acl">ACL</a> is attached. The value of this member corresponds to the inheritance portion (low-order byte) of the <b>AceFlags</b> member of the
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/aclapi/nf-aclapi-buildexplicitaccesswithnamea
@@ -3983,9 +3983,9 @@ class Authorization {
      * @param {Integer} AccessPermissions Specifies an <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">access mask</a> for the <b>grfAccessPermissions</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-explicit_access_a">EXPLICIT_ACCESS</a> structure. The mask is a set of bit flags that use the 
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/access-mask">ACCESS_MASK</a> format to specify the access rights that an 
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/ace">ACE</a> allows, denies, or audits for the trustee. The functions that use the <b>EXPLICIT_ACCESS</b> structure do not convert, interpret, or validate the bits in this mask.
-     * @param {Integer} AccessMode Specifies an access mode for the <b>grfAccessMode</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-explicit_access_a">EXPLICIT_ACCESS</a> structure. The access mode indicates whether the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">access control entry</a> (ACE) allows, denies, or audits the specified rights. For a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/d-gly">discretionary access control list</a> (DACL), this parameter can be one of the values from the 
+     * @param {ACCESS_MODE} AccessMode Specifies an access mode for the <b>grfAccessMode</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-explicit_access_a">EXPLICIT_ACCESS</a> structure. The access mode indicates whether the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">access control entry</a> (ACE) allows, denies, or audits the specified rights. For a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/d-gly">discretionary access control list</a> (DACL), this parameter can be one of the values from the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ne-accctrl-access_mode">ACCESS_MODE</a> enumeration. For a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">system access control list</a> (SACL), this parameter can be a combination of <b>ACCESS_MODE</b> values.
-     * @param {Integer} Inheritance Specifies an inheritance type for the <b>grfInheritance</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-explicit_access_a">EXPLICIT_ACCESS</a> structure. This value is a set of bit flags that determine whether other containers or objects can inherit the ACE from the primary object to which the 
+     * @param {ACE_FLAGS} Inheritance Specifies an inheritance type for the <b>grfInheritance</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-explicit_access_a">EXPLICIT_ACCESS</a> structure. This value is a set of bit flags that determine whether other containers or objects can inherit the ACE from the primary object to which the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-acl">ACL</a> is attached. The value of this member corresponds to the inheritance portion (low-order byte) of the <b>AceFlags</b> member of the
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/aclapi/nf-aclapi-buildexplicitaccesswithnamew
@@ -4003,7 +4003,7 @@ class Authorization {
      * @param {PSTR} pTrusteeName 
      * @param {Pointer<TRUSTEE_A>} pTrustee 
      * @param {Integer} AccessPermissions 
-     * @param {Integer} AccessMode 
+     * @param {ACCESS_MODE} AccessMode 
      * @param {Integer} Inheritance 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -4019,7 +4019,7 @@ class Authorization {
      * @param {PWSTR} pTrusteeName 
      * @param {Pointer<TRUSTEE_W>} pTrustee 
      * @param {Integer} AccessPermissions 
-     * @param {Integer} AccessMode 
+     * @param {ACCESS_MODE} AccessMode 
      * @param {Integer} Inheritance 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -4194,7 +4194,59 @@ class Authorization {
      * > The aclapi.h header defines BuildTrusteeWithSid as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<TRUSTEE_A>} pTrustee A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-trustee_a">TRUSTEE</a> structure to initialize. The <b>BuildTrusteeWithSid</b> function does not allocate any memory. If this parameter is <b>NULL</b> or a pointer that is not valid, the results are undefined.
-     * @param {PSID} _pSid 
+     * @param {PSID} _pSid A pointer to a 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure that identifies the trustee. The <b>BuildTrusteeWithSid</b> function assigns this pointer to the <b>ptstrName</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-trustee_a">TRUSTEE</a> structure. The function sets the other members of the <b>TRUSTEE</b> structure as follows.
+     * 
+     * <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="pMultipleTrustee"></a><a id="pmultipletrustee"></a><a id="PMULTIPLETRUSTEE"></a><dl>
+     * <dt><b><b>pMultipleTrustee</b></b></dt>
+     * <dt></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * <b>NULL</b>
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="MultipleTrusteeOperation"></a><a id="multipletrusteeoperation"></a><a id="MULTIPLETRUSTEEOPERATION"></a><dl>
+     * <dt><b><b>MultipleTrusteeOperation</b></b></dt>
+     * <dt></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * NO_MULTIPLE_TRUSTEE
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="TrusteeForm"></a><a id="trusteeform"></a><a id="TRUSTEEFORM"></a><dl>
+     * <dt><b><b>TrusteeForm</b></b></dt>
+     * <dt></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * TRUSTEE_IS_SID
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="TrusteeType"></a><a id="trusteetype"></a><a id="TRUSTEETYPE"></a><dl>
+     * <dt><b><b>TrusteeType</b></b></dt>
+     * <dt></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * TRUSTEE_IS_UNKNOWN
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/aclapi/nf-aclapi-buildtrusteewithsida
      * @since windows5.1.2600
@@ -4210,7 +4262,59 @@ class Authorization {
      * > The aclapi.h header defines BuildTrusteeWithSid as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<TRUSTEE_W>} pTrustee A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-trustee_a">TRUSTEE</a> structure to initialize. The <b>BuildTrusteeWithSid</b> function does not allocate any memory. If this parameter is <b>NULL</b> or a pointer that is not valid, the results are undefined.
-     * @param {PSID} _pSid 
+     * @param {PSID} _pSid A pointer to a 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure that identifies the trustee. The <b>BuildTrusteeWithSid</b> function assigns this pointer to the <b>ptstrName</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-trustee_a">TRUSTEE</a> structure. The function sets the other members of the <b>TRUSTEE</b> structure as follows.
+     * 
+     * <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="pMultipleTrustee"></a><a id="pmultipletrustee"></a><a id="PMULTIPLETRUSTEE"></a><dl>
+     * <dt><b><b>pMultipleTrustee</b></b></dt>
+     * <dt></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * <b>NULL</b>
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="MultipleTrusteeOperation"></a><a id="multipletrusteeoperation"></a><a id="MULTIPLETRUSTEEOPERATION"></a><dl>
+     * <dt><b><b>MultipleTrusteeOperation</b></b></dt>
+     * <dt></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * NO_MULTIPLE_TRUSTEE
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="TrusteeForm"></a><a id="trusteeform"></a><a id="TRUSTEEFORM"></a><dl>
+     * <dt><b><b>TrusteeForm</b></b></dt>
+     * <dt></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * TRUSTEE_IS_SID
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="TrusteeType"></a><a id="trusteetype"></a><a id="TRUSTEETYPE"></a><dl>
+     * <dt><b><b>TrusteeType</b></b></dt>
+     * <dt></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * TRUSTEE_IS_UNKNOWN
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/aclapi/nf-aclapi-buildtrusteewithsidw
      * @since windows5.1.2600
@@ -4242,7 +4346,8 @@ class Authorization {
      * @param {Pointer<Guid>} pObjectGuid A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/guiddef/ns-guiddef-guid">GUID</a> structure that describes the ObjectType GUID to be added to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-trustee_a">TRUSTEE</a> structure.
      * @param {Pointer<Guid>} pInheritedObjectGuid A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/guiddef/ns-guiddef-guid">GUID</a> structure that describes the InheritedObjectType GUID to be added to the <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-trustee_a">TRUSTEE</a> structure.
-     * @param {PSID} _pSid 
+     * @param {PSID} _pSid A pointer to a 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure that identifies the trustee.
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/aclapi/nf-aclapi-buildtrusteewithobjectsandsida
      * @since windows5.1.2600
@@ -4274,7 +4379,8 @@ class Authorization {
      * @param {Pointer<Guid>} pObjectGuid A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/guiddef/ns-guiddef-guid">GUID</a> structure that describes the ObjectType GUID to be added to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-trustee_a">TRUSTEE</a> structure.
      * @param {Pointer<Guid>} pInheritedObjectGuid A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/guiddef/ns-guiddef-guid">GUID</a> structure that describes the InheritedObjectType GUID to be added to the <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-trustee_a">TRUSTEE</a> structure.
-     * @param {PSID} _pSid 
+     * @param {PSID} _pSid A pointer to a 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure that identifies the trustee.
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/aclapi/nf-aclapi-buildtrusteewithobjectsandsidw
      * @since windows5.1.2600
@@ -4302,7 +4408,8 @@ class Authorization {
      * <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-trustee_a">TRUSTEE</a> structure that will be initialized by this function. If the value of this parameter is <b>NULL</b> or a pointer that is not valid, the results are undefined.
      * @param {Pointer<OBJECTS_AND_NAME_A>} pObjName A pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-objects_and_name_a">OBJECTS_AND_NAME</a> structure that contains information about the trustee and the securable object.
-     * @param {Integer} _ObjectType 
+     * @param {SE_OBJECT_TYPE} _ObjectType A pointer to an 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ne-accctrl-se_object_type">SE_OBJECT_TYPE</a> enumeration that contains information about the type of securable object.
      * @param {PSTR} ObjectTypeName A pointer to a string that specifies the name that corresponds to the ObjectType GUID to be added to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-trustee_a">TRUSTEE</a> structure returned in the <i>pTrustee</i> parameter. This function determines the ObjectType GUID that corresponds to this name.
      * @param {PSTR} InheritedObjectTypeName A pointer to a string that specifies the name that corresponds to the InheritedObjectType GUID to be added to the <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-trustee_a">TRUSTEE</a> structure returned in the <i>pTrustee</i> parameter. This function determines the InheritedObjectType GUID that corresponds to this name.
@@ -4338,7 +4445,8 @@ class Authorization {
      * <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-trustee_a">TRUSTEE</a> structure that will be initialized by this function. If the value of this parameter is <b>NULL</b> or a pointer that is not valid, the results are undefined.
      * @param {Pointer<OBJECTS_AND_NAME_W>} pObjName A pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-objects_and_name_a">OBJECTS_AND_NAME</a> structure that contains information about the trustee and the securable object.
-     * @param {Integer} _ObjectType 
+     * @param {SE_OBJECT_TYPE} _ObjectType A pointer to an 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ne-accctrl-se_object_type">SE_OBJECT_TYPE</a> enumeration that contains information about the type of securable object.
      * @param {PWSTR} ObjectTypeName A pointer to a string that specifies the name that corresponds to the ObjectType GUID to be added to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-trustee_a">TRUSTEE</a> structure returned in the <i>pTrustee</i> parameter. This function determines the ObjectType GUID that corresponds to this name.
      * @param {PWSTR} InheritedObjectTypeName A pointer to a string that specifies the name that corresponds to the InheritedObjectType GUID to be added to the <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-trustee_a">TRUSTEE</a> structure returned in the <i>pTrustee</i> parameter. This function determines the InheritedObjectType GUID that corresponds to this name.
@@ -4410,7 +4518,7 @@ class Authorization {
      * > The aclapi.h header defines GetTrusteeType as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<TRUSTEE_A>} pTrustee A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-trustee_a">TRUSTEE</a> structure.
-     * @returns {Integer} The return value is one of the constants from the <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ne-accctrl-trustee_type">TRUSTEE_TYPE</a> enumeration.
+     * @returns {TRUSTEE_TYPE} The return value is one of the constants from the <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ne-accctrl-trustee_type">TRUSTEE_TYPE</a> enumeration.
      * @see https://learn.microsoft.com/windows/win32/api/aclapi/nf-aclapi-gettrusteetypea
      * @since windows5.1.2600
      */
@@ -4426,7 +4534,7 @@ class Authorization {
      * > The aclapi.h header defines GetTrusteeType as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<TRUSTEE_W>} pTrustee A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-trustee_a">TRUSTEE</a> structure.
-     * @returns {Integer} The return value is one of the constants from the <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ne-accctrl-trustee_type">TRUSTEE_TYPE</a> enumeration.
+     * @returns {TRUSTEE_TYPE} The return value is one of the constants from the <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ne-accctrl-trustee_type">TRUSTEE_TYPE</a> enumeration.
      * @see https://learn.microsoft.com/windows/win32/api/aclapi/nf-aclapi-gettrusteetypew
      * @since windows5.1.2600
      */
@@ -4442,7 +4550,7 @@ class Authorization {
      * > The aclapi.h header defines GetTrusteeForm as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<TRUSTEE_A>} pTrustee A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-trustee_a">TRUSTEE</a> structure.
-     * @returns {Integer} The return value is one of the constants from the 
+     * @returns {TRUSTEE_FORM} The return value is one of the constants from the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ne-accctrl-trustee_form">TRUSTEE_FORM</a> enumeration.
      * @see https://learn.microsoft.com/windows/win32/api/aclapi/nf-aclapi-gettrusteeforma
      * @since windows5.1.2600
@@ -4459,7 +4567,7 @@ class Authorization {
      * > The aclapi.h header defines GetTrusteeForm as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<TRUSTEE_W>} pTrustee A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-trustee_a">TRUSTEE</a> structure.
-     * @returns {Integer} The return value is one of the constants from the 
+     * @returns {TRUSTEE_FORM} The return value is one of the constants from the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ne-accctrl-trustee_form">TRUSTEE_FORM</a> enumeration.
      * @see https://learn.microsoft.com/windows/win32/api/aclapi/nf-aclapi-gettrusteeformw
      * @since windows5.1.2600
@@ -4472,7 +4580,7 @@ class Authorization {
     /**
      * 
      * @param {Pointer<TRUSTEE_A>} pTrustee 
-     * @returns {Integer} 
+     * @returns {MULTIPLE_TRUSTEE_OPERATION} 
      */
     static GetMultipleTrusteeOperationA(pTrustee) {
         result := DllCall("ADVAPI32.dll\GetMultipleTrusteeOperationA", "ptr", pTrustee, "int")
@@ -4482,7 +4590,7 @@ class Authorization {
     /**
      * 
      * @param {Pointer<TRUSTEE_W>} pTrustee 
-     * @returns {Integer} 
+     * @returns {MULTIPLE_TRUSTEE_OPERATION} 
      */
     static GetMultipleTrusteeOperationW(pTrustee) {
         result := DllCall("ADVAPI32.dll\GetMultipleTrusteeOperationW", "ptr", pTrustee, "int")
@@ -4521,7 +4629,7 @@ class Authorization {
      * 
      * > [!NOTE]
      * > The sddl.h header defines ConvertSidToStringSid as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {PSID} _Sid 
+     * @param {PSID} _Sid A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure to be converted.
      * @param {Pointer<PSTR>} StringSid A pointer to a variable that receives a pointer to a null-terminated SID string. To free the returned buffer, call the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a> function.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
@@ -4596,7 +4704,7 @@ class Authorization {
      * 
      * > [!NOTE]
      * > The sddl.h header defines ConvertSidToStringSid as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {PSID} _Sid 
+     * @param {PSID} _Sid A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure to be converted.
      * @param {Pointer<PWSTR>} StringSid A pointer to a variable that receives a pointer to a null-terminated SID string. To free the returned buffer, call the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a> function.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
@@ -4670,7 +4778,8 @@ class Authorization {
      * The SID string can use either the standard 
      * 							S-<i>R</i>-<i>I</i>-<i>S</i>-<i>S</i>… format for SID strings, or the SID string constant format, such as "BA" for  built-in administrators. For more information about SID string notation, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/sid-components">SID Components</a>.
-     * @param {Pointer<PSID>} _Sid 
+     * @param {Pointer<PSID>} _Sid A pointer to a variable that receives a pointer to the converted SID. To free the returned buffer, call the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a> function.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -4733,7 +4842,8 @@ class Authorization {
      * The SID string can use either the standard 
      * 							S-<i>R</i>-<i>I</i>-<i>S</i>-<i>S</i>… format for SID strings, or the SID string constant format, such as "BA" for  built-in administrators. For more information about SID string notation, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/sid-components">SID Components</a>.
-     * @param {Pointer<PSID>} _Sid 
+     * @param {Pointer<PSID>} _Sid A pointer to a variable that receives a pointer to the converted SID. To free the returned buffer, call the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a> function.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -4800,7 +4910,9 @@ class Authorization {
      * @param {PSTR} StringSecurityDescriptor A pointer to a null-terminated string containing the 
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-descriptor-string-format">string-format security descriptor</a> to convert.
      * @param {Integer} StringSDRevision Specifies the revision level of the <i>StringSecurityDescriptor</i> string. Currently this value must be SDDL_REVISION_1.
-     * @param {Pointer<PSECURITY_DESCRIPTOR>} _SecurityDescriptor 
+     * @param {Pointer<PSECURITY_DESCRIPTOR>} _SecurityDescriptor A pointer to a variable that receives a pointer to the converted security descriptor. The returned security descriptor is <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">self-relative</a>. To free the returned buffer, call the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a> function. To convert the security descriptor to an <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">absolute security descriptor</a>, use the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-makeabsolutesd">MakeAbsoluteSD</a> function.
      * @param {Pointer<Integer>} SecurityDescriptorSize A pointer to a variable that receives the size, in bytes, of the converted security descriptor. This parameter can be NULL.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
@@ -4879,7 +4991,9 @@ class Authorization {
      * @param {PWSTR} StringSecurityDescriptor A pointer to a null-terminated string containing the 
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-descriptor-string-format">string-format security descriptor</a> to convert.
      * @param {Integer} StringSDRevision Specifies the revision level of the <i>StringSecurityDescriptor</i> string. Currently this value must be SDDL_REVISION_1.
-     * @param {Pointer<PSECURITY_DESCRIPTOR>} _SecurityDescriptor 
+     * @param {Pointer<PSECURITY_DESCRIPTOR>} _SecurityDescriptor A pointer to a variable that receives a pointer to the converted security descriptor. The returned security descriptor is <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">self-relative</a>. To free the returned buffer, call the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a> function. To convert the security descriptor to an <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">absolute security descriptor</a>, use the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-makeabsolutesd">MakeAbsoluteSD</a> function.
      * @param {Pointer<Integer>} SecurityDescriptorSize A pointer to a variable that receives the size, in bytes, of the converted security descriptor. This parameter can be NULL.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
@@ -4957,9 +5071,10 @@ class Authorization {
      * 
      * > [!NOTE]
      * > The sddl.h header defines ConvertSecurityDescriptorToStringSecurityDescriptor as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {PSECURITY_DESCRIPTOR} _SecurityDescriptor 
+     * @param {PSECURITY_DESCRIPTOR} _SecurityDescriptor A pointer to the security descriptor to convert. The security descriptor can be in 
+     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/absolute-and-self-relative-security-descriptors">absolute or self-relative format</a>.
      * @param {Integer} RequestedStringSDRevision Specifies the revision level of the output <i>StringSecurityDescriptor</i> string. Currently this value must be SDDL_REVISION_1.
-     * @param {Integer} SecurityInformation Specifies a combination of the 
+     * @param {OBJECT_SECURITY_INFORMATION} SecurityInformation Specifies a combination of the 
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-information">SECURITY_INFORMATION</a> bit flags to indicate the components of the security descriptor to include in the output string. 
      * 
      * The BACKUP_SECURITY_INFORMATION flag is not applicable to this function. If the BACKUP_SECURITY_INFORMATION flag is passed in, the <i>SecurityInformation</i> parameter returns TRUE with <b>null</b> string output.
@@ -5055,9 +5170,10 @@ class Authorization {
      * 
      * > [!NOTE]
      * > The sddl.h header defines ConvertSecurityDescriptorToStringSecurityDescriptor as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {PSECURITY_DESCRIPTOR} _SecurityDescriptor 
+     * @param {PSECURITY_DESCRIPTOR} _SecurityDescriptor A pointer to the security descriptor to convert. The security descriptor can be in 
+     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/absolute-and-self-relative-security-descriptors">absolute or self-relative format</a>.
      * @param {Integer} RequestedStringSDRevision Specifies the revision level of the output <i>StringSecurityDescriptor</i> string. Currently this value must be SDDL_REVISION_1.
-     * @param {Integer} SecurityInformation Specifies a combination of the 
+     * @param {OBJECT_SECURITY_INFORMATION} SecurityInformation Specifies a combination of the 
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-information">SECURITY_INFORMATION</a> bit flags to indicate the components of the security descriptor to include in the output string. 
      * 
      * The BACKUP_SECURITY_INFORMATION flag is not applicable to this function. If the BACKUP_SECURITY_INFORMATION flag is passed in, the <i>SecurityInformation</i> parameter returns TRUE with <b>null</b> string output.

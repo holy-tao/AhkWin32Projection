@@ -7,9 +7,8 @@
  * Used to initialize, launch, and release a COM+ application. You can also refresh the catalog and shut down the process.
  * @see https://learn.microsoft.com/windows/win32/api/objidl/nn-objidl-isurrogateservice
  * @namespace Windows.Win32.System.Com
- * @version v4.0.30319
  */
-class ISurrogateService extends IUnknown{
+class ISurrogateService extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -56,7 +55,7 @@ class ISurrogateService extends IUnknown{
      * 
      * ```
      * @param {Pointer<Guid>} rguidApplID The application identifier.
-     * @param {Integer} appType The application type, as described in Remarks.
+     * @param {ApplicationType} appType The application type, as described in Remarks.
      * @returns {HRESULT} If the method succeeds, the return value is S_OK. Otherwise, it is E_UNEXPECTED.
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-isurrogateservice-applicationlaunch
      */
@@ -101,7 +100,7 @@ class ISurrogateService extends IUnknown{
      * } ShutdownType;
      * 
      * ```
-     * @param {Integer} _shutdownType 
+     * @param {ShutdownType} _shutdownType The shutdown type, as described in Remarks.
      * @returns {HRESULT} If the method succeeds, the return value is S_OK. Otherwise, it is E_UNEXPECTED.
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-isurrogateservice-processshutdown
      */

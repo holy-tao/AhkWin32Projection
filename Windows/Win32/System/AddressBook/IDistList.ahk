@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IMAPIContainer.ahk
 #Include .\IMAPIProp.ahk
 #Include .\FlagList.ahk
-#Include .\IMAPIContainer.ahk
 
 /**
  * Do not use. This interface is used to provide access to distribution lists in modifiable address book containers. The interface provides methods to create, copy, and delete distribution lists, in addition to performing name resolution.
  * @see https://learn.microsoft.com/windows/win32/api/wabdefs/nn-wabdefs-idistlist
  * @namespace Windows.Win32.System.AddressBook
- * @version v4.0.30319
  */
-class IDistList extends IMAPIContainer{
+class IDistList extends IMAPIContainer {
 
     static sizeof => A_PtrSize
 
@@ -30,7 +29,7 @@ class IDistList extends IMAPIContainer{
     /**
      * 
      * @param {Integer} cbEntryID 
-     * @param {Pointer} lpEntryID 
+     * @param {Integer} lpEntryID 
      * @param {Integer} ulCreateFlags 
      * @returns {IMAPIProp} 
      */

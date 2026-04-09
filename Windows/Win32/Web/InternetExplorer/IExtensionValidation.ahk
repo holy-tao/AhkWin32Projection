@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Web.InternetExplorer
- * @version v4.0.30319
  */
-class IExtensionValidation extends IUnknown{
+class IExtensionValidation extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -46,8 +45,8 @@ class IExtensionValidation extends IUnknown{
      * @param {IHTMLDocument2} htmlDocumentTop 
      * @param {IHTMLDocument2} htmlDocumentSubframe 
      * @param {IHTMLElement} htmlElement 
-     * @param {Integer} contexts 
-     * @returns {Integer} 
+     * @param {ExtensionValidationContexts} contexts 
+     * @returns {ExtensionValidationResults} 
      * @see https://learn.microsoft.com/windows/win32/DirectShow/validatebitmapinfoheader
      */
     Validate(extensionGuid, extensionModulePath, extensionFileVersionMS, extensionFileVersionLS, htmlDocumentTop, htmlDocumentSubframe, htmlElement, contexts) {

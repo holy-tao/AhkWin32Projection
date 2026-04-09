@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.WindowsSync
- * @version v4.0.30319
  */
-class IFilterTrackingProvider extends IUnknown{
+class IFilterTrackingProvider extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

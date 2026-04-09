@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class KERNEL_USER_TIMES extends Win32Struct
-{
+class KERNEL_USER_TIMES extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8

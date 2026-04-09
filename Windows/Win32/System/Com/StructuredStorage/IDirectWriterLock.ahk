@@ -7,9 +7,8 @@
  * The IDirectWriterLock interface enables a single writer to obtain exclusive write access to a root storage object opened in direct mode while allowing concurrent access by multiple readers.
  * @see https://learn.microsoft.com/windows/win32/api/objidl/nn-objidl-idirectwriterlock
  * @namespace Windows.Win32.System.Com.StructuredStorage
- * @version v4.0.30319
  */
-class IDirectWriterLock extends IUnknown{
+class IDirectWriterLock extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

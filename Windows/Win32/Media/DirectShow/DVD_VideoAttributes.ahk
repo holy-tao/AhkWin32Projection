@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DVD_VIDEO_COMPRESSION.ahk
 
 /**
  * The DVD_VideoAttributes structure describes the attributes of the video stream for the current title or menu.
@@ -7,10 +8,8 @@
  * This structure is filled when an application calls the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nf-strmif-idvdinfo2-getcurrentvideoattributes">IDvdInfo2::GetCurrentVideoAttributes</a> method.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/ns-strmif-dvd_videoattributes
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class DVD_VideoAttributes extends Win32Struct
-{
+class DVD_VideoAttributes extends Win32Struct {
     static sizeof => 52
 
     static packingSize => 4
@@ -71,7 +70,7 @@ class DVD_VideoAttributes extends Win32Struct
 
     /**
      * Variable of type [DVD_VIDEO_COMPRESSION](/windows/desktop/api/strmif/ne-strmif-dvd_video_compression) indicating the MPEG compression type used on the disc.
-     * @type {Integer}
+     * @type {DVD_VIDEO_COMPRESSION}
      */
     Compression {
         get => NumGet(this, 24, "int")

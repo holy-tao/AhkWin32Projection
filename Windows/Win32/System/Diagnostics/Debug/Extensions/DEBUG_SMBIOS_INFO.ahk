@@ -3,11 +3,9 @@
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
- * @version v4.0.30319
  */
-class DEBUG_SMBIOS_INFO extends Win32Struct
-{
-    static sizeof => 1424
+class DEBUG_SMBIOS_INFO extends Win32Struct {
+    static sizeof => 720
 
     static packingSize => 4
 
@@ -87,87 +85,87 @@ class DEBUG_SMBIOS_INFO extends Win32Struct
      * @type {String}
      */
     BaseBoardManufacturer {
-        get => StrGet(this.ptr + 16, 63, "UTF-16")
-        set => StrPut(value, this.ptr + 16, 63, "UTF-16")
+        get => StrGet(this.ptr + 16, 63, "UTF-8")
+        set => StrPut(value, this.ptr + 16, 63, "UTF-8")
     }
 
     /**
      * @type {String}
      */
     BaseBoardProduct {
-        get => StrGet(this.ptr + 144, 63, "UTF-16")
-        set => StrPut(value, this.ptr + 144, 63, "UTF-16")
+        get => StrGet(this.ptr + 80, 63, "UTF-8")
+        set => StrPut(value, this.ptr + 80, 63, "UTF-8")
     }
 
     /**
      * @type {String}
      */
     BaseBoardVersion {
-        get => StrGet(this.ptr + 272, 63, "UTF-16")
-        set => StrPut(value, this.ptr + 272, 63, "UTF-16")
+        get => StrGet(this.ptr + 144, 63, "UTF-8")
+        set => StrPut(value, this.ptr + 144, 63, "UTF-8")
     }
 
     /**
      * @type {String}
      */
     BiosReleaseDate {
-        get => StrGet(this.ptr + 400, 63, "UTF-16")
-        set => StrPut(value, this.ptr + 400, 63, "UTF-16")
+        get => StrGet(this.ptr + 208, 63, "UTF-8")
+        set => StrPut(value, this.ptr + 208, 63, "UTF-8")
     }
 
     /**
      * @type {String}
      */
     BiosVendor {
-        get => StrGet(this.ptr + 528, 63, "UTF-16")
-        set => StrPut(value, this.ptr + 528, 63, "UTF-16")
+        get => StrGet(this.ptr + 272, 63, "UTF-8")
+        set => StrPut(value, this.ptr + 272, 63, "UTF-8")
     }
 
     /**
      * @type {String}
      */
     BiosVersion {
-        get => StrGet(this.ptr + 656, 63, "UTF-16")
-        set => StrPut(value, this.ptr + 656, 63, "UTF-16")
+        get => StrGet(this.ptr + 336, 63, "UTF-8")
+        set => StrPut(value, this.ptr + 336, 63, "UTF-8")
     }
 
     /**
      * @type {String}
      */
     SystemFamily {
-        get => StrGet(this.ptr + 784, 63, "UTF-16")
-        set => StrPut(value, this.ptr + 784, 63, "UTF-16")
+        get => StrGet(this.ptr + 400, 63, "UTF-8")
+        set => StrPut(value, this.ptr + 400, 63, "UTF-8")
     }
 
     /**
      * @type {String}
      */
     SystemManufacturer {
-        get => StrGet(this.ptr + 912, 63, "UTF-16")
-        set => StrPut(value, this.ptr + 912, 63, "UTF-16")
+        get => StrGet(this.ptr + 464, 63, "UTF-8")
+        set => StrPut(value, this.ptr + 464, 63, "UTF-8")
     }
 
     /**
      * @type {String}
      */
     SystemProductName {
-        get => StrGet(this.ptr + 1040, 63, "UTF-16")
-        set => StrPut(value, this.ptr + 1040, 63, "UTF-16")
+        get => StrGet(this.ptr + 528, 63, "UTF-8")
+        set => StrPut(value, this.ptr + 528, 63, "UTF-8")
     }
 
     /**
      * @type {String}
      */
     SystemSKU {
-        get => StrGet(this.ptr + 1168, 63, "UTF-16")
-        set => StrPut(value, this.ptr + 1168, 63, "UTF-16")
+        get => StrGet(this.ptr + 592, 63, "UTF-8")
+        set => StrPut(value, this.ptr + 592, 63, "UTF-8")
     }
 
     /**
      * @type {String}
      */
     SystemVersion {
-        get => StrGet(this.ptr + 1296, 63, "UTF-16")
-        set => StrPut(value, this.ptr + 1296, 63, "UTF-16")
+        get => StrGet(this.ptr + 656, 63, "UTF-8")
+        set => StrPut(value, this.ptr + 656, 63, "UTF-8")
     }
 }

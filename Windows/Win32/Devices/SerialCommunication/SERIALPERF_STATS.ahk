@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.SerialCommunication
- * @version v4.0.30319
  */
-class SERIALPERF_STATS extends Win32Struct
-{
+class SERIALPERF_STATS extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 4

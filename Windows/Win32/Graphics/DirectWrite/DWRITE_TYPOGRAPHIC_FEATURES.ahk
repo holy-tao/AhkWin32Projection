@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DWRITE_FONT_FEATURE.ahk
 
 /**
  * Contains a set of typographic features to be applied during text shaping.
  * @see https://learn.microsoft.com/windows/win32/api/dwrite/ns-dwrite-dwrite_typographic_features
  * @namespace Windows.Win32.Graphics.DirectWrite
- * @version v4.0.30319
  */
-class DWRITE_TYPOGRAPHIC_FEATURES extends Win32Struct
-{
+class DWRITE_TYPOGRAPHIC_FEATURES extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

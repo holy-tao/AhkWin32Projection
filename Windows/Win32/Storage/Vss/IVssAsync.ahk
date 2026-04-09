@@ -7,9 +7,8 @@
  * The IVssAsync interface is returned to calling applications by methods that initiate asynchronous operations, which run in the background and typically require a long time to complete.
  * @see https://learn.microsoft.com/windows/win32/api/vss/nn-vss-ivssasync
  * @namespace Windows.Win32.Storage.Vss
- * @version v4.0.30319
  */
-class IVssAsync extends IUnknown{
+class IVssAsync extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

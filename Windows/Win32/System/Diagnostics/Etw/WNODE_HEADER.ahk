@@ -19,10 +19,8 @@
  * </dl>
  * @see https://learn.microsoft.com/windows/win32/ETW/wnode-header
  * @namespace Windows.Win32.System.Diagnostics.Etw
- * @version v4.0.30319
  */
-class WNODE_HEADER extends Win32Struct
-{
+class WNODE_HEADER extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -80,7 +78,7 @@ class WNODE_HEADER extends Win32Struct
     /**
      * @type {HANDLE}
      */
-    KernelHandle{
+    KernelHandle {
         get {
             if(!this.HasProp("__KernelHandle"))
                 this.__KernelHandle := HANDLE(16, this)
@@ -110,7 +108,7 @@ class WNODE_HEADER extends Win32Struct
      * You cannot start more than one session with the same session GUID.
      * 
      * **Prior to Windows Vista:** You can start more than one session with the same session GUID.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     Guid {
         get => NumGet(this, 24, "ptr")

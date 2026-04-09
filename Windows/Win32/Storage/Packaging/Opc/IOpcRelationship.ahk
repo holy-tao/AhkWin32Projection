@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
 #Include .\IOpcUri.ahk
 #Include ..\..\..\System\Com\IUri.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
  * Represents a relationship, which is a link between a source, which is a part or the package, and a target.
@@ -89,9 +89,8 @@
  * For more information about relationships, see the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/opc/open-packaging-conventions-overview">Open Packaging Conventions Fundamentals</a> and the <i>ECMA-376 OpenXML, 1st Edition, Part 2: Open Packaging Conventions (OPC)</i>.
  * @see https://learn.microsoft.com/windows/win32/api/msopc/nn-msopc-iopcrelationship
  * @namespace Windows.Win32.Storage.Packaging.Opc
- * @version v4.0.30319
  */
-class IOpcRelationship extends IUnknown{
+class IOpcRelationship extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -210,7 +209,7 @@ class IOpcRelationship extends IUnknown{
      * Finding a part of interest requires several steps. For detailed information about finding a part, see the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/opc/parts-overview">Parts Overview</a> and  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/opc/finding-the-core-properties-part">Finding the Core Properties Part</a>.
      * 
      * For more information about relationships, see the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/opc/open-packaging-conventions-overview">Open Packaging Conventions Fundamentals</a> and the <i>ECMA-376 OpenXML, 1st Edition, Part 2: Open Packaging Conventions (OPC)</i>.
-     * @returns {Integer} A value  that describes whether the relationship's target is internal or external to the package.
+     * @returns {OPC_URI_TARGET_MODE} A value  that describes whether the relationship's target is internal or external to the package.
      * 
      * If the target of the relationship is internal, the target is a part.
      * 

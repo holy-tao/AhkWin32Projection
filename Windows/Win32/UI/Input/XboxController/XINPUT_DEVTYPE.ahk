@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.UI.Input.XboxController
- * @version v4.0.30319
  */
-class XINPUT_DEVTYPE extends Win32Enum{
+class XINPUT_DEVTYPE extends Win32Enum {
 
     /**
      * @type {Integer (Byte)}

@@ -12,10 +12,8 @@
  * <a href="https://docs.microsoft.com/windows/desktop/Tapi/lineaddressstate--constants">LINEADDRESSSTATE_ constants</a>, which indicates that the status item in this record changed.
  * @see https://learn.microsoft.com/windows/win32/api/tapi/ns-tapi-lineaddressstatus
  * @namespace Windows.Win32.Devices.Tapi
- * @version v4.0.30319
  */
-class LINEADDRESSSTATUS extends Win32Struct
-{
+class LINEADDRESSSTATUS extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 4

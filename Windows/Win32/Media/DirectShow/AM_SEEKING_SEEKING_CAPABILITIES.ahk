@@ -7,9 +7,8 @@
  * Most DirectShow filters do not report the <b>AM_SEEKING_CanGetCurrentPos</b> capability flag. However, the Filter Graph Manager's implementation of <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nf-strmif-imediaseeking-getcurrentposition">IMediaSeeking::GetCurrentPosition</a> is based on the reference clock, so you can call this method even if the capabilities flags do not include <b>AM_SEEKING_CanGetCurrentPos</b>.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/ne-strmif-am_seeking_seeking_capabilities
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class AM_SEEKING_SEEKING_CAPABILITIES extends Win32Enum{
+class AM_SEEKING_SEEKING_CAPABILITIES extends Win32Enum {
 
     /**
      * The stream can seek to an absolute position.

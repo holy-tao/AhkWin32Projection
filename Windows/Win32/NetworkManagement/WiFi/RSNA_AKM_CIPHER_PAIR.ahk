@@ -1,18 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\RSNA_AKM_SUITE.ahk
+#Include .\RSNA_CIPHER_SUITE.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
- * @version v4.0.30319
  */
-class RSNA_AKM_CIPHER_PAIR extends Win32Struct
-{
+class RSNA_AKM_CIPHER_PAIR extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4
 
     /**
-     * @type {Integer}
+     * @type {RSNA_AKM_SUITE}
      */
     akm {
         get => NumGet(this, 0, "int")
@@ -20,7 +20,7 @@ class RSNA_AKM_CIPHER_PAIR extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {RSNA_CIPHER_SUITE}
      */
     cipher {
         get => NumGet(this, 4, "int")

@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ISyncProvider.ahk
 #Include ..\Com\IUnknown.ahk
+#Include .\ISyncProvider.ahk
 
 /**
  * Represents information about which provider caused synchronization to fail.
  * @see https://learn.microsoft.com/windows/win32/api/winsync/nn-winsync-isyncsessionextendederrorinfo
  * @namespace Windows.Win32.System.WindowsSync
- * @version v4.0.30319
  */
-class ISyncSessionExtendedErrorInfo extends IUnknown{
+class ISyncSessionExtendedErrorInfo extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

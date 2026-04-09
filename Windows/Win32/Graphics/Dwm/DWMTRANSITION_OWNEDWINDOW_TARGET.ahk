@@ -5,9 +5,8 @@
  * Identifies the target.
  * @see https://learn.microsoft.com/windows/win32/api/dwmapi/ne-dwmapi-dwmtransition_ownedwindow_target
  * @namespace Windows.Win32.Graphics.Dwm
- * @version v4.0.30319
  */
-class DWMTRANSITION_OWNEDWINDOW_TARGET extends Win32Enum{
+class DWMTRANSITION_OWNEDWINDOW_TARGET extends Win32Enum {
 
     /**
      * Indicates no animation.

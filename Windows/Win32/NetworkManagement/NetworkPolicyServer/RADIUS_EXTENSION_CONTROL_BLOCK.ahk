@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\RADIUS_EXTENSION_POINT.ahk
+#Include .\RADIUS_CODE.ahk
 
 /**
  * The RADIUS_EXTENSION_CONTROL_BLOCK structure provides information about the current RADIUS request. It also provides functions for obtaining the attributes associated with the request, and for setting the disposition of the request.
@@ -10,10 +12,8 @@
  * <a href="https://docs.microsoft.com/windows/desktop/api/authif/nc-authif-pradius_extension_process_2">RadiusExtensionProcess2</a>.
  * @see https://learn.microsoft.com/windows/win32/api/authif/ns-authif-radius_extension_control_block
  * @namespace Windows.Win32.NetworkManagement.NetworkPolicyServer
- * @version v4.0.30319
  */
-class RADIUS_EXTENSION_CONTROL_BLOCK extends Win32Struct
-{
+class RADIUS_EXTENSION_CONTROL_BLOCK extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -40,7 +40,7 @@ class RADIUS_EXTENSION_CONTROL_BLOCK extends Win32Struct
      * Specifies a value of type 
      * <a href="https://docs.microsoft.com/windows/desktop/api/authif/ne-authif-radius_extension_point">RADIUS_EXTENSION_POINT</a> that indicates at what point in the request process 
      * <a href="https://docs.microsoft.com/windows/desktop/api/authif/nc-authif-pradius_extension_process_2">RadiusExtensionProcess2</a> was called.
-     * @type {Integer}
+     * @type {RADIUS_EXTENSION_POINT}
      */
     repPoint {
         get => NumGet(this, 8, "int")
@@ -50,7 +50,7 @@ class RADIUS_EXTENSION_CONTROL_BLOCK extends Win32Struct
     /**
      * Specifies a value of type 
      * <a href="https://docs.microsoft.com/windows/desktop/api/authif/ne-authif-radius_code">RADIUS_CODE</a> that specifies the type of RADIUS request received by the Internet Authentication Service server.
-     * @type {Integer}
+     * @type {RADIUS_CODE}
      */
     rcRequestType {
         get => NumGet(this, 12, "int")
@@ -60,7 +60,7 @@ class RADIUS_EXTENSION_CONTROL_BLOCK extends Win32Struct
     /**
      * Specifies a value of type 
      * <a href="https://docs.microsoft.com/windows/desktop/api/authif/ne-authif-radius_code">RADIUS_CODE</a> that indicates the disposition of the RADIUS request.
-     * @type {Integer}
+     * @type {RADIUS_CODE}
      */
     rcResponseType {
         get => NumGet(this, 16, "int")

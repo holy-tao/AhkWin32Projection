@@ -5,10 +5,8 @@
  * A vector of 4 FLOAT values (x, y, z, w).
  * @see https://learn.microsoft.com/windows/win32/api/dcommon/ns-dcommon-d2d_vector_4f
  * @namespace Windows.Win32.Graphics.Direct2D.Common
- * @version v4.0.30319
  */
-class D2D_VECTOR_4F extends Win32Struct
-{
+class D2D_VECTOR_4F extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4

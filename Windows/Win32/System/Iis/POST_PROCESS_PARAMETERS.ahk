@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.System.Iis
- * @version v4.0.30319
  */
-class POST_PROCESS_PARAMETERS extends Win32Struct
-{
+class POST_PROCESS_PARAMETERS extends Win32Struct {
     static sizeof => 152
 
     static packingSize => 8
@@ -151,7 +149,7 @@ class POST_PROCESS_PARAMETERS extends Win32Struct
     /**
      * @type {FILETIME}
      */
-    SessionStartTime{
+    SessionStartTime {
         get {
             if(!this.HasProp("__SessionStartTime"))
                 this.__SessionStartTime := FILETIME(124, this)

@@ -7,9 +7,8 @@
  * In all modes, the DSP applies noise suppression and automatic gain control by default. To disable noise suppression, set the <a href="https://docs.microsoft.com/windows/desktop/medfound/mfpkey-wmaaecma-featr-nsproperty">MFPKEY_WMAAECMA_FEATR_NS</a> property. To disable automatic gain control, set the <a href="https://docs.microsoft.com/windows/desktop/medfound/mfpkey-wmaaecma-featr-agcproperty">MFPKEY_WMAAECMA_FEATR_AGC</a> property.
  * @see https://learn.microsoft.com/windows/win32/api/wmcodecdsp/ne-wmcodecdsp-aec_system_mode
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class AEC_SYSTEM_MODE extends Win32Enum{
+class AEC_SYSTEM_MODE extends Win32Enum {
 
     /**
      * AEC processing only.

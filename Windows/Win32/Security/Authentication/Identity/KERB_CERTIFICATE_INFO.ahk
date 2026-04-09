@@ -5,10 +5,8 @@
  * Contains the certificate information.
  * @see https://learn.microsoft.com/windows/win32/api/ntsecapi/ns-ntsecapi-kerb_certificate_info
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class KERB_CERTIFICATE_INFO extends Win32Struct
-{
+class KERB_CERTIFICATE_INFO extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4

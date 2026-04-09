@@ -5,9 +5,8 @@
  * Specifies the interactions to enable when configuring an Interaction Context object.
  * @see https://learn.microsoft.com/windows/win32/api/interactioncontext/ne-interactioncontext-interaction_configuration_flags
  * @namespace Windows.Win32.UI.InteractionContext
- * @version v4.0.30319
  */
-class INTERACTION_CONFIGURATION_FLAGS extends Win32BitflagEnum{
+class INTERACTION_CONFIGURATION_FLAGS extends Win32BitflagEnum {
 
     /**
      * No interactions enabled.
@@ -88,7 +87,6 @@ class INTERACTION_CONFIGURATION_FLAGS extends Win32BitflagEnum{
     static INTERACTION_CONFIGURATION_FLAG_MANIPULATION_EXACT => 1024
 
     /**
-     * 
      * @type {Integer (UInt32)}
      */
     static INTERACTION_CONFIGURATION_FLAG_MANIPULATION_MULTIPLE_FINGER_PANNING => 2048

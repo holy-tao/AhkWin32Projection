@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\IMMDevice.ahk
+#Include .\AUDIO_VOLUME_NOTIFICATION_DATA2.ahk
 
 /**
  * Represents an audio endpoint volume change APO notification. This is an updated version of AUDIO_ENDPOINT_VOLUME_CHANGE_NOTIFICATION that provides additional information in about the volume change event.
@@ -7,10 +9,8 @@
  * For more information on the Windows 11 APIs for the Audio Processing Objects (APOs) that can ship with audio drivers, see [Windows 11 APIs for Audio Processing Objects](/windows-hardware/drivers/audio/windows-11-apis-for-audio-processing-objects).
  * @see https://learn.microsoft.com/windows/win32/api/audioengineextensionapo/ns-audioengineextensionapo-audio_endpoint_volume_change_notification2
  * @namespace Windows.Win32.Media.Audio.Apo
- * @version v4.0.30319
  */
-class AUDIO_ENDPOINT_VOLUME_CHANGE_NOTIFICATION2 extends Win32Struct
-{
+class AUDIO_ENDPOINT_VOLUME_CHANGE_NOTIFICATION2 extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

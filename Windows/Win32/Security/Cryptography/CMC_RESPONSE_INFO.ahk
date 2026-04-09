@@ -1,5 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\CMC_TAGGED_ATTRIBUTE.ahk
+#Include .\CMC_TAGGED_CONTENT_INFO.ahk
+#Include .\CMC_TAGGED_OTHER_MSG.ahk
 
 /**
  * Provides a means of communicating different pieces of tagged information. (CMC_RESPONSE_INFO)
@@ -7,10 +10,8 @@
  * All tagged arrays are optional.
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cmc_response_info
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CMC_RESPONSE_INFO extends Win32Struct
-{
+class CMC_RESPONSE_INFO extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8

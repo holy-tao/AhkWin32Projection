@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.HumanInterfaceDevice
- * @version v4.0.30319
  */
-class HIDP_DATA extends Win32Struct
-{
+class HIDP_DATA extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4

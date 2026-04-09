@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IAVIStream.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\IAVIStream.ahk
 
 /**
  * The IAVIFile interface supports opening and manipulating files and file headers, and creating and obtaining stream interfaces. Uses IUnknown::QueryInterface, IUnknown::AddRef, and IUnknown::Release in addition to the following custom methods:\_
  * @see https://learn.microsoft.com/windows/win32/api/vfw/nn-vfw-iavifile
  * @namespace Windows.Win32.Media.Multimedia
- * @version v4.0.30319
  */
-class IAVIFile extends IUnknown{
+class IAVIFile extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -45,7 +44,7 @@ class IAVIFile extends IUnknown{
      *  
      * 
      * ```
-     * @param {Pointer} pfi A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/vfw/ns-vfw-avifileinfoa">AVIFILEINFO</a> structure. The method fills the structure with information about the file.
+     * @param {Integer} pfi A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/vfw/ns-vfw-avifileinfoa">AVIFILEINFO</a> structure. The method fills the structure with information about the file.
      * @param {Integer} lSize The size, in bytes, of the buffer specified by <i>pfi</i>.
      * @returns {HRESULT} Returns the HRESULT defined by OLE.
      * @see https://learn.microsoft.com/windows/win32/api/vfw/nf-vfw-iavifile-info
@@ -73,7 +72,7 @@ class IAVIFile extends IUnknown{
      * 
      * ```
      * @param {Integer} fccType Four-character code indicating the type of stream to locate.
-     * @param {Integer} _lParam 
+     * @param {Integer} _lParam Stream number.
      * @returns {IAVIStream} Pointer to a buffer that receives a pointer to the interface to a stream.
      * @see https://learn.microsoft.com/windows/win32/api/vfw/nf-vfw-iavifile-getstream
      */
@@ -117,7 +116,7 @@ class IAVIFile extends IUnknown{
      * 
      * ```
      * @param {Integer} ckid A chunk ID.
-     * @param {Pointer} lpData A pointer specifying the memory from which the data is written.
+     * @param {Integer} lpData A pointer specifying the memory from which the data is written.
      * @param {Integer} cbData A LONG specifying the number of bytes to write.
      * @returns {HRESULT} Returns the HRESULT defined by OLE.
      * @see https://learn.microsoft.com/windows/win32/api/vfw/nf-vfw-iavifile-writedata
@@ -140,7 +139,7 @@ class IAVIFile extends IUnknown{
      * 
      * ```
      * @param {Integer} ckid A chunk identifier.
-     * @param {Pointer} lpData A pointer specifying the memory into which the data is read.
+     * @param {Integer} lpData A pointer specifying the memory into which the data is read.
      * @param {Pointer<Integer>} lpcbData A pointer to a LONG specifying the number of bytes read.
      * @returns {HRESULT} Returns the HRESULT defined by OLE.
      * @see https://learn.microsoft.com/windows/win32/api/vfw/nf-vfw-iavifile-readdata

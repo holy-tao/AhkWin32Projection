@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\ADDRESS_FAMILY.ahk
 #Include .\IN6_ADDR.ahk
 #Include .\SCOPE_ID.ahk
 
@@ -15,17 +16,15 @@
  *     [SOCKADDR_STORAGE](../ws2def/ns-ws2def-sockaddr_storage_lh.md).
  * @see https://learn.microsoft.com/windows/win32/api/ws2ipdef/ns-ws2ipdef-sockaddr_in6_lh
  * @namespace Windows.Win32.Networking.WinSock
- * @version v4.0.30319
  */
-class SOCKADDR_IN6 extends Win32Struct
-{
+class SOCKADDR_IN6 extends Win32Struct {
     static sizeof => 28
 
     static packingSize => 4
 
     /**
      * The address family for the transport address. This member should always be set to AF_INET6.
-     * @type {Integer}
+     * @type {ADDRESS_FAMILY}
      */
     sin6_family {
         get => NumGet(this, 0, "ushort")
@@ -56,7 +55,7 @@ class SOCKADDR_IN6 extends Win32Struct
      *      address.
      * @type {IN6_ADDR}
      */
-    sin6_addr{
+    sin6_addr {
         get {
             if(!this.HasProp("__sin6_addr"))
                 this.__sin6_addr := IN6_ADDR(8, this)
@@ -75,7 +74,7 @@ class SOCKADDR_IN6 extends Win32Struct
     /**
      * @type {SCOPE_ID}
      */
-    sin6_scope_struct{
+    sin6_scope_struct {
         get {
             if(!this.HasProp("__sin6_scope_struct"))
                 this.__sin6_scope_struct := SCOPE_ID(24, this)

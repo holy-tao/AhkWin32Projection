@@ -1,17 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\IWMPMedia.ahk
 #Include ..\..\System\Com\IDispatch.ahk
+#Include .\IWMPMedia.ahk
 
 /**
  * The IWMPControls interface provides a way to manipulate the playback of a media item.
  * @see https://learn.microsoft.com/windows/win32/api/wmp/nn-wmp-iwmpcontrols
  * @namespace Windows.Win32.Media.MediaPlayer
- * @version v4.0.30319
  */
-class IWMPControls extends IDispatch{
+class IWMPControls extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -33,6 +31,7 @@ class IWMPControls extends IDispatch{
     static VTableNames => ["get_isAvailable", "play", "stop", "pause", "fastForward", "fastReverse", "get_currentPosition", "put_currentPosition", "get_currentPositionString", "next", "previous", "get_currentItem", "put_currentItem", "get_currentMarker", "put_currentMarker", "playItem"]
 
     /**
+     * @type {Float} 
      */
     currentPosition {
         get => this.get_currentPosition()
@@ -54,6 +53,7 @@ class IWMPControls extends IDispatch{
     }
 
     /**
+     * @type {Integer} 
      */
     currentMarker {
         get => this.get_currentMarker()

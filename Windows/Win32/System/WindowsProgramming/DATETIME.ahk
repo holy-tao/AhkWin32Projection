@@ -5,10 +5,8 @@
  * Contains information about a date and time picker (DTP) control.
  * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-datetimepickerinfo
  * @namespace Windows.Win32.System.WindowsProgramming
- * @version v4.0.30319
  */
-class DATETIME extends Win32Struct
-{
+class DATETIME extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 2

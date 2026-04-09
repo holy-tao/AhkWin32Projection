@@ -1,24 +1,32 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\FWP_IP_VERSION.ahk
+#Include .\FWP_DIRECTION.ahk
 #Include .\IPSEC_TRAFFIC0.ahk
-#Include .\IPSEC_SA_LIFETIME0.ahk
+#Include .\IPSEC_TRAFFIC_TYPE.ahk
 #Include .\IPSEC_SA_BUNDLE0.ahk
+#Include .\IPSEC_SA_BUNDLE_FLAGS.ahk
+#Include .\IPSEC_SA_LIFETIME0.ahk
+#Include .\IPSEC_ID0.ahk
+#Include .\IPSEC_SA0.ahk
+#Include .\IPSEC_KEYMODULE_STATE0.ahk
+#Include .\IPSEC_PFS_GROUP.ahk
+#Include .\IPSEC_V4_UDP_ENCAPSULATION0.ahk
+#Include .\FWPM_FILTER0.ahk
 
 /**
  * Is used to store information returned when enumerating IPsec security associations (SAs). (IPSEC_SA_DETAILS0)
  * @see https://learn.microsoft.com/windows/win32/api/ipsectypes/ns-ipsectypes-ipsec_sa_details0
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
- * @version v4.0.30319
  */
-class IPSEC_SA_DETAILS0 extends Win32Struct
-{
+class IPSEC_SA_DETAILS0 extends Win32Struct {
     static sizeof => 168
 
     static packingSize => 8
 
     /**
      * Internet Protocol (IP) version as specified by [FWP_IP_VERSION](/windows/desktop/api/fwptypes/ne-fwptypes-fwp_ip_version).
-     * @type {Integer}
+     * @type {FWP_IP_VERSION}
      */
     ipVersion {
         get => NumGet(this, 0, "int")
@@ -27,7 +35,7 @@ class IPSEC_SA_DETAILS0 extends Win32Struct
 
     /**
      * Indicates direction of the IPsec SA as specified by [FWP_DIRECTION](/windows/desktop/api/fwptypes/ne-fwptypes-fwp_direction).
-     * @type {Integer}
+     * @type {FWP_DIRECTION}
      */
     saDirection {
         get => NumGet(this, 4, "int")
@@ -38,7 +46,7 @@ class IPSEC_SA_DETAILS0 extends Win32Struct
      * The traffic being secured by this IPsec SA as specified by [IPSEC_TRAFFIC0](/windows/desktop/api/ipsectypes/ns-ipsectypes-ipsec_traffic0).
      * @type {IPSEC_TRAFFIC0}
      */
-    traffic{
+    traffic {
         get {
             if(!this.HasProp("__traffic"))
                 this.__traffic := IPSEC_TRAFFIC0(8, this)
@@ -50,7 +58,7 @@ class IPSEC_SA_DETAILS0 extends Win32Struct
      * Various parameters of the SA as specified by [IPSEC_SA_BUNDLE0](/windows/desktop/api/ipsectypes/ns-ipsectypes-ipsec_sa_bundle0).
      * @type {IPSEC_SA_BUNDLE0}
      */
-    saBundle{
+    saBundle {
         get {
             if(!this.HasProp("__saBundle"))
                 this.__saBundle := IPSEC_SA_BUNDLE0(64, this)

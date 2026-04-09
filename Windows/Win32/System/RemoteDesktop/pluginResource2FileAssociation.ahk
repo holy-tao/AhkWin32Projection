@@ -9,10 +9,8 @@
  * <c>#define MAX_FILE_ASSOC_EXTENSION_SIZE 256</c>
  * @see https://learn.microsoft.com/windows/win32/api/tspubplugin2com/ns-tspubplugin2com-pluginresource2fileassociation
  * @namespace Windows.Win32.System.RemoteDesktop
- * @version v4.0.30319
  */
-class pluginResource2FileAssociation extends Win32Struct
-{
+class pluginResource2FileAssociation extends Win32Struct {
     static sizeof => 528
 
     static packingSize => 8

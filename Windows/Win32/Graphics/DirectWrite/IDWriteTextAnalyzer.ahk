@@ -7,9 +7,8 @@
  * Analyzes various text properties for complex script processing such as bidirectional (bidi) support for languages like Arabic, determination of line break opportunities, glyph placement, and number substitution.
  * @see https://learn.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritetextanalyzer
  * @namespace Windows.Win32.Graphics.DirectWrite
- * @version v4.0.30319
  */
-class IDWriteTextAnalyzer extends IUnknown{
+class IDWriteTextAnalyzer extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

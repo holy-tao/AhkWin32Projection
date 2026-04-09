@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ILocationReport.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\ILocationReport.ahk
 
 /**
  * Provides methods used to manage location reports, event registration, and sensor permissions.
@@ -10,9 +10,8 @@
  * When <b>CoCreateInstance</b> is called to create an <b>ILocation</b> object, it may result in a notification being displayed in the taskbar, and a Location Activity event being logged in Event Viewer, if it is the application's first use of location.
  * @see https://learn.microsoft.com/windows/win32/api/locationapi/nn-locationapi-ilocation
  * @namespace Windows.Win32.Devices.Geolocation
- * @version v4.0.30319
  */
-class ILocation extends IUnknown{
+class ILocation extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -199,7 +198,7 @@ class ILocation extends IUnknown{
      * // to wait for civic address reports by replacing IID_ILatLongReport 
      * // with IID_ICivicAddressReport in the following code.
      * @param {Pointer<Guid>} reportType <b>REFIID</b> that specifies the report type for which to get the interval.
-     * @returns {Integer} Address of a <a href="https://docs.microsoft.com/windows/desktop/api/locationapi/ne-locationapi-location_report_status">LOCATION_REPORT_STATUS</a> that receives the current status for the specified report.
+     * @returns {LOCATION_REPORT_STATUS} Address of a <a href="https://docs.microsoft.com/windows/desktop/api/locationapi/ne-locationapi-location_report_status">LOCATION_REPORT_STATUS</a> that receives the current status for the specified report.
      * @see https://learn.microsoft.com/windows/win32/api/locationapi/nf-locationapi-ilocation-getreportstatus
      */
     GetReportStatus(reportType) {
@@ -281,7 +280,7 @@ class ILocation extends IUnknown{
     /**
      * Retrieves the current requested accuracy setting.
      * @param {Pointer<Guid>} reportType <b>REFIID</b> that specifies the report type for which to get the requested accuracy.
-     * @returns {Integer} 
+     * @returns {LOCATION_DESIRED_ACCURACY} 
      * @see https://learn.microsoft.com/windows/win32/api/locationapi/nf-locationapi-ilocation-getdesiredaccuracy
      */
     GetDesiredAccuracy(reportType) {
@@ -292,7 +291,7 @@ class ILocation extends IUnknown{
     /**
      * Specifies the accuracy to be used.
      * @param {Pointer<Guid>} reportType <b>REFIID</b> that specifies the report type for which to set the accuracy to be used.
-     * @param {Integer} desiredAccuracy 
+     * @param {LOCATION_DESIRED_ACCURACY} desiredAccuracy 
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>

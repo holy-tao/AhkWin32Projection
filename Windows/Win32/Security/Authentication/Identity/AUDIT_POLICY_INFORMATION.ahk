@@ -5,17 +5,15 @@
  * Specifies a security event type and when to audit that type.
  * @see https://learn.microsoft.com/windows/win32/api/ntsecapi/ns-ntsecapi-audit_policy_information
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class AUDIT_POLICY_INFORMATION extends Win32Struct
-{
+class AUDIT_POLICY_INFORMATION extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
 
     /**
      * A <b>GUID</b> structure that specifies an audit subcategory.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     AuditSubCategoryGuid {
         get => NumGet(this, 0, "ptr")
@@ -172,7 +170,7 @@ class AUDIT_POLICY_INFORMATION extends Win32Struct
 
     /**
      * A <b>GUID</b> structure that specifies an audit-policy category.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     AuditCategoryGuid {
         get => NumGet(this, 16, "ptr")

@@ -5,10 +5,8 @@
  * Contains information about a resource that can be assigned to users in RemoteApp and Desktop Connection.
  * @see https://learn.microsoft.com/windows/win32/api/tspubplugincom/ns-tspubplugincom-pluginresource
  * @namespace Windows.Win32.System.RemoteDesktop
- * @version v4.0.30319
  */
-class pluginResource extends Win32Struct
-{
+class pluginResource extends Win32Struct {
     static sizeof => 2096
 
     static packingSize => 8

@@ -1,12 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\IPMI_OS_SEL_RECORD_TYPE.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug
- * @version v4.0.30319
  */
-class IPMI_OS_SEL_RECORD extends Win32Struct
-{
+class IPMI_OS_SEL_RECORD extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 4
@@ -36,7 +35,7 @@ class IPMI_OS_SEL_RECORD extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {IPMI_OS_SEL_RECORD_TYPE}
      */
     RecordType {
         get => NumGet(this, 12, "int")
@@ -52,9 +51,9 @@ class IPMI_OS_SEL_RECORD extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Data{
+    Data {
         get {
             if(!this.HasProp("__DataProxyArray"))
                 this.__DataProxyArray := Win32FixedArray(this.ptr + 20, 1, Primitive, "char")

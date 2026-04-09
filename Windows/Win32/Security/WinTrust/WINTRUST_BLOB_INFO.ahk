@@ -5,10 +5,8 @@
  * Used when calling WinVerifyTrust to verify a memory BLOB.
  * @see https://learn.microsoft.com/windows/win32/api/wintrust/ns-wintrust-wintrust_blob_info
  * @namespace Windows.Win32.Security.WinTrust
- * @version v4.0.30319
  */
-class WINTRUST_BLOB_INFO extends Win32Struct
-{
+class WINTRUST_BLOB_INFO extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8
@@ -24,7 +22,7 @@ class WINTRUST_BLOB_INFO extends Win32Struct
 
     /**
      * The <b>GUID</b> of the SIP to load.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     gSubject {
         get => NumGet(this, 8, "ptr")

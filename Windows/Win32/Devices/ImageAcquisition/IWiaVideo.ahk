@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * The IWiaVideo interface provides methods that allow an application that uses Windows Image Acquisition (WIA) services to acquire still images from a streaming video device.Note  WIA does not support video devices in Windows Server 2003, Windows Vista, and later. For those versions of the Windows, use DirectShow to acquire images from video.
@@ -35,9 +35,8 @@
  * </table>
  * @see https://learn.microsoft.com/windows/win32/api/wiavideo/nn-wiavideo-iwiavideo
  * @namespace Windows.Win32.Devices.ImageAcquisition
- * @version v4.0.30319
  */
-class IWiaVideo extends IUnknown{
+class IWiaVideo extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -293,7 +292,7 @@ class IWiaVideo extends IUnknown{
 
     /**
      * The IWiaVideo::GetCurrentState method specifies the state of the video stream as a member of the WIAVIDEO_STATE enumeration.
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/wiavideo/ne-wiavideo-wiavideo_state">WIAVIDEO_STATE</a>*</b>
+     * @returns {WIAVIDEO_STATE} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/wiavideo/ne-wiavideo-wiavideo_state">WIAVIDEO_STATE</a>*</b>
      * 
      * A member of the <a href="https://docs.microsoft.com/windows/win32/api/wiavideo/ne-wiavideo-wiavideo_state">WIAVIDEO_STATE</a> enumeration that specifies the current state of the video stream.
      * @see https://learn.microsoft.com/windows/win32/api/wiavideo/nf-wiavideo-iwiavideo-getcurrentstate

@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.SystemServices
- * @version v4.0.30319
  */
-class TAPE_WMI_OPERATIONS extends Win32Struct
-{
+class TAPE_WMI_OPERATIONS extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

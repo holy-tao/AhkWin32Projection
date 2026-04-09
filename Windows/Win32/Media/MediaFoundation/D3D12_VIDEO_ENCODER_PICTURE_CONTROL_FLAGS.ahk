@@ -9,9 +9,8 @@
  * If this flag is not set, the [D3D12_VIDEO_ENCODER_RECONSTRUCTED_PICTURE.pReconstructedPicture](ns-d3d12video-d3d12_video_encoder_reconstructed_picture.md) can be nullptr in the associated call to [ID3D12VideoEncodeCommandList2::EncodeFrame](nf-d3d12video-id3d12videoencodecommandlist2-encodeframe.md).
  * @see https://learn.microsoft.com/windows/win32/api/d3d12video/ne-d3d12video-d3d12_video_encoder_picture_control_flags
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class D3D12_VIDEO_ENCODER_PICTURE_CONTROL_FLAGS extends Win32BitflagEnum{
+class D3D12_VIDEO_ENCODER_PICTURE_CONTROL_FLAGS extends Win32BitflagEnum {
 
     /**
      * None.

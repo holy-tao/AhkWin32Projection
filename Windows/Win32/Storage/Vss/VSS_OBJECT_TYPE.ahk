@@ -20,9 +20,8 @@
  *     <b>VSS_OBJECT_TYPE</b> enumeration.
  * @see https://learn.microsoft.com/windows/win32/api/vss/ne-vss-vss_object_type
  * @namespace Windows.Win32.Storage.Vss
- * @version v4.0.30319
  */
-class VSS_OBJECT_TYPE extends Win32Enum{
+class VSS_OBJECT_TYPE extends Win32Enum {
 
     /**
      * The object type is not known.

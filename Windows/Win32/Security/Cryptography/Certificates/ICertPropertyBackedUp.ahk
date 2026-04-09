@@ -7,9 +7,8 @@
  * Represents an external certificate property that identifies whether a certificate has been backed up and, if so, the date and time that it was saved.
  * @see https://learn.microsoft.com/windows/win32/api/certenroll/nn-certenroll-icertpropertybackedup
  * @namespace Windows.Win32.Security.Cryptography.Certificates
- * @version v4.0.30319
  */
-class ICertPropertyBackedUp extends ICertProperty{
+class ICertPropertyBackedUp extends ICertProperty {
 
     static sizeof => A_PtrSize
     /**

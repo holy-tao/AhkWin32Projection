@@ -7,10 +7,8 @@
  * Applications calling <a href="https://docs.microsoft.com/windows/desktop/api/sspi/nf-sspi-encryptmessage">EncryptMessage (General)</a> should check the values of the <b>cbHeader</b>, <b>cbTrailer</b>, and <b>cbMaximumMessage</b> members to determine the size of the encrypted packet.
  * @see https://learn.microsoft.com/windows/win32/api/sspi/ns-sspi-secpkgcontext_streamsizes
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class SecPkgContext_StreamSizes extends Win32Struct
-{
+class SecPkgContext_StreamSizes extends Win32Struct {
     static sizeof => 20
 
     static packingSize => 4

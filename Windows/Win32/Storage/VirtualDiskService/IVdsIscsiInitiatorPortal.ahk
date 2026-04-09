@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\VDS_ISCSI_INITIATOR_PORTAL_PROP.ahk
 #Include .\IVdsIscsiInitiatorAdapter.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Provides methods to query and interact with iSCSI initiator portals on the local system.
  * @see https://learn.microsoft.com/windows/win32/api/vds/nn-vds-ivdsiscsiinitiatorportal
  * @namespace Windows.Win32.Storage.VirtualDiskService
- * @version v4.0.30319
  */
-class IVdsIscsiInitiatorPortal extends IUnknown{
+class IVdsIscsiInitiatorPortal extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

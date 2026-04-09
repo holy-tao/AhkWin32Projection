@@ -5,9 +5,8 @@
  * The WMT_CREDENTIAL_FLAGS enumeration type contains values used in the IWMCredentialCallback::AcquireCredentials method.
  * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/ne-wmsdkidl-wmt_credential_flags
  * @namespace Windows.Win32.Media.WindowsMediaFormat
- * @version v4.0.30319
  */
-class WMT_CREDENTIAL_FLAGS extends Win32Enum{
+class WMT_CREDENTIAL_FLAGS extends Win32Enum {
 
     /**
      * The application can set this flag to indicate that the caller should save the credentials in a persistent manner.

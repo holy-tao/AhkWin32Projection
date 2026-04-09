@@ -5,10 +5,8 @@
  * Defines the mapping of generic access rights to specific and standard access rights for an object.
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-generic_mapping
  * @namespace Windows.Win32.Security
- * @version v4.0.30319
  */
-class GENERIC_MAPPING extends Win32Struct
-{
+class GENERIC_MAPPING extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4

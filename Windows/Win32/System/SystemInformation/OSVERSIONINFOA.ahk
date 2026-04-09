@@ -126,11 +126,9 @@
  * </table>
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-osversioninfoa
  * @namespace Windows.Win32.System.SystemInformation
- * @version v4.0.30319
  * @charset ANSI
  */
-class OSVERSIONINFOA extends Win32Struct
-{
+class OSVERSIONINFOA extends Win32Struct {
     static sizeof => 148
 
     static packingSize => 4

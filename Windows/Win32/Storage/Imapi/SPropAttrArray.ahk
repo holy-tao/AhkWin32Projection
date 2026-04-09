@@ -7,10 +7,8 @@
  * The **SPropAttrArray** structure is used by property data objects that implement the [IPropData : IMAPIProp](ipropdataimapiprop.md) interface. It is also used by MAPI's implementation of [IMAPIMessageSite : IUnknown](imapimessagesiteiunknown.md) that is based on structured storage.
  * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/spropattrarray
  * @namespace Windows.Win32.Storage.Imapi
- * @version v4.0.30319
  */
-class SPropAttrArray extends Win32Struct
-{
+class SPropAttrArray extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4
@@ -31,9 +29,9 @@ class SPropAttrArray extends Win32Struct
      *   - PROPATTR_READABLE
      *   - PROPATTR_WRITEABLE
      *   - PROPATTR_NOT_PRESENT
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    aPropAttr{
+    aPropAttr {
         get {
             if(!this.HasProp("__aPropAttrProxyArray"))
                 this.__aPropAttrProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "uint")

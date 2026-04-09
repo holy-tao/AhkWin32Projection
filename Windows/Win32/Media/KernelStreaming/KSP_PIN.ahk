@@ -6,10 +6,8 @@
  * The KSP_PINMODE structure specifies the pin property and the supported audio processing modes for a pin factory.
  * @see https://learn.microsoft.com/windows/win32/api/msapofxproxy/ns-msapofxproxy-ksp_pinmode
  * @namespace Windows.Win32.Media.KernelStreaming
- * @version v4.0.30319
  */
-class KSP_PIN extends Win32Struct
-{
+class KSP_PIN extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -17,7 +15,7 @@ class KSP_PIN extends Win32Struct
     /**
      * @type {KSIDENTIFIER}
      */
-    Property{
+    Property {
         get {
             if(!this.HasProp("__Property"))
                 this.__Property := KSIDENTIFIER(0, this)

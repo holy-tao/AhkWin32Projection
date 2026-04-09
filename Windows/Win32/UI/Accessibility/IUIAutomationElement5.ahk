@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include .\IUIAutomationElement4.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * Extends the IUIAutomationElement4 interface to provide access to current and cached landmark data.
  * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nn-uiautomationclient-iuiautomationelement5
  * @namespace Windows.Win32.UI.Accessibility
- * @version v4.0.30319
  */
-class IUIAutomationElement5 extends IUIAutomationElement4{
+class IUIAutomationElement5 extends IUIAutomationElement4 {
 
     static sizeof => A_PtrSize
     /**
@@ -32,7 +31,7 @@ class IUIAutomationElement5 extends IUIAutomationElement4{
     static VTableNames => ["get_CurrentLandmarkType", "get_CurrentLocalizedLandmarkType", "get_CachedLandmarkType", "get_CachedLocalizedLandmarkType"]
 
     /**
-     * @type {Integer} 
+     * @type {UIA_LANDMARKTYPE_ID} 
      */
     CurrentLandmarkType {
         get => this.get_CurrentLandmarkType()
@@ -46,7 +45,7 @@ class IUIAutomationElement5 extends IUIAutomationElement4{
     }
 
     /**
-     * @type {Integer} 
+     * @type {UIA_LANDMARKTYPE_ID} 
      */
     CachedLandmarkType {
         get => this.get_CachedLandmarkType()
@@ -61,7 +60,7 @@ class IUIAutomationElement5 extends IUIAutomationElement4{
 
     /**
      * Gets the current landmark type ID for the automation element.
-     * @returns {Integer} 
+     * @returns {UIA_LANDMARKTYPE_ID} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement5-get_currentlandmarktype
      */
     get_CurrentLandmarkType() {
@@ -82,7 +81,7 @@ class IUIAutomationElement5 extends IUIAutomationElement4{
 
     /**
      * Gets the cached landmark type ID for the automation element.
-     * @returns {Integer} 
+     * @returns {UIA_LANDMARKTYPE_ID} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement5-get_cachedlandmarktype
      */
     get_CachedLandmarkType() {

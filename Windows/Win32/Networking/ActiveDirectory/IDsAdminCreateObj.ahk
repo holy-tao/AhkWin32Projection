@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IADs.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\IADs.ahk
 
 /**
  * Used by an application or component to programmatically start a creation wizard for a specified object class.
  * @see https://learn.microsoft.com/windows/win32/api/dsadmin/nn-dsadmin-idsadmincreateobj
  * @namespace Windows.Win32.Networking.ActiveDirectory
- * @version v4.0.30319
  */
-class IDsAdminCreateObj extends IUnknown{
+class IDsAdminCreateObj extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

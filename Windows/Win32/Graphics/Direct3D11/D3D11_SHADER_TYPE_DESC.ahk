@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\Direct3D\D3D_SHADER_VARIABLE_CLASS.ahk
+#Include ..\Direct3D\D3D_SHADER_VARIABLE_TYPE.ahk
 
 /**
  * Describes a shader-variable type. (D3D11_SHADER_TYPE_DESC)
@@ -7,10 +9,8 @@
  * Get a shader-variable-type description by calling <a href="https://docs.microsoft.com/windows/desktop/api/d3d11shader/nf-d3d11shader-id3d11shaderreflectiontype-getdesc">ID3D11ShaderReflectionType::GetDesc</a>.
  * @see https://learn.microsoft.com/windows/win32/api/d3d11shader/ns-d3d11shader-d3d11_shader_type_desc
  * @namespace Windows.Win32.Graphics.Direct3D11
- * @version v4.0.30319
  */
-class D3D11_SHADER_TYPE_DESC extends Win32Struct
-{
+class D3D11_SHADER_TYPE_DESC extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -19,7 +19,7 @@ class D3D11_SHADER_TYPE_DESC extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3dcommon/ne-d3dcommon-d3d_shader_variable_class">D3D_SHADER_VARIABLE_CLASS</a></b>
      * 
      * A <a href="https://docs.microsoft.com/windows/desktop/api/d3dcommon/ne-d3dcommon-d3d_shader_variable_class">D3D_SHADER_VARIABLE_CLASS</a>-typed value that identifies the variable class as one of scalar, vector, matrix, object, and so on.
-     * @type {Integer}
+     * @type {D3D_SHADER_VARIABLE_CLASS}
      */
     Class {
         get => NumGet(this, 0, "int")
@@ -30,7 +30,7 @@ class D3D11_SHADER_TYPE_DESC extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3dcommon/ne-d3dcommon-d3d_shader_variable_type">D3D_SHADER_VARIABLE_TYPE</a></b>
      * 
      * A <a href="https://docs.microsoft.com/windows/desktop/api/d3dcommon/ne-d3dcommon-d3d_shader_variable_type">D3D_SHADER_VARIABLE_TYPE</a>-typed value that identifies the variable type.
-     * @type {Integer}
+     * @type {D3D_SHADER_VARIABLE_TYPE}
      */
     Type {
         get => NumGet(this, 4, "int")

@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Storage.Vhd
- * @version v4.0.30319
  */
-class FORK_VIRTUAL_DISK_VERSION extends Win32Enum{
+class FORK_VIRTUAL_DISK_VERSION extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

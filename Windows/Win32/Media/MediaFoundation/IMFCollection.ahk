@@ -9,9 +9,8 @@
  * To create an empty collection object, call <a href="https://docs.microsoft.com/windows/desktop/api/mfapi/nf-mfapi-mfcreatecollection">MFCreateCollection</a>.
  * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nn-mfobjects-imfcollection
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFCollection extends IUnknown{
+class IMFCollection extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

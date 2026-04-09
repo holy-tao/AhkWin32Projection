@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug
- * @version v4.0.30319
  */
-class MINIDUMP_PROCESS_VM_COUNTERS_1 extends Win32Struct
-{
+class MINIDUMP_PROCESS_VM_COUNTERS_1 extends Win32Struct {
     static sizeof => 80
 
     static packingSize => 8

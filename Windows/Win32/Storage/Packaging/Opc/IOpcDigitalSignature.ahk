@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
 #Include .\IOpcPartUri.ahk
 #Include .\IOpcSignaturePartReferenceEnumerator.ahk
 #Include .\IOpcSignatureRelationshipReferenceEnumerator.ahk
@@ -8,7 +9,6 @@
 #Include .\IOpcCertificateEnumerator.ahk
 #Include .\IOpcSignatureReferenceEnumerator.ahk
 #Include .\IOpcSignatureCustomObjectEnumerator.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
  * Represents a package digital signature.
@@ -20,9 +20,8 @@
  * When a signature is generated, this information is serialized in the XML markup of the signature (signature markup).  The signature markup that results is stored in a signature part.
  * @see https://learn.microsoft.com/windows/win32/api/msopc/nn-msopc-iopcdigitalsignature
  * @namespace Windows.Win32.Storage.Packaging.Opc
- * @version v4.0.30319
  */
-class IOpcDigitalSignature extends IUnknown{
+class IOpcDigitalSignature extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -175,7 +174,7 @@ class IOpcDigitalSignature extends IUnknown{
      * Gets the canonicalization method that was applied to the SignedInfo element of the serialized signature.
      * @remarks
      * When using the APIs to generate a signature, the C14N canonicalization method that removes comments is applied to the <b>SignedInfo</b> element. This method corresponds to the <b>OPC_CANONICALIZATION_C14N</b> enum value.
-     * @returns {Integer} An <a href="https://docs.microsoft.com/windows/win32/api/msopc/ne-msopc-opc_canonicalization_method">OPC_CANONICALIZATION_METHOD</a>  value that specifies the canonicalization method that was applied to the <b>SignedInfo</b> element of the signature markup when the signature was generated.
+     * @returns {OPC_CANONICALIZATION_METHOD} An <a href="https://docs.microsoft.com/windows/win32/api/msopc/ne-msopc-opc_canonicalization_method">OPC_CANONICALIZATION_METHOD</a>  value that specifies the canonicalization method that was applied to the <b>SignedInfo</b> element of the signature markup when the signature was generated.
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcdigitalsignature-getcanonicalizationmethod
      */
     GetCanonicalizationMethod() {
@@ -276,7 +275,7 @@ class IOpcDigitalSignature extends IUnknown{
      * To access a string that indicates the time at which the current package signature was generated, call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nf-msopc-iopcdigitalsignature-getsigningtime">GetSigningTime</a> method.
      * 
      * To set the format of the signing time string before the signature is generated, call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nf-msopc-iopcsigningoptions-settimeformat">IOpcSigningOptions::SetTimeFormat</a> method. To access the format before the signature is generated, call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nf-msopc-iopcsigningoptions-gettimeformat">IOpcSigningOptions::GetTimeFormat</a> method.
-     * @returns {Integer} An <a href="https://docs.microsoft.com/windows/win32/api/msopc/ne-msopc-opc_signature_time_format">OPC_SIGNATURE_TIME_FORMAT</a> value that describes the format of the string returned by <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nf-msopc-iopcdigitalsignature-getsigningtime">GetSigningTime</a>.
+     * @returns {OPC_SIGNATURE_TIME_FORMAT} An <a href="https://docs.microsoft.com/windows/win32/api/msopc/ne-msopc-opc_signature_time_format">OPC_SIGNATURE_TIME_FORMAT</a> value that describes the format of the string returned by <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nf-msopc-iopcdigitalsignature-getsigningtime">GetSigningTime</a>.
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcdigitalsignature-gettimeformat
      */
     GetTimeFormat() {

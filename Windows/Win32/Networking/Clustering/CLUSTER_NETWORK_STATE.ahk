@@ -5,9 +5,8 @@
  * The CLUSTER_NETWORK_STATE enumeration (msclus.h) enumerates the possible values of the state of a network.
  * @see https://learn.microsoft.com/windows/win32/api/msclus/ne-msclus-cluster_network_state
  * @namespace Windows.Win32.Networking.Clustering
- * @version v4.0.30319
  */
-class CLUSTER_NETWORK_STATE extends Win32Enum{
+class CLUSTER_NETWORK_STATE extends Win32Enum {
 
     /**
      * The operation was not successful. For more information about the error, call the function 

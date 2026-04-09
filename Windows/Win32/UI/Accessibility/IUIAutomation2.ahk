@@ -7,9 +7,8 @@
  * Extends the IUIAutomation interface to expose additional methods for controlling Microsoft UI Automation functionality.
  * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nn-uiautomationclient-iuiautomation2
  * @namespace Windows.Win32.UI.Accessibility
- * @version v4.0.30319
  */
-class IUIAutomation2 extends IUIAutomation{
+class IUIAutomation2 extends IUIAutomation {
 
     static sizeof => A_PtrSize
     /**

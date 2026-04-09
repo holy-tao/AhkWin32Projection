@@ -5,9 +5,8 @@
  * Database operations are performed within the domain of the system. The calling application must have appropriate access permissions for any database actions.
  * @see https://learn.microsoft.com/windows/win32/api/winscard/nf-winscard-scardestablishcontext
  * @namespace Windows.Win32.Security.Credentials
- * @version v4.0.30319
  */
-class SCARD_SCOPE extends Win32Enum{
+class SCARD_SCOPE extends Win32Enum {
 
     /**
      * @type {Integer (UInt32)}

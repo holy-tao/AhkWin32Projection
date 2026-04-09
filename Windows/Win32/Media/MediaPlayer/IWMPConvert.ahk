@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -10,9 +9,8 @@
  * These methods are implemented by a conversion plug-in and called by Windows Media Player.
  * @see https://learn.microsoft.com/windows/win32/api/wmpservices/nn-wmpservices-iwmpconvert
  * @namespace Windows.Win32.Media.MediaPlayer
- * @version v4.0.30319
  */
-class IWMPConvert extends IUnknown{
+class IWMPConvert extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

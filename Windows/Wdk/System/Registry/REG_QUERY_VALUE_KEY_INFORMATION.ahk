@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\Win32\Foundation\UNICODE_STRING.ahk
+#Include .\KEY_VALUE_INFORMATION_CLASS.ahk
 
 /**
  * @namespace Windows.Wdk.System.Registry
- * @version v4.0.30319
  */
-class REG_QUERY_VALUE_KEY_INFORMATION extends Win32Struct
-{
+class REG_QUERY_VALUE_KEY_INFORMATION extends Win32Struct {
     static sizeof => 72
 
     static packingSize => 8
@@ -28,7 +28,7 @@ class REG_QUERY_VALUE_KEY_INFORMATION extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {KEY_VALUE_INFORMATION_CLASS}
      */
     KeyValueInformationClass {
         get => NumGet(this, 16, "int")

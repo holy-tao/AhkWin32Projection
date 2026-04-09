@@ -11,9 +11,8 @@
  * There are two types of predicates: stream-output-overflow predicates and occlusion predicates. Stream-output-overflow predicates cause any geometry residing in stream-output buffers that were overflowed to not be processed. Occlusion predicates cause any geometry that did not have a single sample pass the depth/stencil tests to not be processed.
  * @see https://learn.microsoft.com/windows/win32/api/d3d11/nn-d3d11-id3d11predicate
  * @namespace Windows.Win32.Graphics.Direct3D11
- * @version v4.0.30319
  */
-class ID3D11Predicate extends ID3D11Query{
+class ID3D11Predicate extends ID3D11Query {
 
     static sizeof => A_PtrSize
     /**

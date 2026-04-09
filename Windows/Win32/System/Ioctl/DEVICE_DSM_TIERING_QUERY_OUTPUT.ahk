@@ -4,11 +4,9 @@
 
 /**
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class DEVICE_DSM_TIERING_QUERY_OUTPUT extends Win32Struct
-{
-    static sizeof => 40
+class DEVICE_DSM_TIERING_QUERY_OUTPUT extends Win32Struct {
+    static sizeof => 56
 
     static packingSize => 8
 
@@ -69,9 +67,9 @@ class DEVICE_DSM_TIERING_QUERY_OUTPUT extends Win32Struct
     }
 
     /**
-     * @type {Array<STORAGE_TIER_REGION>}
+     * @type {STORAGE_TIER_REGION}
      */
-    Regions{
+    Regions {
         get {
             if(!this.HasProp("__RegionsProxyArray"))
                 this.__RegionsProxyArray := Win32FixedArray(this.ptr + 32, 1, STORAGE_TIER_REGION, "")

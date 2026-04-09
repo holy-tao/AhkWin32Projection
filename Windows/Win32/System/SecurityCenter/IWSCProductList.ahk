@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IWscProduct.ahk
 #Include ..\Com\IDispatch.ahk
+#Include .\IWscProduct.ahk
 
 /**
  * Provides methods to collect product information for the selected type of providers installed on the computer.
  * @see https://learn.microsoft.com/windows/win32/api/iwscapi/nn-iwscapi-iwscproductlist
  * @namespace Windows.Win32.System.SecurityCenter
- * @version v4.0.30319
  */
-class IWSCProductList extends IDispatch{
+class IWSCProductList extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

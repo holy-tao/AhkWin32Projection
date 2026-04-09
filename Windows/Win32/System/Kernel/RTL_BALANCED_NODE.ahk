@@ -1,20 +1,19 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\RTL_BALANCED_NODE.ahk
 
 /**
  * @namespace Windows.Win32.System.Kernel
- * @version v4.0.30319
  */
-class RTL_BALANCED_NODE extends Win32Struct
-{
+class RTL_BALANCED_NODE extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
 
     /**
-     * @type {Array<RTL_BALANCED_NODE>}
+     * @type {Array<Pointer<RTL_BALANCED_NODE>>}
      */
-    Children{
+    Children {
         get {
             if(!this.HasProp("__ChildrenProxyArray"))
                 this.__ChildrenProxyArray := Win32FixedArray(this.ptr + 0, 2, Primitive, "ptr")

@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
- * @version v4.0.30319
  */
-class DispDOMCustomEvent extends IDispatch{
+class DispDOMCustomEvent extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

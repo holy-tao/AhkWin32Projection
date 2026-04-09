@@ -5,10 +5,8 @@
  * Describes a buffer allocated by a transport application to pass to a security package.
  * @see https://learn.microsoft.com/windows/win32/api/sspi/ns-sspi-secbuffer
  * @namespace Windows.Wdk.Storage.FileSystem
- * @version v4.0.30319
  */
-class SecBuffer extends Win32Struct
-{
+class SecBuffer extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

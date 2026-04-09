@@ -9,19 +9,17 @@
  * A disc key is used for the DVD CSS key exchange for decryption. Implementors should get a CSS license and further instructions from CSS.
  * @see https://learn.microsoft.com/windows/win32/api/dvdmedia/ns-dvdmedia-am_dvdcopy_disckey
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class AM_DVDCOPY_DISCKEY extends Win32Struct
-{
+class AM_DVDCOPY_DISCKEY extends Win32Struct {
     static sizeof => 2048
 
     static packingSize => 1
 
     /**
      * DVD disc key.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    DiscKey{
+    DiscKey {
         get {
             if(!this.HasProp("__DiscKeyProxyArray"))
                 this.__DiscKeyProxyArray := Win32FixedArray(this.ptr + 0, 2048, Primitive, "char")

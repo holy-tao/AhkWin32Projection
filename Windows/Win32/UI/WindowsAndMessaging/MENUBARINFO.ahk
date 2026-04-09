@@ -8,10 +8,8 @@
  * Contains menu bar information.
  * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-menubarinfo
  * @namespace Windows.Win32.UI.WindowsAndMessaging
- * @version v4.0.30319
  */
-class MENUBARINFO extends Win32Struct
-{
+class MENUBARINFO extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -33,7 +31,7 @@ class MENUBARINFO extends Win32Struct
      * The coordinates of the menu bar, popup menu, or menu item.
      * @type {RECT}
      */
-    rcBar{
+    rcBar {
         get {
             if(!this.HasProp("__rcBar"))
                 this.__rcBar := RECT(4, this)
@@ -47,7 +45,7 @@ class MENUBARINFO extends Win32Struct
      * A handle to the menu bar or popup menu.
      * @type {HMENU}
      */
-    hMenu{
+    hMenu {
         get {
             if(!this.HasProp("__hMenu"))
                 this.__hMenu := HMENU(24, this)
@@ -61,7 +59,7 @@ class MENUBARINFO extends Win32Struct
      * A handle to the submenu.
      * @type {HWND}
      */
-    hwndMenu{
+    hwndMenu {
         get {
             if(!this.HasProp("__hwndMenu"))
                 this.__hwndMenu := HWND(32, this)
@@ -82,9 +80,6 @@ class MENUBARINFO extends Win32Struct
     }
 
     /**
-     * Type: <b>BOOL</b>
-     * 
-     * If the menu bar or popup menu has the focus, this member is <b>TRUE</b>. Otherwise, the member is <b>FALSE</b>.
      * @type {Integer}
      */
     fBarFocused {
@@ -93,9 +88,6 @@ class MENUBARINFO extends Win32Struct
     }
 
     /**
-     * Type: <b>BOOL</b>
-     * 
-     * If the menu item has the focus, this member is <b>TRUE</b>. Otherwise, the member is <b>FALSE</b>.
      * @type {Integer}
      */
     fFocused {

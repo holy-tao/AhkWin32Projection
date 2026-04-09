@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\D3D12_WORK_GRAPH_FLAGS.ahk
+#Include .\D3D12_NODE_ID.ahk
+#Include .\D3D12_NODE.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D12
- * @version v4.0.30319
  */
-class D3D12_WORK_GRAPH_DESC extends Win32Struct
-{
+class D3D12_WORK_GRAPH_DESC extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -20,7 +21,7 @@ class D3D12_WORK_GRAPH_DESC extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {D3D12_WORK_GRAPH_FLAGS}
      */
     Flags {
         get => NumGet(this, 8, "int")

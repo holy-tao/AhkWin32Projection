@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem
- * @version v4.0.30319
  */
-class RTL_HEAP_MEMORY_LIMIT_INFO extends Win32Struct
-{
+class RTL_HEAP_MEMORY_LIMIT_INFO extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
@@ -20,7 +18,7 @@ class RTL_HEAP_MEMORY_LIMIT_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<RTL_HEAP_MEMORY_LIMIT_DATA>}
+     * @type {Pointer}
      */
     Data {
         get => NumGet(this, 8, "ptr")

@@ -3,10 +3,9 @@
 
 /**
  * @namespace Windows.Win32.System.Search
- * @version v4.0.30319
+ * @architecture X64, Arm64
  */
-class DBPROPIDSET extends Win32Struct
-{
+class DBPROPIDSET extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -28,7 +27,7 @@ class DBPROPIDSET extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     guidPropertySet {
         get => NumGet(this, 16, "ptr")

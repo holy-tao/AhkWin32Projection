@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IWdsTransportCollection.ahk
 #Include ..\Com\IDispatch.ahk
+#Include .\IWdsTransportCollection.ahk
 
 /**
  * This interface provides a method to retrieve all the clients currently connected to the TFTP server.
  * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nn-wdstptmgmt-iwdstransporttftpmanager
  * @namespace Windows.Win32.System.DeploymentServices
- * @version v4.0.30319
  */
-class IWdsTransportTftpManager extends IDispatch{
+class IWdsTransportTftpManager extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

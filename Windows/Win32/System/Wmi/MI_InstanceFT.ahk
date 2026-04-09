@@ -5,10 +5,8 @@
  * A support structure used in the MI_Instance structure. Use the functions with the name prefix MI_Instance_ to manipulate these structures.
  * @see https://learn.microsoft.com/windows/win32/api/mi/ns-mi-mi_instanceft
  * @namespace Windows.Win32.System.Wmi
- * @version v4.0.30319
  */
-class MI_InstanceFT extends Win32Struct
-{
+class MI_InstanceFT extends Win32Struct {
     static sizeof => 144
 
     static packingSize => 8

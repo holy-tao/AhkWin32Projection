@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IWICMetadataReader.ahk
 #Include .\IWICMetadataHandlerInfo.ahk
+#Include .\IWICMetadataReader.ahk
 
 /**
  * Exposes methods that provide basic information about the registered metadata reader.
  * @see https://learn.microsoft.com/windows/win32/api/wincodecsdk/nn-wincodecsdk-iwicmetadatareaderinfo
  * @namespace Windows.Win32.Graphics.Imaging
- * @version v4.0.30319
  */
-class IWICMetadataReaderInfo extends IWICMetadataHandlerInfo{
+class IWICMetadataReaderInfo extends IWICMetadataHandlerInfo {
 
     static sizeof => A_PtrSize
     /**
@@ -39,7 +38,7 @@ class IWICMetadataReaderInfo extends IWICMetadataHandlerInfo{
      * @param {Integer} cbSize Type: <b>UINT</b>
      * 
      * The size, in bytes, of the <i>pPattern</i> buffer.
-     * @param {Pointer} pPattern Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodecsdk/ns-wincodecsdk-wicmetadatapattern">WICMetadataPattern</a>*</b>
+     * @param {Integer} pPattern Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodecsdk/ns-wincodecsdk-wicmetadatapattern">WICMetadataPattern</a>*</b>
      * 
      * Pointer that receives the metadata patterns.
      * @param {Pointer<Integer>} pcCount Type: <b>UINT*</b>

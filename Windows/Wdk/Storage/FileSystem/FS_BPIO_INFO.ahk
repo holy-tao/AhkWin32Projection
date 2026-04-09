@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem
- * @version v4.0.30319
  */
-class FS_BPIO_INFO extends Win32Struct
-{
+class FS_BPIO_INFO extends Win32Struct {
     static sizeof => 72
 
     static packingSize => 4

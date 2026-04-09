@@ -5,10 +5,8 @@
  * The ISCSI_VERSION_INFO structure contains the version and build numbers of the iSCSI software initiator and the initiator service.
  * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/ns-iscsidsc-iscsi_version_info
  * @namespace Windows.Win32.Storage.IscsiDisc
- * @version v4.0.30319
  */
-class ISCSI_VERSION_INFO extends Win32Struct
-{
+class ISCSI_VERSION_INFO extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4

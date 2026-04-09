@@ -7,9 +7,8 @@
  * ICDBurnExt may be altered or unavailable.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nn-shobjidl-icdburnext
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class ICDBurnExt extends IUnknown{
+class ICDBurnExt extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -5,10 +5,8 @@
  * Deprecated. Represents an instant in time, typically expressed as a date and time of day and a corresponding calendar.
  * @see https://learn.microsoft.com/windows/win32/Intl/caldatetime
  * @namespace Windows.Win32.Globalization
- * @version v4.0.30319
  */
-class CALDATETIME extends Win32Struct
-{
+class CALDATETIME extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 4

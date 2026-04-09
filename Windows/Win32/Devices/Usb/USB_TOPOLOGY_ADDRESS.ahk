@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.Usb
- * @version v4.0.30319
  */
-class USB_TOPOLOGY_ADDRESS extends Win32Struct
-{
+class USB_TOPOLOGY_ADDRESS extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 4
@@ -52,9 +50,9 @@ class USB_TOPOLOGY_ADDRESS extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt16>}
+     * @type {Array<Integer>}
      */
-    HubPortNumber{
+    HubPortNumber {
         get {
             if(!this.HasProp("__HubPortNumberProxyArray"))
                 this.__HubPortNumberProxyArray := Win32FixedArray(this.ptr + 18, 5, Primitive, "ushort")

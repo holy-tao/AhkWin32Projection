@@ -5,9 +5,8 @@
  * Each property represents optional parameters for configuring the given WS_SERVICE_ENDPOINT structure. This enumeration is used within the WS_SERVICE_ENDPOINT_PROPERTY structure that is part of WS_SERVICE_ENDPOINT.
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ne-webservices-ws_service_endpoint_property_id
  * @namespace Windows.Win32.Networking.WindowsWebServices
- * @version v4.0.30319
  */
-class WS_SERVICE_ENDPOINT_PROPERTY_ID extends Win32Enum{
+class WS_SERVICE_ENDPOINT_PROPERTY_ID extends Win32Enum {
 
     /**
      * Used with <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_service_endpoint">WS_SERVICE_ENDPOINT</a>.

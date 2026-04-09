@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Graphics.Dxgi
- * @version v4.0.30319
  */
-class IDXGraphicsAnalysis extends IUnknown{
+class IDXGraphicsAnalysis extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

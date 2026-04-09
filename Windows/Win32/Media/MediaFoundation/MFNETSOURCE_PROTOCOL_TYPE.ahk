@@ -5,9 +5,8 @@
  * Indicates the type of control protocol that is used in streaming or downloading.
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/ne-mfidl-mfnetsource_protocol_type
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class MFNETSOURCE_PROTOCOL_TYPE extends Win32Enum{
+class MFNETSOURCE_PROTOCOL_TYPE extends Win32Enum {
 
     /**
      * The protocol type has not yet been determined.

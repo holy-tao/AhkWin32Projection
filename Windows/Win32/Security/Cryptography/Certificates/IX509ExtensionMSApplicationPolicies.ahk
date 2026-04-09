@@ -1,17 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
-#Include .\ICertificatePolicies.ahk
 #Include .\IX509Extension.ahk
+#Include .\ICertificatePolicies.ahk
 
 /**
  * Enables you to specify a collection of object identifiers (OIDs) that indicate how a certificate can be used by an application.
  * @see https://learn.microsoft.com/windows/win32/api/certenroll/nn-certenroll-ix509extensionmsapplicationpolicies
  * @namespace Windows.Win32.Security.Cryptography.Certificates
- * @version v4.0.30319
  */
-class IX509ExtensionMSApplicationPolicies extends IX509Extension{
+class IX509ExtensionMSApplicationPolicies extends IX509Extension {
 
     static sizeof => A_PtrSize
     /**
@@ -91,7 +89,7 @@ class IX509ExtensionMSApplicationPolicies extends IX509Extension{
      * <li>The <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509extension-get_objectid">ObjectId</a> property retrieves the extension <a href="https://docs.microsoft.com/windows/desktop/SecGloss/o-gly">object identifier</a> (OID).</li>
      * <li>The <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509extensionmsapplicationpolicies-get_policies">Policies</a> property retrieves the collection of <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate policies</a> (the raw extension data).</li>
      * </ul>
-     * @param {Integer} Encoding An <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/ne-certenroll-encodingtype">EncodingType</a> enumeration value that specifies the type of Unicode encoding applied to  the <i>strEncodedData</i> value.
+     * @param {EncodingType} Encoding An <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/ne-certenroll-encodingtype">EncodingType</a> enumeration value that specifies the type of Unicode encoding applied to  the <i>strEncodedData</i> value.
      * @param {BSTR} strEncodedData A <b>BSTR</b> variable that contains the DER-encoded extension.
      * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>.
      * 

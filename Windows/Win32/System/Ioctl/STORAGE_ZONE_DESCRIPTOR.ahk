@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\STORAGE_ZONE_TYPES.ahk
+#Include .\STORAGE_ZONE_CONDITION.ahk
 
 /**
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class STORAGE_ZONE_DESCRIPTOR extends Win32Struct
-{
+class STORAGE_ZONE_DESCRIPTOR extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -20,7 +20,7 @@ class STORAGE_ZONE_DESCRIPTOR extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {STORAGE_ZONE_TYPES}
      */
     ZoneType {
         get => NumGet(this, 4, "int")
@@ -28,7 +28,7 @@ class STORAGE_ZONE_DESCRIPTOR extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {STORAGE_ZONE_CONDITION}
      */
     ZoneCondition {
         get => NumGet(this, 8, "int")
@@ -44,9 +44,9 @@ class STORAGE_ZONE_DESCRIPTOR extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Reserved0{
+    Reserved0 {
         get {
             if(!this.HasProp("__Reserved0ProxyArray"))
                 this.__Reserved0ProxyArray := Win32FixedArray(this.ptr + 13, 3, Primitive, "char")

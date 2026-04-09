@@ -3,7 +3,6 @@
 
 /**
  * @namespace Windows.Wdk.System.OfflineRegistry
- * @version v4.0.30319
  */
 class OfflineRegistry {
 
@@ -15,7 +14,7 @@ class OfflineRegistry {
      * This function retrieves the version of the offline registry library.
      * @param {Pointer<Integer>} pdwMajorVersion A pointer to a variable to receive the major version of the offline registry library. For the initial release of the library, the value is 1.
      * @param {Pointer<Integer>} pdwMinorVersion A pointer to a variable to receive the minor version of the offline registry library. For the initial release of the library, the value is 0.
-     * @returns {Integer} This function does not return a value.
+     * @returns {WIN32_ERROR} This function does not return a value.
      * @see https://learn.microsoft.com/windows/win32/DevNotes/orgetversion
      */
     static ORGetVersion(pdwMajorVersion, pdwMinorVersion) {
@@ -32,7 +31,7 @@ class OfflineRegistry {
      * The **OROpenHive** function is the only offline registry function that validates a registry hive. If the validation fails, no attempt is made to repair the hive.
      * @param {PWSTR} FilePath 
      * @param {Pointer<ORHKEY>} HORKey 
-     * @returns {Integer} If the function succeeds, the return value is ERROR\_SUCCESS.
+     * @returns {WIN32_ERROR} If the function succeeds, the return value is ERROR\_SUCCESS.
      * 
      * If the function fails, the return value is a nonzero error code defined in Winerror.h. You can use the [FormatMessage](/windows/win32/api/winbase/nf-winbase-formatmessage) function with the FORMAT\_MESSAGE\_FROM\_SYSTEM flag to get a generic description of the error. Possible error codes include the following:
      * 
@@ -52,7 +51,7 @@ class OfflineRegistry {
      * 
      * @param {HANDLE} FileHandle 
      * @param {Pointer<ORHKEY>} HORKey 
-     * @returns {Integer} 
+     * @returns {WIN32_ERROR} 
      */
     static OROpenHiveByHandle(FileHandle, HORKey) {
         FileHandle := FileHandle is Win32Handle ? NumGet(FileHandle, "ptr") : FileHandle
@@ -66,7 +65,7 @@ class OfflineRegistry {
      * @remarks
      * The **ORCreateHive** function creates an empty offline registry hive in memory. Use the [**ORCreateKey**](orcreatekey.md) and [**ORSetValue**](orsetvalue.md) functions to add keys and set their values.
      * @param {Pointer<ORHKEY>} HORKey 
-     * @returns {Integer} If the function succeeds, the return value is ERROR\_SUCCESS.
+     * @returns {WIN32_ERROR} If the function succeeds, the return value is ERROR\_SUCCESS.
      * 
      * If the function fails, the return value is a nonzero error code defined in Winerror.h. You can use the [FormatMessage](/windows/win32/api/winbase/nf-winbase-formatmessage) function with the FORMAT\_MESSAGE\_FROM\_SYSTEM flag to get a generic description of the error.
      * 
@@ -84,8 +83,8 @@ class OfflineRegistry {
      * The **ORCloseHive** function frees all memory allocated by the offline registry functions on behalf of the specified hive.
      * 
      * To preserve changes to the hive, call the [**ORSaveHive**](orsavehive.md) function before calling **ORCloseHive**.
-     * @param {ORHKEY} _Handle 
-     * @returns {Integer} If the function succeeds, the return value is ERROR\_SUCCESS.
+     * @param {ORHKEY} _Handle A handle to the root key of the offline registry hive to be closed.
+     * @returns {WIN32_ERROR} If the function succeeds, the return value is ERROR\_SUCCESS.
      * 
      * If the function fails, the return value is a nonzero error code defined in Winerror.h. You can use the [FormatMessage](/windows/win32/api/winbase/nf-winbase-formatmessage) function with the FORMAT\_MESSAGE\_FROM\_SYSTEM flag to get a generic description of the error.
      * @see https://learn.microsoft.com/windows/win32/DevNotes/orclosehive
@@ -130,7 +129,7 @@ class OfflineRegistry {
      * @param {PWSTR} HivePath 
      * @param {Integer} OsMajorVersion 
      * @param {Integer} OsMinorVersion 
-     * @returns {Integer} If the function succeeds, the return value is ERROR\_SUCCESS.
+     * @returns {WIN32_ERROR} If the function succeeds, the return value is ERROR\_SUCCESS.
      * 
      * If the function fails, the return value is a nonzero error code defined in Winerror.h. You can use the [FormatMessage](/windows/win32/api/winbase/nf-winbase-formatmessage) function with the FORMAT\_MESSAGE\_FROM\_SYSTEM flag to get a generic description of the error. Possible error codes include the following:
      * 
@@ -150,10 +149,10 @@ class OfflineRegistry {
      * Opens the specified registry key in an offline registry hive.
      * @remarks
      * The **OROpenKey** function cannot be used to open the root key in an offline registry hive. To obtain a handle to the root key of a hive, use the [**OROpenHive**](oropenhive.md) function to load the hive into memory.
-     * @param {ORHKEY} _Handle 
+     * @param {ORHKEY} _Handle A handle to an open registry key in an offline registry hive.
      * @param {PWSTR} lpSubKey 
      * @param {Pointer<ORHKEY>} phkResult A pointer to a variable that receives a handle to the opened key. Use the [**ORCloseKey**](orclosekey.md) function to close the key after you have finished using the handle.
-     * @returns {Integer} If the function succeeds, the return value is ERROR\_SUCCESS.
+     * @returns {WIN32_ERROR} If the function succeeds, the return value is ERROR\_SUCCESS.
      * 
      * If the function fails, the return value is a nonzero error code defined in Winerror.h. You can use the [FormatMessage](/windows/win32/api/winbase/nf-winbase-formatmessage) function with the FORMAT\_MESSAGE\_FROM\_SYSTEM flag to get a generic description of the error.
      * 
@@ -177,7 +176,7 @@ class OfflineRegistry {
      * 
      * Use the [**ORCloseHive**](orclosehive.md) function to close an offline registry hive.
      * @param {ORHKEY} KeyHandle 
-     * @returns {Integer} If the function succeeds, the return value is ERROR\_SUCCESS.
+     * @returns {WIN32_ERROR} If the function succeeds, the return value is ERROR\_SUCCESS.
      * 
      * If the function fails, the return value is a nonzero error code defined in Winerror.h. You can use the [FormatMessage](/windows/win32/api/winbase/nf-winbase-formatmessage) function with the FORMAT\_MESSAGE\_FROM\_SYSTEM flag to get a generic description of the error.
      * 
@@ -230,7 +229,7 @@ class OfflineRegistry {
      *  
      * 
      * If *pdwDisposition* is **NULL**, no disposition information is returned.
-     * @returns {Integer} If the function succeeds, the return value is ERROR\_SUCCESS.
+     * @returns {WIN32_ERROR} If the function succeeds, the return value is ERROR\_SUCCESS.
      * 
      * If the function fails, the return value is a nonzero error code defined in Winerror.h. You can use the [FormatMessage](/windows/win32/api/winbase/nf-winbase-formatmessage) function with the FORMAT\_MESSAGE\_FROM\_SYSTEM flag to get a generic description of the error.
      * 
@@ -257,7 +256,7 @@ class OfflineRegistry {
      * The key to be deleted must not have subkeys. To delete a key and all its subkeys, use the [**OREnumKey**](orenumkey.md) function to enumerate the subkeys and delete them individually.
      * 
      * Only the [**ORCloseKey**](orclosekey.md) function may be called on a deleted key; all other offline registry operations fail. If the deleted key was explicitly created by calling [**ORCreateKey**](orcreatekey.md), resources associated with the key are released when the last handle to the deleted key is closed.
-     * @param {ORHKEY} _Handle 
+     * @param {ORHKEY} _Handle A handle to an open registry key in an offline registry hive. This handle is returned by the [**ORCreateKey**](orcreatekey.md) or [**OROpenKey**](oropenkey.md) function.
      * @param {PWSTR} lpSubKey The name of the key to be deleted. It must be a subkey of the key that *Handle* identifies, but it cannot have subkeys.
      * 
      * If the subkey does not exist, the function returns ERROR\_NOT\_FOUND.
@@ -265,7 +264,7 @@ class OfflineRegistry {
      * If this parameter is **NULL**, the function deletes the key specified by the *Handle* parameter. If the key specified by the *Handle* parameter is the root key of the hive, the function returns ERROR\_INVALID\_PARAMETER.
      * 
      * Key names are not case sensitive.
-     * @returns {Integer} If the function succeeds, the return value is ERROR\_SUCCESS.
+     * @returns {WIN32_ERROR} If the function succeeds, the return value is ERROR\_SUCCESS.
      * 
      * If the function fails, the return value is a nonzero error code defined in Winerror.h. You can use the [FormatMessage](/windows/win32/api/winbase/nf-winbase-formatmessage) function with the FORMAT\_MESSAGE\_FROM\_SYSTEM flag to get a generic description of the error. Possible error codes include the following:
      * 
@@ -284,7 +283,7 @@ class OfflineRegistry {
 
     /**
      * Retrieves information about the specified registry key in an offline registry hive.
-     * @param {ORHKEY} _Handle 
+     * @param {ORHKEY} _Handle A handle to an open registry key in an offline registry hive.
      * @param {PWSTR} lpClass A pointer to a buffer that receives the key class. This parameter can be **NULL**.
      * @param {Pointer<Integer>} lpcClass A pointer to a variable that specifies the size of the buffer pointed to by the *lpClass* parameter, in characters.
      * 
@@ -303,7 +302,7 @@ class OfflineRegistry {
      * @param {Pointer<FILETIME>} lpftLastWriteTime A pointer to a [FILETIME](/windows/win32/api/minwinbase/ns-minwinbase-filetime) structure that receives the last write time. This parameter can be **NULL**.
      * 
      * The function sets the members of the [FILETIME](/windows/win32/api/minwinbase/ns-minwinbase-filetime) structure to indicate the last time that the key or any of its value entries is modified.
-     * @returns {Integer} If the function succeeds, the return value is ERROR\_SUCCESS.
+     * @returns {WIN32_ERROR} If the function succeeds, the return value is ERROR\_SUCCESS.
      * 
      * If the function fails, the return value is a nonzero error code defined in Winerror.h. You can use the [FormatMessage](/windows/win32/api/winbase/nf-winbase-formatmessage) function with the FORMAT\_MESSAGE\_FROM\_SYSTEM flag to get a generic description of the error.
      * 
@@ -335,7 +334,7 @@ class OfflineRegistry {
      * The application can also set *dwIndex* to the index of the last subkey on the first call to the function and decrement the index until the subkey with the index 0 is enumerated. To retrieve the index of the last subkey, use the [**ORQueryInfoKey**](/windows/win32/api/winreg/nf-winreg-regqueryinfokeya) function.
      * 
      * While an application is using the **OREnumKey** function, it should not make calls to any offline registry functions that might change the key being enumerated.
-     * @param {ORHKEY} _Handle 
+     * @param {ORHKEY} _Handle A handle to an open registry key in an offline registry hive.
      * @param {Integer} dwIndex The index of the subkey to retrieve. This parameter should be zero for the first call to the function and then incremented for subsequent calls.
      * 
      * Because subkeys are not ordered, any new subkey will have an arbitrary index. This means that the function may return subkeys in any order.
@@ -346,7 +345,7 @@ class OfflineRegistry {
      * @param {PWSTR} lpClass A pointer to a buffer that receives the null-terminated class string of the enumerated subkey. This parameter can be **NULL**.
      * @param {Pointer<Integer>} lpcClass A pointer to a variable that specifies the size of the buffer specified by the *lpClass* parameter, in **WCHARs**. The size should include the terminating null character. If the function succeeds, *lpcClass* contains the number of characters stored in the buffer, not including the terminating null character. This parameter can be **NULL** only if *lpClass* is **NULL**.
      * @param {Pointer<FILETIME>} lpftLastWriteTime A pointer to [FILETIME](/windows/win32/api/minwinbase/ns-minwinbase-filetime) structure that receives the time at which the enumerated subkey was last written. This parameter can be **NULL**.
-     * @returns {Integer} If the function succeeds, the return value is ERROR\_SUCCESS.
+     * @returns {WIN32_ERROR} If the function succeeds, the return value is ERROR\_SUCCESS.
      * 
      * If the function fails, the return value is a nonzero error code defined in Winerror.h. You can use the [FormatMessage](/windows/win32/api/winbase/nf-winbase-formatmessage) function with the FORMAT\_MESSAGE\_FROM\_SYSTEM flag to get a generic description of the error. Possible error codes include the following:
      * 
@@ -368,11 +367,11 @@ class OfflineRegistry {
 
     /**
      * Retrieves a copy of the security descriptor protecting the specified open registry key in an offline registry hive.
-     * @param {ORHKEY} _Handle 
+     * @param {ORHKEY} _Handle A handle to an open registry key in an offline registry hive.
      * @param {Integer} SecurityInformation A [SECURITY\_INFORMATION](../secauthz/security-information.md) value that indicates the requested security information.
      * @param {PSECURITY_DESCRIPTOR} pSecurityDescriptor A pointer to a buffer that receives a copy of the requested security descriptor. This parameter can be **NULL**.
      * @param {Pointer<Integer>} lpcbSecurityDescriptor A pointer to a variable that specifies the size, in bytes, of the buffer pointed to by the *pSecurityDescriptor* parameter. When the function returns, the variable contains the number of bytes written to the buffer.
-     * @returns {Integer} If the function succeeds, the function returns ERROR\_SUCCESS.
+     * @returns {WIN32_ERROR} If the function succeeds, the function returns ERROR\_SUCCESS.
      * 
      * If the function fails, it returns a nonzero error code defined in Winerror.h. You can use the [FormatMessage](/windows/win32/api/winbase/nf-winbase-formatmessage) function with the FORMAT\_MESSAGE\_FROM\_SYSTEM flag to get a generic description of the error.
      * 
@@ -391,10 +390,10 @@ class OfflineRegistry {
 
     /**
      * Sets the security of an open registry key in an offline registry hive.
-     * @param {ORHKEY} _Handle 
+     * @param {ORHKEY} _Handle A handle to an open registry key in an offline registry hive.
      * @param {Integer} SecurityInformation Bit flags that indicate the type of security information to set. This parameter can be a combination of the [SECURITY\_INFORMATION](../secauthz/security-information.md) bit flags.
      * @param {PSECURITY_DESCRIPTOR} pSecurityDescriptor A pointer to a [SECURITY\_DESCRIPTOR](/windows/win32/api/winnt/ns-winnt-security_descriptor) structure that specifies the security attributes to set for the specified key.
-     * @returns {Integer} If the function succeeds, the function returns ERROR\_SUCCESS.
+     * @returns {WIN32_ERROR} If the function succeeds, the function returns ERROR\_SUCCESS.
      * 
      * If the function fails, it returns a nonzero error code defined in Winerror.h. You can use the [FormatMessage](/windows/win32/api/winbase/nf-winbase-formatmessage) function with the FORMAT\_MESSAGE\_FROM\_SYSTEM flag to get a generic description of the error.
      * @see https://learn.microsoft.com/windows/win32/DevNotes/orsetkeysecurity
@@ -421,7 +420,7 @@ class OfflineRegistry {
      * -   Keys that an administrator can write to
      * 
      * For more information, see [Registry Virtualization](../sysinfo/registry-virtualization.md).
-     * @param {ORHKEY} _Handle 
+     * @param {ORHKEY} _Handle A handle to an open registry key in an offline registry hive.
      * @param {Pointer<Integer>} pdwFlags A pointer to a variable to receive the virtualization flags set for the key. After the function returns, this parameter can be one or more of the following values.
      * 
      * 
@@ -431,7 +430,7 @@ class OfflineRegistry {
      * | <span id="REG_KEY_DONT_SILENT_FAIL"></span><span id="reg_key_dont_silent_fail"></span><dl> <dt>**REG\_KEY\_DONT\_SILENT\_FAIL**</dt> <dt>4</dt> </dl> | If this flag is set and an Open operation fails on a key that has virtualization enabled, the registry does not attempt to reopen the key. If this flag is clear, the registry attempts to reopen the key with MAXIMUM\_ALLOWED access.<br/>                                                                                            |
      * | <span id="REG_KEY_DONT_VIRTUALIZE"></span><span id="reg_key_dont_virtualize"></span><dl> <dt>**REG\_KEY\_DONT\_VIRTUALIZE**</dt> <dt>2</dt> </dl>     | If this flag is set and a Create Key operation fails because the caller does not have the KEY\_CREATE\_SUB\_KEY right on the parent key, the registry fails the Create operation. If this flag is clear, the registry attempts to create the key in the virtual store. The caller must have the KEY\_READ right on the parent key.<br/> |
      * | <span id="REG_KEY_RECURSE_FLAG"></span><span id="reg_key_recurse_flag"></span><dl> <dt>**REG\_KEY\_RECURSE\_FLAG**</dt> <dt>8</dt> </dl>              | If this flag is set, registry virtualization flags are propagated from the parent key. If this flag is clear, registry virtualization flags are not propagated.<br/>                                                                                                                                                                    |
-     * @returns {Integer} If the function succeeds, the return value is ERROR\_SUCCESS.
+     * @returns {WIN32_ERROR} If the function succeeds, the return value is ERROR\_SUCCESS.
      * 
      * If the function fails, the return value is a nonzero error code defined in Winerror.h. You can use the [FormatMessage](/windows/win32/api/winbase/nf-winbase-formatmessage) function with the FORMAT\_MESSAGE\_FROM\_SYSTEM flag to get a generic description of the error.
      * @see https://learn.microsoft.com/windows/win32/DevNotes/orgetvirtualflags
@@ -459,7 +458,7 @@ class OfflineRegistry {
      * -   Keys that an administrator can write to
      * 
      * For more information, see [Registry Virtualization](../sysinfo/registry-virtualization.md).
-     * @param {ORHKEY} _Handle 
+     * @param {ORHKEY} _Handle A handle to an open registry key in an offline registry hive.
      * @param {Integer} dwFlags This parameter controls the behavior of the registry when a Create or Open operation fails on a key in a virtualized hive. This parameter can be one or more of the following values.
      * 
      * 
@@ -469,7 +468,7 @@ class OfflineRegistry {
      * | <span id="REG_KEY_DONT_SILENT_FAIL"></span><span id="reg_key_dont_silent_fail"></span><dl> <dt>**REG\_KEY\_DONT\_SILENT\_FAIL**</dt> <dt>4</dt> </dl> | If this flag is set and an Open operation fails on a key for which virtualization is enabled, the registry does not attempt to reopen the key. If this flag is clear, the registry attempts to reopen the key with the MAXIMUM\_ALLOWED access.<br/>                                                                                    |
      * | <span id="REG_KEY_DONT_VIRTUALIZE"></span><span id="reg_key_dont_virtualize"></span><dl> <dt>**REG\_KEY\_DONT\_VIRTUALIZE**</dt> <dt>2</dt> </dl>     | If this flag is set and a Create Key operation fails because the caller does not have the KEY\_CREATE\_SUB\_KEY right on the parent key, the registry fails the Create operation. If this flag is clear, the registry attempts to create the key in the virtual store. The caller must have the KEY\_READ right on the parent key.<br/> |
      * | <span id="REG_KEY_RECURSE_FLAG"></span><span id="reg_key_recurse_flag"></span><dl> <dt>**REG\_KEY\_RECURSE\_FLAG**</dt> <dt>8</dt> </dl>              | If this flag is set, registry virtualization flags are propagated from the parent key. If this flag is clear, registry virtualization flags are not propagated.<br/>                                                                                                                                                                    |
-     * @returns {Integer} If the function succeeds, the return value is ERROR\_SUCCESS.
+     * @returns {WIN32_ERROR} If the function succeeds, the return value is ERROR\_SUCCESS.
      * 
      * If the function fails, the return value is a nonzero error code defined in Winerror.h. You can use the [FormatMessage](/windows/win32/api/winbase/nf-winbase-formatmessage) function with the FORMAT\_MESSAGE\_FROM\_SYSTEM flag to get a generic description of the error.
      * @see https://learn.microsoft.com/windows/win32/DevNotes/orsetvirtualflags
@@ -483,11 +482,11 @@ class OfflineRegistry {
 
     /**
      * Removes a named value from the specified registry key in an offline registry hive.
-     * @param {ORHKEY} _Handle 
+     * @param {ORHKEY} _Handle A handle to an open registry key in an offline registry hive.
      * @param {PWSTR} lpValueName The registry value to be removed. If this parameter is **NULL** or an empty string, the default unnamed value set by the [**ORSetValue**](orsetvalue.md) function is removed.
      * 
      * Value names are not case sensitive.
-     * @returns {Integer} If the function succeeds, the return value is ERROR\_SUCCESS.
+     * @returns {WIN32_ERROR} If the function succeeds, the return value is ERROR\_SUCCESS.
      * 
      * If the function fails, the return value is a nonzero error code defined in Winerror.h. You can use the [FormatMessage](/windows/win32/api/winbase/nf-winbase-formatmessage) function with the FORMAT\_MESSAGE\_FROM\_SYSTEM flag to get a generic description of the error.
      * @see https://learn.microsoft.com/windows/win32/DevNotes/ordeletevalue
@@ -504,7 +503,7 @@ class OfflineRegistry {
      * Retrieves the type and data for the specified registry value in an offline registry hive.
      * @remarks
      * An application typically calls the [**OREnumValue**](orenumvalue.md) function to determine the value names and then calls the **ORGetValue** function to retrieve the data for the names.
-     * @param {ORHKEY} _Handle 
+     * @param {ORHKEY} _Handle A handle to an open registry key in an offline registry hive.
      * @param {PWSTR} lpSubKey The name of the registry key. This key must be a subkey of the key specified by the *Handle* parameter. This parameter can be **NULL**.
      * 
      * Key names are not case sensitive.
@@ -514,7 +513,7 @@ class OfflineRegistry {
      * 
      * Value names are not case sensitive.
      * @param {Pointer<Integer>} pdwType A pointer to a variable that receives a code indicating the type of data stored in the specified value. For a list of the possible type codes, see [Registry Value Types](../sysinfo/registry-value-types.md). This parameter can be **NULL** if the type is not required.
-     * @param {Pointer} pvData A pointer to a buffer that receives the value's data. This parameter can be **NULL** if the data is not required.
+     * @param {Integer} pvData A pointer to a buffer that receives the value's data. This parameter can be **NULL** if the data is not required.
      * 
      * If the data is a string, the function checks for a terminating null character. If one is not found, the string is stored with a null terminator if the buffer is large enough to accommodate the extra character. Otherwise, the function fails and returns ERROR\_MORE\_DATA.
      * @param {Pointer<Integer>} pcbData A pointer to a variable that specifies the size of the buffer pointed to by the *pvData* parameter, in bytes. When the function returns, this variable contains the size of the data copied to *pvData*.
@@ -526,7 +525,7 @@ class OfflineRegistry {
      * If the buffer specified by *pvData* parameter is not large enough to hold the data, the function returns ERROR\_MORE\_DATA and stores the required buffer size in the variable pointed to by *pcbData*. In this case, the contents of the *pvData* buffer are undefined.
      * 
      * If *pvData* is **NULL**, and *pcbData* is non-**NULL**, the function returns ERROR\_SUCCESS and stores the size of the data, in bytes, in the variable pointed to by *pcbData*. This enables an application to determine the best way to allocate a buffer for the value's data.
-     * @returns {Integer} If the function succeeds, the return value is ERROR\_SUCCESS.
+     * @returns {WIN32_ERROR} If the function succeeds, the return value is ERROR\_SUCCESS.
      * 
      * If the function fails, the return value is a nonzero error code defined in Winerror.h. You can use the [FormatMessage](/windows/win32/api/winbase/nf-winbase-formatmessage) function with the FORMAT\_MESSAGE\_FROM\_SYSTEM flag to get a generic description of the error.
      * @see https://learn.microsoft.com/windows/win32/DevNotes/orgetvalue
@@ -547,7 +546,7 @@ class OfflineRegistry {
      * Sets the data for the value of a specified registry key in an offline registry hive.
      * @remarks
      * Value sizes are limited by available memory. Long values (more than 2048 bytes) should be stored as files with the file names stored in the registry. This helps the registry perform efficiently. Application elements such as icons, bitmaps, and executable files should be stored as files and not be placed in the registry.
-     * @param {ORHKEY} _Handle 
+     * @param {ORHKEY} _Handle A handle to an open registry key in an offline registry hive.
      * @param {PWSTR} lpValueName The name of the value to be set. If a value with this name is not already present in the key, the function adds it to the key.
      * 
      * If *lpValueName* is **NULL** or an empty string, "", the function sets the type and data for the key's unnamed or default value.
@@ -556,11 +555,11 @@ class OfflineRegistry {
      * 
      * Registry keys do not have default values, but they can have one unnamed value, which can be of any type.
      * @param {Integer} dwType The type of data pointed to by the *lpData* parameter. For a list of the possible types, see [Registry Value Types](../sysinfo/registry-value-types.md).
-     * @param {Pointer} lpData The data to be stored.
+     * @param {Integer} lpData The data to be stored.
      * 
      * For string-based types, such as REG\_SZ, the string must be null-terminated. For the REG\_MULTI\_SZ data type, the string must be terminated with two null characters.
      * @param {Integer} cbData The size of the information pointed to by the *lpData* parameter, in bytes. If the data is of type REG\_SZ, REG\_EXPAND\_SZ, or REG\_MULTI\_SZ, *cbData* must include the size of the terminating null character or characters.
-     * @returns {Integer} If the function succeeds, the return value is ERROR\_SUCCESS.
+     * @returns {WIN32_ERROR} If the function succeeds, the return value is ERROR\_SUCCESS.
      * 
      * If the function fails, the return value is a nonzero error code defined in Winerror.h. You can use the [FormatMessage](/windows/win32/api/winbase/nf-winbase-formatmessage) function with the FORMAT\_MESSAGE\_FROM\_SYSTEM flag to get a generic description of the error.
      * @see https://learn.microsoft.com/windows/win32/DevNotes/orsetvalue
@@ -585,7 +584,7 @@ class OfflineRegistry {
      * If the data has the REG\_SZ, REG\_MULTI\_SZ or REG\_EXPAND\_SZ type, the string may not have been stored with the proper null-terminating characters. Therefore, even if the function returns ERROR\_SUCCESS, the application should ensure that the string is properly terminated before using it; otherwise, it may overwrite a buffer. (Note that REG\_MULTI\_SZ strings should have two null-terminating characters.)
      * 
      * To determine the maximum size of the name and data buffers, use the [**ORQueryInfoKey**](orqueryinfokey.md) function.
-     * @param {ORHKEY} _Handle 
+     * @param {ORHKEY} _Handle A handle to an open registry key in an offline registry hive.
      * @param {Integer} dwIndex The index of the value to be retrieved. This parameter should be zero for the first call to the function and then be incremented for subsequent calls.
      * 
      * Because values are not ordered, any new value will have an arbitrary index. This means that the function may return values in any order.
@@ -594,7 +593,7 @@ class OfflineRegistry {
      * For more information, see [Registry Element Size Limits](../sysinfo/registry-element-size-limits.md).
      * @param {Pointer<Integer>} lpcValueName A pointer to a variable that specifies the size of the buffer pointed to by the *lpValueName* parameter, in characters. When the function returns, the variable receives the number of characters stored in the buffer, not including the terminating null character.
      * @param {Pointer<Integer>} lpType A pointer to a variable that receives a code indicating the type of data stored in the specified value. For a list of the possible type codes, see [Registry Value Types](../sysinfo/registry-value-types.md). The *lpType* parameter can be **NULL** if the type code is not required.
-     * @param {Pointer} lpData A pointer to a buffer that receives the data for the value entry. This parameter can be **NULL** if the data is not required.
+     * @param {Integer} lpData A pointer to a buffer that receives the data for the value entry. This parameter can be **NULL** if the data is not required.
      * 
      * If *lpData* is **NULL** and *lpcbData* is non-**NULL**, the function stores the size of the data, in bytes, in the variable pointed to by *lpcbData*. This enables an application to determine the best way to allocate a buffer for the data.
      * @param {Pointer<Integer>} lpcbData A pointer to a variable that specifies the size of the buffer pointed to by the *lpData* parameter, in bytes. When the function returns, the variable receives the number of bytes stored in the buffer.
@@ -604,7 +603,7 @@ class OfflineRegistry {
      * If the data has the REG\_SZ, REG\_MULTI\_SZ or REG\_EXPAND\_SZ type, this size includes any terminating null character or characters. For more information, see Remarks.
      * 
      * If the buffer specified by *lpData* is not large enough to hold the data, the function returns ERROR\_MORE\_DATA and stores the required buffer size in the variable pointed to by *lpcbData*. In this case, the contents of *lpData* are undefined.
-     * @returns {Integer} If the function succeeds, the return value is ERROR\_SUCCESS.
+     * @returns {WIN32_ERROR} If the function succeeds, the return value is ERROR\_SUCCESS.
      * 
      * If the function fails, the return value is a nonzero error code defined in Winerror.h. You can use the [FormatMessage](/windows/win32/api/winbase/nf-winbase-formatmessage) function with the FORMAT\_MESSAGE\_FROM\_SYSTEM flag to get a generic description of the error.
      * 
@@ -627,7 +626,7 @@ class OfflineRegistry {
      * 
      * @param {ORHKEY} _Handle 
      * @param {PWSTR} lpNewName 
-     * @returns {Integer} 
+     * @returns {WIN32_ERROR} 
      */
     static ORRenameKey(_Handle, lpNewName) {
         _Handle := _Handle is Win32Handle ? NumGet(_Handle, "ptr") : _Handle
@@ -639,7 +638,7 @@ class OfflineRegistry {
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {WIN32_ERROR} 
      */
     static ORStart() {
         result := DllCall("OFFREG.dll\ORStart", "uint")
@@ -648,7 +647,7 @@ class OfflineRegistry {
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {WIN32_ERROR} 
      */
     static ORShutdown() {
         result := DllCall("OFFREG.dll\ORShutdown", "uint")
@@ -660,7 +659,7 @@ class OfflineRegistry {
      * @param {Pointer<ORHKEY>} HiveHandles 
      * @param {Integer} HiveCount 
      * @param {Pointer<ORHKEY>} phkResult 
-     * @returns {Integer} 
+     * @returns {WIN32_ERROR} 
      */
     static ORMergeHives(HiveHandles, HiveCount, phkResult) {
         result := DllCall("OFFREG.dll\ORMergeHives", "ptr", HiveHandles, "uint", HiveCount, "ptr", phkResult, "uint")

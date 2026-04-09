@@ -3,7 +3,6 @@
 
 /**
  * @namespace Windows.Win32.System.WinRT.Printing
- * @version v4.0.30319
  */
 class Printing {
 

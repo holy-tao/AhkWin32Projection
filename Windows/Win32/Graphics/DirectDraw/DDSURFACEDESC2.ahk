@@ -10,10 +10,8 @@
  * The relevant members differ for each potential type of surface. This structure is typically created and initialized by an application.
  * @see https://learn.microsoft.com/windows/win32/api/ddraw/ns-ddraw-ddsurfacedesc2
  * @namespace Windows.Win32.Graphics.DirectDraw
- * @version v4.0.30319
  */
-class DDSURFACEDESC2 extends Win32Struct
-{
+class DDSURFACEDESC2 extends Win32Struct {
     static sizeof => 136
 
     static packingSize => 8
@@ -235,7 +233,7 @@ class DDSURFACEDESC2 extends Win32Struct
     /**
      * @type {DDCOLORKEY}
      */
-    ddckCKDestOverlay{
+    ddckCKDestOverlay {
         get {
             if(!this.HasProp("__ddckCKDestOverlay"))
                 this.__ddckCKDestOverlay := DDCOLORKEY(48, this)
@@ -255,7 +253,7 @@ class DDSURFACEDESC2 extends Win32Struct
      * Specifies the color key for destination blit use.
      * @type {DDCOLORKEY}
      */
-    ddckCKDestBlt{
+    ddckCKDestBlt {
         get {
             if(!this.HasProp("__ddckCKDestBlt"))
                 this.__ddckCKDestBlt := DDCOLORKEY(56, this)
@@ -267,7 +265,7 @@ class DDSURFACEDESC2 extends Win32Struct
      * Specifies the color key for source overlay use.
      * @type {DDCOLORKEY}
      */
-    ddckCKSrcOverlay{
+    ddckCKSrcOverlay {
         get {
             if(!this.HasProp("__ddckCKSrcOverlay"))
                 this.__ddckCKSrcOverlay := DDCOLORKEY(64, this)
@@ -279,7 +277,7 @@ class DDSURFACEDESC2 extends Win32Struct
      * Specifies the color key for source blit use.
      * @type {DDCOLORKEY}
      */
-    ddckCKSrcBlt{
+    ddckCKSrcBlt {
         get {
             if(!this.HasProp("__ddckCKSrcBlt"))
                 this.__ddckCKSrcBlt := DDCOLORKEY(72, this)
@@ -290,7 +288,7 @@ class DDSURFACEDESC2 extends Win32Struct
     /**
      * @type {DDPIXELFORMAT}
      */
-    ddpfPixelFormat{
+    ddpfPixelFormat {
         get {
             if(!this.HasProp("__ddpfPixelFormat"))
                 this.__ddpfPixelFormat := DDPIXELFORMAT(80, this)
@@ -310,7 +308,7 @@ class DDSURFACEDESC2 extends Win32Struct
      * Specifies a [DDSCAPS](ns-ddraw-ddscaps.md) structure that contains the DirectDraw surface capabilities.
      * @type {DDSCAPS2}
      */
-    ddsCaps{
+    ddsCaps {
         get {
             if(!this.HasProp("__ddsCaps"))
                 this.__ddsCaps := DDSCAPS2(112, this)

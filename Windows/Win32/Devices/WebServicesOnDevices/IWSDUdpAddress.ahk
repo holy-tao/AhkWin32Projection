@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Networking\WinSock\SOCKADDR_STORAGE.ahk
 #Include .\IWSDTransportAddress.ahk
+#Include ..\..\Networking\WinSock\SOCKADDR_STORAGE.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * Provides access to the individual components of a UDP address.
  * @see https://learn.microsoft.com/windows/win32/api/wsdbase/nn-wsdbase-iwsdudpaddress
  * @namespace Windows.Win32.Devices.WebServicesOnDevices
- * @version v4.0.30319
  */
-class IWSDUdpAddress extends IWSDTransportAddress{
+class IWSDUdpAddress extends IWSDTransportAddress {
 
     static sizeof => A_PtrSize
     /**
@@ -201,7 +201,7 @@ class IWSDUdpAddress extends IWSDTransportAddress{
 
     /**
      * Sets the message type for this UDP address configuration.
-     * @param {Integer} messageType A <a href="https://docs.microsoft.com/windows/desktop/api/wsdbase/ne-wsdbase-wsdudpmessagetype">WSDUdpMessageType</a> value that specifies the message type used for this address configuration.
+     * @param {WSDUdpMessageType} messageType A <a href="https://docs.microsoft.com/windows/desktop/api/wsdbase/ne-wsdbase-wsdudpmessagetype">WSDUdpMessageType</a> value that specifies the message type used for this address configuration.
      * @returns {HRESULT} This method can return one of these values.
      * 
      * 
@@ -235,7 +235,7 @@ class IWSDUdpAddress extends IWSDTransportAddress{
 
     /**
      * Gets the message type for this UDP address configuration.
-     * @returns {Integer} Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wsdbase/ne-wsdbase-wsdudpmessagetype">WSDUdpMessageType</a> value that specifies the message type used for this address configuration.
+     * @returns {WSDUdpMessageType} Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wsdbase/ne-wsdbase-wsdudpmessagetype">WSDUdpMessageType</a> value that specifies the message type used for this address configuration.
      * @see https://learn.microsoft.com/windows/win32/api/wsdbase/nf-wsdbase-iwsdudpaddress-getmessagetype
      */
     GetMessageType() {

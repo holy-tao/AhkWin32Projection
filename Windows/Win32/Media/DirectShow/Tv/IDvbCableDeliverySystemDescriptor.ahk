@@ -15,9 +15,8 @@
  * </ol>
  * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nn-dvbsiparser-idvbcabledeliverysystemdescriptor
  * @namespace Windows.Win32.Media.DirectShow.Tv
- * @version v4.0.30319
  */
-class IDvbCableDeliverySystemDescriptor extends IUnknown{
+class IDvbCableDeliverySystemDescriptor extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -7,9 +7,8 @@
  * The Line 21 decoder supports CC1 and CC2 only.
  * @see https://learn.microsoft.com/windows/win32/api/il21dec/ne-il21dec-am_line21_ccservice
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class AM_LINE21_CCSERVICE extends Win32Enum{
+class AM_LINE21_CCSERVICE extends Win32Enum {
 
     /**
      * No current service.
@@ -48,13 +47,11 @@ class AM_LINE21_CCSERVICE extends Win32Enum{
     static AM_L21_CCSERVICE_XDS => 5
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static AM_L21_CCSERVICE_DefChannel => 10
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static AM_L21_CCSERVICE_Invalid => 11

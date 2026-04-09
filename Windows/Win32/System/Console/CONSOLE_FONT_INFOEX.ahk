@@ -8,10 +8,8 @@
  * To obtain the size of the font, pass the font index to the [**GetConsoleFontSize**](getconsolefontsize.md) function.
  * @see https://learn.microsoft.com/windows/console/console-font-infoex
  * @namespace Windows.Win32.System.Console
- * @version v4.0.30319
  */
-class CONSOLE_FONT_INFOEX extends Win32Struct
-{
+class CONSOLE_FONT_INFOEX extends Win32Struct {
     static sizeof => 84
 
     static packingSize => 4
@@ -38,7 +36,7 @@ class CONSOLE_FONT_INFOEX extends Win32Struct
      * A [**COORD**](coord-str.md) structure that contains the width and height of each character in the font, in logical units. The **X** member contains the width, while the **Y** member contains the height.
      * @type {COORD}
      */
-    dwFontSize{
+    dwFontSize {
         get {
             if(!this.HasProp("__dwFontSize"))
                 this.__dwFontSize := COORD(8, this)

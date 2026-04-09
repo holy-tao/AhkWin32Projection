@@ -2,6 +2,7 @@
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include ..\..\..\Foundation\HWND.ahk
 #Include ..\..\..\Foundation\HINSTANCE.ahk
+#Include .\FINDREPLACE_FLAGS.ahk
 
 /**
  * Contains information that the FindText and ReplaceText functions use to initialize the Find and Replace dialog boxes. (ANSI)
@@ -10,11 +11,10 @@
  * > The commdlg.h header defines FINDREPLACE as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
  * @see https://learn.microsoft.com/windows/win32/api/commdlg/ns-commdlg-findreplacea
  * @namespace Windows.Win32.UI.Controls.Dialogs
- * @version v4.0.30319
  * @charset ANSI
+ * @architecture X64, Arm64
  */
-class FINDREPLACEA extends Win32Struct
-{
+class FINDREPLACEA extends Win32Struct {
     static sizeof => 80
 
     static packingSize => 8
@@ -36,7 +36,7 @@ class FINDREPLACEA extends Win32Struct
      * A handle to the window that owns the dialog box. The window procedure of the specified window receives <a href="https://docs.microsoft.com/windows/desktop/dlgbox/findmsgstring">FINDMSGSTRING</a> messages from the dialog box. This member can be any valid window handle, but it must not be <b>NULL</b>.
      * @type {HWND}
      */
-    hwndOwner{
+    hwndOwner {
         get {
             if(!this.HasProp("__hwndOwner"))
                 this.__hwndOwner := HWND(8, this)
@@ -50,7 +50,7 @@ class FINDREPLACEA extends Win32Struct
      * If the <b>FR_ENABLETEMPLATEHANDLE</b> flag is set in the <b>Flags</b>, <b>hInstance</b> is a handle to a memory object containing a dialog box template. If the <b>FR_ENABLETEMPLATE</b> flag is set, <b>hInstance</b> is a handle to a module that contains a dialog box template named by the <b>lpTemplateName</b> member. If neither flag is set, this member is ignored.
      * @type {HINSTANCE}
      */
-    hInstance{
+    hInstance {
         get {
             if(!this.HasProp("__hInstance"))
                 this.__hInstance := HINSTANCE(16, this)
@@ -60,7 +60,7 @@ class FINDREPLACEA extends Win32Struct
 
     /**
      * Type: <b>DWORD</b>
-     * @type {Integer}
+     * @type {FINDREPLACE_FLAGS}
      */
     Flags {
         get => NumGet(this, 24, "uint")

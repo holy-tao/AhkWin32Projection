@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
- * @version v4.0.30319
  */
-class DOT11_WFD_SESSION_ID extends Win32Struct
-{
+class DOT11_WFD_SESSION_ID extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4
@@ -20,9 +18,9 @@ class DOT11_WFD_SESSION_ID extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    SessionAddress{
+    SessionAddress {
         get {
             if(!this.HasProp("__SessionAddressProxyArray"))
                 this.__SessionAddressProxyArray := Win32FixedArray(this.ptr + 4, 6, Primitive, "char")

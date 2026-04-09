@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HWND.ahk
 #Include ..\Controls\NMHDR.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include .\IInkCursor.ahk
+#Include .\IInkStrokeDisp.ahk
 
 /**
  * Contains information about a Stroke event.
  * @see https://learn.microsoft.com/windows/win32/api/inked/ns-inked-iec_strokeinfo
  * @namespace Windows.Win32.UI.TabletPC
- * @version v4.0.30319
  */
-class IEC_STROKEINFO extends Win32Struct
-{
+class IEC_STROKEINFO extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -28,7 +28,7 @@ class IEC_STROKEINFO extends Win32Struct
      * ```
      * @type {NMHDR}
      */
-    nmhdr{
+    nmhdr {
         get {
             if(!this.HasProp("__nmhdr"))
                 this.__nmhdr := NMHDR(0, this)

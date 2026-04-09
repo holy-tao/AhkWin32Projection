@@ -1,15 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\SYMBOL_INFO_FLAGS.ahk
 
 /**
  * The SYMBOL_INFO structure (dbghelp.h) contains symbol information.
  * @see https://learn.microsoft.com/windows/win32/api/dbghelp/ns-dbghelp-symbol_info
  * @namespace Windows.Win32.System.Diagnostics.Debug
- * @version v4.0.30319
  * @charset ANSI
  */
-class SYMBOL_INFO extends Win32Struct
-{
+class SYMBOL_INFO extends Win32Struct {
     static sizeof => 88
 
     static packingSize => 8
@@ -34,9 +33,9 @@ class SYMBOL_INFO extends Win32Struct
 
     /**
      * This member is reserved for system use.
-     * @type {Array<UInt64>}
+     * @type {Array<Integer>}
      */
-    Reserved{
+    Reserved {
         get {
             if(!this.HasProp("__ReservedProxyArray"))
                 this.__ReservedProxyArray := Win32FixedArray(this.ptr + 8, 2, Primitive, "uint")
@@ -76,8 +75,7 @@ class SYMBOL_INFO extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Integer}
+     * @type {SYMBOL_INFO_FLAGS}
      */
     Flags {
         get => NumGet(this, 40, "uint")

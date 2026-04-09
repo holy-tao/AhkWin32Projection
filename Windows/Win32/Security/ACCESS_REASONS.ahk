@@ -3,18 +3,16 @@
 
 /**
  * @namespace Windows.Win32.Security
- * @version v4.0.30319
  */
-class ACCESS_REASONS extends Win32Struct
-{
+class ACCESS_REASONS extends Win32Struct {
     static sizeof => 128
 
     static packingSize => 4
 
     /**
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    Data{
+    Data {
         get {
             if(!this.HasProp("__DataProxyArray"))
                 this.__DataProxyArray := Win32FixedArray(this.ptr + 0, 32, Primitive, "uint")

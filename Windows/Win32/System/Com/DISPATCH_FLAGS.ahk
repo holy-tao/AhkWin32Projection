@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Com
- * @version v4.0.30319
  */
-class DISPATCH_FLAGS extends Win32BitflagEnum{
+class DISPATCH_FLAGS extends Win32BitflagEnum {
 
     /**
      * @type {Integer (UInt16)}

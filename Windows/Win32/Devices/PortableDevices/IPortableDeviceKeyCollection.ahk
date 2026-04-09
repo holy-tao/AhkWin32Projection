@@ -7,9 +7,8 @@
  * The IPortableDeviceKeyCollection interface holds a collection of PROPERTYKEY values. This interface can be retrieved from a method or, if a new object is required, call CoCreate with CLSID\_PortableDeviceKeyCollection.
  * @see https://learn.microsoft.com/windows/win32/wpd_sdk/iportabledevicekeycollection
  * @namespace Windows.Win32.Devices.PortableDevices
- * @version v4.0.30319
  */
-class IPortableDeviceKeyCollection extends IUnknown{
+class IPortableDeviceKeyCollection extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

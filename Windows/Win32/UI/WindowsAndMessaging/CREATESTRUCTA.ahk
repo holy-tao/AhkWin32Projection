@@ -3,6 +3,7 @@
 #Include ..\..\Foundation\HINSTANCE.ahk
 #Include .\HMENU.ahk
 #Include ..\..\Foundation\HWND.ahk
+#Include .\WINDOW_EX_STYLE.ahk
 
 /**
  * Defines the initialization parameters passed to the window procedure of an application. These members are identical to the parameters of the CreateWindowEx function. (ANSI)
@@ -38,11 +39,9 @@
  * > The winuser.h header defines CREATESTRUCT as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
  * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-createstructa
  * @namespace Windows.Win32.UI.WindowsAndMessaging
- * @version v4.0.30319
  * @charset ANSI
  */
-class CREATESTRUCTA extends Win32Struct
-{
+class CREATESTRUCTA extends Win32Struct {
     static sizeof => 80
 
     static packingSize => 8
@@ -68,7 +67,7 @@ class CREATESTRUCTA extends Win32Struct
      * A handle to the module that owns the new window.
      * @type {HINSTANCE}
      */
-    hInstance{
+    hInstance {
         get {
             if(!this.HasProp("__hInstance"))
                 this.__hInstance := HINSTANCE(8, this)
@@ -82,7 +81,7 @@ class CREATESTRUCTA extends Win32Struct
      * A handle to the menu to be used by the new window.
      * @type {HMENU}
      */
-    hMenu{
+    hMenu {
         get {
             if(!this.HasProp("__hMenu"))
                 this.__hMenu := HMENU(16, this)
@@ -96,7 +95,7 @@ class CREATESTRUCTA extends Win32Struct
      * A handle to the parent window, if the window is a child window. If the window is owned, this member identifies the owner window. If the window is not a child or owned window, this member is <b>NULL</b>.
      * @type {HWND}
      */
-    hwndParent{
+    hwndParent {
         get {
             if(!this.HasProp("__hwndParent"))
                 this.__hwndParent := HWND(24, this)
@@ -185,7 +184,7 @@ class CREATESTRUCTA extends Win32Struct
      * Type: <b>DWORD</b>
      * 
      * The extended window style for the new window. For a list of possible values, see  <a href="https://docs.microsoft.com/windows/desktop/winmsg/extended-window-styles">Extended Window Styles</a>.
-     * @type {Integer}
+     * @type {WINDOW_EX_STYLE}
      */
     dwExStyle {
         get => NumGet(this, 72, "uint")

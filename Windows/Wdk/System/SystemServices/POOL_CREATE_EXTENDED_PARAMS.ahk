@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class POOL_CREATE_EXTENDED_PARAMS extends Win32Struct
-{
+class POOL_CREATE_EXTENDED_PARAMS extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 4

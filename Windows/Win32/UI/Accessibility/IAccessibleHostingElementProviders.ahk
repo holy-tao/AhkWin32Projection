@@ -7,9 +7,8 @@
  * A Microsoft Active Accessibility object implements this interface when the object is the root of an accessibility tree that includes windowless Microsoft ActiveX controls that implement Microsoft UI Automation.
  * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nn-uiautomationcore-iaccessiblehostingelementproviders
  * @namespace Windows.Win32.UI.Accessibility
- * @version v4.0.30319
  */
-class IAccessibleHostingElementProviders extends IUnknown{
+class IAccessibleHostingElementProviders extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

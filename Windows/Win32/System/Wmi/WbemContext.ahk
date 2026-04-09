@@ -40,10 +40,8 @@
  * <a href="https://docs.microsoft.com/windows/desktop/api/wbemcli/nn-wbemcli-iwbemservices">IWbemServices</a> methods, which immediately calls <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">Release</a> on the context object after the call has returned. The other methods are for use primarily by providers that receive the context object and have to extract information.
  * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nn-wbemcli-iwbemcontext
  * @namespace Windows.Win32.System.Wmi
- * @version v4.0.30319
  */
-class WbemContext extends Win32Struct
-{
+class WbemContext extends Win32Struct {
     static sizeof => 0
 
     static packingSize => 1

@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DD_SURFACE_LOCAL.ahk
 
 /**
  * The DDMOCOMPBUFFERINFO structure contains the macro block information required to render a frame and passes this information to the DD_RENDERMOCOMPDATA structure.
  * @see https://learn.microsoft.com/windows/win32/api/ddrawint/ns-ddrawint-ddmocompbufferinfo
  * @namespace Windows.Win32.Graphics.DirectDraw
- * @version v4.0.30319
  */
-class DDMOCOMPBUFFERINFO extends Win32Struct
-{
+class DDMOCOMPBUFFERINFO extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8

@@ -1,14 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\IKEEXT_AUTHENTICATION_METHOD_TYPE.ahk
+#Include .\IKEEXT_AUTHENTICATION_IMPERSONATION_TYPE.ahk
+#Include .\IKEEXT_PRESHARED_KEY_AUTHENTICATION1.ahk
+#Include .\IKEEXT_CERTIFICATE_CREDENTIAL1.ahk
+#Include .\IKEEXT_NAME_CREDENTIAL0.ahk
 
 /**
  * Is used to store credential information used for the authentication. (IKEEXT_CREDENTIAL2)
  * @see https://learn.microsoft.com/windows/win32/api/iketypes/ns-iketypes-ikeext_credential2
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
- * @version v4.0.30319
  */
-class IKEEXT_CREDENTIAL2 extends Win32Struct
-{
+class IKEEXT_CREDENTIAL2 extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
@@ -17,7 +20,7 @@ class IKEEXT_CREDENTIAL2 extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/win32/api/iketypes/ne-iketypes-ikeext_authentication_method_type">IKEEXT_AUTHENTICATION_METHOD_TYPE</a></b>
      * 
      * Type of authentication method.
-     * @type {Integer}
+     * @type {IKEEXT_AUTHENTICATION_METHOD_TYPE}
      */
     authenticationMethodType {
         get => NumGet(this, 0, "int")
@@ -28,7 +31,7 @@ class IKEEXT_CREDENTIAL2 extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/win32/api/iketypes/ne-iketypes-ikeext_authentication_impersonation_type">IKEEXT_AUTHENTICATION_IMPERSONATION_TYPE</a></b>
      * 
      * Type of impersonation.
-     * @type {Integer}
+     * @type {IKEEXT_AUTHENTICATION_IMPERSONATION_TYPE}
      */
     impersonationType {
         get => NumGet(this, 4, "int")

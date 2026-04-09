@@ -67,10 +67,8 @@
  * </table>
  * @see https://learn.microsoft.com/windows/win32/api/tcpestats/ns-tcpestats-tcp_estats_send_buff_rod_v0
  * @namespace Windows.Win32.NetworkManagement.IpHelper
- * @version v4.0.30319
  */
-class TCP_ESTATS_SEND_BUFF_ROD_v0 extends Win32Struct
-{
+class TCP_ESTATS_SEND_BUFF_ROD_v0 extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8

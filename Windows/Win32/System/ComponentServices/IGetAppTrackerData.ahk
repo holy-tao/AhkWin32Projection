@@ -16,9 +16,8 @@
  * <b>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\COM3</b>&#92;<b>TrackingInfoPollingFrequency</b> = <i>minimum polling interval in seconds</i>
  * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nn-comsvcs-igetapptrackerdata
  * @namespace Windows.Win32.System.ComponentServices
- * @version v4.0.30319
  */
-class IGetAppTrackerData extends IUnknown{
+class IGetAppTrackerData extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -250,7 +249,7 @@ class IGetAppTrackerData extends IUnknown{
      * @param {Pointer<Guid>} ApplicationId An application ID to filter results, or GUID_NULL for all applications.
      * @param {Integer} Flags A combination of flags from the <a href="https://docs.microsoft.com/windows/desktop/api/comsvcs/ne-comsvcs-getapptrackerdataflags">GetAppTrackerDataFlags</a> enumeration to filter results and to select which data is returned. The following flags are supported: GATD_INCLUDE_LIBRARY_APPS, GATD_INCLUDE_SWC, GATD_INCLUDE_CLASS_NAME, GATD_INCLUDE_APPLICATION_NAME. See Remarks below for more information.
      * @param {Pointer<Integer>} NumComponentsInProcess On return, the number of components in the process that match the filter criteria specified by <i>PartitionId</i>, <i>ApplicationId</i>, and <i>Flags</i>.
-     * @param {Pointer<Pointer<ComponentSummary>>} _Components 
+     * @param {Pointer<Pointer<ComponentSummary>>} _Components On return, an array of <a href="https://docs.microsoft.com/windows/desktop/api/comsvcs/ns-comsvcs-componentsummary">ComponentSummary</a> structures for the matching components.
      * @returns {HRESULT} This method can return the standard return values E_INVALIDARG and E_OUTOFMEMORY, as well as the following values.
      * 
      * <table>

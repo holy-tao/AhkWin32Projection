@@ -43,9 +43,8 @@
  * When using a query that does not require a call to Begin, it still requires a call to End. The call to End causes the data returned by GetData to be accurate up until the last call to End.
  * @see https://learn.microsoft.com/windows/win32/api/d3d10/nn-d3d10-id3d10query
  * @namespace Windows.Win32.Graphics.Direct3D10
- * @version v4.0.30319
  */
-class ID3D10Query extends ID3D10Asynchronous{
+class ID3D10Query extends ID3D10Asynchronous {
 
     static sizeof => A_PtrSize
     /**

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DOT11_RADIO_STATE.ahk
 
 /**
  * Specifies the radio state.
@@ -19,10 +20,8 @@
  * The radio state of a PHY is off if either the software radio state (<b>dot11SoftwareRadioState</b> member) or the hardware radio state (<b>dot11HardwareRadioState</b> member) is off.
  * @see https://learn.microsoft.com/windows/win32/api/wlanapi/ns-wlanapi-wlan_phy_radio_state
  * @namespace Windows.Win32.NetworkManagement.WiFi
- * @version v4.0.30319
  */
-class WLAN_PHY_RADIO_STATE extends Win32Struct
-{
+class WLAN_PHY_RADIO_STATE extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4
@@ -38,7 +37,7 @@ class WLAN_PHY_RADIO_STATE extends Win32Struct
 
     /**
      * A <a href="https://docs.microsoft.com/windows/win32/api/wlanapi/ne-wlanapi-dot11_radio_state-r1">DOT11_RADIO_STATE</a> value that indicates the software radio state.
-     * @type {Integer}
+     * @type {DOT11_RADIO_STATE}
      */
     dot11SoftwareRadioState {
         get => NumGet(this, 4, "int")
@@ -47,7 +46,7 @@ class WLAN_PHY_RADIO_STATE extends Win32Struct
 
     /**
      * A <a href="https://docs.microsoft.com/windows/win32/api/wlanapi/ne-wlanapi-dot11_radio_state-r1">DOT11_RADIO_STATE</a> value that indicates the hardware radio state.
-     * @type {Integer}
+     * @type {DOT11_RADIO_STATE}
      */
     dot11HardwareRadioState {
         get => NumGet(this, 8, "int")

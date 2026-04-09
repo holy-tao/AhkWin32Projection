@@ -9,9 +9,8 @@
  * The EVR activation object returned by the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-mfcreatevideorendereractivate">MFCreateVideoRendererActivate</a> function does not expose this interface. Instead, the activation object supports attributes that specify a custom mixer or presenter. For more information, see <a href="https://docs.microsoft.com/windows/desktop/medfound/enhanced-video-renderer-attributes">Enhanced Video Renderer Attributes</a>.
  * @see https://learn.microsoft.com/windows/win32/api/evr/nn-evr-imfvideorenderer
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFVideoRenderer extends IUnknown{
+class IMFVideoRenderer extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

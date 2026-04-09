@@ -1,13 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Win32\System\Ioctl\QUERY_BAD_RANGES_INPUT_RANGE.ahk
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem
- * @version v4.0.30319
  */
-class QUERY_BAD_RANGES_INPUT extends Win32Struct
-{
+class QUERY_BAD_RANGES_INPUT extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
@@ -29,12 +26,12 @@ class QUERY_BAD_RANGES_INPUT extends Win32Struct
     }
 
     /**
-     * @type {Array<QUERY_BAD_RANGES_INPUT_RANGE>}
+     * @type {Array<Pointer>}
      */
-    Ranges{
+    Ranges {
         get {
             if(!this.HasProp("__RangesProxyArray"))
-                this.__RangesProxyArray := Win32FixedArray(this.ptr + 8, 1, QUERY_BAD_RANGES_INPUT_RANGE, "")
+                this.__RangesProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "ptr")
             return this.__RangesProxyArray
         }
     }

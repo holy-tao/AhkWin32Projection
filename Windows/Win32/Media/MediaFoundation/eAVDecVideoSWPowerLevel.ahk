@@ -5,9 +5,8 @@
  * Specifies the power-saving level of a video decoder.
  * @see https://learn.microsoft.com/windows/win32/api/codecapi/ne-codecapi-eavdecvideoswpowerlevel
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class eAVDecVideoSWPowerLevel extends Win32Enum{
+class eAVDecVideoSWPowerLevel extends Win32Enum {
 
     /**
      * Optimize for battery life.

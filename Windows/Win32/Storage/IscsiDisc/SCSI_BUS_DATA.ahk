@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Storage.IscsiDisc
- * @version v4.0.30319
  */
-class SCSI_BUS_DATA extends Win32Struct
-{
+class SCSI_BUS_DATA extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4

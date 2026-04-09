@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\XSTATE_SAVE.ahk
+#Include ..\..\..\Win32\System\Diagnostics\Debug\XSAVE_AREA.ahk
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class XSTATE_SAVE extends Win32Struct
-{
+class XSTATE_SAVE extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8
@@ -68,7 +68,7 @@ class XSTATE_SAVE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<XSTATE_CONTEXT>}
+     * @type {Pointer}
      */
     XStateContext {
         get => NumGet(this, 0, "ptr")

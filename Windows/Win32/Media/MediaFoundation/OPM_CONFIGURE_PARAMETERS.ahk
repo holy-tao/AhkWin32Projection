@@ -17,10 +17,8 @@
  * </ol>
  * @see https://learn.microsoft.com/windows/win32/api/opmapi/ns-opmapi-opm_configure_parameters
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class OPM_CONFIGURE_PARAMETERS extends Win32Struct
-{
+class OPM_CONFIGURE_PARAMETERS extends Win32Struct {
     static sizeof => 4088
 
     static packingSize => 8
@@ -29,7 +27,7 @@ class OPM_CONFIGURE_PARAMETERS extends Win32Struct
      * An <a href="https://docs.microsoft.com/windows/desktop/api/ksopmapi/ns-ksopmapi-opm_omac">OPM_MAC</a> structure. Fill in this structure with the Message Authentication Code (MAC) of the command data. Use AES-based one-key CBC MAC (OMAC) to calculate this value.
      * @type {OPM_OMAC}
      */
-    omac{
+    omac {
         get {
             if(!this.HasProp("__omac"))
                 this.__omac := OPM_OMAC(0, this)
@@ -39,7 +37,7 @@ class OPM_CONFIGURE_PARAMETERS extends Win32Struct
 
     /**
      * A GUID that specifies the command. For more information, see <a href="https://docs.microsoft.com/windows/desktop/medfound/opm-commands">OPM Commands</a>.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     guidSetting {
         get => NumGet(this, 16, "ptr")
@@ -70,9 +68,9 @@ class OPM_CONFIGURE_PARAMETERS extends Win32Struct
 
     /**
      * The data for the command. The meaning of the data depends on the command. For more information, see <a href="https://docs.microsoft.com/windows/desktop/medfound/opm-commands">OPM Commands</a>.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    abParameters{
+    abParameters {
         get {
             if(!this.HasProp("__abParametersProxyArray"))
                 this.__abParametersProxyArray := Win32FixedArray(this.ptr + 32, 4056, Primitive, "char")

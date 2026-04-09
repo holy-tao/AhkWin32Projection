@@ -9,9 +9,8 @@
  * Applications may choose to handle monitor rotation themselves by using the [D3DPRESENTFLAG\_NOAUTOROTATE](d3dpresentflag.md), in which case, the application will need to know how the monitor is rotated so that it may adjust its rendering accordingly.
  * @see https://learn.microsoft.com/windows/win32/direct3d9/d3ddisplayrotation
  * @namespace Windows.Win32.Graphics.Direct3D9
- * @version v4.0.30319
  */
-class D3DDISPLAYROTATION extends Win32Enum{
+class D3DDISPLAYROTATION extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

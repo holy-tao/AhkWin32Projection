@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
+#Include ..\..\..\..\System\Com\IUnknown.ahk
 #Include ..\..\..\..\System\Com\IEnumUnknown.ahk
 #Include ..\..\..\..\UI\Shell\PropertiesSystem\IPropertyStore.ahk
-#Include ..\..\..\..\System\Com\IUnknown.ahk
 
 /**
  * Represents an identity provider.
  * @see https://learn.microsoft.com/windows/win32/api/identityprovider/nn-identityprovider-iidentityprovider
  * @namespace Windows.Win32.Security.Authentication.Identity.Provider
- * @version v4.0.30319
  */
-class IIdentityProvider extends IUnknown{
+class IIdentityProvider extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -34,7 +33,7 @@ class IIdentityProvider extends IUnknown{
 
     /**
      * Retrieves an IEnumUnknown interface pointer that can be used to enumerate identities.
-     * @param {Integer} eIdentityType A value of the <a href="https://docs.microsoft.com/windows/win32/api/identitycommon/ne-identitycommon-identity_type">IDENTITY_TYPE</a> enumeration that indicates the type of identities to enumerate.
+     * @param {IDENTITY_TYPE} eIdentityType A value of the <a href="https://docs.microsoft.com/windows/win32/api/identitycommon/ne-identitycommon-identity_type">IDENTITY_TYPE</a> enumeration that indicates the type of identities to enumerate.
      * @param {Pointer<PROPERTYKEY>} pFilterkey A pointer to a property key that specifies a property. If the value of this parameter is not <b>NULL</b>, only identities that support the property specified by this parameter are enumerated.
      * @param {Pointer<PROPVARIANT>} pFilterPropVarValue A pointer to a property value. If the values of this parameter and the <i>pFilterkey</i> parameter are not <b>NULL</b>, only identities that have the property value specified by this parameter are enumerated.
      * @returns {IEnumUnknown} A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-ienumunknown">IEnumUnknown</a> interface pointer that can be used to enumerate identities.

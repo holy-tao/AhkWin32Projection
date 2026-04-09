@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\HWND.ahk
 #Include .\IShellView2.ahk
+#Include ..\..\Foundation\HWND.ahk
 
 /**
  * Extends the capabilities of IShellView2 by providing a method to replace IShellView2::CreateViewWindow2.
@@ -10,9 +10,8 @@
  * This interface also provides the methods of the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellview">IShellView</a> and <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellview2">IShellView2</a> interfaces, from which it inherits.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nn-shobjidl-ishellview3
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IShellView3 extends IShellView2{
+class IShellView3 extends IShellView2 {
 
     static sizeof => A_PtrSize
     /**
@@ -44,13 +43,13 @@ class IShellView3 extends IShellView2{
      * @param {Integer} dwViewFlags Type: <b>SV3CVW3_FLAGS</b>
      * 
      * Flags that specify details of the view being created.
-     * @param {Integer} dwMask Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-folderflags">FOLDERFLAGS</a></b>
+     * @param {FOLDERFLAGS} dwMask Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-folderflags">FOLDERFLAGS</a></b>
      * 
      * A bitwise mask that specifies which folder options specified in <i>dwFlags</i> are to be used.
-     * @param {Integer} dwFlags Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-folderflags">FOLDERFLAGS</a></b>
+     * @param {FOLDERFLAGS} dwFlags Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-folderflags">FOLDERFLAGS</a></b>
      * 
      * A bitwise value that contains the folder options, as <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-folderflags">FOLDERFLAGS</a>, to use in the new view.
-     * @param {Integer} fvMode Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-folderviewmode">FOLDERVIEWMODE</a></b>
+     * @param {FOLDERVIEWMODE} fvMode Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-folderviewmode">FOLDERVIEWMODE</a></b>
      * 
      * A bitwise value that contains the folder view mode options, as <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-folderviewmode">FOLDERVIEWMODE</a>, to use in the new view.
      * @param {Pointer<Guid>} pvid Type: <b>const SHELLVIEWID*</b>

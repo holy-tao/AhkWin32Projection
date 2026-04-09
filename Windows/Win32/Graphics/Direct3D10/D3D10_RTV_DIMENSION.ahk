@@ -7,9 +7,8 @@
  * This enumeration is used in <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ns-d3d10-d3d10_render_target_view_desc">D3D10_RENDER_TARGET_VIEW_DESC</a> to create a render-target view.
  * @see https://learn.microsoft.com/windows/win32/api/d3d10/ne-d3d10-d3d10_rtv_dimension
  * @namespace Windows.Win32.Graphics.Direct3D10
- * @version v4.0.30319
  */
-class D3D10_RTV_DIMENSION extends Win32Enum{
+class D3D10_RTV_DIMENSION extends Win32Enum {
 
     /**
      * The resource will be accessed according to its type as determined from the actual instance this enumeration is paired with when the render-target view is created.

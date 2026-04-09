@@ -18,9 +18,8 @@
  * To view some code that registers for COM notifications, see the Client section of the <a href="https://docs.microsoft.com/archive/msdn-magazine/2007/september/clr-inside-out-com-connection-points">COM Connection Points</a> article.
  * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nn-mbnapi-imbnserviceactivationevents
  * @namespace Windows.Win32.NetworkManagement.MobileBroadband
- * @version v4.0.30319
  */
-class IMbnServiceActivationEvents extends IUnknown{
+class IMbnServiceActivationEvents extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -48,7 +47,7 @@ class IMbnServiceActivationEvents extends IUnknown{
      * @param {IMbnServiceActivation} serviceActivation Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nn-mbnapi-imbnserviceactivation">IMbnServiceActivation</a> interface representing the device on which the request was performed.
      * @param {Pointer<SAFEARRAY>} vendorSpecificData A byte array containing the data returned by the underlying Mobile Broadband miniport driver in <a href="https://docs.microsoft.com/windows-hardware/drivers/network/ndis-status-wwan-service-activation">NDIS_STATUS_WWAN_SERVICE_ACTIVATION</a>.
      * @param {Integer} requestID The request ID assigned by the Mobile Broadband service when the request was initialized.
-     * @param {HRESULT} _status 
+     * @param {HRESULT} _status The completion status.
      * @param {Integer} networkError The error code returned by the network during the activation operation. This value is meaningful only when <i>status</i> is not S_OK. 
      * 
      * The exact value of <i>networkError</i> is driver/network dependent.

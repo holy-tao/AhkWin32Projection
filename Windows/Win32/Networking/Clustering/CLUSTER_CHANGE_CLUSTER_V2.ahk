@@ -5,9 +5,8 @@
  * The CLUSTER_CHANGE_CLUSTER_V2 enumeration (msclus.h) defines the list of notifications that are generated for a cluster.
  * @see https://learn.microsoft.com/windows/win32/api/msclus/ne-msclus-cluster_change_cluster_v2
  * @namespace Windows.Win32.Networking.Clustering
- * @version v4.0.30319
  */
-class CLUSTER_CHANGE_CLUSTER_V2 extends Win32Enum{
+class CLUSTER_CHANGE_CLUSTER_V2 extends Win32Enum {
 
     /**
      * Indicates that a reconnect procedure occurred. This notification applies to clients only.

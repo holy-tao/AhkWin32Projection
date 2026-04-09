@@ -5,10 +5,8 @@
  * The PPP_EAP_PACKET structure specifies information about a packet being processed by the authentication protocol.
  * @see https://learn.microsoft.com/windows/win32/api/raseapif/ns-raseapif-ppp_eap_packet
  * @namespace Windows.Win32.Security.ExtensibleAuthenticationProtocol
- * @version v4.0.30319
  */
-class PPP_EAP_PACKET extends Win32Struct
-{
+class PPP_EAP_PACKET extends Win32Struct {
     static sizeof => 5
 
     static packingSize => 1
@@ -82,9 +80,9 @@ class PPP_EAP_PACKET extends Win32Struct
 
     /**
      * Specifies the length of the packet.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Length{
+    Length {
         get {
             if(!this.HasProp("__LengthProxyArray"))
                 this.__LengthProxyArray := Win32FixedArray(this.ptr + 2, 2, Primitive, "char")
@@ -95,9 +93,9 @@ class PPP_EAP_PACKET extends Win32Struct
     /**
      * Specifies the data transmitted by this packet. If the packet is a request or a response packet, the first byte of this member signifies its type. For more information about packet types and requirements for type reservation, refer to 
      * <a href="https://www.ietf.org/rfc/rfc2284.txt">RFC 2284</a>.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Data{
+    Data {
         get {
             if(!this.HasProp("__DataProxyArray"))
                 this.__DataProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "char")

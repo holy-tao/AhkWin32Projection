@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Networking.WinInet
- * @version v4.0.30319
  */
-class IProofOfPossessionCookieInfoManager3 extends IUnknown{
+class IProofOfPossessionCookieInfoManager3 extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

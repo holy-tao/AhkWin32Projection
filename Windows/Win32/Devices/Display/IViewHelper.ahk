@@ -13,9 +13,8 @@
  * A call to <b>Commit</b> will no longer replace a call to <b>ChangeDisplaySettingsEx</b>(<b>NULL</b>, <b>NULL</b>, <b>NULL</b>, 0, <b>NULL</b>). However, TMM always ends its graphics operations with a <b>Commit</b> call. For more information about <b>ChangeDisplaySettingsEx</b>, see the Microsoft Windows SDK documentation.
  * @see https://learn.microsoft.com/windows/win32/api/cloneviewhelper/nf-cloneviewhelper-iviewhelper-commit
  * @namespace Windows.Win32.Devices.Display
- * @version v4.0.30319
  */
-class IViewHelper extends IUnknown{
+class IViewHelper extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

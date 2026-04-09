@@ -5,9 +5,8 @@
  * The CLUSTER_NETINTERFACE_STATE enumeration (msclus.h) enumerates the possible values of the state of a network interface.
  * @see https://learn.microsoft.com/windows/win32/api/msclus/ne-msclus-cluster_netinterface_state
  * @namespace Windows.Win32.Networking.Clustering
- * @version v4.0.30319
  */
-class CLUSTER_NETINTERFACE_STATE extends Win32Enum{
+class CLUSTER_NETINTERFACE_STATE extends Win32Enum {
 
     /**
      * The operation was not successful. For more information about the error, call the function 

@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Com\IDispatch.ahk
 #Include .\IRegisteredTask.ahk
 #Include ..\Com\IUnknown.ahk
-#Include ..\Com\IDispatch.ahk
 
 /**
  * Contains all the tasks that are registered.
  * @see https://learn.microsoft.com/windows/win32/api/taskschd/nn-taskschd-iregisteredtaskcollection
  * @namespace Windows.Win32.System.TaskScheduler
- * @version v4.0.30319
  */
-class IRegisteredTaskCollection extends IDispatch{
+class IRegisteredTaskCollection extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

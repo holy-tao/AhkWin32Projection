@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
 #Include .\IGameInputReading.ahk
 #Include .\IGameInputDispatcher.ahk
 #Include .\IGameInputDevice.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
  * @namespace Windows.Win32.UI.Input.GameInput
- * @version v4.0.30319
  */
-class IGameInput extends IUnknown{
+class IGameInput extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -42,7 +41,7 @@ class IGameInput extends IUnknown{
 
     /**
      * 
-     * @param {Integer} inputKind 
+     * @param {GameInputKind} inputKind 
      * @param {IGameInputDevice} device 
      * @returns {IGameInputReading} 
      */
@@ -54,7 +53,7 @@ class IGameInput extends IUnknown{
     /**
      * 
      * @param {IGameInputReading} referenceReading 
-     * @param {Integer} inputKind 
+     * @param {GameInputKind} inputKind 
      * @param {IGameInputDevice} device 
      * @returns {IGameInputReading} 
      */
@@ -66,7 +65,7 @@ class IGameInput extends IUnknown{
     /**
      * 
      * @param {IGameInputReading} referenceReading 
-     * @param {Integer} inputKind 
+     * @param {GameInputKind} inputKind 
      * @param {IGameInputDevice} device 
      * @returns {IGameInputReading} 
      */
@@ -89,7 +88,7 @@ class IGameInput extends IUnknown{
     /**
      * 
      * @param {IGameInputDevice} device 
-     * @param {Integer} inputKind 
+     * @param {GameInputKind} inputKind 
      * @param {Float} analogThreshold 
      * @param {Pointer<Void>} _context 
      * @param {Pointer<GameInputReadingCallback>} callbackFunc 
@@ -105,9 +104,9 @@ class IGameInput extends IUnknown{
     /**
      * 
      * @param {IGameInputDevice} device 
-     * @param {Integer} inputKind 
-     * @param {Integer} statusFilter 
-     * @param {Integer} enumerationKind 
+     * @param {GameInputKind} inputKind 
+     * @param {GameInputDeviceStatus} statusFilter 
+     * @param {GameInputEnumerationKind} enumerationKind 
      * @param {Pointer<Void>} _context 
      * @param {Pointer<GameInputDeviceCallback>} callbackFunc 
      * @returns {Integer} 
@@ -122,7 +121,7 @@ class IGameInput extends IUnknown{
     /**
      * 
      * @param {IGameInputDevice} device 
-     * @param {Integer} buttonFilter 
+     * @param {GameInputSystemButtons} buttonFilter 
      * @param {Pointer<Void>} _context 
      * @param {Pointer<GameInputSystemButtonCallback>} callbackFunc 
      * @returns {Integer} 
@@ -195,7 +194,7 @@ class IGameInput extends IUnknown{
 
     /**
      * 
-     * @param {Integer} inputKind 
+     * @param {GameInputKind} inputKind 
      * @returns {IGameInputDevice} 
      */
     CreateAggregateDevice(inputKind) {
@@ -262,7 +261,7 @@ class IGameInput extends IUnknown{
 
     /**
      * 
-     * @param {Integer} policy 
+     * @param {GameInputFocusPolicy} policy 
      * @returns {String} Nothing - always returns an empty string
      */
     SetFocusPolicy(policy) {

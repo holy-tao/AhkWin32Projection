@@ -7,9 +7,8 @@
  * This interface is not implemented.
  * @see https://learn.microsoft.com/windows/win32/api/wia_xp/nn-wia_xp-iwianotifydevmgr
  * @namespace Windows.Win32.Devices.ImageAcquisition
- * @version v4.0.30319
  */
-class IWiaNotifyDevMgr extends IUnknown{
+class IWiaNotifyDevMgr extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

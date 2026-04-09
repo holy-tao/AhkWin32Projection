@@ -7,9 +7,8 @@
  * Use this interface to provide configuration information that controls stemming.
  * @see https://learn.microsoft.com/windows/win32/api/infotech/nn-infotech-istemmerconfig
  * @namespace Windows.Win32.Data.HtmlHelp
- * @version v4.0.30319
  */
-class IStemmerConfig extends IUnknown{
+class IStemmerConfig extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

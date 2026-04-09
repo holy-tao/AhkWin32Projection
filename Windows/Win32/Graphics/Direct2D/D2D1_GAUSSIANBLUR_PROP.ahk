@@ -5,9 +5,8 @@
  * Identifiers for properties of the Gaussian blur effect.
  * @see https://learn.microsoft.com/windows/win32/api/d2d1effects/ne-d2d1effects-d2d1_gaussianblur_prop
  * @namespace Windows.Win32.Graphics.Direct2D
- * @version v4.0.30319
  */
-class D2D1_GAUSSIANBLUR_PROP extends Win32Enum{
+class D2D1_GAUSSIANBLUR_PROP extends Win32Enum {
 
     /**
      * The amount of blur to be applied to the image. You can compute the blur radius of the kernel by multiplying the standard deviation by 3.

@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.ApplicationInstallationAndServicing
- * @version v4.0.30319
  */
-class DELTA_HASH extends Win32Struct
-{
+class DELTA_HASH extends Win32Struct {
     static sizeof => 36
 
     static packingSize => 4
@@ -20,9 +18,9 @@ class DELTA_HASH extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    HashValue{
+    HashValue {
         get {
             if(!this.HasProp("__HashValueProxyArray"))
                 this.__HashValueProxyArray := Win32FixedArray(this.ptr + 4, 32, Primitive, "char")

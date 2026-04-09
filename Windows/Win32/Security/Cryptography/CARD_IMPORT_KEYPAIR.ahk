@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CARD_IMPORT_KEYPAIR extends Win32Struct
-{
+class CARD_IMPORT_KEYPAIR extends Win32Struct {
     static sizeof => 28
 
     static packingSize => 4
@@ -60,9 +58,9 @@ class CARD_IMPORT_KEYPAIR extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    pbInput{
+    pbInput {
         get {
             if(!this.HasProp("__pbInputProxyArray"))
                 this.__pbInputProxyArray := Win32FixedArray(this.ptr + 24, 1, Primitive, "char")

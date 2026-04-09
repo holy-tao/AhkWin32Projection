@@ -5,10 +5,8 @@
  * Various statistics common to IKE and Authip. (IKEEXT_IP_VERSION_SPECIFIC_COMMON_STATISTICS0)
  * @see https://learn.microsoft.com/windows/win32/api/iketypes/ns-iketypes-ikeext_ip_version_specific_common_statistics0
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
- * @version v4.0.30319
  */
-class IKEEXT_IP_VERSION_SPECIFIC_COMMON_STATISTICS0 extends Win32Struct
-{
+class IKEEXT_IP_VERSION_SPECIFIC_COMMON_STATISTICS0 extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4

@@ -7,9 +7,8 @@
  * All the titles in a title set share the same Subpicture, Audio, Angle, and Chapter menus.
  * @see https://learn.microsoft.com/windows/win32/api/segment/ne-segment-dvdmenuidconstants
  * @namespace Windows.Win32.Media.DirectShow.Tv
- * @version v4.0.30319
  */
-class DVDMenuIDConstants extends Win32Enum{
+class DVDMenuIDConstants extends Win32Enum {
 
     /**
      * Title menu, also called the Video Manager Menu.

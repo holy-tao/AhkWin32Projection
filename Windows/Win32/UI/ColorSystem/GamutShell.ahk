@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\JabColorF.ahk
+#Include .\GamutShellTriangle.ahk
 
 /**
  * Contains information that defines a gamut shell, which is represented by a list of indexed triangles. The vertex buffer contains the vertices data.
  * @see https://learn.microsoft.com/windows/win32/api/wcsplugin/ns-wcsplugin-gamutshell
  * @namespace Windows.Win32.UI.ColorSystem
- * @version v4.0.30319
  */
-class GamutShell extends Win32Struct
-{
+class GamutShell extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -50,7 +50,6 @@ class GamutShell extends Win32Struct
     }
 
     /**
-     * 
      * @type {Pointer<JabColorF>}
      */
     pVertices {
@@ -59,7 +58,6 @@ class GamutShell extends Win32Struct
     }
 
     /**
-     * 
      * @type {Pointer<GamutShellTriangle>}
      */
     pTriangles {

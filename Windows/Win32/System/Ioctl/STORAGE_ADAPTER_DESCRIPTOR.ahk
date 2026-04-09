@@ -5,10 +5,8 @@
  * Used with the IOCTL_STORAGE_QUERY_PROPERTY control code to retrieve the storage adapter descriptor data for a device.
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-storage_adapter_descriptor
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class STORAGE_ADAPTER_DESCRIPTOR extends Win32Struct
-{
+class STORAGE_ADAPTER_DESCRIPTOR extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 4

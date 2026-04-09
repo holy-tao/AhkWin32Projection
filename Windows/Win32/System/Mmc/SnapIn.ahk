@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
 #Include .\Extensions.ahk
 #Include .\Properties.ahk
-#Include ..\Com\IDispatch.ahk
 
 /**
  * @namespace Windows.Win32.System.Mmc
- * @version v4.0.30319
  */
-class SnapIn extends IDispatch{
+class SnapIn extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

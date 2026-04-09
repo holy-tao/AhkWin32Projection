@@ -7,9 +7,8 @@
  * Describes the dependency of one package on another package. (IAppxManifestPackageDependency2)
  * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nn-appxpackaging-iappxmanifestpackagedependency2
  * @namespace Windows.Win32.Storage.Packaging.Appx
- * @version v4.0.30319
  */
-class IAppxManifestPackageDependency2 extends IAppxManifestPackageDependency{
+class IAppxManifestPackageDependency2 extends IAppxManifestPackageDependency {
 
     static sizeof => A_PtrSize
     /**

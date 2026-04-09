@@ -7,9 +7,8 @@
  * Protocol version 2.0 servers do not support this enumeration.
  * @see https://learn.microsoft.com/windows/win32/api/msclus/ne-msclus-cluster_change_quorum_v2
  * @namespace Windows.Win32.Networking.Clustering
- * @version v4.0.30319
  */
-class CLUSTER_CHANGE_QUORUM_V2 extends Win32Enum{
+class CLUSTER_CHANGE_QUORUM_V2 extends Win32Enum {
 
     /**
      * Indicates that the quorum configuration of the cluster has changed.

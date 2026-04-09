@@ -1,13 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\D3D12_VIDEO_ENCODER_ENCODE_OPERATION_METADATA_BUFFER.ahk
+#Include ..\..\Graphics\Direct3D12\ID3D12Resource.ahk
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class D3D12_VIDEO_ENCODER_RESOLVE_METADATA_OUTPUT_ARGUMENTS1 extends Win32Struct
-{
+class D3D12_VIDEO_ENCODER_RESOLVE_METADATA_OUTPUT_ARGUMENTS1 extends Win32Struct {
     static sizeof => 72
 
     static packingSize => 8
@@ -15,7 +14,7 @@ class D3D12_VIDEO_ENCODER_RESOLVE_METADATA_OUTPUT_ARGUMENTS1 extends Win32Struct
     /**
      * @type {D3D12_VIDEO_ENCODER_ENCODE_OPERATION_METADATA_BUFFER}
      */
-    ResolvedLayoutMetadata{
+    ResolvedLayoutMetadata {
         get {
             if(!this.HasProp("__ResolvedLayoutMetadata"))
                 this.__ResolvedLayoutMetadata := D3D12_VIDEO_ENCODER_ENCODE_OPERATION_METADATA_BUFFER(0, this)
@@ -50,7 +49,7 @@ class D3D12_VIDEO_ENCODER_RESOLVE_METADATA_OUTPUT_ARGUMENTS1 extends Win32Struct
     /**
      * @type {D3D12_VIDEO_ENCODER_ENCODE_OPERATION_METADATA_BUFFER}
      */
-    ResolvedFramePSNRData{
+    ResolvedFramePSNRData {
         get {
             if(!this.HasProp("__ResolvedFramePSNRData"))
                 this.__ResolvedFramePSNRData := D3D12_VIDEO_ENCODER_ENCODE_OPERATION_METADATA_BUFFER(40, this)
@@ -61,7 +60,7 @@ class D3D12_VIDEO_ENCODER_RESOLVE_METADATA_OUTPUT_ARGUMENTS1 extends Win32Struct
     /**
      * @type {D3D12_VIDEO_ENCODER_ENCODE_OPERATION_METADATA_BUFFER}
      */
-    ResolvedSubregionsPSNRData{
+    ResolvedSubregionsPSNRData {
         get {
             if(!this.HasProp("__ResolvedSubregionsPSNRData"))
                 this.__ResolvedSubregionsPSNRData := D3D12_VIDEO_ENCODER_ENCODE_OPERATION_METADATA_BUFFER(56, this)

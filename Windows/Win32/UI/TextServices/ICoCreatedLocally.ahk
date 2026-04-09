@@ -7,9 +7,8 @@
  * Exposes a method to return information about a local object.
  * @see https://learn.microsoft.com/windows/win32/api/msaatext/nn-msaatext-icocreatedlocally
  * @namespace Windows.Win32.UI.TextServices
- * @version v4.0.30319
  */
-class ICoCreatedLocally extends IUnknown{
+class ICoCreatedLocally extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -10,9 +10,8 @@
  *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/cluadmex/nn-cluadmex-iweextendwizard97">IWEExtendWizard97</a> interface.
  * @see https://learn.microsoft.com/windows/win32/api/cluadmex/nn-cluadmex-iweextendwizard
  * @namespace Windows.Win32.Networking.Clustering
- * @version v4.0.30319
  */
-class IWEExtendWizard extends IUnknown{
+class IWEExtendWizard extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Security.Authorization
- * @version v4.0.30319
  */
-class AUTHZ_AUDIT_EVENT_TYPE_UNION extends Win32Struct
-{
+class AUTHZ_AUDIT_EVENT_TYPE_UNION extends Win32Struct {
     static sizeof => 6
 
     static packingSize => 2
@@ -15,7 +13,7 @@ class AUTHZ_AUDIT_EVENT_TYPE_UNION extends Win32Struct
     /**
      * @type {AUTHZ_AUDIT_EVENT_TYPE_LEGACY}
      */
-    Legacy{
+    Legacy {
         get {
             if(!this.HasProp("__Legacy"))
                 this.__Legacy := AUTHZ_AUDIT_EVENT_TYPE_LEGACY(0, this)

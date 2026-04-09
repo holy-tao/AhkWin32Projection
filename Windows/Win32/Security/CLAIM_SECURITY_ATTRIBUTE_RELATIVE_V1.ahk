@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\Win32Struct.ahk
+#Include .\CLAIM_SECURITY_ATTRIBUTE_VALUE_TYPE.ahk
+#Include .\CLAIM_SECURITY_ATTRIBUTE_FLAGS.ahk
 
 /**
  * Defines a resource attribute that is defined in continuous memory for persistence within a serialized security descriptor.
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-claim_security_attribute_relative_v1
  * @namespace Windows.Win32.Security
- * @version v4.0.30319
  */
-class CLAIM_SECURITY_ATTRIBUTE_RELATIVE_V1 extends Win32Struct
-{
+class CLAIM_SECURITY_ATTRIBUTE_RELATIVE_V1 extends Win32Struct {
     static sizeof => 20
 
     static packingSize => 4
@@ -18,60 +18,59 @@ class CLAIM_SECURITY_ATTRIBUTE_RELATIVE_V1 extends Win32Struct
         static packingSize => 4
 
         /**
-         * @type {Array<UInt32>}
+         * @type {Array<Integer>}
          */
-        pInt64{
+        pInt64 {
             get {
                 if(!this.HasProp("__pInt64ProxyArray"))
                     this.__pInt64ProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "uint")
                 return this.__pInt64ProxyArray
             }
         }
-    
+
         /**
-         * @type {Array<UInt32>}
+         * @type {Array<Integer>}
          */
-        pUint64{
+        pUint64 {
             get {
                 if(!this.HasProp("__pUint64ProxyArray"))
                     this.__pUint64ProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "uint")
                 return this.__pUint64ProxyArray
             }
         }
-    
+
         /**
-         * @type {Array<UInt32>}
+         * @type {Array<Integer>}
          */
-        ppString{
+        ppString {
             get {
                 if(!this.HasProp("__ppStringProxyArray"))
                     this.__ppStringProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "uint")
                 return this.__ppStringProxyArray
             }
         }
-    
+
         /**
-         * @type {Array<UInt32>}
+         * @type {Array<Integer>}
          */
-        pFqbn{
+        pFqbn {
             get {
                 if(!this.HasProp("__pFqbnProxyArray"))
                     this.__pFqbnProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "uint")
                 return this.__pFqbnProxyArray
             }
         }
-    
+
         /**
-         * @type {Array<UInt32>}
+         * @type {Array<Integer>}
          */
-        pOctetString{
+        pOctetString {
             get {
                 if(!this.HasProp("__pOctetStringProxyArray"))
                     this.__pOctetStringProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "uint")
                 return this.__pOctetStringProxyArray
             }
         }
-    
     }
 
     /**
@@ -84,8 +83,7 @@ class CLAIM_SECURITY_ATTRIBUTE_RELATIVE_V1 extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Integer}
+     * @type {CLAIM_SECURITY_ATTRIBUTE_VALUE_TYPE}
      */
     ValueType {
         get => NumGet(this, 4, "ushort")
@@ -102,8 +100,7 @@ class CLAIM_SECURITY_ATTRIBUTE_RELATIVE_V1 extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Integer}
+     * @type {CLAIM_SECURITY_ATTRIBUTE_FLAGS}
      */
     Flags {
         get => NumGet(this, 8, "uint")
@@ -123,10 +120,10 @@ class CLAIM_SECURITY_ATTRIBUTE_RELATIVE_V1 extends Win32Struct
      * An array of offsets from the beginning of the CLAIM_SECURITY_ATTRIBUTE_RELATIVE_V1 structure. Each offset indicates the location of a claim security attribute value of the type specified in the <b>ValueType</b> member.
      * @type {_Values_e__Union}
      */
-    Values{
+    Values {
         get {
             if(!this.HasProp("__Values"))
-                this.__Values := %this.__Class%._Values_e__Union(16, this)
+                this.__Values := CLAIM_SECURITY_ATTRIBUTE_RELATIVE_V1._Values_e__Union(16, this)
             return this.__Values
         }
     }

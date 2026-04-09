@@ -1,9 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
+#Include ..\..\System\Variant\VARENUM.ahk
 #Include ..\..\System\Com\CY.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\System\Com\SAFEARRAY.ahk
 #Include ..\..\Foundation\DECIMAL.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
+#Include ..\..\System\Ole\IRecordInfo.ahk
 
 /**
  * Contains data about a UI Automation change that occurred.
@@ -97,10 +102,8 @@
  * </table>
  * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/ns-uiautomationcore-uiachangeinfo
  * @namespace Windows.Win32.UI.Accessibility
- * @version v4.0.30319
  */
-class UiaChangeInfo extends Win32Struct
-{
+class UiaChangeInfo extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8
@@ -118,7 +121,7 @@ class UiaChangeInfo extends Win32Struct
      * Information about the type of change that occurred.
      * @type {VARIANT}
      */
-    payload{
+    payload {
         get {
             if(!this.HasProp("__payload"))
                 this.__payload := VARIANT(8, this)
@@ -130,7 +133,7 @@ class UiaChangeInfo extends Win32Struct
      * Detailed information about the change that occurred.
      * @type {VARIANT}
      */
-    extraInfo{
+    extraInfo {
         get {
             if(!this.HasProp("__extraInfo"))
                 this.__extraInfo := VARIANT(32, this)

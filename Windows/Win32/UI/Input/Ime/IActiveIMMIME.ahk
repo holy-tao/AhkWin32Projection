@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
 #Include .\HIMC.ahk
 #Include .\IEnumRegisterWordA.ahk
 #Include .\IEnumRegisterWordW.ahk
@@ -13,13 +14,11 @@
 #Include ..\KeyboardAndMouse\HKL.ahk
 #Include .\HIMCC.ahk
 #Include .\IEnumInputContext.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
  * @namespace Windows.Win32.UI.Input.Ime
- * @version v4.0.30319
  */
-class IActiveIMMIME extends IUnknown{
+class IActiveIMMIME extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -13,17 +13,15 @@
  *     extent is not required to be a contiguous set of blocks.
  * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/ns-vdshwprv-vds_drive_extent
  * @namespace Windows.Win32.Storage.VirtualDiskService
- * @version v4.0.30319
  */
-class VDS_DRIVE_EXTENT extends Win32Struct
-{
+class VDS_DRIVE_EXTENT extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
 
     /**
      * The <b>VDS_OBJECT_ID</b> of the drive.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     id {
         get => NumGet(this, 0, "ptr")
@@ -32,7 +30,7 @@ class VDS_DRIVE_EXTENT extends Win32Struct
 
     /**
      * The <b>VDS_OBJECT_ID</b> of the LUN that is associated with the drive extent.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     LunId {
         get => NumGet(this, 8, "ptr")

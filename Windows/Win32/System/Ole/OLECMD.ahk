@@ -5,10 +5,8 @@
  * Associates command flags from the OLECMDF enumeration with a command identifier through a call to IOleCommandTarget::QueryStatus.
  * @see https://learn.microsoft.com/windows/win32/api/docobj/ns-docobj-olecmd
  * @namespace Windows.Win32.System.Ole
- * @version v4.0.30319
  */
-class OLECMD extends Win32Struct
-{
+class OLECMD extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4

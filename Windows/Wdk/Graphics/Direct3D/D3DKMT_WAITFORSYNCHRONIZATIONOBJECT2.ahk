@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
- * @version v4.0.30319
  */
-class D3DKMT_WAITFORSYNCHRONIZATIONOBJECT2 extends Win32Struct
-{
+class D3DKMT_WAITFORSYNCHRONIZATIONOBJECT2 extends Win32Struct {
     static sizeof => 200
 
     static packingSize => 8
@@ -28,9 +26,9 @@ class D3DKMT_WAITFORSYNCHRONIZATIONOBJECT2 extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    ObjectHandleArray{
+    ObjectHandleArray {
         get {
             if(!this.HasProp("__ObjectHandleArrayProxyArray"))
                 this.__ObjectHandleArrayProxyArray := Win32FixedArray(this.ptr + 8, 32, Primitive, "uint")
@@ -49,24 +47,23 @@ class D3DKMT_WAITFORSYNCHRONIZATIONOBJECT2 extends Win32Struct
             get => NumGet(this, 0, "uint")
             set => NumPut("uint", value, this, 0)
         }
-    
     }
 
     /**
      * @type {_Fence}
      */
-    Fence{
+    Fence {
         get {
             if(!this.HasProp("__Fence"))
-                this.__Fence := %this.__Class%._Fence(136, this)
+                this.__Fence := D3DKMT_WAITFORSYNCHRONIZATIONOBJECT2._Fence(136, this)
             return this.__Fence
         }
     }
 
     /**
-     * @type {Array<UInt64>}
+     * @type {Array<Integer>}
      */
-    Reserved{
+    Reserved {
         get {
             if(!this.HasProp("__ReservedProxyArray"))
                 this.__ReservedProxyArray := Win32FixedArray(this.ptr + 136, 8, Primitive, "uint")

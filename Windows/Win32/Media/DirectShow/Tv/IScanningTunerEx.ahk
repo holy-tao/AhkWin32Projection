@@ -9,9 +9,8 @@
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IScanningTunerEx)</c>.
  * @see https://learn.microsoft.com/windows/win32/api/tuner/nn-tuner-iscanningtunerex
  * @namespace Windows.Win32.Media.DirectShow.Tv
- * @version v4.0.30319
  */
-class IScanningTunerEx extends IScanningTuner{
+class IScanningTunerEx extends IScanningTuner {
 
     static sizeof => A_PtrSize
     /**
@@ -246,8 +245,8 @@ class IScanningTunerEx extends IScanningTuner{
 
     /**
      * This topic applies to Windows Vista and later.
-     * @param {Integer} _ScanModulationTypes 
-     * @param {Integer} _AnalogVideoStandard 
+     * @param {Integer} _ScanModulationTypes Specifies the modulation types, as a bitwise OR of flags from the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mstv/scanmodulationtypes">ScanModulationTypes</a> enumeration. If the value is 0xFFFFFFFF, the tuner does not filter out any specific modulation types.
+     * @param {Integer} _AnalogVideoStandard Specifies the analog standards, as a bitwise OR of flags from the <a href="https://docs.microsoft.com/windows/win32/api/strmif/ne-strmif-analogvideostandard">AnalogVideoStandard</a> enumeration. If the value is 0xFFFFFFFF, the tuner does not filter out any specific analog video standards.
      * @returns {HRESULT} When the method succeeds, it returns S_OK. Otherwise it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-iscanningtunerex-setscansignaltypefilter
      */

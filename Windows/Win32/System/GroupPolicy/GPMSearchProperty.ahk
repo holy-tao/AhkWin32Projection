@@ -5,9 +5,8 @@
  * The property of the search criteria.
  * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/ne-gpmgmt-gpmsearchproperty
  * @namespace Windows.Win32.System.GroupPolicy
- * @version v4.0.30319
  */
-class GPMSearchProperty extends Win32Enum{
+class GPMSearchProperty extends Win32Enum {
 
     /**
      * The specified level of permission for a Group Policy Object.

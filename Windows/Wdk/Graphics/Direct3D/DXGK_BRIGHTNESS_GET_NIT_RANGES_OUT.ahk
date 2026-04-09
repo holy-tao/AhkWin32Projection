@@ -1,13 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\DXGK_BRIGHTNESS_NIT_RANGE.ahk
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
- * @version v4.0.30319
  */
-class DXGK_BRIGHTNESS_GET_NIT_RANGES_OUT extends Win32Struct
-{
+class DXGK_BRIGHTNESS_GET_NIT_RANGES_OUT extends Win32Struct {
     static sizeof => 144
 
     static packingSize => 8
@@ -37,9 +34,9 @@ class DXGK_BRIGHTNESS_GET_NIT_RANGES_OUT extends Win32Struct
     }
 
     /**
-     * @type {Array<DXGK_BRIGHTNESS_NIT_RANGE>}
+     * @type {Array<Pointer>}
      */
-    SupportedRanges{
+    SupportedRanges {
         get {
             if(!this.HasProp("__SupportedRangesProxyArray"))
                 this.__SupportedRangesProxyArray := Win32FixedArray(this.ptr + 16, 16, Primitive, "ptr")

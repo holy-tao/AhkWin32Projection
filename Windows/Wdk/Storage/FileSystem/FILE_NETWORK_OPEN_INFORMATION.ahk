@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem
- * @version v4.0.30319
  */
-class FILE_NETWORK_OPEN_INFORMATION extends Win32Struct
-{
+class FILE_NETWORK_OPEN_INFORMATION extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8

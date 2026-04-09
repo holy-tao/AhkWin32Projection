@@ -5,9 +5,8 @@
  * Specifies how a selection appears on the control.
  * @see https://learn.microsoft.com/windows/win32/api/inked/ne-inked-inkdisplaymode
  * @namespace Windows.Win32.UI.TabletPC
- * @version v4.0.30319
  */
-class InkDisplayMode extends Win32Enum{
+class InkDisplayMode extends Win32Enum {
 
     /**
      * The selection appears as ink.

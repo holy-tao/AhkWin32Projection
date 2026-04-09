@@ -7,9 +7,8 @@
  * Implement this interface to receive notifications of the current erase operation.
  * @see https://learn.microsoft.com/windows/win32/api/imapi2/nn-imapi2-ddiscformat2eraseevents
  * @namespace Windows.Win32.Storage.Imapi
- * @version v4.0.30319
  */
-class DDiscFormat2EraseEvents extends IDispatch{
+class DDiscFormat2EraseEvents extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -44,7 +43,9 @@ class DDiscFormat2EraseEvents extends IDispatch{
      * Notification is sent every 0.5 or 1.0 seconds depending on the method required to blank the media.
      * 
      * Total time estimates for a single erasure can vary as the operation progresses. The drive provides updated information that can affect the projected duration of the erasure.
-     * @param {IDispatch} _object 
+     * @param {IDispatch} _object The <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/nn-imapi2-idiscformat2erase">IDiscFormat2Erase</a> interface that initiated the erase operation. 
+     * 
+     * This parameter is a <b>MsftDiscFormat2Erase</b> object in script.
      * @param {Integer} elapsedSeconds Elapsed time, in seconds, of the erase operation.
      * @param {Integer} estimatedTotalSeconds Estimated time, in seconds, to complete the erase operation.
      * @returns {HRESULT} Return values are ignored.

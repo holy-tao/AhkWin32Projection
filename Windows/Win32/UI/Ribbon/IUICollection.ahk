@@ -7,9 +7,8 @@
  * The IUICollection interface is implemented by the Ribbon framework.
  * @see https://learn.microsoft.com/windows/win32/api/uiribbon/nn-uiribbon-iuicollection
  * @namespace Windows.Win32.UI.Ribbon
- * @version v4.0.30319
  */
-class IUICollection extends IUnknown{
+class IUICollection extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

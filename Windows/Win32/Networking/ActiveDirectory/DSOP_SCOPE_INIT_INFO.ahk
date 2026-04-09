@@ -1,16 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\DSOP_UPLEVEL_FILTER_FLAGS.ahk
 #Include .\DSOP_FILTER_FLAGS.ahk
+#Include .\DSOP_UPLEVEL_FILTER_FLAGS.ahk
 
 /**
  * The DSOP_SCOPE_INIT_INFO structure describes one or more scope types that have the same attributes.
  * @see https://learn.microsoft.com/windows/win32/api/objsel/ns-objsel-dsop_scope_init_info
  * @namespace Windows.Win32.Networking.ActiveDirectory
- * @version v4.0.30319
  */
-class DSOP_SCOPE_INIT_INFO extends Win32Struct
-{
+class DSOP_SCOPE_INIT_INFO extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8
@@ -48,7 +46,7 @@ class DSOP_SCOPE_INIT_INFO extends Win32Struct
      * Contains a <a href="https://docs.microsoft.com/windows/desktop/api/objsel/ns-objsel-dsop_filter_flags">DSOP_FILTER_FLAGS</a> structure that indicates the types of objects presented to the user for this scope or scopes.
      * @type {DSOP_FILTER_FLAGS}
      */
-    FilterFlags{
+    FilterFlags {
         get {
             if(!this.HasProp("__FilterFlags"))
                 this.__FilterFlags := DSOP_FILTER_FLAGS(12, this)

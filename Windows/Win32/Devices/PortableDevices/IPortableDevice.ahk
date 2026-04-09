@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\IPortableDeviceValues.ahk
 #Include .\IPortableDeviceContent.ahk
 #Include .\IPortableDeviceCapabilities.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * The IPortableDevice interface provides access to a portable device.
@@ -17,9 +17,8 @@
  * Applications that live in Single Threaded Apartments should use <b>CLSID_PortableDeviceFTM</b> as this eliminates the overhead of interface pointer marshaling.  <b>CLSID_PortableDevice</b> is still supported for legacy applications.
  * @see https://learn.microsoft.com/windows/win32/api/portabledeviceapi/nn-portabledeviceapi-iportabledevice
  * @namespace Windows.Win32.Devices.PortableDevices
- * @version v4.0.30319
  */
-class IPortableDevice extends IUnknown{
+class IPortableDevice extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

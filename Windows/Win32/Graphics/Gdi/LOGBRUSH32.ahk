@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\BRUSH_STYLE.ahk
 
 /**
  * The LOGBRUSH32 structure defines the style, color, and pattern of a physical brush.
@@ -9,10 +10,8 @@
  * Brushes can be created from bitmaps or DIBs larger than 8 by 8 pixels.
  * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-logbrush32
  * @namespace Windows.Win32.Graphics.Gdi
- * @version v4.0.30319
  */
-class LOGBRUSH32 extends Win32Struct
-{
+class LOGBRUSH32 extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4
@@ -62,7 +61,7 @@ class LOGBRUSH32 extends Win32Struct
      * <td>Solid brush.</td>
      * </tr>
      * </table>
-     * @type {Integer}
+     * @type {BRUSH_STYLE}
      */
     lbStyle {
         get => NumGet(this, 0, "uint")

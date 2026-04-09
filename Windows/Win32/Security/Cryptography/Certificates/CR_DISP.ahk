@@ -5,9 +5,8 @@
  * Request denied.
  * @see https://learn.microsoft.com/windows/win32/api/certcli/nf-certcli-icertrequest2-getissuedcertificate
  * @namespace Windows.Win32.Security.Cryptography.Certificates
- * @version v4.0.30319
  */
-class CR_DISP extends Win32Enum{
+class CR_DISP extends Win32Enum {
 
     /**
      * @type {Integer (UInt32)}

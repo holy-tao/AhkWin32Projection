@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\Com\IUnknown.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * Represents a registered synchronization provider. This interface is implemented by the writer of a synchronization provider.
@@ -9,9 +10,8 @@
  * If the registered synchronization provider is a <a href="https://www.microsoft.com/downloads/details.aspx?familyid=A3EE7BC5-A823-4FB4-B152-9E8CE9D5546F&displaylang=en">Microsoft Sync Framework</a> provider, then the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/syncregistration/nf-syncregistration-iregisteredsyncprovider-init">Init</a> method will be called by the Sync Framework synchronization session. For more information about the different types of synchronization providers you can write for Windows, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/winsync/options-for-building-a-synchronization-provider">Options for Building a Synchronization Provider</a>.
  * @see https://learn.microsoft.com/windows/win32/api/syncregistration/nn-syncregistration-iregisteredsyncprovider
  * @namespace Windows.Win32.System.WindowsSync
- * @version v4.0.30319
  */
-class IRegisteredSyncProvider extends IUnknown{
+class IRegisteredSyncProvider extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -6,10 +6,8 @@
  * Defines the message parameters passed to a WH_CALLWNDPROCRET hook procedure, CallWndRetProc.
  * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-cwpretstruct
  * @namespace Windows.Win32.UI.WindowsAndMessaging
- * @version v4.0.30319
  */
-class CWPRETSTRUCT extends Win32Struct
-{
+class CWPRETSTRUCT extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -68,7 +66,7 @@ class CWPRETSTRUCT extends Win32Struct
      * 					<b>message</b> value.
      * @type {HWND}
      */
-    hwnd{
+    hwnd {
         get {
             if(!this.HasProp("__hwnd"))
                 this.__hwnd := HWND(32, this)

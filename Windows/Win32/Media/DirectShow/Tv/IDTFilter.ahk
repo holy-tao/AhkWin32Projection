@@ -9,9 +9,8 @@
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IDTFilter)</c>.
  * @see https://learn.microsoft.com/windows/win32/api/encdec/nn-encdec-idtfilter
  * @namespace Windows.Win32.Media.DirectShow.Tv
- * @version v4.0.30319
  */
-class IDTFilter extends IUnknown{
+class IDTFilter extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -73,8 +72,8 @@ class IDTFilter extends IUnknown{
 
     /**
      * The GetCurrRating method retrieves the current rating, based on the most recent media sample.
-     * @param {Pointer<Integer>} pEnSystem Receives the rating system, as an <a href="https://docs.microsoft.com/previous-versions/dd375612(v=vs.85)">EnTvRat_System</a> enumeration type.
-     * @param {Pointer<Integer>} pEnRating Receives the rating level, as an <a href="https://docs.microsoft.com/previous-versions/dd375610(v=vs.85)">EnTvRat_GenericLevel</a> enumeration type. The meaning of this value depends on the rating system.
+     * @param {Pointer<EnTvRat_System>} pEnSystem Receives the rating system, as an <a href="https://docs.microsoft.com/previous-versions/dd375612(v=vs.85)">EnTvRat_System</a> enumeration type.
+     * @param {Pointer<EnTvRat_GenericLevel>} pEnRating Receives the rating level, as an <a href="https://docs.microsoft.com/previous-versions/dd375610(v=vs.85)">EnTvRat_GenericLevel</a> enumeration type. The meaning of this value depends on the rating system.
      * @param {Pointer<Integer>} plbfEnAttr Receives a bitwise combination of flags from the <a href="https://docs.microsoft.com/previous-versions/dd318226(v=vs.85)">BfEnTvRat_GenericAttributes</a> enumeration. The flags specify content attributes, such as violence or adult language. Content attributes do not apply to all rating systems.
      * @returns {HRESULT} Returns S_OK if successful, or an error code otherwise.
      * @see https://learn.microsoft.com/windows/win32/api/encdec/nf-encdec-idtfilter-getcurrrating
@@ -92,8 +91,8 @@ class IDTFilter extends IUnknown{
      * The get_BlockedRatingAttributes method determines whether content is blocked for a given rating system and rating level.
      * @remarks
      * The filter passes this call through to the <b>EvalRat</b> object. For more information, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/tvratings/nf-tvratings-ievalrat-get_blockedratingattributes">IEvalRat::get_BlockedRatingAttributes</a>.
-     * @param {Integer} enSystem Specifies the rating system as an <a href="https://docs.microsoft.com/previous-versions/dd375612(v=vs.85)">EnTvRat_System</a> enumeration type.
-     * @param {Integer} enLevel Specifies the rating level as an <a href="https://docs.microsoft.com/previous-versions/dd375610(v=vs.85)">EnTvRat_GenericLevel</a> enumeration type.
+     * @param {EnTvRat_System} enSystem Specifies the rating system as an <a href="https://docs.microsoft.com/previous-versions/dd375612(v=vs.85)">EnTvRat_System</a> enumeration type.
+     * @param {EnTvRat_GenericLevel} enLevel Specifies the rating level as an <a href="https://docs.microsoft.com/previous-versions/dd375610(v=vs.85)">EnTvRat_GenericLevel</a> enumeration type.
      * @returns {Integer} Receives a bitwise combination of flags from the <a href="https://docs.microsoft.com/previous-versions/dd318226(v=vs.85)">BfEnTvRat_GenericAttributes</a> enumeration.
      * @see https://learn.microsoft.com/windows/win32/api/encdec/nf-encdec-idtfilter-get_blockedratingattributes
      */
@@ -106,8 +105,8 @@ class IDTFilter extends IUnknown{
      * The put_BlockedRatingAttributes method specifies whether to block content that has a specified rating.
      * @remarks
      * The filter passes this call through to the <b>EvalRat</b> object. For more information, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/tvratings/nf-tvratings-ievalrat-put_blockedratingattributes">IEvalRat::put_BlockedRatingAttributes</a>.
-     * @param {Integer} enSystem Specifies the rating system, as an <a href="https://docs.microsoft.com/previous-versions/dd375612(v=vs.85)">EnTvRat_System</a> enumeration type.
-     * @param {Integer} enLevel Specifies the rating level, as an <a href="https://docs.microsoft.com/previous-versions/dd375610(v=vs.85)">EnTvRat_GenericLevel</a> enumeration type.
+     * @param {EnTvRat_System} enSystem Specifies the rating system, as an <a href="https://docs.microsoft.com/previous-versions/dd375612(v=vs.85)">EnTvRat_System</a> enumeration type.
+     * @param {EnTvRat_GenericLevel} enLevel Specifies the rating level, as an <a href="https://docs.microsoft.com/previous-versions/dd375610(v=vs.85)">EnTvRat_GenericLevel</a> enumeration type.
      * @param {Integer} lbfAttrs Bitwise combination of zero or more flags from the <a href="https://docs.microsoft.com/previous-versions/dd318226(v=vs.85)">BfEnTvRat_GenericAttributes</a> enumeration.
      * @returns {HRESULT} Returns an <b>HRESULT</b>. Possible values include the following.
      * 

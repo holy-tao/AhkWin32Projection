@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IAzApplicationGroup.ahk
 #Include ..\..\Foundation\BSTR.ahk
 #Include .\IAzRoleAssignments.ahk
-#Include .\IAzApplicationGroup.ahk
 
 /**
  * Extends the IAzApplicationGroup interface by adding support for the BizRule group type.
  * @see https://learn.microsoft.com/windows/win32/api/azroles/nn-azroles-iazapplicationgroup2
  * @namespace Windows.Win32.Security.Authorization
- * @version v4.0.30319
  */
-class IAzApplicationGroup2 extends IAzApplicationGroup{
+class IAzApplicationGroup2 extends IAzApplicationGroup {
 
     static sizeof => A_PtrSize
     /**

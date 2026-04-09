@@ -8,10 +8,8 @@
  * Contains information about a window that denied a request from BroadcastSystemMessageEx.
  * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-bsminfo
  * @namespace Windows.Win32.System.StationsAndDesktops
- * @version v4.0.30319
  */
-class BSMINFO extends Win32Struct
-{
+class BSMINFO extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -34,7 +32,7 @@ class BSMINFO extends Win32Struct
      * 					<b>hwnd</b>. This value is returned only if <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-broadcastsystemmessageexa">BroadcastSystemMessageEx</a> specifies <b>BSF_RETURNHDESK</b> and <b>BSF_QUERY</b>.
      * @type {HDESK}
      */
-    hdesk{
+    hdesk {
         get {
             if(!this.HasProp("__hdesk"))
                 this.__hdesk := HDESK(8, this)
@@ -48,7 +46,7 @@ class BSMINFO extends Win32Struct
      * A handle to the window that denied the request. This value is returned if <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-broadcastsystemmessageexa">BroadcastSystemMessageEx</a> specifies <b>BSF_QUERY</b>.
      * @type {HWND}
      */
-    hwnd{
+    hwnd {
         get {
             if(!this.HasProp("__hwnd"))
                 this.__hwnd := HWND(16, this)
@@ -62,7 +60,7 @@ class BSMINFO extends Win32Struct
      * A locally unique identifier (LUID) for the window.
      * @type {LUID}
      */
-    luid{
+    luid {
         get {
             if(!this.HasProp("__luid"))
                 this.__luid := LUID(24, this)

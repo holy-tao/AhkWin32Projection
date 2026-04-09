@@ -65,10 +65,8 @@
  * </table>
  * @see https://learn.microsoft.com/windows/win32/api/mmeapi/ns-mmeapi-midievent
  * @namespace Windows.Win32.Media.Audio
- * @version v4.0.30319
  */
-class MIDIEVENT extends Win32Struct
-{
+class MIDIEVENT extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4
@@ -105,9 +103,9 @@ class MIDIEVENT extends Win32Struct
      *             
      * 
      * If <b>dwEvent</b> specifies MEVT_F_SHORT, do not use this member in the stream buffer.
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    dwParms{
+    dwParms {
         get {
             if(!this.HasProp("__dwParmsProxyArray"))
                 this.__dwParmsProxyArray := Win32FixedArray(this.ptr + 12, 1, Primitive, "uint")

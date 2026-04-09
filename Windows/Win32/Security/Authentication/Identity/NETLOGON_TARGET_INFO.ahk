@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class NETLOGON_TARGET_INFO extends Win32Struct
-{
+class NETLOGON_TARGET_INFO extends Win32Struct {
     static sizeof => 104
 
     static packingSize => 8
@@ -23,7 +21,7 @@ class NETLOGON_TARGET_INFO extends Win32Struct
     /**
      * @type {LSA_UNICODE_STRING}
      */
-    NbComputerName{
+    NbComputerName {
         get {
             if(!this.HasProp("__NbComputerName"))
                 this.__NbComputerName := LSA_UNICODE_STRING(8, this)
@@ -34,7 +32,7 @@ class NETLOGON_TARGET_INFO extends Win32Struct
     /**
      * @type {LSA_UNICODE_STRING}
      */
-    NbDomainName{
+    NbDomainName {
         get {
             if(!this.HasProp("__NbDomainName"))
                 this.__NbDomainName := LSA_UNICODE_STRING(24, this)
@@ -45,7 +43,7 @@ class NETLOGON_TARGET_INFO extends Win32Struct
     /**
      * @type {LSA_UNICODE_STRING}
      */
-    DnsComputerName{
+    DnsComputerName {
         get {
             if(!this.HasProp("__DnsComputerName"))
                 this.__DnsComputerName := LSA_UNICODE_STRING(40, this)
@@ -56,7 +54,7 @@ class NETLOGON_TARGET_INFO extends Win32Struct
     /**
      * @type {LSA_UNICODE_STRING}
      */
-    DnsDomainName{
+    DnsDomainName {
         get {
             if(!this.HasProp("__DnsDomainName"))
                 this.__DnsDomainName := LSA_UNICODE_STRING(56, this)
@@ -67,7 +65,7 @@ class NETLOGON_TARGET_INFO extends Win32Struct
     /**
      * @type {LSA_UNICODE_STRING}
      */
-    DnsTreeName{
+    DnsTreeName {
         get {
             if(!this.HasProp("__DnsTreeName"))
                 this.__DnsTreeName := LSA_UNICODE_STRING(72, this)
@@ -78,7 +76,7 @@ class NETLOGON_TARGET_INFO extends Win32Struct
     /**
      * @type {LSA_UNICODE_STRING}
      */
-    TargetName{
+    TargetName {
         get {
             if(!this.HasProp("__TargetName"))
                 this.__TargetName := LSA_UNICODE_STRING(88, this)

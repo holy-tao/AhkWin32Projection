@@ -8,10 +8,8 @@
  * <a href="https://www.bluetooth.com/">www.bluetooth.com</a> for additional information about LAP.
  * @see https://learn.microsoft.com/windows/win32/api/ws2bth/ns-ws2bth-bth_query_device
  * @namespace Windows.Win32.Devices.Bluetooth
- * @version v4.0.30319
  */
-class BTH_QUERY_DEVICE extends Win32Struct
-{
+class BTH_QUERY_DEVICE extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4

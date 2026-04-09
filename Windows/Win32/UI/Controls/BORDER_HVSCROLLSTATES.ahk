@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.UI.Controls
- * @version v4.0.30319
  */
-class BORDER_HVSCROLLSTATES extends Win32Enum{
+class BORDER_HVSCROLLSTATES extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

@@ -7,9 +7,8 @@
  * Provides functionality for raising events associated with IMFSourceBuffer.
  * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nn-mfmediaengine-imfsourcebuffernotify
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFSourceBufferNotify extends IUnknown{
+class IMFSourceBufferNotify extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

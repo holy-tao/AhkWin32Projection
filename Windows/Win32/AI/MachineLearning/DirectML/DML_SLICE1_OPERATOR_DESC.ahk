@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\DML_TENSOR_DESC.ahk
 
 /**
  * Extracts a single subregion (a "slice") of an input tensor. (DML_SLICE1_OPERATOR_DESC)
@@ -10,10 +11,8 @@
  * - The input window sizes are not necessarily the same as the output tensor sizes.
  * @see https://learn.microsoft.com/windows/win32/api/directml/ns-directml-dml_slice1_operator_desc
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
- * @version v4.0.30319
  */
-class DML_SLICE1_OPERATOR_DESC extends Win32Struct
-{
+class DML_SLICE1_OPERATOR_DESC extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8

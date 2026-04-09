@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\IMFActivate.ahk
 #Include .\IMFOutputPolicy.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Enables other components in the protected media path (PMP) to use the input protection system provided by an input trust authorities (ITA).
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imfinputtrustauthority
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFInputTrustAuthority extends IUnknown{
+class IMFInputTrustAuthority extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -93,7 +92,7 @@ class IMFInputTrustAuthority extends IUnknown{
      * The Media Session will not allow the action unless this method returns S_OK. However, a return value of S_OK does not guarantee that the action will be performed, because some other failure might occur after this method is called. When the action is definitely about to happen, the Media Session calls <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-imfinputtrustauthority-bindaccess">IMFInputTrustAuthority::BindAccess</a>.
      * 
      * A stream can go to multiple outputs, so this method might be called multiple times with different actions, once for every output.
-     * @param {Integer} Action The requested action, specified as a member of the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/ne-mfidl-mfpolicymanager_action">MFPOLICYMANAGER_ACTION</a> enumeration.
+     * @param {MFPOLICYMANAGER_ACTION} Action The requested action, specified as a member of the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/ne-mfidl-mfpolicymanager_action">MFPOLICYMANAGER_ACTION</a> enumeration.
      * @returns {IMFActivate} Receives the value <b>NULL</b> or a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfactivate">IMFActivate</a> interface. The <b>IMFActivate</b> interface is used to create a content enabler object. The caller must release the interface. For more information, see Remarks.
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfinputtrustauthority-requestaccess
      */
@@ -104,7 +103,7 @@ class IMFInputTrustAuthority extends IUnknown{
 
     /**
      * Retrieves the policy that defines which output protection systems are allowed for this stream, and the configuration data for each protection system.
-     * @param {Integer} Action The action that will be performed on this stream, specified as a member of the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/ne-mfidl-mfpolicymanager_action">MFPOLICYMANAGER_ACTION</a> enumeration.
+     * @param {MFPOLICYMANAGER_ACTION} Action The action that will be performed on this stream, specified as a member of the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/ne-mfidl-mfpolicymanager_action">MFPOLICYMANAGER_ACTION</a> enumeration.
      * @returns {IMFOutputPolicy} Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imfoutputpolicy">IMFOutputPolicy</a> interface. The caller must release the interface.
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfinputtrustauthority-getpolicy
      */

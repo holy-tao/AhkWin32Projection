@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\System\Com\IDispatch.ahk
 #Include .\IX509PolicyServerUrl.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
 
 /**
  * The IX509PolicyServerListManager interface defines the following methods and properties that enable you to manage a collection of IX509PolicyServerUrl objects.
  * @see https://learn.microsoft.com/windows/win32/api/certenroll/nn-certenroll-ix509policyserverlistmanager
  * @namespace Windows.Win32.Security.Cryptography.Certificates
- * @version v4.0.30319
  */
-class IX509PolicyServerListManager extends IDispatch{
+class IX509PolicyServerListManager extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -117,8 +116,8 @@ class IX509PolicyServerListManager extends IDispatch{
 
     /**
      * Initializes an IX509PolicyServerListManager object.
-     * @param {Integer} _context 
-     * @param {Integer} Flags 
+     * @param {X509CertificateEnrollmentContext} _context 
+     * @param {PolicyServerUrlFlags} Flags 
      * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>.
      * 
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table.  For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.

@@ -1,16 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
  * The ISensNetwork interface handles network events fired by the System Event Notification Service (SENS).
  * @see https://learn.microsoft.com/windows/win32/api/sensevts/nn-sensevts-isensnetwork
  * @namespace Windows.Win32.System.EventNotificationService
- * @version v4.0.30319
  */
-class ISensNetwork extends IDispatch{
+class ISensNetwork extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -116,7 +114,7 @@ class ISensNetwork extends IDispatch{
      * Filtering can be performed on the publisher property <i>ulConnectionLostType</i> by setting it to either CONNECTION_LAN or CONNECTION_WAN or both. Use 
      * <a href="https://docs.microsoft.com/windows/desktop/api/eventsys/nf-eventsys-ieventsubscription-putpublisherproperty">IEventSubscription::PutPublisherProperty</a> to set the publisher property.
      * @param {BSTR} bstrConnection For WAN connections, the information passed is the connection name. For WAN connections, the connection name is the name of the phone book entry. For LAN connections, the information passed is "LAN connection".
-     * @param {Integer} ulType 
+     * @param {SENS_CONNECTION_TYPE} ulType 
      * @returns {HRESULT} This method can return one of these values.
      * 
      * <table>

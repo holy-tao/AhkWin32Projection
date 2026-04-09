@@ -1,16 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\ID3D12VideoMotionVectorHeap.ahk
 
 /**
  * Provides input data for calls to ID3D12VideoEncodeCommandList::ResolveMotionVectorHeap.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/d3d12video/ns-d3d12video-d3d12_resolve_video_motion_vector_heap_input
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class D3D12_RESOLVE_VIDEO_MOTION_VECTOR_HEAP_INPUT extends Win32Struct
-{
+class D3D12_RESOLVE_VIDEO_MOTION_VECTOR_HEAP_INPUT extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

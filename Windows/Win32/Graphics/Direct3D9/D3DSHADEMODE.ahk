@@ -13,9 +13,8 @@
  * The members of this enumerated type define the vales for the D3DRS\_SHADEMODE render state.
  * @see https://learn.microsoft.com/windows/win32/direct3d9/d3dshademode
  * @namespace Windows.Win32.Graphics.Direct3D9
- * @version v4.0.30319
  */
-class D3DSHADEMODE extends Win32Enum{
+class D3DSHADEMODE extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

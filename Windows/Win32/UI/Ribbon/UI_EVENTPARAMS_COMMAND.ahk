@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\UI_EVENTLOCATION.ahk
 
 /**
  * Contains information about a Command associated with a event.
@@ -11,10 +12,8 @@
  * <b>ParentCommandID</b> and <b>ParentCommandName</b>  identify the parent command (if any) of the command associated with this event.  If there is no parent, then <b>ParentCommandID</b> is zero and <b>ParentCommandName</b> is an empty string.
  * @see https://learn.microsoft.com/windows/win32/api/uiribbon/ns-uiribbon-ui_eventparams_command
  * @namespace Windows.Win32.UI.Ribbon
- * @version v4.0.30319
  */
-class UI_EVENTPARAMS_COMMAND extends Win32Struct
-{
+class UI_EVENTPARAMS_COMMAND extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -66,7 +65,7 @@ class UI_EVENTPARAMS_COMMAND extends Win32Struct
 
     /**
      * One of the values from <a href="https://docs.microsoft.com/windows/desktop/api/uiribbon/ne-uiribbon-ui_eventlocation">UI_EVENTLOCATION</a>.
-     * @type {Integer}
+     * @type {UI_EVENTLOCATION}
      */
     Location {
         get => NumGet(this, 36, "int")

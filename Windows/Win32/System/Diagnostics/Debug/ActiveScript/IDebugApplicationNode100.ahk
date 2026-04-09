@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
-#Include .\TEXT_DOCUMENT_ARRAY.ahk
 #Include ..\..\..\Com\IUnknown.ahk
+#Include .\TEXT_DOCUMENT_ARRAY.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.ActiveScript
- * @version v4.0.30319
  */
-class IDebugApplicationNode100 extends IUnknown{
+class IDebugApplicationNode100 extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -32,7 +31,7 @@ class IDebugApplicationNode100 extends IUnknown{
     /**
      * 
      * @param {Integer} dwCookie 
-     * @param {Integer} filter 
+     * @param {APPLICATION_NODE_EVENT_FILTER} filter 
      * @returns {HRESULT} 
      */
     SetFilterForEventSink(dwCookie, filter) {
@@ -42,7 +41,7 @@ class IDebugApplicationNode100 extends IUnknown{
 
     /**
      * 
-     * @param {Integer} filter 
+     * @param {APPLICATION_NODE_EVENT_FILTER} filter 
      * @returns {TEXT_DOCUMENT_ARRAY} 
      */
     GetExcludedDocuments(filter) {

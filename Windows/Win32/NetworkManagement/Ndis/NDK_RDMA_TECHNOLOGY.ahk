@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Ndis
- * @version v4.0.30319
  */
-class NDK_RDMA_TECHNOLOGY extends Win32Enum{
+class NDK_RDMA_TECHNOLOGY extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

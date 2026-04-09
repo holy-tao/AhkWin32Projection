@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IRTCSession2.ahk
 #Include ..\Com\IDispatch.ahk
+#Include .\IRTCSession2.ahk
 
 /**
  * @namespace Windows.Win32.System.RealTimeCommunications
- * @version v4.0.30319
  */
-class IRTCMediaRequestEvent extends IDispatch{
+class IRTCMediaRequestEvent extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -51,7 +50,7 @@ class IRTCMediaRequestEvent extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {RTC_REINVITE_STATE} 
      */
     State {
         get => this.get_State()
@@ -256,8 +255,8 @@ class IRTCMediaRequestEvent extends IDispatch{
 
     /**
      * 
-     * @param {Integer} enSecurityType 
-     * @returns {Integer} 
+     * @param {RTC_SECURITY_TYPE} enSecurityType 
+     * @returns {RTC_SECURITY_LEVEL} 
      */
     get_RemotePreferredSecurityLevel(enSecurityType) {
         result := ComCall(11, this, "int", enSecurityType, "int*", &penSecurityLevel := 0, "HRESULT")
@@ -275,7 +274,7 @@ class IRTCMediaRequestEvent extends IDispatch{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {RTC_REINVITE_STATE} 
      */
     get_State() {
         result := ComCall(13, this, "int*", &pState := 0, "HRESULT")

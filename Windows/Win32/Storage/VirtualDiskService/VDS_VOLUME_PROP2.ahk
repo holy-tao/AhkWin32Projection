@@ -1,5 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\VDS_VOLUME_TYPE.ahk
+#Include .\VDS_VOLUME_STATUS.ahk
+#Include .\VDS_HEALTH.ahk
+#Include .\VDS_TRANSITION_STATE.ahk
+#Include .\VDS_FILE_SYSTEM_TYPE.ahk
 
 /**
  * Defines the properties of a volume object. This structure is identical to the VDS_VOLUME_PROP structure, except that it also includes the volume GUIDs.
@@ -19,17 +24,15 @@
  * Note that a unique identifier is not the same as a volume GUID path. To find the volume GUID paths for a volume, use the <a href="https://docs.microsoft.com/windows/desktop/api/vds/nf-vds-ivdsvolumemf3-queryvolumeguidpathnames">IVdsVolumeMF3::QueryVolumeGuidPathnames</a> method.
  * @see https://learn.microsoft.com/windows/win32/api/vds/ns-vds-vds_volume_prop2
  * @namespace Windows.Win32.Storage.VirtualDiskService
- * @version v4.0.30319
  */
-class VDS_VOLUME_PROP2 extends Win32Struct
-{
+class VDS_VOLUME_PROP2 extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 8
 
     /**
      * The GUID of the volume.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     id {
         get => NumGet(this, 0, "ptr")
@@ -38,7 +41,7 @@ class VDS_VOLUME_PROP2 extends Win32Struct
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/vds/ne-vds-vds_volume_type">VDS_VOLUME_TYPE</a> enumeration value that specifies the volume type. Volume types are simple, spanned, striped (RAID-0), mirrored, or striped with parity (RAID-5).
-     * @type {Integer}
+     * @type {VDS_VOLUME_TYPE}
      */
     type {
         get => NumGet(this, 8, "int")
@@ -47,7 +50,7 @@ class VDS_VOLUME_PROP2 extends Win32Struct
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/vds/ne-vds-vds_volume_status">VDS_VOLUME_STATUS</a> enumeration value that specifies the status of the volume.
-     * @type {Integer}
+     * @type {VDS_VOLUME_STATUS}
      */
     status {
         get => NumGet(this, 12, "int")
@@ -56,7 +59,7 @@ class VDS_VOLUME_PROP2 extends Win32Struct
 
     /**
      * A  <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ne-vdshwprv-vds_health">VDS_HEALTH</a> enumeration value that specifies the health state of the volume.
-     * @type {Integer}
+     * @type {VDS_HEALTH}
      */
     health {
         get => NumGet(this, 16, "int")
@@ -65,7 +68,7 @@ class VDS_VOLUME_PROP2 extends Win32Struct
 
     /**
      * A  <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ne-vdshwprv-vds_transition_state">VDS_TRANSITION_STATE</a> enumeration value that specifies the transition state of the volume.
-     * @type {Integer}
+     * @type {VDS_TRANSITION_STATE}
      */
     TransitionState {
         get => NumGet(this, 20, "int")
@@ -92,7 +95,7 @@ class VDS_VOLUME_PROP2 extends Win32Struct
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ne-vdshwprv-vds_file_system_type">VDS_FILE_SYSTEM_TYPE</a> enumeration value that specifies the preferred file system for the volume. Must be one of the following: VDS_FST_NTFS, VDS_FST_FAT, VDS_FST_FAT32, VDS_FST_UDF, VDS_FST_CDFS, or VDS_FST_UNKNOWN.
-     * @type {Integer}
+     * @type {VDS_FILE_SYSTEM_TYPE}
      */
     RecommendedFileSystemType {
         get => NumGet(this, 36, "int")

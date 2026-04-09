@@ -7,9 +7,8 @@
  * Allows an application or service to access all the properties of INetFwRule as well as the four edge properties of a firewall rule specified by NET_FW_EDGE_TRAVERSAL_TYPE.
  * @see https://learn.microsoft.com/windows/win32/api/netfw/nn-netfw-inetfwrule2
  * @namespace Windows.Win32.NetworkManagement.WindowsFirewall
- * @version v4.0.30319
  */
-class INetFwRule2 extends INetFwRule{
+class INetFwRule2 extends INetFwRule {
 
     static sizeof => A_PtrSize
     /**

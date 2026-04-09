@@ -1,16 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include .\IWMPSettings.ahk
 
 /**
  * The IWMPSettings2 interface provides methods that supplement the IWMPSettings interface.
  * @see https://learn.microsoft.com/windows/win32/api/wmp/nn-wmp-iwmpsettings2
  * @namespace Windows.Win32.Media.MediaPlayer
- * @version v4.0.30319
  */
-class IWMPSettings2 extends IWMPSettings{
+class IWMPSettings2 extends IWMPSettings {
 
     static sizeof => A_PtrSize
     /**

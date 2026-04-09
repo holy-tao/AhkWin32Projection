@@ -6,10 +6,8 @@
  * Defines an IPv6 interface binding for the DHCP server over which it receives DHCPv6 packets.
  * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/ns-dhcpsapi-dhcpv6_bind_element
  * @namespace Windows.Win32.NetworkManagement.Dhcp
- * @version v4.0.30319
  */
-class DHCPV6_BIND_ELEMENT extends Win32Struct
-{
+class DHCPV6_BIND_ELEMENT extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 8
@@ -55,7 +53,7 @@ class DHCPV6_BIND_ELEMENT extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-dhcp_ipv6_address">DHCP_IPV6_ADDRESS</a> structure that contains the IPv6 address assigned to the interface over which the DHCP server is receiving DHCPv6 packets.
      * @type {DHCP_IPV6_ADDRESS}
      */
-    AdapterPrimaryAddress{
+    AdapterPrimaryAddress {
         get {
             if(!this.HasProp("__AdapterPrimaryAddress"))
                 this.__AdapterPrimaryAddress := DHCP_IPV6_ADDRESS(8, this)
@@ -67,7 +65,7 @@ class DHCPV6_BIND_ELEMENT extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-dhcp_ipv6_address">DHCP_IPV6_ADDRESS</a> structure that contains the IPv6 prefix ID of the subnet from which this interface is receiving DHCPv6 packets.
      * @type {DHCP_IPV6_ADDRESS}
      */
-    AdapterSubnetAddress{
+    AdapterSubnetAddress {
         get {
             if(!this.HasProp("__AdapterSubnetAddress"))
                 this.__AdapterSubnetAddress := DHCP_IPV6_ADDRESS(24, this)

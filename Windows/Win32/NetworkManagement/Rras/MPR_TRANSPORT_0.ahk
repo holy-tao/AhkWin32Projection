@@ -6,10 +6,8 @@
  * The MPR_TRANSPORT_0 structure contains information for a particular transport.
  * @see https://learn.microsoft.com/windows/win32/api/mprapi/ns-mprapi-mpr_transport_0
  * @namespace Windows.Win32.NetworkManagement.Rras
- * @version v4.0.30319
  */
-class MPR_TRANSPORT_0 extends Win32Struct
-{
+class MPR_TRANSPORT_0 extends Win32Struct {
     static sizeof => 104
 
     static packingSize => 8
@@ -27,7 +25,7 @@ class MPR_TRANSPORT_0 extends Win32Struct
      * Handle to the transport.
      * @type {HANDLE}
      */
-    hTransport{
+    hTransport {
         get {
             if(!this.HasProp("__hTransport"))
                 this.__hTransport := HANDLE(8, this)

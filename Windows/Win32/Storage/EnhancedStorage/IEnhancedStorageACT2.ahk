@@ -7,9 +7,8 @@
  * IEnhancedStorageACT2 interface is used to obtain information for a 1667 Addressable Contact Target (ACT).
  * @see https://learn.microsoft.com/windows/win32/api/ehstorapi/nn-ehstorapi-ienhancedstorageact2
  * @namespace Windows.Win32.Storage.EnhancedStorage
- * @version v4.0.30319
  */
-class IEnhancedStorageACT2 extends IEnhancedStorageACT{
+class IEnhancedStorageACT2 extends IEnhancedStorageACT {
 
     static sizeof => A_PtrSize
     /**

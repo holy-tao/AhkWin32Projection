@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
 #Include .\IFaxAccountFolders.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * Represents a fax account on the fax server.
@@ -11,9 +11,8 @@
  * A default implementation of <b>IFaxAccount</b> is provided as the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxaccount">FaxAccount</a> object. The interface and the object are supported only on Windows Vista or later.
  * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nn-faxcomex-ifaxaccount
  * @namespace Windows.Win32.Devices.Fax
- * @version v4.0.30319
  */
-class IFaxAccount extends IDispatch{
+class IFaxAccount extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -55,7 +54,7 @@ class IFaxAccount extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {FAX_ACCOUNT_EVENTS_TYPE_ENUM} 
      */
     RegisteredEvents {
         get => this.get_RegisteredEvents()
@@ -90,7 +89,7 @@ class IFaxAccount extends IDispatch{
 
     /**
      * Sets the flags of a FAX_ACCOUNT_EVENTS_TYPE_ENUM variable that represents the events for which the account is listening.
-     * @param {Integer} EventTypes Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_account_events_type_enum">FAX_ACCOUNT_EVENTS_TYPE_ENUM</a></b>
+     * @param {FAX_ACCOUNT_EVENTS_TYPE_ENUM} EventTypes Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_account_events_type_enum">FAX_ACCOUNT_EVENTS_TYPE_ENUM</a></b>
      * 
      * A variable that specifies the types of events for which the account is listening.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -105,7 +104,7 @@ class IFaxAccount extends IDispatch{
 
     /**
      * A set of flags indicating the type of events for which the account is listening.
-     * @returns {Integer} 
+     * @returns {FAX_ACCOUNT_EVENTS_TYPE_ENUM} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxaccount-get_registeredevents
      */
     get_RegisteredEvents() {

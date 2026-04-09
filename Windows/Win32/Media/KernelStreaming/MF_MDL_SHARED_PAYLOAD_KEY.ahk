@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
- * @version v4.0.30319
  */
-class MF_MDL_SHARED_PAYLOAD_KEY extends Win32Struct
-{
+class MF_MDL_SHARED_PAYLOAD_KEY extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -22,7 +20,7 @@ class MF_MDL_SHARED_PAYLOAD_KEY extends Win32Struct
             get => NumGet(this, 0, "uint")
             set => NumPut("uint", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -30,7 +28,7 @@ class MF_MDL_SHARED_PAYLOAD_KEY extends Win32Struct
             get => NumGet(this, 4, "uint")
             set => NumPut("uint", value, this, 4)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -38,22 +36,21 @@ class MF_MDL_SHARED_PAYLOAD_KEY extends Win32Struct
             get => NumGet(this, 8, "uint")
             set => NumPut("uint", value, this, 8)
         }
-    
     }
 
     /**
      * @type {_combined}
      */
-    combined{
+    combined {
         get {
             if(!this.HasProp("__combined"))
-                this.__combined := %this.__Class%._combined(0, this)
+                this.__combined := MF_MDL_SHARED_PAYLOAD_KEY._combined(0, this)
             return this.__combined
         }
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     GMDLHandle {
         get => NumGet(this, 0, "ptr")

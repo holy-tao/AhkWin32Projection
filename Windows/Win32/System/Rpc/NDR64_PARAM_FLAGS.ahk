@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Rpc
- * @version v4.0.30319
  */
-class NDR64_PARAM_FLAGS extends Win32Struct
-{
+class NDR64_PARAM_FLAGS extends Win32Struct {
     static sizeof => 2
 
     static packingSize => 2

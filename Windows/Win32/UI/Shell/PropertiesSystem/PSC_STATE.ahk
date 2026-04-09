@@ -5,9 +5,8 @@
  * Specifies the state of a property. They are set manually by the code that is hosting the in-memory property store cache.
  * @see https://learn.microsoft.com/windows/win32/api/propsys/ne-propsys-psc_state
  * @namespace Windows.Win32.UI.Shell.PropertiesSystem
- * @version v4.0.30319
  */
-class PSC_STATE extends Win32Enum{
+class PSC_STATE extends Win32Enum {
 
     /**
      * The property has not been altered.
@@ -28,7 +27,6 @@ class PSC_STATE extends Win32Enum{
     static PSC_DIRTY => 2
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static PSC_READONLY => 3

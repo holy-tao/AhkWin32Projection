@@ -2,14 +2,14 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * Provides methods to uninstall basic and dynamic disks.
  * @see https://learn.microsoft.com/windows/win32/api/vds/nn-vds-ivdsserviceuninstalldisk
  * @namespace Windows.Win32.Storage.VirtualDiskService
- * @version v4.0.30319
  */
-class IVdsServiceUninstallDisk extends IUnknown{
+class IVdsServiceUninstallDisk extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

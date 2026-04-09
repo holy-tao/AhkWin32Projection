@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * The IFhScopeIterator interface allows client applications to enumerate individual items in an inclusion or exclusion list. To retrieve inclusion and exclusion lists, call the IFhConfigMgr::GetIncludeExcludeRules method.
  * @see https://learn.microsoft.com/windows/win32/api/fhcfg/nn-fhcfg-ifhscopeiterator
  * @namespace Windows.Win32.Storage.FileHistory
- * @version v4.0.30319
  */
-class IFhScopeIterator extends IUnknown{
+class IFhScopeIterator extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

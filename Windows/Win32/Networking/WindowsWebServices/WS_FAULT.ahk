@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\WS_FAULT_CODE.ahk
+#Include .\WS_FAULT_REASON.ahk
 #Include .\WS_STRING.ahk
 
 /**
  * A Fault is a value carried in the body of a message which conveys a processing failure. Faults are modeled using the WS_FAULT structure.
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_fault
  * @namespace Windows.Win32.Networking.WindowsWebServices
- * @version v4.0.30319
  */
-class WS_FAULT extends Win32Struct
-{
+class WS_FAULT extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 8
@@ -79,7 +79,7 @@ class WS_FAULT extends Win32Struct
      *                     length, then it's assumed to be the endpoint.
      * @type {WS_STRING}
      */
-    actor{
+    actor {
         get {
             if(!this.HasProp("__actor"))
                 this.__actor := WS_STRING(24, this)
@@ -95,7 +95,7 @@ class WS_FAULT extends Win32Struct
      * For <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_envelope_version">WS_ENVELOPE_VERSION_SOAP_1_1</a>, this value is not serialized.
      * @type {WS_STRING}
      */
-    node{
+    node {
         get {
             if(!this.HasProp("__node"))
                 this.__node := WS_STRING(40, this)

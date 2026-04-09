@@ -5,10 +5,8 @@
  * Indicates whether a token has elevated privileges.
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-token_elevation
  * @namespace Windows.Win32.Security
- * @version v4.0.30319
  */
-class TOKEN_ELEVATION extends Win32Struct
-{
+class TOKEN_ELEVATION extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 4

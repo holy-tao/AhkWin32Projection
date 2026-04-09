@@ -5,9 +5,8 @@
  * Specifies the sampling or filtering mode to use when scaling an image.
  * @see https://learn.microsoft.com/windows/win32/api/wincodec/ne-wincodec-wicbitmapinterpolationmode
  * @namespace Windows.Win32.Graphics.Imaging
- * @version v4.0.30319
  */
-class WICBitmapInterpolationMode extends Win32Enum{
+class WICBitmapInterpolationMode extends Win32Enum {
 
     /**
      * A nearest neighbor interpolation algorithm. Also known as nearest pixel or point interpolation.

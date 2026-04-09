@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\UI\Shell\PropertiesSystem\IPropertyStore.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\UI\Shell\PropertiesSystem\IPropertyStore.ahk
 
 /**
  * The IMMDevice interface encapsulates the generic features of a multimedia device resource.
  * @see https://learn.microsoft.com/windows/win32/api/mmdeviceapi/nn-mmdeviceapi-immdevice
  * @namespace Windows.Win32.Media.Audio
- * @version v4.0.30319
  */
-class IMMDevice extends IUnknown{
+class IMMDevice extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -144,7 +143,7 @@ class IMMDevice extends IUnknown{
      * IID_ISpatialAudioMetadataClient
      * 
      * For more information, see Remarks.
-     * @param {Integer} dwClsCtx The execution context in which the code that manages the newly created object will run. The caller can restrict the context by setting this parameter to the bitwise <b>OR</b> of one or more <b>CLSCTX</b> enumeration values. Alternatively, the client can avoid imposing any context restrictions by specifying CLSCTX_ALL. For more information about <b>CLSCTX</b>, see the Windows SDK documentation.
+     * @param {CLSCTX} dwClsCtx The execution context in which the code that manages the newly created object will run. The caller can restrict the context by setting this parameter to the bitwise <b>OR</b> of one or more <b>CLSCTX</b> enumeration values. Alternatively, the client can avoid imposing any context restrictions by specifying CLSCTX_ALL. For more information about <b>CLSCTX</b>, see the Windows SDK documentation.
      * @param {Pointer<PROPVARIANT>} pActivationParams Set to <b>NULL</b> to activate an <a href="https://docs.microsoft.com/windows/desktop/api/audioclient/nn-audioclient-iaudioclient">IAudioClient</a>, <a href="https://docs.microsoft.com/windows/desktop/api/endpointvolume/nn-endpointvolume-iaudioendpointvolume">IAudioEndpointVolume</a>, <a href="https://docs.microsoft.com/windows/desktop/api/endpointvolume/nn-endpointvolume-iaudiometerinformation">IAudioMeterInformation</a>, <a href="https://docs.microsoft.com/windows/desktop/api/audiopolicy/nn-audiopolicy-iaudiosessionmanager">IAudioSessionManager</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/devicetopology/nn-devicetopology-idevicetopology">IDeviceTopology</a> interface on an audio endpoint device. When activating an <b>IBaseFilter</b>, <b>IDirectSound</b>, <b>IDirectSound8</b>, <b>IDirectSoundCapture</b>, or <b>IDirectSoundCapture8</b> interface on the device, the caller can specify a pointer to a <b>PROPVARIANT</b> structure that contains stream-initialization information. For more information, see Remarks.
      * @returns {Pointer<Void>} Pointer to a pointer variable into which the method writes the address of the interface specified by parameter <i>iid</i>. Through this method, the caller obtains a counted reference to the interface. The caller is responsible for releasing the interface, when it is no longer needed, by calling the interface's <b>Release</b> method. If the <b>Activate</b> call fails,  <i>*ppInterface</i> is <b>NULL</b>.
      * @see https://learn.microsoft.com/windows/win32/api/mmdeviceapi/nf-mmdeviceapi-immdevice-activate
@@ -169,7 +168,7 @@ class IMMDevice extends IUnknown{
      * <a href="https://docs.microsoft.com/windows/desktop/CoreAudio/device-roles-for-directsound-applications">Device Roles for DirectSound Applications</a>
      * </li>
      * </ul>
-     * @param {Integer} stgmAccess The storage-access mode. This parameter specifies whether to open the property store in read mode, write mode, or read/write mode. Set this parameter to one of the following STGM constants:
+     * @param {STGM} stgmAccess The storage-access mode. This parameter specifies whether to open the property store in read mode, write mode, or read/write mode. Set this parameter to one of the following STGM constants:
      * 
      * STGM_READ
      * 
@@ -211,7 +210,7 @@ class IMMDevice extends IUnknown{
 
     /**
      * The GetState method retrieves the current device state.
-     * @returns {Integer} Pointer to a <b>DWORD</b> variable into which the method writes the current state of the device. The device-state value is one of the following <a href="https://docs.microsoft.com/windows/desktop/CoreAudio/device-state-xxx-constants">DEVICE_STATE_XXX</a> constants:
+     * @returns {DEVICE_STATE} Pointer to a <b>DWORD</b> variable into which the method writes the current state of the device. The device-state value is one of the following <a href="https://docs.microsoft.com/windows/desktop/CoreAudio/device-state-xxx-constants">DEVICE_STATE_XXX</a> constants:
      * 
      * DEVICE_STATE_ACTIVE
      * 

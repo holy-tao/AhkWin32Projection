@@ -12,9 +12,8 @@
  * Look-aside lists are faster than general pool allocations that vary in size, because the system does not search for free memory that fits the allocation. In addition, access to look-aside lists is generally synchronized using fast atomic processor exchange instructions instead of mutexes or spinlocks. Look-aside lists can be created by the system or drivers. They can be allocated from paged or nonpaged pool.
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ne-winnt-heap_information_class
  * @namespace Windows.Win32.System.Memory
- * @version v4.0.30319
  */
-class HEAP_INFORMATION_CLASS extends Win32Enum{
+class HEAP_INFORMATION_CLASS extends Win32Enum {
 
     /**
      * The heap features that are enabled. The available features vary based on operating system. Depending on the <i>HeapInformation</i> parameter in the <a href="https://docs.microsoft.com/windows/desktop/api/heapapi/nf-heapapi-heapqueryinformation">HeapQueryInformation</a> or <a href="https://docs.microsoft.com/windows/desktop/api/heapapi/nf-heapapi-heapsetinformation">HeapSetInformation</a> functions, specifying this enumeration value can indicate one of the following features:
@@ -39,7 +38,6 @@ class HEAP_INFORMATION_CLASS extends Win32Enum{
     static HeapEnableTerminationOnCorruption => 1
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static HeapOptimizeResources => 3

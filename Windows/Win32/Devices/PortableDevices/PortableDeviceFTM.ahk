@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.PortableDevices
- * @version v4.0.30319
  */
-class PortableDeviceFTM extends Win32Struct
-{
+class PortableDeviceFTM extends Win32Struct {
     static sizeof => 0
 
     static packingSize => 1

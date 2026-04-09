@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Security.Authorization
- * @version v4.0.30319
  */
-class FN_OBJECT_MGR_FUNCTS extends Win32Struct
-{
+class FN_OBJECT_MGR_FUNCTS extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 4

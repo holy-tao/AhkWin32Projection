@@ -1,15 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DRAWITEMSTRUCT_CTL_TYPE.ahk
 #Include ..\..\Foundation\HWND.ahk
 
 /**
  * Supplies the identifiers and application-supplied data for two items in a sorted, owner-drawn list box or combo box.
  * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-compareitemstruct
  * @namespace Windows.Win32.UI.Controls
- * @version v4.0.30319
  */
-class COMPAREITEMSTRUCT extends Win32Struct
-{
+class COMPAREITEMSTRUCT extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8
@@ -18,7 +17,7 @@ class COMPAREITEMSTRUCT extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * An ODT_LISTBOX (owner-drawn list box) or ODT_COMBOBOX (an owner-drawn combo box).
-     * @type {Integer}
+     * @type {DRAWITEMSTRUCT_CTL_TYPE}
      */
     CtlType {
         get => NumGet(this, 0, "uint")
@@ -42,7 +41,7 @@ class COMPAREITEMSTRUCT extends Win32Struct
      * A handle to the control.
      * @type {HWND}
      */
-    hwndItem{
+    hwndItem {
         get {
             if(!this.HasProp("__hwndItem"))
                 this.__hwndItem := HWND(8, this)

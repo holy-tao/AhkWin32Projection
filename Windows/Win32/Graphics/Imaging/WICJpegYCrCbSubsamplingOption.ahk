@@ -7,9 +7,8 @@
  * The native JPEG encoder uses <b>WICJpegYCrCbSubsampling420</b>.
  * @see https://learn.microsoft.com/windows/win32/api/wincodec/ne-wincodec-wicjpegycrcbsubsamplingoption
  * @namespace Windows.Win32.Graphics.Imaging
- * @version v4.0.30319
  */
-class WICJpegYCrCbSubsamplingOption extends Win32Enum{
+class WICJpegYCrCbSubsamplingOption extends Win32Enum {
 
     /**
      * The default subsampling option.

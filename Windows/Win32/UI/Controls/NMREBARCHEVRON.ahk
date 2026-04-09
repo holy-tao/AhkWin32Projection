@@ -1,17 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HWND.ahk
 #Include .\NMHDR.ahk
+#Include ..\..\Foundation\HWND.ahk
 #Include ..\..\Foundation\RECT.ahk
 
 /**
  * Contains information used in handling the RBN_CHEVRONPUSHED notification code.
  * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-nmrebarchevron
  * @namespace Windows.Win32.UI.Controls
- * @version v4.0.30319
  */
-class NMREBARCHEVRON extends Win32Struct
-{
+class NMREBARCHEVRON extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 8
@@ -23,7 +21,7 @@ class NMREBARCHEVRON extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/richedit/ns-richedit-nmhdr">NMHDR</a> structure that contains additional information about the notification.
      * @type {NMHDR}
      */
-    hdr{
+    hdr {
         get {
             if(!this.HasProp("__hdr"))
                 this.__hdr := NMHDR(0, this)
@@ -71,7 +69,7 @@ class NMREBARCHEVRON extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure that defines the area covered by the chevron.
      * @type {RECT}
      */
-    rc{
+    rc {
         get {
             if(!this.HasProp("__rc"))
                 this.__rc := RECT(40, this)

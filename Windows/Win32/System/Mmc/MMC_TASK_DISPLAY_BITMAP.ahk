@@ -9,10 +9,8 @@
  * If both <b>szMouseOverBitmap</b> and <b>szMouseOffBitmap</b> point to a <b>NULL</b> string, the task does not appear on the taskpad. If one of these strings is <b>NULL</b>, the other string is used for both.
  * @see https://learn.microsoft.com/windows/win32/api/mmc/ns-mmc-mmc_task_display_bitmap
  * @namespace Windows.Win32.System.Mmc
- * @version v4.0.30319
  */
-class MMC_TASK_DISPLAY_BITMAP extends Win32Struct
-{
+class MMC_TASK_DISPLAY_BITMAP extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

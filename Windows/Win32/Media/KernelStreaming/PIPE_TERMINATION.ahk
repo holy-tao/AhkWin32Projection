@@ -6,10 +6,8 @@
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
- * @version v4.0.30319
  */
-class PIPE_TERMINATION extends Win32Struct
-{
+class PIPE_TERMINATION extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 4
@@ -41,7 +39,7 @@ class PIPE_TERMINATION extends Win32Struct
     /**
      * @type {KS_FRAMING_RANGE}
      */
-    PhysicalRange{
+    PhysicalRange {
         get {
             if(!this.HasProp("__PhysicalRange"))
                 this.__PhysicalRange := KS_FRAMING_RANGE(12, this)
@@ -52,7 +50,7 @@ class PIPE_TERMINATION extends Win32Struct
     /**
      * @type {KS_FRAMING_RANGE_WEIGHTED}
      */
-    OptimalRange{
+    OptimalRange {
         get {
             if(!this.HasProp("__OptimalRange"))
                 this.__OptimalRange := KS_FRAMING_RANGE_WEIGHTED(24, this)
@@ -63,7 +61,7 @@ class PIPE_TERMINATION extends Win32Struct
     /**
      * @type {KS_COMPRESSION}
      */
-    Compression{
+    Compression {
         get {
             if(!this.HasProp("__Compression"))
                 this.__Compression := KS_COMPRESSION(44, this)

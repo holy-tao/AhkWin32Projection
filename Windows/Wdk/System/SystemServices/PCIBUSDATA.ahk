@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class PCIBUSDATA extends Win32Struct
-{
+class PCIBUSDATA extends Win32Struct {
     static sizeof => 80
 
     static packingSize => 8
@@ -60,7 +58,7 @@ class PCIBUSDATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PCI_SLOT_NUMBER>}
+     * @type {Pointer}
      */
     ParentSlot {
         get => NumGet(this, 40, "ptr")
@@ -68,9 +66,9 @@ class PCIBUSDATA extends Win32Struct
     }
 
     /**
-     * @type {Array<Void>}
+     * @type {Array<Pointer<Void>>}
      */
-    Reserved{
+    Reserved {
         get {
             if(!this.HasProp("__ReservedProxyArray"))
                 this.__ReservedProxyArray := Win32FixedArray(this.ptr + 48, 4, Primitive, "ptr")

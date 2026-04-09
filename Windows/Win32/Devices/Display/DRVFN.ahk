@@ -9,10 +9,8 @@
  * Graphics DDI function addresses can be placed in the DRVFN array in any order.
  * @see https://learn.microsoft.com/windows/win32/api/winddi/ns-winddi-drvfn
  * @namespace Windows.Win32.Devices.Display
- * @version v4.0.30319
  */
-class DRVFN extends Win32Struct
-{
+class DRVFN extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

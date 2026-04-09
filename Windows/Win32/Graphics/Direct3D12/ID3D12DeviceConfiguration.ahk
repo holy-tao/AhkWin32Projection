@@ -2,12 +2,12 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D12
- * @version v4.0.30319
  */
-class ID3D12DeviceConfiguration extends IUnknown{
+class ID3D12DeviceConfiguration extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -63,7 +63,7 @@ class ID3D12DeviceConfiguration extends IUnknown{
 
     /**
      * 
-     * @param {Pointer} pBlob 
+     * @param {Integer} pBlob 
      * @param {Pointer} _Size 
      * @param {Pointer<Guid>} riid 
      * @returns {Pointer<Void>} 

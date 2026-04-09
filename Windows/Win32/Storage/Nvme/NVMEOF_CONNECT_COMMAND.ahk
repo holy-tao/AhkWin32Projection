@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Storage.Nvme
- * @version v4.0.30319
  */
-class NVMEOF_CONNECT_COMMAND extends Win32Struct
-{
+class NVMEOF_CONNECT_COMMAND extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 4
@@ -28,7 +26,7 @@ class NVMEOF_CONNECT_COMMAND extends Win32Struct
             get => NumGet(this, 0, "char")
             set => NumPut("char", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -36,7 +34,7 @@ class NVMEOF_CONNECT_COMMAND extends Win32Struct
             get => (this._bitfield >> 0) & 0x3
             set => this._bitfield := ((value & 0x3) << 0) | (this._bitfield & ~(0x3 << 0))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -44,7 +42,7 @@ class NVMEOF_CONNECT_COMMAND extends Win32Struct
             get => (this._bitfield >> 2) & 0x1
             set => this._bitfield := ((value & 0x1) << 2) | (this._bitfield & ~(0x1 << 2))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -52,7 +50,7 @@ class NVMEOF_CONNECT_COMMAND extends Win32Struct
             get => (this._bitfield >> 3) & 0x1
             set => this._bitfield := ((value & 0x1) << 3) | (this._bitfield & ~(0x1 << 3))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -60,7 +58,6 @@ class NVMEOF_CONNECT_COMMAND extends Win32Struct
             get => NumGet(this, 0, "char")
             set => NumPut("char", value, this, 0)
         }
-    
     }
 
     /**
@@ -96,9 +93,9 @@ class NVMEOF_CONNECT_COMMAND extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Reserved1{
+    Reserved1 {
         get {
             if(!this.HasProp("__Reserved1ProxyArray"))
                 this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 5, 19, Primitive, "char")
@@ -109,7 +106,7 @@ class NVMEOF_CONNECT_COMMAND extends Win32Struct
     /**
      * @type {NVME_SGL_DESC}
      */
-    SGL1{
+    SGL1 {
         get {
             if(!this.HasProp("__SGL1"))
                 this.__SGL1 := NVME_SGL_DESC(24, this)
@@ -144,10 +141,10 @@ class NVMEOF_CONNECT_COMMAND extends Win32Struct
     /**
      * @type {_CATTR_e__Union}
      */
-    CATTR{
+    CATTR {
         get {
             if(!this.HasProp("__CATTR"))
-                this.__CATTR := %this.__Class%._CATTR_e__Union(46, this)
+                this.__CATTR := NVMEOF_CONNECT_COMMAND._CATTR_e__Union(46, this)
             return this.__CATTR
         }
     }
@@ -169,9 +166,9 @@ class NVMEOF_CONNECT_COMMAND extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Reserved3{
+    Reserved3 {
         get {
             if(!this.HasProp("__Reserved3ProxyArray"))
                 this.__Reserved3ProxyArray := Win32FixedArray(this.ptr + 52, 12, Primitive, "char")

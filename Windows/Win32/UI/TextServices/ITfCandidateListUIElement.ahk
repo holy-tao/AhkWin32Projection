@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ITfUIElement.ahk
 #Include .\ITfDocumentMgr.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include .\ITfUIElement.ahk
 
 /**
  * The ITfCandidateListUIElement interface is implemented by a text service that has the candidate list UI.
  * @see https://learn.microsoft.com/windows/win32/api/msctf/nn-msctf-itfcandidatelistuielement
  * @namespace Windows.Win32.UI.TextServices
- * @version v4.0.30319
  */
-class ITfCandidateListUIElement extends ITfUIElement{
+class ITfCandidateListUIElement extends ITfUIElement {
 
     static sizeof => A_PtrSize
     /**
@@ -142,7 +141,7 @@ class ITfCandidateListUIElement extends ITfUIElement{
     /**
      * The ITfCandidateListUIElement::GetString method returns the string of the index.
      * @param {Integer} uIndex [in] An index of the string to obtain.
-     * @returns {BSTR} 
+     * @returns {BSTR} [out] A pointer to BSTR for the candidate string of the index.
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfcandidatelistuielement-getstring
      */
     GetString(uIndex) {

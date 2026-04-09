@@ -5,10 +5,8 @@
  * Used to supply data to a context menu or property page extension about the display specifiers used.
  * @see https://learn.microsoft.com/windows/win32/api/dsclient/ns-dsclient-dsdisplayspecoptions
  * @namespace Windows.Win32.Networking.ActiveDirectory
- * @version v4.0.30319
  */
-class DSDISPLAYSPECOPTIONS extends Win32Struct
-{
+class DSDISPLAYSPECOPTIONS extends Win32Struct {
     static sizeof => 28
 
     static packingSize => 4
@@ -23,7 +21,6 @@ class DSDISPLAYSPECOPTIONS extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     dwFlags {
@@ -32,7 +29,6 @@ class DSDISPLAYSPECOPTIONS extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     offsetAttribPrefix {

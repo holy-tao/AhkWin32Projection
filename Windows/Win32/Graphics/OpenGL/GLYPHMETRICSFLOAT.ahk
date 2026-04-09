@@ -8,10 +8,8 @@
  * The values of <b>GLYPHMETRICSFLOAT</b> are specified as notional units.
  * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-glyphmetricsfloat
  * @namespace Windows.Win32.Graphics.OpenGL
- * @version v4.0.30319
  */
-class GLYPHMETRICSFLOAT extends Win32Struct
-{
+class GLYPHMETRICSFLOAT extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 4
@@ -38,7 +36,7 @@ class GLYPHMETRICSFLOAT extends Win32Struct
      * Specifies the x and y coordinates of the upper-left corner of the smallest rectangle that completely encloses the glyph.
      * @type {POINTFLOAT}
      */
-    gmfptGlyphOrigin{
+    gmfptGlyphOrigin {
         get {
             if(!this.HasProp("__gmfptGlyphOrigin"))
                 this.__gmfptGlyphOrigin := POINTFLOAT(8, this)

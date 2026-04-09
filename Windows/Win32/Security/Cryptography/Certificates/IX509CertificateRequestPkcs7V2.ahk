@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\IX509CertificateRequestPkcs7.ahk
 #Include .\IX509EnrollmentPolicyServer.ahk
 #Include .\IX509CertificateTemplate.ahk
-#Include .\IX509CertificateRequestPkcs7.ahk
 
 /**
  * The IX509CertificateRequestPkcs7V2 interface represents a PKCS
  * @see https://learn.microsoft.com/windows/win32/api/certenroll/nn-certenroll-ix509certificaterequestpkcs7v2
  * @namespace Windows.Win32.Security.Cryptography.Certificates
- * @version v4.0.30319
  */
-class IX509CertificateRequestPkcs7V2 extends IX509CertificateRequestPkcs7{
+class IX509CertificateRequestPkcs7V2 extends IX509CertificateRequestPkcs7 {
 
     static sizeof => A_PtrSize
     /**
@@ -88,7 +87,7 @@ class IX509CertificateRequestPkcs7V2 extends IX509CertificateRequestPkcs7{
      * If the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509certificaterequest-get_cspinformations">CSPInformations</a> property is <b>NULL</b>, the method creates an <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-icspinformations">ICspInformations</a> collection from the providers installed on the computer.
      * 
      * Finally, the method sets the initialized PKCS #10 request as the inner request object.
-     * @param {Integer} _context 
+     * @param {X509CertificateEnrollmentContext} _context 
      * @param {IX509EnrollmentPolicyServer} pPolicyServer Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-ix509enrollmentpolicyserver">IX509EnrollmentPolicyServer</a> object that represents the certificate enrollment policy (CEP) server that contains the template specified by the <i>pTemplate</i> parameter.
      * @param {IX509CertificateTemplate} pTemplate Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-ix509certificatetemplate">IX509CertificateTemplate</a> object that represents the template to use during initialization.
      * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>.

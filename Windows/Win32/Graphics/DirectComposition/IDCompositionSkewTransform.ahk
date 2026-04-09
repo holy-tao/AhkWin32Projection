@@ -13,9 +13,8 @@
  * The effect is to slant the coordinate system along the x-axis and y-axis such that a rectangle becomes a parallelogram, and to apply the corresponding translation such that the center point does not move.
  * @see https://learn.microsoft.com/windows/win32/api/dcomp/nn-dcomp-idcompositionskewtransform
  * @namespace Windows.Win32.Graphics.DirectComposition
- * @version v4.0.30319
  */
-class IDCompositionSkewTransform extends IDCompositionTransform{
+class IDCompositionSkewTransform extends IDCompositionTransform {
 
     static sizeof => A_PtrSize
     /**

@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\DXVA_Frequency.ahk
 #Include .\DXVA_VideoDesc.ahk
+#Include ..\..\Graphics\Direct3D9\D3DFORMAT.ahk
+#Include .\DXVA_Frequency.ahk
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class DXVA_DeinterlaceQueryModeCaps extends Win32Struct
-{
+class DXVA_DeinterlaceQueryModeCaps extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8
@@ -22,7 +21,7 @@ class DXVA_DeinterlaceQueryModeCaps extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     Guid {
         get => NumGet(this, 8, "ptr")
@@ -32,7 +31,7 @@ class DXVA_DeinterlaceQueryModeCaps extends Win32Struct
     /**
      * @type {DXVA_VideoDesc}
      */
-    VideoDesc{
+    VideoDesc {
         get {
             if(!this.HasProp("__VideoDesc"))
                 this.__VideoDesc := DXVA_VideoDesc(16, this)

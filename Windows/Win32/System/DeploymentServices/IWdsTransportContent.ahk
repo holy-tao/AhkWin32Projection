@@ -1,18 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Com\IDispatch.ahk
 #Include .\IWdsTransportNamespace.ahk
 #Include ..\..\Foundation\BSTR.ahk
 #Include .\IWdsTransportCollection.ahk
-#Include ..\Com\IDispatch.ahk
 
 /**
  * Represents content being transmitted under a namespace over one or more sessions.
  * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nn-wdstptmgmt-iwdstransportcontent
  * @namespace Windows.Win32.System.DeploymentServices
- * @version v4.0.30319
  */
-class IWdsTransportContent extends IDispatch{
+class IWdsTransportContent extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

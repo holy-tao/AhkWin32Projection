@@ -1,9 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\DDPIXELFORMAT.ahk
 #Include .\VIDEOMEMORYINFO.ahk
-#Include .\DDSCAPS.ahk
+#Include .\DDPIXELFORMAT.ahk
 #Include .\DDNTCORECAPS.ahk
+#Include .\DDSCAPS.ahk
+#Include .\DD_D3DBUFCALLBACKS.ahk
 
 /**
  * The DD_HALINFO structure describes the capabilities of the hardware and driver.
@@ -11,10 +12,8 @@
  * GDI allocates and zero-initializes the DD_HALINFO structure and passes it to the driver's <a href="https://docs.microsoft.com/windows/desktop/api/winddi/nf-winddi-drvgetdirectdrawinfo">DrvGetDirectDrawInfo</a> routine to be initialized with driver-specific data.
  * @see https://learn.microsoft.com/windows/win32/api/ddrawint/ns-ddrawint-dd_halinfo
  * @namespace Windows.Win32.Graphics.DirectDraw
- * @version v4.0.30319
  */
-class DD_HALINFO extends Win32Struct
-{
+class DD_HALINFO extends Win32Struct {
     static sizeof => 456
 
     static packingSize => 8
@@ -32,7 +31,7 @@ class DD_HALINFO extends Win32Struct
      * Specifies a <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/ns-ddrawint-videomemoryinfo">VIDEOMEMORYINFO</a> structure that describes the display's memory.
      * @type {VIDEOMEMORYINFO}
      */
-    vmiData{
+    vmiData {
         get {
             if(!this.HasProp("__vmiData"))
                 this.__vmiData := VIDEOMEMORYINFO(8, this)
@@ -44,7 +43,7 @@ class DD_HALINFO extends Win32Struct
      * Specifies a <b>DDNTCORECAPS</b> structure that contains driver-specific capabilities.
      * @type {DDNTCORECAPS}
      */
-    ddCaps{
+    ddCaps {
         get {
             if(!this.HasProp("__ddCaps"))
                 this.__ddCaps := DDNTCORECAPS(96, this)
@@ -62,7 +61,6 @@ class DD_HALINFO extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     dwFlags {

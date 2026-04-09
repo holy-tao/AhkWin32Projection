@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.ClrProfiling
- * @version v4.0.30319
  */
-class ICorProfilerCallback extends IUnknown{
+class ICorProfilerCallback extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -300,7 +299,7 @@ class ICorProfilerCallback extends IUnknown{
     /**
      * 
      * @param {Pointer} functionId 
-     * @param {Integer} result 
+     * @param {COR_PRF_JIT_CACHE} result 
      * @returns {HRESULT} 
      */
     JITCachedFunctionSearchFinished(functionId, result) {
@@ -443,7 +442,7 @@ class ICorProfilerCallback extends IUnknown{
     /**
      * 
      * @param {Pointer} functionId 
-     * @param {Integer} reason 
+     * @param {COR_PRF_TRANSITION_REASON} reason 
      * @returns {HRESULT} 
      */
     UnmanagedToManagedTransition(functionId, reason) {
@@ -454,7 +453,7 @@ class ICorProfilerCallback extends IUnknown{
     /**
      * 
      * @param {Pointer} functionId 
-     * @param {Integer} reason 
+     * @param {COR_PRF_TRANSITION_REASON} reason 
      * @returns {HRESULT} 
      */
     ManagedToUnmanagedTransition(functionId, reason) {
@@ -464,7 +463,7 @@ class ICorProfilerCallback extends IUnknown{
 
     /**
      * 
-     * @param {Integer} suspendReason 
+     * @param {COR_PRF_SUSPEND_REASON} suspendReason 
      * @returns {HRESULT} 
      */
     RuntimeSuspendStarted(suspendReason) {

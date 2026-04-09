@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.HumanInterfaceDevice
- * @version v4.0.30319
  */
-class DIPROPPOINTER extends Win32Struct
-{
+class DIPROPPOINTER extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -15,7 +13,7 @@ class DIPROPPOINTER extends Win32Struct
     /**
      * @type {DIPROPHEADER}
      */
-    diph{
+    diph {
         get {
             if(!this.HasProp("__diph"))
                 this.__diph := DIPROPHEADER(0, this)

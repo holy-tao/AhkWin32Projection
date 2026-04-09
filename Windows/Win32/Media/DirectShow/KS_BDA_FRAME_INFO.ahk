@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class KS_BDA_FRAME_INFO extends Win32Struct
-{
+class KS_BDA_FRAME_INFO extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 4

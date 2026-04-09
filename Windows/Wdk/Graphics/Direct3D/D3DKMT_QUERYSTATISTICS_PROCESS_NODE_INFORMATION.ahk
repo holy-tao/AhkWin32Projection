@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
- * @version v4.0.30319
  */
-class D3DKMT_QUERYSTATISTICS_PROCESS_NODE_INFORMATION extends Win32Struct
-{
+class D3DKMT_QUERYSTATISTICS_PROCESS_NODE_INFORMATION extends Win32Struct {
     static sizeof => 96
 
     static packingSize => 8
@@ -28,7 +26,7 @@ class D3DKMT_QUERYSTATISTICS_PROCESS_NODE_INFORMATION extends Win32Struct
     }
 
     /**
-     * @type {Pointer<D3DKMT_QUERYSTATISTICS_PREEMPTION_INFORMATION>}
+     * @type {Pointer}
      */
     PreemptionStatistics {
         get => NumGet(this, 16, "ptr")
@@ -36,7 +34,7 @@ class D3DKMT_QUERYSTATISTICS_PROCESS_NODE_INFORMATION extends Win32Struct
     }
 
     /**
-     * @type {Pointer<D3DKMT_QUERYSTATISTICS_PACKET_INFORMATION>}
+     * @type {Pointer}
      */
     PacketStatistics {
         get => NumGet(this, 24, "ptr")
@@ -44,9 +42,9 @@ class D3DKMT_QUERYSTATISTICS_PROCESS_NODE_INFORMATION extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt64>}
+     * @type {Array<Integer>}
      */
-    Reserved{
+    Reserved {
         get {
             if(!this.HasProp("__ReservedProxyArray"))
                 this.__ReservedProxyArray := Win32FixedArray(this.ptr + 32, 8, Primitive, "uint")

@@ -9,9 +9,8 @@
   * The <b>pDataItems</b> member specifies trigger-specific data defined by the provider.
  * @see https://learn.microsoft.com/windows/win32/api/winsvc/ns-winsvc-service_trigger
  * @namespace Windows.Win32.System.Services
- * @version v4.0.30319
  */
-class SERVICE_TRIGGER_TYPE extends Win32Enum{
+class SERVICE_TRIGGER_TYPE extends Win32Enum {
 
     /**
      * @type {Integer (UInt32)}

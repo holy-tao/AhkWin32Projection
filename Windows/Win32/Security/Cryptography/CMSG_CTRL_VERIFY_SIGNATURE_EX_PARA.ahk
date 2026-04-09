@@ -8,10 +8,8 @@
  * If <b>dwSignerType</b> is CMSG_VERIFY_SIGNER_NULL, the signature is expected to contain only the unencrypted hash octets.
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cmsg_ctrl_verify_signature_ex_para
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CMSG_CTRL_VERIFY_SIGNATURE_EX_PARA extends Win32Struct
-{
+class CMSG_CTRL_VERIFY_SIGNATURE_EX_PARA extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -31,7 +29,7 @@ class CMSG_CTRL_VERIFY_SIGNATURE_EX_PARA extends Win32Struct
      * <b>Windows Server 2003 and Windows XP:  </b>A handle to the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">cryptographic provider</a> used to verify the signature. If <b>NULL</b>, the cryptographic provider specified in <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptmsgopentodecode">CryptMsgOpenToDecode</a> is used. If the <i>hCryptProv</i> in <b>CryptMsgOpenToDecode</b> is also <b>NULL</b>, the default provider according to the signer's public key <a href="https://docs.microsoft.com/windows/desktop/SecGloss/o-gly">object identifier</a> (OID) is used.This member's data type is <b>HCRYPTPROV</b>.
      * @type {HCRYPTPROV_LEGACY}
      */
-    hCryptProv{
+    hCryptProv {
         get {
             if(!this.HasProp("__hCryptProv"))
                 this.__hCryptProv := HCRYPTPROV_LEGACY(8, this)

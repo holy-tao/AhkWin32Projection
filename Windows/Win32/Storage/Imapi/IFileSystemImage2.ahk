@@ -11,9 +11,8 @@
  * Section Entry Extension is not supported by IMAPIv2FS at this time.
  * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nn-imapi2fs-ifilesystemimage2
  * @namespace Windows.Win32.Storage.Imapi
- * @version v4.0.30319
  */
-class IFileSystemImage2 extends IFileSystemImage{
+class IFileSystemImage2 extends IFileSystemImage {
 
     static sizeof => A_PtrSize
     /**

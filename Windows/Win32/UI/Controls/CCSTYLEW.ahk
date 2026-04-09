@@ -3,11 +3,9 @@
 
 /**
  * @namespace Windows.Win32.UI.Controls
- * @version v4.0.30319
  * @charset Unicode
  */
-class CCSTYLEW extends Win32Struct
-{
+class CCSTYLEW extends Win32Struct {
     static sizeof => 524
 
     static packingSize => 4

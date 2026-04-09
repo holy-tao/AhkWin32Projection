@@ -11,9 +11,8 @@
  * This enumeration is a flag.
  * @see https://learn.microsoft.com/windows/win32/api/msinkaut/ne-msinkaut-tablethardwarecapabilities
  * @namespace Windows.Win32.UI.TabletPC
- * @version v4.0.30319
  */
-class TabletHardwareCapabilities extends Win32Enum{
+class TabletHardwareCapabilities extends Win32Enum {
 
     /**
      * The digitizer is integrated with the display.

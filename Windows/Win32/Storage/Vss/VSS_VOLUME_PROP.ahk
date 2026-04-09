@@ -5,10 +5,8 @@
  * Contains the properties of a shadow copy source volume.
  * @see https://learn.microsoft.com/windows/win32/api/vsmgmt/ns-vsmgmt-vss_volume_prop
  * @namespace Windows.Win32.Storage.Vss
- * @version v4.0.30319
  */
-class VSS_VOLUME_PROP extends Win32Struct
-{
+class VSS_VOLUME_PROP extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

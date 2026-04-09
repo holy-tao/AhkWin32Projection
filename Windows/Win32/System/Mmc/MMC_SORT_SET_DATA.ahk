@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\MMC_SORT_DATA.ahk
 
 /**
  * Used with setting and retrieving list view column sets whose sort data is stored persistently.
@@ -14,10 +15,8 @@
  * The user can hide columns using the Choose Columns dialog.
  * @see https://learn.microsoft.com/windows/win32/api/mmc/ns-mmc-mmc_sort_set_data
  * @namespace Windows.Win32.System.Mmc
- * @version v4.0.30319
  */
-class MMC_SORT_SET_DATA extends Win32Struct
-{
+class MMC_SORT_SET_DATA extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

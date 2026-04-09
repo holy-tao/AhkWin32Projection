@@ -1,16 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Win32\Graphics\Direct3D9\D3DRANGE.ahk
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
- * @version v4.0.30319
  */
-class D3DHAL_DP2BUFFERBLT extends Win32Struct
-{
-    static sizeof => 24
+class D3DHAL_DP2BUFFERBLT extends Win32Struct {
+    static sizeof => 32
 
-    static packingSize => 4
+    static packingSize => 8
 
     /**
      * @type {Integer}
@@ -37,21 +34,18 @@ class D3DHAL_DP2BUFFERBLT extends Win32Struct
     }
 
     /**
-     * @type {D3DRANGE}
+     * @type {Pointer}
      */
-    rSrc{
-        get {
-            if(!this.HasProp("__rSrc"))
-                this.__rSrc := D3DRANGE(12, this)
-            return this.__rSrc
-        }
+    rSrc {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
      * @type {Integer}
      */
     dwFlags {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
+        get => NumGet(this, 24, "uint")
+        set => NumPut("uint", value, this, 24)
     }
 }

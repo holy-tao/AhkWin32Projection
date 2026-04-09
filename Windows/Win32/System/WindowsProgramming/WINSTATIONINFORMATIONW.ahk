@@ -3,18 +3,16 @@
 
 /**
  * @namespace Windows.Win32.System.WindowsProgramming
- * @version v4.0.30319
  */
-class WINSTATIONINFORMATIONW extends Win32Struct
-{
+class WINSTATIONINFORMATIONW extends Win32Struct {
     static sizeof => 1216
 
     static packingSize => 4
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Reserved2{
+    Reserved2 {
         get {
             if(!this.HasProp("__Reserved2ProxyArray"))
                 this.__Reserved2ProxyArray := Win32FixedArray(this.ptr + 0, 70, Primitive, "char")
@@ -31,9 +29,9 @@ class WINSTATIONINFORMATIONW extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Reserved3{
+    Reserved3 {
         get {
             if(!this.HasProp("__Reserved3ProxyArray"))
                 this.__Reserved3ProxyArray := Win32FixedArray(this.ptr + 76, 1140, Primitive, "char")

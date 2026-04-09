@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.UI.Controls.RichEdit
- * @version v4.0.30319
  */
-class PARAFORMAT_ALIGNMENT extends Win32Enum{
+class PARAFORMAT_ALIGNMENT extends Win32Enum {
 
     /**
      * @type {Integer (UInt16)}

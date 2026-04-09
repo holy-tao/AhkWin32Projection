@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
- * @version v4.0.30319
  */
-class IKsDataTypeHandler extends IUnknown{
+class IKsDataTypeHandler extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -32,7 +31,7 @@ class IKsDataTypeHandler extends IUnknown{
      * 
      * @param {IMediaSample} Sample 
      * @param {Pointer<Void>} StreamHeader 
-     * @param {Integer} IoOperation 
+     * @param {KSIOOPERATION} IoOperation 
      * @param {BOOL} Cancelled 
      * @returns {HRESULT} 
      */
@@ -59,7 +58,7 @@ class IKsDataTypeHandler extends IUnknown{
      * 
      * @param {IMediaSample} Sample 
      * @param {Pointer<Void>} StreamHeader 
-     * @param {Integer} IoOperation 
+     * @param {KSIOOPERATION} IoOperation 
      * @returns {HRESULT} 
      */
     KsPrepareIoOperation(Sample, StreamHeader, IoOperation) {

@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\VSS_SNAPSHOT_PROP.ahk
 #Include .\IVssEnumObject.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * . (IVssFileShareSnapshotProvider)
  * @see https://learn.microsoft.com/windows/win32/api/vsprov/nn-vsprov-ivssfilesharesnapshotprovider
  * @namespace Windows.Win32.Storage.Vss
- * @version v4.0.30319
  */
-class IVssFileShareSnapshotProvider extends IUnknown{
+class IVssFileShareSnapshotProvider extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -151,8 +150,8 @@ class IVssFileShareSnapshotProvider extends IUnknown{
      *     <a href="https://docs.microsoft.com/windows/desktop/api/vss/ns-vss-vss_object_prop">VSS_OBJECT_PROP</a> structures containing a 
      *     <a href="https://docs.microsoft.com/windows/desktop/api/vss/ns-vss-vss_snapshot_prop">VSS_SNAPSHOT_PROP</a> structure for each shadow copy.
      * @param {Guid} QueriedObjectId Reserved for system use. The value of this parameter must be GUID_NULL.
-     * @param {Integer} eQueriedObjectType Reserved for system use. The value of this parameter must be VSS_OBJECT_NONE.
-     * @param {Integer} eReturnedObjectsType Reserved for system use. The value of this parameter must be VSS_OBJECT_SNAPSHOT.
+     * @param {VSS_OBJECT_TYPE} eQueriedObjectType Reserved for system use. The value of this parameter must be VSS_OBJECT_NONE.
+     * @param {VSS_OBJECT_TYPE} eReturnedObjectsType Reserved for system use. The value of this parameter must be VSS_OBJECT_SNAPSHOT.
      * @returns {IVssEnumObject} The address of an <a href="https://docs.microsoft.com/windows/desktop/api/vss/nn-vss-ivssenumobject">IVssEnumObject</a> interface pointer, 
      *       which is initialized on return. Callers must release the interface. This parameter is required and cannot be null.
      * @see https://learn.microsoft.com/windows/win32/api/vsprov/nf-vsprov-ivssfilesharesnapshotprovider-query
@@ -167,7 +166,7 @@ class IVssFileShareSnapshotProvider extends IUnknown{
      * @remarks
      * The VSS coordinator calls this method as part of the snapshot auto-release process.  The method is also called in response to requester driven delete operations.
      * @param {Guid} SourceObjectId Identifier of the shadow copy or shadow copy set to be deleted.
-     * @param {Integer} eSourceObjectType Type of the object to be deleted. The value of this parameter is VSS_OBJECT_SNAPSHOT or VSS_OBJECT_SNAPSHOT_SET.
+     * @param {VSS_OBJECT_TYPE} eSourceObjectType Type of the object to be deleted. The value of this parameter is VSS_OBJECT_SNAPSHOT or VSS_OBJECT_SNAPSHOT_SET.
      * @param {BOOL} bForceDelete If the value of this parameter is <b>TRUE</b>, the provider will do everything possible to delete the shadow copy or shadow copies in a shadow copy set. If it is <b>FALSE</b>, no additional effort will be made.
      * @param {Pointer<Integer>} plDeletedSnapshots Pointer to a variable that receives the number of shadow copies that were deleted.
      * @param {Pointer<Guid>} pNondeletedSnapshotID If an error occurs, this parameter receives a pointer to the identifier of the first shadow copy that could not be deleted. Otherwise, it points to GUID_NULL.
@@ -508,7 +507,7 @@ class IVssFileShareSnapshotProvider extends IUnknown{
     /**
      * Requests the provider to set a property value for the specified snapshot.
      * @param {Guid} SnapshotId Shadow copy identifier. This parameter is required and cannot be GUID_NULL.
-     * @param {Integer} eSnapshotPropertyId A <a href="https://docs.microsoft.com/windows/desktop/api/vss/ne-vss-vss_snapshot_property_id">VSS_SNAPSHOT_PROPERTY_ID</a> value that specifies the property to be set for the shadow copy.
+     * @param {VSS_SNAPSHOT_PROPERTY_ID} eSnapshotPropertyId A <a href="https://docs.microsoft.com/windows/desktop/api/vss/ne-vss-vss_snapshot_property_id">VSS_SNAPSHOT_PROPERTY_ID</a> value that specifies the property to be set for the shadow copy.
      * @param {VARIANT} vProperty The value to be set for the property. See the <a href="https://docs.microsoft.com/windows/desktop/api/vss/ns-vss-vss_snapshot_prop">VSS_SNAPSHOT_PROP</a> structure for valid data types and descriptions of the properties that can be set for a shadow copy.
      * @returns {HRESULT} The following are the valid return codes for this method.
      * 

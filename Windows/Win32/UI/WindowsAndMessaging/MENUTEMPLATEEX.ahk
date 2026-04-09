@@ -7,77 +7,73 @@
 
 /**
  * @namespace Windows.Win32.UI.WindowsAndMessaging
- * @version v4.0.30319
  */
-class MENUTEMPLATEEX extends Win32Struct
-{
-    static sizeof => 16
+class MENUTEMPLATEEX extends Win32Struct {
+    static sizeof => 24
 
-    static packingSize => 8
+    static packingSize => 4
 
     class _Menu extends Win32Struct {
-        static sizeof => 16
-        static packingSize => 8
+        static sizeof => 10
+        static packingSize => 2
 
         /**
          * @type {MENUITEMTEMPLATEHEADER}
          */
-        mitHeader{
+        mitHeader {
             get {
                 if(!this.HasProp("__mitHeader"))
                     this.__mitHeader := MENUITEMTEMPLATEHEADER(0, this)
                 return this.__mitHeader
             }
         }
-    
+
         /**
-         * @type {Array<MENUITEMTEMPLATE>}
+         * @type {MENUITEMTEMPLATE}
          */
-        miTemplate{
+        miTemplate {
             get {
                 if(!this.HasProp("__miTemplateProxyArray"))
-                    this.__miTemplateProxyArray := Win32FixedArray(this.ptr + 8, 1, MENUITEMTEMPLATE, "")
+                    this.__miTemplateProxyArray := Win32FixedArray(this.ptr + 4, 1, MENUITEMTEMPLATE, "")
                 return this.__miTemplateProxyArray
             }
         }
-    
     }
 
     class _MenuEx extends Win32Struct {
-        static sizeof => 16
-        static packingSize => 8
+        static sizeof => 24
+        static packingSize => 4
 
         /**
          * @type {MENUEX_TEMPLATE_HEADER}
          */
-        mexHeader{
+        mexHeader {
             get {
                 if(!this.HasProp("__mexHeader"))
                     this.__mexHeader := MENUEX_TEMPLATE_HEADER(0, this)
                 return this.__mexHeader
             }
         }
-    
+
         /**
-         * @type {Array<MENUEX_TEMPLATE_ITEM>}
+         * @type {MENUEX_TEMPLATE_ITEM}
          */
-        mexItem{
+        mexItem {
             get {
                 if(!this.HasProp("__mexItemProxyArray"))
                     this.__mexItemProxyArray := Win32FixedArray(this.ptr + 8, 1, MENUEX_TEMPLATE_ITEM, "")
                 return this.__mexItemProxyArray
             }
         }
-    
     }
 
     /**
      * @type {_Menu}
      */
-    Menu{
+    Menu {
         get {
             if(!this.HasProp("__Menu"))
-                this.__Menu := %this.__Class%._Menu(0, this)
+                this.__Menu := MENUTEMPLATEEX._Menu(0, this)
             return this.__Menu
         }
     }
@@ -85,10 +81,10 @@ class MENUTEMPLATEEX extends Win32Struct
     /**
      * @type {_MenuEx}
      */
-    MenuEx{
+    MenuEx {
         get {
             if(!this.HasProp("__MenuEx"))
-                this.__MenuEx := %this.__Class%._MenuEx(0, this)
+                this.__MenuEx := MENUTEMPLATEEX._MenuEx(0, this)
             return this.__MenuEx
         }
     }

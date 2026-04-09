@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\RADIUS_DATA_TYPE.ahk
 
 /**
  * The RADIUS_ATTRIBUTE structure represents a RADIUS attribute or an extended attribute.
  * @see https://learn.microsoft.com/windows/win32/api/authif/ns-authif-radius_attribute
  * @namespace Windows.Win32.NetworkManagement.NetworkPolicyServer
- * @version v4.0.30319
  */
-class RADIUS_ATTRIBUTE extends Win32Struct
-{
+class RADIUS_ATTRIBUTE extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -27,7 +26,7 @@ class RADIUS_ATTRIBUTE extends Win32Struct
     /**
      * Stores a value from the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/authif/ne-authif-radius_data_type">RADIUS_DATA_TYPE</a> enumeration. This value specifies the type of the value stored in the union that contains the <b>dwValue</b> and <b>lpValue</b> members.
-     * @type {Integer}
+     * @type {RADIUS_DATA_TYPE}
      */
     fDataType {
         get => NumGet(this, 4, "int")

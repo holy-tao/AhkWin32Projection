@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\Dxgi\Common\DXGI_FORMAT.ahk
 
 /**
  * Describes which resources are supported by the current graphics driver for a given format. (D3D11_FEATURE_DATA_FORMAT_SUPPORT)
  * @see https://learn.microsoft.com/windows/win32/api/d3d11/ns-d3d11-d3d11_feature_data_format_support
  * @namespace Windows.Win32.Graphics.Direct3D11
- * @version v4.0.30319
  */
-class D3D11_FEATURE_DATA_FORMAT_SUPPORT extends Win32Struct
-{
+class D3D11_FEATURE_DATA_FORMAT_SUPPORT extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4
@@ -18,7 +17,7 @@ class D3D11_FEATURE_DATA_FORMAT_SUPPORT extends Win32Struct
      * 
      * 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dxgiformat/ne-dxgiformat-dxgi_format">DXGI_FORMAT</a> to return information on.
-     * @type {Integer}
+     * @type {DXGI_FORMAT}
      */
     InFormat {
         get => NumGet(this, 0, "int")

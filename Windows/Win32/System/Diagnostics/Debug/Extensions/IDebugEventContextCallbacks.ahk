@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
- * @version v4.0.30319
  */
-class IDebugEventContextCallbacks extends IUnknown{
+class IDebugEventContextCallbacks extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -40,7 +39,7 @@ class IDebugEventContextCallbacks extends IUnknown{
     /**
      * 
      * @param {IDebugBreakpoint2} Bp 
-     * @param {Pointer} _Context 
+     * @param {Integer} _Context 
      * @param {Integer} ContextSize 
      * @returns {HRESULT} 
      */
@@ -53,7 +52,7 @@ class IDebugEventContextCallbacks extends IUnknown{
      * 
      * @param {Pointer<EXCEPTION_RECORD64>} Exception 
      * @param {Integer} FirstChance 
-     * @param {Pointer} _Context 
+     * @param {Integer} _Context 
      * @param {Integer} ContextSize 
      * @returns {HRESULT} 
      */
@@ -111,7 +110,7 @@ class IDebugEventContextCallbacks extends IUnknown{
      * @param {Integer} _Handle 
      * @param {Integer} DataOffset 
      * @param {Integer} StartOffset 
-     * @param {Pointer} _Context 
+     * @param {Integer} _Context 
      * @param {Integer} ContextSize 
      * @returns {HRESULT} If the function succeeds, the return value is a handle to the new thread.
      * 
@@ -170,7 +169,7 @@ class IDebugEventContextCallbacks extends IUnknown{
      * 
      * <b>Windows 8.1</b> and <b>Windows Server 2012 R2</b>: This function is supported for Windows Store apps on Windows 8.1, Windows Server 2012 R2, and later.
      * @param {Integer} ExitCode 
-     * @param {Pointer} _Context 
+     * @param {Integer} _Context 
      * @param {Integer} ContextSize 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/processthreadsapi/nf-processthreadsapi-exitthread
@@ -250,7 +249,7 @@ class IDebugEventContextCallbacks extends IUnknown{
      * @param {Integer} InitialThreadHandle 
      * @param {Integer} ThreadDataOffset 
      * @param {Integer} StartOffset 
-     * @param {Pointer} _Context 
+     * @param {Integer} _Context 
      * @param {Integer} ContextSize 
      * @returns {HRESULT} If the function succeeds, the return value is nonzero.
      * 
@@ -299,7 +298,7 @@ class IDebugEventContextCallbacks extends IUnknown{
      * 
      * Exiting a process does not necessarily remove the process object from the operating system. A process object is deleted when the last handle to the process is closed.
      * @param {Integer} ExitCode 
-     * @param {Pointer} _Context 
+     * @param {Integer} _Context 
      * @param {Integer} ContextSize 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/processthreadsapi/nf-processthreadsapi-exitprocess
@@ -416,7 +415,7 @@ class IDebugEventContextCallbacks extends IUnknown{
      * @param {PWSTR} ImageName 
      * @param {Integer} CheckSum 
      * @param {Integer} TimeDateStamp 
-     * @param {Pointer} _Context 
+     * @param {Integer} _Context 
      * @param {Integer} ContextSize 
      * @returns {HRESULT} If the function succeeds, the return value is greater than 31.
      * 
@@ -489,7 +488,7 @@ class IDebugEventContextCallbacks extends IUnknown{
      * 
      * @param {PWSTR} ImageBaseName 
      * @param {Integer} BaseOffset 
-     * @param {Pointer} _Context 
+     * @param {Integer} _Context 
      * @param {Integer} ContextSize 
      * @returns {HRESULT} 
      */
@@ -502,14 +501,14 @@ class IDebugEventContextCallbacks extends IUnknown{
 
     /**
      * 
-     * @param {Integer} Error 
+     * @param {Integer} _Error 
      * @param {Integer} Level 
-     * @param {Pointer} _Context 
+     * @param {Integer} _Context 
      * @param {Integer} ContextSize 
      * @returns {HRESULT} 
      */
-    SystemError(Error, Level, _Context, ContextSize) {
-        result := ComCall(12, this, "uint", Error, "uint", Level, "ptr", _Context, "uint", ContextSize, "HRESULT")
+    SystemError(_Error, Level, _Context, ContextSize) {
+        result := ComCall(12, this, "uint", _Error, "uint", Level, "ptr", _Context, "uint", ContextSize, "HRESULT")
         return result
     }
 
@@ -527,7 +526,7 @@ class IDebugEventContextCallbacks extends IUnknown{
      * 
      * @param {Integer} Flags 
      * @param {Integer} Argument 
-     * @param {Pointer} _Context 
+     * @param {Integer} _Context 
      * @param {Integer} ContextSize 
      * @returns {HRESULT} 
      */
@@ -540,7 +539,7 @@ class IDebugEventContextCallbacks extends IUnknown{
      * 
      * @param {Integer} Flags 
      * @param {Integer} Argument 
-     * @param {Pointer} _Context 
+     * @param {Integer} _Context 
      * @param {Integer} ContextSize 
      * @returns {HRESULT} 
      */

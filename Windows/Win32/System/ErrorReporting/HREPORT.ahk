@@ -5,10 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.ErrorReporting
- * @version v4.0.30319
  */
-class HREPORT extends Win32Handle
-{
+class HREPORT extends Win32Handle {
     static sizeof => 8
 
     static packingSize => 8

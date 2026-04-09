@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Snmp
- * @version v4.0.30319
  */
-class SNMP_PDU_TYPE extends Win32Enum{
+class SNMP_PDU_TYPE extends Win32Enum {
 
     /**
      * @type {Integer (UInt32)}

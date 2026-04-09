@@ -1,7 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\RECT.ahk
+#Include Common\DXGI_MODE_ROTATION.ahk
 #Include ..\Gdi\HMONITOR.ahk
+#Include Common\DXGI_COLOR_SPACE_TYPE.ahk
 
 /**
  * Describes an output or physical connection between the adapter (video card) and a device, including additional information about color capabilities and connection type.
@@ -9,10 +11,8 @@
  * The <b>DXGI_OUTPUT_DESC1</b> structure is initialized by the <a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_6/nf-dxgi1_6-idxgioutput6-getdesc1">IDXGIOutput6::GetDesc1</a> method.
  * @see https://learn.microsoft.com/windows/win32/api/dxgi1_6/ns-dxgi1_6-dxgi_output_desc1
  * @namespace Windows.Win32.Graphics.Dxgi
- * @version v4.0.30319
  */
-class DXGI_OUTPUT_DESC1 extends Win32Struct
-{
+class DXGI_OUTPUT_DESC1 extends Win32Struct {
     static sizeof => 152
 
     static packingSize => 8
@@ -35,7 +35,7 @@ class DXGI_OUTPUT_DESC1 extends Win32Struct
      * 	  For info about writing DPI-aware Win32 apps, see <a href="https://docs.microsoft.com/windows/desktop/hidpi/high-dpi-desktop-application-development-on-windows">High DPI</a>.
      * @type {RECT}
      */
-    DesktopCoordinates{
+    DesktopCoordinates {
         get {
             if(!this.HasProp("__DesktopCoordinates"))
                 this.__DesktopCoordinates := RECT(64, this)
@@ -58,7 +58,7 @@ class DXGI_OUTPUT_DESC1 extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/bb173065(v=vs.85)">DXGI_MODE_ROTATION</a></b>
      * 
      * A member of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/bb173065(v=vs.85)">DXGI_MODE_ROTATION</a> enumerated type describing on how an image is rotated by the output.
-     * @type {Integer}
+     * @type {DXGI_MODE_ROTATION}
      */
     Rotation {
         get => NumGet(this, 84, "int")
@@ -71,7 +71,7 @@ class DXGI_OUTPUT_DESC1 extends Win32Struct
      * An <a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HMONITOR</a> handle that represents the display monitor. For more information, see <a href="https://docs.microsoft.com/windows/desktop/gdi/hmonitor-and-the-device-context">HMONITOR and the Device Context</a>.
      * @type {HMONITOR}
      */
-    Monitor{
+    Monitor {
         get {
             if(!this.HasProp("__Monitor"))
                 this.__Monitor := HMONITOR(88, this)
@@ -98,7 +98,7 @@ class DXGI_OUTPUT_DESC1 extends Win32Struct
      * 	    advanced color capabilities.
      * 
      * For detailed luminance and color capabilities, see additional members of this struct.
-     * @type {Integer}
+     * @type {DXGI_COLOR_SPACE_TYPE}
      */
     ColorSpace {
         get => NumGet(this, 100, "int")
@@ -109,9 +109,9 @@ class DXGI_OUTPUT_DESC1 extends Win32Struct
      * Type: <b>FLOAT[2]</b>
      * 
      * The red color primary, in xy coordinates, of the display attached to this output. This value will usually come from the EDID of the corresponding display or sometimes from an override.
-     * @type {Array<Single>}
+     * @type {Array<Float>}
      */
-    RedPrimary{
+    RedPrimary {
         get {
             if(!this.HasProp("__RedPrimaryProxyArray"))
                 this.__RedPrimaryProxyArray := Win32FixedArray(this.ptr + 104, 2, Primitive, "float")
@@ -123,9 +123,9 @@ class DXGI_OUTPUT_DESC1 extends Win32Struct
      * Type: <b>FLOAT[2]</b>
      * 
      * The green color primary, in xy coordinates, of the display attached to this output. This value will usually come from the EDID of the corresponding display or sometimes from an override.
-     * @type {Array<Single>}
+     * @type {Array<Float>}
      */
-    GreenPrimary{
+    GreenPrimary {
         get {
             if(!this.HasProp("__GreenPrimaryProxyArray"))
                 this.__GreenPrimaryProxyArray := Win32FixedArray(this.ptr + 112, 2, Primitive, "float")
@@ -137,9 +137,9 @@ class DXGI_OUTPUT_DESC1 extends Win32Struct
      * Type: <b>FLOAT[2]</b>
      * 
      * The blue color primary, in xy coordinates, of the display attached to this output. This value will usually come from the EDID of the corresponding display or sometimes from an override.
-     * @type {Array<Single>}
+     * @type {Array<Float>}
      */
-    BluePrimary{
+    BluePrimary {
         get {
             if(!this.HasProp("__BluePrimaryProxyArray"))
                 this.__BluePrimaryProxyArray := Win32FixedArray(this.ptr + 120, 2, Primitive, "float")
@@ -151,9 +151,9 @@ class DXGI_OUTPUT_DESC1 extends Win32Struct
      * Type: <b>FLOAT[2]</b>
      * 
      * The white point, in xy coordinates, of the display attached to this output. This value will usually come from the EDID of the corresponding display or sometimes from an override.
-     * @type {Array<Single>}
+     * @type {Array<Float>}
      */
-    WhitePoint{
+    WhitePoint {
         get {
             if(!this.HasProp("__WhitePointProxyArray"))
                 this.__WhitePointProxyArray := Win32FixedArray(this.ptr + 128, 2, Primitive, "float")

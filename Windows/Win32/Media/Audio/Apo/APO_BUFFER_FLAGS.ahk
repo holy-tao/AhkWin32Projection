@@ -7,9 +7,8 @@
  * The Remote Desktop Services AudioEndpoint API is for use in Remote Desktop scenarios; it is not for client applications.
  * @see https://learn.microsoft.com/windows/win32/api/audioapotypes/ne-audioapotypes-apo_buffer_flags
  * @namespace Windows.Win32.Media.Audio.Apo
- * @version v4.0.30319
  */
-class APO_BUFFER_FLAGS extends Win32Enum{
+class APO_BUFFER_FLAGS extends Win32Enum {
 
     /**
      * There is no valid data in  the connection

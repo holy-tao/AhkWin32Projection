@@ -5,10 +5,8 @@
  * Contains information about backtraces performed.
  * @see https://learn.microsoft.com/windows/win32/api/avrfsdk/ns-avrfsdk-avrf_backtrace_information
  * @namespace Windows.Win32.System.ApplicationVerifier
- * @version v4.0.30319
  */
-class AVRF_BACKTRACE_INFORMATION extends Win32Struct
-{
+class AVRF_BACKTRACE_INFORMATION extends Win32Struct {
     static sizeof => 264
 
     static packingSize => 8
@@ -33,9 +31,9 @@ class AVRF_BACKTRACE_INFORMATION extends Win32Struct
 
     /**
      * An array of addresses returned traces. The number cannot exceed AVRF_MAX_TRACES, which is defined as 32.
-     * @type {Array<UInt64>}
+     * @type {Array<Integer>}
      */
-    ReturnAddresses{
+    ReturnAddresses {
         get {
             if(!this.HasProp("__ReturnAddressesProxyArray"))
                 this.__ReturnAddressesProxyArray := Win32FixedArray(this.ptr + 8, 32, Primitive, "uint")

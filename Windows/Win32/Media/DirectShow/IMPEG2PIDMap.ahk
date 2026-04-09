@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IEnumPIDMap.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\IEnumPIDMap.ahk
 
 /**
  * This interface is implemented on each output pin of the MPEG-2 Demultiplexer filter (Demux) and is used in transport stream mode only.
  * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nn-bdaiface-impeg2pidmap
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IMPEG2PIDMap extends IUnknown{
+class IMPEG2PIDMap extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -37,7 +36,7 @@ class IMPEG2PIDMap extends IUnknown{
      * There may be no more than 255 distinct PIDs mapped at any given time. This includes the PIDs that the Demux maps internally for its own use; this number varies depending on the transport stream. This limitation should not present a problem in practice, because applications will typically map no more than a dozen PIDs on any given transport stream.
      * @param {Integer} culPID The number of elements in the <i>pulPID</i> array.
      * @param {Pointer<Integer>} pulPID Pointer to an array of size <i>culPID</i>, allocated by the caller. Each element in the array contains a PID to be mapped.
-     * @param {Integer} MediaSampleContent Variable of type <a href="https://docs.microsoft.com/windows/desktop/DirectShow/media-sample-content">MEDIA_SAMPLE_CONTENT</a> that specifies the contents of the stream.
+     * @param {MEDIA_SAMPLE_CONTENT} MediaSampleContent Variable of type <a href="https://docs.microsoft.com/windows/desktop/DirectShow/media-sample-content">MEDIA_SAMPLE_CONTENT</a> that specifies the contents of the stream.
      * @returns {HRESULT} Returns S_OK if successful. If the method fails, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-impeg2pidmap-mappid
      */

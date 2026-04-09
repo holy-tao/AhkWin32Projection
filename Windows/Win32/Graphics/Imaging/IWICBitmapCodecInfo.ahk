@@ -2,14 +2,14 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\IWICComponentInfo.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * Exposes methods that provide information about a particular codec.
  * @see https://learn.microsoft.com/windows/win32/api/wincodec/nn-wincodec-iwicbitmapcodecinfo
  * @namespace Windows.Win32.Graphics.Imaging
- * @version v4.0.30319
  */
-class IWICBitmapCodecInfo extends IWICComponentInfo{
+class IWICBitmapCodecInfo extends IWICComponentInfo {
 
     static sizeof => A_PtrSize
     /**

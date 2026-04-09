@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
 #Include .\IWebBrowser.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * Gets the handle of the Windows Internet Explorer main window.
@@ -11,9 +11,8 @@
  * Internet Explorer 7. With the introduction of tabbed browsing, the return value of this method can be ambiguous. To alleviate confusion and maintain the highest level of compatibility with existing applications, this method returns a handle to the top-level window frame, not the currently selected tab.
  * @see https://learn.microsoft.com/windows/win32/api/exdisp/nf-exdisp-iwebbrowserapp-get_hwnd
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IWebBrowserApp extends IWebBrowser{
+class IWebBrowserApp extends IWebBrowser {
 
     static sizeof => A_PtrSize
     /**

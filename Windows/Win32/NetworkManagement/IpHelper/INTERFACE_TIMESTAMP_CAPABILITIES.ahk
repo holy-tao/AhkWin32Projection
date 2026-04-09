@@ -7,10 +7,8 @@
  * Describes the exact timestamp capabilities that a network adapter supports.
  * @see https://learn.microsoft.com/windows/win32/api/iphlpapi/ns-iphlpapi-interface_timestamp_capabilities
  * @namespace Windows.Win32.NetworkManagement.IpHelper
- * @version v4.0.30319
  */
-class INTERFACE_TIMESTAMP_CAPABILITIES extends Win32Struct
-{
+class INTERFACE_TIMESTAMP_CAPABILITIES extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -43,7 +41,7 @@ class INTERFACE_TIMESTAMP_CAPABILITIES extends Win32Struct
      * Describes the timestamping capabilities of the network interface card's (NIC's) hardware. Having both hardware and software timestamps enabled together isn't supported.
      * @type {INTERFACE_HARDWARE_TIMESTAMP_CAPABILITIES}
      */
-    HardwareCapabilities{
+    HardwareCapabilities {
         get {
             if(!this.HasProp("__HardwareCapabilities"))
                 this.__HardwareCapabilities := INTERFACE_HARDWARE_TIMESTAMP_CAPABILITIES(9, this)
@@ -57,7 +55,7 @@ class INTERFACE_TIMESTAMP_CAPABILITIES extends Win32Struct
      * Describes the software timestamping capabilities of a network interface card's (NIC's) miniport driver. Having both hardware and software timestamps enabled together isn't supported.
      * @type {INTERFACE_SOFTWARE_TIMESTAMP_CAPABILITIES}
      */
-    SoftwareCapabilities{
+    SoftwareCapabilities {
         get {
             if(!this.HasProp("__SoftwareCapabilities"))
                 this.__SoftwareCapabilities := INTERFACE_SOFTWARE_TIMESTAMP_CAPABILITIES(20, this)

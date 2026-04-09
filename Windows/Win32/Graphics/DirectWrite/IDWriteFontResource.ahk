@@ -1,21 +1,20 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\IDWriteFontFile.ahk
 #Include .\DWRITE_FONT_AXIS_VALUE.ahk
 #Include .\DWRITE_FONT_AXIS_RANGE.ahk
 #Include .\IDWriteLocalizedStrings.ahk
 #Include .\IDWriteFontFace5.ahk
 #Include .\IDWriteFontFaceReference1.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Provides axis information for a font resource, and is used to create specific font face instances.
  * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nn-dwrite_3-idwritefontresource
  * @namespace Windows.Win32.Graphics.DirectWrite
- * @version v4.0.30319
  */
-class IDWriteFontResource extends IUnknown{
+class IDWriteFontResource extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -113,7 +112,7 @@ class IDWriteFontResource extends IUnknown{
      * @param {Integer} axisIndex Type: **[UINT32](/windows/win32/winprog/windows-data-types)**
      * 
      * Font axis, from 0 to [GetFontAxisCount](./nf-dwrite_3-idwritefontresource-getfontaxiscount.md) minus 1.
-     * @returns {Integer} Type: **[DWRITE_FONT_AXIS_ATTRIBUTES](./ne-dwrite_3-dwrite_font_axis_attributes.md)**
+     * @returns {DWRITE_FONT_AXIS_ATTRIBUTES} Type: **[DWRITE_FONT_AXIS_ATTRIBUTES](./ne-dwrite_3-dwrite_font_axis_attributes.md)**
      * 
      * The attributes for the given axis, or **DWRITE_FONT_AXIS_ATTRIBUTES_NONE** if *axisIndex* is beyond the font count.
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontresource-getfontaxisattributes
@@ -197,7 +196,7 @@ class IDWriteFontResource extends IUnknown{
      * Creates a font face instance with specific axis values.
      * @remarks
      * The axis values that you provide are permitted to be a subset or superset of all the ones actually supported by the font. Any unspecified axes use their default values: values beyond the ranges are clamped, and any non-varying axes have no effect.
-     * @param {Integer} fontSimulations Type: **[DWRITE_FONT_SIMULATIONS](../dwrite/ne-dwrite-dwrite_font_simulations.md)**
+     * @param {DWRITE_FONT_SIMULATIONS} fontSimulations Type: **[DWRITE_FONT_SIMULATIONS](../dwrite/ne-dwrite-dwrite_font_simulations.md)**
      * 
      * Font face simulation flags for algorithmic emboldening and italicization.
      * @param {Pointer<DWRITE_FONT_AXIS_VALUE>} fontAxisValues Type: **[DWRITE_FONT_AXIS_VALUE](./ns-dwrite_3-dwrite_font_axis_value.md) const \***
@@ -220,7 +219,7 @@ class IDWriteFontResource extends IUnknown{
      * Creates a font face reference with specific axis values.
      * @remarks
      * The axis values that you provide are permitted to be a subset or superset of all the ones actually supported by the font. Any unspecified axes use their default values: values beyond the ranges are clamped, and any non-varying axes have no effect.
-     * @param {Integer} fontSimulations Type: **[DWRITE_FONT_SIMULATIONS](../dwrite/ne-dwrite-dwrite_font_simulations.md)**
+     * @param {DWRITE_FONT_SIMULATIONS} fontSimulations Type: **[DWRITE_FONT_SIMULATIONS](../dwrite/ne-dwrite-dwrite_font_simulations.md)**
      * 
      * Font face simulation flags for algorithmic emboldening and italicization.
      * @param {Pointer<DWRITE_FONT_AXIS_VALUE>} fontAxisValues Type: **[DWRITE_FONT_AXIS_VALUE](./ns-dwrite_3-dwrite_font_axis_value.md) const \***

@@ -8,10 +8,8 @@
  * The region, described by CLIPOBJ, can be enumerated as a series of rectangles.
  * @see https://learn.microsoft.com/windows/win32/api/winddi/ns-winddi-clipobj
  * @namespace Windows.Win32.Devices.Display
- * @version v4.0.30319
  */
-class CLIPOBJ extends Win32Struct
-{
+class CLIPOBJ extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 4
@@ -29,7 +27,7 @@ class CLIPOBJ extends Win32Struct
      * Specifies a <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rectl">RECTL</a> structure that bounds the part of the region that intersects the drawing. If <b>iDComplexity</b> is DC_RECT, then this is the clipping rectangle to be considered.
      * @type {RECTL}
      */
-    rclBounds{
+    rclBounds {
         get {
             if(!this.HasProp("__rclBounds"))
                 this.__rclBounds := RECTL(4, this)
@@ -38,7 +36,6 @@ class CLIPOBJ extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     iDComplexity {
@@ -47,7 +44,6 @@ class CLIPOBJ extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     iFComplexity {
@@ -56,7 +52,6 @@ class CLIPOBJ extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     iMode {

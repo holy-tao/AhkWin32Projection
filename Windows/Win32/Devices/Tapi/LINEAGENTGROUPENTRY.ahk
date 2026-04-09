@@ -5,10 +5,8 @@
  * The LINEAGENTGROUPENTRY structure provides information on ACD agent groups. The LINEAGENTGROUPLIST structure can contain an array of LINEAGENTGROUPENTRY structures.
  * @see https://learn.microsoft.com/windows/win32/api/tapi/ns-tapi-lineagentgroupentry
  * @namespace Windows.Win32.Devices.Tapi
- * @version v4.0.30319
  */
-class LINEAGENTGROUPENTRY extends Win32Struct
-{
+class LINEAGENTGROUPENTRY extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 4
@@ -24,7 +22,7 @@ class LINEAGENTGROUPENTRY extends Win32Struct
             get => NumGet(this, 0, "uint")
             set => NumPut("uint", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -32,7 +30,7 @@ class LINEAGENTGROUPENTRY extends Win32Struct
             get => NumGet(this, 4, "uint")
             set => NumPut("uint", value, this, 4)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -40,7 +38,7 @@ class LINEAGENTGROUPENTRY extends Win32Struct
             get => NumGet(this, 8, "uint")
             set => NumPut("uint", value, this, 8)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -48,17 +46,15 @@ class LINEAGENTGROUPENTRY extends Win32Struct
             get => NumGet(this, 12, "uint")
             set => NumPut("uint", value, this, 12)
         }
-    
     }
 
     /**
-     * 
      * @type {_GroupID}
      */
-    GroupID{
+    GroupID {
         get {
             if(!this.HasProp("__GroupID"))
-                this.__GroupID := %this.__Class%._GroupID(0, this)
+                this.__GroupID := LINEAGENTGROUPENTRY._GroupID(0, this)
             return this.__GroupID
         }
     }

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\GOPHER_TYPE.ahk
 #Include ..\..\Foundation\FILETIME.ahk
 
 /**
@@ -15,11 +16,9 @@
  * > The wininet.h header defines GOPHER_FIND_DATA as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
  * @see https://learn.microsoft.com/windows/win32/api/wininet/ns-wininet-gopher_find_dataa
  * @namespace Windows.Win32.Networking.WinInet
- * @version v4.0.30319
  * @charset ANSI
  */
-class GOPHER_FIND_DATAA extends Win32Struct
-{
+class GOPHER_FIND_DATAA extends Win32Struct {
     static sizeof => 808
 
     static packingSize => 4
@@ -34,8 +33,7 @@ class GOPHER_FIND_DATAA extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Integer}
+     * @type {GOPHER_TYPE}
      */
     GopherType {
         get => NumGet(this, 132, "uint")
@@ -64,7 +62,7 @@ class GOPHER_FIND_DATAA extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> structure that contains the time when the file was last modified.
      * @type {FILETIME}
      */
-    LastModificationTime{
+    LastModificationTime {
         get {
             if(!this.HasProp("__LastModificationTime"))
                 this.__LastModificationTime := FILETIME(144, this)

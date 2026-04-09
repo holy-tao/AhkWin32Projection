@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\USE_INFO_ASG_TYPE.ahk
 
 /**
  * Contains information about the connection between a local device and a shared resource.
@@ -8,10 +9,8 @@
  * <a href="https://docs.microsoft.com/windows/desktop/api/lmuse/nf-lmuse-netuseadd">NetUseAdd</a> function.
  * @see https://learn.microsoft.com/windows/win32/api/lmuse/ns-lmuse-use_info_1
  * @namespace Windows.Win32.NetworkManagement.NetManagement
- * @version v4.0.30319
  */
-class USE_INFO_1 extends Win32Struct
-{
+class USE_INFO_1 extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -157,7 +156,7 @@ class USE_INFO_1 extends Win32Struct
 
     /**
      * Type: <b>DWORD</b>
-     * @type {Integer}
+     * @type {USE_INFO_ASG_TYPE}
      */
     ui1_asg_type {
         get => NumGet(this, 28, "uint")

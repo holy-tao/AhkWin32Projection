@@ -7,9 +7,8 @@
  * To determine the level of support for render passes for a graphics device, pass <a href="../d3d12/ns-d3d12-d3d12_feature_data_d3d12_options5.md">D3D12_FEATURE_DATA_D3D12_OPTIONS5</a> struct.
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/ne-d3d12-d3d12_render_pass_tier
  * @namespace Windows.Win32.Graphics.Direct3D12
- * @version v4.0.30319
  */
-class D3D12_RENDER_PASS_TIER extends Win32Enum{
+class D3D12_RENDER_PASS_TIER extends Win32Enum {
 
     /**
      * The user-mode display driver hasn't implemented render passes, and so the feature is provided only via software emulation. Render passes might not provide a performance advantage at this level of support.

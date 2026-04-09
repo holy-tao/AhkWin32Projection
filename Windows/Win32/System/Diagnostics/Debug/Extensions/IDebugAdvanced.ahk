@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
- * @version v4.0.30319
  */
-class IDebugAdvanced extends IUnknown{
+class IDebugAdvanced extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -36,7 +35,7 @@ class IDebugAdvanced extends IUnknown{
      * You cannot get a valid context for a running thread. Use the [SuspendThread](/windows/desktop/api/processthreadsapi/nf-processthreadsapi-suspendthread) function to suspend the thread before calling **GetThreadContext**.
      * 
      * If you call **GetThreadContext** for the current thread, the function returns successfully; however, the context returned is not valid.
-     * @param {Pointer} _Context 
+     * @param {Integer} _Context 
      * @param {Integer} ContextSize 
      * @returns {HRESULT} If the function succeeds, the return value is nonzero.
      * 
@@ -58,7 +57,7 @@ class IDebugAdvanced extends IUnknown{
      * Do not try to set the context for a running thread; the results are unpredictable. Use the 
      *     <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-suspendthread">SuspendThread</a> function to suspend the thread before 
      *     calling <b>SetThreadContext</b>.
-     * @param {Pointer} _Context 
+     * @param {Integer} _Context 
      * @param {Integer} ContextSize 
      * @returns {HRESULT} If the context was set, the return value is nonzero.
      * 

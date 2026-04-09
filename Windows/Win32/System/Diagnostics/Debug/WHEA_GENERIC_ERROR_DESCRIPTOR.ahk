@@ -1,14 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\WHEA_NOTIFICATION_FLAGS.ahk
 #Include .\WHEA_NOTIFICATION_DESCRIPTOR.ahk
+#Include .\WHEA_NOTIFICATION_FLAGS.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug
- * @version v4.0.30319
  */
-class WHEA_GENERIC_ERROR_DESCRIPTOR extends Win32Struct
-{
+class WHEA_GENERIC_ERROR_DESCRIPTOR extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8
@@ -96,7 +94,7 @@ class WHEA_GENERIC_ERROR_DESCRIPTOR extends Win32Struct
     /**
      * @type {WHEA_NOTIFICATION_DESCRIPTOR}
      */
-    Notify{
+    Notify {
         get {
             if(!this.HasProp("__Notify"))
                 this.__Notify := WHEA_NOTIFICATION_DESCRIPTOR(24, this)

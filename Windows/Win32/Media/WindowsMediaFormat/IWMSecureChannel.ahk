@@ -7,9 +7,8 @@
  * The IWMSecureChannel interface provides methods that allow two DLLs to validate each other and perform secure communication.
  * @see https://learn.microsoft.com/windows/win32/api/wmsecure/nn-wmsecure-iwmsecurechannel
  * @namespace Windows.Win32.Media.WindowsMediaFormat
- * @version v4.0.30319
  */
-class IWMSecureChannel extends IWMAuthorizer{
+class IWMSecureChannel extends IWMAuthorizer {
 
     static sizeof => A_PtrSize
     /**

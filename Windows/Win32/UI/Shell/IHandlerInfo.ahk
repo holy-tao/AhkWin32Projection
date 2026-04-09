@@ -7,9 +7,8 @@
  * Supplies methods that provide information about the handler to methods of the IHandlerActivationHost interface.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-ihandlerinfo
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IHandlerInfo extends IUnknown{
+class IHandlerInfo extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

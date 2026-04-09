@@ -1,14 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Win32\Graphics\Direct3D9\D3DINSTRUCTION.ahk
+#Include ..\..\..\Win32\Graphics\DirectDraw\IDirectDrawSurface.ahk
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
- * @version v4.0.30319
  */
-class D3DHAL_RENDERPRIMITIVEDATA extends Win32Struct
-{
-    static sizeof => 48
+class D3DHAL_RENDERPRIMITIVEDATA extends Win32Struct {
+    static sizeof => 56
 
     static packingSize => 8
 
@@ -61,21 +59,18 @@ class D3DHAL_RENDERPRIMITIVEDATA extends Win32Struct
     }
 
     /**
-     * @type {D3DINSTRUCTION}
+     * @type {Pointer}
      */
-    diInstruction{
-        get {
-            if(!this.HasProp("__diInstruction"))
-                this.__diInstruction := D3DINSTRUCTION(40, this)
-            return this.__diInstruction
-        }
+    diInstruction {
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 
     /**
      * @type {HRESULT}
      */
     ddrval {
-        get => NumGet(this, 44, "int")
-        set => NumPut("int", value, this, 44)
+        get => NumGet(this, 48, "int")
+        set => NumPut("int", value, this, 48)
     }
 }

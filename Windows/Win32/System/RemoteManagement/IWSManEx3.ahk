@@ -7,9 +7,8 @@
  * Extends the methods and properties of the IWSManEx interface to include a method that returns a session flag value related to authentication using the Credential Security Support Provider (CredSSP).
  * @see https://learn.microsoft.com/windows/win32/api/wsmandisp/nn-wsmandisp-iwsmanex3
  * @namespace Windows.Win32.System.RemoteManagement
- * @version v4.0.30319
  */
-class IWSManEx3 extends IWSManEx2{
+class IWSManEx3 extends IWSManEx2 {
 
     static sizeof => A_PtrSize
     /**

@@ -5,10 +5,8 @@
  * Represents the hang monitoring configuration for a COM+ component.
  * @see https://learn.microsoft.com/windows/win32/api/comsvcs/ns-comsvcs-componenthangmonitorinfo
  * @namespace Windows.Win32.System.ComponentServices
- * @version v4.0.30319
  */
-class ComponentHangMonitorInfo extends Win32Struct
-{
+class ComponentHangMonitorInfo extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4

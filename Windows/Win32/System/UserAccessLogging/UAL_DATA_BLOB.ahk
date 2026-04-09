@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Networking\WinSock\SOCKADDR_STORAGE.ahk
+#Include ..\..\Networking\WinSock\ADDRESS_FAMILY.ahk
 
 /**
  * Specifies information about a User Access Logging (UAL) session.
  * @see https://learn.microsoft.com/windows/win32/api/ual/ns-ual-ual_data_blob
  * @namespace Windows.Win32.System.UserAccessLogging
- * @version v4.0.30319
  */
-class UAL_DATA_BLOB extends Win32Struct
-{
-    static sizeof => 792
+class UAL_DATA_BLOB extends Win32Struct {
+    static sizeof => 672
 
     static packingSize => 8
 
@@ -25,7 +24,7 @@ class UAL_DATA_BLOB extends Win32Struct
 
     /**
      * A <a href="https://docs.microsoft.com/windows/win32/api/guiddef/ns-guiddef-guid">GUID</a> structure that represents the role or minor product name associated with a UAL session.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     RoleGuid {
         get => NumGet(this, 8, "ptr")
@@ -34,7 +33,7 @@ class UAL_DATA_BLOB extends Win32Struct
 
     /**
      * A <a href="https://docs.microsoft.com/windows/win32/api/guiddef/ns-guiddef-guid">GUID</a> structure that identifies a tenant of a hosted environment. This can be used to differentiate client tenants when more than one tenant uses the same host service.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     TenantId {
         get => NumGet(this, 16, "ptr")
@@ -45,7 +44,7 @@ class UAL_DATA_BLOB extends Win32Struct
      * The IP address of the client that accompanies the UAL payload from installed roles and products.
      * @type {SOCKADDR_STORAGE}
      */
-    Address{
+    Address {
         get {
             if(!this.HasProp("__Address"))
                 this.__Address := SOCKADDR_STORAGE(24, this)
@@ -58,7 +57,7 @@ class UAL_DATA_BLOB extends Win32Struct
      * @type {String}
      */
     UserName {
-        get => StrGet(this.ptr + 272, 259, "UTF-16")
-        set => StrPut(value, this.ptr + 272, 259, "UTF-16")
+        get => StrGet(this.ptr + 152, 259, "UTF-16")
+        set => StrPut(value, this.ptr + 152, 259, "UTF-16")
     }
 }

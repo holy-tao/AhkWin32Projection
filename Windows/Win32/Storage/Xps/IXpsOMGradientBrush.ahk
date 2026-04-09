@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IXpsOMBrush.ahk
 #Include .\IXpsOMGradientStopCollection.ahk
 #Include .\IXpsOMMatrixTransform.ahk
-#Include .\IXpsOMBrush.ahk
 
 /**
  * This interface describes a gradient that is made up of gradient stops. Classes that inherit from IXpsOMGradientBrush specify different ways of interpreting gradient stops.
@@ -24,9 +24,8 @@
  *  The transform  determines how the resulting gradient is transformed. The visible part of the gradient that is ultimately rendered in the image is determined by the path, stroke, or glyph that is using the gradient brush.
  * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomgradientbrush
  * @namespace Windows.Win32.Storage.Xps
- * @version v4.0.30319
  */
-class IXpsOMGradientBrush extends IXpsOMBrush{
+class IXpsOMGradientBrush extends IXpsOMBrush {
 
     static sizeof => A_PtrSize
     /**
@@ -487,7 +486,7 @@ class IXpsOMGradientBrush extends IXpsOMBrush{
      * Gets the XPS_SPREAD_METHOD value, which describes how the area outside of the gradient region will be rendered.
      * @remarks
      * For more information about different types of spread methods, see <a href="https://docs.microsoft.com/windows/win32/api/xpsobjectmodel/ne-xpsobjectmodel-xps_spread_method">XPS_SPREAD_METHOD</a>.
-     * @returns {Integer} The <a href="https://docs.microsoft.com/windows/win32/api/xpsobjectmodel/ne-xpsobjectmodel-xps_spread_method">XPS_SPREAD_METHOD</a> value that describes how the area outside of the gradient region will be rendered. The gradient region is defined by the linear-gradient brush or radial-gradient brush that inherits this interface.
+     * @returns {XPS_SPREAD_METHOD} The <a href="https://docs.microsoft.com/windows/win32/api/xpsobjectmodel/ne-xpsobjectmodel-xps_spread_method">XPS_SPREAD_METHOD</a> value that describes how the area outside of the gradient region will be rendered. The gradient region is defined by the linear-gradient brush or radial-gradient brush that inherits this interface.
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomgradientbrush-getspreadmethod
      */
     GetSpreadMethod() {
@@ -499,7 +498,7 @@ class IXpsOMGradientBrush extends IXpsOMBrush{
      * Sets the XPS_SPREAD_METHOD value, which describes how the area outside of the gradient region is to be rendered.
      * @remarks
      * For more information about different types of spread methods, see <a href="https://docs.microsoft.com/windows/win32/api/xpsobjectmodel/ne-xpsobjectmodel-xps_spread_method">XPS_SPREAD_METHOD</a>.
-     * @param {Integer} spreadMethod The <a href="https://docs.microsoft.com/windows/win32/api/xpsobjectmodel/ne-xpsobjectmodel-xps_spread_method">XPS_SPREAD_METHOD</a> value that describes how the area outside of the gradient region  is to be rendered. The gradient region is defined by the linear-gradient brush or radial-gradient brush that inherits this interface.
+     * @param {XPS_SPREAD_METHOD} spreadMethod The <a href="https://docs.microsoft.com/windows/win32/api/xpsobjectmodel/ne-xpsobjectmodel-xps_spread_method">XPS_SPREAD_METHOD</a> value that describes how the area outside of the gradient region  is to be rendered. The gradient region is defined by the linear-gradient brush or radial-gradient brush that inherits this interface.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the table that follows. For information about  XPS document API return values that are not listed in this table, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dd372955(v=vs.85)">XPS Document Errors</a>.
      * 
      * <table>
@@ -539,7 +538,7 @@ class IXpsOMGradientBrush extends IXpsOMBrush{
 
     /**
      * Gets the gamma function to be used for color interpolation.
-     * @returns {Integer} The <a href="https://docs.microsoft.com/windows/win32/api/xpsobjectmodel/ne-xpsobjectmodel-xps_color_interpolation">XPS_COLOR_INTERPOLATION</a> value that describes the gamma function to be used for color interpolation.
+     * @returns {XPS_COLOR_INTERPOLATION} The <a href="https://docs.microsoft.com/windows/win32/api/xpsobjectmodel/ne-xpsobjectmodel-xps_color_interpolation">XPS_COLOR_INTERPOLATION</a> value that describes the gamma function to be used for color interpolation.
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomgradientbrush-getcolorinterpolationmode
      */
     GetColorInterpolationMode() {
@@ -549,7 +548,7 @@ class IXpsOMGradientBrush extends IXpsOMBrush{
 
     /**
      * Sets the XPS_COLOR_INTERPOLATION value, which describes the gamma function to be used for color interpolation.
-     * @param {Integer} colorInterpolationMode The <a href="https://docs.microsoft.com/windows/win32/api/xpsobjectmodel/ne-xpsobjectmodel-xps_color_interpolation">XPS_COLOR_INTERPOLATION</a> value, which describes the gamma function to be used for color interpolation.
+     * @param {XPS_COLOR_INTERPOLATION} colorInterpolationMode The <a href="https://docs.microsoft.com/windows/win32/api/xpsobjectmodel/ne-xpsobjectmodel-xps_color_interpolation">XPS_COLOR_INTERPOLATION</a> value, which describes the gamma function to be used for color interpolation.
      * @returns {HRESULT} If the method succeeds, it returns S_OK; otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomgradientbrush-setcolorinterpolationmode
      */

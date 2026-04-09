@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\SYSTEM_POWER_STATE.ahk
 
 /**
  * Represents the administrator override power policy settings.
@@ -13,10 +14,8 @@
  *     <a href="https://docs.microsoft.com/windows/desktop/api/powerbase/nf-powerbase-callntpowerinformation">CallNtPowerInformation</a> function.
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-administrator_power_policy
  * @namespace Windows.Win32.System.Power
- * @version v4.0.30319
  */
-class ADMINISTRATOR_POWER_POLICY extends Win32Struct
-{
+class ADMINISTRATOR_POWER_POLICY extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 4
@@ -26,7 +25,7 @@ class ADMINISTRATOR_POWER_POLICY extends Win32Struct
      *       <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ne-winnt-system_power_state">SYSTEM_POWER_STATE</a> enumeration type values between 
      *       <b>PowerSystemSleeping1</b> (power state S1) and 
      *       <b>PowerSystemHibernate</b> (power state S4).
-     * @type {Integer}
+     * @type {SYSTEM_POWER_STATE}
      */
     MinSleep {
         get => NumGet(this, 0, "int")
@@ -38,7 +37,7 @@ class ADMINISTRATOR_POWER_POLICY extends Win32Struct
      *       <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ne-winnt-system_power_state">SYSTEM_POWER_STATE</a> enumeration type values between 
      *       <b>PowerSystemSleeping1</b> (power state S1) and 
      *       <b>PowerSystemHibernate</b> (power state S4).
-     * @type {Integer}
+     * @type {SYSTEM_POWER_STATE}
      */
     MaxSleep {
         get => NumGet(this, 4, "int")

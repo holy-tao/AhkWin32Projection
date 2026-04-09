@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.SystemInformation
- * @version v4.0.30319
  */
-class OS_PRODUCT_TYPE extends Win32Enum{
+class OS_PRODUCT_TYPE extends Win32Enum {
 
     /**
      * @type {Integer (UInt32)}

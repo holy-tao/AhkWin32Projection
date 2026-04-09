@@ -5,17 +5,15 @@
  * Defines the GUID and name for a provider.
  * @see https://learn.microsoft.com/windows/win32/api/tdh/ns-tdh-trace_provider_info
  * @namespace Windows.Win32.System.Diagnostics.Etw
- * @version v4.0.30319
  */
-class TRACE_PROVIDER_INFO extends Win32Struct
-{
+class TRACE_PROVIDER_INFO extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
 
     /**
      * GUID that uniquely identifies the provider.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     ProviderGuid {
         get => NumGet(this, 0, "ptr")

@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\DML_TENSOR_DESC.ahk
+#Include .\DML_SCALE_BIAS.ahk
 
 /**
  * Computes the reciprocal for each element of the input tensor, placing the result into the corresponding element of the output tensor.
  * @see https://learn.microsoft.com/windows/win32/api/directml/ns-directml-dml_element_wise_recip_operator_desc
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
- * @version v4.0.30319
  */
-class DML_ELEMENT_WISE_RECIP_OPERATOR_DESC extends Win32Struct
-{
+class DML_ELEMENT_WISE_RECIP_OPERATOR_DESC extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

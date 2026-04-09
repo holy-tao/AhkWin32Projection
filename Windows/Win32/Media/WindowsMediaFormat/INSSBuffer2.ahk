@@ -7,9 +7,8 @@
  * The INSSBuffer2 interface inherits from INSSBuffer and defines two additional methods. Currently, neither of these methods is implemented.
  * @see https://learn.microsoft.com/windows/win32/api/wmsbuffer/nn-wmsbuffer-inssbuffer2
  * @namespace Windows.Win32.Media.WindowsMediaFormat
- * @version v4.0.30319
  */
-class INSSBuffer2 extends INSSBuffer{
+class INSSBuffer2 extends INSSBuffer {
 
     static sizeof => A_PtrSize
     /**

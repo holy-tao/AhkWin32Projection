@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
- * @version v4.0.30319
  */
-class DEBUG_LAST_EVENT_INFO_UNLOAD_MODULE extends Win32Struct
-{
+class DEBUG_LAST_EVENT_INFO_UNLOAD_MODULE extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 8

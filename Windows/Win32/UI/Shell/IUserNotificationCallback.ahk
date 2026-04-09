@@ -7,9 +7,8 @@
  * Exposes a method for the handling of a mouse click or shortcut menu access in a notification balloon. Used with IUserNotification2::Show.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nn-shobjidl-iusernotificationcallback
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IUserNotificationCallback extends IUnknown{
+class IUserNotificationCallback extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Security.Authorization
- * @version v4.0.30319
  */
-class AUTHZ_GENERATE_RESULTS extends Win32Enum{
+class AUTHZ_GENERATE_RESULTS extends Win32Enum {
 
     /**
      * @type {Integer (UInt32)}

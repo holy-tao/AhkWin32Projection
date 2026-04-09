@@ -9,9 +9,8 @@
  * Windows 10 (XAudio2.9); Windows 8, Windows Phone 8 (XAudio 2.8); DirectX SDK (XAudio 2.7)
  * @see https://learn.microsoft.com/windows/win32/api/xaudio2/nn-xaudio2-ixaudio2voice
  * @namespace Windows.Win32.Media.Audio.XAudio2
- * @version v4.0.30319
  */
-class IXAudio2Voice extends Win32ComInterface{
+class IXAudio2Voice extends Win32ComInterface {
 
     static sizeof => A_PtrSize
 
@@ -190,7 +189,7 @@ class IXAudio2Voice extends Win32ComInterface{
      * <h3><a id="Platform_Requirements"></a><a id="platform_requirements"></a><a id="PLATFORM_REQUIREMENTS"></a>Platform Requirements</h3>
      * Windows 10 (XAudio2.9); Windows 8, Windows Phone 8 (XAudio 2.8); DirectX SDK (XAudio 2.7)
      * @param {Integer} EffectIndex Zero-based index of an effect within the voice's effect chain.
-     * @param {Pointer} pParameters Returns the current values of the effect-specific parameters.
+     * @param {Integer} pParameters Returns the current values of the effect-specific parameters.
      * @param {Integer} ParametersByteSize Size of the <b>pParameters</b> array in bytes.
      * @param {Integer} OperationSet Identifies this call as part of a deferred batch. See the <a href="https://docs.microsoft.com/windows/desktop/xaudio2/xaudio2-operation-sets">XAudio2 Operation Sets</a> overview for more information.
      * @returns {HRESULT} Returns S_OK if successful; otherwise, an error code. See <a href="https://docs.microsoft.com/windows/desktop/xaudio2/xaudio2-error-codes">XAudio2 Error Codes</a> for descriptions of error codes.
@@ -215,7 +214,7 @@ class IXAudio2Voice extends Win32ComInterface{
      * <h3><a id="Platform_Requirements"></a><a id="platform_requirements"></a><a id="PLATFORM_REQUIREMENTS"></a>Platform Requirements</h3>
      * Windows 10 (XAudio2.9); Windows 8, Windows Phone 8 (XAudio 2.8); DirectX SDK (XAudio 2.7)
      * @param {Integer} EffectIndex Zero-based index of an effect within the voice's effect chain.
-     * @param {Pointer} pParameters Returns the current values of the effect-specific parameters.
+     * @param {Integer} pParameters Returns the current values of the effect-specific parameters.
      * @param {Integer} ParametersByteSize Size, in bytes, of the pParameters array.
      * @returns {HRESULT} Returns S_OK if successful, an error code otherwise. See <a href="https://docs.microsoft.com/windows/desktop/xaudio2/xaudio2-error-codes">XAudio2 Error Codes</a> for descriptions of error codes.
      * 

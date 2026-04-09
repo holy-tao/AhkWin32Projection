@@ -10,10 +10,8 @@
  * An example of a definition of an analog video media type connection would be a connection of NTSC video using "M" color encoding. This would use a major media type of MEDIATYPE_AnalogVideo, a subtype of MEDIASUBTYPE_AnalogVideo_NTSC_M, and a format type of FORMAT_AnalogVideo.
  * @see https://learn.microsoft.com/windows/win32/api/amvideo/ns-amvideo-analogvideoinfo
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class ANALOGVIDEOINFO extends Win32Struct
-{
+class ANALOGVIDEOINFO extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -22,7 +20,7 @@ class ANALOGVIDEOINFO extends Win32Struct
      * Source video rectangle.
      * @type {RECT}
      */
-    rcSource{
+    rcSource {
         get {
             if(!this.HasProp("__rcSource"))
                 this.__rcSource := RECT(0, this)
@@ -34,7 +32,7 @@ class ANALOGVIDEOINFO extends Win32Struct
      * Destination target rectangle.
      * @type {RECT}
      */
-    rcTarget{
+    rcTarget {
         get {
             if(!this.HasProp("__rcTarget"))
                 this.__rcTarget := RECT(16, this)

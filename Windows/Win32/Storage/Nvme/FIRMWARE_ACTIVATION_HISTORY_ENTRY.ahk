@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Storage.Nvme
- * @version v4.0.30319
  */
-class FIRMWARE_ACTIVATION_HISTORY_ENTRY extends Win32Struct
-{
+class FIRMWARE_ACTIVATION_HISTORY_ENTRY extends Win32Struct {
     static sizeof => 72
 
     static packingSize => 8
@@ -108,9 +106,9 @@ class FIRMWARE_ACTIVATION_HISTORY_ENTRY extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Reserved2{
+    Reserved2 {
         get {
             if(!this.HasProp("__Reserved2ProxyArray"))
                 this.__Reserved2ProxyArray := Win32FixedArray(this.ptr + 52, 14, Primitive, "char")

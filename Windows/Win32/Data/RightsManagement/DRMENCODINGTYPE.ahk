@@ -5,9 +5,8 @@
  * The DRMENCODINGTYPE enumeration identifies possible encoding types used in licenses.
  * @see https://learn.microsoft.com/windows/win32/api/msdrmdefs/ne-msdrmdefs-drmencodingtype
  * @namespace Windows.Win32.Data.RightsManagement
- * @version v4.0.30319
  */
-class DRMENCODINGTYPE extends Win32Enum{
+class DRMENCODINGTYPE extends Win32Enum {
 
     /**
      * Base 64 encoded value.

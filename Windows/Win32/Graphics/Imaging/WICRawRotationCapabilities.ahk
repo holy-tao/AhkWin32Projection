@@ -5,9 +5,8 @@
  * Specifies the rotation capabilities of the codec.
  * @see https://learn.microsoft.com/windows/win32/api/wincodec/ne-wincodec-wicrawrotationcapabilities
  * @namespace Windows.Win32.Graphics.Imaging
- * @version v4.0.30319
  */
-class WICRawRotationCapabilities extends Win32Enum{
+class WICRawRotationCapabilities extends Win32Enum {
 
     /**
      * Rotation is not supported.

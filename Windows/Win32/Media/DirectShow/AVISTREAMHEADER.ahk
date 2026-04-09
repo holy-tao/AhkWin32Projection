@@ -1,25 +1,79 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\RECT.ahk
 
 /**
  * The AVISTREAMHEADER structure contains information about one stream in an AVI file.
  * @remarks
  * Some of the members of this structure are also present in the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/aviriff/ns-aviriff-avimainheader">AVIMAINHEADER</a> structure. The data in the <b>AVIMAINHEADER</b> structure applies to the whole file, while the data in the <b>AVISTREAMHEADER</b> structure applies to one stream.
+ *       
  * 
  * The header file Vfw.h defines a <b>AVIStreamHeader</b> structure that is equivalent to this structure, but omits the <b>fcc</b> and <b>cb</b> members.
- * @see https://learn.microsoft.com/windows/win32/api/avifmt/ns-avifmt-avistreamheader
+ * @see https://learn.microsoft.com/windows/win32/api/aviriff/ns-aviriff-avistreamheader
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class AVIStreamHeader extends Win32Struct
-{
+class AVISTREAMHEADER extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 4
 
+    class _rcFrame extends Win32Struct {
+        static sizeof => 8
+        static packingSize => 2
+
+        /**
+         * @type {Integer}
+         */
+        left {
+            get => NumGet(this, 0, "short")
+            set => NumPut("short", value, this, 0)
+        }
+
+        /**
+         * @type {Integer}
+         */
+        top {
+            get => NumGet(this, 2, "short")
+            set => NumPut("short", value, this, 2)
+        }
+
+        /**
+         * @type {Integer}
+         */
+        right {
+            get => NumGet(this, 4, "short")
+            set => NumPut("short", value, this, 4)
+        }
+
+        /**
+         * @type {Integer}
+         */
+        bottom {
+            get => NumGet(this, 6, "short")
+            set => NumPut("short", value, this, 6)
+        }
+    }
+
+    /**
+     * Specifies a FOURCC code. The value must be 'strh'.
+     * @type {Integer}
+     */
+    fcc {
+        get => NumGet(this, 0, "uint")
+        set => NumPut("uint", value, this, 0)
+    }
+
+    /**
+     * Specifies the size of the structure, not including the initial 8 bytes.
+     * @type {Integer}
+     */
+    cb {
+        get => NumGet(this, 4, "uint")
+        set => NumPut("uint", value, this, 4)
+    }
+
     /**
      * Contains a FOURCC that specifies the type of the data contained in the stream. The following standard AVI values for video and audio are defined.
+     *           
      * 
      * <table>
      * <tr>
@@ -70,8 +124,8 @@ class AVIStreamHeader extends Win32Struct
      * @type {Integer}
      */
     fccType {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
+        get => NumGet(this, 8, "uint")
+        set => NumPut("uint", value, this, 8)
     }
 
     /**
@@ -79,12 +133,13 @@ class AVIStreamHeader extends Win32Struct
      * @type {Integer}
      */
     fccHandler {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
+        get => NumGet(this, 12, "uint")
+        set => NumPut("uint", value, this, 12)
     }
 
     /**
      * Contains any flags for the data stream. The bits in the high-order word of these flags are specific to the type of data contained in the stream. The following standard flags are defined.
+     *           
      * 
      * <table>
      * <tr>
@@ -115,8 +170,8 @@ class AVIStreamHeader extends Win32Struct
      * @type {Integer}
      */
     dwFlags {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
+        get => NumGet(this, 16, "uint")
+        set => NumPut("uint", value, this, 16)
     }
 
     /**
@@ -124,8 +179,8 @@ class AVIStreamHeader extends Win32Struct
      * @type {Integer}
      */
     wPriority {
-        get => NumGet(this, 12, "ushort")
-        set => NumPut("ushort", value, this, 12)
+        get => NumGet(this, 20, "ushort")
+        set => NumPut("ushort", value, this, 20)
     }
 
     /**
@@ -133,8 +188,8 @@ class AVIStreamHeader extends Win32Struct
      * @type {Integer}
      */
     wLanguage {
-        get => NumGet(this, 14, "ushort")
-        set => NumPut("ushort", value, this, 14)
+        get => NumGet(this, 22, "ushort")
+        set => NumPut("ushort", value, this, 22)
     }
 
     /**
@@ -142,8 +197,8 @@ class AVIStreamHeader extends Win32Struct
      * @type {Integer}
      */
     dwInitialFrames {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
+        get => NumGet(this, 24, "uint")
+        set => NumPut("uint", value, this, 24)
     }
 
     /**
@@ -151,8 +206,8 @@ class AVIStreamHeader extends Win32Struct
      * @type {Integer}
      */
     dwScale {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
+        get => NumGet(this, 28, "uint")
+        set => NumPut("uint", value, this, 28)
     }
 
     /**
@@ -160,8 +215,8 @@ class AVIStreamHeader extends Win32Struct
      * @type {Integer}
      */
     dwRate {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
+        get => NumGet(this, 32, "uint")
+        set => NumPut("uint", value, this, 32)
     }
 
     /**
@@ -169,8 +224,8 @@ class AVIStreamHeader extends Win32Struct
      * @type {Integer}
      */
     dwStart {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
+        get => NumGet(this, 36, "uint")
+        set => NumPut("uint", value, this, 36)
     }
 
     /**
@@ -178,8 +233,8 @@ class AVIStreamHeader extends Win32Struct
      * @type {Integer}
      */
     dwLength {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
+        get => NumGet(this, 40, "uint")
+        set => NumPut("uint", value, this, 40)
     }
 
     /**
@@ -187,8 +242,8 @@ class AVIStreamHeader extends Win32Struct
      * @type {Integer}
      */
     dwSuggestedBufferSize {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
+        get => NumGet(this, 44, "uint")
+        set => NumPut("uint", value, this, 44)
     }
 
     /**
@@ -196,8 +251,8 @@ class AVIStreamHeader extends Win32Struct
      * @type {Integer}
      */
     dwQuality {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
+        get => NumGet(this, 48, "uint")
+        set => NumPut("uint", value, this, 48)
     }
 
     /**
@@ -205,18 +260,18 @@ class AVIStreamHeader extends Win32Struct
      * @type {Integer}
      */
     dwSampleSize {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
+        get => NumGet(this, 52, "uint")
+        set => NumPut("uint", value, this, 52)
     }
 
     /**
      * Specifies the destination rectangle for a text or video stream within the movie rectangle specified by the <b>dwWidth</b> and <b>dwHeight</b> members of the AVI main header structure. The <b>rcFrame</b> member is typically used in support of multiple video streams. Set this rectangle to the coordinates corresponding to the movie rectangle to update the whole movie rectangle. Units for this member are pixels. The upper-left corner of the destination rectangle is relative to the upper-left corner of the movie rectangle.
-     * @type {RECT}
+     * @type {_rcFrame}
      */
-    rcFrame{
+    rcFrame {
         get {
             if(!this.HasProp("__rcFrame"))
-                this.__rcFrame := RECT(48, this)
+                this.__rcFrame := AVISTREAMHEADER._rcFrame(56, this)
             return this.__rcFrame
         }
     }

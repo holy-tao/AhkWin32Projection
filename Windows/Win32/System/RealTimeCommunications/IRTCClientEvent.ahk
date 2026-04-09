@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IRTCClient.ahk
 #Include ..\Com\IDispatch.ahk
+#Include .\IRTCClient.ahk
 
 /**
  * @namespace Windows.Win32.System.RealTimeCommunications
- * @version v4.0.30319
  */
-class IRTCClientEvent extends IDispatch{
+class IRTCClientEvent extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -30,7 +29,7 @@ class IRTCClientEvent extends IDispatch{
     static VTableNames => ["get_EventType", "get_Client"]
 
     /**
-     * @type {Integer} 
+     * @type {RTC_CLIENT_EVENT_TYPE} 
      */
     EventType {
         get => this.get_EventType()
@@ -45,7 +44,7 @@ class IRTCClientEvent extends IDispatch{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {RTC_CLIENT_EVENT_TYPE} 
      */
     get_EventType() {
         result := ComCall(7, this, "int*", &penEventType := 0, "HRESULT")

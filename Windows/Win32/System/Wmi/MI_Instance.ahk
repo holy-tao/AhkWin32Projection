@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\MI_InstanceFT.ahk
+#Include .\MI_ClassDecl.ahk
 
 /**
  * This structure represents a CIM instance. This object should not be accessed directly. Instead, the MI_Instance_* functions should be used.
  * @see https://learn.microsoft.com/windows/win32/api/mi/ns-mi-mi_instance
  * @namespace Windows.Win32.System.Wmi
- * @version v4.0.30319
  */
-class MI_Instance extends Win32Struct
-{
+class MI_Instance extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 8
@@ -51,9 +51,9 @@ class MI_Instance extends Win32Struct
 
     /**
      * Reserved for internal use.
-     * @type {Array<IntPtr>}
+     * @type {Array<Pointer>}
      */
-    reserved{
+    reserved {
         get {
             if(!this.HasProp("__reservedProxyArray"))
                 this.__reservedProxyArray := Win32FixedArray(this.ptr + 32, 4, Primitive, "ptr")

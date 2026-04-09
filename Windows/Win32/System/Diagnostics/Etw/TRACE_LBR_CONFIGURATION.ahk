@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Etw
- * @version v4.0.30319
  */
-class TRACE_LBR_CONFIGURATION extends Win32BitflagEnum{
+class TRACE_LBR_CONFIGURATION extends Win32BitflagEnum {
 
     /**
      * @type {Integer (Int32)}

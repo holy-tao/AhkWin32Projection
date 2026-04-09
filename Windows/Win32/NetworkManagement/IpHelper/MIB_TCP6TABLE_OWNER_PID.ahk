@@ -14,13 +14,11 @@
  * On the Microsoft Windows Software Development Kit (SDK) released for Windows Vista and later, the organization of header files has changed. This  structure is defined in the <i>Tcpmib.h</i> header file, not in the <i>Iprtrmib.h</i> header file. Note that the <i>Tcpmib.h</i> header file is automatically included in <i>Iprtrmib.h</i>, which is automatically included in the <i>Iphlpapi.h</i> header file. The  <i>Tcpmib.h</i> and <i>Iprtrmib.h</i> header files should never be used directly.
  * @see https://learn.microsoft.com/windows/win32/api/tcpmib/ns-tcpmib-mib_tcp6table_owner_pid
  * @namespace Windows.Win32.NetworkManagement.IpHelper
- * @version v4.0.30319
  */
-class MIB_TCP6TABLE_OWNER_PID extends Win32Struct
-{
-    static sizeof => 16
+class MIB_TCP6TABLE_OWNER_PID extends Win32Struct {
+    static sizeof => 60
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * The number of <a href="https://docs.microsoft.com/windows/desktop/api/tcpmib/ns-tcpmib-mib_tcp6row_owner_pid">MIB_TCP6ROW_OWNER_PID</a> elements in the <b>table</b>.
@@ -33,12 +31,12 @@ class MIB_TCP6TABLE_OWNER_PID extends Win32Struct
 
     /**
      * Array of <a href="https://docs.microsoft.com/windows/desktop/api/tcpmib/ns-tcpmib-mib_tcp6row_owner_pid">MIB_TCP6ROW_OWNER_PID</a> structures returned by a call to <a href="https://docs.microsoft.com/windows/desktop/api/iphlpapi/nf-iphlpapi-getextendedtcptable">GetExtendedTcpTable</a>.
-     * @type {Array<MIB_TCP6ROW_OWNER_PID>}
+     * @type {MIB_TCP6ROW_OWNER_PID}
      */
-    table{
+    table {
         get {
             if(!this.HasProp("__tableProxyArray"))
-                this.__tableProxyArray := Win32FixedArray(this.ptr + 8, 1, MIB_TCP6ROW_OWNER_PID, "")
+                this.__tableProxyArray := Win32FixedArray(this.ptr + 4, 1, MIB_TCP6ROW_OWNER_PID, "")
             return this.__tableProxyArray
         }
     }

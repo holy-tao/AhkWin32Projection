@@ -1,15 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IMarkupContainer.ahk
 #Include .\IHTMLChangeLog.ahk
 #Include .\IHTMLElement.ahk
-#Include .\IMarkupContainer.ahk
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
- * @version v4.0.30319
  */
-class IMarkupContainer2 extends IMarkupContainer{
+class IMarkupContainer2 extends IMarkupContainer {
 
     static sizeof => A_PtrSize
     /**

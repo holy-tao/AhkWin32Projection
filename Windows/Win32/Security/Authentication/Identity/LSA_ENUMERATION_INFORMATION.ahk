@@ -5,10 +5,8 @@
  * The LSA_ENUMERATION_INFORMATION structure is used with the LsaEnumerateAccountsWithUserRight function to return a pointer to a SID.
  * @see https://learn.microsoft.com/windows/win32/api/ntsecapi/ns-ntsecapi-lsa_enumeration_information
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class LSA_ENUMERATION_INFORMATION extends Win32Struct
-{
+class LSA_ENUMERATION_INFORMATION extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 8

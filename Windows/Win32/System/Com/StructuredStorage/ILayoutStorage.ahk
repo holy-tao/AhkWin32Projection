@@ -7,9 +7,8 @@
  * The ILayoutStorage interface enables an application to optimize the layout of its compound files for efficient downloading across a slow link.
  * @see https://learn.microsoft.com/windows/win32/api/objidl/nn-objidl-ilayoutstorage
  * @namespace Windows.Win32.System.Com.StructuredStorage
- * @version v4.0.30319
  */
-class ILayoutStorage extends IUnknown{
+class ILayoutStorage extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

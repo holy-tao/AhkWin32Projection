@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\MENUINFO_MASK.ahk
+#Include .\MENUINFO_STYLE.ahk
 #Include ..\..\Graphics\Gdi\HBRUSH.ahk
 
 /**
  * Contains information about a menu.
  * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-menuinfo
  * @namespace Windows.Win32.UI.WindowsAndMessaging
- * @version v4.0.30319
  */
-class MENUINFO extends Win32Struct
-{
+class MENUINFO extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -27,7 +27,7 @@ class MENUINFO extends Win32Struct
 
     /**
      * Type: <b>DWORD</b>
-     * @type {Integer}
+     * @type {MENUINFO_MASK}
      */
     fMask {
         get => NumGet(this, 4, "uint")
@@ -36,7 +36,7 @@ class MENUINFO extends Win32Struct
 
     /**
      * Type: <b>DWORD</b>
-     * @type {Integer}
+     * @type {MENUINFO_STYLE}
      */
     dwStyle {
         get => NumGet(this, 8, "uint")
@@ -60,7 +60,7 @@ class MENUINFO extends Win32Struct
      * A handle to the brush to be used for the menu's background.
      * @type {HBRUSH}
      */
-    hbrBack{
+    hbrBack {
         get {
             if(!this.HasProp("__hbrBack"))
                 this.__hbrBack := HBRUSH(16, this)

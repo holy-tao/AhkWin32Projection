@@ -3,14 +3,10 @@
 
 /**
  * Contains data about the results of a Device Self-Test operation.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/nvme/ns-nvme-nvme_device_self_test_result_data
  * @namespace Windows.Win32.Storage.Nvme
- * @version v4.0.30319
  */
-class NVME_DEVICE_SELF_TEST_RESULT_DATA extends Win32Struct
-{
+class NVME_DEVICE_SELF_TEST_RESULT_DATA extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -29,7 +25,7 @@ class NVME_DEVICE_SELF_TEST_RESULT_DATA extends Win32Struct
             get => NumGet(this, 0, "char")
             set => NumPut("char", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -37,7 +33,7 @@ class NVME_DEVICE_SELF_TEST_RESULT_DATA extends Win32Struct
             get => (this._bitfield >> 0) & 0xF
             set => this._bitfield := ((value & 0xF) << 0) | (this._bitfield & ~(0xF << 0))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -45,7 +41,6 @@ class NVME_DEVICE_SELF_TEST_RESULT_DATA extends Win32Struct
             get => (this._bitfield >> 4) & 0xF
             set => this._bitfield := ((value & 0xF) << 4) | (this._bitfield & ~(0xF << 4))
         }
-    
     }
 
     class _ValidDiagnostics extends Win32Struct {
@@ -65,7 +60,7 @@ class NVME_DEVICE_SELF_TEST_RESULT_DATA extends Win32Struct
             get => NumGet(this, 0, "char")
             set => NumPut("char", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -73,7 +68,7 @@ class NVME_DEVICE_SELF_TEST_RESULT_DATA extends Win32Struct
             get => (this._bitfield >> 0) & 0x1
             set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -81,7 +76,7 @@ class NVME_DEVICE_SELF_TEST_RESULT_DATA extends Win32Struct
             get => (this._bitfield >> 1) & 0x1
             set => this._bitfield := ((value & 0x1) << 1) | (this._bitfield & ~(0x1 << 1))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -89,7 +84,7 @@ class NVME_DEVICE_SELF_TEST_RESULT_DATA extends Win32Struct
             get => (this._bitfield >> 2) & 0x1
             set => this._bitfield := ((value & 0x1) << 2) | (this._bitfield & ~(0x1 << 2))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -97,7 +92,6 @@ class NVME_DEVICE_SELF_TEST_RESULT_DATA extends Win32Struct
             get => (this._bitfield >> 3) & 0x1
             set => this._bitfield := ((value & 0x1) << 3) | (this._bitfield & ~(0x1 << 3))
         }
-    
     }
 
     class _StatusCodeType extends Win32Struct {
@@ -114,7 +108,7 @@ class NVME_DEVICE_SELF_TEST_RESULT_DATA extends Win32Struct
             get => NumGet(this, 0, "char")
             set => NumPut("char", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -122,17 +116,16 @@ class NVME_DEVICE_SELF_TEST_RESULT_DATA extends Win32Struct
             get => (this._bitfield >> 0) & 0x7
             set => this._bitfield := ((value & 0x7) << 0) | (this._bitfield & ~(0x7 << 0))
         }
-    
     }
 
     /**
      * A **Status** structure containing fields that describe the status of a Device Self-Test operation.
      * @type {_Status}
      */
-    Status{
+    Status {
         get {
             if(!this.HasProp("__Status"))
-                this.__Status := %this.__Class%._Status(0, this)
+                this.__Status := NVME_DEVICE_SELF_TEST_RESULT_DATA._Status(0, this)
             return this.__Status
         }
     }
@@ -150,10 +143,10 @@ class NVME_DEVICE_SELF_TEST_RESULT_DATA extends Win32Struct
      * A **ValidDiagnostics** structure containing fields that indicate the validity of certain parameters in a Device Self-Test operation.
      * @type {_ValidDiagnostics}
      */
-    ValidDiagnostics{
+    ValidDiagnostics {
         get {
             if(!this.HasProp("__ValidDiagnostics"))
-                this.__ValidDiagnostics := %this.__Class%._ValidDiagnostics(2, this)
+                this.__ValidDiagnostics := NVME_DEVICE_SELF_TEST_RESULT_DATA._ValidDiagnostics(2, this)
             return this.__ValidDiagnostics
         }
     }
@@ -198,10 +191,10 @@ class NVME_DEVICE_SELF_TEST_RESULT_DATA extends Win32Struct
      * A Status Code Type (**StatusCodeType**) structure containing fields that contain information about errors and conditions.
      * @type {_StatusCodeType}
      */
-    StatusCodeType{
+    StatusCodeType {
         get {
             if(!this.HasProp("__StatusCodeType"))
-                this.__StatusCodeType := %this.__Class%._StatusCodeType(32, this)
+                this.__StatusCodeType := NVME_DEVICE_SELF_TEST_RESULT_DATA._StatusCodeType(32, this)
             return this.__StatusCodeType
         }
     }

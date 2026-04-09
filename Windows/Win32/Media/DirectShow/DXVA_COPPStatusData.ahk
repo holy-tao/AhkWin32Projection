@@ -5,17 +5,15 @@
  * Contains the result from a Certified Output Protection Protocol (COPP) status request.
  * @see https://learn.microsoft.com/windows/win32/api/dxva9typ/ns-dxva9typ-dxva_coppstatusdata
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class DXVA_COPPStatusData extends Win32Struct
-{
+class DXVA_COPPStatusData extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
 
     /**
      * A 128-bit random number that was passed by the application in the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/ns-strmif-amcoppstatusinput">AMCOPPStatusInput</a> structure.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     rApp {
         get => NumGet(this, 0, "ptr")

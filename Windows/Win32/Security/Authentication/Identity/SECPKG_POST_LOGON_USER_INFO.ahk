@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class SECPKG_POST_LOGON_USER_INFO extends Win32Struct
-{
+class SECPKG_POST_LOGON_USER_INFO extends Win32Struct {
     static sizeof => 20
 
     static packingSize => 4
@@ -23,7 +21,7 @@ class SECPKG_POST_LOGON_USER_INFO extends Win32Struct
     /**
      * @type {LUID}
      */
-    LogonId{
+    LogonId {
         get {
             if(!this.HasProp("__LogonId"))
                 this.__LogonId := LUID(4, this)
@@ -34,7 +32,7 @@ class SECPKG_POST_LOGON_USER_INFO extends Win32Struct
     /**
      * @type {LUID}
      */
-    LinkedLogonId{
+    LinkedLogonId {
         get {
             if(!this.HasProp("__LinkedLogonId"))
                 this.__LinkedLogonId := LUID(12, this)

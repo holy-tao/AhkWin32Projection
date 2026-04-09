@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Graphics\Direct3D12\ID3D12Resource.ahk
+#Include ..\..\Graphics\Dxgi\Common\DXGI_COLOR_SPACE_TYPE.ahk
 
 /**
  * Specifies the parameters for decode output conversion. (D3D12_VIDEO_DECODE_CONVERSION_ARGUMENTS)
@@ -11,10 +13,8 @@
  * The source and destination resolution and format are communicated by the resource properties of decode textures and the output buffer specified in [ID3D12VideoCommandList::DecodeFrame](nf-d3d12video-id3d12videodecodecommandlist-decodeframe.md).
  * @see https://learn.microsoft.com/windows/win32/api/d3d12video/ns-d3d12video-d3d12_video_decode_conversion_arguments
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class D3D12_VIDEO_DECODE_CONVERSION_ARGUMENTS extends Win32Struct
-{
+class D3D12_VIDEO_DECODE_CONVERSION_ARGUMENTS extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -48,7 +48,7 @@ class D3D12_VIDEO_DECODE_CONVERSION_ARGUMENTS extends Win32Struct
 
     /**
      * A value from the [DXGI_COLOR_SPACE_TYPE](/windows/desktop/api/dxgicommon/ne-dxgicommon-dxgi_color_space_type) enumeration specifying the target color space of the output.
-     * @type {Integer}
+     * @type {DXGI_COLOR_SPACE_TYPE}
      */
     OutputColorSpace {
         get => NumGet(this, 20, "int")
@@ -57,7 +57,7 @@ class D3D12_VIDEO_DECODE_CONVERSION_ARGUMENTS extends Win32Struct
 
     /**
      * A value from the [DXGI_COLOR_SPACE_TYPE](/windows/desktop/api/dxgicommon/ne-dxgicommon-dxgi_color_space_type) enumeration specifying the source-decoded color space before conversion.
-     * @type {Integer}
+     * @type {DXGI_COLOR_SPACE_TYPE}
      */
     DecodeColorSpace {
         get => NumGet(this, 24, "int")

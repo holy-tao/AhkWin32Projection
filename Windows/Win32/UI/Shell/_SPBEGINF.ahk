@@ -5,9 +5,8 @@
  * Used by IActionProgress::Begin, these constants specify certain UI operations that are to be enabled or disabled.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/ne-shobjidl_core-_spbeginf
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class _SPBEGINF extends Win32Enum{
+class _SPBEGINF extends Win32Enum {
 
     /**
      * Indicates default progress behavior.

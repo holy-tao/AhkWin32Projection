@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\IFileSystemBindData.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * Extends IFileSystemBindData, which stores file system information for optimizing calls to IShellFolder::ParseDisplayName. This interface adds the ability set or get file ID or junction class identifier (CLSID).
@@ -34,9 +35,8 @@
  *  Next the implementer calls one of the <b>Get</b> methods listed above to retrieve the parameters.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-ifilesystembinddata2
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IFileSystemBindData2 extends IFileSystemBindData{
+class IFileSystemBindData2 extends IFileSystemBindData {
 
     static sizeof => A_PtrSize
     /**

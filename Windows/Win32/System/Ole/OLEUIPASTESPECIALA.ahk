@@ -1,8 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\PASTE_SPECIAL_FLAGS.ahk
 #Include ..\..\Foundation\HWND.ahk
 #Include ..\..\Foundation\HINSTANCE.ahk
 #Include ..\..\Foundation\HRSRC.ahk
+#Include ..\Com\IDataObject.ahk
+#Include .\OLEUIPASTEENTRYA.ahk
 #Include ..\..\Foundation\HGLOBAL.ahk
 #Include ..\..\Foundation\SIZE.ahk
 
@@ -13,11 +16,9 @@
  * > The oledlg.h header defines OLEUIPASTESPECIAL as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
  * @see https://learn.microsoft.com/windows/win32/api/oledlg/ns-oledlg-oleuipastespeciala
  * @namespace Windows.Win32.System.Ole
- * @version v4.0.30319
  * @charset ANSI
  */
-class OLEUIPASTESPECIALA extends Win32Struct
-{
+class OLEUIPASTESPECIALA extends Win32Struct {
     static sizeof => 136
 
     static packingSize => 8
@@ -126,7 +127,7 @@ class OLEUIPASTESPECIALA extends Win32Struct
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
+     * @type {PASTE_SPECIAL_FLAGS}
      */
     dwFlags {
         get => NumGet(this, 4, "uint")
@@ -137,7 +138,7 @@ class OLEUIPASTESPECIALA extends Win32Struct
      * The window that owns the dialog box. This member should not be <b>NULL</b>.
      * @type {HWND}
      */
-    hWndOwner{
+    hWndOwner {
         get {
             if(!this.HasProp("__hWndOwner"))
                 this.__hWndOwner := HWND(8, this)
@@ -176,7 +177,7 @@ class OLEUIPASTESPECIALA extends Win32Struct
      * Instance that contains a dialog box template specified by the <b>lpTemplateName</b> member.
      * @type {HINSTANCE}
      */
-    hInstance{
+    hInstance {
         get {
             if(!this.HasProp("__hInstance"))
                 this.__hInstance := HINSTANCE(40, this)
@@ -197,7 +198,7 @@ class OLEUIPASTESPECIALA extends Win32Struct
      * Customized template handle.
      * @type {HRSRC}
      */
-    hResource{
+    hResource {
         get {
             if(!this.HasProp("__hResource"))
                 this.__hResource := HRSRC(56, this)
@@ -290,7 +291,7 @@ class OLEUIPASTESPECIALA extends Win32Struct
      * Handle to the Metafile containing the icon and icon title selected by the user. This member is filled on output.
      * @type {HGLOBAL}
      */
-    hMetaPict{
+    hMetaPict {
         get {
             if(!this.HasProp("__hMetaPict"))
                 this.__hMetaPict := HGLOBAL(120, this)
@@ -302,7 +303,7 @@ class OLEUIPASTESPECIALA extends Win32Struct
      * The size of object as displayed in its source, if the display aspect chosen by the user matches the aspect displayed in the source. If the user chooses a different aspect, then <b>sizel.cx</b> and <b>sizel.cy</b> are both set to zero. The size of the object as it is displayed in the source is retrieved from the ObjectDescriptor if <b>fLink</b> is <b>FALSE</b> and from the LinkSrcDescriptor if <b>fLink</b> is <b>TRUE</b>. This member is filled on output.
      * @type {SIZE}
      */
-    sizel{
+    sizel {
         get {
             if(!this.HasProp("__sizel"))
                 this.__sizel := SIZE(128, this)

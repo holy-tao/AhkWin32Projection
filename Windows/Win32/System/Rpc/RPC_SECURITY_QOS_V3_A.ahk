@@ -1,5 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\RPC_C_QOS_CAPABILITIES.ahk
+#Include .\RPC_C_QOS_IDENTITY.ahk
+#Include ..\Com\RPC_C_IMP_LEVEL.ahk
+#Include .\RPC_C_AUTHN_INFO_TYPE.ahk
+#Include .\RPC_HTTP_TRANSPORT_CREDENTIALS_A.ahk
 
 /**
  * The RPC_SECURITY_QOS_V3 structure defines version 3 security quality-of-service settings on a binding handle. See Remarks for version availability on Windows editions. (ANSI)
@@ -28,11 +33,9 @@
  * <div> </div>
  * @see https://learn.microsoft.com/windows/win32/api/rpcdce/ns-rpcdce-rpc_security_qos_v3_a
  * @namespace Windows.Win32.System.Rpc
- * @version v4.0.30319
  * @charset ANSI
  */
-class RPC_SECURITY_QOS_V3_A extends Win32Struct
-{
+class RPC_SECURITY_QOS_V3_A extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -48,7 +51,6 @@ class RPC_SECURITY_QOS_V3_A extends Win32Struct
             get => NumGet(this, 0, "ptr")
             set => NumPut("ptr", value, this, 0)
         }
-    
     }
 
     /**
@@ -135,7 +137,7 @@ class RPC_SECURITY_QOS_V3_A extends Win32Struct
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
+     * @type {RPC_C_QOS_CAPABILITIES}
      */
     Capabilities {
         get => NumGet(this, 4, "uint")
@@ -173,7 +175,7 @@ class RPC_SECURITY_QOS_V3_A extends Win32Struct
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
+     * @type {RPC_C_QOS_IDENTITY}
      */
     IdentityTracking {
         get => NumGet(this, 8, "uint")
@@ -243,7 +245,7 @@ class RPC_SECURITY_QOS_V3_A extends Win32Struct
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
+     * @type {RPC_C_IMP_LEVEL}
      */
     ImpersonationType {
         get => NumGet(this, 12, "uint")
@@ -279,7 +281,7 @@ class RPC_SECURITY_QOS_V3_A extends Win32Struct
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
+     * @type {RPC_C_AUTHN_INFO_TYPE}
      */
     AdditionalSecurityInfoType {
         get => NumGet(this, 16, "uint")
@@ -287,13 +289,12 @@ class RPC_SECURITY_QOS_V3_A extends Win32Struct
     }
 
     /**
-     * 
      * @type {_u_e__Union}
      */
-    u{
+    u {
         get {
             if(!this.HasProp("__u"))
-                this.__u := %this.__Class%._u_e__Union(24, this)
+                this.__u := RPC_SECURITY_QOS_V3_A._u_e__Union(24, this)
             return this.__u
         }
     }

@@ -1,15 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\SETTINGSTATUS.ahk
 #Include ..\..\Foundation\SYSTEMTIME.ahk
 
 /**
  * The POLICYSETTINGSTATUSINFO structure provides information about a policy-setting event.
  * @see https://learn.microsoft.com/windows/win32/api/userenv/ns-userenv-policysettingstatusinfo
  * @namespace Windows.Win32.System.GroupPolicy
- * @version v4.0.30319
  */
-class POLICYSETTINGSTATUSINFO extends Win32Struct
-{
+class POLICYSETTINGSTATUSINFO extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8
@@ -61,8 +60,7 @@ class POLICYSETTINGSTATUSINFO extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Integer}
+     * @type {SETTINGSTATUS}
      */
     status {
         get => NumGet(this, 32, "int")
@@ -74,7 +72,7 @@ class POLICYSETTINGSTATUSINFO extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-systemtime">SYSTEMTIME</a> structure that indicates the time at which the source generated the event.
      * @type {SYSTEMTIME}
      */
-    timeLogged{
+    timeLogged {
         get {
             if(!this.HasProp("__timeLogged"))
                 this.__timeLogged := SYSTEMTIME(36, this)

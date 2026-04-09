@@ -9,11 +9,10 @@
  * > The richedit.h header defines FINDTEXTEX as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
  * @see https://learn.microsoft.com/windows/win32/api/richedit/ns-richedit-findtextexa
  * @namespace Windows.Win32.UI.Controls.RichEdit
- * @version v4.0.30319
  * @charset ANSI
+ * @architecture X64, Arm64
  */
-class FINDTEXTEXA extends Win32Struct
-{
+class FINDTEXTEXA extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -24,7 +23,7 @@ class FINDTEXTEXA extends Win32Struct
      * The range of characters to search. To search forward in the entire control, set <b>cpMin</b> to 0 and <b>cpMax</b> to -1.
      * @type {CHARRANGE}
      */
-    chrg{
+    chrg {
         get {
             if(!this.HasProp("__chrg"))
                 this.__chrg := CHARRANGE(0, this)
@@ -49,7 +48,7 @@ class FINDTEXTEXA extends Win32Struct
      * The range of characters in which the text was found. If the text was not found, <b>cpMin</b> and <b>cpMax</b> are -1.
      * @type {CHARRANGE}
      */
-    chrgText{
+    chrgText {
         get {
             if(!this.HasProp("__chrgText"))
                 this.__chrgText := CHARRANGE(16, this)

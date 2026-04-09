@@ -7,9 +7,8 @@
  * Returns error information.
  * @see https://learn.microsoft.com/windows/win32/api/oaidl/nn-oaidl-icreateerrorinfo
  * @namespace Windows.Win32.System.Ole
- * @version v4.0.30319
  */
-class ICreateErrorInfo extends IUnknown{
+class ICreateErrorInfo extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

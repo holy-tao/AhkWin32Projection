@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
-#Include .\IDataModelScriptDebugBreakpoint.ahk
 #Include .\IDataModelScriptDebug.ahk
+#Include .\IDataModelScriptDebugBreakpoint.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
- * @version v4.0.30319
  */
-class IDataModelScriptDebug2 extends IDataModelScriptDebug{
+class IDataModelScriptDebug2 extends IDataModelScriptDebug {
 
     static sizeof => A_PtrSize
     /**

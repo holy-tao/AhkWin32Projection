@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Media.Audio.DirectSound
- * @version v4.0.30319
  */
-class IDirectSoundBuffer8 extends IDirectSoundBuffer{
+class IDirectSoundBuffer8 extends IDirectSoundBuffer {
 
     static sizeof => A_PtrSize
     /**

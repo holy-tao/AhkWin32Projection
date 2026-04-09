@@ -6,11 +6,9 @@
  * Used as input to the FSCTL_FILE_LEVEL_TRIM control code.
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-file_level_trim
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class FILE_LEVEL_TRIM extends Win32Struct
-{
-    static sizeof => 16
+class FILE_LEVEL_TRIM extends Win32Struct {
+    static sizeof => 24
 
     static packingSize => 8
 
@@ -37,9 +35,9 @@ class FILE_LEVEL_TRIM extends Win32Struct
 
     /**
      * Array of ranges that describe the portions of the file that are to be trimmed.
-     * @type {Array<FILE_LEVEL_TRIM_RANGE>}
+     * @type {FILE_LEVEL_TRIM_RANGE}
      */
-    Ranges{
+    Ranges {
         get {
             if(!this.HasProp("__RangesProxyArray"))
                 this.__RangesProxyArray := Win32FixedArray(this.ptr + 8, 1, FILE_LEVEL_TRIM_RANGE, "")

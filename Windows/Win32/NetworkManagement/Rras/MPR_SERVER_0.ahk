@@ -5,10 +5,8 @@
  * The MPR_SERVER_0 structure is used to retrieve information about a device.
  * @see https://learn.microsoft.com/windows/win32/api/mprapi/ns-mprapi-mpr_server_0
  * @namespace Windows.Win32.NetworkManagement.Rras
- * @version v4.0.30319
  */
-class MPR_SERVER_0 extends Win32Struct
-{
+class MPR_SERVER_0 extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4

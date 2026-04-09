@@ -7,9 +7,8 @@
  * Provides access to rendering features that help with application debugging and performance tuning. This interface can be queried from the DirectComposition device interface.
  * @see https://learn.microsoft.com/windows/win32/api/dcomp/nn-dcomp-idcompositiondevicedebug
  * @namespace Windows.Win32.Graphics.DirectComposition
- * @version v4.0.30319
  */
-class IDCompositionDeviceDebug extends IUnknown{
+class IDCompositionDeviceDebug extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

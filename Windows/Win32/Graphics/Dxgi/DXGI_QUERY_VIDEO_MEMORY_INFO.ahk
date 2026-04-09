@@ -9,10 +9,8 @@
  * Refer to the remarks for <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_memory_pool">D3D12_MEMORY_POOL</a>.
  * @see https://learn.microsoft.com/windows/win32/api/dxgi1_4/ns-dxgi1_4-dxgi_query_video_memory_info
  * @namespace Windows.Win32.Graphics.Dxgi
- * @version v4.0.30319
  */
-class DXGI_QUERY_VIDEO_MEMORY_INFO extends Win32Struct
-{
+class DXGI_QUERY_VIDEO_MEMORY_INFO extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8

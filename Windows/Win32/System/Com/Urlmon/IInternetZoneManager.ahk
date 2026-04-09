@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.Com.Urlmon
- * @version v4.0.30319
  */
-class IInternetZoneManager extends IUnknown{
+class IInternetZoneManager extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -56,7 +55,7 @@ class IInternetZoneManager extends IUnknown{
      * @param {Pointer<Guid>} guidKey 
      * @param {Pointer<Pointer<Integer>>} ppPolicy 
      * @param {Pointer<Integer>} pcbPolicy 
-     * @param {Integer} _urlZoneReg 
+     * @param {URLZONEREG} _urlZoneReg 
      * @returns {HRESULT} 
      */
     GetZoneCustomPolicy(dwZone, guidKey, ppPolicy, pcbPolicy, _urlZoneReg) {
@@ -73,7 +72,7 @@ class IInternetZoneManager extends IUnknown{
      * @param {Pointer<Guid>} guidKey 
      * @param {Pointer<Integer>} pPolicy 
      * @param {Integer} cbPolicy 
-     * @param {Integer} _urlZoneReg 
+     * @param {URLZONEREG} _urlZoneReg 
      * @returns {HRESULT} 
      */
     SetZoneCustomPolicy(dwZone, guidKey, pPolicy, cbPolicy, _urlZoneReg) {
@@ -88,7 +87,7 @@ class IInternetZoneManager extends IUnknown{
      * @param {Integer} dwZone 
      * @param {Integer} dwAction 
      * @param {Integer} cbPolicy 
-     * @param {Integer} _urlZoneReg 
+     * @param {URLZONEREG} _urlZoneReg 
      * @returns {Integer} 
      */
     GetZoneActionPolicy(dwZone, dwAction, cbPolicy, _urlZoneReg) {
@@ -102,7 +101,7 @@ class IInternetZoneManager extends IUnknown{
      * @param {Integer} dwAction 
      * @param {Pointer<Integer>} pPolicy 
      * @param {Integer} cbPolicy 
-     * @param {Integer} _urlZoneReg 
+     * @param {URLZONEREG} _urlZoneReg 
      * @returns {HRESULT} 
      */
     SetZoneActionPolicy(dwZone, dwAction, pPolicy, cbPolicy, _urlZoneReg) {

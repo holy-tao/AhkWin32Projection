@@ -5,10 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.Bluetooth
- * @version v4.0.30319
  */
-class HBLUETOOTH_DEVICE_FIND extends Win32Handle
-{
+class HBLUETOOTH_DEVICE_FIND extends Win32Handle {
     static sizeof => 8
 
     static packingSize => 8

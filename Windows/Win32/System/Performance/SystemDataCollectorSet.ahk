@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Performance
- * @version v4.0.30319
  */
-class SystemDataCollectorSet extends Win32Struct
-{
+class SystemDataCollectorSet extends Win32Struct {
     static sizeof => 0
 
     static packingSize => 1

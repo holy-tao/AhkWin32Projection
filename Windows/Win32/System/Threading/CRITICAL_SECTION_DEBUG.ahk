@@ -1,13 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\CRITICAL_SECTION.ahk
 #Include ..\Kernel\LIST_ENTRY.ahk
 
 /**
  * @namespace Windows.Win32.System.Threading
- * @version v4.0.30319
  */
-class CRITICAL_SECTION_DEBUG extends Win32Struct
-{
+class CRITICAL_SECTION_DEBUG extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -39,7 +38,7 @@ class CRITICAL_SECTION_DEBUG extends Win32Struct
     /**
      * @type {LIST_ENTRY}
      */
-    ProcessLocksList{
+    ProcessLocksList {
         get {
             if(!this.HasProp("__ProcessLocksList"))
                 this.__ProcessLocksList := LIST_ENTRY(16, this)

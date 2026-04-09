@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.UI.Input
- * @version v4.0.30319
  */
-class HRAWINPUT extends Win32Handle
-{
+class HRAWINPUT extends Win32Handle {
     static sizeof => 8
 
     static packingSize => 8

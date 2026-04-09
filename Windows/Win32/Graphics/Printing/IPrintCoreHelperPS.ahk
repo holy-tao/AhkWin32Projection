@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
- * @version v4.0.30319
  */
-class IPrintCoreHelperPS extends IPrintCoreHelper{
+class IPrintCoreHelperPS extends IPrintCoreHelper {
 
     static sizeof => A_PtrSize
     /**

@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D9
- * @version v4.0.30319
  */
-class D3DFINDDEVICESEARCH extends Win32Struct
-{
+class D3DFINDDEVICESEARCH extends Win32Struct {
     static sizeof => 88
 
     static packingSize => 8
@@ -45,7 +43,7 @@ class D3DFINDDEVICESEARCH extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     guid {
         get => NumGet(this, 16, "ptr")
@@ -63,7 +61,7 @@ class D3DFINDDEVICESEARCH extends Win32Struct
     /**
      * @type {D3DPRIMCAPS}
      */
-    dpcPrimCaps{
+    dpcPrimCaps {
         get {
             if(!this.HasProp("__dpcPrimCaps"))
                 this.__dpcPrimCaps := D3DPRIMCAPS(28, this)

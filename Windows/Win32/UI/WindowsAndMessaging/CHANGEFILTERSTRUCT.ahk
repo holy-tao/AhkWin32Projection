@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\MSGFLTINFO_STATUS.ahk
 
 /**
  * Contains extended result information obtained by calling the ChangeWindowMessageFilterEx function.
@@ -99,10 +100,8 @@
  * </table>
  * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-changefilterstruct
  * @namespace Windows.Win32.UI.WindowsAndMessaging
- * @version v4.0.30319
  */
-class CHANGEFILTERSTRUCT extends Win32Struct
-{
+class CHANGEFILTERSTRUCT extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4
@@ -121,7 +120,7 @@ class CHANGEFILTERSTRUCT extends Win32Struct
 
     /**
      * Type: <b>DWORD</b>
-     * @type {Integer}
+     * @type {MSGFLTINFO_STATUS}
      */
     ExtStatus {
         get => NumGet(this, 4, "uint")

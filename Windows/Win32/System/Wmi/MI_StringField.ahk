@@ -5,10 +5,8 @@
  * Represents a property inside an MI_Instance structure. (MI_StringField)
  * @see https://learn.microsoft.com/windows/win32/api/mi/ns-mi-mi_stringfield
  * @namespace Windows.Win32.System.Wmi
- * @version v4.0.30319
  */
-class MI_StringField extends Win32Struct
-{
+class MI_StringField extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

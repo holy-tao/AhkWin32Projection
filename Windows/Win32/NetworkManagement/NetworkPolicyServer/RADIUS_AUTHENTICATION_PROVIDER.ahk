@@ -9,9 +9,8 @@
  * <b>RADIUS_AUTHENTICATION_PROVIDER</b> enumeration type.
  * @see https://learn.microsoft.com/windows/win32/api/authif/ne-authif-radius_authentication_provider
  * @namespace Windows.Win32.NetworkManagement.NetworkPolicyServer
- * @version v4.0.30319
  */
-class RADIUS_AUTHENTICATION_PROVIDER extends Win32Enum{
+class RADIUS_AUTHENTICATION_PROVIDER extends Win32Enum {
 
     /**
      * The authentication provider is unknown.

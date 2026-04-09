@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\FWP_BYTE_BLOB.ahk
+#Include .\IKEEXT_CERT_EKUS0.ahk
+#Include .\IKEEXT_CERT_NAME0.ahk
 
 /**
  * Contains a set of criteria to applied to an authentication method.
@@ -8,10 +10,8 @@
  * The <b>certData</b> member refers to the encoded name of the root certificate, while the <b>certHash</b>, <b>eku</b>, and <b>name</b> members refer to criteria on the end certificate.
  * @see https://learn.microsoft.com/windows/win32/api/iketypes/ns-iketypes-ikeext_certificate_criteria0
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
- * @version v4.0.30319
  */
-class IKEEXT_CERTIFICATE_CRITERIA0 extends Win32Struct
-{
+class IKEEXT_CERTIFICATE_CRITERIA0 extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8
@@ -23,7 +23,7 @@ class IKEEXT_CERTIFICATE_CRITERIA0 extends Win32Struct
      *    specifying Enterprise or trusted root store config.
      * @type {FWP_BYTE_BLOB}
      */
-    certData{
+    certData {
         get {
             if(!this.HasProp("__certData"))
                 this.__certData := FWP_BYTE_BLOB(0, this)
@@ -37,7 +37,7 @@ class IKEEXT_CERTIFICATE_CRITERIA0 extends Win32Struct
      *   16-character hexadecimal string that represents the ID, thumbprint or HASH of the end certificate.
      * @type {FWP_BYTE_BLOB}
      */
-    certHash{
+    certHash {
         get {
             if(!this.HasProp("__certHash"))
                 this.__certHash := FWP_BYTE_BLOB(16, this)

@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ISecurityCallContext.ahk
 #Include ..\Com\IDispatch.ahk
+#Include .\ISecurityCallContext.ahk
 
 /**
  * Retrieves a reference to an object created from the SecurityCallContext class that is associated with the current call. (IGetSecurityCallContext)
  * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nn-comsvcs-igetsecuritycallcontext
  * @namespace Windows.Win32.System.ComponentServices
- * @version v4.0.30319
  */
-class IGetSecurityCallContext extends IDispatch{
+class IGetSecurityCallContext extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

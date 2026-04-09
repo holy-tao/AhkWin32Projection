@@ -1,14 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\IKEEXT_CERT_CONFIG_TYPE.ahk
+#Include .\IKEEXT_CERT_ROOT_CONFIG0.ahk
+#Include .\IKEEXT_CERT_AUTH.ahk
 
 /**
  * Is used to specify various parameters for authentication with certificates. (IKEEXT_CERTIFICATE_AUTHENTICATION0)
  * @see https://learn.microsoft.com/windows/win32/api/iketypes/ns-iketypes-ikeext_certificate_authentication0
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
- * @version v4.0.30319
  */
-class IKEEXT_CERTIFICATE_AUTHENTICATION0 extends Win32Struct
-{
+class IKEEXT_CERTIFICATE_AUTHENTICATION0 extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8
@@ -17,7 +18,7 @@ class IKEEXT_CERTIFICATE_AUTHENTICATION0 extends Win32Struct
      * Certificate configuration type for inbound peer certificate verification.
      * 
      * See [IKEEXT_CERT_CONFIG_TYPE](/windows/desktop/api/iketypes/ne-iketypes-ikeext_cert_config_type) for more information.
-     * @type {Integer}
+     * @type {IKEEXT_CERT_CONFIG_TYPE}
      */
     inboundConfigType {
         get => NumGet(this, 0, "int")
@@ -60,7 +61,7 @@ class IKEEXT_CERTIFICATE_AUTHENTICATION0 extends Win32Struct
      * Certificate configuration type for outbound local certificate verification.
      * 
      * See [IKEEXT_CERT_CONFIG_TYPE](/windows/desktop/api/iketypes/ne-iketypes-ikeext_cert_config_type) for more information.
-     * @type {Integer}
+     * @type {IKEEXT_CERT_CONFIG_TYPE}
      */
     outboundConfigType {
         get => NumGet(this, 24, "int")
@@ -100,8 +101,7 @@ class IKEEXT_CERTIFICATE_AUTHENTICATION0 extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Integer}
+     * @type {IKEEXT_CERT_AUTH}
      */
     flags {
         get => NumGet(this, 48, "uint")

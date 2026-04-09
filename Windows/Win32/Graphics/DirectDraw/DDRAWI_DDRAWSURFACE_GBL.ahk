@@ -1,13 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\ACCESSRECTLIST.ahk
+#Include .\VMEMHEAP.ahk
+#Include .\DDRAWI_DIRECTDRAW_GBL.ahk
 #Include .\DDPIXELFORMAT.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw
- * @version v4.0.30319
  */
-class DDRAWI_DDRAWSURFACE_GBL extends Win32Struct
-{
+class DDRAWI_DDRAWSURFACE_GBL extends Win32Struct {
     static sizeof => 104
 
     static packingSize => 8
@@ -143,7 +144,7 @@ class DDRAWI_DDRAWSURFACE_GBL extends Win32Struct
     /**
      * @type {DDPIXELFORMAT}
      */
-    ddpfSurface{
+    ddpfSurface {
         get {
             if(!this.HasProp("__ddpfSurface"))
                 this.__ddpfSurface := DDPIXELFORMAT(72, this)

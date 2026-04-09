@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.Wmi
- * @version v4.0.30319
  */
-class IWbemTransport extends IUnknown{
+class IWbemTransport extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

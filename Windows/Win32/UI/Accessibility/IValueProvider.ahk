@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * Provides access to controls that have an intrinsic value that does not span a range, and that can be represented as a string.
@@ -13,9 +13,8 @@
  * Implemented on a Microsoft UI Automation provider that must support the <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-implementingvalue">Value</a> control pattern.
  * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nn-uiautomationcore-ivalueprovider
  * @namespace Windows.Win32.UI.Accessibility
- * @version v4.0.30319
  */
-class IValueProvider extends IUnknown{
+class IValueProvider extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -62,7 +61,9 @@ class IValueProvider extends IUnknown{
      *         if the value of any of the items is editable, regardless of the current edit 
      *         mode of the control. The parent control must also implement <b>IValueProvider</b> 
      *         if the child items are editable.
-     * @param {PWSTR} _val 
+     * @param {PWSTR} _val Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCWSTR</a></b>
+     * 
+     * The value to set. The provider is responsible for converting the value to the appropriate data type.
      * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.

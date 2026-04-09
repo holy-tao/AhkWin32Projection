@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Storage.Cabinets
- * @version v4.0.30319
  */
-class FDIDECRYPTTYPE extends Win32Enum{
+class FDIDECRYPTTYPE extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

@@ -9,9 +9,8 @@
  * For Windows Driver Model (WDM) devices, the <a href="https://docs.microsoft.com/windows/desktop/DirectShow/wdm-video-capture-filter">WDM Video Capture Filter</a> automatically exposes this interface if the WDM driver supports the <a href="https://docs.microsoft.com/windows-hardware/drivers/stream/propsetid-vidcap-videocompression">PROPSETID_VIDCAP_VIDEOCOMPRESSION</a> property set. For more information, see the <a href="https://docs.microsoft.com/windows-hardware/drivers/gettingstarted/">Windows Driver Kit (WDK)</a> documentation.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-iamvideocompression
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IAMVideoCompression extends IUnknown{
+class IAMVideoCompression extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -122,7 +121,7 @@ class IAMVideoCompression extends IUnknown{
      * The put_Quality method sets the compression quality.
      * @remarks
      * To determine if the filter supports this method, call the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nf-strmif-iamvideocompression-getinfo">IAMVideoCompression::GetInfo</a> method and check for the <b>CompressionCaps_CanQuality</b> flag in the <i>pCapabilities</i> parameter. The <b>GetInfo</b> method also returns the default quality.
-     * @param {Float} _Quality 
+     * @param {Float} _Quality Specifies the quality as a value between 0.0 and 1.0, where 1.0 indicates the best quality and 0.0 indicates the worst quality. If the value is negative, the filter will use the default quality.
      * @returns {HRESULT} Returns an <b>HRESULT</b> value.
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamvideocompression-put_quality
      */
@@ -207,9 +206,9 @@ class IAMVideoCompression extends IUnknown{
      * The <i>pCapabilities</i> parameter receives a set of flags indicating which compression properties are supported, and thus which <b>IAMVideoCompression</b> methods are supported. For example, if the <b>CompressionCaps_CanKeyFrame</b> flag is returned, it the filter supports the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nf-strmif-iamvideocompression-get_keyframerate">IAMVideoCompression::get_KeyFrameRate</a> and <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nf-strmif-iamvideocompression-put_keyframerate">IAMVideoCompression::put_KeyFrameRate</a> methods.
      * 
      * The remaining parameters receive default values for the compression properties. For unsupported properties (as determined by the flags returned in <i>pCapabilities</i>), you should ignore the corresponding default value, as it may not be correct or meaningful.
-     * @param {Pointer} pszVersion Pointer to a buffer that receives a version string, such as "Version 2.1.0."
+     * @param {Integer} pszVersion Pointer to a buffer that receives a version string, such as "Version 2.1.0."
      * @param {Pointer<Integer>} pcbVersion Receives the size of the version string, in bytes.
-     * @param {Pointer} pszDescription Pointer to a buffer that receives a description string, such as "My Video Compressor."
+     * @param {Integer} pszDescription Pointer to a buffer that receives a description string, such as "My Video Compressor."
      * @param {Pointer<Integer>} pcbDescription Receives the size of the description string, in bytes.
      * @param {Pointer<Integer>} pDefaultKeyFrameRate Receives the default key-frame rate.
      * @param {Pointer<Integer>} pDefaultPFramesPerKey Receives the default rate of predicted (P) frames per key frame.
@@ -277,7 +276,7 @@ class IAMVideoCompression extends IUnknown{
      * @remarks
      * If the filter supports this method, the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nf-strmif-iamvideocompression-getinfo">IAMVideoCompression::GetInfo</a> method will return the <b>CompressionCaps_CanCrunch</b> flag in the <i>pCapabilities</i> parameter. However, this flag can also indicate that the filter supports setting the bit rate, so it does not guarantee that the <c>OverrideFrameSize</c> method is supported.
      * @param {Integer} FrameNumber Specifies the frame number. The first frame that the filter delivers is numbered zero.
-     * @param {Integer} _Size 
+     * @param {Integer} _Size Specifies the maximum size of the specified frame, in bytes.
      * @returns {HRESULT} Returns an <b>HRESULT</b> value. Possible values include the following.
      * 
      * <table>

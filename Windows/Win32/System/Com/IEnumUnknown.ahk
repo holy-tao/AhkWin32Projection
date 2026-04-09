@@ -1,16 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IEnumUnknown.ahk
 #Include .\IUnknown.ahk
 
 /**
  * The IEnumUnknown (objidlbase.h) interface enumerates objects with the IUnknown interface and can enumerate through the objects in a component containing multiple objects.
  * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nn-objidlbase-ienumunknown
  * @namespace Windows.Win32.System.Com
- * @version v4.0.30319
  */
-class IEnumUnknown extends IUnknown{
+class IEnumUnknown extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

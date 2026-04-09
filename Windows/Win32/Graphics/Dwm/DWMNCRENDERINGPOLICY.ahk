@@ -7,9 +7,8 @@
  * To use a <b>DWMNCRENDERINGPOLICY</b> value, set the <i>dwAttribute</i> parameter of the <a href="https://docs.microsoft.com/windows/desktop/api/dwmapi/nf-dwmapi-dwmsetwindowattribute">DwmSetWindowAttribute</a> function to <b>DWMWA_NCRENDERING_POLICY</b>. Set the <i>pvAttribute</i> parameter to the <b>DWMNCRENDERINGPOLICY</b> value.
  * @see https://learn.microsoft.com/windows/win32/api/dwmapi/ne-dwmapi-dwmncrenderingpolicy
  * @namespace Windows.Win32.Graphics.Dwm
- * @version v4.0.30319
  */
-class DWMNCRENDERINGPOLICY extends Win32Enum{
+class DWMNCRENDERINGPOLICY extends Win32Enum {
 
     /**
      * The non-client rendering area is rendered based on the window style.

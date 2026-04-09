@@ -7,10 +7,8 @@
  * The value of the number is <b>value</b> + (<b>fract</b> / 65536.0f).
  * @see https://learn.microsoft.com/windows/win32/api/mfobjects/ns-mfobjects-mfoffset
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class MFOffset extends Win32Struct
-{
+class MFOffset extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 2

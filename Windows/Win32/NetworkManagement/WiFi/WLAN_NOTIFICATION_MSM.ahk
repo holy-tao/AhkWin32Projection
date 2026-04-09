@@ -17,9 +17,8 @@
  * The callback function is called with a pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms706902(v=vs.85)">WLAN_NOTIFICATION_DATA</a> structure as the first parameter that contains detailed information on the notification. The callback function also receives a second parameter that contains a pointer to the client context passed in the <i>pCallbackContext</i> parameter to the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlanregisternotification">WlanRegisterNotification</a> function. This client context can be a <b>NULL</b> pointer if that is what was passed to the <b>WlanRegisterNotification</b> function.
  * @see https://learn.microsoft.com/windows/win32/api/wlanapi/ne-wlanapi-wlan_notification_msm~r1
  * @namespace Windows.Win32.NetworkManagement.WiFi
- * @version v4.0.30319
  */
-class WLAN_NOTIFICATION_MSM extends Win32Enum{
+class WLAN_NOTIFICATION_MSM extends Win32Enum {
 
     /**
      * The beginning of the range that specifies the possible values for ACM notifications.
@@ -140,13 +139,11 @@ class WLAN_NOTIFICATION_MSM extends Win32Enum{
     static wlan_notification_msm_adapter_operation_mode_change => 14
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static wlan_notification_msm_link_degraded => 15
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static wlan_notification_msm_link_improved => 16

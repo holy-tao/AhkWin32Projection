@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Hypervisor
- * @version v4.0.30319
  */
-class VIRTUAL_PROCESSOR_REGISTER extends Win32Struct
-{
+class VIRTUAL_PROCESSOR_REGISTER extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -22,7 +20,7 @@ class VIRTUAL_PROCESSOR_REGISTER extends Win32Struct
             get => NumGet(this, 0, "uint")
             set => NumPut("uint", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -30,7 +28,6 @@ class VIRTUAL_PROCESSOR_REGISTER extends Win32Struct
             get => NumGet(this, 8, "uint")
             set => NumPut("uint", value, this, 8)
         }
-    
     }
 
     class _X64_e__Union extends Win32Struct {
@@ -40,7 +37,7 @@ class VIRTUAL_PROCESSOR_REGISTER extends Win32Struct
         class _Segment extends Win32Struct {
             static sizeof => 16
             static packingSize => 8
-    
+
             /**
              * @type {Integer}
              */
@@ -48,7 +45,7 @@ class VIRTUAL_PROCESSOR_REGISTER extends Win32Struct
                 get => NumGet(this, 0, "uint")
                 set => NumPut("uint", value, this, 0)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -56,7 +53,7 @@ class VIRTUAL_PROCESSOR_REGISTER extends Win32Struct
                 get => NumGet(this, 8, "uint")
                 set => NumPut("uint", value, this, 8)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -64,7 +61,7 @@ class VIRTUAL_PROCESSOR_REGISTER extends Win32Struct
                 get => NumGet(this, 12, "ushort")
                 set => NumPut("ushort", value, this, 12)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -72,7 +69,7 @@ class VIRTUAL_PROCESSOR_REGISTER extends Win32Struct
                 get => NumGet(this, 14, "ushort")
                 set => NumPut("ushort", value, this, 14)
             }
-        
+
             /**
              * This bitfield backs the following members:
              * - SegmentType
@@ -90,7 +87,7 @@ class VIRTUAL_PROCESSOR_REGISTER extends Win32Struct
                 get => NumGet(this, 14, "ushort")
                 set => NumPut("ushort", value, this, 14)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -98,7 +95,7 @@ class VIRTUAL_PROCESSOR_REGISTER extends Win32Struct
                 get => (this._bitfield >> 0) & 0xF
                 set => this._bitfield := ((value & 0xF) << 0) | (this._bitfield & ~(0xF << 0))
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -106,7 +103,7 @@ class VIRTUAL_PROCESSOR_REGISTER extends Win32Struct
                 get => (this._bitfield >> 4) & 0x1
                 set => this._bitfield := ((value & 0x1) << 4) | (this._bitfield & ~(0x1 << 4))
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -114,7 +111,7 @@ class VIRTUAL_PROCESSOR_REGISTER extends Win32Struct
                 get => (this._bitfield >> 5) & 0x3
                 set => this._bitfield := ((value & 0x3) << 5) | (this._bitfield & ~(0x3 << 5))
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -122,7 +119,7 @@ class VIRTUAL_PROCESSOR_REGISTER extends Win32Struct
                 get => (this._bitfield >> 7) & 0x1
                 set => this._bitfield := ((value & 0x1) << 7) | (this._bitfield & ~(0x1 << 7))
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -130,7 +127,7 @@ class VIRTUAL_PROCESSOR_REGISTER extends Win32Struct
                 get => (this._bitfield >> 12) & 0x1
                 set => this._bitfield := ((value & 0x1) << 12) | (this._bitfield & ~(0x1 << 12))
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -138,7 +135,7 @@ class VIRTUAL_PROCESSOR_REGISTER extends Win32Struct
                 get => (this._bitfield >> 13) & 0x1
                 set => this._bitfield := ((value & 0x1) << 13) | (this._bitfield & ~(0x1 << 13))
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -146,7 +143,7 @@ class VIRTUAL_PROCESSOR_REGISTER extends Win32Struct
                 get => (this._bitfield >> 14) & 0x1
                 set => this._bitfield := ((value & 0x1) << 14) | (this._bitfield & ~(0x1 << 14))
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -154,13 +151,12 @@ class VIRTUAL_PROCESSOR_REGISTER extends Win32Struct
                 get => (this._bitfield >> 15) & 0x1
                 set => this._bitfield := ((value & 0x1) << 15) | (this._bitfield & ~(0x1 << 15))
             }
-        
         }
-    
+
         class _Table extends Win32Struct {
             static sizeof => 16
             static packingSize => 8
-    
+
             /**
              * @type {Integer}
              */
@@ -168,7 +164,7 @@ class VIRTUAL_PROCESSOR_REGISTER extends Win32Struct
                 get => NumGet(this, 0, "ushort")
                 set => NumPut("ushort", value, this, 0)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -176,13 +172,12 @@ class VIRTUAL_PROCESSOR_REGISTER extends Win32Struct
                 get => NumGet(this, 8, "uint")
                 set => NumPut("uint", value, this, 8)
             }
-        
         }
-    
+
         class _FpControlStatus extends Win32Struct {
             static sizeof => 16
             static packingSize => 8
-    
+
             /**
              * @type {Integer}
              */
@@ -190,7 +185,7 @@ class VIRTUAL_PROCESSOR_REGISTER extends Win32Struct
                 get => NumGet(this, 0, "ushort")
                 set => NumPut("ushort", value, this, 0)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -198,7 +193,7 @@ class VIRTUAL_PROCESSOR_REGISTER extends Win32Struct
                 get => NumGet(this, 2, "ushort")
                 set => NumPut("ushort", value, this, 2)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -206,7 +201,7 @@ class VIRTUAL_PROCESSOR_REGISTER extends Win32Struct
                 get => NumGet(this, 4, "char")
                 set => NumPut("char", value, this, 4)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -214,7 +209,7 @@ class VIRTUAL_PROCESSOR_REGISTER extends Win32Struct
                 get => NumGet(this, 5, "char")
                 set => NumPut("char", value, this, 5)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -222,7 +217,7 @@ class VIRTUAL_PROCESSOR_REGISTER extends Win32Struct
                 get => NumGet(this, 6, "ushort")
                 set => NumPut("ushort", value, this, 6)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -230,7 +225,7 @@ class VIRTUAL_PROCESSOR_REGISTER extends Win32Struct
                 get => NumGet(this, 8, "uint")
                 set => NumPut("uint", value, this, 8)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -238,7 +233,7 @@ class VIRTUAL_PROCESSOR_REGISTER extends Win32Struct
                 get => NumGet(this, 8, "uint")
                 set => NumPut("uint", value, this, 8)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -246,13 +241,12 @@ class VIRTUAL_PROCESSOR_REGISTER extends Win32Struct
                 get => NumGet(this, 12, "ushort")
                 set => NumPut("ushort", value, this, 12)
             }
-        
         }
-    
+
         class _XmmControlStatus extends Win32Struct {
             static sizeof => 16
             static packingSize => 8
-    
+
             /**
              * @type {Integer}
              */
@@ -260,7 +254,7 @@ class VIRTUAL_PROCESSOR_REGISTER extends Win32Struct
                 get => NumGet(this, 0, "uint")
                 set => NumPut("uint", value, this, 0)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -268,7 +262,7 @@ class VIRTUAL_PROCESSOR_REGISTER extends Win32Struct
                 get => NumGet(this, 0, "uint")
                 set => NumPut("uint", value, this, 0)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -276,7 +270,7 @@ class VIRTUAL_PROCESSOR_REGISTER extends Win32Struct
                 get => NumGet(this, 4, "ushort")
                 set => NumPut("ushort", value, this, 4)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -284,7 +278,7 @@ class VIRTUAL_PROCESSOR_REGISTER extends Win32Struct
                 get => NumGet(this, 8, "uint")
                 set => NumPut("uint", value, this, 8)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -292,53 +286,51 @@ class VIRTUAL_PROCESSOR_REGISTER extends Win32Struct
                 get => NumGet(this, 12, "uint")
                 set => NumPut("uint", value, this, 12)
             }
-        
         }
-    
+
         /**
          * @type {_Segment}
          */
-        Segment{
+        Segment {
             get {
                 if(!this.HasProp("__Segment"))
-                    this.__Segment := %this.__Class%._Segment(0, this)
+                    this.__Segment := VIRTUAL_PROCESSOR_REGISTER._X64_e__Union._Segment(0, this)
                 return this.__Segment
             }
         }
-    
+
         /**
          * @type {_Table}
          */
-        Table{
+        Table {
             get {
                 if(!this.HasProp("__Table"))
-                    this.__Table := %this.__Class%._Table(0, this)
+                    this.__Table := VIRTUAL_PROCESSOR_REGISTER._X64_e__Union._Table(0, this)
                 return this.__Table
             }
         }
-    
+
         /**
          * @type {_FpControlStatus}
          */
-        FpControlStatus{
+        FpControlStatus {
             get {
                 if(!this.HasProp("__FpControlStatus"))
-                    this.__FpControlStatus := %this.__Class%._FpControlStatus(0, this)
+                    this.__FpControlStatus := VIRTUAL_PROCESSOR_REGISTER._X64_e__Union._FpControlStatus(0, this)
                 return this.__FpControlStatus
             }
         }
-    
+
         /**
          * @type {_XmmControlStatus}
          */
-        XmmControlStatus{
+        XmmControlStatus {
             get {
                 if(!this.HasProp("__XmmControlStatus"))
-                    this.__XmmControlStatus := %this.__Class%._XmmControlStatus(0, this)
+                    this.__XmmControlStatus := VIRTUAL_PROCESSOR_REGISTER._X64_e__Union._XmmControlStatus(0, this)
                 return this.__XmmControlStatus
             }
         }
-    
     }
 
     /**
@@ -376,10 +368,10 @@ class VIRTUAL_PROCESSOR_REGISTER extends Win32Struct
     /**
      * @type {_Reg128}
      */
-    Reg128{
+    Reg128 {
         get {
             if(!this.HasProp("__Reg128"))
-                this.__Reg128 := %this.__Class%._Reg128(0, this)
+                this.__Reg128 := VIRTUAL_PROCESSOR_REGISTER._Reg128(0, this)
             return this.__Reg128
         }
     }
@@ -387,10 +379,10 @@ class VIRTUAL_PROCESSOR_REGISTER extends Win32Struct
     /**
      * @type {_X64_e__Union}
      */
-    X64{
+    X64 {
         get {
             if(!this.HasProp("__X64"))
-                this.__X64 := %this.__Class%._X64_e__Union(0, this)
+                this.__X64 := VIRTUAL_PROCESSOR_REGISTER._X64_e__Union(0, this)
             return this.__X64
         }
     }

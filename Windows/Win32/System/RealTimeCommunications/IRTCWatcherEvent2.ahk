@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.RealTimeCommunications
- * @version v4.0.30319
  */
-class IRTCWatcherEvent2 extends IRTCWatcherEvent{
+class IRTCWatcherEvent2 extends IRTCWatcherEvent {
 
     static sizeof => A_PtrSize
     /**
@@ -29,7 +28,7 @@ class IRTCWatcherEvent2 extends IRTCWatcherEvent{
     static VTableNames => ["get_EventType", "get_StatusCode"]
 
     /**
-     * @type {Integer} 
+     * @type {RTC_WATCHER_EVENT_TYPE} 
      */
     EventType {
         get => this.get_EventType()
@@ -44,7 +43,7 @@ class IRTCWatcherEvent2 extends IRTCWatcherEvent{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {RTC_WATCHER_EVENT_TYPE} 
      */
     get_EventType() {
         result := ComCall(8, this, "int*", &pEventType := 0, "HRESULT")

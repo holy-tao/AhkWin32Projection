@@ -5,10 +5,8 @@
  * Defines the velocity data of a manipulation.
  * @see https://learn.microsoft.com/windows/win32/api/interactioncontext/ns-interactioncontext-manipulation_velocity
  * @namespace Windows.Win32.UI.InteractionContext
- * @version v4.0.30319
  */
-class MANIPULATION_VELOCITY extends Win32Struct
-{
+class MANIPULATION_VELOCITY extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4

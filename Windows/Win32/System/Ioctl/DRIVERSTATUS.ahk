@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class DRIVERSTATUS extends Win32Struct
-{
+class DRIVERSTATUS extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4
@@ -28,9 +26,9 @@ class DRIVERSTATUS extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    bReserved{
+    bReserved {
         get {
             if(!this.HasProp("__bReservedProxyArray"))
                 this.__bReservedProxyArray := Win32FixedArray(this.ptr + 2, 2, Primitive, "char")
@@ -39,9 +37,9 @@ class DRIVERSTATUS extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    dwReserved{
+    dwReserved {
         get {
             if(!this.HasProp("__dwReservedProxyArray"))
                 this.__dwReservedProxyArray := Win32FixedArray(this.ptr + 4, 2, Primitive, "uint")

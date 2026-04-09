@@ -18,9 +18,8 @@
  * </ul>
  * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nn-mfobjects-imfaudiomediatype
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFAudioMediaType extends IMFMediaType{
+class IMFAudioMediaType extends IMFMediaType {
 
     static sizeof => A_PtrSize
     /**

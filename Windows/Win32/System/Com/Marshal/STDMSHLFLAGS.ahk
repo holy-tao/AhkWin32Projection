@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Com.Marshal
- * @version v4.0.30319
  */
-class STDMSHLFLAGS extends Win32Enum{
+class STDMSHLFLAGS extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

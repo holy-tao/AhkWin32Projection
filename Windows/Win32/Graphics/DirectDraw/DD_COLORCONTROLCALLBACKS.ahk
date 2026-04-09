@@ -7,10 +7,8 @@
  * Entries that the display driver does not use should be set to <b>NULL</b>. The driver should initialize this structure when its <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/nc-ddrawint-pdd_getdriverinfo">DdGetDriverInfo</a> function is called with the GUID_ColorControlCallbacks GUID.
  * @see https://learn.microsoft.com/windows/win32/api/ddrawint/ns-ddrawint-dd_colorcontrolcallbacks
  * @namespace Windows.Win32.Graphics.DirectDraw
- * @version v4.0.30319
  */
-class DD_COLORCONTROLCALLBACKS extends Win32Struct
-{
+class DD_COLORCONTROLCALLBACKS extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

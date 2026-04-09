@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.AddressBook
- * @version v4.0.30319
  */
-class FlagList extends Win32Struct
-{
+class FlagList extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4
@@ -20,9 +18,9 @@ class FlagList extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    ulFlag{
+    ulFlag {
         get {
             if(!this.HasProp("__ulFlagProxyArray"))
                 this.__ulFlagProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "uint")

@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IFsrmPipelineModuleConnector.ahk
 #Include ..\..\System\Com\IDispatch.ahk
+#Include .\IFsrmPipelineModuleConnector.ahk
 
 /**
  * Abstract interface for IFsrmClassifierModuleImplementation and IFsrmStorageModuleImplementation.
  * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nn-fsrmpipeline-ifsrmpipelinemoduleimplementation
  * @namespace Windows.Win32.Storage.FileServerResourceManager
- * @version v4.0.30319
  */
-class IFsrmPipelineModuleImplementation extends IDispatch{
+class IFsrmPipelineModuleImplementation extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

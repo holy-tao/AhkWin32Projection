@@ -6,10 +6,8 @@
  * Output structure for the DeviceDsmAction_OffloadRead action of the IOCTL_STORAGE_MANAGE_DATA_SET_ATTRIBUTES control code.
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-storage_offload_read_output
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class STORAGE_OFFLOAD_READ_OUTPUT extends Win32Struct
-{
+class STORAGE_OFFLOAD_READ_OUTPUT extends Win32Struct {
     static sizeof => 536
 
     static packingSize => 8
@@ -78,7 +76,7 @@ class STORAGE_OFFLOAD_READ_OUTPUT extends Win32Struct
      *       token created.
      * @type {STORAGE_OFFLOAD_TOKEN}
      */
-    Token{
+    Token {
         get {
             if(!this.HasProp("__Token"))
                 this.__Token := STORAGE_OFFLOAD_TOKEN(20, this)

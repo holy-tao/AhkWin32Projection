@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Networking.HttpServer
- * @version v4.0.30319
  */
-class HTTP_REQUEST_INFO_PROPERTY_INFO extends Win32Struct
-{
+class HTTP_REQUEST_INFO_PROPERTY_INFO extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
@@ -15,7 +13,7 @@ class HTTP_REQUEST_INFO_PROPERTY_INFO extends Win32Struct
     /**
      * @type {HTTP_PROPERTY_FLAGS}
      */
-    Flags{
+    Flags {
         get {
             if(!this.HasProp("__Flags"))
                 this.__Flags := HTTP_PROPERTY_FLAGS(0, this)

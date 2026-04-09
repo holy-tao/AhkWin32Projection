@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Storage.Packaging.Appx
- * @version v4.0.30319
  */
-class IAppxManifestQualifiedResource extends IUnknown{
+class IAppxManifestQualifiedResource extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -53,7 +52,7 @@ class IAppxManifestQualifiedResource extends IUnknown{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {DX_FEATURE_LEVEL} 
      */
     GetDXFeatureLevel() {
         result := ComCall(5, this, "int*", &dxFeatureLevel := 0, "HRESULT")

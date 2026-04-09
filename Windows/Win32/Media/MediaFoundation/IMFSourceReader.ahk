@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\IMFMediaType.ahk
 #Include ..\..\System\Com\StructuredStorage\PROPVARIANT.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Implemented by the Microsoft Media Foundation source reader object.
@@ -28,9 +28,8 @@
  * In Windows 8, this interface is extended with <a href="https://docs.microsoft.com/windows/desktop/api/mfreadwrite/nn-mfreadwrite-imfsourcereaderex">IMFSourceReaderEx</a>.
  * @see https://learn.microsoft.com/windows/win32/api/mfreadwrite/nn-mfreadwrite-imfsourcereader
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFSourceReader extends IUnknown{
+class IMFSourceReader extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -880,7 +879,14 @@ class IMFSourceReader extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Guid>} _guidAttribute 
+     * @param {Pointer<Guid>} _guidAttribute A GUID that identifies the attribute to retrieve. If the <i>dwStreamIndex</i> parameter equals  <b>MF_SOURCE_READER_MEDIASOURCE</b>, <i>guidAttribute</i> can specify one of the following:
+     * 
+     * <ul>
+     * <li>A presentation descriptor attribute. For a list of values, see <a href="https://docs.microsoft.com/windows/desktop/medfound/presentation-descriptor-attributes">Presentation Descriptor Attributes</a>.</li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/medfound/mf-source-reader-mediasource-characteristics">MF_SOURCE_READER_MEDIASOURCE_CHARACTERISTICS</a>. Use this value to get characteristics flags from the media source.</li>
+     * </ul>
+     * Otherwise, if the <i>dwStreamIndex</i> parameter specifies a stream, <i>guidAttribute</i> specifies a stream descriptor attribute. For a list of values, see <a href="https://docs.microsoft.com/windows/desktop/medfound/stream-descriptor-attributes">Stream Descriptor Attributes</a>.
      * @returns {PROPVARIANT} A pointer to a <b>PROPVARIANT</b> that receives the value of the attribute. Call the <b>PropVariantClear</b> function to free the <b>PROPVARIANT</b>.
      * @see https://learn.microsoft.com/windows/win32/api/mfreadwrite/nf-mfreadwrite-imfsourcereader-getpresentationattribute
      */

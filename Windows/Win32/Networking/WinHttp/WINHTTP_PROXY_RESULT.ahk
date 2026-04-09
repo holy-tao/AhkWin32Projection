@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\WINHTTP_PROXY_RESULT_ENTRY.ahk
 
 /**
  * The WINHTTP_PROXY_RESULT structure contains collection of proxy result entries provided by WinHttpGetProxyResult.
  * @see https://learn.microsoft.com/windows/win32/api/winhttp/ns-winhttp-winhttp_proxy_result
  * @namespace Windows.Win32.Networking.WinHttp
- * @version v4.0.30319
  */
-class WINHTTP_PROXY_RESULT extends Win32Struct
-{
+class WINHTTP_PROXY_RESULT extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

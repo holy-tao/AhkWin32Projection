@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\NDIS_802_11_AUTHENTICATION_ENCRYPTION.ahk
+#Include .\NDIS_802_11_AUTHENTICATION_MODE.ahk
+#Include .\NDIS_802_11_WEP_STATUS.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Ndis
- * @version v4.0.30319
  */
-class NDIS_802_11_CAPABILITY extends Win32Struct
-{
+class NDIS_802_11_CAPABILITY extends Win32Struct {
     static sizeof => 24
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}
@@ -45,9 +45,9 @@ class NDIS_802_11_CAPABILITY extends Win32Struct
     }
 
     /**
-     * @type {Array<NDIS_802_11_AUTHENTICATION_ENCRYPTION>}
+     * @type {NDIS_802_11_AUTHENTICATION_ENCRYPTION}
      */
-    AuthenticationEncryptionSupported{
+    AuthenticationEncryptionSupported {
         get {
             if(!this.HasProp("__AuthenticationEncryptionSupportedProxyArray"))
                 this.__AuthenticationEncryptionSupportedProxyArray := Win32FixedArray(this.ptr + 16, 1, NDIS_802_11_AUTHENTICATION_ENCRYPTION, "")

@@ -5,10 +5,8 @@
  * The DWRITE_MATRIX structure specifies the graphics transform to be applied to rendered glyphs.
  * @see https://learn.microsoft.com/windows/win32/api/dwrite/ns-dwrite-dwrite_matrix
  * @namespace Windows.Win32.Graphics.DirectWrite
- * @version v4.0.30319
  */
-class DWRITE_MATRIX extends Win32Struct
-{
+class DWRITE_MATRIX extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 4

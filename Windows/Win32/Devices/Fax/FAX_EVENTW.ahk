@@ -17,11 +17,9 @@
  * > The winfax.h header defines FAX_EVENT as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
  * @see https://learn.microsoft.com/windows/win32/api/winfax/ns-winfax-fax_eventw
  * @namespace Windows.Win32.Devices.Fax
- * @version v4.0.30319
  * @charset Unicode
  */
-class FAX_EVENTW extends Win32Struct
-{
+class FAX_EVENTW extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 4
@@ -43,7 +41,7 @@ class FAX_EVENTW extends Win32Struct
      * Specifies a <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> structure that contains the time at which the fax server generated the event.
      * @type {FILETIME}
      */
-    TimeStamp{
+    TimeStamp {
         get {
             if(!this.HasProp("__TimeStamp"))
                 this.__TimeStamp := FILETIME(4, this)

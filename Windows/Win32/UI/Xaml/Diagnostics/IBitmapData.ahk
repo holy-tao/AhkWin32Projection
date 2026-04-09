@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\BitmapDescription.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
+#Include .\BitmapDescription.ahk
 
 /**
  * Represents an image associated with a node in the visual tree.
  * @see https://learn.microsoft.com/windows/win32/api/xamlom/nn-xamlom-ibitmapdata
  * @namespace Windows.Win32.UI.Xaml.Diagnostics
- * @version v4.0.30319
  */
-class IBitmapData extends IUnknown{
+class IBitmapData extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

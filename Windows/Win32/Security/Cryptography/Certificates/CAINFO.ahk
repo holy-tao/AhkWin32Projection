@@ -1,12 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\ENUM_CATYPES.ahk
 
 /**
  * @namespace Windows.Win32.Security.Cryptography.Certificates
- * @version v4.0.30319
  */
-class CAINFO extends Win32Struct
-{
+class CAINFO extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 4
@@ -20,7 +19,7 @@ class CAINFO extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {ENUM_CATYPES}
      */
     CAType {
         get => NumGet(this, 4, "int")

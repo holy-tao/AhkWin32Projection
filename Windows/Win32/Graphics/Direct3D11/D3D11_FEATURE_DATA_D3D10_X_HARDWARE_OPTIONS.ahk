@@ -8,10 +8,8 @@
  *       Direct3D 10.x devices (D3D_FEATURE_LEVEL_10_0, D3D_FEATURE_LEVEL_10_1) can optionally support Compute Shader model 4.0 or 4.1.
  * @see https://learn.microsoft.com/windows/win32/api/d3d11/ns-d3d11-d3d11_feature_data_d3d10_x_hardware_options
  * @namespace Windows.Win32.Graphics.Direct3D11
- * @version v4.0.30319
  */
-class D3D11_FEATURE_DATA_D3D10_X_HARDWARE_OPTIONS extends Win32Struct
-{
+class D3D11_FEATURE_DATA_D3D10_X_HARDWARE_OPTIONS extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 4

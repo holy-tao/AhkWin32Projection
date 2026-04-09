@@ -1,19 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DOT11_PHY_TYPE.ahk
 #Include .\DOT11_RECV_SENSITIVITY.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
- * @version v4.0.30319
  */
-class DOT11_RECV_SENSITIVITY_LIST extends Win32Struct
-{
+class DOT11_RECV_SENSITIVITY_LIST extends Win32Struct {
     static sizeof => 24
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
-     * @type {Integer}
+     * @type {DOT11_PHY_TYPE}
      */
     dot11PhyType {
         get => NumGet(this, 0, "int")
@@ -45,12 +44,12 @@ class DOT11_RECV_SENSITIVITY_LIST extends Win32Struct
     }
 
     /**
-     * @type {Array<DOT11_RECV_SENSITIVITY>}
+     * @type {DOT11_RECV_SENSITIVITY}
      */
-    dot11RecvSensitivity{
+    dot11RecvSensitivity {
         get {
             if(!this.HasProp("__dot11RecvSensitivityProxyArray"))
-                this.__dot11RecvSensitivityProxyArray := Win32FixedArray(this.ptr + 16, 1, DOT11_RECV_SENSITIVITY, "")
+                this.__dot11RecvSensitivityProxyArray := Win32FixedArray(this.ptr + 12, 1, DOT11_RECV_SENSITIVITY, "")
             return this.__dot11RecvSensitivityProxyArray
         }
     }

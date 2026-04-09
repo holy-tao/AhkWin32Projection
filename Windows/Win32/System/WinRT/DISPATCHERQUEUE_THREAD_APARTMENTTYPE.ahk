@@ -9,9 +9,8 @@
  * Introduced in Windows 10, version 1709.
  * @see https://learn.microsoft.com/windows/win32/api/dispatcherqueue/ne-dispatcherqueue-dispatcherqueue_thread_apartmenttype
  * @namespace Windows.Win32.System.WinRT
- * @version v4.0.30319
  */
-class DISPATCHERQUEUE_THREAD_APARTMENTTYPE extends Win32Enum{
+class DISPATCHERQUEUE_THREAD_APARTMENTTYPE extends Win32Enum {
 
     /**
      * No COM threading apartment type specified.

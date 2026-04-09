@@ -7,9 +7,8 @@
  * The ITfFnConfigure interface is implemented by a text service to enable the Text Services control panel application to allow the text service to display a configuration dialog box.
  * @see https://learn.microsoft.com/windows/win32/api/ctffunc/nn-ctffunc-itffnconfigure
  * @namespace Windows.Win32.UI.TextServices
- * @version v4.0.30319
  */
-class ITfFnConfigure extends ITfFunction{
+class ITfFnConfigure extends ITfFunction {
 
     static sizeof => A_PtrSize
     /**

@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\Foundation\BSTR.ahk
 #Include .\MBN_INTERFACE_CAPS.ahk
 #Include .\IMbnSubscriberInformation.ahk
 #Include .\MBN_PROVIDER.ahk
 #Include .\IMbnConnection.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Represents a Mobile Broadband device.
@@ -17,9 +17,8 @@
  *      <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nn-mbnapi-imbninterfacemanager">IMbnInterfaceManager</a> interface.
  * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nn-mbnapi-imbninterface
  * @namespace Windows.Win32.NetworkManagement.MobileBroadband
- * @version v4.0.30319
  */
-class IMbnInterface extends IUnknown{
+class IMbnInterface extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -97,7 +96,7 @@ class IMbnInterface extends IUnknown{
      * The ready state of an interface can change as a result of a user operation. For example, when a user inserts a SIM into a device, the ready state changes from <b>MBN_READY_STATE_SIM_NOT_INSERTED</b> to another ready state. The ready state can also change because of other operations performed by the application. For example, when a PIN has been entered, the ready state can change from <b>MBN_READY_STATE_DEVICE_LOCKED</b> to another ready state. An application can register for event notifications whenever there is a change in the ready state of the interface. The <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nf-mbnapi-imbninterfaceevents-onreadystatechange">OnReadyStateChange</a> member of <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nn-mbnapi-imbninterfaceevents">IMbnInterfaceEvents</a> is called to notify an application about any change in the ready state.
      * 
      * The device's SMS subsystem may not be ready when it reports <b>MBN_READY_STATE_INITIALIZED</b>.   A calling application should wait for  a call to the <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nf-mbnapi-imbnsmsevents-onsmsconfigurationchange">OnSmsConfigurationChange</a> member of <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nn-mbnapi-imbnsmsevents">IMbnSmsEvents</a>, indicating that the SMS subsystem is ready.
-     * @returns {Integer} 
+     * @returns {MBN_READY_STATE} A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/ne-mbnapi-mbn_ready_state">MBN_READY_STATE</a> structure.  If this method returns any value other than <b>S_OK</b>, this parameter is <b>NULL</b>.
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbninterface-getreadystate
      */
     GetReadyState() {

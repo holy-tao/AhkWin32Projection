@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\IVMRSurfaceAllocator9.ahk
+#Include ..\..\Graphics\Direct3D9\IDirect3DSurface9.ahk
 
 /**
  * The IVMRSurfaceAllocatorEx9 interface provides a way for custom allocator-presenters to control where the Video Mixing Renderer Filter 9 (VMR-9) draws the composited image.
@@ -9,9 +10,8 @@
  * Include DShow.h and D3d9.h before Vmr9.h.
  * @see https://learn.microsoft.com/windows/win32/api/vmr9/nn-vmr9-ivmrsurfaceallocatorex9
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IVMRSurfaceAllocatorEx9 extends IVMRSurfaceAllocator9{
+class IVMRSurfaceAllocatorEx9 extends IVMRSurfaceAllocator9 {
 
     static sizeof => A_PtrSize
     /**

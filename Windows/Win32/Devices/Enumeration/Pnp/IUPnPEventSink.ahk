@@ -7,9 +7,8 @@
  * The IUPnPEventSink interface allows a hosted service to send event notifications to the device host.
  * @see https://learn.microsoft.com/windows/win32/api/upnphost/nn-upnphost-iupnpeventsink
  * @namespace Windows.Win32.Devices.Enumeration.Pnp
- * @version v4.0.30319
  */
-class IUPnPEventSink extends IUnknown{
+class IUPnPEventSink extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

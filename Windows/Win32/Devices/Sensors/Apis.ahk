@@ -1,12 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\NTSTATUS.ahk
 #Include ..\..\Foundation\PROPERTYKEY.ahk
+#Include ..\..\Foundation\NTSTATUS.ahk
 
 /**
  * @namespace Windows.Win32.Devices.Sensors
- * @version v4.0.30319
  */
 class Sensors {
 
@@ -2930,7 +2929,7 @@ class Sensors {
      * @param {Pointer<Integer>} PropVariantOffset 
      * @param {Pointer<Integer>} PropVariantSize 
      * @param {Pointer<Pointer<Void>>} PropVariantPointer 
-     * @param {Pointer<Integer>} RemappedType 
+     * @param {Pointer<DEVPROPTYPE>} RemappedType 
      * @returns {NTSTATUS} 
      */
     static PropVariantGetInformation(PropVariantValue, PropVariantOffset, PropVariantSize, PropVariantPointer, RemappedType) {
@@ -3059,7 +3058,7 @@ class Sensors {
      * 
      * @param {Pointer<SENSOR_COLLECTION_LIST>} SourceCollection 
      * @param {Integer} TargetBufferSizeInBytes 
-     * @param {Pointer} TargetBuffer 
+     * @param {Integer} TargetBuffer 
      * @returns {NTSTATUS} 
      */
     static CollectionsListSerializeToBuffer(SourceCollection, TargetBufferSizeInBytes, TargetBuffer) {
@@ -3087,7 +3086,7 @@ class Sensors {
     /**
      * 
      * @param {Integer} SourceBufferSizeInBytes 
-     * @param {Pointer} SourceBuffer 
+     * @param {Integer} SourceBuffer 
      * @param {Pointer<SENSOR_COLLECTION_LIST>} TargetCollection 
      * @returns {NTSTATUS} 
      */

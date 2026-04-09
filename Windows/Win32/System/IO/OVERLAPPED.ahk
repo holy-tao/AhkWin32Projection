@@ -26,10 +26,8 @@
  * For a file I/O–oriented overview of synchronous and asynchronous I/O, see <a href="https://docs.microsoft.com/windows/desktop/FileIO/synchronous-and-asynchronous-i-o">Synchronous and Asynchronous I/O</a>.
  * @see https://learn.microsoft.com/windows/win32/api/minwinbase/ns-minwinbase-overlapped
  * @namespace Windows.Win32.System.IO
- * @version v4.0.30319
  */
-class OVERLAPPED extends Win32Struct
-{
+class OVERLAPPED extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -91,7 +89,7 @@ class OVERLAPPED extends Win32Struct
      * Functions such as <a href="https://docs.microsoft.com/windows/desktop/api/ioapiset/nf-ioapiset-getoverlappedresult">GetOverlappedResult</a> and the synchronization <a href="https://docs.microsoft.com/windows/desktop/Sync/wait-functions">wait functions</a> reset auto-reset events to the nonsignaled state. Therefore, you should use a manual reset event; if you use an auto-reset event, your application can stop responding if you wait for the operation to complete and then call <b>GetOverlappedResult</b> with the <i>bWait</i> parameter set to <b>TRUE</b>.
      * @type {HANDLE}
      */
-    hEvent{
+    hEvent {
         get {
             if(!this.HasProp("__hEvent"))
                 this.__hEvent := HANDLE(24, this)

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\CURSORINFO_FLAGS.ahk
 #Include .\HCURSOR.ahk
 #Include ..\..\Foundation\POINT.ahk
 
@@ -7,10 +8,8 @@
  * Contains global cursor information.
  * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-cursorinfo
  * @namespace Windows.Win32.UI.WindowsAndMessaging
- * @version v4.0.30319
  */
-class CURSORINFO extends Win32Struct
-{
+class CURSORINFO extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -28,7 +27,7 @@ class CURSORINFO extends Win32Struct
 
     /**
      * Type: <b>DWORD</b>
-     * @type {Integer}
+     * @type {CURSORINFO_FLAGS}
      */
     flags {
         get => NumGet(this, 4, "uint")
@@ -41,7 +40,7 @@ class CURSORINFO extends Win32Struct
      * A handle to the cursor.
      * @type {HCURSOR}
      */
-    hCursor{
+    hCursor {
         get {
             if(!this.HasProp("__hCursor"))
                 this.__hCursor := HCURSOR(8, this)
@@ -55,7 +54,7 @@ class CURSORINFO extends Win32Struct
      * A   structure that receives the screen coordinates of the cursor.
      * @type {POINT}
      */
-    ptScreenPos{
+    ptScreenPos {
         get {
             if(!this.HasProp("__ptScreenPos"))
                 this.__ptScreenPos := POINT(16, this)

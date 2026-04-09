@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\ENTRYID.ahk
+#Include .\SPropValue.ahk
 
 /**
  * Describes a status object that has been affected by a change.
@@ -15,10 +17,8 @@
  * |[Supporting Event Notification](supporting-event-notification.md) <br/> |Discussion of how service providers can use the **IMAPISupport** method to generate notifications. |
  * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/status_object_notification
  * @namespace Windows.Win32.System.AddressBook
- * @version v4.0.30319
  */
-class STATUS_OBJECT_NOTIFICATION extends Win32Struct
-{
+class STATUS_OBJECT_NOTIFICATION extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8

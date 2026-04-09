@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
- * @version v4.0.30319
  */
-class KSEVENTDATA extends Win32Struct
-{
+class KSEVENTDATA extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -27,25 +25,24 @@ class KSEVENTDATA extends Win32Struct
         /**
          * @type {HANDLE}
          */
-        Event{
+        Event {
             get {
                 if(!this.HasProp("__Event"))
                     this.__Event := HANDLE(0, this)
                 return this.__Event
             }
         }
-    
+
         /**
-         * @type {Array<UIntPtr>}
+         * @type {Array<Pointer>}
          */
-        Reserved{
+        Reserved {
             get {
                 if(!this.HasProp("__ReservedProxyArray"))
                     this.__ReservedProxyArray := Win32FixedArray(this.ptr + 8, 2, Primitive, "ptr")
                 return this.__ReservedProxyArray
             }
         }
-    
     }
 
     class _SemaphoreHandle extends Win32Struct {
@@ -55,14 +52,14 @@ class KSEVENTDATA extends Win32Struct
         /**
          * @type {HANDLE}
          */
-        Semaphore{
+        Semaphore {
             get {
                 if(!this.HasProp("__Semaphore"))
                     this.__Semaphore := HANDLE(0, this)
                 return this.__Semaphore
             }
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -70,7 +67,7 @@ class KSEVENTDATA extends Win32Struct
             get => NumGet(this, 8, "uint")
             set => NumPut("uint", value, this, 8)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -78,7 +75,6 @@ class KSEVENTDATA extends Win32Struct
             get => NumGet(this, 12, "int")
             set => NumPut("int", value, this, 12)
         }
-    
     }
 
     class _Alignment extends Win32Struct {
@@ -92,27 +88,26 @@ class KSEVENTDATA extends Win32Struct
             get => NumGet(this, 0, "ptr")
             set => NumPut("ptr", value, this, 0)
         }
-    
+
         /**
-         * @type {Array<IntPtr>}
+         * @type {Array<Pointer>}
          */
-        Alignment{
+        Alignment {
             get {
                 if(!this.HasProp("__AlignmentProxyArray"))
                     this.__AlignmentProxyArray := Win32FixedArray(this.ptr + 8, 2, Primitive, "ptr")
                 return this.__AlignmentProxyArray
             }
         }
-    
     }
 
     /**
      * @type {_EventHandle}
      */
-    EventHandle{
+    EventHandle {
         get {
             if(!this.HasProp("__EventHandle"))
-                this.__EventHandle := %this.__Class%._EventHandle(8, this)
+                this.__EventHandle := KSEVENTDATA._EventHandle(8, this)
             return this.__EventHandle
         }
     }
@@ -120,10 +115,10 @@ class KSEVENTDATA extends Win32Struct
     /**
      * @type {_SemaphoreHandle}
      */
-    SemaphoreHandle{
+    SemaphoreHandle {
         get {
             if(!this.HasProp("__SemaphoreHandle"))
-                this.__SemaphoreHandle := %this.__Class%._SemaphoreHandle(8, this)
+                this.__SemaphoreHandle := KSEVENTDATA._SemaphoreHandle(8, this)
             return this.__SemaphoreHandle
         }
     }
@@ -131,10 +126,10 @@ class KSEVENTDATA extends Win32Struct
     /**
      * @type {_Alignment}
      */
-    Alignment{
+    Alignment {
         get {
             if(!this.HasProp("__Alignment"))
-                this.__Alignment := %this.__Class%._Alignment(8, this)
+                this.__Alignment := KSEVENTDATA._Alignment(8, this)
             return this.__Alignment
         }
     }

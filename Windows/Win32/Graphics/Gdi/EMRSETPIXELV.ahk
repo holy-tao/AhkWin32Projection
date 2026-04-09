@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\EMR.ahk
+#Include .\ENHANCED_METAFILE_RECORD_TYPE.ahk
 #Include ..\..\Foundation\POINTL.ahk
 
 /**
  * The EMRSETPIXELV structure contains members for the SetPixelV enhanced metafile record. When an enhanced metafile is created, calls to SetPixel are also recorded in this record.
  * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-emrsetpixelv
  * @namespace Windows.Win32.Graphics.Gdi
- * @version v4.0.30319
  */
-class EMRSETPIXELV extends Win32Struct
-{
+class EMRSETPIXELV extends Win32Struct {
     static sizeof => 20
 
     static packingSize => 4
@@ -19,7 +18,7 @@ class EMRSETPIXELV extends Win32Struct
      * The base structure for all record types.
      * @type {EMR}
      */
-    emr{
+    emr {
         get {
             if(!this.HasProp("__emr"))
                 this.__emr := EMR(0, this)
@@ -31,7 +30,7 @@ class EMRSETPIXELV extends Win32Struct
      * Logical coordinates of pixel.
      * @type {POINTL}
      */
-    ptlPixel{
+    ptlPixel {
         get {
             if(!this.HasProp("__ptlPixel"))
                 this.__ptlPixel := POINTL(8, this)

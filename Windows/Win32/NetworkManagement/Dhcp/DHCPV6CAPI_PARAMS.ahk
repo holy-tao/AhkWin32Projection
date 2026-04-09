@@ -5,10 +5,8 @@
  * Contains a requested parameter.
  * @see https://learn.microsoft.com/windows/win32/api/dhcpv6csdk/ns-dhcpv6csdk-dhcpv6capi_params
  * @namespace Windows.Win32.NetworkManagement.Dhcp
- * @version v4.0.30319
  */
-class DHCPV6CAPI_PARAMS extends Win32Struct
-{
+class DHCPV6CAPI_PARAMS extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8

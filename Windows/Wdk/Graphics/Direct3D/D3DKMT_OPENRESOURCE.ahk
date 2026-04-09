@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\D3DDDI_OPENALLOCATIONINFO.ahk
+#Include .\D3DDDI_OPENALLOCATIONINFO2.ahk
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
- * @version v4.0.30319
  */
-class D3DKMT_OPENRESOURCE extends Win32Struct
-{
+class D3DKMT_OPENRESOURCE extends Win32Struct {
     static sizeof => 72
 
     static packingSize => 8

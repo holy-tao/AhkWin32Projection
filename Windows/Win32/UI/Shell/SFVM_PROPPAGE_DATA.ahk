@@ -5,10 +5,8 @@
  * Contains the details of a page to be added to an object's Properties sheet.
  * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/ns-shlobj_core-sfvm_proppage_data
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class SFVM_PROPPAGE_DATA extends Win32Struct
-{
+class SFVM_PROPPAGE_DATA extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

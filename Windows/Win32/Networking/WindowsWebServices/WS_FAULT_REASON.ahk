@@ -6,10 +6,8 @@
  * Contains an explanation of the fault.
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_fault_reason
  * @namespace Windows.Win32.Networking.WindowsWebServices
- * @version v4.0.30319
  */
-class WS_FAULT_REASON extends Win32Struct
-{
+class WS_FAULT_REASON extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -18,7 +16,7 @@ class WS_FAULT_REASON extends Win32Struct
      * Text describing the fault.
      * @type {WS_STRING}
      */
-    text{
+    text {
         get {
             if(!this.HasProp("__text"))
                 this.__text := WS_STRING(0, this)
@@ -34,7 +32,7 @@ class WS_FAULT_REASON extends Win32Struct
      *                     values that follow <a href="https://www.ietf.org/rfc/rfc3066.txt">RFC3066.txt</a>.
      * @type {WS_STRING}
      */
-    lang{
+    lang {
         get {
             if(!this.HasProp("__lang"))
                 this.__lang := WS_STRING(16, this)

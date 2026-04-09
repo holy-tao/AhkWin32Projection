@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
@@ -10,9 +9,8 @@
  * Create an instance of this interface with the <a href="https://docs.microsoft.com/windows/desktop/api/msime/nf-msime-createifelanguageinstance">CreateIFELanguageInstance</a> function.
  * @see https://learn.microsoft.com/windows/win32/api/msime/nn-msime-ifelanguage
  * @namespace Windows.Win32.UI.Input.Ime
- * @version v4.0.30319
  */
-class IFELanguage extends IUnknown{
+class IFELanguage extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -666,7 +664,7 @@ class IFELanguage extends IUnknown{
 
     /**
      * Converts the input string (which usually contains the Hiragana character) to converted strings.
-     * @param {BSTR} _string 
+     * @param {BSTR} _string A string of phonetic characters to convert.
      * @param {Integer} start The starting character from which <a href="https://docs.microsoft.com/windows/desktop/api/msime/nn-msime-ifelanguage">IFELanguage</a> begins conversion. The first character of <i>string</i> is represented by 1 (not 0).
      * @param {Integer} length The number of characters to convert. If this value is -1, all of the remaining characters from <i>start</i>  are converted.
      * @param {Pointer<BSTR>} result The converted string. This string is allocated by <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysallocstringlen">SysAllocStringLen</a> and must be freed by the client.

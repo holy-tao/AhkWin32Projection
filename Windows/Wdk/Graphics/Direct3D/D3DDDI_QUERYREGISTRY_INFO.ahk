@@ -1,18 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\D3DDDI_QUERYREGISTRY_TYPE.ahk
+#Include .\D3DDDI_QUERYREGISTRY_STATUS.ahk
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
- * @version v4.0.30319
  */
-class D3DDDI_QUERYREGISTRY_INFO extends Win32Struct
-{
+class D3DDDI_QUERYREGISTRY_INFO extends Win32Struct {
     static sizeof => 568
 
     static packingSize => 8
 
     /**
-     * @type {Integer}
+     * @type {D3DDDI_QUERYREGISTRY_TYPE}
      */
     QueryType {
         get => NumGet(this, 0, "int")
@@ -20,7 +20,7 @@ class D3DDDI_QUERYREGISTRY_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<D3DDDI_QUERYREGISTRY_FLAGS>}
+     * @type {Pointer}
      */
     QueryFlags {
         get => NumGet(this, 8, "ptr")
@@ -60,7 +60,7 @@ class D3DDDI_QUERYREGISTRY_INFO extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {D3DDDI_QUERYREGISTRY_STATUS}
      */
     Status {
         get => NumGet(this, 548, "int")
@@ -92,9 +92,9 @@ class D3DDDI_QUERYREGISTRY_INFO extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    OutputBinary{
+    OutputBinary {
         get {
             if(!this.HasProp("__OutputBinaryProxyArray"))
                 this.__OutputBinaryProxyArray := Win32FixedArray(this.ptr + 552, 1, Primitive, "char")

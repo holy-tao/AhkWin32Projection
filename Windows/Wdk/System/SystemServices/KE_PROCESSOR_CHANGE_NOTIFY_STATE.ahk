@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class KE_PROCESSOR_CHANGE_NOTIFY_STATE extends Win32Enum{
+class KE_PROCESSOR_CHANGE_NOTIFY_STATE extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

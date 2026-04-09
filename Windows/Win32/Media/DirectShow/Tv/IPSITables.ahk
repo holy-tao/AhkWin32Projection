@@ -7,9 +7,8 @@
  * Gets an MPEG-2 program specific information (PSI) table from an MPEG-2 transport stream.
  * @see https://learn.microsoft.com/windows/win32/api/mpeg2psiparser/nn-mpeg2psiparser-ipsitables
  * @namespace Windows.Win32.Media.DirectShow.Tv
- * @version v4.0.30319
  */
-class IPSITables extends IUnknown{
+class IPSITables extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

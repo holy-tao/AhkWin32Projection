@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Globalization
- * @version v4.0.30319
  */
-class IS_TEXT_UNICODE_RESULT extends Win32BitflagEnum{
+class IS_TEXT_UNICODE_RESULT extends Win32BitflagEnum {
 
     /**
      * @type {Integer (UInt32)}

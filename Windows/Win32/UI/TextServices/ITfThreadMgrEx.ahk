@@ -7,9 +7,8 @@
  * The ITfThreadMgrEx interface is used by the application to activate the textservices with some flags. ITfThreadMgrEx can be obtained by QI from ITfThreadMgr.
  * @see https://learn.microsoft.com/windows/win32/api/msctf/nn-msctf-itfthreadmgrex
  * @namespace Windows.Win32.UI.TextServices
- * @version v4.0.30319
  */
-class ITfThreadMgrEx extends ITfThreadMgr{
+class ITfThreadMgrEx extends ITfThreadMgr {
 
     static sizeof => A_PtrSize
     /**

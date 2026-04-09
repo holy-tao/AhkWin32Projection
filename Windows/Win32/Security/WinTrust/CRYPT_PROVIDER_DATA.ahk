@@ -1,16 +1,23 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\WINTRUST_DATA.ahk
 #Include ..\..\Foundation\HWND.ahk
+#Include .\CRYPT_PROVIDER_FUNCTIONS.ahk
+#Include ..\Cryptography\HCERTSTORE.ahk
+#Include .\CRYPT_PROVIDER_SGNR.ahk
+#Include .\CRYPT_PROVIDER_PRIVDATA.ahk
+#Include .\PROVDATA_SIP.ahk
 #Include ..\..\Foundation\FILETIME.ahk
+#Include ..\Cryptography\CERT_USAGE_MATCH.ahk
+#Include .\CRYPT_PROVIDER_SIGSTATE.ahk
+#Include .\WINTRUST_SIGNATURE_SETTINGS.ahk
 
 /**
  * Used to pass data between WinVerifyTrust and trust providers.
  * @see https://learn.microsoft.com/windows/win32/api/wintrust/ns-wintrust-crypt_provider_data
  * @namespace Windows.Win32.Security.WinTrust
- * @version v4.0.30319
  */
-class CRYPT_PROVIDER_DATA extends Win32Struct
-{
+class CRYPT_PROVIDER_DATA extends Win32Struct {
     static sizeof => 240
 
     static packingSize => 8
@@ -46,7 +53,7 @@ class CRYPT_PROVIDER_DATA extends Win32Struct
      * A handle to the parent window. If not specified, a handle to the desktop  window is used.
      * @type {HWND}
      */
-    hWndParent{
+    hWndParent {
         get {
             if(!this.HasProp("__hWndParent"))
                 this.__hWndParent := HWND(24, this)
@@ -237,7 +244,7 @@ class CRYPT_PROVIDER_DATA extends Win32Struct
      * The system time.
      * @type {FILETIME}
      */
-    sftSystemTime{
+    sftSystemTime {
         get {
             if(!this.HasProp("__sftSystemTime"))
                 this.__sftSystemTime := FILETIME(180, this)
@@ -366,7 +373,6 @@ class CRYPT_PROVIDER_DATA extends Win32Struct
     }
 
     /**
-     * 
      * @type {Pointer<CRYPT_PROVIDER_SIGSTATE>}
      */
     pSigState {
@@ -375,7 +381,6 @@ class CRYPT_PROVIDER_DATA extends Win32Struct
     }
 
     /**
-     * 
      * @type {Pointer<WINTRUST_SIGNATURE_SETTINGS>}
      */
     pSigSettings {

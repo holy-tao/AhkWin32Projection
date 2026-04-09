@@ -9,10 +9,8 @@
  * The <b>EMRTEXT</b> structure is used as a member in the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-emrexttextouta">EMREXTTEXTOUT</a> and <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-emrpolytextouta">EMRPOLYTEXTOUT</a> structures.
  * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-emrtext
  * @namespace Windows.Win32.Graphics.Gdi
- * @version v4.0.30319
  */
-class EMRTEXT extends Win32Struct
-{
+class EMRTEXT extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 4
@@ -21,7 +19,7 @@ class EMRTEXT extends Win32Struct
      * The logical coordinates of the reference point used to position the string.
      * @type {POINTL}
      */
-    ptlReference{
+    ptlReference {
         get {
             if(!this.HasProp("__ptlReference"))
                 this.__ptlReference := POINTL(0, this)
@@ -60,7 +58,7 @@ class EMRTEXT extends Win32Struct
      * An optional clipping and/or opaquing rectangle, in logical units.
      * @type {RECTL}
      */
-    rcl{
+    rcl {
         get {
             if(!this.HasProp("__rcl"))
                 this.__rcl := RECTL(20, this)

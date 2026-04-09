@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\FWP_IP_VERSION.ahk
+#Include .\FWP_DIRECTION.ahk
 
 /**
  * Contains information that describes an IPsec DoS Protection drop event.
@@ -7,10 +9,8 @@
  * <b>FWPM_NET_EVENT_IPSEC_DOSP_DROP0</b> is a specific implementation of FWPM_NET_EVENT_IPSEC_DOSP_DROP. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-version-independent-names-and-targeting-specific-versions-of-windows">WFP Version-Independent Names and Targeting Specific Versions of Windows</a>  for more information.
  * @see https://learn.microsoft.com/windows/win32/api/fwpmtypes/ns-fwpmtypes-fwpm_net_event_ipsec_dosp_drop0
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
- * @version v4.0.30319
  */
-class FWPM_NET_EVENT_IPSEC_DOSP_DROP0 extends Win32Struct
-{
+class FWPM_NET_EVENT_IPSEC_DOSP_DROP0 extends Win32Struct {
     static sizeof => 44
 
     static packingSize => 4
@@ -19,7 +19,7 @@ class FWPM_NET_EVENT_IPSEC_DOSP_DROP0 extends Win32Struct
      * Internet Protocol (IP) version.
      * 
      * See [FWP_IP_VERSION](/windows/desktop/api/fwptypes/ne-fwptypes-fwp_ip_version) for more information.
-     * @type {Integer}
+     * @type {FWP_IP_VERSION}
      */
     ipVersion {
         get => NumGet(this, 0, "int")
@@ -35,9 +35,9 @@ class FWPM_NET_EVENT_IPSEC_DOSP_DROP0 extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    publicHostV6Addr{
+    publicHostV6Addr {
         get {
             if(!this.HasProp("__publicHostV6AddrProxyArray"))
                 this.__publicHostV6AddrProxyArray := Win32FixedArray(this.ptr + 4, 16, Primitive, "char")
@@ -54,9 +54,9 @@ class FWPM_NET_EVENT_IPSEC_DOSP_DROP0 extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    internalHostV6Addr{
+    internalHostV6Addr {
         get {
             if(!this.HasProp("__internalHostV6AddrProxyArray"))
                 this.__internalHostV6AddrProxyArray := Win32FixedArray(this.ptr + 20, 16, Primitive, "char")
@@ -75,7 +75,7 @@ class FWPM_NET_EVENT_IPSEC_DOSP_DROP0 extends Win32Struct
 
     /**
      * An [FWP_DIRECTION](/windows/desktop/api/fwptypes/ne-fwptypes-fwp_direction) value that specifies whether the dropped packet is inbound or outbound.
-     * @type {Integer}
+     * @type {FWP_DIRECTION}
      */
     direction {
         get => NumGet(this, 40, "int")

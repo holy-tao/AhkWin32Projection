@@ -1,22 +1,20 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include .\IInkStrokes.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include .\IInkRecognizerGuide.ahk
 #Include .\IInkWordList.ahk
 #Include .\IInkRecognizer.ahk
 #Include .\IInkRecognitionResult.ahk
-#Include .\IInkRecognizerContext.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * . (IInkRecognizerContext)
  * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nn-msinkaut-iinkrecognizercontext
  * @namespace Windows.Win32.UI.TabletPC
- * @version v4.0.30319
  */
-class IInkRecognizerContext extends IDispatch{
+class IInkRecognizerContext extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -45,7 +43,7 @@ class IInkRecognizerContext extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {InkRecognizerCharacterAutoCompletionMode} 
      */
     CharacterAutoCompletionMode {
         get => this.get_CharacterAutoCompletionMode()
@@ -84,7 +82,7 @@ class IInkRecognizerContext extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {InkRecognitionModes} 
      */
     RecognitionFlags {
         get => this.get_RecognitionFlags()
@@ -160,7 +158,7 @@ class IInkRecognizerContext extends IDispatch{
      * You must set the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkrecognizercontext-get_guide">Guide</a> property before using this property.
      * 
      * Some recognizers do not support character Autocomplete. The <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/ne-msinkaut-inkrecognizercapabilities">InkRecognizerCapabilities</a> enumeration contains flags for features a recognizer can support. You can determine if the recognizer supports character Autocomplete by checking the value of the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkrecognizer-get_capabilities">Capabilities</a> property.
-     * @returns {Integer} 
+     * @returns {InkRecognizerCharacterAutoCompletionMode} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkrecognizercontext-get_characterautocompletionmode
      */
     get_CharacterAutoCompletionMode() {
@@ -180,7 +178,7 @@ class IInkRecognizerContext extends IDispatch{
      * You must set the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkrecognizercontext-get_guide">Guide</a> property before using this property.
      * 
      * Some recognizers do not support character Autocomplete. The <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/ne-msinkaut-inkrecognizercapabilities">InkRecognizerCapabilities</a> enumeration contains flags for features a recognizer can support. You can determine if the recognizer supports character Autocomplete by checking the value of the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkrecognizer-get_capabilities">Capabilities</a> property.
-     * @param {Integer} _Mode 
+     * @param {InkRecognizerCharacterAutoCompletionMode} _Mode 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkrecognizercontext-put_characterautocompletionmode
      */
@@ -405,7 +403,7 @@ class IInkRecognizerContext extends IDispatch{
      * 
      * <div class="alert"><b>Note</b>  You can combine modes using the bitwise <b>OR</b> operator.</div>
      * <div> </div>
-     * @returns {Integer} 
+     * @returns {InkRecognitionModes} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkrecognizercontext-get_recognitionflags
      */
     get_RecognitionFlags() {
@@ -424,7 +422,7 @@ class IInkRecognizerContext extends IDispatch{
      * 
      * <div class="alert"><b>Note</b>  You can combine modes using the bitwise <b>OR</b> operator.</div>
      * <div> </div>
-     * @param {Integer} Modes 
+     * @param {InkRecognitionModes} Modes 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkrecognizercontext-put_recognitionflags
      */
@@ -494,7 +492,7 @@ class IInkRecognizerContext extends IDispatch{
      * This method performs recognition synchronously. To start background or asynchronous recognition, call the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkrecognizercontext-backgroundrecognize">BackgroundRecognize</a> or <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkrecognizercontext-backgroundrecognizewithalternates">BackgroundRecognizeWithAlternates</a> methods.
      * 
      * You must use a try/catch block when calling <b>Recognize</b> because an exception is thrown when the <a href="https://docs.microsoft.com/windows/desktop/tablet/inkdisp-class">InkDisp</a> object contains no strokes or only deleted strokes.
-     * @param {Pointer<Integer>} RecognitionStatus The most recent <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/ne-msinkaut-inkrecognitionstatus">InkRecognitionStatus</a> value.
+     * @param {Pointer<InkRecognitionStatus>} RecognitionStatus The most recent <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/ne-msinkaut-inkrecognitionstatus">InkRecognitionStatus</a> value.
      * @returns {IInkRecognitionResult} When this method returns, contains a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nn-msinkaut-iinkrecognitionresult">IInkRecognitionResult</a> results of a recognized collection of strokes, or else <b>NULL</b> if the recognizer could not compute a result for the ink.
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkrecognizercontext-recognize
      */
@@ -799,7 +797,9 @@ class IInkRecognizerContext extends IDispatch{
      * This method does not search the user dictionary if you specify a <a href="https://docs.microsoft.com/windows/desktop/tablet/inkwordlist-class">word list</a> for the context. The recognizer uses the speech dictionary in Microsoft Office XP.
      * 
      * Use the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkrecognizercontext-get_factoid">Factoid</a> property to limit the search to the system dictionary or the word list that is associated with the context. For example, to limit the search to the system dictionary, specify the <a href="https://docs.microsoft.com/windows/desktop/tablet/factoid-constants">SystemDictionary</a> factoid. To improve the results, you may also need to set the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkrecognizercontext-get_recognitionflags">RecognitionFlags</a> property.
-     * @param {BSTR} _String 
+     * @param {BSTR} _String The string to look up in the dictionaries and word list.
+     * 
+     * For more information about the BSTR data type, see <a href="https://docs.microsoft.com/windows/desktop/tablet/using-the-com-library">Using the COM Library</a>.
      * @returns {VARIANT_BOOL} When this method returns, contains <b>VARIANT_TRUE</b> if the string is in the dictionary or word list; otherwise <b>VARIANT_FALSE</b>.
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkrecognizercontext-isstringsupported
      */

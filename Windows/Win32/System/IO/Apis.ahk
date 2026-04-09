@@ -4,7 +4,6 @@
 
 /**
  * @namespace Windows.Win32.System.IO
- * @version v4.0.30319
  */
 class IO {
 
@@ -590,13 +589,13 @@ class IO {
      * For a list of the control codes, see Remarks. The documentation for each control code provides usage details 
      *        for the <i>lpInBuffer</i>, <i>nInBufferSize</i>, 
      *        <i>lpOutBuffer</i>, and <i>nOutBufferSize</i> parameters.
-     * @param {Pointer} lpInBuffer A pointer to the input buffer that contains the data required to perform the operation. The format of this 
+     * @param {Integer} lpInBuffer A pointer to the input buffer that contains the data required to perform the operation. The format of this 
      *        data depends on the value of the <i>dwIoControlCode</i> parameter.
      * 
      * This parameter can be <b>NULL</b> if <i>dwIoControlCode</i> specifies 
      *        an operation that does not require input data.
      * @param {Integer} nInBufferSize The size of the input buffer, in bytes.
-     * @param {Pointer} lpOutBuffer A pointer to the output buffer that is to receive the data returned by the operation. The format of this 
+     * @param {Integer} lpOutBuffer A pointer to the output buffer that is to receive the data returned by the operation. The format of this 
      *        data depends on the value of the <i>dwIoControlCode</i> parameter.
      * 
      * This parameter can be <b>NULL</b> if <i>dwIoControlCode</i> specifies 

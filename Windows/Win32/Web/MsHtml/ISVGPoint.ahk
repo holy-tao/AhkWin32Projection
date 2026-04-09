@@ -1,14 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ISVGPoint.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
- * @version v4.0.30319
  */
-class ISVGPoint extends IDispatch{
+class ISVGPoint extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

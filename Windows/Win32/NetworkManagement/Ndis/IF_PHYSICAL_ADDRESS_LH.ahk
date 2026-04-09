@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Ndis
- * @version v4.0.30319
  */
-class IF_PHYSICAL_ADDRESS_LH extends Win32Struct
-{
+class IF_PHYSICAL_ADDRESS_LH extends Win32Struct {
     static sizeof => 34
 
     static packingSize => 2
@@ -20,9 +18,9 @@ class IF_PHYSICAL_ADDRESS_LH extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Address{
+    Address {
         get {
             if(!this.HasProp("__AddressProxyArray"))
                 this.__AddressProxyArray := Win32FixedArray(this.ptr + 2, 32, Primitive, "char")

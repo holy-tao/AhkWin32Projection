@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Storage.Nvme
- * @version v4.0.30319
  */
-class NVME_OCP_DEVICE_TCG_CONFIGURATION_LOG extends Win32Struct
-{
+class NVME_OCP_DEVICE_TCG_CONFIGURATION_LOG extends Win32Struct {
     static sizeof => 504
 
     static packingSize => 8
@@ -28,7 +26,7 @@ class NVME_OCP_DEVICE_TCG_CONFIGURATION_LOG extends Win32Struct
             get => NumGet(this, 0, "char")
             set => NumPut("char", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -36,7 +34,7 @@ class NVME_OCP_DEVICE_TCG_CONFIGURATION_LOG extends Win32Struct
             get => (this._bitfield >> 0) & 0x1
             set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -44,7 +42,7 @@ class NVME_OCP_DEVICE_TCG_CONFIGURATION_LOG extends Win32Struct
             get => (this._bitfield >> 1) & 0x1
             set => this._bitfield := ((value & 0x1) << 1) | (this._bitfield & ~(0x1 << 1))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -52,7 +50,7 @@ class NVME_OCP_DEVICE_TCG_CONFIGURATION_LOG extends Win32Struct
             get => (this._bitfield >> 2) & 0x1
             set => this._bitfield := ((value & 0x1) << 2) | (this._bitfield & ~(0x1 << 2))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -60,7 +58,7 @@ class NVME_OCP_DEVICE_TCG_CONFIGURATION_LOG extends Win32Struct
             get => (this._bitfield >> 3) & 0x1
             set => this._bitfield := ((value & 0x1) << 3) | (this._bitfield & ~(0x1 << 3))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -68,24 +66,23 @@ class NVME_OCP_DEVICE_TCG_CONFIGURATION_LOG extends Win32Struct
             get => NumGet(this, 0, "char")
             set => NumPut("char", value, this, 0)
         }
-    
     }
 
     /**
      * @type {_State_e__Union}
      */
-    State{
+    State {
         get {
             if(!this.HasProp("__State"))
-                this.__State := %this.__Class%._State_e__Union(0, this)
+                this.__State := NVME_OCP_DEVICE_TCG_CONFIGURATION_LOG._State_e__Union(0, this)
             return this.__State
         }
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Reserved0{
+    Reserved0 {
         get {
             if(!this.HasProp("__Reserved0ProxyArray"))
                 this.__Reserved0ProxyArray := Win32FixedArray(this.ptr + 1, 3, Primitive, "char")
@@ -222,9 +219,9 @@ class NVME_OCP_DEVICE_TCG_CONFIGURATION_LOG extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Reserved2{
+    Reserved2 {
         get {
             if(!this.HasProp("__Reserved2ProxyArray"))
                 this.__Reserved2ProxyArray := Win32FixedArray(this.ptr + 32, 462, Primitive, "char")
@@ -241,7 +238,7 @@ class NVME_OCP_DEVICE_TCG_CONFIGURATION_LOG extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     LogPageGUID {
         get => NumGet(this, 496, "ptr")

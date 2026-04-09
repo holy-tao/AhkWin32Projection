@@ -5,10 +5,8 @@
  * Contains the stack frame information.
  * @see https://learn.microsoft.com/windows/win32/api/dbghelp/ns-dbghelp-imagehlp_stack_frame
  * @namespace Windows.Win32.System.Diagnostics.Debug
- * @version v4.0.30319
  */
-class IMAGEHLP_STACK_FRAME extends Win32Struct
-{
+class IMAGEHLP_STACK_FRAME extends Win32Struct {
     static sizeof => 128
 
     static packingSize => 8
@@ -97,9 +95,9 @@ class IMAGEHLP_STACK_FRAME extends Win32Struct
 
     /**
      * The possible arguments to the function.
-     * @type {Array<UInt64>}
+     * @type {Array<Integer>}
      */
-    Params{
+    Params {
         get {
             if(!this.HasProp("__ParamsProxyArray"))
                 this.__ParamsProxyArray := Win32FixedArray(this.ptr + 48, 4, Primitive, "uint")
@@ -109,9 +107,9 @@ class IMAGEHLP_STACK_FRAME extends Win32Struct
 
     /**
      * This member is reserved for system use.
-     * @type {Array<UInt64>}
+     * @type {Array<Integer>}
      */
-    Reserved{
+    Reserved {
         get {
             if(!this.HasProp("__ReservedProxyArray"))
                 this.__ReservedProxyArray := Win32FixedArray(this.ptr + 80, 5, Primitive, "uint")

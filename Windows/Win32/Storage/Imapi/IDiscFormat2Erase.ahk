@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\IDiscRecorder2.ahk
 #Include .\IDiscFormat2.ahk
+#Include .\IDiscRecorder2.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * Use this interface to erase data from a disc.
@@ -11,9 +11,8 @@
  * To create the <b>MsftDiscFormat2Erase</b> object in a script, use IMAPI2.MsftDiscFormat2Erase as the program identifier when calling <b>CreateObject</b>.
  * @see https://learn.microsoft.com/windows/win32/api/imapi2/nn-imapi2-idiscformat2erase
  * @namespace Windows.Win32.Storage.Imapi
- * @version v4.0.30319
  */
-class IDiscFormat2Erase extends IDiscFormat2{
+class IDiscFormat2Erase extends IDiscFormat2 {
 
     static sizeof => A_PtrSize
     /**
@@ -51,7 +50,7 @@ class IDiscFormat2Erase extends IDiscFormat2{
     }
 
     /**
-     * @type {Integer} 
+     * @type {IMAPI_MEDIA_PHYSICAL_TYPE} 
      */
     CurrentPhysicalMediaType {
         get => this.get_CurrentPhysicalMediaType()
@@ -117,7 +116,7 @@ class IDiscFormat2Erase extends IDiscFormat2{
 
     /**
      * Retrieves the type of media in the disc device. (IDiscFormat2Erase.get_CurrentPhysicalMediaType)
-     * @returns {Integer} Type of media in the disc device. For possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/ne-imapi2-imapi_media_physical_type">IMAPI_MEDIA_PHYSICAL_TYPE</a> enumeration type.
+     * @returns {IMAPI_MEDIA_PHYSICAL_TYPE} Type of media in the disc device. For possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/ne-imapi2-imapi_media_physical_type">IMAPI_MEDIA_PHYSICAL_TYPE</a> enumeration type.
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscformat2erase-get_currentphysicalmediatype
      */
     get_CurrentPhysicalMediaType() {

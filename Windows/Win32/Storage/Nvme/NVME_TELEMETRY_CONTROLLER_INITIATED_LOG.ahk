@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Storage.Nvme
- * @version v4.0.30319
  */
-class NVME_TELEMETRY_CONTROLLER_INITIATED_LOG extends Win32Struct
-{
+class NVME_TELEMETRY_CONTROLLER_INITIATED_LOG extends Win32Struct {
     static sizeof => 512
 
     static packingSize => 4
@@ -20,9 +18,9 @@ class NVME_TELEMETRY_CONTROLLER_INITIATED_LOG extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Reserved0{
+    Reserved0 {
         get {
             if(!this.HasProp("__Reserved0ProxyArray"))
                 this.__Reserved0ProxyArray := Win32FixedArray(this.ptr + 1, 4, Primitive, "char")
@@ -31,9 +29,9 @@ class NVME_TELEMETRY_CONTROLLER_INITIATED_LOG extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    OrganizationID{
+    OrganizationID {
         get {
             if(!this.HasProp("__OrganizationIDProxyArray"))
                 this.__OrganizationIDProxyArray := Win32FixedArray(this.ptr + 5, 3, Primitive, "char")
@@ -66,9 +64,9 @@ class NVME_TELEMETRY_CONTROLLER_INITIATED_LOG extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Reserved1{
+    Reserved1 {
         get {
             if(!this.HasProp("__Reserved1ProxyArray"))
                 this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 14, 2, Primitive, "char")
@@ -85,9 +83,9 @@ class NVME_TELEMETRY_CONTROLLER_INITIATED_LOG extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Reserved2{
+    Reserved2 {
         get {
             if(!this.HasProp("__Reserved2ProxyArray"))
                 this.__Reserved2ProxyArray := Win32FixedArray(this.ptr + 20, 362, Primitive, "char")
@@ -112,9 +110,9 @@ class NVME_TELEMETRY_CONTROLLER_INITIATED_LOG extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    ReasonIdentifier{
+    ReasonIdentifier {
         get {
             if(!this.HasProp("__ReasonIdentifierProxyArray"))
                 this.__ReasonIdentifierProxyArray := Win32FixedArray(this.ptr + 384, 128, Primitive, "char")

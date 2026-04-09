@@ -1,268 +1,196 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Win32\Foundation\LUID.ahk
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem
- * @version v4.0.30319
  */
-class SE_EXPORTS extends Win32Struct
-{
+class SE_EXPORTS extends Win32Struct {
     static sizeof => 584
 
     static packingSize => 8
 
     /**
-     * @type {LUID}
+     * @type {Pointer}
      */
-    SeCreateTokenPrivilege{
-        get {
-            if(!this.HasProp("__SeCreateTokenPrivilege"))
-                this.__SeCreateTokenPrivilege := LUID(0, this)
-            return this.__SeCreateTokenPrivilege
-        }
+    SeCreateTokenPrivilege {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
-     * @type {LUID}
+     * @type {Pointer}
      */
-    SeAssignPrimaryTokenPrivilege{
-        get {
-            if(!this.HasProp("__SeAssignPrimaryTokenPrivilege"))
-                this.__SeAssignPrimaryTokenPrivilege := LUID(8, this)
-            return this.__SeAssignPrimaryTokenPrivilege
-        }
+    SeAssignPrimaryTokenPrivilege {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
-     * @type {LUID}
+     * @type {Pointer}
      */
-    SeLockMemoryPrivilege{
-        get {
-            if(!this.HasProp("__SeLockMemoryPrivilege"))
-                this.__SeLockMemoryPrivilege := LUID(16, this)
-            return this.__SeLockMemoryPrivilege
-        }
+    SeLockMemoryPrivilege {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
-     * @type {LUID}
+     * @type {Pointer}
      */
-    SeIncreaseQuotaPrivilege{
-        get {
-            if(!this.HasProp("__SeIncreaseQuotaPrivilege"))
-                this.__SeIncreaseQuotaPrivilege := LUID(24, this)
-            return this.__SeIncreaseQuotaPrivilege
-        }
+    SeIncreaseQuotaPrivilege {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
-     * @type {LUID}
+     * @type {Pointer}
      */
-    SeUnsolicitedInputPrivilege{
-        get {
-            if(!this.HasProp("__SeUnsolicitedInputPrivilege"))
-                this.__SeUnsolicitedInputPrivilege := LUID(32, this)
-            return this.__SeUnsolicitedInputPrivilege
-        }
+    SeUnsolicitedInputPrivilege {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
-     * @type {LUID}
+     * @type {Pointer}
      */
-    SeTcbPrivilege{
-        get {
-            if(!this.HasProp("__SeTcbPrivilege"))
-                this.__SeTcbPrivilege := LUID(40, this)
-            return this.__SeTcbPrivilege
-        }
+    SeTcbPrivilege {
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 
     /**
-     * @type {LUID}
+     * @type {Pointer}
      */
-    SeSecurityPrivilege{
-        get {
-            if(!this.HasProp("__SeSecurityPrivilege"))
-                this.__SeSecurityPrivilege := LUID(48, this)
-            return this.__SeSecurityPrivilege
-        }
+    SeSecurityPrivilege {
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 
     /**
-     * @type {LUID}
+     * @type {Pointer}
      */
-    SeTakeOwnershipPrivilege{
-        get {
-            if(!this.HasProp("__SeTakeOwnershipPrivilege"))
-                this.__SeTakeOwnershipPrivilege := LUID(56, this)
-            return this.__SeTakeOwnershipPrivilege
-        }
+    SeTakeOwnershipPrivilege {
+        get => NumGet(this, 56, "ptr")
+        set => NumPut("ptr", value, this, 56)
     }
 
     /**
-     * @type {LUID}
+     * @type {Pointer}
      */
-    SeLoadDriverPrivilege{
-        get {
-            if(!this.HasProp("__SeLoadDriverPrivilege"))
-                this.__SeLoadDriverPrivilege := LUID(64, this)
-            return this.__SeLoadDriverPrivilege
-        }
+    SeLoadDriverPrivilege {
+        get => NumGet(this, 64, "ptr")
+        set => NumPut("ptr", value, this, 64)
     }
 
     /**
-     * @type {LUID}
+     * @type {Pointer}
      */
-    SeCreatePagefilePrivilege{
-        get {
-            if(!this.HasProp("__SeCreatePagefilePrivilege"))
-                this.__SeCreatePagefilePrivilege := LUID(72, this)
-            return this.__SeCreatePagefilePrivilege
-        }
+    SeCreatePagefilePrivilege {
+        get => NumGet(this, 72, "ptr")
+        set => NumPut("ptr", value, this, 72)
     }
 
     /**
-     * @type {LUID}
+     * @type {Pointer}
      */
-    SeIncreaseBasePriorityPrivilege{
-        get {
-            if(!this.HasProp("__SeIncreaseBasePriorityPrivilege"))
-                this.__SeIncreaseBasePriorityPrivilege := LUID(80, this)
-            return this.__SeIncreaseBasePriorityPrivilege
-        }
+    SeIncreaseBasePriorityPrivilege {
+        get => NumGet(this, 80, "ptr")
+        set => NumPut("ptr", value, this, 80)
     }
 
     /**
-     * @type {LUID}
+     * @type {Pointer}
      */
-    SeSystemProfilePrivilege{
-        get {
-            if(!this.HasProp("__SeSystemProfilePrivilege"))
-                this.__SeSystemProfilePrivilege := LUID(88, this)
-            return this.__SeSystemProfilePrivilege
-        }
+    SeSystemProfilePrivilege {
+        get => NumGet(this, 88, "ptr")
+        set => NumPut("ptr", value, this, 88)
     }
 
     /**
-     * @type {LUID}
+     * @type {Pointer}
      */
-    SeSystemtimePrivilege{
-        get {
-            if(!this.HasProp("__SeSystemtimePrivilege"))
-                this.__SeSystemtimePrivilege := LUID(96, this)
-            return this.__SeSystemtimePrivilege
-        }
+    SeSystemtimePrivilege {
+        get => NumGet(this, 96, "ptr")
+        set => NumPut("ptr", value, this, 96)
     }
 
     /**
-     * @type {LUID}
+     * @type {Pointer}
      */
-    SeProfileSingleProcessPrivilege{
-        get {
-            if(!this.HasProp("__SeProfileSingleProcessPrivilege"))
-                this.__SeProfileSingleProcessPrivilege := LUID(104, this)
-            return this.__SeProfileSingleProcessPrivilege
-        }
+    SeProfileSingleProcessPrivilege {
+        get => NumGet(this, 104, "ptr")
+        set => NumPut("ptr", value, this, 104)
     }
 
     /**
-     * @type {LUID}
+     * @type {Pointer}
      */
-    SeCreatePermanentPrivilege{
-        get {
-            if(!this.HasProp("__SeCreatePermanentPrivilege"))
-                this.__SeCreatePermanentPrivilege := LUID(112, this)
-            return this.__SeCreatePermanentPrivilege
-        }
+    SeCreatePermanentPrivilege {
+        get => NumGet(this, 112, "ptr")
+        set => NumPut("ptr", value, this, 112)
     }
 
     /**
-     * @type {LUID}
+     * @type {Pointer}
      */
-    SeBackupPrivilege{
-        get {
-            if(!this.HasProp("__SeBackupPrivilege"))
-                this.__SeBackupPrivilege := LUID(120, this)
-            return this.__SeBackupPrivilege
-        }
+    SeBackupPrivilege {
+        get => NumGet(this, 120, "ptr")
+        set => NumPut("ptr", value, this, 120)
     }
 
     /**
-     * @type {LUID}
+     * @type {Pointer}
      */
-    SeRestorePrivilege{
-        get {
-            if(!this.HasProp("__SeRestorePrivilege"))
-                this.__SeRestorePrivilege := LUID(128, this)
-            return this.__SeRestorePrivilege
-        }
+    SeRestorePrivilege {
+        get => NumGet(this, 128, "ptr")
+        set => NumPut("ptr", value, this, 128)
     }
 
     /**
-     * @type {LUID}
+     * @type {Pointer}
      */
-    SeShutdownPrivilege{
-        get {
-            if(!this.HasProp("__SeShutdownPrivilege"))
-                this.__SeShutdownPrivilege := LUID(136, this)
-            return this.__SeShutdownPrivilege
-        }
+    SeShutdownPrivilege {
+        get => NumGet(this, 136, "ptr")
+        set => NumPut("ptr", value, this, 136)
     }
 
     /**
-     * @type {LUID}
+     * @type {Pointer}
      */
-    SeDebugPrivilege{
-        get {
-            if(!this.HasProp("__SeDebugPrivilege"))
-                this.__SeDebugPrivilege := LUID(144, this)
-            return this.__SeDebugPrivilege
-        }
+    SeDebugPrivilege {
+        get => NumGet(this, 144, "ptr")
+        set => NumPut("ptr", value, this, 144)
     }
 
     /**
-     * @type {LUID}
+     * @type {Pointer}
      */
-    SeAuditPrivilege{
-        get {
-            if(!this.HasProp("__SeAuditPrivilege"))
-                this.__SeAuditPrivilege := LUID(152, this)
-            return this.__SeAuditPrivilege
-        }
+    SeAuditPrivilege {
+        get => NumGet(this, 152, "ptr")
+        set => NumPut("ptr", value, this, 152)
     }
 
     /**
-     * @type {LUID}
+     * @type {Pointer}
      */
-    SeSystemEnvironmentPrivilege{
-        get {
-            if(!this.HasProp("__SeSystemEnvironmentPrivilege"))
-                this.__SeSystemEnvironmentPrivilege := LUID(160, this)
-            return this.__SeSystemEnvironmentPrivilege
-        }
+    SeSystemEnvironmentPrivilege {
+        get => NumGet(this, 160, "ptr")
+        set => NumPut("ptr", value, this, 160)
     }
 
     /**
-     * @type {LUID}
+     * @type {Pointer}
      */
-    SeChangeNotifyPrivilege{
-        get {
-            if(!this.HasProp("__SeChangeNotifyPrivilege"))
-                this.__SeChangeNotifyPrivilege := LUID(168, this)
-            return this.__SeChangeNotifyPrivilege
-        }
+    SeChangeNotifyPrivilege {
+        get => NumGet(this, 168, "ptr")
+        set => NumPut("ptr", value, this, 168)
     }
 
     /**
-     * @type {LUID}
+     * @type {Pointer}
      */
-    SeRemoteShutdownPrivilege{
-        get {
-            if(!this.HasProp("__SeRemoteShutdownPrivilege"))
-                this.__SeRemoteShutdownPrivilege := LUID(176, this)
-            return this.__SeRemoteShutdownPrivilege
-        }
+    SeRemoteShutdownPrivilege {
+        get => NumGet(this, 176, "ptr")
+        set => NumPut("ptr", value, this, 176)
     }
 
     /**
@@ -442,36 +370,27 @@ class SE_EXPORTS extends Win32Struct
     }
 
     /**
-     * @type {LUID}
+     * @type {Pointer}
      */
-    SeUndockPrivilege{
-        get {
-            if(!this.HasProp("__SeUndockPrivilege"))
-                this.__SeUndockPrivilege := LUID(360, this)
-            return this.__SeUndockPrivilege
-        }
+    SeUndockPrivilege {
+        get => NumGet(this, 360, "ptr")
+        set => NumPut("ptr", value, this, 360)
     }
 
     /**
-     * @type {LUID}
+     * @type {Pointer}
      */
-    SeSyncAgentPrivilege{
-        get {
-            if(!this.HasProp("__SeSyncAgentPrivilege"))
-                this.__SeSyncAgentPrivilege := LUID(368, this)
-            return this.__SeSyncAgentPrivilege
-        }
+    SeSyncAgentPrivilege {
+        get => NumGet(this, 368, "ptr")
+        set => NumPut("ptr", value, this, 368)
     }
 
     /**
-     * @type {LUID}
+     * @type {Pointer}
      */
-    SeEnableDelegationPrivilege{
-        get {
-            if(!this.HasProp("__SeEnableDelegationPrivilege"))
-                this.__SeEnableDelegationPrivilege := LUID(376, this)
-            return this.__SeEnableDelegationPrivilege
-        }
+    SeEnableDelegationPrivilege {
+        get => NumGet(this, 376, "ptr")
+        set => NumPut("ptr", value, this, 376)
     }
 
     /**
@@ -491,91 +410,67 @@ class SE_EXPORTS extends Win32Struct
     }
 
     /**
-     * @type {LUID}
+     * @type {Pointer}
      */
-    SeManageVolumePrivilege{
-        get {
-            if(!this.HasProp("__SeManageVolumePrivilege"))
-                this.__SeManageVolumePrivilege := LUID(400, this)
-            return this.__SeManageVolumePrivilege
-        }
+    SeManageVolumePrivilege {
+        get => NumGet(this, 400, "ptr")
+        set => NumPut("ptr", value, this, 400)
     }
 
     /**
-     * @type {LUID}
+     * @type {Pointer}
      */
-    SeImpersonatePrivilege{
-        get {
-            if(!this.HasProp("__SeImpersonatePrivilege"))
-                this.__SeImpersonatePrivilege := LUID(408, this)
-            return this.__SeImpersonatePrivilege
-        }
+    SeImpersonatePrivilege {
+        get => NumGet(this, 408, "ptr")
+        set => NumPut("ptr", value, this, 408)
     }
 
     /**
-     * @type {LUID}
+     * @type {Pointer}
      */
-    SeCreateGlobalPrivilege{
-        get {
-            if(!this.HasProp("__SeCreateGlobalPrivilege"))
-                this.__SeCreateGlobalPrivilege := LUID(416, this)
-            return this.__SeCreateGlobalPrivilege
-        }
+    SeCreateGlobalPrivilege {
+        get => NumGet(this, 416, "ptr")
+        set => NumPut("ptr", value, this, 416)
     }
 
     /**
-     * @type {LUID}
+     * @type {Pointer}
      */
-    SeTrustedCredManAccessPrivilege{
-        get {
-            if(!this.HasProp("__SeTrustedCredManAccessPrivilege"))
-                this.__SeTrustedCredManAccessPrivilege := LUID(424, this)
-            return this.__SeTrustedCredManAccessPrivilege
-        }
+    SeTrustedCredManAccessPrivilege {
+        get => NumGet(this, 424, "ptr")
+        set => NumPut("ptr", value, this, 424)
     }
 
     /**
-     * @type {LUID}
+     * @type {Pointer}
      */
-    SeRelabelPrivilege{
-        get {
-            if(!this.HasProp("__SeRelabelPrivilege"))
-                this.__SeRelabelPrivilege := LUID(432, this)
-            return this.__SeRelabelPrivilege
-        }
+    SeRelabelPrivilege {
+        get => NumGet(this, 432, "ptr")
+        set => NumPut("ptr", value, this, 432)
     }
 
     /**
-     * @type {LUID}
+     * @type {Pointer}
      */
-    SeIncreaseWorkingSetPrivilege{
-        get {
-            if(!this.HasProp("__SeIncreaseWorkingSetPrivilege"))
-                this.__SeIncreaseWorkingSetPrivilege := LUID(440, this)
-            return this.__SeIncreaseWorkingSetPrivilege
-        }
+    SeIncreaseWorkingSetPrivilege {
+        get => NumGet(this, 440, "ptr")
+        set => NumPut("ptr", value, this, 440)
     }
 
     /**
-     * @type {LUID}
+     * @type {Pointer}
      */
-    SeTimeZonePrivilege{
-        get {
-            if(!this.HasProp("__SeTimeZonePrivilege"))
-                this.__SeTimeZonePrivilege := LUID(448, this)
-            return this.__SeTimeZonePrivilege
-        }
+    SeTimeZonePrivilege {
+        get => NumGet(this, 448, "ptr")
+        set => NumPut("ptr", value, this, 448)
     }
 
     /**
-     * @type {LUID}
+     * @type {Pointer}
      */
-    SeCreateSymbolicLinkPrivilege{
-        get {
-            if(!this.HasProp("__SeCreateSymbolicLinkPrivilege"))
-                this.__SeCreateSymbolicLinkPrivilege := LUID(456, this)
-            return this.__SeCreateSymbolicLinkPrivilege
-        }
+    SeCreateSymbolicLinkPrivilege {
+        get => NumGet(this, 456, "ptr")
+        set => NumPut("ptr", value, this, 456)
     }
 
     /**
@@ -667,14 +562,11 @@ class SE_EXPORTS extends Win32Struct
     }
 
     /**
-     * @type {LUID}
+     * @type {Pointer}
      */
-    SeDelegateSessionUserImpersonatePrivilege{
-        get {
-            if(!this.HasProp("__SeDelegateSessionUserImpersonatePrivilege"))
-                this.__SeDelegateSessionUserImpersonatePrivilege := LUID(552, this)
-            return this.__SeDelegateSessionUserImpersonatePrivilege
-        }
+    SeDelegateSessionUserImpersonatePrivilege {
+        get => NumGet(this, 552, "ptr")
+        set => NumPut("ptr", value, this, 552)
     }
 
     /**

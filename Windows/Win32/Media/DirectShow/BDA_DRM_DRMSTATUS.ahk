@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class BDA_DRM_DRMSTATUS extends Win32Struct
-{
+class BDA_DRM_DRMSTATUS extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -20,7 +18,7 @@ class BDA_DRM_DRMSTATUS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     DRMuuid {
         get => NumGet(this, 8, "ptr")
@@ -36,9 +34,9 @@ class BDA_DRM_DRMSTATUS extends Win32Struct
     }
 
     /**
-     * @type {Array<Guid>}
+     * @type {Array<Pointer>}
      */
-    argbDrmUuidListString{
+    argbDrmUuidListString {
         get {
             if(!this.HasProp("__argbDrmUuidListStringProxyArray"))
                 this.__argbDrmUuidListStringProxyArray := Win32FixedArray(this.ptr + 24, 1, Primitive, "ptr")

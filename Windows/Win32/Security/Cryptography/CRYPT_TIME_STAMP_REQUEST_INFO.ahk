@@ -1,15 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\CRYPT_INTEGER_BLOB.ahk
+#Include .\CRYPT_ATTRIBUTE.ahk
 
 /**
  * Used for time stamping.
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-crypt_time_stamp_request_info
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CRYPT_TIME_STAMP_REQUEST_INFO extends Win32Struct
-{
+class CRYPT_TIME_STAMP_REQUEST_INFO extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -36,7 +35,7 @@ class CRYPT_TIME_STAMP_REQUEST_INFO extends Win32Struct
      * A <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa381414(v=vs.85)">CRYPT_OBJID_BLOB</a> structure that contains the encoded signature bits of the material being time stamped.
      * @type {CRYPT_INTEGER_BLOB}
      */
-    Content{
+    Content {
         get {
             if(!this.HasProp("__Content"))
                 this.__Content := CRYPT_INTEGER_BLOB(16, this)

@@ -14,10 +14,8 @@
  * The <b>WOW64_LDT_ENTRY</b> structure has the same layout for a 64-bit process as the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-ldt_entry">LDT_ENTRY</a> structure has for a 32-bit process.
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-wow64_ldt_entry
  * @namespace Windows.Win32.System.Diagnostics.Debug
- * @version v4.0.30319
  */
-class WOW64_LDT_ENTRY extends Win32Struct
-{
+class WOW64_LDT_ENTRY extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4
@@ -29,7 +27,7 @@ class WOW64_LDT_ENTRY extends Win32Struct
         class _Bytes extends Win32Struct {
             static sizeof => 4
             static packingSize => 1
-    
+
             /**
              * @type {Integer}
              */
@@ -37,7 +35,7 @@ class WOW64_LDT_ENTRY extends Win32Struct
                 get => NumGet(this, 0, "char")
                 set => NumPut("char", value, this, 0)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -45,7 +43,7 @@ class WOW64_LDT_ENTRY extends Win32Struct
                 get => NumGet(this, 1, "char")
                 set => NumPut("char", value, this, 1)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -53,7 +51,7 @@ class WOW64_LDT_ENTRY extends Win32Struct
                 get => NumGet(this, 2, "char")
                 set => NumPut("char", value, this, 2)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -61,13 +59,12 @@ class WOW64_LDT_ENTRY extends Win32Struct
                 get => NumGet(this, 3, "char")
                 set => NumPut("char", value, this, 3)
             }
-        
         }
-    
+
         class _Bits extends Win32Struct {
             static sizeof => 4
             static packingSize => 4
-    
+
             /**
              * This bitfield backs the following members:
              * - BaseMid
@@ -86,7 +83,7 @@ class WOW64_LDT_ENTRY extends Win32Struct
                 get => NumGet(this, 0, "uint")
                 set => NumPut("uint", value, this, 0)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -94,7 +91,7 @@ class WOW64_LDT_ENTRY extends Win32Struct
                 get => (this._bitfield >> 0) & 0xFF
                 set => this._bitfield := ((value & 0xFF) << 0) | (this._bitfield & ~(0xFF << 0))
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -102,7 +99,7 @@ class WOW64_LDT_ENTRY extends Win32Struct
                 get => (this._bitfield >> 8) & 0x1F
                 set => this._bitfield := ((value & 0x1F) << 8) | (this._bitfield & ~(0x1F << 8))
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -110,7 +107,7 @@ class WOW64_LDT_ENTRY extends Win32Struct
                 get => (this._bitfield >> 13) & 0x3
                 set => this._bitfield := ((value & 0x3) << 13) | (this._bitfield & ~(0x3 << 13))
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -118,7 +115,7 @@ class WOW64_LDT_ENTRY extends Win32Struct
                 get => (this._bitfield >> 15) & 0x1
                 set => this._bitfield := ((value & 0x1) << 15) | (this._bitfield & ~(0x1 << 15))
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -126,7 +123,7 @@ class WOW64_LDT_ENTRY extends Win32Struct
                 get => (this._bitfield >> 16) & 0xF
                 set => this._bitfield := ((value & 0xF) << 16) | (this._bitfield & ~(0xF << 16))
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -134,7 +131,7 @@ class WOW64_LDT_ENTRY extends Win32Struct
                 get => (this._bitfield >> 20) & 0x1
                 set => this._bitfield := ((value & 0x1) << 20) | (this._bitfield & ~(0x1 << 20))
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -142,7 +139,7 @@ class WOW64_LDT_ENTRY extends Win32Struct
                 get => (this._bitfield >> 21) & 0x1
                 set => this._bitfield := ((value & 0x1) << 21) | (this._bitfield & ~(0x1 << 21))
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -150,7 +147,7 @@ class WOW64_LDT_ENTRY extends Win32Struct
                 get => (this._bitfield >> 22) & 0x1
                 set => this._bitfield := ((value & 0x1) << 22) | (this._bitfield & ~(0x1 << 22))
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -158,7 +155,7 @@ class WOW64_LDT_ENTRY extends Win32Struct
                 get => (this._bitfield >> 23) & 0x1
                 set => this._bitfield := ((value & 0x1) << 23) | (this._bitfield & ~(0x1 << 23))
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -166,31 +163,29 @@ class WOW64_LDT_ENTRY extends Win32Struct
                 get => (this._bitfield >> 24) & 0xFF
                 set => this._bitfield := ((value & 0xFF) << 24) | (this._bitfield & ~(0xFF << 24))
             }
-        
         }
-    
+
         /**
          * @type {_Bytes}
          */
-        Bytes{
+        Bytes {
             get {
                 if(!this.HasProp("__Bytes"))
-                    this.__Bytes := %this.__Class%._Bytes(0, this)
+                    this.__Bytes := WOW64_LDT_ENTRY._HighWord_e__Union._Bytes(0, this)
                 return this.__Bytes
             }
         }
-    
+
         /**
          * @type {_Bits}
          */
-        Bits{
+        Bits {
             get {
                 if(!this.HasProp("__Bits"))
-                    this.__Bits := %this.__Class%._Bits(0, this)
+                    this.__Bits := WOW64_LDT_ENTRY._HighWord_e__Union._Bits(0, this)
                 return this.__Bits
             }
         }
-    
     }
 
     /**
@@ -215,10 +210,10 @@ class WOW64_LDT_ENTRY extends Win32Struct
      * The high-order portion of the descriptor. This member may be interpreted as bytes or collections of bits, depending on the level of detail required.
      * @type {_HighWord_e__Union}
      */
-    HighWord{
+    HighWord {
         get {
             if(!this.HasProp("__HighWord"))
-                this.__HighWord := %this.__Class%._HighWord_e__Union(4, this)
+                this.__HighWord := WOW64_LDT_ENTRY._HighWord_e__Union(4, this)
             return this.__HighWord
         }
     }

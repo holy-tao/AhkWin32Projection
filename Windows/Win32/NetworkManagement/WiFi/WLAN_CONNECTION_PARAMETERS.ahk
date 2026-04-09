@@ -1,14 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\WLAN_CONNECTION_MODE.ahk
+#Include .\DOT11_SSID.ahk
+#Include .\DOT11_BSSID_LIST.ahk
+#Include .\DOT11_BSS_TYPE.ahk
 
 /**
  * Specifies the parameters used when using the WlanConnect function.
  * @see https://learn.microsoft.com/windows/win32/api/wlanapi/ns-wlanapi-wlan_connection_parameters
  * @namespace Windows.Win32.NetworkManagement.WiFi
- * @version v4.0.30319
  */
-class WLAN_CONNECTION_PARAMETERS extends Win32Struct
-{
+class WLAN_CONNECTION_PARAMETERS extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -17,7 +19,7 @@ class WLAN_CONNECTION_PARAMETERS extends Win32Struct
      * A <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/ne-wlanapi-wlan_connection_mode">WLAN_CONNECTION_MODE</a> value that specifies the mode of connection.
      * 
      * <b>Windows XP with SP3 and Wireless LAN API for Windows XP with SP2:  </b>Only the <b>wlan_connection_mode_profile</b>  value is supported.
-     * @type {Integer}
+     * @type {WLAN_CONNECTION_MODE}
      */
     wlanConnectionMode {
         get => NumGet(this, 0, "int")
@@ -59,7 +61,7 @@ class WLAN_CONNECTION_PARAMETERS extends Win32Struct
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/NativeWiFi/dot11-bss-type">DOT11_BSS_TYPE</a> value that indicates the BSS type of the network.  If a profile is provided, this BSS type must be the same as the one in the profile.
-     * @type {Integer}
+     * @type {DOT11_BSS_TYPE}
      */
     dot11BssType {
         get => NumGet(this, 32, "int")

@@ -5,10 +5,8 @@
  * The MSG_INFO_1 structure specifies a message alias. This structure exists only for compatibility. Message forwarding is not supported.
  * @see https://learn.microsoft.com/windows/win32/api/lmmsg/ns-lmmsg-msg_info_1
  * @namespace Windows.Win32.NetworkManagement.NetManagement
- * @version v4.0.30319
  */
-class MSG_INFO_1 extends Win32Struct
-{
+class MSG_INFO_1 extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

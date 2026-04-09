@@ -8,10 +8,8 @@
  * The <b>Position</b> member is valid only if the <b>Visible</b> member’s value is set to <b>TRUE</b>.
  * @see https://learn.microsoft.com/windows/win32/api/dxgi1_2/ns-dxgi1_2-dxgi_outdupl_pointer_position
  * @namespace Windows.Win32.Graphics.Dxgi
- * @version v4.0.30319
  */
-class DXGI_OUTDUPL_POINTER_POSITION extends Win32Struct
-{
+class DXGI_OUTDUPL_POINTER_POSITION extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4
@@ -20,7 +18,7 @@ class DXGI_OUTDUPL_POINTER_POSITION extends Win32Struct
      * The position of the hardware cursor relative to the top-left of the adapter output.
      * @type {POINT}
      */
-    Position{
+    Position {
         get {
             if(!this.HasProp("__Position"))
                 this.__Position := POINT(0, this)

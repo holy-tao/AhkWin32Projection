@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug
- * @version v4.0.30319
  */
-class FORMAT_MESSAGE_OPTIONS extends Win32BitflagEnum{
+class FORMAT_MESSAGE_OPTIONS extends Win32BitflagEnum {
 
     /**
      * @type {Integer (UInt32)}

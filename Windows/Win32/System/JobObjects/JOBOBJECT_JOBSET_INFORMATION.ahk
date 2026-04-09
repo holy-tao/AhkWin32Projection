@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.JobObjects
- * @version v4.0.30319
  */
-class JOBOBJECT_JOBSET_INFORMATION extends Win32Struct
-{
+class JOBOBJECT_JOBSET_INFORMATION extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 4

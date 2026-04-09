@@ -2,12 +2,12 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\IUnknown.ahk
+#Include ..\..\..\..\..\Guid.ahk
 
 /**
  * @namespace Windows.Win32.System.Com.CallObj
- * @version v4.0.30319
  */
-class IInterfaceRelated extends IUnknown{
+class IInterfaceRelated extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

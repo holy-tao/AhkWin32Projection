@@ -5,11 +5,9 @@
  * The PRINTER\_INFO\_1 structure specifies general printer information.
  * @see https://learn.microsoft.com/windows/win32/printdocs/printer-info-1
  * @namespace Windows.Win32.Graphics.Printing
- * @version v4.0.30319
  * @charset Unicode
  */
-class PRINTER_INFO_1W extends Win32Struct
-{
+class PRINTER_INFO_1W extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8

@@ -1,17 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\IAzClientContext2.ahk
 #Include .\IAzApplication.ahk
+#Include .\IAzClientContext2.ahk
 
 /**
  * Inherits from the IAzApplication interface and implements additional methods to initialize IAzClientContext2 objects.
  * @see https://learn.microsoft.com/windows/win32/api/azroles/nn-azroles-iazapplication2
  * @namespace Windows.Win32.Security.Authorization
- * @version v4.0.30319
  */
-class IAzApplication2 extends IAzApplication{
+class IAzApplication2 extends IAzApplication {
 
     static sizeof => A_PtrSize
     /**

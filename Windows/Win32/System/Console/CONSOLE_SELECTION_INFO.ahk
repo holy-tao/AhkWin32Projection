@@ -7,10 +7,8 @@
  * See reference information about the CONSOLE_SELECTION_INFO structure, which contains information for a console selection.
  * @see https://learn.microsoft.com/windows/console/console-selection-info-str
  * @namespace Windows.Win32.System.Console
- * @version v4.0.30319
  */
-class CONSOLE_SELECTION_INFO extends Win32Struct
-{
+class CONSOLE_SELECTION_INFO extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4
@@ -36,7 +34,7 @@ class CONSOLE_SELECTION_INFO extends Win32Struct
      * A [**COORD**](coord-str.md) structure that specifies the selection anchor, in characters.
      * @type {COORD}
      */
-    dwSelectionAnchor{
+    dwSelectionAnchor {
         get {
             if(!this.HasProp("__dwSelectionAnchor"))
                 this.__dwSelectionAnchor := COORD(4, this)
@@ -48,7 +46,7 @@ class CONSOLE_SELECTION_INFO extends Win32Struct
      * A [**SMALL\_RECT**](small-rect-str.md) structure that specifies the selection rectangle.
      * @type {SMALL_RECT}
      */
-    srSelection{
+    srSelection {
         get {
             if(!this.HasProp("__srSelection"))
                 this.__srSelection := SMALL_RECT(8, this)

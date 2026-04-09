@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\EAP_TYPE.ahk
 
 /**
  * Contains a set of function pointers to the EAPHost Peer Method APIs.
@@ -50,10 +51,8 @@
  * The other functions in the EAP Peer Method API set are called by a peer-based EAPHost without a corresponding supplicant call, and are used for connection validation or user interface raising operations.
  * @see https://learn.microsoft.com/windows/win32/api/eapmethodpeerapis/ns-eapmethodpeerapis-eap_peer_method_routines
  * @namespace Windows.Win32.Security.ExtensibleAuthenticationProtocol
- * @version v4.0.30319
  */
-class EAP_PEER_METHOD_ROUTINES extends Win32Struct
-{
+class EAP_PEER_METHOD_ROUTINES extends Win32Struct {
     static sizeof => 120
 
     static packingSize => 8

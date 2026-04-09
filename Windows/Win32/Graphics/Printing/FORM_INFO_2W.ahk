@@ -19,11 +19,9 @@
  * -   If **StringType** is STRING\_LANGPAIR only, **pDisplayName** and **wLangId** will have valid values. **pMuiDll** will be **NULL** and **dwResourceId** will be 0.
  * @see https://learn.microsoft.com/windows/win32/printdocs/form-info-2
  * @namespace Windows.Win32.Graphics.Printing
- * @version v4.0.30319
  * @charset Unicode
  */
-class FORM_INFO_2W extends Win32Struct
-{
+class FORM_INFO_2W extends Win32Struct {
     static sizeof => 88
 
     static packingSize => 8
@@ -58,7 +56,7 @@ class FORM_INFO_2W extends Win32Struct
      * The width and height of the form in thousandths of millimeters.
      * @type {SIZE}
      */
-    Size{
+    Size {
         get {
             if(!this.HasProp("__Size"))
                 this.__Size := SIZE(16, this)
@@ -70,7 +68,7 @@ class FORM_INFO_2W extends Win32Struct
      * The width and height, in thousandths of millimeters, of the area of the page on which the printer can print.
      * @type {RECTL}
      */
-    ImageableArea{
+    ImageableArea {
         get {
             if(!this.HasProp("__ImageableArea"))
                 this.__ImageableArea := RECTL(24, this)

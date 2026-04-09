@@ -5,10 +5,8 @@
  * The WM_CLIENT_PROPERTIES_EX structure holds extended client information.
  * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/ns-wmsdkidl-wm_client_properties_ex
  * @namespace Windows.Win32.Media.WindowsMediaFormat
- * @version v4.0.30319
  */
-class WM_CLIENT_PROPERTIES_EX extends Win32Struct
-{
+class WM_CLIENT_PROPERTIES_EX extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8

@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.BiometricFramework
- * @version v4.0.30319
  */
-class WINBIO_PROTECTION_POLICY extends Win32Struct
-{
+class WINBIO_PROTECTION_POLICY extends Win32Struct {
     static sizeof => 240
 
     static packingSize => 8
@@ -23,7 +21,7 @@ class WINBIO_PROTECTION_POLICY extends Win32Struct
     /**
      * @type {WINBIO_IDENTITY}
      */
-    Identity{
+    Identity {
         get {
             if(!this.HasProp("__Identity"))
                 this.__Identity := WINBIO_IDENTITY(8, this)
@@ -32,7 +30,7 @@ class WINBIO_PROTECTION_POLICY extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     DatabaseId {
         get => NumGet(this, 88, "ptr")
@@ -56,9 +54,9 @@ class WINBIO_PROTECTION_POLICY extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Policy{
+    Policy {
         get {
             if(!this.HasProp("__PolicyProxyArray"))
                 this.__PolicyProxyArray := Win32FixedArray(this.ptr + 112, 128, Primitive, "char")

@@ -9,9 +9,8 @@
  * Represents the collection of items in a Shell folder. This object contains properties and methods that allow you to retrieve information about the collection.
  * @see https://learn.microsoft.com/windows/win32/shell/folderitems
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class FolderItems extends IDispatch{
+class FolderItems extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\DML_TENSOR_DESC.ahk
 
 /**
  * Adds every element in *ATensor* to its corresponding element in *BTensor*, placing the result into the corresponding element of *OutputTensor*. (DML_ELEMENT_WISE_ADD_OPERATOR_DESC)
@@ -7,10 +8,8 @@
  * A newer version of this operator, [DML_ELEMENT_WISE_ADD1_OPERATOR_DESC](/windows/win32/api/directml/ns-directml-dml_element_wise_add1_operator_desc), was introduced in `DML_FEATURE_LEVEL_2_0`.
  * @see https://learn.microsoft.com/windows/win32/api/directml/ns-directml-dml_element_wise_add_operator_desc
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
- * @version v4.0.30319
  */
-class DML_ELEMENT_WISE_ADD_OPERATOR_DESC extends Win32Struct
-{
+class DML_ELEMENT_WISE_ADD_OPERATOR_DESC extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

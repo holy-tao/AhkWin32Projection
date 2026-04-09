@@ -5,11 +5,9 @@
  * The RAS_SECURITY_INFO structure is used with the RasSecurityDialogGetInfo function to return information about the RAS port associated with a RAS security DLL authentication transaction.
  * @see https://learn.microsoft.com/windows/win32/api/rasshost/ns-rasshost-ras_security_info
  * @namespace Windows.Win32.NetworkManagement.Rras
- * @version v4.0.30319
  */
-class RAS_SECURITY_INFO extends Win32Struct
-{
-    static sizeof => 268
+class RAS_SECURITY_INFO extends Win32Struct {
+    static sizeof => 140
 
     static packingSize => 4
 
@@ -37,7 +35,7 @@ class RAS_SECURITY_INFO extends Win32Struct
      * @type {String}
      */
     DeviceName {
-        get => StrGet(this.ptr + 8, 128, "UTF-16")
-        set => StrPut(value, this.ptr + 8, 128, "UTF-16")
+        get => StrGet(this.ptr + 8, 128, "UTF-8")
+        set => StrPut(value, this.ptr + 8, 128, "UTF-8")
     }
 }

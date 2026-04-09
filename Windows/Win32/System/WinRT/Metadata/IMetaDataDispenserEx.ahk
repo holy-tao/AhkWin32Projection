@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\Com\IUnknown.ahk
 #Include .\IMetaDataDispenser.ahk
+#Include ..\..\Com\IUnknown.ahk
 
 /**
  * Extends the IMetaDataDispenser interface to provide the capability to control how the metadata APIs operate on the current metadata scope.
  * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nn-rometadataapi-imetadatadispenserex
  * @namespace Windows.Win32.System.WinRT.Metadata
- * @version v4.0.30319
  */
-class IMetaDataDispenserEx extends IMetaDataDispenser{
+class IMetaDataDispenserEx extends IMetaDataDispenser {
 
     static sizeof => A_PtrSize
     /**

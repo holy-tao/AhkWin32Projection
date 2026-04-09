@@ -7,10 +7,9 @@
  * A SetupAPI function that takes an instance of the SP_DEVICE_INTERFACE_DATA structure as a parameter verifies whether the <b>cbSize</b> member of the supplied structure is equal to the size, in bytes, of the structure. If the <b>cbSize</b> member is not set correctly, the function will fail and set an error code of ERROR_INVALID_USER_BUFFER.
  * @see https://learn.microsoft.com/windows/win32/api/setupapi/ns-setupapi-sp_device_interface_data
  * @namespace Windows.Win32.Devices.DeviceAndDriverInstallation
- * @version v4.0.30319
+ * @architecture X64, Arm64
  */
-class SP_DEVICE_INTERFACE_DATA extends Win32Struct
-{
+class SP_DEVICE_INTERFACE_DATA extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -26,7 +25,7 @@ class SP_DEVICE_INTERFACE_DATA extends Win32Struct
 
     /**
      * The GUID for the class to which the device interface belongs.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     InterfaceClassGuid {
         get => NumGet(this, 8, "ptr")

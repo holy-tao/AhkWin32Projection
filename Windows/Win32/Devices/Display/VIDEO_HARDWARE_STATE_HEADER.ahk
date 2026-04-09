@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.Display
- * @version v4.0.30319
  */
-class VIDEO_HARDWARE_STATE_HEADER extends Win32Struct
-{
+class VIDEO_HARDWARE_STATE_HEADER extends Win32Struct {
     static sizeof => 168
 
     static packingSize => 8
@@ -20,9 +18,9 @@ class VIDEO_HARDWARE_STATE_HEADER extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    PortValue{
+    PortValue {
         get {
             if(!this.HasProp("__PortValueProxyArray"))
                 this.__PortValueProxyArray := Win32FixedArray(this.ptr + 4, 48, Primitive, "char")

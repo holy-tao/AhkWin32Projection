@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\Dxgi\Common\DXGI_FORMAT.ahk
+#Include .\D3D11_INPUT_CLASSIFICATION.ahk
 
 /**
  * A description of a single element for the input-assembler stage. (D3D11_INPUT_ELEMENT_DESC)
@@ -8,10 +10,8 @@
  *       object by calling <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11device-createinputlayout">ID3D11Device::CreateInputLayout</a>. For an example, see the "Create the Input-Layout Object" subtopic under the  <a href="https://docs.microsoft.com/windows/desktop/direct3d11/d3d10-graphics-programming-guide-input-assembler-stage-getting-started">Getting Started with the Input-Assembler Stage</a> topic.
  * @see https://learn.microsoft.com/windows/win32/api/d3d11/ns-d3d11-d3d11_input_element_desc
  * @namespace Windows.Win32.Graphics.Direct3D11
- * @version v4.0.30319
  */
-class D3D11_INPUT_ELEMENT_DESC extends Win32Struct
-{
+class D3D11_INPUT_ELEMENT_DESC extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -52,7 +52,7 @@ class D3D11_INPUT_ELEMENT_DESC extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dxgiformat/ne-dxgiformat-dxgi_format">DXGI_FORMAT</a></b>
      * 
      * The data type of the element data. See <a href="https://docs.microsoft.com/windows/desktop/api/dxgiformat/ne-dxgiformat-dxgi_format">DXGI_FORMAT</a>.
-     * @type {Integer}
+     * @type {DXGI_FORMAT}
      */
     Format {
         get => NumGet(this, 12, "int")
@@ -86,7 +86,7 @@ class D3D11_INPUT_ELEMENT_DESC extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ne-d3d11-d3d11_input_classification">D3D11_INPUT_CLASSIFICATION</a></b>
      * 
      * Identifies the input data class for a single input slot (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ne-d3d11-d3d11_input_classification">D3D11_INPUT_CLASSIFICATION</a>).
-     * @type {Integer}
+     * @type {D3D11_INPUT_CLASSIFICATION}
      */
     InputSlotClass {
         get => NumGet(this, 24, "int")

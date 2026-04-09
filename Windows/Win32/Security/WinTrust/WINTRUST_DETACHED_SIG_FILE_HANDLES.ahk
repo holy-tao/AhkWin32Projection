@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Security.WinTrust
- * @version v4.0.30319
  */
-class WINTRUST_DETACHED_SIG_FILE_HANDLES extends Win32Struct
-{
+class WINTRUST_DETACHED_SIG_FILE_HANDLES extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
@@ -15,7 +13,7 @@ class WINTRUST_DETACHED_SIG_FILE_HANDLES extends Win32Struct
     /**
      * @type {HANDLE}
      */
-    hContentFile{
+    hContentFile {
         get {
             if(!this.HasProp("__hContentFile"))
                 this.__hContentFile := HANDLE(0, this)
@@ -26,7 +24,7 @@ class WINTRUST_DETACHED_SIG_FILE_HANDLES extends Win32Struct
     /**
      * @type {HANDLE}
      */
-    hSignatureFile{
+    hSignatureFile {
         get {
             if(!this.HasProp("__hSignatureFile"))
                 this.__hSignatureFile := HANDLE(8, this)

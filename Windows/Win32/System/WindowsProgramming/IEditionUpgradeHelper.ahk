@@ -9,9 +9,8 @@
  * The methods of this interface do not download the binaries or bits necessary to perform the upgrade.
  * @see https://learn.microsoft.com/windows/win32/api/editionupgradehelper/nn-editionupgradehelper-ieditionupgradehelper
  * @namespace Windows.Win32.System.WindowsProgramming
- * @version v4.0.30319
  */
-class IEditionUpgradeHelper extends IUnknown{
+class IEditionUpgradeHelper extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

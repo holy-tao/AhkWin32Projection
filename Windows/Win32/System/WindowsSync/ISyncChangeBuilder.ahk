@@ -7,9 +7,8 @@
  * Provides additional data for an item change.
  * @see https://learn.microsoft.com/windows/win32/api/winsync/nn-winsync-isyncchangebuilder
  * @namespace Windows.Win32.System.WindowsSync
- * @version v4.0.30319
  */
-class ISyncChangeBuilder extends IUnknown{
+class ISyncChangeBuilder extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

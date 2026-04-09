@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Etw
- * @version v4.0.30319
  */
-class CONTROLTRACE_HANDLE extends Win32Handle
-{
+class CONTROLTRACE_HANDLE extends Win32Handle {
     static sizeof => 8
 
     static packingSize => 8

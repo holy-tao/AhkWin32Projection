@@ -7,9 +7,8 @@
  * The IUPnPServiceCallback interface is used to send event notifications to clients of Service objects.
  * @see https://learn.microsoft.com/windows/win32/api/upnp/nn-upnp-iupnpservicecallback
  * @namespace Windows.Win32.Devices.Enumeration.Pnp
- * @version v4.0.30319
  */
-class IUPnPServiceCallback extends IUnknown{
+class IUPnPServiceCallback extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

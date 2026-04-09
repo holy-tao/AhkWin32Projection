@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Storage.Nvme
- * @version v4.0.30319
  */
-class NVME_RESERVATION_ACQUIRE_DATA_STRUCTURE extends Win32Struct
-{
+class NVME_RESERVATION_ACQUIRE_DATA_STRUCTURE extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

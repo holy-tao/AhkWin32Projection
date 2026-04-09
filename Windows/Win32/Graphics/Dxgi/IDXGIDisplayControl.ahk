@@ -28,9 +28,8 @@
  * <b>Platform Update for Windows 7:  </b>Stereoscopic 3D display behavior isn’t available with the Platform Update for Windows 7. For more info about the Platform Update for Windows 7, see <a href="https://docs.microsoft.com/windows/desktop/direct3darticles/platform-update-for-windows-7">Platform Update for Windows 7</a>.
  * @see https://learn.microsoft.com/windows/win32/api/dxgi1_2/nn-dxgi1_2-idxgidisplaycontrol
  * @namespace Windows.Win32.Graphics.Dxgi
- * @version v4.0.30319
  */
-class IDXGIDisplayControl extends IUnknown{
+class IDXGIDisplayControl extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

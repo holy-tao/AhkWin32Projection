@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D12
- * @version v4.0.30319
  */
-class D3D12_FEATURE_DATA_BYTECODE_BYPASS_HASH_SUPPORTED extends Win32Struct
-{
+class D3D12_FEATURE_DATA_BYTECODE_BYPASS_HASH_SUPPORTED extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 4

@@ -1,19 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\IVdsProvider.ahk
 #Include .\VDS_STORAGE_POOL_PROP.ahk
 #Include .\VDS_POOL_ATTRIBUTES.ahk
 #Include .\IEnumVdsObject.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * The IVdsStoragePool interface (vdshwprv.h) provides methods to query information and enumerate related objects for a storage pool.
  * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nn-vdshwprv-ivdsstoragepool
  * @namespace Windows.Win32.Storage.VirtualDiskService
- * @version v4.0.30319
  */
-class IVdsStoragePool extends IUnknown{
+class IVdsStoragePool extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

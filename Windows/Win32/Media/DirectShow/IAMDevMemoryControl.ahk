@@ -7,9 +7,8 @@
  * Note  This interface is no longer supported by the AVI Splitter. Note  It was defined to support certain older hardware decoders that required AVI files to be read directly into hardware memory.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-iamdevmemorycontrol
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IAMDevMemoryControl extends IUnknown{
+class IAMDevMemoryControl extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

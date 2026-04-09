@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class FILE_MEMORY_PARTITION_INFORMATION extends Win32Struct
-{
+class FILE_MEMORY_PARTITION_INFORMATION extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
@@ -22,18 +20,18 @@ class FILE_MEMORY_PARTITION_INFORMATION extends Win32Struct
             get => NumGet(this, 0, "char")
             set => NumPut("char", value, this, 0)
         }
-    
+
         /**
-         * @type {Array<Byte>}
+         * @type {Array<Integer>}
          */
-        Spare{
+        Spare {
             get {
                 if(!this.HasProp("__SpareProxyArray"))
                     this.__SpareProxyArray := Win32FixedArray(this.ptr + 1, 3, Primitive, "char")
                 return this.__SpareProxyArray
             }
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -41,7 +39,6 @@ class FILE_MEMORY_PARTITION_INFORMATION extends Win32Struct
             get => NumGet(this, 0, "uint")
             set => NumPut("uint", value, this, 0)
         }
-    
     }
 
     /**
@@ -55,10 +52,10 @@ class FILE_MEMORY_PARTITION_INFORMATION extends Win32Struct
     /**
      * @type {_Flags_e__Union}
      */
-    Flags{
+    Flags {
         get {
             if(!this.HasProp("__Flags"))
-                this.__Flags := %this.__Class%._Flags_e__Union(8, this)
+                this.__Flags := FILE_MEMORY_PARTITION_INFORMATION._Flags_e__Union(8, this)
             return this.__Flags
         }
     }

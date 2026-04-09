@@ -1,14 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\JOYPOS.ahk
 #Include .\JOYRANGE.ahk
+#Include .\JOYPOS.ahk
 
 /**
  * @namespace Windows.Win32.Devices.HumanInterfaceDevice
- * @version v4.0.30319
  */
-class JOYREGUSERVALUES extends Win32Struct
-{
+class JOYREGUSERVALUES extends Win32Struct {
     static sizeof => 100
 
     static packingSize => 4
@@ -24,7 +22,7 @@ class JOYREGUSERVALUES extends Win32Struct
     /**
      * @type {JOYRANGE}
      */
-    jrvRanges{
+    jrvRanges {
         get {
             if(!this.HasProp("__jrvRanges"))
                 this.__jrvRanges := JOYRANGE(4, this)
@@ -35,7 +33,7 @@ class JOYREGUSERVALUES extends Win32Struct
     /**
      * @type {JOYPOS}
      */
-    jpDeadZone{
+    jpDeadZone {
         get {
             if(!this.HasProp("__jpDeadZone"))
                 this.__jpDeadZone := JOYPOS(76, this)

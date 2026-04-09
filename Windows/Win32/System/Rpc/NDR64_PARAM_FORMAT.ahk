@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.System.Rpc
- * @version v4.0.30319
  */
-class NDR64_PARAM_FORMAT extends Win32Struct
-{
+class NDR64_PARAM_FORMAT extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
@@ -23,7 +21,7 @@ class NDR64_PARAM_FORMAT extends Win32Struct
     /**
      * @type {NDR64_PARAM_FLAGS}
      */
-    Attributes{
+    Attributes {
         get {
             if(!this.HasProp("__Attributes"))
                 this.__Attributes := NDR64_PARAM_FLAGS(8, this)

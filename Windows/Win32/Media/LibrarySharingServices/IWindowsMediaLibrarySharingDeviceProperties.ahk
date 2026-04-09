@@ -1,9 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\IWindowsMediaLibrarySharingDeviceProperty.ahk
 #Include ..\..\System\Com\IDispatch.ahk
+#Include .\IWindowsMediaLibrarySharingDeviceProperty.ahk
 
 /**
  * The IWindowsMediaLibrarySharingDeviceProperties interface defines methods that provide access to the collection of all properties for an individual media device.
@@ -11,9 +10,8 @@
  * To obtain an <b>IWindowsMediaLibrarySharingDeviceProperties</b> interface, call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/wmlss/nf-wmlss-iwindowsmedialibrarysharingdevice-get_properties">get_Properties</a> method of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/wmlss/nn-wmlss-iwindowsmedialibrarysharingdevice">IWindowsMediaLibrarySharingDevice</a> interface.
  * @see https://learn.microsoft.com/windows/win32/api/wmlss/nn-wmlss-iwindowsmedialibrarysharingdeviceproperties
  * @namespace Windows.Win32.Media.LibrarySharingServices
- * @version v4.0.30319
  */
-class IWindowsMediaLibrarySharingDeviceProperties extends IDispatch{
+class IWindowsMediaLibrarySharingDeviceProperties extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -44,7 +42,7 @@ class IWindowsMediaLibrarySharingDeviceProperties extends IDispatch{
     /**
      * The get_Item method retrieves an IWindowsMediaLibrarySharingDeviceProperty interface that represents an individual property for a media device.
      * @param {Integer} index The zero-based index of the property in the collection of all properties associated with the media device.
-     * @returns {IWindowsMediaLibrarySharingDeviceProperty} 
+     * @returns {IWindowsMediaLibrarySharingDeviceProperty} A pointer to a variable that receives a pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/wmlss/nn-wmlss-iwindowsmedialibrarysharingdeviceproperty">IWindowsMediaLibrarySharingDeviceProperty</a> interface.
      * @see https://learn.microsoft.com/windows/win32/api/wmlss/nf-wmlss-iwindowsmedialibrarysharingdeviceproperties-get_item
      */
     get_Item(index) {
@@ -65,7 +63,7 @@ class IWindowsMediaLibrarySharingDeviceProperties extends IDispatch{
     /**
      * The GetProperty method retrieves an IWindowsMediaLibrarySharingDeviceProperty interface that represents an individual property for a media device.
      * @param {BSTR} name A <b>BSTR</b> that specifies the name of the property.
-     * @returns {IWindowsMediaLibrarySharingDeviceProperty} 
+     * @returns {IWindowsMediaLibrarySharingDeviceProperty} A pointer to a variable that receives a pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/wmlss/nn-wmlss-iwindowsmedialibrarysharingdeviceproperty">IWindowsMediaLibrarySharingDeviceProperty</a> interface.
      * @see https://learn.microsoft.com/windows/win32/api/wmlss/nf-wmlss-iwindowsmedialibrarysharingdeviceproperties-getproperty
      */
     GetProperty(name) {

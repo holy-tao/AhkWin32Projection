@@ -9,9 +9,8 @@
  * This interface controls how the <a href="https://docs.microsoft.com/windows/desktop/medfound/video-processor-mft">Video Processor MFT</a> generates output frames.
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imfvideoprocessorcontrol2
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFVideoProcessorControl2 extends IMFVideoProcessorControl{
+class IMFVideoProcessorControl2 extends IMFVideoProcessorControl {
 
     static sizeof => A_PtrSize
     /**

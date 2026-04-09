@@ -5,9 +5,8 @@
  * Indicates the current audio mode as retrieved in a call to IDvdInfo2::GetAudioAttributes.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/ne-strmif-dvd_audio_appmode
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class DVD_AUDIO_APPMODE extends Win32Enum{
+class DVD_AUDIO_APPMODE extends Win32Enum {
 
     /**
      * No special audio mode. The <a href="https://docs.microsoft.com/windows/desktop/DirectShow/dvd-navigator-filter">DVD Navigator Filter</a> will send the audio to the decoder with no special processing.

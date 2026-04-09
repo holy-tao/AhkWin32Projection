@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\COLORKEY.ahk
 #Include ..\..\Foundation\HWND.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * The IOverlay interface provides information so that a filter can write directly to video memory while placing the video in the correct window position.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-ioverlay
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IOverlay extends IUnknown{
+class IOverlay extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

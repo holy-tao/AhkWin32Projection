@@ -6,10 +6,8 @@
  * The WIA_DITHER_PATTERN_DATA structure specifies a dither pattern for scanners. It is used in conjunction with the scanner device property constant WIA_DPS_DITHER_PATTERN_DATA.
  * @see https://learn.microsoft.com/windows/win32/api/wia_xp/ns-wia_xp-wia_dither_pattern_data
  * @namespace Windows.Win32.Devices.ImageAcquisition
- * @version v4.0.30319
  */
-class WIA_DITHER_PATTERN_DATA extends Win32Struct
-{
+class WIA_DITHER_PATTERN_DATA extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -31,7 +29,7 @@ class WIA_DITHER_PATTERN_DATA extends Win32Struct
      * Specifies a string that contains the name of this dither pattern.
      * @type {BSTR}
      */
-    bstrPatternName{
+    bstrPatternName {
         get {
             if(!this.HasProp("__bstrPatternName"))
                 this.__bstrPatternName := BSTR(8, this)

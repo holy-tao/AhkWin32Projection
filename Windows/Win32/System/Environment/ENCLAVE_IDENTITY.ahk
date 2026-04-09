@@ -5,19 +5,17 @@
  * Describes the identity of the primary module of an enclave.
  * @see https://learn.microsoft.com/windows/win32/api/ntenclv/ns-ntenclv-enclave_identity
  * @namespace Windows.Win32.System.Environment
- * @version v4.0.30319
  */
-class ENCLAVE_IDENTITY extends Win32Struct
-{
+class ENCLAVE_IDENTITY extends Win32Struct {
     static sizeof => 152
 
     static packingSize => 4
 
     /**
      * The identifier of the owner for the enclave.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    OwnerId{
+    OwnerId {
         get {
             if(!this.HasProp("__OwnerIdProxyArray"))
                 this.__OwnerIdProxyArray := Win32FixedArray(this.ptr + 0, 32, Primitive, "char")
@@ -27,9 +25,9 @@ class ENCLAVE_IDENTITY extends Win32Struct
 
     /**
      * The unique identifier of the primary module for the enclave.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    UniqueId{
+    UniqueId {
         get {
             if(!this.HasProp("__UniqueIdProxyArray"))
                 this.__UniqueIdProxyArray := Win32FixedArray(this.ptr + 32, 32, Primitive, "char")
@@ -39,9 +37,9 @@ class ENCLAVE_IDENTITY extends Win32Struct
 
     /**
      * The author identifier of the primary module for the enclave.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    AuthorId{
+    AuthorId {
         get {
             if(!this.HasProp("__AuthorIdProxyArray"))
                 this.__AuthorIdProxyArray := Win32FixedArray(this.ptr + 64, 32, Primitive, "char")
@@ -51,9 +49,9 @@ class ENCLAVE_IDENTITY extends Win32Struct
 
     /**
      * The family identifier of the primary module for the enclave.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    FamilyId{
+    FamilyId {
         get {
             if(!this.HasProp("__FamilyIdProxyArray"))
                 this.__FamilyIdProxyArray := Win32FixedArray(this.ptr + 96, 16, Primitive, "char")
@@ -63,9 +61,9 @@ class ENCLAVE_IDENTITY extends Win32Struct
 
     /**
      * The image identifier of the primary module for the enclave.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    ImageId{
+    ImageId {
         get {
             if(!this.HasProp("__ImageIdProxyArray"))
                 this.__ImageIdProxyArray := Win32FixedArray(this.ptr + 112, 16, Primitive, "char")

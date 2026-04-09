@@ -1,14 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\PARAFORMAT_MASK.ahk
+#Include .\PARAFORMAT_NUMBERING.ahk
+#Include .\PARAFORMAT_ALIGNMENT.ahk
 
 /**
  * Contains information about paragraph formatting attributes in a rich edit control. (PARAFORMAT)
  * @see https://learn.microsoft.com/windows/win32/api/richedit/ns-richedit-paraformat
  * @namespace Windows.Win32.UI.Controls.RichEdit
- * @version v4.0.30319
  */
-class PARAFORMAT extends Win32Struct
-{
+class PARAFORMAT extends Win32Struct {
     static sizeof => 156
 
     static packingSize => 4
@@ -26,7 +27,7 @@ class PARAFORMAT extends Win32Struct
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
-     * @type {Integer}
+     * @type {PARAFORMAT_MASK}
      */
     dwMask {
         get => NumGet(this, 4, "uint")
@@ -37,7 +38,7 @@ class PARAFORMAT extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">WORD</a></b>
      * 
      * Value specifying numbering options. This member can be zero or PFN_BULLET.
-     * @type {Integer}
+     * @type {PARAFORMAT_NUMBERING}
      */
     wNumbering {
         get => NumGet(this, 8, "ushort")
@@ -95,7 +96,7 @@ class PARAFORMAT extends Win32Struct
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">WORD</a></b>
-     * @type {Integer}
+     * @type {PARAFORMAT_ALIGNMENT}
      */
     wAlignment {
         get => NumGet(this, 24, "ushort")
@@ -121,9 +122,9 @@ class PARAFORMAT extends Win32Struct
      *                     
      * 
      * <b>Rich Edit 2.0:</b> For compatibility with TOM interfaces, you can use the eight high-order bits to store additional information about each tab stop.
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    rgxTabs{
+    rgxTabs {
         get {
             if(!this.HasProp("__rgxTabsProxyArray"))
                 this.__rgxTabsProxyArray := Win32FixedArray(this.ptr + 28, 32, Primitive, "uint")

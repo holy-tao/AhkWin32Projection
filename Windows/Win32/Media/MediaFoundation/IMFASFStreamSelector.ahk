@@ -7,9 +7,8 @@
  * Selects streams in an Advanced Systems Format (ASF) file, based on the mutual exclusion information in the ASF header.
  * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nn-wmcontainer-imfasfstreamselector
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFASFStreamSelector extends IUnknown{
+class IMFASFStreamSelector extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -94,7 +93,7 @@ class IMFASFStreamSelector extends IUnknown{
     /**
      * Retrieves the manual output override selection that is set for a stream.
      * @param {Integer} dwOutputNum Stream number for which to retrieve the output override selection.
-     * @returns {Integer} Receives the output override selection. The value is a member of the <a href="https://docs.microsoft.com/windows/desktop/api/wmcontainer/ne-wmcontainer-asf_selection_status">ASF_SELECTION_STATUS</a> enumeration.
+     * @returns {ASF_SELECTION_STATUS} Receives the output override selection. The value is a member of the <a href="https://docs.microsoft.com/windows/desktop/api/wmcontainer/ne-wmcontainer-asf_selection_status">ASF_SELECTION_STATUS</a> enumeration.
      * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nf-wmcontainer-imfasfstreamselector-getoutputoverride
      */
     GetOutputOverride(dwOutputNum) {
@@ -105,7 +104,7 @@ class IMFASFStreamSelector extends IUnknown{
     /**
      * Sets the selection status of an output, overriding other selection criteria.
      * @param {Integer} dwOutputNum Output number for which to set selection.
-     * @param {Integer} Selection Member of the <a href="https://docs.microsoft.com/windows/desktop/api/wmcontainer/ne-wmcontainer-asf_selection_status">ASF_SELECTION_STATUS</a> enumeration specifying the level of selection for the output.
+     * @param {ASF_SELECTION_STATUS} Selection Member of the <a href="https://docs.microsoft.com/windows/desktop/api/wmcontainer/ne-wmcontainer-asf_selection_status">ASF_SELECTION_STATUS</a> enumeration specifying the level of selection for the output.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>
@@ -211,7 +210,7 @@ class IMFASFStreamSelector extends IUnknown{
      * @param {Integer} dwStepNum Bandwidth step number for which to retrieve information. Set this value to a number between 0, and 1 less than the number of bandwidth steps returned by <a href="https://docs.microsoft.com/windows/desktop/api/wmcontainer/nf-wmcontainer-imfasfstreamselector-getbandwidthstepcount">IMFASFStreamSelector::GetBandwidthStepCount</a>.
      * @param {Pointer<Integer>} pdwBitrate Receives the bit rate associated with the bandwidth step.
      * @param {Pointer<Integer>} rgwStreamNumbers Address of an array that receives the stream numbers. The caller allocates the array. The array size must be at least as large as the value returned by the <a href="https://docs.microsoft.com/windows/desktop/api/wmcontainer/nf-wmcontainer-imfasfstreamselector-getstreamcount">IMFASFStreamSelector::GetStreamCount</a> method.
-     * @param {Pointer<Integer>} rgSelections Address of an array that receives the selection status of each stream, as an <a href="https://docs.microsoft.com/windows/desktop/api/wmcontainer/ne-wmcontainer-asf_selection_status">ASF_SELECTION_STATUS</a> value. The members of this array correspond to the members of the <i>rgwStreamNumbers</i> array by index. The caller allocates the array. The array size must be at least as large as the value returned by the <a href="https://docs.microsoft.com/windows/desktop/api/wmcontainer/nf-wmcontainer-imfasfstreamselector-getstreamcount">IMFASFStreamSelector::GetStreamCount</a> method.
+     * @param {Pointer<ASF_SELECTION_STATUS>} rgSelections Address of an array that receives the selection status of each stream, as an <a href="https://docs.microsoft.com/windows/desktop/api/wmcontainer/ne-wmcontainer-asf_selection_status">ASF_SELECTION_STATUS</a> value. The members of this array correspond to the members of the <i>rgwStreamNumbers</i> array by index. The caller allocates the array. The array size must be at least as large as the value returned by the <a href="https://docs.microsoft.com/windows/desktop/api/wmcontainer/nf-wmcontainer-imfasfstreamselector-getstreamcount">IMFASFStreamSelector::GetStreamCount</a> method.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>

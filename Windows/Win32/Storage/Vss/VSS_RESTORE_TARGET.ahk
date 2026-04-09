@@ -44,9 +44,8 @@
  *     Locations</a> for more information.
  * @see https://learn.microsoft.com/windows/win32/api/vswriter/ne-vswriter-vss_restore_target
  * @namespace Windows.Win32.Storage.Vss
- * @version v4.0.30319
  */
-class VSS_RESTORE_TARGET extends Win32Enum{
+class VSS_RESTORE_TARGET extends Win32Enum {
 
     /**
      * No target is defined. 

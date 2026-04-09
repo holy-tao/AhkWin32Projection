@@ -1,15 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\STORAGE_COMPONENT_HEALTH_STATUS.ahk
+#Include .\STORAGE_PROTOCOL_TYPE.ahk
 #Include .\STORAGE_SPEC_VERSION.ahk
+#Include .\STORAGE_DEVICE_FORM_FACTOR.ahk
 
 /**
  * Describes a physical storage device.
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-storage_physical_device_data
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class STORAGE_PHYSICAL_DEVICE_DATA extends Win32Struct
-{
+class STORAGE_PHYSICAL_DEVICE_DATA extends Win32Struct {
     static sizeof => 144
 
     static packingSize => 8
@@ -34,7 +35,7 @@ class STORAGE_PHYSICAL_DEVICE_DATA extends Win32Struct
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/winioctl/ne-winioctl-storage_component_health_status">STORAGE_COMPONENT_HEALTH_STATUS</a> enumeration.
-     * @type {Integer}
+     * @type {STORAGE_COMPONENT_HEALTH_STATUS}
      */
     HealthStatus {
         get => NumGet(this, 8, "int")
@@ -43,7 +44,7 @@ class STORAGE_PHYSICAL_DEVICE_DATA extends Win32Struct
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/winioctl/ne-winioctl-storage_protocol_type">STORAGE_PROTOCOL_TYPE</a> enumeration.
-     * @type {Integer}
+     * @type {STORAGE_PROTOCOL_TYPE}
      */
     CommandProtocol {
         get => NumGet(this, 12, "int")
@@ -54,7 +55,7 @@ class STORAGE_PHYSICAL_DEVICE_DATA extends Win32Struct
      * A <a href="https://docs.microsoft.com/windows/desktop/api/winioctl/ns-winioctl-storage_spec_version">STORAGE_SPEC_VERSION</a> structure that specifies the supported storage spec version. For example: SBC 3, SATA 3.2, NVMe 1.2
      * @type {STORAGE_SPEC_VERSION}
      */
-    SpecVersion{
+    SpecVersion {
         get {
             if(!this.HasProp("__SpecVersion"))
                 this.__SpecVersion := STORAGE_SPEC_VERSION(16, this)
@@ -64,7 +65,7 @@ class STORAGE_PHYSICAL_DEVICE_DATA extends Win32Struct
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/winioctl/ne-winioctl-storage_device_form_factor">STORAGE_DEVICE_FORM_FACTOR</a> enumeration.
-     * @type {Integer}
+     * @type {STORAGE_DEVICE_FORM_FACTOR}
      */
     FormFactor {
         get => NumGet(this, 24, "int")
@@ -73,9 +74,9 @@ class STORAGE_PHYSICAL_DEVICE_DATA extends Win32Struct
 
     /**
      * Specifies the device vendor.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Vendor{
+    Vendor {
         get {
             if(!this.HasProp("__VendorProxyArray"))
                 this.__VendorProxyArray := Win32FixedArray(this.ptr + 28, 8, Primitive, "char")
@@ -85,9 +86,9 @@ class STORAGE_PHYSICAL_DEVICE_DATA extends Win32Struct
 
     /**
      * Specifies the device model.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Model{
+    Model {
         get {
             if(!this.HasProp("__ModelProxyArray"))
                 this.__ModelProxyArray := Win32FixedArray(this.ptr + 36, 40, Primitive, "char")
@@ -97,9 +98,9 @@ class STORAGE_PHYSICAL_DEVICE_DATA extends Win32Struct
 
     /**
      * Specifies the firmware revision of the device.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    FirmwareRevision{
+    FirmwareRevision {
         get {
             if(!this.HasProp("__FirmwareRevisionProxyArray"))
                 this.__FirmwareRevisionProxyArray := Win32FixedArray(this.ptr + 76, 16, Primitive, "char")
@@ -118,9 +119,9 @@ class STORAGE_PHYSICAL_DEVICE_DATA extends Win32Struct
 
     /**
      * Reserved for future use.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    PhysicalLocation{
+    PhysicalLocation {
         get {
             if(!this.HasProp("__PhysicalLocationProxyArray"))
                 this.__PhysicalLocationProxyArray := Win32FixedArray(this.ptr + 104, 32, Primitive, "char")
@@ -129,10 +130,9 @@ class STORAGE_PHYSICAL_DEVICE_DATA extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    Reserved{
+    Reserved {
         get {
             if(!this.HasProp("__ReservedProxyArray"))
                 this.__ReservedProxyArray := Win32FixedArray(this.ptr + 136, 2, Primitive, "uint")

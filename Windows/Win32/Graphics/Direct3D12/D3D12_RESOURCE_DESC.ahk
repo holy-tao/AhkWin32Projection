@@ -1,6 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\D3D12_RESOURCE_DIMENSION.ahk
+#Include ..\Dxgi\Common\DXGI_FORMAT.ahk
 #Include ..\Dxgi\Common\DXGI_SAMPLE_DESC.ahk
+#Include .\D3D12_TEXTURE_LAYOUT.ahk
+#Include .\D3D12_RESOURCE_FLAGS.ahk
 
 /**
  * Describes a resource, such as a texture. This structure is used extensively.
@@ -110,17 +114,15 @@
  * See <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ns-d3d12-d3d12_feature_data_multisample_quality_levels">D3D12_FEATURE_DATA_MULTISAMPLE_QUALITY_LEVELS</a> for determining valid <i>Count</i> and <i>Quality</i> values.
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_resource_desc
  * @namespace Windows.Win32.Graphics.Direct3D12
- * @version v4.0.30319
  */
-class D3D12_RESOURCE_DESC extends Win32Struct
-{
+class D3D12_RESOURCE_DESC extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8
 
     /**
      * One member of <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_resource_dimension">D3D12_RESOURCE_DIMENSION</a>, specifying the dimensions of the resource (for example, D3D12_RESOURCE_DIMENSION_TEXTURE1D), or whether it is a buffer ((D3D12_RESOURCE_DIMENSION_BUFFER).
-     * @type {Integer}
+     * @type {D3D12_RESOURCE_DIMENSION}
      */
     Dimension {
         get => NumGet(this, 0, "int")
@@ -174,7 +176,7 @@ class D3D12_RESOURCE_DESC extends Win32Struct
 
     /**
      * Specifies one member of  <a href="https://docs.microsoft.com/windows/desktop/api/dxgiformat/ne-dxgiformat-dxgi_format">DXGI_FORMAT</a>.
-     * @type {Integer}
+     * @type {DXGI_FORMAT}
      */
     Format {
         get => NumGet(this, 32, "int")
@@ -185,7 +187,7 @@ class D3D12_RESOURCE_DESC extends Win32Struct
      * Specifies a <a href="https://docs.microsoft.com/windows/desktop/api/dxgicommon/ns-dxgicommon-dxgi_sample_desc">DXGI_SAMPLE_DESC</a> structure.
      * @type {DXGI_SAMPLE_DESC}
      */
-    SampleDesc{
+    SampleDesc {
         get {
             if(!this.HasProp("__SampleDesc"))
                 this.__SampleDesc := DXGI_SAMPLE_DESC(36, this)
@@ -195,7 +197,7 @@ class D3D12_RESOURCE_DESC extends Win32Struct
 
     /**
      * Specifies one member of <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_texture_layout">D3D12_TEXTURE_LAYOUT</a>.
-     * @type {Integer}
+     * @type {D3D12_TEXTURE_LAYOUT}
      */
     Layout {
         get => NumGet(this, 44, "int")
@@ -204,7 +206,7 @@ class D3D12_RESOURCE_DESC extends Win32Struct
 
     /**
      * Bitwise-OR'd flags, as <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_resource_flags">D3D12_RESOURCE_FLAGS</a> enumeration constants.
-     * @type {Integer}
+     * @type {D3D12_RESOURCE_FLAGS}
      */
     Flags {
         get => NumGet(this, 48, "int")

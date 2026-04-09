@@ -5,10 +5,8 @@
  * Specifies an IImePadApplet IID list.
  * @see https://learn.microsoft.com/windows/win32/api/imepad/ns-imepad-appletidlist
  * @namespace Windows.Win32.UI.Input.Ime
- * @version v4.0.30319
  */
-class APPLETIDLIST extends Win32Struct
-{
+class APPLETIDLIST extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

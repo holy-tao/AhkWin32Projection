@@ -31,9 +31,8 @@
  * If the audio stream is any other format, the value is eAVDDSurroundMode_No.
  * @see https://learn.microsoft.com/windows/win32/api/codecapi/ne-codecapi-eavddsurroundmode
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class eAVDDSurroundMode extends Win32Enum{
+class eAVDDSurroundMode extends Win32Enum {
 
     /**
      * The bit stream does not indicate whether the audio is encoded in Dolby Surround.

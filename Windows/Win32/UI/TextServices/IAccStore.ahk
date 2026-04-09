@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IEnumUnknown.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\System\Com\IEnumUnknown.ahk
 
 /**
  * @namespace Windows.Win32.UI.TextServices
- * @version v4.0.30319
  */
-class IAccStore extends IUnknown{
+class IAccStore extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -7,9 +7,8 @@
  * Enables a document that has been implemented as a document object to bypass the normal activation sequence for in-place-active objects and to directly instruct its client site to activate it as a document object.
  * @see https://learn.microsoft.com/windows/win32/api/docobj/nn-docobj-ioledocumentsite
  * @namespace Windows.Win32.System.Ole
- * @version v4.0.30319
  */
-class IOleDocumentSite extends IUnknown{
+class IOleDocumentSite extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

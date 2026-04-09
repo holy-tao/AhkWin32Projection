@@ -6,10 +6,8 @@
  * An optional type description used with WS_DURATION_TYPE. It is used to specify constraints on the set of values which can be deserialized.
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_duration_description
  * @namespace Windows.Win32.Networking.WindowsWebServices
- * @version v4.0.30319
  */
-class WS_DURATION_DESCRIPTION extends Win32Struct
-{
+class WS_DURATION_DESCRIPTION extends Win32Struct {
     static sizeof => 80
 
     static packingSize => 8
@@ -18,7 +16,7 @@ class WS_DURATION_DESCRIPTION extends Win32Struct
      * The minimum value.
      * @type {WS_DURATION}
      */
-    minValue{
+    minValue {
         get {
             if(!this.HasProp("__minValue"))
                 this.__minValue := WS_DURATION(0, this)
@@ -30,7 +28,7 @@ class WS_DURATION_DESCRIPTION extends Win32Struct
      * The maximum value.
      * @type {WS_DURATION}
      */
-    maxValue{
+    maxValue {
         get {
             if(!this.HasProp("__maxValue"))
                 this.__maxValue := WS_DURATION(36, this)

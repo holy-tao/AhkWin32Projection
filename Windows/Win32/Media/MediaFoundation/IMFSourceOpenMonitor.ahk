@@ -7,9 +7,8 @@
  * Callback interface to receive notifications from a network source on the progress of an asynchronous open operation.
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imfsourceopenmonitor
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFSourceOpenMonitor extends IUnknown{
+class IMFSourceOpenMonitor extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

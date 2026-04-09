@@ -5,9 +5,8 @@
  * Defines the set of reasons for a disk to be offline.
  * @see https://learn.microsoft.com/windows/win32/api/vds/ne-vds-vds_disk_offline_reason
  * @namespace Windows.Win32.Storage.VirtualDiskService
- * @version v4.0.30319
  */
-class VDS_DISK_OFFLINE_REASON extends Win32Enum{
+class VDS_DISK_OFFLINE_REASON extends Win32Enum {
 
     /**
      * The reason is unknown.
@@ -45,25 +44,21 @@ class VDS_DISK_OFFLINE_REASON extends Win32Enum{
     static VDSDiskOfflineReasonCollision => 4
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static VDSDiskOfflineReasonResourceExhaustion => 5
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static VDSDiskOfflineReasonWriteFailure => 6
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static VDSDiskOfflineReasonDIScan => 7
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static VDSDiskOfflineReasonLostDataPersistence => 8

@@ -5,9 +5,8 @@
  * Defines the types of modules that you can define.
  * @see https://learn.microsoft.com/windows/win32/api/fsrmenums/ne-fsrmenums-fsrmpipelinemoduletype
  * @namespace Windows.Win32.Storage.FileServerResourceManager
- * @version v4.0.30319
  */
-class FsrmPipelineModuleType extends Win32Enum{
+class FsrmPipelineModuleType extends Win32Enum {
 
     /**
      * The module type is unknown; do not use this value.

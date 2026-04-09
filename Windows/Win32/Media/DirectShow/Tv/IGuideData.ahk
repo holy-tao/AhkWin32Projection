@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
 #Include .\IEnumTuneRequests.ahk
 #Include .\IEnumGuideDataProperties.ahk
 #Include ..\..\..\System\Ole\IEnumVARIANT.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
  * The IGuideData interface is exposed by the BDA MPEG-2 Transport Information Filter (TIF). It enables the client to get service information from the MPEG-2 transport stream. Use this interface if you are writing a guide store loader.
@@ -16,9 +16,8 @@
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IGuideData)</c>.
  * @see https://learn.microsoft.com/windows/win32/api/bdatif/nn-bdatif-iguidedata
  * @namespace Windows.Win32.Media.DirectShow.Tv
- * @version v4.0.30319
  */
-class IGuideData extends IUnknown{
+class IGuideData extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

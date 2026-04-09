@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Security.Cryptography.UI
- * @version v4.0.30319
  */
-class CERT_FILTER_EXTENSION_MATCH extends Win32Struct
-{
+class CERT_FILTER_EXTENSION_MATCH extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8

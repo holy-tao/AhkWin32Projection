@@ -3,16 +3,14 @@
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class PCI_AGP_EXTENDED_CAPABILITY extends Win32Struct
-{
+class PCI_AGP_EXTENDED_CAPABILITY extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
 
     /**
-     * @type {Pointer<PCI_AGP_ISOCH_STATUS>}
+     * @type {Pointer}
      */
     IsochStatus {
         get => NumGet(this, 0, "ptr")
@@ -20,7 +18,7 @@ class PCI_AGP_EXTENDED_CAPABILITY extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PCI_AGP_CONTROL>}
+     * @type {Pointer}
      */
     AgpControl {
         get => NumGet(this, 8, "ptr")
@@ -36,7 +34,7 @@ class PCI_AGP_EXTENDED_CAPABILITY extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PCI_AGP_APERTURE_PAGE_SIZE>}
+     * @type {Pointer}
      */
     AperturePageSize {
         get => NumGet(this, 24, "ptr")
@@ -60,7 +58,7 @@ class PCI_AGP_EXTENDED_CAPABILITY extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PCI_AGP_ISOCH_COMMAND>}
+     * @type {Pointer}
      */
     IsochCommand {
         get => NumGet(this, 40, "ptr")

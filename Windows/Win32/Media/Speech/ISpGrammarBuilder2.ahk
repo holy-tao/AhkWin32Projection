@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Media.Speech
- * @version v4.0.30319
  */
-class ISpGrammarBuilder2 extends IUnknown{
+class ISpGrammarBuilder2 extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -33,7 +32,7 @@ class ISpGrammarBuilder2 extends IUnknown{
      * @param {SPSTATEHANDLE} hFromState 
      * @param {SPSTATEHANDLE} hToState 
      * @param {PWSTR} psz 
-     * @param {Integer} eMatchMode 
+     * @param {SPMATCHINGMODE} eMatchMode 
      * @returns {HRESULT} 
      */
     AddTextSubset(hFromState, hToState, psz, eMatchMode) {
@@ -47,7 +46,7 @@ class ISpGrammarBuilder2 extends IUnknown{
 
     /**
      * 
-     * @param {Integer} _phoneticALphabet 
+     * @param {PHONETICALPHABET} _phoneticALphabet 
      * @returns {HRESULT} 
      */
     SetPhoneticAlphabet(_phoneticALphabet) {

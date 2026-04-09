@@ -3,18 +3,16 @@
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D12
- * @version v4.0.30319
  */
-class D3D12_PROGRAM_IDENTIFIER extends Win32Struct
-{
+class D3D12_PROGRAM_IDENTIFIER extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
 
     /**
-     * @type {Array<UInt64>}
+     * @type {Array<Integer>}
      */
-    OpaqueData{
+    OpaqueData {
         get {
             if(!this.HasProp("__OpaqueDataProxyArray"))
                 this.__OpaqueDataProxyArray := Win32FixedArray(this.ptr + 0, 4, Primitive, "uint")

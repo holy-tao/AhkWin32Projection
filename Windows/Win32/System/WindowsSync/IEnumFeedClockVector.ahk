@@ -1,17 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IFeedClockVectorElement.ahk
-#Include .\IEnumFeedClockVector.ahk
 #Include ..\Com\IUnknown.ahk
+#Include .\IFeedClockVectorElement.ahk
 
 /**
  * Enumerates the clock vector elements that are stored in a clock vector that contains FeedSync information.
  * @see https://learn.microsoft.com/windows/win32/api/winsync/nn-winsync-ienumfeedclockvector
  * @namespace Windows.Win32.System.WindowsSync
- * @version v4.0.30319
  */
-class IEnumFeedClockVector extends IUnknown{
+class IEnumFeedClockVector extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Graphics\DirectDraw\IDirectDrawSurface7.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Graphics\DirectDraw\IDirectDrawSurface7.ahk
 
 /**
  * The IVMRSurfaceAllocator interface is implemented by the default allocator-presenter for the Video Mixing Renderer Filter 7 (VMR-7).
  * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-ivmrsurfaceallocator
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IVMRSurfaceAllocator extends IUnknown{
+class IVMRSurfaceAllocator extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

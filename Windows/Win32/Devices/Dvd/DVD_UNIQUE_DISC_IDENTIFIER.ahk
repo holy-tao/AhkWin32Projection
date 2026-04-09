@@ -3,18 +3,16 @@
 
 /**
  * @namespace Windows.Win32.Devices.Dvd
- * @version v4.0.30319
  */
-class DVD_UNIQUE_DISC_IDENTIFIER extends Win32Struct
-{
+class DVD_UNIQUE_DISC_IDENTIFIER extends Win32Struct {
     static sizeof => 18
 
     static packingSize => 1
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Reserved0{
+    Reserved0 {
         get {
             if(!this.HasProp("__Reserved0ProxyArray"))
                 this.__Reserved0ProxyArray := Win32FixedArray(this.ptr + 0, 2, Primitive, "char")
@@ -23,9 +21,9 @@ class DVD_UNIQUE_DISC_IDENTIFIER extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    RandomNumber{
+    RandomNumber {
         get {
             if(!this.HasProp("__RandomNumberProxyArray"))
                 this.__RandomNumberProxyArray := Win32FixedArray(this.ptr + 2, 2, Primitive, "char")
@@ -34,9 +32,9 @@ class DVD_UNIQUE_DISC_IDENTIFIER extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Year{
+    Year {
         get {
             if(!this.HasProp("__YearProxyArray"))
                 this.__YearProxyArray := Win32FixedArray(this.ptr + 4, 4, Primitive, "char")
@@ -45,9 +43,9 @@ class DVD_UNIQUE_DISC_IDENTIFIER extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Month{
+    Month {
         get {
             if(!this.HasProp("__MonthProxyArray"))
                 this.__MonthProxyArray := Win32FixedArray(this.ptr + 8, 2, Primitive, "char")
@@ -56,9 +54,9 @@ class DVD_UNIQUE_DISC_IDENTIFIER extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Day{
+    Day {
         get {
             if(!this.HasProp("__DayProxyArray"))
                 this.__DayProxyArray := Win32FixedArray(this.ptr + 10, 2, Primitive, "char")
@@ -67,9 +65,9 @@ class DVD_UNIQUE_DISC_IDENTIFIER extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Hour{
+    Hour {
         get {
             if(!this.HasProp("__HourProxyArray"))
                 this.__HourProxyArray := Win32FixedArray(this.ptr + 12, 2, Primitive, "char")
@@ -78,9 +76,9 @@ class DVD_UNIQUE_DISC_IDENTIFIER extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Minute{
+    Minute {
         get {
             if(!this.HasProp("__MinuteProxyArray"))
                 this.__MinuteProxyArray := Win32FixedArray(this.ptr + 14, 2, Primitive, "char")
@@ -89,9 +87,9 @@ class DVD_UNIQUE_DISC_IDENTIFIER extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Second{
+    Second {
         get {
             if(!this.HasProp("__SecondProxyArray"))
                 this.__SecondProxyArray := Win32FixedArray(this.ptr + 16, 2, Primitive, "char")

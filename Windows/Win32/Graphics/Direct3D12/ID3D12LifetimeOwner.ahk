@@ -5,13 +5,10 @@
 
 /**
  * Represents an application-defined callback used for being notified of lifetime changes of an object.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/nn-d3d12-id3d12lifetimeowner
  * @namespace Windows.Win32.Graphics.Direct3D12
- * @version v4.0.30319
  */
-class ID3D12LifetimeOwner extends IUnknown{
+class ID3D12LifetimeOwner extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -34,7 +31,7 @@ class ID3D12LifetimeOwner extends IUnknown{
 
     /**
      * Called when the lifetime state of a lifetime-tracked object changes.
-     * @param {Integer} NewState Type: **[D3D12_LIFETIME_STATE](./ne-d3d12-d3d12_lifetime_state.md)**
+     * @param {D3D12_LIFETIME_STATE} NewState Type: **[D3D12_LIFETIME_STATE](./ne-d3d12-d3d12_lifetime_state.md)**
      * 
      * The new state.
      * @returns {String} Nothing - always returns an empty string

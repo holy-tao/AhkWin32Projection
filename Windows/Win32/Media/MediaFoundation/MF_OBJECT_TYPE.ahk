@@ -5,9 +5,8 @@
  * Defines the object types that are created by the source resolver.
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/ne-mfidl-mf_object_type
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class MF_OBJECT_TYPE extends Win32Enum{
+class MF_OBJECT_TYPE extends Win32Enum {
 
     /**
      * Media source. You can query the object for the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imfmediasource">IMFMediaSource</a> interface.

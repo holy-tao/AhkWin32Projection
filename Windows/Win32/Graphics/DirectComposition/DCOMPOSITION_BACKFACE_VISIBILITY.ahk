@@ -5,9 +5,8 @@
  * Specifies the backface visibility to be applied to a visual.
  * @see https://learn.microsoft.com/windows/win32/api/dcomptypes/ne-dcomptypes-dcomposition_backface_visibility
  * @namespace Windows.Win32.Graphics.DirectComposition
- * @version v4.0.30319
  */
-class DCOMPOSITION_BACKFACE_VISIBILITY extends Win32Enum{
+class DCOMPOSITION_BACKFACE_VISIBILITY extends Win32Enum {
 
     /**
      * Surfaces in this visual's sub-tree are visible regardless of transformation.

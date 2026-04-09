@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.UI.Shell.PropertiesSystem
- * @version v4.0.30319
  */
-class PCUSERIALIZEDPROPSTORAGE extends Win32Struct
-{
+class PCUSERIALIZEDPROPSTORAGE extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 8

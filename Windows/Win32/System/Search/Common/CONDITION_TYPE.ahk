@@ -9,9 +9,8 @@
  * The <a href="https://github.com/microsoft/Windows-classic-samples/tree/master/Samples/Win7Samples/winui/WindowsSearch/StructuredQuerySample">StructuredQuerySample</a> demonstrates how to read lines from the console, parse them using the system schema, and display the resulting condition trees.
  * @see https://learn.microsoft.com/windows/win32/api/structuredquerycondition/ne-structuredquerycondition-condition_type
  * @namespace Windows.Win32.System.Search.Common
- * @version v4.0.30319
  */
-class CONDITION_TYPE extends Win32Enum{
+class CONDITION_TYPE extends Win32Enum {
 
     /**
      * Indicates that the values of the subterms are combined by "AND".

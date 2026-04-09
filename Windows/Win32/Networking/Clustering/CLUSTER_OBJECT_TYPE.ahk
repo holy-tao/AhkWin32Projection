@@ -5,9 +5,8 @@
  * The CLUSTER_OBJECT_TYPE enumeration (msclus.h) defines the type of object for which a notification is requested or generated.
  * @see https://learn.microsoft.com/windows/win32/api/msclus/ne-msclus-cluster_object_type
  * @namespace Windows.Win32.Networking.Clustering
- * @version v4.0.30319
  */
-class CLUSTER_OBJECT_TYPE extends Win32Enum{
+class CLUSTER_OBJECT_TYPE extends Win32Enum {
 
     /**
      * The notification is for an unspecified type.

@@ -15,10 +15,8 @@
  * Input credentials can take many different forms. It is important that credential providers are robust when receiving serialized credentials. This could include incomplete or partial credentials. In many cases, an incomplete input credential is a hint about what type of credential the caller wants. One case where this process is used is with callers who only wish to gather smart card credentials from the user. During the <b>CPUS_LOGON</b> usage scenario, the system uses <a href="https://docs.microsoft.com/windows/desktop/api/credentialprovider/nf-credentialprovider-icredentialprovider-setserialization">SetSerialization</a> to fill in some of the information from a remote machine. Logon UI will call <b>SetSerialization</b> zero or one times each enumeration cycle.
  * @see https://learn.microsoft.com/windows/win32/api/credentialprovider/ns-credentialprovider-credential_provider_credential_serialization
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class CREDENTIAL_PROVIDER_CREDENTIAL_SERIALIZATION extends Win32Struct
-{
+class CREDENTIAL_PROVIDER_CREDENTIAL_SERIALIZATION extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -38,7 +36,7 @@ class CREDENTIAL_PROVIDER_CREDENTIAL_SERIALIZATION extends Win32Struct
      * Type: <b>GUID</b>
      * 
      * The CLSID of the credential provider. Credential providers assign their own CLSID to this member during serialization. Credential UI ignores this member.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     clsidCredentialProvider {
         get => NumGet(this, 8, "ptr")

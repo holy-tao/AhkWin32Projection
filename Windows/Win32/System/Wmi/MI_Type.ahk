@@ -5,9 +5,8 @@
  * These values specify the data type of qualifiers, properties, references, parameters, and method return values for the CIM data types.
  * @see https://learn.microsoft.com/windows/win32/api/mi/ne-mi-mi_type
  * @namespace Windows.Win32.System.Wmi
- * @version v4.0.30319
  */
-class MI_Type extends Win32Enum{
+class MI_Type extends Win32Enum {
 
     /**
      * unsigned char
@@ -100,7 +99,6 @@ class MI_Type extends Win32Enum{
     static MI_REFERENCE => 14
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static MI_INSTANCE => 15

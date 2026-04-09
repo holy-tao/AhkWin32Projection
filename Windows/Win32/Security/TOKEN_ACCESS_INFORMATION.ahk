@@ -1,16 +1,19 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\Win32Struct.ahk
+#Include .\SID_AND_ATTRIBUTES_HASH.ahk
+#Include .\TOKEN_PRIVILEGES.ahk
 #Include ..\Foundation\LUID.ahk
+#Include .\TOKEN_TYPE.ahk
+#Include .\SECURITY_IMPERSONATION_LEVEL.ahk
 #Include .\TOKEN_MANDATORY_POLICY.ahk
+#Include .\TOKEN_MANDATORY_POLICY_ID.ahk
 
 /**
  * Specifies all the information in a token that is necessary to perform an access check.
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-token_access_information
  * @namespace Windows.Win32.Security
- * @version v4.0.30319
  */
-class TOKEN_ACCESS_INFORMATION extends Win32Struct
-{
+class TOKEN_ACCESS_INFORMATION extends Win32Struct {
     static sizeof => 88
 
     static packingSize => 8
@@ -46,7 +49,7 @@ class TOKEN_ACCESS_INFORMATION extends Win32Struct
      * A <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-luid">LUID</a> structure that specifies the token's identity.
      * @type {LUID}
      */
-    AuthenticationId{
+    AuthenticationId {
         get {
             if(!this.HasProp("__AuthenticationId"))
                 this.__AuthenticationId := LUID(24, this)
@@ -56,7 +59,7 @@ class TOKEN_ACCESS_INFORMATION extends Win32Struct
 
     /**
      * A value of the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ne-winnt-token_type">TOKEN_TYPE</a> enumeration that specifies the token's type.
-     * @type {Integer}
+     * @type {TOKEN_TYPE}
      */
     TokenType {
         get => NumGet(this, 32, "int")
@@ -65,7 +68,7 @@ class TOKEN_ACCESS_INFORMATION extends Win32Struct
 
     /**
      * A value of the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ne-winnt-security_impersonation_level">SECURITY_IMPERSONATION_LEVEL</a> enumeration that specifies the token's impersonation level.
-     * @type {Integer}
+     * @type {SECURITY_IMPERSONATION_LEVEL}
      */
     ImpersonationLevel {
         get => NumGet(this, 36, "int")
@@ -76,7 +79,7 @@ class TOKEN_ACCESS_INFORMATION extends Win32Struct
      * A <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-token_mandatory_policy">TOKEN_MANDATORY_POLICY</a> structure that specifies the token's mandatory integrity policy.
      * @type {TOKEN_MANDATORY_POLICY}
      */
-    MandatoryPolicy{
+    MandatoryPolicy {
         get {
             if(!this.HasProp("__MandatoryPolicy"))
                 this.__MandatoryPolicy := TOKEN_MANDATORY_POLICY(40, this)

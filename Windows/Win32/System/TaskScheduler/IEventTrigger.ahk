@@ -1,9 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\ITaskNamedValueCollection.ahk
 #Include .\ITrigger.ahk
+#Include .\ITaskNamedValueCollection.ahk
 
 /**
  * Represents a trigger that starts a task when a system event occurs.
@@ -13,9 +12,8 @@
  * When reading or writing your own XML for a task, an event trigger is specified using the <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/taskschedulerschema-eventtrigger-triggergroup-element">EventTrigger</a> element of the Task Scheduler schema.
  * @see https://learn.microsoft.com/windows/win32/api/taskschd/nn-taskschd-ieventtrigger
  * @namespace Windows.Win32.System.TaskScheduler
- * @version v4.0.30319
  */
-class IEventTrigger extends ITrigger{
+class IEventTrigger extends ITrigger {
 
     static sizeof => A_PtrSize
     /**
@@ -37,6 +35,7 @@ class IEventTrigger extends ITrigger{
     static VTableNames => ["get_Subscription", "put_Subscription", "get_Delay", "put_Delay", "get_ValueQueries", "put_ValueQueries"]
 
     /**
+     * @type {BSTR} 
      */
     Subscription {
         get => this.get_Subscription()
@@ -44,6 +43,7 @@ class IEventTrigger extends ITrigger{
     }
 
     /**
+     * @type {BSTR} 
      */
     Delay {
         get => this.get_Delay()

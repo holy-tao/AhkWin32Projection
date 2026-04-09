@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\Dxgi\Common\DXGI_FORMAT.ahk
+#Include ..\Direct3D\D3D_SRV_DIMENSION.ahk
 #Include .\D3D10_BUFFER_SRV.ahk
 #Include .\D3D10_TEX1D_SRV.ahk
 #Include .\D3D10_TEX1D_ARRAY_SRV.ahk
@@ -24,10 +26,8 @@
  * This structure requires Windows Vista Service Pack 1.
  * @see https://learn.microsoft.com/windows/win32/api/d3d10_1/ns-d3d10_1-d3d10_shader_resource_view_desc1
  * @namespace Windows.Win32.Graphics.Direct3D10
- * @version v4.0.30319
  */
-class D3D10_SHADER_RESOURCE_VIEW_DESC1 extends Win32Struct
-{
+class D3D10_SHADER_RESOURCE_VIEW_DESC1 extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 4
@@ -36,7 +36,7 @@ class D3D10_SHADER_RESOURCE_VIEW_DESC1 extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dxgiformat/ne-dxgiformat-dxgi_format">DXGI_FORMAT</a></b>
      * 
      * The viewing <a href="https://docs.microsoft.com/windows/desktop/api/dxgiformat/ne-dxgiformat-dxgi_format">format</a>. See remarks.
-     * @type {Integer}
+     * @type {DXGI_FORMAT}
      */
     Format {
         get => NumGet(this, 0, "int")
@@ -47,7 +47,7 @@ class D3D10_SHADER_RESOURCE_VIEW_DESC1 extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/bb694535(v=vs.85)">D3D10_SRV_DIMENSION1</a></b>
      * 
      * The resource type of the view. See <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/bb694535(v=vs.85)">D3D10_SRV_DIMENSION1</a>. This should be the same as the resource type of the underlying resource. This parameter also determines which _SRV to use in the union below.
-     * @type {Integer}
+     * @type {D3D_SRV_DIMENSION}
      */
     ViewDimension {
         get => NumGet(this, 4, "int")
@@ -57,7 +57,7 @@ class D3D10_SHADER_RESOURCE_VIEW_DESC1 extends Win32Struct
     /**
      * @type {D3D10_BUFFER_SRV}
      */
-    Buffer{
+    Buffer {
         get {
             if(!this.HasProp("__Buffer"))
                 this.__Buffer := D3D10_BUFFER_SRV(8, this)
@@ -68,7 +68,7 @@ class D3D10_SHADER_RESOURCE_VIEW_DESC1 extends Win32Struct
     /**
      * @type {D3D10_TEX1D_SRV}
      */
-    Texture1D{
+    Texture1D {
         get {
             if(!this.HasProp("__Texture1D"))
                 this.__Texture1D := D3D10_TEX1D_SRV(8, this)
@@ -79,7 +79,7 @@ class D3D10_SHADER_RESOURCE_VIEW_DESC1 extends Win32Struct
     /**
      * @type {D3D10_TEX1D_ARRAY_SRV}
      */
-    Texture1DArray{
+    Texture1DArray {
         get {
             if(!this.HasProp("__Texture1DArray"))
                 this.__Texture1DArray := D3D10_TEX1D_ARRAY_SRV(8, this)
@@ -90,7 +90,7 @@ class D3D10_SHADER_RESOURCE_VIEW_DESC1 extends Win32Struct
     /**
      * @type {D3D10_TEX2D_SRV}
      */
-    Texture2D{
+    Texture2D {
         get {
             if(!this.HasProp("__Texture2D"))
                 this.__Texture2D := D3D10_TEX2D_SRV(8, this)
@@ -101,7 +101,7 @@ class D3D10_SHADER_RESOURCE_VIEW_DESC1 extends Win32Struct
     /**
      * @type {D3D10_TEX2D_ARRAY_SRV}
      */
-    Texture2DArray{
+    Texture2DArray {
         get {
             if(!this.HasProp("__Texture2DArray"))
                 this.__Texture2DArray := D3D10_TEX2D_ARRAY_SRV(8, this)
@@ -112,7 +112,7 @@ class D3D10_SHADER_RESOURCE_VIEW_DESC1 extends Win32Struct
     /**
      * @type {D3D10_TEX2DMS_SRV}
      */
-    Texture2DMS{
+    Texture2DMS {
         get {
             if(!this.HasProp("__Texture2DMS"))
                 this.__Texture2DMS := D3D10_TEX2DMS_SRV(8, this)
@@ -123,7 +123,7 @@ class D3D10_SHADER_RESOURCE_VIEW_DESC1 extends Win32Struct
     /**
      * @type {D3D10_TEX2DMS_ARRAY_SRV}
      */
-    Texture2DMSArray{
+    Texture2DMSArray {
         get {
             if(!this.HasProp("__Texture2DMSArray"))
                 this.__Texture2DMSArray := D3D10_TEX2DMS_ARRAY_SRV(8, this)
@@ -134,7 +134,7 @@ class D3D10_SHADER_RESOURCE_VIEW_DESC1 extends Win32Struct
     /**
      * @type {D3D10_TEX3D_SRV}
      */
-    Texture3D{
+    Texture3D {
         get {
             if(!this.HasProp("__Texture3D"))
                 this.__Texture3D := D3D10_TEX3D_SRV(8, this)
@@ -145,7 +145,7 @@ class D3D10_SHADER_RESOURCE_VIEW_DESC1 extends Win32Struct
     /**
      * @type {D3D10_TEXCUBE_SRV}
      */
-    TextureCube{
+    TextureCube {
         get {
             if(!this.HasProp("__TextureCube"))
                 this.__TextureCube := D3D10_TEXCUBE_SRV(8, this)
@@ -156,7 +156,7 @@ class D3D10_SHADER_RESOURCE_VIEW_DESC1 extends Win32Struct
     /**
      * @type {D3D10_TEXCUBE_ARRAY_SRV1}
      */
-    TextureCubeArray{
+    TextureCubeArray {
         get {
             if(!this.HasProp("__TextureCubeArray"))
                 this.__TextureCubeArray := D3D10_TEXCUBE_ARRAY_SRV1(8, this)

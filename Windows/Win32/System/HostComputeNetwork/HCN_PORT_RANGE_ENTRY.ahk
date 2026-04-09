@@ -1,20 +1,19 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\HCN_PORT_PROTOCOL.ahk
 
 /**
  * HCN_PORT_RANGE_ENTRY
  * @see https://learn.microsoft.com/virtualization/api/hcn/Reference/HCN_PORT_RANGE_ENTRY
  * @namespace Windows.Win32.System.HostComputeNetwork
- * @version v4.0.30319
  */
-class HCN_PORT_RANGE_ENTRY extends Win32Struct
-{
+class HCN_PORT_RANGE_ENTRY extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     OwningPartitionId {
         get => NumGet(this, 0, "ptr")
@@ -22,7 +21,7 @@ class HCN_PORT_RANGE_ENTRY extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     TargetPartitionId {
         get => NumGet(this, 8, "ptr")
@@ -30,7 +29,7 @@ class HCN_PORT_RANGE_ENTRY extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {HCN_PORT_PROTOCOL}
      */
     Protocol {
         get => NumGet(this, 16, "int")

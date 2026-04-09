@@ -5,9 +5,8 @@
  * A set of property values associated with the error. They are set and retrieved using WsGetErrorProperty and WsSetErrorProperty.
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ne-webservices-ws_error_property_id
  * @namespace Windows.Win32.Networking.WindowsWebServices
- * @version v4.0.30319
  */
-class WS_ERROR_PROPERTY_ID extends Win32Enum{
+class WS_ERROR_PROPERTY_ID extends Win32Enum {
 
     /**
      * The number of error strings (ULONG) available in the error object. Error strings 

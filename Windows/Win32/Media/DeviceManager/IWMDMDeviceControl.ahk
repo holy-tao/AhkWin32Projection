@@ -7,9 +7,8 @@
  * The IWMDMDeviceControl interface provides methods for controlling playback on a device.
  * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nn-mswmdm-iwmdmdevicecontrol
  * @namespace Windows.Win32.Media.DeviceManager
- * @version v4.0.30319
  */
-class IWMDMDeviceControl extends IUnknown{
+class IWMDMDeviceControl extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

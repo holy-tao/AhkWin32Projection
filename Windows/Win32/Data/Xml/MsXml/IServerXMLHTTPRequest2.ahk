@@ -1,14 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
 #Include .\IServerXMLHTTPRequest.ahk
 
 /**
  * @namespace Windows.Win32.Data.Xml.MsXml
- * @version v4.0.30319
  */
-class IServerXMLHTTPRequest2 extends IServerXMLHTTPRequest{
+class IServerXMLHTTPRequest2 extends IServerXMLHTTPRequest {
 
     static sizeof => A_PtrSize
     /**
@@ -31,7 +29,7 @@ class IServerXMLHTTPRequest2 extends IServerXMLHTTPRequest{
 
     /**
      * 
-     * @param {Integer} proxySetting 
+     * @param {SXH_PROXY_SETTING} proxySetting 
      * @param {VARIANT} varProxyServer 
      * @param {VARIANT} varBypassList 
      * @returns {HRESULT} 

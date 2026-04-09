@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Iis
- * @version v4.0.30319
  */
-class METADATA_GETALL_INTERNAL_RECORD extends Win32Struct
-{
+class METADATA_GETALL_INTERNAL_RECORD extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8

@@ -5,9 +5,8 @@
  * Contains values that specify server and client actions during enrollment.
  * @see https://learn.microsoft.com/windows/win32/api/certenroll/ne-certenroll-x509certificatetemplateenrollmentflag
  * @namespace Windows.Win32.Security.Cryptography.Certificates
- * @version v4.0.30319
  */
-class X509CertificateTemplateEnrollmentFlag extends Win32Enum{
+class X509CertificateTemplateEnrollmentFlag extends Win32Enum {
 
     /**
      * Instructs the client and server to include a Secure/Multipurpose Internet Mail Extensions (S/MIME) extension in the certificate request and issued certificate.
@@ -106,19 +105,16 @@ class X509CertificateTemplateEnrollmentFlag extends Win32Enum{
     static EnrollmentIncludeBasicConstraintsForEECerts => 32768
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static EnrollmentPreviousApprovalKeyBasedValidateReenrollment => 65536
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static EnrollmentCertificateIssuancePoliciesFromRequest => 131072
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static EnrollmentSkipAutoRenewal => 262144

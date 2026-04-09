@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.UI.WindowsAndMessaging
- * @version v4.0.30319
  */
-class DEV_BROADCAST_HANDLE32 extends Win32Struct
-{
+class DEV_BROADCAST_HANDLE32 extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -52,7 +50,7 @@ class DEV_BROADCAST_HANDLE32 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     dbch_eventguid {
         get => NumGet(this, 24, "ptr")
@@ -68,9 +66,9 @@ class DEV_BROADCAST_HANDLE32 extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    dbch_data{
+    dbch_data {
         get {
             if(!this.HasProp("__dbch_dataProxyArray"))
                 this.__dbch_dataProxyArray := Win32FixedArray(this.ptr + 36, 1, Primitive, "char")

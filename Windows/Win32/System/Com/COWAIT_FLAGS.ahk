@@ -5,9 +5,8 @@
  * Specifies the behavior of the CoWaitForMultipleHandles function.
  * @see https://learn.microsoft.com/windows/win32/api/combaseapi/ne-combaseapi-cowait_flags
  * @namespace Windows.Win32.System.Com
- * @version v4.0.30319
  */
-class COWAIT_FLAGS extends Win32BitflagEnum{
+class COWAIT_FLAGS extends Win32BitflagEnum {
 
     /**
      * Dispatch calls needed for marshaling without dispatching arbitrary calls.

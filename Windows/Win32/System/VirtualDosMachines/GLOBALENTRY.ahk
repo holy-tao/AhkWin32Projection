@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.System.VirtualDosMachines
- * @version v4.0.30319
  */
-class GLOBALENTRY extends Win32Struct
-{
+class GLOBALENTRY extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 8
@@ -39,7 +37,7 @@ class GLOBALENTRY extends Win32Struct
     /**
      * @type {HANDLE}
      */
-    hBlock{
+    hBlock {
         get {
             if(!this.HasProp("__hBlock"))
                 this.__hBlock := HANDLE(16, this)
@@ -82,7 +80,7 @@ class GLOBALENTRY extends Win32Struct
     /**
      * @type {HANDLE}
      */
-    hOwner{
+    hOwner {
         get {
             if(!this.HasProp("__hOwner"))
                 this.__hOwner := HANDLE(40, this)

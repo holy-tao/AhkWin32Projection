@@ -5,9 +5,8 @@
  * The values of the ATTRIBUTERESTRICTIONS enumeration type specify restrictions on how a particular attribute can be used.
  * @see https://learn.microsoft.com/windows/win32/api/sdoias/ne-sdoias-attributerestrictions
  * @namespace Windows.Win32.NetworkManagement.NetworkPolicyServer
- * @version v4.0.30319
  */
-class ATTRIBUTERESTRICTIONS extends Win32Enum{
+class ATTRIBUTERESTRICTIONS extends Win32Enum {
 
     /**
      * Specifies whether the attribute is multivalued.

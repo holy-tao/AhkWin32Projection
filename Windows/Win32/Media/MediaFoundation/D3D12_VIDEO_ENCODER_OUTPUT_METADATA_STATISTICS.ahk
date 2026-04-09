@@ -3,14 +3,10 @@
 
 /**
  * Represents encoding statistics about a ID3D12VideoEncodeCommandList2::EncodeFrame operation.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/d3d12video/ns-d3d12video-d3d12_video_encoder_output_metadata_statistics
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class D3D12_VIDEO_ENCODER_OUTPUT_METADATA_STATISTICS extends Win32Struct
-{
+class D3D12_VIDEO_ENCODER_OUTPUT_METADATA_STATISTICS extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8

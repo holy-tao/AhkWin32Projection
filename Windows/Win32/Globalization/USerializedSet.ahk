@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Globalization
- * @version v4.0.30319
  */
-class USerializedSet extends Win32Struct
-{
+class USerializedSet extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -36,9 +34,9 @@ class USerializedSet extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt16>}
+     * @type {Array<Integer>}
      */
-    staticArray{
+    staticArray {
         get {
             if(!this.HasProp("__staticArrayProxyArray"))
                 this.__staticArrayProxyArray := Win32FixedArray(this.ptr + 16, 8, Primitive, "ushort")

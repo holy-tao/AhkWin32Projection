@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IRadioInstanceCollection.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\IRadioInstanceCollection.ahk
 
 /**
  * @namespace Windows.Win32.Devices.PortableDevices
- * @version v4.0.30319
  */
-class IMediaRadioManager extends IUnknown{
+class IMediaRadioManager extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -40,7 +39,7 @@ class IMediaRadioManager extends IUnknown{
 
     /**
      * 
-     * @param {Integer} sysRadioState 
+     * @param {SYSTEM_RADIO_STATE} sysRadioState 
      * @param {Integer} uTimeoutSec 
      * @returns {HRESULT} 
      */

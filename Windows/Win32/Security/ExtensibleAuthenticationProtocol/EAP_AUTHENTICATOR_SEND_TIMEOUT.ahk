@@ -5,9 +5,8 @@
  * Indicates to the authenticator method the amount of time to wait for user input after the packet is sent. The timeout value can be set to none.
  * @see https://learn.microsoft.com/windows/win32/api/eapauthenticatortypes/ne-eapauthenticatortypes-eap_authenticator_send_timeout
  * @namespace Windows.Win32.Security.ExtensibleAuthenticationProtocol
- * @version v4.0.30319
  */
-class EAP_AUTHENTICATOR_SEND_TIMEOUT extends Win32Enum{
+class EAP_AUTHENTICATOR_SEND_TIMEOUT extends Win32Enum {
 
     /**
      * Sends the packet and never times out; the user can enter a response at any time.

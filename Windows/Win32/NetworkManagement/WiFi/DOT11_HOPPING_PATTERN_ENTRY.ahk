@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
- * @version v4.0.30319
  */
-class DOT11_HOPPING_PATTERN_ENTRY extends Win32Struct
-{
+class DOT11_HOPPING_PATTERN_ENTRY extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4

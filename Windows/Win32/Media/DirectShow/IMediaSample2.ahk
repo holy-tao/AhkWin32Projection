@@ -7,9 +7,8 @@
  * The IMediaSample2 interface sets and retrieves properties on media samples.This interface inherits the IMediaSample interface.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-imediasample2
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IMediaSample2 extends IMediaSample{
+class IMediaSample2 extends IMediaSample {
 
     static sizeof => A_PtrSize
     /**
@@ -37,7 +36,7 @@ class IMediaSample2 extends IMediaSample{
      * 
      * For efficiency, the <b>pMediaType</b> member returned in <b>AM_SAMPLE2_PROPERTIES</b> is a pointer to the data stored in the media sample, not a copy of that data. The pointer may become invalid after the sample is passed to another filter, or after the input pin's <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nf-strmif-imeminputpin-receive">IMemInputPin::Receive</a> method has completed. Also, do not free the pointer or delete the media type.
      * @param {Integer} cbProperties Length of property data to retrieve, in bytes.
-     * @param {Pointer} pbProperties Pointer to a buffer of size <i>cbProperties</i>.
+     * @param {Integer} pbProperties Pointer to a buffer of size <i>cbProperties</i>.
      * @returns {HRESULT} Returns an <b>HRESULT</b> value. Possible values include the following.
      * 
      * <table>
@@ -82,7 +81,7 @@ class IMediaSample2 extends IMediaSample{
      * 
      * The standard implementation of this method does not support updating [AM_SAMPLE2_PROPERTIES](/windows/win32/api/strmif/ns-strmif-am_sample2_properties) structure. If these members are not equal to zero, the method returns <b>E_INVALIDARG</b>. To modify the data contained in the sample's memory buffer, call <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nf-strmif-imediasample-getpointer">IMediaSample::GetPointer</a>.
      * @param {Integer} cbProperties Length of property data to set, in bytes.
-     * @param {Pointer} pbProperties Pointer to a buffer of size <i>cbProperties</i>.
+     * @param {Integer} pbProperties Pointer to a buffer of size <i>cbProperties</i>.
      * @returns {HRESULT} Returns an <b>HRESULT</b> value. Possible values include the following.
      * 
      * <table>

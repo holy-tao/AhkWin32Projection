@@ -7,10 +7,8 @@
  * If any numeric member has a value of 0, then the member and its value is not included in the XML output when the structure is converted to XML.
  * @see https://learn.microsoft.com/windows/win32/api/wsdxml/ns-wsdxml-wsd_duration
  * @namespace Windows.Win32.Devices.WebServicesOnDevices
- * @version v4.0.30319
  */
-class WSD_DURATION extends Win32Struct
-{
+class WSD_DURATION extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 4

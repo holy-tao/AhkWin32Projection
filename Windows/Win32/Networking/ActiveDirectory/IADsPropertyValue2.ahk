@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
 #Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 
 /**
  * Used to represent the value of an IADsPropertyEntry object in any data format.
@@ -310,9 +310,8 @@
  * </table>
  * @see https://learn.microsoft.com/windows/win32/api/iads/nn-iads-iadspropertyvalue2
  * @namespace Windows.Win32.Networking.ActiveDirectory
- * @version v4.0.30319
  */
-class IADsPropertyValue2 extends IDispatch{
+class IADsPropertyValue2 extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

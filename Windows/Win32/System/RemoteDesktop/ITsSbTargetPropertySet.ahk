@@ -7,9 +7,8 @@
  * Derive from this interface to define a custom target property set.
  * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nn-sbtsv-itssbtargetpropertyset
  * @namespace Windows.Win32.System.RemoteDesktop
- * @version v4.0.30319
  */
-class ITsSbTargetPropertySet extends ITsSbPropertySet{
+class ITsSbTargetPropertySet extends ITsSbPropertySet {
 
     static sizeof => A_PtrSize
     /**

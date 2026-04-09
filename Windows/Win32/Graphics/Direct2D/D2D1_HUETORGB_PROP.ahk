@@ -5,9 +5,8 @@
  * Identifiers for properties of the Hue to RGB effect.
  * @see https://learn.microsoft.com/windows/win32/api/d2d1effects_2/ne-d2d1effects_2-d2d1_huetorgb_prop
  * @namespace Windows.Win32.Graphics.Direct2D
- * @version v4.0.30319
  */
-class D2D1_HUETORGB_PROP extends Win32Enum{
+class D2D1_HUETORGB_PROP extends Win32Enum {
 
     /**
      * The D2D1_HUETORGB_PROP_INPUT_COLOR_SPACE property is an enumeration value which indicates which color space to convert from. 

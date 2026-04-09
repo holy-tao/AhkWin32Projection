@@ -1,12 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\WAVEFORMATEX.ahk
 
 /**
  * @namespace Windows.Win32.Media.Audio
- * @version v4.0.30319
  */
-class tACMFORMATDETAILSW extends Win32Struct
-{
+class tACMFORMATDETAILSW extends Win32Struct {
     static sizeof => 288
 
     static packingSize => 8

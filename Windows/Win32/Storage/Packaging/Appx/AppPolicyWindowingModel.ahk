@@ -5,9 +5,8 @@
  * The AppPolicyWindowingModel enumeration indicates whether a process uses a CoreWindow-based, or a HWND-based, windowing model.
  * @see https://learn.microsoft.com/windows/win32/api/appmodel/ne-appmodel-apppolicywindowingmodel
  * @namespace Windows.Win32.Storage.Packaging.Appx
- * @version v4.0.30319
  */
-class AppPolicyWindowingModel extends Win32Enum{
+class AppPolicyWindowingModel extends Win32Enum {
 
     /**
      * Indicates that the process doesn't have a windowing model.

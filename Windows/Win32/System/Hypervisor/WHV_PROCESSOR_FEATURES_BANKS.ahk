@@ -5,10 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.Hypervisor
- * @version v4.0.30319
  */
-class WHV_PROCESSOR_FEATURES_BANKS extends Win32Struct
-{
+class WHV_PROCESSOR_FEATURES_BANKS extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -32,7 +30,7 @@ class WHV_PROCESSOR_FEATURES_BANKS extends Win32Struct
     /**
      * @type {WHV_PROCESSOR_FEATURES}
      */
-    Bank0{
+    Bank0 {
         get {
             if(!this.HasProp("__Bank0"))
                 this.__Bank0 := WHV_PROCESSOR_FEATURES(8, this)
@@ -43,7 +41,7 @@ class WHV_PROCESSOR_FEATURES_BANKS extends Win32Struct
     /**
      * @type {WHV_PROCESSOR_FEATURES1}
      */
-    Bank1{
+    Bank1 {
         get {
             if(!this.HasProp("__Bank1"))
                 this.__Bank1 := WHV_PROCESSOR_FEATURES1(24, this)
@@ -52,9 +50,9 @@ class WHV_PROCESSOR_FEATURES_BANKS extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt64>}
+     * @type {Array<Integer>}
      */
-    AsUINT64{
+    AsUINT64 {
         get {
             if(!this.HasProp("__AsUINT64ProxyArray"))
                 this.__AsUINT64ProxyArray := Win32FixedArray(this.ptr + 8, 2, Primitive, "uint")

@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class SHDID_ID extends Win32Enum{
+class SHDID_ID extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

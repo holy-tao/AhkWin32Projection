@@ -5,10 +5,8 @@
  * Represents statistical information about a COM+ component hosted in a particular process.
  * @see https://learn.microsoft.com/windows/win32/api/comsvcs/ns-comsvcs-componentstatistics
  * @namespace Windows.Win32.System.ComponentServices
- * @version v4.0.30319
  */
-class ComponentStatistics extends Win32Struct
-{
+class ComponentStatistics extends Win32Struct {
     static sizeof => 52
 
     static packingSize => 4

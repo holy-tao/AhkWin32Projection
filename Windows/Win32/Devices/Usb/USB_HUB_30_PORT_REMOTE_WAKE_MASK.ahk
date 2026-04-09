@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.Usb
- * @version v4.0.30319
  */
-class USB_HUB_30_PORT_REMOTE_WAKE_MASK extends Win32Struct
-{
+class USB_HUB_30_PORT_REMOTE_WAKE_MASK extends Win32Struct {
     static sizeof => 2
 
     static packingSize => 1

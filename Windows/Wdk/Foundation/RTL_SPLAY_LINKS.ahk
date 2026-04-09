@@ -1,12 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\Win32Struct.ahk
+#Include .\RTL_SPLAY_LINKS.ahk
 
 /**
  * @namespace Windows.Wdk.Foundation
- * @version v4.0.30319
  */
-class RTL_SPLAY_LINKS extends Win32Struct
-{
+class RTL_SPLAY_LINKS extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

@@ -5,10 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.Hypervisor
- * @version v4.0.30319
  */
-class WHV_VP_EXIT_CONTEXT extends Win32Struct
-{
+class WHV_VP_EXIT_CONTEXT extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -16,7 +14,7 @@ class WHV_VP_EXIT_CONTEXT extends Win32Struct
     /**
      * @type {WHV_X64_VP_EXECUTION_STATE}
      */
-    ExecutionState{
+    ExecutionState {
         get {
             if(!this.HasProp("__ExecutionState"))
                 this.__ExecutionState := WHV_X64_VP_EXECUTION_STATE(0, this)
@@ -70,7 +68,7 @@ class WHV_VP_EXIT_CONTEXT extends Win32Struct
     /**
      * @type {WHV_X64_SEGMENT_REGISTER}
      */
-    Cs{
+    Cs {
         get {
             if(!this.HasProp("__Cs"))
                 this.__Cs := WHV_X64_SEGMENT_REGISTER(16, this)

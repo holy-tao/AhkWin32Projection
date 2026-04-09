@@ -7,9 +7,8 @@
  * Notifies the subscriber about an activity that is part of an Internet Information Services (IIS) Active Server Pages (ASP) page. For example, if a COM+ object is invoked in an ASP page, the user would be notified of this activity.
  * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nn-comsvcs-icomidentityevents
  * @namespace Windows.Win32.System.ComponentServices
- * @version v4.0.30319
  */
-class IComIdentityEvents extends IUnknown{
+class IComIdentityEvents extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

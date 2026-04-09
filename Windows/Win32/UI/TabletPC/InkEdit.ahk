@@ -5,10 +5,8 @@
  * This section contains Methods belonging to the InkEdit Control.
  * @see https://learn.microsoft.com/windows/win32/tablet/inkedit-methods
  * @namespace Windows.Win32.UI.TabletPC
- * @version v4.0.30319
  */
-class InkEdit extends Win32Struct
-{
+class InkEdit extends Win32Struct {
     static sizeof => 0
 
     static packingSize => 1

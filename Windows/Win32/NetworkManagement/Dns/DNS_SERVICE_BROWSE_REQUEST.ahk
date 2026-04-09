@@ -3,14 +3,10 @@
 
 /**
  * Contains the query parameters used in a call to [DnsServiceBrowse](../windns/nf-windns-dnsservicebrowse.md).
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/windns/ns-windns-dns_service_browse_request
  * @namespace Windows.Win32.NetworkManagement.Dns
- * @version v4.0.30319
  */
-class DNS_SERVICE_BROWSE_REQUEST extends Win32Struct
-{
+class DNS_SERVICE_BROWSE_REQUEST extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8

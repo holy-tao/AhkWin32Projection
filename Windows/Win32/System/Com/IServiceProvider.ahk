@@ -15,9 +15,8 @@
  * The IID for this interface is IID_IServiceProvider.
  * @see https://learn.microsoft.com/windows/win32/api/servprov/nn-servprov-iserviceprovider
  * @namespace Windows.Win32.System.Com
- * @version v4.0.30319
  */
-class IServiceProvider extends IUnknown{
+class IServiceProvider extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

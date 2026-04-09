@@ -7,9 +7,8 @@
  * The IADsSyntax interface specifies methods to identify and modify the available Automation data types used to represent its data.
  * @see https://learn.microsoft.com/windows/win32/api/iads/nn-iads-iadssyntax
  * @namespace Windows.Win32.Networking.ActiveDirectory
- * @version v4.0.30319
  */
-class IADsSyntax extends IADs{
+class IADsSyntax extends IADs {
 
     static sizeof => A_PtrSize
     /**

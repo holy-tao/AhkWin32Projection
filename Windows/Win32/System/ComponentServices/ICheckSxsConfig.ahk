@@ -7,9 +7,8 @@
  * Used to check the configuration of the current side-by-side assembly.
  * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nn-comsvcs-ichecksxsconfig
  * @namespace Windows.Win32.System.ComponentServices
- * @version v4.0.30319
  */
-class ICheckSxsConfig extends IUnknown{
+class ICheckSxsConfig extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

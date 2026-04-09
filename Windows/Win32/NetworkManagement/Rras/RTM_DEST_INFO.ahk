@@ -7,11 +7,9 @@
  * The RTM_DEST_INFO structure is used to exchange destination information with clients registered with the routing table manager.
  * @see https://learn.microsoft.com/windows/win32/api/rtmv2/ns-rtmv2-rtm_dest_info
  * @namespace Windows.Win32.NetworkManagement.Rras
- * @version v4.0.30319
  */
-class RTM_DEST_INFO extends Win32Struct
-{
-    static sizeof => 56
+class RTM_DEST_INFO extends Win32Struct {
+    static sizeof => 88
 
     static packingSize => 8
 
@@ -28,7 +26,7 @@ class RTM_DEST_INFO extends Win32Struct
      * Specifies the destination network address as an address and a mask.
      * @type {RTM_NET_ADDRESS}
      */
-    DestAddress{
+    DestAddress {
         get {
             if(!this.HasProp("__DestAddress"))
                 this.__DestAddress := RTM_NET_ADDRESS(8, this)
@@ -40,7 +38,7 @@ class RTM_DEST_INFO extends Win32Struct
      * Specifies the last time this destination was updated.
      * @type {FILETIME}
      */
-    LastChanged{
+    LastChanged {
         get {
             if(!this.HasProp("__LastChanged"))
                 this.__LastChanged := FILETIME(28, this)

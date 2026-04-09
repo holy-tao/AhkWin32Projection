@@ -139,10 +139,8 @@
  * <img alt="Illustration of single recognition guide box" border="" src="images/a7106d81-4314-44ec-905d-1bb3ba7711b7.gif"/>
  * @see https://learn.microsoft.com/windows/win32/api/rectypes/ns-rectypes-reco_guide
  * @namespace Windows.Win32.UI.TabletPC
- * @version v4.0.30319
  */
-class RECO_GUIDE extends Win32Struct
-{
+class RECO_GUIDE extends Win32Struct {
     static sizeof => 36
 
     static packingSize => 4

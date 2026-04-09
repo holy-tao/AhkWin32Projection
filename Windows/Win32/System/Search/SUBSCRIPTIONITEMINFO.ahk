@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Search
- * @version v4.0.30319
  */
-class SUBSCRIPTIONITEMINFO extends Win32Struct
-{
+class SUBSCRIPTIONITEMINFO extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -36,7 +34,7 @@ class SUBSCRIPTIONITEMINFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     ScheduleGroup {
         get => NumGet(this, 16, "ptr")
@@ -44,7 +42,7 @@ class SUBSCRIPTIONITEMINFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     clsidAgent {
         get => NumGet(this, 24, "ptr")

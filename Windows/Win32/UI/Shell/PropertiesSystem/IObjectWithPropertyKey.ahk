@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Foundation\PROPERTYKEY.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
+#Include ..\..\..\Foundation\PROPERTYKEY.ahk
 
 /**
  * Exposes methods for getting and setting the property key.
  * @see https://learn.microsoft.com/windows/win32/api/propsys/nn-propsys-iobjectwithpropertykey
  * @namespace Windows.Win32.UI.Shell.PropertiesSystem
- * @version v4.0.30319
  */
-class IObjectWithPropertyKey extends IUnknown{
+class IObjectWithPropertyKey extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -34,16 +34,13 @@
  * </ul>
  * @see https://learn.microsoft.com/windows/win32/api/winsvc/ns-winsvc-service_launch_protected_info
  * @namespace Windows.Win32.System.Services
- * @version v4.0.30319
  */
-class SERVICE_LAUNCH_PROTECTED_INFO extends Win32Struct
-{
+class SERVICE_LAUNCH_PROTECTED_INFO extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 4
 
     /**
-     * 
      * @type {Integer}
      */
     dwLaunchProtected {

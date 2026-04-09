@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
- * @version v4.0.30319
  */
-class D3DKMT_SIGNALSYNCHRONIZATIONOBJECTFROMGPU2 extends Win32Struct
-{
+class D3DKMT_SIGNALSYNCHRONIZATIONOBJECTFROMGPU2 extends Win32Struct {
     static sizeof => 104
 
     static packingSize => 8
@@ -29,7 +27,7 @@ class D3DKMT_SIGNALSYNCHRONIZATIONOBJECTFROMGPU2 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<D3DDDICB_SIGNALFLAGS>}
+     * @type {Pointer}
      */
     Flags {
         get => NumGet(this, 16, "ptr")
@@ -63,7 +61,7 @@ class D3DKMT_SIGNALSYNCHRONIZATIONOBJECTFROMGPU2 extends Win32Struct
     /**
      * @type {HANDLE}
      */
-    CpuEventHandle{
+    CpuEventHandle {
         get {
             if(!this.HasProp("__CpuEventHandle"))
                 this.__CpuEventHandle := HANDLE(40, this)
@@ -80,9 +78,9 @@ class D3DKMT_SIGNALSYNCHRONIZATIONOBJECTFROMGPU2 extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt64>}
+     * @type {Array<Integer>}
      */
-    Reserved{
+    Reserved {
         get {
             if(!this.HasProp("__ReservedProxyArray"))
                 this.__ReservedProxyArray := Win32FixedArray(this.ptr + 40, 8, Primitive, "uint")

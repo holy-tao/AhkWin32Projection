@@ -5,10 +5,8 @@
  * Represents app memory usage at a single point in time. This structure is used by the PROCESS_INFORMATION_CLASS class.
  * @see https://learn.microsoft.com/windows/win32/api/processthreadsapi/ns-processthreadsapi-app_memory_information
  * @namespace Windows.Win32.System.Threading
- * @version v4.0.30319
  */
-class APP_MEMORY_INFORMATION extends Win32Struct
-{
+class APP_MEMORY_INFORMATION extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8

@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\HTTP_HEADER_ID.ahk
+#Include .\HTTP_KNOWN_HEADER.ahk
 
 /**
  * Specifies the headers that are included in an HTTP response when more than one header is required.
@@ -11,17 +13,15 @@
  * The <b>HTTP_MULTIPLE_KNOWN_HEADERS</b> structure enables server applications to send multiple authentication challenges to the client.
  * @see https://learn.microsoft.com/windows/win32/api/http/ns-http-http_multiple_known_headers
  * @namespace Windows.Win32.Networking.HttpServer
- * @version v4.0.30319
  */
-class HTTP_MULTIPLE_KNOWN_HEADERS extends Win32Struct
-{
+class HTTP_MULTIPLE_KNOWN_HEADERS extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
 
     /**
      * A member of the <a href="https://docs.microsoft.com/windows/desktop/api/http/ne-http-http_header_id">HTTP_HEADER_ID</a> enumeration specifying the response header ID.
-     * @type {Integer}
+     * @type {HTTP_HEADER_ID}
      */
     HeaderId {
         get => NumGet(this, 0, "int")

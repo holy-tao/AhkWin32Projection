@@ -1,10 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\IWICBitmapEncoderInfo.ahk
 #Include .\IWICBitmapFrameEncode.ahk
 #Include .\IWICMetadataQueryWriter.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Defines methods for setting an encoder's properties such as thumbnails, frames, and palettes.
@@ -53,9 +54,8 @@
  * CLSID_WICHeifDecoder operates on HEIF (High Efficiency Image Format) images.
  * @see https://learn.microsoft.com/windows/win32/api/wincodec/nn-wincodec-iwicbitmapencoder
  * @namespace Windows.Win32.Graphics.Imaging
- * @version v4.0.30319
  */
-class IWICBitmapEncoder extends IUnknown{
+class IWICBitmapEncoder extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -81,7 +81,7 @@ class IWICBitmapEncoder extends IUnknown{
      * @param {IStream} pIStream Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a>*</b>
      * 
      * The output stream.
-     * @param {Integer} cacheOption Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ne-wincodec-wicbitmapencodercacheoption">WICBitmapEncoderCacheOption</a></b>
+     * @param {WICBitmapEncoderCacheOption} cacheOption Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ne-wincodec-wicbitmapencodercacheoption">WICBitmapEncoderCacheOption</a></b>
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ne-wincodec-wicbitmapencodercacheoption">WICBitmapEncoderCacheOption</a> used on initialization.
      * @returns {HRESULT} Type: <b>HRESULT</b>

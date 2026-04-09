@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\ECC_CURVE_TYPE_ENUM.ahk
+#Include .\ECC_CURVE_ALG_ID_ENUM.ahk
 
 /**
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class BCRYPT_ECCFULLKEY_BLOB extends Win32Struct
-{
+class BCRYPT_ECCFULLKEY_BLOB extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 4
@@ -28,7 +28,7 @@ class BCRYPT_ECCFULLKEY_BLOB extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {ECC_CURVE_TYPE_ENUM}
      */
     dwCurveType {
         get => NumGet(this, 8, "int")
@@ -36,7 +36,7 @@ class BCRYPT_ECCFULLKEY_BLOB extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {ECC_CURVE_ALG_ID_ENUM}
      */
     dwCurveGenerationAlgId {
         get => NumGet(this, 12, "int")

@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class SecPkgContext_UiInfo extends Win32Struct
-{
+class SecPkgContext_UiInfo extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 8
@@ -15,7 +13,7 @@ class SecPkgContext_UiInfo extends Win32Struct
     /**
      * @type {HWND}
      */
-    hParentWindow{
+    hParentWindow {
         get {
             if(!this.HasProp("__hParentWindow"))
                 this.__hParentWindow := HWND(0, this)

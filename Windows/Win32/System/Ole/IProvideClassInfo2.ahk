@@ -2,14 +2,14 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\IProvideClassInfo.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * An extension to IProvideClassInfo that makes is faster and easier to retrieve an object's outgoing interface IID for its default event set.
  * @see https://learn.microsoft.com/windows/win32/api/ocidl/nn-ocidl-iprovideclassinfo2
  * @namespace Windows.Win32.System.Ole
- * @version v4.0.30319
  */
-class IProvideClassInfo2 extends IProvideClassInfo{
+class IProvideClassInfo2 extends IProvideClassInfo {
 
     static sizeof => A_PtrSize
     /**

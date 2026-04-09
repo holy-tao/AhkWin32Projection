@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Com
- * @version v4.0.30319
  */
-class BYTE_SIZEDARR extends Win32Struct
-{
+class BYTE_SIZEDARR extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

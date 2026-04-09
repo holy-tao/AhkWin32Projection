@@ -5,11 +5,9 @@
  * Stores information about a Bluetooth device.
  * @see https://learn.microsoft.com/windows/win32/api/bthdef/ns-bthdef-bth_device_info
  * @namespace Windows.Win32.Devices.Bluetooth
- * @version v4.0.30319
  */
-class BTH_DEVICE_INFO extends Win32Struct
-{
-    static sizeof => 520
+class BTH_DEVICE_INFO extends Win32Struct {
+    static sizeof => 272
 
     static packingSize => 8
 
@@ -152,7 +150,7 @@ class BTH_DEVICE_INFO extends Win32Struct
      * @type {String}
      */
     name {
-        get => StrGet(this.ptr + 20, 247, "UTF-16")
-        set => StrPut(value, this.ptr + 20, 247, "UTF-16")
+        get => StrGet(this.ptr + 20, 247, "UTF-8")
+        set => StrPut(value, this.ptr + 20, 247, "UTF-8")
     }
 }

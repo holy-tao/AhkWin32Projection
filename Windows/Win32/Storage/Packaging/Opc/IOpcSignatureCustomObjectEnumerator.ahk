@@ -1,9 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\IOpcSignatureCustomObject.ahk
-#Include .\IOpcSignatureCustomObjectEnumerator.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
+#Include .\IOpcSignatureCustomObject.ahk
 
 /**
  * A read-only enumerator of IOpcSignatureCustomObject interface pointers.
@@ -15,9 +14,8 @@
  * To get an <b>IOpcSignatureCustomObjectEnumerator</b> interface pointer, call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nf-msopc-iopcdigitalsignature-getcustomobjectenumerator">IOpcDigitalSignature::GetCustomObjectEnumerator</a> or <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nf-msopc-iopcsignaturecustomobjectset-getenumerator">IOpcSignatureCustomObjectSet::GetEnumerator</a> method.
  * @see https://learn.microsoft.com/windows/win32/api/msopc/nn-msopc-iopcsignaturecustomobjectenumerator
  * @namespace Windows.Win32.Storage.Packaging.Opc
- * @version v4.0.30319
  */
-class IOpcSignatureCustomObjectEnumerator extends IUnknown{
+class IOpcSignatureCustomObjectEnumerator extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

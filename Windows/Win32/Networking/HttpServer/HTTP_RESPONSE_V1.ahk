@@ -1,18 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\HTTP_VERSION.ahk
-#Include .\HTTP_KNOWN_HEADER.ahk
 #Include .\HTTP_RESPONSE_HEADERS.ahk
+#Include .\HTTP_UNKNOWN_HEADER.ahk
+#Include .\HTTP_KNOWN_HEADER.ahk
+#Include .\HTTP_DATA_CHUNK.ahk
 
 /**
  * Contains data associated with an HTTP response.
  * @see https://learn.microsoft.com/windows/win32/api/http/ns-http-http_response_v1
  * @namespace Windows.Win32.Networking.HttpServer
- * @version v4.0.30319
  */
-class HTTP_RESPONSE_V1 extends Win32Struct
-{
-    static sizeof => 312
+class HTTP_RESPONSE_V1 extends Win32Struct {
+    static sizeof => 552
 
     static packingSize => 8
 
@@ -29,7 +29,7 @@ class HTTP_RESPONSE_V1 extends Win32Struct
      * This member is ignored; the response is always an HTTP/1.1 response.
      * @type {HTTP_VERSION}
      */
-    Version{
+    Version {
         get {
             if(!this.HasProp("__Version"))
                 this.__Version := HTTP_VERSION(4, this)
@@ -72,7 +72,7 @@ class HTTP_RESPONSE_V1 extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/http/ns-http-http_response_headers">HTTP_RESPONSE_HEADERS</a> structure that contains the headers used in this response.
      * @type {HTTP_RESPONSE_HEADERS}
      */
-    Headers{
+    Headers {
         get {
             if(!this.HasProp("__Headers"))
                 this.__Headers := HTTP_RESPONSE_HEADERS(24, this)
@@ -85,8 +85,8 @@ class HTTP_RESPONSE_V1 extends Win32Struct
      * @type {Integer}
      */
     EntityChunkCount {
-        get => NumGet(this, 296, "ushort")
-        set => NumPut("ushort", value, this, 296)
+        get => NumGet(this, 536, "ushort")
+        set => NumPut("ushort", value, this, 536)
     }
 
     /**
@@ -95,7 +95,7 @@ class HTTP_RESPONSE_V1 extends Win32Struct
      * @type {Pointer<HTTP_DATA_CHUNK>}
      */
     pEntityChunks {
-        get => NumGet(this, 304, "ptr")
-        set => NumPut("ptr", value, this, 304)
+        get => NumGet(this, 544, "ptr")
+        set => NumPut("ptr", value, this, 544)
     }
 }

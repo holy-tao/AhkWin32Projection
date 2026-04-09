@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
- * @version v4.0.30319
  */
-class DispRulesAppliedCollection extends IDispatch{
+class DispRulesAppliedCollection extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

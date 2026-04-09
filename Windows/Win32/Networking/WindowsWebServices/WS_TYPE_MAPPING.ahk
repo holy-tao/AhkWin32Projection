@@ -8,9 +8,8 @@
  *                 for which <b>WS_TYPE_MAPPING</b> values are supported.
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ne-webservices-ws_type_mapping
  * @namespace Windows.Win32.Networking.WindowsWebServices
- * @version v4.0.30319
  */
-class WS_TYPE_MAPPING extends Win32Enum{
+class WS_TYPE_MAPPING extends Win32Enum {
 
     /**
      * This is used when reading or writing an element where the type

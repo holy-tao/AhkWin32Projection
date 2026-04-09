@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Networking.Clustering
- * @version v4.0.30319
  */
-class CLUS_SET_MAINTENANCE_MODE_INPUT extends Win32Struct
-{
+class CLUS_SET_MAINTENANCE_MODE_INPUT extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4
@@ -28,9 +26,9 @@ class CLUS_SET_MAINTENANCE_MODE_INPUT extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    ExtraParameter{
+    ExtraParameter {
         get {
             if(!this.HasProp("__ExtraParameterProxyArray"))
                 this.__ExtraParameterProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "char")

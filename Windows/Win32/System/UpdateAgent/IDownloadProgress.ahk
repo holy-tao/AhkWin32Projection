@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Com\IDispatch.ahk
 #Include ..\..\Foundation\DECIMAL.ahk
 #Include .\IUpdateDownloadResult.ahk
-#Include ..\Com\IDispatch.ahk
 
 /**
  * Represents the progress of an asynchronous download operation.
  * @see https://learn.microsoft.com/windows/win32/api/wuapi/nn-wuapi-idownloadprogress
  * @namespace Windows.Win32.System.UpdateAgent
- * @version v4.0.30319
  */
-class IDownloadProgress extends IDispatch{
+class IDownloadProgress extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -75,7 +74,7 @@ class IDownloadProgress extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {DownloadPhase} 
      */
     CurrentUpdateDownloadPhase {
         get => this.get_CurrentUpdateDownloadPhase()
@@ -165,7 +164,7 @@ class IDownloadProgress extends IDispatch{
 
     /**
      * Gets a DownloadPhase enumeration value that specifies the phase of the download that is currently in progress.
-     * @returns {Integer} 
+     * @returns {DownloadPhase} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-idownloadprogress-get_currentupdatedownloadphase
      */
     get_CurrentUpdateDownloadPhase() {

@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.RemoteDesktop
- * @version v4.0.30319
  */
-class SESSION_TIMEOUT_ACTION_TYPE extends Win32Enum{
+class SESSION_TIMEOUT_ACTION_TYPE extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

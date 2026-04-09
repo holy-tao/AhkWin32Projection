@@ -35,9 +35,8 @@
  * ```
  * @see https://learn.microsoft.com/windows/win32/api/shlwapi/ne-shlwapi-shglobalcounter
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class SHGLOBALCOUNTER extends Win32Enum{
+class SHGLOBALCOUNTER extends Win32Enum {
 
     /**
      * The global counter for use with the <a href="https://docs.microsoft.com/windows/desktop/api/searchapi/nn-searchapi-isearchmanager">ISearchManager</a>.
@@ -388,7 +387,6 @@ class SHGLOBALCOUNTER extends Win32Enum{
     static GLOBALCOUNTER_SYNC_ENGINE_INFORMATION_CACHE_MACHINEWIDE => 57
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static GLOBALCOUNTER_BANNERS_DATAMODEL_CACHE_MACHINEWIDE => 58

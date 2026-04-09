@@ -5,9 +5,8 @@
  * The MBN_PIN_STATE enumerated type indicates the current PIN state of the Mobile Broadband device.
  * @see https://learn.microsoft.com/windows/win32/api/mbnapi/ne-mbnapi-mbn_pin_state
  * @namespace Windows.Win32.NetworkManagement.MobileBroadband
- * @version v4.0.30319
  */
-class MBN_PIN_STATE extends Win32Enum{
+class MBN_PIN_STATE extends Win32Enum {
 
     /**
      * Indicates that no PIN is currently required.  

@@ -5,10 +5,8 @@
  * Represents an update sequence number (USN) change journal, its records, and its capacity. This structure is the output buffer for the FSCTL_QUERY_USN_JOURNAL control code.
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-usn_journal_data_v2
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class USN_JOURNAL_DATA_V2 extends Win32Struct
-{
+class USN_JOURNAL_DATA_V2 extends Win32Struct {
     static sizeof => 80
 
     static packingSize => 8

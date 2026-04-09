@@ -3,11 +3,9 @@
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\HANDLE.ahk
 #Include .\WTS_CLOUD_AUTH_HANDLE.ahk
-#Include ..\..\Foundation\Apis.ahk
 
 /**
  * @namespace Windows.Win32.System.RemoteDesktop
- * @version v4.0.30319
  */
 class RemoteDesktop {
 
@@ -1448,7 +1446,7 @@ class RemoteDesktop {
      * @param {PWSTR} pDomainName Pointer to the name of the domain to be queried. If the value of this parameter is 
      *       <b>NULL</b>, the specified domain is the current domain.
      * @param {Integer} Reserved Reserved. The value of this parameter must be 0.
-     * @param {Integer} _Version 
+     * @param {Integer} _Version Version of the enumeration request. The value of the parameter must be 1.
      * @param {Pointer<Pointer<WTS_SERVER_INFOW>>} ppServerInfo Points to an array of <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/ns-wtsapi32-wts_server_infoa">WTS_SERVER_INFO</a> 
      *       structures, which contains the returned results of the enumeration. After use, the memory used by this buffer 
      *       should be freed by calling <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsfreememory">WTSFreeMemory</a>.
@@ -1492,7 +1490,7 @@ class RemoteDesktop {
      * @param {PSTR} pDomainName Pointer to the name of the domain to be queried. If the value of this parameter is 
      *       <b>NULL</b>, the specified domain is the current domain.
      * @param {Integer} Reserved Reserved. The value of this parameter must be 0.
-     * @param {Integer} _Version 
+     * @param {Integer} _Version Version of the enumeration request. The value of the parameter must be 1.
      * @param {Pointer<Pointer<WTS_SERVER_INFOA>>} ppServerInfo Points to an array of <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/ns-wtsapi32-wts_server_infoa">WTS_SERVER_INFO</a> 
      *       structures, which contains the returned results of the enumeration. After use, the memory used by this buffer 
      *       should be freed by calling <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsfreememory">WTSFreeMemory</a>.
@@ -1672,7 +1670,7 @@ class RemoteDesktop {
      * <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsopenservera">WTSOpenServer</a> or <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsopenserverexa">WTSOpenServerEx</a> functions to retrieve a handle to a specific server, or  <b>WTS_CURRENT_SERVER_HANDLE</b> to use the RD Session Host server that hosts your application.</div>
      * <div> </div>
      * @param {Integer} Reserved This parameter is reserved. It must be zero.
-     * @param {Integer} _Version 
+     * @param {Integer} _Version The version of the enumeration request. This parameter must be 1.
      * @param {Pointer<Pointer<WTS_SESSION_INFOW>>} ppSessionInfo A pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/ns-wtsapi32-wts_session_infoa">WTS_SESSION_INFO</a> structures that represent the retrieved sessions. To free the returned buffer, call the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsfreememory">WTSFreeMemory</a> function.
      * 
@@ -1718,7 +1716,7 @@ class RemoteDesktop {
      * <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsopenservera">WTSOpenServer</a> or <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsopenserverexa">WTSOpenServerEx</a> functions to retrieve a handle to a specific server, or  <b>WTS_CURRENT_SERVER_HANDLE</b> to use the RD Session Host server that hosts your application.</div>
      * <div> </div>
      * @param {Integer} Reserved This parameter is reserved. It must be zero.
-     * @param {Integer} _Version 
+     * @param {Integer} _Version The version of the enumeration request. This parameter must be 1.
      * @param {Pointer<Pointer<WTS_SESSION_INFOA>>} ppSessionInfo A pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/ns-wtsapi32-wts_session_infoa">WTS_SESSION_INFO</a> structures that represent the retrieved sessions. To free the returned buffer, call the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsfreememory">WTSFreeMemory</a> function.
      * 
@@ -1868,7 +1866,7 @@ class RemoteDesktop {
      *       <b>WTS_CURRENT_SERVER_HANDLE</b> to indicate the RD Session Host server on which your application is 
      *       running.
      * @param {Integer} Reserved Reserved; must be zero.
-     * @param {Integer} _Version 
+     * @param {Integer} _Version Specifies the version of the enumeration request. Must be 1.
      * @param {Pointer<Pointer<WTS_PROCESS_INFOW>>} ppProcessInfo Pointer to a variable that receives a pointer to an array of 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/ns-wtsapi32-wts_process_infoa">WTS_PROCESS_INFO</a> structures. Each structure 
      *       in the array contains information about an active process on the specified RD Session Host server. To free the returned 
@@ -1915,7 +1913,7 @@ class RemoteDesktop {
      *       <b>WTS_CURRENT_SERVER_HANDLE</b> to indicate the RD Session Host server on which your application is 
      *       running.
      * @param {Integer} Reserved Reserved; must be zero.
-     * @param {Integer} _Version 
+     * @param {Integer} _Version Specifies the version of the enumeration request. Must be 1.
      * @param {Pointer<Pointer<WTS_PROCESS_INFOA>>} ppProcessInfo Pointer to a variable that receives a pointer to an array of 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/ns-wtsapi32-wts_process_infoa">WTS_PROCESS_INFO</a> structures. Each structure 
      *       in the array contains information about an active process on the specified RD Session Host server. To free the returned 
@@ -2011,7 +2009,7 @@ class RemoteDesktop {
      *        information, see <a href="https://docs.microsoft.com/windows/desktop/TermServ/terminal-services-permissions">Remote Desktop Services 
      *        Permissions</a>. To modify permissions on a session, use the Remote Desktop Services Configuration administrative 
      *        tool.
-     * @param {Integer} WTSInfoClass A value of the <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/ne-wtsapi32-wts_info_class">WTS_INFO_CLASS</a> enumeration that indicates the type of 
+     * @param {WTS_INFO_CLASS} WTSInfoClass A value of the <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/ne-wtsapi32-wts_info_class">WTS_INFO_CLASS</a> enumeration that indicates the type of 
      *     session information to retrieve in a call to the 
      *     <b>WTSQuerySessionInformation</b> function.
      * @param {Pointer<PWSTR>} ppBuffer A pointer to a variable that receives a pointer to the requested information. The format and contents of the 
@@ -2083,7 +2081,7 @@ class RemoteDesktop {
      *        information, see <a href="https://docs.microsoft.com/windows/desktop/TermServ/terminal-services-permissions">Remote Desktop Services 
      *        Permissions</a>. To modify permissions on a session, use the Remote Desktop Services Configuration administrative 
      *        tool.
-     * @param {Integer} WTSInfoClass A value of the <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/ne-wtsapi32-wts_info_class">WTS_INFO_CLASS</a> enumeration that indicates the type of 
+     * @param {WTS_INFO_CLASS} WTSInfoClass A value of the <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/ne-wtsapi32-wts_info_class">WTS_INFO_CLASS</a> enumeration that indicates the type of 
      *     session information to retrieve in a call to the 
      *     <b>WTSQuerySessionInformation</b> function.
      * @param {Pointer<PSTR>} ppBuffer A pointer to a variable that receives a pointer to the requested information. The format and contents of the 
@@ -2137,7 +2135,7 @@ class RemoteDesktop {
      * @param {PWSTR} pUserName Pointer to a null-terminated string containing the user name to query. To retrieve the default user settings for the RD Session Host server, set this parameter to <b>NULL</b>.
      * 
      * <b>Windows Server 2008 and Windows Vista:  </b>Setting this parameter to <b>NULL</b> returns an error.
-     * @param {Integer} WTSConfigClass Specifies the type of information to retrieve. This parameter can be one of the values from the 
+     * @param {WTS_CONFIG_CLASS} WTSConfigClass Specifies the type of information to retrieve. This parameter can be one of the values from the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/ne-wtsapi32-wts_config_class">WTS_CONFIG_CLASS</a> enumeration type. The documentation for 
      * <b>WTS_CONFIG_CLASS</b> describes the format of the data returned in <i>ppBuffer</i> for each of the information types.
      * @param {Pointer<PWSTR>} ppBuffer Pointer to a variable that receives a pointer to the requested information. The format and contents of the data depend on the information class specified in the <i>WTSConfigClass</i> parameter. To free the returned buffer, call the 
@@ -2189,7 +2187,7 @@ class RemoteDesktop {
      * @param {PSTR} pUserName Pointer to a null-terminated string containing the user name to query. To retrieve the default user settings for the RD Session Host server, set this parameter to <b>NULL</b>.
      * 
      * <b>Windows Server 2008 and Windows Vista:  </b>Setting this parameter to <b>NULL</b> returns an error.
-     * @param {Integer} WTSConfigClass Specifies the type of information to retrieve. This parameter can be one of the values from the 
+     * @param {WTS_CONFIG_CLASS} WTSConfigClass Specifies the type of information to retrieve. This parameter can be one of the values from the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/ne-wtsapi32-wts_config_class">WTS_CONFIG_CLASS</a> enumeration type. The documentation for 
      * <b>WTS_CONFIG_CLASS</b> describes the format of the data returned in <i>ppBuffer</i> for each of the information types.
      * @param {Pointer<PSTR>} ppBuffer Pointer to a variable that receives a pointer to the requested information. The format and contents of the data depend on the information class specified in the <i>WTSConfigClass</i> parameter. To free the returned buffer, call the 
@@ -2261,11 +2259,11 @@ class RemoteDesktop {
      *       RD Session Host server. Specify <b>WTS_CURRENT_SERVER_NAME</b> to indicate the 
      *       RD Session Host server on which your application is running.
      * @param {PWSTR} pUserName Pointer to a null-terminated string containing the name of the user whose configuration is being set.
-     * @param {Integer} WTSConfigClass Specifies the type of information to set for the user. This parameter can be one of the values from the 
+     * @param {WTS_CONFIG_CLASS} WTSConfigClass Specifies the type of information to set for the user. This parameter can be one of the values from the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/ne-wtsapi32-wts_config_class">WTS_CONFIG_CLASS</a> enumeration type. The 
      *       documentation for <b>WTS_CONFIG_CLASS</b> describes 
      *       the format of the data specified in <i>ppBuffer</i> for each of the information types.
-     * @param {Pointer} pBuffer Pointer to the data used to modify the specified user's configuration.
+     * @param {Integer} pBuffer Pointer to the data used to modify the specified user's configuration.
      * @param {Integer} DataLength Size, in <b>TCHARs</b>, of the <i>pBuffer</i> buffer.
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
@@ -2330,11 +2328,11 @@ class RemoteDesktop {
      *       RD Session Host server. Specify <b>WTS_CURRENT_SERVER_NAME</b> to indicate the 
      *       RD Session Host server on which your application is running.
      * @param {PSTR} pUserName Pointer to a null-terminated string containing the name of the user whose configuration is being set.
-     * @param {Integer} WTSConfigClass Specifies the type of information to set for the user. This parameter can be one of the values from the 
+     * @param {WTS_CONFIG_CLASS} WTSConfigClass Specifies the type of information to set for the user. This parameter can be one of the values from the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/ne-wtsapi32-wts_config_class">WTS_CONFIG_CLASS</a> enumeration type. The 
      *       documentation for <b>WTS_CONFIG_CLASS</b> describes 
      *       the format of the data specified in <i>ppBuffer</i> for each of the information types.
-     * @param {Pointer} pBuffer Pointer to the data used to modify the specified user's configuration.
+     * @param {Integer} pBuffer Pointer to the data used to modify the specified user's configuration.
      * @param {Integer} DataLength Size, in <b>TCHARs</b>, of the <i>pBuffer</i> buffer.
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
@@ -2375,11 +2373,11 @@ class RemoteDesktop {
      *        information, see <a href="https://docs.microsoft.com/windows/desktop/TermServ/terminal-services-permissions">Remote Desktop Services  
      *        Permissions</a>. To modify permissions on a session, use the Remote Desktop Services Configuration administrative 
      *        tool.
-     * @param {Pointer} pTitle A pointer to a null-terminated string for the title bar of the message box.
+     * @param {Integer} pTitle A pointer to a null-terminated string for the title bar of the message box.
      * @param {Integer} TitleLength The length, in bytes, of the title bar string.
-     * @param {Pointer} pMessage A pointer to a null-terminated string that contains the message to display.
+     * @param {Integer} pMessage A pointer to a null-terminated string that contains the message to display.
      * @param {Integer} MessageLength The length, in bytes, of the message string.
-     * @param {Integer} Style The contents and behavior of the message box. This value is typically 
+     * @param {MESSAGEBOX_STYLE} Style The contents and behavior of the message box. This value is typically 
      *       <b>MB_OK</b>. For a complete list of values, see the <i>uType</i> 
      *       parameter of the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-messagebox">MessageBox</a> function.
      * @param {Integer} Timeout The time, in seconds, that the <b>WTSSendMessage</b> function waits for 
@@ -2387,7 +2385,7 @@ class RemoteDesktop {
      *       <i>pResponse</i> parameter returns <b>IDTIMEOUT</b>. If the 
      *       <i>Timeout</i> parameter is zero, <b>WTSSendMessage</b> waits 
      *       indefinitely for the user to respond.
-     * @param {Pointer<Integer>} pResponse 
+     * @param {Pointer<MESSAGEBOX_RESULT>} pResponse 
      * @param {BOOL} bWait If <b>TRUE</b>, <b>WTSSendMessage</b> does not return until 
      *       the user responds or the time-out interval elapses. If the <i>Timeout</i> parameter is zero, 
      *       the function does not return until the user responds.
@@ -2436,11 +2434,11 @@ class RemoteDesktop {
      *        information, see <a href="https://docs.microsoft.com/windows/desktop/TermServ/terminal-services-permissions">Remote Desktop Services  
      *        Permissions</a>. To modify permissions on a session, use the Remote Desktop Services Configuration administrative 
      *        tool.
-     * @param {Pointer} pTitle A pointer to a null-terminated string for the title bar of the message box.
+     * @param {Integer} pTitle A pointer to a null-terminated string for the title bar of the message box.
      * @param {Integer} TitleLength The length, in bytes, of the title bar string.
-     * @param {Pointer} pMessage A pointer to a null-terminated string that contains the message to display.
+     * @param {Integer} pMessage A pointer to a null-terminated string that contains the message to display.
      * @param {Integer} MessageLength The length, in bytes, of the message string.
-     * @param {Integer} Style The contents and behavior of the message box. This value is typically 
+     * @param {MESSAGEBOX_STYLE} Style The contents and behavior of the message box. This value is typically 
      *       <b>MB_OK</b>. For a complete list of values, see the <i>uType</i> 
      *       parameter of the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-messagebox">MessageBox</a> function.
      * @param {Integer} Timeout The time, in seconds, that the <b>WTSSendMessage</b> function waits for 
@@ -2448,7 +2446,7 @@ class RemoteDesktop {
      *       <i>pResponse</i> parameter returns <b>IDTIMEOUT</b>. If the 
      *       <i>Timeout</i> parameter is zero, <b>WTSSendMessage</b> waits 
      *       indefinitely for the user to respond.
-     * @param {Pointer<Integer>} pResponse 
+     * @param {Pointer<MESSAGEBOX_RESULT>} pResponse 
      * @param {BOOL} bWait If <b>TRUE</b>, <b>WTSSendMessage</b> does not return until 
      *       the user responds or the time-out interval elapses. If the <i>Timeout</i> parameter is zero, 
      *       the function does not return until the user responds.
@@ -2594,7 +2592,7 @@ class RemoteDesktop {
      * Waits for a Remote Desktop Services event before returning to the caller.
      * @param {HANDLE} hServer Handle to an RD Session Host server. Specify a handle opened by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsopenservera">WTSOpenServer</a> function, or specify WTS_CURRENT_SERVER_HANDLE to indicate the RD Session Host server on which your application is running.
-     * @param {Integer} _EventMask 
+     * @param {Integer} _EventMask Bitmask that specifies the set of events to wait for. This mask can be WTS_EVENT_FLUSH to cause all pending
      * @param {Pointer<Integer>} pEventFlags Pointer to a variable that receives a bitmask of the event or events that occurred. The returned mask can 
      *       be a combination of the values from the previous list, or it can be <b>WTS_EVENT_NONE</b> if 
      *       the wait terminated because of a <b>WTSWaitSystemEvent</b> call with 
@@ -2741,7 +2739,21 @@ class RemoteDesktop {
      *       <b>WTSVirtualChannelRead</b> returns immediately 
      *       if there is no data to read. If <i>TimeOut</i> is INFINITE (defined in Winbase.h), the 
      *       function waits indefinitely until there is data to read.
-     * @param {Pointer} _Buffer 
+     * @param {Integer} _Buffer Pointer to a buffer that receives a chunk of data read from the server end of the virtual channel. The maximum 
+     *       amount of data that the server can receive in a single 
+     *       <b>WTSVirtualChannelRead</b> call is 
+     *       <b>CHANNEL_CHUNK_LENGTH</b> bytes. If the client's 
+     *       <a href="https://docs.microsoft.com/windows/desktop/api/cchannel/nc-cchannel-virtualchannelwrite">VirtualChannelWrite</a> call writes 
+     *       a larger block of data, the server must make multiple 
+     *       <b>WTSVirtualChannelRead</b> calls.
+     * 
+     * In certain cases, Remote Desktop Services places a 
+     * <b>CHANNEL_PDU_HEADER</b> structure at the beginning of each chunk of data read by the 
+     * <b>WTSVirtualChannelRead</b> function. This will occur if the 
+     * client DLL sets the <b>CHANNEL_OPTION_SHOW_PROTOCOL</b> option when it calls the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/cchannel/nc-cchannel-virtualchannelinit">VirtualChannelInit</a> function to initialize the virtual channel. This will also occur if the channel is a dynamic virtual channel written to by using the <a href="https://docs.microsoft.com/windows/desktop/api/tsvirtualchannels/nf-tsvirtualchannels-iwtsvirtualchannel-write">IWTSVirtualChannel::Write</a> method. Otherwise, 
+     *        the buffer receives only the data written in the 
+     *        <a href="https://docs.microsoft.com/windows/desktop/api/cchannel/nc-cchannel-virtualchannelwrite">VirtualChannelWrite</a> call.
      * @param {Integer} BufferSize Specifies the size, in bytes, of <i>Buffer</i>. If the chunk of data in <i>Buffer</i> will be preceded by a <b>CHANNEL_PDU_HEADER</b> structure, the value of this parameter should be at least 
      *       <b>CHANNEL_PDU_LENGTH</b>. Otherwise, the value of this parameter should be at least <b>CHANNEL_CHUNK_LENGTH</b>.
      * @param {Pointer<Integer>} pBytesRead Pointer to a variable that receives the number of bytes read.
@@ -2777,7 +2789,7 @@ class RemoteDesktop {
      * <div> </div>
      * @param {HANDLE} hChannelHandle Handle to a virtual channel opened by the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsvirtualchannelopen">WTSVirtualChannelOpen</a> function.
-     * @param {Pointer} _Buffer 
+     * @param {Integer} _Buffer Pointer to a buffer containing the data to write to the virtual channel.
      * @param {Integer} Length Specifies the size, in bytes, of the data to write.
      * @param {Pointer<Integer>} pBytesWritten Pointer to a variable that receives the number of bytes written.
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
@@ -2945,7 +2957,7 @@ class RemoteDesktop {
      *     Output</a>.
      * @param {HANDLE} hChannelHandle Handle to a virtual channel opened by the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsvirtualchannelopen">WTSVirtualChannelOpen</a> function.
-     * @param {Integer} param1 
+     * @param {WTS_VIRTUAL_CLASS} param1 
      * @param {Pointer<Pointer<Void>>} ppBuffer Pointer to a buffer that receives the requested information.
      * @param {Pointer<Integer>} pBytesReturned Pointer to a variable that receives the number of bytes returned in the <i>ppBuffer</i> 
      *       parameter.
@@ -3012,7 +3024,7 @@ class RemoteDesktop {
      * 
      * To receive session change notifications from a service, use the 
      *     <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/nc-winsvc-lphandler_function_ex">HandlerEx</a> function.
-     * @param {HWND} _hWnd 
+     * @param {HWND} _hWnd Handle of the window to receive session change notifications.
      * @param {Integer} dwFlags Specifies which session notifications are to be received. This parameter can be one of the following 
      *       values.
      * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>. Otherwise, it is 
@@ -3040,7 +3052,7 @@ class RemoteDesktop {
      * This function must be called once for every call to the 
      *     <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsregistersessionnotification">WTSRegisterSessionNotification</a> 
      *     function.
-     * @param {HWND} _hWnd 
+     * @param {HWND} _hWnd Handle of the window to be unregistered from receiving session notifications.
      * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>. Otherwise, it is <b>FALSE</b>. To get extended error 
      *        information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://learn.microsoft.com/windows/win32/api/wtsapi32/nf-wtsapi32-wtsunregistersessionnotification
@@ -3084,7 +3096,7 @@ class RemoteDesktop {
      * @param {HANDLE} hServer Handle of the server returned from 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsopenservera">WTSOpenServer</a> or 
      *       <b>WTS_CURRENT_SERVER</b>.
-     * @param {HWND} _hWnd 
+     * @param {HWND} _hWnd Handle of the window to receive session change notifications.
      * @param {Integer} dwFlags Specifies which session notifications are to be received. This parameter can only be 
      *       <b>NOTIFY_FOR_THIS_SESSION</b> if <i>hServer</i> is a remote server.
      * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>. Otherwise, it is 
@@ -3116,7 +3128,7 @@ class RemoteDesktop {
      * @param {HANDLE} hServer Handle of the server returned from 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsopenservera">WTSOpenServer</a> or 
      *       <b>WTS_CURRENT_SERVER</b>.
-     * @param {HWND} _hWnd 
+     * @param {HWND} _hWnd Handle of the window to be unregistered from receiving session notifications.
      * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>. Otherwise, it is <b>FALSE</b>. To get extended error 
      *        information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://learn.microsoft.com/windows/win32/api/wtsapi32/nf-wtsapi32-wtsunregistersessionnotificationex
@@ -3195,7 +3207,7 @@ class RemoteDesktop {
      * 
      * > [!NOTE]
      * > The wtsapi32.h header defines WTSFreeMemoryEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Integer} WTSTypeClass A value of the <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/ne-wtsapi32-wts_type_class">WTS_TYPE_CLASS</a> enumeration type 
+     * @param {WTS_TYPE_CLASS} WTSTypeClass A value of the <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/ne-wtsapi32-wts_type_class">WTS_TYPE_CLASS</a> enumeration type 
      *       that specifies the type of structures contained in the buffer referenced by the 
      *       <i>pMemory</i> parameter.
      * @param {Pointer<Void>} pMemory A pointer to the buffer to free.
@@ -3236,7 +3248,7 @@ class RemoteDesktop {
      * 
      * > [!NOTE]
      * > The wtsapi32.h header defines WTSFreeMemoryEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Integer} WTSTypeClass A value of the <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/ne-wtsapi32-wts_type_class">WTS_TYPE_CLASS</a> enumeration type 
+     * @param {WTS_TYPE_CLASS} WTSTypeClass A value of the <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/ne-wtsapi32-wts_type_class">WTS_TYPE_CLASS</a> enumeration type 
      *       that specifies the type of structures contained in the buffer referenced by the 
      *       <i>pMemory</i> parameter.
      * @param {Pointer<Void>} pMemory A pointer to the buffer to free.
@@ -3633,7 +3645,7 @@ class RemoteDesktop {
      * @param {Pointer<Void>} pReserved This parameter is reserved. Always set this parameter to <b>NULL</b>.
      * @param {Integer} Reserved This parameter is reserved. Always set this parameter to zero.
      * @param {PWSTR} pListenerName A pointer to a null-terminated string that contains the name of the listener.
-     * @param {Integer} SecurityInformation A <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-information">SECURITY_INFORMATION</a> value that specifies the security information  to set. Always enable the  <b>DACL_SECURITY_INFORMATION</b> and <b>SACL_SECURITY_INFORMATION</b> flags.
+     * @param {OBJECT_SECURITY_INFORMATION} SecurityInformation A <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-information">SECURITY_INFORMATION</a> value that specifies the security information  to set. Always enable the  <b>DACL_SECURITY_INFORMATION</b> and <b>SACL_SECURITY_INFORMATION</b> flags.
      * 
      * For more information about possible values, see <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-information">SECURITY_INFORMATION</a>.
      * @param {PSECURITY_DESCRIPTOR} pSecurityDescriptor A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> structure that contains the security information associated with the listener. For more information about possible values, see <b>SECURITY_DESCRIPTOR</b>. For information about <b>STANDARD_RIGHTS_REQUIRED</b>, see <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/standard-access-rights">Standard Access Rights</a>.
@@ -3670,7 +3682,7 @@ class RemoteDesktop {
      * @param {Pointer<Void>} pReserved This parameter is reserved. Always set this parameter to <b>NULL</b>.
      * @param {Integer} Reserved This parameter is reserved. Always set this parameter to zero.
      * @param {PSTR} pListenerName A pointer to a null-terminated string that contains the name of the listener.
-     * @param {Integer} SecurityInformation A <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-information">SECURITY_INFORMATION</a> value that specifies the security information  to set. Always enable the  <b>DACL_SECURITY_INFORMATION</b> and <b>SACL_SECURITY_INFORMATION</b> flags.
+     * @param {OBJECT_SECURITY_INFORMATION} SecurityInformation A <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-information">SECURITY_INFORMATION</a> value that specifies the security information  to set. Always enable the  <b>DACL_SECURITY_INFORMATION</b> and <b>SACL_SECURITY_INFORMATION</b> flags.
      * 
      * For more information about possible values, see <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-information">SECURITY_INFORMATION</a>.
      * @param {PSECURITY_DESCRIPTOR} pSecurityDescriptor A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> structure that contains the security information associated with the listener. For more information about possible values, see <b>SECURITY_DESCRIPTOR</b>. For information about <b>STANDARD_RIGHTS_REQUIRED</b>, see <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/standard-access-rights">Standard Access Rights</a>.
@@ -3713,7 +3725,7 @@ class RemoteDesktop {
      * @param {Pointer<Void>} pReserved This parameter is reserved. Always set this parameter to <b>NULL</b>.
      * @param {Integer} Reserved This parameter is reserved. Always set this parameter to zero.
      * @param {PWSTR} pListenerName A pointer to a null-terminated string that contains the name of the listener.
-     * @param {Integer} SecurityInformation A <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-information">SECURITY_INFORMATION</a> value that specifies the security information  to retrieve. Always enable the  <b>DACL_SECURITY_INFORMATION</b> and <b>SACL_SECURITY_INFORMATION</b> flags.
+     * @param {OBJECT_SECURITY_INFORMATION} SecurityInformation A <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-information">SECURITY_INFORMATION</a> value that specifies the security information  to retrieve. Always enable the  <b>DACL_SECURITY_INFORMATION</b> and <b>SACL_SECURITY_INFORMATION</b> flags.
      * 
      * For more information about possible values, see <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-information">SECURITY_INFORMATION</a>.
      * @param {PSECURITY_DESCRIPTOR} pSecurityDescriptor A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> structure that receives the security information associated with  the listener referenced by the <i>pListenerName</i> parameter. The <b>SECURITY_DESCRIPTOR</b> structure is returned in self-relative format. For more information about possible values, see <b>SECURITY_DESCRIPTOR</b>.
@@ -3759,7 +3771,7 @@ class RemoteDesktop {
      * @param {Pointer<Void>} pReserved This parameter is reserved. Always set this parameter to <b>NULL</b>.
      * @param {Integer} Reserved This parameter is reserved. Always set this parameter to zero.
      * @param {PSTR} pListenerName A pointer to a null-terminated string that contains the name of the listener.
-     * @param {Integer} SecurityInformation A <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-information">SECURITY_INFORMATION</a> value that specifies the security information  to retrieve. Always enable the  <b>DACL_SECURITY_INFORMATION</b> and <b>SACL_SECURITY_INFORMATION</b> flags.
+     * @param {OBJECT_SECURITY_INFORMATION} SecurityInformation A <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-information">SECURITY_INFORMATION</a> value that specifies the security information  to retrieve. Always enable the  <b>DACL_SECURITY_INFORMATION</b> and <b>SACL_SECURITY_INFORMATION</b> flags.
      * 
      * For more information about possible values, see <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-information">SECURITY_INFORMATION</a>.
      * @param {PSECURITY_DESCRIPTOR} pSecurityDescriptor A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> structure that receives the security information associated with  the listener referenced by the <i>pListenerName</i> parameter. The <b>SECURITY_DESCRIPTOR</b> structure is returned in self-relative format. For more information about possible values, see <b>SECURITY_DESCRIPTOR</b>.
@@ -3831,7 +3843,7 @@ class RemoteDesktop {
     /**
      * 
      * @param {WTS_CLOUD_AUTH_HANDLE} cloudAuthHandle 
-     * @param {Pointer} assertion 
+     * @param {Integer} assertion 
      * @param {Integer} assertionLength 
      * @param {PWSTR} resourceId 
      * @param {Pointer<Pointer<WTS_SERIALIZED_USER_CREDENTIAL>>} userCredential 
@@ -3941,7 +3953,7 @@ class RemoteDesktop {
      *       hint target is removed without the hint being explicitly cleared.
      * @param {Integer} renderHintType Specifies the type of hint represented by this call.
      * @param {Integer} cbHintDataLength The size, in <b>BYTE</b>s, of the <i>pHintData</i> buffer.
-     * @param {Pointer} pHintData Additional data for the hint.
+     * @param {Integer} pHintData Additional data for the hint.
      * 
      * The format of this data is dependent upon the value passed in the <i>renderHintType</i> 
      *        parameter.

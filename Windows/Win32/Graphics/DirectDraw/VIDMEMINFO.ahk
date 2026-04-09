@@ -1,13 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\DDPIXELFORMAT.ahk
+#Include .\VIDMEM.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw
- * @version v4.0.30319
  */
-class VIDMEMINFO extends Win32Struct
-{
+class VIDMEMINFO extends Win32Struct {
     static sizeof => 88
 
     static packingSize => 8
@@ -55,7 +54,7 @@ class VIDMEMINFO extends Win32Struct
     /**
      * @type {DDPIXELFORMAT}
      */
-    ddpfDisplay{
+    ddpfDisplay {
         get {
             if(!this.HasProp("__ddpfDisplay"))
                 this.__ddpfDisplay := DDPIXELFORMAT(24, this)

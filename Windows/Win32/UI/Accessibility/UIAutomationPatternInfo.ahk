@@ -1,14 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\UIAutomationPropertyInfo.ahk
+#Include .\UIAutomationMethodInfo.ahk
+#Include .\UIAutomationEventInfo.ahk
+#Include .\IUIAutomationPatternHandler.ahk
 
 /**
  * Contains information about a custom control pattern.
  * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/ns-uiautomationcore-uiautomationpatterninfo
  * @namespace Windows.Win32.UI.Accessibility
- * @version v4.0.30319
  */
-class UIAutomationPatternInfo extends Win32Struct
-{
+class UIAutomationPatternInfo extends Win32Struct {
     static sizeof => 88
 
     static packingSize => 8
@@ -17,7 +19,7 @@ class UIAutomationPatternInfo extends Win32Struct
      * Type: <b>GUID</b>
      * 
      * The unique identifier of the control pattern.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     guid {
         get => NumGet(this, 0, "ptr")
@@ -39,7 +41,7 @@ class UIAutomationPatternInfo extends Win32Struct
      * Type: <b>GUID</b>
      * 
      * The unique identifier of the provider interface for the control pattern.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     providerInterfaceId {
         get => NumGet(this, 16, "ptr")
@@ -50,7 +52,7 @@ class UIAutomationPatternInfo extends Win32Struct
      * Type: <b>GUID</b>
      * 
      * The unique identifier of the client interface for the control pattern.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     clientInterfaceId {
         get => NumGet(this, 24, "ptr")

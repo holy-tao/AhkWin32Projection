@@ -38,9 +38,8 @@
  * </table>
  * @see https://learn.microsoft.com/windows/win32/api/mbnapi/ne-mbnapi-mbn_provider_state
  * @namespace Windows.Win32.NetworkManagement.MobileBroadband
- * @version v4.0.30319
  */
-class MBN_PROVIDER_STATE extends Win32Enum{
+class MBN_PROVIDER_STATE extends Win32Enum {
 
     /**
      * Unknown provider state.

@@ -7,9 +7,8 @@
  * Direct3D 9 does not support stereo view, so Direct3D does not use the D3DBACKBUFFER\_TYPE\_LEFT and D3DBACKBUFFER\_TYPE\_RIGHT values of this enumerated type.
  * @see https://learn.microsoft.com/windows/win32/direct3d9/d3dbackbuffer-type
  * @namespace Windows.Win32.Graphics.Direct3D9
- * @version v4.0.30319
  */
-class D3DBACKBUFFER_TYPE extends Win32Enum{
+class D3DBACKBUFFER_TYPE extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

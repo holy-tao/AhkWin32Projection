@@ -1,14 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\..\Win32\Foundation\HANDLE.ahk
-#Include ..\..\..\Win32\Foundation\LUID.ahk
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
- * @version v4.0.30319
  */
-class D3DKMT_GETPROCESSDEVICEREMOVALSUPPORT extends Win32Struct
-{
+class D3DKMT_GETPROCESSDEVICEREMOVALSUPPORT extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -16,7 +13,7 @@ class D3DKMT_GETPROCESSDEVICEREMOVALSUPPORT extends Win32Struct
     /**
      * @type {HANDLE}
      */
-    hProcess{
+    hProcess {
         get {
             if(!this.HasProp("__hProcess"))
                 this.__hProcess := HANDLE(0, this)
@@ -25,14 +22,11 @@ class D3DKMT_GETPROCESSDEVICEREMOVALSUPPORT extends Win32Struct
     }
 
     /**
-     * @type {LUID}
+     * @type {Pointer}
      */
-    AdapterLuid{
-        get {
-            if(!this.HasProp("__AdapterLuid"))
-                this.__AdapterLuid := LUID(8, this)
-            return this.__AdapterLuid
-        }
+    AdapterLuid {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**

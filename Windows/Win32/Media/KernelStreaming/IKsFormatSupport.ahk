@@ -7,9 +7,8 @@
  * The IKsFormatSupport interface provides information about the audio data formats that are supported by a software-configured I/O connection (typically a DMA channel) between an audio adapter device and system memory.
  * @see https://learn.microsoft.com/windows/win32/api/devicetopology/nn-devicetopology-iksformatsupport
  * @namespace Windows.Win32.Media.KernelStreaming
- * @version v4.0.30319
  */
-class IKsFormatSupport extends IUnknown{
+class IKsFormatSupport extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -7,9 +7,8 @@
  * The brightness effect controls the brightness of the image.
  * @see https://learn.microsoft.com/windows/win32/api/dcomp/nn-dcomp-idcompositionbrightnesseffect
  * @namespace Windows.Win32.Graphics.DirectComposition
- * @version v4.0.30319
  */
-class IDCompositionBrightnessEffect extends IDCompositionFilterEffect{
+class IDCompositionBrightnessEffect extends IDCompositionFilterEffect {
 
     static sizeof => A_PtrSize
     /**

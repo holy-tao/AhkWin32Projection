@@ -1,12 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\Win32\Foundation\UNICODE_STRING.ahk
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class SILO_MONITOR_REGISTRATION extends Win32Struct
-{
+class SILO_MONITOR_REGISTRATION extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -36,9 +35,9 @@ class SILO_MONITOR_REGISTRATION extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Reserved{
+    Reserved {
         get {
             if(!this.HasProp("__ReservedProxyArray"))
                 this.__ReservedProxyArray := Win32FixedArray(this.ptr + 3, 5, Primitive, "char")

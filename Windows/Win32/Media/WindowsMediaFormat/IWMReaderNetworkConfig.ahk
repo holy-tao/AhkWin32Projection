@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\WM_PORT_NUMBER_RANGE.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\WM_PORT_NUMBER_RANGE.ahk
 
 /**
  * The IWMReaderNetworkConfig interface is used to set and test network configuration settings.
  * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nn-wmsdkidl-iwmreadernetworkconfig
  * @namespace Windows.Win32.Media.WindowsMediaFormat
- * @version v4.0.30319
  */
-class IWMReaderNetworkConfig extends IUnknown{
+class IWMReaderNetworkConfig extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -147,7 +146,7 @@ class IWMReaderNetworkConfig extends IUnknown{
     /**
      * The GetProxySettings method retrieves the current proxy settings.
      * @param {PWSTR} pwszProtocol Pointer to a wide-character null-terminated string containing the protocol.
-     * @returns {Integer} Pointer to one member of the <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/ne-wmsdkidl-wmt_proxy_settings">WMT_PROXY_SETTINGS</a> enumeration type.
+     * @returns {WMT_PROXY_SETTINGS} Pointer to one member of the <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/ne-wmsdkidl-wmt_proxy_settings">WMT_PROXY_SETTINGS</a> enumeration type.
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreadernetworkconfig-getproxysettings
      */
     GetProxySettings(pwszProtocol) {
@@ -162,7 +161,7 @@ class IWMReaderNetworkConfig extends IUnknown{
      * @remarks
      * Setting the protocol to WMT_PROXY_SETTING_MANUAL causes the reader to use the proxy settings from <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nf-wmsdkidl-iwmreadernetworkconfig-setproxyhostname">SetProxyHostName</a> and <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nf-wmsdkidl-iwmreadernetworkconfig-setproxyport">SetProxyPort</a>. Setting it to WMT_PROXY_SETTING_AUTO uses Web Proxy Auto-Detect mechanisms to dynamically determine the appropriate proxy based on the specified URL. Setting the protocol to WMT_PROXY_SETTING_BROWSER is valid only for HTTP URLs, and causes the reader to use the proxy settings that are configured in the browser.
      * @param {PWSTR} pwszProtocol Pointer to a wide-character null-terminated string containing the protocol name. Supported names are HTTP and MMS.
-     * @param {Integer} ProxySetting A value from the <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/ne-wmsdkidl-wmt_proxy_settings">WMT_PROXY_SETTINGS</a> enumeration type.
+     * @param {WMT_PROXY_SETTINGS} ProxySetting A value from the <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/ne-wmsdkidl-wmt_proxy_settings">WMT_PROXY_SETTINGS</a> enumeration type.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>

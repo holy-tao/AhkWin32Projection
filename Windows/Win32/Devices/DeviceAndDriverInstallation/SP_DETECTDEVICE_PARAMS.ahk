@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\SP_CLASSINSTALL_HEADER.ahk
+#Include .\DI_FUNCTION.ahk
 
 /**
  * An SP_DETECTDEVICE_PARAMS structure corresponds to a DIF_DETECT installation request.
  * @see https://learn.microsoft.com/windows/win32/api/setupapi/ns-setupapi-sp_detectdevice_params
  * @namespace Windows.Win32.Devices.DeviceAndDriverInstallation
- * @version v4.0.30319
+ * @architecture X64, Arm64
  */
-class SP_DETECTDEVICE_PARAMS extends Win32Struct
-{
+class SP_DETECTDEVICE_PARAMS extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -18,7 +18,7 @@ class SP_DETECTDEVICE_PARAMS extends Win32Struct
      * An install request header that contains the size of the header and the DIF code for the request. See <a href="https://docs.microsoft.com/windows/desktop/api/setupapi/ns-setupapi-sp_classinstall_header">SP_CLASSINSTALL_HEADER</a>.
      * @type {SP_CLASSINSTALL_HEADER}
      */
-    ClassInstallHeader{
+    ClassInstallHeader {
         get {
             if(!this.HasProp("__ClassInstallHeader"))
                 this.__ClassInstallHeader := SP_CLASSINSTALL_HEADER(0, this)

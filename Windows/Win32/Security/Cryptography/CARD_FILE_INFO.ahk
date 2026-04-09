@@ -1,12 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\CARD_FILE_ACCESS_CONDITION.ahk
 
 /**
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CARD_FILE_INFO extends Win32Struct
-{
+class CARD_FILE_INFO extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4
@@ -28,7 +27,7 @@ class CARD_FILE_INFO extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {CARD_FILE_ACCESS_CONDITION}
      */
     AccessCondition {
         get => NumGet(this, 8, "int")

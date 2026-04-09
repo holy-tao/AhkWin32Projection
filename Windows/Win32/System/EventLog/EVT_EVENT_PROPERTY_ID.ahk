@@ -5,9 +5,8 @@
  * Defines the values that determine the query information to retrieve.
  * @see https://learn.microsoft.com/windows/win32/api/winevt/ne-winevt-evt_event_property_id
  * @namespace Windows.Win32.System.EventLog
- * @version v4.0.30319
  */
-class EVT_EVENT_PROPERTY_ID extends Win32Enum{
+class EVT_EVENT_PROPERTY_ID extends Win32Enum {
 
     /**
      * Not supported. The identifier of the query that selected the event. The variant type of this property is EvtVarTypeInt32.

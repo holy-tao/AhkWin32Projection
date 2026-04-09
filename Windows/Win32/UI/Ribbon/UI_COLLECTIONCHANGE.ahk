@@ -5,9 +5,8 @@
  * Specifies values that identify the types of changes that can be made to a collection.
  * @see https://learn.microsoft.com/windows/win32/api/uiribbon/ne-uiribbon-ui_collectionchange
  * @namespace Windows.Win32.UI.Ribbon
- * @version v4.0.30319
  */
-class UI_COLLECTIONCHANGE extends Win32Enum{
+class UI_COLLECTIONCHANGE extends Win32Enum {
 
     /**
      * Insert an item into the collection.

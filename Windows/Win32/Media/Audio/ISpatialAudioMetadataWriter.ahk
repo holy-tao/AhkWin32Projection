@@ -7,9 +7,8 @@
  * Provides methods for storing spatial audio metadata items positioned within a range of corresponding audio frames.
  * @see https://learn.microsoft.com/windows/win32/api/spatialaudiometadata/nn-spatialaudiometadata-ispatialaudiometadatawriter
  * @namespace Windows.Win32.Media.Audio
- * @version v4.0.30319
  */
-class ISpatialAudioMetadataWriter extends IUnknown{
+class ISpatialAudioMetadataWriter extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -137,7 +136,7 @@ class ISpatialAudioMetadataWriter extends IUnknown{
      * You must open the <a href="https://docs.microsoft.com/windows/desktop/api/spatialaudiometadata/nn-spatialaudiometadata-ispatialaudiometadatawriter">ISpatialAudioMetadataWriter</a> for writing by calling <a href="https://docs.microsoft.com/windows/desktop/api/spatialaudiometadata/nf-spatialaudiometadata-ispatialaudiometadatawriter-open">Open</a>, and set the current metadata item offset by calling <a href="https://docs.microsoft.com/windows/desktop/api/spatialaudiometadata/nf-spatialaudiometadata-ispatialaudiometadatawriter-writenextitem">WriteNextItem</a> before calling <b>WriteNextItemCommand</b>.
      * @param {Integer} commandID A command supported by the metadata format of the  object.  The call will fail if the command not defined by metadata format. Each command can
      * only be written once per item.
-     * @param {Pointer} valueBuffer A pointer to a buffer which stores data specific to the command as specified by the
+     * @param {Integer} valueBuffer A pointer to a buffer which stores data specific to the command as specified by the
      * metadata format definition.
      * @param {Integer} valueBufferLength The size, in bytes, of the command data supplied in the  <i>valueBuffer</i> parameter.  The size must match command definition specified by the metadata format or the call will fail.
      * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, possible return codes include, but are not limited to, the values shown in the following table.

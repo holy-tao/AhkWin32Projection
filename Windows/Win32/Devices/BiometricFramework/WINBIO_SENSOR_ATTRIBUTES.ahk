@@ -5,13 +5,11 @@
 
 /**
  * @namespace Windows.Win32.Devices.BiometricFramework
- * @version v4.0.30319
  */
-class WINBIO_SENSOR_ATTRIBUTES extends Win32Struct
-{
-    static sizeof => 1584
+class WINBIO_SENSOR_ATTRIBUTES extends Win32Struct {
+    static sizeof => 1580
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}
@@ -32,7 +30,7 @@ class WINBIO_SENSOR_ATTRIBUTES extends Win32Struct
     /**
      * @type {WINBIO_VERSION}
      */
-    WinBioVersion{
+    WinBioVersion {
         get {
             if(!this.HasProp("__WinBioVersion"))
                 this.__WinBioVersion := WINBIO_VERSION(8, this)
@@ -65,9 +63,9 @@ class WINBIO_SENSOR_ATTRIBUTES extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt16>}
+     * @type {Array<Integer>}
      */
-    ManufacturerName{
+    ManufacturerName {
         get {
             if(!this.HasProp("__ManufacturerNameProxyArray"))
                 this.__ManufacturerNameProxyArray := Win32FixedArray(this.ptr + 28, 256, Primitive, "ushort")
@@ -76,9 +74,9 @@ class WINBIO_SENSOR_ATTRIBUTES extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt16>}
+     * @type {Array<Integer>}
      */
-    ModelName{
+    ModelName {
         get {
             if(!this.HasProp("__ModelNameProxyArray"))
                 this.__ModelNameProxyArray := Win32FixedArray(this.ptr + 540, 256, Primitive, "ushort")
@@ -87,9 +85,9 @@ class WINBIO_SENSOR_ATTRIBUTES extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt16>}
+     * @type {Array<Integer>}
      */
-    SerialNumber{
+    SerialNumber {
         get {
             if(!this.HasProp("__SerialNumberProxyArray"))
                 this.__SerialNumberProxyArray := Win32FixedArray(this.ptr + 1052, 256, Primitive, "ushort")
@@ -100,7 +98,7 @@ class WINBIO_SENSOR_ATTRIBUTES extends Win32Struct
     /**
      * @type {WINBIO_VERSION}
      */
-    FirmwareVersion{
+    FirmwareVersion {
         get {
             if(!this.HasProp("__FirmwareVersion"))
                 this.__FirmwareVersion := WINBIO_VERSION(1564, this)
@@ -117,9 +115,9 @@ class WINBIO_SENSOR_ATTRIBUTES extends Win32Struct
     }
 
     /**
-     * @type {Array<WINBIO_REGISTERED_FORMAT>}
+     * @type {WINBIO_REGISTERED_FORMAT}
      */
-    SupportedFormat{
+    SupportedFormat {
         get {
             if(!this.HasProp("__SupportedFormatProxyArray"))
                 this.__SupportedFormatProxyArray := Win32FixedArray(this.ptr + 1576, 1, WINBIO_REGISTERED_FORMAT, "")

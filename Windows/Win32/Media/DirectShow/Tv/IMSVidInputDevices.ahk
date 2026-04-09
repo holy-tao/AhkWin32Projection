@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\System\Com\IDispatch.ahk
 #Include ..\..\..\System\Ole\IEnumVARIANT.ahk
 #Include .\IMSVidInputDevice.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
 
 /**
  * The IMSVidInputDevices interface represents a collection of input devices. The MSVidInputDevices object exposes this object.
@@ -11,9 +11,8 @@
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IMSVidInputDevices)</c>.
  * @see https://learn.microsoft.com/windows/win32/api/segment/nn-segment-imsvidinputdevices
  * @namespace Windows.Win32.Media.DirectShow.Tv
- * @version v4.0.30319
  */
-class IMSVidInputDevices extends IDispatch{
+class IMSVidInputDevices extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

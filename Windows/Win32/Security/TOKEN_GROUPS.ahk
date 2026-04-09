@@ -6,11 +6,9 @@
  * Contains information about the group security identifiers (SIDs) in an access token.
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-token_groups
  * @namespace Windows.Win32.Security
- * @version v4.0.30319
  */
-class TOKEN_GROUPS extends Win32Struct
-{
-    static sizeof => 16
+class TOKEN_GROUPS extends Win32Struct {
+    static sizeof => 24
 
     static packingSize => 8
 
@@ -150,9 +148,9 @@ class TOKEN_GROUPS extends Win32Struct
      * </td>
      * </tr>
      * </table>
-     * @type {Array<SID_AND_ATTRIBUTES>}
+     * @type {SID_AND_ATTRIBUTES}
      */
-    Groups{
+    Groups {
         get {
             if(!this.HasProp("__GroupsProxyArray"))
                 this.__GroupsProxyArray := Win32FixedArray(this.ptr + 8, 1, SID_AND_ATTRIBUTES, "")

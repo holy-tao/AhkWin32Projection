@@ -5,10 +5,8 @@
  * Learn more about: JET_RETRIEVECOLUMN Structure
  * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jet-retrievecolumn-structure
  * @namespace Windows.Win32.Storage.Jet
- * @version v4.0.30319
  */
-class JET_RETRIEVECOLUMN extends Win32Struct
-{
+class JET_RETRIEVECOLUMN extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8

@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D9
- * @version v4.0.30319
  */
-class D3DLIGHTINGELEMENT extends Win32Struct
-{
+class D3DLIGHTINGELEMENT extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 4
@@ -15,7 +13,7 @@ class D3DLIGHTINGELEMENT extends Win32Struct
     /**
      * @type {D3DVECTOR}
      */
-    dvPosition{
+    dvPosition {
         get {
             if(!this.HasProp("__dvPosition"))
                 this.__dvPosition := D3DVECTOR(0, this)
@@ -26,7 +24,7 @@ class D3DLIGHTINGELEMENT extends Win32Struct
     /**
      * @type {D3DVECTOR}
      */
-    dvNormal{
+    dvNormal {
         get {
             if(!this.HasProp("__dvNormal"))
                 this.__dvNormal := D3DVECTOR(12, this)

@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Media.MediaPlayer
- * @version v4.0.30319
  */
-class IWMPDownloadItem extends IDispatch{
+class IWMPDownloadItem extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -104,7 +103,7 @@ class IWMPDownloadItem extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} pwmpsdls 
+     * @param {Pointer<WMPSubscriptionDownloadState>} pwmpsdls 
      * @returns {HRESULT} 
      */
     get_downloadState(pwmpsdls) {

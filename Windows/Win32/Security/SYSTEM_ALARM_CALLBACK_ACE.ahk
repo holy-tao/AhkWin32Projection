@@ -8,10 +8,8 @@
  * ACE structures must be aligned on <b>DWORD</b> boundaries. All Windows memory-management functions return <b>DWORD</b>-aligned handles to memory.
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-system_alarm_callback_ace
  * @namespace Windows.Win32.Security
- * @version v4.0.30319
  */
-class SYSTEM_ALARM_CALLBACK_ACE extends Win32Struct
-{
+class SYSTEM_ALARM_CALLBACK_ACE extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4
@@ -20,7 +18,7 @@ class SYSTEM_ALARM_CALLBACK_ACE extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-ace_header">ACE_HEADER</a> structure that specifies the size and type of ACE. It also contains flags that control inheritance of the ACE by child objects. The <b>AceType</b> member of the <b>ACE_HEADER</b> structure should be set to SYSTEM_ALARM_CALLBACK_ACE_TYPE.
      * @type {ACE_HEADER}
      */
-    Header{
+    Header {
         get {
             if(!this.HasProp("__Header"))
                 this.__Header := ACE_HEADER(0, this)

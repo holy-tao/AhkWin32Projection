@@ -1,16 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include .\ISpeechGrammarRule.ahk
 #Include .\ISpeechGrammarRuleStateTransitions.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * @namespace Windows.Win32.Media.Speech
- * @version v4.0.30319
  */
-class ISpeechGrammarRuleState extends IDispatch{
+class ISpeechGrammarRuleState extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -68,7 +66,7 @@ class ISpeechGrammarRuleState extends IDispatch{
      * @param {ISpeechGrammarRuleState} DestState 
      * @param {BSTR} Words 
      * @param {BSTR} Separators 
-     * @param {Integer} Type 
+     * @param {SpeechGrammarWordType} Type 
      * @param {BSTR} PropertyName 
      * @param {Integer} PropertyId 
      * @param {Pointer<VARIANT>} _PropertyValue 
@@ -104,7 +102,7 @@ class ISpeechGrammarRuleState extends IDispatch{
     /**
      * 
      * @param {ISpeechGrammarRuleState} DestinationState 
-     * @param {Integer} Type 
+     * @param {SpeechSpecialTransitionType} Type 
      * @param {BSTR} PropertyName 
      * @param {Integer} PropertyId 
      * @param {Pointer<VARIANT>} _PropertyValue 

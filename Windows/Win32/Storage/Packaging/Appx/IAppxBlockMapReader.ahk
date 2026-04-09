@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
 #Include .\IAppxBlockMapFile.ahk
 #Include .\IAppxBlockMapFilesEnumerator.ahk
 #Include ..\..\..\System\Com\IUri.ahk
 #Include ..\..\..\System\Com\IStream.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
  * Represents a read-only object model for block maps that provides access to the file attributes and block hashes.
@@ -19,9 +19,8 @@
  * <div class="code"></div>
  * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nn-appxpackaging-iappxblockmapreader
  * @namespace Windows.Win32.Storage.Packaging.Appx
- * @version v4.0.30319
  */
-class IAppxBlockMapReader extends IUnknown{
+class IAppxBlockMapReader extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -47,7 +46,9 @@ class IAppxBlockMapReader extends IUnknown{
      * @param {PWSTR} filename Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCWSTR</a></b>
      * 
      * The name of the file.
-     * @returns {IAppxBlockMapFile} 
+     * @returns {IAppxBlockMapFile} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/appxpackaging/nn-appxpackaging-iappxblockmapfile">IAppxBlockMapFile</a>**</b>
+     * 
+     * The data about the file's attributes and blocks.
      * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxblockmapreader-getfile
      */
     GetFile(filename) {
@@ -59,7 +60,9 @@ class IAppxBlockMapReader extends IUnknown{
 
     /**
      * Retrieves an enumerator for traversing the files listed in the block map.
-     * @returns {IAppxBlockMapFilesEnumerator} 
+     * @returns {IAppxBlockMapFilesEnumerator} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/appxpackaging/nn-appxpackaging-iappxblockmapfilesenumerator">IAppxBlockMapFilesEnumerator</a>**</b>
+     * 
+     * The enumerator of all the files listed in the block map.
      * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxblockmapreader-getfiles
      */
     GetFiles() {

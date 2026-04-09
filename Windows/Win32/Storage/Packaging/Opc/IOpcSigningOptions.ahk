@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
 #Include .\IOpcSignaturePartReferenceSet.ahk
 #Include .\IOpcSignatureRelationshipReferenceSet.ahk
 #Include .\IOpcSignatureCustomObjectSet.ahk
 #Include .\IOpcSignatureReferenceSet.ahk
 #Include .\IOpcCertificateSet.ahk
 #Include .\IOpcPartUri.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
  * Provides methods to set and access information required to generate a signature.
@@ -27,9 +27,8 @@
  * The default format of the signing time string is <b>OPC_SIGNATURE_TIME_FORMAT_MILLISECONDS</b>. To change the format of the signing time string, call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nf-msopc-iopcsigningoptions-settimeformat">SetTimeFormat</a> method.
  * @see https://learn.microsoft.com/windows/win32/api/msopc/nn-msopc-iopcsigningoptions
  * @namespace Windows.Win32.Storage.Packaging.Opc
- * @version v4.0.30319
  */
-class IOpcSigningOptions extends IUnknown{
+class IOpcSigningOptions extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -254,7 +253,7 @@ class IOpcSigningOptions extends IUnknown{
      * Gets a value that specifies the storage location in the package of the certificate to be used for the signature.
      * @remarks
      * The default location of the certificate is <b>OPC_CERTIFICATE_IN_CERTIFICATE_PART</b>. To change this value, call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nf-msopc-iopcsigningoptions-setcertificateembeddingoption">IOpcSigningOptions::SetCertificateEmbeddingOption</a> method.
-     * @returns {Integer} A value that specifies the location of the certificate.
+     * @returns {OPC_CERTIFICATE_EMBEDDING_OPTION} A value that specifies the location of the certificate.
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcsigningoptions-getcertificateembeddingoption
      */
     GetCertificateEmbeddingOption() {
@@ -268,7 +267,7 @@ class IOpcSigningOptions extends IUnknown{
      * This method changes the location of the certificate from the default location, <b>OPC_CERTIFICATE_IN_CERTIFICATE_PART</b>, to a location that is specified by the caller.
      * 
      * To access the value that describes the certificate location, call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nf-msopc-iopcsigningoptions-getcertificateembeddingoption">IOpcSigningOptions::GetCertificateEmbeddingOption</a> method.
-     * @param {Integer} embeddingOption The <a href="https://docs.microsoft.com/windows/win32/api/msopc/ne-msopc-opc_certificate_embedding_option">OPC_CERTIFICATE_EMBEDDING_OPTION</a> value that describes the location of the certificate.
+     * @param {OPC_CERTIFICATE_EMBEDDING_OPTION} embeddingOption The <a href="https://docs.microsoft.com/windows/win32/api/msopc/ne-msopc-opc_certificate_embedding_option">OPC_CERTIFICATE_EMBEDDING_OPTION</a> value that describes the location of the certificate.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>
@@ -312,7 +311,7 @@ class IOpcSigningOptions extends IUnknown{
      * The default format of the signing time string is <b>OPC_SIGNATURE_TIME_FORMAT_MILLISECONDS</b>. To change the format of the signing time string, call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nf-msopc-iopcsigningoptions-settimeformat">IOpcSigningOptions::SetTimeFormat</a> method.
      * 
      * To access the format of the signing time string after the signature has been generated, call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nf-msopc-iopcdigitalsignature-gettimeformat">IOpcDigitalSignature::GetTimeFormat</a> method.
-     * @returns {Integer} The value that describes the format of the <i>signingTime</i> parameter of <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nf-msopc-iopcdigitalsignature-getsigningtime">GetSigningTime</a>.
+     * @returns {OPC_SIGNATURE_TIME_FORMAT} The value that describes the format of the <i>signingTime</i> parameter of <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nf-msopc-iopcdigitalsignature-getsigningtime">GetSigningTime</a>.
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcsigningoptions-gettimeformat
      */
     GetTimeFormat() {
@@ -326,7 +325,7 @@ class IOpcSigningOptions extends IUnknown{
      * This method changes the format of the signing time string from the default format, <b>OPC_SIGNATURE_TIME_FORMAT_MILLISECONDS</b>, to a format that is specified by the caller.
      * 
      * To access the format of the signing time string before the signature is generated, call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nf-msopc-iopcsigningoptions-gettimeformat">IOpcSigningOptions::GetTimeFormat</a> method. To access the format after the signature has been generated, call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nf-msopc-iopcdigitalsignature-gettimeformat">IOpcDigitalSignature::GetTimeFormat</a> method.
-     * @param {Integer} timeFormat The value that describes the format of the string retrieved by the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nf-msopc-iopcdigitalsignature-getsigningtime">IOpcDigitalSignature::GetSigningTime</a> method.
+     * @param {OPC_SIGNATURE_TIME_FORMAT} timeFormat The value that describes the format of the string retrieved by the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nf-msopc-iopcdigitalsignature-getsigningtime">IOpcDigitalSignature::GetSigningTime</a> method.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>

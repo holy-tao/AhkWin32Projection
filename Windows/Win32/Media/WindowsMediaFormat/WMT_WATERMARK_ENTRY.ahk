@@ -1,21 +1,20 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\WMT_WATERMARK_ENTRY_TYPE.ahk
 
 /**
  * The WMT_WATERMARK_ENTRY structure contains information describing a watermarking system.
  * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/ns-wmsdkidl-wmt_watermark_entry
  * @namespace Windows.Win32.Media.WindowsMediaFormat
- * @version v4.0.30319
  */
-class WMT_WATERMARK_ENTRY extends Win32Struct
-{
+class WMT_WATERMARK_ENTRY extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
 
     /**
      * A value from the <b>WMT_WATERMARK_ENTRY_TYPE</b> enumeration type specifying the type of watermarking system.
-     * @type {Integer}
+     * @type {WMT_WATERMARK_ENTRY_TYPE}
      */
     wmetType {
         get => NumGet(this, 0, "int")
@@ -24,7 +23,7 @@ class WMT_WATERMARK_ENTRY extends Win32Struct
 
     /**
      * GUID value identifying the watermarking system.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     clsid {
         get => NumGet(this, 8, "ptr")

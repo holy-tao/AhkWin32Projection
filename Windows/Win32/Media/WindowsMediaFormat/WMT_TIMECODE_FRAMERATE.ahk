@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Media.WindowsMediaFormat
- * @version v4.0.30319
  */
-class WMT_TIMECODE_FRAMERATE extends Win32Enum{
+class WMT_TIMECODE_FRAMERATE extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

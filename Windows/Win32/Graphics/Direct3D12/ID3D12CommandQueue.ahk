@@ -9,9 +9,8 @@
  * Use <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nf-d3d12-id3d12device-createcommandqueue">ID3D12Device::CreateCommandQueue</a> to create a command queue object.
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/nn-d3d12-id3d12commandqueue
  * @namespace Windows.Win32.Graphics.Direct3D12
- * @version v4.0.30319
  */
-class ID3D12CommandQueue extends ID3D12Pageable{
+class ID3D12CommandQueue extends ID3D12Pageable {
 
     static sizeof => A_PtrSize
     /**
@@ -86,11 +85,11 @@ class ID3D12CommandQueue extends ID3D12Pageable{
      * @param {Pointer<D3D12_TILE_REGION_SIZE>} pResourceRegionSizes An array of <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ns-d3d12-d3d12_tile_region_size">D3D12_TILE_REGION_SIZE</a> structures that describe the sizes of the reserved resource regions. The <i>NumResourceRegions</i> parameter specifies the number of <b>D3D12_TILE_REGION_SIZE</b> structures in the array.
      * @param {ID3D12Heap} pHeap A pointer to the resource heap.
      * @param {Integer} NumRanges The number of tile  ranges.
-     * @param {Pointer<Integer>} pRangeFlags A pointer to an  array of <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_tile_range_flags">D3D12_TILE_RANGE_FLAGS</a> values that describes each tile range. The <i>NumRanges</i> parameter specifies the number of values in the array.
+     * @param {Pointer<D3D12_TILE_RANGE_FLAGS>} pRangeFlags A pointer to an  array of <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_tile_range_flags">D3D12_TILE_RANGE_FLAGS</a> values that describes each tile range. The <i>NumRanges</i> parameter specifies the number of values in the array.
      * @param {Pointer<Integer>} pHeapRangeStartOffsets An array of offsets into the resource heap. These are 0-based tile offsets, counting in tiles (not bytes).
      * @param {Pointer<Integer>} pRangeTileCounts An array of tiles.
      *             An array of values that specify the number of tiles in each tile range. The <i>NumRanges</i> parameter specifies the number of values in the array.
-     * @param {Integer} Flags A combination of <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_tile_mapping_flags">D3D12_TILE_MAPPING_FLAGS</a> values that are combined by using a bitwise OR operation.
+     * @param {D3D12_TILE_MAPPING_FLAGS} Flags A combination of <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_tile_mapping_flags">D3D12_TILE_MAPPING_FLAGS</a> values that are combined by using a bitwise OR operation.
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12commandqueue-updatetilemappings
      */
@@ -119,7 +118,7 @@ class ID3D12CommandQueue extends ID3D12Pageable{
      * @param {ID3D12Resource} pSrcResource A pointer to the source reserved resource.
      * @param {Pointer<D3D12_TILED_RESOURCE_COORDINATE>} pSrcRegionStartCoordinate A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ns-d3d12-d3d12_tiled_resource_coordinate">D3D12_TILED_RESOURCE_COORDINATE</a> structure that describes the starting coordinates of the source reserved resource.
      * @param {Pointer<D3D12_TILE_REGION_SIZE>} pRegionSize A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ns-d3d12-d3d12_tile_region_size">D3D12_TILE_REGION_SIZE</a> structure that describes the size of the reserved region.
-     * @param {Integer} Flags One member of <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_tile_mapping_flags">D3D12_TILE_MAPPING_FLAGS</a>.
+     * @param {D3D12_TILE_MAPPING_FLAGS} Flags One member of <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_tile_mapping_flags">D3D12_TILE_MAPPING_FLAGS</a>.
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12commandqueue-copytilemappings
      */
@@ -153,10 +152,12 @@ class ID3D12CommandQueue extends ID3D12Pageable{
      * @param {Integer} Metadata Type: <b>UINT</b>
      * 
      * Internal.
-     * @param {Pointer} pData Type: <b>const void*</b>
+     * @param {Integer} pData Type: <b>const void*</b>
      * 
      * Internal.
-     * @param {Integer} _Size 
+     * @param {Integer} _Size Type: <b>UINT</b>
+     * 
+     * Internal.
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12commandqueue-setmarker
      */
@@ -173,10 +174,12 @@ class ID3D12CommandQueue extends ID3D12Pageable{
      * @param {Integer} Metadata Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * Internal.
-     * @param {Pointer} pData Type: <b>const void*</b>
+     * @param {Integer} pData Type: <b>const void*</b>
      * 
      * Internal.
-     * @param {Integer} _Size 
+     * @param {Integer} _Size Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
+     * 
+     * Internal.
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12commandqueue-beginevent
      */

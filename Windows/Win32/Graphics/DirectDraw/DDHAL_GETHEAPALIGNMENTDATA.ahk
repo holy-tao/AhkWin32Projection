@@ -1,15 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\HEAPALIGNMENT.ahk
 #Include .\DDSCAPS.ahk
 #Include .\SURFACEALIGNMENT.ahk
-#Include .\HEAPALIGNMENT.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw
- * @version v4.0.30319
  */
-class DDHAL_GETHEAPALIGNMENTDATA extends Win32Struct
-{
+class DDHAL_GETHEAPALIGNMENTDATA extends Win32Struct {
     static sizeof => 152
 
     static packingSize => 8
@@ -49,7 +47,7 @@ class DDHAL_GETHEAPALIGNMENTDATA extends Win32Struct
     /**
      * @type {HEAPALIGNMENT}
      */
-    Alignment{
+    Alignment {
         get {
             if(!this.HasProp("__Alignment"))
                 this.__Alignment := HEAPALIGNMENT(24, this)

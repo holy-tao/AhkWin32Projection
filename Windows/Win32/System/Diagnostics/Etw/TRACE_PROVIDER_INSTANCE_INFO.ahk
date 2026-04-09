@@ -9,10 +9,8 @@
  * one **TRACE_PROVIDER_INSTANCE_INFO** structure.
  * @see https://learn.microsoft.com/windows/win32/api/evntrace/ns-evntrace-trace_provider_instance_info
  * @namespace Windows.Win32.System.Diagnostics.Etw
- * @version v4.0.30319
  */
-class TRACE_PROVIDER_INSTANCE_INFO extends Win32Struct
-{
+class TRACE_PROVIDER_INSTANCE_INFO extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4

@@ -7,9 +7,8 @@
  * The ITfThreadMgrEventSink interface is implemented by an application or TSF text service to receive notifications of certain thread manager events. Call the TSF manager ITfSource::AdviseSink with IID_ITfThreadMgrEventSink to install this advise sink.
  * @see https://learn.microsoft.com/windows/win32/api/msctf/nn-msctf-itfthreadmgreventsink
  * @namespace Windows.Win32.UI.TextServices
- * @version v4.0.30319
  */
-class ITfThreadMgrEventSink extends IUnknown{
+class ITfThreadMgrEventSink extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

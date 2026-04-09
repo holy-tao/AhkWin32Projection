@@ -5,9 +5,8 @@
  * The PHONECAPS_LONG enum is used by methods that set or get phone capabilities described by a long value.
  * @see https://learn.microsoft.com/windows/win32/api/tapi3if/ne-tapi3if-phonecaps_long
  * @namespace Windows.Win32.Devices.Tapi
- * @version v4.0.30319
  */
-class PHONECAPS_LONG extends Win32Enum{
+class PHONECAPS_LONG extends Win32Enum {
 
     /**
      * Specifies the hookswitch devices available using one or more members of the 

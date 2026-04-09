@@ -5,17 +5,15 @@
  * Describes the configuration of a DXVA decoder device.
  * @see https://learn.microsoft.com/windows/win32/api/dxva2api/ns-dxva2api-dxva2_configpicturedecode
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class DXVA2_ConfigPictureDecode extends Win32Struct
-{
+class DXVA2_ConfigPictureDecode extends Win32Struct {
     static sizeof => 80
 
     static packingSize => 8
 
     /**
      * Defines the encryption protocol type for bit-stream data buffers. If no encryption is applied, the value is DXVA_NoEncrypt. If <b>ConfigBitstreamRaw</b> is 0, the value must be DXVA_NoEncrypt.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     guidConfigBitstreamEncryption {
         get => NumGet(this, 0, "ptr")
@@ -24,7 +22,7 @@ class DXVA2_ConfigPictureDecode extends Win32Struct
 
     /**
      * Defines the encryption protocol type for macroblock control data buffers. If no encryption is applied, the value is DXVA_NoEncrypt. If <b>ConfigBitstreamRaw</b> is 1, the value must be DXVA_NoEncrypt.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     guidConfigMBcontrolEncryption {
         get => NumGet(this, 8, "ptr")
@@ -33,7 +31,7 @@ class DXVA2_ConfigPictureDecode extends Win32Struct
 
     /**
      * Defines the encryption protocol type for residual difference decoding data buffers (buffers containing spatial-domain data or sets of transform-domain coefficients for accelerator-based IDCT). If no encryption is applied, the value is DXVA_NoEncrypt. If <b>ConfigBitstreamRaw</b> is 1, the value must be DXVA_NoEncrypt.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     guidConfigResidDiffEncryption {
         get => NumGet(this, 16, "ptr")

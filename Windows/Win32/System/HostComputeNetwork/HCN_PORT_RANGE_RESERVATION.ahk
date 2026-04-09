@@ -5,10 +5,8 @@
  * HCN_PORT_RANGE_RESERVATION
  * @see https://learn.microsoft.com/virtualization/api/hcn/Reference/HCN_PORT_RANGE_RESERVATION
  * @namespace Windows.Win32.System.HostComputeNetwork
- * @version v4.0.30319
  */
-class HCN_PORT_RANGE_RESERVATION extends Win32Struct
-{
+class HCN_PORT_RANGE_RESERVATION extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 2

@@ -5,10 +5,8 @@
  * Contains information for the Set Signal command in Certified Output Protection Protocol (COPP).
  * @see https://learn.microsoft.com/windows/win32/api/dxva9typ/ns-dxva9typ-dxva_coppsetsignalingcmddata
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class DXVA_COPPSetSignalingCmdData extends Win32Struct
-{
+class DXVA_COPPSetSignalingCmdData extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 4
@@ -78,9 +76,9 @@ class DXVA_COPPSetSignalingCmdData extends Win32Struct
 
     /**
      * Array of bit masks indicating which bits in <b>ExtendedInfoData</b> to change. This array is currently not used. Set each member to zero.
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    ExtendedInfoChangeMask{
+    ExtendedInfoChangeMask {
         get {
             if(!this.HasProp("__ExtendedInfoChangeMaskProxyArray"))
                 this.__ExtendedInfoChangeMaskProxyArray := Win32FixedArray(this.ptr + 28, 4, Primitive, "uint")
@@ -91,9 +89,9 @@ class DXVA_COPPSetSignalingCmdData extends Win32Struct
     /**
      * Additional signaling elements to be set. This array is currently not used.
      *           Set each member to zero.
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    ExtendedInfoData{
+    ExtendedInfoData {
         get {
             if(!this.HasProp("__ExtendedInfoDataProxyArray"))
                 this.__ExtendedInfoDataProxyArray := Win32FixedArray(this.ptr + 44, 4, Primitive, "uint")

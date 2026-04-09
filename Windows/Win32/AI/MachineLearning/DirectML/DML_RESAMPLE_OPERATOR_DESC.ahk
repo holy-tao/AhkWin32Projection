@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\DML_TENSOR_DESC.ahk
+#Include .\DML_INTERPOLATION_MODE.ahk
 
 /**
  * Resamples elements from the source to the destination tensor, using the scale factors to compute the destination tensor size. You can use a linear or nearest-neighbor interpolation mode. (DML_RESAMPLE_OPERATOR_DESC)
@@ -7,10 +9,8 @@
  * A newer version of this operator, [DML_RESAMPLE1_OPERATOR_DESC](/windows/win32/api/directml/ns-directml-dml_resample1_operator_desc), was introduced in `DML_FEATURE_LEVEL_2_1`.
  * @see https://learn.microsoft.com/windows/win32/api/directml/ns-directml-dml_resample_operator_desc
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
- * @version v4.0.30319
  */
-class DML_RESAMPLE_OPERATOR_DESC extends Win32Struct
-{
+class DML_RESAMPLE_OPERATOR_DESC extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -45,7 +45,7 @@ class DML_RESAMPLE_OPERATOR_DESC extends Win32Struct
      * - **DML_INTERPOLATION_MODE_NEAREST_NEIGHBOR**. Uses the *Nearest Neighbor* algorithm, which chooses the input element nearest to the corresponding pixel center for each output element.
      * 
      * - **DML_INTERPOLATION_MODE_LINEAR**. Uses the *Linear Interpolation* algorithm, which computes the output element by computing the weighted average of the 2 nearest neighboring input elements per dimension. Resampling is supported up to 4 dimensions (quadrilinear), where the weighted average is computed on a total of 16 input elements for each output element.
-     * @type {Integer}
+     * @type {DML_INTERPOLATION_MODE}
      */
     InterpolationMode {
         get => NumGet(this, 16, "int")

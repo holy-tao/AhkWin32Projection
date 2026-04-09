@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.Performance
- * @version v4.0.30319
  */
-class DISystemMonitor extends IDispatch{
+class DISystemMonitor extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

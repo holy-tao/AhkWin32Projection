@@ -2,12 +2,12 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\Com\IUnknown.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * @namespace Windows.Win32.System.Search
- * @version v4.0.30319
  */
-class IRegisterProvider extends IUnknown{
+class IRegisterProvider extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

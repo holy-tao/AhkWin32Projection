@@ -3,13 +3,10 @@
 
 /**
  * Specifies the type of an I/O ring operation.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/ntioring_x/ne-ntioring_x-ioring_op_code
  * @namespace Windows.Win32.Storage.FileSystem
- * @version v4.0.30319
  */
-class IORING_OP_CODE extends Win32Enum{
+class IORING_OP_CODE extends Win32Enum {
 
     /**
      * No operation. This value is provided to enable testing queue management and overhead performance./

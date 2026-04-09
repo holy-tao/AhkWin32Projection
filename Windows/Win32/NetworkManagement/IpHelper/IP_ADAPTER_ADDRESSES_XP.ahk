@@ -1,5 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\IP_ADAPTER_ADDRESSES_XP.ahk
+#Include .\IP_ADAPTER_UNICAST_ADDRESS_XP.ahk
+#Include .\IP_ADAPTER_ANYCAST_ADDRESS_XP.ahk
+#Include .\IP_ADAPTER_MULTICAST_ADDRESS_XP.ahk
+#Include .\IP_ADAPTER_DNS_SERVER_ADDRESS_XP.ahk
+#Include ..\Ndis\IF_OPER_STATUS.ahk
+#Include .\IP_ADAPTER_PREFIX_XP.ahk
 
 /**
  * The IP_ADAPTER_ADDRESSES_XP structure (iptypes.h) is the header node for a linked list of addresses for a particular adapter.
@@ -94,10 +101,8 @@
  *      <i>Iphlpapi.h</i> header file.
  * @see https://learn.microsoft.com/windows/win32/api/iptypes/ns-iptypes-ip_adapter_addresses_xp
  * @namespace Windows.Win32.NetworkManagement.IpHelper
- * @version v4.0.30319
  */
-class IP_ADAPTER_ADDRESSES_XP extends Win32Struct
-{
+class IP_ADAPTER_ADDRESSES_XP extends Win32Struct {
     static sizeof => 184
 
     static packingSize => 8
@@ -248,9 +253,9 @@ class IP_ADAPTER_ADDRESSES_XP extends Win32Struct
      * 
      * The Media Access Control (MAC) address for the adapter. For example, on an Ethernet network this member 
      *       would specify the Ethernet hardware address.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    PhysicalAddress{
+    PhysicalAddress {
         get {
             if(!this.HasProp("__PhysicalAddressProxyArray"))
                 this.__PhysicalAddressProxyArray := Win32FixedArray(this.ptr + 80, 8, Primitive, "char")
@@ -671,7 +676,7 @@ class IP_ADAPTER_ADDRESSES_XP extends Win32Struct
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
+     * @type {IF_OPER_STATUS}
      */
     OperStatus {
         get => NumGet(this, 104, "int")
@@ -704,9 +709,9 @@ class IP_ADAPTER_ADDRESSES_XP extends Win32Struct
      * 
      * <div class="alert"><b>Note</b>  This structure member is only available on Windows XP with SP1 and later.</div>
      * <div> </div>
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    ZoneIndices{
+    ZoneIndices {
         get {
             if(!this.HasProp("__ZoneIndicesProxyArray"))
                 this.__ZoneIndicesProxyArray := Win32FixedArray(this.ptr + 112, 16, Primitive, "uint")

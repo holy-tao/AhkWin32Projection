@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ITCallInfo.ahk
 #Include ..\..\System\Com\IDispatch.ahk
+#Include .\ITCallInfo.ahk
 
 /**
  * The ITCallInfoChangeEvent interface contains methods that retrieve the description of call information change events.
  * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nn-tapi3if-itcallinfochangeevent
  * @namespace Windows.Win32.Devices.Tapi
- * @version v4.0.30319
  */
-class ITCallInfoChangeEvent extends IDispatch{
+class ITCallInfoChangeEvent extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -39,7 +38,7 @@ class ITCallInfoChangeEvent extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {CALLINFOCHANGE_CAUSE} 
      */
     Cause {
         get => this.get_Cause()
@@ -69,7 +68,7 @@ class ITCallInfoChangeEvent extends IDispatch{
 
     /**
      * The get_Cause method gets a CALLINFOCHANGE_CAUSE description of the change.
-     * @returns {Integer} Pointer to 
+     * @returns {CALLINFOCHANGE_CAUSE} Pointer to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/ne-tapi3if-callinfochange_cause">CALLINFOCHANGE_CAUSE</a> description of the call event that has occurred.
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itcallinfochangeevent-get_cause
      */

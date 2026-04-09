@@ -5,9 +5,8 @@
  * Defines the set of possible general window (app view) size preferences. Used by ILaunchSourceViewSizePreference::GetSourceViewSizePreference and ILaunchTargetViewSizePreference::GetTargetViewSizePreference.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/ne-shobjidl_core-application_view_size_preference
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class APPLICATION_VIEW_SIZE_PREFERENCE extends Win32Enum{
+class APPLICATION_VIEW_SIZE_PREFERENCE extends Win32Enum {
 
     /**
      * The app does not specify a window size preference. Windows, rather than the app, sets the size preference, which defaults to <b>AVSP_USE_HALF</b>.
@@ -46,7 +45,6 @@ class APPLICATION_VIEW_SIZE_PREFERENCE extends Win32Enum{
     static AVSP_USE_NONE => 5
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static AVSP_CUSTOM => 6

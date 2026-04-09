@@ -6,10 +6,8 @@
  * Contains information about a Bluetooth radio.
  * @see https://learn.microsoft.com/windows/win32/api/bluetoothapis/ns-bluetoothapis-bluetooth_radio_info
  * @namespace Windows.Win32.Devices.Bluetooth
- * @version v4.0.30319
  */
-class BLUETOOTH_RADIO_INFO extends Win32Struct
-{
+class BLUETOOTH_RADIO_INFO extends Win32Struct {
     static sizeof => 528
 
     static packingSize => 8
@@ -27,7 +25,7 @@ class BLUETOOTH_RADIO_INFO extends Win32Struct
      * Address of the local Bluetooth radio.
      * @type {BLUETOOTH_ADDRESS}
      */
-    address{
+    address {
         get {
             if(!this.HasProp("__address"))
                 this.__address := BLUETOOTH_ADDRESS(8, this)

@@ -7,9 +7,8 @@
  * Defines a callback method that you want to run when the opportunistic lock for a handle that you get by calling the IUnbufferedFileHandleProvider::OpenUnbufferedFileHandle method is broken.
  * @see https://learn.microsoft.com/windows/win32/api/windowsstoragecom/nn-windowsstoragecom-iunbufferedfilehandleoplockcallback
  * @namespace Windows.Win32.System.WinRT.Storage
- * @version v4.0.30319
  */
-class IUnbufferedFileHandleOplockCallback extends IUnknown{
+class IUnbufferedFileHandleOplockCallback extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

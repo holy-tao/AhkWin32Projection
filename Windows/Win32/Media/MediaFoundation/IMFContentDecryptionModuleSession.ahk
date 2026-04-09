@@ -9,9 +9,8 @@
  * **IMFContentDecryptionModuleSession** is based on the Encrypted Media Extension specification's [MediaKeySession](https://www.w3.org/TR/2017/REC-encrypted-media-20170918/#dom-mediakeysession).
  * @see https://learn.microsoft.com/windows/win32/api/mfcontentdecryptionmodule/nn-mfcontentdecryptionmodule-imfcontentdecryptionmodulesession
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFContentDecryptionModuleSession extends IUnknown{
+class IMFContentDecryptionModuleSession extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

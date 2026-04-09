@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class MF_CAPTURE_ENGINE_MEDIA_CATEGORY_TYPE extends Win32Enum{
+class MF_CAPTURE_ENGINE_MEDIA_CATEGORY_TYPE extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

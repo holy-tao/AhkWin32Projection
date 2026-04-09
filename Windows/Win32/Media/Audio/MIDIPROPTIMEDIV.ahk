@@ -7,10 +7,8 @@
  * The time division property is read or written by the <a href="https://docs.microsoft.com/previous-versions/dd798490(v=vs.85)">midiStreamProperty</a> function.
  * @see https://learn.microsoft.com/windows/win32/api/mmeapi/ns-mmeapi-midiproptimediv
  * @namespace Windows.Win32.Media.Audio
- * @version v4.0.30319
  */
-class MIDIPROPTIMEDIV extends Win32Struct
-{
+class MIDIPROPTIMEDIV extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4

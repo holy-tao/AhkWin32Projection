@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Ndis
- * @version v4.0.30319
  */
-class NET_IF_RCV_ADDRESS_TYPE extends Win32Enum{
+class NET_IF_RCV_ADDRESS_TYPE extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

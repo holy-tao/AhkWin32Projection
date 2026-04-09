@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
- * @version v4.0.30319
  */
-class DOT11_WFD_SERVICE_HASH_LIST extends Win32Struct
-{
+class DOT11_WFD_SERVICE_HASH_LIST extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 2
@@ -20,9 +18,9 @@ class DOT11_WFD_SERVICE_HASH_LIST extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    ServiceHash{
+    ServiceHash {
         get {
             if(!this.HasProp("__ServiceHashProxyArray"))
                 this.__ServiceHashProxyArray := Win32FixedArray(this.ptr + 2, 6, Primitive, "char")

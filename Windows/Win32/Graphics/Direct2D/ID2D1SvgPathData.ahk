@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ID2D1PathGeometry1.ahk
 #Include .\ID2D1SvgAttribute.ahk
+#Include .\ID2D1PathGeometry1.ahk
 
 /**
  * Interface describing SVG path data. Path data can be set as the 'd' attribute on a 'path' element.
  * @see https://learn.microsoft.com/windows/win32/api/d2d1svg/nn-d2d1svg-id2d1svgpathdata
  * @namespace Windows.Win32.Graphics.Direct2D
- * @version v4.0.30319
  */
-class ID2D1SvgPathData extends ID2D1SvgAttribute{
+class ID2D1SvgPathData extends ID2D1SvgAttribute {
 
     static sizeof => A_PtrSize
     /**
@@ -116,7 +115,7 @@ class ID2D1SvgPathData extends ID2D1SvgAttribute{
 
     /**
      * Updates the commands array. Existing commands not updated by this method are preserved. The array is resized larger if necessary to accommodate the new commands.
-     * @param {Pointer<Integer>} commands Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/d2d1svg/ne-d2d1svg-d2d1_svg_path_command">D2D1_SVG_PATH_COMMAND</a>*</b>
+     * @param {Pointer<D2D1_SVG_PATH_COMMAND>} commands Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/d2d1svg/ne-d2d1svg-d2d1_svg_path_command">D2D1_SVG_PATH_COMMAND</a>*</b>
      * 
      * The commands array.
      * @param {Integer} commandsCount Type: <b>UINT32</b>
@@ -145,7 +144,7 @@ class ID2D1SvgPathData extends ID2D1SvgAttribute{
      * @param {Integer} startIndex Type: <b>UINT32</b>
      * 
      * The index of the first commands to retrieve.
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1svg/ne-d2d1svg-d2d1_svg_path_command">D2D1_SVG_PATH_COMMAND</a>*</b>
+     * @returns {D2D1_SVG_PATH_COMMAND} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1svg/ne-d2d1svg-d2d1_svg_path_command">D2D1_SVG_PATH_COMMAND</a>*</b>
      * 
      * Buffer to contain the commands.
      * @see https://learn.microsoft.com/windows/win32/api/d2d1svg/nf-d2d1svg-id2d1svgpathdata-getcommands
@@ -169,7 +168,9 @@ class ID2D1SvgPathData extends ID2D1SvgAttribute{
 
     /**
      * Creates a path geometry object representing the path data.
-     * @param {Integer} _fillMode 
+     * @param {D2D1_FILL_MODE} _fillMode Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1/ne-d2d1-d2d1_fill_mode">D2D1_FILL_MODE</a></b>
+     * 
+     * Fill mode for the path geometry object.
      * @returns {ID2D1PathGeometry1} Type: <b>ID2D1PathGeometry1**</b>
      * 
      * On completion, pathGeometry will contain a point to the created <a href="https://docs.microsoft.com/windows/desktop/api/d2d1_1/nn-d2d1_1-id2d1pathgeometry1">ID2D1PathGeometry1</a> object.

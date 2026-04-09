@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
- * @version v4.0.30319
  */
-class IPrintAsyncNewChannelCookie extends IPrintAsyncCookie{
+class IPrintAsyncNewChannelCookie extends IPrintAsyncCookie {
 
     static sizeof => A_PtrSize
 

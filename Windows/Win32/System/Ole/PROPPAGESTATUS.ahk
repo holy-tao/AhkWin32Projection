@@ -5,9 +5,8 @@
  * The values in the pages have changed, so the state of the <b>Apply</b> button should be updated.
  * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ipropertypagesite-onstatuschange
  * @namespace Windows.Win32.System.Ole
- * @version v4.0.30319
  */
-class PROPPAGESTATUS extends Win32Enum{
+class PROPPAGESTATUS extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

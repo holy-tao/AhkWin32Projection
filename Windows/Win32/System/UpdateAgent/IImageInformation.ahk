@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\Com\IDispatch.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * Contains information about a localized image that is associated with an update or a category.
  * @see https://learn.microsoft.com/windows/win32/api/wuapi/nn-wuapi-iimageinformation
  * @namespace Windows.Win32.System.UpdateAgent
- * @version v4.0.30319
  */
-class IImageInformation extends IDispatch{
+class IImageInformation extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

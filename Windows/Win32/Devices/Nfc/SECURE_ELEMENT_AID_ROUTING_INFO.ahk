@@ -3,16 +3,14 @@
 
 /**
  * @namespace Windows.Win32.Devices.Nfc
- * @version v4.0.30319
  */
-class SECURE_ELEMENT_AID_ROUTING_INFO extends Win32Struct
-{
+class SECURE_ELEMENT_AID_ROUTING_INFO extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     guidSecureElementId {
         get => NumGet(this, 0, "ptr")
@@ -28,9 +26,9 @@ class SECURE_ELEMENT_AID_ROUTING_INFO extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    pbAid{
+    pbAid {
         get {
             if(!this.HasProp("__pbAidProxyArray"))
                 this.__pbAidProxyArray := Win32FixedArray(this.ptr + 12, 16, Primitive, "char")

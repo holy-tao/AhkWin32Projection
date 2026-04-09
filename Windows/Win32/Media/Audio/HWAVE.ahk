@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Media.Audio
- * @version v4.0.30319
  */
-class HWAVE extends Win32Handle
-{
+class HWAVE extends Win32Handle {
     static sizeof => 8
 
     static packingSize => 8

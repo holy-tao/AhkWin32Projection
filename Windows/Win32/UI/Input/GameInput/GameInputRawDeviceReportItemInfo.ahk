@@ -1,12 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\GameInputRawDevicePhysicalUnitKind.ahk
+#Include .\GameInputRawDeviceReportItemFlags.ahk
+#Include .\GameInputUsage.ahk
+#Include .\GameInputRawDeviceItemCollectionInfo.ahk
+#Include .\GameInputString.ahk
 
 /**
  * @namespace Windows.Win32.UI.Input.GameInput
- * @version v4.0.30319
  */
-class GameInputRawDeviceReportItemInfo extends Win32Struct
-{
+class GameInputRawDeviceReportItemInfo extends Win32Struct {
     static sizeof => 88
 
     static packingSize => 8
@@ -60,7 +63,7 @@ class GameInputRawDeviceReportItemInfo extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {GameInputRawDevicePhysicalUnitKind}
      */
     physicalUnits {
         get => NumGet(this, 40, "int")
@@ -84,7 +87,7 @@ class GameInputRawDeviceReportItemInfo extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {GameInputRawDeviceReportItemFlags}
      */
     flags {
         get => NumGet(this, 52, "int")

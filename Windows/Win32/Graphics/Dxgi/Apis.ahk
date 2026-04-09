@@ -4,7 +4,6 @@
 
 /**
  * @namespace Windows.Win32.Graphics.Dxgi
- * @version v4.0.30319
  */
 class Dxgi {
 
@@ -296,7 +295,7 @@ class Dxgi {
      * Creates a DXGI 1.3 factory that you can use to generate other DXGI objects.
      * @remarks
      * This function accepts a flag indicating whether DXGIDebug.dll is loaded. The function otherwise behaves identically to <a href="https://docs.microsoft.com/windows/desktop/api/dxgi/nf-dxgi-createdxgifactory1">CreateDXGIFactory1</a>.
-     * @param {Integer} Flags Type: <b>UINT</b>
+     * @param {DXGI_CREATE_FACTORY_FLAGS} Flags Type: <b>UINT</b>
      * 
      * Valid values include the <b>DXGI_CREATE_FACTORY_DEBUG (0x01)</b> flag, and zero.
      * 

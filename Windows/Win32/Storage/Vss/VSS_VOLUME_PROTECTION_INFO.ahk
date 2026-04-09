@@ -1,21 +1,21 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\VSS_PROTECTION_LEVEL.ahk
+#Include .\VSS_PROTECTION_FAULT.ahk
 
 /**
  * Contains information about a volume's shadow copy protection level.
  * @see https://learn.microsoft.com/windows/win32/api/vsmgmt/ns-vsmgmt-vss_volume_protection_info
  * @namespace Windows.Win32.Storage.Vss
- * @version v4.0.30319
  */
-class VSS_VOLUME_PROTECTION_INFO extends Win32Struct
-{
+class VSS_VOLUME_PROTECTION_INFO extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 4
 
     /**
      * A value from the <a href="https://docs.microsoft.com/windows/desktop/api/vsmgmt/ne-vsmgmt-vss_protection_level">VSS_PROTECTION_LEVEL</a> enumeration that specifies the target protection level for the volume.
-     * @type {Integer}
+     * @type {VSS_PROTECTION_LEVEL}
      */
     m_protectionLevel {
         get => NumGet(this, 0, "int")
@@ -33,7 +33,7 @@ class VSS_VOLUME_PROTECTION_INFO extends Win32Struct
 
     /**
      * A value from the <a href="https://docs.microsoft.com/windows/desktop/api/vsmgmt/ne-vsmgmt-vss_protection_fault">VSS_PROTECTION_FAULT</a> enumeration that describes the shadow copy protection fault that caused the volume to go offline.
-     * @type {Integer}
+     * @type {VSS_PROTECTION_FAULT}
      */
     m_protectionFault {
         get => NumGet(this, 8, "int")

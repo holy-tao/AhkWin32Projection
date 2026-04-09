@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class MSV1_0_CREDENTIAL_KEY_TYPE extends Win32Enum{
+class MSV1_0_CREDENTIAL_KEY_TYPE extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\HANDLE.ahk
 #Include .\IDXGIDeviceSubObject.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * An IDXGIResource interface allows resource sharing and identifies the memory that a resource resides in.
@@ -24,9 +24,8 @@
  *         </b> This API is supported.
  * @see https://learn.microsoft.com/windows/win32/api/dxgi/nn-dxgi-idxgiresource
  * @namespace Windows.Win32.Graphics.Dxgi
- * @version v4.0.30319
  */
-class IDXGIResource extends IDXGIDeviceSubObject{
+class IDXGIResource extends IDXGIDeviceSubObject {
 
     static sizeof => A_PtrSize
     /**
@@ -70,7 +69,7 @@ class IDXGIResource extends IDXGIDeviceSubObject{
 
     /**
      * Get the expected resource usage.
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/direct3ddxgi/dxgi-usage">DXGI_USAGE</a>*</b>
+     * @returns {DXGI_USAGE} Type: <b><a href="https://docs.microsoft.com/windows/desktop/direct3ddxgi/dxgi-usage">DXGI_USAGE</a>*</b>
      * 
      * A pointer to a usage flag (see <a href="https://docs.microsoft.com/windows/desktop/direct3ddxgi/dxgi-usage">DXGI_USAGE</a>). For Direct3D 10, a surface can be used as a shader input or a render-target output.
      * @see https://learn.microsoft.com/windows/win32/api/dxgi/nf-dxgi-idxgiresource-getusage
@@ -86,7 +85,7 @@ class IDXGIResource extends IDXGIDeviceSubObject{
      * The eviction priority is a memory-management variable that is used by DXGI for determining how to populate overcommitted memory.
      * 
      * You can set priority levels other than the defined values when appropriate. For example, you can set a resource with a priority level of 0x78000001 to indicate that the resource is slightly above normal.
-     * @param {Integer} EvictionPriority Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
+     * @param {DXGI_RESOURCE_PRIORITY} EvictionPriority Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
      * Returns one of the following <a href="https://docs.microsoft.com/windows/desktop/direct3ddxgi/dxgi-error">DXGI_ERROR</a>.
@@ -103,7 +102,7 @@ class IDXGIResource extends IDXGIDeviceSubObject{
      * The eviction priority is a memory-management variable that is used by DXGI to determine how to manage overcommitted memory.
      * 
      * Priority levels other than the defined values are used when appropriate. For example, a resource with a priority level of 0x78000001 indicates that the resource is slightly above normal.
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a>*</b>
+     * @returns {DXGI_RESOURCE_PRIORITY} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a>*</b>
      * 
      * A pointer to the eviction priority, which determines when a resource can be evicted from memory.  
      * 

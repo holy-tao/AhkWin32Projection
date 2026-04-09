@@ -5,14 +5,10 @@
 
 /**
  * The HACCEL_UserFree function (oleidl.h) frees resources on the server side when called by RPC stub files.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-haccel_userfree
  * @namespace Windows.Win32.UI.WindowsAndMessaging
- * @version v4.0.30319
  */
-class HACCEL extends Win32Handle
-{
+class HACCEL extends Win32Handle {
     static sizeof => 8
 
     static packingSize => 8

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include Common\ITEMIDLIST.ahk
 
 /**
  * Specifies a folder shortcut's target folder and its attributes. This structure is used by IPersistFolder3::GetFolderTargetInfo and IPersistFolder3::InitializeEx.
@@ -7,10 +8,8 @@
  * Any or all of the <b>pidlTargetFolder</b>, <b>szTargetParsingName</b>, and <b>csidl</b> members can be used to specify the target folder's location.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/ns-shobjidl_core-persist_folder_target_info
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class PERSIST_FOLDER_TARGET_INFO extends Win32Struct
-{
+class PERSIST_FOLDER_TARGET_INFO extends Win32Struct {
     static sizeof => 1056
 
     static packingSize => 8

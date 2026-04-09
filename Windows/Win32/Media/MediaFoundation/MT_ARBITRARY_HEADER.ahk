@@ -11,17 +11,15 @@
  * The Format Data field of the Type-Specific Data field is contained in the <a href="https://docs.microsoft.com/windows/desktop/medfound/mf-mt-arbitrary-format">MF_MT_ARBITRARY_FORMAT</a> attribute of the media type.
  * @see https://learn.microsoft.com/windows/win32/api/mfapi/ns-mfapi-mt_arbitrary_header
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class MT_ARBITRARY_HEADER extends Win32Struct
-{
+class MT_ARBITRARY_HEADER extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
 
     /**
      * Major media type. This value is the GUID stored in the Major Media Type field of the Type-Specific Data field of the ASF file. It might not match the major type GUID from the Media Foundation media type.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     majortype {
         get => NumGet(this, 0, "ptr")
@@ -30,7 +28,7 @@ class MT_ARBITRARY_HEADER extends Win32Struct
 
     /**
      * Media subtype.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     subtype {
         get => NumGet(this, 8, "ptr")
@@ -68,7 +66,7 @@ class MT_ARBITRARY_HEADER extends Win32Struct
     /**
      * Format type GUID. This GUID identifies the structure of the additional format data, which is stored in the 
      *           <a href="https://docs.microsoft.com/windows/desktop/medfound/mf-mt-arbitrary-format">MF_MT_ARBITRARY_FORMAT</a> attribute of the media type. If no additional format data is present, <b>formattype</b> equals GUID_NULL.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     formattype {
         get => NumGet(this, 32, "ptr")

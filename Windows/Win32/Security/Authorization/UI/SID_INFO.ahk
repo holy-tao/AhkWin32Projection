@@ -5,10 +5,8 @@
  * Contains the list of common names corresponding to the SID structures returned by ISecurityInformation2::LookupSids.
  * @see https://learn.microsoft.com/windows/win32/api/aclui/ns-aclui-sid_info
  * @namespace Windows.Win32.Security.Authorization.UI
- * @version v4.0.30319
  */
-class SID_INFO extends Win32Struct
-{
+class SID_INFO extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8

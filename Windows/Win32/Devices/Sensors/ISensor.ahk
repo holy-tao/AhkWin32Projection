@@ -1,20 +1,20 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\StructuredStorage\PROPVARIANT.ahk
 #Include ..\PortableDevices\IPortableDeviceValues.ahk
 #Include ..\PortableDevices\IPortableDeviceKeyCollection.ahk
 #Include .\ISensorDataReport.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Represents a sensor.
  * @see https://learn.microsoft.com/windows/win32/api/sensorsapi/nn-sensorsapi-isensor
  * @namespace Windows.Win32.Devices.Sensors
- * @version v4.0.30319
  */
-class ISensor extends IUnknown{
+class ISensor extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -163,7 +163,7 @@ class ISensor extends IUnknown{
 
     /**
      * Retrieves the current operational state of the sensor.
-     * @returns {Integer} Address of a <a href="https://docs.microsoft.com/windows/win32/api/sensorsapi/ne-sensorsapi-sensorstate">SensorState</a> variable that receives the current state.
+     * @returns {SensorState} Address of a <a href="https://docs.microsoft.com/windows/win32/api/sensorsapi/ne-sensorsapi-sensorstate">SensorState</a> variable that receives the current state.
      * @see https://learn.microsoft.com/windows/win32/api/sensorsapi/nf-sensorsapi-isensor-getstate
      */
     GetState() {

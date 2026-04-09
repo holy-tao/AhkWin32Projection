@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class __MIDL___MIDL_itf_mfobjects_0000_0013_0001 extends Win32Enum{
+class __MIDL___MIDL_itf_mfobjects_0000_0013_0001 extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

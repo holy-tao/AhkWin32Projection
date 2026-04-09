@@ -12,9 +12,8 @@
  * <div> </div>
  * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/ne-vdshwprv-vds_lun_plex_type
  * @namespace Windows.Win32.Storage.VirtualDiskService
- * @version v4.0.30319
  */
-class VDS_LUN_PLEX_TYPE extends Win32Enum{
+class VDS_LUN_PLEX_TYPE extends Win32Enum {
 
     /**
      * This value is reserved.

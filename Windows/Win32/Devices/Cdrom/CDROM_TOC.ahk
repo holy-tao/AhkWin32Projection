@@ -4,18 +4,16 @@
 
 /**
  * @namespace Windows.Win32.Devices.Cdrom
- * @version v4.0.30319
  */
-class CDROM_TOC extends Win32Struct
-{
-    static sizeof => 808
+class CDROM_TOC extends Win32Struct {
+    static sizeof => 804
 
-    static packingSize => 8
+    static packingSize => 1
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Length{
+    Length {
         get {
             if(!this.HasProp("__LengthProxyArray"))
                 this.__LengthProxyArray := Win32FixedArray(this.ptr + 0, 2, Primitive, "char")
@@ -40,12 +38,12 @@ class CDROM_TOC extends Win32Struct
     }
 
     /**
-     * @type {Array<TRACK_DATA>}
+     * @type {TRACK_DATA}
      */
-    TrackData{
+    TrackData {
         get {
             if(!this.HasProp("__TrackDataProxyArray"))
-                this.__TrackDataProxyArray := Win32FixedArray(this.ptr + 8, 100, TRACK_DATA, "")
+                this.__TrackDataProxyArray := Win32FixedArray(this.ptr + 4, 100, TRACK_DATA, "")
             return this.__TrackDataProxyArray
         }
     }

@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Rpc
- * @version v4.0.30319
  */
-class LRPC_SYSTEM_HANDLE_MARSHAL_DIRECTION extends Win32Enum{
+class LRPC_SYSTEM_HANDLE_MARSHAL_DIRECTION extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

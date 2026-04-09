@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ISpStreamFormat.ahk
 #Include .\ISpPhrase.ahk
+#Include .\ISpStreamFormat.ahk
 
 /**
  * @namespace Windows.Win32.Media.Speech
- * @version v4.0.30319
  */
-class ISpPhrase2 extends ISpPhrase{
+class ISpPhrase2 extends ISpPhrase {
 
     static sizeof => A_PtrSize
     /**
@@ -31,7 +30,7 @@ class ISpPhrase2 extends ISpPhrase{
 
     /**
      * 
-     * @param {Integer} Options 
+     * @param {SPXMLRESULTOPTIONS} Options 
      * @returns {PWSTR} 
      */
     GetXMLResult(Options) {

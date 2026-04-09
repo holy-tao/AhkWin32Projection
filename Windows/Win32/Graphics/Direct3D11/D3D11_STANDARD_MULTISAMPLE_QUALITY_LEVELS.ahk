@@ -15,9 +15,8 @@
  * <img alt="Patterns for 8 and 16 Sample Count" src="./images/D3D11_MSAAPatterns_8_16.png"/>
  * @see https://learn.microsoft.com/windows/win32/api/d3d11/ne-d3d11-d3d11_standard_multisample_quality_levels
  * @namespace Windows.Win32.Graphics.Direct3D11
- * @version v4.0.30319
  */
-class D3D11_STANDARD_MULTISAMPLE_QUALITY_LEVELS extends Win32Enum{
+class D3D11_STANDARD_MULTISAMPLE_QUALITY_LEVELS extends Win32Enum {
 
     /**
      * Pre-defined multi-sample patterns required for Direct3D 11 and Direct3D 10.1 hardware.

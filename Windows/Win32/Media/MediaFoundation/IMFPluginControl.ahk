@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * Controls how media sources and transforms are enumerated in Microsoft Media Foundation. (IMFPluginControl)
@@ -39,9 +40,8 @@
  * The blocked list contains a list of CLSIDs. To enumerate the entire list, call the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nf-mfobjects-imfplugincontrol-getdisabledbyindex">IMFPluginControl::GetDisabledByIndex</a> method in a loop. To check whether a specific CLSID appears on the list, call the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nf-mfobjects-imfplugincontrol-isdisabled">IMFPluginControl::IsDisabled</a> method.
  * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nn-mfobjects-imfplugincontrol
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFPluginControl extends IUnknown{
+class IMFPluginControl extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\D3DDDIFORMAT.ahk
+#Include .\D3DKMDT_GDISURFACETYPE.ahk
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
- * @version v4.0.30319
  */
-class D3DKMDT_GDISURFACEDATA extends Win32Struct
-{
+class D3DKMDT_GDISURFACEDATA extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -28,7 +28,7 @@ class D3DKMDT_GDISURFACEDATA extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {D3DDDIFORMAT}
      */
     Format {
         get => NumGet(this, 8, "uint")
@@ -36,7 +36,7 @@ class D3DKMDT_GDISURFACEDATA extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {D3DKMDT_GDISURFACETYPE}
      */
     Type {
         get => NumGet(this, 12, "int")
@@ -44,7 +44,7 @@ class D3DKMDT_GDISURFACEDATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<D3DKMDT_GDISURFACEFLAGS>}
+     * @type {Pointer}
      */
     Flags {
         get => NumGet(this, 16, "ptr")

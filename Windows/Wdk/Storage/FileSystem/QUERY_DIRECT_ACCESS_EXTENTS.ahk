@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem
- * @version v4.0.30319
  */
-class QUERY_DIRECT_ACCESS_EXTENTS extends Win32Struct
-{
+class QUERY_DIRECT_ACCESS_EXTENTS extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

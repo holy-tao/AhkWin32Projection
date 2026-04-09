@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IWICBitmapEncoder.ahk
 #Include .\IWICBitmapCodecInfo.ahk
+#Include .\IWICBitmapEncoder.ahk
 
 /**
  * Exposes methods that provide information about an encoder.
  * @see https://learn.microsoft.com/windows/win32/api/wincodec/nn-wincodec-iwicbitmapencoderinfo
  * @namespace Windows.Win32.Graphics.Imaging
- * @version v4.0.30319
  */
-class IWICBitmapEncoderInfo extends IWICBitmapCodecInfo{
+class IWICBitmapEncoderInfo extends IWICBitmapCodecInfo {
 
     static sizeof => A_PtrSize
     /**

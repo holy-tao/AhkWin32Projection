@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.NetManagement
- * @version v4.0.30319
  */
-class SERVER_INFO_598 extends Win32Struct
-{
+class SERVER_INFO_598 extends Win32Struct {
     static sizeof => 176
 
     static packingSize => 8
@@ -284,7 +282,7 @@ class SERVER_INFO_598 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     sv598_serverguid {
         get => NumGet(this, 136, "ptr")

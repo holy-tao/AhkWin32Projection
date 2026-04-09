@@ -5,9 +5,8 @@
  * Specifies the component signing status.
  * @see https://learn.microsoft.com/windows/win32/api/wincodec/ne-wincodec-wiccomponentsigning
  * @namespace Windows.Win32.Graphics.Imaging
- * @version v4.0.30319
  */
-class WICComponentSigning extends Win32Enum{
+class WICComponentSigning extends Win32Enum {
 
     /**
      * A signed component.

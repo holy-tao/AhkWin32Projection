@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.SideShow
- * @version v4.0.30319
  */
-class SideShowKeyCollection extends Win32Struct
-{
+class SideShowKeyCollection extends Win32Struct {
     static sizeof => 0
 
     static packingSize => 1

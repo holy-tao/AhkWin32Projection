@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class DEBUG_MEMORY_REQUIREMENTS extends Win32Struct
-{
+class DEBUG_MEMORY_REQUIREMENTS extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8

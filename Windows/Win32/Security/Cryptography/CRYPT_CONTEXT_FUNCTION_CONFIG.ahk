@@ -5,10 +5,8 @@
  * Contains configuration information for a cryptographic function of a CNG context.
  * @see https://learn.microsoft.com/windows/win32/api/bcrypt/ns-bcrypt-crypt_context_function_config
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CRYPT_CONTEXT_FUNCTION_CONFIG extends Win32Struct
-{
+class CRYPT_CONTEXT_FUNCTION_CONFIG extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4
@@ -40,7 +38,6 @@ class CRYPT_CONTEXT_FUNCTION_CONFIG extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     dwReserved {

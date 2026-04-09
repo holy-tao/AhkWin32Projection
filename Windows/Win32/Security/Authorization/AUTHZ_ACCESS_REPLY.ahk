@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\AUTHZ_GENERATE_RESULTS.ahk
 
 /**
  * Defines an access check reply.
  * @see https://learn.microsoft.com/windows/win32/api/authz/ns-authz-authz_access_reply
  * @namespace Windows.Win32.Security.Authorization
- * @version v4.0.30319
  */
-class AUTHZ_ACCESS_REPLY extends Win32Struct
-{
+class AUTHZ_ACCESS_REPLY extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -33,8 +32,7 @@ class AUTHZ_ACCESS_REPLY extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Pointer<Integer>}
+     * @type {Pointer<AUTHZ_GENERATE_RESULTS>}
      */
     SaclEvaluationResults {
         get => NumGet(this, 16, "ptr")

@@ -1,22 +1,21 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\KERB_LOGON_SUBMIT_TYPE.ahk
 #Include .\LSA_UNICODE_STRING.ahk
 
 /**
  * Contains information about a smart card logon session. (KERB_SMART_CARD_LOGON)
  * @see https://learn.microsoft.com/windows/win32/api/ntsecapi/ns-ntsecapi-kerb_smart_card_logon
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class KERB_SMART_CARD_LOGON extends Win32Struct
-{
+class KERB_SMART_CARD_LOGON extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/ne-ntsecapi-kerb_logon_submit_type">KERB_LOGON_SUBMIT_TYPE</a> value identifying the type of logon request being made. This member must be set to <b>KerbInteractiveLogon</b>.
-     * @type {Integer}
+     * @type {KERB_LOGON_SUBMIT_TYPE}
      */
     MessageType {
         get => NumGet(this, 0, "int")
@@ -27,7 +26,7 @@ class KERB_SMART_CARD_LOGON extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/subauth/ns-subauth-unicode_string">UNICODE_STRING</a> that specifies the PIN associated with the smart card.
      * @type {LSA_UNICODE_STRING}
      */
-    Pin{
+    Pin {
         get {
             if(!this.HasProp("__Pin"))
                 this.__Pin := LSA_UNICODE_STRING(8, this)

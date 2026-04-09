@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
 #Include .\IUpdateCollection.ahk
 #Include .\ICategoryCollection.ahk
@@ -11,7 +12,6 @@
 #Include .\IStringCollection.ahk
 #Include ..\..\Foundation\DECIMAL.ahk
 #Include .\IUpdateDownloadContentCollection.ahk
-#Include ..\Com\IDispatch.ahk
 
 /**
  * Contains the properties and methods that are available to an update. (IUpdate)
@@ -19,9 +19,8 @@
  * If the <a href="https://docs.microsoft.com/windows/desktop/api/wuapi/nf-wuapi-iupdate-get_bundledupdates">BundledUpdates</a> property contains an <a href="https://docs.microsoft.com/windows/desktop/api/wuapi/nn-wuapi-iupdatecollection">IUpdateCollection</a>, some properties and methods of the update may only be available on the bundled updates, for example, <a href="https://docs.microsoft.com/windows/desktop/api/wuapi/nf-wuapi-iupdate-get_downloadcontents">DownloadContents</a> or <a href="https://docs.microsoft.com/windows/desktop/api/wuapi/nf-wuapi-iupdate-copyfromcache">CopyFromCache</a>.
  * @see https://learn.microsoft.com/windows/win32/api/wuapi/nn-wuapi-iupdate
  * @namespace Windows.Win32.System.UpdateAgent
- * @version v4.0.30319
  */
-class IUpdate extends IDispatch{
+class IUpdate extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -282,7 +281,7 @@ class IUpdate extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {UpdateType} 
      */
     Type {
         get => this.get_Type()
@@ -317,14 +316,14 @@ class IUpdate extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {DeploymentAction} 
      */
     DeploymentAction {
         get => this.get_DeploymentAction()
     }
 
     /**
-     * @type {Integer} 
+     * @type {DownloadPriority} 
      */
     DownloadPriority {
         get => this.get_DownloadPriority()
@@ -861,7 +860,7 @@ class IUpdate extends IDispatch{
 
     /**
      * Gets the type of the update.
-     * @returns {Integer} 
+     * @returns {UpdateType} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdate-get_type
      */
     get_Type() {
@@ -976,7 +975,7 @@ class IUpdate extends IDispatch{
 
     /**
      * Gets the action for which the update is deployed.
-     * @returns {Integer} 
+     * @returns {DeploymentAction} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdate-get_deploymentaction
      */
     get_DeploymentAction() {
@@ -991,7 +990,7 @@ class IUpdate extends IDispatch{
      * 
      * <div class="alert"><b>Note</b>  We don't recommend or support the use of the <b>IUpdate::CopyFromCache</b> and <a href="https://docs.microsoft.com/windows/desktop/api/wuapi/nf-wuapi-iupdate2-copytocache">IUpdate2::CopyToCache</a> methods to move downloaded updates from one computer to another computer. When the Windows Update Agent (WUA) downloads an update, it might only download the portions of the update’s payload that are necessary for a particular client computer. The necessary portions of the update’s payload can often vary from one computer to another computer, even if the computers have similar hardware and software configurations. <b>IUpdate2::CopyToCache</b> only works if the provided files are an exact match for the files that Windows Update would have normally downloaded on that computer; if you called <b>IUpdate::CopyFromCache</b> to obtain the files on a different computer, the files are likely not to match the files that Windows Update would have normally downloaded so <b>IUpdate2::CopyToCache</b> might fail.</div>
      * <div> </div>
-     * @param {BSTR} _path 
+     * @param {BSTR} _path The path of the location where the update contents are to be copied.
      * @param {VARIANT_BOOL} toExtractCabFiles Reserved for future use. 
      * 
      * You must set <i>toExtractCabFiles</i> to <b>VARIANT_TRUE</b> or <b>VARIANT_FALSE</b>.
@@ -1106,7 +1105,7 @@ class IUpdate extends IDispatch{
 
     /**
      * Gets the suggested download priority of the update.
-     * @returns {Integer} 
+     * @returns {DownloadPriority} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdate-get_downloadpriority
      */
     get_DownloadPriority() {

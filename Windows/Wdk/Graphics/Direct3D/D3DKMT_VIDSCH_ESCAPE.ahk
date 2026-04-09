@@ -1,18 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\D3DKMT_VIDSCHESCAPETYPE.ahk
+#Include .\D3DKMT_ESCAPE_PFN_CONTROL_COMMAND.ahk
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
- * @version v4.0.30319
  */
-class D3DKMT_VIDSCH_ESCAPE extends Win32Struct
-{
+class D3DKMT_VIDSCH_ESCAPE extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
 
     /**
-     * @type {Integer}
+     * @type {D3DKMT_VIDSCHESCAPETYPE}
      */
     Type {
         get => NumGet(this, 0, "int")
@@ -30,7 +30,7 @@ class D3DKMT_VIDSCH_ESCAPE extends Win32Struct
             get => NumGet(this, 0, "uint")
             set => NumPut("uint", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -38,7 +38,6 @@ class D3DKMT_VIDSCH_ESCAPE extends Win32Struct
             get => NumGet(this, 4, "uint")
             set => NumPut("uint", value, this, 4)
         }
-    
     }
 
     class _TdrLimit extends Win32Struct {
@@ -52,7 +51,7 @@ class D3DKMT_VIDSCH_ESCAPE extends Win32Struct
             get => NumGet(this, 0, "uint")
             set => NumPut("uint", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -60,7 +59,6 @@ class D3DKMT_VIDSCH_ESCAPE extends Win32Struct
             get => NumGet(this, 4, "uint")
             set => NumPut("uint", value, this, 4)
         }
-    
     }
 
     /**
@@ -82,10 +80,10 @@ class D3DKMT_VIDSCH_ESCAPE extends Win32Struct
     /**
      * @type {_TdrControl2}
      */
-    TdrControl2{
+    TdrControl2 {
         get {
             if(!this.HasProp("__TdrControl2"))
-                this.__TdrControl2 := %this.__Class%._TdrControl2(4, this)
+                this.__TdrControl2 := D3DKMT_VIDSCH_ESCAPE._TdrControl2(4, this)
             return this.__TdrControl2
         }
     }
@@ -117,16 +115,16 @@ class D3DKMT_VIDSCH_ESCAPE extends Win32Struct
     /**
      * @type {_TdrLimit}
      */
-    TdrLimit{
+    TdrLimit {
         get {
             if(!this.HasProp("__TdrLimit"))
-                this.__TdrLimit := %this.__Class%._TdrLimit(4, this)
+                this.__TdrLimit := D3DKMT_VIDSCH_ESCAPE._TdrLimit(4, this)
             return this.__TdrLimit
         }
     }
 
     /**
-     * @type {Integer}
+     * @type {D3DKMT_ESCAPE_PFN_CONTROL_COMMAND}
      */
     PfnControl {
         get => NumGet(this, 4, "int")
@@ -134,7 +132,7 @@ class D3DKMT_VIDSCH_ESCAPE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<D3DKMT_ESCAPE_VIRTUAL_REFRESH_RATE>}
+     * @type {Pointer}
      */
     VirtualRefreshRateControl {
         get => NumGet(this, 16, "ptr")

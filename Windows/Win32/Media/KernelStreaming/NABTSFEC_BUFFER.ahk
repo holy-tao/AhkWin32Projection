@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
- * @version v4.0.30319
  */
-class NABTSFEC_BUFFER extends Win32Struct
-{
+class NABTSFEC_BUFFER extends Win32Struct {
     static sizeof => 456
 
     static packingSize => 4
@@ -36,9 +34,9 @@ class NABTSFEC_BUFFER extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    data{
+    data {
         get {
             if(!this.HasProp("__dataProxyArray"))
                 this.__dataProxyArray := Win32FixedArray(this.ptr + 8, 448, Primitive, "char")

@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\SERVICE_STATUS_PROCESS.ahk
+#Include .\ENUM_SERVICE_TYPE.ahk
+#Include .\SERVICE_STATUS_CURRENT_STATE.ahk
+#Include .\SERVICE_RUNS_IN_PROCESS.ahk
 
 /**
  * Contains service control parameters. (Unicode)
@@ -9,11 +12,9 @@
  * > The winsvc.h header defines SERVICE_CONTROL_STATUS_REASON_PARAMS as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
  * @see https://learn.microsoft.com/windows/win32/api/winsvc/ns-winsvc-service_control_status_reason_paramsw
  * @namespace Windows.Win32.System.Services
- * @version v4.0.30319
  * @charset Unicode
  */
-class SERVICE_CONTROL_STATUS_REASON_PARAMSW extends Win32Struct
-{
+class SERVICE_CONTROL_STATUS_REASON_PARAMSW extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8
@@ -441,7 +442,7 @@ class SERVICE_CONTROL_STATUS_REASON_PARAMSW extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/nf-winsvc-controlserviceexa">ControlServiceEx</a> returns one of the following error codes: NO_ERROR, ERROR_INVALID_SERVICE_CONTROL, ERROR_SERVICE_CANNOT_ACCEPT_CTRL, or ERROR_SERVICE_NOT_ACTIVE. Otherwise, the structure is not filled in.
      * @type {SERVICE_STATUS_PROCESS}
      */
-    ServiceStatus{
+    ServiceStatus {
         get {
             if(!this.HasProp("__ServiceStatus"))
                 this.__ServiceStatus := SERVICE_STATUS_PROCESS(16, this)

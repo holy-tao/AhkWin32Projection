@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DETECTION_TYPE.ahk
 #Include .\DISK_INT13_INFO.ahk
 #Include .\DISK_EX_INT13_INFO.ahk
 
@@ -7,10 +8,8 @@
  * Contains detected drive parameters.
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-disk_detection_info
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class DISK_DETECTION_INFO extends Win32Struct
-{
+class DISK_DETECTION_INFO extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8
@@ -26,7 +25,7 @@ class DISK_DETECTION_INFO extends Win32Struct
 
     /**
      * The detected partition type.
-     * @type {Integer}
+     * @type {DETECTION_TYPE}
      */
     DetectionType {
         get => NumGet(this, 4, "int")
@@ -36,7 +35,7 @@ class DISK_DETECTION_INFO extends Win32Struct
     /**
      * @type {DISK_INT13_INFO}
      */
-    Int13{
+    Int13 {
         get {
             if(!this.HasProp("__Int13"))
                 this.__Int13 := DISK_INT13_INFO(8, this)
@@ -47,7 +46,7 @@ class DISK_DETECTION_INFO extends Win32Struct
     /**
      * @type {DISK_EX_INT13_INFO}
      */
-    ExInt13{
+    ExInt13 {
         get {
             if(!this.HasProp("__ExInt13"))
                 this.__ExInt13 := DISK_EX_INT13_INFO(24, this)

@@ -13,9 +13,8 @@
  *     <a href="https://docs.microsoft.com/windows/desktop/api/vsbackup/nf-vsbackup-ivssexaminewritermetadata-getrestoremethod">IVssExamineWriterMetadata::GetRestoreMethod</a>.
  * @see https://learn.microsoft.com/windows/win32/api/vswriter/ne-vswriter-vss_writerrestore_enum
  * @namespace Windows.Win32.Storage.Vss
- * @version v4.0.30319
  */
-class VSS_WRITERRESTORE_ENUM extends Win32Enum{
+class VSS_WRITERRESTORE_ENUM extends Win32Enum {
 
     /**
      * It is not known whether the writer will perform special operations during the restore operation. 

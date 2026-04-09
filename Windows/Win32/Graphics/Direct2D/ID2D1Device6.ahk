@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ID2D1DeviceContext6.ahk
 #Include .\ID2D1Device5.ahk
+#Include .\ID2D1DeviceContext6.ahk
 
 /**
  * Represents a resource domain whose objects and device contexts can be used together. This interface performs all the same functions as the ID2D1Device5 interface, plus it enables the creation of ID2D1DeviceContext6 objects.
  * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nn-d2d1_3-id2d1device6
  * @namespace Windows.Win32.Graphics.Direct2D
- * @version v4.0.30319
  */
-class ID2D1Device6 extends ID2D1Device5{
+class ID2D1Device6 extends ID2D1Device5 {
 
     static sizeof => A_PtrSize
     /**
@@ -33,7 +32,7 @@ class ID2D1Device6 extends ID2D1Device5{
 
     /**
      * Creates a new device context with no initially assigned target. (ID2D1Device6.CreateDeviceContext)
-     * @param {Integer} options Type: <b>D2D1_DEVICE_CONTEXT_OPTIONS</b>
+     * @param {D2D1_DEVICE_CONTEXT_OPTIONS} options Type: <b>D2D1_DEVICE_CONTEXT_OPTIONS</b>
      * 
      * Options for creating the device context.
      * @returns {ID2D1DeviceContext6} Type: <b>ID2D1DeviceContext6**</b>

@@ -8,10 +8,9 @@
  * Using <b>ncb_event</b> to issue asynchronous requests requires fewer system resources than using <b>ncb_post</b>. In addition, when <b>ncb_event</b> is nonzero, the pending request is canceled if the thread terminates before the request is processed. This is not true for asynchronous requests sent using <b>ncb_post</b>.
  * @see https://learn.microsoft.com/windows/win32/api/nb30/ns-nb30-ncb
  * @namespace Windows.Win32.NetworkManagement.NetBios
- * @version v4.0.30319
+ * @architecture X64, Arm64
  */
-class NCB extends Win32Struct
-{
+class NCB extends Win32Struct {
     static sizeof => 96
 
     static packingSize => 8
@@ -242,7 +241,6 @@ class NCB extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     ncb_retcode {
@@ -311,9 +309,9 @@ class NCB extends Win32Struct
 
     /**
      * Specifies the name of the remote application. Trailing-space characters should be supplied to make the length of the string equal to <b>NCBNAMSZ</b>.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    ncb_callname{
+    ncb_callname {
         get {
             if(!this.HasProp("__ncb_callnameProxyArray"))
                 this.__ncb_callnameProxyArray := Win32FixedArray(this.ptr + 18, 16, Primitive, "char")
@@ -323,9 +321,9 @@ class NCB extends Win32Struct
 
     /**
      * Specifies the name by which the application is known. Trailing-space characters should be supplied to make the length of the string equal to <b>NCBNAMSZ</b>.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    ncb_name{
+    ncb_name {
         get {
             if(!this.HasProp("__ncb_nameProxyArray"))
                 this.__ncb_nameProxyArray := Win32FixedArray(this.ptr + 34, 16, Primitive, "char")
@@ -386,9 +384,9 @@ class NCB extends Win32Struct
      * Reserved; must be zero.
      * 
      * The length, X,  of the <b>ncb_reserve</b>  array is dependent upon the system architecture. For 64-bit systems, the  array contains 18 elements. Otherwise, the array contains 10 elements.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    ncb_reserve{
+    ncb_reserve {
         get {
             if(!this.HasProp("__ncb_reserveProxyArray"))
                 this.__ncb_reserveProxyArray := Win32FixedArray(this.ptr + 66, 18, Primitive, "char")
@@ -402,7 +400,7 @@ class NCB extends Win32Struct
      * The <b>ncb_event</b> member must be zero if the <b>ncb_command</b> member does not have the <b>ASYNCH</b> flag set or if <b>ncb_post</b> is nonzero. Otherwise, <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/nb30/nf-nb30-netbios">Netbios</a> returns the <b>NRC_ILLCMD</b> error code.
      * @type {HANDLE}
      */
-    ncb_event{
+    ncb_event {
         get {
             if(!this.HasProp("__ncb_event"))
                 this.__ncb_event := HANDLE(88, this)

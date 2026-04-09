@@ -5,10 +5,8 @@
  * Enables you to specify custom functions that can be used to allocate and free data.
  * @see https://learn.microsoft.com/windows/win32/api/ncrypt/ns-ncrypt-ncrypt_alloc_para
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class NCRYPT_ALLOC_PARA extends Win32Struct
-{
+class NCRYPT_ALLOC_PARA extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

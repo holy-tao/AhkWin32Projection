@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Security.ExtensibleAuthenticationProtocol
- * @version v4.0.30319
  */
-class IAccountingProviderConfig extends IUnknown{
+class IAccountingProviderConfig extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -121,7 +120,7 @@ class IAccountingProviderConfig extends IUnknown{
      * 
      * The beginning of the [**EXPERTCONFIG**](expertconfig.md) data structure includes a Private section that stores the structure size information. The size of the **EXPERTCONFIG** structure should include the reserved **DWORD** length that appears at the beginning of the structure. For example, if your configuration data requires 20 bytes of storage space, allocate 24 bytes to store the data. If a *ppConfig* is **NULL**, the **Configure** function calls the [**ExpertAllocMemory**](expertallocmemory.md) function to allocate a new configuration that is the correct size. If the buffer is not enough to hold the expert data, the expert should call the [**ExpertReallocMemory**](expertreallocmemory.md) function.
      * @param {Pointer} uConnectionParam 
-     * @param {HWND} _hWnd 
+     * @param {HWND} _hWnd A handle to the parent window. Use the handle to open a dialog box.
      * @param {Integer} dwFlags 
      * @param {Pointer} uReserved1 
      * @param {Pointer} uReserved2 

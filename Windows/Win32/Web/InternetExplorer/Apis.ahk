@@ -9,7 +9,6 @@
 
 /**
  * @namespace Windows.Win32.Web.InternetExplorer
- * @version v4.0.30319
  */
 class InternetExplorer {
 
@@ -2510,7 +2509,7 @@ class InternetExplorer {
      * @param {PWSTR} lpPath 
      * @param {PWSTR} lpValueName 
      * @param {Integer} dwType 
-     * @param {Pointer} lpData 
+     * @param {Integer} lpData 
      * @param {Integer} cbMaxData 
      * @returns {HRESULT} 
      */
@@ -2560,7 +2559,7 @@ class InternetExplorer {
      * @param {PWSTR} lpValueName 
      * @param {Integer} Reserved 
      * @param {Integer} dwType 
-     * @param {Pointer} lpData 
+     * @param {Integer} lpData 
      * @param {Integer} cbData 
      * @returns {HRESULT} 
      */
@@ -2647,7 +2646,7 @@ class InternetExplorer {
     /**
      * 
      * @param {PWSTR} lpFileName 
-     * @param {Integer} fInfoLevelId 
+     * @param {GET_FILEEX_INFO_LEVELS} fInfoLevelId 
      * @param {Pointer<Void>} lpFileInformation 
      * @returns {BOOL} 
      */
@@ -2709,7 +2708,7 @@ class InternetExplorer {
      * @param {PSTR} pszUsername 
      * @param {PSTR} pszURL 
      * @param {PSTR} pszRatingInfo 
-     * @param {Pointer} pData 
+     * @param {Integer} pData 
      * @param {Integer} cbData 
      * @returns {Pointer<Void>} 
      */
@@ -2727,7 +2726,7 @@ class InternetExplorer {
      * @param {PWSTR} pszUsername 
      * @param {PWSTR} pszURL 
      * @param {PWSTR} pszRatingInfo 
-     * @param {Pointer} pData 
+     * @param {Integer} pData 
      * @param {Integer} cbData 
      * @returns {Pointer<Void>} 
      */
@@ -2886,7 +2885,7 @@ class InternetExplorer {
      * 
      * @param {HWND} hDlg 
      * @param {Integer} cbPasswordBlob 
-     * @param {Pointer} pbPasswordBlob 
+     * @param {Integer} pbPasswordBlob 
      * @param {PWSTR} lpszUrl 
      * @param {BOOL} fAlwaysNever 
      * @param {BOOL} fSitePage 

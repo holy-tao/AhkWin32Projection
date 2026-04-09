@@ -7,9 +7,8 @@
  * This interface enables a single method to support variable refresh rate displays.
  * @see https://learn.microsoft.com/windows/win32/api/dxgi1_5/nn-dxgi1_5-idxgifactory5
  * @namespace Windows.Win32.Graphics.Dxgi
- * @version v4.0.30319
  */
-class IDXGIFactory5 extends IDXGIFactory4{
+class IDXGIFactory5 extends IDXGIFactory4 {
 
     static sizeof => A_PtrSize
     /**
@@ -34,10 +33,10 @@ class IDXGIFactory5 extends IDXGIFactory4{
      * Used to check for hardware feature support.
      * @remarks
      * Refer to the description of <a href="https://docs.microsoft.com/windows/desktop/api/dxgi/ne-dxgi-dxgi_swap_chain_flag">DXGI_SWAP_CHAIN_FLAG_ALLOW_TEARING</a>.
-     * @param {Integer} Feature Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_5/ne-dxgi1_5-dxgi_feature">DXGI_FEATURE</a></b>
+     * @param {DXGI_FEATURE} Feature Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_5/ne-dxgi1_5-dxgi_feature">DXGI_FEATURE</a></b>
      * 
      * Specifies one member of  <a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_5/ne-dxgi1_5-dxgi_feature">DXGI_FEATURE</a> to query support for.
-     * @param {Pointer} pFeatureSupportData Type: <b>void*</b>
+     * @param {Integer} pFeatureSupportData Type: <b>void*</b>
      * 
      * Specifies a pointer to a buffer that will be filled with data that describes the feature support.
      * @param {Integer} FeatureSupportDataSize Type: <b>UINT</b>

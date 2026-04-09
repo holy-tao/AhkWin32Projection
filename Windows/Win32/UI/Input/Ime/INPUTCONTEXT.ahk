@@ -3,19 +3,21 @@
 #Include ..\..\..\Foundation\HWND.ahk
 #Include ..\..\..\Foundation\POINT.ahk
 #Include ..\..\..\Graphics\Gdi\LOGFONTA.ahk
+#Include ..\..\..\Graphics\Gdi\FONT_CHARSET.ahk
+#Include ..\..\..\Graphics\Gdi\FONT_OUTPUT_PRECISION.ahk
+#Include ..\..\..\Graphics\Gdi\FONT_CLIP_PRECISION.ahk
+#Include ..\..\..\Graphics\Gdi\FONT_QUALITY.ahk
 #Include ..\..\..\Graphics\Gdi\LOGFONTW.ahk
-#Include ..\..\..\Foundation\RECT.ahk
 #Include .\COMPOSITIONFORM.ahk
+#Include ..\..\..\Foundation\RECT.ahk
 #Include .\CANDIDATEFORM.ahk
 #Include .\HIMCC.ahk
 
 /**
  * @namespace Windows.Win32.UI.Input.Ime
- * @version v4.0.30319
  */
-class INPUTCONTEXT extends Win32Struct
-{
-    static sizeof => 256
+class INPUTCONTEXT extends Win32Struct {
+    static sizeof => 352
 
     static packingSize => 8
 
@@ -26,31 +28,30 @@ class INPUTCONTEXT extends Win32Struct
         /**
          * @type {LOGFONTA}
          */
-        A{
+        A {
             get {
                 if(!this.HasProp("__A"))
                     this.__A := LOGFONTA(0, this)
                 return this.__A
             }
         }
-    
+
         /**
          * @type {LOGFONTW}
          */
-        W{
+        W {
             get {
                 if(!this.HasProp("__W"))
                     this.__W := LOGFONTW(0, this)
                 return this.__W
             }
         }
-    
     }
 
     /**
      * @type {HWND}
      */
-    hWnd{
+    hWnd {
         get {
             if(!this.HasProp("__hWnd"))
                 this.__hWnd := HWND(0, this)
@@ -69,7 +70,7 @@ class INPUTCONTEXT extends Win32Struct
     /**
      * @type {POINT}
      */
-    ptStatusWndPos{
+    ptStatusWndPos {
         get {
             if(!this.HasProp("__ptStatusWndPos"))
                 this.__ptStatusWndPos := POINT(12, this)
@@ -80,7 +81,7 @@ class INPUTCONTEXT extends Win32Struct
     /**
      * @type {POINT}
      */
-    ptSoftKbdPos{
+    ptSoftKbdPos {
         get {
             if(!this.HasProp("__ptSoftKbdPos"))
                 this.__ptSoftKbdPos := POINT(20, this)
@@ -107,10 +108,10 @@ class INPUTCONTEXT extends Win32Struct
     /**
      * @type {_lfFont_e__Union}
      */
-    lfFont{
+    lfFont {
         get {
             if(!this.HasProp("__lfFont"))
-                this.__lfFont := %this.__Class%._lfFont_e__Union(36, this)
+                this.__lfFont := INPUTCONTEXT._lfFont_e__Union(36, this)
             return this.__lfFont
         }
     }
@@ -118,7 +119,7 @@ class INPUTCONTEXT extends Win32Struct
     /**
      * @type {COMPOSITIONFORM}
      */
-    cfCompForm{
+    cfCompForm {
         get {
             if(!this.HasProp("__cfCompForm"))
                 this.__cfCompForm := COMPOSITIONFORM(128, this)
@@ -127,12 +128,12 @@ class INPUTCONTEXT extends Win32Struct
     }
 
     /**
-     * @type {Array<CANDIDATEFORM>}
+     * @type {CANDIDATEFORM}
      */
-    cfCandForm{
+    cfCandForm {
         get {
             if(!this.HasProp("__cfCandFormProxyArray"))
-                this.__cfCandFormProxyArray := Win32FixedArray(this.ptr + 160, 4, CANDIDATEFORM, "")
+                this.__cfCandFormProxyArray := Win32FixedArray(this.ptr + 156, 4, CANDIDATEFORM, "")
             return this.__cfCandFormProxyArray
         }
     }
@@ -140,10 +141,10 @@ class INPUTCONTEXT extends Win32Struct
     /**
      * @type {HIMCC}
      */
-    hCompStr{
+    hCompStr {
         get {
             if(!this.HasProp("__hCompStr"))
-                this.__hCompStr := HIMCC(192, this)
+                this.__hCompStr := HIMCC(288, this)
             return this.__hCompStr
         }
     }
@@ -151,10 +152,10 @@ class INPUTCONTEXT extends Win32Struct
     /**
      * @type {HIMCC}
      */
-    hCandInfo{
+    hCandInfo {
         get {
             if(!this.HasProp("__hCandInfo"))
-                this.__hCandInfo := HIMCC(200, this)
+                this.__hCandInfo := HIMCC(296, this)
             return this.__hCandInfo
         }
     }
@@ -162,10 +163,10 @@ class INPUTCONTEXT extends Win32Struct
     /**
      * @type {HIMCC}
      */
-    hGuideLine{
+    hGuideLine {
         get {
             if(!this.HasProp("__hGuideLine"))
-                this.__hGuideLine := HIMCC(208, this)
+                this.__hGuideLine := HIMCC(304, this)
             return this.__hGuideLine
         }
     }
@@ -173,10 +174,10 @@ class INPUTCONTEXT extends Win32Struct
     /**
      * @type {HIMCC}
      */
-    hPrivate{
+    hPrivate {
         get {
             if(!this.HasProp("__hPrivate"))
-                this.__hPrivate := HIMCC(216, this)
+                this.__hPrivate := HIMCC(312, this)
             return this.__hPrivate
         }
     }
@@ -185,17 +186,17 @@ class INPUTCONTEXT extends Win32Struct
      * @type {Integer}
      */
     dwNumMsgBuf {
-        get => NumGet(this, 224, "uint")
-        set => NumPut("uint", value, this, 224)
+        get => NumGet(this, 320, "uint")
+        set => NumPut("uint", value, this, 320)
     }
 
     /**
      * @type {HIMCC}
      */
-    hMsgBuf{
+    hMsgBuf {
         get {
             if(!this.HasProp("__hMsgBuf"))
-                this.__hMsgBuf := HIMCC(232, this)
+                this.__hMsgBuf := HIMCC(328, this)
             return this.__hMsgBuf
         }
     }
@@ -204,17 +205,17 @@ class INPUTCONTEXT extends Win32Struct
      * @type {Integer}
      */
     fdwInit {
-        get => NumGet(this, 240, "uint")
-        set => NumPut("uint", value, this, 240)
+        get => NumGet(this, 336, "uint")
+        set => NumPut("uint", value, this, 336)
     }
 
     /**
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    dwReserve{
+    dwReserve {
         get {
             if(!this.HasProp("__dwReserveProxyArray"))
-                this.__dwReserveProxyArray := Win32FixedArray(this.ptr + 244, 3, Primitive, "uint")
+                this.__dwReserveProxyArray := Win32FixedArray(this.ptr + 340, 3, Primitive, "uint")
             return this.__dwReserveProxyArray
         }
     }

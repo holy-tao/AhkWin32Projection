@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
- * @version v4.0.30319
  */
-class PROPSHEETUI_GETICON_INFO extends Win32Struct
-{
+class PROPSHEETUI_GETICON_INFO extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
@@ -47,7 +45,7 @@ class PROPSHEETUI_GETICON_INFO extends Win32Struct
     /**
      * @type {HICON}
      */
-    hIcon{
+    hIcon {
         get {
             if(!this.HasProp("__hIcon"))
                 this.__hIcon := HICON(8, this)

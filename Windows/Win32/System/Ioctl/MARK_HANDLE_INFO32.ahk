@@ -5,10 +5,9 @@
  * Contains information that is used to mark a specified file or directory, and its update sequence number (USN) change journal record with data about changes.
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-mark_handle_info32
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
+ * @architecture X64, Arm64
  */
-class MARK_HANDLE_INFO32 extends Win32Struct
-{
+class MARK_HANDLE_INFO32 extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4

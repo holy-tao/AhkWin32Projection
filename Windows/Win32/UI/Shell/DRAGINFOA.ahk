@@ -4,11 +4,10 @@
 
 /**
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  * @charset ANSI
+ * @architecture X64, Arm64
  */
-class DRAGINFOA extends Win32Struct
-{
+class DRAGINFOA extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -24,7 +23,7 @@ class DRAGINFOA extends Win32Struct
     /**
      * @type {POINT}
      */
-    pt{
+    pt {
         get {
             if(!this.HasProp("__pt"))
                 this.__pt := POINT(4, this)

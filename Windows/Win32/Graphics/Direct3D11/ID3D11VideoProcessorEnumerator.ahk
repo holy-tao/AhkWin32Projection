@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ID3D11DeviceChild.ahk
 #Include .\D3D11_VIDEO_PROCESSOR_CONTENT_DESC.ahk
 #Include .\D3D11_VIDEO_PROCESSOR_CAPS.ahk
 #Include .\D3D11_VIDEO_PROCESSOR_RATE_CONVERSION_CAPS.ahk
 #Include .\D3D11_VIDEO_PROCESSOR_CUSTOM_RATE.ahk
 #Include .\D3D11_VIDEO_PROCESSOR_FILTER_RANGE.ahk
-#Include .\ID3D11DeviceChild.ahk
 
 /**
  * Enumerates the video processor capabilities of a Microsoft Direct3D 11 device. (ID3D11VideoProcessorEnumerator)
@@ -16,9 +16,8 @@
  * To create an instance of the video processor, pass the <b>ID3D11VideoProcessorEnumerator</b> pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11videodevice-createvideoprocessor">ID3D11VideoDevice::CreateVideoProcessor</a> method.
  * @see https://learn.microsoft.com/windows/win32/api/d3d11/nn-d3d11-id3d11videoprocessorenumerator
  * @namespace Windows.Win32.Graphics.Direct3D11
- * @version v4.0.30319
  */
-class ID3D11VideoProcessorEnumerator extends ID3D11DeviceChild{
+class ID3D11VideoProcessorEnumerator extends ID3D11DeviceChild {
 
     static sizeof => A_PtrSize
     /**
@@ -52,7 +51,7 @@ class ID3D11VideoProcessorEnumerator extends ID3D11DeviceChild{
 
     /**
      * Queries whether the video processor supports a specified video format.
-     * @param {Integer} Format The video format to query, specified as a <a href="https://docs.microsoft.com/windows/desktop/api/dxgiformat/ne-dxgiformat-dxgi_format">DXGI_FORMAT</a> value.
+     * @param {DXGI_FORMAT} Format The video format to query, specified as a <a href="https://docs.microsoft.com/windows/desktop/api/dxgiformat/ne-dxgiformat-dxgi_format">DXGI_FORMAT</a> value.
      * @returns {Integer} Receives a bitwise <b>OR</b> of zero or more flags from the <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ne-d3d11-d3d11_video_processor_format_support">D3D11_VIDEO_PROCESSOR_FORMAT_SUPPORT</a> enumeration.
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11videoprocessorenumerator-checkvideoprocessorformat
      */
@@ -103,7 +102,7 @@ class ID3D11VideoProcessorEnumerator extends ID3D11DeviceChild{
 
     /**
      * Gets the range of values for an image filter.
-     * @param {Integer} Filter The type of image filter, specified as a <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ne-d3d11-d3d11_video_processor_filter">D3D11_VIDEO_PROCESSOR_FILTER</a> value.
+     * @param {D3D11_VIDEO_PROCESSOR_FILTER} Filter The type of image filter, specified as a <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ne-d3d11-d3d11_video_processor_filter">D3D11_VIDEO_PROCESSOR_FILTER</a> value.
      * @returns {D3D11_VIDEO_PROCESSOR_FILTER_RANGE} A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ns-d3d11-d3d11_video_processor_filter_range">D3D11_VIDEO_PROCESSOR_FILTER_RANGE</a> structure. The method fills the structure with the range of values for the specified filter.
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11videoprocessorenumerator-getvideoprocessorfilterrange
      */

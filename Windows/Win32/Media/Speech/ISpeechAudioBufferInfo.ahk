@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Media.Speech
- * @version v4.0.30319
  */
-class ISpeechAudioBufferInfo extends IDispatch{
+class ISpeechAudioBufferInfo extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

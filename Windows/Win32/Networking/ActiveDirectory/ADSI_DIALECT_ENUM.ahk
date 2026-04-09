@@ -10,9 +10,8 @@
  * <div> </div>
  * @see https://learn.microsoft.com/windows/win32/api/iads/ne-iads-adsi_dialect_enum
  * @namespace Windows.Win32.Networking.ActiveDirectory
- * @version v4.0.30319
  */
-class ADSI_DIALECT_ENUM extends Win32Enum{
+class ADSI_DIALECT_ENUM extends Win32Enum {
 
     /**
      * ADSI queries are based on the LDAP dialect.

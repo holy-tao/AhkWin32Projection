@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\FLT_CONTEXT_REGISTRATION.ahk
+#Include .\FLT_OPERATION_REGISTRATION.ahk
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem.Minifilters
- * @version v4.0.30319
  */
-class FLT_REGISTRATION extends Win32Struct
-{
+class FLT_REGISTRATION extends Win32Struct {
     static sizeof => 112
 
     static packingSize => 8

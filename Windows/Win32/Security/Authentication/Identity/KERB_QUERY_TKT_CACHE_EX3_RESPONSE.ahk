@@ -1,20 +1,19 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\LSA_UNICODE_STRING.ahk
+#Include .\KERB_PROTOCOL_MESSAGE_TYPE.ahk
 #Include .\KERB_TICKET_CACHE_INFO_EX3.ahk
+#Include .\LSA_UNICODE_STRING.ahk
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class KERB_QUERY_TKT_CACHE_EX3_RESPONSE extends Win32Struct
-{
-    static sizeof => 16
+class KERB_QUERY_TKT_CACHE_EX3_RESPONSE extends Win32Struct {
+    static sizeof => 136
 
     static packingSize => 8
 
     /**
-     * @type {Integer}
+     * @type {KERB_PROTOCOL_MESSAGE_TYPE}
      */
     MessageType {
         get => NumGet(this, 0, "int")
@@ -30,9 +29,9 @@ class KERB_QUERY_TKT_CACHE_EX3_RESPONSE extends Win32Struct
     }
 
     /**
-     * @type {Array<KERB_TICKET_CACHE_INFO_EX3>}
+     * @type {KERB_TICKET_CACHE_INFO_EX3}
      */
-    Tickets{
+    Tickets {
         get {
             if(!this.HasProp("__TicketsProxyArray"))
                 this.__TicketsProxyArray := Win32FixedArray(this.ptr + 8, 1, KERB_TICKET_CACHE_INFO_EX3, "")

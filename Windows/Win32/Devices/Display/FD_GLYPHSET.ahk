@@ -6,11 +6,9 @@
  * The FD_GLYPHSET structure is used to define the mappings from Unicode characters to glyph handles.
  * @see https://learn.microsoft.com/windows/win32/api/winddi/ns-winddi-fd_glyphset
  * @namespace Windows.Win32.Devices.Display
- * @version v4.0.30319
  */
-class FD_GLYPHSET extends Win32Struct
-{
-    static sizeof => 24
+class FD_GLYPHSET extends Win32Struct {
+    static sizeof => 32
 
     static packingSize => 8
 
@@ -89,9 +87,9 @@ class FD_GLYPHSET extends Win32Struct
 
     /**
      * Is an array of <a href="https://docs.microsoft.com/windows/desktop/api/winddi/ns-winddi-wcrun">WCRUN</a> structures.
-     * @type {Array<WCRUN>}
+     * @type {WCRUN}
      */
-    awcrun{
+    awcrun {
         get {
             if(!this.HasProp("__awcrunProxyArray"))
                 this.__awcrunProxyArray := Win32FixedArray(this.ptr + 16, 1, WCRUN, "")

@@ -6,10 +6,8 @@
  * Represents information about an object’s XAML source document.
  * @see https://learn.microsoft.com/windows/win32/api/xamlom/ns-xamlom-sourceinfo
  * @namespace Windows.Win32.UI.Xaml.Diagnostics
- * @version v4.0.30319
  */
-class SourceInfo extends Win32Struct
-{
+class SourceInfo extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -18,7 +16,7 @@ class SourceInfo extends Win32Struct
      * The name of the source document file where the element is declared.
      * @type {BSTR}
      */
-    FileName{
+    FileName {
         get {
             if(!this.HasProp("__FileName"))
                 this.__FileName := BSTR(0, this)
@@ -57,7 +55,7 @@ class SourceInfo extends Win32Struct
      * The hash of the source document.
      * @type {BSTR}
      */
-    Hash{
+    Hash {
         get {
             if(!this.HasProp("__Hash"))
                 this.__Hash := BSTR(24, this)

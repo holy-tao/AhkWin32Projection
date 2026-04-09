@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class CSV_MGMT_LOCK extends Win32Struct
-{
+class CSV_MGMT_LOCK extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 4

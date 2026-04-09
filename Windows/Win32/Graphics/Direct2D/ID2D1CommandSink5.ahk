@@ -7,9 +7,8 @@
  * This interface performs all the same functions as the existing ID2D1CommandSink4 interface, plus it enables access to the BlendImage method.
  * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nn-d2d1_3-id2d1commandsink5
  * @namespace Windows.Win32.Graphics.Direct2D
- * @version v4.0.30319
  */
-class ID2D1CommandSink5 extends ID2D1CommandSink4{
+class ID2D1CommandSink5 extends ID2D1CommandSink4 {
 
     static sizeof => A_PtrSize
     /**
@@ -32,8 +31,10 @@ class ID2D1CommandSink5 extends ID2D1CommandSink4{
 
     /**
      * Draws an image to the device context using the specified blend mode. Results are equivalent to using Direct2D's built-in Blend effect. (ID2D1CommandSink5.BlendImage)
-     * @param {ID2D1Image} _image 
-     * @param {Integer} blendMode Type: <b>D2D1_BLEND_MODE</b>
+     * @param {ID2D1Image} _image Type: <b>ID2D1Image*</b>
+     * 
+     * The image to be drawn to the device context.
+     * @param {D2D1_BLEND_MODE} blendMode Type: <b>D2D1_BLEND_MODE</b>
      * 
      * The blend mode to be used. See <a href="https://docs.microsoft.com/windows/desktop/Direct2D/blend">Blend modes</a> for more info.
      * @param {Pointer<D2D_POINT_2F>} targetOffset Type: <b>const D2D1_POINT_2F*</b>
@@ -45,7 +46,9 @@ class ID2D1CommandSink5 extends ID2D1CommandSink4{
      * @param {Pointer<D2D_RECT_F>} imageRectangle Type: <b>const D2D1_RECT_F*</b>
      * 
      * The corresponding rectangle in the image space will be mapped to the given origins when processing the image. The default value is NULL.
-     * @param {Integer} _interpolationMode 
+     * @param {D2D1_INTERPOLATION_MODE} _interpolationMode Type: <b>D2D1_INTERPOLATION_MODE</b>
+     * 
+     * The interpolation mode that will be used to scale the image if necessary. The default value is D2D1_INTERPOLATION_MODE_LINEAR.
      * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
      * This method returns an HRESULT success or error code.

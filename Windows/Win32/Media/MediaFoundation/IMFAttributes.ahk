@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * Provides a generic way to store key/value pairs on an object.
@@ -14,9 +15,8 @@
  * </ul>
  * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nn-mfobjects-imfattributes
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFAttributes extends IUnknown{
+class IMFAttributes extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -97,7 +97,7 @@ class IMFAttributes extends IUnknown{
      * <li>Windows XP Media Center Edition 2005 with KB900325 (Windows XP Media Center Edition 2005) and KB925766 (October 2006 Update Rollup for Windows XP Media Center Edition) installed.</li>
      * </ul>
      * @param {Pointer<Guid>} guidKey GUID that identifies which value to query.
-     * @returns {Integer} Receives a member of the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/ne-mfobjects-mf_attribute_type">MF_ATTRIBUTE_TYPE</a> enumeration.
+     * @returns {MF_ATTRIBUTE_TYPE} Receives a member of the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/ne-mfobjects-mf_attribute_type">MF_ATTRIBUTE_TYPE</a> enumeration.
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfattributes-getitemtype
      */
     GetItemType(guidKey) {
@@ -188,7 +188,7 @@ class IMFAttributes extends IUnknown{
      * <li>Windows XP Media Center Edition 2005 with KB900325 (Windows XP Media Center Edition 2005) and KB925766 (October 2006 Update Rollup for Windows XP Media Center Edition) installed.</li>
      * </ul>
      * @param {IMFAttributes} pTheirs Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfattributes">IMFAttributes</a> interface of the object to compare with this object.
-     * @param {Integer} MatchType Member of the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/ne-mfobjects-mf_attributes_match_type">MF_ATTRIBUTES_MATCH_TYPE</a> enumeration, specifying the type of comparison to make.
+     * @param {MF_ATTRIBUTES_MATCH_TYPE} MatchType Member of the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/ne-mfobjects-mf_attributes_match_type">MF_ATTRIBUTES_MATCH_TYPE</a> enumeration, specifying the type of comparison to make.
      * @returns {BOOL} Receives a Boolean value. The value is <b>TRUE</b> if the two sets of attributes match in the way specified by the <i>MatchType</i> parameter. Otherwise, the value is <b>FALSE</b>.
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfattributes-compare
      */

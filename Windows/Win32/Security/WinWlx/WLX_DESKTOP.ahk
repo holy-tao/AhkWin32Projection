@@ -6,10 +6,8 @@
  * Used to pass desktop information between your GINA DLL and Winlogon.
  * @see https://learn.microsoft.com/windows/win32/api/winwlx/ns-winwlx-wlx_desktop
  * @namespace Windows.Win32.Security.WinWlx
- * @version v4.0.30319
  */
-class WLX_DESKTOP extends Win32Struct
-{
+class WLX_DESKTOP extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -63,7 +61,7 @@ class WLX_DESKTOP extends Win32Struct
      * A handle to the desktop returned by <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-createdesktopa">CreateDesktop</a> and <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-opendesktopa">OpenDesktop</a>.
      * @type {HDESK}
      */
-    hDesktop{
+    hDesktop {
         get {
             if(!this.HasProp("__hDesktop"))
                 this.__hDesktop := HDESK(8, this)

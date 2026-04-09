@@ -7,9 +7,8 @@
  * Provides access to all the Direct Manipulation features and APIs available to the client application.
  * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nn-directmanipulation-idirectmanipulationmanager
  * @namespace Windows.Win32.Graphics.DirectManipulation
- * @version v4.0.30319
  */
-class IDirectManipulationManager extends IUnknown{
+class IDirectManipulationManager extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -85,7 +84,7 @@ class IDirectManipulationManager extends IUnknown{
      * If <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/directmanipulation/nf-directmanipulation-idirectmanipulationviewport-setcontact">SetContact</a> is not called by either the hit-test thread or the UI thread, <a href="https://docs.microsoft.com/previous-versions/windows/desktop/directmanipulation/direct-manipulation-portal">Direct Manipulation</a> ignores the input which is then handled on the UI thread.
      * @param {HWND} window The handle of the main app window (typically created from the UI thread).
      * @param {HWND} hitTestWindow The handle of the window in which hit testing is registered (should be created from the hit testing thread). Pass in nullptr to unregister a previously registered hit-test target.
-     * @param {Integer} type One of the values from <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/directmanipulation/ne-directmanipulation-directmanipulation_hittest_type">DIRECTMANIPULATION_HITTEST_TYPE</a>. Specifies whether the UI window or the hit testing window (or both) receives the hit testing <a href="https://docs.microsoft.com/previous-versions/windows/desktop/inputmsg/wm-pointerdown">WM_POINTERDOWN</a> message , and in what order.
+     * @param {DIRECTMANIPULATION_HITTEST_TYPE} type One of the values from <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/directmanipulation/ne-directmanipulation-directmanipulation_hittest_type">DIRECTMANIPULATION_HITTEST_TYPE</a>. Specifies whether the UI window or the hit testing window (or both) receives the hit testing <a href="https://docs.microsoft.com/previous-versions/windows/desktop/inputmsg/wm-pointerdown">WM_POINTERDOWN</a> message , and in what order.
      * @returns {HRESULT} If the method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nf-directmanipulation-idirectmanipulationmanager-registerhittesttarget
      */
@@ -115,7 +114,7 @@ class IDirectManipulationManager extends IUnknown{
      * @remarks
      * For the compositor to respond to update events from <a href="https://docs.microsoft.com/previous-versions/windows/desktop/directmanipulation/direct-manipulation-portal">Direct Manipulation</a>, you must associate <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/directmanipulation/nn-directmanipulation-idirectmanipulationupdatemanager">IDirectManipulationUpdateManager</a> to an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/directmanipulation/nn-directmanipulation-idirectmanipulationcompositor">IDirectManipulationCompositor</a> object during initialization. Use  <b>GetUpdateManager</b> to obtain a pointer to a <b>IDirectManipulationUpdateManager</b> object. Pass this pointer to the compositor using the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/directmanipulation/nf-directmanipulation-idirectmanipulationcompositor-setupdatemanager">SetUpdateManager</a> method.
      * @param {Pointer<Guid>} riid IID to the interface.
-     * @returns {Pointer<Void>} 
+     * @returns {Pointer<Void>} Pointer to the new <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/directmanipulation/nn-directmanipulation-idirectmanipulationupdatemanager">IDirectManipulationUpdateManager</a> object.
      * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nf-directmanipulation-idirectmanipulationmanager-getupdatemanager
      */
     GetUpdateManager(riid) {
@@ -128,7 +127,7 @@ class IDirectManipulationManager extends IUnknown{
      * @param {IDirectManipulationFrameInfoProvider} frameInfo The frame info provider for the viewport.
      * @param {HWND} window The handle of the main app window to associate with the viewport.
      * @param {Pointer<Guid>} riid IID to the interface.
-     * @returns {Pointer<Void>} 
+     * @returns {Pointer<Void>} The new <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/directmanipulation/nn-directmanipulation-idirectmanipulationviewport">IDirectManipulationViewport</a> object.
      * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nf-directmanipulation-idirectmanipulationmanager-createviewport
      */
     CreateViewport(frameInfo, window, riid) {
@@ -147,7 +146,7 @@ class IDirectManipulationManager extends IUnknown{
      * @param {IDirectManipulationFrameInfoProvider} frameInfo The frame info provider for the secondary content. This should match the frame info provider used to create the viewport.
      * @param {Pointer<Guid>} clsid Class identifier (CLSID) of the secondary content. This ID specifies the content type.
      * @param {Pointer<Guid>} riid IID of the interface.
-     * @returns {Pointer<Void>} 
+     * @returns {Pointer<Void>} The secondary content object that implements the specified interface.
      * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nf-directmanipulation-idirectmanipulationmanager-createcontent
      */
     CreateContent(frameInfo, clsid, riid) {

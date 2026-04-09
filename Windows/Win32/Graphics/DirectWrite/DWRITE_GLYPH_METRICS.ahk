@@ -5,10 +5,8 @@
  * Specifies the metrics of an individual glyph.
  * @see https://learn.microsoft.com/windows/win32/api/dwrite/ns-dwrite-dwrite_glyph_metrics
  * @namespace Windows.Win32.Graphics.DirectWrite
- * @version v4.0.30319
  */
-class DWRITE_GLYPH_METRICS extends Win32Struct
-{
+class DWRITE_GLYPH_METRICS extends Win32Struct {
     static sizeof => 28
 
     static packingSize => 4

@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.UI.Controls
- * @version v4.0.30319
  */
-class NMLVCUSTOMDRAW_ITEM_TYPE extends Win32Enum{
+class NMLVCUSTOMDRAW_ITEM_TYPE extends Win32Enum {
 
     /**
      * @type {Integer (UInt32)}

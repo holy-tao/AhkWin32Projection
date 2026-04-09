@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
- * @version v4.0.30319
  */
-class KSSTREAM_UVC_METADATA extends Win32Struct
-{
+class KSSTREAM_UVC_METADATA extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 4
@@ -15,7 +13,7 @@ class KSSTREAM_UVC_METADATA extends Win32Struct
     /**
      * @type {KSSTREAM_UVC_METADATATYPE_TIMESTAMP}
      */
-    StartOfFrameTimestamp{
+    StartOfFrameTimestamp {
         get {
             if(!this.HasProp("__StartOfFrameTimestamp"))
                 this.__StartOfFrameTimestamp := KSSTREAM_UVC_METADATATYPE_TIMESTAMP(0, this)
@@ -26,7 +24,7 @@ class KSSTREAM_UVC_METADATA extends Win32Struct
     /**
      * @type {KSSTREAM_UVC_METADATATYPE_TIMESTAMP}
      */
-    EndOfFrameTimestamp{
+    EndOfFrameTimestamp {
         get {
             if(!this.HasProp("__EndOfFrameTimestamp"))
                 this.__EndOfFrameTimestamp := KSSTREAM_UVC_METADATATYPE_TIMESTAMP(16, this)

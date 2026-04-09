@@ -4,7 +4,6 @@
 
 /**
  * @namespace Windows.Wdk.Devices.HumanInterfaceDevice
- * @version v4.0.30319
  */
 class HumanInterfaceDevice {
 

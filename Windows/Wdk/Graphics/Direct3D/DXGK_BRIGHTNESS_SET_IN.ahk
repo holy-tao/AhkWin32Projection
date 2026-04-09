@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
- * @version v4.0.30319
  */
-class DXGK_BRIGHTNESS_SET_IN extends Win32Struct
-{
+class DXGK_BRIGHTNESS_SET_IN extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
@@ -28,7 +26,7 @@ class DXGK_BRIGHTNESS_SET_IN extends Win32Struct
     }
 
     /**
-     * @type {Pointer<DXGK_BRIGHTNESS_SENSOR_DATA>}
+     * @type {Pointer}
      */
     SensorReadings {
         get => NumGet(this, 8, "ptr")

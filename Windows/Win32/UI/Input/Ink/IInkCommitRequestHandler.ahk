@@ -7,9 +7,8 @@
  * An IInkCommitRequestHandler object enables the app (instead of an IInkPresenterDesktop object) to commit all pending Microsoft DirectComposition commands to the app's DirectComposition visual tree.
  * @see https://learn.microsoft.com/windows/win32/api/inkpresenterdesktop/nn-inkpresenterdesktop-iinkcommitrequesthandler
  * @namespace Windows.Win32.UI.Input.Ink
- * @version v4.0.30319
  */
-class IInkCommitRequestHandler extends IUnknown{
+class IInkCommitRequestHandler extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

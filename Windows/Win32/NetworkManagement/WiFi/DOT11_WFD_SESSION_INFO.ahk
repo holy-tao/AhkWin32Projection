@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
- * @version v4.0.30319
  */
-class DOT11_WFD_SESSION_INFO extends Win32Struct
-{
+class DOT11_WFD_SESSION_INFO extends Win32Struct {
     static sizeof => 146
 
     static packingSize => 2
@@ -20,9 +18,9 @@ class DOT11_WFD_SESSION_INFO extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    ucSessionInfo{
+    ucSessionInfo {
         get {
             if(!this.HasProp("__ucSessionInfoProxyArray"))
                 this.__ucSessionInfoProxyArray := Win32FixedArray(this.ptr + 2, 144, Primitive, "char")

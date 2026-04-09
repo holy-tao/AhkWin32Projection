@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Com
- * @version v4.0.30319
  */
-class RPC_C_IMP_LEVEL extends Win32Enum{
+class RPC_C_IMP_LEVEL extends Win32Enum {
 
     /**
      * @type {Integer (UInt32)}

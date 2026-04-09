@@ -3,18 +3,16 @@
 
 /**
  * @namespace Windows.Win32.Media.DirectShow.Tv
- * @version v4.0.30319
  */
-class WMDRMProtectionInfo extends Win32Struct
-{
+class WMDRMProtectionInfo extends Win32Struct {
     static sizeof => 80
 
     static packingSize => 8
 
     /**
-     * @type {Array<UInt16>}
+     * @type {Array<Integer>}
      */
-    wszKID{
+    wszKID {
         get {
             if(!this.HasProp("__wszKIDProxyArray"))
                 this.__wszKIDProxyArray := Win32FixedArray(this.ptr + 0, 25, Primitive, "ushort")

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\PEER_WATCH_PERMISSION.ahk
 #Include .\PEER_DATA.ahk
 
 /**
@@ -8,10 +9,8 @@
  * "Contacts" are peers participating in a peer collaboration network who publish presence information available to the local peer. This associated information enables the peer application to "watch" them for updates and peer application or object status changes. Lists of contacts are maintained by the peer collaboration infrastructure, and specific status change events are raised for each individual contact in the list.
  * @see https://learn.microsoft.com/windows/win32/api/p2p/ns-p2p-peer_contact
  * @namespace Windows.Win32.NetworkManagement.P2P
- * @version v4.0.30319
  */
-class PEER_CONTACT extends Win32Struct
-{
+class PEER_CONTACT extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8
@@ -67,8 +66,8 @@ class PEER_CONTACT extends Win32Struct
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/api/p2p/ne-p2p-peer_watch_permission">PEER_WATCH_PERMISSION</a> enumeration value that specifies the watch permissions for this contact.
-     * @deprecated 
-     * @type {Integer}
+     * @deprecated
+     * @type {PEER_WATCH_PERMISSION}
      */
     WatcherPermissions {
         get => NumGet(this, 36, "int")
@@ -77,10 +76,10 @@ class PEER_CONTACT extends Win32Struct
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/api/p2p/ns-p2p-peer_data">PEER_DATA</a> structure that contains the security credentials for the contact in an opaque byte buffer.
-     * @deprecated 
+     * @deprecated
      * @type {PEER_DATA}
      */
-    credentials{
+    credentials {
         get {
             if(!this.HasProp("__credentials"))
                 this.__credentials := PEER_DATA(40, this)

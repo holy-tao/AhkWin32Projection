@@ -5,9 +5,8 @@
  * The values of the RADIUSPROPERTIES enumeration type enumerate properties of the Microsoft RADIUS protocol SDO.
  * @see https://learn.microsoft.com/windows/win32/api/sdoias/ne-sdoias-radiusproperties
  * @namespace Windows.Win32.NetworkManagement.NetworkPolicyServer
- * @version v4.0.30319
  */
-class RADIUSPROPERTIES extends Win32Enum{
+class RADIUSPROPERTIES extends Win32Enum {
 
     /**
      * The TCP port used for RADIUS accounting.

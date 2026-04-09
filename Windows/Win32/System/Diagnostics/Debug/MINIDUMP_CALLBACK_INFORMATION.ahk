@@ -5,10 +5,9 @@
  * Contains a pointer to an optional callback function that can be used by the MiniDumpWriteDump function.
  * @see https://learn.microsoft.com/windows/win32/api/minidumpapiset/ns-minidumpapiset-minidump_callback_information
  * @namespace Windows.Win32.System.Diagnostics.Debug
- * @version v4.0.30319
+ * @architecture X64, Arm64
  */
-class MINIDUMP_CALLBACK_INFORMATION extends Win32Struct
-{
+class MINIDUMP_CALLBACK_INFORMATION extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

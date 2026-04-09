@@ -20,10 +20,8 @@
  *     <b>NextEntryOffset</b> value in each entry, except the last, falls on an 8-byte boundary.
  * @see https://learn.microsoft.com/windows/win32/api/winbase/ns-winbase-file_id_both_dir_info
  * @namespace Windows.Win32.Storage.FileSystem
- * @version v4.0.30319
  */
-class FILE_ID_BOTH_DIR_INFO extends Win32Struct
-{
+class FILE_ID_BOTH_DIR_INFO extends Win32Struct {
     static sizeof => 112
 
     static packingSize => 8

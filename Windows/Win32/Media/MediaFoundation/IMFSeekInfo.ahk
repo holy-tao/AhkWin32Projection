@@ -9,9 +9,8 @@
  * A media source can implement this interface as an optional service. To get a pointer to the interface, call <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-mfgetservice">IMFGetService::GetService</a> with the service identifier <b>MF_SCRUBBING_SERVICE</b>.
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imfseekinfo
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFSeekInfo extends IUnknown{
+class IMFSeekInfo extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

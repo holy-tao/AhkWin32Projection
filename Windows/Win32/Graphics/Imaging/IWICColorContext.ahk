@@ -11,9 +11,8 @@
  * Once a color context has been initialized, it cannot be re-initialized.
  * @see https://learn.microsoft.com/windows/win32/api/wincodec/nn-wincodec-iwiccolorcontext
  * @namespace Windows.Win32.Graphics.Imaging
- * @version v4.0.30319
  */
-class IWICColorContext extends IUnknown{
+class IWICColorContext extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -123,7 +122,7 @@ class IWICColorContext extends IUnknown{
 
     /**
      * Retrieves the color context type. (IWICColorContext.GetType)
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ne-wincodec-wiccolorcontexttype">WICColorContextType</a>*</b>
+     * @returns {WICColorContextType} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ne-wincodec-wiccolorcontexttype">WICColorContextType</a>*</b>
      * 
      * A pointer that receives the <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ne-wincodec-wiccolorcontexttype">WICColorContextType</a> of the color context.
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwiccolorcontext-gettype

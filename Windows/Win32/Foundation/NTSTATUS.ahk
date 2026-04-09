@@ -6,10 +6,8 @@
 
 /**
  * @namespace Windows.Win32.Foundation
- * @version v4.0.30319
  */
-class NTSTATUS extends Win32Struct
-{
+class NTSTATUS extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 4
@@ -21,7 +19,6 @@ class NTSTATUS extends Win32Struct
         get => NumGet(this, 0, "int")
         set => NumPut("int", value, this, 0)
     }
-
     /**
      * Determine if the given NTSTATUS value idicates success
      * 

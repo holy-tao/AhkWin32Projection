@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\HANDLE.ahk
 #Include .\ID3D11DeviceChild.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * Represents a hardware-accelerated video decoder for Microsoft Direct3D 11.
@@ -10,9 +10,8 @@
  * To get a pointer to this interface, call <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11videodevice-createvideodecoder">ID3D11VideoDevice::CreateVideoDecoder</a>.
  * @see https://learn.microsoft.com/windows/win32/api/d3d11/nn-d3d11-id3d11videodecoder
  * @namespace Windows.Win32.Graphics.Direct3D11
- * @version v4.0.30319
  */
-class ID3D11VideoDecoder extends ID3D11DeviceChild{
+class ID3D11VideoDecoder extends ID3D11DeviceChild {
 
     static sizeof => A_PtrSize
     /**

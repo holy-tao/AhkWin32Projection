@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
- * @version v4.0.30319
  */
-class IPartFont extends IPartBase{
+class IPartFont extends IPartBase {
 
     static sizeof => A_PtrSize
     /**
@@ -31,7 +30,7 @@ class IPartFont extends IPartBase{
     /**
      * 
      * @param {Pointer<BSTR>} pContentType 
-     * @param {Pointer<Integer>} pFontOptions 
+     * @param {Pointer<EXpsFontOptions>} pFontOptions 
      * @returns {HRESULT} 
      */
     GetFontProperties(pContentType, pFontOptions) {
@@ -55,7 +54,7 @@ class IPartFont extends IPartBase{
 
     /**
      * 
-     * @param {Integer} options 
+     * @param {EXpsFontOptions} options 
      * @returns {HRESULT} 
      */
     SetFontOptions(options) {

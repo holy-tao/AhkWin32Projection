@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\ADS_SEARCH_HANDLE.ahk
 #Include .\ADS_SEARCH_COLUMN.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * The IDirectorySearch interface is a pure COM interface that provides a low overhead method that non-Automation clients can use to perform queries in the underlying directory.
  * @see https://learn.microsoft.com/windows/win32/api/iads/nn-iads-idirectorysearch
  * @namespace Windows.Win32.Networking.ActiveDirectory
- * @version v4.0.30319
  */
-class IDirectorySearch extends IUnknown{
+class IDirectorySearch extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

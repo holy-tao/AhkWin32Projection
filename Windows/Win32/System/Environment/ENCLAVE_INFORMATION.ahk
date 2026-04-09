@@ -6,10 +6,8 @@
  * Contains information about the currently executing enclave.
  * @see https://learn.microsoft.com/windows/win32/api/ntenclv/ns-ntenclv-enclave_information
  * @namespace Windows.Win32.System.Environment
- * @version v4.0.30319
  */
-class ENCLAVE_INFORMATION extends Win32Struct
-{
+class ENCLAVE_INFORMATION extends Win32Struct {
     static sizeof => 176
 
     static packingSize => 8
@@ -83,7 +81,7 @@ class ENCLAVE_INFORMATION extends Win32Struct
      * The identity of the primary module of an enclave.
      * @type {ENCLAVE_IDENTITY}
      */
-    Identity{
+    Identity {
         get {
             if(!this.HasProp("__Identity"))
                 this.__Identity := ENCLAVE_IDENTITY(24, this)

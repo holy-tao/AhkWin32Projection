@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * The IVssWMFiledesc interface is a C++ (not COM) interface returned to a calling application by a number of query methods. It provides detailed information about a file or set of files (a file set).
  * @see https://learn.microsoft.com/windows/win32/api/vswriter/nl-vswriter-ivsswmfiledesc
  * @namespace Windows.Win32.Storage.Vss
- * @version v4.0.30319
  */
-class IVssWMFiledesc extends IUnknown{
+class IVssWMFiledesc extends IUnknown {
 
     static sizeof => A_PtrSize
 

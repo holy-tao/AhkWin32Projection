@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Media.Speech
- * @version v4.0.30319
  */
-class ISpeechMMSysAudio extends ISpeechAudio{
+class ISpeechMMSysAudio extends ISpeechAudio {
 
     static sizeof => A_PtrSize
     /**

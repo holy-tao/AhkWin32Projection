@@ -13,10 +13,8 @@
  * For more information about the **SComparePropsRestriction** structure and restrictions in general, see [About Restrictions](about-restrictions.md).
  * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/scomparepropsrestriction
  * @namespace Windows.Win32.System.AddressBook
- * @version v4.0.30319
  */
-class SComparePropsRestriction extends Win32Struct
-{
+class SComparePropsRestriction extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4

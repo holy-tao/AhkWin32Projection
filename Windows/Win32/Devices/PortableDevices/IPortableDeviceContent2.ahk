@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IStream.ahk
 #Include .\IPortableDeviceContent.ahk
+#Include ..\..\System\Com\IStream.ahk
 
 /**
  * Defines additional methods that provide access to content found on a device.
  * @see https://learn.microsoft.com/windows/win32/api/portabledeviceapi/nn-portabledeviceapi-iportabledevicecontent2
  * @namespace Windows.Win32.Devices.PortableDevices
- * @version v4.0.30319
  */
-class IPortableDeviceContent2 extends IPortableDeviceContent{
+class IPortableDeviceContent2 extends IPortableDeviceContent {
 
     static sizeof => A_PtrSize
     /**

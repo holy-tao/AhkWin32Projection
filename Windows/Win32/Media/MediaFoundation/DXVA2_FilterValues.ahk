@@ -6,10 +6,8 @@
  * Contains parameters for a DirectX Video Acceleration (DXVA) image filter.
  * @see https://learn.microsoft.com/windows/win32/api/dxva2api/ns-dxva2api-dxva2_filtervalues
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class DXVA2_FilterValues extends Win32Struct
-{
+class DXVA2_FilterValues extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4
@@ -18,7 +16,7 @@ class DXVA2_FilterValues extends Win32Struct
      * Filter level.
      * @type {DXVA2_Fixed32}
      */
-    Level{
+    Level {
         get {
             if(!this.HasProp("__Level"))
                 this.__Level := DXVA2_Fixed32(0, this)
@@ -30,7 +28,7 @@ class DXVA2_FilterValues extends Win32Struct
      * Filter threshold.
      * @type {DXVA2_Fixed32}
      */
-    Threshold{
+    Threshold {
         get {
             if(!this.HasProp("__Threshold"))
                 this.__Threshold := DXVA2_Fixed32(4, this)
@@ -42,7 +40,7 @@ class DXVA2_FilterValues extends Win32Struct
      * Filter radius.
      * @type {DXVA2_Fixed32}
      */
-    Radius{
+    Radius {
         get {
             if(!this.HasProp("__Radius"))
                 this.__Radius := DXVA2_Fixed32(8, this)

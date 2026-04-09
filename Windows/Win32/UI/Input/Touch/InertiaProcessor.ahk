@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.UI.Input.Touch
- * @version v4.0.30319
  */
-class InertiaProcessor extends Win32Struct
-{
+class InertiaProcessor extends Win32Struct {
     static sizeof => 0
 
     static packingSize => 1

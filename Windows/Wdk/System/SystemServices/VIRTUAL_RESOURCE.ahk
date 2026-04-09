@@ -3,16 +3,14 @@
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class VIRTUAL_RESOURCE extends Win32Struct
-{
+class VIRTUAL_RESOURCE extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
 
     /**
-     * @type {Pointer<VIRTUAL_RESOURCE_CAPABILITY>}
+     * @type {Pointer}
      */
     Capability {
         get => NumGet(this, 0, "ptr")
@@ -20,7 +18,7 @@ class VIRTUAL_RESOURCE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<VIRTUAL_RESOURCE_CONTROL>}
+     * @type {Pointer}
      */
     Control {
         get => NumGet(this, 8, "ptr")
@@ -36,7 +34,7 @@ class VIRTUAL_RESOURCE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<VIRTUAL_RESOURCE_STATUS>}
+     * @type {Pointer}
      */
     Status {
         get => NumGet(this, 24, "ptr")

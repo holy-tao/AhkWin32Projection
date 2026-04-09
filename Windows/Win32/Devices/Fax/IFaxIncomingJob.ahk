@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * The IFaxIncomingJob interface is used by a fax client application to retrieve information about an incoming fax job in a fax server's queue.
@@ -10,9 +10,8 @@
  * To create a <b>FaxIncomingJob</b> object in C++, call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/nf-faxcomex-ifaxincomingjobs-get_item">IFaxIncomingJobs::get_Item</a> method.
  * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nn-faxcomex-ifaxincomingjob
  * @namespace Windows.Win32.Devices.Fax
- * @version v4.0.30319
  */
-class IFaxIncomingJob extends IDispatch{
+class IFaxIncomingJob extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -68,14 +67,14 @@ class IFaxIncomingJob extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {FAX_JOB_STATUS_ENUM} 
      */
     Status {
         get => this.get_Status()
     }
 
     /**
-     * @type {Integer} 
+     * @type {FAX_JOB_EXTENDED_STATUS_ENUM} 
      */
     ExtendedStatusCode {
         get => this.get_ExtendedStatusCode()
@@ -89,7 +88,7 @@ class IFaxIncomingJob extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {FAX_JOB_OPERATIONS_ENUM} 
      */
     AvailableOperations {
         get => this.get_AvailableOperations()
@@ -145,7 +144,7 @@ class IFaxIncomingJob extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {FAX_JOB_TYPE_ENUM} 
      */
     JobType {
         get => this.get_JobType()
@@ -196,7 +195,7 @@ class IFaxIncomingJob extends IDispatch{
 
     /**
      * Retrieves the Status property of a FaxIncomingJob object. The Status property is a number that indicates the current status of an inbound fax job in the job queue.
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_job_status_enum">FAX_JOB_STATUS_ENUM</a>*</b>
+     * @returns {FAX_JOB_STATUS_ENUM} Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_job_status_enum">FAX_JOB_STATUS_ENUM</a>*</b>
      * 
      * Pointer to a value from the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_job_status_enum">FAX_JOB_STATUS_ENUM</a> enumeration that specifies the current status of an inbound fax job in the job queue.
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxincomingjob-get_status
@@ -208,7 +207,7 @@ class IFaxIncomingJob extends IDispatch{
 
     /**
      * Retrieves the ExtendedStatusCode property of a FaxIncomingJob object. The ExtendedStatusCode property specifies a code describing the job's extended status.
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_job_extended_status_enum">FAX_JOB_EXTENDED_STATUS_ENUM</a>*</b>
+     * @returns {FAX_JOB_EXTENDED_STATUS_ENUM} Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_job_extended_status_enum">FAX_JOB_EXTENDED_STATUS_ENUM</a>*</b>
      * 
      * Pointer to a value from the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_job_extended_status_enum">FAX_JOB_EXTENDED_STATUS_ENUM</a> enumeration that specifies the extended job status.
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxincomingjob-get_extendedstatuscode
@@ -233,7 +232,7 @@ class IFaxIncomingJob extends IDispatch{
 
     /**
      * Retrieves the AvailableOperations property of a FaxIncomingJob object. The AvailableOperations property indicates the combination of valid operations that you can perform on the fax job given its current status.
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_job_operations_enum">FAX_JOB_OPERATIONS_ENUM</a>*</b>
+     * @returns {FAX_JOB_OPERATIONS_ENUM} Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_job_operations_enum">FAX_JOB_OPERATIONS_ENUM</a>*</b>
      * 
      * Pointer to a <b>long</b> value from the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_job_operations_enum">FAX_JOB_OPERATIONS_ENUM</a> enumeration that specifies a bitwise combination of the operations that you can currently perform on the fax job. Some operations are mutually exclusive. For example, you cannot pause a job that has already been paused.
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxincomingjob-get_availableoperations
@@ -323,7 +322,7 @@ class IFaxIncomingJob extends IDispatch{
 
     /**
      * Retrieves the JobType property of a FaxIncomingJob object. The JobType property describes the type of fax job; for example, the job can be a receive job, a send job, or a routing job.
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_job_type_enum">FAX_JOB_TYPE_ENUM</a>*</b>
+     * @returns {FAX_JOB_TYPE_ENUM} Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_job_type_enum">FAX_JOB_TYPE_ENUM</a>*</b>
      * 
      * Pointer to a value from the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_job_type_enum">FAX_JOB_TYPE_ENUM</a> enumeration that specifies the fax job type.
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxincomingjob-get_jobtype

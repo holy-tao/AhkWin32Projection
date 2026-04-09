@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include .\IADs.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * The IADsSession interface is a dual interface that inherits from IADs. It is designed to represent an active session for file service across a network.
@@ -14,9 +14,8 @@
  * Sessions are managed by the file service. To obtain session objects, first bind to this service ("LanmanServer" or "FPNW").
  * @see https://learn.microsoft.com/windows/win32/api/iads/nn-iads-iadssession
  * @namespace Windows.Win32.Networking.ActiveDirectory
- * @version v4.0.30319
  */
-class IADsSession extends IADs{
+class IADsSession extends IADs {
 
     static sizeof => A_PtrSize
     /**

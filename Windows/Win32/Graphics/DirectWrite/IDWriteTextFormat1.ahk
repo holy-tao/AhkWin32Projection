@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IDWriteFontFallback.ahk
 #Include .\IDWriteTextFormat.ahk
+#Include .\IDWriteFontFallback.ahk
 
 /**
  * Describes the font and paragraph properties used to format text, and it describes locale information. | IDWriteTextFormat1 interface
  * @see https://learn.microsoft.com/windows/win32/DirectWrite/idwritetextformat1
  * @namespace Windows.Win32.Graphics.DirectWrite
- * @version v4.0.30319
  */
-class IDWriteTextFormat1 extends IDWriteTextFormat{
+class IDWriteTextFormat1 extends IDWriteTextFormat {
 
     static sizeof => A_PtrSize
     /**
@@ -33,7 +32,7 @@ class IDWriteTextFormat1 extends IDWriteTextFormat{
 
     /**
      * Sets the orientation of a text format.
-     * @param {Integer} glyphOrientation Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite_1/ne-dwrite_1-dwrite_vertical_glyph_orientation">DWRITE_VERTICAL_GLYPH_ORIENTATION</a></b>
+     * @param {DWRITE_VERTICAL_GLYPH_ORIENTATION} glyphOrientation Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite_1/ne-dwrite_1-dwrite_vertical_glyph_orientation">DWRITE_VERTICAL_GLYPH_ORIENTATION</a></b>
      * 
      * The orientation to apply to the text format.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -48,7 +47,7 @@ class IDWriteTextFormat1 extends IDWriteTextFormat{
 
     /**
      * Get the preferred orientation of glyphs when using a vertical reading direction. (IDWriteTextFormat1.GetVerticalGlyphOrientation)
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite_1/ne-dwrite_1-dwrite_vertical_glyph_orientation">DWRITE_VERTICAL_GLYPH_ORIENTATION</a></b>
+     * @returns {DWRITE_VERTICAL_GLYPH_ORIENTATION} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite_1/ne-dwrite_1-dwrite_vertical_glyph_orientation">DWRITE_VERTICAL_GLYPH_ORIENTATION</a></b>
      * 
      * The preferred orientation of glyphs when using a vertical reading direction.
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_2/nf-dwrite_2-idwritetextformat1-getverticalglyphorientation
@@ -89,7 +88,7 @@ class IDWriteTextFormat1 extends IDWriteTextFormat{
 
     /**
      * Sets the optical margin alignment for the text format.
-     * @param {Integer} opticalAlignment The optical alignment to set.
+     * @param {DWRITE_OPTICAL_ALIGNMENT} opticalAlignment The optical alignment to set.
      * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_2/nf-dwrite_2-idwritetextformat1-setopticalalignment
      */
@@ -100,7 +99,7 @@ class IDWriteTextFormat1 extends IDWriteTextFormat{
 
     /**
      * Gets the optical margin alignment for the text format.
-     * @returns {Integer} The optical alignment.
+     * @returns {DWRITE_OPTICAL_ALIGNMENT} The optical alignment.
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_2/nf-dwrite_2-idwritetextformat1-getopticalalignment
      */
     GetOpticalAlignment() {

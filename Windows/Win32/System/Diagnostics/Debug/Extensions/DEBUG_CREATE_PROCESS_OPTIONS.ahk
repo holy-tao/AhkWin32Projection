@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
- * @version v4.0.30319
  */
-class DEBUG_CREATE_PROCESS_OPTIONS extends Win32Struct
-{
+class DEBUG_CREATE_PROCESS_OPTIONS extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4

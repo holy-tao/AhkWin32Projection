@@ -1,17 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Graphics\Direct3D12\ID3D12Resource.ahk
 #Include .\D3D12_VIDEO_DECODE_CONVERSION_ARGUMENTS.ahk
+#Include ..\..\Graphics\Dxgi\Common\DXGI_COLOR_SPACE_TYPE.ahk
 
 /**
  * Specifies the parameters for the output stream for a video decode operation. (D3D12_VIDEO_DECODE_OUTPUT_STREAM_ARGUMENTS)
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/d3d12video/ns-d3d12video-d3d12_video_decode_output_stream_arguments
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class D3D12_VIDEO_DECODE_OUTPUT_STREAM_ARGUMENTS extends Win32Struct
-{
+class D3D12_VIDEO_DECODE_OUTPUT_STREAM_ARGUMENTS extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -38,7 +36,7 @@ class D3D12_VIDEO_DECODE_OUTPUT_STREAM_ARGUMENTS extends Win32Struct
      * An optional [D3D12_VIDEO_DECODE_CONVERSION_ARGUMENTS](ns-d3d12video-d3d12_video_decode_conversion_arguments.md) structure containing output conversion parameters.
      * @type {D3D12_VIDEO_DECODE_CONVERSION_ARGUMENTS}
      */
-    ConversionArguments{
+    ConversionArguments {
         get {
             if(!this.HasProp("__ConversionArguments"))
                 this.__ConversionArguments := D3D12_VIDEO_DECODE_CONVERSION_ARGUMENTS(16, this)

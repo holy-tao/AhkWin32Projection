@@ -3,16 +3,14 @@
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
- * @version v4.0.30319
  */
-class KSAUDIOMODULE_DESCRIPTOR extends Win32Struct
-{
+class KSAUDIOMODULE_DESCRIPTOR extends Win32Struct {
     static sizeof => 280
 
     static packingSize => 8
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     ClassId {
         get => NumGet(this, 0, "ptr")

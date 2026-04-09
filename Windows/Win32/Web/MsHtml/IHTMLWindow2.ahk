@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include .\IHTMLFramesCollection2.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
 #Include .\IHTMLImageElementFactory.ahk
 #Include .\IHTMLLocation.ahk
 #Include .\IOmHistory.ahk
 #Include .\IOmNavigator.ahk
-#Include .\IHTMLWindow2.ahk
 #Include .\IHTMLDocument2.ahk
 #Include .\IHTMLEventObj.ahk
 #Include ..\..\System\Com\IUnknown.ahk
@@ -18,9 +17,8 @@
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
- * @version v4.0.30319
  */
-class IHTMLWindow2 extends IHTMLFramesCollection2{
+class IHTMLWindow2 extends IHTMLFramesCollection2 {
 
     static sizeof => A_PtrSize
     /**

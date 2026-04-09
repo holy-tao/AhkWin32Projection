@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.Sensors
- * @version v4.0.30319
  */
-class VEC3D extends Win32Struct
-{
+class VEC3D extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4

@@ -5,10 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.Console
- * @version v4.0.30319
  */
-class HPCON extends Win32Handle
-{
+class HPCON extends Win32Handle {
     static sizeof => 8
 
     static packingSize => 8

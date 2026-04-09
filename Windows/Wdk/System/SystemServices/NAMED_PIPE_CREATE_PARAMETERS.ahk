@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class NAMED_PIPE_CREATE_PARAMETERS extends Win32Struct
-{
+class NAMED_PIPE_CREATE_PARAMETERS extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8

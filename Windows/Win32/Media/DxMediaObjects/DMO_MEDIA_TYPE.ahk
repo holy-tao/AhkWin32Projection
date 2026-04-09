@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * The DMO_MEDIA_TYPE structure describes the format of the data used by a stream in a Microsoft DirectX Media Object (DMO).
@@ -7,17 +8,15 @@
  * This structure is identical to the DirectShow <a href="https://docs.microsoft.com/windows/desktop/api/strmif/ns-strmif-am_media_type">AM_MEDIA_TYPE</a> structure. The <b>bFixedSizeSamples</b>, <b>bTemporalCompression</b>, and <b>lSampleSize</b> members are for compatibility with DirectShow. Other DMO clients are not required to use them.
  * @see https://learn.microsoft.com/windows/win32/api/mediaobj/ns-mediaobj-dmo_media_type
  * @namespace Windows.Win32.Media.DxMediaObjects
- * @version v4.0.30319
  */
-class DMO_MEDIA_TYPE extends Win32Struct
-{
+class DMO_MEDIA_TYPE extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 8
 
     /**
      * Major type GUID of the stream.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     majortype {
         get => NumGet(this, 0, "ptr")
@@ -26,7 +25,7 @@ class DMO_MEDIA_TYPE extends Win32Struct
 
     /**
      * Subtype GUID of the stream.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     subtype {
         get => NumGet(this, 8, "ptr")
@@ -151,7 +150,7 @@ class DMO_MEDIA_TYPE extends Win32Struct
      * </td>
      * </tr>
      * </table>
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     formattype {
         get => NumGet(this, 32, "ptr")

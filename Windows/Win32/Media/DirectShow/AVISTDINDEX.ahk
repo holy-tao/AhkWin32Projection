@@ -10,10 +10,8 @@
  * and countries.)
  * @see https://learn.microsoft.com/windows/win32/api/aviriff/ns-aviriff-avistdindex
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class AVISTDINDEX extends Win32Struct
-{
+class AVISTDINDEX extends Win32Struct {
     static sizeof => 16392
 
     static packingSize => 8
@@ -101,12 +99,12 @@ class AVISTDINDEX extends Win32Struct
 
     /**
      * An array of <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/aviriff/ns-aviriff-avistdindex_entry">AVISTDINDEX_ENTRY</a> structures. The number of elements in the array is calculated from the value of <b>cb</b>.
-     * @type {Array<AVISTDINDEX_ENTRY>}
+     * @type {AVISTDINDEX_ENTRY}
      */
-    aIndex{
+    aIndex {
         get {
             if(!this.HasProp("__aIndexProxyArray"))
-                this.__aIndexProxyArray := Win32FixedArray(this.ptr + 40, 2044, AVISTDINDEX_ENTRY, "")
+                this.__aIndexProxyArray := Win32FixedArray(this.ptr + 36, 2044, AVISTDINDEX_ENTRY, "")
             return this.__aIndexProxyArray
         }
     }

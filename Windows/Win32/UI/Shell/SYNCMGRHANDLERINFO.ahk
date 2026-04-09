@@ -6,10 +6,8 @@
  * Provides information about the handler for use in the ISyncMgrSynchronize::GetHandlerInfo method.
  * @see https://learn.microsoft.com/windows/win32/api/mobsync/ns-mobsync-syncmgrhandlerinfo
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class SYNCMGRHANDLERINFO extends Win32Struct
-{
+class SYNCMGRHANDLERINFO extends Win32Struct {
     static sizeof => 88
 
     static packingSize => 8
@@ -31,7 +29,7 @@ class SYNCMGRHANDLERINFO extends Win32Struct
      * The icon for the handler.
      * @type {HICON}
      */
-    hIcon{
+    hIcon {
         get {
             if(!this.HasProp("__hIcon"))
                 this.__hIcon := HICON(8, this)

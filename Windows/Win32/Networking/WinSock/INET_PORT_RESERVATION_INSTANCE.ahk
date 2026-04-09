@@ -11,10 +11,8 @@
  * The  <b>INET_PORT_RESERVATION_INSTANCE</b> structure is returned by the <a href="https://docs.microsoft.com/windows/win32/winsock/sio-acquire-port-reservation">SIO_ACQUIRE_PORT_RESERVATION</a> IOCTL when acquiring a runtime reservation for a block of TCP or UDP ports.
  * @see https://learn.microsoft.com/windows/win32/api/mstcpip/ns-mstcpip-inet_port_reservation_instance
  * @namespace Windows.Win32.Networking.WinSock
- * @version v4.0.30319
  */
-class INET_PORT_RESERVATION_INSTANCE extends Win32Struct
-{
+class INET_PORT_RESERVATION_INSTANCE extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
@@ -25,7 +23,7 @@ class INET_PORT_RESERVATION_INSTANCE extends Win32Struct
      * The <a href="https://docs.microsoft.com/windows/desktop/api/mstcpip/ns-mstcpip-inet_port_range">INET_PORT_RESERVATION</a> structure is typedefed to the <a href="https://docs.microsoft.com/windows/desktop/api/mstcpip/ns-mstcpip-inet_port_range">INET_PORT_RANGE</a> structure.
      * @type {INET_PORT_RANGE}
      */
-    Reservation{
+    Reservation {
         get {
             if(!this.HasProp("__Reservation"))
                 this.__Reservation := INET_PORT_RANGE(0, this)
@@ -37,7 +35,7 @@ class INET_PORT_RESERVATION_INSTANCE extends Win32Struct
      * A port reservation token for a block of TCP or UDP ports.
      * @type {INET_PORT_RESERVATION_TOKEN}
      */
-    Token{
+    Token {
         get {
             if(!this.HasProp("__Token"))
                 this.__Token := INET_PORT_RESERVATION_TOKEN(8, this)

@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\CRYPT_ATTRIBUTE.ahk
 
 /**
  * Contains certificate attributes to be added to a certificate.
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cmc_add_attributes_info
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CMC_ADD_ATTRIBUTES_INFO extends Win32Struct
-{
+class CMC_ADD_ATTRIBUTES_INFO extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8

@@ -7,12 +7,10 @@
  * The value NSTCS2_ALLMASK can be used to mask for the NSTCS2_INTERRUPTNOTIFICATIONS, NSTCS2_SHOWNULLSPACEMENU, and NSTCS2_DISPLAYPADDING values.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl/ne-shobjidl-nstcstyle2
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class NSTCSTYLE2 extends Win32BitflagEnum{
+class NSTCSTYLE2 extends Win32BitflagEnum {
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static NSTCS2_DEFAULT => 0
@@ -42,7 +40,6 @@ class NSTCSTYLE2 extends Win32BitflagEnum{
     static NSTCS2_DISPLAYPINNEDONLY => 8
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static NTSCS2_NOSINGLETONAUTOEXPAND => 16

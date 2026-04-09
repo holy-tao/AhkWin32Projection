@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\IReferenceClock.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
+#Include ..\..\IReferenceClock.ahk
 
 /**
  * The IDirectMusicSynth interface is used by DirectMusic to communicate with user-mode synthesizers.
  * @see https://learn.microsoft.com/windows/win32/api/dmusics/nn-dmusics-idirectmusicsynth
  * @namespace Windows.Win32.Media.Audio.DirectMusic
- * @version v4.0.30319
  */
-class IDirectMusicSynth extends IUnknown{
+class IDirectMusicSynth extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

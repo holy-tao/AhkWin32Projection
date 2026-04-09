@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\NLM_DATAPLAN_STATUS.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\NLM_DATAPLAN_STATUS.ahk
 
 /**
  * Use this interface to query for machine-wide cost and data plan status information associated with either a connection used for machine-wide Internet connectivity, or the first-hop of routing to a specific destination on a connection.
  * @see https://learn.microsoft.com/windows/win32/api/netlistmgr/nn-netlistmgr-inetworkcostmanager
  * @namespace Windows.Win32.Networking.NetworkListManager
- * @version v4.0.30319
  */
-class INetworkCostManager extends IUnknown{
+class INetworkCostManager extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

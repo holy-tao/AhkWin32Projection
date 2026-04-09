@@ -7,9 +7,8 @@
  * The <b>EAP_INTERACTIVE_UI_DATA_TYPE</b> is used to support Single-Sign-On (SSO).
  * @see https://learn.microsoft.com/windows/win32/api/eaptypes/ne-eaptypes-eap_interactive_ui_data_type
  * @namespace Windows.Win32.Security.ExtensibleAuthenticationProtocol
- * @version v4.0.30319
  */
-class EAP_INTERACTIVE_UI_DATA_TYPE extends Win32Enum{
+class EAP_INTERACTIVE_UI_DATA_TYPE extends Win32Enum {
 
     /**
      * The data contains an EAP security credential retry request.

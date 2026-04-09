@@ -1,15 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
-#Include .\IX509SCEPEnrollment.ahk
 #Include ..\..\..\System\Com\IDispatch.ahk
+#Include .\IX509SCEPEnrollment.ahk
+#Include ..\..\..\Foundation\BSTR.ahk
 
 /**
  * @namespace Windows.Win32.Security.Cryptography.Certificates
- * @version v4.0.30319
  */
-class IX509SCEPEnrollmentHelper extends IDispatch{
+class IX509SCEPEnrollmentHelper extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -89,7 +88,7 @@ class IX509SCEPEnrollmentHelper extends IDispatch{
      * 
      * @param {BSTR} strServerUrl 
      * @param {BSTR} strRequestHeaders 
-     * @param {Integer} _Context 
+     * @param {X509CertificateEnrollmentContext} _Context 
      * @param {BSTR} strTransactionId 
      * @returns {HRESULT} 
      */
@@ -104,8 +103,8 @@ class IX509SCEPEnrollmentHelper extends IDispatch{
 
     /**
      * Specifies certification authority property values.
-     * @param {Integer} ProcessFlags 
-     * @returns {Integer} 
+     * @param {X509SCEPProcessMessageFlags} ProcessFlags 
+     * @returns {X509SCEPDisposition} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/ne-certenroll-enrollmentcaproperty
      */
     Enroll(ProcessFlags) {
@@ -115,8 +114,8 @@ class IX509SCEPEnrollmentHelper extends IDispatch{
 
     /**
      * 
-     * @param {Integer} ProcessFlags 
-     * @returns {Integer} 
+     * @param {X509SCEPProcessMessageFlags} ProcessFlags 
+     * @returns {X509SCEPDisposition} 
      */
     FetchPending(ProcessFlags) {
         result := ComCall(10, this, "int", ProcessFlags, "int*", &pDisposition := 0, "HRESULT")

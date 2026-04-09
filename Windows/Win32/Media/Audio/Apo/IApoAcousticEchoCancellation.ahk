@@ -13,9 +13,8 @@
  * Because AEC algorithms typically require specific sampling rates and channel counts, the audio engine provides resampling support to APOs that implement the **IApoAcousticEchoCancellation** interface. The [IAudioProcessingObject::IsInputFormatSupported](nf-audioenginebaseapo-iapoauxiliaryinputconfiguration-isinputformatsupported.md) method provides a mechanism for informing the system of the APO's preferred input format by returning the HRESULT APOERR_FORMAT_NOT_SUPPORTED. and returning the requested format in the method's *ppSupportedInputFormat* parameter. The audio engine will then resample input audio to the suggested format prior to sending it to the AEC APO. This eliminates the need for the AEC APO to implement sampling rate and channel count conversion.
  * @see https://learn.microsoft.com/windows/win32/api/audioenginebaseapo/nn-audioenginebaseapo-iapoacousticechocancellation
  * @namespace Windows.Win32.Media.Audio.Apo
- * @version v4.0.30319
  */
-class IApoAcousticEchoCancellation extends IUnknown{
+class IApoAcousticEchoCancellation extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

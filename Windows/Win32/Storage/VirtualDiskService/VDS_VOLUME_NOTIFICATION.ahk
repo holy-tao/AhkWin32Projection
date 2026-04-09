@@ -15,10 +15,8 @@
  * To get the volume object, use the <a href="https://docs.microsoft.com/windows/desktop/api/vds/nf-vds-ivdsservice-getobject">IVdsService::GetObject</a> method. You can then use the <a href="https://docs.microsoft.com/windows/desktop/api/vds/nf-vds-ivdsvolume-getproperties">IVdsVolume::GetProperties</a> method or the <a href="https://docs.microsoft.com/windows/desktop/api/vds/nf-vds-ivdsvolume2-getproperties2">IVdsVolume2::GetProperties2</a> method to get the volume properties.
  * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/ns-vdshwprv-vds_volume_notification
  * @namespace Windows.Win32.Storage.VirtualDiskService
- * @version v4.0.30319
  */
-class VDS_VOLUME_NOTIFICATION extends Win32Struct
-{
+class VDS_VOLUME_NOTIFICATION extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -88,7 +86,7 @@ class VDS_VOLUME_NOTIFICATION extends Win32Struct
 
     /**
      * The <b>VDS_OBJECT_ID</b> of the volume that triggered the event.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     volumeId {
         get => NumGet(this, 8, "ptr")
@@ -98,7 +96,7 @@ class VDS_VOLUME_NOTIFICATION extends Win32Struct
     /**
      * The <b>VDS_OBJECT_ID</b> of a volume plex. VDS applies this identifier during the 
      *       rebuild operation, which can execute on multiple plexes at different rates.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     plexId {
         get => NumGet(this, 16, "ptr")

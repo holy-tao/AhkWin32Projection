@@ -17,9 +17,8 @@
  * <div> </div>
  * @see https://learn.microsoft.com/windows/win32/api/vds/ne-vds-vds_volume_status
  * @namespace Windows.Win32.Storage.VirtualDiskService
- * @version v4.0.30319
  */
-class VDS_VOLUME_STATUS extends Win32Enum{
+class VDS_VOLUME_STATUS extends Win32Enum {
 
     /**
      * The status of the volume is unknown. This value does not apply to dynamic volumes.

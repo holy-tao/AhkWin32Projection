@@ -5,13 +5,10 @@
 
 /**
  * Represents a shader cache session.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/nn-d3d12-id3d12shadercachesession
  * @namespace Windows.Win32.Graphics.Direct3D12
- * @version v4.0.30319
  */
-class ID3D12ShaderCacheSession extends ID3D12DeviceChild{
+class ID3D12ShaderCacheSession extends ID3D12DeviceChild {
 
     static sizeof => A_PtrSize
     /**
@@ -34,13 +31,13 @@ class ID3D12ShaderCacheSession extends ID3D12DeviceChild{
 
     /**
      * Looks up an entry in the cache whose key exactly matches the provided key.
-     * @param {Pointer} pKey Type: \_In\_reads\_bytes\_(KeySize) **const void \***
+     * @param {Integer} pKey Type: \_In\_reads\_bytes\_(KeySize) **const void \***
      * 
      * The key of the entry to look up.
      * @param {Integer} KeySize Type: **[UINT](/windows/win32/winprog/windows-data-types)**
      * 
      * The size of the key, in bytes.
-     * @param {Pointer} pValue Type: \_Out\_writes\_bytes\_(*pValueSize) **void \***
+     * @param {Integer} pValue Type: \_Out\_writes\_bytes\_(*pValueSize) **void \***
      * 
      * A pointer to a memory block that receives the cached entry.
      * @param {Pointer<Integer>} pValueSize Type: \_Inout\_ **[UINT](/windows/win32/winprog/windows-data-types)\***
@@ -65,13 +62,13 @@ class ID3D12ShaderCacheSession extends ID3D12DeviceChild{
 
     /**
      * Adds an entry to the cache.
-     * @param {Pointer} pKey Type: \_In\_reads\_bytes\_(KeySize) **const void \***
+     * @param {Integer} pKey Type: \_In\_reads\_bytes\_(KeySize) **const void \***
      * 
      * The key of the entry to add.
      * @param {Integer} KeySize Type: **[UINT](/windows/win32/winprog/windows-data-types)**
      * 
      * The size of the key, in bytes.
-     * @param {Pointer} pValue Type: \_In\_reads\_bytes\_(ValueSize) **void \***
+     * @param {Integer} pValue Type: \_In\_reads\_bytes\_(ValueSize) **void \***
      * 
      * A pointer to a memory block containing the entry to add.
      * @param {Integer} ValueSize Type: **[UINT](/windows/win32/winprog/windows-data-types)**

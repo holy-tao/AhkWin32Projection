@@ -1,15 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\HCERTSTOREPROV.ahk
+#Include .\CERT_STORE_PROV_FLAGS.ahk
 
 /**
  * Contains information returned by the installed CertDllOpenStoreProv function when a store is opened by using the CertOpenStore function.
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cert_store_prov_info
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CERT_STORE_PROV_INFO extends Win32Struct
-{
+class CERT_STORE_PROV_INFO extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -351,7 +350,7 @@ class CERT_STORE_PROV_INFO extends Win32Struct
      * A 32-bit, application-defined value that is the first parameter passed to all callbacks. An application can specify the contents of this member as desired. Typically, this is a pointer to data that is specific to the application, such as provider state information for each store opened.
      * @type {HCERTSTOREPROV}
      */
-    hStoreProv{
+    hStoreProv {
         get {
             if(!this.HasProp("__hStoreProv"))
                 this.__hStoreProv := HCERTSTOREPROV(16, this)
@@ -360,8 +359,7 @@ class CERT_STORE_PROV_INFO extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Integer}
+     * @type {CERT_STORE_PROV_FLAGS}
      */
     dwStoreProvFlags {
         get => NumGet(this, 24, "uint")

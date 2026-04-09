@@ -1,9 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
 #Include .\TF_DISPLAYATTRIBUTE.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * The ITfDisplayAttributeInfo interface is implemented by a text service to provide display attribute data. This interface is used by any component, most often an application, that must determine how text displays.
@@ -13,9 +14,8 @@
  * A text service supplies an instance of this interface in its <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nf-msctf-itfdisplayattributeprovider-getdisplayattributeinfo">ITfDisplayAttributeProvider::GetDisplayAttributeInfo</a> method.
  * @see https://learn.microsoft.com/windows/win32/api/msctf/nn-msctf-itfdisplayattributeinfo
  * @namespace Windows.Win32.UI.TextServices
- * @version v4.0.30319
  */
-class ITfDisplayAttributeInfo extends IUnknown{
+class ITfDisplayAttributeInfo extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

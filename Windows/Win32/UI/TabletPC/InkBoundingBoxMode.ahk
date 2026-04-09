@@ -5,9 +5,8 @@
  * Specifies which characteristics of a stroke, such as drawing attributes, are used to calculate the bounding box of the ink.The bounding box is the smallest rectangle that includes all points in the InkDisp object.
  * @see https://learn.microsoft.com/windows/win32/api/msinkaut/ne-msinkaut-inkboundingboxmode
  * @namespace Windows.Win32.UI.TabletPC
- * @version v4.0.30319
  */
-class InkBoundingBoxMode extends Win32Enum{
+class InkBoundingBoxMode extends Win32Enum {
 
     /**
      * The definition of each stroke (polyline or Bezier) is used to calculate the bounding box; includes the drawing attributes, such as pen width, in the calculation.

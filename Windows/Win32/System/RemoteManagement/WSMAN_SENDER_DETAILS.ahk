@@ -1,15 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\WSMAN_CERTIFICATE_DETAILS.ahk
 #Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * Specifies the client details for every inbound request.
  * @see https://learn.microsoft.com/windows/win32/api/wsman/ns-wsman-wsman_sender_details
  * @namespace Windows.Win32.System.RemoteManagement
- * @version v4.0.30319
  */
-class WSMAN_SENDER_DETAILS extends Win32Struct
-{
+class WSMAN_SENDER_DETAILS extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -101,7 +100,7 @@ class WSMAN_SENDER_DETAILS extends Win32Struct
      * <div> </div>
      * @type {HANDLE}
      */
-    clientToken{
+    clientToken {
         get {
             if(!this.HasProp("__clientToken"))
                 this.__clientToken := HANDLE(24, this)

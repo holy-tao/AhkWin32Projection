@@ -3,14 +3,10 @@
 
 /**
  * Provides information about the stream rate.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/d3d12video/ns-d3d12video-d3d12_video_process_input_stream_rate
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class D3D12_VIDEO_PROCESS_INPUT_STREAM_RATE extends Win32Struct
-{
+class D3D12_VIDEO_PROCESS_INPUT_STREAM_RATE extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4

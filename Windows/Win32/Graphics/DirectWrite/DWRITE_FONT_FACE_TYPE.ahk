@@ -7,9 +7,8 @@
  * Font formats that consist of multiple files, such as Type 1 .PFM and .PFB, have a single enum entry.
  * @see https://learn.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_font_face_type
  * @namespace Windows.Win32.Graphics.DirectWrite
- * @version v4.0.30319
  */
-class DWRITE_FONT_FACE_TYPE extends Win32Enum{
+class DWRITE_FONT_FACE_TYPE extends Win32Enum {
 
     /**
      * OpenType font face with CFF outlines.
@@ -24,7 +23,6 @@ class DWRITE_FONT_FACE_TYPE extends Win32Enum{
     static DWRITE_FONT_FACE_TYPE_TRUETYPE => 1
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static DWRITE_FONT_FACE_TYPE_OPENTYPE_COLLECTION => 2

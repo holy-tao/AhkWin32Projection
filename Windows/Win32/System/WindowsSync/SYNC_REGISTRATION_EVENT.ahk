@@ -5,9 +5,8 @@
  * Represents the different types of synchronization registration events.
  * @see https://learn.microsoft.com/windows/win32/api/syncregistration/ne-syncregistration-sync_registration_event
  * @namespace Windows.Win32.System.WindowsSync
- * @version v4.0.30319
  */
-class SYNC_REGISTRATION_EVENT extends Win32Enum{
+class SYNC_REGISTRATION_EVENT extends Win32Enum {
 
     /**
      * A synchronization provider registration has been added.

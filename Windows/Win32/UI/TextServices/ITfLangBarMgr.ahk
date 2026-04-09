@@ -7,9 +7,8 @@
  * The ITfLangBarMgr interface is implemented by the TSF manager and used by text services to manage event sink notification and configure floating language bar display settings. The interface ID is IID_ITfLangBarMgr.
  * @see https://learn.microsoft.com/windows/win32/api/ctfutb/nn-ctfutb-itflangbarmgr
  * @namespace Windows.Win32.UI.TextServices
- * @version v4.0.30319
  */
-class ITfLangBarMgr extends IUnknown{
+class ITfLangBarMgr extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -35,7 +34,7 @@ class ITfLangBarMgr extends IUnknown{
      * @remarks
      * <i>pdwCookie</i> receives an identifier that should be passed to <a href="https://docs.microsoft.com/windows/desktop/api/ctfutb/nf-ctfutb-itflangbarmgr-unadviseeventsink">ITfLangBarMgr::UnadviseEventSink</a> when the event sink is no longer required.
      * @param {ITfLangBarEventSink} pSink Sink object to advise about the event.
-     * @param {HWND} _hwnd 
+     * @param {HWND} _hwnd Reserved; must be <b>NULL</b>.
      * @param {Integer} dwFlags Reserved; must be 0.
      * @param {Pointer<Integer>} pdwCookie Pointer to an identifier for the connection.
      * @returns {HRESULT} This method can return one of these values.

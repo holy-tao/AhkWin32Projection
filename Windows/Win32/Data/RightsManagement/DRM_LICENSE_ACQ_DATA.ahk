@@ -7,10 +7,8 @@
  * This structure has a C++ default constructor that takes no parameters and sets all members to <b>NULL</b>, except <b>uVersion</b>, which is set to <b>DRMLICENSEACQDATAVERSION</b>.
  * @see https://learn.microsoft.com/windows/win32/api/msdrmdefs/ns-msdrmdefs-drm_license_acq_data
  * @namespace Windows.Win32.Data.RightsManagement
- * @version v4.0.30319
  */
-class DRM_LICENSE_ACQ_DATA extends Win32Struct
-{
+class DRM_LICENSE_ACQ_DATA extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8

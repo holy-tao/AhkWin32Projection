@@ -22,10 +22,8 @@
  * <div> </div>
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/ns-shobjidl_core-shdragimage
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class SHDRAGIMAGE extends Win32Struct
-{
+class SHDRAGIMAGE extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -36,7 +34,7 @@ class SHDRAGIMAGE extends Win32Struct
      * A <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-size">SIZE</a> structure with the length and width of the drag image.
      * @type {SIZE}
      */
-    sizeDragImage{
+    sizeDragImage {
         get {
             if(!this.HasProp("__sizeDragImage"))
                 this.__sizeDragImage := SIZE(0, this)
@@ -50,7 +48,7 @@ class SHDRAGIMAGE extends Win32Struct
      * A <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a> structure that specifies the location of the cursor within the drag image. The structure should contain the offset from the upper-left corner of the drag image to the location of the cursor.
      * @type {POINT}
      */
-    ptOffset{
+    ptOffset {
         get {
             if(!this.HasProp("__ptOffset"))
                 this.__ptOffset := POINT(8, this)
@@ -64,7 +62,7 @@ class SHDRAGIMAGE extends Win32Struct
      * The drag image's bitmap handle.
      * @type {HBITMAP}
      */
-    hbmpDragImage{
+    hbmpDragImage {
         get {
             if(!this.HasProp("__hbmpDragImage"))
                 this.__hbmpDragImage := HBITMAP(16, this)

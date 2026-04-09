@@ -3,14 +3,10 @@
 
 /**
  * Stores the security negotiation information.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/sspi/ns-sspi-sec_negotiation_info
  * @namespace Windows.Wdk.Storage.FileSystem
- * @version v4.0.30319
  */
-class SEC_NEGOTIATION_INFO extends Win32Struct
-{
+class SEC_NEGOTIATION_INFO extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

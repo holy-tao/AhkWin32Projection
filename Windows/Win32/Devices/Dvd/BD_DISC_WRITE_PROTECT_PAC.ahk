@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.Dvd
- * @version v4.0.30319
  */
-class BD_DISC_WRITE_PROTECT_PAC extends Win32Struct
-{
+class BD_DISC_WRITE_PROTECT_PAC extends Win32Struct {
     static sizeof => 428
 
     static packingSize => 1
@@ -15,7 +13,7 @@ class BD_DISC_WRITE_PROTECT_PAC extends Win32Struct
     /**
      * @type {BD_PAC_HEADER}
      */
-    Header{
+    Header {
         get {
             if(!this.HasProp("__Header"))
                 this.__Header := BD_PAC_HEADER(0, this)
@@ -32,9 +30,9 @@ class BD_DISC_WRITE_PROTECT_PAC extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Reserved1{
+    Reserved1 {
         get {
             if(!this.HasProp("__Reserved1ProxyArray"))
                 this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 385, 3, Primitive, "char")
@@ -51,9 +49,9 @@ class BD_DISC_WRITE_PROTECT_PAC extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Reserved2{
+    Reserved2 {
         get {
             if(!this.HasProp("__Reserved2ProxyArray"))
                 this.__Reserved2ProxyArray := Win32FixedArray(this.ptr + 389, 7, Primitive, "char")
@@ -62,9 +60,9 @@ class BD_DISC_WRITE_PROTECT_PAC extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    WriteProtectPassword{
+    WriteProtectPassword {
         get {
             if(!this.HasProp("__WriteProtectPasswordProxyArray"))
                 this.__WriteProtectPasswordProxyArray := Win32FixedArray(this.ptr + 396, 32, Primitive, "char")

@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Security
- * @version v4.0.30319
  */
-class LLFILETIME extends Win32Struct
-{
+class LLFILETIME extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 8
@@ -23,7 +21,7 @@ class LLFILETIME extends Win32Struct
     /**
      * @type {FILETIME}
      */
-    ft{
+    ft {
         get {
             if(!this.HasProp("__ft"))
                 this.__ft := FILETIME(0, this)

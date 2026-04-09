@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Hypervisor
- * @version v4.0.30319
  */
-class WHV_PROCESSOR_APIC_COUNTERS extends Win32Struct
-{
+class WHV_PROCESSOR_APIC_COUNTERS extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8

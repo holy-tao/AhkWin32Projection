@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\CRL_DIST_POINT.ahk
 
 /**
  * Contains a list of certificate revocation list (CRL) distribution points a certificate user can reference to determine whether the certificate has been revoked.
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-crl_dist_points_info
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CRL_DIST_POINTS_INFO extends Win32Struct
-{
+class CRL_DIST_POINTS_INFO extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

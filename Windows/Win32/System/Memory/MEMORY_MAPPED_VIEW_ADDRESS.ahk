@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.System.Memory
- * @version v4.0.30319
  */
-class MEMORY_MAPPED_VIEW_ADDRESS extends Win32Handle
-{
+class MEMORY_MAPPED_VIEW_ADDRESS extends Win32Handle {
     static sizeof => 8
 
     static packingSize => 8

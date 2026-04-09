@@ -7,9 +7,8 @@
  * This enum is used in the <b>D3D12_RESOURCE_BARRIER_TYPE</b> structure. Use these values with the <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-resourcebarrier">ID3D12GraphicsCommandList::ResourceBarrier</a> method.
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/ne-d3d12-d3d12_resource_barrier_type
  * @namespace Windows.Win32.Graphics.Direct3D12
- * @version v4.0.30319
  */
-class D3D12_RESOURCE_BARRIER_TYPE extends Win32Enum{
+class D3D12_RESOURCE_BARRIER_TYPE extends Win32Enum {
 
     /**
      * A transition barrier that indicates a transition of a set of subresources between different usages. The caller must specify the before and after usages of the subresources.

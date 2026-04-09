@@ -22,9 +22,8 @@
  * </ul>
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nn-shobjidl-ifiledialog2
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IFileDialog2 extends IFileDialog{
+class IFileDialog2 extends IFileDialog {
 
     static sizeof => A_PtrSize
     /**

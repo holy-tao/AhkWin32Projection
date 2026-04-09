@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Storage.FileSystem
- * @version v4.0.30319
  */
-class KCRM_MARSHAL_HEADER extends Win32Struct
-{
+class KCRM_MARSHAL_HEADER extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4

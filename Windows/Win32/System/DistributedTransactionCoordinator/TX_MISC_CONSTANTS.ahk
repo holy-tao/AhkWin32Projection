@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.DistributedTransactionCoordinator
- * @version v4.0.30319
  */
-class TX_MISC_CONSTANTS extends Win32Enum{
+class TX_MISC_CONSTANTS extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

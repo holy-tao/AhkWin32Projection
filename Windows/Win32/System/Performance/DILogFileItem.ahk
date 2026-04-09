@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.Performance
- * @version v4.0.30319
  */
-class DILogFileItem extends IDispatch{
+class DILogFileItem extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

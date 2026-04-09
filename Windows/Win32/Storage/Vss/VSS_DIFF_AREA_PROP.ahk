@@ -7,10 +7,8 @@
  * The <b>m_llMaximumDiffSpace</b> member is passed as a parameter to the <a href="https://docs.microsoft.com/windows/desktop/api/vsmgmt/nf-vsmgmt-ivssdifferentialsoftwaresnapshotmgmt-adddiffarea">IVssDifferentialSoftwareSnapshotMgmt::AddDiffArea</a>, <a href="https://docs.microsoft.com/windows/desktop/api/vsmgmt/nf-vsmgmt-ivssdifferentialsoftwaresnapshotmgmt-changediffareamaximumsize">IVssDifferentialSoftwareSnapshotMgmt::ChangeDiffAreaMaximumSize</a>, and <a href="https://docs.microsoft.com/windows/desktop/api/vsmgmt/nf-vsmgmt-ivssdifferentialsoftwaresnapshotmgmt2-changediffareamaximumsizeex">IVssDifferentialSoftwareSnapshotMgmt2::ChangeDiffAreaMaximumSizeEx</a> methods.
  * @see https://learn.microsoft.com/windows/win32/api/vsmgmt/ns-vsmgmt-vss_diff_area_prop
  * @namespace Windows.Win32.Storage.Vss
- * @version v4.0.30319
  */
-class VSS_DIFF_AREA_PROP extends Win32Struct
-{
+class VSS_DIFF_AREA_PROP extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8

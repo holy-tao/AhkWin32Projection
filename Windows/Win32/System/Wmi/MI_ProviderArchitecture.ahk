@@ -5,9 +5,8 @@
  * This enumeration defines the WMI provider architecture used on the server.
  * @see https://learn.microsoft.com/windows/win32/api/mi/ne-mi-mi_providerarchitecture
  * @namespace Windows.Win32.System.Wmi
- * @version v4.0.30319
  */
-class MI_ProviderArchitecture extends Win32Enum{
+class MI_ProviderArchitecture extends Win32Enum {
 
     /**
      * Use this value if the client calls a 32-bit provider on the remote machine.

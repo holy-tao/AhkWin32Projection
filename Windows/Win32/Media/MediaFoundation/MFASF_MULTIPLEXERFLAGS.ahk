@@ -5,9 +5,8 @@
  * Defines the ASF multiplexer options.
  * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/ne-wmcontainer-mfasf_multiplexerflags
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class MFASF_MULTIPLEXERFLAGS extends Win32Enum{
+class MFASF_MULTIPLEXERFLAGS extends Win32Enum {
 
     /**
      * The multiplexer automatically adjusts the bit rate of the ASF content in response to the characteristics of the streams being multiplexed.

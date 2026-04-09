@@ -5,10 +5,8 @@
  * Specifies all the information in a token that is necessary for an app container.
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-token_appcontainer_information
  * @namespace Windows.Win32.Security
- * @version v4.0.30319
  */
-class TOKEN_APPCONTAINER_INFORMATION extends Win32Struct
-{
+class TOKEN_APPCONTAINER_INFORMATION extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 8

@@ -4,7 +4,6 @@
 
 /**
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
 class DirectShow {
 

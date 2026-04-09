@@ -5,9 +5,8 @@
  * Provides flags for the CoWaitForMultipleObjects function.
  * @see https://learn.microsoft.com/windows/win32/api/combaseapi/ne-combaseapi-cwmo_flags
  * @namespace Windows.Win32.System.Com
- * @version v4.0.30319
  */
-class CWMO_FLAGS extends Win32BitflagEnum{
+class CWMO_FLAGS extends Win32BitflagEnum {
 
     /**
      * No call dispatch.

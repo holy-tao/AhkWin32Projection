@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include .\IFsrmObject.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * Defines a property that you want to use to classify files. (IFsrmPropertyDefinition)
@@ -22,9 +22,8 @@
  *     <b>FsrmReportType_FilesByProperty</b>.
  * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nn-fsrmpipeline-ifsrmpropertydefinition
  * @namespace Windows.Win32.Storage.FileServerResourceManager
- * @version v4.0.30319
  */
-class IFsrmPropertyDefinition extends IFsrmObject{
+class IFsrmPropertyDefinition extends IFsrmObject {
 
     static sizeof => A_PtrSize
     /**
@@ -54,7 +53,7 @@ class IFsrmPropertyDefinition extends IFsrmObject{
     }
 
     /**
-     * @type {Integer} 
+     * @type {FsrmPropertyDefinitionType} 
      */
     Type {
         get => this.get_Type()
@@ -117,7 +116,7 @@ class IFsrmPropertyDefinition extends IFsrmObject{
      * The type of data that the property contains. (Get)
      * @remarks
      * You cannot change the type after you commit the definition.
-     * @returns {Integer} 
+     * @returns {FsrmPropertyDefinitionType} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpropertydefinition-get_type
      */
     get_Type() {
@@ -129,7 +128,7 @@ class IFsrmPropertyDefinition extends IFsrmObject{
      * The type of data that the property contains. (Put)
      * @remarks
      * You cannot change the type after you commit the definition.
-     * @param {Integer} type 
+     * @param {FsrmPropertyDefinitionType} type 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpropertydefinition-put_type
      */

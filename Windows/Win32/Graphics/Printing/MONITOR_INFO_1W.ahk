@@ -5,11 +5,9 @@
  * The MONITOR\_INFO\_1 structure identifies an installed monitor.
  * @see https://learn.microsoft.com/windows/win32/printdocs/monitor-info-1
  * @namespace Windows.Win32.Graphics.Printing
- * @version v4.0.30319
  * @charset Unicode
  */
-class MONITOR_INFO_1W extends Win32Struct
-{
+class MONITOR_INFO_1W extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 8

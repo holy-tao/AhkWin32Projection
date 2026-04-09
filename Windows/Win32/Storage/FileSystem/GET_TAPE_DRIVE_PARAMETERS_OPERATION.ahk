@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Storage.FileSystem
- * @version v4.0.30319
  */
-class GET_TAPE_DRIVE_PARAMETERS_OPERATION extends Win32Enum{
+class GET_TAPE_DRIVE_PARAMETERS_OPERATION extends Win32Enum {
 
     /**
      * @type {Integer (UInt32)}

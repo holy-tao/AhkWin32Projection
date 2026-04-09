@@ -9,11 +9,9 @@
  * > The immdev.h header defines IMEMENUITEMINFO as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
  * @see https://learn.microsoft.com/windows/win32/api/immdev/ns-immdev-imemenuiteminfow
  * @namespace Windows.Win32.UI.Input.Ime
- * @version v4.0.30319
  * @charset Unicode
  */
-class IMEMENUITEMINFOW extends Win32Struct
-{
+class IMEMENUITEMINFOW extends Win32Struct {
     static sizeof => 208
 
     static packingSize => 8
@@ -28,7 +26,6 @@ class IMEMENUITEMINFOW extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     fType {
@@ -37,7 +34,6 @@ class IMEMENUITEMINFOW extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     fState {
@@ -58,7 +54,7 @@ class IMEMENUITEMINFOW extends Win32Struct
      * Handle to the bitmap to display next to the item if it is checked. If this member is <b>NULL</b>, a default bitmap is used. If the IMFT_RADIOCHECK type value is specified, the default bitmap is a bullet. Otherwise, it is a check mark.
      * @type {HBITMAP}
      */
-    hbmpChecked{
+    hbmpChecked {
         get {
             if(!this.HasProp("__hbmpChecked"))
                 this.__hbmpChecked := HBITMAP(16, this)
@@ -70,7 +66,7 @@ class IMEMENUITEMINFOW extends Win32Struct
      * Handle to the bitmap to display next to the item if it is not checked. If this member is <b>NULL</b>, no bitmap is used.
      * @type {HBITMAP}
      */
-    hbmpUnchecked{
+    hbmpUnchecked {
         get {
             if(!this.HasProp("__hbmpUnchecked"))
                 this.__hbmpUnchecked := HBITMAP(24, this)
@@ -100,7 +96,7 @@ class IMEMENUITEMINFOW extends Win32Struct
      * Handle to a bitmap to display.
      * @type {HBITMAP}
      */
-    hbmpItem{
+    hbmpItem {
         get {
             if(!this.HasProp("__hbmpItem"))
                 this.__hbmpItem := HBITMAP(200, this)

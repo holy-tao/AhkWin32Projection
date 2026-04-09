@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
 #Include .\IInkRectangle.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * Represents the digitizer device of Tablet PC that receives tablet device messages or events.
@@ -21,9 +21,8 @@
  * If you define a class that implements this interface, the new class will not interact correctly with the Tablet PC application programming interfaces (APIs).
  * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nn-msinkaut-iinktablet
  * @namespace Windows.Win32.UI.TabletPC
- * @version v4.0.30319
  */
-class IInkTablet extends IDispatch{
+class IInkTablet extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -66,7 +65,7 @@ class IInkTablet extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {TabletHardwareCapabilities} 
      */
     HardwareCapabilities {
         get => this.get_HardwareCapabilities()
@@ -123,7 +122,7 @@ class IInkTablet extends IDispatch{
      * 
      * <div class="alert"><b>Note</b>  Accessing this property within certain message handlers can result in the underlying function being re-entered, causing unexpected results. Take care to avoid a reentrant call when handling any of the following messages: WM_ACTIVATE, WM_ACTIVATEAPP, WMNCACTIVATE, WM_PAINT; WM_SYSCOMMAND if <b>wParam</b> is set to SC_HOTKEY or SC_TASKLIST; and WM_SYSKEYDOWN (when processing Alt-Tab or Alt-Esc key combinations). This is an issue with single-threaded apartment model applications.</div>
      * <div> </div>
-     * @returns {Integer} 
+     * @returns {TabletHardwareCapabilities} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinktablet-get_hardwarecapabilities
      */
     get_HardwareCapabilities() {
@@ -166,7 +165,7 @@ class IInkTablet extends IDispatch{
      * For more information about the BSTR data type, see <a href="https://docs.microsoft.com/windows/desktop/tablet/using-the-com-library">Using the COM Library</a>.
      * @param {Pointer<Integer>} Minimum The minimum value, in logical units, that the tablet reports for this property. For example, a tablet reporting x-values from 0 to 9000 has a logical minimum of 0.
      * @param {Pointer<Integer>} Maximum The maximum value, in logical units, that the tablet reports for this property. For example, a tablet reporting x-values from 0 to 9000 would have a logical maximum of 9000.
-     * @param {Pointer<Integer>} Units The physical units of the property, such as inches or degrees. For a list of property units, see the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/ne-msinkaut-tabletpropertymetricunit">TabletPropertyMetricUnit</a> enumeration type.
+     * @param {Pointer<TabletPropertyMetricUnit>} Units The physical units of the property, such as inches or degrees. For a list of property units, see the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/ne-msinkaut-tabletpropertymetricunit">TabletPropertyMetricUnit</a> enumeration type.
      * @param {Pointer<Float>} Resolution Specifies the resolution or increment value for the <b>units</b> member. For example, a tablet that reports 400 dots per inch (dpi) has a  resolution value of 400.
      * @returns {HRESULT} This method can return one of these values.
      * 

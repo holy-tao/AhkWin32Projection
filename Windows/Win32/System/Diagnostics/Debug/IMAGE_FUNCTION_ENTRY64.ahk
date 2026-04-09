@@ -19,10 +19,8 @@
  * ```
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-image_function_entry64
  * @namespace Windows.Win32.System.Diagnostics.Debug
- * @version v4.0.30319
  */
-class IMAGE_FUNCTION_ENTRY64 extends Win32Struct
-{
+class IMAGE_FUNCTION_ENTRY64 extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

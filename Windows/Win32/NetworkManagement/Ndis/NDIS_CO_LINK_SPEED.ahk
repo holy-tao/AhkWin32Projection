@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Ndis
- * @version v4.0.30319
  */
-class NDIS_CO_LINK_SPEED extends Win32Struct
-{
+class NDIS_CO_LINK_SPEED extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4

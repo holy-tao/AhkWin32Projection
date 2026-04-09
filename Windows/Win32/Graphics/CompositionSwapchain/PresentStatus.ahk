@@ -7,9 +7,8 @@
  * The status of a present indicates how it was handled based on timing, and whether it was canceled.
  * @see https://learn.microsoft.com/windows/win32/api/presentation/ne-presentation-presentstatus
  * @namespace Windows.Win32.Graphics.CompositionSwapchain
- * @version v4.0.30319
  */
-class PresentStatus extends Win32Enum{
+class PresentStatus extends Win32Enum {
 
     /**
      * The frame was queued by the system to eventually be shown.

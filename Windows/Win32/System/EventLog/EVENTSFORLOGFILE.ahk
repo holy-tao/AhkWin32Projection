@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\EVENTLOGRECORD.ahk
+#Include .\REPORT_EVENT_TYPE.ahk
 
 /**
  * @namespace Windows.Win32.System.EventLog
- * @version v4.0.30319
  * @deprecated struct EVENTSFORLOGFILE is deprecated and might not work on all platforms. For more info, see MSDN.
  */
-class EVENTSFORLOGFILE extends Win32Struct
-{
-    static sizeof => 528
+class EVENTSFORLOGFILE extends Win32Struct {
+    static sizeof => 576
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}
@@ -38,9 +37,9 @@ class EVENTSFORLOGFILE extends Win32Struct
     }
 
     /**
-     * @type {Array<EVENTLOGRECORD>}
+     * @type {EVENTLOGRECORD}
      */
-    pEventLogRecords{
+    pEventLogRecords {
         get {
             if(!this.HasProp("__pEventLogRecordsProxyArray"))
                 this.__pEventLogRecordsProxyArray := Win32FixedArray(this.ptr + 520, 1, EVENTLOGRECORD, "")

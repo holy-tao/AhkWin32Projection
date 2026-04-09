@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Com\IDispatch.ahk
 #Include ..\Variant\VARIANT.ahk
 #Include ..\Ole\IEnumVARIANT.ahk
-#Include ..\Com\IDispatch.ahk
 
 /**
  * The IGPMMapEntryCollection interface enables applications to access map entry objects.
  * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nn-gpmgmt-igpmmapentrycollection
  * @namespace Windows.Win32.System.GroupPolicy
- * @version v4.0.30319
  */
-class IGPMMapEntryCollection extends IDispatch{
+class IGPMMapEntryCollection extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

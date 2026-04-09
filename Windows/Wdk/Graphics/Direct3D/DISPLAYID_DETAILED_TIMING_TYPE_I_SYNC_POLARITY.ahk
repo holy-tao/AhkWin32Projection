@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
- * @version v4.0.30319
  */
-class DISPLAYID_DETAILED_TIMING_TYPE_I_SYNC_POLARITY extends Win32Enum{
+class DISPLAYID_DETAILED_TIMING_TYPE_I_SYNC_POLARITY extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

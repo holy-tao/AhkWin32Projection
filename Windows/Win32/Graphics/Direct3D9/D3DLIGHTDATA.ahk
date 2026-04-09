@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\D3DLIGHTINGELEMENT.ahk
+#Include .\D3DTLVERTEX.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D9
- * @version v4.0.30319
  */
-class D3DLIGHTDATA extends Win32Struct
-{
+class D3DLIGHTDATA extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8

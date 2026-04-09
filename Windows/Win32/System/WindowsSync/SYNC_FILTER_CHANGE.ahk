@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.System.WindowsSync
- * @version v4.0.30319
  */
-class SYNC_FILTER_CHANGE extends Win32Struct
-{
+class SYNC_FILTER_CHANGE extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -23,7 +21,7 @@ class SYNC_FILTER_CHANGE extends Win32Struct
     /**
      * @type {SYNC_VERSION}
      */
-    moveVersion{
+    moveVersion {
         get {
             if(!this.HasProp("__moveVersion"))
                 this.__moveVersion := SYNC_VERSION(8, this)

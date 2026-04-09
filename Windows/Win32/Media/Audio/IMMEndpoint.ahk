@@ -7,9 +7,8 @@
  * The IMMEndpoint interface represents an audio endpoint device.
  * @see https://learn.microsoft.com/windows/win32/api/mmdeviceapi/nn-mmdeviceapi-immendpoint
  * @namespace Windows.Win32.Media.Audio
- * @version v4.0.30319
  */
-class IMMEndpoint extends IUnknown{
+class IMMEndpoint extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -32,7 +31,7 @@ class IMMEndpoint extends IUnknown{
 
     /**
      * The GetDataFlow method indicates whether the audio endpoint device is a rendering device or a capture device.
-     * @returns {Integer} Pointer to a variable into which the method writes the data-flow direction of the endpoint device. The direction is indicated by one of the following <a href="https://docs.microsoft.com/windows/win32/api/mmdeviceapi/ne-mmdeviceapi-edataflow">EDataFlow</a> enumeration constants:
+     * @returns {EDataFlow} Pointer to a variable into which the method writes the data-flow direction of the endpoint device. The direction is indicated by one of the following <a href="https://docs.microsoft.com/windows/win32/api/mmdeviceapi/ne-mmdeviceapi-edataflow">EDataFlow</a> enumeration constants:
      * 
      * <ul>
      *  <li>eRender</li>

@@ -7,9 +7,8 @@
  * Sends mouse and keyboard events, and supports touch input.
  * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nn-rdpencomapi-irdpviewerinputsink
  * @namespace Windows.Win32.System.DesktopSharing
- * @version v4.0.30319
  */
-class IRDPViewerInputSink extends IUnknown{
+class IRDPViewerInputSink extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -32,7 +31,7 @@ class IRDPViewerInputSink extends IUnknown{
 
     /**
      * Sends a mouse button event message.
-     * @param {Integer} buttonType The button that is pressed or released.
+     * @param {RDPSRAPI_MOUSE_BUTTON_TYPE} buttonType The button that is pressed or released.
      * @param {VARIANT_BOOL} vbButtonDown The button state:  <b>TRUE</b> if the button is down and <b>FALSE</b> otherwise.
      * @param {Integer} xPos The mouse position in  pixels along the horizontal axis.
      * @param {Integer} yPos The mouse position in pixels along the vertical axis.
@@ -69,7 +68,7 @@ class IRDPViewerInputSink extends IUnknown{
 
     /**
      * Sends a keyboard event message.
-     * @param {Integer} codeType The encoding of the key code.
+     * @param {RDPSRAPI_KBD_CODE_TYPE} codeType The encoding of the key code.
      * @param {Integer} keycode The key code of the pressed or released key.
      * @param {VARIANT_BOOL} vbKeyUp The state of the key:  <b>TRUE</b> if the key is released, <b>FALSE</b> if the key is pressed.
      * @param {VARIANT_BOOL} vbRepeat The key code is a repeated code:  <b>FALSE</b> if this is the initial key code from a key press, <b>TRUE</b> if this is repeated code from a single key press.

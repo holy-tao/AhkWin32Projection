@@ -6,10 +6,8 @@
  * Contains the metrics associated with text after layout. (DWRITE_TEXT_METRICS1)
  * @see https://learn.microsoft.com/windows/win32/api/dwrite_2/ns-dwrite_2-dwrite_text_metrics1
  * @namespace Windows.Win32.Graphics.DirectWrite
- * @version v4.0.30319
  */
-class DWRITE_TEXT_METRICS1 extends Win32Struct
-{
+class DWRITE_TEXT_METRICS1 extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 4
@@ -17,7 +15,7 @@ class DWRITE_TEXT_METRICS1 extends Win32Struct
     /**
      * @type {DWRITE_TEXT_METRICS}
      */
-    Base{
+    Base {
         get {
             if(!this.HasProp("__Base"))
                 this.__Base := DWRITE_TEXT_METRICS(0, this)

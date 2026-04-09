@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Hypervisor
- * @version v4.0.30319
  */
-class WHV_RUN_VP_EXIT_REASON extends Win32Enum{
+class WHV_RUN_VP_EXIT_REASON extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

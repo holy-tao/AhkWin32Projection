@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
- * @version v4.0.30319
  */
-class IPartColorProfile extends IPartBase{
+class IPartColorProfile extends IPartBase {
 
     static sizeof => A_PtrSize
     /**

@@ -50,9 +50,8 @@
  * </ol>
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-icustomdestinationlist
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class ICustomDestinationList extends IUnknown{
+class ICustomDestinationList extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -242,7 +241,7 @@ class ICustomDestinationList extends IUnknown{
      * Empty categories are not shown.
      * 
      * The contents of the <b>Frequent</b> and <b>Recent</b> categories are calculated for each application that uses <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/nf-shlobj_core-shaddtorecentdocs">SHAddToRecentDocs</a> directly. In some cases of user action, such as opening a file through Windows Explorer or using the common file dialog box to open, save, or create a file, the Shell calls <b>SHAddToRecentDocs</b> on behalf of an application and those calls are also taken into account in the usage statistics. The Shell also calls <b>SHAddToRecentDocs</b> on behalf of the application when a destination is launched from its Jump List. However, it is good practice for the application to explicitly call <b>SHAddToRecentDocs</b> itself even if it is expected that the Shell will make the call. This guarantees that the usage is recorded, and the algorithms for tracking recent or frequent usage will correct for any duplicate calls.
-     * @param {Integer} category Type: <b>KNOWNDESTCATEGORY</b>
+     * @param {KNOWNDESTCATEGORY} category Type: <b>KNOWNDESTCATEGORY</b>
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Returns S_OK if successful, or an error value otherwise. 

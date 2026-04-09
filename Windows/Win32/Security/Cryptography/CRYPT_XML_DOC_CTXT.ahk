@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\CRYPT_XML_TRANSFORM_CHAIN_CONFIG.ahk
+#Include .\CRYPT_XML_SIGNATURE.ahk
 
 /**
  * Defines document context information.
  * @see https://learn.microsoft.com/windows/win32/api/cryptxml/ns-cryptxml-crypt_xml_doc_ctxt
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CRYPT_XML_DOC_CTXT extends Win32Struct
-{
+class CRYPT_XML_DOC_CTXT extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8

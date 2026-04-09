@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IADs.ahk
 #Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
 #Include .\IADsMembers.ahk
-#Include .\IADs.ahk
 
 /**
  * The IADsUser interface is a dual interface that inherits from IADs.
@@ -159,9 +159,8 @@
  * The newly created local user will have the same default properties as the domain user. The group membership, however, will be "users", instead of "domain user".
  * @see https://learn.microsoft.com/windows/win32/api/iads/nn-iads-iadsuser
  * @namespace Windows.Win32.Networking.ActiveDirectory
- * @version v4.0.30319
  */
-class IADsUser extends IADs{
+class IADsUser extends IADs {
 
     static sizeof => A_PtrSize
     /**

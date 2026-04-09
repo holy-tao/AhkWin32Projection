@@ -5,9 +5,8 @@
  * The TRUSTED_INFORMATION_CLASS enumeration type defines values that indicate the type of information to set or query for a trusted domain.
  * @see https://learn.microsoft.com/windows/win32/api/ntsecapi/ne-ntsecapi-trusted_information_class
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class TRUSTED_INFORMATION_CLASS extends Win32Enum{
+class TRUSTED_INFORMATION_CLASS extends Win32Enum {
 
     /**
      * Query or set the name of a trusted domain. Use the 
@@ -63,31 +62,26 @@ class TRUSTED_INFORMATION_CLASS extends Win32Enum{
     static TrustedDomainFullInformation => 8
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static TrustedDomainAuthInformationInternal => 9
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static TrustedDomainFullInformationInternal => 10
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static TrustedDomainInformationEx2Internal => 11
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static TrustedDomainFullInformation2Internal => 12
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static TrustedDomainSupportedEncryptionTypes => 13

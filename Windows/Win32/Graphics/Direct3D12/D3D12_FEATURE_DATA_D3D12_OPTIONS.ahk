@@ -1,5 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\D3D12_SHADER_MIN_PRECISION_SUPPORT.ahk
+#Include .\D3D12_TILED_RESOURCES_TIER.ahk
+#Include .\D3D12_RESOURCE_BINDING_TIER.ahk
+#Include .\D3D12_CONSERVATIVE_RASTERIZATION_TIER.ahk
+#Include .\D3D12_CROSS_NODE_SHARING_TIER.ahk
+#Include .\D3D12_RESOURCE_HEAP_TIER.ahk
 
 /**
  * Describes Direct3D 12 feature options in the current graphics driver.
@@ -7,10 +13,8 @@
  * See <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_feature">D3D12_FEATURE</a>.
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_feature_data_d3d12_options
  * @namespace Windows.Win32.Graphics.Direct3D12
- * @version v4.0.30319
  */
-class D3D12_FEATURE_DATA_D3D12_OPTIONS extends Win32Struct
-{
+class D3D12_FEATURE_DATA_D3D12_OPTIONS extends Win32Struct {
     static sizeof => 60
 
     static packingSize => 4
@@ -41,7 +45,7 @@ class D3D12_FEATURE_DATA_D3D12_OPTIONS extends Win32Struct
 
     /**
      * A combination of <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_shader_min_precision_support">D3D12_SHADER_MIN_PRECISION_SUPPORT</a>-typed values that are combined by using a bitwise OR operation. The resulting value specifies minimum precision levels that the driver supports for shader stages. A value of zero indicates that the driver supports only full 32-bit precision for all shader stages.
-     * @type {Integer}
+     * @type {D3D12_SHADER_MIN_PRECISION_SUPPORT}
      */
     MinPrecisionSupport {
         get => NumGet(this, 8, "int")
@@ -50,7 +54,7 @@ class D3D12_FEATURE_DATA_D3D12_OPTIONS extends Win32Struct
 
     /**
      * Specifies whether the hardware and driver support tiled resources. The runtime sets this member to a <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_tiled_resources_tier">D3D12_TILED_RESOURCES_TIER</a>-typed value that indicates if the hardware and driver support tiled resources and at what tier level.
-     * @type {Integer}
+     * @type {D3D12_TILED_RESOURCES_TIER}
      */
     TiledResourcesTier {
         get => NumGet(this, 12, "int")
@@ -59,7 +63,7 @@ class D3D12_FEATURE_DATA_D3D12_OPTIONS extends Win32Struct
 
     /**
      * Specifies the level at which the hardware and driver support resource binding. The runtime sets this member to a <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_resource_binding_tier">D3D12_RESOURCE_BINDING_TIER</a>-typed value that indicates the tier level.
-     * @type {Integer}
+     * @type {D3D12_RESOURCE_BINDING_TIER}
      */
     ResourceBindingTier {
         get => NumGet(this, 16, "int")
@@ -96,7 +100,7 @@ class D3D12_FEATURE_DATA_D3D12_OPTIONS extends Win32Struct
 
     /**
      * Specifies the level at which the hardware and driver support conservative rasterization. The runtime sets this member to a <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_conservative_rasterization_tier">D3D12_CONSERVATIVE_RASTERIZATION_TIER</a>-typed value that indicates the tier level.
-     * @type {Integer}
+     * @type {D3D12_CONSERVATIVE_RASTERIZATION_TIER}
      */
     ConservativeRasterizationTier {
         get => NumGet(this, 32, "int")
@@ -127,7 +131,7 @@ class D3D12_FEATURE_DATA_D3D12_OPTIONS extends Win32Struct
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_cross_node_sharing_tier">D3D12_CROSS_NODE_SHARING_TIER</a> enumeration constant that specifies the level of sharing across nodes of an adapter that has multiple nodes,
      *             such as Tier 1 Emulated, Tier 1, or Tier 2.
-     * @type {Integer}
+     * @type {D3D12_CROSS_NODE_SHARING_TIER}
      */
     CrossNodeSharingTier {
         get => NumGet(this, 44, "int")
@@ -159,7 +163,7 @@ class D3D12_FEATURE_DATA_D3D12_OPTIONS extends Win32Struct
     /**
      * Specifies the level at which the hardware and driver require heap attribution related to resource type.
      *             The runtime sets this member to a <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_resource_heap_tier">D3D12_RESOURCE_HEAP_TIER</a> enumeration constant.
-     * @type {Integer}
+     * @type {D3D12_RESOURCE_HEAP_TIER}
      */
     ResourceHeapTier {
         get => NumGet(this, 56, "int")

@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\WSD_REFERENCE_PROPERTIES.ahk
+#Include .\WSDXML_ELEMENT.ahk
 #Include .\WSD_REFERENCE_PARAMETERS.ahk
+#Include .\WSDXML_NAME.ahk
 
 /**
  * Represents a WS-Addressing endpoint reference.
  * @see https://learn.microsoft.com/windows/win32/api/wsdtypes/ns-wsdtypes-wsd_endpoint_reference
  * @namespace Windows.Win32.Devices.WebServicesOnDevices
- * @version v4.0.30319
  */
-class WSD_ENDPOINT_REFERENCE extends Win32Struct
-{
+class WSD_ENDPOINT_REFERENCE extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -28,7 +28,7 @@ class WSD_ENDPOINT_REFERENCE extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/wsdtypes/ns-wsdtypes-wsd_reference_properties">WSD_REFERENCE_PROPERTIES</a> structure that specifies additional data used to uniquely identify the endpoint.
      * @type {WSD_REFERENCE_PROPERTIES}
      */
-    ReferenceProperties{
+    ReferenceProperties {
         get {
             if(!this.HasProp("__ReferenceProperties"))
                 this.__ReferenceProperties := WSD_REFERENCE_PROPERTIES(8, this)
@@ -40,7 +40,7 @@ class WSD_ENDPOINT_REFERENCE extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/wsdtypes/ns-wsdtypes-wsd_reference_parameters">WSD_REFERENCE_PARAMETERS</a> structure that specifies additional opaque data used by the endpoint.
      * @type {WSD_REFERENCE_PARAMETERS}
      */
-    ReferenceParameters{
+    ReferenceParameters {
         get {
             if(!this.HasProp("__ReferenceParameters"))
                 this.__ReferenceParameters := WSD_REFERENCE_PARAMETERS(16, this)

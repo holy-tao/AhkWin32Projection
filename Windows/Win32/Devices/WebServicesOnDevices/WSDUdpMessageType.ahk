@@ -5,9 +5,8 @@
  * Identifies the type of UDP message.
  * @see https://learn.microsoft.com/windows/win32/api/wsdbase/ne-wsdbase-wsdudpmessagetype
  * @namespace Windows.Win32.Devices.WebServicesOnDevices
- * @version v4.0.30319
  */
-class WSDUdpMessageType extends Win32Enum{
+class WSDUdpMessageType extends Win32Enum {
 
     /**
      * The message is a one-way UDP message without a corresponding response. Hello and Bye messages are one-way messages.

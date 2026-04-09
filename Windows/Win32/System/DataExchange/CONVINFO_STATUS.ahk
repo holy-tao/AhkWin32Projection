@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.DataExchange
- * @version v4.0.30319
  */
-class CONVINFO_STATUS extends Win32BitflagEnum{
+class CONVINFO_STATUS extends Win32BitflagEnum {
 
     /**
      * @type {Integer (UInt32)}

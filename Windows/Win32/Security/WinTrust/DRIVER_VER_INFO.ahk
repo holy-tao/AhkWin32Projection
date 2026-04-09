@@ -1,13 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\Cryptography\CERT_CONTEXT.ahk
 #Include .\DRIVER_VER_MAJORMINOR.ahk
 
 /**
  * @namespace Windows.Win32.Security.WinTrust
- * @version v4.0.30319
  */
-class DRIVER_VER_INFO extends Win32Struct
-{
+class DRIVER_VER_INFO extends Win32Struct {
     static sizeof => 1104
 
     static packingSize => 8
@@ -79,7 +78,7 @@ class DRIVER_VER_INFO extends Win32Struct
     /**
      * @type {DRIVER_VER_MAJORMINOR}
      */
-    sOSVersionLow{
+    sOSVersionLow {
         get {
             if(!this.HasProp("__sOSVersionLow"))
                 this.__sOSVersionLow := DRIVER_VER_MAJORMINOR(1080, this)
@@ -90,7 +89,7 @@ class DRIVER_VER_INFO extends Win32Struct
     /**
      * @type {DRIVER_VER_MAJORMINOR}
      */
-    sOSVersionHigh{
+    sOSVersionHigh {
         get {
             if(!this.HasProp("__sOSVersionHigh"))
                 this.__sOSVersionHigh := DRIVER_VER_MAJORMINOR(1088, this)

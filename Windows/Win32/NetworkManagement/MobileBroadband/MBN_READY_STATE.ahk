@@ -5,9 +5,8 @@
  * The MBN_READY_STATE enumerated type contains values that indicate the readiness of a Mobile Broadband device to engage in cellular network traffic operations.
  * @see https://learn.microsoft.com/windows/win32/api/mbnapi/ne-mbnapi-mbn_ready_state
  * @namespace Windows.Win32.NetworkManagement.MobileBroadband
- * @version v4.0.30319
  */
-class MBN_READY_STATE extends Win32Enum{
+class MBN_READY_STATE extends Win32Enum {
 
     /**
      * The mobile broadband device stack is off.
@@ -58,7 +57,6 @@ class MBN_READY_STATE extends Win32Enum{
     static MBN_READY_STATE_DEVICE_BLOCKED => 7
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static MBN_READY_STATE_NO_ESIM_PROFILE => 8

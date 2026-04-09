@@ -7,9 +7,8 @@
  * Provides notifications for spatial audio clients to respond to changes in the state of an ISpatialAudioObjectRenderStream.
  * @see https://learn.microsoft.com/windows/win32/api/spatialaudioclient/nn-spatialaudioclient-ispatialaudioobjectrenderstreamnotify
  * @namespace Windows.Win32.Media.Audio
- * @version v4.0.30319
  */
-class ISpatialAudioObjectRenderStreamNotify extends IUnknown{
+class ISpatialAudioObjectRenderStreamNotify extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include .\IFsrmFileScreenBase.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * Used to configure a file screen that blocks groups of files from being saved to the specified directory.
@@ -15,9 +15,8 @@
  *     the files in the directory that violate the screen, create a report job that lists files by type.
  * @see https://learn.microsoft.com/windows/win32/api/fsrmscreen/nn-fsrmscreen-ifsrmfilescreen
  * @namespace Windows.Win32.Storage.FileServerResourceManager
- * @version v4.0.30319
  */
-class IFsrmFileScreen extends IFsrmFileScreenBase{
+class IFsrmFileScreen extends IFsrmFileScreenBase {
 
     static sizeof => A_PtrSize
     /**

@@ -53,10 +53,8 @@
  * </table>
  * @see https://learn.microsoft.com/windows/win32/api/mmreg/ns-mmreg-mpeg1waveformat
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class MPEG1WAVEFORMAT extends Win32Struct
-{
+class MPEG1WAVEFORMAT extends Win32Struct {
     static sizeof => 44
 
     static packingSize => 4
@@ -65,7 +63,7 @@ class MPEG1WAVEFORMAT extends Win32Struct
      * <a href="https://docs.microsoft.com/previous-versions/dd757713(v=vs.85)">WAVEFORMATEX</a> structure that contains information about the audio format. See Remarks.
      * @type {WAVEFORMATEX}
      */
-    wfx{
+    wfx {
         get {
             if(!this.HasProp("__wfx"))
                 this.__wfx := WAVEFORMATEX(0, this)

@@ -7,9 +7,8 @@
  * Represents additional capabilities of an IVisualTreeService2 object.
  * @see https://learn.microsoft.com/windows/win32/api/xamlom/nn-xamlom-ivisualtreeservice3
  * @namespace Windows.Win32.UI.Xaml.Diagnostics
- * @version v4.0.30319
  */
-class IVisualTreeService3 extends IVisualTreeService2{
+class IVisualTreeService3 extends IVisualTreeService2 {
 
     static sizeof => A_PtrSize
     /**
@@ -38,7 +37,7 @@ class IVisualTreeService3 extends IVisualTreeService2{
      * Call <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/xamlom/nf-xamlom-ivisualtreeservice3-getdictionaryitem">GetDictionaryItem</a> to get a <i>resourceContext</i> and give better resolution context for <b>ResolveResource</b>.
      * @param {Integer} resourceContext The context of the resource.
      * @param {PWSTR} resourceName The name of the resource.
-     * @param {Integer} _resourceType 
+     * @param {ResourceType} _resourceType The type of the resource.
      * @param {Integer} propertyIndex The index of the property to apply the resource to.
      * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/xamlom/nf-xamlom-ivisualtreeservice3-resolveresource

@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.WinRT.Composition
- * @version v4.0.30319
  */
-class ICompositorInterop2 extends IUnknown{
+class ICompositorInterop2 extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -41,7 +40,7 @@ class ICompositorInterop2 extends IUnknown{
     /**
      * 
      * @param {IUnknown} d3dTexture 
-     * @returns {Pointer<CompositionTexture>} 
+     * @returns {Pointer} 
      */
     CreateCompositionTexture(d3dTexture) {
         result := ComCall(4, this, "ptr", d3dTexture, "ptr*", &compositionTexture := 0, "HRESULT")

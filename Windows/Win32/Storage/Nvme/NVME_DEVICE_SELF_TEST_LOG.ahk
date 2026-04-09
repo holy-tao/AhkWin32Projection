@@ -4,15 +4,11 @@
 
 /**
  * Contains fields that specify the information in a Device Self Test log page that describes the status, completion percentage, and results of a device self-test.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/nvme/ns-nvme-nvme_device_self_test_log
  * @namespace Windows.Win32.Storage.Nvme
- * @version v4.0.30319
  */
-class NVME_DEVICE_SELF_TEST_LOG extends Win32Struct
-{
-    static sizeof => 168
+class NVME_DEVICE_SELF_TEST_LOG extends Win32Struct {
+    static sizeof => 808
 
     static packingSize => 8
 
@@ -30,7 +26,7 @@ class NVME_DEVICE_SELF_TEST_LOG extends Win32Struct
             get => NumGet(this, 0, "char")
             set => NumPut("char", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -38,7 +34,6 @@ class NVME_DEVICE_SELF_TEST_LOG extends Win32Struct
             get => (this._bitfield >> 0) & 0xF
             set => this._bitfield := ((value & 0xF) << 0) | (this._bitfield & ~(0xF << 0))
         }
-    
     }
 
     class _CurrentCompletion extends Win32Struct {
@@ -55,7 +50,7 @@ class NVME_DEVICE_SELF_TEST_LOG extends Win32Struct
             get => NumGet(this, 0, "char")
             set => NumPut("char", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -63,17 +58,16 @@ class NVME_DEVICE_SELF_TEST_LOG extends Win32Struct
             get => (this._bitfield >> 0) & 0x7F
             set => this._bitfield := ((value & 0x7F) << 0) | (this._bitfield & ~(0x7F << 0))
         }
-    
     }
 
     /**
      * A **CurrentOperation** structure containing fields that describe the current Device Self-Test operation.
      * @type {_CurrentOperation}
      */
-    CurrentOperation{
+    CurrentOperation {
         get {
             if(!this.HasProp("__CurrentOperation"))
-                this.__CurrentOperation := %this.__Class%._CurrentOperation(0, this)
+                this.__CurrentOperation := NVME_DEVICE_SELF_TEST_LOG._CurrentOperation(0, this)
             return this.__CurrentOperation
         }
     }
@@ -82,19 +76,19 @@ class NVME_DEVICE_SELF_TEST_LOG extends Win32Struct
      * A **CurrentCompletion** structure containing fields that describe the completion of a Device Self-Test operation.
      * @type {_CurrentCompletion}
      */
-    CurrentCompletion{
+    CurrentCompletion {
         get {
             if(!this.HasProp("__CurrentCompletion"))
-                this.__CurrentCompletion := %this.__Class%._CurrentCompletion(1, this)
+                this.__CurrentCompletion := NVME_DEVICE_SELF_TEST_LOG._CurrentCompletion(1, this)
             return this.__CurrentCompletion
         }
     }
 
     /**
      * A reserved field in the **CurrentOperation** structure.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Reserved{
+    Reserved {
         get {
             if(!this.HasProp("__ReservedProxyArray"))
                 this.__ReservedProxyArray := Win32FixedArray(this.ptr + 2, 2, Primitive, "char")
@@ -104,9 +98,9 @@ class NVME_DEVICE_SELF_TEST_LOG extends Win32Struct
 
     /**
      * An array of 20 [NVME_DEVICE_SELF_TEST_RESULT_DATA](ns-nvme-nvme_device_self_test_result_data.md) structures that contain result data for the last 20 Device Self-Test operations, sorted in order from the most recent to the oldest available.
-     * @type {Array<NVME_DEVICE_SELF_TEST_RESULT_DATA>}
+     * @type {NVME_DEVICE_SELF_TEST_RESULT_DATA}
      */
-    ResultData{
+    ResultData {
         get {
             if(!this.HasProp("__ResultDataProxyArray"))
                 this.__ResultDataProxyArray := Win32FixedArray(this.ptr + 8, 20, NVME_DEVICE_SELF_TEST_RESULT_DATA, "")

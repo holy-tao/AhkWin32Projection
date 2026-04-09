@@ -5,9 +5,8 @@
  * Open the log file for reading.
  * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhopenloga
  * @namespace Windows.Win32.System.Performance
- * @version v4.0.30319
  */
-class PDH_LOG extends Win32Enum{
+class PDH_LOG extends Win32Enum {
 
     /**
      * @type {Integer (UInt32)}

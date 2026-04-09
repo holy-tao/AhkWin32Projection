@@ -14,7 +14,6 @@
 
 /**
  * @namespace Windows.Win32.Media.WindowsMediaFormat
- * @version v4.0.30319
  */
 class WindowsMediaFormat {
 

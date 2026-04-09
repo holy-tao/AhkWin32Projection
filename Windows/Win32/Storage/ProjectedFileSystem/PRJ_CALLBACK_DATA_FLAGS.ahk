@@ -5,9 +5,8 @@
  * Flags controlling what is returned in the enumeration.
  * @see https://learn.microsoft.com/windows/win32/api/projectedfslib/ne-projectedfslib-prj_callback_data_flags
  * @namespace Windows.Win32.Storage.ProjectedFileSystem
- * @version v4.0.30319
  */
-class PRJ_CALLBACK_DATA_FLAGS extends Win32Enum{
+class PRJ_CALLBACK_DATA_FLAGS extends Win32Enum {
 
     /**
      * Start the scan at the first entry in the directory.

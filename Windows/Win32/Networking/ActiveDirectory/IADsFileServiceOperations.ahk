@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IADsCollection.ahk
 #Include .\IADsServiceOperations.ahk
+#Include .\IADsCollection.ahk
 
 /**
  * The IADsFileServiceOperations interface is a dual interface that inherits from IADsServiceOperations.
@@ -37,9 +37,8 @@
  * For more information about active sessions and open resources, see  <a href="https://docs.microsoft.com/windows/desktop/api/iads/nn-iads-iadssession">IADsSession</a> and  <a href="https://docs.microsoft.com/windows/desktop/api/iads/nn-iads-iadsresource">IADsResource</a>.
  * @see https://learn.microsoft.com/windows/win32/api/iads/nn-iads-iadsfileserviceoperations
  * @namespace Windows.Win32.Networking.ActiveDirectory
- * @version v4.0.30319
  */
-class IADsFileServiceOperations extends IADsServiceOperations{
+class IADsFileServiceOperations extends IADsServiceOperations {
 
     static sizeof => A_PtrSize
     /**

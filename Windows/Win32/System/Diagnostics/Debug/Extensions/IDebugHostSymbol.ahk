@@ -1,18 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
+#Include ..\..\..\Com\IUnknown.ahk
 #Include .\IDebugHostContext.ahk
 #Include .\IDebugHostSymbolEnumerator.ahk
 #Include ..\..\..\..\Foundation\BSTR.ahk
 #Include .\IDebugHostType.ahk
 #Include .\IDebugHostModule.ahk
-#Include ..\..\..\Com\IUnknown.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
- * @version v4.0.30319
  */
-class IDebugHostSymbol extends IUnknown{
+class IDebugHostSymbol extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -45,7 +44,7 @@ class IDebugHostSymbol extends IUnknown{
 
     /**
      * 
-     * @param {Integer} kind 
+     * @param {SymbolKind} kind 
      * @param {PWSTR} name 
      * @returns {IDebugHostSymbolEnumerator} 
      */
@@ -58,7 +57,7 @@ class IDebugHostSymbol extends IUnknown{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {SymbolKind} 
      */
     GetSymbolKind() {
         result := ComCall(5, this, "int*", &kind := 0, "HRESULT")

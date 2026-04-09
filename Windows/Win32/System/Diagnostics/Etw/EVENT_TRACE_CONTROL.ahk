@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Etw
- * @version v4.0.30319
  */
-class EVENT_TRACE_CONTROL extends Win32Enum{
+class EVENT_TRACE_CONTROL extends Win32Enum {
 
     /**
      * @type {Integer (UInt32)}

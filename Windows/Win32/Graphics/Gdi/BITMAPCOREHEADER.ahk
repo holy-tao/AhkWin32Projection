@@ -17,10 +17,8 @@
  * ```
  * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-bitmapcoreheader
  * @namespace Windows.Win32.Graphics.Gdi
- * @version v4.0.30319
  */
-class BITMAPCOREHEADER extends Win32Struct
-{
+class BITMAPCOREHEADER extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4

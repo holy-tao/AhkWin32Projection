@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
- * @version v4.0.30319
  */
-class DEBUG_STACK_FRAME_EX extends Win32Struct
-{
+class DEBUG_STACK_FRAME_EX extends Win32Struct {
     static sizeof => 136
 
     static packingSize => 8
@@ -52,9 +50,9 @@ class DEBUG_STACK_FRAME_EX extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt64>}
+     * @type {Array<Integer>}
      */
-    Params{
+    Params {
         get {
             if(!this.HasProp("__ParamsProxyArray"))
                 this.__ParamsProxyArray := Win32FixedArray(this.ptr + 40, 4, Primitive, "uint")
@@ -63,9 +61,9 @@ class DEBUG_STACK_FRAME_EX extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt64>}
+     * @type {Array<Integer>}
      */
-    Reserved{
+    Reserved {
         get {
             if(!this.HasProp("__ReservedProxyArray"))
                 this.__ReservedProxyArray := Win32FixedArray(this.ptr + 72, 6, Primitive, "uint")

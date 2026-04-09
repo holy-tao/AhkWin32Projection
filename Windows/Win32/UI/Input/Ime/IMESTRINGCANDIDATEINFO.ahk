@@ -1,12 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\IMEFAREASTINFO.ahk
 
 /**
  * @namespace Windows.Win32.UI.Input.Ime
- * @version v4.0.30319
  */
-class IMESTRINGCANDIDATEINFO extends Win32Struct
-{
+class IMESTRINGCANDIDATEINFO extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -54,10 +53,10 @@ class IMESTRINGCANDIDATEINFO extends Win32Struct
     /**
      * @type {Array<PWSTR>}
      */
-    lpwstr{
+    lpwstr {
         get {
             if(!this.HasProp("__lpwstrProxyArray"))
-                this.__lpwstrProxyArray := Win32FixedArray(this.ptr + 32, 1, Primitive, "char*")
+                this.__lpwstrProxyArray := Win32FixedArray(this.ptr + 32, 1, Primitive, "ptr")
             return this.__lpwstrProxyArray
         }
     }

@@ -1,15 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\EMR.ahk
+#Include .\ENHANCED_METAFILE_RECORD_TYPE.ahk
 
 /**
  * The EMRCOLORMATCHTOTARGET structure contains members for the ColorMatchToTarget enhanced metafile record.
  * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-emrcolormatchtotarget
  * @namespace Windows.Win32.Graphics.Gdi
- * @version v4.0.30319
  */
-class EMRCOLORMATCHTOTARGET extends Win32Struct
-{
+class EMRCOLORMATCHTOTARGET extends Win32Struct {
     static sizeof => 28
 
     static packingSize => 4
@@ -18,7 +17,7 @@ class EMRCOLORMATCHTOTARGET extends Win32Struct
      * The base structure for all record types.
      * @type {EMR}
      */
-    emr{
+    emr {
         get {
             if(!this.HasProp("__emr"))
                 this.__emr := EMR(0, this)
@@ -27,7 +26,6 @@ class EMRCOLORMATCHTOTARGET extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     dwAction {
@@ -77,9 +75,9 @@ class EMRCOLORMATCHTOTARGET extends Win32Struct
      * An array containing the target profile name and the raw target profile data. 
      * 			 The size of the array is <b>cbName</b> + <b>cbData</b>. 
      * 			 If <b>cbData</b> is nonzero the raw target profile data is attached and follows the target profile name at location <b>Data</b>[<b>cbName</b>].
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Data{
+    Data {
         get {
             if(!this.HasProp("__DataProxyArray"))
                 this.__DataProxyArray := Win32FixedArray(this.ptr + 24, 1, Primitive, "char")

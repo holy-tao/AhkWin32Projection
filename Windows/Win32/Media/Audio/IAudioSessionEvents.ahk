@@ -7,9 +7,8 @@
  * The IAudioSessionEvents interface provides notifications of session-related events such as changes in the volume level, display name, and session state.
  * @see https://learn.microsoft.com/windows/win32/api/audiopolicy/nn-audiopolicy-iaudiosessionevents
  * @namespace Windows.Win32.Media.Audio
- * @version v4.0.30319
  */
-class IAudioSessionEvents extends IUnknown{
+class IAudioSessionEvents extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -137,7 +136,7 @@ class IAudioSessionEvents extends IUnknown{
      * The system changes the state of a session from inactive to active at the time that a client opens the first stream in the session. A client opens a stream by calling the <a href="https://docs.microsoft.com/windows/desktop/api/audioclient/nf-audioclient-iaudioclient-initialize">IAudioClient::Initialize</a> method. The system changes the session state from active to inactive at the time that a client closes the last stream in the session. The client that releases the last reference to an <a href="https://docs.microsoft.com/windows/desktop/api/audioclient/nn-audioclient-iaudioclient">IAudioClient</a> object closes the stream that is associated with the object.
      * 
      * For a code example that implements the methods in the <a href="https://docs.microsoft.com/windows/desktop/api/audiopolicy/nn-audiopolicy-iaudiosessionevents">IAudioSessionEvents</a> interface, see <a href="https://docs.microsoft.com/windows/desktop/CoreAudio/audio-session-events">Audio Session Events</a>.
-     * @param {Integer} NewState The new session state. The value of this parameter is one of the following <a href="https://docs.microsoft.com/windows/win32/api/audiosessiontypes/ne-audiosessiontypes-audiosessionstate">AudioSessionState</a> enumeration values:
+     * @param {AudioSessionState} NewState The new session state. The value of this parameter is one of the following <a href="https://docs.microsoft.com/windows/win32/api/audiosessiontypes/ne-audiosessiontypes-audiosessionstate">AudioSessionState</a> enumeration values:
      * 
      * AudioSessionStateActive
      * 
@@ -164,7 +163,7 @@ class IAudioSessionEvents extends IUnknown{
      * A client cannot generate a session-disconnected event. The system is always the source of this type of event. Thus, unlike some other <a href="https://docs.microsoft.com/windows/desktop/api/audiopolicy/nn-audiopolicy-iaudiosessionevents">IAudioSessionEvents</a> methods, this method does not have a context parameter.
      * 
      * For a code example that implements the methods in the <a href="https://docs.microsoft.com/windows/desktop/api/audiopolicy/nn-audiopolicy-iaudiosessionevents">IAudioSessionEvents</a> interface, see <a href="https://docs.microsoft.com/windows/desktop/CoreAudio/audio-session-events">Audio Session Events</a>.
-     * @param {Integer} DisconnectReason The reason that the audio session was disconnected. The caller sets this parameter to one of the <b>AudioSessionDisconnectReason</b> enumeration values shown in the following table.
+     * @param {AudioSessionDisconnectReason} DisconnectReason The reason that the audio session was disconnected. The caller sets this parameter to one of the <b>AudioSessionDisconnectReason</b> enumeration values shown in the following table.
      * 
      * <table>
      * <tr>

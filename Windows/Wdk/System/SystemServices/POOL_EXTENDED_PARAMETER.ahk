@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\EX_POOL_PRIORITY.ahk
+#Include .\POOL_EXTENDED_PARAMS_SECURE_POOL.ahk
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class POOL_EXTENDED_PARAMETER extends Win32Struct
-{
+class POOL_EXTENDED_PARAMETER extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -56,7 +56,7 @@ class POOL_EXTENDED_PARAMETER extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {EX_POOL_PRIORITY}
      */
     Priority {
         get => NumGet(this, 8, "int")

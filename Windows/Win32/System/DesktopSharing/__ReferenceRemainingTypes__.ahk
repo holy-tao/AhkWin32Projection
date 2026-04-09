@@ -1,18 +1,24 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\CTRL_LEVEL.ahk
+#Include .\ATTENDEE_DISCONNECT_REASON.ahk
+#Include .\CHANNEL_PRIORITY.ahk
+#Include .\CHANNEL_FLAGS.ahk
+#Include .\CHANNEL_ACCESS_ENUM.ahk
+#Include .\RDPENCOMAPI_ATTENDEE_FLAGS.ahk
+#Include .\RDPSRAPI_WND_FLAGS.ahk
+#Include .\RDPSRAPI_APP_FLAGS.ahk
 
 /**
  * @namespace Windows.Win32.System.DesktopSharing
- * @version v4.0.30319
  */
-class __ReferenceRemainingTypes__ extends Win32Struct
-{
+class __ReferenceRemainingTypes__ extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 4
 
     /**
-     * @type {Integer}
+     * @type {CTRL_LEVEL}
      */
     __ctrlLevel__ {
         get => NumGet(this, 0, "int")
@@ -20,7 +26,7 @@ class __ReferenceRemainingTypes__ extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {ATTENDEE_DISCONNECT_REASON}
      */
     __attendeeDisconnectReason__ {
         get => NumGet(this, 4, "int")
@@ -28,7 +34,7 @@ class __ReferenceRemainingTypes__ extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {CHANNEL_PRIORITY}
      */
     __channelPriority__ {
         get => NumGet(this, 8, "int")
@@ -36,7 +42,7 @@ class __ReferenceRemainingTypes__ extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {CHANNEL_FLAGS}
      */
     __channelFlags__ {
         get => NumGet(this, 12, "int")
@@ -44,7 +50,7 @@ class __ReferenceRemainingTypes__ extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {CHANNEL_ACCESS_ENUM}
      */
     __channelAccessEnum__ {
         get => NumGet(this, 16, "int")
@@ -52,7 +58,7 @@ class __ReferenceRemainingTypes__ extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {RDPENCOMAPI_ATTENDEE_FLAGS}
      */
     __rdpencomapiAttendeeFlags__ {
         get => NumGet(this, 20, "int")
@@ -60,7 +66,7 @@ class __ReferenceRemainingTypes__ extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {RDPSRAPI_WND_FLAGS}
      */
     __rdpsrapiWndFlags__ {
         get => NumGet(this, 24, "int")
@@ -68,7 +74,7 @@ class __ReferenceRemainingTypes__ extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {RDPSRAPI_APP_FLAGS}
      */
     __rdpsrapiAppFlags__ {
         get => NumGet(this, 28, "int")

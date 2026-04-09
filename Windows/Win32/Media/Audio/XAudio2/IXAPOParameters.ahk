@@ -10,9 +10,8 @@
  * Windows 10 (XAudio2.9); Windows 8, Windows Phone 8 (XAudio 2.8); DirectX SDK (XAudio 2.7)
  * @see https://learn.microsoft.com/windows/win32/api/xapo/nn-xapo-ixapoparameters
  * @namespace Windows.Win32.Media.Audio.XAudio2
- * @version v4.0.30319
  */
-class IXAPOParameters extends IUnknown{
+class IXAPOParameters extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -46,7 +45,7 @@ class IXAPOParameters extends IUnknown{
      * 
      * <h3><a id="Platform_Requirements"></a><a id="platform_requirements"></a><a id="PLATFORM_REQUIREMENTS"></a>Platform Requirements</h3>
      * Windows 10 (XAudio2.9); Windows 8, Windows Phone 8 (XAudio 2.8); DirectX SDK (XAudio 2.7)
-     * @param {Pointer} pParameters Effect-specific parameter block.
+     * @param {Integer} pParameters Effect-specific parameter block.
      * @param {Integer} ParameterByteSize Size of pParameters, in bytes.
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/xapo/nf-xapo-ixapoparameters-setparameters
@@ -74,7 +73,7 @@ class IXAPOParameters extends IUnknown{
      * 
      * <h3><a id="Platform_Requirements"></a><a id="platform_requirements"></a><a id="PLATFORM_REQUIREMENTS"></a>Platform Requirements</h3>
      * Windows 10 (XAudio2.9); Windows 8, Windows Phone 8 (XAudio 2.8); DirectX SDK (XAudio 2.7)
-     * @param {Pointer} pParameters Receives an effect-specific parameter block.
+     * @param {Integer} pParameters Receives an effect-specific parameter block.
      * @param {Integer} ParameterByteSize Size of pParameters, in bytes.
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/xapo/nf-xapo-ixapoparameters-getparameters

@@ -1,20 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include .\ITaskFolder.ahk
 #Include .\ITaskFolderCollection.ahk
 #Include .\IRegisteredTask.ahk
 #Include .\IRegisteredTaskCollection.ahk
-#Include ..\Com\IDispatch.ahk
 
 /**
  * Provides the methods that are used to register (create) tasks in the folder, remove tasks from the folder, and create or remove subfolders from the folder.
  * @see https://learn.microsoft.com/windows/win32/api/taskschd/nn-taskschd-itaskfolder
  * @namespace Windows.Win32.System.TaskScheduler
- * @version v4.0.30319
  */
-class ITaskFolder extends IDispatch{
+class ITaskFolder extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -73,7 +71,8 @@ class ITaskFolder extends IDispatch{
 
     /**
      * Gets a folder that contains tasks at a specified location.
-     * @param {BSTR} _path 
+     * @param {BSTR} _path The path (location) to the folder. Do not use a backslash following the last folder name in the path. The root task folder is specified with a backslash (\\). An example of a task folder path, under the root task folder,
+     *  is \MyTaskFolder. The '.' character  cannot be used to specify the current task folder  and the '..' characters cannot be used to specify the parent task folder in the path.
      * @returns {ITaskFolder} The folder at the specified location.
      * 
      * Pass in a reference to a <b>NULL</b> <a href="https://docs.microsoft.com/windows/desktop/api/taskschd/nn-taskschd-itaskfolder">ITaskFolder</a> interface pointer. Referencing a non-<b>NULL</b> pointer can cause a memory leak because the pointer will be overwritten.
@@ -139,7 +138,8 @@ class ITaskFolder extends IDispatch{
 
     /**
      * Gets a task at a specified location in a folder.
-     * @param {BSTR} _path 
+     * @param {BSTR} _path The path (location) to the task in a folder. The root task folder is specified with a backslash (\\). An example of a task folder path, under the root task folder,
+     *  is \MyTaskFolder. The '.' character  cannot be used to specify the current task folder  and the '..' characters cannot be used to specify the parent task folder in the path.
      * @returns {IRegisteredTask} The task at the specified location.
      * 
      * Pass in a reference to a <b>NULL</b> <a href="https://docs.microsoft.com/windows/desktop/api/taskschd/nn-taskschd-iregisteredtask">IRegisteredTask</a> interface pointer. Referencing a non-<b>NULL</b> pointer can cause a memory leak because the pointer will be overwritten.
@@ -191,7 +191,9 @@ class ITaskFolder extends IDispatch{
      * Passing the TASK_VALIDATE_ONLY and TASK_IGNORE_REGISTRATION_TRIGGERS values together to the <i>flags</i> parameter is an invalid argument.
      * 
      * If a task defines a network that does not exist in the <a href="https://docs.microsoft.com/windows/desktop/api/taskschd/nf-taskschd-itasksettings-get_networksettings">NetworkSettings</a> settings of the task, the <b>ITaskFolder::RegisterTask</b>  method will return error 0x8000ffff when the task is registered.
-     * @param {BSTR} _path 
+     * @param {BSTR} _path The task name. If this value is <b>NULL</b>, the task will be registered in the root task folder and the task name will be a GUID value that is created by the Task Scheduler service.
+     * 
+     * A task name cannot begin or end with a space character. The '.' character  cannot be used to specify the current task folder  and the '..' characters cannot be used to specify the parent task folder in the path.
      * @param {BSTR} xmlText An XML-formatted definition of the task.
      * 
      * The following topics contain tasks defined using XML.<ul>
@@ -307,7 +309,7 @@ class ITaskFolder extends IDispatch{
      * <div class="alert"><b>Note</b>  If the task is defined as a Task Scheduler 1.0 task, then do not use a group name (rather than a specific user name) in this userId parameter. A task is defined as a Task Scheduler 1.0 task when the version attribute of the Task element in the task's XML is set to 1.1.</div>
      * <div> </div>
      * @param {VARIANT} password The password for the userId used to register the task. When the TASK_LOGON_SERVICE_ACCOUNT logon type is used, the password must be an empty <b>VARIANT</b> value such as <b>VT_NULL</b> or <b>VT_EMPTY</b>.
-     * @param {Integer} logonType A value that defines what logon technique is used to run the registered task.
+     * @param {TASK_LOGON_TYPE} logonType A value that defines what logon technique is used to run the registered task.
      * 
      * <table>
      * <tr>
@@ -424,7 +426,9 @@ class ITaskFolder extends IDispatch{
      * 
      * 
      * If a task defines a network that does not exist in the <a href="https://docs.microsoft.com/windows/desktop/api/taskschd/nf-taskschd-itasksettings-get_networksettings">NetworkSettings</a> settings of the task, the <b>ITaskFolder::RegisterTaskDefinition</b>  method will return error 0x8000ffff when the task is registered.
-     * @param {BSTR} _path 
+     * @param {BSTR} _path The name of the task. If this value is <b>NULL</b>, the task will be registered in the root task folder and the task name will be a GUID value created by the Task Scheduler service.
+     * 
+     * A task name cannot begin or end with a space character. The '.' character  cannot be used to specify the current task folder  and the '..' characters cannot be used to specify the parent task folder in the path.
      * @param {ITaskDefinition} pDefinition The definition of the registered task.
      * @param {Integer} flags A <a href="https://docs.microsoft.com/windows/desktop/api/taskschd/ne-taskschd-task_creation">TASK_CREATION</a> constant.
      * 
@@ -516,7 +520,7 @@ class ITaskFolder extends IDispatch{
      * <div class="alert"><b>Note</b>  If the task is defined as a Task Scheduler 1.0 task, then do not use a group name (rather than a specific user name) in this userId parameter. A task is defined as a Task Scheduler 1.0 task when the <a href="https://docs.microsoft.com/windows/desktop/api/taskschd/nf-taskschd-itasksettings-get_compatibility">Compatibility</a> property is set to TASK_COMPATIBILITY_V1 in the task's settings.</div>
      * <div> </div>
      * @param {VARIANT} password The password for the userId used to register the task. When the TASK_LOGON_SERVICE_ACCOUNT logon type is used, the password must be an empty <b>VARIANT</b> value such as <b>VT_NULL</b> or <b>VT_EMPTY</b>.
-     * @param {Integer} logonType Defines what logon technique is used to run the registered task.
+     * @param {TASK_LOGON_TYPE} logonType Defines what logon technique is used to run the registered task.
      * 
      * <table>
      * <tr>

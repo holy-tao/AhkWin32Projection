@@ -5,9 +5,8 @@
  * Specifies the type of Microsoft DirectX Video Acceleration High Definition (DXVA-HD) device.
  * @see https://learn.microsoft.com/windows/win32/api/dxvahd/ne-dxvahd-dxvahd_device_type
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class DXVAHD_DEVICE_TYPE extends Win32Enum{
+class DXVAHD_DEVICE_TYPE extends Win32Enum {
 
     /**
      * Hardware device. Video processing is performed in the GPU by the driver.

@@ -9,9 +9,8 @@
  * This interface also provides the methods of the <a href="https://docs.microsoft.com/windows/desktop/api/shappmgr/nn-shappmgr-ipublishedapp">IPublishedApp</a> interface, from which it inherits.
  * @see https://learn.microsoft.com/windows/win32/api/shappmgr/nn-shappmgr-ipublishedapp2
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IPublishedApp2 extends IPublishedApp{
+class IPublishedApp2 extends IPublishedApp {
 
     static sizeof => A_PtrSize
     /**

@@ -10,9 +10,8 @@
  * > WPD applications must use the capabilities of the portable device to determine functionally, not the **WPD\_DEVICE\_TYPES** value.
  * @see https://learn.microsoft.com/windows/win32/wpd_sdk/wpd-device-types
  * @namespace Windows.Win32.Devices.PortableDevices
- * @version v4.0.30319
  */
-class WPD_DEVICE_TYPES extends Win32Enum{
+class WPD_DEVICE_TYPES extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

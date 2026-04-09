@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\IXpsSignatureRequestCollection.ahk
 #Include ..\Packaging\Opc\IOpcPartUri.ahk
 #Include .\IXpsSignatureRequest.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Represents a block of signature requests that are stored in a SignatureDefinitions part.
@@ -12,9 +12,8 @@
  * This interface cannot exist independently from the signature manager from which it was instantiated.
  * @see https://learn.microsoft.com/windows/win32/api/xpsdigitalsignature/nn-xpsdigitalsignature-ixpssignatureblock
  * @namespace Windows.Win32.Storage.Xps
- * @version v4.0.30319
  */
-class IXpsSignatureBlock extends IUnknown{
+class IXpsSignatureBlock extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

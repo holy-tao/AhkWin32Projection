@@ -26,9 +26,8 @@
  * <div> </div>
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-idragsourcehelper
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IDragSourceHelper extends IUnknown{
+class IDragSourceHelper extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -73,7 +72,9 @@ class IDragSourceHelper extends IUnknown{
      * Initializes the drag-image manager for a control with a window.
      * @remarks
      * The <b>DI_GETDRAGIMAGE</b> message allows you to source a drag image from a custom control. It is defined in Shlobj.h and must be registered with <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-registerwindowmessagea">RegisterWindowMessage</a>. When the window specified by <i>hwnd</i> receives the <b>DI_GETDRAGIMAGE</b> message, the <i>lParam</i> value holds a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ns-shobjidl_core-shdragimage">SHDRAGIMAGE</a> structure. The handler should fill the structure with the drag image bitmap information.
-     * @param {HWND} _hwnd 
+     * @param {HWND} _hwnd Type: <b>HWND</b>
+     * 
+     * A handle to the window that receives the <b>DI_GETDRAGIMAGE</b> message. This value can be <b>NULL</b>.
      * @param {Pointer<POINT>} ppt Type: <b><a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a>*</b>
      * 
      * A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a> structure that specifies the location of the cursor within the drag image. The structure should contain the offset from the upper-left corner of the drag image to the location of the cursor. This value can be <b>NULL</b>.

@@ -1,12 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\ACMDRVSTREAMHEADER.ahk
 
 /**
  * @namespace Windows.Win32.Media.Audio
- * @version v4.0.30319
  */
-class ACMDRVSTREAMHEADER extends Win32Struct
-{
+class ACMDRVSTREAMHEADER extends Win32Struct {
     static sizeof => 144
 
     static packingSize => 8

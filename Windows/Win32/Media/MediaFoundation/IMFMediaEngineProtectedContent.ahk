@@ -9,9 +9,8 @@
  * To get a pointer to this interface, call <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-queryinterface(q)">QueryInterface</a> on the Media Engine.
  * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nn-mfmediaengine-imfmediaengineprotectedcontent
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFMediaEngineProtectedContent extends IUnknown{
+class IMFMediaEngineProtectedContent extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -59,7 +58,7 @@ class IMFMediaEngineProtectedContent extends IUnknown{
      * Specifies the window that should receive output link protections.
      * @remarks
      * In frame-server mode, call this method to specify the destination window for protected video content. The Media Engine uses this window to set link protections, using the <a href="https://docs.microsoft.com/windows/desktop/medfound/output-protection-manager">Output Protection Manager</a> (OPM).
-     * @param {HWND} _hwnd 
+     * @param {HWND} _hwnd A handle to the window.
      * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediaengineprotectedcontent-setopmwindow
      */
@@ -103,7 +102,7 @@ class IMFMediaEngineProtectedContent extends IUnknown{
      * Sets the application's certificate.
      * @remarks
      * Call this method to access protected video content in frame-server mode.
-     * @param {Pointer} pbBlob A pointer to a buffer that contains the certificate in X.509 format, followed by the application identifier signed with a SHA-256 signature using the private key from the certificate.
+     * @param {Integer} pbBlob A pointer to a buffer that contains the certificate in X.509 format, followed by the application identifier signed with a SHA-256 signature using the private key from the certificate.
      * @param {Integer} cbBlob The size of the <i>pbBlob</i> buffer, in bytes.
      * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediaengineprotectedcontent-setapplicationcertificate

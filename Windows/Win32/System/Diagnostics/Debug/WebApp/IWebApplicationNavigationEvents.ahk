@@ -7,9 +7,8 @@
  * Enables a debugging or authoring app to receive notification of navigation events.
  * @see https://learn.microsoft.com/windows/win32/api/webapplication/nn-webapplication-iwebapplicationnavigationevents
  * @namespace Windows.Win32.System.Diagnostics.Debug.WebApp
- * @version v4.0.30319
  */
-class IWebApplicationNavigationEvents extends IUnknown{
+class IWebApplicationNavigationEvents extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -88,7 +87,9 @@ class IWebApplicationNavigationEvents extends IUnknown{
      * @param {PWSTR} targetFrameName Type: <b>LPCWSTR</b>
      * 
      * The name of the frame in which the navigation error occurred. The value is <b>null</b> if no named frame was targeted.
-     * @param {Integer} _statusCode 
+     * @param {Integer} _statusCode Type: <b>DWORD</b>
+     * 
+     * The error code. Could be a <b>HRESULT</b> or a HTTP status code.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Ignored by the host. If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.

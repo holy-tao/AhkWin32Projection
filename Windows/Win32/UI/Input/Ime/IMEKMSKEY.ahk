@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.UI.Input.Ime
- * @version v4.0.30319
  */
-class IMEKMSKEY extends Win32Struct
-{
+class IMEKMSKEY extends Win32Struct {
     static sizeof => 80
 
     static packingSize => 4

@@ -7,9 +7,8 @@
  * These values are defined in propsys.h and propsys.idl.
  * @see https://learn.microsoft.com/windows/win32/api/propsys/ne-propsys-propdesc_type_flags
  * @namespace Windows.Win32.UI.Shell.PropertiesSystem
- * @version v4.0.30319
  */
-class PROPDESC_TYPE_FLAGS extends Win32BitflagEnum{
+class PROPDESC_TYPE_FLAGS extends Win32BitflagEnum {
 
     /**
      * The property uses the default values for all attributes.
@@ -84,13 +83,11 @@ class PROPDESC_TYPE_FLAGS extends Win32BitflagEnum{
     static PDTF_SEARCHRAWVALUE => 1024
 
     /**
-     * 
      * @type {Integer (UInt32)}
      */
     static PDTF_DONTCOERCEEMPTYSTRINGS => 2048
 
     /**
-     * 
      * @type {Integer (UInt32)}
      */
     static PDTF_ALWAYSINSUPPLEMENTALSTORE => 4096

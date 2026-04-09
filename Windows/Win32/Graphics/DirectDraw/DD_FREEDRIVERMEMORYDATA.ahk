@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DD_DIRECTDRAW_GLOBAL.ahk
+#Include .\DD_SURFACE_LOCAL.ahk
 
 /**
  * The DD_FREEDRIVERMEMORYDATA structure contains the details of the free request.
  * @see https://learn.microsoft.com/windows/win32/api/ddrawint/ns-ddrawint-dd_freedrivermemorydata
  * @namespace Windows.Win32.Graphics.DirectDraw
- * @version v4.0.30319
  */
-class DD_FREEDRIVERMEMORYDATA extends Win32Struct
-{
+class DD_FREEDRIVERMEMORYDATA extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8

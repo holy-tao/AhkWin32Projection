@@ -25,10 +25,8 @@
  * contain <b>PERF_INSTANCE_HEADER</b> blocks within the <a href="https://docs.microsoft.com/windows/desktop/api/perflib/ns-perflib-perf_multi_instances">PERF_MULTI_INSTANCES</a> block.
  * @see https://learn.microsoft.com/windows/win32/api/perflib/ns-perflib-perf_instance_header
  * @namespace Windows.Win32.System.Performance
- * @version v4.0.30319
  */
-class PERF_INSTANCE_HEADER extends Win32Struct
-{
+class PERF_INSTANCE_HEADER extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4

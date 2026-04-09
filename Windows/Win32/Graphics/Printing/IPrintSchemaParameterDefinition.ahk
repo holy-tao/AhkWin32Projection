@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include .\IPrintSchemaDisplayableElement.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
- * @version v4.0.30319
  */
-class IPrintSchemaParameterDefinition extends IPrintSchemaDisplayableElement{
+class IPrintSchemaParameterDefinition extends IPrintSchemaDisplayableElement {
 
     static sizeof => A_PtrSize
     /**
@@ -44,7 +43,7 @@ class IPrintSchemaParameterDefinition extends IPrintSchemaDisplayableElement{
     }
 
     /**
-     * @type {Integer} 
+     * @type {PrintSchemaParameterDataType} 
      */
     DataType {
         get => this.get_DataType()
@@ -85,7 +84,7 @@ class IPrintSchemaParameterDefinition extends IPrintSchemaDisplayableElement{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {PrintSchemaParameterDataType} 
      */
     get_DataType() {
         result := ComCall(13, this, "int*", &pDataType := 0, "HRESULT")

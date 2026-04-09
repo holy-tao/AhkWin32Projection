@@ -7,9 +7,8 @@
  * Manages the TPM virtual smart cards.
  * @see https://learn.microsoft.com/windows/win32/api/tpmvscmgr/nn-tpmvscmgr-itpmvirtualsmartcardmanager
  * @namespace Windows.Win32.Security.Tpm
- * @version v4.0.30319
  */
-class ITpmVirtualSmartCardManager extends IUnknown{
+class ITpmVirtualSmartCardManager extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

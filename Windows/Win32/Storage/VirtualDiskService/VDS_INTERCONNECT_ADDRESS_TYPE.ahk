@@ -10,9 +10,8 @@
  * <div> </div>
  * @see https://learn.microsoft.com/windows/win32/api/vdslun/ne-vdslun-vds_interconnect_address_type
  * @namespace Windows.Win32.Storage.VirtualDiskService
- * @version v4.0.30319
  */
-class VDS_INTERCONNECT_ADDRESS_TYPE extends Win32Enum{
+class VDS_INTERCONNECT_ADDRESS_TYPE extends Win32Enum {
 
     /**
      * This value is reserved.

@@ -6,10 +6,8 @@
 
 /**
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class SD_GLOBAL_CHANGE_INPUT extends Win32Struct
-{
+class SD_GLOBAL_CHANGE_INPUT extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -33,7 +31,7 @@ class SD_GLOBAL_CHANGE_INPUT extends Win32Struct
     /**
      * @type {SD_CHANGE_MACHINE_SID_INPUT}
      */
-    SdChange{
+    SdChange {
         get {
             if(!this.HasProp("__SdChange"))
                 this.__SdChange := SD_CHANGE_MACHINE_SID_INPUT(8, this)
@@ -44,7 +42,7 @@ class SD_GLOBAL_CHANGE_INPUT extends Win32Struct
     /**
      * @type {SD_QUERY_STATS_INPUT}
      */
-    SdQueryStats{
+    SdQueryStats {
         get {
             if(!this.HasProp("__SdQueryStats"))
                 this.__SdQueryStats := SD_QUERY_STATS_INPUT(8, this)
@@ -55,7 +53,7 @@ class SD_GLOBAL_CHANGE_INPUT extends Win32Struct
     /**
      * @type {SD_ENUM_SDS_INPUT}
      */
-    SdEnumSds{
+    SdEnumSds {
         get {
             if(!this.HasProp("__SdEnumSds"))
                 this.__SdEnumSds := SD_ENUM_SDS_INPUT(8, this)

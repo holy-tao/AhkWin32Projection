@@ -7,10 +7,8 @@
  * To get an effect-variable description, call <a href="https://docs.microsoft.com/windows/desktop/api/d3d10effect/nf-d3d10effect-id3d10effectvariable-getdesc">ID3D10EffectVariable::GetDesc</a>.
  * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/ns-d3d10effect-d3d10_effect_variable_desc
  * @namespace Windows.Win32.Graphics.Direct3D10
- * @version v4.0.30319
  */
-class D3D10_EFFECT_VARIABLE_DESC extends Win32Struct
-{
+class D3D10_EFFECT_VARIABLE_DESC extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8

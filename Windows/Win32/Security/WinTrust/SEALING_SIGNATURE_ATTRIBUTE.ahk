@@ -1,14 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\Cryptography\CRYPT_INTEGER_BLOB.ahk
 #Include ..\Cryptography\CRYPT_ALGORITHM_IDENTIFIER.ahk
+#Include ..\Cryptography\CRYPT_INTEGER_BLOB.ahk
 
 /**
  * @namespace Windows.Win32.Security.WinTrust
- * @version v4.0.30319
  */
-class SEALING_SIGNATURE_ATTRIBUTE extends Win32Struct
-{
+class SEALING_SIGNATURE_ATTRIBUTE extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -32,7 +30,7 @@ class SEALING_SIGNATURE_ATTRIBUTE extends Win32Struct
     /**
      * @type {CRYPT_ALGORITHM_IDENTIFIER}
      */
-    signatureAlgorithm{
+    signatureAlgorithm {
         get {
             if(!this.HasProp("__signatureAlgorithm"))
                 this.__signatureAlgorithm := CRYPT_ALGORITHM_IDENTIFIER(8, this)
@@ -43,7 +41,7 @@ class SEALING_SIGNATURE_ATTRIBUTE extends Win32Struct
     /**
      * @type {CRYPT_INTEGER_BLOB}
      */
-    encryptedDigest{
+    encryptedDigest {
         get {
             if(!this.HasProp("__encryptedDigest"))
                 this.__encryptedDigest := CRYPT_INTEGER_BLOB(32, this)

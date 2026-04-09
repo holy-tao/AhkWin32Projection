@@ -5,12 +5,10 @@
  * Contains flags for the IPlayToSourceClassFactory::CreateInstance method.
  * @see https://learn.microsoft.com/windows/win32/api/mfsharingengine/ne-mfsharingengine-playto_source_createflags
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class PLAYTO_SOURCE_CREATEFLAGS extends Win32BitflagEnum{
+class PLAYTO_SOURCE_CREATEFLAGS extends Win32BitflagEnum {
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static PLAYTO_SOURCE_NONE => 0

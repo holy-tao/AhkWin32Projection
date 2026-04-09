@@ -21,11 +21,9 @@
  * Note that <b>BaseRva</b> is the overall base RVA for the memory list. To locate the data for a particular descriptor, start at <b>BaseRva</b> and increment by the size of a descriptor until you reach the descriptor.
  * @see https://learn.microsoft.com/windows/win32/api/minidumpapiset/ns-minidumpapiset-minidump_memory64_list
  * @namespace Windows.Win32.System.Diagnostics.Debug
- * @version v4.0.30319
  */
-class MINIDUMP_MEMORY64_LIST extends Win32Struct
-{
-    static sizeof => 24
+class MINIDUMP_MEMORY64_LIST extends Win32Struct {
+    static sizeof => 32
 
     static packingSize => 8
 
@@ -39,7 +37,6 @@ class MINIDUMP_MEMORY64_LIST extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     BaseRva {
@@ -50,9 +47,9 @@ class MINIDUMP_MEMORY64_LIST extends Win32Struct
     /**
      * An array of 
      * <a href="https://docs.microsoft.com/windows/win32/api/minidumpapiset/ns-minidumpapiset-minidump_memory_descriptor">MINIDUMP_MEMORY_DESCRIPTOR</a> structures.
-     * @type {Array<MINIDUMP_MEMORY_DESCRIPTOR64>}
+     * @type {MINIDUMP_MEMORY_DESCRIPTOR64}
      */
-    MemoryRanges{
+    MemoryRanges {
         get {
             if(!this.HasProp("__MemoryRangesProxyArray"))
                 this.__MemoryRangesProxyArray := Win32FixedArray(this.ptr + 16, 1, MINIDUMP_MEMORY_DESCRIPTOR64, "")

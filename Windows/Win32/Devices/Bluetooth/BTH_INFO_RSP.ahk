@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.Bluetooth
- * @version v4.0.30319
  */
-class BTH_INFO_RSP extends Win32Struct
-{
+class BTH_INFO_RSP extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 2
@@ -36,9 +34,9 @@ class BTH_INFO_RSP extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    data{
+    data {
         get {
             if(!this.HasProp("__dataProxyArray"))
                 this.__dataProxyArray := Win32FixedArray(this.ptr + 3, 44, Primitive, "char")

@@ -29,9 +29,8 @@
  * </ul>
  * @see https://learn.microsoft.com/windows/win32/api/icontact/nn-icontact-icontact
  * @namespace Windows.Win32.System.Contacts
- * @version v4.0.30319
  */
-class IContact extends IUnknown{
+class IContact extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

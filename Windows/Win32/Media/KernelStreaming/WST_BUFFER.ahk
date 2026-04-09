@@ -5,18 +5,16 @@
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
- * @version v4.0.30319
  */
-class WST_BUFFER extends Win32Struct
-{
-    static sizeof => 264
+class WST_BUFFER extends Win32Struct {
+    static sizeof => 860
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {VBICODECFILTERING_SCANLINES}
      */
-    ScanlinesRequested{
+    ScanlinesRequested {
         get {
             if(!this.HasProp("__ScanlinesRequested"))
                 this.__ScanlinesRequested := VBICODECFILTERING_SCANLINES(0, this)
@@ -25,9 +23,9 @@ class WST_BUFFER extends Win32Struct
     }
 
     /**
-     * @type {Array<WST_BUFFER_LINE>}
+     * @type {WST_BUFFER_LINE}
      */
-    WstLines{
+    WstLines {
         get {
             if(!this.HasProp("__WstLinesProxyArray"))
                 this.__WstLinesProxyArray := Win32FixedArray(this.ptr + 128, 17, WST_BUFFER_LINE, "")

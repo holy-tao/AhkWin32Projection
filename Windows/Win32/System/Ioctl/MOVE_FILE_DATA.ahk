@@ -23,10 +23,8 @@
  * For more information about shadow copies, see <a href="https://docs.microsoft.com/windows/desktop/VSS/about-the-volume-shadow-copy-service">Volume Shadow Copy Service</a>.
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-move_file_data
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class MOVE_FILE_DATA extends Win32Struct
-{
+class MOVE_FILE_DATA extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -43,7 +41,7 @@ class MOVE_FILE_DATA extends Win32Struct
      *        <a href="https://docs.microsoft.com/windows/desktop/FileIO/file-security-and-access-rights">File Security and Access Rights</a>.
      * @type {HANDLE}
      */
-    FileHandle{
+    FileHandle {
         get {
             if(!this.HasProp("__FileHandle"))
                 this.__FileHandle := HANDLE(0, this)

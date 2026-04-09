@@ -1,19 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\System\Com\IDispatch.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
 #Include .\ITextSelection.ahk
 #Include .\ITextStoryRanges.ahk
 #Include .\ITextRange.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
 
 /**
  * The ITextDocument interface is the Text Object Model (TOM) top-level interface, which retrieves the active selection and range objects for any story in the document�whether active or not.
  * @see https://learn.microsoft.com/windows/win32/api/tom/nn-tom-itextdocument
  * @namespace Windows.Win32.UI.Controls.RichEdit
- * @version v4.0.30319
  */
-class ITextDocument extends IDispatch{
+class ITextDocument extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -104,7 +103,7 @@ class ITextDocument extends IDispatch{
 
     /**
      * Sets the document Saved property.
-     * @param {Integer} Value Type: <b>long</b>
+     * @param {tomConstants} Value Type: <b>long</b>
      * 
      * New value of the
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -222,7 +221,7 @@ class ITextDocument extends IDispatch{
      * @param {Pointer<VARIANT>} pVar Type: <b>VARIANT*</b>
      * 
      * A <b>VARIANT</b> that specifies the name of the file to open.
-     * @param {Integer} Flags Type: <b>long</b>
+     * @param {tomConstants} Flags Type: <b>long</b>
      * 
      * The file creation, open, share, and conversion flags. Default value is zero, which gives read/write access and read/write sharing, open always, and automatic recognition of the file format (unrecognized file formats are treated as text). Other values are defined in the following groups.
      * 
@@ -317,7 +316,7 @@ class ITextDocument extends IDispatch{
      * @param {Pointer<VARIANT>} pVar Type: <b>VARIANT*</b>
      * 
      * The save target. This parameter is a <b>VARIANT</b>, which can be a file name, or <b>NULL</b>.
-     * @param {Integer} Flags Type: <b>long</b>
+     * @param {tomConstants} Flags Type: <b>long</b>
      * 
      * File creation, open, share, and conversion flags. For a list of possible values, see <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextdocument-open">ITextDocument::Open</a>.
      * @param {Integer} CodePage Type: <b>long</b>

@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\PDH_LOG_TYPE.ahk
 
 /**
  * The PDH_RAW_LOG_RECORD structure contains information about a binary trace log file record.
  * @see https://learn.microsoft.com/windows/win32/api/pdh/ns-pdh-pdh_raw_log_record
  * @namespace Windows.Win32.System.Performance
- * @version v4.0.30319
  */
-class PDH_RAW_LOG_RECORD extends Win32Struct
-{
+class PDH_RAW_LOG_RECORD extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4
@@ -23,8 +22,7 @@ class PDH_RAW_LOG_RECORD extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Integer}
+     * @type {PDH_LOG_TYPE}
      */
     dwRecordType {
         get => NumGet(this, 4, "uint")
@@ -42,9 +40,9 @@ class PDH_RAW_LOG_RECORD extends Win32Struct
 
     /**
      * Binary record.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    RawBytes{
+    RawBytes {
         get {
             if(!this.HasProp("__RawBytesProxyArray"))
                 this.__RawBytesProxyArray := Win32FixedArray(this.ptr + 12, 1, Primitive, "char")

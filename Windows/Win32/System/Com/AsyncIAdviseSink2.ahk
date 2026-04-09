@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.Com
- * @version v4.0.30319
  */
-class AsyncIAdviseSink2 extends AsyncIAdviseSink{
+class AsyncIAdviseSink2 extends AsyncIAdviseSink {
 
     static sizeof => A_PtrSize
     /**

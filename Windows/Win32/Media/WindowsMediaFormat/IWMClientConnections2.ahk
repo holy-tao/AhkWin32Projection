@@ -7,9 +7,8 @@
  * The IWMClientConnections2 interface retrieves advanced client information.The writer network sink object exposes this interface.
  * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nn-wmsdkidl-iwmclientconnections2
  * @namespace Windows.Win32.Media.WindowsMediaFormat
- * @version v4.0.30319
  */
-class IWMClientConnections2 extends IWMClientConnections{
+class IWMClientConnections2 extends IWMClientConnections {
 
     static sizeof => A_PtrSize
     /**

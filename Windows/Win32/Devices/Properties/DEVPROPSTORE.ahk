@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.Properties
- * @version v4.0.30319
  */
-class DEVPROPSTORE extends Win32Enum{
+class DEVPROPSTORE extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

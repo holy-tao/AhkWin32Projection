@@ -1,19 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
 #Include .\ISpeechPhraseRule.ahk
 #Include .\ISpeechPhraseProperties.ahk
 #Include .\ISpeechPhraseElements.ahk
 #Include .\ISpeechPhraseReplacements.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * @namespace Windows.Win32.Media.Speech
- * @version v4.0.30319
  */
-class ISpeechPhraseInfo extends IDispatch{
+class ISpeechPhraseInfo extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -302,7 +301,7 @@ class ISpeechPhraseInfo extends IDispatch{
      * @param {Integer} StartElement 
      * @param {Integer} Elements 
      * @param {VARIANT_BOOL} UseReplacements 
-     * @returns {Integer} 
+     * @returns {SpeechDisplayAttributes} 
      */
     GetDisplayAttributes(StartElement, Elements, UseReplacements) {
         result := ComCall(22, this, "int", StartElement, "int", Elements, "short", UseReplacements, "int*", &DisplayAttributes := 0, "HRESULT")

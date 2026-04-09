@@ -1,16 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Graphics\Direct3D12\ID3D12Resource.ahk
 
 /**
  * Contains the reference frames needed to perform video processing.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/d3d12video/ns-d3d12video-d3d12_video_process_reference_set
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class D3D12_VIDEO_PROCESS_REFERENCE_SET extends Win32Struct
-{
+class D3D12_VIDEO_PROCESS_REFERENCE_SET extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8

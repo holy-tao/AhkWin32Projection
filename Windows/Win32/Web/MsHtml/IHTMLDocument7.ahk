@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include .\IHTMLWindow2.ahk
 #Include .\IHTMLDOMNode.ahk
 #Include .\IHTMLSelection.ahk
@@ -9,15 +9,14 @@
 #Include .\IHTMLElement.ahk
 #Include .\IHTMLDOMAttribute.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include .\IDOMProcessingInstruction.ahk
 #Include .\IHTMLDOMNode3.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
- * @version v4.0.30319
  */
-class IHTMLDocument7 extends IDispatch{
+class IHTMLDocument7 extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

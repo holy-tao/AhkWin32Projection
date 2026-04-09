@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Graphics.Gdi
- * @version v4.0.30319
  */
-class PEN_STYLE extends Win32BitflagEnum{
+class PEN_STYLE extends Win32BitflagEnum {
 
     /**
      * @type {Integer (Int32)}

@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Storage.FileSystem
- * @version v4.0.30319
  */
-class VOLUME_FAILOVER_SET extends Win32Struct
-{
+class VOLUME_FAILOVER_SET extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4
@@ -20,9 +18,9 @@ class VOLUME_FAILOVER_SET extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    DiskNumbers{
+    DiskNumbers {
         get {
             if(!this.HasProp("__DiskNumbersProxyArray"))
                 this.__DiskNumbersProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "uint")

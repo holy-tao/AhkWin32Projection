@@ -10,9 +10,8 @@
  * <div> </div>
  * @see https://learn.microsoft.com/windows/win32/api/spatialaudiometadata/nn-spatialaudiometadata-ispatialaudioobjectformetadatacommands
  * @namespace Windows.Win32.Media.Audio
- * @version v4.0.30319
  */
-class ISpatialAudioObjectForMetadataCommands extends ISpatialAudioObjectBase{
+class ISpatialAudioObjectForMetadataCommands extends ISpatialAudioObjectBase {
 
     static sizeof => A_PtrSize
     /**
@@ -36,7 +35,7 @@ class ISpatialAudioObjectForMetadataCommands extends ISpatialAudioObjectBase{
     /**
      * Writes a metadata command to the spatial audio object, each command may only be added once per object per processing cycle.
      * @param {Integer} commandID The ID of the metadata command.
-     * @param {Pointer} valueBuffer The buffer containing the value data for the metadata command.
+     * @param {Integer} valueBuffer The buffer containing the value data for the metadata command.
      * @param {Integer} valueBufferLength The length of the <i>valueBuffer</i>.
      * @returns {HRESULT} If the method succeeds, it returns S_OK.
      * @see https://learn.microsoft.com/windows/win32/api/spatialaudiometadata/nf-spatialaudiometadata-ispatialaudioobjectformetadatacommands-writenextmetadatacommand

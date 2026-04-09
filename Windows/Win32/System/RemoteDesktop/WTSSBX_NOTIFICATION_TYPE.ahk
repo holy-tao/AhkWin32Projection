@@ -5,9 +5,8 @@
  * Contains values that indicate the type of status change that occurred on a Remote Desktop Session Host (RD Session Host) server or a user session.
  * @see https://learn.microsoft.com/windows/win32/api/tssbx/ne-tssbx-wtssbx_notification_type
  * @namespace Windows.Win32.System.RemoteDesktop
- * @version v4.0.30319
  */
-class WTSSBX_NOTIFICATION_TYPE extends Win32Enum{
+class WTSSBX_NOTIFICATION_TYPE extends Win32Enum {
 
     /**
      * RD Connection Broker received a Removed notification. This indicates that a user has logged off an RD Session Host server or that an RD Session Host server left a farm in RD Connection Broker.

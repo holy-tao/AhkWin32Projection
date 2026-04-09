@@ -1,19 +1,28 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\IKEEXT_CIPHER_ALGORITHM0.ahk
-#Include .\IKEEXT_INTEGRITY_ALGORITHM0.ahk
+#Include .\FWP_IP_VERSION.ahk
+#Include .\IPSEC_TRAFFIC_TYPE.ahk
+#Include .\IKEEXT_KEY_MODULE_TYPE.ahk
 #Include .\IKEEXT_PROPOSAL0.ahk
+#Include .\IKEEXT_CIPHER_ALGORITHM0.ahk
+#Include .\IKEEXT_CIPHER_TYPE.ahk
+#Include .\IKEEXT_INTEGRITY_ALGORITHM0.ahk
+#Include .\IKEEXT_INTEGRITY_TYPE.ahk
+#Include .\IKEEXT_DH_GROUP.ahk
 #Include .\IKEEXT_CREDENTIAL2.ahk
+#Include .\IKEEXT_AUTHENTICATION_METHOD_TYPE.ahk
+#Include .\IKEEXT_AUTHENTICATION_IMPERSONATION_TYPE.ahk
+#Include .\IKEEXT_PRESHARED_KEY_AUTHENTICATION1.ahk
+#Include .\IKEEXT_CERTIFICATE_CREDENTIAL1.ahk
+#Include .\IKEEXT_NAME_CREDENTIAL0.ahk
 #Include ..\..\Foundation\FILETIME.ahk
 
 /**
  * Stores the state associated with a connection object.
  * @see https://learn.microsoft.com/windows/win32/api/fwpmtypes/ns-fwpmtypes-fwpm_connection0
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
- * @version v4.0.30319
  */
-class FWPM_CONNECTION0 extends Win32Struct
-{
+class FWPM_CONNECTION0 extends Win32Struct {
     static sizeof => 160
 
     static packingSize => 8
@@ -33,7 +42,7 @@ class FWPM_CONNECTION0 extends Win32Struct
      * Type: [FWP_IP_VERSION](/windows/desktop/api/fwptypes/ne-fwptypes-fwp_ip_version)</b>
      * 
      * The IP version being used.
-     * @type {Integer}
+     * @type {FWP_IP_VERSION}
      */
     ipVersion {
         get => NumGet(this, 8, "int")
@@ -49,9 +58,9 @@ class FWPM_CONNECTION0 extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    localV6Address{
+    localV6Address {
         get {
             if(!this.HasProp("__localV6AddressProxyArray"))
                 this.__localV6AddressProxyArray := Win32FixedArray(this.ptr + 12, 16, Primitive, "char")
@@ -68,9 +77,9 @@ class FWPM_CONNECTION0 extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    remoteV6Address{
+    remoteV6Address {
         get {
             if(!this.HasProp("__remoteV6AddressProxyArray"))
                 this.__remoteV6AddressProxyArray := Win32FixedArray(this.ptr + 28, 16, Primitive, "char")
@@ -93,7 +102,7 @@ class FWPM_CONNECTION0 extends Win32Struct
      * Type: [IPSEC_TRAFFIC_TYPE](/windows/desktop/api/ipsectypes/ne-ipsectypes-ipsec_traffic_type)</b>
      * 
      * The type of IPsec traffic.
-     * @type {Integer}
+     * @type {IPSEC_TRAFFIC_TYPE}
      */
     ipsecTrafficModeType {
         get => NumGet(this, 56, "int")
@@ -104,7 +113,7 @@ class FWPM_CONNECTION0 extends Win32Struct
      * Type: [IKEEXT_KEY_MODULE_TYPE](/windows/desktop/api/iketypes/ne-iketypes-ikeext_key_module_type)</b>
      * 
      * The type of keying module.
-     * @type {Integer}
+     * @type {IKEEXT_KEY_MODULE_TYPE}
      */
     keyModuleType {
         get => NumGet(this, 60, "int")
@@ -117,7 +126,7 @@ class FWPM_CONNECTION0 extends Win32Struct
      * An IKE/AuthIP main mode proposal.
      * @type {IKEEXT_PROPOSAL0}
      */
-    mmCrypto{
+    mmCrypto {
         get {
             if(!this.HasProp("__mmCrypto"))
                 this.__mmCrypto := IKEEXT_PROPOSAL0(64, this)
@@ -131,7 +140,7 @@ class FWPM_CONNECTION0 extends Win32Struct
      * Main mode credential information.
      * @type {IKEEXT_CREDENTIAL2}
      */
-    mmPeer{
+    mmPeer {
         get {
             if(!this.HasProp("__mmPeer"))
                 this.__mmPeer := IKEEXT_CREDENTIAL2(96, this)
@@ -145,7 +154,7 @@ class FWPM_CONNECTION0 extends Win32Struct
      * Extended mode credential information.
      * @type {IKEEXT_CREDENTIAL2}
      */
-    emPeer{
+    emPeer {
         get {
             if(!this.HasProp("__emPeer"))
                 this.__emPeer := IKEEXT_CREDENTIAL2(112, this)
@@ -192,7 +201,7 @@ class FWPM_CONNECTION0 extends Win32Struct
      * Time that the connection was created.
      * @type {FILETIME}
      */
-    startSysTime{
+    startSysTime {
         get {
             if(!this.HasProp("__startSysTime"))
                 this.__startSysTime := FILETIME(152, this)

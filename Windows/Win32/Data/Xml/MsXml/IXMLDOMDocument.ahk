@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
+#Include .\IXMLDOMNode.ahk
 #Include .\IXMLDOMDocumentType.ahk
 #Include .\IXMLDOMImplementation.ahk
 #Include .\IXMLDOMElement.ahk
@@ -13,14 +13,13 @@
 #Include .\IXMLDOMAttribute.ahk
 #Include .\IXMLDOMEntityReference.ahk
 #Include .\IXMLDOMNodeList.ahk
-#Include .\IXMLDOMNode.ahk
 #Include .\IXMLDOMParseError.ahk
+#Include ..\..\..\Foundation\BSTR.ahk
 
 /**
  * @namespace Windows.Win32.Data.Xml.MsXml
- * @version v4.0.30319
  */
-class IXMLDOMDocument extends IXMLDOMNode{
+class IXMLDOMDocument extends IXMLDOMNode {
 
     static sizeof => A_PtrSize
     /**
@@ -116,21 +115,21 @@ class IXMLDOMDocument extends IXMLDOMNode{
     }
 
     /**
-     * @type {HRESULT} 
+     * @type {VARIANT} 
      */
     onreadystatechange {
         set => this.put_onreadystatechange(value)
     }
 
     /**
-     * @type {HRESULT} 
+     * @type {VARIANT} 
      */
     ondataavailable {
         set => this.put_ondataavailable(value)
     }
 
     /**
-     * @type {HRESULT} 
+     * @type {VARIANT} 
      */
     ontransformnode {
         set => this.put_ontransformnode(value)

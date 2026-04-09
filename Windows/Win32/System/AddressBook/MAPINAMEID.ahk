@@ -11,10 +11,8 @@
  * For more information about named properties, see [Named Properties](mapi-named-properties.md).
  * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/mapinameid
  * @namespace Windows.Win32.System.AddressBook
- * @version v4.0.30319
  */
-class MAPINAMEID extends Win32Struct
-{
+class MAPINAMEID extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -30,7 +28,7 @@ class MAPINAMEID extends Win32Struct
             get => NumGet(this, 0, "int")
             set => NumPut("int", value, this, 0)
         }
-    
+
         /**
          * @type {PWSTR}
          */
@@ -38,7 +36,6 @@ class MAPINAMEID extends Win32Struct
             get => NumGet(this, 0, "ptr")
             set => NumPut("ptr", value, this, 0)
         }
-    
     }
 
     /**
@@ -83,10 +80,10 @@ class MAPINAMEID extends Win32Struct
      * > Union describing the name of the named property. The name can be either an integer value, stored in **lID**, or a Unicode character string, stored in **lpwstrName**.
      * @type {_Kind_e__Union}
      */
-    Kind{
+    Kind {
         get {
             if(!this.HasProp("__Kind"))
-                this.__Kind := %this.__Class%._Kind_e__Union(16, this)
+                this.__Kind := MAPINAMEID._Kind_e__Union(16, this)
             return this.__Kind
         }
     }

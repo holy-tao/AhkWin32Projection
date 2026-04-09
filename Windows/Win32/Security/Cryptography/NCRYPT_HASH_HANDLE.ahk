@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class NCRYPT_HASH_HANDLE extends Win32Handle
-{
+class NCRYPT_HASH_HANDLE extends Win32Handle {
     static sizeof => 8
 
     static packingSize => 8

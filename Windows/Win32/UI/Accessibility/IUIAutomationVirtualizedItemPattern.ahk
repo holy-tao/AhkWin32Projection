@@ -11,9 +11,8 @@
  * The placeholder automation element for a virtualized item might not have loaded data for all UI Automation properties, and may return <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-error-codes">UIA_E_ELEMENTNOTAVAILABLE</a> in response to queries for properties that are not available.
  * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nn-uiautomationclient-iuiautomationvirtualizeditempattern
  * @namespace Windows.Win32.UI.Accessibility
- * @version v4.0.30319
  */
-class IUIAutomationVirtualizedItemPattern extends IUnknown{
+class IUIAutomationVirtualizedItemPattern extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -9,9 +9,8 @@
  * To find out which modes the device supports, call the <a href="https://docs.microsoft.com/windows/desktop/api/dxvahd/nf-dxvahd-idxvahd_device-getvideoprocessordevicecaps">IDXVAHD_Device::GetVideoProcessorDeviceCaps</a> method. If the device sets the <b>DXVAHD_FEATURE_CAPS_ALPHA_FILL</b> flag in the <b>FeatureCaps</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/dxvahd/ns-dxvahd-dxvahd_vpdevcaps">DXVAHD_VPDEVCAPS</a> structure, the DXVA-HD device supports any of the modes listed here. Otherwise, the alpha-fill mode must be <b>DXVAHD_ALPHA_FILL_MODE_OPAQUE</b>.
  * @see https://learn.microsoft.com/windows/win32/api/dxvahd/ne-dxvahd-dxvahd_alpha_fill_mode
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class DXVAHD_ALPHA_FILL_MODE extends Win32Enum{
+class DXVAHD_ALPHA_FILL_MODE extends Win32Enum {
 
     /**
      * Alpha values inside the target rectangle are set to opaque.

@@ -5,9 +5,8 @@
  * Contains values that specify the type of UI Automation provider. The IRawElementProviderSimple::ProviderOptions property uses this enumeration.
  * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/ne-uiautomationcore-provideroptions
  * @namespace Windows.Win32.UI.Accessibility
- * @version v4.0.30319
  */
-class ProviderOptions extends Win32BitflagEnum{
+class ProviderOptions extends Win32BitflagEnum {
 
     /**
      * The provider is a client-side (proxy) provider.

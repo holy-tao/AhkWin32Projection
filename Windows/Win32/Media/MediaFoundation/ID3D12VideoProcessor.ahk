@@ -1,18 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\D3D12_VIDEO_PROCESS_INPUT_STREAM_DESC.ahk
 #Include ..\..\Graphics\Direct3D12\ID3D12Pageable.ahk
+#Include .\D3D12_VIDEO_PROCESS_INPUT_STREAM_DESC.ahk
 
 /**
  * Provides methods for getting information about the parameters to the call to ID3D12VideoDevice::CreateVideoProcessor that created the video processor.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/d3d12video/nn-d3d12video-id3d12videoprocessor
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class ID3D12VideoProcessor extends ID3D12Pageable{
+class ID3D12VideoProcessor extends ID3D12Pageable {
 
     static sizeof => A_PtrSize
     /**

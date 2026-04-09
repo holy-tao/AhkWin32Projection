@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
- * @version v4.0.30319
  */
-class DEBUG_VALUE extends Win32Struct
-{
+class DEBUG_VALUE extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -22,7 +20,7 @@ class DEBUG_VALUE extends Win32Struct
             get => NumGet(this, 0, "uint")
             set => NumPut("uint", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -30,7 +28,6 @@ class DEBUG_VALUE extends Win32Struct
             get => NumGet(this, 4, "uint")
             set => NumPut("uint", value, this, 4)
         }
-    
     }
 
     class _F128Parts64 extends Win32Struct {
@@ -44,7 +41,7 @@ class DEBUG_VALUE extends Win32Struct
             get => NumGet(this, 0, "uint")
             set => NumPut("uint", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -52,7 +49,6 @@ class DEBUG_VALUE extends Win32Struct
             get => NumGet(this, 8, "int64")
             set => NumPut("int64", value, this, 8)
         }
-    
     }
 
     /**
@@ -112,9 +108,9 @@ class DEBUG_VALUE extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    F80Bytes{
+    F80Bytes {
         get {
             if(!this.HasProp("__F80BytesProxyArray"))
                 this.__F80BytesProxyArray := Win32FixedArray(this.ptr + 0, 10, Primitive, "char")
@@ -123,9 +119,9 @@ class DEBUG_VALUE extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    F82Bytes{
+    F82Bytes {
         get {
             if(!this.HasProp("__F82BytesProxyArray"))
                 this.__F82BytesProxyArray := Win32FixedArray(this.ptr + 0, 11, Primitive, "char")
@@ -134,9 +130,9 @@ class DEBUG_VALUE extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    F128Bytes{
+    F128Bytes {
         get {
             if(!this.HasProp("__F128BytesProxyArray"))
                 this.__F128BytesProxyArray := Win32FixedArray(this.ptr + 0, 16, Primitive, "char")
@@ -145,9 +141,9 @@ class DEBUG_VALUE extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    VI8{
+    VI8 {
         get {
             if(!this.HasProp("__VI8ProxyArray"))
                 this.__VI8ProxyArray := Win32FixedArray(this.ptr + 0, 16, Primitive, "char")
@@ -156,9 +152,9 @@ class DEBUG_VALUE extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt16>}
+     * @type {Array<Integer>}
      */
-    VI16{
+    VI16 {
         get {
             if(!this.HasProp("__VI16ProxyArray"))
                 this.__VI16ProxyArray := Win32FixedArray(this.ptr + 0, 8, Primitive, "ushort")
@@ -167,9 +163,9 @@ class DEBUG_VALUE extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    VI32{
+    VI32 {
         get {
             if(!this.HasProp("__VI32ProxyArray"))
                 this.__VI32ProxyArray := Win32FixedArray(this.ptr + 0, 4, Primitive, "uint")
@@ -178,9 +174,9 @@ class DEBUG_VALUE extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt64>}
+     * @type {Array<Integer>}
      */
-    VI64{
+    VI64 {
         get {
             if(!this.HasProp("__VI64ProxyArray"))
                 this.__VI64ProxyArray := Win32FixedArray(this.ptr + 0, 2, Primitive, "uint")
@@ -189,9 +185,9 @@ class DEBUG_VALUE extends Win32Struct
     }
 
     /**
-     * @type {Array<Single>}
+     * @type {Array<Float>}
      */
-    VF32{
+    VF32 {
         get {
             if(!this.HasProp("__VF32ProxyArray"))
                 this.__VF32ProxyArray := Win32FixedArray(this.ptr + 0, 4, Primitive, "float")
@@ -200,9 +196,9 @@ class DEBUG_VALUE extends Win32Struct
     }
 
     /**
-     * @type {Array<Double>}
+     * @type {Array<Float>}
      */
-    VF64{
+    VF64 {
         get {
             if(!this.HasProp("__VF64ProxyArray"))
                 this.__VF64ProxyArray := Win32FixedArray(this.ptr + 0, 2, Primitive, "double")
@@ -213,10 +209,10 @@ class DEBUG_VALUE extends Win32Struct
     /**
      * @type {_I64Parts32}
      */
-    I64Parts32{
+    I64Parts32 {
         get {
             if(!this.HasProp("__I64Parts32"))
-                this.__I64Parts32 := %this.__Class%._I64Parts32(0, this)
+                this.__I64Parts32 := DEBUG_VALUE._I64Parts32(0, this)
             return this.__I64Parts32
         }
     }
@@ -224,18 +220,18 @@ class DEBUG_VALUE extends Win32Struct
     /**
      * @type {_F128Parts64}
      */
-    F128Parts64{
+    F128Parts64 {
         get {
             if(!this.HasProp("__F128Parts64"))
-                this.__F128Parts64 := %this.__Class%._F128Parts64(0, this)
+                this.__F128Parts64 := DEBUG_VALUE._F128Parts64(0, this)
             return this.__F128Parts64
         }
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    RawBytes{
+    RawBytes {
         get {
             if(!this.HasProp("__RawBytesProxyArray"))
                 this.__RawBytesProxyArray := Win32FixedArray(this.ptr + 0, 24, Primitive, "char")

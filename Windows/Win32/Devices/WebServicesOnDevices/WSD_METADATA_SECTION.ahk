@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\WSD_ENDPOINT_REFERENCE.ahk
+#Include .\WSDXML_ELEMENT.ahk
 
 /**
  * Represents a section of metadata in a generic form.
  * @see https://learn.microsoft.com/windows/win32/api/wsdtypes/ns-wsdtypes-wsd_metadata_section
  * @namespace Windows.Win32.Devices.WebServicesOnDevices
- * @version v4.0.30319
  */
-class WSD_METADATA_SECTION extends Win32Struct
-{
+class WSD_METADATA_SECTION extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8

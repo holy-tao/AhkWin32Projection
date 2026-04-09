@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class PROCESS_DEVICEMAP_INFORMATION_EX extends Win32Struct
-{
+class PROCESS_DEVICEMAP_INFORMATION_EX extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -19,14 +17,13 @@ class PROCESS_DEVICEMAP_INFORMATION_EX extends Win32Struct
         /**
          * @type {HANDLE}
          */
-        DirectoryHandle{
+        DirectoryHandle {
             get {
                 if(!this.HasProp("__DirectoryHandle"))
                     this.__DirectoryHandle := HANDLE(0, this)
                 return this.__DirectoryHandle
             }
         }
-    
     }
 
     class _Query extends Win32Struct {
@@ -40,27 +37,26 @@ class PROCESS_DEVICEMAP_INFORMATION_EX extends Win32Struct
             get => NumGet(this, 0, "uint")
             set => NumPut("uint", value, this, 0)
         }
-    
+
         /**
-         * @type {Array<Byte>}
+         * @type {Array<Integer>}
          */
-        DriveType{
+        DriveType {
             get {
                 if(!this.HasProp("__DriveTypeProxyArray"))
                     this.__DriveTypeProxyArray := Win32FixedArray(this.ptr + 4, 32, Primitive, "char")
                 return this.__DriveTypeProxyArray
             }
         }
-    
     }
 
     /**
      * @type {_Set}
      */
-    Set{
+    Set {
         get {
             if(!this.HasProp("__Set"))
-                this.__Set := %this.__Class%._Set(0, this)
+                this.__Set := PROCESS_DEVICEMAP_INFORMATION_EX._Set(0, this)
             return this.__Set
         }
     }
@@ -68,10 +64,10 @@ class PROCESS_DEVICEMAP_INFORMATION_EX extends Win32Struct
     /**
      * @type {_Query}
      */
-    Query{
+    Query {
         get {
             if(!this.HasProp("__Query"))
-                this.__Query := %this.__Class%._Query(0, this)
+                this.__Query := PROCESS_DEVICEMAP_INFORMATION_EX._Query(0, this)
             return this.__Query
         }
     }

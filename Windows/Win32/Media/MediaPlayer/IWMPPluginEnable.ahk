@@ -7,9 +7,8 @@
  * The IWMPPluginEnable interface is implemented by the plug-in. It sets and retrieves a value that represents whether the plug-in has been enabled by Windows Media Player.
  * @see https://learn.microsoft.com/windows/win32/api/wmpservices/nn-wmpservices-iwmppluginenable
  * @namespace Windows.Win32.Media.MediaPlayer
- * @version v4.0.30319
  */
-class IWMPPluginEnable extends IUnknown{
+class IWMPPluginEnable extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

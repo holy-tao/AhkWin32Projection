@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Com\IDispatch.ahk
 #Include .\IUpdateService.ahk
 #Include ..\Com\IUnknown.ahk
-#Include ..\Com\IDispatch.ahk
 
 /**
  * Represents a list of IUpdateService interfaces.
  * @see https://learn.microsoft.com/windows/win32/api/wuapi/nn-wuapi-iupdateservicecollection
  * @namespace Windows.Win32.System.UpdateAgent
- * @version v4.0.30319
  */
-class IUpdateServiceCollection extends IDispatch{
+class IUpdateServiceCollection extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

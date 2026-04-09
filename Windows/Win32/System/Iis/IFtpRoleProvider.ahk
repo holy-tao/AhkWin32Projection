@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.Iis
- * @version v4.0.30319
  */
-class IFtpRoleProvider extends IUnknown{
+class IFtpRoleProvider extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

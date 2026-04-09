@@ -5,9 +5,8 @@
  * Specifies the copy mode used when calling ISpatialAudioMetadataCopier::CopyMetadataForFrames.
  * @see https://learn.microsoft.com/windows/win32/api/spatialaudiometadata/ne-spatialaudiometadata-spatialaudiometadatacopymode
  * @namespace Windows.Win32.Media.Audio
- * @version v4.0.30319
  */
-class SpatialAudioMetadataCopyMode extends Win32Enum{
+class SpatialAudioMetadataCopyMode extends Win32Enum {
 
     /**
      * Creates a direct copy of the number of metadata items  specified with the <i>copyFrameCount</i> parameter  into destination buffer, overwriting any previously existing data.

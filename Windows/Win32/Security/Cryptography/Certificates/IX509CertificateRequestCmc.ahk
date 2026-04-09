@@ -1,23 +1,22 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
+#Include .\IX509CertificateRequestPkcs7.ahk
 #Include .\IObjectId.ahk
 #Include .\ICryptAttributes.ahk
 #Include .\IX509NameValuePairs.ahk
 #Include .\IX509Extensions.ahk
 #Include .\IObjectIds.ahk
+#Include ..\..\..\Foundation\BSTR.ahk
 #Include .\IX509SignatureInformation.ahk
 #Include .\ISignerCertificates.ahk
-#Include .\IX509CertificateRequestPkcs7.ahk
 
 /**
  * Represents a CMC (Certificate Management Message over CMS) certificate request.
  * @see https://learn.microsoft.com/windows/win32/api/certenroll/nn-certenroll-ix509certificaterequestcmc
  * @namespace Windows.Win32.Security.Cryptography.Certificates
- * @version v4.0.30319
  */
-class IX509CertificateRequestCmc extends IX509CertificateRequestPkcs7{
+class IX509CertificateRequestCmc extends IX509CertificateRequestPkcs7 {
 
     static sizeof => A_PtrSize
     /**
@@ -515,7 +514,7 @@ class IX509CertificateRequestCmc extends IX509CertificateRequestPkcs7{
      * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509certificaterequestpkcs7-initializefromtemplatename">InitializeFromTemplateName</a>
      * </li>
      * </ul>
-     * @param {Integer} Encoding 
+     * @param {EncodingType} Encoding 
      * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequestcmc-get_sendernonce
      */
@@ -550,7 +549,7 @@ class IX509CertificateRequestCmc extends IX509CertificateRequestPkcs7{
      * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509certificaterequestpkcs7-initializefromtemplatename">InitializeFromTemplateName</a>
      * </li>
      * </ul>
-     * @param {Integer} Encoding 
+     * @param {EncodingType} Encoding 
      * @param {BSTR} Value 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequestcmc-put_sendernonce
@@ -699,7 +698,7 @@ class IX509CertificateRequestCmc extends IX509CertificateRequestPkcs7{
      * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509certificaterequestpkcs7-initializefromtemplatename">InitializeFromTemplateName</a>
      * </li>
      * </ul>
-     * @param {Integer} Encoding 
+     * @param {EncodingType} Encoding 
      * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequestcmc-get_keyarchivalcertificate
      */
@@ -734,7 +733,7 @@ class IX509CertificateRequestCmc extends IX509CertificateRequestPkcs7{
      * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509certificaterequestpkcs7-initializefromtemplatename">InitializeFromTemplateName</a>
      * </li>
      * </ul>
-     * @param {Integer} Encoding 
+     * @param {EncodingType} Encoding 
      * @param {BSTR} Value 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequestcmc-put_keyarchivalcertificate
@@ -948,7 +947,7 @@ class IX509CertificateRequestCmc extends IX509CertificateRequestPkcs7{
      * Retrieves a hash of the private key to be archived.
      * @remarks
      * For more information about archiving private keys, see the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509certificaterequestcmc-get_archiveprivatekey">ArchivePrivateKey</a> and <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509certificaterequestcmc-get_keyarchivalcertificate">KeyArchivalCertificate</a> properties.
-     * @param {Integer} Encoding 
+     * @param {EncodingType} Encoding 
      * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequestcmc-get_encryptedkeyhash
      */

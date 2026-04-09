@@ -10,11 +10,9 @@
  * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/nf-tapi-linegetrequest">lineGetRequest</a> with the LINEREQUESTMODE_MAKECALL request mode.
  * @see https://learn.microsoft.com/windows/win32/api/tapi/ns-tapi-linereqmakecall
  * @namespace Windows.Win32.Devices.Tapi
- * @version v4.0.30319
  * @charset ANSI
  */
-class LINEREQMAKECALL extends Win32Struct
-{
+class LINEREQMAKECALL extends Win32Struct {
     static sizeof => 240
 
     static packingSize => 1

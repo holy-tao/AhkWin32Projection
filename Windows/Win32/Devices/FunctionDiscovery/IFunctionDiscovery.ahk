@@ -1,19 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\IFunctionInstanceCollection.ahk
 #Include .\IFunctionInstance.ahk
 #Include .\IFunctionInstanceCollectionQuery.ahk
 #Include .\IFunctionInstanceQuery.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * This interface is used by client programs to discover function instances, get the default function instance for a category, and create advanced Function Discovery query objects that enable registering Function Discovery defaults, among other things.
  * @see https://learn.microsoft.com/windows/win32/api/functiondiscoveryapi/nn-functiondiscoveryapi-ifunctiondiscovery
  * @namespace Windows.Win32.Devices.FunctionDiscovery
- * @version v4.0.30319
  */
-class IFunctionDiscovery extends IUnknown{
+class IFunctionDiscovery extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -146,7 +145,7 @@ class IFunctionDiscovery extends IUnknown{
      * Whether the new function instance is capable of being visible system-wide or only to the user depends on the provider. The registry provider initially sets its default function instance visibility to system wide.
      * 
      * Access permission to change HKEY_LOCAL_MACHINE\SYSTEM registry keys is required in order to add or remove function instances using the registry provider (Administrator or Power User access).
-     * @param {Integer} enumSystemVisibility A <a href="https://docs.microsoft.com/windows/win32/api/functiondiscoveryapi/ne-functiondiscoveryapi-systemvisibilityflags">SystemVisibilityFlags</a> value that specifies whether the created function instance is visible system wide or only to the current user. 
+     * @param {SystemVisibilityFlags} enumSystemVisibility A <a href="https://docs.microsoft.com/windows/win32/api/functiondiscoveryapi/ne-functiondiscoveryapi-systemvisibilityflags">SystemVisibilityFlags</a> value that specifies whether the created function instance is visible system wide or only to the current user. 
      * 
      * <div class="alert"><b>Note</b>  The function instance is stored in HKEY_LOCAL_MACHINE regardless  of the <i>enumSystemVisibility</i> value. The user must have Administrator access to add a function instance.</div>
      * <div> </div>
@@ -172,7 +171,7 @@ class IFunctionDiscovery extends IUnknown{
      * 
      * <div class="alert"><b>Note</b>  This method is not supported by all providers.</div>
      * <div> </div>
-     * @param {Integer} enumSystemVisibility A <a href="https://docs.microsoft.com/windows/win32/api/functiondiscoveryapi/ne-functiondiscoveryapi-systemvisibilityflags">SystemVisibilityFlags</a> value that specifies whether the function instance is removed system-wide or only for the current user.
+     * @param {SystemVisibilityFlags} enumSystemVisibility A <a href="https://docs.microsoft.com/windows/win32/api/functiondiscoveryapi/ne-functiondiscoveryapi-systemvisibilityflags">SystemVisibilityFlags</a> value that specifies whether the function instance is removed system-wide or only for the current user.
      * @param {PWSTR} pszCategory The category of the function instance. See <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fundisc/category-definitions">Category Definitions</a>.
      * @param {PWSTR} pszSubCategory The subcategory of the function instance to be removed.  See <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fundisc/subcategory-definitions">Subcategory Definitions</a>. This parameter can be <b>NULL</b>.
      * @param {PWSTR} pszCategoryIdentity The provider instance identifier string. This string is returned from <a href="https://docs.microsoft.com/windows/desktop/api/functiondiscoveryapi/nf-functiondiscoveryapi-ifunctioninstance-getproviderinstanceid">GetProviderInstanceID</a>.

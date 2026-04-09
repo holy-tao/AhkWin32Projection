@@ -9,10 +9,8 @@
  * If an application starts the reconversion process by calling <a href="https://docs.microsoft.com/windows/desktop/api/imm/nf-imm-immsetcompositionstringa">ImmSetCompositionString</a> with SCS_SETRECONVERTSTRING and SCS_QUERYRECONVERTSTRING, the application must allocate the necessary memory for the <b>RECONVERTSTRING</b> structure as well as the composition string buffer. IME should not use this memory later. If IME starts the process, IME should allocate necessary memory for the structure and the composition string buffer.
  * @see https://learn.microsoft.com/windows/win32/api/immdev/ns-immdev-reconvertstring
  * @namespace Windows.Win32.UI.Input.Ime
- * @version v4.0.30319
  */
-class RECONVERTSTRING extends Win32Struct
-{
+class RECONVERTSTRING extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 4

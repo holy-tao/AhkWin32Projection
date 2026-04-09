@@ -3,18 +3,16 @@
 
 /**
  * @namespace Windows.Win32.Storage.Nvme
- * @version v4.0.30319
  */
-class NVMEOF_FABRICS_RESPONSE extends Win32Struct
-{
+class NVMEOF_FABRICS_RESPONSE extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 2
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Specific{
+    Specific {
         get {
             if(!this.HasProp("__SpecificProxyArray"))
                 this.__SpecificProxyArray := Win32FixedArray(this.ptr + 0, 8, Primitive, "char")

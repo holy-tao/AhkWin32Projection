@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.DistributedTransactionCoordinator
- * @version v4.0.30319
  */
-class IResourceManagerRejoinable extends IResourceManager2{
+class IResourceManagerRejoinable extends IResourceManager2 {
 
     static sizeof => A_PtrSize
     /**
@@ -33,7 +32,7 @@ class IResourceManagerRejoinable extends IResourceManager2{
      * @param {Pointer<Integer>} pPrepInfo 
      * @param {Integer} cbPrepInfo 
      * @param {Integer} lTimeout 
-     * @returns {Integer} 
+     * @returns {XACTSTAT} 
      */
     Rejoin(pPrepInfo, cbPrepInfo, lTimeout) {
         pPrepInfoMarshal := pPrepInfo is VarRef ? "char*" : "ptr"

@@ -1,21 +1,30 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\VDS_NOTIFICATION_TARGET_TYPE.ahk
 #Include .\VDS_PACK_NOTIFICATION.ahk
+#Include .\VDS_NF_PACK.ahk
 #Include .\VDS_DISK_NOTIFICATION.ahk
+#Include .\VDS_NF_DISK.ahk
 #Include .\VDS_VOLUME_NOTIFICATION.ahk
 #Include .\VDS_PARTITION_NOTIFICATION.ahk
 #Include .\VDS_DRIVE_LETTER_NOTIFICATION.ahk
 #Include .\VDS_FILE_SYSTEM_NOTIFICATION.ahk
+#Include .\VDS_NF_FILE_SYSTEM.ahk
 #Include .\VDS_MOUNT_POINT_NOTIFICATION.ahk
 #Include .\VDS_SUB_SYSTEM_NOTIFICATION.ahk
 #Include .\VDS_CONTROLLER_NOTIFICATION.ahk
+#Include .\VDS_NF_CONTROLLER.ahk
 #Include .\VDS_DRIVE_NOTIFICATION.ahk
+#Include .\VDS_NF_DRIVE.ahk
 #Include .\VDS_LUN_NOTIFICATION.ahk
+#Include .\VDS_NF_LUN.ahk
 #Include .\VDS_PORT_NOTIFICATION.ahk
+#Include .\VDS_NF_PORT.ahk
 #Include .\VDS_PORTAL_NOTIFICATION.ahk
 #Include .\VDS_TARGET_NOTIFICATION.ahk
 #Include .\VDS_PORTAL_GROUP_NOTIFICATION.ahk
 #Include .\VDS_SERVICE_NOTIFICATION.ahk
+#Include .\VDS_RECOVER_ACTION.ahk
 
 /**
  * The VDS_NOTIFICATION structure (vdshwprv.h) defines the VDS notification structures specific to each notification target type (subject).
@@ -26,10 +35,8 @@
  * The members of this structure are aligned on an 8-byte boundary.
  * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/ns-vdshwprv-vds_notification
  * @namespace Windows.Win32.Storage.VirtualDiskService
- * @version v4.0.30319
  */
-class VDS_NOTIFICATION extends Win32Struct
-{
+class VDS_NOTIFICATION extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -224,7 +231,7 @@ class VDS_NOTIFICATION extends Win32Struct
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
+     * @type {VDS_NOTIFICATION_TARGET_TYPE}
      */
     objectType {
         get => NumGet(this, 0, "int")
@@ -234,7 +241,7 @@ class VDS_NOTIFICATION extends Win32Struct
     /**
      * @type {VDS_PACK_NOTIFICATION}
      */
-    Pack{
+    Pack {
         get {
             if(!this.HasProp("__Pack"))
                 this.__Pack := VDS_PACK_NOTIFICATION(8, this)
@@ -245,7 +252,7 @@ class VDS_NOTIFICATION extends Win32Struct
     /**
      * @type {VDS_DISK_NOTIFICATION}
      */
-    Disk{
+    Disk {
         get {
             if(!this.HasProp("__Disk"))
                 this.__Disk := VDS_DISK_NOTIFICATION(8, this)
@@ -256,7 +263,7 @@ class VDS_NOTIFICATION extends Win32Struct
     /**
      * @type {VDS_VOLUME_NOTIFICATION}
      */
-    Volume{
+    Volume {
         get {
             if(!this.HasProp("__Volume"))
                 this.__Volume := VDS_VOLUME_NOTIFICATION(8, this)
@@ -267,7 +274,7 @@ class VDS_NOTIFICATION extends Win32Struct
     /**
      * @type {VDS_PARTITION_NOTIFICATION}
      */
-    Partition{
+    Partition {
         get {
             if(!this.HasProp("__Partition"))
                 this.__Partition := VDS_PARTITION_NOTIFICATION(8, this)
@@ -278,7 +285,7 @@ class VDS_NOTIFICATION extends Win32Struct
     /**
      * @type {VDS_DRIVE_LETTER_NOTIFICATION}
      */
-    Letter{
+    Letter {
         get {
             if(!this.HasProp("__Letter"))
                 this.__Letter := VDS_DRIVE_LETTER_NOTIFICATION(8, this)
@@ -289,7 +296,7 @@ class VDS_NOTIFICATION extends Win32Struct
     /**
      * @type {VDS_FILE_SYSTEM_NOTIFICATION}
      */
-    FileSystem{
+    FileSystem {
         get {
             if(!this.HasProp("__FileSystem"))
                 this.__FileSystem := VDS_FILE_SYSTEM_NOTIFICATION(8, this)
@@ -300,7 +307,7 @@ class VDS_NOTIFICATION extends Win32Struct
     /**
      * @type {VDS_MOUNT_POINT_NOTIFICATION}
      */
-    MountPoint{
+    MountPoint {
         get {
             if(!this.HasProp("__MountPoint"))
                 this.__MountPoint := VDS_MOUNT_POINT_NOTIFICATION(8, this)
@@ -311,7 +318,7 @@ class VDS_NOTIFICATION extends Win32Struct
     /**
      * @type {VDS_SUB_SYSTEM_NOTIFICATION}
      */
-    SubSystem{
+    SubSystem {
         get {
             if(!this.HasProp("__SubSystem"))
                 this.__SubSystem := VDS_SUB_SYSTEM_NOTIFICATION(8, this)
@@ -322,7 +329,7 @@ class VDS_NOTIFICATION extends Win32Struct
     /**
      * @type {VDS_CONTROLLER_NOTIFICATION}
      */
-    Controller{
+    Controller {
         get {
             if(!this.HasProp("__Controller"))
                 this.__Controller := VDS_CONTROLLER_NOTIFICATION(8, this)
@@ -333,7 +340,7 @@ class VDS_NOTIFICATION extends Win32Struct
     /**
      * @type {VDS_DRIVE_NOTIFICATION}
      */
-    Drive{
+    Drive {
         get {
             if(!this.HasProp("__Drive"))
                 this.__Drive := VDS_DRIVE_NOTIFICATION(8, this)
@@ -344,7 +351,7 @@ class VDS_NOTIFICATION extends Win32Struct
     /**
      * @type {VDS_LUN_NOTIFICATION}
      */
-    Lun{
+    Lun {
         get {
             if(!this.HasProp("__Lun"))
                 this.__Lun := VDS_LUN_NOTIFICATION(8, this)
@@ -355,7 +362,7 @@ class VDS_NOTIFICATION extends Win32Struct
     /**
      * @type {VDS_PORT_NOTIFICATION}
      */
-    Port{
+    Port {
         get {
             if(!this.HasProp("__Port"))
                 this.__Port := VDS_PORT_NOTIFICATION(8, this)
@@ -366,7 +373,7 @@ class VDS_NOTIFICATION extends Win32Struct
     /**
      * @type {VDS_PORTAL_NOTIFICATION}
      */
-    Portal{
+    Portal {
         get {
             if(!this.HasProp("__Portal"))
                 this.__Portal := VDS_PORTAL_NOTIFICATION(8, this)
@@ -377,7 +384,7 @@ class VDS_NOTIFICATION extends Win32Struct
     /**
      * @type {VDS_TARGET_NOTIFICATION}
      */
-    Target{
+    Target {
         get {
             if(!this.HasProp("__Target"))
                 this.__Target := VDS_TARGET_NOTIFICATION(8, this)
@@ -388,7 +395,7 @@ class VDS_NOTIFICATION extends Win32Struct
     /**
      * @type {VDS_PORTAL_GROUP_NOTIFICATION}
      */
-    PortalGroup{
+    PortalGroup {
         get {
             if(!this.HasProp("__PortalGroup"))
                 this.__PortalGroup := VDS_PORTAL_GROUP_NOTIFICATION(8, this)
@@ -399,7 +406,7 @@ class VDS_NOTIFICATION extends Win32Struct
     /**
      * @type {VDS_SERVICE_NOTIFICATION}
      */
-    Service{
+    Service {
         get {
             if(!this.HasProp("__Service"))
                 this.__Service := VDS_SERVICE_NOTIFICATION(8, this)

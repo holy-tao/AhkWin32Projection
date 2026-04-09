@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\D3D11_VIDEO_SAMPLE_DESC.ahk
 #Include .\ID3D11VideoDevice.ahk
+#Include .\D3D11_VIDEO_SAMPLE_DESC.ahk
 
 /**
  * Provides the video decoding and video processing capabilities of a Microsoft Direct3D 11 device. (ID3D11VideoDevice1)
@@ -10,9 +10,8 @@
  * The Direct3D 11 device supports this interface. To get a pointer to this interface, call <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-queryinterface(q)">QueryInterface</a> with an <a href="https://docs.microsoft.com/windows/desktop/api/d3d11_1/nn-d3d11_1-id3d11device1">ID3D11Device1</a> interface pointer.
  * @see https://learn.microsoft.com/windows/win32/api/d3d11_1/nn-d3d11_1-id3d11videodevice1
  * @namespace Windows.Win32.Graphics.Direct3D11
- * @version v4.0.30319
  */
-class ID3D11VideoDevice1 extends ID3D11VideoDevice{
+class ID3D11VideoDevice1 extends ID3D11VideoDevice {
 
     static sizeof => A_PtrSize
     /**
@@ -119,7 +118,7 @@ class ID3D11VideoDevice1 extends ID3D11VideoDevice{
      * @param {Pointer<D3D11_VIDEO_DECODER_DESC>} pInputDesc Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ns-d3d11-d3d11_video_decoder_desc">D3D11_VIDEO_DECODER_DESC</a>*</b>
      * 
      * An object describing the decoding profile, the resolution, and format of the input stream.  This is the resolution and format to be downsampled.
-     * @param {Integer} InputColorSpace Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dxgicommon/ne-dxgicommon-dxgi_color_space_type">DXGI_COLOR_SPACE_TYPE</a></b>
+     * @param {DXGI_COLOR_SPACE_TYPE} InputColorSpace Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dxgicommon/ne-dxgicommon-dxgi_color_space_type">DXGI_COLOR_SPACE_TYPE</a></b>
      * 
      * A  <a href="https://docs.microsoft.com/windows/desktop/api/dxgicommon/ne-dxgicommon-dxgi_color_space_type">DXGI_COLOR_SPACE_TYPE</a> value that specifies the colorspace of the reference frame data.
      * @param {Pointer<D3D11_VIDEO_DECODER_CONFIG>} pInputConfig Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ns-d3d11-d3d11_video_decoder_config">D3D11_VIDEO_DECODER_CONFIG</a>*</b>
@@ -168,7 +167,7 @@ class ID3D11VideoDevice1 extends ID3D11VideoDevice{
      * @param {Pointer<D3D11_VIDEO_DECODER_DESC>} pInputDesc Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ns-d3d11-d3d11_video_decoder_desc">D3D11_VIDEO_DECODER_DESC</a>*</b>
      * 
      * A <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ns-d3d11-d3d11_video_decoder_desc">D3D11_VIDEO_DECODER_DESC</a> object describing the decoding profile, the resolution, and format of the input stream.  This is the resolution and format to be downsampled.
-     * @param {Integer} InputColorSpace Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dxgicommon/ne-dxgicommon-dxgi_color_space_type">DXGI_COLOR_SPACE_TYPE</a></b>
+     * @param {DXGI_COLOR_SPACE_TYPE} InputColorSpace Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dxgicommon/ne-dxgicommon-dxgi_color_space_type">DXGI_COLOR_SPACE_TYPE</a></b>
      * 
      * A  <a href="https://docs.microsoft.com/windows/desktop/api/dxgicommon/ne-dxgicommon-dxgi_color_space_type">DXGI_COLOR_SPACE_TYPE</a> value that specifies the colorspace of the reference frame data.
      * @param {Pointer<D3D11_VIDEO_DECODER_CONFIG>} pInputConfig Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ns-d3d11-d3d11_video_decoder_config">D3D11_VIDEO_DECODER_CONFIG</a>*</b>

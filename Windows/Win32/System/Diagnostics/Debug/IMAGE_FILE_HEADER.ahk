@@ -1,21 +1,21 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\SystemInformation\IMAGE_FILE_MACHINE.ahk
+#Include .\IMAGE_FILE_CHARACTERISTICS.ahk
 
 /**
  * Represents the COFF header format.
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-image_file_header
  * @namespace Windows.Win32.System.Diagnostics.Debug
- * @version v4.0.30319
  */
-class IMAGE_FILE_HEADER extends Win32Struct
-{
+class IMAGE_FILE_HEADER extends Win32Struct {
     static sizeof => 20
 
     static packingSize => 4
 
     /**
      * The architecture type of the computer. An image file can only be run on the specified computer or a system
-     * @type {Integer}
+     * @type {IMAGE_FILE_MACHINE}
      */
     Machine {
         get => NumGet(this, 0, "ushort")
@@ -71,8 +71,7 @@ class IMAGE_FILE_HEADER extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Integer}
+     * @type {IMAGE_FILE_CHARACTERISTICS}
      */
     Characteristics {
         get => NumGet(this, 18, "ushort")

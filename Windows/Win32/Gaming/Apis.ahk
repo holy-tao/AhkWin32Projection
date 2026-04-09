@@ -3,7 +3,6 @@
 
 /**
  * @namespace Windows.Win32.Gaming
- * @version v4.0.30319
  */
 class Gaming {
 
@@ -126,7 +125,9 @@ class Gaming {
      * @param {Pointer<GameUICompletionRoutine>} completionRoutine Type: <b>GameUICompletionRoutine</b>
      * 
      * Do not use. This API is only supported for Xbox developers.
-     * @param {Pointer<Void>} _context 
+     * @param {Pointer<Void>} _context Type: <b>void*</b>
+     * 
+     * Do not use. This API is only supported for Xbox developers.
      * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
      * Do not use. This API is only supported for Xbox developers.
@@ -170,7 +171,9 @@ class Gaming {
      * @param {Pointer<PlayerPickerUICompletionRoutine>} completionRoutine Type: <b>PlayerPickerUICompletionRoutine</b>
      * 
      * Do not use. This API is only supported for Xbox developers.
-     * @param {Pointer<Void>} _context 
+     * @param {Pointer<Void>} _context Type: <b>void*</b>
+     * 
+     * Do not use. This API is only supported for Xbox developers.
      * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
      * Do not use. This API is only supported for Xbox developers.
@@ -193,7 +196,9 @@ class Gaming {
      * @param {Pointer<GameUICompletionRoutine>} completionRoutine Type: <b>GameUICompletionRoutine</b>
      * 
      * Do not use. This API is only supported for Xbox developers.
-     * @param {Pointer<Void>} _context 
+     * @param {Pointer<Void>} _context Type: <b>void*</b>
+     * 
+     * Do not use. This API is only supported for Xbox developers.
      * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
      * Do not use. This API is only supported for Xbox developers.
@@ -216,7 +221,9 @@ class Gaming {
      * @param {Pointer<GameUICompletionRoutine>} completionRoutine Type: <b>GameUICompletionRoutine</b>
      * 
      * Do not use. This API is only supported for Xbox developers.
-     * @param {Pointer<Void>} _context 
+     * @param {Pointer<Void>} _context Type: <b>void*</b>
+     * 
+     * Do not use. This API is only supported for Xbox developers.
      * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
      * Do not use. This API is only supported for Xbox developers.
@@ -239,7 +246,9 @@ class Gaming {
      * @param {Pointer<GameUICompletionRoutine>} completionRoutine Type: <b>GameUICompletionRoutine</b>
      * 
      * Do not use. This API is only supported for Xbox developers.
-     * @param {Pointer<Void>} _context 
+     * @param {Pointer<Void>} _context Type: <b>void*</b>
+     * 
+     * Do not use. This API is only supported for Xbox developers.
      * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
      * Do not use. This API is only supported for Xbox developers.
@@ -296,7 +305,9 @@ class Gaming {
      * @param {Pointer<GameUICompletionRoutine>} completionRoutine Type: <b>GameUICompletionRoutine</b>
      * 
      * Do not use. This API is only supported for Xbox developers.
-     * @param {Pointer<Void>} _context 
+     * @param {Pointer<Void>} _context Type: <b>void*</b>
+     * 
+     * Do not use. This API is only supported for Xbox developers.
      * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
      * Do not use. This API is only supported for Xbox developers.

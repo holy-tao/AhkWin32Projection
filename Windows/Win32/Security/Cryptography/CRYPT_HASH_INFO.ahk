@@ -1,14 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\CRYPT_INTEGER_BLOB.ahk
 #Include .\CRYPT_ALGORITHM_IDENTIFIER.ahk
+#Include .\CRYPT_INTEGER_BLOB.ahk
 
 /**
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CRYPT_HASH_INFO extends Win32Struct
-{
+class CRYPT_HASH_INFO extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -16,7 +14,7 @@ class CRYPT_HASH_INFO extends Win32Struct
     /**
      * @type {CRYPT_ALGORITHM_IDENTIFIER}
      */
-    HashAlgorithm{
+    HashAlgorithm {
         get {
             if(!this.HasProp("__HashAlgorithm"))
                 this.__HashAlgorithm := CRYPT_ALGORITHM_IDENTIFIER(0, this)
@@ -27,7 +25,7 @@ class CRYPT_HASH_INFO extends Win32Struct
     /**
      * @type {CRYPT_INTEGER_BLOB}
      */
-    Hash{
+    Hash {
         get {
             if(!this.HasProp("__Hash"))
                 this.__Hash := CRYPT_INTEGER_BLOB(24, this)

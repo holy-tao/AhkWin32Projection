@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ITextRangeProvider.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\ITextRangeProvider.ahk
 
 /**
  * Provides access to controls that contain text.
@@ -10,9 +10,8 @@
  * Implemented on a Microsoft UI Automation provider that must support the <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-implementingtextandtextrange">Text</a> control pattern.
  * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nn-uiautomationcore-itextprovider
  * @namespace Windows.Win32.UI.Accessibility
- * @version v4.0.30319
  */
-class ITextProvider extends IUnknown{
+class ITextProvider extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -41,7 +40,7 @@ class ITextProvider extends IUnknown{
     }
 
     /**
-     * @type {Integer} 
+     * @type {SupportedTextSelection} 
      */
     SupportedTextSelection {
         get => this.get_SupportedTextSelection()
@@ -131,7 +130,9 @@ class ITextProvider extends IUnknown{
      * 			closest to the given point is returned.
      * 
      * The property never returns <b>NULL</b>.
-     * @param {UiaPoint} _point 
+     * @param {UiaPoint} _point Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/ns-uiautomationcore-uiapoint">UiaPoint</a></b>
+     * 
+     * The location in screen coordinates.
      * @returns {ITextRangeProvider} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nn-uiautomationcore-itextrangeprovider">ITextRangeProvider</a>**</b>
      * 
      * Receives a pointer to the degenerate (empty) text range 
@@ -165,7 +166,7 @@ class ITextProvider extends IUnknown{
      * > Type: **[SupportedTextSelection](../uiautomationcore/ne-uiautomationcore-supportedtextselection.md)\***
      * >
      * > When this function returns, contains a pointer to the [SupportedTextSelection](../uiautomationcore/ne-uiautomationcore-supportedtextselection.md) object.
-     * @returns {Integer} 
+     * @returns {SupportedTextSelection} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-itextprovider-get_supportedtextselection
      */
     get_SupportedTextSelection() {

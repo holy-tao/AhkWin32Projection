@@ -7,9 +7,8 @@
  * . (IFileSyncMergeHandler)
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-ifilesyncmergehandler
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IFileSyncMergeHandler extends IUnknown{
+class IFileSyncMergeHandler extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -38,7 +37,7 @@ class IFileSyncMergeHandler extends IUnknown{
      * @param {PWSTR} serverFilePath Type: <b>LPCWSTR</b>
      * 
      * A pointer to a string containing the network path to the server copy of the file.
-     * @returns {Integer} Type: <b>MERGE_UPDATE_STATUS*</b>
+     * @returns {MERGE_UPDATE_STATUS} Type: <b>MERGE_UPDATE_STATUS*</b>
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifilesyncmergehandler-merge
      */
     Merge(localFilePath, serverFilePath) {

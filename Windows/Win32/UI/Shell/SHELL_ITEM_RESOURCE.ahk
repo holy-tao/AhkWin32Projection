@@ -5,10 +5,8 @@
  * Defines Shell item resource.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/ns-shobjidl_core-shell_item_resource
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class SHELL_ITEM_RESOURCE extends Win32Struct
-{
+class SHELL_ITEM_RESOURCE extends Win32Struct {
     static sizeof => 528
 
     static packingSize => 8
@@ -17,7 +15,7 @@ class SHELL_ITEM_RESOURCE extends Win32Struct
      * Type: <b>GUID</b>
      * 
      * The <b>GUID</b> that identifies the item.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     guidType {
         get => NumGet(this, 0, "ptr")

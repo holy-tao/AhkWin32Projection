@@ -7,19 +7,17 @@
  * When working with IPv4 addresses, use <a href="https://docs.microsoft.com/windows/desktop/api/qossp/ns-qossp-in_addr_ipv4">IN_ADDR_IPV4</a>.
  * @see https://learn.microsoft.com/windows/win32/api/qossp/ns-qossp-in_addr_ipv6
  * @namespace Windows.Win32.NetworkManagement.QoS
- * @version v4.0.30319
  */
-class IN_ADDR_IPV6 extends Win32Struct
-{
+class IN_ADDR_IPV6 extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 1
 
     /**
      * IPv6 address.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Addr{
+    Addr {
         get {
             if(!this.HasProp("__AddrProxyArray"))
                 this.__AddrProxyArray := Win32FixedArray(this.ptr + 0, 16, Primitive, "char")

@@ -9,9 +9,8 @@
  * Clients implement this interface to receive notifications when another app makes changes to the camera settings for a capture device. Pass the implementation into the [MFCreateCameraControlMonitor](nf-mfidl-mfcreatecameracontrolmonitor.md) function to create an instance of [IMFCameraControlMonitor](nn-mfidl-imfcameracontrolmonitor.md).
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imfcameracontrolnotify
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFCameraControlNotify extends IUnknown{
+class IMFCameraControlNotify extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

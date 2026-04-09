@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D12
- * @version v4.0.30319
  */
-class D3D12_FEATURE_DATA_D3D12_OPTIONS19 extends Win32Struct
-{
+class D3D12_FEATURE_DATA_D3D12_OPTIONS19 extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 4

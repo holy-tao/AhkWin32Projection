@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Media.DirectShow.Tv
- * @version v4.0.30319
  */
-class ChannelInfo extends Win32Struct
-{
+class ChannelInfo extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4
@@ -30,7 +28,7 @@ class ChannelInfo extends Win32Struct
             get => NumGet(this, 0, "int")
             set => NumPut("int", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -38,7 +36,7 @@ class ChannelInfo extends Win32Struct
             get => NumGet(this, 4, "int")
             set => NumPut("int", value, this, 4)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -46,7 +44,6 @@ class ChannelInfo extends Win32Struct
             get => NumGet(this, 8, "int")
             set => NumPut("int", value, this, 8)
         }
-    
     }
 
     class _DC extends Win32Struct {
@@ -60,7 +57,6 @@ class ChannelInfo extends Win32Struct
             get => NumGet(this, 0, "int")
             set => NumPut("int", value, this, 0)
         }
-    
     }
 
     class _ATSC extends Win32Struct {
@@ -74,16 +70,15 @@ class ChannelInfo extends Win32Struct
             get => NumGet(this, 0, "int")
             set => NumPut("int", value, this, 0)
         }
-    
     }
 
     /**
      * @type {_DVB}
      */
-    DVB{
+    DVB {
         get {
             if(!this.HasProp("__DVB"))
-                this.__DVB := %this.__Class%._DVB(4, this)
+                this.__DVB := ChannelInfo._DVB(4, this)
             return this.__DVB
         }
     }
@@ -91,10 +86,10 @@ class ChannelInfo extends Win32Struct
     /**
      * @type {_DC}
      */
-    DC{
+    DC {
         get {
             if(!this.HasProp("__DC"))
-                this.__DC := %this.__Class%._DC(4, this)
+                this.__DC := ChannelInfo._DC(4, this)
             return this.__DC
         }
     }
@@ -102,10 +97,10 @@ class ChannelInfo extends Win32Struct
     /**
      * @type {_ATSC}
      */
-    ATSC{
+    ATSC {
         get {
             if(!this.HasProp("__ATSC"))
-                this.__ATSC := %this.__Class%._ATSC(4, this)
+                this.__ATSC := ChannelInfo._ATSC(4, this)
             return this.__ATSC
         }
     }

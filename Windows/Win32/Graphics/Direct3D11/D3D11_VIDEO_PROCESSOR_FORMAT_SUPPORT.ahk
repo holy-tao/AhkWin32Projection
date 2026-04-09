@@ -5,9 +5,8 @@
  * Specifies how a video format can be used for video processing.
  * @see https://learn.microsoft.com/windows/win32/api/d3d11/ne-d3d11-d3d11_video_processor_format_support
  * @namespace Windows.Win32.Graphics.Direct3D11
- * @version v4.0.30319
  */
-class D3D11_VIDEO_PROCESSOR_FORMAT_SUPPORT extends Win32Enum{
+class D3D11_VIDEO_PROCESSOR_FORMAT_SUPPORT extends Win32Enum {
 
     /**
      * The format can be used as the input to the video processor.

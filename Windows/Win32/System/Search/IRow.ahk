@@ -16,9 +16,8 @@
  * <b>DBPROP_ENABLEROWSETEVENTS</b> must be set to <b>TRUE</b> with the OLE DB <a href="https://docs.microsoft.com/previous-versions/windows/desktop/ms711497(v=vs.85)">ICommandProperties::SetProperties</a> method prior to executing the query in order to use rowset eventing.
  * @see https://learn.microsoft.com/windows/win32/api/searchapi/nn-searchapi-irowsetevents
  * @namespace Windows.Win32.System.Search
- * @version v4.0.30319
  */
-class IRow extends IUnknown{
+class IRow extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

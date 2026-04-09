@@ -5,10 +5,8 @@
  * Used with the CryptUIWizDigitalSign function to contain information about a BLOB.
  * @see https://learn.microsoft.com/windows/win32/api/cryptuiapi/ns-cryptuiapi-cryptui_wiz_digital_sign_context
  * @namespace Windows.Win32.Security.Cryptography.UI
- * @version v4.0.30319
  */
-class CRYPTUI_WIZ_DIGITAL_SIGN_CONTEXT extends Win32Struct
-{
+class CRYPTUI_WIZ_DIGITAL_SIGN_CONTEXT extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

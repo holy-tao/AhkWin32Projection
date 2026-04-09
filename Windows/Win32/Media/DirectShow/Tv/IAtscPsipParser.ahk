@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
 #Include .\IPAT.ahk
 #Include .\ICAT.ahk
 #Include .\IPMT.ahk
@@ -11,7 +12,6 @@
 #Include .\IATSC_ETT.ahk
 #Include .\IATSC_STT.ahk
 #Include .\ISCTE_EAS.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
  * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005 and later. The IAtscPsipParser interface retrieves ATSC Program and System Information Protocol (PSIP) tables.
@@ -29,9 +29,8 @@
  * You must call <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/atscpsipparser/nf-atscpsipparser-iatscpsipparser-initialize">Initialize</a> before calling any other methods on the object.
  * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nn-atscpsipparser-iatscpsipparser
  * @namespace Windows.Win32.Media.DirectShow.Tv
- * @version v4.0.30319
  */
-class IAtscPsipParser extends IUnknown{
+class IAtscPsipParser extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

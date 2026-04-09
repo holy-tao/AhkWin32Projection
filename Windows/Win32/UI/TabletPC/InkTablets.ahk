@@ -5,10 +5,8 @@
  * Gets the number of objects or collections contained in a collection. (IInkTablets.get_Count)
  * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinktablets-get_count
  * @namespace Windows.Win32.UI.TabletPC
- * @version v4.0.30319
  */
-class InkTablets extends Win32Struct
-{
+class InkTablets extends Win32Struct {
     static sizeof => 0
 
     static packingSize => 1

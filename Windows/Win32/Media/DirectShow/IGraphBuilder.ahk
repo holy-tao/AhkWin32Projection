@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IBaseFilter.ahk
 #Include .\IFilterGraph.ahk
+#Include .\IBaseFilter.ahk
 
 /**
  * This interface provides methods that enable an application to build a filter graph.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-igraphbuilder
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IGraphBuilder extends IFilterGraph{
+class IGraphBuilder extends IFilterGraph {
 
     static sizeof => A_PtrSize
     /**

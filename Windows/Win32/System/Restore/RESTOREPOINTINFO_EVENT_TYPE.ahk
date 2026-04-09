@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Restore
- * @version v4.0.30319
  */
-class RESTOREPOINTINFO_EVENT_TYPE extends Win32Enum{
+class RESTOREPOINTINFO_EVENT_TYPE extends Win32Enum {
 
     /**
      * @type {Integer (UInt32)}

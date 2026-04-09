@@ -5,9 +5,8 @@
  * Defines a set of extended options for the session. These options are used with the WSManSetSessionOption method.
  * @see https://learn.microsoft.com/windows/win32/api/wsman/ne-wsman-wsmansessionoption
  * @namespace Windows.Win32.System.RemoteManagement
- * @version v4.0.30319
  */
-class WSManSessionOption extends Win32Enum{
+class WSManSessionOption extends Win32Enum {
 
     /**
      * Default time-out in milliseconds that applies to all operations on the client side.
@@ -16,7 +15,6 @@ class WSManSessionOption extends Win32Enum{
     static WSMAN_OPTION_DEFAULT_OPERATION_TIMEOUTMS => 1
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static WSMAN_OPTION_MAX_RETRY_TIME => 11
@@ -139,13 +137,11 @@ class WSManSessionOption extends Win32Enum{
     static WSMAN_OPTION_ALLOW_NEGOTIATE_IMPLICIT_CREDENTIALS => 32
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static WSMAN_OPTION_USE_SSL => 33
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static WSMAN_OPTION_USE_INTEARACTIVE_TOKEN => 34

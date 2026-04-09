@@ -5,9 +5,8 @@
  * Specifies a property type for setup and configuration of a certification authority (CA) role when using the ICertSrvSetup interface.
  * @see https://learn.microsoft.com/windows/win32/api/casetup/ne-casetup-casetupproperty
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CASetupProperty extends Win32Enum{
+class CASetupProperty extends Win32Enum {
 
     /**
      * A value that specifies a property type that is not valid.

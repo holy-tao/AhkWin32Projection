@@ -1,14 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
  * @namespace Windows.Win32.System.SecurityCenter
- * @version v4.0.30319
  */
-class IWSCDefaultProduct extends IDispatch{
+class IWSCDefaultProduct extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -37,7 +35,7 @@ class IWSCDefaultProduct extends IDispatch{
 
     /**
      * 
-     * @param {Integer} eType 
+     * @param {SECURITY_PRODUCT_TYPE} eType 
      * @param {BSTR} pGuid 
      * @returns {HRESULT} 
      */

@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
- * @version v4.0.30319
  */
-class FRAMING_PROP extends Win32Enum{
+class FRAMING_PROP extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

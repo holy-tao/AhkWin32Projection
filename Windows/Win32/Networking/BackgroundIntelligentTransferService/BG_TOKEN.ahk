@@ -11,9 +11,8 @@
   * </ul>
  * @see https://learn.microsoft.com/windows/win32/api/bits4_0/nf-bits4_0-ibitstokenoptions-gethelpertokenflags
  * @namespace Windows.Win32.Networking.BackgroundIntelligentTransferService
- * @version v4.0.30319
  */
-class BG_TOKEN extends Win32Enum{
+class BG_TOKEN extends Win32Enum {
 
     /**
      * @type {Integer (UInt32)}

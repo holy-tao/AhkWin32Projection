@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.Fax
- * @version v4.0.30319
  */
-class STINOTIFY extends Win32Struct
-{
+class STINOTIFY extends Win32Struct {
     static sizeof => 80
 
     static packingSize => 8
@@ -20,7 +18,7 @@ class STINOTIFY extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     guidNotificationCode {
         get => NumGet(this, 8, "ptr")
@@ -28,9 +26,9 @@ class STINOTIFY extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    abNotificationData{
+    abNotificationData {
         get {
             if(!this.HasProp("__abNotificationDataProxyArray"))
                 this.__abNotificationDataProxyArray := Win32FixedArray(this.ptr + 16, 64, Primitive, "char")

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IMFMediaTypeHandler.ahk
 #Include .\IMFAttributes.ahk
+#Include .\IMFMediaTypeHandler.ahk
 
 /**
  * Gets information about one stream in a media source.
@@ -17,9 +17,8 @@
  * </ul>
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imfstreamdescriptor
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFStreamDescriptor extends IMFAttributes{
+class IMFStreamDescriptor extends IMFAttributes {
 
     static sizeof => A_PtrSize
     /**

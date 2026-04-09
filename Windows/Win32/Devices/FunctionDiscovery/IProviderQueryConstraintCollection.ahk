@@ -7,9 +7,8 @@
  * This interface is accessible to the provider through the IFunctionDiscoveryProviderQuery::GetQueryConstraints method.
  * @see https://learn.microsoft.com/windows/win32/api/functiondiscoveryprovider/nn-functiondiscoveryprovider-iproviderqueryconstraintcollection
  * @namespace Windows.Win32.Devices.FunctionDiscovery
- * @version v4.0.30319
  */
-class IProviderQueryConstraintCollection extends IUnknown{
+class IProviderQueryConstraintCollection extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -7,9 +7,8 @@
  * The IADsPrintJobOperations interface is a dual interface that inherits from IADs.
  * @see https://learn.microsoft.com/windows/win32/api/iads/nn-iads-iadsprintjoboperations
  * @namespace Windows.Win32.Networking.ActiveDirectory
- * @version v4.0.30319
  */
-class IADsPrintJobOperations extends IADs{
+class IADsPrintJobOperations extends IADs {
 
     static sizeof => A_PtrSize
     /**

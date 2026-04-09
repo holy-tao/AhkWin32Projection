@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\IUIAutomationElement.ahk
 #Include .\IUIAutomationCondition.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Exposes properties and methods that UI Automation client applications use to view and navigate the UI Automation elements on the desktop.
@@ -15,9 +15,8 @@
  * If your client application might try to find elements in its own user interface, you must make all UI Automation calls on a separate thread.
  * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nn-uiautomationclient-iuiautomationtreewalker
  * @namespace Windows.Win32.UI.Accessibility
- * @version v4.0.30319
  */
-class IUIAutomationTreeWalker extends IUnknown{
+class IUIAutomationTreeWalker extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

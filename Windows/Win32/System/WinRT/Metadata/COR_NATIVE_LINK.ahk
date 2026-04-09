@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.WinRT.Metadata
- * @version v4.0.30319
  */
-class COR_NATIVE_LINK extends Win32Struct
-{
+class COR_NATIVE_LINK extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4

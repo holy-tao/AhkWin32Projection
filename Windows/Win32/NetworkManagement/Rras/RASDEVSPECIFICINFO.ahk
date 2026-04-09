@@ -5,10 +5,9 @@
  * Used to send a cookie for server validation and bypass point-to-point (PPP) authentication.
  * @see https://learn.microsoft.com/windows/win32/api/ras/ns-ras-rasdevspecificinfo
  * @namespace Windows.Win32.NetworkManagement.Rras
- * @version v4.0.30319
+ * @architecture X64, Arm64
  */
-class RASDEVSPECIFICINFO extends Win32Struct
-{
+class RASDEVSPECIFICINFO extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

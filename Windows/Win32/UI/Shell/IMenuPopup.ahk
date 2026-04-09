@@ -7,9 +7,8 @@
  * IMenuPopup may be altered or unavailable.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-imenupopup
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IMenuPopup extends IDeskBar{
+class IMenuPopup extends IDeskBar {
 
     static sizeof => A_PtrSize
     /**

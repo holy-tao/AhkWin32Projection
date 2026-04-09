@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\CRYPT_KEY_FLAGS.ahk
+#Include .\CRYPT_KEY_PROV_PARAM.ahk
 
 /**
  * The CRYPT_KEY_PROV_INFO structure contains information about a key container within a cryptographic service provider (CSP).
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-crypt_key_prov_info
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CRYPT_KEY_PROV_INFO extends Win32Struct
-{
+class CRYPT_KEY_PROV_INFO extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -48,8 +48,7 @@ class CRYPT_KEY_PROV_INFO extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Integer}
+     * @type {CRYPT_KEY_FLAGS}
      */
     dwFlags {
         get => NumGet(this, 20, "uint")

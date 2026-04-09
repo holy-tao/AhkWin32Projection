@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Security.EnterpriseData
- * @version v4.0.30319
  */
-class FILE_UNPROTECT_OPTIONS extends Win32Struct
-{
+class FILE_UNPROTECT_OPTIONS extends Win32Struct {
     static sizeof => 1
 
     static packingSize => 1

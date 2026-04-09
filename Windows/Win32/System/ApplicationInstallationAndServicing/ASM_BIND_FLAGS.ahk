@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.ApplicationInstallationAndServicing
- * @version v4.0.30319
  */
-class ASM_BIND_FLAGS extends Win32BitflagEnum{
+class ASM_BIND_FLAGS extends Win32BitflagEnum {
 
     /**
      * @type {Integer (Int32)}

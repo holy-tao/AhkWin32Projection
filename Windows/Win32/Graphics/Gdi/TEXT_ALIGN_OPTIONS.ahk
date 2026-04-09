@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Graphics.Gdi
- * @version v4.0.30319
  */
-class TEXT_ALIGN_OPTIONS extends Win32BitflagEnum{
+class TEXT_ALIGN_OPTIONS extends Win32BitflagEnum {
 
     /**
      * @type {Integer (UInt32)}

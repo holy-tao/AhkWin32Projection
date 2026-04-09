@@ -17,9 +17,8 @@
  * </ul>
  * @see https://learn.microsoft.com/windows/win32/api/audiopolicy/nn-audiopolicy-iaudiosessioncontrol2
  * @namespace Windows.Win32.Media.Audio
- * @version v4.0.30319
  */
-class IAudioSessionControl2 extends IAudioSessionControl{
+class IAudioSessionControl2 extends IAudioSessionControl {
 
     static sizeof => A_PtrSize
     /**

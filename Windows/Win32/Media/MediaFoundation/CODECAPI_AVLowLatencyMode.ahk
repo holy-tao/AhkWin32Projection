@@ -14,10 +14,8 @@
  * > In the current implementation, the Media Foundation H.264 decoder uses the type **VT_UI4** for this property. All other implementations, including the H.264 encoder, use the type **VT_BOOL**.
  * @see https://learn.microsoft.com/windows/win32/medfound/codecapi-avlowlatencymode
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class CODECAPI_AVLowLatencyMode extends Win32Struct
-{
+class CODECAPI_AVLowLatencyMode extends Win32Struct {
     static sizeof => 0
 
     static packingSize => 1

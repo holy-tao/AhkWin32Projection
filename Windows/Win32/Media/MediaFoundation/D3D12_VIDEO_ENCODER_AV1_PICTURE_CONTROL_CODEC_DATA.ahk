@@ -1,29 +1,35 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\D3D12_VIDEO_ENCODER_AV1_PICTURE_CONTROL_FLAGS.ahk
+#Include .\D3D12_VIDEO_ENCODER_AV1_FRAME_TYPE.ahk
+#Include .\D3D12_VIDEO_ENCODER_AV1_COMP_PREDICTION_TYPE.ahk
+#Include .\D3D12_VIDEO_ENCODER_AV1_INTERPOLATION_FILTERS.ahk
 #Include .\D3D12_VIDEO_ENCODER_AV1_RESTORATION_CONFIG.ahk
-#Include .\D3D12_VIDEO_ENCODER_AV1_REFERENCE_PICTURE_WARPED_MOTION_INFO.ahk
+#Include .\D3D12_VIDEO_ENCODER_AV1_RESTORATION_TYPE.ahk
+#Include .\D3D12_VIDEO_ENCODER_AV1_RESTORATION_TILESIZE.ahk
+#Include .\D3D12_VIDEO_ENCODER_AV1_TX_MODE.ahk
 #Include .\D3D12_VIDEO_ENCODER_AV1_REFERENCE_PICTURE_DESCRIPTOR.ahk
+#Include .\D3D12_VIDEO_ENCODER_AV1_REFERENCE_PICTURE_WARPED_MOTION_INFO.ahk
+#Include .\D3D12_VIDEO_ENCODER_AV1_REFERENCE_WARPED_MOTION_TRANSFORMATION.ahk
 #Include .\D3D12_VIDEO_ENCODER_CODEC_AV1_LOOP_FILTER_CONFIG.ahk
 #Include .\D3D12_VIDEO_ENCODER_CODEC_AV1_LOOP_FILTER_DELTA_CONFIG.ahk
 #Include .\D3D12_VIDEO_ENCODER_CODEC_AV1_QUANTIZATION_CONFIG.ahk
 #Include .\D3D12_VIDEO_ENCODER_CODEC_AV1_QUANTIZATION_DELTA_CONFIG.ahk
 #Include .\D3D12_VIDEO_ENCODER_AV1_CDEF_CONFIG.ahk
-#Include .\D3D12_VIDEO_ENCODER_AV1_SEGMENT_DATA.ahk
 #Include .\D3D12_VIDEO_ENCODER_AV1_SEGMENTATION_CONFIG.ahk
+#Include .\D3D12_VIDEO_ENCODER_AV1_SEGMENT_DATA.ahk
 #Include .\D3D12_VIDEO_ENCODER_AV1_SEGMENTATION_MAP.ahk
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class D3D12_VIDEO_ENCODER_AV1_PICTURE_CONTROL_CODEC_DATA extends Win32Struct
-{
-    static sizeof => 832
+class D3D12_VIDEO_ENCODER_AV1_PICTURE_CONTROL_CODEC_DATA extends Win32Struct {
+    static sizeof => 1792
 
     static packingSize => 8
 
     /**
-     * @type {Integer}
+     * @type {D3D12_VIDEO_ENCODER_AV1_PICTURE_CONTROL_FLAGS}
      */
     Flags {
         get => NumGet(this, 0, "int")
@@ -31,7 +37,7 @@ class D3D12_VIDEO_ENCODER_AV1_PICTURE_CONTROL_CODEC_DATA extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {D3D12_VIDEO_ENCODER_AV1_FRAME_TYPE}
      */
     FrameType {
         get => NumGet(this, 4, "int")
@@ -39,7 +45,7 @@ class D3D12_VIDEO_ENCODER_AV1_PICTURE_CONTROL_CODEC_DATA extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {D3D12_VIDEO_ENCODER_AV1_COMP_PREDICTION_TYPE}
      */
     CompoundPredictionType {
         get => NumGet(this, 8, "int")
@@ -47,7 +53,7 @@ class D3D12_VIDEO_ENCODER_AV1_PICTURE_CONTROL_CODEC_DATA extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {D3D12_VIDEO_ENCODER_AV1_INTERPOLATION_FILTERS}
      */
     InterpolationFilter {
         get => NumGet(this, 12, "int")
@@ -57,7 +63,7 @@ class D3D12_VIDEO_ENCODER_AV1_PICTURE_CONTROL_CODEC_DATA extends Win32Struct
     /**
      * @type {D3D12_VIDEO_ENCODER_AV1_RESTORATION_CONFIG}
      */
-    FrameRestorationConfig{
+    FrameRestorationConfig {
         get {
             if(!this.HasProp("__FrameRestorationConfig"))
                 this.__FrameRestorationConfig := D3D12_VIDEO_ENCODER_AV1_RESTORATION_CONFIG(16, this)
@@ -66,7 +72,7 @@ class D3D12_VIDEO_ENCODER_AV1_PICTURE_CONTROL_CODEC_DATA extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {D3D12_VIDEO_ENCODER_AV1_TX_MODE}
      */
     TxMode {
         get => NumGet(this, 40, "int")
@@ -114,9 +120,9 @@ class D3D12_VIDEO_ENCODER_AV1_PICTURE_CONTROL_CODEC_DATA extends Win32Struct
     }
 
     /**
-     * @type {Array<D3D12_VIDEO_ENCODER_AV1_REFERENCE_PICTURE_DESCRIPTOR>}
+     * @type {D3D12_VIDEO_ENCODER_AV1_REFERENCE_PICTURE_DESCRIPTOR}
      */
-    ReferenceFramesReconPictureDescriptors{
+    ReferenceFramesReconPictureDescriptors {
         get {
             if(!this.HasProp("__ReferenceFramesReconPictureDescriptorsProxyArray"))
                 this.__ReferenceFramesReconPictureDescriptorsProxyArray := Win32FixedArray(this.ptr + 64, 8, D3D12_VIDEO_ENCODER_AV1_REFERENCE_PICTURE_DESCRIPTOR, "")
@@ -125,12 +131,12 @@ class D3D12_VIDEO_ENCODER_AV1_PICTURE_CONTROL_CODEC_DATA extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    ReferenceIndices{
+    ReferenceIndices {
         get {
             if(!this.HasProp("__ReferenceIndicesProxyArray"))
-                this.__ReferenceIndicesProxyArray := Win32FixedArray(this.ptr + 128, 7, Primitive, "uint")
+                this.__ReferenceIndicesProxyArray := Win32FixedArray(this.ptr + 576, 7, Primitive, "uint")
             return this.__ReferenceIndicesProxyArray
         }
     }
@@ -139,25 +145,25 @@ class D3D12_VIDEO_ENCODER_AV1_PICTURE_CONTROL_CODEC_DATA extends Win32Struct
      * @type {Integer}
      */
     PrimaryRefFrame {
-        get => NumGet(this, 156, "uint")
-        set => NumPut("uint", value, this, 156)
+        get => NumGet(this, 604, "uint")
+        set => NumPut("uint", value, this, 604)
     }
 
     /**
      * @type {Integer}
      */
     RefreshFrameFlags {
-        get => NumGet(this, 160, "uint")
-        set => NumPut("uint", value, this, 160)
+        get => NumGet(this, 608, "uint")
+        set => NumPut("uint", value, this, 608)
     }
 
     /**
      * @type {D3D12_VIDEO_ENCODER_CODEC_AV1_LOOP_FILTER_CONFIG}
      */
-    LoopFilter{
+    LoopFilter {
         get {
             if(!this.HasProp("__LoopFilter"))
-                this.__LoopFilter := D3D12_VIDEO_ENCODER_CODEC_AV1_LOOP_FILTER_CONFIG(168, this)
+                this.__LoopFilter := D3D12_VIDEO_ENCODER_CODEC_AV1_LOOP_FILTER_CONFIG(616, this)
             return this.__LoopFilter
         }
     }
@@ -165,10 +171,10 @@ class D3D12_VIDEO_ENCODER_AV1_PICTURE_CONTROL_CODEC_DATA extends Win32Struct
     /**
      * @type {D3D12_VIDEO_ENCODER_CODEC_AV1_LOOP_FILTER_DELTA_CONFIG}
      */
-    LoopFilterDelta{
+    LoopFilterDelta {
         get {
             if(!this.HasProp("__LoopFilterDelta"))
-                this.__LoopFilterDelta := D3D12_VIDEO_ENCODER_CODEC_AV1_LOOP_FILTER_DELTA_CONFIG(312, this)
+                this.__LoopFilterDelta := D3D12_VIDEO_ENCODER_CODEC_AV1_LOOP_FILTER_DELTA_CONFIG(760, this)
             return this.__LoopFilterDelta
         }
     }
@@ -176,10 +182,10 @@ class D3D12_VIDEO_ENCODER_AV1_PICTURE_CONTROL_CODEC_DATA extends Win32Struct
     /**
      * @type {D3D12_VIDEO_ENCODER_CODEC_AV1_QUANTIZATION_CONFIG}
      */
-    Quantization{
+    Quantization {
         get {
             if(!this.HasProp("__Quantization"))
-                this.__Quantization := D3D12_VIDEO_ENCODER_CODEC_AV1_QUANTIZATION_CONFIG(336, this)
+                this.__Quantization := D3D12_VIDEO_ENCODER_CODEC_AV1_QUANTIZATION_CONFIG(784, this)
             return this.__Quantization
         }
     }
@@ -187,10 +193,10 @@ class D3D12_VIDEO_ENCODER_AV1_PICTURE_CONTROL_CODEC_DATA extends Win32Struct
     /**
      * @type {D3D12_VIDEO_ENCODER_CODEC_AV1_QUANTIZATION_DELTA_CONFIG}
      */
-    QuantizationDelta{
+    QuantizationDelta {
         get {
             if(!this.HasProp("__QuantizationDelta"))
-                this.__QuantizationDelta := D3D12_VIDEO_ENCODER_CODEC_AV1_QUANTIZATION_DELTA_CONFIG(416, this)
+                this.__QuantizationDelta := D3D12_VIDEO_ENCODER_CODEC_AV1_QUANTIZATION_DELTA_CONFIG(864, this)
             return this.__QuantizationDelta
         }
     }
@@ -198,10 +204,10 @@ class D3D12_VIDEO_ENCODER_AV1_PICTURE_CONTROL_CODEC_DATA extends Win32Struct
     /**
      * @type {D3D12_VIDEO_ENCODER_AV1_CDEF_CONFIG}
      */
-    CDEF{
+    CDEF {
         get {
             if(!this.HasProp("__CDEF"))
-                this.__CDEF := D3D12_VIDEO_ENCODER_AV1_CDEF_CONFIG(432, this)
+                this.__CDEF := D3D12_VIDEO_ENCODER_AV1_CDEF_CONFIG(880, this)
             return this.__CDEF
         }
     }
@@ -210,25 +216,25 @@ class D3D12_VIDEO_ENCODER_AV1_PICTURE_CONTROL_CODEC_DATA extends Win32Struct
      * @type {Integer}
      */
     QPMapValuesCount {
-        get => NumGet(this, 704, "uint")
-        set => NumPut("uint", value, this, 704)
+        get => NumGet(this, 1152, "uint")
+        set => NumPut("uint", value, this, 1152)
     }
 
     /**
      * @type {Pointer<Integer>}
      */
     pRateControlQPMap {
-        get => NumGet(this, 712, "ptr")
-        set => NumPut("ptr", value, this, 712)
+        get => NumGet(this, 1160, "ptr")
+        set => NumPut("ptr", value, this, 1160)
     }
 
     /**
      * @type {D3D12_VIDEO_ENCODER_AV1_SEGMENTATION_CONFIG}
      */
-    CustomSegmentation{
+    CustomSegmentation {
         get {
             if(!this.HasProp("__CustomSegmentation"))
-                this.__CustomSegmentation := D3D12_VIDEO_ENCODER_AV1_SEGMENTATION_CONFIG(720, this)
+                this.__CustomSegmentation := D3D12_VIDEO_ENCODER_AV1_SEGMENTATION_CONFIG(1168, this)
             return this.__CustomSegmentation
         }
     }
@@ -236,10 +242,10 @@ class D3D12_VIDEO_ENCODER_AV1_PICTURE_CONTROL_CODEC_DATA extends Win32Struct
     /**
      * @type {D3D12_VIDEO_ENCODER_AV1_SEGMENTATION_MAP}
      */
-    CustomSegmentsMap{
+    CustomSegmentsMap {
         get {
             if(!this.HasProp("__CustomSegmentsMap"))
-                this.__CustomSegmentsMap := D3D12_VIDEO_ENCODER_AV1_SEGMENTATION_MAP(816, this)
+                this.__CustomSegmentsMap := D3D12_VIDEO_ENCODER_AV1_SEGMENTATION_MAP(1776, this)
             return this.__CustomSegmentsMap
         }
     }

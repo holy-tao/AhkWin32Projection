@@ -1,18 +1,21 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\NDIS_PORT_TYPE.ahk
+#Include ..\..\..\Win32\NetworkManagement\Ndis\NET_IF_MEDIA_CONNECT_STATE.ahk
+#Include ..\..\..\Win32\NetworkManagement\Ndis\NET_IF_DIRECTION_TYPE.ahk
+#Include .\NDIS_PORT_CONTROL_STATE.ahk
+#Include .\NDIS_PORT_AUTHORIZATION_STATE.ahk
 
 /**
  * @namespace Windows.Wdk.NetworkManagement.Ndis
- * @version v4.0.30319
  */
-class NDIS_PORT_CHARACTERISTICS extends Win32Struct
-{
+class NDIS_PORT_CHARACTERISTICS extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 8
 
     /**
-     * @type {Pointer<NDIS_OBJECT_HEADER>}
+     * @type {Pointer}
      */
     Header {
         get => NumGet(this, 0, "ptr")
@@ -36,7 +39,7 @@ class NDIS_PORT_CHARACTERISTICS extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {NDIS_PORT_TYPE}
      */
     Type {
         get => NumGet(this, 16, "int")
@@ -44,7 +47,7 @@ class NDIS_PORT_CHARACTERISTICS extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {NET_IF_MEDIA_CONNECT_STATE}
      */
     MediaConnectState {
         get => NumGet(this, 20, "int")
@@ -68,7 +71,7 @@ class NDIS_PORT_CHARACTERISTICS extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {NET_IF_DIRECTION_TYPE}
      */
     Direction {
         get => NumGet(this, 40, "int")
@@ -76,7 +79,7 @@ class NDIS_PORT_CHARACTERISTICS extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {NDIS_PORT_CONTROL_STATE}
      */
     SendControlState {
         get => NumGet(this, 44, "int")
@@ -84,7 +87,7 @@ class NDIS_PORT_CHARACTERISTICS extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {NDIS_PORT_CONTROL_STATE}
      */
     RcvControlState {
         get => NumGet(this, 48, "int")
@@ -92,7 +95,7 @@ class NDIS_PORT_CHARACTERISTICS extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {NDIS_PORT_AUTHORIZATION_STATE}
      */
     SendAuthorizationState {
         get => NumGet(this, 52, "int")
@@ -100,7 +103,7 @@ class NDIS_PORT_CHARACTERISTICS extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {NDIS_PORT_AUTHORIZATION_STATE}
      */
     RcvAuthorizationState {
         get => NumGet(this, 56, "int")

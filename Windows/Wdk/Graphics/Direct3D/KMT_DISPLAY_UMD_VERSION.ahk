@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
- * @version v4.0.30319
  */
-class KMT_DISPLAY_UMD_VERSION extends Win32Enum{
+class KMT_DISPLAY_UMD_VERSION extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

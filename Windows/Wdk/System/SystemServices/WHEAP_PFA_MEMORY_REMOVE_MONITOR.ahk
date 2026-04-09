@@ -1,18 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\WHEA_PFA_REMOVE_TRIGGER.ahk
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class WHEAP_PFA_MEMORY_REMOVE_MONITOR extends Win32Struct
-{
+class WHEAP_PFA_MEMORY_REMOVE_MONITOR extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
 
     /**
-     * @type {Pointer<WHEA_EVENT_LOG_ENTRY>}
+     * @type {Pointer}
      */
     WheaEventLogEntry {
         get => NumGet(this, 0, "ptr")
@@ -20,7 +19,7 @@ class WHEAP_PFA_MEMORY_REMOVE_MONITOR extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {WHEA_PFA_REMOVE_TRIGGER}
      */
     RemoveTrigger {
         get => NumGet(this, 8, "int")

@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Media.MediaPlayer
- * @version v4.0.30319
  */
-class IWMPNodeRealEstate extends IUnknown{
+class IWMPNodeRealEstate extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

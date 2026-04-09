@@ -5,10 +5,8 @@
  * Contains the name of a CNG provider.
  * @see https://learn.microsoft.com/windows/win32/api/bcrypt/ns-bcrypt-bcrypt_provider_name
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class BCRYPT_PROVIDER_NAME extends Win32Struct
-{
+class BCRYPT_PROVIDER_NAME extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 8

@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\CERT_ALT_NAME_INFO.ahk
 #Include .\CRL_DIST_POINT_NAME.ahk
+#Include .\CERT_ALT_NAME_INFO.ahk
+#Include .\CERT_ALT_NAME_ENTRY.ahk
 #Include .\CRYPT_BIT_BLOB.ahk
 
 /**
  * Identifies a single certificate revocation list (CRL) distribution point that a certificate user can reference to determine whether certificates have been revoked.
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-crl_dist_point
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CRL_DIST_POINT extends Win32Struct
-{
+class CRL_DIST_POINT extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 8
@@ -21,7 +20,7 @@ class CRL_DIST_POINT extends Win32Struct
      * 						<a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-crl_dist_point_name">CRL_DIST_POINT_NAME</a> structure that identifies the location of a CRL source. If <b>NULL</b>, the distribution point name defaults to the <b>CRLIssuer</b> name.
      * @type {CRL_DIST_POINT_NAME}
      */
-    DistPointName{
+    DistPointName {
         get {
             if(!this.HasProp("__DistPointName"))
                 this.__DistPointName := CRL_DIST_POINT_NAME(0, this)
@@ -51,7 +50,7 @@ class CRL_DIST_POINT extends Win32Struct
      * </ul>
      * @type {CRYPT_BIT_BLOB}
      */
-    ReasonFlags{
+    ReasonFlags {
         get {
             if(!this.HasProp("__ReasonFlags"))
                 this.__ReasonFlags := CRYPT_BIT_BLOB(24, this)
@@ -64,7 +63,7 @@ class CRL_DIST_POINT extends Win32Struct
      * 						<a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_alt_name_info">CERT_ALT_NAME_INFO</a> that identifies the authority that issued and signed the CRL. If <b>NULL</b>, the issuer name defaults to the issuer name of the certificate.
      * @type {CERT_ALT_NAME_INFO}
      */
-    CRLIssuer{
+    CRLIssuer {
         get {
             if(!this.HasProp("__CRLIssuer"))
                 this.__CRLIssuer := CERT_ALT_NAME_INFO(48, this)

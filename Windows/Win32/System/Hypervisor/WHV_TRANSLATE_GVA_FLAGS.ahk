@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Hypervisor
- * @version v4.0.30319
  */
-class WHV_TRANSLATE_GVA_FLAGS extends Win32BitflagEnum{
+class WHV_TRANSLATE_GVA_FLAGS extends Win32BitflagEnum {
 
     /**
      * @type {Integer (Int32)}

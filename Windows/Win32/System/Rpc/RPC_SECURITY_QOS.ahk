@@ -1,5 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\RPC_C_QOS_CAPABILITIES.ahk
+#Include .\RPC_C_QOS_IDENTITY.ahk
+#Include ..\Com\RPC_C_IMP_LEVEL.ahk
 
 /**
  * The RPC_SECURITY_QOS structure defines security quality-of-service settings on a binding handle. See Remarks for version availability on Windows editions.
@@ -27,10 +30,8 @@
  * <div> </div>
  * @see https://learn.microsoft.com/windows/win32/api/rpcdce/ns-rpcdce-rpc_security_qos
  * @namespace Windows.Win32.System.Rpc
- * @version v4.0.30319
  */
-class RPC_SECURITY_QOS extends Win32Struct
-{
+class RPC_SECURITY_QOS extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4
@@ -140,7 +141,7 @@ class RPC_SECURITY_QOS extends Win32Struct
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
+     * @type {RPC_C_QOS_CAPABILITIES}
      */
     Capabilities {
         get => NumGet(this, 4, "uint")
@@ -180,7 +181,7 @@ class RPC_SECURITY_QOS extends Win32Struct
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
+     * @type {RPC_C_QOS_IDENTITY}
      */
     IdentityTracking {
         get => NumGet(this, 8, "uint")
@@ -250,7 +251,7 @@ class RPC_SECURITY_QOS extends Win32Struct
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
+     * @type {RPC_C_IMP_LEVEL}
      */
     ImpersonationType {
         get => NumGet(this, 12, "uint")

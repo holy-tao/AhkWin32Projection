@@ -15,9 +15,8 @@
  * </ol>
  * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nn-atscpsipparser-iatsccontentadvisorydescriptor
  * @namespace Windows.Win32.Media.DirectShow.Tv
- * @version v4.0.30319
  */
-class IAtscContentAdvisoryDescriptor extends IUnknown{
+class IAtscContentAdvisoryDescriptor extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

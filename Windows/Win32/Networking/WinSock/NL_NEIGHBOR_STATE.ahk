@@ -9,9 +9,8 @@
  *     (IPv6)</a> memo from Network Working Group.
  * @see https://learn.microsoft.com/windows/win32/api/nldef/ne-nldef-nl_neighbor_state
  * @namespace Windows.Win32.Networking.WinSock
- * @version v4.0.30319
  */
-class NL_NEIGHBOR_STATE extends Win32Enum{
+class NL_NEIGHBOR_STATE extends Win32Enum {
 
     /**
      * The IP address is unreachable.

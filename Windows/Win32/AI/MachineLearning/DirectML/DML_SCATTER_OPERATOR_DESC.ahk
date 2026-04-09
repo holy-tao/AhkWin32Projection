@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\DML_TENSOR_DESC.ahk
 
 /**
  * Copies the whole input tensor to the output, then overwrites selected indices with corresponding values from the updates tensor. (DML_SCATTER_OPERATOR_DESC)
@@ -7,10 +8,8 @@
  * **DML_SCATTER_OPERATOR_DESC** has been more properly aliased to the name **DML_SCATTER_ELEMENTS_OPERATOR_DESC** as the proper counterpart to [DML_GATHER_ELEMENTS_OPERATOR_DESC](/windows/win32/api/directml/ns-directml-dml_gather_elements_operator_desc). This is because **DML_SCATTER_OPERATOR_DESC** was not really symmetric to [DML_GATHER_OPERATOR_DESC](/windows/win32/api/directml/ns-directml-dml_gather_operator_desc).
  * @see https://learn.microsoft.com/windows/win32/api/directml/ns-directml-dml_scatter_operator_desc
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
- * @version v4.0.30319
  */
-class DML_SCATTER_OPERATOR_DESC extends Win32Struct
-{
+class DML_SCATTER_OPERATOR_DESC extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8

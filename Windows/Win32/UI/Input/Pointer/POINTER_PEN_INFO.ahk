@@ -1,9 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\POINTER_INFO.ahk
+#Include ..\..\WindowsAndMessaging\POINTER_INPUT_TYPE.ahk
+#Include .\POINTER_FLAGS.ahk
 #Include ..\..\..\Foundation\HANDLE.ahk
 #Include ..\..\..\Foundation\HWND.ahk
 #Include ..\..\..\Foundation\POINT.ahk
-#Include .\POINTER_INFO.ahk
+#Include .\POINTER_BUTTON_CHANGE_TYPE.ahk
 
 /**
  * Defines basic pen information common to all pointer types.
@@ -11,10 +14,8 @@
  * Applications can retrieve this information using the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getpointerpeninfo">GetPointerPenInfo</a>, <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getpointerframepeninfo">GetPointerFramePenInfo</a>, <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getpointerpeninfohistory">GetPointerPenInfoHistory</a> and <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getpointerframepeninfohistory">GetPointerFramePenInfoHistory</a> API functions.
  * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-pointer_pen_info
  * @namespace Windows.Win32.UI.Input.Pointer
- * @version v4.0.30319
  */
-class POINTER_PEN_INFO extends Win32Struct
-{
+class POINTER_PEN_INFO extends Win32Struct {
     static sizeof => 120
 
     static packingSize => 8
@@ -25,7 +26,7 @@ class POINTER_PEN_INFO extends Win32Struct
      * An embedded <a href="https://docs.microsoft.com/windows/win32/api/winuser/ns-winuser-pointer_info">POINTER_INFO</a> structure.
      * @type {POINTER_INFO}
      */
-    pointerInfo{
+    pointerInfo {
         get {
             if(!this.HasProp("__pointerInfo"))
                 this.__pointerInfo := POINTER_INFO(0, this)

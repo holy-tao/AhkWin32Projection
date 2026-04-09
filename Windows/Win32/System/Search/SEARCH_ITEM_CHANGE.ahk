@@ -1,14 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\SEARCH_KIND_OF_CHANGE.ahk
+#Include .\SEARCH_NOTIFICATION_PRIORITY.ahk
+#Include ..\Com\BLOB.ahk
 
 /**
  * Specifies the changes to an indexed item.
  * @see https://learn.microsoft.com/windows/win32/api/searchapi/ns-searchapi-search_item_change
  * @namespace Windows.Win32.System.Search
- * @version v4.0.30319
  */
-class SEARCH_ITEM_CHANGE extends Win32Struct
-{
+class SEARCH_ITEM_CHANGE extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -18,7 +19,7 @@ class SEARCH_ITEM_CHANGE extends Win32Struct
      * 
      * Flag that specifies the kind of change as a value from the 
      *                 <a href="https://docs.microsoft.com/windows/desktop/api/searchapi/ne-searchapi-search_kind_of_change">SEARCH_KIND_OF_CHANGE</a> enumerated type.
-     * @type {Integer}
+     * @type {SEARCH_KIND_OF_CHANGE}
      */
     Change {
         get => NumGet(this, 0, "int")
@@ -29,7 +30,7 @@ class SEARCH_ITEM_CHANGE extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/searchapi/ne-searchapi-search_notification_priority">SEARCH_NOTIFICATION_PRIORITY</a></b>
      * 
      * Flag that specifies the priority of processing this change as a value from the <a href="https://docs.microsoft.com/windows/desktop/api/searchapi/ne-searchapi-search_notification_priority">SEARCH_NOTIFICATION_PRIORITY</a> enumerated type.
-     * @type {Integer}
+     * @type {SEARCH_NOTIFICATION_PRIORITY}
      */
     Priority {
         get => NumGet(this, 4, "int")

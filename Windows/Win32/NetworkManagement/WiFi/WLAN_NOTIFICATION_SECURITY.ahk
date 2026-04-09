@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
- * @version v4.0.30319
  */
-class WLAN_NOTIFICATION_SECURITY extends Win32Enum{
+class WLAN_NOTIFICATION_SECURITY extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

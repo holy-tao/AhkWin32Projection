@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IMDSPStorage.ahk
 #Include .\IMDSPDevice.ahk
+#Include .\IMDSPStorage.ahk
 
 /**
  * The IMDSPDevice2 interface extends IMDSPDevice by getting extended formats, getting Plug and Play (PnP) device names, enabling the use of property pages, and making it possible to get a pointer to a storage medium from its name.
  * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nn-mswmdm-imdspdevice2
  * @namespace Windows.Win32.Media.DeviceManager
- * @version v4.0.30319
  */
-class IMDSPDevice2 extends IMDSPDevice{
+class IMDSPDevice2 extends IMDSPDevice {
 
     static sizeof => A_PtrSize
     /**

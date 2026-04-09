@@ -5,10 +5,8 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
- * @version v4.0.30319
  */
-class WLAN_QOS_INFO extends Win32Struct
-{
+class WLAN_QOS_INFO extends Win32Struct {
     static sizeof => 52
 
     static packingSize => 4
@@ -16,7 +14,7 @@ class WLAN_QOS_INFO extends Win32Struct
     /**
      * @type {WLAN_QOS_CAPABILITIES}
      */
-    interfaceCapabilities{
+    interfaceCapabilities {
         get {
             if(!this.HasProp("__interfaceCapabilities"))
                 this.__interfaceCapabilities := WLAN_QOS_CAPABILITIES(0, this)
@@ -35,7 +33,7 @@ class WLAN_QOS_INFO extends Win32Struct
     /**
      * @type {WLAN_CONNECTION_QOS_INFO}
      */
-    connectionQoSInfo{
+    connectionQoSInfo {
         get {
             if(!this.HasProp("__connectionQoSInfo"))
                 this.__connectionQoSInfo := WLAN_CONNECTION_QOS_INFO(20, this)

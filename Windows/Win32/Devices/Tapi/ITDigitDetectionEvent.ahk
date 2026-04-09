@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ITCallInfo.ahk
 #Include ..\..\System\Com\IDispatch.ahk
+#Include .\ITCallInfo.ahk
 
 /**
  * The ITDigitDetectionEvent interface contains methods that retrieve the description of DTMF digit events.
  * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nn-tapi3if-itdigitdetectionevent
  * @namespace Windows.Win32.Devices.Tapi
- * @version v4.0.30319
  */
-class ITDigitDetectionEvent extends IDispatch{
+class ITDigitDetectionEvent extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

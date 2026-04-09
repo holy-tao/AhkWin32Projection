@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.SerialCommunication
- * @version v4.0.30319
  */
-class SERENUM_PORTION extends Win32Enum{
+class SERENUM_PORTION extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

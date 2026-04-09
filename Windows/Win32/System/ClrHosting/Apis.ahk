@@ -5,7 +5,6 @@
 
 /**
  * @namespace Windows.Win32.System.ClrHosting
- * @version v4.0.30319
  */
 class ClrHosting {
 
@@ -99,7 +98,6 @@ class ClrHosting {
      * @param {Integer} cchBuffer 
      * @param {Pointer<Integer>} dwLength 
      * @returns {HRESULT} 
-     * @deprecated 
      */
     static GetCORSystemDirectory(pbuffer, cchBuffer, dwLength) {
         pbuffer := pbuffer is String ? StrPtr(pbuffer) : pbuffer
@@ -116,7 +114,6 @@ class ClrHosting {
      * @param {Integer} cchBuffer 
      * @param {Pointer<Integer>} dwLength 
      * @returns {HRESULT} 
-     * @deprecated 
      */
     static GetCORVersion(pbBuffer, cchBuffer, dwLength) {
         pbBuffer := pbBuffer is String ? StrPtr(pbBuffer) : pbBuffer
@@ -151,7 +148,6 @@ class ClrHosting {
      * 
      * If the function fails, the return value is zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://learn.microsoft.com/windows/win32/api/winver/nf-winver-getfileversioninfow
-     * @deprecated 
      */
     static GetFileVersion(szFilename, szBuffer, cchBuffer, dwLength) {
         szFilename := szFilename is String ? StrPtr(szFilename) : szFilename
@@ -169,7 +165,6 @@ class ClrHosting {
      * @param {Integer} cchBuffer 
      * @param {Pointer<Integer>} dwLength 
      * @returns {HRESULT} 
-     * @deprecated 
      */
     static GetCORRequiredVersion(pbuffer, cchBuffer, dwLength) {
         pbuffer := pbuffer is String ? StrPtr(pbuffer) : pbuffer
@@ -194,7 +189,6 @@ class ClrHosting {
      * @param {Integer} cchBuffer 
      * @param {Pointer<Integer>} dwlength 
      * @returns {HRESULT} 
-     * @deprecated 
      */
     static GetRequestedRuntimeInfo(pExe, pwszVersion, pConfigurationFile, startupFlags, runtimeInfoFlags, pDirectory, dwDirectory, dwDirectoryLength, pVersion, cchBuffer, dwlength) {
         pExe := pExe is String ? StrPtr(pExe) : pExe
@@ -216,7 +210,6 @@ class ClrHosting {
      * @param {PWSTR} pVersion 
      * @param {Integer} cchBuffer 
      * @returns {Integer} 
-     * @deprecated 
      */
     static GetRequestedRuntimeVersion(pExe, pVersion, cchBuffer) {
         pExe := pExe is String ? StrPtr(pExe) : pExe
@@ -237,7 +230,6 @@ class ClrHosting {
      * @param {Pointer<Guid>} riid 
      * @param {Pointer<Pointer<Void>>} ppv 
      * @returns {HRESULT} 
-     * @deprecated 
      */
     static CorBindToRuntimeHost(pwszVersion, pwszBuildFlavor, pwszHostConfigFile, pReserved, startupFlags, rclsid, riid, ppv) {
         pwszVersion := pwszVersion is String ? StrPtr(pwszVersion) : pwszVersion
@@ -260,7 +252,6 @@ class ClrHosting {
      * @param {Pointer<Guid>} riid 
      * @param {Pointer<Pointer<Void>>} ppv 
      * @returns {HRESULT} 
-     * @deprecated 
      */
     static CorBindToRuntimeEx(pwszVersion, pwszBuildFlavor, startupFlags, rclsid, riid, ppv) {
         pwszVersion := pwszVersion is String ? StrPtr(pwszVersion) : pwszVersion
@@ -281,7 +272,6 @@ class ClrHosting {
      * @param {Pointer<Guid>} riid 
      * @param {Pointer<Pointer<Void>>} ppv 
      * @returns {HRESULT} 
-     * @deprecated 
      */
     static CorBindToRuntimeByCfg(pCfgStream, reserved, startupFlags, rclsid, riid, ppv) {
         ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
@@ -298,7 +288,6 @@ class ClrHosting {
      * @param {Pointer<Guid>} riid 
      * @param {Pointer<Pointer<Void>>} ppv 
      * @returns {HRESULT} 
-     * @deprecated 
      */
     static CorBindToRuntime(pwszVersion, pwszBuildFlavor, rclsid, riid, ppv) {
         pwszVersion := pwszVersion is String ? StrPtr(pwszVersion) : pwszVersion
@@ -317,7 +306,6 @@ class ClrHosting {
      * @param {Pointer<Guid>} riid 
      * @param {Pointer<Pointer<Void>>} ppv 
      * @returns {HRESULT} 
-     * @deprecated 
      */
     static CorBindToCurrentRuntime(pwszFileName, rclsid, riid, ppv) {
         pwszFileName := pwszFileName is String ? StrPtr(pwszFileName) : pwszFileName
@@ -334,7 +322,6 @@ class ClrHosting {
      * @param {Pointer<Guid>} riid 
      * @param {Pointer<Pointer<Void>>} ppObject 
      * @returns {HRESULT} 
-     * @deprecated 
      */
     static ClrCreateManagedInstance(pTypeName, riid, ppObject) {
         pTypeName := pTypeName is String ? StrPtr(pTypeName) : pTypeName
@@ -348,7 +335,6 @@ class ClrHosting {
     /**
      * 
      * @returns {String} Nothing - always returns an empty string
-     * @deprecated 
      */
     static CorMarkThreadInThreadPool() {
         DllCall("MSCorEE.dll\CorMarkThreadInThreadPool")
@@ -361,7 +347,6 @@ class ClrHosting {
      * @param {PWSTR} lpszCmdLine 
      * @param {Integer} nCmdShow 
      * @returns {HRESULT} 
-     * @deprecated 
      */
     static RunDll32ShimW(_hwnd, hinst, lpszCmdLine, nCmdShow) {
         _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
@@ -384,7 +369,6 @@ class ClrHosting {
      * @param {Pointer<HMODULE>} phModDll A handle to the module.
      * @returns {HRESULT} If this function succeeds, it returns **S\_OK**. Otherwise, it returns an **HRESULT** error code.
      * @see https://learn.microsoft.com/windows/win32/DevNotes/loadlibraryshim
-     * @deprecated 
      */
     static LoadLibraryShim(szDllName, szVersion, pvReserved, phModDll) {
         szDllName := szDllName is String ? StrPtr(szDllName) : szDllName
@@ -405,7 +389,6 @@ class ClrHosting {
      * @param {PWSTR} szVersion 
      * @param {Pointer<Void>} pvReserved 
      * @returns {HRESULT} 
-     * @deprecated 
      */
     static CallFunctionShim(szDllName, szFunctionName, lpvArgument1, lpvArgument2, szVersion, pvReserved) {
         szDllName := szDllName is String ? StrPtr(szDllName) : szDllName
@@ -425,7 +408,6 @@ class ClrHosting {
      * @param {PSTR} pwszProcName 
      * @param {Pointer<Pointer<Void>>} ppv 
      * @returns {HRESULT} 
-     * @deprecated 
      */
     static GetRealProcAddress(pwszProcName, ppv) {
         pwszProcName := pwszProcName is String ? StrPtr(pwszProcName) : pwszProcName
@@ -440,7 +422,6 @@ class ClrHosting {
      * 
      * @param {Integer} exitCode 
      * @returns {String} Nothing - always returns an empty string
-     * @deprecated 
      */
     static CorExitProcess(exitCode) {
         DllCall("MSCorEE.dll\CorExitProcess", "int", exitCode)
@@ -453,7 +434,6 @@ class ClrHosting {
      * @param {Integer} iMax 
      * @param {Integer} bQuiet 
      * @returns {HRESULT} 
-     * @deprecated 
      */
     static LoadStringRC(iResouceID, szBuffer, iMax, bQuiet) {
         szBuffer := szBuffer is String ? StrPtr(szBuffer) : szBuffer
@@ -471,7 +451,6 @@ class ClrHosting {
      * @param {Integer} bQuiet 
      * @param {Pointer<Integer>} pcwchUsed 
      * @returns {HRESULT} 
-     * @deprecated 
      */
     static LoadStringRCEx(lcid, iResouceID, szBuffer, iMax, bQuiet, pcwchUsed) {
         szBuffer := szBuffer is String ? StrPtr(szBuffer) : szBuffer
@@ -488,7 +467,6 @@ class ClrHosting {
      * @param {Pointer<Pointer<FLockClrVersionCallback>>} pBeginHostSetup 
      * @param {Pointer<Pointer<FLockClrVersionCallback>>} pEndHostSetup 
      * @returns {HRESULT} 
-     * @deprecated 
      */
     static LockClrVersion(hostCallback, pBeginHostSetup, pEndHostSetup) {
         pBeginHostSetupMarshal := pBeginHostSetup is VarRef ? "ptr*" : "ptr"
@@ -503,7 +481,6 @@ class ClrHosting {
      * @param {Integer} iDebuggerVersion 
      * @param {PWSTR} szDebuggeeVersion 
      * @returns {IUnknown} 
-     * @deprecated 
      */
     static CreateDebuggingInterfaceFromVersion(iDebuggerVersion, szDebuggeeVersion) {
         szDebuggeeVersion := szDebuggeeVersion is String ? StrPtr(szDebuggeeVersion) : szDebuggeeVersion
@@ -518,7 +495,6 @@ class ClrHosting {
      * @param {PWSTR} pVersion 
      * @param {Integer} cchBuffer 
      * @returns {Integer} 
-     * @deprecated 
      */
     static GetVersionFromProcess(hProcess, pVersion, cchBuffer) {
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
@@ -530,7 +506,7 @@ class ClrHosting {
 
     /**
      * 
-     * @param {Integer} dwClickOnceHost 
+     * @param {HOST_TYPE} dwClickOnceHost 
      * @param {PWSTR} pwzAppFullName 
      * @param {Integer} dwManifestPaths 
      * @param {Pointer<PWSTR>} ppwzManifestPaths 
@@ -554,7 +530,7 @@ class ClrHosting {
      * @param {Pointer<Guid>} rclsid 
      * @param {PWSTR} pVersion 
      * @param {Integer} cchBuffer 
-     * @param {Integer} dwResolutionFlags 
+     * @param {CLSID_RESOLUTION_FLAGS} dwResolutionFlags 
      * @returns {Integer} 
      */
     static GetRequestedRuntimeVersionForCLSID(rclsid, pVersion, cchBuffer, dwResolutionFlags) {

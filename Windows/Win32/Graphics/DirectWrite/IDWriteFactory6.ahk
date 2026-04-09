@@ -1,21 +1,20 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IDWriteFactory5.ahk
 #Include .\IDWriteFontFaceReference1.ahk
 #Include .\IDWriteFontResource.ahk
 #Include .\IDWriteFontSet1.ahk
 #Include .\IDWriteFontCollection2.ahk
 #Include .\IDWriteFontSetBuilder2.ahk
 #Include .\IDWriteTextFormat3.ahk
-#Include .\IDWriteFactory5.ahk
 
 /**
  * This interface represents a factory object from which all DirectWrite objects are created. **IDWriteFactory6** adds new facilities for working with fonts and font resources.
  * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nn-dwrite_3-idwritefactory6
  * @namespace Windows.Win32.Graphics.DirectWrite
- * @version v4.0.30319
  */
-class IDWriteFactory6 extends IDWriteFactory5{
+class IDWriteFactory6 extends IDWriteFactory5 {
 
     static sizeof => A_PtrSize
     /**
@@ -44,7 +43,7 @@ class IDWriteFactory6 extends IDWriteFactory5{
      * @param {Integer} faceIndex Type: **[UINT32](/windows/win32/winprog/windows-data-types)**
      * 
      * The zero-based index of a font face in cases when the font file contains a collection of font faces. If the font file contains a single face, then set this value to zero.
-     * @param {Integer} fontSimulations Type: **[DWRITE_FONT_SIMULATIONS](../dwrite/ne-dwrite-dwrite_font_simulations.md)**
+     * @param {DWRITE_FONT_SIMULATIONS} fontSimulations Type: **[DWRITE_FONT_SIMULATIONS](../dwrite/ne-dwrite-dwrite_font_simulations.md)**
      * 
      * Font face simulation flags for algorithmic emboldening and italicization.
      * @param {Pointer<DWRITE_FONT_AXIS_VALUE>} fontAxisValues Type: **[DWRITE_FONT_AXIS_VALUE](./ns-dwrite_3-dwrite_font_axis_value.md) const \***
@@ -101,10 +100,12 @@ class IDWriteFactory6 extends IDWriteFactory5{
      * @param {BOOL} includeDownloadableFonts Type: **[BOOL](/windows/win32/winprog/windows-data-types)**
      * 
      * `true` if you want to include downloadable fonts. `false` if you only want locally installed fonts.
-     * @param {Integer} fontFamilyModel Type: **[DWRITE_FONT_FAMILY_MODEL](./ne-dwrite_3-dwrite_font_family_model.md)**
+     * @param {DWRITE_FONT_FAMILY_MODEL} fontFamilyModel Type: **[DWRITE_FONT_FAMILY_MODEL](./ne-dwrite_3-dwrite_font_family_model.md)**
      * 
      * How to group families in the collection.
-     * @returns {IDWriteFontCollection2} 
+     * @returns {IDWriteFontCollection2} Type: **[IDWriteFontCollection2](./nn-dwrite_3-idwritefontcollection2.md)\*\***
+     * 
+     * The address of a pointer to an [IDWriteFontCollection2](./nn-dwrite_3-idwritefontcollection2.md) interface. On successful completion, the function sets the pointer to a newly created font collection object, otherwise it sets the pointer to `nullptr`.
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefactory6-getsystemfontcollection
      */
     GetSystemFontCollection(includeDownloadableFonts, fontFamilyModel) {
@@ -117,10 +118,12 @@ class IDWriteFactory6 extends IDWriteFactory5{
      * @param {IDWriteFontSet} fontSet Type: **[IDWriteFontSet](./nn-dwrite_3-idwritefontset.md)\***
      * 
      * A set of fonts to use to build the collection.
-     * @param {Integer} fontFamilyModel Type: **[DWRITE_FONT_FAMILY_MODEL](./ne-dwrite_3-dwrite_font_family_model.md)**
+     * @param {DWRITE_FONT_FAMILY_MODEL} fontFamilyModel Type: **[DWRITE_FONT_FAMILY_MODEL](./ne-dwrite_3-dwrite_font_family_model.md)**
      * 
      * How to group families in the collection.
-     * @returns {IDWriteFontCollection2} 
+     * @returns {IDWriteFontCollection2} Type: **[IDWriteFontCollection2](./nn-dwrite_3-idwritefontcollection2.md)\*\***
+     * 
+     * The address of a pointer to an [IDWriteFontCollection2](./nn-dwrite_3-idwritefontcollection2.md) interface. On successful completion, the function sets the pointer to a newly created font collection object, otherwise it sets the pointer to `nullptr`.
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefactory6-createfontcollectionfromfontset
      */
     CreateFontCollectionFromFontSet(fontSet, fontFamilyModel) {
@@ -147,7 +150,9 @@ class IDWriteFactory6 extends IDWriteFactory5{
      * @param {PWSTR} fontFamilyName Type: **[WCHAR](/windows/win32/winprog/windows-data-types) const \***
      * 
      * Name of the font family from the collection.
-     * @param {IDWriteFontCollection} _fontCollection 
+     * @param {IDWriteFontCollection} _fontCollection Type: **[IDWriteFontCollection](../dwrite/nn-dwrite-idwritefontcollection.md)\***
+     * 
+     * Font collection. Use `nullptr` to indicate the system font collection.
      * @param {Pointer<DWRITE_FONT_AXIS_VALUE>} fontAxisValues Type: **[DWRITE_FONT_AXIS_VALUE](./ns-dwrite_3-dwrite_font_axis_value.md) const \***
      * 
      * A pointer to an array containing a list of font axis values. The array should be the size (the number of elements) indicated by the *fontAxisValueCount* argument.

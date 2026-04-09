@@ -6,10 +6,8 @@
  * The LINEAGENTSESSIONINFO structure contains information about the ACD agent session. The lineGetAgentSessionInfo function returns the LINEAGENTSESSIONINFO structure.
  * @see https://learn.microsoft.com/windows/win32/api/tapi/ns-tapi-lineagentsessioninfo
  * @namespace Windows.Win32.Devices.Tapi
- * @version v4.0.30319
  */
-class LINEAGENTSESSIONINFO extends Win32Struct
-{
+class LINEAGENTSESSIONINFO extends Win32Struct {
     static sizeof => 88
 
     static packingSize => 8
@@ -146,7 +144,7 @@ class LINEAGENTSESSIONINFO extends Win32Struct
      * Call rate for each agent session. This is a fixed-point decimal number.
      * @type {CY}
      */
-    cyACDCallRate{
+    cyACDCallRate {
         get {
             if(!this.HasProp("__cyACDCallRate"))
                 this.__cyACDCallRate := CY(64, this)

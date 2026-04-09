@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\TAPE_GET_DRIVE_PARAMETERS_FEATURES_HIGH.ahk
 
 /**
  * Describes the tape drive. It is used by the GetTapeParameters function.
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-tape_get_drive_parameters
  * @namespace Windows.Win32.System.SystemServices
- * @version v4.0.30319
  */
-class TAPE_GET_DRIVE_PARAMETERS extends Win32Struct
-{
+class TAPE_GET_DRIVE_PARAMETERS extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 4
@@ -346,8 +345,7 @@ class TAPE_GET_DRIVE_PARAMETERS extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Integer}
+     * @type {TAPE_GET_DRIVE_PARAMETERS_FEATURES_HIGH}
      */
     FeaturesHigh {
         get => NumGet(this, 24, "uint")

@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include .\IUpdateException.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * Encapsulates the exception that is thrown when an invalid license is detected for a product.
  * @see https://learn.microsoft.com/windows/win32/api/wuapi/nn-wuapi-iinvalidproductlicenseexception
  * @namespace Windows.Win32.System.UpdateAgent
- * @version v4.0.30319
  */
-class IInvalidProductLicenseException extends IUpdateException{
+class IInvalidProductLicenseException extends IUpdateException {
 
     static sizeof => A_PtrSize
     /**

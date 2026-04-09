@@ -3,7 +3,6 @@
 
 /**
  * @namespace Windows.Win32.System.ProcessStatus
- * @version v4.0.30319
  */
 class ProcessStatus {
 
@@ -31,7 +30,7 @@ class ProcessStatus {
      * If PSAPI_VERSION is 2 or greater, this function is defined as <b>K32EnumProcesses</b> in Psapi.h and exported in Kernel32.lib and Kernel32.dll. If PSAPI_VERSION is 1, this function is defined as <b>EnumProcesses</b> in Psapi.h and exported in Psapi.lib and Psapi.dll as a wrapper that calls <b>K32EnumProcesses</b>. 
      * 
      * Programs that must run on earlier versions of Windows as well as Windows 7 and later versions should always call this function as <b>EnumProcesses</b>. To ensure correct resolution of symbols, add Psapi.lib to the TARGETLIBS macro and compile the program with –DPSAPI_VERSION=1. To use run-time dynamic linking, load Psapi.dll.
-     * @param {Pointer} lpidProcess A pointer to an array that receives the list of process identifiers.
+     * @param {Integer} lpidProcess A pointer to an array that receives the list of process identifiers.
      * @param {Integer} cb The size of the <i>pProcessIds</i> array, in bytes.
      * @param {Pointer<Integer>} lpcbNeeded The number of bytes returned in the <i>pProcessIds</i> array.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
@@ -109,7 +108,7 @@ class ProcessStatus {
      *     program with <b>-DPSAPI_VERSION=1</b>. To use run-time dynamic linking, load 
      *     Psapi.dll.
      * @param {HANDLE} hProcess A handle to the process.
-     * @param {Pointer} lphModule An array that receives the list of module handles.
+     * @param {Integer} lphModule An array that receives the list of module handles.
      * @param {Integer} cb The size of the <i>lphModule</i> array, in bytes.
      * @param {Pointer<Integer>} lpcbNeeded The number of bytes required to store all module handles in the <i>lphModule</i> 
      *       array.
@@ -161,10 +160,10 @@ class ProcessStatus {
      * 
      * Programs that must run on earlier versions of Windows as well as Windows 7 and later versions should always call this function as <b>EnumProcessModulesEx</b>. To ensure correct resolution of symbols, add Psapi.lib to the TARGETLIBS macro and compile the program with –DPSAPI_VERSION=1. To use run-time dynamic linking, load Psapi.dll.
      * @param {HANDLE} hProcess A handle to the process.
-     * @param {Pointer} lphModule An array that receives the list of module handles.
+     * @param {Integer} lphModule An array that receives the list of module handles.
      * @param {Integer} cb The size of the <i>lphModule</i> array, in bytes.
      * @param {Pointer<Integer>} lpcbNeeded The number of bytes required to store all module handles in the <i>lphModule</i> array.
-     * @param {Integer} dwFilterFlag 
+     * @param {ENUM_PROCESS_MODULES_EX_FLAGS} dwFilterFlag 
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -222,7 +221,7 @@ class ProcessStatus {
      * @param {HANDLE} hProcess A handle to the process that contains the module. 
      * 
      * The handle must have the <b>PROCESS_QUERY_INFORMATION</b> and <b>PROCESS_VM_READ</b> access rights. For more information, see <a href="https://docs.microsoft.com/windows/desktop/ProcThread/process-security-and-access-rights">Process Security and Access Rights</a>.
-     * @param {HMODULE} _hModule 
+     * @param {HMODULE} _hModule A handle to the module. If this parameter is NULL, this function  returns the name of the file used to create the calling process.
      * @param {PSTR} lpBaseName A pointer to the buffer that receives the base name of the module. If the base name is longer than maximum number of characters specified by the <i>nSize</i> parameter, the base name is truncated.
      * @param {Integer} nSize The size of the <i>lpBaseName</i> buffer, in characters.
      * @returns {Integer} If the function succeeds, the return value specifies the length of the string copied to the buffer, in characters.
@@ -282,7 +281,7 @@ class ProcessStatus {
      * @param {HANDLE} hProcess A handle to the process that contains the module. 
      * 
      * The handle must have the <b>PROCESS_QUERY_INFORMATION</b> and <b>PROCESS_VM_READ</b> access rights. For more information, see <a href="https://docs.microsoft.com/windows/desktop/ProcThread/process-security-and-access-rights">Process Security and Access Rights</a>.
-     * @param {HMODULE} _hModule 
+     * @param {HMODULE} _hModule A handle to the module. If this parameter is NULL, this function  returns the name of the file used to create the calling process.
      * @param {PWSTR} lpBaseName A pointer to the buffer that receives the base name of the module. If the base name is longer than maximum number of characters specified by the <i>nSize</i> parameter, the base name is truncated.
      * @param {Integer} nSize The size of the <i>lpBaseName</i> buffer, in characters.
      * @returns {Integer} If the function succeeds, the return value specifies the length of the string copied to the buffer, in characters.
@@ -339,7 +338,7 @@ class ProcessStatus {
      * <b>Windows 10 and later, Windows Server 2016 and later</b>: If the <i>hModule</i> parameter is NULL, then the handle requires only <b>PROCESS_QUERY_LIMITED_INFORMATION</b> access rights.
      * 
      * The <b>GetModuleFileNameEx</b> function does not retrieve the path for modules  that were loaded using the <b>LOAD_LIBRARY_AS_DATAFILE</b> flag. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadlibraryexa">LoadLibraryEx</a>.
-     * @param {HMODULE} _hModule 
+     * @param {HMODULE} _hModule A handle to the module. If this parameter is NULL, <b>GetModuleFileNameEx</b> returns the path of the executable file of the process specified in <i>hProcess</i>.
      * @param {PSTR} lpFilename A pointer to a buffer that receives the fully qualified path to the module. If the size of the file name is larger than the value of the <i>nSize</i> parameter, the function succeeds but the file name is truncated and null-terminated.
      * @param {Integer} nSize The size of the <i>lpFilename</i> buffer, in characters.
      * @returns {Integer} If the function succeeds, the return value specifies the length of the string copied to the buffer.
@@ -396,7 +395,7 @@ class ProcessStatus {
      * <b>Windows 10 and later, Windows Server 2016 and later</b>: If the <i>hModule</i> parameter is NULL, then the handle requires only <b>PROCESS_QUERY_LIMITED_INFORMATION</b> access rights.
      * 
      * The <b>GetModuleFileNameEx</b> function does not retrieve the path for modules  that were loaded using the <b>LOAD_LIBRARY_AS_DATAFILE</b> flag. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadlibraryexw">LoadLibraryEx</a>.
-     * @param {HMODULE} _hModule 
+     * @param {HMODULE} _hModule A handle to the module. If this parameter is NULL, <b>GetModuleFileNameEx</b> returns the path of the executable file of the process specified in <i>hProcess</i>.
      * @param {PWSTR} lpFilename A pointer to a buffer that receives the fully qualified path to the module. If the size of the file name is larger than the value of the <i>nSize</i> parameter, the function succeeds but the file name is truncated and null-terminated.
      * @param {Integer} nSize The size of the <i>lpFilename</i> buffer, in characters.
      * @returns {Integer} If the function succeeds, the return value specifies the length of the string copied to the buffer.
@@ -447,7 +446,7 @@ class ProcessStatus {
      * @param {HANDLE} hProcess A handle to the process that contains the module.
      * 
      * The handle must have the <b>PROCESS_QUERY_INFORMATION</b> and <b>PROCESS_VM_READ</b> access rights. For more information, see <a href="https://docs.microsoft.com/windows/desktop/ProcThread/process-security-and-access-rights">Process Security and Access Rights</a>.
-     * @param {HMODULE} _hModule 
+     * @param {HMODULE} _hModule A handle to the module.
      * @param {Pointer<MODULEINFO>} lpmodinfo A pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/psapi/ns-psapi-moduleinfo">MODULEINFO</a> structure that receives information about the module.
      * @param {Integer} cb The size of the 
@@ -595,7 +594,7 @@ class ProcessStatus {
      * @param {HANDLE} hProcess A handle to the process. The handle must have the <b>PROCESS_QUERY_INFORMATION</b> 
      *       access right. For more information, see 
      *       <a href="https://docs.microsoft.com/windows/desktop/ProcThread/process-security-and-access-rights">Process Security and Access Rights</a>.
-     * @param {Pointer} lpWatchInfo A pointer to a user-allocated buffer that receives an array of 
+     * @param {Integer} lpWatchInfo A pointer to a user-allocated buffer that receives an array of 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/psapi/ns-psapi-psapi_ws_watch_information">PSAPI_WS_WATCH_INFORMATION</a> structures. 
      *       The array is terminated with a structure whose <b>FaultingPc</b> member is NULL.
      * @param {Integer} cb The size of the <i>lpWatchInfo</i> buffer, in bytes.
@@ -651,7 +650,7 @@ class ProcessStatus {
      *     add Psapi.lib to the <b>TARGETLIBS</b> macro and compile the program with 
      *     <b>-DPSAPI_VERSION=1</b>. To use run-time dynamic linking, load Psapi.dll.
      * @param {HANDLE} hProcess A handle to the process. The handle must have the <b>PROCESS_QUERY_INFORMATION</b> access right. For more information, see <a href="https://docs.microsoft.com/windows/desktop/ProcThread/process-security-and-access-rights">Process Security and Access Rights</a>.
-     * @param {Pointer} lpWatchInfoEx A pointer to a user-allocated buffer that receives an array of  
+     * @param {Integer} lpWatchInfoEx A pointer to a user-allocated buffer that receives an array of  
      * <a href="https://docs.microsoft.com/windows/desktop/api/psapi/ns-psapi-psapi_ws_watch_information_ex">PSAPI_WS_WATCH_INFORMATION_EX</a> structures. The array is terminated with a structure whose <b>FaultingPc</b> member is NULL.
      * @param {Pointer<Integer>} cb The size of the 
      * <i>lpWatchInfoEx</i> buffer, in bytes.
@@ -901,7 +900,7 @@ class ProcessStatus {
      * If PSAPI_VERSION is 2 or greater, this function is defined as <b>K32EnumDeviceDrivers</b> in Psapi.h and exported in Kernel32.lib and Kernel32.dll. If PSAPI_VERSION is 1, this function is defined as <b>EnumDeviceDrivers</b> in Psapi.h and exported in Psapi.lib and Psapi.dll as a wrapper that calls <b>K32EnumDeviceDrivers</b>. 
      * 
      * Programs that must run on earlier versions of Windows as well as Windows 7 and later versions should always call this function as <b>EnumDeviceDrivers</b>. To ensure correct resolution of symbols, add Psapi.lib to the TARGETLIBS macro and compile the program with –DPSAPI_VERSION=1. To use run-time dynamic linking, load Psapi.dll.
-     * @param {Pointer} lpImageBase An array that receives the list of load addresses for the device drivers.
+     * @param {Integer} lpImageBase An array that receives the list of load addresses for the device drivers.
      * @param {Integer} cb The size of the <i>lpImageBase</i> array, in bytes. If the array is not large enough to store the load addresses, the <i>lpcbNeeded</i> parameter receives the required size of the array.
      * @param {Pointer<Integer>} lpcbNeeded The number of bytes returned in the <i>lpImageBase</i> array.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
@@ -1097,7 +1096,7 @@ class ProcessStatus {
      * @param {HANDLE} hProcess A handle to the process. The handle must have the <b>PROCESS_QUERY_INFORMATION</b> and 
      *       <b>PROCESS_VM_READ</b> access rights. For more information, see 
      *       <a href="https://docs.microsoft.com/windows/desktop/ProcThread/process-security-and-access-rights">Process Security and Access Rights</a>.
-     * @param {Pointer} pv A pointer to the buffer that receives the information. For more information, see 
+     * @param {Integer} pv A pointer to the buffer that receives the information. For more information, see 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/psapi/ns-psapi-psapi_working_set_information">PSAPI_WORKING_SET_INFORMATION</a>.
      * 
      * If the buffer pointed to by the <i>pv</i> parameter is not large enough to contain all 
@@ -1138,7 +1137,7 @@ class ProcessStatus {
      * 
      * Programs that must run on earlier versions of Windows as well as Windows 7 and later versions should always call this function as <b>QueryWorkingSetEx</b>. To ensure correct resolution of symbols, add Psapi.lib to the <b>TARGETLIBS</b> macro and compile the program with "–DPSAPI_VERSION=1". To use run-time dynamic linking, load Psapi.dll.
      * @param {HANDLE} hProcess A handle to the process. The handle must have the <b>PROCESS_QUERY_INFORMATION</b> access right. For more information, see <a href="https://docs.microsoft.com/windows/desktop/ProcThread/process-security-and-access-rights">Process Security and Access Rights</a>.
-     * @param {Pointer} pv A pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/psapi/ns-psapi-psapi_working_set_ex_information">PSAPI_WORKING_SET_EX_INFORMATION</a> structures. On input, each item in the array specifies a virtual address of interest. On output, each item in the array receives information about the corresponding virtual page.
+     * @param {Integer} pv A pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/psapi/ns-psapi-psapi_working_set_ex_information">PSAPI_WORKING_SET_EX_INFORMATION</a> structures. On input, each item in the array specifies a virtual address of interest. On output, each item in the array receives information about the corresponding virtual page.
      * @param {Integer} cb The size of the <i>pv</i> buffer, in bytes.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
@@ -1181,7 +1180,7 @@ class ProcessStatus {
      * @param {HANDLE} Process A handle to the process. The handle must have the **PROCESS_QUERY_INFORMATION** or **PROCESS_QUERY_LIMITED_INFORMATION** access right. For more information, see <a href="https://docs.microsoft.com/windows/desktop/ProcThread/process-security-and-access-rights">Process Security and Access Rights</a>.
      * 
      * **Windows Server 2003 and Windows XP:** The handle must have the **PROCESS_QUERY_INFORMATION** and **PROCESS_VM_READ** access rights.
-     * @param {Pointer} ppsmemCounters A pointer to the 
+     * @param {Integer} ppsmemCounters A pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/psapi/ns-psapi-process_memory_counters">PROCESS_MEMORY_COUNTERS</a> or <a href="https://docs.microsoft.com/windows/desktop/api/psapi/ns-psapi-process_memory_counters_ex">PROCESS_MEMORY_COUNTERS_EX</a> structure that receives information about the memory usage of the process.
      * @param {Integer} cb The size of the 
      * <i>ppsmemCounters</i> structure, in bytes.
@@ -1484,7 +1483,7 @@ class ProcessStatus {
      * If PSAPI_VERSION is 2 or greater, this function is defined as <b>K32EnumProcesses</b> in Psapi.h and exported in Kernel32.lib and Kernel32.dll. If PSAPI_VERSION is 1, this function is defined as <b>EnumProcesses</b> in Psapi.h and exported in Psapi.lib and Psapi.dll as a wrapper that calls <b>K32EnumProcesses</b>. 
      * 
      * Programs that must run on earlier versions of Windows as well as Windows 7 and later versions should always call this function as <b>EnumProcesses</b>. To ensure correct resolution of symbols, add Psapi.lib to the TARGETLIBS macro and compile the program with –DPSAPI_VERSION=1. To use run-time dynamic linking, load Psapi.dll.
-     * @param {Pointer} lpidProcess A pointer to an array that receives the list of process identifiers.
+     * @param {Integer} lpidProcess A pointer to an array that receives the list of process identifiers.
      * @param {Integer} cb The size of the <i>pProcessIds</i> array, in bytes.
      * @param {Pointer<Integer>} lpcbNeeded The number of bytes returned in the <i>pProcessIds</i> array.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
@@ -1555,7 +1554,7 @@ class ProcessStatus {
      *     program with <b>-DPSAPI_VERSION=1</b>. To use run-time dynamic linking, load 
      *     Psapi.dll.
      * @param {HANDLE} hProcess A handle to the process.
-     * @param {Pointer} lphModule An array that receives the list of module handles.
+     * @param {Integer} lphModule An array that receives the list of module handles.
      * @param {Integer} cb The size of the <i>lphModule</i> array, in bytes.
      * @param {Pointer<Integer>} lpcbNeeded The number of bytes required to store all module handles in the <i>lphModule</i> 
      *       array.
@@ -1600,7 +1599,7 @@ class ProcessStatus {
      * 
      * Programs that must run on earlier versions of Windows as well as Windows 7 and later versions should always call this function as <b>EnumProcessModulesEx</b>. To ensure correct resolution of symbols, add Psapi.lib to the TARGETLIBS macro and compile the program with –DPSAPI_VERSION=1. To use run-time dynamic linking, load Psapi.dll.
      * @param {HANDLE} hProcess A handle to the process.
-     * @param {Pointer} lphModule An array that receives the list of module handles.
+     * @param {Integer} lphModule An array that receives the list of module handles.
      * @param {Integer} cb The size of the <i>lphModule</i> array, in bytes.
      * @param {Pointer<Integer>} lpcbNeeded The number of bytes required to store all module handles in the <i>lphModule</i> array.
      * @param {Integer} dwFilterFlag 
@@ -1654,7 +1653,7 @@ class ProcessStatus {
      * @param {HANDLE} hProcess A handle to the process that contains the module. 
      * 
      * The handle must have the <b>PROCESS_QUERY_INFORMATION</b> and <b>PROCESS_VM_READ</b> access rights. For more information, see <a href="https://docs.microsoft.com/windows/desktop/ProcThread/process-security-and-access-rights">Process Security and Access Rights</a>.
-     * @param {HMODULE} _hModule 
+     * @param {HMODULE} _hModule A handle to the module. If this parameter is NULL, this function  returns the name of the file used to create the calling process.
      * @param {PSTR} lpBaseName A pointer to the buffer that receives the base name of the module. If the base name is longer than maximum number of characters specified by the <i>nSize</i> parameter, the base name is truncated.
      * @param {Integer} nSize The size of the <i>lpBaseName</i> buffer, in characters.
      * @returns {Integer} If the function succeeds, the return value specifies the length of the string copied to the buffer, in characters.
@@ -1707,7 +1706,7 @@ class ProcessStatus {
      * @param {HANDLE} hProcess A handle to the process that contains the module. 
      * 
      * The handle must have the <b>PROCESS_QUERY_INFORMATION</b> and <b>PROCESS_VM_READ</b> access rights. For more information, see <a href="https://docs.microsoft.com/windows/desktop/ProcThread/process-security-and-access-rights">Process Security and Access Rights</a>.
-     * @param {HMODULE} _hModule 
+     * @param {HMODULE} _hModule A handle to the module. If this parameter is NULL, this function  returns the name of the file used to create the calling process.
      * @param {PWSTR} lpBaseName A pointer to the buffer that receives the base name of the module. If the base name is longer than maximum number of characters specified by the <i>nSize</i> parameter, the base name is truncated.
      * @param {Integer} nSize The size of the <i>lpBaseName</i> buffer, in characters.
      * @returns {Integer} If the function succeeds, the return value specifies the length of the string copied to the buffer, in characters.
@@ -1757,7 +1756,7 @@ class ProcessStatus {
      * <b>Windows 10 and later, Windows Server 2016 and later</b>: If the <i>hModule</i> parameter is NULL, then the handle requires only <b>PROCESS_QUERY_LIMITED_INFORMATION</b> access rights.
      * 
      * The <b>GetModuleFileNameEx</b> function does not retrieve the path for modules  that were loaded using the <b>LOAD_LIBRARY_AS_DATAFILE</b> flag. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadlibraryexw">LoadLibraryEx</a>.
-     * @param {HMODULE} _hModule 
+     * @param {HMODULE} _hModule A handle to the module. If this parameter is NULL, <b>GetModuleFileNameEx</b> returns the path of the executable file of the process specified in <i>hProcess</i>.
      * @param {PSTR} lpFilename A pointer to a buffer that receives the fully qualified path to the module. If the size of the file name is larger than the value of the <i>nSize</i> parameter, the function succeeds but the file name is truncated and null-terminated.
      * @param {Integer} nSize The size of the <i>lpFilename</i> buffer, in characters.
      * @returns {Integer} If the function succeeds, the return value specifies the length of the string copied to the buffer.
@@ -1807,7 +1806,7 @@ class ProcessStatus {
      * <b>Windows 10 and later, Windows Server 2016 and later</b>: If the <i>hModule</i> parameter is NULL, then the handle requires only <b>PROCESS_QUERY_LIMITED_INFORMATION</b> access rights.
      * 
      * The <b>GetModuleFileNameEx</b> function does not retrieve the path for modules  that were loaded using the <b>LOAD_LIBRARY_AS_DATAFILE</b> flag. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadlibraryexw">LoadLibraryEx</a>.
-     * @param {HMODULE} _hModule 
+     * @param {HMODULE} _hModule A handle to the module. If this parameter is NULL, <b>GetModuleFileNameEx</b> returns the path of the executable file of the process specified in <i>hProcess</i>.
      * @param {PWSTR} lpFilename A pointer to a buffer that receives the fully qualified path to the module. If the size of the file name is larger than the value of the <i>nSize</i> parameter, the function succeeds but the file name is truncated and null-terminated.
      * @param {Integer} nSize The size of the <i>lpFilename</i> buffer, in characters.
      * @returns {Integer} If the function succeeds, the return value specifies the length of the string copied to the buffer.
@@ -1851,7 +1850,7 @@ class ProcessStatus {
      * @param {HANDLE} hProcess A handle to the process that contains the module.
      * 
      * The handle must have the <b>PROCESS_QUERY_INFORMATION</b> and <b>PROCESS_VM_READ</b> access rights. For more information, see <a href="https://docs.microsoft.com/windows/desktop/ProcThread/process-security-and-access-rights">Process Security and Access Rights</a>.
-     * @param {HMODULE} _hModule 
+     * @param {HMODULE} _hModule A handle to the module.
      * @param {Pointer<MODULEINFO>} lpmodinfo A pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/psapi/ns-psapi-moduleinfo">MODULEINFO</a> structure that receives information about the module.
      * @param {Integer} cb The size of the 
@@ -1978,7 +1977,7 @@ class ProcessStatus {
      * @param {HANDLE} hProcess A handle to the process. The handle must have the <b>PROCESS_QUERY_INFORMATION</b> 
      *       access right. For more information, see 
      *       <a href="https://docs.microsoft.com/windows/desktop/ProcThread/process-security-and-access-rights">Process Security and Access Rights</a>.
-     * @param {Pointer} lpWatchInfo A pointer to a user-allocated buffer that receives an array of 
+     * @param {Integer} lpWatchInfo A pointer to a user-allocated buffer that receives an array of 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/psapi/ns-psapi-psapi_ws_watch_information">PSAPI_WS_WATCH_INFORMATION</a> structures. 
      *       The array is terminated with a structure whose <b>FaultingPc</b> member is NULL.
      * @param {Integer} cb The size of the <i>lpWatchInfo</i> buffer, in bytes.
@@ -2027,7 +2026,7 @@ class ProcessStatus {
      *     add Psapi.lib to the <b>TARGETLIBS</b> macro and compile the program with 
      *     <b>-DPSAPI_VERSION=1</b>. To use run-time dynamic linking, load Psapi.dll.
      * @param {HANDLE} hProcess A handle to the process. The handle must have the <b>PROCESS_QUERY_INFORMATION</b> access right. For more information, see <a href="https://docs.microsoft.com/windows/desktop/ProcThread/process-security-and-access-rights">Process Security and Access Rights</a>.
-     * @param {Pointer} lpWatchInfoEx A pointer to a user-allocated buffer that receives an array of  
+     * @param {Integer} lpWatchInfoEx A pointer to a user-allocated buffer that receives an array of  
      * <a href="https://docs.microsoft.com/windows/desktop/api/psapi/ns-psapi-psapi_ws_watch_information_ex">PSAPI_WS_WATCH_INFORMATION_EX</a> structures. The array is terminated with a structure whose <b>FaultingPc</b> member is NULL.
      * @param {Pointer<Integer>} cb The size of the 
      * <i>lpWatchInfoEx</i> buffer, in bytes.
@@ -2256,7 +2255,7 @@ class ProcessStatus {
      * If PSAPI_VERSION is 2 or greater, this function is defined as <b>K32EnumDeviceDrivers</b> in Psapi.h and exported in Kernel32.lib and Kernel32.dll. If PSAPI_VERSION is 1, this function is defined as <b>EnumDeviceDrivers</b> in Psapi.h and exported in Psapi.lib and Psapi.dll as a wrapper that calls <b>K32EnumDeviceDrivers</b>. 
      * 
      * Programs that must run on earlier versions of Windows as well as Windows 7 and later versions should always call this function as <b>EnumDeviceDrivers</b>. To ensure correct resolution of symbols, add Psapi.lib to the TARGETLIBS macro and compile the program with –DPSAPI_VERSION=1. To use run-time dynamic linking, load Psapi.dll.
-     * @param {Pointer} lpImageBase An array that receives the list of load addresses for the device drivers.
+     * @param {Integer} lpImageBase An array that receives the list of load addresses for the device drivers.
      * @param {Integer} cb The size of the <i>lpImageBase</i> array, in bytes. If the array is not large enough to store the load addresses, the <i>lpcbNeeded</i> parameter receives the required size of the array.
      * @param {Pointer<Integer>} lpcbNeeded The number of bytes returned in the <i>lpImageBase</i> array.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
@@ -2417,7 +2416,7 @@ class ProcessStatus {
      * @param {HANDLE} hProcess A handle to the process. The handle must have the <b>PROCESS_QUERY_INFORMATION</b> and 
      *       <b>PROCESS_VM_READ</b> access rights. For more information, see 
      *       <a href="https://docs.microsoft.com/windows/desktop/ProcThread/process-security-and-access-rights">Process Security and Access Rights</a>.
-     * @param {Pointer} pv A pointer to the buffer that receives the information. For more information, see 
+     * @param {Integer} pv A pointer to the buffer that receives the information. For more information, see 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/psapi/ns-psapi-psapi_working_set_information">PSAPI_WORKING_SET_INFORMATION</a>.
      * 
      * If the buffer pointed to by the <i>pv</i> parameter is not large enough to contain all 
@@ -2451,7 +2450,7 @@ class ProcessStatus {
      * 
      * Programs that must run on earlier versions of Windows as well as Windows 7 and later versions should always call this function as <b>QueryWorkingSetEx</b>. To ensure correct resolution of symbols, add Psapi.lib to the <b>TARGETLIBS</b> macro and compile the program with "–DPSAPI_VERSION=1". To use run-time dynamic linking, load Psapi.dll.
      * @param {HANDLE} hProcess A handle to the process. The handle must have the <b>PROCESS_QUERY_INFORMATION</b> access right. For more information, see <a href="https://docs.microsoft.com/windows/desktop/ProcThread/process-security-and-access-rights">Process Security and Access Rights</a>.
-     * @param {Pointer} pv A pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/psapi/ns-psapi-psapi_working_set_ex_information">PSAPI_WORKING_SET_EX_INFORMATION</a> structures. On input, each item in the array specifies a virtual address of interest. On output, each item in the array receives information about the corresponding virtual page.
+     * @param {Integer} pv A pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/psapi/ns-psapi-psapi_working_set_ex_information">PSAPI_WORKING_SET_EX_INFORMATION</a> structures. On input, each item in the array specifies a virtual address of interest. On output, each item in the array receives information about the corresponding virtual page.
      * @param {Integer} cb The size of the <i>pv</i> buffer, in bytes.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
@@ -2487,7 +2486,7 @@ class ProcessStatus {
      * @param {HANDLE} Process A handle to the process. The handle must have the **PROCESS_QUERY_INFORMATION** or **PROCESS_QUERY_LIMITED_INFORMATION** access right. For more information, see <a href="https://docs.microsoft.com/windows/desktop/ProcThread/process-security-and-access-rights">Process Security and Access Rights</a>.
      * 
      * **Windows Server 2003 and Windows XP:** The handle must have the **PROCESS_QUERY_INFORMATION** and **PROCESS_VM_READ** access rights.
-     * @param {Pointer} ppsmemCounters A pointer to the 
+     * @param {Integer} ppsmemCounters A pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/psapi/ns-psapi-process_memory_counters">PROCESS_MEMORY_COUNTERS</a> or <a href="https://docs.microsoft.com/windows/desktop/api/psapi/ns-psapi-process_memory_counters_ex">PROCESS_MEMORY_COUNTERS_EX</a> structure that receives information about the memory usage of the process.
      * @param {Integer} cb The size of the 
      * <i>ppsmemCounters</i> structure, in bytes.

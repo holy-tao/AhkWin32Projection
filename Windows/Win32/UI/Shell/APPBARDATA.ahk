@@ -7,10 +7,9 @@
  * Contains information about a system appbar message.
  * @see https://learn.microsoft.com/windows/win32/api/shellapi/ns-shellapi-appbardata
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
+ * @architecture X64, Arm64
  */
-class APPBARDATA extends Win32Struct
-{
+class APPBARDATA extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -32,7 +31,7 @@ class APPBARDATA extends Win32Struct
      * The handle to the appbar window. Not all messages use this member. See the individual message page to see if you need to provide an <b>hWind</b> value.
      * @type {HWND}
      */
-    hWnd{
+    hWnd {
         get {
             if(!this.HasProp("__hWnd"))
                 this.__hWnd := HWND(8, this)
@@ -98,7 +97,7 @@ class APPBARDATA extends Win32Struct
      * </ul>
      * @type {RECT}
      */
-    rc{
+    rc {
         get {
             if(!this.HasProp("__rc"))
                 this.__rc := RECT(24, this)

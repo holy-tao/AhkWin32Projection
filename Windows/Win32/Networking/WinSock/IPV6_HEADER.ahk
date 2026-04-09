@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Networking.WinSock
- * @version v4.0.30319
  */
-class IPV6_HEADER extends Win32Struct
-{
+class IPV6_HEADER extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 4
@@ -83,7 +81,7 @@ class IPV6_HEADER extends Win32Struct
     /**
      * @type {IN6_ADDR}
      */
-    SourceAddress{
+    SourceAddress {
         get {
             if(!this.HasProp("__SourceAddress"))
                 this.__SourceAddress := IN6_ADDR(8, this)
@@ -94,7 +92,7 @@ class IPV6_HEADER extends Win32Struct
     /**
      * @type {IN6_ADDR}
      */
-    DestinationAddress{
+    DestinationAddress {
         get {
             if(!this.HasProp("__DestinationAddress"))
                 this.__DestinationAddress := IN6_ADDR(24, this)

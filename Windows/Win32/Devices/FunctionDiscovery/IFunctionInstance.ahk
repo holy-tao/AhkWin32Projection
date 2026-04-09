@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\UI\Shell\PropertiesSystem\IPropertyStore.ahk
 #Include ..\..\System\Com\IServiceProvider.ahk
+#Include ..\..\UI\Shell\PropertiesSystem\IPropertyStore.ahk
 
 /**
  * A function instance is created as the result of calling one of the IFunctionDiscovery methods; client program do not create these objects themselves.
  * @see https://learn.microsoft.com/windows/win32/api/functiondiscoveryapi/nn-functiondiscoveryapi-ifunctioninstance
  * @namespace Windows.Win32.Devices.FunctionDiscovery
- * @version v4.0.30319
  */
-class IFunctionInstance extends IServiceProvider{
+class IFunctionInstance extends IServiceProvider {
 
     static sizeof => A_PtrSize
     /**
@@ -67,7 +66,7 @@ class IFunctionInstance extends IServiceProvider{
      * Only one property store per function instance can be open at a time. If <b>OpenPropertyStore</b> is called twice on the same function instance, both <i>ppIPropertyStore</i> pointers would point to the same property store. Furthermore, the access mode (as specified by the  <i>dwStgAccess</i> parameter) would be determined by the most recent <b>OpenPropertyStore</b> call. Applications should call <b>Release</b> to close a property store before opening another.
      * 
      * It is possible that <b>OpenPropertyStore</b> will return a property store for a device that has been removed. In this case, the property keys in the store will be empty. This situation may occur if the device's <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fundisc/function-discovery-glossary">devnode</a> was deleted but the property store associated with the device's function instance is still accessible. This situation occurs rarely.
-     * @param {Integer} dwStgAccess The access mode to be assigned to the open stream.  For this method, the following access modes are supported:
+     * @param {STGM} dwStgAccess The access mode to be assigned to the open stream.  For this method, the following access modes are supported:
      * 
      * <a id="STGM_READ"></a>
      * <a id="stgm_read"></a>

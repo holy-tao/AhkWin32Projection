@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\EMR.ahk
+#Include .\ENHANCED_METAFILE_RECORD_TYPE.ahk
 #Include ..\..\Foundation\RECTL.ahk
 
 /**
  * The EMRSETDIBITSTODEVICE structure contains members for the SetDIBitsToDevice enhanced metafile record.
  * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-emrsetdibitstodevice
  * @namespace Windows.Win32.Graphics.Gdi
- * @version v4.0.30319
  */
-class EMRSETDIBITSTODEVICE extends Win32Struct
-{
+class EMRSETDIBITSTODEVICE extends Win32Struct {
     static sizeof => 76
 
     static packingSize => 4
@@ -19,7 +18,7 @@ class EMRSETDIBITSTODEVICE extends Win32Struct
      * The base structure for all record types.
      * @type {EMR}
      */
-    emr{
+    emr {
         get {
             if(!this.HasProp("__emr"))
                 this.__emr := EMR(0, this)
@@ -31,7 +30,7 @@ class EMRSETDIBITSTODEVICE extends Win32Struct
      * Bounding rectangle, in device units.
      * @type {RECTL}
      */
-    rclBounds{
+    rclBounds {
         get {
             if(!this.HasProp("__rclBounds"))
                 this.__rclBounds := RECTL(8, this)

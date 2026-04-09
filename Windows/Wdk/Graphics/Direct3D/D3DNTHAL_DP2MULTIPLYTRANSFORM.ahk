@@ -1,19 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Win32\Graphics\Direct3D\D3DMATRIX.ahk
+#Include ..\..\..\Win32\Graphics\Direct3D9\D3DTRANSFORMSTATETYPE.ahk
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
- * @version v4.0.30319
  */
-class D3DNTHAL_DP2MULTIPLYTRANSFORM extends Win32Struct
-{
-    static sizeof => 68
+class D3DNTHAL_DP2MULTIPLYTRANSFORM extends Win32Struct {
+    static sizeof => 16
 
-    static packingSize => 4
+    static packingSize => 8
 
     /**
-     * @type {Integer}
+     * @type {D3DTRANSFORMSTATETYPE}
      */
     xfrmType {
         get => NumGet(this, 0, "int")
@@ -21,13 +19,10 @@ class D3DNTHAL_DP2MULTIPLYTRANSFORM extends Win32Struct
     }
 
     /**
-     * @type {D3DMATRIX}
+     * @type {Pointer}
      */
-    matrix{
-        get {
-            if(!this.HasProp("__matrix"))
-                this.__matrix := D3DMATRIX(4, this)
-            return this.__matrix
-        }
+    matrix {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 }

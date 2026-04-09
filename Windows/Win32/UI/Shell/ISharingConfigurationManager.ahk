@@ -10,9 +10,8 @@
  * An implementation of this interface is included in the <b>CSharingConfiguration</b> class. Third parties do not provide their own implementation.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-isharingconfigurationmanager
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class ISharingConfigurationManager extends IUnknown{
+class ISharingConfigurationManager extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -49,10 +48,10 @@ class ISharingConfigurationManager extends IUnknown{
      * If the folder named in <i>dsid</i> is already shared, this method updates the permissions on the share with the value provided in the <i>role</i> parameter.
      * 
      * Because as of Windows 7 the <b>Public</b> folder is shared through <b>Users</b> rather than directly, creating a share on <b>Public</b> causes an Server Message Block (SMB) share to be created on <b>Users</b>.
-     * @param {Integer} dsid Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-def_share_id">DEF_SHARE_ID</a></b>
+     * @param {DEF_SHARE_ID} dsid Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-def_share_id">DEF_SHARE_ID</a></b>
      * 
      * One of the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-def_share_id">DEF_SHARE_ID</a> values that indicates the folder to share or update.
-     * @param {Integer} role Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-share_role">SHARE_ROLE</a></b>
+     * @param {SHARE_ROLE} role Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-share_role">SHARE_ROLE</a></b>
      * 
      * One of the following <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-share_role">SHARE_ROLE</a> values that sets the access permissions of the share for the <i>Everyone</i> ACE. <b>CreateShare</b> accepts only these values.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -87,7 +86,7 @@ class ISharingConfigurationManager extends IUnknown{
      * Removes sharing from either the Users or Public folder.
      * @remarks
      * Running this method requires an Administrator privilege level.
-     * @param {Integer} dsid Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-def_share_id">DEF_SHARE_ID</a></b>
+     * @param {DEF_SHARE_ID} dsid Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-def_share_id">DEF_SHARE_ID</a></b>
      * 
      * One of the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-def_share_id">DEF_SHARE_ID</a> values that specifies the folder to no longer share.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -104,7 +103,7 @@ class ISharingConfigurationManager extends IUnknown{
      * Queries whether the Users or Public folder is shared.
      * @remarks
      * Because as of Windows 7 <b>Public</b> is shared in-place through <b>Users</b>, callers should always check for the Users share first. If a share is found to exist on <b>Users</b>, then it follows that a share exists on <b>Public</b> as well.
-     * @param {Integer} dsid Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-def_share_id">DEF_SHARE_ID</a></b>
+     * @param {DEF_SHARE_ID} dsid Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-def_share_id">DEF_SHARE_ID</a></b>
      * 
      * One of the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-def_share_id">DEF_SHARE_ID</a> values that indicates the folder whose sharing state is being checked.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -119,10 +118,10 @@ class ISharingConfigurationManager extends IUnknown{
 
     /**
      * Gets the access permissions currently associated with the User or Public folder for the Everyone access control entry (ACE).
-     * @param {Integer} dsid Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-def_share_id">DEF_SHARE_ID</a></b>
+     * @param {DEF_SHARE_ID} dsid Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-def_share_id">DEF_SHARE_ID</a></b>
      * 
      * One of the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-def_share_id">DEF_SHARE_ID</a> values that specifies the folder.
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-share_role">SHARE_ROLE</a>*</b>
+     * @returns {SHARE_ROLE} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-share_role">SHARE_ROLE</a>*</b>
      * 
      * A pointer to a value that, when this method returns successfully, receives one of the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-share_role">SHARE_ROLE</a> values that indicate the sharing permissions set for the folder specified in the <i>dsid</i> parameter.
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-isharingconfigurationmanager-getsharepermissions

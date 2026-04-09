@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity.Provider
- * @version v4.0.30319
  */
-class IdentityUpdateEvent extends Win32BitflagEnum{
+class IdentityUpdateEvent extends Win32BitflagEnum {
 
     /**
      * @type {Integer (Int32)}

@@ -7,10 +7,8 @@
  * A <b>Back Link</b> attribute contains one or more servers that hold an external reference to the attached object.
  * @see https://learn.microsoft.com/windows/win32/api/iads/ns-iads-ads_backlink
  * @namespace Windows.Win32.Networking.ActiveDirectory
- * @version v4.0.30319
  */
-class ADS_BACKLINK extends Win32Struct
-{
+class ADS_BACKLINK extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

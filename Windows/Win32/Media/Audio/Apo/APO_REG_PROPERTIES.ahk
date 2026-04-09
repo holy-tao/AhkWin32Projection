@@ -1,21 +1,20 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\APO_FLAG.ahk
 
 /**
  * The APO_REG_PROPERTIES structure is used by IAudioProcessingObject::GetRegistrationProperties for returning the registration properties of an audio processing object (APO).
  * @see https://learn.microsoft.com/windows/win32/api/audioenginebaseapo/ns-audioenginebaseapo-apo_reg_properties
  * @namespace Windows.Win32.Media.Audio.Apo
- * @version v4.0.30319
  */
-class APO_REG_PROPERTIES extends Win32Struct
-{
+class APO_REG_PROPERTIES extends Win32Struct {
     static sizeof => 1080
 
     static packingSize => 8
 
     /**
      * The class ID for this APO.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     clsid {
         get => NumGet(this, 0, "ptr")
@@ -24,7 +23,7 @@ class APO_REG_PROPERTIES extends Win32Struct
 
     /**
      * The flags for this APO. This parameter is an enumerated constant of type <a href="https://docs.microsoft.com/windows/desktop/api/audioenginebaseapo/ne-audioenginebaseapo-apo_flag">APO_FLAG</a>.
-     * @type {Integer}
+     * @type {APO_FLAG}
      */
     Flags {
         get => NumGet(this, 8, "int")
@@ -122,10 +121,9 @@ class APO_REG_PROPERTIES extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Array<Guid>}
+     * @type {Array<Pointer>}
      */
-    iidAPOInterfaceList{
+    iidAPOInterfaceList {
         get {
             if(!this.HasProp("__iidAPOInterfaceListProxyArray"))
                 this.__iidAPOInterfaceListProxyArray := Win32FixedArray(this.ptr + 1072, 1, Primitive, "ptr")

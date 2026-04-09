@@ -1,18 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\GameInputLabel.ahk
 
 /**
  * @namespace Windows.Win32.UI.Input.GameInput
- * @version v4.0.30319
  */
-class GameInputRacingWheelInfo extends Win32Struct
-{
+class GameInputRacingWheelInfo extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 4
 
     /**
-     * @type {Integer}
+     * @type {GameInputLabel}
      */
     menuButtonLabel {
         get => NumGet(this, 0, "int")
@@ -20,7 +19,7 @@ class GameInputRacingWheelInfo extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {GameInputLabel}
      */
     viewButtonLabel {
         get => NumGet(this, 4, "int")
@@ -28,7 +27,7 @@ class GameInputRacingWheelInfo extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {GameInputLabel}
      */
     previousGearButtonLabel {
         get => NumGet(this, 8, "int")
@@ -36,7 +35,7 @@ class GameInputRacingWheelInfo extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {GameInputLabel}
      */
     nextGearButtonLabel {
         get => NumGet(this, 12, "int")
@@ -44,7 +43,7 @@ class GameInputRacingWheelInfo extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {GameInputLabel}
      */
     dpadUpLabel {
         get => NumGet(this, 16, "int")
@@ -52,7 +51,7 @@ class GameInputRacingWheelInfo extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {GameInputLabel}
      */
     dpadDownLabel {
         get => NumGet(this, 20, "int")
@@ -60,7 +59,7 @@ class GameInputRacingWheelInfo extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {GameInputLabel}
      */
     dpadLeftLabel {
         get => NumGet(this, 24, "int")
@@ -68,7 +67,7 @@ class GameInputRacingWheelInfo extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {GameInputLabel}
      */
     dpadRightLabel {
         get => NumGet(this, 28, "int")

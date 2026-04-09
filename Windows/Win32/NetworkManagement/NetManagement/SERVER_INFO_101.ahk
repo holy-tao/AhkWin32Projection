@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\NET_SERVER_TYPE.ahk
 
 /**
  * The SERVER_INFO_101 structure contains information about the specified server, including name, platform, type of server, and associated software.
@@ -8,10 +9,8 @@
  * <a href="https://docs.microsoft.com/windows/desktop/api/lmshare/nf-lmshare-netsharegetinfo">NetShareGetInfo</a> function and specify information level 1005.
  * @see https://learn.microsoft.com/windows/win32/api/lmserver/ns-lmserver-server_info_101
  * @namespace Windows.Win32.NetworkManagement.NetManagement
- * @version v4.0.30319
  */
-class SERVER_INFO_101 extends Win32Struct
-{
+class SERVER_INFO_101 extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -133,7 +132,7 @@ class SERVER_INFO_101 extends Win32Struct
      * The type of software the computer is running. 
      * 
      * Possible values for this member are listed in the <i>Lmserver.h</i> header file.
-     * @type {Integer}
+     * @type {NET_SERVER_TYPE}
      */
     sv101_type {
         get => NumGet(this, 24, "uint")

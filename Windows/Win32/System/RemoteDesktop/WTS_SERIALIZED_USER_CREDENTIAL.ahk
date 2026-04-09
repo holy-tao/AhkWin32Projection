@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.RemoteDesktop
- * @version v4.0.30319
  */
-class WTS_SERIALIZED_USER_CREDENTIAL extends Win32Struct
-{
+class WTS_SERIALIZED_USER_CREDENTIAL extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

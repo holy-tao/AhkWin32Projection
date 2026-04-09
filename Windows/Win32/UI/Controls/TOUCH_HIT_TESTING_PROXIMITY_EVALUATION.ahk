@@ -8,10 +8,8 @@
  * The <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-evaluateproximitytorect">EvaluateProximityToRect</a> or <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-evaluateproximitytopolygon">EvaluateProximityToPolygon</a> function returns the values.
  * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-touch_hit_testing_proximity_evaluation
  * @namespace Windows.Win32.UI.Controls
- * @version v4.0.30319
  */
-class TOUCH_HIT_TESTING_PROXIMITY_EVALUATION extends Win32Struct
-{
+class TOUCH_HIT_TESTING_PROXIMITY_EVALUATION extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4
@@ -29,7 +27,7 @@ class TOUCH_HIT_TESTING_PROXIMITY_EVALUATION extends Win32Struct
      * The adjusted touch point that hits the closest object that's identified by the value of <i>Score</i>.
      * @type {POINT}
      */
-    adjustedPoint{
+    adjustedPoint {
         get {
             if(!this.HasProp("__adjustedPoint"))
                 this.__adjustedPoint := POINT(4, this)

@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\IMMDevice.ahk
 
 /**
  * This structure is passed to the Control Panel Endpoint Extension property page through IShellPropSheetExt::AddPages and is used to create endpoint PropertyPages.
  * @see https://learn.microsoft.com/windows/win32/api/mmdeviceapi/ns-mmdeviceapi-audioextensionparams
  * @namespace Windows.Win32.Media.Audio
- * @version v4.0.30319
  */
-class AudioExtensionParams extends Win32Struct
-{
+class AudioExtensionParams extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8

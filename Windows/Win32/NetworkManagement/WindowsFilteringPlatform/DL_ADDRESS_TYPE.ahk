@@ -5,9 +5,8 @@
  * The DL_ADDRESS_TYPE enumeration (fwpmtypes.h) specifies the type of datalink layer address.
  * @see https://learn.microsoft.com/windows/win32/api/fwpmtypes/ne-fwpmtypes-dl_address_type
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
- * @version v4.0.30319
  */
-class DL_ADDRESS_TYPE extends Win32Enum{
+class DL_ADDRESS_TYPE extends Win32Enum {
 
     /**
      * Specifies a unicast datalink layer address.

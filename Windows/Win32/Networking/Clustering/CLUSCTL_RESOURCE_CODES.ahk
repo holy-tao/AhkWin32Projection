@@ -5,9 +5,8 @@
  * The CLUSCTL_RESOURCE_CODES enumeration (msclus.h) enumerates resource control codes.
  * @see https://learn.microsoft.com/windows/win32/api/msclus/ne-msclus-clusctl_resource_codes
  * @namespace Windows.Win32.Networking.Clustering
- * @version v4.0.30319
  */
-class CLUSCTL_RESOURCE_CODES extends Win32Enum{
+class CLUSCTL_RESOURCE_CODES extends Win32Enum {
 
     /**
      * See <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/clusctl-resource-unknown">CLUSCTL_RESOURCE_UNKNOWN</a>.
@@ -708,31 +707,26 @@ class CLUSCTL_RESOURCE_CODES extends Win32Enum{
     static CLUSCTL_RESOURCE_GET_STATE_CHANGE_TIME => 16788829
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static CLUSCTL_RESOURCE_GET_INFRASTRUCTURE_SOFS_BUFFER => 16788873
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static CLUSCTL_RESOURCE_SET_INFRASTRUCTURE_SOFS_BUFFER => 20983182
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static CLUSCTL_RESOURCE_SCALEOUT_COMMAND => 20983190
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static CLUSCTL_RESOURCE_SCALEOUT_CONTROL => 20983194
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static CLUSCTL_RESOURCE_SCALEOUT_GET_CLUSTERS => 20983197

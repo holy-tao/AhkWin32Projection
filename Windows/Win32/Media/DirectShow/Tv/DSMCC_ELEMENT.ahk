@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\DSMCC_ELEMENT.ahk
 
 /**
  * The DSMCC_ELEMENT structure contains information from a DSM-CC element.
  * @see https://learn.microsoft.com/windows/win32/api/mpeg2structs/ns-mpeg2structs-dsmcc_element
  * @namespace Windows.Win32.Media.DirectShow.Tv
- * @version v4.0.30319
  */
-class DSMCC_ELEMENT extends Win32Struct
-{
+class DSMCC_ELEMENT extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

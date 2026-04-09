@@ -7,9 +7,8 @@
  * The IWMBackupRestoreProps interface sets and retrieves properties required by the IWMLicenseBackup and IWMLicenseRestore interfaces.
  * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nn-wmsdkidl-iwmbackuprestoreprops
  * @namespace Windows.Win32.Media.WindowsMediaFormat
- * @version v4.0.30319
  */
-class IWMBackupRestoreProps extends IUnknown{
+class IWMBackupRestoreProps extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -47,7 +46,7 @@ class IWMBackupRestoreProps extends IUnknown{
      * @param {Integer} wIndex <b>WORD</b> containing the index of the property.
      * @param {PWSTR} pwszName Pointer to a wide-character <b>null</b>-terminated string containing the name.
      * @param {Pointer<Integer>} pcchNameLen On input, contains the length of <i>pwszName</i>. On output, points to a variable containing the number of characters in <i>pwszName</i>, including the terminating <b>null</b> character.
-     * @param {Pointer<Integer>} pType Pointer to a variable containing one member of the <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/ne-wmsdkidl-wmt_attr_datatype">WMT_ATTR_DATATYPE</a> enumeration type.
+     * @param {Pointer<WMT_ATTR_DATATYPE>} pType Pointer to a variable containing one member of the <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/ne-wmsdkidl-wmt_attr_datatype">WMT_ATTR_DATATYPE</a> enumeration type.
      * @param {Pointer<Integer>} pValue Pointer to a byte array containing the value of the property.
      * @param {Pointer<Integer>} pcbLength On input, contains the length of <i>pValue</i>. On output, points to a count of the bytes in <i>pValue</i> that are used.
      * @returns {HRESULT} The method returns E_NOTIMPL.
@@ -70,7 +69,7 @@ class IWMBackupRestoreProps extends IUnknown{
      * @remarks
      * You should make two calls to <b>GetPropByName</b>. On the first call, pass <b>NULL</b> as <i>pValue</i>. On return, the value pointed to by <i>pcbLength</i> is set to the buffer size required to hold the property value. Then you can allocate the required amount of memory for the buffer and pass a pointer to it as <i>pValue</i> on the second call.
      * @param {PWSTR} pszName Pointer to a wide-character <b>null</b>-terminated string containing the name.
-     * @param {Pointer<Integer>} pType Pointer to a variable containing one member of the <b>WMT_ATTR_DATATYPE</b> enumeration type.
+     * @param {Pointer<WMT_ATTR_DATATYPE>} pType Pointer to a variable containing one member of the <b>WMT_ATTR_DATATYPE</b> enumeration type.
      * @param {Pointer<Integer>} pValue Pointer to a byte array containing the value of the property.
      * @param {Pointer<Integer>} pcbLength On input, contains the length of <i>pValue</i>. On output, points to a count of the bytes in <i>pValue</i> that are used.
      * @returns {HRESULT} The method returns E_NOTIMPL.
@@ -115,7 +114,7 @@ class IWMBackupRestoreProps extends IUnknown{
      * </tr>
      * </table>
      * @param {PWSTR} pszName Pointer to a null-terminated string containing the name.
-     * @param {Integer} Type Pointer to a variable containing one member of the <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/ne-wmsdkidl-wmt_attr_datatype">WMT_ATTR_DATATYPE</a> enumeration type. The current implementation of this method accepts only WMT_TYPE_STRING. Specifying a different type causes the method to return E_INVALIDARG.
+     * @param {WMT_ATTR_DATATYPE} Type Pointer to a variable containing one member of the <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/ne-wmsdkidl-wmt_attr_datatype">WMT_ATTR_DATATYPE</a> enumeration type. The current implementation of this method accepts only WMT_TYPE_STRING. Specifying a different type causes the method to return E_INVALIDARG.
      * @param {Pointer<Integer>} pValue Pointer to a byte array containing the value of the property.
      * @param {Integer} cbLength Length of <i>pValue</i>, in bytes.
      * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an <b>HRESULT</b> error code.

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\FILETIME.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\FILETIME.ahk
 
 /**
  * Exposes methods that provide property and state information for a single sync item.
@@ -12,9 +12,8 @@
  * Items should always implement this interface, usually on the same object that implements <a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/nn-syncmgr-isyncmgrsyncitem">ISyncMgrSyncItem</a>.
  * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nn-syncmgr-isyncmgrsynciteminfo
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class ISyncMgrSyncItemInfo extends IUnknown{
+class ISyncMgrSyncItemInfo extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

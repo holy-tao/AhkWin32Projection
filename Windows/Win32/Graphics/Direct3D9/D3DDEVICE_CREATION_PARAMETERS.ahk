@@ -1,15 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\D3DDEVTYPE.ahk
 #Include ..\..\Foundation\HWND.ahk
 
 /**
  * Describes the creation parameters for a device.
  * @see https://learn.microsoft.com/windows/win32/direct3d9/d3ddevice-creation-parameters
  * @namespace Windows.Win32.Graphics.Direct3D9
- * @version v4.0.30319
  */
-class D3DDEVICE_CREATION_PARAMETERS extends Win32Struct
-{
+class D3DDEVICE_CREATION_PARAMETERS extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -31,7 +30,7 @@ class D3DDEVICE_CREATION_PARAMETERS extends Win32Struct
      * 
      * 
      * Member of the [**D3DDEVTYPE**](./d3ddevtype.md) enumerated type. Denotes the amount of emulated functionality for this device. The value of this parameter mirrors the value passed to the [**CreateDevice**](/windows/win32/api/d3d9/nf-d3d9-idirect3d9-createdevice) call that created this device.
-     * @type {Integer}
+     * @type {D3DDEVTYPE}
      */
     DeviceType {
         get => NumGet(this, 4, "int")
@@ -45,7 +44,7 @@ class D3DDEVICE_CREATION_PARAMETERS extends Win32Struct
      * Window handle to which focus belongs for this Direct3D device. The value of this parameter mirrors the value passed to the [**CreateDevice**](/windows/win32/api/d3d9/nf-d3d9-idirect3d9-createdevice) call that created this device.
      * @type {HWND}
      */
-    hFocusWindow{
+    hFocusWindow {
         get {
             if(!this.HasProp("__hFocusWindow"))
                 this.__hFocusWindow := HWND(8, this)

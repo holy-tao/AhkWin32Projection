@@ -23,10 +23,8 @@
  * The maximum size for an ACL, including its ACEs, is 64 KB.
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-acl
  * @namespace Windows.Win32.Security
- * @version v4.0.30319
  */
-class ACL extends Win32Struct
-{
+class ACL extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 2

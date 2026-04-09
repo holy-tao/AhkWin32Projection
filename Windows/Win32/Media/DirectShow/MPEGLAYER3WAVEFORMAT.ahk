@@ -1,15 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\Audio\WAVEFORMATEX.ahk
+#Include .\MPEGLAYER3WAVEFORMAT_FLAGS.ahk
 
 /**
  * The MPEGLAYER3WAVEFORMAT structure describes an MPEG Audio Layer-3 (MP3) audio format.
  * @see https://learn.microsoft.com/windows/win32/api/mmreg/ns-mmreg-mpeglayer3waveformat
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class MPEGLAYER3WAVEFORMAT extends Win32Struct
-{
+class MPEGLAYER3WAVEFORMAT extends Win32Struct {
     static sizeof => 36
 
     static packingSize => 4
@@ -18,7 +17,7 @@ class MPEGLAYER3WAVEFORMAT extends Win32Struct
      * <a href="https://docs.microsoft.com/previous-versions/dd757713(v=vs.85)">WAVEFORMATEX</a> structure that specifies the basic audio format. The <b>wFormatTag</b> member must be <b>WAVE_FORMAT_MPEGLAYER3</b>. The <b>cbSize</b> member must be at least 12. (For <b>cbSize</b>, you can use the constant <b>MPEGLAYER3_WFX_EXTRA_BYTES</b>, defined in the Mmreg.h.)
      * @type {WAVEFORMATEX}
      */
-    wfx{
+    wfx {
         get {
             if(!this.HasProp("__wfx"))
                 this.__wfx := WAVEFORMATEX(0, this)
@@ -36,8 +35,7 @@ class MPEGLAYER3WAVEFORMAT extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Integer}
+     * @type {MPEGLAYER3WAVEFORMAT_FLAGS}
      */
     fdwFlags {
         get => NumGet(this, 24, "uint")

@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
- * @version v4.0.30319
  */
-class KSDS3D_HRTF_FILTER_QUALITY extends Win32Enum{
+class KSDS3D_HRTF_FILTER_QUALITY extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

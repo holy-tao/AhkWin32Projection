@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem
- * @version v4.0.30319
  */
-class MM_PREFETCH_FLAGS extends Win32Struct
-{
+class MM_PREFETCH_FLAGS extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4
@@ -28,7 +26,7 @@ class MM_PREFETCH_FLAGS extends Win32Struct
             get => NumGet(this, 0, "uint")
             set => NumPut("uint", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -36,7 +34,7 @@ class MM_PREFETCH_FLAGS extends Win32Struct
             get => (this._bitfield >> 0) & 0x7
             set => this._bitfield := ((value & 0x7) << 0) | (this._bitfield & ~(0x7 << 0))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -44,7 +42,7 @@ class MM_PREFETCH_FLAGS extends Win32Struct
             get => (this._bitfield >> 3) & 0x7
             set => this._bitfield := ((value & 0x7) << 3) | (this._bitfield & ~(0x7 << 3))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -52,7 +50,7 @@ class MM_PREFETCH_FLAGS extends Win32Struct
             get => (this._bitfield >> 6) & 0x1
             set => this._bitfield := ((value & 0x1) << 6) | (this._bitfield & ~(0x1 << 6))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -60,7 +58,7 @@ class MM_PREFETCH_FLAGS extends Win32Struct
             get => (this._bitfield >> 7) & 0x3
             set => this._bitfield := ((value & 0x3) << 7) | (this._bitfield & ~(0x3 << 7))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -68,16 +66,15 @@ class MM_PREFETCH_FLAGS extends Win32Struct
             get => (this._bitfield >> 9) & 0x7FFFFF
             set => this._bitfield := ((value & 0x7FFFFF) << 9) | (this._bitfield & ~(0x7FFFFF << 9))
         }
-    
     }
 
     /**
      * @type {_Flags}
      */
-    Flags{
+    Flags {
         get {
             if(!this.HasProp("__Flags"))
-                this.__Flags := %this.__Class%._Flags(0, this)
+                this.__Flags := MM_PREFETCH_FLAGS._Flags(0, this)
             return this.__Flags
         }
     }

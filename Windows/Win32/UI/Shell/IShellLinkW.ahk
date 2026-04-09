@@ -17,10 +17,9 @@
  * > The shobjidl_core.h header defines IShellLink as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-ishelllinkw
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  * @charset Unicode
  */
-class IShellLinkW extends IUnknown{
+class IShellLinkW extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -246,7 +245,7 @@ class IShellLinkW extends IUnknown{
      * Gets the show command for a Shell link object. (Unicode)
      * @remarks
      * The show command is used to set the initial show state of the corresponding object. This is one of the SW_xxx values described in <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-showwindow">ShowWindow</a>.
-     * @returns {Integer} Type: <b>int*</b>
+     * @returns {SHOW_WINDOW_CMD} Type: <b>int*</b>
      * 
      * A pointer to the command. The following commands are supported.
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishelllinkw-getshowcmd
@@ -258,7 +257,7 @@ class IShellLinkW extends IUnknown{
 
     /**
      * Sets the show command for a Shell link object. The show command sets the initial show state of the window. (Unicode)
-     * @param {Integer} iShowCmd Type: <b>int</b>
+     * @param {SHOW_WINDOW_CMD} iShowCmd Type: <b>int</b>
      * 
      * Command. <b>SetShowCmd</b> accepts one of the following <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-showwindow">ShowWindow</a> commands.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -350,7 +349,9 @@ class IShellLinkW extends IUnknown{
      * If distributed link tracking is not available or fails to find the link object, <b>Resolve</b> attempts to find it with search heuristics. It first looks in the object's last known directory for an object with a different name but the same attributes and file creation time. Next, it recursively searches subdirectories in the vicinity of the object's last known directory. It looks for an object with the same name or creation time. Finally, <b>Resolve</b> looks for a matching object on the desktop and other local volumes. To suppress the use of the search heuristics, set the <b>SLR_NOSEARCH</b> flag.
      * 
      * If both approaches fail, the system will display a dialog box prompting the user for a location. To suppress the dialog box, set the <b>SLR_NO_UI</b> flag.
-     * @param {HWND} _hwnd 
+     * @param {HWND} _hwnd Type: <b>HWND</b>
+     * 
+     * A handle to the window that the Shell will use as the parent for a dialog box. The Shell displays the dialog box if it needs to prompt the user for more information while resolving a Shell link.
      * @param {Integer} fFlags Type: <b>DWORD</b>
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 

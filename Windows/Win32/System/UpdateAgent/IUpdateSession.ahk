@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
 #Include .\IWebProxy.ahk
 #Include .\IUpdateSearcher.ahk
 #Include .\IUpdateDownloader.ahk
 #Include .\IUpdateInstaller.ahk
-#Include ..\Com\IDispatch.ahk
 
 /**
  * Represents a session in which the caller can perform operations that involve updates. For example, this interface represents sessions in which the caller performs a search, download, installation, or uninstallation operation. (IUpdateSession)
@@ -14,9 +14,8 @@
  * You can create an instance of this interface by using the UpdateSession coclass. Use the Microsoft.Update.Session program identifier to create the object.
  * @see https://learn.microsoft.com/windows/win32/api/wuapi/nn-wuapi-iupdatesession
  * @namespace Windows.Win32.System.UpdateAgent
- * @version v4.0.30319
  */
-class IUpdateSession extends IDispatch{
+class IUpdateSession extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem
- * @version v4.0.30319
  */
-class REFS_VOLUME_DATA_BUFFER extends Win32Struct
-{
+class REFS_VOLUME_DATA_BUFFER extends Win32Struct {
     static sizeof => 152
 
     static packingSize => 8
@@ -132,9 +130,9 @@ class REFS_VOLUME_DATA_BUFFER extends Win32Struct
     }
 
     /**
-     * @type {Array<Int64>}
+     * @type {Array<Integer>}
      */
-    Reserved{
+    Reserved {
         get {
             if(!this.HasProp("__ReservedProxyArray"))
                 this.__ReservedProxyArray := Win32FixedArray(this.ptr + 80, 9, Primitive, "int64")

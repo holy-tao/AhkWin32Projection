@@ -7,9 +7,8 @@
  * This enumeration is defined in dvdmedia.h but was never used. It is included here for the sake of completeness. For DVD rate-change control, use the <a href="https://docs.microsoft.com/windows/desktop/DirectShow/rate-change-property-set">Rate Change Property Set</a>.
  * @see https://learn.microsoft.com/windows/win32/api/dvdmedia/ne-dvdmedia-am_property_dvd_rate_change
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class AM_PROPERTY_DVD_RATE_CHANGE extends Win32Enum{
+class AM_PROPERTY_DVD_RATE_CHANGE extends Win32Enum {
 
     /**
      * Reserved.

@@ -7,9 +7,8 @@
  * Controls the object construction process by passing in parameters from other methods or objects.
  * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nn-comsvcs-iobjectconstruct
  * @namespace Windows.Win32.System.ComponentServices
- * @version v4.0.30319
  */
-class IObjectConstruct extends IUnknown{
+class IObjectConstruct extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

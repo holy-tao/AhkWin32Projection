@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Graphics.GdiPlus
- * @version v4.0.30319
  */
-class GpFontFamily extends Win32Struct
-{
+class GpFontFamily extends Win32Struct {
     static sizeof => 0
 
     static packingSize => 1

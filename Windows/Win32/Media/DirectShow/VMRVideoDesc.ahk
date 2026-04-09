@@ -6,10 +6,8 @@
  * This topic applies to Windows XP Service Pack 1 or later. The VMRVideoDesc structure describes a video stream to be deinterlaced.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/ns-strmif-vmrvideodesc
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class VMRVideoDesc extends Win32Struct
-{
+class VMRVideoDesc extends Win32Struct {
     static sizeof => 36
 
     static packingSize => 4
@@ -42,7 +40,6 @@ class VMRVideoDesc extends Win32Struct
     }
 
     /**
-     * 
      * @type {BOOL}
      */
     SingleFieldPerSample {
@@ -63,7 +60,7 @@ class VMRVideoDesc extends Win32Struct
      * A [VMRFrequency](/windows/win32/api/strmif/ns-strmif-vmrfrequency structure that specifies the input frequency. For NTSC TV, the frequency would be expressed as 30,000:1001.
      * @type {VMRFrequency}
      */
-    InputSampleFreq{
+    InputSampleFreq {
         get {
             if(!this.HasProp("__InputSampleFreq"))
                 this.__InputSampleFreq := VMRFrequency(20, this)
@@ -75,7 +72,7 @@ class VMRVideoDesc extends Win32Struct
      * A [VMRFrequency](/windows/win32/api/strmif/ns-strmif-vmrfrequency) structure that specifies the output frequency. For NTSC TV, the frequency would be expressed as 60,000:1001.
      * @type {VMRFrequency}
      */
-    OutputFrameFreq{
+    OutputFrameFreq {
         get {
             if(!this.HasProp("__OutputFrameFreq"))
                 this.__OutputFrameFreq := VMRFrequency(28, this)

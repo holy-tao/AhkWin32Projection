@@ -5,10 +5,8 @@
  * Describes a unordered-access 2D texture resource. (D3D11_TEX2D_UAV1)
  * @see https://learn.microsoft.com/windows/win32/api/d3d11_3/ns-d3d11_3-d3d11_tex2d_uav1
  * @namespace Windows.Win32.Graphics.Direct3D11
- * @version v4.0.30319
  */
-class D3D11_TEX2D_UAV1 extends Win32Struct
-{
+class D3D11_TEX2D_UAV1 extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4

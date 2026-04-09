@@ -5,9 +5,8 @@
  * Defines flags that can be used to filter on the credential type.
  * @see https://learn.microsoft.com/windows/win32/SecBioMet/winbio-credential-type
  * @namespace Windows.Win32.Devices.BiometricFramework
- * @version v4.0.30319
  */
-class WINBIO_CREDENTIAL_TYPE extends Win32Enum{
+class WINBIO_CREDENTIAL_TYPE extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

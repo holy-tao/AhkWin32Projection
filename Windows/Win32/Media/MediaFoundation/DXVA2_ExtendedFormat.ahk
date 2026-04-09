@@ -7,10 +7,8 @@
  * Most of the values in this structure can be translated directly to and from <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfmediatype">IMFMediaType</a> attributes. For a code example that fills in the values from an <b>IMFMediaType</b> pointer, see <a href="https://docs.microsoft.com/windows/desktop/api/dxva2api/ns-dxva2api-dxva2_videodesc">DXVA2_VideoDesc</a>.
  * @see https://learn.microsoft.com/windows/win32/api/dxva2api/ns-dxva2api-dxva2_extendedformat
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class DXVA2_ExtendedFormat extends Win32Struct
-{
+class DXVA2_ExtendedFormat extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 4

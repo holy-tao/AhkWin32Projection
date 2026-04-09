@@ -6,10 +6,8 @@
  * Specifies the destination rectangle for an input stream, when using Microsoft DirectX Video Acceleration High Definition (DXVA-HD).
  * @see https://learn.microsoft.com/windows/win32/api/dxvahd/ns-dxvahd-dxvahd_stream_state_destination_rect_data
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class DXVAHD_STREAM_STATE_DESTINATION_RECT_DATA extends Win32Struct
-{
+class DXVAHD_STREAM_STATE_DESTINATION_RECT_DATA extends Win32Struct {
     static sizeof => 20
 
     static packingSize => 4
@@ -56,7 +54,7 @@ class DXVAHD_STREAM_STATE_DESTINATION_RECT_DATA extends Win32Struct
      * If the <b>Enable</b> member is <b>FALSE</b>, the <b>DestinationRect</b> member is ignored.
      * @type {RECT}
      */
-    DestinationRect{
+    DestinationRect {
         get {
             if(!this.HasProp("__DestinationRect"))
                 this.__DestinationRect := RECT(4, this)

@@ -5,10 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Networking.WinSock
- * @version v4.0.30319
  */
-class WSAEVENT extends Win32Handle
-{
+class WSAEVENT extends Win32Handle {
     static sizeof => 8
 
     static packingSize => 8

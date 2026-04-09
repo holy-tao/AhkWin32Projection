@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
- * @version v4.0.30319
  */
-class USERDATA extends Win32Struct
-{
+class USERDATA extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8
@@ -36,9 +34,9 @@ class USERDATA extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    dwReserved{
+    dwReserved {
         get {
             if(!this.HasProp("__dwReservedProxyArray"))
                 this.__dwReservedProxyArray := Win32FixedArray(this.ptr + 24, 8, Primitive, "uint")

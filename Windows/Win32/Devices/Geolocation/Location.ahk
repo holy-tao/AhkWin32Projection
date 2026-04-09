@@ -9,10 +9,8 @@
  * To determine whether you can change the value of this attribute, use the [Media.isReadOnlyItem](media-isreadonlyitem.md) method.
  * @see https://learn.microsoft.com/windows/win32/WMP/location-attribute
  * @namespace Windows.Win32.Devices.Geolocation
- * @version v4.0.30319
  */
-class Location extends Win32Struct
-{
+class Location extends Win32Struct {
     static sizeof => 0
 
     static packingSize => 1

@@ -7,9 +7,8 @@
  * Exposes methods that notify Remote Desktop Gateway (RD Gateway) about the result of an attempt to authorize a resource.
  * @see https://learn.microsoft.com/windows/win32/api/tsgpolicyengine/nn-tsgpolicyengine-itsgauthorizeresourcesink
  * @namespace Windows.Win32.System.RemoteDesktop
- * @version v4.0.30319
  */
-class ITSGAuthorizeResourceSink extends IUnknown{
+class ITSGAuthorizeResourceSink extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

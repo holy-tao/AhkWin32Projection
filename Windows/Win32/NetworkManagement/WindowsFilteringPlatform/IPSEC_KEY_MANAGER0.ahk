@@ -6,10 +6,8 @@
  * Used to register key management callbacks with IPsec.
  * @see https://learn.microsoft.com/windows/win32/api/ipsectypes/ns-ipsectypes-ipsec_key_manager0
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
- * @version v4.0.30319
  */
-class IPSEC_KEY_MANAGER0 extends Win32Struct
-{
+class IPSEC_KEY_MANAGER0 extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -18,7 +16,7 @@ class IPSEC_KEY_MANAGER0 extends Win32Struct
      * Type: <b>GUID</b>
      * 
      * Uniquely identifies the Key Manager.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     keyManagerKey {
         get => NumGet(this, 0, "ptr")
@@ -31,7 +29,7 @@ class IPSEC_KEY_MANAGER0 extends Win32Struct
      * Contains annotations associated with the filter.
      * @type {FWPM_DISPLAY_DATA0}
      */
-    displayData{
+    displayData {
         get {
             if(!this.HasProp("__displayData"))
                 this.__displayData := FWPM_DISPLAY_DATA0(8, this)

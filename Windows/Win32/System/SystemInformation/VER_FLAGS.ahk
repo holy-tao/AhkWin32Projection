@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.SystemInformation
- * @version v4.0.30319
  */
-class VER_FLAGS extends Win32BitflagEnum{
+class VER_FLAGS extends Win32BitflagEnum {
 
     /**
      * @type {Integer (UInt32)}

@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.GroupPolicy
- * @version v4.0.30319
  */
-class GPO_OPTIONS extends Win32BitflagEnum{
+class GPO_OPTIONS extends Win32BitflagEnum {
 
     /**
      * @type {Integer (UInt32)}

@@ -5,9 +5,8 @@
  * Identifies the type of corrective action to be taken for a spelling error.
  * @see https://learn.microsoft.com/windows/win32/api/spellcheck/ne-spellcheck-corrective_action
  * @namespace Windows.Win32.Globalization
- * @version v4.0.30319
  */
-class CORRECTIVE_ACTION extends Win32Enum{
+class CORRECTIVE_ACTION extends Win32Enum {
 
     /**
      * There are no errors.

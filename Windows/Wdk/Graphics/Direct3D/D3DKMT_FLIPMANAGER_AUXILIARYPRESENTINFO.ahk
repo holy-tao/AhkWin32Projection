@@ -1,19 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Win32\Foundation\LUID.ahk
+#Include .\D3DKMT_FLIPMODEL_INDEPENDENT_FLIP_STAGE.ahk
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
- * @version v4.0.30319
  */
-class D3DKMT_FLIPMANAGER_AUXILIARYPRESENTINFO extends Win32Struct
-{
+class D3DKMT_FLIPMANAGER_AUXILIARYPRESENTINFO extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8
 
     /**
-     * @type {Pointer<D3DKMT_AUXILIARYPRESENTINFO>}
+     * @type {Pointer}
      */
     auxiliaryPresentInfo {
         get => NumGet(this, 0, "ptr")
@@ -37,14 +35,11 @@ class D3DKMT_FLIPMANAGER_AUXILIARYPRESENTINFO extends Win32Struct
     }
 
     /**
-     * @type {LUID}
+     * @type {Pointer}
      */
-    FlipAdapterLuid{
-        get {
-            if(!this.HasProp("__FlipAdapterLuid"))
-                this.__FlipAdapterLuid := LUID(16, this)
-            return this.__FlipAdapterLuid
-        }
+    FlipAdapterLuid {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
@@ -56,7 +51,7 @@ class D3DKMT_FLIPMANAGER_AUXILIARYPRESENTINFO extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {D3DKMT_FLIPMODEL_INDEPENDENT_FLIP_STAGE}
      */
     independentFlipStage {
         get => NumGet(this, 28, "int")

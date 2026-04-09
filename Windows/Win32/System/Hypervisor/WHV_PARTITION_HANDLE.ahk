@@ -5,10 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.Hypervisor
- * @version v4.0.30319
  */
-class WHV_PARTITION_HANDLE extends Win32Handle
-{
+class WHV_PARTITION_HANDLE extends Win32Handle {
     static sizeof => 8
 
     static packingSize => 8

@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Web.InternetExplorer
- * @version v4.0.30319
  */
-class IViewObjectPresentFlipSite2 extends IUnknown{
+class IViewObjectPresentFlipSite2 extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -30,7 +29,7 @@ class IViewObjectPresentFlipSite2 extends IUnknown{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {DXGI_MODE_ROTATION} 
      */
     GetRotationForCurrentOutput() {
         result := ComCall(3, this, "int*", &pDxgiRotation := 0, "HRESULT")

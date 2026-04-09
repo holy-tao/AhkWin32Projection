@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include ..\..\..\Foundation\HANDLE.ahk
+#Include .\POINTER_DEVICE_TYPE.ahk
 #Include ..\..\..\Graphics\Gdi\HMONITOR.ahk
 
 /**
  * Contains information about a pointer device. An array of these structures is returned from the GetPointerDevices function. A single structure is returned from a call to the GetPointerDevice function.
  * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-pointer_device_info
  * @namespace Windows.Win32.UI.Input.Pointer
- * @version v4.0.30319
  */
-class POINTER_DEVICE_INFO extends Win32Struct
-{
+class POINTER_DEVICE_INFO extends Win32Struct {
     static sizeof => 1080
 
     static packingSize => 8
@@ -31,7 +30,7 @@ class POINTER_DEVICE_INFO extends Win32Struct
      * The handle to the pointer device.
      * @type {HANDLE}
      */
-    device{
+    device {
         get {
             if(!this.HasProp("__device"))
                 this.__device := HANDLE(8, this)
@@ -41,7 +40,7 @@ class POINTER_DEVICE_INFO extends Win32Struct
 
     /**
      * The device type.
-     * @type {Integer}
+     * @type {POINTER_DEVICE_TYPE}
      */
     pointerDeviceType {
         get => NumGet(this, 16, "int")
@@ -52,7 +51,7 @@ class POINTER_DEVICE_INFO extends Win32Struct
      * The HMONITOR for the display that the device is mapped to. This is not necessarily the monitor that the pointer device is physically connected to.
      * @type {HMONITOR}
      */
-    monitor{
+    monitor {
         get {
             if(!this.HasProp("__monitor"))
                 this.__monitor := HMONITOR(24, this)

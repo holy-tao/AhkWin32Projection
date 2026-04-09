@@ -5,9 +5,8 @@
  * Specifies how the voice capture DSP performs microphone array processing. This enumeration is used with the MFPKEY_WMAAECMA_FEATR_MICARR_MODE property.
  * @see https://learn.microsoft.com/windows/win32/api/wmcodecdsp/ne-wmcodecdsp-mic_array_mode
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class MIC_ARRAY_MODE extends Win32Enum{
+class MIC_ARRAY_MODE extends Win32Enum {
 
     /**
      * Use a single channel. Specify the channel number in the last 8 bits of the value.

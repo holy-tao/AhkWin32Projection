@@ -5,10 +5,8 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Ndis
- * @version v4.0.30319
  */
-class NDIS_WMI_SET_HEADER extends Win32Struct
-{
+class NDIS_WMI_SET_HEADER extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -16,7 +14,7 @@ class NDIS_WMI_SET_HEADER extends Win32Struct
     /**
      * @type {NDIS_OBJECT_HEADER}
      */
-    Header{
+    Header {
         get {
             if(!this.HasProp("__Header"))
                 this.__Header := NDIS_OBJECT_HEADER(0, this)
@@ -35,7 +33,7 @@ class NDIS_WMI_SET_HEADER extends Win32Struct
     /**
      * @type {NET_LUID_LH}
      */
-    NetLuid{
+    NetLuid {
         get {
             if(!this.HasProp("__NetLuid"))
                 this.__NetLuid := NET_LUID_LH(8, this)
@@ -60,9 +58,9 @@ class NDIS_WMI_SET_HEADER extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Padding{
+    Padding {
         get {
             if(!this.HasProp("__PaddingProxyArray"))
                 this.__PaddingProxyArray := Win32FixedArray(this.ptr + 36, 4, Primitive, "char")

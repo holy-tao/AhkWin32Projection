@@ -7,10 +7,8 @@
  * Holds an extra data block used by IShellLinkDataList. It holds console properties.
  * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/ns-shlobj_core-nt_console_props
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class NT_CONSOLE_PROPS extends Win32Struct
-{
+class NT_CONSOLE_PROPS extends Win32Struct {
     static sizeof => 204
 
     static packingSize => 4
@@ -21,7 +19,7 @@ class NT_CONSOLE_PROPS extends Win32Struct
      * The <a href="https://docs.microsoft.com/windows/win32/api/shlobj_core/ns-shlobj_core-datablock_header">DATABLOCK_HEADER</a> structure with the <b>NT_CONSOLE_PROPS</b> structure's size and signature. The signature for an <b>NT_CONSOLE_PROPS</b> structure is NT_CONSOLE_PROPS_SIG.
      * @type {DATABLOCK_HEADER}
      */
-    dbh{
+    dbh {
         get {
             if(!this.HasProp("__dbh"))
                 this.__dbh := DATABLOCK_HEADER(0, this)
@@ -57,7 +55,7 @@ class NT_CONSOLE_PROPS extends Win32Struct
      * A <a href="https://docs.microsoft.com/windows/console/coord-str">COORD</a> structure with the console's screen buffer size.
      * @type {COORD}
      */
-    dwScreenBufferSize{
+    dwScreenBufferSize {
         get {
             if(!this.HasProp("__dwScreenBufferSize"))
                 this.__dwScreenBufferSize := COORD(12, this)
@@ -71,7 +69,7 @@ class NT_CONSOLE_PROPS extends Win32Struct
      * A <a href="https://docs.microsoft.com/windows/console/coord-str">COORD</a> structure with the console's window size.
      * @type {COORD}
      */
-    dwWindowSize{
+    dwWindowSize {
         get {
             if(!this.HasProp("__dwWindowSize"))
                 this.__dwWindowSize := COORD(16, this)
@@ -85,7 +83,7 @@ class NT_CONSOLE_PROPS extends Win32Struct
      * A <a href="https://docs.microsoft.com/windows/console/coord-str">COORD</a> structure with the console's window origin.
      * @type {COORD}
      */
-    dwWindowOrigin{
+    dwWindowOrigin {
         get {
             if(!this.HasProp("__dwWindowOrigin"))
                 this.__dwWindowOrigin := COORD(20, this)
@@ -121,7 +119,7 @@ class NT_CONSOLE_PROPS extends Win32Struct
      * A <a href="https://docs.microsoft.com/windows/console/coord-str">COORD</a> structure with the font size.
      * @type {COORD}
      */
-    dwFontSize{
+    dwFontSize {
         get {
             if(!this.HasProp("__dwFontSize"))
                 this.__dwFontSize := COORD(32, this)
@@ -256,7 +254,7 @@ class NT_CONSOLE_PROPS extends Win32Struct
      * An array of <a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a> values with the console's color settings.
      * @type {Array<COLORREF>}
      */
-    ColorTable{
+    ColorTable {
         get {
             if(!this.HasProp("__ColorTableProxyArray"))
                 this.__ColorTableProxyArray := Win32FixedArray(this.ptr + 140, 16, Primitive, "uint")

@@ -7,9 +7,8 @@
  * See [D3D12\_VIDEO\_PROCESS\_INPUT\_STREAM\_DESC](ns-d3d12video-d3d12_video_process_input_stream_desc.md) for information on applying a particular filter.
  * @see https://learn.microsoft.com/windows/win32/api/d3d12video/ne-d3d12video-d3d12_video_process_filter_flags
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class D3D12_VIDEO_PROCESS_FILTER extends Win32Enum{
+class D3D12_VIDEO_PROCESS_FILTER extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

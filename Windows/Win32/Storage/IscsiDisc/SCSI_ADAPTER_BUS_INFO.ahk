@@ -4,13 +4,11 @@
 
 /**
  * @namespace Windows.Win32.Storage.IscsiDisc
- * @version v4.0.30319
  */
-class SCSI_ADAPTER_BUS_INFO extends Win32Struct
-{
-    static sizeof => 16
+class SCSI_ADAPTER_BUS_INFO extends Win32Struct {
+    static sizeof => 12
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}
@@ -21,12 +19,12 @@ class SCSI_ADAPTER_BUS_INFO extends Win32Struct
     }
 
     /**
-     * @type {Array<SCSI_BUS_DATA>}
+     * @type {SCSI_BUS_DATA}
      */
-    BusData{
+    BusData {
         get {
             if(!this.HasProp("__BusDataProxyArray"))
-                this.__BusDataProxyArray := Win32FixedArray(this.ptr + 8, 1, SCSI_BUS_DATA, "")
+                this.__BusDataProxyArray := Win32FixedArray(this.ptr + 4, 1, SCSI_BUS_DATA, "")
             return this.__BusDataProxyArray
         }
     }

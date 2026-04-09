@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\CERT_POLICY_QUALIFIER_INFO.ahk
 
 /**
  * The CERT_POLICY_INFO structure contains an object identifier (OID) specifying a policy and an optional array of policy qualifiers.
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cert_policy_info
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CERT_POLICY_INFO extends Win32Struct
-{
+class CERT_POLICY_INFO extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

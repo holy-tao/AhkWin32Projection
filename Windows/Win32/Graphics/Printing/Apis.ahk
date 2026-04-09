@@ -9,7 +9,6 @@
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
- * @version v4.0.30319
  */
 class Printing {
 
@@ -7226,7 +7225,7 @@ class Printing {
      * @param {Integer} Level The type of data structures pointed to by *pPrinterEnum*. Valid values are 1, 2, 4, and 5, which correspond to the [**PRINTER\_INFO\_1**](printer-info-1.md), [**PRINTER\_INFO\_2**](printer-info-2.md) , [**PRINTER\_INFO\_4**](printer-info-4.md), and [**PRINTER\_INFO\_5**](printer-info-5.md) data structures.
      * 
      * This value can be 1, 2, 4, or 5.
-     * @param {Pointer} pPrinterEnum A pointer to a buffer that receives an array of [**PRINTER\_INFO\_1**](printer-info-1.md), [**PRINTER\_INFO\_2**](printer-info-2.md), [**PRINTER\_INFO\_4**](printer-info-4.md), or [**PRINTER\_INFO\_5**](printer-info-5.md) structures. Each structure contains data that describes an available print object.
+     * @param {Integer} pPrinterEnum A pointer to a buffer that receives an array of [**PRINTER\_INFO\_1**](printer-info-1.md), [**PRINTER\_INFO\_2**](printer-info-2.md), [**PRINTER\_INFO\_4**](printer-info-4.md), or [**PRINTER\_INFO\_5**](printer-info-5.md) structures. Each structure contains data that describes an available print object.
      * 
      * If *Level* is 1, the array contains [**PRINTER\_INFO\_1**](printer-info-1.md) structures. If *Level* is 2, the array contains [**PRINTER\_INFO\_2**](printer-info-2.md) structures. If *Level* is 4, the array contains [**PRINTER\_INFO\_4**](printer-info-4.md) structures. If *Level* is 5, the array contains [**PRINTER\_INFO\_5**](printer-info-5.md) structures.
      * 
@@ -7335,7 +7334,7 @@ class Printing {
      * @param {Integer} Level The type of data structures pointed to by *pPrinterEnum*. Valid values are 1, 2, 4, and 5, which correspond to the [**PRINTER\_INFO\_1**](printer-info-1.md), [**PRINTER\_INFO\_2**](printer-info-2.md) , [**PRINTER\_INFO\_4**](printer-info-4.md), and [**PRINTER\_INFO\_5**](printer-info-5.md) data structures.
      * 
      * This value can be 1, 2, 4, or 5.
-     * @param {Pointer} pPrinterEnum A pointer to a buffer that receives an array of [**PRINTER\_INFO\_1**](printer-info-1.md), [**PRINTER\_INFO\_2**](printer-info-2.md), [**PRINTER\_INFO\_4**](printer-info-4.md), or [**PRINTER\_INFO\_5**](printer-info-5.md) structures. Each structure contains data that describes an available print object.
+     * @param {Integer} pPrinterEnum A pointer to a buffer that receives an array of [**PRINTER\_INFO\_1**](printer-info-1.md), [**PRINTER\_INFO\_2**](printer-info-2.md), [**PRINTER\_INFO\_4**](printer-info-4.md), or [**PRINTER\_INFO\_5**](printer-info-5.md) structures. Each structure contains data that describes an available print object.
      * 
      * If *Level* is 1, the array contains [**PRINTER\_INFO\_1**](printer-info-1.md) structures. If *Level* is 2, the array contains [**PRINTER\_INFO\_2**](printer-info-2.md) structures. If *Level* is 4, the array contains [**PRINTER\_INFO\_4**](printer-info-4.md) structures. If *Level* is 5, the array contains [**PRINTER\_INFO\_5**](printer-info-5.md) structures.
      * 
@@ -7770,7 +7769,7 @@ class Printing {
      * @param {PRINTER_HANDLE} hPrinter A handle to the printer for which the print-job data is retrieved. Use the [**OpenPrinter**](openprinter.md) or [**AddPrinter**](addprinter.md) function to retrieve a printer handle.
      * @param {Integer} JobId Identifies the print job for which to retrieve data. Use the [**AddJob**](addjob.md) function or [**StartDoc**](/windows/desktop/api/Wingdi/nf-wingdi-startdoca) function to get a print job identifier.
      * @param {Integer} Level The type of information returned in the *pJob* buffer. If *Level* is 1, *pJob* receives a [**JOB\_INFO\_1**](job-info-1.md) structure. If *Level* is 2, *pJob* receives a [**JOB\_INFO\_2**](job-info-2.md) structure.
-     * @param {Pointer} pJob A pointer to a buffer that receives a [**JOB\_INFO\_1**](job-info-1.md) or a [**JOB\_INFO\_2**](job-info-2.md) structure containing information about the job. The buffer must be large enough to store the strings pointed to by the structure members.
+     * @param {Integer} pJob A pointer to a buffer that receives a [**JOB\_INFO\_1**](job-info-1.md) or a [**JOB\_INFO\_2**](job-info-2.md) structure containing information about the job. The buffer must be large enough to store the strings pointed to by the structure members.
      * 
      * To determine the required buffer size, call **GetJob** with *cbBuf* set to zero. **GetJob** fails, [**GetLastError**](/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror) returns ERROR\_INSUFFICIENT\_BUFFER, and the *pcbNeeded* parameter returns the size, in bytes, of the buffer required to hold the array of structures and their data.
      * @param {Integer} cbBuf The size, in bytes, of the array.
@@ -7797,7 +7796,7 @@ class Printing {
      * @param {PRINTER_HANDLE} hPrinter A handle to the printer for which the print-job data is retrieved. Use the [**OpenPrinter**](openprinter.md) or [**AddPrinter**](addprinter.md) function to retrieve a printer handle.
      * @param {Integer} JobId Identifies the print job for which to retrieve data. Use the [**AddJob**](addjob.md) function or [**StartDoc**](/windows/desktop/api/Wingdi/nf-wingdi-startdoca) function to get a print job identifier.
      * @param {Integer} Level The type of information returned in the *pJob* buffer. If *Level* is 1, *pJob* receives a [**JOB\_INFO\_1**](job-info-1.md) structure. If *Level* is 2, *pJob* receives a [**JOB\_INFO\_2**](job-info-2.md) structure.
-     * @param {Pointer} pJob A pointer to a buffer that receives a [**JOB\_INFO\_1**](job-info-1.md) or a [**JOB\_INFO\_2**](job-info-2.md) structure containing information about the job. The buffer must be large enough to store the strings pointed to by the structure members.
+     * @param {Integer} pJob A pointer to a buffer that receives a [**JOB\_INFO\_1**](job-info-1.md) or a [**JOB\_INFO\_2**](job-info-2.md) structure containing information about the job. The buffer must be large enough to store the strings pointed to by the structure members.
      * 
      * To determine the required buffer size, call **GetJob** with *cbBuf* set to zero. **GetJob** fails, [**GetLastError**](/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror) returns ERROR\_INSUFFICIENT\_BUFFER, and the *pcbNeeded* parameter returns the size, in bytes, of the buffer required to hold the array of structures and their data.
      * @param {Integer} cbBuf The size, in bytes, of the array.
@@ -7839,7 +7838,7 @@ class Printing {
      * | <span id="1"></span><dl> <dt>**1**</dt> </dl> | *pJob* receives an array of [**JOB\_INFO\_1**](job-info-1.md) structures<br/> |
      * | <span id="2"></span><dl> <dt>**2**</dt> </dl> | *pJob* receives an array of [**JOB\_INFO\_2**](job-info-2.md) structures<br/> |
      * | <span id="3"></span><dl> <dt>**3**</dt> </dl> | *pJob* receives an array of [**JOB\_INFO\_3**](job-info-3.md) structures<br/> |
-     * @param {Pointer} pJob A pointer to a buffer that receives an array of [**JOB\_INFO\_1**](job-info-1.md), [**JOB\_INFO\_2**](job-info-2.md), or [**JOB\_INFO\_3**](job-info-3.md) structures. The buffer must be large enough to receive the array of structures and any strings or other data to which the structure members point.
+     * @param {Integer} pJob A pointer to a buffer that receives an array of [**JOB\_INFO\_1**](job-info-1.md), [**JOB\_INFO\_2**](job-info-2.md), or [**JOB\_INFO\_3**](job-info-3.md) structures. The buffer must be large enough to receive the array of structures and any strings or other data to which the structure members point.
      * 
      * To determine the required buffer size, call **EnumJobs** with *cbBuf* set to zero. **EnumJobs** fails, [**GetLastError**](/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror) returns ERROR\_INSUFFICIENT\_BUFFER, and the *pcbNeeded* parameter returns the size, in bytes, of the buffer required to hold the array of structures and their data.
      * @param {Integer} cbBuf The size, in bytes, of the *pJob* buffer.
@@ -7889,7 +7888,7 @@ class Printing {
      * | <span id="1"></span><dl> <dt>**1**</dt> </dl> | *pJob* receives an array of [**JOB\_INFO\_1**](job-info-1.md) structures<br/> |
      * | <span id="2"></span><dl> <dt>**2**</dt> </dl> | *pJob* receives an array of [**JOB\_INFO\_2**](job-info-2.md) structures<br/> |
      * | <span id="3"></span><dl> <dt>**3**</dt> </dl> | *pJob* receives an array of [**JOB\_INFO\_3**](job-info-3.md) structures<br/> |
-     * @param {Pointer} pJob A pointer to a buffer that receives an array of [**JOB\_INFO\_1**](job-info-1.md), [**JOB\_INFO\_2**](job-info-2.md), or [**JOB\_INFO\_3**](job-info-3.md) structures. The buffer must be large enough to receive the array of structures and any strings or other data to which the structure members point.
+     * @param {Integer} pJob A pointer to a buffer that receives an array of [**JOB\_INFO\_1**](job-info-1.md), [**JOB\_INFO\_2**](job-info-2.md), or [**JOB\_INFO\_3**](job-info-3.md) structures. The buffer must be large enough to receive the array of structures and any strings or other data to which the structure members point.
      * 
      * To determine the required buffer size, call **EnumJobs** with *cbBuf* set to zero. **EnumJobs** fails, [**GetLastError**](/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror) returns ERROR\_INSUFFICIENT\_BUFFER, and the *pcbNeeded* parameter returns the size, in bytes, of the buffer required to hold the array of structures and their data.
      * @param {Integer} cbBuf The size, in bytes, of the *pJob* buffer.
@@ -8368,7 +8367,7 @@ class Printing {
      * @param {Integer} Level The level or type of structure that the function stores into the buffer pointed to by *pPrinter*.
      * 
      * This value can be 1, 2, 3, 4, 5, 6, 7, 8 or 9.
-     * @param {Pointer} pPrinter A pointer to a buffer that receives a structure containing information about the specified printer. The buffer must be large enough to receive the structure and any strings or other data to which the structure members point. If the buffer is too small, the *pcbNeeded* parameter returns the required buffer size.
+     * @param {Integer} pPrinter A pointer to a buffer that receives a structure containing information about the specified printer. The buffer must be large enough to receive the structure and any strings or other data to which the structure members point. If the buffer is too small, the *pcbNeeded* parameter returns the required buffer size.
      * 
      * The type of structure is determined by the value of *Level*.
      * 
@@ -8449,7 +8448,7 @@ class Printing {
      * @param {Integer} Level The level or type of structure that the function stores into the buffer pointed to by *pPrinter*.
      * 
      * This value can be 1, 2, 3, 4, 5, 6, 7, 8 or 9.
-     * @param {Pointer} pPrinter A pointer to a buffer that receives a structure containing information about the specified printer. The buffer must be large enough to receive the structure and any strings or other data to which the structure members point. If the buffer is too small, the *pcbNeeded* parameter returns the required buffer size.
+     * @param {Integer} pPrinter A pointer to a buffer that receives a structure containing information about the specified printer. The buffer must be large enough to receive the structure and any strings or other data to which the structure members point. If the buffer is too small, the *pcbNeeded* parameter returns the required buffer size.
      * 
      * The type of structure is determined by the value of *Level*.
      * 
@@ -8748,7 +8747,7 @@ class Printing {
      * | <span id="5"></span><dl> <dt>**5**</dt> </dl> | [**DRIVER\_INFO\_5**](driver-info-5.md)<br/> |
      * | <span id="6"></span><dl> <dt>**6**</dt> </dl> | [**DRIVER\_INFO\_6**](driver-info-6.md)<br/> |
      * | <span id="8"></span><dl> <dt>**8**</dt> </dl> | [**DRIVER\_INFO\_8**](driver-info-8.md)<br/> |
-     * @param {Pointer} pDriverInfo A pointer to a buffer that receives an array of DRIVER\_INFO\_\* structures, as specified by *Level*. Each structure contains data that describes an available printer driver. The buffer must be large enough to receive the array of structures and any strings or other data to which the structure members point.
+     * @param {Integer} pDriverInfo A pointer to a buffer that receives an array of DRIVER\_INFO\_\* structures, as specified by *Level*. Each structure contains data that describes an available printer driver. The buffer must be large enough to receive the array of structures and any strings or other data to which the structure members point.
      * 
      * To determine the required buffer size, call **EnumPrinterDrivers** with *cbBuf* set to zero. **EnumPrinterDrivers** fails, [**GetLastError**](/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror) returns ERROR\_INSUFFICIENT\_BUFFER, and the *pcbNeeded* parameter returns the size, in bytes, of the buffer required to hold the array of structures and their data.
      * @param {Integer} cbBuf The size, in bytes, of the buffer pointed to by *pDriverInfo*
@@ -8800,7 +8799,7 @@ class Printing {
      * | <span id="5"></span><dl> <dt>**5**</dt> </dl> | [**DRIVER\_INFO\_5**](driver-info-5.md)<br/> |
      * | <span id="6"></span><dl> <dt>**6**</dt> </dl> | [**DRIVER\_INFO\_6**](driver-info-6.md)<br/> |
      * | <span id="8"></span><dl> <dt>**8**</dt> </dl> | [**DRIVER\_INFO\_8**](driver-info-8.md)<br/> |
-     * @param {Pointer} pDriverInfo A pointer to a buffer that receives an array of DRIVER\_INFO\_\* structures, as specified by *Level*. Each structure contains data that describes an available printer driver. The buffer must be large enough to receive the array of structures and any strings or other data to which the structure members point.
+     * @param {Integer} pDriverInfo A pointer to a buffer that receives an array of DRIVER\_INFO\_\* structures, as specified by *Level*. Each structure contains data that describes an available printer driver. The buffer must be large enough to receive the array of structures and any strings or other data to which the structure members point.
      * 
      * To determine the required buffer size, call **EnumPrinterDrivers** with *cbBuf* set to zero. **EnumPrinterDrivers** fails, [**GetLastError**](/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror) returns ERROR\_INSUFFICIENT\_BUFFER, and the *pcbNeeded* parameter returns the size, in bytes, of the buffer required to hold the array of structures and their data.
      * @param {Integer} cbBuf The size, in bytes, of the buffer pointed to by *pDriverInfo*
@@ -8852,7 +8851,7 @@ class Printing {
      * | <span id="5"></span><dl> <dt>**5**</dt> </dl> | [**DRIVER\_INFO\_5**](driver-info-5.md)<br/> |
      * | <span id="6"></span><dl> <dt>**6**</dt> </dl> | [**DRIVER\_INFO\_6**](driver-info-6.md)<br/> |
      * | <span id="8"></span><dl> <dt>**8**</dt> </dl> | [**DRIVER\_INFO\_8**](driver-info-8.md)<br/> |
-     * @param {Pointer} pDriverInfo A pointer to a buffer that receives a structure containing information about the driver, as specified by Level. The buffer must be large enough to store the strings pointed to by the structure members.
+     * @param {Integer} pDriverInfo A pointer to a buffer that receives a structure containing information about the driver, as specified by Level. The buffer must be large enough to store the strings pointed to by the structure members.
      * 
      * To determine the required buffer size, call **GetPrinterDriver** with *cbBuf* set to zero. **GetPrinterDriver** fails, [**GetLastError**](/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror) returns ERROR\_INSUFFICIENT\_BUFFER, and the *pcbNeeded* parameter returns the size, in bytes, of the buffer required to hold the array of structures and their data.
      * @param {Integer} cbBuf The size, in bytes, of the array at which *pDriverInfo* points.
@@ -8898,7 +8897,7 @@ class Printing {
      * | <span id="5"></span><dl> <dt>**5**</dt> </dl> | [**DRIVER\_INFO\_5**](driver-info-5.md)<br/> |
      * | <span id="6"></span><dl> <dt>**6**</dt> </dl> | [**DRIVER\_INFO\_6**](driver-info-6.md)<br/> |
      * | <span id="8"></span><dl> <dt>**8**</dt> </dl> | [**DRIVER\_INFO\_8**](driver-info-8.md)<br/> |
-     * @param {Pointer} pDriverInfo A pointer to a buffer that receives a structure containing information about the driver, as specified by Level. The buffer must be large enough to store the strings pointed to by the structure members.
+     * @param {Integer} pDriverInfo A pointer to a buffer that receives a structure containing information about the driver, as specified by Level. The buffer must be large enough to store the strings pointed to by the structure members.
      * 
      * To determine the required buffer size, call **GetPrinterDriver** with *cbBuf* set to zero. **GetPrinterDriver** fails, [**GetLastError**](/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror) returns ERROR\_INSUFFICIENT\_BUFFER, and the *pcbNeeded* parameter returns the size, in bytes, of the buffer required to hold the array of structures and their data.
      * @param {Integer} cbBuf The size, in bytes, of the array at which *pDriverInfo* points.
@@ -8928,7 +8927,7 @@ class Printing {
      * @param {PSTR} pName A pointer to a null-terminated string that specifies the name of the server on which the printer driver resides. If this parameter is **NULL**, the local driver-directory path is retrieved.
      * @param {PSTR} pEnvironment A pointer to a null-terminated string that specifies the environment (for example, Windows x86, Windows IA64, or Windows x64). If this parameter is **NULL**, the current environment of the calling application and client machine (not of the destination application and print server) is used.
      * @param {Integer} Level The structure level. This value must be 1.
-     * @param {Pointer} pDriverDirectory A pointer to a buffer that receives the path.
+     * @param {Integer} pDriverDirectory A pointer to a buffer that receives the path.
      * @param {Integer} cbBuf The size of the buffer to which *pDriverDirectory* points.
      * @param {Pointer<Integer>} pcbNeeded A pointer to a value that specifies the number of bytes copied if the function succeeds, or the number of bytes required if *cbBuf* is too small.
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
@@ -8954,7 +8953,7 @@ class Printing {
      * @param {PWSTR} pName A pointer to a null-terminated string that specifies the name of the server on which the printer driver resides. If this parameter is **NULL**, the local driver-directory path is retrieved.
      * @param {PWSTR} pEnvironment A pointer to a null-terminated string that specifies the environment (for example, Windows x86, Windows IA64, or Windows x64). If this parameter is **NULL**, the current environment of the calling application and client machine (not of the destination application and print server) is used.
      * @param {Integer} Level The structure level. This value must be 1.
-     * @param {Pointer} pDriverDirectory A pointer to a buffer that receives the path.
+     * @param {Integer} pDriverDirectory A pointer to a buffer that receives the path.
      * @param {Integer} cbBuf The size of the buffer to which *pDriverDirectory* points.
      * @param {Pointer<Integer>} pcbNeeded A pointer to a value that specifies the number of bytes copied if the function succeeds, or the number of bytes required if *cbBuf* is too small.
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
@@ -9196,7 +9195,7 @@ class Printing {
      * @param {PSTR} pName A pointer to a null-terminated string that specifies the name of the server on which the print processors reside. If this parameter is **NULL**, the local print processors are enumerated.
      * @param {PSTR} pEnvironment A pointer to a null-terminated string that specifies the environment (for example, Windows x86, Windows IA64, or Windows x64). If this parameter is **NULL**, the current environment of the calling application and client machine (not of the destination application and print server) is used.
      * @param {Integer} Level The type of information returned in the *pPrintProcessorInfo* buffer. This parameter must be 1.
-     * @param {Pointer} pPrintProcessorInfo A pointer to a buffer that receives an array of [**PRINTPROCESSOR\_INFO\_1**](printprocessor-info-1.md) structures. Each structure describes an available print processor. The buffer must be large enough to receive the array of structures and any strings to which the structure members point.
+     * @param {Integer} pPrintProcessorInfo A pointer to a buffer that receives an array of [**PRINTPROCESSOR\_INFO\_1**](printprocessor-info-1.md) structures. Each structure describes an available print processor. The buffer must be large enough to receive the array of structures and any strings to which the structure members point.
      * 
      * To determine the required buffer size, call **EnumPrintProcessors** with *cbBuf* set to zero. **EnumPrintProcessors** fails, [**GetLastError**](/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror) returns ERROR\_INSUFFICIENT\_BUFFER, and the *pcbNeeded* parameter returns the size, in bytes, of the buffer required to hold the array of structures and their data.
      * @param {Integer} cbBuf The size, in bytes, of the buffer pointed to by *pPrintProcessorInfo*.
@@ -9226,7 +9225,7 @@ class Printing {
      * @param {PWSTR} pName A pointer to a null-terminated string that specifies the name of the server on which the print processors reside. If this parameter is **NULL**, the local print processors are enumerated.
      * @param {PWSTR} pEnvironment A pointer to a null-terminated string that specifies the environment (for example, Windows x86, Windows IA64, or Windows x64). If this parameter is **NULL**, the current environment of the calling application and client machine (not of the destination application and print server) is used.
      * @param {Integer} Level The type of information returned in the *pPrintProcessorInfo* buffer. This parameter must be 1.
-     * @param {Pointer} pPrintProcessorInfo A pointer to a buffer that receives an array of [**PRINTPROCESSOR\_INFO\_1**](printprocessor-info-1.md) structures. Each structure describes an available print processor. The buffer must be large enough to receive the array of structures and any strings to which the structure members point.
+     * @param {Integer} pPrintProcessorInfo A pointer to a buffer that receives an array of [**PRINTPROCESSOR\_INFO\_1**](printprocessor-info-1.md) structures. Each structure describes an available print processor. The buffer must be large enough to receive the array of structures and any strings to which the structure members point.
      * 
      * To determine the required buffer size, call **EnumPrintProcessors** with *cbBuf* set to zero. **EnumPrintProcessors** fails, [**GetLastError**](/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror) returns ERROR\_INSUFFICIENT\_BUFFER, and the *pcbNeeded* parameter returns the size, in bytes, of the buffer required to hold the array of structures and their data.
      * @param {Integer} cbBuf The size, in bytes, of the buffer pointed to by *pPrintProcessorInfo*.
@@ -9256,7 +9255,7 @@ class Printing {
      * @param {PSTR} pName A pointer to a null-terminated string that specifies the name of the server. If this parameter is **NULL**, a local path is returned.
      * @param {PSTR} pEnvironment A pointer to a null-terminated string that specifies the environment (for example, Windows x86, Windows IA64, or Windows x64). If this parameter is **NULL**, the current environment of the calling application and client machine (not of the destination application and print server) is used.
      * @param {Integer} Level The structure level. This value must be 1.
-     * @param {Pointer} pPrintProcessorInfo A pointer to a buffer that receives the path. Note that, for operating systems prior to Windows Server 2003 SP 1, the path is in the local format for the server, not the true remote format. For example, the path is given as "%Windir%\\System32\\Spool\\Prtprocs\\%Environment%" instead of "\\\\ServerName\\Print$\\Prtprocs\\%Environment%", even when called for a remote server. For the operating systems Windows Server 2003 SP 1 and later, the true remote path is returned.
+     * @param {Integer} pPrintProcessorInfo A pointer to a buffer that receives the path. Note that, for operating systems prior to Windows Server 2003 SP 1, the path is in the local format for the server, not the true remote format. For example, the path is given as "%Windir%\\System32\\Spool\\Prtprocs\\%Environment%" instead of "\\\\ServerName\\Print$\\Prtprocs\\%Environment%", even when called for a remote server. For the operating systems Windows Server 2003 SP 1 and later, the true remote path is returned.
      * @param {Integer} cbBuf The size of the buffer pointed to by *pPrintProcessorInfo*.
      * @param {Pointer<Integer>} pcbNeeded A pointer to a value that specifies the number of bytes copied if the function succeeds, or the number of bytes required if *cbBuf* is too small.
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
@@ -9282,7 +9281,7 @@ class Printing {
      * @param {PWSTR} pName A pointer to a null-terminated string that specifies the name of the server. If this parameter is **NULL**, a local path is returned.
      * @param {PWSTR} pEnvironment A pointer to a null-terminated string that specifies the environment (for example, Windows x86, Windows IA64, or Windows x64). If this parameter is **NULL**, the current environment of the calling application and client machine (not of the destination application and print server) is used.
      * @param {Integer} Level The structure level. This value must be 1.
-     * @param {Pointer} pPrintProcessorInfo A pointer to a buffer that receives the path. Note that, for operating systems prior to Windows Server 2003 SP 1, the path is in the local format for the server, not the true remote format. For example, the path is given as "%Windir%\\System32\\Spool\\Prtprocs\\%Environment%" instead of "\\\\ServerName\\Print$\\Prtprocs\\%Environment%", even when called for a remote server. For the operating systems Windows Server 2003 SP 1 and later, the true remote path is returned.
+     * @param {Integer} pPrintProcessorInfo A pointer to a buffer that receives the path. Note that, for operating systems prior to Windows Server 2003 SP 1, the path is in the local format for the server, not the true remote format. For example, the path is given as "%Windir%\\System32\\Spool\\Prtprocs\\%Environment%" instead of "\\\\ServerName\\Print$\\Prtprocs\\%Environment%", even when called for a remote server. For the operating systems Windows Server 2003 SP 1 and later, the true remote path is returned.
      * @param {Integer} cbBuf The size of the buffer pointed to by *pPrintProcessorInfo*.
      * @param {Pointer<Integer>} pcbNeeded A pointer to a value that specifies the number of bytes copied if the function succeeds, or the number of bytes required if *cbBuf* is too small.
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
@@ -9314,7 +9313,7 @@ class Printing {
      * @param {PSTR} pName A pointer to a null-terminated string that specifies the name of the server on which the print processor resides. If this parameter is **NULL**, the data types for the local print processor are enumerated.
      * @param {PSTR} pPrintProcessorName A pointer to a null-terminated string that specifies the name of the print processor whose data types are enumerated.
      * @param {Integer} Level The type of information returned in the *pDatatypes* buffer. This parameter must be 1.
-     * @param {Pointer} pDatatypes A pointer to a buffer that receives an array of [**DATATYPES\_INFO\_1**](datatypes-info-1.md) structures. Each structure describes an available data type. The buffer must be large enough to receive the array of structures and any strings or other data to which the structure members point.
+     * @param {Integer} pDatatypes A pointer to a buffer that receives an array of [**DATATYPES\_INFO\_1**](datatypes-info-1.md) structures. Each structure describes an available data type. The buffer must be large enough to receive the array of structures and any strings or other data to which the structure members point.
      * 
      * To determine the required buffer size, call **EnumPrintProcessorDatatypes** with *cbBuf* set to zero. **EnumPrintProcessorDatatypes** fails, [**GetLastError**](/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror) returns ERROR\_INSUFFICIENT\_BUFFER, and the *pcbNeeded* parameter returns the size, in bytes, of the buffer required to hold the array of structures and their data.
      * @param {Integer} cbBuf The size, in bytes, of the buffer pointed to by *pDatatypes*.
@@ -9350,7 +9349,7 @@ class Printing {
      * @param {PWSTR} pName A pointer to a null-terminated string that specifies the name of the server on which the print processor resides. If this parameter is **NULL**, the data types for the local print processor are enumerated.
      * @param {PWSTR} pPrintProcessorName A pointer to a null-terminated string that specifies the name of the print processor whose data types are enumerated.
      * @param {Integer} Level The type of information returned in the *pDatatypes* buffer. This parameter must be 1.
-     * @param {Pointer} pDatatypes A pointer to a buffer that receives an array of [**DATATYPES\_INFO\_1**](datatypes-info-1.md) structures. Each structure describes an available data type. The buffer must be large enough to receive the array of structures and any strings or other data to which the structure members point.
+     * @param {Integer} pDatatypes A pointer to a buffer that receives an array of [**DATATYPES\_INFO\_1**](datatypes-info-1.md) structures. Each structure describes an available data type. The buffer must be large enough to receive the array of structures and any strings or other data to which the structure members point.
      * 
      * To determine the required buffer size, call **EnumPrintProcessorDatatypes** with *cbBuf* set to zero. **EnumPrintProcessorDatatypes** fails, [**GetLastError**](/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror) returns ERROR\_INSUFFICIENT\_BUFFER, and the *pcbNeeded* parameter returns the size, in bytes, of the buffer required to hold the array of structures and their data.
      * @param {Integer} cbBuf The size, in bytes, of the buffer pointed to by *pDatatypes*.
@@ -9546,7 +9545,7 @@ class Printing {
      * 
      * In versions of Windows prior to Windows XP, when a page in a spooled file exceeds approximately 350 MB, it can fail to print and not send an error message. For example, this can occur when printing large EMF files. The page size limit in versions of Windows prior to Windows XP depends on many factors including the amount of virtual memory available, the amount of memory allocated by calling processes, and the amount of fragmentation in the process heap. In Windows XP and later versions of Windows, EMF files must be 2GB or less in size. If **WritePrinter** is used to write non EMF data, such as printer-ready PDL, the size of the file is limited only by the available disk space.
      * @param {PRINTER_HANDLE} hPrinter A handle to the printer. Use the [**OpenPrinter**](openprinter.md) or [**AddPrinter**](addprinter.md) function to retrieve a printer handle.
-     * @param {Pointer} pBuf A pointer to an array of bytes that contains the data that should be written to the printer.
+     * @param {Integer} pBuf A pointer to an array of bytes that contains the data that should be written to the printer.
      * @param {Integer} cbBuf The size, in bytes, of the array.
      * @param {Pointer<Integer>} pcWritten A pointer to a value that receives the number of bytes of data that were written to the printer.
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
@@ -9575,7 +9574,7 @@ class Printing {
      * 
      * **FlushPrinter** also can specify an idle period during which the print spooler does not schedule any jobs to the corresponding printer port.
      * @param {PRINTER_HANDLE} hPrinter A handle to the printer object. This should be the same handle that was used, in a prior [**WritePrinter**](writeprinter.md) call, by the printer driver.
-     * @param {Pointer} pBuf A pointer to an array of bytes that contains the data to be written to the printer.
+     * @param {Integer} pBuf A pointer to an array of bytes that contains the data to be written to the printer.
      * @param {Integer} cbBuf The size, in bytes, of the array pointed to by *pBuf*.
      * @param {Pointer<Integer>} pcWritten A pointer to a value that receives the number of bytes of data that were written to the printer.
      * @param {Integer} cSleep The time, in milliseconds, for which the I/O line to the printer port should be kept idle.
@@ -9667,7 +9666,7 @@ class Printing {
      * 
      * **ReadPrinter** returns an error if the device or the printer is not bidirectional.
      * @param {PRINTER_HANDLE} hPrinter A handle to the printer object for which to retrieve data. Use the [**OpenPrinter**](openprinter.md) function to retrieve a printer object handle. Use the format: Printername, Job xxxx.
-     * @param {Pointer} pBuf A pointer to a buffer that receives the printer data.
+     * @param {Integer} pBuf A pointer to a buffer that receives the printer data.
      * @param {Integer} cbBuf The size, in bytes, of the buffer to which *pBuf* points.
      * @param {Pointer<Integer>} pNoBytesRead A pointer to a variable that receives the number of bytes of data copied into the array to which *pBuf* points.
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
@@ -9728,7 +9727,7 @@ class Printing {
      * You can call the [**CreateFile**](/windows/desktop/api/fileapi/nf-fileapi-createfilea) function to open the spool file specified by the **Path** member of the [**ADDJOB\_INFO\_1**](addjob-info-1.md) structure, and then call the [**WriteFile**](/windows/desktop/api/fileapi/nf-fileapi-writefile) function to write print job data to it. After that is done, call the [**ScheduleJob**](schedulejob.md) function to notify the print spooler that the print job can now be scheduled by the spooler for printing.
      * @param {PRINTER_HANDLE} hPrinter A handle that specifies the printer for the print job. This must be a local printer that is configured as a spooled printer. If *hPrinter* is a handle to a remote printer connection, or if the printer is configured for direct printing, the **AddJob** function fails. Use the [**OpenPrinter**](openprinter.md) or [**AddPrinter**](addprinter.md) function to retrieve a printer handle.
      * @param {Integer} Level The version of the print job information data structure that the function stores into the buffer pointed to by *pData*. Set this parameter to one.
-     * @param {Pointer} pData A pointer to a buffer that receives an [**ADDJOB\_INFO\_1**](addjob-info-1.md) data structure and a path string.
+     * @param {Integer} pData A pointer to a buffer that receives an [**ADDJOB\_INFO\_1**](addjob-info-1.md) data structure and a path string.
      * @param {Integer} cbBuf The size, in bytes, of the buffer pointed to by *pData*. The buffer needs to be large enough to contain an [**ADDJOB\_INFO\_1**](addjob-info-1.md) structure and a path string.
      * @param {Pointer<Integer>} pcbNeeded A pointer to a variable that receives the total size, in bytes, of the [**ADDJOB\_INFO\_1**](addjob-info-1.md) data structure plus the path string. If this value is less than or equal to *cbBuf* and the function succeeds, this is the actual number of bytes written to the buffer pointed to by *pData*. If this number is greater than *cbBuf*, the buffer is too small, and you must call the function again with a buffer size at least as large as \**pcbNeeded*.
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
@@ -9756,7 +9755,7 @@ class Printing {
      * You can call the [**CreateFile**](/windows/desktop/api/fileapi/nf-fileapi-createfilea) function to open the spool file specified by the **Path** member of the [**ADDJOB\_INFO\_1**](addjob-info-1.md) structure, and then call the [**WriteFile**](/windows/desktop/api/fileapi/nf-fileapi-writefile) function to write print job data to it. After that is done, call the [**ScheduleJob**](schedulejob.md) function to notify the print spooler that the print job can now be scheduled by the spooler for printing.
      * @param {PRINTER_HANDLE} hPrinter A handle that specifies the printer for the print job. This must be a local printer that is configured as a spooled printer. If *hPrinter* is a handle to a remote printer connection, or if the printer is configured for direct printing, the **AddJob** function fails. Use the [**OpenPrinter**](openprinter.md) or [**AddPrinter**](addprinter.md) function to retrieve a printer handle.
      * @param {Integer} Level The version of the print job information data structure that the function stores into the buffer pointed to by *pData*. Set this parameter to one.
-     * @param {Pointer} pData A pointer to a buffer that receives an [**ADDJOB\_INFO\_1**](addjob-info-1.md) data structure and a path string.
+     * @param {Integer} pData A pointer to a buffer that receives an [**ADDJOB\_INFO\_1**](addjob-info-1.md) data structure and a path string.
      * @param {Integer} cbBuf The size, in bytes, of the buffer pointed to by *pData*. The buffer needs to be large enough to contain an [**ADDJOB\_INFO\_1**](addjob-info-1.md) structure and a path string.
      * @param {Pointer<Integer>} pcbNeeded A pointer to a variable that receives the total size, in bytes, of the [**ADDJOB\_INFO\_1**](addjob-info-1.md) data structure plus the path string. If this value is less than or equal to *cbBuf* and the function succeeds, this is the actual number of bytes written to the buffer pointed to by *pData*. If this number is greater than *cbBuf*, the buffer is too small, and you must call the function again with a buffer size at least as large as \**pcbNeeded*.
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
@@ -9803,7 +9802,7 @@ class Printing {
      * @remarks
      * > [!Note]  
      * > This is a blocking or synchronous function and might not return immediately. How quickly this function returns depends on run-time factors such as network status, print server configuration, and printer driver implementation factors that are difficult to predict when writing an application. Calling this function from a thread that manages interaction with the user interface could make the application appear to be unresponsive.
-     * @param {HWND} _hWnd 
+     * @param {HWND} _hWnd A handle to the parent window of the property sheet.
      * @param {PRINTER_HANDLE} hPrinter A handle to a printer object. Use the [**OpenPrinter**](openprinter.md) or [**AddPrinter**](addprinter.md) function to retrieve a printer handle.
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
@@ -9839,7 +9838,7 @@ class Printing {
      * 5.  Call **DocumentProperties** and pass the modified [**DEVMODE**](/windows/win32/api/wingdi/ns-wingdi-devmodea) structure back as both the *pDevModeInput* and *pDevModeOutput* parameters and specify both the **DM\_IN\_BUFFER** and **DM\_OUT\_BUFFER** values (which are combined using the OR operator).The **DEVMODE** structure returned by the third call to **DocumentProperties** can be used as an argument in a call to the [**CreateDC**](/windows/desktop/api/wingdi/nf-wingdi-createdca) function.
      * 
      * To create a handle to a printer-device context using the current printer settings, you only need to call **DocumentProperties** twice, as described above. The first call gets the size of the full [**DEVMODE**](/windows/win32/api/wingdi/ns-wingdi-devmodea) and the second call initializes the **DEVMODE** with the current printer settings. Pass the initialized **DEVMODE** to [**CreateDC**](/windows/desktop/api/wingdi/nf-wingdi-createdca) to obtain the handle to the printer device context.
-     * @param {HWND} _hWnd 
+     * @param {HWND} _hWnd A handle to the parent window of the printer-configuration property sheet.
      * @param {PRINTER_HANDLE} hPrinter A handle to a printer object. Use the [**OpenPrinter**](openprinter.md) or [**AddPrinter**](addprinter.md) function to retrieve a printer handle.
      * @param {PSTR} pDeviceName A pointer to a null-terminated string that specifies the name of the device for which the printer-configuration property sheet is displayed.
      * @param {Pointer<DEVMODEA>} pDevModeOutput A pointer to a [**DEVMODE**](/windows/win32/api/wingdi/ns-wingdi-devmodea) structure that receives the printer configuration data specified by the user.
@@ -9894,7 +9893,7 @@ class Printing {
      * 5.  Call **DocumentProperties** and pass the modified [**DEVMODE**](/windows/win32/api/wingdi/ns-wingdi-devmodea) structure back as both the *pDevModeInput* and *pDevModeOutput* parameters and specify both the **DM\_IN\_BUFFER** and **DM\_OUT\_BUFFER** values (which are combined using the OR operator).The **DEVMODE** structure returned by the third call to **DocumentProperties** can be used as an argument in a call to the [**CreateDC**](/windows/desktop/api/wingdi/nf-wingdi-createdca) function.
      * 
      * To create a handle to a printer-device context using the current printer settings, you only need to call **DocumentProperties** twice, as described above. The first call gets the size of the full [**DEVMODE**](/windows/win32/api/wingdi/ns-wingdi-devmodea) and the second call initializes the **DEVMODE** with the current printer settings. Pass the initialized **DEVMODE** to [**CreateDC**](/windows/desktop/api/wingdi/nf-wingdi-createdca) to obtain the handle to the printer device context.
-     * @param {HWND} _hWnd 
+     * @param {HWND} _hWnd A handle to the parent window of the printer-configuration property sheet.
      * @param {PRINTER_HANDLE} hPrinter A handle to a printer object. Use the [**OpenPrinter**](openprinter.md) or [**AddPrinter**](addprinter.md) function to retrieve a printer handle.
      * @param {PWSTR} pDeviceName A pointer to a null-terminated string that specifies the name of the device for which the printer-configuration property sheet is displayed.
      * @param {Pointer<DEVMODEW>} pDevModeOutput A pointer to a [**DEVMODE**](/windows/win32/api/wingdi/ns-wingdi-devmodea) structure that receives the printer configuration data specified by the user.
@@ -9939,7 +9938,7 @@ class Printing {
      * This function can only display the printer-configuration dialog box so a user can configure it. For more control, use [**DocumentProperties**](documentproperties.md). The input parameters for this function are passed directly to **DocumentProperties** and the *fMode* value is set to DM\_IN\_BUFFER \| DM\_IN\_PROMPT \| DM\_OUT\_BUFFER. Unlike **DocumentProperties**, this function only returns 1 or 0. Thus, you cannot determine the required size of [**DEVMODE**](/windows/win32/api/wingdi/ns-wingdi-devmodea) by setting *pDevMode* to zero.
      * 
      * An application can obtain the name pointed to by the *pDeviceName* parameter by calling the [**GetPrinter**](getprinter.md) function and then examining the **pPrinterName** member of the [**PRINTER\_INFO\_2**](printer-info-2.md) structure.
-     * @param {HWND} _hWnd 
+     * @param {HWND} _hWnd A handle to the parent window of the printer-configuration dialog box.
      * @param {PRINTER_HANDLE} hPrinter A handle to a printer object. Use the [**OpenPrinter**](openprinter.md) or [**AddPrinter**](addprinter.md) function to retrieve a printer handle.
      * @param {PSTR} pDeviceName A pointer to a null-terminated string specifying the name of the device for which a printer-configuration dialog box should be displayed.
      * @param {Pointer<DEVMODEA>} pDevModeOutput A pointer to a [**DEVMODE**](/windows/win32/api/wingdi/ns-wingdi-devmodea) structure that will contain the configuration data specified by the user.
@@ -9967,7 +9966,7 @@ class Printing {
      * This function can only display the printer-configuration dialog box so a user can configure it. For more control, use [**DocumentProperties**](documentproperties.md). The input parameters for this function are passed directly to **DocumentProperties** and the *fMode* value is set to DM\_IN\_BUFFER \| DM\_IN\_PROMPT \| DM\_OUT\_BUFFER. Unlike **DocumentProperties**, this function only returns 1 or 0. Thus, you cannot determine the required size of [**DEVMODE**](/windows/win32/api/wingdi/ns-wingdi-devmodea) by setting *pDevMode* to zero.
      * 
      * An application can obtain the name pointed to by the *pDeviceName* parameter by calling the [**GetPrinter**](getprinter.md) function and then examining the **pPrinterName** member of the [**PRINTER\_INFO\_2**](printer-info-2.md) structure.
-     * @param {HWND} _hWnd 
+     * @param {HWND} _hWnd A handle to the parent window of the printer-configuration dialog box.
      * @param {PRINTER_HANDLE} hPrinter A handle to a printer object. Use the [**OpenPrinter**](openprinter.md) or [**AddPrinter**](addprinter.md) function to retrieve a printer handle.
      * @param {PWSTR} pDeviceName A pointer to a null-terminated string specifying the name of the device for which a printer-configuration dialog box should be displayed.
      * @param {Pointer<DEVMODEW>} pDevModeOutput A pointer to a [**DEVMODE**](/windows/win32/api/wingdi/ns-wingdi-devmodea) structure that will contain the configuration data specified by the user.
@@ -10102,7 +10101,7 @@ class Printing {
      * 
      * For print servers, this string is one of the predefined strings listed in the following Remarks section.
      * @param {Pointer<Integer>} pType A pointer to a variable that receives a value that indicates the type of data retrieved in *pData*. The function returns the type specified in the [**SetPrinterData**](setprinterdata.md) or [**SetPrinterDataEx**](setprinterdataex.md) call that stored the data. Set this parameter to **NULL** if you don't need the data type.
-     * @param {Pointer} pData A pointer to a buffer that receives the configuration data.
+     * @param {Integer} pData A pointer to a buffer that receives the configuration data.
      * @param {Integer} nSize The size, in bytes, of the buffer that *pData* points to.
      * @param {Pointer<Integer>} pcbNeeded A pointer to a variable that receives the size, in bytes, of the configuration data. If the buffer size specified by *nSize* is too small, the function returns **ERROR\_MORE\_DATA**, and *pcbNeeded* indicates the required buffer size.
      * @returns {Integer} If the function succeeds, the return value is **ERROR\_SUCCESS**. If the function fails, the return value is an error value.
@@ -10214,7 +10213,7 @@ class Printing {
      * 
      * For print servers, this string is one of the predefined strings listed in the following Remarks section.
      * @param {Pointer<Integer>} pType A pointer to a variable that receives a value that indicates the type of data retrieved in *pData*. The function returns the type specified in the [**SetPrinterData**](setprinterdata.md) or [**SetPrinterDataEx**](setprinterdataex.md) call that stored the data. Set this parameter to **NULL** if you don't need the data type.
-     * @param {Pointer} pData A pointer to a buffer that receives the configuration data.
+     * @param {Integer} pData A pointer to a buffer that receives the configuration data.
      * @param {Integer} nSize The size, in bytes, of the buffer that *pData* points to.
      * @param {Pointer<Integer>} pcbNeeded A pointer to a variable that receives the size, in bytes, of the configuration data. If the buffer size specified by *nSize* is too small, the function returns **ERROR\_MORE\_DATA**, and *pcbNeeded* indicates the required buffer size.
      * @returns {Integer} If the function succeeds, the return value is **ERROR\_SUCCESS**. If the function fails, the return value is an error value.
@@ -10333,7 +10332,7 @@ class Printing {
      * 
      * For print servers, this string is one of the predefined strings listed in the following Remarks section.
      * @param {Pointer<Integer>} pType A pointer to a variable that receives the type of data stored in the value. The function returns the type specified in the [**SetPrinterDataEx**](setprinterdataex.md) call when the data was stored. This parameter can be **NULL** if you don't need the information. **GetPrinterDataEx** passes *pType* on as the *lpdwType* parameter of a [**RegQueryValueEx**](/windows/desktop/api/winreg/nf-winreg-regqueryvalueexa) function call.
-     * @param {Pointer} pData A pointer to a buffer that receives the configuration data.
+     * @param {Integer} pData A pointer to a buffer that receives the configuration data.
      * @param {Integer} nSize The size, in bytes, of the buffer pointed to by *pData*.
      * @param {Pointer<Integer>} pcbNeeded A pointer to a variable that receives the size, in bytes, of the configuration data. If the buffer size specified by *nSize* is too small, the function returns **ERROR\_MORE\_DATA**, and *pcbNeeded* indicates the required buffer size.
      * @returns {Integer} If the function succeeds, the return value is **ERROR\_SUCCESS**.
@@ -10455,7 +10454,7 @@ class Printing {
      * 
      * For print servers, this string is one of the predefined strings listed in the following Remarks section.
      * @param {Pointer<Integer>} pType A pointer to a variable that receives the type of data stored in the value. The function returns the type specified in the [**SetPrinterDataEx**](setprinterdataex.md) call when the data was stored. This parameter can be **NULL** if you don't need the information. **GetPrinterDataEx** passes *pType* on as the *lpdwType* parameter of a [**RegQueryValueEx**](/windows/desktop/api/winreg/nf-winreg-regqueryvalueexa) function call.
-     * @param {Pointer} pData A pointer to a buffer that receives the configuration data.
+     * @param {Integer} pData A pointer to a buffer that receives the configuration data.
      * @param {Integer} nSize The size, in bytes, of the buffer pointed to by *pData*.
      * @param {Pointer<Integer>} pcbNeeded A pointer to a variable that receives the size, in bytes, of the configuration data. If the buffer size specified by *nSize* is too small, the function returns **ERROR\_MORE\_DATA**, and *pcbNeeded* indicates the required buffer size.
      * @returns {Integer} If the function succeeds, the return value is **ERROR\_SUCCESS**.
@@ -10496,7 +10495,7 @@ class Printing {
      * If you use the technique mentioned in the descriptions of the *cbValueName* and *cbData* parameters to obtain adequate buffer size values, setting both those parameters to zero in a first call to **EnumPrinterData** for a specified printer handle, the value of *dwIndex* does not matter for that call. Set *dwIndex* to zero in the next call to **EnumPrinterData** to start the actual enumeration process.
      * 
      * Configuration data values are not ordered. New values will have an arbitrary index. This means that the **EnumPrinterData** function may return values in any order.
-     * @param {Pointer} pValueName A pointer to a buffer that receives the name of the configuration data value, including a terminating null character.
+     * @param {Integer} pValueName A pointer to a buffer that receives the name of the configuration data value, including a terminating null character.
      * @param {Integer} cbValueName The size, in bytes, of the buffer pointed to by *pValueName*.
      * 
      * If you want to have the operating system supply an adequate buffer size, set both this parameter and the *cbData* parameter to zero for the first call to **EnumPrinterData** for a specified printer handle. When the function returns, the variable pointed to by *pcbValueName* will contain a buffer size that is large enough to successfully enumerate all of the printer's configuration data value names.
@@ -10551,7 +10550,7 @@ class Printing {
      * If you use the technique mentioned in the descriptions of the *cbValueName* and *cbData* parameters to obtain adequate buffer size values, setting both those parameters to zero in a first call to **EnumPrinterData** for a specified printer handle, the value of *dwIndex* does not matter for that call. Set *dwIndex* to zero in the next call to **EnumPrinterData** to start the actual enumeration process.
      * 
      * Configuration data values are not ordered. New values will have an arbitrary index. This means that the **EnumPrinterData** function may return values in any order.
-     * @param {Pointer} pValueName A pointer to a buffer that receives the name of the configuration data value, including a terminating null character.
+     * @param {Integer} pValueName A pointer to a buffer that receives the name of the configuration data value, including a terminating null character.
      * @param {Integer} cbValueName The size, in bytes, of the buffer pointed to by *pValueName*.
      * 
      * If you want to have the operating system supply an adequate buffer size, set both this parameter and the *cbData* parameter to zero for the first call to **EnumPrinterData** for a specified printer handle. When the function returns, the variable pointed to by *pcbValueName* will contain a buffer size that is large enough to successfully enumerate all of the printer's configuration data value names.
@@ -10598,7 +10597,7 @@ class Printing {
      * @param {PSTR} pKeyName A pointer to a null-terminated string that specifies the key containing the values to enumerate. Use the backslash ( \\ ) character as a delimiter to specify a path with one or more subkeys. **EnumPrinterDataEx** enumerates all values of the key, but does not enumerate values of subkeys of the specified key. Use the [**EnumPrinterKey**](enumprinterkey.md) function to enumerate subkeys.
      * 
      * If *pKeyName* is **NULL** or an empty string, **EnumPrinterDataEx** returns ERROR\_INVALID\_PARAMETER.
-     * @param {Pointer} pEnumValues A pointer to a buffer that receives an array of [**PRINTER\_ENUM\_VALUES**](printer-enum-values.md) structures. Each structure contains the value name, type, data, and sizes of a value under the key.
+     * @param {Integer} pEnumValues A pointer to a buffer that receives an array of [**PRINTER\_ENUM\_VALUES**](printer-enum-values.md) structures. Each structure contains the value name, type, data, and sizes of a value under the key.
      * @param {Integer} cbEnumValues The size, in bytes, of the buffer pointed to by *pcbEnumValues*. If you set *cbEnumValues* to zero, the *pcbEnumValues* parameter returns the required buffer size.
      * @param {Pointer<Integer>} pcbEnumValues A pointer to a variable that receives the size, in bytes, of the retrieved configuration data. If the buffer size specified by *cbEnumValues* is too small, the function returns ERROR\_MORE\_DATA and *pcbEnumValues* indicates the required buffer size.
      * @param {Pointer<Integer>} pnEnumValues A pointer to a variable that receives the number of [**PRINTER\_ENUM\_VALUES**](printer-enum-values.md) structures returned in *pEnumValues*.
@@ -10631,7 +10630,7 @@ class Printing {
      * @param {PWSTR} pKeyName A pointer to a null-terminated string that specifies the key containing the values to enumerate. Use the backslash ( \\ ) character as a delimiter to specify a path with one or more subkeys. **EnumPrinterDataEx** enumerates all values of the key, but does not enumerate values of subkeys of the specified key. Use the [**EnumPrinterKey**](enumprinterkey.md) function to enumerate subkeys.
      * 
      * If *pKeyName* is **NULL** or an empty string, **EnumPrinterDataEx** returns ERROR\_INVALID\_PARAMETER.
-     * @param {Pointer} pEnumValues A pointer to a buffer that receives an array of [**PRINTER\_ENUM\_VALUES**](printer-enum-values.md) structures. Each structure contains the value name, type, data, and sizes of a value under the key.
+     * @param {Integer} pEnumValues A pointer to a buffer that receives an array of [**PRINTER\_ENUM\_VALUES**](printer-enum-values.md) structures. Each structure contains the value name, type, data, and sizes of a value under the key.
      * @param {Integer} cbEnumValues The size, in bytes, of the buffer pointed to by *pcbEnumValues*. If you set *cbEnumValues* to zero, the *pcbEnumValues* parameter returns the required buffer size.
      * @param {Pointer<Integer>} pcbEnumValues A pointer to a variable that receives the size, in bytes, of the retrieved configuration data. If the buffer size specified by *cbEnumValues* is too small, the function returns ERROR\_MORE\_DATA and *pcbEnumValues* indicates the required buffer size.
      * @param {Pointer<Integer>} pnEnumValues A pointer to a variable that receives the number of [**PRINTER\_ENUM\_VALUES**](printer-enum-values.md) structures returned in *pEnumValues*.
@@ -10660,7 +10659,7 @@ class Printing {
      * @param {PSTR} pKeyName A pointer to a null-terminated string that specifies the key containing the subkeys to enumerate. Use the backslash '\\' character as a delimiter to specify a path with one or more subkeys. **EnumPrinterKey** enumerates all subkeys of the key, but does not enumerate the subkeys of those subkeys.
      * 
      * If *pKeyName* is an empty string (""), **EnumPrinterKey** enumerates the top-level key for the printer. If *pKeyName* is **NULL**, **EnumPrinterKey** returns ERROR\_INVALID\_PARAMETER.
-     * @param {Pointer} pSubkey A pointer to a buffer that receives an array of null-terminated subkey names. The array is terminated by two null characters.
+     * @param {Integer} pSubkey A pointer to a buffer that receives an array of null-terminated subkey names. The array is terminated by two null characters.
      * @param {Integer} cbSubkey The size, in bytes, of the buffer pointed to by *pSubkey*. If you set *cbSubkey* to zero, the *pcbSubkey* parameter returns the required buffer size.
      * @param {Pointer<Integer>} pcbSubkey A pointer to a variable that receives the number of bytes retrieved in the *pSubkey* buffer. If the buffer size specified by *cbSubkey* is too small, the function returns ERROR\_MORE\_DATA and *pcbSubkey* indicates the required buffer size.
      * @returns {Integer} If the function succeeds, the return value is ERROR\_SUCCESS.
@@ -10687,7 +10686,7 @@ class Printing {
      * @param {PWSTR} pKeyName A pointer to a null-terminated string that specifies the key containing the subkeys to enumerate. Use the backslash '\\' character as a delimiter to specify a path with one or more subkeys. **EnumPrinterKey** enumerates all subkeys of the key, but does not enumerate the subkeys of those subkeys.
      * 
      * If *pKeyName* is an empty string (""), **EnumPrinterKey** enumerates the top-level key for the printer. If *pKeyName* is **NULL**, **EnumPrinterKey** returns ERROR\_INVALID\_PARAMETER.
-     * @param {Pointer} pSubkey A pointer to a buffer that receives an array of null-terminated subkey names. The array is terminated by two null characters.
+     * @param {Integer} pSubkey A pointer to a buffer that receives an array of null-terminated subkey names. The array is terminated by two null characters.
      * @param {Integer} cbSubkey The size, in bytes, of the buffer pointed to by *pSubkey*. If you set *cbSubkey* to zero, the *pcbSubkey* parameter returns the required buffer size.
      * @param {Pointer<Integer>} pcbSubkey A pointer to a variable that receives the number of bytes retrieved in the *pSubkey* buffer. If the buffer size specified by *cbSubkey* is too small, the function returns ERROR\_MORE\_DATA and *pcbSubkey* indicates the required buffer size.
      * @returns {Integer} If the function succeeds, the return value is ERROR\_SUCCESS.
@@ -10788,7 +10787,7 @@ class Printing {
      * 
      * For print servers, this string is one of the predefined strings listed in the following Remarks section.
      * @param {Integer} Type A code that indicates the type of data that the *pData* parameter points to. For a list of the possible type codes, see [Registry Value Types](/windows/desktop/SysInfo/registry-value-types).
-     * @param {Pointer} pData A pointer to an array of bytes that contains the printer configuration data.
+     * @param {Integer} pData A pointer to an array of bytes that contains the printer configuration data.
      * @param {Integer} cbData The size, in bytes, of the array.
      * @returns {Integer} If the function succeeds, the return value is **ERROR\_SUCCESS**.
      * 
@@ -10886,7 +10885,7 @@ class Printing {
      * 
      * For print servers, this string is one of the predefined strings listed in the following Remarks section.
      * @param {Integer} Type A code that indicates the type of data that the *pData* parameter points to. For a list of the possible type codes, see [Registry Value Types](/windows/desktop/SysInfo/registry-value-types).
-     * @param {Pointer} pData A pointer to an array of bytes that contains the printer configuration data.
+     * @param {Integer} pData A pointer to an array of bytes that contains the printer configuration data.
      * @param {Integer} cbData The size, in bytes, of the array.
      * @returns {Integer} If the function succeeds, the return value is **ERROR\_SUCCESS**.
      * 
@@ -11015,7 +11014,7 @@ class Printing {
      * @param {Integer} Type A code indicating the type of data pointed to by the *pData* parameter. For a list of the possible type codes, see [Registry Value Types](/windows/desktop/SysInfo/registry-value-types).
      * 
      * If *pKeyName* specifies one of the predefined directory service keys, *Type* must be **REG_SZ**, **REG_MULTI_SZ**, **REG_DWORD**, or **REG_BINARY**. If **REG_BINARY** is used, *cbData* must be equal to 1, and the directory service treats the data as a Boolean value.
-     * @param {Pointer} pData A pointer to a buffer that contains the printer configuration data.
+     * @param {Integer} pData A pointer to a buffer that contains the printer configuration data.
      * @param {Integer} cbData The size, in bytes, of the array.
      * @returns {Integer} If the function succeeds, the return value is **ERROR_SUCCESS**.
      * 
@@ -11145,7 +11144,7 @@ class Printing {
      * @param {Integer} Type A code indicating the type of data pointed to by the *pData* parameter. For a list of the possible type codes, see [Registry Value Types](/windows/desktop/SysInfo/registry-value-types).
      * 
      * If *pKeyName* specifies one of the predefined directory service keys, *Type* must be **REG_SZ**, **REG_MULTI_SZ**, **REG_DWORD**, or **REG_BINARY**. If **REG_BINARY** is used, *cbData* must be equal to 1, and the directory service treats the data as a Boolean value.
-     * @param {Pointer} pData A pointer to a buffer that contains the printer configuration data.
+     * @param {Integer} pData A pointer to a buffer that contains the printer configuration data.
      * @param {Integer} cbData The size, in bytes, of the array.
      * @returns {Integer} If the function succeeds, the return value is **ERROR_SUCCESS**.
      * 
@@ -11405,7 +11404,7 @@ class Printing {
      * 
      * > [!Note]  
      * > In Windows XP with Service Pack 2 (SP2) and later, the Internet Connection Firewall (ICF) blocks printer ports by default, but an exception for File and Print Sharing can be enabled. If a user makes a printer connection to another machine, and the exception is not enabled, then the user will not receive printer change notifications from the server. A machine admin will have to enable exception.
-     * @param {FINDPRINTERCHANGENOTIFICATION_HANDLE} _hChange 
+     * @param {FINDPRINTERCHANGENOTIFICATION_HANDLE} _hChange A handle to a change notification object associated with a printer or print server. You obtain such a handle by calling the [**FindFirstPrinterChangeNotification**](findfirstprinterchangenotification.md) function. The operating system sets this change notification object to the signaled state when it detects one of the changes specified in the object's change notification filter.
      * @param {Pointer<Integer>} pdwChange A pointer to a variable whose bits are set to indicate the changes that occurred to cause the most recent notification. The bit flags that might be set correspond to those specified in the *fdwFilter* parameter of the [**FindFirstPrinterChangeNotification**](findfirstprinterchangenotification.md) call. The system sets one or more of the following bit flags.
      * 
      * 
@@ -11480,7 +11479,7 @@ class Printing {
      *  
      * 
      * After calling the **FindClosePrinterChangeNotification** function, you cannot use the *hChange* handle in subsequent calls to either [**FindFirstPrinterChangeNotification**](findfirstprinterchangenotification.md) or [**FindNextPrinterChangeNotification**](findnextprinterchangenotification.md).
-     * @param {FINDPRINTERCHANGENOTIFICATION_HANDLE} _hChange 
+     * @param {FINDPRINTERCHANGENOTIFICATION_HANDLE} _hChange A handle to the change notification object to be closed. This is a handle created by calling the [**FindFirstPrinterChangeNotification**](findfirstprinterchangenotification.md) function.
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero.
@@ -11496,40 +11495,40 @@ class Printing {
     /**
      * 
      * @param {PRINTER_HANDLE} hPrinter 
-     * @param {Integer} Error 
+     * @param {Integer} _Error 
      * @param {HWND} _hWnd 
      * @param {PSTR} pText 
      * @param {PSTR} pCaption 
      * @param {Integer} dwType 
      * @returns {Integer} 
      */
-    static PrinterMessageBoxA(hPrinter, Error, _hWnd, pText, pCaption, dwType) {
+    static PrinterMessageBoxA(hPrinter, _Error, _hWnd, pText, pCaption, dwType) {
         hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
         _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
         pText := pText is String ? StrPtr(pText) : pText
         pCaption := pCaption is String ? StrPtr(pCaption) : pCaption
 
-        result := DllCall("winspool.drv\PrinterMessageBoxA", "ptr", hPrinter, "uint", Error, "ptr", _hWnd, "ptr", pText, "ptr", pCaption, "uint", dwType, "uint")
+        result := DllCall("winspool.drv\PrinterMessageBoxA", "ptr", hPrinter, "uint", _Error, "ptr", _hWnd, "ptr", pText, "ptr", pCaption, "uint", dwType, "uint")
         return result
     }
 
     /**
      * 
      * @param {PRINTER_HANDLE} hPrinter 
-     * @param {Integer} Error 
+     * @param {Integer} _Error 
      * @param {HWND} _hWnd 
      * @param {PWSTR} pText 
      * @param {PWSTR} pCaption 
      * @param {Integer} dwType 
      * @returns {Integer} 
      */
-    static PrinterMessageBoxW(hPrinter, Error, _hWnd, pText, pCaption, dwType) {
+    static PrinterMessageBoxW(hPrinter, _Error, _hWnd, pText, pCaption, dwType) {
         hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
         _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
         pText := pText is String ? StrPtr(pText) : pText
         pCaption := pCaption is String ? StrPtr(pCaption) : pCaption
 
-        result := DllCall("winspool.drv\PrinterMessageBoxW", "ptr", hPrinter, "uint", Error, "ptr", _hWnd, "ptr", pText, "ptr", pCaption, "uint", dwType, "uint")
+        result := DllCall("winspool.drv\PrinterMessageBoxW", "ptr", hPrinter, "uint", _Error, "ptr", _hWnd, "ptr", pText, "ptr", pCaption, "uint", dwType, "uint")
         return result
     }
 
@@ -11653,7 +11652,7 @@ class Printing {
      * @param {PRINTER_HANDLE} hPrinter A handle to the printer. Use the [**OpenPrinter**](openprinter.md) or [**AddPrinter**](addprinter.md) function to retrieve a printer handle.
      * @param {PSTR} pFormName A pointer to a null-terminated string that specifies the name of the form. To get the names of the forms supported by the printer, call the [**EnumForms**](enumforms.md) function.
      * @param {Integer} Level The version of the structure to which *pForm* points. This value must be 1 or 2.
-     * @param {Pointer} pForm A pointer to an array of bytes that receives the initialized [**FORM\_INFO\_1**](form-info-1.md) or [**FORM\_INFO\_2**](form-info-2.md) structure.
+     * @param {Integer} pForm A pointer to an array of bytes that receives the initialized [**FORM\_INFO\_1**](form-info-1.md) or [**FORM\_INFO\_2**](form-info-2.md) structure.
      * @param {Integer} cbBuf The size, in bytes, of the *pForm* array.
      * @param {Pointer<Integer>} pcbNeeded A pointer to a value that specifies the number of bytes copied if the function succeeds or the number of bytes required if *cbBuf* is too small.
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
@@ -11683,7 +11682,7 @@ class Printing {
      * @param {PRINTER_HANDLE} hPrinter A handle to the printer. Use the [**OpenPrinter**](openprinter.md) or [**AddPrinter**](addprinter.md) function to retrieve a printer handle.
      * @param {PWSTR} pFormName A pointer to a null-terminated string that specifies the name of the form. To get the names of the forms supported by the printer, call the [**EnumForms**](enumforms.md) function.
      * @param {Integer} Level The version of the structure to which *pForm* points. This value must be 1 or 2.
-     * @param {Pointer} pForm A pointer to an array of bytes that receives the initialized [**FORM\_INFO\_1**](form-info-1.md) or [**FORM\_INFO\_2**](form-info-2.md) structure.
+     * @param {Integer} pForm A pointer to an array of bytes that receives the initialized [**FORM\_INFO\_1**](form-info-1.md) or [**FORM\_INFO\_2**](form-info-2.md) structure.
      * @param {Integer} cbBuf The size, in bytes, of the *pForm* array.
      * @param {Pointer<Integer>} pcbNeeded A pointer to a value that specifies the number of bytes copied if the function succeeds or the number of bytes required if *cbBuf* is too small.
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
@@ -11774,7 +11773,7 @@ class Printing {
      * In Windows Vista, the form data returned by **EnumForms** is retrieved from a local cache when *hPrinter* refers to a remote print server or a printer hosted by a print server and there is at least one open connection to a printer on the remote print server. In all other configurations, the form data is queried from the remote print server.
      * @param {PRINTER_HANDLE} hPrinter Handle to the printer for which the forms should be enumerated. Use the [**OpenPrinter**](openprinter.md) or [**AddPrinter**](addprinter.md) function to retrieve a printer handle.
      * @param {Integer} Level Specifies the version of the structure to which *pForm* points. This value must be 1 or 2.
-     * @param {Pointer} pForm Pointer to one or more [**FORM\_INFO\_1**](form-info-1.md) structures or to one or more [**FORM\_INFO\_2**](form-info-2.md) structures. All the structures will have the same level.
+     * @param {Integer} pForm Pointer to one or more [**FORM\_INFO\_1**](form-info-1.md) structures or to one or more [**FORM\_INFO\_2**](form-info-2.md) structures. All the structures will have the same level.
      * @param {Integer} cbBuf Specifies the size, in bytes, of the buffer to which *pForm* points.
      * @param {Pointer<Integer>} pcbNeeded Pointer to a variable that receives the number of bytes copied to the array to which *pForm* points (if the operation succeeds) or the number of bytes required (if it fails because *cbBuf* is too small).
      * @param {Pointer<Integer>} pcReturned Pointer to a variable that receives the number of structures copied into the array to which *pForm* points.
@@ -11806,7 +11805,7 @@ class Printing {
      * In Windows Vista, the form data returned by **EnumForms** is retrieved from a local cache when *hPrinter* refers to a remote print server or a printer hosted by a print server and there is at least one open connection to a printer on the remote print server. In all other configurations, the form data is queried from the remote print server.
      * @param {PRINTER_HANDLE} hPrinter Handle to the printer for which the forms should be enumerated. Use the [**OpenPrinter**](openprinter.md) or [**AddPrinter**](addprinter.md) function to retrieve a printer handle.
      * @param {Integer} Level Specifies the version of the structure to which *pForm* points. This value must be 1 or 2.
-     * @param {Pointer} pForm Pointer to one or more [**FORM\_INFO\_1**](form-info-1.md) structures or to one or more [**FORM\_INFO\_2**](form-info-2.md) structures. All the structures will have the same level.
+     * @param {Integer} pForm Pointer to one or more [**FORM\_INFO\_1**](form-info-1.md) structures or to one or more [**FORM\_INFO\_2**](form-info-2.md) structures. All the structures will have the same level.
      * @param {Integer} cbBuf Specifies the size, in bytes, of the buffer to which *pForm* points.
      * @param {Pointer<Integer>} pcbNeeded Pointer to a variable that receives the number of bytes copied to the array to which *pForm* points (if the operation succeeds) or the number of bytes required (if it fails because *cbBuf* is too small).
      * @param {Pointer<Integer>} pcReturned Pointer to a variable that receives the number of structures copied into the array to which *pForm* points.
@@ -11834,7 +11833,7 @@ class Printing {
      * @param {Integer} Level The version of the structure pointed to by *pMonitors*.
      * 
      * This value can be 1 or 2.
-     * @param {Pointer} pMonitor 
+     * @param {Integer} pMonitor 
      * @param {Integer} cbBuf The size, in bytes, of the buffer pointed to by *pMonitors*.
      * @param {Pointer<Integer>} pcbNeeded A pointer to a variable that receives the number of bytes copied if the function succeeds or the number of bytes required if *cbBuf* is too small.
      * @param {Pointer<Integer>} pcReturned A pointer to a variable that receives the number of structures that were returned in the buffer pointed to by *pMonitors*.
@@ -11862,7 +11861,7 @@ class Printing {
      * @param {Integer} Level The version of the structure pointed to by *pMonitors*.
      * 
      * This value can be 1 or 2.
-     * @param {Pointer} pMonitor 
+     * @param {Integer} pMonitor 
      * @param {Integer} cbBuf The size, in bytes, of the buffer pointed to by *pMonitors*.
      * @param {Pointer<Integer>} pcbNeeded A pointer to a variable that receives the number of bytes copied if the function succeeds or the number of bytes required if *cbBuf* is too small.
      * @param {Pointer<Integer>} pcReturned A pointer to a variable that receives the number of structures that were returned in the buffer pointed to by *pMonitors*.
@@ -12038,7 +12037,7 @@ class Printing {
      * 
      * If *pName* is **NULL**, the function enumerates the local machine's printer ports.
      * @param {Integer} Level The type of information returned in the *pPorts* buffer. If *Level* is 1, *pPorts* receives an array of [**PORT\_INFO\_1**](port-info-1.md) structures. If *Level* is 2, *pPorts* receives an array of [**PORT\_INFO\_2**](port-info-2.md) structures.
-     * @param {Pointer} pPort 
+     * @param {Integer} pPort 
      * @param {Integer} cbBuf The size, in bytes, of the buffer pointed to by *pPorts*.
      * @param {Pointer<Integer>} pcbNeeded A pointer to a variable that receives the number of bytes copied to the *pPorts* buffer. If the buffer is too small, the function fails and the variable receives the number of bytes required.
      * @param {Pointer<Integer>} pcReturned A pointer to a variable that receives the number of [**PORT\_INFO\_1**](port-info-1.md) or [**PORT\_INFO\_2**](port-info-2.md) structures returned in the *pPorts* buffer. This is the number of printer ports that are available on the specified server.
@@ -12070,7 +12069,7 @@ class Printing {
      * 
      * If *pName* is **NULL**, the function enumerates the local machine's printer ports.
      * @param {Integer} Level The type of information returned in the *pPorts* buffer. If *Level* is 1, *pPorts* receives an array of [**PORT\_INFO\_1**](port-info-1.md) structures. If *Level* is 2, *pPorts* receives an array of [**PORT\_INFO\_2**](port-info-2.md) structures.
-     * @param {Pointer} pPort 
+     * @param {Integer} pPort 
      * @param {Integer} cbBuf The size, in bytes, of the buffer pointed to by *pPorts*.
      * @param {Pointer<Integer>} pcbNeeded A pointer to a variable that receives the number of bytes copied to the *pPorts* buffer. If the buffer is too small, the function fails and the variable receives the number of bytes required.
      * @param {Pointer<Integer>} pcReturned A pointer to a variable that receives the number of [**PORT\_INFO\_1**](port-info-1.md) or [**PORT\_INFO\_2**](port-info-2.md) structures returned in the *pPorts* buffer. This is the number of printer ports that are available on the specified server.
@@ -12103,7 +12102,7 @@ class Printing {
      * 
      * To add a port without displaying a dialog box, call the **XcvData** function instead of **AddPort**. For more information about **XcvData**, see the Microsoft Windows Driver Development Kit (DDK).
      * @param {PSTR} pName A pointer to a zero-terminated string that specifies the name of the server to which the port is connected. If this parameter is **NULL**, the port is local.
-     * @param {HWND} _hWnd 
+     * @param {HWND} _hWnd A handle to the parent window of the **AddPort** dialog box.
      * @param {PSTR} pMonitorName A pointer to a zero-terminated string that specifies the monitor associated with the port.
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
@@ -12139,7 +12138,7 @@ class Printing {
      * 
      * To add a port without displaying a dialog box, call the **XcvData** function instead of **AddPort**. For more information about **XcvData**, see the Microsoft Windows Driver Development Kit (DDK).
      * @param {PWSTR} pName A pointer to a zero-terminated string that specifies the name of the server to which the port is connected. If this parameter is **NULL**, the port is local.
-     * @param {HWND} _hWnd 
+     * @param {HWND} _hWnd A handle to the parent window of the **AddPort** dialog box.
      * @param {PWSTR} pMonitorName A pointer to a zero-terminated string that specifies the monitor associated with the port.
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
@@ -12171,7 +12170,7 @@ class Printing {
      * 
      * Before calling the **ConfigurePort** function, an application should call the [**EnumPorts**](enumports.md) function to determine valid port names.
      * @param {PSTR} pName Pointer to a null-terminated string that specifies the name of the server on which the specified port exists. If this parameter is **NULL**, the port is local.
-     * @param {HWND} _hWnd 
+     * @param {HWND} _hWnd Handle to the parent window of the port-configuration dialog box.
      * @param {PSTR} pPortName Pointer to a null-terminated string that specifies the name of the port to be configured.
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
@@ -12197,7 +12196,7 @@ class Printing {
      * 
      * Before calling the **ConfigurePort** function, an application should call the [**EnumPorts**](enumports.md) function to determine valid port names.
      * @param {PWSTR} pName Pointer to a null-terminated string that specifies the name of the server on which the specified port exists. If this parameter is **NULL**, the port is local.
-     * @param {HWND} _hWnd 
+     * @param {HWND} _hWnd Handle to the parent window of the port-configuration dialog box.
      * @param {PWSTR} pPortName Pointer to a null-terminated string that specifies the name of the port to be configured.
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
@@ -12227,7 +12226,7 @@ class Printing {
      * 
      * The caller of the **DeletePort** function must have SERVER\_ACCESS\_ADMINISTER access to the server to which the port is connected.
      * @param {PSTR} pName A pointer to a zero-terminated string that specifies the name of the server for which the port should be deleted. If this parameter is **NULL**, a local port is deleted.
-     * @param {HWND} _hWnd 
+     * @param {HWND} _hWnd A handle to the parent window of the port-deletion dialog box.
      * @param {PSTR} pPortName A pointer to a zero-terminated string that specifies the name of the port that should be deleted.
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
@@ -12263,7 +12262,7 @@ class Printing {
      * 
      * The caller of the **DeletePort** function must have SERVER\_ACCESS\_ADMINISTER access to the server to which the port is connected.
      * @param {PWSTR} pName A pointer to a zero-terminated string that specifies the name of the server for which the port should be deleted. If this parameter is **NULL**, a local port is deleted.
-     * @param {HWND} _hWnd 
+     * @param {HWND} _hWnd A handle to the parent window of the port-deletion dialog box.
      * @param {PWSTR} pPortName A pointer to a zero-terminated string that specifies the name of the port that should be deleted.
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
@@ -12289,9 +12288,9 @@ class Printing {
      * 
      * @param {HANDLE} hXcv 
      * @param {PWSTR} pszDataName 
-     * @param {Pointer} pInputData 
+     * @param {Integer} pInputData 
      * @param {Integer} cbInputData 
-     * @param {Pointer} pOutputData 
+     * @param {Integer} pOutputData 
      * @param {Integer} cbOutputData 
      * @param {Pointer<Integer>} pcbOutputNeeded 
      * @param {Pointer<Integer>} pdwStatus 
@@ -12591,7 +12590,7 @@ class Printing {
      * The **ConnectToPrinterDlg** function attempts to create a connection to the selected printer. However, if the server on which the printer resides does not have a suitable driver installed, the function offers the user the option of creating a printer locally. A calling application can determine whether the function has created a printer locally by calling [**GetPrinter**](getprinter.md) with a [**PRINTER\_INFO\_2**](printer-info-2.md) structure, then examining that structure's **Attributes** member.
      * 
      * An application should call [**DeletePrinter**](deleteprinter.md) to delete a local printer. An application should call [**DeletePrinterConnection**](deleteprinterconnection.md) to delete a connection to a printer.
-     * @param {HWND} _hwnd 
+     * @param {HWND} _hwnd Specifies the parent window of the dialog box.
      * @param {Integer} Flags This parameter is reserved and must be zero.
      * @returns {HANDLE} If the function succeeds and the user selects a printer, the return value is a handle to the selected printer.
      * 
@@ -12921,7 +12920,7 @@ class Printing {
      * A printer connection that is established by calling **AddPrinterConnection2** will be enumerated when [**EnumPrinters**](enumprinters.md) is called with *dwType* set to PRINTER\_ENUM\_CONNECTION.
      * 
      * The ANSI version of this function, **AddPrinterConnection2A**, is not supported and returns **ERROR\_NOT\_SUPPORTED**.
-     * @param {HWND} _hWnd 
+     * @param {HWND} _hWnd A handle to the parent window in which the dialog box will be displayed if the print system must download a printer driver from the print server for this connection.
      * @param {PWSTR} pszName A pointer to a constant null-terminated string specifying the name of the printer to which the current user wishes to connect.
      * @param {Integer} dwLevel The version of the structure pointed to by *pConnectionInfo*. Currently, only level 1 is defined so the value of *dwLevel* must be 1.
      * @param {Pointer<Void>} pConnectionInfo A pointer to a [**PRINTER\_CONNECTION\_INFO\_1**](printer-connection-info-1.md) structure. See the Remarks section for more about this parameter.
@@ -13035,7 +13034,7 @@ class Printing {
      * | <span id="UPDP_SILENT_UPLOAD"></span><span id="updp_silent_upload"></span><dl> <dt>**UPDP_SILENT_UPLOAD**</dt> </dl>             | The UI will not be shown during the upload.<br/>                                                                                                             |
      * | <span id="UPDP_UPLOAD_ALWAYS"></span><span id="updp_upload_always"></span><dl> <dt>**UPDP_UPLOAD_ALWAYS**</dt> </dl>             | The files will be uploaded even if the package is already in the server's driver store.<br/>                                                                 |
      * | <span id="UPDP_CHECK_DRIVERSTORE"></span><span id="updp_check_driverstore"></span><dl> <dt>**UPDP_CHECK_DRIVERSTORE**</dt> </dl> | The server's driver store will be checked before upload to see if the package is already there. This setting is ignored if UPDP_UPLOAD_ALWAYS is set.<br/> |
-     * @param {HWND} _hwnd 
+     * @param {HWND} _hwnd A handle to the copying user interface.
      * @param {PSTR} pszDestInfPath A pointer to the destination path, in the driver store, to which the driver's .inf file was copied.
      * @param {Pointer<Integer>} pcchDestInfPath On input, specifies the size, in characters, of the *pszDestInfPath* buffer. On output, receives the size, in characters, of the path string, including the terminating null character.
      * @returns {HRESULT} If the operation succeeds, the return value is S_OK, otherwise the **HRESULT** will contain an error code.
@@ -13081,7 +13080,7 @@ class Printing {
      * | <span id="UPDP_SILENT_UPLOAD"></span><span id="updp_silent_upload"></span><dl> <dt>**UPDP_SILENT_UPLOAD**</dt> </dl>             | The UI will not be shown during the upload.<br/>                                                                                                             |
      * | <span id="UPDP_UPLOAD_ALWAYS"></span><span id="updp_upload_always"></span><dl> <dt>**UPDP_UPLOAD_ALWAYS**</dt> </dl>             | The files will be uploaded even if the package is already in the server's driver store.<br/>                                                                 |
      * | <span id="UPDP_CHECK_DRIVERSTORE"></span><span id="updp_check_driverstore"></span><dl> <dt>**UPDP_CHECK_DRIVERSTORE**</dt> </dl> | The server's driver store will be checked before upload to see if the package is already there. This setting is ignored if UPDP_UPLOAD_ALWAYS is set.<br/> |
-     * @param {HWND} _hwnd 
+     * @param {HWND} _hwnd A handle to the copying user interface.
      * @param {PWSTR} pszDestInfPath A pointer to the destination path, in the driver store, to which the driver's .inf file was copied.
      * @param {Pointer<Integer>} pcchDestInfPath On input, specifies the size, in characters, of the *pszDestInfPath* buffer. On output, receives the size, in characters, of the path string, including the terminating null character.
      * @returns {HRESULT} If the operation succeeds, the return value is S_OK, otherwise the **HRESULT** will contain an error code.
@@ -13336,8 +13335,8 @@ class Printing {
      * > **ReportJobProcessingProgress** will only report the progress of the XPS print job if the print job is in the spooling or rendering phase. **ReportJobProcessingProgress** will fail if it is called when the XPS print job is not in the spooling or rendering phase.
      * @param {HANDLE} printerHandle A printer handle for which the function is to retrieve information. Use the [**OpenPrinter**](openprinter.md) or [**AddPrinter**](addprinter.md) function to retrieve a printer handle.
      * @param {Integer} jobId Identifies the print job for which to retrieve data. Use the [**AddJob**](addjob.md) function or [**StartDoc**](/windows/desktop/api/Wingdi/nf-wingdi-startdoca) function to get a print job identifier.
-     * @param {Integer} jobOperation Specifies whether the job is in the spooling phase or the rendering phase.
-     * @param {Integer} jobProgress Specifies what part of the processing is currently underway. This value refers to events in either the spooling or rendering phase depending on the value of *jobOperation*.
+     * @param {EPrintXPSJobOperation} jobOperation Specifies whether the job is in the spooling phase or the rendering phase.
+     * @param {EPrintXPSJobProgress} jobProgress Specifies what part of the processing is currently underway. This value refers to events in either the spooling or rendering phase depending on the value of *jobOperation*.
      * @returns {HRESULT} If the operation succeeds, the return value is S\_OK, otherwise the **HRESULT** will contain an error code.
      * 
      * For more information about COM error codes, see [Error Handling](../com/error-handling-in-com.md).
@@ -13356,7 +13355,7 @@ class Printing {
      * @param {PRINTER_HANDLE} hPrinter 
      * @param {PSTR} pEnvironment 
      * @param {Integer} Level 
-     * @param {Pointer} pDriverInfo 
+     * @param {Integer} pDriverInfo 
      * @param {Integer} cbBuf 
      * @param {Pointer<Integer>} pcbNeeded 
      * @returns {BOOL} 
@@ -13378,7 +13377,7 @@ class Printing {
      * The [**DRIVER\_INFO\_2**](driver-info-2.md), [**DRIVER\_INFO\_3**](driver-info-3.md), [**DRIVER\_INFO\_4**](driver-info-4.md), [**DRIVER\_INFO\_5**](driver-info-5.md), [**DRIVER\_INFO\_6**](driver-info-6.md), and [**DRIVER\_INFO\_8**](driver-info-8.md) structures contain the file name or the full path and file name of the printer driver in the **pDriverPath** member. An application can use the path and file name to load a printer driver by calling the [**LoadLibrary**](/windows/desktop/api/libloaderapi/nf-libloaderapi-loadlibrarya) function and supplying the path and file name as the single argument.
      * 
      * The ANSI version of this function, **GetPrinterDriver2A** is not supported and returns **ERROR\_NOT\_SUPPORTED**.
-     * @param {HWND} _hWnd 
+     * @param {HWND} _hWnd A handle of the window that will be used as the parent window of any user interface, such as a dialog box, that the driver displays during installation. If the value of this parameter is **NULL**, the driver's user interface will still be displayed to the user during installation, but it will not have a parent window.
      * @param {PRINTER_HANDLE} hPrinter A handle to the printer for which the driver data should be retrieved. Use the [**OpenPrinter**](openprinter.md) or [**AddPrinter**](addprinter.md) function to retrieve a printer handle.
      * @param {PWSTR} pEnvironment A pointer to a null-terminated string that specifies the environment (for example, Windows x86, Windows IA64, or Windows x64). If this parameter is **NULL**, the current environment of the calling application and client machine (not of the destination application and print server) is used.
      * @param {Integer} Level The printer driver structure returned in the *pDriverInfo* buffer. This parameter can be one of the following values.
@@ -13394,7 +13393,7 @@ class Printing {
      * | <span id="5"></span><dl> <dt>**5**</dt> </dl> | [**DRIVER\_INFO\_5**](driver-info-5.md)<br/> |
      * | <span id="6"></span><dl> <dt>**6**</dt> </dl> | [**DRIVER\_INFO\_6**](driver-info-6.md)<br/> |
      * | <span id="8"></span><dl> <dt>**8**</dt> </dl> | [**DRIVER\_INFO\_8**](driver-info-8.md)<br/> |
-     * @param {Pointer} pDriverInfo A pointer to a buffer that receives a structure containing information about the driver, as specified by *Level*. The buffer must be large enough to store the strings pointed to by the structure members.
+     * @param {Integer} pDriverInfo A pointer to a buffer that receives a structure containing information about the driver, as specified by *Level*. The buffer must be large enough to store the strings pointed to by the structure members.
      * 
      * To determine the required buffer size, call **GetPrinterDriver2** with *cbBuf* set to zero. **GetPrinterDriver2** fails, [**GetLastError**](/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror) returns **ERROR\_INSUFFICIENT\_BUFFER**, and the *pcbNeeded* parameter returns the size, in bytes, of the buffer required to hold the array of structures and their data.
      * @param {Integer} cbBuf The size, in bytes, of the array at which *pDriverInfo* points.
@@ -13556,13 +13555,13 @@ class Printing {
      * The <i>pSchema</i> parameter is a GUID pointer that the spooler accepts and uses to filter the listener clients. Any client of the spooler asynchronous notification mechanism can define its own notification type. Even though the spooler is unaware of the notification type that is sent, it still filters the listener clients based on the notification type. The notification schema that <i>pSchema</i> references is the schema that is used by the notification object that exposes <a href="https://docs.microsoft.com/windows/desktop/api/prnasnot/nn-prnasnot-iprintasyncnotifydataobject">IPrintAsyncNotifyDataObject</a>. Clients of the spooler notification pipe can define their own data schema and can send any data type back and forth and the GUID referenced by <i>pSchema</i> is unique to that data schema.
      * @param {PWSTR} pszName A pointer to the name of a print server or print queue.
      * @param {Pointer<Guid>} pNotificationType A pointer to the GUID of the data schema for the type of notifications that the application must receive.
-     * @param {Integer} eUserFilter A value specifying whether notifications will be sent to:
+     * @param {PrintAsyncNotifyUserFilter} eUserFilter A value specifying whether notifications will be sent to:
      * 
      * <ul>
      * <li>Only applications that are running as the same user as the Print Spooler-hosted plug-in sender.</li>
      * <li>A broader set of listening applications.</li>
      * </ul>
-     * @param {Integer} eConversationStyle A value specifying whether communication is bidirectional or unidirectional.
+     * @param {PrintAsyncNotifyConversationStyle} eConversationStyle A value specifying whether communication is bidirectional or unidirectional.
      * @param {IPrintAsyncNotifyCallback} pCallback A pointer to an object that the Print Spooler-hosted component will use to call back the application. This should never be <b>NULL</b>.
      * @returns {HANDLE} A pointer to a structure that represents the registration.
      * @see https://learn.microsoft.com/windows/win32/api/prnasnot/nf-prnasnot-registerforprintasyncnotifications
@@ -13693,13 +13692,13 @@ class Printing {
      * </ol>
      * @param {PWSTR} pszName A pointer to the name of a print server or print queue.
      * @param {Pointer<Guid>} pNotificationType A pointer to the GUID of the data schema for the type of notifications to be sent in the channel.
-     * @param {Integer} eUserFilter A value specifying whether notifications will be sent to:
+     * @param {PrintAsyncNotifyUserFilter} eUserFilter A value specifying whether notifications will be sent to:
      * 
      * <ul>
      * <li>Only applications that are running as the same user as the Print Spooler-hosted plug-in sender.</li>
      * <li>A broader set of listening applications.</li>
      * </ul>
-     * @param {Integer} eConversationStyle A value specifying whether communication is bidirectional or unidirectional.
+     * @param {PrintAsyncNotifyConversationStyle} eConversationStyle A value specifying whether communication is bidirectional or unidirectional.
      * @param {IPrintAsyncNotifyCallback} pCallback A pointer to an object that the listening application will use to call back the Print Spooler-hosted component. This should be <b>NULL</b> if <i>directionality</i> is <b>kUniDirectional</b>.
      * @returns {IPrintAsyncNotifyChannel} A pointer to the new channel.
      * @see https://learn.microsoft.com/windows/win32/api/prnasnot/nf-prnasnot-createprintasyncnotifychannel
@@ -13728,8 +13727,8 @@ class Printing {
      * 
      * @param {PWSTR} pName 
      * @param {Pointer<Guid>} pNotificationType 
-     * @param {Integer} eNotifyFilter 
-     * @param {Integer} eConversationStyle 
+     * @param {PrintAsyncNotifyUserFilter} eNotifyFilter 
+     * @param {PrintAsyncNotifyConversationStyle} eConversationStyle 
      * @param {IPrintAsyncNotifyCallback} pCallback 
      * @returns {IPrintAsyncNotifyChannel} 
      */
@@ -13940,7 +13939,7 @@ class Printing {
      * @param {PWSTR} pPrinterName 
      * @param {Pointer<DEVMODEW>} pDevmode 
      * @param {Integer} dwLevel 
-     * @param {Pointer} pAttributeInfo 
+     * @param {Integer} pAttributeInfo 
      * @param {Integer} nSize 
      * @param {Integer} dwFlags 
      * @returns {BOOL} 
@@ -13969,9 +13968,9 @@ class Printing {
     /**
      * 
      * @param {HANDLE} hPrinterIC 
-     * @param {Pointer} pIn 
+     * @param {Integer} pIn 
      * @param {Integer} cIn 
-     * @param {Pointer} pOut 
+     * @param {Integer} pOut 
      * @param {Integer} cOut 
      * @param {Integer} ul 
      * @returns {BOOL} 

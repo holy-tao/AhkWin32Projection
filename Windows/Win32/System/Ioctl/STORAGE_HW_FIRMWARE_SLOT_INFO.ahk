@@ -5,10 +5,8 @@
  * This structure contains information about a slot on a device.
  * @see https://learn.microsoft.com/windows/win32/FileIO/storage-hw-firmware-slot-info
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class STORAGE_HW_FIRMWARE_SLOT_INFO extends Win32Struct
-{
+class STORAGE_HW_FIRMWARE_SLOT_INFO extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 4
@@ -52,7 +50,6 @@ class STORAGE_HW_FIRMWARE_SLOT_INFO extends Win32Struct
     }
 
     /**
-     * Indicates whether this slot is read-only or not.
      * @type {Integer}
      */
     ReadOnly {
@@ -61,7 +58,6 @@ class STORAGE_HW_FIRMWARE_SLOT_INFO extends Win32Struct
     }
 
     /**
-     * Reserved for future use.
      * @type {Integer}
      */
     Reserved0 {
@@ -71,9 +67,9 @@ class STORAGE_HW_FIRMWARE_SLOT_INFO extends Win32Struct
 
     /**
      * Reserved for future use.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Reserved1{
+    Reserved1 {
         get {
             if(!this.HasProp("__Reserved1ProxyArray"))
                 this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 10, 6, Primitive, "char")
@@ -83,9 +79,9 @@ class STORAGE_HW_FIRMWARE_SLOT_INFO extends Win32Struct
 
     /**
      * The revision of the firmware on this slot.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Revision{
+    Revision {
         get {
             if(!this.HasProp("__RevisionProxyArray"))
                 this.__RevisionProxyArray := Win32FixedArray(this.ptr + 16, 16, Primitive, "char")

@@ -5,13 +5,10 @@
 
 /**
  * Audio Processing Objects (APOs) implement this interface to obtain a reference to an **IAudioDeviceModulesManager** instance.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/audioenginebaseapo/nn-audioenginebaseapo-iaudiodevicemodulesclient
  * @namespace Windows.Win32.Media.Audio.Apo
- * @version v4.0.30319
  */
-class IAudioDeviceModulesClient extends IUnknown{
+class IAudioDeviceModulesClient extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

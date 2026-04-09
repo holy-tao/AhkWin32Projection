@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class KERB_TICKET_CACHE_INFO_EX2 extends Win32Struct
-{
+class KERB_TICKET_CACHE_INFO_EX2 extends Win32Struct {
     static sizeof => 104
 
     static packingSize => 8
@@ -15,7 +13,7 @@ class KERB_TICKET_CACHE_INFO_EX2 extends Win32Struct
     /**
      * @type {LSA_UNICODE_STRING}
      */
-    ClientName{
+    ClientName {
         get {
             if(!this.HasProp("__ClientName"))
                 this.__ClientName := LSA_UNICODE_STRING(0, this)
@@ -26,7 +24,7 @@ class KERB_TICKET_CACHE_INFO_EX2 extends Win32Struct
     /**
      * @type {LSA_UNICODE_STRING}
      */
-    ClientRealm{
+    ClientRealm {
         get {
             if(!this.HasProp("__ClientRealm"))
                 this.__ClientRealm := LSA_UNICODE_STRING(16, this)
@@ -37,7 +35,7 @@ class KERB_TICKET_CACHE_INFO_EX2 extends Win32Struct
     /**
      * @type {LSA_UNICODE_STRING}
      */
-    ServerName{
+    ServerName {
         get {
             if(!this.HasProp("__ServerName"))
                 this.__ServerName := LSA_UNICODE_STRING(32, this)
@@ -48,7 +46,7 @@ class KERB_TICKET_CACHE_INFO_EX2 extends Win32Struct
     /**
      * @type {LSA_UNICODE_STRING}
      */
-    ServerRealm{
+    ServerRealm {
         get {
             if(!this.HasProp("__ServerRealm"))
                 this.__ServerRealm := LSA_UNICODE_STRING(48, this)

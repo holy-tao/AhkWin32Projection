@@ -13,9 +13,8 @@
  * Buffers can be bound to multiple pipeline stages simultaneously for reading. A buffer can also be bound to a single pipeline stage for writing; however, the same buffer cannot be bound for reading and writing simultaneously.
  * @see https://learn.microsoft.com/windows/win32/api/d3d11/nn-d3d11-id3d11buffer
  * @namespace Windows.Win32.Graphics.Direct3D11
- * @version v4.0.30319
  */
-class ID3D11Buffer extends ID3D11Resource{
+class ID3D11Buffer extends ID3D11Resource {
 
     static sizeof => A_PtrSize
     /**

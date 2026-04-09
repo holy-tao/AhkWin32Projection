@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\CMD_ENTRY.ahk
 
 /**
  * Defines a group of helper commands.
@@ -11,10 +12,8 @@
  * ``` syntax
  * @see https://learn.microsoft.com/windows/win32/api/netsh/ns-netsh-cmd_group_entry
  * @namespace Windows.Win32.NetworkManagement.NetShell
- * @version v4.0.30319
  */
-class CMD_GROUP_ENTRY extends Win32Struct
-{
+class CMD_GROUP_ENTRY extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8

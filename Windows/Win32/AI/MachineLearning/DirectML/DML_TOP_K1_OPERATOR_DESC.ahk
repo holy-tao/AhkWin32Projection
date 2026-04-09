@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\DML_TENSOR_DESC.ahk
+#Include .\DML_AXIS_DIRECTION.ahk
 
 /**
  * Selects the largest or smallest *K* elements from each sequence along an axis of the *InputTensor*, and returns the values and indices of those elements in the *OutputValueTensor* and *OutputIndexTensor*, respectively.
@@ -7,10 +9,8 @@
  * When *AxisDirection* is set to [DML_AXIS_DIRECTION_DECREASING](/windows/win32/api/directml/ne-directml-dml_axis_direction), this operator is equivalent to [DML_TOP_K_OPERATOR_DESC](/windows/win32/api/directml/ns-directml-dml_top_k_operator_desc).
  * @see https://learn.microsoft.com/windows/win32/api/directml/ns-directml-dml_top_k1_operator_desc
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
- * @version v4.0.30319
  */
-class DML_TOP_K1_OPERATOR_DESC extends Win32Struct
-{
+class DML_TOP_K1_OPERATOR_DESC extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -80,7 +80,7 @@ class DML_TOP_K1_OPERATOR_DESC extends Win32Struct
      * Type: **[DML_AXIS_DIRECTION](/windows/win32/api/directml/ne-directml-dml_axis_direction)**
      * 
      * A value from the [DML_AXIS_DIRECTION](/windows/win32/api/directml/ne-directml-dml_axis_direction) enumeration. If set to **DML_AXIS_DIRECTION_INCREASING**, then this operator returns the *smallest* *K* elements in order of increasing value. Otherwise, it returns the *largest* *K* elements in decreasing order.
-     * @type {Integer}
+     * @type {DML_AXIS_DIRECTION}
      */
     AxisDirection {
         get => NumGet(this, 32, "int")

@@ -1,16 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Security\SID_IDENTIFIER_AUTHORITY.ahk
 #Include ..\..\Security\SID.ahk
+#Include ..\..\Security\SID_IDENTIFIER_AUTHORITY.ahk
 
 /**
  * Contains data for the FSCTL_FIND_FILES_BY_SID control code.
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-find_by_sid_data
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class FIND_BY_SID_DATA extends Win32Struct
-{
+class FIND_BY_SID_DATA extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4
@@ -31,7 +29,7 @@ class FIND_BY_SID_DATA extends Win32Struct
      *       owner.
      * @type {SID}
      */
-    Sid{
+    Sid {
         get {
             if(!this.HasProp("__Sid"))
                 this.__Sid := SID(4, this)

@@ -5,9 +5,8 @@
  * Specifies the in-sync state for placeholder files and folders.
  * @see https://learn.microsoft.com/windows/win32/api/cfapi/ne-cfapi-cf_in_sync_state
  * @namespace Windows.Win32.Storage.CloudFilters
- * @version v4.0.30319
  */
-class CF_IN_SYNC_STATE extends Win32Enum{
+class CF_IN_SYNC_STATE extends Win32Enum {
 
     /**
      * The platform clears the placeholder’s in-sync state upon a successful return from the [CfSetInSyncState](nf-cfapi-cfsetinsyncstate.md) call.

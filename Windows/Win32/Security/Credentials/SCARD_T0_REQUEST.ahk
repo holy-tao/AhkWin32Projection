@@ -5,10 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Security.Credentials
- * @version v4.0.30319
  */
-class SCARD_T0_REQUEST extends Win32Struct
-{
+class SCARD_T0_REQUEST extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4
@@ -16,7 +14,7 @@ class SCARD_T0_REQUEST extends Win32Struct
     /**
      * @type {SCARD_IO_REQUEST}
      */
-    ioRequest{
+    ioRequest {
         get {
             if(!this.HasProp("__ioRequest"))
                 this.__ioRequest := SCARD_IO_REQUEST(0, this)
@@ -43,7 +41,7 @@ class SCARD_T0_REQUEST extends Win32Struct
     /**
      * @type {SCARD_T0_COMMAND}
      */
-    CmdBytes{
+    CmdBytes {
         get {
             if(!this.HasProp("__CmdBytes"))
                 this.__CmdBytes := SCARD_T0_COMMAND(10, this)
@@ -52,9 +50,9 @@ class SCARD_T0_REQUEST extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    rgbHeader{
+    rgbHeader {
         get {
             if(!this.HasProp("__rgbHeaderProxyArray"))
                 this.__rgbHeaderProxyArray := Win32FixedArray(this.ptr + 10, 5, Primitive, "char")

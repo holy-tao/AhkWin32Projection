@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\CRYPT_PROVUI_DATA.ahk
 
 /**
  * Provides information about the user interface (UI) functions of a provider. This structure is used by the CRYPT_PROVIDER_FUNCTIONS structure.
@@ -10,10 +11,8 @@
  * ```cpp
  * @see https://learn.microsoft.com/windows/win32/api/wintrust/ns-wintrust-crypt_provui_funcs
  * @namespace Windows.Win32.Security.WinTrust
- * @version v4.0.30319
  */
-class CRYPT_PROVUI_FUNCS extends Win32Struct
-{
+class CRYPT_PROVUI_FUNCS extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8

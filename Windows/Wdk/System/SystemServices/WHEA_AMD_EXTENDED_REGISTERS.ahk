@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class WHEA_AMD_EXTENDED_REGISTERS extends Win32Struct
-{
+class WHEA_AMD_EXTENDED_REGISTERS extends Win32Struct {
     static sizeof => 192
 
     static packingSize => 8
@@ -92,9 +90,9 @@ class WHEA_AMD_EXTENDED_REGISTERS extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt64>}
+     * @type {Array<Integer>}
      */
-    Reserved{
+    Reserved {
         get {
             if(!this.HasProp("__ReservedProxyArray"))
                 this.__ReservedProxyArray := Win32FixedArray(this.ptr + 80, 14, Primitive, "uint")

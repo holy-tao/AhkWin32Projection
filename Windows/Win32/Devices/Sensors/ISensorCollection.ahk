@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ISensor.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\ISensor.ahk
 
 /**
  * Represents a collection of sensors, such as all the sensors connected to a computer.
  * @see https://learn.microsoft.com/windows/win32/api/sensorsapi/nn-sensorsapi-isensorcollection
  * @namespace Windows.Win32.Devices.Sensors
- * @version v4.0.30319
  */
-class ISensorCollection extends IUnknown{
+class ISensorCollection extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

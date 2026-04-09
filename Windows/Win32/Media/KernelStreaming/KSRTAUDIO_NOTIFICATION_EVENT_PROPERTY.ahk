@@ -5,10 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
- * @version v4.0.30319
  */
-class KSRTAUDIO_NOTIFICATION_EVENT_PROPERTY extends Win32Struct
-{
+class KSRTAUDIO_NOTIFICATION_EVENT_PROPERTY extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -16,7 +14,7 @@ class KSRTAUDIO_NOTIFICATION_EVENT_PROPERTY extends Win32Struct
     /**
      * @type {KSIDENTIFIER}
      */
-    Property{
+    Property {
         get {
             if(!this.HasProp("__Property"))
                 this.__Property := KSIDENTIFIER(0, this)
@@ -27,7 +25,7 @@ class KSRTAUDIO_NOTIFICATION_EVENT_PROPERTY extends Win32Struct
     /**
      * @type {HANDLE}
      */
-    NotificationEvent{
+    NotificationEvent {
         get {
             if(!this.HasProp("__NotificationEvent"))
                 this.__NotificationEvent := HANDLE(16, this)

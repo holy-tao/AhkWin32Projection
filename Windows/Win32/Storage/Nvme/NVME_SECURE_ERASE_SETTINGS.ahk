@@ -7,9 +7,8 @@
  * Use this enumeration to specify values in the **SES** field of the [NVME_CDW10_FORMAT_NVM](ns-nvme-nvme_cdw10_format_nvm.md) structure that is used in the [FORMAT NVM (FORMATNVM)](ns-nvme-nvme_command.md) Admin command.
  * @see https://learn.microsoft.com/windows/win32/api/nvme/ne-nvme-nvme_secure_erase_settings
  * @namespace Windows.Win32.Storage.Nvme
- * @version v4.0.30319
  */
-class NVME_SECURE_ERASE_SETTINGS extends Win32Enum{
+class NVME_SECURE_ERASE_SETTINGS extends Win32Enum {
 
     /**
      * No secure erase operation is requested.

@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
- * @version v4.0.30319
  */
-class DOT11_OPERATION_MODE_CAPABILITY extends Win32Struct
-{
+class DOT11_OPERATION_MODE_CAPABILITY extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 4

@@ -15,9 +15,8 @@
  * The <b>IInputPanelConfiguration</b> interface enables your app to opt in to the focus tracking mechanism for Windows Store apps.
  * @see https://learn.microsoft.com/windows/win32/api/inputpanelconfiguration/nn-inputpanelconfiguration-iinputpanelconfiguration
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IInputPanelConfiguration extends IUnknown{
+class IInputPanelConfiguration extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

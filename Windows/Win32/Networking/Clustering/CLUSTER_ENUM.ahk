@@ -5,9 +5,8 @@
  * The CLUSTER_ENUM enumeration (msclus.h) describes the type of cluster objects being enumerated.
  * @see https://learn.microsoft.com/windows/win32/api/msclus/ne-msclus-cluster_enum
  * @namespace Windows.Win32.Networking.Clustering
- * @version v4.0.30319
  */
-class CLUSTER_ENUM extends Win32Enum{
+class CLUSTER_ENUM extends Win32Enum {
 
     /**
      * The <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/nodes">nodes</a> in the cluster.

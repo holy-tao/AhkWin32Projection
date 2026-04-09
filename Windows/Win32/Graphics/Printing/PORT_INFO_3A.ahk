@@ -7,11 +7,9 @@
  * When you set a printer port status value with the severity value PORT\_STATUS\_TYPE\_ERROR, the print spooler stops sending jobs to the port. The print spooler does not resume sending jobs to the port until another [**SetPort**](setport.md) call is made to clear the status.
  * @see https://learn.microsoft.com/windows/win32/printdocs/port-info-3
  * @namespace Windows.Win32.Graphics.Printing
- * @version v4.0.30319
  * @charset ANSI
  */
-class PORT_INFO_3A extends Win32Struct
-{
+class PORT_INFO_3A extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

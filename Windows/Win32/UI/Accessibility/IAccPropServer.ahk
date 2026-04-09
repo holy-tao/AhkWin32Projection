@@ -7,9 +7,8 @@
  * Exposes a method that retrieves a property value for an accessible element.
  * @see https://learn.microsoft.com/windows/win32/api/oleacc/nn-oleacc-iaccpropserver
  * @namespace Windows.Win32.UI.Accessibility
- * @version v4.0.30319
  */
-class IAccPropServer extends IUnknown{
+class IAccPropServer extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

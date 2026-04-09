@@ -7,9 +7,8 @@
  * Presents query and action capabilities associated with the online-offline transition behavior of Offline Files.
  * @see https://learn.microsoft.com/windows/win32/api/cscobj/nn-cscobj-iofflinefilesconnectioninfo
  * @namespace Windows.Win32.Storage.OfflineFiles
- * @version v4.0.30319
  */
-class IOfflineFilesConnectionInfo extends IUnknown{
+class IOfflineFilesConnectionInfo extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -34,11 +33,11 @@ class IOfflineFilesConnectionInfo extends IUnknown{
      * Determines whether an item is online or offline and, if offline, why.
      * @remarks
      * This method requires that the item have connection state information.  If that information is unavailable at the time of this method call, the method call will initiate the extra query of the cache item to obtain the current connection state.
-     * @param {Pointer<Integer>} pConnectState Receives an <a href="https://docs.microsoft.com/windows/desktop/api/cscobj/ne-cscobj-offlinefiles_connect_state">OFFLINEFILES_CONNECT_STATE</a> enumeration value that indicates whether the item is online or offline.
+     * @param {Pointer<OFFLINEFILES_CONNECT_STATE>} pConnectState Receives an <a href="https://docs.microsoft.com/windows/desktop/api/cscobj/ne-cscobj-offlinefiles_connect_state">OFFLINEFILES_CONNECT_STATE</a> enumeration value that indicates whether the item is online or offline.
      * 
      * <div class="alert"><b>Note</b>  This value sets the Offline Status property value in Windows Explorer.</div>
      * <div> </div>
-     * @param {Pointer<Integer>} pOfflineReason If the item is offline, this parameter receives an <a href="https://docs.microsoft.com/windows/desktop/api/cscobj/ne-cscobj-offlinefiles_offline_reason">OFFLINEFILES_OFFLINE_REASON</a> enumeration value that indicates why the item is offline.
+     * @param {Pointer<OFFLINEFILES_OFFLINE_REASON>} pOfflineReason If the item is offline, this parameter receives an <a href="https://docs.microsoft.com/windows/desktop/api/cscobj/ne-cscobj-offlinefiles_offline_reason">OFFLINEFILES_OFFLINE_REASON</a> enumeration value that indicates why the item is offline.
      * 
      * <div class="alert"><b>Note</b>  This value generates the parenthesized suffix in the Offline Status property value in Windows Explorer when the status is offline.</div>
      * <div> </div>
@@ -59,7 +58,7 @@ class IOfflineFilesConnectionInfo extends IUnknown{
      * The <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/cscobj/nf-cscobj-iofflinefilesconnectioninfo-transitiononline">IOfflineFilesConnectionInfo::TransitionOnline</a> and <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/cscobj/nf-cscobj-iofflinefilesconnectioninfo-transitionoffline">IOfflineFilesConnectionInfo::TransitionOffline</a> methods are preferred over this method as they provide greater control over the handling and detecting of open handles in the online-to-offline transition.
      * @param {HWND} hwndParent Provides a parent window handle used for any interactive user interface elements such as credential request dialogs.  This parameter may be <b>NULL</b>.  This parameter is ignored if the OFFLINEFILES_TRANSITION_FLAG_INTERACTIVE flag is not specified in the <i>dwFlags</i> parameter.
      * @param {Integer} dwFlags One or more of the following flag values:
-     * @param {Integer} ConnectState Specify one of the following <a href="https://docs.microsoft.com/windows/desktop/api/cscobj/ne-cscobj-offlinefiles_connect_state">OFFLINEFILES_CONNECT_STATE</a> enumeration values.
+     * @param {OFFLINEFILES_CONNECT_STATE} ConnectState Specify one of the following <a href="https://docs.microsoft.com/windows/desktop/api/cscobj/ne-cscobj-offlinefiles_connect_state">OFFLINEFILES_CONNECT_STATE</a> enumeration values.
      * @returns {HRESULT} Returns <b>S_OK</b> if successful, or an error value otherwise.
      * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilesconnectioninfo-setconnectstate
      */

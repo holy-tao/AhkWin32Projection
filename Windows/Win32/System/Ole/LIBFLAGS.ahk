@@ -5,9 +5,8 @@
  * Defines flags that apply to type libraries.
  * @see https://learn.microsoft.com/windows/win32/api/oaidl/ne-oaidl-libflags
  * @namespace Windows.Win32.System.Ole
- * @version v4.0.30319
  */
-class LIBFLAGS extends Win32Enum{
+class LIBFLAGS extends Win32Enum {
 
     /**
      * The type library is restricted, and should not be displayed to users.

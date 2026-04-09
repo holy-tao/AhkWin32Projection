@@ -47,10 +47,8 @@
  * If there is padding in the image buffer, never dereference a pointer into the memory that has been reserved for the padding. If the image buffer has been allocated in video memory, the padding might not be readable memory.
  * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-bitmapinfoheader
  * @namespace Windows.Win32.Graphics.Gdi
- * @version v4.0.30319
  */
-class BITMAPINFOHEADER extends Win32Struct
-{
+class BITMAPINFOHEADER extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 4

@@ -11,9 +11,8 @@
  * Previous versions of Microsoft Media Foundation supported DXVA only for decoders.
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/ne-mfidl-mftopology_dxva_mode
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class MFTOPOLOGY_DXVA_MODE extends Win32Enum{
+class MFTOPOLOGY_DXVA_MODE extends Win32Enum {
 
     /**
      * The topology loader enables DXVA

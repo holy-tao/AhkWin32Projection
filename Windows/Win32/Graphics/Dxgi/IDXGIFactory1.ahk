@@ -29,9 +29,8 @@
  * ```
  * @see https://learn.microsoft.com/windows/win32/api/dxgi/nn-dxgi-idxgifactory1
  * @namespace Windows.Win32.Graphics.Dxgi
- * @version v4.0.30319
  */
-class IDXGIFactory1 extends IDXGIFactory{
+class IDXGIFactory1 extends IDXGIFactory {
 
     static sizeof => A_PtrSize
     /**
@@ -65,7 +64,9 @@ class IDXGIFactory1 extends IDXGIFactory{
      *       adapter interface, call the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">Release</a> method to decrement the reference count before you destroy the pointer.
      * 
      * <b>EnumAdapters1</b> first returns the adapter with the output on which the desktop primary is displayed. This adapter corresponds with an index of zero. <b>EnumAdapters1</b> next returns other adapters with outputs. <b>EnumAdapters1</b> finally returns adapters without outputs.
-     * @param {Integer} _Adapter 
+     * @param {Integer} _Adapter Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
+     * 
+     * The index of the adapter to enumerate.
      * @param {Pointer<IDXGIAdapter1>} ppAdapter Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dxgi/nn-dxgi-idxgiadapter1">IDXGIAdapter1</a>**</b>
      * 
      * The address of a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/dxgi/nn-dxgi-idxgiadapter1">IDXGIAdapter1</a> interface at the position specified by the <i>Adapter</i> parameter.  

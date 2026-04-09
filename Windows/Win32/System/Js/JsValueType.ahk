@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Js
- * @version v4.0.30319
  */
-class JsValueType extends Win32Enum{
+class JsValueType extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

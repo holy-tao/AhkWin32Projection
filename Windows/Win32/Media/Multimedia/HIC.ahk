@@ -7,10 +7,8 @@
  * The change in the hot item was caused by a shortcut key.
  * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-nmtbhotitem
  * @namespace Windows.Win32.Media.Multimedia
- * @version v4.0.30319
  */
-class HIC extends Win32Handle
-{
+class HIC extends Win32Handle {
     static sizeof => 8
 
     static packingSize => 8

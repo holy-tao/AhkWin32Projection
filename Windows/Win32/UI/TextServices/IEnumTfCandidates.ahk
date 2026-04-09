@@ -1,16 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IEnumTfCandidates.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * The IEnumTfCandidates interface is implemented by a text service and used by the TSF manager to provide an enumeration of candidate string objects.
  * @see https://learn.microsoft.com/windows/win32/api/ctffunc/nn-ctffunc-ienumtfcandidates
  * @namespace Windows.Win32.UI.TextServices
- * @version v4.0.30319
  */
-class IEnumTfCandidates extends IUnknown{
+class IEnumTfCandidates extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -5,13 +5,10 @@
 
 /**
  * IAccountsSettingsPaneInterop enables interoperability with a WinRT AccountsSettingsPane object and provides access to members to show the accounts pane.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/accountssettingspaneinterop/nn-accountssettingspaneinterop-iaccountssettingspaneinterop
  * @namespace Windows.Win32.System.WinRT
- * @version v4.0.30319
  */
-class IAccountsSettingsPaneInterop extends IInspectable{
+class IAccountsSettingsPaneInterop extends IInspectable {
 
     static sizeof => A_PtrSize
     /**

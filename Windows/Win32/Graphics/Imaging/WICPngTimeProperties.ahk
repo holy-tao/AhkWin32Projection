@@ -5,9 +5,8 @@
  * Specifies the Portable Network Graphics (PNG) tIME chunk metadata properties.
  * @see https://learn.microsoft.com/windows/win32/api/wincodec/ne-wincodec-wicpngtimeproperties
  * @namespace Windows.Win32.Graphics.Imaging
- * @version v4.0.30319
  */
-class WICPngTimeProperties extends Win32Enum{
+class WICPngTimeProperties extends Win32Enum {
 
     /**
      * [VT_UI2] Indicates the year of the last modification.

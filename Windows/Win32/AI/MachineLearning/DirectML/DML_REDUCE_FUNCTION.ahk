@@ -5,9 +5,8 @@
  * Defines constants that specify the specific reduction algorithm to use for the DirectML reduce operator (as described by the DML_REDUCE_OPERATOR_DESC structure).
  * @see https://learn.microsoft.com/windows/win32/api/directml/ne-directml-dml_reduce_function
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
- * @version v4.0.30319
  */
-class DML_REDUCE_FUNCTION extends Win32Enum{
+class DML_REDUCE_FUNCTION extends Win32Enum {
 
     /**
      * Indicates a reduction function that computes the indices of the max elements of the input tensor's elements along the specified axis, int32 {i j k ..} = maxindex(X Y Z …).

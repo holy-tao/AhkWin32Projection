@@ -1,16 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
  * The IUPnPDeviceFinderCallback interface allows the UPnP framework to communicate the results of an asynchronous search to an application.
  * @see https://learn.microsoft.com/windows/win32/api/upnp/nn-upnp-iupnpdevicefindercallback
  * @namespace Windows.Win32.Devices.Enumeration.Pnp
- * @version v4.0.30319
  */
-class IUPnPDeviceFinderCallback extends IUnknown{
+class IUPnPDeviceFinderCallback extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

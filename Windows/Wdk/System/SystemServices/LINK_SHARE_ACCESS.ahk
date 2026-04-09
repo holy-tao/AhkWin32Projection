@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class LINK_SHARE_ACCESS extends Win32Struct
-{
+class LINK_SHARE_ACCESS extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4

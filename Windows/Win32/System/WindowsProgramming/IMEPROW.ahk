@@ -5,11 +5,9 @@
 
 /**
  * @namespace Windows.Win32.System.WindowsProgramming
- * @version v4.0.30319
  * @charset Unicode
  */
-class IMEPROW extends Win32Struct
-{
+class IMEPROW extends Win32Struct {
     static sizeof => 344
 
     static packingSize => 8
@@ -17,7 +15,7 @@ class IMEPROW extends Win32Struct
     /**
      * @type {HWND}
      */
-    hWnd{
+    hWnd {
         get {
             if(!this.HasProp("__hWnd"))
                 this.__hWnd := HWND(0, this)
@@ -28,7 +26,7 @@ class IMEPROW extends Win32Struct
     /**
      * @type {DATETIME}
      */
-    InstDate{
+    InstDate {
         get {
             if(!this.HasProp("__InstDate"))
                 this.__InstDate := DATETIME(8, this)

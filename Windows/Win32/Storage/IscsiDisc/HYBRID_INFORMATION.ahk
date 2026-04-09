@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\NVCACHE_STATUS.ahk
+#Include .\NVCACHE_TYPE.ahk
 #Include .\NVCACHE_PRIORITY_LEVEL_DESCRIPTOR.ahk
 
 /**
  * @namespace Windows.Win32.Storage.IscsiDisc
- * @version v4.0.30319
  */
-class HYBRID_INFORMATION extends Win32Struct
-{
-    static sizeof => 88
+class HYBRID_INFORMATION extends Win32Struct {
+    static sizeof => 96
 
     static packingSize => 8
 
@@ -29,7 +29,7 @@ class HYBRID_INFORMATION extends Win32Struct
             get => NumGet(this, 0, "uint")
             set => NumPut("uint", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -37,7 +37,7 @@ class HYBRID_INFORMATION extends Win32Struct
             get => (this._bitfield >> 0) & 0x1
             set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -45,7 +45,7 @@ class HYBRID_INFORMATION extends Win32Struct
             get => (this._bitfield >> 1) & 0x1
             set => this._bitfield := ((value & 0x1) << 1) | (this._bitfield & ~(0x1 << 1))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -53,7 +53,7 @@ class HYBRID_INFORMATION extends Win32Struct
             get => (this._bitfield >> 2) & 0x1
             set => this._bitfield := ((value & 0x1) << 2) | (this._bitfield & ~(0x1 << 2))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -61,7 +61,7 @@ class HYBRID_INFORMATION extends Win32Struct
             get => (this._bitfield >> 3) & 0x1
             set => this._bitfield := ((value & 0x1) << 3) | (this._bitfield & ~(0x1 << 3))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -69,17 +69,16 @@ class HYBRID_INFORMATION extends Win32Struct
             get => (this._bitfield >> 4) & 0xFFFFFFF
             set => this._bitfield := ((value & 0xFFFFFFF) << 4) | (this._bitfield & ~(0xFFFFFFF << 4))
         }
-    
     }
 
     class _Priorities extends Win32Struct {
-        static sizeof => 40
-        static packingSize => 8
+        static sizeof => 52
+        static packingSize => 4
 
         class _SupportedCommands extends Win32Struct {
             static sizeof => 16
             static packingSize => 4
-    
+
             /**
              * This bitfield backs the following members:
              * - CacheDisable
@@ -94,7 +93,7 @@ class HYBRID_INFORMATION extends Win32Struct
                 get => NumGet(this, 0, "uint")
                 set => NumPut("uint", value, this, 0)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -102,7 +101,7 @@ class HYBRID_INFORMATION extends Win32Struct
                 get => (this._bitfield >> 0) & 0x1
                 set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -110,7 +109,7 @@ class HYBRID_INFORMATION extends Win32Struct
                 get => (this._bitfield >> 1) & 0x1
                 set => this._bitfield := ((value & 0x1) << 1) | (this._bitfield & ~(0x1 << 1))
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -118,7 +117,7 @@ class HYBRID_INFORMATION extends Win32Struct
                 get => (this._bitfield >> 2) & 0x1
                 set => this._bitfield := ((value & 0x1) << 2) | (this._bitfield & ~(0x1 << 2))
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -126,7 +125,7 @@ class HYBRID_INFORMATION extends Win32Struct
                 get => (this._bitfield >> 3) & 0x1
                 set => this._bitfield := ((value & 0x1) << 3) | (this._bitfield & ~(0x1 << 3))
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -134,7 +133,7 @@ class HYBRID_INFORMATION extends Win32Struct
                 get => (this._bitfield >> 4) & 0x1
                 set => this._bitfield := ((value & 0x1) << 4) | (this._bitfield & ~(0x1 << 4))
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -142,7 +141,7 @@ class HYBRID_INFORMATION extends Win32Struct
                 get => (this._bitfield >> 5) & 0x7FFFFFF
                 set => this._bitfield := ((value & 0x7FFFFFF) << 5) | (this._bitfield & ~(0x7FFFFFF << 5))
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -150,7 +149,7 @@ class HYBRID_INFORMATION extends Win32Struct
                 get => NumGet(this, 4, "uint")
                 set => NumPut("uint", value, this, 4)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -158,7 +157,7 @@ class HYBRID_INFORMATION extends Win32Struct
                 get => NumGet(this, 8, "uint")
                 set => NumPut("uint", value, this, 8)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -166,9 +165,8 @@ class HYBRID_INFORMATION extends Win32Struct
                 get => NumGet(this, 12, "uint")
                 set => NumPut("uint", value, this, 12)
             }
-        
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -176,7 +174,7 @@ class HYBRID_INFORMATION extends Win32Struct
             get => NumGet(this, 0, "char")
             set => NumPut("char", value, this, 0)
         }
-    
+
         /**
          * @type {BOOLEAN}
          */
@@ -184,7 +182,7 @@ class HYBRID_INFORMATION extends Win32Struct
             get => NumGet(this, 1, "char")
             set => NumPut("char", value, this, 1)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -192,7 +190,7 @@ class HYBRID_INFORMATION extends Win32Struct
             get => NumGet(this, 2, "char")
             set => NumPut("char", value, this, 2)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -200,7 +198,7 @@ class HYBRID_INFORMATION extends Win32Struct
             get => NumGet(this, 3, "char")
             set => NumPut("char", value, this, 3)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -208,7 +206,7 @@ class HYBRID_INFORMATION extends Win32Struct
             get => NumGet(this, 4, "uint")
             set => NumPut("uint", value, this, 4)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -216,29 +214,28 @@ class HYBRID_INFORMATION extends Win32Struct
             get => NumGet(this, 8, "uint")
             set => NumPut("uint", value, this, 8)
         }
-    
+
         /**
          * @type {_SupportedCommands}
          */
-        SupportedCommands{
+        SupportedCommands {
             get {
                 if(!this.HasProp("__SupportedCommands"))
-                    this.__SupportedCommands := %this.__Class%._SupportedCommands(12, this)
+                    this.__SupportedCommands := HYBRID_INFORMATION._Priorities._SupportedCommands(12, this)
                 return this.__SupportedCommands
             }
         }
-    
+
         /**
-         * @type {Array<NVCACHE_PRIORITY_LEVEL_DESCRIPTOR>}
+         * @type {NVCACHE_PRIORITY_LEVEL_DESCRIPTOR}
          */
-        Priority{
+        Priority {
             get {
                 if(!this.HasProp("__PriorityProxyArray"))
-                    this.__PriorityProxyArray := Win32FixedArray(this.ptr + 32, 1, NVCACHE_PRIORITY_LEVEL_DESCRIPTOR, "")
+                    this.__PriorityProxyArray := Win32FixedArray(this.ptr + 28, 1, NVCACHE_PRIORITY_LEVEL_DESCRIPTOR, "")
                 return this.__PriorityProxyArray
             }
         }
-    
     }
 
     /**
@@ -266,7 +263,7 @@ class HYBRID_INFORMATION extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {NVCACHE_STATUS}
      */
     Status {
         get => NumGet(this, 12, "int")
@@ -274,7 +271,7 @@ class HYBRID_INFORMATION extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {NVCACHE_TYPE}
      */
     CacheTypeEffective {
         get => NumGet(this, 16, "int")
@@ -282,7 +279,7 @@ class HYBRID_INFORMATION extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {NVCACHE_TYPE}
      */
     CacheTypeDefault {
         get => NumGet(this, 20, "int")
@@ -308,10 +305,10 @@ class HYBRID_INFORMATION extends Win32Struct
     /**
      * @type {_Attributes}
      */
-    Attributes{
+    Attributes {
         get {
             if(!this.HasProp("__Attributes"))
-                this.__Attributes := %this.__Class%._Attributes(40, this)
+                this.__Attributes := HYBRID_INFORMATION._Attributes(40, this)
             return this.__Attributes
         }
     }
@@ -319,10 +316,10 @@ class HYBRID_INFORMATION extends Win32Struct
     /**
      * @type {_Priorities}
      */
-    Priorities{
+    Priorities {
         get {
             if(!this.HasProp("__Priorities"))
-                this.__Priorities := %this.__Class%._Priorities(48, this)
+                this.__Priorities := HYBRID_INFORMATION._Priorities(44, this)
             return this.__Priorities
         }
     }

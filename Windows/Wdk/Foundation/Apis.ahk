@@ -4,7 +4,6 @@
 
 /**
  * @namespace Windows.Wdk.Foundation
- * @version v4.0.30319
  */
 class Foundation {
 
@@ -185,9 +184,9 @@ class Foundation {
      * ```
      * 
      * The only available member of this structure is the object-type name string (<b>TypeName</b>).
-     * @param {HANDLE} _Handle 
-     * @param {Integer} ObjectInformationClass 
-     * @param {Pointer} ObjectInformation An optional pointer to a buffer where the requested information is to be returned. The size and structure of this information varies depending on the value of the <i>ObjectInformationClass</i> parameter.
+     * @param {HANDLE} _Handle The handle of the object for which information is being queried.
+     * @param {OBJECT_INFORMATION_CLASS} ObjectInformationClass 
+     * @param {Integer} ObjectInformation An optional pointer to a buffer where the requested information is to be returned. The size and structure of this information varies depending on the value of the <i>ObjectInformationClass</i> parameter.
      * @param {Integer} ObjectInformationLength The size of the buffer pointed to by the <i>ObjectInformation</i> parameter, in bytes.
      * @param {Pointer<Integer>} ReturnLength An optional pointer to a location where the function writes the actual size of the information requested. If that size is less than or equal to the <i>ObjectInformationLength</i> parameter, the function copies the information into the <i>ObjectInformation</i> buffer; otherwise, it returns an NTSTATUS error code and returns in <i>ReturnLength</i> the size of the buffer required to receive the requested information.
      * @returns {NTSTATUS} Returns an NTSTATUS or error code.
@@ -230,7 +229,7 @@ class Foundation {
      * <li>Thread </li>
      * </ul>
      * Because there is no import library for this function, you must use <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-getprocaddress">GetProcAddress</a>.
-     * @param {HANDLE} _Handle 
+     * @param {HANDLE} _Handle The handle being closed.
      * @returns {NTSTATUS} The various NTSTATUS values are defined in NTSTATUS.H, which is distributed with the Windows DDK.
      * 
      * <table>

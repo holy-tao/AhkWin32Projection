@@ -11,9 +11,8 @@
  * Unlike what happens when aggregating the Free Threaded Marshaler (FTM), implementing the <b>IAgileObject</b> interface doesn't affect what happens when marshaling a call. Instead, the <b>IAgileObject</b> interface is recognized by the Global Interface Table (GIT). When an object that implements the <b>IAgileObject</b> interface is placed in the GIT and localized to another apartment, the object is called directly in the new apartment, rather than marshaling.
  * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nn-objidlbase-iagileobject
  * @namespace Windows.Win32.System.Com
- * @version v4.0.30319
  */
-class IAgileObject extends IUnknown{
+class IAgileObject extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

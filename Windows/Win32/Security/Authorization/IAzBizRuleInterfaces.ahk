@@ -1,16 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * Provides methods and properties used to manage a list of IDispatch interfaces that can be called by business rule (BizRule) scripts.
  * @see https://learn.microsoft.com/windows/win32/api/azroles/nn-azroles-iazbizruleinterfaces
  * @namespace Windows.Win32.Security.Authorization
- * @version v4.0.30319
  */
-class IAzBizRuleInterfaces extends IDispatch{
+class IAzBizRuleInterfaces extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

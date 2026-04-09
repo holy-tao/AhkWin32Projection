@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Media.Speech
- * @version v4.0.30319
  */
-class ISpGramCompBackend extends ISpGrammarBuilder{
+class ISpGramCompBackend extends ISpGrammarBuilder {
 
     static sizeof => A_PtrSize
     /**

@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\Com\IDispatch.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * @namespace Windows.Win32.System.Wmi
- * @version v4.0.30319
  */
-class ISWbemPrivilege extends IDispatch{
+class ISWbemPrivilege extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -58,7 +57,7 @@ class ISWbemPrivilege extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {WbemPrivilegeEnum} 
      */
     Identifier {
         get => this.get_Identifier()
@@ -105,7 +104,7 @@ class ISWbemPrivilege extends IDispatch{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {WbemPrivilegeEnum} 
      */
     get_Identifier() {
         result := ComCall(11, this, "int*", &iPrivilege := 0, "HRESULT")

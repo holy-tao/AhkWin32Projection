@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\DML_TENSOR_DESC.ahk
+#Include .\DML_OPERATOR_DESC.ahk
 
 /**
  * Performs a mean variance normalization function on the input tensor. This operator will calculate the mean and variance of the input tensor to perform normalization. (DML_MEAN_VARIANCE_NORMALIZATION_OPERATOR_DESC)
@@ -7,10 +9,8 @@
  * A newer version of this operator, [DML_MEAN_VARIANCE_NORMALIZATION1_OPERATOR_DESC](/windows/win32/api/directml/ns-directml-dml_mean_variance_normalization1_operator_desc), was introduced in `DML_FEATURE_LEVEL_2_1`.
  * @see https://learn.microsoft.com/windows/win32/api/directml/ns-directml-dml_mean_variance_normalization_operator_desc
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
- * @version v4.0.30319
  */
-class DML_MEAN_VARIANCE_NORMALIZATION_OPERATOR_DESC extends Win32Struct
-{
+class DML_MEAN_VARIANCE_NORMALIZATION_OPERATOR_DESC extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8

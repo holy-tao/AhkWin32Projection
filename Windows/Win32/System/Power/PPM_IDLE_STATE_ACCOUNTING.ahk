@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Power
- * @version v4.0.30319
  */
-class PPM_IDLE_STATE_ACCOUNTING extends Win32Struct
-{
+class PPM_IDLE_STATE_ACCOUNTING extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -44,9 +42,9 @@ class PPM_IDLE_STATE_ACCOUNTING extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    IdleTimeBuckets{
+    IdleTimeBuckets {
         get {
             if(!this.HasProp("__IdleTimeBucketsProxyArray"))
                 this.__IdleTimeBucketsProxyArray := Win32FixedArray(this.ptr + 24, 6, Primitive, "uint")

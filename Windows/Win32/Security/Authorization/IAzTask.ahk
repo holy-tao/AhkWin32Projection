@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * Describes a set of operations.
  * @see https://learn.microsoft.com/windows/win32/api/azroles/nn-azroles-iaztask
  * @namespace Windows.Win32.Security.Authorization
- * @version v4.0.30319
  */
-class IAzTask extends IDispatch{
+class IAzTask extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

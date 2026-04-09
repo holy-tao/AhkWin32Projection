@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Graphics.Gdi
- * @version v4.0.30319
  */
-class FONT_PITCH extends Win32Enum{
+class FONT_PITCH extends Win32Enum {
 
     /**
      * @type {Integer (Byte)}

@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\DML_TENSOR_DESC.ahk
 
 /**
  * Reverses the elements of one or more *subsequences* of a tensor. The set of subsequences to be reversed is chosen based on the provided axis and sequence lengths.
  * @see https://learn.microsoft.com/windows/win32/api/directml/ns-directml-dml_reverse_subsequences_desc
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
- * @version v4.0.30319
  */
-class DML_REVERSE_SUBSEQUENCES_OPERATOR_DESC extends Win32Struct
-{
+class DML_REVERSE_SUBSEQUENCES_OPERATOR_DESC extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8

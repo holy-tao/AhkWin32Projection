@@ -3,10 +3,9 @@
 
 /**
  * @namespace Windows.Win32.System.Kernel
- * @version v4.0.30319
+ * @architecture X64, Arm64
  */
-class FLOATING_SAVE_AREA extends Win32Struct
-{
+class FLOATING_SAVE_AREA extends Win32Struct {
     static sizeof => 112
 
     static packingSize => 4
@@ -68,9 +67,9 @@ class FLOATING_SAVE_AREA extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    RegisterArea{
+    RegisterArea {
         get {
             if(!this.HasProp("__RegisterAreaProxyArray"))
                 this.__RegisterAreaProxyArray := Win32FixedArray(this.ptr + 28, 80, Primitive, "char")

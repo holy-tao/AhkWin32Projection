@@ -7,9 +7,8 @@
  * Provides methods for registering and unregistering component category information in the registry. This includes both the human-readable names of categories and the categories implemented/required by a given component or class.
  * @see https://learn.microsoft.com/windows/win32/api/comcat/nn-comcat-icatregister
  * @namespace Windows.Win32.System.Com
- * @version v4.0.30319
  */
-class ICatRegister extends IUnknown{
+class ICatRegister extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

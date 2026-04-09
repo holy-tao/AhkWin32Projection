@@ -7,10 +7,8 @@
  * The MPEG_DATE_AND_TIME structure specifies a date and time.
  * @see https://learn.microsoft.com/windows/win32/api/mpeg2structs/ns-mpeg2structs-mpeg_date_and_time
  * @namespace Windows.Win32.Media.DirectShow.Tv
- * @version v4.0.30319
  */
-class MPEG_DATE_AND_TIME extends Win32Struct
-{
+class MPEG_DATE_AND_TIME extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 2
@@ -19,7 +17,7 @@ class MPEG_DATE_AND_TIME extends Win32Struct
      * Specifies the date, as an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/mpeg2structs/ns-mpeg2structs-mpeg_date">MPEG_DATE</a> structure.
      * @type {MPEG_DATE}
      */
-    D{
+    D {
         get {
             if(!this.HasProp("__D"))
                 this.__D := MPEG_DATE(0, this)
@@ -31,7 +29,7 @@ class MPEG_DATE_AND_TIME extends Win32Struct
      * Specifies the time, as an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/mpeg2structs/ns-mpeg2structs-mpeg_time">MPEG_TIME</a> structure.
      * @type {MPEG_TIME}
      */
-    T{
+    T {
         get {
             if(!this.HasProp("__T"))
                 this.__T := MPEG_TIME(4, this)

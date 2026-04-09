@@ -7,9 +7,8 @@
  * Defines methods that get data from a Digital Video Broadcast (DVB) linkage descriptor.
  * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nn-dvbsiparser-idvblinkagedescriptor
  * @namespace Windows.Win32.Media.DirectShow.Tv
- * @version v4.0.30319
  */
-class IDvbLinkageDescriptor extends IUnknown{
+class IDvbLinkageDescriptor extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

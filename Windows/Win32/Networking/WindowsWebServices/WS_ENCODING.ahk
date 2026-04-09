@@ -5,9 +5,8 @@
  * The different encodings (message formats).
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ne-webservices-ws_encoding
  * @namespace Windows.Win32.Networking.WindowsWebServices
- * @version v4.0.30319
  */
-class WS_ENCODING extends Win32Enum{
+class WS_ENCODING extends Win32Enum {
 
     /**
      * The binary XML encoding.
@@ -145,7 +144,6 @@ class WS_ENCODING extends Win32Enum{
     static WS_ENCODING_XML_UTF16LE => 7
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static WS_ENCODING_RAW => 8

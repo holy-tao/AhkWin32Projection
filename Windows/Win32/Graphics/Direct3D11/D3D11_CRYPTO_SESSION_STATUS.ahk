@@ -5,9 +5,8 @@
  * Represents the status of an ID3D11CryptoSession interface.
  * @see https://learn.microsoft.com/windows/win32/api/d3d11_1/ne-d3d11_1-d3d11_crypto_session_status
  * @namespace Windows.Win32.Graphics.Direct3D11
- * @version v4.0.30319
  */
-class D3D11_CRYPTO_SESSION_STATUS extends Win32Enum{
+class D3D11_CRYPTO_SESSION_STATUS extends Win32Enum {
 
     /**
      * The <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nn-d3d11-id3d11cryptosession">ID3D11CryptoSession</a> is in a functional state.

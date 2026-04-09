@@ -11,9 +11,8 @@
  * Similarly, a device that supports de-interlacing is not required to support deinterlacing of palettized formats. This capability is indicated by the <b>DXVAHD_INPUT_FORMAT_CAPS_PALETTE_INTERLACED</b> flag.
  * @see https://learn.microsoft.com/windows/win32/api/dxvahd/ne-dxvahd-dxvahd_input_format_caps
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class DXVAHD_INPUT_FORMAT_CAPS extends Win32Enum{
+class DXVAHD_INPUT_FORMAT_CAPS extends Win32Enum {
 
     /**
      * The device can deinterlace an input stream that contains interlaced RGB video.

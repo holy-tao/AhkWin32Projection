@@ -7,10 +7,8 @@
  * The Terminal Services user configuration information is received from the Domain Controller and SAM database.
  * @see https://learn.microsoft.com/windows/win32/api/winwlx/ns-winwlx-wlx_terminal_services_data
  * @namespace Windows.Win32.Security.WinWlx
- * @version v4.0.30319
  */
-class WLX_TERMINAL_SERVICES_DATA extends Win32Struct
-{
+class WLX_TERMINAL_SERVICES_DATA extends Win32Struct {
     static sizeof => 1036
 
     static packingSize => 2

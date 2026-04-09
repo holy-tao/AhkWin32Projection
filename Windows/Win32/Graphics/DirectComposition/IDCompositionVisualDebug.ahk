@@ -7,9 +7,8 @@
  * Represents a debug visual.
  * @see https://learn.microsoft.com/windows/win32/api/dcomp/nn-dcomp-idcompositionvisualdebug
  * @namespace Windows.Win32.Graphics.DirectComposition
- * @version v4.0.30319
  */
-class IDCompositionVisualDebug extends IDCompositionVisual2{
+class IDCompositionVisualDebug extends IDCompositionVisual2 {
 
     static sizeof => A_PtrSize
     /**

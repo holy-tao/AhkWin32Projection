@@ -11,10 +11,8 @@
  * ```cpp
  * @see https://learn.microsoft.com/windows/win32/api/dbghelp/ns-dbghelp-imagehlp_line64
  * @namespace Windows.Win32.System.Diagnostics.Debug
- * @version v4.0.30319
  */
-class IMAGEHLP_LINE64 extends Win32Struct
-{
+class IMAGEHLP_LINE64 extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8

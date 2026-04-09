@@ -9,9 +9,8 @@
  * A player-hook callback can be assigned in the reader object to enable per-sample processing when using DirectX Video Acceleration.
  * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nn-wmsdkidl-iwmreaderadvanced5
  * @namespace Windows.Win32.Media.WindowsMediaFormat
- * @version v4.0.30319
  */
-class IWMReaderAdvanced5 extends IWMReaderAdvanced4{
+class IWMReaderAdvanced5 extends IWMReaderAdvanced4 {
 
     static sizeof => A_PtrSize
     /**

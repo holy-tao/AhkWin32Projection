@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.Dvd
- * @version v4.0.30319
  */
-class DVD_FULL_LAYER_DESCRIPTOR extends Win32Struct
-{
+class DVD_FULL_LAYER_DESCRIPTOR extends Win32Struct {
     static sizeof => 2052
 
     static packingSize => 4
@@ -15,7 +13,7 @@ class DVD_FULL_LAYER_DESCRIPTOR extends Win32Struct
     /**
      * @type {DVD_LAYER_DESCRIPTOR}
      */
-    commonHeader{
+    commonHeader {
         get {
             if(!this.HasProp("__commonHeader"))
                 this.__commonHeader := DVD_LAYER_DESCRIPTOR(0, this)
@@ -24,9 +22,9 @@ class DVD_FULL_LAYER_DESCRIPTOR extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    MediaSpecific{
+    MediaSpecific {
         get {
             if(!this.HasProp("__MediaSpecificProxyArray"))
                 this.__MediaSpecificProxyArray := Win32FixedArray(this.ptr + 20, 2031, Primitive, "char")

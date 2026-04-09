@@ -9,9 +9,8 @@
  * To start preview, call <a href="https://docs.microsoft.com/windows/desktop/api/mfcaptureengine/nf-mfcaptureengine-imfcaptureengine-startpreview">IMFCaptureEngine::StartPreview</a>.
  * @see https://learn.microsoft.com/windows/win32/api/mfcaptureengine/nn-mfcaptureengine-imfcapturepreviewsink
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFCapturePreviewSink extends IMFCaptureSink{
+class IMFCapturePreviewSink extends IMFCaptureSink {
 
     static sizeof => A_PtrSize
     /**
@@ -36,7 +35,7 @@ class IMFCapturePreviewSink extends IMFCaptureSink{
      * Specifies a window for preview.
      * @remarks
      * Calling this method overrides any previous call to <a href="https://docs.microsoft.com/windows/desktop/api/mfcaptureengine/nf-mfcaptureengine-imfcapturepreviewsink-setsamplecallback">IMFCapturePreviewSink::SetSampleCallback</a>.
-     * @param {HANDLE} _handle 
+     * @param {HANDLE} _handle A handle to the window. The preview sink draws the video frames inside this window.
      * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/mfcaptureengine/nf-mfcaptureengine-imfcapturepreviewsink-setrenderhandle
      */

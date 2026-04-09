@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Media.Speech
- * @version v4.0.30319
  */
-class ISpLexicon extends IUnknown{
+class ISpLexicon extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -53,7 +52,7 @@ class ISpLexicon extends IUnknown{
      * 
      * @param {PWSTR} pszWord 
      * @param {Integer} LangID 
-     * @param {Integer} ePartOfSpeech 
+     * @param {SPPARTOFSPEECH} ePartOfSpeech 
      * @param {Pointer<Integer>} pszPronunciation 
      * @returns {HRESULT} 
      */
@@ -70,7 +69,7 @@ class ISpLexicon extends IUnknown{
      * 
      * @param {PWSTR} pszWord 
      * @param {Integer} LangID 
-     * @param {Integer} ePartOfSpeech 
+     * @param {SPPARTOFSPEECH} ePartOfSpeech 
      * @param {Pointer<Integer>} pszPronunciation 
      * @returns {HRESULT} 
      */

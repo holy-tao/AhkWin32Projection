@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\FILESETINFO.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\FILESETINFO.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * Use the IBackgroundCopyJob1 interface to add files to the job and retrieve the job's status.
  * @see https://learn.microsoft.com/windows/win32/api/qmgr/nn-qmgr-ibackgroundcopyjob1
  * @namespace Windows.Win32.Networking.BackgroundIntelligentTransferService
- * @version v4.0.30319
  */
-class IBackgroundCopyJob1 extends IUnknown{
+class IBackgroundCopyJob1 extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

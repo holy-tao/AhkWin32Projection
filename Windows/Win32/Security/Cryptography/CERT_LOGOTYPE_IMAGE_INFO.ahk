@@ -1,21 +1,20 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\CERT_LOGOTYPE_IMAGE_INFO_TYPE.ahk
+#Include .\CERT_LOGOTYPE_CHOICE.ahk
 
 /**
  * Contains more detailed information about an image logotype.
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cert_logotype_image_info
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CERT_LOGOTYPE_IMAGE_INFO extends Win32Struct
-{
+class CERT_LOGOTYPE_IMAGE_INFO extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
 
     /**
-     * 
-     * @type {Integer}
+     * @type {CERT_LOGOTYPE_IMAGE_INFO_TYPE}
      */
     dwLogotypeImageInfoChoice {
         get => NumGet(this, 0, "uint")
@@ -50,8 +49,7 @@ class CERT_LOGOTYPE_IMAGE_INFO extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Integer}
+     * @type {CERT_LOGOTYPE_CHOICE}
      */
     dwLogotypeImageResolutionChoice {
         get => NumGet(this, 16, "uint")

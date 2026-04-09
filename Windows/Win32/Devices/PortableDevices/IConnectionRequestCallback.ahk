@@ -7,9 +7,8 @@
  * Defines a single callback method.
  * @see https://learn.microsoft.com/windows/win32/wpd_sdk/iconnectionrequestcallback
  * @namespace Windows.Win32.Devices.PortableDevices
- * @version v4.0.30319
  */
-class IConnectionRequestCallback extends IUnknown{
+class IConnectionRequestCallback extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

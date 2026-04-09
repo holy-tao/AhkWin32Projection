@@ -5,9 +5,8 @@
  * The CLUSTER_CHANGE_GROUPSET_V2 enumeration (msclus.h) defines the list of notifications that are generated for a groupset.
  * @see https://learn.microsoft.com/windows/win32/api/msclus/ne-msclus-cluster_change_groupset_v2
  * @namespace Windows.Win32.Networking.Clustering
- * @version v4.0.30319
  */
-class CLUSTER_CHANGE_GROUPSET_V2 extends Win32Enum{
+class CLUSTER_CHANGE_GROUPSET_V2 extends Win32Enum {
 
     /**
      * Indicates that a groupset was deleted.
@@ -64,7 +63,6 @@ class CLUSTER_CHANGE_GROUPSET_V2 extends Win32Enum{
     static CLUSTER_CHANGE_GROUPSET_HANDLE_CLOSE_v2 => 256
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static CLUSTER_CHANGE_GROUPSET_ALL_V2 => 511

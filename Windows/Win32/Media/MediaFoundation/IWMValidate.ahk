@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IWMValidate extends IUnknown{
+class IWMValidate extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

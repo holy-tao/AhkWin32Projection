@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IRTCProfile2.ahk
 #Include .\IRTCWatcher.ahk
+#Include .\IRTCProfile2.ahk
 
 /**
  * @namespace Windows.Win32.System.RealTimeCommunications
- * @version v4.0.30319
  */
-class IRTCWatcher2 extends IRTCWatcher{
+class IRTCWatcher2 extends IRTCWatcher {
 
     static sizeof => A_PtrSize
     /**
@@ -37,7 +36,7 @@ class IRTCWatcher2 extends IRTCWatcher{
     }
 
     /**
-     * @type {Integer} 
+     * @type {RTC_ACE_SCOPE} 
      */
     Scope {
         get => this.get_Scope()
@@ -54,7 +53,7 @@ class IRTCWatcher2 extends IRTCWatcher{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {RTC_ACE_SCOPE} 
      */
     get_Scope() {
         result := ComCall(14, this, "int*", &penScope := 0, "HRESULT")

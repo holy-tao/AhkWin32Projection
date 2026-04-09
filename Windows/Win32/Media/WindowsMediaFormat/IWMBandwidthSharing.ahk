@@ -2,14 +2,14 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\IWMStreamList.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * The IWMBandwidthSharing interface contains methods to manage the properties of combined streams.The list of streams that share bandwidth is stored in the bandwidth sharing object.
  * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nn-wmsdkidl-iwmbandwidthsharing
  * @namespace Windows.Win32.Media.WindowsMediaFormat
- * @version v4.0.30319
  */
-class IWMBandwidthSharing extends IWMStreamList{
+class IWMBandwidthSharing extends IWMStreamList {
 
     static sizeof => A_PtrSize
     /**

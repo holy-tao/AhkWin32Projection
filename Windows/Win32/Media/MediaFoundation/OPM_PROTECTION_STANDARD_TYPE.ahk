@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class OPM_PROTECTION_STANDARD_TYPE extends Win32Enum{
+class OPM_PROTECTION_STANDARD_TYPE extends Win32Enum {
 
     /**
      * @type {Integer (UInt32)}

@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\JOB_OBJECT_LIMIT.ahk
+#Include .\JOBOBJECT_RATE_CONTROL_TOLERANCE.ahk
 
 /**
  * Contains extended information about resource notification limits that have been exceeded for a job object. This structure is used with the QueryInformationJobObject function with the JobObjectLimitViolationInformation2 information class.
@@ -9,17 +11,14 @@
  * To retrieve information about the limits that were exceeded, the application monitoring the I/O completion port must call the <a href="https://docs.microsoft.com/windows/desktop/api/jobapi2/nf-jobapi2-queryinformationjobobject">QueryInformationJobObject</a> function with the <b>JobObjectLimitViolationInformation2</b> information class and a pointer to a <b>JOBOBJECT_LIMIT_VIOLATION_INFORMATION_2</b> structure.
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-jobobject_limit_violation_information_2
  * @namespace Windows.Win32.System.JobObjects
- * @version v4.0.30319
  */
-class JOBOBJECT_LIMIT_VIOLATION_INFORMATION_2 extends Win32Struct
-{
+class JOBOBJECT_LIMIT_VIOLATION_INFORMATION_2 extends Win32Struct {
     static sizeof => 104
 
     static packingSize => 8
 
     /**
-     * 
-     * @type {Integer}
+     * @type {JOB_OBJECT_LIMIT}
      */
     LimitFlags {
         get => NumGet(this, 0, "uint")
@@ -27,8 +26,7 @@ class JOBOBJECT_LIMIT_VIOLATION_INFORMATION_2 extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Integer}
+     * @type {JOB_OBJECT_LIMIT}
      */
     ViolationLimitFlags {
         get => NumGet(this, 4, "uint")
@@ -115,7 +113,7 @@ class JOBOBJECT_LIMIT_VIOLATION_INFORMATION_2 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {JOBOBJECT_RATE_CONTROL_TOLERANCE}
      */
     RateControlTolerance {
         get => NumGet(this, 72, "int")
@@ -123,7 +121,7 @@ class JOBOBJECT_LIMIT_VIOLATION_INFORMATION_2 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {JOBOBJECT_RATE_CONTROL_TOLERANCE}
      */
     CpuRateControlTolerance {
         get => NumGet(this, 72, "int")
@@ -131,7 +129,7 @@ class JOBOBJECT_LIMIT_VIOLATION_INFORMATION_2 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {JOBOBJECT_RATE_CONTROL_TOLERANCE}
      */
     RateControlToleranceLimit {
         get => NumGet(this, 76, "int")
@@ -139,7 +137,7 @@ class JOBOBJECT_LIMIT_VIOLATION_INFORMATION_2 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {JOBOBJECT_RATE_CONTROL_TOLERANCE}
      */
     CpuRateControlToleranceLimit {
         get => NumGet(this, 76, "int")
@@ -156,8 +154,7 @@ class JOBOBJECT_LIMIT_VIOLATION_INFORMATION_2 extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Integer}
+     * @type {JOBOBJECT_RATE_CONTROL_TOLERANCE}
      */
     IoRateControlTolerance {
         get => NumGet(this, 88, "int")
@@ -206,7 +203,7 @@ class JOBOBJECT_LIMIT_VIOLATION_INFORMATION_2 extends Win32Struct
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
+     * @type {JOBOBJECT_RATE_CONTROL_TOLERANCE}
      */
     IoRateControlToleranceLimit {
         get => NumGet(this, 92, "int")
@@ -214,8 +211,7 @@ class JOBOBJECT_LIMIT_VIOLATION_INFORMATION_2 extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Integer}
+     * @type {JOBOBJECT_RATE_CONTROL_TOLERANCE}
      */
     NetRateControlTolerance {
         get => NumGet(this, 96, "int")
@@ -264,7 +260,7 @@ class JOBOBJECT_LIMIT_VIOLATION_INFORMATION_2 extends Win32Struct
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
+     * @type {JOBOBJECT_RATE_CONTROL_TOLERANCE}
      */
     NetRateControlToleranceLimit {
         get => NumGet(this, 100, "int")

@@ -1,15 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 #Include .\ISdoMachine.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.NetworkPolicyServer
- * @version v4.0.30319
  */
-class ISdoMachine2 extends ISdoMachine{
+class ISdoMachine2 extends ISdoMachine {
 
     static sizeof => A_PtrSize
     /**

@@ -10,9 +10,8 @@
  * Implement this interface for an <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellfolder">IShellFolder</a> implementation to update the provided child <a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ns-shtypes-itemidlist">ITEMIDLIST</a>.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-iupdateidlist
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IUpdateIDList extends IUnknown{
+class IUpdateIDList extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

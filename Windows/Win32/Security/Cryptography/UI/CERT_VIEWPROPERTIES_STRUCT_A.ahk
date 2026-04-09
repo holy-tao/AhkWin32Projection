@@ -2,6 +2,10 @@
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include ..\..\..\Foundation\HWND.ahk
 #Include ..\..\..\Foundation\HINSTANCE.ahk
+#Include .\CERT_VIEWPROPERTIES_STRUCT_FLAGS.ahk
+#Include ..\CERT_CONTEXT.ahk
+#Include ..\HCERTSTORE.ahk
+#Include ..\..\..\UI\Controls\PROPSHEETPAGEA.ahk
 
 /**
  * The CERT_VIEWPROPERTIES_STRUCT structure defines information used when the CertViewProperties function is called to display a certificate's properties. (ANSI)
@@ -10,11 +14,9 @@
  * > The cryptdlg.h header defines CERT_VIEWPROPERTIES_STRUCT as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
  * @see https://learn.microsoft.com/windows/win32/api/cryptdlg/ns-cryptdlg-cert_viewproperties_struct_a
  * @namespace Windows.Win32.Security.Cryptography.UI
- * @version v4.0.30319
  * @charset ANSI
  */
-class CERT_VIEWPROPERTIES_STRUCT_A extends Win32Struct
-{
+class CERT_VIEWPROPERTIES_STRUCT_A extends Win32Struct {
     static sizeof => 160
 
     static packingSize => 8
@@ -32,7 +34,7 @@ class CERT_VIEWPROPERTIES_STRUCT_A extends Win32Struct
      * A handle to the parent window.
      * @type {HWND}
      */
-    hwndParent{
+    hwndParent {
         get {
             if(!this.HasProp("__hwndParent"))
                 this.__hwndParent := HWND(8, this)
@@ -44,7 +46,7 @@ class CERT_VIEWPROPERTIES_STRUCT_A extends Win32Struct
      * A handle to the module instance.
      * @type {HINSTANCE}
      */
-    hInstance{
+    hInstance {
         get {
             if(!this.HasProp("__hInstance"))
                 this.__hInstance := HINSTANCE(16, this)
@@ -53,8 +55,7 @@ class CERT_VIEWPROPERTIES_STRUCT_A extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Integer}
+     * @type {CERT_VIEWPROPERTIES_STRUCT_FLAGS}
      */
     dwFlags {
         get => NumGet(this, 24, "uint")

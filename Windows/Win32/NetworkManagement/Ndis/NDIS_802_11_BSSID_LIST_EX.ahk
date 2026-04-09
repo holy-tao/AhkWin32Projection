@@ -1,19 +1,19 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\NDIS_802_11_SSID.ahk
-#Include .\NDIS_802_11_CONFIGURATION_FH.ahk
-#Include .\NDIS_802_11_CONFIGURATION.ahk
 #Include .\NDIS_WLAN_BSSID_EX.ahk
+#Include .\NDIS_802_11_SSID.ahk
+#Include .\NDIS_802_11_NETWORK_TYPE.ahk
+#Include .\NDIS_802_11_CONFIGURATION.ahk
+#Include .\NDIS_802_11_CONFIGURATION_FH.ahk
+#Include .\NDIS_802_11_NETWORK_INFRASTRUCTURE.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Ndis
- * @version v4.0.30319
  */
-class NDIS_802_11_BSSID_LIST_EX extends Win32Struct
-{
-    static sizeof => 16
+class NDIS_802_11_BSSID_LIST_EX extends Win32Struct {
+    static sizeof => 124
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}
@@ -24,12 +24,12 @@ class NDIS_802_11_BSSID_LIST_EX extends Win32Struct
     }
 
     /**
-     * @type {Array<NDIS_WLAN_BSSID_EX>}
+     * @type {NDIS_WLAN_BSSID_EX}
      */
-    Bssid{
+    Bssid {
         get {
             if(!this.HasProp("__BssidProxyArray"))
-                this.__BssidProxyArray := Win32FixedArray(this.ptr + 8, 1, NDIS_WLAN_BSSID_EX, "")
+                this.__BssidProxyArray := Win32FixedArray(this.ptr + 4, 1, NDIS_WLAN_BSSID_EX, "")
             return this.__BssidProxyArray
         }
     }

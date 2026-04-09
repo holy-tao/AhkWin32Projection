@@ -9,9 +9,8 @@
  * Typically, <b>IRequestFilteredSync</b> is implemented by a destination provider.
  * @see https://learn.microsoft.com/windows/win32/api/winsync/nn-winsync-irequestfilteredsync
  * @namespace Windows.Win32.System.WindowsSync
- * @version v4.0.30319
  */
-class IRequestFilteredSync extends IUnknown{
+class IRequestFilteredSync extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

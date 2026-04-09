@@ -7,10 +7,8 @@
  * When used, this structure lies below the <a href="https://docs.microsoft.com/windows/desktop/api/winddi/ns-winddi-ifimetrics">IFIMETRICS</a> structure in memory.
  * @see https://learn.microsoft.com/windows/win32/api/winddi/ns-winddi-ifiextra
  * @namespace Windows.Win32.Devices.Display
- * @version v4.0.30319
  */
-class IFIEXTRA extends Win32Struct
-{
+class IFIEXTRA extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 4
@@ -66,9 +64,9 @@ class IFIEXTRA extends Win32Struct
 
     /**
      * Is reserved and should be ignored by the driver.
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    aulReserved{
+    aulReserved {
         get {
             if(!this.HasProp("__aulReservedProxyArray"))
                 this.__aulReservedProxyArray := Win32FixedArray(this.ptr + 20, 1, Primitive, "uint")

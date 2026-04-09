@@ -6,13 +6,11 @@
  * The GLYPHSET structure contains information about a range of Unicode code points.
  * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-glyphset
  * @namespace Windows.Win32.Graphics.Gdi
- * @version v4.0.30319
  */
-class GLYPHSET extends Win32Struct
-{
-    static sizeof => 24
+class GLYPHSET extends Win32Struct {
+    static sizeof => 20
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * The size, in bytes, of this structure.
@@ -63,9 +61,9 @@ class GLYPHSET extends Win32Struct
 
     /**
      * Array of Unicode ranges that are supported in the font.
-     * @type {Array<WCRANGE>}
+     * @type {WCRANGE}
      */
-    ranges{
+    ranges {
         get {
             if(!this.HasProp("__rangesProxyArray"))
                 this.__rangesProxyArray := Win32FixedArray(this.ptr + 16, 1, WCRANGE, "")

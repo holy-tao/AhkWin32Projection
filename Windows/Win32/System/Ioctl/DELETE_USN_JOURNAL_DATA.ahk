@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\USN_DELETE_FLAGS.ahk
 
 /**
  * Contains information on the deletion of an update sequence number (USN) change journal using the FSCTL_DELETE_USN_JOURNAL control code.
@@ -8,10 +9,8 @@
  * <a href="https://docs.microsoft.com/windows/desktop/FileIO/creating-modifying-and-deleting-a-change-journal">Creating, Modifying, and Deleting a Change Journal</a>.
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-delete_usn_journal_data
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class DELETE_USN_JOURNAL_DATA extends Win32Struct
-{
+class DELETE_USN_JOURNAL_DATA extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
@@ -35,8 +34,7 @@ class DELETE_USN_JOURNAL_DATA extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Integer}
+     * @type {USN_DELETE_FLAGS}
      */
     DeleteFlags {
         get => NumGet(this, 8, "uint")

@@ -12,10 +12,8 @@
  * Windows 10 (XAudio2.9); Windows 8, Windows Phone 8 (XAudio 2.8); DirectX SDK (XAudio 2.7)
  * @see https://learn.microsoft.com/windows/win32/api/xapofx/ns-xapofx-fxeq_parameters
  * @namespace Windows.Win32.Media.Audio.XAudio2
- * @version v4.0.30319
  */
-class FXEQ_PARAMETERS extends Win32Struct
-{
+class FXEQ_PARAMETERS extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 4

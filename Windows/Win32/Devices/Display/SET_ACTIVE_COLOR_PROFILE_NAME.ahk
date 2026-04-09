@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.Display
- * @version v4.0.30319
  */
-class SET_ACTIVE_COLOR_PROFILE_NAME extends Win32Struct
-{
+class SET_ACTIVE_COLOR_PROFILE_NAME extends Win32Struct {
     static sizeof => 2
 
     static packingSize => 2

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\ICertManageModule.ahk
 #Include .\ICertPolicy.ahk
+#Include .\ICertManageModule.ahk
 
 /**
  * Provide communications between the Certificate Services server engine and the policy module.
@@ -50,9 +50,8 @@
  * Where <i>MyApp</i> is a specifier that identifies the application; further, the class implementing <a href="https://docs.microsoft.com/windows/desktop/api/certpol/nn-certpol-icertpolicy">ICertPolicy</a> must be named <b>"Policy"</b>.
  * @see https://learn.microsoft.com/windows/win32/api/certpol/nn-certpol-icertpolicy2
  * @namespace Windows.Win32.Security.Cryptography.Certificates
- * @version v4.0.30319
  */
-class ICertPolicy2 extends ICertPolicy{
+class ICertPolicy2 extends ICertPolicy {
 
     static sizeof => A_PtrSize
     /**

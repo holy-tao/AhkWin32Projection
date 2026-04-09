@@ -5,9 +5,8 @@
  * Defines the set of shadow copy protection faults.
  * @see https://learn.microsoft.com/windows/win32/api/vsmgmt/ne-vsmgmt-vss_protection_fault
  * @namespace Windows.Win32.Storage.Vss
- * @version v4.0.30319
  */
-class VSS_PROTECTION_FAULT extends Win32Enum{
+class VSS_PROTECTION_FAULT extends Win32Enum {
 
     /**
      * No shadow copy protection fault has occurred.
@@ -111,7 +110,6 @@ class VSS_PROTECTION_FAULT extends Win32Enum{
     static VSS_PROTECTION_FAULT_EXTERNAL_WRITER_TO_DIFF_AREA => 15
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static VSS_PROTECTION_FAULT_MOUNT_DURING_CLUSTER_OFFLINE => 16

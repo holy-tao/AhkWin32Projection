@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DHCP_SUBNET_ELEMENT_DATA_V5.ahk
 
 /**
  * The DHCP_SUBNET_ELEMENT_INFO_ARRAY_V5 structure defines an array of subnet element data. Element data in the V5 structure is BOOTP specific.
  * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/ns-dhcpsapi-dhcp_subnet_element_info_array_v5
  * @namespace Windows.Win32.NetworkManagement.Dhcp
- * @version v4.0.30319
  */
-class DHCP_SUBNET_ELEMENT_INFO_ARRAY_V5 extends Win32Struct
-{
+class DHCP_SUBNET_ELEMENT_INFO_ARRAY_V5 extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

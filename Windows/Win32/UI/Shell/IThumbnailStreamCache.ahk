@@ -2,14 +2,14 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\System\Com\IStream.ahk
 
 /**
  * Gets or sets the thumbnail stream. This interface is for internal use only and can only be called by the photos application.
  * @see https://learn.microsoft.com/windows/win32/api/thumbnailstreamcache/nn-thumbnailstreamcache-ithumbnailstreamcache
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IThumbnailStreamCache extends IUnknown{
+class IThumbnailStreamCache extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -38,9 +38,9 @@ class IThumbnailStreamCache extends IUnknown{
 
     /**
      * Gets the thumbnail stream. This method is for internal use only and can only be called by the photos application.
-     * @param {PWSTR} _path 
+     * @param {PWSTR} _path The path to the thumbnail.
      * @param {Integer} cacheId The identifier of the thumbnail.
-     * @param {Integer} options The cache options for the thumbnail stream.
+     * @param {ThumbnailStreamCacheOptions} options The cache options for the thumbnail stream.
      * @param {Integer} requestedThumbnailSize The requested size of the thumbnail.
      * @param {Pointer<SIZE>} thumbnailSize The actual size of the returned thumbnail.
      * @param {Pointer<IStream>} thumbnailStream The requested thumbnail.
@@ -56,7 +56,7 @@ class IThumbnailStreamCache extends IUnknown{
 
     /**
      * Sets the thumbnail stream. This method is for internal use only and can only be called by the photos application.
-     * @param {PWSTR} _path 
+     * @param {PWSTR} _path The path to the thumbnail.
      * @param {Integer} cacheId The identifier of the thumbnail.
      * @param {SIZE} thumbnailSize The size of the thumbnail.
      * @param {IStream} thumbnailStream The pointer to the thumbnail stream.

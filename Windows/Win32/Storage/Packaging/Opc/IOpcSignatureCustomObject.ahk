@@ -23,9 +23,8 @@
  * Application-specific <b>Object</b> elements are not required for package signatures.
  * @see https://learn.microsoft.com/windows/win32/api/msopc/nn-msopc-iopcsignaturecustomobject
  * @namespace Windows.Win32.Storage.Packaging.Opc
- * @version v4.0.30319
  */
-class IOpcSignatureCustomObject extends IUnknown{
+class IOpcSignatureCustomObject extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

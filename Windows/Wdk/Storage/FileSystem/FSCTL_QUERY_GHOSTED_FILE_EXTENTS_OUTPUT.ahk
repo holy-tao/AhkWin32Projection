@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem
- * @version v4.0.30319
  */
-class FSCTL_QUERY_GHOSTED_FILE_EXTENTS_OUTPUT extends Win32Struct
-{
+class FSCTL_QUERY_GHOSTED_FILE_EXTENTS_OUTPUT extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4
@@ -28,9 +26,9 @@ class FSCTL_QUERY_GHOSTED_FILE_EXTENTS_OUTPUT extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Extents{
+    Extents {
         get {
             if(!this.HasProp("__ExtentsProxyArray"))
                 this.__ExtentsProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "char")

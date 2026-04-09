@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Rpc
- * @version v4.0.30319
  */
-class ARRAY_INFO extends Win32Struct
-{
+class ARRAY_INFO extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8

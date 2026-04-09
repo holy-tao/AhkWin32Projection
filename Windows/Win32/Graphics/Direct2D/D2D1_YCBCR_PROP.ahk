@@ -5,9 +5,8 @@
  * Identifiers for properties of the YCbCr effect.
  * @see https://learn.microsoft.com/windows/win32/api/d2d1effects_1/ne-d2d1effects_1-d2d1_ycbcr_prop
  * @namespace Windows.Win32.Graphics.Direct2D
- * @version v4.0.30319
  */
-class D2D1_YCBCR_PROP extends Win32Enum{
+class D2D1_YCBCR_PROP extends Win32Enum {
 
     /**
      * Specifies the chroma subsampling of the input chroma image.

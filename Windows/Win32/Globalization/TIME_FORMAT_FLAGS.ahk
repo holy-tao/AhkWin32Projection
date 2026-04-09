@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Globalization
- * @version v4.0.30319
  */
-class TIME_FORMAT_FLAGS extends Win32BitflagEnum{
+class TIME_FORMAT_FLAGS extends Win32BitflagEnum {
 
     /**
      * @type {Integer (UInt32)}

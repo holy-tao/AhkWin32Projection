@@ -7,9 +7,8 @@
  * The ISceSvcAttachmentData interface retrieves configuration and analysis data about a specified security service from the Security Configuration snap-ins.
  * @see https://learn.microsoft.com/windows/win32/api/scesvc/nn-scesvc-iscesvcattachmentdata
  * @namespace Windows.Win32.Security.ConfigurationSnapin
- * @version v4.0.30319
  */
-class ISceSvcAttachmentData extends IUnknown{
+class ISceSvcAttachmentData extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -37,7 +36,7 @@ class ISceSvcAttachmentData extends IUnknown{
      * A 
      * <a href="https://docs.microsoft.com/windows/desktop/SecMgmt/scesvc-handle">SCESVC_HANDLE</a> returned during a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/scesvc/nf-scesvc-iscesvcattachmentdata-initialize">ISceSvcAttachmentData::Initialize</a>.
-     * @param {Integer} sceType Type: <b>SCESVC_INFO_TYPE</b>
+     * @param {SCESVC_INFO_TYPE} sceType Type: <b>SCESVC_INFO_TYPE</b>
      * 
      * A
      * @param {Pointer<Pointer<Void>>} ppvData Type: <b>PVOID*</b>

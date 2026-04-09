@@ -5,9 +5,8 @@
  * Defines the context in which an IUpdateException object can be provided.
  * @see https://learn.microsoft.com/windows/win32/api/wuapi/ne-wuapi-updateexceptioncontext
  * @namespace Windows.Win32.System.UpdateAgent
- * @version v4.0.30319
  */
-class UpdateExceptionContext extends Win32Enum{
+class UpdateExceptionContext extends Win32Enum {
 
     /**
      * The <a href="https://docs.microsoft.com/windows/desktop/api/wuapi/nn-wuapi-iupdateexception">IUpdateException</a> is not tied to any context.
@@ -28,7 +27,6 @@ class UpdateExceptionContext extends Win32Enum{
     static uecWindowsInstaller => 3
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static uecSearchIncomplete => 4

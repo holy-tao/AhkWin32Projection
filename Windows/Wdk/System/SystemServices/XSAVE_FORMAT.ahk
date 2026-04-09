@@ -1,13 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Win32\System\Diagnostics\Debug\M128A.ahk
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class XSAVE_FORMAT extends Win32Struct
-{
+class XSAVE_FORMAT extends Win32Struct {
     static sizeof => 384
 
     static packingSize => 8
@@ -117,31 +114,31 @@ class XSAVE_FORMAT extends Win32Struct
     }
 
     /**
-     * @type {Array<M128A>}
+     * @type {Array<Pointer>}
      */
-    FloatRegisters{
+    FloatRegisters {
         get {
             if(!this.HasProp("__FloatRegistersProxyArray"))
-                this.__FloatRegistersProxyArray := Win32FixedArray(this.ptr + 32, 8, M128A, "")
+                this.__FloatRegistersProxyArray := Win32FixedArray(this.ptr + 32, 8, Primitive, "ptr")
             return this.__FloatRegistersProxyArray
         }
     }
 
     /**
-     * @type {Array<M128A>}
+     * @type {Array<Pointer>}
      */
-    XmmRegisters{
+    XmmRegisters {
         get {
             if(!this.HasProp("__XmmRegistersProxyArray"))
-                this.__XmmRegistersProxyArray := Win32FixedArray(this.ptr + 96, 8, M128A, "")
+                this.__XmmRegistersProxyArray := Win32FixedArray(this.ptr + 96, 8, Primitive, "ptr")
             return this.__XmmRegistersProxyArray
         }
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Reserved4{
+    Reserved4 {
         get {
             if(!this.HasProp("__Reserved4ProxyArray"))
                 this.__Reserved4ProxyArray := Win32FixedArray(this.ptr + 160, 224, Primitive, "char")

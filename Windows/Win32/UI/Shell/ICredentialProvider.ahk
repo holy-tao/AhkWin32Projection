@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ICredentialProviderCredential.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\ICredentialProviderCredential.ahk
 
 /**
  * Exposes methods used in the setup and manipulation of a credential provider. All credential providers must implement this interface.
@@ -16,9 +16,8 @@
  * Windows 8 adds new functionality in the credential providers API, primarily the ability to group credentials by user.
  * @see https://learn.microsoft.com/windows/win32/api/credentialprovider/nn-credentialprovider-icredentialprovider
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class ICredentialProvider extends IUnknown{
+class ICredentialProvider extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -45,7 +44,7 @@ class ICredentialProvider extends IUnknown{
      * This method is required and enables the credential provider to indicate how it will be used.
      * 
      * This method should return <b>E_NOTIMPL</b> if the call completes but the requested usage scenario is not supported. This method should return <b>S_OK</b> if the method is successful and the usage scenario is supported.
-     * @param {Integer} cpus Type: <b><a href="https://docs.microsoft.com/windows/win32/api/credentialprovider/ne-credentialprovider-credential_provider_usage_scenario">CREDENTIAL_PROVIDER_USAGE_SCENARIO</a></b>
+     * @param {CREDENTIAL_PROVIDER_USAGE_SCENARIO} cpus Type: <b><a href="https://docs.microsoft.com/windows/win32/api/credentialprovider/ne-credentialprovider-credential_provider_usage_scenario">CREDENTIAL_PROVIDER_USAGE_SCENARIO</a></b>
      * 
      * The scenario the credential provider has been created in. This is the usage scenario that needs to be supported. See the Remarks for more information.
      * @param {Integer} dwFlags Type: <b>DWORD</b>

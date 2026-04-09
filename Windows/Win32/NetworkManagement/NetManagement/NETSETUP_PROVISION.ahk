@@ -7,9 +7,8 @@
   * The <i>lpMachineAccountOU</i> is not supported when using downlevel privilege support.
  * @see https://learn.microsoft.com/windows/win32/api/lmjoin/nf-lmjoin-netprovisioncomputeraccount
  * @namespace Windows.Win32.NetworkManagement.NetManagement
- * @version v4.0.30319
  */
-class NETSETUP_PROVISION extends Win32BitflagEnum{
+class NETSETUP_PROVISION extends Win32BitflagEnum {
 
     /**
      * @type {Integer (UInt32)}

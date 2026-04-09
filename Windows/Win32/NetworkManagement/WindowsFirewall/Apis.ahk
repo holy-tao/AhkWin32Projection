@@ -4,7 +4,6 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WindowsFirewall
- * @version v4.0.30319
  */
 class WindowsFirewall {
 
@@ -160,7 +159,9 @@ class WindowsFirewall {
      * @param {Pointer<PAC_CHANGES_CALLBACK_FN>} callback Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/networkisolation/nc-networkisolation-pac_changes_callback_fn">PAC_CHANGES_CALLBACK_FN</a></b>
      * 
      * Function pointer that will be invoked when a notification is ready for delivery.
-     * @param {Pointer<Void>} _context 
+     * @param {Pointer<Void>} _context Type: <b>PVOID</b>
+     * 
+     * Optional context pointer. This pointer is passed to the <i>callback</i> function along with details of the change.
      * @param {Pointer<HANDLE>} registrationObject Type: <b>HANDLE*</b>
      * 
      * Handle to the newly created registration.
@@ -309,7 +310,7 @@ class WindowsFirewall {
      * @param {PWSTR} wszServerName Type: <b>LPCWSTR</b>
      * 
      * Name (or IP address literal string) of the server to which a connection was attempted.
-     * @param {Pointer<Integer>} netIsoError Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/networkisolation/ne-networkisolation-netiso_error_type">NETISO_ERROR_TYPE</a>*</b>
+     * @param {Pointer<NETISO_ERROR_TYPE>} netIsoError Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/networkisolation/ne-networkisolation-netiso_error_type">NETISO_ERROR_TYPE</a>*</b>
      * 
      * The error that has occurred, indicating which network capability was missing and thus caused the failure.
      * @returns {Integer} Type: <b>DWORD</b>
@@ -389,7 +390,7 @@ class WindowsFirewall {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Void>} _context 
+     * @param {Pointer<Void>} _context Optional context pointer.
      * @param {Pointer<PNETISO_EDP_ID_CALLBACK_FN>} callback Function pointer that will be invoked when a notification is ready for delivery.
      * @param {Pointer<HANDLE>} hOperation The handle for the Enterprise Data Protection Server endpoints.
      * @returns {Integer} Returns ERROR_SUCCESS if successful, or an error value otherwise.

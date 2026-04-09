@@ -7,9 +7,8 @@
  * Enables creating Microsoft DirectX Graphics Infrastructure (DXGI) objects. (IDXGIFactory3)
  * @see https://learn.microsoft.com/windows/win32/api/dxgi1_3/nn-dxgi1_3-idxgifactory3
  * @namespace Windows.Win32.Graphics.Dxgi
- * @version v4.0.30319
  */
-class IDXGIFactory3 extends IDXGIFactory2{
+class IDXGIFactory3 extends IDXGIFactory2 {
 
     static sizeof => A_PtrSize
     /**
@@ -34,7 +33,7 @@ class IDXGIFactory3 extends IDXGIFactory2{
      * Gets the flags that were used when a Microsoft DirectX Graphics Infrastructure (DXGI) object was created.
      * @remarks
      * The <b>GetCreationFlags</b> method returns flags that were passed to the  <a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_3/nf-dxgi1_3-createdxgifactory2">CreateDXGIFactory2</a> function, or were implicitly constructed by <a href="https://docs.microsoft.com/windows/desktop/api/dxgi/nf-dxgi-createdxgifactory">CreateDXGIFactory</a>, <a href="https://docs.microsoft.com/windows/desktop/api/dxgi/nf-dxgi-createdxgifactory1">CreateDXGIFactory1</a>,  <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-d3d11createdevice">D3D11CreateDevice</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-d3d11createdeviceandswapchain">D3D11CreateDeviceAndSwapChain</a>.
-     * @returns {Integer} The creation flags.
+     * @returns {DXGI_CREATE_FACTORY_FLAGS} The creation flags.
      * @see https://learn.microsoft.com/windows/win32/api/dxgi1_3/nf-dxgi1_3-idxgifactory3-getcreationflags
      */
     GetCreationFlags() {

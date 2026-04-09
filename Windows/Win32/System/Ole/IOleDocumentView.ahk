@@ -1,18 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IOleInPlaceSite.ahk
 #Include ..\Com\IUnknown.ahk
+#Include .\IOleInPlaceSite.ahk
 #Include ..\..\Foundation\RECT.ahk
-#Include .\IOleDocumentView.ahk
 
 /**
  * The IOleDocumentView interface enables a container to communicate with each view supported by a document object.
  * @see https://learn.microsoft.com/windows/win32/api/docobj/nn-docobj-ioledocumentview
  * @namespace Windows.Win32.System.Ole
- * @version v4.0.30319
  */
-class IOleDocumentView extends IUnknown{
+class IOleDocumentView extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

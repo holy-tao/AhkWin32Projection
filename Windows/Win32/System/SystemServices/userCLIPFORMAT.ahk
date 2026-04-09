@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.SystemServices
- * @version v4.0.30319
  */
-class userCLIPFORMAT extends Win32Struct
-{
+class userCLIPFORMAT extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -22,7 +20,7 @@ class userCLIPFORMAT extends Win32Struct
             get => NumGet(this, 0, "uint")
             set => NumPut("uint", value, this, 0)
         }
-    
+
         /**
          * @type {PWSTR}
          */
@@ -30,7 +28,6 @@ class userCLIPFORMAT extends Win32Struct
             get => NumGet(this, 0, "ptr")
             set => NumPut("ptr", value, this, 0)
         }
-    
     }
 
     /**
@@ -44,10 +41,10 @@ class userCLIPFORMAT extends Win32Struct
     /**
      * @type {_u}
      */
-    u{
+    u {
         get {
             if(!this.HasProp("__u"))
-                this.__u := %this.__Class%._u(8, this)
+                this.__u := userCLIPFORMAT._u(8, this)
             return this.__u
         }
     }

@@ -8,10 +8,8 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Ndis
- * @version v4.0.30319
  */
-class NDIS_OFFLOAD extends Win32Struct
-{
+class NDIS_OFFLOAD extends Win32Struct {
     static sizeof => 112
 
     static packingSize => 4
@@ -19,7 +17,7 @@ class NDIS_OFFLOAD extends Win32Struct
     /**
      * @type {NDIS_OBJECT_HEADER}
      */
-    Header{
+    Header {
         get {
             if(!this.HasProp("__Header"))
                 this.__Header := NDIS_OBJECT_HEADER(0, this)
@@ -30,7 +28,7 @@ class NDIS_OFFLOAD extends Win32Struct
     /**
      * @type {NDIS_TCP_IP_CHECKSUM_OFFLOAD}
      */
-    Checksum{
+    Checksum {
         get {
             if(!this.HasProp("__Checksum"))
                 this.__Checksum := NDIS_TCP_IP_CHECKSUM_OFFLOAD(4, this)
@@ -41,7 +39,7 @@ class NDIS_OFFLOAD extends Win32Struct
     /**
      * @type {NDIS_TCP_LARGE_SEND_OFFLOAD_V1}
      */
-    LsoV1{
+    LsoV1 {
         get {
             if(!this.HasProp("__LsoV1"))
                 this.__LsoV1 := NDIS_TCP_LARGE_SEND_OFFLOAD_V1(36, this)
@@ -52,7 +50,7 @@ class NDIS_OFFLOAD extends Win32Struct
     /**
      * @type {NDIS_IPSEC_OFFLOAD_V1}
      */
-    IPsecV1{
+    IPsecV1 {
         get {
             if(!this.HasProp("__IPsecV1"))
                 this.__IPsecV1 := NDIS_IPSEC_OFFLOAD_V1(52, this)
@@ -63,7 +61,7 @@ class NDIS_OFFLOAD extends Win32Struct
     /**
      * @type {NDIS_TCP_LARGE_SEND_OFFLOAD_V2}
      */
-    LsoV2{
+    LsoV2 {
         get {
             if(!this.HasProp("__LsoV2"))
                 this.__LsoV2 := NDIS_TCP_LARGE_SEND_OFFLOAD_V2(80, this)

@@ -7,12 +7,10 @@
  * A pen flick is a unidirectional pen gesture that requires the user to contact the digitizer in a quick, straight flicking motion. A flick is characterized by high speed and a high degree of straightness. A flick is identified by its direction. Flicks can be made in eight directions corresponding to the cardinal and secondary compass directions.
  * @see https://learn.microsoft.com/windows/win32/api/tabflicks/ne-tabflicks-flickdirection
  * @namespace Windows.Win32.UI.TabletPC
- * @version v4.0.30319
  */
-class FLICKDIRECTION extends Win32Enum{
+class FLICKDIRECTION extends Win32Enum {
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static FLICKDIRECTION_MIN => 0

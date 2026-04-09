@@ -15,9 +15,8 @@
  * Note that, apart from <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-iexecutecommand-execute">Execute</a>, the methods of this interface pass system information to the handler. The system itself calls these methods, setting the parameters appropriately based on system settings and conditions.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-iexecutecommand
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IExecuteCommand extends IUnknown{
+class IExecuteCommand extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

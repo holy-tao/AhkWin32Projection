@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.UI.Input.XboxController
- * @version v4.0.30319
  */
-class BATTERY_LEVEL extends Win32Enum{
+class BATTERY_LEVEL extends Win32Enum {
 
     /**
      * @type {Integer (Byte)}

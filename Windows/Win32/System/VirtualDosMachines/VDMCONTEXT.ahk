@@ -4,10 +4,9 @@
 
 /**
  * @namespace Windows.Win32.System.VirtualDosMachines
- * @version v4.0.30319
+ * @architecture X64, Arm64
  */
-class VDMCONTEXT extends Win32Struct
-{
+class VDMCONTEXT extends Win32Struct {
     static sizeof => 716
 
     static packingSize => 4
@@ -71,7 +70,7 @@ class VDMCONTEXT extends Win32Struct
     /**
      * @type {FLOATING_SAVE_AREA}
      */
-    FloatSave{
+    FloatSave {
         get {
             if(!this.HasProp("__FloatSave"))
                 this.__FloatSave := FLOATING_SAVE_AREA(28, this)
@@ -208,9 +207,9 @@ class VDMCONTEXT extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    ExtendedRegisters{
+    ExtendedRegisters {
         get {
             if(!this.HasProp("__ExtendedRegistersProxyArray"))
                 this.__ExtendedRegistersProxyArray := Win32FixedArray(this.ptr + 204, 512, Primitive, "char")

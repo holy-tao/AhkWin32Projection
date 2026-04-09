@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.ProcessSnapshotting
- * @version v4.0.30319
  */
-class HPSS extends Win32Handle
-{
+class HPSS extends Win32Handle {
     static sizeof => 8
 
     static packingSize => 8

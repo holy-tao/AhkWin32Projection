@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
- * @version v4.0.30319
  */
-class DRIVER_UPGRADE_INFO_1 extends Win32Struct
-{
+class DRIVER_UPGRADE_INFO_1 extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

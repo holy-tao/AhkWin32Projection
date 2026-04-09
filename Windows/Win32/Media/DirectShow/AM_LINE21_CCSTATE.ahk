@@ -5,9 +5,8 @@
  * Indicates the closed captioning state (on or off).
  * @see https://learn.microsoft.com/windows/win32/api/il21dec/ne-il21dec-am_line21_ccstate
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class AM_LINE21_CCSTATE extends Win32Enum{
+class AM_LINE21_CCSTATE extends Win32Enum {
 
     /**
      * Closed captioning off.

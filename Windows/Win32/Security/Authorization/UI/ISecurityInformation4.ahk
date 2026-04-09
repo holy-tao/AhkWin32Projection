@@ -7,9 +7,8 @@
  * Enables the access control editor (ACE) to obtain the share's security descriptor to initialize the share page.
  * @see https://learn.microsoft.com/windows/win32/api/aclui/nn-aclui-isecurityinformation4
  * @namespace Windows.Win32.Security.Authorization.UI
- * @version v4.0.30319
  */
-class ISecurityInformation4 extends IUnknown{
+class ISecurityInformation4 extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

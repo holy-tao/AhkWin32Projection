@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IRawElementProviderSimple.ahk
 #Include .\ISelectionProvider.ahk
+#Include .\IRawElementProviderSimple.ahk
 
 /**
  * Extends the ISelectionItemProvider interface to provide information about selected items.
@@ -31,9 +31,8 @@
  * </ul>
  * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nn-uiautomationcore-iselectionprovider2
  * @namespace Windows.Win32.UI.Accessibility
- * @version v4.0.30319
  */
-class ISelectionProvider2 extends ISelectionProvider{
+class ISelectionProvider2 extends ISelectionProvider {
 
     static sizeof => A_PtrSize
     /**

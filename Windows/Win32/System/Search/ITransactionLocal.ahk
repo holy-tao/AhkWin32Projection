@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\DistributedTransactionCoordinator\ITransactionOptions.ahk
 #Include ..\DistributedTransactionCoordinator\ITransaction.ahk
+#Include ..\DistributedTransactionCoordinator\ITransactionOptions.ahk
 
 /**
  * @namespace Windows.Win32.System.Search
- * @version v4.0.30319
  */
-class ITransactionLocal extends ITransaction{
+class ITransactionLocal extends ITransaction {
 
     static sizeof => A_PtrSize
     /**

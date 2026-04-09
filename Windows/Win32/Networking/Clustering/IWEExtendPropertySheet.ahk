@@ -7,9 +7,8 @@
  * Implement the IWEExtendPropertySheet interface to create property sheet pages for a cluster object and add them to a Failover Cluster Administrator property sheet.
  * @see https://learn.microsoft.com/windows/win32/api/cluadmex/nn-cluadmex-iweextendpropertysheet
  * @namespace Windows.Win32.Networking.Clustering
- * @version v4.0.30319
  */
-class IWEExtendPropertySheet extends IUnknown{
+class IWEExtendPropertySheet extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

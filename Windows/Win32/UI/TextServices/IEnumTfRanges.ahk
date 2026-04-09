@@ -1,16 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IEnumTfRanges.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * The IEnumTfRanges interface is implemented by the TSF manager to provide an enumeration of range objects.
  * @see https://learn.microsoft.com/windows/win32/api/msctf/nn-msctf-ienumtfranges
  * @namespace Windows.Win32.UI.TextServices
- * @version v4.0.30319
  */
-class IEnumTfRanges extends IUnknown{
+class IEnumTfRanges extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IMFAttributes.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\IMFAttributes.ahk
 
 /**
  * Implemented by the transcode profile object.
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imftranscodeprofile
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFTranscodeProfile extends IUnknown{
+class IMFTranscodeProfile extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

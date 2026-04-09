@@ -5,10 +5,8 @@
  * Used to provide options for the PKCS
  * @see https://learn.microsoft.com/windows/win32/api/bcrypt/ns-bcrypt-bcrypt_pkcs1_padding_info
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class BCRYPT_PKCS1_PADDING_INFO extends Win32Struct
-{
+class BCRYPT_PKCS1_PADDING_INFO extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 8

@@ -1,16 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ID2D1SvgGlyphStyle.ahk
 #Include .\ID2D1DeviceContext3.ahk
+#Include .\ID2D1SvgGlyphStyle.ahk
+#Include .\ID2D1Image.ahk
+#Include .\ID2D1CommandList.ahk
 
 /**
  * This interface performs all the same functions as the ID2D1DeviceContext3 interface, plus it enables functionality for handling new types of color font glyphs.
  * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nn-d2d1_3-id2d1devicecontext4
  * @namespace Windows.Win32.Graphics.Direct2D
- * @version v4.0.30319
  */
-class ID2D1DeviceContext4 extends ID2D1DeviceContext3{
+class ID2D1DeviceContext4 extends ID2D1DeviceContext3 {
 
     static sizeof => A_PtrSize
     /**
@@ -45,7 +46,9 @@ class ID2D1DeviceContext4 extends ID2D1DeviceContext3{
 
     /**
      * Draws the text within the given layout rectangle. (overload 1/2)
-     * @param {PWSTR} _string 
+     * @param {PWSTR} _string Type: <b>const WCHAR*</b>
+     * 
+     * A pointer to an array of Unicode characters to draw.
      * @param {Integer} stringLength Type: <b>UINT32</b>
      * 
      * The number of characters in string.
@@ -64,12 +67,12 @@ class ID2D1DeviceContext4 extends ID2D1DeviceContext3{
      * @param {Integer} colorPaletteIndex Type: <b>UINT32</b>
      * 
      * The index used to select a color palette within a color font.
-     * @param {Integer} options Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1/ne-d2d1-d2d1_draw_text_options">D2D1_DRAW_TEXT_OPTIONS</a></b>
+     * @param {D2D1_DRAW_TEXT_OPTIONS} options Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1/ne-d2d1-d2d1_draw_text_options">D2D1_DRAW_TEXT_OPTIONS</a></b>
      * 
      * A value that indicates whether the text should be snapped to pixel boundaries and whether the text should be clipped to the layout rectangle. 
      *           The default value is <a href="https://docs.microsoft.com/windows/desktop/api/d2d1/ne-d2d1-d2d1_draw_text_options">D2D1_DRAW_TEXT_OPTIONS_NONE</a>, 
      *           which indicates that text should be snapped to pixel boundaries and it should not be clipped to the layout rectangle.
-     * @param {Integer} measuringMode Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dcommon/ne-dcommon-dwrite_measuring_mode">DWRITE_MEASURING_MODE</a></b>
+     * @param {DWRITE_MEASURING_MODE} measuringMode Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dcommon/ne-dcommon-dwrite_measuring_mode">DWRITE_MEASURING_MODE</a></b>
      * 
      * A value that indicates how glyph metrics are used to measure text when it is formatted. 
      *           The default value is <a href="https://docs.microsoft.com/windows/desktop/api/dcommon/ne-dcommon-dwrite_measuring_mode">DWRITE_MEASURING_MODE_NATURAL</a>.
@@ -99,7 +102,7 @@ class ID2D1DeviceContext4 extends ID2D1DeviceContext3{
      * @param {Integer} colorPaletteIndex Type: <b>UINT32</b>
      * 
      * The index used to select a color palette within a color font.
-     * @param {Integer} options Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1/ne-d2d1-d2d1_draw_text_options">D2D1_DRAW_TEXT_OPTIONS</a></b>
+     * @param {D2D1_DRAW_TEXT_OPTIONS} options Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1/ne-d2d1-d2d1_draw_text_options">D2D1_DRAW_TEXT_OPTIONS</a></b>
      * 
      * A value that indicates whether the text should be snapped to pixel boundaries and whether the text should be clipped to the layout rectangle. 
      *             The default value is <a href="https://docs.microsoft.com/windows/desktop/api/d2d1/ne-d2d1-d2d1_draw_text_options">D2D1_DRAW_TEXT_OPTIONS_NONE</a>, 
@@ -113,7 +116,7 @@ class ID2D1DeviceContext4 extends ID2D1DeviceContext3{
 
     /**
      * Draws a color bitmap glyph run using one of the bitmap formats.
-     * @param {Integer} glyphImageFormat Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dcommon/ne-dcommon-dwrite_glyph_image_formats">DWRITE_GLYPH_IMAGE_FORMATS</a></b>
+     * @param {DWRITE_GLYPH_IMAGE_FORMATS} glyphImageFormat Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dcommon/ne-dcommon-dwrite_glyph_image_formats">DWRITE_GLYPH_IMAGE_FORMATS</a></b>
      * 
      * Specifies the format of the glyph image. Supported formats are DWRITE_GLYPH_IMAGE_FORMATS_PNG, DWRITE_GLYPH_IMAGE_FORMATS_JPEG,
      *           DWRITE_GLYPH_IMAGE_FORMATS_TIFF, or DWRITE_GLYPH_IMAGE_FORMATS_PREMULTIPLIED_B8G8R8A8.  This method will result in an error if the color glyph run does not contain the requested format.
@@ -123,11 +126,13 @@ class ID2D1DeviceContext4 extends ID2D1DeviceContext3{
      * @param {D2D_POINT_2F} baselineOrigin Type: <b><a href="https://docs.microsoft.com/windows/desktop/Direct2D/d2d1-point-2f">D2D1_POINT_2F</a></b>
      * 
      * The origin of the baseline for the glyph run.
-     * @param {Pointer<DWRITE_GLYPH_RUN>} _glyphRun 
-     * @param {Integer} measuringMode Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dcommon/ne-dcommon-dwrite_measuring_mode">DWRITE_MEASURING_MODE</a></b>
+     * @param {Pointer<DWRITE_GLYPH_RUN>} _glyphRun Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/dwrite/ns-dwrite-dwrite_glyph_run">DWRITE_GLYPH_RUN</a>*</b>
+     * 
+     * The glyphs to render.
+     * @param {DWRITE_MEASURING_MODE} measuringMode Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dcommon/ne-dcommon-dwrite_measuring_mode">DWRITE_MEASURING_MODE</a></b>
      * 
      * Indicates the measuring method.
-     * @param {Integer} bitmapSnapOption Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1_3/ne-d2d1_3-d2d1_color_bitmap_glyph_snap_option">D2D1_COLOR_BITMAP_GLYPH_SNAP_OPTION</a></b>
+     * @param {D2D1_COLOR_BITMAP_GLYPH_SNAP_OPTION} bitmapSnapOption Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1_3/ne-d2d1_3-d2d1_color_bitmap_glyph_snap_option">D2D1_COLOR_BITMAP_GLYPH_SNAP_OPTION</a></b>
      * 
      * Specifies the pixel snapping policy when rendering color bitmap glyphs.
      * @returns {String} Nothing - always returns an empty string
@@ -142,7 +147,9 @@ class ID2D1DeviceContext4 extends ID2D1DeviceContext3{
      * @param {D2D_POINT_2F} baselineOrigin Type: <b><a href="https://docs.microsoft.com/windows/desktop/Direct2D/d2d1-point-2f">D2D1_POINT_2F</a></b>
      * 
      * The origin of the baseline for the glyph run.
-     * @param {Pointer<DWRITE_GLYPH_RUN>} _glyphRun 
+     * @param {Pointer<DWRITE_GLYPH_RUN>} _glyphRun Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/dwrite/ns-dwrite-dwrite_glyph_run">DWRITE_GLYPH_RUN</a>*</b>
+     * 
+     * The glyphs to render.
      * @param {ID2D1Brush} defaultFillBrush Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1/nn-d2d1-id2d1brush">ID2D1Brush</a>*</b>
      * 
      * The brush used to paint the specified glyphs.
@@ -153,7 +160,7 @@ class ID2D1DeviceContext4 extends ID2D1DeviceContext3{
      * 
      * The index used to select a color palette within a color font. Note that this not the same as the paletteIndex in the
      *           DWRITE_COLOR_GLYPH_RUN struct, which is not relevant for SVG glyphs.
-     * @param {Integer} measuringMode Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dcommon/ne-dcommon-dwrite_measuring_mode">DWRITE_MEASURING_MODE</a></b>
+     * @param {DWRITE_MEASURING_MODE} measuringMode Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dcommon/ne-dcommon-dwrite_measuring_mode">DWRITE_MEASURING_MODE</a></b>
      * 
      * Indicates the measuring method used for text layout.
      * @returns {String} Nothing - always returns an empty string
@@ -165,7 +172,7 @@ class ID2D1DeviceContext4 extends ID2D1DeviceContext3{
 
     /**
      * Retrieves an image of the color bitmap glyph from the color glyph cache.
-     * @param {Integer} glyphImageFormat Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dcommon/ne-dcommon-dwrite_glyph_image_formats">DWRITE_GLYPH_IMAGE_FORMATS</a></b>
+     * @param {DWRITE_GLYPH_IMAGE_FORMATS} glyphImageFormat Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dcommon/ne-dcommon-dwrite_glyph_image_formats">DWRITE_GLYPH_IMAGE_FORMATS</a></b>
      * 
      * The format for the glyph image.
      *           If there is no image data in the requested format for the requested glyph, this method will return an error.

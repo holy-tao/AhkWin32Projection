@@ -15,10 +15,8 @@
  * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/ns-tapi-linecallinfo">LINECALLINFO</a> structure lists the call's current dialing parameters.
  * @see https://learn.microsoft.com/windows/win32/api/tapi/ns-tapi-linedialparams
  * @namespace Windows.Win32.Devices.Tapi
- * @version v4.0.30319
  */
-class LINEDIALPARAMS extends Win32Struct
-{
+class LINEDIALPARAMS extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4

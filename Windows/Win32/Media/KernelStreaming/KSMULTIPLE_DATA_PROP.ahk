@@ -5,10 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
- * @version v4.0.30319
  */
-class KSMULTIPLE_DATA_PROP extends Win32Struct
-{
+class KSMULTIPLE_DATA_PROP extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -16,7 +14,7 @@ class KSMULTIPLE_DATA_PROP extends Win32Struct
     /**
      * @type {KSIDENTIFIER}
      */
-    Property{
+    Property {
         get {
             if(!this.HasProp("__Property"))
                 this.__Property := KSIDENTIFIER(0, this)
@@ -27,7 +25,7 @@ class KSMULTIPLE_DATA_PROP extends Win32Struct
     /**
      * @type {KSMULTIPLE_ITEM}
      */
-    MultipleItem{
+    MultipleItem {
         get {
             if(!this.HasProp("__MultipleItem"))
                 this.__MultipleItem := KSMULTIPLE_ITEM(16, this)

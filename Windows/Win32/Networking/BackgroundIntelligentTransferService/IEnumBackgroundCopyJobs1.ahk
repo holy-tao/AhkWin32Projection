@@ -1,16 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IEnumBackgroundCopyJobs1.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Use the IEnumBackgroundCopyJobs1 interface to enumerate the list of jobs in a group. To get an IEnumBackgroundCopyJobs1 interface pointer, call the IBackgroundCopyGroup::EnumJobs method.
  * @see https://learn.microsoft.com/windows/win32/api/qmgr/nn-qmgr-ienumbackgroundcopyjobs1
  * @namespace Windows.Win32.Networking.BackgroundIntelligentTransferService
- * @version v4.0.30319
  */
-class IEnumBackgroundCopyJobs1 extends IUnknown{
+class IEnumBackgroundCopyJobs1 extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

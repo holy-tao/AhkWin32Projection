@@ -8,9 +8,8 @@
  * <div> </div>
  * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/ne-vdshwprv-vds_provider_lbsupport_flag
  * @namespace Windows.Win32.Storage.VirtualDiskService
- * @version v4.0.30319
  */
-class VDS_PROVIDER_LBSUPPORT_FLAG extends Win32Enum{
+class VDS_PROVIDER_LBSUPPORT_FLAG extends Win32Enum {
 
     /**
      * The provider supports using one primary path with the other paths being backup paths.

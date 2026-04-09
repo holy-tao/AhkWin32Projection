@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.System.Iis
- * @version v4.0.30319
  */
-class HSE_TF_INFO extends Win32Struct
-{
+class HSE_TF_INFO extends Win32Struct {
     static sizeof => 72
 
     static packingSize => 8
@@ -31,7 +29,7 @@ class HSE_TF_INFO extends Win32Struct
     /**
      * @type {HANDLE}
      */
-    hFile{
+    hFile {
         get {
             if(!this.HasProp("__hFile"))
                 this.__hFile := HANDLE(16, this)

@@ -5,9 +5,8 @@
  * The MMC_CONSOLE_VERB enumeration defines the command identifiers available for MMC verbs. These values are used in the m_eCmdID parameter of IConsoleVerb::GetVerbState, IConsoleVerb::SetVerbState, and IConsoleVerb::SetDefaultVerb.
  * @see https://learn.microsoft.com/windows/win32/api/mmc/ne-mmc-mmc_console_verb
  * @namespace Windows.Win32.System.Mmc
- * @version v4.0.30319
  */
-class MMC_CONSOLE_VERB extends Win32Enum{
+class MMC_CONSOLE_VERB extends Win32Enum {
 
     /**
      * No verbs specified. Snap-ins can use this verb in calls to 
@@ -73,19 +72,16 @@ class MMC_CONSOLE_VERB extends Win32Enum{
     static MMC_VERB_CUT => 32776
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static MMC_VERB_MAX => 32777
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static MMC_VERB_FIRST => 32768
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static MMC_VERB_LAST => 32776

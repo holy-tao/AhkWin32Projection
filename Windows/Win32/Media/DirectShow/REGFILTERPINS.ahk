@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\REGPINTYPES.ahk
 
 /**
  * The REGFILTERPINS structure contains pin information for registering a filter.
@@ -13,10 +14,8 @@
  * For more information, see <a href="https://docs.microsoft.com/windows/desktop/DirectShow/how-to-register-directshow-filters">How to Register DirectShow Filters</a>.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/ns-strmif-regfilterpins
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class REGFILTERPINS extends Win32Struct
-{
+class REGFILTERPINS extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8

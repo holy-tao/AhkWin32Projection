@@ -9,10 +9,8 @@
  * <a href="https://docs.microsoft.com/windows/desktop/api/ntmsapi/ns-ntmsapi-ntms_objectinformationa">NTMS_OBJECTINFORMATION</a> structure.
  * @see https://learn.microsoft.com/windows/win32/api/ntmsapi/ns-ntmsapi-ntms_mediapoolinformation
  * @namespace Windows.Win32.Storage.FileSystem
- * @version v4.0.30319
  */
-class NTMS_MEDIAPOOLINFORMATION extends Win32Struct
-{
+class NTMS_MEDIAPOOLINFORMATION extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -87,7 +85,7 @@ class NTMS_MEDIAPOOLINFORMATION extends Win32Struct
 
     /**
      * Single media type that makes up each media pool.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     MediaType {
         get => NumGet(this, 8, "ptr")
@@ -96,7 +94,7 @@ class NTMS_MEDIAPOOLINFORMATION extends Win32Struct
 
     /**
      * Parent media pool or <b>NULL</b>.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     Parent {
         get => NumGet(this, 16, "ptr")

@@ -1,16 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
  * Initiates a session to do programmatic COM+ administration, access collections in the catalog, install COM+ applications and components, start and stop services, and connect to remote servers.
  * @see https://learn.microsoft.com/windows/win32/api/comadmin/nn-comadmin-icomadmincatalog
  * @namespace Windows.Win32.System.ComponentServices
- * @version v4.0.30319
  */
-class ICOMAdminCatalog extends IDispatch{
+class ICOMAdminCatalog extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -223,7 +221,7 @@ class ICOMAdminCatalog extends IDispatch{
      * @param {BSTR} bstrApplicationFile The name of the file to export the application to, including the file path. If this parameter is <b>NULL</b> or an empty string, the <b>ExportApplication</b> method returns E_INVALIDARG.
      * If the path is not specified, the current directory is used.
      * If a relative path is entered, the path is relative to the current directory.
-     * @param {Integer} lOptions 
+     * @param {COMAdminApplicationExportOptions} lOptions 
      * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, and E_FAIL, as well as the following values.
      * 
      * <table>
@@ -268,7 +266,7 @@ class ICOMAdminCatalog extends IDispatch{
      * Installs a COM+ application or application proxy from the specified file.
      * @param {BSTR} bstrApplicationFile The name of the file containing the application to be installed.
      * @param {BSTR} bstrDestinationDirectory Where to install the components. If this parameter is blank, the default directory is used.
-     * @param {Integer} lOptions 
+     * @param {COMAdminApplicationInstallOptions} lOptions 
      * @param {BSTR} bstrUserId The user ID under which to run the application.
      * @param {BSTR} bstrPassword The password under which to run the application.
      * @param {BSTR} bstrRSN A remote server name to use for an application proxy.

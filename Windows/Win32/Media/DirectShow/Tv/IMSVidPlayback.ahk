@@ -9,9 +9,8 @@
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IMSVidPlayback)</c>.
  * @see https://learn.microsoft.com/windows/win32/api/segment/nn-segment-imsvidplayback
  * @namespace Windows.Win32.Media.DirectShow.Tv
- * @version v4.0.30319
  */
-class IMSVidPlayback extends IMSVidInputDevice{
+class IMSVidPlayback extends IMSVidInputDevice {
 
     static sizeof => A_PtrSize
     /**
@@ -57,7 +56,7 @@ class IMSVidPlayback extends IMSVidInputDevice{
     }
 
     /**
-     * @type {Integer} 
+     * @type {PositionModeList} 
      */
     PositionMode {
         get => this.get_PositionMode()
@@ -506,7 +505,7 @@ class IMSVidPlayback extends IMSVidInputDevice{
      * </li>
      * </ul>
      * Call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msvidctl/nf-msvidctl-imsvidctl-build">IMSVidCtl::Build</a> or <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msvidctl/nf-msvidctl-imsvidctl-view">IMSVidCtl::View</a> method before calling this method.
-     * @param {Integer} lPositionMode 
+     * @param {PositionModeList} lPositionMode 
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include the following.
      * 
      * <table>
@@ -587,7 +586,7 @@ class IMSVidPlayback extends IMSVidInputDevice{
      * </li>
      * </ul>
      * Call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msvidctl/nf-msvidctl-imsvidctl-build">IMSVidCtl::Build</a> or <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msvidctl/nf-msvidctl-imsvidctl-view">IMSVidCtl::View</a> method before calling this method.
-     * @returns {Integer} 
+     * @returns {PositionModeList} 
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidplayback-get_positionmode
      */
     get_PositionMode() {

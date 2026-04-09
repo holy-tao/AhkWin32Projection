@@ -1,23 +1,21 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\FILETIME.ahk
 #Include .\NLM_USAGE_DATA.ahk
+#Include ..\..\Foundation\FILETIME.ahk
 
 /**
  * NLM_DATAPLAN_STATUS structure stores the current data plan status information supplied by the carrier.
  * @see https://learn.microsoft.com/windows/win32/api/netlistmgr/ns-netlistmgr-nlm_dataplan_status
  * @namespace Windows.Win32.Networking.NetworkListManager
- * @version v4.0.30319
  */
-class NLM_DATAPLAN_STATUS extends Win32Struct
-{
+class NLM_DATAPLAN_STATUS extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
 
     /**
      * The unique ID of the interface associated with the data plan. This GUID is determined by the system when a data plan is first used by a system connection.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     InterfaceGuid {
         get => NumGet(this, 0, "ptr")
@@ -30,7 +28,7 @@ class NLM_DATAPLAN_STATUS extends Win32Struct
      * If this value is not supplied, <a href="https://docs.microsoft.com/windows/desktop/api/netlistmgr/ns-netlistmgr-nlm_usage_data">NLM_USAGE_DATA</a> will indicate <b>NLM_UNKNOWN_DATAPLAN_STATUS</b> for <b>UsageInMegabytes</b> and a value of '0' will be set for <b>LastSyncTime.</b>
      * @type {NLM_USAGE_DATA}
      */
-    UsageData{
+    UsageData {
         get {
             if(!this.HasProp("__UsageData"))
                 this.__UsageData := NLM_USAGE_DATA(8, this)
@@ -69,7 +67,7 @@ class NLM_DATAPLAN_STATUS extends Win32Struct
      * The start time of the next billing cycle. If this value is not supplied, a default value of '0' is set.
      * @type {FILETIME}
      */
-    NextBillingCycle{
+    NextBillingCycle {
         get {
             if(!this.HasProp("__NextBillingCycle"))
                 this.__NextBillingCycle := FILETIME(32, this)

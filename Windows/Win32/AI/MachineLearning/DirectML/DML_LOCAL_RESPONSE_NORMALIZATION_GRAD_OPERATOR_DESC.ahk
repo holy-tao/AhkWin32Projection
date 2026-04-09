@@ -1,16 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\DML_TENSOR_DESC.ahk
 
 /**
  * Computes backpropagation gradients for [local response normalization](/windows/win32/api/directml/ns-directml-dml_local_response_normalization_operator_desc).
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/directml/ns-directml-dml_local_response_normalization_grad_operator_desc
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
- * @version v4.0.30319
  */
-class DML_LOCAL_RESPONSE_NORMALIZATION_GRAD_OPERATOR_DESC extends Win32Struct
-{
+class DML_LOCAL_RESPONSE_NORMALIZATION_GRAD_OPERATOR_DESC extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8

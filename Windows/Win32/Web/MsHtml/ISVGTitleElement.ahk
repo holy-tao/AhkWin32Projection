@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
- * @version v4.0.30319
  */
-class ISVGTitleElement extends IDispatch{
+class ISVGTitleElement extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

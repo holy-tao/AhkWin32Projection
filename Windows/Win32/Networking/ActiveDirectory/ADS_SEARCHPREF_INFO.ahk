@@ -1,14 +1,27 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\ADS_SEARCHPREF_ENUM.ahk
+#Include .\ADSVALUE.ahk
+#Include .\ADSTYPE.ahk
 #Include .\ADS_OCTET_STRING.ahk
 #Include ..\..\Foundation\SYSTEMTIME.ahk
 #Include .\ADS_PROV_SPECIFIC.ahk
+#Include .\ADS_CASEIGNORE_LIST.ahk
+#Include .\ADS_OCTET_LIST.ahk
+#Include .\ADS_PATH.ahk
+#Include .\ADS_POSTALADDRESS.ahk
 #Include .\ADS_TIMESTAMP.ahk
 #Include .\ADS_BACKLINK.ahk
+#Include .\ADS_TYPEDNAME.ahk
 #Include .\ADS_HOLD.ahk
+#Include .\ADS_NETADDRESS.ahk
+#Include .\ADS_REPLICAPOINTER.ahk
+#Include .\ADS_FAXNUMBER.ahk
 #Include .\ADS_EMAIL.ahk
 #Include .\ADS_NT_SECURITY_DESCRIPTOR.ahk
-#Include .\ADSVALUE.ahk
+#Include .\ADS_DN_WITH_BINARY.ahk
+#Include .\ADS_DN_WITH_STRING.ahk
+#Include .\ADS_STATUSENUM.ahk
 
 /**
  * The ADS_SEARCHPREF_INFO structure specifies the query preferences.
@@ -125,17 +138,15 @@
  * For more information and examples of how to use the <b>ADS_SEARCHPREF_INFO</b> structure, see the discussions of the  <a href="https://docs.microsoft.com/windows/desktop/api/iads/nf-iads-idirectorysearch-setsearchpreference">IDirectorySearch::SetSearchPreference</a> method and the  <a href="https://docs.microsoft.com/windows/win32/api/iads/ne-iads-ads_searchpref_enum">ADS_SEARCHPREF_ENUM</a> enumeration.
  * @see https://learn.microsoft.com/windows/win32/api/iads/ns-iads-ads_searchpref_info
  * @namespace Windows.Win32.Networking.ActiveDirectory
- * @version v4.0.30319
  */
-class ADS_SEARCHPREF_INFO extends Win32Struct
-{
+class ADS_SEARCHPREF_INFO extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
 
     /**
      * Contains one of the  <a href="https://docs.microsoft.com/windows/win32/api/iads/ne-iads-ads_searchpref_enum">ADS_SEARCHPREF_ENUM</a> enumeration values that specifies the search option to set.
-     * @type {Integer}
+     * @type {ADS_SEARCHPREF_ENUM}
      */
     dwSearchPref {
         get => NumGet(this, 0, "int")
@@ -146,7 +157,7 @@ class ADS_SEARCHPREF_INFO extends Win32Struct
      * Contains a <a href="https://docs.microsoft.com/windows/desktop/api/iads/ns-iads-adsvalue">ADSVALUE</a> structure that specifies the data type and value of the search preference.
      * @type {ADSVALUE}
      */
-    vValue{
+    vValue {
         get {
             if(!this.HasProp("__vValue"))
                 this.__vValue := ADSVALUE(8, this)
@@ -156,7 +167,7 @@ class ADS_SEARCHPREF_INFO extends Win32Struct
 
     /**
      * Receives one of the  <a href="https://docs.microsoft.com/windows/win32/api/iads/ne-iads-ads_statusenum">ADS_STATUSENUM</a> enumeration values that indicates the status of the search preference. The <a href="https://docs.microsoft.com/windows/desktop/api/iads/nf-iads-idirectorysearch-setsearchpreference">IDirectorySearch::SetSearchPreference</a> method will fill in this member when it is called.
-     * @type {Integer}
+     * @type {ADS_STATUSENUM}
      */
     dwStatus {
         get => NumGet(this, 32, "int")

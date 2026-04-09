@@ -7,9 +7,8 @@
  * Represents the installation and uninstallation options of an update.
  * @see https://learn.microsoft.com/windows/win32/api/wuapi/nn-wuapi-iinstallationbehavior
  * @namespace Windows.Win32.System.UpdateAgent
- * @version v4.0.30319
  */
-class IInstallationBehavior extends IDispatch{
+class IInstallationBehavior extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -38,14 +37,14 @@ class IInstallationBehavior extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {InstallationImpact} 
      */
     Impact {
         get => this.get_Impact()
     }
 
     /**
-     * @type {Integer} 
+     * @type {InstallationRebootBehavior} 
      */
     RebootBehavior {
         get => this.get_RebootBehavior()
@@ -70,7 +69,7 @@ class IInstallationBehavior extends IDispatch{
 
     /**
      * Gets an InstallationImpact enumeration that indicates how the installation or uninstallation of the update affects the computer.
-     * @returns {Integer} 
+     * @returns {InstallationImpact} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iinstallationbehavior-get_impact
      */
     get_Impact() {
@@ -80,7 +79,7 @@ class IInstallationBehavior extends IDispatch{
 
     /**
      * Gets an InstallationRebootBehavior enumeration that specifies the restart behavior that occurs when you install or uninstall the update.
-     * @returns {Integer} 
+     * @returns {InstallationRebootBehavior} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iinstallationbehavior-get_rebootbehavior
      */
     get_RebootBehavior() {

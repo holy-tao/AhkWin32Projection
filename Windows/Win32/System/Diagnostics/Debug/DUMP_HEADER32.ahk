@@ -1,17 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\PHYSICAL_MEMORY_RUN32.ahk
 #Include .\PHYSICAL_MEMORY_DESCRIPTOR32.ahk
+#Include .\PHYSICAL_MEMORY_RUN32.ahk
 #Include .\EXCEPTION_RECORD32.ahk
 #Include .\DUMP_FILE_ATTRIBUTES.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug
- * @version v4.0.30319
  */
-class DUMP_HEADER32 extends Win32Struct
-{
-    static sizeof => 4272
+class DUMP_HEADER32 extends Win32Struct {
+    static sizeof => 4104
 
     static packingSize => 8
 
@@ -139,33 +137,33 @@ class DUMP_HEADER32 extends Win32Struct
      * @type {String}
      */
     VersionUser {
-        get => StrGet(this.ptr + 60, 31, "UTF-16")
-        set => StrPut(value, this.ptr + 60, 31, "UTF-16")
+        get => StrGet(this.ptr + 60, 31, "UTF-8")
+        set => StrPut(value, this.ptr + 60, 31, "UTF-8")
     }
 
     /**
      * @type {Integer}
      */
     PaeEnabled {
-        get => NumGet(this, 124, "char")
-        set => NumPut("char", value, this, 124)
+        get => NumGet(this, 92, "char")
+        set => NumPut("char", value, this, 92)
     }
 
     /**
      * @type {Integer}
      */
     KdSecondaryVersion {
-        get => NumGet(this, 125, "char")
-        set => NumPut("char", value, this, 125)
+        get => NumGet(this, 93, "char")
+        set => NumPut("char", value, this, 93)
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Spare3{
+    Spare3 {
         get {
             if(!this.HasProp("__Spare3ProxyArray"))
-                this.__Spare3ProxyArray := Win32FixedArray(this.ptr + 126, 2, Primitive, "char")
+                this.__Spare3ProxyArray := Win32FixedArray(this.ptr + 94, 2, Primitive, "char")
             return this.__Spare3ProxyArray
         }
     }
@@ -174,39 +172,39 @@ class DUMP_HEADER32 extends Win32Struct
      * @type {Integer}
      */
     KdDebuggerDataBlock {
-        get => NumGet(this, 128, "uint")
-        set => NumPut("uint", value, this, 128)
+        get => NumGet(this, 96, "uint")
+        set => NumPut("uint", value, this, 96)
     }
 
     /**
      * @type {PHYSICAL_MEMORY_DESCRIPTOR32}
      */
-    PhysicalMemoryBlock{
+    PhysicalMemoryBlock {
         get {
             if(!this.HasProp("__PhysicalMemoryBlock"))
-                this.__PhysicalMemoryBlock := PHYSICAL_MEMORY_DESCRIPTOR32(136, this)
+                this.__PhysicalMemoryBlock := PHYSICAL_MEMORY_DESCRIPTOR32(100, this)
             return this.__PhysicalMemoryBlock
         }
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    PhysicalMemoryBlockBuffer{
+    PhysicalMemoryBlockBuffer {
         get {
             if(!this.HasProp("__PhysicalMemoryBlockBufferProxyArray"))
-                this.__PhysicalMemoryBlockBufferProxyArray := Win32FixedArray(this.ptr + 136, 700, Primitive, "char")
+                this.__PhysicalMemoryBlockBufferProxyArray := Win32FixedArray(this.ptr + 100, 700, Primitive, "char")
             return this.__PhysicalMemoryBlockBufferProxyArray
         }
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    ContextRecord{
+    ContextRecord {
         get {
             if(!this.HasProp("__ContextRecordProxyArray"))
-                this.__ContextRecordProxyArray := Win32FixedArray(this.ptr + 840, 1200, Primitive, "char")
+                this.__ContextRecordProxyArray := Win32FixedArray(this.ptr + 800, 1200, Primitive, "char")
             return this.__ContextRecordProxyArray
         }
     }
@@ -214,10 +212,10 @@ class DUMP_HEADER32 extends Win32Struct
     /**
      * @type {EXCEPTION_RECORD32}
      */
-    Exception{
+    Exception {
         get {
             if(!this.HasProp("__Exception"))
-                this.__Exception := EXCEPTION_RECORD32(2040, this)
+                this.__Exception := EXCEPTION_RECORD32(2000, this)
             return this.__Exception
         }
     }
@@ -226,17 +224,17 @@ class DUMP_HEADER32 extends Win32Struct
      * @type {String}
      */
     Comment {
-        get => StrGet(this.ptr + 2120, 127, "UTF-16")
-        set => StrPut(value, this.ptr + 2120, 127, "UTF-16")
+        get => StrGet(this.ptr + 2080, 127, "UTF-8")
+        set => StrPut(value, this.ptr + 2080, 127, "UTF-8")
     }
 
     /**
      * @type {DUMP_FILE_ATTRIBUTES}
      */
-    Attributes{
+    Attributes {
         get {
             if(!this.HasProp("__Attributes"))
-                this.__Attributes := DUMP_FILE_ATTRIBUTES(2376, this)
+                this.__Attributes := DUMP_FILE_ATTRIBUTES(2208, this)
             return this.__Attributes
         }
     }
@@ -245,17 +243,17 @@ class DUMP_HEADER32 extends Win32Struct
      * @type {Integer}
      */
     BootId {
-        get => NumGet(this, 2384, "uint")
-        set => NumPut("uint", value, this, 2384)
+        get => NumGet(this, 2216, "uint")
+        set => NumPut("uint", value, this, 2216)
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    _reserved0{
+    _reserved0 {
         get {
             if(!this.HasProp("___reserved0ProxyArray"))
-                this.___reserved0ProxyArray := Win32FixedArray(this.ptr + 2388, 1760, Primitive, "char")
+                this.___reserved0ProxyArray := Win32FixedArray(this.ptr + 2220, 1760, Primitive, "char")
             return this.___reserved0ProxyArray
         }
     }
@@ -264,65 +262,65 @@ class DUMP_HEADER32 extends Win32Struct
      * @type {Integer}
      */
     DumpType {
-        get => NumGet(this, 4148, "uint")
-        set => NumPut("uint", value, this, 4148)
+        get => NumGet(this, 3980, "uint")
+        set => NumPut("uint", value, this, 3980)
     }
 
     /**
      * @type {Integer}
      */
     MiniDumpFields {
-        get => NumGet(this, 4152, "uint")
-        set => NumPut("uint", value, this, 4152)
+        get => NumGet(this, 3984, "uint")
+        set => NumPut("uint", value, this, 3984)
     }
 
     /**
      * @type {Integer}
      */
     SecondaryDataState {
-        get => NumGet(this, 4156, "uint")
-        set => NumPut("uint", value, this, 4156)
+        get => NumGet(this, 3988, "uint")
+        set => NumPut("uint", value, this, 3988)
     }
 
     /**
      * @type {Integer}
      */
     ProductType {
-        get => NumGet(this, 4160, "uint")
-        set => NumPut("uint", value, this, 4160)
+        get => NumGet(this, 3992, "uint")
+        set => NumPut("uint", value, this, 3992)
     }
 
     /**
      * @type {Integer}
      */
     SuiteMask {
-        get => NumGet(this, 4164, "uint")
-        set => NumPut("uint", value, this, 4164)
+        get => NumGet(this, 3996, "uint")
+        set => NumPut("uint", value, this, 3996)
     }
 
     /**
      * @type {Integer}
      */
     WriterStatus {
-        get => NumGet(this, 4168, "uint")
-        set => NumPut("uint", value, this, 4168)
+        get => NumGet(this, 4000, "uint")
+        set => NumPut("uint", value, this, 4000)
     }
 
     /**
      * @type {Integer}
      */
     RequiredDumpSpace {
-        get => NumGet(this, 4176, "int64")
-        set => NumPut("int64", value, this, 4176)
+        get => NumGet(this, 4008, "int64")
+        set => NumPut("int64", value, this, 4008)
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    _reserved2{
+    _reserved2 {
         get {
             if(!this.HasProp("___reserved2ProxyArray"))
-                this.___reserved2ProxyArray := Win32FixedArray(this.ptr + 4184, 16, Primitive, "char")
+                this.___reserved2ProxyArray := Win32FixedArray(this.ptr + 4016, 16, Primitive, "char")
             return this.___reserved2ProxyArray
         }
     }
@@ -331,25 +329,25 @@ class DUMP_HEADER32 extends Win32Struct
      * @type {Integer}
      */
     SystemUpTime {
-        get => NumGet(this, 4200, "int64")
-        set => NumPut("int64", value, this, 4200)
+        get => NumGet(this, 4032, "int64")
+        set => NumPut("int64", value, this, 4032)
     }
 
     /**
      * @type {Integer}
      */
     SystemTime {
-        get => NumGet(this, 4208, "int64")
-        set => NumPut("int64", value, this, 4208)
+        get => NumGet(this, 4040, "int64")
+        set => NumPut("int64", value, this, 4040)
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    _reserved3{
+    _reserved3 {
         get {
             if(!this.HasProp("___reserved3ProxyArray"))
-                this.___reserved3ProxyArray := Win32FixedArray(this.ptr + 4216, 56, Primitive, "char")
+                this.___reserved3ProxyArray := Win32FixedArray(this.ptr + 4048, 56, Primitive, "char")
             return this.___reserved3ProxyArray
         }
     }

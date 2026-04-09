@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DHCPAPI_PARAMS.ahk
 
 /**
  * The DHCPCAPI_PARAMS_ARRAY structure stores an array of DHCPAPI_PARAMS structures used to query DHCP parameters.
  * @see https://learn.microsoft.com/windows/win32/api/dhcpcsdk/ns-dhcpcsdk-dhcpcapi_params_array
  * @namespace Windows.Win32.NetworkManagement.Dhcp
- * @version v4.0.30319
  */
-class DHCPCAPI_PARAMS_ARRAY extends Win32Struct
-{
+class DHCPCAPI_PARAMS_ARRAY extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

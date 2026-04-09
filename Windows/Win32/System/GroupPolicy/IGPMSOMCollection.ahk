@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Com\IDispatch.ahk
 #Include ..\Variant\VARIANT.ahk
 #Include ..\Ole\IEnumVARIANT.ahk
-#Include ..\Com\IDispatch.ahk
 
 /**
  * The IGPMSOMCollection interface represents a collection of GPMSOM objects.
  * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nn-gpmgmt-igpmsomcollection
  * @namespace Windows.Win32.System.GroupPolicy
- * @version v4.0.30319
  */
-class IGPMSOMCollection extends IDispatch{
+class IGPMSOMCollection extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

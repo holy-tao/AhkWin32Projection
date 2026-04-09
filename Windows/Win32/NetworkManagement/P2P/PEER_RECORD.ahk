@@ -7,10 +7,8 @@
  * The PEER_RECORD structure contains the record object that an application uses.
  * @see https://learn.microsoft.com/windows/win32/api/p2p/ns-p2p-peer_record
  * @namespace Windows.Win32.NetworkManagement.P2P
- * @version v4.0.30319
  */
-class PEER_RECORD extends Win32Struct
-{
+class PEER_RECORD extends Win32Struct {
     static sizeof => 112
 
     static packingSize => 8
@@ -26,7 +24,7 @@ class PEER_RECORD extends Win32Struct
 
     /**
      * Specifies the type of  record. The  type is a <b>GUID</b> that an application must specify.  The <b>GUID</b> represents a unique record type, for example, a chat record.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     type {
         get => NumGet(this, 8, "ptr")
@@ -35,7 +33,7 @@ class PEER_RECORD extends Win32Struct
 
     /**
      * Specifies the unique ID of a record. The Peer Infrastructure supplies this ID. This parameter is ignored in calls to  <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupaddrecord">PeerGroupAddRecord</a>. An application cannot modify this member.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     id {
         get => NumGet(this, 16, "ptr")
@@ -120,7 +118,7 @@ class PEER_RECORD extends Win32Struct
      * Specifies the Coordinated Universal Time (UTC) that a record is created. The Peer Infrastructure supplies this value, and the value is set to zero (0) in calls to <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupaddrecord">PeerGroupAddRecord</a>. An application cannot set this member.
      * @type {FILETIME}
      */
-    ftCreation{
+    ftCreation {
         get {
             if(!this.HasProp("__ftCreation"))
                 this.__ftCreation := FILETIME(56, this)
@@ -135,7 +133,7 @@ class PEER_RECORD extends Win32Struct
      * <div> </div>
      * @type {FILETIME}
      */
-    ftExpiration{
+    ftExpiration {
         get {
             if(!this.HasProp("__ftExpiration"))
                 this.__ftExpiration := FILETIME(64, this)
@@ -147,7 +145,7 @@ class PEER_RECORD extends Win32Struct
      * The UTC time that a record is modified.   The Peer Infrastructure supplies this value. Set this member to  <b>NULL</b> when  calling  <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergraphaddrecord">PeerGraphAddRecord</a>, <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergraphupdaterecord">PeerGraphUpdateRecord</a>, <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupaddrecord">PeerGroupAddRecord</a>, and <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupupdaterecord">PeerGroupUpdateRecord</a>. An application cannot set this member.
      * @type {FILETIME}
      */
-    ftLastModified{
+    ftLastModified {
         get {
             if(!this.HasProp("__ftLastModified"))
                 this.__ftLastModified := FILETIME(72, this)
@@ -157,10 +155,10 @@ class PEER_RECORD extends Win32Struct
 
     /**
      * Specifies the security data contained in a  <a href="https://docs.microsoft.com/windows/desktop/api/p2p/ns-p2p-peer_data">PEER_DATA</a> structure. The Graphing API uses this member, and provides  the security provider with a place to store security data, for example, a signature.  The Grouping API cannot modify this member.
-     * @deprecated 
+     * @deprecated
      * @type {PEER_DATA}
      */
-    securityData{
+    securityData {
         get {
             if(!this.HasProp("__securityData"))
                 this.__securityData := PEER_DATA(80, this)
@@ -170,10 +168,10 @@ class PEER_RECORD extends Win32Struct
 
     /**
      * Specifies the actual data that this record contains.
-     * @deprecated 
+     * @deprecated
      * @type {PEER_DATA}
      */
-    data{
+    data {
         get {
             if(!this.HasProp("__data"))
                 this.__data := PEER_DATA(96, this)

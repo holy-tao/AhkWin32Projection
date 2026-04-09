@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
- * @version v4.0.30319
  */
-class DOT11_WFD_ADVERTISED_SERVICE_DESCRIPTOR extends Win32Struct
-{
+class DOT11_WFD_ADVERTISED_SERVICE_DESCRIPTOR extends Win32Struct {
     static sizeof => 264
 
     static packingSize => 4
@@ -36,9 +34,9 @@ class DOT11_WFD_ADVERTISED_SERVICE_DESCRIPTOR extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    ServiceName{
+    ServiceName {
         get {
             if(!this.HasProp("__ServiceNameProxyArray"))
                 this.__ServiceNameProxyArray := Win32FixedArray(this.ptr + 7, 255, Primitive, "char")

@@ -14,9 +14,8 @@
  * Use <b>ICommDlgBrowser</b> when you need to provide special behavior while hosted inside the common dialog boxes.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-icommdlgbrowser
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class ICommDlgBrowser extends IUnknown{
+class ICommDlgBrowser extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

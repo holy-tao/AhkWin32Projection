@@ -4,16 +4,14 @@
 
 /**
  * @namespace Windows.Win32.System.ApplicationInstallationAndServicing
- * @version v4.0.30319
  */
-class PM_INSTALLINFO extends Win32Struct
-{
+class PM_INSTALLINFO extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 8
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     ProductID {
         get => NumGet(this, 0, "ptr")
@@ -23,7 +21,7 @@ class PM_INSTALLINFO extends Win32Struct
     /**
      * @type {BSTR}
      */
-    PackagePath{
+    PackagePath {
         get {
             if(!this.HasProp("__PackagePath"))
                 this.__PackagePath := BSTR(8, this)
@@ -32,7 +30,7 @@ class PM_INSTALLINFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     InstanceID {
         get => NumGet(this, 16, "ptr")
@@ -72,7 +70,7 @@ class PM_INSTALLINFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     OfferID {
         get => NumGet(this, 48, "ptr")
@@ -82,7 +80,7 @@ class PM_INSTALLINFO extends Win32Struct
     /**
      * @type {BSTR}
      */
-    MarketplaceAppVersion{
+    MarketplaceAppVersion {
         get {
             if(!this.HasProp("__MarketplaceAppVersion"))
                 this.__MarketplaceAppVersion := BSTR(56, this)

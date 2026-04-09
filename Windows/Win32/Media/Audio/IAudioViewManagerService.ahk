@@ -9,9 +9,8 @@
  * Get an instance of the [IAudioViewManagerService](nn-audioclient-iaudioviewmanagerservice.md) by calling [GetService](nf-audioclient-iaudioclient-getservice) on an instance of [IAudioClient](nn-audioclient-iaudioclient.md).
  * @see https://learn.microsoft.com/windows/win32/api/audioclient/nn-audioclient-iaudioviewmanagerservice
  * @namespace Windows.Win32.Media.Audio
- * @version v4.0.30319
  */
-class IAudioViewManagerService extends IUnknown{
+class IAudioViewManagerService extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -40,7 +39,7 @@ class IAudioViewManagerService extends IUnknown{
      * Get an instance of the [IAudioViewManagerService](nn-audioclient-iaudioviewmanagerservice.md) by calling [GetService](nf-audioclient-iaudioclient-getservice) on the [IAudioClient](nn-audioclient-iaudioclient.md) instance representing the stream you want to associate a window with. The following code example illustrates creating an audio stream on the default audio render endpoint and associating it with an **HWND**.
      * 
      * ```cpp
-     * @param {HWND} _hwnd 
+     * @param {HWND} _hwnd The [HWND](https://docs.microsoft.com/en-us/windows/win32/winprog/windows-data-types) with which the audio stream wll be associated.
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/audioclient/nf-audioclient-iaudioviewmanagerservice-setaudiostreamwindow
      */

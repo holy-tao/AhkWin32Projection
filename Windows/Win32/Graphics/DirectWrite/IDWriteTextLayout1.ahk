@@ -7,9 +7,8 @@
  * Represents a block of text after it has been fully analyzed and formatted. (IDWriteTextLayout1)
  * @see https://learn.microsoft.com/windows/win32/api/dwrite_1/nn-dwrite_1-idwritetextlayout1
  * @namespace Windows.Win32.Graphics.DirectWrite
- * @version v4.0.30319
  */
-class IDWriteTextLayout1 extends IDWriteTextLayout{
+class IDWriteTextLayout1 extends IDWriteTextLayout {
 
     static sizeof => A_PtrSize
     /**

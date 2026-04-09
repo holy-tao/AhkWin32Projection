@@ -7,9 +7,8 @@
  * These values are defined in propsys.h and propsys.idl.
  * @see https://learn.microsoft.com/windows/win32/api/propsys/ne-propsys-propdesc_view_flags
  * @namespace Windows.Win32.UI.Shell.PropertiesSystem
- * @version v4.0.30319
  */
-class PROPDESC_VIEW_FLAGS extends Win32BitflagEnum{
+class PROPDESC_VIEW_FLAGS extends Win32BitflagEnum {
 
     /**
      * Show this property by default.

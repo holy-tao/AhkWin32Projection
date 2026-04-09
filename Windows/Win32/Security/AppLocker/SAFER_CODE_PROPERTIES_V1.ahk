@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\HANDLE.ahk
+#Include ..\Cryptography\ALG_ID.ahk
 #Include ..\..\Foundation\HWND.ahk
 
 /**
@@ -9,10 +10,8 @@
  * <a href="https://docs.microsoft.com/windows/desktop/api/winsafer/ns-winsafer-safer_code_properties_v2">SAFER_CODE_PROPERTIES</a>  was redefined to include additional members that allow Windows Store app to use the structure. Check the <b>cbSize</b> member for the appropriate size of the structure and for whether you should use the <b>SAFER_CODE_PROPERTIES</b> structure or the <b>SAFER_CODE_PROPERTIES_V1</b> structure.
  * @see https://learn.microsoft.com/windows/win32/api/winsafer/ns-winsafer-safer_code_properties_v1
  * @namespace Windows.Win32.Security.AppLocker
- * @version v4.0.30319
  */
-class SAFER_CODE_PROPERTIES_V1 extends Win32Struct
-{
+class SAFER_CODE_PROPERTIES_V1 extends Win32Struct {
     static sizeof => 136
 
     static packingSize => 8
@@ -115,7 +114,7 @@ class SAFER_CODE_PROPERTIES_V1 extends Win32Struct
      * A file handle to a code image with at least GENERIC_READ access. The handle is used instead of explicitly reopening the file  to compute discrimination criteria not supplied in this structure. This member can be <b>NULL</b>; however, if <b>dwCheckFlags</b> includes <b>SAFER_CRITERIA_AUTHENTICODE</b>, either this member or the <b>ImagePath</b> member must be set.
      * @type {HANDLE}
      */
-    hImageFileHandle{
+    hImageFileHandle {
         get {
             if(!this.HasProp("__hImageFileHandle"))
                 this.__hImageFileHandle := HANDLE(16, this)
@@ -157,9 +156,9 @@ class SAFER_CODE_PROPERTIES_V1 extends Win32Struct
      * <li>Using the <b>hImageFileHandle</b> member, if it is not <b>NULL</b>.</li>
      * <li>Opening and using the <b>ImagePath</b> member, if it is not <b>NULL</b>.</li>
      * </ul>
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    ImageHash{
+    ImageHash {
         get {
             if(!this.HasProp("__ImageHashProxyArray"))
                 this.__ImageHashProxyArray := Win32FixedArray(this.ptr + 28, 64, Primitive, "char")
@@ -187,7 +186,7 @@ class SAFER_CODE_PROPERTIES_V1 extends Win32Struct
 
     /**
      * The hash algorithm used to create the <b>ImageHash</b> member.
-     * @type {Integer}
+     * @type {ALG_ID}
      */
     HashAlgorithm {
         get => NumGet(this, 104, "uint")
@@ -207,7 +206,7 @@ class SAFER_CODE_PROPERTIES_V1 extends Win32Struct
      * The arguments used for Authenticode signer certificate verification. These arguments are passed to the <a href="https://docs.microsoft.com/windows/desktop/api/wintrust/nf-wintrust-winverifytrust">WinVerifyTrust</a> function and control the UI that prompts the user to accept or reject entrusted certificates.
      * @type {HWND}
      */
-    hWndParent{
+    hWndParent {
         get {
             if(!this.HasProp("__hWndParent"))
                 this.__hWndParent := HWND(120, this)

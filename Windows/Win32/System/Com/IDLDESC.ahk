@@ -1,12 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\IDLFLAGS.ahk
 
 /**
  * @namespace Windows.Win32.System.Com
- * @version v4.0.30319
  */
-class IDLDESC extends Win32Struct
-{
+class IDLDESC extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
@@ -20,7 +19,7 @@ class IDLDESC extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {IDLFLAGS}
      */
     wIDLFlags {
         get => NumGet(this, 8, "ushort")

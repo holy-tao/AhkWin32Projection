@@ -11,10 +11,8 @@
  * All properties must be bound.
  * @see https://learn.microsoft.com/windows/win32/api/d2d1effectauthor/ns-d2d1effectauthor-d2d1_property_binding
  * @namespace Windows.Win32.Graphics.Direct2D
- * @version v4.0.30319
  */
-class D2D1_PROPERTY_BINDING extends Win32Struct
-{
+class D2D1_PROPERTY_BINDING extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

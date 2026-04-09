@@ -5,9 +5,8 @@
  * Specifies the type of media for a connection.
  * @see https://learn.microsoft.com/windows/win32/api/wcmapi/ne-wcmapi-wcm_media_type
  * @namespace Windows.Win32.NetworkManagement.WindowsConnectionManager
- * @version v4.0.30319
  */
-class WCM_MEDIA_TYPE extends Win32Enum{
+class WCM_MEDIA_TYPE extends Win32Enum {
 
     /**
      * Unknown media.

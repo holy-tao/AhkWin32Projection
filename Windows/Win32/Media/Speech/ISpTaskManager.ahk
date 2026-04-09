@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\SPTMTHREADINFO.ahk
 #Include .\ISpNotifySink.ahk
 #Include .\ISpThreadControl.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * @namespace Windows.Win32.Media.Speech
- * @version v4.0.30319
  */
-class ISpTaskManager extends IUnknown{
+class ISpTaskManager extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -6,7 +6,6 @@
 
 /**
  * @namespace Windows.Win32.Media.Audio.XAudio2
- * @version v4.0.30319
  */
 class XAudio2 {
 
@@ -1148,7 +1147,7 @@ class XAudio2 {
      * Windows 10 (XAudio2.9); 
      *             Windows 8, Windows Phone 8 (XAudio 2.8); DirectX SDK (XAudio 2.7)
      * @param {Pointer<Guid>} clsid ID of the effect to create. Use the <b>__uuidof</b> on the effect class name to get the CLSID for an effect. For example, <b>__uuidof</b>(FXReverb) would provide the CLSID for the FXReverb effect. For a list of effects provided by XAPOFX, see <a href="https://docs.microsoft.com/windows/desktop/xaudio2/xapofx-overview">XAPOFX Overview</a>. For an example of retrieving the CLSID for an effect, see <a href="https://docs.microsoft.com/windows/desktop/xaudio2/how-to--use-xapofx-in-xaudio2">How to: Use XAPOFX in XAudio2</a>.
-     * @param {Pointer} pInitDat 
+     * @param {Integer} pInitDat 
      * @param {Integer} InitDataByteSize Size of <i>pInitData</i> in bytes. This is zero if <i>pInitData</i> is <b>NULL</b>.
      * @returns {IUnknown} Receives a pointer to the created XAPO instance. If <b>CreateFX</b> fails, <i>pEffect </i> is untouched.
      * @see https://learn.microsoft.com/windows/win32/api/xapofx/nf-xapofx-createfx

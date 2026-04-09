@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\WS_XML_STRING.ahk
 #Include .\WS_XML_QNAME.ahk
+#Include .\WS_XML_STRING.ahk
+#Include .\WS_XML_DICTIONARY.ahk
+#Include .\WS_FAULT_CODE.ahk
 
 /**
  * Represents a fault code.
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_fault_code
  * @namespace Windows.Win32.Networking.WindowsWebServices
- * @version v4.0.30319
  */
-class WS_FAULT_CODE extends Win32Struct
-{
+class WS_FAULT_CODE extends Win32Struct {
     static sizeof => 72
 
     static packingSize => 8
@@ -19,7 +19,7 @@ class WS_FAULT_CODE extends Win32Struct
      * The local name and namespace URI that identify the fault code.
      * @type {WS_XML_QNAME}
      */
-    value{
+    value {
         get {
             if(!this.HasProp("__value"))
                 this.__value := WS_XML_QNAME(0, this)

@@ -11,9 +11,8 @@
  * <b>ISdoServiceControl</b> interface.
  * @see https://learn.microsoft.com/windows/win32/api/sdoias/nn-sdoias-isdoservicecontrol
  * @namespace Windows.Win32.NetworkManagement.NetworkPolicyServer
- * @version v4.0.30319
  */
-class ISdoServiceControl extends IDispatch{
+class ISdoServiceControl extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -65,7 +64,7 @@ class ISdoServiceControl extends IDispatch{
 
     /**
      * The GetServiceStatus method retrieves the status of the service being administered through SDO.
-     * @returns {Integer} 
+     * @returns {Integer} Pointer to a <b>LONG</b> variable that contains the status of the service. The status
      * @see https://learn.microsoft.com/windows/win32/api/sdoias/nf-sdoias-isdoservicecontrol-getservicestatus
      */
     GetServiceStatus() {

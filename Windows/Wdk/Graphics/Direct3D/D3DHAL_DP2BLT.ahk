@@ -1,16 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Win32\Foundation\RECTL.ahk
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
- * @version v4.0.30319
  */
-class D3DHAL_DP2BLT extends Win32Struct
-{
-    static sizeof => 52
+class D3DHAL_DP2BLT extends Win32Struct {
+    static sizeof => 40
 
-    static packingSize => 4
+    static packingSize => 8
 
     /**
      * @type {Integer}
@@ -21,56 +18,50 @@ class D3DHAL_DP2BLT extends Win32Struct
     }
 
     /**
-     * @type {RECTL}
+     * @type {Pointer}
      */
-    rSource{
-        get {
-            if(!this.HasProp("__rSource"))
-                this.__rSource := RECTL(4, this)
-            return this.__rSource
-        }
+    rSource {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * @type {Integer}
      */
     dwSourceMipLevel {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
+        get => NumGet(this, 16, "uint")
+        set => NumPut("uint", value, this, 16)
     }
 
     /**
      * @type {Integer}
      */
     dwDest {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
+        get => NumGet(this, 20, "uint")
+        set => NumPut("uint", value, this, 20)
     }
 
     /**
-     * @type {RECTL}
+     * @type {Pointer}
      */
-    rDest{
-        get {
-            if(!this.HasProp("__rDest"))
-                this.__rDest := RECTL(28, this)
-            return this.__rDest
-        }
+    rDest {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
      * @type {Integer}
      */
     dwDestMipLevel {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
+        get => NumGet(this, 32, "uint")
+        set => NumPut("uint", value, this, 32)
     }
 
     /**
      * @type {Integer}
      */
     Flags {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
+        get => NumGet(this, 36, "uint")
+        set => NumPut("uint", value, this, 36)
     }
 }

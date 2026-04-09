@@ -1,7 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\LUID.ahk
+#Include .\DISPLAYCONFIG_VIDEO_OUTPUT_TECHNOLOGY.ahk
+#Include .\DISPLAYCONFIG_ROTATION.ahk
+#Include .\DISPLAYCONFIG_SCALING.ahk
 #Include .\DISPLAYCONFIG_RATIONAL.ahk
+#Include .\DISPLAYCONFIG_SCANLINE_ORDERING.ahk
 
 /**
  * The DISPLAYCONFIG_PATH_TARGET_INFO structure contains target information for a single path.
@@ -13,10 +17,8 @@
  * The <b>statusFlags</b> member is set when you call the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-querydisplayconfig">QueryDisplayConfig</a> function.
  * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-displayconfig_path_target_info
  * @namespace Windows.Win32.Devices.Display
- * @version v4.0.30319
  */
-class DISPLAYCONFIG_PATH_TARGET_INFO extends Win32Struct
-{
+class DISPLAYCONFIG_PATH_TARGET_INFO extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 4
@@ -25,7 +27,7 @@ class DISPLAYCONFIG_PATH_TARGET_INFO extends Win32Struct
      * The identifier of the adapter that the path is on.
      * @type {LUID}
      */
-    adapterId{
+    adapterId {
         get {
             if(!this.HasProp("__adapterId"))
                 this.__adapterId := LUID(0, this)
@@ -79,7 +81,7 @@ class DISPLAYCONFIG_PATH_TARGET_INFO extends Win32Struct
 
     /**
      * The target's connector type. For a list of possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ne-wingdi-displayconfig_video_output_technology">DISPLAYCONFIG_VIDEO_OUTPUT_TECHNOLOGY</a> enumerated type.
-     * @type {Integer}
+     * @type {DISPLAYCONFIG_VIDEO_OUTPUT_TECHNOLOGY}
      */
     outputTechnology {
         get => NumGet(this, 16, "int")
@@ -88,7 +90,7 @@ class DISPLAYCONFIG_PATH_TARGET_INFO extends Win32Struct
 
     /**
      * A value that specifies the rotation of the target. For a list of possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ne-wingdi-displayconfig_rotation">DISPLAYCONFIG_ROTATION</a> enumerated type.
-     * @type {Integer}
+     * @type {DISPLAYCONFIG_ROTATION}
      */
     rotation {
         get => NumGet(this, 20, "int")
@@ -97,7 +99,7 @@ class DISPLAYCONFIG_PATH_TARGET_INFO extends Win32Struct
 
     /**
      * A value that specifies how the source image is scaled to the target. For a list of possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ne-wingdi-displayconfig_scaling">DISPLAYCONFIG_SCALING</a> enumerated type. For more information about scaling, see <a href="https://docs.microsoft.com/windows-hardware/drivers/display/scaling-the-desktop-image">Scaling the Desktop Image</a>.
-     * @type {Integer}
+     * @type {DISPLAYCONFIG_SCALING}
      */
     scaling {
         get => NumGet(this, 24, "int")
@@ -108,7 +110,7 @@ class DISPLAYCONFIG_PATH_TARGET_INFO extends Win32Struct
      * A <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-displayconfig_rational">DISPLAYCONFIG_RATIONAL</a> structure that specifies the refresh rate of the target. If the caller specifies target mode information, the operating system will instead use the refresh rate that is stored in the <b>vSyncFreq</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-displayconfig_video_signal_info">DISPLAYCONFIG_VIDEO_SIGNAL_INFO</a> structure. In this case, the caller specifies this value in the <b>targetVideoSignalInfo</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-displayconfig_target_mode">DISPLAYCONFIG_TARGET_MODE</a> structure. A refresh rate with both the numerator and denominator set to zero indicates that the caller does not specify a refresh rate and the operating system should use the most optimal refresh rate available. For this case, in a call to the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-setdisplayconfig">SetDisplayConfig</a> function, the caller must set the <b>scanLineOrdering</b> member to the DISPLAYCONFIG_SCANLINE_ORDERING_UNSPECIFIED value; otherwise, <b>SetDisplayConfig</b> fails.
      * @type {DISPLAYCONFIG_RATIONAL}
      */
-    refreshRate{
+    refreshRate {
         get {
             if(!this.HasProp("__refreshRate"))
                 this.__refreshRate := DISPLAYCONFIG_RATIONAL(28, this)
@@ -118,7 +120,7 @@ class DISPLAYCONFIG_PATH_TARGET_INFO extends Win32Struct
 
     /**
      * A value that specifies the scan-line ordering of the output on the target. For a list of possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ne-wingdi-displayconfig_scanline_ordering">DISPLAYCONFIG_SCANLINE_ORDERING</a> enumerated type. If the caller specifies target mode information, the operating system will instead use the scan-line ordering that is stored in the <b>scanLineOrdering</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-displayconfig_video_signal_info">DISPLAYCONFIG_VIDEO_SIGNAL_INFO</a> structure. In this case, the caller specifies this value in the <b>targetVideoSignalInfo</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-displayconfig_target_mode">DISPLAYCONFIG_TARGET_MODE</a> structure.
-     * @type {Integer}
+     * @type {DISPLAYCONFIG_SCANLINE_ORDERING}
      */
     scanLineOrdering {
         get => NumGet(this, 36, "int")

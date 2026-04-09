@@ -3,11 +3,9 @@
 
 /**
  * @namespace Windows.Win32.System.CorrelationVector
- * @version v4.0.30319
  */
-class CORRELATION_VECTOR extends Win32Struct
-{
-    static sizeof => 260
+class CORRELATION_VECTOR extends Win32Struct {
+    static sizeof => 132
 
     static packingSize => 2
 
@@ -23,7 +21,7 @@ class CORRELATION_VECTOR extends Win32Struct
      * @type {String}
      */
     Vector {
-        get => StrGet(this.ptr + 2, 128, "UTF-16")
-        set => StrPut(value, this.ptr + 2, 128, "UTF-16")
+        get => StrGet(this.ptr + 2, 128, "UTF-8")
+        set => StrPut(value, this.ptr + 2, 128, "UTF-8")
     }
 }

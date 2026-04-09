@@ -11,9 +11,8 @@
  * One important text string type not defined in this enumeration is 0xF0, the extension-sorting text string type. You can use this type of string in many ways to enable players to sort the string data. It can be a unique number or a repetition of a previous string with the word order changed. For example, a string of type 0x30 that has the name "The Greatest Hits" might be followed by a string of type 0xF0 that says "Greatest Hits, The." As with content strings, the use of the sorting string is not strictly defined.
  * @see https://learn.microsoft.com/windows/win32/api/segment/ne-segment-dvdtextstringtype
  * @namespace Windows.Win32.Media.DirectShow.Tv
- * @version v4.0.30319
  */
-class DVDTextStringType extends Win32Enum{
+class DVDTextStringType extends Win32Enum {
 
     /**
      * Indicates the top level of the logical hierarchy. Refers to the entire contents of a one-sided disc or one side of a two-sided disc.

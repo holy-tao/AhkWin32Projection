@@ -1,16 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include .\IWMPControls2.ahk
 
 /**
  * The IWMPControls3 interface provides methods that supplement the IWMPControls2 interface.
  * @see https://learn.microsoft.com/windows/win32/api/wmp/nn-wmp-iwmpcontrols3
  * @namespace Windows.Win32.Media.MediaPlayer
- * @version v4.0.30319
  */
-class IWMPControls3 extends IWMPControls2{
+class IWMPControls3 extends IWMPControls2 {
 
     static sizeof => A_PtrSize
     /**
@@ -38,6 +36,7 @@ class IWMPControls3 extends IWMPControls2{
     }
 
     /**
+     * @type {Integer} 
      */
     currentAudioLanguage {
         get => this.get_currentAudioLanguage()
@@ -45,6 +44,7 @@ class IWMPControls3 extends IWMPControls2{
     }
 
     /**
+     * @type {Integer} 
      */
     currentAudioLanguageIndex {
         get => this.get_currentAudioLanguageIndex()
@@ -52,6 +52,7 @@ class IWMPControls3 extends IWMPControls2{
     }
 
     /**
+     * @type {BSTR} 
      */
     currentPositionTimecode {
         get => this.get_currentPositionTimecode()

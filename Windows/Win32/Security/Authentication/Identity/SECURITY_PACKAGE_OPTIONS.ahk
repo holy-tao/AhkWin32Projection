@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\SECURITY_PACKAGE_OPTIONS_TYPE.ahk
 
 /**
  * Specifies information about a security package.
  * @see https://learn.microsoft.com/windows/win32/api/sspi/ns-sspi-security_package_options
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class SECURITY_PACKAGE_OPTIONS extends Win32Struct
-{
+class SECURITY_PACKAGE_OPTIONS extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -23,8 +22,7 @@ class SECURITY_PACKAGE_OPTIONS extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Integer}
+     * @type {SECURITY_PACKAGE_OPTIONS_TYPE}
      */
     Type {
         get => NumGet(this, 4, "uint")

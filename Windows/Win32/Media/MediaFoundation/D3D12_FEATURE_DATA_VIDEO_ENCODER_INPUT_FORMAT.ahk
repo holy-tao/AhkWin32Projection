@@ -1,17 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\D3D12_VIDEO_ENCODER_CODEC.ahk
 #Include .\D3D12_VIDEO_ENCODER_PROFILE_DESC.ahk
+#Include .\D3D12_VIDEO_ENCODER_PROFILE_H264.ahk
+#Include .\D3D12_VIDEO_ENCODER_PROFILE_HEVC.ahk
+#Include .\D3D12_VIDEO_ENCODER_AV1_PROFILE.ahk
+#Include ..\..\Graphics\Dxgi\Common\DXGI_FORMAT.ahk
 
 /**
  * Retrieves a value indicating if the specified codec, profile, and format are supported for video encoding.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/d3d12video/ns-d3d12video-d3d12_feature_data_video_encoder_input_format
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class D3D12_FEATURE_DATA_VIDEO_ENCODER_INPUT_FORMAT extends Win32Struct
-{
+class D3D12_FEATURE_DATA_VIDEO_ENCODER_INPUT_FORMAT extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -27,7 +28,7 @@ class D3D12_FEATURE_DATA_VIDEO_ENCODER_INPUT_FORMAT extends Win32Struct
 
     /**
      * A member of the [D3D12_VIDEO_ENCODER_CODEC](ne-d3d12video-d3d12_video_encoder_codec.md) enumeration specifying the codec for which support is being queried.
-     * @type {Integer}
+     * @type {D3D12_VIDEO_ENCODER_CODEC}
      */
     Codec {
         get => NumGet(this, 4, "int")
@@ -38,7 +39,7 @@ class D3D12_FEATURE_DATA_VIDEO_ENCODER_INPUT_FORMAT extends Win32Struct
      * A member of the [D3D12_VIDEO_ENCODER_CODEC](ne-d3d12video-d3d12_video_encoder_codec.md) enumeration specifying the profile for which support is being queried.
      * @type {D3D12_VIDEO_ENCODER_PROFILE_DESC}
      */
-    Profile{
+    Profile {
         get {
             if(!this.HasProp("__Profile"))
                 this.__Profile := D3D12_VIDEO_ENCODER_PROFILE_DESC(8, this)
@@ -55,7 +56,7 @@ class D3D12_FEATURE_DATA_VIDEO_ENCODER_INPUT_FORMAT extends Win32Struct
      * 
      * > [!NOTE]
      * > The host is expected to handle the input subsampling and color conversion stages of video encoding.
-     * @type {Integer}
+     * @type {DXGI_FORMAT}
      */
     Format {
         get => NumGet(this, 24, "int")

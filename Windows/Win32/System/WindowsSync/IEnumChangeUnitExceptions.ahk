@@ -1,17 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IChangeUnitException.ahk
-#Include .\IEnumChangeUnitExceptions.ahk
 #Include ..\Com\IUnknown.ahk
+#Include .\IChangeUnitException.ahk
 
 /**
  * Enumerates change unit exceptions that are stored in a knowledge object.
  * @see https://learn.microsoft.com/windows/win32/api/winsync/nn-winsync-ienumchangeunitexceptions
  * @namespace Windows.Win32.System.WindowsSync
- * @version v4.0.30319
  */
-class IEnumChangeUnitExceptions extends IUnknown{
+class IEnumChangeUnitExceptions extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

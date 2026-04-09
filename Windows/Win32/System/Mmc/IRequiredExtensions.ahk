@@ -2,14 +2,14 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\Com\IUnknown.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * The IRequiredExtensions interface is introduced in MMC 1.1.
  * @see https://learn.microsoft.com/windows/win32/api/mmc/nn-mmc-irequiredextensions
  * @namespace Windows.Win32.System.Mmc
- * @version v4.0.30319
  */
-class IRequiredExtensions extends IUnknown{
+class IRequiredExtensions extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

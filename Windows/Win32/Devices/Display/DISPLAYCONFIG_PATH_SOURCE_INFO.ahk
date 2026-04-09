@@ -10,10 +10,8 @@
  * A source corresponds to a surface on which the display adapter can render pixels. Each display adapter is capable of rendering to x number of sources. What this means is how many desktops can be rendered for extend mode. This is typically 2. For example, source 0 might be rendering pixels from 0,0 to 1024,768, and source 1 might be rendering pixels from 1025,0 to 2048, 768.
  * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-displayconfig_path_source_info
  * @namespace Windows.Win32.Devices.Display
- * @version v4.0.30319
  */
-class DISPLAYCONFIG_PATH_SOURCE_INFO extends Win32Struct
-{
+class DISPLAYCONFIG_PATH_SOURCE_INFO extends Win32Struct {
     static sizeof => 20
 
     static packingSize => 4
@@ -22,7 +20,7 @@ class DISPLAYCONFIG_PATH_SOURCE_INFO extends Win32Struct
      * The identifier of the adapter that this source information relates to.
      * @type {LUID}
      */
-    adapterId{
+    adapterId {
         get {
             if(!this.HasProp("__adapterId"))
                 this.__adapterId := LUID(0, this)

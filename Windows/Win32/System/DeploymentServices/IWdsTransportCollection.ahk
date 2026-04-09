@@ -8,9 +8,8 @@
  * Represents a collection of Windows Deployment Services (WDS) transport management objects.
  * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nn-wdstptmgmt-iwdstransportcollection
  * @namespace Windows.Win32.System.DeploymentServices
- * @version v4.0.30319
  */
-class IWdsTransportCollection extends IDispatch{
+class IWdsTransportCollection extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

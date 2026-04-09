@@ -1,13 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\STORAGE_PROTOCOL_SPECIFIC_DATA_EXT.ahk
+#Include .\STORAGE_PROTOCOL_TYPE.ahk
 
 /**
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class STORAGE_PROTOCOL_DATA_DESCRIPTOR_EXT extends Win32Struct
-{
+class STORAGE_PROTOCOL_DATA_DESCRIPTOR_EXT extends Win32Struct {
     static sizeof => 72
 
     static packingSize => 4
@@ -31,7 +30,7 @@ class STORAGE_PROTOCOL_DATA_DESCRIPTOR_EXT extends Win32Struct
     /**
      * @type {STORAGE_PROTOCOL_SPECIFIC_DATA_EXT}
      */
-    ProtocolSpecificData{
+    ProtocolSpecificData {
         get {
             if(!this.HasProp("__ProtocolSpecificData"))
                 this.__ProtocolSpecificData := STORAGE_PROTOCOL_SPECIFIC_DATA_EXT(8, this)

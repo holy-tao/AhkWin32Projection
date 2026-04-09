@@ -5,9 +5,8 @@
  * The PEER_GROUP_EVENT_TYPE enumeration contains the specific peer event types that can occur within a peer group.
  * @see https://learn.microsoft.com/windows/win32/api/p2p/ne-p2p-peer_group_event_type
  * @namespace Windows.Win32.NetworkManagement.P2P
- * @version v4.0.30319
  */
-class PEER_GROUP_EVENT_TYPE extends Win32Enum{
+class PEER_GROUP_EVENT_TYPE extends Win32Enum {
 
     /**
      * The status of the group has changed. This peer event is fired when one of the flags listed in the <a href="https://docs.microsoft.com/windows/desktop/api/p2p/ne-p2p-peer_group_status">PEER_GROUP_STATUS</a> enumeration are set or changed for the group.
@@ -58,7 +57,6 @@ class PEER_GROUP_EVENT_TYPE extends Win32Enum{
     static PEER_GROUP_EVENT_CONNECTION_FAILED => 10
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static PEER_GROUP_EVENT_AUTHENTICATION_FAILED => 11

@@ -1,13 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\_URB_HEADER.ahk
+#Include .\USBD_STREAM_INFORMATION.ahk
 
 /**
  * @namespace Windows.Win32.Devices.Usb
- * @version v4.0.30319
  */
-class _URB_OPEN_STATIC_STREAMS extends Win32Struct
-{
+class _URB_OPEN_STATIC_STREAMS extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -15,7 +14,7 @@ class _URB_OPEN_STATIC_STREAMS extends Win32Struct
     /**
      * @type {_URB_HEADER}
      */
-    Hdr{
+    Hdr {
         get {
             if(!this.HasProp("__Hdr"))
                 this.__Hdr := _URB_HEADER(0, this)

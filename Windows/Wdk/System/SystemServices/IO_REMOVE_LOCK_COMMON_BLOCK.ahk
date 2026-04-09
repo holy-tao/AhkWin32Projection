@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class IO_REMOVE_LOCK_COMMON_BLOCK extends Win32Struct
-{
+class IO_REMOVE_LOCK_COMMON_BLOCK extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
@@ -22,7 +20,7 @@ class IO_REMOVE_LOCK_COMMON_BLOCK extends Win32Struct
     /**
      * @type {Array<BOOLEAN>}
      */
-    Reserved{
+    Reserved {
         get {
             if(!this.HasProp("__ReservedProxyArray"))
                 this.__ReservedProxyArray := Win32FixedArray(this.ptr + 1, 3, Primitive, "char")
@@ -39,7 +37,7 @@ class IO_REMOVE_LOCK_COMMON_BLOCK extends Win32Struct
     }
 
     /**
-     * @type {Pointer<KEVENT>}
+     * @type {Pointer}
      */
     RemoveEvent {
         get => NumGet(this, 8, "ptr")

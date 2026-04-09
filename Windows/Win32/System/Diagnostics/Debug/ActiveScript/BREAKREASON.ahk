@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.ActiveScript
- * @version v4.0.30319
  */
-class BREAKREASON extends Win32Enum{
+class BREAKREASON extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

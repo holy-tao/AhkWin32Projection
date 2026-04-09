@@ -4,7 +4,6 @@
 
 /**
  * @namespace Windows.Win32.System.HostComputeNetwork
- * @version v4.0.30319
  */
 class HostComputeNetwork {
 
@@ -85,7 +84,7 @@ class HostComputeNetwork {
      * HcnQueryNetworkProperties
      * @param {Pointer<Void>} Network Handle to an network [`HCN_NETWORK`](./HCN_NETWORK.md)
      * @param {PWSTR} Query Optional JSON document of [HostComputeQuery](./../HNS_Schema.md#HostComputeQuery).
-     * @param {Pointer<PWSTR>} _Properties 
+     * @param {Pointer<PWSTR>} _Properties The properties in the form of a JSON document of [HostComputeNetwork](./../HNS_Schema.md#HostComputeNetwork).
      * @param {Pointer<PWSTR>} ErrorRecord Receives a JSON document with extended errorCode information. The caller must release the buffer using CoTaskMemFree.
      * @returns {HRESULT} The function returns [HRESULT](./HCNHResult.md).
      * @see https://learn.microsoft.com/virtualization/api/hcn/Reference/HcnQueryNetworkProperties
@@ -198,7 +197,7 @@ class HostComputeNetwork {
      * HcnQueryNamespaceProperties
      * @param {Pointer<Void>} Namespace Handle to an namespace [`HCN_NAMESPACE`](./HCN_NAMESPACE.md)
      * @param {PWSTR} Query Optional JSON document of [HostComputeQuery](./../HNS_Schema.md#HostComputeQuery).
-     * @param {Pointer<PWSTR>} _Properties 
+     * @param {Pointer<PWSTR>} _Properties The properties in the form of a JSON document of [HostComputeNamespace](./../HNS_Schema.md#HostComputeNamespace).
      * @param {Pointer<PWSTR>} ErrorRecord Receives a JSON document with extended errorCode information. The caller must release the buffer using CoTaskMemFree.
      * @returns {HRESULT} The function returns [HRESULT](./HCNHResult.md).
      * @see https://learn.microsoft.com/virtualization/api/hcn/Reference/HcnQueryNamespaceProperties
@@ -313,7 +312,7 @@ class HostComputeNetwork {
      * HcnQueryEndpointProperties
      * @param {Pointer<Void>} Endpoint Handle to an endpoint [`HCN_ENDPOINT`](./HCN_ENDPOINT.md)
      * @param {PWSTR} Query Optional JSON document of [HostComputeQuery](./../HNS_Schema.md#HostComputeQuery).
-     * @param {Pointer<PWSTR>} _Properties 
+     * @param {Pointer<PWSTR>} _Properties The properties in the form of a JSON document of [HostComputeEndpoint](./../HNS_Schema.md#HostComputeEndpoint).
      * @param {Pointer<PWSTR>} ErrorRecord Receives a JSON document with extended errorCode information. The caller must release the buffer using CoTaskMemFree.
      * @returns {HRESULT} The function returns [HRESULT](./HCNHResult.md).
      * @see https://learn.microsoft.com/virtualization/api/hcn/Reference/HcnQueryEndpointProperties
@@ -426,7 +425,7 @@ class HostComputeNetwork {
      * HcnQueryLoadBalancerProperties
      * @param {Pointer<Void>} LoadBalancer Handle to an load balancer [`HCN_LOADBALANCER`](./HCN_LOADBALANCER.md)
      * @param {PWSTR} Query Optional JSON document of [HostComputeQuery](./../HNS_Schema.md#HostComputeLoadBalancer).
-     * @param {Pointer<PWSTR>} _Properties 
+     * @param {Pointer<PWSTR>} _Properties The properties in the form of a JSON document of [HostComputeLoadBalancer](./../HNS_Schema.md#HostComputeLoadBalancer).
      * @param {Pointer<PWSTR>} ErrorRecord Receives a JSON document with extended errorCode information. The caller must release the buffer using CoTaskMemFree.
      * @returns {HRESULT} The function returns [HRESULT](./HCNHResult.md).
      * @see https://learn.microsoft.com/virtualization/api/hcn/Reference/HcnQueryLoadBalancerProperties
@@ -469,7 +468,7 @@ class HostComputeNetwork {
     /**
      * HcnRegisterServiceCallback
      * @param {Pointer<HCN_NOTIFICATION_CALLBACK>} Callback The [HCN_NOTIFICATION_CALLBACK](./HCN_NOTIFICATION_CALLBACK.md) for the callback.
-     * @param {Pointer<Void>} _Context 
+     * @param {Pointer<Void>} _Context Context that is provided on the callbacks.
      * @returns {Pointer<Void>} Receives a [HCN_CALLBACK](./HCN_CALLBACK.md). It is the responsibility of the caller to release the handle using [HcnUnregisterServiceCallback](./HcnUnregisterServiceCallback.md) once it is no longer in use.
      * @see https://learn.microsoft.com/virtualization/api/hcn/Reference/HcnRegisterServiceCallback
      */
@@ -497,7 +496,7 @@ class HostComputeNetwork {
      * HcnRegisterGuestNetworkServiceCallback
      * @param {Pointer<Void>} GuestNetworkService The [HCN_GUESTNETWORKSERVICE](./HCN_GUESTNETWORKSERVICE.md) for the callback.
      * @param {Pointer<HCN_NOTIFICATION_CALLBACK>} Callback The [HCN_NOTIFICATION_CALLBACK](./HCN_NOTIFICATION_CALLBACK.md) for the callback.
-     * @param {Pointer<Void>} _Context 
+     * @param {Pointer<Void>} _Context Context that is provided on the callbacks.
      * @returns {Pointer<Void>} Receives a [HCN_CALLBACK](./HCN_CALLBACK.md). It is the responsibility of the caller to release the handle using [HcnUnregisterGuestNetworkServiceCallback](./HcnUnregisterGuestNetworkServiceCallback.md) once it is no longer in use.
      * @see https://learn.microsoft.com/virtualization/api/hcn/Reference/HcnRegisterGuestNetworkServiceCallback
      */
@@ -584,8 +583,8 @@ class HostComputeNetwork {
     /**
      * HcnReserveGuestNetworkServicePort
      * @param {Pointer<Void>} GuestNetworkService The [HCN_GUESTNETWORKSERVICE](./HCN_GUESTNETWORKSERVICE.md) for the reservation.
-     * @param {Integer} Protocol The [HCN_PORT_PROTOCOL](./HCN_PORT_PROTOCOL.md) for the reservation.
-     * @param {Integer} Access The [HCN_PORT_ACCESS](./HCN_PORT_ACCESS.md) for the reservation.
+     * @param {HCN_PORT_PROTOCOL} Protocol The [HCN_PORT_PROTOCOL](./HCN_PORT_PROTOCOL.md) for the reservation.
+     * @param {HCN_PORT_ACCESS} Access The [HCN_PORT_ACCESS](./HCN_PORT_ACCESS.md) for the reservation.
      * @param {Integer} Port The port for the reservation.
      * @returns {HANDLE} Receives a handle. It is the responsibility of the caller to release the handle using [HcnReleaseGuestNetworkServicePortReservationHandle](./HcnReleaseGuestNetworkServicePortReservationHandle.md) once it is no longer in use.
      * @see https://learn.microsoft.com/virtualization/api/hcn/Reference/HcnReserveGuestNetworkServicePort
@@ -629,7 +628,7 @@ class HostComputeNetwork {
 
     /**
      * HcnEnumerateGuestNetworkPortReservations
-     * @param {Pointer} PortEntries Recieves the list of [port entries](./HCN_PORT_RANGE_ENTRY.md).
+     * @param {Integer} PortEntries Recieves the list of [port entries](./HCN_PORT_RANGE_ENTRY.md).
      * @returns {Integer} Recieves the count of reserved port entries.
      * @see https://learn.microsoft.com/virtualization/api/hcn/Reference/HcnEnumerateGuestNetworkPortReservations
      */

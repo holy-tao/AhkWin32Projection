@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\IPrintAsyncNotifyChannel.ahk
 #Include .\IPrintAsyncNotifyRegistration.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Creates and manages a communication channel used by applications and components that are hosted by the print spooler.
@@ -13,9 +13,8 @@
  * A Print Spooler-hosted component that opens a bidirectional communication channel with a listening application must provide an <b>IPrintAsyncNotifyCallback</b> object.
  * @see https://learn.microsoft.com/windows/win32/api/prnasnot/nn-prnasnot-iprintasyncnotifycallback
  * @namespace Windows.Win32.Graphics.Printing
- * @version v4.0.30319
  */
-class IPrintAsyncNotify extends IUnknown{
+class IPrintAsyncNotify extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -60,8 +59,8 @@ class IPrintAsyncNotify extends IUnknown{
      * </ol>
      * @param {Integer} param0 
      * @param {Pointer<Guid>} param1 
-     * @param {Integer} param2 
-     * @param {Integer} param3 
+     * @param {PrintAsyncNotifyUserFilter} param2 
+     * @param {PrintAsyncNotifyConversationStyle} param3 
      * @param {IPrintAsyncNotifyCallback} param4 
      * @returns {IPrintAsyncNotifyChannel} 
      * @see https://learn.microsoft.com/windows/win32/api/prnasnot/nf-prnasnot-createprintasyncnotifychannel
@@ -74,8 +73,8 @@ class IPrintAsyncNotify extends IUnknown{
     /**
      * 
      * @param {Pointer<Guid>} param0 
-     * @param {Integer} param1 
-     * @param {Integer} param2 
+     * @param {PrintAsyncNotifyUserFilter} param1 
+     * @param {PrintAsyncNotifyConversationStyle} param2 
      * @param {IPrintAsyncNotifyCallback} param3 
      * @returns {IPrintAsyncNotifyRegistration} 
      */

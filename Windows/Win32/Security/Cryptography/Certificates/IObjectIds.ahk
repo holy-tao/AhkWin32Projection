@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\System\Com\IDispatch.ahk
 #Include .\IObjectId.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
 
 /**
  * The IObjectIds interface defines methods and properties that enable you to manage a collection of IObjectId objects.
  * @see https://learn.microsoft.com/windows/win32/api/certenroll/nn-certenroll-iobjectids
  * @namespace Windows.Win32.Security.Cryptography.Certificates
- * @version v4.0.30319
  */
-class IObjectIds extends IDispatch{
+class IObjectIds extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

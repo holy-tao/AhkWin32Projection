@@ -12,9 +12,8 @@
  * This is a <b>MsftMultisessionRandomWrite</b> object in script.
  * @see https://learn.microsoft.com/windows/win32/api/imapi2/nn-imapi2-imultisessionrandomwrite
  * @namespace Windows.Win32.Storage.Imapi
- * @version v4.0.30319
  */
-class IMultisessionRandomWrite extends IMultisession{
+class IMultisessionRandomWrite extends IMultisession {
 
     static sizeof => A_PtrSize
     /**

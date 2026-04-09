@@ -7,9 +7,8 @@
  * The IAMTVTuner interface controls a TV tuner.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-iamtvtuner
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IAMTVTuner extends IAMTuner{
+class IAMTVTuner extends IAMTuner {
 
     static sizeof => A_PtrSize
     /**
@@ -133,7 +132,7 @@ class IAMTVTuner extends IAMTuner{
     /**
      * The put_InputType method sets the tuner input type (cable or antenna).
      * @param {Integer} lIndex Index value that specifies the input pin to be set.
-     * @param {Integer} InputType Value indicating the connection type, as specified in the [TunerInputType](/windows/desktop/api/strmif/ne-strmif-tunerinputtype) enumeration.
+     * @param {TunerInputType} InputType Value indicating the connection type, as specified in the [TunerInputType](/windows/desktop/api/strmif/ne-strmif-tunerinputtype) enumeration.
      * @returns {HRESULT} Returns an <b>HRESULT</b> value that depends on the implementation of the interface.
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamtvtuner-put_inputtype
      */
@@ -145,7 +144,7 @@ class IAMTVTuner extends IAMTuner{
     /**
      * The get_InputType method retrieves the input type set in IAMTVTuner::put_InputType.
      * @param {Integer} lIndex Index value that specifies the input pin that will be set.
-     * @returns {Integer} Pointer to a variable the receives a member of the [TunerInputType](/windows/desktop/api/strmif/ne-strmif-tunerinputtype) enumeration.
+     * @returns {TunerInputType} Pointer to a variable the receives a member of the [TunerInputType](/windows/desktop/api/strmif/ne-strmif-tunerinputtype) enumeration.
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamtvtuner-get_inputtype
      */
     get_InputType(lIndex) {

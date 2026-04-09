@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\SOCKET_SECURITY_PROTOCOL.ahk
 
 /**
  * Specifies various security requirements and settings that are specific to IPsec.
@@ -16,10 +17,8 @@
  * There is a possibility that some of the IPsec settings specified in the <b>SOCKET_SECURITY_SETTINGS_IPSEC</b> structure may end up being different from the actual settings applied to the network traffic on a socket. For example, this could happen when an application specifies custom main mode or quick mode policy, but a different policy with a higher priority (a domain policy, for example) specifies conflicting settings for the same traffic. To be aware of such conflicts, an application can use the Windows Filtering Platform API to query the policy being applied and subscribe for notifications.
  * @see https://learn.microsoft.com/windows/win32/api/mstcpip/ns-mstcpip-socket_security_settings_ipsec
  * @namespace Windows.Win32.Networking.WinSock
- * @version v4.0.30319
  */
-class SOCKET_SECURITY_SETTINGS_IPSEC extends Win32Struct
-{
+class SOCKET_SECURITY_SETTINGS_IPSEC extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 8
@@ -28,7 +27,7 @@ class SOCKET_SECURITY_SETTINGS_IPSEC extends Win32Struct
      * Type: <b>SOCKET_SECURITY_PROTOCOL</b>
      * 
      * A <a href="https://docs.microsoft.com/windows/desktop/api/mstcpip/ne-mstcpip-socket_security_protocol">SOCKET_SECURITY_PROTOCOL</a> value that identifies the type of security protocol to be used on the socket. This member must be set to <b>SOCKET_SECURITY_PROTOCOL_IPSEC</b>.
-     * @type {Integer}
+     * @type {SOCKET_SECURITY_PROTOCOL}
      */
     SecurityProtocol {
         get => NumGet(this, 0, "int")
@@ -110,7 +109,7 @@ class SOCKET_SECURITY_SETTINGS_IPSEC extends Win32Struct
      * Type: <b>GUID</b>
      * 
      * The GUID for the Windows Filtering Platform key of the AuthIP main mode provider context.  If an application wishes to use a custom main mode policy, it should first use the <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmprovidercontextadd0">FwpmProviderContextAdd0</a> function to add the corresponding provider context and specify the returned key in this member.  This field is ignored for a GUID of zero.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     AuthipMMPolicyKey {
         get => NumGet(this, 16, "ptr")
@@ -121,7 +120,7 @@ class SOCKET_SECURITY_SETTINGS_IPSEC extends Win32Struct
      * Type: <b>GUID</b>
      * 
      * The Windows Filtering Platform key of the AuthIp quick mode provider context.  If an application wishes to use a custom quick mode policy, it should first use the <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmprovidercontextadd0">FwpmProviderContextAdd0</a> function to add the corresponding provider context and specify the returned key in this field.  This field is ignored for a GUID of zero.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     AuthipQMPolicyKey {
         get => NumGet(this, 24, "ptr")
@@ -132,7 +131,7 @@ class SOCKET_SECURITY_SETTINGS_IPSEC extends Win32Struct
      * Type: <b>GUID</b>
      * 
      * Reserved for future use.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     Reserved {
         get => NumGet(this, 32, "ptr")

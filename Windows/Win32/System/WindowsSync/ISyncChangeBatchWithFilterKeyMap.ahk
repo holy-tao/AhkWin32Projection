@@ -1,15 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Com\IUnknown.ahk
 #Include .\IFilterKeyMap.ahk
 #Include .\ISyncKnowledge.ahk
-#Include ..\Com\IUnknown.ahk
 
 /**
  * @namespace Windows.Win32.System.WindowsSync
- * @version v4.0.30319
  */
-class ISyncChangeBatchWithFilterKeyMap extends IUnknown{
+class ISyncChangeBatchWithFilterKeyMap extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

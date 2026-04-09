@@ -1,18 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include .\ISpeechVoiceStatus.ahk
 #Include .\ISpeechObjectToken.ahk
 #Include .\ISpeechBaseStream.ahk
 #Include .\ISpeechObjectTokens.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * @namespace Windows.Win32.Media.Speech
- * @version v4.0.30319
  */
-class ISpeechVoice extends IDispatch{
+class ISpeechVoice extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -86,7 +84,7 @@ class ISpeechVoice extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {SpeechVoiceEvents} 
      */
     EventInterests {
         get => this.get_EventInterests()
@@ -94,7 +92,7 @@ class ISpeechVoice extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {SpeechVoicePriority} 
      */
     Priority {
         get => this.get_Priority()
@@ -102,7 +100,7 @@ class ISpeechVoice extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {SpeechVoiceEvents} 
      */
     AlertBoundary {
         get => this.get_AlertBoundary()
@@ -242,7 +240,7 @@ class ISpeechVoice extends IDispatch{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {SpeechVoiceEvents} 
      */
     get_EventInterests() {
         result := ComCall(20, this, "int*", &EventInterestFlags := 0, "HRESULT")
@@ -251,7 +249,7 @@ class ISpeechVoice extends IDispatch{
 
     /**
      * 
-     * @param {Integer} EventInterestFlags 
+     * @param {SpeechVoiceEvents} EventInterestFlags 
      * @returns {HRESULT} 
      */
     put_EventInterests(EventInterestFlags) {
@@ -261,7 +259,7 @@ class ISpeechVoice extends IDispatch{
 
     /**
      * 
-     * @param {Integer} _Priority 
+     * @param {SpeechVoicePriority} _Priority 
      * @returns {HRESULT} 
      */
     put_Priority(_Priority) {
@@ -271,7 +269,7 @@ class ISpeechVoice extends IDispatch{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {SpeechVoicePriority} 
      */
     get_Priority() {
         result := ComCall(23, this, "int*", &_Priority := 0, "HRESULT")
@@ -280,7 +278,7 @@ class ISpeechVoice extends IDispatch{
 
     /**
      * 
-     * @param {Integer} Boundary 
+     * @param {SpeechVoiceEvents} Boundary 
      * @returns {HRESULT} 
      */
     put_AlertBoundary(Boundary) {
@@ -290,7 +288,7 @@ class ISpeechVoice extends IDispatch{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {SpeechVoiceEvents} 
      */
     get_AlertBoundary() {
         result := ComCall(25, this, "int*", &Boundary := 0, "HRESULT")
@@ -319,7 +317,7 @@ class ISpeechVoice extends IDispatch{
     /**
      * 
      * @param {BSTR} Text 
-     * @param {Integer} Flags 
+     * @param {SpeechVoiceSpeakFlags} Flags 
      * @returns {Integer} 
      */
     Speak(Text, Flags) {
@@ -332,7 +330,7 @@ class ISpeechVoice extends IDispatch{
     /**
      * 
      * @param {ISpeechBaseStream} Stream 
-     * @param {Integer} Flags 
+     * @param {SpeechVoiceSpeakFlags} Flags 
      * @returns {Integer} 
      */
     SpeakStream(Stream, Flags) {

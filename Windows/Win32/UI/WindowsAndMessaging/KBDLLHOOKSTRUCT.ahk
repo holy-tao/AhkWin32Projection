@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\KBDLLHOOKSTRUCT_FLAGS.ahk
 
 /**
  * Contains information about a low-level keyboard input event.
  * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-kbdllhookstruct
  * @namespace Windows.Win32.UI.WindowsAndMessaging
- * @version v4.0.30319
  */
-class KBDLLHOOKSTRUCT extends Win32Struct
-{
+class KBDLLHOOKSTRUCT extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -139,7 +138,7 @@ class KBDLLHOOKSTRUCT extends Win32Struct
      * <td>The transition state. The value is 0 if the key is pressed and 1 if it is being released.</td>
      * </tr>
      * </table>
-     * @type {Integer}
+     * @type {KBDLLHOOKSTRUCT_FLAGS}
      */
     flags {
         get => NumGet(this, 8, "uint")

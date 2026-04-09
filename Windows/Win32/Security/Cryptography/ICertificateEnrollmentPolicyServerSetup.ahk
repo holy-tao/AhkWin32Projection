@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * The ICertificateEnrollmentPolicyServerSetup interface represents the Certificate Enrollment Policy (CEP) Web Service within Active Directory Certificate Services (ADCS).
  * @see https://learn.microsoft.com/windows/win32/api/casetup/nn-casetup-icertificateenrollmentpolicyserversetup
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class ICertificateEnrollmentPolicyServerSetup extends IDispatch{
+class ICertificateEnrollmentPolicyServerSetup extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -124,7 +123,7 @@ class ICertificateEnrollmentPolicyServerSetup extends IDispatch{
 
     /**
      * Retrieves a CEPSetupProperty enumeration value for the Certificate Enrollment Policy (CEP) Web Service configuration.
-     * @param {Integer} propertyId A value of the <a href="https://docs.microsoft.com/windows/win32/api/casetup/ne-casetup-cepsetupproperty">CEPSetupProperty</a> enumeration that specifies the property value to set. The following values are valid.
+     * @param {CEPSetupProperty} propertyId A value of the <a href="https://docs.microsoft.com/windows/win32/api/casetup/ne-casetup-cepsetupproperty">CEPSetupProperty</a> enumeration that specifies the property value to set. The following values are valid.
      * 
      * <table>
      * <tr>
@@ -193,7 +192,7 @@ class ICertificateEnrollmentPolicyServerSetup extends IDispatch{
      * Specifies a CEPSetupProperty enumeration value for the Certificate Enrollment Policy (CEP) Web Service configuration.
      * @remarks
      * You must call <a href="https://docs.microsoft.com/windows/desktop/api/casetup/nf-casetup-icertificateenrollmentpolicyserversetup-initializeinstalldefaults">InitializeInstallDefaults</a> before calling the <b>SetProperty</b> method.
-     * @param {Integer} propertyId A value of the <a href="https://docs.microsoft.com/windows/win32/api/casetup/ne-casetup-cepsetupproperty">CEPSetupProperty</a> enumeration that specifies the property value to set. The following values are valid.
+     * @param {CEPSetupProperty} propertyId A value of the <a href="https://docs.microsoft.com/windows/win32/api/casetup/ne-casetup-cepsetupproperty">CEPSetupProperty</a> enumeration that specifies the property value to set. The following values are valid.
      * 
      * <table>
      * <tr>

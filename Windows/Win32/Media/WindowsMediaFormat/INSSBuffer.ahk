@@ -7,9 +7,8 @@
  * The INSSBuffer interface is the basic interface of a buffer object.
  * @see https://learn.microsoft.com/windows/win32/api/wmsbuffer/nn-wmsbuffer-inssbuffer
  * @namespace Windows.Win32.Media.WindowsMediaFormat
- * @version v4.0.30319
  */
-class INSSBuffer extends IUnknown{
+class INSSBuffer extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

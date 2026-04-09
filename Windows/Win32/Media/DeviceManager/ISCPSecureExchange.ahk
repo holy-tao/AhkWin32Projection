@@ -7,9 +7,8 @@
  * The ISCPSecureExchange interface is used to exchange secured content and rights associated with content. The secure content provider implements this interface and secure Windows Media Device Manager implementations call its methods.
  * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nn-mswmdm-iscpsecureexchange
  * @namespace Windows.Win32.Media.DeviceManager
- * @version v4.0.30319
  */
-class ISCPSecureExchange extends IUnknown{
+class ISCPSecureExchange extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

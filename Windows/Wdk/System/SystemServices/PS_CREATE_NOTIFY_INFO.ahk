@@ -1,15 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\..\Win32\Foundation\HANDLE.ahk
-#Include ..\..\..\Win32\System\WindowsProgramming\CLIENT_ID.ahk
+#Include ..\..\Foundation\FILE_OBJECT.ahk
+#Include ..\..\..\Win32\Foundation\UNICODE_STRING.ahk
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class PS_CREATE_NOTIFY_INFO extends Win32Struct
-{
-    static sizeof => 72
+class PS_CREATE_NOTIFY_INFO extends Win32Struct {
+    static sizeof => 64
 
     static packingSize => 8
 
@@ -60,7 +59,7 @@ class PS_CREATE_NOTIFY_INFO extends Win32Struct
     /**
      * @type {HANDLE}
      */
-    ParentProcessId{
+    ParentProcessId {
         get {
             if(!this.HasProp("__ParentProcessId"))
                 this.__ParentProcessId := HANDLE(16, this)
@@ -69,20 +68,25 @@ class PS_CREATE_NOTIFY_INFO extends Win32Struct
     }
 
     /**
-     * @type {CLIENT_ID}
+     * @type {Pointer}
      */
-    CreatingThreadId{
-        get {
-            if(!this.HasProp("__CreatingThreadId"))
-                this.__CreatingThreadId := CLIENT_ID(24, this)
-            return this.__CreatingThreadId
-        }
+    CreatingThreadId {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
      * @type {Pointer<FILE_OBJECT>}
      */
     FileObject {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
+    }
+
+    /**
+     * @type {Pointer<UNICODE_STRING>}
+     */
+    ImageFileName {
         get => NumGet(this, 40, "ptr")
         set => NumPut("ptr", value, this, 40)
     }
@@ -90,24 +94,16 @@ class PS_CREATE_NOTIFY_INFO extends Win32Struct
     /**
      * @type {Pointer<UNICODE_STRING>}
      */
-    ImageFileName {
+    CommandLine {
         get => NumGet(this, 48, "ptr")
         set => NumPut("ptr", value, this, 48)
-    }
-
-    /**
-     * @type {Pointer<UNICODE_STRING>}
-     */
-    CommandLine {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
     }
 
     /**
      * @type {NTSTATUS}
      */
     CreationStatus {
-        get => NumGet(this, 64, "int")
-        set => NumPut("int", value, this, 64)
+        get => NumGet(this, 56, "int")
+        set => NumPut("int", value, this, 56)
     }
 }

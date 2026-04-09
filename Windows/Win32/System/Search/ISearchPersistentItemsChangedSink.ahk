@@ -7,9 +7,8 @@
  * Provides methods for passing change notifications to alert the indexer that items need to be updated.
  * @see https://learn.microsoft.com/windows/win32/api/searchapi/nn-searchapi-isearchpersistentitemschangedsink
  * @namespace Windows.Win32.System.Search
- * @version v4.0.30319
  */
-class ISearchPersistentItemsChangedSink extends IUnknown{
+class ISearchPersistentItemsChangedSink extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug
- * @version v4.0.30319
  */
-class WHEA_NOTIFICATION_DESCRIPTOR extends Win32Struct
-{
+class WHEA_NOTIFICATION_DESCRIPTOR extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 4
@@ -19,7 +17,7 @@ class WHEA_NOTIFICATION_DESCRIPTOR extends Win32Struct
         class _Polled extends Win32Struct {
             static sizeof => 4
             static packingSize => 4
-    
+
             /**
              * @type {Integer}
              */
@@ -27,13 +25,12 @@ class WHEA_NOTIFICATION_DESCRIPTOR extends Win32Struct
                 get => NumGet(this, 0, "uint")
                 set => NumPut("uint", value, this, 0)
             }
-        
         }
-    
+
         class _Interrupt extends Win32Struct {
             static sizeof => 24
             static packingSize => 4
-    
+
             /**
              * @type {Integer}
              */
@@ -41,7 +38,7 @@ class WHEA_NOTIFICATION_DESCRIPTOR extends Win32Struct
                 get => NumGet(this, 0, "uint")
                 set => NumPut("uint", value, this, 0)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -49,7 +46,7 @@ class WHEA_NOTIFICATION_DESCRIPTOR extends Win32Struct
                 get => NumGet(this, 4, "uint")
                 set => NumPut("uint", value, this, 4)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -57,7 +54,7 @@ class WHEA_NOTIFICATION_DESCRIPTOR extends Win32Struct
                 get => NumGet(this, 8, "uint")
                 set => NumPut("uint", value, this, 8)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -65,7 +62,7 @@ class WHEA_NOTIFICATION_DESCRIPTOR extends Win32Struct
                 get => NumGet(this, 12, "uint")
                 set => NumPut("uint", value, this, 12)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -73,7 +70,7 @@ class WHEA_NOTIFICATION_DESCRIPTOR extends Win32Struct
                 get => NumGet(this, 16, "uint")
                 set => NumPut("uint", value, this, 16)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -81,13 +78,12 @@ class WHEA_NOTIFICATION_DESCRIPTOR extends Win32Struct
                 get => NumGet(this, 20, "uint")
                 set => NumPut("uint", value, this, 20)
             }
-        
         }
-    
+
         class _LocalInterrupt extends Win32Struct {
             static sizeof => 24
             static packingSize => 4
-    
+
             /**
              * @type {Integer}
              */
@@ -95,7 +91,7 @@ class WHEA_NOTIFICATION_DESCRIPTOR extends Win32Struct
                 get => NumGet(this, 0, "uint")
                 set => NumPut("uint", value, this, 0)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -103,7 +99,7 @@ class WHEA_NOTIFICATION_DESCRIPTOR extends Win32Struct
                 get => NumGet(this, 4, "uint")
                 set => NumPut("uint", value, this, 4)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -111,7 +107,7 @@ class WHEA_NOTIFICATION_DESCRIPTOR extends Win32Struct
                 get => NumGet(this, 8, "uint")
                 set => NumPut("uint", value, this, 8)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -119,7 +115,7 @@ class WHEA_NOTIFICATION_DESCRIPTOR extends Win32Struct
                 get => NumGet(this, 12, "uint")
                 set => NumPut("uint", value, this, 12)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -127,7 +123,7 @@ class WHEA_NOTIFICATION_DESCRIPTOR extends Win32Struct
                 get => NumGet(this, 16, "uint")
                 set => NumPut("uint", value, this, 16)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -135,13 +131,12 @@ class WHEA_NOTIFICATION_DESCRIPTOR extends Win32Struct
                 get => NumGet(this, 20, "uint")
                 set => NumPut("uint", value, this, 20)
             }
-        
         }
-    
+
         class _Sci extends Win32Struct {
             static sizeof => 24
             static packingSize => 4
-    
+
             /**
              * @type {Integer}
              */
@@ -149,7 +144,7 @@ class WHEA_NOTIFICATION_DESCRIPTOR extends Win32Struct
                 get => NumGet(this, 0, "uint")
                 set => NumPut("uint", value, this, 0)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -157,7 +152,7 @@ class WHEA_NOTIFICATION_DESCRIPTOR extends Win32Struct
                 get => NumGet(this, 4, "uint")
                 set => NumPut("uint", value, this, 4)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -165,7 +160,7 @@ class WHEA_NOTIFICATION_DESCRIPTOR extends Win32Struct
                 get => NumGet(this, 8, "uint")
                 set => NumPut("uint", value, this, 8)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -173,7 +168,7 @@ class WHEA_NOTIFICATION_DESCRIPTOR extends Win32Struct
                 get => NumGet(this, 12, "uint")
                 set => NumPut("uint", value, this, 12)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -181,7 +176,7 @@ class WHEA_NOTIFICATION_DESCRIPTOR extends Win32Struct
                 get => NumGet(this, 16, "uint")
                 set => NumPut("uint", value, this, 16)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -189,13 +184,12 @@ class WHEA_NOTIFICATION_DESCRIPTOR extends Win32Struct
                 get => NumGet(this, 20, "uint")
                 set => NumPut("uint", value, this, 20)
             }
-        
         }
-    
+
         class _Nmi extends Win32Struct {
             static sizeof => 24
             static packingSize => 4
-    
+
             /**
              * @type {Integer}
              */
@@ -203,7 +197,7 @@ class WHEA_NOTIFICATION_DESCRIPTOR extends Win32Struct
                 get => NumGet(this, 0, "uint")
                 set => NumPut("uint", value, this, 0)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -211,7 +205,7 @@ class WHEA_NOTIFICATION_DESCRIPTOR extends Win32Struct
                 get => NumGet(this, 4, "uint")
                 set => NumPut("uint", value, this, 4)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -219,7 +213,7 @@ class WHEA_NOTIFICATION_DESCRIPTOR extends Win32Struct
                 get => NumGet(this, 8, "uint")
                 set => NumPut("uint", value, this, 8)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -227,7 +221,7 @@ class WHEA_NOTIFICATION_DESCRIPTOR extends Win32Struct
                 get => NumGet(this, 12, "uint")
                 set => NumPut("uint", value, this, 12)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -235,7 +229,7 @@ class WHEA_NOTIFICATION_DESCRIPTOR extends Win32Struct
                 get => NumGet(this, 16, "uint")
                 set => NumPut("uint", value, this, 16)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -243,13 +237,12 @@ class WHEA_NOTIFICATION_DESCRIPTOR extends Win32Struct
                 get => NumGet(this, 20, "uint")
                 set => NumPut("uint", value, this, 20)
             }
-        
         }
-    
+
         class _Sea extends Win32Struct {
             static sizeof => 24
             static packingSize => 4
-    
+
             /**
              * @type {Integer}
              */
@@ -257,7 +250,7 @@ class WHEA_NOTIFICATION_DESCRIPTOR extends Win32Struct
                 get => NumGet(this, 0, "uint")
                 set => NumPut("uint", value, this, 0)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -265,7 +258,7 @@ class WHEA_NOTIFICATION_DESCRIPTOR extends Win32Struct
                 get => NumGet(this, 4, "uint")
                 set => NumPut("uint", value, this, 4)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -273,7 +266,7 @@ class WHEA_NOTIFICATION_DESCRIPTOR extends Win32Struct
                 get => NumGet(this, 8, "uint")
                 set => NumPut("uint", value, this, 8)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -281,7 +274,7 @@ class WHEA_NOTIFICATION_DESCRIPTOR extends Win32Struct
                 get => NumGet(this, 12, "uint")
                 set => NumPut("uint", value, this, 12)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -289,7 +282,7 @@ class WHEA_NOTIFICATION_DESCRIPTOR extends Win32Struct
                 get => NumGet(this, 16, "uint")
                 set => NumPut("uint", value, this, 16)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -297,13 +290,12 @@ class WHEA_NOTIFICATION_DESCRIPTOR extends Win32Struct
                 get => NumGet(this, 20, "uint")
                 set => NumPut("uint", value, this, 20)
             }
-        
         }
-    
+
         class _Sei extends Win32Struct {
             static sizeof => 24
             static packingSize => 4
-    
+
             /**
              * @type {Integer}
              */
@@ -311,7 +303,7 @@ class WHEA_NOTIFICATION_DESCRIPTOR extends Win32Struct
                 get => NumGet(this, 0, "uint")
                 set => NumPut("uint", value, this, 0)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -319,7 +311,7 @@ class WHEA_NOTIFICATION_DESCRIPTOR extends Win32Struct
                 get => NumGet(this, 4, "uint")
                 set => NumPut("uint", value, this, 4)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -327,7 +319,7 @@ class WHEA_NOTIFICATION_DESCRIPTOR extends Win32Struct
                 get => NumGet(this, 8, "uint")
                 set => NumPut("uint", value, this, 8)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -335,7 +327,7 @@ class WHEA_NOTIFICATION_DESCRIPTOR extends Win32Struct
                 get => NumGet(this, 12, "uint")
                 set => NumPut("uint", value, this, 12)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -343,7 +335,7 @@ class WHEA_NOTIFICATION_DESCRIPTOR extends Win32Struct
                 get => NumGet(this, 16, "uint")
                 set => NumPut("uint", value, this, 16)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -351,13 +343,12 @@ class WHEA_NOTIFICATION_DESCRIPTOR extends Win32Struct
                 get => NumGet(this, 20, "uint")
                 set => NumPut("uint", value, this, 20)
             }
-        
         }
-    
+
         class _Gsiv extends Win32Struct {
             static sizeof => 24
             static packingSize => 4
-    
+
             /**
              * @type {Integer}
              */
@@ -365,7 +356,7 @@ class WHEA_NOTIFICATION_DESCRIPTOR extends Win32Struct
                 get => NumGet(this, 0, "uint")
                 set => NumPut("uint", value, this, 0)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -373,7 +364,7 @@ class WHEA_NOTIFICATION_DESCRIPTOR extends Win32Struct
                 get => NumGet(this, 4, "uint")
                 set => NumPut("uint", value, this, 4)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -381,7 +372,7 @@ class WHEA_NOTIFICATION_DESCRIPTOR extends Win32Struct
                 get => NumGet(this, 8, "uint")
                 set => NumPut("uint", value, this, 8)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -389,7 +380,7 @@ class WHEA_NOTIFICATION_DESCRIPTOR extends Win32Struct
                 get => NumGet(this, 12, "uint")
                 set => NumPut("uint", value, this, 12)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -397,7 +388,7 @@ class WHEA_NOTIFICATION_DESCRIPTOR extends Win32Struct
                 get => NumGet(this, 16, "uint")
                 set => NumPut("uint", value, this, 16)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -405,97 +396,95 @@ class WHEA_NOTIFICATION_DESCRIPTOR extends Win32Struct
                 get => NumGet(this, 20, "uint")
                 set => NumPut("uint", value, this, 20)
             }
-        
         }
-    
+
         /**
          * @type {_Polled}
          */
-        Polled{
+        Polled {
             get {
                 if(!this.HasProp("__Polled"))
-                    this.__Polled := %this.__Class%._Polled(0, this)
+                    this.__Polled := WHEA_NOTIFICATION_DESCRIPTOR._u_e__Union._Polled(0, this)
                 return this.__Polled
             }
         }
-    
+
         /**
          * @type {_Interrupt}
          */
-        Interrupt{
+        Interrupt {
             get {
                 if(!this.HasProp("__Interrupt"))
-                    this.__Interrupt := %this.__Class%._Interrupt(0, this)
+                    this.__Interrupt := WHEA_NOTIFICATION_DESCRIPTOR._u_e__Union._Interrupt(0, this)
                 return this.__Interrupt
             }
         }
-    
+
         /**
          * @type {_LocalInterrupt}
          */
-        LocalInterrupt{
+        LocalInterrupt {
             get {
                 if(!this.HasProp("__LocalInterrupt"))
-                    this.__LocalInterrupt := %this.__Class%._LocalInterrupt(0, this)
+                    this.__LocalInterrupt := WHEA_NOTIFICATION_DESCRIPTOR._u_e__Union._LocalInterrupt(0, this)
                 return this.__LocalInterrupt
             }
         }
-    
+
         /**
          * @type {_Sci}
          */
-        Sci{
+        Sci {
             get {
                 if(!this.HasProp("__Sci"))
-                    this.__Sci := %this.__Class%._Sci(0, this)
+                    this.__Sci := WHEA_NOTIFICATION_DESCRIPTOR._u_e__Union._Sci(0, this)
                 return this.__Sci
             }
         }
-    
+
         /**
          * @type {_Nmi}
          */
-        Nmi{
+        Nmi {
             get {
                 if(!this.HasProp("__Nmi"))
-                    this.__Nmi := %this.__Class%._Nmi(0, this)
+                    this.__Nmi := WHEA_NOTIFICATION_DESCRIPTOR._u_e__Union._Nmi(0, this)
                 return this.__Nmi
             }
         }
-    
+
         /**
          * @type {_Sea}
          */
-        Sea{
+        Sea {
             get {
                 if(!this.HasProp("__Sea"))
-                    this.__Sea := %this.__Class%._Sea(0, this)
+                    this.__Sea := WHEA_NOTIFICATION_DESCRIPTOR._u_e__Union._Sea(0, this)
                 return this.__Sea
             }
         }
-    
+
         /**
          * @type {_Sei}
          */
-        Sei{
+        Sei {
             get {
                 if(!this.HasProp("__Sei"))
-                    this.__Sei := %this.__Class%._Sei(0, this)
+                    this.__Sei := WHEA_NOTIFICATION_DESCRIPTOR._u_e__Union._Sei(0, this)
                 return this.__Sei
             }
         }
-    
+
         /**
          * @type {_Gsiv}
          */
-        Gsiv{
+        Gsiv {
             get {
                 if(!this.HasProp("__Gsiv"))
-                    this.__Gsiv := %this.__Class%._Gsiv(0, this)
+                    this.__Gsiv := WHEA_NOTIFICATION_DESCRIPTOR._u_e__Union._Gsiv(0, this)
                 return this.__Gsiv
             }
         }
-    
     }
 
     /**
@@ -517,7 +506,7 @@ class WHEA_NOTIFICATION_DESCRIPTOR extends Win32Struct
     /**
      * @type {WHEA_NOTIFICATION_FLAGS}
      */
-    Flags{
+    Flags {
         get {
             if(!this.HasProp("__Flags"))
                 this.__Flags := WHEA_NOTIFICATION_FLAGS(2, this)
@@ -528,10 +517,10 @@ class WHEA_NOTIFICATION_DESCRIPTOR extends Win32Struct
     /**
      * @type {_u_e__Union}
      */
-    u{
+    u {
         get {
             if(!this.HasProp("__u"))
-                this.__u := %this.__Class%._u_e__Union(8, this)
+                this.__u := WHEA_NOTIFICATION_DESCRIPTOR._u_e__Union(8, this)
             return this.__u
         }
     }

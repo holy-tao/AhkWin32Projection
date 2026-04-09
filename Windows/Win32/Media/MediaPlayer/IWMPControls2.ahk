@@ -7,9 +7,8 @@
  * The IWMPControls2 interface provides a method that supplements the IWMPControls interface.
  * @see https://learn.microsoft.com/windows/win32/api/wmp/nn-wmp-iwmpcontrols2
  * @namespace Windows.Win32.Media.MediaPlayer
- * @version v4.0.30319
  */
-class IWMPControls2 extends IWMPControls{
+class IWMPControls2 extends IWMPControls {
 
     static sizeof => A_PtrSize
     /**

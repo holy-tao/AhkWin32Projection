@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include .\ISVGAnimatedNumber.ahk
 #Include .\ISVGPoint.ahk
 #Include .\ISVGPathSegClosePath.ahk
@@ -22,13 +23,11 @@
 #Include .\ISVGPathSegCurvetoCubicSmoothRel.ahk
 #Include .\ISVGPathSegCurvetoQuadraticSmoothAbs.ahk
 #Include .\ISVGPathSegCurvetoQuadraticSmoothRel.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
- * @version v4.0.30319
  */
-class ISVGPathElement extends IDispatch{
+class ISVGPathElement extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

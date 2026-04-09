@@ -10,13 +10,11 @@
  * The <b>Length</b> value can be added to the pointer to the structure to obtain the pointer to the next <b>CONTROL_SERVICE</b> structure in the list, until the <b>NumberOfServices</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/qossp/ns-qossp-rsvp_adspec">RSVP_ADSPEC</a> structure is exhausted.
  * @see https://learn.microsoft.com/windows/win32/api/qossp/ns-qossp-control_service
  * @namespace Windows.Win32.NetworkManagement.QoS
- * @version v4.0.30319
  */
-class CONTROL_SERVICE extends Win32Struct
-{
-    static sizeof => 48
+class CONTROL_SERVICE extends Win32Struct {
+    static sizeof => 44
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Length of the entire structure, in bytes.
@@ -147,7 +145,7 @@ class CONTROL_SERVICE extends Win32Struct
      * Specifies overrides to service specifications, expressed in the form of an <a href="https://docs.microsoft.com/windows/desktop/api/qossp/ns-qossp-ad_general_params">AD_GENERAL_PARAMS</a> structure.
      * @type {AD_GENERAL_PARAMS}
      */
-    Overrides{
+    Overrides {
         get {
             if(!this.HasProp("__Overrides"))
                 this.__Overrides := AD_GENERAL_PARAMS(8, this)
@@ -158,21 +156,21 @@ class CONTROL_SERVICE extends Win32Struct
     /**
      * @type {AD_GUARANTEED}
      */
-    Guaranteed{
+    Guaranteed {
         get {
             if(!this.HasProp("__Guaranteed"))
-                this.__Guaranteed := AD_GUARANTEED(32, this)
+                this.__Guaranteed := AD_GUARANTEED(28, this)
             return this.__Guaranteed
         }
     }
 
     /**
-     * @type {Array<PARAM_BUFFER>}
+     * @type {PARAM_BUFFER}
      */
-    ParamBuffer{
+    ParamBuffer {
         get {
             if(!this.HasProp("__ParamBufferProxyArray"))
-                this.__ParamBufferProxyArray := Win32FixedArray(this.ptr + 32, 1, PARAM_BUFFER, "")
+                this.__ParamBufferProxyArray := Win32FixedArray(this.ptr + 28, 1, PARAM_BUFFER, "")
             return this.__ParamBufferProxyArray
         }
     }

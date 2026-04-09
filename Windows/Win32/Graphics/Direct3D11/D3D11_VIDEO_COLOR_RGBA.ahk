@@ -11,10 +11,8 @@
  * For example, for RGB-32 (8 bits per channel), <c>val = BYTE(f * 255.0)</c>.
  * @see https://learn.microsoft.com/windows/win32/api/d3d11/ns-d3d11-d3d11_video_color_rgba
  * @namespace Windows.Win32.Graphics.Direct3D11
- * @version v4.0.30319
  */
-class D3D11_VIDEO_COLOR_RGBA extends Win32Struct
-{
+class D3D11_VIDEO_COLOR_RGBA extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4

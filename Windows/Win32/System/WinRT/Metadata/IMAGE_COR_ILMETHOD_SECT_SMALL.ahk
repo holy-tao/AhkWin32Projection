@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.WinRT.Metadata
- * @version v4.0.30319
  */
-class IMAGE_COR_ILMETHOD_SECT_SMALL extends Win32Struct
-{
+class IMAGE_COR_ILMETHOD_SECT_SMALL extends Win32Struct {
     static sizeof => 2
 
     static packingSize => 1

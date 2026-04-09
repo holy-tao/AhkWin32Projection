@@ -1,12 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\FILE_OBJECT.ahk
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class IMAGE_INFO_EX extends Win32Struct
-{
+class IMAGE_INFO_EX extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -20,7 +19,7 @@ class IMAGE_INFO_EX extends Win32Struct
     }
 
     /**
-     * @type {Pointer<IMAGE_INFO>}
+     * @type {Pointer}
      */
     ImageInfo {
         get => NumGet(this, 8, "ptr")

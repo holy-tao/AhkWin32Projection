@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\IMMDevice.ahk
 
 /**
  * Represents an audio microphone boost APO notification.
@@ -7,10 +8,8 @@
  * For more information on the Windows 11 APIs for the Audio Processing Objects (APOs) that can ship with audio drivers, see [Windows 11 APIs for Audio Processing Objects](/windows-hardware/drivers/audio/windows-11-apis-for-audio-processing-objects).
  * @see https://learn.microsoft.com/windows/win32/api/audioengineextensionapo/ns-audioengineextensionapo-audio_microphone_boost_notification
  * @namespace Windows.Win32.Media.Audio.Apo
- * @version v4.0.30319
  */
-class AUDIO_MICROPHONE_BOOST_NOTIFICATION extends Win32Struct
-{
+class AUDIO_MICROPHONE_BOOST_NOTIFICATION extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -26,7 +25,7 @@ class AUDIO_MICROPHONE_BOOST_NOTIFICATION extends Win32Struct
 
     /**
      * A GUID representing the context associated with the originator of the event. A client can use this method to keep track of control changes made by other processes and by the hardware. The functions [IAudioVolumeLevel::SetLevel](../devicetopology/nf-devicetopology-iperchanneldblevel-setlevel.md) and [IAudioMute::SetMute](../devicetopology/nf-devicetopology-iaudiomute-setmute) use the context. When this notification is recieved, a client can inspect the context GUID to discover whether it or another client is the source of the notification.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     eventContext {
         get => NumGet(this, 8, "ptr")

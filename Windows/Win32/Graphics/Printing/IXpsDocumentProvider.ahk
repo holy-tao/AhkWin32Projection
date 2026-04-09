@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
- * @version v4.0.30319
  */
-class IXpsDocumentProvider extends IUnknown{
+class IXpsDocumentProvider extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -17,10 +17,8 @@
  * The [**SystemMonitor.LogViewStart**](systemmonitor-logviewstart.md) and [**SystemMonitor.LogViewStop**](systemmonitor-logviewstop.md) properties specify the range of sampled values from the log files to graph. SYSMON graphs only one view worth of data from the log file (the graph view does not scroll as it does when graphing the current activity of the computer). If the sampled data exceeds what can be shown on a single graph view, SYSMON compresses the sampled data (each graphed point represents the average of multiple sampled values) to fit all the sampled data from the log files on the graph.
  * @see https://learn.microsoft.com/windows/win32/SysMon/logfiles
  * @namespace Windows.Win32.System.Performance
- * @version v4.0.30319
  */
-class LogFiles extends Win32Struct
-{
+class LogFiles extends Win32Struct {
     static sizeof => 0
 
     static packingSize => 1

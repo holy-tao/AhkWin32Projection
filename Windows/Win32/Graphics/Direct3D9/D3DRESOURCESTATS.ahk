@@ -5,10 +5,8 @@
  * Resource statistics gathered by the D3DDEVINFO\_ResourceManager when using the asynchronous query mechanism.
  * @see https://learn.microsoft.com/windows/win32/direct3d9/d3dresourcestats
  * @namespace Windows.Win32.Graphics.Direct3D9
- * @version v4.0.30319
  */
-class D3DRESOURCESTATS extends Win32Struct
-{
+class D3DRESOURCESTATS extends Win32Struct {
     static sizeof => 44
 
     static packingSize => 4

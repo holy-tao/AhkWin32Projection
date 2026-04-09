@@ -9,9 +9,8 @@
  * An <b>IConstructReplicaKeyMap</b> object can be obtained by passing <b>IID_IConstructReplicaKeyMap</b> to the <b>QueryInterface</b> method of an <b>IReplicaKeyMap</b> object.
  * @see https://learn.microsoft.com/windows/win32/api/winsync/nn-winsync-iconstructreplicakeymap
  * @namespace Windows.Win32.System.WindowsSync
- * @version v4.0.30319
  */
-class IConstructReplicaKeyMap extends IUnknown{
+class IConstructReplicaKeyMap extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

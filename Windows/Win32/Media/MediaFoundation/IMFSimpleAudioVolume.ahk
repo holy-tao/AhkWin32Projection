@@ -30,9 +30,8 @@
  * For example, a volume level of 0.50 represents 6.02 dB of attenuation.
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imfsimpleaudiovolume
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFSimpleAudioVolume extends IUnknown{
+class IMFSimpleAudioVolume extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

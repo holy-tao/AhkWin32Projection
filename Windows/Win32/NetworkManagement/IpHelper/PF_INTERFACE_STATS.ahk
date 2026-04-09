@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\PF_FILTER_DESCRIPTOR.ahk
+#Include .\PFFORWARD_ACTION.ahk
 #Include .\PF_FILTER_STATS.ahk
+#Include .\PF_FILTER_DESCRIPTOR.ahk
+#Include .\PFADDRESSTYPE.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.IpHelper
- * @version v4.0.30319
  */
-class PF_INTERFACE_STATS extends Win32Struct
-{
-    static sizeof => 88
+class PF_INTERFACE_STATS extends Win32Struct {
+    static sizeof => 152
 
     static packingSize => 8
 
@@ -46,7 +46,7 @@ class PF_INTERFACE_STATS extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {PFFORWARD_ACTION}
      */
     eaInAction {
         get => NumGet(this, 20, "int")
@@ -54,7 +54,7 @@ class PF_INTERFACE_STATS extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {PFFORWARD_ACTION}
      */
     eaOutAction {
         get => NumGet(this, 24, "int")
@@ -134,9 +134,9 @@ class PF_INTERFACE_STATS extends Win32Struct
     }
 
     /**
-     * @type {Array<PF_FILTER_STATS>}
+     * @type {PF_FILTER_STATS}
      */
-    FilterInfo{
+    FilterInfo {
         get {
             if(!this.HasProp("__FilterInfoProxyArray"))
                 this.__FilterInfoProxyArray := Win32FixedArray(this.ptr + 80, 1, PF_FILTER_STATS, "")

@@ -1,18 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
 #Include .\IBackgroundCopyJob1.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\IEnumBackgroundCopyJobs1.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Use the IBackgroundCopyGroup interface to manage a group. A group contains download jobs. For example, add a job to the group, set the properties of the group, and start and stop the group in the download queue.
  * @see https://learn.microsoft.com/windows/win32/api/qmgr/nn-qmgr-ibackgroundcopygroup
  * @namespace Windows.Win32.Networking.BackgroundIntelligentTransferService
- * @version v4.0.30319
  */
-class IBackgroundCopyGroup extends IUnknown{
+class IBackgroundCopyGroup extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -49,7 +49,7 @@ class IBackgroundCopyGroup extends IUnknown{
 
     /**
      * Use the GetProp method to retrieve a property value from the group.
-     * @param {Integer} propID Identifies the property to retrieve. For a list of properties, see the <a href="https://docs.microsoft.com/windows/desktop/api/qmgr/ne-qmgr-groupprop">GROUPPROP</a> enumeration.
+     * @param {GROUPPROP} propID Identifies the property to retrieve. For a list of properties, see the <a href="https://docs.microsoft.com/windows/desktop/api/qmgr/ne-qmgr-groupprop">GROUPPROP</a> enumeration.
      * @returns {VARIANT} Property value.
      * @see https://learn.microsoft.com/windows/win32/api/qmgr/nf-qmgr-ibackgroundcopygroup-getprop
      */
@@ -61,7 +61,7 @@ class IBackgroundCopyGroup extends IUnknown{
 
     /**
      * Use the SetProp method to set the property value for a group property.
-     * @param {Integer} propID Identifies the property to set. For a list of properties, see the <a href="https://docs.microsoft.com/windows/desktop/api/qmgr/ne-qmgr-groupprop">GROUPPROP</a> enumeration.
+     * @param {GROUPPROP} propID Identifies the property to set. For a list of properties, see the <a href="https://docs.microsoft.com/windows/desktop/api/qmgr/ne-qmgr-groupprop">GROUPPROP</a> enumeration.
      * @param {Pointer<VARIANT>} pvarVal Property value.
      * @returns {HRESULT} This method returns the following <b>HRESULT</b> values, as well as others.
      * 

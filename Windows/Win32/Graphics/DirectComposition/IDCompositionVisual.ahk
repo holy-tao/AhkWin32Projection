@@ -7,9 +7,8 @@
  * Represents a Microsoft DirectComposition visual.
  * @see https://learn.microsoft.com/windows/win32/api/dcomp/nn-dcomp-idcompositionvisual
  * @namespace Windows.Win32.Graphics.DirectComposition
- * @version v4.0.30319
  */
-class IDCompositionVisual extends IUnknown{
+class IDCompositionVisual extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -129,7 +128,9 @@ class IDCompositionVisual extends IUnknown{
      * 
      * 
      * If the Transform property previously specified a transform object, the newly specified transform matrix replaces the transform object.
-     * @param {Pointer<D2D_MATRIX_3X2_F>} _matrix 
+     * @param {Pointer<D2D_MATRIX_3X2_F>} _matrix Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/dcommon/ns-dcommon-d2d_matrix_3x2_f">D2D_MATRIX_3X2_F</a></b>
+     * 
+     * The 3-by-2 transform matrix that is used to modify  the coordinate system of this visual.
      * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If the function succeeds, it returns S_OK. Otherwise, it returns an <b>HRESULT</b> error code. See <a href="https://docs.microsoft.com/windows/desktop/directcomp/directcomposition-error-codes">DirectComposition Error Codes</a>  for a list of error codes.
@@ -181,7 +182,9 @@ class IDCompositionVisual extends IUnknown{
      * 
      * 
      * This method fails if <i>effect</i> is an invalid pointer or if it was not created by the same <a href="https://docs.microsoft.com/windows/desktop/api/dcomp/nn-dcomp-idcompositiondevice">IDCompositionDevice</a> interface that created this visual. The interface cannot be a custom implementation; only interfaces created by Microsoft DirectComposition can be used with this method.
-     * @param {IDCompositionEffect} _effect 
+     * @param {IDCompositionEffect} _effect Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dcomp/nn-dcomp-idcompositioneffect">IDCompositionEffect</a>*</b>
+     * 
+     * A pointer to an effect object. This parameter can be NULL.
      * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If the function succeeds, it returns S_OK. Otherwise, it returns an <b>HRESULT</b> error code. See <a href="https://docs.microsoft.com/windows/desktop/directcomp/directcomposition-error-codes">DirectComposition Error Codes</a>  for a list of error codes.
@@ -204,7 +207,9 @@ class IDCompositionVisual extends IUnknown{
      * 
      * 
      * If the <i>interpolationMode</i> parameter is anything other than <a href="https://docs.microsoft.com/windows/desktop/api/dcomptypes/ne-dcomptypes-dcomposition_bitmap_interpolation_mode">DCOMPOSITION_BITMAP_INTERPOLATION_MODE_INHERIT</a>, this visual's bitmap is composed with the specified interpolation mode, and this mode becomes the new default mode for the children of this visual. That is, if the interpolation mode of this visual's children is unchanged or explicitly set to <b>DCOMPOSITION_BITMAP_INTERPOLATION_MODE_INHERIT</b>, the bitmaps of the child visuals are composed using the interpolation mode of this visual.
-     * @param {Integer} _interpolationMode 
+     * @param {DCOMPOSITION_BITMAP_INTERPOLATION_MODE} _interpolationMode Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dcomptypes/ne-dcomptypes-dcomposition_bitmap_interpolation_mode">DCOMPOSITION_BITMAP_INTERPOLATION_MODE</a></b>
+     * 
+     * The interpolation mode to use.
      * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If the function succeeds, it returns S_OK. Otherwise, it returns an <a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a> error code. See <a href="https://docs.microsoft.com/windows/desktop/directcomp/directcomposition-error-codes">DirectComposition Error Codes</a>  for a list of error codes.
@@ -227,7 +232,7 @@ class IDCompositionVisual extends IUnknown{
      * 
      * 
      * If the <i>borderMode</i> parameter is anything other than <a href="https://docs.microsoft.com/windows/desktop/api/dcomptypes/ne-dcomptypes-dcomposition_border_mode">DCOMPOSITION_BORDER_MODE_INHERIT</a>, this visual's bitmap and clip are composed with the specified border mode. In addition, this border mode becomes the new default for the children of the current visual. That is, if the border mode of this visual's children is unchanged or explicitly set to <b>DCOMPOSITION_BORDER_MODE_INHERIT</b>, the bitmaps and clips of the child visuals are composed using the border mode of this visual.
-     * @param {Integer} borderMode Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dcomptypes/ne-dcomptypes-dcomposition_border_mode">DCOMPOSITION_BORDER_MODE</a></b>
+     * @param {DCOMPOSITION_BORDER_MODE} borderMode Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dcomptypes/ne-dcomptypes-dcomposition_border_mode">DCOMPOSITION_BORDER_MODE</a></b>
      * 
      * The border mode to use.
      * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
@@ -280,7 +285,10 @@ class IDCompositionVisual extends IUnknown{
      * If the clip rectangle is empty, the visual is fully clipped; that is, the visual is included in the visual tree, but it does not render anything. 
      *       To exclude a particular visual from a composition, remove the visual from the visual tree instead of setting an empty clip rectangle. 
      *       Removing the visual results in better performance.
-     * @param {Pointer<D2D_RECT_F>} _rect 
+     * @param {Pointer<D2D_RECT_F>} _rect Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/dcommon/ns-dcommon-d2d_rect_f">D2D_RECT_F</a></b>
+     * 
+     * The rectangle to use to clip this visual. All properties of the rect parameter have a numerical limit of -2^21 to 2^21. 
+     *           The API accepts numbers outside of this range, but they are always clamped to this range.
      * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If the function succeeds, it returns S_OK. Otherwise, it returns an <b>HRESULT</b> error code. 
@@ -395,7 +403,7 @@ class IDCompositionVisual extends IUnknown{
      * Sets the blending mode for this visual.
      * @remarks
      * The composite mode determines how visual's bitmap is blended with the screen. By default, the visual is blended with "source over" semantics; that is, the colors are blended with per-pixel transparency.
-     * @param {Integer} compositeMode Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dcomptypes/ne-dcomptypes-dcomposition_composite_mode">DCOMPOSITION_COMPOSITE_MODE</a></b>
+     * @param {DCOMPOSITION_COMPOSITE_MODE} compositeMode Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dcomptypes/ne-dcomptypes-dcomposition_composite_mode">DCOMPOSITION_COMPOSITE_MODE</a></b>
      * 
      * The blending mode to use when composing the visual to the screen.
      * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>

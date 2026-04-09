@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Com.StructuredStorage
- * @version v4.0.30319
  */
-class STGFMT extends Win32Enum{
+class STGFMT extends Win32Enum {
 
     /**
      * @type {Integer (UInt32)}

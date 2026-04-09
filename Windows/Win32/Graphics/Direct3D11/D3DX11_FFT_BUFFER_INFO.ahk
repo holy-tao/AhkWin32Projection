@@ -15,10 +15,8 @@
  * Some FFT algorithms benefit from precomputing sin and cos. The FFT object might store precomputed data in the user-supplied buffers.
  * @see https://learn.microsoft.com/windows/win32/api/d3dcsx/ns-d3dcsx-d3dx11_fft_buffer_info
  * @namespace Windows.Win32.Graphics.Direct3D11
- * @version v4.0.30319
  */
-class D3DX11_FFT_BUFFER_INFO extends Win32Struct
-{
+class D3DX11_FFT_BUFFER_INFO extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 4
@@ -39,9 +37,9 @@ class D3DX11_FFT_BUFFER_INFO extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a>[D3DX11_FFT_MAX_TEMP_BUFFERS]</b>
      * 
      * Minimum sizes (in FLOATs) of temporary buffers.
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    TempBufferFloatSizes{
+    TempBufferFloatSizes {
         get {
             if(!this.HasProp("__TempBufferFloatSizesProxyArray"))
                 this.__TempBufferFloatSizesProxyArray := Win32FixedArray(this.ptr + 4, 4, Primitive, "uint")
@@ -65,9 +63,9 @@ class D3DX11_FFT_BUFFER_INFO extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a>[D3DX11_FFT_MAX_PRECOMPUTE_BUFFERS]</b>
      * 
      * Minimum sizes (in FLOATs) for precompute buffers.
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    PrecomputeBufferFloatSizes{
+    PrecomputeBufferFloatSizes {
         get {
             if(!this.HasProp("__PrecomputeBufferFloatSizesProxyArray"))
                 this.__PrecomputeBufferFloatSizesProxyArray := Win32FixedArray(this.ptr + 24, 4, Primitive, "uint")

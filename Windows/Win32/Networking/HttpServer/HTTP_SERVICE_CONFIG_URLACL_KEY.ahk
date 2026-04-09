@@ -5,10 +5,8 @@
  * Used to specify a particular reservation record in the URL namespace reservation store.
  * @see https://learn.microsoft.com/windows/win32/api/http/ns-http-http_service_config_urlacl_key
  * @namespace Windows.Win32.Networking.HttpServer
- * @version v4.0.30319
  */
-class HTTP_SERVICE_CONFIG_URLACL_KEY extends Win32Struct
-{
+class HTTP_SERVICE_CONFIG_URLACL_KEY extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 8

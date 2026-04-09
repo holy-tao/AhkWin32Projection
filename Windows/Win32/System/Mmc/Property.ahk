@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Com\IDispatch.ahk
 #Include ..\Variant\VARIANT.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include ..\Com\IDispatch.ahk
 
 /**
  * Windows Portable Devices supports the following property attributes.
  * @see https://learn.microsoft.com/windows/win32/wpd_sdk/attributes
  * @namespace Windows.Win32.System.Mmc
- * @version v4.0.30319
  */
-class Property extends IDispatch{
+class Property extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

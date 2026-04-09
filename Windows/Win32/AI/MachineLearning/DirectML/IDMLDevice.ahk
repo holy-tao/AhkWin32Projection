@@ -7,9 +7,8 @@
  * Represents a DirectML device, which is used to create operators, binding tables, command recorders, and other objects. (IDMLDevice)
  * @see https://learn.microsoft.com/windows/win32/api/directml/nn-directml-idmldevice
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
- * @version v4.0.30319
  */
-class IDMLDevice extends IDMLObject{
+class IDMLDevice extends IDMLObject {
 
     static sizeof => A_PtrSize
     /**
@@ -32,19 +31,19 @@ class IDMLDevice extends IDMLObject{
 
     /**
      * Gets information about the optional features and capabilities that are supported by the DirectML device.
-     * @param {Integer} feature Type: [**DML_FEATURE**](/windows/win32/api/directml/ne-directml-dml_feature)
+     * @param {DML_FEATURE} feature Type: [**DML_FEATURE**](/windows/win32/api/directml/ne-directml-dml_feature)
      * 
      * A constant from the [DML_FEATURE](/windows/win32/api/directml/ne-directml-dml_feature) enumeration describing the feature(s) that you want to query for support.
      * @param {Integer} featureQueryDataSize Type: [**UINT**](/windows/desktop/winprog/windows-data-types)
      * 
      * The size of the structure pointed to by the <i>featureQueryData</i> parameter, if provided, otherwise 0.
-     * @param {Pointer} featureQueryData Type: <b>const void*</b>
+     * @param {Integer} featureQueryData Type: <b>const void*</b>
      * 
      * An optional pointer to a query structure that corresponds to the value of the <i>feature</i> parameter. To determine the corresponding query type for each constant, see [DML_FEATURE](/windows/win32/api/directml/ne-directml-dml_feature).
      * @param {Integer} featureSupportDataSize Type: [**UINT**](/windows/desktop/winprog/windows-data-types)
      * 
      * The size of the structure pointed to by the <i>featureSupportData</i> parameter.
-     * @param {Pointer} featureSupportData Type: <b>void*</b>
+     * @param {Integer} featureSupportData Type: <b>void*</b>
      * 
      * A pointer to a support data structure that corresponds to the value of the <i>feature</i> parameter. To determine the corresponding support data type for each constant, see [DML_FEATURE](/windows/win32/api/directml/ne-directml-dml_feature).
      * @returns {HRESULT} Type: [**HRESULT**](/windows/desktop/winprog/windows-data-types)
@@ -80,7 +79,7 @@ class IDMLDevice extends IDMLObject{
      * @param {IDMLOperator} op Type: <b>[IDMLOperator](/windows/win32/api/directml/nn-directml-idmloperator)*</b>
      * 
      * The operator (created with [IDMLDevice::CreateOperator](/windows/win32/api/directml/nf-directml-idmldevice-createoperator)) to compile.
-     * @param {Integer} flags Type: [**DML_EXECUTION_FLAGS**](/windows/win32/api/directml/ne-directml-dml_execution_flags)
+     * @param {DML_EXECUTION_FLAGS} flags Type: [**DML_EXECUTION_FLAGS**](/windows/win32/api/directml/ne-directml-dml_execution_flags)
      * 
      * Any flags to control the execution of this operator.
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>

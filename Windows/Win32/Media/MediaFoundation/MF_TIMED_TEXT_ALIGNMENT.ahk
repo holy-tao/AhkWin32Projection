@@ -5,9 +5,8 @@
  * Specifies how text is aligned in its parent block element.
  * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/ne-mfmediaengine-mf_timed_text_alignment
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class MF_TIMED_TEXT_ALIGNMENT extends Win32Enum{
+class MF_TIMED_TEXT_ALIGNMENT extends Win32Enum {
 
     /**
      * Text is aligned at the start of its parent block element.

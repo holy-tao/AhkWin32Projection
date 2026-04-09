@@ -5,9 +5,8 @@
  * Values that indicate the type of trustee identified by a TRUSTEE structure.
  * @see https://learn.microsoft.com/windows/win32/api/accctrl/ne-accctrl-trustee_type
  * @namespace Windows.Win32.Security.Authorization
- * @version v4.0.30319
  */
-class TRUSTEE_TYPE extends Win32Enum{
+class TRUSTEE_TYPE extends Win32Enum {
 
     /**
      * The trustee type is unknown, but it may be valid.

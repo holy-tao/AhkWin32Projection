@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Storage.IscsiDisc
- * @version v4.0.30319
  */
-class STORAGE_FIRMWARE_ACTIVATE extends Win32Struct
-{
+class STORAGE_FIRMWARE_ACTIVATE extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4
@@ -36,9 +34,9 @@ class STORAGE_FIRMWARE_ACTIVATE extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Reserved0{
+    Reserved0 {
         get {
             if(!this.HasProp("__Reserved0ProxyArray"))
                 this.__Reserved0ProxyArray := Win32FixedArray(this.ptr + 9, 3, Primitive, "char")

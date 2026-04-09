@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.ClrProfiling
- * @version v4.0.30319
  */
-class ICorProfilerInfo13 extends ICorProfilerInfo12{
+class ICorProfilerInfo13 extends ICorProfilerInfo12 {
 
     static sizeof => A_PtrSize
     /**
@@ -31,7 +30,7 @@ class ICorProfilerInfo13 extends ICorProfilerInfo12{
     /**
      * 
      * @param {Pointer} _object 
-     * @param {Integer} type 
+     * @param {COR_PRF_HANDLE_TYPE} type 
      * @returns {Pointer<Pointer<Void>>} 
      */
     CreateHandle(_object, type) {

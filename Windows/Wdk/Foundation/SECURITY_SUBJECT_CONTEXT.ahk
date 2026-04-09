@@ -1,12 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\Win32Struct.ahk
+#Include ..\..\Win32\Security\SECURITY_IMPERSONATION_LEVEL.ahk
 
 /**
  * @namespace Windows.Wdk.Foundation
- * @version v4.0.30319
  */
-class SECURITY_SUBJECT_CONTEXT extends Win32Struct
-{
+class SECURITY_SUBJECT_CONTEXT extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -20,7 +19,7 @@ class SECURITY_SUBJECT_CONTEXT extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {SECURITY_IMPERSONATION_LEVEL}
      */
     ImpersonationLevel {
         get => NumGet(this, 8, "int")

@@ -19,10 +19,9 @@
  * > The shlobj.h header defines INewShortcutHook as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
  * @see https://learn.microsoft.com/windows/win32/api/shlobj/nn-shlobj-inewshortcuthooka
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  * @charset ANSI
  */
-class INewShortcutHookA extends IUnknown{
+class INewShortcutHookA extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -48,7 +47,7 @@ class INewShortcutHookA extends IUnknown{
      * @remarks
      * For Internet shortcut objects, this method is the same as <a href="https://docs.microsoft.com/previous-versions/windows/internet-explorer/ie-developer/platform-apis/dd565676(v=vs.85)">IUniformResourceLocator::SetURL</a>.
      * @param {PSTR} pcszReferent TBD
-     * @param {HWND} _hwnd 
+     * @param {HWND} _hwnd TBD
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.

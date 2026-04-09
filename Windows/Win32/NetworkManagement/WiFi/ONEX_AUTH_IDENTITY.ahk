@@ -15,9 +15,8 @@
  * If the <b>fOneXAuthParams</b> member in the <a href="https://docs.microsoft.com/windows/desktop/api/dot1x/ns-dot1x-onex_result_update_data">ONEX_RESULT_UPDATE_DATA</a> structure is set, then the  <b>authParams</b> member of the <b>ONEX_RESULT_UPDATE_DATA</b> structure contains an <a href="https://docs.microsoft.com/windows/desktop/api/dot1x/ns-dot1x-onex_variable_blob">ONEX_VARIABLE_BLOB</a> structure with an <a href="https://docs.microsoft.com/windows/desktop/api/dot1x/ns-dot1x-onex_auth_params">ONEX_AUTH_PARAMS</a> structure embedded starting at the <b>dwOffset</b> member of the  <b>ONEX_VARIABLE_BLOB</b>. This <b>ONEX_AUTH_PARAMS</b>  structure that contains a value from the <b>ONEX_AUTH_IDENTITY</b> enumeration in the <b>authIdentity</b> member.
  * @see https://learn.microsoft.com/windows/win32/api/dot1x/ne-dot1x-onex_auth_identity
  * @namespace Windows.Win32.NetworkManagement.WiFi
- * @version v4.0.30319
  */
-class ONEX_AUTH_IDENTITY extends Win32Enum{
+class ONEX_AUTH_IDENTITY extends Win32Enum {
 
     /**
      * No identity is specified in the profile used for 802.1X authentication.

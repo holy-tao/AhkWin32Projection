@@ -7,9 +7,8 @@
  * IDirect3DDxgiInterfaceAccess is a COM interface, which must be implemented by anything that implements IDirect3DDevice or IDirect3DSurface.
  * @see https://learn.microsoft.com/windows/win32/api/windows.graphics.directx.direct3d11.interop/ns-windows-graphics-directx-direct3d11-interop-idirect3ddxgiinterfaceaccess
  * @namespace Windows.Win32.System.WinRT.Direct3D11
- * @version v4.0.30319
  */
-class IDirect3DDxgiInterfaceAccess extends IUnknown{
+class IDirect3DDxgiInterfaceAccess extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

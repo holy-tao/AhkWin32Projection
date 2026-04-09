@@ -5,9 +5,8 @@
  * The CLUSGROUP_TYPE enumeration (msclus.h) specifies the type of cluster group to create.
  * @see https://learn.microsoft.com/windows/win32/api/msclus/ne-msclus-clusgroup_type
  * @namespace Windows.Win32.Networking.Clustering
- * @version v4.0.30319
  */
-class CLUSGROUP_TYPE extends Win32Enum{
+class CLUSGROUP_TYPE extends Win32Enum {
 
     /**
      * A core cluster group.
@@ -180,7 +179,6 @@ class CLUSGROUP_TYPE extends Win32Enum{
     static ClusGroupTypeCrossClusterOrchestrator => 121
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static ClusGroupTypeInfrastructureFileServer => 122

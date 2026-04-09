@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class SD_CHANGE_MACHINE_SID_OUTPUT extends Win32Struct
-{
+class SD_CHANGE_MACHINE_SID_OUTPUT extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8

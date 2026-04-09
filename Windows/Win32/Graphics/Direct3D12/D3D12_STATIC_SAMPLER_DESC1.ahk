@@ -1,18 +1,22 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\D3D12_FILTER.ahk
+#Include .\D3D12_TEXTURE_ADDRESS_MODE.ahk
+#Include .\D3D12_COMPARISON_FUNC.ahk
+#Include .\D3D12_STATIC_BORDER_COLOR.ahk
+#Include .\D3D12_SHADER_VISIBILITY.ahk
+#Include .\D3D12_SAMPLER_FLAGS.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D12
- * @version v4.0.30319
  */
-class D3D12_STATIC_SAMPLER_DESC1 extends Win32Struct
-{
+class D3D12_STATIC_SAMPLER_DESC1 extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 4
 
     /**
-     * @type {Integer}
+     * @type {D3D12_FILTER}
      */
     Filter {
         get => NumGet(this, 0, "int")
@@ -20,7 +24,7 @@ class D3D12_STATIC_SAMPLER_DESC1 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {D3D12_TEXTURE_ADDRESS_MODE}
      */
     AddressU {
         get => NumGet(this, 4, "int")
@@ -28,7 +32,7 @@ class D3D12_STATIC_SAMPLER_DESC1 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {D3D12_TEXTURE_ADDRESS_MODE}
      */
     AddressV {
         get => NumGet(this, 8, "int")
@@ -36,7 +40,7 @@ class D3D12_STATIC_SAMPLER_DESC1 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {D3D12_TEXTURE_ADDRESS_MODE}
      */
     AddressW {
         get => NumGet(this, 12, "int")
@@ -60,7 +64,7 @@ class D3D12_STATIC_SAMPLER_DESC1 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {D3D12_COMPARISON_FUNC}
      */
     ComparisonFunc {
         get => NumGet(this, 24, "int")
@@ -68,7 +72,7 @@ class D3D12_STATIC_SAMPLER_DESC1 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {D3D12_STATIC_BORDER_COLOR}
      */
     BorderColor {
         get => NumGet(this, 28, "int")
@@ -108,7 +112,7 @@ class D3D12_STATIC_SAMPLER_DESC1 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {D3D12_SHADER_VISIBILITY}
      */
     ShaderVisibility {
         get => NumGet(this, 48, "int")
@@ -116,7 +120,7 @@ class D3D12_STATIC_SAMPLER_DESC1 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {D3D12_SAMPLER_FLAGS}
      */
     Flags {
         get => NumGet(this, 52, "int")

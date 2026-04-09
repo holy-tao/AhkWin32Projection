@@ -8,10 +8,8 @@
  * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/gpmgmt/nf-gpmgmt-igpmbackupdir-searchbackups">SearchBackups Method of the IGMPBackupDirInterface</a>.
  * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nn-gpmgmt-igpmbackupcollection
  * @namespace Windows.Win32.System.GroupPolicy
- * @version v4.0.30319
  */
-class GPMBackupCollection extends Win32Struct
-{
+class GPMBackupCollection extends Win32Struct {
     static sizeof => 0
 
     static packingSize => 1

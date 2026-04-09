@@ -7,9 +7,8 @@
  * The IAudioChannelConfig interface provides access to a hardware channel-configuration control.
  * @see https://learn.microsoft.com/windows/win32/api/devicetopology/nn-devicetopology-iaudiochannelconfig
  * @namespace Windows.Win32.Media.Audio
- * @version v4.0.30319
  */
-class IAudioChannelConfig extends IUnknown{
+class IAudioChannelConfig extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

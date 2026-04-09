@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DEV_BROADCAST_VOLUME_FLAGS.ahk
 
 /**
  * Contains information about a logical volume.
@@ -15,10 +16,8 @@
  *     when network connections will disappear as the result of a hardware event.
  * @see https://learn.microsoft.com/windows/win32/api/dbt/ns-dbt-dev_broadcast_volume
  * @namespace Windows.Win32.UI.WindowsAndMessaging
- * @version v4.0.30319
  */
-class DEV_BROADCAST_VOLUME extends Win32Struct
-{
+class DEV_BROADCAST_VOLUME extends Win32Struct {
     static sizeof => 20
 
     static packingSize => 4
@@ -61,8 +60,7 @@ class DEV_BROADCAST_VOLUME extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Integer}
+     * @type {DEV_BROADCAST_VOLUME_FLAGS}
      */
     dbcv_flags {
         get => NumGet(this, 16, "ushort")

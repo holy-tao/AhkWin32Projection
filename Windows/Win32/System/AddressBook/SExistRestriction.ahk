@@ -11,10 +11,8 @@
  * For more information about the **SExistRestriction** structure, see [About Restrictions](about-restrictions.md).
  * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/sexistrestriction
  * @namespace Windows.Win32.System.AddressBook
- * @version v4.0.30319
  */
-class SExistRestriction extends Win32Struct
-{
+class SExistRestriction extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4

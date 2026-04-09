@@ -9,9 +9,8 @@
  * Get an instance of this interface by calling [IMFExtendedCameraController::GetExtendedCameraControl](nf-mfidl-imfextendedcameracontroller-getextendedcameracontrol.md)
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imfextendedcameracontrol
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFExtendedCameraControl extends IUnknown{
+class IMFExtendedCameraControl extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

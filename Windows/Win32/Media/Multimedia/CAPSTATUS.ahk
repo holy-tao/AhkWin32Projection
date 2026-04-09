@@ -9,10 +9,8 @@
  * Because the state of a capture window changes in response to various messages, an application should update the information in this structure whenever it needs to enable menu items, determine the actual state of the capture window, or call the video format dialog box. If the application yields during streaming capture, this structure returns the progress of the capture in the <b>dwCurrentVideoFrame</b>, <b>dwCurrentVideoFramesDropped</b>, <b>dwCurrentWaveSamples</b>, and <b>dwCurrentTimeElapsedMS</b> members. Use the <a href="https://docs.microsoft.com/windows/desktop/Multimedia/wm-cap-get-status">WM_CAP_GET_STATUS</a> message or <a href="https://docs.microsoft.com/windows/desktop/api/vfw/nf-vfw-capgetstatus">capGetStatus</a> macro to update the contents of this structure.
  * @see https://learn.microsoft.com/windows/win32/api/vfw/ns-vfw-capstatus
  * @namespace Windows.Win32.Media.Multimedia
- * @version v4.0.30319
  */
-class CAPSTATUS extends Win32Struct
-{
+class CAPSTATUS extends Win32Struct {
     static sizeof => 80
 
     static packingSize => 8
@@ -66,7 +64,7 @@ class CAPSTATUS extends Win32Struct
      * The x- and y-offset of the pixel displayed in the upper left corner of the client area of the window.
      * @type {POINT}
      */
-    ptScroll{
+    ptScroll {
         get {
             if(!this.HasProp("__ptScroll"))
                 this.__ptScroll := POINT(20, this)
@@ -141,7 +139,7 @@ class CAPSTATUS extends Win32Struct
      * Handle to current palette.
      * @type {HPALETTE}
      */
-    hPalCurrent{
+    hPalCurrent {
         get {
             if(!this.HasProp("__hPalCurrent"))
                 this.__hPalCurrent := HPALETTE(56, this)

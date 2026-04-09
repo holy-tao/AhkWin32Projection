@@ -7,9 +7,8 @@
  * The IAMGraphStreams interface controls a filter graph that renders a live source.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-iamgraphstreams
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IAMGraphStreams extends IUnknown{
+class IAMGraphStreams extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

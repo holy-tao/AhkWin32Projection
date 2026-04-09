@@ -10,11 +10,9 @@
  * > The iscsidsc.h header defines ISCSI_DEVICE_ON_SESSION as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
  * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/ns-iscsidsc-iscsi_device_on_sessionw
  * @namespace Windows.Win32.Storage.IscsiDisc
- * @version v4.0.30319
  * @charset Unicode
  */
-class ISCSI_DEVICE_ON_SESSIONW extends Win32Struct
-{
+class ISCSI_DEVICE_ON_SESSIONW extends Win32Struct {
     static sizeof => 2032
 
     static packingSize => 8
@@ -41,7 +39,7 @@ class ISCSI_DEVICE_ON_SESSIONW extends Win32Struct
      * A SCSI_ADDRESS structure that contains the SCSI address of the device.
      * @type {SCSI_ADDRESS}
      */
-    ScsiAddress{
+    ScsiAddress {
         get {
             if(!this.HasProp("__ScsiAddress"))
                 this.__ScsiAddress := SCSI_ADDRESS(960, this)
@@ -86,7 +84,7 @@ class ISCSI_DEVICE_ON_SESSIONW extends Win32Struct
      * <td>Floppy</td>
      * </tr>
      * </table>
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     DeviceInterfaceType {
         get => NumGet(this, 968, "ptr")
@@ -115,7 +113,7 @@ class ISCSI_DEVICE_ON_SESSIONW extends Win32Struct
      * A <b>STORAGE_DEVICE_NUMBER</b> structure containing the storage device number.
      * @type {STORAGE_DEVICE_NUMBER}
      */
-    StorageDeviceNumber{
+    StorageDeviceNumber {
         get {
             if(!this.HasProp("__StorageDeviceNumber"))
                 this.__StorageDeviceNumber := STORAGE_DEVICE_NUMBER(2016, this)

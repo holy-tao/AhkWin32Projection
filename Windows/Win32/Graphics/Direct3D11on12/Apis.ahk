@@ -3,7 +3,6 @@
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D11on12
- * @version v4.0.30319
  */
 class Direct3D11on12 {
 
@@ -21,7 +20,7 @@ class Direct3D11on12 {
      * @param {Integer} Flags Type: <b>UINT</b>
      * 
      * One or more bitwise OR'd flags from <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ne-d3d11-d3d11_create_device_flag">D3D11_CREATE_DEVICE_FLAG</a>. These are the same flags as those used by <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-d3d11createdeviceandswapchain">D3D11CreateDeviceAndSwapChain</a>. Specifies which runtime <a href="https://docs.microsoft.com/windows/desktop/direct3d11/overviews-direct3d-11-devices-layers">layers</a> to enable. <i>Flags</i> must be compatible with device flags, and its <i>NodeMask</i> must be a subset of the <i>NodeMask</i> provided to the present API.
-     * @param {Pointer<Integer>} pFeatureLevels Type: <b>const D3D_FEATURE_LEVEL*</b>
+     * @param {Pointer<D3D_FEATURE_LEVEL>} pFeatureLevels Type: <b>const D3D_FEATURE_LEVEL*</b>
      * 
      * An array of any of the following:
      * 
@@ -56,7 +55,7 @@ class Direct3D11on12 {
      * @param {Pointer<ID3D11DeviceContext>} ppImmediateContext Type: <b>ID3D11DeviceContext**</b>
      * 
      * A pointer to the returned <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nn-d3d11-id3d11devicecontext">ID3D11DeviceContext</a>. May be NULL.
-     * @param {Pointer<Integer>} pChosenFeatureLevel Type: <b>D3D_FEATURE_LEVEL*</b>
+     * @param {Pointer<D3D_FEATURE_LEVEL>} pChosenFeatureLevel Type: <b>D3D_FEATURE_LEVEL*</b>
      * 
      * A pointer to the returned feature level. May be NULL.
      * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>

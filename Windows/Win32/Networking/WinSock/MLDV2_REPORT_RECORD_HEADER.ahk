@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Networking.WinSock
- * @version v4.0.30319
  */
-class MLDV2_REPORT_RECORD_HEADER extends Win32Struct
-{
+class MLDV2_REPORT_RECORD_HEADER extends Win32Struct {
     static sizeof => 20
 
     static packingSize => 2
@@ -39,7 +37,7 @@ class MLDV2_REPORT_RECORD_HEADER extends Win32Struct
     /**
      * @type {IN6_ADDR}
      */
-    MulticastAddress{
+    MulticastAddress {
         get {
             if(!this.HasProp("__MulticastAddress"))
                 this.__MulticastAddress := IN6_ADDR(4, this)

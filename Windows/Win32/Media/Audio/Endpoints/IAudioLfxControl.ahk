@@ -7,9 +7,8 @@
  * The IAudioLfxControl interface allows the client to apply or remove local effects from the offloaded audio stream.
  * @see https://learn.microsoft.com/windows/win32/api/audioengineendpoint/nn-audioengineendpoint-iaudiolfxcontrol
  * @namespace Windows.Win32.Media.Audio.Endpoints
- * @version v4.0.30319
  */
-class IAudioLfxControl extends IUnknown{
+class IAudioLfxControl extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

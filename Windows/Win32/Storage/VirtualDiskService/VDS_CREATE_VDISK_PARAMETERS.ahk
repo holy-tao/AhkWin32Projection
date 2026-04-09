@@ -5,17 +5,15 @@
  * Contains the parameters to be used when a virtual disk is created.
  * @see https://learn.microsoft.com/windows/win32/api/vds/ns-vds-vds_create_vdisk_parameters
  * @namespace Windows.Win32.Storage.VirtualDiskService
- * @version v4.0.30319
  */
-class VDS_CREATE_VDISK_PARAMETERS extends Win32Struct
-{
+class VDS_CREATE_VDISK_PARAMETERS extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
 
     /**
      * A unique GUID value to be assigned to the virtual disk.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     UniqueId {
         get => NumGet(this, 0, "ptr")

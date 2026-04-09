@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
 #Include ..\..\..\Graphics\Gdi\HDC.ahk
 #Include ..\..\Input\Ime\HIMC.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
  * The ITextHost interface is used by a text services object to obtain text host services.
@@ -13,9 +13,8 @@
  * Applications do not call the <b>ITextHost</b> methods. A text services object created by the <a href="https://docs.microsoft.com/windows/desktop/api/textserv/nf-textserv-createtextservices">CreateTextServices</a> function calls the interface methods.
  * @see https://learn.microsoft.com/windows/win32/api/textserv/nl-textserv-itexthost
  * @namespace Windows.Win32.UI.Controls.RichEdit
- * @version v4.0.30319
  */
-class ITextHost extends IUnknown{
+class ITextHost extends IUnknown {
 
     static sizeof => A_PtrSize
 
@@ -52,7 +51,9 @@ class ITextHost extends IUnknown{
      * Releases the device context obtained by the ITextHost::TxGetDC method.
      * @remarks
      * This method is only valid when the control is in-place active; calls while the control is inactive may fail.
-     * @param {HDC} _hdc 
+     * @param {HDC} _hdc Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HDC</a></b>
+     * 
+     * Handle to the device context to release.
      * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">INT</a></b>
      * 
      * Returns 1 if <i>hdc</i> was released; otherwise 0.
@@ -92,7 +93,7 @@ class ITextHost extends IUnknown{
      * Enables or disables one or both scroll bar arrows in the text host window.
      * @remarks
      * This method is only valid when the control is in-place active; calls while the control is inactive may fail.
-     * @param {Integer} fuSBFlags Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">INT</a></b>
+     * @param {SCROLLBAR_CONSTANTS} fuSBFlags Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">INT</a></b>
      * @param {Integer} fuArrowflags Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">INT</a></b>
      * @returns {BOOL} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
@@ -324,7 +325,7 @@ class ITextHost extends IUnknown{
      * @param {Pointer<RECT>} lprcUpdate Type: <b>LPRECT</b>
      * 
      * The coordinates for the update rectangle.
-     * @param {Integer} fuScroll Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
+     * @param {SCROLL_WINDOW_FLAGS} fuScroll Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/textserv/nf-textserv-itexthost-txscrollwindowex
      */
@@ -659,7 +660,7 @@ class ITextHost extends IUnknown{
      * 
      * <div class="alert"><b>Note</b>  Hosts should be careful about overriding normal system behavior because it can result in inconsistent UI (particularly with respect to Accessibility options).</div>
      * <div> </div>
-     * @param {Integer} nIndex Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">INT</a></b>
+     * @param {SYS_COLOR_INDEX} nIndex Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">INT</a></b>
      * 
      * The display element whose color is to be retrieved. For a list of possible values for this parameter, see the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getsyscolor">GetSysColor</a> function.
      * @returns {COLORREF} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">COLORREF</a></b>
@@ -674,7 +675,7 @@ class ITextHost extends IUnknown{
 
     /**
      * Requests the background style of the text host.
-     * @param {Pointer<Integer>} pstyle Type: <b>TXTBACKSTYLE*</b>
+     * @param {Pointer<TXTBACKSTYLE>} pstyle Type: <b>TXTBACKSTYLE*</b>
      * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * The return value is <b>S_OK</b>.
@@ -1147,7 +1148,9 @@ class ITextHost extends IUnknown{
 
     /**
      * Releases an input context returned by the ITextHost::TxImmGetContext method and unlocks the memory associated with the context. This method is used only in Asian-language versions of the operating system.
-     * @param {HIMC} _himc 
+     * @param {HIMC} _himc Type: <b>HIMC</b>
+     * 
+     * The input context.
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/textserv/nf-textserv-itexthost-tximmreleasecontext
      */

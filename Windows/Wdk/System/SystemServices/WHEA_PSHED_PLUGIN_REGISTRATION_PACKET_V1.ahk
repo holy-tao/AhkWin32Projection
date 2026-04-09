@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class WHEA_PSHED_PLUGIN_REGISTRATION_PACKET_V1 extends Win32Struct
-{
+class WHEA_PSHED_PLUGIN_REGISTRATION_PACKET_V1 extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -52,7 +50,7 @@ class WHEA_PSHED_PLUGIN_REGISTRATION_PACKET_V1 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<WHEA_PSHED_PLUGIN_CALLBACKS>}
+     * @type {Pointer}
      */
     Callbacks {
         get => NumGet(this, 24, "ptr")

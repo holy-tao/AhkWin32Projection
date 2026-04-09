@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DOMAINDESC.ahk
 
 /**
  * Contains data about an element in a domain tree obtained with the IDsBrowseDomainTree::GetDomains method.
@@ -7,10 +8,8 @@
  * For more information about how to access and use the information in this structure, see <a href="https://docs.microsoft.com/windows/desktop/AD/domain-browser">Domain Browser</a>.
  * @see https://learn.microsoft.com/windows/win32/api/dsclient/ns-dsclient-domaindesc
  * @namespace Windows.Win32.Networking.ActiveDirectory
- * @version v4.0.30319
  */
-class DOMAINDESC extends Win32Struct
-{
+class DOMAINDESC extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 8

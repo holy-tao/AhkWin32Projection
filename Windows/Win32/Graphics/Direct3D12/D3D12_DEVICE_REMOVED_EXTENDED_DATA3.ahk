@@ -1,14 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\D3D12_DRED_AUTO_BREADCRUMBS_OUTPUT1.ahk
+#Include .\D3D12_AUTO_BREADCRUMB_NODE1.ahk
 #Include .\D3D12_DRED_PAGE_FAULT_OUTPUT2.ahk
+#Include .\D3D12_DRED_ALLOCATION_NODE1.ahk
+#Include .\D3D12_DRED_PAGE_FAULT_FLAGS.ahk
+#Include .\D3D12_DRED_DEVICE_STATE.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D12
- * @version v4.0.30319
  */
-class D3D12_DEVICE_REMOVED_EXTENDED_DATA3 extends Win32Struct
-{
+class D3D12_DEVICE_REMOVED_EXTENDED_DATA3 extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8
@@ -24,7 +26,7 @@ class D3D12_DEVICE_REMOVED_EXTENDED_DATA3 extends Win32Struct
     /**
      * @type {D3D12_DRED_AUTO_BREADCRUMBS_OUTPUT1}
      */
-    AutoBreadcrumbsOutput{
+    AutoBreadcrumbsOutput {
         get {
             if(!this.HasProp("__AutoBreadcrumbsOutput"))
                 this.__AutoBreadcrumbsOutput := D3D12_DRED_AUTO_BREADCRUMBS_OUTPUT1(8, this)
@@ -35,7 +37,7 @@ class D3D12_DEVICE_REMOVED_EXTENDED_DATA3 extends Win32Struct
     /**
      * @type {D3D12_DRED_PAGE_FAULT_OUTPUT2}
      */
-    PageFaultOutput{
+    PageFaultOutput {
         get {
             if(!this.HasProp("__PageFaultOutput"))
                 this.__PageFaultOutput := D3D12_DRED_PAGE_FAULT_OUTPUT2(16, this)
@@ -44,7 +46,7 @@ class D3D12_DEVICE_REMOVED_EXTENDED_DATA3 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {D3D12_DRED_DEVICE_STATE}
      */
     DeviceState {
         get => NumGet(this, 48, "int")

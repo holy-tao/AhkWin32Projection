@@ -9,9 +9,8 @@
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IDVBTLocator)</c>.
  * @see https://learn.microsoft.com/windows/win32/api/tuner/nn-tuner-idvbtlocator
  * @namespace Windows.Win32.Media.DirectShow.Tv
- * @version v4.0.30319
  */
-class IDVBTLocator extends IDigitalLocator{
+class IDVBTLocator extends IDigitalLocator {
 
     static sizeof => A_PtrSize
     /**
@@ -47,7 +46,7 @@ class IDVBTLocator extends IDigitalLocator{
     }
 
     /**
-     * @type {Integer} 
+     * @type {FECMethod} 
      */
     LPInnerFEC {
         get => this.get_LPInnerFEC()
@@ -55,7 +54,7 @@ class IDVBTLocator extends IDigitalLocator{
     }
 
     /**
-     * @type {Integer} 
+     * @type {BinaryConvolutionCodeRate} 
      */
     LPInnerFECRate {
         get => this.get_LPInnerFECRate()
@@ -63,7 +62,7 @@ class IDVBTLocator extends IDigitalLocator{
     }
 
     /**
-     * @type {Integer} 
+     * @type {HierarchyAlpha} 
      */
     HAlpha {
         get => this.get_HAlpha()
@@ -71,7 +70,7 @@ class IDVBTLocator extends IDigitalLocator{
     }
 
     /**
-     * @type {Integer} 
+     * @type {GuardInterval} 
      */
     Guard {
         get => this.get_Guard()
@@ -79,7 +78,7 @@ class IDVBTLocator extends IDigitalLocator{
     }
 
     /**
-     * @type {Integer} 
+     * @type {TransmissionMode} 
      */
     Mode {
         get => this.get_Mode()
@@ -119,7 +118,7 @@ class IDVBTLocator extends IDigitalLocator{
 
     /**
      * The get_LPInnerFEC method retrieves the inner FEC type of the low-priority stream.
-     * @returns {Integer} Receives a member of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mstv/fecmethod">FECMethod</a> enumeration.
+     * @returns {FECMethod} Receives a member of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mstv/fecmethod">FECMethod</a> enumeration.
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-idvbtlocator-get_lpinnerfec
      */
     get_LPInnerFEC() {
@@ -129,7 +128,7 @@ class IDVBTLocator extends IDigitalLocator{
 
     /**
      * The put_LPInnerFEC method sets the inner FEC type of the low-priority stream.
-     * @param {Integer} FEC Variable of type <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mstv/fecmethod">FECMethod</a> that specifies the FEC type.
+     * @param {FECMethod} FEC Variable of type <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mstv/fecmethod">FECMethod</a> that specifies the FEC type.
      * @returns {HRESULT} Returns S_OK if successful. If the method fails, error information can be retrieved using the standard COM <b>IErrorInfo</b> interface.
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-idvbtlocator-put_lpinnerfec
      */
@@ -140,7 +139,7 @@ class IDVBTLocator extends IDigitalLocator{
 
     /**
      * The get_LPInnerFECRate method retrieves the inner FEC rate of the low-priority stream.
-     * @returns {Integer} Receives a member of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mstv/binaryconvolutioncoderate">BinaryConvolutionCodeRate</a> enumeration.
+     * @returns {BinaryConvolutionCodeRate} Receives a member of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mstv/binaryconvolutioncoderate">BinaryConvolutionCodeRate</a> enumeration.
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-idvbtlocator-get_lpinnerfecrate
      */
     get_LPInnerFECRate() {
@@ -150,7 +149,7 @@ class IDVBTLocator extends IDigitalLocator{
 
     /**
      * The put_LPInnerFECRate method sets the inner FEC rate of the low-priority stream.
-     * @param {Integer} FEC Variable of type <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mstv/binaryconvolutioncoderate">BinaryConvolutionCodeRate</a> that specifies the rate.
+     * @param {BinaryConvolutionCodeRate} FEC Variable of type <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mstv/binaryconvolutioncoderate">BinaryConvolutionCodeRate</a> that specifies the rate.
      * @returns {HRESULT} Returns S_OK if successful. If the method fails, error information can be retrieved using the standard COM <b>IErrorInfo</b> interface.
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-idvbtlocator-put_lpinnerfecrate
      */
@@ -161,7 +160,7 @@ class IDVBTLocator extends IDigitalLocator{
 
     /**
      * The get_HAlpha method retrieves the hierarchy alpha.
-     * @returns {Integer} Receives a member of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mstv/hierarchyalpha">HierarchyAlpha</a> enumeration.
+     * @returns {HierarchyAlpha} Receives a member of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mstv/hierarchyalpha">HierarchyAlpha</a> enumeration.
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-idvbtlocator-get_halpha
      */
     get_HAlpha() {
@@ -171,7 +170,7 @@ class IDVBTLocator extends IDigitalLocator{
 
     /**
      * The put_HAlpha method sets the hierarchy alpha.
-     * @param {Integer} Alpha Variable of type <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mstv/hierarchyalpha">HierarchyAlpha</a> that specifies the hierarchy alpha.
+     * @param {HierarchyAlpha} Alpha Variable of type <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mstv/hierarchyalpha">HierarchyAlpha</a> that specifies the hierarchy alpha.
      * @returns {HRESULT} Returns S_OK if successful. If the method fails, error information can be retrieved using the standard COM <b>IErrorInfo</b> interface.
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-idvbtlocator-put_halpha
      */
@@ -182,7 +181,7 @@ class IDVBTLocator extends IDigitalLocator{
 
     /**
      * The get_Guard method retrieves the guard interval.
-     * @returns {Integer} Receives a member of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mstv/guardinterval">GuardInterval</a> enumeration.
+     * @returns {GuardInterval} Receives a member of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mstv/guardinterval">GuardInterval</a> enumeration.
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-idvbtlocator-get_guard
      */
     get_Guard() {
@@ -192,7 +191,7 @@ class IDVBTLocator extends IDigitalLocator{
 
     /**
      * The put_Guard method sets the guard interval.
-     * @param {Integer} GI Variable of type <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mstv/guardinterval">GuardInterval</a> that specifies the guard interval.
+     * @param {GuardInterval} GI Variable of type <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mstv/guardinterval">GuardInterval</a> that specifies the guard interval.
      * @returns {HRESULT} Returns S_OK if successful. If the method fails, error information can be retrieved using the standard COM <b>IErrorInfo</b> interface.
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-idvbtlocator-put_guard
      */
@@ -203,7 +202,7 @@ class IDVBTLocator extends IDigitalLocator{
 
     /**
      * The get_Mode method receives the transmission mode.
-     * @returns {Integer} 
+     * @returns {TransmissionMode} Receives a member of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mstv/transmissionmode">TransmissionMode</a> enumeration.
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-idvbtlocator-get_mode
      */
     get_Mode() {
@@ -213,7 +212,7 @@ class IDVBTLocator extends IDigitalLocator{
 
     /**
      * The put_Mode method sets the transmission mode.
-     * @param {Integer} _mode 
+     * @param {TransmissionMode} _mode Specifies the transmission mode as a member of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mstv/transmissionmode">TransmissionMode</a> enumeration.
      * @returns {HRESULT} Returns S_OK if successful. If the method fails, error information can be retrieved using the standard COM <b>IErrorInfo</b> interface.
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-idvbtlocator-put_mode
      */

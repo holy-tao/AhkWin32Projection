@@ -1,17 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\MF_FLOAT2.ahk
 #Include .\MFCameraIntrinsic_PinholeCameraModel.ahk
+#Include .\MF_FLOAT2.ahk
 #Include .\MFCameraIntrinsic_DistortionModel.ahk
 
 /**
  * Represents a pinhole camera intrinsic model for a specified resolution.
  * @see https://learn.microsoft.com/windows/win32/api/mfapi/ns-mfapi-mfpinholecameraintrinsic_intrinsicmodel
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class MFPinholeCameraIntrinsic_IntrinsicModel extends Win32Struct
-{
+class MFPinholeCameraIntrinsic_IntrinsicModel extends Win32Struct {
     static sizeof => 44
 
     static packingSize => 4
@@ -38,7 +36,7 @@ class MFPinholeCameraIntrinsic_IntrinsicModel extends Win32Struct
      * The pinhole camera model.
      * @type {MFCameraIntrinsic_PinholeCameraModel}
      */
-    CameraModel{
+    CameraModel {
         get {
             if(!this.HasProp("__CameraModel"))
                 this.__CameraModel := MFCameraIntrinsic_PinholeCameraModel(8, this)
@@ -50,7 +48,7 @@ class MFPinholeCameraIntrinsic_IntrinsicModel extends Win32Struct
      * The lens distortion model.
      * @type {MFCameraIntrinsic_DistortionModel}
      */
-    DistortionModel{
+    DistortionModel {
         get {
             if(!this.HasProp("__DistortionModel"))
                 this.__DistortionModel := MFCameraIntrinsic_DistortionModel(24, this)

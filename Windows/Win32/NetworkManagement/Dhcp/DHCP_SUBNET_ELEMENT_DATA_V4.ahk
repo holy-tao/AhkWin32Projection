@@ -1,14 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DHCP_SUBNET_ELEMENT_TYPE.ahk
+#Include .\DHCP_IP_RANGE.ahk
+#Include .\DHCP_HOST_INFO.ahk
+#Include .\DHCP_IP_RESERVATION_V4.ahk
+#Include .\DHCP_IP_CLUSTER.ahk
 
 /**
  * Defines an element that describes a feature or restriction of a subnet. (DHCP_SUBNET_ELEMENT_DATA_V4)
  * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/ns-dhcpsapi-dhcp_subnet_element_data_v4
  * @namespace Windows.Win32.NetworkManagement.Dhcp
- * @version v4.0.30319
  */
-class DHCP_SUBNET_ELEMENT_DATA_V4 extends Win32Struct
-{
+class DHCP_SUBNET_ELEMENT_DATA_V4 extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -24,7 +27,7 @@ class DHCP_SUBNET_ELEMENT_DATA_V4 extends Win32Struct
             get => NumGet(this, 0, "ptr")
             set => NumPut("ptr", value, this, 0)
         }
-    
+
         /**
          * @type {Pointer<DHCP_HOST_INFO>}
          */
@@ -32,7 +35,7 @@ class DHCP_SUBNET_ELEMENT_DATA_V4 extends Win32Struct
             get => NumGet(this, 0, "ptr")
             set => NumPut("ptr", value, this, 0)
         }
-    
+
         /**
          * @type {Pointer<DHCP_IP_RESERVATION_V4>}
          */
@@ -40,7 +43,7 @@ class DHCP_SUBNET_ELEMENT_DATA_V4 extends Win32Struct
             get => NumGet(this, 0, "ptr")
             set => NumPut("ptr", value, this, 0)
         }
-    
+
         /**
          * @type {Pointer<DHCP_IP_RANGE>}
          */
@@ -48,7 +51,7 @@ class DHCP_SUBNET_ELEMENT_DATA_V4 extends Win32Struct
             get => NumGet(this, 0, "ptr")
             set => NumPut("ptr", value, this, 0)
         }
-    
+
         /**
          * @type {Pointer<DHCP_IP_CLUSTER>}
          */
@@ -56,12 +59,11 @@ class DHCP_SUBNET_ELEMENT_DATA_V4 extends Win32Struct
             get => NumGet(this, 0, "ptr")
             set => NumPut("ptr", value, this, 0)
         }
-    
     }
 
     /**
      * <a href="https://docs.microsoft.com/windows/win32/api/dhcpsapi/ne-dhcpsapi-dhcp_subnet_element_type">DHCP_SUBNET_ELEMENT_TYPE</a> enumeration value describing the type of element in the subsequent field.
-     * @type {Integer}
+     * @type {DHCP_SUBNET_ELEMENT_TYPE}
      */
     ElementType {
         get => NumGet(this, 0, "int")
@@ -69,13 +71,12 @@ class DHCP_SUBNET_ELEMENT_DATA_V4 extends Win32Struct
     }
 
     /**
-     * 
      * @type {DHCP_SUBNET_ELEMENT_UNION_V4}
      */
-    Element{
+    Element {
         get {
             if(!this.HasProp("__Element"))
-                this.__Element := %this.__Class%.DHCP_SUBNET_ELEMENT_UNION_V4(8, this)
+                this.__Element := DHCP_SUBNET_ELEMENT_DATA_V4.DHCP_SUBNET_ELEMENT_UNION_V4(8, this)
             return this.__Element
         }
     }

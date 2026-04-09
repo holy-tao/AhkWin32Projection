@@ -5,9 +5,8 @@
  * The FAX_JOB_OPERATIONS_ENUM enumeration defines the operations that can be performed on a fax job. The members of this enumeration are bit values and can be used in combination.
  * @see https://learn.microsoft.com/windows/win32/api/faxcomex/ne-faxcomex-fax_job_operations_enum
  * @namespace Windows.Win32.Devices.Fax
- * @version v4.0.30319
  */
-class FAX_JOB_OPERATIONS_ENUM extends Win32Enum{
+class FAX_JOB_OPERATIONS_ENUM extends Win32Enum {
 
     /**
      * The job's TIFF image can be retrieved.

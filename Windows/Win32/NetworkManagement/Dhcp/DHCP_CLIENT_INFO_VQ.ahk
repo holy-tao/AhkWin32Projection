@@ -3,6 +3,7 @@
 #Include .\DHCP_BINARY_DATA.ahk
 #Include .\DATE_TIME.ahk
 #Include .\DHCP_HOST_INFO.ahk
+#Include .\QuarantineStatus.ahk
 
 /**
  * Defines information about the DHCPv4 client.
@@ -10,10 +11,8 @@
  * <b>DHCP_CLIENT_INFO_VQ</b> augments the DHCP_CLIENT_INFO_V5  structure by including information relating to the NAP settings of the DHCPv4 client.
  * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/ns-dhcpsapi-dhcp_client_info_vq
  * @namespace Windows.Win32.NetworkManagement.Dhcp
- * @version v4.0.30319
  */
-class DHCP_CLIENT_INFO_VQ extends Win32Struct
-{
+class DHCP_CLIENT_INFO_VQ extends Win32Struct {
     static sizeof => 96
 
     static packingSize => 8
@@ -40,7 +39,7 @@ class DHCP_CLIENT_INFO_VQ extends Win32Struct
      * GUID value that contains the hardware address (MAC address) of the DHCPv4 client.
      * @type {DHCP_BINARY_DATA}
      */
-    ClientHardwareAddress{
+    ClientHardwareAddress {
         get {
             if(!this.HasProp("__ClientHardwareAddress"))
                 this.__ClientHardwareAddress := DHCP_BINARY_DATA(8, this)
@@ -70,7 +69,7 @@ class DHCP_CLIENT_INFO_VQ extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-date_time">DATE_TIME</a> structure that contains the lease expiry time for the DHCPv4 client. This is UTC time represented in the <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> format.
      * @type {DATE_TIME}
      */
-    ClientLeaseExpires{
+    ClientLeaseExpires {
         get {
             if(!this.HasProp("__ClientLeaseExpires"))
                 this.__ClientLeaseExpires := DATE_TIME(40, this)
@@ -82,7 +81,7 @@ class DHCP_CLIENT_INFO_VQ extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-dhcp_host_info">DHCP_HOST_INFO</a> structure that contains information about the host machine (DHCPv4 server machine) that has provided a lease to the DHCPv4 client.
      * @type {DHCP_HOST_INFO}
      */
-    OwnerHost{
+    OwnerHost {
         get {
             if(!this.HasProp("__OwnerHost"))
                 this.__OwnerHost := DHCP_HOST_INFO(48, this)
@@ -234,7 +233,7 @@ class DHCP_CLIENT_INFO_VQ extends Win32Struct
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ne-dhcpsapi-quarantinestatus">QuarantineStatus</a> enumeration that specifies possible health status values for the DHCPv4 client, as validated at the NAP server.
-     * @type {Integer}
+     * @type {QuarantineStatus}
      */
     Status {
         get => NumGet(this, 76, "int")
@@ -245,7 +244,7 @@ class DHCP_CLIENT_INFO_VQ extends Win32Struct
      * This is of type <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-date_time">DATE_TIME</a>, containing the end time of the probation if the DHCPv4 client is on probation. For this time period, the DHCPv4 client has full access to the network.
      * @type {DATE_TIME}
      */
-    ProbationEnds{
+    ProbationEnds {
         get {
             if(!this.HasProp("__ProbationEnds"))
                 this.__ProbationEnds := DATE_TIME(80, this)

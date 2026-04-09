@@ -5,19 +5,17 @@
  * NLM_SOCKADDR structure contains the IPv4/IPv6 destination address.
  * @see https://learn.microsoft.com/windows/win32/api/netlistmgr/ns-netlistmgr-nlm_sockaddr
  * @namespace Windows.Win32.Networking.NetworkListManager
- * @version v4.0.30319
  */
-class NLM_SOCKADDR extends Win32Struct
-{
+class NLM_SOCKADDR extends Win32Struct {
     static sizeof => 128
 
     static packingSize => 1
 
     /**
      * An IPv4/IPv6 destination address.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    data{
+    data {
         get {
             if(!this.HasProp("__dataProxyArray"))
                 this.__dataProxyArray := Win32FixedArray(this.ptr + 0, 128, Primitive, "char")

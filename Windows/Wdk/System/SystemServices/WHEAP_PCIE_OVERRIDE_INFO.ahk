@@ -3,16 +3,14 @@
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class WHEAP_PCIE_OVERRIDE_INFO extends Win32Struct
-{
+class WHEAP_PCIE_OVERRIDE_INFO extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
 
     /**
-     * @type {Pointer<WHEA_EVENT_LOG_ENTRY>}
+     * @type {Pointer}
      */
     WheaEventLogEntry {
         get => NumGet(this, 0, "ptr")
@@ -60,9 +58,9 @@ class WHEAP_PCIE_OVERRIDE_INFO extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Reserved{
+    Reserved {
         get {
             if(!this.HasProp("__ReservedProxyArray"))
                 this.__ReservedProxyArray := Win32FixedArray(this.ptr + 25, 3, Primitive, "char")

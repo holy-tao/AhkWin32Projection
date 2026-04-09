@@ -1,15 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\SWbemQueryQualifiedName.ahk
 #Include .\SWbemRpnConst.ahk
 
 /**
  * The SWbemRpnQueryToken structure represents the query tokens in a WMIQ_ANALYSIS_RPN_SEQUENCE type query. An example of a query token is the following:\_j &gt; 4.
  * @see https://learn.microsoft.com/windows/win32/api/wmiutils/ns-wmiutils-swbemrpnquerytoken
  * @namespace Windows.Win32.System.Wmi
- * @version v4.0.30319
  */
-class SWbemRpnQueryToken extends Win32Struct
-{
+class SWbemRpnQueryToken extends Win32Struct {
     static sizeof => 160
 
     static packingSize => 8
@@ -42,7 +41,6 @@ class SWbemRpnQueryToken extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     m_uOperator {
@@ -81,7 +79,7 @@ class SWbemRpnQueryToken extends Win32Struct
      * Value of the first constant. For more information, see <a href="https://docs.microsoft.com/windows/win32/api/wmiutils/ns-wmiutils-swbemrpnquerytoken">SWbemRpnConst</a>.
      * @type {SWbemRpnConst}
      */
-    m_Const{
+    m_Const {
         get {
             if(!this.HasProp("__m_Const"))
                 this.__m_Const := SWbemRpnConst(40, this)
@@ -102,7 +100,7 @@ class SWbemRpnQueryToken extends Win32Struct
      * Value of the second constant. The fields <b>m_uConst2ApparentType</b> and <b>m_uConst2</b> are used only for BETWEEN phrases. For more information, see <a href="https://docs.microsoft.com/windows/win32/api/wmiutils/ns-wmiutils-swbemrpnquerytoken">SWbemRpnConst</a>.
      * @type {SWbemRpnConst}
      */
-    m_Const2{
+    m_Const2 {
         get {
             if(!this.HasProp("__m_Const2"))
                 this.__m_Const2 := SWbemRpnConst(96, this)

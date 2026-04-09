@@ -7,10 +7,8 @@
  * For more information, see [**D3DCOLORVALUE**](../direct3d9/d3dcolorvalue.md).
  * @see https://learn.microsoft.com/windows/win32/DirectWrite/dwrite-color-f
  * @namespace Windows.Win32.Graphics.DirectWrite
- * @version v4.0.30319
  */
-class DWRITE_COLOR_F extends Win32Struct
-{
+class DWRITE_COLOR_F extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4

@@ -7,9 +7,8 @@
  * Used in refresher operations to provide rapid access to enumerations of instance objects.
  * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nn-wbemcli-iwbemhiperfenum
  * @namespace Windows.Win32.System.Wmi
- * @version v4.0.30319
  */
-class IWbemHiPerfEnum extends IUnknown{
+class IWbemHiPerfEnum extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

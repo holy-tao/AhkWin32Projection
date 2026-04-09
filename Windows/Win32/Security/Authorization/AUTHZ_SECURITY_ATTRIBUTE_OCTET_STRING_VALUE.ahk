@@ -5,10 +5,8 @@
  * Specifies an octet string value for a security attribute.
  * @see https://learn.microsoft.com/windows/win32/api/authz/ns-authz-authz_security_attribute_octet_string_value
  * @namespace Windows.Win32.Security.Authorization
- * @version v4.0.30319
  */
-class AUTHZ_SECURITY_ATTRIBUTE_OCTET_STRING_VALUE extends Win32Struct
-{
+class AUTHZ_SECURITY_ATTRIBUTE_OCTET_STRING_VALUE extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

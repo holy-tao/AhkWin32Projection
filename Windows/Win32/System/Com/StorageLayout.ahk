@@ -33,10 +33,8 @@
  * <div> </div>
  * @see https://learn.microsoft.com/windows/win32/api/objidl/ns-objidl-storagelayout
  * @namespace Windows.Win32.System.Com
- * @version v4.0.30319
  */
-class StorageLayout extends Win32Struct
-{
+class StorageLayout extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8

@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.NetworkManagement.Ndis
- * @version v4.0.30319
  */
-class CO_ADDRESS_FAMILY extends Win32Struct
-{
+class CO_ADDRESS_FAMILY extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4

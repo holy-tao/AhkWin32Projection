@@ -1,18 +1,19 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include .\WEBAUTHN_CREDENTIALS.ahk
+#Include .\WEBAUTHN_CREDENTIAL.ahk
 #Include .\WEBAUTHN_EXTENSIONS.ahk
+#Include .\WEBAUTHN_EXTENSION.ahk
+#Include .\WEBAUTHN_CREDENTIAL_LIST.ahk
+#Include .\WEBAUTHN_HMAC_SECRET_SALT_VALUES.ahk
+#Include .\CTAPCBOR_HYBRID_STORAGE_LINKED_DATA.ahk
 
 /**
  * A structure that contains the options to get an assertion.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/webauthn/ns-webauthn-webauthn_authenticator_get_assertion_options
  * @namespace Windows.Win32.Security.Authentication.WebAuthn
- * @version v4.0.30319
  */
-class WEBAUTHN_AUTHENTICATOR_GET_ASSERTION_OPTIONS extends Win32Struct
-{
+class WEBAUTHN_AUTHENTICATOR_GET_ASSERTION_OPTIONS extends Win32Struct {
     static sizeof => 200
 
     static packingSize => 8
@@ -39,7 +40,7 @@ class WEBAUTHN_AUTHENTICATOR_GET_ASSERTION_OPTIONS extends Win32Struct
      * The list of allowed credentials to be used in the assertion.
      * @type {WEBAUTHN_CREDENTIALS}
      */
-    CredentialList{
+    CredentialList {
         get {
             if(!this.HasProp("__CredentialList"))
                 this.__CredentialList := WEBAUTHN_CREDENTIALS(8, this)
@@ -51,7 +52,7 @@ class WEBAUTHN_AUTHENTICATOR_GET_ASSERTION_OPTIONS extends Win32Struct
      * A CBOR map from extension identifiers to their authenticator extension inputs, created by the client based on the extensions requested by the Relying Party. These are _optional_ extensions to parse when performing the operation.
      * @type {WEBAUTHN_EXTENSIONS}
      */
-    Extensions{
+    Extensions {
         get {
             if(!this.HasProp("__Extensions"))
                 this.__Extensions := WEBAUTHN_EXTENSIONS(24, this)

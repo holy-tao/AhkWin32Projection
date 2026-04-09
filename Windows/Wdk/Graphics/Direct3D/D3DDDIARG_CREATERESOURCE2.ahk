@@ -1,19 +1,22 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\D3DDDIFORMAT.ahk
+#Include .\D3DDDI_POOL.ahk
+#Include .\D3DDDIMULTISAMPLE_TYPE.ahk
+#Include .\D3DDDI_SURFACEINFO.ahk
 #Include ..\..\..\Win32\Foundation\HANDLE.ahk
+#Include .\D3DDDI_ROTATION.ahk
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
- * @version v4.0.30319
  */
-class D3DDDIARG_CREATERESOURCE2 extends Win32Struct
-{
+class D3DDDIARG_CREATERESOURCE2 extends Win32Struct {
     static sizeof => 80
 
     static packingSize => 8
 
     /**
-     * @type {Integer}
+     * @type {D3DDDIFORMAT}
      */
     Format {
         get => NumGet(this, 0, "uint")
@@ -21,7 +24,7 @@ class D3DDDIARG_CREATERESOURCE2 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {D3DDDI_POOL}
      */
     Pool {
         get => NumGet(this, 4, "int")
@@ -29,7 +32,7 @@ class D3DDDIARG_CREATERESOURCE2 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {D3DDDIMULTISAMPLE_TYPE}
      */
     MultisampleType {
         get => NumGet(this, 8, "int")
@@ -85,7 +88,7 @@ class D3DDDIARG_CREATERESOURCE2 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<D3DDDI_RATIONAL>}
+     * @type {Pointer}
      */
     RefreshRate {
         get => NumGet(this, 40, "ptr")
@@ -95,7 +98,7 @@ class D3DDDIARG_CREATERESOURCE2 extends Win32Struct
     /**
      * @type {HANDLE}
      */
-    hResource{
+    hResource {
         get {
             if(!this.HasProp("__hResource"))
                 this.__hResource := HANDLE(48, this)
@@ -104,7 +107,7 @@ class D3DDDIARG_CREATERESOURCE2 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<D3DDDI_RESOURCEFLAGS>}
+     * @type {Pointer}
      */
     Flags {
         get => NumGet(this, 56, "ptr")
@@ -112,7 +115,7 @@ class D3DDDIARG_CREATERESOURCE2 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {D3DDDI_ROTATION}
      */
     Rotation {
         get => NumGet(this, 64, "int")
@@ -120,7 +123,7 @@ class D3DDDIARG_CREATERESOURCE2 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<D3DDDI_RESOURCEFLAGS2>}
+     * @type {Pointer}
      */
     Flags2 {
         get => NumGet(this, 72, "ptr")

@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Graphics.GdiPlus
- * @version v4.0.30319
  */
-class GdiplusStartupInputEx extends Win32Struct
-{
+class GdiplusStartupInputEx extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -15,7 +13,7 @@ class GdiplusStartupInputEx extends Win32Struct
     /**
      * @type {GdiplusStartupInput}
      */
-    Base{
+    Base {
         get {
             if(!this.HasProp("__Base"))
                 this.__Base := GdiplusStartupInput(0, this)

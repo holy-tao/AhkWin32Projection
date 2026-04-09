@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IBackgroundCopyFile.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\IBackgroundCopyFile.ahk
 
 /**
  * Use the IBackgroundCopyError interface to determine the cause of an error and if the transfer process can proceed.
  * @see https://learn.microsoft.com/windows/win32/api/bits/nn-bits-ibackgroundcopyerror
  * @namespace Windows.Win32.Networking.BackgroundIntelligentTransferService
- * @version v4.0.30319
  */
-class IBackgroundCopyError extends IUnknown{
+class IBackgroundCopyError extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -33,7 +32,7 @@ class IBackgroundCopyError extends IUnknown{
 
     /**
      * Retrieves the error code and identify the context in which the error occurred.
-     * @param {Pointer<Integer>} pContext Context in which the error occurred. For a list of context values, see the 
+     * @param {Pointer<BG_ERROR_CONTEXT>} pContext Context in which the error occurred. For a list of context values, see the 
      * [BG_ERROR_CONTEXT](./ne-bits-bg_error_context.md) enumeration.
      * @param {Pointer<HRESULT>} pCode Error code of the error that occurred.
      * @returns {HRESULT} This method returns <b>S_OK</b> on success or one of the standard COM HRESULT values on error.

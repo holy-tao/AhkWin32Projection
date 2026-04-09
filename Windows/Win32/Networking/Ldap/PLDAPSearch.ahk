@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Networking.Ldap
- * @version v4.0.30319
  */
-class PLDAPSearch extends Win32Struct
-{
+class PLDAPSearch extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 8

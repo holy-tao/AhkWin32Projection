@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem
- * @version v4.0.30319
  */
-class FS_FILTER_CALLBACKS extends Win32Struct
-{
+class FS_FILTER_CALLBACKS extends Win32Struct {
     static sizeof => 120
 
     static packingSize => 8

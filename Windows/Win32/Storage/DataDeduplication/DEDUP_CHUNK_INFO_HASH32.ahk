@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Storage.DataDeduplication
- * @version v4.0.30319
  */
-class DEDUP_CHUNK_INFO_HASH32 extends Win32Struct
-{
+class DEDUP_CHUNK_INFO_HASH32 extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8
@@ -36,9 +34,9 @@ class DEDUP_CHUNK_INFO_HASH32 extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    HashVal{
+    HashVal {
         get {
             if(!this.HasProp("__HashValProxyArray"))
                 this.__HashValProxyArray := Win32FixedArray(this.ptr + 24, 32, Primitive, "char")

@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
 #Include .\ICertProperty.ahk
+#Include ..\..\..\Foundation\BSTR.ahk
 
 /**
  * Represents a certificate property that identifies a template that has been configured to enable autoenrollment of the certificate.
  * @see https://learn.microsoft.com/windows/win32/api/certenroll/nn-certenroll-icertpropertyautoenroll
  * @namespace Windows.Win32.Security.Cryptography.Certificates
- * @version v4.0.30319
  */
-class ICertPropertyAutoEnroll extends ICertProperty{
+class ICertPropertyAutoEnroll extends ICertProperty {
 
     static sizeof => A_PtrSize
     /**

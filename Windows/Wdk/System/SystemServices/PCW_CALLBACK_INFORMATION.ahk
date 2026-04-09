@@ -3,16 +3,14 @@
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class PCW_CALLBACK_INFORMATION extends Win32Struct
-{
+class PCW_CALLBACK_INFORMATION extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
 
     /**
-     * @type {Pointer<PCW_COUNTER_INFORMATION>}
+     * @type {Pointer}
      */
     AddCounter {
         get => NumGet(this, 0, "ptr")
@@ -20,7 +18,7 @@ class PCW_CALLBACK_INFORMATION extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PCW_COUNTER_INFORMATION>}
+     * @type {Pointer}
      */
     RemoveCounter {
         get => NumGet(this, 0, "ptr")
@@ -28,7 +26,7 @@ class PCW_CALLBACK_INFORMATION extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PCW_MASK_INFORMATION>}
+     * @type {Pointer}
      */
     EnumerateInstances {
         get => NumGet(this, 0, "ptr")
@@ -36,7 +34,7 @@ class PCW_CALLBACK_INFORMATION extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PCW_MASK_INFORMATION>}
+     * @type {Pointer}
      */
     CollectData {
         get => NumGet(this, 0, "ptr")

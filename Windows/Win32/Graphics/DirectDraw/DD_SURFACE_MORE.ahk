@@ -1,15 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DD_VIDEOPORT_LOCAL.ahk
 #Include .\DDSCAPSEX.ahk
 
 /**
  * The DD_SURFACE_MORE structure contains additional local data for each individual DirectDrawSurface object.
  * @see https://learn.microsoft.com/windows/win32/api/ddrawint/ns-ddrawint-dd_surface_more
  * @namespace Windows.Win32.Graphics.DirectDraw
- * @version v4.0.30319
  */
-class DD_SURFACE_MORE extends Win32Struct
-{
+class DD_SURFACE_MORE extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -33,7 +32,6 @@ class DD_SURFACE_MORE extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     dwOverlayFlags {
@@ -45,7 +43,7 @@ class DD_SURFACE_MORE extends Win32Struct
      * Specifies a DDSCAPSEX structure that is used to expose extended surface capabilities. A DDSCAPSEX structure is the same as a <a href="https://docs.microsoft.com/previous-versions/windows/hardware/drivers/ff550292(v=vs.85)">DDSCAPS2</a> structure without the <b>dwCaps</b> member.
      * @type {DDSCAPSEX}
      */
-    ddsCapsEx{
+    ddsCapsEx {
         get {
             if(!this.HasProp("__ddsCapsEx"))
                 this.__ddsCapsEx := DDSCAPSEX(20, this)

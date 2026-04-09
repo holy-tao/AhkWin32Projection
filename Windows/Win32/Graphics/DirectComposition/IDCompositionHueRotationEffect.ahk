@@ -7,9 +7,8 @@
  * The hue rotate effect alters the hue of an image by applying a color matrix based on the rotation angle.
  * @see https://learn.microsoft.com/windows/win32/api/dcomp/nn-dcomp-idcompositionhuerotationeffect
  * @namespace Windows.Win32.Graphics.DirectComposition
- * @version v4.0.30319
  */
-class IDCompositionHueRotationEffect extends IDCompositionFilterEffect{
+class IDCompositionHueRotationEffect extends IDCompositionFilterEffect {
 
     static sizeof => A_PtrSize
     /**

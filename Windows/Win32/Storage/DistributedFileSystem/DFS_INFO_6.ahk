@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DFS_STORAGE_INFO_1.ahk
 
 /**
  * Contains information about a Distributed File System (DFS) root or link. This structure contains the name, status, GUID, time-out, namespace/root/link properties, metadata size, number of targets, and information about each target of the root or link.
@@ -8,10 +9,8 @@
  *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dfs/dfs-server-target-prioritization">DFS Server Target Prioritization</a>.
  * @see https://learn.microsoft.com/windows/win32/api/lmdfs/ns-lmdfs-dfs_info_6
  * @namespace Windows.Win32.Storage.DistributedFileSystem
- * @version v4.0.30319
  */
-class DFS_INFO_6 extends Win32Struct
-{
+class DFS_INFO_6 extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8
@@ -87,7 +86,7 @@ class DFS_INFO_6 extends Win32Struct
 
     /**
      * Specifies the <b>GUID</b> of the DFS root or link.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     Guid {
         get => NumGet(this, 24, "ptr")

@@ -1,15 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Security\Cryptography\CERT_PUBLIC_KEY_INFO.ahk
 #Include ..\..\Foundation\FILETIME.ahk
 
 /**
  * The PEER_CREDENTIAL_INFO structure defines information used to obtain and issue a peer's security credentials.
  * @see https://learn.microsoft.com/windows/win32/api/p2p/ns-p2p-peer_credential_info
  * @namespace Windows.Win32.NetworkManagement.P2P
- * @version v4.0.30319
  */
-class PEER_CREDENTIAL_INFO extends Win32Struct
-{
+class PEER_CREDENTIAL_INFO extends Win32Struct {
     static sizeof => 72
 
     static packingSize => 8
@@ -72,7 +71,7 @@ class PEER_CREDENTIAL_INFO extends Win32Struct
      * Specifies the <a href="https://docs.microsoft.com/windows/desktop/P2PSdk/graphing-reference-links">FILETIME</a> structure that contains the time when the recipient's membership in the peer group becomes valid. When issuing new credentials this value must be greater than the ValidityStart value for the member's current credentials.
      * @type {FILETIME}
      */
-    ftValidityStart{
+    ftValidityStart {
         get {
             if(!this.HasProp("__ftValidityStart"))
                 this.__ftValidityStart := FILETIME(40, this)
@@ -84,7 +83,7 @@ class PEER_CREDENTIAL_INFO extends Win32Struct
      * Specifies the <a href="https://docs.microsoft.com/windows/desktop/P2PSdk/graphing-reference-links">FILETIME</a> structure that contains the time when the recipient's membership in the peer group becomes invalid.
      * @type {FILETIME}
      */
-    ftValidityEnd{
+    ftValidityEnd {
         get {
             if(!this.HasProp("__ftValidityEnd"))
                 this.__ftValidityEnd := FILETIME(48, this)

@@ -1,15 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\WSMAN_DATA.ahk
+#Include .\WSManDataType.ahk
 #Include .\WSMAN_DATA_TEXT.ahk
 #Include .\WSMAN_DATA_BINARY.ahk
-#Include .\WSMAN_DATA.ahk
 
 /**
  * @namespace Windows.Win32.System.RemoteManagement
- * @version v4.0.30319
  */
-class WSMAN_CREATE_SHELL_DATA extends Win32Struct
-{
+class WSMAN_CREATE_SHELL_DATA extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -17,7 +16,7 @@ class WSMAN_CREATE_SHELL_DATA extends Win32Struct
     /**
      * @type {WSMAN_DATA}
      */
-    data{
+    data {
         get {
             if(!this.HasProp("__data"))
                 this.__data := WSMAN_DATA(0, this)

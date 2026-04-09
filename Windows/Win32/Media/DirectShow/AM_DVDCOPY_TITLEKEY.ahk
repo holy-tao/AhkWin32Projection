@@ -9,10 +9,8 @@
  * A title key is used for the DVD CSS key exchange for decryption. Implementors should get a CSS license and further instructions from CSS.
  * @see https://learn.microsoft.com/windows/win32/api/dvdmedia/ns-dvdmedia-am_dvdcopy_titlekey
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class AM_DVDCOPY_TITLEKEY extends Win32Struct
-{
+class AM_DVDCOPY_TITLEKEY extends Win32Struct {
     static sizeof => 20
 
     static packingSize => 4
@@ -27,9 +25,9 @@ class AM_DVDCOPY_TITLEKEY extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    Reserved1{
+    Reserved1 {
         get {
             if(!this.HasProp("__Reserved1ProxyArray"))
                 this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 4, 2, Primitive, "uint")
@@ -39,9 +37,9 @@ class AM_DVDCOPY_TITLEKEY extends Win32Struct
 
     /**
      * Title key.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    TitleKey{
+    TitleKey {
         get {
             if(!this.HasProp("__TitleKeyProxyArray"))
                 this.__TitleKeyProxyArray := Win32FixedArray(this.ptr + 12, 6, Primitive, "char")
@@ -50,9 +48,9 @@ class AM_DVDCOPY_TITLEKEY extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Reserved2{
+    Reserved2 {
         get {
             if(!this.HasProp("__Reserved2ProxyArray"))
                 this.__Reserved2ProxyArray := Win32FixedArray(this.ptr + 18, 2, Primitive, "char")

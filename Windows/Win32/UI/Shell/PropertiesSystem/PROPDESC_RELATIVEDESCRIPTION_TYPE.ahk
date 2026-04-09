@@ -7,9 +7,8 @@
  * These values are defined in propsys.h and propsys.idl.
  * @see https://learn.microsoft.com/windows/win32/api/propsys/ne-propsys-propdesc_relativedescription_type
  * @namespace Windows.Win32.UI.Shell.PropertiesSystem
- * @version v4.0.30319
  */
-class PROPDESC_RELATIVEDESCRIPTION_TYPE extends Win32Enum{
+class PROPDESC_RELATIVEDESCRIPTION_TYPE extends Win32Enum {
 
     /**
      * General type.

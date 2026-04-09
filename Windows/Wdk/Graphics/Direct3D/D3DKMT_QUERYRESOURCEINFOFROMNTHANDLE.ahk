@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
- * @version v4.0.30319
  */
-class D3DKMT_QUERYRESOURCEINFOFROMNTHANDLE extends Win32Struct
-{
+class D3DKMT_QUERYRESOURCEINFOFROMNTHANDLE extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -23,7 +21,7 @@ class D3DKMT_QUERYRESOURCEINFOFROMNTHANDLE extends Win32Struct
     /**
      * @type {HANDLE}
      */
-    hNtHandle{
+    hNtHandle {
         get {
             if(!this.HasProp("__hNtHandle"))
                 this.__hNtHandle := HANDLE(8, this)

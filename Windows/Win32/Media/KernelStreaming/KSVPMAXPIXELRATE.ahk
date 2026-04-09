@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
- * @version v4.0.30319
  */
-class KSVPMAXPIXELRATE extends Win32Struct
-{
+class KSVPMAXPIXELRATE extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4
@@ -15,7 +13,7 @@ class KSVPMAXPIXELRATE extends Win32Struct
     /**
      * @type {KS_AMVPSIZE}
      */
-    Size{
+    Size {
         get {
             if(!this.HasProp("__Size"))
                 this.__Size := KS_AMVPSIZE(0, this)

@@ -5,10 +5,8 @@
  * The SERVER_INFO_1530 structure specifies the minimum number of available receive work items the server requires to begin processing a server message block.
  * @see https://learn.microsoft.com/windows/win32/api/lmserver/ns-lmserver-server_info_1530
  * @namespace Windows.Win32.NetworkManagement.NetManagement
- * @version v4.0.30319
  */
-class SERVER_INFO_1530 extends Win32Struct
-{
+class SERVER_INFO_1530 extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 4

@@ -7,9 +7,8 @@
  * Represents a Direct2D drawing resource.
  * @see https://learn.microsoft.com/windows/win32/api/d2d1/nn-d2d1-id2d1resource
  * @namespace Windows.Win32.Graphics.Direct2D
- * @version v4.0.30319
  */
-class ID2D1Resource extends IUnknown{
+class ID2D1Resource extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.UI.LegacyWindowsEnvironmentFeatures
- * @version v4.0.30319
  */
-class EMPTY_VOLUME_CACHE_FLAGS extends Win32Enum{
+class EMPTY_VOLUME_CACHE_FLAGS extends Win32Enum {
 
     /**
      * @type {Integer (UInt32)}

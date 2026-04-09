@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Networking.WinSock
- * @version v4.0.30319
  */
-class RSS_SCALABILITY_INFO extends Win32Struct
-{
+class RSS_SCALABILITY_INFO extends Win32Struct {
     static sizeof => 1
 
     static packingSize => 1

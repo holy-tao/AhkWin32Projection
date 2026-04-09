@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Com\IUnknown.ahk
 #Include .\ICrmMonitorClerks.ahk
 #Include ..\Variant\VARIANT.ahk
-#Include ..\Com\IUnknown.ahk
 
 /**
  * Captures a snapshot of the current state of the CRM and holds a specific CRM clerk.
  * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nn-comsvcs-icrmmonitor
  * @namespace Windows.Win32.System.ComponentServices
- * @version v4.0.30319
  */
-class ICrmMonitor extends IUnknown{
+class ICrmMonitor extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

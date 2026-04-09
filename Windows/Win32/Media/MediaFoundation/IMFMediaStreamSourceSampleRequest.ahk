@@ -14,9 +14,8 @@
  * **MFMediaStreamSourceSampleRequest** is implemented by the [**Windows.Media.Core.MediaStreamSourceSampleRequest**](/uwp/api/Windows.Media.Core.MediaStreamSourceSampleRequest) runtime class.
  * @see https://learn.microsoft.com/windows/win32/medfound/imfmediastreamsourcesamplerequest
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFMediaStreamSourceSampleRequest extends IUnknown{
+class IMFMediaStreamSourceSampleRequest extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

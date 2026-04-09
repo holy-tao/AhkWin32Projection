@@ -5,9 +5,8 @@
  * Specifies the animation frame properties of a WebP image.
  * @see https://learn.microsoft.com/windows/win32/api/wincodec/ne-wincodec-wicwebpanmfproperties
  * @namespace Windows.Win32.Graphics.Imaging
- * @version v4.0.30319
  */
-class WICWebpAnmfProperties extends Win32Enum{
+class WICWebpAnmfProperties extends Win32Enum {
 
     /**
      * The time to wait before displaying the next frame, in milliseconds.

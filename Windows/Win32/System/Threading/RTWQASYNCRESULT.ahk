@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.Threading
- * @version v4.0.30319
  */
-class RTWQASYNCRESULT extends IRtwqAsyncResult{
+class RTWQASYNCRESULT extends IRtwqAsyncResult {
 
     static sizeof => A_PtrSize
 

@@ -7,9 +7,8 @@
  * Paints an area with a bitmap. (ID2D1BitmapBrush1)
  * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nn-d2d1_1-id2d1bitmapbrush1
  * @namespace Windows.Win32.Graphics.Direct2D
- * @version v4.0.30319
  */
-class ID2D1BitmapBrush1 extends ID2D1BitmapBrush{
+class ID2D1BitmapBrush1 extends ID2D1BitmapBrush {
 
     static sizeof => A_PtrSize
     /**
@@ -32,7 +31,9 @@ class ID2D1BitmapBrush1 extends ID2D1BitmapBrush{
 
     /**
      * Sets the interpolation mode for the brush.
-     * @param {Integer} _interpolationMode 
+     * @param {D2D1_INTERPOLATION_MODE} _interpolationMode Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1_1/ne-d2d1_1-d2d1_interpolation_mode">D2D1_INTERPOLATION_MODE</a></b>
+     * 
+     * The mode to use.
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1bitmapbrush1-setinterpolationmode1
      */
@@ -42,7 +43,7 @@ class ID2D1BitmapBrush1 extends ID2D1BitmapBrush{
 
     /**
      * Returns the current interpolation mode of the brush.
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1_1/ne-d2d1_1-d2d1_interpolation_mode">D2D1_INTERPOLATION_MODE</a></b>
+     * @returns {D2D1_INTERPOLATION_MODE} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1_1/ne-d2d1_1-d2d1_interpolation_mode">D2D1_INTERPOLATION_MODE</a></b>
      * 
      * The current interpolation mode.
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1bitmapbrush1-getinterpolationmode1

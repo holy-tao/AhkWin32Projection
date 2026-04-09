@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * Provides service information for the specified Bluetooth service.
@@ -48,10 +49,8 @@
  * Bluetooth implements a one-to-one correlation between SDP records and server sockets. As such, there is no need for the <b>SERVICE_MULTIPLE</b> flag.
  * @see https://learn.microsoft.com/windows/win32/api/ws2bth/ns-ws2bth-bth_set_service
  * @namespace Windows.Win32.Devices.Bluetooth
- * @version v4.0.30319
  */
-class BTH_SET_SERVICE extends Win32Struct
-{
+class BTH_SET_SERVICE extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -88,9 +87,9 @@ class BTH_SET_SERVICE extends Win32Struct
 
     /**
      * Reserved. Must be set to zero.
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    Reserved{
+    Reserved {
         get {
             if(!this.HasProp("__ReservedProxyArray"))
                 this.__ReservedProxyArray := Win32FixedArray(this.ptr + 20, 5, Primitive, "uint")
@@ -109,9 +108,9 @@ class BTH_SET_SERVICE extends Win32Struct
 
     /**
      * SDP record, as defined by the Bluetooth specification.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    pRecord{
+    pRecord {
         get {
             if(!this.HasProp("__pRecordProxyArray"))
                 this.__pRecordProxyArray := Win32FixedArray(this.ptr + 44, 1, Primitive, "char")

@@ -5,10 +5,8 @@
  * The NOTIFY_FILTER_AND_TYPE structure represents a filter for a notification port that was created by the CreateClusterNotifyPortV2 function.
  * @see https://learn.microsoft.com/windows/win32/api/msclus/ns-msclus-notify_filter_and_type
  * @namespace Windows.Win32.Networking.Clustering
- * @version v4.0.30319
  */
-class NOTIFY_FILTER_AND_TYPE extends Win32Struct
-{
+class NOTIFY_FILTER_AND_TYPE extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

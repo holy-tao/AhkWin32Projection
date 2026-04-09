@@ -5,9 +5,8 @@
  * Used by the GUID_ACDC_POWER_SOURCE power event to indicate the current power source.
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ne-winnt-system_power_condition
  * @namespace Windows.Win32.System.Power
- * @version v4.0.30319
  */
-class SYSTEM_POWER_CONDITION extends Win32Enum{
+class SYSTEM_POWER_CONDITION extends Win32Enum {
 
     /**
      * The computer is powered by an AC power source (or similar, such as a laptop powered by a 12V automotive 

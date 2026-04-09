@@ -4,11 +4,9 @@
 
 /**
  * @namespace Windows.Win32.Storage.IscsiDisc
- * @version v4.0.30319
  */
-class STORAGE_FIRMWARE_INFO extends Win32Struct
-{
-    static sizeof => 24
+class STORAGE_FIRMWARE_INFO extends Win32Struct {
+    static sizeof => 32
 
     static packingSize => 8
 
@@ -69,9 +67,9 @@ class STORAGE_FIRMWARE_INFO extends Win32Struct
     }
 
     /**
-     * @type {Array<STORAGE_FIRMWARE_SLOT_INFO>}
+     * @type {STORAGE_FIRMWARE_SLOT_INFO}
      */
-    Slot{
+    Slot {
         get {
             if(!this.HasProp("__SlotProxyArray"))
                 this.__SlotProxyArray := Win32FixedArray(this.ptr + 16, 1, STORAGE_FIRMWARE_SLOT_INFO, "")

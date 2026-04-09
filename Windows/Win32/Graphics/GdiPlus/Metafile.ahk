@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Graphics.GdiPlus
- * @version v4.0.30319
  */
-class Metafile extends Win32Struct
-{
+class Metafile extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 8

@@ -7,9 +7,8 @@
  * All commit modes validate the set.
  * @see https://learn.microsoft.com/windows/win32/api/pla/ne-pla-commitmode
  * @namespace Windows.Win32.System.Performance
- * @version v4.0.30319
  */
-class CommitMode extends Win32Enum{
+class CommitMode extends Win32Enum {
 
     /**
      * Save the set. The set must not already exist. 

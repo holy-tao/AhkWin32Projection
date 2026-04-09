@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Media.Speech
- * @version v4.0.30319
  */
-class ISpSREngine extends IUnknown{
+class ISpSREngine extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -118,7 +117,7 @@ class ISpSREngine extends IUnknown{
      * @param {PWSTR} pszStringParam 
      * @param {Pointer<Void>} pvDataParam 
      * @param {Integer} ulDataSize 
-     * @param {Integer} Options 
+     * @param {SPLOADOPTIONS} Options 
      * @returns {HRESULT} 
      */
     LoadProprietaryGrammar(pvEngineGrammar, rguidParam, pszStringParam, pvDataParam, ulDataSize, Options) {
@@ -148,7 +147,7 @@ class ISpSREngine extends IUnknown{
      * @param {Pointer<Void>} pvEngineGrammar 
      * @param {PWSTR} pszName 
      * @param {Pointer<Void>} pReserved 
-     * @param {Integer} NewState 
+     * @param {SPRULESTATE} NewState 
      * @returns {Integer} 
      */
     SetProprietaryRuleState(pvEngineGrammar, pszName, pReserved, NewState) {
@@ -165,7 +164,7 @@ class ISpSREngine extends IUnknown{
      * 
      * @param {Pointer<Void>} pvEngineGrammar 
      * @param {Integer} dwRuleId 
-     * @param {Integer} NewState 
+     * @param {SPRULESTATE} NewState 
      * @returns {HRESULT} 
      */
     SetProprietaryRuleIdState(pvEngineGrammar, dwRuleId, NewState) {
@@ -205,7 +204,7 @@ class ISpSREngine extends IUnknown{
     /**
      * 
      * @param {Pointer<Void>} pvEngineGrammar 
-     * @param {Integer} NewState 
+     * @param {SPRULESTATE} NewState 
      * @returns {HRESULT} 
      */
     SetSLMState(pvEngineGrammar, NewState) {
@@ -249,7 +248,7 @@ class ISpSREngine extends IUnknown{
      * 
      * @param {Pointer<Void>} pvEngineGrammar 
      * @param {PWSTR} pszWord 
-     * @returns {Integer} 
+     * @returns {SPWORDPRONOUNCEABLE} 
      */
     IsPronounceable(pvEngineGrammar, pszWord) {
         pszWord := pszWord is String ? StrPtr(pszWord) : pszWord
@@ -317,7 +316,7 @@ class ISpSREngine extends IUnknown{
 
     /**
      * 
-     * @param {Integer} eSrc 
+     * @param {SPPROPSRC} eSrc 
      * @param {Pointer<Void>} pvSrcObj 
      * @param {PWSTR} pName 
      * @param {Integer} lValue 
@@ -334,7 +333,7 @@ class ISpSREngine extends IUnknown{
 
     /**
      * 
-     * @param {Integer} eSrc 
+     * @param {SPPROPSRC} eSrc 
      * @param {Pointer<Void>} pvSrcObj 
      * @param {PWSTR} pName 
      * @returns {Integer} 
@@ -350,7 +349,7 @@ class ISpSREngine extends IUnknown{
 
     /**
      * 
-     * @param {Integer} eSrc 
+     * @param {SPPROPSRC} eSrc 
      * @param {Pointer<Void>} pvSrcObj 
      * @param {PWSTR} pName 
      * @param {PWSTR} pValue 
@@ -368,7 +367,7 @@ class ISpSREngine extends IUnknown{
 
     /**
      * 
-     * @param {Integer} eSrc 
+     * @param {SPPROPSRC} eSrc 
      * @param {Pointer<Void>} pvSrcObj 
      * @param {PWSTR} pName 
      * @returns {PWSTR} 
@@ -385,7 +384,7 @@ class ISpSREngine extends IUnknown{
     /**
      * 
      * @param {Pointer<Void>} pvEngineGrammar 
-     * @param {Integer} eGrammarState 
+     * @param {SPGRAMMARSTATE} eGrammarState 
      * @returns {HRESULT} 
      */
     SetGrammarState(pvEngineGrammar, eGrammarState) {
@@ -397,7 +396,7 @@ class ISpSREngine extends IUnknown{
 
     /**
      * 
-     * @param {Integer} Action 
+     * @param {SPCFGNOTIFY} Action 
      * @param {Integer} cWords 
      * @param {Pointer<SPWORDENTRY>} pWords 
      * @returns {HRESULT} 
@@ -409,7 +408,7 @@ class ISpSREngine extends IUnknown{
 
     /**
      * 
-     * @param {Integer} Action 
+     * @param {SPCFGNOTIFY} Action 
      * @param {Integer} cRules 
      * @param {Pointer<SPRULEENTRY>} pRules 
      * @returns {HRESULT} 
@@ -441,7 +440,7 @@ class ISpSREngine extends IUnknown{
     /**
      * 
      * @param {Pointer<Void>} pvEngineContext 
-     * @param {Integer} eContextState 
+     * @param {SPCONTEXTSTATE} eContextState 
      * @returns {HRESULT} 
      */
     SetContextState(pvEngineContext, eContextState) {

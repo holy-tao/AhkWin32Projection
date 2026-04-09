@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
- * @version v4.0.30319
  */
-class DML_ROUNDING_MODE extends Win32Enum{
+class DML_ROUNDING_MODE extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

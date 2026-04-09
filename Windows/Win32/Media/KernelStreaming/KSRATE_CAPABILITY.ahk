@@ -5,10 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
- * @version v4.0.30319
  */
-class KSRATE_CAPABILITY extends Win32Struct
-{
+class KSRATE_CAPABILITY extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8
@@ -16,7 +14,7 @@ class KSRATE_CAPABILITY extends Win32Struct
     /**
      * @type {KSIDENTIFIER}
      */
-    Property{
+    Property {
         get {
             if(!this.HasProp("__Property"))
                 this.__Property := KSIDENTIFIER(0, this)
@@ -27,7 +25,7 @@ class KSRATE_CAPABILITY extends Win32Struct
     /**
      * @type {KSRATE}
      */
-    Rate{
+    Rate {
         get {
             if(!this.HasProp("__Rate"))
                 this.__Rate := KSRATE(16, this)

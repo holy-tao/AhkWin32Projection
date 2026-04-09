@@ -1,11 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Networking\WinSock\IN_ADDR.ahk
+#Include ..\..\Networking\WinSock\SOCKADDR_INET.ahk
 #Include ..\..\Networking\WinSock\SOCKADDR_IN.ahk
+#Include ..\..\Networking\WinSock\ADDRESS_FAMILY.ahk
+#Include ..\..\Networking\WinSock\IN_ADDR.ahk
+#Include ..\..\Networking\WinSock\SOCKADDR_IN6.ahk
 #Include ..\..\Networking\WinSock\IN6_ADDR.ahk
 #Include ..\..\Networking\WinSock\SCOPE_ID.ahk
-#Include ..\..\Networking\WinSock\SOCKADDR_IN6.ahk
-#Include ..\..\Networking\WinSock\SOCKADDR_INET.ahk
 #Include ..\Ndis\NET_LUID_LH.ahk
 
 /**
@@ -20,11 +21,9 @@
  * The <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/nf-netioapi-getippathentry">GetIpPathEntry</a> function retrieves a single IP path entry and returns this information in a <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/ns-netioapi-mib_ippath_table">MIB_IPPATH_TABLE</a> structure.
  * @see https://learn.microsoft.com/windows/win32/api/netioapi/ns-netioapi-mib_ippath_row
  * @namespace Windows.Win32.NetworkManagement.IpHelper
- * @version v4.0.30319
  */
-class MIB_IPPATH_ROW extends Win32Struct
-{
-    static sizeof => 224
+class MIB_IPPATH_ROW extends Win32Struct {
+    static sizeof => 200
 
     static packingSize => 8
 
@@ -34,7 +33,7 @@ class MIB_IPPATH_ROW extends Win32Struct
      * The source IP address for this IP path entry.
      * @type {SOCKADDR_INET}
      */
-    Source{
+    Source {
         get {
             if(!this.HasProp("__Source"))
                 this.__Source := SOCKADDR_INET(0, this)
@@ -48,10 +47,10 @@ class MIB_IPPATH_ROW extends Win32Struct
      * The destination IP address for this IP path entry.
      * @type {SOCKADDR_INET}
      */
-    Destination{
+    Destination {
         get {
             if(!this.HasProp("__Destination"))
-                this.__Destination := SOCKADDR_INET(56, this)
+                this.__Destination := SOCKADDR_INET(48, this)
             return this.__Destination
         }
     }
@@ -62,10 +61,10 @@ class MIB_IPPATH_ROW extends Win32Struct
      * The locally unique identifier (LUID) for the network interface associated with this IP path entry.
      * @type {NET_LUID_LH}
      */
-    InterfaceLuid{
+    InterfaceLuid {
         get {
             if(!this.HasProp("__InterfaceLuid"))
-                this.__InterfaceLuid := NET_LUID_LH(112, this)
+                this.__InterfaceLuid := NET_LUID_LH(96, this)
             return this.__InterfaceLuid
         }
     }
@@ -77,8 +76,8 @@ class MIB_IPPATH_ROW extends Win32Struct
      * @type {Integer}
      */
     InterfaceIndex {
-        get => NumGet(this, 128, "uint")
-        set => NumPut("uint", value, this, 128)
+        get => NumGet(this, 112, "uint")
+        set => NumPut("uint", value, this, 112)
     }
 
     /**
@@ -87,10 +86,10 @@ class MIB_IPPATH_ROW extends Win32Struct
      * The current IP address of the next system or gateway en route. This member can change over the lifetime of a path.
      * @type {SOCKADDR_INET}
      */
-    CurrentNextHop{
+    CurrentNextHop {
         get {
             if(!this.HasProp("__CurrentNextHop"))
-                this.__CurrentNextHop := SOCKADDR_INET(132, this)
+                this.__CurrentNextHop := SOCKADDR_INET(116, this)
             return this.__CurrentNextHop
         }
     }
@@ -102,8 +101,8 @@ class MIB_IPPATH_ROW extends Win32Struct
      * @type {Integer}
      */
     PathMtu {
-        get => NumGet(this, 188, "uint")
-        set => NumPut("uint", value, this, 188)
+        get => NumGet(this, 164, "uint")
+        set => NumPut("uint", value, this, 164)
     }
 
     /**
@@ -113,8 +112,8 @@ class MIB_IPPATH_ROW extends Win32Struct
      * @type {Integer}
      */
     RttMean {
-        get => NumGet(this, 192, "uint")
-        set => NumPut("uint", value, this, 192)
+        get => NumGet(this, 168, "uint")
+        set => NumPut("uint", value, this, 168)
     }
 
     /**
@@ -124,24 +123,24 @@ class MIB_IPPATH_ROW extends Win32Struct
      * @type {Integer}
      */
     RttDeviation {
-        get => NumGet(this, 196, "uint")
-        set => NumPut("uint", value, this, 196)
+        get => NumGet(this, 172, "uint")
+        set => NumPut("uint", value, this, 172)
     }
 
     /**
      * @type {Integer}
      */
     LastReachable {
-        get => NumGet(this, 200, "uint")
-        set => NumPut("uint", value, this, 200)
+        get => NumGet(this, 176, "uint")
+        set => NumPut("uint", value, this, 176)
     }
 
     /**
      * @type {Integer}
      */
     LastUnreachable {
-        get => NumGet(this, 200, "uint")
-        set => NumPut("uint", value, this, 200)
+        get => NumGet(this, 176, "uint")
+        set => NumPut("uint", value, this, 176)
     }
 
     /**
@@ -151,8 +150,8 @@ class MIB_IPPATH_ROW extends Win32Struct
      * @type {BOOLEAN}
      */
     IsReachable {
-        get => NumGet(this, 204, "char")
-        set => NumPut("char", value, this, 204)
+        get => NumGet(this, 180, "char")
+        set => NumPut("char", value, this, 180)
     }
 
     /**
@@ -162,8 +161,8 @@ class MIB_IPPATH_ROW extends Win32Struct
      * @type {Integer}
      */
     LinkTransmitSpeed {
-        get => NumGet(this, 208, "uint")
-        set => NumPut("uint", value, this, 208)
+        get => NumGet(this, 184, "uint")
+        set => NumPut("uint", value, this, 184)
     }
 
     /**
@@ -173,7 +172,7 @@ class MIB_IPPATH_ROW extends Win32Struct
      * @type {Integer}
      */
     LinkReceiveSpeed {
-        get => NumGet(this, 216, "uint")
-        set => NumPut("uint", value, this, 216)
+        get => NumGet(this, 192, "uint")
+        set => NumPut("uint", value, this, 192)
     }
 }

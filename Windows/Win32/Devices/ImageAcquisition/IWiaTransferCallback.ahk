@@ -1,9 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\System\Com\IStream.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\System\Com\IStream.ahk
 
 /**
  * The IWiaTransferCallback interface receives callbacks during a data transfer.
@@ -26,9 +25,8 @@
  * | [IUnknown::Release](/windows/win32/api/unknwn/nf-unknwn-iunknown-release)               | Decrements reference count.               |
  * @see https://learn.microsoft.com/windows/win32/wia/-wia-iwiatransfercallback
  * @namespace Windows.Win32.Devices.ImageAcquisition
- * @version v4.0.30319
  */
-class IWiaTransferCallback extends IUnknown{
+class IWiaTransferCallback extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -5,10 +5,8 @@
  * Contains information about an FT (fault tolerant) set. This structure is used by the CLUSPROP_FTSET_INFO structure to create an entry in a value list.
  * @see https://learn.microsoft.com/windows/win32/api/clusapi/ns-clusapi-clus_ftset_info
  * @namespace Windows.Win32.Networking.Clustering
- * @version v4.0.30319
  */
-class CLUS_FTSET_INFO extends Win32Struct
-{
+class CLUS_FTSET_INFO extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4

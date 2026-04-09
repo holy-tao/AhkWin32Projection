@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
-#Include .\IRemoteDebugApplicationThread.ahk
 #Include ..\..\..\Com\IUnknown.ahk
+#Include .\IRemoteDebugApplicationThread.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.ActiveScript
- * @version v4.0.30319
  */
-class IRemoteDebugApplication110 extends IUnknown{
+class IRemoteDebugApplication110 extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -31,8 +30,8 @@ class IRemoteDebugApplication110 extends IUnknown{
 
     /**
      * 
-     * @param {Integer} mask 
-     * @param {Integer} value 
+     * @param {SCRIPT_DEBUGGER_OPTIONS} mask 
+     * @param {SCRIPT_DEBUGGER_OPTIONS} value 
      * @returns {HRESULT} 
      */
     SetDebuggerOptions(mask, value) {
@@ -42,7 +41,7 @@ class IRemoteDebugApplication110 extends IUnknown{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {SCRIPT_DEBUGGER_OPTIONS} 
      */
     GetCurrentDebuggerOptions() {
         result := ComCall(4, this, "int*", &pCurrentOptions := 0, "HRESULT")

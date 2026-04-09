@@ -5,9 +5,8 @@
  * HCN_PORT_PROTOCOL
  * @see https://learn.microsoft.com/virtualization/api/hcn/Reference/HCN_PORT_PROTOCOL
  * @namespace Windows.Win32.System.HostComputeNetwork
- * @version v4.0.30319
  */
-class HCN_PORT_PROTOCOL extends Win32Enum{
+class HCN_PORT_PROTOCOL extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

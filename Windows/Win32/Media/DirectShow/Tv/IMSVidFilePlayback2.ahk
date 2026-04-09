@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
 #Include .\IMSVidFilePlayback.ahk
 
 /**
@@ -10,9 +9,8 @@
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IMSVidFilePlayback2)</c>.
  * @see https://learn.microsoft.com/windows/win32/api/segment/nn-segment-imsvidfileplayback2
  * @namespace Windows.Win32.Media.DirectShow.Tv
- * @version v4.0.30319
  */
-class IMSVidFilePlayback2 extends IMSVidFilePlayback{
+class IMSVidFilePlayback2 extends IMSVidFilePlayback {
 
     static sizeof => A_PtrSize
     /**
@@ -34,14 +32,14 @@ class IMSVidFilePlayback2 extends IMSVidFilePlayback{
     static VTableNames => ["put__SourceFilter", "put___SourceFilter"]
 
     /**
-     * @type {HRESULT} 
+     * @type {BSTR} 
      */
     _SourceFilter {
         set => this.put__SourceFilter(value)
     }
 
     /**
-     * @type {HRESULT} 
+     * @type {Guid} 
      */
     __SourceFilter {
         set => this.put___SourceFilter(value)

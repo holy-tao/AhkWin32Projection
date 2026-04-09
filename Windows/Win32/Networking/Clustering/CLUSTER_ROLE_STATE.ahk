@@ -5,9 +5,8 @@
  * Defines the potential return values for the ResUtilGetClusterRoleState function.
  * @see https://learn.microsoft.com/windows/win32/api/resapi/ne-resapi-cluster_role_state
  * @namespace Windows.Win32.Networking.Clustering
- * @version v4.0.30319
  */
-class CLUSTER_ROLE_STATE extends Win32Enum{
+class CLUSTER_ROLE_STATE extends Win32Enum {
 
     /**
      * It is unknown whether or not the role is clustered.

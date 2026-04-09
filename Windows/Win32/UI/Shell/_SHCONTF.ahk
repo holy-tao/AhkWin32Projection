@@ -10,9 +10,8 @@
  * <div> </div>
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/ne-shobjidl_core-_shcontf
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class _SHCONTF extends Win32Enum{
+class _SHCONTF extends Win32Enum {
 
     /**
      * 0x00010. <b>Windows 7 and later</b>. The calling application is checking for the existence of child items in the folder.

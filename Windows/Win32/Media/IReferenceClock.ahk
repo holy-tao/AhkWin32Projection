@@ -14,9 +14,8 @@
  * For information on other interfaces that can be obtained by using the QueryInterface method of this interface, see Reader Object.
  * @see https://learn.microsoft.com/windows/win32/wmformat/ireferenceclock
  * @namespace Windows.Win32.Media
- * @version v4.0.30319
  */
-class IReferenceClock extends IUnknown{
+class IReferenceClock extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

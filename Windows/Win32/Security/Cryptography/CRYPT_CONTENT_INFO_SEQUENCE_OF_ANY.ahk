@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\CRYPT_INTEGER_BLOB.ahk
 
 /**
  * Contains information representing the Netscape certificate sequence of certificates.
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-crypt_content_info_sequence_of_any
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CRYPT_CONTENT_INFO_SEQUENCE_OF_ANY extends Win32Struct
-{
+class CRYPT_CONTENT_INFO_SEQUENCE_OF_ANY extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

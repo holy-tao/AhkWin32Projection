@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\CRYPT_INTEGER_BLOB.ahk
 #Include ..\..\Foundation\FILETIME.ahk
+#Include .\OCSP_BASIC_RESPONSE_ENTRY.ahk
+#Include .\CERT_EXTENSION.ahk
 
 /**
  * Contains a basic online certificate status protocol (OCSP) response as specified by RFC 2560.
@@ -11,10 +13,8 @@
  * OCSP applications can encode or decode this structure by using <b>X509_ASN_ENCODING</b> or <b>PKCS_7_ASN_ENCODING</b>.
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-ocsp_basic_response_info
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class OCSP_BASIC_RESPONSE_INFO extends Win32Struct
-{
+class OCSP_BASIC_RESPONSE_INFO extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 8
@@ -40,7 +40,7 @@ class OCSP_BASIC_RESPONSE_INFO extends Win32Struct
     /**
      * @type {CRYPT_INTEGER_BLOB}
      */
-    ByNameResponderId{
+    ByNameResponderId {
         get {
             if(!this.HasProp("__ByNameResponderId"))
                 this.__ByNameResponderId := CRYPT_INTEGER_BLOB(8, this)
@@ -51,7 +51,7 @@ class OCSP_BASIC_RESPONSE_INFO extends Win32Struct
     /**
      * @type {CRYPT_INTEGER_BLOB}
      */
-    ByKeyResponderId{
+    ByKeyResponderId {
         get {
             if(!this.HasProp("__ByKeyResponderId"))
                 this.__ByKeyResponderId := CRYPT_INTEGER_BLOB(8, this)
@@ -63,7 +63,7 @@ class OCSP_BASIC_RESPONSE_INFO extends Win32Struct
      * The date and time at which the response was signed.
      * @type {FILETIME}
      */
-    ProducedAt{
+    ProducedAt {
         get {
             if(!this.HasProp("__ProducedAt"))
                 this.__ProducedAt := FILETIME(24, this)

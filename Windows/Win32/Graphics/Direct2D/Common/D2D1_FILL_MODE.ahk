@@ -27,9 +27,8 @@
  * <img alt="Illustration of concentric circles with a ray from within the first ring that crosses all four rings" src="./images/fillmode_04.png"/>
  * @see https://learn.microsoft.com/windows/win32/api/d2d1/ne-d2d1-d2d1_fill_mode
  * @namespace Windows.Win32.Graphics.Direct2D.Common
- * @version v4.0.30319
  */
-class D2D1_FILL_MODE extends Win32Enum{
+class D2D1_FILL_MODE extends Win32Enum {
 
     /**
      * Determines whether a point is in the fill region by drawing a ray from that point to infinity in any direction, and then counting the number of path segments within the given shape that the ray crosses. If this number is odd, the point is in the fill region; if even, the point is outside the fill region.

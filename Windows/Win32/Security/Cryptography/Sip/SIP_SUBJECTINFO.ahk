@@ -1,8 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include ..\..\..\Foundation\HANDLE.ahk
-#Include ..\CRYPT_INTEGER_BLOB.ahk
 #Include ..\CRYPT_ALGORITHM_IDENTIFIER.ahk
+#Include ..\CRYPT_INTEGER_BLOB.ahk
+#Include .\MS_ADDINFO_FLAT.ahk
+#Include ..\Catalog\MS_ADDINFO_CATALOGMEMBER.ahk
+#Include .\MS_ADDINFO_BLOB.ahk
+#Include .\MS_ADDINFO_DETACHEDSIG.ahk
 
 /**
  * Specifies subject information data to the subject interface package (SIP) APIs.
@@ -12,10 +16,8 @@
  * Subjects include, but are not limited to, portable executable images (.exe), cabinet (.cab) images, flat files, and catalog files. Each subject type uses a different subset of its data for hash calculation and requires a different procedure for storage and retrieval. Therefore each subject type has a unique subject interface package specification.
  * @see https://learn.microsoft.com/windows/win32/api/mssip/ns-mssip-sip_subjectinfo
  * @namespace Windows.Win32.Security.Cryptography.Sip
- * @version v4.0.30319
  */
-class SIP_SUBJECTINFO extends Win32Struct
-{
+class SIP_SUBJECTINFO extends Win32Struct {
     static sizeof => 128
 
     static packingSize => 8
@@ -42,7 +44,7 @@ class SIP_SUBJECTINFO extends Win32Struct
      * A file handle that represents the subject. If the storage type of the subject is a file, set <i>hFile</i> to <b>INVALID_HANDLE_VALUE</b> and set the <i>pwsFileName</i> parameter to the name of the file.
      * @type {HANDLE}
      */
-    hFile{
+    hFile {
         get {
             if(!this.HasProp("__hFile"))
                 this.__hFile := HANDLE(16, this)
@@ -101,7 +103,7 @@ class SIP_SUBJECTINFO extends Win32Struct
      * A <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-crypt_algorithm_identifier">CRYPT_ALGORITHM_IDENTIFIER</a> structure that contains the identifier for the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/h-gly">hash</a> algorithm used to hash the file.
      * @type {CRYPT_ALGORITHM_IDENTIFIER}
      */
-    DigestAlgorithm{
+    DigestAlgorithm {
         get {
             if(!this.HasProp("__DigestAlgorithm"))
                 this.__DigestAlgorithm := CRYPT_ALGORITHM_IDENTIFIER(56, this)

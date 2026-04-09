@@ -12,10 +12,8 @@
  * You can use a <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-getobject">GetObject</a> function to get contents of <b>hbmMask</b> and <b>hbmColor</b> in the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-bitmap">BITMAP</a> structure. The bitmap bits can be obtained with call to <a href="https://docs.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getdibits">GetDIBits</a> on the bitmaps in this structure.
  * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-iconinfo
  * @namespace Windows.Win32.UI.WindowsAndMessaging
- * @version v4.0.30319
  */
-class ICONINFO extends Win32Struct
-{
+class ICONINFO extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -59,7 +57,7 @@ class ICONINFO extends Win32Struct
      * A handle to the icon monochrome mask <a href="https://docs.microsoft.com/windows/win32/gdi/bitmaps">bitmap</a>.
      * @type {HBITMAP}
      */
-    hbmMask{
+    hbmMask {
         get {
             if(!this.HasProp("__hbmMask"))
                 this.__hbmMask := HBITMAP(16, this)
@@ -73,7 +71,7 @@ class ICONINFO extends Win32Struct
      * A handle to the icon color <a href="https://docs.microsoft.com/windows/win32/gdi/bitmaps">bitmap</a>.
      * @type {HBITMAP}
      */
-    hbmColor{
+    hbmColor {
         get {
             if(!this.HasProp("__hbmColor"))
                 this.__hbmColor := HBITMAP(24, this)

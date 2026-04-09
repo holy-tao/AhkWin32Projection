@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class WHEA_FIRMWARE_ERROR_RECORD_REFERENCE extends Win32Struct
-{
+class WHEA_FIRMWARE_ERROR_RECORD_REFERENCE extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
@@ -20,9 +18,9 @@ class WHEA_FIRMWARE_ERROR_RECORD_REFERENCE extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Reserved{
+    Reserved {
         get {
             if(!this.HasProp("__ReservedProxyArray"))
                 this.__ReservedProxyArray := Win32FixedArray(this.ptr + 1, 7, Primitive, "char")

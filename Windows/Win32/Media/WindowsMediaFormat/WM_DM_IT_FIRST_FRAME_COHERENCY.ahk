@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Media.WindowsMediaFormat
- * @version v4.0.30319
  */
-class WM_DM_IT_FIRST_FRAME_COHERENCY extends Win32Enum{
+class WM_DM_IT_FIRST_FRAME_COHERENCY extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

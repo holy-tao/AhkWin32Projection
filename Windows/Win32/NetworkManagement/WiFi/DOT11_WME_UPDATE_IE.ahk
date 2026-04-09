@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
- * @version v4.0.30319
  */
-class DOT11_WME_UPDATE_IE extends Win32Struct
-{
+class DOT11_WME_UPDATE_IE extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 4
@@ -52,9 +50,9 @@ class DOT11_WME_UPDATE_IE extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    ucBuffer{
+    ucBuffer {
         get {
             if(!this.HasProp("__ucBufferProxyArray"))
                 this.__ucBufferProxyArray := Win32FixedArray(this.ptr + 20, 1, Primitive, "char")

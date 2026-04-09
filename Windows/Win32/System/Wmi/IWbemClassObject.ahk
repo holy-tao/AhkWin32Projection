@@ -1,10 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IWbemQualifierSet.ahk
-#Include .\IWbemClassObject.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\Com\IUnknown.ahk
+#Include .\IWbemQualifierSet.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * Contains and manipulates both class definitions and class object instances.
@@ -21,9 +20,8 @@
  *      <a href="https://docs.microsoft.com/windows/desktop/api/wbemcli/nf-wbemcli-iwbemservices-putclass">IWbemServices::PutClass</a>.
  * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nn-wbemcli-iwbemclassobject
  * @namespace Windows.Win32.System.Wmi
- * @version v4.0.30319
  */
-class IWbemClassObject extends IUnknown{
+class IWbemClassObject extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -254,7 +252,7 @@ class IWbemClassObject extends IUnknown{
      *     <b>BSTR</b> values, see 
      *     <a href="https://docs.microsoft.com/windows/desktop/WmiSdk/retrieving-part-of-an-instance">Retrieving Part of a WMI Instance</a>.
      * @param {PWSTR} wszQualifierName A parameter that can be <b>NULL</b>. If not <b>NULL</b>, it must point to a valid <b>LPCWSTR</b> specifying a qualifier name which operates as part of a filter. This is handled as read-only. For more information, see Remarks.
-     * @param {Integer} lFlags For more information, see Remarks.
+     * @param {WBEM_CONDITION_FLAG_TYPE} lFlags For more information, see Remarks.
      * @param {Pointer<VARIANT>} pQualifierVal A parameter that can be <b>NULL</b>. If not <b>NULL</b>, it must point to a valid <b>VARIANT</b> structure initialized to a filter value. This <b>VARIANT</b> is handled as read-only by the method. Thus, the caller must call <b>VariantClear</b> on it, if required. For more information, see Remarks.
      * @returns {Pointer<SAFEARRAY>} A parameter that cannot be <b>NULL</b>, but on entry this parameter must point to <b>NULL</b>. A new <b>SAFEARRAY</b> structure is always allocated, and the pointer is set to point to it. The returned array can have 0 elements, but is always allocated when <b>WBEM_S_NO_ERROR</b> returns. On error, a new <b>SAFEARRAY</b> structure is not returned.
      * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nf-wbemcli-iwbemclassobject-getnames
@@ -432,7 +430,7 @@ class IWbemClassObject extends IUnknown{
 
     /**
      * The IWbemClassObject::CompareTo method compares an object to another Windows Management object. Note that there are certain constraints in this comparison process.
-     * @param {Integer} lFlags Specifies the object characteristics to consider in comparison to another object. It can be <b>WBEM_COMPARISON_INCLUDE_ALL</b> to consider all features, or any combination of these flags.
+     * @param {WBEM_COMPARISON_FLAG} lFlags Specifies the object characteristics to consider in comparison to another object. It can be <b>WBEM_COMPARISON_INCLUDE_ALL</b> to consider all features, or any combination of these flags.
      * @param {IWbemClassObject} pCompareTo Object in comparison. This pointer must point to a valid 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wbemcli/nn-wbemcli-iwbemclassobject">IWbemClassObject</a> instance. It cannot be <b>NULL</b>.
      * @returns {HRESULT} This method returns an <b>HRESULT</b> indicating the status of the method call. The following list lists the value contained within an <b>HRESULT</b>. For general <b>HRESULT</b> values, see <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Codes</a>.

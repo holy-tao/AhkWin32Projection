@@ -3,10 +3,9 @@
 
 /**
  * @namespace Windows.Win32.Devices.DeviceAndDriverInstallation
- * @version v4.0.30319
+ * @architecture X64, Arm64
  */
-class COINSTALLER_CONTEXT_DATA extends Win32Struct
-{
+class COINSTALLER_CONTEXT_DATA extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

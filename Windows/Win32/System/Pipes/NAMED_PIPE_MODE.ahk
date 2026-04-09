@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Pipes
- * @version v4.0.30319
  */
-class NAMED_PIPE_MODE extends Win32BitflagEnum{
+class NAMED_PIPE_MODE extends Win32BitflagEnum {
 
     /**
      * @type {Integer (UInt32)}

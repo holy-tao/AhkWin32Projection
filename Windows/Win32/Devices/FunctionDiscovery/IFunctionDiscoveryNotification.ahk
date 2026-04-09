@@ -12,9 +12,8 @@
  * <div> </div>
  * @see https://learn.microsoft.com/windows/win32/api/functiondiscoveryapi/nn-functiondiscoveryapi-ifunctiondiscoverynotification
  * @namespace Windows.Win32.Devices.FunctionDiscovery
- * @version v4.0.30319
  */
-class IFunctionDiscoveryNotification extends IUnknown{
+class IFunctionDiscoveryNotification extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -43,7 +42,7 @@ class IFunctionDiscoveryNotification extends IUnknown{
      * All notifications passed to Function Discovery by providers are queued and returned to the client one by one. Callbacks are synchronized so that a client will only receive one notification at a time.
      * 
      * Because other <a href="https://docs.microsoft.com/windows/desktop/api/functiondiscoveryapi/nn-functiondiscoveryapi-ifunctiondiscoverynotification">IFunctionDiscoveryNotification</a> method calls may be made in other threads, any changes made to the thread state during the call  must be restored before exiting the method.
-     * @param {Integer} enumQueryUpdateAction A <a href="https://docs.microsoft.com/windows/win32/api/functiondiscoveryapi/ne-functiondiscoveryapi-queryupdateaction">QueryUpdateAction</a> value that specifies the type of action Function Discovery is performing on the specified function instance.
+     * @param {QueryUpdateAction} enumQueryUpdateAction A <a href="https://docs.microsoft.com/windows/win32/api/functiondiscoveryapi/ne-functiondiscoveryapi-queryupdateaction">QueryUpdateAction</a> value that specifies the type of action Function Discovery is performing on the specified function instance.
      * @param {Integer} fdqcQueryContext The context registered for change notification. The type <b>FDQUERYCONTEXT</b> is defined as a DWORDLONG. This parameter can be <b>NULL</b>.
      * @param {IFunctionInstance} pIFunctionInstance An <a href="https://docs.microsoft.com/windows/desktop/api/functiondiscoveryapi/nn-functiondiscoveryapi-ifunctioninstance">IFunctionInstance</a> interface pointer that represents the function instance being affected by the update.
      * @returns {HRESULT} The client program's implementation of the <b>OnUpdate</b> method should return one of the following <b>HRESULT</b> values to the caller.

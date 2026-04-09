@@ -7,9 +7,8 @@
  * Loudness equalization is a DSP process that maintains a consistent volume level when the audio stream changes.
  * @see https://learn.microsoft.com/windows/win32/api/codecapi/ne-codecapi-eavdsploudnessequalization
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class eAVDSPLoudnessEqualization extends Win32Enum{
+class eAVDSPLoudnessEqualization extends Win32Enum {
 
     /**
      * Loudness equalization is disabled.

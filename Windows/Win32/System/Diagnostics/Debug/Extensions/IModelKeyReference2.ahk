@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
- * @version v4.0.30319
  */
-class IModelKeyReference2 extends IModelKeyReference{
+class IModelKeyReference2 extends IModelKeyReference {
 
     static sizeof => A_PtrSize
     /**

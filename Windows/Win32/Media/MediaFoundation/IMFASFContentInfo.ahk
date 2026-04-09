@@ -1,18 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\IMFASFProfile.ahk
 #Include .\IMFPresentationDescriptor.ahk
 #Include ..\..\UI\Shell\PropertiesSystem\IPropertyStore.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Provides methods to work with the header section of files conforming to the Advanced Systems Format (ASF) specification.
  * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nn-wmcontainer-imfasfcontentinfo
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFASFContentInfo extends IUnknown{
+class IMFASFContentInfo extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

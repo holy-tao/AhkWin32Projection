@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\HEAPALIGNMENT.ahk
 #Include .\DDSCAPS.ahk
 #Include .\SURFACEALIGNMENT.ahk
-#Include .\HEAPALIGNMENT.ahk
 
 /**
  * The DD_GETHEAPALIGNMENTDATA structure contains data on required alignments from a particular heap.
@@ -10,10 +10,8 @@
  * The <b>dwHeap</b> member is the ordinal number of the heap for which alignment data is being requested. In other words, it is the index into the array of <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/ns-ddrawint-videomemory">VIDEOMEMORY</a> structures pointed to by the <i>pvmList</i> parameter of the <a href="https://docs.microsoft.com/windows/desktop/api/winddi/nf-winddi-drvgetdirectdrawinfo">DrvGetDirectDrawInfo</a> driver function.
  * @see https://learn.microsoft.com/windows/win32/api/dmemmgr/ns-dmemmgr-dd_getheapalignmentdata
  * @namespace Windows.Win32.Graphics.DirectDraw
- * @version v4.0.30319
  */
-class DD_GETHEAPALIGNMENTDATA extends Win32Struct
-{
+class DD_GETHEAPALIGNMENTDATA extends Win32Struct {
     static sizeof => 152
 
     static packingSize => 8
@@ -58,7 +56,7 @@ class DD_GETHEAPALIGNMENTDATA extends Win32Struct
      * Points to a <a href="https://docs.microsoft.com/windows/desktop/api/dmemmgr/ns-dmemmgr-heapalignment">HEAPALIGNMENT</a> structure filled in by the driver.
      * @type {HEAPALIGNMENT}
      */
-    Alignment{
+    Alignment {
         get {
             if(!this.HasProp("__Alignment"))
                 this.__Alignment := HEAPALIGNMENT(24, this)

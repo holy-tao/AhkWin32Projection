@@ -7,9 +7,8 @@
  * Extends the ITextRangeProvider interface to enable Microsoft UI Automation providers to invoke context menus.
  * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nn-uiautomationcore-itextrangeprovider2
  * @namespace Windows.Win32.UI.Accessibility
- * @version v4.0.30319
  */
-class ITextRangeProvider2 extends ITextRangeProvider{
+class ITextRangeProvider2 extends ITextRangeProvider {
 
     static sizeof => A_PtrSize
     /**

@@ -9,10 +9,8 @@
  * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certopenstore">CertOpenStore</a>.
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cert_system_store_relocate_para
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CERT_SYSTEM_STORE_RELOCATE_PARA extends Win32Struct
-{
+class CERT_SYSTEM_STORE_RELOCATE_PARA extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
@@ -20,7 +18,7 @@ class CERT_SYSTEM_STORE_RELOCATE_PARA extends Win32Struct
     /**
      * @type {HKEY}
      */
-    hKeyBase{
+    hKeyBase {
         get {
             if(!this.HasProp("__hKeyBase"))
                 this.__hKeyBase := HKEY(0, this)

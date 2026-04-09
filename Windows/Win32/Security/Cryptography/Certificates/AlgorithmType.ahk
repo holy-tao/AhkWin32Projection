@@ -5,9 +5,8 @@
  * Specifies the intended purpose of a cryptographic algorithm supported by a cryptographic provider.
  * @see https://learn.microsoft.com/windows/win32/api/certenroll/ne-certenroll-algorithmtype
  * @namespace Windows.Win32.Security.Cryptography.Certificates
- * @version v4.0.30319
  */
-class AlgorithmType extends Win32Enum{
+class AlgorithmType extends Win32Enum {
 
     /**
      * The algorithm type is not defined.
@@ -52,7 +51,6 @@ class AlgorithmType extends Win32Enum{
     static XCN_BCRYPT_RNG_INTERFACE => 6
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static XCN_BCRYPT_KEY_DERIVATION_INTERFACE => 7

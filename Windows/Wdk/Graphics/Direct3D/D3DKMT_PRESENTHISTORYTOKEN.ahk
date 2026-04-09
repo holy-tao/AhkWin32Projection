@@ -1,12 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\D3DKMT_PRESENT_MODEL.ahk
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
- * @version v4.0.30319
  */
-class D3DKMT_PRESENTHISTORYTOKEN extends Win32Struct
-{
+class D3DKMT_PRESENTHISTORYTOKEN extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -16,21 +15,21 @@ class D3DKMT_PRESENTHISTORYTOKEN extends Win32Struct
         static packingSize => 8
 
         /**
-         * @type {Pointer<D3DKMT_FLIPMODEL_PRESENTHISTORYTOKEN>}
+         * @type {Pointer}
          */
         Flip {
             get => NumGet(this, 0, "ptr")
             set => NumPut("ptr", value, this, 0)
         }
-    
+
         /**
-         * @type {Pointer<D3DKMT_BLTMODEL_PRESENTHISTORYTOKEN>}
+         * @type {Pointer}
          */
         Blt {
             get => NumGet(this, 0, "ptr")
             set => NumPut("ptr", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -38,59 +37,58 @@ class D3DKMT_PRESENTHISTORYTOKEN extends Win32Struct
             get => NumGet(this, 0, "uint")
             set => NumPut("uint", value, this, 0)
         }
-    
+
         /**
-         * @type {Pointer<D3DKMT_GDIMODEL_PRESENTHISTORYTOKEN>}
+         * @type {Pointer}
          */
         Gdi {
             get => NumGet(this, 0, "ptr")
             set => NumPut("ptr", value, this, 0)
         }
-    
+
         /**
-         * @type {Pointer<D3DKMT_FENCE_PRESENTHISTORYTOKEN>}
+         * @type {Pointer}
          */
         Fence {
             get => NumGet(this, 0, "ptr")
             set => NumPut("ptr", value, this, 0)
         }
-    
+
         /**
-         * @type {Pointer<D3DKMT_GDIMODEL_SYSMEM_PRESENTHISTORYTOKEN>}
+         * @type {Pointer}
          */
         GdiSysMem {
             get => NumGet(this, 0, "ptr")
             set => NumPut("ptr", value, this, 0)
         }
-    
+
         /**
-         * @type {Pointer<D3DKMT_COMPOSITION_PRESENTHISTORYTOKEN>}
+         * @type {Pointer}
          */
         Composition {
             get => NumGet(this, 0, "ptr")
             set => NumPut("ptr", value, this, 0)
         }
-    
+
         /**
-         * @type {Pointer<D3DKMT_FLIPMANAGER_PRESENTHISTORYTOKEN>}
+         * @type {Pointer}
          */
         FlipManager {
             get => NumGet(this, 0, "ptr")
             set => NumPut("ptr", value, this, 0)
         }
-    
+
         /**
-         * @type {Pointer<D3DKMT_SURFACECOMPLETE_PRESENTHISTORYTOKEN>}
+         * @type {Pointer}
          */
         SurfaceComplete {
             get => NumGet(this, 0, "ptr")
             set => NumPut("ptr", value, this, 0)
         }
-    
     }
 
     /**
-     * @type {Integer}
+     * @type {D3DKMT_PRESENT_MODEL}
      */
     Model {
         get => NumGet(this, 0, "int")
@@ -116,10 +114,10 @@ class D3DKMT_PRESENTHISTORYTOKEN extends Win32Struct
     /**
      * @type {_Token_e__Union}
      */
-    Token{
+    Token {
         get {
             if(!this.HasProp("__Token"))
-                this.__Token := %this.__Class%._Token_e__Union(16, this)
+                this.__Token := D3DKMT_PRESENTHISTORYTOKEN._Token_e__Union(16, this)
             return this.__Token
         }
     }

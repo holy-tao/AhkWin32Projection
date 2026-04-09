@@ -7,9 +7,8 @@
  * Mediates filter negotiation between a destination provider and a source provider.
  * @see https://learn.microsoft.com/windows/win32/api/winsync/nn-winsync-ifilterrequestcallback
  * @namespace Windows.Win32.System.WindowsSync
- * @version v4.0.30319
  */
-class IFilterRequestCallback extends IUnknown{
+class IFilterRequestCallback extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -42,7 +41,7 @@ class IFilterRequestCallback extends IUnknown{
      * </ol>
      * When a filter has been successfully negotiated, the source provider uses it to determine which items to include during change enumeration.
      * @param {IUnknown} pFilter The filter that is specified by the destination provider. This filter is passed to the source provider to be used during change enumeration.
-     * @param {Integer} filteringType A <a href="https://docs.microsoft.com/windows/win32/api/winsync/ne-winsync-filtering_type">FILTERING_TYPE</a> enumeration value that indicates the type of information that is included in a change batch during filtered synchronization.
+     * @param {FILTERING_TYPE} filteringType A <a href="https://docs.microsoft.com/windows/win32/api/winsync/ne-winsync-filtering_type">FILTERING_TYPE</a> enumeration value that indicates the type of information that is included in a change batch during filtered synchronization.
      * @returns {HRESULT} The possible return codes include, but are not limited to, the values shown in the following table.
      * 
      * <table>

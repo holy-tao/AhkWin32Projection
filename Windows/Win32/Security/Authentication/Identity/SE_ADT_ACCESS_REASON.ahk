@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class SE_ADT_ACCESS_REASON extends Win32Struct
-{
+class SE_ADT_ACCESS_REASON extends Win32Struct {
     static sizeof => 152
 
     static packingSize => 8
@@ -21,9 +19,9 @@ class SE_ADT_ACCESS_REASON extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    AccessReasons{
+    AccessReasons {
         get {
             if(!this.HasProp("__AccessReasonsProxyArray"))
                 this.__AccessReasonsProxyArray := Win32FixedArray(this.ptr + 4, 32, Primitive, "uint")
@@ -50,7 +48,7 @@ class SE_ADT_ACCESS_REASON extends Win32Struct
     /**
      * @type {PSECURITY_DESCRIPTOR}
      */
-    SecurityDescriptor{
+    SecurityDescriptor {
         get {
             if(!this.HasProp("__SecurityDescriptor"))
                 this.__SecurityDescriptor := PSECURITY_DESCRIPTOR(144, this)

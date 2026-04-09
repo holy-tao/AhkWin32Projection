@@ -216,9 +216,8 @@
  * <b>DX:</b> Direct3D cannot render directly to the command list. To render Direct3D content in this case, the application can call <a href="https://docs.microsoft.com/windows/desktop/Direct2D/id2d1rendertarget-drawbitmap">DrawBitmap</a> with the <a href="https://docs.microsoft.com/windows/desktop/api/d2d1/nn-d2d1-id2d1bitmap">ID2D1Bitmap</a> backed by a Direct3D surface.
  * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nn-d2d1_1-id2d1commandlist
  * @namespace Windows.Win32.Graphics.Direct2D
- * @version v4.0.30319
  */
-class ID2D1CommandList extends ID2D1Image{
+class ID2D1CommandList extends ID2D1Image {
 
     static sizeof => A_PtrSize
     /**

@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\MI_SessionFT.ahk
 
 /**
  * An object that is associated with a destination and has a set of credentials and options associated with it. .
  * @see https://learn.microsoft.com/windows/win32/api/mi/ns-mi-mi_session
  * @namespace Windows.Win32.System.Wmi
- * @version v4.0.30319
  */
-class MI_Session extends Win32Struct
-{
+class MI_Session extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug
- * @version v4.0.30319
  */
-class MINIDUMP_SYSTEM_BASIC_PERFORMANCE_INFORMATION extends Win32Struct
-{
+class MINIDUMP_SYSTEM_BASIC_PERFORMANCE_INFORMATION extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8

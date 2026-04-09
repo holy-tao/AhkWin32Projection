@@ -7,9 +7,8 @@
  * Provides a method for retrieving a key/value pair of strings from an IEntity, IRelationship or ISchemaProvider object.
  * @see https://learn.microsoft.com/windows/win32/api/structuredquery/nn-structuredquery-imetadata
  * @namespace Windows.Win32.System.Search
- * @version v4.0.30319
  */
-class IMetaData extends IUnknown{
+class IMetaData extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

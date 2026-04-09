@@ -9,10 +9,8 @@
  * Having both hardware and software timestamps enabled together isn't supported.
  * @see https://learn.microsoft.com/windows/win32/api/iphlpapi/ns-iphlpapi-interface_software_timestamp_capabilities
  * @namespace Windows.Win32.NetworkManagement.IpHelper
- * @version v4.0.30319
  */
-class INTERFACE_SOFTWARE_TIMESTAMP_CAPABILITIES extends Win32Struct
-{
+class INTERFACE_SOFTWARE_TIMESTAMP_CAPABILITIES extends Win32Struct {
     static sizeof => 3
 
     static packingSize => 1

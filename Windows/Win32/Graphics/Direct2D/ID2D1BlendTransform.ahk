@@ -7,9 +7,8 @@
  * Provides methods to allow a blend operation to be inserted into a transform graph.
  * @see https://learn.microsoft.com/windows/win32/api/d2d1effectauthor/nn-d2d1effectauthor-id2d1blendtransform
  * @namespace Windows.Win32.Graphics.Direct2D
- * @version v4.0.30319
  */
-class ID2D1BlendTransform extends ID2D1ConcreteTransform{
+class ID2D1BlendTransform extends ID2D1ConcreteTransform {
 
     static sizeof => A_PtrSize
     /**

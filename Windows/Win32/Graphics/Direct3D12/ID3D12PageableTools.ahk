@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\D3D12_GPU_VIRTUAL_ADDRESS_RANGE.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\D3D12_GPU_VIRTUAL_ADDRESS_RANGE.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D12
- * @version v4.0.30319
  */
-class ID3D12PageableTools extends IUnknown{
+class ID3D12PageableTools extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

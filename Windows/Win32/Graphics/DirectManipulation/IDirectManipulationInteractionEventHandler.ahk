@@ -7,9 +7,8 @@
  * Defines methods to handle interactions when they are detected.
  * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nn-directmanipulation-idirectmanipulationinteractioneventhandler
  * @namespace Windows.Win32.Graphics.DirectManipulation
- * @version v4.0.30319
  */
-class IDirectManipulationInteractionEventHandler extends IUnknown{
+class IDirectManipulationInteractionEventHandler extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -33,7 +32,7 @@ class IDirectManipulationInteractionEventHandler extends IUnknown{
     /**
      * Called when an interaction is detected.
      * @param {IDirectManipulationViewport2} viewport The viewport on which the interaction was detected.
-     * @param {Integer} interaction One of the values from <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/directmanipulation/ne-directmanipulation-directmanipulation_interaction_type">DIRECTMANIPULATION_INTERACTION_TYPE</a>.
+     * @param {DIRECTMANIPULATION_INTERACTION_TYPE} interaction One of the values from <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/directmanipulation/ne-directmanipulation-directmanipulation_interaction_type">DIRECTMANIPULATION_INTERACTION_TYPE</a>.
      * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nf-directmanipulation-idirectmanipulationinteractioneventhandler-oninteraction
      */

@@ -9,9 +9,8 @@
  * To install this advise sink, obtain an <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nn-msctf-itfsource">ITfSource</a> object from an <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nn-msctf-itfthreadmgr">ITfThreadMgr</a> object by calling <b>ITfThreadMgr::QueryInterface</b> with <b>IID_ ITfSource</b>. Then call <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nf-msctf-itfsource-advisesink">ITfSource::AdviseSink</a> with <b>IID_ITfInputProcessorProfileActivationSink</b>.
  * @see https://learn.microsoft.com/windows/win32/api/msctf/nn-msctf-itfinputprocessorprofileactivationsink
  * @namespace Windows.Win32.UI.TextServices
- * @version v4.0.30319
  */
-class ITfInputProcessorProfileActivationSink extends IUnknown{
+class ITfInputProcessorProfileActivationSink extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -66,7 +65,7 @@ class ITfInputProcessorProfileActivationSink extends IUnknown{
      * @param {Pointer<Guid>} clsid [in] Specifies the CLSID of the text service. If <i>dwProfileType</i> is TF_PROFILETYPE_KEYBOARDLAYOUT, this is CLSID_NULL.
      * @param {Pointer<Guid>} catid [in] Specifies the category of this text service. This category is GUID_TFCAT_TIP_KEYBOARD, GUID_TFCAT_TIP_SPEECH, GUID_TFCAT_TIP_HANDWRITING or something in GUID_TFCAT_CATEGORY_OF_TIP. If <i>dwProfileType</i> is TF_PROFILETYPE_KEYBOARDLAYOUT, this is GUID_NULL.
      * @param {Pointer<Guid>} guidProfile [in] Specifies the GUID to identify the profile. If <i>dwProfileType</i> is TF_PROFILETYPE_KEYBOARDLAYOUT, this is GUID_NULL.
-     * @param {HKL} _hkl 
+     * @param {HKL} _hkl [in] Specifies the keyboard layout handle of this profile. If <i>dwProfileType</i> is TF_PROFILETYPE_ INPUTPROCESSOR, this is <b>NULL</b>.
      * @param {Integer} dwFlags [in]
      * 
      * <table>

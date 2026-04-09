@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IUpdateInstallationResult.ahk
 #Include ..\Com\IDispatch.ahk
+#Include .\IUpdateInstallationResult.ahk
 
 /**
  * Represents the result of an installation or uninstallation.
  * @see https://learn.microsoft.com/windows/win32/api/wuapi/nn-wuapi-iinstallationresult
  * @namespace Windows.Win32.System.UpdateAgent
- * @version v4.0.30319
  */
-class IInstallationResult extends IDispatch{
+class IInstallationResult extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -46,7 +45,7 @@ class IInstallationResult extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {OperationResultCode} 
      */
     ResultCode {
         get => this.get_ResultCode()
@@ -74,7 +73,7 @@ class IInstallationResult extends IDispatch{
 
     /**
      * Gets an OperationResultCode value that specifies the result of an operation on an update. (IInstallationResult.get_ResultCode)
-     * @returns {Integer} 
+     * @returns {OperationResultCode} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iinstallationresult-get_resultcode
      */
     get_ResultCode() {

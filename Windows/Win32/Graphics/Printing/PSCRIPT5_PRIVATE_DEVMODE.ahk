@@ -3,18 +3,16 @@
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
- * @version v4.0.30319
  */
-class PSCRIPT5_PRIVATE_DEVMODE extends Win32Struct
-{
+class PSCRIPT5_PRIVATE_DEVMODE extends Win32Struct {
     static sizeof => 116
 
     static packingSize => 2
 
     /**
-     * @type {Array<UInt16>}
+     * @type {Array<Integer>}
      */
-    wReserved{
+    wReserved {
         get {
             if(!this.HasProp("__wReservedProxyArray"))
                 this.__wReservedProxyArray := Win32FixedArray(this.ptr + 0, 57, Primitive, "ushort")

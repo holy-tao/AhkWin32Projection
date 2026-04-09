@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Storage.DataDeduplication
- * @version v4.0.30319
  */
-class DedupDataPortManagerOption extends Win32Enum{
+class DedupDataPortManagerOption extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

@@ -5,9 +5,8 @@
  * With message security and mixed-mode security, this defines when a timestamp element should be generated and demanded in the WS-Security header.
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ne-webservices-ws_security_timestamp_usage
  * @namespace Windows.Win32.Networking.WindowsWebServices
- * @version v4.0.30319
  */
-class WS_SECURITY_TIMESTAMP_USAGE extends Win32Enum{
+class WS_SECURITY_TIMESTAMP_USAGE extends Win32Enum {
 
     /**
      * Always generate a timestamp in each outgoing message and demand a

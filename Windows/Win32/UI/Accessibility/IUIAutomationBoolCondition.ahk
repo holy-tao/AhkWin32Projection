@@ -7,9 +7,8 @@
  * Represents a condition that can be either TRUE (selects all elements) or FALSE (selects no elements).
  * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nn-uiautomationclient-iuiautomationboolcondition
  * @namespace Windows.Win32.UI.Accessibility
- * @version v4.0.30319
  */
-class IUIAutomationBoolCondition extends IUIAutomationCondition{
+class IUIAutomationBoolCondition extends IUIAutomationCondition {
 
     static sizeof => A_PtrSize
     /**

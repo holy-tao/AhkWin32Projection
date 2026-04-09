@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.Display
- * @version v4.0.30319
  */
-class FSCNTL_SCREEN_INFO extends Win32Struct
-{
+class FSCNTL_SCREEN_INFO extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4
@@ -15,7 +13,7 @@ class FSCNTL_SCREEN_INFO extends Win32Struct
     /**
      * @type {COORD}
      */
-    Position{
+    Position {
         get {
             if(!this.HasProp("__Position"))
                 this.__Position := COORD(0, this)
@@ -26,7 +24,7 @@ class FSCNTL_SCREEN_INFO extends Win32Struct
     /**
      * @type {COORD}
      */
-    ScreenSize{
+    ScreenSize {
         get {
             if(!this.HasProp("__ScreenSize"))
                 this.__ScreenSize := COORD(4, this)

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\PSS_PROCESS_FLAGS.ahk
 #Include ..\..\..\Foundation\FILETIME.ahk
 
 /**
@@ -8,10 +9,8 @@
  * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/processsnapshot/nf-processsnapshot-pssquerysnapshot">PssQuerySnapshot</a> returns a <b>PSS_PROCESS_INFORMATION</b> structure when the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/processsnapshot/ne-processsnapshot-pss_query_information_class">PSS_QUERY_INFORMATION_CLASS</a> member that the caller provides it is  <b>PSS_QUERY_PROCESS_INFORMATION</b>.
  * @see https://learn.microsoft.com/windows/win32/api/processsnapshot/ns-processsnapshot-pss_process_information
  * @namespace Windows.Win32.System.Diagnostics.ProcessSnapshotting
- * @version v4.0.30319
  */
-class PSS_PROCESS_INFORMATION extends Win32Struct
-{
+class PSS_PROCESS_INFORMATION extends Win32Struct {
     static sizeof => 704
 
     static packingSize => 8
@@ -72,7 +71,7 @@ class PSS_PROCESS_INFORMATION extends Win32Struct
 
     /**
      * Flags about the process. For more information, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/processsnapshot/ne-processsnapshot-pss_process_flags">PSS_PROCESS_FLAGS</a>.
-     * @type {Integer}
+     * @type {PSS_PROCESS_FLAGS}
      */
     Flags {
         get => NumGet(this, 36, "int")
@@ -83,7 +82,7 @@ class PSS_PROCESS_INFORMATION extends Win32Struct
      * The time the process was created. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a>.
      * @type {FILETIME}
      */
-    CreateTime{
+    CreateTime {
         get {
             if(!this.HasProp("__CreateTime"))
                 this.__CreateTime := FILETIME(40, this)
@@ -95,7 +94,7 @@ class PSS_PROCESS_INFORMATION extends Win32Struct
      * If the process exited, the time of the exit. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a>.
      * @type {FILETIME}
      */
-    ExitTime{
+    ExitTime {
         get {
             if(!this.HasProp("__ExitTime"))
                 this.__ExitTime := FILETIME(48, this)
@@ -107,7 +106,7 @@ class PSS_PROCESS_INFORMATION extends Win32Struct
      * The amount of time the process spent executing in kernel-mode. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a>.
      * @type {FILETIME}
      */
-    KernelTime{
+    KernelTime {
         get {
             if(!this.HasProp("__KernelTime"))
                 this.__KernelTime := FILETIME(56, this)
@@ -119,7 +118,7 @@ class PSS_PROCESS_INFORMATION extends Win32Struct
      * The amount of time the process spent executing in user-mode. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a>.
      * @type {FILETIME}
      */
-    UserTime{
+    UserTime {
         get {
             if(!this.HasProp("__UserTime"))
                 this.__UserTime := FILETIME(64, this)

@@ -1,12 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\REFS_DEALLOCATE_RANGES_ALLOCATOR.ahk
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem
- * @version v4.0.30319
  */
-class REFS_DEALLOCATE_RANGES_INPUT_BUFFER_EX extends Win32Struct
-{
+class REFS_DEALLOCATE_RANGES_INPUT_BUFFER_EX extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -20,7 +19,7 @@ class REFS_DEALLOCATE_RANGES_INPUT_BUFFER_EX extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {REFS_DEALLOCATE_RANGES_ALLOCATOR}
      */
     Allocator {
         get => NumGet(this, 4, "int")
@@ -52,9 +51,9 @@ class REFS_DEALLOCATE_RANGES_INPUT_BUFFER_EX extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt64>}
+     * @type {Array<Integer>}
      */
-    Reserved{
+    Reserved {
         get {
             if(!this.HasProp("__ReservedProxyArray"))
                 this.__ReservedProxyArray := Win32FixedArray(this.ptr + 24, 2, Primitive, "uint")

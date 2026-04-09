@@ -5,17 +5,15 @@
  * Contains partition information pulled from an ETW trace.
  * @see https://learn.microsoft.com/windows/win32/api/evntrace/ns-evntrace-etw_trace_partition_information
  * @namespace Windows.Win32.System.Diagnostics.Etw
- * @version v4.0.30319
  */
-class ETW_TRACE_PARTITION_INFORMATION extends Win32Struct
-{
+class ETW_TRACE_PARTITION_INFORMATION extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
 
     /**
      * GUID to identify the machine.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     PartitionId {
         get => NumGet(this, 0, "ptr")
@@ -25,7 +23,7 @@ class ETW_TRACE_PARTITION_INFORMATION extends Win32Struct
     /**
      * GUID that identifies the partition instance that contains the traced partition.
      * If the traced partition is a host, then **ParentId** will be 0.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     ParentId {
         get => NumGet(this, 8, "ptr")

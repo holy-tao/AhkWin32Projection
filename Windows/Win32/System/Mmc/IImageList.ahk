@@ -7,9 +7,8 @@
  * Exposes methods that manipulate and interact with image lists.
  * @see https://learn.microsoft.com/windows/win32/api/commoncontrols/nn-commoncontrols-iimagelist
  * @namespace Windows.Win32.System.Mmc
- * @version v4.0.30319
  */
-class IImageList extends IUnknown{
+class IImageList extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

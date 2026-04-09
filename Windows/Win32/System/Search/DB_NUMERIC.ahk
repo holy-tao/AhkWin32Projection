@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Search
- * @version v4.0.30319
  */
-class DB_NUMERIC extends Win32Struct
-{
+class DB_NUMERIC extends Win32Struct {
     static sizeof => 19
 
     static packingSize => 1
@@ -36,9 +34,9 @@ class DB_NUMERIC extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    val{
+    val {
         get {
             if(!this.HasProp("__valProxyArray"))
                 this.__valProxyArray := Win32FixedArray(this.ptr + 3, 16, Primitive, "char")

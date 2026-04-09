@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\EAP_CONFIG_INPUT_FIELD_ARRAY.ahk
+#Include .\EAP_CRED_EXPIRY_REQ.ahk
 
 /**
  * The EAP_UI_DATA_FORMAT union specifies the value of the attribute stored in the pbUiData member of the EAP_INTERACTIVE_UI_DATA structure.
  * @see https://learn.microsoft.com/windows/win32/api/eaptypes/ns-eaptypes-eap_ui_data_format
  * @namespace Windows.Win32.Security.ExtensibleAuthenticationProtocol
- * @version v4.0.30319
  */
-class EAP_UI_DATA_FORMAT extends Win32Struct
-{
+class EAP_UI_DATA_FORMAT extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

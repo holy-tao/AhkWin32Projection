@@ -3,18 +3,16 @@
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class WHEA_PACKET_LOG_DATA extends Win32Struct
-{
+class WHEA_PACKET_LOG_DATA extends Win32Struct {
     static sizeof => 104
 
     static packingSize => 8
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    LogData{
+    LogData {
         get {
             if(!this.HasProp("__LogDataProxyArray"))
                 this.__LogDataProxyArray := Win32FixedArray(this.ptr + 0, 36, Primitive, "char")
@@ -23,9 +21,9 @@ class WHEA_PACKET_LOG_DATA extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    ExtraBytes{
+    ExtraBytes {
         get {
             if(!this.HasProp("__ExtraBytesProxyArray"))
                 this.__ExtraBytesProxyArray := Win32FixedArray(this.ptr + 36, 36, Primitive, "char")
@@ -74,7 +72,7 @@ class WHEA_PACKET_LOG_DATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<WHEA_REPORT_HW_ERROR_DEVICE_DRIVER_FLAGS>}
+     * @type {Pointer}
      */
     Flags {
         get => NumGet(this, 96, "ptr")

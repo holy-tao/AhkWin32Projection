@@ -9,9 +9,8 @@
  * The <b>ISearchCompletedCallbackArgs</b> interface is reserved for future use and has no properties or methods.
  * @see https://learn.microsoft.com/windows/win32/api/wuapi/nn-wuapi-isearchcompletedcallbackargs
  * @namespace Windows.Win32.System.UpdateAgent
- * @version v4.0.30319
  */
-class ISearchCompletedCallbackArgs extends IDispatch{
+class ISearchCompletedCallbackArgs extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

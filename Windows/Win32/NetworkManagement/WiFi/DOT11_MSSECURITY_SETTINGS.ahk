@@ -1,20 +1,20 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Security\ExtensibleAuthenticationProtocol\EAP_TYPE.ahk
+#Include .\DOT11_AUTH_ALGORITHM.ahk
+#Include .\DOT11_CIPHER_ALGORITHM.ahk
 #Include ..\..\Security\ExtensibleAuthenticationProtocol\EAP_METHOD_TYPE.ahk
+#Include ..\..\Security\ExtensibleAuthenticationProtocol\EAP_TYPE.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
- * @version v4.0.30319
  */
-class DOT11_MSSECURITY_SETTINGS extends Win32Struct
-{
+class DOT11_MSSECURITY_SETTINGS extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
 
     /**
-     * @type {Integer}
+     * @type {DOT11_AUTH_ALGORITHM}
      */
     dot11AuthAlgorithm {
         get => NumGet(this, 0, "int")
@@ -22,7 +22,7 @@ class DOT11_MSSECURITY_SETTINGS extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {DOT11_CIPHER_ALGORITHM}
      */
     dot11CipherAlgorithm {
         get => NumGet(this, 4, "int")
@@ -40,7 +40,7 @@ class DOT11_MSSECURITY_SETTINGS extends Win32Struct
     /**
      * @type {EAP_METHOD_TYPE}
      */
-    eapMethodType{
+    eapMethodType {
         get {
             if(!this.HasProp("__eapMethodType"))
                 this.__eapMethodType := EAP_METHOD_TYPE(12, this)

@@ -1,16 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IEnumTfContextViews.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Not implemented. (IEnumTfContextViews)
  * @see https://learn.microsoft.com/windows/win32/api/msctf/nn-msctf-ienumtfcontextviews
  * @namespace Windows.Win32.UI.TextServices
- * @version v4.0.30319
  */
-class IEnumTfContextViews extends IUnknown{
+class IEnumTfContextViews extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

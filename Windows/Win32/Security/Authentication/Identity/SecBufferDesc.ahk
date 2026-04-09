@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\SecBuffer.ahk
 
 /**
  * The SecBufferDesc structure describes an array of SecBuffer structures to pass from a transport application to a security package.
  * @see https://learn.microsoft.com/windows/win32/api/sspi/ns-sspi-secbufferdesc
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class SecBufferDesc extends Win32Struct
-{
+class SecBufferDesc extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

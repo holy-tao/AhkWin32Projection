@@ -7,9 +7,8 @@
  * The IRegisterServiceProvider interface registers an object as a service with the Filter Graph Manager. For more information, see IRegisterServiceProvider::RegisterService.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-iregisterserviceprovider
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IRegisterServiceProvider extends IUnknown{
+class IRegisterServiceProvider extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

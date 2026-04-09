@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\OVERLAPPED.ahk
 
 /**
  * Contains the information returned by a call to the GetQueuedCompletionStatusEx function.
  * @see https://learn.microsoft.com/windows/win32/api/minwinbase/ns-minwinbase-overlapped_entry
  * @namespace Windows.Win32.System.IO
- * @version v4.0.30319
  */
-class OVERLAPPED_ENTRY extends Win32Struct
-{
+class OVERLAPPED_ENTRY extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8

@@ -11,10 +11,8 @@
  * The <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">PKCS #12</a> standard recommends a value of 1024 or greater for the <b>iIterations</b> member.
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-crypt_pkcs12_pbe_params
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CRYPT_PKCS12_PBE_PARAMS extends Win32Struct
-{
+class CRYPT_PKCS12_PBE_PARAMS extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4

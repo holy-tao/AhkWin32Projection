@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Data.Xml.XmlLite
- * @version v4.0.30319
  */
-class XmlReaderProperty extends Win32Enum{
+class XmlReaderProperty extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

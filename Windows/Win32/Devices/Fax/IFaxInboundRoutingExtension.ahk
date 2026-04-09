@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * The IFaxInboundRoutingExtension interface defines a configuration object used by a fax client application to retrieve information about a fax routing extension registered with the fax service.
@@ -11,9 +11,8 @@
  * A default implementation of <b>IFaxInboundRoutingExtension</b> is provided as the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxinboundroutingextension">FaxInboundRoutingExtension</a> object.
  * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nn-faxcomex-ifaxinboundroutingextension
  * @namespace Windows.Win32.Devices.Fax
- * @version v4.0.30319
  */
-class IFaxInboundRoutingExtension extends IDispatch{
+class IFaxInboundRoutingExtension extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -97,7 +96,7 @@ class IFaxInboundRoutingExtension extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {FAX_PROVIDER_STATUS_ENUM} 
      */
     Status {
         get => this.get_Status()
@@ -214,7 +213,7 @@ class IFaxInboundRoutingExtension extends IDispatch{
      * The IFaxInboundRoutingExtension::get_Status property is a value that indicates whether the fax routing extension loaded and initialized successfully.
      * @remarks
      * If the extension did not load successfully, the property indicates the reason for the failure, and <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxinboundroutingextension-initerrorcode-vb">IFaxInboundRoutingExtension::get_InitErrorCode</a> holds the last error code value. For more information, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_provider_status_enum">FAX_PROVIDER_STATUS_ENUM</a>.
-     * @returns {Integer} 
+     * @returns {FAX_PROVIDER_STATUS_ENUM} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxinboundroutingextension-get_status
      */
     get_Status() {

@@ -1,14 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\WEBAUTHN_RP_ENTITY_INFORMATION.ahk
+#Include .\WEBAUTHN_USER_ENTITY_INFORMATION.ahk
 #Include .\WEBAUTHN_COSE_CREDENTIAL_PARAMETERS.ahk
+#Include .\WEBAUTHN_COSE_CREDENTIAL_PARAMETER.ahk
 #Include .\WEBAUTHN_CREDENTIAL_LIST.ahk
+#Include .\WEBAUTHN_CREDENTIAL_EX.ahk
+#Include .\EXPERIMENTAL_WEBAUTHN_CTAPCBOR_AUTHENTICATOR_OPTIONS.ahk
+#Include .\EXPERIMENTAL_WEBAUTHN_CTAPCBOR_HMAC_SALT_EXTENSION.ahk
 
 /**
  * @namespace Windows.Win32.Security.Authentication.WebAuthn
- * @version v4.0.30319
  */
-class EXPERIMENTAL_WEBAUTHN_CTAPCBOR_MAKE_CREDENTIAL_REQUEST extends Win32Struct
-{
+class EXPERIMENTAL_WEBAUTHN_CTAPCBOR_MAKE_CREDENTIAL_REQUEST extends Win32Struct {
     static sizeof => 200
 
     static packingSize => 8
@@ -72,7 +76,7 @@ class EXPERIMENTAL_WEBAUTHN_CTAPCBOR_MAKE_CREDENTIAL_REQUEST extends Win32Struct
     /**
      * @type {WEBAUTHN_COSE_CREDENTIAL_PARAMETERS}
      */
-    WebAuthNCredentialParameters{
+    WebAuthNCredentialParameters {
         get {
             if(!this.HasProp("__WebAuthNCredentialParameters"))
                 this.__WebAuthNCredentialParameters := WEBAUTHN_COSE_CREDENTIAL_PARAMETERS(48, this)
@@ -83,7 +87,7 @@ class EXPERIMENTAL_WEBAUTHN_CTAPCBOR_MAKE_CREDENTIAL_REQUEST extends Win32Struct
     /**
      * @type {WEBAUTHN_CREDENTIAL_LIST}
      */
-    CredentialList{
+    CredentialList {
         get {
             if(!this.HasProp("__CredentialList"))
                 this.__CredentialList := WEBAUTHN_CREDENTIAL_LIST(64, this)

@@ -5,13 +5,10 @@
 
 /**
  * Enables interoperability with a WinRT [Print3DManager](/uwp/api/windows.graphics.printing3d.print3dmanager) object.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/print3dmanagerinterop/nn-print3dmanagerinterop-iprinting3dmanagerinterop
  * @namespace Windows.Win32.System.WinRT.Printing
- * @version v4.0.30319
  */
-class IPrinting3DManagerInterop extends IInspectable{
+class IPrinting3DManagerInterop extends IInspectable {
 
     static sizeof => A_PtrSize
     /**

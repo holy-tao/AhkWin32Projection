@@ -5,9 +5,8 @@
  * Used to specify URL schemes.
  * @see https://learn.microsoft.com/windows/win32/api/shlwapi/ne-shlwapi-url_scheme
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class URL_SCHEME extends Win32Enum{
+class URL_SCHEME extends Win32Enum {
 
     /**
      * An invalid scheme.

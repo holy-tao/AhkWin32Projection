@@ -1,19 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
+#Include ..\..\..\Com\IUnknown.ahk
 #Include .\DEBUG_VALUE.ahk
 #Include .\IDebugBreakpoint.ahk
 #Include .\DEBUG_BREAKPOINT_PARAMETERS.ahk
 #Include .\DEBUG_SPECIFIC_FILTER_PARAMETERS.ahk
 #Include .\DEBUG_EXCEPTION_FILTER_PARAMETERS.ahk
 #Include .\IDebugBreakpoint2.ahk
-#Include ..\..\..\Com\IUnknown.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
- * @version v4.0.30319
  */
-class IDebugControl4 extends IUnknown{
+class IDebugControl4 extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -1190,7 +1189,7 @@ class IDebugControl4 extends IUnknown{
      * @param {Pointer<Integer>} Type 
      * @param {Pointer<Integer>} ProcessId 
      * @param {Pointer<Integer>} ThreadId 
-     * @param {Pointer} ExtraInformation 
+     * @param {Integer} ExtraInformation 
      * @param {Integer} ExtraInformationSize 
      * @param {Pointer<Integer>} ExtraInformationUsed 
      * @param {PSTR} Description 
@@ -1929,7 +1928,7 @@ class IDebugControl4 extends IUnknown{
      * @param {Pointer<Integer>} Type 
      * @param {Pointer<Integer>} ProcessId 
      * @param {Pointer<Integer>} ThreadId 
-     * @param {Pointer} ExtraInformation 
+     * @param {Integer} ExtraInformation 
      * @param {Integer} ExtraInformationSize 
      * @param {Pointer<Integer>} ExtraInformationUsed 
      * @param {PWSTR} Description 
@@ -2149,11 +2148,11 @@ class IDebugControl4 extends IUnknown{
 
     /**
      * 
-     * @param {Pointer} StartContext 
+     * @param {Integer} StartContext 
      * @param {Integer} StartContextSize 
      * @param {Pointer<DEBUG_STACK_FRAME>} Frames 
      * @param {Integer} FramesSize 
-     * @param {Pointer} FrameContexts 
+     * @param {Integer} FrameContexts 
      * @param {Integer} FrameContextsSize 
      * @param {Integer} FrameContextsEntrySize 
      * @param {Pointer<Integer>} FramesFilled 
@@ -2171,7 +2170,7 @@ class IDebugControl4 extends IUnknown{
      * @param {Integer} OutputControl 
      * @param {Pointer<DEBUG_STACK_FRAME>} Frames 
      * @param {Integer} FramesSize 
-     * @param {Pointer} FrameContexts 
+     * @param {Integer} FrameContexts 
      * @param {Integer} FrameContextsSize 
      * @param {Integer} FrameContextsEntrySize 
      * @param {Integer} Flags 
@@ -2187,10 +2186,10 @@ class IDebugControl4 extends IUnknown{
      * @param {Pointer<Integer>} Type 
      * @param {Pointer<Integer>} ProcessId 
      * @param {Pointer<Integer>} ThreadId 
-     * @param {Pointer} _Context 
+     * @param {Integer} _Context 
      * @param {Integer} ContextSize 
      * @param {Pointer<Integer>} ContextUsed 
-     * @param {Pointer} ExtraInformation 
+     * @param {Integer} ExtraInformation 
      * @param {Integer} ExtraInformationSize 
      * @param {Pointer<Integer>} ExtraInformationUsed 
      * @returns {HRESULT} 

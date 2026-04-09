@@ -7,9 +7,8 @@
  * Provides access to certificates.
  * @see https://learn.microsoft.com/windows/win32/api/wmsecure/nn-wmsecure-iwmauthorizer
  * @namespace Windows.Win32.Media.WindowsMediaFormat
- * @version v4.0.30319
  */
-class IWMAuthorizer extends IUnknown{
+class IWMAuthorizer extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

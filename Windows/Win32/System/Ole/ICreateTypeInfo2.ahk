@@ -7,9 +7,8 @@
  * Provides the tools for creating and administering the type information defined through the type description. (ICreateTypeInfo2)
  * @see https://learn.microsoft.com/windows/win32/api/oaidl/nn-oaidl-icreatetypeinfo2
  * @namespace Windows.Win32.System.Ole
- * @version v4.0.30319
  */
-class ICreateTypeInfo2 extends ICreateTypeInfo{
+class ICreateTypeInfo2 extends ICreateTypeInfo {
 
     static sizeof => A_PtrSize
     /**
@@ -87,7 +86,7 @@ class ICreateTypeInfo2 extends ICreateTypeInfo{
     /**
      * Deletes the specified function description (FUNCDESC).
      * @param {Integer} memid The member identifier of the FUNCDESC to delete.
-     * @param {Integer} invKind The type of the invocation.
+     * @param {INVOKEKIND} invKind The type of the invocation.
      * @returns {HRESULT} This method can return one of these values.
      * 
      * <table>

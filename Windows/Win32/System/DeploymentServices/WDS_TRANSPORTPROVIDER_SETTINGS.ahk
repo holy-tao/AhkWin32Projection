@@ -5,10 +5,8 @@
  * This structure is used by the WdsTransportProviderInitialize callback function. (WDS_TRANSPORTPROVIDER_SETTINGS)
  * @see https://learn.microsoft.com/windows/win32/api/wdstpdi/ns-wdstpdi-wds_transportprovider_settings
  * @namespace Windows.Win32.System.DeploymentServices
- * @version v4.0.30319
  */
-class WDS_TRANSPORTPROVIDER_SETTINGS extends Win32Struct
-{
+class WDS_TRANSPORTPROVIDER_SETTINGS extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4
@@ -25,7 +23,6 @@ class WDS_TRANSPORTPROVIDER_SETTINGS extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     ulProviderVersion {

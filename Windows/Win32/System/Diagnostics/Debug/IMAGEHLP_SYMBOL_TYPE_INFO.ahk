@@ -5,9 +5,8 @@
  * Identifies the type of symbol information to be retrieved.
  * @see https://learn.microsoft.com/windows/win32/api/dbghelp/ne-dbghelp-imagehlp_symbol_type_info
  * @namespace Windows.Win32.System.Diagnostics.Debug
- * @version v4.0.30319
  */
-class IMAGEHLP_SYMBOL_TYPE_INFO extends Win32Enum{
+class IMAGEHLP_SYMBOL_TYPE_INFO extends Win32Enum {
 
     /**
      * The symbol tag.
@@ -280,7 +279,6 @@ class IMAGEHLP_SYMBOL_TYPE_INFO extends Win32Enum{
     static TI_GET_INDIRECTVIRTUALBASECLASS => 32
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static TI_GET_VIRTUALBASETABLETYPE => 33
@@ -311,7 +309,6 @@ class IMAGEHLP_SYMBOL_TYPE_INFO extends Win32Enum{
     static TI_GET_DISCRIMINATEDUNION_TAG_RANGES => 38
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static IMAGEHLP_SYMBOL_TYPE_INFO_MAX => 39

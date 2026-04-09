@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DDVIDEOPORTCAPS.ahk
 
 /**
  * The DD_DIRECTDRAW_GLOBAL structure contains driver information that describes the driver's device.
@@ -9,10 +10,8 @@
  * The <b>dwReserved1</b> and <b>dwReserved2</b> members can be used as required by the driver. For example, a driver might store pointers to internal data structures in these members.
  * @see https://learn.microsoft.com/windows/win32/api/ddrawint/ns-ddrawint-dd_directdraw_global
  * @namespace Windows.Win32.Graphics.DirectDraw
- * @version v4.0.30319
  */
-class DD_DIRECTDRAW_GLOBAL extends Win32Struct
-{
+class DD_DIRECTDRAW_GLOBAL extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8

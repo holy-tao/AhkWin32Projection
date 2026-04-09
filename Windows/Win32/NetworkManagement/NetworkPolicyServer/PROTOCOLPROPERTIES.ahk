@@ -5,9 +5,8 @@
  * The values of the PROTOCOLPROPERTIES enumeration type enumerate properties of an authentication protocol.
  * @see https://learn.microsoft.com/windows/win32/api/sdoias/ne-sdoias-protocolproperties
  * @namespace Windows.Win32.NetworkManagement.NetworkPolicyServer
- * @version v4.0.30319
  */
-class PROTOCOLPROPERTIES extends Win32Enum{
+class PROTOCOLPROPERTIES extends Win32Enum {
 
     /**
      * The value is reserved for system use.

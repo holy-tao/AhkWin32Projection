@@ -2,14 +2,14 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\BUCKETCATEGORIZE.ahk
 #Include .\RANGECATEGORIZE.ahk
+#Include ..\Com\StructuredStorage\PROPVARIANT.ahk
 #Include .\COLUMNSET.ahk
+#Include ..\..\Storage\IndexServer\FULLPROPSPEC.ahk
 
 /**
  * @namespace Windows.Win32.System.Search
- * @version v4.0.30319
  */
-class CATEGORIZATION extends Win32Struct
-{
+class CATEGORIZATION extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -33,7 +33,7 @@ class CATEGORIZATION extends Win32Struct
     /**
      * @type {BUCKETCATEGORIZE}
      */
-    bucket{
+    bucket {
         get {
             if(!this.HasProp("__bucket"))
                 this.__bucket := BUCKETCATEGORIZE(8, this)
@@ -44,7 +44,7 @@ class CATEGORIZATION extends Win32Struct
     /**
      * @type {RANGECATEGORIZE}
      */
-    range{
+    range {
         get {
             if(!this.HasProp("__range"))
                 this.__range := RANGECATEGORIZE(8, this)
@@ -55,7 +55,7 @@ class CATEGORIZATION extends Win32Struct
     /**
      * @type {COLUMNSET}
      */
-    csColumns{
+    csColumns {
         get {
             if(!this.HasProp("__csColumns"))
                 this.__csColumns := COLUMNSET(24, this)

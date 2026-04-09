@@ -4,13 +4,11 @@
 
 /**
  * @namespace Windows.Win32.Networking.WinSock
- * @version v4.0.30319
  */
-class WINDOWS_DEVICELIST extends Win32Struct
-{
-    static sizeof => 16
+class WINDOWS_DEVICELIST extends Win32Struct {
+    static sizeof => 36
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}
@@ -21,12 +19,12 @@ class WINDOWS_DEVICELIST extends Win32Struct
     }
 
     /**
-     * @type {Array<WINDOWS_IRDA_DEVICE_INFO>}
+     * @type {WINDOWS_IRDA_DEVICE_INFO}
      */
-    Device{
+    Device {
         get {
             if(!this.HasProp("__DeviceProxyArray"))
-                this.__DeviceProxyArray := Win32FixedArray(this.ptr + 8, 1, WINDOWS_IRDA_DEVICE_INFO, "")
+                this.__DeviceProxyArray := Win32FixedArray(this.ptr + 4, 1, WINDOWS_IRDA_DEVICE_INFO, "")
             return this.__DeviceProxyArray
         }
     }

@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Media.MediaPlayer
- * @version v4.0.30319
  */
-class IFeedItem2 extends IFeedItem{
+class IFeedItem2 extends IFeedItem {
 
     static sizeof => A_PtrSize
     /**

@@ -129,9 +129,8 @@
  * The system provides a standard implementation of a font object with the <b>IFontDisp</b> interface on top of the underlying system font support. A font object is created through the function <a href="https://docs.microsoft.com/windows/desktop/api/olectl/nf-olectl-olecreatefontindirect">OleCreateFontIndirect</a>. A font object supports a number of read/write properties as well as a set of methods through its interface <a href="https://docs.microsoft.com/windows/desktop/api/ocidl/nn-ocidl-ifont">IFont</a> and supports the same set of properties (but not the methods) through a dispatch interface <b>IFontDisp</b> which is derived from <b>IDispatch</b> to provide access to the font's properties through Automation. The system implementation of the font object supplies both interfaces.
  * @see https://learn.microsoft.com/windows/win32/api/ocidl/nn-ocidl-ifontdisp
  * @namespace Windows.Win32.System.Ole
- * @version v4.0.30319
  */
-class IFontDisp extends IDispatch{
+class IFontDisp extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

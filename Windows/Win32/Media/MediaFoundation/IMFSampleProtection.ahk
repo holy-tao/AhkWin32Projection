@@ -7,9 +7,8 @@
  * Provides encryption for media data inside the protected media path (PMP).
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imfsampleprotection
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFSampleProtection extends IUnknown{
+class IMFSampleProtection extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

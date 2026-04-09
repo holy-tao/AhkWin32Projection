@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\POINT.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\POINT.ahk
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
- * @version v4.0.30319
  */
-class IHTMLCaret extends IUnknown{
+class IHTMLCaret extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -33,7 +32,7 @@ class IHTMLCaret extends IUnknown{
      * 
      * @param {IDisplayPointer} pDispPointer 
      * @param {BOOL} fScrollIntoView 
-     * @param {Integer} eDir 
+     * @param {CARET_DIRECTION} eDir 
      * @returns {HRESULT} 
      */
     MoveCaretToPointer(pDispPointer, fScrollIntoView, eDir) {
@@ -46,7 +45,7 @@ class IHTMLCaret extends IUnknown{
      * @param {IDisplayPointer} pDispPointer 
      * @param {BOOL} fVisible 
      * @param {BOOL} fScrollIntoView 
-     * @param {Integer} eDir 
+     * @param {CARET_DIRECTION} eDir 
      * @returns {HRESULT} 
      */
     MoveCaretToPointerEx(pDispPointer, fVisible, fScrollIntoView, eDir) {
@@ -163,7 +162,7 @@ class IHTMLCaret extends IUnknown{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {CARET_DIRECTION} 
      */
     GetCaretDirection() {
         result := ComCall(13, this, "int*", &peDir := 0, "HRESULT")
@@ -172,7 +171,7 @@ class IHTMLCaret extends IUnknown{
 
     /**
      * 
-     * @param {Integer} eDir 
+     * @param {CARET_DIRECTION} eDir 
      * @returns {HRESULT} 
      */
     SetCaretDirection(eDir) {

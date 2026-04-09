@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
 #Include .\IMSVidClosedCaptioning2.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
  * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005. The IMSVidClosedCaptioning3 interface retrieves the teletext filter. The MSVidClosedCaptioning feature exposes this interface.
@@ -10,9 +10,8 @@
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IMSVidClosedCaptioning3)</c>.
  * @see https://learn.microsoft.com/windows/win32/api/segment/nn-segment-imsvidclosedcaptioning3
  * @namespace Windows.Win32.Media.DirectShow.Tv
- * @version v4.0.30319
  */
-class IMSVidClosedCaptioning3 extends IMSVidClosedCaptioning2{
+class IMSVidClosedCaptioning3 extends IMSVidClosedCaptioning2 {
 
     static sizeof => A_PtrSize
     /**

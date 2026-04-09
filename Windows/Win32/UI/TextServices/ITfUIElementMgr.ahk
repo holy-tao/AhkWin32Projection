@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\ITfUIElement.ahk
 #Include .\IEnumTfUIElements.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * The ITfUIElementMgr interface is implemented by TSF manager and used by an application or a text service. An application and a text service can obtain this interface by ITfThreadMgr::QueryInterface with IID_ITfUIElementMgr.
@@ -11,9 +11,8 @@
  * A text service that supports UIElement must call <b>ITfUIElementMgr</b> whenever the UI is shown, updated or hidden. Then the application can control the visibility of the UI.
  * @see https://learn.microsoft.com/windows/win32/api/msctf/nn-msctf-itfuielementmgr
  * @namespace Windows.Win32.UI.TextServices
- * @version v4.0.30319
  */
-class ITfUIElementMgr extends IUnknown{
+class ITfUIElementMgr extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

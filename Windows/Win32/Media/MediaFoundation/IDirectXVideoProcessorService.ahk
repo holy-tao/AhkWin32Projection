@@ -1,18 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IDirectXVideoAccelerationService.ahk
 #Include .\DXVA2_VideoProcessorCaps.ahk
 #Include .\DXVA2_ValueRange.ahk
 #Include .\IDirectXVideoProcessor.ahk
-#Include .\IDirectXVideoAccelerationService.ahk
 
 /**
  * Provides access to DirectX Video Acceleration (DXVA) video processing services.
  * @see https://learn.microsoft.com/windows/win32/api/dxva2api/nn-dxva2api-idirectxvideoprocessorservice
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IDirectXVideoProcessorService extends IDirectXVideoAccelerationService{
+class IDirectXVideoProcessorService extends IDirectXVideoAccelerationService {
 
     static sizeof => A_PtrSize
     /**
@@ -110,7 +109,7 @@ class IDirectXVideoProcessorService extends IDirectXVideoAccelerationService{
      *           To get the list of video processor GUIDs, call <a href="https://docs.microsoft.com/windows/desktop/api/dxva2api/nf-dxva2api-idirectxvideoprocessorservice-getvideoprocessordeviceguids">IDirectXVideoProcessorService::GetVideoProcessorDeviceGuids</a>.
      * @param {Pointer<DXVA2_VideoDesc>} pVideoDesc A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/dxva2api/ns-dxva2api-dxva2_videodesc">DXVA2_VideoDesc</a> structure that describes the video content.
      * @param {Pointer<Integer>} pCount Receives the number of formats.
-     * @param {Pointer<Pointer<Integer>>} pFormats Receives an array of formats, specified as <b>D3DFORMAT</b> values. The size of the array is retrieved in the <i>pCount</i> parameter. The method allocates the memory for the array. The caller must free the memory by calling <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a>.
+     * @param {Pointer<Pointer<D3DFORMAT>>} pFormats Receives an array of formats, specified as <b>D3DFORMAT</b> values. The size of the array is retrieved in the <i>pCount</i> parameter. The method allocates the memory for the array. The caller must free the memory by calling <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a>.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>
@@ -145,9 +144,9 @@ class IDirectXVideoProcessorService extends IDirectXVideoAccelerationService{
      * @param {Pointer<Guid>} VideoProcDeviceGuid A GUID that identifies the video processor device. 
      *           To get the list of video processor GUIDs, call <a href="https://docs.microsoft.com/windows/desktop/api/dxva2api/nf-dxva2api-idirectxvideoprocessorservice-getvideoprocessordeviceguids">IDirectXVideoProcessorService::GetVideoProcessorDeviceGuids</a>.
      * @param {Pointer<DXVA2_VideoDesc>} pVideoDesc A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/dxva2api/ns-dxva2api-dxva2_videodesc">DXVA2_VideoDesc</a> structure that describes the video content.
-     * @param {Integer} RenderTargetFormat The format of the render target surface, specified as a <b>D3DFORMAT</b> value. For more information, see the Direct3D documentation. You can also use a FOURCC code to specify a format that is not defined in the <b>D3DFORMAT</b> enumeration. See <a href="https://docs.microsoft.com/windows/desktop/medfound/video-fourccs">Video FOURCCs</a>.
+     * @param {D3DFORMAT} RenderTargetFormat The format of the render target surface, specified as a <b>D3DFORMAT</b> value. For more information, see the Direct3D documentation. You can also use a FOURCC code to specify a format that is not defined in the <b>D3DFORMAT</b> enumeration. See <a href="https://docs.microsoft.com/windows/desktop/medfound/video-fourccs">Video FOURCCs</a>.
      * @param {Pointer<Integer>} pCount Receives the number of elements returned in the <i>ppFormats</i> array.
-     * @param {Pointer<Pointer<Integer>>} pFormats Receives an array of <b>D3DFORMAT</b> values. The caller must free the array by calling <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a>. The array can contain both RGB and YUB pixel formats.
+     * @param {Pointer<Pointer<D3DFORMAT>>} pFormats Receives an array of <b>D3DFORMAT</b> values. The caller must free the array by calling <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a>. The array can contain both RGB and YUB pixel formats.
      * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/dxva2api/nf-dxva2api-idirectxvideoprocessorservice-getvideoprocessorsubstreamformats
      */
@@ -163,7 +162,7 @@ class IDirectXVideoProcessorService extends IDirectXVideoAccelerationService{
      * Gets the capabilities of a specified video processor device.
      * @param {Pointer<Guid>} VideoProcDeviceGuid A GUID that identifies the video processor device. To get the list of video processor GUIDs, call <a href="https://docs.microsoft.com/windows/desktop/api/dxva2api/nf-dxva2api-idirectxvideoprocessorservice-getvideoprocessordeviceguids">IDirectXVideoProcessorService::GetVideoProcessorDeviceGuids</a>.
      * @param {Pointer<DXVA2_VideoDesc>} pVideoDesc A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/dxva2api/ns-dxva2api-dxva2_videodesc">DXVA2_VideoDesc</a> structure that describes the video content.
-     * @param {Integer} RenderTargetFormat The format of the render target surface, specified as a <b>D3DFORMAT</b> value. For more information, see the Direct3D documentation. You can also use a FOURCC code to specify a format that is not defined in the <b>D3DFORMAT</b> enumeration. See <a href="https://docs.microsoft.com/windows/desktop/medfound/video-fourccs">Video FOURCCs</a>.
+     * @param {D3DFORMAT} RenderTargetFormat The format of the render target surface, specified as a <b>D3DFORMAT</b> value. For more information, see the Direct3D documentation. You can also use a FOURCC code to specify a format that is not defined in the <b>D3DFORMAT</b> enumeration. See <a href="https://docs.microsoft.com/windows/desktop/medfound/video-fourccs">Video FOURCCs</a>.
      * @returns {DXVA2_VideoProcessorCaps} A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/dxva2api/ns-dxva2api-dxva2_videoprocessorcaps">DXVA2_VideoProcessorCaps</a> structure that receives the video processor capabilities.
      * @see https://learn.microsoft.com/windows/win32/api/dxva2api/nf-dxva2api-idirectxvideoprocessorservice-getvideoprocessorcaps
      */
@@ -179,7 +178,7 @@ class IDirectXVideoProcessorService extends IDirectXVideoAccelerationService{
      *             GUID that identifies the video processor device.
      *           To get the list of video processor GUIDs, call <a href="https://docs.microsoft.com/windows/desktop/api/dxva2api/nf-dxva2api-idirectxvideoprocessorservice-getvideoprocessordeviceguids">IDirectXVideoProcessorService::GetVideoProcessorDeviceGuids</a>.
      * @param {Pointer<DXVA2_VideoDesc>} pVideoDesc A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/dxva2api/ns-dxva2api-dxva2_videodesc">DXVA2_VideoDesc</a> structure that describes the video content.
-     * @param {Integer} RenderTargetFormat The format of the render target surface, specified as a <b>D3DFORMAT</b> value. For more information, see the Direct3D documentation. You can also use a FOURCC code to specify a format that is not defined in the <b>D3DFORMAT</b> enumeration. See <a href="https://docs.microsoft.com/windows/desktop/medfound/video-fourccs">Video FOURCCs</a>.
+     * @param {D3DFORMAT} RenderTargetFormat The format of the render target surface, specified as a <b>D3DFORMAT</b> value. For more information, see the Direct3D documentation. You can also use a FOURCC code to specify a format that is not defined in the <b>D3DFORMAT</b> enumeration. See <a href="https://docs.microsoft.com/windows/desktop/medfound/video-fourccs">Video FOURCCs</a>.
      * @param {Integer} ProcAmpCap The 
      *             ProcAmp setting to query. See <a href="https://docs.microsoft.com/windows/desktop/medfound/procamp-settings">ProcAmp Settings</a>.
      * @returns {DXVA2_ValueRange} A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/dxva2api/ns-dxva2api-dxva2_valuerange">DXVA2_ValueRange</a> structure that receives the range of values for the setting specified in <i>ProcAmpCaps</i>.
@@ -196,7 +195,7 @@ class IDirectXVideoProcessorService extends IDirectXVideoAccelerationService{
      * @param {Pointer<Guid>} VideoProcDeviceGuid A GUID that identifies the video processor device.
      *           To get the list of video processor GUIDs, call <a href="https://docs.microsoft.com/windows/desktop/api/dxva2api/nf-dxva2api-idirectxvideoprocessorservice-getvideoprocessordeviceguids">IDirectXVideoProcessorService::GetVideoProcessorDeviceGuids</a>.
      * @param {Pointer<DXVA2_VideoDesc>} pVideoDesc A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/dxva2api/ns-dxva2api-dxva2_videodesc">DXVA2_VideoDesc</a> structure that describes the video content.
-     * @param {Integer} RenderTargetFormat The format of the render target surface, specified as a <b>D3DFORMAT</b> value. For more information, see the Direct3D documentation. You can also use a FOURCC code to specify a format that is not defined in the <b>D3DFORMAT</b> enumeration. See <a href="https://docs.microsoft.com/windows/desktop/medfound/video-fourccs">Video FOURCCs</a>.
+     * @param {D3DFORMAT} RenderTargetFormat The format of the render target surface, specified as a <b>D3DFORMAT</b> value. For more information, see the Direct3D documentation. You can also use a FOURCC code to specify a format that is not defined in the <b>D3DFORMAT</b> enumeration. See <a href="https://docs.microsoft.com/windows/desktop/medfound/video-fourccs">Video FOURCCs</a>.
      * @param {Integer} FilterSetting The filter setting to query. See <a href="https://docs.microsoft.com/windows/desktop/medfound/dxva-image-filter-settings">DXVA Image Filter Settings</a>.
      * @returns {DXVA2_ValueRange} A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/dxva2api/ns-dxva2api-dxva2_valuerange">DXVA2_ValueRange</a> structure that receives range of values for the image filter setting specified in <i>FilterSetting</i>.
      * @see https://learn.microsoft.com/windows/win32/api/dxva2api/nf-dxva2api-idirectxvideoprocessorservice-getfilterpropertyrange
@@ -212,7 +211,7 @@ class IDirectXVideoProcessorService extends IDirectXVideoAccelerationService{
      * @param {Pointer<Guid>} VideoProcDeviceGuid A GUID that specifies the video processor to create.
      *           To get the list of video processor GUIDs, call <a href="https://docs.microsoft.com/windows/desktop/api/dxva2api/nf-dxva2api-idirectxvideoprocessorservice-getvideoprocessordeviceguids">IDirectXVideoProcessorService::GetVideoProcessorDeviceGuids</a>.
      * @param {Pointer<DXVA2_VideoDesc>} pVideoDesc A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/dxva2api/ns-dxva2api-dxva2_videodesc">DXVA2_VideoDesc</a> structure that describes the video content.
-     * @param {Integer} RenderTargetFormat The format of the render target surface, specified as a <b>D3DFORMAT</b> value. For more information, see the Direct3D documentation. You can also use a FOURCC code to specify a format that is not defined in the <b>D3DFORMAT</b> enumeration. See <a href="https://docs.microsoft.com/windows/desktop/medfound/video-fourccs">Video FOURCCs</a>.
+     * @param {D3DFORMAT} RenderTargetFormat The format of the render target surface, specified as a <b>D3DFORMAT</b> value. For more information, see the Direct3D documentation. You can also use a FOURCC code to specify a format that is not defined in the <b>D3DFORMAT</b> enumeration. See <a href="https://docs.microsoft.com/windows/desktop/medfound/video-fourccs">Video FOURCCs</a>.
      * @param {Integer} MaxNumSubStreams The maximum number of substreams that will be used with this device.
      * @returns {IDirectXVideoProcessor} Receives a pointer to the video processor's <a href="https://docs.microsoft.com/windows/desktop/api/dxva2api/nn-dxva2api-idirectxvideoprocessor">IDirectXVideoProcessor</a> interface. The caller must release the interface.
      * @see https://learn.microsoft.com/windows/win32/api/dxva2api/nf-dxva2api-idirectxvideoprocessorservice-createvideoprocessor

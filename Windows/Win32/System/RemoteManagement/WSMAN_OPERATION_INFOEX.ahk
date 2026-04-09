@@ -3,14 +3,14 @@
 #Include .\WSMAN_FRAGMENT.ahk
 #Include .\WSMAN_FILTER.ahk
 #Include .\WSMAN_SELECTOR_SET.ahk
+#Include .\WSMAN_KEY.ahk
 #Include .\WSMAN_OPTION_SETEX.ahk
+#Include .\WSMAN_OPTION.ahk
 
 /**
  * @namespace Windows.Win32.System.RemoteManagement
- * @version v4.0.30319
  */
-class WSMAN_OPERATION_INFOEX extends Win32Struct
-{
+class WSMAN_OPERATION_INFOEX extends Win32Struct {
     static sizeof => 104
 
     static packingSize => 8
@@ -18,7 +18,7 @@ class WSMAN_OPERATION_INFOEX extends Win32Struct
     /**
      * @type {WSMAN_FRAGMENT}
      */
-    fragment{
+    fragment {
         get {
             if(!this.HasProp("__fragment"))
                 this.__fragment := WSMAN_FRAGMENT(0, this)
@@ -29,7 +29,7 @@ class WSMAN_OPERATION_INFOEX extends Win32Struct
     /**
      * @type {WSMAN_FILTER}
      */
-    filter{
+    filter {
         get {
             if(!this.HasProp("__filter"))
                 this.__filter := WSMAN_FILTER(16, this)
@@ -40,7 +40,7 @@ class WSMAN_OPERATION_INFOEX extends Win32Struct
     /**
      * @type {WSMAN_SELECTOR_SET}
      */
-    selectorSet{
+    selectorSet {
         get {
             if(!this.HasProp("__selectorSet"))
                 this.__selectorSet := WSMAN_SELECTOR_SET(32, this)
@@ -51,7 +51,7 @@ class WSMAN_OPERATION_INFOEX extends Win32Struct
     /**
      * @type {WSMAN_OPTION_SETEX}
      */
-    optionSet{
+    optionSet {
         get {
             if(!this.HasProp("__optionSet"))
                 this.__optionSet := WSMAN_OPTION_SETEX(48, this)

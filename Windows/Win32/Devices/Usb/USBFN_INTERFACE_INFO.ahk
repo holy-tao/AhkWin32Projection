@@ -1,12 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\USBFN_BUS_SPEED.ahk
 
 /**
  * @namespace Windows.Win32.Devices.Usb
- * @version v4.0.30319
  */
-class USBFN_INTERFACE_INFO extends Win32Struct
-{
+class USBFN_INTERFACE_INFO extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4
@@ -20,7 +19,7 @@ class USBFN_INTERFACE_INFO extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {USBFN_BUS_SPEED}
      */
     Speed {
         get => NumGet(this, 4, "int")
@@ -36,9 +35,9 @@ class USBFN_INTERFACE_INFO extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    InterfaceDescriptorSet{
+    InterfaceDescriptorSet {
         get {
             if(!this.HasProp("__InterfaceDescriptorSetProxyArray"))
                 this.__InterfaceDescriptorSetProxyArray := Win32FixedArray(this.ptr + 10, 1, Primitive, "char")

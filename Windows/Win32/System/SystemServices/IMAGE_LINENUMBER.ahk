@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.SystemServices
- * @version v4.0.30319
  */
-class IMAGE_LINENUMBER extends Win32Struct
-{
+class IMAGE_LINENUMBER extends Win32Struct {
     static sizeof => 6
 
     static packingSize => 2
@@ -22,7 +20,7 @@ class IMAGE_LINENUMBER extends Win32Struct
             get => NumGet(this, 0, "uint")
             set => NumPut("uint", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -30,16 +28,15 @@ class IMAGE_LINENUMBER extends Win32Struct
             get => NumGet(this, 0, "uint")
             set => NumPut("uint", value, this, 0)
         }
-    
     }
 
     /**
      * @type {_Type_e__Union}
      */
-    Type{
+    Type {
         get {
             if(!this.HasProp("__Type"))
-                this.__Type := %this.__Class%._Type_e__Union(0, this)
+                this.__Type := IMAGE_LINENUMBER._Type_e__Union(0, this)
             return this.__Type
         }
     }

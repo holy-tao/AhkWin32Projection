@@ -1,19 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include .\ITAgent.ahk
 #Include .\ITAddress.ahk
 #Include .\ITACDGroup.ahk
 #Include ..\..\System\Com\CY.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * The ITAgentSession interface (tapi3cc.h) handles agent session, which represent an association between an agent, group, and address.
  * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/nn-tapi3cc-itagentsession
  * @namespace Windows.Win32.Devices.Tapi
- * @version v4.0.30319
  */
-class ITAgentSession extends IDispatch{
+class ITAgentSession extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -56,7 +55,7 @@ class ITAgentSession extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {AGENT_SESSION_STATE} 
      */
     State {
         get => this.get_State()
@@ -200,7 +199,7 @@ class ITAgentSession extends IDispatch{
      * @remarks
      * This method wraps the TAPI 2.1 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/nf-tapi-linesetagentstate">lineSetAgentSessionState</a> function.
-     * @param {Integer} SessionState <a href="https://docs.microsoft.com/windows/desktop/api/tapi3/ne-tapi3-agent_session_state">AGENT_SESSION_STATE</a>.
+     * @param {AGENT_SESSION_STATE} SessionState <a href="https://docs.microsoft.com/windows/desktop/api/tapi3/ne-tapi3-agent_session_state">AGENT_SESSION_STATE</a>.
      * @returns {HRESULT} This method can return one of these values.
      * 
      * <table>
@@ -274,7 +273,7 @@ class ITAgentSession extends IDispatch{
 
     /**
      * The ITAgentSession::get_State method (tapi3cc.h) gets the current state of this session.
-     * @returns {Integer} Pointer to an 
+     * @returns {AGENT_SESSION_STATE} Pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3/ne-tapi3-agent_session_state">AGENT_SESSION_STATE</a>.
      * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/nf-tapi3cc-itagentsession-get_state
      */

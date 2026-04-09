@@ -2,15 +2,13 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\SD_CHANGE_MACHINE_SID_OUTPUT.ahk
 #Include .\SD_QUERY_STATS_OUTPUT.ahk
-#Include .\SD_ENUM_SDS_ENTRY.ahk
 #Include .\SD_ENUM_SDS_OUTPUT.ahk
+#Include .\SD_ENUM_SDS_ENTRY.ahk
 
 /**
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class SD_GLOBAL_CHANGE_OUTPUT extends Win32Struct
-{
+class SD_GLOBAL_CHANGE_OUTPUT extends Win32Struct {
     static sizeof => 72
 
     static packingSize => 8
@@ -34,7 +32,7 @@ class SD_GLOBAL_CHANGE_OUTPUT extends Win32Struct
     /**
      * @type {SD_CHANGE_MACHINE_SID_OUTPUT}
      */
-    SdChange{
+    SdChange {
         get {
             if(!this.HasProp("__SdChange"))
                 this.__SdChange := SD_CHANGE_MACHINE_SID_OUTPUT(8, this)
@@ -45,7 +43,7 @@ class SD_GLOBAL_CHANGE_OUTPUT extends Win32Struct
     /**
      * @type {SD_QUERY_STATS_OUTPUT}
      */
-    SdQueryStats{
+    SdQueryStats {
         get {
             if(!this.HasProp("__SdQueryStats"))
                 this.__SdQueryStats := SD_QUERY_STATS_OUTPUT(8, this)
@@ -56,7 +54,7 @@ class SD_GLOBAL_CHANGE_OUTPUT extends Win32Struct
     /**
      * @type {SD_ENUM_SDS_OUTPUT}
      */
-    SdEnumSds{
+    SdEnumSds {
         get {
             if(!this.HasProp("__SdEnumSds"))
                 this.__SdEnumSds := SD_ENUM_SDS_OUTPUT(8, this)

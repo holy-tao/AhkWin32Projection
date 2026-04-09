@@ -7,9 +7,8 @@
  * Enables a client application to implement custom performance logging.
  * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nn-rdpencomapi-irdpsrapiperfcounterlogger
  * @namespace Windows.Win32.System.DesktopSharing
- * @version v4.0.30319
  */
-class IRDPSRAPIPerfCounterLogger extends IUnknown{
+class IRDPSRAPIPerfCounterLogger extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

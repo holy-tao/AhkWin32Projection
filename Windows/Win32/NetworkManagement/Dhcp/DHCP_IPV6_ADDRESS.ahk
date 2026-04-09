@@ -7,10 +7,8 @@
  * An alternate name for this structure is <b>DHCP_RESUME_IPV6_HANDLE</b>.
  * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/ns-dhcpsapi-dhcp_ipv6_address
  * @namespace Windows.Win32.NetworkManagement.Dhcp
- * @version v4.0.30319
  */
-class DHCP_IPV6_ADDRESS extends Win32Struct
-{
+class DHCP_IPV6_ADDRESS extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

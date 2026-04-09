@@ -7,9 +7,8 @@
  * Allows a decryptor to communicate with the security processor that implements the hardware decryption for a protection system.
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imfcontentprotectiondevice
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFContentProtectionDevice extends IUnknown{
+class IMFContentProtectionDevice extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -34,9 +33,9 @@ class IMFContentProtectionDevice extends IUnknown{
      * Calls into the implementation of the protection system in the security processor.
      * @param {Integer} FunctionId The identifier of the function that you want to run. This identifier is defined by the implementation of the protection system.
      * @param {Integer} InputBufferByteCount The number of bytes of in the buffer that <i>InputBuffer</i> specifies, including private data.
-     * @param {Pointer} InputBuffer A pointer to the data that you want to provide as input.
+     * @param {Integer} InputBuffer A pointer to the data that you want to provide as input.
      * @param {Pointer<Integer>} OutputBufferByteCount Pointer to a value that specifies the length in bytes of the data that the function wrote to the buffer that <i>OutputBuffer</i> specifies, including the private data.
-     * @param {Pointer} OutputBuffer Pointer to the buffer where you want the function to write its output.
+     * @param {Integer} OutputBuffer Pointer to the buffer where you want the function to write its output.
      * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfcontentprotectiondevice-invokefunction
      */

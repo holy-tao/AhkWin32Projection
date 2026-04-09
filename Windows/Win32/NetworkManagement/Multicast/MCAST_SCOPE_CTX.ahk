@@ -6,10 +6,8 @@
  * The MCAST_SCOPE_CTX structure defines the scope context for programmatic interaction with multicast addresses. The MCAST_SCOPE_CTX structure is used by various MADCAP functions as a handle for allocating, renewing, or releasing MADCAP addresses.
  * @see https://learn.microsoft.com/windows/win32/api/madcapcl/ns-madcapcl-mcast_scope_ctx
  * @namespace Windows.Win32.NetworkManagement.Multicast
- * @version v4.0.30319
  */
-class MCAST_SCOPE_CTX extends Win32Struct
-{
+class MCAST_SCOPE_CTX extends Win32Struct {
     static sizeof => 60
 
     static packingSize => 4
@@ -19,7 +17,7 @@ class MCAST_SCOPE_CTX extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/madcapcl/ns-madcapcl-ipng_address">IPNG_ADDRESS</a> structure.
      * @type {IPNG_ADDRESS}
      */
-    ScopeID{
+    ScopeID {
         get {
             if(!this.HasProp("__ScopeID"))
                 this.__ScopeID := IPNG_ADDRESS(0, this)
@@ -32,7 +30,7 @@ class MCAST_SCOPE_CTX extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/madcapcl/ns-madcapcl-ipng_address">IPNG_ADDRESS</a> structure.
      * @type {IPNG_ADDRESS}
      */
-    Interface{
+    Interface {
         get {
             if(!this.HasProp("__Interface"))
                 this.__Interface := IPNG_ADDRESS(20, this)
@@ -45,7 +43,7 @@ class MCAST_SCOPE_CTX extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/madcapcl/ns-madcapcl-ipng_address">IPNG_ADDRESS</a> structure.
      * @type {IPNG_ADDRESS}
      */
-    ServerID{
+    ServerID {
         get {
             if(!this.HasProp("__ServerID"))
                 this.__ServerID := IPNG_ADDRESS(40, this)

@@ -1,12 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\Win32\Foundation\UNICODE_STRING.ahk
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class REG_DELETE_VALUE_KEY_INFORMATION extends Win32Struct
-{
+class REG_DELETE_VALUE_KEY_INFORMATION extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8

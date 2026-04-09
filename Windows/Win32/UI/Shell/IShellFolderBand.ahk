@@ -7,9 +7,8 @@
  * IShellFolderBand may be altered or unavailable.
  * @see https://learn.microsoft.com/windows/win32/api/shlobj/nn-shlobj-ishellfolderband
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IShellFolderBand extends IUnknown{
+class IShellFolderBand extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\WS_XML_DICTIONARY.ahk
 
 /**
  * Represents a string that optionally has dictionary information associated with it. The xml APIs use WS_XML_STRINGs to identify prefixes, localNames and namespaces.
@@ -14,10 +15,8 @@
  * The dictionary information is used by the binary encoding to write a more compact xml document.
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_xml_string
  * @namespace Windows.Win32.Networking.WindowsWebServices
- * @version v4.0.30319
  */
-class WS_XML_STRING extends Win32Struct
-{
+class WS_XML_STRING extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8

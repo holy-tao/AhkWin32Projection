@@ -5,10 +5,8 @@
  * Throughput metrics for help in understanding the performance of an application.
  * @see https://learn.microsoft.com/windows/win32/direct3d9/d3ddevinfo-d3d9bandwidthtimings
  * @namespace Windows.Win32.Graphics.Direct3D9
- * @version v4.0.30319
  */
-class D3DDEVINFO_D3D9BANDWIDTHTIMINGS extends Win32Struct
-{
+class D3DDEVINFO_D3D9BANDWIDTHTIMINGS extends Win32Struct {
     static sizeof => 20
 
     static packingSize => 4

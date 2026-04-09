@@ -5,10 +5,8 @@
  * Describes an image format.
  * @see https://learn.microsoft.com/windows/win32/api/magnification/ns-magnification-magimageheader
  * @namespace Windows.Win32.UI.Magnification
- * @version v4.0.30319
  */
-class MAGIMAGEHEADER extends Win32Struct
-{
+class MAGIMAGEHEADER extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -39,7 +37,7 @@ class MAGIMAGEHEADER extends Win32Struct
      * Type: <b>WICPixelFormatGUID</b>
      * 
      * A WICPixelFormatGUID (declared in wincodec.h) that specifies the pixel format of the image. For a list of available pixel formats, see the <a href="https://docs.microsoft.com/windows/desktop/wic/-wic-codec-native-pixel-formats">Native Pixel Formats</a> topic.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     format {
         get => NumGet(this, 8, "ptr")

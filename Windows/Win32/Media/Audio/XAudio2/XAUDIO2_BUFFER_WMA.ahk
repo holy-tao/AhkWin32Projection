@@ -27,10 +27,8 @@
  *             Windows 8, Windows Phone 8 (XAudio 2.8); DirectX SDK (XAudio 2.7)
  * @see https://learn.microsoft.com/windows/win32/api/xaudio2/ns-xaudio2-xaudio2_buffer_wma
  * @namespace Windows.Win32.Media.Audio.XAudio2
- * @version v4.0.30319
  */
-class XAUDIO2_BUFFER_WMA extends Win32Struct
-{
+class XAUDIO2_BUFFER_WMA extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

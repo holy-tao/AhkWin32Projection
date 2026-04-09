@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ASF_MUX_STATISTICS.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\ASF_MUX_STATISTICS.ahk
 
 /**
  * Provides methods to create Advanced Systems Format (ASF) data packets.
  * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nn-wmcontainer-imfasfmultiplexer
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFASFMultiplexer extends IUnknown{
+class IMFASFMultiplexer extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -5,19 +5,17 @@
  * Contains three vertex indices for accessing a vertex buffer.
  * @see https://learn.microsoft.com/windows/win32/api/wcsplugin/ns-wcsplugin-gamutshelltriangle
  * @namespace Windows.Win32.UI.ColorSystem
- * @version v4.0.30319
  */
-class GamutShellTriangle extends Win32Struct
-{
+class GamutShellTriangle extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4
 
     /**
      * An array of three vertex indices that are used for accessing a vertex buffer.
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    aVertexIndex{
+    aVertexIndex {
         get {
             if(!this.HasProp("__aVertexIndexProxyArray"))
                 this.__aVertexIndexProxyArray := Win32FixedArray(this.ptr + 0, 3, Primitive, "uint")

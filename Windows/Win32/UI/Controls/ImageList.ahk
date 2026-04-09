@@ -9,10 +9,8 @@
  * 				<i>hbmMask</i> after the function returns.
  * @see https://learn.microsoft.com/windows/win32/api/commctrl/nf-commctrl-imagelist_add
  * @namespace Windows.Win32.UI.Controls
- * @version v4.0.30319
  */
-class ImageList extends Win32Struct
-{
+class ImageList extends Win32Struct {
     static sizeof => 0
 
     static packingSize => 1

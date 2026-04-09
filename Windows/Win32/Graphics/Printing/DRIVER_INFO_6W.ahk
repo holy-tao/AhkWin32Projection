@@ -10,11 +10,9 @@
  * If you call [**AddPrinterDriver**](addprinterdriver.md) or [**AddPrinterDriverEx**](addprinterdriverex.md) with *Level* not equal to 6, and then you call [**GetPrinterDriver**](getprinterdriver.md) or [**EnumPrinterDrivers**](enumprinterdrivers.md) with *Level* equal to 6, the **DRIVER\_INFO\_6** structure is returned with **pszMfgName**, **pszOEMUrl**, **pszHardwareID**, and **pszProvider** set to **NULL**, **dwlDriverVersion** set to 0, and **ftDriverDate** set to (0,0).
  * @see https://learn.microsoft.com/windows/win32/printdocs/driver-info-6
  * @namespace Windows.Win32.Graphics.Printing
- * @version v4.0.30319
  * @charset Unicode
  */
-class DRIVER_INFO_6W extends Win32Struct
-{
+class DRIVER_INFO_6W extends Win32Struct {
     static sizeof => 136
 
     static packingSize => 8
@@ -122,7 +120,7 @@ class DRIVER_INFO_6W extends Win32Struct
      * The date of the driver package, as coded in the driver files.
      * @type {FILETIME}
      */
-    ftDriverDate{
+    ftDriverDate {
         get {
             if(!this.HasProp("__ftDriverDate"))
                 this.__ftDriverDate := FILETIME(88, this)

@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Media.Multimedia
- * @version v4.0.30319
  */
-class MIXEROPENDESC extends Win32Struct
-{
+class MIXEROPENDESC extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -15,7 +13,7 @@ class MIXEROPENDESC extends Win32Struct
     /**
      * @type {HMIXER}
      */
-    hmx{
+    hmx {
         get {
             if(!this.HasProp("__hmx"))
                 this.__hmx := HMIXER(0, this)

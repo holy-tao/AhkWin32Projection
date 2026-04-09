@@ -11,9 +11,8 @@
  * <div> </div>
  * @see https://learn.microsoft.com/windows/win32/api/vds/ne-vds-vds_partition_style
  * @namespace Windows.Win32.Storage.VirtualDiskService
- * @version v4.0.30319
  */
-class VDS_PARTITION_STYLE extends Win32Enum{
+class VDS_PARTITION_STYLE extends Win32Enum {
 
     /**
      * An uninitialized disk. New disks or newly cleaned disks have this partitioning type.

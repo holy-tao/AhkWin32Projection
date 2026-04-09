@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Graphics\Direct3D9\IDirect3DSurface9.ahk
 #Include ..\..\Foundation\SIZE.ahk
 #Include ..\..\Foundation\RECT.ahk
 
@@ -7,10 +8,8 @@
  * The VMR9PresentationInfo structure is used with the VMR-9 in the IVMRImagePresenter9::PresentImage method.
  * @see https://learn.microsoft.com/windows/win32/api/vmr9/ns-vmr9-vmr9presentationinfo
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class VMR9PresentationInfo extends Win32Struct
-{
+class VMR9PresentationInfo extends Win32Struct {
     static sizeof => 80
 
     static packingSize => 8
@@ -55,7 +54,7 @@ class VMR9PresentationInfo extends Win32Struct
      * Specifies the aspect ratio of the video, as a <b>SIZE</b> structure.
      * @type {SIZE}
      */
-    szAspectRatio{
+    szAspectRatio {
         get {
             if(!this.HasProp("__szAspectRatio"))
                 this.__szAspectRatio := SIZE(32, this)
@@ -67,7 +66,7 @@ class VMR9PresentationInfo extends Win32Struct
      * Specifies the source rectangle.
      * @type {RECT}
      */
-    rcSrc{
+    rcSrc {
         get {
             if(!this.HasProp("__rcSrc"))
                 this.__rcSrc := RECT(40, this)
@@ -79,7 +78,7 @@ class VMR9PresentationInfo extends Win32Struct
      * Specifies the destination rectangle.
      * @type {RECT}
      */
-    rcDst{
+    rcDst {
         get {
             if(!this.HasProp("__rcDst"))
                 this.__rcDst := RECT(56, this)

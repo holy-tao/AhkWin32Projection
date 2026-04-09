@@ -3,16 +3,14 @@
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class WHEA_ARM_PROCESSOR_ERROR extends Win32Struct
-{
+class WHEA_ARM_PROCESSOR_ERROR extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 1
 
     /**
-     * @type {Pointer<WHEA_ARM_CACHE_ERROR>}
+     * @type {Pointer}
      */
     CacheError {
         get => NumGet(this, 0, "ptr")
@@ -20,7 +18,7 @@ class WHEA_ARM_PROCESSOR_ERROR extends Win32Struct
     }
 
     /**
-     * @type {Pointer<WHEA_ARM_TLB_ERROR>}
+     * @type {Pointer}
      */
     TlbError {
         get => NumGet(this, 0, "ptr")
@@ -28,7 +26,7 @@ class WHEA_ARM_PROCESSOR_ERROR extends Win32Struct
     }
 
     /**
-     * @type {Pointer<WHEA_ARM_BUS_ERROR>}
+     * @type {Pointer}
      */
     BusError {
         get => NumGet(this, 0, "ptr")

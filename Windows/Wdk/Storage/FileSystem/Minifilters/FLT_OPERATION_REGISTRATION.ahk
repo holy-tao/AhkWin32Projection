@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem.Minifilters
- * @version v4.0.30319
  */
-class FLT_OPERATION_REGISTRATION extends Win32Struct
-{
+class FLT_OPERATION_REGISTRATION extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8

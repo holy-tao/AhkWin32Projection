@@ -1,16 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\D3D12_VIDEO_ENCODER_CODEC.ahk
+#Include .\D3D12_VIDEO_ENCODER_RATE_CONTROL_MODE.ahk
 
 /**
  * Retrieves a value indicating if the specified rate control mode is supported for video encoding with the specified codec
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/d3d12video/ns-d3d12video-d3d12_feature_data_video_encoder_rate_control_mode
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class D3D12_FEATURE_DATA_VIDEO_ENCODER_RATE_CONTROL_MODE extends Win32Struct
-{
+class D3D12_FEATURE_DATA_VIDEO_ENCODER_RATE_CONTROL_MODE extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4
@@ -26,7 +24,7 @@ class D3D12_FEATURE_DATA_VIDEO_ENCODER_RATE_CONTROL_MODE extends Win32Struct
 
     /**
      * A member of the [D3D12_VIDEO_ENCODER_CODEC](ne-d3d12video-d3d12_video_encoder_codec.md) enumeration specifying the codec for which rate control mode support is being queried.
-     * @type {Integer}
+     * @type {D3D12_VIDEO_ENCODER_CODEC}
      */
     Codec {
         get => NumGet(this, 4, "int")
@@ -35,7 +33,7 @@ class D3D12_FEATURE_DATA_VIDEO_ENCODER_RATE_CONTROL_MODE extends Win32Struct
 
     /**
      * A member of the [D3D12_VIDEO_ENCODER_RATE_CONTROL_MODE](ne-d3d12video-d3d12_video_encoder_rate_control_mode.md) enumeration specifying the rate control mode for which support is being queried.
-     * @type {Integer}
+     * @type {D3D12_VIDEO_ENCODER_RATE_CONTROL_MODE}
      */
     RateControlMode {
         get => NumGet(this, 8, "int")

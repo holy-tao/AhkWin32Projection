@@ -14,10 +14,8 @@
  * | WINBIO\_ANSI\_381\_FORMAT\_TYPE<br/>  | ANSI INCITS 381 finger image based data interchange format.<br/>                                                |
  * @see https://learn.microsoft.com/windows/win32/SecBioMet/winbio-registered-format
  * @namespace Windows.Win32.Devices.BiometricFramework
- * @version v4.0.30319
  */
-class WINBIO_REGISTERED_FORMAT extends Win32Struct
-{
+class WINBIO_REGISTERED_FORMAT extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 2

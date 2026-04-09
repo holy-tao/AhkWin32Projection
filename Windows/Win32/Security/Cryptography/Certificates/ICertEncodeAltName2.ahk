@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
 #Include .\ICertEncodeAltName.ahk
+#Include ..\..\..\Foundation\BSTR.ahk
 
 /**
  * @namespace Windows.Win32.Security.Cryptography.Certificates
- * @version v4.0.30319
  */
-class ICertEncodeAltName2 extends ICertEncodeAltName{
+class ICertEncodeAltName2 extends ICertEncodeAltName {
 
     static sizeof => A_PtrSize
     /**
@@ -32,7 +31,7 @@ class ICertEncodeAltName2 extends ICertEncodeAltName{
     /**
      * 
      * @param {BSTR} strEncodedData 
-     * @param {Integer} Encoding 
+     * @param {EncodingType} Encoding 
      * @returns {HRESULT} 
      */
     DecodeBlob(strEncodedData, Encoding) {
@@ -44,7 +43,7 @@ class ICertEncodeAltName2 extends ICertEncodeAltName{
 
     /**
      * 
-     * @param {Integer} Encoding 
+     * @param {EncodingType} Encoding 
      * @returns {BSTR} 
      */
     EncodeBlob(Encoding) {
@@ -56,7 +55,7 @@ class ICertEncodeAltName2 extends ICertEncodeAltName{
     /**
      * 
      * @param {Integer} NameIndex 
-     * @param {Integer} Encoding 
+     * @param {EncodingType} Encoding 
      * @returns {BSTR} 
      */
     GetNameBlob(NameIndex, Encoding) {
@@ -70,7 +69,7 @@ class ICertEncodeAltName2 extends ICertEncodeAltName{
      * @param {Integer} NameIndex 
      * @param {Integer} NameChoice 
      * @param {BSTR} strName 
-     * @param {Integer} Encoding 
+     * @param {EncodingType} Encoding 
      * @returns {HRESULT} 
      */
     SetNameEntryBlob(NameIndex, NameChoice, strName, Encoding) {

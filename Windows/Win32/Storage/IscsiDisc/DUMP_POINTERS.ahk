@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Storage.IscsiDisc
- * @version v4.0.30319
  */
-class DUMP_POINTERS extends Win32Struct
-{
+class DUMP_POINTERS extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8
@@ -76,9 +74,9 @@ class DUMP_POINTERS extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Spare1{
+    Spare1 {
         get {
             if(!this.HasProp("__Spare1ProxyArray"))
                 this.__Spare1ProxyArray := Win32FixedArray(this.ptr + 46, 2, Primitive, "char")

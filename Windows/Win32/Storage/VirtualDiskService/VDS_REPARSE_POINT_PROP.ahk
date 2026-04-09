@@ -7,17 +7,15 @@
  * The <a href="https://docs.microsoft.com/windows/desktop/api/vds/nf-vds-ivdsvolumemf-queryreparsepoints">IVdsVolumeMF::QueryReparsePoints</a> method returns this structure to report the reparse-point properties of a <a href="https://docs.microsoft.com/windows/desktop/VDS/volume-object">volume object</a>.
  * @see https://learn.microsoft.com/windows/win32/api/vds/ns-vds-vds_reparse_point_prop
  * @namespace Windows.Win32.Storage.VirtualDiskService
- * @version v4.0.30319
  */
-class VDS_REPARSE_POINT_PROP extends Win32Struct
-{
+class VDS_REPARSE_POINT_PROP extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
 
     /**
      * The GUID of the volume object that contains the reparse point.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     SourceVolumeId {
         get => NumGet(this, 0, "ptr")

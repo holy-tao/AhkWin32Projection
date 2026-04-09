@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.NetworkManagement.Ndis
- * @version v4.0.30319
  */
-class NDIS_PACKET_8021Q_INFO extends Win32Struct
-{
+class NDIS_PACKET_8021Q_INFO extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 8
@@ -27,7 +25,7 @@ class NDIS_PACKET_8021Q_INFO extends Win32Struct
             get => NumGet(this, 0, "uint")
             set => NumPut("uint", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -35,7 +33,7 @@ class NDIS_PACKET_8021Q_INFO extends Win32Struct
             get => (this._bitfield >> 0) & 0x7
             set => this._bitfield := ((value & 0x7) << 0) | (this._bitfield & ~(0x7 << 0))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -43,7 +41,7 @@ class NDIS_PACKET_8021Q_INFO extends Win32Struct
             get => (this._bitfield >> 3) & 0x1
             set => this._bitfield := ((value & 0x1) << 3) | (this._bitfield & ~(0x1 << 3))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -51,16 +49,15 @@ class NDIS_PACKET_8021Q_INFO extends Win32Struct
             get => (this._bitfield >> 4) & 0xFFF
             set => this._bitfield := ((value & 0xFFF) << 4) | (this._bitfield & ~(0xFFF << 4))
         }
-    
     }
 
     /**
      * @type {_TagHeader}
      */
-    TagHeader{
+    TagHeader {
         get {
             if(!this.HasProp("__TagHeader"))
-                this.__TagHeader := %this.__Class%._TagHeader(0, this)
+                this.__TagHeader := NDIS_PACKET_8021Q_INFO._TagHeader(0, this)
             return this.__TagHeader
         }
     }

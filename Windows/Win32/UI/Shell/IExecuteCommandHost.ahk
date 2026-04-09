@@ -13,9 +13,8 @@
  * Typically, an application that is capable of launching as both a desktop application and a Windows Store app app will use this interface to query which mode the host is currently in. The application can then launch in the UI mode that is compatible with the host.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-iexecutecommandhost
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IExecuteCommandHost extends IUnknown{
+class IExecuteCommandHost extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -38,7 +37,7 @@ class IExecuteCommandHost extends IUnknown{
 
     /**
      * Enables an IExplorerCommand-based Shell verb handler to query the UI mode of the host component from which the application was invoked..
-     * @returns {Integer} Type: <b>EC_HOST_UI_MODE*</b>
+     * @returns {EC_HOST_UI_MODE} Type: <b>EC_HOST_UI_MODE*</b>
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iexecutecommandhost-getuimode
      */
     GetUIMode() {

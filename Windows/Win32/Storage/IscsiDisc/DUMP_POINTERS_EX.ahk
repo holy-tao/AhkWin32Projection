@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Storage.IscsiDisc
- * @version v4.0.30319
  */
-class DUMP_POINTERS_EX extends Win32Struct
-{
+class DUMP_POINTERS_EX extends Win32Struct {
     static sizeof => 104
 
     static packingSize => 8
@@ -15,7 +13,7 @@ class DUMP_POINTERS_EX extends Win32Struct
     /**
      * @type {DUMP_POINTERS_VERSION}
      */
-    Header{
+    Header {
         get {
             if(!this.HasProp("__Header"))
                 this.__Header := DUMP_POINTERS_VERSION(0, this)

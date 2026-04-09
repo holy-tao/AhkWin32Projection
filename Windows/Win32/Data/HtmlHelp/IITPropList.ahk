@@ -7,9 +7,8 @@
  * Use this interface to set properties for build objects such as word wheels and indexes. Call these methods in the document build process to define properties for all build objects.
  * @see https://learn.microsoft.com/windows/win32/api/infotech/nn-infotech-iitproplist
  * @namespace Windows.Win32.Data.HtmlHelp
- * @version v4.0.30319
  */
-class IITPropList extends IPersistStreamInit{
+class IITPropList extends IPersistStreamInit {
 
     static sizeof => A_PtrSize
     /**
@@ -493,7 +492,7 @@ class IITPropList extends IPersistStreamInit{
     /**
      * Returns the property object associated with the given property ID.
      * @param {Integer} PropID ID of the property object to get.
-     * @param {Pointer<CProperty>} _Property 
+     * @param {Pointer<CProperty>} _Property The property object returned.
      * @returns {HRESULT} This method can return one of these values.
      * 
      * <table>
@@ -660,7 +659,7 @@ class IITPropList extends IPersistStreamInit{
 
     /**
      * Returns the first property object in a property list.
-     * @param {Pointer<CProperty>} _Property 
+     * @param {Pointer<CProperty>} _Property The property object returned.
      * @returns {HRESULT} This method can return one of these values.
      * 
      * <table>

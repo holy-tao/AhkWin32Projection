@@ -3,11 +3,9 @@
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
- * @version v4.0.30319
  * @charset ANSI
  */
-class PRINTER_CONNECTION_INFO_1A extends Win32Struct
-{
+class PRINTER_CONNECTION_INFO_1A extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

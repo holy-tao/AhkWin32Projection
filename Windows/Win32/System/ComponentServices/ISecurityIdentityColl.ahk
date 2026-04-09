@@ -1,18 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Include ..\Com\IDispatch.ahk
 #Include ..\Variant\VARIANT.ahk
 #Include ..\Com\IUnknown.ahk
-#Include ..\Com\IDispatch.ahk
 
 /**
  * Provides access to a collection of security information representing a caller's identity. The items available in this collection are the SID, the account name, the authentication service, the authentication level, and the impersonation level.
  * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nn-comsvcs-isecurityidentitycoll
  * @namespace Windows.Win32.System.ComponentServices
- * @version v4.0.30319
  */
-class ISecurityIdentityColl extends IDispatch{
+class ISecurityIdentityColl extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

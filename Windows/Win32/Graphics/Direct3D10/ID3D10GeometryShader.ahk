@@ -13,9 +13,8 @@
  * This interface is defined in D3D10.h.
  * @see https://learn.microsoft.com/windows/win32/api/d3d10/nn-d3d10-id3d10geometryshader
  * @namespace Windows.Win32.Graphics.Direct3D10
- * @version v4.0.30319
  */
-class ID3D10GeometryShader extends ID3D10DeviceChild{
+class ID3D10GeometryShader extends ID3D10DeviceChild {
 
     static sizeof => A_PtrSize
     /**

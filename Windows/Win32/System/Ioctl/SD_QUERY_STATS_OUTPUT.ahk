@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class SD_QUERY_STATS_OUTPUT extends Win32Struct
-{
+class SD_QUERY_STATS_OUTPUT extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 8

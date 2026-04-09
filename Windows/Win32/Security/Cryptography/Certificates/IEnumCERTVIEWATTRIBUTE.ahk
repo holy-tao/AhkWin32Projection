@@ -1,16 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\IEnumCERTVIEWATTRIBUTE.ahk
 #Include ..\..\..\System\Com\IDispatch.ahk
 
 /**
  * Represents an attribute-enumeration sequence that contains the certificate attributes for the current row of the row-enumeration sequence.
  * @see https://learn.microsoft.com/windows/win32/api/certview/nn-certview-ienumcertviewattribute
  * @namespace Windows.Win32.Security.Cryptography.Certificates
- * @version v4.0.30319
  */
-class IEnumCERTVIEWATTRIBUTE extends IDispatch{
+class IEnumCERTVIEWATTRIBUTE extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

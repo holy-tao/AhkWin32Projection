@@ -5,9 +5,8 @@
  * Contains values that specify the type of synchronized input.
  * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/ne-uiautomationcore-synchronizedinputtype
  * @namespace Windows.Win32.UI.Accessibility
- * @version v4.0.30319
  */
-class SynchronizedInputType extends Win32BitflagEnum{
+class SynchronizedInputType extends Win32BitflagEnum {
 
     /**
      * A key has been released.

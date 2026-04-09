@@ -3,7 +3,6 @@
 
 /**
  * @namespace Windows.Win32.System.EventCollector
- * @version v4.0.30319
  */
 class EventCollector {
 
@@ -108,9 +107,9 @@ class EventCollector {
     /**
      * Sets new values or updates existing values of a subscription.
      * @param {Pointer} Subscription The handle to the subscription object.
-     * @param {Integer} PropertyId A value from the  <a href="https://docs.microsoft.com/windows/desktop/api/evcoll/ne-evcoll-ec_subscription_property_id">EC_SUBSCRIPTION_PROPERTY_ID</a> enumeration that specifies which property of the subscription to set.
+     * @param {EC_SUBSCRIPTION_PROPERTY_ID} PropertyId A value from the  <a href="https://docs.microsoft.com/windows/desktop/api/evcoll/ne-evcoll-ec_subscription_property_id">EC_SUBSCRIPTION_PROPERTY_ID</a> enumeration that specifies which property of the subscription to set.
      * @param {Integer} Flags Reserved. Must be 0.
-     * @param {Pointer<EC_VARIANT>} _PropertyValue 
+     * @param {Pointer<EC_VARIANT>} _PropertyValue The value of the property to set for the indicated subscription property.
      * @returns {BOOL} This function returns BOOL.
      * @see https://learn.microsoft.com/windows/win32/api/evcoll/nf-evcoll-ecsetsubscriptionproperty
      * @since windows6.0.6000
@@ -123,7 +122,7 @@ class EventCollector {
     /**
      * Retrieves a property value from a subscription object.
      * @param {Pointer} Subscription The handle to the subscription object.
-     * @param {Integer} PropertyId An identifier that specifies which property of the subscription to get. Specify a value from the <a href="https://docs.microsoft.com/windows/desktop/api/evcoll/ne-evcoll-ec_subscription_property_id">EC_SUBSCRIPTION_PROPERTY_ID</a> enumeration. If you specify the <b>EcSubscriptionEventSources</b> value, then a handle to an array (<a href="https://docs.microsoft.com/windows/desktop/WEC/windows-event-collector-data-types">EC_OBJECT_ARRAY_PROPERTY_HANDLE</a>) will be returned. You can then use the <a href="https://docs.microsoft.com/windows/desktop/api/evcoll/nf-evcoll-ecgetobjectarrayproperty">EcGetObjectArrayProperty</a> and <a href="https://docs.microsoft.com/windows/desktop/api/evcoll/nf-evcoll-ecsetobjectarrayproperty">EcSetObjectArrayProperty</a>  functions to get and set the Address, Enabled, UserName, and Password properties in the array.
+     * @param {EC_SUBSCRIPTION_PROPERTY_ID} PropertyId An identifier that specifies which property of the subscription to get. Specify a value from the <a href="https://docs.microsoft.com/windows/desktop/api/evcoll/ne-evcoll-ec_subscription_property_id">EC_SUBSCRIPTION_PROPERTY_ID</a> enumeration. If you specify the <b>EcSubscriptionEventSources</b> value, then a handle to an array (<a href="https://docs.microsoft.com/windows/desktop/WEC/windows-event-collector-data-types">EC_OBJECT_ARRAY_PROPERTY_HANDLE</a>) will be returned. You can then use the <a href="https://docs.microsoft.com/windows/desktop/api/evcoll/nf-evcoll-ecgetobjectarrayproperty">EcGetObjectArrayProperty</a> and <a href="https://docs.microsoft.com/windows/desktop/api/evcoll/nf-evcoll-ecsetobjectarrayproperty">EcSetObjectArrayProperty</a>  functions to get and set the Address, Enabled, UserName, and Password properties in the array.
      * @param {Integer} Flags Reserved. Must be <b>NULL</b>.
      * @param {Integer} PropertyValueBufferSize The size of the user-supplied buffer to store the property value into.
      * @param {Pointer<EC_VARIANT>} PropertyValueBuffer The user-supplied buffer to store property value into.
@@ -193,10 +192,10 @@ class EventCollector {
      * @remarks
      * Arrays are zero-based, so the index for the first item in the array is 0.
      * @param {Pointer} ObjectArray A handle to the array that contains the property value to set. The array contains property values for the event sources of a subscription. The array handle is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/evcoll/nf-evcoll-ecgetsubscriptionproperty">EcGetSubscriptionProperty</a> method when the <b>EcSubscriptionEventSources</b> value is passed into the <i>Subscription</i> parameter.
-     * @param {Integer} PropertyId An identifier that specifies which property to set. Specify a value from the <a href="https://docs.microsoft.com/windows/desktop/api/evcoll/ne-evcoll-ec_subscription_property_id">EC_SUBSCRIPTION_PROPERTY_ID</a> enumeration. Set  the Address, Enabled, UserName, and Password properties in the array by specifying the <b>EcSubscriptionEventSourceAddress</b>, <b>EcSubscriptionEventSourceEnabled</b>, <b>EcSubscriptionEventSourceUserName</b>, or <b>EcSubscriptionEventSourcePassword</b> values.
+     * @param {EC_SUBSCRIPTION_PROPERTY_ID} PropertyId An identifier that specifies which property to set. Specify a value from the <a href="https://docs.microsoft.com/windows/desktop/api/evcoll/ne-evcoll-ec_subscription_property_id">EC_SUBSCRIPTION_PROPERTY_ID</a> enumeration. Set  the Address, Enabled, UserName, and Password properties in the array by specifying the <b>EcSubscriptionEventSourceAddress</b>, <b>EcSubscriptionEventSourceEnabled</b>, <b>EcSubscriptionEventSourceUserName</b>, or <b>EcSubscriptionEventSourcePassword</b> values.
      * @param {Integer} ArrayIndex The index of the  object in the array to set a property value on.
      * @param {Integer} Flags Reserved. Must be 0.
-     * @param {Pointer<EC_VARIANT>} _PropertyValue 
+     * @param {Pointer<EC_VARIANT>} _PropertyValue The value of the property.
      * @returns {BOOL} This function returns BOOL.
      * @see https://learn.microsoft.com/windows/win32/api/evcoll/nf-evcoll-ecsetobjectarrayproperty
      * @since windows6.0.6000
@@ -215,7 +214,7 @@ class EventCollector {
      * 
      * A subscription can have multiple event sources, and each source can have an <b>Address</b>, <b>Enabled</b>, <b>UserName</b>, and <b>Password</b> property.
      * @param {Pointer} ObjectArray A handle to an array of properties for the event sources for a subscription. An  array handle that is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/evcoll/nf-evcoll-ecgetsubscriptionproperty">EcGetSubscriptionProperty</a> method when the <b>EcSubscriptionEventSources</b> value is passed into the <i>PropertyId</i> parameter.
-     * @param {Integer} PropertyId The property identifier for properties in the array. Specify a value from the <a href="https://docs.microsoft.com/windows/desktop/api/evcoll/ne-evcoll-ec_subscription_property_id">EC_SUBSCRIPTION_PROPERTY_ID</a> enumeration. Get  the <b>Address</b>, <b>Enabled</b>, <b>UserName</b>, and <b>Password</b> properties in the array by specifying the <b>EcSubscriptionEventSourceAddress</b>, <b>EcSubscriptionEventSourceEnabled</b>, <b>EcSubscriptionEventSourceUserName</b>, or <b>EcSubscriptionEventSourcePassword</b> values.
+     * @param {EC_SUBSCRIPTION_PROPERTY_ID} PropertyId The property identifier for properties in the array. Specify a value from the <a href="https://docs.microsoft.com/windows/desktop/api/evcoll/ne-evcoll-ec_subscription_property_id">EC_SUBSCRIPTION_PROPERTY_ID</a> enumeration. Get  the <b>Address</b>, <b>Enabled</b>, <b>UserName</b>, and <b>Password</b> properties in the array by specifying the <b>EcSubscriptionEventSourceAddress</b>, <b>EcSubscriptionEventSourceEnabled</b>, <b>EcSubscriptionEventSourceUserName</b>, or <b>EcSubscriptionEventSourcePassword</b> values.
      * @param {Integer} ArrayIndex The index of the array that specifies which event source to get the property from.
      * @param {Integer} Flags Reserved. Must be 0.
      * @param {Integer} PropertyValueBufferSize The size of the buffer that contains the value of the property. The size must be at least the size of an <a href="https://docs.microsoft.com/windows/desktop/api/evcoll/ns-evcoll-ec_variant">EC_VARIANT</a> value.
@@ -267,7 +266,7 @@ class EventCollector {
     /**
      * Retrieves the run time status information for an event source of a subscription or the subscription itself.
      * @param {PWSTR} SubscriptionName The name of the subscription to get the run time status information from.
-     * @param {Integer} StatusInfoId An identifier that specifies which run time status information to get from the subscription. Specify a value from the <a href="https://docs.microsoft.com/windows/win32/api/evcoll/ne-evcoll-ec_subscription_runtime_status_info_id">EC_SUBSCRIPTION_RUNTIME_STATUS_INFO_ID</a> enumeration. The <b>EcSubscriptionRunTimeStatusEventSources</b> value can be used to obtain the list of event sources associated with a subscription.
+     * @param {EC_SUBSCRIPTION_RUNTIME_STATUS_INFO_ID} StatusInfoId An identifier that specifies which run time status information to get from the subscription. Specify a value from the <a href="https://docs.microsoft.com/windows/win32/api/evcoll/ne-evcoll-ec_subscription_runtime_status_info_id">EC_SUBSCRIPTION_RUNTIME_STATUS_INFO_ID</a> enumeration. The <b>EcSubscriptionRunTimeStatusEventSources</b> value can be used to obtain the list of event sources associated with a subscription.
      * @param {PWSTR} EventSourceName The name of the event source to get the status from. Each subscription can have multiple event sources.
      * @param {Integer} Flags Reserved. Must be <b>NULL</b>.
      * @param {Integer} StatusValueBufferSize The size of the user-supplied buffer that will hold the run time status information.
@@ -308,7 +307,7 @@ class EventCollector {
 
     /**
      * Closes a handle received from other Event Collector functions.
-     * @param {Pointer} _Object 
+     * @param {Pointer} _Object A valid open handle returned from an event collector management API call.
      * @returns {BOOL} This function returns BOOL.
      * @see https://learn.microsoft.com/windows/win32/api/evcoll/nf-evcoll-ecclose
      * @since windows6.0.6000

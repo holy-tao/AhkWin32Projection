@@ -20,9 +20,8 @@
  * In Windows 8, the Start screen replaces the legacy Start menu. CLSID_StartMenuPin and <b>IStartMenuPinnedList</b> are present in Windows 8 to provide backward compatibility with existing applications, but they do not affect <a href="https://docs.microsoft.com/previous-versions/windows/apps/hh761490(v=win.10)">tiles</a> pinned to the Windows 8 Start screen. CLSID_StartMenuPin and <b>IStartMenuPinnedList</b> do continue to impact items pinned to the Windows 8 desktop taskbar.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nn-shobjidl-istartmenupinnedlist
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IStartMenuPinnedList extends IUnknown{
+class IStartMenuPinnedList extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

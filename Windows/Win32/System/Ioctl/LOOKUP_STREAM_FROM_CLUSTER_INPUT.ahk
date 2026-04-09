@@ -5,10 +5,8 @@
  * Passed as input to the FSCTL_LOOKUP_STREAM_FROM_CLUSTER control code.
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-lookup_stream_from_cluster_input
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class LOOKUP_STREAM_FROM_CLUSTER_INPUT extends Win32Struct
-{
+class LOOKUP_STREAM_FROM_CLUSTER_INPUT extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
@@ -34,9 +32,9 @@ class LOOKUP_STREAM_FROM_CLUSTER_INPUT extends Win32Struct
 
     /**
      * An array of one or more clusters to look up.
-     * @type {Array<Int64>}
+     * @type {Array<Integer>}
      */
-    Cluster{
+    Cluster {
         get {
             if(!this.HasProp("__ClusterProxyArray"))
                 this.__ClusterProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "int64")

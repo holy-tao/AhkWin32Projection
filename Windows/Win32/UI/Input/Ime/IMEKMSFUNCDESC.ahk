@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.UI.Input.Ime
- * @version v4.0.30319
  */
-class IMEKMSFUNCDESC extends Win32Struct
-{
+class IMEKMSFUNCDESC extends Win32Struct {
     static sizeof => 268
 
     static packingSize => 4

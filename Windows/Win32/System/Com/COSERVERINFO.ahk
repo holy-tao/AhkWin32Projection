@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\COAUTHINFO.ahk
 
 /**
  * The COSERVERINFO (objidlbase.h) structure identifies a remote computer resource to the activation functions.
@@ -26,10 +27,8 @@
  * Starting with Windows XP with Service Pack 2 (SP2), <i>dwAuthnLevel</i> is the maximum of RPC_C_AUTHN_LEVEL_CONNECT and the process-wide authentication level of the client process that is issuing the activation request. For earlier versions of the operating system, this is RPC_C_AUTHN_LEVEL_CONNECT.
  * @see https://learn.microsoft.com/windows/win32/api/objidlbase/ns-objidlbase-coserverinfo
  * @namespace Windows.Win32.System.Com
- * @version v4.0.30319
  */
-class COSERVERINFO extends Win32Struct
-{
+class COSERVERINFO extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8

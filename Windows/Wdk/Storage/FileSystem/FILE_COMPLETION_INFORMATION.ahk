@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem
- * @version v4.0.30319
  */
-class FILE_COMPLETION_INFORMATION extends Win32Struct
-{
+class FILE_COMPLETION_INFORMATION extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
@@ -15,7 +13,7 @@ class FILE_COMPLETION_INFORMATION extends Win32Struct
     /**
      * @type {HANDLE}
      */
-    Port{
+    Port {
         get {
             if(!this.HasProp("__Port"))
                 this.__Port := HANDLE(0, this)

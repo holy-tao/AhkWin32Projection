@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\Win32\Foundation\UNICODE_STRING.ahk
+#Include ..\..\..\Win32\Networking\WinSock\SOCKADDR_STORAGE.ahk
+#Include .\SRV_INSTANCE_TYPE.ahk
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem
- * @version v4.0.30319
  */
-class SRV_OPEN_ECP_CONTEXT extends Win32Struct
-{
+class SRV_OPEN_ECP_CONTEXT extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -60,7 +61,7 @@ class SRV_OPEN_ECP_CONTEXT extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {SRV_INSTANCE_TYPE}
      */
     InstanceType {
         get => NumGet(this, 24, "int")

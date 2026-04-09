@@ -7,9 +7,8 @@
  * The IDeviceSpecificProperty interface provides access to the control value of a device-specific hardware control.
  * @see https://learn.microsoft.com/windows/win32/api/devicetopology/nn-devicetopology-idevicespecificproperty
  * @namespace Windows.Win32.Media.Audio
- * @version v4.0.30319
  */
-class IDeviceSpecificProperty extends IUnknown{
+class IDeviceSpecificProperty extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

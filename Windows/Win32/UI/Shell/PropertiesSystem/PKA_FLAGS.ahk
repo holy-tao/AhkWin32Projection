@@ -5,9 +5,8 @@
  * Describes property change array behavior.
  * @see https://learn.microsoft.com/windows/win32/api/propsys/ne-propsys-pka_flags
  * @namespace Windows.Win32.UI.Shell.PropertiesSystem
- * @version v4.0.30319
  */
-class PKA_FLAGS extends Win32BitflagEnum{
+class PKA_FLAGS extends Win32BitflagEnum {
 
     /**
      * Replace current value.

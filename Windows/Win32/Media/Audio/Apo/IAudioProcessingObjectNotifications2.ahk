@@ -9,9 +9,8 @@
  * For more information on the Windows 11 APIs for the Audio Processing Objects (APOs) that can ship with audio drivers, see [Windows 11 APIs for Audio Processing Objects](/windows-hardware/drivers/audio/windows-11-apis-for-audio-processing-objects).
  * @see https://learn.microsoft.com/windows/win32/api/audioengineextensionapo/nn-audioengineextensionapo-iaudioprocessingobjectnotifications2
  * @namespace Windows.Win32.Media.Audio.Apo
- * @version v4.0.30319
  */
-class IAudioProcessingObjectNotifications2 extends IAudioProcessingObjectNotifications{
+class IAudioProcessingObjectNotifications2 extends IAudioProcessingObjectNotifications {
 
     static sizeof => A_PtrSize
     /**
@@ -118,7 +117,7 @@ class IAudioProcessingObjectNotifications2 extends IAudioProcessingObjectNotific
      * ```
      * 
      * For more information on the Windows 11 APIs for the Audio Processing Objects (APOs) that can ship with audio drivers, see [Windows 11 APIs for Audio Processing Objects](/windows-hardware/drivers/audio/windows-11-apis-for-audio-processing-objects).
-     * @param {Integer} maxApoNotificationTypeSupported A value from the [APO_NOTIFICATION_TYPE](./ne-audioengineextensionapo-apo_notification_type.md) enumeration indicating the highest enumeration value supported on the version of Windows running on the current device. Clients can use a comparison operator to determine if a particular notification type is supported.
+     * @param {APO_NOTIFICATION_TYPE} maxApoNotificationTypeSupported A value from the [APO_NOTIFICATION_TYPE](./ne-audioengineextensionapo-apo_notification_type.md) enumeration indicating the highest enumeration value supported on the version of Windows running on the current device. Clients can use a comparison operator to determine if a particular notification type is supported.
      * @param {Pointer<Pointer<APO_NOTIFICATION_DESCRIPTOR>>} apoNotifications Output parameter that returns a pointer to an array of [APO_NOTIFICATION_DESCRIPTOR](ns-audioengineextensionapo-apo_notification_descriptor.md) specifying the set of APO changes for which notifications are requested.
      * @param {Pointer<Integer>} count Output parameter specifying the number of items returned in *apoNotifications*.
      * @returns {HRESULT} An HRESULT.

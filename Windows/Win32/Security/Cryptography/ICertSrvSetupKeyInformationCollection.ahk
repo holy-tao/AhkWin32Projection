@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * Defines functionality to populate and enumerate a collection of ICertSrvSetupKeyInformation objects.
  * @see https://learn.microsoft.com/windows/win32/api/casetup/nn-casetup-icertsrvsetupkeyinformationcollection
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class ICertSrvSetupKeyInformationCollection extends IDispatch{
+class ICertSrvSetupKeyInformationCollection extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

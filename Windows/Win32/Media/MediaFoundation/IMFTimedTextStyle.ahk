@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\MFARGB.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\MFARGB.ahk
 
 /**
  * Represents the style for timed text.
  * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nn-mfmediaengine-imftimedtextstyle
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFTimedTextStyle extends IUnknown{
+class IMFTimedTextStyle extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -57,7 +56,9 @@ class IMFTimedTextStyle extends IUnknown{
 
     /**
      * Gets the font family of the timed-text style.
-     * @returns {PWSTR} 
+     * @returns {PWSTR} Type: <b>LPCWSTR*</b>
+     * 
+     * A pointer to a variable that receives the null-terminated wide-character string that contains the font family of the style.
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtextstyle-getfontfamily
      */
     GetFontFamily() {
@@ -70,7 +71,7 @@ class IMFTimedTextStyle extends IUnknown{
      * @param {Pointer<Float>} fontSize Type: <b>double*</b>
      * 
      * A pointer to a variable that receives the font size  of the timed-text style.
-     * @param {Pointer<Integer>} unitType Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/ne-mfmediaengine-mf_timed_text_unit_type">MF_TIMED_TEXT_UNIT_TYPE</a>*</b>
+     * @param {Pointer<MF_TIMED_TEXT_UNIT_TYPE>} unitType Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/ne-mfmediaengine-mf_timed_text_unit_type">MF_TIMED_TEXT_UNIT_TYPE</a>*</b>
      * 
      * A pointer to a variable that receives a <a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/ne-mfmediaengine-mf_timed_text_unit_type">MF_TIMED_TEXT_UNIT_TYPE</a>-typed value that specifies the units in which the timed-text style is measured.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -88,7 +89,9 @@ class IMFTimedTextStyle extends IUnknown{
 
     /**
      * Gets the color of the timed-text style.
-     * @returns {MFARGB} 
+     * @returns {MFARGB} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/ns-mfobjects-mfargb">MFARGB</a>*</b>
+     * 
+     * A pointer to a variable that receives a <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/ns-mfobjects-mfargb">MFARGB</a> structure that describes the color.
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtextstyle-getcolor
      */
     GetColor() {
@@ -124,7 +127,9 @@ class IMFTimedTextStyle extends IUnknown{
 
     /**
      * Gets the font style of the timed-text style.
-     * @returns {Integer} 
+     * @returns {MF_TIMED_TEXT_FONT_STYLE} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/ne-mfmediaengine-mf_timed_text_font_style">MF_TIMED_TEXT_FONT_STYLE</a>*</b>
+     * 
+     * A pointer to a variable that receives a <a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/ne-mfmediaengine-mf_timed_text_font_style">MF_TIMED_TEXT_FONT_STYLE</a>-typed value that specifies the font style.
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtextstyle-getfontstyle
      */
     GetFontStyle() {
@@ -158,7 +163,7 @@ class IMFTimedTextStyle extends IUnknown{
 
     /**
      * Gets the text alignment of the timed-text style.
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/ne-mfmediaengine-mf_timed_text_alignment">MF_TIMED_TEXT_ALIGNMENT</a>*</b>
+     * @returns {MF_TIMED_TEXT_ALIGNMENT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/ne-mfmediaengine-mf_timed_text_alignment">MF_TIMED_TEXT_ALIGNMENT</a>*</b>
      * 
      * A pointer to a variable that receives a <a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/ne-mfmediaengine-mf_timed_text_alignment">MF_TIMED_TEXT_ALIGNMENT</a>-typed value that specifies the text alignment.
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtextstyle-gettextalignment
@@ -170,7 +175,9 @@ class IMFTimedTextStyle extends IUnknown{
 
     /**
      * Gets how text is decorated for the timed-text style.
-     * @returns {Integer} 
+     * @returns {Integer} Type: <b>DWORD*</b>
+     * 
+     * A pointer to a variable that receives a combination of <a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/ne-mfmediaengine-mf_timed_text_decoration">MF_TIMED_TEXT_DECORATION</a>-typed values that are combined by using a bitwise OR operation. The resulting value specifies how text is decorated.
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtextstyle-gettextdecoration
      */
     GetTextDecoration() {
@@ -180,14 +187,16 @@ class IMFTimedTextStyle extends IUnknown{
 
     /**
      * Gets the text outline for the timed-text style.
-     * @param {Pointer<MFARGB>} _color 
+     * @param {Pointer<MFARGB>} _color Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/ns-mfobjects-mfargb">MFARGB</a>*</b>
+     * 
+     * A pointer to a variable that receives a <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/ns-mfobjects-mfargb">MFARGB</a> structure that describes the color.
      * @param {Pointer<Float>} thickness Type: <b>double*</b>
      * 
      * A pointer to a variable that receives the thickness.
      * @param {Pointer<Float>} blurRadius Type: <b>double*</b>
      * 
      * A pointer to a variable that receives the blur radius.
-     * @param {Pointer<Integer>} unitType Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/ne-mfmediaengine-mf_timed_text_unit_type">MF_TIMED_TEXT_UNIT_TYPE</a>*</b>
+     * @param {Pointer<MF_TIMED_TEXT_UNIT_TYPE>} unitType Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/ne-mfmediaengine-mf_timed_text_unit_type">MF_TIMED_TEXT_UNIT_TYPE</a>*</b>
      * 
      * A pointer to a variable that receives a <a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/ne-mfmediaengine-mf_timed_text_unit_type">MF_TIMED_TEXT_UNIT_TYPE</a>-typed value that specifies the units in which the timed-text is measured.
      * @returns {HRESULT} Type: <b>HRESULT</b>

@@ -52,9 +52,8 @@
  *     <a href="https://docs.microsoft.com/windows/desktop/api/vss/ns-vss-vss_snapshot_prop">VSS_SNAPSHOT_PROP</a> structure.
  * @see https://learn.microsoft.com/windows/win32/api/vss/ne-vss-vss_volume_snapshot_attributes
  * @namespace Windows.Win32.Storage.Vss
- * @version v4.0.30319
  */
-class VSS_VOLUME_SNAPSHOT_ATTRIBUTES extends Win32Enum{
+class VSS_VOLUME_SNAPSHOT_ATTRIBUTES extends Win32Enum {
 
     /**
      * The shadow copy is persistent across reboots.
@@ -281,7 +280,6 @@ class VSS_VOLUME_SNAPSHOT_ATTRIBUTES extends Win32Enum{
     static VSS_VOLSNAP_ATTR_TXF_RECOVERY => 33554432
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static VSS_VOLSNAP_ATTR_FILE_SHARE => 67108864

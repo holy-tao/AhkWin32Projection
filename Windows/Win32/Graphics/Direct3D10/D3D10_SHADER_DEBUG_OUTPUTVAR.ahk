@@ -5,10 +5,8 @@
  * Describes a shader output variable.
  * @see https://learn.microsoft.com/windows/win32/api/d3d10_1shader/ns-d3d10_1shader-d3d10_shader_debug_outputvar
  * @namespace Windows.Win32.Graphics.Direct3D10
- * @version v4.0.30319
  */
-class D3D10_SHADER_DEBUG_OUTPUTVAR extends Win32Struct
-{
+class D3D10_SHADER_DEBUG_OUTPUTVAR extends Win32Struct {
     static sizeof => 36
 
     static packingSize => 4

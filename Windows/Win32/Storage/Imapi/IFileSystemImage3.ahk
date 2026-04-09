@@ -15,9 +15,8 @@
  * This interface is supported in Windows Server 2003 with Service Pack 1 (SP1), Windows XP with Service Pack 2 (SP2),  and Windows Vista  via the Windows Feature Pack for Storage. All  features provided by this  update package are supported natively in Windows 7 and Windows Server 2008 R2.
  * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nn-imapi2fs-ifilesystemimage3
  * @namespace Windows.Win32.Storage.Imapi
- * @version v4.0.30319
  */
-class IFileSystemImage3 extends IFileSystemImage2{
+class IFileSystemImage3 extends IFileSystemImage2 {
 
     static sizeof => A_PtrSize
     /**
@@ -96,7 +95,7 @@ class IFileSystemImage3 extends IFileSystemImage2{
      * Determines if a specific file system on the current media is appendable through the IMAPI.
      * @remarks
      * This method is supported in Windows Server 2003 with Service Pack 1 (SP1), Windows XP with Service Pack 2 (SP2),  and Windows Vista  via the Windows Feature Pack for Storage. All  features provided by this  update package are supported natively in Windows 7 and Windows Server 2008 R2.
-     * @param {Integer} fileSystemToProbe The file system on the current media to probe.
+     * @param {FsiFileSystems} fileSystemToProbe The file system on the current media to probe.
      * @returns {VARIANT_BOOL} A <b>VARIANT_BOOL</b> value specifying if the specified file system is appendable.
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifilesystemimage3-probespecificfilesystem
      */

@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class SENDCMDOUTPARAMS extends Win32Struct
-{
+class SENDCMDOUTPARAMS extends Win32Struct {
     static sizeof => 20
 
     static packingSize => 4
@@ -23,7 +21,7 @@ class SENDCMDOUTPARAMS extends Win32Struct
     /**
      * @type {DRIVERSTATUS}
      */
-    DriverStatus{
+    DriverStatus {
         get {
             if(!this.HasProp("__DriverStatus"))
                 this.__DriverStatus := DRIVERSTATUS(4, this)
@@ -32,9 +30,9 @@ class SENDCMDOUTPARAMS extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    bBuffer{
+    bBuffer {
         get {
             if(!this.HasProp("__bBufferProxyArray"))
                 this.__bBufferProxyArray := Win32FixedArray(this.ptr + 16, 1, Primitive, "char")

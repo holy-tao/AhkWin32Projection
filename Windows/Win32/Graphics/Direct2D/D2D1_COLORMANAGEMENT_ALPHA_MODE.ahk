@@ -5,9 +5,8 @@
  * Indicates how the Color management effect should interpret alpha data that is contained in the input image.
  * @see https://learn.microsoft.com/windows/win32/api/d2d1effects/ne-d2d1effects-d2d1_colormanagement_alpha_mode
  * @namespace Windows.Win32.Graphics.Direct2D
- * @version v4.0.30319
  */
-class D2D1_COLORMANAGEMENT_ALPHA_MODE extends Win32Enum{
+class D2D1_COLORMANAGEMENT_ALPHA_MODE extends Win32Enum {
 
     /**
      * The effect assumes the alpha mode is premultiplied.

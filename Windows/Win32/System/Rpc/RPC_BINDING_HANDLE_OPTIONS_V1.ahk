@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\RPC_BINDING_HANDLE_OPTIONS_FLAGS.ahk
 
 /**
  * Contains additional options with which to create an RPC binding handle.
@@ -7,10 +8,8 @@
  * If this structure is not specified in a call to <a href="https://docs.microsoft.com/windows/desktop/api/rpcdce/nf-rpcdce-rpcbindingcreatea">RpcBindingCreate</a>, the default values for each option are used.
  * @see https://learn.microsoft.com/windows/win32/api/rpcdce/ns-rpcdce-rpc_binding_handle_options_v1
  * @namespace Windows.Win32.System.Rpc
- * @version v4.0.30319
  */
-class RPC_BINDING_HANDLE_OPTIONS_V1 extends Win32Struct
-{
+class RPC_BINDING_HANDLE_OPTIONS_V1 extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4
@@ -25,8 +24,7 @@ class RPC_BINDING_HANDLE_OPTIONS_V1 extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Integer}
+     * @type {RPC_BINDING_HANDLE_OPTIONS_FLAGS}
      */
     Flags {
         get => NumGet(this, 4, "uint")

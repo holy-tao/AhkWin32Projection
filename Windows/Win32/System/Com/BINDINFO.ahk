@@ -1,17 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\STGMEDIUM.ahk
 #Include ..\..\Graphics\Gdi\HBITMAP.ahk
 #Include ..\..\Graphics\Gdi\HENHMETAFILE.ahk
 #Include ..\..\Foundation\HGLOBAL.ahk
-#Include .\STGMEDIUM.ahk
+#Include .\IStream.ahk
+#Include StructuredStorage\IStorage.ahk
+#Include .\IUnknown.ahk
 #Include ..\..\Security\SECURITY_ATTRIBUTES.ahk
 
 /**
  * @namespace Windows.Win32.System.Com
- * @version v4.0.30319
  */
-class BINDINFO extends Win32Struct
-{
+class BINDINFO extends Win32Struct {
     static sizeof => 120
 
     static packingSize => 8
@@ -35,7 +36,7 @@ class BINDINFO extends Win32Struct
     /**
      * @type {STGMEDIUM}
      */
-    stgmedData{
+    stgmedData {
         get {
             if(!this.HasProp("__stgmedData"))
                 this.__stgmedData := STGMEDIUM(16, this)
@@ -102,7 +103,7 @@ class BINDINFO extends Win32Struct
     /**
      * @type {SECURITY_ATTRIBUTES}
      */
-    securityAttributes{
+    securityAttributes {
         get {
             if(!this.HasProp("__securityAttributes"))
                 this.__securityAttributes := SECURITY_ATTRIBUTES(72, this)
@@ -111,7 +112,7 @@ class BINDINFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     iid {
         get => NumGet(this, 96, "ptr")

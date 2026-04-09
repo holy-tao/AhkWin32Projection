@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class BDA_ISDBCAS_EMG_REQ extends Win32Struct
-{
+class BDA_ISDBCAS_EMG_REQ extends Win32Struct {
     static sizeof => 15
 
     static packingSize => 1
@@ -52,9 +50,9 @@ class BDA_ISDBCAS_EMG_REQ extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    bCardId{
+    bCardId {
         get {
             if(!this.HasProp("__bCardIdProxyArray"))
                 this.__bCardIdProxyArray := Win32FixedArray(this.ptr + 5, 6, Primitive, "char")
@@ -87,9 +85,9 @@ class BDA_ISDBCAS_EMG_REQ extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    bMessageCode{
+    bMessageCode {
         get {
             if(!this.HasProp("__bMessageCodeProxyArray"))
                 this.__bMessageCodeProxyArray := Win32FixedArray(this.ptr + 14, 1, Primitive, "char")

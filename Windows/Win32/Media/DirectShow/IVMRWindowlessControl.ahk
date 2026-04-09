@@ -7,9 +7,8 @@
  * The IVMRWindowlessControl interface controls how the Video Mixing Renderer Filter 7 (VMR-7) renders a video stream within a container window.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-ivmrwindowlesscontrol
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IVMRWindowlessControl extends IUnknown{
+class IVMRWindowlessControl extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -260,7 +259,7 @@ class IVMRWindowlessControl extends IUnknown{
 
     /**
      * The SetVideoClippingWindow method specifies the container window that video should be clipped to.
-     * @param {HWND} _hwnd 
+     * @param {HWND} _hwnd Specifies the window to which the video should be clipped.
      * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an error code.
      * 
      * <table>
@@ -291,8 +290,8 @@ class IVMRWindowlessControl extends IUnknown{
 
     /**
      * The RepaintVideo method repaints the current video frame.
-     * @param {HWND} _hwnd 
-     * @param {HDC} _hdc 
+     * @param {HWND} _hwnd Specifies the handle of the window in which the repainting should occur.
+     * @param {HDC} _hdc Specifies the handle to the device context for the window.
      * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an error code.
      * 
      * <table>

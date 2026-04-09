@@ -1,16 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\RECT.ahk
 #Include .\AMVPDIMINFO.ahk
+#Include ..\..\Foundation\RECT.ahk
 
 /**
  * The AMVPDATAINFO structure specifies the data-specific characteristics of the VP input stream.
  * @see https://learn.microsoft.com/windows/win32/api/vptype/ns-vptype-amvpdatainfo
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class AMVPDATAINFO extends Win32Struct
-{
+class AMVPDATAINFO extends Win32Struct {
     static sizeof => 80
 
     static packingSize => 4
@@ -37,7 +35,7 @@ class AMVPDATAINFO extends Win32Struct
      * Dimensional information.
      * @type {AMVPDIMINFO}
      */
-    amvpDimInfo{
+    amvpDimInfo {
         get {
             if(!this.HasProp("__amvpDimInfo"))
                 this.__amvpDimInfo := AMVPDIMINFO(8, this)

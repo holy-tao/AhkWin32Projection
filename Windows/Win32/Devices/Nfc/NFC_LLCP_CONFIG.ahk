@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.Nfc
- * @version v4.0.30319
  */
-class NFC_LLCP_CONFIG extends Win32Struct
-{
+class NFC_LLCP_CONFIG extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 2

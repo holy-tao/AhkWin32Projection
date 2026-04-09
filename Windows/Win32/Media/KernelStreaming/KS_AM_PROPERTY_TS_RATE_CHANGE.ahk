@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
- * @version v4.0.30319
  */
-class KS_AM_PROPERTY_TS_RATE_CHANGE extends Win32Enum{
+class KS_AM_PROPERTY_TS_RATE_CHANGE extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

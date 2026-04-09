@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\SP_CLASSINSTALL_HEADER.ahk
+#Include .\DI_FUNCTION.ahk
 
 /**
  * An SP_SELECTDEVICE_PARAMS structure corresponds to a DIF_SELECTDEVICE installation request. (ANSI)
@@ -18,11 +19,9 @@
  * > The setupapi.h header defines SP_SELECTDEVICE_PARAMS as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
  * @see https://learn.microsoft.com/windows/win32/api/setupapi/ns-setupapi-sp_selectdevice_params_a
  * @namespace Windows.Win32.Devices.DeviceAndDriverInstallation
- * @version v4.0.30319
  * @charset ANSI
  */
-class SP_SELECTDEVICE_PARAMS_A extends Win32Struct
-{
+class SP_SELECTDEVICE_PARAMS_A extends Win32Struct {
     static sizeof => 612
 
     static packingSize => 4
@@ -31,7 +30,7 @@ class SP_SELECTDEVICE_PARAMS_A extends Win32Struct
      * An install request header that contains the header size and the DIF code for the request. See <a href="https://docs.microsoft.com/windows/desktop/api/setupapi/ns-setupapi-sp_classinstall_header">SP_CLASSINSTALL_HEADER</a>.
      * @type {SP_CLASSINSTALL_HEADER}
      */
-    ClassInstallHeader{
+    ClassInstallHeader {
         get {
             if(!this.HasProp("__ClassInstallHeader"))
                 this.__ClassInstallHeader := SP_CLASSINSTALL_HEADER(0, this)
@@ -77,9 +76,9 @@ class SP_SELECTDEVICE_PARAMS_A extends Win32Struct
 
     /**
      * Reserved. For internal use only.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Reserved{
+    Reserved {
         get {
             if(!this.HasProp("__ReservedProxyArray"))
                 this.__ReservedProxyArray := Win32FixedArray(this.ptr + 610, 2, Primitive, "char")

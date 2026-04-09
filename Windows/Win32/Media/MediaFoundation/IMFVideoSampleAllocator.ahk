@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IMFSample.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\IMFSample.ahk
 
 /**
  * Allocates video samples for a video media sink.
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imfvideosampleallocator
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFVideoSampleAllocator extends IUnknown{
+class IMFVideoSampleAllocator extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

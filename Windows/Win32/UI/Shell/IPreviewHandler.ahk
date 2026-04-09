@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\HWND.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\HWND.ahk
 
 /**
  * Exposes methods for the display of rich previews.
@@ -10,9 +10,8 @@
  * Preview handlers can be built in managed code. Typically, all preview handlers are hosted together in a surrogate process called prevhost.exe. There is one instance of this process for preview handlers running at normal integrity level, and another instance for preview handlers running at low integrity level. If you want to implement your handler in managed code, your handler should not run inside either of these shared processes. Instead, arrange for your handler to get a new instance of prevhost.exe by creating a new AppID entry in the registry (specifying prevhost.exe as the DllSurrogate value) and then setting that as the AppID value in the registry value for your handler's class ID. This will ensure that a unique prevhost.exe instance is created for your handler, instead of the common instances used by the other handlers.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-ipreviewhandler
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IPreviewHandler extends IUnknown{
+class IPreviewHandler extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -40,7 +39,9 @@ class IPreviewHandler extends IUnknown{
      * 
      * <div class="alert"><b>Note</b>  It is preferred that this information be stored prior to calling <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-ipreviewhandler-dopreview">IPreviewHandler::DoPreview</a>. Doing so increases performance at setup time for any cases where the preview does not start.</div>
      * <div> </div>
-     * @param {HWND} _hwnd 
+     * @param {HWND} _hwnd Type: <b>HWND</b>
+     * 
+     * A handle to the parent window.
      * @param {Pointer<RECT>} prc Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a>*</b>
      * 
      * A pointer to a <b>RECT</b> defining the area for the previewer.

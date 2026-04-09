@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -12,9 +11,8 @@
  * <pre class="syntax" xml:space="preserve"><code>#include &lt;dshow.h&gt;
  * @see https://learn.microsoft.com/windows/win32/api/qnetwork/nn-qnetwork-iamnetshowconfig
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IAMNetShowConfig extends IDispatch{
+class IAMNetShowConfig extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -36,6 +34,7 @@ class IAMNetShowConfig extends IDispatch{
     static VTableNames => ["get_BufferingTime", "put_BufferingTime", "get_UseFixedUDPPort", "put_UseFixedUDPPort", "get_FixedUDPPort", "put_FixedUDPPort", "get_UseHTTPProxy", "put_UseHTTPProxy", "get_EnableAutoProxy", "put_EnableAutoProxy", "get_HTTPProxyHost", "put_HTTPProxyHost", "get_HTTPProxyPort", "put_HTTPProxyPort", "get_EnableMulticast", "put_EnableMulticast", "get_EnableUDP", "put_EnableUDP", "get_EnableTCP", "put_EnableTCP", "get_EnableHTTP", "put_EnableHTTP"]
 
     /**
+     * @type {Float} 
      */
     BufferingTime {
         get => this.get_BufferingTime()
@@ -43,6 +42,7 @@ class IAMNetShowConfig extends IDispatch{
     }
 
     /**
+     * @type {VARIANT_BOOL} 
      */
     UseFixedUDPPort {
         get => this.get_UseFixedUDPPort()
@@ -50,6 +50,7 @@ class IAMNetShowConfig extends IDispatch{
     }
 
     /**
+     * @type {Integer} 
      */
     FixedUDPPort {
         get => this.get_FixedUDPPort()
@@ -57,6 +58,7 @@ class IAMNetShowConfig extends IDispatch{
     }
 
     /**
+     * @type {VARIANT_BOOL} 
      */
     UseHTTPProxy {
         get => this.get_UseHTTPProxy()
@@ -64,6 +66,7 @@ class IAMNetShowConfig extends IDispatch{
     }
 
     /**
+     * @type {VARIANT_BOOL} 
      */
     EnableAutoProxy {
         get => this.get_EnableAutoProxy()
@@ -71,6 +74,7 @@ class IAMNetShowConfig extends IDispatch{
     }
 
     /**
+     * @type {BSTR} 
      */
     HTTPProxyHost {
         get => this.get_HTTPProxyHost()
@@ -78,6 +82,7 @@ class IAMNetShowConfig extends IDispatch{
     }
 
     /**
+     * @type {Integer} 
      */
     HTTPProxyPort {
         get => this.get_HTTPProxyPort()
@@ -85,6 +90,7 @@ class IAMNetShowConfig extends IDispatch{
     }
 
     /**
+     * @type {VARIANT_BOOL} 
      */
     EnableMulticast {
         get => this.get_EnableMulticast()
@@ -92,6 +98,7 @@ class IAMNetShowConfig extends IDispatch{
     }
 
     /**
+     * @type {VARIANT_BOOL} 
      */
     EnableUDP {
         get => this.get_EnableUDP()
@@ -99,6 +106,7 @@ class IAMNetShowConfig extends IDispatch{
     }
 
     /**
+     * @type {VARIANT_BOOL} 
      */
     EnableTCP {
         get => this.get_EnableTCP()
@@ -106,6 +114,7 @@ class IAMNetShowConfig extends IDispatch{
     }
 
     /**
+     * @type {VARIANT_BOOL} 
      */
     EnableHTTP {
         get => this.get_EnableHTTP()

@@ -1,18 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\KSDATAFORMAT.ahk
-#Include ..\..\Foundation\SIZE.ahk
 #Include .\KS_VIDEO_STREAM_CONFIG_CAPS.ahk
+#Include ..\..\Foundation\SIZE.ahk
+#Include .\KS_VIDEOINFOHEADER2.ahk
 #Include ..\..\Foundation\RECT.ahk
 #Include .\KS_BITMAPINFOHEADER.ahk
-#Include .\KS_VIDEOINFOHEADER2.ahk
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
- * @version v4.0.30319
  */
-class KS_DATARANGE_VIDEO2 extends Win32Struct
-{
+class KS_DATARANGE_VIDEO2 extends Win32Struct {
     static sizeof => 296
 
     static packingSize => 8
@@ -20,7 +18,7 @@ class KS_DATARANGE_VIDEO2 extends Win32Struct
     /**
      * @type {KSDATAFORMAT}
      */
-    DataRange{
+    DataRange {
         get {
             if(!this.HasProp("__DataRange"))
                 this.__DataRange := KSDATAFORMAT(0, this)
@@ -63,7 +61,7 @@ class KS_DATARANGE_VIDEO2 extends Win32Struct
     /**
      * @type {KS_VIDEO_STREAM_CONFIG_CAPS}
      */
-    ConfigCaps{
+    ConfigCaps {
         get {
             if(!this.HasProp("__ConfigCaps"))
                 this.__ConfigCaps := KS_VIDEO_STREAM_CONFIG_CAPS(64, this)
@@ -74,7 +72,7 @@ class KS_DATARANGE_VIDEO2 extends Win32Struct
     /**
      * @type {KS_VIDEOINFOHEADER2}
      */
-    VideoInfoHeader{
+    VideoInfoHeader {
         get {
             if(!this.HasProp("__VideoInfoHeader"))
                 this.__VideoInfoHeader := KS_VIDEOINFOHEADER2(184, this)

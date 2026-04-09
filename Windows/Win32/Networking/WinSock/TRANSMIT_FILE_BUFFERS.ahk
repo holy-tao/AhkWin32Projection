@@ -5,10 +5,8 @@
  * The TRANSMIT_FILE_BUFFERS structure (mswsock.h) specifies data to be transmitted before and after file data during a TransmitFile function file transfer operation.
  * @see https://learn.microsoft.com/windows/win32/api/mswsock/ns-mswsock-transmit_file_buffers
  * @namespace Windows.Win32.Networking.WinSock
- * @version v4.0.30319
  */
-class TRANSMIT_FILE_BUFFERS extends Win32Struct
-{
+class TRANSMIT_FILE_BUFFERS extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8

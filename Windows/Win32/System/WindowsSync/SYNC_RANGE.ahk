@@ -5,10 +5,8 @@
  * Represents a range of item IDs.
  * @see https://learn.microsoft.com/windows/win32/api/winsync/ns-winsync-sync_range
  * @namespace Windows.Win32.System.WindowsSync
- * @version v4.0.30319
  */
-class SYNC_RANGE extends Win32Struct
-{
+class SYNC_RANGE extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

@@ -1,25 +1,25 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\MPRAPI_OBJECT_HEADER.ahk
-#Include ..\..\Security\Cryptography\CRYPT_INTEGER_BLOB.ahk
-#Include .\IKEV2_TUNNEL_CONFIG_PARAMS4.ahk
-#Include .\IKEV2_CONFIG_PARAMS.ahk
-#Include .\PPTP_CONFIG_PARAMS.ahk
-#Include .\L2TP_TUNNEL_CONFIG_PARAMS2.ahk
-#Include .\L2TP_CONFIG_PARAMS1.ahk
-#Include .\SSTP_CERT_INFO.ahk
-#Include .\SSTP_CONFIG_PARAMS.ahk
-#Include .\GRE_CONFIG_PARAMS0.ahk
 #Include .\MPRAPI_TUNNEL_CONFIG_PARAMS1.ahk
+#Include .\IKEV2_CONFIG_PARAMS.ahk
+#Include .\IKEV2_TUNNEL_CONFIG_PARAMS4.ahk
+#Include ..\..\Security\Cryptography\CRYPT_INTEGER_BLOB.ahk
+#Include .\ROUTER_CUSTOM_IKEv2_POLICY0.ahk
+#Include .\MPR_CERT_EKU.ahk
+#Include .\PPTP_CONFIG_PARAMS.ahk
+#Include .\L2TP_CONFIG_PARAMS1.ahk
+#Include .\L2TP_TUNNEL_CONFIG_PARAMS2.ahk
+#Include .\SSTP_CONFIG_PARAMS.ahk
+#Include .\SSTP_CERT_INFO.ahk
+#Include .\GRE_CONFIG_PARAMS0.ahk
 
 /**
  * Used to get or set the configuration of a RAS server. (MPR_SERVER_EX1)
  * @see https://learn.microsoft.com/windows/win32/api/mprapi/ns-mprapi-mpr_server_ex1
  * @namespace Windows.Win32.NetworkManagement.Rras
- * @version v4.0.30319
  */
-class MPR_SERVER_EX1 extends Win32Struct
-{
+class MPR_SERVER_EX1 extends Win32Struct {
     static sizeof => 248
 
     static packingSize => 8
@@ -31,7 +31,7 @@ class MPR_SERVER_EX1 extends Win32Struct
      * <div> </div>
      * @type {MPRAPI_OBJECT_HEADER}
      */
-    Header{
+    Header {
         get {
             if(!this.HasProp("__Header"))
                 this.__Header := MPRAPI_OBJECT_HEADER(0, this)
@@ -88,7 +88,7 @@ class MPR_SERVER_EX1 extends Win32Struct
      * A <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ns-mprapi-mprapi_tunnel_config_params0">MPRAPI_TUNNEL_CONFIG_PARAMS</a> structure that contains Point-to-Point (PPTP), Secure Socket Tunneling Protocol (SSTP), Layer 2 Tunneling Protocol (L2TP), and Internet Key version 2 (IKEv2) tunnel configuration information for the RAS server.
      * @type {MPRAPI_TUNNEL_CONFIG_PARAMS1}
      */
-    ConfigParams{
+    ConfigParams {
         get {
             if(!this.HasProp("__ConfigParams"))
                 this.__ConfigParams := MPRAPI_TUNNEL_CONFIG_PARAMS1(24, this)

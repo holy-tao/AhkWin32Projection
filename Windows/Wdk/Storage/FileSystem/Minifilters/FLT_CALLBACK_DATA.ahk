@@ -1,15 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\..\Win32\System\IO\IO_STATUS_BLOCK.ahk
-#Include ..\..\..\..\Win32\System\Kernel\LIST_ENTRY.ahk
+#Include .\FLT_IO_PARAMETER_BLOCK.ahk
+#Include .\FLT_TAG_DATA_BUFFER.ahk
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem.Minifilters
- * @version v4.0.30319
  */
-class FLT_CALLBACK_DATA extends Win32Struct
-{
-    static sizeof => 88
+class FLT_CALLBACK_DATA extends Win32Struct {
+    static sizeof => 80
 
     static packingSize => 8
 
@@ -38,53 +36,47 @@ class FLT_CALLBACK_DATA extends Win32Struct
     }
 
     /**
-     * @type {IO_STATUS_BLOCK}
+     * @type {Pointer}
      */
-    IoStatus{
-        get {
-            if(!this.HasProp("__IoStatus"))
-                this.__IoStatus := IO_STATUS_BLOCK(24, this)
-            return this.__IoStatus
-        }
+    IoStatus {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
      * @type {Pointer<FLT_TAG_DATA_BUFFER>}
      */
     TagData {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
+    }
+
+    /**
+     * @type {Pointer}
+     */
+    QueueLinks {
         get => NumGet(this, 40, "ptr")
         set => NumPut("ptr", value, this, 40)
     }
 
     /**
-     * @type {LIST_ENTRY}
+     * @type {Array<Pointer<Void>>}
      */
-    QueueLinks{
-        get {
-            if(!this.HasProp("__QueueLinks"))
-                this.__QueueLinks := LIST_ENTRY(48, this)
-            return this.__QueueLinks
-        }
-    }
-
-    /**
-     * @type {Array<Void>}
-     */
-    QueueContext{
+    QueueContext {
         get {
             if(!this.HasProp("__QueueContextProxyArray"))
-                this.__QueueContextProxyArray := Win32FixedArray(this.ptr + 64, 2, Primitive, "ptr")
+                this.__QueueContextProxyArray := Win32FixedArray(this.ptr + 48, 2, Primitive, "ptr")
             return this.__QueueContextProxyArray
         }
     }
 
     /**
-     * @type {Array<Void>}
+     * @type {Array<Pointer<Void>>}
      */
-    FilterContext{
+    FilterContext {
         get {
             if(!this.HasProp("__FilterContextProxyArray"))
-                this.__FilterContextProxyArray := Win32FixedArray(this.ptr + 48, 4, Primitive, "ptr")
+                this.__FilterContextProxyArray := Win32FixedArray(this.ptr + 40, 4, Primitive, "ptr")
             return this.__FilterContextProxyArray
         }
     }
@@ -93,7 +85,7 @@ class FLT_CALLBACK_DATA extends Win32Struct
      * @type {Integer}
      */
     RequestorMode {
-        get => NumGet(this, 80, "char")
-        set => NumPut("char", value, this, 80)
+        get => NumGet(this, 72, "char")
+        set => NumPut("char", value, this, 72)
     }
 }

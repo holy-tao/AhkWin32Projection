@@ -1,20 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
+#Include ..\..\..\Com\IUnknown.ahk
 #Include .\IDebugHostContext.ahk
 #Include ..\..\..\Variant\VARIANT.ahk
 #Include .\IKeyEnumerator.ahk
-#Include .\IModelObject.ahk
 #Include .\IRawEnumerator.ahk
 #Include .\Location.ahk
 #Include .\IDebugHostType.ahk
-#Include ..\..\..\Com\IUnknown.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
- * @version v4.0.30319
  */
-class IModelObject extends IUnknown{
+class IModelObject extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -47,7 +45,7 @@ class IModelObject extends IUnknown{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {ModelObjectKind} 
      */
     GetKind() {
         result := ComCall(4, this, "int*", &kind := 0, "HRESULT")
@@ -66,7 +64,7 @@ class IModelObject extends IUnknown{
 
     /**
      * 
-     * @param {Integer} vt 
+     * @param {VARENUM} vt 
      * @returns {VARIANT} 
      */
     GetIntrinsicValueAs(vt) {
@@ -113,7 +111,7 @@ class IModelObject extends IUnknown{
 
     /**
      * 
-     * @param {Integer} kind 
+     * @param {SymbolKind} kind 
      * @param {PWSTR} name 
      * @param {Integer} searchFlags 
      * @returns {IModelObject} 
@@ -127,7 +125,7 @@ class IModelObject extends IUnknown{
 
     /**
      * 
-     * @param {Integer} kind 
+     * @param {SymbolKind} kind 
      * @param {Integer} searchFlags 
      * @returns {IRawEnumerator} 
      */
@@ -349,7 +347,7 @@ class IModelObject extends IUnknown{
 
     /**
      * 
-     * @param {Integer} kind 
+     * @param {SymbolKind} kind 
      * @param {PWSTR} name 
      * @param {Integer} searchFlags 
      * @returns {IModelObject} 
@@ -363,7 +361,7 @@ class IModelObject extends IUnknown{
 
     /**
      * 
-     * @param {Integer} kind 
+     * @param {SymbolKind} kind 
      * @param {Integer} searchFlags 
      * @returns {IRawEnumerator} 
      */

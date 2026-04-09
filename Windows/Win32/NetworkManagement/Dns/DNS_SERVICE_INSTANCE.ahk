@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\IP6_ADDRESS.ahk
 
 /**
  * Represents a DNS service running on the network.
@@ -14,10 +15,8 @@
  * `values`. A pointer to an array of string values that represent the corresponding property values.
  * @see https://learn.microsoft.com/windows/win32/api/windns/ns-windns-dns_service_instance
  * @namespace Windows.Win32.NetworkManagement.Dns
- * @version v4.0.30319
  */
-class DNS_SERVICE_INSTANCE extends Win32Struct
-{
+class DNS_SERVICE_INSTANCE extends Win32Struct {
     static sizeof => 72
 
     static packingSize => 8

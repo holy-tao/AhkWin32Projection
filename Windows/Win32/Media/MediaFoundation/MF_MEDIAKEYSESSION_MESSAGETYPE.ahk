@@ -9,9 +9,8 @@
  * **MF_MEDIAKEYSESSION_MESSAGETYPE** is based on the Encrypted Media Extension specification's [MediaKeyStatus](https://www.w3.org/TR/2017/REC-encrypted-media-20170918/#dom-mediakeymessagetype) enumeration.
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/ne-mfidl-mf_mediakeysession_messagetype
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class MF_MEDIAKEYSESSION_MESSAGETYPE extends Win32Enum{
+class MF_MEDIAKEYSESSION_MESSAGETYPE extends Win32Enum {
 
     /**
      * The message contains a request for a new license.

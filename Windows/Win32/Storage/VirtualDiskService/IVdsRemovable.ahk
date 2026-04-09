@@ -7,9 +7,8 @@
  * Provides methods to query and eject a removable disk, such as a CD-ROM.
  * @see https://learn.microsoft.com/windows/win32/api/vds/nn-vds-ivdsremovable
  * @namespace Windows.Win32.Storage.VirtualDiskService
- * @version v4.0.30319
  */
-class IVdsRemovable extends IUnknown{
+class IVdsRemovable extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

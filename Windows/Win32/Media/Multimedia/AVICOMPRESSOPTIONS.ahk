@@ -5,10 +5,8 @@
  * The AVICOMPRESSOPTIONS structure contains information about a stream and how it is compressed and saved. This structure passes data to the AVIMakeCompressedStream function (or the AVISave function, which uses AVIMakeCompressedStream).
  * @see https://learn.microsoft.com/windows/win32/api/vfw/ns-vfw-avicompressoptions
  * @namespace Windows.Win32.Media.Multimedia
- * @version v4.0.30319
  */
-class AVICOMPRESSOPTIONS extends Win32Struct
-{
+class AVICOMPRESSOPTIONS extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8

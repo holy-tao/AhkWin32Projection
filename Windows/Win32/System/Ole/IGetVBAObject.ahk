@@ -7,9 +7,8 @@
  * Gets access to the IVBFormat interface.
  * @see https://learn.microsoft.com/windows/win32/api/vbinterf/nn-vbinterf-igetvbaobject
  * @namespace Windows.Win32.System.Ole
- * @version v4.0.30319
  */
-class IGetVBAObject extends IUnknown{
+class IGetVBAObject extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

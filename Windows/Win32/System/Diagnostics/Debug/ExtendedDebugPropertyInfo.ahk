@@ -1,16 +1,22 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\IDebugProperty.ahk
+#Include ..\..\Variant\VARIANT.ahk
+#Include ..\..\Variant\VARENUM.ahk
 #Include ..\..\Com\CY.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include ..\..\Com\IUnknown.ahk
+#Include ..\..\Com\IDispatch.ahk
+#Include ..\..\Com\SAFEARRAY.ahk
 #Include ..\..\..\Foundation\DECIMAL.ahk
-#Include ..\..\Variant\VARIANT.ahk
+#Include ..\..\Ole\IRecordInfo.ahk
+#Include ..\..\Com\StructuredStorage\ILockBytes.ahk
+#Include .\IDebugExtendedProperty.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug
- * @version v4.0.30319
  */
-class ExtendedDebugPropertyInfo extends Win32Struct
-{
+class ExtendedDebugPropertyInfo extends Win32Struct {
     static sizeof => 104
 
     static packingSize => 8
@@ -90,7 +96,7 @@ class ExtendedDebugPropertyInfo extends Win32Struct
     /**
      * @type {VARIANT}
      */
-    varValue{
+    varValue {
         get {
             if(!this.HasProp("__varValue"))
                 this.__varValue := VARIANT(64, this)

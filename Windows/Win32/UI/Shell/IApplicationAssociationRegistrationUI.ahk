@@ -9,9 +9,8 @@
  * Because <b>IApplicationAssociationRegistrationUI</b> is only supported for Windows Vista and later, applications that support earlier operating systems must use their preexisting code when running under those operating systems. Those applications should include a check for the operating system version to account for this.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nn-shobjidl-iapplicationassociationregistrationui
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IApplicationAssociationRegistrationUI extends IUnknown{
+class IApplicationAssociationRegistrationUI extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

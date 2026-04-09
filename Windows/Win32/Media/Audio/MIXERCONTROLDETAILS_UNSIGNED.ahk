@@ -35,10 +35,8 @@
  * MIXERCONTROL_CONTROLTYPE_PERCENT
  * @see https://learn.microsoft.com/windows/win32/api/mmeapi/ns-mmeapi-mixercontroldetails_unsigned
  * @namespace Windows.Win32.Media.Audio
- * @version v4.0.30319
  */
-class MIXERCONTROLDETAILS_UNSIGNED extends Win32Struct
-{
+class MIXERCONTROLDETAILS_UNSIGNED extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 4

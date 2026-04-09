@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\DEVICE_MEDIA_INFO.ahk
+#Include .\STORAGE_MEDIA_TYPE.ahk
+#Include ..\..\Storage\FileSystem\STORAGE_BUS_TYPE.ahk
 
 /**
  * Contains information about the media types supported by a device.
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-get_media_types
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class GET_MEDIA_TYPES extends Win32Struct
-{
-    static sizeof => 16
+class GET_MEDIA_TYPES extends Win32Struct {
+    static sizeof => 48
 
     static packingSize => 8
 
@@ -38,9 +38,9 @@ class GET_MEDIA_TYPES extends Win32Struct
     /**
      * A pointer to the first 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winioctl/ns-winioctl-device_media_info">DEVICE_MEDIA_INFO</a> structure in the array. There is one structure for each media type supported by the device.
-     * @type {Array<DEVICE_MEDIA_INFO>}
+     * @type {DEVICE_MEDIA_INFO}
      */
-    MediaInfo{
+    MediaInfo {
         get {
             if(!this.HasProp("__MediaInfoProxyArray"))
                 this.__MediaInfoProxyArray := Win32FixedArray(this.ptr + 8, 1, DEVICE_MEDIA_INFO, "")

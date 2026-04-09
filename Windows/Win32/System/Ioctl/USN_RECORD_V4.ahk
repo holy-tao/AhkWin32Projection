@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\USN_RECORD_COMMON_HEADER.ahk
 #Include ..\..\Storage\FileSystem\FILE_ID_128.ahk
+#Include .\USN_SOURCE_INFO_ID.ahk
 #Include .\USN_RECORD_EXTENT.ahk
 
 /**
@@ -21,11 +22,9 @@
  * For more information, see <a href="https://docs.microsoft.com/windows/desktop/FileIO/creating-modifying-and-deleting-a-change-journal">Creating, Modifying, and Deleting a Change Journal</a>.
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-usn_record_v4
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class USN_RECORD_V4 extends Win32Struct
-{
-    static sizeof => 72
+class USN_RECORD_V4 extends Win32Struct {
+    static sizeof => 80
 
     static packingSize => 8
 
@@ -33,7 +32,7 @@ class USN_RECORD_V4 extends Win32Struct
      * A <a href="https://docs.microsoft.com/windows/desktop/api/winioctl/ns-winioctl-usn_record_common_header">USN_RECORD_COMMON_HEADER</a> structure that describes the record length, major version, and minor  version for the record.
      * @type {USN_RECORD_COMMON_HEADER}
      */
-    Header{
+    Header {
         get {
             if(!this.HasProp("__Header"))
                 this.__Header := USN_RECORD_COMMON_HEADER(0, this)
@@ -47,7 +46,7 @@ class USN_RECORD_V4 extends Win32Struct
      * This value  is an arbitrarily assigned value that associates a journal record with a file.
      * @type {FILE_ID_128}
      */
-    FileReferenceNumber{
+    FileReferenceNumber {
         get {
             if(!this.HasProp("__FileReferenceNumber"))
                 this.__FileReferenceNumber := FILE_ID_128(8, this)
@@ -62,7 +61,7 @@ class USN_RECORD_V4 extends Win32Struct
      * This value  is an arbitrarily assigned value that associates a journal record with a parent directory.
      * @type {FILE_ID_128}
      */
-    ParentFileReferenceNumber{
+    ParentFileReferenceNumber {
         get {
             if(!this.HasProp("__ParentFileReferenceNumber"))
                 this.__ParentFileReferenceNumber := FILE_ID_128(24, this)
@@ -384,7 +383,7 @@ class USN_RECORD_V4 extends Win32Struct
      * When a thread writes a new USN record, the source information flags in the prior record continue to be 
      *        present only if the thread also sets those flags.  Therefore, the source information structure allows 
      *        applications to filter out USN records that are set only by a known source, for example, an antivirus filter.
-     * @type {Integer}
+     * @type {USN_SOURCE_INFO_ID}
      */
     SourceInfo {
         get => NumGet(this, 52, "uint")
@@ -420,9 +419,9 @@ class USN_RECORD_V4 extends Win32Struct
 
     /**
      * An array of <a href="https://docs.microsoft.com/windows/desktop/api/winioctl/ns-winioctl-usn_record_extent">USN_RECORD_EXTENT</a> structures that represent the extents in the <b>USN_RECORD_V4</b> entry.
-     * @type {Array<USN_RECORD_EXTENT>}
+     * @type {USN_RECORD_EXTENT}
      */
-    Extents{
+    Extents {
         get {
             if(!this.HasProp("__ExtentsProxyArray"))
                 this.__ExtentsProxyArray := Win32FixedArray(this.ptr + 64, 1, USN_RECORD_EXTENT, "")

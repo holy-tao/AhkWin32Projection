@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\TC_GEN_FLOW.ahk
 #Include .\TC_GEN_FILTER.ahk
 
 /**
  * The ENUMERATION_BUFFER structure contains information specific to a given flow, including flow name, the number of filters associated with the flow, and an array of filters associated with the flow.
  * @see https://learn.microsoft.com/windows/win32/api/traffic/ns-traffic-enumeration_buffer
  * @namespace Windows.Win32.NetworkManagement.QoS
- * @version v4.0.30319
  */
-class ENUMERATION_BUFFER extends Win32Struct
-{
-    static sizeof => 552
+class ENUMERATION_BUFFER extends Win32Struct {
+    static sizeof => 568
 
     static packingSize => 8
 
@@ -82,9 +81,9 @@ class ENUMERATION_BUFFER extends Win32Struct
      * 
      * sizeof(TC_GEN_FILTER) + 2 * [the pattern size of the current 
      * <a href="https://docs.microsoft.com/windows/desktop/api/traffic/ns-traffic-tc_gen_filter">TC_GEN_FILTER</a> structure].
-     * @type {Array<TC_GEN_FILTER>}
+     * @type {TC_GEN_FILTER}
      */
-    GenericFilter{
+    GenericFilter {
         get {
             if(!this.HasProp("__GenericFilterProxyArray"))
                 this.__GenericFilterProxyArray := Win32FixedArray(this.ptr + 544, 1, TC_GEN_FILTER, "")

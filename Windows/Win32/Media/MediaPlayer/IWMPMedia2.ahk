@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IWMPErrorItem.ahk
 #Include .\IWMPMedia.ahk
+#Include .\IWMPErrorItem.ahk
 
 /**
  * The IWMPMedia2 interface provides a method that supplements the IWMPMedia interface.
  * @see https://learn.microsoft.com/windows/win32/api/wmp/nn-wmp-iwmpmedia2
  * @namespace Windows.Win32.Media.MediaPlayer
- * @version v4.0.30319
  */
-class IWMPMedia2 extends IWMPMedia{
+class IWMPMedia2 extends IWMPMedia {
 
     static sizeof => A_PtrSize
     /**

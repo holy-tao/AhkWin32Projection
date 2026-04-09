@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class D3COLD_SUPPORT_INTERFACE extends Win32Struct
-{
+class D3COLD_SUPPORT_INTERFACE extends Win32Struct {
     static sizeof => 72
 
     static packingSize => 8

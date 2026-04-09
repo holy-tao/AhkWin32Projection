@@ -5,9 +5,8 @@
  * Specifies the source of configuration information returned by the WTSQueryUserConfig function.
  * @see https://learn.microsoft.com/windows/win32/api/wtsapi32/ne-wtsapi32-wts_config_source
  * @namespace Windows.Win32.System.RemoteDesktop
- * @version v4.0.30319
  */
-class WTS_CONFIG_SOURCE extends Win32Enum{
+class WTS_CONFIG_SOURCE extends Win32Enum {
 
     /**
      * The configuration information came from the Security Accounts Manager (SAM) database.

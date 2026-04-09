@@ -5,10 +5,8 @@
  * Specifies the pseudorandom function (PRF) and extracts key data used by the Extensible Authentication Protocol (EAP) Transport Layer Security protocol (TLS) Authentication Protocol.
  * @see https://learn.microsoft.com/windows/win32/api/schannel/ns-schannel-secpkgcontext_eapprfinfo
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class SecPkgContext_EapPrfInfo extends Win32Struct
-{
+class SecPkgContext_EapPrfInfo extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
@@ -32,7 +30,6 @@ class SecPkgContext_EapPrfInfo extends Win32Struct
     }
 
     /**
-     * 
      * @type {Pointer<Integer>}
      */
     pbPrfData {

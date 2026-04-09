@@ -1,18 +1,19 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\STORAGE_ICE_TYPE.ahk
 #Include .\STORAGE_SECURITY_COMPLIANCE_BITMASK.ahk
 #Include .\STORAGE_CRYPTO_KEY_TYPE.ahk
 #Include .\STORAGE_CRYPTO_CAPABILITY_V2.ahk
+#Include .\STORAGE_CRYPTO_ALGORITHM_ID.ahk
+#Include .\STORAGE_CRYPTO_KEY_SIZE.ahk
 
 /**
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class STORAGE_CRYPTO_DESCRIPTOR_V2 extends Win32Struct
-{
-    static sizeof => 32
+class STORAGE_CRYPTO_DESCRIPTOR_V2 extends Win32Struct {
+    static sizeof => 56
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}
@@ -47,7 +48,7 @@ class STORAGE_CRYPTO_DESCRIPTOR_V2 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {STORAGE_ICE_TYPE}
      */
     IceType {
         get => NumGet(this, 16, "int")
@@ -57,7 +58,7 @@ class STORAGE_CRYPTO_DESCRIPTOR_V2 extends Win32Struct
     /**
      * @type {STORAGE_SECURITY_COMPLIANCE_BITMASK}
      */
-    SecurityComplianceBitmask{
+    SecurityComplianceBitmask {
         get {
             if(!this.HasProp("__SecurityComplianceBitmask"))
                 this.__SecurityComplianceBitmask := STORAGE_SECURITY_COMPLIANCE_BITMASK(20, this)
@@ -68,7 +69,7 @@ class STORAGE_CRYPTO_DESCRIPTOR_V2 extends Win32Struct
     /**
      * @type {STORAGE_CRYPTO_KEY_TYPE}
      */
-    KeyTypeBitmask{
+    KeyTypeBitmask {
         get {
             if(!this.HasProp("__KeyTypeBitmask"))
                 this.__KeyTypeBitmask := STORAGE_CRYPTO_KEY_TYPE(22, this)
@@ -77,9 +78,9 @@ class STORAGE_CRYPTO_DESCRIPTOR_V2 extends Win32Struct
     }
 
     /**
-     * @type {Array<STORAGE_CRYPTO_CAPABILITY_V2>}
+     * @type {STORAGE_CRYPTO_CAPABILITY_V2}
      */
-    CryptoCapabilities{
+    CryptoCapabilities {
         get {
             if(!this.HasProp("__CryptoCapabilitiesProxyArray"))
                 this.__CryptoCapabilitiesProxyArray := Win32FixedArray(this.ptr + 24, 1, STORAGE_CRYPTO_CAPABILITY_V2, "")

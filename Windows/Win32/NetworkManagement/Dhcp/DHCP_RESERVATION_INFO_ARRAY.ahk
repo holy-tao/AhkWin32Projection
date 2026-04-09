@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DHCP_IP_RESERVATION_INFO.ahk
 
 /**
  * The DHCP_RESERVATION_INFO_ARRAY structure defines an array of IPv4 reservations for DHCPv4 clients.
  * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/ns-dhcpsapi-dhcp_reservation_info_array
  * @namespace Windows.Win32.NetworkManagement.Dhcp
- * @version v4.0.30319
  */
-class DHCP_RESERVATION_INFO_ARRAY extends Win32Struct
-{
+class DHCP_RESERVATION_INFO_ARRAY extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

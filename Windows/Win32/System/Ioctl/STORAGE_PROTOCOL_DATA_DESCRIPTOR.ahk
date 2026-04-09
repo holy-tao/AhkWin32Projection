@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\STORAGE_PROTOCOL_SPECIFIC_DATA.ahk
+#Include .\STORAGE_PROTOCOL_TYPE.ahk
 
 /**
  * This structure is used in conjunction with IOCTL_STORAGE_QUERY_PROPERTY to return protocol-specific data from a storage device or adapter.
@@ -60,10 +61,8 @@
  * </ul>
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-storage_protocol_data_descriptor
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class STORAGE_PROTOCOL_DATA_DESCRIPTOR extends Win32Struct
-{
+class STORAGE_PROTOCOL_DATA_DESCRIPTOR extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 4
@@ -90,7 +89,7 @@ class STORAGE_PROTOCOL_DATA_DESCRIPTOR extends Win32Struct
      * The protocol-specific data, of type <a href="https://docs.microsoft.com/windows/desktop/api/winioctl/ns-winioctl-storage_protocol_specific_data">STORAGE_PROTOCOL_SPECIFIC_DATA</a>.
      * @type {STORAGE_PROTOCOL_SPECIFIC_DATA}
      */
-    ProtocolSpecificData{
+    ProtocolSpecificData {
         get {
             if(!this.HasProp("__ProtocolSpecificData"))
                 this.__ProtocolSpecificData := STORAGE_PROTOCOL_SPECIFIC_DATA(8, this)

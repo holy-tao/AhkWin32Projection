@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Storage.InstallableFileSystems
- * @version v4.0.30319
  */
-class FILTER_AGGREGATE_STANDARD_INFORMATION extends Win32Struct
-{
+class FILTER_AGGREGATE_STANDARD_INFORMATION extends Win32Struct {
     static sizeof => 28
 
     static packingSize => 4
@@ -18,7 +16,7 @@ class FILTER_AGGREGATE_STANDARD_INFORMATION extends Win32Struct
         class _MiniFilter extends Win32Struct {
             static sizeof => 20
             static packingSize => 4
-    
+
             /**
              * @type {Integer}
              */
@@ -26,7 +24,7 @@ class FILTER_AGGREGATE_STANDARD_INFORMATION extends Win32Struct
                 get => NumGet(this, 0, "uint")
                 set => NumPut("uint", value, this, 0)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -34,7 +32,7 @@ class FILTER_AGGREGATE_STANDARD_INFORMATION extends Win32Struct
                 get => NumGet(this, 4, "uint")
                 set => NumPut("uint", value, this, 4)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -42,7 +40,7 @@ class FILTER_AGGREGATE_STANDARD_INFORMATION extends Win32Struct
                 get => NumGet(this, 8, "uint")
                 set => NumPut("uint", value, this, 8)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -50,7 +48,7 @@ class FILTER_AGGREGATE_STANDARD_INFORMATION extends Win32Struct
                 get => NumGet(this, 12, "ushort")
                 set => NumPut("ushort", value, this, 12)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -58,7 +56,7 @@ class FILTER_AGGREGATE_STANDARD_INFORMATION extends Win32Struct
                 get => NumGet(this, 14, "ushort")
                 set => NumPut("ushort", value, this, 14)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -66,7 +64,7 @@ class FILTER_AGGREGATE_STANDARD_INFORMATION extends Win32Struct
                 get => NumGet(this, 16, "ushort")
                 set => NumPut("ushort", value, this, 16)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -74,13 +72,12 @@ class FILTER_AGGREGATE_STANDARD_INFORMATION extends Win32Struct
                 get => NumGet(this, 18, "ushort")
                 set => NumPut("ushort", value, this, 18)
             }
-        
         }
-    
+
         class _LegacyFilter extends Win32Struct {
             static sizeof => 12
             static packingSize => 4
-    
+
             /**
              * @type {Integer}
              */
@@ -88,7 +85,7 @@ class FILTER_AGGREGATE_STANDARD_INFORMATION extends Win32Struct
                 get => NumGet(this, 0, "uint")
                 set => NumPut("uint", value, this, 0)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -96,7 +93,7 @@ class FILTER_AGGREGATE_STANDARD_INFORMATION extends Win32Struct
                 get => NumGet(this, 4, "ushort")
                 set => NumPut("ushort", value, this, 4)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -104,7 +101,7 @@ class FILTER_AGGREGATE_STANDARD_INFORMATION extends Win32Struct
                 get => NumGet(this, 6, "ushort")
                 set => NumPut("ushort", value, this, 6)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -112,7 +109,7 @@ class FILTER_AGGREGATE_STANDARD_INFORMATION extends Win32Struct
                 get => NumGet(this, 8, "ushort")
                 set => NumPut("ushort", value, this, 8)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -120,31 +117,29 @@ class FILTER_AGGREGATE_STANDARD_INFORMATION extends Win32Struct
                 get => NumGet(this, 10, "ushort")
                 set => NumPut("ushort", value, this, 10)
             }
-        
         }
-    
+
         /**
          * @type {_MiniFilter}
          */
-        MiniFilter{
+        MiniFilter {
             get {
                 if(!this.HasProp("__MiniFilter"))
-                    this.__MiniFilter := %this.__Class%._MiniFilter(0, this)
+                    this.__MiniFilter := FILTER_AGGREGATE_STANDARD_INFORMATION._Type_e__Union._MiniFilter(0, this)
                 return this.__MiniFilter
             }
         }
-    
+
         /**
          * @type {_LegacyFilter}
          */
-        LegacyFilter{
+        LegacyFilter {
             get {
                 if(!this.HasProp("__LegacyFilter"))
-                    this.__LegacyFilter := %this.__Class%._LegacyFilter(0, this)
+                    this.__LegacyFilter := FILTER_AGGREGATE_STANDARD_INFORMATION._Type_e__Union._LegacyFilter(0, this)
                 return this.__LegacyFilter
             }
         }
-    
     }
 
     /**
@@ -166,10 +161,10 @@ class FILTER_AGGREGATE_STANDARD_INFORMATION extends Win32Struct
     /**
      * @type {_Type_e__Union}
      */
-    Type{
+    Type {
         get {
             if(!this.HasProp("__Type"))
-                this.__Type := %this.__Class%._Type_e__Union(8, this)
+                this.__Type := FILTER_AGGREGATE_STANDARD_INFORMATION._Type_e__Union(8, this)
             return this.__Type
         }
     }

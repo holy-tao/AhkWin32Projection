@@ -5,10 +5,8 @@
  * Represents a 3x2 matrix. Used with GetMatrixTransform and SetMatrixTransform to indicate the scaling and translation transform for SwapChainPanel swap chains.
  * @see https://learn.microsoft.com/windows/win32/api/dxgi1_3/ns-dxgi1_3-dxgi_matrix_3x2_f
  * @namespace Windows.Win32.Graphics.Dxgi
- * @version v4.0.30319
  */
-class DXGI_MATRIX_3X2_F extends Win32Struct
-{
+class DXGI_MATRIX_3X2_F extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 4

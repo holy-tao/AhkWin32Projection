@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\IAppxBlockMapBlock.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
+#Include .\IAppxBlockMapBlock.ahk
 
 /**
  * Enumerates the blocks from a block map in a single file.
  * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nn-appxpackaging-iappxblockmapblocksenumerator
  * @namespace Windows.Win32.Storage.Packaging.Appx
- * @version v4.0.30319
  */
-class IAppxBlockMapBlocksEnumerator extends IUnknown{
+class IAppxBlockMapBlocksEnumerator extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

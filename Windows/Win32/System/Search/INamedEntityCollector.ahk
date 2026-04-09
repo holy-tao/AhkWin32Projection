@@ -7,9 +7,8 @@
  * Provides a method to accumulate named entities as identified by an IConditionGenerator object.
  * @see https://learn.microsoft.com/windows/win32/api/structuredquery/nn-structuredquery-inamedentitycollector
  * @namespace Windows.Win32.System.Search
- * @version v4.0.30319
  */
-class INamedEntityCollector extends IUnknown{
+class INamedEntityCollector extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -66,7 +65,7 @@ class INamedEntityCollector extends IUnknown{
      * @param {PWSTR} pszValue Type: <b>LPCWSTR</b>
      * 
      * The name of the entity as a string.
-     * @param {Integer} certainty Type: <b><a href="https://docs.microsoft.com/windows/win32/api/structuredquery/ne-structuredquery-named_entity_certainty">NAMED_ENTITY_CERTAINTY</a></b>
+     * @param {NAMED_ENTITY_CERTAINTY} certainty Type: <b><a href="https://docs.microsoft.com/windows/win32/api/structuredquery/ne-structuredquery-named_entity_certainty">NAMED_ENTITY_CERTAINTY</a></b>
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.

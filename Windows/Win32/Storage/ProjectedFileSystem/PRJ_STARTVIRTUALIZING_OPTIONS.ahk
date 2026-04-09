@@ -1,21 +1,21 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\PRJ_STARTVIRTUALIZING_FLAGS.ahk
+#Include .\PRJ_NOTIFICATION_MAPPING.ahk
 
 /**
  * Options to provide when starting a virtualization instance.
  * @see https://learn.microsoft.com/windows/win32/api/projectedfslib/ns-projectedfslib-prj_startvirtualizing_options
  * @namespace Windows.Win32.Storage.ProjectedFileSystem
- * @version v4.0.30319
  */
-class PRJ_STARTVIRTUALIZING_OPTIONS extends Win32Struct
-{
+class PRJ_STARTVIRTUALIZING_OPTIONS extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
 
     /**
      * A flag for starting virtualization.
-     * @type {Integer}
+     * @type {PRJ_STARTVIRTUALIZING_FLAGS}
      */
     Flags {
         get => NumGet(this, 0, "int")

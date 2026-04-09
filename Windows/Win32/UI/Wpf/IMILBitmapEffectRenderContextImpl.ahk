@@ -7,9 +7,8 @@
  * Exposes methods that define a IMILBitmapEffectRenderContext.
  * @see https://learn.microsoft.com/windows/win32/api/mileffects/nn-mileffects-imilbitmapeffectrendercontextimpl
  * @namespace Windows.Win32.UI.Wpf
- * @version v4.0.30319
  */
-class IMILBitmapEffectRenderContextImpl extends IUnknown{
+class IMILBitmapEffectRenderContextImpl extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

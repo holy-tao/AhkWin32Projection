@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class CM_PNP_BIOS_DEVICE_NODE extends Win32Struct
-{
+class CM_PNP_BIOS_DEVICE_NODE extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4
@@ -36,9 +34,9 @@ class CM_PNP_BIOS_DEVICE_NODE extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    DeviceType{
+    DeviceType {
         get {
             if(!this.HasProp("__DeviceTypeProxyArray"))
                 this.__DeviceTypeProxyArray := Win32FixedArray(this.ptr + 8, 3, Primitive, "char")

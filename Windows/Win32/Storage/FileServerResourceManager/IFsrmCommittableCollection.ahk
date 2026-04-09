@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IFsrmCollection.ahk
 #Include .\IFsrmMutableCollection.ahk
+#Include .\IFsrmCollection.ahk
 
 /**
  * Defines a collection of FSRM objects that can have the same type of objects added to or removed from the collection. All objects in the collection can also be committed in a single batch operation.
  * @see https://learn.microsoft.com/windows/win32/api/fsrm/nn-fsrm-ifsrmcommittablecollection
  * @namespace Windows.Win32.Storage.FileServerResourceManager
- * @version v4.0.30319
  */
-class IFsrmCommittableCollection extends IFsrmMutableCollection{
+class IFsrmCommittableCollection extends IFsrmMutableCollection {
 
     static sizeof => A_PtrSize
     /**
@@ -48,7 +47,7 @@ class IFsrmCommittableCollection extends IFsrmMutableCollection{
      *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrm/nf-fsrm-ifsrmobject-delete">Delete</a> method on the object), you would first have to 
      *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrm/nf-fsrm-ifsrmmutablecollection-remove">remove</a> those objects from the collection before 
      *     committing the rest.
-     * @param {Integer} options One or more options to use when committing the collection of objects. For possible values, see the 
+     * @param {FsrmCommitOptions} options One or more options to use when committing the collection of objects. For possible values, see the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/fsrmenums/ne-fsrmenums-fsrmcommitoptions">FsrmCommitOptions</a> enumeration.
      * @returns {IFsrmCollection} A collection of <b>HRESULT</b> values that correspond directly to the objects in the 
      *        collection. The <b>HRESULT</b> value indicates the success or failure of committing the 

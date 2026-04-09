@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.Wmi
- * @version v4.0.30319
  */
-class ISWbemLastError extends ISWbemObject{
+class ISWbemLastError extends ISWbemObject {
 
     static sizeof => A_PtrSize
     /**

@@ -1,21 +1,21 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\OLEIVERB.ahk
+#Include ..\..\UI\WindowsAndMessaging\MENU_ITEM_FLAGS.ahk
 
 /**
  * Defines a verb that an object supports. The IOleObject::EnumVerbs method creates an enumerator that can enumerate these structures for an object, and supplies a pointer to the enumerator's IEnumOLEVERB.
  * @see https://learn.microsoft.com/windows/win32/api/oleidl/ns-oleidl-oleverb
  * @namespace Windows.Win32.System.Ole
- * @version v4.0.30319
  */
-class OLEVERB extends Win32Struct
-{
+class OLEVERB extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
 
     /**
      * Integer identifier associated with this verb.
-     * @type {Integer}
+     * @type {OLEIVERB}
      */
     lVerb {
         get => NumGet(this, 0, "int")
@@ -33,7 +33,7 @@ class OLEVERB extends Win32Struct
 
     /**
      * In Windows, a group of flags taken from the flag constants beginning with MF_ defined in <a href="https://docs.microsoft.com/windows/desktop/menurc/u">AppendMenu</a>. Containers should use these flags in building an object's verb menu. All Flags defined in <b>AppendMenu</b> are supported except for MF_BITMAP, MF_OWNERDRAW, and MF_POPUP.
-     * @type {Integer}
+     * @type {MENU_ITEM_FLAGS}
      */
     fuFlags {
         get => NumGet(this, 16, "uint")

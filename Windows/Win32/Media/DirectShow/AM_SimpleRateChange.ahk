@@ -91,10 +91,8 @@
  * In the special case where playback is 1x at time 0, r1 = 1 and xi1 = 0.
  * @see https://learn.microsoft.com/windows/win32/api/dvdmedia/ns-dvdmedia-am_simpleratechange
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class AM_SimpleRateChange extends Win32Struct
-{
+class AM_SimpleRateChange extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

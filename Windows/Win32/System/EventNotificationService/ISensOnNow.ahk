@@ -7,9 +7,8 @@
  * The ISensOnNow interface handles AC and battery power events fired by the System Event Notification Service (SENS).
  * @see https://learn.microsoft.com/windows/win32/api/sensevts/nn-sensevts-isensonnow
  * @namespace Windows.Win32.System.EventNotificationService
- * @version v4.0.30319
  */
-class ISensOnNow extends IDispatch{
+class ISensOnNow extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

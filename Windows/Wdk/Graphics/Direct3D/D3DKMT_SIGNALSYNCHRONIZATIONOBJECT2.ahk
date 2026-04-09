@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
- * @version v4.0.30319
  */
-class D3DKMT_SIGNALSYNCHRONIZATIONOBJECT2 extends Win32Struct
-{
+class D3DKMT_SIGNALSYNCHRONIZATIONOBJECT2 extends Win32Struct {
     static sizeof => 472
 
     static packingSize => 8
@@ -29,9 +27,9 @@ class D3DKMT_SIGNALSYNCHRONIZATIONOBJECT2 extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    ObjectHandleArray{
+    ObjectHandleArray {
         get {
             if(!this.HasProp("__ObjectHandleArrayProxyArray"))
                 this.__ObjectHandleArrayProxyArray := Win32FixedArray(this.ptr + 8, 32, Primitive, "uint")
@@ -40,7 +38,7 @@ class D3DKMT_SIGNALSYNCHRONIZATIONOBJECT2 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<D3DDDICB_SIGNALFLAGS>}
+     * @type {Pointer}
      */
     Flags {
         get => NumGet(this, 136, "ptr")
@@ -56,9 +54,9 @@ class D3DKMT_SIGNALSYNCHRONIZATIONOBJECT2 extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    BroadcastContext{
+    BroadcastContext {
         get {
             if(!this.HasProp("__BroadcastContextProxyArray"))
                 this.__BroadcastContextProxyArray := Win32FixedArray(this.ptr + 148, 64, Primitive, "uint")
@@ -77,16 +75,15 @@ class D3DKMT_SIGNALSYNCHRONIZATIONOBJECT2 extends Win32Struct
             get => NumGet(this, 0, "uint")
             set => NumPut("uint", value, this, 0)
         }
-    
     }
 
     /**
      * @type {_Fence}
      */
-    Fence{
+    Fence {
         get {
             if(!this.HasProp("__Fence"))
-                this.__Fence := %this.__Class%._Fence(408, this)
+                this.__Fence := D3DKMT_SIGNALSYNCHRONIZATIONOBJECT2._Fence(408, this)
             return this.__Fence
         }
     }
@@ -94,7 +91,7 @@ class D3DKMT_SIGNALSYNCHRONIZATIONOBJECT2 extends Win32Struct
     /**
      * @type {HANDLE}
      */
-    CpuEventHandle{
+    CpuEventHandle {
         get {
             if(!this.HasProp("__CpuEventHandle"))
                 this.__CpuEventHandle := HANDLE(408, this)
@@ -103,9 +100,9 @@ class D3DKMT_SIGNALSYNCHRONIZATIONOBJECT2 extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt64>}
+     * @type {Array<Integer>}
      */
-    Reserved{
+    Reserved {
         get {
             if(!this.HasProp("__ReservedProxyArray"))
                 this.__ReservedProxyArray := Win32FixedArray(this.ptr + 408, 8, Primitive, "uint")

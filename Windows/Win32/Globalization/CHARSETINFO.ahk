@@ -6,10 +6,8 @@
  * Contains information about a character set.
  * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-charsetinfo
  * @namespace Windows.Win32.Globalization
- * @version v4.0.30319
  */
-class CHARSETINFO extends Win32Struct
-{
+class CHARSETINFO extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 4
@@ -36,7 +34,7 @@ class CHARSETINFO extends Win32Struct
      * A <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-fontsignature">FONTSIGNATURE</a> structure that identifies the Unicode subrange and the specific Windows ANSI character set/code page. Only one code page will be set when this structure is set by the function.
      * @type {FONTSIGNATURE}
      */
-    fs{
+    fs {
         get {
             if(!this.HasProp("__fs"))
                 this.__fs := FONTSIGNATURE(8, this)

@@ -7,9 +7,8 @@
  * Exposes methods that notify Remote Desktop Connection Broker (RD Connection Broker) about initialization or termination of a plug-in.
  * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nn-sbtsv-itssbpluginnotifysink
  * @namespace Windows.Win32.System.RemoteDesktop
- * @version v4.0.30319
  */
-class ITsSbPluginNotifySink extends ITsSbBaseNotifySink{
+class ITsSbPluginNotifySink extends ITsSbBaseNotifySink {
 
     static sizeof => A_PtrSize
     /**

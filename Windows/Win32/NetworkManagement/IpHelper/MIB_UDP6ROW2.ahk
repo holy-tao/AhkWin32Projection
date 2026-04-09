@@ -3,18 +3,16 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.IpHelper
- * @version v4.0.30319
  */
-class MIB_UDP6ROW2 extends Win32Struct
-{
+class MIB_UDP6ROW2 extends Win32Struct {
     static sizeof => 200
 
     static packingSize => 8
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    ucLocalAddr{
+    ucLocalAddr {
         get {
             if(!this.HasProp("__ucLocalAddrProxyArray"))
                 this.__ucLocalAddrProxyArray := Win32FixedArray(this.ptr + 0, 16, Primitive, "char")
@@ -81,9 +79,9 @@ class MIB_UDP6ROW2 extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt64>}
+     * @type {Array<Integer>}
      */
-    OwningModuleInfo{
+    OwningModuleInfo {
         get {
             if(!this.HasProp("__OwningModuleInfoProxyArray"))
                 this.__OwningModuleInfoProxyArray := Win32FixedArray(this.ptr + 48, 16, Primitive, "uint")
@@ -92,9 +90,9 @@ class MIB_UDP6ROW2 extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    ucRemoteAddr{
+    ucRemoteAddr {
         get {
             if(!this.HasProp("__ucRemoteAddrProxyArray"))
                 this.__ucRemoteAddrProxyArray := Win32FixedArray(this.ptr + 176, 16, Primitive, "char")

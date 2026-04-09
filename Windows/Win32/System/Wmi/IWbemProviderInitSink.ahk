@@ -7,9 +7,8 @@
  * The IWbemProviderInitSink interface is implemented by WMI and called by providers to report initialization status.
  * @see https://learn.microsoft.com/windows/win32/api/wbemprov/nn-wbemprov-iwbemproviderinitsink
  * @namespace Windows.Win32.System.Wmi
- * @version v4.0.30319
  */
-class IWbemProviderInitSink extends IUnknown{
+class IWbemProviderInitSink extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -1,15 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\ICorProfilerInfo2.ahk
 #Include .\ICorProfilerFunctionEnum.ahk
 #Include .\ICorProfilerModuleEnum.ahk
-#Include .\ICorProfilerInfo2.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.ClrProfiling
- * @version v4.0.30319
  */
-class ICorProfilerInfo3 extends ICorProfilerInfo2{
+class ICorProfilerInfo3 extends ICorProfilerInfo2 {
 
     static sizeof => A_PtrSize
     /**
@@ -164,7 +163,7 @@ class ICorProfilerInfo3 extends ICorProfilerInfo2{
     /**
      * 
      * @param {Pointer<Integer>} pClrInstanceId 
-     * @param {Pointer<Integer>} pRuntimeType 
+     * @param {Pointer<COR_PRF_RUNTIME_TYPE>} pRuntimeType 
      * @param {Pointer<Integer>} pMajorVersion 
      * @param {Pointer<Integer>} pMinorVersion 
      * @param {Pointer<Integer>} pBuildNumber 

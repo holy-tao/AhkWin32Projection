@@ -5,10 +5,8 @@
 
 /**
  * @namespace Windows.Wdk.System.OfflineRegistry
- * @version v4.0.30319
  */
-class ORHKEY extends Win32Handle
-{
+class ORHKEY extends Win32Handle {
     static sizeof => 8
 
     static packingSize => 8

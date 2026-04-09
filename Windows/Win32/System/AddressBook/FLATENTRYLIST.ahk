@@ -17,10 +17,8 @@
  * ```
  * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/flatentrylist
  * @namespace Windows.Win32.System.AddressBook
- * @version v4.0.30319
  */
-class FLATENTRYLIST extends Win32Struct
-{
+class FLATENTRYLIST extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4
@@ -45,9 +43,9 @@ class FLATENTRYLIST extends Win32Struct
 
     /**
      * > Byte array that contains one or more **FLATENTRY** structures, arranged end to end.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    abEntries{
+    abEntries {
         get {
             if(!this.HasProp("__abEntriesProxyArray"))
                 this.__abEntriesProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "char")

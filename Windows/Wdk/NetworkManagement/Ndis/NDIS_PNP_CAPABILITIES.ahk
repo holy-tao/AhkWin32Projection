@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.NetworkManagement.Ndis
- * @version v4.0.30319
  */
-class NDIS_PNP_CAPABILITIES extends Win32Struct
-{
+class NDIS_PNP_CAPABILITIES extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
@@ -20,7 +18,7 @@ class NDIS_PNP_CAPABILITIES extends Win32Struct
     }
 
     /**
-     * @type {Pointer<NDIS_PM_WAKE_UP_CAPABILITIES>}
+     * @type {Pointer}
      */
     WakeUpCapabilities {
         get => NumGet(this, 8, "ptr")

@@ -5,10 +5,8 @@
  * Specifies the certificate credentials. The QueryCredentialsAttributes function uses this structure.
  * @see https://learn.microsoft.com/windows/win32/api/sspi/ns-sspi-secpkgcredentials_cert
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class SecPkgCredentials_Cert extends Win32Struct
-{
+class SecPkgCredentials_Cert extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

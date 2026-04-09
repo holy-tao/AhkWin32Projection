@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.ActiveScript
- * @version v4.0.30319
  */
-class IApplicationDebugger extends IUnknown{
+class IApplicationDebugger extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -65,7 +64,7 @@ class IApplicationDebugger extends IUnknown{
     /**
      * 
      * @param {IRemoteDebugApplicationThread} prpt 
-     * @param {Integer} br 
+     * @param {BREAKREASON} br 
      * @param {IActiveScriptErrorDebug} pError 
      * @returns {HRESULT} 
      */

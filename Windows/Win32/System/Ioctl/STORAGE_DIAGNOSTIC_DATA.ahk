@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class STORAGE_DIAGNOSTIC_DATA extends Win32Struct
-{
+class STORAGE_DIAGNOSTIC_DATA extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -28,7 +26,7 @@ class STORAGE_DIAGNOSTIC_DATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     ProviderId {
         get => NumGet(this, 8, "ptr")
@@ -52,9 +50,9 @@ class STORAGE_DIAGNOSTIC_DATA extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    DiagnosticDataBuffer{
+    DiagnosticDataBuffer {
         get {
             if(!this.HasProp("__DiagnosticDataBufferProxyArray"))
                 this.__DiagnosticDataBufferProxyArray := Win32FixedArray(this.ptr + 24, 1, Primitive, "char")

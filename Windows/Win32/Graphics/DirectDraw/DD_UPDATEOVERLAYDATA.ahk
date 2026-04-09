@@ -1,17 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DD_DIRECTDRAW_GLOBAL.ahk
+#Include .\DD_SURFACE_LOCAL.ahk
 #Include ..\..\Foundation\RECTL.ahk
-#Include .\DDCOLORKEY.ahk
 #Include .\DDOVERLAYFX.ahk
+#Include .\IDirectDrawSurface.ahk
+#Include .\DDCOLORKEY.ahk
 
 /**
  * The DD_UPDATEOVERLAYDATA structure contains information necessary for updating an overlay surface.
  * @see https://learn.microsoft.com/windows/win32/api/ddrawint/ns-ddrawint-dd_updateoverlaydata
  * @namespace Windows.Win32.Graphics.DirectDraw
- * @version v4.0.30319
  */
-class DD_UPDATEOVERLAYDATA extends Win32Struct
-{
+class DD_UPDATEOVERLAYDATA extends Win32Struct {
     static sizeof => 152
 
     static packingSize => 8
@@ -38,7 +39,7 @@ class DD_UPDATEOVERLAYDATA extends Win32Struct
      * Specifies a <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rectl">RECTL</a> structure that contains the x, y, width, and height of the region on the destination surface to be overlaid.
      * @type {RECTL}
      */
-    rDest{
+    rDest {
         get {
             if(!this.HasProp("__rDest"))
                 this.__rDest := RECTL(16, this)
@@ -59,7 +60,7 @@ class DD_UPDATEOVERLAYDATA extends Win32Struct
      * Specifies a RECTL structure that contains the x, y, width, and height of the region on the source surface to be used for the overlay.
      * @type {RECTL}
      */
-    rSrc{
+    rSrc {
         get {
             if(!this.HasProp("__rSrc"))
                 this.__rSrc := RECTL(40, this)
@@ -237,7 +238,7 @@ class DD_UPDATEOVERLAYDATA extends Win32Struct
      * Specifies a DDOVERLAYFX structure (described in the DirectDraw SDK documentation) that describes additional effects that the driver should use to update the overlay. The driver should use this structure only if one of DDOVER_DDFX, DDOVER_KEYDESTOVERRIDE, or DDOVER_KEYSRCOVERRIDE are set in the <b>dwFlags</b> member.
      * @type {DDOVERLAYFX}
      */
-    overlayFX{
+    overlayFX {
         get {
             if(!this.HasProp("__overlayFX"))
                 this.__overlayFX := DDOVERLAYFX(64, this)

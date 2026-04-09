@@ -1,5 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\D3D10_FILTER.ahk
+#Include .\D3D10_TEXTURE_ADDRESS_MODE.ahk
+#Include .\D3D10_COMPARISON_FUNC.ahk
 
 /**
  * Describes a sampler state. (D3D10_SAMPLER_DESC)
@@ -58,10 +61,8 @@
  * </table>
  * @see https://learn.microsoft.com/windows/win32/api/d3d10/ns-d3d10-d3d10_sampler_desc
  * @namespace Windows.Win32.Graphics.Direct3D10
- * @version v4.0.30319
  */
-class D3D10_SAMPLER_DESC extends Win32Struct
-{
+class D3D10_SAMPLER_DESC extends Win32Struct {
     static sizeof => 52
 
     static packingSize => 4
@@ -70,7 +71,7 @@ class D3D10_SAMPLER_DESC extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ne-d3d10-d3d10_filter">D3D10_FILTER</a></b>
      * 
      * Filtering method to use when sampling a texture (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ne-d3d10-d3d10_filter">D3D10_FILTER</a>).
-     * @type {Integer}
+     * @type {D3D10_FILTER}
      */
     Filter {
         get => NumGet(this, 0, "int")
@@ -81,7 +82,7 @@ class D3D10_SAMPLER_DESC extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ne-d3d10-d3d10_texture_address_mode">D3D10_TEXTURE_ADDRESS_MODE</a></b>
      * 
      * Method to use for resolving a u texture coordinate that is outside the 0 to 1 range (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ne-d3d10-d3d10_texture_address_mode">D3D10_TEXTURE_ADDRESS_MODE</a>).
-     * @type {Integer}
+     * @type {D3D10_TEXTURE_ADDRESS_MODE}
      */
     AddressU {
         get => NumGet(this, 4, "int")
@@ -92,7 +93,7 @@ class D3D10_SAMPLER_DESC extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ne-d3d10-d3d10_texture_address_mode">D3D10_TEXTURE_ADDRESS_MODE</a></b>
      * 
      * Method to use for resolving a v texture coordinate that is outside the 0 to 1 range.
-     * @type {Integer}
+     * @type {D3D10_TEXTURE_ADDRESS_MODE}
      */
     AddressV {
         get => NumGet(this, 8, "int")
@@ -103,7 +104,7 @@ class D3D10_SAMPLER_DESC extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ne-d3d10-d3d10_texture_address_mode">D3D10_TEXTURE_ADDRESS_MODE</a></b>
      * 
      * Method to use for resolving a w texture coordinate that is outside the 0 to 1 range.
-     * @type {Integer}
+     * @type {D3D10_TEXTURE_ADDRESS_MODE}
      */
     AddressW {
         get => NumGet(this, 12, "int")
@@ -136,7 +137,7 @@ class D3D10_SAMPLER_DESC extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ne-d3d10-d3d10_comparison_func">D3D10_COMPARISON_FUNC</a></b>
      * 
      * A function that compares sampled data against existing sampled data. The function options are listed in <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ne-d3d10-d3d10_comparison_func">D3D10_COMPARISON_FUNC</a>.
-     * @type {Integer}
+     * @type {D3D10_COMPARISON_FUNC}
      */
     ComparisonFunc {
         get => NumGet(this, 24, "int")
@@ -147,9 +148,9 @@ class D3D10_SAMPLER_DESC extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">FLOAT</a></b>
      * 
      * Border color to use if D3D10_TEXTURE_ADDRESS_BORDER is specified for AddressU, AddressV, or AddressW. Range must be between 0.0 and 1.0 inclusive.
-     * @type {Array<Single>}
+     * @type {Array<Float>}
      */
-    BorderColor{
+    BorderColor {
         get {
             if(!this.HasProp("__BorderColorProxyArray"))
                 this.__BorderColorProxyArray := Win32FixedArray(this.ptr + 28, 4, Primitive, "float")

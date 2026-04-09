@@ -4,11 +4,10 @@
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug
- * @version v4.0.30319
+ * @architecture X64, Arm64
  */
-class XSAVE_FORMAT extends Win32Struct
-{
-    static sizeof => 320
+class XSAVE_FORMAT extends Win32Struct {
+    static sizeof => 512
 
     static packingSize => 8
 
@@ -117,9 +116,9 @@ class XSAVE_FORMAT extends Win32Struct
     }
 
     /**
-     * @type {Array<M128A>}
+     * @type {M128A}
      */
-    FloatRegisters{
+    FloatRegisters {
         get {
             if(!this.HasProp("__FloatRegistersProxyArray"))
                 this.__FloatRegistersProxyArray := Win32FixedArray(this.ptr + 32, 8, M128A, "")
@@ -128,23 +127,23 @@ class XSAVE_FORMAT extends Win32Struct
     }
 
     /**
-     * @type {Array<M128A>}
+     * @type {M128A}
      */
-    XmmRegisters{
+    XmmRegisters {
         get {
             if(!this.HasProp("__XmmRegistersProxyArray"))
-                this.__XmmRegistersProxyArray := Win32FixedArray(this.ptr + 96, 16, M128A, "")
+                this.__XmmRegistersProxyArray := Win32FixedArray(this.ptr + 160, 16, M128A, "")
             return this.__XmmRegistersProxyArray
         }
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Reserved4{
+    Reserved4 {
         get {
             if(!this.HasProp("__Reserved4ProxyArray"))
-                this.__Reserved4ProxyArray := Win32FixedArray(this.ptr + 224, 96, Primitive, "char")
+                this.__Reserved4ProxyArray := Win32FixedArray(this.ptr + 416, 96, Primitive, "char")
             return this.__Reserved4ProxyArray
         }
     }

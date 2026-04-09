@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\Com\IDispatch.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * Provides the methods to get information from and control a running task.
  * @see https://learn.microsoft.com/windows/win32/api/taskschd/nn-taskschd-irunningtask
  * @namespace Windows.Win32.System.TaskScheduler
- * @version v4.0.30319
  */
-class IRunningTask extends IDispatch{
+class IRunningTask extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -53,7 +52,7 @@ class IRunningTask extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {TASK_STATE} 
      */
     State {
         get => this.get_State()
@@ -116,7 +115,7 @@ class IRunningTask extends IDispatch{
      * Gets an identifier for the state of the running task.
      * @remarks
      * The <a href="https://docs.microsoft.com/windows/desktop/api/taskschd/nf-taskschd-irunningtask-refresh">IRunningTask::Refresh</a> method is called before the property value is returned.
-     * @returns {Integer} 
+     * @returns {TASK_STATE} 
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-irunningtask-get_state
      */
     get_State() {

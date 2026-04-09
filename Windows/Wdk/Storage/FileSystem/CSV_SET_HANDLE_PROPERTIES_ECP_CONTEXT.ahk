@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem
- * @version v4.0.30319
  */
-class CSV_SET_HANDLE_PROPERTIES_ECP_CONTEXT extends Win32Struct
-{
+class CSV_SET_HANDLE_PROPERTIES_ECP_CONTEXT extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

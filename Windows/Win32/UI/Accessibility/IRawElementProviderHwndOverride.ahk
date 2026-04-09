@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IRawElementProviderSimple.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\IRawElementProviderSimple.ahk
 
 /**
  * Exposes a method that enables repositioning of window-based elements within the fragment's UI Automation tree.
  * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nn-uiautomationcore-irawelementproviderhwndoverride
  * @namespace Windows.Win32.UI.Accessibility
- * @version v4.0.30319
  */
-class IRawElementProviderHwndOverride extends IUnknown{
+class IRawElementProviderHwndOverride extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -46,7 +45,9 @@ class IRawElementProviderHwndOverride extends IUnknown{
      * 
      * If the returned provider implements <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nn-uiautomationcore-irawelementproviderfragment">IRawElementProviderFragment</a>, 
      * 			the provider should be part of the fragment's tree and be reachable by navigating from the fragment's root.
-     * @param {HWND} _hwnd 
+     * @param {HWND} _hwnd Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
+     * 
+     * The window handle of the element.
      * @returns {IRawElementProviderSimple} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nn-uiautomationcore-irawelementprovidersimple">IRawElementProviderSimple</a>**</b>
      * 
      * Receives a pointer to the new provider for the specified window, or <b>NULL</b> if the provider is not being overridden. 

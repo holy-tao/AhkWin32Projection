@@ -1,18 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\WHV_VPCI_DEVICE_REGISTER_SPACE.ahk
 
 /**
  * @namespace Windows.Win32.System.Hypervisor
- * @version v4.0.30319
  */
-class WHV_VPCI_DEVICE_REGISTER extends Win32Struct
-{
+class WHV_VPCI_DEVICE_REGISTER extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
 
     /**
-     * @type {Integer}
+     * @type {WHV_VPCI_DEVICE_REGISTER_SPACE}
      */
     Location {
         get => NumGet(this, 0, "int")

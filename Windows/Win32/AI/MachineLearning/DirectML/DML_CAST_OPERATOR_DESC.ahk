@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\DML_TENSOR_DESC.ahk
 
 /**
  * Casts each element in the input to the data type of the output tensor, and stores the result in the corresponding element of the output.
@@ -7,10 +8,8 @@
  * Some data types might not be supported on certain hardware. To determine whether a data type is supported, use [IDMLDevice::CheckFeatureSupport](/windows/win32/api/directml/nf-directml-idmldevice-checkfeaturesupport) with [DML_FEATURE_TENSOR_DATA_TYPE_SUPPORT](/windows/win32/api/directml/ne-directml-dml_feature).
  * @see https://learn.microsoft.com/windows/win32/api/directml/ns-directml-dml_cast_operator_desc
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
- * @version v4.0.30319
  */
-class DML_CAST_OPERATOR_DESC extends Win32Struct
-{
+class DML_CAST_OPERATOR_DESC extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

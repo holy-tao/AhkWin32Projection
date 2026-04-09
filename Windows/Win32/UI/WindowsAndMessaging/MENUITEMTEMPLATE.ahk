@@ -5,10 +5,8 @@
  * Defines a menu item in a menu template.
  * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-menuitemtemplate
  * @namespace Windows.Win32.UI.WindowsAndMessaging
- * @version v4.0.30319
  */
-class MENUITEMTEMPLATE extends Win32Struct
-{
+class MENUITEMTEMPLATE extends Win32Struct {
     static sizeof => 6
 
     static packingSize => 2

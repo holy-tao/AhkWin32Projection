@@ -12,9 +12,8 @@
  * ```
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/ne-shobjidl_core-_kf_definition_flags
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class _KF_DEFINITION_FLAGS extends Win32Enum{
+class _KF_DEFINITION_FLAGS extends Win32Enum {
 
     /**
      * Prevent a <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-kf_category">per-user</a> known folder from being redirected to a network location. Note that if the known folder has been flagged with KFDF_LOCAL_REDIRECT_ONLY but it is a subfolder of a known folder that is redirected to a network location, this subfolder is redirected also.

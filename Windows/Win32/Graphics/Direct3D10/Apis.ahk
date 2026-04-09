@@ -11,7 +11,6 @@
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D10
- * @version v4.0.30319
  */
 class Direct3D10 {
 
@@ -1555,7 +1554,7 @@ class Direct3D10 {
      * 
      * Pointer to the display adapter (see <a href="https://docs.microsoft.com/windows/desktop/api/dxgi/nn-dxgi-idxgiadapter">IDXGIAdapter</a>) when creating a hardware device; otherwise set this parameter to <b>NULL</b>. 
      *         If <b>NULL</b> is specified when creating a hardware device, Direct3D will use the first adapter enumerated by <a href="https://docs.microsoft.com/windows/desktop/api/dxgi/nf-dxgi-idxgifactory-enumadapters">EnumAdapters</a>.
-     * @param {Integer} DriverType Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10misc/ne-d3d10misc-d3d10_driver_type">D3D10_DRIVER_TYPE</a></b>
+     * @param {D3D10_DRIVER_TYPE} DriverType Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10misc/ne-d3d10misc-d3d10_driver_type">D3D10_DRIVER_TYPE</a></b>
      * 
      * The device-driver type (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d10misc/ne-d3d10misc-d3d10_driver_type">D3D10_DRIVER_TYPE</a>). The driver type determines the type of device you will create.
      * @param {HMODULE} Software Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HMODULE</a></b>
@@ -1590,7 +1589,7 @@ class Direct3D10 {
      * @param {IDXGIAdapter} pAdapter Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dxgi/nn-dxgi-idxgiadapter">IDXGIAdapter</a>*</b>
      * 
      * Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/dxgi/nn-dxgi-idxgiadapter">IDXGIAdapter</a>.
-     * @param {Integer} DriverType Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10misc/ne-d3d10misc-d3d10_driver_type">D3D10_DRIVER_TYPE</a></b>
+     * @param {D3D10_DRIVER_TYPE} DriverType Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10misc/ne-d3d10misc-d3d10_driver_type">D3D10_DRIVER_TYPE</a></b>
      * 
      * The type of driver for the device. See <a href="https://docs.microsoft.com/windows/desktop/api/d3d10misc/ne-d3d10misc-d3d10_driver_type">D3D10_DRIVER_TYPE</a>.
      * @param {HMODULE} Software Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HMODULE</a></b>
@@ -1648,7 +1647,7 @@ class Direct3D10 {
      * To setup a programmable-pipeline stage, compile a shader and then bind the shader to the appropriate pipeline stage. For instance, here is an example compiling a geometry shader (see <a href="https://docs.microsoft.com/windows/desktop/direct3d11/d3d10-graphics-programming-guide-output-stream-stage-getting-started">Compile a Geometry Shader</a>).
      * 
      * This function, D3D10CompileShader, calls the version of the shader compiler that is shipped each time the operating system releases. A more up-to-date version of the shader compiler ships when the DirectX SDK ships, which can be accessed from D3DX by calling a version of the shader compiler entry-point function such as <a href="https://docs.microsoft.com/windows/desktop/direct3d10/d3dx10compilefromfile">D3DX10CompileFromFile</a>.  It is preferable to use the D3DX entry-point functions to ensure the latest version of the shader compiler will be used if you will be redistributing the DirectX redistributable libraries.
-     * @param {Pointer} pSrcData Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCSTR</a></b>
+     * @param {Integer} pSrcData Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCSTR</a></b>
      * 
      * Pointer to a string containing the shader source code.
      * @param {Pointer} SrcDataSize Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">SIZE_T</a></b>
@@ -1696,7 +1695,7 @@ class Direct3D10 {
 
     /**
      * This function -- which disassembles a compiled shader into a text string that contains assembly instructions and register assignments -- has been deprecated. Instead, use D3DDisassemble.
-     * @param {Pointer} pShader Type: <b>const void*</b>
+     * @param {Integer} pShader Type: <b>const void*</b>
      * 
      * A pointer to the compiled shader.
      * @param {Pointer} BytecodeLength Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">SIZE_T</a></b>
@@ -1767,7 +1766,7 @@ class Direct3D10 {
 
     /**
      * This function -- which creates a shader-reflection object for retrieving information about a compiled shader -- has been deprecated. Instead, use D3DReflect.
-     * @param {Pointer} pShaderBytecode Type: <b>const void*</b>
+     * @param {Integer} pShaderBytecode Type: <b>const void*</b>
      * 
      * A pointer to the compiled shader.
      * @param {Pointer} BytecodeLength Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">SIZE_T</a></b>
@@ -1787,7 +1786,7 @@ class Direct3D10 {
      * Generate a shader-text string that contains the shader tokens that would be found in a compiled shader.
      * @remarks
      * Use this function to generate a shader-token stream, which is the compiled output of the shader compiler.
-     * @param {Pointer} pSrcData Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCSTR</a></b>
+     * @param {Integer} pSrcData Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCSTR</a></b>
      * 
      * Pointer to a string containing the shader source code.
      * @param {Pointer} SrcDataSize Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">SIZE_T</a></b>
@@ -1824,7 +1823,7 @@ class Direct3D10 {
 
     /**
      * Get a buffer that contains shader-input signatures.
-     * @param {Pointer} pShaderBytecode Type: <b>const void*</b>
+     * @param {Integer} pShaderBytecode Type: <b>const void*</b>
      * 
      * A pointer to the compiled shader. To get this pointer see <a href="https://docs.microsoft.com/windows/desktop/direct3dhlsl/dx-graphics-hlsl-using-shaders-10">Getting a Pointer to a Compiled Shader</a>.
      * @param {Pointer} BytecodeLength Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">SIZE_T</a></b>
@@ -1842,7 +1841,7 @@ class Direct3D10 {
 
     /**
      * Get a buffer that contains shader-output signatures.
-     * @param {Pointer} pShaderBytecode Type: <b>const void*</b>
+     * @param {Integer} pShaderBytecode Type: <b>const void*</b>
      * 
      * A pointer to the compiled shader. To get this pointer see <a href="https://docs.microsoft.com/windows/desktop/direct3dhlsl/dx-graphics-hlsl-using-shaders-10">Getting a Pointer to a Compiled Shader</a>.
      * @param {Pointer} BytecodeLength Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">SIZE_T</a></b>
@@ -1860,7 +1859,7 @@ class Direct3D10 {
 
     /**
      * Get a buffer that contains shader signatures.
-     * @param {Pointer} pShaderBytecode Type: <b>const void*</b>
+     * @param {Integer} pShaderBytecode Type: <b>const void*</b>
      * 
      * A pointer to the compiled shader. To get this pointer see <a href="https://docs.microsoft.com/windows/desktop/direct3dhlsl/dx-graphics-hlsl-using-shaders-10">Getting a Pointer to a Compiled Shader</a>.
      * @param {Pointer} BytecodeLength Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">SIZE_T</a></b>
@@ -1878,7 +1877,7 @@ class Direct3D10 {
 
     /**
      * Get shader debug info. Debug info is generated by D3D10CompileShader and is embedded in the body of the shader.
-     * @param {Pointer} pShaderBytecode Type: <b>const void*</b>
+     * @param {Integer} pShaderBytecode Type: <b>const void*</b>
      * 
      * A pointer to the compiled shader. To get this pointer see <a href="https://docs.microsoft.com/windows/desktop/direct3dhlsl/dx-graphics-hlsl-using-shaders-10">Getting a Pointer to a Compiled Shader</a>.
      * @param {Pointer} BytecodeLength Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">SIZE_T</a></b>
@@ -1974,7 +1973,7 @@ class Direct3D10 {
      * @param {Pointer<D3D10_STATE_BLOCK_MASK>} pMask Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10effect/ns-d3d10effect-d3d10_state_block_mask">D3D10_STATE_BLOCK_MASK</a>*</b>
      * 
      * A state block mask (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d10effect/ns-d3d10effect-d3d10_state_block_mask">D3D10_STATE_BLOCK_MASK</a>).
-     * @param {Integer} StateType Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10effect/ne-d3d10effect-d3d10_device_state_types">D3D10_DEVICE_STATE_TYPES</a></b>
+     * @param {D3D10_DEVICE_STATE_TYPES} StateType Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10effect/ne-d3d10effect-d3d10_device_state_types">D3D10_DEVICE_STATE_TYPES</a></b>
      * 
      * The type of device state to enable (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d10effect/ne-d3d10effect-d3d10_device_state_types">D3D10_DEVICE_STATE_TYPES</a>.
      * @param {Integer} RangeStart Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
@@ -2010,7 +2009,7 @@ class Direct3D10 {
      * @param {Pointer<D3D10_STATE_BLOCK_MASK>} pMask Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10effect/ns-d3d10effect-d3d10_state_block_mask">D3D10_STATE_BLOCK_MASK</a>*</b>
      * 
      * A state block mask (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d10effect/ns-d3d10effect-d3d10_state_block_mask">D3D10_STATE_BLOCK_MASK</a>).
-     * @param {Integer} StateType Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10effect/ne-d3d10effect-d3d10_device_state_types">D3D10_DEVICE_STATE_TYPES</a></b>
+     * @param {D3D10_DEVICE_STATE_TYPES} StateType Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10effect/ne-d3d10effect-d3d10_device_state_types">D3D10_DEVICE_STATE_TYPES</a></b>
      * 
      * The type of device state to disable (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d10effect/ne-d3d10effect-d3d10_device_state_types">D3D10_DEVICE_STATE_TYPES</a>).
      * @param {Integer} RangeStart Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
@@ -2064,7 +2063,7 @@ class Direct3D10 {
      * @param {Pointer<D3D10_STATE_BLOCK_MASK>} pMask Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10effect/ns-d3d10effect-d3d10_state_block_mask">D3D10_STATE_BLOCK_MASK</a>*</b>
      * 
      * State block mask. See <a href="https://docs.microsoft.com/windows/desktop/api/d3d10effect/ns-d3d10effect-d3d10_state_block_mask">D3D10_STATE_BLOCK_MASK</a>.
-     * @param {Integer} StateType Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10effect/ne-d3d10effect-d3d10_device_state_types">D3D10_DEVICE_STATE_TYPES</a></b>
+     * @param {D3D10_DEVICE_STATE_TYPES} StateType Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10effect/ne-d3d10effect-d3d10_device_state_types">D3D10_DEVICE_STATE_TYPES</a></b>
      * 
      * The type of device state. See <a href="https://docs.microsoft.com/windows/desktop/api/d3d10effect/ne-d3d10effect-d3d10_device_state_types">D3D10_DEVICE_STATE_TYPES</a>.
      * @param {Integer} Entry Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
@@ -2119,7 +2118,7 @@ class Direct3D10 {
      * This function uses the version of the HLSL compiler released in the November 2006 DirectX SDK.
      * 
      * For an example, see <a href="https://docs.microsoft.com/windows/desktop/direct3d10/d3d10-graphics-programming-guide-effects-compile">Compile an Effect (Direct3D 10)</a>.
-     * @param {Pointer} pData Type: <b>void*</b>
+     * @param {Integer} pData Type: <b>void*</b>
      * 
      * A pointer to effect data; either ASCII <a href="https://docs.microsoft.com/windows/desktop/direct3dhlsl/dx-graphics-hlsl-reference">HLSL</a> code or a compiled effect.
      * @param {Pointer} DataLength Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">SIZE_T</a></b>
@@ -2164,7 +2163,7 @@ class Direct3D10 {
      * This method is used to create an <a href="https://docs.microsoft.com/windows/desktop/api/d3d10effect/nn-d3d10effect-id3d10effect">ID3D10Effect Interface</a> object from an effect that has been compiled before runtime and loaded into memory.  
      *       For help precompiling an effect, see <a href="https://docs.microsoft.com/windows/desktop/direct3dtools/dx-graphics-tools-fxc-using">Offline Compiling</a>.  
      *       To load and compile an ASCII .fx file see <a href="https://docs.microsoft.com/windows/desktop/direct3d10/d3d10-graphics-programming-guide-effects-compile">Compile an Effect (Direct3D 10)</a>.
-     * @param {Pointer} pData Type: <b>void*</b>
+     * @param {Integer} pData Type: <b>void*</b>
      * 
      * A pointer to a compiled effect.
      * @param {Pointer} DataLength Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">SIZE_T</a></b>
@@ -2195,7 +2194,7 @@ class Direct3D10 {
      * A pool is a shared location in memory. Effect variables that are located in a pool can be updated once, and the effect system will take care of updating each effect that uses that variable. To pool an effect variable, tell the effect to locate the variable in a pool when the effect is created, using a helper function such as <a href="https://docs.microsoft.com/windows/desktop/direct3d10/d3dx10createeffectfromfile">D3DX10CreateEffectFromFile</a>.
      * 
      * For help compiling an effect, see <a href="https://docs.microsoft.com/windows/desktop/direct3d10/d3d10-graphics-programming-guide-effects-compile">Compile an Effect (Direct3D 10)</a>.
-     * @param {Pointer} pData Type: <b>void*</b>
+     * @param {Integer} pData Type: <b>void*</b>
      * 
      * A pointer to a compiled effect.
      * @param {Pointer} DataLength Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">SIZE_T</a></b>
@@ -2285,7 +2284,7 @@ class Direct3D10 {
      * Pointer to the display adapter (see <a href="https://docs.microsoft.com/windows/desktop/api/dxgi/nn-dxgi-idxgiadapter">IDXGIAdapter</a>) when creating a hardware device; otherwise set this parameter to 
      *         <b>NULL</b>. If <b>NULL</b> is specified when creating a hardware device, Direct3D will use the first adapter enumerated 
      *         by <a href="https://docs.microsoft.com/windows/desktop/api/dxgi/nf-dxgi-idxgifactory-enumadapters">EnumAdapters</a>.
-     * @param {Integer} DriverType Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10misc/ne-d3d10misc-d3d10_driver_type">D3D10_DRIVER_TYPE</a></b>
+     * @param {D3D10_DRIVER_TYPE} DriverType Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10misc/ne-d3d10misc-d3d10_driver_type">D3D10_DRIVER_TYPE</a></b>
      * 
      * The device-driver type (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d10misc/ne-d3d10misc-d3d10_driver_type">D3D10_DRIVER_TYPE</a>). The driver type determines the type of device you will create.
      * @param {HMODULE} Software Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HMODULE</a></b>
@@ -2295,7 +2294,7 @@ class Direct3D10 {
      * 
      * Optional. Device creation flags (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ne-d3d10-d3d10_create_device_flag">D3D10_CREATE_DEVICE_FLAG</a>) that 
      *         enable <a href="https://docs.microsoft.com/windows/desktop/direct3d10/d3d10-graphics-programming-guide-api-features-layers">API layers</a>. These flags can be bitwise OR'd together.
-     * @param {Integer} HardwareLevel Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10_1/ne-d3d10_1-d3d10_feature_level1">D3D10_FEATURE_LEVEL1</a></b>
+     * @param {D3D10_FEATURE_LEVEL1} HardwareLevel Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10_1/ne-d3d10_1-d3d10_feature_level1">D3D10_FEATURE_LEVEL1</a></b>
      * 
      * The version of hardware that is available for acceleration (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d10_1/ne-d3d10_1-d3d10_feature_level1">D3D10_FEATURE_LEVEL1</a>).
      * @param {Integer} SDKVersion Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
@@ -2325,7 +2324,7 @@ class Direct3D10 {
      * @param {IDXGIAdapter} pAdapter Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dxgi/nn-dxgi-idxgiadapter">IDXGIAdapter</a>*</b>
      * 
      * Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/dxgi/nn-dxgi-idxgiadapter">IDXGIAdapter</a>.
-     * @param {Integer} DriverType Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10misc/ne-d3d10misc-d3d10_driver_type">D3D10_DRIVER_TYPE</a></b>
+     * @param {D3D10_DRIVER_TYPE} DriverType Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10misc/ne-d3d10misc-d3d10_driver_type">D3D10_DRIVER_TYPE</a></b>
      * 
      * The type of driver for the device. See <a href="https://docs.microsoft.com/windows/desktop/api/d3d10misc/ne-d3d10misc-d3d10_driver_type">D3D10_DRIVER_TYPE</a>.
      * @param {HMODULE} Software Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HMODULE</a></b>
@@ -2338,7 +2337,7 @@ class Direct3D10 {
      * 
      * Optional. Device creation flags (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ne-d3d10-d3d10_create_device_flag">D3D10_CREATE_DEVICE_FLAG</a>) that 
      *         enable <a href="https://docs.microsoft.com/windows/desktop/direct3d10/d3d10-graphics-programming-guide-api-features-layers">API layers</a>. These flags can be bitwise OR'd together.
-     * @param {Integer} HardwareLevel Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10_1/ne-d3d10_1-d3d10_feature_level1">D3D10_FEATURE_LEVEL1</a></b>
+     * @param {D3D10_FEATURE_LEVEL1} HardwareLevel Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10_1/ne-d3d10_1-d3d10_feature_level1">D3D10_FEATURE_LEVEL1</a></b>
      * 
      * The version of hardware that is available for acceleration (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d10_1/ne-d3d10_1-d3d10_feature_level1">D3D10_FEATURE_LEVEL1</a>).
      * @param {Integer} SDKVersion Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>

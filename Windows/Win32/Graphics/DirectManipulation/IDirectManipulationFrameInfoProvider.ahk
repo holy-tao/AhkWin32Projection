@@ -7,9 +7,8 @@
  * Represents a time-keeping object that measures the latency of the composition infrastructure used by the application and provides this data to Direct Manipulation.
  * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nn-directmanipulation-idirectmanipulationframeinfoprovider
  * @namespace Windows.Win32.Graphics.DirectManipulation
- * @version v4.0.30319
  */
-class IDirectManipulationFrameInfoProvider extends IUnknown{
+class IDirectManipulationFrameInfoProvider extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

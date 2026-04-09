@@ -13,9 +13,8 @@
  * A registered application calls the methods of this interface to update all items or to update specific items.
  * @see https://learn.microsoft.com/windows/win32/api/mobsync/nn-mobsync-isyncmgrsynchronizeinvoke
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class ISyncMgrSynchronizeInvoke extends IUnknown{
+class ISyncMgrSynchronizeInvoke extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

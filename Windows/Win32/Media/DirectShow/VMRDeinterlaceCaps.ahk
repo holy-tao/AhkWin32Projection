@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\VMRDeinterlaceTech.ahk
 
 /**
  * The VMRDeinterlaceCaps structure describes the capabilities of a deinterlacing mode.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/ns-strmif-vmrdeinterlacecaps
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class VMRDeinterlaceCaps extends Win32Struct
-{
+class VMRDeinterlaceCaps extends Win32Struct {
     static sizeof => 20
 
     static packingSize => 4
@@ -51,7 +50,7 @@ class VMRDeinterlaceCaps extends Win32Struct
 
     /**
      * Bitwise combination of flags from the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/ne-strmif-vmrdeinterlacetech">VMRDeinterlaceTech</a> enumeration type. These flags are used to describe the deinterlacing algorithm.
-     * @type {Integer}
+     * @type {VMRDeinterlaceTech}
      */
     DeinterlaceTechnology {
         get => NumGet(this, 16, "int")

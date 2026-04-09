@@ -9,9 +9,8 @@
  * An adapter's properties are established at the time the adapter starts, and they're immutable for the lifetime of the adapter. This is in contrast to an adapter's state, which can be queried or set, and the values of which can change over time.
  * @see https://learn.microsoft.com/windows/win32/api/dxcore_interface/nn-dxcore_interface-idxcoreadapter
  * @namespace Windows.Win32.Graphics.DXCore
- * @version v4.0.30319
  */
-class IDXCoreAdapter extends IUnknown{
+class IDXCoreAdapter extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -59,7 +58,7 @@ class IDXCoreAdapter extends IUnknown{
 
     /**
      * Determines whether this DXCore adapter object and the current operating system (OS) support the specified adapter property.
-     * @param {Integer} _property 
+     * @param {DXCoreAdapterProperty} _property 
      * @returns {Boolean} Type: **bool**
      * 
      * Returns `true` if this DXCore adapter object and the current operating system (OS) support the specified adapter property. Otherwise, returns `false`.
@@ -74,11 +73,11 @@ class IDXCoreAdapter extends IUnknown{
      * Retrieves the value of the specified adapter property.
      * @remarks
      * You can call **GetProperty** on an adapter that's no longer valid&mdash;the function won't fail as a result of that. This function zeros out the *propertyData* buffer prior to filling it in.
-     * @param {Integer} _property 
+     * @param {DXCoreAdapterProperty} _property 
      * @param {Pointer} bufferSize Type: **size_t**
      * 
      * The size, in bytes, of the output buffer that you allocate and provide in *propertyData*.
-     * @param {Pointer} propertyData Type: **void\***
+     * @param {Integer} propertyData Type: **void\***
      * 
      * A pointer to an output buffer that you allocate in your application, and that the function fills in. Call [GetPropertySize](/windows/win32/api/dxcore_interface/nf-dxcore_interface-idxcoreadapter-getpropertysize) to determine the size that the *propertyData* buffer should be for a given adapter property.
      * @returns {HRESULT} Type: **[HRESULT](/windows/win32/com/structure-of-com-error-codes)**
@@ -102,7 +101,7 @@ class IDXCoreAdapter extends IUnknown{
      * For a specified adapter property, retrieves the size of buffer, in bytes, that is required for a call to [GetProperty](/windows/win32/api/dxcore_interface/nf-dxcore_interface-idxcoreadapter-getproperty).
      * @remarks
      * You can call **GetPropertySize** on an adapter that's no longer valid&mdash;the function won't fail.
-     * @param {Integer} _property 
+     * @param {DXCoreAdapterProperty} _property 
      * @returns {Pointer} Type: **size_t\***
      * 
      * A pointer to a **size_t** value. The function dereferences the pointer and sets the value to the size, in bytes, of the output buffer that you should allocate and pass as the *propertyData* argument in your call to [GetProperty](/windows/win32/api/dxcore_interface/nf-dxcore_interface-idxcoreadapter-getproperty).
@@ -115,7 +114,7 @@ class IDXCoreAdapter extends IUnknown{
 
     /**
      * Determines whether this DXCore adapter object and the current operating system (OS) support querying the value of the specified adapter state.
-     * @param {Integer} _property 
+     * @param {DXCoreAdapterState} _property 
      * @returns {Boolean} Type: **bool**
      * 
      * Returns `true` if this DXCore adapter object and the current operating system (OS) support querying the specified adapter state. Otherwise, returns `false`.
@@ -130,17 +129,17 @@ class IDXCoreAdapter extends IUnknown{
      * Retrieves the current state of the specified item on the adapter.
      * @remarks
      * See [DXCoreAdapterState](/windows/win32/api/dxcore_interface/ne-dxcore_interface-dxcoreadapterstate) for more info about each adapter state kind, and what inputs and outputs are used. This function zeros out the *outputBuffer* buffer prior to filling it in.
-     * @param {Integer} state 
+     * @param {DXCoreAdapterState} state 
      * @param {Pointer} inputStateDetailsSize Type: **size_t**
      * 
      * The size, in bytes, of the input state details buffer that you (optionally) allocate and provide in *inputStateDetails*.
-     * @param {Pointer} inputStateDetails Type: **void const\***
+     * @param {Integer} inputStateDetails Type: **void const\***
      * 
      * An optional pointer to a constant input state details buffer that you allocate in your application, containing any information about your request that's required for the state kind you specify in *state*. See the table in [DXCoreAdapterState](/windows/win32/api/dxcore_interface/ne-dxcore_interface-dxcoreadapterstate) for more info about any input buffer requirement for a given state kind.
      * @param {Pointer} outputBufferSize Type: **size_t**
      * 
      * The size, in bytes, of the output buffer that you allocate and provide in *outputBuffer*.
-     * @param {Pointer} outputBuffer Type: **void\***
+     * @param {Integer} outputBuffer Type: **void\***
      * 
      * A pointer to an output buffer that you allocate in your application, and that the function fills in. See the table in [DXCoreAdapterState](/windows/win32/api/dxcore_interface/ne-dxcore_interface-dxcoreadapterstate) for more info about the output buffer requirement for a given state kind.
      * @returns {HRESULT} Type: **[HRESULT](/windows/win32/com/structure-of-com-error-codes)**
@@ -163,7 +162,7 @@ class IDXCoreAdapter extends IUnknown{
 
     /**
      * Determines whether this DXCore adapter object and the current operating system (OS) support setting the value of the specified adapter state.
-     * @param {Integer} _property 
+     * @param {DXCoreAdapterState} _property 
      * @returns {Boolean} Type: **bool**
      * 
      * Returns `true` if this DXCore adapter object and the current operating system (OS) support setting the specified adapter state. Otherwise, returns `false`.
@@ -176,17 +175,17 @@ class IDXCoreAdapter extends IUnknown{
 
     /**
      * Sets the state of the specified item on the adapter.
-     * @param {Integer} state 
+     * @param {DXCoreAdapterState} state 
      * @param {Pointer} inputStateDetailsSize Type: **size_t**
      * 
      * The size, in bytes, of the input state details buffer that you (optionally) allocate and provide in *inputStateDetails*.
-     * @param {Pointer} inputStateDetails Type: **void const\***
+     * @param {Integer} inputStateDetails Type: **void const\***
      * 
      * An optional pointer to a constant input state details buffer that you allocate in your application, containing any information about your request that's required for the state kind you specify in *state*. See the table in [DXCoreAdapterState](/windows/win32/api/dxcore_interface/ne-dxcore_interface-dxcoreadapterstate) for more info about any input buffer requirement for a given state kind.
      * @param {Pointer} inputDataSize Type: **size_t**
      * 
      * The size, in bytes, of the input buffer that you allocate and provide in *inputData*.
-     * @param {Pointer} inputData Type: **void\***
+     * @param {Integer} inputData Type: **void\***
      * 
      * A pointer to an input buffer that you allocate in your application, containing the state information to set for the state item whose kind you specify in *state*. See the table in [DXCoreAdapterState](/windows/win32/api/dxcore_interface/ne-dxcore_interface-dxcoreadapterstate) for more info about the input buffer requirement for a given state kind.
      * @returns {HRESULT} Type: **[HRESULT](/windows/win32/com/structure-of-com-error-codes)**

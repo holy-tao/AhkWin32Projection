@@ -5,10 +5,9 @@
  * Contains the size and item count information retrieved by the SHQueryRecycleBin function.
  * @see https://learn.microsoft.com/windows/win32/api/shellapi/ns-shellapi-shqueryrbinfo
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
+ * @architecture X64, Arm64
  */
-class SHQUERYRBINFO extends Win32Struct
-{
+class SHQUERYRBINFO extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

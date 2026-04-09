@@ -7,9 +7,8 @@
  * The IMemAllocatorCallbackTemp interface enables a filter to receive a callback notification from an allocator whenever a sample is returned to the allocator's free list.The use of this interface is deprecated.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-imemallocatorcallbacktemp
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IMemAllocatorCallbackTemp extends IMemAllocator{
+class IMemAllocatorCallbackTemp extends IMemAllocator {
 
     static sizeof => A_PtrSize
     /**

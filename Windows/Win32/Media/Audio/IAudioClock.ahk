@@ -7,9 +7,8 @@
  * The IAudioClock interface enables a client to monitor a stream's data rate and the current position in the stream.
  * @see https://learn.microsoft.com/windows/win32/api/audioclient/nn-audioclient-iaudioclock
  * @namespace Windows.Win32.Media.Audio
- * @version v4.0.30319
  */
-class IAudioClock extends IUnknown{
+class IAudioClock extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -1,14 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\Win32Handle.ahk
+#Include .\HANDLE.ahk
 #Include .\BSTR.ahk
 #Include .\HGLOBAL.ahk
 #Include .\HLOCAL.ahk
-#Include .\Apis.ahk
-#Include .\HANDLE.ahk
 
 /**
  * @namespace Windows.Win32.Foundation
- * @version v4.0.30319
  */
 class Foundation {
 
@@ -35349,7 +35347,7 @@ class Foundation {
      * Returns the length (in bytes) of a BSTR.
      * @remarks
      * The returned value may be different from <b>strlen</b>(bstr) if the BSTR contains embedded null characters. This function always returns the number of bytes specified in the len parameter of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysallocstringbytelen">SysAllocStringByteLen</a> function used to allocate the BSTR.
-     * @param {BSTR} _bstr 
+     * @param {BSTR} _bstr A previously allocated string.
      * @returns {Integer} The number of bytes in <i>bstr</i>, not including the terminating null character. If <i>bstr</i> is null the return value is zero.
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-sysstringbytelen
      */
@@ -35666,7 +35664,7 @@ class Foundation {
      * @param {BOOL} bInheritHandle A variable that indicates whether the handle is inheritable. If <b>TRUE</b>, the duplicate handle can be inherited by new processes created by the target process. If <b>FALSE</b>, the new handle cannot be inherited.
      * 
      * This parameter is ignored if _hTargetProcessHandle_ is **NULL**.
-     * @param {Integer} dwOptions 
+     * @param {DUPLICATE_HANDLE_OPTIONS} dwOptions 
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -35782,7 +35780,7 @@ class Foundation {
      * 
      * You can specify a handle to one of the following types of objects: access token, console input buffer, console screen buffer, event, file, file mapping, job, mailslot, mutex, pipe, printer, process, registry key, semaphore, serial communication device, socket, thread, or waitable timer.
      * @param {Integer} dwMask A mask that specifies the bit flags to be changed. Use the same constants shown in the description of <i>dwFlags</i>.
-     * @param {Integer} dwFlags 
+     * @param {HANDLE_FLAGS} dwFlags 
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -35865,7 +35863,7 @@ class Foundation {
      * 
      * To convert a system error into an <b>HRESULT</b> value, use the 
      * <a href="https://docs.microsoft.com/windows/win32/api/winerror/nf-winerror-hresult_from_win32">HRESULT_FROM_WIN32</a> macro.
-     * @returns {Integer} The return value is the calling thread's last-error code.
+     * @returns {WIN32_ERROR} The return value is the calling thread's last-error code.
      * 
      * The Return Value section of the documentation for each function that sets the last-error code notes the conditions under which the function sets the last-error code. Most functions that set the thread's last-error code set it when they fail. However, some functions also set the last-error code when they succeed. If the function is not documented to set the last-error code, the value returned by this function is simply the most recent last-error code to have been set; some functions set the last-error code to 0 on success and others do not.
      * @see https://learn.microsoft.com/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror
@@ -35889,7 +35887,7 @@ class Foundation {
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function immediately after a function fails.
      * 
      * Error codes are 32-bit values (bit 31 is the most significant bit). Bit 29 is reserved for application-defined error codes; no system error code has this bit set. If you are defining an error code for your application, set this bit to indicate that the error code has been defined by your application and to ensure that your error code does not conflict with any system-defined error codes.
-     * @param {Integer} dwErrCode The last-error code for the thread.
+     * @param {WIN32_ERROR} dwErrCode The last-error code for the thread.
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/errhandlingapi/nf-errhandlingapi-setlasterror
      * @since windows5.1.2600
@@ -35917,7 +35915,7 @@ class Foundation {
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function immediately after a function fails.
      * 
      * Error codes are 32-bit values (bit 31 is the most significant bit). Bit 29 is reserved for application-defined error codes; no system error code has this bit set. If you are defining an error code for your application, set this bit to indicate that the error code has been defined by the application and to ensure that your error code does not conflict with any system-defined error codes.
-     * @param {Integer} dwErrCode The last-error code for the thread.
+     * @param {WIN32_ERROR} dwErrCode The last-error code for the thread.
      * @param {Integer} dwType This parameter is ignored.
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-setlasterrorex
@@ -36020,7 +36018,7 @@ class Foundation {
      * ERROR_MR_MID_NOT_FOUND is returned when the specified NTSTATUS code does not have a corresponding system error code.
      * 
      * This function has no associated import library. You must use the <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadlibrarya">LoadLibrary</a> and <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-getprocaddress">GetProcAddress</a> functions to dynamically link to Ntdll.dll.
-     * @param {NTSTATUS} _Status 
+     * @param {NTSTATUS} _Status The NTSTATUS code to be converted.
      * @returns {Integer} The function returns the corresponding <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>.
      * @see https://learn.microsoft.com/windows/win32/api/winternl/nf-winternl-rtlntstatustodoserror
      * @since windows5.1.2600

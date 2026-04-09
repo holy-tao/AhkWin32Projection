@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class WIM_PROVIDER_UPDATE_OVERLAY_INPUT extends Win32Struct
-{
+class WIM_PROVIDER_UPDATE_OVERLAY_INPUT extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

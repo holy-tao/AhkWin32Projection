@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -23,9 +22,8 @@
  * When reading or writing  XML for a task, the repetition pattern is specified using the <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/taskschedulerschema-repetition-triggerbasetype-element">Repetition</a> element of the Task Scheduler schema.
  * @see https://learn.microsoft.com/windows/win32/api/taskschd/nn-taskschd-irepetitionpattern
  * @namespace Windows.Win32.System.TaskScheduler
- * @version v4.0.30319
  */
-class IRepetitionPattern extends IDispatch{
+class IRepetitionPattern extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -47,6 +45,7 @@ class IRepetitionPattern extends IDispatch{
     static VTableNames => ["get_Interval", "put_Interval", "get_Duration", "put_Duration", "get_StopAtDurationEnd", "put_StopAtDurationEnd"]
 
     /**
+     * @type {BSTR} 
      */
     Interval {
         get => this.get_Interval()
@@ -54,6 +53,7 @@ class IRepetitionPattern extends IDispatch{
     }
 
     /**
+     * @type {BSTR} 
      */
     Duration {
         get => this.get_Duration()
@@ -61,6 +61,7 @@ class IRepetitionPattern extends IDispatch{
     }
 
     /**
+     * @type {VARIANT_BOOL} 
      */
     StopAtDurationEnd {
         get => this.get_StopAtDurationEnd()

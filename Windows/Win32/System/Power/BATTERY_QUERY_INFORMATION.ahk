@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\BATTERY_QUERY_INFORMATION_LEVEL.ahk
 
 /**
  * Contains battery query information.
@@ -7,10 +8,8 @@
  * Some information about batteries is optional or may be meaningless for some batteries. If the particular type of data requested is not available for the current battery, then ERROR\_INVALID\_FUNCTION is returned.
  * @see https://learn.microsoft.com/windows/win32/Power/battery-query-information-str
  * @namespace Windows.Win32.System.Power
- * @version v4.0.30319
  */
-class BATTERY_QUERY_INFORMATION extends Win32Struct
-{
+class BATTERY_QUERY_INFORMATION extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4
@@ -42,7 +41,7 @@ class BATTERY_QUERY_INFORMATION extends Win32Struct
      * | <span id="BatterySerialNumber"></span><span id="batteryserialnumber"></span><span id="BATTERYSERIALNUMBER"></span><dl> <dt>**BatterySerialNumber**</dt> <dt>8</dt> </dl>                                         | Null-terminated Unicode string that specifies the battery's serial number.<br/>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
      * | <span id="BatteryTemperature"></span><span id="batterytemperature"></span><span id="BATTERYTEMPERATURE"></span><dl> <dt>**BatteryTemperature**</dt> <dt>2</dt> </dl>                                             | A **ULONG** that specifies the battery's current temperature, in 10ths of a degree Kelvin.<br/>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
      * | <span id="BatteryUniqueID"></span><span id="batteryuniqueid"></span><span id="BATTERYUNIQUEID"></span><dl> <dt>**BatteryUniqueID**</dt> <dt>7</dt> </dl>                                                         | Null-terminated Unicode string that uniquely identifies the battery. This value can be used to track a specific battery. In the case of smart batteries, this ID would be the concatenation of the manufacturer's name, device name, date of manufacture, and a printable representation of the serial number. <br/> This value is not intended to be displayed to the user.<br/>                                                                                                                                                                                                                                                                                                                                                                            |
-     * @type {Integer}
+     * @type {BATTERY_QUERY_INFORMATION_LEVEL}
      */
     InformationLevel {
         get => NumGet(this, 4, "int")

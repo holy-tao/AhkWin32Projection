@@ -5,10 +5,8 @@
  * The MPEG_DATE structure specifies a date.
  * @see https://learn.microsoft.com/windows/win32/api/mpeg2structs/ns-mpeg2structs-mpeg_date
  * @namespace Windows.Win32.Media.DirectShow.Tv
- * @version v4.0.30319
  */
-class MPEG_DATE extends Win32Struct
-{
+class MPEG_DATE extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 2

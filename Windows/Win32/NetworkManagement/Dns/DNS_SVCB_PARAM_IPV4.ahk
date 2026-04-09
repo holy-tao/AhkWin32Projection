@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Dns
- * @version v4.0.30319
  */
-class DNS_SVCB_PARAM_IPV4 extends Win32Struct
-{
+class DNS_SVCB_PARAM_IPV4 extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4
@@ -20,9 +18,9 @@ class DNS_SVCB_PARAM_IPV4 extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    rgIps{
+    rgIps {
         get {
             if(!this.HasProp("__rgIpsProxyArray"))
                 this.__rgIpsProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "uint")

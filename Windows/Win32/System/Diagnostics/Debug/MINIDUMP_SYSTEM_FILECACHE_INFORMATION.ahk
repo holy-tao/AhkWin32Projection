@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug
- * @version v4.0.30319
  */
-class MINIDUMP_SYSTEM_FILECACHE_INFORMATION extends Win32Struct
-{
+class MINIDUMP_SYSTEM_FILECACHE_INFORMATION extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 8

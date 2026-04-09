@@ -3,11 +3,9 @@
 
 /**
  * @namespace Windows.Win32.Devices.HumanInterfaceDevice
- * @version v4.0.30319
  * @charset ANSI
  */
-class DIDEVICEOBJECTINSTANCEA extends Win32Struct
-{
+class DIDEVICEOBJECTINSTANCEA extends Win32Struct {
     static sizeof => 312
 
     static packingSize => 8
@@ -21,7 +19,7 @@ class DIDEVICEOBJECTINSTANCEA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     guidType {
         get => NumGet(this, 8, "ptr")

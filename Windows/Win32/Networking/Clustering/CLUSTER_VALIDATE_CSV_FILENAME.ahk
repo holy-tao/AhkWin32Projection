@@ -5,10 +5,8 @@
  * Represents a cluster shared volume (CSV) during a validation operation.
  * @see https://learn.microsoft.com/windows/win32/api/clusapi/ns-clusapi-cluster_validate_csv_filename
  * @namespace Windows.Win32.Networking.Clustering
- * @version v4.0.30319
  */
-class CLUSTER_VALIDATE_CSV_FILENAME extends Win32Struct
-{
+class CLUSTER_VALIDATE_CSV_FILENAME extends Win32Struct {
     static sizeof => 2
 
     static packingSize => 2

@@ -3,11 +3,9 @@
 
 /**
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class RETRIEVAL_POINTERS_AND_REFCOUNT_BUFFER extends Win32Struct
-{
-    static sizeof => 24
+class RETRIEVAL_POINTERS_AND_REFCOUNT_BUFFER extends Win32Struct {
+    static sizeof => 40
 
     static packingSize => 8
 

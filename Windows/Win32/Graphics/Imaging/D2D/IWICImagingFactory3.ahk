@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\IWICBitmapToneMapper.ahk
 #Include .\IWICImagingFactory2.ahk
+#Include ..\IWICBitmapToneMapper.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Imaging.D2D
- * @version v4.0.30319
  */
-class IWICImagingFactory3 extends IWICImagingFactory2{
+class IWICImagingFactory3 extends IWICImagingFactory2 {
 
     static sizeof => A_PtrSize
     /**

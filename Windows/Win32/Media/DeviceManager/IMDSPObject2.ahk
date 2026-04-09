@@ -7,9 +7,8 @@
  * Windows Media Device Manager uses IMDSPObject2 to enable more efficient file reading and writing.Note  Unless the service provider has added the device parameter UseExtendedWmdm with a value of 1, Windows Media Device Manager will not call this interface. See Device Parameters for more information about this. .
  * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nn-mswmdm-imdspobject2
  * @namespace Windows.Win32.Media.DeviceManager
- * @version v4.0.30319
  */
-class IMDSPObject2 extends IMDSPObject{
+class IMDSPObject2 extends IMDSPObject {
 
     static sizeof => A_PtrSize
     /**

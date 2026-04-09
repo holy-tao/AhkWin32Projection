@@ -7,9 +7,8 @@
  * Configures the DirectShow Enhanced Video Renderer (EVR) filter.
  * @see https://learn.microsoft.com/windows/win32/api/evr/nn-evr-ievrfilterconfigex
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IEVRFilterConfigEx extends IEVRFilterConfig{
+class IEVRFilterConfigEx extends IEVRFilterConfig {
 
     static sizeof => A_PtrSize
     /**

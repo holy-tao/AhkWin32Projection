@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\DSCFXNoiseSuppress.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
+#Include .\DSCFXNoiseSuppress.ahk
 
 /**
  * @namespace Windows.Win32.Media.Audio.DirectSound
- * @version v4.0.30319
  */
-class IDirectSoundCaptureFXNoiseSuppress extends IUnknown{
+class IDirectSoundCaptureFXNoiseSuppress extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

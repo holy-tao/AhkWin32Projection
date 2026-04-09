@@ -1,19 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Com\IUnknown.ahk
 #Include .\ISearchPersistentItemsChangedSink.ahk
 #Include ..\Com\IEnumString.ahk
 #Include .\ISearchQueryHelper.ahk
 #Include .\ISearchCrawlScopeManager.ahk
-#Include ..\Com\IUnknown.ahk
 
 /**
  * Provides methods to manage a search catalog for purposes such as re-indexing or setting timeouts.
  * @see https://learn.microsoft.com/windows/win32/api/searchapi/nn-searchapi-isearchcatalogmanager
  * @namespace Windows.Win32.System.Search
- * @version v4.0.30319
  */
-class ISearchCatalogManager extends IUnknown{
+class ISearchCatalogManager extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -116,10 +115,10 @@ class ISearchCatalogManager extends IUnknown{
 
     /**
      * Gets the status of the catalog.
-     * @param {Pointer<Integer>} pStatus Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/searchapi/ne-searchapi-catalogstatus">CatalogStatus</a>*</b>
+     * @param {Pointer<CatalogStatus>} pStatus Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/searchapi/ne-searchapi-catalogstatus">CatalogStatus</a>*</b>
      * 
      * Receives a pointer to a value from the <a href="https://docs.microsoft.com/windows/desktop/api/searchapi/ne-searchapi-catalogstatus">CatalogStatus</a> enumeration. If <i>pStatus</i> is <i>CATALOG_STATUS_PAUSED</i>, further information can be obtained from the <i>pPausedReason</i> parameter.
-     * @param {Pointer<Integer>} pPausedReason Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/searchapi/ne-searchapi-catalogpausedreason">CatalogPausedReason</a>*</b>
+     * @param {Pointer<CatalogPausedReason>} pPausedReason Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/searchapi/ne-searchapi-catalogpausedreason">CatalogPausedReason</a>*</b>
      * 
      * Receives a pointer to a value from the <a href="https://docs.microsoft.com/windows/desktop/api/searchapi/ne-searchapi-catalogpausedreason">CatalogPausedReason</a> enumeration describing why the catalog is paused. If the catalog status is not <i>CATALOG_STATUS_PAUSED</i>, this parameter receives the value <i>CATALOG_PAUSED_REASON_NONE</i>.
      * @returns {HRESULT} Type: <b>HRESULT</b>

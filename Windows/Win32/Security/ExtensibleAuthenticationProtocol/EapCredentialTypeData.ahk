@@ -6,10 +6,8 @@
 
 /**
  * @namespace Windows.Win32.Security.ExtensibleAuthenticationProtocol
- * @version v4.0.30319
  */
-class EapCredentialTypeData extends Win32Struct
-{
+class EapCredentialTypeData extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8
@@ -17,7 +15,7 @@ class EapCredentialTypeData extends Win32Struct
     /**
      * @type {EapUsernamePasswordCredential}
      */
-    username_password{
+    username_password {
         get {
             if(!this.HasProp("__username_password"))
                 this.__username_password := EapUsernamePasswordCredential(0, this)
@@ -28,7 +26,7 @@ class EapCredentialTypeData extends Win32Struct
     /**
      * @type {EapCertificateCredential}
      */
-    certificate{
+    certificate {
         get {
             if(!this.HasProp("__certificate"))
                 this.__certificate := EapCertificateCredential(0, this)
@@ -39,7 +37,7 @@ class EapCredentialTypeData extends Win32Struct
     /**
      * @type {EapSimCredential}
      */
-    sim{
+    sim {
         get {
             if(!this.HasProp("__sim"))
                 this.__sim := EapSimCredential(0, this)

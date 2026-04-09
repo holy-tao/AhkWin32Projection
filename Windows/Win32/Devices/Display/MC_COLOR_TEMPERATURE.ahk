@@ -5,9 +5,8 @@
  * Describes a monitor's color temperature.
  * @see https://learn.microsoft.com/windows/win32/api/highlevelmonitorconfigurationapi/ne-highlevelmonitorconfigurationapi-mc_color_temperature
  * @namespace Windows.Win32.Devices.Display
- * @version v4.0.30319
  */
-class MC_COLOR_TEMPERATURE extends Win32Enum{
+class MC_COLOR_TEMPERATURE extends Win32Enum {
 
     /**
      * Unknown temperature.

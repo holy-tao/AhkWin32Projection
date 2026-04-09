@@ -1,14 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\D2D1_BUFFER_PRECISION.ahk
+#Include .\D2D1_CHANNEL_DEPTH.ahk
+#Include .\D2D1_FILTER.ahk
+#Include .\D2D1_EXTEND_MODE.ahk
 
 /**
  * Defines a resource texture when the original resource texture is created.
  * @see https://learn.microsoft.com/windows/win32/api/d2d1effectauthor/ns-d2d1effectauthor-d2d1_resource_texture_properties
  * @namespace Windows.Win32.Graphics.Direct2D
- * @version v4.0.30319
  */
-class D2D1_RESOURCE_TEXTURE_PROPERTIES extends Win32Struct
-{
+class D2D1_RESOURCE_TEXTURE_PROPERTIES extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -33,7 +35,7 @@ class D2D1_RESOURCE_TEXTURE_PROPERTIES extends Win32Struct
 
     /**
      * The precision of the resource texture to create.
-     * @type {Integer}
+     * @type {D2D1_BUFFER_PRECISION}
      */
     bufferPrecision {
         get => NumGet(this, 12, "int")
@@ -42,7 +44,7 @@ class D2D1_RESOURCE_TEXTURE_PROPERTIES extends Win32Struct
 
     /**
      * The number of channels in the resource texture.
-     * @type {Integer}
+     * @type {D2D1_CHANNEL_DEPTH}
      */
     channelDepth {
         get => NumGet(this, 16, "int")
@@ -51,7 +53,7 @@ class D2D1_RESOURCE_TEXTURE_PROPERTIES extends Win32Struct
 
     /**
      * The filtering mode to use on the texture.
-     * @type {Integer}
+     * @type {D2D1_FILTER}
      */
     filter {
         get => NumGet(this, 20, "int")
@@ -60,7 +62,7 @@ class D2D1_RESOURCE_TEXTURE_PROPERTIES extends Win32Struct
 
     /**
      * Specifies how pixel values beyond the extent of the texture will be sampled, in every dimension.
-     * @type {Pointer<Integer>}
+     * @type {Pointer<D2D1_EXTEND_MODE>}
      */
     extendModes {
         get => NumGet(this, 24, "ptr")

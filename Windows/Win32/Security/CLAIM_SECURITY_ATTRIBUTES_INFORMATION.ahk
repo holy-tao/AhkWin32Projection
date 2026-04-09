@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\Win32Struct.ahk
+#Include .\CLAIM_SECURITY_ATTRIBUTE_V1.ahk
 
 /**
  * Defines the security attributes for the claim.
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-claim_security_attributes_information
  * @namespace Windows.Win32.Security
- * @version v4.0.30319
  */
-class CLAIM_SECURITY_ATTRIBUTES_INFORMATION extends Win32Struct
-{
+class CLAIM_SECURITY_ATTRIBUTES_INFORMATION extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
@@ -24,7 +23,6 @@ class CLAIM_SECURITY_ATTRIBUTES_INFORMATION extends Win32Struct
             get => NumGet(this, 0, "ptr")
             set => NumPut("ptr", value, this, 0)
         }
-    
     }
 
     /**
@@ -58,10 +56,10 @@ class CLAIM_SECURITY_ATTRIBUTES_INFORMATION extends Win32Struct
      * The actual attribute.
      * @type {_Attribute_e__Union}
      */
-    Attribute{
+    Attribute {
         get {
             if(!this.HasProp("__Attribute"))
-                this.__Attribute := %this.__Class%._Attribute_e__Union(8, this)
+                this.__Attribute := CLAIM_SECURITY_ATTRIBUTES_INFORMATION._Attribute_e__Union(8, this)
             return this.__Attribute
         }
     }

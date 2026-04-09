@@ -7,9 +7,8 @@
  * Windows Media Player 10 Mobile: This enumeration is not supported.
  * @see https://learn.microsoft.com/windows/win32/api/wmp/ne-wmp-wmpburnformat
  * @namespace Windows.Win32.Media.MediaPlayer
- * @version v4.0.30319
  */
-class WMPBurnFormat extends Win32Enum{
+class WMPBurnFormat extends Win32Enum {
 
     /**
      * The CD being burned is an audio CD.

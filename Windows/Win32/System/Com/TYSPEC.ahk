@@ -34,9 +34,8 @@
  * ```
  * @see https://learn.microsoft.com/windows/win32/api/wtypes/ne-wtypes-tyspec
  * @namespace Windows.Win32.System.Com
- * @version v4.0.30319
  */
-class TYSPEC extends Win32Enum{
+class TYSPEC extends Win32Enum {
 
     /**
      * A CLSID.

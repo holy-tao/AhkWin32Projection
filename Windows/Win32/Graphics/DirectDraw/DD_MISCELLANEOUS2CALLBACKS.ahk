@@ -5,10 +5,8 @@
  * The DD_MISCELLANEOUS2CALLBACKS structure is used to return the addresses of miscellaneous callback routines.
  * @see https://learn.microsoft.com/windows/win32/api/ddrawint/ns-ddrawint-dd_miscellaneous2callbacks
  * @namespace Windows.Win32.Graphics.DirectDraw
- * @version v4.0.30319
  */
-class DD_MISCELLANEOUS2CALLBACKS extends Win32Struct
-{
+class DD_MISCELLANEOUS2CALLBACKS extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8

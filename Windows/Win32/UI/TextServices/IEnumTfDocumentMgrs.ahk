@@ -1,16 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IEnumTfDocumentMgrs.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * The IEnumTfDocumentMgrs interface is implemented by the TSF manager to provide an enumeration of document manager objects.
  * @see https://learn.microsoft.com/windows/win32/api/msctf/nn-msctf-ienumtfdocumentmgrs
  * @namespace Windows.Win32.UI.TextServices
- * @version v4.0.30319
  */
-class IEnumTfDocumentMgrs extends IUnknown{
+class IEnumTfDocumentMgrs extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

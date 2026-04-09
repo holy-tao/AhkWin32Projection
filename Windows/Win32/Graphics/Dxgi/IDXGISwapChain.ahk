@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IDXGIDeviceSubObject.ahk
 #Include .\DXGI_SWAP_CHAIN_DESC.ahk
 #Include .\IDXGIOutput.ahk
 #Include .\DXGI_FRAME_STATISTICS.ahk
-#Include .\IDXGIDeviceSubObject.ahk
 
 /**
  * An IDXGISwapChain interface implements one or more surfaces for storing rendered data before presenting it to an output.
@@ -13,9 +13,8 @@
  * calling <a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_2/nf-dxgi1_2-idxgifactory2-createswapchainforhwnd">IDXGIFactory2::CreateSwapChainForHwnd</a>, <a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_2/nf-dxgi1_2-idxgifactory2-createswapchainforcorewindow">IDXGIFactory2::CreateSwapChainForCoreWindow</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_2/nf-dxgi1_2-idxgifactory2-createswapchainforcomposition">IDXGIFactory2::CreateSwapChainForComposition</a>. You can also create a swap chain when you call <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-d3d11createdeviceandswapchain">D3D11CreateDeviceAndSwapChain</a>; however, you can then only access the sub-set of swap-chain functionality that the <b>IDXGISwapChain</b> interface provides.
  * @see https://learn.microsoft.com/windows/win32/api/dxgi/nn-dxgi-idxgiswapchain
  * @namespace Windows.Win32.Graphics.Dxgi
- * @version v4.0.30319
  */
-class IDXGISwapChain extends IDXGIDeviceSubObject{
+class IDXGISwapChain extends IDXGIDeviceSubObject {
 
     static sizeof => A_PtrSize
     /**
@@ -92,7 +91,7 @@ class IDXGISwapChain extends IDXGIDeviceSubObject{
      * For an example that shows how sync-interval values affect a flip presentation queue, see Remarks.
      * 
      * If the update region straddles more than one output (each represented by <a href="https://docs.microsoft.com/windows/win32/api/dxgi/nn-dxgi-idxgioutput">IDXGIOutput</a>), <b>Present</b> performs the synchronization to the output that contains the largest sub-rectangle of the target window's client area.
-     * @param {Integer} Flags Type: <b><a href="https://docs.microsoft.com/windows/win32/WinProg/windows-data-types">UINT</a></b>
+     * @param {DXGI_PRESENT} Flags Type: <b><a href="https://docs.microsoft.com/windows/win32/WinProg/windows-data-types">UINT</a></b>
      * 
      * An integer value that contains swap-chain presentation options. These options are defined by the <a href="https://docs.microsoft.com/windows/desktop/direct3ddxgi/dxgi-present">DXGI_PRESENT</a> constants.
      * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
@@ -110,7 +109,13 @@ class IDXGISwapChain extends IDXGIDeviceSubObject{
 
     /**
      * Accesses one of the swap-chain's back buffers.
-     * @param {Integer} _Buffer 
+     * @param {Integer} _Buffer Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
+     * 
+     * A zero-based buffer index. 
+     * 
+     * If the swap chain's swap effect is <a href="https://docs.microsoft.com/windows/desktop/api/dxgi/ne-dxgi-dxgi_swap_effect">DXGI_SWAP_EFFECT_DISCARD</a>, this method can only access the first buffer; for this situation, set the index to zero.
+     * 
+     * If the swap chain's swap effect is either <a href="https://docs.microsoft.com/windows/desktop/api/dxgi/ne-dxgi-dxgi_swap_effect">DXGI_SWAP_EFFECT_SEQUENTIAL</a> or <a href="https://docs.microsoft.com/windows/desktop/api/dxgi/ne-dxgi-dxgi_swap_effect">DXGI_SWAP_EFFECT_FLIP_SEQUENTIAL</a>, only the swap chain's zero-index buffer can be read from and written to. The swap chain's buffers with indexes greater than zero can only be read from; so if you call the <a href="https://docs.microsoft.com/windows/desktop/api/dxgi/nf-dxgi-idxgiresource-getusage">IDXGIResource::GetUsage</a> method for such buffers, they have the <a href="https://docs.microsoft.com/windows/desktop/direct3ddxgi/dxgi-usage">DXGI_USAGE_READ_ONLY</a> flag set.
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * The type of interface used to manipulate the buffer.
@@ -258,7 +263,7 @@ class IDXGISwapChain extends IDXGIDeviceSubObject{
      * The new height of the back buffer. 
      *             If you specify zero, DXGI will use the height of the client area of the target window. 
      *             You can't specify the height as zero if you called the <a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_2/nf-dxgi1_2-idxgifactory2-createswapchainforcomposition">IDXGIFactory2::CreateSwapChainForComposition</a> method to create the swap chain for a composition surface.
-     * @param {Integer} NewFormat Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dxgiformat/ne-dxgiformat-dxgi_format">DXGI_FORMAT</a></b>
+     * @param {DXGI_FORMAT} NewFormat Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dxgiformat/ne-dxgiformat-dxgi_format">DXGI_FORMAT</a></b>
      * 
      * A <a href="https://docs.microsoft.com/windows/desktop/api/dxgiformat/ne-dxgiformat-dxgi_format">DXGI_FORMAT</a>-typed value for the new format of the back buffer. 
      *             Set this value to <a href="https://docs.microsoft.com/windows/desktop/api/dxgiformat/ne-dxgiformat-dxgi_format">DXGI_FORMAT_UNKNOWN</a> to preserve the existing format of the back buffer. 

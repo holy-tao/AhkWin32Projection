@@ -5,10 +5,8 @@
  * The RESULTDATAITEM structure specifies or receives the attributes of result items in the result pane of the snap-in.
  * @see https://learn.microsoft.com/windows/win32/api/mmc/ns-mmc-resultdataitem
  * @namespace Windows.Win32.System.Mmc
- * @version v4.0.30319
  */
-class RESULTDATAITEM extends Win32Struct
-{
+class RESULTDATAITEM extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8
@@ -92,7 +90,6 @@ class RESULTDATAITEM extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     nState {

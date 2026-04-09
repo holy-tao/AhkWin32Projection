@@ -5,10 +5,8 @@
  * This structure contains information about the downloaded firmware to activate.
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-storage_hw_firmware_activate
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class STORAGE_HW_FIRMWARE_ACTIVATE extends Win32Struct
-{
+class STORAGE_HW_FIRMWARE_ACTIVATE extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4
@@ -66,9 +64,9 @@ class STORAGE_HW_FIRMWARE_ACTIVATE extends Win32Struct
 
     /**
      * Reserved for future use.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Reserved0{
+    Reserved0 {
         get {
             if(!this.HasProp("__Reserved0ProxyArray"))
                 this.__Reserved0ProxyArray := Win32FixedArray(this.ptr + 13, 3, Primitive, "char")

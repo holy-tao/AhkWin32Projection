@@ -21,9 +21,8 @@
  * </ul>
  * @see https://learn.microsoft.com/windows/win32/api/wuapi/nn-wuapi-iupdatelockdown
  * @namespace Windows.Win32.System.UpdateAgent
- * @version v4.0.30319
  */
-class IUpdateLockdown extends IUnknown{
+class IUpdateLockdown extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

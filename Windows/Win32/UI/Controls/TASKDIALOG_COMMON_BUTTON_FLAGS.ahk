@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.UI.Controls
- * @version v4.0.30319
  */
-class TASKDIALOG_COMMON_BUTTON_FLAGS extends Win32BitflagEnum{
+class TASKDIALOG_COMMON_BUTTON_FLAGS extends Win32BitflagEnum {
 
     /**
      * @type {Integer (Int32)}

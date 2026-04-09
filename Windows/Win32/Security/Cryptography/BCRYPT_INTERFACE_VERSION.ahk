@@ -5,10 +5,8 @@
  * Contains version information for a programmatic interface for a CNG provider.
  * @see https://learn.microsoft.com/windows/win32/api/bcrypt/ns-bcrypt-bcrypt_interface_version
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class BCRYPT_INTERFACE_VERSION extends Win32Struct
-{
+class BCRYPT_INTERFACE_VERSION extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 2

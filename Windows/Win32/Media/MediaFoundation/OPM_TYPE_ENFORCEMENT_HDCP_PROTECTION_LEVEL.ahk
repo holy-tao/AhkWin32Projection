@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class OPM_TYPE_ENFORCEMENT_HDCP_PROTECTION_LEVEL extends Win32Enum{
+class OPM_TYPE_ENFORCEMENT_HDCP_PROTECTION_LEVEL extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

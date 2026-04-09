@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class D3D12_VIDEO_ENCODER_RATE_CONTROL_VBR1 extends Win32Struct
-{
+class D3D12_VIDEO_ENCODER_RATE_CONTROL_VBR1 extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 8

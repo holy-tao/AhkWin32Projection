@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.ComponentServices
- * @version v4.0.30319
  */
-class AutoSvcs_Error_Constants extends Win32Enum{
+class AutoSvcs_Error_Constants extends Win32Enum {
 
     /**
      * @type {Integer (UInt32)}

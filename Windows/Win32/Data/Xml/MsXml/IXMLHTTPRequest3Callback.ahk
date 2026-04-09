@@ -17,9 +17,8 @@
  * </ul>
  * @see https://learn.microsoft.com/windows/win32/api/msxml6/nn-msxml6-ixmlhttprequest3callback
  * @namespace Windows.Win32.Data.Xml.MsXml
- * @version v4.0.30319
  */
-class IXMLHTTPRequest3Callback extends IXMLHTTPRequest2Callback{
+class IXMLHTTPRequest3Callback extends IXMLHTTPRequest2Callback {
 
     static sizeof => A_PtrSize
     /**

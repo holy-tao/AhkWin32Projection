@@ -5,10 +5,8 @@
  * Specifies the network address for a packet.
  * @see https://learn.microsoft.com/windows/win32/api/wdspxe/ns-wdspxe-pxe_address
  * @namespace Windows.Win32.System.DeploymentServices
- * @version v4.0.30319
  */
-class PXE_ADDRESS extends Win32Struct
-{
+class PXE_ADDRESS extends Win32Struct {
     static sizeof => 28
 
     static packingSize => 4
@@ -96,9 +94,9 @@ class PXE_ADDRESS extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    bAddress{
+    bAddress {
         get {
             if(!this.HasProp("__bAddressProxyArray"))
                 this.__bAddressProxyArray := Win32FixedArray(this.ptr + 4, 16, Primitive, "char")

@@ -13,10 +13,8 @@
  * For computers running Windows, any local user can make these calls,  but remote users must have the <b>WBEM_FULL_WRITE_REP</b> access right to the root namespace.
  * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nn-wbemcli-iwbembackuprestore
  * @namespace Windows.Win32.System.Wmi
- * @version v4.0.30319
  */
-class WbemBackupRestore extends Win32Struct
-{
+class WbemBackupRestore extends Win32Struct {
     static sizeof => 0
 
     static packingSize => 1

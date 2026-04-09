@@ -5,9 +5,8 @@
  * The action to send to the remote session.
  * @see https://learn.microsoft.com/windows/win32/api/rdpappcontainerclient/ne-rdpappcontainerclient-remoteactiontype
  * @namespace Windows.Win32.System.RemoteDesktop
- * @version v4.0.30319
  */
-class RemoteActionType extends Win32Enum{
+class RemoteActionType extends Win32Enum {
 
     /**
      * Displays the charms in the remote session.

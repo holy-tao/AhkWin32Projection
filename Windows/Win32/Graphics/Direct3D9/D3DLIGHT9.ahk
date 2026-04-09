@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\D3DLIGHTTYPE.ahk
 #Include .\D3DCOLORVALUE.ahk
 #Include ..\Direct3D\D3DVECTOR.ahk
 
@@ -7,10 +8,8 @@
  * Defines a set of lighting properties.
  * @see https://learn.microsoft.com/windows/win32/direct3d9/d3dlight9
  * @namespace Windows.Win32.Graphics.Direct3D9
- * @version v4.0.30319
  */
-class D3DLIGHT9 extends Win32Struct
-{
+class D3DLIGHT9 extends Win32Struct {
     static sizeof => 104
 
     static packingSize => 4
@@ -20,7 +19,7 @@ class D3DLIGHT9 extends Win32Struct
      * 
      * 
      * Type of the light source. This value is one of the members of the [**D3DLIGHTTYPE**](./d3dlighttype.md) enumerated type.
-     * @type {Integer}
+     * @type {D3DLIGHTTYPE}
      */
     Type {
         get => NumGet(this, 0, "int")
@@ -34,7 +33,7 @@ class D3DLIGHT9 extends Win32Struct
      * Diffuse color emitted by the light. This member is a [**D3DCOLORVALUE**](d3dcolorvalue.md) structure.
      * @type {D3DCOLORVALUE}
      */
-    Diffuse{
+    Diffuse {
         get {
             if(!this.HasProp("__Diffuse"))
                 this.__Diffuse := D3DCOLORVALUE(4, this)
@@ -49,7 +48,7 @@ class D3DLIGHT9 extends Win32Struct
      * Specular color emitted by the light. This member is a [**D3DCOLORVALUE**](d3dcolorvalue.md) structure.
      * @type {D3DCOLORVALUE}
      */
-    Specular{
+    Specular {
         get {
             if(!this.HasProp("__Specular"))
                 this.__Specular := D3DCOLORVALUE(20, this)
@@ -64,7 +63,7 @@ class D3DLIGHT9 extends Win32Struct
      * Ambient color emitted by the light. This member is a [**D3DCOLORVALUE**](d3dcolorvalue.md) structure.
      * @type {D3DCOLORVALUE}
      */
-    Ambient{
+    Ambient {
         get {
             if(!this.HasProp("__Ambient"))
                 this.__Ambient := D3DCOLORVALUE(36, this)
@@ -79,7 +78,7 @@ class D3DLIGHT9 extends Win32Struct
      * Position of the light in world space, specified by a [**D3DVECTOR**](d3dvector.md) structure. This member has no meaning for directional lights and is ignored in that case.
      * @type {D3DVECTOR}
      */
-    Position{
+    Position {
         get {
             if(!this.HasProp("__Position"))
                 this.__Position := D3DVECTOR(52, this)
@@ -94,7 +93,7 @@ class D3DLIGHT9 extends Win32Struct
      * Direction that the light is pointing in world space, specified by a [**D3DVECTOR**](d3dvector.md) structure. This member has meaning only for directional and spotlights. This vector need not be normalized, but it should have a nonzero length.
      * @type {D3DVECTOR}
      */
-    Direction{
+    Direction {
         get {
             if(!this.HasProp("__Direction"))
                 this.__Direction := D3DVECTOR(64, this)

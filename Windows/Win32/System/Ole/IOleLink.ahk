@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IMoniker.ahk
 #Include ..\Com\IUnknown.ahk
+#Include ..\Com\IMoniker.ahk
 
 /**
  * Enables a linked object to provide its container with functions pertaining to linking.
  * @see https://learn.microsoft.com/windows/win32/api/oleidl/nn-oleidl-iolelink
  * @namespace Windows.Win32.System.Ole
- * @version v4.0.30319
  */
-class IOleLink extends IUnknown{
+class IOleLink extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -20,9 +20,8 @@
  * With a search connector (a .searchconnector-ms file), Windows Explorer calls your implementation with the query parameters. Your implementation returns results formatted in RSS or Atom format. That allows your implementation to provide custom authentication UI and connect to the data source using its proprietary API.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-iopensearchsource
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IOpenSearchSource extends IUnknown{
+class IOpenSearchSource extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -56,7 +55,9 @@ class IOpenSearchSource extends IUnknown{
      * The index number identifies the first result on a page of results. It is equivalent to the OpenSearch {startIndex} parameter. The count, equivalent to the OpenSearch {count} parameter, identifies the expected or preferred number of items returned per page.
      * 
      * If a web service returns 20 items on the first page of results, the expected page size is 20.  To get the next 20 items, Windows Explorer would call <b>IOpenSearchSource::GetResults</b> with the value 21 for <i>dwStartIndex</i> and with the value of 20 for <i>dwCount</i>. When a page of results returned by the web service has fewer items than the expected page size, Windows Explorer assumes it has received the last page of results and stops making requests.
-     * @param {HWND} _hwnd 
+     * @param {HWND} _hwnd Type: <b>HWND</b>
+     * 
+     * The window handle of the caller.
      * @param {PWSTR} pszQuery Type: <b>LPCWSTR</b>
      * 
      * The query as entered by the user. This parameter is equivalent to the OpenSearch {searchTerms} parameter and may be empty.

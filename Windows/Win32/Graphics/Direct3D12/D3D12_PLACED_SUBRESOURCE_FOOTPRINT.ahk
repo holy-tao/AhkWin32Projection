@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\D3D12_SUBRESOURCE_FOOTPRINT.ahk
+#Include ..\Dxgi\Common\DXGI_FORMAT.ahk
 
 /**
  * Describes the footprint of a placed subresource, including the offset and the D3D12_SUBRESOURCE_FOOTPRINT.
@@ -16,10 +17,8 @@
  * When copying textures, use this structure along with <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ns-d3d12-d3d12_texture_copy_location">D3D12_TEXTURE_COPY_LOCATION</a>.
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_placed_subresource_footprint
  * @namespace Windows.Win32.Graphics.Direct3D12
- * @version v4.0.30319
  */
-class D3D12_PLACED_SUBRESOURCE_FOOTPRINT extends Win32Struct
-{
+class D3D12_PLACED_SUBRESOURCE_FOOTPRINT extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -39,7 +38,7 @@ class D3D12_PLACED_SUBRESOURCE_FOOTPRINT extends Win32Struct
      *             as a <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ns-d3d12-d3d12_subresource_footprint">D3D12_SUBRESOURCE_FOOTPRINT</a> structure.
      * @type {D3D12_SUBRESOURCE_FOOTPRINT}
      */
-    Footprint{
+    Footprint {
         get {
             if(!this.HasProp("__Footprint"))
                 this.__Footprint := D3D12_SUBRESOURCE_FOOTPRINT(8, this)

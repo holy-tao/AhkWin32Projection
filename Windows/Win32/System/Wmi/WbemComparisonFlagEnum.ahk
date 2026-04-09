@@ -5,9 +5,8 @@
  * Define the settings for object comparison and are used by SWbemObject.CompareTo_.
  * @see https://learn.microsoft.com/windows/win32/api/wbemdisp/ne-wbemdisp-wbemcomparisonflagenum
  * @namespace Windows.Win32.System.Wmi
- * @version v4.0.30319
  */
-class WbemComparisonFlagEnum extends Win32Enum{
+class WbemComparisonFlagEnum extends Win32Enum {
 
     /**
      * Used to compare all properties, qualifiers, and flavors.

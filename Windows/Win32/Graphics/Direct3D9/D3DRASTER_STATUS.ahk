@@ -5,10 +5,8 @@
  * Describes the raster status.
  * @see https://learn.microsoft.com/windows/win32/direct3d9/d3draster-status
  * @namespace Windows.Win32.Graphics.Direct3D9
- * @version v4.0.30319
  */
-class D3DRASTER_STATUS extends Win32Struct
-{
+class D3DRASTER_STATUS extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4

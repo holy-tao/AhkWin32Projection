@@ -4,23 +4,19 @@
 
 /**
  * The header structure of an ETW buffer.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/evntrace/ns-evntrace-etw_buffer_header
  * @namespace Windows.Win32.System.Diagnostics.Etw
- * @version v4.0.30319
  */
-class ETW_BUFFER_HEADER extends Win32Struct
-{
+class ETW_BUFFER_HEADER extends Win32Struct {
     static sizeof => 72
 
     static packingSize => 8
 
     /**
      * Reserved.
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    Reserved1{
+    Reserved1 {
         get {
             if(!this.HasProp("__Reserved1ProxyArray"))
                 this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 0, 4, Primitive, "uint")
@@ -39,9 +35,9 @@ class ETW_BUFFER_HEADER extends Win32Struct
 
     /**
      * Reserved.
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    Reserved2{
+    Reserved2 {
         get {
             if(!this.HasProp("__Reserved2ProxyArray"))
                 this.__Reserved2ProxyArray := Win32FixedArray(this.ptr + 24, 4, Primitive, "uint")
@@ -53,7 +49,7 @@ class ETW_BUFFER_HEADER extends Win32Struct
      * Contains information about the processor and logger that generated this buffer. See [ETW_BUFFER_CONTEXT](ns-evntrace-etw_buffer_context.md).
      * @type {ETW_BUFFER_CONTEXT}
      */
-    ClientContext{
+    ClientContext {
         get {
             if(!this.HasProp("__ClientContext"))
                 this.__ClientContext := ETW_BUFFER_CONTEXT(40, this)
@@ -62,7 +58,6 @@ class ETW_BUFFER_HEADER extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     Reserved3 {
@@ -81,9 +76,9 @@ class ETW_BUFFER_HEADER extends Win32Struct
 
     /**
      * Reserved.
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    Reserved4{
+    Reserved4 {
         get {
             if(!this.HasProp("__Reserved4ProxyArray"))
                 this.__Reserved4ProxyArray := Win32FixedArray(this.ptr + 52, 5, Primitive, "uint")

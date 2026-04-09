@@ -7,9 +7,8 @@
  * Exposes methods that Remote Desktop Connection Broker (RD Connection Broker) uses to notify plug-ins of state changes that occur in the RD Connection Broker itself.
  * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nn-sbtsv-itssbservicenotification
  * @namespace Windows.Win32.System.RemoteDesktop
- * @version v4.0.30319
  */
-class ITsSbServiceNotification extends IUnknown{
+class ITsSbServiceNotification extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

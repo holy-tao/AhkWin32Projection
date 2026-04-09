@@ -9,9 +9,8 @@
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IBDA_IPV6Filter)</c>.
  * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nn-bdaiface-ibda_ipv6filter
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IBDA_IPV6Filter extends IUnknown{
+class IBDA_IPV6Filter extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

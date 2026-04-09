@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class MSV1_0_SUPPLEMENTAL_CREDENTIAL_V2 extends Win32Struct
-{
+class MSV1_0_SUPPLEMENTAL_CREDENTIAL_V2 extends Win32Struct {
     static sizeof => 44
 
     static packingSize => 4
@@ -29,9 +27,9 @@ class MSV1_0_SUPPLEMENTAL_CREDENTIAL_V2 extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    NtPassword{
+    NtPassword {
         get {
             if(!this.HasProp("__NtPasswordProxyArray"))
                 this.__NtPasswordProxyArray := Win32FixedArray(this.ptr + 8, 16, Primitive, "char")
@@ -42,7 +40,7 @@ class MSV1_0_SUPPLEMENTAL_CREDENTIAL_V2 extends Win32Struct
     /**
      * @type {MSV1_0_CREDENTIAL_KEY}
      */
-    CredentialKey{
+    CredentialKey {
         get {
             if(!this.HasProp("__CredentialKey"))
                 this.__CredentialKey := MSV1_0_CREDENTIAL_KEY(24, this)

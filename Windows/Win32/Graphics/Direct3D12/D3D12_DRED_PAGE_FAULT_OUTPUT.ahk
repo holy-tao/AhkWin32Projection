@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\D3D12_DRED_ALLOCATION_NODE.ahk
 
 /**
  * Describes allocation data related to a GPU page fault on a given virtual address (VA).
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_dred_page_fault_output
  * @namespace Windows.Win32.Graphics.Direct3D12
- * @version v4.0.30319
  */
-class D3D12_DRED_PAGE_FAULT_OUTPUT extends Win32Struct
-{
+class D3D12_DRED_PAGE_FAULT_OUTPUT extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

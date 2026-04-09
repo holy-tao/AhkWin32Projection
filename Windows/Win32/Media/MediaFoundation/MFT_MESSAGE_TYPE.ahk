@@ -7,9 +7,8 @@
  * Some messages require specific actions from the MFT. These events have "MESSAGE" in the message name. Other messages are informational; they notify the MFT of some action by the client, and do not require any particular response from the MFT. These messages have "NOTIFY" in the messages name. Except where noted, an MFT should not rely on the client sending notification messages.
  * @see https://learn.microsoft.com/windows/win32/api/mftransform/ne-mftransform-mft_message_type
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class MFT_MESSAGE_TYPE extends Win32Enum{
+class MFT_MESSAGE_TYPE extends Win32Enum {
 
     /**
      * Requests the MFT to flush all stored data. 
@@ -94,31 +93,26 @@ class MFT_MESSAGE_TYPE extends Win32Enum{
     static MFT_MESSAGE_NOTIFY_START_OF_STREAM => 268435459
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static MFT_MESSAGE_NOTIFY_RELEASE_RESOURCES => 268435460
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static MFT_MESSAGE_NOTIFY_REACQUIRE_RESOURCES => 268435461
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static MFT_MESSAGE_NOTIFY_EVENT => 268435462
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static MFT_MESSAGE_COMMAND_SET_OUTPUT_STREAM_STATE => 268435463
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static MFT_MESSAGE_COMMAND_FLUSH_OUTPUT_STREAM => 268435464

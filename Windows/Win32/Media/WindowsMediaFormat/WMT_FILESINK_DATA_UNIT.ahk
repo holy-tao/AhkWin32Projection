@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\WMT_BUFFER_SEGMENT.ahk
+#Include .\INSSBuffer.ahk
+#Include .\WMT_PAYLOAD_FRAGMENT.ahk
 
 /**
  * The WMT_FILESINK_DATA_UNIT structure is used by IWMWriterFileSink3::OnDataUnitEx to deliver information about a packet.
  * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/ns-wmsdkidl-wmt_filesink_data_unit
  * @namespace Windows.Win32.Media.WindowsMediaFormat
- * @version v4.0.30319
  */
-class WMT_FILESINK_DATA_UNIT extends Win32Struct
-{
+class WMT_FILESINK_DATA_UNIT extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -18,7 +18,7 @@ class WMT_FILESINK_DATA_UNIT extends Win32Struct
      * A <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/wmsdkidl/ns-wmsdkidl-wmt_buffer_segment">WMT_BUFFER_SEGMENT</a> structure specifying the buffer segment that contains the packet header.
      * @type {WMT_BUFFER_SEGMENT}
      */
-    packetHeaderBuffer{
+    packetHeaderBuffer {
         get {
             if(!this.HasProp("__packetHeaderBuffer"))
                 this.__packetHeaderBuffer := WMT_BUFFER_SEGMENT(0, this)

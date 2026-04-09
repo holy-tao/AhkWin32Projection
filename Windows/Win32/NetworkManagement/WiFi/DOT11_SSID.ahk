@@ -9,10 +9,8 @@
  * A wildcard SSID is an SSID whose **uSSIDLength** member is set to zero. When the desired SSID is set to the wildcard SSID, the 802.11 station can connect to any basic service set (BSS) network.
  * @see https://learn.microsoft.com/windows/win32/NativeWiFi/dot11-ssid
  * @namespace Windows.Win32.NetworkManagement.WiFi
- * @version v4.0.30319
  */
-class DOT11_SSID extends Win32Struct
-{
+class DOT11_SSID extends Win32Struct {
     static sizeof => 36
 
     static packingSize => 4
@@ -28,9 +26,9 @@ class DOT11_SSID extends Win32Struct
 
     /**
      * The SSID. DOT11\_SSID\_MAX\_LENGTH is set to 32.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    ucSSID{
+    ucSSID {
         get {
             if(!this.HasProp("__ucSSIDProxyArray"))
                 this.__ucSSIDProxyArray := Win32FixedArray(this.ptr + 4, 32, Primitive, "char")

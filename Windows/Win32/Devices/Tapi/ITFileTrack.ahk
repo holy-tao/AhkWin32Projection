@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include .\ITTerminal.ahk
 #Include .\ITScriptableAudioFormat.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * The ITFileTrack interface exposes methods that allow an application to get and set information concerning file terminal tracks. The ITFileTerminalEvent::get_Track method creates the ITFileTrack interface.
  * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nn-tapi3if-itfiletrack
  * @namespace Windows.Win32.Devices.Tapi
- * @version v4.0.30319
  */
-class ITFileTrack extends IDispatch{
+class ITFileTrack extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

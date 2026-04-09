@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Graphics\Dxgi\Common\DXGI_FORMAT.ahk
+#Include .\D3D12_VIDEO_MOTION_ESTIMATOR_SEARCH_BLOCK_SIZE.ahk
+#Include .\D3D12_VIDEO_MOTION_ESTIMATOR_VECTOR_PRECISION.ahk
 #Include .\D3D12_VIDEO_SIZE_RANGE.ahk
 
 /**
  * Describes the allocation size of a video motion estimator heap.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/d3d12video/ns-d3d12video-d3d12_feature_data_video_motion_estimator_size
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class D3D12_FEATURE_DATA_VIDEO_MOTION_ESTIMATOR_SIZE extends Win32Struct
-{
+class D3D12_FEATURE_DATA_VIDEO_MOTION_ESTIMATOR_SIZE extends Win32Struct {
     static sizeof => 72
 
     static packingSize => 8
@@ -27,7 +26,7 @@ class D3D12_FEATURE_DATA_VIDEO_MOTION_ESTIMATOR_SIZE extends Win32Struct
 
     /**
      * A [DXGI_FORMAT](/windows/desktop/api/dxgiformat/ne-dxgiformat-dxgi_format) structure specifying the format of the input and reference resources.
-     * @type {Integer}
+     * @type {DXGI_FORMAT}
      */
     InputFormat {
         get => NumGet(this, 4, "int")
@@ -36,7 +35,7 @@ class D3D12_FEATURE_DATA_VIDEO_MOTION_ESTIMATOR_SIZE extends Win32Struct
 
     /**
      * A value from the [D3D12_VIDEO_MOTION_ESTIMATOR_SEARCH_BLOCK_SIZE](ne-d3d12video-d3d12_video_motion_estimator_search_block_size.md) specifying the search block size for motion estimation.
-     * @type {Integer}
+     * @type {D3D12_VIDEO_MOTION_ESTIMATOR_SEARCH_BLOCK_SIZE}
      */
     BlockSize {
         get => NumGet(this, 8, "int")
@@ -45,7 +44,7 @@ class D3D12_FEATURE_DATA_VIDEO_MOTION_ESTIMATOR_SIZE extends Win32Struct
 
     /**
      * A value from the [D3D12_VIDEO_MOTION_ESTIMATOR_VECTOR_PRECISION](ne-d3d12video-d3d12_video_motion_estimator_vector_precision.md) specifying the search block size for motion estimation.
-     * @type {Integer}
+     * @type {D3D12_VIDEO_MOTION_ESTIMATOR_VECTOR_PRECISION}
      */
     Precision {
         get => NumGet(this, 12, "int")
@@ -56,7 +55,7 @@ class D3D12_FEATURE_DATA_VIDEO_MOTION_ESTIMATOR_SIZE extends Win32Struct
      * A [D3D12_VIDEO_SIZE_RANGE](ns-d3d12video-d3d12_video_size_range.md) structure representing the minimum and maximum input and reference frame size, in pixels, used by the motion estimator.
      * @type {D3D12_VIDEO_SIZE_RANGE}
      */
-    SizeRange{
+    SizeRange {
         get {
             if(!this.HasProp("__SizeRange"))
                 this.__SizeRange := D3D12_VIDEO_SIZE_RANGE(16, this)

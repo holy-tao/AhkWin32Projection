@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IXFeedsEnum.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\IXFeedsEnum.ahk
 
 /**
  * @namespace Windows.Win32.Media.MediaPlayer
- * @version v4.0.30319
  */
-class IXFeedFolder extends IUnknown{
+class IXFeedFolder extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -252,8 +251,8 @@ class IXFeedFolder extends IUnknown{
 
     /**
      * 
-     * @param {Integer} scope 
-     * @param {Integer} mask 
+     * @param {FEEDS_EVENTS_SCOPE} scope 
+     * @param {FEEDS_EVENTS_MASK} mask 
      * @param {Pointer<Guid>} riid 
      * @returns {Pointer<Void>} 
      */

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\HEAPALIGNMENT.ahk
 #Include .\DDSCAPS.ahk
 #Include .\SURFACEALIGNMENT.ahk
-#Include .\HEAPALIGNMENT.ahk
 #Include .\DDSCAPSEX.ahk
 #Include ..\..\Foundation\HANDLE.ahk
 
@@ -10,10 +10,8 @@
  * The VMEMHEAP structure contains information about the heap.
  * @see https://learn.microsoft.com/windows/win32/api/dmemmgr/ns-dmemmgr-vmemheap
  * @namespace Windows.Win32.Graphics.DirectDraw
- * @version v4.0.30319
  */
-class VMEMHEAP extends Win32Struct
-{
+class VMEMHEAP extends Win32Struct {
     static sizeof => 248
 
     static packingSize => 8
@@ -103,7 +101,7 @@ class VMEMHEAP extends Win32Struct
      * Reserved for system use and should be ignored by the driver.
      * @type {HEAPALIGNMENT}
      */
-    Alignment{
+    Alignment {
         get {
             if(!this.HasProp("__Alignment"))
                 this.__Alignment := HEAPALIGNMENT(56, this)
@@ -115,7 +113,7 @@ class VMEMHEAP extends Win32Struct
      * Reserved for system use and should be ignored by the driver.
      * @type {DDSCAPSEX}
      */
-    ddsCapsEx{
+    ddsCapsEx {
         get {
             if(!this.HasProp("__ddsCapsEx"))
                 this.__ddsCapsEx := DDSCAPSEX(180, this)
@@ -127,7 +125,7 @@ class VMEMHEAP extends Win32Struct
      * Reserved for system use and should be ignored by the driver.
      * @type {DDSCAPSEX}
      */
-    ddsCapsExAlt{
+    ddsCapsExAlt {
         get {
             if(!this.HasProp("__ddsCapsExAlt"))
                 this.__ddsCapsExAlt := DDSCAPSEX(192, this)
@@ -148,7 +146,7 @@ class VMEMHEAP extends Win32Struct
      * Reserved for system use and should be ignored by the driver.
      * @type {HANDLE}
      */
-    hdevAGP{
+    hdevAGP {
         get {
             if(!this.HasProp("__hdevAGP"))
                 this.__hdevAGP := HANDLE(216, this)

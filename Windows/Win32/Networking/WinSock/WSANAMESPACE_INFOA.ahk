@@ -21,12 +21,10 @@
  * > The winsock2.h header defines WSANAMESPACE_INFO as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
  * @see https://learn.microsoft.com/windows/win32/api/winsock2/ns-winsock2-wsanamespace_infoa
  * @namespace Windows.Win32.Networking.WinSock
- * @version v4.0.30319
  * @charset ANSI
  * @deprecated WSANAMESPACE_INFOW
  */
-class WSANAMESPACE_INFOA extends Win32Struct
-{
+class WSANAMESPACE_INFOA extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -35,7 +33,7 @@ class WSANAMESPACE_INFOA extends Win32Struct
      * Type: <b>GUID</b>
      * 
      * A unique GUID for this namespace provider.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     NSProviderId {
         get => NumGet(this, 0, "ptr")

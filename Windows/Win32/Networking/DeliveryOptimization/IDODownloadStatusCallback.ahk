@@ -5,13 +5,10 @@
 
 /**
  * Used to receive notifications about a download.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/deliveryoptimization/nn-deliveryoptimization-idodownloadstatuscallback
  * @namespace Windows.Win32.Networking.DeliveryOptimization
- * @version v4.0.30319
  */
-class IDODownloadStatusCallback extends IUnknown{
+class IDODownloadStatusCallback extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -35,7 +32,7 @@ class IDODownloadStatusCallback extends IUnknown{
     /**
      * Delivery Optimization calls your implementation of this method any time a download status has changed.
      * @param {IDODownload} download An pointer to the **IDODownload** interface whose status changed.
-     * @param {Pointer<DO_DOWNLOAD_STATUS>} _status 
+     * @param {Pointer<DO_DOWNLOAD_STATUS>} _status A pointer to a **DO_DOWNLOAD_STATUS** structure containing the download's status.
      * @returns {HRESULT} If the function succeeds, it returns **S_OK**. Otherwise, it returns an [**HRESULT**](/windows/win32/com/structure-of-com-error-codes) [error code](/windows/win32/com/com-error-codes-10).
      * @see https://learn.microsoft.com/windows/win32/api/deliveryoptimization/nf-deliveryoptimization-idodownloadstatuscallback-onstatuschange
      */

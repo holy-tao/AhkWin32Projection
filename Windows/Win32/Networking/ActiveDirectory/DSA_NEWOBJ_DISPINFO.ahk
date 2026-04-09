@@ -6,10 +6,8 @@
  * Used with the IDsAdminNewObjExt::Initialize method to supply additional data about an Active Directory Domain Services object creation wizard.
  * @see https://learn.microsoft.com/windows/win32/api/dsadmin/ns-dsadmin-dsa_newobj_dispinfo
  * @namespace Windows.Win32.Networking.ActiveDirectory
- * @version v4.0.30319
  */
-class DSA_NEWOBJ_DISPINFO extends Win32Struct
-{
+class DSA_NEWOBJ_DISPINFO extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -27,7 +25,7 @@ class DSA_NEWOBJ_DISPINFO extends Win32Struct
      * Contains the handle  of the class icon for the object created.
      * @type {HICON}
      */
-    hObjClassIcon{
+    hObjClassIcon {
         get {
             if(!this.HasProp("__hObjClassIcon"))
                 this.__hObjClassIcon := HICON(8, this)

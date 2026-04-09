@@ -5,9 +5,8 @@
  * The DISPLAYCONFIG_TOPOLOGY_ID enumeration specifies the type of display topology.
  * @see https://learn.microsoft.com/windows/win32/api/wingdi/ne-wingdi-displayconfig_topology_id
  * @namespace Windows.Win32.Devices.Display
- * @version v4.0.30319
  */
-class DISPLAYCONFIG_TOPOLOGY_ID extends Win32Enum{
+class DISPLAYCONFIG_TOPOLOGY_ID extends Win32Enum {
 
     /**
      * Indicates that the display topology is an internal configuration.

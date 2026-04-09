@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Com\IUnknown.ahk
 #Include ..\DistributedTransactionCoordinator\ITransaction.ahk
 #Include ..\DistributedTransactionCoordinator\ITransactionVoterBallotAsync2.ahk
-#Include ..\Com\IUnknown.ahk
 
 /**
  * Provides a way for a COM+ transaction context to work with a non-DTC transaction.
  * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nn-comsvcs-itransactionproxy
  * @namespace Windows.Win32.System.ComponentServices
- * @version v4.0.30319
  */
-class ITransactionProxy extends IUnknown{
+class ITransactionProxy extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

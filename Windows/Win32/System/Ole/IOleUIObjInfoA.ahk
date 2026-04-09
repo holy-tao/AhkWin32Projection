@@ -10,10 +10,9 @@
  * > The oledlg.h header defines IOleUIObjInfo as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
  * @see https://learn.microsoft.com/windows/win32/api/oledlg/nn-oledlg-ioleuiobjinfoa
  * @namespace Windows.Win32.System.Ole
- * @version v4.0.30319
  * @charset ANSI
  */
-class IOleUIObjInfoA extends IUnknown{
+class IOleUIObjInfoA extends IUnknown {
 
     static sizeof => A_PtrSize
 
@@ -315,7 +314,7 @@ class IOleUIObjInfoA extends IUnknown{
      * You should apply the new attributes (icon, aspect, and scale) to the object. If <i>bRelativeToOrig</i> is set to <b>TRUE</b>, <i>nCurrentScale</i> (in percentage units) applies to the original size of the object before it was scaled. If <i>bRelativeToOrig</i> is <b>FALSE</b>, <i>nCurrentScale</i> applies to the object's current size.
      * @param {Integer} dwObject Unique identifier for the object.
      * @param {HGLOBAL} hMetaPict The new icon.
-     * @param {Integer} _dvAspect 
+     * @param {Integer} _dvAspect The new display aspect or view.
      * @param {Integer} nCurrentScale The new scale.
      * @param {BOOL} bRelativeToOrig The new scale of the object, relative to the origin. This value is <b>TRUE</b> if the scale should be relative to the original scale of the object. If <b>FALSE</b>, <i>nCurrentScale</i> applies to the object's current size.
      * @returns {HRESULT} This method returns S_OK on success. Other possible return values include the following.

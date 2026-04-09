@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.Search
- * @version v4.0.30319
  */
-class IRowsetWatchRegion extends IRowsetWatchAll{
+class IRowsetWatchRegion extends IRowsetWatchAll {
 
     static sizeof => A_PtrSize
     /**

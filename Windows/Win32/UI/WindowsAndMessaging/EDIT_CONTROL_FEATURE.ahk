@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.UI.WindowsAndMessaging
- * @version v4.0.30319
  */
-class EDIT_CONTROL_FEATURE extends Win32Enum{
+class EDIT_CONTROL_FEATURE extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

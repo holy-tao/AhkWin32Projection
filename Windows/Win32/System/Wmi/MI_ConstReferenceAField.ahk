@@ -1,15 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\MI_ConstReferenceA.ahk
+#Include .\MI_Instance.ahk
 
 /**
  * Represents a property inside an MI_Instance structure. (MI_ConstReferenceAField)
  * @see https://learn.microsoft.com/windows/win32/api/mi/ns-mi-mi_constreferenceafield
  * @namespace Windows.Win32.System.Wmi
- * @version v4.0.30319
  */
-class MI_ConstReferenceAField extends Win32Struct
-{
+class MI_ConstReferenceAField extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -18,7 +17,7 @@ class MI_ConstReferenceAField extends Win32Struct
      * A field of type <a href="https://docs.microsoft.com/windows/desktop/api/mi/ns-mi-mi_constreferencea">MI_ConstReferenceA</a>.
      * @type {MI_ConstReferenceA}
      */
-    value{
+    value {
         get {
             if(!this.HasProp("__value"))
                 this.__value := MI_ConstReferenceA(0, this)

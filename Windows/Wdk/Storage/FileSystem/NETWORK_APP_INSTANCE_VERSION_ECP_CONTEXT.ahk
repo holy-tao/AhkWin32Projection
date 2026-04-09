@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem
- * @version v4.0.30319
  */
-class NETWORK_APP_INSTANCE_VERSION_ECP_CONTEXT extends Win32Struct
-{
+class NETWORK_APP_INSTANCE_VERSION_ECP_CONTEXT extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

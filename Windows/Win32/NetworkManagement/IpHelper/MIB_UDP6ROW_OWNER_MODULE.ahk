@@ -18,10 +18,8 @@
  * On the Microsoft Windows Software Development Kit (SDK) released for Windows Vista and later, the organization of header files has changed. This  structure is defined in the <i>Udpmib.h</i> header file, not in the <i>Iprtrmib.h</i> header file. Note that the <i>Udpmib.h</i> header file is automatically included in <i>Iprtrmib.h</i>, which is automatically included in the <i>Iphlpapi.h</i> header file. The  <i>Udpmib.h</i> and <i>Iprtrmib.h</i> header files should never be used directly.
  * @see https://learn.microsoft.com/windows/win32/api/udpmib/ns-udpmib-mib_udp6row_owner_module
  * @namespace Windows.Win32.NetworkManagement.IpHelper
- * @version v4.0.30319
  */
-class MIB_UDP6ROW_OWNER_MODULE extends Win32Struct
-{
+class MIB_UDP6ROW_OWNER_MODULE extends Win32Struct {
     static sizeof => 176
 
     static packingSize => 8
@@ -33,9 +31,9 @@ class MIB_UDP6ROW_OWNER_MODULE extends Win32Struct
      * 
      * A value of zero indicates a UDP listener  willing to accept datagrams for any IP interface associated
      *                       with the local computer.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    ucLocalAddr{
+    ucLocalAddr {
         get {
             if(!this.HasProp("__ucLocalAddrProxyArray"))
                 this.__ucLocalAddrProxyArray := Win32FixedArray(this.ptr + 0, 16, Primitive, "char")
@@ -117,9 +115,9 @@ class MIB_UDP6ROW_OWNER_MODULE extends Win32Struct
      * Type: <b>ULONGLONG[TCPIP_OWNING_MODULE_SIZE]</b>
      * 
      * An array of opaque data that contains ownership information.
-     * @type {Array<UInt64>}
+     * @type {Array<Integer>}
      */
-    OwningModuleInfo{
+    OwningModuleInfo {
         get {
             if(!this.HasProp("__OwningModuleInfoProxyArray"))
                 this.__OwningModuleInfoProxyArray := Win32FixedArray(this.ptr + 48, 16, Primitive, "uint")

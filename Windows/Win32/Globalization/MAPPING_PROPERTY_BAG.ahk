@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\Win32Struct.ahk
+#Include .\MAPPING_DATA_RANGE.ahk
 
 /**
  * Contains the text recognition data properties retrieved by MappingRecognizeText.
@@ -7,10 +8,8 @@
  * The memory for the property bag structure itself is managed by the application. The ELS platform and its services only manage the data pointers that they store in the property bag.
  * @see https://learn.microsoft.com/windows/win32/api/elscore/ns-elscore-mapping_property_bag
  * @namespace Windows.Win32.Globalization
- * @version v4.0.30319
  */
-class MAPPING_PROPERTY_BAG extends Win32Struct
-{
+class MAPPING_PROPERTY_BAG extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 8

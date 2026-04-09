@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\DML_TENSOR_DESC.ahk
 
 /**
  * Performs a logical AND on each pair of corresponding elements of the input tensors, placing the result (1 for true, 0 for false) into the corresponding element of *OutputTensor*.
  * @see https://learn.microsoft.com/windows/win32/api/directml/ns-directml-dml_element_wise_logical_and_operator_desc
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
- * @version v4.0.30319
  */
-class DML_ELEMENT_WISE_LOGICAL_AND_OPERATOR_DESC extends Win32Struct
-{
+class DML_ELEMENT_WISE_LOGICAL_AND_OPERATOR_DESC extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

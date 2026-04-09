@@ -5,9 +5,8 @@
  * Indicate whether a storage element is to be moved or copied.
  * @see https://learn.microsoft.com/windows/win32/api/wtypes/ne-wtypes-stgmove
  * @namespace Windows.Win32.System.Com.StructuredStorage
- * @version v4.0.30319
  */
-class STGMOVE extends Win32Enum{
+class STGMOVE extends Win32Enum {
 
     /**
      * Indicates that the method should move the data from the source to the destination.

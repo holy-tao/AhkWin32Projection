@@ -5,9 +5,8 @@
  * Specifies the macroblock scan pattern. This enumeration is used with the AVEncMPVScanPattern property.
  * @see https://learn.microsoft.com/windows/win32/api/codecapi/ne-codecapi-eavencmpvscanpattern
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class eAVEncMPVScanPattern extends Win32Enum{
+class eAVEncMPVScanPattern extends Win32Enum {
 
     /**
      * The encoder selects the scan pattern.

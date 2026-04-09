@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\WS_STRING.ahk
+#Include .\WS_ENDPOINT_IDENTITY.ahk
 
 /**
  * Represents the network address of an endpoint.
@@ -8,10 +9,8 @@
  * Only the URL field is required (other fields may be <b>NULL</b>).
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_endpoint_address
  * @namespace Windows.Win32.Networking.WindowsWebServices
- * @version v4.0.30319
  */
-class WS_ENDPOINT_ADDRESS extends Win32Struct
-{
+class WS_ENDPOINT_ADDRESS extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -33,7 +32,7 @@ class WS_ENDPOINT_ADDRESS extends Win32Struct
      *                     WS-Addressing specifications.
      * @type {WS_STRING}
      */
-    url{
+    url {
         get {
             if(!this.HasProp("__url"))
                 this.__url := WS_STRING(0, this)

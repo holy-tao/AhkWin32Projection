@@ -7,9 +7,8 @@
  * Exposes a method that allows communication between Windows Explorer and a folder view implemented using the system folder view object (the IShellView object returned through SHCreateShellFolderView) so that the folder view can be notified of events and modify its view accordingly.
  * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nn-shlobj_core-ishellfolderviewcb
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IShellFolderViewCB extends IUnknown{
+class IShellFolderViewCB extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -218,8 +217,12 @@ class IShellFolderViewCB extends IUnknown{
      * <td>Notifies the callback object that the folder view window is being created.</td>
      * </tr>
      * </table>
-     * @param {WPARAM} _wParam 
-     * @param {LPARAM} _lParam 
+     * @param {WPARAM} _wParam Type: <b>WPARAM</b>
+     * 
+     * Additional information. See the individual notification pages for specific requirements.
+     * @param {LPARAM} _lParam Type: <b>LPARAM</b>
+     * 
+     * Additional information. See the individual notification pages for specific requirements.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * This method can return one of these values.

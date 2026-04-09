@@ -1,12 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\MLOperatorAttributeType.ahk
 
 /**
  * @namespace Windows.Win32.AI.MachineLearning.WinML
- * @version v4.0.30319
  */
-class MLOperatorAttributeNameValue extends Win32Struct
-{
+class MLOperatorAttributeNameValue extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -20,7 +19,7 @@ class MLOperatorAttributeNameValue extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {MLOperatorAttributeType}
      */
     type {
         get => NumGet(this, 8, "uint")

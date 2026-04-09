@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
- * @version v4.0.30319
  */
-class DOT11_PROVISION_DISCOVERY_RESPONSE_SEND_COMPLETE_PARAMETERS extends Win32Struct
-{
+class DOT11_PROVISION_DISCOVERY_RESPONSE_SEND_COMPLETE_PARAMETERS extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 4
@@ -15,7 +13,7 @@ class DOT11_PROVISION_DISCOVERY_RESPONSE_SEND_COMPLETE_PARAMETERS extends Win32S
     /**
      * @type {NDIS_OBJECT_HEADER}
      */
-    Header{
+    Header {
         get {
             if(!this.HasProp("__Header"))
                 this.__Header := NDIS_OBJECT_HEADER(0, this)
@@ -24,9 +22,9 @@ class DOT11_PROVISION_DISCOVERY_RESPONSE_SEND_COMPLETE_PARAMETERS extends Win32S
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    ReceiverDeviceAddress{
+    ReceiverDeviceAddress {
         get {
             if(!this.HasProp("__ReceiverDeviceAddressProxyArray"))
                 this.__ReceiverDeviceAddressProxyArray := Win32FixedArray(this.ptr + 4, 6, Primitive, "char")

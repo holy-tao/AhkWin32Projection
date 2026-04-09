@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\LSA_AUTH_INFORMATION_AUTH_TYPE.ahk
 
 /**
  * The LSA_AUTH_INFORMATION structure contains authentication information for a trusted domain.
  * @see https://learn.microsoft.com/windows/win32/api/ntsecapi/ns-ntsecapi-lsa_auth_information
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class LSA_AUTH_INFORMATION extends Win32Struct
-{
+class LSA_AUTH_INFORMATION extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -25,8 +24,7 @@ class LSA_AUTH_INFORMATION extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Integer}
+     * @type {LSA_AUTH_INFORMATION_AUTH_TYPE}
      */
     AuthType {
         get => NumGet(this, 8, "uint")

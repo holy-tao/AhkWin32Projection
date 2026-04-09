@@ -3,11 +3,9 @@
 
 /**
  * @namespace Windows.Win32.System.WindowsProgramming
- * @version v4.0.30319
  * @charset Unicode
  */
-class CABINFOW extends Win32Struct
-{
+class CABINFOW extends Win32Struct {
     static sizeof => 552
 
     static packingSize => 8

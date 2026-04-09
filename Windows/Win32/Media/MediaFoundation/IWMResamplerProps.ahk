@@ -7,9 +7,8 @@
  * Sets properties on the audio resampler DSP.
  * @see https://learn.microsoft.com/windows/win32/api/wmcodecdsp/nn-wmcodecdsp-iwmresamplerprops
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IWMResamplerProps extends IUnknown{
+class IWMResamplerProps extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

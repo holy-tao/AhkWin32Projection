@@ -120,10 +120,8 @@
  * </ul>
  * @see https://learn.microsoft.com/windows/win32/api/winldap/ns-winldap-ldap_referral_callback
  * @namespace Windows.Win32.Networking.Ldap
- * @version v4.0.30319
  */
-class LDAP_REFERRAL_CALLBACK extends Win32Struct
-{
+class LDAP_REFERRAL_CALLBACK extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8

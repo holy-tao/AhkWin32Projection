@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
-#Include ..\..\..\..\Foundation\BSTR.ahk
 #Include ..\..\..\Com\IUnknown.ahk
+#Include ..\..\..\..\Foundation\BSTR.ahk
+#Include ..\..\..\..\..\..\Guid.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.ActiveScript
- * @version v4.0.30319
  */
-class IDebugDocumentInfo extends IUnknown{
+class IDebugDocumentInfo extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -31,7 +31,7 @@ class IDebugDocumentInfo extends IUnknown{
 
     /**
      * For current documentation on Windows Media codecs and digital signal processors, see Windows Media Audio and Video Codec and DSP APIs. | GetName
-     * @param {Integer} dnt 
+     * @param {DOCUMENTNAMETYPE} dnt 
      * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/wmformat/iwmcodecstrings-getname
      */

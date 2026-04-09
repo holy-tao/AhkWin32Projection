@@ -1,26 +1,21 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Win32\Foundation\LUID.ahk
+#Include .\DXGKMDT_OPM_VIDEO_OUTPUT_SEMANTICS.ahk
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
- * @version v4.0.30319
  */
-class DXGKMDT_OPM_CREATE_VIDEO_OUTPUT_FOR_TARGET_PARAMETERS extends Win32Struct
-{
+class DXGKMDT_OPM_CREATE_VIDEO_OUTPUT_FOR_TARGET_PARAMETERS extends Win32Struct {
     static sizeof => 16
 
-    static packingSize => 4
+    static packingSize => 8
 
     /**
-     * @type {LUID}
+     * @type {Pointer}
      */
-    AdapterLuid{
-        get {
-            if(!this.HasProp("__AdapterLuid"))
-                this.__AdapterLuid := LUID(0, this)
-            return this.__AdapterLuid
-        }
+    AdapterLuid {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
@@ -32,7 +27,7 @@ class DXGKMDT_OPM_CREATE_VIDEO_OUTPUT_FOR_TARGET_PARAMETERS extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {DXGKMDT_OPM_VIDEO_OUTPUT_SEMANTICS}
      */
     Vos {
         get => NumGet(this, 12, "int")

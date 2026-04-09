@@ -1,18 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Include .\IAzRole.ahk
 #Include .\IAzRoleDefinitions.ahk
 #Include .\IAzScope.ahk
-#Include .\IAzRole.ahk
 
 /**
  * Represents a role to which users and groups can be assigned.
  * @see https://learn.microsoft.com/windows/win32/api/azroles/nn-azroles-iazroleassignment
  * @namespace Windows.Win32.Security.Authorization
- * @version v4.0.30319
  */
-class IAzRoleAssignment extends IAzRole{
+class IAzRoleAssignment extends IAzRole {
 
     static sizeof => A_PtrSize
     /**

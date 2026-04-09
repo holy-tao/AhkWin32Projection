@@ -10,10 +10,8 @@
 
 /**
  * @namespace Windows.Win32.Storage.Nvme
- * @version v4.0.30319
  */
-class NVME_OCP_DEVICE_LATENCY_MONITOR_LOG extends Win32Struct
-{
+class NVME_OCP_DEVICE_LATENCY_MONITOR_LOG extends Win32Struct {
     static sizeof => 512
 
     static packingSize => 8
@@ -32,7 +30,7 @@ class NVME_OCP_DEVICE_LATENCY_MONITOR_LOG extends Win32Struct
             get => NumGet(this, 0, "char")
             set => NumPut("char", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -40,7 +38,7 @@ class NVME_OCP_DEVICE_LATENCY_MONITOR_LOG extends Win32Struct
             get => (this._bitfield >> 0) & 0x1
             set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -48,13 +46,12 @@ class NVME_OCP_DEVICE_LATENCY_MONITOR_LOG extends Win32Struct
             get => NumGet(this, 0, "char")
             set => NumPut("char", value, this, 0)
         }
-    
     }
 
     /**
      * @type {LATENCY_MONITOR_FEATURE_STATUS}
      */
-    FeatureStatus{
+    FeatureStatus {
         get {
             if(!this.HasProp("__FeatureStatus"))
                 this.__FeatureStatus := LATENCY_MONITOR_FEATURE_STATUS(0, this)
@@ -121,7 +118,7 @@ class NVME_OCP_DEVICE_LATENCY_MONITOR_LOG extends Win32Struct
     /**
      * @type {ACTIVE_LATENCY_CONFIGURATION}
      */
-    ActiveLatencyConfig{
+    ActiveLatencyConfig {
         get {
             if(!this.HasProp("__ActiveLatencyConfig"))
                 this.__ActiveLatencyConfig := ACTIVE_LATENCY_CONFIGURATION(10, this)
@@ -138,9 +135,9 @@ class NVME_OCP_DEVICE_LATENCY_MONITOR_LOG extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Reserved1{
+    Reserved1 {
         get {
             if(!this.HasProp("__Reserved1ProxyArray"))
                 this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 13, 19, Primitive, "char")
@@ -151,7 +148,7 @@ class NVME_OCP_DEVICE_LATENCY_MONITOR_LOG extends Win32Struct
     /**
      * @type {BUCKET_COUNTER}
      */
-    ActiveBucketCounter0{
+    ActiveBucketCounter0 {
         get {
             if(!this.HasProp("__ActiveBucketCounter0"))
                 this.__ActiveBucketCounter0 := BUCKET_COUNTER(32, this)
@@ -162,7 +159,7 @@ class NVME_OCP_DEVICE_LATENCY_MONITOR_LOG extends Win32Struct
     /**
      * @type {BUCKET_COUNTER}
      */
-    ActiveBucketCounter1{
+    ActiveBucketCounter1 {
         get {
             if(!this.HasProp("__ActiveBucketCounter1"))
                 this.__ActiveBucketCounter1 := BUCKET_COUNTER(48, this)
@@ -173,7 +170,7 @@ class NVME_OCP_DEVICE_LATENCY_MONITOR_LOG extends Win32Struct
     /**
      * @type {BUCKET_COUNTER}
      */
-    ActiveBucketCounter2{
+    ActiveBucketCounter2 {
         get {
             if(!this.HasProp("__ActiveBucketCounter2"))
                 this.__ActiveBucketCounter2 := BUCKET_COUNTER(64, this)
@@ -184,7 +181,7 @@ class NVME_OCP_DEVICE_LATENCY_MONITOR_LOG extends Win32Struct
     /**
      * @type {BUCKET_COUNTER}
      */
-    ActiveBucketCounter3{
+    ActiveBucketCounter3 {
         get {
             if(!this.HasProp("__ActiveBucketCounter3"))
                 this.__ActiveBucketCounter3 := BUCKET_COUNTER(80, this)
@@ -195,7 +192,7 @@ class NVME_OCP_DEVICE_LATENCY_MONITOR_LOG extends Win32Struct
     /**
      * @type {LATENCY_STAMP}
      */
-    ActiveLatencyStamp{
+    ActiveLatencyStamp {
         get {
             if(!this.HasProp("__ActiveLatencyStamp"))
                 this.__ActiveLatencyStamp := LATENCY_STAMP(96, this)
@@ -206,7 +203,7 @@ class NVME_OCP_DEVICE_LATENCY_MONITOR_LOG extends Win32Struct
     /**
      * @type {MEASURED_LATENCY}
      */
-    ActiveMeasuredLatency{
+    ActiveMeasuredLatency {
         get {
             if(!this.HasProp("__ActiveMeasuredLatency"))
                 this.__ActiveMeasuredLatency := MEASURED_LATENCY(192, this)
@@ -217,7 +214,7 @@ class NVME_OCP_DEVICE_LATENCY_MONITOR_LOG extends Win32Struct
     /**
      * @type {LATENCY_STAMP_UNITS}
      */
-    ActiveLatencyStampUnits{
+    ActiveLatencyStampUnits {
         get {
             if(!this.HasProp("__ActiveLatencyStampUnits"))
                 this.__ActiveLatencyStampUnits := LATENCY_STAMP_UNITS(216, this)
@@ -226,9 +223,9 @@ class NVME_OCP_DEVICE_LATENCY_MONITOR_LOG extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Reserved2{
+    Reserved2 {
         get {
             if(!this.HasProp("__Reserved2ProxyArray"))
                 this.__Reserved2ProxyArray := Win32FixedArray(this.ptr + 218, 22, Primitive, "char")
@@ -239,7 +236,7 @@ class NVME_OCP_DEVICE_LATENCY_MONITOR_LOG extends Win32Struct
     /**
      * @type {BUCKET_COUNTER}
      */
-    StaticBucketCounter0{
+    StaticBucketCounter0 {
         get {
             if(!this.HasProp("__StaticBucketCounter0"))
                 this.__StaticBucketCounter0 := BUCKET_COUNTER(240, this)
@@ -250,7 +247,7 @@ class NVME_OCP_DEVICE_LATENCY_MONITOR_LOG extends Win32Struct
     /**
      * @type {BUCKET_COUNTER}
      */
-    StaticBucketCounter1{
+    StaticBucketCounter1 {
         get {
             if(!this.HasProp("__StaticBucketCounter1"))
                 this.__StaticBucketCounter1 := BUCKET_COUNTER(256, this)
@@ -261,7 +258,7 @@ class NVME_OCP_DEVICE_LATENCY_MONITOR_LOG extends Win32Struct
     /**
      * @type {BUCKET_COUNTER}
      */
-    StaticBucketCounter2{
+    StaticBucketCounter2 {
         get {
             if(!this.HasProp("__StaticBucketCounter2"))
                 this.__StaticBucketCounter2 := BUCKET_COUNTER(272, this)
@@ -272,7 +269,7 @@ class NVME_OCP_DEVICE_LATENCY_MONITOR_LOG extends Win32Struct
     /**
      * @type {BUCKET_COUNTER}
      */
-    StaticBucketCounter3{
+    StaticBucketCounter3 {
         get {
             if(!this.HasProp("__StaticBucketCounter3"))
                 this.__StaticBucketCounter3 := BUCKET_COUNTER(288, this)
@@ -283,7 +280,7 @@ class NVME_OCP_DEVICE_LATENCY_MONITOR_LOG extends Win32Struct
     /**
      * @type {LATENCY_STAMP}
      */
-    StaticLatencyStamp{
+    StaticLatencyStamp {
         get {
             if(!this.HasProp("__StaticLatencyStamp"))
                 this.__StaticLatencyStamp := LATENCY_STAMP(304, this)
@@ -294,7 +291,7 @@ class NVME_OCP_DEVICE_LATENCY_MONITOR_LOG extends Win32Struct
     /**
      * @type {MEASURED_LATENCY}
      */
-    StaticMeasuredLatency{
+    StaticMeasuredLatency {
         get {
             if(!this.HasProp("__StaticMeasuredLatency"))
                 this.__StaticMeasuredLatency := MEASURED_LATENCY(400, this)
@@ -305,7 +302,7 @@ class NVME_OCP_DEVICE_LATENCY_MONITOR_LOG extends Win32Struct
     /**
      * @type {LATENCY_STAMP_UNITS}
      */
-    StaticLatencyStampUnits{
+    StaticLatencyStampUnits {
         get {
             if(!this.HasProp("__StaticLatencyStampUnits"))
                 this.__StaticLatencyStampUnits := LATENCY_STAMP_UNITS(424, this)
@@ -314,9 +311,9 @@ class NVME_OCP_DEVICE_LATENCY_MONITOR_LOG extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Reserved3{
+    Reserved3 {
         get {
             if(!this.HasProp("__Reserved3ProxyArray"))
                 this.__Reserved3ProxyArray := Win32FixedArray(this.ptr + 426, 22, Primitive, "char")
@@ -327,7 +324,7 @@ class NVME_OCP_DEVICE_LATENCY_MONITOR_LOG extends Win32Struct
     /**
      * @type {DEBUG_BIT_FIELD}
      */
-    DebugLogTriggerEnable{
+    DebugLogTriggerEnable {
         get {
             if(!this.HasProp("__DebugLogTriggerEnable"))
                 this.__DebugLogTriggerEnable := DEBUG_BIT_FIELD(448, this)
@@ -362,7 +359,7 @@ class NVME_OCP_DEVICE_LATENCY_MONITOR_LOG extends Win32Struct
     /**
      * @type {DEBUG_BIT_FIELD}
      */
-    DebugCounterTriggerSource{
+    DebugCounterTriggerSource {
         get {
             if(!this.HasProp("__DebugCounterTriggerSource"))
                 this.__DebugCounterTriggerSource := DEBUG_BIT_FIELD(466, this)
@@ -373,18 +370,18 @@ class NVME_OCP_DEVICE_LATENCY_MONITOR_LOG extends Win32Struct
     /**
      * @type {_DebugLogStampUnits_e__Union}
      */
-    DebugLogStampUnits{
+    DebugLogStampUnits {
         get {
             if(!this.HasProp("__DebugLogStampUnits"))
-                this.__DebugLogStampUnits := %this.__Class%._DebugLogStampUnits_e__Union(468, this)
+                this.__DebugLogStampUnits := NVME_OCP_DEVICE_LATENCY_MONITOR_LOG._DebugLogStampUnits_e__Union(468, this)
             return this.__DebugLogStampUnits
         }
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Reserved4{
+    Reserved4 {
         get {
             if(!this.HasProp("__Reserved4ProxyArray"))
                 this.__Reserved4ProxyArray := Win32FixedArray(this.ptr + 469, 29, Primitive, "char")
@@ -401,7 +398,7 @@ class NVME_OCP_DEVICE_LATENCY_MONITOR_LOG extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     LogPageGUID {
         get => NumGet(this, 504, "ptr")

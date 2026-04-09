@@ -1,12 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\FLT_FILESYSTEM_TYPE.ahk
 
 /**
  * @namespace Windows.Win32.Storage.InstallableFileSystems
- * @version v4.0.30319
  */
-class FILTER_VOLUME_STANDARD_INFORMATION extends Win32Struct
-{
+class FILTER_VOLUME_STANDARD_INFORMATION extends Win32Struct {
     static sizeof => 20
 
     static packingSize => 4
@@ -36,7 +35,7 @@ class FILTER_VOLUME_STANDARD_INFORMATION extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {FLT_FILESYSTEM_TYPE}
      */
     FileSystemType {
         get => NumGet(this, 12, "int")

@@ -7,10 +7,8 @@
  * Windows Media Player 10 Mobile: This enumeration is not supported.
  * @see https://learn.microsoft.com/windows/win32/api/wmp/ne-wmp-wmplibrarytype
  * @namespace Windows.Win32.Media.MediaPlayer
- * @version v4.0.30319
  */
-class WMPLib extends Win32Struct
-{
+class WMPLib extends Win32Struct {
     static sizeof => 0
 
     static packingSize => 1

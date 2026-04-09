@@ -10,9 +10,8 @@
  * <div> </div>
  * @see https://learn.microsoft.com/windows/win32/api/iads/ne-iads-ads_display_enum
  * @namespace Windows.Win32.Networking.ActiveDirectory
- * @version v4.0.30319
  */
-class ADS_DISPLAY_ENUM extends Win32Enum{
+class ADS_DISPLAY_ENUM extends Win32Enum {
 
     /**
      * The path  is displayed with both attributes and values. For example, CN=Jeff Smith.

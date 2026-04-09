@@ -7,9 +7,8 @@
  * Blocks data flow from an active output pin.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-ipinflowcontrol
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IPinFlowControl extends IUnknown{
+class IPinFlowControl extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

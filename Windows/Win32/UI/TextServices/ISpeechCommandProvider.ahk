@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IEnumSpeechCommands.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\IEnumSpeechCommands.ahk
 
 /**
  * @namespace Windows.Win32.UI.TextServices
- * @version v4.0.30319
  */
-class ISpeechCommandProvider extends IUnknown{
+class ISpeechCommandProvider extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

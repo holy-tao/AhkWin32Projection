@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\VMR9ProcAmpControlFlags.ahk
 
 /**
  * The VMR9ProcAmpControlRange structure specifies the valid range for an image adjustment property. The range depends on the graphics device driver. This structure is used with the Video Mixing Renderer 9 Filter (VMR-9).
  * @see https://learn.microsoft.com/windows/win32/api/vmr9/ns-vmr9-vmr9procampcontrolrange
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class VMR9ProcAmpControlRange extends Win32Struct
-{
+class VMR9ProcAmpControlRange extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 4
@@ -24,7 +23,7 @@ class VMR9ProcAmpControlRange extends Win32Struct
 
     /**
      * Specifies the image adjustment property to query, as a member of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/vmr9/ne-vmr9-vmr9procampcontrolflags">VMR9ProcAmpControlFlags</a> enumeration. The caller should set this field.
-     * @type {Integer}
+     * @type {VMR9ProcAmpControlFlags}
      */
     dwProperty {
         get => NumGet(this, 4, "int")

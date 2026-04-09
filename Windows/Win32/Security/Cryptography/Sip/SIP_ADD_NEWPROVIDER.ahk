@@ -5,10 +5,8 @@
  * Defines a subject interface package (SIP). This structure is used by the CryptSIPAddProvider function.
  * @see https://learn.microsoft.com/windows/win32/api/mssip/ns-mssip-sip_add_newprovider
  * @namespace Windows.Win32.Security.Cryptography.Sip
- * @version v4.0.30319
  */
-class SIP_ADD_NEWPROVIDER extends Win32Struct
-{
+class SIP_ADD_NEWPROVIDER extends Win32Struct {
     static sizeof => 96
 
     static packingSize => 8

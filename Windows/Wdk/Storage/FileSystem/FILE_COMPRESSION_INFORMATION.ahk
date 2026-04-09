@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem
- * @version v4.0.30319
  */
-class FILE_COMPRESSION_INFORMATION extends Win32Struct
-{
+class FILE_COMPRESSION_INFORMATION extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
@@ -52,9 +50,9 @@ class FILE_COMPRESSION_INFORMATION extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Reserved{
+    Reserved {
         get {
             if(!this.HasProp("__ReservedProxyArray"))
                 this.__ReservedProxyArray := Win32FixedArray(this.ptr + 13, 3, Primitive, "char")

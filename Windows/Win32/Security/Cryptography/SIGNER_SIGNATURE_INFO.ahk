@@ -1,14 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\ALG_ID.ahk
+#Include .\SIGNER_SIGNATURE_ATTRIBUTE_CHOICE.ahk
+#Include .\SIGNER_ATTR_AUTHCODE.ahk
+#Include .\CRYPT_ATTRIBUTES.ahk
 
 /**
  * Contains information about a digital signature.
  * @see https://learn.microsoft.com/windows/win32/SecCrypto/signer-signature-info
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class SIGNER_SIGNATURE_INFO extends Win32Struct
-{
+class SIGNER_SIGNATURE_INFO extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -24,7 +26,7 @@ class SIGNER_SIGNATURE_INFO extends Win32Struct
 
     /**
      * The hash algorithm used for the digital signature.
-     * @type {Integer}
+     * @type {ALG_ID}
      */
     algidHash {
         get => NumGet(this, 4, "uint")
@@ -40,7 +42,7 @@ class SIGNER_SIGNATURE_INFO extends Win32Struct
      * |--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------|
      * | <span id="SIGNER_AUTHCODE_ATTR"></span><span id="signer_authcode_attr"></span><dl> <dt>**SIGNER\_AUTHCODE\_ATTR**</dt> <dt>1</dt> </dl> | The signature has [*Authenticode*](../secgloss/a-gly.md) attributes.<br/>           |
      * | <span id="SIGNER_NO_ATTR"></span><span id="signer_no_attr"></span><dl> <dt>**SIGNER\_NO\_ATTR**</dt> <dt>0</dt> </dl>                   | The signature does not have [*Authenticode*](../secgloss/a-gly.md) attributes.<br/> |
-     * @type {Integer}
+     * @type {SIGNER_SIGNATURE_ATTRIBUTE_CHOICE}
      */
     dwAttrChoice {
         get => NumGet(this, 8, "uint")

@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.Enumeration.Pnp
- * @version v4.0.30319
  */
-class UPnPRemoteEndpointInfo extends Win32Struct
-{
+class UPnPRemoteEndpointInfo extends Win32Struct {
     static sizeof => 0
 
     static packingSize => 1

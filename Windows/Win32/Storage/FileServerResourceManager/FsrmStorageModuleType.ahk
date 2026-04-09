@@ -5,9 +5,8 @@
  * Defines the possible storage module types.
  * @see https://learn.microsoft.com/windows/win32/api/fsrmenums/ne-fsrmenums-fsrmstoragemoduletype
  * @namespace Windows.Win32.Storage.FileServerResourceManager
- * @version v4.0.30319
  */
-class FsrmStorageModuleType extends Win32Enum{
+class FsrmStorageModuleType extends Win32Enum {
 
     /**
      * The module type is unknown. Do not use this value.

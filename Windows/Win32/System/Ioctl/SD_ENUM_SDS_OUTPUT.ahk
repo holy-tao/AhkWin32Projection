@@ -4,11 +4,9 @@
 
 /**
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class SD_ENUM_SDS_OUTPUT extends Win32Struct
-{
-    static sizeof => 32
+class SD_ENUM_SDS_OUTPUT extends Win32Struct {
+    static sizeof => 48
 
     static packingSize => 8
 
@@ -37,9 +35,9 @@ class SD_ENUM_SDS_OUTPUT extends Win32Struct
     }
 
     /**
-     * @type {Array<SD_ENUM_SDS_ENTRY>}
+     * @type {SD_ENUM_SDS_ENTRY}
      */
-    SDEntry{
+    SDEntry {
         get {
             if(!this.HasProp("__SDEntryProxyArray"))
                 this.__SDEntryProxyArray := Win32FixedArray(this.ptr + 24, 1, SD_ENUM_SDS_ENTRY, "")

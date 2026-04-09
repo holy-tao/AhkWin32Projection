@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Win32\Foundation\UNICODE_STRING.ahk
+#Include ..\..\..\Win32\Security\AUDIT_EVENT_TYPE.ahk
+#Include .\SE_AUDIT_OPERATION.ahk
+#Include ..\..\..\Win32\Foundation\LUID.ahk
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem
- * @version v4.0.30319
  */
-class SE_AUDIT_INFO extends Win32Struct
-{
-    static sizeof => 96
+class SE_AUDIT_INFO extends Win32Struct {
+    static sizeof => 72
 
     static packingSize => 8
 
@@ -21,7 +21,7 @@ class SE_AUDIT_INFO extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {AUDIT_EVENT_TYPE}
      */
     AuditType {
         get => NumGet(this, 4, "int")
@@ -29,7 +29,7 @@ class SE_AUDIT_INFO extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {SE_AUDIT_OPERATION}
      */
     AuditOperation {
         get => NumGet(this, 8, "int")
@@ -45,75 +45,66 @@ class SE_AUDIT_INFO extends Win32Struct
     }
 
     /**
-     * @type {UNICODE_STRING}
+     * @type {Pointer}
      */
-    SubsystemName{
-        get {
-            if(!this.HasProp("__SubsystemName"))
-                this.__SubsystemName := UNICODE_STRING(16, this)
-            return this.__SubsystemName
-        }
+    SubsystemName {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
-     * @type {UNICODE_STRING}
+     * @type {Pointer}
      */
-    ObjectTypeName{
-        get {
-            if(!this.HasProp("__ObjectTypeName"))
-                this.__ObjectTypeName := UNICODE_STRING(32, this)
-            return this.__ObjectTypeName
-        }
+    ObjectTypeName {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
-     * @type {UNICODE_STRING}
+     * @type {Pointer}
      */
-    ObjectName{
-        get {
-            if(!this.HasProp("__ObjectName"))
-                this.__ObjectName := UNICODE_STRING(48, this)
-            return this.__ObjectName
-        }
+    ObjectName {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
      * @type {Pointer<Void>}
      */
     HandleId {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 
     /**
      * @type {Pointer<Guid>}
      */
     TransactionId {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 
     /**
      * @type {Pointer<LUID>}
      */
     OperationId {
-        get => NumGet(this, 80, "ptr")
-        set => NumPut("ptr", value, this, 80)
+        get => NumGet(this, 56, "ptr")
+        set => NumPut("ptr", value, this, 56)
     }
 
     /**
      * @type {BOOLEAN}
      */
     ObjectCreation {
-        get => NumGet(this, 88, "char")
-        set => NumPut("char", value, this, 88)
+        get => NumGet(this, 64, "char")
+        set => NumPut("char", value, this, 64)
     }
 
     /**
      * @type {BOOLEAN}
      */
     GenerateOnClose {
-        get => NumGet(this, 89, "char")
-        set => NumPut("char", value, this, 89)
+        get => NumGet(this, 65, "char")
+        set => NumPut("char", value, this, 65)
     }
 }

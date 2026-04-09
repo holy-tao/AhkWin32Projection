@@ -7,9 +7,8 @@
  * The device context interface represents a device context; it is used to render commands. ID3D11DeviceContext3 adds new methods to those in ID3D11DeviceContext2.
  * @see https://learn.microsoft.com/windows/win32/api/d3d11_3/nn-d3d11_3-id3d11devicecontext3
  * @namespace Windows.Win32.Graphics.Direct3D11
- * @version v4.0.30319
  */
-class ID3D11DeviceContext3 extends ID3D11DeviceContext2{
+class ID3D11DeviceContext3 extends ID3D11DeviceContext2 {
 
     static sizeof => A_PtrSize
     /**
@@ -36,7 +35,7 @@ class ID3D11DeviceContext3 extends ID3D11DeviceContext2{
      * <b>Flush1</b> has parameters.
      *           For more information, see
      *           <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11devicecontext-flush">ID3D11DeviceContext::Flush</a>, which doesn't have parameters.
-     * @param {Integer} ContextType Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d11_3/ne-d3d11_3-d3d11_context_type">D3D11_CONTEXT_TYPE</a></b>
+     * @param {D3D11_CONTEXT_TYPE} ContextType Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d11_3/ne-d3d11_3-d3d11_context_type">D3D11_CONTEXT_TYPE</a></b>
      * 
      * A <a href="https://docs.microsoft.com/windows/desktop/api/d3d11_3/ne-d3d11_3-d3d11_context_type">D3D11_CONTEXT_TYPE</a> that specifies the context in which a query occurs, such as a 3D command queue, 3D compute queue, 3D copy queue, video, or image.
      * @param {HANDLE} hEvent Type: <b>HANDLE</b>

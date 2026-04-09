@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Globalization
- * @version v4.0.30319
  */
-class UConverterToUnicodeArgs extends Win32Struct
-{
+class UConverterToUnicodeArgs extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8

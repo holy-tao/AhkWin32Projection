@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUri.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
+#Include ..\..\..\System\Com\IUri.ahk
 
 /**
  * Represents a reference to XML markup that has been or will be signed.
@@ -80,9 +80,8 @@
  * ```
  * @see https://learn.microsoft.com/windows/win32/api/msopc/nn-msopc-iopcsignaturereference
  * @namespace Windows.Win32.Storage.Packaging.Opc
- * @version v4.0.30319
  */
-class IOpcSignatureReference extends IUnknown{
+class IOpcSignatureReference extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -179,7 +178,7 @@ class IOpcSignatureReference extends IUnknown{
 
     /**
      * Gets the canonicalization method to use on the referenced XML element, when the element is signed.
-     * @returns {Integer} The canonicalization method to use on the referenced XML element, when the element is signed.
+     * @returns {OPC_CANONICALIZATION_METHOD} The canonicalization method to use on the referenced XML element, when the element is signed.
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcsignaturereference-gettransformmethod
      */
     GetTransformMethod() {

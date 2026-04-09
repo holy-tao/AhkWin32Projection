@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\Com\IDataObject.ahk
 
 /**
  * The SMMCDataObjects structure defines the format of the data for the CCF_MULTI_SELECT_SNAPINS clipboard format.
@@ -13,10 +14,8 @@
  * Each multiselection data object also holds a list that contains the selected items owned by a particular snap-in. Each snap-in is responsible for defining the format and method of retrieval of the list of its selected items.
  * @see https://learn.microsoft.com/windows/win32/api/mmc/ns-mmc-smmcdataobjects
  * @namespace Windows.Win32.System.Mmc
- * @version v4.0.30319
  */
-class SMMCDataObjects extends Win32Struct
-{
+class SMMCDataObjects extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
@@ -34,7 +33,7 @@ class SMMCDataObjects extends Win32Struct
      * Array of pointers to the multiselection data objects for each snap-in selected in the result pane.
      * @type {Array<IDataObject>}
      */
-    lpDataObject{
+    lpDataObject {
         get {
             if(!this.HasProp("__lpDataObjectProxyArray"))
                 this.__lpDataObjectProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "ptr")

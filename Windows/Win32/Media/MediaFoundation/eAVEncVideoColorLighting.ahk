@@ -5,9 +5,8 @@
  * Specifies the intended lighting conditions for viewing a video source. This enumeration is used with the AVEncVideoInputColorLighting and AVEncVideoOutputColorLighting properties.
  * @see https://learn.microsoft.com/windows/win32/api/codecapi/ne-codecapi-eavencvideocolorlighting
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class eAVEncVideoColorLighting extends Win32Enum{
+class eAVEncVideoColorLighting extends Win32Enum {
 
     /**
      * Use the same lighting as the input video. This flag applies to the <b>AVEncVideoOutputColorLighting</b> property only.

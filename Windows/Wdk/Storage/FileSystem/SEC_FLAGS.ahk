@@ -3,14 +3,10 @@
 
 /**
  * Contains the security flags.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/sspi/ns-sspi-sec_flags
  * @namespace Windows.Wdk.Storage.FileSystem
- * @version v4.0.30319
  */
-class SEC_FLAGS extends Win32Struct
-{
+class SEC_FLAGS extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 8

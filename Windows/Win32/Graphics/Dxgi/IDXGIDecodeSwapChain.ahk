@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\RECT.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\RECT.ahk
 
 /**
  * Represents a swap chain that is used by desktop media apps to decode video data and show it on a DirectComposition surface.
@@ -16,9 +16,8 @@
  * Decode swap chains cannot be used with dirty rects.
  * @see https://learn.microsoft.com/windows/win32/api/dxgi1_3/nn-dxgi1_3-idxgidecodeswapchain
  * @namespace Windows.Win32.Graphics.Dxgi
- * @version v4.0.30319
  */
-class IDXGIDecodeSwapChain extends IUnknown{
+class IDXGIDecodeSwapChain extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -58,7 +57,7 @@ class IDXGIDecodeSwapChain extends IUnknown{
      * </li>
      * <li>n &gt; 0 - Synchronize presentation for at least <i>n</i> vertical blanks.</li>
      * </ul>
-     * @param {Integer} Flags An integer value that contains swap-chain presentation options. These options are defined by the <a href="https://docs.microsoft.com/windows/desktop/direct3ddxgi/dxgi-present">DXGI_PRESENT</a> constants.
+     * @param {DXGI_PRESENT} Flags An integer value that contains swap-chain presentation options. These options are defined by the <a href="https://docs.microsoft.com/windows/desktop/direct3ddxgi/dxgi-present">DXGI_PRESENT</a> constants.
      * 
      * The <b>DXGI_PRESENT_USE_DURATION</b> flag must be set if a custom present duration (custom refresh rate) is being used.
      * @returns {HRESULT} This method returns <b>S_OK</b> on success, or it returns one of the following error codes:
@@ -153,7 +152,7 @@ class IDXGIDecodeSwapChain extends IUnknown{
 
     /**
      * Sets the color space used by the swap chain. (IDXGIDecodeSwapChain.SetColorSpace)
-     * @param {Integer} ColorSpace A pointer to a combination of <a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_3/ne-dxgi1_3-dxgi_multiplane_overlay_ycbcr_flags">DXGI_MULTIPLANE_OVERLAY_YCbCr_FLAGS</a>-typed values that are combined by using a bitwise OR operation. The resulting value specifies the color space to set for the swap chain.
+     * @param {DXGI_MULTIPLANE_OVERLAY_YCbCr_FLAGS} ColorSpace A pointer to a combination of <a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_3/ne-dxgi1_3-dxgi_multiplane_overlay_ycbcr_flags">DXGI_MULTIPLANE_OVERLAY_YCbCr_FLAGS</a>-typed values that are combined by using a bitwise OR operation. The resulting value specifies the color space to set for the swap chain.
      * @returns {HRESULT} This method returns S_OK on success, or it returns one of the error codes that are described in the <a href="https://docs.microsoft.com/windows/desktop/direct3ddxgi/dxgi-error">DXGI_ERROR</a> topic.
      * @see https://learn.microsoft.com/windows/win32/api/dxgi1_3/nf-dxgi1_3-idxgidecodeswapchain-setcolorspace
      */
@@ -164,7 +163,7 @@ class IDXGIDecodeSwapChain extends IUnknown{
 
     /**
      * Gets the color space used by the swap chain.
-     * @returns {Integer} A combination of <a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_3/ne-dxgi1_3-dxgi_multiplane_overlay_ycbcr_flags">DXGI_MULTIPLANE_OVERLAY_YCbCr_FLAGS</a>-typed values that are combined by using a bitwise OR operation. The resulting value specifies the color space for the swap chain.
+     * @returns {DXGI_MULTIPLANE_OVERLAY_YCbCr_FLAGS} A combination of <a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_3/ne-dxgi1_3-dxgi_multiplane_overlay_ycbcr_flags">DXGI_MULTIPLANE_OVERLAY_YCbCr_FLAGS</a>-typed values that are combined by using a bitwise OR operation. The resulting value specifies the color space for the swap chain.
      * @see https://learn.microsoft.com/windows/win32/api/dxgi1_3/nf-dxgi1_3-idxgidecodeswapchain-getcolorspace
      */
     GetColorSpace() {

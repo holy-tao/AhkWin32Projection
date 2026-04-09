@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
- * @version v4.0.30319
  */
-class D3DNTHAL_TEXTUREGETSURFDATA extends Win32Struct
-{
+class D3DNTHAL_TEXTUREGETSURFDATA extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -23,7 +21,7 @@ class D3DNTHAL_TEXTUREGETSURFDATA extends Win32Struct
     /**
      * @type {HANDLE}
      */
-    hDDS{
+    hDDS {
         get {
             if(!this.HasProp("__hDDS"))
                 this.__hDDS := HANDLE(8, this)

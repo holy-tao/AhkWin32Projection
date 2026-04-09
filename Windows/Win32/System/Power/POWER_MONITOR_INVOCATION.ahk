@@ -1,12 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\POWER_MONITOR_REQUEST_REASON.ahk
 
 /**
  * @namespace Windows.Win32.System.Power
- * @version v4.0.30319
  */
-class POWER_MONITOR_INVOCATION extends Win32Struct
-{
+class POWER_MONITOR_INVOCATION extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4
@@ -20,7 +19,7 @@ class POWER_MONITOR_INVOCATION extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {POWER_MONITOR_REQUEST_REASON}
      */
     RequestReason {
         get => NumGet(this, 4, "int")

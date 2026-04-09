@@ -7,10 +7,8 @@
  * The possible text changes include insert, delete, and replace. For example, if you replace the first "t" of "text" with "T", <b>acpStart</b> =0, <b>acpOldEnd</b> =1, and <b>acpNewEnd</b> =1. If you delete the last "t", <b>acpStart</b> =3, <b>acpOldEnd</b> =4, and <b>acpNewEnd</b> =3. If an "a" is inserted between "e" and "x", <b>acpStart</b> =2, <b>acpOldEnd</b> =2, and <b>acpNewEnd</b> =3.
  * @see https://learn.microsoft.com/windows/win32/api/textstor/ns-textstor-ts_textchange
  * @namespace Windows.Win32.UI.TextServices
- * @version v4.0.30319
  */
-class TS_TEXTCHANGE extends Win32Struct
-{
+class TS_TEXTCHANGE extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4

@@ -6,10 +6,8 @@
  * Is used by the CryptXmlSign function to specify the members of the KeyInfo element to be encoded.
  * @see https://learn.microsoft.com/windows/win32/api/cryptxml/ns-cryptxml-crypt_xml_keyinfo_param
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CRYPT_XML_KEYINFO_PARAM extends Win32Struct
-{
+class CRYPT_XML_KEYINFO_PARAM extends Win32Struct {
     static sizeof => 72
 
     static packingSize => 8
@@ -36,7 +34,7 @@ class CRYPT_XML_KEYINFO_PARAM extends Win32Struct
      * A <a href="https://docs.microsoft.com/windows/win32/api/dpapi/ns-dpapi-crypt_integer_blob">CERT_BLOB</a> structure that contains the value of the <b>X509SKI</b> element.
      * @type {CRYPT_INTEGER_BLOB}
      */
-    SKI{
+    SKI {
         get {
             if(!this.HasProp("__SKI"))
                 this.__SKI := CRYPT_INTEGER_BLOB(16, this)

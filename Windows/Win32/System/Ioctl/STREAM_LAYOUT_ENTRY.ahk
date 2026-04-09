@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class STREAM_LAYOUT_ENTRY extends Win32Struct
-{
+class STREAM_LAYOUT_ENTRY extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8

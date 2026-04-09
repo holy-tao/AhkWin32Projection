@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Com\IDispatch.ahk
 #Include .\IWindowsDriverUpdateEntry.ahk
 #Include ..\Com\IUnknown.ahk
-#Include ..\Com\IDispatch.ahk
 
 /**
  * Contains a collection of driver update entries associated with a driver update. All of the properties have the standard collection semantics.
  * @see https://learn.microsoft.com/windows/win32/api/wuapi/nn-wuapi-iwindowsdriverupdateentrycollection
  * @namespace Windows.Win32.System.UpdateAgent
- * @version v4.0.30319
  */
-class IWindowsDriverUpdateEntryCollection extends IDispatch{
+class IWindowsDriverUpdateEntryCollection extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\EDITBALLOONTIP_ICON.ahk
 
 /**
  * Contains information about a balloon tip associated with a button control.
  * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-editballoontip
  * @namespace Windows.Win32.UI.Controls
- * @version v4.0.30319
  */
-class EDITBALLOONTIP extends Win32Struct
-{
+class EDITBALLOONTIP extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -48,7 +47,7 @@ class EDITBALLOONTIP extends Win32Struct
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">INT</a></b>
-     * @type {Integer}
+     * @type {EDITBALLOONTIP_ICON}
      */
     ttiIcon {
         get => NumGet(this, 24, "int")

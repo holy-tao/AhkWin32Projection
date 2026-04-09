@@ -1,12 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\FWP_IP_VERSION.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
- * @version v4.0.30319
  */
-class IPSEC_TRAFFIC_SELECTOR0 extends Win32Struct
-{
+class IPSEC_TRAFFIC_SELECTOR0 extends Win32Struct {
     static sizeof => 44
 
     static packingSize => 4
@@ -36,7 +35,7 @@ class IPSEC_TRAFFIC_SELECTOR0 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {FWP_IP_VERSION}
      */
     ipVersion {
         get => NumGet(this, 8, "int")
@@ -52,9 +51,9 @@ class IPSEC_TRAFFIC_SELECTOR0 extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    startV6Address{
+    startV6Address {
         get {
             if(!this.HasProp("__startV6AddressProxyArray"))
                 this.__startV6AddressProxyArray := Win32FixedArray(this.ptr + 12, 16, Primitive, "char")
@@ -71,9 +70,9 @@ class IPSEC_TRAFFIC_SELECTOR0 extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    endV6Address{
+    endV6Address {
         get {
             if(!this.HasProp("__endV6AddressProxyArray"))
                 this.__endV6AddressProxyArray := Win32FixedArray(this.ptr + 28, 16, Primitive, "char")

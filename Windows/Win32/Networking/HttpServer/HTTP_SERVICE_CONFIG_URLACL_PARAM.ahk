@@ -17,10 +17,8 @@
  * ```
  * @see https://learn.microsoft.com/windows/win32/api/http/ns-http-http_service_config_urlacl_param
  * @namespace Windows.Win32.Networking.HttpServer
- * @version v4.0.30319
  */
-class HTTP_SERVICE_CONFIG_URLACL_PARAM extends Win32Struct
-{
+class HTTP_SERVICE_CONFIG_URLACL_PARAM extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 8

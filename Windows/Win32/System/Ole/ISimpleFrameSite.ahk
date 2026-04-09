@@ -7,9 +7,8 @@
  * Provides simple frame controls that act as simple containers for other nested controls.
  * @see https://learn.microsoft.com/windows/win32/api/ocidl/nn-ocidl-isimpleframesite
  * @namespace Windows.Win32.System.Ole
- * @version v4.0.30319
  */
-class ISimpleFrameSite extends IUnknown{
+class ISimpleFrameSite extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -34,8 +33,8 @@ class ISimpleFrameSite extends IUnknown{
      * Provides a site with the opportunity to process a message that is received by a control's own window before the control itself does any processing.
      * @remarks
      * Successful return values indicate whether the site wishes to allow further processing. S_OK indicates further processing, whereas S_FALSE means do not process further. S_OK also indicates that the control must later call <a href="https://docs.microsoft.com/windows/desktop/api/ocidl/nf-ocidl-isimpleframesite-postmessagefilter">PostMessageFilter</a>.
-     * @param {HWND} _hWnd 
-     * @param {Integer} _msg 
+     * @param {HWND} _hWnd A handle of the control window receiving the message.
+     * @param {Integer} _msg The message received by the simple frame site.
      * @param {WPARAM} wp The <b>WPARAM</b> of the message.
      * @param {LPARAM} lp The <b>LPARAM</b> of the message.
      * @param {Pointer<LRESULT>} plResult A pointer to the variable that receives the result of the message processing.
@@ -106,8 +105,8 @@ class ISimpleFrameSite extends IUnknown{
 
     /**
      * Sends the simple frame site a message that is received by a control's own window after the control has processed the message.
-     * @param {HWND} _hWnd 
-     * @param {Integer} _msg 
+     * @param {HWND} _hWnd A handle of the control window receiving the message.
+     * @param {Integer} _msg The message received by the simple frame site.
      * @param {WPARAM} wp The <b>WPARAM</b> of the message.
      * @param {LPARAM} lp The <b>LPARAM</b> of the message.
      * @param {Integer} dwCookie The value that was returned by <a href="https://docs.microsoft.com/windows/desktop/api/ocidl/nf-ocidl-isimpleframesite-premessagefilter">ISimpleFrameSite::PreMessageFilter</a> through its <i>pdwCookie</i> parameter.

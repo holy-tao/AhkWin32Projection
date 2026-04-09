@@ -7,9 +7,8 @@
  * Failover Cluster Administrator calls your implementation of the IWEInvokeCommand interface when users select context menu items that you created with the IWEExtendContextMenu interface.
  * @see https://learn.microsoft.com/windows/win32/api/cluadmex/nn-cluadmex-iweinvokecommand
  * @namespace Windows.Win32.Networking.Clustering
- * @version v4.0.30319
  */
-class IWEInvokeCommand extends IUnknown{
+class IWEInvokeCommand extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

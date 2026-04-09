@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\Com\IUnknown.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * Defines task variables that can be passed as parameters to task handlers and external executables that are launched by tasks.
  * @see https://learn.microsoft.com/windows/win32/api/taskschd/nn-taskschd-itaskvariables
  * @namespace Windows.Win32.System.TaskScheduler
- * @version v4.0.30319
  */
-class ITaskVariables extends IUnknown{
+class ITaskVariables extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -44,7 +43,7 @@ class ITaskVariables extends IUnknown{
 
     /**
      * Sets the output variables for a task.
-     * @param {BSTR} _input 
+     * @param {BSTR} _input The output variables for a task.
      * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-itaskvariables-setoutput
      */

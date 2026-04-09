@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\Win32Struct.ahk
+#Include ..\..\Win32\Security\SECURITY_QUALITY_OF_SERVICE.ahk
+#Include .\ACCESS_STATE.ahk
 
 /**
  * @namespace Windows.Wdk.Foundation
- * @version v4.0.30319
  */
-class IO_SECURITY_CONTEXT extends Win32Struct
-{
+class IO_SECURITY_CONTEXT extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

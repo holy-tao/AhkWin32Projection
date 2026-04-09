@@ -5,9 +5,8 @@
  * Specifies named white balances for raw images.
  * @see https://learn.microsoft.com/windows/win32/api/wincodec/ne-wincodec-wicnamedwhitepoint
  * @namespace Windows.Win32.Graphics.Imaging
- * @version v4.0.30319
  */
-class WICNamedWhitePoint extends Win32Enum{
+class WICNamedWhitePoint extends Win32Enum {
 
     /**
      * The default white balance.

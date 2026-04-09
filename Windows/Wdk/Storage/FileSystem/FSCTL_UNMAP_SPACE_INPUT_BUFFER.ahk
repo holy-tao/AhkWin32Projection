@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem
- * @version v4.0.30319
  */
-class FSCTL_UNMAP_SPACE_INPUT_BUFFER extends Win32Struct
-{
+class FSCTL_UNMAP_SPACE_INPUT_BUFFER extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 8

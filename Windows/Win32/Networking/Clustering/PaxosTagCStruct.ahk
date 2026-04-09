@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Networking.Clustering
- * @version v4.0.30319
  */
-class PaxosTagCStruct extends Win32Struct
-{
+class PaxosTagCStruct extends Win32Struct {
     static sizeof => 80
 
     static packingSize => 8

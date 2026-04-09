@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IMFMediaType.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\IMFMediaType.ahk
 
 /**
  * Enables the management of stream configurations for a multiplexed media source. A stream configuration defines a set of substreams that can be included the multiplexed output.
  * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nn-mfobjects-imfmuxstreammediatypemanager
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFMuxStreamMediaTypeManager extends IUnknown{
+class IMFMuxStreamMediaTypeManager extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

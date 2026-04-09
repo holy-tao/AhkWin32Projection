@@ -7,9 +7,8 @@
  * The IAMWMBufferPassCallback interface is provided for advanced scenarios in which applications need access to an INSSBuffer3 sample before it is passed downstream for further processing.
  * @see https://learn.microsoft.com/windows/win32/api/dshowasf/nn-dshowasf-iamwmbufferpasscallback
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IAMWMBufferPassCallback extends IUnknown{
+class IAMWMBufferPassCallback extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -1,5 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\PPP_EAP_ACTION.ahk
+#Include .\RAS_AUTH_ATTRIBUTE.ahk
+#Include .\NgcTicketContext.ahk
 
 /**
  * The authentication protocol uses the PPP_EAP_OUTPUT structure to communicate requests and status information to the Connection Manager on return from calls to RasEapMakeMessage.
@@ -20,10 +23,8 @@
  * <div> </div>
  * @see https://learn.microsoft.com/windows/win32/api/raseapif/ns-raseapif-ppp_eap_output
  * @namespace Windows.Win32.Security.ExtensibleAuthenticationProtocol
- * @version v4.0.30319
  */
-class PPP_EAP_OUTPUT extends Win32Struct
-{
+class PPP_EAP_OUTPUT extends Win32Struct {
     static sizeof => 96
 
     static packingSize => 8
@@ -40,7 +41,7 @@ class PPP_EAP_OUTPUT extends Win32Struct
     /**
      * Specifies a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/raseapif/ne-raseapif-ppp_eap_action">PPP_EAP_ACTION</a> value. The Connection Manager carries out this action on behalf of the authentication protocol.
-     * @type {Integer}
+     * @type {PPP_EAP_ACTION}
      */
     Action {
         get => NumGet(this, 4, "int")
@@ -167,7 +168,6 @@ class PPP_EAP_OUTPUT extends Win32Struct
     }
 
     /**
-     * 
      * @type {Pointer<NgcTicketContext>}
      */
     pNgcKerbTicket {
@@ -176,7 +176,6 @@ class PPP_EAP_OUTPUT extends Win32Struct
     }
 
     /**
-     * 
      * @type {BOOL}
      */
     fSaveToCredMan {

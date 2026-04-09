@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IDispCivicAddressReport.ahk
 #Include .\ILocationReportFactory.ahk
+#Include .\IDispCivicAddressReport.ahk
 
 /**
  * @namespace Windows.Win32.Devices.Geolocation
- * @version v4.0.30319
  */
-class ICivicAddressReportFactory extends ILocationReportFactory{
+class ICivicAddressReportFactory extends ILocationReportFactory {
 
     static sizeof => A_PtrSize
     /**

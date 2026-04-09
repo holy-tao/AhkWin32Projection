@@ -6,10 +6,8 @@
  * Defines the header for a serialized raytracing acceleration structure.
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_serialized_raytracing_acceleration_structure_header
  * @namespace Windows.Win32.Graphics.Direct3D12
- * @version v4.0.30319
  */
-class D3D12_SERIALIZED_RAYTRACING_ACCELERATION_STRUCTURE_HEADER extends Win32Struct
-{
+class D3D12_SERIALIZED_RAYTRACING_ACCELERATION_STRUCTURE_HEADER extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -18,7 +16,7 @@ class D3D12_SERIALIZED_RAYTRACING_ACCELERATION_STRUCTURE_HEADER extends Win32Str
      * The driver-matching identifier.
      * @type {D3D12_SERIALIZED_DATA_DRIVER_MATCHING_IDENTIFIER}
      */
-    DriverMatchingIdentifier{
+    DriverMatchingIdentifier {
         get {
             if(!this.HasProp("__DriverMatchingIdentifier"))
                 this.__DriverMatchingIdentifier := D3D12_SERIALIZED_DATA_DRIVER_MATCHING_IDENTIFIER(0, this)

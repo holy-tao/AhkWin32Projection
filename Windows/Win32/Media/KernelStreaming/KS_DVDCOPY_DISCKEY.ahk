@@ -3,18 +3,16 @@
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
- * @version v4.0.30319
  */
-class KS_DVDCOPY_DISCKEY extends Win32Struct
-{
+class KS_DVDCOPY_DISCKEY extends Win32Struct {
     static sizeof => 2048
 
     static packingSize => 1
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    DiscKey{
+    DiscKey {
         get {
             if(!this.HasProp("__DiscKeyProxyArray"))
                 this.__DiscKeyProxyArray := Win32FixedArray(this.ptr + 0, 2048, Primitive, "char")

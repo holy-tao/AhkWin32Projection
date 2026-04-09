@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\IEnumWIA_FORMAT_INFO.ahk
 #Include .\WIA_EXTENDED_TRANSFER_INFO.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * The IWiaDataTransfer interface is a high performance data transfer interface.
@@ -36,9 +36,8 @@
  * </table>
  * @see https://learn.microsoft.com/windows/win32/api/wia_xp/nn-wia_xp-iwiadatatransfer
  * @namespace Windows.Win32.Devices.ImageAcquisition
- * @version v4.0.30319
  */
-class IWiaDataTransfer extends IUnknown{
+class IWiaDataTransfer extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

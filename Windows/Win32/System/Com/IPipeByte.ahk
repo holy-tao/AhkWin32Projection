@@ -16,9 +16,8 @@
  * For more information, see <a href="https://docs.microsoft.com/windows/desktop/Rpc/pipes">Pipes</a> in the RPC documentation.
  * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nn-objidlbase-ipipebyte
  * @namespace Windows.Win32.System.Com
- * @version v4.0.30319
  */
-class IPipeByte extends IUnknown{
+class IPipeByte extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

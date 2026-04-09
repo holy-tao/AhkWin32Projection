@@ -5,9 +5,8 @@
  * Specifies the type of mouse pointer to appear.
  * @see https://learn.microsoft.com/windows/win32/api/msinkaut/ne-msinkaut-inkmousepointer
  * @namespace Windows.Win32.UI.TabletPC
- * @version v4.0.30319
  */
-class InkMousePointer extends Win32Enum{
+class InkMousePointer extends Win32Enum {
 
     /**
      * The default mouse pointer.

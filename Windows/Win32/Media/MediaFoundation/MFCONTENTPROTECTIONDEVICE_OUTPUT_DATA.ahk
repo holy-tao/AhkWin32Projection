@@ -5,10 +5,8 @@
  * Contains information about the data you received as output from a protection system function.
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/ns-mfidl-mfcontentprotectiondevice_output_data
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class MFCONTENTPROTECTIONDEVICE_OUTPUT_DATA extends Win32Struct
-{
+class MFCONTENTPROTECTIONDEVICE_OUTPUT_DATA extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -76,9 +74,9 @@ class MFCONTENTPROTECTIONDEVICE_OUTPUT_DATA extends Win32Struct
      * 
      * The protection system specification defines the format and size of the   
      *     function.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    OutputData{
+    OutputData {
         get {
             if(!this.HasProp("__OutputDataProxyArray"))
                 this.__OutputDataProxyArray := Win32FixedArray(this.ptr + 32, 4, Primitive, "char")

@@ -5,9 +5,8 @@
  * Specifies the operations that an algorithm can perform.
  * @see https://learn.microsoft.com/windows/win32/api/certenroll/ne-certenroll-algorithmoperationflags
  * @namespace Windows.Win32.Security.Cryptography.Certificates
- * @version v4.0.30319
  */
-class AlgorithmOperationFlags extends Win32Enum{
+class AlgorithmOperationFlags extends Win32Enum {
 
     /**
      * No operation is specified.
@@ -52,7 +51,6 @@ class AlgorithmOperationFlags extends Win32Enum{
     static XCN_NCRYPT_RNG_OPERATION => 32
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static XCN_NCRYPT_KEY_DERIVATION_OPERATION => 64

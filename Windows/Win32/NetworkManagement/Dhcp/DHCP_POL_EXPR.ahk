@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DHCP_POL_LOGIC_OPER.ahk
 
 /**
  * The DHCP_POL_EXP structure defines a DHCP server policy expression.
  * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/ns-dhcpsapi-dhcp_pol_expr
  * @namespace Windows.Win32.NetworkManagement.Dhcp
- * @version v4.0.30319
  */
-class DHCP_POL_EXPR extends Win32Struct
-{
+class DHCP_POL_EXPR extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4
@@ -24,7 +23,7 @@ class DHCP_POL_EXPR extends Win32Struct
 
     /**
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/dhcpsapi/ne-dhcpsapi-dhcp_pol_logic_oper">DHCP_POL_LOGIC_OPER</a> enumeration that specifies how the results of the constituent conditions and sub-expressions must be grouped to evaluate this expression.
-     * @type {Integer}
+     * @type {DHCP_POL_LOGIC_OPER}
      */
     Operator {
         get => NumGet(this, 4, "int")

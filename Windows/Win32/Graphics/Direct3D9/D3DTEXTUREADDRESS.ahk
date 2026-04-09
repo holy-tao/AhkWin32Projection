@@ -5,9 +5,8 @@
  * Defines constants that describe the supported texture-addressing modes.
  * @see https://learn.microsoft.com/windows/win32/direct3d9/d3dtextureaddress
  * @namespace Windows.Win32.Graphics.Direct3D9
- * @version v4.0.30319
  */
-class D3DTEXTUREADDRESS extends Win32Enum{
+class D3DTEXTUREADDRESS extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

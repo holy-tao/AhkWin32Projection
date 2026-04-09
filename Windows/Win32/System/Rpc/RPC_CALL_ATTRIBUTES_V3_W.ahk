@@ -1,14 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\RpcCallClientLocality.ahk
 #Include ..\..\Foundation\HANDLE.ahk
+#Include .\RpcCallType.ahk
+#Include .\RPC_CALL_LOCAL_ADDRESS_V1.ahk
 
 /**
  * @namespace Windows.Win32.System.Rpc
- * @version v4.0.30319
  * @charset Unicode
  */
-class RPC_CALL_ATTRIBUTES_V3_W extends Win32Struct
-{
+class RPC_CALL_ATTRIBUTES_V3_W extends Win32Struct {
     static sizeof => 120
 
     static packingSize => 8
@@ -102,7 +103,7 @@ class RPC_CALL_ATTRIBUTES_V3_W extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {RpcCallClientLocality}
      */
     IsClientLocal {
         get => NumGet(this, 60, "int")
@@ -112,7 +113,7 @@ class RPC_CALL_ATTRIBUTES_V3_W extends Win32Struct
     /**
      * @type {HANDLE}
      */
-    ClientPID{
+    ClientPID {
         get {
             if(!this.HasProp("__ClientPID"))
                 this.__ClientPID := HANDLE(64, this)
@@ -129,7 +130,7 @@ class RPC_CALL_ATTRIBUTES_V3_W extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {RpcCallType}
      */
     CallType {
         get => NumGet(this, 76, "int")
@@ -153,7 +154,7 @@ class RPC_CALL_ATTRIBUTES_V3_W extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     InterfaceUuid {
         get => NumGet(this, 96, "ptr")

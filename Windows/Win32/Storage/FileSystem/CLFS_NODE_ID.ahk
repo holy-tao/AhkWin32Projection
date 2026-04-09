@@ -5,10 +5,8 @@
  * Represents a node identifier.
  * @see https://learn.microsoft.com/windows/win32/api/clfs/ns-clfs-clfs_node_id
  * @namespace Windows.Win32.Storage.FileSystem
- * @version v4.0.30319
  */
-class CLFS_NODE_ID extends Win32Struct
-{
+class CLFS_NODE_ID extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4

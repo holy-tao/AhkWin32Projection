@@ -1,16 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Note  This section describes functionality designed for use by online stores.
  * @see https://learn.microsoft.com/windows/win32/api/contentpartner/nn-contentpartner-iwmpcontentpartnercallback
  * @namespace Windows.Win32.Media.MediaPlayer
- * @version v4.0.30319
  */
-class IWMPContentPartnerCallback extends IUnknown{
+class IWMPContentPartnerCallback extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -67,7 +65,7 @@ class IWMPContentPartnerCallback extends IUnknown{
      * As Windows Media Player plays an ASX file that it obtained from a type 1 online store, it notifies the online store each time a track is skipped. When the number of tracks skipped reaches the maximum number allowed, the online store calls <b>IWMPContentPartnerCallback::Notify</b>, passing wmpcnDisableRadioSkipping, to instruct the Player that it must not skip any more tracks in the currently-playing ASX file. The maximum number of skips allowed for an ASX file is determined by the online store.
      * 
      * Windows Media Player notifies the online store that a track has been skipped by calling <a href="https://docs.microsoft.com/windows/desktop/api/contentpartner/nf-contentpartner-iwmpcontentpartner-stationevent">IWMPContentPartner::StationEvent</a>, passing g_szStationEvent_Skipped in the <i>bstrStationEventType</i> parameter.
-     * @param {Integer} type The type of notification being made, specified as a member of the <a href="https://docs.microsoft.com/windows/desktop/api/contentpartner/ne-contentpartner-wmpcallbacknotification">WMPCallbackNotification</a> enumeration.
+     * @param {WMPCallbackNotification} type The type of notification being made, specified as a member of the <a href="https://docs.microsoft.com/windows/desktop/api/contentpartner/ne-contentpartner-wmpcallbacknotification">WMPCallbackNotification</a> enumeration.
      * @param {Pointer<VARIANT>} pContext Context-specific data for the notification. See Remarks.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 

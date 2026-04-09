@@ -7,19 +7,17 @@
  * The TC_GEN_FLOW structure creates a generic flow for use with the traffic control interface. The flow is customized through the members of this structure.
  * @see https://learn.microsoft.com/windows/win32/api/traffic/ns-traffic-tc_gen_flow
  * @namespace Windows.Win32.NetworkManagement.QoS
- * @version v4.0.30319
  */
-class TC_GEN_FLOW extends Win32Struct
-{
-    static sizeof => 80
+class TC_GEN_FLOW extends Win32Struct {
+    static sizeof => 76
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/api/qos/ns-qos-flowspec">FLOWSPEC</a> structure for the sending direction of the flow.
      * @type {FLOWSPEC}
      */
-    SendingFlowspec{
+    SendingFlowspec {
         get {
             if(!this.HasProp("__SendingFlowspec"))
                 this.__SendingFlowspec := FLOWSPEC(0, this)
@@ -31,7 +29,7 @@ class TC_GEN_FLOW extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/qos/ns-qos-flowspec">FLOWSPEC</a> structure for the receiving direction of the flow.
      * @type {FLOWSPEC}
      */
-    ReceivingFlowspec{
+    ReceivingFlowspec {
         get {
             if(!this.HasProp("__ReceivingFlowspec"))
                 this.__ReceivingFlowspec := FLOWSPEC(32, this)
@@ -75,12 +73,12 @@ class TC_GEN_FLOW extends Win32Struct
      * 
      * 
      * QOS_OBJECT_END_OF_LIST
-     * @type {Array<QOS_OBJECT_HDR>}
+     * @type {QOS_OBJECT_HDR}
      */
-    TcObjects{
+    TcObjects {
         get {
             if(!this.HasProp("__TcObjectsProxyArray"))
-                this.__TcObjectsProxyArray := Win32FixedArray(this.ptr + 72, 1, QOS_OBJECT_HDR, "")
+                this.__TcObjectsProxyArray := Win32FixedArray(this.ptr + 68, 1, QOS_OBJECT_HDR, "")
             return this.__TcObjectsProxyArray
         }
     }

@@ -21,9 +21,8 @@
  * When setting the axis to a non-default value, you should always set all three axis properties (AxisX, AxisY, and AxisZ).
  * @see https://learn.microsoft.com/windows/win32/api/dcomp/nn-dcomp-idcompositionrotatetransform3d
  * @namespace Windows.Win32.Graphics.DirectComposition
- * @version v4.0.30319
  */
-class IDCompositionRotateTransform3D extends IDCompositionTransform3D{
+class IDCompositionRotateTransform3D extends IDCompositionTransform3D {
 
     static sizeof => A_PtrSize
     /**

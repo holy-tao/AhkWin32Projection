@@ -1,19 +1,20 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\TYPEDESC.ahk
+#Include ..\Ole\ARRAYDESC.ahk
+#Include ..\Variant\VARENUM.ahk
 #Include .\IDLDESC.ahk
+#Include .\IDLFLAGS.ahk
 #Include ..\Ole\PARAMDESC.ahk
+#Include ..\Ole\PARAMDESCEX.ahk
+#Include ..\Ole\PARAMFLAGS.ahk
 
 /**
  * The ELEMDESC structure contains the type description and process-transfer information for a variable, a function, or a function parameter. (ELEMDESC)
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/oaidl/ns-oaidl-elemdesc~r1
  * @namespace Windows.Win32.System.Com
- * @version v4.0.30319
  */
-class ELEMDESC extends Win32Struct
-{
+class ELEMDESC extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -22,7 +23,7 @@ class ELEMDESC extends Win32Struct
      * The type of the element.
      * @type {TYPEDESC}
      */
-    tdesc{
+    tdesc {
         get {
             if(!this.HasProp("__tdesc"))
                 this.__tdesc := TYPEDESC(0, this)
@@ -33,7 +34,7 @@ class ELEMDESC extends Win32Struct
     /**
      * @type {IDLDESC}
      */
-    idldesc{
+    idldesc {
         get {
             if(!this.HasProp("__idldesc"))
                 this.__idldesc := IDLDESC(16, this)
@@ -44,7 +45,7 @@ class ELEMDESC extends Win32Struct
     /**
      * @type {PARAMDESC}
      */
-    paramdesc{
+    paramdesc {
         get {
             if(!this.HasProp("__paramdesc"))
                 this.__paramdesc := PARAMDESC(16, this)

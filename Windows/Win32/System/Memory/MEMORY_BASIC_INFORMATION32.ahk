@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\PAGE_PROTECTION_FLAGS.ahk
+#Include .\VIRTUAL_ALLOCATION_TYPE.ahk
+#Include .\PAGE_TYPE.ahk
 
 /**
  * @namespace Windows.Win32.System.Memory
- * @version v4.0.30319
  */
-class MEMORY_BASIC_INFORMATION32 extends Win32Struct
-{
+class MEMORY_BASIC_INFORMATION32 extends Win32Struct {
     static sizeof => 28
 
     static packingSize => 4
@@ -28,7 +29,7 @@ class MEMORY_BASIC_INFORMATION32 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {PAGE_PROTECTION_FLAGS}
      */
     AllocationProtect {
         get => NumGet(this, 8, "uint")
@@ -44,7 +45,7 @@ class MEMORY_BASIC_INFORMATION32 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {VIRTUAL_ALLOCATION_TYPE}
      */
     State {
         get => NumGet(this, 16, "uint")
@@ -52,7 +53,7 @@ class MEMORY_BASIC_INFORMATION32 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {PAGE_PROTECTION_FLAGS}
      */
     Protect {
         get => NumGet(this, 20, "uint")
@@ -60,7 +61,7 @@ class MEMORY_BASIC_INFORMATION32 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {PAGE_TYPE}
      */
     Type {
         get => NumGet(this, 24, "uint")

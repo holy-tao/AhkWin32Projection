@@ -1,13 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\DEVPROPKEY.ahk
+#Include ..\Properties\DEVPROPTYPE.ahk
 
 /**
  * @namespace Windows.Win32.Devices.DeviceQuery
- * @version v4.0.30319
  */
-class DEV_QUERY_PARAMETER extends Win32Struct
-{
+class DEV_QUERY_PARAMETER extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -15,7 +14,7 @@ class DEV_QUERY_PARAMETER extends Win32Struct
     /**
      * @type {DEVPROPKEY}
      */
-    Key{
+    Key {
         get {
             if(!this.HasProp("__Key"))
                 this.__Key := DEVPROPKEY(0, this)
@@ -24,7 +23,7 @@ class DEV_QUERY_PARAMETER extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {DEVPROPTYPE}
      */
     Type {
         get => NumGet(this, 16, "uint")

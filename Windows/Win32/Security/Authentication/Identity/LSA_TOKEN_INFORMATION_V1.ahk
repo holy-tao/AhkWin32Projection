@@ -1,19 +1,20 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\SID_AND_ATTRIBUTES.ahk
 #Include ..\..\TOKEN_USER.ahk
+#Include ..\..\SID_AND_ATTRIBUTES.ahk
+#Include ..\..\TOKEN_GROUPS.ahk
 #Include ..\..\TOKEN_PRIMARY_GROUP.ahk
+#Include ..\..\TOKEN_PRIVILEGES.ahk
 #Include ..\..\TOKEN_OWNER.ahk
 #Include ..\..\TOKEN_DEFAULT_DACL.ahk
+#Include ..\..\ACL.ahk
 
 /**
  * Contains information an authentication package can place in a Version 2 Windows token object and has superceded LSA_TOKEN_INFORMATION_V1.
  * @see https://learn.microsoft.com/windows/win32/api/ntsecpkg/ns-ntsecpkg-lsa_token_information_v1
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class LSA_TOKEN_INFORMATION_V1 extends Win32Struct
-{
+class LSA_TOKEN_INFORMATION_V1 extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 8
@@ -31,7 +32,7 @@ class LSA_TOKEN_INFORMATION_V1 extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-token_user">TOKEN_USER</a> structure that contains the SID of the user logging on. The <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security identifier</a> SID value is in a separately allocated block of memory.
      * @type {TOKEN_USER}
      */
-    User{
+    User {
         get {
             if(!this.HasProp("__User"))
                 this.__User := TOKEN_USER(8, this)
@@ -64,7 +65,7 @@ class LSA_TOKEN_INFORMATION_V1 extends Win32Struct
      * This member is mandatory and must be filled in.
      * @type {TOKEN_PRIMARY_GROUP}
      */
-    PrimaryGroup{
+    PrimaryGroup {
         get {
             if(!this.HasProp("__PrimaryGroup"))
                 this.__PrimaryGroup := TOKEN_PRIMARY_GROUP(32, this)
@@ -97,7 +98,7 @@ class LSA_TOKEN_INFORMATION_V1 extends Win32Struct
      * The <b>Owner.Sid</b> member may be set to <b>NULL</b> to indicate there is no alternate default owner value.
      * @type {TOKEN_OWNER}
      */
-    Owner{
+    Owner {
         get {
             if(!this.HasProp("__Owner"))
                 this.__Owner := TOKEN_OWNER(48, this)
@@ -114,7 +115,7 @@ class LSA_TOKEN_INFORMATION_V1 extends Win32Struct
      * The <b>DefaultDacl.DefaultDacl</b> member may be set to <b>NULL</b> to indicate there is no default protection.
      * @type {TOKEN_DEFAULT_DACL}
      */
-    DefaultDacl{
+    DefaultDacl {
         get {
             if(!this.HasProp("__DefaultDacl"))
                 this.__DefaultDacl := TOKEN_DEFAULT_DACL(56, this)

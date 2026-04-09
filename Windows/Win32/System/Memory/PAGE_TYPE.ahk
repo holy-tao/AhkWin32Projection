@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Memory
- * @version v4.0.30319
  */
-class PAGE_TYPE extends Win32BitflagEnum{
+class PAGE_TYPE extends Win32BitflagEnum {
 
     /**
      * @type {Integer (UInt32)}

@@ -9,9 +9,8 @@
  * This interface is implemented by a client of namespace control (CLSID_NameSpaceTreeControl) to be advised of namespace control events so that the client may process these events and if not, allow the namespace control to process them.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nn-shobjidl-inamespacetreecontrolevents
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class INameSpaceTreeControlEvents extends IUnknown{
+class INameSpaceTreeControlEvents extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -130,8 +129,12 @@ class INameSpaceTreeControlEvents extends IUnknown{
      * @param {Integer} uMsg Type: <b>UINT</b>
      * 
      * The message value.
-     * @param {WPARAM} _wParam 
-     * @param {LPARAM} _lParam 
+     * @param {WPARAM} _wParam Type: <b>WPARAM</b>
+     * 
+     * Specifies the WParam parameters of the message.
+     * @param {LPARAM} _lParam Type: <b>LPARAM</b>
+     * 
+     * Specifies the LParam parameters of the message.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.

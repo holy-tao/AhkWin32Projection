@@ -7,9 +7,8 @@
  * The IDisplayHelp interface is introduced in MMC version 1.1.
  * @see https://learn.microsoft.com/windows/win32/api/mmc/nn-mmc-idisplayhelp
  * @namespace Windows.Win32.System.Mmc
- * @version v4.0.30319
  */
-class IDisplayHelp extends IUnknown{
+class IDisplayHelp extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

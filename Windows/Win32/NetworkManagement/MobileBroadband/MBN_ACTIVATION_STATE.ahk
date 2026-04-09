@@ -5,9 +5,8 @@
  * The MBN_ACTIVATION_STATE enumerated type indicates the current data connection state.
  * @see https://learn.microsoft.com/windows/win32/api/mbnapi/ne-mbnapi-mbn_activation_state
  * @namespace Windows.Win32.NetworkManagement.MobileBroadband
- * @version v4.0.30319
  */
-class MBN_ACTIVATION_STATE extends Win32Enum{
+class MBN_ACTIVATION_STATE extends Win32Enum {
 
     /**
      * The connection state is unknown.

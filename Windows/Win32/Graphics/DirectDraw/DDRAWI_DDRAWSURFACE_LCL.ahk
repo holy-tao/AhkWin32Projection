@@ -1,16 +1,22 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DDRAWI_DDRAWSURFACE_MORE.ahk
+#Include .\DDRAWI_DDRAWSURFACE_GBL.ahk
+#Include .\ATTACHLIST.ahk
 #Include .\DDSCAPS.ahk
+#Include .\DDRAWI_DDRAWPALETTE_INT.ahk
+#Include .\DDRAWI_DDRAWCLIPPER_LCL.ahk
+#Include .\DDRAWI_DDRAWCLIPPER_INT.ahk
 #Include .\DDCOLORKEY.ahk
+#Include .\DDRAWI_DDRAWSURFACE_INT.ahk
 #Include .\DBLNODE.ahk
+#Include .\DDRAWI_DDRAWSURFACE_LCL.ahk
 #Include ..\..\Foundation\RECT.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw
- * @version v4.0.30319
  */
-class DDRAWI_DDRAWSURFACE_LCL extends Win32Struct
-{
+class DDRAWI_DDRAWSURFACE_LCL extends Win32Struct {
     static sizeof => 216
 
     static packingSize => 8
@@ -82,7 +88,7 @@ class DDRAWI_DDRAWSURFACE_LCL extends Win32Struct
     /**
      * @type {DDSCAPS}
      */
-    ddsCaps{
+    ddsCaps {
         get {
             if(!this.HasProp("__ddsCaps"))
                 this.__ddsCaps := DDSCAPS(52, this)
@@ -141,7 +147,7 @@ class DDRAWI_DDRAWSURFACE_LCL extends Win32Struct
     /**
      * @type {DDCOLORKEY}
      */
-    ddckCKDestBlt{
+    ddckCKDestBlt {
         get {
             if(!this.HasProp("__ddckCKDestBlt"))
                 this.__ddckCKDestBlt := DDCOLORKEY(80, this)
@@ -152,7 +158,7 @@ class DDRAWI_DDRAWSURFACE_LCL extends Win32Struct
     /**
      * @type {DDCOLORKEY}
      */
-    ddckCKSrcBlt{
+    ddckCKSrcBlt {
         get {
             if(!this.HasProp("__ddckCKSrcBlt"))
                 this.__ddckCKSrcBlt := DDCOLORKEY(88, this)
@@ -179,7 +185,7 @@ class DDRAWI_DDRAWSURFACE_LCL extends Win32Struct
     /**
      * @type {DDCOLORKEY}
      */
-    ddckCKSrcOverlay{
+    ddckCKSrcOverlay {
         get {
             if(!this.HasProp("__ddckCKSrcOverlay"))
                 this.__ddckCKSrcOverlay := DDCOLORKEY(112, this)
@@ -190,7 +196,7 @@ class DDRAWI_DDRAWSURFACE_LCL extends Win32Struct
     /**
      * @type {DDCOLORKEY}
      */
-    ddckCKDestOverlay{
+    ddckCKDestOverlay {
         get {
             if(!this.HasProp("__ddckCKDestOverlay"))
                 this.__ddckCKDestOverlay := DDCOLORKEY(120, this)
@@ -209,7 +215,7 @@ class DDRAWI_DDRAWSURFACE_LCL extends Win32Struct
     /**
      * @type {DBLNODE}
      */
-    dbnOverlayNode{
+    dbnOverlayNode {
         get {
             if(!this.HasProp("__dbnOverlayNode"))
                 this.__dbnOverlayNode := DBLNODE(136, this)
@@ -220,7 +226,7 @@ class DDRAWI_DDRAWSURFACE_LCL extends Win32Struct
     /**
      * @type {RECT}
      */
-    rcOverlaySrc{
+    rcOverlaySrc {
         get {
             if(!this.HasProp("__rcOverlaySrc"))
                 this.__rcOverlaySrc := RECT(168, this)
@@ -231,7 +237,7 @@ class DDRAWI_DDRAWSURFACE_LCL extends Win32Struct
     /**
      * @type {RECT}
      */
-    rcOverlayDest{
+    rcOverlayDest {
         get {
             if(!this.HasProp("__rcOverlayDest"))
                 this.__rcOverlayDest := RECT(184, this)

@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.Usb
- * @version v4.0.30319
  */
-class USB4_HRD_DEBUG_ROUTE_STRING extends Win32Struct
-{
+class USB4_HRD_DEBUG_ROUTE_STRING extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 1
@@ -20,9 +18,9 @@ class USB4_HRD_DEBUG_ROUTE_STRING extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Route{
+    Route {
         get {
             if(!this.HasProp("__RouteProxyArray"))
                 this.__RouteProxyArray := Win32FixedArray(this.ptr + 1, 7, Primitive, "char")

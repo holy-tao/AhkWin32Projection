@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Storage.Xps
- * @version v4.0.30319
  */
-class PSINJECT_POINT extends Win32BitflagEnum{
+class PSINJECT_POINT extends Win32BitflagEnum {
 
     /**
      * @type {Integer (UInt16)}

@@ -7,9 +7,8 @@
  * A value from this enumeration is returned by [IMFCameraOcclusionStateReport::GetOcclusionState](nf-mfidl-imfcameraocclusionstatereport-getocclusionstate.md). To get the occlusion states that are supported on the current device, and therefore may be returned by **GetOcclusionState**, call [IMFCameraOcclusionStateMonitor::GetSupportedStates](nf-mfidl-imfcameraocclusionstatemonitor-getsupportedstates.md).
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/ne-mfidl-mfcameraocclusionstate
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class MFCameraOcclusionState extends Win32BitflagEnum{
+class MFCameraOcclusionState extends Win32BitflagEnum {
 
     /**
      * The camera is not occluded.

@@ -17,10 +17,8 @@
  * ```
  * @see https://learn.microsoft.com/windows/win32/api/minidumpapiset/ns-minidumpapiset-minidump_memory_descriptor
  * @namespace Windows.Win32.System.Diagnostics.Debug
- * @version v4.0.30319
  */
-class MINIDUMP_MEMORY_DESCRIPTOR extends Win32Struct
-{
+class MINIDUMP_MEMORY_DESCRIPTOR extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
@@ -39,7 +37,7 @@ class MINIDUMP_MEMORY_DESCRIPTOR extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/win32/api/minidumpapiset/ns-minidumpapiset-minidump_location_descriptor">MINIDUMP_LOCATION_DESCRIPTOR</a> structure.
      * @type {MINIDUMP_LOCATION_DESCRIPTOR}
      */
-    Memory{
+    Memory {
         get {
             if(!this.HasProp("__Memory"))
                 this.__Memory := MINIDUMP_LOCATION_DESCRIPTOR(8, this)

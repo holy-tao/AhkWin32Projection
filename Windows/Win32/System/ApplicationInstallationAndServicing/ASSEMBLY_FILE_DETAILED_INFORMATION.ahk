@@ -80,10 +80,8 @@
  * ```
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-assembly_file_detailed_information
  * @namespace Windows.Win32.System.ApplicationInstallationAndServicing
- * @version v4.0.30319
  */
-class ASSEMBLY_FILE_DETAILED_INFORMATION extends Win32Struct
-{
+class ASSEMBLY_FILE_DETAILED_INFORMATION extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8

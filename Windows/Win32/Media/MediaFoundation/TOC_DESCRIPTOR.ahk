@@ -7,17 +7,15 @@
  * You might want to design several different type of tables of contents. In that case, you can distinguish between types by creating a <b>GUID</b> that represents each type. You can identify a table of contents as a particular type by setting the <b>guidType</b> member of a <b>TOC_DESCRIPTOR</b> structure and then passing the structure to <a href="https://docs.microsoft.com/windows/desktop/api/wmcodecdsp/nf-wmcodecdsp-itoc-setdescriptor">IToc::SetDescriptor</a>.
  * @see https://learn.microsoft.com/windows/win32/api/wmcodecdsp/ns-wmcodecdsp-toc_descriptor
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class TOC_DESCRIPTOR extends Win32Struct
-{
+class TOC_DESCRIPTOR extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
 
     /**
      * A globally unique identifier (<b>GUID</b>) that identifies an individual table of contents. This identifier has meaning only to the you, the developer. TOC Parser does not inspect or interpret this identifier.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     guidID {
         get => NumGet(this, 0, "ptr")
@@ -35,7 +33,7 @@ class TOC_DESCRIPTOR extends Win32Struct
 
     /**
      * A globally unique identifier (<b>GUID</b>) that identifies a table of contents as belonging to a particular type. This identifier has meaning only to you, the developer. TOC Parser does not inspect or interpret this identifier. See Remarks.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     guidType {
         get => NumGet(this, 16, "ptr")

@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.RealTimeCommunications
- * @version v4.0.30319
  */
-class IRTCMediaEvent extends IDispatch{
+class IRTCMediaEvent extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -36,14 +35,14 @@ class IRTCMediaEvent extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {RTC_MEDIA_EVENT_TYPE} 
      */
     EventType {
         get => this.get_EventType()
     }
 
     /**
-     * @type {Integer} 
+     * @type {RTC_MEDIA_EVENT_REASON} 
      */
     EventReason {
         get => this.get_EventReason()
@@ -60,7 +59,7 @@ class IRTCMediaEvent extends IDispatch{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {RTC_MEDIA_EVENT_TYPE} 
      */
     get_EventType() {
         result := ComCall(8, this, "int*", &penEventType := 0, "HRESULT")
@@ -69,7 +68,7 @@ class IRTCMediaEvent extends IDispatch{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {RTC_MEDIA_EVENT_REASON} 
      */
     get_EventReason() {
         result := ComCall(9, this, "int*", &penEventReason := 0, "HRESULT")

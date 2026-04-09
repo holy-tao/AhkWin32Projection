@@ -7,9 +7,8 @@
  * The IDistributorNotify interface enables a plug-in distributor to be notified when the filter graph changes.Applications never use this interface.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-idistributornotify
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IDistributorNotify extends IUnknown{
+class IDistributorNotify extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

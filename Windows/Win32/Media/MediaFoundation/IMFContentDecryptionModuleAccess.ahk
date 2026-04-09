@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\IMFContentDecryptionModule.ahk
 #Include ..\..\UI\Shell\PropertiesSystem\IPropertyStore.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Provides access to a media key system.
@@ -11,9 +11,8 @@
  * **IMFContentDecryptionModuleAccess** is based on the Encrypted Media Extension specification's [MediaKeySystemAccess](https://www.w3.org/TR/2017/REC-encrypted-media-20170918/#mediakeysystemaccess-interface).
  * @see https://learn.microsoft.com/windows/win32/api/mfcontentdecryptionmodule/nn-mfcontentdecryptionmodule-imfcontentdecryptionmoduleaccess
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFContentDecryptionModuleAccess extends IUnknown{
+class IMFContentDecryptionModuleAccess extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

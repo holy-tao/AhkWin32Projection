@@ -1,17 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HWND.ahk
 #Include .\NMHDR.ahk
+#Include ..\..\Foundation\HWND.ahk
 #Include .\LITEM.ahk
+#Include .\LIST_ITEM_FLAGS.ahk
+#Include .\LIST_ITEM_STATE_FLAGS.ahk
 
 /**
  * Contains information about an LVN_LINKCLICK notification code.
  * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-nmlvlink
  * @namespace Windows.Win32.UI.Controls
- * @version v4.0.30319
  */
-class NMLVLINK extends Win32Struct
-{
+class NMLVLINK extends Win32Struct {
     static sizeof => 4312
 
     static packingSize => 8
@@ -23,7 +23,7 @@ class NMLVLINK extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/richedit/ns-richedit-nmhdr">NMHDR</a> structure that contains basic information about the notification code.
      * @type {NMHDR}
      */
-    hdr{
+    hdr {
         get {
             if(!this.HasProp("__hdr"))
                 this.__hdr := NMHDR(0, this)
@@ -38,7 +38,7 @@ class NMLVLINK extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/commctrl/ns-commctrl-litem">LITEM</a> structure that contains information about the link that was clicked.
      * @type {LITEM}
      */
-    link{
+    link {
         get {
             if(!this.HasProp("__link"))
                 this.__link := LITEM(24, this)

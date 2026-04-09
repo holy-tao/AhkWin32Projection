@@ -5,9 +5,8 @@
  * Elements of the TfSapiObject enumeration are used with the ITfFnGetSAPIObject::Get method to specify a specific type of Speech API (SAPI) object.
  * @see https://learn.microsoft.com/windows/win32/api/ctffunc/ne-ctffunc-tfsapiobject
  * @namespace Windows.Win32.UI.TextServices
- * @version v4.0.30319
  */
-class TfSapiObject extends Win32Enum{
+class TfSapiObject extends Win32Enum {
 
     /**
      * Specifies an ISpResourceManager object.

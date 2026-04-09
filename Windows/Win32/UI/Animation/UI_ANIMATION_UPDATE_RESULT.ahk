@@ -5,9 +5,8 @@
  * Defines results for animation updates.
  * @see https://learn.microsoft.com/windows/win32/api/uianimation/ne-uianimation-ui_animation_update_result
  * @namespace Windows.Win32.UI.Animation
- * @version v4.0.30319
  */
-class UI_ANIMATION_UPDATE_RESULT extends Win32Enum{
+class UI_ANIMATION_UPDATE_RESULT extends Win32Enum {
 
     /**
      * No animation variables have changed.

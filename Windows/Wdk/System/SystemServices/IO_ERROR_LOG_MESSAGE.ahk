@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class IO_ERROR_LOG_MESSAGE extends Win32Struct
-{
+class IO_ERROR_LOG_MESSAGE extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -52,7 +50,7 @@ class IO_ERROR_LOG_MESSAGE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<IO_ERROR_LOG_PACKET>}
+     * @type {Pointer}
      */
     EntryData {
         get => NumGet(this, 24, "ptr")

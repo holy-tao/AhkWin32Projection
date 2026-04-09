@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
 #Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 
 /**
  * Used by a fax client application to configure the security on a fax server; also permits the calling application to set and retrieve a security descriptor for the fax server.
@@ -14,9 +14,8 @@
  * A default implementation is provided as <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxsecurity2">FaxSecurity2</a>.
  * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nn-faxcomex-ifaxsecurity2
  * @namespace Windows.Win32.Devices.Fax
- * @version v4.0.30319
  */
-class IFaxSecurity2 extends IDispatch{
+class IFaxSecurity2 extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -52,7 +51,7 @@ class IFaxSecurity2 extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {FAX_ACCESS_RIGHTS_ENUM_2} 
      */
     GrantedRights {
         get => this.get_GrantedRights()
@@ -102,7 +101,7 @@ class IFaxSecurity2 extends IDispatch{
      * The <b>IFaxSecurity2::GrantedRights</b> property reflects rights granted by the fax server, while the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxsecurity2-descriptor">Descriptor</a> property represents the security descriptor, which contains the rights explicitly granted to a user by the fax administrator.
      * 
      * To read this property, a user must have the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_access_rights_enum_2">far2QUERY_CONFIG</a> access right.
-     * @returns {Integer} 
+     * @returns {FAX_ACCESS_RIGHTS_ENUM_2} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxsecurity2-get_grantedrights
      */
     get_GrantedRights() {

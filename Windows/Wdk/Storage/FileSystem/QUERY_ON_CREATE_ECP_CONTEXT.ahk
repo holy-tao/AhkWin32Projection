@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem
- * @version v4.0.30319
  */
-class QUERY_ON_CREATE_ECP_CONTEXT extends Win32Struct
-{
+class QUERY_ON_CREATE_ECP_CONTEXT extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -44,7 +42,7 @@ class QUERY_ON_CREATE_ECP_CONTEXT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<QUERY_ON_CREATE_FILE_STAT_INFORMATION>}
+     * @type {Pointer}
      */
     StatInformation {
         get => NumGet(this, 16, "ptr")
@@ -52,7 +50,7 @@ class QUERY_ON_CREATE_ECP_CONTEXT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<QUERY_ON_CREATE_FILE_LX_INFORMATION>}
+     * @type {Pointer}
      */
     LxInformation {
         get => NumGet(this, 24, "ptr")
@@ -60,7 +58,7 @@ class QUERY_ON_CREATE_ECP_CONTEXT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<QUERY_ON_CREATE_EA_INFORMATION>}
+     * @type {Pointer}
      */
     EaInformation {
         get => NumGet(this, 32, "ptr")

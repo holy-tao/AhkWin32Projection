@@ -1,22 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\SOCKADDR.ahk
 
 /**
  * Represents a custom Domain Name System (DNS) server, used in the Winsock APIs.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/ws2def/ns-ws2def-addrinfo_dns_server
  * @namespace Windows.Win32.Networking.WinSock
- * @version v4.0.30319
  */
-class ADDRINFO_DNS_SERVER extends Win32Struct
-{
+class ADDRINFO_DNS_SERVER extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
 
     /**
-     * 
      * @type {Integer}
      */
     ai_servertype {

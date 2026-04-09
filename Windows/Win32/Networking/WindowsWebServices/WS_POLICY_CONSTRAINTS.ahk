@@ -1,14 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\WS_CHANNEL_BINDING.ahk
+#Include .\WS_CHANNEL_PROPERTY_CONSTRAINT.ahk
+#Include .\WS_SECURITY_CONSTRAINTS.ahk
+#Include .\WS_POLICY_EXTENSION.ahk
 
 /**
  * Specifies policy constraints for a channel.
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_policy_constraints
  * @namespace Windows.Win32.Networking.WindowsWebServices
- * @version v4.0.30319
  */
-class WS_POLICY_CONSTRAINTS extends Win32Struct
-{
+class WS_POLICY_CONSTRAINTS extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -26,7 +28,7 @@ class WS_POLICY_CONSTRAINTS extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_channel_binding">WS_TCP_CHANNEL_BINDING</a>
      * </li>
      * </ul>
-     * @type {Integer}
+     * @type {WS_CHANNEL_BINDING}
      */
     channelBinding {
         get => NumGet(this, 0, "int")
@@ -76,7 +78,6 @@ class WS_POLICY_CONSTRAINTS extends Win32Struct
     }
 
     /**
-     * 
      * @type {Pointer<Pointer<WS_POLICY_EXTENSION>>}
      */
     policyExtensions {
@@ -85,7 +86,6 @@ class WS_POLICY_CONSTRAINTS extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     policyExtensionCount {

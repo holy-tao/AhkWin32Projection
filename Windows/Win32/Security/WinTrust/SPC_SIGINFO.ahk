@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Security.WinTrust
- * @version v4.0.30319
  */
-class SPC_SIGINFO extends Win32Struct
-{
+class SPC_SIGINFO extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -20,7 +18,7 @@ class SPC_SIGINFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     gSIPGuid {
         get => NumGet(this, 8, "ptr")

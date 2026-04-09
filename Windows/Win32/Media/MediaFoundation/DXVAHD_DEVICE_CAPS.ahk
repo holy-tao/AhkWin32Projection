@@ -5,9 +5,8 @@
  * Defines video processing capabilities for a Microsoft DirectX Video Acceleration High Definition (DXVA-HD) device.
  * @see https://learn.microsoft.com/windows/win32/api/dxvahd/ne-dxvahd-dxvahd_device_caps
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class DXVAHD_DEVICE_CAPS extends Win32Enum{
+class DXVAHD_DEVICE_CAPS extends Win32Enum {
 
     /**
      * The device can blend video content in linear color space. Most video content is gamma corrected, resulting in nonlinear values. If the DXVA-HD device sets this flag, it means the device converts colors to linear space before blending, which produces better results.

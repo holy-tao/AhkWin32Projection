@@ -1,6 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\WSDXML_NODE.ahk
+#Include .\WSDXML_ELEMENT.ahk
+#Include .\WSDXML_NAME.ahk
+#Include .\WSDXML_ATTRIBUTE.ahk
+#Include .\WSDXML_PREFIX_MAPPING.ahk
 
 /**
  * Describes an XML element.
@@ -8,10 +12,8 @@
  * <b>WSDXML_ELEMENT</b> represents an XML element in the DOM tree. The <b>Name</b> member can be used to determine the name and namespace of this element. <b>FirstAttribute</b> points to any attributes, and <b>FirstChild</b> points to anything contained within the element.
  * @see https://learn.microsoft.com/windows/win32/api/wsdxmldom/ns-wsdxmldom-wsdxml_element
  * @namespace Windows.Win32.Devices.WebServicesOnDevices
- * @version v4.0.30319
  */
-class WSDXML_ELEMENT extends Win32Struct
-{
+class WSDXML_ELEMENT extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 8
@@ -20,7 +22,7 @@ class WSDXML_ELEMENT extends Win32Struct
      * Reference to a <a href="https://docs.microsoft.com/windows/desktop/api/wsdxmldom/ns-wsdxmldom-wsdxml_node">WSDXML_NODE</a> structure that specifies the parent element, next sibling and type of the node.
      * @type {WSDXML_NODE}
      */
-    Node{
+    Node {
         get {
             if(!this.HasProp("__Node"))
                 this.__Node := WSDXML_NODE(0, this)

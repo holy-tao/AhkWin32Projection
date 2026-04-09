@@ -1,5 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\FWP_DATA_TYPE.ahk
+#Include .\FWP_BYTE_ARRAY16.ahk
+#Include .\FWP_BYTE_BLOB.ahk
+#Include ..\..\Security\SID.ahk
+#Include .\FWP_TOKEN_INFORMATION.ahk
+#Include .\FWP_BYTE_ARRAY6.ahk
+#Include .\FWP_V4_ADDR_AND_MASK.ahk
+#Include .\FWP_V6_ADDR_AND_MASK.ahk
+#Include .\FWP_RANGE0.ahk
 
 /**
  * Contains values that are used in filter conditions when testing for matching filters.
@@ -13,10 +22,8 @@
  * **FWP_CONDITION_VALUE0** is a specific implementation of FWP_CONDITION_VALUE. See [WFP Version-Independent Names and Targeting Specific Versions of Windows](/windows/desktop/FWP/wfp-version-independent-names-and-targeting-specific-versions-of-windows)  for more information.
  * @see https://learn.microsoft.com/windows/win32/api/fwptypes/ns-fwptypes-fwp_condition_value0
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
- * @version v4.0.30319
  */
-class FWP_CONDITION_VALUE0 extends Win32Struct
-{
+class FWP_CONDITION_VALUE0 extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
@@ -25,7 +32,7 @@ class FWP_CONDITION_VALUE0 extends Win32Struct
      * Specifies the data type of the condition value.
      * 
      * See [FWP_DATA_TYPE](ne-fwptypes-fwp_data_type.md) for more information.
-     * @type {Integer}
+     * @type {FWP_DATA_TYPE}
      */
     type {
         get => NumGet(this, 0, "int")

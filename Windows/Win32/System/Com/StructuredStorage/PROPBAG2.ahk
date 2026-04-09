@@ -1,12 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\Variant\VARENUM.ahk
 
 /**
  * @namespace Windows.Win32.System.Com.StructuredStorage
- * @version v4.0.30319
  */
-class PROPBAG2 extends Win32Struct
-{
+class PROPBAG2 extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -20,7 +19,7 @@ class PROPBAG2 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {VARENUM}
      */
     vt {
         get => NumGet(this, 4, "ushort")
@@ -52,7 +51,7 @@ class PROPBAG2 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     clsid {
         get => NumGet(this, 24, "ptr")

@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Rras
- * @version v4.0.30319
  */
-class MPR_CERT_EKU extends Win32Struct
-{
+class MPR_CERT_EKU extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

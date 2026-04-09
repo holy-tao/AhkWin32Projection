@@ -5,9 +5,8 @@
  * The APTTYPE (objidlbase.h) enumeration specifies different types of apartments.
  * @see https://learn.microsoft.com/windows/win32/api/objidlbase/ne-objidlbase-apttype
  * @namespace Windows.Win32.System.Com
- * @version v4.0.30319
  */
-class APTTYPE extends Win32Enum{
+class APTTYPE extends Win32Enum {
 
     /**
      * The current thread.

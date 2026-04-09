@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D9
- * @version v4.0.30319
  */
-class D3DDEVICEDESC7 extends Win32Struct
-{
+class D3DDEVICEDESC7 extends Win32Struct {
     static sizeof => 232
 
     static packingSize => 8
@@ -23,7 +21,7 @@ class D3DDEVICEDESC7 extends Win32Struct
     /**
      * @type {D3DPRIMCAPS}
      */
-    dpcLineCaps{
+    dpcLineCaps {
         get {
             if(!this.HasProp("__dpcLineCaps"))
                 this.__dpcLineCaps := D3DPRIMCAPS(4, this)
@@ -34,7 +32,7 @@ class D3DDEVICEDESC7 extends Win32Struct
     /**
      * @type {D3DPRIMCAPS}
      */
-    dpcTriCaps{
+    dpcTriCaps {
         get {
             if(!this.HasProp("__dpcTriCaps"))
                 this.__dpcTriCaps := D3DPRIMCAPS(60, this)
@@ -211,7 +209,7 @@ class D3DDEVICEDESC7 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     deviceGUID {
         get => NumGet(this, 200, "ptr")

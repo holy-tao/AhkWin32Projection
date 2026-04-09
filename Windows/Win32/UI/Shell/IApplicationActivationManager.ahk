@@ -13,9 +13,8 @@
  * An <b>IApplicationActivationManager</b> object creates a thread in its host process to serve any activated event arguments objects (<a href="https://docs.microsoft.com/uwp/api/windows.applicationmodel.activation.launchactivatedeventargs">LaunchActivatedEventArgs</a>, <a href="https://docs.microsoft.com/uwp/api/windows.applicationmodel.activation.fileactivatedeventargs">FileActivatedEventArgs</a>, and <a href="https://docs.microsoft.com/uwp/api/windows.applicationmodel.activation.protocolactivatedeventargs">ProtocolActivatedEventArgs</a>) that are passed to the app. If the calling process is long-lived, you can create this object in-proc, based on the assumption that the event arguments will exist long enough for the target app to use them. However, if the calling process is spawned only to launch the target app, it should create the <b>IApplicationActivationManager</b> object out-of-process, by using CLSCTX_LOCAL_SERVER. This causes the object to be created in a Dllhost.exe instance that automatically manages the object's lifetime based on outstanding references to the activated event argument objects.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-iapplicationactivationmanager
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IApplicationActivationManager extends IUnknown{
+class IApplicationActivationManager extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -46,7 +45,7 @@ class IApplicationActivationManager extends IUnknown{
      * Activates the specified Windows Store app for the generic launch contract (Windows.Launch) in the current session.
      * @param {PWSTR} appUserModelId The application user model ID of the Windows Store app.
      * @param {PWSTR} arguments A pointer to an optional, app-specific, argument string.
-     * @param {Integer} options One or more of the following flags used to support design mode, debugging, and testing scenarios.
+     * @param {ACTIVATEOPTIONS} options One or more of the following flags used to support design mode, debugging, and testing scenarios.
      * @returns {Integer} A pointer to a value that, when this method returns successfully, receives the process ID of the app instance that fulfills this contract.
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iapplicationactivationmanager-activateapplication
      */

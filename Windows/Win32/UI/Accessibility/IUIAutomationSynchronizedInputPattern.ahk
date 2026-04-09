@@ -7,9 +7,8 @@
  * Provides access to the keyboard or mouse input of a control.
  * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nn-uiautomationclient-iuiautomationsynchronizedinputpattern
  * @namespace Windows.Win32.UI.Accessibility
- * @version v4.0.30319
  */
-class IUIAutomationSynchronizedInputPattern extends IUnknown{
+class IUIAutomationSynchronizedInputPattern extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -38,7 +37,7 @@ class IUIAutomationSynchronizedInputPattern extends IUnknown{
      * After receiving input of the specified type, the provider stops checking for input and continues as normal.
      * 
      * If the provider is already listening for input, this method returns <b>E_INVALIDOPERATION</b>.
-     * @param {Integer} inputType 
+     * @param {SynchronizedInputType} inputType 
      * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.

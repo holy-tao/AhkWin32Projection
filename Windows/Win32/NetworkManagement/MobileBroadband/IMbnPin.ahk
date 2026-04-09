@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IMbnPinManager.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\IMbnPinManager.ahk
 
 /**
  * Represents the device PIN.
@@ -10,9 +10,8 @@
  * <b>IMbnPin</b> objects are provided by calls to the <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nf-mbnapi-imbnpinmanager-getpin">GetPin</a> and <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nf-mbnapi-imbnpinmanager-getpinlist">GetPinList</a> methods of the <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nn-mbnapi-imbnpinmanager">IMbnPinManager</a> interface.
  * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nn-mbnapi-imbnpin
  * @namespace Windows.Win32.NetworkManagement.MobileBroadband
- * @version v4.0.30319
  */
-class IMbnPin extends IUnknown{
+class IMbnPin extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -34,14 +33,14 @@ class IMbnPin extends IUnknown{
     static VTableNames => ["get_PinType", "get_PinFormat", "get_PinLengthMin", "get_PinLengthMax", "get_PinMode", "Enable", "Disable", "Enter", "Change", "Unblock", "GetPinManager"]
 
     /**
-     * @type {Integer} 
+     * @type {MBN_PIN_TYPE} 
      */
     PinType {
         get => this.get_PinType()
     }
 
     /**
-     * @type {Integer} 
+     * @type {MBN_PIN_FORMAT} 
      */
     PinFormat {
         get => this.get_PinFormat()
@@ -62,7 +61,7 @@ class IMbnPin extends IUnknown{
     }
 
     /**
-     * @type {Integer} 
+     * @type {MBN_PIN_MODE} 
      */
     PinMode {
         get => this.get_PinMode()
@@ -70,7 +69,7 @@ class IMbnPin extends IUnknown{
 
     /**
      * The PIN type.
-     * @returns {Integer} 
+     * @returns {MBN_PIN_TYPE} 
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnpin-get_pintype
      */
     get_PinType() {
@@ -80,7 +79,7 @@ class IMbnPin extends IUnknown{
 
     /**
      * The PIN format.
-     * @returns {Integer} 
+     * @returns {MBN_PIN_FORMAT} 
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnpin-get_pinformat
      */
     get_PinFormat() {
@@ -110,7 +109,7 @@ class IMbnPin extends IUnknown{
 
     /**
      * The PIN mode.
-     * @returns {Integer} 
+     * @returns {MBN_PIN_MODE} 
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnpin-get_pinmode
      */
     get_PinMode() {

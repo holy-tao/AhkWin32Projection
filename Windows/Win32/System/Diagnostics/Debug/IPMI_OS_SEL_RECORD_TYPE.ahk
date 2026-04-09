@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug
- * @version v4.0.30319
  */
-class IPMI_OS_SEL_RECORD_TYPE extends Win32Enum{
+class IPMI_OS_SEL_RECORD_TYPE extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

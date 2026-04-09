@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\PARAMDESCEX.ahk
+#Include .\PARAMFLAGS.ahk
 
 /**
  * Contains information needed for transferring a structure element, parameter, or function return value between processes.
  * @see https://learn.microsoft.com/windows/win32/api/oaidl/ns-oaidl-paramdesc
  * @namespace Windows.Win32.System.Ole
- * @version v4.0.30319
  */
-class PARAMDESC extends Win32Struct
-{
+class PARAMDESC extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
@@ -24,7 +24,7 @@ class PARAMDESC extends Win32Struct
 
     /**
      * The parameter flags. See <a href="https://docs.microsoft.com/previous-versions/windows/desktop/automat/paramflags">PARAMFLAG Constants</a>.
-     * @type {Integer}
+     * @type {PARAMFLAGS}
      */
     wParamFlags {
         get => NumGet(this, 8, "ushort")

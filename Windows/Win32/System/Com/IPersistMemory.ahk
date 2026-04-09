@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.Com
- * @version v4.0.30319
  */
-class IPersistMemory extends IPersist{
+class IPersistMemory extends IPersist {
 
     static sizeof => A_PtrSize
     /**

@@ -1,16 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DODownloadState.ahk
 
 /**
  * Used to obtain the status of a specific download.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/deliveryoptimization/ns-deliveryoptimization-do_download_status
  * @namespace Windows.Win32.Networking.DeliveryOptimization
- * @version v4.0.30319
  */
-class DO_DOWNLOAD_STATUS extends Win32Struct
-{
+class DO_DOWNLOAD_STATUS extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -35,7 +32,7 @@ class DO_DOWNLOAD_STATUS extends Win32Struct
 
     /**
      * The current download state as defined by the **DODownloadState** enumeration.
-     * @type {Integer}
+     * @type {DODownloadState}
      */
     State {
         get => NumGet(this, 16, "int")

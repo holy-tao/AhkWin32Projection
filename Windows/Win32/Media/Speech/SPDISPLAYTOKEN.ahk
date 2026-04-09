@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Media.Speech
- * @version v4.0.30319
  */
-class SPDISPLAYTOKEN extends Win32Struct
-{
+class SPDISPLAYTOKEN extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

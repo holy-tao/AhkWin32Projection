@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\Apis.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\System\Com\Apis.ahk
 
 /**
  * Use this interface to specify client certificates for certificate-based client authentication and custom headers for HTTP requests.
  * @see https://learn.microsoft.com/windows/win32/api/bits2_5/nn-bits2_5-ibackgroundcopyjobhttpoptions
  * @namespace Windows.Win32.Networking.BackgroundIntelligentTransferService
- * @version v4.0.30319
  */
-class IBackgroundCopyJobHttpOptions extends IUnknown{
+class IBackgroundCopyJobHttpOptions extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -43,7 +42,7 @@ class IBackgroundCopyJobHttpOptions extends IUnknown{
      * If you create a certificate for the job or application, you could store the certificate identifier (thumbprint) in the registry or database and use it when a job requires a certificate. You could also enumerate the certificates in the store and let the user choose the certificate. Another alternative is to call the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certfindcertificateinstore">CertFindCertificateInStore</a>  function to retrieve the certificate context based on some criteria. Using the context, call the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certgetcertificatecontextproperty">CertGetCertificateContextProperty</a> function to retrieve the hash (specify CERT_HASH_PROP_ID for <i>dwPropId</i>).
      * 
      * SmartCard thumbprints are not supported.
-     * @param {Integer} StoreLocation Identifies the location of a system store to use for looking up the certificate. For possible values, see the <a href="https://docs.microsoft.com/windows/win32/api/bits2_5/ne-bits2_5-bg_cert_store_location">BG_CERT_STORE_LOCATION</a> enumeration.
+     * @param {BG_CERT_STORE_LOCATION} StoreLocation Identifies the location of a system store to use for looking up the certificate. For possible values, see the <a href="https://docs.microsoft.com/windows/win32/api/bits2_5/ne-bits2_5-bg_cert_store_location">BG_CERT_STORE_LOCATION</a> enumeration.
      * @param {PWSTR} StoreName Null-terminated string that contains the name of the certificate store. The string is limited to 256 characters, including the null terminator. You can specify one of the following system stores or an application-defined store. The store can be a local or remote store.
      * 
      * <table>
@@ -223,7 +222,7 @@ class IBackgroundCopyJobHttpOptions extends IUnknown{
      * The method uses the subject name string to perform a substring search for the certificate. Since subject names are not necessarily unique, this method searches the store for the first certificate that uses the given subject name and is a client authentication certificate. You should provide the complete subject name for a better chance of finding a single match. If the certificate is not correct (not trusted), the job will fail with BG_E_HTTP_ERROR_403 when BITS tries to transfer the file and the job will move to the error state. If you cannot guarantee a unique subject name, consider using the <a href="https://docs.microsoft.com/windows/desktop/api/bits2_5/nf-bits2_5-ibackgroundcopyjobhttpoptions-setclientcertificatebyid">IBackgroundCopyJobHttpOptions::SetClientCertificateByID</a> method instead.
      * 
      * SmartCard certificate identifiers (thumbprints) are not supported.
-     * @param {Integer} StoreLocation Identifies the location of a system store to use for looking up the certificate. For possible values, see the <a href="https://docs.microsoft.com/windows/win32/api/bits2_5/ne-bits2_5-bg_cert_store_location">BG_CERT_STORE_LOCATION</a> enumeration.
+     * @param {BG_CERT_STORE_LOCATION} StoreLocation Identifies the location of a system store to use for looking up the certificate. For possible values, see the <a href="https://docs.microsoft.com/windows/win32/api/bits2_5/ne-bits2_5-bg_cert_store_location">BG_CERT_STORE_LOCATION</a> enumeration.
      * @param {PWSTR} StoreName Null-terminated string that contains the name of the certificate store. The string is limited to 256 characters, including the null terminator. You can specify one of the following system stores or an application-defined store. The store can be a local or remote store. 
      * 
      * <table>
@@ -437,7 +436,7 @@ class IBackgroundCopyJobHttpOptions extends IUnknown{
      * Retrieves the client certificate from the job.
      * @remarks
      * You use the <a href="https://docs.microsoft.com/windows/desktop/api/bits2_5/nf-bits2_5-ibackgroundcopyjobhttpoptions-setclientcertificatebyid">IBackgroundCopyJobHttpOptions::SetClientCertificateByID</a> or <a href="https://docs.microsoft.com/windows/desktop/api/bits2_5/nf-bits2_5-ibackgroundcopyjobhttpoptions-setclientcertificatebyname">IBackgroundCopyJobHttpOptions::SetClientCertificateByName</a> method to specify the certificate.
-     * @param {Pointer<Integer>} pStoreLocation Identifies the location of a system store to use for looking up the certificate. For possible values, see the <a href="https://docs.microsoft.com/windows/win32/api/bits2_5/ne-bits2_5-bg_cert_store_location">BG_CERT_STORE_LOCATION</a> enumeration.
+     * @param {Pointer<BG_CERT_STORE_LOCATION>} pStoreLocation Identifies the location of a system store to use for looking up the certificate. For possible values, see the <a href="https://docs.microsoft.com/windows/win32/api/bits2_5/ne-bits2_5-bg_cert_store_location">BG_CERT_STORE_LOCATION</a> enumeration.
      * @param {Pointer<PWSTR>} pStoreName Null-terminated string that contains the name of the certificate store. To free the string when done, call  the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a> function.
      * @param {Pointer<Pointer<Integer>>} ppCertHashBlob SHA1 hash that identifies the certificate. To free the blob when done, call  the 

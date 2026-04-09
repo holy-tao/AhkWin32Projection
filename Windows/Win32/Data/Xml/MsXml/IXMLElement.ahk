@@ -1,19 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\System\Com\IDispatch.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
-#Include .\IXMLElement.ahk
 #Include ..\..\..\System\Variant\VARIANT.ahk
 #Include .\IXMLElementCollection.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
 
 /**
  * Supports collection of XML elements for indexed access.
  * @see https://learn.microsoft.com/windows/win32/api/msxml/nn-msxml-ixmlelementcollection
  * @namespace Windows.Win32.Data.Xml.MsXml
- * @version v4.0.30319
  */
-class IXMLElement extends IDispatch{
+class IXMLElement extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

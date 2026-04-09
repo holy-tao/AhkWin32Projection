@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
 #Include .\IAppxManifestPackageId.ahk
 #Include .\IAppxManifestQualifiedResourcesEnumerator.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
  * Provides a read-only object model for a &lt;Package&gt; element in a bundle package manifest. (IAppxBundleManifestPackageInfo)
  * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nn-appxpackaging-iappxbundlemanifestpackageinfo
  * @namespace Windows.Win32.Storage.Packaging.Appx
- * @version v4.0.30319
  */
-class IAppxBundleManifestPackageInfo extends IUnknown{
+class IAppxBundleManifestPackageInfo extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -34,7 +33,7 @@ class IAppxBundleManifestPackageInfo extends IUnknown{
 
     /**
      * Retrieves the type of package that is represented by the package info.
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/appxpackaging/ne-appxpackaging-appx_bundle_payload_package_type">APPX_BUNDLE_PAYLOAD_PACKAGE_TYPE</a>*</b>
+     * @returns {APPX_BUNDLE_PAYLOAD_PACKAGE_TYPE} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/appxpackaging/ne-appxpackaging-appx_bundle_payload_package_type">APPX_BUNDLE_PAYLOAD_PACKAGE_TYPE</a>*</b>
      * 
      * The type of package.
      * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxbundlemanifestpackageinfo-getpackagetype
@@ -88,7 +87,9 @@ class IAppxBundleManifestPackageInfo extends IUnknown{
 
     /**
      * Retrieves the size of the package, in bytes.
-     * @returns {Integer} 
+     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT64</a>*</b>
+     * 
+     * The size of the package, in bytes.
      * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxbundlemanifestpackageinfo-getsize
      */
     GetSize() {

@@ -6,10 +6,8 @@
  * Learn more about: JET_HANDLE
  * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jet-handle
  * @namespace Windows.Win32.Storage.StructuredStorage
- * @version v4.0.30319
  */
-class JET_HANDLE extends Win32Handle
-{
+class JET_HANDLE extends Win32Handle {
     static sizeof => 8
 
     static packingSize => 8

@@ -1,16 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include .\ITsSbPlugin.ahk
 
 /**
  * Exposes methods that create and maintain virtual machines.
  * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nn-sbtsv-itssbprovisioning
  * @namespace Windows.Win32.System.RemoteDesktop
- * @version v4.0.30319
  */
-class ITsSbProvisioning extends ITsSbPlugin{
+class ITsSbProvisioning extends ITsSbPlugin {
 
     static sizeof => A_PtrSize
     /**

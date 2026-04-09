@@ -1,20 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DD_FLAGS.ahk
 
 /**
  * The DMA_DES structure is used for specifying either a resource list or a resource requirements list that describes direct memory access (DMA) channel usage for a device instance.
  * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/ns-cfgmgr32-dma_des
  * @namespace Windows.Win32.Devices.DeviceAndDriverInstallation
- * @version v4.0.30319
  */
-class DMA_DES extends Win32Struct
-{
+class DMA_DES extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4
 
     /**
-     * 
      * @type {Integer}
      */
     DD_Count {
@@ -205,7 +203,7 @@ class DMA_DES extends Win32Struct
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
+     * @type {DD_FLAGS}
      */
     DD_Flags {
         get => NumGet(this, 8, "uint")
@@ -213,7 +211,6 @@ class DMA_DES extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     DD_Alloc_Chan {

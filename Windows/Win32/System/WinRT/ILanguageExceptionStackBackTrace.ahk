@@ -9,9 +9,8 @@
  * It is recommended that language projections implement this interface when the stack trace is not captured by the relevant Global Error Handler API.
  * @see https://learn.microsoft.com/windows/win32/api/restrictederrorinfo/nn-restrictederrorinfo-ilanguageexceptionstackbacktrace
  * @namespace Windows.Win32.System.WinRT
- * @version v4.0.30319
  */
-class ILanguageExceptionStackBackTrace extends IUnknown{
+class ILanguageExceptionStackBackTrace extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

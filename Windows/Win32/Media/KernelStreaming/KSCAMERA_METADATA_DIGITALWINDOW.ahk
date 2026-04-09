@@ -5,10 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
- * @version v4.0.30319
  */
-class KSCAMERA_METADATA_DIGITALWINDOW extends Win32Struct
-{
+class KSCAMERA_METADATA_DIGITALWINDOW extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 4
@@ -16,7 +14,7 @@ class KSCAMERA_METADATA_DIGITALWINDOW extends Win32Struct
     /**
      * @type {KSCAMERA_METADATA_ITEMHEADER}
      */
-    Header{
+    Header {
         get {
             if(!this.HasProp("__Header"))
                 this.__Header := KSCAMERA_METADATA_ITEMHEADER(0, this)
@@ -27,7 +25,7 @@ class KSCAMERA_METADATA_DIGITALWINDOW extends Win32Struct
     /**
      * @type {KSCAMERA_EXTENDEDPROP_DIGITALWINDOW_SETTING}
      */
-    Window{
+    Window {
         get {
             if(!this.HasProp("__Window"))
                 this.__Window := KSCAMERA_EXTENDEDPROP_DIGITALWINDOW_SETTING(8, this)

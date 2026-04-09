@@ -9,9 +9,8 @@
  * This interface is new to D3D12, encapsulating much of the functionality of the <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nn-d3d11-id3d11commandlist">ID3D11CommandList</a> interface, and including the new functionality described in <a href="https://docs.microsoft.com/windows/desktop/direct3d12/rendering">Rendering</a>.
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/nn-d3d12-id3d12graphicscommandlist
  * @namespace Windows.Win32.Graphics.Direct3D12
- * @version v4.0.30319
  */
-class ID3D12GraphicsCommandList extends ID3D12CommandList{
+class ID3D12GraphicsCommandList extends ID3D12CommandList {
 
     static sizeof => A_PtrSize
     /**
@@ -378,7 +377,7 @@ class ID3D12GraphicsCommandList extends ID3D12CommandList{
      * @param {Integer} BufferStartOffsetInBytes Type: <b>UINT64</b>
      * 
      * The offset in bytes into the buffer at <i>pBuffer</i> to start the operation.
-     * @param {Integer} Flags Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_tile_copy_flags">D3D12_TILE_COPY_FLAGS</a></b>
+     * @param {D3D12_TILE_COPY_FLAGS} Flags Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_tile_copy_flags">D3D12_TILE_COPY_FLAGS</a></b>
      * 
      * A combination of <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_tile_copy_flags">D3D12_TILE_COPY_FLAGS</a>-typed values that are combined by using a bitwise OR operation and that identifies how to copy tiles.
      * @returns {String} Nothing - always returns an empty string
@@ -436,7 +435,7 @@ class ID3D12GraphicsCommandList extends ID3D12CommandList{
      * @param {Integer} SrcSubresource Type: [in] <b>UINT</b>
      * 
      * The source subresource of the source resource.
-     * @param {Integer} Format Type: [in] <b>DXGI_FORMAT</b>
+     * @param {DXGI_FORMAT} Format Type: [in] <b>DXGI_FORMAT</b>
      * 
      * A <a href="https://docs.microsoft.com/windows/win32/api/dxgiformat/ne-dxgiformat-dxgi_format">DXGI_FORMAT</a> that indicates how the multisampled resource will be resolved to a single-sampled resource. See remarks.
      * @returns {String} Nothing - always returns an empty string
@@ -448,7 +447,7 @@ class ID3D12GraphicsCommandList extends ID3D12CommandList{
 
     /**
      * Bind information about the primitive type, and data order that describes input data for the input assembler stage. (ID3D12GraphicsCommandList.IASetPrimitiveTopology)
-     * @param {Integer} PrimitiveTopology Type: <b>D3D12_PRIMITIVE_TOPOLOGY</b>
+     * @param {D3D_PRIMITIVE_TOPOLOGY} PrimitiveTopology Type: <b>D3D12_PRIMITIVE_TOPOLOGY</b>
      * 
      * The type of primitive and ordering of the primitive data (see <a href="https://docs.microsoft.com/windows/desktop/api/d3dcommon/ne-d3dcommon-d3d_primitive_topology">D3D_PRIMITIVE_TOPOLOGY</a>).
      * @returns {String} Nothing - always returns an empty string
@@ -1057,7 +1056,7 @@ class ID3D12GraphicsCommandList extends ID3D12CommandList{
      * @param {D3D12_CPU_DESCRIPTOR_HANDLE} DepthStencilView Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ns-d3d12-d3d12_cpu_descriptor_handle">D3D12_CPU_DESCRIPTOR_HANDLE</a></b>
      * 
      * Describes the CPU descriptor handle that represents the start of the heap for the depth stencil to be cleared.
-     * @param {Integer} ClearFlags Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_clear_flags">D3D12_CLEAR_FLAGS</a></b>
+     * @param {D3D12_CLEAR_FLAGS} ClearFlags Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_clear_flags">D3D12_CLEAR_FLAGS</a></b>
      * 
      * A combination of <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_clear_flags">D3D12_CLEAR_FLAGS</a> values that are combined by using a bitwise OR operation. The resulting value identifies the type of data to clear (depth buffer, stencil buffer, or both).
      * @param {Float} Depth Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">FLOAT</a></b>
@@ -1218,7 +1217,7 @@ class ID3D12GraphicsCommandList extends ID3D12CommandList{
      * @param {ID3D12QueryHeap} pQueryHeap Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nn-d3d12-id3d12queryheap">ID3D12QueryHeap</a>*</b>
      * 
      * Specifies the <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nn-d3d12-id3d12queryheap">ID3D12QueryHeap</a> containing the query.
-     * @param {Integer} Type Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_query_type">D3D12_QUERY_TYPE</a></b>
+     * @param {D3D12_QUERY_TYPE} Type Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_query_type">D3D12_QUERY_TYPE</a></b>
      * 
      * Specifies one member of <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_query_type">D3D12_QUERY_TYPE</a>.
      * @param {Integer} Index Type: <b>UINT</b>
@@ -1238,7 +1237,7 @@ class ID3D12GraphicsCommandList extends ID3D12CommandList{
      * @param {ID3D12QueryHeap} pQueryHeap Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nn-d3d12-id3d12queryheap">ID3D12QueryHeap</a>*</b>
      * 
      * Specifies the <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nn-d3d12-id3d12queryheap">ID3D12QueryHeap</a> containing the query.
-     * @param {Integer} Type Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_query_type">D3D12_QUERY_TYPE</a></b>
+     * @param {D3D12_QUERY_TYPE} Type Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_query_type">D3D12_QUERY_TYPE</a></b>
      * 
      * Specifies one member of <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_query_type">D3D12_QUERY_TYPE</a>.
      * @param {Integer} Index Type: <b>UINT</b>
@@ -1287,7 +1286,7 @@ class ID3D12GraphicsCommandList extends ID3D12CommandList{
      * @param {ID3D12QueryHeap} pQueryHeap Type: <b><a href="https://docs.microsoft.com/windows/win32/api/d3d12/nn-d3d12-id3d12queryheap">ID3D12QueryHeap</a>*</b>
      * 
      * Specifies the  <a href="https://docs.microsoft.com/windows/win32/api/d3d12/nn-d3d12-id3d12queryheap">ID3D12QueryHeap</a> containing the queries to resolve.
-     * @param {Integer} Type Type: <b><a href="https://docs.microsoft.com/windows/win32/api/d3d12/ne-d3d12-d3d12_query_type">D3D12_QUERY_TYPE</a></b>
+     * @param {D3D12_QUERY_TYPE} Type Type: <b><a href="https://docs.microsoft.com/windows/win32/api/d3d12/ne-d3d12-d3d12_query_type">D3D12_QUERY_TYPE</a></b>
      * 
      * Specifies the type of query, one member of <a href="https://docs.microsoft.com/windows/win32/api/d3d12/ne-d3d12-d3d12_query_type">D3D12_QUERY_TYPE</a>.
      * @param {Integer} StartIndex Type: <b>UINT</b>
@@ -1337,7 +1336,7 @@ class ID3D12GraphicsCommandList extends ID3D12CommandList{
      * @param {Integer} AlignedBufferOffset Type: <b>UINT64</b>
      * 
      * The aligned buffer offset, as a UINT64.
-     * @param {Integer} Operation Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_predication_op">D3D12_PREDICATION_OP</a></b>
+     * @param {D3D12_PREDICATION_OP} Operation Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_predication_op">D3D12_PREDICATION_OP</a></b>
      * 
      * Specifies a <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_predication_op">D3D12_PREDICATION_OP</a>, such as D3D12_PREDICATION_OP_EQUAL_ZERO or D3D12_PREDICATION_OP_NOT_EQUAL_ZERO.
      * @returns {String} Nothing - always returns an empty string
@@ -1356,10 +1355,12 @@ class ID3D12GraphicsCommandList extends ID3D12CommandList{
      * @param {Integer} Metadata Type: <b>UINT</b>
      * 
      * Internal.
-     * @param {Pointer} pData Type: <b>const void*</b>
+     * @param {Integer} pData Type: <b>const void*</b>
      * 
      * Internal.
-     * @param {Integer} _Size 
+     * @param {Integer} _Size Type: <b>UINT</b>
+     * 
+     * Internal.
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist-setmarker
      */
@@ -1376,10 +1377,12 @@ class ID3D12GraphicsCommandList extends ID3D12CommandList{
      * @param {Integer} Metadata Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * Internal.
-     * @param {Pointer} pData Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">void</a>*</b>
+     * @param {Integer} pData Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">void</a>*</b>
      * 
      * Internal.
-     * @param {Integer} _Size 
+     * @param {Integer} _Size Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
+     * 
+     * Internal.
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist-beginevent
      */

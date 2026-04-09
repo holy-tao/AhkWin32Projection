@@ -7,9 +7,8 @@
  * Registers providers with VDS.
  * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nn-vdshwprv-ivdsadmin
  * @namespace Windows.Win32.Storage.VirtualDiskService
- * @version v4.0.30319
  */
-class IVdsAdmin extends IUnknown{
+class IVdsAdmin extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -47,7 +46,7 @@ class IVdsAdmin extends IUnknown{
      * @param {Guid} providerId The GUID of the hardware provider.
      * @param {Guid} providerClsid The COM class identifier (Clsid) of the hardware provider.
      * @param {PWSTR} pwszName The name of the hardware provider as  a zero-terminated, human-readable string.
-     * @param {Integer} type The provider types enumerated by <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ne-vdshwprv-vds_provider_type">VDS_PROVIDER_TYPE</a>. 
+     * @param {VDS_PROVIDER_TYPE} type The provider types enumerated by <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ne-vdshwprv-vds_provider_type">VDS_PROVIDER_TYPE</a>. 
      *      Use the <b>VDS_PT_HARDWARE</b> value to register a hardware provider with VDS.
      * @param {PWSTR} pwszMachineName The name of the computer on which the hardware provider executes; a null-terminated, human-readable string. 
      *      Use <b>NULL</b> to reference the current computer.

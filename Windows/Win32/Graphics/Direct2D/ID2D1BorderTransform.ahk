@@ -7,9 +7,8 @@
  * Extends the input rectangle to infinity using the specified extend modes.
  * @see https://learn.microsoft.com/windows/win32/api/d2d1effectauthor/nn-d2d1effectauthor-id2d1bordertransform
  * @namespace Windows.Win32.Graphics.Direct2D
- * @version v4.0.30319
  */
-class ID2D1BorderTransform extends ID2D1ConcreteTransform{
+class ID2D1BorderTransform extends ID2D1ConcreteTransform {
 
     static sizeof => A_PtrSize
     /**
@@ -34,7 +33,7 @@ class ID2D1BorderTransform extends ID2D1ConcreteTransform{
      * Sets the extend mode in the x direction.
      * @remarks
      * If the extend mode enumeration is invalid, this operation is ignored.
-     * @param {Integer} extendMode Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1/ne-d2d1-d2d1_extend_mode">D2D1_EXTEND_MODE</a></b>
+     * @param {D2D1_EXTEND_MODE} extendMode Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1/ne-d2d1-d2d1_extend_mode">D2D1_EXTEND_MODE</a></b>
      * 
      * The extend mode in the x direction.
      * @returns {String} Nothing - always returns an empty string
@@ -48,7 +47,7 @@ class ID2D1BorderTransform extends ID2D1ConcreteTransform{
      * Sets the extend mode in the y direction.
      * @remarks
      * If the extend mode enumeration is invalid, this operation is ignored.
-     * @param {Integer} extendMode Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1/ne-d2d1-d2d1_extend_mode">D2D1_EXTEND_MODE</a></b>
+     * @param {D2D1_EXTEND_MODE} extendMode Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1/ne-d2d1-d2d1_extend_mode">D2D1_EXTEND_MODE</a></b>
      * 
      * The extend mode in the y direction.
      * @returns {String} Nothing - always returns an empty string
@@ -60,7 +59,7 @@ class ID2D1BorderTransform extends ID2D1ConcreteTransform{
 
     /**
      * Gets the extend mode in the x direction.
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1/ne-d2d1-d2d1_extend_mode">D2D1_EXTEND_MODE</a></b>
+     * @returns {D2D1_EXTEND_MODE} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1/ne-d2d1-d2d1_extend_mode">D2D1_EXTEND_MODE</a></b>
      * 
      * This method returns the extend mode in the x direction.
      * @see https://learn.microsoft.com/windows/win32/api/d2d1effectauthor/nf-d2d1effectauthor-id2d1bordertransform-getextendmodex
@@ -72,7 +71,7 @@ class ID2D1BorderTransform extends ID2D1ConcreteTransform{
 
     /**
      * Gets the extend mode in the y direction.
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1/ne-d2d1-d2d1_extend_mode">D2D1_EXTEND_MODE</a></b>
+     * @returns {D2D1_EXTEND_MODE} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1/ne-d2d1-d2d1_extend_mode">D2D1_EXTEND_MODE</a></b>
      * 
      * This method returns the extend mode in the y direction.
      * @see https://learn.microsoft.com/windows/win32/api/d2d1effectauthor/nf-d2d1effectauthor-id2d1bordertransform-getextendmodey

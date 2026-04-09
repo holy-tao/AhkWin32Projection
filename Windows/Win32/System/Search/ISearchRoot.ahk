@@ -9,9 +9,8 @@
  * For a sample that demonstrates how to define command line options for Crawl Scope Manager (CSM) indexing operations, see the [CrawlScopeCommandLine](https://github.com/microsoft/Windows-classic-samples/tree/master/Samples/Win7Samples/winui/WindowsSearch/CrawlScopeCommandLine) sample.
  * @see https://learn.microsoft.com/windows/win32/api/searchapi/nn-searchapi-isearchroot
  * @namespace Windows.Win32.System.Search
- * @version v4.0.30319
  */
-class ISearchRoot extends IUnknown{
+class ISearchRoot extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -97,7 +96,7 @@ class ISearchRoot extends IUnknown{
     }
 
     /**
-     * @type {Integer} 
+     * @type {AUTH_TYPE} 
      */
     AuthenticationType {
         get => this.get_AuthenticationType()
@@ -397,7 +396,7 @@ class ISearchRoot extends IUnknown{
      * @remarks
      * <b>Windows 7 and later</b>: Check out the <a href="https://docs.microsoft.com/windows/win32/search/-search-sample-crawlscopecommandline">CrawlScopeCommandLine code sample</a> to see how to define command line 
      * options for Crawl Scope Manager (CSM) indexing operations.
-     * @param {Integer} authType Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/searchapi/ne-searchapi-auth_type">AUTH_TYPE</a></b>
+     * @param {AUTH_TYPE} authType Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/searchapi/ne-searchapi-auth_type">AUTH_TYPE</a></b>
      * 
      * A value from the <a href="https://docs.microsoft.com/windows/desktop/api/searchapi/ne-searchapi-auth_type">AUTH_TYPE</a> enumeration that indicates the authentication type.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -415,7 +414,7 @@ class ISearchRoot extends IUnknown{
      * @remarks
      * <b>Windows 7 and later</b>: Check out the <a href="https://docs.microsoft.com/windows/win32/search/-search-sample-crawlscopecommandline">CrawlScopeCommandLine code sample</a> to see how to define command line 
      * options for Crawl Scope Manager (CSM) indexing operations.
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/searchapi/ne-searchapi-auth_type">AUTH_TYPE</a>*</b>
+     * @returns {AUTH_TYPE} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/searchapi/ne-searchapi-auth_type">AUTH_TYPE</a>*</b>
      * 
      * A pointer to a value from the <a href="https://docs.microsoft.com/windows/desktop/api/searchapi/ne-searchapi-auth_type">AUTH_TYPE</a> enumeration that indicates the authentication type required to access URLs under this search root.
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchroot-get_authenticationtype

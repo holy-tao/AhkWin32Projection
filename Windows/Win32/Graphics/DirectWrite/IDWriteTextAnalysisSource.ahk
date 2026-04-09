@@ -10,9 +10,8 @@
  *  an application should stub the method and return a constant/null and S_OK.
  * @see https://learn.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritetextanalysissource
  * @namespace Windows.Win32.Graphics.DirectWrite
- * @version v4.0.30319
  */
-class IDWriteTextAnalysisSource extends IUnknown{
+class IDWriteTextAnalysisSource extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -100,7 +99,7 @@ class IDWriteTextAnalysisSource extends IUnknown{
 
     /**
      * Gets the paragraph reading direction.
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_reading_direction">DWRITE_READING_DIRECTION</a></b>
+     * @returns {DWRITE_READING_DIRECTION} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_reading_direction">DWRITE_READING_DIRECTION</a></b>
      * 
      * The reading direction of the current paragraph.
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextanalysissource-getparagraphreadingdirection

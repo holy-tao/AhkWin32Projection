@@ -5,10 +5,8 @@
  * Reserved for future use. (STORAGE_DEVICE_ATTRIBUTES_DESCRIPTOR)
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-storage_device_attributes_descriptor
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class STORAGE_DEVICE_ATTRIBUTES_DESCRIPTOR extends Win32Struct
-{
+class STORAGE_DEVICE_ATTRIBUTES_DESCRIPTOR extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

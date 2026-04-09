@@ -1,12 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\IMAGE_RUNTIME_FUNCTION_ENTRY.ahk
+#Include .\CONTEXT.ahk
+#Include .\UNWIND_HISTORY_TABLE.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug
- * @version v4.0.30319
+ * @architecture X64
  */
-class DISPATCHER_CONTEXT extends Win32Struct
-{
+class DISPATCHER_CONTEXT extends Win32Struct {
     static sizeof => 80
 
     static packingSize => 8

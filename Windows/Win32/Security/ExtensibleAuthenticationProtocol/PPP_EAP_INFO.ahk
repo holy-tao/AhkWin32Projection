@@ -7,10 +7,8 @@
  * A given EAP DLL may implement more than one authentication protocol. Use the <b>dwEapTypeId</b> member to specify for which protocol to retrieve information.
  * @see https://learn.microsoft.com/windows/win32/api/raseapif/ns-raseapif-ppp_eap_info
  * @namespace Windows.Win32.Security.ExtensibleAuthenticationProtocol
- * @version v4.0.30319
  */
-class PPP_EAP_INFO extends Win32Struct
-{
+class PPP_EAP_INFO extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8

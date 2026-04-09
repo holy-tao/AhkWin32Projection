@@ -1,15 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
 #Include .\FolderItem.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 
 /**
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class FolderItem2 extends FolderItem{
+class FolderItem2 extends FolderItem {
 
     static sizeof => A_PtrSize
     /**

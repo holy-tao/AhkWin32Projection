@@ -1,19 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Win32\Foundation\UNICODE_STRING.ahk
+#Include .\BDCB_CLASSIFICATION.ahk
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class BDCB_IMAGE_INFORMATION extends Win32Struct
-{
-    static sizeof => 104
+class BDCB_IMAGE_INFORMATION extends Win32Struct {
+    static sizeof => 72
 
     static packingSize => 8
 
     /**
-     * @type {Integer}
+     * @type {BDCB_CLASSIFICATION}
      */
     Classification {
         get => NumGet(this, 0, "int")
@@ -29,94 +27,82 @@ class BDCB_IMAGE_INFORMATION extends Win32Struct
     }
 
     /**
-     * @type {UNICODE_STRING}
+     * @type {Pointer}
      */
-    ImageName{
-        get {
-            if(!this.HasProp("__ImageName"))
-                this.__ImageName := UNICODE_STRING(8, this)
-            return this.__ImageName
-        }
+    ImageName {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
-     * @type {UNICODE_STRING}
+     * @type {Pointer}
      */
-    RegistryPath{
-        get {
-            if(!this.HasProp("__RegistryPath"))
-                this.__RegistryPath := UNICODE_STRING(24, this)
-            return this.__RegistryPath
-        }
+    RegistryPath {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
-     * @type {UNICODE_STRING}
+     * @type {Pointer}
      */
-    CertificatePublisher{
-        get {
-            if(!this.HasProp("__CertificatePublisher"))
-                this.__CertificatePublisher := UNICODE_STRING(40, this)
-            return this.__CertificatePublisher
-        }
+    CertificatePublisher {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
-     * @type {UNICODE_STRING}
+     * @type {Pointer}
      */
-    CertificateIssuer{
-        get {
-            if(!this.HasProp("__CertificateIssuer"))
-                this.__CertificateIssuer := UNICODE_STRING(56, this)
-            return this.__CertificateIssuer
-        }
+    CertificateIssuer {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
      * @type {Pointer<Void>}
      */
     ImageHash {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 
     /**
      * @type {Pointer<Void>}
      */
     CertificateThumbprint {
-        get => NumGet(this, 80, "ptr")
-        set => NumPut("ptr", value, this, 80)
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 
     /**
      * @type {Integer}
      */
     ImageHashAlgorithm {
-        get => NumGet(this, 88, "uint")
-        set => NumPut("uint", value, this, 88)
+        get => NumGet(this, 56, "uint")
+        set => NumPut("uint", value, this, 56)
     }
 
     /**
      * @type {Integer}
      */
     ThumbprintHashAlgorithm {
-        get => NumGet(this, 92, "uint")
-        set => NumPut("uint", value, this, 92)
+        get => NumGet(this, 60, "uint")
+        set => NumPut("uint", value, this, 60)
     }
 
     /**
      * @type {Integer}
      */
     ImageHashLength {
-        get => NumGet(this, 96, "uint")
-        set => NumPut("uint", value, this, 96)
+        get => NumGet(this, 64, "uint")
+        set => NumPut("uint", value, this, 64)
     }
 
     /**
      * @type {Integer}
      */
     CertificateThumbprintLength {
-        get => NumGet(this, 100, "uint")
-        set => NumPut("uint", value, this, 100)
+        get => NumGet(this, 68, "uint")
+        set => NumPut("uint", value, this, 68)
     }
 }

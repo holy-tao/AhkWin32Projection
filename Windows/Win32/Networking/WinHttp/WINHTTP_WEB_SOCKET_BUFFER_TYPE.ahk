@@ -5,9 +5,8 @@
  * The WINHTTP_WEB_SOCKET_BUFFER_TYPE enumeration includes types of WebSocket buffers.
  * @see https://learn.microsoft.com/windows/win32/api/winhttp/ne-winhttp-winhttp_web_socket_buffer_type
  * @namespace Windows.Win32.Networking.WinHttp
- * @version v4.0.30319
  */
-class WINHTTP_WEB_SOCKET_BUFFER_TYPE extends Win32Enum{
+class WINHTTP_WEB_SOCKET_BUFFER_TYPE extends Win32Enum {
 
     /**
      * Buffer contains either the entire binary message or the last part of it.

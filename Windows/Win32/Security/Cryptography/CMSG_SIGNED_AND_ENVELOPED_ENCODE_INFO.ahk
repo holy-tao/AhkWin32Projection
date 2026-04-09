@@ -1,17 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\CMSG_SIGNED_ENCODE_INFO.ahk
-#Include .\HCRYPTPROV_LEGACY.ahk
+#Include .\CMSG_SIGNER_ENCODE_INFO.ahk
 #Include .\CRYPT_INTEGER_BLOB.ahk
-#Include .\CRYPT_ALGORITHM_IDENTIFIER.ahk
 #Include .\CMSG_ENVELOPED_ENCODE_INFO.ahk
+#Include .\HCRYPTPROV_LEGACY.ahk
+#Include .\CRYPT_ALGORITHM_IDENTIFIER.ahk
+#Include .\CERT_INFO.ahk
 
 /**
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CMSG_SIGNED_AND_ENVELOPED_ENCODE_INFO extends Win32Struct
-{
+class CMSG_SIGNED_AND_ENVELOPED_ENCODE_INFO extends Win32Struct {
     static sizeof => 120
 
     static packingSize => 8
@@ -27,7 +27,7 @@ class CMSG_SIGNED_AND_ENVELOPED_ENCODE_INFO extends Win32Struct
     /**
      * @type {CMSG_SIGNED_ENCODE_INFO}
      */
-    SignedInfo{
+    SignedInfo {
         get {
             if(!this.HasProp("__SignedInfo"))
                 this.__SignedInfo := CMSG_SIGNED_ENCODE_INFO(8, this)
@@ -38,7 +38,7 @@ class CMSG_SIGNED_AND_ENVELOPED_ENCODE_INFO extends Win32Struct
     /**
      * @type {CMSG_ENVELOPED_ENCODE_INFO}
      */
-    EnvelopedInfo{
+    EnvelopedInfo {
         get {
             if(!this.HasProp("__EnvelopedInfo"))
                 this.__EnvelopedInfo := CMSG_ENVELOPED_ENCODE_INFO(56, this)

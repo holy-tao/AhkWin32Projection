@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
- * @version v4.0.30319
  */
-class EXTPUSH extends Win32Struct
-{
+class EXTPUSH extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 8
@@ -71,7 +69,7 @@ class EXTPUSH extends Win32Struct
     /**
      * @type {HANDLE}
      */
-    hDlgTemplate{
+    hDlgTemplate {
         get {
             if(!this.HasProp("__hDlgTemplate"))
                 this.__hDlgTemplate := HANDLE(32, this)
@@ -80,9 +78,9 @@ class EXTPUSH extends Win32Struct
     }
 
     /**
-     * @type {Array<UIntPtr>}
+     * @type {Array<Pointer>}
      */
-    dwReserved{
+    dwReserved {
         get {
             if(!this.HasProp("__dwReservedProxyArray"))
                 this.__dwReservedProxyArray := Win32FixedArray(this.ptr + 40, 3, Primitive, "ptr")

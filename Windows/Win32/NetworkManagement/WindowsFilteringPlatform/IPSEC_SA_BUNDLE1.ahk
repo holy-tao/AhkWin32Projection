@@ -1,22 +1,25 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\IPSEC_SA_BUNDLE_FLAGS.ahk
 #Include .\IPSEC_SA_LIFETIME0.ahk
+#Include .\IPSEC_ID0.ahk
+#Include .\IPSEC_SA0.ahk
+#Include .\IPSEC_KEYMODULE_STATE0.ahk
+#Include .\FWP_IP_VERSION.ahk
+#Include .\IPSEC_PFS_GROUP.ahk
 
 /**
  * Is used to store information about an IPsec security association (SA) bundle. (IPSEC_SA_BUNDLE1)
  * @see https://learn.microsoft.com/windows/win32/api/ipsectypes/ns-ipsectypes-ipsec_sa_bundle1
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
- * @version v4.0.30319
  */
-class IPSEC_SA_BUNDLE1 extends Win32Struct
-{
+class IPSEC_SA_BUNDLE1 extends Win32Struct {
     static sizeof => 104
 
     static packingSize => 8
 
     /**
-     * 
-     * @type {Integer}
+     * @type {IPSEC_SA_BUNDLE_FLAGS}
      */
     flags {
         get => NumGet(this, 0, "uint")
@@ -27,7 +30,7 @@ class IPSEC_SA_BUNDLE1 extends Win32Struct
      * Lifetime of all the SAs in the bundle as specified by [IPSEC_SA_LIFETIME0](/windows/desktop/api/ipsectypes/ns-ipsectypes-ipsec_sa_lifetime0).
      * @type {IPSEC_SA_LIFETIME0}
      */
-    lifetime{
+    lifetime {
         get {
             if(!this.HasProp("__lifetime"))
                 this.__lifetime := IPSEC_SA_LIFETIME0(4, this)
@@ -116,7 +119,7 @@ class IPSEC_SA_BUNDLE1 extends Win32Struct
 
     /**
      * IP version as specified by [FWP_IP_VERSION](/windows/desktop/api/fwptypes/ne-fwptypes-fwp_ip_version).
-     * @type {Integer}
+     * @type {FWP_IP_VERSION}
      */
     ipVersion {
         get => NumGet(this, 64, "int")
@@ -146,7 +149,7 @@ class IPSEC_SA_BUNDLE1 extends Win32Struct
      *    PFS.
      * 
      * See [IPSEC_PFS_GROUP](/windows/desktop/api/ipsectypes/ne-ipsectypes-ipsec_pfs_group) for more information.
-     * @type {Integer}
+     * @type {IPSEC_PFS_GROUP}
      */
     pfsGroup {
         get => NumGet(this, 80, "int")
@@ -155,7 +158,7 @@ class IPSEC_SA_BUNDLE1 extends Win32Struct
 
     /**
      * SA lookup context which is propagated from the SA to data connections flowing over that SA. It is made available to any application that queries socket security properties using the Winsock API <a href="https://docs.microsoft.com/windows/desktop/api/ws2tcpip/nf-ws2tcpip-wsaquerysocketsecurity">WSAQuerySocketSecurity</a> function, allowing the application to obtain detailed IPsec authentication information for its connection.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     saLookupContext {
         get => NumGet(this, 88, "ptr")
@@ -163,7 +166,6 @@ class IPSEC_SA_BUNDLE1 extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     qmFilterId {

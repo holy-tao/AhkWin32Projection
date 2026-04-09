@@ -4,18 +4,16 @@
 
 /**
  * @namespace Windows.Win32.Devices.Display
- * @version v4.0.30319
  */
-class COLORSPACE_TRANSFORM_3x4 extends Win32Struct
-{
-    static sizeof => 32824
+class COLORSPACE_TRANSFORM_3x4 extends Win32Struct {
+    static sizeof => 49204
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
-     * @type {Array<Single>}
+     * @type {Array<Float>}
      */
-    ColorMatrix3x4{
+    ColorMatrix3x4 {
         get {
             if(!this.HasProp("__ColorMatrix3x4ProxyArray"))
                 this.__ColorMatrix3x4ProxyArray := Win32FixedArray(this.ptr + 0, 12, Primitive, "float")
@@ -32,12 +30,12 @@ class COLORSPACE_TRANSFORM_3x4 extends Win32Struct
     }
 
     /**
-     * @type {Array<GAMMA_RAMP_RGB>}
+     * @type {GAMMA_RAMP_RGB}
      */
-    LookupTable1D{
+    LookupTable1D {
         get {
             if(!this.HasProp("__LookupTable1DProxyArray"))
-                this.__LookupTable1DProxyArray := Win32FixedArray(this.ptr + 56, 4096, GAMMA_RAMP_RGB, "")
+                this.__LookupTable1DProxyArray := Win32FixedArray(this.ptr + 52, 4096, GAMMA_RAMP_RGB, "")
             return this.__LookupTable1DProxyArray
         }
     }

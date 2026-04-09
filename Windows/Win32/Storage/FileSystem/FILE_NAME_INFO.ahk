@@ -9,10 +9,8 @@
  * field will contain the required length of the <b>FileName</b> in bytes.
  * @see https://learn.microsoft.com/windows/win32/api/winbase/ns-winbase-file_name_info
  * @namespace Windows.Win32.Storage.FileSystem
- * @version v4.0.30319
  */
-class FILE_NAME_INFO extends Win32Struct
-{
+class FILE_NAME_INFO extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4

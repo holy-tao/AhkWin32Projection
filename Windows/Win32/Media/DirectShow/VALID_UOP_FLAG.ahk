@@ -5,9 +5,8 @@
  * Indicates which user operation (UOP) commands are currently allowed by the DVD.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/ne-strmif-valid_uop_flag
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class VALID_UOP_FLAG extends Win32Enum{
+class VALID_UOP_FLAG extends Win32Enum {
 
     /**
      * Annex J commands: Time_Play, TimeSearch.

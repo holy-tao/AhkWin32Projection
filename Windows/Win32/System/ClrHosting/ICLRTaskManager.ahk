@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ICLRTask.ahk
 #Include ..\Com\IUnknown.ahk
+#Include .\ICLRTask.ahk
 
 /**
  * @namespace Windows.Win32.System.ClrHosting
- * @version v4.0.30319
  */
-class ICLRTaskManager extends IUnknown{
+class ICLRTaskManager extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -92,7 +91,7 @@ class ICLRTaskManager extends IUnknown{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {ETaskType} 
      */
     GetCurrentTaskType() {
         result := ComCall(7, this, "int*", &pTaskType := 0, "HRESULT")

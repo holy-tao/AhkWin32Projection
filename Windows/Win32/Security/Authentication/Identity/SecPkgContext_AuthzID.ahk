@@ -3,14 +3,10 @@
 
 /**
  * Contains information about the AuthzID of the security context.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/sspi/ns-sspi-secpkgcontext_authzid
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class SecPkgContext_AuthzID extends Win32Struct
-{
+class SecPkgContext_AuthzID extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

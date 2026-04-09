@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class SCM_PD_REINITIALIZE_MEDIA_INPUT extends Win32Struct
-{
+class SCM_PD_REINITIALIZE_MEDIA_INPUT extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4
@@ -24,7 +22,7 @@ class SCM_PD_REINITIALIZE_MEDIA_INPUT extends Win32Struct
             get => NumGet(this, 0, "uint")
             set => NumPut("uint", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -32,7 +30,6 @@ class SCM_PD_REINITIALIZE_MEDIA_INPUT extends Win32Struct
             get => (this._bitfield >> 0) & 0x1
             set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
         }
-    
     }
 
     /**
@@ -54,10 +51,10 @@ class SCM_PD_REINITIALIZE_MEDIA_INPUT extends Win32Struct
     /**
      * @type {_Options}
      */
-    Options{
+    Options {
         get {
             if(!this.HasProp("__Options"))
-                this.__Options := %this.__Class%._Options(8, this)
+                this.__Options := SCM_PD_REINITIALIZE_MEDIA_INPUT._Options(8, this)
             return this.__Options
         }
     }

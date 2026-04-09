@@ -5,9 +5,8 @@
  * Specifies the threading mode used while simultaneously creating the device, factory, and device context.
  * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/ne-d2d1_1-d2d1_threading_mode
  * @namespace Windows.Win32.Graphics.Direct2D
- * @version v4.0.30319
  */
-class D2D1_THREADING_MODE extends Win32Enum{
+class D2D1_THREADING_MODE extends Win32Enum {
 
     /**
      * Resources may only be invoked serially.  Device context state is not protected from multi-threaded access.

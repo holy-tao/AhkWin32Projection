@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.WinRT.Metadata
- * @version v4.0.30319
  */
-class CorArgType extends Win32Enum{
+class CorArgType extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

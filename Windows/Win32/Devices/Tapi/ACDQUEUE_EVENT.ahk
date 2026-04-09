@@ -5,9 +5,8 @@
  * The ACDQUEUE_EVENT enumeration (tapi3cc.h) describes ACD queue events.
  * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/ne-tapi3cc-acdqueue_event
  * @namespace Windows.Win32.Devices.Tapi
- * @version v4.0.30319
  */
-class ACDQUEUE_EVENT extends Win32Enum{
+class ACDQUEUE_EVENT extends Win32Enum {
 
     /**
      * A new ACD queue has been added.

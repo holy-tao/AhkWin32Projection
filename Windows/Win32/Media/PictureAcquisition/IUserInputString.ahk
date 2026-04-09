@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * The IUserInputString interface represents the object created when asking the user for a string�for example, when obtaining the name of a tag.
  * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nn-photoacquire-iuserinputstring
  * @namespace Windows.Win32.Media.PictureAcquisition
- * @version v4.0.30319
  */
-class IUserInputString extends IUnknown{
+class IUserInputString extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -66,7 +65,7 @@ class IUserInputString extends IUnknown{
 
     /**
      * The GetStringType method retrieves a value indicating the type of string to obtain from the user.
-     * @returns {Integer} Pointer to an integer value containing the string type.
+     * @returns {USER_INPUT_STRING_TYPE} Pointer to an integer value containing the string type.
      * 
      * <table>
      * <tr>

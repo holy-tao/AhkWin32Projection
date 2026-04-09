@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw
- * @version v4.0.30319
  */
-class DDVIDEOPORTSTATUS extends Win32Struct
-{
+class DDVIDEOPORTSTATUS extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 8
@@ -47,7 +45,7 @@ class DDVIDEOPORTSTATUS extends Win32Struct
     /**
      * @type {DDVIDEOPORTCONNECT}
      */
-    VideoPortType{
+    VideoPortType {
         get {
             if(!this.HasProp("__VideoPortType"))
                 this.__VideoPortType := DDVIDEOPORTCONNECT(16, this)

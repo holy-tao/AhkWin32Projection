@@ -6,10 +6,8 @@
  * Learn more about: JET_OSSNAPID
  * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jet-ossnapid
  * @namespace Windows.Win32.Storage.Jet
- * @version v4.0.30319
  */
-class JET_OSSNAPID extends Win32Handle
-{
+class JET_OSSNAPID extends Win32Handle {
     static sizeof => 8
 
     static packingSize => 8

@@ -5,10 +5,8 @@
  * The SDP_STRING_TYPE_DATA structure stores information about SDP string types.
  * @see https://learn.microsoft.com/windows/win32/api/bluetoothapis/ns-bluetoothapis-sdp_string_type_data
  * @namespace Windows.Win32.Devices.Bluetooth
- * @version v4.0.30319
  */
-class SDP_STRING_TYPE_DATA extends Win32Struct
-{
+class SDP_STRING_TYPE_DATA extends Win32Struct {
     static sizeof => 6
 
     static packingSize => 2

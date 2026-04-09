@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Rpc
- * @version v4.0.30319
  */
-class PROXY_PHASE extends Win32Enum{
+class PROXY_PHASE extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

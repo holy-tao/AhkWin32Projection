@@ -3,11 +3,9 @@
 
 /**
  * @namespace Windows.Win32.Networking.WinSock
- * @version v4.0.30319
  * @charset Unicode
  */
-class NS_INFOW extends Win32Struct
-{
+class NS_INFOW extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\DML_TENSOR_DESC.ahk
 
 /**
  * Computes the Lp-normalized value across the elements within the sliding window over the input tensor.
  * @see https://learn.microsoft.com/windows/win32/api/directml/ns-directml-dml_lp_pooling_operator_desc
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
- * @version v4.0.30319
  */
-class DML_LP_POOLING_OPERATOR_DESC extends Win32Struct
-{
+class DML_LP_POOLING_OPERATOR_DESC extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 8

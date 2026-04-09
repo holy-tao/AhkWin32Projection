@@ -7,9 +7,8 @@
  * IMAPIControlIUnknown enables and disables a button control, and performs tasks when a user of a client application clicks the enabled control.
  * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/imapicontroliunknown
  * @namespace Windows.Win32.System.AddressBook
- * @version v4.0.30319
  */
-class IMAPIControl extends IUnknown{
+class IMAPIControl extends IUnknown {
 
     static sizeof => A_PtrSize
 
@@ -29,7 +28,7 @@ class IMAPIControl extends IUnknown{
      * 
      * @remarks
      * Service providers implement the **IMAPIControl::GetLastError** method to supply information about a prior method call that failed. MAPI can give users detailed information about the error by displaying the data from the **MAPIERROR** structure in a message or dialog box.
-     * @param {HRESULT} _hResult 
+     * @param {HRESULT} _hResult > [in] A handle to the error value generated in the previous method call.
      * @param {Integer} ulFlags > [in] A bitmask of flags that controls the type of the strings returned. The following flag can be set:
      *     
      * MAPI_UNICODE 

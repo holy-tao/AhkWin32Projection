@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Media.Multimedia
- * @version v4.0.30319
  */
-class s_RIFFWAVE_inst extends Win32Struct
-{
+class s_RIFFWAVE_inst extends Win32Struct {
     static sizeof => 7
 
     static packingSize => 1

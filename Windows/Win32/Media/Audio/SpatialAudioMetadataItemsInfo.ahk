@@ -5,10 +5,8 @@
  * Provides information about an ISpatialAudioMetadataItems object. Get a copy of this structure by calling GetInfo.
  * @see https://learn.microsoft.com/windows/win32/api/spatialaudiometadata/ns-spatialaudiometadata-spatialaudiometadataitemsinfo
  * @namespace Windows.Win32.Media.Audio
- * @version v4.0.30319
  */
-class SpatialAudioMetadataItemsInfo extends Win32Struct
-{
+class SpatialAudioMetadataItemsInfo extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4
@@ -32,7 +30,6 @@ class SpatialAudioMetadataItemsInfo extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     MaxItemCount {
@@ -41,7 +38,6 @@ class SpatialAudioMetadataItemsInfo extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     MaxValueBufferLength {

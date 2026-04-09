@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * Used to configure FSRM.
@@ -10,9 +10,8 @@
  * To create this object from a script, use the program identifier, "Fsrm.FsrmSetting".
  * @see https://learn.microsoft.com/windows/win32/api/fsrm/nn-fsrm-ifsrmsetting
  * @namespace Windows.Win32.Storage.FileServerResourceManager
- * @version v4.0.30319
  */
-class IFsrmSetting extends IDispatch{
+class IFsrmSetting extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -269,7 +268,7 @@ class IFsrmSetting extends IDispatch{
      * Applies to actions that have the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrm/nf-fsrm-ifsrmaction-get_runlimitinterval">IFsrmAction::RunLimitInterval</a> property set to –1.
      * 
      * This property specifies the interval that should occur before the action is run again if the global run limit interval is used. For example, if the interval has expired since the action last ran, the server will run the action again in response to an event; otherwise, the server cannot run the action again.
-     * @param {Integer} actionType The action type to limit. For possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/fsrmenums/ne-fsrmenums-fsrmactiontype">FsrmActionType</a> enumeration.
+     * @param {FsrmActionType} actionType The action type to limit. For possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/fsrmenums/ne-fsrmenums-fsrmactiontype">FsrmActionType</a> enumeration.
      * @param {Integer} delayTimeMinutes The run limit interval, in minutes, to use for the action. The default is 60 minutes.
      * @returns {HRESULT} The method returns the following return values.
      * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmsetting-setactionrunlimitinterval
@@ -281,7 +280,7 @@ class IFsrmSetting extends IDispatch{
 
     /**
      * Gets the time that an action that uses the global run limit interval must wait before the action is run again.
-     * @param {Integer} actionType The action type to limit. For possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/fsrmenums/ne-fsrmenums-fsrmactiontype">FsrmActionType</a> enumeration.
+     * @param {FsrmActionType} actionType The action type to limit. For possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/fsrmenums/ne-fsrmenums-fsrmactiontype">FsrmActionType</a> enumeration.
      * @returns {Integer} The run limit interval, in minutes, that is used for the action.
      * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmsetting-getactionrunlimitinterval
      */

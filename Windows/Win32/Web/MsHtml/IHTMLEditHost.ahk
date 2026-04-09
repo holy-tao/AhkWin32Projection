@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
- * @version v4.0.30319
  */
-class IHTMLEditHost extends IUnknown{
+class IHTMLEditHost extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -32,7 +31,7 @@ class IHTMLEditHost extends IUnknown{
      * 
      * @param {IHTMLElement} pIElement 
      * @param {Pointer<RECT>} prcNew 
-     * @param {Integer} eHandle 
+     * @param {ELEMENT_CORNER} eHandle 
      * @returns {HRESULT} 
      */
     SnapRect(pIElement, prcNew, eHandle) {

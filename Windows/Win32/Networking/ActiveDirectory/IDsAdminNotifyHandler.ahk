@@ -7,9 +7,8 @@
  * The IDsAdminNotifyHandler interface is implemented by an Active Directory administrative notification handler.
  * @see https://learn.microsoft.com/windows/win32/api/dsadmin/nn-dsadmin-idsadminnotifyhandler
  * @namespace Windows.Win32.Networking.ActiveDirectory
- * @version v4.0.30319
  */
-class IDsAdminNotifyHandler extends IUnknown{
+class IDsAdminNotifyHandler extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

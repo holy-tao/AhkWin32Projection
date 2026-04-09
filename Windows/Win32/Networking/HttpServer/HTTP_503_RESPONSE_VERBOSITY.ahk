@@ -14,9 +14,8 @@
  * <div> </div>
  * @see https://learn.microsoft.com/windows/win32/api/http/ne-http-http_503_response_verbosity
  * @namespace Windows.Win32.Networking.HttpServer
- * @version v4.0.30319
  */
-class HTTP_503_RESPONSE_VERBOSITY extends Win32Enum{
+class HTTP_503_RESPONSE_VERBOSITY extends Win32Enum {
 
     /**
      * A 503 response is not sent; the connection is reset.

@@ -5,9 +5,8 @@
  * Describes the possible access denied remediation (ADR) client error types.
  * @see https://learn.microsoft.com/windows/win32/api/fsrmenums/ne-fsrmenums-adrclienterrortype
  * @namespace Windows.Win32.Storage.FileServerResourceManager
- * @version v4.0.30319
  */
-class AdrClientErrorType extends Win32Enum{
+class AdrClientErrorType extends Win32Enum {
 
     /**
      * The ADR client error type is unknown.
@@ -22,7 +21,6 @@ class AdrClientErrorType extends Win32Enum{
     static AdrClientErrorType_AccessDenied => 1
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static AdrClientErrorType_FileNotFound => 2

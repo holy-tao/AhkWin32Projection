@@ -6,13 +6,11 @@
  * Contains a list of wireless profile information.
  * @see https://learn.microsoft.com/windows/win32/api/wlanapi/ns-wlanapi-wlan_profile_info_list
  * @namespace Windows.Win32.NetworkManagement.WiFi
- * @version v4.0.30319
  */
-class WLAN_PROFILE_INFO_LIST extends Win32Struct
-{
-    static sizeof => 16
+class WLAN_PROFILE_INFO_LIST extends Win32Struct {
+    static sizeof => 524
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * The number of wireless profile entries in the <b>ProfileInfo</b> member.
@@ -38,9 +36,9 @@ class WLAN_PROFILE_INFO_LIST extends Win32Struct
 
     /**
      * An array of <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/ns-wlanapi-wlan_profile_info">WLAN_PROFILE_INFO</a> structures containing interface information. The number of items in the array is specified in the <b>dwNumberOfItems</b> member.
-     * @type {Array<WLAN_PROFILE_INFO>}
+     * @type {WLAN_PROFILE_INFO}
      */
-    ProfileInfo{
+    ProfileInfo {
         get {
             if(!this.HasProp("__ProfileInfoProxyArray"))
                 this.__ProfileInfoProxyArray := Win32FixedArray(this.ptr + 8, 1, WLAN_PROFILE_INFO, "")

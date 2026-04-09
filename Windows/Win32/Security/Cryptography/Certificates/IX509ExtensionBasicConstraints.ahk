@@ -1,16 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
 #Include .\IX509Extension.ahk
 
 /**
  * Enables you to specify whether the certificate subject is a certification authority and, if so, the depth of the subordinate certification authority chain that can exist beneath the certification authority for which this extension ID is defined.
  * @see https://learn.microsoft.com/windows/win32/api/certenroll/nn-certenroll-ix509extensionbasicconstraints
  * @namespace Windows.Win32.Security.Cryptography.Certificates
- * @version v4.0.30319
  */
-class IX509ExtensionBasicConstraints extends IX509Extension{
+class IX509ExtensionBasicConstraints extends IX509Extension {
 
     static sizeof => A_PtrSize
     /**
@@ -102,7 +100,7 @@ class IX509ExtensionBasicConstraints extends IX509Extension{
      * <li>The <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509extensionbasicconstraints-get_isca">IsCA</a> property identifies whether the certificate subject can be a certification authority.</li>
      * <li>The <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509extensionbasicconstraints-get_pathlenconstraint">PathLenConstraint</a> property identifies the depth of the subordinate certification authority chain.</li>
      * </ul>
-     * @param {Integer} Encoding An <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/ne-certenroll-encodingtype">EncodingType</a> enumeration value that specifies the type of Unicode encoding applied to  the <i>strEncodedData</i> value.
+     * @param {EncodingType} Encoding An <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/ne-certenroll-encodingtype">EncodingType</a> enumeration value that specifies the type of Unicode encoding applied to  the <i>strEncodedData</i> value.
      * @param {BSTR} strEncodedData A <b>BSTR</b> variable that contains the DER-encoded extension.
      * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>.
      * 

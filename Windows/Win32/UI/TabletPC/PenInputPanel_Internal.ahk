@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.UI.TabletPC
- * @version v4.0.30319
  */
-class PenInputPanel_Internal extends Win32Struct
-{
+class PenInputPanel_Internal extends Win32Struct {
     static sizeof => 0
 
     static packingSize => 1

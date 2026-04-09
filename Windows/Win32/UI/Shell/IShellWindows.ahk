@@ -32,9 +32,8 @@
  * ```
  * @see https://learn.microsoft.com/windows/win32/api/exdisp/nn-exdisp-ishellwindows
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IShellWindows extends IDispatch{
+class IShellWindows extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -85,7 +84,9 @@ class IShellWindows extends IDispatch{
      * @param {VARIANT} index Type: <b>VARIANT</b>
      * 
      * A <a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-variant">VARIANT</a> of type VT_UI4, VT_I2, or VT_I4. If the type is VT_UI4, the value of <i>index</i> is interpreted as a member of <a href="https://docs.microsoft.com/windows/desktop/api/exdisp/ne-exdisp-shellwindowtypeconstants">ShellWindowTypeConstants</a>; in this case, <b>Item</b> returns the window that is closest to the foreground window and has a matching type. If the type is VT_I, or VT_I4, <i>index</i> is treated as an index into the Shell windows collection.
-     * @returns {IDispatch} 
+     * @returns {IDispatch} Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nn-oaidl-idispatch">IDispatch</a>**</b>
+     * 
+     * A reference to the window's <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nn-oaidl-idispatch">IDispatch</a> interface, or <b>NULL</b> if the specified window was not found.
      * @see https://learn.microsoft.com/windows/win32/api/exdisp/nf-exdisp-ishellwindows-item
      */
     Item(index) {
@@ -114,8 +115,10 @@ class IShellWindows extends IDispatch{
      * @param {IDispatch} pid Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nn-oaidl-idispatch">IDispatch</a>*</b>
      * 
      * The window's <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nn-oaidl-idispatch">IDispatch</a> interface.
-     * @param {Integer} _hwnd 
-     * @param {Integer} swClass Type: <b>int</b>
+     * @param {Integer} _hwnd Type: <b>long</b>
+     * 
+     * A handle that specifies the window to register.
+     * @param {ShellWindowTypeConstants} swClass Type: <b>int</b>
      * 
      * A member of <a href="https://docs.microsoft.com/windows/desktop/api/exdisp/ne-exdisp-shellwindowtypeconstants">ShellWindowTypeConstants</a> that specifies the type of window.
      * @returns {Integer} Type: <b>long*</b>
@@ -141,7 +144,7 @@ class IShellWindows extends IDispatch{
      * @param {Pointer<VARIANT>} pvarlocRoot Type: <b>VARIANT*</b>
      * 
      * Must be <b>NULL</b> or of type VT_EMPTY.
-     * @param {Integer} swClass Type: <b>int</b>
+     * @param {ShellWindowTypeConstants} swClass Type: <b>int</b>
      * 
      * A member of <a href="https://docs.microsoft.com/windows/desktop/api/exdisp/ne-exdisp-shellwindowtypeconstants">ShellWindowTypeConstants</a> that specifies the type of window.
      * @returns {Integer} Type: <b>long*</b>
@@ -223,13 +226,13 @@ class IShellWindows extends IDispatch{
      * @param {Pointer<VARIANT>} pvarLocRoot Type: <b>VARIANT*</b>
      * 
      * Must be <b>NULL</b> or of type VT_EMPTY.
-     * @param {Integer} swClass Type: <b>int</b>
+     * @param {ShellWindowTypeConstants} swClass Type: <b>int</b>
      * 
      * One or more <a href="https://docs.microsoft.com/windows/desktop/api/exdisp/ne-exdisp-shellwindowtypeconstants">ShellWindowTypeConstants</a> flags that specify window types to include in the search.
      * @param {Pointer<Integer>} phwnd Type: <b>long*</b>
      * 
      * A handle for the window matching the specified search criteria, or <b>NULL</b> if no such window was found.
-     * @param {Integer} swfwOptions Type: <b>int</b>
+     * @param {ShellWindowFindWindowOptions} swfwOptions Type: <b>int</b>
      * 
      * One or more <a href="https://docs.microsoft.com/windows/desktop/api/exdisp/ne-exdisp-shellwindowfindwindowoptions">ShellWindowFindWindowOptions</a> flags that specify search options.
      * @returns {IDispatch} Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nn-oaidl-idispatch">IDispatch</a>**</b>

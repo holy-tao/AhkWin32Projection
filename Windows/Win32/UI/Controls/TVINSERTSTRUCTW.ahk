@@ -1,8 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HWND.ahk
 #Include .\TVITEMEXW.ahk
+#Include .\TVITEM_MASK.ahk
+#Include .\TVITEMEXW_CHILDREN.ahk
+#Include ..\..\Foundation\HWND.ahk
 #Include .\TVITEMW.ahk
+#Include .\TREE_VIEW_ITEM_STATE_FLAGS.ahk
 
 /**
  * Contains information used to add a new item to a tree-view control. This structure is used with the TVM_INSERTITEM message. The structure is identical to the TV_INSERTSTRUCT structure, but it has been renamed to follow current naming conventions. (Unicode)
@@ -18,11 +21,9 @@
  * > The commctrl.h header defines TVINSERTSTRUCT as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
  * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-tvinsertstructw
  * @namespace Windows.Win32.UI.Controls
- * @version v4.0.30319
  * @charset Unicode
  */
-class TVINSERTSTRUCTW extends Win32Struct
-{
+class TVINSERTSTRUCTW extends Win32Struct {
     static sizeof => 96
 
     static packingSize => 8
@@ -50,7 +51,7 @@ class TVINSERTSTRUCTW extends Win32Struct
     /**
      * @type {TVITEMEXW}
      */
-    itemex{
+    itemex {
         get {
             if(!this.HasProp("__itemex"))
                 this.__itemex := TVITEMEXW(16, this)
@@ -61,7 +62,7 @@ class TVINSERTSTRUCTW extends Win32Struct
     /**
      * @type {TVITEMW}
      */
-    item{
+    item {
         get {
             if(!this.HasProp("__item"))
                 this.__item := TVITEMW(16, this)

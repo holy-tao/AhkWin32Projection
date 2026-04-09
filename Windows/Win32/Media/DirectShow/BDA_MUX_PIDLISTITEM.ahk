@@ -1,12 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\MUX_PID_TYPE.ahk
 
 /**
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class BDA_MUX_PIDLISTITEM extends Win32Struct
-{
+class BDA_MUX_PIDLISTITEM extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4
@@ -28,7 +27,7 @@ class BDA_MUX_PIDLISTITEM extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {MUX_PID_TYPE}
      */
     ePIDType {
         get => NumGet(this, 4, "int")

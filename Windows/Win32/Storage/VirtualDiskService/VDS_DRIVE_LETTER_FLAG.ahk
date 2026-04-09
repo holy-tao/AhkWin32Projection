@@ -10,9 +10,8 @@
  * <div> </div>
  * @see https://learn.microsoft.com/windows/win32/api/vds/ne-vds-vds_drive_letter_flag
  * @namespace Windows.Win32.Storage.VirtualDiskService
- * @version v4.0.30319
  */
-class VDS_DRIVE_LETTER_FLAG extends Win32Enum{
+class VDS_DRIVE_LETTER_FLAG extends Win32Enum {
 
     /**
      * If set, the drive letter disappears after the computer reboots.

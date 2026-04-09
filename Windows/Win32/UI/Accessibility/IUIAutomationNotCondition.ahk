@@ -7,9 +7,8 @@
  * Represents a condition that is the negative of another condition.
  * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nn-uiautomationclient-iuiautomationnotcondition
  * @namespace Windows.Win32.UI.Accessibility
- * @version v4.0.30319
  */
-class IUIAutomationNotCondition extends IUIAutomationCondition{
+class IUIAutomationNotCondition extends IUIAutomationCondition {
 
     static sizeof => A_PtrSize
     /**

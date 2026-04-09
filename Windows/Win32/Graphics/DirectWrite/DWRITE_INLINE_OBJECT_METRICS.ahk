@@ -5,10 +5,8 @@
  * Contains properties describing the geometric measurement of an application-defined inline object.
  * @see https://learn.microsoft.com/windows/win32/api/dwrite/ns-dwrite-dwrite_inline_object_metrics
  * @namespace Windows.Win32.Graphics.DirectWrite
- * @version v4.0.30319
  */
-class DWRITE_INLINE_OBJECT_METRICS extends Win32Struct
-{
+class DWRITE_INLINE_OBJECT_METRICS extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4

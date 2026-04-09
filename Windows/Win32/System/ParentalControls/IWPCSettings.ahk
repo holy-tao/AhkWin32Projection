@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\SYSTEMTIME.ahk
 #Include ..\Com\IUnknown.ahk
+#Include ..\..\Foundation\SYSTEMTIME.ahk
 
 /**
  * Accesses general settings for the user.
  * @see https://learn.microsoft.com/windows/win32/api/wpcapi/nn-wpcapi-iwpcsettings
  * @namespace Windows.Win32.System.ParentalControls
- * @version v4.0.30319
  */
-class IWPCSettings extends IUnknown{
+class IWPCSettings extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -54,7 +53,7 @@ class IWPCSettings extends IUnknown{
 
     /**
      * Determines whether web restrictions, time limits, or game restrictions are on.
-     * @returns {Integer} 
+     * @returns {WPCFLAG_RESTRICTION} 
      * @see https://learn.microsoft.com/windows/win32/api/wpcapi/nf-wpcapi-iwpcsettings-getrestrictions
      */
     GetRestrictions() {

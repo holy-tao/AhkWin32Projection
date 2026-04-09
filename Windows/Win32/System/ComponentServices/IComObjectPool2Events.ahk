@@ -7,9 +7,8 @@
  * Notifies the subscriber if a transactional or non-transactional object is added to or obtained from the object pool.
  * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nn-comsvcs-icomobjectpool2events
  * @namespace Windows.Win32.System.ComponentServices
- * @version v4.0.30319
  */
-class IComObjectPool2Events extends IUnknown{
+class IComObjectPool2Events extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

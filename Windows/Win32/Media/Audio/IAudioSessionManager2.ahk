@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IAudioSessionEnumerator.ahk
 #Include .\IAudioSessionManager.ahk
+#Include .\IAudioSessionEnumerator.ahk
 
 /**
  * The IAudioSessionManager2 interface enables an application to manage submixes for the audio device.
@@ -21,9 +21,8 @@
  * An application that manages the media streams and wants to provide a custom ducking implementation, must register to receive notifications when session events occur. For stream attenuation, a session event is raised by the system when a communication stream is opened or closed on the default communication device. For more information, see <a href="https://docs.microsoft.com/windows/desktop/CoreAudio/providing-a-custom-ducking-experience">Providing a Custom Ducking Behavior</a>.
  * @see https://learn.microsoft.com/windows/win32/api/audiopolicy/nn-audiopolicy-iaudiosessionmanager2
  * @namespace Windows.Win32.Media.Audio
- * @version v4.0.30319
  */
-class IAudioSessionManager2 extends IAudioSessionManager{
+class IAudioSessionManager2 extends IAudioSessionManager {
 
     static sizeof => A_PtrSize
     /**

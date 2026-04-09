@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
+#Include ..\..\..\Foundation\BSTR.ahk
 
 /**
  * Implements methods that get data from a Digital Video Broadcast (DVB) short event descriptor.
  * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nn-dvbsiparser-idvbshorteventdescriptor
  * @namespace Windows.Win32.Media.DirectShow.Tv
- * @version v4.0.30319
  */
-class IDvbShortEventDescriptor extends IUnknown{
+class IDvbShortEventDescriptor extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -63,7 +62,7 @@ class IDvbShortEventDescriptor extends IUnknown{
 
     /**
      * Gets the event name in Unicode string format from a Digital Video Broadcast (DVB) short event descriptor.
-     * @param {Integer} convMode 
+     * @param {DVB_STRCONV_MODE} convMode 
      * @returns {BSTR} Pointer to a buffer that receives the event name. The caller is responsible for freeing this memory.
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbshorteventdescriptor-geteventnamew
      */
@@ -75,7 +74,7 @@ class IDvbShortEventDescriptor extends IUnknown{
 
     /**
      * Gets the text that describes the event in Unicode string format from a Digital Video Broadcast (DVB) short event descriptor.
-     * @param {Integer} convMode 
+     * @param {DVB_STRCONV_MODE} convMode 
      * @returns {BSTR} Pointer to a buffer that receives the event description text. The caller is responsible for freeing this memory.
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbshorteventdescriptor-gettextw
      */

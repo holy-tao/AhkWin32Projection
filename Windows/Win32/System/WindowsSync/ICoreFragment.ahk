@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IClockVector.ahk
 #Include ..\Com\IUnknown.ahk
+#Include .\IClockVector.ahk
 
 /**
  * Represents knowledge of all items in the scope for a specific set of change units.
@@ -10,9 +10,8 @@
  * An <b>ISyncKnowledge2</b> object contains one or more <b>ICoreFragment</b> objects, each of which contains knowledge that applies to a specific set of change units. Typically, one of the <b>ICoreFragment</b> objects contains no change unit IDs. The knowledge that is contained in the <b>ICoreFragment</b> object that contains no change unit IDs applies to all change unit IDs that are not otherwise contained in another <b>ICoreFragment</b> object.
  * @see https://learn.microsoft.com/windows/win32/api/winsync/nn-winsync-icorefragment
  * @namespace Windows.Win32.System.WindowsSync
- * @version v4.0.30319
  */
-class ICoreFragment extends IUnknown{
+class ICoreFragment extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

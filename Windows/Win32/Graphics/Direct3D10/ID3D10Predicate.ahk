@@ -13,9 +13,8 @@
  * For an example of occlusion-predicated rendering, see <a href="https://msdn.microsoft.com/library/Ee416402(v=VS.85).aspx">Draw Predicated Sample</a>.
  * @see https://learn.microsoft.com/windows/win32/api/d3d10/nn-d3d10-id3d10predicate
  * @namespace Windows.Win32.Graphics.Direct3D10
- * @version v4.0.30319
  */
-class ID3D10Predicate extends ID3D10Query{
+class ID3D10Predicate extends ID3D10Query {
 
     static sizeof => A_PtrSize
     /**

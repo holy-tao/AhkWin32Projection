@@ -11,9 +11,8 @@
  * Use this interface to add or delete an object from the server object's collection of managed objects.
  * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nn-shlobj_core-iobjmgr
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IObjMgr extends IUnknown{
+class IObjMgr extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

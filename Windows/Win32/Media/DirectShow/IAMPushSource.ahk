@@ -19,9 +19,8 @@
  * These issues do not affect capturing to a file. The <a href="https://docs.microsoft.com/windows/desktop/DirectShow/file-writer-filter">File Writer</a> filter relies on time stamps on the incoming samples to write the file correctly; the streams are then synchronized during playback. As for rate matching, the data is always written to the file as fast as possible.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-iampushsource
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IAMPushSource extends IAMLatency{
+class IAMPushSource extends IAMLatency {
 
     static sizeof => A_PtrSize
     /**

@@ -1,15 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IUpdateDownloader.ahk
 #Include .\IDownloadJob.ahk
 #Include .\IDownloadResult.ahk
-#Include .\IUpdateDownloader.ahk
 
 /**
  * @namespace Windows.Win32.System.UpdateAgent
- * @version v4.0.30319
  */
-class IUpdateDownloaderEx extends IUpdateDownloader{
+class IUpdateDownloaderEx extends IUpdateDownloader {
 
     static sizeof => A_PtrSize
     /**
@@ -32,7 +31,7 @@ class IUpdateDownloaderEx extends IUpdateDownloader{
 
     /**
      * 
-     * @param {Integer} _downloadType 
+     * @param {DownloadType} _downloadType 
      * @param {IUnknown} onProgressChanged 
      * @param {IUnknown} onCompleted 
      * @param {VARIANT} state 
@@ -45,7 +44,7 @@ class IUpdateDownloaderEx extends IUpdateDownloader{
 
     /**
      * 
-     * @param {Integer} _downloadType 
+     * @param {DownloadType} _downloadType 
      * @returns {IDownloadResult} 
      */
     Download2(_downloadType) {

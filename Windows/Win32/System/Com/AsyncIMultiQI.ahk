@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.Com
- * @version v4.0.30319
  */
-class AsyncIMultiQI extends IUnknown{
+class AsyncIMultiQI extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

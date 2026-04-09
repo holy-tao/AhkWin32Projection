@@ -7,9 +7,8 @@
  * Represents information about the current synchronization session.
  * @see https://learn.microsoft.com/windows/win32/api/winsync/nn-winsync-isyncsessionstate
  * @namespace Windows.Win32.System.WindowsSync
- * @version v4.0.30319
  */
-class ISyncSessionState extends IUnknown{
+class ISyncSessionState extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -373,8 +372,8 @@ class ISyncSessionState extends IUnknown{
      * Reports synchronization progress to the application.
      * @remarks
      * This method can be used to report custom progress to the application. When a provider calls this method, the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winsync/nf-winsync-isynccallback-onprogress">ISyncCallback::OnProgress</a> event is raised.
-     * @param {Integer} provider The role of the provider that is sending this event.
-     * @param {Integer} syncStage The current stage of the synchronization session.
+     * @param {SYNC_PROVIDER_ROLE} provider The role of the provider that is sending this event.
+     * @param {SYNC_PROGRESS_STAGE} syncStage The current stage of the synchronization session.
      * @param {Integer} dwCompletedWork The amount of work that is currently completed in the session. This value is interpreted as being a part of <i>dwTotalWork</i>.
      * @param {Integer} dwTotalWork The total work for the session.
      * @returns {HRESULT} The possible return codes include, but are not limited to, the values shown in the following table.

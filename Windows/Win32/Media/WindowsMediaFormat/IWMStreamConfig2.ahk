@@ -7,9 +7,8 @@
  * The IWMStreamConfig2 interface manages the data unit extensions associated with a stream.IWMStreamConfig2 inherits from IWMStreamConfig. To obtain a pointer to IWMStreamConfig2, call the QueryInterface method of the IWMStreamConfig interface.
  * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nn-wmsdkidl-iwmstreamconfig2
  * @namespace Windows.Win32.Media.WindowsMediaFormat
- * @version v4.0.30319
  */
-class IWMStreamConfig2 extends IWMStreamConfig{
+class IWMStreamConfig2 extends IWMStreamConfig {
 
     static sizeof => A_PtrSize
     /**
@@ -32,7 +31,7 @@ class IWMStreamConfig2 extends IWMStreamConfig{
 
     /**
      * The GetTransportType method retrieves the type of data communication protocol (reliable or unreliable) used for the stream.
-     * @returns {Integer} Pointer to a variable that receives one member of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/wmsdkidl/ne-wmsdkidl-wmt_transport_type">WMT_TRANSPORT_TYPE</a> enumeration type.
+     * @returns {WMT_TRANSPORT_TYPE} Pointer to a variable that receives one member of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/wmsdkidl/ne-wmsdkidl-wmt_transport_type">WMT_TRANSPORT_TYPE</a> enumeration type.
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmstreamconfig2-gettransporttype
      */
     GetTransportType() {
@@ -44,7 +43,7 @@ class IWMStreamConfig2 extends IWMStreamConfig{
      * The SetTransportType method sets the type of data communication protocol (reliable or unreliable) used for the stream.
      * @remarks
      * The new value will not take effect in the profile until you call <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nf-wmsdkidl-iwmprofile-reconfigstream">IWMProfile::ReconfigStream</a>.
-     * @param {Integer} nTransportType One member of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/wmsdkidl/ne-wmsdkidl-wmt_transport_type">WMT_TRANSPORT_TYPE</a> enumeration type specifying the transport type for the stream.
+     * @param {WMT_TRANSPORT_TYPE} nTransportType One member of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/wmsdkidl/ne-wmsdkidl-wmt_transport_type">WMT_TRANSPORT_TYPE</a> enumeration type specifying the transport type for the stream.
      * @returns {HRESULT} The method always returns S_OK.
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmstreamconfig2-settransporttype
      */

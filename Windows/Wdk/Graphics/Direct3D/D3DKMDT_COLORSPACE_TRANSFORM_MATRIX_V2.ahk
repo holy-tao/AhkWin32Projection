@@ -1,19 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3DDDI_DXGI_RGB.ahk
+#Include .\D3DKMDT_COLORSPACE_TRANSFORM_STAGE_CONTROL.ahk
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
- * @version v4.0.30319
  */
-class D3DKMDT_COLORSPACE_TRANSFORM_MATRIX_V2 extends Win32Struct
-{
+class D3DKMDT_COLORSPACE_TRANSFORM_MATRIX_V2 extends Win32Struct {
     static sizeof => 65592
 
     static packingSize => 8
 
     /**
-     * @type {Integer}
+     * @type {D3DKMDT_COLORSPACE_TRANSFORM_STAGE_CONTROL}
      */
     StageControlLookupTable1DDegamma {
         get => NumGet(this, 0, "int")
@@ -21,9 +19,9 @@ class D3DKMDT_COLORSPACE_TRANSFORM_MATRIX_V2 extends Win32Struct
     }
 
     /**
-     * @type {Array<D3DDDI_DXGI_RGB>}
+     * @type {Array<Pointer>}
      */
-    LookupTable1DDegamma{
+    LookupTable1DDegamma {
         get {
             if(!this.HasProp("__LookupTable1DDegammaProxyArray"))
                 this.__LookupTable1DDegammaProxyArray := Win32FixedArray(this.ptr + 8, 4096, Primitive, "ptr")
@@ -32,7 +30,7 @@ class D3DKMDT_COLORSPACE_TRANSFORM_MATRIX_V2 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {D3DKMDT_COLORSPACE_TRANSFORM_STAGE_CONTROL}
      */
     StageControlColorMatrix3x3 {
         get => NumGet(this, 32776, "int")
@@ -40,9 +38,9 @@ class D3DKMDT_COLORSPACE_TRANSFORM_MATRIX_V2 extends Win32Struct
     }
 
     /**
-     * @type {Array<Single>}
+     * @type {Array<Float>}
      */
-    ColorMatrix3x3{
+    ColorMatrix3x3 {
         get {
             if(!this.HasProp("__ColorMatrix3x3ProxyArray"))
                 this.__ColorMatrix3x3ProxyArray := Win32FixedArray(this.ptr + 32780, 9, Primitive, "float")
@@ -51,7 +49,7 @@ class D3DKMDT_COLORSPACE_TRANSFORM_MATRIX_V2 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {D3DKMDT_COLORSPACE_TRANSFORM_STAGE_CONTROL}
      */
     StageControlLookupTable1DRegamma {
         get => NumGet(this, 32816, "int")
@@ -59,9 +57,9 @@ class D3DKMDT_COLORSPACE_TRANSFORM_MATRIX_V2 extends Win32Struct
     }
 
     /**
-     * @type {Array<D3DDDI_DXGI_RGB>}
+     * @type {Array<Pointer>}
      */
-    LookupTable1DRegamma{
+    LookupTable1DRegamma {
         get {
             if(!this.HasProp("__LookupTable1DRegammaProxyArray"))
                 this.__LookupTable1DRegammaProxyArray := Win32FixedArray(this.ptr + 32824, 4096, Primitive, "ptr")

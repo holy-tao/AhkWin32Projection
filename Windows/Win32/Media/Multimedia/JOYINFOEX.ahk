@@ -41,10 +41,8 @@
  * The default joystick driver currently supports these five discrete directions. If an application can accept only the defined point-of-view values, it must use the JOY_RETURNPOV flag. If an application can accept other degree readings, it should use the JOY_RETURNPOVCTS flag to obtain continuous data if it is available. The JOY_RETURNPOVCTS flag also supports the JOY_POV constants used with the JOY_RETURNPOV flag.
  * @see https://learn.microsoft.com/windows/win32/api/joystickapi/ns-joystickapi-joyinfoex
  * @namespace Windows.Win32.Media.Multimedia
- * @version v4.0.30319
  */
-class JOYINFOEX extends Win32Struct
-{
+class JOYINFOEX extends Win32Struct {
     static sizeof => 52
 
     static packingSize => 4

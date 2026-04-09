@@ -7,9 +7,8 @@
  * The IVideoFrameStep interface steps through a video stream.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-ivideoframestep
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IVideoFrameStep extends IUnknown{
+class IVideoFrameStep extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -3,16 +3,14 @@
 
 /**
  * @namespace Windows.Win32.Networking.WinInet
- * @version v4.0.30319
  */
-class HTTP_PUSH_TRANSPORT_SETTING extends Win32Struct
-{
+class HTTP_PUSH_TRANSPORT_SETTING extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     TransportSettingId {
         get => NumGet(this, 0, "ptr")
@@ -20,7 +18,7 @@ class HTTP_PUSH_TRANSPORT_SETTING extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     BrokerEventId {
         get => NumGet(this, 8, "ptr")

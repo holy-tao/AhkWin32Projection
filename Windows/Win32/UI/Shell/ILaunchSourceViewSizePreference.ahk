@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\HWND.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\HWND.ahk
 
 /**
  * Provides methods for retrieving information about the source application.
@@ -11,9 +11,8 @@
  * --&gt;
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-ilaunchsourceviewsizepreference
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class ILaunchSourceViewSizePreference extends IUnknown{
+class ILaunchSourceViewSizePreference extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -36,7 +35,9 @@ class ILaunchSourceViewSizePreference extends IUnknown{
 
     /**
      * Retrieves the position of the source application window.
-     * @returns {HWND} 
+     * @returns {HWND} Type: <b>HWND*</b>
+     * 
+     * Contains the address of a pointer to a window handle.
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ilaunchsourceviewsizepreference-getsourceviewtoposition
      */
     GetSourceViewToPosition() {
@@ -47,7 +48,7 @@ class ILaunchSourceViewSizePreference extends IUnknown{
 
     /**
      * Retrieves the view size preference of the application after the application has launched.
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-application_view_size_preference">APPLICATION_VIEW_SIZE_PREFERENCE</a>*</b>
+     * @returns {APPLICATION_VIEW_SIZE_PREFERENCE} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-application_view_size_preference">APPLICATION_VIEW_SIZE_PREFERENCE</a>*</b>
      * 
      * Contains the address of a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-application_view_size_preference">APPLICATION_VIEW_SIZE_PREFERENCE</a>.
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ilaunchsourceviewsizepreference-getsourceviewsizepreference

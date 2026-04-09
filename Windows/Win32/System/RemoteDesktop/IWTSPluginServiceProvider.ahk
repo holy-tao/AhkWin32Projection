@@ -7,9 +7,8 @@
  * Provides a way for Dynamic Virtual Channel plug-ins to query various Remote Desktop Client services.
  * @see https://learn.microsoft.com/windows/win32/api/tsvirtualchannels/nn-tsvirtualchannels-iwtspluginserviceprovider
  * @namespace Windows.Win32.System.RemoteDesktop
- * @version v4.0.30319
  */
-class IWTSPluginServiceProvider extends IUnknown{
+class IWTSPluginServiceProvider extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

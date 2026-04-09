@@ -7,9 +7,8 @@
  * Encapsulates the functionality of one or more output protection systems that a trusted output supports.
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imfoutputtrustauthority
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFOutputTrustAuthority extends IUnknown{
+class IMFOutputTrustAuthority extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -32,7 +31,7 @@ class IMFOutputTrustAuthority extends IUnknown{
 
     /**
      * Retrieves the action that is performed by this output trust authority (OTA).
-     * @returns {Integer} Receives a member of the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/ne-mfidl-mfpolicymanager_action">MFPOLICYMANAGER_ACTION</a> enumeration.
+     * @returns {MFPOLICYMANAGER_ACTION} Receives a member of the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/ne-mfidl-mfpolicymanager_action">MFPOLICYMANAGER_ACTION</a> enumeration.
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfoutputtrustauthority-getaction
      */
     GetAction() {

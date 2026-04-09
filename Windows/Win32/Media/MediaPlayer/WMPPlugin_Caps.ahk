@@ -7,9 +7,8 @@
  * When <b>IWMPPlugin::GetCaps</b> returns <b>WMPPlugin_Caps_CannotConvertFormats</b>, Windows Media Player handles any necessary format conversion.
  * @see https://learn.microsoft.com/windows/win32/api/wmpservices/ne-wmpservices-wmpplugin_caps
  * @namespace Windows.Win32.Media.MediaPlayer
- * @version v4.0.30319
  */
-class WMPPlugin_Caps extends Win32Enum{
+class WMPPlugin_Caps extends Win32Enum {
 
     /**
      * The plug-in requires that the input format and output format be the same.

@@ -5,10 +5,8 @@
  * Specifies an array of SID structures that represent Windows users or groups.
  * @see https://learn.microsoft.com/windows/win32/api/ntsecapi/ns-ntsecapi-policy_audit_sid_array
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class POLICY_AUDIT_SID_ARRAY extends Win32Struct
-{
+class POLICY_AUDIT_SID_ARRAY extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

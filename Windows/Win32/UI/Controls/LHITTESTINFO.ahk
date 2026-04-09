@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\POINT.ahk
 #Include .\LITEM.ahk
+#Include .\LIST_ITEM_FLAGS.ahk
+#Include .\LIST_ITEM_STATE_FLAGS.ahk
 
 /**
  * Used to get information about the link corresponding to a given location.
@@ -12,10 +14,8 @@
  * <div> </div>
  * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-lhittestinfo
  * @namespace Windows.Win32.UI.Controls
- * @version v4.0.30319
  */
-class LHITTESTINFO extends Win32Struct
-{
+class LHITTESTINFO extends Win32Struct {
     static sizeof => 4288
 
     static packingSize => 4
@@ -26,7 +26,7 @@ class LHITTESTINFO extends Win32Struct
      * Location for the hit-test, in client coordinates (not screen coordinates).
      * @type {POINT}
      */
-    pt{
+    pt {
         get {
             if(!this.HasProp("__pt"))
                 this.__pt := POINT(0, this)
@@ -40,7 +40,7 @@ class LHITTESTINFO extends Win32Struct
      * Receives information about the link corresponding to <b>pt</b>.
      * @type {LITEM}
      */
-    item{
+    item {
         get {
             if(!this.HasProp("__item"))
                 this.__item := LITEM(8, this)

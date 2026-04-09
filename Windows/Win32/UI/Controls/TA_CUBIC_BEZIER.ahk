@@ -1,13 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\TA_TIMINGFUNCTION.ahk
+#Include .\TA_TIMINGFUNCTION_TYPE.ahk
 
 /**
  * @namespace Windows.Win32.UI.Controls
- * @version v4.0.30319
  */
-class TA_CUBIC_BEZIER extends Win32Struct
-{
+class TA_CUBIC_BEZIER extends Win32Struct {
     static sizeof => 20
 
     static packingSize => 4
@@ -15,7 +14,7 @@ class TA_CUBIC_BEZIER extends Win32Struct
     /**
      * @type {TA_TIMINGFUNCTION}
      */
-    header{
+    header {
         get {
             if(!this.HasProp("__header"))
                 this.__header := TA_TIMINGFUNCTION(0, this)

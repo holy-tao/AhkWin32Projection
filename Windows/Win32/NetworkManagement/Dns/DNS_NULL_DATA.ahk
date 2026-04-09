@@ -9,10 +9,8 @@
  * <a href="https://docs.microsoft.com/windows/win32/api/windns/ns-windns-dns_recorda">DNS_RECORD</a> structure to programmatically manage DNS entries.
  * @see https://learn.microsoft.com/windows/win32/api/windns/ns-windns-dns_null_data
  * @namespace Windows.Win32.NetworkManagement.Dns
- * @version v4.0.30319
  */
-class DNS_NULL_DATA extends Win32Struct
-{
+class DNS_NULL_DATA extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4
@@ -28,9 +26,9 @@ class DNS_NULL_DATA extends Win32Struct
 
     /**
      * Null data.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Data{
+    Data {
         get {
             if(!this.HasProp("__DataProxyArray"))
                 this.__DataProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "char")

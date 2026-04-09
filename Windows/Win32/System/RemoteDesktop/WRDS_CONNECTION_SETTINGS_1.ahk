@@ -1,20 +1,19 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\WTS_SOCKADDR.ahk
-#Include .\WTS_SYSTEMTIME.ahk
 #Include .\WTS_TIME_ZONE_INFORMATION.ahk
-#Include .\WRDS_LISTENER_SETTINGS_1.ahk
-#Include .\WRDS_LISTENER_SETTING.ahk
+#Include .\WTS_SYSTEMTIME.ahk
 #Include .\WRDS_LISTENER_SETTINGS.ahk
+#Include .\WRDS_LISTENER_SETTING_LEVEL.ahk
+#Include .\WRDS_LISTENER_SETTING.ahk
+#Include .\WRDS_LISTENER_SETTINGS_1.ahk
 
 /**
  * Contains connection setting information for a remote session. (WRDS_CONNECTION_SETTINGS_1)
  * @see https://learn.microsoft.com/windows/win32/api/wtsdefs/ns-wtsdefs-wrds_connection_settings_1
  * @namespace Windows.Win32.System.RemoteDesktop
- * @version v4.0.30319
  */
-class WRDS_CONNECTION_SETTINGS_1 extends Win32Struct
-{
+class WRDS_CONNECTION_SETTINGS_1 extends Win32Struct {
     static sizeof => 3752
 
     static packingSize => 8
@@ -344,7 +343,6 @@ class WRDS_CONNECTION_SETTINGS_1 extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     PerformanceFlags {
@@ -556,7 +554,7 @@ class WRDS_CONNECTION_SETTINGS_1 extends Win32Struct
      * A <a href="https://docs.microsoft.com/windows/desktop/api/wtsdefs/ns-wtsdefs-wts_sockaddr">WRDS_SOCKADDR</a> structure that contains socket address information.
      * @type {WTS_SOCKADDR}
      */
-    ClientSockAddress{
+    ClientSockAddress {
         get {
             if(!this.HasProp("__ClientSockAddress"))
                 this.__ClientSockAddress := WTS_SOCKADDR(3500, this)
@@ -568,7 +566,7 @@ class WRDS_CONNECTION_SETTINGS_1 extends Win32Struct
      * A <a href="https://docs.microsoft.com/windows/desktop/api/wtsdefs/ns-wtsdefs-wts_time_zone_information">WRDS_TIME_ZONE_INFORMATION</a> structure that contains client time zone information.
      * @type {WTS_TIME_ZONE_INFORMATION}
      */
-    ClientTimeZone{
+    ClientTimeZone {
         get {
             if(!this.HasProp("__ClientTimeZone"))
                 this.__ClientTimeZone := WTS_TIME_ZONE_INFORMATION(3532, this)
@@ -580,7 +578,7 @@ class WRDS_CONNECTION_SETTINGS_1 extends Win32Struct
      * A <a href="https://docs.microsoft.com/windows/desktop/api/wtsdefs/ns-wtsdefs-wrds_listener_settings">WRDS_LISTENER_SETTINGS</a> structure that contains listener settings.
      * @type {WRDS_LISTENER_SETTINGS}
      */
-    WRdsListenerSettings{
+    WRdsListenerSettings {
         get {
             if(!this.HasProp("__WRdsListenerSettings"))
                 this.__WRdsListenerSettings := WRDS_LISTENER_SETTINGS(3704, this)
@@ -589,8 +587,7 @@ class WRDS_CONNECTION_SETTINGS_1 extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     EventLogActivityId {
         get => NumGet(this, 3728, "ptr")
@@ -598,7 +595,6 @@ class WRDS_CONNECTION_SETTINGS_1 extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     ContextSize {

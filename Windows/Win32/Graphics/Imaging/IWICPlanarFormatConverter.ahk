@@ -7,9 +7,8 @@
  * Allows a format converter to be initialized with a planar source.
  * @see https://learn.microsoft.com/windows/win32/api/wincodec/nn-wincodec-iwicplanarformatconverter
  * @namespace Windows.Win32.Graphics.Imaging
- * @version v4.0.30319
  */
-class IWICPlanarFormatConverter extends IWICBitmapSource{
+class IWICPlanarFormatConverter extends IWICBitmapSource {
 
     static sizeof => A_PtrSize
     /**
@@ -41,7 +40,7 @@ class IWICPlanarFormatConverter extends IWICBitmapSource{
      * @param {Pointer<Guid>} dstFormat Type: <b>REFWICPixelFormatGUID </b>
      * 
      * The destination interleaved pixel format.
-     * @param {Integer} dither Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ne-wincodec-wicbitmapdithertype">WICBitmapDitherType</a></b>
+     * @param {WICBitmapDitherType} dither Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ne-wincodec-wicbitmapdithertype">WICBitmapDitherType</a></b>
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ne-wincodec-wicbitmapdithertype">WICBitmapDitherType</a> used for conversion.
      * @param {IWICPalette} pIPalette Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nn-wincodec-iwicpalette">IWICPalette</a>*</b>
@@ -50,7 +49,7 @@ class IWICPlanarFormatConverter extends IWICBitmapSource{
      * @param {Float} alphaThresholdPercent Type: <b>double</b>
      * 
      * The alpha threshold to use for conversion.
-     * @param {Integer} paletteTranslate Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ne-wincodec-wicbitmappalettetype">WICBitmapPaletteType</a></b>
+     * @param {WICBitmapPaletteType} paletteTranslate Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ne-wincodec-wicbitmappalettetype">WICBitmapPaletteType</a></b>
      * 
      * The palette translation type to use for conversion.
      * @returns {HRESULT} Type: <b>HRESULT</b>

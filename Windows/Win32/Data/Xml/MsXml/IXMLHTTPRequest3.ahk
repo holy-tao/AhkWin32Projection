@@ -32,9 +32,8 @@
  * </ul>
  * @see https://learn.microsoft.com/windows/win32/api/msxml6/nn-msxml6-ixmlhttprequest3
  * @namespace Windows.Win32.Data.Xml.MsXml
- * @version v4.0.30319
  */
-class IXMLHTTPRequest3 extends IXMLHTTPRequest2{
+class IXMLHTTPRequest3 extends IXMLHTTPRequest2 {
 
     static sizeof => A_PtrSize
     /**

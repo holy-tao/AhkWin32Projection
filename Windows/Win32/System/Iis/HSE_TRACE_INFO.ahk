@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Iis
- * @version v4.0.30319
  */
-class HSE_TRACE_INFO extends Win32Struct
-{
+class HSE_TRACE_INFO extends Win32Struct {
     static sizeof => 28
 
     static packingSize => 4
@@ -20,9 +18,9 @@ class HSE_TRACE_INFO extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    TraceContextId{
+    TraceContextId {
         get {
             if(!this.HasProp("__TraceContextIdProxyArray"))
                 this.__TraceContextIdProxyArray := Win32FixedArray(this.ptr + 4, 16, Primitive, "char")

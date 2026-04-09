@@ -5,10 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.WinRT.Metadata
- * @version v4.0.30319
  */
-class IMAGE_COR_ILMETHOD extends Win32Struct
-{
+class IMAGE_COR_ILMETHOD extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4
@@ -16,7 +14,7 @@ class IMAGE_COR_ILMETHOD extends Win32Struct
     /**
      * @type {IMAGE_COR_ILMETHOD_TINY}
      */
-    Tiny{
+    Tiny {
         get {
             if(!this.HasProp("__Tiny"))
                 this.__Tiny := IMAGE_COR_ILMETHOD_TINY(0, this)
@@ -27,7 +25,7 @@ class IMAGE_COR_ILMETHOD extends Win32Struct
     /**
      * @type {IMAGE_COR_ILMETHOD_FAT}
      */
-    Fat{
+    Fat {
         get {
             if(!this.HasProp("__Fat"))
                 this.__Fat := IMAGE_COR_ILMETHOD_FAT(0, this)

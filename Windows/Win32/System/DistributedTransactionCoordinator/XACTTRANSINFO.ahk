@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.System.DistributedTransactionCoordinator
- * @version v4.0.30319
  */
-class XACTTRANSINFO extends Win32Struct
-{
+class XACTTRANSINFO extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 4
@@ -15,7 +13,7 @@ class XACTTRANSINFO extends Win32Struct
     /**
      * @type {BOID}
      */
-    uow{
+    uow {
         get {
             if(!this.HasProp("__uow"))
                 this.__uow := BOID(0, this)

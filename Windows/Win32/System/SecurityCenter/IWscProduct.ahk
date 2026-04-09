@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\Com\IDispatch.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * Provides methods for getting product information for an individual provider to interact with Windows Security Center.
  * @see https://learn.microsoft.com/windows/win32/api/iwscapi/nn-iwscapi-iwscproduct
  * @namespace Windows.Win32.System.SecurityCenter
- * @version v4.0.30319
  */
-class IWscProduct extends IDispatch{
+class IWscProduct extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -39,14 +38,14 @@ class IWscProduct extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {WSC_SECURITY_PRODUCT_STATE} 
      */
     ProductState {
         get => this.get_ProductState()
     }
 
     /**
-     * @type {Integer} 
+     * @type {WSC_SECURITY_SIGNATURE_STATUS} 
      */
     SignatureStatus {
         get => this.get_SignatureStatus()
@@ -93,7 +92,7 @@ class IWscProduct extends IDispatch{
 
     /**
      * Returns the current state of the signature data for the security product.
-     * @returns {Integer} A pointer to the state value of the signature of the security product.
+     * @returns {WSC_SECURITY_PRODUCT_STATE} A pointer to the state value of the signature of the security product.
      * @see https://learn.microsoft.com/windows/win32/api/iwscapi/nf-iwscapi-iwscproduct-get_productstate
      */
     get_ProductState() {
@@ -103,7 +102,7 @@ class IWscProduct extends IDispatch{
 
     /**
      * Returns the current status of the signature data for the security product.
-     * @returns {Integer} A pointer to the status value of the signature of the security product. If the security product is a Firewall product, the return value is always <b>WSC_SECURITY_PRODUCT_UP_TO_DATE</b> because firewalls do not contain signature data.
+     * @returns {WSC_SECURITY_SIGNATURE_STATUS} A pointer to the status value of the signature of the security product. If the security product is a Firewall product, the return value is always <b>WSC_SECURITY_PRODUCT_UP_TO_DATE</b> because firewalls do not contain signature data.
      * @see https://learn.microsoft.com/windows/win32/api/iwscapi/nf-iwscapi-iwscproduct-get_signaturestatus
      */
     get_SignatureStatus() {

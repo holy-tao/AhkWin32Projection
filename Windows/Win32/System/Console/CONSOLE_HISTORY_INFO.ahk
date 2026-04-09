@@ -5,10 +5,8 @@
  * See reference information about the CONSOLE_HISTORY_INFO structure, which contains information about the console history.
  * @see https://learn.microsoft.com/windows/console/console-history-info
  * @namespace Windows.Win32.System.Console
- * @version v4.0.30319
  */
-class CONSOLE_HISTORY_INFO extends Win32Struct
-{
+class CONSOLE_HISTORY_INFO extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4

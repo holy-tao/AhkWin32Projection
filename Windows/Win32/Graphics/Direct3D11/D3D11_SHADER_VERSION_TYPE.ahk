@@ -5,9 +5,8 @@
  * Indicates shader type.
  * @see https://learn.microsoft.com/windows/win32/api/d3d11shader/ne-d3d11shader-d3d11_shader_version_type
  * @namespace Windows.Win32.Graphics.Direct3D11
- * @version v4.0.30319
  */
-class D3D11_SHADER_VERSION_TYPE extends Win32Enum{
+class D3D11_SHADER_VERSION_TYPE extends Win32Enum {
 
     /**
      * Pixel shader.

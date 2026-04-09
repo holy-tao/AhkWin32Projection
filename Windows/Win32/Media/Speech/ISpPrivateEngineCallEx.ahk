@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Media.Speech
- * @version v4.0.30319
  */
-class ISpPrivateEngineCallEx extends IUnknown{
+class ISpPrivateEngineCallEx extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -30,7 +29,7 @@ class ISpPrivateEngineCallEx extends IUnknown{
 
     /**
      * 
-     * @param {Pointer} pInFrame 
+     * @param {Integer} pInFrame 
      * @param {Integer} ulInFrameSize 
      * @param {Pointer<Pointer<Void>>} ppCoMemOutFrame 
      * @param {Pointer<Integer>} pulOutFrameSize 
@@ -46,7 +45,7 @@ class ISpPrivateEngineCallEx extends IUnknown{
 
     /**
      * 
-     * @param {Pointer} pInFrame 
+     * @param {Integer} pInFrame 
      * @param {Integer} ulInFrameSize 
      * @param {Pointer<Pointer<Void>>} ppCoMemOutFrame 
      * @param {Pointer<Integer>} pulOutFrameSize 

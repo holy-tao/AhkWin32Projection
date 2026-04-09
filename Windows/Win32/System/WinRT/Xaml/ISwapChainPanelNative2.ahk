@@ -22,9 +22,8 @@
  * ```
  * @see https://learn.microsoft.com/windows/win32/api/windows.ui.xaml.media.dxinterop/nn-windows-ui-xaml-media-dxinterop-iswapchainpanelnative2
  * @namespace Windows.Win32.System.WinRT.Xaml
- * @version v4.0.30319
  */
-class ISwapChainPanelNative2 extends ISwapChainPanelNative{
+class ISwapChainPanelNative2 extends ISwapChainPanelNative {
 
     static sizeof => A_PtrSize
     /**

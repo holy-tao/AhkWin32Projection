@@ -29,10 +29,8 @@
  * MIXERCONTROL_CONTROLTYPE_SLIDER
  * @see https://learn.microsoft.com/windows/win32/api/mmeapi/ns-mmeapi-mixercontroldetails_signed
  * @namespace Windows.Win32.Media.Audio
- * @version v4.0.30319
  */
-class MIXERCONTROLDETAILS_SIGNED extends Win32Struct
-{
+class MIXERCONTROLDETAILS_SIGNED extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 4

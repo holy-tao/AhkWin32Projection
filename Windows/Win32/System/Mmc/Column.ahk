@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\Com\IDispatch.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * Represents a vertical separator (visible or hidden) in custom SizeDefinition layout templates.
@@ -12,9 +12,8 @@
  * May occur one or more times for each [**GroupSizeDefinition**](windowsribbon-element-groupsizedefinition.md) element.
  * @see https://learn.microsoft.com/windows/win32/windowsribbon/windowsribbon-element-columnbreak
  * @namespace Windows.Win32.System.Mmc
- * @version v4.0.30319
  */
-class Column extends IDispatch{
+class Column extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -135,7 +134,7 @@ class Column extends IDispatch{
 
     /**
      * 
-     * @param {Integer} SortOrder 
+     * @param {_ColumnSortOrder} SortOrder 
      * @returns {HRESULT} 
      */
     SetAsSortColumn(SortOrder) {

@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IOfflineFilesSyncErrorItemInfo.ahk
 #Include .\IOfflineFilesErrorInfo.ahk
+#Include .\IOfflineFilesSyncErrorItemInfo.ahk
 
 /**
  * Supplied with the IOfflineFilesSyncProgress::SyncItemResult method to communicate details about the item that experienced a sync error.
  * @see https://learn.microsoft.com/windows/win32/api/cscobj/nn-cscobj-iofflinefilessyncerrorinfo
  * @namespace Windows.Win32.Storage.OfflineFiles
- * @version v4.0.30319
  */
-class IOfflineFilesSyncErrorInfo extends IOfflineFilesErrorInfo{
+class IOfflineFilesSyncErrorInfo extends IOfflineFilesErrorInfo {
 
     static sizeof => A_PtrSize
     /**
@@ -33,7 +32,7 @@ class IOfflineFilesSyncErrorInfo extends IOfflineFilesErrorInfo{
 
     /**
      * Retrieves a value indicating the type of sync operation that was being performed when the error was encountered.
-     * @returns {Integer} Receives a value from the <a href="https://docs.microsoft.com/windows/desktop/api/cscobj/ne-cscobj-offlinefiles_sync_operation">OFFLINEFILES_SYNC_OPERATION</a> enumeration that indicates the operation type.
+     * @returns {OFFLINEFILES_SYNC_OPERATION} Receives a value from the <a href="https://docs.microsoft.com/windows/desktop/api/cscobj/ne-cscobj-offlinefiles_sync_operation">OFFLINEFILES_SYNC_OPERATION</a> enumeration that indicates the operation type.
      * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilessyncerrorinfo-getsyncoperation
      */
     GetSyncOperation() {

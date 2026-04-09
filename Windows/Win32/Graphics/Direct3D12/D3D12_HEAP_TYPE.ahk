@@ -36,9 +36,8 @@
  * Note that textures (unlike buffers) can't be heap type UPLOAD or READBACK.
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/ne-d3d12-d3d12_heap_type
  * @namespace Windows.Win32.Graphics.Direct3D12
- * @version v4.0.30319
  */
-class D3D12_HEAP_TYPE extends Win32Enum{
+class D3D12_HEAP_TYPE extends Win32Enum {
 
     /**
      * Specifies the default heap. This heap type experiences the most bandwidth for the GPU, but cannot provide CPU access. The GPU can read and write to the memory from this pool, and resource transition barriers may be changed. The majority of heaps and resources are expected to be located here, and are typically populated through resources in upload heaps.

@@ -15,10 +15,8 @@
  * For an overview of display tables, see [Display Tables](display-tables.md). For information about how to implement a display table, see [Implementing a Display Table](display-table-implementation.md). For information about property types, see [MAPI Property Type Overview](mapi-property-type-overview.md).
  * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/dtblddlbx
  * @namespace Windows.Win32.System.AddressBook
- * @version v4.0.30319
  */
-class DTBLDDLBX extends Win32Struct
-{
+class DTBLDDLBX extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4

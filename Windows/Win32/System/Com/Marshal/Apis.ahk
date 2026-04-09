@@ -6,7 +6,6 @@
 
 /**
  * @namespace Windows.Win32.System.Com.Marshal
- * @version v4.0.30319
  */
 class Marshal {
 
@@ -1057,7 +1056,7 @@ class Marshal {
      * @param {IUnknown} pUnk A pointer to the interface to be marshaled. This interface must be derived from the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface.
      * @param {Integer} dwDestContext The destination context where the specified interface is to be unmarshaled. Values for <i>dwDestContext</i> come from the enumeration <a href="https://docs.microsoft.com/windows/desktop/api/wtypesbase/ne-wtypesbase-mshctx">MSHCTX</a>.
      * @param {Pointer<Void>} pvDestContext This parameter is reserved and must be <b>NULL</b>.
-     * @param {Integer} _mshlflags 
+     * @param {Integer} _mshlflags Indicates whether the data to be marshaled is to be transmitted back to the client process the normal case or written to a global table, where it can be retrieved by multiple clients. Values come from the enumeration <a href="https://docs.microsoft.com/windows/desktop/api/wtypesbase/ne-wtypesbase-mshlflags">MSHLFLAGS</a>.
      * @returns {Integer} A pointer to the upper-bound value on the size, in bytes, of the data packet to be written to the marshaling stream. If this parameter is 0, the size of the packet is unknown.
      * @see https://learn.microsoft.com/windows/win32/api/combaseapi/nf-combaseapi-cogetmarshalsizemax
      * @since windows5.0
@@ -1102,7 +1101,7 @@ class Marshal {
      * @param {IUnknown} pUnk A pointer to the interface to be marshaled. This interface must be derived from the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface.
      * @param {Integer} dwDestContext The destination context where the specified interface is to be unmarshaled. The possible values come from the enumeration <a href="https://docs.microsoft.com/windows/desktop/api/wtypesbase/ne-wtypesbase-mshctx">MSHCTX</a>. Currently, unmarshaling can occur in another apartment of the current process (MSHCTX_INPROC), in another process on the same computer as the current process (MSHCTX_LOCAL), or in a process on a different computer (MSHCTX_DIFFERENTMACHINE).
      * @param {Pointer<Void>} pvDestContext This parameter is reserved and must be <b>NULL</b>.
-     * @param {Integer} _mshlflags 
+     * @param {Integer} _mshlflags The flags that specify whether the data to be marshaled is to be transmitted back to the client process (the typical  case) or written to a global table, where it can be retrieved by multiple clients. The possible values come from the <a href="https://docs.microsoft.com/windows/desktop/api/wtypesbase/ne-wtypesbase-mshlflags">MSHLFLAGS</a> enumeration.
      * @returns {HRESULT} This function can return the standard return values E_FAIL, E_OUTOFMEMORY, and E_UNEXPECTED, the stream-access error values returned by <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a>, as well as the following values.
      * 
      * <table>
@@ -1183,7 +1182,7 @@ class Marshal {
      * <li>Returns an <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a> pointer to that stream.</li>
      * </ol>
      * @param {IStream} pstm A pointer to the marshaling stream. See <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a>.
-     * @param {HRESULT} _hresult 
+     * @param {HRESULT} _hresult The <b>HRESULT</b> in the originating process.
      * @returns {HRESULT} This function can return the standard return values E_OUTOFMEMORY and E_UNEXPECTED, as well as the following values.
      * 
      * <table>
@@ -1366,7 +1365,7 @@ class Marshal {
      * @param {IUnknown} pUnk A pointer to the interface to be marshaled.
      * @param {Integer} dwDestContext The destination context where the specified interface is to be unmarshaled. Values come from the enumeration <a href="https://docs.microsoft.com/windows/desktop/api/wtypesbase/ne-wtypesbase-mshctx">MSHCTX</a>. Unmarshaling can occur either in another apartment of the current process (MSHCTX_INPROC) or in another process on the same computer as the current process (MSHCTX_LOCAL).
      * @param {Pointer<Void>} pvDestContext This parameter is reserved and must be <b>NULL</b>.
-     * @param {Integer} _mshlflags 
+     * @param {Integer} _mshlflags Indicates whether the data to be marshaled is to be transmitted back to the client process (the normal case) or written to a global table where it can be retrieved by multiple clients. Values come from the <a href="https://docs.microsoft.com/windows/desktop/api/wtypesbase/ne-wtypesbase-mshlflags">MSHLFLAGS</a> enumeration.
      * @returns {IMarshal} The address of <b>IMarshal*</b> pointer variable that receives the interface pointer to the standard marshaler.
      * @see https://learn.microsoft.com/windows/win32/api/combaseapi/nf-combaseapi-cogetstandardmarshal
      * @since windows5.0

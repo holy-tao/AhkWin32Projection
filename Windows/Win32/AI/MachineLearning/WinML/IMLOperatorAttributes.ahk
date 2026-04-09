@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.AI.MachineLearning.WinML
- * @version v4.0.30319
  */
-class IMLOperatorAttributes extends IUnknown{
+class IMLOperatorAttributes extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -31,7 +30,7 @@ class IMLOperatorAttributes extends IUnknown{
     /**
      * 
      * @param {PSTR} name 
-     * @param {Integer} type 
+     * @param {MLOperatorAttributeType} type 
      * @returns {Integer} 
      */
     GetAttributeElementCount(name, type) {
@@ -44,7 +43,7 @@ class IMLOperatorAttributes extends IUnknown{
     /**
      * 
      * @param {PSTR} name 
-     * @param {Integer} type 
+     * @param {MLOperatorAttributeType} type 
      * @param {Integer} elementCount 
      * @param {Pointer} elementByteSize 
      * @returns {Void} 

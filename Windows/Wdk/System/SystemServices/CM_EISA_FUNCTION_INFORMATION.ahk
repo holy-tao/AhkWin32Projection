@@ -1,16 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\EISA_MEMORY_CONFIGURATION.ahk
-#Include .\EISA_IRQ_CONFIGURATION.ahk
-#Include .\EISA_DMA_CONFIGURATION.ahk
-#Include .\EISA_PORT_CONFIGURATION.ahk
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class CM_EISA_FUNCTION_INFORMATION extends Win32Struct
-{
+class CM_EISA_FUNCTION_INFORMATION extends Win32Struct {
     static sizeof => 504
 
     static packingSize => 8
@@ -56,9 +50,9 @@ class CM_EISA_FUNCTION_INFORMATION extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Selections{
+    Selections {
         get {
             if(!this.HasProp("__SelectionsProxyArray"))
                 this.__SelectionsProxyArray := Win32FixedArray(this.ptr + 8, 26, Primitive, "char")
@@ -75,9 +69,9 @@ class CM_EISA_FUNCTION_INFORMATION extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    TypeString{
+    TypeString {
         get {
             if(!this.HasProp("__TypeStringProxyArray"))
                 this.__TypeStringProxyArray := Win32FixedArray(this.ptr + 35, 80, Primitive, "char")
@@ -86,9 +80,9 @@ class CM_EISA_FUNCTION_INFORMATION extends Win32Struct
     }
 
     /**
-     * @type {Array<EISA_MEMORY_CONFIGURATION>}
+     * @type {Array<Pointer>}
      */
-    EisaMemory{
+    EisaMemory {
         get {
             if(!this.HasProp("__EisaMemoryProxyArray"))
                 this.__EisaMemoryProxyArray := Win32FixedArray(this.ptr + 120, 9, Primitive, "ptr")
@@ -97,9 +91,9 @@ class CM_EISA_FUNCTION_INFORMATION extends Win32Struct
     }
 
     /**
-     * @type {Array<EISA_IRQ_CONFIGURATION>}
+     * @type {Array<Pointer>}
      */
-    EisaIrq{
+    EisaIrq {
         get {
             if(!this.HasProp("__EisaIrqProxyArray"))
                 this.__EisaIrqProxyArray := Win32FixedArray(this.ptr + 192, 7, Primitive, "ptr")
@@ -108,9 +102,9 @@ class CM_EISA_FUNCTION_INFORMATION extends Win32Struct
     }
 
     /**
-     * @type {Array<EISA_DMA_CONFIGURATION>}
+     * @type {Array<Pointer>}
      */
-    EisaDma{
+    EisaDma {
         get {
             if(!this.HasProp("__EisaDmaProxyArray"))
                 this.__EisaDmaProxyArray := Win32FixedArray(this.ptr + 248, 4, Primitive, "ptr")
@@ -119,9 +113,9 @@ class CM_EISA_FUNCTION_INFORMATION extends Win32Struct
     }
 
     /**
-     * @type {Array<EISA_PORT_CONFIGURATION>}
+     * @type {Array<Pointer>}
      */
-    EisaPort{
+    EisaPort {
         get {
             if(!this.HasProp("__EisaPortProxyArray"))
                 this.__EisaPortProxyArray := Win32FixedArray(this.ptr + 280, 20, Primitive, "ptr")
@@ -130,9 +124,9 @@ class CM_EISA_FUNCTION_INFORMATION extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    InitializationData{
+    InitializationData {
         get {
             if(!this.HasProp("__InitializationDataProxyArray"))
                 this.__InitializationDataProxyArray := Win32FixedArray(this.ptr + 440, 60, Primitive, "char")

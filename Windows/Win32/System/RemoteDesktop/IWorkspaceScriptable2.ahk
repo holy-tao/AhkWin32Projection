@@ -1,16 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include .\IWorkspaceScriptable.ahk
 
 /**
  * Exposes methods that manage RemoteApp and Desktop Connection credentials and connections. (IWorkspaceScriptable2)
  * @see https://learn.microsoft.com/windows/win32/api/workspaceruntime/nn-workspaceruntime-iworkspacescriptable2
  * @namespace Windows.Win32.System.RemoteDesktop
- * @version v4.0.30319
  */
-class IWorkspaceScriptable2 extends IWorkspaceScriptable{
+class IWorkspaceScriptable2 extends IWorkspaceScriptable {
 
     static sizeof => A_PtrSize
     /**

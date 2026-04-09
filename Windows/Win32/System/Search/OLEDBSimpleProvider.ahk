@@ -1,15 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Com\IUnknown.ahk
 #Include ..\Variant\VARIANT.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include ..\Com\IUnknown.ahk
 
 /**
  * @namespace Windows.Win32.System.Search
- * @version v4.0.30319
  */
-class OLEDBSimpleProvider extends IUnknown{
+class OLEDBSimpleProvider extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -58,7 +57,7 @@ class OLEDBSimpleProvider extends IUnknown{
      * 
      * @param {Pointer} _iRow 
      * @param {Pointer} iColumn 
-     * @returns {Integer} 
+     * @returns {OSPRW} 
      */
     getRWStatus(_iRow, iColumn) {
         result := ComCall(5, this, "ptr", _iRow, "ptr", iColumn, "int*", &prwStatus := 0, "HRESULT")
@@ -69,7 +68,7 @@ class OLEDBSimpleProvider extends IUnknown{
      * 
      * @param {Pointer} _iRow 
      * @param {Pointer} iColumn 
-     * @param {Integer} format 
+     * @param {OSPFORMAT} format 
      * @returns {VARIANT} 
      */
     getVariant(_iRow, iColumn, format) {
@@ -82,7 +81,7 @@ class OLEDBSimpleProvider extends IUnknown{
      * 
      * @param {Pointer} _iRow 
      * @param {Pointer} iColumn 
-     * @param {Integer} format 
+     * @param {OSPFORMAT} format 
      * @param {VARIANT} Var 
      * @returns {HRESULT} 
      */
@@ -128,8 +127,8 @@ class OLEDBSimpleProvider extends IUnknown{
      * @param {Pointer} iRowStart 
      * @param {Pointer} iColumn 
      * @param {VARIANT} _val 
-     * @param {Integer} findFlags 
-     * @param {Integer} compType 
+     * @param {OSPFIND} findFlags 
+     * @param {OSPCOMP} compType 
      * @returns {Pointer} 
      */
     find(iRowStart, iColumn, _val, findFlags, compType) {

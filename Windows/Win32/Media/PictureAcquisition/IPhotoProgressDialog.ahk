@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\Foundation\HWND.ahk
 #Include ..\..\System\Com\StructuredStorage\PROPVARIANT.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Provides the progress dialog box that may be displayed when enumerating or importing images. The dialog box is modal and runs in its own thread.
  * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nn-photoacquire-iphotoprogressdialog
  * @namespace Windows.Win32.Media.PictureAcquisition
- * @version v4.0.30319
  */
-class IPhotoProgressDialog extends IUnknown{
+class IPhotoProgressDialog extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -147,7 +146,7 @@ class IPhotoProgressDialog extends IUnknown{
 
     /**
      * The ShowCheckbox method indicates whether to show the check box in the progress dialog box indicating whether to delete images after transfer.
-     * @param {Integer} nCheckboxId Integer containing the check box identifier (ID).
+     * @param {PROGRESS_DIALOG_CHECKBOX_ID} nCheckboxId Integer containing the check box identifier (ID).
      * @param {BOOL} fShow Flag that, when set to <b>TRUE</b>, indicates that the check box will appear.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
@@ -177,7 +176,7 @@ class IPhotoProgressDialog extends IUnknown{
 
     /**
      * The SetCheckboxText method sets the text for the check box in the progress dialog box indicating whether to delete images after transfer.
-     * @param {Integer} nCheckboxId Integer containing the check box identifier (ID).
+     * @param {PROGRESS_DIALOG_CHECKBOX_ID} nCheckboxId Integer containing the check box identifier (ID).
      * @param {PWSTR} pszCheckboxText Pointer to a null-terminated string containing the check box text.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
@@ -209,7 +208,7 @@ class IPhotoProgressDialog extends IUnknown{
 
     /**
      * 
-     * @param {Integer} nCheckboxId 
+     * @param {PROGRESS_DIALOG_CHECKBOX_ID} nCheckboxId 
      * @param {BOOL} fChecked 
      * @returns {HRESULT} 
      */
@@ -220,7 +219,7 @@ class IPhotoProgressDialog extends IUnknown{
 
     /**
      * The SetCheckboxTooltip method sets the tooltip text for the check box in the progress dialog box.
-     * @param {Integer} nCheckboxId Integer containing the check box identifier (ID).
+     * @param {PROGRESS_DIALOG_CHECKBOX_ID} nCheckboxId Integer containing the check box identifier (ID).
      * @param {PWSTR} pszCheckboxTooltipText Pointer to a null-terminated string containing the check box tooltip text.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
@@ -252,7 +251,7 @@ class IPhotoProgressDialog extends IUnknown{
 
     /**
      * The IsCheckboxChecked method indicates whether the check box in the progress dialog box (typically indicating whether to delete files after transfer) is selected.
-     * @param {Integer} nCheckboxId Integer value containing the check box identifier (ID).
+     * @param {PROGRESS_DIALOG_CHECKBOX_ID} nCheckboxId Integer value containing the check box identifier (ID).
      * @returns {BOOL} Pointer to a flag that, if set to <b>TRUE</b>, indicates that the check box is selected.
      * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iphotoprogressdialog-ischeckboxchecked
      */
@@ -296,7 +295,7 @@ class IPhotoProgressDialog extends IUnknown{
 
     /**
      * Sets either the thumbnail image displayed in the progress dialog box, the icon in the title bar of the progress dialog box, or the icon in ALT+TAB key combination windows.
-     * @param {Integer} nImageType Integer value indicating the image type to set. Only one type of image type may be set at a time. The values passed to this parameter should not be considered a bit field and may not be combined with bitwise OR. 
+     * @param {PROGRESS_DIALOG_IMAGE_TYPE} nImageType Integer value indicating the image type to set. Only one type of image type may be set at a time. The values passed to this parameter should not be considered a bit field and may not be combined with bitwise OR. 
      * 
      * 
      * 
@@ -346,8 +345,8 @@ class IPhotoProgressDialog extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @param {HICON} _hIcon 
-     * @param {HBITMAP} _hBitmap 
+     * @param {HICON} _hIcon Handle to an icon object.
+     * @param {HBITMAP} _hBitmap Handle to a bitmap object representing the thumbnail image.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>

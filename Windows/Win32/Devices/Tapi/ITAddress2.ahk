@@ -1,18 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ITAddress.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
 #Include .\IEnumPhone.ahk
 #Include .\ITPhone.ahk
-#Include .\ITAddress.ahk
 
 /**
  * The ITAddress2 interface derives from the ITAddress interface. ITAddress2 adds methods to the Address object in order to support phone devices. All Address objects enumerated from TAPI 3.1 automatically implement this interface.
  * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nn-tapi3if-itaddress2
  * @namespace Windows.Win32.Devices.Tapi
- * @version v4.0.30319
  */
-class ITAddress2 extends ITAddress{
+class ITAddress2 extends ITAddress {
 
     static sizeof => A_PtrSize
     /**
@@ -139,7 +138,7 @@ class ITAddress2 extends ITAddress{
 
     /**
      * The get_EventFilter method retrieves the current filter settings for the current address and a given TAPI_EVENT value.
-     * @param {Integer} TapiEvent The 
+     * @param {TAPI_EVENT} TapiEvent The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/ne-tapi3if-tapi_event">TAPI_EVENT</a> descriptor of event type information being checked.
      * @param {Integer} lSubEvent Subevent value. <b>NULL</b> if not applicable.
      * @returns {VARIANT_BOOL} Pointer to VARIANT_BOOL indicating whether the current event is required by the application.
@@ -152,7 +151,7 @@ class ITAddress2 extends ITAddress{
 
     /**
      * The put_EventFilter method sets an event filter for the current address. If no event filters are set, the application will not be notified of events on this address.
-     * @param {Integer} TapiEvent The 
+     * @param {TAPI_EVENT} TapiEvent The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/ne-tapi3if-tapi_event">TAPI_EVENT</a> descriptor of the event type.
      * @param {Integer} lSubEvent Subevent descriptor.
      * @param {VARIANT_BOOL} bEnable VARIANT_TRUE if the application requires notification of this event type. VARIANT_FALSE if the application does not require notifications for this event.

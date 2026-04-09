@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Security.Authentication.WebAuthn
- * @version v4.0.30319
  */
-class WEBAUTHN_CTAPCBOR_ECC_PUBLIC_KEY extends Win32Struct
-{
+class WEBAUTHN_CTAPCBOR_ECC_PUBLIC_KEY extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8

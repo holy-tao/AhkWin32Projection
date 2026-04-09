@@ -1,15 +1,26 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\WINTRUST_DATA_UICHOICE.ahk
+#Include .\WINTRUST_DATA_REVOCATION_CHECKS.ahk
+#Include .\WINTRUST_DATA_UNION_CHOICE.ahk
+#Include .\WINTRUST_FILE_INFO.ahk
+#Include .\WINTRUST_CATALOG_INFO.ahk
+#Include .\WINTRUST_BLOB_INFO.ahk
+#Include .\WINTRUST_SGNR_INFO.ahk
+#Include .\WINTRUST_CERT_INFO.ahk
+#Include .\WINTRUST_DETACHED_SIG_INFO.ahk
+#Include .\WINTRUST_DATA_STATE_ACTION.ahk
 #Include ..\..\Foundation\HANDLE.ahk
+#Include .\WINTRUST_DATA_PROVIDER_FLAGS.ahk
+#Include .\WINTRUST_DATA_UICONTEXT.ahk
+#Include .\WINTRUST_SIGNATURE_SETTINGS.ahk
 
 /**
  * Used when calling WinVerifyTrust to pass necessary information into the trust providers.
  * @see https://learn.microsoft.com/windows/win32/api/wintrust/ns-wintrust-wintrust_data
  * @namespace Windows.Win32.Security.WinTrust
- * @version v4.0.30319
  */
-class WINTRUST_DATA extends Win32Struct
-{
+class WINTRUST_DATA extends Win32Struct {
     static sizeof => 88
 
     static packingSize => 8
@@ -42,8 +53,7 @@ class WINTRUST_DATA extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Integer}
+     * @type {WINTRUST_DATA_UICHOICE}
      */
     dwUIChoice {
         get => NumGet(this, 24, "uint")
@@ -51,8 +61,7 @@ class WINTRUST_DATA extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Integer}
+     * @type {WINTRUST_DATA_REVOCATION_CHECKS}
      */
     fdwRevocationChecks {
         get => NumGet(this, 28, "uint")
@@ -60,8 +69,7 @@ class WINTRUST_DATA extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Integer}
+     * @type {WINTRUST_DATA_UNION_CHOICE}
      */
     dwUnionChoice {
         get => NumGet(this, 32, "uint")
@@ -117,8 +125,7 @@ class WINTRUST_DATA extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Integer}
+     * @type {WINTRUST_DATA_STATE_ACTION}
      */
     dwStateAction {
         get => NumGet(this, 48, "uint")
@@ -129,7 +136,7 @@ class WINTRUST_DATA extends Win32Struct
      * A handle to the state data. The contents of this member depends on the value of the <b>dwStateAction</b> member.
      * @type {HANDLE}
      */
-    hWVTStateData{
+    hWVTStateData {
         get {
             if(!this.HasProp("__hWVTStateData"))
                 this.__hWVTStateData := HANDLE(56, this)
@@ -147,8 +154,7 @@ class WINTRUST_DATA extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Integer}
+     * @type {WINTRUST_DATA_PROVIDER_FLAGS}
      */
     dwProvFlags {
         get => NumGet(this, 72, "uint")
@@ -156,8 +162,7 @@ class WINTRUST_DATA extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Integer}
+     * @type {WINTRUST_DATA_UICONTEXT}
      */
     dwUIContext {
         get => NumGet(this, 76, "uint")

@@ -1,6 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\D3D12_HEAP_PROPERTIES.ahk
+#Include .\D3D12_HEAP_TYPE.ahk
+#Include .\D3D12_CPU_PAGE_PROPERTY.ahk
+#Include .\D3D12_MEMORY_POOL.ahk
+#Include .\D3D12_HEAP_FLAGS.ahk
 
 /**
  * Describes a heap.
@@ -8,10 +12,8 @@
  * This structure is used by the <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nf-d3d12-id3d12device-createheap">CreateHeap</a> method, and returned by the <a href="https://docs.microsoft.com/windows/desktop/direct3d12/id3d12heap-getdesc">GetDesc</a> method.
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_heap_desc
  * @namespace Windows.Win32.Graphics.Direct3D12
- * @version v4.0.30319
  */
-class D3D12_HEAP_DESC extends Win32Struct
-{
+class D3D12_HEAP_DESC extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -32,7 +34,7 @@ class D3D12_HEAP_DESC extends Win32Struct
      * A <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ns-d3d12-d3d12_heap_properties">D3D12_HEAP_PROPERTIES</a> structure that describes the heap properties.
      * @type {D3D12_HEAP_PROPERTIES}
      */
-    Properties{
+    Properties {
         get {
             if(!this.HasProp("__Properties"))
                 this.__Properties := D3D12_HEAP_PROPERTIES(8, this)
@@ -80,7 +82,7 @@ class D3D12_HEAP_DESC extends Win32Struct
      * A combination of <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_heap_flags">D3D12_HEAP_FLAGS</a>-typed values that are combined by using a bitwise-OR operation.
      *             The resulting value identifies heap options.
      *             When creating heaps to support adapters with resource heap tier 1, an application must choose some flags.
-     * @type {Integer}
+     * @type {D3D12_HEAP_FLAGS}
      */
     Flags {
         get => NumGet(this, 40, "int")

@@ -5,9 +5,8 @@
  * Type of user comment in a IMEWRD structure.
  * @see https://learn.microsoft.com/windows/win32/api/msime/ne-msime-imeuct
  * @namespace Windows.Win32.UI.Input.Ime
- * @version v4.0.30319
  */
-class IMEUCT extends Win32Enum{
+class IMEUCT extends Win32Enum {
 
     /**
      * No comment string is specified.
@@ -34,7 +33,6 @@ class IMEUCT extends Win32Enum{
     static IFED_UCT_USER_DEFINED => 3
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static IFED_UCT_MAX => 4

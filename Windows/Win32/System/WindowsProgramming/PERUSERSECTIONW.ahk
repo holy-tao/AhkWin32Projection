@@ -3,11 +3,9 @@
 
 /**
  * @namespace Windows.Win32.System.WindowsProgramming
- * @version v4.0.30319
  * @charset Unicode
  */
-class PERUSERSECTIONW extends Win32Struct
-{
+class PERUSERSECTIONW extends Win32Struct {
     static sizeof => 2804
 
     static packingSize => 4

@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
- * @version v4.0.30319
  */
-class IDataModelScriptDebugClient extends IUnknown{
+class IDataModelScriptDebugClient extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -33,7 +32,7 @@ class IDataModelScriptDebugClient extends IUnknown{
      * @param {Pointer<ScriptDebugEventInformation>} pEventInfo 
      * @param {IDataModelScript} pScript 
      * @param {IModelObject} pEventDataObject 
-     * @param {Pointer<Integer>} resumeEventKind 
+     * @param {Pointer<ScriptExecutionKind>} resumeEventKind 
      * @returns {HRESULT} 
      */
     NotifyDebugEvent(pEventInfo, pScript, pEventDataObject, resumeEventKind) {

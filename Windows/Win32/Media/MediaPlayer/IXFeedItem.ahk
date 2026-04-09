@@ -1,15 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\System\Com\IStream.ahk
 #Include ..\..\Foundation\SYSTEMTIME.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * @namespace Windows.Win32.Media.MediaPlayer
- * @version v4.0.30319
  */
-class IXFeedItem extends IUnknown{
+class IXFeedItem extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -32,7 +31,7 @@ class IXFeedItem extends IUnknown{
 
     /**
      * Resource string ids set by caller to be returned in xml data for visualizing objects.
-     * @param {Integer} fxif 
+     * @param {FEEDS_XML_INCLUDE_FLAGS} fxif 
      * @returns {IStream} 
      * @see https://learn.microsoft.com/windows/win32/direct3dtools/xml-resource-ids
      */

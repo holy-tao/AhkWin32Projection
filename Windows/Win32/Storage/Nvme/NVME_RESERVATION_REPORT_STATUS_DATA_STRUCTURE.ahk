@@ -5,18 +5,16 @@
 
 /**
  * @namespace Windows.Win32.Storage.Nvme
- * @version v4.0.30319
  */
-class NVME_RESERVATION_REPORT_STATUS_DATA_STRUCTURE extends Win32Struct
-{
-    static sizeof => 40
+class NVME_RESERVATION_REPORT_STATUS_DATA_STRUCTURE extends Win32Struct {
+    static sizeof => 56
 
     static packingSize => 8
 
     /**
      * @type {NVME_RESERVATION_REPORT_STATUS_HEADER}
      */
-    Header{
+    Header {
         get {
             if(!this.HasProp("__Header"))
                 this.__Header := NVME_RESERVATION_REPORT_STATUS_HEADER(0, this)
@@ -25,9 +23,9 @@ class NVME_RESERVATION_REPORT_STATUS_DATA_STRUCTURE extends Win32Struct
     }
 
     /**
-     * @type {Array<NVME_REGISTERED_CONTROLLER_DATA>}
+     * @type {NVME_REGISTERED_CONTROLLER_DATA}
      */
-    RegisteredControllersData{
+    RegisteredControllersData {
         get {
             if(!this.HasProp("__RegisteredControllersDataProxyArray"))
                 this.__RegisteredControllersDataProxyArray := Win32FixedArray(this.ptr + 32, 1, NVME_REGISTERED_CONTROLLER_DATA, "")

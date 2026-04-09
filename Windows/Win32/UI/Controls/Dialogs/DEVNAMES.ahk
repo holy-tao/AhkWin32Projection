@@ -5,10 +5,9 @@
  * Contains strings that identify the driver, device, and output port names for a printer.
  * @see https://learn.microsoft.com/windows/win32/api/commdlg/ns-commdlg-devnames
  * @namespace Windows.Win32.UI.Controls.Dialogs
- * @version v4.0.30319
+ * @architecture X64, Arm64
  */
-class DEVNAMES extends Win32Struct
-{
+class DEVNAMES extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 2

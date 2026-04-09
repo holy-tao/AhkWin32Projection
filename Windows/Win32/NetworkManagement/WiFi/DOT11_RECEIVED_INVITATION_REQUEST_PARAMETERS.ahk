@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
- * @version v4.0.30319
  */
-class DOT11_RECEIVED_INVITATION_REQUEST_PARAMETERS extends Win32Struct
-{
+class DOT11_RECEIVED_INVITATION_REQUEST_PARAMETERS extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -15,7 +13,7 @@ class DOT11_RECEIVED_INVITATION_REQUEST_PARAMETERS extends Win32Struct
     /**
      * @type {NDIS_OBJECT_HEADER}
      */
-    Header{
+    Header {
         get {
             if(!this.HasProp("__Header"))
                 this.__Header := NDIS_OBJECT_HEADER(0, this)
@@ -24,9 +22,9 @@ class DOT11_RECEIVED_INVITATION_REQUEST_PARAMETERS extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    TransmitterDeviceAddress{
+    TransmitterDeviceAddress {
         get {
             if(!this.HasProp("__TransmitterDeviceAddressProxyArray"))
                 this.__TransmitterDeviceAddressProxyArray := Win32FixedArray(this.ptr + 4, 6, Primitive, "char")
@@ -35,9 +33,9 @@ class DOT11_RECEIVED_INVITATION_REQUEST_PARAMETERS extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    BSSID{
+    BSSID {
         get {
             if(!this.HasProp("__BSSIDProxyArray"))
                 this.__BSSIDProxyArray := Win32FixedArray(this.ptr + 10, 6, Primitive, "char")

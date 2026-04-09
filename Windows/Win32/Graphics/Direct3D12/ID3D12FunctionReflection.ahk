@@ -15,9 +15,8 @@
  * <div> </div>
  * @see https://learn.microsoft.com/windows/win32/api/d3d12shader/nn-d3d12shader-id3d12functionreflection
  * @namespace Windows.Win32.Graphics.Direct3D12
- * @version v4.0.30319
  */
-class ID3D12FunctionReflection extends Win32ComInterface{
+class ID3D12FunctionReflection extends Win32ComInterface {
 
     static sizeof => A_PtrSize
     /**

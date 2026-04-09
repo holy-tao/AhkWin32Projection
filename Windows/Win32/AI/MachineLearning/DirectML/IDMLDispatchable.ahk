@@ -7,9 +7,8 @@
  * Implemented by objects that can be recorded into a command list for dispatch on the GPU, using IDMLCommandRecorder::RecordDispatch.
  * @see https://learn.microsoft.com/windows/win32/api/directml/nn-directml-idmldispatchable
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
- * @version v4.0.30319
  */
-class IDMLDispatchable extends IDMLPageable{
+class IDMLDispatchable extends IDMLPageable {
 
     static sizeof => A_PtrSize
     /**

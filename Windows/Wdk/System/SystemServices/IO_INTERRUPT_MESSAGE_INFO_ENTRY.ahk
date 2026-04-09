@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\KINTERRUPT_MODE.ahk
+#Include .\KINTERRUPT_POLARITY.ahk
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class IO_INTERRUPT_MESSAGE_INFO_ENTRY extends Win32Struct
-{
+class IO_INTERRUPT_MESSAGE_INFO_ENTRY extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -60,7 +60,7 @@ class IO_INTERRUPT_MESSAGE_INFO_ENTRY extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {KINTERRUPT_MODE}
      */
     Mode {
         get => NumGet(this, 36, "int")
@@ -68,7 +68,7 @@ class IO_INTERRUPT_MESSAGE_INFO_ENTRY extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {KINTERRUPT_POLARITY}
      */
     Polarity {
         get => NumGet(this, 40, "int")

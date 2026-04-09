@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Networking.DeliveryOptimization
- * @version v4.0.30319
  */
-class DeliveryOptimization extends Win32Struct
-{
+class DeliveryOptimization extends Win32Struct {
     static sizeof => 0
 
     static packingSize => 1

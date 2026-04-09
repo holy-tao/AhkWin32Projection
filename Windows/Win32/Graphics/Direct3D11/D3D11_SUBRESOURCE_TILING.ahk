@@ -10,10 +10,8 @@
  * The total number of tiles in subresources is <b>WidthInTiles</b>*<b>HeightInTiles</b>*<b>DepthInTiles</b>.
  * @see https://learn.microsoft.com/windows/win32/api/d3d11_2/ns-d3d11_2-d3d11_subresource_tiling
  * @namespace Windows.Win32.Graphics.Direct3D11
- * @version v4.0.30319
  */
-class D3D11_SUBRESOURCE_TILING extends Win32Struct
-{
+class D3D11_SUBRESOURCE_TILING extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4

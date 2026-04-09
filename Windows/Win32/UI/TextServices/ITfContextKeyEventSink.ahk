@@ -7,9 +7,8 @@
  * The ITfContextKeyEventSink interface is implemented by a text service to receive keyboard event notifications that occur in an input context.
  * @see https://learn.microsoft.com/windows/win32/api/msctf/nn-msctf-itfcontextkeyeventsink
  * @namespace Windows.Win32.UI.TextServices
- * @version v4.0.30319
  */
-class ITfContextKeyEventSink extends IUnknown{
+class ITfContextKeyEventSink extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -32,8 +31,8 @@ class ITfContextKeyEventSink extends IUnknown{
 
     /**
      * ITfContextKeyEventSink::OnKeyDown method
-     * @param {WPARAM} _wParam 
-     * @param {LPARAM} _lParam 
+     * @param {WPARAM} _wParam Specifies the virtual-key code of the key. For more information about this parameter, see the <i>wParam</i> parameter in <a href="https://docs.microsoft.com/windows/desktop/inputdev/wm-keydown">WM_KEYDOWN</a>.
+     * @param {LPARAM} _lParam Specifies the repeat count, scan code, extended-key flag, context code, previous key-state flag, and transition-state flag of the key. For more information about this parameter, see the <i>lParam</i> parameter in <a href="https://docs.microsoft.com/windows/desktop/inputdev/wm-keydown">WM_KEYDOWN</a>.
      * @returns {BOOL} Pointer to a BOOL value that, on exit, indicates if the key event is handled. If this value receives <b>TRUE</b>, the key event is handled. If this value is <b>FALSE</b>, the key event is not handled.
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfcontextkeyeventsink-onkeydown
      */
@@ -44,8 +43,8 @@ class ITfContextKeyEventSink extends IUnknown{
 
     /**
      * ITfContextKeyEventSink::OnKeyUp method
-     * @param {WPARAM} _wParam 
-     * @param {LPARAM} _lParam 
+     * @param {WPARAM} _wParam Specifies the virtual-key code of the key. For more information about this parameter, see the <i>wParam</i> parameter in <a href="https://docs.microsoft.com/windows/desktop/inputdev/wm-keyup">WM_KEYUP</a>.
+     * @param {LPARAM} _lParam Specifies the repeat count, scan code, extended-key flag, context code, previous key-state flag, and transition-state flag of the key. For more information about this parameter, see the <i>lParam</i> parameter in <a href="https://docs.microsoft.com/windows/desktop/inputdev/wm-keyup">WM_KEYUP</a>.
      * @returns {BOOL} Pointer to a BOOL value that, on exit, indicates if the key event is handled. If this value receives <b>TRUE</b>, the key event is handled. If this value receives <b>FALSE</b>, the key event is not handled.
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfcontextkeyeventsink-onkeyup
      */
@@ -56,8 +55,8 @@ class ITfContextKeyEventSink extends IUnknown{
 
     /**
      * ITfContextKeyEventSink::OnTestKeyDown method
-     * @param {WPARAM} _wParam 
-     * @param {LPARAM} _lParam 
+     * @param {WPARAM} _wParam Specifies the virtual-key code of the key. For more information about this parameter, see the <i>wParam</i> parameter in <a href="https://docs.microsoft.com/windows/desktop/inputdev/wm-keydown">WM_KEYDOWN</a>.
+     * @param {LPARAM} _lParam Specifies the repeat count, scan code, extended-key flag, context code, previous key-state flag, and transition-state flag of the key. For more information about this parameter, see the <i>lParam</i> parameter in <a href="https://docs.microsoft.com/windows/desktop/inputdev/wm-keydown">WM_KEYDOWN</a>.
      * @returns {BOOL} Pointer to a BOOL value that, on exit, indicates if the key event is handled. If this value receives <b>TRUE</b>, the key event is handled. If this value is <b>FALSE</b>, the key event is not handled.
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfcontextkeyeventsink-ontestkeydown
      */
@@ -68,8 +67,8 @@ class ITfContextKeyEventSink extends IUnknown{
 
     /**
      * ITfContextKeyEventSink::OnTestKeyUp method
-     * @param {WPARAM} _wParam 
-     * @param {LPARAM} _lParam 
+     * @param {WPARAM} _wParam Specifies the virtual-key code of the key. For more information about this parameter, see the <i>wParam</i> parameter in <a href="https://docs.microsoft.com/windows/desktop/inputdev/wm-keyup">WM_KEYUP</a>.
+     * @param {LPARAM} _lParam Specifies the repeat count, scan code, extended-key flag, context code, previous key-state flag, and transition-state flag of the key. For more information about this parameter, see the <i>lParam</i> parameter in <a href="https://docs.microsoft.com/windows/desktop/inputdev/wm-keyup">WM_KEYUP</a>.
      * @returns {BOOL} Pointer to a BOOL value that, on exit, indicates if the key event is handled. If this value receives <b>TRUE</b>, the key event is handled. If this value receives <b>FALSE</b>, the key event would is not handled.
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfcontextkeyeventsink-ontestkeyup
      */

@@ -15,9 +15,8 @@
  * Include Vidcap.h from the Windows SDK or from the DirectX 9.0 SDK Update (Summer 2004) or later.
  * @see https://learn.microsoft.com/windows/win32/api/vidcap/nn-vidcap-ikstopologyinfo
  * @namespace Windows.Win32.Media.KernelStreaming
- * @version v4.0.30319
  */
-class IKsTopology extends IUnknown{
+class IKsTopology extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

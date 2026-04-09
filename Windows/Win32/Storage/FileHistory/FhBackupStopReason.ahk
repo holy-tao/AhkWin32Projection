@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Storage.FileHistory
- * @version v4.0.30319
  */
-class FhBackupStopReason extends Win32Enum{
+class FhBackupStopReason extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

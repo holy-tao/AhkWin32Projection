@@ -6,10 +6,8 @@
  * Contains I/O callback information.
  * @see https://learn.microsoft.com/windows/win32/api/minidumpapiset/ns-minidumpapiset-minidump_io_callback
  * @namespace Windows.Win32.System.Diagnostics.Debug
- * @version v4.0.30319
  */
-class MINIDUMP_IO_CALLBACK extends Win32Struct
-{
+class MINIDUMP_IO_CALLBACK extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -18,7 +16,7 @@ class MINIDUMP_IO_CALLBACK extends Win32Struct
      * The file handle passed to the <a href="https://docs.microsoft.com/windows/desktop/api/minidumpapiset/nf-minidumpapiset-minidumpwritedump">MiniDumpWriteDump</a> function.
      * @type {HANDLE}
      */
-    Handle{
+    Handle {
         get {
             if(!this.HasProp("__Handle"))
                 this.__Handle := HANDLE(0, this)

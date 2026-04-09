@@ -5,13 +5,10 @@
 
 /**
  * Adds to the debug layer the ability to configure the auto-naming of objects.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/d3d12sdklayers/nn-d3d12sdklayers-id3d12debug5
  * @namespace Windows.Win32.Graphics.Direct3D12
- * @version v4.0.30319
  */
-class ID3D12Debug5 extends ID3D12Debug4{
+class ID3D12Debug5 extends ID3D12Debug4 {
 
     static sizeof => A_PtrSize
     /**

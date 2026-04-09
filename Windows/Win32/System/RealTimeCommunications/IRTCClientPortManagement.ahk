@@ -1,14 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
  * @namespace Windows.Win32.System.RealTimeCommunications
- * @version v4.0.30319
  */
-class IRTCClientPortManagement extends IUnknown{
+class IRTCClientPortManagement extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -57,7 +55,7 @@ class IRTCClientPortManagement extends IUnknown{
 
     /**
      * 
-     * @param {Integer} enPortType 
+     * @param {RTC_PORT_TYPE} enPortType 
      * @param {Pointer<Integer>} plMinValue 
      * @param {Pointer<Integer>} plMaxValue 
      * @returns {HRESULT} 

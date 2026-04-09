@@ -1,21 +1,20 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\SYSKIND.ahk
 
 /**
  * Contains information about a type library. Information from this structure is used to identify the type library and to provide national language support for member names.
  * @see https://learn.microsoft.com/windows/win32/api/oaidl/ns-oaidl-tlibattr
  * @namespace Windows.Win32.System.Com
- * @version v4.0.30319
  */
-class TLIBATTR extends Win32Struct
-{
+class TLIBATTR extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
 
     /**
      * The globally unique identifier.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     guid {
         get => NumGet(this, 0, "ptr")
@@ -33,7 +32,7 @@ class TLIBATTR extends Win32Struct
 
     /**
      * The target hardware platform.
-     * @type {Integer}
+     * @type {SYSKIND}
      */
     syskind {
         get => NumGet(this, 12, "int")

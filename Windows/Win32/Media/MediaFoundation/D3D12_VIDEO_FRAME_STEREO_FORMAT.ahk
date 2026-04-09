@@ -3,13 +3,10 @@
 
 /**
  * Defines the layout in memory of a stereo 3D video frame.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/d3d12video/ne-d3d12video-d3d12_video_frame_stereo_format
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class D3D12_VIDEO_FRAME_STEREO_FORMAT extends Win32Enum{
+class D3D12_VIDEO_FRAME_STEREO_FORMAT extends Win32Enum {
 
     /**
      * No stereo format is specified.

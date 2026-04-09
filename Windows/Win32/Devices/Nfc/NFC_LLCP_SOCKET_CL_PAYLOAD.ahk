@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.Nfc
- * @version v4.0.30319
  */
-class NFC_LLCP_SOCKET_CL_PAYLOAD extends Win32Struct
-{
+class NFC_LLCP_SOCKET_CL_PAYLOAD extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
@@ -31,7 +29,7 @@ class NFC_LLCP_SOCKET_CL_PAYLOAD extends Win32Struct
     /**
      * @type {NFC_DATA_BUFFER}
      */
-    sPayload{
+    sPayload {
         get {
             if(!this.HasProp("__sPayload"))
                 this.__sPayload := NFC_DATA_BUFFER(10, this)

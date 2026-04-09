@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\BITMAP_RENDERER_STATISTICS.ahk
 #Include ..\Com\IUnknown.ahk
+#Include .\BITMAP_RENDERER_STATISTICS.ahk
 
 /**
  * Used by a dynamic virtual channel plug-in to render bitmaps.
  * @see https://learn.microsoft.com/windows/win32/api/tsvirtualchannels/nn-tsvirtualchannels-iwtsbitmaprenderer
  * @namespace Windows.Win32.System.RemoteDesktop
- * @version v4.0.30319
  */
-class IWTSBitmapRenderer extends IUnknown{
+class IWTSBitmapRenderer extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

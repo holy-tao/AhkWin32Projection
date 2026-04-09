@@ -5,9 +5,8 @@
  * Specifies values used by IAutoComplete2::GetOptions and IAutoComplete2::SetOptions for options surrounding autocomplete.
  * @see https://learn.microsoft.com/windows/win32/api/shldisp/ne-shldisp-autocompleteoptions
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class AUTOCOMPLETEOPTIONS extends Win32Enum{
+class AUTOCOMPLETEOPTIONS extends Win32Enum {
 
     /**
      * 0x0000. Do not autocomplete.

@@ -11,9 +11,8 @@
  * <div> </div>
  * @see https://learn.microsoft.com/windows/win32/api/vdslun/ne-vdslun-vds_storage_identifier_type
  * @namespace Windows.Win32.Storage.VirtualDiskService
- * @version v4.0.30319
  */
-class VDS_STORAGE_IDENTIFIER_TYPE extends Win32Enum{
+class VDS_STORAGE_IDENTIFIER_TYPE extends Win32Enum {
 
     /**
      * The storage identifier type is vendor specific.
@@ -47,25 +46,21 @@ class VDS_STORAGE_IDENTIFIER_TYPE extends Win32Enum{
     static VDSStorageIdTypePortRelative => 4
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static VDSStorageIdTypeTargetPortGroup => 5
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static VDSStorageIdTypeLogicalUnitGroup => 6
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static VDSStorageIdTypeMD5LogicalUnitIdentifier => 7
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static VDSStorageIdTypeScsiNameString => 8

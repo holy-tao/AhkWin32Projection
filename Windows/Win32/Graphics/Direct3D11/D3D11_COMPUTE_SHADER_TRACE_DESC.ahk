@@ -7,10 +7,8 @@
  * This API requires the Windows Software Development Kit (SDK) for Windows 8.
  * @see https://learn.microsoft.com/windows/win32/api/d3d11shadertracing/ns-d3d11shadertracing-d3d11_compute_shader_trace_desc
  * @namespace Windows.Win32.Graphics.Direct3D11
- * @version v4.0.30319
  */
-class D3D11_COMPUTE_SHADER_TRACE_DESC extends Win32Struct
-{
+class D3D11_COMPUTE_SHADER_TRACE_DESC extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -26,9 +24,9 @@ class D3D11_COMPUTE_SHADER_TRACE_DESC extends Win32Struct
 
     /**
      * The <a href="https://docs.microsoft.com/windows/desktop/direct3dhlsl/sv-groupthreadid">SV_GroupThreadID</a> to trace. This value identifies indexes of individual threads within a thread group that a compute shader executes in.
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    ThreadIDInGroup{
+    ThreadIDInGroup {
         get {
             if(!this.HasProp("__ThreadIDInGroupProxyArray"))
                 this.__ThreadIDInGroupProxyArray := Win32FixedArray(this.ptr + 8, 3, Primitive, "uint")
@@ -38,9 +36,9 @@ class D3D11_COMPUTE_SHADER_TRACE_DESC extends Win32Struct
 
     /**
      * The <a href="https://docs.microsoft.com/windows/desktop/direct3dhlsl/sv-groupid">SV_GroupID</a> to trace. This value identifies indexes of a thread group that the compute shader executes in.
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    ThreadGroupID{
+    ThreadGroupID {
         get {
             if(!this.HasProp("__ThreadGroupIDProxyArray"))
                 this.__ThreadGroupIDProxyArray := Win32FixedArray(this.ptr + 20, 3, Primitive, "uint")

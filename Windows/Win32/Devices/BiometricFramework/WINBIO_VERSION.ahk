@@ -5,10 +5,8 @@
  * Contains the software version number of a biometric service provider component.
  * @see https://learn.microsoft.com/windows/win32/SecBioMet/winbio-version
  * @namespace Windows.Win32.Devices.BiometricFramework
- * @version v4.0.30319
  */
-class WINBIO_VERSION extends Win32Struct
-{
+class WINBIO_VERSION extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4

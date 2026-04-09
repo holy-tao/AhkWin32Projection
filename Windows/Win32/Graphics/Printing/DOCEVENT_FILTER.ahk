@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
- * @version v4.0.30319
  */
-class DOCEVENT_FILTER extends Win32Struct
-{
+class DOCEVENT_FILTER extends Win32Struct {
     static sizeof => 20
 
     static packingSize => 4
@@ -44,9 +42,9 @@ class DOCEVENT_FILTER extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    aDocEventCall{
+    aDocEventCall {
         get {
             if(!this.HasProp("__aDocEventCallProxyArray"))
                 this.__aDocEventCallProxyArray := Win32FixedArray(this.ptr + 16, 1, Primitive, "uint")

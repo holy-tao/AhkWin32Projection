@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Security.Cryptography.Certificates
- * @version v4.0.30319
  */
-class IX509CertificateRequestPkcs10V4 extends IX509CertificateRequestPkcs10V3{
+class IX509CertificateRequestPkcs10V4 extends IX509CertificateRequestPkcs10V3 {
 
     static sizeof => A_PtrSize
     /**
@@ -29,7 +28,7 @@ class IX509CertificateRequestPkcs10V4 extends IX509CertificateRequestPkcs10V3{
     static VTableNames => ["get_ClaimType", "put_ClaimType", "get_AttestPrivateKeyPreferred", "put_AttestPrivateKeyPreferred"]
 
     /**
-     * @type {Integer} 
+     * @type {KeyAttestationClaimType} 
      */
     ClaimType {
         get => this.get_ClaimType()
@@ -46,7 +45,7 @@ class IX509CertificateRequestPkcs10V4 extends IX509CertificateRequestPkcs10V3{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {KeyAttestationClaimType} 
      */
     get_ClaimType() {
         result := ComCall(76, this, "int*", &pValue := 0, "HRESULT")
@@ -55,7 +54,7 @@ class IX509CertificateRequestPkcs10V4 extends IX509CertificateRequestPkcs10V3{
 
     /**
      * 
-     * @param {Integer} Value 
+     * @param {KeyAttestationClaimType} Value 
      * @returns {HRESULT} 
      */
     put_ClaimType(Value) {

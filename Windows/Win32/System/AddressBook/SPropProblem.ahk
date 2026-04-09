@@ -25,10 +25,8 @@
  * For more information about how the **SPropProblem** structure works with errors related to properties, see [MAPI Named Properties](mapi-named-properties.md).
  * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/spropproblem
  * @namespace Windows.Win32.System.AddressBook
- * @version v4.0.30319
  */
-class SPropProblem extends Win32Struct
-{
+class SPropProblem extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4

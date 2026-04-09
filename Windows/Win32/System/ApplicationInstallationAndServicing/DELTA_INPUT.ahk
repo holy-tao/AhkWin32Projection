@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.ApplicationInstallationAndServicing
- * @version v4.0.30319
  */
-class DELTA_INPUT extends Win32Struct
-{
+class DELTA_INPUT extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

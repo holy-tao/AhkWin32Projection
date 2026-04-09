@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\Gdi\DEVMODEW.ahk
 
 /**
  * The PRINTER\_INFO\_9 structure specifies the per-user default printer settings.
@@ -7,11 +8,9 @@
  * The per-user defaults will affect only a particular user or anyone who uses the profile. In contrast, the global defaults are set by the administrator of a printer that can be used by anyone. For global defaults, use [**PRINTER\_INFO\_8**](printer-info-8.md).
  * @see https://learn.microsoft.com/windows/win32/printdocs/printer-info-9
  * @namespace Windows.Win32.Graphics.Printing
- * @version v4.0.30319
  * @charset Unicode
  */
-class PRINTER_INFO_9W extends Win32Struct
-{
+class PRINTER_INFO_9W extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 8

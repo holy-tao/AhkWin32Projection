@@ -1,19 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\COLORSPACE_TRANSFORM_STAGE_CONTROL.ahk
 #Include .\GAMMA_RAMP_RGB.ahk
 
 /**
  * @namespace Windows.Win32.Devices.Display
- * @version v4.0.30319
  */
-class COLORSPACE_TRANSFORM_MATRIX_V2 extends Win32Struct
-{
-    static sizeof => 65592
+class COLORSPACE_TRANSFORM_MATRIX_V2 extends Win32Struct {
+    static sizeof => 98352
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
-     * @type {Integer}
+     * @type {COLORSPACE_TRANSFORM_STAGE_CONTROL}
      */
     StageControlLookupTable1DDegamma {
         get => NumGet(this, 0, "int")
@@ -21,50 +20,50 @@ class COLORSPACE_TRANSFORM_MATRIX_V2 extends Win32Struct
     }
 
     /**
-     * @type {Array<GAMMA_RAMP_RGB>}
+     * @type {GAMMA_RAMP_RGB}
      */
-    LookupTable1DDegamma{
+    LookupTable1DDegamma {
         get {
             if(!this.HasProp("__LookupTable1DDegammaProxyArray"))
-                this.__LookupTable1DDegammaProxyArray := Win32FixedArray(this.ptr + 8, 4096, GAMMA_RAMP_RGB, "")
+                this.__LookupTable1DDegammaProxyArray := Win32FixedArray(this.ptr + 4, 4096, GAMMA_RAMP_RGB, "")
             return this.__LookupTable1DDegammaProxyArray
         }
     }
 
     /**
-     * @type {Integer}
+     * @type {COLORSPACE_TRANSFORM_STAGE_CONTROL}
      */
     StageControlColorMatrix3x3 {
-        get => NumGet(this, 32776, "int")
-        set => NumPut("int", value, this, 32776)
+        get => NumGet(this, 49156, "int")
+        set => NumPut("int", value, this, 49156)
     }
 
     /**
-     * @type {Array<Single>}
+     * @type {Array<Float>}
      */
-    ColorMatrix3x3{
+    ColorMatrix3x3 {
         get {
             if(!this.HasProp("__ColorMatrix3x3ProxyArray"))
-                this.__ColorMatrix3x3ProxyArray := Win32FixedArray(this.ptr + 32780, 9, Primitive, "float")
+                this.__ColorMatrix3x3ProxyArray := Win32FixedArray(this.ptr + 49160, 9, Primitive, "float")
             return this.__ColorMatrix3x3ProxyArray
         }
     }
 
     /**
-     * @type {Integer}
+     * @type {COLORSPACE_TRANSFORM_STAGE_CONTROL}
      */
     StageControlLookupTable1DRegamma {
-        get => NumGet(this, 32816, "int")
-        set => NumPut("int", value, this, 32816)
+        get => NumGet(this, 49196, "int")
+        set => NumPut("int", value, this, 49196)
     }
 
     /**
-     * @type {Array<GAMMA_RAMP_RGB>}
+     * @type {GAMMA_RAMP_RGB}
      */
-    LookupTable1DRegamma{
+    LookupTable1DRegamma {
         get {
             if(!this.HasProp("__LookupTable1DRegammaProxyArray"))
-                this.__LookupTable1DRegammaProxyArray := Win32FixedArray(this.ptr + 32824, 4096, GAMMA_RAMP_RGB, "")
+                this.__LookupTable1DRegammaProxyArray := Win32FixedArray(this.ptr + 49200, 4096, GAMMA_RAMP_RGB, "")
             return this.__LookupTable1DRegammaProxyArray
         }
     }

@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\DML_TENSOR_DESC.ahk
+#Include .\DML_AXIS_DIRECTION.ahk
 
 /**
  * Outputs the indices of the maximum-valued elements within one or more dimensions of the input tensor.
@@ -11,10 +13,8 @@
  * A subset of this functionality is exposed through the [DML_REDUCE_OPERATOR_DESC](/windows/win32/api/directml/ns-directml-dml_reduce_operator_desc) operator, and is supported on earlier DirectML feature levels.
  * @see https://learn.microsoft.com/windows/win32/api/directml/ns-directml-dml_argmax_operator_desc
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
- * @version v4.0.30319
  */
-class DML_ARGMAX_OPERATOR_DESC extends Win32Struct
-{
+class DML_ARGMAX_OPERATOR_DESC extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -72,7 +72,7 @@ class DML_ARGMAX_OPERATOR_DESC extends Win32Struct
      * Determines which index to select when multiple input elements have the same value.
      * - **DML_AXIS_DIRECTION_INCREASING** returns the index of the first maximum-valued element (for example, `argmax({3,2,1,2,3}) = 0`)
      * - **DML_AXIS_DIRECTION_DECREASING** returns the index of the last maximum-valued element (for example, `argmax({3,2,1,2,3}) = 4`)
-     * @type {Integer}
+     * @type {DML_AXIS_DIRECTION}
      */
     AxisDirection {
         get => NumGet(this, 32, "int")

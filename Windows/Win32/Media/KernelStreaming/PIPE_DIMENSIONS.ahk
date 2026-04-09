@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
- * @version v4.0.30319
  */
-class PIPE_DIMENSIONS extends Win32Struct
-{
+class PIPE_DIMENSIONS extends Win32Struct {
     static sizeof => 36
 
     static packingSize => 4
@@ -15,7 +13,7 @@ class PIPE_DIMENSIONS extends Win32Struct
     /**
      * @type {KS_COMPRESSION}
      */
-    AllocatorPin{
+    AllocatorPin {
         get {
             if(!this.HasProp("__AllocatorPin"))
                 this.__AllocatorPin := KS_COMPRESSION(0, this)
@@ -26,7 +24,7 @@ class PIPE_DIMENSIONS extends Win32Struct
     /**
      * @type {KS_COMPRESSION}
      */
-    MaxExpansionPin{
+    MaxExpansionPin {
         get {
             if(!this.HasProp("__MaxExpansionPin"))
                 this.__MaxExpansionPin := KS_COMPRESSION(12, this)
@@ -37,7 +35,7 @@ class PIPE_DIMENSIONS extends Win32Struct
     /**
      * @type {KS_COMPRESSION}
      */
-    EndPin{
+    EndPin {
         get {
             if(!this.HasProp("__EndPin"))
                 this.__EndPin := KS_COMPRESSION(24, this)

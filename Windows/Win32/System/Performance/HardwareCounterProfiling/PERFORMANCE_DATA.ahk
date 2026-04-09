@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include .\HARDWARE_COUNTER_DATA.ahk
+#Include .\HARDWARE_COUNTER_TYPE.ahk
 
 /**
  * Contains the thread profiling and hardware counter data that you requested.
@@ -23,11 +24,9 @@
  * </ul>
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-performance_data
  * @namespace Windows.Win32.System.Performance.HardwareCounterProfiling
- * @version v4.0.30319
  */
-class PERFORMANCE_DATA extends Win32Struct
-{
-    static sizeof => 160
+class PERFORMANCE_DATA extends Win32Struct {
+    static sizeof => 288
 
     static packingSize => 8
 
@@ -105,9 +104,9 @@ class PERFORMANCE_DATA extends Win32Struct
 
     /**
      * An array of <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-hardware_counter_data">HARDWARE_COUNTER_DATA</a> structures that contain the counter values. The elements of the array that contain counter data relate directly to the bits set in the <i>HardwareCounters</i> bitmask that you specified when you called the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-enablethreadprofiling">EnableThreadProfiling</a> function. For example, if you set bit 3 in the <i>HardwareCounters</i> bitmask, HwCounters[3] will contain the counter data for that counter.
-     * @type {Array<HARDWARE_COUNTER_DATA>}
+     * @type {HARDWARE_COUNTER_DATA}
      */
-    HwCounters{
+    HwCounters {
         get {
             if(!this.HasProp("__HwCountersProxyArray"))
                 this.__HwCountersProxyArray := Win32FixedArray(this.ptr + 32, 16, HARDWARE_COUNTER_DATA, "")

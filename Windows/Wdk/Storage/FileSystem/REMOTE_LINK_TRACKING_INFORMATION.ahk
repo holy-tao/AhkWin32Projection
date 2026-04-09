@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem
- * @version v4.0.30319
  */
-class REMOTE_LINK_TRACKING_INFORMATION extends Win32Struct
-{
+class REMOTE_LINK_TRACKING_INFORMATION extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
@@ -28,9 +26,9 @@ class REMOTE_LINK_TRACKING_INFORMATION extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    TargetLinkTrackingInformationBuffer{
+    TargetLinkTrackingInformationBuffer {
         get {
             if(!this.HasProp("__TargetLinkTrackingInformationBufferProxyArray"))
                 this.__TargetLinkTrackingInformationBufferProxyArray := Win32FixedArray(this.ptr + 12, 1, Primitive, "char")

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\IPSEC_TOKEN0.ahk
 
 /**
  * Contains information corresponding to identities that are authenticated by IPsec.
@@ -7,10 +8,8 @@
  * <b>IPSEC_ID0</b> is a specific implementation of IPSEC_ID. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-version-independent-names-and-targeting-specific-versions-of-windows">WFP Version-Independent Names and Targeting Specific Versions of Windows</a>  for more information.
  * @see https://learn.microsoft.com/windows/win32/api/ipsectypes/ns-ipsectypes-ipsec_id0
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
- * @version v4.0.30319
  */
-class IPSEC_ID0 extends Win32Struct
-{
+class IPSEC_ID0 extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8

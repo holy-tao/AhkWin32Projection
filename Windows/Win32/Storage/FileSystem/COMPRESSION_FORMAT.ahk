@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Storage.FileSystem
- * @version v4.0.30319
  */
-class COMPRESSION_FORMAT extends Win32Enum{
+class COMPRESSION_FORMAT extends Win32Enum {
 
     /**
      * @type {Integer (UInt16)}

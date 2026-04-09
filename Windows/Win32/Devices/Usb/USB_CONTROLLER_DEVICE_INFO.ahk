@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.Usb
- * @version v4.0.30319
  */
-class USB_CONTROLLER_DEVICE_INFO extends Win32Struct
-{
+class USB_CONTROLLER_DEVICE_INFO extends Win32Struct {
     static sizeof => 20
 
     static packingSize => 4

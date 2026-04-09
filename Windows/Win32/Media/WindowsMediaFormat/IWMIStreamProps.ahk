@@ -7,9 +7,8 @@
  * The IWMIStreamProps interface provides access to the properties of an IStream object.To obtain a pointer to an IWMIStreamProps interface, call IStream::QueryInterface.
  * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nn-wmsdkidl-iwmistreamprops
  * @namespace Windows.Win32.Media.WindowsMediaFormat
- * @version v4.0.30319
  */
-class IWMIStreamProps extends IUnknown{
+class IWMIStreamProps extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -72,7 +71,7 @@ class IWMIStreamProps extends IUnknown{
      * <td>g_wszSourceMaxBytesAtOnce</td>
      * </tr>
      * </table>
-     * @param {Pointer<Integer>} pType Pointer to a variable that will receive one member of the <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/ne-wmsdkidl-wmt_attr_datatype">WMT_ATTR_DATATYPE</a> enumeration type. This value indicates the type of data in the buffer at <i>pValue</i>.
+     * @param {Pointer<WMT_ATTR_DATATYPE>} pType Pointer to a variable that will receive one member of the <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/ne-wmsdkidl-wmt_attr_datatype">WMT_ATTR_DATATYPE</a> enumeration type. This value indicates the type of data in the buffer at <i>pValue</i>.
      * @param {Pointer<Integer>} pValue Pointer to a byte buffer that will receive the property value. The type of data returned to the buffer is indicated by the value pointed to by <i>pType</i>.
      * @param {Pointer<Integer>} pdwSize Pointer to a <b>DWORD</b> containing the size of the buffer at <i>pValue</i>. On return, this value will be set to the correct size of the property value.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.

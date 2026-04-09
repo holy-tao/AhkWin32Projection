@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\Sip\SIP_INDIRECT_DATA.ahk
 #Include ..\..\..\Foundation\HANDLE.ahk
 #Include ..\CRYPT_INTEGER_BLOB.ahk
 
@@ -7,10 +8,8 @@
  * The CRYPTCATMEMBER structure provides information about a catalog member. This structure is used by the CryptCATGetMemberInfo and CryptCATEnumerateAttr functions.
  * @see https://learn.microsoft.com/windows/win32/api/mscat/ns-mscat-cryptcatmember
  * @namespace Windows.Win32.Security.Cryptography.Catalog
- * @version v4.0.30319
  */
-class CRYPTCATMEMBER extends Win32Struct
-{
+class CRYPTCATMEMBER extends Win32Struct {
     static sizeof => 96
 
     static packingSize => 8
@@ -44,7 +43,7 @@ class CRYPTCATMEMBER extends Win32Struct
 
     /**
      * <b>GUID</b> that identifies the subject type.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     gSubjectType {
         get => NumGet(this, 24, "ptr")
@@ -91,7 +90,7 @@ class CRYPTCATMEMBER extends Win32Struct
      * Reserved; do not use.
      * @type {HANDLE}
      */
-    hReserved{
+    hReserved {
         get {
             if(!this.HasProp("__hReserved"))
                 this.__hReserved := HANDLE(56, this)
@@ -103,7 +102,7 @@ class CRYPTCATMEMBER extends Win32Struct
      * A <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa381414(v=vs.85)">CRYPT_ATTR_BLOB</a> structure that contains encoded indirect data.
      * @type {CRYPT_INTEGER_BLOB}
      */
-    sEncodedIndirectData{
+    sEncodedIndirectData {
         get {
             if(!this.HasProp("__sEncodedIndirectData"))
                 this.__sEncodedIndirectData := CRYPT_INTEGER_BLOB(64, this)
@@ -115,7 +114,7 @@ class CRYPTCATMEMBER extends Win32Struct
      * A <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa381414(v=vs.85)">CRYPT_ATTR_BLOB</a> structure that contains encoded member information.
      * @type {CRYPT_INTEGER_BLOB}
      */
-    sEncodedMemberInfo{
+    sEncodedMemberInfo {
         get {
             if(!this.HasProp("__sEncodedMemberInfo"))
                 this.__sEncodedMemberInfo := CRYPT_INTEGER_BLOB(80, this)

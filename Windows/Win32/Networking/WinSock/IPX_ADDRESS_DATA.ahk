@@ -8,10 +8,8 @@
  * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-getsockopt">getsockopt</a> function with IPX_MAX_ADAPTER_NUM.
  * @see https://learn.microsoft.com/windows/win32/api/wsnwlink/ns-wsnwlink-ipx_address_data
  * @namespace Windows.Win32.Networking.WinSock
- * @version v4.0.30319
  */
-class IPX_ADDRESS_DATA extends Win32Struct
-{
+class IPX_ADDRESS_DATA extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 4
@@ -27,9 +25,9 @@ class IPX_ADDRESS_DATA extends Win32Struct
 
     /**
      * IPX network number for the associated adapter.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    netnum{
+    netnum {
         get {
             if(!this.HasProp("__netnumProxyArray"))
                 this.__netnumProxyArray := Win32FixedArray(this.ptr + 4, 4, Primitive, "char")
@@ -39,9 +37,9 @@ class IPX_ADDRESS_DATA extends Win32Struct
 
     /**
      * IPX node address for the associated adapter.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    nodenum{
+    nodenum {
         get {
             if(!this.HasProp("__nodenumProxyArray"))
                 this.__nodenumProxyArray := Win32FixedArray(this.ptr + 8, 6, Primitive, "char")

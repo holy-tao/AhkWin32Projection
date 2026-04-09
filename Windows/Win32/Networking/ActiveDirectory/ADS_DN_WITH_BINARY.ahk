@@ -7,10 +7,8 @@
  * When extending the active directory schema to add <b>ADS_DN_WITH_BINARY</b>, you must also specify the otherWellKnownGuid attribute definition. Add the following to the ldf file attribute definition: omObjectClass:: KoZIhvcUAQEBCw==
  * @see https://learn.microsoft.com/windows/win32/api/iads/ns-iads-ads_dn_with_binary
  * @namespace Windows.Win32.Networking.ActiveDirectory
- * @version v4.0.30319
  */
-class ADS_DN_WITH_BINARY extends Win32Struct
-{
+class ADS_DN_WITH_BINARY extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

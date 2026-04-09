@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Graphics\Gdi\HDC.ahk
+#Include ..\..\Graphics\Direct3D9\IDirect3DSurface9.ahk
 #Include ..\..\Foundation\RECT.ahk
 #Include .\VMR9NormalizedRect.ahk
 
@@ -17,10 +18,8 @@
  * When you are done, release the device context by calling <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-deletedc">DeleteDC</a>.
  * @see https://learn.microsoft.com/windows/win32/api/vmr9/ns-vmr9-vmr9alphabitmap
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class VMR9AlphaBitmap extends Win32Struct
-{
+class VMR9AlphaBitmap extends Win32Struct {
     static sizeof => 72
 
     static packingSize => 8
@@ -38,7 +37,7 @@ class VMR9AlphaBitmap extends Win32Struct
      * Handle to the GDI device context (HDC) for the bitmap. If this member contains a non-<b>NULL</b> value, set <b>pDDS</b> to <b>NULL</b> and set the <b>VMR9AlphaBitmap_hDC</b> flag in the <b>dwFlags</b> member. The device context is not compatible with GDI+.
      * @type {HDC}
      */
-    hdc{
+    hdc {
         get {
             if(!this.HasProp("__hdc"))
                 this.__hdc := HDC(8, this)
@@ -63,7 +62,7 @@ class VMR9AlphaBitmap extends Win32Struct
      * When calling <a href="https://docs.microsoft.com/windows/desktop/api/vmr9/nf-vmr9-ivmrmixerbitmap9-updatealphabitmapparameters">IVMRMixerBitmap9::UpdateAlphaBitmapParameters</a>, <b>rSrc</b> is always optional, and is used if <b>dwFlags</b> contains the VMR9AlphaBitmap_SrcRect flag.
      * @type {RECT}
      */
-    rSrc{
+    rSrc {
         get {
             if(!this.HasProp("__rSrc"))
                 this.__rSrc := RECT(24, this)
@@ -75,7 +74,7 @@ class VMR9AlphaBitmap extends Win32Struct
      * Specifies the destination rectangle in composition space.
      * @type {VMR9NormalizedRect}
      */
-    rDest{
+    rDest {
         get {
             if(!this.HasProp("__rDest"))
                 this.__rDest := VMR9NormalizedRect(40, this)

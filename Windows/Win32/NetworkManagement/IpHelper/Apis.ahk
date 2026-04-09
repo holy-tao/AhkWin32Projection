@@ -4,7 +4,6 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.IpHelper
- * @version v4.0.30319
  */
 class IpHelper {
 
@@ -2484,12 +2483,12 @@ class IpHelper {
      * Note that the include directive for <i>Iphlpapi.h</i> header file must be placed before the <i>Icmpapi.h</i> header file.
      * @param {HANDLE} IcmpHandle The open handle returned by the <a href="https://docs.microsoft.com/windows/desktop/api/icmpapi/nf-icmpapi-icmpcreatefile">IcmpCreateFile</a> function.
      * @param {Integer} DestinationAddress The IPv4 destination address of the echo request, in the form of an <a href="https://docs.microsoft.com/windows/desktop/api/inaddr/ns-inaddr-in_addr">IPAddr</a> structure.
-     * @param {Pointer} RequestData A pointer to a buffer that contains data to send in the request.
+     * @param {Integer} RequestData A pointer to a buffer that contains data to send in the request.
      * @param {Integer} RequestSize The size, in bytes, of the request data buffer pointed to by the <i>RequestData</i> parameter.
      * @param {Pointer<IP_OPTION_INFORMATION>} RequestOptions A pointer to the IP header options for the request, in the form of an <a href="https://docs.microsoft.com/windows/desktop/api/ipexport/ns-ipexport-ip_option_information">IP_OPTION_INFORMATION</a> structure. On a 64-bit platform, this parameter is in the form for an <a href="https://docs.microsoft.com/windows/desktop/api/ipexport/ns-ipexport-ip_option_information32">IP_OPTION_INFORMATION32</a> structure.
      * 
      * This parameter may be <b>NULL</b> if no IP header options need to be specified.
-     * @param {Pointer} ReplyBuffer A buffer to hold any replies to the echo request. Upon return, the buffer contains an array of 
+     * @param {Integer} ReplyBuffer A buffer to hold any replies to the echo request. Upon return, the buffer contains an array of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ipexport/ns-ipexport-icmp_echo_reply">ICMP_ECHO_REPLY</a> structures followed by the options and data for the replies. The buffer should be large enough to hold at least one 
      * <b>ICMP_ECHO_REPLY</b> structure plus <i>RequestSize</i> bytes of data.
      * @param {Integer} ReplySize The allocated size, in bytes,  of the reply buffer. The buffer should be large enough to hold at least one 
@@ -2646,12 +2645,12 @@ class IpHelper {
      * @param {Pointer<PIO_APC_ROUTINE>} ApcRoutine The routine that's called when the calling thread is in an alertable thread, and an ICMPv4 reply arrives. **PIO_APC_ROUTINE_DEFINED** must be defined in order to force the datatype for this parameter to **PIO_APC_ROUTINE** rather than **FARPROC**.
      * @param {Pointer<Void>} ApcContext An optional parameter passed to the callback routine specified in the *ApcRoutine* parameter (at most once) when an ICMP response arrives, or an error occurs.
      * @param {Integer} DestinationAddress The IPv4 destination of the echo request, in the form of an [IPAddr](/windows/win32/api/inaddr/ns-inaddr-in_addr) structure.
-     * @param {Pointer} RequestData A pointer to a buffer that contains data to send in the request.
+     * @param {Integer} RequestData A pointer to a buffer that contains data to send in the request.
      * @param {Integer} RequestSize The size, in bytes, of the request data buffer pointed to by the *RequestData* parameter.
      * @param {Pointer<IP_OPTION_INFORMATION>} RequestOptions A pointer to the IP header options for the request, in the form of an [IP_OPTION_INFORMATION](/windows/win32/api/ipexport/ns-ipexport-ip_option_information) structure.
      * 
      * This parameter may be **NULL** if no IP header options need to be specified.
-     * @param {Pointer} ReplyBuffer A pointer to a buffer to hold any replies to the request. Upon return, the buffer contains an array of [ICMP_ECHO_REPLY](/windows/win32/api/ipexport/ns-ipexport-icmp_echo_reply) structures followed by options and data.
+     * @param {Integer} ReplyBuffer A pointer to a buffer to hold any replies to the request. Upon return, the buffer contains an array of [ICMP_ECHO_REPLY](/windows/win32/api/ipexport/ns-ipexport-icmp_echo_reply) structures followed by options and data.
      * 
      * The buffer must be large enough to hold at least one **ICMP_ECHO_REPLY** structure, plus *RequestSize* bytes of data, plus an additional 8 bytes of data (the size of an ICMP error message).
      * @param {Integer} ReplySize The allocated size, in bytes, of the reply buffer.
@@ -2790,12 +2789,12 @@ class IpHelper {
      * @param {Pointer<Void>} ApcContext An optional parameter passed to the callback routine specified in the  <i>ApcRoutine</i> parameter whenever an ICMP response arrives or an error occurs.
      * @param {Integer} SourceAddress The IPv4 source address on which to issue the echo request. This address is in the form of an <a href="https://docs.microsoft.com/windows/desktop/api/inaddr/ns-inaddr-in_addr">IPAddr</a> structure.
      * @param {Integer} DestinationAddress The IPv4 destination address for the echo request. This address is in the form of an <a href="https://docs.microsoft.com/windows/desktop/api/inaddr/ns-inaddr-in_addr">IPAddr</a> structure.
-     * @param {Pointer} RequestData A pointer to a buffer that contains data to send in the request.
+     * @param {Integer} RequestData A pointer to a buffer that contains data to send in the request.
      * @param {Integer} RequestSize The size, in bytes, of the request data buffer pointed to by the <i>RequestData</i> parameter.
      * @param {Pointer<IP_OPTION_INFORMATION>} RequestOptions A pointer to the IP header options for the request, in the form of an <a href="https://docs.microsoft.com/windows/desktop/api/ipexport/ns-ipexport-ip_option_information">IP_OPTION_INFORMATION</a> structure. On a 64-bit platform, this parameter is in the form for an <a href="https://docs.microsoft.com/windows/desktop/api/ipexport/ns-ipexport-ip_option_information32">IP_OPTION_INFORMATION32</a> structure.
      * 
      * This parameter may be <b>NULL</b> if no IP header options need to be specified.
-     * @param {Pointer} ReplyBuffer A pointer to a buffer to hold any replies to the request. Upon return, the buffer contains an array of 
+     * @param {Integer} ReplyBuffer A pointer to a buffer to hold any replies to the request. Upon return, the buffer contains an array of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ipexport/ns-ipexport-icmp_echo_reply">ICMP_ECHO_REPLY</a> structures followed by options and data. The buffer must be large enough to hold at least one 
      * <b>ICMP_ECHO_REPLY</b> structure plus <i>RequestSize</i> bytes of data.
      * 
@@ -3042,7 +3041,7 @@ class IpHelper {
      * @param {Pointer<Void>} ApcContext An optional parameter passed to the callback routine specified in the  <i>ApcRoutine</i> parameter whenever an ICMPv6 response arrives or an error occurs.
      * @param {Pointer<SOCKADDR_IN6>} SourceAddress The IPv6 source address on which to issue the echo request, in the form of a <a href="https://docs.microsoft.com/windows/desktop/WinSock/sockaddr-2">sockaddr</a> structure.
      * @param {Pointer<SOCKADDR_IN6>} DestinationAddress The IPv6 destination address of the echo request, in the form of a <a href="https://docs.microsoft.com/windows/desktop/WinSock/sockaddr-2">sockaddr</a> structure.
-     * @param {Pointer} RequestData A pointer to a buffer that contains data to send in the request.
+     * @param {Integer} RequestData A pointer to a buffer that contains data to send in the request.
      * @param {Integer} RequestSize The size, in bytes, of the request data buffer pointed to by the <i>RequestData</i> parameter.
      * @param {Pointer<IP_OPTION_INFORMATION>} RequestOptions A pointer to the IPv6 header options for the request, in the form of an <a href="https://docs.microsoft.com/windows/desktop/api/ipexport/ns-ipexport-ip_option_information">IP_OPTION_INFORMATION</a> structure. On a 64-bit platform, this parameter is in the form for an <a href="https://docs.microsoft.com/windows/desktop/api/ipexport/ns-ipexport-ip_option_information32">IP_OPTION_INFORMATION32</a> structure.
      * 
@@ -3050,7 +3049,7 @@ class IpHelper {
      * 
      * <div class="alert"><b>Note</b>  On Windows Server 2003 and Windows XP, the <i>RequestOptions</i> parameter is not optional and must not be NULL and only the <b>Ttl</b> and <b>Flags</b> members are used.</div>
      * <div> </div>
-     * @param {Pointer} ReplyBuffer A pointer to a buffer to hold replies to the request. Upon return, the buffer contains an <a href="https://docs.microsoft.com/windows/desktop/api/ipexport/ns-ipexport-icmpv6_echo_reply_lh">ICMPV6_ECHO_REPLY</a> structure followed by the message body from the ICMPv6 echo response reply data. The buffer must be large enough to hold at least one 
+     * @param {Integer} ReplyBuffer A pointer to a buffer to hold replies to the request. Upon return, the buffer contains an <a href="https://docs.microsoft.com/windows/desktop/api/ipexport/ns-ipexport-icmpv6_echo_reply_lh">ICMPV6_ECHO_REPLY</a> structure followed by the message body from the ICMPv6 echo response reply data. The buffer must be large enough to hold at least one 
      * <b>ICMPV6_ECHO_REPLY</b> structure plus the number of bytes of data specified in the <i>RequestSize</i> parameter. This buffer should also be large enough to also hold 8 more bytes of data (the size of an ICMP error message) plus space for an <b>IO_STATUS_BLOCK</b> structure.
      * @param {Integer} ReplySize The size, in bytes,  of the reply buffer pointed to by the <i>ReplyBuffer</i> parameter. This buffer should be large enough to hold at least one 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ipexport/ns-ipexport-icmpv6_echo_reply_lh">ICMPV6_ECHO_REPLY</a> structure plus <i>RequestSize</i> bytes of data. This buffer should also be large enough to also hold 8 more bytes of data (the size of an ICMP error message) plus space for an <b>IO_STATUS_BLOCK</b> structure.
@@ -3191,7 +3190,7 @@ class IpHelper {
      * The <b>IcmpParseReplies</b> function is exported from the <i>Icmp.dll</i> on Windows 2000. The <b>IcmpParseReplies</b> function is exported from the <i>Iphlpapi.dll</i> on Windows XP and later. Windows version checking is not recommended to use this function. Applications requiring portability  with this function across Windows 2000, Windows XP, Windows Server 2003 and later Windows versions should not statically link to either the <i>Icmp.lib</i> or the <i>Iphlpapi.lib</i> file. Instead, the application should check for the presence of <b>IcmpParseReplies</b> in the <i>Iphlpapi.dll</i> with calls to <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadlibrarya">LoadLibrary</a> and <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-getprocaddress">GetProcAddress</a>.  Failing that, the application should check for the presence of <b>IcmpParseReplies</b> in the <i>Icmp.dll</i> with  calls to <b>LoadLibrary</b> and <b>GetProcAddress</b>. 
      * 
      * Note that the include directive for <i>Iphlpapi.h</i> header file must be placed before the <i>Icmpapi.h</i> header file.
-     * @param {Pointer} ReplyBuffer The buffer passed to 
+     * @param {Integer} ReplyBuffer The buffer passed to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/icmpapi/nf-icmpapi-icmpsendecho2">IcmpSendEcho2</a>. This is rewritten to hold an array of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ipexport/ns-ipexport-icmp_echo_reply">ICMP_ECHO_REPLY</a> structures, its type is <b>PICMP_ECHO_REPLY</b>. 
      * 
@@ -3227,7 +3226,7 @@ class IpHelper {
      * For IPv4, use the <a href="https://docs.microsoft.com/windows/desktop/api/icmpapi/nf-icmpapi-icmpcreatefile">IcmpCreateFile</a>,  <b>IcmpSendEcho</b>, <a href="https://docs.microsoft.com/windows/desktop/api/icmpapi/nf-icmpapi-icmpsendecho2">IcmpSendEcho2</a>, <a href="https://docs.microsoft.com/windows/desktop/api/icmpapi/nf-icmpapi-icmpsendecho2ex">IcmpSendEcho2Ex</a>, and <a href="https://docs.microsoft.com/windows/desktop/api/icmpapi/nf-icmpapi-icmpparsereplies">IcmpParseReplies</a> functions.
      * 
      * Note that the include directive for <i>Iphlpapi.h</i> header file must be placed before the <i>Icmpapi.h</i> header file.
-     * @param {Pointer} ReplyBuffer A pointer to the buffer passed to 
+     * @param {Integer} ReplyBuffer A pointer to the buffer passed to 
      * the <a href="https://docs.microsoft.com/windows/desktop/api/icmpapi/nf-icmpapi-icmp6sendecho2">Icmp6SendEcho2</a> function. This parameter is points to an <a href="https://docs.microsoft.com/windows/desktop/api/ipexport/ns-ipexport-icmpv6_echo_reply_lh">ICMPV6_ECHO_REPLY</a> structure to hold the response.
      * @param {Integer} ReplySize The size, in bytes, of the buffer pointed to by the <i>ReplyBuffer</i> parameter.
      * @returns {Integer} The <b>Icmp6ParseReplies</b> function returns 1 on success. In this case, the <b>Status</b> member in the <a href="https://docs.microsoft.com/windows/desktop/api/ipexport/ns-ipexport-icmpv6_echo_reply_lh">ICMPV6_ECHO_REPLY</a> structure pointed to by the <i>ReplyBuffer</i> parameter will be either <b>IP_SUCCESS</b> if the target node responded or <b>IP_TTL_EXPIRED_TRANSIT</b>.
@@ -3407,7 +3406,7 @@ class IpHelper {
      * Interfaces are returned in a <a href="https://docs.microsoft.com/windows/desktop/api/ifmib/ns-ifmib-mib_iftable">MIB_IFTABLE</a> structure in the buffer pointed to by the <i>pIfTable</i> parameter. The <b>MIB_IFTABLE</b> structure contains an interface count and an array of <a href="https://docs.microsoft.com/windows/desktop/api/ifmib/ns-ifmib-mib_ifrow">MIB_IFROW</a> structures for each interface. 
      * 
      * Note that the returned <a href="https://docs.microsoft.com/windows/desktop/api/ifmib/ns-ifmib-mib_iftable">MIB_IFTABLE</a> structure pointed to by the <i>pIfTable</i> parameter may contain padding for alignment between the <b>dwNumEntries</b> member and the first <a href="https://docs.microsoft.com/windows/desktop/api/ifmib/ns-ifmib-mib_ifrow">MIB_IFROW</a> array entry in the <b>table</b> member of the <b>MIB_IFTABLE</b> structure. Padding for alignment may also be present between the <b>MIB_IFROW</b> array entries. Any access to a <b>MIB_IFROW</b> array entry should assume  padding may exist.
-     * @param {Pointer} pIfTable A pointer to a buffer that receives the interface table as a 
+     * @param {Integer} pIfTable A pointer to a buffer that receives the interface table as a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ifmib/ns-ifmib-mib_iftable">MIB_IFTABLE</a> structure.
      * @param {Pointer<Integer>} pdwSize On input, specifies the size in bytes of the buffer pointed to by the <i>pIfTable</i> parameter.
      * 
@@ -3497,7 +3496,7 @@ class IpHelper {
      * 
      * 
      * On the Microsoft Windows Software Development Kit (SDK) released for Windows Vista and later, the organization of header files has changed and the <a href="https://docs.microsoft.com/windows/desktop/api/ipmib/ns-ipmib-mib_ipaddrrow_w2k">MIB_IPADDRROW</a> is defined in the <i>Ipmib.h</i> header file not in the <i>Iprtrmib.h</i> header file. Note that the <i>Ipmib.h</i> header file is automatically included in <i>Iprtrmib.h</i> which is automatically included in the <i>Iphlpapi.h</i> header file. The <i>Ipmib.h</i> and <i>Iprtrmib.h</i> header files should never be used directly.
-     * @param {Pointer} pIpAddrTable A pointer to a buffer that receives the interface–to–IPv4 address mapping table as a 
+     * @param {Integer} pIpAddrTable A pointer to a buffer that receives the interface–to–IPv4 address mapping table as a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ipmib/ns-ipmib-mib_ipaddrtable">MIB_IPADDRTABLE</a> structure.
      * @param {Pointer<Integer>} pdwSize On input, specifies the size in bytes  of the buffer pointed to by the <i>pIpAddrTable</i> parameter. 
      * 
@@ -3589,7 +3588,7 @@ class IpHelper {
      * 
      * 
      *  on Windows Vista and later, the <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/nf-netioapi-getipnettable2">GetIpNetTable2</a> function can be used to retrieve the neighbor IP addresses for both IPv6 and IPv4.
-     * @param {Pointer} IpNetTable A pointer to a buffer that receives the IPv4 to physical address mapping table as a 
+     * @param {Integer} IpNetTable A pointer to a buffer that receives the IPv4 to physical address mapping table as a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ipmib/ns-ipmib-mib_ipnettable">MIB_IPNETTABLE</a> structure.
      * @param {Pointer<Integer>} SizePointer On input, specifies the size in bytes of the buffer pointed to by the <i>pIpNetTable</i> parameter.
      * 
@@ -3698,7 +3697,7 @@ class IpHelper {
      * On Windows Vista and Windows Server 2008, the route metric specified in the <b>dwForwardMetric1</b> member of the  <a href="https://docs.microsoft.com/windows/desktop/api/ipmib/ns-ipmib-mib_ipforwardrow">MIB_IPFORWARDROW</a> structure represents a combination of the route metric added to the interface metric specified in the <b>Metric</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/ns-netioapi-mib_ipinterface_row">MIB_IPINTERFACE_ROW</a> structure of the associated interface.  So the <b>dwForwardMetric1</b> member of the  <b>MIB_IPFORWARDROW</b> structure should be equal to or greater than <b>Metric</b> member of the associated <b>MIB_IPINTERFACE_ROW</b> structure. If an application would like to set the route metric to 0 on Windows Vista and Windows Server 2008, then the <b>dwForwardMetric1</b> member of the <b>MIB_IPFORWARDROW</b> structure  should be set equal to the value of the interface metric specified in the <b>Metric</b> member of the associated <b>MIB_IPINTERFACE_ROW</b> structure. An application can retrieve the interface metric by calling the <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/nf-netioapi-getipinterfaceentry">GetIpInterfaceEntry</a> function.
      * 
      * A number of members of the <a href="https://docs.microsoft.com/windows/desktop/api/ipmib/ns-ipmib-mib_ipforwardrow">MIB_IPFORWARDROW</a> structure  entries returned by <b>GetIpForwardTable</b> are not currently used by IPv4 routing. These members include <b>dwForwardPolicy</b>, <b>dwForwardNextHopAS</b>, <b>dwForwardMetric2</b>, <b>dwForwardMetric3</b>, <b>dwForwardMetric4</b>, and <b>dwForwardMetric5</b>.
-     * @param {Pointer} pIpForwardTable A pointer to a buffer that receives the IPv4 routing table as a 
+     * @param {Integer} pIpForwardTable A pointer to a buffer that receives the IPv4 routing table as a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ipmib/ns-ipmib-mib_ipforwardtable">MIB_IPFORWARDTABLE</a> structure.
      * @param {Pointer<Integer>} pdwSize On input, specifies the size in bytes  of the buffer pointed to by the <i>pIpForwardTable</i> parameter. 
      * 
@@ -3796,7 +3795,7 @@ class IpHelper {
      * Retrieves the IPv4 TCP connection table. (GetTcpTable)
      * @remarks
      * On the Windows SDK released for Windows Vista and later, the return value from the <b>GetTcpTable</b> function is changed to a data type of <b>ULONG</b> which is equivalent to a <b>DWORD</b>.
-     * @param {Pointer} TcpTable A pointer to a buffer that receives the TCP connection table as a 
+     * @param {Integer} TcpTable A pointer to a buffer that receives the TCP connection table as a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tcpmib/ns-tcpmib-mib_tcptable">MIB_TCPTABLE</a> structure.
      * @param {Pointer<Integer>} SizePointer On input, specifies the size in  bytes  of the buffer pointed to by the <i>pTcpTable</i> parameter.
      * 
@@ -4015,7 +4014,7 @@ class IpHelper {
      * The <b>GetExtendedTcpTable</b> function called with the <i>ulAf</i> parameter set to <b>AF_INET6</b> and the <i>TableClass</i> set to <b>TCP_TABLE_BASIC_LISTENER</b>, <b>TCP_TABLE_BASIC_CONNECTIONS</b>, or <b>TCP_TABLE_BASIC_ALL</b> is not supported and returns <b>ERROR_NOT_SUPPORTED</b>. 
      * 
      * On the Windows SDK released for Windows Vista and later, the organization of header files has changed. The various <a href="https://docs.microsoft.com/windows/desktop/api/tcpmib/ns-tcpmib-mib_tcptable">MIB_TCPTABLE</a> structures are defined in the <i>Tcpmib.h</i> header file, not in the <i>Iprtrmib.h</i> header file. Note that the <i>Tcpmib.h</i> header file is automatically included in <i>Iprtrmib.h</i>, which is automatically included in the <i>Iphlpapi.h</i> header file. The <i>Tcpmib.h</i> and <i>Iprtrmib.h</i> header files should never be used directly.
-     * @param {Pointer} pTcpTable A pointer to the table structure that contains the filtered TCP endpoints available to the application. For information about how to determine the type of table returned based on specific input parameter combinations, see the Remarks section later in this document.
+     * @param {Integer} pTcpTable A pointer to the table structure that contains the filtered TCP endpoints available to the application. For information about how to determine the type of table returned based on specific input parameter combinations, see the Remarks section later in this document.
      * @param {Pointer<Integer>} pdwSize The estimated size of the structure returned in <i>pTcpTable</i>, in bytes. If this value is set too small, <b>ERROR_INSUFFICIENT_BUFFER</b> is returned by this function, and this field will contain the correct size of the structure.
      * @param {BOOL} bOrder A value that specifies whether the TCP connection table should be sorted. If this parameter is set to <b>TRUE</b>, the TCP endpoints in the table are sorted in ascending order, starting with the lowest local IP address. If this parameter is set to <b>FALSE</b>, the TCP endpoints in the table appear in the order in which they were retrieved.
      * 
@@ -4055,7 +4054,7 @@ class IpHelper {
      * </td>
      * </tr>
      * </table>
-     * @param {Integer} TableClass The type of the TCP table structure to retrieve. This parameter can be one of the values from the <a href="https://docs.microsoft.com/windows/desktop/api/iprtrmib/ne-iprtrmib-tcp_table_class">TCP_TABLE_CLASS</a> enumeration. 
+     * @param {TCP_TABLE_CLASS} TableClass The type of the TCP table structure to retrieve. This parameter can be one of the values from the <a href="https://docs.microsoft.com/windows/desktop/api/iprtrmib/ne-iprtrmib-tcp_table_class">TCP_TABLE_CLASS</a> enumeration. 
      * 
      * On the Windows SDK released for Windows Vista and later, the organization of header files has changed and the <a href="https://docs.microsoft.com/windows/desktop/api/iprtrmib/ne-iprtrmib-tcp_table_class">TCP_TABLE_CLASS</a> enumeration is defined in the <i>Iprtrmib.h</i> header file, not in the <i>Iphlpapi.h</i> header file. 
      * 
@@ -4116,8 +4115,10 @@ class IpHelper {
      * 
      * For computers running on Windows Vista or later, accessing the <b>pModuleName</b> and <b>pModulePath</b> members of the <a href="https://docs.microsoft.com/windows/desktop/api/iprtrmib/ns-iprtrmib-tcpip_owner_module_basic_info">TCPIP_OWNER_MODULE_BASIC_INFO</a> structure is limited  by user account control (UAC). If an application that calls this function is executed by a user logged on as a member of the Administrators group other than the built-in Administrator, this call will succeed but access to these members returns an empty string unless the application has been marked in the manifest file with a <b>requestedExecutionLevel</b> set to requireAdministrator. If the application on Windows Vista or later lacks this manifest file, a user logged on as a member of the Administrators group other than the built-in Administrator must then be executing the application in an enhanced shell as the built-in Administrator (RunAs administrator) for access to the protected <b>pModuleName</b> and <b>pModulePath</b> members to be allowed.
      * @param {Pointer<MIB_TCPROW_OWNER_MODULE>} pTcpEntry A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/tcpmib/ns-tcpmib-mib_tcprow_owner_module">MIB_TCPROW_OWNER_MODULE</a> structure that contains the IPv4 TCP endpoint entry used to obtain the owner module.
-     * @param {Integer} _Class 
-     * @param {Pointer} pBuffer A pointer a buffer that contains a <a href="https://docs.microsoft.com/windows/desktop/api/iprtrmib/ns-iprtrmib-tcpip_owner_module_basic_info">TCPIP_OWNER_MODULE_BASIC_INFO</a> structure with the owner module data. The type of data returned in this buffer is indicated by the value of the <i>Class</i> parameter. 
+     * @param {TCPIP_OWNER_MODULE_INFO_CLASS} _Class A <a href="https://docs.microsoft.com/windows/desktop/api/iprtrmib/ne-iprtrmib-tcpip_owner_module_info_class">TCPIP_OWNER_MODULE_INFO_CLASS</a> enumeration value that indicates the type of data to obtain regarding the owner module. The <b>TCPIP_OWNER_MODULE_INFO_CLASS</b> enumeration is defined in the <i>Iprtrmib.h</i> header file.
+     * 
+     *  This parameter must be set to <b>TCPIP_OWNER_MODULE_INFO_BASIC</b>.
+     * @param {Integer} pBuffer A pointer a buffer that contains a <a href="https://docs.microsoft.com/windows/desktop/api/iprtrmib/ns-iprtrmib-tcpip_owner_module_basic_info">TCPIP_OWNER_MODULE_BASIC_INFO</a> structure with the owner module data. The type of data returned in this buffer is indicated by the value of the <i>Class</i> parameter. 
      * 
      * The following structures are used for the data in <i>Buffer</i> when  <i>Class</i> is set to the corresponding value.
      * 
@@ -4215,7 +4216,7 @@ class IpHelper {
      * Retrieves the IPv4 User Datagram Protocol (UDP) listener table.
      * @remarks
      * On the Windows SDK released for Windows Vista and later, the return value from the <b>GetUdpTable</b> function is changed to a data type of <b>ULONG</b> which is equivalent to a <b>DWORD</b>.
-     * @param {Pointer} UdpTable A pointer to a buffer that receives the IPv4 UDP listener table as a 
+     * @param {Integer} UdpTable A pointer to a buffer that receives the IPv4 UDP listener table as a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/udpmib/ns-udpmib-mib_udptable">MIB_UDPTABLE</a> structure.
      * @param {Pointer<Integer>} SizePointer On input, specifies the size in bytes of the buffer pointed to by the <i>UdpTable</i> parameter. 
      * 
@@ -4372,7 +4373,7 @@ class IpHelper {
      * On Windows Server 2003 with Service Pack 1 (SP1) and Windows XP with Service Pack 2 (SP2), the <b>GetExtendedUdpTable</b> function called with the <i>ulAf</i> parameter set to <b>AF_INET6</b> and the <i>TableClass</i> set to <b>UDP_TABLE_BASIC</b> fails and returns <b>ERROR_NOT_SUPPORTED</b>.
      * 
      * On the Windows SDK released for Windows Vista and later, the organization of header files has changed. The various <a href="https://docs.microsoft.com/windows/desktop/api/udpmib/ns-udpmib-mib_udptable">MIB_UDPTABLE</a>  structures are defined in the <i>Udpmib.h</i> header file, not in the <i>Iprtrmib.h</i> header file. Note that the <i>Udpmib.h</i> header file is automatically included in <i>Iprtrmib.h</i>, which is automatically included in the <i>Iphlpapi.h</i> header file. The  <i>Udpmib.h</i> and <i>Iprtrmib.h</i> header files should never be used directly.
-     * @param {Pointer} pUdpTable A pointer to the table structure that contains the filtered UDP endpoints available to the application.   For information about how to determine the type of table returned based on specific input parameter combinations, see the Remarks section later in this document.
+     * @param {Integer} pUdpTable A pointer to the table structure that contains the filtered UDP endpoints available to the application.   For information about how to determine the type of table returned based on specific input parameter combinations, see the Remarks section later in this document.
      * @param {Pointer<Integer>} pdwSize The estimated size of the structure returned in <i>pUdpTable</i>, in bytes. If this value is set too small, <b>ERROR_INSUFFICIENT_BUFFER</b> is returned by this function, and this field will contain the correct size of the structure.
      * @param {BOOL} bOrder A value that specifies whether the UDP endpoint table should be sorted. If this parameter is set to <b>TRUE</b>, the UDP endpoints in the table are sorted in ascending order, starting with the lowest local IP address. If this parameter is set to <b>FALSE</b>, the UDP endpoints in the table appear in the order in which they were retrieved.
      * 
@@ -4409,7 +4410,7 @@ class IpHelper {
      * </td>
      * </tr>
      * </table>
-     * @param {Integer} TableClass The type of the UDP table structure to retrieve.  This parameter can be one of the values from the <a href="https://docs.microsoft.com/windows/desktop/api/iprtrmib/ne-iprtrmib-udp_table_class">UDP_TABLE_CLASS</a> enumeration. 
+     * @param {UDP_TABLE_CLASS} TableClass The type of the UDP table structure to retrieve.  This parameter can be one of the values from the <a href="https://docs.microsoft.com/windows/desktop/api/iprtrmib/ne-iprtrmib-udp_table_class">UDP_TABLE_CLASS</a> enumeration. 
      * 
      * On the Windows SDK released for Windows Vista and later, the organization of header files has changed and the <a href="https://docs.microsoft.com/windows/desktop/api/iprtrmib/ne-iprtrmib-udp_table_class">UDP_TABLE_CLASS</a> enumeration  is defined in the <i>Iprtrmib.h</i> header file, not in the <i>Iphlpapi.h</i> header file.
      * 
@@ -4468,8 +4469,8 @@ class IpHelper {
      * 
      * For computers running on Windows Vista or later, accessing the <b>pModuleName</b> and <b>pModulePath</b> members of the <a href="https://docs.microsoft.com/windows/desktop/api/iprtrmib/ns-iprtrmib-tcpip_owner_module_basic_info">TCPIP_OWNER_MODULE_BASIC_INFO</a> structure is limited  by user account control (UAC). If an application that calls this function is executed by a user logged on as a member of the Administrators group other than the built-in Administrator, this call will succeed but access to these members returns an empty string unless the application has been marked in the manifest file with a <b>requestedExecutionLevel</b> set to requireAdministrator. If the application on Windows Vista or later lacks this manifest file, a user logged on as a member of the Administrators group other than the built-in Administrator must then be executing the application in an enhanced shell as the built-in Administrator (RunAs administrator) for access to the protected <b>pModuleName</b> and <b>pModulePath</b> members to be allowed.
      * @param {Pointer<MIB_UDPROW_OWNER_MODULE>} pUdpEntry A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/udpmib/ns-udpmib-mib_udprow_owner_module">MIB_UDPROW_OWNER_MODULE</a> structure that contains the IPv4 UDP endpoint entry used to obtain the owner module.
-     * @param {Integer} _Class 
-     * @param {Pointer} pBuffer The buffer that contains a <a href="https://docs.microsoft.com/windows/desktop/api/iprtrmib/ns-iprtrmib-tcpip_owner_module_basic_info">TCPIP_OWNER_MODULE_BASIC_INFO</a> structure with the owner module data. The type of data returned in this buffer is indicated by the value of the <i>Class</i> parameter.
+     * @param {TCPIP_OWNER_MODULE_INFO_CLASS} _Class A <a href="https://docs.microsoft.com/windows/desktop/api/iprtrmib/ne-iprtrmib-tcpip_owner_module_info_class">TCPIP_OWNER_MODULE_INFO_CLASS</a> enumeration value that indicates the type of data to obtain regarding the owner module.
+     * @param {Integer} pBuffer The buffer that contains a <a href="https://docs.microsoft.com/windows/desktop/api/iprtrmib/ns-iprtrmib-tcpip_owner_module_basic_info">TCPIP_OWNER_MODULE_BASIC_INFO</a> structure with the owner module data. The type of data returned in this buffer is indicated by the value of the <i>Class</i> parameter.
      * 
      * The following structures are used for the data in <i>Buffer</i> when  <i>Class</i> is set to the corresponding value.
      * 
@@ -4521,7 +4522,7 @@ class IpHelper {
      * The <b>GetTcpTable2</b> function is defined on Windows Vista and later. 
      * 
      * The <b>GetTcpTable2</b> function is an enhanced version of the <a href="https://docs.microsoft.com/windows/desktop/api/iphlpapi/nf-iphlpapi-gettcptable">GetTcpTable</a> function that also retrieves information on the TCP offload state of the TCP connection.
-     * @param {Pointer} TcpTable A pointer to a buffer that receives the TCP connection table as a 
+     * @param {Integer} TcpTable A pointer to a buffer that receives the TCP connection table as a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tcpmib/ns-tcpmib-mib_tcptable2">MIB_TCPTABLE2</a> structure.
      * @param {Pointer<Integer>} SizePointer On input, specifies the size of the buffer pointed to by the <i>TcpTable</i> parameter. 
      * 
@@ -4612,7 +4613,7 @@ class IpHelper {
      * Retrieves the TCP connection table for IPv6. (GetTcp6Table)
      * @remarks
      * The <b>GetTcp6Table</b> function is defined on Windows Vista and later.
-     * @param {Pointer} TcpTable A pointer to a buffer that receives the TCP connection table for IPv6 as a 
+     * @param {Integer} TcpTable A pointer to a buffer that receives the TCP connection table for IPv6 as a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tcpmib/ns-tcpmib-mib_tcp6table">MIB_TCP6TABLE</a> structure.
      * @param {Pointer<Integer>} SizePointer On input, specifies the size in bytes of the buffer pointed to by the <i>TcpTable</i> parameter.
      * 
@@ -4702,7 +4703,7 @@ class IpHelper {
      * The <b>GetTcp6Table2</b> function is defined on Windows Vista and later. 
      * 
      * The <b>GetTcp6Table2</b> function is an enhanced version of the <a href="https://docs.microsoft.com/windows/desktop/api/iphlpapi/nf-iphlpapi-gettcp6table">GetTcp6Table</a> function that also retrieves information on the TCP offload state of the TCP connection.
-     * @param {Pointer} TcpTable A pointer to a buffer that receives the TCP connection table for IPv6 as a 
+     * @param {Integer} TcpTable A pointer to a buffer that receives the TCP connection table for IPv6 as a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tcpmib/ns-tcpmib-mib_tcp6table2">MIB_TCP6TABLE2</a> structure.
      * @param {Pointer<Integer>} SizePointer On input, specifies the size of the buffer pointed to by the <i>TcpTable</i> parameter. 
      * 
@@ -4813,7 +4814,7 @@ class IpHelper {
      * 
      * The caller of **GetPerTcpConnectionEStats** should check the *EnableCollection* field in the returned *Rw* struct, and if it is not `TRUE`, then the caller should ignore the data in the *Ros* and *Rod* structs. If *EnableCollection* is set to `FALSE`, then the data returned in *Ros* and *Rod* are undefined. For example, one condition under which this can happen is when you're using **GetPerTcpConnectionEStats** to retrieve extended statistics for an IPv4 TCP connection, and you've previously called [SetPerTcpConnectionEStats](./nf-iphlpapi-setpertcpconnectionestats.md) to enable extended statistics. If the **SetPerTcpConnectionEStats** call fails then subsequent calls to **GetPerTcpConnectionEStats** will return meaningless random data, and not extended TCP statistics. You can observe that example by running the example below as both an administrator, and as a normal user.
      * @param {Pointer<MIB_TCPROW_LH>} Row A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/tcpmib/ns-tcpmib-mib_tcprow_lh">MIB_TCPROW</a> structure for an IPv4 TCP connection.
-     * @param {Integer} EstatsType The type of extended statistics for TCP requested. This parameter determines the data and format of information that is returned in the <i>Rw</i>, <i>Rod</i>, and <i>Ros</i> parameters if the call is successful.
+     * @param {TCP_ESTATS_TYPE} EstatsType The type of extended statistics for TCP requested. This parameter determines the data and format of information that is returned in the <i>Rw</i>, <i>Rod</i>, and <i>Ros</i> parameters if the call is successful.
      * 
      * This parameter can be one of the values from the <a href="https://docs.microsoft.com/windows/desktop/api/tcpestats/ne-tcpestats-tcp_estats_type">TCP_ESTATS_TYPE</a> enumeration type defined in the <i>Tcpestats.h</i> header file. 
      * 
@@ -4967,13 +4968,13 @@ class IpHelper {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer} Rw A pointer to a buffer to receive the read/write information. This parameter may be a <b>NULL</b> pointer if an application does not want to retrieve read/write information for the TCP connection.
+     * @param {Integer} Rw A pointer to a buffer to receive the read/write information. This parameter may be a <b>NULL</b> pointer if an application does not want to retrieve read/write information for the TCP connection.
      * @param {Integer} RwVersion The version of the read/write information requested. The current supported value is a version of zero.
      * @param {Integer} RwSize The size, in bytes, of the buffer pointed to by <i>Rw</i> parameter.
-     * @param {Pointer} Ros A pointer to a buffer to receive read-only static information. This parameter may be a <b>NULL</b> pointer if an application does not want to retrieve read-only static information for the TCP connection.
+     * @param {Integer} Ros A pointer to a buffer to receive read-only static information. This parameter may be a <b>NULL</b> pointer if an application does not want to retrieve read-only static information for the TCP connection.
      * @param {Integer} RosVersion The version of the read-only static information requested. The current supported value is a version of zero.
      * @param {Integer} RosSize The size, in bytes, of the buffer pointed to by the <i>Ros</i> parameter.
-     * @param {Pointer} Rod A pointer to a buffer to receive read-only dynamic information. This parameter may be a <b>NULL</b> pointer if an application does not want to retrieve read-only dynamic information  for the TCP connection.
+     * @param {Integer} Rod A pointer to a buffer to receive read-only dynamic information. This parameter may be a <b>NULL</b> pointer if an application does not want to retrieve read-only dynamic information  for the TCP connection.
      * @param {Integer} RodVersion The version of the read-only dynamic information requested. The current supported value is a version of zero.
      * @param {Integer} RodSize The size, in bytes, of the buffer pointed to by the <i>Rod</i> parameter.
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
@@ -5167,10 +5168,10 @@ class IpHelper {
      * 
      * In Windows versions prior to Windows 10, version 1709 (Fall Creators Update), you can use **SetPerTcpConnectionEStats** to disable and reenable statistics on a connection, causing any statistics counters to be reset to zero. As of Windows 10, version 1709 (Fall Creators Update), some statistics counters don't reset when statistics are disabled and reenabled. Also, if two applications are monitoring statistics for the same connection, then one application can confuse the other by disabling statistics. For these reasons, we recommend that your application refrains from disabling statistics on connections. To detect changes over time, you should save the counter values read by a previous call to [GetPerTcpConnectionEStats](./nf-iphlpapi-getpertcpconnectionestats.md), and subtract them from those read by a subsequent call.
      * @param {Pointer<MIB_TCPROW_LH>} Row A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/tcpmib/ns-tcpmib-mib_tcprow_lh">MIB_TCPROW</a> structure for an IPv4 TCP connection.
-     * @param {Integer} EstatsType The type of extended statistics for TCP to set. This parameter determines the data and format of information that is expected in the <i>Rw</i> parameter.
+     * @param {TCP_ESTATS_TYPE} EstatsType The type of extended statistics for TCP to set. This parameter determines the data and format of information that is expected in the <i>Rw</i> parameter.
      * 
      * This parameter can be one of the values from the <a href="https://docs.microsoft.com/windows/win32/api/tcpestats/ne-tcpestats-tcp_estats_type">TCP_ESTATS_TYPE</a> enumeration type defined in the <i>Tcpestats.h</i> header file.
-     * @param {Pointer} Rw A pointer to a buffer that contains the read/write information to set. The buffer should contain a value from the <a href="https://docs.microsoft.com/windows/win32/api/tcpestats/ne-tcpestats-tcp_boolean_optional">TCP_BOOLEAN_OPTIONAL</a> enumeration for each structure member that specifies how each member should be updated.
+     * @param {Integer} Rw A pointer to a buffer that contains the read/write information to set. The buffer should contain a value from the <a href="https://docs.microsoft.com/windows/win32/api/tcpestats/ne-tcpestats-tcp_boolean_optional">TCP_BOOLEAN_OPTIONAL</a> enumeration for each structure member that specifies how each member should be updated.
      * @param {Integer} RwVersion The version of the read/write information to be set. This parameter should be set to zero for Windows Vista, Windows Server 2008, and Windows 7.
      * @param {Integer} RwSize The size, in bytes, of the buffer pointed to by the <i>Rw</i> parameter.
      * @param {Integer} Offset The offset, in bytes, to the member in the structure pointed to by the <i>Rw</i> parameter to be set. This parameter is currently unused and must be set to zero.
@@ -5284,7 +5285,7 @@ class IpHelper {
      * 
      * The caller of **GetPerTcp6ConnectionEStats** should check the *EnableCollection* field in the returned *Rw* struct, and if it is not `TRUE`, then the caller should ignore the data in the *Ros* and *Rod* structs. If *EnableCollection* is set to `FALSE`, then the data returned in *Ros* and *Rod* are undefined. For example, one condition under which this can happen is when you're using **GetPerTcp6ConnectionEStats** to retrieve extended statistics for an IPv6 TCP connection, and you've previously called [SetPerTcp6ConnectionEStats](./nf-iphlpapi-setpertcp6connectionestats.md) to enable extended statistics. If the **SetPerTcp6ConnectionEStats** call fails then subsequent calls to **GetPerTcp6ConnectionEStats** will return meaningless random data, and not extended TCP statistics. You can observe that example by running the example below as both an administrator, and as a normal user.
      * @param {Pointer<MIB_TCP6ROW>} Row A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/tcpmib/ns-tcpmib-mib_tcp6row">MIB_TCP6ROW</a> structure for an IPv6 TCP connection.
-     * @param {Integer} EstatsType The type of extended statistics for TCP requested. This parameter determines the data and format of information that is returned in the <i>Rw</i>, <i>Rod</i>, and <i>Ros</i> parameters if the call is successful.
+     * @param {TCP_ESTATS_TYPE} EstatsType The type of extended statistics for TCP requested. This parameter determines the data and format of information that is returned in the <i>Rw</i>, <i>Rod</i>, and <i>Ros</i> parameters if the call is successful.
      * 
      * This parameter can be one of the values from the <a href="https://docs.microsoft.com/windows/desktop/api/tcpestats/ne-tcpestats-tcp_estats_type">TCP_ESTATS_TYPE</a> enumeration type defined in the <i>Tcpestats.h</i> header file. 
      * 
@@ -5438,13 +5439,13 @@ class IpHelper {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer} Rw A pointer to a buffer to receive the read/write information. This parameter may be a <b>NULL</b> pointer if an application does not want to retrieve read/write information for the TCP connection.
+     * @param {Integer} Rw A pointer to a buffer to receive the read/write information. This parameter may be a <b>NULL</b> pointer if an application does not want to retrieve read/write information for the TCP connection.
      * @param {Integer} RwVersion The version of the read/write information requested. The current supported value is a version of zero.
      * @param {Integer} RwSize The size, in bytes, of the buffer pointed to by <i>Rw</i> parameter.
-     * @param {Pointer} Ros A pointer to a buffer to receive read-only static information. This parameter may be a <b>NULL</b> pointer if an application does not want to retrieve read-only static information for the TCP connection.
+     * @param {Integer} Ros A pointer to a buffer to receive read-only static information. This parameter may be a <b>NULL</b> pointer if an application does not want to retrieve read-only static information for the TCP connection.
      * @param {Integer} RosVersion The version of the read-only static information requested. The current supported value is a version of zero.
      * @param {Integer} RosSize The size, in bytes, of the buffer pointed to by the <i>Ros</i> parameter.
-     * @param {Pointer} Rod A pointer to a buffer to receive read-only dynamic information. This parameter may be a <b>NULL</b> pointer if an application does not want to retrieve read-only dynamic information  for the TCP connection.
+     * @param {Integer} Rod A pointer to a buffer to receive read-only dynamic information. This parameter may be a <b>NULL</b> pointer if an application does not want to retrieve read-only dynamic information  for the TCP connection.
      * @param {Integer} RodVersion The version of the read-only dynamic information requested. The current supported value is a version of zero..
      * @param {Integer} RodSize The size, in bytes, of the buffer pointed to by the <i>Rod</i> parameter.
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
@@ -5638,7 +5639,7 @@ class IpHelper {
      * 
      * The <b>SetPerTcp6ConnectionEStats</b> function can only be called by a user logged on as a member of the Administrators group. If <b>SetPerTcp6ConnectionEStats</b> is called by a user that is not a member of the Administrators group, the function call will fail and <b>ERROR_ACCESS_DENIED</b> is returned. This function can also fail because of user account control (UAC) on Windows Vista and Windows Server 2008. If an application that contains this function is executed by a user logged on as a member of the Administrators group other than the built-in Administrator, this call will fail unless the application has been marked in the manifest file with a <b>requestedExecutionLevel</b> set to requireAdministrator. If the application on Windows Vista or Windows Server 2008 lacks this manifest file, a user logged on as a member of the Administrators group other than the built-in Administrator must then be executing the application in an enhanced shell as the built-in Administrator (RunAs administrator) for this function to succeed.
      * @param {Pointer<MIB_TCP6ROW>} Row A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/tcpmib/ns-tcpmib-mib_tcp6row">MIB_TCP6ROW</a> structure for an IPv6 TCP connection.
-     * @param {Integer} EstatsType The type of extended statistics for TCP to set. This parameter determines the data and format of information that is expected in the <i>Rw</i> parameter.
+     * @param {TCP_ESTATS_TYPE} EstatsType The type of extended statistics for TCP to set. This parameter determines the data and format of information that is expected in the <i>Rw</i> parameter.
      * 
      * This parameter can be one of the values from the <a href="https://docs.microsoft.com/windows/desktop/api/tcpestats/ne-tcpestats-tcp_estats_type">TCP_ESTATS_TYPE</a> enumeration type defined in the <i>Tcpestats.h</i> header file. 
      * 
@@ -5744,7 +5745,7 @@ class IpHelper {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer} Rw A pointer to a buffer that contains the read/write information to set. The buffer should contain a value from the <a href="https://docs.microsoft.com/windows/desktop/api/tcpestats/ne-tcpestats-tcp_boolean_optional">TCP_BOOLEAN_OPTIONAL</a> enumeration for each structure member that specifies how each member should be updated.
+     * @param {Integer} Rw A pointer to a buffer that contains the read/write information to set. The buffer should contain a value from the <a href="https://docs.microsoft.com/windows/desktop/api/tcpestats/ne-tcpestats-tcp_boolean_optional">TCP_BOOLEAN_OPTIONAL</a> enumeration for each structure member that specifies how each member should be updated.
      * @param {Integer} RwVersion The version of the read/write information to be set. This parameter should be set to zero for Windows Vista, Windows Server 2008, and Windows 7.
      * @param {Integer} RwSize The size, in bytes, of the buffer pointed to by the <i>Rw</i> parameter.
      * @param {Integer} Offset The offset, in bytes, to the member in the structure pointed to by the <i>Rw</i> parameter to be set.  This parameter is currently unused and must be set to zero.
@@ -5844,8 +5845,10 @@ class IpHelper {
      * 
      * For computers running on Windows Vista or later, accessing the <b>pModuleName</b> and <b>pModulePath</b> members of the <a href="https://docs.microsoft.com/windows/desktop/api/iprtrmib/ns-iprtrmib-tcpip_owner_module_basic_info">TCPIP_OWNER_MODULE_BASIC_INFO</a> structure is limited  by user account control (UAC). If an application that calls this function is executed by a user logged on as a member of the Administrators group other than the built-in Administrator, this call will succeed but access to these members returns an empty string unless the application has been marked in the manifest file with a <b>requestedExecutionLevel</b> set to requireAdministrator. If the application on Windows Vista or later lacks this manifest file, a user logged on as a member of the Administrators group other than the built-in Administrator must then be executing the application in an enhanced shell as the built-in Administrator (RunAs administrator) for access to the protected <b>pModuleName</b> and <b>pModulePath</b> members to be allowed.
      * @param {Pointer<MIB_TCP6ROW_OWNER_MODULE>} pTcpEntry A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/tcpmib/ns-tcpmib-mib_tcp6row_owner_module">MIB_TCP6ROW_OWNER_MODULE</a> structure that contains the IPv6 TCP endpoint entry used to obtain the owner module.
-     * @param {Integer} _Class 
-     * @param {Pointer} pBuffer A pointer to a buffer that contains a <a href="https://docs.microsoft.com/windows/desktop/api/iprtrmib/ns-iprtrmib-tcpip_owner_module_basic_info">TCPIP_OWNER_MODULE_BASIC_INFO</a> structure with the owner module data. The type of data returned in this buffer is indicated by the value of the <i>Class</i> parameter.
+     * @param {TCPIP_OWNER_MODULE_INFO_CLASS} _Class A <a href="https://docs.microsoft.com/windows/desktop/api/iprtrmib/ne-iprtrmib-tcpip_owner_module_info_class">TCPIP_OWNER_MODULE_INFO_CLASS</a> enumeration value that indicates the type of data to obtain regarding the owner module. The <b>TCPIP_OWNER_MODULE_INFO_CLASS</b> enumeration is defined in the <i>Iprtrmib.h</i> header file.
+     * 
+     *  This parameter must be set to <b>TCPIP_OWNER_MODULE_INFO_BASIC</b>.
+     * @param {Integer} pBuffer A pointer to a buffer that contains a <a href="https://docs.microsoft.com/windows/desktop/api/iprtrmib/ns-iprtrmib-tcpip_owner_module_basic_info">TCPIP_OWNER_MODULE_BASIC_INFO</a> structure with the owner module data. The type of data returned in this buffer is indicated by the value of the <i>Class</i> parameter.
      * 
      * The following structures are used for the data in <i>Buffer</i> when  <i>Class</i> is set to the corresponding value.
      * 
@@ -5943,7 +5946,7 @@ class IpHelper {
      * Retrieves the IPv6 User Datagram Protocol (UDP) listener table.
      * @remarks
      * The <b>GetUdp6Table</b> function is defined on Windows Vista and later.
-     * @param {Pointer} Udp6Table A pointer to a buffer that receives the IPv6 UDP listener table as a 
+     * @param {Integer} Udp6Table A pointer to a buffer that receives the IPv6 UDP listener table as a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/udpmib/ns-udpmib-mib_udp6table">MIB_UDP6TABLE</a> structure.
      * @param {Pointer<Integer>} SizePointer On input, specifies the size in bytes of the buffer pointed to by the <i>Udp6Table</i> parameter. 
      * 
@@ -6034,8 +6037,8 @@ class IpHelper {
      * 
      * For computers running on Windows Vista or later, accessing the <b>pModuleName</b> and <b>pModulePath</b> members of the <a href="https://docs.microsoft.com/windows/desktop/api/iprtrmib/ns-iprtrmib-tcpip_owner_module_basic_info">TCPIP_OWNER_MODULE_BASIC_INFO</a> structure is limited  by user account control (UAC). If an application that calls this function is executed by a user logged on as a member of the Administrators group other than the built-in Administrator, this call will succeed but access to these members returns an empty string unless the application has been marked in the manifest file with a <b>requestedExecutionLevel</b> set to requireAdministrator. If the application on Windows Vista or later lacks this manifest file, a user logged on as a member of the Administrators group other than the built-in Administrator must then be executing the application in an enhanced shell as the built-in Administrator (RunAs administrator) for access to the protected <b>pModuleName</b> and <b>pModulePath</b> members to be allowed.
      * @param {Pointer<MIB_UDP6ROW_OWNER_MODULE>} pUdpEntry A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/udpmib/ns-udpmib-mib_udp6row_owner_module">MIB_UDP6ROW_OWNER_MODULE</a> structure that contains the IPv6 UDP endpoint entry used to obtain the owner module.
-     * @param {Integer} _Class 
-     * @param {Pointer} pBuffer The buffer that contains a <a href="https://docs.microsoft.com/windows/desktop/api/iprtrmib/ns-iprtrmib-tcpip_owner_module_basic_info">TCPIP_OWNER_MODULE_BASIC_INFO</a> structure with the owner module data. The type of data returned in this buffer is indicated by the value of the <i>Class</i> parameter.
+     * @param {TCPIP_OWNER_MODULE_INFO_CLASS} _Class <a href="https://docs.microsoft.com/windows/desktop/api/iprtrmib/ne-iprtrmib-tcpip_owner_module_info_class">TCPIP_OWNER_MODULE_INFO_CLASS</a> enumeration value that indicates the type of data to obtain regarding the owner module.
+     * @param {Integer} pBuffer The buffer that contains a <a href="https://docs.microsoft.com/windows/desktop/api/iprtrmib/ns-iprtrmib-tcpip_owner_module_basic_info">TCPIP_OWNER_MODULE_BASIC_INFO</a> structure with the owner module data. The type of data returned in this buffer is indicated by the value of the <i>Class</i> parameter.
      * 
      * The following structures are used for the data in <i>Buffer</i> when  <i>Class</i> is set to the corresponding value.
      * 
@@ -6085,8 +6088,8 @@ class IpHelper {
      * 
      * @param {Integer} ulPid 
      * @param {Pointer<Integer>} pInfo 
-     * @param {Integer} _Class 
-     * @param {Pointer} pBuffer 
+     * @param {TCPIP_OWNER_MODULE_INFO_CLASS} _Class 
+     * @param {Integer} pBuffer 
      * @param {Pointer<Integer>} pdwSize 
      * @returns {Integer} 
      */
@@ -7859,7 +7862,7 @@ class IpHelper {
      * <b>GetInterfaceInfo</b> functions do not return information about the loopback interface. Information on the loopback interface is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/iphlpapi/nf-iphlpapi-getipaddrtable">GetIpAddrTable</a> function.
      * 
      * On Windows Vista and later, the <b>Name</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/ipexport/ns-ipexport-ip_adapter_index_map">IP_ADAPTER_INDEX_MAP</a> structure returned in the <a href="https://docs.microsoft.com/windows/desktop/api/ipexport/ns-ipexport-ip_interface_info">IP_INTERFACE_INFO</a> structure may be a Unicode string of the GUID for the network interface (the string begins with the '{' character).
-     * @param {Pointer} pIfTable A pointer to a buffer that specifies an 
+     * @param {Integer} pIfTable A pointer to a buffer that specifies an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ipexport/ns-ipexport-ip_interface_info">IP_INTERFACE_INFO</a> structure that receives the list of adapters. This buffer must be allocated by the caller.
      * @param {Pointer<Integer>} dwOutBufLen A pointer to a <b>DWORD</b> variable that specifies the size of the 
      * buffer pointed to by <i>pIfTable</i> parameter to receive the <a href="https://docs.microsoft.com/windows/desktop/api/ipexport/ns-ipexport-ip_interface_info">IP_INTERFACE_INFO</a> structure. If this size is insufficient to hold the IPv4 interface information, 
@@ -7942,7 +7945,7 @@ class IpHelper {
 
     /**
      * The GetUniDirectionalAdapterInfo function retrieves information about the unidirectional adapters installed on the local computer. A unidirectional adapter is an adapter that can receive datagrams, but not transmit them.
-     * @param {Pointer} pIPIfInfo Pointer to an 
+     * @param {Integer} pIPIfInfo Pointer to an 
      * <a href="https://docs.microsoft.com/windows/win32/api/ipexport/ns-ipexport-ip_unidirectional_adapter_address">IP_UNIDIRECTIONAL_ADAPTER_ADDRESS</a> structure that receives information about the unidirectional adapters installed on the local computer.
      * @param {Pointer<Integer>} dwOutBufLen Pointer to a <b>ULONG</b> variable that receives the size of the structure pointed to by the <i>pIPIfInfo</i> parameter.
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
@@ -8194,8 +8197,12 @@ class IpHelper {
      * 
      * On Windows Vista and later, the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/nf-netioapi-notifyipinterfacechange">NotifyIpInterfaceChange</a> function  can be used to  register to be notified for changes to IPv4 and IPv6 interfaces on  the local computer.
-     * @param {Pointer<HANDLE>} _Handle 
-     * @param {Pointer<OVERLAPPED>} _overlapped 
+     * @param {Pointer<HANDLE>} _Handle A pointer to a <b>HANDLE</b> variable that receives a file handle for use in a subsequent call to the <a href="https://docs.microsoft.com/windows/desktop/api/ioapiset/nf-ioapiset-getoverlappedresult">GetOverlappedResult</a> function. 
+     * 
+     * <div class="alert"><b>Warning</b>  Do not close this handle, and do not associate it with a completion port.</div>
+     * <div> </div>
+     * @param {Pointer<OVERLAPPED>} _overlapped A pointer to an 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-overlapped">OVERLAPPED</a> structure that  notifies the caller of any changes in the table that maps IP addresses to interfaces.
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR if the caller specifies <b>NULL</b> for the <i>Handle</i> and <i>overlapped</i> parameters. If the caller specifies non-<b>NULL</b> parameters, the return value for success is ERROR_IO_PENDING.
      * 
      * If the function fails, use 
@@ -8302,8 +8309,9 @@ class IpHelper {
      * 
      * On Windows Vista and later, the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/nf-netioapi-notifyroutechange2">NotifyRouteChange2</a> function  can be used to  register to be notified for changes to the IPv6 routing table  on the local computer.
-     * @param {Pointer<HANDLE>} _Handle 
-     * @param {Pointer<OVERLAPPED>} _overlapped 
+     * @param {Pointer<HANDLE>} _Handle A pointer to a <b>HANDLE</b> variable that receives a handle to use in asynchronous notification.
+     * @param {Pointer<OVERLAPPED>} _overlapped A pointer to an 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-overlapped">OVERLAPPED</a> structure that  notifies the caller of any changes in the routing table.
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR if the caller specifies <b>NULL</b> for the <i>Handle</i> and <i>overlapped</i> parameters. If the caller specifies non-<b>NULL</b> parameters, the return value for success is ERROR_IO_PENDING. If the function fails, use 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> to obtain the message string for the returned error.
      * 
@@ -8433,7 +8441,7 @@ class IpHelper {
      * <a href="https://docs.microsoft.com/windows/desktop/api/wsipv6ok/nf-wsipv6ok-inet_ntoa">inet_ntoa</a> functions.
      * 
      * On Windows Vista and later, the <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/nf-netioapi-createunicastipaddressentry">CreateUnicastIpAddressEntry</a> function can be used to add a new unicast IPv4 or IPv6 address entry on a local computer.
-     * @param {Integer} _Address 
+     * @param {Integer} _Address The IPv4 address to add to the adapter, in the form of an <a href="https://docs.microsoft.com/windows/desktop/api/inaddr/ns-inaddr-in_addr">IPAddr</a> structure.
      * @param {Integer} IpMask The subnet mask for the IPv4 address specified in the <i>Address</i> parameter.   The <b>IPMask</b> parameter uses the same format as an <a href="https://docs.microsoft.com/windows/desktop/api/inaddr/ns-inaddr-in_addr">IPAddr</a> structure.
      * @param {Integer} IfIndex The index of the adapter on which to add the IPv4 address.
      * @param {Pointer<Integer>} NTEContext A pointer to a <b>ULONG</b> variable. On successful return, this parameter points to the Net Table Entry (NTE) context for the IPv4 address that was added. The caller can later use this context in a call to 
@@ -8626,12 +8634,12 @@ class IpHelper {
      * 
      * The <b>GetNetworkParams</b> function and the 
      *      <a href="https://docs.microsoft.com/windows/desktop/api/iptypes/ns-iptypes-fixed_info_w2ksp1">FIXED_INFO</a> structure are supported on  Windows 98and later. But to build an application for a target platform earlier than Windows 2000 with Service Pack 1 (SP1), an earlier version of the Platform Software Development Kit (SDK)  must be used.
-     * @param {Pointer} pFixedInfo A pointer to a 
+     * @param {Integer} pFixedInfo A pointer to a 
      * buffer that contains a <a href="https://docs.microsoft.com/windows/desktop/api/iptypes/ns-iptypes-fixed_info_w2ksp1">FIXED_INFO</a> structure that receives the network parameters for the local computer, if the function was successful. This buffer must be allocated by the caller prior to calling the <b>GetNetworkParams</b> function.
      * @param {Pointer<Integer>} pOutBufLen A pointer to a <b>ULONG</b> variable that specifies the size of the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/iptypes/ns-iptypes-fixed_info_w2ksp1">FIXED_INFO</a> structure. If this size is insufficient to hold the information, 
      * <b>GetNetworkParams</b> fills in this variable with the required size, and returns an error code of <b>ERROR_BUFFER_OVERFLOW</b>.
-     * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
+     * @returns {WIN32_ERROR} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
      * If the function fails, the return value is one of the following error codes.
      * 
@@ -8722,7 +8730,7 @@ class IpHelper {
      * <b>GetAdaptersInfo</b> includes unidirectional adapters. To generate a list of adapters that can both send and receive data, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/iphlpapi/nf-iphlpapi-getunidirectionaladapterinfo">GetUniDirectionalAdapterInfo</a>, and exclude the returned adapters from the list returned by 
      * <b>GetAdaptersInfo</b>.
-     * @param {Pointer} AdapterInfo A pointer to a buffer that receives a linked list of 
+     * @param {Integer} AdapterInfo A pointer to a buffer that receives a linked list of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/iptypes/ns-iptypes-ip_adapter_info">IP_ADAPTER_INFO</a> structures.
      * @param {Pointer<Integer>} SizePointer A pointer to a <b>ULONG</b> variable that specifies the size of the buffer pointed to by the <i>pAdapterInfo</i> parameter. If this size is insufficient to hold the adapter information, 
      * <b>GetAdaptersInfo</b> fills in this variable with the required size, and returns an error code of <b>ERROR_BUFFER_OVERFLOW</b>.
@@ -8859,8 +8867,8 @@ class IpHelper {
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/api/ws2def/ns-ws2def-socket_address">SOCKET_ADDRESS</a> structure is used in the <a href="https://docs.microsoft.com/windows/desktop/api/iptypes/ns-iptypes-ip_adapter_addresses_lh">IP_ADAPTER_ADDRESSES</a> structure pointed to by the <i>AdapterAddresses</i> parameter. On the Microsoft Windows Software Development Kit (SDK) released for Windows Vista and later, the organization of header files has changed and the <b>SOCKET_ADDRESS</b> structure is defined in the <i>Ws2def.h</i> header file which is automatically included by the <i>Winsock2.h</i> header file. On the Platform SDK released for Windows Server 2003 and Windows XP, the <b>SOCKET_ADDRESS</b> structure is declared in the <i>Winsock2.h</i> header file. In order to use the <b>IP_ADAPTER_ADDRESSES</b> structure, the <i>Winsock2.h</i> header file must be included before the <i>Iphlpapi.h</i> header file.
      * @param {Integer} Family 
-     * @param {Integer} Flags The type of addresses to retrieve. The possible values are defined in the <i>Iptypes.h</i> header file. Note that the <i>Iptypes.h</i> header file is automatically included in <i>Iphlpapi.h</i>, and should never be used directly.
-     * @param {Pointer} AdapterAddresses A pointer to a buffer that contains a linked list of <a href="https://docs.microsoft.com/windows/desktop/api/iptypes/ns-iptypes-ip_adapter_addresses_lh">IP_ADAPTER_ADDRESSES</a> structures on successful return.
+     * @param {GET_ADAPTERS_ADDRESSES_FLAGS} Flags The type of addresses to retrieve. The possible values are defined in the <i>Iptypes.h</i> header file. Note that the <i>Iptypes.h</i> header file is automatically included in <i>Iphlpapi.h</i>, and should never be used directly.
+     * @param {Integer} AdapterAddresses A pointer to a buffer that contains a linked list of <a href="https://docs.microsoft.com/windows/desktop/api/iptypes/ns-iptypes-ip_adapter_addresses_lh">IP_ADAPTER_ADDRESSES</a> structures on successful return.
      * @param {Pointer<Integer>} SizePointer A pointer to a variable that specifies the size of the buffer pointed to by <i>AdapterAddresses</i>.
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b> (defined to the same value as <b>NO_ERROR</b>).
      * 
@@ -8957,7 +8965,7 @@ class IpHelper {
      * An  adapter index  may change when the adapter is disabled and then enabled, or under other circumstances, and should not be considered persistent.
      * @param {Integer} IfIndex Index of an interface. 
      * The <b>GetPerAdapterInfo</b> function retrieves information for the adapter corresponding to this interface.
-     * @param {Pointer} pPerAdapterInfo Pointer to an 
+     * @param {Integer} pPerAdapterInfo Pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/iptypes/ns-iptypes-ip_per_adapter_info_w2ksp1">IP_PER_ADAPTER_INFO</a> structure that receives information about the adapter.
      * @param {Pointer<Integer>} pOutBufLen Pointer to a <b>ULONG</b> variable that specifies the size of the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/iptypes/ns-iptypes-ip_per_adapter_info_w2ksp1">IP_PER_ADAPTER_INFO</a> structure. If this size is insufficient to hold the information, 
@@ -9357,7 +9365,7 @@ class IpHelper {
      * <a href="https://docs.microsoft.com/windows/desktop/api/wsipv6ok/nf-wsipv6ok-inet_ntoa">inet_ntoa</a> functions.
      * @param {Integer} DestIP The destination IPv4 address, in the form of an <a href="https://docs.microsoft.com/windows/desktop/api/inaddr/ns-inaddr-in_addr">IPAddr</a> structure. The ARP request attempts to obtain the physical address that corresponds to this IPv4 address.
      * @param {Integer} SrcIP The source IPv4 address of the sender, in the form of an <a href="https://docs.microsoft.com/windows/desktop/api/inaddr/ns-inaddr-in_addr">IPAddr</a> structure. This parameter is optional and is used to select the interface to send the request on for the ARP entry. The caller may specify zero corresponding to the <b>INADDR_ANY</b> IPv4 address for this parameter.
-     * @param {Pointer} pMacAddr A pointer to an array of <b>ULONG</b> variables. This array must have at least two <b>ULONG</b> elements to hold an  Ethernet or token ring physical address. The first six bytes of this array receive the physical address that corresponds to the IPv4 address specified by the <i>DestIP</i> parameter.
+     * @param {Integer} pMacAddr A pointer to an array of <b>ULONG</b> variables. This array must have at least two <b>ULONG</b> elements to hold an  Ethernet or token ring physical address. The first six bytes of this array receive the physical address that corresponds to the IPv4 address specified by the <i>DestIP</i> parameter.
      * @param {Pointer<Integer>} PhyAddrLen On input, a pointer to a <b>ULONG</b> value that specifies the maximum buffer size, in bytes, the application has set aside to receive the physical address or MAC address. The buffer size should be at least 6 bytes for an Ethernet or token ring physical address 
      * 
      * The buffer to receive the physical address is pointed to by the <i>pMacAddr</i> parameter. 
@@ -9836,8 +9844,8 @@ class IpHelper {
      * 
      * The syntax for the <b>GetIpErrorString</b> function was slightly changed on the Microsoft Windows Software Development Kit (SDK) released for Windows Vista and later. The data type for the <i>Buffer</i> parameter was changed from <b>PWCHAR</b> to <b>PWSTR</b>.
      * @param {Integer} ErrorCode The error code to be retrieved. The possible values for this parameter are defined in the <i>Ipexport.h</i> header file.
-     * @param {PWSTR} _Buffer 
-     * @param {Pointer<Integer>} _Size 
+     * @param {PWSTR} _Buffer A pointer to the buffer that contains the error code string if the function returns with NO_ERROR.
+     * @param {Pointer<Integer>} _Size A pointer to a <b>DWORD</b> that specifies the length, in characters, of the buffer pointed to by <i>Buffer</i> parameter, excluding the terminating null (i.e. the size of Buffer in characters, minus one).
      * @returns {Integer} Returns NO_ERROR upon success.
      * 
      * If the function fails, use <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> to obtain the message string for the returned error.
@@ -9856,7 +9864,7 @@ class IpHelper {
     /**
      * Resolves the physical address for a neighbor IP address entry on the local computer. (ResolveNeighbor)
      * @param {Pointer<SOCKADDR>} NetworkAddress A pointer to a   <a href="https://docs.microsoft.com/windows/desktop/WinSock/sockaddr-2">SOCKADDR</a> structure that contains the neighbor IP address entry and address family.
-     * @param {Pointer} PhysicalAddress A pointer to a byte array buffer that will receive the physical address that corresponds to the IP address specified by the <i>NetworkAddress</i> parameter if the function is successful. The length of the byte array is passed in the <i>PhysicalAddressLength</i> parameter.
+     * @param {Integer} PhysicalAddress A pointer to a byte array buffer that will receive the physical address that corresponds to the IP address specified by the <i>NetworkAddress</i> parameter if the function is successful. The length of the byte array is passed in the <i>PhysicalAddressLength</i> parameter.
      * @param {Pointer<Integer>} PhysicalAddressLength On input, this parameter specifies the maximum length, in bytes, of the buffer passed in the <i>PhysicalAddress</i> parameter to receive the physical address. If the function is successful, this parameter will receive the length of the physical address returned in the buffer pointed to by the <i>PhysicalAddress</i> parameter. If <b>ERROR_BUFFER_OVERFLOW</b> is returned, this parameter contains the number of bytes
      *         required to hold the physical address.
      * @returns {Integer} The <b>ResolveNeighbor</b> function always fails and returns the following error code.
@@ -10745,7 +10753,7 @@ class IpHelper {
      * Note that the <i>Netioapi.h</i> header file is automatically included in <i>Iphlpapi.h</i> header file, and should never be used directly.
      * @param {Pointer<MIB_IF_ROW2>} Row A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/ns-netioapi-mib_if_row2">MIB_IF_ROW2</a> structure that, on successful return, receives information for an interface on the local computer. On input, the <b>InterfaceLuid</b> or the <b>InterfaceIndex</b> member of the <b>MIB_IF_ROW2</b> must be set to the interface for which to retrieve information.
-     * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
+     * @returns {WIN32_ERROR} If the function succeeds, the return value is NO_ERROR.
      * 
      * If the function fails, the return value is one of the following error codes.
      * 
@@ -10811,7 +10819,7 @@ class IpHelper {
      * On output, the remaining fields of the <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/ns-netioapi-mib_if_row2">MIB_IF_ROW2</a> structure pointed to by the <i>Row</i> parameter are filled in.
      * 
      * Note that the <i>Netioapi.h</i> header file is automatically included in <i>Iphlpapi.h</i> header file, and should never be used directly.
-     * @param {Integer} Level The level of interface information to retrieve. This parameter can be one of the values from the <b>MIB_IF_ENTRY_LEVEL</b> enumeration type defined in the <i>Netioapi.h</i> header file.
+     * @param {MIB_IF_ENTRY_LEVEL} Level The level of interface information to retrieve. This parameter can be one of the values from the <b>MIB_IF_ENTRY_LEVEL</b> enumeration type defined in the <i>Netioapi.h</i> header file.
      * 
      * <table>
      * <tr>
@@ -10843,7 +10851,7 @@ class IpHelper {
      * </table>
      * @param {Pointer<MIB_IF_ROW2>} Row A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/ns-netioapi-mib_if_row2">MIB_IF_ROW2</a> structure that, on successful return, receives information for an interface on the local computer. On input, the <b>InterfaceLuid</b> or the <b>InterfaceIndex</b> member of the <b>MIB_IF_ROW2</b> must be set to the interface for which to retrieve information.
-     * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
+     * @returns {WIN32_ERROR} If the function succeeds, the return value is NO_ERROR.
      * 
      * If the function fails, the return value is one of the following error codes.
      * 
@@ -10907,7 +10915,7 @@ class IpHelper {
      * 
      * Note that the returned <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/ns-netioapi-mib_if_table2">MIB_IF_TABLE2</a> structure pointed to by the <i>Table</i> parameter may contain padding for alignment between the <b>NumEntries</b> member and the first <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/ns-netioapi-mib_if_row2">MIB_IF_ROW2</a> array entry in the <b>Table</b> member of the <b>MIB_IF_TABLE2</b> structure. Padding for alignment may also be present between the <b>MIB_IF_ROW2</b> array entries. Any access to a <b>MIB_IF_ROW2</b> array entry should assume  padding may exist.
      * @param {Pointer<Pointer<MIB_IF_TABLE2>>} Table A pointer to a buffer that receives the table of interfaces in a <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/ns-netioapi-mib_if_table2">MIB_IF_TABLE2</a> structure.
-     * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
+     * @returns {WIN32_ERROR} If the function succeeds, the return value is NO_ERROR.
      * 
      * If the function fails, the return value is one of the following error codes.
      * 
@@ -10965,7 +10973,7 @@ class IpHelper {
      * 
      * 
      * Note that the returned <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/ns-netioapi-mib_if_table2">MIB_IF_TABLE2</a> structure pointed to by the <i>Table</i> parameter may contain padding for alignment between the <b>NumEntries</b> member and the first <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/ns-netioapi-mib_if_row2">MIB_IF_ROW2</a> array entry in the <b>Table</b> member of the <b>MIB_IF_TABLE2</b> structure. Padding for alignment may also be present between the <b>MIB_IF_ROW2</b> array entries. Any access to a <b>MIB_IF_ROW2</b> array entry should assume  padding may exist.
-     * @param {Integer} Level The level of interface information to retrieve. This parameter can be one of the values from the <b>MIB_IF_TABLE_LEVEL</b> enumeration type defined in the <i>Netioapi.h</i> header file.
+     * @param {MIB_IF_TABLE_LEVEL} Level The level of interface information to retrieve. This parameter can be one of the values from the <b>MIB_IF_TABLE_LEVEL</b> enumeration type defined in the <i>Netioapi.h</i> header file.
      * 
      * <table>
      * <tr>
@@ -10994,7 +11002,7 @@ class IpHelper {
      * </tr>
      * </table>
      * @param {Pointer<Pointer<MIB_IF_TABLE2>>} Table A pointer to a buffer that receives the table of interfaces in a <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/ns-netioapi-mib_if_table2">MIB_IF_TABLE2</a> structure.
-     * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
+     * @returns {WIN32_ERROR} If the function succeeds, the return value is NO_ERROR.
      * 
      * If the function fails, the return value is one of the following error codes.
      * 
@@ -11064,7 +11072,7 @@ class IpHelper {
      * 
      * Note that the returned <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/ns-netioapi-mib_ifstack_table">MIB_IFSTACK_TABLE</a> structure pointed to by the <i>Table</i> parameter may contain padding for alignment between the <b>NumEntries</b> member and the first <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/ns-netioapi-mib_ifstack_row">MIB_IFSTACK_ROW</a> array entry in the <b>Table</b> member of the <b>MIB_IFSTACK_TABLE</b> structure. Padding for alignment may also be present between the <b>MIB_IFSTACK_ROW</b> array entries. Any access to a <b>MIB_IFSTACK_ROW</b> array entry should assume  padding may exist.
      * @param {Pointer<Pointer<MIB_IFSTACK_TABLE>>} Table A pointer to a buffer that receives the table of interface stack row entries in a <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/ns-netioapi-mib_ifstack_table">MIB_IFSTACK_TABLE</a> structure.
-     * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
+     * @returns {WIN32_ERROR} If the function succeeds, the return value is NO_ERROR.
      * 
      * If the function fails, the return value is one of the following error codes.
      * 
@@ -11145,7 +11153,7 @@ class IpHelper {
      * 
      * Note that the returned <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/ns-netioapi-mib_invertedifstack_table">MIB_INVERTEDIFSTACK_TABLE</a> structure pointed to by the <i>Table</i> parameter may contain padding for alignment between the <b>NumEntries</b> member and the first <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/ns-netioapi-mib_invertedifstack_row">MIB_INVERTEDIFSTACK_ROW</a> array entry in the <b>Table</b> member of the <b>MIB_INVERTEDIFSTACK_TABLE</b> structure. Padding for alignment may also be present between the <b>MIB_INVERTEDIFSTACK_ROW</b> array entries. Any access to a <b>MIB_INVERTEDIFSTACK_ROW</b> array entry should assume  padding may exist.
      * @param {Pointer<Pointer<MIB_INVERTEDIFSTACK_TABLE>>} Table A pointer to a buffer that receives the table of inverted interface stack row entries in a <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/ns-netioapi-mib_invertedifstack_table">MIB_INVERTEDIFSTACK_TABLE</a> structure.
-     * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
+     * @returns {WIN32_ERROR} If the function succeeds, the return value is NO_ERROR.
      * 
      * If the function fails, the return value is one of the following error codes.
      * 
@@ -11230,7 +11238,7 @@ class IpHelper {
      * On Windows Vista and later, a strong host model is used by default. If a source IP address is specified in the route lookup using <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/nf-netioapi-getbestroute2">GetBestRoute2</a> or <a href="https://docs.microsoft.com/windows/desktop/api/iphlpapi/nf-iphlpapi-getbestroute">GetBestRoute</a>, the route lookup is restricted to the interface of the source IP address. The route metric modification by RAS has no effect as the list of potential routes does not even have the route for the VPN interface thereby allowing traffic to the Internet. The <b>DisableDefaultRoutes</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/ns-netioapi-mib_ipinterface_row">MIB_IPINTERFACE_ROW</a> can be used to disable using the default route on an interface. This member can be used as a security measure by VPN clients to restrict split tunneling when split tunneling is not required by the VPN client. A VPN client can call the <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/nf-netioapi-setipinterfaceentry">SetIpInterfaceEntry</a> function to set the <b>DisableDefaultRoutes</b> member to <b>TRUE</b> when required. A VPN client can query the current state of the <b>DisableDefaultRoutes</b> member by calling  the <b>GetIpInterfaceEntry</b> function.
      * @param {Pointer<MIB_IPINTERFACE_ROW>} Row A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/ns-netioapi-mib_ipinterface_row">MIB_IPINTERFACE_ROW</a> structure that, on successful return, receives information for an interface on the local computer. On input, the <b>InterfaceLuid</b> or <b>InterfaceIndex</b> member of the <b>MIB_IPINTERFACE_ROW</b> must be set to the interface for which to retrieve information.
-     * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
+     * @returns {WIN32_ERROR} If the function succeeds, the return value is NO_ERROR.
      * 
      * If the function fails, the return value is one of the following error codes.
      * 
@@ -11306,7 +11314,7 @@ class IpHelper {
      * The <i>Family</i> parameter must be initialized to either <b>AF_INET</b> or <b>AF_INET6</b>. 
      * 
      * Note that the returned <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/ns-netioapi-mib_ipinterface_table">MIB_IPINTERFACE_TABLE</a> structure pointed to by the <i>Table</i> parameter may contain padding for alignment between the <b>NumEntries</b> member and the first <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/ns-netioapi-mib_ipinterface_row">MIB_IPINTERFACE_ROW</a> array entry in the <b>Table</b> member of the <b>MIB_IPINTERFACE_TABLE</b> structure. Padding for alignment may also be present between the <b>MIB_IPINTERFACE_ROW</b> array entries. Any access to a <b>MIB_IPINTERFACE_ROW</b> array entry should assume  padding may exist.
-     * @param {Integer} Family The address family of IP interfaces to retrieve. 
+     * @param {ADDRESS_FAMILY} Family The address family of IP interfaces to retrieve. 
      * 
      * Possible values for the address family are listed in the <i>Winsock2.h</i> header file. Note that the values for the AF_ address family and PF_ protocol family constants  are identical (for example, <b>AF_INET</b> and <b>PF_INET</b>), so either constant can be used.
      * 
@@ -11354,7 +11362,7 @@ class IpHelper {
      * </tr>
      * </table>
      * @param {Pointer<Pointer<MIB_IPINTERFACE_TABLE>>} Table A pointer to a buffer that receives the table of IP interface entries in a <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/ns-netioapi-mib_ipinterface_table">MIB_IPINTERFACE_TABLE</a> structure.
-     * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
+     * @returns {WIN32_ERROR} If the function succeeds, the return value is NO_ERROR.
      * 
      * If the function fails, the return value is one of the following error codes.
      * 
@@ -11512,7 +11520,7 @@ class IpHelper {
      * Once the <b>NotifyIpInterfaceChange</b> function is called to register for change notifications, these notifications will continue to be sent until the application deregisters for change notifications or the application terminates. If the application terminates, the system will automatically deregister any registration for change notifications. It is still recommended that an application explicitly deregister for change notifications before it terminates.  
      * 
      * Any registration for change notifications does not persist across a system shut down or reboot.
-     * @param {Integer} Family The address family on which to register for change notifications.
+     * @param {ADDRESS_FAMILY} Family The address family on which to register for change notifications.
      * 
      * Possible values for the address family are listed in the <i>Winsock2.h</i> header file. Note that the values for the AF_ address family and PF_ protocol family constants  are identical (for example, <b>AF_INET</b> and <b>PF_INET</b>), so either constant can be used.
      * 
@@ -11566,7 +11574,7 @@ class IpHelper {
      *         immediately after registration for change notification completes. This initial notification does not indicate a change occurred to an IP interface. The purpose of this parameter to provide confirmation that the callback is registered.
      * @param {Pointer<HANDLE>} NotificationHandle A pointer used to return a handle that can be later used to
      *         deregister the change notification. On success, a notification handle is returned in this parameter. If an error occurs, <b>NULL</b> is returned.
-     * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
+     * @returns {WIN32_ERROR} If the function succeeds, the return value is NO_ERROR.
      * 
      * If the function fails, the return value is one of the following error codes.
      * 
@@ -11661,7 +11669,7 @@ class IpHelper {
      * The <b>SetIpInterfaceEntry</b> function can only be called by a user logged on as a member of the Administrators group. If <b>SetIpInterfaceEntry</b> is called by a user that is not a member of the Administrators group, the function call will fail and <b>ERROR_ACCESS_DENIED</b> is returned. This function can also fail because of user account control (UAC) on Windows Vista and later. If an application that contains this function is executed by a user logged on as a member of the Administrators group other than the built-in Administrator, this call will fail unless the application has been marked in the manifest file with a <b>requestedExecutionLevel</b> set to requireAdministrator. If the application lacks this manifest file, a user logged on as a member of the Administrators group other than the built-in Administrator must then be executing the application in an enhanced shell as the built-in Administrator (RunAs administrator) for this function to succeed.
      * @param {Pointer<MIB_IPINTERFACE_ROW>} Row A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/ns-netioapi-mib_ipinterface_row">MIB_IPINTERFACE_ROW</a> structure entry for an interface. On input, the <b>Family</b> member of the <b>MIB_IPINTERFACE_ROW</b> must be set to <b>AF_INET6</b> or <b>AF_INET</b>  and the <b>InterfaceLuid</b> or the  <b>InterfaceIndex</b> member of the <b>MIB_IPINTERFACE_ROW</b> must be specified. On a successful return, the <b>InterfaceLuid</b> member of the <b>MIB_IPINTERFACE_ROW</b> is filled in if <b>InterfaceIndex</b> member of the <b>MIB_IPINTERFACE_ROW</b> entry was specified.
-     * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
+     * @returns {WIN32_ERROR} If the function succeeds, the return value is NO_ERROR.
      * 
      * If the function fails, the return value is one of the following error codes.
      * 
@@ -11756,7 +11764,7 @@ class IpHelper {
      * @param {Integer} InterfaceIndex The local index value for the network interface. 
      * 
      * This index value may change when a network adapter is disabled and then enabled, or under other circumstances, and should not be considered persistent.
-     * @param {Integer} AddressFamily The address family. Possible values for the address family are listed in the <i>Ws2def.h</i> header file. Note that the values for the AF_ address family and PF_ protocol family constants  are identical (for example, <b>AF_INET</b> and <b>PF_INET</b>), so either constant can be used.
+     * @param {ADDRESS_FAMILY} AddressFamily The address family. Possible values for the address family are listed in the <i>Ws2def.h</i> header file. Note that the values for the AF_ address family and PF_ protocol family constants  are identical (for example, <b>AF_INET</b> and <b>PF_INET</b>), so either constant can be used.
      * 
      *  Note that the <i>Ws2def.h</i> header file is automatically included in <i>Winsock2.h</i>, and should never be used directly.
      * 
@@ -11792,7 +11800,7 @@ class IpHelper {
      * </tr>
      * </table>
      * @param {Pointer<MIB_IP_NETWORK_CONNECTION_BANDWIDTH_ESTIMATES>} BandwidthEstimates A pointer to a buffer that returns the historical bandwidth estimates maintained for the point of attachment to which the interface is currently connected.
-     * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
+     * @returns {WIN32_ERROR} If the function succeeds, the return value is NO_ERROR.
      * 
      * If the function fails, the return value is one of the following error codes.
      * 
@@ -11896,7 +11904,7 @@ class IpHelper {
      * The <b>CreateUnicastIpAddressEntry</b> function can only be called by a user logged on as a member of the Administrators group. If <b>CreateUnicastIpAddressEntry</b> is called by a user that is not a member of the Administrators group, the function call will fail and ERROR_ACCESS_DENIED is returned. This function can also fail because of user account control (UAC) on Windows Vista and later. If an application that contains this function is executed by a user logged on as a member of the Administrators group other than the built-in Administrator, this call will fail unless the application has been marked in the manifest file with a <b>requestedExecutionLevel</b> set to requireAdministrator. If the application on lacks this manifest file, a user logged on as a member of the Administrators group other than the built-in Administrator must then be executing the application in an enhanced shell as the built-in Administrator (RunAs administrator) for this function to succeed.
      * @param {Pointer<MIB_UNICASTIPADDRESS_ROW>} Row A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/ns-netioapi-mib_unicastipaddress_row">MIB_UNICASTIPADDRESS_ROW</a> structure entry for a unicast IP address entry.
-     * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
+     * @returns {WIN32_ERROR} If the function succeeds, the return value is NO_ERROR.
      * 
      * If the function fails, the return value is one of the following error codes.
      * 
@@ -12001,7 +12009,7 @@ class IpHelper {
      * The <b>DeleteUnicastIpAddressEntry</b> function can only be called by a user logged on as a member of the Administrators group. If <b>DeleteUnicastIpAddressEntry</b> is called by a user that is not a member of the Administrators group, the function call will fail and <b>ERROR_ACCESS_DENIED</b> is returned. This function can also fail because of user account control (UAC) on Windows Vista and later. If an application that contains this function is executed by a user logged on as a member of the Administrators group other than the built-in Administrator, this call will fail unless the application has been marked in the manifest file with a <b>requestedExecutionLevel</b> set to requireAdministrator. If the application lacks this manifest file, a user logged on as a member of the Administrators group other than the built-in Administrator must then be executing the application in an enhanced shell as the built-in Administrator (RunAs administrator) for this function to succeed.
      * @param {Pointer<MIB_UNICASTIPADDRESS_ROW>} Row A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/ns-netioapi-mib_unicastipaddress_row">MIB_UNICASTIPADDRESS_ROW</a> structure entry for an existing unicast IP address entry to delete from the local computer.
-     * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
+     * @returns {WIN32_ERROR} If the function succeeds, the return value is NO_ERROR.
      * 
      * If the function fails, the return value is one of the following error codes.
      * 
@@ -12091,7 +12099,7 @@ class IpHelper {
      * The <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/nf-netioapi-getunicastipaddresstable">GetUnicastIpAddressTable</a> function can be called to enumerate the unicast IP address entries on a local computer.
      * @param {Pointer<MIB_UNICASTIPADDRESS_ROW>} Row A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/ns-netioapi-mib_unicastipaddress_row">MIB_UNICASTIPADDRESS_ROW</a> structure entry for a unicast IP address entry. On successful return, this structure will be updated with the properties for an existing unicast IP address.
-     * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
+     * @returns {WIN32_ERROR} If the function succeeds, the return value is NO_ERROR.
      * 
      * If the function fails, the return value is one of the following error codes.
      * 
@@ -12178,7 +12186,7 @@ class IpHelper {
      * The <i>Family</i> parameter must be initialized to either <b>AF_INET</b>,  <b>AF_INET6</b>, or <b>AF_UNSPEC</b>. 
      * 
      * Note that the returned <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/ns-netioapi-mib_unicastipaddress_table">MIB_UNICASTIPADDRESS_TABLE</a> structure pointed to by the <i>Table</i> parameter may contain padding for alignment between the <b>NumEntries</b> member and the first <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/ns-netioapi-mib_unicastipaddress_row">MIB_UNICASTIPADDRESS_ROW</a> array entry in the <b>Table</b> member of the <b>MIB_UNICASTIPADDRESS_TABLE</b> structure. Padding for alignment may also be present between the <b>MIB_UNICASTIPADDRESS_ROW</b> array entries. Any access to a <b>MIB_UNICASTIPADDRESS_ROW</b> array entry should assume  padding may exist.
-     * @param {Integer} Family The address family to retrieve. 
+     * @param {ADDRESS_FAMILY} Family The address family to retrieve. 
      * 
      * Possible values for the address family are listed in the <i>Winsock2.h</i> header file. Note that the values for the AF_ address family and PF_ protocol family constants  are identical (for example, <b>AF_INET</b> and <b>PF_INET</b>), so either constant can be used.
      * 
@@ -12227,7 +12235,7 @@ class IpHelper {
      * </table>
      * @param {Pointer<Pointer<MIB_UNICASTIPADDRESS_TABLE>>} Table A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/ns-netioapi-mib_unicastipaddress_table">MIB_UNICASTIPADDRESS_TABLE</a> structure that contains a table of unicast IP address entries on the local computer.
-     * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
+     * @returns {WIN32_ERROR} If the function succeeds, the return value is NO_ERROR.
      * 
      * If the function fails, the return value is one of the following error codes.
      * 
@@ -12389,7 +12397,7 @@ class IpHelper {
      * To deregister for change notifications, call the  <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/nf-netioapi-cancelmibchangenotify2">CancelMibChangeNotify2</a> function passing the <i>NotificationHandle</i> parameter returned by  <b>NotifyUnicastIpAddressChange</b>. 
      * 
      * An application cannot make a call to the <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/nf-netioapi-cancelmibchangenotify2">CancelMibChangeNotify2</a> function from the context of the thread which is currently executing the notification callback function for the same <i>NotificationHandle</i> parameter. Otherwise, the thread executing that callback will result in deadlock. So the <b>CancelMibChangeNotify2</b> function must not be called directly as part of the notification callback routine. In a more general situation, a thread that executes the <b>CancelMibChangeNotify2</b> function cannot own a resource on which the thread that executes a notification callback operation would wait because it would result in a similar deadlock. The <b>CancelMibChangeNotify2</b> function should be called from a different thread, on which the thread that receives the notification callback doesn’t have dependencies on.
-     * @param {Integer} Family The address family on which to register for change notifications. 
+     * @param {ADDRESS_FAMILY} Family The address family on which to register for change notifications. 
      * 
      * Possible values for the address family are listed in the <i>Winsock2.h</i> header file. Note that the values for the AF_ address family and PF_ protocol family constants  are identical (for example, <b>AF_INET</b> and <b>PF_INET</b>), so either constant can be used.
      * 
@@ -12440,7 +12448,7 @@ class IpHelper {
      *         immediately after registration for change notification completes. This initial notification does not indicate a change occurred to a unicast IP address. The purpose of this parameter to provide confirmation that the callback is registered.
      * @param {Pointer<HANDLE>} NotificationHandle A pointer used to return a handle that can be later used to
      *         deregister the change notification. On success, a notification handle is returned in this parameter. If an error occurs, <b>NULL</b> is returned.
-     * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
+     * @returns {WIN32_ERROR} If the function succeeds, the return value is NO_ERROR.
      * 
      * If the function fails, the return value is one of the following error codes.
      * 
@@ -12568,7 +12576,7 @@ class IpHelper {
      * To deregister for change notifications, call the <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/nf-netioapi-cancelmibchangenotify2">CancelMibChangeNotify2</a> function passing the <i>NotificationHandle</i> parameter returned by <b>NotifyStableUnicastIpAddressTable</b>. 
      * 
      * An application cannot make a call to the <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/nf-netioapi-cancelmibchangenotify2">CancelMibChangeNotify2</a> function from the context of the thread which is currently executing the notification callback function for the same <i>NotificationHandle</i> parameter. Otherwise, the thread executing that callback will result in deadlock. So the <b>CancelMibChangeNotify2</b> function must not be called directly as part of the notification callback routine. In a more general situation, a thread that executes the <b>CancelMibChangeNotify2</b> function cannot own a resource on which the thread that executes a notification callback operation would wait because it would result in a similar deadlock. The <b>CancelMibChangeNotify2</b> function should be called from a different thread, on which the thread that receives the notification callback doesn’t have dependencies on.
-     * @param {Integer} Family The address family to retrieve. 
+     * @param {ADDRESS_FAMILY} Family The address family to retrieve. 
      * 
      * Possible values for the address family are listed in the <i>Winsock2.h</i> header file. Note that the values for the AF_ address family and PF_ protocol family constants  are identical (for example, <b>AF_INET</b> and <b>PF_INET</b>), so either constant can be used.
      * 
@@ -12624,7 +12632,7 @@ class IpHelper {
      * @param {Pointer<Void>} CallerContext A user context passed to the callback function specified in the <i>CallerCallback</i> parameter when the stable unicast IP address table si available.
      * @param {Pointer<HANDLE>} NotificationHandle A pointer used to return a handle that can be used to
      *         cancel the request to retrieve the stable unicast IP address table. This parameter is returned if  the return value from <b>NotifyStableUnicastIpAddressTable</b> is <b>ERROR_IO_PENDING</b> indicating that the I/O request is pending.
-     * @returns {Integer} If the function succeeds immediately, the return value is NO_ERROR and the stable unicast IP table is returned in the <i>Table</i> parameter.
+     * @returns {WIN32_ERROR} If the function succeeds immediately, the return value is NO_ERROR and the stable unicast IP table is returned in the <i>Table</i> parameter.
      * 
      * If the I/O request is pending, the function returns <b>ERROR_IO_PENDING</b> and the function pointed to by the <i>CallerCallback</i> parameter is called when the I/O request has completed with the stable unicast IP address table.
      * 
@@ -12717,7 +12725,7 @@ class IpHelper {
      * The <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/nf-netioapi-createunicastipaddressentry">SetUnicastIpAddressEntry</a> function can also fail because of user account control (UAC) on Windows Vista and later. If an application that contains this function is executed by a user logged on as a member of the Administrators group other than the built-in Administrator, this call will fail unless the application has been marked in the manifest file with a <b>requestedExecutionLevel</b> set to requireAdministrator. If the application lacks this manifest file, a user logged on as a member of the Administrators group other than the built-in Administrator must then be executing the application in an enhanced shell as the built-in Administrator (RunAs administrator) for this function to succeed.
      * @param {Pointer<MIB_UNICASTIPADDRESS_ROW>} Row A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/ns-netioapi-mib_unicastipaddress_row">MIB_UNICASTIPADDRESS_ROW</a> structure entry for an existing unicast IP address entry.
-     * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
+     * @returns {WIN32_ERROR} If the function succeeds, the return value is NO_ERROR.
      * 
      * If the function fails, the return value is one of the following error codes.
      * 
@@ -12811,7 +12819,7 @@ class IpHelper {
      * The <b>CreateAnycastIpAddressEntry</b> function can only be called by a user logged on as a member of the Administrators group. If <b>CreateAnycastIpAddressEntry</b> is called by a user that is not a member of the Administrators group, the function call will fail and <b>ERROR_ACCESS_DENIED</b> is returned. This function can also fail because of user account control (UAC) on Windows Vista and later. If an application that contains this function is executed by a user logged on as a member of the Administrators group other than the built-in Administrator, this call will fail unless the application has been marked in the manifest file with a <b>requestedExecutionLevel</b> set to requireAdministrator. If the application lacks this manifest file, a user logged on as a member of the Administrators group other than the built-in Administrator must then be executing the application in an enhanced shell as the built-in Administrator (RunAs administrator) for this function to succeed.
      * @param {Pointer<MIB_ANYCASTIPADDRESS_ROW>} Row A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/ns-netioapi-mib_anycastipaddress_row">MIB_ANYCASTIPADDRESS_ROW</a> structure entry for an anycast IP address entry.
-     * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
+     * @returns {WIN32_ERROR} If the function succeeds, the return value is NO_ERROR.
      * 
      * If the function fails, the return value is one of the following error codes.
      * 
@@ -12914,7 +12922,7 @@ class IpHelper {
      * The <b>DeleteAnycastIpAddressEntry</b> function can only be called by a user logged on as a member of the Administrators group. If <b>DeleteAnycastIpAddressEntry</b> is called by a user that is not a member of the Administrators group, the function call will fail and <b>ERROR_ACCESS_DENIED</b> is returned. This function can also fail because of user account control (UAC) on Windows Vista and later. If an application that contains this function is executed by a user logged on as a member of the Administrators group other than the built-in Administrator, this call will fail unless the application has been marked in the manifest file with a <b>requestedExecutionLevel</b> set to requireAdministrator. If the application lacks this manifest file, a user logged on as a member of the Administrators group other than the built-in Administrator must then be executing the application in an enhanced shell as the built-in Administrator (RunAs administrator) for this function to succeed.
      * @param {Pointer<MIB_ANYCASTIPADDRESS_ROW>} Row A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/ns-netioapi-mib_anycastipaddress_row">MIB_ANYCASTIPADDRESS_ROW</a>  structure entry for an existing anycast IP address entry to delete from the local computer.
-     * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
+     * @returns {WIN32_ERROR} If the function succeeds, the return value is NO_ERROR.
      * 
      * If the function fails, the return value is one of the following error codes.
      * 
@@ -13004,7 +13012,7 @@ class IpHelper {
      * The <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/nf-netioapi-getanycastipaddresstable">GetAnycastIpAddressTable</a> function can be called to enumerate the anycast IP address entries on a local computer.
      * @param {Pointer<MIB_ANYCASTIPADDRESS_ROW>} Row A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/ns-netioapi-mib_anycastipaddress_row">MIB_ANYCASTIPADDRESS_ROW</a> structure entry for an anycast IP address entry. On successful return, this structure will be updated with the properties for an existing anycast IP address.
-     * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
+     * @returns {WIN32_ERROR} If the function succeeds, the return value is NO_ERROR.
      * 
      * If the function fails, the return value is one of the following error codes.
      * 
@@ -13091,7 +13099,7 @@ class IpHelper {
      * The <i>Family</i> parameter must be initialized to either <b>AF_INET</b>,  <b>AF_INET6</b>, or <b>AF_UNSPEC</b>. 
      * 
      * Note that the returned <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/ns-netioapi-mib_anycastipaddress_table">MIB_ANYCASTIPADDRESS_TABLE</a> structure pointed to by the <i>Table</i> parameter may contain padding  for alignment between the <b>NumEntries</b> member and the first <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/ns-netioapi-mib_anycastipaddress_row">MIB_ANYCASTIPADDRESS_ROW</a> array entry in the <b>Table</b> member of the <b>MIB_ANYCASTIPADDRESS_TABLE</b> structure. Padding for alignment may also be present between the <b>MIB_ANYCASTIPADDRESS_ROW</b> array entries. Any access to a <b>MIB_ANYCASTIPADDRESS_ROW</b> array entry should assume  padding may exist.
-     * @param {Integer} Family The address family to retrieve. 
+     * @param {ADDRESS_FAMILY} Family The address family to retrieve. 
      * 
      * Possible values for the address family are listed in the <i>Winsock2.h</i> header file. Note that the values for the AF_ address family and PF_ protocol family constants  are identical (for example, <b>AF_INET</b> and <b>PF_INET</b>), so either constant can be used.
      * 
@@ -13140,7 +13148,7 @@ class IpHelper {
      * </table>
      * @param {Pointer<Pointer<MIB_ANYCASTIPADDRESS_TABLE>>} Table A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/ns-netioapi-mib_anycastipaddress_table">MIB_ANYCASTIPADDRESS_TABLE</a> structure that contains a table of anycast IP address entries on the local computer.
-     * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
+     * @returns {WIN32_ERROR} If the function succeeds, the return value is NO_ERROR.
      * 
      * If the function fails, the return value is one of the following error codes.
      * 
@@ -13232,7 +13240,7 @@ class IpHelper {
      * The <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/nf-netioapi-getmulticastipaddresstable">GetMulticastIpAddressTable</a> function can be called to enumerate the multicast IP address entries on a local computer.
      * @param {Pointer<MIB_MULTICASTIPADDRESS_ROW>} Row A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/ns-netioapi-mib_multicastipaddress_row">MIB_MULTICASTIPADDRESS_ROW</a> structure entry for a multicast IP address entry. On successful return, this structure will be updated with the properties for an existing multicast IP address.
-     * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
+     * @returns {WIN32_ERROR} If the function succeeds, the return value is NO_ERROR.
      * 
      * If the function fails, the return value is one of the following error codes.
      * 
@@ -13319,7 +13327,7 @@ class IpHelper {
      * The <i>Family</i> parameter must be initialized to either <b>AF_INET</b>,  <b>AF_INET6</b>, or <b>AF_UNSPEC</b>. 
      * 
      * Note that the returned <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/ns-netioapi-mib_multicastipaddress_table">MIB_MULTICASTIPADDRESS_TABLE</a> structure pointed to by the <i>Table</i> parameter may contain padding for alignment between the <b>NumEntries</b> member and the first <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/ns-netioapi-mib_multicastipaddress_row">MIB_MULTICASTIPADDRESS_ROW</a> array entry in the <b>Table</b> member of the <b>MIB_MULTICASTIPADDRESS_TABLE</b> structure. Padding for alignment may also be present between the <b>MIB_MULTICASTIPADDRESS_ROW</b> array entries. Any access to a <b>MIB_MULTICASTIPADDRESS_ROW</b> array entry should assume  padding may exist.
-     * @param {Integer} Family The address family to retrieve. 
+     * @param {ADDRESS_FAMILY} Family The address family to retrieve. 
      * 
      * Possible values for the address family are listed in the <i>Winsock2.h</i> header file. Note that the values for the AF_ address family and PF_ protocol family constants  are identical (for example, <b>AF_INET</b> and <b>PF_INET</b>), so either constant can be used.
      * 
@@ -13368,7 +13376,7 @@ class IpHelper {
      * </table>
      * @param {Pointer<Pointer<MIB_MULTICASTIPADDRESS_TABLE>>} Table A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/ns-netioapi-mib_multicastipaddress_table">MIB_MULTICASTIPADDRESS_TABLE</a> structure that contains a table of anycast IP address entries on the local computer.
-     * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
+     * @returns {WIN32_ERROR} If the function succeeds, the return value is NO_ERROR.
      * 
      * If the function fails, the return value is one of the following error codes.
      * 
@@ -13466,7 +13474,7 @@ class IpHelper {
      * The <b>CreateIpForwardEntry2</b> function can only be called by a user logged on as a member of the Administrators group. If <b>CreateIpForwardEntry2</b> is called by a user that is not a member of the Administrators group, the function call will fail and <b>ERROR_ACCESS_DENIED</b> is returned. This function can also fail because of user account control (UAC) on Windows Vista and later. If an application that contains this function is executed by a user logged on as a member of the Administrators group other than the built-in Administrator, this call will fail unless the application has been marked in the manifest file with a <b>requestedExecutionLevel</b> set to requireAdministrator. If the application lacks this manifest file, a user logged on as a member of the Administrators group other than the built-in Administrator must then be executing the application in an enhanced shell as the built-in Administrator (RunAs administrator) for this function to succeed.
      * @param {Pointer<MIB_IPFORWARD_ROW2>} Row A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/ns-netioapi-mib_ipforward_row2">MIB_IPFORWARD_ROW2</a> structure entry for an IP route entry.
-     * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
+     * @returns {WIN32_ERROR} If the function succeeds, the return value is NO_ERROR.
      * 
      * If the function fails, the return value is one of the following error codes.
      * 
@@ -13571,7 +13579,7 @@ class IpHelper {
      * The <b>DeleteIpForwardEntry2</b> function can only be called by a user logged on as a member of the Administrators group. If <b>DeleteIpForwardEntry2</b> is called by a user that is not a member of the Administrators group, the function call will fail and <b>ERROR_ACCESS_DENIED</b> is returned. This function can also fail because of user account control (UAC) on Windows Vista and later. If an application that contains this function is executed by a user logged on as a member of the Administrators group other than the built-in Administrator, this call will fail unless the application has been marked in the manifest file with a <b>requestedExecutionLevel</b> set to requireAdministrator. If the application lacks this manifest file, a user logged on as a member of the Administrators group other than the built-in Administrator must then be executing the application in an enhanced shell as the built-in Administrator (RunAs administrator) for this function to succeed.
      * @param {Pointer<MIB_IPFORWARD_ROW2>} Row A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/ns-netioapi-mib_ipforward_row2">MIB_IPFORWARD_ROW2</a> structure entry for an IP route entry. On successful return, this entry will be deleted.
-     * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
+     * @returns {WIN32_ERROR} If the function succeeds, the return value is NO_ERROR.
      * 
      * If the function fails, the return value is one of the following error codes.
      * 
@@ -13664,7 +13672,7 @@ class IpHelper {
      * @param {Integer} AddressSortOptions A set of options that affect how IP addresses are sorted. This parameter is not currently used.
      * @param {Pointer<MIB_IPFORWARD_ROW2>} BestRoute A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/ns-netioapi-mib_ipforward_row2">MIB_IPFORWARD_ROW2</a> for the best route from the source IP address to the destination IP address.
      * @param {Pointer<SOCKADDR_INET>} BestSourceAddress A pointer to the best source IP address.
-     * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
+     * @returns {WIN32_ERROR} If the function succeeds, the return value is NO_ERROR.
      * 
      * If the function fails, the return value is one of the following error codes.
      * 
@@ -13745,7 +13753,7 @@ class IpHelper {
      * The <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/nf-netioapi-getipforwardtable2">GetIpForwardTable2</a> function can be called to enumerate the IP route entries on a local computer.
      * @param {Pointer<MIB_IPFORWARD_ROW2>} Row A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/ns-netioapi-mib_ipforward_row2">MIB_IPFORWARD_ROW2</a> structure entry for an IP route entry. On successful return, this structure will be updated with the properties for the IP route entry.
-     * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
+     * @returns {WIN32_ERROR} If the function succeeds, the return value is NO_ERROR.
      * 
      * If the function fails, the return value is one of the following error codes.
      * 
@@ -13821,7 +13829,7 @@ class IpHelper {
      * The <i>Family</i> parameter must be initialized to either <b>AF_INET</b>,  <b>AF_INET6</b>, or <b>AF_UNSPEC</b>. 
      * 
      * Note that the returned <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/ns-netioapi-mib_ipforward_table2">MIB_IPFORWARD_TABLE2</a> structure pointed to by the <i>Table</i> parameter may contain padding for alignment between the <b>NumEntries</b> member and the first <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/ns-netioapi-mib_ipforward_row2">MIB_IPFORWARD_ROW2</a> array entry in the <b>Table</b> member of the <b>MIB_IPFORWARD_TABLE2</b> structure. Padding for alignment may also be present between the <b>MIB_IPFORWARD_ROW2</b> array entries. Any access to a <b>MIB_IPFORWARD_ROW2</b> array entry should assume  padding may exist.
-     * @param {Integer} Family The address family to retrieve. 
+     * @param {ADDRESS_FAMILY} Family The address family to retrieve. 
      * 
      * Possible values for the address family are listed in the <i>Winsock2.h</i> header file. Note that the values for the AF_ address family and PF_ protocol family constants  are identical (for example, <b>AF_INET</b> and <b>PF_INET</b>), so either constant can be used.
      * 
@@ -13870,7 +13878,7 @@ class IpHelper {
      * </table>
      * @param {Pointer<Pointer<MIB_IPFORWARD_TABLE2>>} Table A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/ns-netioapi-mib_ipforward_table2">MIB_IPFORWARD_TABLE2</a> structure that contains a table of IP route entries on the local computer.
-     * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
+     * @returns {WIN32_ERROR} If the function succeeds, the return value is NO_ERROR.
      * 
      * If the function fails, the return value is one of the following error codes.
      * 
@@ -14032,7 +14040,7 @@ class IpHelper {
      * To deregister for change notifications, call the  <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/nf-netioapi-cancelmibchangenotify2">CancelMibChangeNotify2</a> function passing the <i>NotificationHandle</i> parameter returned by  <b>NotifyRouteChange2</b>. 
      * 
      * An application cannot make a call to the <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/nf-netioapi-cancelmibchangenotify2">CancelMibChangeNotify2</a> function from the context of the thread which is currently executing the notification callback function for the same <i>NotificationHandle</i> parameter. Otherwise, the thread executing that callback will result in deadlock. So the <b>CancelMibChangeNotify2</b> function must not be called directly as part of the notification callback routine. In a more general situation, a thread that executes the <b>CancelMibChangeNotify2</b> function cannot own a resource on which the thread that executes a notification callback operation would wait because it would result in a similar deadlock. The <b>CancelMibChangeNotify2</b> function should be called from a different thread, on which the thread that receives the notification callback doesn’t have dependencies on.
-     * @param {Integer} AddressFamily The address family on which to register for change notifications. 
+     * @param {ADDRESS_FAMILY} AddressFamily The address family on which to register for change notifications. 
      * 
      * Possible values for the address family are listed in the <i>Winsock2.h</i> header file. Note that the values for the AF_ address family and PF_ protocol family constants  are identical (for example, <b>AF_INET</b> and <b>PF_INET</b>), so either constant can be used.
      * 
@@ -14083,7 +14091,7 @@ class IpHelper {
      *         immediately after registration for change notification completes. This initial notification does not indicate a change occurred to an IP route entry. The purpose of this parameter to provide confirmation that the callback is registered.
      * @param {Pointer<HANDLE>} NotificationHandle A pointer used to return a handle that can be later used to
      *         deregister the change notification. On success, a notification handle is returned in this parameter. If an error occurs, <b>NULL</b> is returned.
-     * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
+     * @returns {WIN32_ERROR} If the function succeeds, the return value is NO_ERROR.
      * 
      * If the function fails, the return value is one of the following error codes.
      * 
@@ -14170,7 +14178,7 @@ class IpHelper {
      * The <b>SetIpForwardEntry2</b> function can also fail because of user account control (UAC) on Windows Vista and later. If an application that contains this function is executed by a user logged on as a member of the Administrators group other than the built-in Administrator, this call will fail unless the application has been marked in the manifest file with a <b>requestedExecutionLevel</b> set to requireAdministrator. If the application lacks this manifest file, a user logged on as a member of the Administrators group other than the built-in Administrator must then be executing the application in an enhanced shell as the built-in Administrator (RunAs administrator) for this function to succeed.
      * @param {Pointer<MIB_IPFORWARD_ROW2>} Route A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/ns-netioapi-mib_ipforward_row2">MIB_IPFORWARD_ROW2</a> structure entry for an IP route entry. The <b>DestinationPrefix</b> member of the <b>MIB_IPFORWARD_ROW2</b> must be set to a valid IP destination prefix, the <b>NextHop</b> member of the <b>MIB_IPFORWARD_ROW2</b> must be set to a valid IP address family and IP address,   and the <b>InterfaceLuid</b> or the  <b>InterfaceIndex</b> member of the <b>MIB_IPFORWARD_ROW2</b> must be specified.
-     * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
+     * @returns {WIN32_ERROR} If the function succeeds, the return value is NO_ERROR.
      * 
      * If the function fails, the return value is one of the following error codes.
      * 
@@ -14244,7 +14252,7 @@ class IpHelper {
      * The <i>Family</i> parameter must be initialized to either <b>AF_INET</b>,  <b>AF_INET6</b>, or <b>AF_UNSPEC</b>. 
      * 
      * The <b>FlushIpPathTable</b> function can only be called by a user logged on as a member of the Administrators group. If <b>FlushIpPathTable</b> is called by a user that is not a member of the Administrators group, the function call will fail and <b>ERROR_ACCESS_DENIED</b> is returned. This function can also fail because of user account control (UAC) on Windows Vista and later. If an application that contains this function is executed by a user logged on as a member of the Administrators group other than the built-in Administrator, this call will fail unless the application has been marked in the manifest file with a <b>requestedExecutionLevel</b> set to requireAdministrator. If the application lacks this manifest file, a user logged on as a member of the Administrators group other than the built-in Administrator must then be executing the application in an enhanced shell as the built-in Administrator (RunAs administrator) for this function to succeed.
-     * @param {Integer} Family The address family to flush. 
+     * @param {ADDRESS_FAMILY} Family The address family to flush. 
      * 
      * Possible values for the address family are listed in the <i>Winsock2.h</i> header file. Note that the values for the AF_ address family and PF_ protocol family constants  are identical (for example, <b>AF_INET</b> and <b>PF_INET</b>), so either constant can be used.
      * 
@@ -14291,7 +14299,7 @@ class IpHelper {
      * </td>
      * </tr>
      * </table>
-     * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
+     * @returns {WIN32_ERROR} If the function succeeds, the return value is NO_ERROR.
      * 
      * If the function fails, the return value is one of the following error codes.
      * 
@@ -14370,7 +14378,7 @@ class IpHelper {
      * The <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/nf-netioapi-getippathtable">GetIpPathTable</a> function can be called to enumerate the IP path entries on a local computer.
      * @param {Pointer<MIB_IPPATH_ROW>} Row A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/ns-netioapi-mib_ippath_row">MIB_IPPATH_ROW</a> structure entry for a IP path entry. On successful return, this structure will be updated with the properties for IP path entry.
-     * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
+     * @returns {WIN32_ERROR} If the function succeeds, the return value is NO_ERROR.
      * 
      * If the function fails, the return value is one of the following error codes.
      * 
@@ -14457,7 +14465,7 @@ class IpHelper {
      * The <i>Family</i> parameter must be initialized to either <b>AF_INET</b>,  <b>AF_INET6</b>, or <b>AF_UNSPEC</b>. 
      * 
      * Note that the returned <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/ns-netioapi-mib_ippath_table">MIB_IPPATH_TABLE</a> structure pointed to by the <i>Table</i> parameter may contain padding for alignment between the <b>NumEntries</b> member and the first <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/ns-netioapi-mib_ippath_row">MIB_IPPATH_ROW</a> array entry in the <b>Table</b> member of the <b>MIB_IPPATH_TABLE</b> structure. Padding for alignment may also be present between the <b>MIB_IPPATH_ROW</b> array entries. Any access to a <b>MIB_IPPATH_ROW</b> array entry should assume  padding may exist.
-     * @param {Integer} Family The address family to retrieve. 
+     * @param {ADDRESS_FAMILY} Family The address family to retrieve. 
      * 
      * Possible values for the address family are listed in the <i>Winsock2.h</i> header file. Note that the values for the AF_ address family and PF_ protocol family constants  are identical (for example, <b>AF_INET</b> and <b>PF_INET</b>), so either constant can be used.
      * 
@@ -14506,7 +14514,7 @@ class IpHelper {
      * </table>
      * @param {Pointer<Pointer<MIB_IPPATH_TABLE>>} Table A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/ns-netioapi-mib_ippath_table">MIB_IPPATH_TABLE</a> structure that contains a table of IP path entries on the local computer.
-     * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
+     * @returns {WIN32_ERROR} If the function succeeds, the return value is NO_ERROR.
      * 
      * If the function fails, the return value is one of the following error codes.
      * 
@@ -14598,7 +14606,7 @@ class IpHelper {
      * The <b>CreateIpNetEntry2</b> function can only be called by a user logged on as a member of the Administrators group. If <b>CreateIpNetEntry2</b> is called by a user that is not a member of the Administrators group, the function call will fail and <b>ERROR_ACCESS_DENIED</b> is returned. This function can also fail because of user account control (UAC) on Windows Vista and later. If an application that contains this function is executed by a user logged on as a member of the Administrators group other than the built-in Administrator, this call will fail unless the application has been marked in the manifest file with a <b>requestedExecutionLevel</b> set to requireAdministrator. If the application lacks this manifest file, a user logged on as a member of the Administrators group other than the built-in Administrator must then be executing the application in an enhanced shell as the built-in Administrator (RunAs administrator) for this function to succeed.
      * @param {Pointer<MIB_IPNET_ROW2>} Row A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/ns-netioapi-mib_ipnet_row2">MIB_IPNET_ROW2</a> structure entry for a neighbor IP address entry.
-     * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
+     * @returns {WIN32_ERROR} If the function succeeds, the return value is NO_ERROR.
      * 
      * If the function fails, the return value is one of the following error codes.
      * 
@@ -14701,7 +14709,7 @@ class IpHelper {
      * The <b>DeleteIpNetEntry2</b> function can only be called by a user logged on as a member of the Administrators group. If <b>DeleteIpNetEntry2</b> is called by a user that is not a member of the Administrators group, the function call will fail and <b>ERROR_ACCESS_DENIED</b> is returned. This function can also fail because of user account control (UAC) on Windows Vista and later. If an application that contains this function is executed by a user logged on as a member of the Administrators group other than the built-in Administrator, this call will fail unless the application has been marked in the manifest file with a <b>requestedExecutionLevel</b> set to requireAdministrator. If the application lacks this manifest file, a user logged on as a member of the Administrators group other than the built-in Administrator must then be executing the application in an enhanced shell as the built-in Administrator (RunAs administrator) for this function to succeed.
      * @param {Pointer<MIB_IPNET_ROW2>} Row A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/ns-netioapi-mib_ipnet_row2">MIB_IPNET_ROW2</a> structure entry for a neighbor IP address entry. On successful return, this entry will be deleted.
-     * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
+     * @returns {WIN32_ERROR} If the function succeeds, the return value is NO_ERROR.
      * 
      * If the function fails, the return value is one of the following error codes.
      * 
@@ -14786,7 +14794,7 @@ class IpHelper {
      * The <i>Family</i> parameter must be initialized to either <b>AF_INET</b>,  <b>AF_INET6</b>, or <b>AF_UNSPEC</b>. 
      * 
      * The <b>FlushIpNetTable2</b> function can only be called by a user logged on as a member of the Administrators group. If <b>FlushIpNetTable2</b> is called by a user that is not a member of the Administrators group, the function call will fail and <b>ERROR_ACCESS_DENIED</b> is returned. This function can also fail because of user account control (UAC) on Windows Vista and later. If an application that contains this function is executed by a user logged on as a member of the Administrators group other than the built-in Administrator, this call will fail unless the application has been marked in the manifest file with a <b>requestedExecutionLevel</b> set to requireAdministrator. If the application lacks this manifest file, a user logged on as a member of the Administrators group other than the built-in Administrator must then be executing the application in an enhanced shell as the built-in Administrator (RunAs administrator) for this function to succeed.
-     * @param {Integer} Family The address family to flush. 
+     * @param {ADDRESS_FAMILY} Family The address family to flush. 
      * 
      * Possible values for the address family are listed in the <i>Winsock2.h</i> header file. Note that the values for the AF_ address family and PF_ protocol family constants  are identical (for example, <b>AF_INET</b> and <b>PF_INET</b>), so either constant can be used.
      * 
@@ -14836,7 +14844,7 @@ class IpHelper {
      * @param {Integer} InterfaceIndex The interface index.  If the index is specified,
      *         flush the neighbor IP address entries on a specific interface, otherwise flush the
      *         neighbor IP address entries on all the interfaces. To ignore the interface, set this parameter to zero.
-     * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
+     * @returns {WIN32_ERROR} If the function succeeds, the return value is NO_ERROR.
      * 
      * If the function fails, the return value is one of the following error codes.
      * 
@@ -14916,7 +14924,7 @@ class IpHelper {
      * The <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/nf-netioapi-getipnettable2">GetIpNetTable2</a> function can be called to enumerate the neighbor IP address entries on a local computer.
      * @param {Pointer<MIB_IPNET_ROW2>} Row A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/ns-netioapi-mib_ipnet_row2">MIB_IPNET_ROW2</a> structure entry for a neighbor IP address entry. On successful return, this structure will be updated with the properties for neighbor IP address.
-     * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
+     * @returns {WIN32_ERROR} If the function succeeds, the return value is NO_ERROR.
      * 
      * If the function fails, the return value is one of the following error codes.
      * 
@@ -15003,7 +15011,7 @@ class IpHelper {
      * The <i>Family</i> parameter must be initialized to either <b>AF_INET</b>,  <b>AF_INET6</b>, or <b>AF_UNSPEC</b>. 
      * 
      * Note that the returned <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/ns-netioapi-mib_ipnet_table2">MIB_IPNET_TABLE2</a> structure pointed to by the <i>Table</i> parameter may contain padding for alignment between the <b>NumEntries</b> member and the first <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/ns-netioapi-mib_ipnet_row2">MIB_IPNET_ROW2</a> array entry in the <b>Table</b> member of the <b>MIB_IPNET_TABLE2</b> structure. Padding for alignment may also be present between the <b>MIB_IPNET_ROW2</b> array entries. Any access to a <b>MIB_IPNET_ROW2</b> array entry should assume  padding may exist.
-     * @param {Integer} Family The address family to retrieve.
+     * @param {ADDRESS_FAMILY} Family The address family to retrieve.
      * 
      * Possible values for the address family are listed in the <i>Winsock2.h</i> header file. Note that the values for the AF_ address family and PF_ protocol family constants  are identical (for example, <b>AF_INET</b> and <b>PF_INET</b>), so either constant can be used.
      * 
@@ -15052,7 +15060,7 @@ class IpHelper {
      * </table>
      * @param {Pointer<Pointer<MIB_IPNET_TABLE2>>} Table A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/ns-netioapi-mib_ipnet_table2">MIB_IPNET_TABLE2</a> structure that contains a table of neighbor IP address entries on the local computer.
-     * @returns {Integer} If the function succeeds, the return value is NO_ERROR or ERROR_NOT_FOUND.
+     * @returns {WIN32_ERROR} If the function succeeds, the return value is NO_ERROR or ERROR_NOT_FOUND.
      * 
      * If the function fails or returns no data, the return value is one of the following error codes.
      * 
@@ -15156,7 +15164,7 @@ class IpHelper {
      * <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/ns-netioapi-mib_ipnet_row2">MIB_IPNET_ROW2</a> structure entry for a neighbor IP address entry. On successful return, this structure will be updated with the properties for neighbor IP address.
      * @param {Pointer<SOCKADDR_INET>} SourceAddress A pointer to a 
      * an optional source IP address used to select the interface to send the requests on for the neighbor IP address entry.
-     * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
+     * @returns {WIN32_ERROR} If the function succeeds, the return value is NO_ERROR.
      * 
      * If the function fails, the return value is one of the following error codes.
      * 
@@ -15248,7 +15256,7 @@ class IpHelper {
      * The <b>SetIpNetEntry2</b> function can also fail because of user account control (UAC) on Windows Vista and later. If an application that contains this function is executed by a user logged on as a member of the Administrators group other than the built-in Administrator, this call will fail unless the application has been marked in the manifest file with a <b>requestedExecutionLevel</b> set to requireAdministrator. If the application lacks this manifest file, a user logged on as a member of the Administrators group other than the built-in Administrator must then be executing the application in an enhanced shell as the built-in Administrator (RunAs administrator) for this function to succeed.
      * @param {Pointer<MIB_IPNET_ROW2>} Row A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/ns-netioapi-mib_ipnet_row2">MIB_IPNET_ROW2</a> structure entry for a neighbor IP address entry.
-     * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
+     * @returns {WIN32_ERROR} If the function succeeds, the return value is NO_ERROR.
      * 
      * If the function fails, the return value is one of the following error codes.
      * 
@@ -15395,7 +15403,7 @@ class IpHelper {
      *         immediately after registration for change notification completes. This initial notification does not indicate a change occurred to the Teredo client port. The purpose of this parameter to provide confirmation that the callback is registered.
      * @param {Pointer<HANDLE>} NotificationHandle A pointer used to return a handle that can be later used to
      *         deregister the change notification. On success, a notification handle is returned in this parameter. If an error occurs, <b>NULL</b> is returned.
-     * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
+     * @returns {WIN32_ERROR} If the function succeeds, the return value is NO_ERROR.
      * 
      * If the function fails, the return value is one of the following error codes.
      * 
@@ -15471,7 +15479,7 @@ class IpHelper {
      * 
      * The <b>GetTeredoPort</b> function is used primarily by firewall applications in order to configure the appropriate exceptions to allow incoming and outgoing Teredo traffic.
      * @param {Pointer<Integer>} Port A pointer to the  UDP port number. On successful return, this parameter will be filled with the port number used by the Teredo client.
-     * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
+     * @returns {WIN32_ERROR} If the function succeeds, the return value is NO_ERROR.
      * 
      * If the function fails, the return value is one of the following error codes.
      * 
@@ -15550,7 +15558,7 @@ class IpHelper {
      * An application cannot make a call to the <b>CancelMibChangeNotify2</b> function from the context of the thread which is currently executing the notification callback function for the same <i>NotificationHandle</i> parameter. Otherwise, the thread executing that callback will result in deadlock. So the <b>CancelMibChangeNotify2</b> function must not be called directly as part of the notification callback routine. In a more general situation, a thread that executes the <b>CancelMibChangeNotify2</b> function cannot own a resource on which the thread that executes a notification callback operation would wait because it would result in a similar deadlock. The <b>CancelMibChangeNotify2</b> function should be called from a different thread, on which the thread that receives the notification callback doesn’t have dependencies on.
      * @param {HANDLE} NotificationHandle The handle returned from a notification 
      *         registration or retrieval function to indicate which notification to cancel.
-     * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
+     * @returns {WIN32_ERROR} If the function succeeds, the return value is NO_ERROR.
      * 
      * If the function fails, the return value is one of the following error codes.
      * 
@@ -15634,7 +15642,7 @@ class IpHelper {
      * @param {Pointer<Pointer<SOCKADDR_IN6_PAIR>>} SortedAddressPairList A pointer to store an array of <a href="https://docs.microsoft.com/windows/desktop/api/ws2ipdef/ns-ws2ipdef-sockaddr_in6_pair">SOCKADDR_IN6_PAIR</a> structures that contain a list of pairs of IPv6 addresses
      *         sorted in the preferred order of communication, if the function call is successful.
      * @param {Pointer<Integer>} SortedAddressPairCount A pointer to store the number of address pairs pointed to by the <i>SortedAddressPairList</i> parameter, if the function call is successful.
-     * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
+     * @returns {WIN32_ERROR} If the function succeeds, the return value is NO_ERROR.
      * 
      * If the function fails, the return value is one of the following error codes.
      * 
@@ -15704,7 +15712,7 @@ class IpHelper {
      * 
      * @param {Pointer<Guid>} CompartmentGuid 
      * @param {Pointer<Integer>} CompartmentId 
-     * @returns {Integer} 
+     * @returns {WIN32_ERROR} 
      */
     static ConvertCompartmentGuidToId(CompartmentGuid, CompartmentId) {
         CompartmentIdMarshal := CompartmentId is VarRef ? "uint*" : "ptr"
@@ -15717,7 +15725,7 @@ class IpHelper {
      * 
      * @param {NET_IF_COMPARTMENT_ID} CompartmentId 
      * @param {Pointer<Guid>} CompartmentGuid 
-     * @returns {Integer} 
+     * @returns {WIN32_ERROR} 
      */
     static ConvertCompartmentIdToGuid(CompartmentId, CompartmentGuid) {
         result := DllCall("IPHLPAPI.dll\ConvertCompartmentIdToGuid", "uint", CompartmentId, "ptr", CompartmentGuid, "uint")
@@ -15736,7 +15744,7 @@ class IpHelper {
      * The maximum length of an interface name, <b>NDIS_IF_MAX_STRING_SIZE</b>, without the terminating <b>NULL</b> is declared in the <i>Ntddndis.h</i> header file. The <b>NDIS_IF_MAX_STRING_SIZE</b> is defined to be the <b>IF_MAX_STRING_SIZE</b> constant defined in the <i>Ifdef.h</i> header file. The <i>Ntddndis.h</i> and <i>Ifdef.h</i> header files are automatically included in the <i>Netioapi.h</i> header file which is automatically included by the <i>Iphlpapi.h</i> header file. The <i>Ntddndis.h</i>, <i>Ifdef.h</i>, and <i> Netioapi.h</i> header files should never be used directly.
      * @param {PSTR} InterfaceName A pointer to a <b>NULL</b>-terminated ANSI string containing the network interface name.
      * @param {Pointer<NET_LUID_LH>} InterfaceLuid A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/ifdef/ns-ifdef-net_luid_lh">NET_LUID</a> for this interface.
-     * @returns {Integer} On success, 
+     * @returns {WIN32_ERROR} On success, 
      * <b>ConvertInterfaceNameToLuidA</b> returns <b>NETIO_ERROR_SUCCESS</b>. Any nonzero return value indicates failure. 
      * 
      * <table>
@@ -15800,7 +15808,7 @@ class IpHelper {
      * The maximum length of an interface name, <b>NDIS_IF_MAX_STRING_SIZE</b>, without the terminating <b>NULL</b> is declared in the <i>Ntddndis.h</i> header file. The <b>NDIS_IF_MAX_STRING_SIZE</b> is defined to be the <b>IF_MAX_STRING_SIZE</b> constant defined in the <i>Ifdef.h</i> header file. The <i>Ntddndis.h</i> and <i>Ifdef.h</i> header files are automatically included in the <i>Netioapi.h</i> header file which is automatically included by the <i>Iphlpapi.h</i> header file. The <i>Ntddndis.h</i>, <i>Ifdef.h</i>, and <i> Netioapi.h</i> header files should never be used directly.
      * @param {PWSTR} InterfaceName A pointer to a <b>NULL</b>-terminated Unicode string containing the network interface name.
      * @param {Pointer<NET_LUID_LH>} InterfaceLuid A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/ifdef/ns-ifdef-net_luid_lh">NET_LUID</a> for this interface.
-     * @returns {Integer} On success, 
+     * @returns {WIN32_ERROR} On success, 
      * <b>ConvertInterfaceNameToLuidW</b> returns <b>NETIO_ERROR_SUCCESS</b>. Any nonzero return value indicates failure. 
      * 
      * <table>
@@ -15856,7 +15864,7 @@ class IpHelper {
      * @param {Pointer} Length The length, in bytes, of the buffer pointed to by the <i>InterfaceName</i> parameter. This value must be large enough to accommodate the interface name
      *         and the terminating null character.  The maximum required length is
      *         <b>NDIS_IF_MAX_STRING_SIZE</b> + 1.
-     * @returns {Integer} On success, 
+     * @returns {WIN32_ERROR} On success, 
      * <b>ConvertInterfaceLuidToNameA</b> returns <b>NETIO_ERROR_SUCCESS</b>. Any nonzero return value indicates failure. 
      * 
      * <table>
@@ -15912,7 +15920,7 @@ class IpHelper {
      * @param {Pointer} Length The number of characters in the array pointed to by the <i>InterfaceName</i> parameter. This value must be large enough to accommodate the interface name
      *         and the terminating null character.  The maximum required length is
      *         <b>NDIS_IF_MAX_STRING_SIZE</b> + 1.
-     * @returns {Integer} On success, 
+     * @returns {WIN32_ERROR} On success, 
      * <b>ConvertInterfaceLuidToNameW</b> returns <b>NETIO_ERROR_SUCCESS</b>. Any nonzero return value indicates failure. 
      * 
      * <table>
@@ -15961,7 +15969,7 @@ class IpHelper {
      * The <b>ConvertInterfaceLuidToIndex</b> function is protocol independent and works with network interfaces for both the IPv6 and IPv4 protocol.
      * @param {Pointer<NET_LUID_LH>} InterfaceLuid A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/ifdef/ns-ifdef-net_luid_lh">NET_LUID</a> for a network interface.
      * @param {Pointer<Integer>} InterfaceIndex The local index  value for the interface.
-     * @returns {Integer} On success, 
+     * @returns {WIN32_ERROR} On success, 
      * <b>ConvertInterfaceLuidToIndex</b> returns NO_ERROR. Any nonzero return value indicates failure and a <b>NET_IFINDEX_UNSPECIFIED</b> is returned in the <i>InterfaceIndex</i> parameter. 
      * 
      * <table>
@@ -15999,7 +16007,7 @@ class IpHelper {
      * The <b>ConvertInterfaceIndexToLuid</b> function is protocol independent and works with network interfaces for both the IPv6 and IPv4 protocol.
      * @param {Integer} InterfaceIndex The local index  value for a network interface.
      * @param {Pointer<NET_LUID_LH>} InterfaceLuid A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/ifdef/ns-ifdef-net_luid_lh">NET_LUID</a> for this interface.
-     * @returns {Integer} On success, 
+     * @returns {WIN32_ERROR} On success, 
      * <b>ConvertInterfaceIndexToLuid</b> returns NO_ERROR. Any nonzero return value indicates failure and a <b>NULL</b> is returned in the <i>InterfaceLuid</i> parameter. 
      * 
      * <table>
@@ -16050,7 +16058,7 @@ class IpHelper {
      * @param {PWSTR} InterfaceAlias A pointer to a buffer to hold the <b>NULL</b>-terminated Unicode string containing the alias name of the network interface when the function returns successfully.
      * @param {Pointer} Length The length, in characters, of the buffer pointed to by the <i>InterfaceAlias</i> parameter. This value must be large enough to accommodate the alias name of the network interface and the terminating <b>NULL</b> character.  The maximum required length is
      *         <b>NDIS_IF_MAX_STRING_SIZE</b> + 1.
-     * @returns {Integer} On success, 
+     * @returns {WIN32_ERROR} On success, 
      * <b>ConvertInterfaceLuidToAlias</b> returns NO_ERROR. Any nonzero return value indicates failure. 
      * 
      * <table>
@@ -16099,7 +16107,7 @@ class IpHelper {
      * The <b>ConvertInterfaceAliasToLuid</b> function is protocol independent and works with network interfaces for both the IPv6 and IPv4 protocol.
      * @param {PWSTR} InterfaceAlias A pointer to a <b>NULL</b>-terminated Unicode string containing the alias name of the network interface.
      * @param {Pointer<NET_LUID_LH>} InterfaceLuid A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/ifdef/ns-ifdef-net_luid_lh">NET_LUID</a> for this interface.
-     * @returns {Integer} On success, 
+     * @returns {WIN32_ERROR} On success, 
      * <b>ConvertInterfaceAliasToLuid</b> returns NO_ERROR. Any nonzero return value indicates failure and a <b>NULL</b> is returned in the <i>InterfaceLuid</i> parameter. 
      * 
      * <table>
@@ -16137,7 +16145,7 @@ class IpHelper {
      * The <b>ConvertInterfaceLuidToGuid</b> function is protocol independent and works with network interfaces for both the IPv6 and IPv4 protocol.
      * @param {Pointer<NET_LUID_LH>} InterfaceLuid A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/ifdef/ns-ifdef-net_luid_lh">NET_LUID</a> for a network interface.
      * @param {Pointer<Guid>} InterfaceGuid A pointer to the <b>GUID</b> for this interface.
-     * @returns {Integer} On success, 
+     * @returns {WIN32_ERROR} On success, 
      * <b>ConvertInterfaceLuidToGuid</b> returns NO_ERROR. Any nonzero return value indicates failure and a <b>NULL</b> is returned in the <i>InterfaceGuid</i> parameter. 
      * 
      * <table>
@@ -16173,7 +16181,7 @@ class IpHelper {
      * The <b>ConvertInterfaceGuidToLuid</b> function is protocol independent and works with network interfaces for both the IPv6 and IPv4 protocol.
      * @param {Pointer<Guid>} InterfaceGuid A pointer to a GUID for a network interface.
      * @param {Pointer<NET_LUID_LH>} InterfaceLuid A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/ifdef/ns-ifdef-net_luid_lh">NET_LUID</a> for this interface.
-     * @returns {Integer} On success, 
+     * @returns {WIN32_ERROR} On success, 
      * <b>ConvertInterfaceGuidToLuid</b> returns NO_ERROR. Any nonzero return value indicates failure and a <b>NULL</b> is returned in the <i>InterfaceLuid</i> parameter. 
      * 
      * <table>
@@ -16266,7 +16274,7 @@ class IpHelper {
     /**
      * Reserved for future use. Do not use this function. (SetCurrentThreadCompartmentId)
      * @param {NET_IF_COMPARTMENT_ID} CompartmentId Reserved.
-     * @returns {Integer} 
+     * @returns {WIN32_ERROR} 
      * @see https://learn.microsoft.com/windows/win32/api/netioapi/nf-netioapi-setcurrentthreadcompartmentid
      */
     static SetCurrentThreadCompartmentId(CompartmentId) {
@@ -16290,7 +16298,7 @@ class IpHelper {
     /**
      * 
      * @param {Integer} CompartmentScope 
-     * @returns {Integer} 
+     * @returns {WIN32_ERROR} 
      */
     static SetCurrentThreadCompartmentScope(CompartmentScope) {
         result := DllCall("IPHLPAPI.dll\SetCurrentThreadCompartmentScope", "uint", CompartmentScope, "uint")
@@ -16313,7 +16321,7 @@ class IpHelper {
      * 
      * @param {HANDLE} JobHandle 
      * @param {NET_IF_COMPARTMENT_ID} CompartmentId 
-     * @returns {Integer} 
+     * @returns {WIN32_ERROR} 
      */
     static SetJobCompartmentId(JobHandle, CompartmentId) {
         JobHandle := JobHandle is Win32Handle ? NumGet(JobHandle, "ptr") : JobHandle
@@ -16337,7 +16345,7 @@ class IpHelper {
      * Reserved for future use. Do not use this function. (SetSessionCompartmentId)
      * @param {Integer} SessionId Reserved.
      * @param {NET_IF_COMPARTMENT_ID} CompartmentId Reserved.
-     * @returns {Integer} 
+     * @returns {WIN32_ERROR} 
      * @see https://learn.microsoft.com/windows/win32/api/netioapi/nf-netioapi-setsessioncompartmentid
      */
     static SetSessionCompartmentId(SessionId, CompartmentId) {
@@ -16383,7 +16391,7 @@ class IpHelper {
      * @param {Pointer<Integer>} SiteId Reserved.
      * @param {PWSTR} NetworkName Reserved.
      * @param {Integer} Length Reserved.
-     * @returns {Integer} 
+     * @returns {WIN32_ERROR} 
      * @see https://learn.microsoft.com/windows/win32/api/netioapi/nf-netioapi-getnetworkinformation
      */
     static GetNetworkInformation(NetworkGuid, CompartmentId, SiteId, NetworkName, Length) {
@@ -16401,7 +16409,7 @@ class IpHelper {
      * @param {Pointer<Guid>} NetworkGuid Reserved.
      * @param {NET_IF_COMPARTMENT_ID} CompartmentId Reserved.
      * @param {PWSTR} NetworkName Reserved.
-     * @returns {Integer} 
+     * @returns {WIN32_ERROR} 
      * @see https://learn.microsoft.com/windows/win32/api/netioapi/nf-netioapi-setnetworkinformation
      */
     static SetNetworkInformation(NetworkGuid, CompartmentId, NetworkName) {
@@ -16417,7 +16425,7 @@ class IpHelper {
      * The <b>ConvertLengthToIpv4Mask</b> function is available on Windows Vista and later.
      * @param {Integer} MaskLength The IPv4 prefix length, in bits.
      * @param {Pointer<Integer>} Mask A pointer to a <b>LONG</b> value to hold the IPv4 subnet mask when the function returns successfully.
-     * @returns {Integer} On success, 
+     * @returns {WIN32_ERROR} On success, 
      * <b>ConvertLengthToIpv4Mask</b> returns <b>NO_ERROR</b>. Any nonzero return value indicates failure and the <i>Mask</i> parameter is set to <b>INADDR_NONE</b> defined in the <i>Ws2def.h</i> header file. 
      * 
      * <table>
@@ -16453,7 +16461,7 @@ class IpHelper {
      * The <b>ConvertIpv4MaskToLength</b> function is available on Windows Vista and later.
      * @param {Integer} Mask The IPv4 subnet mask.
      * @param {Pointer<Integer>} MaskLength A pointer to a <b>UINT8</b> value to hold the IPv4 prefix length, in bits, when the function returns successfully.
-     * @returns {Integer} On success, 
+     * @returns {WIN32_ERROR} On success, 
      * <b>ConvertIpv4MaskToLength</b> returns <b>NO_ERROR</b>. Any nonzero return value indicates failure. 
      * 
      * <table>
@@ -16486,7 +16494,7 @@ class IpHelper {
     /**
      * 
      * @param {Pointer<DNS_SETTINGS>} Settings 
-     * @returns {Integer} 
+     * @returns {WIN32_ERROR} 
      */
     static GetDnsSettings(Settings) {
         result := DllCall("IPHLPAPI.dll\GetDnsSettings", "ptr", Settings, "uint")
@@ -16505,7 +16513,7 @@ class IpHelper {
     /**
      * 
      * @param {Pointer<DNS_SETTINGS>} Settings 
-     * @returns {Integer} 
+     * @returns {WIN32_ERROR} 
      */
     static SetDnsSettings(Settings) {
         result := DllCall("IPHLPAPI.dll\SetDnsSettings", "ptr", Settings, "uint")
@@ -16514,7 +16522,9 @@ class IpHelper {
 
     /**
      * Retrieves the DNS settings from the interface specified in the *Interface* parameter.
-     * @param {Guid} _Interface 
+     * @param {Guid} _Interface Type: \_In\_ **[GUID](/windows/win32/api/guiddef/ns-guiddef-guid)**
+     * 
+     * The **GUID** of the COM interface that the settings refer to.
      * @param {Pointer<DNS_INTERFACE_SETTINGS>} Settings Type: \_Inout\_ const **[DNS_INTERFACE_SETTINGS](ns-netioapi-dns_interface_settings.md)\***
      * 
      * **GetInterfaceDnsSettings** populates all the settings in this structure.
@@ -16524,7 +16534,7 @@ class IpHelper {
      * If you set the *Version* member to **DNS_INTERFACE_SETTINGS_VERSION1**, then the *Settings* parameter must point to a valid [**DNS_INTERFACE_SETTINGS**](ns-netioapi-dns_interface_settings.md) structure.
      * 
      * If you set the *Version* member to **DNS_INTERFACE_SETTINGS_VERSION3**, then the *Settings* parameter must point to a valid [**DNS_INTERFACE_SETTINGS3**](/windows/win32/api/netioapi/ns-netioapi-dns_interface_settings3) structure.
-     * @returns {Integer} Returns **NO_ERROR** if successful. A non-zero return value indicates failure.
+     * @returns {WIN32_ERROR} Returns **NO_ERROR** if successful. A non-zero return value indicates failure.
      * @see https://learn.microsoft.com/windows/win32/api/netioapi/nf-netioapi-getinterfacednssettings
      */
     static GetInterfaceDnsSettings(_Interface, Settings) {
@@ -16544,7 +16554,9 @@ class IpHelper {
 
     /**
      * Sets the per-interface DNS settings specified in the *Settings* parameter.
-     * @param {Guid} _Interface 
+     * @param {Guid} _Interface Type: \_In\_ **[GUID](/windows/win32/api/guiddef/ns-guiddef-guid)**
+     * 
+     * The **GUID** of the COM interface that the settings refer to.
      * @param {Pointer<DNS_INTERFACE_SETTINGS>} Settings Type: \_In\_ const **[DNS_INTERFACE_SETTINGS](ns-netioapi-dns_interface_settings.md)\***
      * 
      * A pointer to a **DNS_INTERFACE_SETTINGS**-type structure that contains the DNS interface settings.
@@ -16554,7 +16566,7 @@ class IpHelper {
      * If this parameter points to a **DNS_INTERFACE_SETTINGS3** structure, then the version must to be set to **DNS_INTERFACE_SETTINGS_VERSION3**.
      * 
      * You must set appropriately all the desired options in the **DNS_INTERFACE_SETTINGS::Flags** field, and populate only the fields for which an option was set. You must zero out all other fields that don't have a corresponding option.
-     * @returns {Integer} Returns **NO_ERROR** if successful. A non-zero return value indicates failure.
+     * @returns {WIN32_ERROR} Returns **NO_ERROR** if successful. A non-zero return value indicates failure.
      * @see https://learn.microsoft.com/windows/win32/api/netioapi/nf-netioapi-setinterfacednssettings
      */
     static SetInterfaceDnsSettings(_Interface, Settings) {
@@ -16565,7 +16577,7 @@ class IpHelper {
     /**
      * Retrieves the aggregate level and cost of network connectivity that an application or service is likely to experience.
      * @param {Pointer<NL_NETWORK_CONNECTIVITY_HINT>} ConnectivityHint A pointer to a value of type [NL_NETWORK_CONNECTIVITY_HINT](../nldef/ns-nldef-nl_network_connectivity_hint.md). The function sets this value to the aggregate connectivity level and cost hints.
-     * @returns {Integer} In user mode, returns **NO_ERROR** on success, and a Win32 error code on failure. In kernel mode, returns **STATUS_SUCCESS** on success, and an NTSTATUS error code on failure.
+     * @returns {WIN32_ERROR} In user mode, returns **NO_ERROR** on success, and a Win32 error code on failure. In kernel mode, returns **STATUS_SUCCESS** on success, and an NTSTATUS error code on failure.
      * @see https://learn.microsoft.com/windows/win32/api/netioapi/nf-netioapi-getnetworkconnectivityhint
      * @since windows10.0.19041
      */
@@ -16578,7 +16590,7 @@ class IpHelper {
      * Retrieves the level and cost of network connectivity for the specified interface.
      * @param {Integer} InterfaceIndex A value of type **NET_IFINDEX** representing the index of the interface for which to retrieve connectivity information.
      * @param {Pointer<NL_NETWORK_CONNECTIVITY_HINT>} ConnectivityHint A pointer to a value of type [NL_NETWORK_CONNECTIVITY_HINT](../nldef/ns-nldef-nl_network_connectivity_hint.md). The function sets this value to the connectivity level and cost hints for the specified interface.
-     * @returns {Integer} In user mode, returns **NO_ERROR** on success, and a Win32 error code on failure. In kernel mode, returns **STATUS_SUCCESS** on success, and an NTSTATUS error code on failure.
+     * @returns {WIN32_ERROR} In user mode, returns **NO_ERROR** on success, and a Win32 error code on failure. In kernel mode, returns **STATUS_SUCCESS** on success, and an NTSTATUS error code on failure.
      * @see https://learn.microsoft.com/windows/win32/api/netioapi/nf-netioapi-getnetworkconnectivityhintforinterface
      * @since windows10.0.19041
      */
@@ -16595,7 +16607,7 @@ class IpHelper {
      * @param {Pointer<Void>} CallerContext The user-specific caller context. This context will be supplied to the callback function.
      * @param {BOOLEAN} InitialNotification `True` if an initialization notification should be provided, otherwise `false`.
      * @param {Pointer<HANDLE>} NotificationHandle A pointer to a **HANDLE**. The function sets the value to a handle to the notification registration.
-     * @returns {Integer} If the function succeeds, the return value is **NO_ERROR**. Otherwise, an error code is returned.
+     * @returns {WIN32_ERROR} If the function succeeds, the return value is **NO_ERROR**. Otherwise, an error code is returned.
      * @see https://learn.microsoft.com/windows/win32/api/netioapi/nf-netioapi-notifynetworkconnectivityhintchange
      * @since windows10.0.19041
      */
@@ -16657,7 +16669,7 @@ class IpHelper {
 
     /**
      * 
-     * @param {Integer} Family 
+     * @param {ADDRESS_FAMILY} Family 
      * @param {Pointer<Pointer<MIB_FL_VIRTUAL_INTERFACE_TABLE>>} Table 
      * @returns {Integer} 
      */
@@ -16671,8 +16683,8 @@ class IpHelper {
     /**
      * 
      * @param {Integer} dwName 
-     * @param {Integer} inAction 
-     * @param {Integer} outAction 
+     * @param {PFFORWARD_ACTION} inAction 
+     * @param {PFFORWARD_ACTION} outAction 
      * @param {BOOL} bUseLog 
      * @param {BOOL} bMustBeUnique 
      * @param {Pointer<Pointer<Void>>} ppInterface 
@@ -16762,7 +16774,7 @@ class IpHelper {
      * 
      * @param {Pointer<Void>} pInterface 
      * @param {Integer} dwIndex 
-     * @param {Integer} pfatLinkType 
+     * @param {PFADDRESSTYPE} pfatLinkType 
      * @param {Pointer<Integer>} LinkIPAddress 
      * @returns {Integer} 
      */
@@ -16777,7 +16789,7 @@ class IpHelper {
     /**
      * 
      * @param {Pointer<Void>} pInterface 
-     * @param {Integer} pfatType 
+     * @param {PFADDRESSTYPE} pfatType 
      * @param {Pointer<Integer>} IPAddress 
      * @returns {Integer} 
      */
@@ -16805,7 +16817,7 @@ class IpHelper {
     /**
      * 
      * @param {Pointer<Void>} pInterface 
-     * @param {Integer} gfFilter 
+     * @param {GLOBAL_FILTER} gfFilter 
      * @returns {Integer} 
      */
     static PfAddGlobalFilterToInterface(pInterface, gfFilter) {
@@ -16818,7 +16830,7 @@ class IpHelper {
     /**
      * 
      * @param {Pointer<Void>} pInterface 
-     * @param {Integer} gfFilter 
+     * @param {GLOBAL_FILTER} gfFilter 
      * @returns {Integer} 
      */
     static PfRemoveGlobalFilterFromInterface(pInterface, gfFilter) {
@@ -16892,7 +16904,7 @@ class IpHelper {
      * @param {Pointer<Void>} pOutInterface 
      * @param {Integer} cBytes 
      * @param {Pointer<Integer>} pbPacket 
-     * @param {Pointer<Integer>} ppAction 
+     * @param {Pointer<PFFORWARD_ACTION>} ppAction 
      * @returns {Integer} 
      */
     static PfTestPacket(pInInterface, pOutInterface, cBytes, pbPacket, ppAction) {

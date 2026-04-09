@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IMFSensorProfile.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\IMFSensorProfile.ahk
 
 /**
  * Contains a collection of media foundation sensor profile objects.
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imfsensorprofilecollection
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFSensorProfileCollection extends IUnknown{
+class IMFSensorProfileCollection extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

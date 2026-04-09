@@ -1,20 +1,19 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IWICImagingFactory.ahk
 #Include .\IWICMetadataReader.ahk
 #Include .\IWICMetadataWriter.ahk
 #Include .\IWICMetadataQueryReader.ahk
 #Include .\IWICMetadataQueryWriter.ahk
 #Include ..\..\System\Com\StructuredStorage\IPropertyBag2.ahk
-#Include .\IWICImagingFactory.ahk
 
 /**
  * Exposes methods that create components used by component developers. This includes metadata readers, writers and other services for use by codec and metadata handler developers.
  * @see https://learn.microsoft.com/windows/win32/api/wincodecsdk/nn-wincodecsdk-iwiccomponentfactory
  * @namespace Windows.Win32.Graphics.Imaging
- * @version v4.0.30319
  */
-class IWICComponentFactory extends IWICImagingFactory{
+class IWICComponentFactory extends IWICImagingFactory {
 
     static sizeof => A_PtrSize
     /**

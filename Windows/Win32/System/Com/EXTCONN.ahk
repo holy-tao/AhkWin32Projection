@@ -5,9 +5,8 @@
  * The EXTCONN (objidlbase.h) enumeration specifies the type of external connection existing on an embedded object.
  * @see https://learn.microsoft.com/windows/win32/api/objidlbase/ne-objidlbase-extconn
  * @namespace Windows.Win32.System.Com
- * @version v4.0.30319
  */
-class EXTCONN extends Win32Enum{
+class EXTCONN extends Win32Enum {
 
     /**
      * The external connection is a link. If this value is specified, the external connection must keep the object alive until all strong external connections are cleared through <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-iexternalconnection-releaseconnection">IExternalConnection::ReleaseConnection</a>.

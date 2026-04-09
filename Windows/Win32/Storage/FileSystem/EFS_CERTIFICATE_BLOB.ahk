@@ -5,16 +5,13 @@
  * Contains a certificate.
  * @see https://learn.microsoft.com/windows/win32/api/winefs/ns-winefs-efs_certificate_blob
  * @namespace Windows.Win32.Storage.FileSystem
- * @version v4.0.30319
  */
-class EFS_CERTIFICATE_BLOB extends Win32Struct
-{
+class EFS_CERTIFICATE_BLOB extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
 
     /**
-     * 
      * @type {Integer}
      */
     dwCertEncodingType {

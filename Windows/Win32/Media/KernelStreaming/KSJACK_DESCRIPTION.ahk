@@ -1,5 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\EPcxConnectionType.ahk
+#Include .\EPcxGeoLocation.ahk
+#Include .\EPcxGenLocation.ahk
+#Include .\EPxcPortConnection.ahk
 
 /**
  * The KSJACK_DESCRIPTION structure describes an audio jack.
@@ -7,10 +11,8 @@
  * This structure is used by the <a href="https://docs.microsoft.com/windows/desktop/api/devicetopology/nf-devicetopology-iksjackdescription-getjackdescription">IKsJackDescription::GetJackDescription</a> method in the <a href="https://docs.microsoft.com/windows/desktop/CoreAudio/devicetopology-api">DeviceTopology API</a>. It describes an audio jack that is part of a connection between an endpoint device and a hardware device in an audio adapter. When a user needs to plug an endpoint device into a jack or unplug it from a jack, an audio application can use the descriptive information in the structure to help the user to find the jack.
  * @see https://learn.microsoft.com/windows/win32/api/devicetopology/ns-devicetopology-ksjack_description
  * @namespace Windows.Win32.Media.KernelStreaming
- * @version v4.0.30319
  */
-class KSJACK_DESCRIPTION extends Win32Struct
-{
+class KSJACK_DESCRIPTION extends Win32Struct {
     static sizeof => 28
 
     static packingSize => 4
@@ -133,7 +135,7 @@ class KSJACK_DESCRIPTION extends Win32Struct
      * <td>Combination of connector types</td>
      * </tr>
      * </table>
-     * @type {Integer}
+     * @type {EPcxConnectionType}
      */
     ConnectionType {
         get => NumGet(this, 8, "int")
@@ -207,7 +209,7 @@ class KSJACK_DESCRIPTION extends Win32Struct
      * <td>ATAPI connector</td>
      * </tr>
      * </table>
-     * @type {Integer}
+     * @type {EPcxGeoLocation}
      */
     GeoLocation {
         get => NumGet(this, 12, "int")
@@ -245,7 +247,7 @@ class KSJACK_DESCRIPTION extends Win32Struct
      * <td>Other location</td>
      * </tr>
      * </table>
-     * @type {Integer}
+     * @type {EPcxGenLocation}
      */
     GenLocation {
         get => NumGet(this, 16, "int")
@@ -277,7 +279,7 @@ class KSJACK_DESCRIPTION extends Win32Struct
      * <td>Unknown</td>
      * </tr>
      * </table>
-     * @type {Integer}
+     * @type {EPxcPortConnection}
      */
     PortConnection {
         get => NumGet(this, 20, "int")

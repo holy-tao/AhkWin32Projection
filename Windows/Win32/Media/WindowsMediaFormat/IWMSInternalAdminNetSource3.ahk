@@ -1,17 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 #Include .\IWMSInternalAdminNetSource2.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * The IWMSInternalAdminNetSource3 interface provides improved methods to find proxy servers.To obtain a pointer to an instance of this interface, call the QueryInterface method of the IDispatch method retrieved by INSNetSourceCreator::GetNetSourceAdminInterface.
  * @see https://learn.microsoft.com/windows/win32/api/wmsinternaladminnetsource/nn-wmsinternaladminnetsource-iwmsinternaladminnetsource3
  * @namespace Windows.Win32.Media.WindowsMediaFormat
- * @version v4.0.30319
  */
-class IWMSInternalAdminNetSource3 extends IWMSInternalAdminNetSource2{
+class IWMSInternalAdminNetSource3 extends IWMSInternalAdminNetSource2 {
 
     static sizeof => A_PtrSize
     /**
@@ -165,7 +163,7 @@ class IWMSInternalAdminNetSource3 extends IWMSInternalAdminNetSource2{
      * @param {BSTR} bstrUrl String containing the URL to which the credentials apply.
      * @param {BOOL} fProxy Boolean value that is True if the password applies when using a proxy server to access the site specified by <i>bstrUrl</i>.
      * @param {BOOL} fClearTextAuthentication Boolean value that is True if the cached credentials were previously sent over the network in an unencrypted form.
-     * @param {Pointer<Integer>} pdwUrlPolicy Pointer to a <b>DWORD</b> containing one member of the <a href="https://docs.microsoft.com/windows/desktop/api/wmsinternaladminnetsource/ne-wmsinternaladminnetsource-netsource_urlcredpolicy_settings">NETSOURCE_URLCREDPOLICY_SETTINGS</a> enumeration type. This value is based on the user's network security settings and determines whether your application can automatically log in to sites for the user if you have credentials cached.
+     * @param {Pointer<NETSOURCE_URLCREDPOLICY_SETTINGS>} pdwUrlPolicy Pointer to a <b>DWORD</b> containing one member of the <a href="https://docs.microsoft.com/windows/desktop/api/wmsinternaladminnetsource/ne-wmsinternaladminnetsource-netsource_urlcredpolicy_settings">NETSOURCE_URLCREDPOLICY_SETTINGS</a> enumeration type. This value is based on the user's network security settings and determines whether your application can automatically log in to sites for the user if you have credentials cached.
      * @param {Pointer<BSTR>} pbstrName Pointer to a string containing the user name.
      * @param {Pointer<BSTR>} pbstrPassword Pointer to a string containing the password.
      * @param {Pointer<BOOL>} pfConfirmedGood Boolean value that is True if the password was cached after it was confirmed as correct by the server.

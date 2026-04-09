@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\StructuredStorage\PROPVARIANT.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\System\Com\StructuredStorage\PROPVARIANT.ahk
 
 /**
  * The IUICommandHandler interface is implemented by the application and defines the methods for gathering Command information and handling Command events from the Windows Ribbon framework.
@@ -18,9 +18,8 @@
  * The Command handler serves two purposes: respond to property update requests and respond to execute events on any Command to which it is bound.
  * @see https://learn.microsoft.com/windows/win32/api/uiribbon/nn-uiribbon-iuicommandhandler
  * @namespace Windows.Win32.UI.Ribbon
- * @version v4.0.30319
  */
-class IUICommandHandler extends IUnknown{
+class IUICommandHandler extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -48,7 +47,7 @@ class IUICommandHandler extends IUnknown{
      * @param {Integer} commandId Type: <b>UINT32</b>
      * 
      * The ID for the Command, which is specified in the Markup resource file.
-     * @param {Integer} verb Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiribbon/ne-uiribbon-ui_executionverb">UI_EXECUTIONVERB</a></b>
+     * @param {UI_EXECUTIONVERB} verb Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiribbon/ne-uiribbon-ui_executionverb">UI_EXECUTIONVERB</a></b>
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/api/uiribbon/ne-uiribbon-ui_executionverb">UI_EXECUTIONVERB</a> or action that is initiated by the user.
      * @param {Pointer<PROPERTYKEY>} key Type: <b>const PROPERTYKEY*</b>

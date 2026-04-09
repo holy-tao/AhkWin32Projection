@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.UI.WindowsAndMessaging
- * @version v4.0.30319
  */
-class WINDOW_MESSAGE_FILTER_ACTION extends Win32Enum{
+class WINDOW_MESSAGE_FILTER_ACTION extends Win32Enum {
 
     /**
      * @type {Integer (UInt32)}

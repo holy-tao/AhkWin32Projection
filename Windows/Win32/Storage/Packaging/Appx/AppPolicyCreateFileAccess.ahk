@@ -5,9 +5,8 @@
  * The AppPolicyCreateFileAccess enumeration indicates whether a process has full or restricted access to the IO devices (file, file stream, directory, physical disk, volume, console buffer, tape drive, communications resource, mailslot, and pipe).
  * @see https://learn.microsoft.com/windows/win32/api/appmodel/ne-appmodel-apppolicycreatefileaccess
  * @namespace Windows.Win32.Storage.Packaging.Appx
- * @version v4.0.30319
  */
-class AppPolicyCreateFileAccess extends Win32Enum{
+class AppPolicyCreateFileAccess extends Win32Enum {
 
     /**
      * Indicates that the process has full access to the IO devices. This value is expected for a desktop application, or for a Desktop Bridge application.

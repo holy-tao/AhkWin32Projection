@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\IShellFolder.ahk
+#Include Common\ITEMIDLIST.ahk
 
 /**
  * Contains information about a folder band. This structure is used with the IShellFolderBand::GetBandInfoSFB and IShellFolderBand::SetBandInfoSFB methods.
  * @see https://learn.microsoft.com/windows/win32/api/shlobj/ns-shlobj-bandinfosfb
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class BANDINFOSFB extends Win32Struct
-{
+class BANDINFOSFB extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8

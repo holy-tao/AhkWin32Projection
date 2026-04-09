@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\MINIMIZEDMETRICS_ARRANGE.ahk
 
 /**
  * Contains the scalable metrics associated with minimized windows.
  * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-minimizedmetrics
  * @namespace Windows.Win32.UI.WindowsAndMessaging
- * @version v4.0.30319
  */
-class MINIMIZEDMETRICS extends Win32Struct
-{
+class MINIMIZEDMETRICS extends Win32Struct {
     static sizeof => 20
 
     static packingSize => 4
@@ -50,8 +49,7 @@ class MINIMIZEDMETRICS extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Integer}
+     * @type {MINIMIZEDMETRICS_ARRANGE}
      */
     iArrange {
         get => NumGet(this, 16, "int")

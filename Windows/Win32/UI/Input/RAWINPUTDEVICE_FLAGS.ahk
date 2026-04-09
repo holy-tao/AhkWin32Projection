@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.UI.Input
- * @version v4.0.30319
  */
-class RAWINPUTDEVICE_FLAGS extends Win32BitflagEnum{
+class RAWINPUTDEVICE_FLAGS extends Win32BitflagEnum {
 
     /**
      * @type {Integer (UInt32)}

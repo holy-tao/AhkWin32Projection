@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\SIP_INDIRECT_DATA.ahk
 
 /**
  * Provides additional information about flat or end-to-end subject types.
  * @see https://learn.microsoft.com/windows/win32/api/mssip/ns-mssip-ms_addinfo_flat
  * @namespace Windows.Win32.Security.Cryptography.Sip
- * @version v4.0.30319
  */
-class MS_ADDINFO_FLAT extends Win32Struct
-{
+class MS_ADDINFO_FLAT extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

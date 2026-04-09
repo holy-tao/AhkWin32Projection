@@ -5,10 +5,8 @@
  * The ERF structure contains error information from FCI/FDI. The caller should not modify this structure.
  * @see https://learn.microsoft.com/windows/win32/api/fdi_fci_types/ns-fdi_fci_types-erf
  * @namespace Windows.Win32.Storage.Cabinets
- * @version v4.0.30319
  */
-class ERF extends Win32Struct
-{
+class ERF extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4

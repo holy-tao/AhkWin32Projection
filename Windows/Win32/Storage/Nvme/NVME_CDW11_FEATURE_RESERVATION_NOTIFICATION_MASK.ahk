@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Storage.Nvme
- * @version v4.0.30319
  */
-class NVME_CDW11_FEATURE_RESERVATION_NOTIFICATION_MASK extends Win32Struct
-{
+class NVME_CDW11_FEATURE_RESERVATION_NOTIFICATION_MASK extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 4

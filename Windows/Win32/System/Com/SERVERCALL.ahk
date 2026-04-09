@@ -5,9 +5,8 @@
  * Indicates the status of server call.
  * @see https://learn.microsoft.com/windows/win32/api/objidl/ne-objidl-servercall
  * @namespace Windows.Win32.System.Com
- * @version v4.0.30319
  */
-class SERVERCALL extends Win32Enum{
+class SERVERCALL extends Win32Enum {
 
     /**
      * The object may be able to process the call.

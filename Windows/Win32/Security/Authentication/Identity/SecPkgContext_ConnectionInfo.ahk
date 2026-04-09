@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\Cryptography\ALG_ID.ahk
 
 /**
  * The SecPkgContext_ConnectionInfo structure contains protocol and cipher information. This structure is used by the InitializeSecurityContext (Schannel) function.This attribute is supported only by the Schannel security support provider (SSP).
  * @see https://learn.microsoft.com/windows/win32/api/schannel/ns-schannel-secpkgcontext_connectioninfo
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class SecPkgContext_ConnectionInfo extends Win32Struct
-{
+class SecPkgContext_ConnectionInfo extends Win32Struct {
     static sizeof => 28
 
     static packingSize => 4
@@ -285,7 +284,7 @@ class SecPkgContext_ConnectionInfo extends Win32Struct
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
+     * @type {ALG_ID}
      */
     aiCipher {
         get => NumGet(this, 4, "uint")
@@ -293,7 +292,6 @@ class SecPkgContext_ConnectionInfo extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     dwCipherStrength {
@@ -330,7 +328,7 @@ class SecPkgContext_ConnectionInfo extends Win32Struct
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
+     * @type {ALG_ID}
      */
     aiHash {
         get => NumGet(this, 12, "uint")
@@ -375,7 +373,7 @@ class SecPkgContext_ConnectionInfo extends Win32Struct
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
+     * @type {ALG_ID}
      */
     aiExch {
         get => NumGet(this, 20, "uint")
@@ -383,7 +381,6 @@ class SecPkgContext_ConnectionInfo extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     dwExchStrength {

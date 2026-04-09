@@ -5,10 +5,8 @@
  * Contains private data to be used by a provider.
  * @see https://learn.microsoft.com/windows/win32/api/wintrust/ns-wintrust-crypt_provider_privdata
  * @namespace Windows.Win32.Security.WinTrust
- * @version v4.0.30319
  */
-class CRYPT_PROVIDER_PRIVDATA extends Win32Struct
-{
+class CRYPT_PROVIDER_PRIVDATA extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -24,7 +22,7 @@ class CRYPT_PROVIDER_PRIVDATA extends Win32Struct
 
     /**
      * <b>GUID</b> that identifies the provider.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     gProviderID {
         get => NumGet(this, 8, "ptr")

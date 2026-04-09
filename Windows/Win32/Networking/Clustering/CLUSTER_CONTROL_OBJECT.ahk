@@ -5,9 +5,8 @@
  * The CLUSTER_CONTROL_OBJECT (msclus.h) is the 8-bit object component of a control code that indicates the cluster object type to which the control code applies.
  * @see https://learn.microsoft.com/windows/win32/api/msclus/ne-msclus-cluster_control_object
  * @namespace Windows.Win32.Networking.Clustering
- * @version v4.0.30319
  */
-class CLUSTER_CONTROL_OBJECT extends Win32Enum{
+class CLUSTER_CONTROL_OBJECT extends Win32Enum {
 
     /**
      * Zero is not a valid object code value.

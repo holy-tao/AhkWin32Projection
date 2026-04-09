@@ -9,9 +9,8 @@
  * The Media Foundation network code uses these client callbacks to implement and enforce cross origin downloads.
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imfnetcrossoriginsupport
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFNetCrossOriginSupport extends IUnknown{
+class IMFNetCrossOriginSupport extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -34,7 +33,7 @@ class IMFNetCrossOriginSupport extends IUnknown{
 
     /**
      * Returns the client's current cross-origin policy to apply to the download session.
-     * @returns {Integer} A value indicating the client's current cross-origin policy to apply to the download session.
+     * @returns {MF_CROSS_ORIGIN_POLICY} A value indicating the client's current cross-origin policy to apply to the download session.
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfnetcrossoriginsupport-getcrossoriginpolicy
      */
     GetCrossOriginPolicy() {

@@ -1,12 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\IO_PRIORITY_HINT.ahk
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem
- * @version v4.0.30319
  */
-class IO_PRIORITY_INFO extends Win32Struct
-{
+class IO_PRIORITY_INFO extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4
@@ -36,7 +35,7 @@ class IO_PRIORITY_INFO extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {IO_PRIORITY_HINT}
      */
     IoPriority {
         get => NumGet(this, 12, "int")

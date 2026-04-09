@@ -1,16 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\GNSS_NI_REQUEST_TYPE.ahk
+#Include .\GNSS_NI_NOTIFICATION_TYPE.ahk
+#Include .\GNSS_NI_PLANE_TYPE.ahk
 #Include .\GNSS_SUPL_NI_INFO.ahk
 #Include .\GNSS_CP_NI_INFO.ahk
 #Include .\GNSS_V2UPL_NI_INFO.ahk
 
 /**
  * @namespace Windows.Win32.Devices.Geolocation
- * @version v4.0.30319
  */
-class GNSS_NI_REQUEST_PARAM extends Win32Struct
-{
-    static sizeof => 1600
+class GNSS_NI_REQUEST_PARAM extends Win32Struct {
+    static sizeof => 1340
 
     static packingSize => 4
 
@@ -39,7 +40,7 @@ class GNSS_NI_REQUEST_PARAM extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {GNSS_NI_REQUEST_TYPE}
      */
     RequestType {
         get => NumGet(this, 12, "int")
@@ -47,7 +48,7 @@ class GNSS_NI_REQUEST_PARAM extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {GNSS_NI_NOTIFICATION_TYPE}
      */
     NotificationType {
         get => NumGet(this, 16, "int")
@@ -55,7 +56,7 @@ class GNSS_NI_REQUEST_PARAM extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {GNSS_NI_PLANE_TYPE}
      */
     RequestPlaneType {
         get => NumGet(this, 20, "int")
@@ -65,7 +66,7 @@ class GNSS_NI_REQUEST_PARAM extends Win32Struct
     /**
      * @type {GNSS_SUPL_NI_INFO}
      */
-    SuplNiInfo{
+    SuplNiInfo {
         get {
             if(!this.HasProp("__SuplNiInfo"))
                 this.__SuplNiInfo := GNSS_SUPL_NI_INFO(24, this)
@@ -76,7 +77,7 @@ class GNSS_NI_REQUEST_PARAM extends Win32Struct
     /**
      * @type {GNSS_CP_NI_INFO}
      */
-    CpNiInfo{
+    CpNiInfo {
         get {
             if(!this.HasProp("__CpNiInfo"))
                 this.__CpNiInfo := GNSS_CP_NI_INFO(24, this)
@@ -87,7 +88,7 @@ class GNSS_NI_REQUEST_PARAM extends Win32Struct
     /**
      * @type {GNSS_V2UPL_NI_INFO}
      */
-    V2UplNiInfo{
+    V2UplNiInfo {
         get {
             if(!this.HasProp("__V2UplNiInfo"))
                 this.__V2UplNiInfo := GNSS_V2UPL_NI_INFO(24, this)
@@ -99,15 +100,15 @@ class GNSS_NI_REQUEST_PARAM extends Win32Struct
      * @type {Integer}
      */
     ResponseTimeInSec {
-        get => NumGet(this, 1592, "uint")
-        set => NumPut("uint", value, this, 1592)
+        get => NumGet(this, 1332, "uint")
+        set => NumPut("uint", value, this, 1332)
     }
 
     /**
      * @type {BOOL}
      */
     EmergencyLocation {
-        get => NumGet(this, 1596, "int")
-        set => NumPut("int", value, this, 1596)
+        get => NumGet(this, 1336, "int")
+        set => NumPut("int", value, this, 1336)
     }
 }

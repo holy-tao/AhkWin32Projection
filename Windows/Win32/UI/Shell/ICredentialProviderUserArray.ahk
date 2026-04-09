@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ICredentialProviderUser.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\ICredentialProviderUser.ahk
 
 /**
  * Represents the set of users that will appear in the logon or credential UI. This information enables the credential provider to enumerate the set to retrieve property information about each user to populate fields or filter the set.
@@ -13,9 +13,8 @@
  * Third-parties do not implement this interface. An implementation is included with Windows.
  * @see https://learn.microsoft.com/windows/win32/api/credentialprovider/nn-credentialprovider-icredentialprovideruserarray
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class ICredentialProviderUserArray extends IUnknown{
+class ICredentialProviderUserArray extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -53,7 +52,7 @@ class ICredentialProviderUserArray extends IUnknown{
 
     /**
      * Retrieves a value that indicates whether the &quot;Other user&quot; tile for local or Microsoft accounts is shown in the logon or credential UI.
-     * @returns {Integer} A pointer to a value that, when this method returns successfully, receives one or more flags that specify which empty tiles are shown by the logon or credential UI.
+     * @returns {CREDENTIAL_PROVIDER_ACCOUNT_OPTIONS} A pointer to a value that, when this method returns successfully, receives one or more flags that specify which empty tiles are shown by the logon or credential UI.
      * @see https://learn.microsoft.com/windows/win32/api/credentialprovider/nf-credentialprovider-icredentialprovideruserarray-getaccountoptions
      */
     GetAccountOptions() {

@@ -7,13 +7,11 @@
  * This structure consists of the initial RIFF chunk (the <b>fcc</b> and <b>cb</b> members) followed by one index entry for each data chunk in the 'movi' list.
  * @see https://learn.microsoft.com/windows/win32/api/aviriff/ns-aviriff-avioldindex
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class AVIOLDINDEX extends Win32Struct
-{
-    static sizeof => 16
+class AVIOLDINDEX extends Win32Struct {
+    static sizeof => 24
 
-    static packingSize => 8
+    static packingSize => 4
 
     class _avioldindex_entry extends Win32Struct {
         static sizeof => 16
@@ -26,7 +24,7 @@ class AVIOLDINDEX extends Win32Struct
             get => NumGet(this, 0, "uint")
             set => NumPut("uint", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -34,7 +32,7 @@ class AVIOLDINDEX extends Win32Struct
             get => NumGet(this, 4, "uint")
             set => NumPut("uint", value, this, 4)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -42,7 +40,7 @@ class AVIOLDINDEX extends Win32Struct
             get => NumGet(this, 8, "uint")
             set => NumPut("uint", value, this, 8)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -50,7 +48,6 @@ class AVIOLDINDEX extends Win32Struct
             get => NumGet(this, 12, "uint")
             set => NumPut("uint", value, this, 12)
         }
-    
     }
 
     /**
@@ -73,12 +70,12 @@ class AVIOLDINDEX extends Win32Struct
 
     /**
      * Array of structures that contain the following members.
-     * @type {Array<_avioldindex_entry>}
+     * @type {_avioldindex_entry}
      */
-    aIndex{
+    aIndex {
         get {
             if(!this.HasProp("__aIndexProxyArray"))
-                this.__aIndexProxyArray := Win32FixedArray(this.ptr + 8, 1, %this.__Class%._avioldindex_entry, "")
+                this.__aIndexProxyArray := Win32FixedArray(this.ptr + 8, 1, AVIOLDINDEX._avioldindex_entry, "")
             return this.__aIndexProxyArray
         }
     }

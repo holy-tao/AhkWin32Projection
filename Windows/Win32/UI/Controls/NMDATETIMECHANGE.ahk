@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HWND.ahk
 #Include .\NMHDR.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include .\NMDATETIMECHANGE_FLAGS.ahk
 #Include ..\..\Foundation\SYSTEMTIME.ahk
 
 /**
  * Contains information about a change that has taken place in a date and time picker (DTP) control. This structure is used with the DTN_DATETIMECHANGE notification code.
  * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-nmdatetimechange
  * @namespace Windows.Win32.UI.Controls
- * @version v4.0.30319
  */
-class NMDATETIMECHANGE extends Win32Struct
-{
+class NMDATETIMECHANGE extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -22,7 +21,7 @@ class NMDATETIMECHANGE extends Win32Struct
      * An <a href="https://docs.microsoft.com/windows/desktop/api/richedit/ns-richedit-nmhdr">NMHDR</a> structure that contains information about the notification code.
      * @type {NMHDR}
      */
-    nmhdr{
+    nmhdr {
         get {
             if(!this.HasProp("__nmhdr"))
                 this.__nmhdr := NMHDR(0, this)
@@ -62,7 +61,7 @@ class NMDATETIMECHANGE extends Win32Struct
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
+     * @type {NMDATETIMECHANGE_FLAGS}
      */
     dwFlags {
         get => NumGet(this, 24, "uint")
@@ -75,7 +74,7 @@ class NMDATETIMECHANGE extends Win32Struct
      * A <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-systemtime">SYSTEMTIME</a> structure that contains information about the current system date and time.
      * @type {SYSTEMTIME}
      */
-    st{
+    st {
         get {
             if(!this.HasProp("__st"))
                 this.__st := SYSTEMTIME(28, this)

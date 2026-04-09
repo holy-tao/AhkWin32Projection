@@ -9,14 +9,12 @@
  * > The iscsidsc.h header defines ISCSI_TARGET_PORTAL_GROUP as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
  * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/ns-iscsidsc-iscsi_target_portal_groupw
  * @namespace Windows.Win32.Storage.IscsiDisc
- * @version v4.0.30319
  * @charset Unicode
  */
-class ISCSI_TARGET_PORTAL_GROUPW extends Win32Struct
-{
-    static sizeof => 16
+class ISCSI_TARGET_PORTAL_GROUPW extends Win32Struct {
+    static sizeof => 1032
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * The number of portals in the portal group.
@@ -29,12 +27,12 @@ class ISCSI_TARGET_PORTAL_GROUPW extends Win32Struct
 
     /**
      * An array of <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/iscsidsc/ns-iscsidsc-iscsi_target_portala">ISCSI_TARGET_PORTAL</a> structures that describe the portals associated with the portal group. Portal names and addresses are described by either wide-character or ascii strings, depending upon implementation.
-     * @type {Array<ISCSI_TARGET_PORTALW>}
+     * @type {ISCSI_TARGET_PORTALW}
      */
-    Portals{
+    Portals {
         get {
             if(!this.HasProp("__PortalsProxyArray"))
-                this.__PortalsProxyArray := Win32FixedArray(this.ptr + 8, 1, ISCSI_TARGET_PORTALW, "")
+                this.__PortalsProxyArray := Win32FixedArray(this.ptr + 4, 1, ISCSI_TARGET_PORTALW, "")
             return this.__PortalsProxyArray
         }
     }

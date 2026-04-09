@@ -6,10 +6,8 @@
  * Contains information used to update and validate a PaxosTagCStruct structure.
  * @see https://learn.microsoft.com/windows/win32/api/resapi/ns-resapi-witnesstagupdatehelper
  * @namespace Windows.Win32.Networking.Clustering
- * @version v4.0.30319
  */
-class WitnessTagUpdateHelper extends Win32Struct
-{
+class WitnessTagUpdateHelper extends Win32Struct {
     static sizeof => 168
 
     static packingSize => 8
@@ -27,7 +25,7 @@ class WitnessTagUpdateHelper extends Win32Struct
      * The Paxos tag to update.
      * @type {PaxosTagCStruct}
      */
-    paxosToSet{
+    paxosToSet {
         get {
             if(!this.HasProp("__paxosToSet"))
                 this.__paxosToSet := PaxosTagCStruct(8, this)
@@ -39,7 +37,7 @@ class WitnessTagUpdateHelper extends Win32Struct
      * The Paxos tag to validate.
      * @type {PaxosTagCStruct}
      */
-    paxosToValidate{
+    paxosToValidate {
         get {
             if(!this.HasProp("__paxosToValidate"))
                 this.__paxosToValidate := PaxosTagCStruct(88, this)

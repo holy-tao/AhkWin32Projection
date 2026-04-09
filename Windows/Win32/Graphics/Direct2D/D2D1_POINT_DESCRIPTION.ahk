@@ -6,10 +6,8 @@
  * Describes a point on a path geometry.
  * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/ns-d2d1_1-d2d1_point_description
  * @namespace Windows.Win32.Graphics.Direct2D
- * @version v4.0.30319
  */
-class D2D1_POINT_DESCRIPTION extends Win32Struct
-{
+class D2D1_POINT_DESCRIPTION extends Win32Struct {
     static sizeof => 28
 
     static packingSize => 4
@@ -18,7 +16,7 @@ class D2D1_POINT_DESCRIPTION extends Win32Struct
      * The end point after walking the path.
      * @type {D2D_POINT_2F}
      */
-    point{
+    point {
         get {
             if(!this.HasProp("__point"))
                 this.__point := D2D_POINT_2F(0, this)
@@ -30,7 +28,7 @@ class D2D1_POINT_DESCRIPTION extends Win32Struct
      * A unit vector indicating the tangent point.
      * @type {D2D_POINT_2F}
      */
-    unitTangentVector{
+    unitTangentVector {
         get {
             if(!this.HasProp("__unitTangentVector"))
                 this.__unitTangentVector := D2D_POINT_2F(8, this)

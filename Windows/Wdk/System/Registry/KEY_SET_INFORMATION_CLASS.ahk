@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.System.Registry
- * @version v4.0.30319
  */
-class KEY_SET_INFORMATION_CLASS extends Win32Enum{
+class KEY_SET_INFORMATION_CLASS extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

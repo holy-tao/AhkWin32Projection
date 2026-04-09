@@ -16,9 +16,8 @@
  * </ul>
  * @see https://learn.microsoft.com/windows/win32/api/msctf/nn-msctf-itfcleanupcontextsink
  * @namespace Windows.Win32.UI.TextServices
- * @version v4.0.30319
  */
-class ITfCleanupContextSink extends IUnknown{
+class ITfCleanupContextSink extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

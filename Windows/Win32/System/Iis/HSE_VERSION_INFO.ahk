@@ -3,11 +3,9 @@
 
 /**
  * @namespace Windows.Win32.System.Iis
- * @version v4.0.30319
  */
-class HSE_VERSION_INFO extends Win32Struct
-{
-    static sizeof => 516
+class HSE_VERSION_INFO extends Win32Struct {
+    static sizeof => 260
 
     static packingSize => 4
 
@@ -23,7 +21,7 @@ class HSE_VERSION_INFO extends Win32Struct
      * @type {String}
      */
     lpszExtensionDesc {
-        get => StrGet(this.ptr + 4, 255, "UTF-16")
-        set => StrPut(value, this.ptr + 4, 255, "UTF-16")
+        get => StrGet(this.ptr + 4, 255, "UTF-8")
+        set => StrPut(value, this.ptr + 4, 255, "UTF-8")
     }
 }

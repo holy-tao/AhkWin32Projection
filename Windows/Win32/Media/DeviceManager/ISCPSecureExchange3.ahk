@@ -7,9 +7,8 @@
  * The ISCPSecureExchange3 interface extends ISCPSecureExchange2 by providing improved data exchange performance, and a transfer-complete callback method.
  * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nn-mswmdm-iscpsecureexchange3
  * @namespace Windows.Win32.Media.DeviceManager
- * @version v4.0.30319
  */
-class ISCPSecureExchange3 extends ISCPSecureExchange2{
+class ISCPSecureExchange3 extends ISCPSecureExchange2 {
 
     static sizeof => A_PtrSize
     /**

@@ -9,9 +9,8 @@
  * To get a pointer to this interface, call <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11videodevice-createvideoprocessorenumerator">ID3D11VideoDevice::CreateVideoProcessorEnumerator</a>.
  * @see https://learn.microsoft.com/windows/win32/api/d3d11_1/nn-d3d11_1-id3d11videoprocessorenumerator1
  * @namespace Windows.Win32.Graphics.Direct3D11
- * @version v4.0.30319
  */
-class ID3D11VideoProcessorEnumerator1 extends ID3D11VideoProcessorEnumerator{
+class ID3D11VideoProcessorEnumerator1 extends ID3D11VideoProcessorEnumerator {
 
     static sizeof => A_PtrSize
     /**
@@ -34,16 +33,16 @@ class ID3D11VideoProcessorEnumerator1 extends ID3D11VideoProcessorEnumerator{
 
     /**
      * Indicates whether the driver supports the specified combination of format and colorspace conversions.
-     * @param {Integer} InputFormat Type: <b>DXGI_FORMAT</b>
+     * @param {DXGI_FORMAT} InputFormat Type: <b>DXGI_FORMAT</b>
      * 
      * The format of the video processor input.
-     * @param {Integer} InputColorSpace Type: <b>DXGI_COLOR_SPACE_TYPE</b>
+     * @param {DXGI_COLOR_SPACE_TYPE} InputColorSpace Type: <b>DXGI_COLOR_SPACE_TYPE</b>
      * 
      * The colorspace of the video processor input.
-     * @param {Integer} OutputFormat Type: <b>DXGI_FORMAT</b>
+     * @param {DXGI_FORMAT} OutputFormat Type: <b>DXGI_FORMAT</b>
      * 
      * The format of the video processor output.
-     * @param {Integer} OutputColorSpace Type: <b>DXGI_COLOR_SPACE_TYPE</b>
+     * @param {DXGI_COLOR_SPACE_TYPE} OutputColorSpace Type: <b>DXGI_COLOR_SPACE_TYPE</b>
      * 
      * The colorspace of the video processor output.
      * @returns {BOOL} Type: <b>BOOL*</b>

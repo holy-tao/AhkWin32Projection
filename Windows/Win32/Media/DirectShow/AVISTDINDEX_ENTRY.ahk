@@ -9,10 +9,8 @@
  * and countries.)
  * @see https://learn.microsoft.com/windows/win32/api/aviriff/ns-aviriff-avistdindex_entry
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class AVISTDINDEX_ENTRY extends Win32Struct
-{
+class AVISTDINDEX_ENTRY extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4

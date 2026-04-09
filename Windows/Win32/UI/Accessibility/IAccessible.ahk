@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
 
 /**
  * Exposes methods and properties that make a user interface element and its children accessible to client applications.
  * @see https://learn.microsoft.com/windows/win32/api/oleacc/nn-oleacc-iaccessible
  * @namespace Windows.Win32.UI.Accessibility
- * @version v4.0.30319
  */
-class IAccessible extends IDispatch{
+class IAccessible extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

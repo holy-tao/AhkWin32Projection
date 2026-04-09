@@ -7,9 +7,8 @@
  * UI for EAP provider.
  * @see https://learn.microsoft.com/windows/win32/api/rrascfg/nn-rrascfg-ieapproviderconfig
  * @namespace Windows.Win32.Security.ExtensibleAuthenticationProtocol
- * @version v4.0.30319
  */
-class IEAPProviderConfig extends IUnknown{
+class IEAPProviderConfig extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -126,7 +125,7 @@ class IEAPProviderConfig extends IUnknown{
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/rrascfg/nn-rrascfg-ieapproviderconfig">IEAPProviderConfig</a> may support more than one authentication protocol. The <i>dwEapTypeId</i> parameter specifies for which authentication protocol to invoke the configuration user interface.
      * @param {Integer} dwEapTypeId Specifies the EAP for which to invoke the configuration user interface.
      * @param {Pointer} uConnectionParam Specifies the configuration session for which to invoke the user interface.
-     * @param {HWND} _hWnd 
+     * @param {HWND} _hWnd Handle to the parent window for the configuration user interface.
      * @param {Pointer} uReserved1 This parameter is reserved and should be zero.
      * @param {Pointer} uReserved2 This parameter is reserved and should be zero.
      * @returns {HRESULT} If the function succeeds, the return value should be <b>S_OK</b>.

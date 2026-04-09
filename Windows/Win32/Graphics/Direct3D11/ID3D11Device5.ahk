@@ -7,9 +7,8 @@
  * The device interface represents a virtual adapter; it is used to create resources. ID3D11Device5 adds new methods to those in ID3D11Device4.
  * @see https://learn.microsoft.com/windows/win32/api/d3d11_4/nn-d3d11_4-id3d11device5
  * @namespace Windows.Win32.Graphics.Direct3D11
- * @version v4.0.30319
  */
-class ID3D11Device5 extends ID3D11Device4{
+class ID3D11Device5 extends ID3D11Device4 {
 
     static sizeof => A_PtrSize
     /**
@@ -55,7 +54,7 @@ class ID3D11Device5 extends ID3D11Device4{
      * @param {Integer} InitialValue Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT64</a></b>
      * 
      * The initial value for the fence.
-     * @param {Integer} Flags Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d11_3/ne-d3d11_3-d3d11_fence_flag">D3D11_FENCE_FLAG</a></b>
+     * @param {D3D11_FENCE_FLAG} Flags Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d11_3/ne-d3d11_3-d3d11_fence_flag">D3D11_FENCE_FLAG</a></b>
      * 
      * A combination of <a href="https://docs.microsoft.com/windows/desktop/api/d3d11_3/ne-d3d11_3-d3d11_fence_flag">D3D11_FENCE_FLAG</a>-typed values that are combined by using a bitwise OR operation. 
      *             The resulting value specifies options for the fence.

@@ -4,13 +4,11 @@
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
- * @version v4.0.30319
  */
-class WIDTHTABLE extends Win32Struct
-{
+class WIDTHTABLE extends Win32Struct {
     static sizeof => 16
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}
@@ -29,9 +27,9 @@ class WIDTHTABLE extends Win32Struct
     }
 
     /**
-     * @type {Array<WIDTHRUN>}
+     * @type {WIDTHRUN}
      */
-    WidthRun{
+    WidthRun {
         get {
             if(!this.HasProp("__WidthRunProxyArray"))
                 this.__WidthRunProxyArray := Win32FixedArray(this.ptr + 8, 1, WIDTHRUN, "")

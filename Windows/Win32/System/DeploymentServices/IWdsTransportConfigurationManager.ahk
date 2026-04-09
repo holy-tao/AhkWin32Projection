@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Com\IDispatch.ahk
 #Include .\IWdsTransportServicePolicy.ahk
 #Include .\IWdsTransportDiagnosticsPolicy.ahk
-#Include ..\Com\IDispatch.ahk
 
 /**
  * Manages the configuration of a WDS transport server.
  * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nn-wdstptmgmt-iwdstransportconfigurationmanager
  * @namespace Windows.Win32.System.DeploymentServices
- * @version v4.0.30319
  */
-class IWdsTransportConfigurationManager extends IDispatch{
+class IWdsTransportConfigurationManager extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -135,7 +134,7 @@ class IWdsTransportConfigurationManager extends IDispatch{
 
     /**
      * Sends a notification to WDS transport services. The notification value is translated to the appropriate WDS transport service controls, and then these controls are sent to the appropriate services.
-     * @param {Integer} ServiceNotification A value of the <a href="https://docs.microsoft.com/windows/win32/api/wdstptmgmt/ne-wdstptmgmt-wdstransport_service_notification">WDSTRANSPORT_SERVICE_NOTIFICATION</a> enumeration that specifies the type of service notification to be sent.
+     * @param {WDSTRANSPORT_SERVICE_NOTIFICATION} ServiceNotification A value of the <a href="https://docs.microsoft.com/windows/win32/api/wdstptmgmt/ne-wdstptmgmt-wdstransport_service_notification">WDSTRANSPORT_SERVICE_NOTIFICATION</a> enumeration that specifies the type of service notification to be sent.
      * @returns {HRESULT} Standard HRESULT error values are used: S_OK for success; others for failure.
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportconfigurationmanager-notifywdstransportservices
      */

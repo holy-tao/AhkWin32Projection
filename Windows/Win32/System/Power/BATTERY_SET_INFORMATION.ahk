@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\BATTERY_SET_INFORMATION_LEVEL.ahk
 
 /**
  * Contains battery information to be set.
@@ -7,10 +8,8 @@
  * The **BATTERY\_SET\_INFORMATION** structure is a variable-length structure, and you must allocate a buffer of suitable size for the information to be included in the structure.
  * @see https://learn.microsoft.com/windows/win32/Power/battery-set-information-str
  * @namespace Windows.Win32.System.Power
- * @version v4.0.30319
  */
-class BATTERY_SET_INFORMATION extends Win32Struct
-{
+class BATTERY_SET_INFORMATION extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4
@@ -36,7 +35,7 @@ class BATTERY_SET_INFORMATION extends Win32Struct
      * | <span id="BatteryCharge"></span><span id="batterycharge"></span><span id="BATTERYCHARGE"></span><dl> <dt>**BatteryCharge**</dt> <dt>1</dt> </dl>                         | Informs the battery device that the user has requested that the battery should be charging at this time. For example, with a smart battery/charger/selector, the application could charge one battery at a time. The **Buffer** member of this structure is ignored.<br/>                                                                      |
      * | <span id="BatteryCriticalBias"></span><span id="batterycriticalbias"></span><span id="BATTERYCRITICALBIAS"></span><dl> <dt>**BatteryCriticalBias**</dt> <dt>0</dt> </dl> | Sets the battery's critical bias adjustment. Note it is not envisioned that this value would normally be changed by software, and is present in the interfaces only as a maintenance feature. Not all batteries can maintain such a setting, and the battery information should be read to confirm that the battery accepted the setting.<br/> |
      * | <span id="BatteryDischarge"></span><span id="batterydischarge"></span><span id="BATTERYDISCHARGE"></span><dl> <dt>**BatteryDischarge**</dt> <dt>2</dt> </dl>             | Informs the battery device that the user has requested that the battery be discharging at this time. For example, this could be used to indicate which battery the user currently wants to power the system. The **Buffer** member of this structure is ignored.<br/>                                                                          |
-     * @type {Integer}
+     * @type {BATTERY_SET_INFORMATION_LEVEL}
      */
     InformationLevel {
         get => NumGet(this, 4, "int")
@@ -45,9 +44,9 @@ class BATTERY_SET_INFORMATION extends Win32Struct
 
     /**
      * The battery information to be set. The data depends on the value of **InformationLevel**.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Buffer{
+    Buffer {
         get {
             if(!this.HasProp("__BufferProxyArray"))
                 this.__BufferProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "char")

@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include .\ITrigger.ahk
 
 /**
@@ -12,9 +11,8 @@
  * When reading or writing  XML for a task, an idle trigger is specified using the <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/taskschedulerschema-timetrigger-triggergroup-element">TimeTrigger</a> element of the Task Scheduler schema.
  * @see https://learn.microsoft.com/windows/win32/api/taskschd/nn-taskschd-itimetrigger
  * @namespace Windows.Win32.System.TaskScheduler
- * @version v4.0.30319
  */
-class ITimeTrigger extends ITrigger{
+class ITimeTrigger extends ITrigger {
 
     static sizeof => A_PtrSize
     /**
@@ -36,6 +34,7 @@ class ITimeTrigger extends ITrigger{
     static VTableNames => ["get_RandomDelay", "put_RandomDelay"]
 
     /**
+     * @type {BSTR} 
      */
     RandomDelay {
         get => this.get_RandomDelay()

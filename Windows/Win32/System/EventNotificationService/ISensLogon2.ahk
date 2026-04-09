@@ -1,16 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
  * The ISensLogon2 interface handles logon events fired by SENS.
  * @see https://learn.microsoft.com/windows/win32/api/sensevts/nn-sensevts-isenslogon2
  * @namespace Windows.Win32.System.EventNotificationService
- * @version v4.0.30319
  */
-class ISensLogon2 extends IDispatch{
+class ISensLogon2 extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

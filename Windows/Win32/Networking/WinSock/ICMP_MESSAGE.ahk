@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Networking.WinSock
- * @version v4.0.30319
  */
-class ICMP_MESSAGE extends Win32Struct
-{
+class ICMP_MESSAGE extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4
@@ -17,44 +15,43 @@ class ICMP_MESSAGE extends Win32Struct
         static packingSize => 4
 
         /**
-         * @type {Array<UInt32>}
+         * @type {Array<Integer>}
          */
-        Data32{
+        Data32 {
             get {
                 if(!this.HasProp("__Data32ProxyArray"))
                     this.__Data32ProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "uint")
                 return this.__Data32ProxyArray
             }
         }
-    
+
         /**
-         * @type {Array<UInt16>}
+         * @type {Array<Integer>}
          */
-        Data16{
+        Data16 {
             get {
                 if(!this.HasProp("__Data16ProxyArray"))
                     this.__Data16ProxyArray := Win32FixedArray(this.ptr + 0, 2, Primitive, "ushort")
                 return this.__Data16ProxyArray
             }
         }
-    
+
         /**
-         * @type {Array<Byte>}
+         * @type {Array<Integer>}
          */
-        Data8{
+        Data8 {
             get {
                 if(!this.HasProp("__Data8ProxyArray"))
                     this.__Data8ProxyArray := Win32FixedArray(this.ptr + 0, 4, Primitive, "char")
                 return this.__Data8ProxyArray
             }
         }
-    
     }
 
     /**
      * @type {ICMP_HEADER}
      */
-    Header{
+    Header {
         get {
             if(!this.HasProp("__Header"))
                 this.__Header := ICMP_HEADER(0, this)
@@ -65,10 +62,10 @@ class ICMP_MESSAGE extends Win32Struct
     /**
      * @type {_Data_e__Union}
      */
-    Data{
+    Data {
         get {
             if(!this.HasProp("__Data"))
-                this.__Data := %this.__Class%._Data_e__Union(4, this)
+                this.__Data := ICMP_MESSAGE._Data_e__Union(4, this)
             return this.__Data
         }
     }

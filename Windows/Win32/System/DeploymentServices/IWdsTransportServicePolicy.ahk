@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include .\IWdsTransportCacheable.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * Represents the service policy part of the WDS transport server's configuration.
  * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nn-wdstptmgmt-iwdstransportservicepolicy
  * @namespace Windows.Win32.System.DeploymentServices
- * @version v4.0.30319
  */
-class IWdsTransportServicePolicy extends IWdsTransportCacheable{
+class IWdsTransportServicePolicy extends IWdsTransportCacheable {
 
     static sizeof => A_PtrSize
     /**
@@ -54,7 +53,7 @@ class IWdsTransportServicePolicy extends IWdsTransportCacheable{
     }
 
     /**
-     * @type {Integer} 
+     * @type {WDSTRANSPORT_NETWORK_PROFILE_TYPE} 
      */
     NetworkProfile {
         get => this.get_NetworkProfile()
@@ -63,8 +62,8 @@ class IWdsTransportServicePolicy extends IWdsTransportCacheable{
 
     /**
      * Enables a WDS client computer to configure, for a specified type of IP address, the IP address source from which the WDS transport server obtains a multicast address. (Get)
-     * @param {Integer} AddressType 
-     * @returns {Integer} 
+     * @param {WDSTRANSPORT_IP_ADDRESS_TYPE} AddressType 
+     * @returns {WDSTRANSPORT_IP_ADDRESS_SOURCE_TYPE} 
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportservicepolicy-get_ipaddresssource
      */
     get_IpAddressSource(AddressType) {
@@ -74,8 +73,8 @@ class IWdsTransportServicePolicy extends IWdsTransportCacheable{
 
     /**
      * Enables a WDS client computer to configure, for a specified type of IP address, the IP address source from which the WDS transport server obtains a multicast address. (Put)
-     * @param {Integer} AddressType 
-     * @param {Integer} SourceType 
+     * @param {WDSTRANSPORT_IP_ADDRESS_TYPE} AddressType 
+     * @param {WDSTRANSPORT_IP_ADDRESS_SOURCE_TYPE} SourceType 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportservicepolicy-put_ipaddresssource
      */
@@ -88,7 +87,7 @@ class IWdsTransportServicePolicy extends IWdsTransportCacheable{
      * Enables a WDS client computer to configure the start of a multicast IP address range for a specified type of IP address. (Get)
      * @remarks
      * When setting the start IP address, this property validates that it is a valid multicast IP address for the specified type of IP address.
-     * @param {Integer} AddressType 
+     * @param {WDSTRANSPORT_IP_ADDRESS_TYPE} AddressType 
      * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportservicepolicy-get_startipaddress
      */
@@ -102,7 +101,7 @@ class IWdsTransportServicePolicy extends IWdsTransportCacheable{
      * Enables a WDS client computer to configure the start of a multicast IP address range for a specified type of IP address. (Put)
      * @remarks
      * When setting the start IP address, this property validates that it is a valid multicast IP address for the specified type of IP address.
-     * @param {Integer} AddressType 
+     * @param {WDSTRANSPORT_IP_ADDRESS_TYPE} AddressType 
      * @param {BSTR} bszStartIpAddress 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportservicepolicy-put_startipaddress
@@ -118,7 +117,7 @@ class IWdsTransportServicePolicy extends IWdsTransportCacheable{
      * Enables a WDS client computer to configure the end of a multicast IP address range for a specified type of IP address. (Get)
      * @remarks
      * When setting the end IP address, this property validates that it is a valid multicast IP address for the specified type of IP address.
-     * @param {Integer} AddressType 
+     * @param {WDSTRANSPORT_IP_ADDRESS_TYPE} AddressType 
      * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportservicepolicy-get_endipaddress
      */
@@ -132,7 +131,7 @@ class IWdsTransportServicePolicy extends IWdsTransportCacheable{
      * Enables a WDS client computer to configure the end of a multicast IP address range for a specified type of IP address. (Put)
      * @remarks
      * When setting the end IP address, this property validates that it is a valid multicast IP address for the specified type of IP address.
-     * @param {Integer} AddressType 
+     * @param {WDSTRANSPORT_IP_ADDRESS_TYPE} AddressType 
      * @param {BSTR} bszEndIpAddress 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportservicepolicy-put_endipaddress
@@ -196,7 +195,7 @@ class IWdsTransportServicePolicy extends IWdsTransportCacheable{
 
     /**
      * Enables a client computer to configure the network profile that is used by the WDS Transport Server. (Get)
-     * @returns {Integer} 
+     * @returns {WDSTRANSPORT_NETWORK_PROFILE_TYPE} 
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportservicepolicy-get_networkprofile
      */
     get_NetworkProfile() {
@@ -206,7 +205,7 @@ class IWdsTransportServicePolicy extends IWdsTransportCacheable{
 
     /**
      * Enables a client computer to configure the network profile that is used by the WDS Transport Server. (Put)
-     * @param {Integer} ProfileType 
+     * @param {WDSTRANSPORT_NETWORK_PROFILE_TYPE} ProfileType 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportservicepolicy-put_networkprofile
      */

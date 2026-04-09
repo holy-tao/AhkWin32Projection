@@ -5,9 +5,8 @@
  * The MMC_CONTROL_TYPE enumeration defines the kinds of controls that can appear in the control bar. The values can be used in the nType parameter of the IControlbar::Attach and IControlbar::Create methods.
  * @see https://learn.microsoft.com/windows/win32/api/mmc/ne-mmc-mmc_control_type
  * @namespace Windows.Win32.System.Mmc
- * @version v4.0.30319
  */
-class MMC_CONTROL_TYPE extends Win32Enum{
+class MMC_CONTROL_TYPE extends Win32Enum {
 
     /**
      * The control to be associated with the control bar is a toolbar.

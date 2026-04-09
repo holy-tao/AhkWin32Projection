@@ -6,10 +6,8 @@
  * The CERT_EXTENSION structure contains the extension information for a certificate, Certificate Revocation List (CRL) or Certificate Trust List (CTL).
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cert_extension
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CERT_EXTENSION extends Win32Struct
-{
+class CERT_EXTENSION extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -38,7 +36,7 @@ class CERT_EXTENSION extends Win32Struct
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa381414(v=vs.85)">CRYPT_OBJID_BLOB</a> structure that contains the encoded extension data. The <b>cbData</b> member of <b>Value</b> indicates the length in bytes of the <b>pbData</b> member. The <b>pbData</b> member byte string is the encoded extension.
      * @type {CRYPT_INTEGER_BLOB}
      */
-    Value{
+    Value {
         get {
             if(!this.HasProp("__Value"))
                 this.__Value := CRYPT_INTEGER_BLOB(16, this)

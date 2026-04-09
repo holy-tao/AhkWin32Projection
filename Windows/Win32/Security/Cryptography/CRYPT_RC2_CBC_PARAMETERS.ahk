@@ -5,10 +5,8 @@
  * Contains information used with szOID_RSA_RC2CBC encryption.
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-crypt_rc2_cbc_parameters
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CRYPT_RC2_CBC_PARAMETERS extends Win32Struct
-{
+class CRYPT_RC2_CBC_PARAMETERS extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4
@@ -100,9 +98,9 @@ class CRYPT_RC2_CBC_PARAMETERS extends Win32Struct
      * <div class="alert"><b>Note</b>  When a message is decrypted, if it has an IV parameter, the message functions calls 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptsetkeyparam">CryptSetKeyParam</a> with the IV before doing the decryption.</div>
      * <div> </div>
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    rgbIV{
+    rgbIV {
         get {
             if(!this.HasProp("__rgbIVProxyArray"))
                 this.__rgbIVProxyArray := Win32FixedArray(this.ptr + 8, 8, Primitive, "char")

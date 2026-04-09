@@ -1,5 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\VDS_DISK_STATUS.ahk
+#Include .\VDS_DISK_OFFLINE_REASON.ahk
+#Include .\VDS_LUN_RESERVE_MODE.ahk
+#Include .\VDS_HEALTH.ahk
+#Include .\VDS_STORAGE_BUS_TYPE.ahk
+#Include .\VDS_PARTITION_STYLE.ahk
 
 /**
  * Defines the properties of a disk object. This structure is identical to the VDS_DISK_PROP structure, except that it also includes the location path and, if the disk is offline, the reason why it is offline.
@@ -64,17 +70,15 @@
  * </table>
  * @see https://learn.microsoft.com/windows/win32/api/vds/ns-vds-vds_disk_prop2
  * @namespace Windows.Win32.Storage.VirtualDiskService
- * @version v4.0.30319
  */
-class VDS_DISK_PROP2 extends Win32Struct
-{
+class VDS_DISK_PROP2 extends Win32Struct {
     static sizeof => 120
 
     static packingSize => 8
 
     /**
      * The GUID of the disk object.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     id {
         get => NumGet(this, 0, "ptr")
@@ -87,7 +91,7 @@ class VDS_DISK_PROP2 extends Win32Struct
      * 
      * <div class="alert"><b>Note</b>  This member can be VDS_DS_ONLINE, even if the status of the containing pack is VDS_PS_OFFLINE.</div>
      * <div> </div>
-     * @type {Integer}
+     * @type {VDS_DISK_STATUS}
      */
     status {
         get => NumGet(this, 8, "int")
@@ -96,7 +100,7 @@ class VDS_DISK_PROP2 extends Win32Struct
 
     /**
      * If the disk is offline, this member is a <a href="https://docs.microsoft.com/windows/desktop/api/vds/ne-vds-vds_disk_offline_reason">VDS_DISK_OFFLINE_REASON</a> enumeration value that specifies the reason why it is offline.
-     * @type {Integer}
+     * @type {VDS_DISK_OFFLINE_REASON}
      */
     OfflineReason {
         get => NumGet(this, 12, "int")
@@ -105,7 +109,7 @@ class VDS_DISK_PROP2 extends Win32Struct
 
     /**
      * This member is reserved for future use.
-     * @type {Integer}
+     * @type {VDS_LUN_RESERVE_MODE}
      */
     ReserveMode {
         get => NumGet(this, 16, "int")
@@ -115,7 +119,7 @@ class VDS_DISK_PROP2 extends Win32Struct
     /**
      * A 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ne-vdshwprv-vds_health">VDS_HEALTH</a> enumeration value that specifies the health state of the disk. The following are the valid values for this member.
-     * @type {Integer}
+     * @type {VDS_HEALTH}
      */
     health {
         get => NumGet(this, 20, "int")
@@ -193,7 +197,7 @@ class VDS_DISK_PROP2 extends Win32Struct
     /**
      * The input/output bus types enumerated by 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/vdslun/ne-vdslun-vds_storage_bus_type">VDS_STORAGE_BUS_TYPE</a>.
-     * @type {Integer}
+     * @type {VDS_STORAGE_BUS_TYPE}
      */
     BusType {
         get => NumGet(this, 56, "int")
@@ -204,7 +208,7 @@ class VDS_DISK_PROP2 extends Win32Struct
      * A 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/vds/ne-vds-vds_partition_style">VDS_PARTITION_STYLE</a> enumeration that specifies the partition style. This member is the 
      *       discriminant for the union.
-     * @type {Integer}
+     * @type {VDS_PARTITION_STYLE}
      */
     PartitionStyle {
         get => NumGet(this, 60, "int")
@@ -220,7 +224,7 @@ class VDS_DISK_PROP2 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     DiskGuid {
         get => NumGet(this, 64, "ptr")

@@ -5,9 +5,8 @@
  * The AppPolicyLifecycleManagement enumeration indicates whether a process is lifecycle-managed or not.
  * @see https://learn.microsoft.com/windows/win32/api/appmodel/ne-appmodel-apppolicylifecyclemanagement
  * @namespace Windows.Win32.Storage.Packaging.Appx
- * @version v4.0.30319
  */
-class AppPolicyLifecycleManagement extends Win32Enum{
+class AppPolicyLifecycleManagement extends Win32Enum {
 
     /**
      * Indicates that the process's lifecycle is not managed.

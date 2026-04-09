@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.Display
- * @version v4.0.30319
  */
-class VIDEO_PUBLIC_ACCESS_RANGES extends Win32Struct
-{
+class VIDEO_PUBLIC_ACCESS_RANGES extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

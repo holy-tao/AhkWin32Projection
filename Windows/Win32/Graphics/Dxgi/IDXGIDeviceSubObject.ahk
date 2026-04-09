@@ -10,9 +10,8 @@
  *         </b> This API is supported.
  * @see https://learn.microsoft.com/windows/win32/api/dxgi/nn-dxgi-idxgidevicesubobject
  * @namespace Windows.Win32.Graphics.Dxgi
- * @version v4.0.30319
  */
-class IDXGIDeviceSubObject extends IDXGIObject{
+class IDXGIDeviceSubObject extends IDXGIObject {
 
     static sizeof => A_PtrSize
     /**

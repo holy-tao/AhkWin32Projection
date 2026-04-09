@@ -24,9 +24,8 @@
  * </ul>
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-itaskbarlist4
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class ITaskbarList4 extends ITaskbarList3{
+class ITaskbarList4 extends ITaskbarList3 {
 
     static sizeof => A_PtrSize
     /**
@@ -54,7 +53,7 @@ class ITaskbarList4 extends ITaskbarList3{
      * @param {HWND} hwndTab Type: <b>HWND</b>
      * 
      * The handle of the tab window that is to have properties set. This handle must already be registered through <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-itaskbarlist3-registertab">RegisterTab</a>.
-     * @param {Integer} stpFlags Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-stpflag">STPFLAG</a></b>
+     * @param {STPFLAG} stpFlags Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-stpflag">STPFLAG</a></b>
      * 
      * One or more members of the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-stpflag">STPFLAG</a> enumeration that specify the displayed thumbnail and peek image source of the tab thumbnail.
      * @returns {HRESULT} Type: <b>HRESULT</b>

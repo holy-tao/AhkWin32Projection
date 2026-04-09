@@ -1,12 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\OB_PRE_OPERATION_PARAMETERS.ahk
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class OB_PRE_OPERATION_INFORMATION extends Win32Struct
-{
+class OB_PRE_OPERATION_INFORMATION extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8

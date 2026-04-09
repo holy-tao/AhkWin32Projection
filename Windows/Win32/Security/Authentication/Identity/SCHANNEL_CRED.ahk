@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\Cryptography\CERT_CONTEXT.ahk
 #Include ..\..\Cryptography\HCERTSTORE.ahk
+#Include ..\..\Cryptography\ALG_ID.ahk
+#Include .\SCHANNEL_CRED_FLAGS.ahk
 
 /**
  * Contains the data for an Schannel credential. (SCHANNEL_CRED)
@@ -29,10 +32,8 @@
  * When Schannel checks the revocation status of a certificate chain, these flags instruct it to ignore any CRYPT_E_NO_REVOCATION_CHECK and CRYPT_E_REVOCATION_OFFLINE errors, respectively. These flags are ignored if no certificate revocation flag is set.
  * @see https://learn.microsoft.com/windows/win32/api/schannel/ns-schannel-schannel_cred
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class SCHANNEL_CRED extends Win32Struct
-{
+class SCHANNEL_CRED extends Win32Struct {
     static sizeof => 80
 
     static packingSize => 8
@@ -71,7 +72,7 @@ class SCHANNEL_CRED extends Win32Struct
      * Optional. Valid for server applications only. Handle to a certificate store that contains self-signed <a href="https://docs.microsoft.com/windows/desktop/SecGloss/r-gly">root certificates</a> for <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certification authorities</a> (CAs) trusted by the application. This member is used only by server-side applications that require client authentication.
      * @type {HCERTSTORE}
      */
-    hRootStore{
+    hRootStore {
         get {
             if(!this.HasProp("__hRootStore"))
                 this.__hRootStore := HCERTSTORE(16, this)
@@ -113,7 +114,7 @@ class SCHANNEL_CRED extends Win32Struct
      * Currently, the algorithm identifiers <b>CALG_AES</b>,
      * <b>CALG_AES_128</b>, and
      * <b>CALG_AES_256</b> are not supported.
-     * @type {Pointer<Integer>}
+     * @type {Pointer<ALG_ID>}
      */
     palgSupportedAlgs {
         get => NumGet(this, 48, "ptr")
@@ -450,8 +451,7 @@ class SCHANNEL_CRED extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Integer}
+     * @type {SCHANNEL_CRED_FLAGS}
      */
     dwFlags {
         get => NumGet(this, 72, "uint")

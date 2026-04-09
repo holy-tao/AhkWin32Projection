@@ -5,10 +5,8 @@
  * Contains an array of object identifiers (OIDs) for Certificate Trust List (CTL) extensions.
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-ctl_usage
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CTL_USAGE extends Win32Struct
-{
+class CTL_USAGE extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

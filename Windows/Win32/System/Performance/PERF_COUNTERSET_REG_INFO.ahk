@@ -8,17 +8,15 @@
  * <b>PERF_REG_COUNTERSET_STRUCT</b> gets a <b>PERF_COUNTERSET_REG_INFO</b> block.
  * @see https://learn.microsoft.com/windows/win32/api/perflib/ns-perflib-perf_counterset_reg_info
  * @namespace Windows.Win32.System.Performance
- * @version v4.0.30319
  */
-class PERF_COUNTERSET_REG_INFO extends Win32Struct
-{
+class PERF_COUNTERSET_REG_INFO extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
 
     /**
      * The unique identifier for the counter set.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     CounterSetGuid {
         get => NumGet(this, 0, "ptr")

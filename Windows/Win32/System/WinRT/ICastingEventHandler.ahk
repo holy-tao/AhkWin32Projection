@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.WinRT
- * @version v4.0.30319
  */
-class ICastingEventHandler extends IUnknown{
+class ICastingEventHandler extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -30,7 +29,7 @@ class ICastingEventHandler extends IUnknown{
 
     /**
      * 
-     * @param {Integer} newState 
+     * @param {CASTING_CONNECTION_STATE} newState 
      * @returns {HRESULT} 
      */
     OnStateChanged(newState) {
@@ -40,7 +39,7 @@ class ICastingEventHandler extends IUnknown{
 
     /**
      * 
-     * @param {Integer} errorStatus 
+     * @param {CASTING_CONNECTION_ERROR_STATUS} errorStatus 
      * @param {PWSTR} errorMessage 
      * @returns {HRESULT} 
      */

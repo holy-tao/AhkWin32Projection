@@ -6,10 +6,8 @@
  * Contains access information used by an incremental crawl, such as the last access date and modification time.
  * @see https://learn.microsoft.com/windows/win32/api/searchapi/ns-searchapi-incremental_access_info
  * @namespace Windows.Win32.System.Search
- * @version v4.0.30319
  */
-class INCREMENTAL_ACCESS_INFO extends Win32Struct
-{
+class INCREMENTAL_ACCESS_INFO extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4
@@ -31,7 +29,7 @@ class INCREMENTAL_ACCESS_INFO extends Win32Struct
      * Last time the file was modified.
      * @type {FILETIME}
      */
-    ftLastModifiedTime{
+    ftLastModifiedTime {
         get {
             if(!this.HasProp("__ftLastModifiedTime"))
                 this.__ftLastModifiedTime := FILETIME(4, this)

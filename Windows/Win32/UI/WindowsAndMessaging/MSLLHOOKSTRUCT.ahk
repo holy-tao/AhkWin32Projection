@@ -6,10 +6,8 @@
  * Contains information about a low-level mouse input event.
  * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-msllhookstruct
  * @namespace Windows.Win32.UI.WindowsAndMessaging
- * @version v4.0.30319
  */
-class MSLLHOOKSTRUCT extends Win32Struct
-{
+class MSLLHOOKSTRUCT extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -20,7 +18,7 @@ class MSLLHOOKSTRUCT extends Win32Struct
      * The x- and y-coordinates of the cursor, in <a href="https://docs.microsoft.com/windows/desktop/api/shellscalingapi/ne-shellscalingapi-process_dpi_awareness">per-monitor-aware</a> screen coordinates.
      * @type {POINT}
      */
-    pt{
+    pt {
         get {
             if(!this.HasProp("__pt"))
                 this.__pt := POINT(0, this)

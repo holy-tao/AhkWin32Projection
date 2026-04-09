@@ -1,15 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DD_DIRECTDRAW_GLOBAL.ahk
 #Include .\DDSCAPS.ahk
 
 /**
  * The DD_GETAVAILDRIVERMEMORYDATA structure contains the information needed by the driver to query and return the amount of free memory.
  * @see https://learn.microsoft.com/windows/win32/api/ddrawint/ns-ddrawint-dd_getavaildrivermemorydata
  * @namespace Windows.Win32.Graphics.DirectDraw
- * @version v4.0.30319
  */
-class DD_GETAVAILDRIVERMEMORYDATA extends Win32Struct
-{
+class DD_GETAVAILDRIVERMEMORYDATA extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -27,7 +26,7 @@ class DD_GETAVAILDRIVERMEMORYDATA extends Win32Struct
      * Points to a <a href="https://docs.microsoft.com/previous-versions/windows/hardware/drivers/ff550286(v=vs.85)">DDSCAPS</a> structure that describes the type of surface for which memory availability is being queried.
      * @type {DDSCAPS}
      */
-    DDSCaps{
+    DDSCaps {
         get {
             if(!this.HasProp("__DDSCaps"))
                 this.__DDSCaps := DDSCAPS(8, this)

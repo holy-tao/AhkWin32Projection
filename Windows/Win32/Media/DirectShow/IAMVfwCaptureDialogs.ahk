@@ -7,9 +7,8 @@
  * The IAMVfwCaptureDialogs interface displays a dialog box provided by a Video for Windows (VFW) capture driver.The VFW Capture filter implements this interface.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-iamvfwcapturedialogs
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IAMVfwCaptureDialogs extends IUnknown{
+class IAMVfwCaptureDialogs extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -50,7 +49,7 @@ class IAMVfwCaptureDialogs extends IUnknown{
      * 
      * The Video Format dialog (VfwCaptureDialog_Format) may change the video format. If so, the method tries to reconnect the capture filter. If the downstream filter rejects the new format, the method returns VFW_E_CANNOT_CONNECT.
      * @param {Integer} iDialog Dialog box to display. This is a member of the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/ne-strmif-vfwcapturedialogs">VfwCaptureDialogs</a> enumeration.
-     * @param {HWND} _hwnd 
+     * @param {HWND} _hwnd Handle of the dialog box's parent window.
      * @returns {HRESULT} Returns an <b>HRESULT</b> value. Possible values include the following.
      * 
      * <table>

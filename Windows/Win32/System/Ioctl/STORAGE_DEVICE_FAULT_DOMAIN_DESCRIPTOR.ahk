@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class STORAGE_DEVICE_FAULT_DOMAIN_DESCRIPTOR extends Win32Struct
-{
+class STORAGE_DEVICE_FAULT_DOMAIN_DESCRIPTOR extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -36,9 +34,9 @@ class STORAGE_DEVICE_FAULT_DOMAIN_DESCRIPTOR extends Win32Struct
     }
 
     /**
-     * @type {Array<Guid>}
+     * @type {Array<Pointer>}
      */
-    FaultDomainIds{
+    FaultDomainIds {
         get {
             if(!this.HasProp("__FaultDomainIdsProxyArray"))
                 this.__FaultDomainIdsProxyArray := Win32FixedArray(this.ptr + 16, 1, Primitive, "ptr")

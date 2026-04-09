@@ -3,11 +3,9 @@
 
 /**
  * @namespace Windows.Win32.Media.Audio
- * @version v4.0.30319
  * @charset ANSI
  */
-class MIDIOUTCAPS2A extends Win32Struct
-{
+class MIDIOUTCAPS2A extends Win32Struct {
     static sizeof => 80
 
     static packingSize => 8
@@ -85,7 +83,7 @@ class MIDIOUTCAPS2A extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     ManufacturerGuid {
         get => NumGet(this, 56, "ptr")
@@ -93,7 +91,7 @@ class MIDIOUTCAPS2A extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     ProductGuid {
         get => NumGet(this, 64, "ptr")
@@ -101,7 +99,7 @@ class MIDIOUTCAPS2A extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     NameGuid {
         get => NumGet(this, 72, "ptr")

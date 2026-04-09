@@ -5,10 +5,8 @@
  * Specifies the Kerberos proxy settings for the credentials.
  * @see https://learn.microsoft.com/windows/win32/api/sspi/ns-sspi-secpkgcredentials_kdcproxysettingsw
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class SecPkgCredentials_KdcProxySettingsW extends Win32Struct
-{
+class SecPkgCredentials_KdcProxySettingsW extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4

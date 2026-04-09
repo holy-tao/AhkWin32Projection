@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * The IVssCreateExpressWriterMetadata interface is a COM interface containing methods to construct the Writer Metadata Document for an express writer.
  * @see https://learn.microsoft.com/windows/win32/api/vswriter/nl-vswriter-ivsscreateexpresswritermetadata
  * @namespace Windows.Win32.Storage.Vss
- * @version v4.0.30319
  */
-class IVssCreateExpressWriterMetadata extends IUnknown{
+class IVssCreateExpressWriterMetadata extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -154,7 +153,7 @@ class IVssCreateExpressWriterMetadata extends IUnknown{
      *     files that can be restored individually. For more information, see 
      *     <a href="https://docs.microsoft.com/windows/desktop/VSS/working-with-selectability-for-restore-and-subcomponents">Working with 
      *     Selectability for Restore and Subcomponents</a>.
-     * @param {Integer} ct A <a href="https://docs.microsoft.com/windows/desktop/api/vswriter/ne-vswriter-vss_component_type">VSS_COMPONENT_TYPE</a> enumeration value that specifies 
+     * @param {VSS_COMPONENT_TYPE} ct A <a href="https://docs.microsoft.com/windows/desktop/api/vswriter/ne-vswriter-vss_component_type">VSS_COMPONENT_TYPE</a> enumeration value that specifies 
      *       the type of the component. Only <b>VSS_CT_FILEGROUP</b> is supported for this parameter.
      * @param {PWSTR} wszLogicalPath A pointer to a <b>null</b>-terminated wide character string containing the logical path of the database or file group. 
      *       For more information, see <a href="https://docs.microsoft.com/windows/desktop/VSS/logical-pathing-of-components">Logical Pathing of Components</a>.
@@ -437,7 +436,7 @@ class IVssCreateExpressWriterMetadata extends IUnknown{
      * For more information about restore methods, see <a href="https://docs.microsoft.com/windows/desktop/VSS/setting-vss-restore-methods">Setting VSS Restore Methods</a>.
      * 
      * If the restore method is VSS_RME_STOP_RESTORE_START or VSS_RME_RESTORE_STOP_START, then the correct name of the service must be provided as the <i>wszService</i> argument. For information on writer participation in stopping and restarting services during a restore operation, see <a href="https://docs.microsoft.com/windows/desktop/VSS/stopping-services-for-restore-by-requestors">Stopping Services for Restore by Requesters</a>.
-     * @param {Integer} method A <a href="https://docs.microsoft.com/windows/desktop/api/vswriter/ne-vswriter-vss_restoremethod_enum">VSS_RESTOREMETHOD_ENUM</a> enumeration value specifying the restore method to be used in the restore operation. This parameter is required and cannot be <b>VSS_RME_UNDEFINED</b>, <b>VSS_RME_RESTORE_TO_ALTERNATE_LOCATION</b>, or <b>VSS_RME_CUSTOM</b>.
+     * @param {VSS_RESTOREMETHOD_ENUM} method A <a href="https://docs.microsoft.com/windows/desktop/api/vswriter/ne-vswriter-vss_restoremethod_enum">VSS_RESTOREMETHOD_ENUM</a> enumeration value specifying the restore method to be used in the restore operation. This parameter is required and cannot be <b>VSS_RME_UNDEFINED</b>, <b>VSS_RME_RESTORE_TO_ALTERNATE_LOCATION</b>, or <b>VSS_RME_CUSTOM</b>.
      * @param {PWSTR} wszService A pointer to a wide character string containing the name of a service that must be stopped prior to a restore operation and then started after the restore operation takes place, if the value of <i>method</i> is <b>VSS_RME_STOP_RESTORE_START</b> or <b>VSS_RME_RESTORE_STOP_START</b>. 
      * 
      * 
@@ -445,7 +444,7 @@ class IVssCreateExpressWriterMetadata extends IUnknown{
      * 
      * If the value of <i>method</i> is not <b>VSS_RME_STOP_RESTORE_START</b> or <b>VSS_RME_RESTORE_STOP_START</b>, this parameter is not used and should be set to <b>NULL</b>.
      * @param {PWSTR} wszUserProcedure Reserved for future use. The value of this parameter should always be set to <b>NULL</b>.
-     * @param {Integer} writerRestore A <a href="https://docs.microsoft.com/windows/desktop/api/vswriter/ne-vswriter-vss_writerrestore_enum">VSS_WRITERRESTORE_ENUM</a> enumeration value specifying whether the writer will be involved in restoring its data. This parameter must be set to <b>VSS_WRE_NEVER</b>.
+     * @param {VSS_WRITERRESTORE_ENUM} writerRestore A <a href="https://docs.microsoft.com/windows/desktop/api/vswriter/ne-vswriter-vss_writerrestore_enum">VSS_WRITERRESTORE_ENUM</a> enumeration value specifying whether the writer will be involved in restoring its data. This parameter must be set to <b>VSS_WRE_NEVER</b>.
      * @param {Integer} bRebootRequired A Boolean value indicating whether a reboot will be required after the restore operation is complete.
      * @returns {HRESULT} The following are the valid return codes for this method.
      * 

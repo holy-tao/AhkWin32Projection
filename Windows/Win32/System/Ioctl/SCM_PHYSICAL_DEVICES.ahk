@@ -4,13 +4,11 @@
 
 /**
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class SCM_PHYSICAL_DEVICES extends Win32Struct
-{
-    static sizeof => 24
+class SCM_PHYSICAL_DEVICES extends Win32Struct {
+    static sizeof => 536
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}
@@ -37,12 +35,12 @@ class SCM_PHYSICAL_DEVICES extends Win32Struct
     }
 
     /**
-     * @type {Array<SCM_PHYSICAL_DEVICE_INSTANCE>}
+     * @type {SCM_PHYSICAL_DEVICE_INSTANCE}
      */
-    Devices{
+    Devices {
         get {
             if(!this.HasProp("__DevicesProxyArray"))
-                this.__DevicesProxyArray := Win32FixedArray(this.ptr + 16, 1, SCM_PHYSICAL_DEVICE_INSTANCE, "")
+                this.__DevicesProxyArray := Win32FixedArray(this.ptr + 12, 1, SCM_PHYSICAL_DEVICE_INSTANCE, "")
             return this.__DevicesProxyArray
         }
     }

@@ -24,10 +24,8 @@
  * | [**LoadCachedAttributes**](/windows/desktop/api/recapis/nf-recapis-loadcachedattributes)                   | Loads the cached attributes of a recognizer.<br/>                                            |
  * @see https://learn.microsoft.com/windows/win32/tablet/hrecognizer-handle
  * @namespace Windows.Win32.UI.TabletPC
- * @version v4.0.30319
  */
-class HRECOGNIZER extends Win32Handle
-{
+class HRECOGNIZER extends Win32Handle {
     static sizeof => 8
 
     static packingSize => 8

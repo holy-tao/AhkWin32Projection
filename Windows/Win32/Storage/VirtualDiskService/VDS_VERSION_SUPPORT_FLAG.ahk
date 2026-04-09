@@ -12,9 +12,8 @@
  * <div> </div>
  * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/ne-vdshwprv-vds_version_support_flag
  * @namespace Windows.Win32.Storage.VirtualDiskService
- * @version v4.0.30319
  */
-class VDS_VERSION_SUPPORT_FLAG extends Win32Enum{
+class VDS_VERSION_SUPPORT_FLAG extends Win32Enum {
 
     /**
      * Indicates that the VDS 1.0 interfaces are supported. VDS 1.0 is supported on 

@@ -3,11 +3,9 @@
 
 /**
  * @namespace Windows.Win32.Storage.Jet
- * @version v4.0.30319
  * @charset Unicode
  */
-class JET_COLUMNCREATE_W extends Win32Struct
-{
+class JET_COLUMNCREATE_W extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8

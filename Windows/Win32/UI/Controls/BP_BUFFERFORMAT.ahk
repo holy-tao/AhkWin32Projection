@@ -5,9 +5,8 @@
  * Specifies the format of the buffer. Used by BeginBufferedAnimation and BeginBufferedPaint.
  * @see https://learn.microsoft.com/windows/win32/api/uxtheme/ne-uxtheme-bp_bufferformat
  * @namespace Windows.Win32.UI.Controls
- * @version v4.0.30319
  */
-class BP_BUFFERFORMAT extends Win32Enum{
+class BP_BUFFERFORMAT extends Win32Enum {
 
     /**
      * Compatible bitmap. The  number of bits per pixel is based on the color format of the device associated with the HDC specified with <a href="https://docs.microsoft.com/windows/desktop/api/uxtheme/nf-uxtheme-beginbufferedpaint">BeginBufferedPaint</a> or <a href="https://docs.microsoft.com/windows/desktop/api/uxtheme/nf-uxtheme-beginbufferedanimation">BeginBufferedAnimation</a>—typically, this is the display device.

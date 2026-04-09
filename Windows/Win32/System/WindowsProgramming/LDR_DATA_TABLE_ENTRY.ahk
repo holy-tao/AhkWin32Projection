@@ -5,18 +5,16 @@
 
 /**
  * @namespace Windows.Win32.System.WindowsProgramming
- * @version v4.0.30319
  */
-class LDR_DATA_TABLE_ENTRY extends Win32Struct
-{
+class LDR_DATA_TABLE_ENTRY extends Win32Struct {
     static sizeof => 136
 
     static packingSize => 8
 
     /**
-     * @type {Array<Void>}
+     * @type {Array<Pointer<Void>>}
      */
-    Reserved1{
+    Reserved1 {
         get {
             if(!this.HasProp("__Reserved1ProxyArray"))
                 this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 0, 2, Primitive, "ptr")
@@ -27,7 +25,7 @@ class LDR_DATA_TABLE_ENTRY extends Win32Struct
     /**
      * @type {LIST_ENTRY}
      */
-    InMemoryOrderLinks{
+    InMemoryOrderLinks {
         get {
             if(!this.HasProp("__InMemoryOrderLinks"))
                 this.__InMemoryOrderLinks := LIST_ENTRY(16, this)
@@ -36,9 +34,9 @@ class LDR_DATA_TABLE_ENTRY extends Win32Struct
     }
 
     /**
-     * @type {Array<Void>}
+     * @type {Array<Pointer<Void>>}
      */
-    Reserved2{
+    Reserved2 {
         get {
             if(!this.HasProp("__Reserved2ProxyArray"))
                 this.__Reserved2ProxyArray := Win32FixedArray(this.ptr + 32, 2, Primitive, "ptr")
@@ -55,9 +53,9 @@ class LDR_DATA_TABLE_ENTRY extends Win32Struct
     }
 
     /**
-     * @type {Array<Void>}
+     * @type {Array<Pointer<Void>>}
      */
-    Reserved3{
+    Reserved3 {
         get {
             if(!this.HasProp("__Reserved3ProxyArray"))
                 this.__Reserved3ProxyArray := Win32FixedArray(this.ptr + 56, 2, Primitive, "ptr")
@@ -68,7 +66,7 @@ class LDR_DATA_TABLE_ENTRY extends Win32Struct
     /**
      * @type {UNICODE_STRING}
      */
-    FullDllName{
+    FullDllName {
         get {
             if(!this.HasProp("__FullDllName"))
                 this.__FullDllName := UNICODE_STRING(72, this)
@@ -77,9 +75,9 @@ class LDR_DATA_TABLE_ENTRY extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Reserved4{
+    Reserved4 {
         get {
             if(!this.HasProp("__Reserved4ProxyArray"))
                 this.__Reserved4ProxyArray := Win32FixedArray(this.ptr + 88, 8, Primitive, "char")
@@ -88,9 +86,9 @@ class LDR_DATA_TABLE_ENTRY extends Win32Struct
     }
 
     /**
-     * @type {Array<Void>}
+     * @type {Array<Pointer<Void>>}
      */
-    Reserved5{
+    Reserved5 {
         get {
             if(!this.HasProp("__Reserved5ProxyArray"))
                 this.__Reserved5ProxyArray := Win32FixedArray(this.ptr + 96, 3, Primitive, "ptr")

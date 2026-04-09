@@ -18,9 +18,8 @@
  * To view some code that registers for COM notifications, see the Client section of the <a href="https://docs.microsoft.com/archive/msdn-magazine/2007/september/clr-inside-out-com-connection-points">COM Connection Points</a> article.
  * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nn-mbnapi-imbninterfaceevents
  * @namespace Windows.Win32.NetworkManagement.MobileBroadband
- * @version v4.0.30319
  */
-class IMbnInterfaceEvents extends IUnknown{
+class IMbnInterfaceEvents extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -132,7 +131,66 @@ class IMbnInterfaceEvents extends IUnknown{
      * If a call to the <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nf-mbnapi-imbninterface-setpreferredproviders">SetPreferredProviders</a> method of <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nn-mbnapi-imbninterface">IMbnInterface</a> results in a change in the preferred provider list, then the <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nf-mbnapi-imbninterfaceevents-onpreferredproviderschange">OnPreferredProvidersChange</a> method of  <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nn-mbnapi-imbninterfaceevents">IMbnInterfaceEvents</a> will not be called.
      * @param {IMbnInterface} newInterface An <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nn-mbnapi-imbninterface">IMbnInterface</a> that represents a device on which this operation was performed.
      * @param {Integer} requestID The request ID assigned by the Mobile Broadband service for this asynchronous operation.
-     * @param {HRESULT} _status 
+     * @param {HRESULT} _status The operation completion status.
+     * 
+     * The following table lists the valid values for this status.
+     * 
+     * <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="S_OK"></a><a id="s_ok"></a><dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The operation  was successful.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="E_MBN_PIN_REQUIRED"></a><a id="e_mbn_pin_required"></a><dl>
+     * <dt><b>E_MBN_PIN_REQUIRED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The device requires a PIN to be entered for this operation to complete.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="E_MBN_SIM_NOT_INSERTED"></a><a id="e_mbn_sim_not_inserted"></a><dl>
+     * <dt><b>E_MBN_SIM_NOT_INSERTED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The SIM is not inserted.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="E_MBN_BAD_SIM"></a><a id="e_mbn_bad_sim"></a><dl>
+     * <dt><b>E_MBN_BAD_SIM</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A bad SIM is inserted in the device.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="HRESULT_FROM_WIN32_ERROR_NOT_SUPPORTED_"></a><a id="hresult_from_win32_error_not_supported_"></a><dl>
+     * <dt><b>HRESULT_FROM_WIN32(ERROR_NOT_SUPPORTED)</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The device does not support this operation.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @returns {HRESULT} This method must return <b>S_OK</b>.
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbninterfaceevents-onsetpreferredproviderscomplete
      */
@@ -149,7 +207,7 @@ class IMbnInterfaceEvents extends IUnknown{
      * If multiple applications registered for notifications, then this method will be called on all registered applications. This means that an application that did not initiate the update operation will receive a notification.
      * @param {IMbnInterface} newInterface An <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nn-mbnapi-imbninterface">IMbnInterface</a> that represents a device on which this operation was performed.
      * @param {Integer} requestID The request ID assigned by the Mobile Broadband service for this notification.
-     * @param {HRESULT} _status 
+     * @param {HRESULT} _status The operation completion status
      * @returns {HRESULT} This method must return <b>S_OK</b>.
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbninterfaceevents-onscannetworkcomplete
      */

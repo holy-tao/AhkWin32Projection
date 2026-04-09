@@ -7,9 +7,8 @@
  * Provides access to a control that presents a range of values.
  * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nn-uiautomationclient-iuiautomationrangevaluepattern
  * @namespace Windows.Win32.UI.Accessibility
- * @version v4.0.30319
  */
-class IUIAutomationRangeValuePattern extends IUnknown{
+class IUIAutomationRangeValuePattern extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -116,7 +115,9 @@ class IUIAutomationRangeValuePattern extends IUnknown{
 
     /**
      * Sets the value of the control. (IUIAutomationRangeValuePattern.SetValue)
-     * @param {Float} _val 
+     * @param {Float} _val Type: <b>double</b>
+     * 
+     * The value to set as the value of the control.
      * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.

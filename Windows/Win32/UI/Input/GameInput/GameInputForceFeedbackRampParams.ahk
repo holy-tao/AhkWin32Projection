@@ -5,10 +5,8 @@
 
 /**
  * @namespace Windows.Win32.UI.Input.GameInput
- * @version v4.0.30319
  */
-class GameInputForceFeedbackRampParams extends Win32Struct
-{
+class GameInputForceFeedbackRampParams extends Win32Struct {
     static sizeof => 104
 
     static packingSize => 8
@@ -16,7 +14,7 @@ class GameInputForceFeedbackRampParams extends Win32Struct
     /**
      * @type {GameInputForceFeedbackEnvelope}
      */
-    envelope{
+    envelope {
         get {
             if(!this.HasProp("__envelope"))
                 this.__envelope := GameInputForceFeedbackEnvelope(0, this)
@@ -27,7 +25,7 @@ class GameInputForceFeedbackRampParams extends Win32Struct
     /**
      * @type {GameInputForceFeedbackMagnitude}
      */
-    startMagnitude{
+    startMagnitude {
         get {
             if(!this.HasProp("__startMagnitude"))
                 this.__startMagnitude := GameInputForceFeedbackMagnitude(48, this)
@@ -38,7 +36,7 @@ class GameInputForceFeedbackRampParams extends Win32Struct
     /**
      * @type {GameInputForceFeedbackMagnitude}
      */
-    endMagnitude{
+    endMagnitude {
         get {
             if(!this.HasProp("__endMagnitude"))
                 this.__endMagnitude := GameInputForceFeedbackMagnitude(76, this)

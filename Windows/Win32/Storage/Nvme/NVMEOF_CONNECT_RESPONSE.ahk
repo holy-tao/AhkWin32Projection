@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Storage.Nvme
- * @version v4.0.30319
  */
-class NVMEOF_CONNECT_RESPONSE extends Win32Struct
-{
+class NVMEOF_CONNECT_RESPONSE extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4
@@ -18,11 +16,11 @@ class NVMEOF_CONNECT_RESPONSE extends Win32Struct
         class _Success extends Win32Struct {
             static sizeof => 4
             static packingSize => 2
-    
+
             class _AUTHREQ_e__Union extends Win32Struct {
                 static sizeof => 2
                 static packingSize => 2
-        
+
                 /**
                  * This bitfield backs the following members:
                  * - Obsolete
@@ -35,7 +33,7 @@ class NVMEOF_CONNECT_RESPONSE extends Win32Struct
                     get => NumGet(this, 0, "ushort")
                     set => NumPut("ushort", value, this, 0)
                 }
-            
+
                 /**
                  * @type {Integer}
                  */
@@ -43,7 +41,7 @@ class NVMEOF_CONNECT_RESPONSE extends Win32Struct
                     get => (this._bitfield >> 0) & 0x1
                     set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
                 }
-            
+
                 /**
                  * @type {Integer}
                  */
@@ -51,7 +49,7 @@ class NVMEOF_CONNECT_RESPONSE extends Win32Struct
                     get => (this._bitfield >> 1) & 0x1
                     set => this._bitfield := ((value & 0x1) << 1) | (this._bitfield & ~(0x1 << 1))
                 }
-            
+
                 /**
                  * @type {Integer}
                  */
@@ -59,7 +57,7 @@ class NVMEOF_CONNECT_RESPONSE extends Win32Struct
                     get => (this._bitfield >> 2) & 0x1
                     set => this._bitfield := ((value & 0x1) << 2) | (this._bitfield & ~(0x1 << 2))
                 }
-            
+
                 /**
                  * @type {Integer}
                  */
@@ -67,9 +65,8 @@ class NVMEOF_CONNECT_RESPONSE extends Win32Struct
                     get => NumGet(this, 0, "ushort")
                     set => NumPut("ushort", value, this, 0)
                 }
-            
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -77,31 +74,30 @@ class NVMEOF_CONNECT_RESPONSE extends Win32Struct
                 get => NumGet(this, 0, "ushort")
                 set => NumPut("ushort", value, this, 0)
             }
-        
+
             /**
              * @type {_AUTHREQ_e__Union}
              */
-            AUTHREQ{
+            AUTHREQ {
                 get {
                     if(!this.HasProp("__AUTHREQ"))
-                        this.__AUTHREQ := %this.__Class%._AUTHREQ_e__Union(2, this)
+                        this.__AUTHREQ := NVMEOF_CONNECT_RESPONSE._SCSpecific_e__Union._Success._AUTHREQ_e__Union(2, this)
                     return this.__AUTHREQ
                 }
             }
-        
         }
-    
+
         /**
          * @type {_Success}
          */
-        Success{
+        Success {
             get {
                 if(!this.HasProp("__Success"))
-                    this.__Success := %this.__Class%._Success(0, this)
+                    this.__Success := NVMEOF_CONNECT_RESPONSE._SCSpecific_e__Union._Success(0, this)
                 return this.__Success
             }
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -109,16 +105,15 @@ class NVMEOF_CONNECT_RESPONSE extends Win32Struct
             get => NumGet(this, 0, "uint")
             set => NumPut("uint", value, this, 0)
         }
-    
     }
 
     /**
      * @type {_SCSpecific_e__Union}
      */
-    SCSpecific{
+    SCSpecific {
         get {
             if(!this.HasProp("__SCSpecific"))
-                this.__SCSpecific := %this.__Class%._SCSpecific_e__Union(0, this)
+                this.__SCSpecific := NVMEOF_CONNECT_RESPONSE._SCSpecific_e__Union(0, this)
             return this.__SCSpecific
         }
     }

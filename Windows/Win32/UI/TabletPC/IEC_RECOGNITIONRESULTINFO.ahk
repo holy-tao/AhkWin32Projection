@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HWND.ahk
 #Include ..\Controls\NMHDR.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include .\IInkRecognitionResult.ahk
 
 /**
  * Contains information about an IInkRecognitionResult Interface object.
  * @see https://learn.microsoft.com/windows/win32/api/inked/ns-inked-iec_recognitionresultinfo
  * @namespace Windows.Win32.UI.TabletPC
- * @version v4.0.30319
  */
-class IEC_RECOGNITIONRESULTINFO extends Win32Struct
-{
+class IEC_RECOGNITIONRESULTINFO extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -28,7 +27,7 @@ class IEC_RECOGNITIONRESULTINFO extends Win32Struct
      * ```
      * @type {NMHDR}
      */
-    nmhdr{
+    nmhdr {
         get {
             if(!this.HasProp("__nmhdr"))
                 this.__nmhdr := NMHDR(0, this)

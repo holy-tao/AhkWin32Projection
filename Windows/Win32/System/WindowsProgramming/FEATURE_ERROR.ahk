@@ -5,10 +5,8 @@
  * This structure is intended for infrastructure use only.
  * @see https://learn.microsoft.com/windows/win32/api/featurestagingapi/ns-featurestagingapi-feature_error
  * @namespace Windows.Win32.System.WindowsProgramming
- * @version v4.0.30319
  */
-class FEATURE_ERROR extends Win32Struct
-{
+class FEATURE_ERROR extends Win32Struct {
     static sizeof => 104
 
     static packingSize => 8

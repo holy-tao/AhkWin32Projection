@@ -5,9 +5,8 @@
  * WCN_VALUE_TYPE_DEVICE_PASSWORD_ID enumeration defines values that specify the origin or 'type' of a password.
  * @see https://learn.microsoft.com/windows/win32/api/wcntypes/ne-wcntypes-wcn_value_type_device_password_id
  * @namespace Windows.Win32.NetworkManagement.WindowsConnectNow
- * @version v4.0.30319
  */
-class WCN_VALUE_TYPE_DEVICE_PASSWORD_ID extends Win32Enum{
+class WCN_VALUE_TYPE_DEVICE_PASSWORD_ID extends Win32Enum {
 
     /**
      * The PIN password, obtained from the label, or
@@ -69,25 +68,21 @@ class WCN_VALUE_TYPE_DEVICE_PASSWORD_ID extends Win32Enum{
     static WCN_VALUE_DP_REGISTRAR_SPECIFIED => 5
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static WCN_VALUE_DP_NFC_CONNECTION_HANDOVER => 7
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static WCN_VALUE_DP_WFD_SERVICES => 8
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static WCN_VALUE_DP_OUTOFBAND_MIN => 16
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static WCN_VALUE_DP_OUTOFBAND_MAX => 65535

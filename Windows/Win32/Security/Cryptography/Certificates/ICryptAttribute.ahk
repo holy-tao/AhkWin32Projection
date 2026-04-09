@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\System\Com\IDispatch.ahk
 #Include .\IObjectId.ahk
 #Include .\IX509Attributes.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
 
 /**
  * The ICryptAttribute interface represents a cryptographic attribute in a certificate request. A collection of these attributes is contained in the CertificateRequestInfo structure of a PKCS
  * @see https://learn.microsoft.com/windows/win32/api/certenroll/nn-certenroll-icryptattribute
  * @namespace Windows.Win32.Security.Cryptography.Certificates
- * @version v4.0.30319
  */
-class ICryptAttribute extends IDispatch{
+class ICryptAttribute extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

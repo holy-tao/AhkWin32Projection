@@ -5,9 +5,8 @@
  * Contains flags that indicate the status of the IMFSourceReader::ReadSample method.
  * @see https://learn.microsoft.com/windows/win32/api/mfreadwrite/ne-mfreadwrite-mf_source_reader_flag
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class MF_SOURCE_READER_FLAG extends Win32BitflagEnum{
+class MF_SOURCE_READER_FLAG extends Win32BitflagEnum {
 
     /**
      * An error occurred. If you receive this flag, do not make any further calls to <a href="https://docs.microsoft.com/windows/desktop/api/mfreadwrite/nn-mfreadwrite-imfsourcereader">IMFSourceReader</a> methods.

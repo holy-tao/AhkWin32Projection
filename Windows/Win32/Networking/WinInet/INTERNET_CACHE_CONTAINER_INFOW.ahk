@@ -3,11 +3,9 @@
 
 /**
  * @namespace Windows.Win32.Networking.WinInet
- * @version v4.0.30319
  * @charset Unicode
  */
-class INTERNET_CACHE_CONTAINER_INFOW extends Win32Struct
-{
+class INTERNET_CACHE_CONTAINER_INFOW extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8

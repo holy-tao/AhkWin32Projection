@@ -3,13 +3,10 @@
 
 /**
  * Specifies various ink editor events.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/inked/ne-inked-dispid_inkeditevents
  * @namespace Windows.Win32.UI.TabletPC
- * @version v4.0.30319
  */
-class DISPID_InkEditEvents extends Win32Enum{
+class DISPID_InkEditEvents extends Win32Enum {
 
     /**
      * Content changed.

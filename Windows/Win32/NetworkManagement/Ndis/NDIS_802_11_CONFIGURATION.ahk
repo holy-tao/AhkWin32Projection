@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Ndis
- * @version v4.0.30319
  */
-class NDIS_802_11_CONFIGURATION extends Win32Struct
-{
+class NDIS_802_11_CONFIGURATION extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 4
@@ -47,7 +45,7 @@ class NDIS_802_11_CONFIGURATION extends Win32Struct
     /**
      * @type {NDIS_802_11_CONFIGURATION_FH}
      */
-    FHConfig{
+    FHConfig {
         get {
             if(!this.HasProp("__FHConfig"))
                 this.__FHConfig := NDIS_802_11_CONFIGURATION_FH(16, this)

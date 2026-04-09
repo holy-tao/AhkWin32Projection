@@ -1,15 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\VMR9_SampleFormat.ahk
 #Include .\VMR9Frequency.ahk
 
 /**
  * The VMR9VideoDesc structure describes a video stream to be deinterlaced.
  * @see https://learn.microsoft.com/windows/win32/api/vmr9/ns-vmr9-vmr9videodesc
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class VMR9VideoDesc extends Win32Struct
-{
+class VMR9VideoDesc extends Win32Struct {
     static sizeof => 36
 
     static packingSize => 4
@@ -43,7 +42,7 @@ class VMR9VideoDesc extends Win32Struct
 
     /**
      * Specifies the interlacing format of the sample, as a member of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/vmr9/ne-vmr9-vmr9_sampleformat">VMR9_SampleFormat</a> enumeration.
-     * @type {Integer}
+     * @type {VMR9_SampleFormat}
      */
     SampleFormat {
         get => NumGet(this, 12, "int")
@@ -63,7 +62,7 @@ class VMR9VideoDesc extends Win32Struct
      * A <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/vmr9/ns-vmr9-vmr9frequency">VMR9Frequency</a> structure that specifies the input frequency. For NTSC TV, the frequency would be expressed as 30,000:1001.
      * @type {VMR9Frequency}
      */
-    InputSampleFreq{
+    InputSampleFreq {
         get {
             if(!this.HasProp("__InputSampleFreq"))
                 this.__InputSampleFreq := VMR9Frequency(20, this)
@@ -75,7 +74,7 @@ class VMR9VideoDesc extends Win32Struct
      * A **VMRFrequency** structure that specifies the output frequency. For NTSC TV, the frequency would be expressed as 60,000:1001.
      * @type {VMR9Frequency}
      */
-    OutputFrameFreq{
+    OutputFrameFreq {
         get {
             if(!this.HasProp("__OutputFrameFreq"))
                 this.__OutputFrameFreq := VMR9Frequency(28, this)

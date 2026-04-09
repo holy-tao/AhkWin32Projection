@@ -15,10 +15,8 @@
  * <a href="https://docs.microsoft.com/windows/desktop/api/http/nf-http-httpsetserviceconfiguration">HttpSetServiceConfiguration</a> function in the <i>pConfigInformation</i> parameter when the <i>ConfigId</i> parameter is set to <b>HttpServiceConfigSslCcsCertInfo</b>.
  * @see https://learn.microsoft.com/windows/win32/api/http/ns-http-http_service_config_ssl_param
  * @namespace Windows.Win32.Networking.HttpServer
- * @version v4.0.30319
  */
-class HTTP_SERVICE_CONFIG_SSL_PARAM extends Win32Struct
-{
+class HTTP_SERVICE_CONFIG_SSL_PARAM extends Win32Struct {
     static sizeof => 72
 
     static packingSize => 8
@@ -43,7 +41,7 @@ class HTTP_SERVICE_CONFIG_SSL_PARAM extends Win32Struct
 
     /**
      * A unique identifier of the application setting this record.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     AppId {
         get => NumGet(this, 16, "ptr")
@@ -60,7 +58,6 @@ class HTTP_SERVICE_CONFIG_SSL_PARAM extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     DefaultCertCheckMode {

@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
+#Include .\ISchemaItem.ahk
 #Include .\ISchemaItemCollection.ahk
+#Include ..\..\..\Foundation\BSTR.ahk
 #Include ..\..\..\System\Variant\VARIANT.ahk
 #Include .\ISchemaStringCollection.ahk
-#Include .\ISchemaItem.ahk
 
 /**
  * @namespace Windows.Win32.Data.Xml.MsXml
- * @version v4.0.30319
  */
-class ISchemaType extends ISchemaItem{
+class ISchemaType extends ISchemaItem {
 
     static sizeof => A_PtrSize
     /**
@@ -40,21 +39,21 @@ class ISchemaType extends ISchemaItem{
     }
 
     /**
-     * @type {Integer} 
+     * @type {SCHEMADERIVATIONMETHOD} 
      */
     final {
         get => this.get_final()
     }
 
     /**
-     * @type {Integer} 
+     * @type {SCHEMATYPEVARIETY} 
      */
     variety {
         get => this.get_variety()
     }
 
     /**
-     * @type {Integer} 
+     * @type {SCHEMADERIVATIONMETHOD} 
      */
     derivedBy {
         get => this.get_derivedBy()
@@ -131,7 +130,7 @@ class ISchemaType extends ISchemaItem{
     }
 
     /**
-     * @type {Integer} 
+     * @type {SCHEMAWHITESPACE} 
      */
     whitespace {
         get => this.get_whitespace()
@@ -155,7 +154,7 @@ class ISchemaType extends ISchemaItem{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {SCHEMADERIVATIONMETHOD} 
      */
     get_final() {
         result := ComCall(15, this, "int*", &final := 0, "HRESULT")
@@ -164,7 +163,7 @@ class ISchemaType extends ISchemaItem{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {SCHEMATYPEVARIETY} 
      */
     get_variety() {
         result := ComCall(16, this, "int*", &variety := 0, "HRESULT")
@@ -173,7 +172,7 @@ class ISchemaType extends ISchemaItem{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {SCHEMADERIVATIONMETHOD} 
      */
     get_derivedBy() {
         result := ComCall(17, this, "int*", &derivedBy := 0, "HRESULT")
@@ -293,7 +292,7 @@ class ISchemaType extends ISchemaItem{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {SCHEMAWHITESPACE} 
      */
     get_whitespace() {
         result := ComCall(29, this, "int*", &whitespace := 0, "HRESULT")

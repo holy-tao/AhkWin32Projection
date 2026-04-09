@@ -7,9 +7,8 @@
  * The IFilterChain interface provides methods for starting, stopping, or removing chains of filters in a filter graph.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-ifilterchain
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IFilterChain extends IUnknown{
+class IFilterChain extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

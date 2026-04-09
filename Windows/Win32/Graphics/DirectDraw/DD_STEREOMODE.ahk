@@ -9,10 +9,8 @@
  * GUID_DDStereoMode provides a way to turn OFF stereo per-mode, since it is expected that a driver that can do stereo can do stereo in any mode.
  * @see https://learn.microsoft.com/windows/win32/api/ddrawint/ns-ddrawint-dd_stereomode
  * @namespace Windows.Win32.Graphics.DirectDraw
- * @version v4.0.30319
  */
-class DD_STEREOMODE extends Win32Struct
-{
+class DD_STEREOMODE extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 4

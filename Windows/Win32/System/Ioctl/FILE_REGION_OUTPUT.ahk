@@ -4,11 +4,9 @@
 
 /**
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class FILE_REGION_OUTPUT extends Win32Struct
-{
-    static sizeof => 24
+class FILE_REGION_OUTPUT extends Win32Struct {
+    static sizeof => 40
 
     static packingSize => 8
 
@@ -45,9 +43,9 @@ class FILE_REGION_OUTPUT extends Win32Struct
     }
 
     /**
-     * @type {Array<FILE_REGION_INFO>}
+     * @type {FILE_REGION_INFO}
      */
-    Region{
+    Region {
         get {
             if(!this.HasProp("__RegionProxyArray"))
                 this.__RegionProxyArray := Win32FixedArray(this.ptr + 16, 1, FILE_REGION_INFO, "")

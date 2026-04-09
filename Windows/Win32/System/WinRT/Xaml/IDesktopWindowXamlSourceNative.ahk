@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Foundation\HWND.ahk
 #Include ..\..\Com\IUnknown.ahk
+#Include ..\..\..\Foundation\HWND.ahk
 
 /**
  * Provides members you can use to attach a **DesktopWindowXamlSource** object that hosts a WinRT XAML control to a parent UI element in your desktop app.
@@ -10,9 +10,8 @@
  * This interface is implemented by the [DesktopWindowXamlSource](/uwp/api/windows.ui.xaml.hosting.desktopwindowxamlsource) class. **DesktopWindowXamlSource** is a key component the [WinRT XAML hosting API](/windows/apps/desktop/modernize/using-the-xaml-hosting-api), which desktop apps can use to host WinRT XAML controls in any UI element that is associated with a window handle (this feature is also called *XAML Islands*).
  * @see https://learn.microsoft.com/windows/win32/api/windows.ui.xaml.hosting.desktopwindowxamlsource/nn-windows-ui-xaml-hosting-desktopwindowxamlsource-idesktopwindowxamlsourcenative
  * @namespace Windows.Win32.System.WinRT.Xaml
- * @version v4.0.30319
  */
-class IDesktopWindowXamlSourceNative extends IUnknown{
+class IDesktopWindowXamlSourceNative extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -62,7 +61,7 @@ class IDesktopWindowXamlSourceNative extends IUnknown{
 
     /**
      * Gets the window handle of the parent UI element that is associated with the current IDesktopWindowXamlSourceNative instance.
-     * @returns {HWND} 
+     * @returns {HWND} On output, this parameter contains the window handle of the parent UI element that is associated with the current [IDesktopWindowXamlSourceNative](nn-windows-ui-xaml-hosting-desktopwindowxamlsource-idesktopwindowxamlsourcenative.md) instance.
      * @see https://learn.microsoft.com/windows/win32/api/windows.ui.xaml.hosting.desktopwindowxamlsource/nf-windows-ui-xaml-hosting-desktopwindowxamlsource-idesktopwindowxamlsourcenative-get_windowhandle
      */
     get_WindowHandle() {

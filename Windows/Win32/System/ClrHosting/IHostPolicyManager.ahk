@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.ClrHosting
- * @version v4.0.30319
  */
-class IHostPolicyManager extends IUnknown{
+class IHostPolicyManager extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -30,8 +29,8 @@ class IHostPolicyManager extends IUnknown{
 
     /**
      * 
-     * @param {Integer} operation 
-     * @param {Integer} action 
+     * @param {EClrOperation} operation 
+     * @param {EPolicyAction} action 
      * @returns {HRESULT} 
      */
     OnDefaultAction(operation, action) {
@@ -41,8 +40,8 @@ class IHostPolicyManager extends IUnknown{
 
     /**
      * 
-     * @param {Integer} operation 
-     * @param {Integer} action 
+     * @param {EClrOperation} operation 
+     * @param {EPolicyAction} action 
      * @returns {HRESULT} 
      */
     OnTimeout(operation, action) {
@@ -52,8 +51,8 @@ class IHostPolicyManager extends IUnknown{
 
     /**
      * 
-     * @param {Integer} failure 
-     * @param {Integer} action 
+     * @param {EClrFailure} failure 
+     * @param {EPolicyAction} action 
      * @returns {HRESULT} 
      */
     OnFailure(failure, action) {

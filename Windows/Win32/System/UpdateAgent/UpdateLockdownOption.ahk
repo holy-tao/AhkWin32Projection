@@ -148,9 +148,8 @@
  * </table>
  * @see https://learn.microsoft.com/windows/win32/api/wuapi/ne-wuapi-updatelockdownoption
  * @namespace Windows.Win32.System.UpdateAgent
- * @version v4.0.30319
  */
-class UpdateLockdownOption extends Win32Enum{
+class UpdateLockdownOption extends Win32Enum {
 
     /**
      * If access is from Windows Update, restrict access to the WUA interfaces that implement the <a href="https://docs.microsoft.com/windows/desktop/api/wuapi/nn-wuapi-iupdatelockdown">IUpdateLockdown</a> interface.

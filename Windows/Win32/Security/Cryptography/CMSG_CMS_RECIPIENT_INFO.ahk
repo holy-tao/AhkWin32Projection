@@ -1,14 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\CMSG_KEY_TRANS_RECIPIENT_INFO.ahk
+#Include .\CMSG_KEY_AGREE_RECIPIENT_INFO.ahk
+#Include .\CMSG_MAIL_LIST_RECIPIENT_INFO.ahk
 
 /**
  * Used with the CryptMsgGetParam function to get information on a key transport, key agreement, or mail list envelope message recipient.
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cmsg_cms_recipient_info
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CMSG_CMS_RECIPIENT_INFO extends Win32Struct
-{
+class CMSG_CMS_RECIPIENT_INFO extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

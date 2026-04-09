@@ -18,10 +18,8 @@
  * The device should use  a multiplier that can be represented exactly as a base-2 fraction.
  * @see https://learn.microsoft.com/windows/win32/api/dxvahd/ns-dxvahd-dxvahd_filter_range_data
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class DXVAHD_FILTER_RANGE_DATA extends Win32Struct
-{
+class DXVAHD_FILTER_RANGE_DATA extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4

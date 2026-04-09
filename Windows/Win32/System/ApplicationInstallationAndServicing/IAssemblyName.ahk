@@ -1,16 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IAssemblyName.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
  * The IAssemblyName interface represents a side-by-side assembly name.
  * @see https://learn.microsoft.com/windows/win32/api/winsxs/nn-winsxs-iassemblyname
  * @namespace Windows.Win32.System.ApplicationInstallationAndServicing
- * @version v4.0.30319
  */
-class IAssemblyName extends IUnknown{
+class IAssemblyName extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

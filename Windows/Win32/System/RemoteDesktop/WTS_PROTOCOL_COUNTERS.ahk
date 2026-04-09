@@ -7,10 +7,8 @@
  * This structure is used by the <a href="https://docs.microsoft.com/windows/desktop/api/wtsdefs/ns-wtsdefs-wts_protocol_status">WTS_PROTOCOL_STATUS</a> structure.
  * @see https://learn.microsoft.com/windows/win32/api/wtsdefs/ns-wtsdefs-wts_protocol_counters
  * @namespace Windows.Win32.System.RemoteDesktop
- * @version v4.0.30319
  */
-class WTS_PROTOCOL_COUNTERS extends Win32Struct
-{
+class WTS_PROTOCOL_COUNTERS extends Win32Struct {
     static sizeof => 464
 
     static packingSize => 4
@@ -170,9 +168,9 @@ class WTS_PROTOCOL_COUNTERS extends Win32Struct
 
     /**
      * An array of protocol specific data. The maximum length can be WTS_MAX_RESERVED multiplied by the size of an unsigned long integer.
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    Reserved{
+    Reserved {
         get {
             if(!this.HasProp("__ReservedProxyArray"))
                 this.__ReservedProxyArray := Win32FixedArray(this.ptr + 64, 100, Primitive, "uint")

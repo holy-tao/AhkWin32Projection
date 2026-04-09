@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\WSD_METADATA_SECTION_LIST.ahk
 
 /**
  * Represents a WS-MetadataExchange GetMetadata response message.
  * @see https://learn.microsoft.com/windows/win32/api/wsdtypes/ns-wsdtypes-responsebody_getmetadata
  * @namespace Windows.Win32.Devices.WebServicesOnDevices
- * @version v4.0.30319
  */
-class RESPONSEBODY_GetMetadata extends Win32Struct
-{
+class RESPONSEBODY_GetMetadata extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 8

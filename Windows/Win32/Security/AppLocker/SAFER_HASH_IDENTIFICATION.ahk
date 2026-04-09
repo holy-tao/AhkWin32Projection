@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\FILETIME.ahk
 #Include .\SAFER_IDENTIFICATION_HEADER.ahk
+#Include .\SAFER_IDENTIFICATION_TYPES.ahk
+#Include ..\..\Foundation\FILETIME.ahk
+#Include ..\Cryptography\ALG_ID.ahk
 
 /**
  * Represents a hash identification rule.
  * @see https://learn.microsoft.com/windows/win32/api/winsafer/ns-winsafer-safer_hash_identification
  * @namespace Windows.Win32.Security.AppLocker
- * @version v4.0.30319
  */
-class SAFER_HASH_IDENTIFICATION extends Win32Struct
-{
+class SAFER_HASH_IDENTIFICATION extends Win32Struct {
     static sizeof => 1136
 
     static packingSize => 8
@@ -19,7 +19,7 @@ class SAFER_HASH_IDENTIFICATION extends Win32Struct
      * A <a href="https://docs.microsoft.com/windows/desktop/api/winsafer/ns-winsafer-safer_identification_header">SAFER_IDENTIFICATION_HEADER</a> structure containing the structure header. The <b>dwIdentificationType</b> member  of the header must be <b>SaferIdentityTypeImageHash</b>, and the <b>cbStructSize</b> member  of the header must be sizeof(SAFER_HASH_IDENTIFICATION).
      * @type {SAFER_IDENTIFICATION_HEADER}
      */
-    header{
+    header {
         get {
             if(!this.HasProp("__header"))
                 this.__header := SAFER_IDENTIFICATION_HEADER(0, this)
@@ -56,9 +56,9 @@ class SAFER_HASH_IDENTIFICATION extends Win32Struct
 
     /**
      * The computed hash of the code image.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    ImageHash{
+    ImageHash {
         get {
             if(!this.HasProp("__ImageHashProxyArray"))
                 this.__ImageHashProxyArray := Win32FixedArray(this.ptr + 1052, 64, Primitive, "char")
@@ -68,7 +68,7 @@ class SAFER_HASH_IDENTIFICATION extends Win32Struct
 
     /**
      * The algorithm used to compute the hash.
-     * @type {Integer}
+     * @type {ALG_ID}
      */
     HashAlgorithm {
         get => NumGet(this, 1116, "uint")

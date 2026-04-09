@@ -9,10 +9,8 @@
  * The fax service allocates the memory for the strings pointed to by the <b>CSI</b>, <b>CallerId</b> and <b>RoutingInfo</b> members. The size of the memory the service allocates is equal to sizeof(<b>FAX_DEV_STATUS</b>) + <b>FAXDEVREPORTSTATUS_SIZE</b>. The FSP must place the strings in the block of memory that immediately follows the <b>FAX_DEV_STATUS</b> structure. The <b>CSI</b>, <b>CallerId</b> and <b>RoutingInfo</b> members must point to the location of the strings in the memory block.
  * @see https://learn.microsoft.com/windows/win32/api/faxdev/ns-faxdev-fax_dev_status
  * @namespace Windows.Win32.Devices.Fax
- * @version v4.0.30319
  */
-class FAX_DEV_STATUS extends Win32Struct
-{
+class FAX_DEV_STATUS extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8
@@ -199,9 +197,9 @@ class FAX_DEV_STATUS extends Win32Struct
      * Type: <b>DWORD</b>
      * 
      * This member is reserved  by Microsoft. It must be set to zero.
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    Reserved{
+    Reserved {
         get {
             if(!this.HasProp("__ReservedProxyArray"))
                 this.__ReservedProxyArray := Win32FixedArray(this.ptr + 44, 3, Primitive, "uint")

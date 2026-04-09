@@ -11,10 +11,8 @@
  * If the callback input type is <b>ModuleCallback</b>, the  <b>ModuleWriteFlags</b> member of <a href="https://docs.microsoft.com/windows/win32/api/minidumpapiset/ns-minidumpapiset-minidump_callback_output">MINIDUMP_CALLBACK_OUTPUT</a> is set to the flags specified in the <b>dwPreferredModuleFlags</b> or <b>dwOtherModuleFlags</b> members. If the callback is for a module on the preferred modules list, the <b>dwPreferredModuleFlags</b> flags are used; otherwise, the <b>dwOtherModuleFlags</b> flags are used.
  * @see https://learn.microsoft.com/windows/win32/api/werapi/ns-werapi-wer_dump_custom_options
  * @namespace Windows.Win32.System.ErrorReporting
- * @version v4.0.30319
  */
-class WER_DUMP_CUSTOM_OPTIONS extends Win32Struct
-{
+class WER_DUMP_CUSTOM_OPTIONS extends Win32Struct {
     static sizeof => 552
 
     static packingSize => 4
@@ -29,7 +27,6 @@ class WER_DUMP_CUSTOM_OPTIONS extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     dwMask {

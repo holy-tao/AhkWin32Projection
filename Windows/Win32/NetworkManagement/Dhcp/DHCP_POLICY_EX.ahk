@@ -1,12 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DHCP_POL_COND_ARRAY.ahk
+#Include .\DHCP_POL_EXPR_ARRAY.ahk
+#Include .\DHCP_IP_RANGE_ARRAY.ahk
+#Include .\DHCP_PROPERTY_ARRAY.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Dhcp
- * @version v4.0.30319
  */
-class DHCP_POLICY_EX extends Win32Struct
-{
+class DHCP_POLICY_EX extends Win32Struct {
     static sizeof => 72
 
     static packingSize => 8

@@ -1,16 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IEnumAgent.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * IEnumAgent (tapi3cc.h) is the enumerator interface for ITAgent.
  * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/nn-tapi3cc-ienumagent
  * @namespace Windows.Win32.Devices.Tapi
- * @version v4.0.30319
  */
-class IEnumAgent extends IUnknown{
+class IEnumAgent extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

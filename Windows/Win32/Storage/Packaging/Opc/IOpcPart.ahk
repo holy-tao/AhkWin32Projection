@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
 #Include .\IOpcRelationshipSet.ahk
 #Include ..\..\..\System\Com\IStream.ahk
 #Include .\IOpcPartUri.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
  * Represents a part that contains data and is not a Relationships part.
@@ -67,9 +67,8 @@
  * For more information about parts, see the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/opc/open-packaging-conventions-overview">Open Packaging Conventions Fundamentals</a> and the <i>OPC</i>.
  * @see https://learn.microsoft.com/windows/win32/api/msopc/nn-msopc-iopcpart
  * @namespace Windows.Win32.Storage.Packaging.Opc
- * @version v4.0.30319
  */
-class IOpcPart extends IUnknown{
+class IOpcPart extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -150,7 +149,7 @@ class IOpcPart extends IUnknown{
      * Gets a value that describes the way part content is compressed.
      * @remarks
      * For more information about parts, see the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/opc/open-packaging-conventions-overview">Open Packaging Conventions Fundamentals</a> and the <i>ECMA-376 OpenXML, 1st Edition, Part 2: Open Packaging Conventions (OPC)</i>.
-     * @returns {Integer} A value that describes the way part content is compressed.
+     * @returns {OPC_COMPRESSION_OPTIONS} A value that describes the way part content is compressed.
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcpart-getcompressionoptions
      */
     GetCompressionOptions() {

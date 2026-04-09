@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * Used to configure the description and filters for a single report.
  * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nn-fsrmreports-ifsrmreport
  * @namespace Windows.Win32.Storage.FileServerResourceManager
- * @version v4.0.30319
  */
-class IFsrmReport extends IDispatch{
+class IFsrmReport extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -33,7 +32,7 @@ class IFsrmReport extends IDispatch{
     static VTableNames => ["get_Type", "get_Name", "put_Name", "get_Description", "put_Description", "get_LastGeneratedFileNamePrefix", "GetFilter", "SetFilter", "Delete"]
 
     /**
-     * @type {Integer} 
+     * @type {FsrmReportType} 
      */
     Type {
         get => this.get_Type()
@@ -64,7 +63,7 @@ class IFsrmReport extends IDispatch{
 
     /**
      * Retrieves the type of report to generate.
-     * @returns {Integer} 
+     * @returns {FsrmReportType} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmreport-get_type
      */
     get_Type() {
@@ -149,7 +148,7 @@ class IFsrmReport extends IDispatch{
 
     /**
      * Retrieves the value of the specified report filter.
-     * @param {Integer} filter The filter used to limit the files listed in a report. For possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/fsrmenums/ne-fsrmenums-fsrmreportfilter">FsrmReportFilter</a> enumeration.
+     * @param {FsrmReportFilter} filter The filter used to limit the files listed in a report. For possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/fsrmenums/ne-fsrmenums-fsrmreportfilter">FsrmReportFilter</a> enumeration.
      * @returns {VARIANT} The filter value for the specified report filter.
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmreport-getfilter
      */
@@ -239,7 +238,7 @@ class IFsrmReport extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @param {Integer} filter The filter used to  limit the files listed in a report. For possible values, see the 
+     * @param {FsrmReportFilter} filter The filter used to  limit the files listed in a report. For possible values, see the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/fsrmenums/ne-fsrmenums-fsrmreportfilter">FsrmReportFilter</a> enumeration.
      * @param {VARIANT} filterValue The filter value to use for the specified report filter. The filter value cannot contain the following: 
      *       slash mark (/), backslash (\\), greater than sign (&gt;), less than sign (&lt;), vertical bar (|), double 

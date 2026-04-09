@@ -8,10 +8,8 @@
  * Either <b>TitleNum</b> and <b>ChapterNum</b>, or <b>TitleNum</b> and <b>TimeCode</b>, are sufficient to save the playback location for simple linear movies.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/ns-strmif-dvd_playback_location2
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class DVD_PLAYBACK_LOCATION2 extends Win32Struct
-{
+class DVD_PLAYBACK_LOCATION2 extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4
@@ -38,7 +36,7 @@ class DVD_PLAYBACK_LOCATION2 extends Win32Struct
      * Timecode. Use [DVD_HMSF_TIMECODE](/windows/desktop/api/strmif/ns-strmif-dvd_hmsf_timecode) for current playback time. 0xffffffff if not a simple linear movie.
      * @type {DVD_HMSF_TIMECODE}
      */
-    TimeCode{
+    TimeCode {
         get {
             if(!this.HasProp("__TimeCode"))
                 this.__TimeCode := DVD_HMSF_TIMECODE(8, this)

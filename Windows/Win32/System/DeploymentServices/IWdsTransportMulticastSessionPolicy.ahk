@@ -7,9 +7,8 @@
  * This interface represents the multicast session policy portion of a WDS Transport server’s configuration.
  * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nn-wdstptmgmt-iwdstransportmulticastsessionpolicy
  * @namespace Windows.Win32.System.DeploymentServices
- * @version v4.0.30319
  */
-class IWdsTransportMulticastSessionPolicy extends IWdsTransportCacheable{
+class IWdsTransportMulticastSessionPolicy extends IWdsTransportCacheable {
 
     static sizeof => A_PtrSize
     /**
@@ -37,7 +36,7 @@ class IWdsTransportMulticastSessionPolicy extends IWdsTransportCacheable{
     static VTableNames => ["get_SlowClientHandling", "put_SlowClientHandling", "get_AutoDisconnectThreshold", "put_AutoDisconnectThreshold", "get_MultistreamStreamCount", "put_MultistreamStreamCount", "get_SlowClientFallback", "put_SlowClientFallback"]
 
     /**
-     * @type {Integer} 
+     * @type {WDSTRANSPORT_SLOW_CLIENT_HANDLING_TYPE} 
      */
     SlowClientHandling {
         get => this.get_SlowClientHandling()
@@ -70,7 +69,7 @@ class IWdsTransportMulticastSessionPolicy extends IWdsTransportCacheable{
 
     /**
      * Sets or retrieves a WDSTRANSPORT_SLOW_CLIENT_HANDLING_TYPE value that indicates the method used by the server to handle clients that are slowing down a multicast transmission. (Get)
-     * @returns {Integer} 
+     * @returns {WDSTRANSPORT_SLOW_CLIENT_HANDLING_TYPE} 
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportmulticastsessionpolicy-get_slowclienthandling
      */
     get_SlowClientHandling() {
@@ -80,7 +79,7 @@ class IWdsTransportMulticastSessionPolicy extends IWdsTransportCacheable{
 
     /**
      * Sets or retrieves a WDSTRANSPORT_SLOW_CLIENT_HANDLING_TYPE value that indicates the method used by the server to handle clients that are slowing down a multicast transmission. (Put)
-     * @param {Integer} SlowClientHandling 
+     * @param {WDSTRANSPORT_SLOW_CLIENT_HANDLING_TYPE} SlowClientHandling 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportmulticastsessionpolicy-put_slowclienthandling
      */

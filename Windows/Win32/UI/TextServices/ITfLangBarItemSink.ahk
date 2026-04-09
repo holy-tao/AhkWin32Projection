@@ -7,9 +7,8 @@
  * The ITfLangBarItemSink interface is implemented by the language bar and used by a language bar item provider to notify the language bar of changes to a language bar item.
  * @see https://learn.microsoft.com/windows/win32/api/ctfutb/nn-ctfutb-itflangbaritemsink
  * @namespace Windows.Win32.UI.TextServices
- * @version v4.0.30319
  */
-class ITfLangBarItemSink extends IUnknown{
+class ITfLangBarItemSink extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

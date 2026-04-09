@@ -24,9 +24,8 @@
  * -   D3DRS\_BLENDOPALPHA
  * @see https://learn.microsoft.com/windows/win32/direct3d9/d3dblendop
  * @namespace Windows.Win32.Graphics.Direct3D9
- * @version v4.0.30319
  */
-class D3DBLENDOP extends Win32Enum{
+class D3DBLENDOP extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

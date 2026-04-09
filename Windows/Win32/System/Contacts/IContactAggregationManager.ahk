@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Com\IUnknown.ahk
 #Include .\IContactAggregationGroup.ahk
 #Include .\IContactAggregationContact.ahk
 #Include .\IContactAggregationServerPerson.ahk
@@ -11,13 +12,11 @@
 #Include .\IContactAggregationGroupCollection.ahk
 #Include .\IContactAggregationServerPersonCollection.ahk
 #Include .\IContactAggregationLinkCollection.ahk
-#Include ..\Com\IUnknown.ahk
 
 /**
  * @namespace Windows.Win32.System.Contacts
- * @version v4.0.30319
  */
-class IContactAggregationManager extends IUnknown{
+class IContactAggregationManager extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -62,7 +61,7 @@ class IContactAggregationManager extends IUnknown{
     /**
      * 
      * @param {PWSTR} pGroupName 
-     * @param {Integer} options 
+     * @param {CONTACT_AGGREGATION_CREATE_OR_OPEN_OPTIONS} options 
      * @param {Pointer<BOOL>} pCreatedGroup 
      * @returns {IContactAggregationGroup} 
      */
@@ -165,7 +164,7 @@ class IContactAggregationManager extends IUnknown{
 
     /**
      * 
-     * @param {Integer} options 
+     * @param {CONTACT_AGGREGATION_COLLECTION_OPTIONS} options 
      * @returns {IContactAggregationContactCollection} 
      */
     get_Contacts(options) {
@@ -175,7 +174,7 @@ class IContactAggregationManager extends IUnknown{
 
     /**
      * 
-     * @param {Integer} options 
+     * @param {CONTACT_AGGREGATION_COLLECTION_OPTIONS} options 
      * @returns {IContactAggregationAggregateCollection} 
      */
     get_AggregateContacts(options) {
@@ -185,7 +184,7 @@ class IContactAggregationManager extends IUnknown{
 
     /**
      * 
-     * @param {Integer} options 
+     * @param {CONTACT_AGGREGATION_COLLECTION_OPTIONS} options 
      * @returns {IContactAggregationGroupCollection} 
      */
     get_Groups(options) {

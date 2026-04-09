@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\MediaFoundation\IMFVideoPresenter.ahk
 #Include .\IMSVidVideoRenderer.ahk
+#Include ..\..\MediaFoundation\IMFVideoPresenter.ahk
 
 /**
  * The IMSVidEVR interface represents the Enhanced Video Renderer (EVR) filter within the Video Control filter graph.
@@ -10,9 +10,8 @@
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IMSVidEVR)</c>.
  * @see https://learn.microsoft.com/windows/win32/api/segment/nn-segment-imsvidevr
  * @namespace Windows.Win32.Media.DirectShow.Tv
- * @version v4.0.30319
  */
-class IMSVidEVR extends IMSVidVideoRenderer{
+class IMSVidEVR extends IMSVidVideoRenderer {
 
     static sizeof => A_PtrSize
     /**

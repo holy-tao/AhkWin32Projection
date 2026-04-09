@@ -5,9 +5,8 @@
  * The PEER_CONNECTION_STATUS enumeration specifies the status of a peer direct or neighbor connection.
  * @see https://learn.microsoft.com/windows/win32/api/p2p/ne-p2p-peer_connection_status
  * @namespace Windows.Win32.NetworkManagement.P2P
- * @version v4.0.30319
  */
-class PEER_CONNECTION_STATUS extends Win32Enum{
+class PEER_CONNECTION_STATUS extends Win32Enum {
 
     /**
      * The peer is connected to another peer.

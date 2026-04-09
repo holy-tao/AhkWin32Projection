@@ -11,9 +11,8 @@
  * You do not call this interface directly. <b>IRemoteComputer</b> is used by the operating system only when it has confirmed that your application is aware of this interface.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-iremotecomputer
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IRemoteComputer extends IUnknown{
+class IRemoteComputer extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\WDMUSB_POWER_STATE.ahk
 
 /**
  * The USB_POWER_INFO structure is used with the IOCTL_USB_USER_REQUEST I/O control request to retrieve device power state that the host controller power policy specifies for the indicated system power state.
@@ -7,17 +8,15 @@
  * The <b>USB_POWER_INFO</b> structure is used with the USBUSER_GET_POWER_STATE_MAP user-mode request. For more information about this request, see <a href="https://docs.microsoft.com/windows/desktop/api/usbuser/ni-usbuser-ioctl_usb_user_request">IOCTL_USB_USER_REQUEST</a>.
  * @see https://learn.microsoft.com/windows/win32/api/usbuser/ns-usbuser-usb_power_info
  * @namespace Windows.Win32.Devices.Usb
- * @version v4.0.30319
  */
-class USB_POWER_INFO extends Win32Struct
-{
+class USB_POWER_INFO extends Win32Struct {
     static sizeof => 36
 
     static packingSize => 4
 
     /**
      * On input, a <a href="https://docs.microsoft.com/windows/desktop/api/usbuser/ne-usbuser-wdmusb_power_state">WDMUSB_POWER_STATE</a>-type enumerator value that specifies the system power state.
-     * @type {Integer}
+     * @type {WDMUSB_POWER_STATE}
      */
     SystemState {
         get => NumGet(this, 0, "int")
@@ -26,7 +25,7 @@ class USB_POWER_INFO extends Win32Struct
 
     /**
      * On output, an <a href="https://docs.microsoft.com/windows/desktop/api/usbuser/ne-usbuser-wdmusb_power_state">WDMUSB_POWER_STATE</a>-type enumerator value that specifies the device power state of the host controller.
-     * @type {Integer}
+     * @type {WDMUSB_POWER_STATE}
      */
     HcDevicePowerState {
         get => NumGet(this, 4, "int")
@@ -35,7 +34,7 @@ class USB_POWER_INFO extends Win32Struct
 
     /**
      * On output, a <a href="https://docs.microsoft.com/windows/desktop/api/usbuser/ne-usbuser-wdmusb_power_state">WDMUSB_POWER_STATE</a>-type enumerator value that specifies whether the host controller is in a wake state.
-     * @type {Integer}
+     * @type {WDMUSB_POWER_STATE}
      */
     HcDeviceWake {
         get => NumGet(this, 8, "int")
@@ -44,7 +43,7 @@ class USB_POWER_INFO extends Win32Struct
 
     /**
      * On output, a <a href="https://docs.microsoft.com/windows/desktop/api/usbuser/ne-usbuser-wdmusb_power_state">WDMUSB_POWER_STATE</a>-type enumerator value that specifies whether the host controller can wake the system.
-     * @type {Integer}
+     * @type {WDMUSB_POWER_STATE}
      */
     HcSystemWake {
         get => NumGet(this, 12, "int")
@@ -53,7 +52,7 @@ class USB_POWER_INFO extends Win32Struct
 
     /**
      * On output, a <a href="https://docs.microsoft.com/windows/desktop/api/usbuser/ne-usbuser-wdmusb_power_state">WDMUSB_POWER_STATE</a>-type enumerator value that specifies the device power state of the root hub.
-     * @type {Integer}
+     * @type {WDMUSB_POWER_STATE}
      */
     RhDevicePowerState {
         get => NumGet(this, 16, "int")
@@ -62,7 +61,7 @@ class USB_POWER_INFO extends Win32Struct
 
     /**
      * On output, a <a href="https://docs.microsoft.com/windows/desktop/api/usbuser/ne-usbuser-wdmusb_power_state">WDMUSB_POWER_STATE</a>-type enumerator value that specifies whether the root hub is in a wake state.
-     * @type {Integer}
+     * @type {WDMUSB_POWER_STATE}
      */
     RhDeviceWake {
         get => NumGet(this, 20, "int")
@@ -71,7 +70,7 @@ class USB_POWER_INFO extends Win32Struct
 
     /**
      * On output, a <a href="https://docs.microsoft.com/windows/desktop/api/usbuser/ne-usbuser-wdmusb_power_state">WDMUSB_POWER_STATE</a>-type enumerator value that specifies whether the root hub can wake the system.
-     * @type {Integer}
+     * @type {WDMUSB_POWER_STATE}
      */
     RhSystemWake {
         get => NumGet(this, 24, "int")
@@ -80,7 +79,7 @@ class USB_POWER_INFO extends Win32Struct
 
     /**
      * On output, a <a href="https://docs.microsoft.com/windows/desktop/api/usbuser/ne-usbuser-wdmusb_power_state">WDMUSB_POWER_STATE</a>-type enumerator value that specifies the last system sleep state.
-     * @type {Integer}
+     * @type {WDMUSB_POWER_STATE}
      */
     LastSystemSleepState {
         get => NumGet(this, 28, "int")

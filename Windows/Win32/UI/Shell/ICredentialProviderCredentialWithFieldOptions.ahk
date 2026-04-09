@@ -10,9 +10,8 @@
  * Implement this interface if your credential provider overrides the default field options through <a href="https://docs.microsoft.com/windows/desktop/api/credentialprovider/nf-credentialprovider-icredentialprovidercredentialevents2-setfieldoptions">ICredentialProviderCredentialEvents2::SetFieldOptions</a>. This enables the credential provider framework to determine the field options that you've specified .
  * @see https://learn.microsoft.com/windows/win32/api/credentialprovider/nn-credentialprovider-icredentialprovidercredentialwithfieldoptions
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class ICredentialProviderCredentialWithFieldOptions extends IUnknown{
+class ICredentialProviderCredentialWithFieldOptions extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -36,7 +35,7 @@ class ICredentialProviderCredentialWithFieldOptions extends IUnknown{
     /**
      * Retrieves the current option set for a specified field in a logon or credential UI. Called by the credential provider framework.
      * @param {Integer} fieldID The ID of the field in the logon or credential UI.
-     * @returns {Integer} A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/credentialprovider/ne-credentialprovider-credential_provider_credential_field_options">CREDENTIAL_PROVIDER_CREDENTIAL_FIELD_OPTIONS</a> value that, when this method returns successfully, receives one or more flags that specify the current options for the field.
+     * @returns {CREDENTIAL_PROVIDER_CREDENTIAL_FIELD_OPTIONS} A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/credentialprovider/ne-credentialprovider-credential_provider_credential_field_options">CREDENTIAL_PROVIDER_CREDENTIAL_FIELD_OPTIONS</a> value that, when this method returns successfully, receives one or more flags that specify the current options for the field.
      * @see https://learn.microsoft.com/windows/win32/api/credentialprovider/nf-credentialprovider-icredentialprovidercredentialwithfieldoptions-getfieldoptions
      */
     GetFieldOptions(fieldID) {

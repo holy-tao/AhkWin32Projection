@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Networking.WinSock
- * @version v4.0.30319
  */
-class ATM_BLLI_IE extends Win32Struct
-{
+class ATM_BLLI_IE extends Win32Struct {
     static sizeof => 36
 
     static packingSize => 4
@@ -92,9 +90,9 @@ class ATM_BLLI_IE extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    SnapID{
+    SnapID {
         get {
             if(!this.HasProp("__SnapIDProxyArray"))
                 this.__SnapIDProxyArray := Win32FixedArray(this.ptr + 28, 5, Primitive, "char")

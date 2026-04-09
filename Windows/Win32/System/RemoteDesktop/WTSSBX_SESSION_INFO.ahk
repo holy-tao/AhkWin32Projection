@@ -1,15 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\FILETIME.ahk
+#Include .\WTSSBX_SESSION_STATE.ahk
 
 /**
  * Contains information about sessions that are available to Remote Desktop Connection Broker (RD Connection Broker).
  * @see https://learn.microsoft.com/windows/win32/api/tssbx/ns-tssbx-wtssbx_session_info
  * @namespace Windows.Win32.System.RemoteDesktop
- * @version v4.0.30319
  */
-class WTSSBX_SESSION_INFO extends Win32Struct
-{
+class WTSSBX_SESSION_INFO extends Win32Struct {
     static sizeof => 1264
 
     static packingSize => 4
@@ -54,7 +53,7 @@ class WTSSBX_SESSION_INFO extends Win32Struct
      * The time that the session was initiated.
      * @type {FILETIME}
      */
-    CreateTime{
+    CreateTime {
         get {
             if(!this.HasProp("__CreateTime"))
                 this.__CreateTime := FILETIME(1244, this)
@@ -66,7 +65,7 @@ class WTSSBX_SESSION_INFO extends Win32Struct
      * The time that the user disconnected from the session.
      * @type {FILETIME}
      */
-    DisconnectTime{
+    DisconnectTime {
         get {
             if(!this.HasProp("__DisconnectTime"))
                 this.__DisconnectTime := FILETIME(1252, this)
@@ -76,7 +75,7 @@ class WTSSBX_SESSION_INFO extends Win32Struct
 
     /**
      * A value of the <a href="https://docs.microsoft.com/windows/win32/api/tssbx/ne-tssbx-wtssbx_session_state">WTSSBX_SESSION_STATE</a> enumeration type that indicates the state of the session.
-     * @type {Integer}
+     * @type {WTSSBX_SESSION_STATE}
      */
     SessionState {
         get => NumGet(this, 1260, "int")

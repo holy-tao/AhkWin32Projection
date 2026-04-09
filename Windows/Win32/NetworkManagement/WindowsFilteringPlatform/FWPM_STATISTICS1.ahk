@@ -1,12 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\FWPM_LAYER_STATISTICS1.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
- * @version v4.0.30319
  */
-class FWPM_STATISTICS1 extends Win32Struct
-{
+class FWPM_STATISTICS1 extends Win32Struct {
     static sizeof => 240
 
     static packingSize => 8

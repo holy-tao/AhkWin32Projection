@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class KD_CALLBACK_ACTION extends Win32Enum{
+class KD_CALLBACK_ACTION extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

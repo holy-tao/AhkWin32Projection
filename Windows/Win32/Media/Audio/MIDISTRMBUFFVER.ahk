@@ -5,10 +5,8 @@
  * The MIDISTRMBUFFVER structure contains version information for a long MIDI event of the MEVT_VERSION type.
  * @see https://learn.microsoft.com/windows/win32/api/mmeapi/ns-mmeapi-midistrmbuffver
  * @namespace Windows.Win32.Media.Audio
- * @version v4.0.30319
  */
-class MIDISTRMBUFFVER extends Win32Struct
-{
+class MIDISTRMBUFFVER extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4

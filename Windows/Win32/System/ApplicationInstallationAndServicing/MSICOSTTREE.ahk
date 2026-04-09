@@ -5,9 +5,8 @@
  * The children of the indicated feature are included in the cost.
  * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msigetfeaturecosta
  * @namespace Windows.Win32.System.ApplicationInstallationAndServicing
- * @version v4.0.30319
  */
-class MSICOSTTREE extends Win32Enum{
+class MSICOSTTREE extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

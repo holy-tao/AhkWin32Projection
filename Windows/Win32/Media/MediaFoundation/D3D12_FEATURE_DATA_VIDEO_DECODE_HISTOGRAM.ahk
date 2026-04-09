@@ -1,16 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Graphics\Dxgi\Common\DXGI_FORMAT.ahk
+#Include .\D3D12_VIDEO_DECODE_HISTOGRAM_COMPONENT_FLAGS.ahk
 
 /**
  * Provides data for calls to ID3D12VideoDevice::CheckFeatureSupport when the feature specified is D3D12_FEATURE_VIDEO_DECODE_HISTOGRAM.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/d3d12video/ns-d3d12video-d3d12_feature_data_video_decode_histogram
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class D3D12_FEATURE_DATA_VIDEO_DECODE_HISTOGRAM extends Win32Struct
-{
+class D3D12_FEATURE_DATA_VIDEO_DECODE_HISTOGRAM extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -26,7 +24,7 @@ class D3D12_FEATURE_DATA_VIDEO_DECODE_HISTOGRAM extends Win32Struct
 
     /**
      * A GUID representing the decode profile for which histogram capabilities will be queried. Get a list of available profile GUIDs by calling [ID3D12VideoDevice::CheckFeatureSupport](nf-d3d12video-id3d12videodevice-checkfeaturesupport.md) when the feature specified is [D3D12\_FEATURE\_VIDEO\_DECODE\_PROFILES](ne-d3d12video-d3d12_feature_video.md).
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     DecodeProfile {
         get => NumGet(this, 8, "ptr")
@@ -53,7 +51,7 @@ class D3D12_FEATURE_DATA_VIDEO_DECODE_HISTOGRAM extends Win32Struct
 
     /**
      * The [DXGI\_FORMAT](/windows/desktop/api/dxgiformat/ne-dxgiformat-dxgi_format) representing the decode format.
-     * @type {Integer}
+     * @type {DXGI_FORMAT}
      */
     DecodeFormat {
         get => NumGet(this, 24, "int")
@@ -62,7 +60,7 @@ class D3D12_FEATURE_DATA_VIDEO_DECODE_HISTOGRAM extends Win32Struct
 
     /**
      * A bitwise OR combination of values from the [D3D12_VIDEO_DECODE_HISTOGRAM_COMPONENT_FLAGS](ne-d3d12video-d3d12_video_decode_histogram_component_flags.md) enumeration specifying the components of a DXGI_FORMAT for which histogram support will be queried.
-     * @type {Integer}
+     * @type {D3D12_VIDEO_DECODE_HISTOGRAM_COMPONENT_FLAGS}
      */
     Components {
         get => NumGet(this, 28, "int")

@@ -31,9 +31,8 @@
  * Because Visual Basic Scripting Edition (VBScript) cannot read data from a type library, an application must use the appropriate numeric constants, instead of the symbolic constants, to set the appropriate flags. To use the symbolic constants as a good programming practice, write explicit declarations of such constants, as done here.
  * @see https://learn.microsoft.com/windows/win32/api/iads/ne-iads-ads_security_info_enum
  * @namespace Windows.Win32.Networking.ActiveDirectory
- * @version v4.0.30319
  */
-class ADS_SECURITY_INFO_ENUM extends Win32Enum{
+class ADS_SECURITY_INFO_ENUM extends Win32Enum {
 
     /**
      * Reads or sets the owner data.

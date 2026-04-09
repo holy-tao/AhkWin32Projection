@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ISWbemObjectPath.ahk
 #Include .\ISWbemServices.ahk
+#Include .\ISWbemObjectPath.ahk
 
 /**
  * @namespace Windows.Win32.System.Wmi
- * @version v4.0.30319
  */
-class ISWbemServicesEx extends ISWbemServices{
+class ISWbemServicesEx extends ISWbemServices {
 
     static sizeof => A_PtrSize
     /**

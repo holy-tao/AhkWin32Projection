@@ -9,9 +9,8 @@
  * An edit transaction involves multiple document locks, and usually includes multiple <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nf-msctf-itftexteditsink-onendedit">ITfTextEditSink::OnEndEdit</a> method callbacks.
  * @see https://learn.microsoft.com/windows/win32/api/msctf/nn-msctf-itfedittransactionsink
  * @namespace Windows.Win32.UI.TextServices
- * @version v4.0.30319
  */
-class ITfEditTransactionSink extends IUnknown{
+class ITfEditTransactionSink extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

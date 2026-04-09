@@ -3,14 +3,10 @@
 
 /**
  * Contains the identity for a pre-shared key.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/sspi/ns-sspi-sec_presharedkey_identity
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class SEC_PRESHAREDKEY_IDENTITY extends Win32Struct
-{
+class SEC_PRESHAREDKEY_IDENTITY extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 2
@@ -26,9 +22,9 @@ class SEC_PRESHAREDKEY_IDENTITY extends Win32Struct
 
     /**
      * The PSK identity.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    KeyIdentity{
+    KeyIdentity {
         get {
             if(!this.HasProp("__KeyIdentityProxyArray"))
                 this.__KeyIdentityProxyArray := Win32FixedArray(this.ptr + 2, 1, Primitive, "char")

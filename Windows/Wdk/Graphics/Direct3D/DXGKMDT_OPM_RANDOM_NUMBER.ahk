@@ -3,18 +3,16 @@
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
- * @version v4.0.30319
  */
-class DXGKMDT_OPM_RANDOM_NUMBER extends Win32Struct
-{
+class DXGKMDT_OPM_RANDOM_NUMBER extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 1
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    abRandomNumber{
+    abRandomNumber {
         get {
             if(!this.HasProp("__abRandomNumberProxyArray"))
                 this.__abRandomNumberProxyArray := Win32FixedArray(this.ptr + 0, 16, Primitive, "char")

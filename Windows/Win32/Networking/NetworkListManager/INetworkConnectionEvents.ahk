@@ -7,9 +7,8 @@
  * The INetworkConnectionEvents interface is a message sink interface that a client implements to get network connection-related events. Applications that are interested in lower-level events (such as authentication changes) must implement this interface.
  * @see https://learn.microsoft.com/windows/win32/api/netlistmgr/nn-netlistmgr-inetworkconnectionevents
  * @namespace Windows.Win32.Networking.NetworkListManager
- * @version v4.0.30319
  */
-class INetworkConnectionEvents extends IUnknown{
+class INetworkConnectionEvents extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -33,7 +32,7 @@ class INetworkConnectionEvents extends IUnknown{
     /**
      * The NetworkConnectionConnectivityChanged method notifies a client when connectivity change events occur on a network connection level.
      * @param {Guid} connectionId A GUID that identifies the network connection  on which the event occurred.
-     * @param {Integer} newConnectivity <a href="https://docs.microsoft.com/windows/desktop/api/netlistmgr/ne-netlistmgr-nlm_connectivity">NLM_CONNECTIVITY</a> enumeration value that specifies the new connectivity for this network connection.
+     * @param {NLM_CONNECTIVITY} newConnectivity <a href="https://docs.microsoft.com/windows/desktop/api/netlistmgr/ne-netlistmgr-nlm_connectivity">NLM_CONNECTIVITY</a> enumeration value that specifies the new connectivity for this network connection.
      * @returns {HRESULT} Returns S_OK if the method succeeds.
      * @see https://learn.microsoft.com/windows/win32/api/netlistmgr/nf-netlistmgr-inetworkconnectionevents-networkconnectionconnectivitychanged
      */
@@ -45,7 +44,7 @@ class INetworkConnectionEvents extends IUnknown{
     /**
      * The NetworkConnectionPropertyChanged method notifies a client when property change events related to a specific network connection occur.
      * @param {Guid} connectionId A GUID that identifies the network connection  on which the event occurred.
-     * @param {Integer} flags The <a href="https://docs.microsoft.com/windows/desktop/api/netlistmgr/ne-netlistmgr-nlm_connection_property_change">NLM_CONNECTION_PROPERTY_CHANGE</a> flags for this connection.
+     * @param {NLM_CONNECTION_PROPERTY_CHANGE} flags The <a href="https://docs.microsoft.com/windows/desktop/api/netlistmgr/ne-netlistmgr-nlm_connection_property_change">NLM_CONNECTION_PROPERTY_CHANGE</a> flags for this connection.
      * @returns {HRESULT} Returns S_OK if the method succeeds.
      * @see https://learn.microsoft.com/windows/win32/api/netlistmgr/nf-netlistmgr-inetworkconnectionevents-networkconnectionpropertychanged
      */

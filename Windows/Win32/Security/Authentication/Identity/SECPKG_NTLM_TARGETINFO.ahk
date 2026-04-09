@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class SECPKG_NTLM_TARGETINFO extends Win32Struct
-{
+class SECPKG_NTLM_TARGETINFO extends Win32Struct {
     static sizeof => 72
 
     static packingSize => 8
@@ -71,7 +69,7 @@ class SECPKG_NTLM_TARGETINFO extends Win32Struct
     /**
      * @type {FILETIME}
      */
-    MsvAvTimestamp{
+    MsvAvTimestamp {
         get {
             if(!this.HasProp("__MsvAvTimestamp"))
                 this.__MsvAvTimestamp := FILETIME(52, this)

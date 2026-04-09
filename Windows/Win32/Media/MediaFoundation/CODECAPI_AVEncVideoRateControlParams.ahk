@@ -5,10 +5,8 @@
  * Specifies the video rate control parameters for a video encoder.
  * @see https://learn.microsoft.com/windows/win32/medfound/codecapi-avencvideoratecontrolparams
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class CODECAPI_AVEncVideoRateControlParams extends Win32Struct
-{
+class CODECAPI_AVEncVideoRateControlParams extends Win32Struct {
     static sizeof => 0
 
     static packingSize => 1

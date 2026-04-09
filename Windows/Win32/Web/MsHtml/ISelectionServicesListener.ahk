@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
- * @version v4.0.30319
  */
-class ISelectionServicesListener extends IUnknown{
+class ISelectionServicesListener extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -62,7 +61,7 @@ class ISelectionServicesListener extends IUnknown{
 
     /**
      * 
-     * @param {Integer} eType 
+     * @param {SELECTION_TYPE} eType 
      * @param {ISelectionServicesListener} pIListener 
      * @returns {HRESULT} 
      */

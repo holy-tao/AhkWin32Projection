@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class TIMECODEDATA extends Win32Struct
-{
+class TIMECODEDATA extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -15,7 +13,7 @@ class TIMECODEDATA extends Win32Struct
     /**
      * @type {TIMECODE}
      */
-    time{
+    time {
         get {
             if(!this.HasProp("__time"))
                 this.__time := TIMECODE(0, this)

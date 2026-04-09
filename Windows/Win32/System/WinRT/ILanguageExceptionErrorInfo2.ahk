@@ -1,16 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ILanguageExceptionErrorInfo2.ahk
 #Include .\ILanguageExceptionErrorInfo.ahk
 
 /**
  * Enables language projections to provide and retrieve error information as with ILanguageExceptionErrorInfo, with the additional benefit of working across language boundaries.
  * @see https://learn.microsoft.com/windows/win32/api/restrictederrorinfo/nn-restrictederrorinfo-ilanguageexceptionerrorinfo2
  * @namespace Windows.Win32.System.WinRT
- * @version v4.0.30319
  */
-class ILanguageExceptionErrorInfo2 extends ILanguageExceptionErrorInfo{
+class ILanguageExceptionErrorInfo2 extends ILanguageExceptionErrorInfo {
 
     static sizeof => A_PtrSize
     /**

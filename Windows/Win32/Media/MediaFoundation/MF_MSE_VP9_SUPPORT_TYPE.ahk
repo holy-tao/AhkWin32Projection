@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class MF_MSE_VP9_SUPPORT_TYPE extends Win32Enum{
+class MF_MSE_VP9_SUPPORT_TYPE extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

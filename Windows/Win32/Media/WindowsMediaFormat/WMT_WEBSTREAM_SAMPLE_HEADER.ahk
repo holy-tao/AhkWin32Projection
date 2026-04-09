@@ -9,10 +9,8 @@
  * If <b>wSampleType</b> is WEBSTREAM_SAMPLE_TYPE_FILE, the sample contains data immediately following the header that should be cached for later rendering. If the type is WEBSTREAM_SAMPLE_TYPE_RENDER, the sample contains no data. The application should cause the file named in the <b>wszURL</b> member to be immediately rendered on the display.
  * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/ns-wmsdkidl-wmt_webstream_sample_header
  * @namespace Windows.Win32.Media.WindowsMediaFormat
- * @version v4.0.30319
  */
-class WMT_WEBSTREAM_SAMPLE_HEADER extends Win32Struct
-{
+class WMT_WEBSTREAM_SAMPLE_HEADER extends Win32Struct {
     static sizeof => 10
 
     static packingSize => 2

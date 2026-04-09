@@ -7,9 +7,8 @@
  * Used to control the behavior of thread pools.
  * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nn-comsvcs-ithreadpoolknobs
  * @namespace Windows.Win32.System.ComponentServices
- * @version v4.0.30319
  */
-class IThreadPoolKnobs extends IUnknown{
+class IThreadPoolKnobs extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

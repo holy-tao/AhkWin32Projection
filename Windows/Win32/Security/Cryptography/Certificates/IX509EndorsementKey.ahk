@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\System\Com\IDispatch.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
 #Include .\IX509PublicKey.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
 
 /**
  * X.509 Endorsement Key Interface
  * @see https://learn.microsoft.com/windows/win32/api/certenroll/nn-certenroll-ix509endorsementkey
  * @namespace Windows.Win32.Security.Cryptography.Certificates
- * @version v4.0.30319
  */
-class IX509EndorsementKey extends IDispatch{
+class IX509EndorsementKey extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -102,7 +101,7 @@ class IX509EndorsementKey extends IDispatch{
      * Add an endorsement key certificate to the key storage provider (KSP) that supports endorsement keys.
      * @remarks
      * Only non-manufacturer certificates can be added to the key storage provider.
-     * @param {Integer} Encoding An <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/ne-certenroll-encodingtype">EncodingType</a> enumeration value that specifies the type of Unicode-encoding applied to the certificate. The default value is XCN_CRYPT_STRING_BASE64.
+     * @param {EncodingType} Encoding An <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/ne-certenroll-encodingtype">EncodingType</a> enumeration value that specifies the type of Unicode-encoding applied to the certificate. The default value is XCN_CRYPT_STRING_BASE64.
      * @param {BSTR} strCertificate The certificate to add to the store. The public key from this certificate must match the public key of the endorsement key.
      * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509endorsementkey-addcertificate
@@ -118,7 +117,7 @@ class IX509EndorsementKey extends IDispatch{
      * Removes an endorsement certificate related to the endorsement key from the key storage provider. You can only call the RemoveCertificate method after the Open method has been successfully called.
      * @remarks
      * Only non-manufacturer certificates can be removed from the key storage provider.
-     * @param {Integer} Encoding An <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/ne-certenroll-encodingtype">EncodingType</a> enumeration value that specifies the type of Unicode-encoding applied to the  endorsement certificate. The default value is XCN_CRYPT_STRING_BASE64.
+     * @param {EncodingType} Encoding An <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/ne-certenroll-encodingtype">EncodingType</a> enumeration value that specifies the type of Unicode-encoding applied to the  endorsement certificate. The default value is XCN_CRYPT_STRING_BASE64.
      * @param {BSTR} strCertificate The certificate to remove from the store.
      * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509endorsementkey-removecertificate
@@ -134,7 +133,7 @@ class IX509EndorsementKey extends IDispatch{
      * Gets the endorsement certificate associated with the endorsement key from the key storage provider for the specified index.
      * @param {VARIANT_BOOL} ManufacturerOnly True to get manufacturer endorsement keys only; otherwise false. The default is false.
      * @param {Integer} dwIndex The index of the requested endorsement certificate.
-     * @param {Integer} Encoding An <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/ne-certenroll-encodingtype">EncodingType</a> enumeration value that specifies the type of Unicode-encoding applied to the  endorsement certificate. The default value is XCN_CRYPT_STRING_BASE64.
+     * @param {EncodingType} Encoding An <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/ne-certenroll-encodingtype">EncodingType</a> enumeration value that specifies the type of Unicode-encoding applied to the  endorsement certificate. The default value is XCN_CRYPT_STRING_BASE64.
      * @returns {BSTR} The endorsement certificate requested.
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509endorsementkey-getcertificatebyindex
      */

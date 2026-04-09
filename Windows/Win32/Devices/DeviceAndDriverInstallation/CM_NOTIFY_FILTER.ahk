@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\CM_NOTIFY_FILTER_TYPE.ahk
 #Include ..\..\Foundation\HANDLE.ahk
 
 /**
@@ -8,10 +9,8 @@
  * When the driver calls the <a href="https://docs.microsoft.com/windows/desktop/api/cfgmgr32/nf-cfgmgr32-cm_register_notification">CM_Register_Notification</a> function, it supplies a pointer to a <b>CM_NOTIFY_FILTER</b> structure in the <i>pFilter</i> parameter.
  * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/ns-cfgmgr32-cm_notify_filter
  * @namespace Windows.Win32.Devices.DeviceAndDriverInstallation
- * @version v4.0.30319
  */
-class CM_NOTIFY_FILTER extends Win32Struct
-{
+class CM_NOTIFY_FILTER extends Win32Struct {
     static sizeof => 416
 
     static packingSize => 8
@@ -23,38 +22,36 @@ class CM_NOTIFY_FILTER extends Win32Struct
         class _DeviceInterface extends Win32Struct {
             static sizeof => 8
             static packingSize => 8
-    
+
             /**
-             * @type {Pointer<Guid>}
+             * @type {Pointer}
              */
             ClassGuid {
                 get => NumGet(this, 0, "ptr")
                 set => NumPut("ptr", value, this, 0)
             }
-        
         }
-    
+
         class _DeviceHandle extends Win32Struct {
             static sizeof => 8
             static packingSize => 8
-    
+
             /**
              * @type {HANDLE}
              */
-            hTarget{
+            hTarget {
                 get {
                     if(!this.HasProp("__hTarget"))
                         this.__hTarget := HANDLE(0, this)
                     return this.__hTarget
                 }
             }
-        
         }
-    
+
         class _DeviceInstance extends Win32Struct {
             static sizeof => 400
             static packingSize => 2
-    
+
             /**
              * @type {String}
              */
@@ -62,42 +59,40 @@ class CM_NOTIFY_FILTER extends Win32Struct
                 get => StrGet(this.ptr + 0, 199, "UTF-16")
                 set => StrPut(value, this.ptr + 0, 199, "UTF-16")
             }
-        
         }
-    
+
         /**
          * @type {_DeviceInterface}
          */
-        DeviceInterface{
+        DeviceInterface {
             get {
                 if(!this.HasProp("__DeviceInterface"))
-                    this.__DeviceInterface := %this.__Class%._DeviceInterface(0, this)
+                    this.__DeviceInterface := CM_NOTIFY_FILTER._u_e__Union._DeviceInterface(0, this)
                 return this.__DeviceInterface
             }
         }
-    
+
         /**
          * @type {_DeviceHandle}
          */
-        DeviceHandle{
+        DeviceHandle {
             get {
                 if(!this.HasProp("__DeviceHandle"))
-                    this.__DeviceHandle := %this.__Class%._DeviceHandle(0, this)
+                    this.__DeviceHandle := CM_NOTIFY_FILTER._u_e__Union._DeviceHandle(0, this)
                 return this.__DeviceHandle
             }
         }
-    
+
         /**
          * @type {_DeviceInstance}
          */
-        DeviceInstance{
+        DeviceInstance {
             get {
                 if(!this.HasProp("__DeviceInstance"))
-                    this.__DeviceInstance := %this.__Class%._DeviceInstance(0, this)
+                    this.__DeviceInstance := CM_NOTIFY_FILTER._u_e__Union._DeviceInstance(0, this)
                 return this.__DeviceInstance
             }
         }
-    
     }
 
     /**
@@ -119,8 +114,7 @@ class CM_NOTIFY_FILTER extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Integer}
+     * @type {CM_NOTIFY_FILTER_TYPE}
      */
     FilterType {
         get => NumGet(this, 8, "int")
@@ -140,10 +134,10 @@ class CM_NOTIFY_FILTER extends Win32Struct
      * A union that contains information about the device to receive notifications for.
      * @type {_u_e__Union}
      */
-    u{
+    u {
         get {
             if(!this.HasProp("__u"))
-                this.__u := %this.__Class%._u_e__Union(16, this)
+                this.__u := CM_NOTIFY_FILTER._u_e__Union(16, this)
             return this.__u
         }
     }

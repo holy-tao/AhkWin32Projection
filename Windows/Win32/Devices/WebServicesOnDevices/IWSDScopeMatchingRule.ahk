@@ -7,9 +7,8 @@
  * Is implemented by the client program to supply a custom scope matching rule which can be used to extend the standard scope matching rules defined in WS-Discovery.
  * @see https://learn.microsoft.com/windows/win32/api/wsddisco/nn-wsddisco-iwsdscopematchingrule
  * @namespace Windows.Win32.Devices.WebServicesOnDevices
- * @version v4.0.30319
  */
-class IWSDScopeMatchingRule extends IUnknown{
+class IWSDScopeMatchingRule extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

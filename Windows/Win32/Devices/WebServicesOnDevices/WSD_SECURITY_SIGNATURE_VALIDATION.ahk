@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Security\Cryptography\CERT_CONTEXT.ahk
 #Include ..\..\Security\Cryptography\HCERTSTORE.ahk
 
 /**
@@ -10,10 +11,8 @@
  * <b>WSD_SECURITY_SIGNATURE_VALIDATION</b> defines 2 matching mechanisms.  To obtain a match, at least one such mechanism must be satisfied.
  * @see https://learn.microsoft.com/windows/win32/api/wsdbase/ns-wsdbase-wsd_security_signature_validation
  * @namespace Windows.Win32.Devices.WebServicesOnDevices
- * @version v4.0.30319
  */
-class WSD_SECURITY_SIGNATURE_VALIDATION extends Win32Struct
-{
+class WSD_SECURITY_SIGNATURE_VALIDATION extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -40,7 +39,7 @@ class WSD_SECURITY_SIGNATURE_VALIDATION extends Win32Struct
      * A handle to a certificate store that contains certificates to be matched against a message.  Only one matching certificate is required for validation.  This parameter can be <b>NULL</b>.
      * @type {HCERTSTORE}
      */
-    hSigningCertStore{
+    hSigningCertStore {
         get {
             if(!this.HasProp("__hSigningCertStore"))
                 this.__hSigningCertStore := HCERTSTORE(16, this)

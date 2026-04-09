@@ -7,10 +7,8 @@
  * This structure is defined in the <i>Ipexport.h</i> header file which is automatically included in the <i>Iphlpapi.h</i> header file. The <i>Ipexport.h</i> header file should never be used directly.
  * @see https://learn.microsoft.com/windows/win32/api/ipexport/ns-ipexport-ip_mcast_counter_info
  * @namespace Windows.Win32.NetworkManagement.IpHelper
- * @version v4.0.30319
  */
-class IP_MCAST_COUNTER_INFO extends Win32Struct
-{
+class IP_MCAST_COUNTER_INFO extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8

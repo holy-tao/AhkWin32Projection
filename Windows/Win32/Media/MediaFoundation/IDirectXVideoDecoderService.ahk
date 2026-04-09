@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IDirectXVideoDecoder.ahk
 #Include .\IDirectXVideoAccelerationService.ahk
+#Include .\IDirectXVideoDecoder.ahk
 
 /**
  * Provides access to DirectX Video Acceleration (DXVA) decoder services.
  * @see https://learn.microsoft.com/windows/win32/api/dxva2api/nn-dxva2api-idirectxvideodecoderservice
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IDirectXVideoDecoderService extends IDirectXVideoAccelerationService{
+class IDirectXVideoDecoderService extends IDirectXVideoAccelerationService {
 
     static sizeof => A_PtrSize
     /**
@@ -179,7 +178,7 @@ class IDirectXVideoDecoderService extends IDirectXVideoAccelerationService{
      * Retrieves the supported render targets for a specified decoder device.
      * @param {Pointer<Guid>} Guid GUID that identifies the decoder device. To get the available device GUIDs, call <a href="https://docs.microsoft.com/windows/desktop/api/dxva2api/nf-dxva2api-idirectxvideodecoderservice-getdecoderdeviceguids">IDirectXVideoDecoderService::GetDecoderDeviceGuids</a>.
      * @param {Pointer<Integer>} pCount Receives the number of formats.
-     * @param {Pointer<Pointer<Integer>>} pFormats Receives an array of formats, specified as <b>D3DFORMAT</b> values. The size of the array is retrieved in the <i>pCount</i> parameter. The method allocates the memory for the array. The caller must free the memory by calling <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a>.
+     * @param {Pointer<Pointer<D3DFORMAT>>} pFormats Receives an array of formats, specified as <b>D3DFORMAT</b> values. The size of the array is retrieved in the <i>pCount</i> parameter. The method allocates the memory for the array. The caller must free the memory by calling <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a>.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>

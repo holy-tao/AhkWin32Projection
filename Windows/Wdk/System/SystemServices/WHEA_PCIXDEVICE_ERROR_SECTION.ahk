@@ -1,19 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\WHEA_PCIXDEVICE_REGISTER_PAIR.ahk
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class WHEA_PCIXDEVICE_ERROR_SECTION extends Win32Struct
-{
+class WHEA_PCIXDEVICE_ERROR_SECTION extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
 
     /**
-     * @type {Pointer<WHEA_PCIXDEVICE_ERROR_SECTION_VALIDBITS>}
+     * @type {Pointer}
      */
     ValidBits {
         get => NumGet(this, 0, "ptr")
@@ -21,7 +18,7 @@ class WHEA_PCIXDEVICE_ERROR_SECTION extends Win32Struct
     }
 
     /**
-     * @type {Pointer<WHEA_ERROR_STATUS>}
+     * @type {Pointer}
      */
     ErrorStatus {
         get => NumGet(this, 8, "ptr")
@@ -29,7 +26,7 @@ class WHEA_PCIXDEVICE_ERROR_SECTION extends Win32Struct
     }
 
     /**
-     * @type {Pointer<WHEA_PCIXDEVICE_ID>}
+     * @type {Pointer}
      */
     IdInfo {
         get => NumGet(this, 16, "ptr")
@@ -53,9 +50,9 @@ class WHEA_PCIXDEVICE_ERROR_SECTION extends Win32Struct
     }
 
     /**
-     * @type {Array<WHEA_PCIXDEVICE_REGISTER_PAIR>}
+     * @type {Array<Pointer>}
      */
-    RegisterDataPairs{
+    RegisterDataPairs {
         get {
             if(!this.HasProp("__RegisterDataPairsProxyArray"))
                 this.__RegisterDataPairsProxyArray := Win32FixedArray(this.ptr + 32, 1, Primitive, "ptr")

@@ -1,15 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\PPM_IDLE_STATE_BUCKET_EX.ahk
 #Include .\PPM_IDLE_STATE_ACCOUNTING_EX.ahk
+#Include .\PPM_IDLE_STATE_BUCKET_EX.ahk
 
 /**
  * @namespace Windows.Win32.System.Power
- * @version v4.0.30319
  */
-class PPM_IDLE_ACCOUNTING_EX extends Win32Struct
-{
-    static sizeof => 32
+class PPM_IDLE_ACCOUNTING_EX extends Win32Struct {
+    static sizeof => 440
 
     static packingSize => 8
 
@@ -54,9 +52,9 @@ class PPM_IDLE_ACCOUNTING_EX extends Win32Struct
     }
 
     /**
-     * @type {Array<PPM_IDLE_STATE_ACCOUNTING_EX>}
+     * @type {PPM_IDLE_STATE_ACCOUNTING_EX}
      */
-    State{
+    State {
         get {
             if(!this.HasProp("__StateProxyArray"))
                 this.__StateProxyArray := Win32FixedArray(this.ptr + 24, 1, PPM_IDLE_STATE_ACCOUNTING_EX, "")

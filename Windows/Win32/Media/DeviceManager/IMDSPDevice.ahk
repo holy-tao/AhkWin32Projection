@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\WMDMID.ahk
 #Include .\IMDSPEnumStorage.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * The IMDSPDevice interface provides an instance-based association with a media device.
  * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nn-mswmdm-imdspdevice
  * @namespace Windows.Win32.Media.DeviceManager
- * @version v4.0.30319
  */
-class IMDSPDevice extends IUnknown{
+class IMDSPDevice extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -311,7 +310,7 @@ class IMDSPDevice extends IUnknown{
      * In addition to the values above, the <b>HRESULT</b> error code could be a Win32 error.
      * 
      * This method must be implemented. It must not return WMDM_E_NOTSUPPORTED or E_NOTIMPL. For more information, see <a href="https://docs.microsoft.com/windows/desktop/WMDM/mandatory-and-optional-interfaces">Mandatory and Optional Interfaces</a>.
-     * @returns {Integer} 
+     * @returns {Integer} Handle to an <b>Icon</b> object that receives the icon for the device. Before using it, the caller must cast the value to a <b>HICON</b>*. When an application is finished with the icon, it should call <b>DestroyIcon</b> to free the resource. <b>DestroyIcon</b> is a standard Win32 function.
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-imdspdevice-getdeviceicon
      */
     GetDeviceIcon() {

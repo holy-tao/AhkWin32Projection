@@ -3,13 +3,10 @@
 
 /**
  * Specifies the ID of properties for the Delivery Optimization download operation.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/deliveryoptimization/ne-deliveryoptimization-dodownloadproperty
  * @namespace Windows.Win32.Networking.DeliveryOptimization
- * @version v4.0.30319
  */
-class DODownloadProperty extends Win32Enum{
+class DODownloadProperty extends Win32Enum {
 
     /**
      * Read-only. Use this property to get the ID that uniquely identifies the download. VARIANT type is VT_BSTR.

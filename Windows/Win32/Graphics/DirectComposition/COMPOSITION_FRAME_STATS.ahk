@@ -3,14 +3,10 @@
 
 /**
  * Describes timing and composition statistics for a compositor frame.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/dcomptypes/ns-dcomptypes-composition_frame_stats
  * @namespace Windows.Win32.Graphics.DirectComposition
- * @version v4.0.30319
  */
-class COMPOSITION_FRAME_STATS extends Win32Struct
-{
+class COMPOSITION_FRAME_STATS extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
